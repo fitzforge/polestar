@@ -22,13 +22,13 @@ return {
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Flieg nach {area:35}",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
-	["{object:3202} flight master"] = "",
+	["{object:3202} flight master"] = "Flugmeister in {object:3202}",
 
 	-- Step 6: Booty Bay
 	-- {area:35} Booty Bay · {npc:7406} Oglethorpe Obnoticus
 	["Continue south to {area:35}. {npc:7406} has his workshop on the upper ring of the bay."] = "Reite weiter nach Süden nach {area:35}. {npc:7406} hat seine Werkstatt auf dem oberen Ring der Bucht.",
 	-- {npc:7406} Oglethorpe Obnoticus
-	["{npc:7406}, inside"] = "",
+	["{npc:7406}, inside"] = "{npc:7406}, drinnen",
 	-- {npc:2491} Whiskey Slim
 	["{npc:2491}, in the inn"] = "{npc:2491}, im Gasthaus",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
@@ -91,7 +91,7 @@ return {
 	-- {quest:4493} March of the Silithid · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar · {zone:1447} Azshara · {area:2100} Maraudon · {area:1417} Sunken Temple
 	["Top up here to level 50: {quest:4493}, from {npc:7010} in {zone:1454} at the end of {zone:1447}, needs it. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
 	-- {npc:6125} Haldarr Satyr
-	["grind on {npc:6125}"] = "",
+	["grind on {npc:6125}"] = "grinde {npc:6125}",
 
 	-- Step 27: Loh'atu
 	-- {npc:11548} Loh'atu · {area:3137} Talrendis Point
@@ -156,9 +156,9 @@ return {
 	["Keep {npc:8659}'s payment and Ag'tor's {quest:3504}: they go back to {area:1237} on a later visit."] = "Behalte die Bezahlung von {npc:8659} und Ag'tors {quest:3504}: Sie gehen bei einem späteren Besuch zurück nach {area:1237}.",
 
 	-- Step 43: Paladin trainer
-	["Paladin trainer"] = "",
+	["Paladin trainer"] = "Paladinlehrer",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
-	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
+	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} in {zone:1456}; {zone:1454} hat keinen Paladinlehrer",
 
 	-- Step 44: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
@@ -227,7 +227,7 @@ return {
 
 	-- Step 62: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, drinnen",
 
 	-- Step 64: Gadgetzan
 	-- {npc:7876} Tran'rek

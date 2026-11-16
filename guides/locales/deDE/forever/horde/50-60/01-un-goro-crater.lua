@@ -14,7 +14,7 @@ return {
 	-- {npc:9997} Spraggle Frock
 	["the wooden sign beside {npc:9997}, by the flight master: the pterrordax are on this guide's ground"] = "",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, at the back of the cave; below ground"] = "",
+	["{npc:9117}, at the back of the cave; below ground"] = "{npc:9117}, hinten in der Höhle; unter der Erde",
 
 	-- Step 3: Out of the refuge
 	["Out of the refuge"] = "Raus aus der Zuflucht",
@@ -34,7 +34,7 @@ return {
 	["Pterrordax"] = "Pterrordax",
 	-- {npc:9998} Shizzle
 	["Pterrordax fly over the east of the crater, from the slopes below the refuge southward; their webbed scales are for {npc:9998}."] = "",
-	["grind on Pterrordax"] = "",
+	["grind on Pterrordax"] = "grinde Pterrordax",
 
 	-- Step 6: Power Crystals and soil
 	["Power Crystals and soil"] = "Machtkristalle und Erde",
@@ -55,7 +55,7 @@ return {
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
 	["Careful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd."] = "",
 	-- {npc:6551} Gorishi Wasp
-	["grind on {npc:6551}"] = "",
+	["grind on {npc:6551}"] = "grinde {npc:6551}",
 
 	-- Step 11: Stegodons and ravasaurs
 	["Stegodons and ravasaurs"] = "Stegodons und Ravasaurier",
@@ -79,27 +79,27 @@ return {
 
 	-- Step 16: A Wrecked Raft
 	["The raft lies on the shore of the south-eastern lake; the small pack sits in the water beside it."] = "Das Floß liegt am Ufer des südöstlichen Sees; das kleine Bündel liegt daneben im Wasser.",
-	["Underwater"] = "",
+	["Underwater"] = "Unter Wasser",
 
 	-- Step 18: Lashers and Threshers
 	["Lashers and Threshers"] = "Peitscher und Drescher",
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
 	["Ride north along the east side. Bloodpetal Lashers and Threshers fill the jungle."] = "Reite an der Ostseite nach Norden. Blutblütenpeitscher und -drescher füllen den Dschungel.",
 	-- {npc:6511} Bloodpetal Thresher
-	["grind on {npc:6511}"] = "",
+	["grind on {npc:6511}"] = "grinde {npc:6511}",
 
 	-- Step 19: Un'Goro Crater: kill these as you meet them
 	-- {zone:1449} Un'Goro Crater
-	["{zone:1449}: kill these as you meet them"] = "",
+	["{zone:1449}: kill these as you meet them"] = "{zone:1449}: Töte diese, wenn du ihnen begegnest",
 	["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "Die Kiste der Expedition steht in einem verlassenen Lager im östlichen Dschungel.",
 
 	-- Step 20: Marshal's Refuge
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the entrance"] = "{npc:9998}, am Eingang",
 	-- {npc:9997} Spraggle Frock
-	["{npc:9997}, beside the flight master"] = "",
+	["{npc:9997}, beside the flight master"] = "{npc:9997}, neben dem Flugmeister",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, below ground"] = "",
+	["{npc:9117}, below ground"] = "{npc:9117}, unter der Erde",
 	-- {npc:9118} Larion · {quest:4147} Marvon's Workshop · {npc:8737} Linken
 	["Keep {npc:9118}'s {quest:4147} and {npc:8737}'s letter for later guides."] = "Behalte {quest:4147} von {npc:9118} und den Brief von {npc:8737} für spätere Guides.",
 
@@ -145,7 +145,7 @@ return {
 
 	-- Step 29: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, drinnen",
 
 	-- Step 30: Orgrimmar
 	-- {area:1637} Orgrimmar · {area:16727} Powderfuse Port · {zone:1458} Undercity
@@ -215,7 +215,7 @@ return {
 	["{area:340} flight master"] = "Flugmeister in {area:340}",
 
 	-- Step 43: Apothecary Lydon
-	["Inside"] = "",
+	["Inside"] = "Drinnen",
 
 	-- Step 44: Fly to Undercity
 	-- {area:1497} Undercity

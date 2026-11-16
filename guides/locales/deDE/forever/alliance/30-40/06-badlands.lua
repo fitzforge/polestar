@@ -62,7 +62,7 @@ return {
 	-- {zone:1418} Badlands · {npc:2745} Ambassador Infernus
 	["Head north-east to the dwarven ruins in the north of the {zone:1418}; the chest sits among the Shadowforge dwarves. {npc:2745} nearby is elite: give him room."] = "Geh nach Nordosten zu den Zwergenruinen im Norden der {zone:1418}; die Truhe steht zwischen den Zwergen der Schattenschmiede. {npc:2745} in der Nähe ist Elite: Gib ihm Raum.",
 	-- {item:4631} Tablet of Ryun'eh
-	["{item:4631}; below ground"] = "",
+	["{item:4631}; below ground"] = "{item:4631}; unter der Erde",
 
 	-- Step 14: Valley of Fangs
 	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {area:345} Agmond's End
@@ -113,7 +113,7 @@ return {
 	["{area:144} flight master"] = "Flugmeister in {area:144}",
 
 	-- Step 25: Theramore flight master
-	["Theramore flight master"] = "",
+	["Theramore flight master"] = "Flugmeister in Theramore",
 	-- {area:514} Foothold Citadel
 	["Off the boat, walk up the pier to Baldruc, the flight master by the gate of {area:514}."] = "",
 
@@ -167,7 +167,7 @@ return {
 	-- Step 38: Claim Rackmore's Treasure!
 	-- {object:177787} Rackmore's Log · {object:35251} Karnitol's Chest
 	["{object:177787} lies beside {object:35251}. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "{object:177787} liegt neben {object:35251}. Sein silberner Schlüssel wird von den Trockenschnappkrebsen rund um das Wrack fallen gelassen; der goldene stammt von den Naga der Schlitterklingen an der Nordwestküste, als Nächstes.",
-	["Underwater"] = "",
+	["Underwater"] = "Unter Wasser",
 
 	-- Step 39: Sar'theris Strand: kill these as you meet them
 	-- {area:598} Sar'theris Strand

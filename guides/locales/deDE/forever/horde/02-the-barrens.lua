@@ -126,7 +126,7 @@ return {
 
 	-- Step 34: The Barrens: kill these as you meet them
 	-- {zone:1413} The Barrens
-	["{zone:1413}: kill these as you meet them"] = "",
+	["{zone:1413}: kill these as you meet them"] = "{zone:1413}: Töte diese, wenn du ihnen begegnest",
 	-- {area:392} Ratchet · {npc:3467} Baron Longshore
 	["The pirates camp on the beach south of {area:392}: the piles of complicated parts lie in the sand among them, and {npc:3467} stands at the camp's southern end."] = "",
 
@@ -135,7 +135,7 @@ return {
 	["{npc:3391}: the crates lie at the south end of the beach camp, on the walk to {area:385} at 18"] = "",
 
 	-- Step 36: Fly to Crossroads
-	["Fly to Crossroads"] = "",
+	["Fly to Crossroads"] = "Fliege zum Wegekreuz",
 	-- {area:392} Ratchet
 	["{area:392} flight master"] = "Flugmeister in {area:392}",
 
@@ -160,7 +160,7 @@ return {
 	-- Step 42: Samophlange
 	-- {object:4141} Control Console · {area:382} Sludge Fen · {item:5089} Console Key · {npc:3471} Tinkerer Sniggles
 	["The {object:4141} stands at the Venture Co. research site west of the {area:382}. Close the three valves around the drill, use the console again, then take the {item:5089} from {npc:3471} beside it.\nCareful: Several guards stand within aggro range of the valves, respawn in under about 3 minutes, and run at low health to bring back help; nearby mobs also join if you use a valve while they are close."] = "",
-	["Inside"] = "",
+	["Inside"] = "Drinnen",
 	-- {npc:3442} Sputtervalve · {area:392} Ratchet
 	["{npc:3442} in {area:392}: on the next {area:392} stop"] = "",
 
@@ -227,7 +227,7 @@ return {
 
 	-- Step 56: Moonglade
 	-- {spell:18960} Teleport: Moonglade
-	["Cast {spell:18960}"] = "",
+	["Cast {spell:18960}"] = "Wirke {spell:18960}",
 
 	-- Step 57: Trial of the Lake
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:656} Lake Elune'ara · {area:2362} Shrine of Remulos · {npc:11799} Tajarri · {quest:28} Trial of the Lake
@@ -253,7 +253,7 @@ return {
 	["Fly from {zone:1456} straight on to {area:392}."] = "",
 
 	-- Step 59: Fly to Ratchet
-	["Crossroads flight master"] = "",
+	["Crossroads flight master"] = "Flugmeister am Wegekreuz",
 
 	-- Step 61: Ratchet
 	-- {npc:3446} Mebok Mizzyrix · {object:3972} WANTED · {area:392} Ratchet
@@ -300,7 +300,7 @@ return {
 	-- {area:385} Northwatch Hold · {npc:3393} Captain Fairmount
 	-- plural, as words: Theramore Marines = {npc:3385} Theramore Marine
 	["{area:385}, on the coast just south of the pirate camp. The Theramore Marines and Preservers (15-16) drop the medals; {npc:3393} (20) and the two cannoneers (19) stand in the keep and on its walls, and they are why the hold waits until now.\nCareful: Each named target is linked to a healer and guards, and Fairmount has three extra marines with her. Killing the healer first makes the fight easier."] = "",
-	["On the top floor"] = "",
+	["On the top floor"] = "Im Obergeschoss",
 	["Upstairs"] = "Oben",
 
 	-- Step 71: Free From the Hold
@@ -380,11 +380,11 @@ return {
 	-- Step 94: Verog the Dervish
 	-- {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis · {npc:3448} Tonga Runetotem
 	["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395} läuft zwischen den Kolkar bei {area:388} südöstlich von Crossroads herum. Teste die Samen von {npc:3448} an der blubbernden Spalte am Ostufer der Oase, wenn du schon dort bist.",
-	["Underwater"] = "",
+	["Underwater"] = "Unter Wasser",
 	-- {npc:12296} Sickly Gazelle · {item:15826} Curative Animal Salve
 	["{npc:12296}: use the {item:15826} on them; they roam the plains all around the Crossroads"] = "",
 	-- {npc:12296} Sickly Gazelle
-	["Cure {npc:12296}"] = "",
+	["Cure {npc:12296}"] = "Heile {npc:12296}",
 
 	-- Step 95: Bristleback camps
 	["Bristleback camps"] = "Lager der Borstennacken",
@@ -505,7 +505,7 @@ return {
 	-- {npc:12696} Senani Thunderheart · {zone:1440} Ashenvale
 	["Keep it: {npc:12696} in {zone:1440}, next guide"] = "Behalte sie: {npc:12696} in {zone:1440}, nächster Guide",
 	-- {npc:6394} Ruga Ragetotem
-	["{npc:6394}, inside"] = "",
+	["{npc:6394}, inside"] = "{npc:6394}, drinnen",
 
 	-- Step 124: Grunt Dogran
 	["Dogran is chained up in the quilboar camp west of the road."] = "Dogran ist im Stacheleberlager westlich der Straße angekettet.",
@@ -594,7 +594,7 @@ return {
 	["Tauren: the {npc:11957} waits on the southern hill above the bridge. Skyborne: the {npc:272054} stands south of the twin bridges. Then the dens east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the {item:280680} lies at the foot of the white cat statue."] = "Tauren: {npc:11957} wartet auf dem südlichen Hügel über der Brücke. Himmelsgeborene: {npc:272054} steht südlich der Zwillingsbrücken. Dann die Grabhügel östlich des Sees: Verlass deine Gestalt, klick die Statue am Eingang an für fünf Minuten Verstohlenheit, halte dich von den Geistern darin fern und nimm von jedem Relikt eins; {item:280680} liegt am Fuß der weißen Katzenstatue.",
 
 	-- Step 148: Back to the Crossroads
-	["Back to the Crossroads"] = "",
+	["Back to the Crossroads"] = "Zurück zum Wegekreuz",
 	-- {npc:3389} Regthar Deathgate
 	["Fly back to the Crossroads; the road west to Stonetalon starts at {npc:3389}'s bunkers."] = "",
 
@@ -640,7 +640,7 @@ return {
 	-- {area:1076} Webwinder Path · {quest:1483} Ziz Fizziks · {area:461} Windshear Crag
 	["The road climbs north as the {area:1076}. {quest:1483} has a hut where the road forks east to {area:461}."] = "Die Straße steigt als {area:1076} nach Norden an. {quest:1483} hat eine Hütte, wo die Straße nach Osten zum {area:461} abzweigt.",
 	-- {quest:1483} Ziz Fizziks
-	["{quest:1483}, inside"] = "",
+	["{quest:1483}, inside"] = "{quest:1483}, drinnen",
 
 	-- Step 157: Windshear Crag
 	-- {area:461} Windshear Crag
@@ -652,11 +652,11 @@ return {
 	-- {npc:4276} Piznik · {area:2160} Windshear Mine
 	["{npc:4276}'s defence is hard alone at this level: grouping up is encouraged, look for people to do it with. Skip it if you are alone.\n{npc:4276} mines at the bottom of the {area:2160} on the east side of the crag, past its kobolds (levels 19-23). Talk to him, then keep him alive for five minutes while he mines: a dozen or more kobolds come at him in waves, melee fighters first, then casters, and the mine's own kobolds respawn into the fight. If he dies, the quest fails."] = "",
 	-- {npc:4276} Piznik
-	["{npc:4276}, below ground"] = "",
+	["{npc:4276}, below ground"] = "{npc:4276}, unter der Erde",
 
 	-- Step 159: Ziz Fizziks: Gerenzo's Orders
 	-- {npc:4201} Ziz Fizziks
-	["{npc:4201}, inside"] = "",
+	["{npc:4201}, inside"] = "{npc:4201}, drinnen",
 
 	-- Step 160: Ziz Fizziks
 	-- {npc:4201} Ziz Fizziks · {npc:3442} Sputtervalve · {area:392} Ratchet · {zone:1413} The Barrens

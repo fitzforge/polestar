@@ -10,7 +10,7 @@ return {
 	-- {area:221} Camp Narache · {npc:2980} Grull Hawkwind
 	["You start on the mesa of {area:221}. {npc:2980} and the chief stand by the big tent in the middle."] = "Du beginnst auf dem Tafelberg von {area:221}. {npc:2980} und der Häuptling stehen beim großen Zelt in der Mitte.",
 	-- {npc:2981} Chief Hawkwind
-	["{npc:2981}, inside"] = "",
+	["{npc:2981}, inside"] = "{npc:2981}, drinnen",
 
 	-- Step 2: Greatmother Hawkwind
 	-- {npc:2991} Greatmother Hawkwind · {object:2907} Water Pitcher
@@ -24,14 +24,14 @@ return {
 
 	-- Step 4: Grull Hawkwind
 	-- {npc:3059} Harutt Thunderhorn
-	["{npc:3059}, the warrior trainer; inside"] = "",
+	["{npc:3059}, the warrior trainer; inside"] = "{npc:3059}, der Kriegerlehrer; drinnen",
 	-- {npc:3061} Lanka Farshot
 	["{npc:3061}, the hunter trainer"] = "{npc:3061}, die Jägerlehrerin",
 	-- {npc:3062} Meela Dawnstrider
 	["{npc:3062}, the shaman trainer in camp"] = "{npc:3062}, die Schamanenlehrerin im Lager",
 	-- {npc:3060} Gart Mistrunner
 	["{npc:3060}, the druid trainer beside him"] = "{npc:3060}, der Druidenlehrer neben ihr",
-	["Inside"] = "",
+	["Inside"] = "Drinnen",
 
 	-- Step 5: The Hunt Continues
 	-- {npc:6775} Antur Fallow
@@ -62,7 +62,7 @@ return {
 
 	-- Step 10: Deathskip to Red Cloud Mesa
 	-- {area:220} Red Cloud Mesa
-	["Deathskip to {area:220}"] = "",
+	["Deathskip to {area:220}"] = "Todeshüpfer nach {area:220}",
 	-- {npc:2954} Bristleback Battleboar · {npc:6491} Spirit Healer
 	["Die to the mobs at 63.7,78.4 ({npc:2954}): a death there sends you to this graveyard. Release your spirit and take the {npc:6491}'s resurrection."] = "",
 
@@ -141,7 +141,7 @@ return {
 
 	-- Step 27: Bloodhoof Village
 	-- {npc:3067} Pyall Silentstride
-	["{npc:3067}: Camping 101 asks you to learn it"] = "",
+	["{npc:3067}: Camping 101 asks you to learn it"] = "{npc:3067}: Camping 101 verlangt, dass du es erlernst",
 
 	-- Step 28: Yonn Deepcut
 	-- {npc:6290} Yonn Deepcut · {npc:3067} Pyall Silentstride · {quest:97936} Camping 101: Skinning
@@ -165,7 +165,7 @@ return {
 
 	-- Step 36: Mulgore: kill these as you meet them
 	-- {zone:1412} Mulgore
-	["{zone:1412}: kill these as you meet them"] = "",
+	["{zone:1412}: kill these as you meet them"] = "{zone:1412}: Töte diese, wenn du ihnen begegnest",
 	-- {quest:96130} Chakuyak
 	-- plural, as words: Prairie Stalkers = {npc:2959} Prairie Stalker · Flatland Cougars = {npc:3035} Flatland Cougar
 	["{quest:96130}, a lone wolf, prowls the plains west of the village. Prairie Stalkers and Flatland Cougars roam the plains north and west of it."] = "{quest:96130}, ein einsamer Wolf, streift über die Ebenen westlich des Dorfs. Präriepirscher und Flachlandpumas streifen über die Ebenen nördlich und westlich davon.",
@@ -233,7 +233,7 @@ return {
 	-- {npc:2950} Palemane Skinner · {area:16677} Bristleback Retreat
 	["{npc:2950} walks around {area:16677}: look inside the circle on the map"] = "",
 	-- {npc:2951} Palemane Poacher
-	["{npc:2951}, below ground"] = "",
+	["{npc:2951}, below ground"] = "{npc:2951}, unter der Erde",
 
 	-- Step 51: Bloodhoof Village
 	-- {npc:2993} Baine Bloodhoof · {npc:3057} Cairne Bloodhoof · {zone:1456} Thunder Bluff
@@ -308,7 +308,7 @@ return {
 	["{npc:3155} in {zone:1411}; {zone:1412} has no rogue trainer"] = "",
 
 	-- Step 70: Warlock trainer
-	["Warlock trainer"] = "",
+	["Warlock trainer"] = "Hexenmeisterlehrer",
 	-- {npc:3156} Nartok · {zone:1411} Durotar · {zone:1412} Mulgore
 	["{npc:3156} in {zone:1411}; {zone:1412} has no warlock trainer"] = "",
 
@@ -380,7 +380,7 @@ return {
 	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
 	["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
-	["{zone:1454}'s {object:172982}"] = "",
+	["{zone:1454}'s {object:172982}"] = "{object:172982} von {zone:1454}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to Bloodhoof"] = "Zurück nach Bloodhoof",

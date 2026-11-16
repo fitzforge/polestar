@@ -24,14 +24,14 @@ return {
 
 	-- Step 4: Tarren Mill
 	-- {npc:2229} Krusk
-	["{npc:2229}, inside the inn"] = "",
+	["{npc:2229}, inside the inn"] = "{npc:2229}, im Gasthaus",
 	-- {object:1763} WANTED
 	["The {object:1763} poster by the inn"] = "Das Plakat {object:1763} beim Gasthaus",
 
 	-- Step 6: Gol'dir
 	-- {area:280} Strahnbrad · {npc:2431} Jailor Borhuin · {item:3704} Rusted Iron Key · {quest:503} Gol'dir
 	["Head north past Valik's camp to {area:280}, the Syndicate-held village (35-37). {npc:2431} carries the {item:3704}; {quest:503} sits in a cage in the house on the north side.\nCareful: Stealthed Syndicate spies roam {area:280}, and the buildings hold many Syndicate mobs, mages among them."] = "",
-	["Inside"] = "",
+	["Inside"] = "Drinnen",
 	-- {quest:503} Gol'dir
 	["Find where {quest:503} is held, on the top floor"] = "",
 	-- {quest:503} Gol'dir
@@ -41,7 +41,7 @@ return {
 	-- {npc:2229} Krusk · {area:272} Tarren Mill
 	["{npc:2229} waits inside the inn at {area:272}, back south down the road."] = "",
 	-- {npc:2229} Krusk
-	["{npc:2229}, inside"] = "",
+	["{npc:2229}, inside"] = "{npc:2229}, drinnen",
 
 	-- Step 9: Baron Vardus
 	-- {npc:2306} Baron Vardus · {area:280} Strahnbrad · {quest:503} Gol'dir
@@ -65,9 +65,9 @@ return {
 	-- {area:272} Tarren Mill
 	["Head back east to {area:272}."] = "Geh zurück nach Osten zu {area:272}.",
 	-- {npc:2437} Keeper Bel'varil
-	["{npc:2437}, inside"] = "",
+	["{npc:2437}, inside"] = "{npc:2437}, drinnen",
 	-- {npc:2410} Magus Wordeen Voidglare
-	["{npc:2410}, inside"] = "",
+	["{npc:2410}, inside"] = "{npc:2410}, drinnen",
 	["The magus offers a dungeon errand next: leave it."] = "",
 
 	-- Step 15: Thoradin's Wall
@@ -87,7 +87,7 @@ return {
 
 	-- Step 18: Hammerfall
 	-- {npc:12920} Doctor Gregory Victor
-	["{npc:12920}, at the south gate"] = "",
+	["{npc:12920}, at the south gate"] = "{npc:12920}, am Südtor",
 
 	-- Step 19: Stromgarde quests for a group
 	["Stromgarde quests for a group"] = "",
@@ -96,7 +96,7 @@ return {
 
 	-- Step 20: Foul Magics with a group
 	-- {quest:671} Foul Magics
-	["{quest:671} with a group"] = "",
+	["{quest:671} with a group"] = "{quest:671} mit einer Gruppe",
 	-- {npc:2706} Tor'gan · {quest:671} Foul Magics · {npc:2783} Marez Cowl
 	["{npc:2706}'s next {quest:671} is {npc:2783}, a level 40 elite warlock in Stromgarde's Syndicate quarter."] = "",
 
@@ -179,7 +179,7 @@ return {
 	["{area:328}: kill these as you meet them"] = "{area:328}: Töte diese, wenn du ihnen begegnest",
 	-- plural, as words: Daggerspine Raiders = {npc:2595} Daggerspine Raider
 	["West of the cove the Daggerspine Raiders and Sorceresses (38-40) hold the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks."] = "Westlich der Bucht halten die Räuber und Zauberhexerinnen der Säbelflossen (38-40) das Ufer: Zieh sie einzeln. Die beiden Wracks liegen davor im seichten Wasser, die Karten und Logbücher darin; die Edelsteine liegen um die Wracks auf dem Meeresgrund.",
-	["Underwater"] = "",
+	["Underwater"] = "Unter Wasser",
 
 	-- Step 37: Faldir's Cove
 	-- {npc:2487} Fleet Master Seahorn · {area:35} Booty Bay

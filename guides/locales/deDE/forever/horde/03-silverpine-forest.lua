@@ -113,7 +113,7 @@ return {
 	-- {area:159} Brill · {npc:1738} Deathguard Terrence · {npc:1518} Apothecary Johaan
 	["{area:159} is a short walk north up the road from the zeppelin towers: {npc:1738} stands by the road into town, {npc:1518} in the apothecary's house on the west side of the square."] = "",
 	-- {npc:1518} Apothecary Johaan
-	["{npc:1518}, inside"] = "",
+	["{npc:1518}, inside"] = "{npc:1518}, drinnen",
 
 	-- Step 23: Hadric Harlson
 	-- {npc:1495} Deathguard Linnea · {npc:267009} Hadric Harlson
@@ -134,7 +134,7 @@ return {
 	-- {npc:2226} Karos Razok · {npc:4556} Gordon Wendham · {zone:1458} Undercity
 	["{npc:2226}: {npc:4556} in the {zone:1458}, at the end of this guide; no need to buy the flight"] = "{npc:2226}: {npc:4556} in {zone:1458}, am Ende dieses Guides; den Flug musst du nicht kaufen",
 	-- {npc:1952} High Executor Hadrec
-	["{npc:1952}, below ground"] = "",
+	["{npc:1952}, below ground"] = "{npc:1952}, unter der Erde",
 
 	-- Step 29: The Sepulcher
 	-- {quest:264} Until Death Do Us Part · {object:24776} Yuriv's Tombstone
@@ -162,7 +162,7 @@ return {
 	-- {npc:1978} Deathstalker Erland · {npc:1950} Rane Yorick
 	["{npc:1978} waits north-east of the house. Escort him back to {npc:1950}; worgs attack on the way."] = "{npc:1978} wartet nordöstlich des Hauses. Eskortiere ihn zurück zu {npc:1950}; unterwegs greifen Worgs an.",
 	-- {npc:1978} Deathstalker Erland
-	["{npc:1978}, inside"] = "",
+	["{npc:1978}, inside"] = "{npc:1978}, drinnen",
 
 	-- Step 37: The Sepulcher
 	-- {npc:1938} Dalar Dawnweaver · {area:227} Valgan's Field
@@ -183,7 +183,7 @@ return {
 	-- Step 39: Quinn Yorick
 	["North again to the Yoricks' house."] = "Wieder nach Norden zum Haus der Yoricks.",
 	-- {npc:1951} Quinn Yorick
-	["{npc:1951}, inside"] = "",
+	["{npc:1951}, inside"] = "{npc:1951}, drinnen",
 
 	-- Step 40: Vile Fin murlocs
 	["Vile Fin murlocs"] = "Murlocs der Finsterflossen",
@@ -211,7 +211,7 @@ return {
 	-- Step 44: The Ivar Patch
 	-- {zone:1420} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
 	["Take the road north toward {zone:1420}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "Nimm die Straße nach Norden Richtung {zone:1420}: Das Haus der Yoricks bei {area:238} liegt auf dem Weg. {quest:425} lauert ein kurzes Stück westlich davon.",
-	["Inside"] = "",
+	["Inside"] = "Drinnen",
 
 	-- Step 46: Magistrate Sevren
 	-- {area:159} Brill · {npc:1499} Magistrate Sevren
@@ -267,7 +267,7 @@ return {
 
 	-- Step 54: Orgrimmar
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
-	["{zone:1454}'s {object:172982}"] = "",
+	["{zone:1454}'s {object:172982}"] = "{object:172982} von {zone:1454}",
 
 	-- Step 55: Valley of Strength
 	-- {npc:268701} Thatog · {object:172982} Valley of Strength

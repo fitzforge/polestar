@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Moonglade
 	-- {spell:18960} Teleport: Moonglade
-	["Cast {spell:18960}"] = "",
+	["Cast {spell:18960}"] = "Wirke {spell:18960}",
 
 	-- Step 2: Trial of the Sea Lion
 	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
@@ -90,7 +90,7 @@ return {
 	-- {npc:1242} Karl Boran · {npc:2104} Captain Stoutfist
 	["{npc:1242}: for {npc:2104} in the keep"] = "{npc:1242}: für {npc:2104} in der Burg",
 	-- {npc:2104} Captain Stoutfist
-	["{npc:2104}, on the top floor"] = "",
+	["{npc:2104}, on the top floor"] = "{npc:2104}, im Obergeschoss",
 	-- {object:2117} Stormwind Keep
 	["For Bolvar Fordragon in {object:2117}: keep it"] = "Für Bolvar Fordragon in {object:2117}: behalte sie",
 
@@ -175,7 +175,7 @@ return {
 	-- Step 32: Captain Stoutfist
 	-- {area:150} Menethil Harbor · {area:2104} Deepwater Tavern · {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep · {npc:1217} Glorin Steelbrow · {npc:2094} James Halloran
 	["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:1217} in the {area:2104} south of it, {npc:2094} by the docks on the way to the boat."] = "",
-	["On the top floor"] = "",
+	["On the top floor"] = "Im Obergeschoss",
 	-- {zone:1437} Wetlands
 	["For the Dragonmaw catapult, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "",
 	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern
@@ -219,7 +219,7 @@ return {
 
 	-- Step 39: Astranaar
 	-- {npc:3894} Pelturas Whitemoon
-	["{npc:3894}, inside"] = "",
+	["{npc:3894}, inside"] = "{npc:3894}, drinnen",
 
 	-- Step 40: Melyria and Illiyana
 	-- {npc:3901} Illiyana
@@ -278,7 +278,7 @@ return {
 
 	-- Step 51: The Dor'Danil Barrow Den's entrance
 	-- {area:432} The Dor'Danil Barrow Den
-	["{area:432}'s entrance"] = "",
+	["{area:432}'s entrance"] = "Eingang von {area:432}",
 
 	-- Step 52: Insane druids
 	["Insane druids"] = "Wahnsinnige Druiden",
@@ -355,7 +355,7 @@ return {
 
 	-- Step 71: Tram to Stormwind City
 	-- {zone:1453} Stormwind City
-	["Tram to {zone:1453}"] = "",
+	["Tram to {zone:1453}"] = "Bahn nach {zone:1453}",
 
 	-- Step 72: Cathedral of Light
 	["Cathedral of Light"] = "Kathedrale des Lichts",

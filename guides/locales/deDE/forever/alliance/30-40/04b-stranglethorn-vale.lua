@@ -47,9 +47,9 @@ return {
 	-- plural, as words: Kurzen Commandos = {npc:938} Kurzen Commando
 	["Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave, and Herod's strongbox sits by the cave mouth. Pick up Green Hills pages as they drop.\nCareful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use {spell:7964}."] = "",
 	-- {npc:941} Kurzen Headshrinker
-	["{npc:941}, below ground"] = "",
+	["{npc:941}, below ground"] = "{npc:941}, unter der Erde",
 	-- {object:288} Bookie Herod's Strongbox
-	["{object:288}, below ground"] = "",
+	["{object:288}, below ground"] = "{object:288}, unter der Erde",
 
 	-- Step 8: Lake Nazferiti
 	-- {area:37} Lake Nazferiti
@@ -84,12 +84,12 @@ return {
 	["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to the Skullsplitter ruins."] = "",
 
 	-- Step 16: Level 36
-	["Level 36"] = "",
+	["Level 36"] = "Stufe 36",
 	-- {quest:205} Troll Witchery · {area:796} Scarlet Monastery · {area:1316} Razorfen Downs
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["{quest:205}'s Skullsplitter trolls are 39-42. Below 36? Keep killing the Snapjaw Crocolisks along the river until level 36. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "",
 	-- {npc:1152} Snapjaw Crocolisk
-	["grind on {npc:1152}"] = "",
+	["grind on {npc:1152}"] = "grinde {npc:1152}",
 
 	-- Step 17: Skullsplitter trolls
 	["Skullsplitter trolls"] = "Skullsplitter-Trolle",
@@ -98,7 +98,7 @@ return {
 
 	-- Step 18: Booty Bay
 	-- {npc:2495} Drizzlik
-	["{npc:2495}, inside"] = "",
+	["{npc:2495}, inside"] = "{npc:2495}, drinnen",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, upstairs in the tavern"] = "{npc:2496}, oben in der Taverne",
 	-- {zone:1416} Alterac Mountains
@@ -109,7 +109,7 @@ return {
 	-- plural, as words: Lesser Bloodstone Deposits = {object:2653} Lesser Bloodstone Deposit
 	["{npc:773}, upstairs: this optional quest needs four {item:4278}. Mine Lesser Bloodstone Deposits in {zone:1417} with {skill:186} 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore."] = "{npc:773}, oben: Diese optionale Quest braucht vier {item:4278}. Bau Geringe Blutsteinablagerungen in {zone:1417} mit {skill:186} 75 ab, kauf das Erz im Auktionshaus oder frag einen befreundeten Bergarbeiter. Die Kobolde lassen es nicht fallen; überspring diese Quest, wenn du nicht an das Erz kommst.",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "",
+	["{npc:2498}, inside"] = "{npc:2498}, drinnen",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

@@ -24,12 +24,12 @@ return {
 	-- {npc:3666} Wizbang Cranktoggle
 	["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:3666} Wizbang Cranktoggle
-	["{npc:3666}, upstairs in the inn"] = "",
+	["{npc:3666}, upstairs in the inn"] = "{npc:3666}, oben im Gasthaus",
 
 	-- Step 5: The skeletal turtle
 	["The skeletal turtle"] = "Die Skelettschildkröte",
 	-- {item:12289} Sea Turtle Remains
-	["{item:12289}, on the beach west of the docks; underwater"] = "",
+	["{item:12289}, on the beach west of the docks; underwater"] = "{item:12289}, am Strand westlich der Anlegestellen; unter Wasser",
 
 	-- Step 6: Bears and the Blackwood camp
 	["Bears and the Blackwood camp"] = "Bären und das Lager der Schwarzfelle",
@@ -38,7 +38,7 @@ return {
 	["Rabid Thistle Bears roam the hills south of {area:442}: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["the Rabid Thistle Bears nearest {npc:3701}"] = "",
+	["the Rabid Thistle Bears nearest {npc:3701}"] = "die nächsten Tollwütigen Distelbären bei {npc:3701}",
 
 	-- Step 7: Ameth'Aran
 	-- {npc:3639} Sentinel Tysha Moonblade · {npc:2178} Wailing Highborne · {npc:3667} Anaya Dawnrunner · {npc:270196} Jai'vhanel · {quest:4722} Beached Sea Turtle
@@ -120,7 +120,7 @@ return {
 	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "",
 
 	-- Step 24: Druid trainer
-	["Druid trainer"] = "",
+	["Druid trainer"] = "Druidenlehrer",
 	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {area:87} Goldshire
 	["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "",
 
@@ -128,9 +128,9 @@ return {
 	["Class trainer"] = "Klassenlehrer",
 
 	-- Step 27: Shaman trainer
-	["Shaman trainer"] = "",
+	["Shaman trainer"] = "Schamanenlehrer",
 	-- {npc:257446} Teo Hammerstorm · {zone:1426} Dun Morogh · {area:87} Goldshire
-	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "",
+	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "{npc:257446} in {zone:1426}; in {area:87} gibt es keinen Schamanenlehrer",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Into {area:148}"] = "Nach {area:148}",

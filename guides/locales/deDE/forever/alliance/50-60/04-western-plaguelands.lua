@@ -81,7 +81,7 @@ return {
 	["The cauldron sits at the {area:202}, by {npc:10739}' farm."] = "Der Kessel steht am Ort {area:202}, bei {npc:10739}' Hof.",
 
 	-- Step 17: Mulgris Deepriver
-	["Inside"] = "",
+	["Inside"] = "Drinnen",
 
 	-- Step 18: Diseased Grizzlies
 	["Diseased Grizzlies"] = "Kranke Grizzlys",
@@ -152,11 +152,11 @@ return {
 	-- plural, as words: Plaguehounds = {npc:8597} Plaguehound
 	["Horgus' skull lies at {area:2624} and Marduk's sword in the {area:2623}, each where ghosts fight; grown Plaguehounds hunt the plains between."] = "Horgus' Schädel liegt am {area:2624} und Marduks Schwert im Gebiet {area:2623}, jeweils dort, wo Geister kämpfen; ausgewachsene Seuchenhunde jagen auf den Ebenen dazwischen.",
 	-- {item:12956} Skull of Horgus
-	["{item:12956}; underwater"] = "",
+	["{item:12956}; underwater"] = "{item:12956}; unter Wasser",
 
 	-- Step 40: Eastern Plaguelands: kill these as you meet them
 	-- {zone:1423} Eastern Plaguelands
-	["{zone:1423}: kill these as you meet them"] = "",
+	["{zone:1423}: kill these as you meet them"] = "{zone:1423}: Töte diese, wenn du ihnen begegnest",
 	-- {area:2627} Terrordale · {item:15042} Empty Termite Jar
 	-- plural, as words: Plaguehound Runts = {npc:8596} Plaguehound Runt · Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub · Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound
 	["Ride west to {area:2627}. Plaguehound Runts, Plaguebats and Carrion Grubs roam its woods; fill the {item:15042} at the big termite mounds and kill the Frenzied Plaguehounds further north."] = "Reite nach Westen ins {area:2627}. Kleine Seuchenhunde, Seuchenfledermäuse und Aaslarven streifen durch seine Wälder; füll {item:15042} an den großen Termitenhügeln und töte weiter nördlich die Rasenden Seuchenhunde.",
@@ -186,7 +186,7 @@ return {
 	-- {item:12954} Davil's Libram · {area:190} Hearthglen · {npc:1855} Tirion Fordring
 	["{item:12954} lies in the town hall of {area:190}, west of {npc:1855}: the Scarlet guards stand close together."] = "{item:12954} liegt im Rathaus von {area:190}, westlich von {npc:1855}: Die scharlachroten Wachen stehen dicht beieinander.",
 	-- {item:12954} Davil's Libram
-	["{item:12954}; inside"] = "",
+	["{item:12954}; inside"] = "{item:12954}; drinnen",
 
 	-- Step 48: Redpath's Shield
 	-- {item:12955} Redpath's Shield · {area:201} Gahrron's Withering
@@ -196,7 +196,7 @@ return {
 	-- {area:2261} The Undercroft · {object:177667} Torn Scroll · {npc:12248} Infiltrator Hameya
 	["Cross the river east to the {area:2261}, the crypt in the south-west of the zone. The {object:177667} lies inside: its key is on {npc:12248} in the far north-east, done in the next guide."] = "Überquere den Fluss nach Osten zum {area:2261}, der Gruft im Südwesten des Gebiets. {object:177667} liegt drinnen: Ihr Schlüssel ist bei {npc:12248} ganz im Nordosten, was im nächsten Guide erledigt wird.",
 	-- {object:177667} Torn Scroll
-	["{object:177667}, below ground"] = "",
+	["{object:177667}, below ground"] = "{object:177667}, unter der Erde",
 
 	-- Step 52: Fly to Southshore
 	-- {area:271} Southshore
@@ -319,7 +319,7 @@ return {
 
 	-- Step 86: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, drinnen",
 	-- {npc:7583} Sprinkle
 	["On {npc:7583}"] = "Bei {npc:7583}",
 	-- {npc:7583} Sprinkle · {item:12928} Umi's Mechanical Yeti
@@ -349,7 +349,7 @@ return {
 	-- {area:976} Gadgetzan · {area:541} Marshal's Refuge · {npc:8737} Linken · {npc:9117} J.D. Collie · {npc:9997} Spraggle Frock · {npc:9999} Ringo
 	["Fly from {area:976} to {area:541}. {npc:8737} stands at the back of the refuge; {npc:9117} is in the cave behind him.\n{npc:9997}'s friend {npc:9999} has gone missing."] = "Flieg von {area:976} nach {area:541}. {npc:8737} steht hinten in der Zuflucht; {npc:9117} ist in der Höhle hinter ihm.\n{npc:9999}, der Freund von {npc:9997}, wird vermisst.",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, below ground"] = "",
+	["{npc:9117}, below ground"] = "{npc:9117}, unter der Erde",
 	-- {npc:9997} Spraggle Frock
 	["The wooden sign beside {npc:9997}"] = "Das Holzschild neben {npc:9997}",
 
@@ -369,7 +369,7 @@ return {
 
 	-- Step 96: Silithus: kill these as you meet them
 	-- {zone:1451} Silithus
-	["{zone:1451}: kill these as you meet them"] = "",
+	["{zone:1451}: kill these as you meet them"] = "{zone:1451}: Töte diese, wenn du ihnen begegnest",
 	-- plural, as words: Dredge Strikers = {npc:11740} Dredge Striker · Stonelash Scorpids = {npc:11735} Stonelash Scorpid · Sand Skitterers = {npc:11738} Sand Skitterer
 	["Dredge Strikers dig in the dunes north-west of the hold; Stonelash Scorpids and Sand Skitterers roam all around."] = "Baggerschläger graben in den Dünen nordwestlich der Burg; Steinpanzerskorpide und Sandhuscher streifen überall umher.",
 
@@ -378,7 +378,7 @@ return {
 	-- {item:9328} Super Snapper FX · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
 	["If you skipped The {item:9328}, grind here to level 56.89 to stay on the route's plan. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "",
 	-- {npc:11740} Dredge Striker
-	["grind on {npc:11740}"] = "",
+	["grind on {npc:11740}"] = "grinde {npc:11740}",
 
 	-- Step 98: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
@@ -410,7 +410,7 @@ return {
 
 	-- Step 106: Un'Goro Crater: kill these as you meet them
 	-- {zone:1449} Un'Goro Crater
-	["{zone:1449}: kill these as you meet them"] = "",
+	["{zone:1449}: kill these as you meet them"] = "{zone:1449}: Töte diese, wenn du ihnen begegnest",
 
 	-- Step 107: Krakle's Thermometer
 	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer
@@ -430,11 +430,11 @@ return {
 	-- plural, as words: Un'Goro Gorillas = {npc:6514} Un'Goro Gorilla
 	["The gorillas live on {area:1943}, just east of the pylon: take the pelts for {npc:9619} now, while you are up here. Stay out of the deepest cave: {npc:9622} is level 55.\nCareful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "Die Gorillas leben auf dem {area:1943}, gleich östlich des Pylons: Sammle die Felle für {npc:9619} jetzt, solange du hier oben bist. Halte dich von der tiefsten Höhle fern: {npc:9622} ist Stufe 55.\nVorsicht: Un'Goro-Gorillas (Stufe 50-51) rufen Verbündete im Umkreis von 20 Metern zu Hilfe, sobald sie auf 25 % Gesundheit fallen. In der Gegend gibt es eine Höhle voller Affen, und Kämpfe dort ziehen viele zusätzliche Gegner an.",
 	-- {item:11478} Un'Goro Gorilla Pelt
-	["{item:11478}; below ground"] = "",
+	["{item:11478}; below ground"] = "{item:11478}; unter der Erde",
 	-- {item:11479} Un'Goro Stomper Pelt
-	["{item:11479}; below ground"] = "",
+	["{item:11479}; below ground"] = "{item:11479}; unter der Erde",
 	-- {item:11480} Un'Goro Thunderer Pelt
-	["{item:11480}; below ground"] = "",
+	["{item:11480}; below ground"] = "{item:11480}; unter der Erde",
 
 	-- Step 112: Lakkari Tar Pits: kill these as you meet them
 	-- {area:538} Lakkari Tar Pits

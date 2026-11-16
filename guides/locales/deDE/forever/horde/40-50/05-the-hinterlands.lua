@@ -27,7 +27,7 @@ return {
 
 	-- Step 5: Violet Tragan
 	["East of the village, the violet flower grows in the hills."] = "Östlich des Dorfs wächst der Violette Tragan in den Hügeln.",
-	["Underwater"] = "",
+	["Underwater"] = "Unter Wasser",
 
 	-- Step 6: Revantusk Village
 	-- {zone:1425} The Hinterlands
@@ -108,7 +108,7 @@ return {
 
 	-- Step 22: Revantusk Village
 	-- {npc:14731} Lard
-	["{npc:14731}, inside"] = "",
+	["{npc:14731}, inside"] = "{npc:14731}, drinnen",
 
 	-- Step 23: Revantusk Village
 	-- {npc:14736} Primal Torntusk · {npc:14731} Lard
@@ -119,7 +119,7 @@ return {
 	-- {quest:7816} Gammerita, Mon! · {area:354} Jintha'Alor · {area:2100} Maraudon
 	["If you skipped {quest:7816} or the {area:354} group quests, grind here to level 49.02 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon instead."] = "",
 	-- {npc:2505} Saltwater Snapjaw
-	["grind on {npc:2505}"] = "",
+	["grind on {npc:2505}"] = "grinde {npc:2505}",
 
 	-- Step 26: The Atal'ai Exile
 	-- {area:353} Shadra'Alor
@@ -142,7 +142,7 @@ return {
 	["{area:3317} flight master"] = "Flugmeister in {area:3317}",
 
 	-- Step 32: Fel'zerul
-	["On the top floor"] = "",
+	["On the top floor"] = "Im Obergeschoss",
 
 	-- Step 33: Fallen Hero of the Horde
 	-- {zone:1419} Blasted Lands

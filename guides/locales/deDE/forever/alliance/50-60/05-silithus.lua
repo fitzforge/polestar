@@ -10,7 +10,7 @@ return {
 	-- {area:541} Marshal's Refuge · {area:392} Ratchet
 	["Fly from {area:541} to {area:392}."] = "",
 	-- {npc:8496} Liv Rizzlefix
-	["{npc:8496}, inside"] = "",
+	["{npc:8496}, inside"] = "{npc:8496}, drinnen",
 
 	-- Step 2: Boat to Booty Bay
 	-- {area:35} Booty Bay
@@ -38,7 +38,7 @@ return {
 
 	-- Step 6: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "Bahn nach {zone:1455}",
 
 	-- Step 7: Ironforge
 	["Its jars are filled on the next Un'Goro visit"] = "Die Gefäße werden beim nächsten Besuch in Un'Goro gefüllt",

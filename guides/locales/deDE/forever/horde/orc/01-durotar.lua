@@ -11,7 +11,7 @@ return {
 	["{npc:3143} waits inside the Den, the building just west of {npc:10176}."] = "{npc:3143} wartet im Höhlenbau, dem Gebäude gleich westlich von {npc:10176}.",
 	-- {npc:10176} Kaltunk
 	["{npc:10176}, where you start"] = "{npc:10176}, wo du startest",
-	["Inside"] = "",
+	["Inside"] = "Drinnen",
 
 	-- Step 2: Training weapons and boars
 	["Training weapons and boars"] = "Übungswaffen und Eber",
@@ -22,7 +22,7 @@ return {
 	-- {npc:3143} Gornek · {npc:3159} Kzan Thornslash
 	["{npc:3143} stands just inside the cave mouth; {npc:3159} at the back of the cave behind him."] = "{npc:3143} steht gleich hinter dem Höhleneingang; {npc:3159} hinten in der Höhle hinter ihm.",
 	-- {npc:3143} Gornek
-	["{npc:3143}, inside"] = "",
+	["{npc:3143}, inside"] = "{npc:3143}, drinnen",
 	-- {npc:3156} Nartok
 	["{npc:3156}, the warlock trainer at the back of the cave"] = "{npc:3156}, der Hexenmeisterlehrer hinten in der Höhle",
 	-- {npc:3155} Rwag
@@ -36,7 +36,7 @@ return {
 	-- {npc:5884} Mai'ah
 	["{npc:5884}, the mage trainer, at the entrance to the Den"] = "{npc:5884}, die Magierlehrerin, am Eingang zum Höhlenbau",
 	-- {npc:3159} Kzan Thornslash
-	["{npc:3159}, at the back of the cave; below ground"] = "",
+	["{npc:3159}, at the back of the cave; below ground"] = "{npc:3159}, hinten in der Höhle; unter der Erde",
 	-- {npc:9796} Galgar
 	["{npc:9796}, by the cooking fire"] = "{npc:9796}, am Kochfeuer",
 
@@ -55,12 +55,12 @@ return {
 	["Class trainer"] = "Klassenlehrer",
 
 	-- Step 7: Paladin trainer
-	["Paladin trainer"] = "",
+	["Paladin trainer"] = "Paladinlehrer",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {area:363} Valley of Trials
 	["{npc:246344} in {zone:1456}; {area:363} has no paladin trainer"] = "",
 
 	-- Step 8: Druid trainer
-	["Druid trainer"] = "",
+	["Druid trainer"] = "Druidenlehrer",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {area:363} Valley of Trials
 	["{npc:3034} in {zone:1412}; {area:363} has no druid trainer"] = "",
 
@@ -158,9 +158,9 @@ return {
 
 	-- Step 31: Razor Hill
 	-- {npc:3191} Cook Torka
-	["{npc:3191}: Camping 101 asks you to learn it"] = "",
+	["{npc:3191}: Camping 101 asks you to learn it"] = "{npc:3191}: Camping 101 verlangt, dass du es erlernst",
 	-- {npc:6928} Innkeeper Grosk
-	["{npc:6928}, inside"] = "",
+	["{npc:6928}, inside"] = "{npc:6928}, drinnen",
 	-- {npc:3147} Furl Scornbrow
 	["{npc:3147}, in the watchtower"] = "{npc:3147}, im Wachturm",
 
@@ -177,14 +177,14 @@ return {
 	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3147} Furl Scornbrow · {npc:3142} Orgnil Soulscar · {npc:266940} Turroc
 	["Back north-west to {area:362}: {npc:3139} first, then {npc:3147} in the watchtower, then {npc:3142} and {npc:266940} on the way out east to the shore."] = "",
 	-- {npc:266940} Turroc
-	["{npc:266940}, inside"] = "",
+	["{npc:266940}, inside"] = "{npc:266940}, drinnen",
 
 	-- Step 39: Scuttle Coast: kill these as you meet them
 	-- {area:373} Scuttle Coast
 	["{area:373}: kill these as you meet them"] = "{area:373}: Töte diese, wenn du ihnen begegnest",
 	-- {area:362} Razor Hill
 	["The gnomish toolboxes lie in the wreckage along the shore east and south-east of {area:362}. Follow the shore south to Sen'jin.\nMakrura and surf crawlers line the beaches north-east of Sen'jin."] = "",
-	["Underwater"] = "",
+	["Underwater"] = "Unter Wasser",
 
 	-- Step 40: Echo Isles: kill these as you meet them
 	-- {area:368} Echo Isles
@@ -199,7 +199,7 @@ return {
 
 	-- Step 42: Deathskip to Sen'jin Village
 	-- {area:367} Sen'jin Village
-	["Deathskip to {area:367}"] = "",
+	["Deathskip to {area:367}"] = "Todeshüpfer nach {area:367}",
 	-- {npc:3206} Voodoo Troll · {npc:6491} Spirit Healer
 	["Die to the mobs at 66.9,87.2 ({npc:3206}): a death there sends you to this graveyard. Release your spirit and take the {npc:6491}'s resurrection."] = "",
 
@@ -210,15 +210,15 @@ return {
 	["Free {npc:275811} and see her safely out of the crag"] = "Befrei {npc:275811} und bring sie sicher aus dem Felsen",
 
 	-- Step 47: Level 10
-	["Level 10"] = "",
+	["Level 10"] = "Stufe 10",
 	-- {quest:840} Conscript of the Horde · {area:362} Razor Hill
 	["Top up here to level 10: {quest:840}, at {area:362}, needs level 10."] = "",
 	-- {npc:3111} Razormane Quilboar
-	["grind on {npc:3111}"] = "",
+	["grind on {npc:3111}"] = "grinde {npc:3111}",
 
 	-- Step 48: Razor Hill
 	-- {npc:3169} Tarshaw Jaggedscar
-	["{npc:3169}, inside"] = "",
+	["{npc:3169}, inside"] = "{npc:3169}, drinnen",
 	-- {npc:3294} Ophek
 	["{npc:3294}, by the inn"] = "{npc:3294}, beim Gasthaus",
 
@@ -247,7 +247,7 @@ return {
 	["Savages and Storm Witches nest in {area:370}, east of {npc:3293}. A Storm Witch drops the {item:277661}. Shamans: the Burning Blade Cultists by {area:371}, at the ravine's south end, drop the {item:6652}."] = "",
 
 	-- Step 59: Deathskip to Northern Durotar
-	["Deathskip to Northern Durotar"] = "",
+	["Deathskip to Northern Durotar"] = "Todeshüpfer nach Norddurotar",
 	-- {npc:3118} Dustwind Storm Witch · {npc:6491} Spirit Healer
 	["Die to the mobs at 52.0,21.4 ({npc:3118}): a death there sends you to this graveyard. Release your spirit and take the {npc:6491}'s resurrection."] = "",
 
@@ -273,7 +273,7 @@ return {
 	["{npc:246344} in {zone:1456}; {area:362} has no paladin trainer"] = "",
 
 	-- Step 67: Mage trainer
-	["Mage trainer"] = "",
+	["Mage trainer"] = "Magierlehrer",
 	-- {npc:5884} Mai'ah · {zone:1411} Durotar · {area:362} Razor Hill
 	["{npc:5884} in {zone:1411}; {area:362} has no mage trainer"] = "",
 
@@ -305,7 +305,7 @@ return {
 
 	-- Step 75: Back to Durotar
 	-- {zone:1411} Durotar
-	["Back to {zone:1411}"] = "",
+	["Back to {zone:1411}"] = "Zurück nach {zone:1411}",
 
 	-- Step 76: Skull Rock's mouth
 	-- {area:817} Skull Rock
@@ -345,7 +345,7 @@ return {
 	["West from {area:362} over the {area:814} bridge: {npc:3337} and {npc:5810} stand together at {area:379} above it. From there the road north through {zone:1411} leads to {zone:1454}."] = "",
 
 	-- Step 85: Thunder lizards on the way north
-	["Thunder lizards on the way north"] = "",
+	["Thunder lizards on the way north"] = "Donnerechsen auf dem Weg nach Norden",
 	-- {area:369} Thunder Ridge · {zone:1454} Orgrimmar · {item:6486} Singed Scale · {npc:5810} Uzzek · {area:379} Far Watch Post
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
 	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes it when the next guide passes {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "Donnerechsen und Blitzechsen grasen auf {area:369}, neben der Straße nach Norden nach {zone:1454}; jede kann {item:6486} fallen lassen. {npc:5810} nimmt sie an, wenn der nächste Guide am {area:379} vorbeikommt.\nVorsicht: Halikor, eine Elite der Stufe 12, streift zwischen den Echsen über {area:369}: Achte auf ihn, bevor du pullst.",
@@ -364,7 +364,7 @@ return {
 	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
 	["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
-	["{zone:1454}'s {object:172982}"] = "",
+	["{zone:1454}'s {object:172982}"] = "{object:172982} von {zone:1454}",
 
 	-- Step 90: The Binding
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {item:6535} Tablet of Verga · {item:7464} Glyphs of Summoning

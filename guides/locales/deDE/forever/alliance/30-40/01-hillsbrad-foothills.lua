@@ -88,7 +88,7 @@ return {
 	["Over the {area:880}: the Dark Irons' cache of explosives sits by its Arathi end."] = "",
 
 	-- Step 19: Waterlogged Envelope
-	["Underwater"] = "",
+	["Underwater"] = "Unter Wasser",
 
 	-- Step 20: Rhag Garmason again
 	-- {npc:1075} Rhag Garmason
@@ -109,7 +109,7 @@ return {
 
 	-- Step 24: Menethil Harbor
 	["West along the road to Menethil."] = "Nach Westen die Straße entlang nach Menethil.",
-	["On the top floor"] = "",
+	["On the top floor"] = "Im Obergeschoss",
 	-- {npc:4455} Red Jack Flint · {quest:1132} Fiora Longears
 	["{npc:4455}, by the keep's door: for {quest:1132} in Theramore, in the next guide"] = "",
 
@@ -130,7 +130,7 @@ return {
 	-- {quest:474} Defeat Nek'rosh · {area:133} Gnomeregan · {area:796} Scarlet Monastery
 	["Skipped {quest:474} and short of 30.8? Kill the Bluegill murlocs on the coast south of Menethil until level 30.8. Or, with a group, run the {area:133} dungeon or the {area:796} dungeon (Graveyard) instead."] = "",
 	-- {npc:1418} Bluegill Raider
-	["grind on {npc:1418}"] = "",
+	["grind on {npc:1418}"] = "grinde {npc:1418}",
 
 	-- Step 29: Boat to Southshore
 	-- {area:271} Southshore
@@ -142,7 +142,7 @@ return {
 	-- {npc:2711} Phin Odelic
 	["{npc:2711}: his trail leads to Arathi"] = "{npc:2711}: Seine Spur führt nach Arathi",
 	-- {npc:2228} Lieutenant Farren Orinelle
-	["{npc:2228}, inside"] = "",
+	["{npc:2228}, inside"] = "{npc:2228}, drinnen",
 	-- {npc:2366} Barkeep Kelly · {area:35} Booty Bay
 	["{npc:2366}, in the inn: for {area:35} (04-stranglethorn-vale)"] = "{npc:2366}, im Gasthaus: für {area:35} (04-stranglethorn-vale)",
 	-- {npc:2430} Chef Jessen
@@ -152,7 +152,7 @@ return {
 	-- {item:3713} Soothing Spices · {npc:2381} Micha Yance
 	["{item:3713}, from {npc:2381}"] = "{item:3713}, von {npc:2381}",
 	-- {npc:2276} Magistrate Henry Maleb
-	["{npc:2276}, inside"] = "",
+	["{npc:2276}, inside"] = "{npc:2276}, drinnen",
 
 	-- Step 31: Bartolo Ginsetti
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {skill:165} Leatherworking · {item:2997} Bolt of Woolen Cloth · {skill:197} Tailoring
@@ -167,7 +167,7 @@ return {
 
 	-- Step 33: Farren
 	["Farren"] = "Farren",
-	["Inside"] = "",
+	["Inside"] = "Drinnen",
 
 	-- Step 34: Murloc heads
 	["Murloc heads"] = "Murlocköpfe",

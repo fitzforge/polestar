@@ -41,7 +41,7 @@ return {
 	-- Step 8: Dalinda Malem
 	-- {npc:5644} Dalinda Malem · {area:608} Nijel's Point
 	["{npc:5644} hides inside the Burning Blade's fortress south-west of {area:608}."] = "{npc:5644} versteckt sich in der Festung der Burning Blade südwestlich von {area:608}.",
-	["Inside"] = "",
+	["Inside"] = "Drinnen",
 
 	-- Step 9: Tyranis Malem and the Seer
 	-- {npc:5643} Tyranis Malem
@@ -49,7 +49,7 @@ return {
 	-- {npc:5643} Tyranis Malem · {npc:13019} Burning Blade Seer · {npc:5642} Vahlarriel Demonslayer
 	["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building. {npc:5642} wants four of each kind of cultist on the way."] = "",
 	-- {item:6767} Tyranis' Pendant
-	["{item:6767}; inside"] = "",
+	["{item:6767}; inside"] = "{item:6767}; drinnen",
 	-- {quest:5741} Sceptre of Light
 	["{quest:5741}; on the top floor"] = "",
 
@@ -57,7 +57,7 @@ return {
 	-- {npc:5644} Dalinda Malem
 	["Escort {npc:5644}"] = "{npc:5644} eskortieren",
 	-- {npc:5644} Dalinda Malem
-	["{npc:5644}, inside"] = "",
+	["{npc:5644}, inside"] = "{npc:5644}, drinnen",
 	["Out of Thunder Axe Fortress"] = "Raus aus der Festung Thunder Axe",
 	-- {npc:5644} Dalinda Malem · {npc:5642} Vahlarriel Demonslayer · {area:608} Nijel's Point
 	["Lead {npc:5644} out of the fortress; she walks off once you are clear of it. {npc:5642} takes the turn-in at {area:608} at the end of the guide."] = "Führ {npc:5644} aus der Festung; sie geht ihrer Wege, sobald ihr draußen seid. {npc:5642} nimmt die Abgabe am Ende des Guides in {area:608} entgegen.",

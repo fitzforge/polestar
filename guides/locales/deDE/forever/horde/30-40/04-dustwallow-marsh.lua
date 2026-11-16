@@ -12,7 +12,7 @@ return {
 
 	-- Step 2: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "",
+	["The middle of {zone:1454}"] = "Die Mitte von {zone:1454}",
 
 	-- Step 3: Orgrimmar
 	-- {item:3713} Soothing Spices
@@ -21,7 +21,7 @@ return {
 	["{npc:3354}, {object:172958}: for {area:720}, later in this guide (offered from level 30)"] = "",
 
 	-- Step 4: Fly to the Crossroads
-	["Fly to the Crossroads"] = "",
+	["Fly to the Crossroads"] = "Fliege zum Wegekreuz",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "Flugmeister: {zone:1454}",
 
@@ -34,7 +34,7 @@ return {
 	-- Step 6: Fly to Camp Taurajo
 	-- {area:378} Camp Taurajo
 	["Fly to {area:378}"] = "Flieg nach {area:378}",
-	["Crossroads flight master"] = "",
+	["Crossroads flight master"] = "Flugmeister am Wegekreuz",
 
 	-- Step 8: Shady Rest Inn
 	-- {area:378} Camp Taurajo · {area:403} Shady Rest Inn
@@ -85,7 +85,7 @@ return {
 	-- Step 18: The Theramore Docks
 	-- {area:513} Theramore Isle · {object:20925} Captain's Footlocker
 	["South-east from the manor to {area:513}: the {object:20925} lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57."] = "Vom Gutshaus nach Südosten zu {area:513}: {object:20925} liegt auf dem Meeresgrund vor den Docks an der Ostseite der Insel. Schwimm hinein und wieder hinaus und halte dich von den Piers und der Stadt fern: Die Wachen von Theramore sind Stufe 53-57.",
-	["Underwater"] = "",
+	["Underwater"] = "Unter Wasser",
 
 	-- Step 19: Brackenwall Village
 	-- {npc:4503} Mudcrush Durtfeet · {npc:4791} Nazeer Bloodpike
@@ -99,7 +99,7 @@ return {
 	["{zone:1443}'s last quests and Alterac are 38-41. Still below 37.5 after Brackenwall's hand-ins? The Darkmist spiders and Lurkers (35-38) by the cavern north-west of the village are the closest: kill them until level 37.5. Or, with a group, run the {area:1316} dungeon or the {area:796} dungeon (Armory) instead."] = "",
 	["Darkmist cavern"] = "",
 	-- {npc:4377} Darkmist Lurker
-	["grind on {npc:4377}"] = "",
+	["grind on {npc:4377}"] = "grinde {npc:4377}",
 
 	-- Step 21: Fly to Ratchet
 	-- {area:392} Ratchet

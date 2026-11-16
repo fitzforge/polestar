@@ -48,7 +48,7 @@ return {
 	["{area:2255} is the goblin town on the east side of the valley, past the owlbeast hills."] = "",
 	["Gregor's quests lead to other zones: keep them."] = "Gregors Quests führen in andere Gebiete: Behalte sie.",
 	-- {npc:10431} Gregor Greystone
-	["{npc:10431}, inside"] = "",
+	["{npc:10431}, inside"] = "{npc:10431}, drinnen",
 
 	-- Step 9: Ice Thistle yetis
 	["Ice Thistle yetis"] = "Eisdistelyetis",
@@ -60,7 +60,7 @@ return {
 	-- {area:2255} Everlook · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
 	["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "",
 	-- {npc:7460} Ice Thistle Patriarch
-	["grind on {npc:7460}"] = "",
+	["grind on {npc:7460}"] = "grinde {npc:7460}",
 
 	-- Step 12: Pristine Yeti Horns
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn

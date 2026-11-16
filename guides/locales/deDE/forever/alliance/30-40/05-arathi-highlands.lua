@@ -84,7 +84,7 @@ return {
 
 	-- Step 19: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "Bahn nach {zone:1455}",
 
 	-- Step 20: Fly to Southshore
 	-- {area:271} Southshore
@@ -98,7 +98,7 @@ return {
 	-- {npc:2434} Shadowy Assassin
 	["{npc:2434}, if you spot him"] = "{npc:2434}, wenn du ihn entdeckst",
 	-- {npc:2276} Magistrate Henry Maleb
-	["{npc:2276}, inside"] = "",
+	["{npc:2276}, inside"] = "{npc:2276}, drinnen",
 
 	-- Step 25: Refuge Pointe
 	-- {area:287} Hillsbrad · {area:1057} Thoradin's Wall · {area:320} Refuge Pointe
@@ -143,7 +143,7 @@ return {
 	-- {object:2691} Stone of East Binding · {area:314} Go'Shek Farm · {area:317} Witherbark Village
 	["South from the {object:2691}, past {area:314}, to {area:317} in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk."] = "Nach Süden vom {object:2691} an {area:314} vorbei nach {area:317} in den Hügeln: Die Hexendoktoren der Witherbark stehen zwischen den Hütten und die Schattenjäger der Witherbark bewachen das hintere Ende des Tals. Jeder Troll kann einen Stoßzahn fallen lassen.",
 	-- {item:5040} Shadow Hunter Knife
-	["{item:5040}; below ground"] = "",
+	["{item:5040}; below ground"] = "{item:5040}; unter der Erde",
 
 	-- Step 33: Quae
 	-- {npc:2712} Quae · {npc:2713} Kinelory · {area:314} Go'Shek Farm
@@ -185,19 +185,19 @@ return {
 	["{area:328}: kill these as you meet them"] = "{area:328}: Töte diese, wenn du ihnen begegnest",
 	["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay."] = "Die beiden Wracks liegen in der Bucht westlich der Bucht der Goblins. Die Karten und Logbücher sind darin; die Edelsteine liegen um sie herum auf dem Meeresgrund. Naga der Säbelflossen schwimmen in der ganzen Bucht.",
 	-- {npc:2595} Daggerspine Raider
-	["{npc:2595}, underwater"] = "",
+	["{npc:2595}, underwater"] = "{npc:2595}, unter Wasser",
 	-- {item:4492} Elven Gem
-	["{item:4492}; underwater"] = "",
+	["{item:4492}; underwater"] = "{item:4492}; unter Wasser",
 	-- {npc:2596} Daggerspine Sorceress
-	["{npc:2596}, underwater"] = "",
+	["{npc:2596}, underwater"] = "{npc:2596}, unter Wasser",
 	-- {object:2709} Maiden's Folly Log
-	["{object:2709}; underwater"] = "",
+	["{object:2709}; underwater"] = "{object:2709}; unter Wasser",
 	-- {object:2707} Maiden's Folly Charts
-	["{object:2707}; underwater"] = "",
+	["{object:2707}; underwater"] = "{object:2707}; unter Wasser",
 	-- {object:2710} Spirit of Silverpine Log
-	["{object:2710}; underwater"] = "",
+	["{object:2710}; underwater"] = "{object:2710}; unter Wasser",
 	-- {object:2708} Spirit of Silverpine Charts
-	["{object:2708}; underwater"] = "",
+	["{object:2708}; underwater"] = "{object:2708}; unter Wasser",
 
 	-- Step 45: Faldir's Cove
 	-- {npc:2487} Fleet Master Seahorn · {area:35} Booty Bay
@@ -207,7 +207,7 @@ return {
 	-- {area:327} Faldir's Cove · {npc:2793} Kor'gresh Coldrage
 	["East from {area:327} through the southern hills: {npc:2793}, an ogre mage, holds the cave at the southern end of the Witherbark valley."] = "",
 	-- {item:4525} Trelane's Wand of Invocation
-	["{item:4525}; below ground"] = "",
+	["{item:4525}; below ground"] = "{item:4525}; unter der Erde",
 
 	-- Step 47: Foggy MacKreel
 	-- {npc:2793} Kor'gresh Coldrage · {area:880} Thandol Span · {npc:2696} Foggy MacKreel · {quest:647} MacKreel's Moonshine · {npc:2705} Brewmeister Bilger · {area:271} Southshore · {area:320} Refuge Pointe
@@ -221,7 +221,7 @@ return {
 	-- {area:271} Southshore
 	["Off the flight, straight to the {area:271} inn."] = "",
 	-- {npc:2705} Brewmeister Bilger
-	["{npc:2705}, below ground"] = "",
+	["{npc:2705}, below ground"] = "{npc:2705}, unter der Erde",
 
 	-- Step 52: Gavin's Naze
 	-- {area:271} Southshore · {area:280} Strahnbrad · {npc:2306} Baron Vardus
@@ -253,7 +253,7 @@ return {
 	-- {area:280} Strahnbrad · {item:3706} Ensorcelled Parchment · {npc:2320} Nagaz · {quest:537} Dark Council
 	-- plural, as words: Crushridge Maulers = {npc:2254} Crushridge Mauler · Crushridge Ogres = {npc:2252} Crushridge Ogre
 	["The Crushridge ogres hold the hills north of {area:280}. Farther north, a worn wooden chest holds the {item:3706}; {npc:2320} of the {quest:537} stands right by it.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and drop the knucklebones too: pull one at a time, or group up."] = "",
-	["Inside"] = "",
+	["Inside"] = "Drinnen",
 
 	-- Step 58: Dalaran
 	-- {area:279} Dalaran · {zone:1421} Silverpine Forest · {npc:269127} Image of Archmage Modera
@@ -285,7 +285,7 @@ return {
 	-- {zone:1455} Ironforge · {zone:1426} Dun Morogh · {zone:1432} Loch Modan · {area:144} Thelsamar
 	["From {zone:1455} take the tunnel east through {zone:1426} into {zone:1432} and follow the road to {area:144}."] = "Nimm von {zone:1455} aus den Tunnel nach Osten durch {zone:1426} nach {zone:1432} und folge der Straße nach {area:144}.",
 	-- {npc:1470} Ghak Healtouch
-	["{npc:1470}, below ground"] = "",
+	["{npc:1470}, below ground"] = "{npc:1470}, unter der Erde",
 
 	-- Step 67: Prospector Ironband
 	["South-east along the loch to the dig site."] = "Nach Südosten am See entlang zur Ausgrabungsstätte.",

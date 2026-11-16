@@ -25,7 +25,7 @@ return {
 	["{npc:5901}: your {item:6637}, for the brazier"] = "",
 
 	-- Step 4: Fly to the Crossroads
-	["Fly to the Crossroads"] = "",
+	["Fly to the Crossroads"] = "Fliege zum Wegekreuz",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "Flugmeister: {zone:1456}",
 
@@ -42,7 +42,7 @@ return {
 	-- Step 8: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Flieg nach {area:1637}",
-	["Crossroads flight master"] = "",
+	["Crossroads flight master"] = "Flugmeister am Wegekreuz",
 
 	-- Step 9: Thrall
 	-- {npc:4949} Thrall · {object:172957} Valley of Wisdom
@@ -100,7 +100,7 @@ return {
 	-- {npc:2229} Krusk · {area:275} Durnholde Keep
 	["{npc:2229} wants his two scouts freed from {area:275} before he trusts you with Infiltration."] = "{npc:2229} will, dass du seine zwei Späher aus {area:275} befreist, bevor er dir „Unterwanderung“ anvertraut.",
 	-- {npc:2229} Krusk
-	["{npc:2229}, inside"] = "",
+	["{npc:2229}, inside"] = "{npc:2229}, drinnen",
 
 	-- Step 21: Hillsbrad Fields
 	-- {area:287} Hillsbrad · {npc:232} Farmer Ray · {npc:2403} Farmer Getz
@@ -126,7 +126,7 @@ return {
 	["The smithy"] = "Die Schmiede",
 	-- {area:287} Hillsbrad · {npc:2404} Blacksmith Verringtan · {object:1736} Shipment of Iron
 	["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it."] = "Nach Westen über die Ausläufer zum Ort {area:287}: Die Schmiede steht in seiner Mitte. {npc:2404} und seine Lehrlinge arbeiten an der Esse; die {object:1736} ist daneben gestapelt.",
-	["Inside"] = "",
+	["Inside"] = "Drinnen",
 
 	-- Step 27: Krusk
 	-- {area:272} Tarren Mill
@@ -146,7 +146,7 @@ return {
 	-- {area:272} Tarren Mill · {quest:544} Prison Break In · {quest:556} Stone Tokens · {quest:676} The Hammer May Fall · {area:796} Scarlet Monastery · {area:2797} Blackfathom Deeps
 	["{area:272}'s {quest:544}, {quest:556} and {quest:676} are offered from level 30. Below it? Keep killing the yetis in these caves until level 30. Or, with a group, run the {area:796} dungeon (Graveyard) or the {area:2797} dungeon instead."] = "",
 	-- {npc:2248} Cave Yeti
-	["grind on {npc:2248}"] = "",
+	["grind on {npc:2248}"] = "grinde {npc:2248}",
 
 	-- Step 32: Town hall
 	["Town hall"] = "Rathaus",
@@ -157,11 +157,11 @@ return {
 
 	-- Step 33: Tarren Mill
 	-- {npc:2410} Magus Wordeen Voidglare
-	["{npc:2410}, inside: offered from level 30"] = "",
+	["{npc:2410}, inside: offered from level 30"] = "{npc:2410}, drinnen: ab Stufe 30 erhältlich",
 	-- {npc:2410} Magus Wordeen Voidglare · {quest:93680} Key to the City · {item:279469} Grimy Key
 	["{npc:2410}: {quest:93680}, the {item:279469} is by the traitors"] = "",
 	-- {npc:2437} Keeper Bel'varil
-	["{npc:2437}, inside: offered from level 30"] = "",
+	["{npc:2437}, inside: offered from level 30"] = "{npc:2437}, drinnen: ab Stufe 30 erhältlich",
 	-- {npc:2770} Tallow · {npc:2771} Drum Fel · {area:321} Hammerfall
 	["{npc:2770}: for {npc:2771} in {area:321}, later in this guide (from level 30)"] = "",
 
@@ -223,9 +223,9 @@ return {
 	-- {area:272} Tarren Mill
 	["Head back south down the road to {area:272}."] = "Geh die Straße zurück nach Süden bis {area:272}.",
 	-- {npc:2437} Keeper Bel'varil
-	["{npc:2437}, inside"] = "",
+	["{npc:2437}, inside"] = "{npc:2437}, drinnen",
 	-- {npc:2410} Magus Wordeen Voidglare
-	["{npc:2410}, inside"] = "",
+	["{npc:2410}, inside"] = "{npc:2410}, drinnen",
 	-- {npc:2410} Magus Wordeen Voidglare · {quest:545} Dalaran Patrols
 	["{npc:2410}: he offers {quest:545} after it"] = "",
 	-- {npc:2437} Keeper Bel'varil
@@ -235,23 +235,23 @@ return {
 	-- {npc:2229} Krusk · {npc:2316} Gol'dir
 	["{npc:2229} now offers {npc:2316} (level 36): leave it for the 38-39 visit."] = "",
 	-- {npc:2216} Apothecary Lydon
-	["{npc:2216}, inside"] = "",
+	["{npc:2216}, inside"] = "{npc:2216}, drinnen",
 
 	-- Step 46: Elixir of Agony with a group
 	-- {quest:515} Elixir of Agony
-	["{quest:515} with a group"] = "",
+	["{quest:515} with a group"] = "{quest:515} mit einer Gruppe",
 	-- {area:290} Dun Garok · {area:271} Southshore
 	["Lydon's next errand is a keg of Shindigger Stout from the cellar of {area:290}, the elite dwarven keep south-east of {area:271}: take it only if you go there with a group."] = "",
 
 	-- Step 47: Battle of Hillsbrad with a group
 	-- {quest:539} Battle of Hillsbrad
-	["{quest:539} with a group"] = "",
+	["{quest:539} with a group"] = "{quest:539} mit einer Gruppe",
 	-- {area:290} Dun Garok · {area:271} Southshore · {npc:2304} Captain Ironhill
 	["Darthalia's last battle is at {area:290}, the dwarven keep south-east of {area:271}: every dwarf there is elite (28-32), {npc:2304} too. Great XP if you have a group for it."] = "",
 
 	-- Step 48: Humbert's Sword with a group
 	-- {quest:547} Humbert's Sword
-	["{quest:547} with a group"] = "",
+	["{quest:547} with a group"] = "{quest:547} mit einer Gruppe",
 	-- {npc:2419} Deathguard Humbert · {area:290} Dun Garok
 	["{npc:2419}'s sword drops from the same {area:290} dwarves (about one in twelve)."] = "",
 
@@ -291,7 +291,7 @@ return {
 	-- plural, as words: Boulderfist Ogres = {npc:2562} Boulderfist Ogre
 	["{area:321}'s quests are 32-36. Below 31? Keep killing the Boulderfist Ogres and Enforcers at this camp until level 31. Or, with a group, run the {area:796} dungeon (Graveyard) or the {area:2797} dungeon instead."] = "",
 	-- {npc:2562} Boulderfist Ogre
-	["grind on {npc:2562}"] = "",
+	["grind on {npc:2562}"] = "grinde {npc:2562}",
 
 	-- Step 57: Hammerfall
 	-- {npc:2851} Urda · {npc:15126} Rutherford Twing · {quest:8263} Defiler's Basic Care Package · {zone:1461} Arathi Basin
@@ -318,7 +318,7 @@ return {
 	-- {area:321} Hammerfall
 	["Back north to {area:321}."] = "",
 	-- {npc:12920} Doctor Gregory Victor
-	["{npc:12920}, at the south gate"] = "",
+	["{npc:12920}, at the south gate"] = "{npc:12920}, am Südtor",
 	-- {npc:2706} Tor'gan · {npc:2771} Drum Fel · {quest:677} Call to Arms
 	["{npc:2706}'s Guile of the Raptor, {npc:2771}'s next {quest:677} and the doctor's Ward Restocking wait for the 38-39 visit."] = "",
 

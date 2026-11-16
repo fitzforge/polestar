@@ -23,7 +23,7 @@ return {
 
 	-- Step 4: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "Bahn nach {zone:1455}",
 
 	-- Step 5: Shaman training
 	["Shaman training"] = "Schamanentraining",
@@ -44,7 +44,7 @@ return {
 
 	-- Step 8: Back to Elwynn Forest
 	-- {zone:1429} Elwynn Forest
-	["Back to {zone:1429}"] = "",
+	["Back to {zone:1429}"] = "Zurück nach {zone:1429}",
 	-- {zone:1429} Elwynn Forest
 	["The road into {zone:1429}"] = "",
 
@@ -53,7 +53,7 @@ return {
 	["The {area:91}"] = "{area:91}",
 
 	-- Step 10: Theocritus
-	["On the top floor"] = "",
+	["On the top floor"] = "Im Obergeschoss",
 
 	-- Step 11: Henze Faulk
 	-- {area:91} Tower of Azora · {area:86} Stone Cairn Lake · {npc:6172} Henze Faulk · {item:6866} Symbol of Life · {item:6846} Defias Script
@@ -77,7 +77,7 @@ return {
 	-- {npc:265} Madame Eva
 	["{npc:265}, in her house by the tavern; inside"] = "",
 	-- {npc:265} Madame Eva
-	["{npc:265}, inside"] = "",
+	["{npc:265}, inside"] = "{npc:265}, drinnen",
 	-- {npc:6790} Innkeeper Trelayne
 	["{npc:6790}, Scarlet Raven Tavern"] = "{npc:6790}, Taverne Zum Scharlachroten Raben",
 	-- {npc:267} Clerk Daltry
@@ -91,7 +91,7 @@ return {
 	-- {npc:633} Elaine Carevin · {npc:288} Jitters · {quest:163} Raven Hill
 	["{npc:633}: {npc:288}, at {quest:163}"] = "",
 	-- {npc:276} Viktori Prism'Antras
-	["{npc:276}, inside"] = "",
+	["{npc:276}, inside"] = "{npc:276}, drinnen",
 	-- {npc:302} Blind Mary
 	["For {npc:302}, on the hill south-east of town"] = "",
 
@@ -150,7 +150,7 @@ return {
 
 	-- Step 24: Darkshire
 	-- {npc:268} Sirra Von'Indi
-	["{npc:268}, inside"] = "",
+	["{npc:268}, inside"] = "{npc:268}, drinnen",
 	-- {npc:272} Chef Grual
 	["{npc:272}, in the Scarlet Raven Tavern"] = "",
 	-- {npc:272} Chef Grual · {zone:1431} Duskwood
@@ -246,13 +246,13 @@ return {
 	-- plural, as words: Blackrock Champions = {npc:435} Blackrock Champion
 	["From the keep head back west along the lake's north shore and north up the {area:95} to {area:997}; {area:69}'s hand-ins wait for Keeshan's escort, which ends there. Blackrock Champions camp in the valley."] = "",
 	-- {npc:435} Blackrock Champion
-	["{npc:435}, below ground"] = "",
+	["{npc:435}, below ground"] = "{npc:435}, unter der Erde",
 
 	-- Step 42: Corporal Keeshan
 	-- {zone:1428} Burning Steppes · {area:69} Lakeshire
 	["Keeshan hides at the very north end of the valley, by the {zone:1428} border. Escort him down to {area:69}; Blackrock orcs ambush you on the way."] = "Keeshan versteckt sich ganz am Nordende des Tals, an der Grenze zu {zone:1428}. Eskortiere ihn hinunter nach {area:69}; Orcs der Blackrock lauern dir unterwegs auf.",
 	-- {npc:349} Corporal Keeshan
-	["{npc:349}, below ground"] = "",
+	["{npc:349}, below ground"] = "{npc:349}, unter der Erde",
 
 	-- Step 43: Magistrate Solomon: Gath'Ilzogg
 	-- {npc:344} Magistrate Solomon

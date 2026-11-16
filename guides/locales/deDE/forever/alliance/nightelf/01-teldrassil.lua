@@ -48,7 +48,7 @@ return {
 	-- {area:256} Aldrassil · {npc:3593} Alyissia · {npc:3594} Frahun Shadewhisper · {npc:3595} Shanda · {npc:3596} Ayanna Everstride · {npc:3597} Mardant Strongoak
 	["The trainers stand upstairs inside {area:256}, along the ramp that winds up the tree: {npc:3593} and {npc:3594} on the first level, {npc:3595} above them, {npc:3596} and {npc:3597} at the top. The arrow cannot tell the levels apart."] = "",
 	-- {npc:3593} Alyissia
-	["{npc:3593}, the warrior trainer; inside"] = "",
+	["{npc:3593}, the warrior trainer; inside"] = "{npc:3593}, der Kriegerlehrer; drinnen",
 	-- {npc:3596} Ayanna Everstride
 	["{npc:3596}, the hunter trainer"] = "{npc:3596}, die Jägerlehrerin",
 	-- {npc:3594} Frahun Shadewhisper
@@ -159,7 +159,7 @@ return {
 	-- {npc:3567} Tallonkai Swiftroot
 	["{npc:3567}, upstairs"] = "{npc:3567}, oben",
 	-- {npc:3600} Laurna Morninglight
-	["{npc:3600}, inside"] = "",
+	["{npc:3600}, inside"] = "{npc:3600}, drinnen",
 	-- {npc:3600} Laurna Morninglight · {npc:12429} Sentinel Shaya · {area:259} Lake Al'Ameth
 	["{npc:3600}: heal {npc:12429} by {area:259}"] = "{npc:3600}: Heile {npc:12429} am {area:259}",
 
@@ -171,7 +171,7 @@ return {
 
 	-- Step 28: Teldrassil: kill these as you meet them
 	-- {quest:940} Teldrassil
-	["{quest:940}: kill these as you meet them"] = "",
+	["{quest:940}: kill these as you meet them"] = "{quest:940}: Töte diese, wenn du ihnen begegnest",
 	-- {area:186} Dolanaar · {area:260} Starbreeze Village
 	-- plural, as words: Strigid Owls = {npc:1995} Strigid Owl · Webwood Lurkers = {npc:1998} Webwood Lurker
 	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of {area:260}."] = "",
@@ -189,7 +189,7 @@ return {
 	-- {item:5619} Jade Phial
 	["Use the {item:5619} at the moonwell"] = "Benutze die {item:5619} am Mondbrunnen",
 	-- {object:126158} Tallonkai's Dresser
-	["{object:126158}; inside"] = "",
+	["{object:126158}; inside"] = "{object:126158}; drinnen",
 
 	-- Step 31: Lake Al'Ameth
 	-- {npc:2150} Zenn Foulhoof · {npc:2080} Denalan · {quest:919} Timberling Sprouts
@@ -246,7 +246,7 @@ return {
 
 	-- Step 41: Ban'ethil Barrow Den's entrance
 	-- {area:262} Ban'ethil Barrow Den
-	["{area:262}'s entrance"] = "",
+	["{area:262}'s entrance"] = "Eingang von {area:262}",
 
 	-- Step 42: Ban'ethil Barrow Den
 	-- {npc:275744} Sentinel Lynessa Duskblossom · {npc:7317} Oben Rageclaw
@@ -254,7 +254,7 @@ return {
 	-- {item:5220} Gnarlpine Fang
 	["{item:5220}: any Gnarlpine furbolg"] = "",
 	-- {npc:7317} Oben Rageclaw
-	["{npc:7317}, below ground"] = "",
+	["{npc:7317}, below ground"] = "{npc:7317}, unter der Erde",
 	-- plural, as words: Gnarlpine Shamans = {npc:2009} Gnarlpine Shaman
 	["Gnarlpine Shamans"] = "Schamanen der Knarzklauen",
 	-- {npc:7318} Rageclaw · {area:736} Ban'ethil Hollow
@@ -361,7 +361,7 @@ return {
 	-- {area:186} Dolanaar
 	["North-east from Ursal's den, back to {area:186}."] = "Von Ursals Bau nach Nordosten, zurück nach {area:186}.",
 	-- {npc:6094} Byancie
-	["{npc:6094}, inside"] = "",
+	["{npc:6094}, inside"] = "{npc:6094}, drinnen",
 	-- {item:3371} Empty Vial · {npc:3614} Narret Shadowgrove · {npc:6094} Byancie
 	["{item:3371} from {npc:3614}, beside {npc:6094}"] = "{item:3371} von {npc:3614}, neben {npc:6094}",
 	-- {npc:3600} Laurna Morninglight · {npc:11401} Priestess Alathea · {zone:1457} Darnassus

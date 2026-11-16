@@ -37,7 +37,7 @@ return {
 	["{npc:4721}: the phial comes from {zone:1440}, next guide"] = "{npc:4721}: Die Phiole kommt aus dem {zone:1440}, nächster Guide",
 
 	-- Step 6: Fly to Crossroads
-	["Fly to Crossroads"] = "",
+	["Fly to Crossroads"] = "Fliege zum Wegekreuz",
 	-- {npc:2995} Tal · {zone:1456} Thunder Bluff
 	["Fly to the Crossroads from the wind rider master: {npc:2995} on {zone:1456}'s central rise."] = "Flieg vom Windreitermeister zum Wegekreuz: {npc:2995} auf der mittleren Anhöhe von {zone:1456}.",
 
@@ -56,7 +56,7 @@ return {
 	-- {npc:4049} Seereth Stonebreak · {npc:3995} Witch Doctor Jin'Zil · {area:2539} Malaka'jin · {area:1076} Webwinder Path
 	["Follow the road west past Regthar's bunkers and {npc:4049}'s camp into Stonetalon: {npc:3995} waits below ground in {area:2539}, at the foot of the {area:1076}."] = "Folge der Straße nach Westen an Regthars Bunkern und dem Lager von {npc:4049} vorbei ins Steinkrallengebirge: {npc:3995} wartet unter der Erde in {area:2539}, am Fuß des {area:1076}.",
 	-- {npc:3995} Witch Doctor Jin'Zil
-	["{npc:3995}, below ground"] = "",
+	["{npc:3995}, below ground"] = "{npc:3995}, unter der Erde",
 
 	-- Step 10: Shredding Machines
 	-- {area:1076} Webwinder Path · {npc:4201} Ziz Fizziks · {area:461} Windshear Crag · {npc:4074} XT:9 · {npc:4073} XT:4
@@ -93,7 +93,7 @@ return {
 
 	-- Step 15: Stonetalon Mountains: kill these as you meet them
 	-- {zone:1442} Stonetalon Mountains
-	["{zone:1442}: kill these as you meet them"] = "",
+	["{zone:1442}: kill these as you meet them"] = "{zone:1442}: Töte diese, wenn du ihnen begegnest",
 	-- {area:467} Stonetalon Peak
 	-- plural, as words: Antlered Coursers = {npc:4018} Antlered Courser · Sap Beasts = {npc:4020} Sap Beast · Twilight Runners = {npc:4067} Twilight Runner · Fey Dragons = {npc:4016} Fey Dragon
 	["Follow the road north toward {area:467}. Antlered Coursers graze along the way; the Sap Beasts, Twilight Runners and Fey Dragons roam the woods below the Peak, and the Cenarion druids hold the grove there."] = "Folge der Straße nach Norden Richtung {area:467}. Gehörnte Renner grasen am Weg; die Blutsaftbestien, Mondlichtläufer und Siechdrachen streifen durch die Wälder unterhalb des Gipfels, und die Cenarischen Druiden halten den Hain dort.",
@@ -213,7 +213,7 @@ return {
 
 	-- Step 41: Grunt Logmar
 	-- {npc:5911} Grunt Logmar
-	["{npc:5911}, beside the flight master"] = "",
+	["{npc:5911}, beside the flight master"] = "{npc:5911}, neben dem Flugmeister",
 
 	-- Step 42: Fly to Crossroads
 	-- {area:378} Camp Taurajo
@@ -226,7 +226,7 @@ return {
 	-- Step 44: Fly to Ratchet
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "Flieg nach {area:392}",
-	["Crossroads flight master"] = "",
+	["Crossroads flight master"] = "Flugmeister am Wegekreuz",
 
 	-- Step 45: Sputtervalve
 	-- {npc:3442} Sputtervalve

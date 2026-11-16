@@ -12,7 +12,7 @@ return {
 
 	-- Step 2: Azshara: kill these as you meet them
 	-- {zone:1447} Azshara
-	["{zone:1447}: kill these as you meet them"] = "",
+	["{zone:1447}: kill these as you meet them"] = "{zone:1447}: Töte diese, wenn du ihnen begegnest",
 	["The Highborne ghosts haunt the ruins around the shrine; the Haldarr satyrs hold the camp just north of it."] = "Die Geister der Hochgeborenen spuken in den Ruinen um den Schrein; die Satyrn der Haldarr halten das Lager gleich nördlich davon.",
 
 	-- Step 5: Ogtinc
@@ -31,7 +31,7 @@ return {
 	-- plural, as words: Undamaged Hippogryph Feathers = {item:10450} Undamaged Hippogryph Feather
 	["{npc:8395} wants two Undamaged Hippogryph Feathers from the Thunderhead hippogryphs around his camp, the ones you top up on here: about one in three carries one."] = "{npc:8395} will zwei Unbeschädigte Hippogryphenfedern von den Donnerkopfhippogryphen um sein Lager, an denen du hier auch Erfahrung sammelst: Etwa jeder dritte trägt eine.",
 	-- {npc:6375} Thunderhead Hippogryph
-	["grind on {npc:6375}"] = "",
+	["grind on {npc:6375}"] = "grinde {npc:6375}",
 
 	-- Step 10: Sanath Lim-yo
 	-- {npc:8395} Sanath Lim-yo · {npc:8379} Archmage Xylem
@@ -48,7 +48,7 @@ return {
 	-- {item:20028} Glittering Dust
 	["{item:20028}, from the blood elf surveyors and reclaimers"] = "",
 	-- {npc:6196} Spitelash Myrmidon
-	["grind on {npc:6196}"] = "",
+	["grind on {npc:6196}"] = "grinde {npc:6196}",
 
 	-- Step 13: The Ruins of Eldarath
 	-- {area:1221} Ruins of Eldarath
@@ -165,7 +165,7 @@ return {
 	-- Step 42: Dreadmaul Rock
 	["The Firegut ogres hold the great rock north of the Vigil, with the Brutes on its east side."] = "Die Oger der Feuermägen halten den großen Felsen nördlich der Wacht, mit den Schlägern auf seiner Ostseite.",
 	-- {npc:7034} Firegut Ogre Mage
-	["{npc:7034}, below ground"] = "",
+	["{npc:7034}, below ground"] = "{npc:7034}, unter der Erde",
 	-- {npc:7033} Firegut Ogre · {npc:9177} Oralius · {quest:4283} FIFTY! YEP!
 	["grind on {npc:7033}: {npc:9177} gives {quest:4283} from level 51"] = "",
 
@@ -178,7 +178,7 @@ return {
 	-- {area:249} Dreadmaul Rock · {area:251} Flame Crest · {area:1417} Sunken Temple · {area:2100} Maraudon
 	["Top up here to level 52 on the ogres of {area:249}, on the way to {area:251}: the hand-ins there take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
 	-- {npc:7034} Firegut Ogre Mage
-	["grind on {npc:7034}"] = "",
+	["grind on {npc:7034}"] = "grinde {npc:7034}",
 
 	-- Step 45: Flame Crest
 	-- {area:251} Flame Crest
@@ -210,13 +210,13 @@ return {
 	-- {quest:4022} A Taste of Flame · {area:1417} Sunken Temple · {area:2100} Maraudon
 	["If you skipped {quest:4022}, grind here to level 52.08 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
 	-- {npc:9690} Ember Worg
-	["grind on {npc:9690}"] = "",
+	["grind on {npc:9690}"] = "grinde {npc:9690}",
 
 	-- Step 53: Blackrock Stronghold
 	-- {npc:9176} Gor'tesh · {area:254} Blackrock Mountain · {area:251} Flame Crest
 	["{npc:9176} and the Blackrock orcs hold the camps and the stronghold at the foot of {area:254}, west of {area:251}. Pull them one at a time; every orc and worg may drop a medallion, so kill them until you have fifty.\nCareful: {npc:9176} has a guard linked to him that joins the fight, and a second soldier patrols close by; clear the patrol before pulling."] = "",
 	-- {item:11467} Blackrock Medallion
-	["{item:11467}; inside"] = "",
+	["{item:11467}; inside"] = "{item:11467}; drinnen",
 
 	-- Step 54: Morgan's Vigil
 	["Ride back east along the road to the Vigil."] = "Reite die Straße zurück nach Osten zur Wacht.",

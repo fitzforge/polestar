@@ -10,7 +10,7 @@ return {
 	-- {npc:823} Deputy Willem · {npc:197} Marshal McBride · {npc:951} Brother Paxton · {npc:247229} Daniel · {npc:196} Eagan Peltskinner
 	["You start in front of the Abbey. {npc:823} stands at the foot of the steps, {npc:197} inside the hall, {npc:951} and {npc:247229} in the library to the right, {npc:196} outside the north-west corner."] = "Du beginnst vor der Abtei. {npc:823} steht am Fuß der Treppe, {npc:197} drinnen in der Halle, {npc:951} und {npc:247229} in der Bibliothek rechts, {npc:196} draußen an der Nordwestecke.",
 	-- {npc:197} Marshal McBride
-	["{npc:197}, inside"] = "",
+	["{npc:197}, inside"] = "{npc:197}, drinnen",
 	-- {npc:459} Drusilla La Salle
 	["{npc:459}, outside the Abbey"] = "{npc:459}, vor der Abtei",
 
@@ -30,7 +30,7 @@ return {
 	["{npc:6} dig in the vineyards north-east of the Abbey. Now and then one drops a {quest:91741}: right-click it."] = "{npc:6} graben in den Weinbergen nordöstlich der Abtei. Ab und zu lässt einer {quest:91741} fallen: Rechtsklicke es.",
 
 	-- Step 5: Northshire Abbey
-	["Inside"] = "",
+	["Inside"] = "Drinnen",
 	-- {npc:247229} Daniel
 	["{npc:247229}, in the library; inside"] = "",
 
@@ -45,7 +45,7 @@ return {
 	-- {npc:248415} Tordrin Sternblade · {npc:198} Khelden Bremen
 	["{npc:248415} stands behind the Abbey, by the stables. {npc:198}, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:911} Llane Beshere
-	["{npc:911}, the warrior trainer; inside"] = "",
+	["{npc:911}, the warrior trainer; inside"] = "{npc:911}, der Kriegerlehrer; drinnen",
 	-- {npc:925} Brother Sammuel
 	["{npc:925}, the paladin trainer"] = "{npc:925}, der Paladinlehrer",
 	-- {npc:248415} Tordrin Sternblade
@@ -111,15 +111,15 @@ return {
 	-- {quest:91752} The Big Picture
 	["If you skipped {quest:91752}, grind here to level 5.48 to stay on the route's plan."] = "",
 	-- {npc:80} Kobold Laborer
-	["grind on {npc:80}"] = "",
+	["grind on {npc:80}"] = "grinde {npc:80}",
 
 	-- Step 19: Goldshire
 	-- {area:87} Goldshire · {npc:240} Marshal Dughan · {npc:241} Remy "Two Times" · {npc:295} Innkeeper Farley · {npc:253} William Pestle
 	["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road."] = "",
 	-- {npc:295} Innkeeper Farley
-	["{npc:295}, inside"] = "",
+	["{npc:295}, inside"] = "{npc:295}, drinnen",
 	-- {npc:253} William Pestle
-	["{npc:253}, inside"] = "",
+	["{npc:253}, inside"] = "{npc:253}, drinnen",
 	-- {npc:377} Priestess Josetta
 	["{npc:377}, upstairs"] = "{npc:377}, oben",
 	-- {npc:377} Priestess Josetta · {npc:12423} Guard Roberts · {area:18} Crystal Lake
@@ -130,7 +130,7 @@ return {
 	-- {quest:91752} The Big Picture
 	["If you skipped {quest:91752}, grind here to level 5.77 to stay on the route's plan."] = "",
 	-- {npc:40} Kobold Miner
-	["grind on {npc:40}"] = "",
+	["grind on {npc:40}"] = "grinde {npc:40}",
 
 	-- Step 23: Sam Sarsaparilla
 	-- {npc:263399} Sam Sarsaparilla · {skill:129} First Aid · {area:87} Goldshire
@@ -195,7 +195,7 @@ return {
 	-- {npc:1430} Tomas · {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
 	["{npc:1430} cooks in the inn's kitchen. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:1430} Tomas
-	["{npc:1430}: Camping 101 asks you to learn it; below ground"] = "",
+	["{npc:1430}: Camping 101 asks you to learn it; below ground"] = "{npc:1430}: Camping 101 verlangt, dass du es erlernst; unter der Erde",
 	-- {npc:377} Priestess Josetta · {item:16605} Friar's Robes of the Light
 	["{npc:377}, upstairs: {item:16605}"] = "{npc:377}, oben: {item:16605}",
 
@@ -223,7 +223,7 @@ return {
 
 	-- Step 45: Elwynn Forest: kill these as you meet them
 	-- {zone:1429} Elwynn Forest
-	["{zone:1429}: kill these as you meet them"] = "",
+	["{zone:1429}: kill these as you meet them"] = "{zone:1429}: Töte diese, wenn du ihnen begegnest",
 	-- {object:694855} Overgrown Duskweed
 	-- plural, as words: Stonetusk Boars = {npc:113} Stonetusk Boar
 	["{object:694855} grows in the fields around the vineyards and the Stonefield farm; Stonetusk Boars around them give the blood.\nStonetusk Boars graze between the vineyards and the farm."] = "",
@@ -258,7 +258,7 @@ return {
 	-- plural, as words: Defias Bandits = {npc:116} Defias Bandit
 	["{quest:87} is inside the {area:57}, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a {item:1972} now and then: right-click it.\nCareful: {npc:248464} (6), a kobold deep in the mine, is elite, and {npc:79} (10, rare) walks the tunnels: pull the kobolds one at a time."] = "{quest:87} ist in {area:57}, nicht auf dem Hügel darüber: Geh am Eingang hinein und halte dich links bis zum hinteren Ende der Minensohle; nimm nicht die Treppe nach oben. Banditen der Defias rund um die Weinberge lassen ab und zu {item:1972} fallen: Rechtsklicke sie.\nVorsicht: {npc:248464} (6), ein Kobold tief in der Mine, ist eine Elite, und {npc:79} (10, Rare) läuft durch die Tunnel: Zieh die Kobolde einzeln.",
 	-- {item:981} Bernice's Necklace
-	["{item:981}; below ground"] = "",
+	["{item:981}; below ground"] = "{item:981}; unter der Erde",
 
 	-- Step 51: Goldshire
 	-- {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
@@ -275,12 +275,12 @@ return {
 	["Class trainer"] = "Klassenlehrer",
 
 	-- Step 55: Shaman trainer
-	["Shaman trainer"] = "",
+	["Shaman trainer"] = "Schamanenlehrer",
 	-- {npc:257446} Teo Hammerstorm · {zone:1426} Dun Morogh · {area:87} Goldshire
-	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "",
+	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "{npc:257446} in {zone:1426}; in {area:87} gibt es keinen Schamanenlehrer",
 
 	-- Step 56: Druid trainer
-	["Druid trainer"] = "",
+	["Druid trainer"] = "Druidenlehrer",
 	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {area:87} Goldshire
 	["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "",
 
@@ -322,14 +322,14 @@ return {
 	-- {quest:91740} Croaky's Head
 	["If you skipped {quest:91740}, grind here to level 8.85 to stay on the route's plan."] = "",
 	-- {npc:118} Prowler
-	["grind on {npc:118}"] = "",
+	["grind on {npc:118}"] = "grinde {npc:118}",
 
 	-- Step 66: The Eastvale Logging Camp
 	-- {area:88} Eastvale Logging Camp
 	["The {area:88}"] = "{area:88}",
 	["The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it."] = "Das Lager liegt nordöstlich der Brücke. Kleinholzbündel liegen rund um das Lager und in den Wäldern nördlich davon.",
 	-- {npc:278} Sara Timberlain
-	["{npc:278}, inside"] = "",
+	["{npc:278}, inside"] = "{npc:278}, drinnen",
 
 	-- Step 67: A half-eaten body
 	["It lies by the river north-west of the logging camp."] = "Er liegt am Fluss nordwestlich des Holzfällerlagers.",
@@ -379,7 +379,7 @@ return {
 	-- {area:87} Goldshire · {npc:6306} Helene Peltskinner · {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
 	["Follow the road west back to {area:87}; {npc:6306} stands on the lake shore before town. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:6306} Helene Peltskinner
-	["{npc:6306}, inside"] = "",
+	["{npc:6306}, inside"] = "{npc:6306}, drinnen",
 	-- {npc:240} Marshal Dughan
 	["{npc:240}, while William brews"] = "{npc:240}, während William braut",
 	-- {npc:514} Smith Argus · {npc:1416} Grimand Elmore · {zone:1453} Stormwind
@@ -420,7 +420,7 @@ return {
 
 	-- Step 86: Back to Elwynn Forest
 	-- {zone:1429} Elwynn Forest
-	["Back to {zone:1429}"] = "",
+	["Back to {zone:1429}"] = "Zurück nach {zone:1429}",
 
 	-- Step 87: Taming the Beast
 	-- {npc:251507} Josephine Carson · {area:87} Goldshire · {item:15908} Taming Rod · {area:64} Maclure Vineyards · {area:18} Crystal Lake

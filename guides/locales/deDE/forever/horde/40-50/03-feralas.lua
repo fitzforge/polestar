@@ -37,15 +37,15 @@ return {
 	-- {area:75} Stonard
 	["Fly to {area:75}"] = "Flieg nach {area:75}",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
-	["{object:3202} flight master"] = "",
+	["{object:3202} flight master"] = "Flugmeister in {object:3202}",
 
 	-- Step 7: Stonard
 	-- {npc:5591} Dar · {area:75} Stonard · {npc:1443} Fel'zerul
 	["Coming from Stranglethorn, you carry these already. Starting here: {npc:5591} stands inside {area:75}'s great hall and {npc:1443} on its top floor."] = "",
 	-- {npc:5591} Dar
-	["{npc:5591}, inside"] = "",
+	["{npc:5591}, inside"] = "{npc:5591}, drinnen",
 	-- {npc:1443} Fel'zerul
-	["{npc:1443}, on the top floor"] = "",
+	["{npc:1443}, on the top floor"] = "{npc:1443}, im Obergeschoss",
 
 	-- Step 8: A Soggy Scroll
 	["Ride west along the road; the scroll lies at the water's edge in the swamp's far west."] = "Reite auf der Straße nach Westen; die Schriftrolle liegt am Wasser im äußersten Westen des Sumpfs.",
@@ -70,7 +70,7 @@ return {
 	["{area:2403}: kill these as you meet them"] = "{area:2403}: Töte diese, wenn du ihnen begegnest",
 	-- plural, as words: Monstrous Crawlers = {npc:1088} Monstrous Crawler
 	["The snappers line the strand south of the post.\nThe Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too."] = "",
-	["Underwater"] = "",
+	["Underwater"] = "Unter Wasser",
 
 	-- Step 14: Murlocs of the Misty Reed
 	["Murlocs of the Misty Reed"] = "Murlocs am Nebelschilf",
@@ -103,7 +103,7 @@ return {
 	-- {npc:4500} Overlord Mok'Morokk · {npc:4502} Tharg · {npc:4501} Draz'Zilb · {area:511} Wyrmbog
 	["{npc:4500}, {npc:4502} and {npc:4501} (below ground) are in the village; their quests are for the {area:511} on this trip."] = "",
 	-- {npc:4501} Draz'Zilb
-	["{npc:4501}, below ground"] = "",
+	["{npc:4501}, below ground"] = "{npc:4501}, unter der Erde",
 
 	-- Step 23: Dustwallow Marsh
 	-- {object:2555} Musty Scroll
@@ -139,7 +139,7 @@ return {
 	-- {npc:4500} Overlord Mok'Morokk · {area:511} Wyrmbog · {area:978} Zul'Farrak · {area:1517} Uldaman
 	["{npc:4500}'s challenge, back in Brackenwall, needs a group of three. Alone, grind the Firemane scouts here on the {area:511}'s northern edge to level 45.37 before you ride back north, so you don't come back down for it. Or, with a group, run the {area:978} dungeon or the {area:1517} dungeon instead."] = "Die Herausforderung von {npc:4500}, zurück in Brackenwall, braucht eine Dreiergruppe. Allein grindest du hier am Nordrand von {area:511} die Späher der Feuermähnen bis Stufe 45.37, bevor du zurück nach Norden reitest, damit du dafür nicht noch einmal herunterkommen musst. Oder lauf mit einer Gruppe stattdessen den Dungeon {area:978} oder den Dungeon {area:1517}.",
 	-- {npc:4329} Firemane Scout
-	["grind on {npc:4329}"] = "",
+	["grind on {npc:4329}"] = "grinde {npc:4329}",
 
 	-- Step 30: Challenge Overlord Mok'Morokk
 	-- {quest:1173} Challenge Overlord Mok'Morokk · {npc:4500} Overlord Mok'Morokk · {npc:4501} Draz'Zilb
@@ -189,7 +189,7 @@ return {
 
 	-- Step 39: Camp Mojache
 	-- {npc:7854} Jangdor Swiftstrider
-	["{npc:7854}, inside"] = "",
+	["{npc:7854}, inside"] = "{npc:7854}, drinnen",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly to {object:3202}"] = "Flieg nach {object:3202}",

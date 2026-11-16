@@ -35,7 +35,7 @@ return {
 	-- {area:431} Splintertree Post · {zone:1440} Ashenvale · {zone:1448} Felwood · {area:2479} Emerald Sanctuary
 	["Fly to {area:431} and ride north-west along the road out of {zone:1440} into {zone:1448}. The {area:2479} is the druids' camp just past the border."] = "Flieg zum {area:431} und reite auf der Straße nach Nordwesten aus {zone:1440} in den {zone:1448}. {area:2479} ist das Lager der Druiden gleich hinter der Grenze.",
 	-- {npc:9116} Eridan Bluewind
-	["{npc:9116}, inside"] = "",
+	["{npc:9116}, inside"] = "{npc:9116}, drinnen",
 	-- {npc:9116} Eridan Bluewind · {item:11173} Irontree Heart · {zone:1448} Felwood
 	["{npc:9116}'s Silver Heart needs an {item:11173} from northern {zone:1448} and a ride back here. Skip it."] = "{npc:9116}s Quest Silberherz braucht ein {item:11173} aus dem nördlichen {zone:1448} und einen Ritt zurück hierher. Überspringe sie.",
 
@@ -118,7 +118,7 @@ return {
 	-- plural, as words: Rabid Shardtooths = {npc:7446} Rabid Shardtooth
 	["Top up here to level 59.9 before the hand-ins at {zone:1452}: they take you to level 60. The Rabid Shardtooths (59) of {area:2249}, just north of the strange source, give far more experience than the furbolgs by {area:1769}. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "",
 	-- {npc:7446} Rabid Shardtooth
-	["grind on {npc:7446}"] = "",
+	["grind on {npc:7446}"] = "grinde {npc:7446}",
 
 	-- Step 33: Donova Snowden
 	-- {area:2246} Frostfire Hot Springs
@@ -128,7 +128,7 @@ return {
 
 	-- Step 34: Are We There, Yeti?
 	-- {npc:10978} Legacki · {npc:10980} Umi's Mechanical Yeti
-	["Scare {npc:10978} with {npc:10980}"] = "",
+	["Scare {npc:10978} with {npc:10980}"] = "Verscheuche {npc:10978} mit {npc:10980}",
 
 	-- Step 35: Everlook
 	-- {area:2255} Everlook

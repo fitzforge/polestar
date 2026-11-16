@@ -11,7 +11,7 @@ return {
 	-- {quest:1260} Morgan Stern · {npc:4897} Helenia Olden
 	["{quest:1260} stands near the inn; {npc:4897}, a trade supplier a few steps south, sells the spices Jarl wants."] = "{quest:1260} steht nahe dem Gasthaus; {npc:4897}, ein Handwerkswarenhändler ein paar Schritte südlich, verkauft die Gewürze, die Jarl will.",
 	-- {quest:1260} Morgan Stern
-	["{quest:1260}, inside"] = "",
+	["{quest:1260}, inside"] = "{quest:1260}, drinnen",
 	-- {npc:4964} Commander Samaul · {area:514} Foothold Citadel
 	["{npc:4964}, on the top floor of {area:514}"] = "",
 	-- {item:3713} Soothing Spices
@@ -52,11 +52,11 @@ return {
 	-- Step 9: Theramore
 	-- {area:514} Foothold Citadel
 	["Follow the road east back to Theramore. The officers are in {area:514}."] = "Folge der Straße nach Osten zurück nach Theramore. Die Offiziere sind in {area:514}.",
-	["On the top floor"] = "",
+	["On the top floor"] = "Im Obergeschoss",
 	-- {npc:4948} Adjutant Tesoran
-	["{npc:4948}, on the top floor"] = "",
+	["{npc:4948}, on the top floor"] = "{npc:4948}, im Obergeschoss",
 	-- {npc:4794} Morgan Stern
-	["{npc:4794}, inside"] = "",
+	["{npc:4794}, inside"] = "{npc:4794}, drinnen",
 	-- {npc:4794} Morgan Stern · {zone:1435} Swamp of Sorrows
 	["{npc:4794}: the crawlers are on the {zone:1435} shore, keep it"] = "",
 
@@ -85,9 +85,9 @@ return {
 	-- {npc:4944} Captain Garran Vimes · {area:514} Foothold Citadel
 	["The boat leaves from Theramore: report to {npc:4944} on the top floor of {area:514} on the way to the docks."] = "",
 	-- {npc:4944} Captain Garran Vimes
-	["{npc:4944}, on the top floor"] = "",
+	["{npc:4944}, on the top floor"] = "{npc:4944}, im Obergeschoss",
 	-- {npc:4968} Lady Jaina Proudmoore
-	["{npc:4968}, on the top floor"] = "",
+	["{npc:4968}, on the top floor"] = "{npc:4968}, im Obergeschoss",
 
 	-- Step 17: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
@@ -135,7 +135,7 @@ return {
 	["{npc:2487}, top floor"] = "{npc:2487}, oberstes Stockwerk",
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs: the Skullsplitter trolls, on the northern loop"] = "",
-	["Inside"] = "",
+	["Inside"] = "Drinnen",
 	["Seahorn's next errand goes back to Arathi: skip it."] = "Seehorns nächster Auftrag führt zurück nach Arathi: Überspring ihn.",
 	-- {npc:2542} Catelyn the Blade
 	["{npc:2542}, upstairs"] = "{npc:2542}, oben",
@@ -147,7 +147,7 @@ return {
 
 	-- Step 46: Booty Bay
 	-- {npc:2488} Deeg
-	["{npc:2488}, on the top floor"] = "",
+	["{npc:2488}, on the top floor"] = "{npc:2488}, im Obergeschoss",
 	-- {npc:2624} Gazban
 	["{npc:2624} swims off the north-west coast, on the northern loop"] = "{npc:2624} schwimmt vor der Nordwestküste, auf der nördlichen Runde",
 
@@ -217,7 +217,7 @@ return {
 	-- plural, as words: Giant Clams = {object:2744} Giant Clam
 	["Ride north-west from the mine to the bay on the north-west coast. The Giant Clams lie on its floor and hold the pearls; {npc:2624} swims among them and drops the {item:4034}."] = "Reite von der Mine nach Nordwesten zur Bucht an der Nordwestküste. Die Riesenmuscheln liegen auf ihrem Grund und enthalten die Perlen; {npc:2624} schwimmt zwischen ihnen und lässt {item:4034} fallen.",
 	-- {item:4611} Blue Pearl
-	["{item:4611}; underwater"] = "",
+	["{item:4611}; underwater"] = "{item:4611}; unter Wasser",
 
 	-- Step 60: Arbor Tarantula
 	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb
@@ -235,7 +235,7 @@ return {
 	-- {npc:737} Kebok · {area:1517} Uldaman
 	["Alone, you skip Nesingwary's three elite hunts: take their experience from the Skullsplitter trolls of Zul'Mamwe instead, just east of the mine, so every kill also counts for {npc:737}'s tusks. Or, with a group, run the {area:1517} dungeon instead."] = "",
 	-- {npc:667} Skullsplitter Warrior
-	["grind on {npc:667}"] = "",
+	["grind on {npc:667}"] = "grinde {npc:667}",
 
 	-- Step 65: Ruins of Zul'Mamwe: kill these as you meet them
 	-- {area:103} Ruins of Zul'Mamwe
@@ -258,7 +258,7 @@ return {
 	-- plural, as words: Cold Eye Basilisks = {npc:690} Cold Eye Basilisk
 	["Still short of level 42.16 after the hunts you did? Make up the rest on the Cold Eye Basilisks by the {area:310}, on your way south to {area:35}. Or, with a group, run the {area:1517} dungeon instead."] = "",
 	-- {npc:690} Cold Eye Basilisk
-	["grind on {npc:690}"] = "",
+	["grind on {npc:690}"] = "grinde {npc:690}",
 
 	-- Step 73: Booty Bay
 	-- {area:35} Booty Bay
@@ -340,7 +340,7 @@ return {
 	-- {quest:543} The Perenolde Tiara · {area:1517} Uldaman
 	["If you skipped {quest:543}, grind here to level 42.46 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
 	-- {npc:766} Tangled Horror
-	["grind on {npc:766}"] = "",
+	["grind on {npc:766}"] = "grinde {npc:766}",
 
 	-- Step 95: Cortello's Riddle
 	-- {npc:217412} Amaryllis Webb · {quest:93176} My Little Friends
@@ -372,7 +372,7 @@ return {
 
 	-- Step 103: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "Bahn nach {zone:1455}",
 
 	-- Step 106: Ironforge
 	-- {npc:5637} Roetten Stonehammer · {object:32356} Hall of Explorers (no name in this language: may be words) · {npc:2786} Gerrig Bonegrip · {object:32383} Forlorn Cavern
@@ -406,7 +406,7 @@ return {
 	-- {npc:1470} Ghak Healtouch · {area:144} Thelsamar · {area:1517} Uldaman · {zone:1418} Badlands
 	["{npc:1470} is below ground in {area:144}, by the inn. His mushrooms grow in the {area:1517} dig in the {zone:1418}; the next guide takes you there and back through {area:144}."] = "",
 	-- {npc:1470} Ghak Healtouch
-	["{npc:1470}, below ground"] = "",
+	["{npc:1470}, below ground"] = "{npc:1470}, unter der Erde",
 
 	-- Step 115: Hammertoe's Digsite
 	-- {zone:1432} Loch Modan · {zone:1418} Badlands · {npc:2860} Sigrun Ironhew

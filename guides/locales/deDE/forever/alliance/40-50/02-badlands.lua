@@ -48,13 +48,13 @@ return {
 	-- {area:1517} Uldaman · {zone:1418} Badlands
 	["Back through the pass: the Stonevault troggs dig outside {area:1517} at the {zone:1418}' northern edge. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "",
 	-- {item:8047} Magenta Fungus Cap
-	["{item:8047}; below ground"] = "",
+	["{item:8047}; below ground"] = "{item:8047}; unter der Erde",
 	-- {object:2743} Carved Stone Urn
-	["{object:2743}; below ground"] = "",
+	["{object:2743}; below ground"] = "{object:2743}; unter der Erde",
 
 	-- Step 12: Back to Loch Modan
 	-- {zone:1432} Loch Modan
-	["Back to {zone:1432}"] = "",
+	["Back to {zone:1432}"] = "Zurück nach {zone:1432}",
 
 	-- Step 13: Ironband's Excavation Site
 	["Ride back north to Ironband's camp."] = "Reite zurück nach Norden zu Ironbands Lager.",
@@ -63,7 +63,7 @@ return {
 	-- {area:144} Thelsamar
 	["Ride west along the loch to {area:144}."] = "",
 	-- {npc:1470} Ghak Healtouch
-	["{npc:1470}, below ground"] = "",
+	["{npc:1470}, below ground"] = "{npc:1470}, unter der Erde",
 
 	-- Step 15: Fly to Southshore
 	-- {area:271} Southshore
@@ -83,9 +83,9 @@ return {
 	-- {area:271} Southshore · {zone:1425} The Hinterlands · {area:348} Aerie Peak · {npc:5635} Falstad Wildhammer · {quest:1450} Gryphon Master Talonaxe · {npc:7884} Fraggar Thundermantle
 	["Ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "Reite auf der Straße nach Nordosten aus {area:271} ins {zone:1425}; {area:348} liegt gleich hinter der Grenze. {npc:5635} hält oben Hof, {quest:1450} kümmert sich um den Greifenhorst und {npc:7884} steht beim Gasthaus.",
 	-- {quest:1450} Gryphon Master Talonaxe
-	["{quest:1450}, inside"] = "",
+	["{quest:1450}, inside"] = "{quest:1450}, drinnen",
 	-- {npc:7884} Fraggar Thundermantle
-	["{npc:7884}, inside"] = "",
+	["{npc:7884}, inside"] = "{npc:7884}, drinnen",
 	-- {npc:7744} Innkeeper Thulfram
 	["{npc:7744}; below ground"] = "{npc:7744}; unter der Erde",
 
@@ -115,18 +115,18 @@ return {
 	-- {npc:2616} Privateer Groy
 	["{npc:2616} stands on the docks where the boat lands."] = "{npc:2616} steht an den Docks, wo das Schiff anlegt.",
 	-- {npc:4944} Captain Garran Vimes
-	["{npc:4944}, on the top floor"] = "",
+	["{npc:4944}, on the top floor"] = "{npc:4944}, im Obergeschoss",
 	-- {npc:4968} Lady Jaina Proudmoore
-	["{npc:4968}, on the top floor"] = "",
+	["{npc:4968}, on the top floor"] = "{npc:4968}, im Obergeschoss",
 	-- {npc:4794} Morgan Stern
-	["{npc:4794}, inside"] = "",
+	["{npc:4794}, inside"] = "{npc:4794}, drinnen",
 
 	-- Step 25: Cortello's Riddle
 	-- {area:498} Bloodfen Burrow
 	["Inside {area:498}"] = "In {area:498}",
 
 	-- Step 26: Theramore flight master
-	["Theramore flight master"] = "",
+	["Theramore flight master"] = "Flugmeister in Theramore",
 
 	-- Step 28: Warlock: Summon Felsteed
 	-- {quest:3631} Summon Felsteed

@@ -71,7 +71,7 @@ return {
 	["The Ursera Scavengers den west of the grove, with {npc:251115}, the matriarch, at the back of the den; {npc:250926} prowl the woods between the den and the grove."] = "",
 	["Below ground"] = "Unter der Erde",
 	-- {item:252665} Head of Urs'anah
-	["{item:252665}; below ground"] = "",
+	["{item:252665}; below ground"] = "{item:252665}; unter der Erde",
 
 	-- Step 11: Aetheen of the Gales
 	["Back east out of the den to the grove."] = "",
@@ -128,7 +128,7 @@ return {
 
 	-- Step 24: Zerril Softbreeze
 	-- {npc:251905} Zerril Softbreeze
-	["{npc:251905}: Camping 101 asks you to learn it"] = "",
+	["{npc:251905}: Camping 101 asks you to learn it"] = "{npc:251905}: Camping 101 verlangt, dass du es erlernst",
 
 	-- Step 25: Village quests
 	["Village quests"] = "Dorfquests",
@@ -178,7 +178,7 @@ return {
 	["Class trainer"] = "Klassenlehrer",
 
 	-- Step 43: Paladin trainer
-	["Paladin trainer"] = "",
+	["Paladin trainer"] = "Paladinlehrer",
 	-- {npc:5148} Beldruk Doombrow · {zone:1455} Ironforge · {area:16624} Shen'dar Village
 	["{npc:5148} in {zone:1455}; {area:16624} has no paladin trainer"] = "",
 
@@ -188,12 +188,12 @@ return {
 	["Lariia in {zone:1438}; {area:16624} has no priest trainer"] = "",
 
 	-- Step 45: Shaman trainer
-	["Shaman trainer"] = "",
+	["Shaman trainer"] = "Schamanenlehrer",
 	-- {npc:258098} Eldrun Stormbreaker · {zone:1455} Ironforge · {area:16624} Shen'dar Village
-	["{npc:258098} in {zone:1455}; {area:16624} has no shaman trainer"] = "",
+	["{npc:258098} in {zone:1455}; {area:16624} has no shaman trainer"] = "{npc:258098} in {zone:1455}; in {area:16624} gibt es keinen Schamanenlehrer",
 
 	-- Step 46: Warlock trainer
-	["Warlock trainer"] = "",
+	["Warlock trainer"] = "Hexenmeisterlehrer",
 	-- {item:2450} Briarthorn · {zone:1455} Ironforge · {area:16624} Shen'dar Village
 	["{item:2450} in {zone:1455}; {area:16624} has no warlock trainer"] = "",
 
@@ -260,11 +260,11 @@ return {
 	-- {npc:252389} Quel'ana Quickgale · {npc:257006} Nyalah Brightfire · {item:15908} Taming Rod
 	["{npc:252389}, beside {npc:257006}: the first {item:15908}"] = "",
 	-- {npc:255940} Donaal Downbreeze
-	["Innkeeper {npc:255940}, by the west gate"] = "",
+	["Innkeeper {npc:255940}, by the west gate"] = "Gastwirt {npc:255940}, beim Westtor",
 	-- {npc:252448} Alvarion Windfield
 	["Listen to {npc:252448}'s story"] = "Hör dir die Geschichte von {npc:252448} an",
 	-- {npc:257006} Nyalah Brightfire
-	["{npc:257006}, inside"] = "",
+	["{npc:257006}, inside"] = "{npc:257006}, drinnen",
 
 	-- Step 62: The missing scholar
 	["The missing scholar"] = "Der vermisste Gelehrte",
@@ -278,13 +278,13 @@ return {
 	["{npc:254588}, among the crabs: tame one with {npc:252389}'s first {item:15908} while you are there"] = "",
 	-- {npc:254588} Windsong Crawler
 	["Tame {npc:254588}"] = "Zähme {npc:254588}",
-	["Underwater"] = "",
+	["Underwater"] = "Unter Wasser",
 
 	-- Step 64: The missing scholar
 	-- plural, as words: Shriekling Matriarchs = {npc:253283} Shriekling Matriarch
 	["Fillion's camp is north-west of it, and the Shriekling Matriarchs nest just west of the camp."] = "",
 	-- {item:257107} Shriekling Matriarch's Head
-	["{item:257107}; below ground"] = "",
+	["{item:257107}; below ground"] = "{item:257107}; unter der Erde",
 
 	-- Step 65: Aamelia Windfield
 	-- {npc:252800} Aamelia Windfield
@@ -357,7 +357,7 @@ return {
 	-- {npc:273017} Fendaal Windstone
 	["North-west of Valanaar along the road, past {npc:273017}: the dead cultist lies just north of him."] = "",
 	["Search the dead cultist"] = "Durchsuche den toten Kultisten",
-	["Inside"] = "",
+	["Inside"] = "Drinnen",
 	-- {npc:258443} Ur'endra
 	["{npc:258443}, in the highlands south-west of the cultist"] = "{npc:258443}, im Hochland südwestlich des Kultisten",
 
@@ -375,7 +375,7 @@ return {
 
 	-- Step 83: Shaman trainer
 	-- {npc:258098} Eldrun Stormbreaker · {zone:1455} Ironforge · {area:16638} Valanaar
-	["{npc:258098} in {zone:1455}; {area:16638} has no shaman trainer"] = "",
+	["{npc:258098} in {zone:1455}; {area:16638} has no shaman trainer"] = "{npc:258098} in {zone:1455}; in {area:16638} gibt es keinen Schamanenlehrer",
 
 	-- Step 84: Warlock trainer
 	-- {item:2450} Briarthorn · {zone:1455} Ironforge · {area:16638} Valanaar
@@ -442,7 +442,7 @@ return {
 
 	-- Step 95: Portal to Rohashi Spires
 	-- {area:16630} Rohashi Spires
-	["Portal to {area:16630}"] = "",
+	["Portal to {area:16630}"] = "Portal nach {area:16630}",
 
 	-- Step 96: High Priestess Lorthuna
 	-- {area:16630} Rohashi Spires · {npc:252475} Elaadrin Evengale · {object:617084} Portal to Valanaar (no name in this language: may be words)
@@ -468,7 +468,7 @@ return {
 	-- {npc:259084} Denaaris Stargale · {area:279} Dalaran · {zone:1453} Stormwind
 	["{npc:259084} stands beside the Skyborne Portal, where the skycutter lands by the Kirin Tor camp west of {area:279}. The portal takes you to {zone:1453}."] = "",
 	-- {npc:259084} Denaaris Stargale
-	["{npc:259084}, inside"] = "",
+	["{npc:259084}, inside"] = "{npc:259084}, drinnen",
 	-- {npc:270459} Alfina Nightgaze · {npc:259084} Denaaris Stargale · {npc:5504} Sheldras Moontree · {zone:1453} Stormwind
 	["{npc:270459}, beside {npc:259084}: for {npc:5504} in {zone:1453}"] = "{npc:270459}, neben {npc:259084}: für {npc:5504} in {zone:1453}",
 	-- {object:631299} Skyborne Portal to Stormwind

@@ -26,7 +26,7 @@ return {
 	-- {area:75} Stonard
 	["for Helgrum in {area:75}, around level 42"] = "für Helgrum in {area:75}, etwa ab Stufe 42",
 	-- {npc:6868} Jarkal Mossmeld
-	["{npc:6868}, inside"] = "",
+	["{npc:6868}, inside"] = "{npc:6868}, drinnen",
 
 	-- Step 5: Lesser Rock Elementals
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental
@@ -37,7 +37,7 @@ return {
 
 	-- Step 7: Badlands: kill these as you meet them
 	-- {zone:1418} Badlands
-	["{zone:1418}: kill these as you meet them"] = "",
+	["{zone:1418}: kill these as you meet them"] = "{zone:1418}: Töte diese, wenn du ihnen begegnest",
 	-- {area:1878} The Dustbowl
 	-- plural, as words: Elder Crag Coyotes = {npc:2729} Elder Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard
 	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards."] = "",

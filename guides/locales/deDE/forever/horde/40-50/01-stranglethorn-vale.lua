@@ -27,7 +27,7 @@ return {
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Flieg nach {area:35}",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
-	["{object:3202} flight master"] = "",
+	["{object:3202} flight master"] = "Flugmeister in {object:3202}",
 
 	-- Step 6: Booty Bay
 	-- {area:35} Booty Bay
@@ -41,7 +41,7 @@ return {
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, on the balcony beside MacKinley"] = "{npc:2496}, auf dem Balkon neben MacKinley",
-	["Inside"] = "",
+	["Inside"] = "Drinnen",
 
 	-- Step 7: Bloodsail Correspondence
 	-- {area:35} Booty Bay
@@ -49,7 +49,7 @@ return {
 
 	-- Step 8: Booty Bay
 	-- {npc:2488} Deeg
-	["{npc:2488}, on the top floor"] = "",
+	["{npc:2488}, on the top floor"] = "{npc:2488}, im Obergeschoss",
 
 	-- Step 9: The Wild Shore
 	-- {area:43} Wild Shore
@@ -168,7 +168,7 @@ return {
 
 	-- Step 31: Booty Bay
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "",
+	["{npc:2498}, inside"] = "{npc:2498}, drinnen",
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs"] = "{npc:737}, oben",
 	-- {npc:773} Krazek · {quest:2864} Tran'rek · {area:976} Gadgetzan
@@ -200,7 +200,7 @@ return {
 	-- {quest:192} Panther Mastery · {quest:195} Raptor Mastery · {area:1517} Uldaman
 	["If you skipped {quest:192} or {quest:195}, grind here to level 42.68 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
 	-- {npc:667} Skullsplitter Warrior
-	["grind on {npc:667}"] = "",
+	["grind on {npc:667}"] = "grinde {npc:667}",
 
 	-- Step 43: Big Game Hunter
 	-- {npc:731} King Bangalash
@@ -221,13 +221,13 @@ return {
 	-- {area:75} Stonard
 	["Head east to {area:75}, in the reeds south of the road. Bind here."] = "",
 	-- {npc:5591} Dar
-	["{npc:5591}, inside"] = "",
+	["{npc:5591}, inside"] = "{npc:5591}, drinnen",
 	-- {npc:1442} Helgrum the Swift
 	["{npc:1442}, upstairs"] = "{npc:1442}, oben",
 	-- {npc:6930} Innkeeper Karakul
 	["{npc:6930}, upstairs"] = "{npc:6930}, oben",
 	-- {npc:1443} Fel'zerul
-	["{npc:1443}, on the top floor"] = "",
+	["{npc:1443}, on the top floor"] = "{npc:1443}, im Obergeschoss",
 
 	-- Step 51: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "Sägezahnkrokilisken",

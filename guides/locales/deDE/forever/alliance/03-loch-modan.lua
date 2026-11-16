@@ -53,7 +53,7 @@ return {
 	-- {object:665289} Discarded Fishing Toolbox · {area:144} Thelsamar · {item:278051} Monogrammed Silver Hair Clip
 	["South along the west shore. The {object:665289} lies on the loch bed at one of several places: east of {area:144} (48.1,39.7), a little south-west of there (45.7,43.4), or at the south end of the loch (48.7,54.4 or 50.6,53.3). If it isn't at the arrow, try the next place. Click it for the quest; the {item:278051} comes with it."] = "",
 	-- {object:665289} Discarded Fishing Toolbox
-	["{object:665289}; underwater"] = "",
+	["{object:665289}; underwater"] = "{object:665289}; unter Wasser",
 
 	-- Step 12: Thelsamar
 	-- {npc:1684} Khara Deepwater · {npc:1105} Jern Hornhelm
@@ -77,7 +77,7 @@ return {
 	-- {npc:1154} Marek Ironheart · {npc:1187} Daryl the Youngling
 	["North-east to the lodge on the hill. {npc:1154} stands inside, {npc:1187} outside."] = "",
 	-- {npc:1154} Marek Ironheart
-	["{npc:1154}, inside"] = "",
+	["{npc:1154}, inside"] = "{npc:1154}, drinnen",
 	-- {npc:1154} Marek Ironheart
 	["{npc:1154}: the loch crocolisks below the lodge"] = "",
 	-- {npc:1187} Daryl the Youngling
@@ -114,14 +114,14 @@ return {
 	-- {area:144} Thelsamar · {npc:1105} Jern Hornhelm · {npc:1572} Thorgrum Borrelson
 	["Back west along the south shore to {area:144}: {npc:1105} by the inn, then {npc:1572} with the gryphons on the west side of town, on the way south."] = "",
 	-- {npc:1356} Prospector Stormpike · {zone:1455} Ironforge
-	["For {npc:1356} in {zone:1455}"] = "",
+	["For {npc:1356} in {zone:1455}"] = "Für {npc:1356} in {zone:1455}",
 
 	-- Step 24: Mountaineer Ylva
 	-- {npc:269185} Headsplitter
 	["South of Thelsamar, Ylva lies dead in the mouth of a trogg cave. Take her banner, raise it beside her and hold the spot: troggs come in waves from both sides, then {npc:269185}."] = "",
 
 	-- Step 25: The tunnel post
-	["The tunnel post"] = "",
+	["The tunnel post"] = "Der Tunnelposten",
 	-- {zone:1426} Dun Morogh
 	["West to the dwarven post at the tunnel to {zone:1426}."] = "",
 
@@ -151,7 +151,7 @@ return {
 
 	-- Step 30: Tram to Stormwind
 	-- {zone:1453} Stormwind
-	["Tram to {zone:1453}"] = "",
+	["Tram to {zone:1453}"] = "Bahn nach {zone:1453}",
 
 	-- Step 31: Elwynn Forest
 	-- {zone:1453} Stormwind · {area:87} Goldshire
@@ -196,9 +196,9 @@ return {
 	-- {npc:266} Wiley the Black
 	["{npc:266}, in the inn; upstairs"] = "",
 	-- {npc:379} Darcy
-	["{npc:379}, inside"] = "",
+	["{npc:379}, inside"] = "{npc:379}, drinnen",
 	-- {npc:343} Chef Breanna
-	["{npc:343}, inside"] = "",
+	["{npc:343}, inside"] = "{npc:343}, drinnen",
 
 	-- Step 37: Guard Parker
 	-- {area:1002} Three Corners
@@ -225,7 +225,7 @@ return {
 	-- plural, as words: Murloc Flesheaters = {npc:422} Murloc Flesheater
 	["Back toward town, swim east from the bridge into {area:68}; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a {item:1467}."] = "",
 	-- {item:1309} Oslow's Toolbox
-	["{item:1309}; underwater"] = "",
+	["{item:1309}; underwater"] = "{item:1309}; unter Wasser",
 
 	-- Step 41: Hilary's Necklace
 	-- {object:154357} Glinting Mud
@@ -269,7 +269,7 @@ return {
 	-- {area:108} Sentinel Hill · {npc:234} Gryan Stoutmantle
 	["Down the road to {area:108}. {npc:234} stands at the top of the stone tower."] = "",
 	-- {npc:332} Master Mathias Shaw · {zone:1453} Stormwind
-	["For {npc:332} in {zone:1453}"] = "",
+	["For {npc:332} in {zone:1453}"] = "Für {npc:332} in {zone:1453}",
 
 	-- Step 49: Fly to Stormwind
 	-- {zone:1453} Stormwind

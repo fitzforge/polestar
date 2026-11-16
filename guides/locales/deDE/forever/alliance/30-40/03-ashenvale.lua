@@ -21,7 +21,7 @@ return {
 	-- Step 3: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern · {npc:4963} Mikhail · {npc:5082} Vincent Hyal
 	["{npc:1217} stands in the {area:2104}, south of the keep, where {npc:4963} and {npc:5082} wait too."] = "{npc:1217} steht in der {area:2104} südlich der Burg, wo auch {npc:4963} und {npc:5082} warten.",
-	["Inside"] = "",
+	["Inside"] = "Drinnen",
 
 	-- Step 4: Deepwater Tavern
 	-- {quest:1248} The Missing Diplomat · {npc:4963} Mikhail
@@ -33,7 +33,7 @@ return {
 	-- Step 6: Lightforge Ingots
 	["The Bluegill murlocs on the beach south-west of Menethil carry the ingots."] = "Die Murlocs der Blaukiemen am Strand südwestlich von Menethil tragen die Blöcke.",
 	-- {item:2702} Lightforge Ingot
-	["{item:2702}; underwater"] = "",
+	["{item:2702}; underwater"] = "{item:2702}; unter Wasser",
 
 	-- Step 7: Glorin Steelbrow
 	-- {npc:1416} Grimand Elmore · {zone:1453} Stormwind
@@ -44,9 +44,9 @@ return {
 	-- {area:514} Foothold Citadel · {npc:5083} Clerk Lendry · {npc:4964} Commander Samaul
 	["The flight master stands by the gate of {area:514}; {npc:5083} and {npc:4964} are inside the citadel."] = "Der Flugmeister steht am Tor von {area:514}; {npc:5083} und {npc:4964} sind in der Zitadelle.",
 	-- {npc:5083} Clerk Lendry
-	["{npc:5083}, on the top floor"] = "",
+	["{npc:5083}, on the top floor"] = "{npc:5083}, im Obergeschoss",
 	-- {npc:4964} Commander Samaul
-	["{npc:4964}, on the top floor"] = "",
+	["{npc:4964}, on the top floor"] = "{npc:4964}, im Obergeschoss",
 	-- {quest:1132} Fiora Longears
 	["{quest:1132}, inside the inn in the north of town"] = "{quest:1132}, im Gasthaus im Norden der Stadt",
 	-- {npc:4456} Fiora Longears · {area:415} Astranaar

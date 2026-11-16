@@ -29,7 +29,7 @@ return {
 	["The {area:88}"] = "{area:88}",
 	["The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it."] = "Das Lager liegt nordöstlich der Brücke. Kleinholzbündel liegen rund um das Lager und in den Wäldern nördlich davon.",
 	-- {npc:278} Sara Timberlain
-	["{npc:278}, inside"] = "",
+	["{npc:278}, inside"] = "{npc:278}, drinnen",
 
 	-- Step 5: A half-eaten body
 	["It lies by the river north-west of the logging camp."] = "Er liegt am Fluss nordwestlich des Holzfällerlagers.",
@@ -86,7 +86,7 @@ return {
 	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk
 	["South along the road, past the fork. {npc:233} stands outside, {npc:235} in the house, {npc:253395} in the barn to the west. Young Goretusks and Fleshrippers roam the fields around the farm: start on livers and the stew's meat on the way."] = "Südlich der Straße, vorbei an der Gabelung. {npc:233} steht draußen, {npc:235} im Haus, {npc:253395} in der Scheune im Westen. Junge Hauerzähne und Fleischreißer streifen um die Felder der Farm: Beginne unterwegs mit Lebern und dem Eintopffleisch.",
 	-- {npc:235} Salma Saldean
-	["{npc:235}, inside"] = "",
+	["{npc:235}, inside"] = "{npc:235}, drinnen",
 
 	-- Step 19: Goretusk Snouts
 	-- plural, as words: Goretusk Snouts = {item:731} Goretusk Snout
@@ -101,7 +101,7 @@ return {
 	-- {npc:234} Gryan Stoutmantle · {npc:821} Captain Danuvin · {npc:491} Quartermaster Lewis · {npc:523} Thor · {npc:878} Scout Galiaan · {npc:1323} Osric Strang · {zone:1453} Stormwind · {npc:279} Morgan Pestle · {object:2096} Trade District · {object:2156} Limited Immunity (no name in this language: may be words) · {object:2100} Old Town · {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {npc:352} Dungar Longdrink
 	["{npc:234} and {npc:821} stand at the top of the stone tower, {npc:491} inside it, {npc:523} the gryphon master on the south side of the hill with {npc:878} beside him. {npc:523} gives you Lewis' note for {npc:1323} with a free flight to {zone:1453}: take it now. In {zone:1453}, {npc:279}'s shop is in the {object:2096} by the gryphons, {npc:1323}'s shop, {object:2156}, in {object:2100}; {npc:1646} stands in {object:2098} on the way back to {npc:352}, the gryphon master."] = "",
 	-- {npc:491} Quartermaster Lewis
-	["{npc:491}, inside"] = "",
+	["{npc:491}, inside"] = "{npc:491}, drinnen",
 	-- {npc:878} Scout Galiaan · {npc:523} Thor
 	["{npc:878}, beside {npc:523}"] = "{npc:878}, neben {npc:523}",
 	-- {npc:523} Thor · {zone:1453} Stormwind
@@ -201,7 +201,7 @@ return {
 	-- {object:290} Furlbrow's Wardrobe · {area:916} The Jansen Stead · {npc:502} Benny Blaanco
 	["{object:290} stands in the ruined house east of the mine, on the way to the {area:916}.\nCareful: Two Defias stand guard inside, one of them the level 15 named {npc:502}. They are linked, so attacking either one brings both."] = "",
 	-- {object:290} Furlbrow's Wardrobe
-	["{object:290}; inside"] = "",
+	["{object:290}; inside"] = "{object:290}; drinnen",
 
 	-- Step 38: The Jansen Stead
 	["Sacks of Oats in the fields around the farm"] = "Haferbündel auf den Feldern rund um die Farm",
@@ -271,11 +271,11 @@ return {
 
 	-- Step 52: Stormwind
 	-- {zone:1453} Stormwind · {object:28027} Dwarven District
-	["{zone:1453}'s {object:28027}"] = "",
+	["{zone:1453}'s {object:28027}"] = "{object:28027} von {zone:1453}",
 
 	-- Step 53: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "Bahn nach {zone:1455}",
 
 	-- Step 54: Shaman training
 	["Shaman training"] = "Schamanenausbildung",
@@ -290,7 +290,7 @@ return {
 
 	-- Step 56: Back to Stormwind
 	-- {zone:1453} Stormwind
-	["Back to {zone:1453}"] = "",
+	["Back to {zone:1453}"] = "Zurück nach {zone:1453}",
 	-- {zone:1453} Stormwind · {object:28027} Dwarven District
 	["Ride the tram back: it comes out in {zone:1453}'s {object:28027}, where the errands below start."] = "",
 

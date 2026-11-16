@@ -23,7 +23,7 @@ return {
 	-- Step 3: Liv Rizzlefix
 	-- {area:392} Ratchet · {object:149036} Marvon's Chest
 	["Liv's workshop is at the north end of {area:392}'s docks; {object:149036} stands inside it."] = "Livs Werkstatt ist am Nordende der Docks von {area:392}; {object:149036} steht darin.",
-	["Inside"] = "",
+	["Inside"] = "Drinnen",
 
 	-- Step 4: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
@@ -40,7 +40,7 @@ return {
 	-- Step 6: Fly to Valormok
 	-- {area:1237} Valormok
 	["Fly to {area:1237}"] = "Flieg nach {area:1237}",
-	["Crossroads flight master"] = "",
+	["Crossroads flight master"] = "Flugmeister am Wegekreuz",
 
 	-- Step 8: Ruins of Eldarath
 	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "Reite nach Osten zu den Ruinen an der Küste. Füll Cuelys vier Phiolen an den Gezeitentümpeln am Ufer; Naga der Grollflossen patrouillieren dazwischen.",
@@ -66,9 +66,9 @@ return {
 	["{area:1237} flight master"] = "Flugmeister in {area:1237}",
 
 	-- Step 13: Paladin trainer
-	["Paladin trainer"] = "",
+	["Paladin trainer"] = "Paladinlehrer",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
-	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
+	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} in {zone:1456}; {zone:1454} hat keinen Paladinlehrer",
 
 	-- Step 14: Orgrimmar
 	-- {zone:1454} Orgrimmar

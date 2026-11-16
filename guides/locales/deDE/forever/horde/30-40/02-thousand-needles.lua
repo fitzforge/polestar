@@ -21,7 +21,7 @@ return {
 	-- Step 3: Orgrimmar trainers
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} trainers"] = "Lehrer in {zone:1454}",
-	["Train while you are in the city."] = "",
+	["Train while you are in the city."] = "Trainiere, während du in der Stadt bist.",
 
 	-- Step 4: Searn Firewarder
 	-- {npc:5892} Searn Firewarder · {object:172957} Valley of Wisdom
@@ -123,7 +123,7 @@ return {
 	-- plural, as words: Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper
 	["Sparkleshell Snappers"] = "",
 	-- {npc:4143} Sparkleshell Snapper
-	["grind on {npc:4143}"] = "",
+	["grind on {npc:4143}"] = "grinde {npc:4143}",
 
 	-- Step 23: Freewind Post
 	-- {area:484} Freewind Post · {npc:10537} Cliffwatcher Longhorn
@@ -163,7 +163,7 @@ return {
 	-- plural, as words: Scorpashi Lashers = {npc:4697} Scorpashi Lasher
 	["Scorpashi Lashers"] = "",
 	-- {npc:4697} Scorpashi Lasher
-	["grind on {npc:4697}"] = "",
+	["grind on {npc:4697}"] = "grinde {npc:4697}",
 
 	-- Step 31: Shadowprey Village
 	-- {area:606} Gelkis Village · {npc:268705} Aka'rai · {quest:97265} Hate the Hatefury
@@ -182,7 +182,7 @@ return {
 	-- Step 33: Thunder Axe Fortress
 	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:20310} Flayed Demon Skin · {quest:5381} Hand of Iruxos · {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal (no name in this language: may be words) · {npc:11876} Demon Spirit · {item:13542} Demon Box
 	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. {quest:5381}: clear the middle of the largest building, then use the {item:14523} on the red {object:176581} there. A {npc:11876} (37) comes out: kill it for the {item:13542}."] = "",
-	["On the top floor"] = "",
+	["On the top floor"] = "Im Obergeschoss",
 	-- {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal (no name in this language: may be words)
 	["{item:14523}, on the {object:176581}"] = "{item:14523}, an {object:176581}",
 
@@ -203,7 +203,7 @@ return {
 	["Giant Softshell Clams, on the sea floor"] = "",
 	-- {item:15874} Soft-shelled Clam
 	["{item:15874}: open it in your bags"] = "",
-	["Underwater"] = "",
+	["Underwater"] = "Unter Wasser",
 	-- {item:15878} Rackmore's Silver Key
 	["{item:15878}, from the Drysnap crabs"] = "{item:15878}, von den Trockenschnappkrabben",
 
