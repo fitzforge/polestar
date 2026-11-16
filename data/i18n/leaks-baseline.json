@@ -38712,6 +38712,13 @@
 				],
 				"english": "Vayn Moongaze"
 			},
+			"npc:255183": {
+				"reason": "no-source",
+				"scenes": [
+					"picker"
+				],
+				"english": "Jezerelle the Swaying"
+			},
 			"npc:255391": {
 				"reason": "no-source",
 				"scenes": [

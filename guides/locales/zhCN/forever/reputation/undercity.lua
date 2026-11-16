@@ -57,7 +57,7 @@ return {
 	-- {area:159} Brill
 	["{area:159} (optional hub)"] = "{area:159}（可选任务点）",
 	-- {area:159} Brill · {faction:68} Undercity · {npc:1515} Executor Zygand · {npc:1499} Magistrate Sevren · {npc:1518} Apothecary Johaan · {npc:1496} Deathguard Dillinger · {npc:1500} Coleman Farthing
-	["Forever pays these old quests in full at any level. {area:159} and the fields around it: about 1,100 {faction:68} reputation in 45 minutes. {npc:1515}, {npc:1499}, {npc:1518}, {npc:1496} and {npc:1500} are in the town."] = "无限版本中，这些旧任务在任何等级都奖励全额声望。{area:159}及周边田野：45分钟可获得约1,100点{faction:68}声望。{npc:1515}、{npc:1499}、{npc:1518}、{npc:1496}和{npc:1500}都在镇上。",
+	["Forever pays these old quests in full at any level. {area:159} and the fields around it: about 1,100 {faction:68} reputation in 45 minutes. {npc:1515}, {npc:1499}, {npc:1518}, {npc:1496} and {npc:1500} are in the town."] = "Forever中，这些旧任务在任何等级都奖励全额声望。{area:159}及周边田野：45分钟可获得约1,100点{faction:68}声望。{npc:1515}、{npc:1499}、{npc:1518}、{npc:1496}和{npc:1500}都在镇上。",
 
 	-- Step 9: Around Brill
 	-- {area:159} Brill

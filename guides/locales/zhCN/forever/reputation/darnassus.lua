@@ -27,7 +27,7 @@ return {
 
 	-- Step 2: Shadowglen
 	-- {zone:1438} Teldrassil · {area:256} Aldrassil
-	["Optional: the Night Elf start glade in north-east {zone:1438}, about 1,050 reputation in 30 minutes at 60. The givers stand around {area:256}, the great tree. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：{zone:1438}东北面的暗夜精灵起始林地，60级时用30分钟可获得约1,050点声望。任务给予者都在大树{area:256}周围。无限版本中，无论角色等级多少，这些旧任务都提供全额声望。跳过本步骤即可跳过整个任务区。",
+	["Optional: the Night Elf start glade in north-east {zone:1438}, about 1,050 reputation in 30 minutes at 60. The givers stand around {area:256}, the great tree. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：{zone:1438}东北面的暗夜精灵起始林地，60级时用30分钟可获得约1,050点声望。任务给予者都在大树{area:256}周围。Forever中，无论角色等级多少，这些旧任务都提供全额声望。跳过本步骤即可跳过整个任务区。",
 
 	-- Step 3: Shadowglen: the glade and the spider den
 	-- {area:188} Shadowglen
@@ -54,7 +54,7 @@ return {
 
 	-- Step 7: Dolanaar
 	-- {faction:69} Darnassus · {npc:2151} Moon Priestess Amara
-	["Optional: the village on the road to {faction:69}, about 1,250 reputation in 45 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub.\n{npc:2151} patrols the road west of the village: if she isn't at the arrow, follow the road until you meet her."] = "可选：通往{faction:69}道路上的村庄，60级时用45分钟可获得约1,250点声望。无限版本中，无论角色等级多少，这些旧任务都提供全额声望。跳过本步骤即可跳过整个任务区。\n{npc:2151}在村庄西边的道路上巡逻：如果她不在箭头处，就沿道路走，直到遇到她。",
+	["Optional: the village on the road to {faction:69}, about 1,250 reputation in 45 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub.\n{npc:2151} patrols the road west of the village: if she isn't at the arrow, follow the road until you meet her."] = "可选：通往{faction:69}道路上的村庄，60级时用45分钟可获得约1,250点声望。Forever中，无论角色等级多少，这些旧任务都提供全额声望。跳过本步骤即可跳过整个任务区。\n{npc:2151}在村庄西边的道路上巡逻：如果她不在箭头处，就沿道路走，直到遇到她。",
 
 	-- Step 8: Dolanaar: Denalan and the lake
 	-- {area:186} Dolanaar · {npc:2080} Denalan
@@ -94,7 +94,7 @@ return {
 
 	-- Step 14: Auberdine
 	-- {area:442} Auberdine · {zone:1439} Darkshore · {area:702} Rut'theran Village
-	["Optional: {area:442} in {zone:1439}, a boat trip from {area:702}, about 1,400 reputation in an hour at 60. The givers stand along the town's street and pier. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：从{area:702}乘船前往{zone:1439}的{area:442}，60级时约一小时可获得1,400点声望。任务给予者沿镇上的街道和码头分布。在无限版本中，这些旧任务在任何等级都提供全额声望。跳过此步骤即可跳过这个任务点。",
+	["Optional: {area:442} in {zone:1439}, a boat trip from {area:702}, about 1,400 reputation in an hour at 60. The givers stand along the town's street and pier. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：从{area:702}乘船前往{zone:1439}的{area:442}，60级时约一小时可获得1,400点声望。任务给予者沿镇上的街道和码头分布。在Forever中，这些旧任务在任何等级都提供全额声望。跳过此步骤即可跳过这个任务点。",
 
 	-- Step 15: Auberdine: the coast and the woods
 	-- {area:442} Auberdine
