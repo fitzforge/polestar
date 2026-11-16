@@ -15,7 +15,7 @@ local SAGE_R, SAGE_G, SAGE_B = 91 / 255, 149 / 255, 80 / 255
 
 local function draw()
 	if not frame then return end
-	if not QoL.On("questXPOverlay") then frame:Hide(); return end
+	if ns.Hidden() or not QoL.On("questXPOverlay") then frame:Hide(); return end
 	local xp, limit, total = QuestXP.xp, QuestXP.limit, QuestXP.total
 	if not (xp and limit and limit > 0 and total > 0) then frame:Hide(); return end
 	local start = min(1, max(0, xp / limit))
@@ -96,7 +96,7 @@ local function xpTooltip()
 end
 
 local function tooltip(owner)
-	if not QoL.On("questXPOverlay") or QuestXP.total <= 0 then return end
+	if ns.Hidden() or not QoL.On("questXPOverlay") or QuestXP.total <= 0 then return end
 	local tip = xpTooltip()
 	if not tip then return end
 	if tip:IsShown() then
@@ -227,6 +227,9 @@ QoL.WhileOn(key, "QUEST_ACCEPTED", function(_, id)
 	rescan()
 end)
 ns.OnLogin(rescan)
+ns.On("POLESTAR_HIDDEN", function(hidden)
+	if hidden then draw() else schedule() end
+end)
 ns.On("SETTING_CHANGED", function(path)
 	if path == "qol" or path == "" or path == "qol." .. key then
 		if not QoL.On(key) then

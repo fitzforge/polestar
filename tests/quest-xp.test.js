@@ -85,7 +85,7 @@ q.xp = 900
 stub.fire("PLAYER_XP_UPDATE", "player"); stub.runTimers()
 local f = P.frame
 local _, _, _, left = f.Tint:GetPoint(1)
-emit({ total = P.total, right = left + f.Tint:GetWidth(), level = f.LevelLabel:IsShown(), rescanned = q.rewardReads ~= reads })
+emit({ total = P.total, right = left + f.Tint:GetWidth(), level = f.LevelLabel:IsShown(), label = f.LevelLabel:GetText(), rescanned = q.rewardReads ~= reads })
 stub.RunScript(bar, "OnEnter")
 emit(GameTooltip.lines)
 stub.fire("QUEST_TURNED_IN", 11, 250, 0); stub.runTimers()
@@ -99,7 +99,7 @@ q.level, q.rested = q.maxLevel, nil
 stub.fire("PLAYER_LEVEL_UP", q.level); stub.runTimers()
 emit({ total = P.total, shown = f:IsShown(), rested = q.rested or 0 })
 `);
-	assert.deepEqual(overflow, { total: 350, right: 562, level: true, rescanned: false });
+	assert.deepEqual(overflow, { total: 350, right: 562, level: true, label: '+1 level', rescanned: false });
 	assert.ok(tip.some((line) => line.includes('at least +1 level')));
 	assert.ok(!tip.some((line) => line.includes('XP after turn-ins')));
 	assert.deepEqual(turned, { total: 100, count: 1 });
@@ -217,8 +217,33 @@ emit({ total = P.total, moved = P.frame:GetParent() == nextBar, shown = P.frame:
 	assert.deepEqual(moved, { total: 250, moved: true, shown: true });
 });
 
+test('Hide All suppresses the projection and quest tooltip lines until Polestar is shown', () => {
+	const [hidden, barTip, tickTip, restored] = run(String.raw`
+Polestar.SetHidden(true)
+assert(not f:IsShown(), "Hide All must hide the overlay immediately")
+stub.RunScript(f, "OnSizeChanged")
+q.ready[14] = false
+stub.fire("QUEST_LOG_UPDATE"); stub.runTimers()
+emit({ overlay = f:IsShown(), marker = f.Rested:IsVisible(), native = bar:IsShown() })
+stub.RunScript(bar, "OnEnter")
+emit(GameTooltip.lines)
+stub.RunScript(bar.ExhaustionTick, "OnEnter")
+emit(GameTooltip.lines)
+Polestar.SetHidden(false); stub.runTimers()
+stub.RunScript(bar, "OnEnter")
+emit({ total = P.total, shown = f:IsShown(), marker = f.Rested:IsVisible(), lines = GameTooltip.lines })
+`);
+	assert.deepEqual(hidden, { overlay: false, marker: false, native: true });
+	assert.deepEqual(barTip, ['Experience: 500 / 1000', 'Rested XP: 200']);
+	assert.deepEqual(tickTip, barTip);
+	assert.equal(restored.total, 250);
+	assert.equal(restored.shown, true);
+	assert.equal(restored.marker, true);
+	assert.ok(restored.lines.some((line) => line.includes('Pending quest XP')));
+});
 test('registers only one quest XP toggle in Trackers & map / Experience', () => {
 	const [settings] = run(String.raw`
+dofile("addon/Polestar_Options/QoL/Options.lua")
 local found = {}
 for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
 	for _, control in ipairs(spec.controls) do
