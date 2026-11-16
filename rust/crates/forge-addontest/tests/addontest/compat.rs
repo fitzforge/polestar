@@ -422,6 +422,34 @@ fn a_secret_run_speed_or_map_position_reads_as_unknown_and_is_never_worked_on_25
 }
 
 #[test]
+fn secret_tooltip_lines_and_map_names_are_never_compared_to_empty_string_2595() {
+	let out = run(r#"
+		local function boom() error("secret compared") end
+		local SECRET = setmetatable({}, { __eq = boom, __tostring = function() return "secret" end })
+		function issecretvalue(v) return rawequal(v, SECRET) end
+		local rawtype = type
+		type = function(v) if rawequal(v, SECRET) then return "string" end return rawtype(v) end
+		C_TooltipInfo = {
+			GetHyperlink = function(link)
+				return { lines = { { leftText = SECRET } } }
+			end,
+			GetItemByID = function(id)
+				return { lines = { { leftText = SECRET, leftColor = { r = 1, g = 1, b = 1 } } } }
+			end,
+		}
+		C.GetMapName = function(id) return SECRET end
+		local r = {
+			creature = C.CreatureCached(12345),
+			color = { C.ItemTipColor(6462) },
+			map = C.MapName(1429),
+		}
+		type = rawtype
+		emit(r)
+	"#);
+	assert_eq!(out, json!({ "creature": false, "color": [], "map": Value::Null }));
+}
+
+#[test]
 fn c3_nav_qa_the_world_map_opens_through_c_map_openworldmap_when_the_client_has_it_the_global_opener_only_as_a_fallback_never_in_combat() {
 	let out = run(r#"
 		local calls = {}
