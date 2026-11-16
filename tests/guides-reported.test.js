@@ -15129,3 +15129,25 @@ test('Alliance 40-50 reports: Jarl\'s spices bought before the hand-in (#1917), 
 	assert.match(tip, /tap it/, 'says to tap the pool');
 	assert.match(tip, /Scarabs/, 'warns of the Scarabs');
 });
+
+// #2563 (Kiber_Mazai, 0.4.0): Harlo Barnaby stops offering Fall of Dun Modr (472) once A Grim Task (304) is handed
+// in, and no prerequisite, exclusive group or breadcrumb in the quest data says so. The accept shared the Menethil
+// Harbor step, which then waited on a quest nobody could take. It is a step of its own, shown only while A Grim Task
+// is not handed in; every other Menethil goal stays where it was, ungated. The Dun Modr hand-in (30-40/01) needs no
+// gate: a hand-in of a quest never taken does not apply.
+test('#2563: Wetlands (Alliance): Fall of Dun Modr is taken on its own step, only while A Grim Task is not handed in', { skip }, () => {
+	const wet = goals('forever/alliance/06-wetlands.guide');
+	const grim = (step) => (step.when || []).some((p) => p.k === 'turnedin' && p.neg && [p.q].flat().includes(304));
+	const harlo = wet[at(wet, 'accept 472', is('accept', 472))];
+	assert.ok(grim(harlo.step), 'accept 472 only while 304 is not handed in');
+	assert.deepEqual(wet.filter(({ s }) => s === harlo.s).map(({ goal }) => `${goal.t} ${goal.quest}`), ['accept 472'], 'Harlo\'s step holds Fall of Dun Modr alone');
+	const menethil = wet[at(wet, 'accept 288', is('accept', 288))];
+	assert.equal(menethil.s + 1, harlo.s, 'right after the Menethil Harbor step');
+	for (const q of [288, 289, 464, 98221, 281, 471, 98208]) {
+		const e = wet[at(wet, `accept ${q}`, is('accept', q))];
+		assert.equal(e.s, menethil.s, `accept ${q} stays on the Menethil Harbor step`);
+		assert.ok(!grim(e.step), `accept ${q} is not gated on A Grim Task`);
+	}
+	const hills = goals('forever/alliance/30-40/01-hillsbrad-foothills.guide');
+	assert.ok(at(hills, 'turnin 472', is('turnin', 472)) >= 0, 'Longbraid still takes it on the Dun Modr stop');
+});

@@ -1252,6 +1252,9 @@
 		] },
 		"2337": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "Khan Jehn waits for Checking Things Out, the end of Nerlokh's chain (#2337)" }
+		] },
+		"2563": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2563: Wetlands (Alliance): Fall of Dun Modr is taken on its own step, only while A Grim Task is not handed in" }
 		] }
 	},
 	"seedDrift": {}
