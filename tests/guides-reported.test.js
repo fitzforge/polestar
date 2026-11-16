@@ -1079,7 +1079,7 @@ test('#2535 #2539 #2543: stories heard from friendly NPCs are talks in the data,
 	assert.equal(kind(4022, 1), 'item', 'A Taste of Flame keeps its molt');
 	assert.deepEqual(data.quests[273].objectives.map((o) => o.type), ['event'], 'Resupplying the Excavation: the game lists only its event');
 	assert.deepEqual(data.quests[1560].objectives.map((o) => o.type), ['event'], "Tooga's Quest is the escort to Torta");
-	assert.deepEqual(data.quests[96204].objectives.map((o) => o.type), ['event'], "The Windshaper's Wrath is the escort of Lumina");
+	assert.deepEqual(data.quests[96204].objectives.map((o) => o.type), ['talk', 'event'], "The Windshaper's Wrath: talk to Lumina, then the escort");
 	// Fights stay kills: the NPC turns hostile and gives in.
 	for (const q of [590, 1447, 1640]) assert.equal(kind(q, 1), 'kill', `${q}`);
 });

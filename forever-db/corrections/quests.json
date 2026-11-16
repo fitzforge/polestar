@@ -5606,6 +5606,12 @@
 			],
 			"objectives": [
 				{
+					"type": "talk",
+					"id": 248755,
+					"count": 1,
+					"text": "Lumina Windsinger"
+				},
+				{
 					"type": "event",
 					"id": null,
 					"count": null,
@@ -5628,10 +5634,10 @@
 			},
 			{
 				"kind": "recording",
-				"ref": "players' in-game recordings (to 2026-11-16; excluded and suspect contributors left out): 12 people ran The Windshaper's Wrath; the game lists one line, the event \"Escort Lumina Windsinger to safety\", and no kill of her"
+				"ref": "players' in-game recordings (to 2026-11-16; excluded and suspect contributors left out): 12 people ran The Windshaper's Wrath; its line, the event \"Escort Lumina Windsinger to safety\", never ticked on a kill of her"
 			}
 		],
-		"note": "The Lumina Windsinger chain (Undead Paladins): her The Windshaper's Wrath (96204) follows her Lumina Windsinger (91862). The merged data had no prerequisite. Its only objective is the escort: the data also listed a kill of Lumina Windsinger, the NPC being escorted."
+		"note": "The Lumina Windsinger chain (Undead Paladins): her The Windshaper's Wrath (96204) follows her Lumina Windsinger (91862). The merged data had no prerequisite. The escort starts as you talk to Lumina Windsinger in her cage: the data listed her as a kill."
 	},
 	"96243": {
 		"set": {
