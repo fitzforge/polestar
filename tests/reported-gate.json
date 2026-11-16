@@ -1289,5 +1289,13 @@
 			{ "node": "tests/guides-reported.test.js", "test": "#2563: Wetlands (Alliance): Fall of Dun Modr is taken on its own step, only while A Grim Task is not handed in" }
 		] }
 	},
-	"seedDrift": {}
+	"seedDrift": {
+		"forever/alliance/dwarf/01-dun-morogh.guide: Tom's report: the arrow reaches the Grizzled Den (Frosthowl) through its mouth at 42.57,54.68": "The guides-reported case for the Grizzled Den's mouth (tests/guides-reported.test.js CAVES, the 0.4.0 level tidy) now takes Frosthowl's fish on the shipments' one visit through the same mouth; the seed still asserts the earlier second visit from Brewnall.",
+		"forever/alliance/dwarf/01-dun-morogh.guide: thmastin's report: Grik'nir comes after Anvilmar, and the journal and Nori's mug are handed in on one camp visit": "The guides-reported case of the same name follows the 0.4.0 Dun Morogh order of each start's own guide and passes; the seed still asserts the shared dwarf-gnome guide's order.",
+		"forever/alliance/dwarf/01-dun-morogh.guide: thmastin's report: Sten's quests and the class letter are taken before Balir, then Anvilmar is entered once": "The guides-reported case of the same name reads the class letters per class in the per-race guides and passes; the seed still looks for the shared guide's letter accept.",
+		"forever/alliance/dwarf/01-dun-morogh.guide: thmastin's report: Kharanos is done outside first (Eric before Tharek), then the distillery, training last": "The guides-reported case of the same name follows the 0.4.0 Kharanos stop and passes; the seed still asserts the shared guide's bind step.",
+		"forever/alliance/dwarf/01-dun-morogh.guide: thmastin's report: The Reports is taken from Senir with Frostmane Hold and handed to the senator on the way to the tram": "The guides-reported case of the same name follows the 0.4.0 way to the tram and passes; the seed still looks for the shared guide's Deeprun Tram step.",
+		"forever/alliance/dwarf/01-dun-morogh.guide: thmastin's report: kills on the way are counted on the way and finished after": "The guides-reported case of the same name follows the 0.4.0 steps for Rime's Wrath and Treacherous Cold and passes; the seed still asserts the shared guide's step.",
+		"Phear's report: a kill or collect leads to the camp that holds its mobs, not a stray one or two far from it": "The guides-reported case of the same name lists the Minion's Scourgestones in the guides that take them since 0.4.0 (Eastern Plaguelands for the Horde) and passes; the seed still looks for them in the Alliance Winterspring guide."
+	}
 }
