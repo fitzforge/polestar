@@ -224,6 +224,8 @@ step Cenarion Hold
   accept 8281                         -- Windcaller Proudhorn
   accept 8318                         -- Bor Wildmane: his Twilight texts come from the dig after the next stop here
   accept 8304                         -- Commander Mar'alith: Bronzebeard's Encampment comes later, on the way south
+  accept 9415                         -- Rifleman Torrig, at the Alliance tents: for Marshal Bluewall at Hive'Zora
+  accept 8284                         -- Geologist Larksbane: the tablet fragments come from the Twilight dig
 
 step Silithus: kill these as you meet them
   zone Silithus

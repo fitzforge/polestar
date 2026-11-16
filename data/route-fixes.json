@@ -15014,6 +15014,32 @@
 				"faction": "Alliance",
 				"why": "Alliance 40-50 fix round 2 (0.4.0): The Scent of Lar'korwi goes back to Torwa from the raft on the first Un'Goro visit, at about 50, instead of riding the log for 29 hours through five guides to the second visit's Torwa stop.",
 				"source": "Alliance fix round 2 2026-11-16"
+			},
+			{
+				"a": [
+					"accept",
+					8278
+				],
+				"b": [
+					"accept",
+					9415
+				],
+				"faction": "Alliance",
+				"why": "Alliance 50-60 fix round 2 (0.4.0): Report to Marshal Bluewall and The Twilight Mystery are taken on the Silithus guide's first Cenarion Hold stop, where their work and hand-ins are, not on the Western Plaguelands guide's Cenarion Hold stop at about 57, which carried them through Mount Hyjal (quest log 36 there) and the trip back.",
+				"source": "Alliance fix round 2 2026-11-16"
+			},
+			{
+				"a": [
+					"accept",
+					8278
+				],
+				"b": [
+					"accept",
+					8284
+				],
+				"faction": "Alliance",
+				"why": "Alliance 50-60 fix round 2 (0.4.0): The Twilight Mystery is taken with Report to Marshal Bluewall on the Silithus guide's first Cenarion Hold stop (pair above).",
+				"source": "Alliance fix round 2 2026-11-16"
 			}
 		]
 	}

@@ -515,10 +515,8 @@ step Cenarion Hold
   zone Silithus
   tip Ride on west to Cenarion Hold. Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   getfp "Cenarion Hold"
-  accept 9415                         -- Rifleman Torrig, at the Alliance tents
   accept 8277                         -- Beetix Ficklespragg
   accept 8280                         -- Windcaller Proudhorn
-  accept 8284                         -- Geologist Larksbane
 
 step Silithus: kill these as you meet them
   zone Silithus
