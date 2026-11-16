@@ -208,6 +208,36 @@ test('chains follow the main route; a catch-up guide behind `when` is its own ch
 	assert.deepEqual(out.map((c) => c.map((x) => x.id)), [['a', 'b'], ['a-catchup']]);
 });
 
+// Shen'dralas (forever/40-50/shendralas) is played by both sides and lists `next forever/horde/40-50/03-feralas` before
+// the Alliance one; the engine offers each side only its own guide (Guides.GuideMatches). The honest play took the first
+// option whatever the side, so the Alliance chain ran on into the Horde guides and Alliance Feralas was played alone.
+test('chains follow the side\'s own `next` out of a guide both sides play', () => {
+	const { chains } = require('../tools/lib/playtest-honest');
+	const g = (id, faction, ...next) => ({ id, faction, next: next[0] || null, nextChoices: next, steps: [] });
+	const guides = [g('start-a', 'Alliance', 'shared'), g('start-h', 'Horde', 'shared'), g('shared', null, 'h', 'a'), g('h', 'Horde'), g('a', 'Alliance')];
+	const ids = (side) => chains(guides, side).map((c) => c.map((x) => x.id));
+	assert.deepEqual(ids('Alliance'), [['start-a', 'shared', 'a']]);
+	assert.deepEqual(ids('Horde'), [['start-h', 'shared', 'h']]);
+});
+
+test('each side plays its own chain through a guide both sides play, as its own personas', { skip }, () => {
+	const { compileSources } = require('../tools/lib/dsl/project');
+	const { honestPlay } = require('../tools/lib/playtest-honest');
+	data = data || require('../tools/lib/dsl/data').loadData(require('../tools/lib/paths').DATA);
+	const head = (id, faction, zone, ...next) => `guide test/${id}\ntitle ${id}\n${faction ? `faction ${faction}\n` : ''}levels 40-45\nzone ${zone}\n${next.map((n) => `next test/${n}\n`).join('')}\n`;
+	const texts = [
+		head('start-a', 'Alliance', 'Elwynn Forest', 'shared') + 'step Wait\n  goto 48,42\n',
+		head('start-h', 'Horde', 'Durotar', 'shared') + 'step Wait\n  goto 52,43\n',
+		head('shared', null, 'Desolace', 'h', 'a') + 'step Wait\n  goto 50,50\n',
+		head('a', 'Alliance', 'Wetlands') + 'step Menethil Harbor\n  goto 9.5,59.7\n\nstep Fly\n  fly "Stormwind"\n',
+		head('h', 'Horde', 'The Barrens') + 'step The Crossroads\n  goto 51.5,30.3\n\nstep Fly\n  fly "Orgrimmar"\n',
+	];
+	const { guides } = compileSources(texts.map((text, i) => ({ file: `g${i}.guide`, source: `g${i}.guide`, text })), data);
+	const personas = (root) => (root.faction === 'Horde' ? [ORC] : root.faction === 'Alliance' ? [HUMAN] : [HUMAN, ORC]);
+	const who = new Set(of(honestPlay(guides, data, personas, { play: ['test/a', 'test/h'] }), 'R1').map((f) => `${f.guide} ${f.race}`));
+	assert.deepEqual([...who].sort(), ['test/a Human', 'test/h Orc']);
+});
+
 test('`when dungeon` holds only for a dungeon the honest player chose; `when !dungeon` for the solo route', () => {
 	const { whenHolds } = require('../tools/lib/playtest-honest');
 	const { dungeonPicker } = require('../tools/lib/playtest');
