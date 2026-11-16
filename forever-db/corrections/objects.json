@@ -728,5 +728,36 @@
 			}
 		],
 		"note": "Ambercorn (object 2912), the acorns Rite of Vision (771) asks for, is picked by players at seven places on the plains south of Bloodhoof Village in Mulgore that the merged data doesn't list (its 24 Mulgore spawns lie elsewhere; only 2 of the 9 recorded pickup spots are within 1 unit of one). The recorded spots are added, so the guide's point on the plains (#15, #282) and the compiled pickup area sit by the acorns (#289)."
+	},
+	"661518": {
+		"set": {
+			"name": "Stolen Shipment"
+		},
+		"addSpawns": {
+			"1434": {
+				"f": "e",
+				"pts": [
+					[
+						24.25,
+						12.24
+					],
+					[
+						24.94,
+						9.59
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings on builds 70862 and 70938: Anything of Value (97328), 8 Stolen Shipments, collected by 44 people (40 counted) in the Ruins of Zul'Kunda, Stranglethorn Vale, in two clusters: 38 people around 24.25,12.24 and 30 around 24.94,9.59"
+			},
+			{
+				"kind": "questie",
+				"ref": "items.json 277953 Stolen Shipment: dropped by object 661518, which the merged data has no entry for"
+			}
+		],
+		"note": "The Stolen Shipments (object 661518) that Anything of Value (97328) asks for lie in the Ruins of Zul'Kunda; the merged data had the item's object with no entry, so no step or While-here line could point at it. The two places are where players pick them."
 	}
 }
