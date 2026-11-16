@@ -490,16 +490,10 @@ step Bloodvenom Post: last hand-in
   accept 4883 optional                -- Guarding Secrets, +100 Thunder Bluff: to Nara Wildmane on Elder Rise in Thunder Bluff
   note "Wild Guardians: 300 Orgrimmar reputation."
 
-step Belgrom Rockmaul: Betrayed
-  zone Orgrimmar
-  tip Belgrom stands in the Valley of Honor outside the Hall of the Brave. The first two Betrayed quests are level 53 and pay in full at 60 too, as every quest does in Forever.
-  accept 3504                         -- Betrayed, +50
-
-step Valormok
+step Valormok: Betrayed
   zone Azshara
-  tip Fly to Valormok in western Azshara. Ag'tor Bloodfist sends you north-east to the blood elf camp on the bluffs of the northern peninsula.
-  turnin 3504                         -- Ag'tor Bloodfist
-  accept 3505                         -- Betrayed, +75
+  tip Fly to Valormok in western Azshara: on Forever, Betrayed starts with Ag'tor Bloodfist there, with no letter from Belgrom Rockmaul first. The Betrayed quests are level 53 and pay in full at 60 too, as every quest does in Forever. Ag'tor sends you north-east to the blood elf camp on the bluffs of the northern peninsula.
+  accept 3505                         -- Ag'tor Bloodfist: Betrayed, +75
 
 step Magus Rimtori's camp
   tip Kill the Reclaimers and Surveyors, then walk up to the book inside the ring of stone pillars. Read the Kaldorei Tome of Summoning there to start the next quest: break the crystals around the circle, kill the guard that comes, then Magus Rimtori.

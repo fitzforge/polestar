@@ -327,15 +327,11 @@ return {
 	-- {quest:4721} Wild Guardians · {faction:76} Orgrimmar
 	["{quest:4721}: 300 {faction:76} reputation."] = "{quest:4721} : 300 de réputation auprès d'{faction:76}.",
 
-	-- Step 54: Belgrom Rockmaul: Betrayed
-	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {object:173084} Hall of the Brave · {quest:3504} Betrayed
-	["{npc:4485} stands in the {object:172958} outside the {object:173084}. The first two {quest:3504} quests are level 53 and pay in full at 60 too, as every quest does in Forever."] = "{npc:4485} se tient dans la {object:172958}, devant {object:173084}. Les deux premières quêtes {quest:3504} sont de niveau 53 et rapportent elles aussi en entier au niveau 60, comme toute quête dans Forever.",
+	-- Step 54: Valormok: Betrayed
+	-- {area:1237} Valormok · {zone:1447} Azshara · {quest:3505} Betrayed · {npc:8576} Ag'tor Bloodfist · {npc:4485} Belgrom Rockmaul
+	["Fly to {area:1237} in western {zone:1447}: on Forever, {quest:3505} starts with {npc:8576} there, with no letter from {npc:4485} first. The {quest:3505} quests are level 53 and pay in full at 60 too, as every quest does in Forever. {npc:8576} sends you north-east to the blood elf camp on the bluffs of the northern peninsula."] = "Volez jusqu'à {area:1237}, dans l'ouest d'{zone:1447} : sur Forever, {quest:3505} commence directement auprès de {npc:8576}, sans lettre préalable de {npc:4485}. Les quêtes {quest:3505} sont de niveau 53 et rapportent elles aussi en entier au niveau 60, comme toutes les quêtes sur Forever. {npc:8576} vous envoie au nord-est, au camp des elfes de sang sur les falaises de la péninsule nord.",
 
-	-- Step 55: Valormok
-	-- {area:1237} Valormok · {zone:1447} Azshara · {npc:8576} Ag'tor Bloodfist
-	["Fly to {area:1237} in western {zone:1447}. {npc:8576} sends you north-east to the blood elf camp on the bluffs of the northern peninsula."] = "Volez jusqu'à {area:1237}, dans l'ouest d'{zone:1447}. {npc:8576} vous envoie au nord-est vers le camp des elfes de sang, sur les falaises de la péninsule nord.",
-
-	-- Step 56: Magus Rimtori's camp
+	-- Step 55: Magus Rimtori's camp
 	-- {npc:8578} Magus Rimtori
 	["{npc:8578}'s camp"] = "Le camp de {npc:8578}",
 	-- {object:151286} Kaldorei Tome of Summoning · {npc:8578} Magus Rimtori
@@ -345,7 +341,7 @@ return {
 	-- {object:151286} Kaldorei Tome of Summoning
 	["the {object:151286}"] = "le {object:151286}",
 
-	-- Step 57: Valormok and Orgrimmar
+	-- Step 56: Valormok and Orgrimmar
 	-- {area:1237} Valormok · {faction:76} Orgrimmar
 	["{area:1237} and {faction:76}"] = "{area:1237} et {faction:76}",
 	-- {npc:4485} Belgrom Rockmaul · {faction:76} Orgrimmar
@@ -353,7 +349,7 @@ return {
 	-- {quest:3506} Betrayed · {faction:76} Orgrimmar
 	["{quest:3506}: 300 {faction:76} reputation at 60."] = "{quest:3506} : 300 de réputation auprès d'{faction:76} au niveau 60.",
 
-	-- Step 58: Blackrock Mountain, with a group
+	-- Step 57: Blackrock Mountain, with a group
 	["Blackrock Mountain, with a group"] = "Le mont Rochenoire, en groupe",
 	-- {area:340} Kargath · {zone:1418} Badlands · {faction:76} Orgrimmar · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire · {quest:4724} The Pack Mistress · {item:12652} Bijou's Reconnaissance Report · {quest:4903} Warlord's Command · {npc:3144} Eitrigg
 	["{area:340} in the {zone:1418} hands out {faction:76} quests for {area:1584} and {area:1583}, all level 58 to 60 and paid in full: Precarious Predicament and Operation: Death to Angerforge (150 each), {quest:4724} and {item:12652} (100 each), {quest:4903} (150), {npc:3144}'s Wisdom (100) and For The Horde! (Rend's head, 200 to every Horde city). These are dungeon quests: take them when your group goes."] = "{area:340}, dans les {zone:1418}, donne des quêtes d'{faction:76} pour les {area:1584} et le {area:1583}, toutes de niveau 58 à 60 et payées en entier : Situation précaire et Opération : Mort à Forgehargne (150 chacune), {quest:4724} et le {item:12652} (100 chacun), {quest:4903} (150), Sagesse d'{npc:3144} (100) et Pour la Horde ! (la tête de Rend, 200 auprès de chaque ville de la Horde). Ce sont des quêtes de donjon : prenez-les quand votre groupe y va.",
@@ -362,19 +358,19 @@ return {
 	-- {npc:9081} Galamav the Marksman · {quest:4724} The Pack Mistress
 	["{npc:9081}: {quest:4724}, +100, a group of five"] = "{npc:9081} : {quest:4724}, +100, un groupe de cinq",
 
-	-- Step 59: Additional Runecloth to Honored
+	-- Step 58: Additional Runecloth to Honored
 	-- {quest:7832} Additional Runecloth
 	["{quest:7832} to Honored"] = "{quest:7832} : Honoré",
 	-- {quest:7832} Additional Runecloth · {item:14047} Runecloth
 	["{quest:7832}: 20 {item:14047} for 50 reputation, as often as you like. Friendly to Honored is 6,000: 120 hand-ins, 2,400 {item:14047}, less what the quests gave you (an orc starts at Friendly 1,000: 100 hand-ins; an Undead or Skyborne starts at Neutral 2,000 and first needs 20 hand-ins, 400 {item:14047}, to reach Friendly). Hand in every 20 you carry, one after another."] = "{quest:7832} : 20 {item:14047} contre 50 de réputation, aussi souvent que vous le voulez. D'Amical à Honoré, il faut 6 000 : 120 remises, 2 400 {item:14047}, moins ce que les quêtes vous ont donné (un orc commence à Amical 1 000 : 100 remises ; un Mort-vivant ou un Éolide commence à Neutre 2 000 et a d'abord besoin de 20 remises, 400 {item:14047}, pour atteindre Amical). Rendez chaque lot de 20 que vous portez, l'un après l'autre.",
 
-	-- Step 60: Additional Runecloth to Revered
+	-- Step 59: Additional Runecloth to Revered
 	-- {quest:7832} Additional Runecloth
 	["{quest:7832} to Revered"] = "{quest:7832} : Révéré",
 	-- {item:14047} Runecloth
 	["Honored to Revered is 12,000: 240 hand-ins, 4,800 {item:14047}. The Auction House price of a stack decides whether to farm or buy."] = "D'Honoré à Révéré, il faut 12 000 : 240 remises, 4 800 {item:14047}. Le prix d'une pile à l'hôtel des ventes décide s'il vaut mieux farmer ou acheter.",
 
-	-- Step 61: Additional Runecloth to Exalted
+	-- Step 60: Additional Runecloth to Exalted
 	-- {quest:7832} Additional Runecloth
 	["{quest:7832} to Exalted"] = "{quest:7832} : Exalté",
 	-- {item:14047} Runecloth · {faction:76} Orgrimmar · {npc:3362} Ogunaro Wolfrunner · {object:172958} Valley of Honor
@@ -386,6 +382,7 @@ return {
 	-- ["Bloodtalon Matriarch Eggs"] = "Œufs de la matriarche griffesang",
 	-- ["Dark Adepts and Shadowmages (level 58-60) drop it here; every Scourge kill here also counts toward the {object:92525} (see that guide). The Auction House works too."] = "Les Adeptes noirs et les Ombremages (niveau 58-60) en laissent tomber ici ; chaque mort du Fléau ici compte aussi pour {object:92525} (voir ce guide). L'hôtel des ventes fonctionne aussi.",
 	-- ["Dunemaul ogres (level 45-48) drop it here. The Auction House works too."] = "Les ogres Cognedune (niveau 45-48) en laissent tomber ici. L'hôtel des ventes fonctionne aussi.",
+	-- ["Fly to {area:1237} in western {zone:1447}. {npc:8576} sends you north-east to the blood elf camp on the bluffs of the northern peninsula."] = "Volez jusqu'à {area:1237}, dans l'ouest d'{zone:1447}. {npc:8576} vous envoie au nord-est vers le camp des elfes de sang, sur les falaises de la péninsule nord.",
 	-- ["In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. The {area:363} is the best of them: about 1,400 {faction:76} and 1,400 Darkspear reputation in 25 minutes (about 280 each at a fifth). {npc:3143} waits in the Den, the big hut; {npc:10176} stands outside it."] = "Dans Classic, les quêtes de 6 niveaux ou plus sous le vôtre rapportent moins (un cinquième au niveau 60) ; un retour de la bêta de Forever dit qu'elles rapportaient en entier. Votre première remise vous le montrera : si elle rapporte un cinquième, sautez ces étapes. La {area:363} est la meilleure : environ 1 400 de réputation auprès d'{faction:76} et 1 400 Darkspear en 25 minutes (environ 280 chacune à un cinquième). {npc:3143} attend dans la Tanière, la grande hutte ; {npc:10176} se tient devant.",
 	-- ["In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. {area:380}: about 1,500 {faction:76} reputation in 70 minutes (300 at a fifth), {faction:76}'s only. {npc:3338}, {npc:3464}, {npc:3429}, {npc:3449} and {npc:267310} stand in the town, {npc:3432} by the inn."] = "Dans Classic, les quêtes de 6 niveaux ou plus sous le vôtre rapportent moins (un cinquième au niveau 60) ; un retour de la bêta de Forever dit qu'elles rapportaient en entier. Votre première remise vous le montrera : si elle rapporte un cinquième, sautez ces étapes. {area:380} : environ 1 500 de réputation auprès d'{faction:76} en 70 minutes (300 à un cinquième), pour {faction:76} seulement. {npc:3338}, {npc:3464}, {npc:3429}, {npc:3449} et {npc:267310} se tiennent dans la ville, {npc:3432} près de l'auberge.",
 	-- ["In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. {quest:5726}: 400 {faction:76} reputation in 20 minutes (80 at a fifth), with a run through {area:2437} that a level 60 clears alone."] = "Dans Classic, les quêtes de 6 niveaux ou plus sous le vôtre rapportent moins (un cinquième au niveau 60) ; un retour de la bêta de Forever dit qu'elles rapportaient en entier. Votre première remise vous le montrera : si elle rapporte un cinquième, sautez ces étapes. {quest:5726} : 400 de réputation auprès d'{faction:76} en 20 minutes (80 à un cinquième), avec un passage dans le {area:2437} qu'un niveau 60 nettoie seul.",
@@ -397,5 +394,6 @@ return {
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "Les Massacreurs de la KapitalRisk de {area:381} (niveau 16-17) en laissent tomber ici. L'hôtel des ventes fonctionne aussi.",
 	-- ["{npc:14726} takes cloth for {faction:76} in {faction:76}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7832} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14726} prend les étoffes pour {faction:76} à {faction:76}. Les premiers dons d'Etoffe de laine, d'Etoffe de soie, d'Etoffe de tisse-mage et de {item:14047} (60 étoffes chacun) ne se font qu'une fois et donnent le plus de réputation par étoffe ; ensuite, {quest:7832} se répète jusqu'à Exalté. Être exalté auprès de la ville d'une autre race permet d'acheter les montures de cette race. L'atout Diplomate de l'Héritage de Forever augmente les gains de réputation.",
 	-- ["{npc:14726}: {item:14047} delivered"] = "{npc:14726} : {item:14047} livrée",
+	-- ["{npc:4485} stands in the {object:172958} outside the {object:173084}. The first two {quest:3504} quests are level 53 and pay in full at 60 too, as every quest does in Forever."] = "{npc:4485} se tient dans la {object:172958}, devant {object:173084}. Les deux premières quêtes {quest:3504} sont de niveau 53 et rapportent elles aussi en entier au niveau 60, comme toute quête dans Forever.",
 	-- ["{quest:7832} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7832} prend 20 {item:14047} par remise et se répète autant que vous voulez. Apportez l'{item:14047} par multiples de 20 et rendez tout d'un coup, une remise après l'autre. {item:14047} : Adeptes noirs et Ombremages (niveau 58-60) en {zone:1423}, ou l'hôtel des ventes.",
 }
