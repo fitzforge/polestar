@@ -10472,6 +10472,18 @@
 				],
 				"reason": "Shen'dralas (fix round 1, 0.4.0, both factions): A Heart of Crystal (3,600 XP) from Historian Biraxas is a non-elite Decrepit Pylon Protector (42-43) by the road north: on the route, no longer optional.",
 				"issue": "-"
+			},
+			{
+				"q": 5639,
+				"faction": "Alliance",
+				"reason": "Alliance starts fix round 2 (0.4.0): Dwarf Priests take High Priest Rohan's own Desperate Prayer (5639, minimum level 10) and hand it straight back on the Ironforge Mystic Ward stop, which the level model reaches at about 13.6, in place of Maxan Anvol's letter (5637), which made them wait in Kharanos for level 10 (about 17 minutes in the level model) for a letter that only sends them to Rohan.",
+				"issue": "-"
+			},
+			{
+				"q": 94817,
+				"faction": "Alliance",
+				"reason": "Alliance starts fix round 2 (0.4.0): Gnome Priests take High Priestess Mims' own Confounding Flash (94817, minimum level 10) and hand it straight back on the Ironforge Mystic Ward stop, which the level model reaches at about 13.6, in place of Maxan Anvol's letter (94824), which made them wait in Kharanos for level 10 (about 17 minutes in the level model). A player's recording shows Mims' own quest taken and handed in at 13.",
+				"issue": "-"
 			}
 		],
 		"skip": [
@@ -10922,6 +10934,18 @@
 				"q": 4296,
 				"faction": "Alliance",
 				"reason": "Alliance 50-60 fix round 1 (0.4.0): Tablet of the Seven's tablet stands in the Dark Iron camp of the Ruins of Thaurissan with Thauris Balgarr (57), five over players on the Burning Steppes guide at about 52, and the route has no later Burning Steppes visit. Left out.",
+				"issue": "-"
+			},
+			{
+				"q": 5637,
+				"faction": "Alliance",
+				"reason": "Alliance starts fix round 2 (0.4.0): Dwarf Priests take Rohan's own Desperate Prayer (5639) in Ironforge instead; the two are exclusive. Maxan Anvol's letter needs level 10 on the Kharanos east stop, which the level model reaches at about 9.8.",
+				"issue": "-"
+			},
+			{
+				"q": 94824,
+				"faction": "Alliance",
+				"reason": "Alliance starts fix round 2 (0.4.0): Gnome Priests take Mims' own Confounding Flash (94817) in Ironforge instead; the two are exclusive. Maxan Anvol's letter needs level 10 on the Kharanos east stop, which the level model reaches at about 9.8.",
 				"issue": "-"
 			}
 		],

@@ -2315,7 +2315,8 @@ test('round 3 data: Kerlonian ends at his bag, Slimy Menace line order, Desperat
 	const elw = goals(ELWYNN);
 	const oi = (npc) => elw.find(({ goal }) => goal.t === 'kill' && goal.quest === 99128 && goal.npc === npc).goal.oi;
 	assert.deepEqual([oi(285), oi(735)], [1, 2], 'Murloc is line 1, Murloc Streamrunner line 2');
-	const hand = goals(DUN_MOROGHS[0]).find(({ goal }) => is('turnin', 5637)(goal));
+	// Fix round 2 (0.4.0): Dwarf Priests take Rohan's own copy (5639) on the Ironforge stop instead of Maxan Anvol's letter.
+	const hand = goals(DUN_MOROGHS[0]).find(({ goal }) => is('turnin', 5639)(goal));
 	assert.ok(hand && hand.goal.npc === 11406, 'Desperate Prayer to High Priest Rohan');
 	assert.ok(!/Stormwind/.test(JSON.stringify(hand.step.zone || '')), 'in Ironforge, not Stormwind');
 	for (const file of DUN_MOROGHS) {
@@ -9739,8 +9740,20 @@ test('Level sweep: accepts below their minimum level are moved or gated', { skip
 	// at 49.79 by Human, Gnome and Skyborne Mages; the level-up in Azshara would have sent them back to Ironforge.
 	const mages = ungoro.findIndex(({ goal }) => goal.t === 'level' && goal.level >= 50 && /mage/i.test(JSON.stringify(goal.only)));
 	assert.ok(mages >= 0 && mages < at(ungoro, 'accept 8250', is('accept', 8250)), "Mages reach 50 in Un'Goro before Magecraft");
-	gated('forever/alliance/dwarf/01-dun-morogh.guide', 5637, 10, 'Priest');
-	gated('forever/alliance/gnome/01-dun-morogh.guide', 94824, 10, 'Priest');
+	// Fix round 2 (0.4.0): Dwarf and Gnome Priests no longer wait in Kharanos for level 10 for Maxan Anvol's letters
+	// (5637, 94824): they take their trainers' own copies (5639 Rohan, 94817 Mims) and hand them straight back on the
+	// Ironforge Mystic Ward stop, reached past level 13, so no accept is offered below its minimum level.
+	for (const [file, own, letter] of [
+		['forever/alliance/dwarf/01-dun-morogh.guide', 5639, 5637],
+		['forever/alliance/gnome/01-dun-morogh.guide', 94817, 94824],
+	]) {
+		const list = goals(file);
+		assert.ok(!list.some(({ goal }) => is('accept', letter)(goal)), `${file}: Maxan Anvol's letter ${letter} is not taken`);
+		assert.ok(!list.some(({ goal }) => goal.t === 'level' && /priest/i.test(JSON.stringify(goal.only))), `${file}: no Priest level wait`);
+		const take = at(list, `${file}: accept ${own}`, is('accept', own));
+		assert.equal(list[take].s, step(list, 'turnin', own), `${file}: ${own} taken and handed in on one step`);
+		assert.match(JSON.stringify(list[take].step.zone || ''), /Ironforge/, `${file}: ${own} in Ironforge`);
+	}
 	for (const side of ['alliance', 'horde']) {
 		gated(`forever/${side}/skyborne/01-zephras-isle.guide`, 94003, 10, 'Warrior');
 		gated(`forever/${side}/skyborne/01-zephras-isle.guide`, 94978, 10, 'Hunter');

@@ -347,14 +347,12 @@ step Tundra MacGrann
 # ---------------------------------------------------------------- East through Kharanos
 
 step Kharanos
-  tip Back east through Kharanos: Senir by Eric's campfire takes the Frostmane Hold report, and Razzle Sprysprocket the cogs and gears. The class quests here wait for level 10: Priests and Shamans still short of it finish on the Ice Claw Bears (7-8) in the fields just south of Kharanos.
+  tip Back east through Kharanos: Senir by Eric's campfire takes the Frostmane Hold report, and Razzle Sprysprocket the cogs and gears. The Shaman quest here waits for level 10: a Shaman still short of it finishes on the Ice Claw Bears (7-8), Snow Leopards and Large Crag Boars in the fields just south of Kharanos.
   turnin 287                                  -- Senir Whitebeard
   accept 291                                  -- Senir Whitebeard: Senator Barin Redstone in Ironforge takes it
   turnin 412                                  -- Razzle Sprysprocket, below ground
   level 10 only Shaman
   accept 94449 only Shaman                    -- Ingrid Dunwald: Bruegs Kindleborn by the South Gate takes it
-  level 10 only Priest
-  accept 94824 only Priest,Gnome              -- Maxan Anvol: High Priestess Mims in Ironforge takes it
 
 step Steelgrill's Depot
   tip Follow the road north-east from Kharanos to the depot: the whole east of Dun Morogh is one sweep from here.
@@ -655,7 +653,8 @@ step The Mystic Ward
   only Paladin,Priest,Mage
   zone Ironforge
   tip The paladin, priest and mage trainers are in the Hall of Mysteries, in the Mystic Ward.
-  turnin 94824 only Priest,Gnome              -- High Priestess Mims: Confounding Flash
+  accept 94817 only Priest,Gnome              -- High Priestess Mims: Confounding Flash, her own copy of the letter
+  turnin 94817 only Priest,Gnome
   train class only Paladin,Priest,Mage
 
 step The High Seat

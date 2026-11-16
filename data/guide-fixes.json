@@ -4670,48 +4670,6 @@
 			"pr": 1317
 		},
 		{
-			"id": "0306-level-sweep-desperate-prayer-10",
-			"at": {
-				"quest": 5637,
-				"goal": "accept"
-			},
-			"faction": "Alliance",
-			"level": 10,
-			"only": "Priest",
-			"note": "Level sweep (2026-11-08): Desperate Prayer needs level 10; the calibrated level model reaches Kharanos' class-quest stop at 9.48 for a Dwarf Priest. The Hunters' and Shamans' level-10 accepts there are gated already; the Priests' was not.",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "quest minimum levels in Forever's quest data"
-				},
-				{
-					"kind": "recording",
-					"ref": "players' recordings to 2026-11-08: Maxan Anvol did not offer it to a Dwarf Priest at level 8 on that step"
-				}
-			]
-		},
-		{
-			"id": "0306-level-sweep-confounding-flash-10",
-			"at": {
-				"quest": 94824,
-				"goal": "accept"
-			},
-			"faction": "Alliance",
-			"level": 10,
-			"only": "Priest",
-			"note": "Level sweep (2026-11-08): Confounding Flash needs level 10; the calibrated level model reaches Kharanos' class-quest stop at 9.48 for a Gnome Priest, the step's only ungated level-10 accept.",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "quest minimum levels in Forever's quest data"
-				},
-				{
-					"kind": "recording",
-					"ref": "players' recordings to 2026-11-08: Maxan Anvol did not offer it to a Gnome Priest at level 9 on that step"
-				}
-			]
-		},
-		{
 			"id": "0306-level-sweep-skybreaker-bulwark-10",
 			"at": {
 				"quest": 94003,
@@ -11465,12 +11423,12 @@
 				"quest": 412,
 				"goal": "turnin"
 			},
-			"tip": "Back east through Kharanos: Senir by Eric's campfire takes the Frostmane Hold report, and Razzle Sprysprocket the cogs and gears. The class quests here wait for level 10: Priests and Shamans still short of it finish on the Ice Claw Bears (7-8) in the fields just south of Kharanos.",
-			"note": "Dun Morogh (0.4.0 audit): the Kharanos east stop waits for level 10 for the Priest and Shaman class quests (about 8-17 minutes in the level model); the step now names a camp at the player's level for the last kills.",
+			"tip": "Back east through Kharanos: Senir by Eric's campfire takes the Frostmane Hold report, and Razzle Sprysprocket the cogs and gears. The Shaman quest here waits for level 10: a Shaman still short of it finishes on the Ice Claw Bears (7-8), Snow Leopards and Large Crag Boars in the fields just south of Kharanos.",
+			"note": "Dun Morogh (0.4.0 audit, fix round 2): the Kharanos east stop waits for level 10 for the Shaman class quest (about 8 minutes in the level model; Priests now take their trainers' own quests in Ironforge); the step names the camps at the player's level south of Kharanos, three bears among the boars and leopards.",
 			"source": [
 				{
 					"kind": "client",
-					"ref": "npcs 1196 Ice Claw Bear 7-8, Dun Morogh"
+					"ref": "npcs 1196 Ice Claw Bear 7-8, 1201 Snow Leopard 7-8, 1126 Large Crag Boar 6-7, Dun Morogh"
 				}
 			]
 		},

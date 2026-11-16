@@ -136,12 +136,12 @@ next forever/alliance/02-westfall
 #   run). Return to Brock (6392) is left for a later visit to Loch Modan.
 #   The Tome needs level 12: Paladins top up on the road up to Ironforge
 #   when the route arrives below it.
-# - Priest: Desperate Prayer (5637, Dwarf) and Confounding Flash (94824,
-#   Gnome) from Maxan Anvol in Kharanos, both handed in at the Ironforge stop.
-#   Forever's letter names High Priest Rohan in Ironforge and the server
-#   offers it to Dwarves only; the reference data's Laurena in Stormwind is
-#   the Classic ender (corrections: 5634-5640 end at Rohan), so the route
-#   hands it to Rohan.
+# - Priest: Desperate Prayer (5639, Dwarf, High Priest Rohan) and Confounding
+#   Flash (94817, Gnome, High Priestess Mims): each trainer's own copy, taken
+#   and handed in at the Ironforge stop. Maxan Anvol's letters (5637, 94824,
+#   exclusive with them) need level 10 on the Kharanos stop, a wait; the
+#   reference data's Laurena in Stormwind is the Classic ender (corrections:
+#   5634-5640 end at Rohan).
 # - Priest: In Favor of the Light / Garments of the Light (5626, 5625) reward
 #   a robe, not a spell: not taken.
 # - Warrior: the Defensive Stance quests (1638, 1639, 1640, 1665) on arrival
@@ -441,14 +441,11 @@ step Tundra MacGrann
 # ---------------------------------------------------------------- East through Kharanos
 
 step Kharanos
-  tip Back east through Kharanos: Senir by Eric's campfire takes the Frostmane Hold report, and Razzle Sprysprocket the cogs and gears. The class quests here wait for level 10: Priests and Shamans still short of it finish on the Ice Claw Bears (7-8) in the fields just south of Kharanos.
+  tip Back east through Kharanos: Senir by Eric's campfire takes the Frostmane Hold report, and Razzle Sprysprocket the cogs and gears. The Shaman quest here waits for level 10: a Shaman still short of it finishes on the Ice Claw Bears (7-8), Snow Leopards and Large Crag Boars in the fields just south of Kharanos.
   turnin 287                                  -- Senir Whitebeard
   accept 291                                  -- Senir Whitebeard: Senator Barin Redstone in Ironforge takes it
   turnin 412                                  -- Razzle Sprysprocket
   accept 94449 only Shaman                    -- Ingrid Dunwald: Bruegs Kindleborn by the South Gate takes it
-  level 10 only Priest
-  accept 5637 only Priest,Dwarf               -- Maxan Anvol: High Priest Rohan in Ironforge takes it
-  accept 94824 only Priest,Gnome              -- Maxan Anvol: High Priestess Mims in Ironforge takes it
 
 step Taming the Beast
   only Hunter
@@ -675,8 +672,10 @@ step Ironforge class quests
   zone Ironforge
   tip Belia Thundergranite is in the Hall of Arms, High Priestess Mims and High Priest Rohan in the Hall of Mysteries, Lago Blackwrench in the Forlorn Cavern.
   turnin 6086 only Hunter                     -- Belia Thundergranite: Beast Training
-  turnin 94824 only Priest,Gnome              -- High Priestess Mims: Confounding Flash
-  turnin 5637 only Priest,Dwarf               -- High Priest Rohan: Desperate Prayer
+  accept 94817 only Priest,Gnome              -- High Priestess Mims: Confounding Flash, her own copy of the letter
+  turnin 94817 only Priest,Gnome
+  accept 5639 only Priest,Dwarf               -- High Priest Rohan: Desperate Prayer, his own copy of the letter
+  turnin 5639 only Priest,Dwarf
   accept 1715 only Warlock                    -- Lago Blackwrench: Gakin the Darkbinder in Stormwind takes it
 
 step The Deeprun Tram
@@ -709,9 +708,9 @@ step Defensive Stance
   accept 1665
   turnin 1665                                 -- Harry Burlguard: Defensive Stance
 
-# Desperate Prayer (5637) is handed to High Priest Rohan at the Ironforge
-# stop above (Ironforge class quests): Forever's letter names him, and
-# Laurena here takes it only in the Classic data.
+# Desperate Prayer (5639, Rohan's own copy) is taken and handed in at the
+# Ironforge stop above (Ironforge class quests); Laurena here takes the
+# letter only in the Classic data.
 #
 
 step Gakin the Darkbinder
