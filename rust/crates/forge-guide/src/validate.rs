@@ -872,6 +872,41 @@ fn check_bare_uses(g: &V, diag: &mut Diagnostics) {
 	}
 }
 
+/// Names and texts of a compiled goal the guide window can show, and the lists' names.
+const SHOWN_FIELDS: [&str; 10] = ["title", "target", "npcName", "objName", "itemName", "from", "fromAlso", "startItemName", "text", "note"];
+const SHOWN_LISTS: [(&str, &str); 4] = [("objs", "text"), ("fromNpcs", "npcName"), ("candidates", "npcName"), ("reagents", "itemName")];
+
+/// One of the game's placeholder names ("[DNT] Kill Credit", "PvP Tower Credit Marker", "Trigger Ichman",
+/// "<UNUSED>", crate::placeholder) in anything a compiled goal shows (#2614). An error: give the objective its
+/// text in forever-db/corrections/quests.json, or the NPC, object or item its name.
+fn check_placeholders(g: &V, diag: &mut Diagnostics) {
+	for step in g.get("steps").items() {
+		for goal in step.get("goals").items() {
+			let mut hits: Vec<(String, String)> = Vec::new();
+			for f in SHOWN_FIELDS {
+				if let Some(s) = goal.get(f).as_str().filter(|s| crate::placeholder::banned(s)) {
+					hits.push((f.to_string(), s.to_string()));
+				}
+			}
+			for (list, f) in SHOWN_LISTS {
+				for e in goal.get(list).items() {
+					if let Some(s) = e.get(f).as_str().filter(|s| crate::placeholder::banned(s)) {
+						hits.push((format!("{list}.{f}"), s.to_string()));
+					}
+				}
+			}
+			for (field, s) in hits {
+				diag.error(
+					&ast_file(g),
+					line(&goal),
+					format!("`{}` shows the game's placeholder name \"{s}\" ({field})", t_of(&goal)),
+					Some("give the quest objective its text in forever-db/corrections/quests.json, or the NPC, object or item its name (corrections/npcs.json, objects.json)".into()),
+				);
+			}
+		}
+	}
+}
+
 fn next_ids(g: &V) -> Vec<V> {
 	let nc = g.get("nextChoices");
 	if nc.truthy() {
@@ -1234,6 +1269,7 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 		check_turnin_items(g, &ctx.ancestors(g), data, diag);
 		check_bare_completes(g, data, diag);
 		check_bare_uses(g, diag);
+		check_placeholders(g, diag);
 		check_chosen_all_optional(g, diag);
 		check_dungeon_floors(g, data, diag);
 		ctx.mark_carried(g);

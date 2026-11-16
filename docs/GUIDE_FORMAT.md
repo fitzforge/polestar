@@ -809,6 +809,7 @@ take a jump.
 | group content `group` | elite work, dungeon and raid quests and goals on an instance map: see "Group content" below |
 | escort `escort` | the accept, `complete` and objective goals of an escort quest: see "Escort quests" below |
 | later hand-in `carriedTo` | `complete` and objective goals of a quest only a later guide of the chain hands in: see "Quests carried to a later guide" below |
+| placeholder target `logLine` | a `kill` or `talk` on one of the game's placeholder targets (a "[DNT] Kill Credit", "PvP Graveyard Credit Marker", "Trigger Ichman", #2614): its `npc` is dropped, `target` (`npcName`) is the name the placeholder carries ("[DNT] Kill Credit: Twilight Thrall" -> "Twilight Thrall"), else the objective's own text, else the goal's note, and the guide window reads it by its quest-log line. None of the three is an error. A `complete`'s `objs` leave out a placeholder's text the same way |
 | fresh start `fresh` | a leveling guide that other leveling guides lead to: how much of its quest XP follows on from their quests: see "Fresh starts" below |
 | height `z` | a goal at an NPC or object: the height of that NPC's or object's spawn (`spawnz.json`), so the walk ends on its floor: see "Heights" below |
 | place area `area` | `sethome`, `hearth`, `fly` and `getfp` (their location) and `goto` (its label): the AreaTable area of that name, so the goal completes and reads right on every client language: see "Places by ID" below |
@@ -1302,6 +1303,12 @@ Errors:
   an item whose every located dropper is such an npc; `lint` also errors on a
   non-`optional` quest goal of a quest the cached simulator world (below) excludes
   as `elite`, unless the goal was already reported as elite
+- one of the game's placeholder names ("[DNT] Kill Credit", "Credit", "PvP Tower Credit
+  Marker", "Trigger Ichman", "<UNUSED>", anything tagged `[PH]` or `(DND)`) in a name or text a
+  compiled goal shows (its target, NPC, object, item, source, objective lines, note):
+  give the objective its text in `forever-db/corrections/quests.json`, or the entity its name
+  (#2614). A `kill` or `talk` on such a target is worded for you (see "What the compiler
+  fills in")
 
 Warnings:
 - a `when` predicate naming a quest or item the data lacks, a zone not in

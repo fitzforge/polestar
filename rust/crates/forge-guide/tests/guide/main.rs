@@ -49,6 +49,7 @@ mod lint_timed;
 mod pack_manifest;
 mod pack_memory;
 mod pack_race_parts;
+mod placeholders;
 mod places;
 mod radius;
 mod recorded_areas;

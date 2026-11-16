@@ -83,7 +83,7 @@ pub const WHEN_KEYS: [&str; 19] = ["k", "neg", "op", "n", "frac", "q", "item", "
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a
 // goal without them is emitted as before.
-pub const GOAL_KEYS: [&str; 85] = [
+pub const GOAL_KEYS: [&str; 86] = [
 	"t",
 	"class",
 	// `train class`: its step's zone (uiMapID), whose trainers the Engine ranks first (#1357).
@@ -99,6 +99,8 @@ pub const GOAL_KEYS: [&str; 85] = [
 	"quest",
 	"title",
 	"target",
+	// A kill or talk on one of the game's placeholder targets (#2614): the engine reads it by its quest-log line.
+	"logLine",
 	"npc",
 	"npcName",
 	"object",
