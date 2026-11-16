@@ -45,3 +45,16 @@ test('format 11: a guide with an `upto` goal, read by Polestar 0.4.1 and later',
 	assert.equal(formatFor(compile(guideText(['step One', '  accept 7', '  kill 6 quest 7.1 upto 4'])).guides), UPTO_FORMAT);
 	assert.equal(formatFor(compile(guideText(['step One', '  accept 7', '  kill 6 quest 7.1'])).guides), FORMAT);
 });
+
+test("the route planner's goal editor writes `upto` and offers it where a goal can count an objective", () => {
+	const { goalFields, formatGoal, verbSchema } = require('../tools/lib/planner/goalfmt');
+	const { parseGuide } = require('../tools/lib/dsl/parse');
+	const { Diagnostics } = require('../tools/lib/dsl/diag');
+	const written = (text) => formatGoal(goalFields(parseGuide(guideText(['step One', `  ${text}`]), 'x', new Diagnostics()).steps[0].goals[0]));
+	assert.equal(written('kill 6 upto 5 quest 7.1'), 'kill 6 quest 7.1 upto 5');
+	assert.equal(written('collect 769 upto 2 x4 quest 86.1 optional'), 'collect 769 quest 86.1 x4 upto 2 optional');
+	assert.equal(formatGoal({ verb: 'kill', npc: 6, quest: 7, oi: 1, upto: '5' }), 'kill 6 quest 7.1 upto 5');
+	const { verbs } = verbSchema();
+	assert.ok(verbs.kill.modifiers.some((m) => m.key === 'upto' && m.type === 'int' && m.mod === 'upto'));
+	assert.ok(!verbs.accept.modifiers.some((m) => m.key === 'upto'));
+});

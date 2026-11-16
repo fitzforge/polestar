@@ -23,7 +23,7 @@ const cap = (w) => w.charAt(0).toUpperCase() + w.slice(1);
 
 // Fields the parser derives from how a line is written; a caller may leave them out.
 const DERIVED = ['explicitCoords', 'npcExplicit', 'objectExplicit', 'itemExplicit', 'skillQuoted', 'factionQuoted'];
-const NUMERIC = ['quest', 'oi', 'npc', 'object', 'item', 'x', 'y', 'coordMap', 'r', 'count', 'minLevel', 'untilSkill', 'criteria', 'rewardXp', 'rewardMoney', 'level', 'frac', 'levelXp', 'grind', 'spell', 'factionId', 'standing', 'achievement', 'rank'];
+const NUMERIC = ['quest', 'oi', 'npc', 'object', 'item', 'x', 'y', 'coordMap', 'r', 'count', 'minLevel', 'untilSkill', 'criteria', 'rewardXp', 'rewardMoney', 'level', 'frac', 'levelXp', 'grind', 'spell', 'factionId', 'standing', 'achievement', 'rank', 'upto'];
 const NUM_TEXT = /^-?\d+(?:\.\d+)?$/;
 
 // Verbs whose positional arguments include the key (written there unless `<key>Explicit`).
@@ -299,6 +299,7 @@ function formatGoal(fields) {
 	if (!QUEST_POSITIONAL.includes(verb) && f.quest !== undefined) push('quest', `quest ${f.quest}${f.oi !== undefined ? `.${f.oi}` : ''}`);
 	else if (f.oi !== undefined) throw new Error('an objective (`oi`) needs a quest link');
 	if (f.count !== undefined) push('count', `x${f.count}`);
+	if (f.upto !== undefined) push('upto', `upto ${f.upto}`);
 	if (f.minLevel !== undefined) push('lvl', `lvl ${f.minLevel}`);
 	if (f.grind !== undefined && verb === 'level') push('grind', `grind ${f.grind}`);
 	if (f.untilSkill !== undefined) push('until', `until ${f.untilSkill}`);
@@ -430,6 +431,7 @@ const MODIFIER_FIELDS = {
 	item: [idf('item', 'Item')],
 	quest: [idf('quest', 'Quest'), fld('oi', 'int', 'Objective')],
 	count: [fld('count', 'int', 'Count')],
+	upto: [fld('upto', 'int', 'Up to (part of the objective)')],
 	lvl: [fld('minLevel', 'int', 'Minimum level')],
 	grind: [idf('grind', 'NPC ground on')],
 	until: [fld('untilSkill', 'int', 'Until skill')],
@@ -447,7 +449,7 @@ const MODIFIER_FIELDS = {
 	only: [fld('onlyText', 'text', 'Only for')],
 };
 // Modifier order of the schema = the order formatGoal writes them.
-const MOD_ORDER = ['at', 'map', 'r', 'frame', 'npc', 'object', 'item', 'quest', 'count', 'lvl', 'grind', 'until', 'criteria', 'nearest', 'anywhere', 'choose', 'reward', 'xp', 'money', 'direct', 'group', 'text', 'optional', 'only'];
+const MOD_ORDER = ['at', 'map', 'r', 'frame', 'npc', 'object', 'item', 'quest', 'count', 'upto', 'lvl', 'grind', 'until', 'criteria', 'nearest', 'anywhere', 'choose', 'reward', 'xp', 'money', 'direct', 'group', 'text', 'optional', 'only'];
 
 function verbSchema() {
 	const verbs = {};
