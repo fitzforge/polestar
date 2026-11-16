@@ -8588,7 +8588,7 @@ R("npc", 7562, 10177, [[
 10160	Tobender Moonkin
 10177	Spitzenskarabäus
 ]])
-R("npc", 10179, 12044, [[
+R("npc", 10179, 12040, [[
 
 10179	Reitroboschreiter (schwarz)
 10181	Fürstin Sylvanas Windrunner
@@ -8936,6 +8936,7 @@ R("npc", 10179, 12044, [[
 11517	Flintauge
 11518	Jergosh der Herbeirufer
 11520	Taragaman der Hungerleider
+11521	Kodoerscheinung
 11536	Rüstmeisterin Miranda Breechlock
 11551	Nekrobestie
 11552	Mystiker der Holzschlundfeste
@@ -9089,10 +9090,10 @@ R("npc", 10179, 12044, [[
 12036	Aerie Peak - Gemischtwaren
 12039	Aerie Peak - Fleischverkäufer
 12040	Aerie Peak - Panzerrüstungverkäufer
-12044	Sun Rock - Schmiedekunstgrundbedarf
 ]])
-R("npc", 12046, 14546, [[
+R("npc", 12044, 14545, [[
 
+12044	Sun Rock - Schmiedekunstgrundbedarf
 12046	Gor'marok der Verheerer
 12047	Gebirgsjäger der Stormpike
 12048	Schildwache der Allianz
@@ -9592,10 +9593,10 @@ R("npc", 12046, 14546, [[
 14543	Schneller olivfarbener Raptor
 14544	Schneller orangener Raptor
 14545	Schneller blauer Raptor
-14546	Schneller brauner Widder
 ]])
-R("npc", 14547, 16225, [[
+R("npc", 14546, 16216, [[
 
+14546	Schneller brauner Widder
 14547	Schneller weißer Widder
 14548	Schneller grauer Widder
 14549	Großer brauner Kodo
@@ -10095,10 +10096,10 @@ R("npc", 14547, 16225, [[
 16212	Einsatzkommandant Metz
 16215	Unheiliger Stab
 16216	Unheilige Schwerter
-16225	Lasttier
 ]])
-R("npc", 16226, 260860, [[
+R("npc", 16225, 260822, [[
 
+16225	Lasttier
 16226	Wache Didier
 16228	Argentuminfanterist
 16229	Verletzter Argentuminfanterist
@@ -10598,10 +10599,10 @@ R("npc", 16226, 260860, [[
 260808	Hochlandschrecken
 260809	Hochlandschildkröte
 260822	Besudelter Hainwandler
-260860	Wache Childers
 ]])
-R("npc", 261311, 276891, [[
+R("npc", 260860, 276891, [[
 
+260860	Wache Childers
 261311	Schleppweg
 261368	Marinesoldat von Kul Tiras
 261485	Wache von Theramore
@@ -10895,7 +10896,7 @@ R("npc", 261311, 276891, [[
 276793	Ockerfarbenes Skelettschlachtross
 276891	Schneller Brauner
 ]])
-R("object", 31, 142095, [[
+R("object", 31, 142102, [[
 
 31	Alte Löwenstatue
 32	Versunkene Truhe
@@ -10971,7 +10972,6 @@ R("object", 31, 142095, [[
 1723	Morastschnauzenkappe
 1727	Fässchen Shindigger-Starkbier
 1728	Staubiger Teppich
-1729	Besudeltes Fässchen
 1731	Kupfervorkommen
 1732	Zinnvorkommen
 1733	Silbervorkommen
@@ -11397,10 +11397,10 @@ R("object", 31, 142095, [[
 142093	Briefkasten
 142094	Briefkasten
 142095	Briefkasten
-]])
-R("object", 142102, 180165, [[
-
 142102	Briefkasten
+]])
+R("object", 142103, 180166, [[
+
 142103	Briefkasten
 142109	Briefkasten
 142110	Briefkasten
@@ -11900,10 +11900,10 @@ R("object", 142102, 180165, [[
 180105	Kreis der Bindung
 180164	Sonnengras
 180165	Lila Lotus
-]])
-R("object", 180166, 701788, [[
-
 180166	Bergsilberweisling
+]])
+R("object", 180167, 701788, [[
+
 180167	Goldener Sansam
 180168	Traumblatt
 180184	Ein Schwarm Fische

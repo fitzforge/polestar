@@ -35,7 +35,7 @@ File: Ding/DB/CREDITS.md (sha256 d32ce3d857766e88d0afd94d39eb0d4e3317ccc5538a467
 File: Ding/DB/Locales/esMX.lua (sha256 380da93d12f47ede6b8e248a8d8096431de6a8865e9cd5cf8ff775cb78a90ceb)
 License: GPL-3.0 (Copyright Yendi), used in Polestar with his permission
 (THIRD_PARTY.md in the Polestar repository).
-Names taken: 4161 quests, 6221 NPCs, 1034 objects, 11 items.
+Names taken: 4161 quests, 6222 NPCs, 1033 objects, 11 items.
 DingDB's base data is generated from Questie and QuestieDB: see CREDITS.md
 beside this file.
 

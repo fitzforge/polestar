@@ -8978,7 +8978,7 @@ R("npc", 8542, 10636, [[
 10619	Glaciar
 10636	Manada de kodos
 ]])
-R("npc", 10637, 12056, [[
+R("npc", 10637, 12053, [[
 
 10637	Malyfous Martilloscuro
 10638	Kanati Nube Gris
@@ -9271,6 +9271,7 @@ R("npc", 10637, 12056, [[
 11517	Ogglesílex
 11518	Jergosh el Convocador
 11520	Taragaman el Hambriento
+11521	Aparecido kodo
 11536	Intendente Miranda Cerrobrecha
 11551	Necromefisto
 11552	Místico Fauces de Madera
@@ -9479,10 +9480,10 @@ R("npc", 10637, 12056, [[
 12051	Legionario Lobo Gélido
 12052	Guerrero Lobo Gélido
 12053	Guardián Lobo Gélido
-12056	Barón Geddon
 ]])
-R("npc", 12076, 14388, [[
+R("npc", 12056, 14387, [[
 
+12056	Barón Geddon
 12076	Elemental de lava
 12096	Intendente de Pico Tormenta
 12097	Intendente Lobo Gélido
@@ -9982,10 +9983,10 @@ R("npc", 12076, 14388, [[
 14382	Tradicionalista Mykos
 14383	Tradicionalista Kildrath
 14387	Lothos Levantagrietas
-14388	Pícaro Draco Negro
 ]])
-R("npc", 14390, 15707, [[
+R("npc", 14388, 15704, [[
 
+14388	Pícaro Draco Negro
 14390	Montaraz expedicionario
 14392	Señor supremo Runthak
 14393	Sacerdote expedicionario
@@ -10485,10 +10486,10 @@ R("npc", 14390, 15707, [[
 15702	Capataz primera Taiga
 15703	Capataz primero Grimsford
 15704	Capataz primera Kai'jin
-15707	Sargento primero Rayochirriante
 ]])
-R("npc", 15708, 269138, [[
+R("npc", 15707, 269068, [[
 
+15707	Sargento primero Rayochirriante
 15708	Sargento primera Maclure
 15709	Sargento primera Umbraluna
 15712	Montón de barro
@@ -10988,10 +10989,10 @@ R("npc", 15708, 269138, [[
 268745	Mayhoa Pezuñacielo
 268840	Cachorro de oso espectral
 269068	Eylah Cuernosol
-269138	Kodo de montar blanco
 ]])
-R("npc", 269139, 276793, [[
+R("npc", 269138, 276793, [[
 
+269138	Kodo de montar blanco
 269139	Kodo de montar gris
 269140	Kodo marrón de montar
 269141	Kodo de montar lavanda
@@ -11067,7 +11068,7 @@ R("npc", 269139, 276793, [[
 276194	Cuidadora de huevos Viento Seco
 276793	Caballo de guerra esquelético ocre
 ]])
-R("object", 31, 142194, [[
+R("object", 31, 142195, [[
 
 31	Estatua de león antigua
 32	Cofre sumergido
@@ -11143,7 +11144,6 @@ R("object", 31, 142194, [[
 1723	Flor Morrobarro
 1727	Barril de cerveza Machacacanillas
 1728	Alfombra polvorienta
-1729	Barril contaminado
 1731	Filón de cobre
 1732	Filón de estaño
 1733	Filón de plata
@@ -11569,10 +11569,10 @@ R("object", 31, 142194, [[
 142188	Llama de Samha
 142191	Cajón de suministros de la Horda
 142194	¡Tesoro de pirata!
-]])
-R("object", 142195, 180748, [[
-
 142195	Mapa de batalla de los Zarpaleña
+]])
+R("object", 142343, 180750, [[
+
 142343	Pedestal de Uldum
 142344	Extrapolador artificial
 142477	Caja fuerte de Termochufe
@@ -12072,10 +12072,10 @@ R("object", 142195, 180748, [[
 180746	Obsequio ligeramente agitado
 180747	Presente con envoltorio alegre
 180748	Presente que hace tic-tac
-]])
-R("object", 180750, 701788, [[
-
 180750	Banco de bocanegras grasos
+]])
+R("object", 180751, 701788, [[
+
 180751	Restos de un naufragio
 180752	Banco de pargos de fuego
 180754	Cáliz de brindis

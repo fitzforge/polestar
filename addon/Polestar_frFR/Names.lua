@@ -8364,7 +8364,7 @@ R("npc", 7439, 9700, [[
 9699	Hanneton de feu
 9700	Crabe de lave
 ]])
-R("npc", 9701, 11832, [[
+R("npc", 9701, 11831, [[
 
 9701	Scorpide du pic
 9716	Combattant Bloodaxe
@@ -8758,6 +8758,7 @@ R("npc", 9701, 11832, [[
 11517	Lorgnesilex
 11518	Jergosh l'Invocateur
 11520	Taragaman l'Affameur
+11521	Apparition kodo
 11536	Intendante Miranda Breechlock
 11551	Nécrofiel
 11552	Mystique Grumegueule
@@ -8865,10 +8866,10 @@ R("npc", 9701, 11832, [[
 11822	Gardien de Reflet-de-Lune
 11830	Prêtre Hakkari
 11831	Sorcier-docteur Hakkari
-11832	Gardien Remulos
 ]])
-R("npc", 11836, 14439, [[
+R("npc", 11832, 14438, [[
 
+11832	Gardien Remulos
 11836	Ours des chardons enragé capturé
 11837	Chaman Follepatte
 11838	Mystique Follepatte
@@ -9368,10 +9369,10 @@ R("npc", 11836, 14439, [[
 14431	Furie Shelda
 14433	Bouillasseux
 14438	Officier Pomeroy
-14439	Officier Brady
 ]])
-R("npc", 14440, 15811, [[
+R("npc", 14439, 15810, [[
 
+14439	Officier Brady
 14440	Chasseur Sagewind
 14441	Chasseur Ragetotem
 14442	Chasseur Thunderhorn
@@ -9871,10 +9872,10 @@ R("npc", 14440, 15811, [[
 15807	Porteguerre anubisath mineur
 15808	Ecorcheuse silithide mineure
 15810	Porteguerre anubisath érodé
-15811	Ecorcheuse silithide chancelante
 ]])
-R("npc", 15812, 255109, [[
+R("npc", 15811, 254626, [[
 
+15811	Ecorcheuse silithide chancelante
 15812	Officier qiraji
 15813	Officier qiraji Zod
 15814	Lieutenant qiraji Jo-rel
@@ -10374,10 +10375,10 @@ R("npc", 15812, 255109, [[
 254589	Vulgara l'Insatiable
 254596	Soigneur al'aketh
 254626	Assassin al'aketh
-255109	Golem de chair
 ]])
-R("npc", 255183, 275013, [[
+R("npc", 255109, 274992, [[
 
+255109	Golem de chair
 255183	Jezerelle l'Endiablée
 255534	Bennic « Mauvais vent »
 255597	Père Tuttle
@@ -10877,10 +10878,10 @@ R("npc", 255183, 275013, [[
 274978	Garde vengeur
 274990	Ysa'bel Brillevent
 274992	Kae'la Brillechant
-275013	Archiviste Helm Main-d'Enclume
 ]])
-R("npc", 275017, 276891, [[
+R("npc", 275013, 276891, [[
 
+275013	Archiviste Helm Main-d'Enclume
 275017	Magus Fansy Portebien
 275018	Bitty Flanquegivre
 275023	Sentinelle d'Auberdine furieuse
@@ -10961,7 +10962,7 @@ R("npc", 275017, 276891, [[
 276793	Cheval de guerre squelette ocre
 276891	Palefroi bai rapide
 ]])
-R("object", 31, 141980, [[
+R("object", 31, 142071, [[
 
 31	Statue du vieux lion
 32	Coffre englouti
@@ -11041,7 +11042,6 @@ R("object", 31, 141980, [[
 1723	Fleurs de fangemufle
 1727	Tonneau de Shindigger
 1728	Carpette poussiéreuse
-1729	Baril infecté
 1731	Filon de cuivre
 1732	Filon d'étain
 1733	Filon d'argent
@@ -11463,10 +11463,10 @@ R("object", 31, 141980, [[
 141931	Oeuf d'hippogryphe
 141979	Trésor ancien
 141980	Coffret spectral
-]])
-R("object", 142071, 179922, [[
-
 142071	Oeuf-O-Matic
+]])
+R("object", 142075, 180024, [[
+
 142075	Boîte aux lettres
 142076	Pommes fraîches de Clara
 142088	Tablette de volonté
@@ -11966,10 +11966,10 @@ R("object", 142071, 179922, [[
 179914	Pile d'ossements
 179915	Pile de crânes
 179922	Calice de sang corrompu
-]])
-R("object", 180024, 701788, [[
-
 180024	Coffre mystérieux des Mortemines
+]])
+R("object", 180025, 701788, [[
+
 180025	Meule de foin mystérieuse du Val d'est
 180055	Coffre mystérieux des cavernes des Lamentations
 180056	Souche mystérieuse

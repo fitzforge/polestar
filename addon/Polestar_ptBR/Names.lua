@@ -9661,7 +9661,7 @@ R("npc", 8542, 10476, [[
 10472	Ocultista de Scolomântia
 10476	Necrólito de Scolomântia
 ]])
-R("npc", 10477, 11806, [[
+R("npc", 10477, 11805, [[
 
 10477	Necromante de Scolomântia
 10478	Esqueleto Rachado
@@ -10019,6 +10019,7 @@ R("npc", 10477, 11806, [[
 11517	Pederneiro
 11518	Jergosh%2C o Invocador
 11520	Taragaman%2C o Famélico
+11521	Aparição Kodo
 11536	Intendente Miranda Cerraculatra
 11546	Luís Minado
 11551	Necroteias
@@ -10162,10 +10163,10 @@ R("npc", 10477, 11806, [[
 11803	Guardião do Crepúsculo Exeter
 11804	Guardião do Crepúsculo Havunth
 11805	Jarund Andarilho Audaz
-11806	Sentinela Onaeya
 ]])
-R("npc", 11807, 13597, [[
+R("npc", 11806, 13596, [[
 
+11806	Sentinela Onaeya
 11807	Tristane Umbrapétrea
 11808	Grum Barbarruiva
 11810	Alvinho Penagentil
@@ -10665,10 +10666,10 @@ R("npc", 11807, 13597, [[
 13576	Cavalga-carneiro de Lançatroz
 13577	Comandante de Carneiros de Lançatroz
 13596	Putrigarra
-13597	Especialista em Explosivos dos Lobo do Gelo
 ]])
-R("npc", 13598, 15351, [[
+R("npc", 13597, 15350, [[
 
+13597	Especialista em Explosivos dos Lobo do Gelo
 13598	Especialista em Explosivos de Lançatroz
 13599	Mordelisca Estólida
 13601	Engenhoqueiro Bugitranca
@@ -11168,10 +11169,10 @@ R("npc", 13598, 15351, [[
 15343	Zanguarda Qiraji
 15348	Korinnaxx
 15350	Armipotente da Horda
-15351	General de Brigada da Aliança
 ]])
-R("npc", 15353, 247223, [[
+R("npc", 15351, 247126, [[
 
+15351	General de Brigada da Aliança
 15353	Katrina Brilhestrela
 15355	Guardião Anubisath
 15362	Malfurion Tempesfúria
@@ -11671,10 +11672,10 @@ R("npc", 15353, 247223, [[
 246848	Guarda do Kirin Tor
 247032	Lyn%2C o Ignorado
 247126	Atrexis%2C o Cavaleiro da Sepultura
-247223	Nancy Flor da Canção
 ]])
-R("npc", 247227, 271698, [[
+R("npc", 247223, 271636, [[
 
+247223	Nancy Flor da Canção
 247227	Relina Esfoladora
 247264	Emissário Jacques
 247473	Izvi Dourafitz
@@ -12174,10 +12175,10 @@ R("npc", 247227, 271698, [[
 271546	Montanhista Gretchen
 271613	Abominação Incompleta
 271636	Bezorra A. Trevida
-271698	Espírito Indócil
 ]])
-R("npc", 271707, 276793, [[
+R("npc", 271698, 276793, [[
 
+271698	Espírito Indócil
 271707	Correnuvens Juvenil
 271710	Matriarca Correnuvens
 271712	Correnuvens

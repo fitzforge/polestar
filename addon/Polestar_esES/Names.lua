@@ -9293,7 +9293,7 @@ R("npc", 8442, 10488, [[
 10487	Protector resucitado
 10488	Constructo resucitado
 ]])
-R("npc", 10489, 11914, [[
+R("npc", 10489, 11913, [[
 
 10489	Guarda resucitado
 10491	Guardahuesos resucitado
@@ -9618,6 +9618,7 @@ R("npc", 10489, 11914, [[
 11517	Ogglesílex
 11518	Jergosh el Conjurador
 11520	Taragaman el Hambriento
+11521	Aparecido kodo
 11536	Intendente Cerrobrecha
 11551	Necromefisto
 11552	Místico Fauces de Madera
@@ -9794,10 +9795,10 @@ R("npc", 10489, 11914, [[
 11911	Mercenario Tótem Siniestro
 11912	Tosco Tótem Siniestro
 11913	Hechicero Tótem Siniestro
-11914	Pezuñasangre el Negro
 ]])
-R("npc", 11915, 14324, [[
+R("npc", 11914, 14323, [[
 
+11914	Pezuñasangre el Negro
 11915	Vigilapedras Gogger
 11917	Geomántico Gogger
 11918	Machacapedras Gogger
@@ -10297,10 +10298,10 @@ R("npc", 11915, 14324, [[
 14321	Guardia Fengus
 14322	Vapuleador Kreeg
 14323	Guardia Slip'kik
-14324	Cho'Rush el Observador
 ]])
-R("npc", 14325, 15600, [[
+R("npc", 14324, 15599, [[
 
+14324	Cho'Rush el Observador
 14325	Capitán Kromcrush
 14326	Guardia Mol'dar
 14329	Lobo de guerra negro
@@ -10800,10 +10801,10 @@ R("npc", 14325, 15600, [[
 15597	Ancestro Guardaluna
 15598	Ancestro Filoveloz
 15599	Ancestro Cantofilo
-15600	Ancestro Relucielo
 ]])
-R("npc", 15601, 252077, [[
+R("npc", 15600, 252076, [[
 
+15600	Ancestro Relucielo
 15601	Ancestro Tejestrellas
 15602	Ancestro Correpradera
 15603	Ancestro Nochebrisa
@@ -11303,10 +11304,10 @@ R("npc", 15601, 252077, [[
 252040	Hagatha Cadabra
 252068	Clamatormentas Al'Aketh
 252076	Suma sacerdotisa Lorthuna
-252077	Sacerdote del cielo Aanders
 ]])
-R("npc", 252083, 274935, [[
+R("npc", 252077, 274930, [[
 
+252077	Sacerdote del cielo Aanders
 252083	Derek Cosillas
 252085	Archimaga Celindra
 252087	Caballo
@@ -11806,10 +11807,10 @@ R("npc", 252083, 274935, [[
 274916	Guardia de la muerte vigilante
 274917	Boborus Altovoltio
 274930	Lyvia Tormensón
-274935	Protector de Forjaz
 ]])
-R("npc", 274978, 276793, [[
+R("npc", 274935, 276793, [[
 
+274935	Protector de Forjaz
 274978	Guardia vengativo
 274990	Ysa'bel Viento Claro
 274992	Kae'la Cantoalegre
@@ -11886,7 +11887,7 @@ R("npc", 274978, 276793, [[
 276790	Yegua zaina
 276793	Caballo de guerra esquelético ocre
 ]])
-R("object", 31, 142095, [[
+R("object", 31, 142102, [[
 
 31	Estatua de león antigua
 32	Cofre sumergido
@@ -11962,7 +11963,6 @@ R("object", 31, 142095, [[
 1723	Flor Morrobarro
 1727	Barril de cerveza Machacacanillas
 1728	Alfombra polvorienta
-1729	Barril contaminado
 1731	Filón de cobre
 1732	Filón de estaño
 1733	Filón de plata
@@ -12388,10 +12388,10 @@ R("object", 31, 142095, [[
 142093	Buzón
 142094	Buzón
 142095	Buzón
-]])
-R("object", 142102, 180184, [[
-
 142102	Buzón
+]])
+R("object", 142103, 180215, [[
+
 142103	Buzón
 142109	Buzón
 142110	Buzón
@@ -12891,10 +12891,10 @@ R("object", 142102, 180184, [[
 180167	Sansam dorado
 180168	Hojasueño
 180184	(TESTING) Banco de peces
-]])
-R("object", 180215, 701788, [[
-
 180215	Filon de torio de Hakkari
+]])
+R("object", 180216, 701788, [[
+
 180216	Hierbal
 180228	Montón hudú maldito
 180229	Montón hudú maldito
