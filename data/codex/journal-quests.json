@@ -1,5 +1,5 @@
 {
-	"_about": "Dungeons journal quests no rule in tools/lib/codex/journal.js can place (docs/ARCHITECTURE.md, Dungeons): a quest whose giver, ender and area lie outside its instance and whose objective no rule ties to it: an item made inside, or found inside on a mob or object the data has not placed there; or one picked up or handed in inside at someone the data has not placed. One row per quest and instance: { quest, instance (Codex instance key), inside (optional: [\"start\"], [\"finish\"] or both, where it is picked up or handed in inside the instance), source (a URL, a web quest database citation, or a source cited the way forever-db/corrections cite one: { kind, ref }, players' recordings for one), note }. Loaded by loadJournalQuests; a row whose quest or instance the Codex lacks is a build warning.",
+	"_about": "Dungeons journal quests no rule in tools/lib/codex/journal.js can place (docs/ARCHITECTURE.md, Dungeons): a quest whose giver, ender and area lie outside its instance and whose objective no rule ties to it: an item made inside, or found inside on a mob or object the data has not placed there; or one picked up or handed in inside at someone the data has not placed. One row per quest and instance: { quest, instance (Codex instance key), inside (optional: [\"start\"], [\"finish\"] or both, where it is picked up or handed in inside the instance), source (a URL, a web quest database citation, or a source cited the way forever-db/corrections cite one: { kind, ref }, players' recordings for one), note }. A row with exclude: true (and no inside) takes off the page a quest a rule put there wrongly. Loaded by loadJournalQuests; a row whose quest or instance the Codex lacks is a build warning.",
 	"quests": [
 		{
 			"quest": 93404,
@@ -236,6 +236,27 @@
 			"instance": "shadowfang-keep",
 			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 9 people (9 established) ticked A Moon-Kissed Blade's third line, the Enchanted Silver Ingot, inside Shadowfang Keep (map 33)" },
 			"note": "A Moon-Kissed Blade (Paladin, Horde): its Enchanted Silver Ingot is inside Shadowfang Keep, an object the data has not placed; its other parts are in the Deadmines and outside."
+		},
+		{
+			"quest": 96609,
+			"instance": "city-of-dalaran",
+			"exclude": true,
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 9 people (7 established) ran A Taste of Home: taken from and handed in to Arille Azuregaze (29049) in Dalaran city (Alterac Mountains), its Silvermoon Shimmerwine collected in Azshara; nobody progressed it inside the City of Dalaran dungeon (map 2959)" },
+			"note": "A Taste of Home (Alliance, level 52): a Dalaran city quest. QuestieDB files it under area 16560, the city, which the client's AreaTable puts on map 2959 beside the dungeon's own 16544, so the area rule put it on the dungeon's page."
+		},
+		{
+			"quest": 96812,
+			"instance": "city-of-dalaran",
+			"exclude": true,
+			"source": { "kind": "client", "ref": "Forever client AreaTable (1.60.1.70888): area 16560 (CityofDalaran) is not the City of Dalaran dungeon's area 16544 (RuinsofDalaran) nor under it; the quest is filed under 16560" },
+			"note": "Thicker Than Water (Alliance, level 54): its objective is to tell Orphan Matron Aria in Dalaran city about Sergeant Danneth; nothing of it is in the dungeon."
+		},
+		{
+			"quest": 96603,
+			"instance": "city-of-dalaran",
+			"exclude": true,
+			"source": { "kind": "client", "ref": "Forever client AreaTable (1.60.1.70888): area 16560 (CityofDalaran) is not the City of Dalaran dungeon's area 16544 (RuinsofDalaran) nor under it; the quest is filed under 16560" },
+			"note": "Unstable Magic (Alliance, level 60): Archmage Celindra's quest in Dalaran city; one recorded player took it from her there."
 		}
 	]
 }

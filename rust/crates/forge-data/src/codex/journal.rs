@@ -899,11 +899,19 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 			}
 		}
 	}
-	// 3b. the cited table's quests.
+	// 3b. the cited table's quests; a row with `exclude` takes off a quest a rule put on the page wrongly (City of
+	// Dalaran's city quests, filed under an area the client puts on the dungeon's map, #2560 sweep).
 	for r in inp.journal_quests {
 		let Some(&pi) = page_ix.get(&r.get("instance").to_js_string()) else { continue };
-		let rec = codex_quest(&r.get("quest"));
 		let qid = r.get("quest").num();
+		if r.get("exclude").truthy() {
+			if !has_q(&on_page[pi].1, qid) {
+				warnings.push(format!("journal-quests.json: quest {} is not on {}'s page to leave out", kstr(&r.get("quest")), r.get("instance").to_js_string()));
+			}
+			on_page[pi].1.retain(|(x, _)| *x != qid);
+			continue;
+		}
+		let rec = codex_quest(&r.get("quest"));
 		if !rec.truthy() {
 			warnings.push(format!("journal-quests.json: quest {} is not in the Codex", kstr(&r.get("quest"))));
 		} else if !has_q(&on_page[pi].1, qid) {
@@ -1277,7 +1285,8 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 /// `loadJournalQuests()`: journal-quests.json rows (a malformed row throws); a row's `source` is a
 /// URL, a web quest database citation (`super::is_web_citation`) or a source cited the corrections'
 /// way, such as players' recordings (`super::is_source_citation`). A row's optional `inside` lists
-/// `start` and/or `finish`: where the quest is picked up or handed in inside the instance.
+/// `start` and/or `finish`: where the quest is picked up or handed in inside the instance; its
+/// optional `exclude: true` takes the quest off the instance's page instead (no `inside` then).
 pub fn load_journal_quests(text: &str) -> Result<Vec<V>, String> {
 	let rows = forge_guide::js::parse_json(text)?.get("quests").items();
 	static URL: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"^https?://").unwrap());
@@ -1287,7 +1296,9 @@ pub fn load_journal_quests(text: &str) -> Result<Vec<V>, String> {
 		let cited = if let Some(s) = src.as_str() { URL.is_match(s) } else { super::is_web_citation(&src) || super::is_source_citation(&src) };
 		let ins = r.get("inside");
 		let inside_ok = ins.is_undef() || (ins.is_arr() && !ins.items().is_empty() && ins.items().iter().all(|p| matches!(p.as_str(), Some("start" | "finish"))));
-		if !(q.is_num() && forge_guide::js::is_integer(q.num())) || !r.get("instance").is_str() || !cited || !inside_ok {
+		let ex = r.get("exclude");
+		let exclude_ok = ex.is_undef() || (matches!(ex, V::Bool(true)) && ins.is_undef());
+		if !(q.is_num() && forge_guide::js::is_integer(q.num())) || !r.get("instance").is_str() || !cited || !inside_ok || !exclude_ok {
 			return Err(format!("journal-quests.json: bad row {}", forge_guide::js::stringify(r, None)));
 		}
 	}
