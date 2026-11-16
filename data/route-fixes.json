@@ -4070,11 +4070,11 @@
 					881
 				],
 				"b": [
-					"accept",
+					"task",
 					865
 				],
 				"faction": "Horde",
-				"why": "Horde level tidy (0.4.0): Raptor Horns (level 18) was taken from Mebok on the first Ratchet stop at 16 (recorded 25th percentile 14.7 there) and its Scytheclaws (16-18) hunted on the first Dry Hills loop at 16-17; it is taken on the second Ratchet stop at about 18, with the horns from the Raptor Grounds on the walk south-west and, if still short, in Vrang's hills."
+				"why": "Horde level tidy (0.4.0): Raptor Horns (level 18) had its Scytheclaws (16-18) hunted on the first Dry Hills loop at 16-17; they are hunted from the second Ratchet stop at about 18, at the Raptor Grounds on the walk south-west and, if still short, in Vrang's hills. Mebok gives it on the first Ratchet stop, where the route stands beside him."
 			},
 			{
 				"a": [
@@ -4082,11 +4082,11 @@
 					881
 				],
 				"b": [
-					"accept",
+					"task",
 					895
 				],
 				"faction": "Horde",
-				"why": "Horde level tidy (0.4.0): WANTED: Baron Longshore (Baron 16, at the south end of the pirate camp) was taken on the first Ratchet stop at 14-16 (recorded 25th percentile 14.7); it is taken on the second Ratchet stop at about 18, and the Baron is killed beside Gazlowe's crates on that walk."
+				"why": "Horde level tidy (0.4.0): WANTED: Baron Longshore (Baron 16, at the south end of the pirate camp) was killed on the first Ratchet stop at 14-16 (recorded 25th percentile 14.7); he is killed beside Gazlowe's crates on the second Ratchet stop's walk at about 18. The poster is read on the first Ratchet stop, where the route stands beside it."
 			},
 			{
 				"a": [
@@ -4106,11 +4106,35 @@
 					549
 				],
 				"b": [
-					"accept",
+					"task",
 					868
 				],
 				"faction": "Horde",
-				"why": "Horde level tidy (0.4.0): Egg Hunt (level 22: the Silithid Mounds' Swarmers 21-22 and their swarms, 9 recorded deaths) was worked at 20.5 in forever/horde/02-the-barrens (recorded 25th percentile 20.8); it is taken from Korran on the Crossroads landing that opens forever/horde/04-the-barrens after Hillsbrad, the eggs on the road from Camp Taurajo south to Gann at about 25, Korran's hand-in with Thork's."
+				"why": "Horde level tidy (0.4.0): Egg Hunt (level 22: the Silithid Mounds' Swarmers 21-22 and their swarms, 9 recorded deaths) was worked at 20.5 in forever/horde/02-the-barrens (recorded 25th percentile 20.8); the eggs are taken on forever/horde/04-the-barrens' road from Camp Taurajo south to Gann at about 25, after Hillsbrad, Korran's hand-in with Thork's."
+			},
+			{
+				"a": [
+					"turnin",
+					6393
+				],
+				"b": [
+					"task",
+					1096
+				],
+				"faction": "Horde",
+				"why": "Horde level tidy (0.4.0): Gerenzo Wrenchwhistle (27) is killed on the way back down from Sun Rock (level model about 26.9), not on the way up (about 25.9); Ziz gives the quest on the way up, where the route stands beside him."
+			},
+			{
+				"a": [
+					"turnin",
+					6393
+				],
+				"b": [
+					"task",
+					1068
+				],
+				"faction": "Horde",
+				"why": "Horde 0.4.0 audit: XT:9 and XT:4 roam the road from Ziz Fizziks' hut east to Windshear Crag, where Gerenzo's tower stands: both robots are taken on the same trip down from Sun Rock as Gerenzo, so the crag is walked once instead of twice (about 1.5 km less walking)."
 			},
 			{
 				"a": [
@@ -5778,11 +5802,11 @@
 					1146
 				],
 				"b": [
-					"accept",
+					"task",
 					98070
 				],
 				"faction": "Horde",
-				"why": "Horde level tidy (2026-11-15), agreed with the 12-30 slice: Stop the Screeching (98070, level 30) was worked at 29 at the end of 07-ashenvale, where Grenka Bloodscreech (31) and a camp of 30s with recorded deaths stood over the players. It is taken from Jandia on 30-40/02's first Freewind Post landing at 31-33, after the Hillsbrad guide (Belgrom's 1146 in Orgrimmar)."
+				"why": "Horde level tidy (2026-11-15), agreed with the 12-30 slice: Stop the Screeching (98070, level 30) was worked at 29 at the end of 07-ashenvale, where Grenka Bloodscreech (31) and a camp of 30s with recorded deaths stood over the players. Its harpies are worked on 30-40/02's first Freewind Post landing at 31-33, after the Hillsbrad guide (Belgrom's 1146 in Orgrimmar); Jandia gives it on 07's last Freewind stop, where the route stands beside her."
 			},
 			{
 				"a": [
@@ -7353,14 +7377,14 @@
 			{
 				"a": [
 					"turnin",
-					4921
+					95774
 				],
 				"b": [
 					"accept",
 					868
 				],
 				"faction": "Horde",
-				"why": "Egg Hunt (Korran) is offered from level 17 (Forever's quest data); its eggs are worked in the Field of Giants south of Camp Taurajo at about 20-21. #1244 took it on the Crossroads stop after Echeyakee at 17, and 0.3.4's players carried it that long: 8 of the 14 who took it abandoned it (Ingest report 2026-11-08). Final route review (2026-11-08): it is taken on the last Crossroads stop before the eggs (Mankrik's Lost in Battle hand-in, Korran a few yards away), before the Orgrimmar trip at 20"
+				"why": "Egg Hunt (Korran) is offered from level 17 (Forever's quest data). #1244 took it on the Crossroads stop after Echeyakee at 17, and 0.3.4's players carried it to the eggs at 20-21: 8 of the 14 who took it abandoned it (Ingest report 2026-11-08). Since the 0.4.0 level tidy the eggs are on forever/horde/04-the-barrens' walk south at about 25: Korran gives it on 02's last Crossroads stop, with Mankrik's Her Name Is Olgra hand-in a few yards away, so the next guide's flight from Orgrimmar no longer lands at the Crossroads for it."
 			},
 			{
 				"a": [
@@ -9099,11 +9123,11 @@
 			},
 			{
 				"q": 1096,
-				"reason": "Horde 21-30 audit (phase 2, R10): Gerenzo Wrenchwhistle (level 27, from 16, 2200 XP) from Ziz Fizziks after 1095's hand-in: Gerenzo (4202, level 27, normal) stands at the top of the Venture Co. tower on Windshear Crag (64.5,40.3), about 260 yd north of XT:4 (Shredding Machines, 1068). Horde level tidy (0.4.0): taken from Ziz on the way back down from Sun Rock (calibrated level model 26.9 there) instead of on the way up (25.9, two levels under Gerenzo); the tower is a short walk east of Ziz's hut on the road down to Malaka'jin.",
+				"reason": "Horde 21-30 audit (phase 2, R10): Gerenzo Wrenchwhistle (level 27, from 16, 2200 XP) from Ziz Fizziks after 1095's hand-in: Gerenzo (4202, level 27, normal) stands at the top of the Venture Co. tower on Windshear Crag (64.5,40.3), about 260 yd north of XT:4 (Shredding Machines, 1068). Horde level tidy (0.4.0): taken from Ziz with 1095's hand-in on the way up, where the route stands beside him; worked on the way back down from Sun Rock (calibrated level model about 26.9 there, two levels under Gerenzo on the way up), in one Windshear Crag trip with XT:9 and XT:4.",
 				"issue": "2025",
 				"after": [
 					"turnin",
-					6393
+					1095
 				]
 			},
 			{

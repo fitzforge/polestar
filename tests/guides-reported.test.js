@@ -7234,7 +7234,7 @@ test('forever/horde/02-the-barrens.guide, 04-the-barrens.guide: final route revi
 	assert.ok(at(early, 'accept 865', is('accept', 865)) < at(early, 'collect 5055', (g) => g.t === 'collect' && g.item === 5055), 'Raptor Horns taken before its horns');
 	const later = goals('forever/horde/04-the-barrens.guide');
 	const eggs = at(later, 'collect 5058', (g) => g.t === 'collect' && g.item === 5058);
-	assert.ok(at(later, 'accept 868', is('accept', 868)) < eggs && eggs < at(later, 'accept 843', is('accept', 843)) && eggs < at(later, 'turnin 868', is('turnin', 868)), 'the eggs on the road south to Gann, Korran after');
+	assert.ok(at(early, 'accept 868', is('accept', 868)) >= 0 && eggs < at(later, 'accept 843', is('accept', 843)) && eggs < at(later, 'turnin 868', is('turnin', 868)), 'the eggs on the road south to Gann (Egg Hunt from 02\'s last Crossroads stop), Korran after');
 	const list = goals('forever/horde/04-the-barrens.guide');
 	const gann = at(list, 'accept 843', is('accept', 843));
 	assert.equal(list[at(list, 'accept 98093', is('accept', 98093))].s, list[gann].s, 'Sulhasa with Gann\'s first quest');
@@ -7325,12 +7325,15 @@ test('Final route review (Horde 1-30, 0.3.5): Jorn after the eggs, Lydon after H
 	const warrior = barrens.filter(forClass('WARRIOR'));
 	assert.ok(warrior[at(warrior, 'turnin 1824', is('turnin', 1824))].s < warrior[at(warrior, 'collect 5164', (g) => g.t === 'collect' && g.item === 5164)].s, "Ruga's stop before the thunderhawks");
 	// Ingest 2026-11-08: 8 of 14 players abandoned Egg Hunt, taken at 17 and carried to the eggs at 21. Since the 0.4.0 level
-	// tidy it is taken on 04-the-barrens' opening Crossroads landing at 25: no other Crossroads stop between the accept and the eggs.
+	// tidy the eggs are on 04-the-barrens' walk south at 25; Korran gives it on 02's last Crossroads stop (the route walks
+	// past him there anyway), so 04's flight from Orgrimmar no longer lands at the Crossroads only for him, and no Crossroads
+	// stop comes between the accept and the eggs.
 	const later = goals('forever/horde/04-the-barrens.guide');
-	const egg = at(later, 'accept 868', is('accept', 868));
+	const egg = at(barrens, 'accept 868', is('accept', 868));
 	const eggs = at(later, 'collect 5058', (g) => g.t === 'collect' && g.item === 5058);
-	assert.ok(!barrens.some(({ goal }) => goal.quest === 868), 'no Egg Hunt at 20-21');
-	assert.ok(!later.slice(egg + 1, eggs).some(({ goal }) => goal.npc === later[egg].goal.npc || goal.npc === 3338), 'no Crossroads stop (Korran, Sergra) between the accept and the eggs');
+	assert.ok(jorn < egg, 'Egg Hunt on the last Crossroads stop, after the Field of Giants pass');
+	assert.ok(!barrens.slice(egg + 1).some(({ goal }) => goal.quest === 868 || goal.npc === 3338), 'no other Crossroads stop in 02 after the accept');
+	assert.ok(!later.slice(0, eggs).some(({ goal }) => goal.quest === 868 || goal.npc === barrens[egg].goal.npc || goal.npc === 3338), 'no Crossroads stop (Korran, Sergra) in 04 before the eggs');
 	assert.match(barrens[at(barrens, 'accept 855', is('accept', 855))].step.note, /^West to Regthar/, 'Regthar is west of the Crossroads');
 	assert.doesNotMatch(barrens[at(barrens, 'accept 1512', is('accept', 1512))].goal.note, /end of this guide/, 'The Binding is on the next guide\'s Orgrimmar stop');
 	const hills = goals(HILLSBRAD_HORDE);
@@ -7345,7 +7348,7 @@ test('Final route review (Horde 1-30, 0.3.5): Jorn after the eggs, Lydon after H
 	assert.equal(pine[at(pine, 'turnin 439', is('turnin', 439))].s, pine[at(pine, 'turnin 91920', is('turnin', 91920))].s, 'Rot Hide Clues on the Sepulcher stop after the shore');
 	assert.doesNotMatch(goals(TIRISFAL).find(({ goal }) => is('accept', 86784)(goal)).goal.note, /walks/, 'Bartholomew stays beside Dillinger (#1046)');
 	assert.match(goals(ZEPHRAS_HORDE).find(({ goal }) => is('accept', 94913)(goal)).step.note, /forever\/horde\/02-the-barrens/, 'the Cat Form trip is in the Barrens 15-21 guide');
-	const grind = compiled('forever/horde/07-ashenvale.guide').steps.find((step) => step.title === 'Level 28.9');
+	const grind = compiled('forever/horde/07-ashenvale.guide').steps.find((step) => step.title === 'Level 28');
 	assert.match(grind.note, /Or, with a group, run the Blackfathom Deeps dungeon instead\.$/, 'the top-up names the dungeons that fit, in the writer\'s sentence');
 	// Razorfen Kraul's floor (30.9, the recorded p25 of boss-killers) is above this guide's ~29: its run left 07 for
 	// forever/horde/30-40/02-thousand-needles, so neither top-up names it, and the Barrens' Ratchet stop no longer offers its tubers.
@@ -11560,7 +11563,7 @@ test('Horde Thousand Needles: Darkcloud chests south-east, south-west, north-wes
 	const list = goals('forever/horde/07-ashenvale.guide');
 	const chest = (o) => at(list, `interact ${o}`, (g) => g.t === 'interact' && g.object === o);
 	assert.ok(chest(190484) < chest(190483) && chest(190483) < chest(176344), 'south-east, south-west, north-west');
-	const spot = list.find(({ step, goal }) => step.title === 'Level 28.9' && goal.t === 'goto').goal;
+	const spot = list.find(({ step, goal }) => step.title === 'Level 28' && goal.t === 'goto').goal;
 	assert.ok(spot.y < 35, `the top-up is in the northern camps (${spot.x},${spot.y}), not back at the south-west chest`);
 });
 

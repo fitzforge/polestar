@@ -4134,7 +4134,8 @@
 				"goal": "accept"
 			},
 			"tip": "On the way back north-east to Splintertree: Sharptalon prowls the woods south-east of the Warsong lumber camp. Her claw starts the next hunt quest. Careful: Sharptalon is a level 31 nightsaber and hits hard: pull her alone, away from the Outrunners.",
-			"note": "Horde 21-30 audit (0.4.0, Discord report relayed on #2025): Sharptalon's Claw (2) is a level 30 quest and Sharptalon (12676) a level 31 nightsaber. Players' recordings: 51 people killed her, most at 27, 3 died near her; 0.3.7+ players took the claw at a median 28.4. The tip gives her level.",
+			"when": "level>=30",
+			"note": "Horde 21-30 audit (0.4.0, Discord report relayed on #2025): Sharptalon's Claw (2) is a level 30 quest and Sharptalon (12676) a level 31 nightsaber. Players' recordings: 51 people killed her, most at 27, 3 died near her; 0.3.7+ players took the claw at a median 28.4. The tip gives her level. Horde 0.4.0 audit: the route passes her at about 27.6 (level model), four levels under her, so her step shows only from level 30; Senani's hand-in step already waits for the quest in the log.",
 			"source": [
 				{
 					"kind": "recording",
@@ -11161,6 +11162,26 @@
 				}
 			],
 			"issue": 2284
+		},
+		{
+			"id": "h-audit-040-thousand-needles-level-28-before-lakota",
+			"faction": "Horde",
+			"at": {
+				"quest": 4904,
+				"goal": "accept"
+			},
+			"level": 28,
+			"note": "Horde 0.4.0 audit: the top-up below Darkcloud Pinnacle asked for 28.9, a leftover of the old harpy-den grind (Roguefeather Den left this guide). Arnak Grimtotem (29) and Lakota's ambushers are at most one over a player of 28, and the level model reaches the step at 28.6-28.8 (about 45 minutes of grinding to 28.9, about 2 hours for a solo player without the group quests); recorded players were at 29.1 there (25th percentile, 41 people). The step now asks for 28.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (0.4.0 data refresh): Lakota Windsong's escort taken at a 25th percentile of 29.1, 41 people"
+				},
+				{
+					"kind": "client",
+					"ref": "npc levels in Forever's creature data: Arnak Grimtotem 29"
+				}
+			]
 		}
 	]
 }

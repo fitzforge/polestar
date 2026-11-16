@@ -115,7 +115,7 @@ step Stanley
 step Hillsbrad Fields: kill these as you meet them
   zone Hillsbrad Foothills
   tip The Peasants work the fields south of the farmhouses. Every Hillsbrad human drops skulls; the Peasants drop them most often.
-  tip Careful: A fleeing peasant that reaches the town hall can bring back many adds, including Hillsbrad footmen; snares, roots or similar effects keep them from escaping.
+  tip Careful: A fleeing peasant that reaches the town hall can bring back many adds, including Hillsbrad footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields.
   collect 3692 quest 546.1 @30.3,40.3 -- Hillsbrad Human Skull: the Peasants in the fields
   kill 2267 quest 528.1
 
@@ -295,5 +295,5 @@ step Orgrimmar
 step Orgrimmar
   only Hunter,Shaman
   zone Orgrimmar
-  tip Train before you fly on: the next guide flies from here to the Crossroads.
+  tip Train before you fly on: the next guide flies from here.
   train class
