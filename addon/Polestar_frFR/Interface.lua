@@ -3395,11 +3395,8 @@ L["Clean up quest log"] = "Nettoyer le journal des quêtes"
 L["Grey: no XP any more"] = "Grise : plus d'XP"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "L'itinéraire n'en a pas besoin : il ne les rend jamais, ou elles ne donnent plus d'XP. « Abandonner » demande d'abord confirmation dans la fenêtre du jeu."
 L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "Liste les quêtes de votre journal dont l'itinéraire n'a pas besoin : celles qu'il ne rend jamais, et les grises qui ne donnent plus d'XP. Chacune a un bouton Abandonner qui demande d'abord confirmation. Le menu de la fenêtre du guide le propose aussi tant qu'il y en a."
-L["None of these has a known place to hand it in."] = "Aucune n'a d'endroit connu où la rendre."
 L["Where it is turned in is not known"] = "On ne sait pas où la rendre"
 L["Finished quests you're still carrying"] = "Quêtes terminées que vous gardez encore"
-L["The route hands in every finished quest in your log."] = "L'itinéraire rend toutes les quêtes terminées de votre journal."
-L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "Terminées, et l'itinéraire à venir ne les rend jamais : voici à qui rendre chacune. « Me guider » vous y mène, la plus proche d'abord. Une quête grise ne donne presque plus d'XP : abandonnez-la si vous ne passez pas par là."
 L["Finished quests you're still carrying (%d)"] = "Quêtes terminées que vous gardez encore (%d)"
 L["Hand in your finished quests"] = "Rendre vos quêtes terminées"
 L["Handed in in %s"] = "Rendue dans %s"
@@ -3410,6 +3407,7 @@ L["Every quest in your log is part of your route."] = "Chaque quête de votre jo
 L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = "Aucun guide de votre itinéraire ne les prend, ne les fait ni ne les rend. Gardez celles que vous voulez ; Abandonner demande d'abord dans la fenêtre du jeu."
 L["Finished: no guide of your route hands it in"] = "Terminée : aucun guide de votre itinéraire ne la rend"
 L["Not in any guide of your route"] = "Dans aucun guide de votre itinéraire"
+-- L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = ""
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "NOUVELLE TECHNIQUE"
@@ -4645,6 +4643,16 @@ L["Not moved"] = "Non déplacé"
 L["From the look"] = "Selon l'apparence"
 L["Nothing to apply: the parts ticked are the same as yours."] = "Rien à appliquer : les parties cochées sont identiques aux vôtres."
 
+-- Lookup/Handins.lua
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
+-- L["Hand-ins without a known location"] = ""
+-- L["No quests in your log are ready to hand in."] = ""
+-- L["Refining the travel order. Travel times are estimates."] = ""
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
+-- L["Waiting for your quest log."] = ""
+-- L["Wait until combat ends to load the quest data."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Alliance"] = "Alliance"
 -- L["Blood Elf"] = "Elfe de sang"
@@ -4889,3 +4897,6 @@ L["Nothing to apply: the parts ticked are the same as yours."] = "Rien à appliq
 -- L["Try %s"] = "Essayer %s"
 -- L["Most of its quests are new in Forever."] = "La plupart de ses quêtes sont nouvelles dans Forever."
 -- L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "Un itinéraire peut commencer par un sort de téléportation que vous connaissez (les téléportations de mage vers les capitales, Reflet-de-Lune pour le druide) quand c'est plus rapide. Une téléportation vers une capitale demande une rune de téléportation dans vos sacs."
+-- L["None of these has a known place to hand it in."] = "Aucune n'a d'endroit connu où la rendre."
+-- L["The route hands in every finished quest in your log."] = "L'itinéraire rend toutes les quêtes terminées de votre journal."
+-- L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "Terminées, et l'itinéraire à venir ne les rend jamais : voici à qui rendre chacune. « Me guider » vous y mène, la plus proche d'abord. Une quête grise ne donne presque plus d'XP : abandonnez-la si vous ne passez pas par là."

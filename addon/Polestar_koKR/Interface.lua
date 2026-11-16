@@ -3394,11 +3394,8 @@ L["Clean up quest log"] = "퀘스트 목록 정리"
 L["Grey: no XP any more"] = "회색: 더 이상 경험치 없음"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "경로에 필요 없는 퀘스트입니다: 경로가 완료하지 않거나 더 이상 경험치를 주지 않습니다. 포기는 먼저 게임 자체 창에서 확인합니다."
 L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "퀘스트 목록에서 경로에 필요 없는 퀘스트를 보여 줍니다: 경로가 완료하지 않는 퀘스트와 더 이상 경험치를 주지 않는 회색 퀘스트입니다. 각각 먼저 확인하는 포기 버튼이 있습니다. 그런 퀘스트가 있는 동안 가이드 창 메뉴에도 나타납니다."
-L["None of these has a known place to hand it in."] = "이 중 제출 장소가 알려진 퀘스트가 없습니다."
 L["Where it is turned in is not known"] = "제출 장소를 알 수 없음"
 L["Finished quests you're still carrying"] = "아직 들고 있는 완료된 퀘스트"
-L["The route hands in every finished quest in your log."] = "경로에서 퀘스트 목록의 완료된 퀘스트를 모두 제출합니다."
-L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "완료했지만 앞으로의 경로에서 제출하지 않는 퀘스트입니다. 각각 누구에게 제출하는지 보여 줍니다. '가이드 시작'을 누르면 가까운 곳부터 안내합니다. 회색 퀘스트는 경험치를 거의 주지 않으니, 지나갈 일이 없다면 포기하십시오."
 L["Finished quests you're still carrying (%d)"] = "아직 들고 있는 완료된 퀘스트 (%d)"
 L["Hand in your finished quests"] = "완료한 퀘스트 제출"
 L["Handed in in %s"] = "%s에서 제출"
@@ -3409,6 +3406,7 @@ L["Every quest in your log is part of your route."] = "목록의 모든 퀘스�
 L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = "경로의 어떤 가이드도 이 퀘스트를 받거나 진행하거나 제출하지 않습니다. 원하는 것은 보관하십시오. 포기는 먼저 게임 자체 창에서 확인합니다."
 L["Finished: no guide of your route hands it in"] = "완료됨: 경로의 어떤 가이드도 제출하지 않습니다"
 L["Not in any guide of your route"] = "경로의 어떤 가이드에도 없음"
+-- L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = ""
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "새 능력"
@@ -4644,6 +4642,16 @@ L["Not moved"] = "이동 안 함"
 L["From the look"] = "모양에 따름"
 L["Nothing to apply: the parts ticked are the same as yours."] = "적용할 것이 없습니다: 선택한 항목이 내 설정과 같습니다."
 
+-- Lookup/Handins.lua
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
+-- L["Hand-ins without a known location"] = ""
+-- L["No quests in your log are ready to hand in."] = ""
+-- L["Refining the travel order. Travel times are estimates."] = ""
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
+-- L["Waiting for your quest log."] = ""
+-- L["Wait until combat ends to load the quest data."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever가 안내 중입니다. Polestar의 화살표를 사용하려면 \"설치 시 Shortest Path Forever로 가이드\"(옵션, 연동)를 끄세요."
@@ -4841,3 +4849,6 @@ L["Nothing to apply: the parts ticked are the same as yours."] = "적용할 것�
 -- L["Try %s"] = "%s 시도"
 -- L["Most of its quests are new in Forever."] = "대부분의 퀘스트가 Forever 신규입니다."
 -- L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "더 빠르면 아는 순간이동 주문(마법사의 도시 순간이동, 드루이드의 달의 숲)으로 경로를 시작합니다. 도시 순간이동에는 가방에 순간이동의 룬이 필요합니다."
+-- L["None of these has a known place to hand it in."] = "이 중 제출 장소가 알려진 퀘스트가 없습니다."
+-- L["The route hands in every finished quest in your log."] = "경로에서 퀘스트 목록의 완료된 퀘스트를 모두 제출합니다."
+-- L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "완료했지만 앞으로의 경로에서 제출하지 않는 퀘스트입니다. 각각 누구에게 제출하는지 보여 줍니다. '가이드 시작'을 누르면 가까운 곳부터 안내합니다. 회색 퀘스트는 경험치를 거의 주지 않으니, 지나갈 일이 없다면 포기하십시오."

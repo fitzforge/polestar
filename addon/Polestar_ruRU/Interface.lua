@@ -3394,11 +3394,8 @@ L["Clean up quest log"] = "Очистить журнал заданий"
 L["Grey: no XP any more"] = "Серое: опыта больше нет"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "Маршруту они не нужны: он их не сдаёт, или они больше не дают опыта. «Отказаться» сначала спрашивает в окне самой игры."
 L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "Показывает задания в журнале, которые маршруту не нужны: те, что он никогда не сдаёт, и серые, которые больше не дают опыта. У каждого есть кнопка «Отказаться», которая сначала спрашивает. Пока такие есть, это есть и в меню окна гайда."
-L["None of these has a known place to hand it in."] = "Ни для одного из них неизвестно, где его сдать."
 L["Where it is turned in is not known"] = "Неизвестно, где сдать"
 L["Finished quests you're still carrying"] = "Выполненные задания, которые вы ещё не сдали"
-L["The route hands in every finished quest in your log."] = "Маршрут сдаёт все выполненные задания из вашего журнала."
-L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "Выполнены, но маршрут впереди их не сдаёт: здесь указано, кому сдать каждое. «Вести меня» проведёт к ним, начиная с ближайшего. Серое задание почти не даёт опыта: отмените его, если не будете проходить мимо."
 L["Finished quests you're still carrying (%d)"] = "Выполненные задания, которые вы ещё не сдали (%d)"
 L["Hand in your finished quests"] = "Сдайте выполненные задания"
 L["Handed in in %s"] = "Сдается в гайде %s"
@@ -3409,6 +3406,7 @@ L["Every quest in your log is part of your route."] = "Все задания в 
 L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = "Ни один гайд вашего маршрута их не берет, не выполняет и не сдает. Оставьте нужные; «Отказаться» сначала спросит в окне самой игры."
 L["Finished: no guide of your route hands it in"] = "Выполнено: ни один гайд вашего маршрута его не сдает"
 L["Not in any guide of your route"] = "Нет ни в одном гайде вашего маршрута"
+-- L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = ""
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "НОВАЯ СПОСОБНОСТЬ"
@@ -4644,6 +4642,16 @@ L["Not moved"] = "Не перемещено"
 L["From the look"] = "Из вида"
 L["Nothing to apply: the parts ticked are the same as yours."] = "Нечего применять: отмеченные части совпадают с вашими."
 
+-- Lookup/Handins.lua
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
+-- L["Hand-ins without a known location"] = ""
+-- L["No quests in your log are ready to hand in."] = ""
+-- L["Refining the travel order. Travel times are estimates."] = ""
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
+-- L["Waiting for your quest log."] = ""
+-- L["Wait until combat ends to load the quest data."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Ведет Shortest Path Forever. Отключите «Вести через Shortest Path Forever, если он установлен» (Настройки, Стрелка и маршруты), чтобы использовать стрелку Polestar."
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Сейчас ведет Shortest Path Forever. Чтобы использовать стрелку Polestar, отключите \"Вести через Shortest Path Forever, если он установлен\" (Настройки, Интеграции)."
@@ -4848,3 +4856,6 @@ L["Nothing to apply: the parts ticked are the same as yours."] = "Нечего �
 -- L["Try %s"] = "Попробовать зону %s"
 -- L["Most of its quests are new in Forever."] = "Большинство заданий здесь новые в Forever."
 -- L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "Маршрут может начинаться с известного вам заклинания телепорта (городские телепорты мага, Лунная поляна друида), если так быстрее. Для телепорта в город нужна руна телепортации в сумках."
+-- L["None of these has a known place to hand it in."] = "Ни для одного из них неизвестно, где его сдать."
+-- L["The route hands in every finished quest in your log."] = "Маршрут сдаёт все выполненные задания из вашего журнала."
+-- L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "Выполнены, но маршрут впереди их не сдаёт: здесь указано, кому сдать каждое. «Вести меня» проведёт к ним, начиная с ближайшего. Серое задание почти не даёт опыта: отмените его, если не будете проходить мимо."

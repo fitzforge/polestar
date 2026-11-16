@@ -3364,11 +3364,8 @@ L["Clean up quest log"] = "Questlog aufräumen"
 L["Grey: no XP any more"] = "Grau: keine EP mehr"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "Die Route braucht diese nicht: Sie gibt sie nie ab, oder sie bringen keine EP mehr. „Abbrechen“ fragt zuerst im eigenen Fenster des Spiels nach."
 L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "Listet die Quests in deinem Questlog, die die Route nicht braucht: die sie nie abgibt, und graue, die keine EP mehr bringen. Jede hat einen Button „Abbrechen“, der zuerst nachfragt. Das Menü des Guide-Fensters bietet es auch an, solange es welche gibt."
-L["None of these has a known place to hand it in."] = "Für keine davon ist bekannt, wo man sie abgibt."
 L["Where it is turned in is not known"] = "Unbekannt, wo sie abgegeben wird"
 L["Finished quests you're still carrying"] = "Erledigte Quests, die du noch dabeihast"
-L["The route hands in every finished quest in your log."] = "Die Route gibt jede erledigte Quest in deinem Log ab."
-L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "Erledigt, und die Route voraus gibt diese nie ab: Hier steht, bei wem du jede abgibst. „Führe mich“ bringt dich hin, die nächste zuerst. Eine graue gibt kaum noch EP: Brich sie ab, wenn du nicht vorbeikommst."
 L["Finished quests you're still carrying (%d)"] = "Erledigte Quests, die du noch dabeihast (%d)"
 L["Hand in your finished quests"] = "Erledigte Quests abgeben"
 L["Handed in in %s"] = "Abgabe in %s"
@@ -3379,6 +3376,7 @@ L["Every quest in your log is part of your route."] = "Jede Quest in deinem Ques
 L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = "Kein Guide deiner Route nimmt sie an, erledigt sie oder gibt sie ab. Behalte, was du willst; Abbrechen fragt zuerst im eigenen Fenster des Spiels."
 L["Finished: no guide of your route hands it in"] = "Erledigt: Kein Guide deiner Route gibt sie ab"
 L["Not in any guide of your route"] = "In keinem Guide deiner Route"
+-- L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = ""
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "NEUE FÄHIGKEIT"
@@ -4635,6 +4633,16 @@ L["Not moved"] = "Nicht verschoben"
 L["From the look"] = "Vom Aussehen"
 L["Nothing to apply: the parts ticked are the same as yours."] = "Nichts anzuwenden: Die angehakten Teile sind dieselben wie deine."
 
+-- Lookup/Handins.lua
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
+-- L["Hand-ins without a known location"] = ""
+-- L["No quests in your log are ready to hand in."] = ""
+-- L["Refining the travel order. Travel times are estimates."] = ""
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
+-- L["Waiting for your quest log."] = ""
+-- L["Wait until combat ends to load the quest data."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target and the areas it spawns in."] = "Das Ziel des Pfeils und die Gebiete, in denen es spawnt."
 -- L["The arrow's target, the stops of its travel route, the step's other goals and the areas their mobs and objects spawn in."] = "Das Ziel des Pfeils, die Stationen seiner Reiseroute, die anderen Ziele des Schritts und die Gebiete, in denen ihre Mobs und Objekte spawnen."
@@ -4878,3 +4886,6 @@ L["Nothing to apply: the parts ticked are the same as yours."] = "Nichts anzuwen
 -- L["Most of its quests are new in Forever."] = "Die meisten Quests dort sind neu in Forever."
 -- L["When a level-up opens a dungeon's quests to this character, a card on the guide window says so, once per dungeon, with a button that picks up its quests in a new tab."] = "Wenn ein Stufenaufstieg die Quests eines Dungeons für diesen Charakter freischaltet, sagt dir eine Karte am Guide-Fenster das, einmal pro Dungeon, mit einer Schaltfläche, die dessen Quests in einem neuen Tab zusammenstellt."
 -- L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "Routen können mit einem Teleportzauber beginnen, den du kennst (die Stadtteleports eines Magiers, die Mondlichtung eines Druiden), wenn das schneller ist. Ein Stadtteleport braucht eine Rune der Teleportation in deinen Taschen."
+-- L["None of these has a known place to hand it in."] = "Für keine davon ist bekannt, wo man sie abgibt."
+-- L["The route hands in every finished quest in your log."] = "Die Route gibt jede erledigte Quest in deinem Log ab."
+-- L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "Erledigt, und die Route voraus gibt diese nie ab: Hier steht, bei wem du jede abgibst. „Führe mich“ bringt dich hin, die nächste zuerst. Eine graue gibt kaum noch EP: Brich sie ab, wenn du nicht vorbeikommst."

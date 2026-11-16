@@ -3394,11 +3394,8 @@ L["Clean up quest log"] = "清理任务日志"
 L["Grey: no XP any more"] = "灰色：不再给予经验"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "路线不需要这些任务：它从不交付，或已不再给予经验。放弃会先在游戏自己的窗口中确认。"
 L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "列出任务日志中路线不需要的任务：它从不交付的，以及不再给予经验的灰色任务。每个都有一个会先确认的放弃按钮。只要有这样的任务，指南窗口的菜单里也有此项。"
-L["None of these has a known place to hand it in."] = "这些任务都没有已知的交还地点。"
 L["Where it is turned in is not known"] = "交还地点未知"
 L["Finished quests you're still carrying"] = "仍未交还的已完成任务"
-L["The route hands in every finished quest in your log."] = "路线会交还日志中所有已完成的任务。"
-L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "已完成，但后续路线不会交还：这里列出每个任务交给谁。“指引我”会带你去，从最近的开始。灰色任务几乎不再给予经验：如果不会路过，就放弃它。"
 L["Finished quests you're still carrying (%d)"] = "仍未交还的已完成任务（%d）"
 L["Hand in your finished quests"] = "交还已完成的任务"
 L["Handed in in %s"] = "在%s中交还"
@@ -3409,6 +3406,7 @@ L["Every quest in your log is part of your route."] = "任务日志中的所有�
 L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = "路线中没有任何指南会接取、完成或交还这些任务。保留你想要的；“放弃”会先在游戏自身的窗口中确认。"
 L["Finished: no guide of your route hands it in"] = "已完成：路线中没有指南会交还它"
 L["Not in any guide of your route"] = "不在你路线中的任何指南里"
+-- L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = ""
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "新技能"
@@ -4644,6 +4642,16 @@ L["Not moved"] = "未移动"
 L["From the look"] = "跟随外观"
 L["Nothing to apply: the parts ticked are the same as yours."] = "无可应用：勾选的部分与你的设置相同。"
 
+-- Lookup/Handins.lua
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
+-- L["Hand-ins without a known location"] = ""
+-- L["No quests in your log are ready to hand in."] = ""
+-- L["Refining the travel order. Travel times are estimates."] = ""
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
+-- L["Waiting for your quest log."] = ""
+-- L["Wait until combat ends to load the quest data."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在导航。要使用 Polestar 的箭头，请关闭“安装 Shortest Path Forever 时由其导航”（选项 > 箭头与路线）。"
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever 正在导航。要使用 Polestar 的箭头，请关闭\"安装 Shortest Path Forever 时由其导航\"（选项，整合）。"
@@ -4850,3 +4858,6 @@ L["Nothing to apply: the parts ticked are the same as yours."] = "无可应用�
 -- L["Try %s"] = "尝试%s"
 -- L["Most of its quests are new in Forever."] = "其中大部分任务是 Forever 新增的。"
 -- L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "更快时，路线可从你已学会的传送法术开始（法师的城市传送、德鲁伊的月光林地）。城市传送需要背包中有传送符文。"
+-- L["None of these has a known place to hand it in."] = "这些任务都没有已知的交还地点。"
+-- L["The route hands in every finished quest in your log."] = "路线会交还日志中所有已完成的任务。"
+-- L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "已完成，但后续路线不会交还：这里列出每个任务交给谁。“指引我”会带你去，从最近的开始。灰色任务几乎不再给予经验：如果不会路过，就放弃它。"

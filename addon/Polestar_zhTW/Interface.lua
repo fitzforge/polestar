@@ -3394,11 +3394,8 @@ L["Clean up quest log"] = "清理任務日誌"
 L["Grey: no XP any more"] = "灰色：不再給予經驗值"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "路線不需要這些任務：它從不交付，或已不再給予經驗值。放棄會先在遊戲自己的視窗中確認。"
 L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "列出任務日誌中路線不需要的任務：它從不交付的，以及不再給予經驗值的灰色任務。每個都有一個會先確認的放棄按鈕。只要有這樣的任務，指南視窗的選單裡也有此項。"
-L["None of these has a known place to hand it in."] = "這些任務都沒有已知的繳交地點。"
 L["Where it is turned in is not known"] = "繳交地點未知"
 L["Finished quests you're still carrying"] = "仍未繳交的已完成任務"
-L["The route hands in every finished quest in your log."] = "路線會繳交日誌中所有已完成的任務。"
-L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "已完成，但後續路線不會繳交：這裡列出每個任務要交給誰。「指引我」會帶你前往，從最近的開始。灰色任務幾乎不再給予經驗值：如果不會路過，就放棄它。"
 L["Finished quests you're still carrying (%d)"] = "仍未繳交的已完成任務（%d）"
 L["Hand in your finished quests"] = "繳交已完成的任務"
 L["Handed in in %s"] = "在 %s 中繳交"
@@ -3409,6 +3406,7 @@ L["Every quest in your log is part of your route."] = "任務日誌中的所有�
 L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = "路線中沒有任何指南會接取、完成或繳交這些任務。保留你想要的；「放棄」會先在遊戲本身的視窗中確認。"
 L["Finished: no guide of your route hands it in"] = "已完成：路線中沒有指南會繳交它"
 L["Not in any guide of your route"] = "不在你路線中的任何指南裡"
+-- L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = ""
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "新技能"
@@ -4644,6 +4642,16 @@ L["Not moved"] = "未移動"
 L["From the look"] = "跟隨外觀"
 L["Nothing to apply: the parts ticked are the same as yours."] = "無可套用：勾選的部分與你的設定相同。"
 
+-- Lookup/Handins.lua
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
+-- L["Hand-ins without a known location"] = ""
+-- L["No quests in your log are ready to hand in."] = ""
+-- L["Refining the travel order. Travel times are estimates."] = ""
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
+-- L["Waiting for your quest log."] = ""
+-- L["Wait until combat ends to load the quest data."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在導引。關閉「已安裝時以 Shortest Path Forever 導引」（「選項」>「箭頭與路線」）即可使用 Polestar 的箭頭。"
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever 正在導引。若要使用 Polestar 的箭頭，請關閉\"已安裝時以 Shortest Path Forever 導引\"（選項，整合）。"
@@ -4841,3 +4849,6 @@ L["Nothing to apply: the parts ticked are the same as yours."] = "無可套用�
 -- L["Try %s"] = "嘗試 %s"
 -- L["Most of its quests are new in Forever."] = "其中大部分任務是 Forever 新增的。"
 -- L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "在較快時，路線可能以你會的傳送法術開始（法師的主城傳送、德魯伊的月光林地）。主城傳送需要背包中有傳送符文。"
+-- L["None of these has a known place to hand it in."] = "這些任務都沒有已知的繳交地點。"
+-- L["The route hands in every finished quest in your log."] = "路線會繳交日誌中所有已完成的任務。"
+-- L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "已完成，但後續路線不會繳交：這裡列出每個任務要交給誰。「指引我」會帶你前往，從最近的開始。灰色任務幾乎不再給予經驗值：如果不會路過，就放棄它。"

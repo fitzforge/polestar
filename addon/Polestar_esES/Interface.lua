@@ -3394,11 +3394,8 @@ L["Clean up quest log"] = "Limpiar el registro de misiones"
 L["Grey: no XP any more"] = "Gris: ya no da XP"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "La ruta no las necesita: nunca las entrega o ya no dan XP. Abandonar pregunta antes en la propia ventana del juego."
 L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "Muestra las misiones de tu registro que la ruta no necesita: las que nunca entrega y las grises que ya no dan XP. Cada una tiene un botón Abandonar que pregunta antes. El menú de la ventana de la guía también lo ofrece mientras haya alguna."
-L["None of these has a known place to hand it in."] = "Ninguna tiene un lugar conocido donde entregarla."
 L["Where it is turned in is not known"] = "No se sabe dónde se entrega"
 L["Finished quests you're still carrying"] = "Misiones completadas que aún llevas"
-L["The route hands in every finished quest in your log."] = "La ruta entrega todas las misiones completadas de tu registro."
-L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "Terminadas, y la ruta por delante nunca las entrega: aquí tienes a quién entregar cada una. Guíame te lleva hasta ellos, del más cercano al más lejano. Una gris ya casi no da XP: abandónala si no vas a pasar por allí."
 L["Finished quests you're still carrying (%d)"] = "Misiones completadas que aún llevas (%d)"
 L["Hand in your finished quests"] = "Entrega tus misiones completadas"
 L["Handed in in %s"] = "Se entrega en %s"
@@ -3409,6 +3406,7 @@ L["Every quest in your log is part of your route."] = "Todas las misiones de tu 
 L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = "Ninguna guía de tu ruta las acepta, las hace ni las entrega. Conserva las que quieras; Abandona pregunta primero en la ventana del propio juego."
 L["Finished: no guide of your route hands it in"] = "Completada: ninguna guía de tu ruta la entrega"
 L["Not in any guide of your route"] = "No está en ninguna guía de tu ruta"
+-- L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = ""
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "NUEVA HABILIDAD"
@@ -4644,6 +4642,16 @@ L["Not moved"] = "Sin mover"
 L["From the look"] = "Del aspecto"
 L["Nothing to apply: the parts ticked are the same as yours."] = "Nada que aplicar: las partes marcadas son iguales a las tuyas."
 
+-- Lookup/Handins.lua
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
+-- L["Hand-ins without a known location"] = ""
+-- L["No quests in your log are ready to hand in."] = ""
+-- L["Refining the travel order. Travel times are estimates."] = ""
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
+-- L["Waiting for your quest log."] = ""
+-- L["Wait until combat ends to load the quest data."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desactiva \"Guiar con Shortest Path Forever si está instalado\" (Opciones, Flecha y rutas) para usar la flecha de Polestar."
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desactiva \"Guiar con Shortest Path Forever si está instalado\" (Opciones, Integraciones) para usar la flecha de Polestar."
@@ -4836,3 +4844,6 @@ L["Nothing to apply: the parts ticked are the same as yours."] = "Nada que aplic
 -- L["Try %s"] = "Probar %s"
 -- L["Most of its quests are new in Forever."] = "La mayoría de sus misiones son nuevas en Forever."
 -- L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "Las rutas pueden empezar con un hechizo de teletransporte que conozcas (los de ciudad del mago, el Claro de la Luna del druida) cuando es más rápido. Un teletransporte a ciudad requiere una runa de teletransporte en tus bolsas."
+-- L["None of these has a known place to hand it in."] = "Ninguna tiene un lugar conocido donde entregarla."
+-- L["The route hands in every finished quest in your log."] = "La ruta entrega todas las misiones completadas de tu registro."
+-- L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "Terminadas, y la ruta por delante nunca las entrega: aquí tienes a quién entregar cada una. Guíame te lleva hasta ellos, del más cercano al más lejano. Una gris ya casi no da XP: abandónala si no vas a pasar por allí."
