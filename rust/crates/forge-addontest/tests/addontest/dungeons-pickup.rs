@@ -3146,6 +3146,7 @@ fn a_pick_up_guide_step_for_a_story_from_a_friendly_npc_says_talk_to_not_kill_25
 	i["forever"]["quests"]["90703"] = json!({ "area": 209 });
 	let script = k(r#"
 local E, B = Polestar.Engine, Polestar.QoL.Buttons
+Polestar.Set("qol.guideNameTarget", true) -- clicking a guide name targets it (opt in)
 D.PickUp("{KEY}")
 local g = E.GetGuide()
 local out = {}
