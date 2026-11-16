@@ -21,7 +21,12 @@ pub fn readme(version: &str, names: &[String]) -> String {
 	lines.extend(
 		[
 			"   They are all part of Polestar: Polestar_Codex holds what Lookup,",
-			"   Dungeons and Rares show; Polestar_Nav the arrow's walking routes",
+			"   Dungeons and Rares show; Polestar_Options the settings window",
+			"   (loaded when you open it); Polestar_SkinAPI the checks for skins",
+			"   from other addons (loaded when you use one); Polestar_Looks the",
+			"   WoW Forever, Blizzard, Classic and Hearth skins (loaded when you",
+			"   pick one); Polestar_Nav",
+			"   the arrow's walking routes",
 			"   (Shortest Path Forever's pathing, by Cillian Berragan, GPL-3.0 or",
 			"   later: see its LICENSE and CREDITS.md); the language folders",
 			"   (Polestar_deDE, Polestar_frFR, ...) the guide texts and the game's",
@@ -29,6 +34,27 @@ pub fn readme(version: &str, names: &[String]) -> String {
 			"   only its own). To update, delete the old Polestar folders there",
 			"   first, the Polestar_Guides_deDE and Polestar_Names_deDE kind too",
 			"   (one of each per language): Polestar no longer uses them.",
+			"   The Polestar_Skin_ folders are skins: each shows up under Settings >",
+			"   Theme and loads only when you pick it.",
+		]
+		.iter()
+		.map(|s| s.to_string()),
+	);
+	if names.iter().any(|n| forge_guide::project::own_extra(n).is_some()) {
+		lines.extend(
+			[
+				"   Polestar_Experimental holds experimental guides for Forever's new",
+				"   zones (alpha). They are on for everyone: the guide menu lists them",
+				"   under Leveling with our own guides, and a route choice offers their",
+				"   zones where they fit. Options > Guide > Show experimental guides",
+				"   takes them out of the guide menu.",
+			]
+			.iter()
+			.map(|s| s.to_string()),
+		);
+	}
+	lines.extend(
+		[
 			"2. Quit the game completely and start it again. A /reload does not",
 			"   load new addon folders.",
 			"",
@@ -112,7 +138,7 @@ mod tests {
 
 	#[test]
 	fn the_readme_names_every_folder_shipped_in_crlf_lines() {
-		let names: Vec<String> = ["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_Codex"].iter().map(|s| s.to_string()).collect();
+		let names: Vec<String> = ["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_Options", "Polestar_SkinAPI", "Polestar_Looks", "Polestar_Codex"].iter().map(|s| s.to_string()).collect();
 		let text = readme("0.2.0", &names);
 		assert!(text.starts_with("Polestar 0.2.0\r\n"));
 		assert!(text.contains("_forever_/Interface/AddOns/"));
@@ -121,9 +147,27 @@ mod tests {
 			assert!(text.contains(&format!("\r\n     {n}\r\n")), "{n}");
 		}
 		assert!(!text.contains("     Polestar_Recorder\r\n"));
-		assert!(text.contains("Polestar_Nav the arrow's walking routes\r\n   (Shortest Path Forever's pathing, by Cillian Berragan"));
+		assert!(text.contains("Polestar_Nav\r\n   the arrow's walking routes\r\n   (Shortest Path Forever's pathing, by Cillian Berragan"));
+		assert!(text.contains("Polestar_Options the settings window\r\n   (loaded when you open it)"));
+		assert!(text.contains("Polestar_SkinAPI the checks for skins\r\n   from other addons (loaded when you use one)"));
+		assert!(text.contains("Polestar_Looks the\r\n   WoW Forever, Blizzard, Classic and Hearth skins (loaded when you\r\n   pick one)"));
 		assert!(text.contains("\r\nPortions Copyright (C) 2026 Cillian Berragan (Shortest Path Forever),\r\n"));
 		assert!(!text.replace("\r\n", "").contains('\n'), "CRLF line endings throughout");
+	}
+
+	// What the players read about the experimental guides: on for everyone, listed under Leveling, offered by a
+	// route choice where they fit, and the setting that hides them; only when the folder ships.
+	#[test]
+	fn the_readme_says_the_experimental_guides_are_on_and_where_to_hide_them_only_when_they_ship() {
+		let with: Vec<String> = ["Polestar", "Polestar_Guides", "Polestar_Experimental", "Polestar_Codex"].iter().map(|s| s.to_string()).collect();
+		let text = readme("0.3.8", &with);
+		assert!(text.contains("\r\n     Polestar_Experimental\r\n"));
+		assert!(text.contains(
+			"\r\n   Polestar_Experimental holds experimental guides for Forever's new\r\n   zones (alpha). They are on for everyone: the guide menu lists them\r\n   under Leveling with our own guides, and a route choice offers their\r\n   zones where they fit. Options > Guide > Show experimental guides\r\n   takes them out of the guide menu.\r\n2. Quit"
+		));
+		let without = readme("0.3.8", &with[..2]);
+		assert!(!without.contains("Polestar_Experimental"));
+		assert!(without.contains("Theme and loads only when you pick it.\r\n2. Quit"));
 	}
 
 	#[test]

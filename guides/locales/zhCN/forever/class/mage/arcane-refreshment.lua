@@ -18,7 +18,7 @@ return {
 	-- Step 2: Hydrospawn
 	["Hydrospawn"] = "海多斯博恩",
 	-- {area:1758} Riptide
-	["Hydrospawn, a level 57 elite water elemental, lives in the Warpwood Quarter (Dire Maul East): chase the imp Pusillin until he turns to fight, clear the satyr room, then take the spiral ramp down to the pool. A group of five. Frost does nothing to him, so frost mages switch to fire or arcane. {area:1758} hits everyone within 10 yards, so ranged stand back; at a quarter health he calls Hydrolings. The essence always drops; he does not come back until the instance resets."] = "",
+	["Hydrospawn, a level 57 elite water elemental, lives in the Warpwood Quarter (Dire Maul East): chase the imp Pusillin until he turns to fight, clear the satyr room, then take the spiral ramp down to the pool. A group of five. Frost does nothing to him, so frost mages switch to fire or arcane. {area:1758} hits everyone within 10 yards, so ranged stand back; at a quarter health he calls Hydrolings. The essence always drops; he does not come back until the instance resets."] = "海多斯博恩是一只57级精英水元素，位于扭木区（厄运之槌东区）：追赶小鬼普希林直到他转身迎战，清掉萨特房间，然后沿螺旋坡道下到水池。需要五人小队。冰霜对他无效，所以冰霜法师要改用火焰或奥术。{area:1758}会击中10码内的所有人，因此远程站远一些；血量降到四分之一时，他会召唤小水元素。精华必定掉落；在副本重置前他不会再出现。",
 	-- {item:18299} Hydrospawn Essence
 	["{item:18299}: Hydrospawn"] = "{item:18299}：海多斯博恩",
 

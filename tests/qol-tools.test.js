@@ -83,8 +83,10 @@ test('qol media: power-of-two TGA glyphs under Media/UI with the qol- prefix', (
 });
 
 test('qol media: every glyph the addon references is generated and committed', () => {
-	const src = ['Buttons.lua', 'Rewards.lua', 'Flight.lua', 'Death.lua', 'Options.lua']
-		.map((f) => fs.readFileSync(path.join(__dirname, '..', 'addon', 'Polestar', 'QoL', f), 'utf8'))
+	// The QoL module's files, and its rows in the settings window's addon.
+	const src = ['Polestar/QoL/Buttons.lua', 'Polestar/QoL/Rewards.lua', 'Polestar/QoL/Flight.lua', 'Polestar/QoL/Death.lua',
+		'Polestar_Options/QoL/Options.lua', 'Polestar_Options/QoL/ButtonsOptions.lua']
+		.map((f) => fs.readFileSync(path.join(__dirname, '..', 'addon', f), 'utf8'))
 		.join('\n');
 	const used = new Set(src.match(/qol-[a-z]+(?:-[a-z]+)*/g));
 	for (const name of used) {

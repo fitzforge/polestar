@@ -24,7 +24,7 @@ return {
 	-- {area:154} Deathknell
 	["{area:154} (optional hub)"] = "{area:154}（可选任务点）",
 	-- {area:154} Deathknell · {faction:68} Undercity · {npc:1661} Novice Elreth · {npc:1570} Executor Arren · {npc:1740} Deathguard Saltain
-	["Forever pays these old quests in full at any level. {area:154}, the Forsaken start at the west end of Tirisfal: about 900 {faction:68} reputation in 25 minutes. Starting-zone quests give the other cities no share. {npc:1661}, {npc:1570} and {npc:1740} stand in the village."] = "",
+	["Forever pays these old quests in full at any level. {area:154}, the Forsaken start at the west end of Tirisfal: about 900 {faction:68} reputation in 25 minutes. Starting-zone quests give the other cities no share. {npc:1661}, {npc:1570} and {npc:1740} stand in the village."] = "无限在任何等级都为这些旧任务提供全额奖励。{area:154}是提瑞斯法林地最西端的被遗忘者起始区，约25分钟可得900点{faction:68}声望。起始区任务不会向其他主城提供共享声望。{npc:1661}、{npc:1570}和{npc:1740}在村庄内。",
 
 	-- Step 3: Deathknell: the next quests
 	-- {area:154} Deathknell
@@ -57,14 +57,15 @@ return {
 	-- {area:159} Brill
 	["{area:159} (optional hub)"] = "{area:159}（可选任务点）",
 	-- {area:159} Brill · {faction:68} Undercity · {npc:1515} Executor Zygand · {npc:1499} Magistrate Sevren · {npc:1518} Apothecary Johaan · {npc:1496} Deathguard Dillinger · {npc:1500} Coleman Farthing
-	["Forever pays these old quests in full at any level. {area:159} and the fields around it: about 1,100 {faction:68} reputation in 45 minutes. {npc:1515}, {npc:1499}, {npc:1518}, {npc:1496} and {npc:1500} are in the town."] = "",
+	["Forever pays these old quests in full at any level. {area:159} and the fields around it: about 1,100 {faction:68} reputation in 45 minutes. {npc:1515}, {npc:1499}, {npc:1518}, {npc:1496} and {npc:1500} are in the town."] = "Forever中，这些旧任务在任何等级都奖励全额声望。{area:159}及周边田野：45分钟可获得约1,100点{faction:68}声望。{npc:1515}、{npc:1499}、{npc:1518}、{npc:1496}和{npc:1500}都在镇上。",
 
 	-- Step 9: Around Brill
 	-- {area:159} Brill
 	["Around {area:159}"] = "{area:159}周围",
 	-- {item:286176} Executor's Motivator · {area:159} Brill · {quest:99141} Patience · {npc:1496} Deathguard Dillinger · {npc:251001} Deathguard Kristof · {npc:10666} Gordo · {npc:1525} Rotting Dead
 	["Use the {item:286176} on five Deathguards around {area:159}. For {quest:99141}, talk to {npc:1496} west of {area:159}, {npc:251001} at the waystation east of it and {npc:10666} on the road. The Rot Hide gnolls dig at the mass grave north of {area:159}. The {npc:1525} walk around the old bridge west of {area:159}; the dry branches lie under the trees there. Darkhounds roam everywhere."] = "对{area:159}周围的5名亡灵卫兵使用{item:286176}。做{quest:99141}时，与{area:159}西面的{npc:1496}、东面驿站的{npc:251001}及路上的{npc:10666}交谈。腐皮豺狼人在{area:159}北面的乱葬岗挖掘。{npc:1525}在{area:159}西面旧桥周围行走；干树枝散落在那里的树下。黑暗犬到处都有。",
-	["Motivate 5 Deathguards"] = "激励5名亡灵卫兵",
+	-- {area:159} Brill
+	["Motivate 5 Deathguards: the Deathguards around {area:159}"] = "激励5名亡灵卫兵：{area:159}周围的亡灵卫兵",
 
 	-- Step 10: Agamand Mills
 	-- {npc:1657} Devlin Agamand · {area:157} Agamand Mills
@@ -106,12 +107,12 @@ return {
 	["{item:14047}: the Scarlet outside {area:2266}"] = "{item:14047}：{area:2266} 外的血色十字军",
 
 	-- Step 17: Undercity: Harbinger Balthazad
-	-- {area:152} Bulwark · {npc:10879} Harbinger Balthazad · {faction:68} Undercity
-	["The level 55 to 60 quests pay in full. First the {area:152}: {npc:10879}, by the {faction:68}'s elevators, sends you there."] = "55 至 60 级任务会给予完整奖励。先去 {area:152}：{faction:68} 升降梯旁的 {npc:10879} 会让你前往。",
+	-- {area:152} Bulwark · {npc:10879} Harbinger Balthazad · {faction:68} Undercity · {object:36126} Royal Quarter · {quest:5961} The Champion of the Banshee Queen · {npc:11878} Nathanos Blightcaller · {quest:6136} The Corpulent One
+	["The level 55 to 60 quests pay in full. First the {area:152}: {npc:10879}, by the {faction:68}'s elevators, sends you there. Lady Sylvanas in the {object:36126} gives {quest:5961}, an introduction to {npc:11878}: {quest:6136}, his last quest here, needs it handed in."] = "55至60级任务会给予完整奖励。先去{area:152}：{faction:68}升降梯旁的{npc:10879}会让你前往。{object:36126}的希尔瓦娜斯女士会给予{quest:5961}，即引见{npc:11878}的任务：他在这里的最后一个任务{quest:6136}需要先交还它。",
 
 	-- Step 18: Bulwark: Scarlet Diversions
 	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {npc:10837} High Executor Derrington · {faction:68} Undercity · {item:12814} Flame in a Bottle · {area:200} Dalson's Tears · {area:199} Felstone Field · {item:12807} Scourge Banner
-	["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain sends you against the Scourge cauldrons of the {zone:1422}: about 820 {faction:68} reputation. Take a {item:12814} from the box beside him; burn the command tent of the Scarlet camp between {area:200} and {area:199} and plant the {item:12807} beside it."] = "",
+	["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain sends you against the Scourge cauldrons of the {zone:1422}: about 820 {faction:68} reputation. Take a {item:12814} from the box beside him; burn the command tent of the Scarlet camp between {area:200} and {area:199} and plant the {item:12807} beside it."] = "{area:152}是被遗忘者的营地，位于提瑞斯法林地通往{zone:1422}的道路上。{npc:10837}的任务线会让你处理{zone:1422}的天灾瘟疫之锅，共约820点{faction:68}声望。从他身旁的箱子里拿取{item:12814}；烧毁{area:200}与{area:199}之间血色营地的指挥帐篷，并在旁边插下{item:12807}。",
 	-- {quest:5096} Scarlet Diversions
 	["{quest:5096}, +100 (level 53)"] = "{quest:5096}，+100（53级）",
 	-- {object:176088} Scarlet Crusade Forward Camp (no name in this language: may be words)
@@ -171,7 +172,7 @@ return {
 
 	-- Step 28: Nathanos Blightcaller
 	-- {npc:11878} Nathanos Blightcaller · {zone:1423} Eastern Plaguelands · {faction:68} Undercity
-	["{npc:11878}, the Ranger Lord, keeps his camp on the western edge of the {zone:1423}. His quests are level 58 to 60 and pay in full: 500 {faction:68} reputation."] = "游侠领主 {npc:11878} 在 {zone:1423} 西边缘扎营。他的任务为58至60级，可获得全额奖励：500点 {faction:68} 声望。",
+	["{npc:11878}, the Ranger Lord, keeps his camp on the western edge of the {zone:1423}. His quests are level 58 to 60 and pay in full: 525 {faction:68} reputation with Sylvanas's introduction."] = "游侠领主{npc:11878}在{zone:1423}西边缘扎营。他的任务为58至60级，可获得全额奖励：有希尔瓦娜斯的引见可得525点{faction:68}声望。",
 
 	-- Step 29: Plaguebats, Quel'Lithien Lodge and Corin's Crossing
 	-- {area:2276} Quel'Lithien Lodge · {area:2264} Corin's Crossing
@@ -192,13 +193,13 @@ return {
 	-- {npc:11897} Duskwing · {area:2260} Marris Stead · {npc:11896} Borelgore · {area:2272} Northdale
 	["{npc:11897}, an elite bat, roams the fields north of {area:2260}. {npc:11896} paces a long valley west of {area:2272}."] = "{npc:11897}是一只精英蝙蝠，在{area:2260}以北的田野游荡。{npc:11896}在{area:2272}以西的一条长山谷中来回走动。",
 	-- {npc:11878} Nathanos Blightcaller · {faction:68} Undercity · {area:2279} Stratholme · {npc:12337} Crimson Courier
-	["{npc:11878}: 500 {faction:68} reputation. His {area:2279} quests (The {npc:12337}, The Scarlet Oracle, Demetria, Ramstein) need a group."] = "{npc:11878}：500点{faction:68}声望。他在{area:2279}的任务（{npc:12337}、“血色十字军圣者，德米提雅”、拉姆斯登）需要组队。",
+	["{npc:11878}: 525 {faction:68} reputation with Sylvanas's introduction. His {area:2279} quests (The {npc:12337}, The Scarlet Oracle, Demetria, Ramstein) need a group."] = "{npc:11878}：有希尔瓦娜斯的引见可得525点{faction:68}声望。他在{area:2279}的任务（{npc:12337}、“血色十字军圣者，德米提雅”、拉姆斯登）需要小队。",
 
 	-- Step 32: The Spider God (optional chain)
 	-- {quest:2936} The Spider God
 	["{quest:2936} (optional chain)"] = "{quest:2936}（可选任务线）",
 	-- {zone:1425} Hinterlands · {area:272} Tarren Mill · {area:367} Sen'jin Village · {area:978} Zul'Farrak · {faction:68} Undercity · {quest:2937} Summoning Shadra · {quest:2938} Venom to the Undercity · {quest:2933} Venom Bottles
-	["Six quests across the {zone:1425}, {area:272}, {area:367}, {area:978} and the {faction:68}: 600 {faction:68} and 225 Darkspear reputation. {quest:2937} and {quest:2938} are level 55 and pay 400 in full at 60; the four before them are level 43 to 45 and pay in full too. Allow about 90 minutes with the travel. The {quest:2933} stand on the tables of the Witherbark village in the west of the {zone:1425}: click one to start."] = "",
+	["Six quests across the {zone:1425}, {area:272}, {area:367}, {area:978} and the {faction:68}: 600 {faction:68} and 225 Darkspear reputation. {quest:2937} and {quest:2938} are level 55 and pay 400 in full at 60; the four before them are level 43 to 45 and pay in full too. Allow about 90 minutes with the travel. The {quest:2933} stand on the tables of the Witherbark village in the west of the {zone:1425}: click one to start."] = "六个任务横跨{zone:1425}、{area:272}、{area:367}、{area:978}和{faction:68}，共提供600点{faction:68}和225点暗矛声望。{quest:2937}和{quest:2938}是55级任务，60级时仍提供全额的400点声望；前四个任务为43至45级，也提供全额声望。算上赶路，预留约90分钟。{quest:2933}放在{zone:1425}西部枯木村庄的桌上，点击一个即可开始。",
 
 	-- Step 34: Shadra'Alor: an Undamaged Venom Sac
 	-- {area:353} Shadra'Alor · {quest:2934} Undamaged Venom Sac
@@ -270,8 +271,11 @@ return {
 	-- ["Kolkar centaur (level 30-33) drop it here. The Auction House works too."] = "这里的科卡尔半人马（30-33级）会掉落。也可以去拍卖行购买。",
 	-- ["Six quests across the {zone:1425}, {area:272}, {area:367}, {area:978} and the {faction:68}: 600 {faction:68} and 225 Darkspear reputation. {quest:2937} and {quest:2938} are level 55 and pay 400 in full at 60; the four before them are level 43 to 45 (a fifth at 60 in Classic, 440 {faction:68} in all then). Allow about 90 minutes with the travel. The {quest:2933} stand on the tables of the Witherbark village in the west of the {zone:1425}: click one to start."] = "六个任务横跨 {zone:1425}、{area:272}、{area:367}、{area:978} 和 {faction:68}：共提供 600 点 {faction:68} 和 225 点暗矛声望。{quest:2937} 和 {quest:2938} 为 55 级，60 级时仍提供全额的 400 点；前四个任务为 43 至 45 级（经典旧世中 60 级时奖励降至五分之一，此时合计为 440 点 {faction:68}）。算上赶路，预留约 90 分钟。{quest:2933} 放在 {zone:1425} 西部枯木村庄的桌上：点击一个即可开始。",
 	-- ["The Plaguelands' level 55-60 quests and {item:14047} to Exalted, with Tirisfal's old quests as an optional extra."] = "通过瘟疫之地的55-60级任务和{item:14047}刷到崇拜，提瑞斯法林地的旧任务可选做。",
+	-- ["The level 55 to 60 quests pay in full. First the {area:152}: {npc:10879}, by the {faction:68}'s elevators, sends you there."] = "55 至 60 级任务会给予完整奖励。先去 {area:152}：{faction:68} 升降梯旁的 {npc:10879} 会让你前往。",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "{area:381}的风险投资公司执行者（16-17级）会掉落。也可以去拍卖行购买。",
 	-- ["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain sends you against the Scourge cauldrons of the {zone:1422}: about 820 {faction:68} reputation, about 710 at 60 if the level 53 quests pay less. Take a {item:12814} from the box beside him; burn the command tent of the Scarlet camp between {area:200} and {area:199} and plant the {item:12807} beside it."] = "{area:152}是被遗忘者的营地，在提瑞斯法通往{zone:1422}的路上。{npc:10837}的任务线会让你去处理{zone:1422}的天灾大锅：约820点{faction:68}声望；若53级任务的奖励减少，60级时约710。从他身旁的箱子拿一个{item:12814}；烧毁{area:200}与{area:199}之间血色营地的指挥帐篷，并在旁边插下{item:12807}。",
+	-- ["{npc:11878}, the Ranger Lord, keeps his camp on the western edge of the {zone:1423}. His quests are level 58 to 60 and pay in full: 500 {faction:68} reputation."] = "游侠领主 {npc:11878} 在 {zone:1423} 西边缘扎营。他的任务为58至60级，可获得全额奖励：500点 {faction:68} 声望。",
+	-- ["{npc:11878}: 500 {faction:68} reputation. His {area:2279} quests (The {npc:12337}, The Scarlet Oracle, Demetria, Ramstein) need a group."] = "{npc:11878}：500点{faction:68}声望。他在{area:2279}的任务（{npc:12337}、“血色十字军圣者，德米提雅”、拉姆斯登）需要组队。",
 	-- ["{npc:14729} takes cloth for {faction:68} in {faction:68}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7819} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14729}在{faction:68}收取布料以提升{faction:68}声望。首次捐献毛料、丝绸、魔纹布和{item:14047}（各60块）只能做一次，每块布给的声望最多；之后{quest:7819}可重复做到崇拜。与其他种族的主城达到崇拜后，可购买该种族的坐骑。Forever的传承外交官特权可提高声望获取。",
 	-- ["{npc:14729}: {item:14047} delivered"] = "{npc:14729}：已交付{item:14047}",
 	-- ["{quest:7819} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7819}每次交还需要20块{item:14047}，可无限重复。按20的倍数带上{item:14047}，一次接一次全部交还。{item:14047}：{zone:1423}的黑暗教徒和暗影法师（58-60级），或拍卖行。",

@@ -364,6 +364,33 @@
 				}
 			],
 			"note": "Essence of the Exile (1714) is handed in at Bath'rah's Cauldron (object 89931) straight from the cauldron's window, which opens on the charms it wants (\"The cauldron bubbles. Its vapors beckon...\", then Continue): a player's in-game screenshot (#1699). The game's data marks 1714 as a quest handed in on the spot, repeatable, offered only while Cyclonian is in the log; players' recordings have never shown a quest of that kind accepted (66 such quests handed in, none taken)."
+		},
+		"851": {
+			"kinds": [
+				{
+					"kind": "other",
+					"confidence": "medium"
+				}
+			],
+			"steps": [
+				{
+					"n": 1,
+					"action": "kill",
+					"target": {
+						"type": "npc",
+						"id": 3395
+					},
+					"fact": "Verog the Dervish does not wander the Stagnant Oasis on his own: he comes out when you kill the Kolkar centaurs there. Keep killing them until he appears.",
+					"place": {
+						"map": 1413,
+						"x": 53.1,
+						"y": 41.7,
+						"f": "e"
+					},
+					"confidence": "medium"
+				}
+			],
+			"note": "Verog the Dervish (851): Verog (3395) appears at the Stagnant Oasis after Kolkar centaurs are killed there, not as a standing spawn. Source: players' in-game recordings to 2026-11-15: of 76 recorded Verog kills (61 people), 63 came within ten minutes of a Kolkar kill, a median of 25 seconds after the last one (Kolkar Marauders, Bloodchargers, Pack Runners); and Corey's report (#2479)."
 		}
 	}
 }

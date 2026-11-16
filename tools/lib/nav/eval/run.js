@@ -90,7 +90,7 @@ function runQueries({ navDir, queries, lua = findInterpreter(), zoneLevels = nul
 		fs.writeFileSync(qfile, queries.map((q) => JSON.stringify(q)).join('\n') + '\n');
 		if (zoneLevels) {
 			const zfile = path.join(tmp, 'zones.json');
-			fs.writeFileSync(zfile, JSON.stringify(Object.fromEntries(Object.entries(zoneLevels).map(([id, z]) => [id, z.min]))));
+			fs.writeFileSync(zfile, JSON.stringify(Object.fromEntries(Object.entries(zoneLevels).map(([id, z]) => [id, z.danger !== undefined ? z.danger : z.min]))));
 			args.push(zfile);
 		}
 		if (warm) args.push('warm');

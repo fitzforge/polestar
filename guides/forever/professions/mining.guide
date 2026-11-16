@@ -77,13 +77,15 @@ step Chunk of Amber & Large Chunk of Amber: Teldrassil (1-50)
   only NightElf
   zone Teldrassil
   tip Mine every Chunk of Amber (1, orange), Large Chunk of Amber (1, orange) node you pass and circle the waypoints until Mining 50. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points.
-  goto 53.0,79.3 "Large Chunk of Amber" r 30
-  goto 44.2,59.5 "Large Chunk of Amber" r 30
-  goto 46.3,51.8 "Large Chunk of Amber" r 30
+  goto 53.0,79.2 "Large Chunk of Amber" r 30
+  goto 53.4,74.9 "Large Chunk of Amber" r 30
+  goto 45.2,60.2 "Large Chunk of Amber" r 30
+  goto 44.0,59.3 "Large Chunk of Amber" r 30
+  goto 46.3,51.5 "Large Chunk of Amber" r 30
+  goto 52.9,50.5 "Large Chunk of Amber" r 30
+  goto 56.9,27.8 "Chunk of Amber" r 30
   goto 37.3,23.4 "Large Chunk of Amber" r 30
-  goto 56.8,27.8 "Chunk of Amber" r 30
-  goto 56.7,31.9 "Chunk of Amber" r 30
-  goto 53.0,50.6 "Large Chunk of Amber" r 30
+  goto 37.8,82.3 "Large Chunk of Amber" r 30
   skill Mining 50
 
 step Copper: Zephras Isle (1-50)
@@ -126,18 +128,18 @@ step Copper: Mulgore (1-50)
   only Tauren
   zone Mulgore
   tip Mine every Copper (1, orange), Poor Copper (1, orange, rare) node you pass and circle the waypoints until Mining 50. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points.
-  goto 36.7,15.4 "Copper" r 30
-  goto 54.7,12.4 "Copper" r 30
-  goto 60.0,30.8 "Copper" r 30
-  goto 61.0,38.3 "Copper" r 30
-  goto 62.0,53.0 "Copper" r 30
-  goto 68.6,67.5 "Copper" r 30
-  goto 55.6,74.4 "Copper" r 30
-  goto 43.3,73.4 "Copper" r 30
-  goto 34.0,69.9 "Copper" r 30
   goto 31.6,61.6 "Copper" r 30
-  goto 33.6,58.8 "Copper" r 30
+  goto 34.0,69.9 "Copper" r 30
+  goto 43.3,73.4 "Copper" r 30
+  goto 55.6,74.4 "Copper" r 30
+  goto 68.6,67.5 "Copper" r 30
+  goto 62.0,53.0 "Copper" r 30
+  goto 61.0,38.3 "Copper" r 30
+  goto 60.0,30.8 "Copper" r 30
+  goto 54.7,12.4 "Copper" r 30
+  goto 36.7,15.4 "Copper" r 30
   goto 34.1,53.6 "Copper" r 30
+  goto 33.6,58.8 "Copper" r 30
   skill Mining 50
 
 step Copper & Poor Copper: Tirisfal Glades (1-50)
@@ -203,13 +205,15 @@ step Chunk of Amber & Large Chunk of Amber: Teldrassil (50-65) cont.
   only NightElf
   zone Teldrassil
   tip Mine every Chunk of Amber (1, yellow), Large Chunk of Amber (1, yellow) node you pass and circle the waypoints until Mining 65. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points.
-  goto 53.0,79.3 "Large Chunk of Amber" r 30
-  goto 44.2,59.5 "Large Chunk of Amber" r 30
-  goto 46.3,51.8 "Large Chunk of Amber" r 30
+  goto 53.0,79.2 "Large Chunk of Amber" r 30
+  goto 53.4,74.9 "Large Chunk of Amber" r 30
+  goto 45.2,60.2 "Large Chunk of Amber" r 30
+  goto 44.0,59.3 "Large Chunk of Amber" r 30
+  goto 46.3,51.5 "Large Chunk of Amber" r 30
+  goto 52.9,50.5 "Large Chunk of Amber" r 30
+  goto 56.9,27.8 "Chunk of Amber" r 30
   goto 37.3,23.4 "Large Chunk of Amber" r 30
-  goto 56.8,27.8 "Chunk of Amber" r 30
-  goto 56.7,31.9 "Chunk of Amber" r 30
-  goto 53.0,50.6 "Large Chunk of Amber" r 30
+  goto 37.8,82.3 "Large Chunk of Amber" r 30
   skill Mining 65
 
 step Copper: Zephras Isle (50-65) cont.
@@ -252,18 +256,18 @@ step Copper: Mulgore (50-65) cont.
   only Tauren
   zone Mulgore
   tip Mine every Copper (1, yellow), Poor Copper (1, yellow, rare) node you pass and circle the waypoints until Mining 65. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points.
-  goto 36.7,15.4 "Copper" r 30
-  goto 54.7,12.4 "Copper" r 30
-  goto 60.0,30.8 "Copper" r 30
-  goto 61.0,38.3 "Copper" r 30
-  goto 62.0,53.0 "Copper" r 30
-  goto 68.6,67.5 "Copper" r 30
-  goto 55.6,74.4 "Copper" r 30
-  goto 43.3,73.4 "Copper" r 30
-  goto 34.0,69.9 "Copper" r 30
   goto 31.6,61.6 "Copper" r 30
-  goto 33.6,58.8 "Copper" r 30
+  goto 34.0,69.9 "Copper" r 30
+  goto 43.3,73.4 "Copper" r 30
+  goto 55.6,74.4 "Copper" r 30
+  goto 68.6,67.5 "Copper" r 30
+  goto 62.0,53.0 "Copper" r 30
+  goto 61.0,38.3 "Copper" r 30
+  goto 60.0,30.8 "Copper" r 30
+  goto 54.7,12.4 "Copper" r 30
+  goto 36.7,15.4 "Copper" r 30
   goto 34.1,53.6 "Copper" r 30
+  goto 33.6,58.8 "Copper" r 30
   skill Mining 65
 
 step Copper & Poor Copper: Tirisfal Glades (50-65) cont.

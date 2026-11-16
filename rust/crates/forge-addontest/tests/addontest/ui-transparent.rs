@@ -157,16 +157,11 @@ fn the_dark_backing_holds_every_string_of_the_step_on_its_solid_middle_and_the_s
 	.remove(0);
 	for case in ["down", "hub", "tip", "narrow", "compact", "flipped"] {
 		let c = &out[case];
-		// Compact mode hides the tabs, and at 260px the title yields its space to the toolbar buttons.
-		let compact = case == "compact";
-		assert!(c["barTexts"].as_u64().unwrap() >= if compact { 2 } else { 3 }, "{case}: the toolbar's strings are on screen");
+		// Compact mode keeps the three tabs on its slim strip, on the bar's backing like the full one.
+		assert!(c["barTexts"].as_u64().unwrap() >= 3, "{case}: the toolbar's strings are on screen");
 		assert_eq!(c["countShown"], true, "{case}: the step count stays visible");
 		assert!(c["count"].as_str().unwrap().contains(" / "), "{case}: the step count is populated");
-		if compact {
-			assert_eq!(c["tabs"], 0, "compact: the tab strip is hidden");
-		} else {
-			assert!(c["tabs"].as_u64().unwrap() >= 1, "{case}: the tab strip is populated");
-		}
+		assert!(c["tabs"].as_u64().unwrap() >= 1, "{case}: the tab strip is populated");
 		assert!(c["bodyTexts"].as_u64().unwrap() >= 5, "{case}: the step's strings are on screen");
 		assert_eq!(c["bar"], "", "{case}: the tabs and the step bar sit on the bar's backing");
 		assert_eq!(c["body"], "", "{case}: every string of the step sits on the body's backing");
@@ -273,7 +268,7 @@ fn tick_boxes_on_the_world_get_the_scrim_inside_and_an_ink_edge_and_the_standard
 		assert_eq!(out[case]["edge"][3], 0.7, "{case}");
 	}
 	assert_eq!(out["after"], out["before"], "back in Standard, the house box");
-	assert_eq!(out["before"]["fill"][3], 0.35);
+	assert_eq!(out["before"]["fill"][3], 0.12, "the house look's light well (since 0.3.8; 0.35 in the other looks)");
 }
 
 #[test]

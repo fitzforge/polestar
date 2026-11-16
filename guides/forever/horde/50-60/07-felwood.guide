@@ -136,6 +136,15 @@ step A Final Blow
   collect 13207 quest 5242.3          -- Below ground
   collect 11515 x6 -- Corrupted Soul Shards from the cultists, Salve via Hunting
 
+step A Strange Red Key
+  when has 13140
+  tip A Blood Red Key dropped: the Jaedenar Enforcers, Darkweavers, Warlocks and Legionnaires of Shadow Hold carry one now and then. Use it to start the quest, then free Arko'narin from her cage in the cave's south end on your way out.
+  accept 5202 optional
+
+step Captured Arko'narin
+  when onquest 5202
+  turnin 5202                         -- Captured Arko'narin, below ground
+
 step Maybess Riverbreeze
   when available 5887
   tip On the way back south to Greta, Maybess takes the shards on the west side of the Sanctuary.
@@ -147,7 +156,8 @@ step Greta Mosshoof
 
 step Toxic Horrors
   tip Ride north up the Felwood road to Irontree Woods; the Toxic Horrors ooze between the trees, and most of them drop a droplet.
-  collect 12822 quest 5086.1
+  tip Careful: Ancient Irontree Walkers, level 59 elites, walk among the Toxic Horrors, and Vartrus the Ancient (63, elite) roams the woods: work the Horrors at the north tip of Irontree Woods, one at a time.
+  collect 12822 quest 5086.1 @50.6,22.4
 
 step Moonglade
   zone Moonglade
@@ -195,15 +205,8 @@ step Winterfall Runners
   collect 12829 quest 5087.1
 
 step Salfa
-  turnin 8464
-
-step Beads for Salfa
-  tip Any Winterfall furbolg can carry the beads; the camps just south of Salfa are the closest.
-  goto 31.6,36.6 "Frostfire Winterfall camp"
-  collect 21383 x5
-
-step Salfa
-  turnin 8469 direct
+  accept 8464
+  note Winterfall Activity's village is north-east of Everlook, on this guide's way back from Darkwhisper Gorge.
 
 step Meilosh
   when complete 6031
@@ -235,24 +238,38 @@ step Level 59.9
   goto 60.1,71.2 map 1452 "Rabid Shardtooth"
   level 59.9 grind 7446               -- grind on Rabid Shardtooth
 
+step Are We There, Yeti?
+  tip Ride north to Everlook.
+  kill 10978 quest 5163.1 @61.5,38.6 map 1452 "Scare Legacki with Umi's Mechanical Yeti"
+
+step Everlook
+  turnin 5163                         -- Umi Rumplesnicker
+
+step Winterfall Village
+  tip The furbolg village fills the valley north-east of Everlook. Kill Shamans first; they heal. High Chief Winterfall (59, elite) and Xandivious (62) are in the cave at the back: stay out.
+  kill 7440 quest 8464.2
+  kill 7438 quest 8464.3
+  kill 7439 quest 8464.1
+
 step Donova Snowden
-  tip Ride back west to Frostfire Hot Springs.
+  tip Ride back west along the road to Frostfire Hot Springs.
   turnin 4842
   turnin 5087                         -- Donova Snowden
   note Donova next sends you after High Chief Winterfall, an elite in his cave. Skip it.
 
-step Are We There, Yeti?
-  kill 10978 quest 5163.1 @61.5,38.6 map 1452 "Scare Legacki with Umi's Mechanical Yeti"
+step Salfa
+  tip North of Donova, at the tunnel's Winterspring exit.
+  turnin 8464
 
-step Everlook
-  tip Ride east along the road to Everlook.
-  turnin 5163                         -- Umi Rumplesnicker
+step Beads for Salfa
+  tip Salfa takes the beads only once Winterfall Activity is handed in: any Winterfall furbolg can carry them, and the camps just south of Salfa are the closest.
+  goto 31.6,36.6 "Frostfire Winterfall camp"
+  collect 21383 x5
+
+step Salfa
+  turnin 8469 direct
 
 # ---------------------------------------------------------------- Level 60
-
-step Dungeon instead of grinding
-  tip Optional. Running Stratholme, Scholomance, Lower Blackrock Spire or Blackrock Depths with a group instead of grinding gets you there faster.
-  note Optional: with a group, a 55-60 dungeon replaces the grind below.
 
 step Grind to 60
   tip The quests run out here. Rabid Shardtooths prowl Frostwhisper Gorge in southern Winterspring, south of the road from Everlook.

@@ -10,7 +10,7 @@ return {
 	-- {spell:10797} Starshards · {spell:2651} Elune's Grace
 	["{spell:10797} and {spell:2651}"] = "{spell:10797}와(과) {spell:2651}",
 	-- {spell:10797} Starshards · {spell:2651} Elune's Grace
-	["The Night Elf priest spells: {spell:10797} at 10, {spell:2651} at 20. Free, no objectives."] = "",
+	["The Night Elf priest spells: {spell:10797} at 10, {spell:2651} at 20. Free, no objectives."] = "나이트 엘프 사제 주문: 10레벨에 {spell:10797}, 20레벨에 {spell:2651}. 무료이며 목표가 없습니다.",
 
 	-- Step 1: Starshards: Laurna Morninglight
 	-- {npc:3600} Laurna Morninglight · {area:186} Dolanaar · {quest:5628} Returning Home · {npc:11401} Priestess Alathea · {zone:1457} Darnassus
@@ -119,5 +119,4 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 10, go to {npc:11401} in the Temple of the Moon. Priest trainers elsewhere ({npc:3600} in {area:186}, {npc:377} in {area:87}, {npc:1226} in {area:131}) send you to her with {quest:5628}."] = "10레벨에 달의 신전의 {npc:11401}에게 가십시오. 다른 곳의 사제 상급자({area:186}의 {npc:3600}, {area:87}의 {npc:377}, {area:131}의 {npc:1226})가 {quest:5628} 퀘스트로 그녀에게 보냅니다.",
 	-- ["At 20, {npc:11401} teaches {quest:5672}. {npc:376} in {zone:1453} and {npc:11406} in {zone:1455} send you to her with a quest of the same name."] = "20레벨에 {npc:11401}이(가) {quest:5672}을(를) 가르칩니다. {zone:1453}의 {npc:376}와(과) {zone:1455}의 {npc:11406}이(가) 같은 이름의 퀘스트로 그녀에게 보냅니다.",
-	-- ["The Night Elf priest spells: {spell:10797} at 10, {spell:2651} at 20."] = "나이트 엘프 사제 주문: 10레벨에 {spell:10797}, 20레벨에 {spell:2651}.",
 }

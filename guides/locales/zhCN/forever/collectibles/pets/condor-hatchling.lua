@@ -6,6 +6,9 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (simplified) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	["Condor Hatchling"] = "秃鹫幼崽",
+
 	-- Step 1: Lord Condar
 	-- {npc:14268} Lord Condar · {zone:1432} Loch Modan · {item:282637} Shaking Egg
 	["{npc:14268} is a rare level 15-16 condor in south-eastern {zone:1432}. He appears at one of four spots, hours after he last died; the arrow takes you round them. He drops the {item:282637} only about once in 500 kills, so this is a pet for players who pass through {zone:1432} often: check his spots each time, and kill him whenever you see him."] = "{npc:14268} 是 {zone:1432} 东南部的一只 15-16 级稀有秃鹫。死亡数小时后，它会在四个刷新点之一出现；箭头会带你逐点查看。{item:282637} 的掉率只有约五百分之一，因此这只宠物适合经常经过 {zone:1432} 的玩家收集：每次都查看刷新点，见到它就杀。",

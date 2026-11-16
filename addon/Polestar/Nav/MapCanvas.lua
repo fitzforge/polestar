@@ -59,6 +59,12 @@
 --   view:PinScale(startScale, endScale) -> the scale MapCanvasPinMixin gives a
 --       pin with SetScalingLimits(1, startScale, endScale): constant on screen
 --       at startScale zoomed out, endScale zoomed in
+--
+--   MapCanvas.Add(map)   another addon's map canvas (a MapCanvasMixin frame,
+--       e.g. Polestar: UI's PolestarUIWorldMapCanvas): every module that draws
+--       on the world map draws on it too, with frames of its own. Call it once,
+--       after the frame is made; it is only read, as the world map is.
+--   MapCanvas.OnAdd(fn)  fn(map) for every map added, now and later (modules)
 
 local ADDON, ns = ...
 
@@ -164,6 +170,20 @@ end
 ns.On("POLESTAR_HIDDEN", function(hidden)
 	for _, view in pairs(views) do view.frame:SetShown(not hidden) end
 end)
+
+local added, onAdd = {}, {}
+
+function MapCanvas.Add(map)
+	if not (type(map) == "table" and map.GetMapID and map.GetCanvas) or map == WorldMapFrame then return end
+	for i = 1, #added do if added[i] == map then return end end
+	added[#added + 1] = map
+	for i = 1, #onAdd do ns.SafeCall(onAdd[i], map) end
+end
+
+function MapCanvas.OnAdd(fn)
+	onAdd[#onAdd + 1] = fn
+	for i = 1, #added do ns.SafeCall(fn, added[i]) end
+end
 
 -- The view of a map frame, when a module watches it.
 function MapCanvas.Get(map)

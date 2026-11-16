@@ -75,8 +75,8 @@ return {
 	["{npc:4606}: take her {quest:5642} letter"] = "{npc:4606}: pegue a carta de {quest:5642} dela",
 
 	-- Step 12: Shadowguard: Ur'kyo
-	-- {npc:6018} Ur'kyo · {object:172961} Valley of Spirits (no name in this language: may be words) · {quest:5642} Shadowguard
-	["At 20, {npc:6018} in the {object:172961} teaches {quest:5642} with a quest he gives and takes back at once."] = "No nível 20, {npc:6018}, no {object:172961}, ensina {quest:5642} com uma missão que ele dá e pega de volta na hora.",
+	-- {npc:6018} Ur'kyo · {object:172961} Valley of Spirits (no name in this language: may be words) · {quest:5680} Shadowguard
+	["At 20, {npc:6018} in the {object:172961} teaches {quest:5680} with a quest he gives and takes back at once."] = "No nível 20, {npc:6018}, no {object:172961}, ensina {quest:5680} com uma missão que ele dá e pega de volta na hora.",
 
 	-- Step 13: Shadowguard: Miles Welsh's letter
 	-- {quest:5642} Shadowguard · {npc:3044} Miles Welsh
@@ -88,6 +88,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 10, go to {npc:6018} in the {object:172961}, on {zone:1454}'s west side. Priest trainers elsewhere ({npc:3706} in {area:362}, {npc:3044} in {zone:1456}) send you to him with a quest of the same name."] = "No nível 10, vá até {npc:6018} no {object:172961}, no lado oeste de {zone:1454}. Instrutores de sacerdote de outros lugares ({npc:3706} em {area:362}, {npc:3044} em {zone:1456}) mandam você até ele com uma missão de mesmo nome.",
+	-- ["At 20, {npc:6018} in the {object:172961} teaches {quest:5642} with a quest he gives and takes back at once."] = "No nível 20, {npc:6018}, no {object:172961}, ensina {quest:5642} com uma missão que ele dá e pega de volta na hora.",
 	-- ["At 20, {npc:6018} teaches {quest:5642}. {npc:3044} in {zone:1456} and Aelthalyste in the {zone:1458} send you to him with a quest of the same name."] = "No nível 20, {npc:6018} ensina {quest:5642}. {npc:3044} em {zone:1456} e Aelthalyste em {zone:1458} mandam você até ele com uma missão de mesmo nome.",
 	-- ["The Troll priest spells: {quest:5652} at 10, {quest:5642} at 20."] = "Os feitiços de sacerdote troll: {quest:5652} no nível 10, {quest:5642} no 20.",
 }

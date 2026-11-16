@@ -8,7 +8,7 @@
 return {
 	-- Step 2: Auberdine
 	-- {npc:3644} Cerellean Whiteclaw · {npc:3649} Thundris Windweaver · {npc:3666} Wizbang Cranktoggle
-	["The boat docks west of the village: {npc:3644} waits where the pier meets the shore. Go up to {npc:3649} at the north end of the village first, then down the main street to the inn. The flight master stands on the hill south of the inn. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["The boat docks west of the village: {npc:3644} waits where the pier meets the shore. Go up to {npc:3649} at the north end of the village first, then down the main street to the inn. The flight master stands on the hill south of the inn. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "Корабль причаливает к западу от деревни: {npc:3644} ждет там, где пристань выходит на берег. Сначала поднимитесь к NPC {npc:3649} в северной части деревни, затем спуститесь по главной улице к таверне. Распорядитель полетов стоит на холме к югу от таверны. {npc:3666} стоит на втором этаже таверны: поднимитесь по лестнице внутри, стрелка не различает этажи.",
 	-- {npc:3644} Cerellean Whiteclaw
 	["{npc:3644}, on the pier"] = "{npc:3644} – на пристани",
 	-- {npc:3649} Thundris Windweaver
@@ -45,7 +45,7 @@ return {
 	-- Step 6: The skeletal turtle
 	["The skeletal turtle"] = "Скелет черепахи",
 	-- {item:12289} Sea Turtle Remains
-	["{item:12289}, on the beach west of the docks; underwater"] = "",
+	["{item:12289}, on the beach west of the docks; underwater"] = "{item:12289} – на пляже к западу от пристани; под водой",
 
 	-- Step 7: Plagued bears
 	["Plagued bears"] = "Больные медведи",
@@ -152,7 +152,7 @@ return {
 	["The bay wrecks"] = "Затонувшие корабли в заливе",
 	-- {area:442} Auberdine
 	-- plural, as words: Reef Crawlers = {npc:2235} Reef Crawler · Encrusted Tide Crawlers = {npc:2233} Encrusted Tide Crawler
-	["Two wrecks lie on the sea floor in the bay north of {area:442}; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore.\nCareful: The murlocs inside the wrecks are close together and fast. They often swim through the hull walls and holes, so you will usually pull extra murlocs."] = "",
+	["Two wrecks lie on the sea floor in the bay north of {area:442}; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore.\nCareful: The murlocs inside the wrecks are close together and fast. They often swim through the hull walls and holes, so you will usually pull extra murlocs."] = "На дне залива к северу (ориентир: {area:442}) лежат два затонувших корабля; в каждом – сундучок. На этом берегу полно рифовых крабов и покрытых илом крабов.\nОсторожно: мурлоки внутри кораблей стоят близко друг к другу и быстро двигаются. Они часто проплывают сквозь стены и пробоины в корпусе, так что обычно вы будете привлекать лишних мурлоков.",
 	-- {item:12191} Silver Dawning's Lockbox
 	["{item:12191}; underwater"] = "",
 	-- {item:12192} Mist Veil's Lockbox
@@ -190,8 +190,8 @@ return {
 	-- {area:456} Cliffspring River · {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell · {item:12355} Talisman of Corruption
 	["The furbolg camp south of the {area:456} keeps its Nut, Fruit and Grain Stores by the bonfires. With a sample of each and the {item:12347} in your bags (the {item:12346} is filled at the {object:174795}), use the bowl by the bonfire closest to the river: it summons Xabraxxis, the satyr corruptor, and the {item:12355} lies in his Demon Bag."] = "",
 	["By the bonfire closest to the river: summons Xabraxxis"] = "",
-	-- {item:12355} Talisman of Corruption · {object:177624} Xabraxxis' Demon Bag
-	["{item:12355}, in {object:177624}"] = "{item:12355}: {object:177624}",
+	-- {item:12347} Filled Cleansing Bowl
+	["After using the {item:12347}, kill Xabraxxis, then click his Demon Bag on the ground to collect the talisman. If Xabraxxis despawns before you get it, retake the quest for a new bowl."] = "Использовав {item:12347}, убейте Ксабраксиса, затем щелкните по его сумке демона на земле, чтобы забрать талисман. Если Ксабраксис исчезнет раньше, возьмите задание заново, чтобы получить новую чашу.",
 
 	-- Step 34: The cave and the Den Mother
 	["Careful: If you attack one cub, the other cubs and often the mother join the fight, so expect to take on several at the same time."] = "",
@@ -213,7 +213,6 @@ return {
 	-- ["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "Примените {spell:18960}. {npc:11802} стоит на верхнем этаже своего здания ({area:2361}): поднимитесь внутри, стрелка не различает этажи. Узнайте там маршрут полета, если его у вас нет.",
 	-- ["Escort her out of the glaive; Therysil takes the turn-in in {zone:1440}"] = "Выведите ее из глефы; задание сдается Тересиль ({zone:1440})",
 	-- ["Fine Moonstalker Pelts"] = "Прекрасные шкуры лунопарда",
-	-- ["Fly from {area:442} to {area:702} and take the portal up to {npc:4217} in the {area:1658}."] = "Летите: {area:442} → {area:702}, и поднимитесь через портал; там {npc:4217} ({area:1658}).",
 	-- ["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore."] = "Идите вдоль побережья на северо-восток ({area:443}). {quest:951} лежат среди руин; их охраняют мирмидоны, колдуньи и воины из клана Гремучей Чешуи, а по берегу ходят повелительницы зверей из клана Гремучей Чешуи.",
 	-- ["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them."] = "Идите вдоль побережья на северо-восток ({area:443}). {quest:951} лежат среди руин; их охраняют мирмидоны, колдуньи и воины из клана Гремучей Чешуи.",
 	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}."] = "Идите вдоль побережья на юг мимо руин ({area:447}): одно существо ({quest:4728}) лежит на берегу к западу от Рощи, другое – южнее, рядом с местом {area:450}.",
@@ -237,7 +236,6 @@ return {
 	-- ["The WANTED poster"] = "Плакат «РАЗЫСКИВАЕТСЯ»",
 	-- ["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street."] = "Корабль причаливает к западу от деревни. Распорядитель полетов стоит на холме к югу от таверны; дающие задания – вдоль главной улицы.",
 	-- ["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "Корабль причаливает к западу от деревни. Распорядитель полетов стоит на холме к югу от таверны; дающие задания – вдоль главной улицы. {npc:3666} стоит на втором этаже таверны: поднимитесь по лестнице внутри, стрелка не различает этажи.",
-	-- ["The boat docks west of the village: {npc:3644} waits where the pier meets the shore. Go up to {npc:2913} and {npc:3649} at the north end of the village first, then down the main street to the inn. The flight master stands on the hill south of the inn. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "Корабль причаливает к западу от деревни: {npc:3644} ждет там, где пристань выходит на берег. Сначала поднимитесь к NPC {npc:2913} и {npc:3649} в северной части деревни, затем спуститесь по главной улице к таверне. Распорядитель полетов стоит на холме к югу от таверны. {npc:3666} стоит на втором этаже таверны: поднимитесь по лестнице внутри, стрелка не различает этажи.",
 	-- ["The cave lies south of the falls: Scaber Stalks grow all through it, the {item:5270} at the very back. The {npc:6788} lairs in the hills south of the falls; {object:177624} lies at the satyr camp north of her."] = "Пещера – к югу от водопада: ножки струпника растут по всей пещере, {item:5270} – в самой глубине. {npc:6788} живет в холмах к югу от водопада; {object:177624} лежит в лагере сатиров к северу от нее.",
 	-- ["The naga"] = "Наги",
 	-- ["The relics of the Barrow Dens"] = "Реликвии Келий Малфуриона",
@@ -248,9 +246,8 @@ return {
 	-- ["The {object:12666}"] = "{object:12666}",
 	-- ["Thresher Eyes"] = "Глаза крепкозуба",
 	-- ["Tide Crawlers scuttle along the shore below the village; {quest:983} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {quest:4723} lies on the shore just south of the village."] = "Прибрежные крабы снуют по берегу под деревней; {quest:983} стоит на пляже чуть южнее пристани. На мелководье плавают крепкозубы Темного берега. {quest:4723} лежит на берегу чуть южнее деревни.",
-	-- ["Two wrecks lie on the sea floor in the bay north of {area:442}; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore."] = "На дне залива к северу (ориентир: {area:442}) лежат два затонувших корабля; в каждом – сундучок. На этом берегу полно рифовых крабов и покрытых илом крабов.",
 	-- ["{area:450} lies on the coast south of {npc:10323}'s beach. Protect the prospector while he searches for the fossil."] = "{area:450} – на побережье к югу от пляжа (там {npc:10323}). Защищайте старателя, пока он ищет окаменелость.",
-	-- ["{item:12289}, on the beach west of the docks"] = "{item:12289} – на пляже к западу от пристани",
+	-- ["{item:12355}, in {object:177624}"] = "{item:12355}: {object:177624}",
 	-- ["{item:15851} and {item:2449}"] = "{item:15851} и {item:2449}",
 	-- ["{item:15883}: the {object:177790} under the water off the north coast, west of the ruins"] = "{item:15883}: {object:177790} под водой у северного побережья, к западу от руин",
 	-- ["{item:15883}: the {object:177792} under the water off the north coast, west of the ruins"] = "{item:15883}: {object:177792} под водой у северного побережья, к западу от руин",

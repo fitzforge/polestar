@@ -24,6 +24,12 @@
 --       API.Cancel(owner) -> true | false   the owner's target, while shown, lets go
 --       API.Active() -> active, owner       anything guided to; owner when an API caller set it
 --     While the death helper holds the arrow (Nav.Hold) an owner's target waits underneath, theirs again once it lets go.
+--     Minor 1, for an addon that shows the target itself:
+--       API.Target() -> { map, x, y, title, kind, quest, area, search, handedOff,
+--           next = { map, x, y, kind, title } } | nil   the target in C_Map's terms; next:
+--           the end of the leg the arrow is on, while more legs follow
+--       API.Follow(owner, fn, { pin, shows }) -> bool   fn() the next frame after a change
+--       API.Unfollow(owner) -> bool;  API.Dismiss(owner) -> bool   the player let it go there
 --   * TomTom's waypoint calls while TomTom is not installed (nav.answerTomTom,
 --     off by default: an addon reading TomTom's settings would find none):
 --     the global TomTom answers AddWaypoint, AddMFWaypoint, AddZWaypoint,
@@ -39,6 +45,8 @@
 --     when no addon has it: `/way [#mapID | zone] x y [title]`, `/way reset`.
 --   * While the target is handed to Shortest Path Forever (Nav/Handoff.lua),
 --     map clicks, the TomTom stand-in and /way are its own: Polestar's stay out.
+--     With it installed, a Shift- or Alt-click it plans a journey for is its
+--     own too: Polestar's plan waits a frame and goes only when it planned none.
 --   * With TomTom installed, nav.followTomTom (off by default) points the
 --     arrow wherever TomTom's arrow points (see "Following TomTom's arrow").
 --
@@ -196,6 +204,20 @@ local function planning()
 	return ns.Get("nav.mapPlan") and not Nav.HandedOff() and true or false
 end
 
+-- With Shortest Path Forever installed, its own Shift- and Alt-click plan a journey of its own (its
+-- Journey/JourneyInput.lua) whichever addon hears the click first: one click planned in both, and once its journey
+-- ended Polestar's arrow stayed on the clicked spot instead of going back to the guide. So with it installed, `fn`
+-- (Polestar's plan) waits a frame and is dropped when the click started a journey there (Nav/Handoff.lua
+-- ClickTaken); with its journeys off it plans nothing, and Polestar's plan goes ahead. -> true when it waits.
+local function leftToShortestPath(fn)
+	local H = Nav.handoff
+	if not (H and H.Available and H.Available()) then return false end
+	ns.After(0, function()
+		if not H.ClickTaken() then fn() end
+	end)
+	return true
+end
+
 -- Shift-click inserts links into an open chat box; that click stays Blizzard's.
 local function chatOpen()
 	local active = (ChatFrameUtil and ChatFrameUtil.GetActiveWindow) or ChatEdit_GetActiveWindow
@@ -238,6 +260,8 @@ local function onCanvasClick(canvas, button)
 	local mapID = canvas:GetMapID()
 	local x, y = canvas:GetNormalizedCursorPosition()
 	if not (mapID and x and y) then return false end
+	-- Left to Shortest Path Forever, the click goes on to its handler (and the map's own).
+	if leftToShortestPath(function() Journey.OnMapClick(mapID, x * 100, y * 100) end) then return false end
 	Journey.OnMapClick(mapID, x * 100, y * 100)
 	return true
 end
@@ -255,15 +279,21 @@ end
 
 -- Alt-click anywhere on the world map, its icons included. Observed through
 -- GLOBAL_MOUSE_DOWN, as icons swallow canvas clicks.
+local added = {} -- MapCanvas.Add's maps: alt-click and shift-click work there as on the world map
 local function onGlobalMouseDown(_, button)
 	if button ~= "LeftButton" or not planning() or not IsAltKeyDown() or IsShiftKeyDown() or IsControlKeyDown() then return end
-	local map = WorldMapFrame
-	if not (map and map:IsShown() and map.ScrollContainer and map.ScrollContainer:IsMouseOver()) then return end
+	local map
+	for i = 0, #added do
+		local m = i == 0 and WorldMapFrame or added[i]
+		if m and m:IsShown() and m.ScrollContainer and m.ScrollContainer:IsMouseOver() then map = m; break end
+	end
+	if not map then return end
 	local mapID = map:GetMapID()
 	local name, x, y = hoveredPin(map)
 	if name == "own" then return end
 	if not x then x, y = map:GetNormalizedCursorPosition() end
 	if not (mapID and x and y) then return end
+	if leftToShortestPath(function() Journey.OnMapClick(mapID, x * 100, y * 100, name) end) then return end
 	Journey.OnMapClick(mapID, x * 100, y * 100, name)
 end
 
@@ -273,7 +303,9 @@ local function onMinimapUp(_, button)
 	local P = ns.Pins
 	if not (P and P.MinimapCursor) then return end
 	local dNorth, dWest = P.MinimapCursor()
-	Journey.OnMinimapClick(dNorth, dWest, (P.MinimapView()))
+	local radius = P.MinimapView()
+	if leftToShortestPath(function() Journey.OnMinimapClick(dNorth, dWest, radius) end) then return end
+	Journey.OnMinimapClick(dNorth, dWest, radius)
 end
 
 local worldHooked, minimapHooked = false, false
@@ -299,6 +331,14 @@ ns.OnLogin(function()
 	hookMinimap()
 	ns.RegisterEvent("GLOBAL_MOUSE_DOWN", onGlobalMouseDown)
 	if ns.Pins and ns.Pins.OnWorldClick then ns.Pins.OnWorldClick(onOwnPinClick) end
+	ns.MapCanvas.OnAdd(function(map)
+		added[#added + 1] = map
+		-- Another addon's own map: its click handlers are no game table (the
+		-- gamepad check stays as on the world map).
+		if not ns.GamepadUI() and map.AddCanvasClickHandler and map.GetNormalizedCursorPosition then
+			map:AddCanvasClickHandler(onCanvasClick)
+		end
+	end)
 	if hookWorldMap() then return end
 	local function onLoaded(_, name)
 		if name == "Blizzard_WorldMap" and hookWorldMap() then ns.UnregisterEvent("ADDON_LOADED", onLoaded) end
@@ -361,6 +401,138 @@ function API.Active()
 	if not t then return false end
 	return true, owned and owned.target == t and owned.owner or nil
 end
+
+-- Minor 1: Target, Follow, Unfollow and Dismiss, for an addon that shows
+-- Polestar's target itself (a world pin, a bar with its name and distance).
+API.minor = 1
+
+-- A point in 0-1 of `map`'s live frame (as C_Map takes it), from a route
+-- point in world space; nil when it lies outside the map.
+local function onMap(map, c, wx, wy)
+	local C = ns.Compat
+	if not (mapID(map) and C and C.WorldToMap) then return nil end
+	local x, y = C.WorldToMap(c, wx, wy, map)
+	if not (x and y and x >= 0 and x <= 100 and y >= 0 and y <= 100) then return nil end
+	return x / 100, y / 100
+end
+
+-- The end of the leg the arrow is on, while it is not the last leg (a walk
+-- to the flight master, the flight, a boat): what Polestar's arrow points at.
+-- A walk to a point on the way (`via`: a path node, nothing to do there) is
+-- not a stop: the leg after it is, so a follower's pin does not hop between
+-- path nodes as the route is planned again.
+local function stopAhead(t)
+	local legs, ci = Nav.GetRoute()
+	if not (legs and ci) then return nil end
+	while ci < #legs and legs[ci].via do ci = ci + 1 end
+	local leg = ci < #legs and legs[ci]
+	local to = leg and leg.to
+	if not (to and to.c and to.wx and to.wy) then return nil end
+	local T = Nav.travel
+	local zone = T and T.ZoneOf and T.ZoneOf(to.map, to.c, to.wx, to.wy)
+	for _, map in ipairs({ to.map or false, zone or false, t.map }) do
+		local x, y = onMap(map, to.c, to.wx, to.wy)
+		if x then return { map = map, x = x, y = y, kind = leg.kind, title = leg.label } end
+	end
+	return nil
+end
+
+-- Polestar's target in C_Map's terms; a new table each call, nil without one.
+function API.Target()
+	local t = Nav.GetTarget()
+	local map, x, y = Nav.LiveCoords(t)
+	if not (map and number(x) and number(y)) then return nil end
+	local quest = tonumber(t.quest)
+	return {
+		map = map, x = x / 100, y = y / 100, title = t.label, kind = t.kind,
+		quest = quest and quest > 0 and quest or nil,
+		area = number(t.area) and t.area or nil,
+		search = t.search and true or nil,
+		handedOff = Nav.HandedOff and Nav.HandedOff() or nil,
+		next = stopAhead(t),
+	}
+end
+
+-- Followers: owner -> { fn, pin, shows }. `pin`: the follower sets the game's
+-- own waypoint, so Polestar's "Blizzard waypoint" steps aside; `shows`: it
+-- shows the target on screen, so the arrow may step aside (nav.arrowToFollower).
+local followers = {}
+local told = false
+
+local function tell()
+	told = false
+	for _, f in pairs(followers) do ns.SafeCall(f.fn) end
+end
+
+-- Many changes in one frame (a step done replans the route): one call, next frame.
+local function queue()
+	if told or not next(followers) then return end
+	told = true
+	if C_Timer and C_Timer.After then C_Timer.After(0, tell) else tell() end
+end
+
+local function any(field)
+	for _, f in pairs(followers) do
+		if f[field] then return true end
+	end
+	return false
+end
+
+function Nav.FollowerPins() return any("pin") end
+function Nav.FollowerShows() return any("shows") end
+
+-- The arrow's samples (Nav.Sample) are what follow the player's floor
+-- (Walk.Aim: Forever gives no height) and see an arrival. While a follower
+-- shows the way and the arrow is hidden, nothing else samples, so the route
+-- loses the floor (the Ruins of Lordaeron read as the Undercity under them:
+-- "Walk to the lift" all the way out): sample at Walk's own pace instead.
+local SAMPLE_EVERY = 0.25
+local sampler
+
+local function sampleNow()
+	local A = Nav.arrow
+	if not Nav.GetTarget() or (A and A.frame and A.frame:IsShown()) then return end
+	Nav.Sample()
+end
+
+local function updateSampler()
+	local want = next(followers) ~= nil
+	if want and not sampler then
+		sampler = ns.NewTicker(SAMPLE_EVERY, sampleNow)
+	elseif not want and sampler then
+		sampler:Cancel()
+		sampler = nil
+	end
+end
+
+function API.Follow(owner, fn, opts)
+	if not ownerName(owner) or type(fn) ~= "function" or (opts ~= nil and type(opts) ~= "table") then return false end
+	followers[owner] = { fn = fn, pin = opts and opts.pin and true or false, shows = opts and opts.shows and true or false }
+	updateSampler()
+	-- The arrow and the bridges hear it (no target yet, as before login: nothing to tell).
+	if Nav.GetTarget() then Nav.Reapply() end
+	return true
+end
+
+function API.Unfollow(owner)
+	if not followers[owner] then return false end
+	followers[owner] = nil
+	updateSampler()
+	if Nav.GetTarget() then Nav.Reapply() end
+	return true
+end
+
+-- The player let go of the target in the follower (its Clear button): as
+-- Polestar's own clear, the guide's goal stays hidden until the guide moves on.
+function API.Dismiss(owner)
+	if not (followers[owner] and Nav.GetTarget()) then return false end
+	Nav.ClearTarget()
+	return true
+end
+
+Nav.RegisterModule({ OnTarget = queue })
+ns.On("ROUTE_CHANGED", queue)
+ns.On("ROUTE_ADVANCED", queue)
 
 ---------------------------------------------------------------------------
 -- TomTom's waypoint API, while TomTom is not installed
@@ -748,28 +920,3 @@ ns.OnLogin(function()
 	Journey.RefreshTomTom()
 	claimWay()
 end)
-
-if ns.RegisterOptions then
-	local ok, err = ns.RegisterOptions({
-		page = L["Guide"], tab = L["Arrow & routes"], section = L["Routes"],
-		controls = {
-			Nav.HandoffOption({ kind = "toggle", key = "nav.mapPlan", label = L["Shift-click a map to go there"],
-				help = L["Shift-click the world map or minimap and the arrow takes you there; Alt-click works over map icons. Click the spot again to clear it."] }),
-			Nav.HandoffOption({ kind = "dropdown", key = "nav.routeStyle", label = L["Route style"],
-				help = L["Fastest: the shortest walk, over hills and across fields. Balanced: roads that aren't much longer, and round hills. Roads: stays on roads even when they're longer; the safest way, not the quickest."],
-				choices = { { value = "fastest", label = L["Fastest"] }, { value = "balanced", label = L["Balanced"] }, { value = "roads", label = L["Roads"] } } }),
-		},
-	})
-	if not ok and geterrorhandler then geterrorhandler()(err) end
-	ok, err = ns.RegisterOptions({
-		page = L["Integrations"], section = "TomTom",
-		controls = {
-			Nav.HandoffOption({ kind = "toggle", key = "nav.answerTomTom", label = L["Let other addons set waypoints"],
-				help = L["Without TomTom installed, waypoints other addons set through TomTom, and /way, point Polestar's arrow. Addons that expect TomTom's own settings may not work with it on."] }),
-			{ kind = "toggle", key = "nav.followTomTom", label = L["Follow TomTom's arrow"],
-				help = L["With TomTom installed, the arrow goes wherever TomTom's arrow points, routed like any goal."],
-				disabled = function() return TomTom == nil or TomTom == shim end },
-		},
-	})
-	if not ok and geterrorhandler then geterrorhandler()(err) end
-end

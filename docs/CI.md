@@ -73,6 +73,6 @@ that read `data/forever` skip with a reason.
   run instead.
 - Anything that reads recordings, the game client, the walking grid, Leffe's
   maps or other files not in the repository: route builds, navigation and
-  travel builds, legs bakes, ArrowGuard replays, the sweeps that read
+  travel builds, legs bakes, replays of the arrow on recorded sessions, the sweeps that read
   recordings, the quiet performance run.
 - Deploys, releases and anything that needs a credential.

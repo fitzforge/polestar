@@ -301,7 +301,8 @@ local function newRow(view)
 		end
 		relayout(view)
 	end, { ghost = true, height = 24 })
-	-- Copy report opens the report (it stays open) and selects its text.
+	-- Copy report opens the report (it stays open) and selects its text; the
+	-- line over it says how to copy it (the game gives addons no clipboard).
 	row.CopyReport = W.Button(row, L["Copy report"], function()
 		reported[keyOf(row.psRecord)] = true
 		relayout(view)
@@ -312,6 +313,10 @@ local function newRow(view)
 	row.List:SetSpacing(3)
 	row.List:SetJustifyH("LEFT")
 	row.List:SetJustifyV("TOP")
+	row.CopyHint = W.Text(row, "note", "success")
+	row.CopyHint:SetWordWrap(true)
+	row.CopyHint:SetJustifyH("LEFT")
+	row.CopyHint:Hide()
 	row.Report = W.CopyBox(row, { lines = 6 })
 	-- Measures the report wrapped at the box's text width (its insets are 10).
 	row.ReportMeasure = W.Text(row, "label", "text")
@@ -339,8 +344,9 @@ local function layoutRow(row, r, width)
 	row.Title:ClearAllPoints()
 	row.Title:SetPoint("TOPLEFT", row, "TOPLEFT", PAD, -13)
 
-	-- Right of the title and credits: the switch and the guide count, or
-	-- Enable and reload.
+	-- Right of the title and credits: the switch and the guide count (not
+	-- for a pack that loads on demand and is not in yet: its count is not
+	-- known), or Enable and reload.
 	local reserve = 0
 	row.Switch:Hide(); row.Enable:Hide(); row.Count:Hide()
 	if switchable(r) then
@@ -348,11 +354,14 @@ local function layoutRow(row, r, width)
 		row.Switch:SetPoint("TOPRIGHT", row, "TOPRIGHT", -PAD + 4, -19)
 		row.Switch:Show()
 		row.Switch:Refresh()
-		row.Count:SetText(count(r.guideCount or 0, L["1 guide"], L["%d guides"]))
-		row.Count:ClearAllPoints()
-		row.Count:SetPoint("RIGHT", row.Switch, "LEFT", -10, 0)
-		row.Count:Show()
-		reserve = row.Switch:GetWidth() + 10 + row.Count:GetStringWidth() + 12
+		reserve = row.Switch:GetWidth() + 12
+		if not r.tocOnly then
+			row.Count:SetText(count(r.guideCount or 0, L["1 guide"], L["%d guides"]))
+			row.Count:ClearAllPoints()
+			row.Count:SetPoint("RIGHT", row.Switch, "LEFT", -10, 0)
+			row.Count:Show()
+			reserve = reserve + 10 + row.Count:GetStringWidth()
+		end
 	elseif r.status == "disabled" and r.addon then
 		row.Enable:ClearAllPoints()
 		row.Enable:SetPoint("TOPRIGHT", row, "TOPRIGHT", -PAD, -16)
@@ -405,6 +414,7 @@ local function layoutRow(row, r, width)
 	row.CopyReport:SetShown(shown)
 	row.List:SetShown(shown and listed[k] or false)
 	row.Report:SetShown(shown and reported[k] or false)
+	row.CopyHint:SetShown(shown and reported[k] or false)
 	if shown then
 		W.SetChip(row.Problems, count(n, L["1 problem"], L["%d problems"]), "warning")
 		row.Problems:ClearAllPoints()
@@ -425,6 +435,11 @@ local function layoutRow(row, r, width)
 			y = y + row.List:GetStringHeight() + 10
 		end
 		if reported[k] then
+			row.CopyHint:SetText(W.CopyHintText())
+			row.CopyHint:SetWidth(avail)
+			row.CopyHint:ClearAllPoints()
+			row.CopyHint:SetPoint("TOPLEFT", row, "TOPLEFT", col, -y)
+			y = y + row.CopyHint:GetStringHeight() + 6
 			local text = P.Report(r)
 			local _, lines = text:gsub("\n", "")
 			row.ReportMeasure:SetWidth(avail - 20)

@@ -60,7 +60,7 @@ return {
 
 	-- Step 10: Rhok'delar and Lok'delar
 	-- {item:18707} Ancient Rune Etched Stave · {item:18724} Enchanted Black Dragon Sinew · {item:18715} Lok'delar, Stave of the Ancient Keepers
-	["Not confirmed in Forever. In Classic, using the {item:18707} with the {item:18724} in your bags made Rhok'delar, and talking to Vartrus once more then gave {item:18715}, at no extra cost."] = "",
+	["Not confirmed in Forever. In Classic, using the {item:18707} with the {item:18724} in your bags made Rhok'delar, and talking to Vartrus once more then gave {item:18715}, at no extra cost."] = "Forever中尚未確認。在經典版中，背包裡有{item:18724}時使用{item:18707}即可製成洛克德拉爾，然後再和古樹瓦特魯斯交談一次，就會給你{item:18715}，不需額外花費。",
 	-- {item:18707} Ancient Rune Etched Stave
 	["{item:18707}, by Vartrus"] = "{item:18707}，由古樹瓦特魯斯給予",
 	-- {npc:14524} Vartrus the Ancient
@@ -75,7 +75,6 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Azuregos"] = "艾索雷葛斯",
 	-- ["Hastat's quiver needs the {item:18704}. {npc:6109}, a world boss for a raid, roams the south of {zone:1447} and drops it most of the time; the Cobalt dragonkin of {zone:1452} drop it very rarely. Skip the rest of this guide if you do not want the quiver."] = "古樹哈斯塔特的箭袋需要{item:18704}。{npc:6109}是需要團隊的世界首領，在{zone:1447}南部遊蕩，大多會掉落；{zone:1452}的深藍龍族極少掉落。如果你不想要箭袋，跳過本指南其餘部分。",
-	-- ["Not confirmed in Forever. In Classic, using the {item:18707} with the {item:18724} in your bags made Rhok'delar, and Vartrus then gave {item:18715} ({spell:425121})."] = "Forever中尚未確認。在經典版中，背包裡有{item:18724}時使用{item:18707}即可製成洛克德拉爾，然後古樹瓦特魯斯會給你{item:18715}（{spell:425121}）。",
 	-- ["Onyxia drops the {item:18705}; she is the 40-player raid boss of {area:2159}, a cave in the {area:511} of southern {zone:1445}."] = "奧妮克希亞會掉落{item:18705}；她是{area:2159}的40人團隊首領，巢穴位於{zone:1445}南部{area:511}的洞穴中。",
 	-- ["The {object:179703} appears in {area:2717} when {npc:12018} yields; it holds the {item:18703} about half the time. {area:2717} is a 40-player raid inside {area:254}. Right-click the leaf to start the quest."] = "{npc:12018}投降時，{object:179703}會出現在{area:2717}；約有一半機率內含{item:18703}。{area:2717}是{area:254}內的40人團隊副本。右鍵點擊葉子開始任務。",
 	-- ["Vartrus, Stoma and {npc:14526} stand together in the north of {zone:1448}. Alliance: {area:1998} is the nearest flight point; Horde: {area:1997}."] = "古樹瓦特魯斯、古樹斯托瑪和{npc:14526}一起站在{zone:1448}北部。聯盟：最近的飛行點是{area:1998}；部落：{area:1997}。",

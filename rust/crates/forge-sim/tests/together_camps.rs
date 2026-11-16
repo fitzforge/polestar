@@ -1,5 +1,5 @@
 //! A deliberate `together` pair whose task has its work at several camps is done at its camp nearest
-//! its pair (RevH1 c13, #274: the Raptor Horns with Vrang's hides in the Dry Hills, not at the Raptor
+//! its pair (c13 review, #274: the Raptor Horns with Vrang's hides in the Dry Hills, not at the Raptor
 //! Grounds 2981 yd off, which split the Dry Hills visit). Its own test binary: it sets the route fixes.
 
 mod common;

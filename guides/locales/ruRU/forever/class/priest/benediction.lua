@@ -26,8 +26,10 @@ return {
 	["Equip {item:18646}, then find {npc:14494}, a ghost on the hillside in the north-west of the {zone:1423}, west of {area:2279}'s gate (if she does not show, take the Eye off and put it back on). {quest:7621} is only talk; {quest:7622} starts the moment you accept it, so prepare first: full mana, Major Mana Potions, Demonic or Dark Runes, mana food or {item:13931}, and a stack of {item:8956} or {item:13180} for the skeletons."] = "",
 
 	-- Step 3: The Balance of Light and Shadow
-	-- {object:179694} Death Post (no name in this language: may be words) · {npc:14494} Eris Havenfire · {spell:552} Abolish Disease · {spell:139} Renew · {spell:2061} Flash Heal · {spell:15237} Holy Nova
+	-- {object:179694} Death Post · {npc:14494} Eris Havenfire · {spell:552} Abolish Disease · {spell:139} Renew · {spell:2061} Flash Heal · {spell:15237} Holy Nova
 	["Save 50 peasants before 15 die (the {object:179694} by the path counts the dead). They walk from the cave towards {npc:14494} in waves, catch diseases and draw skeletons and skeleton archers. Cure the purple-glowing diseases first ({spell:552}), keep {spell:139} on the hurt ones, {spell:2061} the nearly dead, and kill skeletons as they spawn: one {spell:15237} of rank 3 or more kills them, oil takes two ticks while they hit you. Shield yourself at the start of each wave; friendly nameplates make the hurt peasants easy to pick out. Friends may buff you before you accept and may heal or cure peasants, but they must not heal or buff you, attack a skeleton or bring a pet once it starts, or a demon appears and kills everyone. Fail, and {npc:14494} is gone for a while (players report anything from 15 minutes to two hours); talk to her again when she is back."] = "",
+	-- {npc:14494} Eris Havenfire
+	["beside {npc:14494}, where the peasants walk to"] = "рядом с NPC {npc:14494}, куда идут крестьяне",
 
 	-- Step 5: The Eye of Shadow
 	-- {item:18665} The Eye of Shadow · {npc:12397} Lord Kazzak · {zone:1419} Blasted Lands
@@ -38,12 +40,11 @@ return {
 	-- {item:18659} Splinter of Nordrassil · {item:18646} The Eye of Divinity · {item:18665} The Eye of Shadow · {item:18608} Benediction
 	["With the {item:18659}, {item:18646} and {item:18665} in your bags, use the splinter wherever you are: it becomes {item:18608}. Use {item:18608} to turn it into Anathema, the shadow staff, and back (a 30-minute cooldown)."] = "",
 	-- {item:18659} Splinter of Nordrassil · {item:18608} Benediction
-	["Use the {item:18659} with both Eyes in your bags: {item:18608}"] = "",
+	["Use the {item:18659} with both Eyes in your bags: {item:18608}"] = "Используйте {item:18659}, когда оба Ока в сумках: {item:18608}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Equip {item:18646} to see {npc:14494}, a ghost on the mountainside in the north-west of the {zone:1423}. Come with full mana, Major Mana Potions and {item:8956}: if you fail, the event takes about two hours to return."] = "Наденьте {item:18646}, чтобы увидеть NPC {npc:14494} — призрака на склоне горы на северо-западе зоны {zone:1423}. Приходите с полной маной, запасом хороших зелий маны и предметом {item:8956}: при провале событие возвращается примерно через два часа.",
 	-- ["Save 50 peasants before 15 die. Kill the skeletons that attack them, cure their diseases (the purple ones first) and heal the wounded with {spell:139}. Friends may buff you beforehand but must stay out of the fight, or a demon appears and kills everyone."] = "Спасите 50 крестьян, пока не погибли 15. Убивайте нападающих на них скелетов, лечите их болезни (сначала фиолетовые) и исцеляйте раненых заклинанием «{spell:139}». Друзья могут наложить на вас бафы заранее, но должны держаться вне боя, иначе появится демон и убьет всех.",
-	-- ["With both Eyes in your bags: {item:18608}"] = "С обоими Оками в сумках: {item:18608}",
 	-- ["You need {item:18646} first: it comes from the {object:179703} after {npc:12018} in {area:2717}. {item:18665} drops from elite demons ({npc:12397}, a world boss, always; Doomguard Commanders and Manahounds rarely); it binds when equipped, so buying one works too."] = "Сначала нужен предмет {item:18646}: он лежит в объекте {object:179703} после победы над NPC {npc:12018} ({area:2717}). {item:18665} падает с элитных демонов ({npc:12397}, мировой босс — всегда; стражники ужаса-командиры и гончие маны — редко); он становится персональным при надевании, так что его можно и купить.",
 	-- ["{npc:14494}'s splinter and the two Eyes make {item:18608}, the epic priest staff that turns into Anathema."] = "Осколок {npc:14494} и два Ока дают {item:18608}, эпический посох жреца, который превращается в Анафему.",
 }

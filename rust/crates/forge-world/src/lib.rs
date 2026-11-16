@@ -27,7 +27,7 @@ pub use atlas::Atlas;
 pub use build::{build_world, BuildOptions, BUILDER_VERSION};
 pub use data::{GameData, Source};
 pub use floors::{FloorCache, Floors, NoFloors};
-pub use prereqs::{blocking_prereqs, Blocking, ClosedBy};
+pub use prereqs::{blocking_prereqs, Blocking, ClosedBy, CrumbIndex};
 pub use rules::Rules;
 pub use world::World;
 

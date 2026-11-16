@@ -6,67 +6,76 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (simplified) words instead.
 -- The comments are rewritten by sync.
 return {
-	-- Step 2: Light's Hope Chapel
+	-- Step 1: Into Eastern Plaguelands
+	-- {zone:1423} Eastern Plaguelands
+	["Into {zone:1423}"] = "进入{zone:1423}",
+
+	-- Step 2: Tirion Fordring
+	-- {zone:1423} Eastern Plaguelands · {npc:1855} Tirion Fordring · {area:2619} Thondroril River
+	["Ride east along the road into the {zone:1423}. {npc:1855} lives in a small house by the {area:2619}, just north of the road at the border; his three hunts are on this guide's ground."] = "沿道路向东骑入{zone:1423}。{npc:1855}住在{area:2619}边的一座小屋里，就在边界处道路北侧；他的三个狩猎任务都在本指南的区域内。",
+
+	-- Step 4: Light's Hope Chapel
 	-- {zone:1422} Western Plaguelands · {zone:1423} Eastern Plaguelands · {object:92525} Argent Dawn
 	["Follow the road east from the {zone:1422}, over the river and across the whole {zone:1423}, to the {object:92525}'s chapel in the far east."] = "沿道路从{zone:1422}向东走，过河后穿越整个{zone:1423}，前往最东边{object:92525}的礼拜堂。",
 
-	-- Step 3: Pamela Redpath
+	-- Step 5: Pamela Redpath
 	-- {npc:10926} Pamela Redpath · {area:2262} Darrowshire
 	["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "{npc:10926}的鬼魂站在西南方{area:2262}的废墟中。",
 
-	-- Step 4: Pamela's Doll
+	-- Step 6: Pamela's Doll
 	-- {npc:10926} Pamela Redpath
 	["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "娃娃的头和两侧身体散落在{npc:10926}周围的房屋里；在背包里把它们组合起来。",
 	["Inside"] = "在里面",
 
-	-- Step 5: Pamela Redpath
+	-- Step 7: Pamela Redpath
 	-- {npc:11063} Carlin Redpath · {area:2268} Light's Hope Chapel
 	["a message for {npc:11063} at {area:2268}"] = "带给{area:2268}的{npc:11063}的口信",
 	-- {quest:5152} Auntie Marlene · {npc:10927} Marlene Redpath · {area:197} Sorrow Hill · {zone:1422} Western Plaguelands
 	["Keep {quest:5152}: {npc:10927} lives at {area:197} in the {zone:1422}."] = "留着{quest:5152}：{npc:10927}住在{zone:1422}的{area:197}。",
 
-	-- Step 6: Zaeldarr the Outcast
+	-- Step 8: Zaeldarr the Outcast
 	-- {area:2262} Darrowshire
 	["Zaeldarr lurks just west of {area:2262}."] = "扎尔达尔潜伏在{area:2262}西边不远处。",
 	["Below ground"] = "在地下",
 
-	-- Step 7: Pestilent Scar
+	-- Step 9: Pestilent Scar
 	-- {npc:10411} Eye of Naxxramas
 	-- plural, as words: Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
 	["Careful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "小心：{npc:10411}脱离战斗时会隐形，战斗开始后会召唤岩翼石像鬼。它们只有3只，每15分钟刷新一次。",
 
-	-- Step 8: Back to Light's Hope Chapel
+	-- Step 10: Back to Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
 	["Back to {area:2268}"] = "返回{area:2268}",
 	-- {quest:5211} Defenders of Darrowshire · {area:2264} Corin's Crossing
 	["{quest:5211}'s spirits come with the {area:2264} stop later in this guide: keep it."] = "{quest:5211}的灵魂会在本指南稍后前往{area:2264}时完成：留着它。",
 
-	-- Step 9: Fly to Tarren Mill
+	-- Step 11: Fly to Tarren Mill
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "飞往{area:272}",
 	-- {area:2268} Light's Hope Chapel
 	["{area:2268} flight master"] = "{area:2268}的飞行管理员",
 
-	-- Step 10: To Sorrow Hill
+	-- Step 12: To Sorrow Hill
 	-- {area:197} Sorrow Hill
 	["To {area:197}"] = "前往{area:197}",
 
-	-- Step 11: Sorrow Hill
+	-- Step 13: Sorrow Hill
 	-- {area:272} Tarren Mill · {npc:10927} Marlene Redpath · {area:197} Sorrow Hill · {npc:10936} Joseph Redpath
 	["Ride north up the road from {area:272}. {npc:10927}'s house stands by the road at {area:197}, and {npc:10936}'s monument is in the graveyard behind it."] = "从{area:272}沿道路向北骑行。{npc:10927}的房子就在{area:197}的路边，{npc:10936}的纪念碑在房子后面的墓地里。",
 	-- {npc:10927} Marlene Redpath
 	["{npc:10927}, upstairs"] = "{npc:10927}，在楼上",
 
-	-- Step 12: Chromie
+	-- Step 14: Chromie
 	-- {npc:10667} Chromie
 	["Ride north-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges."] = "向西北骑进安多哈尔。{npc:10667}在镇子西侧被毁的旅店里等候；里面的骷髅是54-57级，所以沿着边缘走。",
 	["Upstairs"] = "在楼上",
 
-	-- Step 13: The Annals of Darrowshire
+	-- Step 15: The Annals of Darrowshire
+	-- {npc:10996} Fallen Hero · {zone:1422} Western Plaguelands
 	-- plural, as words: Musty Tomes = {object:176150} Musty Tome
-	["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "编年史混在安多哈尔市政厅的霉烂的书卷中；逐一打开，直到找到正确的那本。",
+	["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one.\nCareful: a {npc:10996}, a level 58-59 elite, can stand in Andorhal, as at many other spots of the {zone:1422}: give it room."] = "编年史混在安多哈尔市政厅的发霉的书籍中；逐一打开，直到找到正确的那本。\n小心：安多哈尔可能有{npc:10996}（58-59级精英），{zone:1422}的许多其他地点也会出现：离它远点。",
 
-	-- Step 15: Fly to Light's Hope Chapel
+	-- Step 17: Fly to Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
 	["Fly to {area:2268}"] = "飞往{area:2268}",
 	-- {area:272} Tarren Mill · {area:2268} Light's Hope Chapel
@@ -74,105 +83,120 @@ return {
 	-- {area:272} Tarren Mill
 	["{area:272} flight master"] = "{area:272}的飞行管理员",
 
-	-- Step 16: Light's Hope Chapel
+	-- Step 18: Light's Hope Chapel
 	-- {quest:5168} Heroes of Darrowshire
 	["{quest:5168}'s items lie in the later Plaguelands zones: keep it."] = "{quest:5168}要的物品在之后的瘟疫之地地区：留着它。",
 
-	-- Step 17: Eastern Plaguelands: kill these as you meet them
+	-- Step 19: Eastern Plaguelands: kill these as you meet them
 	-- {zone:1423} Eastern Plaguelands
 	["{zone:1423}: kill these as you meet them"] = "{zone:1423}：沿途击杀以下目标",
 	-- plural, as words: Plaguehounds = {npc:8597} Plaguehound · Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub
-	["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground.\nThe shattered sword lies on the ground north-west of the lake."] = "瘟疫犬和瘟疫犬幼崽在礼拜堂西南方的湖岸游荡，瘟疫蝙蝠和腐肉虫也在同一带活动。\n破碎的剑在湖泊西北方的地面上。",
+	["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground. Careful: the biggest Plaguehounds are 56, pull them one at a time.\nThe shattered sword lies on the ground north-west of the lake."] = "瘟疫犬和瘟疫犬幼崽在礼拜堂西南方的湖岸游荡，瘟疫蝙蝠和腐肉虫也在同一带活动。小心：最大的瘟疫犬是56级，一次引一只。\n破碎的剑在湖泊西北方的地面上。",
 
-	-- Step 18: Nathanos Blightcaller
-	-- {npc:15193} The Banshee Queen · {area:2260} Marris Stead · {area:2261} Undercroft
-	["{npc:15193}'s champion holds the {area:2260} farmhouse, north of the {area:2261}."] = "{npc:15193}的勇士占据着{area:2261}北边{area:2260}的农舍。",
+	-- Step 20: Nathanos Blightcaller
+	-- {npc:15193} The Banshee Queen · {area:2260} Marris Stead · {area:2261} Undercroft · {npc:8564} Ranger
+	["{npc:15193}'s champion holds the {area:2260} farmhouse, north of the {area:2261}. His {npc:8564} hunt, in the north of the zone, waits for the next guide's Plaguelands trip."] = "{npc:15193}的勇士占据着{area:2261}北边{area:2260}的农舍。他的{npc:8564}狩猎任务在本地区北部，留到下一份指南再来瘟疫之地时完成。",
+	-- plural, as words: Rangers = {npc:8564} Ranger
+	["keep it: the Rangers (59-60) wait for the next guide's second ride into the north"] = "先保留：游侠（59-60级）留到下一份指南第二次骑往北部时再打",
 
-	-- Step 19: Eastern Plaguelands: kill these as you meet them
+	-- Step 21: Eastern Plaguelands: kill these as you meet them
 	-- {area:2260} Marris Stead · {area:2627} Terrordale
 	-- plural, as words: Plaguehound Runts = {npc:8596} Plaguehound Runt · Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub
 	["Plaguehound Runts and Plaguebats roam the hills north of the {area:2260}, Carrion Grubs crawl among them; work north toward {area:2627}."] = "瘟疫幼犬和瘟疫蝙蝠在{area:2260}北边的山丘上游荡，腐肉虫在它们中间爬行；一路向北朝{area:2627}推进。",
 
-	-- Step 20: Egan
-	-- {npc:11140} Egan · {area:2627} Terrordale
-	["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner."] = "鬼魂{npc:11140}站在西北角{area:2627}的一间小屋旁。",
+	-- Step 22: Egan
+	-- {npc:11140} Egan · {area:2627} Terrordale · {npc:12384} Augustus the Touched
+	["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut."] = "鬼魂{npc:11140}站在西北角{area:2627}的一间小屋旁；{npc:12384}坐在小屋里。",
+	-- {npc:12384} Augustus the Touched
+	["{npc:12384}, inside"] = "{npc:12384}，在屋内",
 
-	-- Step 21: Plaguewood: kill these as you meet them
+	-- Step 23: Terrordale: kill these as you meet them
+	-- {area:2627} Terrordale
+	["{area:2627}: kill these as you meet them"] = "{area:2627}：遇到就顺手击杀",
+	-- {area:2627} Terrordale · {item:15042} Empty Termite Jar
+	-- plural, as words: Large Termite Mounds = {object:177464} Large Termite Mound · Ziggurat Protectors = {npc:12262} Ziggurat Protector
+	["The book lies in the ruined inn of {area:2627}; the undead in the town are 54-56, so pull them one at a time.\nThe Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass.\nCareful: Ziggurat Protectors (58, elite) stand by the ziggurats east and north-east of the town: take the mounds nearer the town and stay clear of them."] = "书在{area:2627}被毁的旅店里；镇上的亡灵是54-56级，一次引一只。\n大白蚁丘遍布{area:2627}东边的山丘。路过每个白蚁丘时都对它使用{item:15042}。\n小心：通灵塔保护者（58级，精英）守在镇子东边和东北边的通灵塔旁：选靠近镇子的白蚁丘，远离它们。",
+	-- {quest:5510} Minion's Scourgestones · {area:2627} Terrordale · {item:12846} Argent Dawn Commission
+	["{quest:5510}: the {area:2627} undead drop them while you wear the {item:12846}"] = "{quest:5510}：佩戴{item:12846}时，{area:2627}的亡灵会掉落",
+
+	-- Step 24: Augustus the Touched
+	-- {npc:11615} Mickey Levine · {area:813} Bulwark · {zone:1422} Western Plaguelands
+	["Keep the termites: {npc:11615} at the {area:813} takes them on the next guide's ride into the {zone:1422}."] = "保留白蚁：下一份指南骑往{zone:1422}时交给{area:813}的{npc:11615}。",
+
+	-- Step 25: Level 56
+	["Level 56"] = "56级",
+	-- {npc:11878} Nathanos Blightcaller · {area:1583} Blackrock Spire
+	-- plural, as words: Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound · Noxious Plaguebats = {npc:8601} Noxious Plaguebat
+	["Top up here to level 56 before the Frenzied Plaguehounds of Northdale (57-58): the Noxious Plaguebats (54-56) over the fields on the way east are at your level, and {npc:11878} wants twenty of them. Or, with a group, run the {area:1583} dungeon (Lower) instead."] = "在对付北谷的狂怒的瘟疫犬（57-58级）之前，先在这里升到56级：向东途中田野上空的毒性瘟疫蝙蝠（54-56级）与你等级相当，{npc:11878}正好要你杀二十只。或者组队去打{area:1583}地下城（下层）。",
+	-- {npc:8601} Noxious Plaguebat
+	["grind on {npc:8601}"] = "刷{npc:8601}",
+
+	-- Step 26: Plaguewood: kill these as you meet them
 	-- {area:2277} Plaguewood
 	["{area:2277}: kill these as you meet them"] = "{area:2277}：沿途击杀以下目标",
 	-- {area:2272} Northdale · {area:2271} Eastwall Tower · {area:2273} Zul'Mashar
-	-- plural, as words: Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound · Monstrous Plaguebats = {npc:8602} Monstrous Plaguebat
-	["Frenzied Plaguehounds and Monstrous Plaguebats share the fields around {area:2272} and {area:2271}, south of {area:2273}."] = "狂怒的瘟疫犬和巨型瘟疫蝙蝠共处于{area:2273}南边、{area:2272}和{area:2271}周围的田野上。",
+	-- plural, as words: Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound · Noxious Plaguebats = {npc:8601} Noxious Plaguebat · Monstrous Plaguebats = {npc:8602} Monstrous Plaguebat
+	["Frenzied Plaguehounds share the fields around {area:2272} and {area:2271}, south of {area:2273}; Noxious Plaguebats fly over the fields of the north, and Monstrous Plaguebats around {area:2272} and {area:2271}. Careful: the hounds are 57-58 and the biggest Monstrous Plaguebats 58: pull them one at a time."] = "狂怒的瘟疫犬分布在{area:2273}南边{area:2272}和{area:2271}周围的田野；毒性瘟疫蝙蝠在北部田野上空飞行，巨型瘟疫蝙蝠在{area:2272}和{area:2271}周围。小心：瘟疫犬是57-58级，最大的巨型瘟疫蝙蝠是58级：一次引一只。",
 
-	-- Step 22: Eastern Plaguelands: kill these as you meet them
-	-- {area:2275} Northpass Tower · {area:2622} Pestilent Scar
-	-- plural, as words: Rangers = {npc:8564} Ranger · Pathstriders = {npc:8565} Pathstrider · Noxious Plaguebats = {npc:8601} Noxious Plaguebat · Blighted Horrors = {npc:8521} Blighted Horror
-	["The high elf Rangers, Pathstriders and Woodsmen guard the lodge by {area:2275}; the Registry lies inside. Rangers reach 60: pull one at a time. Noxious Plaguebats fly over the fields on the way.\nThe skull sits in the {area:2622}, among Blighted Horrors and Plague Monstrosities."] = "高等精灵游侠、巡路者和伐木工守卫着{area:2275}旁的小屋；登记册在屋内。游侠最高60级：逐个引怪。途中田野上空有毒性瘟疫蝙蝠飞过。\n头骨在{area:2622}，周围有荒芜水元素和瘟疫畸兽。",
+	-- Step 27: Eastern Plaguelands: kill these as you meet them
+	-- {area:2622} Pestilent Scar
+	-- plural, as words: Blighted Horrors = {npc:8521} Blighted Horror
+	["The skull sits in the {area:2622}, among Blighted Horrors and Plague Monstrosities."] = "头骨就在{area:2622}里，周围是荒芜水元素和瘟疫水元素。",
 	["Underwater"] = "在水下",
 
-	-- Step 23: Pathstrider
-	-- {npc:8565} Pathstrider · {area:2276} Quel'Lithien Lodge
-	["{npc:8565} walks around {area:2276}: look inside the circle on the map"] = "{npc:8565}在{area:2276}附近巡逻，请在地图标出的圆圈内寻找",
-
-	-- Step 24: Corin's Crossing
+	-- Step 28: Corin's Crossing
 	-- {area:2264} Corin's Crossing · {item:15447} Living Rot · {item:15454} Mortar and Pestle · {spell:10228} Greater Invisibility · {quest:5211} Defenders of Darrowshire · {npc:11063} Carlin Redpath
 	-- plural, as words: Unseen Servants = {npc:8538} Unseen Servant · Darrowshire Spirits = {npc:11064} Darrowshire Spirit
-	["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "从小屋沿道路向南骑往{area:2264}。{item:15447}十分钟内就会变质：快速杀死镇上的天灾军团，然后立刻用{item:15454}把七块研磨好。\n小心：隐形仆从血量降到40%时会呼叫25码内的同伴求援。脱离战斗时它们还会用{spell:10228}隐形。如果在镇子里触发求援，大量怪物可能加入战斗。在镇子外围战斗可以降低这种风险。\n如果你的任务日志里有{quest:5211}（来自本指南开头的{npc:11063}），镇子周围的天灾军团死后会留下达隆郡之魂：与每一个交谈以解放它。先解放它们，再开始收集{item:15447}。",
+	["Ride south to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "沿道路向南骑往{area:2264}。{item:15447}十分钟内就会变质：快速杀死镇上的天灾军团，然后立刻用{item:15454}把七块研磨好。\n小心：无影仆从血量降到40%时会呼叫25码内的同伴求援。脱离战斗时它们还会用{spell:10228}隐形。如果在镇子里触发求援，大量怪物可能加入战斗。在镇子外围战斗可以降低这种风险。\n如果你的任务日志里有{quest:5211}（来自本指南开头的{npc:11063}），镇子周围的天灾军团死后会留下达隆郡居民的灵魂：与每一个交谈以解放它。先解放它们，再开始收集{item:15447}。",
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["Free Darrowshire Spirits: talk to them"] = "解放达隆郡之魂：与它们交谈",
 
-	-- Step 25: Nathanos Blightcaller
+	-- Step 29: Nathanos Blightcaller
 	-- {area:2260} Marris Stead
 	["Ride west to the {area:2260}."] = "向西骑往{area:2260}。",
 
-	-- Step 27: Duskwing, Oh How I Hate Thee...
-	-- {npc:11897} Duskwing
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:11897} is a level 60 elite: most classes solo it at level 62, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英怪：建议组队，找人一起做。{npc:11897} 是 60 级精英：多数职业在 62 级能单人击败，但你可能需要帮助。独自一人就跳过：路线会让你打怪补回这部分经验。",
+	-- Step 31: Class trainer
+	["Class trainer"] = "职业训练师",
+	-- {zone:1454} Orgrimmar · {zone:1447} Azshara
+	["Hearth to {zone:1454}: the Hearthstone is still bound there from the {zone:1447} guide (Mages teleport). Train before the flight."] = "用炉石回{zone:1454}：炉石自{zone:1447}指南起仍绑定在那里（法师可传送）。坐飞机前先训练。",
 
-	-- Step 29: Fly to Undercity
-	-- {area:1497} Undercity
-	["Fly to {area:1497}"] = "飞往{area:1497}",
-
-	-- Step 30: Zeppelin to Orgrimmar
-	-- {zone:1454} Orgrimmar
-	["Zeppelin to {zone:1454}"] = "乘飞艇前往{zone:1454}",
-
-	-- Step 31: Fly to Bloodvenom Post
+	-- Step 32: Fly to Bloodvenom Post
 	-- {area:1997} Bloodvenom Post
 	["Fly to {area:1997}"] = "飞往{area:1997}",
+	-- {zone:1454} Orgrimmar · {zone:1447} Azshara
+	["Hearth to {zone:1454}: the Hearthstone is still bound there from the {zone:1447} guide (Mages teleport). Then the flight master."] = "用炉石回{zone:1454}：炉石自{zone:1447}指南起仍绑定在那里（法师可传送）。然后去找飞行管理员。",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "{zone:1454}飞行管理员",
 
-	-- Step 32: Fly to Thunder Bluff
+	-- Step 33: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "飞往{area:1638}",
+	-- {zone:1454} Orgrimmar · {zone:1447} Azshara
+	["Hearth to {zone:1454}: the Hearthstone is still bound there from the {zone:1447} guide. Then the flight master."] = "用炉石回{zone:1454}：炉石自{zone:1447}指南起仍绑定在那里。然后去找飞行管理员。",
 
-	-- Step 33: Thunder Bluff
+	-- Step 34: Thunder Bluff
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} (Druids) trains on {area:1639}, {npc:246344} (Paladins) in the city too."] = "{npc:3033}（德鲁伊）在{area:1639}提供训练，{npc:246344}（圣骑士）也在城里。",
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} on {area:1639}; {npc:246344}"] = "{area:1639}的{npc:3033}；{npc:246344}",
 
-	-- Step 34: Fly to Bloodvenom Post
+	-- Step 35: Fly to Bloodvenom Post
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "{zone:1456}飞行管理员",
 
-	-- Step 36: Deadwood Cauldron
+	-- Step 37: Deadwood Cauldron
 	-- {area:1762} Felpaw Village · {area:1769} Timbermaw Hold
-	["Ride north up the road. The cauldron stands in {area:1762}, just south-west of {area:1769}; the Deadwood furbolgs there are hostile."] = "",
+	["Ride north up the road. The cauldron stands in {area:1762}, just south-west of {area:1769}; the Deadwood furbolgs there are hostile."] = "沿路向北骑行。大锅在{area:1769}西南不远处的{area:1762}；那里的死木熊怪是敌对的。",
 
-	-- Step 37: Kernda
+	-- Step 38: Kernda
 	-- {quest:8471} Winterfall Ritual Totem · {npc:11558} Kernda · {zone:1448} Felwood · {area:1769} Timbermaw Hold
 	["Only if a {quest:8471} dropped for you: {npc:11558} waits at the {zone:1448} entrance of {area:1769}, and speaks to you only at Neutral with the Timbermaw."] = "仅当你掉落了{quest:8471}时：{npc:11558}在{area:1769}的{zone:1448}入口处等候，只有你在木喉要塞声望达到中立时才会和你说话。",
 	-- {npc:11558} Kernda
 	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558}在附近巡逻，请在地图标示的圆圈内寻找",
 
-	-- Step 39: Rabine Saturna
+	-- Step 40: Rabine Saturna
 	-- {area:1769} Timbermaw Hold · {zone:1450} Moonglade · {npc:11801} Rabine Saturna · {area:2361} Nighthaven
 	["Go through {area:1769} and take the {zone:1450} branch of the tunnel. {npc:11801} is in {area:2361}."] = "穿过{area:1769}，走隧道通往{zone:1450}的岔路。{npc:11801}在{area:2361}。",
-
-	-- Step 40: Class trainer
-	["Class trainer"] = "职业训练师",
 
 	-- Step 41: Rabine Saturna
 	-- {zone:1451} Silithus
@@ -180,69 +204,86 @@ return {
 
 	-- Step 43: Donova Snowden
 	-- {zone:1452} Winterspring · {area:2246} Frostfire Hot Springs
-	["Back through the tunnel and take the {zone:1452} exit, then ride south to {area:2246}."] = "穿过隧道回去，走{zone:1452}出口，然后向南骑往{area:2246}。",
+	["From the tunnel's {zone:1452} exit, ride south to {area:2246}."] = "从隧道的{zone:1452}出口向南骑往{area:2246}。",
 	-- {quest:5086} Toxic Horrors · {zone:1448} Felwood
-	["{quest:5086} are in {zone:1448}, on a later trip: keep it."] = "",
+	["{quest:5086} are in {zone:1448}, on a later trip: keep it."] = "{quest:5086}在{zone:1448}，以后才会去，先保留任务。",
 
 	-- Step 44: Moontouched Owlbeasts
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
 	["Moontouched Owlbeasts"] = "月光枭兽",
 	-- {area:2255} Everlook · {area:2241} Frostsaber Rock
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
-	["Ride east to {area:2255} and north out of it; the Moontouched Owlbeasts roam the hills of {area:2241}'s southern slopes. Pull them one at a time."] = "向东骑往{area:2255}，再从那里向北出去；月光枭兽在{area:2241}南坡的山丘上游荡。一次引一只。",
+	["Ride east to {area:2255} and north out of it; the Moontouched Owlbeasts roam the hills of {area:2241}'s southern slopes. Careful: they are 57-58: pull them one at a time.\nCareful: Hailspite, level 60 elites, gather in the snowfields south-east of {area:2255}, where a few Moontouched Owlbeasts roam too: stay on the slopes north of town."] = "向东骑往{area:2255}，再从那里向北出去；月光枭兽在{area:2241}南坡的山丘上游荡。小心：它们是57-58级：一次引一只。\n小心：60级精英冰雹怨灵聚集在{area:2255}东南方的雪原上，那里也有少量月光枭兽游荡：待在镇子北边的山坡上。",
 
-	-- Step 46: Fly to Gadgetzan
+	-- Step 45: Pristine Yeti Horns
+	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
+	["Pristine Yeti Horns"] = "完美的雪人角",
+	-- {area:2255} Everlook
+	["Umi's horns, carried from your last {area:2255} stop: the yeti hills start just south-east of {area:2255}. Only Matriarchs and Patriarchs drop horns, and the Patriarchs reach 58: pull them one at a time."] = "乌米的角，从上次{area:2255}之行带过来的任务：雪人山丘就在{area:2255}东南不远处。只有雪人女族长和雪人族长会掉落角，族长最高58级：一次引一只。",
+
+	-- Step 46: Umi Rumplesnicker
+	-- {area:976} Gadgetzan · {area:2255} Everlook
+	["Umi's third prank targets goblins in {area:976}, Un'Goro and {area:2255}: keep it for later."] = "乌米的第三个恶作剧目标是{area:976}、安戈洛环形山和{area:2255}的地精：先留着以后做。",
+
+	-- Step 47: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "飞往{area:976}",
 	-- {area:2255} Everlook
 	["{area:2255} flight master"] = "{area:2255}的飞行管理员",
 
-	-- Step 47: Gaeriyan
+	-- Step 48: Gaeriyan
 	-- {item:11243} Videre Elixir · {area:976} Gadgetzan · {npc:9299} Gaeriyan
 	["Drink the {item:11243} at the graveyard just east of {area:976}: it kills you, and only as a ghost can you see {npc:9299}, in a rocky crevice in the hills due north of it. Talk to him there, then run back to your body and resurrect: the Conspicuous Gravestone he sends you to stands in that graveyard."] = "在{area:976}东边不远处的墓地喝下{item:11243}：它会杀死你，只有以鬼魂形态才能看到{npc:9299}，他在墓地正北方山丘中的一道岩缝里。在那里和他交谈，然后跑回尸体处复活：他让你去找的显眼的墓碑就在那片墓地里。",
 
-	-- Step 48: Sprinkle
+	-- Step 49: Sprinkle
 	-- {item:12928} Umi's Mechanical Yeti · {npc:7583} Sprinkle · {area:976} Gadgetzan · {npc:10977} Quixxil · {npc:10978} Legacki
 	["Use {item:12928} on {npc:7583}, the goblin girl in {area:976}. {npc:10977} and {npc:10978} are scared later in the route."] = "对{area:976}的地精女孩{npc:7583}使用{item:12928}。{npc:10977}和{npc:10978}在路线后面再吓唬。",
 	-- {npc:7583} Sprinkle · {item:12928} Umi's Mechanical Yeti
 	["Scare {npc:7583} with {item:12928}"] = "用{item:12928}吓唬{npc:7583}",
 
-	-- Step 49: Gaeriyan
+	-- Step 50: Alchemist Pestlezugg
+	-- {quest:4493} March of the Silithid · {zone:1454} Orgrimmar · {zone:1447} Azshara
+	["Inside: {quest:4493}, if you took it in {zone:1454} on the {zone:1447} guide"] = "屋内：{quest:4493}，如果你在{zone:1447}指南中于{zone:1454}接了它",
+
+	-- Step 52: Gaeriyan
 	-- {quest:3914} Linken's Sword · {npc:8737} Linken
 	["{quest:3914} goes back to {npc:8737} in Un'Goro: keep it."] = "{quest:3914}要交还给安戈洛的{npc:8737}：留着它。",
 
-	-- Step 50: Marvon Rivetseeker
+	-- Step 53: Marvon Rivetseeker
 	-- {npc:7771} Marvon Rivetseeker · {area:1336} Lost Rigger Cove · {area:976} Gadgetzan
 	["{npc:7771} camps by the {area:1336} road, south of {area:976}."] = "{npc:7771}在{area:976}南边通往{area:1336}的路旁扎营。",
 
-	-- Step 51: Fly to Marshal's Refuge
+	-- Step 54: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
 	["Fly to {area:541}"] = "飞往{area:541}",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "{area:976}的飞行管理员",
 
-	-- Step 52: Marshal's Refuge
+	-- Step 55: Marshal's Refuge
 	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock · {npc:8737} Linken
-	["The flight lands at {area:541}: {npc:9997} stands beside the flight master, and {npc:8737} by the cave a few steps away. {npc:9997}'s work is in Un'Goro on the next guide's way back north."] = "",
+	["The flight lands at {area:541}: {npc:9997} stands beside the flight master, and {npc:8737} by the cave a few steps away. {npc:9997}'s work is in Un'Goro on the next guide's way back north."] = "飞行落点在{area:541}：{npc:9997}站在飞行管理员旁，{npc:8737}在几步外的洞穴边。{npc:9997}的差事要到安戈洛环形山完成，下份指南向北返回时会顺路去。",
 	-- {quest:3941} A Gnome's Assistance · {npc:9117} J.D. Collie · {area:541} Marshal's Refuge
-	["{quest:3941} goes to {npc:9117} in the cave here, on the next guide's return to {area:541}: keep it."] = "",
+	["{quest:3941} goes to {npc:9117} in the cave here, on the next guide's return to {area:541}: keep it."] = "{quest:3941}要交给这里洞穴中的{npc:9117}，下一份指南返回{area:541}时再交，先保留任务。",
 
-	-- Step 53: Layo Starstrike
+	-- Step 56: Layo Starstrike
 	-- {area:3077} Valor's Rest · {zone:1451} Silithus · {npc:13220} Layo Starstrike
 	["The pass from Un'Goro comes out at {area:3077}, the graveyard in north-east {zone:1451}. {npc:13220} stands among the graves."] = "从安戈洛环形山出来的山口通往{area:3077}，那是{zone:1451}东北部的墓地。{npc:13220}站在坟墓之间。",
 
-	-- Step 54: The Spirits of Southwind
+	-- Step 57: The Spirits of Southwind
 	-- {area:2738} Southwind Village · {object:179565} Dusty Reliquary · {quest:1123} Rabine Saturna
-	["Ride south-west to the ruins of {area:2738}. The {object:179565} for {quest:1123} sits inside one of the ruined houses."] = "",
+	["Ride south-west to the ruins of {area:2738}. The {object:179565} for {quest:1123} sits inside one of the ruined houses."] = "向西南骑到{area:2738}的废墟，{quest:1123}所需的{object:179565}就在一栋破屋内。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A torn scroll lies at the entrance of the {area:2261}, the crypt south of the {area:2260}."] = "一张破损的卷轴在{area:2260}南边的墓穴{area:2261}的入口处。",
 	-- ["Back through the tunnel and take the {area:618} exit, then ride south to {area:2246}."] = "穿过隧道回去，走{area:618}出口，然后向南骑往{area:2246}。",
+	-- ["Back through the tunnel and take the {zone:1452} exit: {npc:11556} stands right where it comes out."] = "穿过隧道回去，走{zone:1452}出口：{npc:11556}就站在出口处。",
 	-- ["Back to {area:1638}"] = "返回{area:1638}",
 	-- ["Fly to the {zone:1458}, take the zeppelin to {zone:1454} and fly on to {area:1638}."] = "飞往{zone:1458}，乘飞艇前往{zone:1454}，再继续飞往{area:1638}。",
 	-- ["Fly to {area:1099}"] = "飞往{area:1099}",
 	-- ["Fly to {area:1099}. The hippogryph nests are in the south of {zone:1444}; each holds an egg for the {object:142071}."] = "飞往{area:1099}。角鹰兽的巢在{zone:1444}南部；每个巢里都有一个蛋，用于{object:142071}。",
+	-- ["Fly to {area:1497}"] = "飞往{area:1497}",
 	-- ["Fly to {area:541}, then ride south-west through Un'Goro to the pass into {zone:1451}. The next guide opens at {area:3077}, where the pass comes out."] = "飞往{area:541}，然后向西南穿过安戈洛环形山，前往进入{zone:1451}的山口。下一个指南从山口出口处的{area:3077}开始。",
+	-- ["Frenzied Plaguehounds and Monstrous Plaguebats share the fields around {area:2272} and {area:2271}, south of {area:2273}."] = "狂怒的瘟疫犬和巨型瘟疫蝙蝠共处于{area:2273}南边、{area:2272}和{area:2271}周围的田野上。",
 	-- ["Go through {area:1769} and take the {area:493} branch of the tunnel. {npc:11801} is in {area:2361}."] = "穿过{area:1769}，走隧道通往{area:493}的岔路。{npc:11801}在{area:2361}。",
 	-- ["Hameya hides among the Mossflayer trolls of {area:2273}, in the north-east corner."] = "哈米亚躲在东北角{area:2273}的烂苔巨魔中间。",
 	-- ["Hameya's mound"] = "哈米亚的土堆",
@@ -253,26 +294,36 @@ return {
 	-- ["Only if you found a {item:12820} flask in {area:618}: ride north up the road. The cauldron stands in {area:1762}, just south-west of {area:1769}; the Deadwood furbolgs there are hostile."] = "仅当你在{area:618}找到了一瓶{item:12820}时：沿道路向北骑行。大锅在{area:1769}西南不远的{area:1762}；那里的死木熊怪是敌对的。",
 	-- ["Only if you still carry {quest:2741}: ride south from {area:1099}; the hippogryph nests are in the south of {zone:1444}, each holds an egg for the Egg-O-Matic."] = "仅当你还带着{quest:2741}时：从{area:1099}向南骑行；角鹰兽的巢在{zone:1444}南部，每个巢里都有一个蛋，用于超级蛋蛋机。",
 	-- ["Plaguehounds and their runts roam the shores of the lake south-west of the chapel."] = "瘟疫犬和瘟疫幼犬在教堂西南的湖岸上游荡。",
+	-- ["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground.\nThe shattered sword lies on the ground north-west of the lake."] = "瘟疫犬和瘟疫犬幼崽在礼拜堂西南方的湖岸游荡，瘟疫蝙蝠和腐肉虫也在同一带活动。\n破碎的剑在湖泊西北方的地面上。",
 	-- ["Ride east out of the {area:1497} along the road; the {area:152} guards the way into the {area:28}."] = "沿道路向东骑出{area:1497}；{area:152}守卫着进入{area:28}的通道。",
+	-- ["Ride east to {area:2255} and north out of it; the Moontouched Owlbeasts roam the hills of {area:2241}'s southern slopes. Pull them one at a time.\nCareful: Hailspite, level 60 elites, gather in the snowfields south-east of {area:2255}, where a few Moontouched Owlbeasts roam too: stay on the slopes north of town."] = "向东骑往{area:2255}，再从那里向北出去；月光枭兽在{area:2241}南坡的山丘上游荡。一次引一只。\n小心：60级精英Hailspite聚集在{area:2255}东南方的雪原上，那里也有少量月光枭兽游荡：待在镇子北边的山坡上。",
 	-- ["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk."] = "从小屋沿道路向南骑往{area:2264}。{item:15447}十分钟内就会变质：快速杀死镇上的天灾军团，然后立刻用{item:15454}把七块研磨好。\n小心：隐形仆从血量降到40%时会呼叫25码内的同伴求援。脱离战斗时它们还会用{spell:10228}隐形。如果在镇子里触发求援，大量怪物可能加入战斗。在镇子外围战斗可以降低这种风险。",
 	-- ["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the end of the Un'Goro guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "从小屋沿道路向南骑往{area:2264}。{item:15447}十分钟内就会变质：快速杀死镇上的天灾军团，然后立刻用{item:15454}把七块研磨好。\n小心：隐形仆从血量降到40%时会呼叫25码内的同伴求援。脱离战斗时它们还会用{spell:10228}隐形。如果在镇子里触发求援，大量怪物可能加入战斗。在镇子外围战斗可以降低这种风险。\n如果你的任务日志里有{quest:5211}（来自安戈洛指南末尾的{npc:11063}），镇子周围的天灾军团死后会留下达隆郡之魂：与每一个交谈以解放它。先解放它们，再开始收集{item:15447}。",
+	-- ["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "从小屋沿道路向南骑往{area:2264}。{item:15447}十分钟内就会变质：快速杀死镇上的天灾军团，然后立刻用{item:15454}把七块研磨好。\n小心：隐形仆从血量降到40%时会呼叫25码内的同伴求援。脱离战斗时它们还会用{spell:10228}隐形。如果在镇子里触发求援，大量怪物可能加入战斗。在镇子外围战斗可以降低这种风险。\n如果你的任务日志里有{quest:5211}（来自本指南开头的{npc:11063}），镇子周围的天灾军团死后会留下达隆郡之魂：与每一个交谈以解放它。先解放它们，再开始收集{item:15447}。",
 	-- ["Ride south from {area:1099}: the hippogryph nests are in the south of {zone:1444}; each holds an egg for the {object:142071}."] = "从{area:1099}向南骑行：角鹰兽的巢在{zone:1444}南部；每个巢里都有一个蛋，用于{object:142071}。",
 	-- ["Sword of Marduk"] = "马杜克的破碎之剑",
+	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "编年史混在安多哈尔市政厅的霉烂的书卷中；逐一打开，直到找到正确的那本。",
 	-- ["The flight from {area:1997} lands in {zone:1456}: {npc:3033} (Druids) trains on {area:1639}, {npc:246344} (Paladins) in the city too."] = "从{area:1997}起飞的航班降落在{zone:1456}：{npc:3033}（德鲁伊）在{area:1639}训练，{npc:246344}（圣骑士）也在城里。",
 	-- ["The high elf Rangers, Pathstriders and Woodsmen guard the lodge by {area:2275}; the Registry lies inside. Rangers reach 60: pull one at a time. Noxious Plaguebats fly over the fields on the way."] = "高等精灵游侠、巡路者和护林者守卫着{area:2275}旁的奎尔林斯小屋；奎尔萨拉斯名册就在小屋里。游侠最高60级：一次引一个。路上的田野上空有毒性瘟疫蝙蝠飞过。",
+	-- ["The high elf Rangers, Pathstriders and Woodsmen guard the lodge by {area:2275}; the Registry lies inside. Rangers reach 60: pull one at a time. Noxious Plaguebats fly over the fields on the way.\nThe skull sits in the {area:2622}, among Blighted Horrors and Plague Monstrosities."] = "高等精灵游侠、巡路者和伐木工守卫着{area:2275}旁的小屋；登记册在屋内。游侠最高60级：逐个引怪。途中田野上空有毒性瘟疫蝙蝠飞过。\n头骨在{area:2622}，周围有荒芜水元素和瘟疫畸兽。",
 	-- ["The shattered sword lies on the ground north-west of the lake."] = "马杜克的破碎之剑就躺在湖西北的地上。",
 	-- ["The skull sits in the {area:2622}, among Blighted Horrors and Plague Monstrosities."] = "头骨就在{area:2622}里，周围是荒芜水元素和瘟疫水元素。",
 	-- ["The western hills"] = "西部山丘",
 	-- ["The {area:2622}"] = "{area:2622}",
 	-- ["The {object:142071} machine"] = "{object:142071}机器",
 	-- ["The {object:177675} is just behind the {area:2261}."] = "{object:177675}就在{area:2261}后面。",
+	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:11897} is a level 60 elite: most classes solo it at level 62, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英怪：建议组队，找人一起做。{npc:11897} 是 60 级精英：多数职业在 62 级能单人击败，但你可能需要帮助。独自一人就跳过：路线会让你打怪补回这部分经验。",
 	-- ["Upstairs"] = "在楼上",
+	-- ["Zeppelin to {zone:1454}"] = "乘飞艇前往{zone:1454}",
 	-- ["{area:1099} flight master"] = "{area:1099}的飞行管理员",
 	-- ["{item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once."] = "{item:15447}十分钟内就会变质：快速杀死镇上的天灾军团，然后立刻用{item:15454}把七块研磨好。",
 	-- ["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "{npc:10778}的农场是{area:152}以东第一座农场。农场里的喋喋不休的食尸鬼携带她护符的另一半；{npc:11075}守着田里的大锅。\n小心：通常有一两只亡灵与他并肩战斗，使用大锅后还可能有更多护锅者来袭。",
 	-- ["{npc:10880} walks the {object:172982} and the streets off it: look for him on the way to the flight master's tower; the circle on the map is his walk."] = "{npc:10880}在{object:172982}及其周边街道巡逻：在前往飞行管理员塔楼的路上留意他；地图上的圆圈就是他的巡逻范围。",
 	-- ["{npc:10880}: for {npc:7776} at {quest:7492}, at the end of this guide"] = "{npc:10880}：交给{quest:7492}的{npc:7776}，在本指南末尾",
+	-- ["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner."] = "鬼魂{npc:11140}站在西北角{area:2627}的一间小屋旁。",
+	-- ["{npc:15193}'s champion holds the {area:2260} farmhouse, north of the {area:2261}."] = "{npc:15193}的勇士占据着{area:2261}北边{area:2260}的农舍。",
 	-- ["{npc:15193}'s champion holds the {area:2260} farmhouse."] = "{npc:15193}的勇士占据着{area:2260}的农舍。",
+	-- ["{npc:8565} walks around {area:2276}: look inside the circle on the map"] = "{npc:8565}在{area:2276}附近巡逻，请在地图标出的圆圈内寻找",
 	-- ["{npc:9299} is a ghost at the graveyard just north of {area:976}; the Conspicuous Gravestone is south of it, outside the town wall."] = "{npc:9299}是{area:976}正北墓地里的一个鬼魂；明显的墓碑在它南边、城墙外面。",
 	-- ["{object:1661}'s flight master is in the {object:36078}'s west tower, outside the walls."] = "{object:1661}的飞行管理员在{object:36078}城墙外的西塔上。",
 	-- ["{quest:5086} are in {zone:1448}, on a later trip: keep it if you have it."] = "{quest:5086}在{zone:1448}，之后那一趟再去：如果你有就留着。",

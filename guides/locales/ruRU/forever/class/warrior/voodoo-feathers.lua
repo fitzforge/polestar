@@ -13,7 +13,7 @@ return {
 
 	-- Step 1: A Troubled Spirit (Stormwind)
 	-- {npc:5479} Wu Shen · {npc:5480} Ilsa Corbin · {object:2100} Old Town · {npc:7572} Fallen Hero of the Horde · {zone:1435} Swamp of Sorrows
-	["At 50, {npc:5479}, beside {npc:5480} in the warrior trainers' building of {object:2100}, sends you to the {npc:7572} in the {zone:1435}."] = "",
+	["At 50, {npc:5479}, beside {npc:5480} in the warrior trainers' building of {object:2100}, sends you to the {npc:7572} in the {zone:1435}."] = "На 50-м уровне {npc:5479}, рядом с NPC {npc:5480} в здании учителей воинов ({object:2100}), отправит вас сюда: {npc:7572} ({zone:1435}).",
 
 	-- Step 2: A Troubled Spirit (Ironforge)
 	-- {npc:5113} Kelv Sternhammer · {zone:1455} Ironforge · {npc:7572} Fallen Hero of the Horde · {zone:1435} Swamp of Sorrows
@@ -72,7 +72,6 @@ return {
 	["In Classic the {npc:10996} let you choose the {item:20130}, the {item:20521} or the {item:20517} here. Forever's change notes say the choice is gone, though its quest page still lists three unnamed rewards: look at the reward window before you hand in."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 50, {npc:5479} in {object:2100}, beside the Pig and Whistle, sends you to the {npc:7572} in the {zone:1435}."] = "На 50-м уровне {npc:5479} ({object:2100}, рядом с таверной «Свинья и свисток») отправит вас сюда: {npc:7572} ({zone:1435}).",
 	-- ["Experience at 50, ending in the {area:1417}; Forever removed the Classic item choice."] = "Опыт на 50-м уровне, финал – здесь: {area:1417}; в Forever убран выбор предметов из Classic.",
 	-- ["The Helboars roam the north of the {zone:1419}, south of the {npc:10996}."] = "Зловепри бродят на севере зоны {zone:1419}, к югу от NPC {npc:10996}.",
 	-- ["The Shadowsworn cultists hold the east of the {zone:1419}."] = "Сектанты Культа Приверженцев Тени занимают восток зоны {zone:1419}.",

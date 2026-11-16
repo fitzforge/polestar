@@ -28,6 +28,9 @@ fn pack(leffe: Option<(&std::path::Path, &[u32])>, name: &str) -> PathBuf {
 		generator: "forge nav pack",
 		leffe,
 		zlib_literals: true,
+		places: None,
+		ledges: false,
+		spawns: None,
 		log: &|m| eprintln!("{m}"),
 	})
 	.unwrap();

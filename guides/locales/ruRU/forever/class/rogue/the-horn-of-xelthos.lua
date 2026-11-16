@@ -13,7 +13,7 @@ return {
 	-- Step 1: C's dead drop
 	["C's dead drop"] = "Тайник C",
 	-- {object:410369} Dead Drop · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
-	["The {object:410369} is a chest in a house just outside {area:204} in southern Silverpine, south of {area:236}. Open it and read C's note: the job has to be done alone, out of any group."] = "",
+	["The {object:410369} is a chest in a house just outside {area:204} in southern Silverpine, south of {area:236}. Open it and read C's note: the job has to be done alone, out of any group."] = "{object:410369} – сундук в доме сразу за деревней {area:204} на юге Серебряного бора, к югу от места {area:236}. Откройте его и прочитайте записку C: работу нужно выполнить в одиночку, вне группы.",
 
 	-- Step 2: Veenix
 	-- {npc:4086} Veenix · {area:461} Windshear Crag · {area:460} Sun Rock Retreat · {area:467} Stonetalon Peak · {item:210187} Venture Co. Work Order · {spell:921} Pick Pocket
@@ -31,11 +31,10 @@ return {
 	-- Step 4: Back to the dead drop
 	["Back to the dead drop"] = "Назад к тайнику",
 	-- {object:410369} Dead Drop
-	["Place the horn in the {object:410369} near Pyrewood. The payment may not appear immediately: check a capital mailbox for C's follow-up letter on your next planned city visit, then return to this chest for the reward quest. Do not repeat the dungeon just because the payment is not yet offered."] = "",
+	["Open the {object:410369} again, the chest outside Pyrewood you took the job from, and hand in the horn there. C's payment is a second hand-in at the same chest, with nothing to accept first, and it may not be there right away: players have waited from a quarter of an hour to two hours. Check a capital mailbox for C's follow-up letter on your next planned city visit, then return to this chest for it. Do not repeat the dungeon just because the payment is not yet offered."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Go in alone. The {item:210186} gets you past the courtyard gate; the data does not say where in the keep the horn lies."] = "Входите в одиночку. {item:210186} пропустит вас через ворота двора; где в крепости лежит рог, данные не сообщают.",
 	-- ["Place the horn in the {object:410369} near Pyrewood. C's payment is the second {item:210183} quest at the same chest."] = "Положите рог в {object:410369} у Деревни Погребальных Костров. Плата от C – второе задание ({item:210183}) у того же сундука.",
-	-- ["The {object:410369} is a chest near {area:204} in southern Silverpine, just south of {area:236}. Read C's note."] = "{object:410369} – сундук возле места {area:204} на юге Серебряного бора, чуть южнее места {area:236}. Прочитайте записку C.",
 	-- ["{npc:4086}, a goblin friendly to both factions, stands among the Venture Co. in the {area:461}, east Stonetalon. Horde fly to {area:460}; Alliance to {area:467}. He wants a {item:210187} before he hands over explosives: the Venture Co. Loggers around him carry them."] = "{npc:4086}, гоблин, дружелюбный к обеим фракциям, стоит среди Торговой компании ({area:461}), на востоке Когтистых гор. Орда летит сюда: {area:460}; Альянс – сюда: {area:467}. Прежде чем отдать взрывчатку, он хочет {item:210187}: они есть у лесорубов Торговой компании вокруг него.",
 }

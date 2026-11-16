@@ -5,12 +5,23 @@ faction Alliance
 levels 49-50
 zone Un'Goro Crater
 next forever/alliance/50-60/01-burning-steppes
-pitch For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. The crater's beasts are 48-55 and the Gorishi silithids 51-54, so pull them one at a time.
+pitch For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 56.
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Noggenfogger Elixir (2662), straight after Delivery for Marin.
+# The Tanaris guide's Dunemaul Compound (5863) and Thistleshrub Valley (2605, 3362) are done on this guide's Gadgetzan
+# landing, at about 49.5 (their mobs are 46-50), and so is the Noxious Lair chain (82, 10, 110, 113, 162: Centipaar
+# 48-50, two over players on the Tanaris guide at about 47; Rise of the Silithid goes to Gracina on the Burning Steppes
+# guide's Darnassus stop).
+# Fix round 1 (0.4.0): this first Un'Goro visit takes Torwa, the raft, Muigin's petals and the power crystals at
+# 49-50, with no top-up to 51; the pylons (4285, 4287, 4288), the bones and the expedition (3881, 3882, 3883) and
+# A-Me 01 (4243) are taken and done on the Western Plaguelands guide's Un'Goro visit at about 57: their Frenzied
+# Pterrordax (51-54), Elder Diemetradons (53-55), Glutinous Oozes (52-54) and Gorishi (51-54) were two to four over
+# players here. Fix round 2 (0.4.0): Shizzle's Flyer (4503) is done here after all, on the Fledgling Pterrordax
+# (48-50) and Young Diemetradons (49-50) of the eastern jungle the petals already take you to; The Scent of
+# Lar'korwi (4291) goes back to Torwa on the way from the raft instead of riding the log to the next visit; the
+# Azshara top-up to 50.4 is gone (the next guide's Azshara top-up is on mobs at your level).
 
 step Fly to Menethil Harbor
   zone Ironforge
@@ -21,6 +32,11 @@ step Fly to Menethil Harbor
 step Boat to Theramore
   zone Wetlands
   goto 5.13,63.61 "Boat to Theramore"
+
+step Theramore
+  zone Dustwallow Marsh
+  tip Privateer Groy stands on the docks where the boat lands.
+  turnin 623                          -- Privateer Groy
 
 step Fly to Gadgetzan
   zone Dustwallow Marsh
@@ -39,16 +55,53 @@ step Gadgetzan
   when group 2944
   accept 2944
 
-step Sprinkle
-  turnin 2641
-  accept 2661
-  turnin 2661
-  accept 2662                         -- Marin Noggenfogger
-  turnin 2662                         -- Marin, once he has brewed the elixir: a few seconds
+step The Noxious Lair
+  zone Tanaris
+  tip Ride west to the Centipaar hive in the dunes. Any Centipaar can drop insect parts.
+  tip Careful: Centipaar Swarmers cast Silithid Swarm both in and out of combat, which brings small adds that interrupt you.
+  collect 8587 quest 82               -- Centipaar Insect Parts
+
+step Dunemaul Compound
+  zone Tanaris
+  tip Ride south to the ogre compound. Brutes and Enforcers (46-48) fill it; Gor'marok the Ravager (49) stands in the middle with guards around him: clear them first.
+  kill 5474 quest 5863                -- Dunemaul Brute
+  kill 5472 quest 5863                -- Dunemaul Enforcer
+  kill 12046 x1 quest 5863            -- Gor'marok the Ravager, below ground
+
+step Thistleshrub Valley: kill these as you meet them
+  zone Tanaris
+  tip Ride west into Thistleshrub Valley. The Dew Collectors drop the glands; only some are full, so keep the Laden one. Gnarled Thistleshrubs and Rootshapers share the valley.
+  tip Careful: the thistleshrubs wander a lot, so you can easily pull extra mobs.
+  collect 8428 x1 quest 2605          -- Laden Dew Gland
+  kill 5485 quest 3362                -- Thistleshrub Rootshaper
+  kill 5490 quest 3362                -- Gnarled Thistleshrub
+
+step Gadgetzan
+  tip Ride back north-east to Gadgetzan: Andi Lynn stands on the east side of town.
+  turnin 5863                         -- Andi Lynn
+  turnin 2605                         -- Marin Noggenfogger
+  accept 2606
+  turnin 3362                         -- Tran'rek
+  turnin 2606                         -- Sprinkle
+  turnin 82                           -- Alchemist Pestlezugg, inside
+  accept 10                           -- Senior Surveyor Fizzledowser
+
+step The Gaping Chasm
+  tip Ride south past the Broken Pillar to the Gaping Chasm, the Hazzali tunnels; Scrimshank's gear lies deep inside.
+  tip Careful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds.
+  collect 8593 x1 quest 10            -- Scrimshank's Surveying Gear; below ground
+
+step Gadgetzan
+  turnin 10                           -- Senior Surveyor Fizzledowser
+  accept 110
+  turnin 110                          -- Alchemist Pestlezugg, inside
+  accept 113
+  turnin 113                          -- Senior Surveyor Fizzledowser
+  accept 162                          -- For Gracina Spiritmight in Darnassus, at the end of the Burning Steppes guide: keep it
 
 step Un'Goro Crater
   zone Un'Goro Crater
-  goto 71.6,76.0 "Un'Goro Crater"
+  goto 71.6,76.0 "Torwa Pathfinder"
 
 step Torwa Pathfinder
   zone Un'Goro Crater
@@ -57,11 +110,17 @@ step Torwa Pathfinder
 
 step Fresh Threshadon Carcass
   tip The dead Threshadon lies by the water north of Torwa.
+  tip Careful: Venomhide Ravasaurs (50-51) hunt along the water there: pull them one at a time before you loot the carcass.
+  tip Any ravasaur may drop a Crystal Infused Scale: right-click it, Torwa takes it.
   collect 11504 quest 4290            -- Piece of Threshadon Carcass
+  collect 280459 x1 optional          -- Crystal Infused Scale
+  accept 87494 optional
 
 step Torwa Pathfinder
   turnin 4290
+  turnin 87494 optional               -- Microcrystal Contamination, if a ravasaur dropped the scale
   accept 4291
+  accept 4289                         -- The gorillas on Ironstone Plateau carry the pelts: keep it for the second Un'Goro visit, around 56
 
 step Lar'korwi Mates and the raft
   tip The Lar'korwi Mates prowl the jungle west of Torwa. The wrecked raft lies on the shore of the lake there; the small pack sits in the water beside it. Keep the compass, map and key for Linken. Any beast in the crater may drop A Mangled Journal: right-click it.
@@ -75,158 +134,86 @@ step Lar'korwi Mates and the raft
   collect 11116 x1 optional           -- A Mangled Journal
   accept 3884 optional
 
-step Karna Remtravel
-  tip Karna stands just outside the refuge.
-  accept 4243
+step Torwa Pathfinder
+  tip Back east to Torwa with the glands.
+  turnin 4291
 
 step Marshal's Refuge
-  tip Ride west back to the refuge.
-  accept 4503                         -- Shizzle, at the refuge entrance
+  tip Ride north-west to the refuge.
   tip Give the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and Un'Goro Dirt Pile you pass from here on.
   accept 4141                         -- Muigin
-  accept 3882                         -- Spark Nilminer
-  accept 3883                         -- Hol'anyee Marshal
-  accept 3881
+  accept 4503                         -- Shizzle: his scales come from the young beasts of the eastern jungle
   getfp "Marshal's Refuge"            -- Gryfe
   turnin 3884 optional                -- Williden Marshal
   turnin 3845                         -- Linken, at the back of the refuge
   accept 3908                         -- Ends with Donova Snowden in Winterspring: keep it
   accept 4284                         -- J.D. Collie, at the back of the cave; below ground
+  note Spark Nilminer, Hol'anyee Marshal, Williden Marshal and Karna Remtravel have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 56.
 
-# ---------------------------------------------------------------- Loop 1: the middle and the east
+# ---------------------------------------------------------------- The eastern jungle and the crystals
 
 step Fire Plume Ridge and the eastern jungle
-  tip Ride south to Fire Plume Ridge in the middle of the crater, then east into the eastern jungle. Crystal clusters stand all over the crater, many of them around Fire Plume Ridge: take a few extra of each colour. Bloodpetal Lashers and Threshers drop the petals; the expedition's Crate of Foodstuffs sits at an abandoned camp in the eastern jungle.
-  collect 11316 quest 4141            -- Bloodpetal
-  collect 11830 quest 4503
+  tip Ride east into the eastern jungle: Bloodpetal Lashers and Threshers (48-50) drop the petals and Un'Goro Soil. Crystal clusters stand all over the crater, many around the foot of Fire Plume Ridge: take a few extra of each colour.
+  tip Careful: the Living Blazes (54-55) walk the top of Fire Plume Ridge, and the Bloodpetal Flayers and Trappers (51-53) hold the jungle's south: take your crystals from the ridge's foot and your petals in the north.
+  tip Shizzle's scales: the Fledgling Pterrordax (48-50) glide over the north-east of the jungle and the Young Diemetradons (49-50) graze beside them. There are only ten of those: the Diemetradons (51) on the jungle's western edge, a short way west of the Threshers, drop the scales too. They are a level over you: take them one at a time.
+  collect 11316 quest 4141 @56.6,35.0 -- Bloodpetal, from the Lashers and Threshers
+  collect 11018 quest 3764 @56.6,35.0 -- Un'Goro Soil, from the Threshers and the dirt piles
+  collect 11831 quest 4503 @57.7,35.3 -- Webbed Pterrordax Scale, Fledgling Pterrordax
+  collect 11830 quest 4503 @57.7,35.3 -- Webbed Diemetradon Scale, Young Diemetradon
 
 step Lakkari Tar Pits
-  collect 11184 quest 4284            -- Blue Power Crystal
-  collect 11185 quest 4284            -- Green Power Crystal
-  collect 11186 quest 4284            -- Red Power Crystal
-  collect 11188 quest 4284            -- Yellow Power Crystal
+  tip Crystal clusters stand all over the crater. The pits' Tar Lords (53-54) and the oozes around them (50-54) are over you: take the clusters on the jungle's north-eastern edge, among the Lashers and young beasts (48-50).
+  collect 11184 quest 4284 @72.2,21.1 -- Blue Power Crystal
+  collect 11185 quest 4284 @72.2,21.1 -- Green Power Crystal
+  collect 11186 quest 4284 @72.2,21.1 -- Red Power Crystal
+  collect 11188 quest 4284 @72.2,21.1 -- Yellow Power Crystal
 
 step Marshal's Refuge
   turnin 4284                         -- J.D. Collie, below ground
-  accept 4285
-  accept 4287
-  accept 4288
   turnin 4141                         -- Muigin
   accept 4142                         -- For Gregan Brewspewer in Feralas: keep it
-
-# ---------------------------------------------------------------- Loop 2: the pylons
-
-step Northern Pylon
-  tip The pylon stands on the slope east of the refuge. Pterrordax circle the slopes around it: they count for Spraggle and drop Shizzle's scales.
-  goto 56.5,12.5 "Northern Crystal Pylon"
-  interact 164955 quest 4285.1
-  collect 11831 quest 4503            -- Webbed Pterrordax Scale
-  collect 11830 quest 4503
-
-step A-Me 01
-  tip Ride north to Ironstone Plateau, where the robot stands among the gorillas. Stay out of the deep cave there.
-  turnin 4243                         -- Below ground
-
-step Level 49.51
-  when level<49.51
-  tip Top up here to level 49.51 before the hand-ins at Marshal's Refuge: they take you to level 50. Or, with a group, run the Maraudon dungeon instead.
-  goto 57.0,10.2 map 1449 "Pterrordax"
-  level 49.51 grind 9166               -- grind on Pterrordax
-
-step Crate of Foodstuffs
-  tip Ride south down the east side. Young Diemetradons graze the eastern jungle and Fledgling Pterrordax fly near the eastern cliffs; both drop Shizzle's scales. The crate sits at the abandoned camp in the eastern jungle.
-  collect 11113 quest 3881            -- Crate of Foodstuffs
-  collect 11830 quest 4503            -- Webbed Diemetradon Scale
-
-step Eastern Pylon
-  tip The pylon stands on the eastern cliffs.
-  goto 77.2,50.0 "Eastern Crystal Pylon"
-  interact 164957 quest 4287.1
-
-step The Gorishi hive
-  tip Ride south-west past Torwa: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop Un'Goro Soil; Pterrordax nest on the southern cliffs if you still need kills.
-  tip Careful: Gorishi silithids are level 51-54 and cast Silithid Pox or Tunneler Acid in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health.
-  use 11132 quest 3883.1 @48.7,85.3 map 1449
-  collect 11131 quest 3883            -- Hive Wall Sample
-  collect 11018 quest 3764            -- Un'Goro Soil
-  level 49.6 grind 9167               -- grind on Frenzied Pterrordax
-
-step Bones and equipment
-  tip Dinosaur Bones lie on the ground in the south-west, among the stegodons: those are elite, pick the bones up around them and take the rest from Diemetradons. The expedition's Research Equipment lies in the south-west jungle.
-  collect 11112 quest 3881            -- Research Equipment
-  collect 11114 quest 3882            -- Dinosaur Bone
-  collect 11830 quest 4503            -- Webbed Diemetradon Scale
-  level 49.79 grind 9164               -- grind on Elder Diemetradon
-
-step Western Pylon
-  tip The pylon stands on the western cliffs. Frenzied Pterrordax fly over the whole west side.
-  goto 23.9,59.2 "Western Crystal Pylon"
-  interact 164956 quest 4288.1
-
-step Marshal's Refuge
-  tip Ride north along the western jungle back to the refuge.
-  turnin 4503                         -- Shizzle, at the refuge's entrance
-  turnin 3882                         -- Spark Nilminer
-  turnin 3883                         -- Hol'anyee Marshal
-  turnin 3881                         -- Williden Marshal
-  turnin 4285                         -- J.D. Collie, below ground
-  turnin 4287
-  turnin 4288
-  accept 4321
-  turnin 4321
+  turnin 4503                         -- Shizzle
   level 50 only Priest,Mage
 
-step To Stoutlager Inn
-  zone Loch Modan
-  goto 35.5,48.4 "Stoutlager Inn"
+step Level 49.79
+  when level<49.79
+  tip Still short of level 49.79 after the refuge's hand-ins? Top up on the Bloodpetal Lashers and Threshers (48-50) of the eastern jungle, where you took the petals, before you leave the crater.
+  goto 56.6,35.0 map 1449 "Bloodpetal Thresher"
+  level 49.79 grind 6511               -- grind on Bloodpetal Thresher
 
-# ---------------------------------------------------------------- Ironforge
+step Fly to Astranaar
+  only Warrior,Paladin,Hunter,Rogue,Shaman,Warlock,Druid
+  zone Un'Goro Crater
+  tip The Ironforge quests were taken at the end of the Searing Gorge guide: fly straight on to Ashenvale for Azshara.
+  goto 45.3,6.0 "Marshal's Refuge flight master"
+  fly "Astranaar"
 
-step Fly to Ironforge
-  zone Loch Modan
-  goto 33.9,50.8 "Thelsamar flight master"
-  fly "Ironforge"
+step To Ironforge
+  only Priest,Mage
   zone Ironforge
+  goto 18.15,51.45 "Stonefire Tavern"
 
-step Hall of Explorers
-  accept 3448                         -- Historian Karnik
-  turnin 3368                         -- Curator Thorius
-  accept 4512                         -- Laris Geardawdle: the oozes are in Felwood, keep it
+# ---------------------------------------------------------------- Ironforge (Priests and Mages)
 
 step Mystic Ward
-  turnin 3448                         -- Tymor
-  accept 3449                         -- Four rune rubbings in Azshara: keep it
-  accept 3450
+  only Priest,Mage
   accept 8254 npc 11406 only Priest   -- High Priest Rohan: for Ogtinc in Azshara, keep it
   accept 8250 npc 7312 only Mage      -- Dink, the mage trainer: for Sanath Lim-yo in Azshara, keep it
-
-step Class trainer
-  only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
-  train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
-
-step Xiggs Fuselighter
-  tip Xiggs waits in the Military Ward.
-  turnin 3450
-  accept 3451
-  turnin 3451
+  train class
 
 step Fly to Menethil Harbor
+  only Priest,Mage
   zone Ironforge
   goto 55.9,47.9 "Ironforge flight master"
   fly "Menethil Harbor"
 
 step Boat to Auberdine
+  only Priest,Mage
   zone Wetlands
   goto 4.5,56.7 "Boat to Auberdine"
 
 step Fly to Astranaar
+  only Priest,Mage
   zone Darkshore
   goto 36.4,45.6 "Auberdine flight master"
   fly "Astranaar"
-
-step Level 50.4
-  zone Azshara
-  when level<50.4
-  tip Top up here to level 50.4 before the hand-ins at Talrendis Point: they take you to level 51. Or, with a group, run the Maraudon dungeon or the Sunken Temple dungeon instead.
-  goto 17.0,69.4 map 1447 "Highborne Apparition"
-  level 50.4 grind 6116               -- grind on Highborne Apparition

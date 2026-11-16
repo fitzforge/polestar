@@ -32,9 +32,8 @@ return {
 	["{item:15290}, 20g"] = "{item:15290}, 20 з",
 	["new in Forever, 20g; beta players found it here"] = "",
 	-- {item:277960} Lavender Kodo
-	["{item:277960} is a new Forever kodo (level 40, 20g in the client) whose source is not known yet."] = "",
+	["{item:277960} is a new Forever kodo (level 40, 20g in the client) whose source is not known yet."] = "{item:277960} – новый кодо Forever (40-й уровень, 20 з в клиенте), источник которого пока неизвестен.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["{item:275993} and {item:277960} are new Forever kodos (level 40, 20g in the client) whose source is not known yet."] = "{item:275993} и {item:277960} – новые кодо Forever (40-й уровень, 20 з в клиенте), источник которых пока неизвестен.",
 	-- ["{npc:3690} and {npc:3685}'s kodos are in {area:222}, {zone:1412}. At 40 {npc:3690} teaches {skill:762} (100g per Blizzard's designers), and learning it gives you a mount. The Forever client lets every Horde race ride these."] = "{npc:3690} и кодо ({npc:3685}) – здесь: {area:222}, {zone:1412}. На 40-м уровне {npc:3690} обучает навыку {skill:762} (100 з по словам разработчиков Blizzard), и при обучении вы получите транспорт. Клиент Forever позволяет ездить на них всем расам Орды.",
 }

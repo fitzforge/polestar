@@ -222,7 +222,7 @@ step Rezlak and Misha
   kill 3118 x8 quest 835.2            -- Dustwind Storm Witch
   accept 97281 item 277661 optional   -- Dull Storm Orb: A Simmering Storm, +100
   turnin 835
-  turnin 97281 optional
+  turnin 97281
   accept 97282 optional               -- Stormy Potential, +100
   turnin 816
 

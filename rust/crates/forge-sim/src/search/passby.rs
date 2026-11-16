@@ -1014,7 +1014,7 @@ pub const BATCH_STEPS: usize = 2;
 /// Levels lower than before an objective may come after a hub batch (its hand-in's XP comes at
 /// the next visit), where it is under level.
 pub const BATCH_LEVEL_SLACK: f64 = 0.5;
-/// Levels within which a whole visit to a hub is folded into the next visit there (RevA2-3, c13:
+/// Levels within which a whole visit to a hub is folded into the next visit there (c13 review:
 /// Stormwind and Ironforge at 58.6 and again at 59.4, mostly cloth, ~15-20 min and a boat).
 pub const BATCH_NEAR_LEVELS: f64 = 1.0;
 
@@ -1222,7 +1222,7 @@ const MIN_DEFER_GAIN: f64 = 60.0;
 /// Seconds a training moved out of a field stretch may add to the hours to 60.
 pub const TRAIN_OUT_ALLOW_SEC: f64 = 60.0;
 
-/// Trainings out of field stretches (order::field_trains; RevNightElf3, c13 Shadowglen: the level-4
+/// Trainings out of field stretches (order::field_trains; c13 review, Shadowglen: the level-4
 /// training between the cave's tasks): each to right before the stretch's first task, else right
 /// after its last, kept when the order keeps its rules, no guard rises and the hours to 60 rise by at
 /// most TRAIN_OUT_ALLOW_SEC.
@@ -1526,7 +1526,7 @@ pub fn defer_hard_work(p: &Problem, m: &mut Member, log: &mut dyn FnMut(&str)) -
 		}
 		let q = s.q;
 		// The quest and the quests of the order that need it handed in (theirs in turn): they wait
-		// with it, else they would be taken before it opens them (RevA2: the Un'Goro 49-50 grind).
+		// with it, else they would be taken before it opens them (review: the Un'Goro 49-50 grind).
 		let mut chain: Vec<u32> = vec![q];
 		let mut c = 0;
 		while c < chain.len() {
@@ -1624,7 +1624,7 @@ pub fn grind_topups(p: &Problem, m: &mut Member, log: &mut dyn FnMut(&str)) -> V
 	loop {
 		let gs = grinds_of(p, &m.order);
 		// A grind to an accept's minimum level is a gate the game holds (it refuses the quest): written
-		// as a level step right before the accept, however short (RevH2: 4971 taken at 52.75, minimum 53).
+		// as a level step right before the accept, however short (review: 4971 taken at 52.75, minimum 53).
 		let gate = |g: &Grind| !g.explicit && m.order.steps.get(g.i).is_some_and(|s| s.kind == K_ACCEPT && g.from < f64::from(run.q_min_level[s.q as usize]));
 		let Some(g) = gs.iter().find(|g| !tried.contains(&(g.i, g.explicit)) && if g.explicit { g.min > TOPUP_MIN } else { g.min >= TOPUP_IMPLICIT_MIN || gate(g) }) else { break };
 		tried.insert((g.i, g.explicit));
@@ -1825,7 +1825,7 @@ const NO_HUB_BOUND: HubCounts = HubCounts { left_ready: u32::MAX, walked_past: u
 ///   only) whose steps a finding names is undone, its steps back after the step they followed,
 ///   when the order keeps its rules, no guard worsens and it adds at most what the batch saved
 ///   plus HUB_BATCH_ALLOW_SEC;
-/// - an avoidable return (`feel-return`, RevHuman3: late Elwynn crossed east-west twice) moves as
+/// - an avoidable return (`feel-return`, start-zone review: late Elwynn crossed east-west twice) moves as
 ///   one block, its lines right after the visit before's last line;
 /// - else each of its lines moves earlier to the stop the walk passed: right after `after`, else
 ///   right before `before`;

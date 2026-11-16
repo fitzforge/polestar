@@ -25,6 +25,8 @@ const FIND_ID_HINT: &str = "find the id with `polestar find <name>`, or give its
 const MAX_NAMED_SOURCES: usize = 8;
 /// An item only one or two located sources of one kind drop is named after them when each drops it at this
 /// percentage or more (#1556); under it, or at an unknown chance (0), the drop list is no guide to where to farm it.
+/// Not needed when the item's only sources are those one or two creatures (no object, no vendor): they are named
+/// whatever their chance (Kron's Amulet, 10% from two crocolisks).
 const FEW_SOURCES_BAR: f64 = 20.0;
 /// `fromNpcs` on a collect: at most this many names.
 const MAX_SOURCE_NPCS: usize = 5;
@@ -46,6 +48,9 @@ const SPREAD_MAX_MIN_RADIUS: f64 = 150.0;
 const STRAY_YARDS: f64 = 300.0;
 const STRAY_MAX: usize = 2;
 const STRAY_SHARE: f64 = 0.75;
+/// A goal point this far outside every trusted recorded spot of its objective is elsewhere (recorded_areas):
+/// `forge record learn`'s link distance, the ground one place of a player's ticks spans.
+const RECORDED_MISS_YARDS: f64 = 60.0;
 
 const GATHER_ROLES: [&str; 3] = ["mine", "herb", "fishing"];
 const LOOP_RADIUS: f64 = 30.0;
@@ -409,11 +414,55 @@ fn quests_handing_over(data: &Data, item: &V) -> Vec<V> {
 	by.get(&item.to_js_string()).items()
 }
 
+/// The creatures the quest mechanics say a `use` goal's item works on: `use-item-on-mob` params naming `npcs`
+/// (data/forever/mechanics.json, `Data::mechanics`; #2238). Zorbin's Ultra-Shrinker shrinks Feralas's giants for
+/// Zapped Giants, whose objective counts only the residue the shrunken ones drop, so nothing else names the
+/// giants. The goal's quest's own params for the item; without a quest, every quest's, in quest id order.
+fn item_targets(data: &Data, goal: &V) -> Vec<V> {
+	let item = goal.get("item");
+	if item.is_undef() || !data.mechanics.is_obj() {
+		return Vec::new();
+	}
+	let on_mobs = |m: &V| -> Vec<(String, Vec<V>)> {
+		m.get("params")
+			.items()
+			.into_iter()
+			.filter(|p| p.get("kind").as_str() == Some("use-item-on-mob") && p.get("item").is_num())
+			.map(|p| (p.get("item").to_js_string(), p.get("npcs").items()))
+			.collect()
+	};
+	let key = item.to_js_string();
+	let quest = goal.get("quest");
+	if !quest.is_undef() {
+		return on_mobs(&data.mechanics.get(&quest.to_js_string())).into_iter().filter(|(k, _)| *k == key).flat_map(|(_, n)| n).collect();
+	}
+	const KEY: &str = "resolve.useItemTargets";
+	let memo = data.memo.borrow().get(KEY).cloned();
+	let by = memo.unwrap_or_else(|| {
+		let by = V::obj();
+		// JS key order: quest ids ascending.
+		for id in data.mechanics.keys() {
+			for (k, npcs) in on_mobs(&data.mechanics.get(&id)) {
+				if !by.get(&k).is_arr() {
+					by.set(&k, V::arr());
+				}
+				for n in npcs {
+					by.get(&k).push(n);
+				}
+			}
+		}
+		data.memo.borrow_mut().insert(KEY, by.clone());
+		by
+	});
+	by.get(&key).items()
+}
+
 /// The creatures a `kill` or `use` goal's quest objective credits when the data lists several (#1614): Kodo
 /// Roundup counts a tamed Aged, Dying or Ancient Kodo, and the Kodo Kombobulator the quest hands over works on
 /// all three. A `kill` bound to such an objective, or a `use` bound to one or of the item such a quest hands
 /// over (its `sourceItem`), gets them as `fromNpcs`, the goal's own creature first, so the target button names
-/// each. -> [{ npc, npcName }] | Undef
+/// each; a `use` also gets the creatures the quest mechanics say its item works on (item_targets, #2238).
+/// -> [{ npc, npcName }] | Undef
 fn credit_npcs(data: &Data, goal: &V) -> V {
 	// A quest's kill objectives with a credit list: objective `oi` alone when given.
 	let credited = |quest: &V, oi: &V| -> Vec<V> {
@@ -431,12 +480,15 @@ fn credit_npcs(data: &Data, goal: &V) -> V {
 		picked.iter().filter(|o| o.get("type").as_str() == Some("kill") && o.get("credit").len() > 1).flat_map(|o| o.get("credit").items()).collect()
 	};
 	let (quest, oi) = (goal.get("quest"), goal.get("oi"));
-	let ids: Vec<V> = match goal.get("t").as_str() {
+	let mut ids: Vec<V> = match goal.get("t").as_str() {
 		Some("kill") if !quest.is_undef() && !oi.is_undef() => credited(&quest, &oi),
 		Some("use") if !quest.is_undef() => credited(&quest, &oi),
 		Some("use") if !goal.get("item").is_undef() => quests_handing_over(data, &goal.get("item")).iter().flat_map(|q| credited(q, &V::Undef)).collect(),
 		_ => Vec::new(),
 	};
+	if goal.get("t").as_str() == Some("use") {
+		ids.extend(item_targets(data, goal));
+	}
 	if ids.is_empty() {
 		return V::Undef;
 	}
@@ -828,6 +880,93 @@ fn spawn_spots(data: &Data, sources: &[V], map: &V, f: &V, mut x: f64, mut y: f6
 	Some(SpawnSpots { spots, spread, at })
 }
 
+/// Exact points (#1944): a target that stands at a few known points, rather than anywhere about a camp, gets
+/// each point as a spot of its own with `r` 0 (docs/GUIDE_FORMAT.md, "Spawn areas", Points): the maps mark
+/// every point and the arrow leads to the nearest the player has not been to lately. Objects never move: up
+/// to OBJECT_POINTS of them (more are found all over an area: spawn areas as before). Creatures only at fixed
+/// places: up to NPC_POINTS, no two within SPOT_CLUSTER_YARDS of each other (the mobs of a camp wander it)
+/// and none that walks about (moves.json, as for walkers).
+const OBJECT_POINTS: usize = 40;
+const NPC_POINTS: usize = 8;
+/// Spawns closer than this are one point: the reference data lists some spawns twice.
+const POINT_SAME_YARDS: f64 = 5.0;
+
+/// The exact points of `sources` (all objects, or all creatures) on `map` in frame `f`, or None (spawn
+/// areas apply; see OBJECT_POINTS). A stray (spawn_spots, "Strays") and a point in the camp of `elites`
+/// (elite droppers passed over for these) are alternatives while another point is open, and a goal point
+/// (x, y) whose nearest point is one moves to the nearest open point (the second value). Open points come
+/// first, then the alternatives, each by x then y, whatever the goal's point: goals on the same target write
+/// the same list, which the game builds once (Core/Guides.lua, Own.spotsShared).
+fn exact_points(data: &Data, sources: &[V], map: &V, f: &V, x: f64, y: f64, elites: &[V]) -> Option<(Vec<V>, Option<(f64, f64)>)> {
+	let kind = sources.first()?.get("kind");
+	if !matches!(kind.as_str(), Some("object") | Some("npc")) || !sources.iter().all(|s| s.get("kind").strict_eq(&kind)) || !data.map_size(map).truthy() {
+		return None;
+	}
+	let object = kind.as_str() == Some("object");
+	let cap = if object { OBJECT_POINTS } else { NPC_POINTS };
+	let apart = |p: &V, q: &V| distance(data, map, px(p), py(p), px(q), py(q));
+	let mut pts: Vec<V> = Vec::new();
+	for p in spawn_points_of(data, sources, map, f) {
+		if !pts.iter().any(|q| apart(q, &p) < POINT_SAME_YARDS) {
+			if pts.len() == cap {
+				return None;
+			}
+			pts.push(p);
+		}
+	}
+	if pts.len() < 2 {
+		return None;
+	}
+	if !object {
+		if pts.iter().enumerate().any(|(i, p)| pts[i + 1..].iter().any(|q| apart(p, q) <= SPOT_CLUSTER_YARDS)) {
+			return None;
+		}
+		let world: Vec<V> = pts.iter().map(|p| crate::heights::world_point(data, &obj! { "map" => map.clone(), "x" => px(p), "y" => py(p), "f" => f.clone() }.into())).collect();
+		let at: Vec<(f64, f64)> = world.iter().map(|w| (w.get("wx").num(), w.get("wy").num())).collect();
+		if world[0].truthy() && sources.iter().any(|s| crate::walks::walks_near(data, &s.get("id"), &world[0].get("c"), &at)) {
+			return None;
+		}
+	}
+	// The points the arrow may take: outside elite camps, then not strays, each while any point is left.
+	let elite_pts = spawn_points_of(data, elites, map, f);
+	let in_camp = |p: &V| elite_pts.iter().filter(|&e| apart(e, p) <= SPOT_CLUSTER_YARDS).count() > 1;
+	let strays = stray_points(&pts, &data.frame(map));
+	let keep = |open: Vec<bool>, out: &dyn Fn(&V) -> bool| -> Vec<bool> {
+		let rest: Vec<bool> = open.iter().zip(&pts).map(|(&o, p)| o && !out(p)).collect();
+		if rest.contains(&true) {
+			rest
+		} else {
+			open
+		}
+	};
+	let mut open = vec![true; pts.len()];
+	if !elite_pts.is_empty() {
+		open = keep(open, &in_camp);
+	}
+	if !strays.is_empty() {
+		open = keep(open, &|p: &V| strays.contains(&ptr_key(p)));
+	}
+	let from_goal = |i: usize| distance(data, map, px(&pts[i]), py(&pts[i]), x, y);
+	let nearest = |only_open: bool| (0..pts.len()).filter(|&i| !only_open || open[i]).min_by(|&a, &b| ord(from_goal(a) - from_goal(b)));
+	let at = match nearest(false) {
+		Some(i) if !open[i] => nearest(true).map(|j| (round2(px(&pts[j])), round2(py(&pts[j])))),
+		_ => None,
+	};
+	let mut order: Vec<usize> = (0..pts.len()).collect();
+	order.sort_by(|&a, &b| (!open[a]).cmp(&!open[b]).then(ord(px(&pts[a]) - px(&pts[b]))).then(ord(py(&pts[a]) - py(&pts[b]))));
+	let spots = order
+		.into_iter()
+		.map(|i| {
+			let o = obj! { "x" => round2(px(&pts[i])), "y" => round2(py(&pts[i])), "r" => 0.0 };
+			if !open[i] {
+				o.set("alt", true);
+			}
+			o.into()
+		})
+		.collect();
+	Some((spots, at))
+}
+
 /// A hand-placed goal whose target spawns at several places: the author's point first, every other place
 /// an alternative; with `alt_sources`, only the other places of those sources. -> spots | Undef
 fn hand_spots(data: &Data, sources: &[V], map: &V, f: &V, x: f64, y: f64, near: f64, alt_sources: Option<&[V]>) -> V {
@@ -866,6 +1005,213 @@ fn hand_spots(data: &Data, sources: &[V], map: &V, f: &V, x: f64, y: f64, near: 
 	let mut out = vec![own];
 	out.extend(alts.into_iter().map(|a| a.0));
 	out.into()
+}
+
+/// `spots` nearest (x, y) first (ties: by x, then y).
+fn nearest_first(data: &Data, map: &V, spots: Vec<V>, x: f64, y: f64) -> Vec<V> {
+	let mut ds: Vec<(V, f64)> = spots
+		.into_iter()
+		.map(|s| {
+			let d = distance(data, map, num(&s, "x"), num(&s, "y"), x, y);
+			(s, d)
+		})
+		.collect();
+	ds.sort_by(|a, b| ord(jor(jor(a.1 - b.1, num(&a.0, "x") - num(&b.0, "x")), num(&a.0, "y") - num(&b.0, "y"))));
+	ds.into_iter().map(|d| d.0).collect()
+}
+
+/// Players' recorded spots (#1963, recorded.rs): a kill, collect or interact goal bound to a quest objective
+/// takes its places from the trusted spots `forge record learn` found that objective done at, where the spawns
+/// give them the wrong size (Trouble in the Valley: 112 yd around Corporal Adamore's spawns, while players
+/// loot Benedict's Orders within 47 yd of one point) or put the goal where nobody does it.
+///
+/// The goal takes the region of recorded spots at its places: those within RECORDED_MISS_YARDS of its point
+/// or overlapping one of its open spawn areas, and every spot within SPREAD_YARDS of the region's, edge to
+/// edge (the ground one search covers). A recorded spot holding spawn areas (their centres inside it, with
+/// spawns in them) none of them bigger than it keeps those as open places: the camps within it are finer. Any
+/// other is an area of its own radius (at least SPOT_MIN_RADIUS), best-backed first up to the caps spawn areas
+/// have (SPREAD_CAP, searched spot by spot, when the places lie more than SPREAD_YARDS apart; else SPOT_CAP),
+/// the rest alternatives, and a spawn area it overlaps is gone (the recorded spot is where that place is).
+/// The goal's other spawn areas stay as they were, and so does its point, unless its first open spawn area
+/// (the one the arrow starts with) went and the point lies more than RECORDED_MISS_YARDS outside the spots.
+/// Recorded spots outside the region that no place of the goal overlaps are alternatives: the objective is
+/// done there too.
+///
+/// With none at its places, the goal stays as it is while the data places its target there and knows a place
+/// players do it at too (a spawn of one of `known` in a recorded spot: the sources the compiler placed the
+/// goal among, or any candidate of the target for an author's point): players did it elsewhere on their way.
+/// Else the data has the target where nobody does it, or nothing at the point: the goal takes the region of
+/// the recorded spot nearest its point, the other spawn areas become alternatives, and a point more than
+/// RECORDED_MISS_YARDS outside the region moves to its nearest place.
+///
+/// A goal of points (one place and no spawn areas, or spawn points of radius 0) has no area to reshape: it
+/// keeps its point while the best-backed recorded spot holds it at a spawn of its target, within
+/// SPOT_MIN_RADIUS of its edge (a spawn is finer than any area); else the region is its places (a creature
+/// players meet at several places along its way: the spots are where they found it), its points outside the
+/// region become alternatives, and a spawn point the goal moves away from stays one.
+///
+/// The `author`'s point (the guide's coordinates) at a spawn of a target that stands at several places, inside a
+/// spot backed by at least half the players of the best-backed one, is that place: players do it there, though
+/// more do it elsewhere (Westfall's oats at the Jansen Stead, #621). Its points stay, and the spots of the
+/// target's other places are alternatives, never grown with it into one zone-wide search.
+/// -> the move (yards from the old point, the recorded spot nearest it), if the point moved.
+fn recorded_areas(data: &Data, goal: &V, sources: &[V], known: &[V], map: &V, f: &V, author: bool) -> Option<(f64, crate::recorded::Spot)> {
+	use crate::recorded::Spot;
+	let rec = crate::recorded::objective_spots(data, &goal.get("quest"), goal.get("oi").num(), map, f);
+	if rec.is_empty() || !data.map_size(map).truthy() {
+		return None;
+	}
+	let (x, y) = (goal.get("x").num(), goal.get("y").num());
+	let radius = |s: &Spot| math_round(s.r).max(SPOT_MIN_RADIUS);
+	let from = |s: &Spot, ax: f64, ay: f64| distance(data, map, s.x, s.y, ax, ay);
+	let had = goal.get("spots").items();
+	let pts = spawn_points_of(data, sources, map, f);
+	let at_spawn = |ax: f64, ay: f64| pts.iter().any(|p| distance(data, map, px(p), py(p), ax, ay) <= SPOT_MIN_RADIUS);
+	let pointed = had.iter().all(|s| num(s, "r") == 0.0);
+	let points: Vec<(f64, f64)> = if had.is_empty() { vec![(x, y)] } else { had.iter().map(|s| (num(s, "x"), num(s, "y"))).collect() };
+	// A spot that holds a point: the best-backed one; for the author's point at a target standing at several
+	// places, any spot backed by at least half its players (a creature at one spawn met elsewhere walks: its
+	// places stay searched).
+	let holds = |s: &Spot| std::ptr::eq(s, &rec[0]) || (author && pts.len() > 1 && s.counted * 2.0 >= rec[0].counted);
+	if pointed && points.iter().any(|&(ax, ay)| at_spawn(ax, ay) && rec.iter().any(|s| holds(s) && from(s, ax, ay) <= radius(s) + SPOT_MIN_RADIUS)) {
+		return None;
+	}
+	let spawns_in = |s: &Spot| pts.iter().filter(|p| distance(data, map, px(p), py(p), s.x, s.y) <= radius(s)).count();
+	let overlaps = |r: &Spot, s: &V| from(r, num(s, "x"), num(s, "y")) <= radius(r) + num(s, "r");
+	let at_places = |r: &Spot| from(r, x, y) <= radius(r) + RECORDED_MISS_YARDS || had.iter().any(|s| !s.get("alt").truthy() && overlaps(r, s));
+	let local: Vec<usize> = (0..rec.len()).filter(|&i| at_places(&rec[i])).collect();
+	let elsewhere = local.is_empty();
+	let home = had.iter().position(|s| !s.get("alt").truthy());
+	let known_pts = spawn_points_of(data, known, map, f);
+	if elsewhere && (home.is_some() || at_spawn(x, y)) && rec.iter().any(|r| known_pts.iter().any(|p| distance(data, map, px(p), py(p), r.x, r.y) <= radius(r))) {
+		return None;
+	}
+	// The region: the spots at the goal's places (else the one nearest its point), grown spot by spot. The author's
+	// point at a spawn of a target that stands at several places, inside a spot that holds it (holds), is that
+	// place: the spots of its other places are alternatives, never grown into one zone-wide search (#621).
+	let edge = |s: &Spot| from(s, x, y) - radius(s);
+	let mut region: Vec<usize> = if elsewhere { (0..rec.len()).min_by(|&a, &b| ord(edge(&rec[a]) - edge(&rec[b]))).into_iter().collect() } else { local };
+	let placed = author && !elsewhere && pts.len() > 1 && at_spawn(x, y) && region.iter().any(|&i| holds(&rec[i]) && from(&rec[i], x, y) <= radius(&rec[i]) + SPOT_MIN_RADIUS);
+	let mut k = 0;
+	while k < region.len() && !placed {
+		let a = &rec[region[k]];
+		for b in 0..rec.len() {
+			if !region.contains(&b) && from(a, rec[b].x, rec[b].y) - radius(a) - radius(&rec[b]) <= SPREAD_YARDS {
+				region.push(b);
+			}
+		}
+		k += 1;
+	}
+	region.sort_unstable();
+	let taken: Vec<&Spot> = region.iter().map(|&i| &rec[i]).collect();
+	// Each recorded spot taken: covered by the spawn areas it holds when none is bigger than it, else an area. Only
+	// areas holding spawns count (an author's point with none near is no camp).
+	let mut kept: Vec<usize> = Vec::new();
+	let mut own: Vec<&Spot> = Vec::new();
+	for &r in &taken {
+		let inside: Vec<usize> = (0..had.len()).filter(|&i| num(&had[i], "n") > 0.0 && from(r, num(&had[i], "x"), num(&had[i], "y")) <= radius(r)).collect();
+		if !inside.is_empty() && inside.iter().all(|&i| num(&had[i], "r") <= radius(r)) {
+			for i in inside {
+				if !kept.contains(&i) {
+					kept.push(i);
+				}
+			}
+		} else {
+			own.push(r);
+		}
+	}
+	// The goal's other spawn areas: gone under an area of a recorded spot, else as they were (alternatives when the
+	// recordings say the data has the target where nobody does it, or when they replace a goal's points).
+	let gone = |i: usize| !kept.contains(&i) && own.iter().any(|r| overlaps(r, &had[i]));
+	let rest_had: Vec<V> = (0..had.len())
+		.filter(|&i| !kept.contains(&i) && !gone(i))
+		.map(|i| {
+			let o = had[i].as_obj().unwrap().spread();
+			if elsewhere || pointed {
+				o.set("alt", true);
+			}
+			V::from(o)
+		})
+		.collect();
+	let (still, other): (Vec<V>, Vec<V>) = rest_had.into_iter().partition(|s| !s.get("alt").truthy());
+	let centres: Vec<V> = own
+		.iter()
+		.map(|s| (s.x, s.y))
+		.chain(kept.iter().map(|&i| (num(&had[i], "x"), num(&had[i], "y"))))
+		.chain(still.iter().map(|s| (num(s, "x"), num(s, "y"))))
+		.map(|(cx, cy)| V::from(vec![V::from(cx), V::from(cy)]))
+		.collect();
+	let spread = centres.len() > 1 && extent90(&centres, &data.frame(map)) > SPREAD_YARDS;
+	let (areas, rest) = own.split_at(own.len().min(if spread { SPREAD_CAP } else { SPOT_CAP }));
+	let area = |s: &Spot, alt: bool| -> V {
+		let o = obj! { "x" => s.x, "y" => s.y, "r" => radius(s) };
+		let n = spawns_in(s);
+		if n > 0 {
+			o.set("n", n as f64);
+		}
+		if alt {
+			o.set("alt", true);
+		}
+		o.into()
+	};
+	let mut open: Vec<V> = areas.iter().map(|s| area(s, false)).collect();
+	open.extend(kept.iter().map(|&i| {
+		let o = had[i].as_obj().unwrap().spread();
+		o.delete("alt");
+		V::from(o)
+	}));
+	open.extend(still);
+	let mut alts: Vec<V> = rest.iter().map(|s| area(s, true)).collect();
+	alts.extend(other);
+	for (i, r) in rec.iter().enumerate() {
+		if !region.contains(&i) && !had.iter().any(|s| overlaps(r, s)) {
+			alts.push(area(r, true));
+		}
+	}
+	let place_gone = elsewhere || home.is_none_or(gone);
+	let moved = if !place_gone || taken.iter().any(|s| from(s, x, y) <= radius(s) + RECORDED_MISS_YARDS) {
+		None
+	} else {
+		taken.iter().min_by(|a, b| ord(from(a, x, y) - from(b, x, y))).map(|s| (from(s, x, y), (*s).clone()))
+	};
+	// A point goal's spawn left behind is one more place the target spawns: an alternative, as spawn areas are.
+	if moved.is_some() && had.is_empty() && at_spawn(x, y) {
+		alts.push(obj! { "x" => x, "y" => y, "r" => SPOT_MIN_RADIUS, "n" => 1.0, "alt" => true }.into());
+	}
+	let (gx, gy) = match moved {
+		Some((_, ref s)) => nearest_first(data, map, open.clone(), s.x, s.y).first().map_or((s.x, s.y), |p| (num(p, "x"), num(p, "y"))),
+		None => (x, y),
+	};
+	let mut spots = if spread { walk(data, map, &open, gx, gy) } else { nearest_first(data, map, open, gx, gy) };
+	spots.extend(nearest_first(data, map, alts, gx, gy));
+	goal.set("spots", spots);
+	if spread {
+		goal.set("spread", true);
+	} else {
+		goal.as_obj().unwrap().delete("spread");
+	}
+	if moved.is_some() {
+		goal.set("x", gx);
+		goal.set("y", gy);
+	}
+	moved
+}
+
+/// The warning on an author's point recorded_areas moved: it lies outside every area players do the objective in.
+fn warn_moved(r: &mut R<'_>, ln: &V, goal: &V, moved: Option<(f64, crate::recorded::Spot)>) {
+	if let Some((yards, s)) = moved {
+		let msg = format!(
+			"players' recordings place quest {}.{} {} yd from this point: {} players within {} yd of {},{}",
+			goal.get("quest"),
+			goal.get("oi"),
+			math_round(yards),
+			s.counted,
+			math_round(s.r),
+			num_str(s.x),
+			num_str(s.y)
+		);
+		r.warn(ln, msg, Some("the compiled goal leads there; move the point into that area"));
+	}
 }
 
 /// The level of a kill or collect goal's spawn areas: the highest level of the mobs of `sources` that spawn in
@@ -1070,7 +1416,8 @@ fn opt_in_step(step: &V) -> bool {
 /// The guide menu's "Group" chip (#1358): some goal on the route every player follows needs a group.
 /// Not an `optional` goal; not one in an opt-in step (opt_in_step) or of a quest accepted only in one
 /// (its later goals go with the accept, as validate's group_quests_of); not the turn-in of a dungeon or
-/// raid quest (the run was the group content, handing it in is not).
+/// raid quest (the run was the group content, handing it in is not); not an object's work among elites
+/// (`near`: a warning on the step, #1778).
 fn route_needs_group(steps: &[V]) -> bool {
 	let mut only: FxHashMap<String, bool> = FxHashMap::default();
 	for step in steps {
@@ -1090,7 +1437,19 @@ fn route_needs_group(steps: &[V]) -> bool {
 				&& !goal.get("optional").truthy()
 				&& !(!quest.is_undef() && only.get(&stringify(&quest, None)) == Some(&true))
 				&& !(goal.get("t").as_str() == Some("turnin") && matches!(group.get("kind").as_str(), Some("dungeon") | Some("raid")))
+				&& !group.get("near").truthy()
 		})
+	})
+}
+
+/// The levels a guide's header spans: its plain `levels` and every `levels <min>-<max> <Faction>` together.
+fn guide_levels(h: &V) -> Option<(f64, f64)> {
+	let mut ranges = vec![h.get("levels")];
+	let by = h.get("factionLevels");
+	ranges.extend(by.keys().iter().map(|f| by.get(f)));
+	ranges.iter().filter(|r| r.truthy()).fold(None, |acc, r| {
+		let (lo, hi) = (r.get("min").num(), r.get("max").num());
+		Some(acc.map_or((lo, hi), |(a, b): (f64, f64)| (a.min(lo), b.max(hi))))
 	})
 }
 
@@ -1107,9 +1466,22 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 	set_if(&guide, "faction", h.get("faction"));
 	set_if(&guide, "races", h.get("races"));
 	set_if(&guide, "classes", h.get("classes"));
-	if h.get("levels").truthy() {
-		guide.set("minLevel", h.get("levels").get("min"));
-		guide.set("maxLevel", h.get("levels").get("max"));
+	// `levels <min>-<max> <Faction>` (parse.rs): each faction's range in `factionLevels`, the plain one standing in for a
+	// faction without its own; minLevel/maxLevel span them all (what a Polestar that reads no `factionLevels` shows).
+	let levels = guide_levels(&h);
+	if let Some((lo, hi)) = levels {
+		guide.set("minLevel", lo);
+		guide.set("maxLevel", hi);
+	}
+	if h.get("factionLevels").truthy() {
+		let by = V::obj();
+		for f in ["Alliance", "Horde"] {
+			let r = if h.get("factionLevels").get(f).truthy() { h.get("factionLevels").get(f) } else { h.get("levels") };
+			if r.truthy() {
+				by.set(f, V::Obj(obj! { "min" => r.get("min"), "max" => r.get("max") }));
+			}
+		}
+		guide.set("factionLevels", by);
 	}
 	guide.set("category", canonical_category(&h.get("category"), ast, r));
 	set_if(&guide, "folder", h.get("folder"));
@@ -1193,6 +1565,17 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 		};
 		let ez = r.resolve_zone(&spec);
 		let end_zone = if ez.truthy() { ez } else { hz.clone() };
+		// The factions the guide is for, narrowed by its races (a `taxi` predicate's flight master), when asked.
+		let guide_sides = || {
+			let factions: V = if h.get("faction").truthy() { vec![h.get("faction")].into() } else { V::Null };
+			let layer: V = obj! {
+				"factions" => factions.clone(),
+				"races" => if h.get("races").truthy() { h.get("races") } else { V::Null },
+				"classes" => if h.get("classes").truthy() { h.get("classes") } else { V::Null },
+			}
+			.into();
+			smart_sides(&sides_for(&[factions]), &crate::conditions::applicable(&[layer]))
+		};
 		let nw: V = V::obj();
 		guide.set("nextWhen", nw.clone());
 		for id in h.get("next").items() {
@@ -1208,7 +1591,7 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 				Some("group") => r.err(&p.get("line"), "`group` asks the player at a step of the guide: it cannot decide a `next` option", Some("put `when group <quest>` on the steps of that quest")),
 				_ => {
 					let zid = if end_zone.truthy() { end_zone.get("id") } else { V::Null };
-					let w = resolve_when(&vec![p.clone()].into(), &zid, None, r);
+					let w = resolve_when(&vec![p.clone()].into(), &zid, None, &guide_sides, r);
 					nw.set(&key, w);
 				}
 			}
@@ -1294,14 +1677,26 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 		}
 	}
 
-	let mut prev = V::Null;
-	let mut used_maps: Vec<V> = Vec::new();
-	let use_map = |used: &mut Vec<V>, m: V| {
-		if let Some(i) = used.iter().position(|x| x.strict_eq(&m)) {
-			used.remove(i);
+	// Where the next goal's spawn is picked from: the last goal with coordinates (`prev`) and the maps used, most
+	// recent first. Two cursors: the dungeon runner's takes in every step, the solo route's leaves out a dungeon's
+	// steps (`when dungeon "<Name>"`), which a character who skips the dungeon never walks. A step for the runners
+	// is placed from the runner's cursor and every other step from the solo route's, so the solo route compiles as
+	// it would without the dungeon steps (Skip keeps the solo route's steps).
+	struct Cursor {
+		prev: V,
+		used_maps: Vec<V>,
+	}
+	impl Cursor {
+		fn use_map(&mut self, m: &V) {
+			if let Some(i) = self.used_maps.iter().position(|x| x.strict_eq(m)) {
+				self.used_maps.remove(i);
+			}
+			self.used_maps.insert(0, m.clone());
 		}
-		used.insert(0, m);
-	};
+	}
+	const RUNNER: usize = 0;
+	const SOLO: usize = 1;
+	let mut cursors = [Cursor { prev: V::Null, used_maps: Vec::new() }, Cursor { prev: V::Null, used_maps: Vec::new() }];
 	let classes_of = |race: &str, side: &str| data.race_classes(race, side);
 	let head_factions: V = if h.get("faction").truthy() { vec![h.get("faction")].into() } else { V::Null };
 	let head_layer: V = obj! {
@@ -1349,7 +1744,6 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 	};
 	let frame_default = (if h.get("coords").truthy() { h.get("coords").to_js_string() } else { "era".to_string() }, !h.get("coords").is_undef());
 	let prof_progress: ProfProgress = RefCell::new(Vec::new());
-	let levels = if h.get("levels").truthy() { Some((h.get("levels").get("min").num(), h.get("levels").get("max").num())) } else { None };
 	for s in &steps {
 		let step: V = V::obj();
 		set_if(&step, "title", s.get("title"));
@@ -1372,14 +1766,20 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 		};
 		let step_zone = r.resolve_zone(&zspec);
 		let szid = if step_zone.truthy() { step_zone.get("id") } else { V::Null };
-		set_if(&step, "when", resolve_when(&s.get("when"), &szid, levels, r));
+		// The factions the step is for, narrowed by its races as a goal's (a `taxi` predicate's flight master), when asked.
+		let step_sides = || {
+			let only = s.get("only");
+			let factions = if only.truthy() { only.get("factions") } else { only.clone() };
+			smart_sides(&sides_for(&[head_factions.clone(), factions]), &crate::conditions::applicable(&[head_layer.clone(), only]))
+		};
+		set_if(&step, "when", resolve_when(&s.get("when"), &szid, levels, &step_sides, r));
 		set_if(&step, "label", s.get("label"));
 		set_if(&step, "along", s.get("along"));
 		set_if(&step, "section", s.get("section"));
 		if s.get("skipto").truthy() {
 			let mut list = Vec::new();
 			for k in s.get("skipto").items() {
-				let w = resolve_when(&vec![k.get("when")].into(), &szid, None, r);
+				let w = resolve_when(&vec![k.get("when")].into(), &szid, None, &step_sides, r);
 				list.push(obj! { "to" => k.get("to"), "when" => w.at(0) }.into());
 			}
 			step.set("skipto", list);
@@ -1388,13 +1788,16 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 		step.set("goals", step_goals.clone());
 		step.set_hidden("_line", s.get("line"));
 		step.set_hidden("_only", s.get("only"));
+		let for_runners = step.get("when").items().iter().any(|p| p.get("k").as_str() == Some("dungeon") && !p.get("neg").truthy());
+		let at = if for_runners { RUNNER } else { SOLO };
+		let moves = if for_runners { RUNNER..RUNNER + 1 } else { RUNNER..SOLO + 1 };
 		for g in &sgoals {
 			let zone = r.resolve_zone(&g.get("zone"));
 			let zone_id = if zone.truthy() { zone.get("id") } else { V::Null };
 			let sonly = s.get("only");
 			let gonly = g.get("only");
 			let sides = sides_for(&[head_factions.clone(), if sonly.truthy() { sonly.get("factions") } else { sonly.clone() }, if gonly.truthy() { gonly.get("factions") } else { gonly.clone() }]);
-			let um = used_maps.clone();
+			let um = cursors[at].used_maps.clone();
 			let ctx = Ctx {
 				sides,
 				used_maps: &um,
@@ -1404,7 +1807,7 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 				zone_id: zone_id.clone(),
 				loop_: s.get("loop").truthy(),
 			};
-			let goal = resolve_goal(g, &zone_id, &prev, r, &ctx);
+			let goal = resolve_goal(g, &zone_id, &cursors[at].prev, r, &ctx);
 			goal.set_hidden("_line", g.get("line"));
 			goal.set_hidden("_only", if gonly.truthy() { gonly.clone() } else { V::Null });
 			step_goals.push(goal.clone());
@@ -1478,17 +1881,25 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 				);
 			}
 			if !matches!(zone_id, V::Null) {
-				use_map(&mut used_maps, zone_id.clone());
+				for c in &mut cursors[moves.clone()] {
+					c.use_map(&zone_id);
+				}
 			}
 			if !goal.get("x").is_undef() {
-				prev = obj! { "map" => goal.get("map"), "x" => goal.get("x"), "y" => goal.get("y") }.into();
-				use_map(&mut used_maps, goal.get("map"));
+				let here: V = obj! { "map" => goal.get("map"), "x" => goal.get("x"), "y" => goal.get("y") }.into();
+				for c in &mut cursors[moves.clone()] {
+					c.prev = here.clone();
+					c.use_map(&goal.get("map"));
+				}
 			}
 		}
 		if s.get("loop").truthy() {
 			apply_loop(&step, s, r);
 			if let Some(last) = step.get("goals").items().iter().rev().find(|goal| !goal.get("x").is_undef()) {
-				prev = obj! { "map" => last.get("map"), "x" => last.get("x"), "y" => last.get("y") }.into();
+				let here: V = obj! { "map" => last.get("map"), "x" => last.get("x"), "y" => last.get("y") }.into();
+				for c in &mut cursors[moves.clone()] {
+					c.prev = here.clone();
+				}
 			}
 		}
 		gsteps.push(step);
@@ -1496,9 +1907,11 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 	if route_needs_group(&gsteps.items()) {
 		guide.set("group", true);
 	}
+	crate::heights::goto_heights(r.data, &gsteps.items());
 	check_labels(&steps, r);
 	check_along_goals(&gsteps.items(), r);
 	check_background(&steps, &gsteps.items(), r);
+	check_materials(&gsteps.items(), r);
 	guide
 }
 
@@ -1624,9 +2037,83 @@ fn check_background(steps: &[V], gsteps: &[V], r: &mut R) {
 	}
 }
 
+/// A profession material is gathered or bought, one way at a time (Core/Materials.lua): a `collect … gather` needs
+/// an `auction` goal for its item in the same section (the same guide without sections), or a player who buys it
+/// would find nothing that buys this range's share. Mirrors tools/lib/dsl/resolve.js checkMaterials.
+fn check_materials(steps: &[V], r: &mut R) {
+	let key = |step: &V, goal: &V| {
+		let section = if step.get("section").is_undef() { "0".to_string() } else { step.get("section").to_js_string() };
+		format!("{section}:{}", goal.get("item").to_js_string())
+	};
+	let mut bought: Vec<String> = Vec::new();
+	for step in steps {
+		for goal in step.get("goals").items() {
+			if goal.get("t").as_str() == Some("auction") {
+				bought.push(key(step, &goal));
+			}
+		}
+	}
+	for step in steps {
+		for goal in step.get("goals").items() {
+			if goal.get("t").as_str() != Some("collect") || !goal.get("gather").truthy() || bought.contains(&key(step, &goal)) {
+				continue;
+			}
+			r.warn(
+				&goal.hidden("_line"),
+				format!(
+					"`gather` with no `auction` goal for item {} in its {}: a player who buys materials has nothing that buys it here",
+					goal.get("item"),
+					if step.get("section").is_undef() { "guide" } else { "section" }
+				),
+				Some("add `auction <item> xN` to the Auction House step of this section, or drop `gather` (the item is then always gathered)"),
+			);
+		}
+	}
+}
+
+/// `collect … gather`: the item's gather way, which Core/Materials.lua weighs against the section's `auction` goal
+/// for it: true, or what the way takes ({ skill, skillLine, rank }: a profession at that rank; { min, max }: the
+/// levels of the mobs it drops from).
+fn gather_way(g: &V, ln: &V, r: &mut R) -> V {
+	let data = r.data;
+	if !g.get("quest").is_undef() {
+		r.err(ln, "`collect … gather` is a profession material, a bag count: drop `quest` (quest objectives use the quest’s own targets)", None);
+	}
+	if g.get("count").is_undef() {
+		r.err(ln, "`collect … gather` needs a count: `collect <item> xN … gather`", None);
+	}
+	let way = V::obj();
+	if !g.get("gatherSkill").is_undef() {
+		let name = g.get("gatherSkill").to_js_string();
+		let p = data.profession_named(&name);
+		if p.truthy() {
+			way.set("skill", p.get("name").to_js_string());
+			way.set("skillLine", p.get("id"));
+		} else if g.get("gatherSkillQuoted").truthy() {
+			way.set("skill", name.as_str());
+			r.warn(ln, format!("profession \"{name}\" is not in data{}; using the explicit name (new Forever content?)", if data.has_professions { "" } else { " (professions.json missing)" }), None);
+		} else {
+			r.err(ln, format!("unknown profession \"{name}\"; quote the name to use it anyway: `gather \"{name}\" {}`", g.get("gatherRank")), None);
+		}
+		way.set("rank", g.get("gatherRank"));
+	}
+	if !g.get("gatherMin").is_undef() {
+		way.set("min", g.get("gatherMin"));
+		way.set("max", g.get("gatherMax"));
+	}
+	if way.keys().is_empty() {
+		V::Bool(true)
+	} else {
+		way
+	}
+}
+
 /// What an accept of quest `id` (record `q`, or Null) waits on, for the engine: its blocking prerequisites, the
-/// quests that close it for good, and its `parent` (a child quest, which its giver offers only while the parent is
-/// in the log and never once it is handed in: Valik with Infiltration, #1661).
+/// quests that close it for good, its `parent` (a child quest, which its giver offers only while the parent is
+/// in the log and never once it is handed in: Valik with Infiltration, #1661), and its breadcrumbs (`crumbs`: the
+/// game holds the quest back while one is in the log, until it is handed in). A quest something closes for good
+/// also carries the NPCs it is handed in to (`endNpcs`) and its XP (`xp`), from the data: the missable-quest line
+/// (Core/Closes.lua) says nothing of a breadcrumb to the NPC offering the closing quest, or of one worth no XP.
 fn accept_gate(q: &V, id: &V, data: &Data) -> V {
 	let out: V = V::obj();
 	let bp = crate::prereqs::blocking_prereqs(q, &|p: &V| data.quest(p));
@@ -1641,13 +2128,27 @@ fn accept_gate(q: &V, id: &V, data: &Data) -> V {
 	let closed_by: Vec<V> = crate::prereqs::closed_by_of(id, &data.quests).into_iter().map(V::from).collect();
 	if !closed_by.is_empty() {
 		out.set("closedBy", closed_by.clone());
+		if q.truthy() {
+			let ends = q.get("end").get("npc").items();
+			if !ends.is_empty() {
+				out.set("endNpcs", ends);
+			}
+			if q.get("xp").is_num() && q.get("xp").num() >= 0.0 {
+				out.set("xp", q.get("xp").num());
+			}
+		}
 	}
-	let parent: Vec<V> = if q.truthy() && q.get("parent").num() > 0.0 { vec![V::from(q.get("parent").num())] } else { Vec::new() };
+	// The parent as blocking_prereqs gives it: not the quest itself, one exclusive with it, or one nobody can start.
+	let parent: Vec<V> = if bp.get("parent").is_num() { vec![bp.get("parent")] } else { Vec::new() };
 	if let Some(p) = parent.first() {
 		out.set("parent", p.clone());
 	}
+	let crumbs: Vec<V> = crate::prereqs::crumbs_of(id, &data.quests).into_iter().map(V::from).collect();
+	if !crumbs.is_empty() {
+		out.set("crumbs", crumbs.clone());
+	}
 	let titles: V = V::obj();
-	for p in all.iter().chain(any.iter()).chain(closed_by.iter()).chain(parent.iter()) {
+	for p in all.iter().chain(any.iter()).chain(closed_by.iter()).chain(parent.iter()).chain(crumbs.iter()) {
 		let pq = data.quest(p);
 		if pq.truthy() && pq.get("title").truthy() {
 			titles.set(&p.to_js_string(), pq.get("title").to_js_string());
@@ -1659,8 +2160,10 @@ fn accept_gate(q: &V, id: &V, data: &Data) -> V {
 	out
 }
 
-/// A step's `when` predicates as the engine reads them. `levels`: the guide's (min, max). -> array | Undef
-fn resolve_when(list: &V, zone_id: &V, levels: Option<(f64, f64)>, r: &mut R) -> V {
+/// A step's `when` predicates as the engine reads them. `levels`: the guide's (min, max). `sides`: the factions
+/// the step (or guide) is for, asked only for a `taxi` predicate's flight master (places.rs goal_node).
+/// -> array | Undef
+fn resolve_when(list: &V, zone_id: &V, levels: Option<(f64, f64)>, sides: &dyn Fn() -> V, r: &mut R) -> V {
 	let data = r.data;
 	if !list.truthy() || list.is_empty() {
 		return V::Undef;
@@ -1803,6 +2306,16 @@ fn resolve_when(list: &V, zone_id: &V, levels: Option<(f64, f64)>, r: &mut R) ->
 					);
 				}
 			}
+			"taxi" => {
+				// A flight point named as for `getfp`: its taxi node for the step's factions, else the name alone.
+				w.set("name", p.get("name"));
+				let bad = crate::places::check_location(data, "getfp", &p.get("name"));
+				if bad.truthy() {
+					r.warn(&ln, format!("taxi \"{}\": no flight point has that name, so Polestar never counts its flight path as known", p.get("name")), hint_of(&bad.get("hint")));
+				}
+				let probe: V = obj! { "t" => "getfp", "location" => p.get("name") }.into();
+				set_if(&w, "node", crate::places::goal_node(data, &probe, &sides()));
+			}
 			_ => {
 				// bound
 				w.set("name", p.get("name"));
@@ -1861,6 +2374,7 @@ fn resolve_when(list: &V, zone_id: &V, levels: Option<(f64, f64)>, r: &mut R) ->
 					}
 				}
 				"knows" => "spell",
+				"taxi" => "flight path",
 				_ => "place",
 			};
 			r.warn(&p.get("line"), format!("the step asks for `{k}` and `!{k}` of the same {what}: no character sees it"), None);
@@ -2344,6 +2858,9 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 			"collect" => {
 				goal.set("item", g.get("item"));
 				goal.set("itemName", or_undef(require_name(r, "item", &g.get("item"), &g.get("itemName"), "Item name")));
+				if g.get("gather").truthy() {
+					goal.set("gather", gather_way(g, &ln, r));
+				}
 				let it = data.item(&g.get("item"));
 				let mut sources: Vec<V> = Vec::new();
 				if it.truthy() && it.get("drops").truthy() {
@@ -2435,20 +2952,55 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 				if q.truthy() && q.get("level").num() > 0.0 {
 					drop_level = q.get("level").num();
 				}
-				let split = elite_split(data, &candidates, &ctx.sides, pass_rares);
-				let normal = match &split {
-					Some((n, _)) => n.clone(),
-					None => candidates.clone(),
+				// The sources the goal names (`from`, `fromAlso`) among `cands` (located) and `srcs` (all the item's):
+				// (top, the second named beside it).
+				let pick_names = |cands: &[V], srcs: &[V]| -> Option<(V, Option<V>)> {
+					let widespread = cands.iter().filter(|s| num(s, "chance") >= 2.0).count() > MAX_NAMED_SOURCES;
+					let split = elite_split(data, cands, &ctx.sides, pass_rares);
+					let normal = match &split {
+						Some((n, _)) => n.clone(),
+						None => cands.to_vec(),
+					};
+					let named = match level_split(data, &normal, drop_level) {
+						Some((near, _)) => near,
+						None => normal,
+					};
+					// One or two located sources of one kind, each at FEW_SOURCES_BAR% or more, are where the item comes
+					// from whatever their chance: both are named (the Wooden Key, 44% and 45% from two Ancients, #1556).
+					// One or two creatures that are the item's only sources (every dropper located, no object, no
+					// vendor) are named at any chance: Kron's Amulet (10% from two crocolisks), Rackmore's Silver Key.
+					// Only when they spawn on a map in common, and their chances are all known or all unknown: an unknown
+					// one beside a known one is a stray record, often in another zone (a Loch Modan Seer beside Durotar's
+					// Burning Blade Cultists for the Reagent Pouch).
+					let maps_of = |s: &V| -> Vec<V> { data.spawns("npc", &s.get("id")).iter().map(|sp| sp.get("map")).collect() };
+					let known = srcs.iter().filter(|s| num(s, "chance") > 0.0).count();
+					let only = !srcs.is_empty()
+						&& srcs.len() <= 2
+						&& cands.len() == srcs.len()
+						&& srcs.iter().all(|s| s.get("kind").as_str() == Some("npc"))
+						&& vendors_of(&it).is_empty()
+						&& (known == 0 || known == srcs.len())
+						&& maps_of(&srcs[0]).iter().any(|m| srcs.iter().all(|s| maps_of(s).iter().any(|n| n.strict_eq(m))));
+					let few = cands.len() <= 2 && named.len() == cands.len() && named.iter().all(|c| c.get("kind").strict_eq(&named[0].get("kind")) && (only || num(c, "chance") >= FEW_SOURCES_BAR));
+					if widespread || named.is_empty() || !(cands.len() == 1 || num(&named[0], "chance") >= 50.0 || few) {
+						return None;
+					}
+					let next = named.get(1).filter(|n| n.get("kind").strict_eq(&named[0].get("kind")) && (num(n, "chance") >= 50.0 || few)).cloned();
+					Some((named[0].clone(), next))
 				};
-				let named = match level_split(data, &normal, drop_level) {
-					Some((near, _)) => near,
-					None => normal,
-				};
-				// One or two located sources of one kind, each at FEW_SOURCES_BAR% or more, are where the item comes
-				// from whatever their chance: both are named (the Wooden Key, 44% and 45% from two Ancients, #1556).
-				let few = candidates.len() <= 2 && named.len() == candidates.len() && named.iter().all(|c| c.get("kind").strict_eq(&named[0].get("kind")) && num(c, "chance") >= FEW_SOURCES_BAR);
-				if !widespread && !named.is_empty() && (candidates.len() == 1 || num(&named[0], "chance") >= 50.0 || few) {
-					let top = &named[0];
+				// The goal is placed on the step's map when a source spawns there (pick_spawn), so a better dropper
+				// elsewhere is not one it sends the player to: then the names come from the sources there (#2275: Call
+				// of Fire's Fire Tar in Loch Modan read "Kill Razormane Water Seeker or Razormane Thornweaver", the
+				// Barrens' droppers at 75%, over Loch Modan's Tunnel Rat Geomancers).
+				let zmap = if !g.get("coordMap").is_undef() { g.get("coordMap") } else { zone_map.clone() };
+				let on_zmap = |s: &V| !zmap.is_nullish() && data.spawns(&s.get("kind").to_js_string(), &s.get("id")).iter().any(|sp| sp.get("map").strict_eq(&zmap));
+				let mut names = pick_names(&candidates, &sources);
+				if names.as_ref().is_some_and(|(top, _)| !on_zmap(top)) && candidates.iter().any(&on_zmap) {
+					let here: Vec<V> = candidates.iter().filter(|s| on_zmap(s)).cloned().collect();
+					let here_srcs: Vec<V> = sources.iter().filter(|s| on_zmap(s)).cloned().collect();
+					names = pick_names(&here, &here_srcs);
+				}
+				if let Some((top, next)) = names {
 					let rec = if top.get("kind").as_str() == Some("npc") { data.npc(&top.get("id")) } else { data.object(&top.get("id")) };
 					if rec.truthy() && rec.get("name").truthy() {
 						goal.set("from", rec.get("name").to_js_string());
@@ -2462,13 +3014,11 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 								goal.set("fromFaction", rec.get("faction"));
 							}
 						}
-						if let Some(next) = named.get(1) {
-							if next.get("kind").strict_eq(&top.get("kind")) && (num(next, "chance") >= 50.0 || few) {
-								let nrec = if next.get("kind").as_str() == Some("npc") { data.npc(&next.get("id")) } else { data.object(&next.get("id")) };
-								if nrec.truthy() && nrec.get("name").truthy() && nrec.get("name").to_js_string() != goal.get("from").to_js_string() {
-									goal.set("fromAlso", nrec.get("name").to_js_string());
-									goal.set("fromAlsoId", next.get("id"));
-								}
+						if let Some(next) = next {
+							let nrec = if next.get("kind").as_str() == Some("npc") { data.npc(&next.get("id")) } else { data.object(&next.get("id")) };
+							if nrec.truthy() && nrec.get("name").truthy() && nrec.get("name").to_js_string() != goal.get("from").to_js_string() {
+								goal.set("fromAlso", nrec.get("name").to_js_string());
+								goal.set("fromAlsoId", next.get("id"));
 							}
 						}
 					}
@@ -2609,6 +3159,22 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 					candidates = ids.into_iter().map(|id| cand("npc", id)).collect();
 				}
 				check_kinds = Some(candidates.clone());
+			}
+			"auction" => {
+				// Bought at the Auction House: the arrow leads to the nearest auctioneer of the player's faction (the
+				// neutral houses are another market and carry no faction).
+				goal.set("item", g.get("item"));
+				goal.set("itemName", or_undef(require_name(r, "item", &g.get("item"), &g.get("itemName"), "Item name")));
+				if g.get("count").is_undef() {
+					r.err(&ln, "`auction` needs a count: `auction <item> xN`", None);
+				} else {
+					goal.set("count", g.get("count"));
+				}
+				let key = g.get("item").to_js_string();
+				if data.professions.values().any(|p| p.get("materials").get(&key).get("bop").truthy()) {
+					r.err(&ln, format!("item {} binds when picked up: the Auction House never has it", g.get("item")), Some("gather it with a `collect` step instead"));
+				}
+				smart(&sm, r, &goal, &npcs("auctioneer"), "auctioneer");
 			}
 			"level" => {
 				goal.set("level", g.get("level"));
@@ -3011,6 +3577,9 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 		r.err(&ln, "smart targets pick their NPC and position at runtime; drop the coordinates, or name an npc id", None);
 	}
 	let drop_sides = if v == "collect" { Some(&ctx.sides) } else { None };
+	// Players' recorded spots of the goal's objective (recorded_areas); a `loop` step's goals take its gotos as their
+	// spots (apply_loop).
+	let recorded = matches!(v, "kill" | "collect" | "interact") && !goal.get("quest").is_undef() && !goal.get("oi").is_undef() && !ctx.loop_;
 	let picked = pick_spawn(data, &candidates, &map, prev, ctx.used_maps, drop_sides, pass_rares, drop_level);
 	if picked.truthy() {
 		let c = picked.get("cand");
@@ -3040,19 +3609,26 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 			}
 		}
 		let area = v == "kill" || v == "collect" || v == "interact" || !goal.get("grind").is_undef();
+		// A kill, collect or interact whose target stands at a few known points gets them (exact_points).
+		let points = v == "kill" || v == "collect" || v == "interact";
 		if !explicit && !picked.get("x").is_undef() {
 			let srcs: Vec<V> = if area && picked.get("sources").truthy() { picked.get("sources").items() } else { vec![c.clone()] };
 			let elites: Vec<V> = if area { picked.get("elites").items() } else { Vec::new() };
-			let sp = spawn_spots(data, &srcs, &picked.get("map"), &picked.get("f"), picked.get("x").num(), picked.get("y").num(), &elites);
-			if let Some(sp) = sp {
+			let (pmap, pf, at_x, at_y) = (picked.get("map"), picked.get("f"), picked.get("x").num(), picked.get("y").num());
+			// A `loop` step's goals take its gotos as their spots (apply_loop).
+			let exact = if points && !ctx.loop_ { exact_points(data, &srcs, &pmap, &pf, at_x, at_y, &elites) } else { None };
+			if let Some((pts, at)) = exact {
+				goal.set("spots", pts);
+				if let Some((ax, ay)) = at {
+					goal.set("x", ax);
+					goal.set("y", ay);
+				}
+			} else if let Some(sp) = spawn_spots(data, &srcs, &pmap, &pf, at_x, at_y, &elites) {
 				// A grind keeps its mob's places the arrow picks, not the alternatives (other places it spawns, walked
 				// by hand for a quest target): any of the mob will do, and a grind's spots cost memory (#1392).
 				let grind = !goal.get("grind").is_undef();
 				let kept: Vec<V> = sp.spots.iter().filter(|s| !(grind && s.get("alt").truthy())).cloned().collect();
 				goal.set("spots", if kept.is_empty() { sp.spots } else { kept });
-				if v == "kill" || v == "collect" || !goal.get("grind").is_undef() {
-					spot_levels(data, &goal, &srcs, &picked.get("map"), &picked.get("f"));
-				}
 				if sp.spread && area {
 					goal.set("spread", true);
 				}
@@ -3061,11 +3637,17 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 					goal.set("y", ay);
 				}
 			}
+			if recorded {
+				recorded_areas(data, &goal, &srcs, &srcs, &pmap, &pf, false);
+			}
+			if v == "kill" || v == "collect" || !goal.get("grind").is_undef() {
+				spot_levels(data, &goal, &srcs, &pmap, &pf);
+			}
 			if v == "collect" && goal.get("npc").is_undef() {
 				set_if(&goal, "fromNpcs", source_npcs(data, &c, &picked.get("sources").items()));
 				// A `loop` step's goals take its gotos as their spots (apply_loop).
 				if !ctx.loop_ {
-					spot_npcs(data, &goal, &srcs, &picked.get("map"), &picked.get("f"));
+					spot_npcs(data, &goal, &srcs, &pmap, &pf);
 				}
 			}
 		} else if explicit && !goal.get("x").is_undef() {
@@ -3099,8 +3681,33 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 			} else {
 				SPREAD_YARDS
 			};
-			let (gx, gy, gf) = (goal.get("x").num(), goal.get("y").num(), goal.get("f"));
-			set_if(&goal, "spots", hand_spots(data, &sources, &gmap, &gf, gx, gy, near, alt_sources.as_deref()));
+			let (ax, ay, gf) = (goal.get("x").num(), goal.get("y").num(), goal.get("f"));
+			// Exact points (exact_points): those of the sources at the author's point, while one lies within `near`
+			// of it (where the data agrees, as for hand_spots). They replace the author's spot only when one of them
+			// is at the point, within SPAWN_CHECK_YARDS (as close as explicit coordinates must be to a spawn of their
+			// target not to be warned about); the point stays the author's. A point away from every one is a place
+			// the author chose over them (the Auction House for cloth that mobs in the city drop): it keeps its own
+			// spot, and the points are its alternatives.
+			let pinned: &[V] = alt_sources.as_deref().unwrap_or(&sources);
+			let agrees = points && spawn_points_of(data, pinned, &gmap, &gf).iter().any(|p| distance(data, &gmap, px(p), py(p), ax, ay) <= near);
+			let exact = if agrees { exact_points(data, pinned, &gmap, &gf, ax, ay, &[]) } else { None };
+			let hand = || hand_spots(data, &sources, &gmap, &gf, ax, ay, near, alt_sources.as_deref());
+			match exact {
+				Some((pts, _)) if pts.iter().any(|p| distance(data, &gmap, num(p, "x"), num(p, "y"), ax, ay) <= SPAWN_CHECK_YARDS) => goal.set("spots", pts),
+				Some((pts, _)) => {
+					let own = hand().at(0);
+					let own: V = if own.truthy() { own } else { obj! { "x" => ax, "y" => ay, "r" => SPOT_MIN_RADIUS, "n" => 0.0 }.into() };
+					for p in &pts {
+						p.set("alt", true);
+					}
+					goal.set("spots", std::iter::once(own).chain(pts).collect::<Vec<V>>());
+				}
+				None => set_if(&goal, "spots", hand()),
+			}
+			if recorded {
+				warn_moved(r, &ln, &goal, recorded_areas(data, &goal, &sources, &candidates, &gmap, &gf, true));
+			}
+			let (gx, gy) = (goal.get("x").num(), goal.get("y").num());
 			if v == "kill" || v == "collect" {
 				spot_levels(data, &goal, &sources, &gmap, &gf);
 			}
@@ -3111,6 +3718,10 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 				spot_npcs(data, &goal, &sources, &gmap, &gf);
 			}
 		}
+	} else if recorded && explicit && !goal.get("x").is_undef() {
+		// No source the data places (an item it knows no dropper of): the author's point, and the areas players'
+		// recordings give.
+		warn_moved(r, &ln, &goal, recorded_areas(data, &goal, &[], &[], &goal.get("map"), &goal.get("f"), true));
 	}
 	if !g.get("r").is_undef() {
 		goal.set("r", g.get("r"));
@@ -3127,6 +3738,12 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 		if q.truthy() && q.get("level").num() > 0.0 {
 			goal.set("qlvl", q.get("level").num());
 		}
+		// What its giver waits on, as for an accept: the engine lets the goal go when the guide's accept of that
+		// quest is skipped or never taken (Stranglethorn Fever 349 wants Fin Fizracket's 348 in the log).
+		let gate = accept_gate(&q, &goal.get("quest"), data);
+		set_if(&goal, "pre", gate.get("pre"));
+		set_if(&goal, "preAll", gate.get("preAll"));
+		set_if(&goal, "parent", gate.get("parent"));
 	}
 	if (v == "kill" || v == "use") && goal.get("fromNpcs").is_undef() {
 		set_if(&goal, "fromNpcs", credit_npcs(data, &goal));

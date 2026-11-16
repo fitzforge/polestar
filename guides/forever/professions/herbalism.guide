@@ -134,18 +134,18 @@ step Peacebloom & Silverleaf: Mulgore (1-50)
   only Tauren
   zone Mulgore
   tip Pick every Peacebloom (1, orange), Silverleaf (1, orange), Stunted Silverleaf (1, orange, rare), Wilted Peacebloom (1, orange, rare), Earthroot (from 15) you pass and circle the waypoints until Herbalism 50. Zone level 1-10. Expect about 60 herbs for these 49 points.
-  goto 34.2,35.0 "Silverleaf, Peacebloom" r 30
-  goto 34.7,41.1 "Peacebloom, Silverleaf" r 30
-  goto 38.0,47.3 "Peacebloom, Silverleaf" r 30
-  goto 35.5,60.9 "Silverleaf, Peacebloom" r 30
-  goto 41.1,64.4 "Peacebloom, Silverleaf" r 30
-  goto 59.0,57.7 "Silverleaf, Peacebloom" r 30
   goto 63.2,58.2 "Silverleaf, Peacebloom" r 30
   goto 65.7,60.3 "Silverleaf, Peacebloom" r 30
   goto 57.7,45.5 "Peacebloom, Silverleaf" r 30
   goto 53.6,19.0 "Peacebloom, Silverleaf" r 30
   goto 52.8,9.5 "Peacebloom, Earthroot" r 30
   goto 47.6,29.4 "Peacebloom, Silverleaf" r 30
+  goto 34.2,35.0 "Silverleaf, Peacebloom" r 30
+  goto 34.7,41.1 "Peacebloom, Silverleaf" r 30
+  goto 38.0,47.3 "Peacebloom, Silverleaf" r 30
+  goto 35.5,60.9 "Silverleaf, Peacebloom" r 30
+  goto 41.1,64.4 "Peacebloom, Silverleaf" r 30
+  goto 59.0,57.7 "Silverleaf, Peacebloom" r 30
   skill Herbalism 50
 
 step Peacebloom & Silverleaf: Tirisfal Glades (1-50)

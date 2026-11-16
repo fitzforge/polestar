@@ -2,9 +2,10 @@
 guide forever/horde/40-50/04-tanaris
 title Tanaris & Searing Gorge
 faction Horde
-levels 46-48
+levels 48-49
 zone Tanaris
 next forever/horde/40-50/05-the-hinterlands
+pitch Gadgetzan and the Searing Gorge at 46-48: the Wastewander camps, Tooga's escort and Thorium Point.
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -24,11 +25,19 @@ step Gadgetzan
   zone Tanaris
   tip The flight lands beside Tran'rek. Take the town's quests before riding west to Sandsorrow Watch.
   accept 3362                           -- Tran'rek, beside the wind rider master
-  accept 5863                           -- Andi Lynn
+  accept 5863                           -- Andi Lynn: keep it, the Dunemaul ogres and Gor'marok (49) wait for the Broken Pillar at about 52, at the end of 40-50/06
   turnin 243
   accept 379
   sethome "Gadgetzan" npc 7733          -- Innkeeper Fizzgrimble
   accept 2605                           -- Marin Noggenfogger
+
+step Gadgetzan
+  when dungeon "Zul'Farrak"
+  zone Tanaris
+  tip For your Zul'Farrak run, after Sandsorrow Watch: Chief Engineer Bilgewhizzle, by the water tower, wants his Divino-matic Rod back; Tran'rek his scarab shells and Trenton Lighthammer Troll Temper, if you have not taken those yet.
+  accept 2768                           -- Chief Engineer Bilgewhizzle
+  accept 2865                           -- Tran'rek
+  accept 3042                           -- Trenton Lighthammer
 
 step Tanaris
   zone Tanaris
@@ -39,10 +48,42 @@ step Sandsorrow Watch
   use 8584 quest 992.1 @39.0,29.2 map 1446
   collect 8585 quest 992.1 @39.0,29.2
 
+step Zul'Farrak
+  when dungeon "Zul'Farrak"
+  when onquest 2865,2768,3042
+  zone Tanaris
+  tip Zul'Farrak is a dungeon for a group of five; its quests here are level 45 to 47. Its gate lies about 400 yards north of the troll camp's water hole.
+  tip Inside: the Scarabs drop the shells, every Sandfury troll can drop Troll Temper, and Sergeant Bly carries the Divino-matic Rod.
+  enter "Zul'Farrak" @38.7,20.1
+  complete 2865 @38.7,20.1              -- Scarab Shells: the Scarabs, inside
+  complete 3042 @38.7,20.1              -- Troll Temper: the Sandfury trolls, inside
+  complete 2768 @38.7,20.1              -- Divino-matic Rod: Sergeant Bly, inside
+
 step Senior Surveyor Fizzledowser
   tip Back east to Fizzledowser on the west side of Gadgetzan; Marvon is south from there.
   turnin 992                            -- Senior Surveyor Fizzledowser
   accept 82
+
+step Tran'rek
+  when dungeon "Zul'Farrak"
+  when complete 2865
+  zone Tanaris
+  tip Your Zul'Farrak scarab shells: Tran'rek, beside the wind rider master.
+  turnin 2865                           -- Tran'rek
+
+step Chief Engineer Bilgewhizzle
+  when dungeon "Zul'Farrak"
+  when complete 2768
+  zone Tanaris
+  tip The Divino-matic Rod: Chief Engineer Bilgewhizzle, by the water tower.
+  turnin 2768                           -- Chief Engineer Bilgewhizzle
+
+step Trenton Lighthammer
+  when dungeon "Zul'Farrak"
+  when complete 3042
+  zone Tanaris
+  tip The Troll Temper: Trenton Lighthammer, a short walk from the flight master.
+  turnin 3042                           -- Trenton Lighthammer
 # Route from the Polestar route simulator's Horde consensus (Tauren export),
 # visits 44-48, levels 45.9-47.6. Checked by lint, not play-tested on
 # Forever yet. Era + known Forever quests only.
@@ -50,10 +91,10 @@ step Senior Surveyor Fizzledowser
 # Flow: Camp Mojache (where the previous guide ends) -> fly Gadgetzan
 # (bind) -> Sandsorrow Watch -> Gadgetzan -> Caliph Scorpidsting -> Marvon
 # Rivetseeker -> the Noxious Lair -> Dunemaul Compound -> Thistleshrub
-# Valley -> Tooga's escort to Steamwheedle Port -> Gadgetzan -> Marvon ->
-# Scrimshank's gear (OOX-17/TN if you found its beacon) -> hearth Gadgetzan
-# -> (Hunters and Shamans: fly Orgrimmar to train; Druids: Thunder Bluff) ->
-# fly Ratchet -> boat to Booty Bay -> fly Kargath -> the Grimesilt Dig
+# Valley (Marin's dew glands) -> Tooga's escort to Steamwheedle Port -> Gadgetzan -> Marvon ->
+# Scrimshank's gear (OOX-17/TN if you found its beacon) -> Tanaris Field
+# Sampling -> Gadgetzan -> the boat from Steamwheedle Port to Powderfuse Port
+# and the ride into the Searing Gorge by its eastern pass -> the Grimesilt Dig
 # Site -> Thorium Point (flight path) -> Velarok Windblade and the Cauldron
 # -> the Slag Pit -> the lava spiders -> the Lookouts -> Thorium Point,
 # where the next guide flies on to Stonard.
@@ -77,6 +118,16 @@ step Senior Surveyor Fizzledowser
 #   master first, then Andi Lynn, the inn and Marin; Fizzledowser on the west
 #   side last, on the way out.
 #
+# Zul'Farrak (`when dungeon "Zul'Farrak"`, dungeons in the route): for a character who runs it, Gadgetzan's first stop
+# takes Chief Engineer Bilgewhizzle's Divino-matic Rod (2768, level 47, 1 over here), and Tran'rek's Scarab Shells and
+# Trenton Lighthammer's Troll Temper (2865, 3042) for whoever did not take them in 40-50/02-feralas; the run follows
+# Sandsorrow Watch, the route's nearest point to the city's gate (about 400 yards north), at about 46, and the three
+# are handed in in Gadgetzan after Fizzledowser (`when complete`). Left out: Gahz'rilla (2770: Wizzle Brassbolts at
+# the Mirage Raceway, level 50, 6 over on 40-50/02-feralas's stop), The Prophecy of Mosh'aru (3527: offered once
+# Screecher Spirits, 3520, is handed in at Steamwheedle Port, after the run), The Spider God (2936: after Master
+# Gadrin's chain, which this route leaves out) and Tiara of the Deep (2846: Tabetha in Dustwallow Marsh, off the
+# route).
+#
 # Optional: Find and Rescue OOX-17/TN! (351, 648): the beacon is a rare
 # drop; the reward waits with Oglethorpe in Booty Bay. The Key to Freedom
 # (4451): the key is a rare drop.
@@ -87,10 +138,9 @@ step Senior Surveyor Fizzledowser
 # around 52), The Super Egg-O-Matic (2741: the egg in southern Feralas and the
 # hand-in at Gadgetzan, both at the end of forever/horde/40-50/06-azshara).
 #
-# Class training: Hunters and Shamans fly from Gadgetzan to Orgrimmar, and
-# Druids to Thunder Bluff, at about 47, before Ratchet: the next training
-# stop, in the Undercity, has no trainer for them. Everyone else trains in
-# the Undercity in the next guide.
+# Class training: none in this guide or the next. Every class trains next in
+# Orgrimmar at about 50 (40-50/06; Druids and Paladins in Thunder Bluff); the
+# Undercity's classes trained there at about 40 and 45 (40-50/01, 40-50/03).
 #
 # Left out: Into the Field (243: no longer accepted on this route), Ledger
 # from Tanaris (4450: the export never hands it in), Broken Alliances (782),
@@ -100,26 +150,21 @@ step Marvon Rivetseeker
   tip West along the road south; Marvon camps by the ruins at the Broken Pillar. Put on his Gahz'ridian Detector: it shows the buried ornaments, here and around the Dunemaul Compound.
   accept 3161
 
-step Broken Pillar: kill these as you meet them
+step Gahz'ridian ornaments
   zone Tanaris
-  tip South of the Noxious Lair the Dunemaul ogres hold their compound, with Gor'marok the Ravager at its eastern end. Dig up Gahz'ridian ornaments between the fights.
+  tip Dig up the Gahz'ridian ornaments around the Broken Pillar and north of the Dunemaul Compound. Leave the ogres for now: Gor'marok the Ravager is 49 and the Brutes 46-48; the Dunemaul Compound comes at the end of 40-50/06, at about 52.
   collect 8443 quest 3161.1 @52.3,45.3 map 1446
-  kill 5474 quest 5863.1
-  kill 5472 quest 5863.2
-  kill 12046 quest 5863.3 @41.5,57.8  -- Below ground
 
 step The Noxious Lair
   tip West, the Centipaar insects swarm around their hives; any of them drops the parts.
-  tip Careful: Centipaar Swarmers cast Silithid Swarm both in and out of combat, which brings small adds that interrupt you.
+  tip Careful: Centipaar Swarmers cast Silithid Swarm both in and out of combat, which brings small adds that interrupt you. The Sandreavers are 49-50: take the Workers and Tunnelers.
   collect 8587 quest 82.1
 
 step Thistleshrub Valley: kill these as you meet them
   zone Tanaris
-  tip West of the compound the cactus creatures fill the valley; only the Dew Collectors carry a dew gland. Most mobs in Tanaris can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.
-  tip Careful: The other thistleshrub mobs in the area are level 49-50 and wander a lot, so you can easily pull extra mobs.
-  kill 5490 quest 3362.1
+  tip West of the compound the cactus creatures fill the valley; only the Dew Collectors (47-48) carry a dew gland. Most mobs in Tanaris can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.
+  tip Careful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave Tran'rek's Gnarled Thistleshrubs and Rootshapers for the Broken Pillar ride into Un'Goro at about 51.
   collect 8623 optional                 -- OOX-17/TN Distress Beacon, a rare drop
-  kill 5485 quest 3362.2
   collect 8428 quest 2605.1 @29.2,66.1
 
 step Tooga's escort
@@ -136,18 +181,18 @@ step Slake That Thirst
   collect 8483 quest 379.1 @60.0,23.4 map 1446
 
 step Gadgetzan
-  turnin 5863                           -- Andi Lynn
   turnin 379
   note Keep the Model 4711-FTZ Power Source Bilgewhizzle gave you: it starts Tanaris Field Sampling, a two-hour timer, so use it on the way back north from Scrimshank's hive.
 
 step Gadgetzan
   turnin 2605                           -- Marin Noggenfogger
   accept 2606
-  turnin 3362                           -- Tran'rek
+  note Keep Tran'rek's Thistleshrub Valley: its Rootshapers (49-50) come with the Dunemaul Compound at the Broken Pillar, on the way into Un'Goro at about 51.
   turnin 2606                           -- Sprinkle
   accept 2641                           -- the Violet Tragan grows in the Hinterlands, around level 48
   turnin 82                             -- Alchemist Pestlezugg, inside
   accept 10                             -- Senior Surveyor Fizzledowser
+  note Andi Lynn's Dunemaul Compound stays in your log for the Broken Pillar at about 52.
 
 step Marvon Rivetseeker
   turnin 3161
@@ -222,7 +267,7 @@ step Thorium Point
 
 step The Cauldron's slavers and golems
   zone Searing Gorge
-  tip Ride south from Thorium Point into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below Velarok.
+  tip Ride south from Thorium Point into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below Velarok. Careful: the biggest golems are 49: pull them one at a time.
   kill 5846 quest 7729.1
   kill 5844 quest 7729.2
   kill 5854 quest 7723.1
@@ -242,14 +287,15 @@ step Velarok Windblade
 step Searing Gorge: kill these as you meet them
   zone Searing Gorge
   tip Heavy War Golems patrol the Cauldron below Velarok and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the Grimesilt Outhouse Key: keep it.
-  tip The Greater Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.
+  tip The Searing Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.
   tip The Slag Pit opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.
-  tip Careful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee.
+  tip Careful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee. The biggest Incendosaurs and Lava Spiders are 49: pull them one at a time.
   collect 11818 optional                -- Grimesilt Outhouse Key, a rare drop
   collect 10509 quest 3442.1
   collect 10511 quest 3442.2
   kill 5858 quest 7724.1
   kill 9318 quest 7727.1              -- Below ground
+  collect 18922 quest 7722.1 @40.5,35.7 -- Below ground: the plans, on the Slag Pit's upper ledge
 
 step Velarok Windblade
   turnin 3442
@@ -261,6 +307,7 @@ step Thorium Point
   turnin 7727
   turnin 7724
   turnin 7723                           -- Hansel Heavyhands
+  turnin 7722                           -- Master Smith Burninate
 
 step The Steamsmiths' furnaces
   tip The Dark Iron Steamsmiths work the furnaces in the middle of the Cauldron; half of them carry a Thorium Plated Dagger, one in ten the Smithing Tuyere. Slaves, Slavers and Taskmasters carry daggers too.
@@ -270,9 +317,6 @@ step The Steamsmiths' furnaces
 step Velarok Windblade
   turnin 3443
   note His next request needs the Symbol of Ragnaros from elite cultists: leave it.
-
-step The Slag Pit
-  collect 18922 quest 7722.1 @40.5,35.7 -- Below ground
 
 step Dark Iron Lookouts
   tip The Dark Iron Lookouts stand on the ridges around the sentry towers south of the Cauldron; about one in ten carries the Lookout's Spyglass.
@@ -284,5 +328,4 @@ step The Key to Freedom
   turnin 4451 optional object 173265
 
 step Thorium Point
-  turnin 7722                           -- Master Smith Burninate
   turnin 7728                           -- Taskmaster Scrange

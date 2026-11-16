@@ -15,7 +15,9 @@
 --       take: quests that apply (faction, race, class), not done, not in the log,
 --       not closed for good (one of the page's `closedBy` done or in the log:
 --       a breadcrumb whose quest is taken, as Klockmort's Essentials once
---       Essential Artificials is; counted in `done`),
+--       Essential Artificials is; counted in `done`), not one handed in at one
+--       talk and never in the log (the page's `direct`: Pozzik's Indurium Ore,
+--       #2241; the hand-in guide hands it in),
 --       open now or by the dungeon's lowest level (its prerequisites too:
 --       one above that level puts it off as `later`, #1076; `waiting` lists
 --       those, with the level each opens at and the prerequisite it waits on),
@@ -37,8 +39,10 @@
 --       in the log or done (neither taken nor `later`): one an item starts
 --       that is not in the bags, nor given by a quest before it, nor dropped
 --       outside as above (The Unsent Letter, Edwin VanCleef's drop in the
---       Deadmines, before Bazil Thredd), or one with no placed giver or
---       turn-in (Finkle Einhorn inside Blackrock Spire); pre: the open
+--       Deadmines, before Bazil Thredd), one with no placed giver or
+--       turn-in (Finkle Einhorn inside Blackrock Spire), or one whose
+--       objective only an instance gives (insideOnly: Scholomance's Kirtonos
+--       the Herald before Stratholme's Menethil's Gift); pre: the open
 --       prerequisites, in the order they are done
 --       (all of `pre`, one of `preAny`: Lookup.QuestChain), with the open
 --       breadcrumbs of the page's chain each before the quest it leads to
@@ -50,13 +54,19 @@
 --       out, from `take` and from `pre`, when it is a detour: its giver on a
 --       continent no other stop is on, or over 300 seconds out of the way
 --       (Castpipe's Task in Stonetalon for Gnomeregan's Data Rescue in
---       Ironforge); `breadcrumbs` says how each was judged.
+--       Ironforge); `breadcrumbs` says how each was judged. A breadcrumb
+--       the plan takes, or one in the log, turned in where another quest the
+--       plan takes is given is done on that quest's way, handed in right
+--       before its accept (the last of its `pre`): the game holds a quest back
+--       while its breadcrumb is in the log (Gnogaine while The Day After is,
+--       #2046).
 --       carried: the page's quests already in the log. giver: a point
 --       { kind, id, name, map, x, y, f }, or a drop point (kind "drop",
 --       Dungeons.DropPoint): the step collects the item there, then takes
 --       the quest from it. Each accept carries the page's `closedBy`, so the
 --       Engine passes it once taken on the way.
 --   Dungeons.OfferLevel(pq, rec) -> level   -- the level the heads-up offers page quest pq from
+--   Dungeons.PreDone(rec) -> bool   -- every prerequisite of Codex quest rec done (all of `pre`, one of `preAny`)
 --   Dungeons.PickupGuide(key) -> def | nil, reason   -- "nothing" when there is nothing to take;
 --       the offer rule when the heads-up opened it (CharState().pickupOffer[key])
 --   Dungeons.PickUp(key, offer) -> guideId | nil, reason    -- builds, registers and opens it in a new tab
@@ -66,11 +76,30 @@
 --   Dungeons.WaitingLines(plan) -> { text }   -- one per waiting quest: why it waits (its level,
 --       the prerequisite it needs first)
 --   Dungeons.OpensNote(quests, breadcrumb, note) -> text | note
---       a prerequisite step's note: "Needed for “A”, “B”." (a breadcrumb:
+--       a prerequisite's line: "Needed for “A”, “B”." (a breadcrumb:
 --       "Leads to “A”."), the quests ({ title }, ...) it comes before, then
---       the step's own note; `note` unchanged when there are none. The
---       pick-up and attunement guides put it on every quest they add to
---       reach one of theirs.
+--       `note`; `note` unchanged when there are none.
+--   Dungeons.MarkOpens(step, quest, opens, breadcrumb)
+--       puts OpensNote's line on the step's accept of `quest` (else its first
+--       goal) as that goal's note, before the goal's own: the guide window
+--       shows it under the goal, compact mode too, where the step's note (its
+--       tip) is folded away. The pick-up and attunement guides mark every
+--       quest they add to reach one of theirs (Fitz, 0.3.7-rc1: nothing on
+--       A Recipe For Death's steps said they were there for the Ruins of
+--       Lordaeron's The New Plague).
+--   The pick-up guide's first goal also says how many of its steps are such
+--   prerequisites and about how long they take: "Prerequisite quests: 5 of 10
+--   steps, about 1 h 15 min." (Dungeons.PrereqTime of Dungeons.PrereqSeconds
+--   summed; rounded to 5 minutes).
+--   Dungeons.PrereqSeconds(step, rec, pos) -> seconds   -- a prerequisite step's rough time:
+--       the travel from `pos` through the step's goal points in order (its
+--       giver, the places of its objectives, its turn-in: LK().Travel) times
+--       TRAVEL_FACTOR, plus STEP_SECONDS, plus its quest's objectives
+--       (Dungeons.ObjectiveSeconds); calibrated on players' recordings (below)
+--   Dungeons.ObjectiveSeconds(o) -> seconds   -- a Codex quest objective's rough time:
+--       KILL_SECONDS a kill, and for an item NPCs drop the kills its best drop
+--       chance takes (6 Lake Skulker Moss at 60%: 10 kills); USE_SECONDS
+--       anything else (an object, a talk, an item no NPC drops), per count
 --   The guide lists the waiting quests at the entrance, "Comes back at level N" in the accent. When
 --   the character reaches one's level while that pick-up guide is the open tab, a chat line says
 --   so and its giver (the first open prerequisite's) gets a pin on the map and minimap; the arrow
@@ -113,12 +142,13 @@
 --       map, x, y, f, z, item, itemName, chance }
 --
 -- Route: the cheapest path from where the player stands, through the
--- prerequisite quests (each after the one before it in its chain; after one,
+-- prerequisite quests (each after the quests it requires; after one,
 -- the player stands at its turn-in) and the givers (one stop per giver with
 -- every quest whose prerequisites are behind; a giver comes up again for a
 -- quest still waiting), to the entrance (Dungeons.PlanStops: the stops at
--- hand first, then exact up to 12 stops, else nearest-next improved by
--- moving stops). The carried quests are named in one line, the entrance
+-- hand first, then exact up to 12 stops, else the cheaper of nearest-next
+-- and cheapest insertion, each improved by moving runs of up to three
+-- stops). The carried quests are named in one line, the entrance
 -- step's note, with a note on the hand-in guide for
 -- after the run (Dungeons/Handin.lua). Travel: ns.TravelCost. The order is
 -- kept per character, so a guide rebuilt without a position (after /reload)
@@ -299,7 +329,10 @@ local function hasClass(list, class)
 	return false
 end
 
-local NOT_YOURS = { faction = true, race = true, class = true }
+-- Profession: a quest for a profession the character has not learned (The
+-- Demon Forge, Sweet Serenity: blacksmiths; The Spectral Chalice: miners)
+-- is offered only to one who has it (Lookup.QuestBlock, as #2118's follow-ups).
+local NOT_YOURS = { faction = true, race = true, class = true, profession = true }
 
 -- Whether a chain quest is an errand: nothing to do but talk (no
 -- objectives, and any standing it names already held), given (not by an
@@ -349,6 +382,45 @@ local function startable(r, before, from, p)
 	return false
 end
 
+-- Whether one of chain quest r's objectives can only be done inside an
+-- instance, so not on a pick-up guide's way: a kill or talk of an NPC, or an
+-- object to use, the Codex places in an instance and nowhere outside (Upper
+-- Blackrock Spire's Rookery Eggs before Scholomance's Dawn's Gambit), or an item whose sources
+-- the Codex knows are all mobs or objects of an instance or with no place
+-- at all, one of them in an instance (no vendor, craft or placed mob or
+-- object outside). Stratholme's pick-up guide sent Horde players through
+-- Scholomance for Menethil's Gift (Kirtonos the Herald, Doctor Theolen
+-- Krastinov) and after dungeon armour for Just Compensation (Bracers of
+-- Valor): over five hours of "picking up" on the route planner's estimate.
+-- An objective the Codex knows nothing of is not one.
+local function insideOnly(r)
+	local C = ns.Codex
+	local function inside(x) return x and x.instance and not (x.spawns and #x.spawns > 0) end
+	for _, o in ipairs(r.objectives or {}) do
+		if (o.type == "kill" or o.type == "talk") and o.id then
+			if inside(C.Npc(o.id)) then return true end
+		elseif o.type == "object" and o.id then
+			if inside(C.Object(o.id)) then return true end
+		elseif o.type == "item" and o.id then
+			local it = C.Item(o.id)
+			local sources = it and it.sources or {}
+			local within, outside = false, false
+			for _, src in ipairs(sources) do
+				local x = (src.type == "drop" and src.npc and C.Npc(src.npc)) or (src.type == "object" and src.object and C.Object(src.object)) or nil
+				if not x then
+					outside = true -- a vendor, a craft, a source the Codex does not hold
+				elseif src.instance or x.instance then
+					within = true
+				elseif x.spawns and #x.spawns > 0 then
+					outside = true
+				end
+			end
+			if within and not outside then return true end
+		end
+	end
+	return false
+end
+
 -- A page quest's side when neither the Codex nor the quest database knows
 -- it: that of the quests of this page it leads to (its `closedBy`, the page
 -- quests whose chain names it) when they are all one side's. In Search of
@@ -372,7 +444,7 @@ local function ledSide(key, pq)
 	return side or nil
 end
 
--- Why a page quest is not for this character (faction, race, class) | nil.
+-- Why a page quest is not for this character (faction, race, class, profession) | nil.
 -- The character's own faction decides, never the page's filter.
 local function notYours(key, pq, rec, p)
 	local Lk = LK()
@@ -402,7 +474,7 @@ local function startsAt(r, ends)
 end
 
 -- Whether every prerequisite of record r is done (all of `pre`, one of
--- `preAny`).
+-- `preAny`). Dungeons.PreDone: the hand-in guide's direct hand-ins ask it too.
 local function preDone(r)
 	for _, id in ipairs(r.pre or {}) do
 		if not done(id) then return false end
@@ -414,6 +486,7 @@ local function preDone(r)
 	end
 	return false
 end
+Dungeons.PreDone = preDone
 
 -- Whether a chain quest is a delivery an item starts that drops outside
 -- (Dungeons.DropPoint), turned in outside by an NPC or object this
@@ -490,7 +563,9 @@ end
 -- in where another quest the plan accepts is given (its target). Its detour
 -- is the cheapest insertion of its giver on the way to its target's giver,
 -- from where the player stands, the entrance, or any other stop of the plan
--- (another giver, a chain quest's giver or turn-in), breadcrumbs left out:
+-- (another giver, a chain quest's giver or turn-in), breadcrumbs left out
+-- (one with a prerequisite of its own in the plan: from that one's turn-in
+-- or the entrance only):
 -- min over A of T(A, giver) + T(giver, target) - T(A, target). It is left out
 -- when its giver is on a continent no other stop is on, when the detour is
 -- over DETOUR seconds, or when it is a delivery across the sea (its giver on
@@ -573,6 +648,29 @@ local function dropDetours(plan, from, p)
 			stop(e and e.spawn)
 		end
 	end
+	-- A breadcrumb with a prerequisite of its own in the plan opens only once
+	-- that one is turned in: its detour is measured from there (and from the
+	-- entrance), never from a stop the route passes before it. Blackrock
+	-- Spire's Tinkee Steamboil, Felnok Steelspring's in Winterspring, opens
+	-- after Return to Tinkee is handed in at Flame Crest; measured from
+	-- Felnok's own earlier visit it looked free, and the Horde guide flew
+	-- back to Winterspring and to the Badlands for it (over half an hour).
+	local function afterOwn(r)
+		local list
+		for _, k in ipairs({ "pre", "preAny" }) do
+			for _, pid in ipairs(r[k] or {}) do
+				if recs[pid] then
+					local e = Lk.QuestEnd(recs[pid]["end"], at[pid] or from, p)
+					if e and located(e.spawn) then
+						list = list or {}
+						list[#list + 1] = e.spawn
+					end
+				end
+			end
+		end
+		if list and located(plan.dungeon.entrance) then list[#list + 1] = plan.dungeon.entrance end
+		return list
+	end
 	local drop = {}
 	plan.breadcrumbs = {}
 	for _, id in ipairs(ids) do
@@ -586,9 +684,9 @@ local function dropDetours(plan, from, p)
 				local tc = continentOf(at[tid])
 				if tc == nil or tc == c then sea = false end
 			end
+			for _, a in ipairs(stops) do near = near or continentOf(a) == c end
 			local best
-			for _, a in ipairs(stops) do
-				near = near or continentOf(a) == c
+			for _, a in ipairs(afterOwn(recs[id]) or stops) do
 				for _, tid in ipairs(targets) do
 					local x, y, z = T(a, g), T(g, at[tid]), T(a, at[tid])
 					if x and y and z and (not best or x + y - z < best) then best = x + y - z end
@@ -615,6 +713,57 @@ local function dropDetours(plan, from, p)
 	return plan
 end
 
+-- A breadcrumb holds the quest it leads to back while it is in the log: in
+-- players' recordings, The Forgotten Pools was refused to 12 people while The
+-- Barrens Oases was in their log and offered to 30 who never had it, and the
+-- Gnomeregan guide took The Day After and then asked Ozzie Togglevolt for
+-- Gnogaine (#2046). A take, or a quest in the log, with no objectives of its
+-- own and nothing before it, turned in where another take is given (its
+-- target, as dropDetours reads breadcrumbs), goes on its target's way: the
+-- last of the target's `pre`, so the guide takes it if need be and hands it
+-- in right before the target's accept; its accept keeps the quests that close
+-- it (`closedBy`). Neither a take of its own nor carried then.
+-- plan, key -> plan
+local function crumbsFirst(plan, key)
+	local C = ns.Codex
+	local function recOf(t) return t.rec or C.Quest(t.quest.id) end
+	local function crumb(r)
+		return r and #(r.objectives or {}) == 0 and not startsAt(r, r["end"])
+	end
+	local function onWay(id, r)
+		for _, t in ipairs(plan.take) do
+			local tr = recOf(t)
+			if t.quest.id ~= id and not t.crumbOf and tr and startsAt(tr, r["end"]) then
+				for _, q in ipairs(t.pre) do
+					if q.id == id then return true end
+				end
+				t.pre[#t.pre + 1] = r
+				local pq = Dungeons.Quest(key, id)
+				plan.closedBy[id] = (pq and type(pq.closedBy) == "table" and pq.closedBy) or { t.quest.id }
+				return true
+			end
+		end
+		return false
+	end
+	local take = {}
+	for _, t in ipairs(plan.take) do
+		local r = recOf(t)
+		if #t.pre == 0 and crumb(r) and onWay(t.quest.id, r) then
+			t.crumbOf = true
+		else
+			take[#take + 1] = t
+		end
+	end
+	plan.take = take
+	local carried = {}
+	for _, pq in ipairs(plan.carried) do
+		local r = C.Quest(pq.id)
+		if not (crumb(r) and onWay(pq.id, r)) then carried[#carried + 1] = pq end
+	end
+	plan.carried = carried
+	return plan
+end
+
 -- The level from which the heads-up offers page quest pq (rec: its Codex
 -- quest): one below its quest level (Fitz, 2026-11-10: the game offers many
 -- 3-5 levels early, and the dungeon cards stacked up there), never below the
@@ -622,6 +771,22 @@ end
 function Dungeons.OfferLevel(pq, rec)
 	local qlvl = (rec and tonumber(rec.level)) or tonumber(pq.level) or 0
 	return max(qlvl - Dungeons.OFFER_MARGIN, (rec and rec.minLevel) or pq.minLevel or 1)
+end
+
+-- A page quest whose only reward is money, with no experience and no item:
+-- a repeatable hand-in such as Indurium Ore's six silver, which the Uldaman
+-- pick-up guide reached through seven quests before it (#2092). The page's
+-- rewards (Dungeons.Quest: rewards = { items, xp, money }) and the Codex
+-- record's say so; a quest whose rewards the data does not know (no money
+-- either: a Forever quest without a reward row) is not one.
+local function moneyOnly(pq, rec)
+	local r = type(pq.rewards) == "table" and pq.rewards or nil
+	local money = r and tonumber(r.money)
+	if not (money and money > 0) then return false end
+	if tonumber(r.xp) or (rec and tonumber(rec.xp)) then return false end
+	if type(r.items) == "table" and #r.items > 0 then return false end
+	if rec and ((type(rec.rewards) == "table" and #rec.rewards > 0) or (type(rec.choices) == "table" and #rec.choices > 0)) then return false end
+	return true
 end
 
 function Dungeons.PickupPlan(key, offer)
@@ -674,6 +839,13 @@ function Dungeons.PickupPlan(key, offer)
 				plan.carried[#plan.carried + 1] = pq
 			elseif closed(pq) then
 				plan.done = plan.done + 1
+			elseif moneyOnly(pq, rec) then
+				-- Nothing to gain but a few silver: never a pick-up of its
+				-- own, nor a trip through its prerequisites (#2092).
+			elseif pq.direct then
+				-- Handed in at one talk and never in the log (Pozzik's
+				-- Indurium Ore, #2241): nothing to pick up; the hand-in
+				-- guide hands it in once the bags hold what it asks.
 			elseif ((rec and rec.minLevel) or pq.minLevel or 1) > reach then
 				-- One that starts inside (no giver out here, no drop outside)
 				-- never comes to the pick-up guide: it does not wait for it.
@@ -707,6 +879,10 @@ function Dungeons.PickupPlan(key, offer)
 						-- Deadmines; the Damp Note drops outside (#1380).
 						if not inLog(r.id) and not startable(r, pre, from, p)
 							and not (preDone(r) and Dungeons.DropPoint(key, r, from, r)) then ok = false end
+						-- One done inside an instance (another dungeon's boss, its
+						-- drops) is no pick-up: Kirtonos the Herald before
+						-- Menethil's Gift.
+						if not inLog(r.id) and insideOnly(r) then ok = false end
 						pre[#pre + 1] = r
 					end
 				end
@@ -745,7 +921,7 @@ function Dungeons.PickupPlan(key, offer)
 		end
 		plan.carried = carried
 	end
-	return dropDetours(plan, from, p)
+	return crumbsFirst(dropDetours(plan, from, p), key)
 end
 
 -- The lowest level a waiting quest opens at; same: all open at that level.
@@ -837,50 +1013,106 @@ local function collectGoal(d)
 	return goal
 end
 
+-- The items quest record `rec` asks for that an object at giver point g
+-- gives (Lookup.QuestStep's collect goals from an object, within AT_GIVER
+-- yards of the giver): Blueleaf Tubers' crate, owner's manual and command
+-- stick at Mebok Mizzyrix's feet in Ratchet (#2439), taken with the quest,
+-- before the run. -> { goal, ... }
+local AT_GIVER = 25 -- yards
+local function yards(a, b)
+	local W = ns.Compat.MapToWorld
+	local c1, x1, y1 = W(a.map, a.x, a.y, a.f)
+	local c2, x2, y2 = W(b.map, b.x, b.y, b.f)
+	if not (c1 and c2) or c1 ~= c2 then return nil end
+	return math.sqrt((x2 - x1) ^ 2 + (y2 - y1) ^ 2)
+end
+local function atGiver(rec, g)
+	local out = {}
+	if not (rec and g.kind ~= "drop" and located(g)) then return out end
+	local step = LK().QuestStep(rec, g)
+	for _, goal in ipairs(step and step.goals or {}) do
+		local d = goal.t == "collect" and goal.fromKind == "object" and located(goal) and yards(goal, g)
+		if d and d <= AT_GIVER then out[#out + 1] = goal end
+	end
+	return out
+end
+
 ---------------------------------------------------------------------------
 -- Stop order: the cheapest path from where the player stands through every
 -- stop to the entrance, a path with a fixed end (a greedy nearest-next walk
 -- that only appends the entrance would leave a city and come back to it).
 ---------------------------------------------------------------------------
 
-local EXACT = 12 -- stops searched exactly; more: nearest-next, then improved
+local EXACT = 12 -- stops searched exactly; more: two first orders, then improved
 local AT_HAND = 15 -- seconds of travel from the player: such a stop comes first (#1593)
 
--- stops = { { inP, outP, deps = { stopIndex, ... } }, ... }: inP where the
+-- stops = { { inP, outP, deps = { stopIndex, ... }, log }, ... }: inP where the
 -- stop starts, outP where the player stands after it, deps the stops that
--- must come before it. from: the player's point; finish: the entrance (nil:
--- the path ends at its last stop). travel(a, b) -> seconds | nil (nil and
--- unknown points cost FAR). -> order (stop indices), cost. The stops at hand
--- (AT_HAND) come first; ties keep the authored order.
-function Dungeons.PlanStops(stops, from, finish, travel)
+-- must come before it, log the quests it adds to the log (an accept: 1, a
+-- giver: its accepts) or takes off (a turn-in: -1). from: the player's point;
+-- finish: the entrance (nil: the path ends at its last stop). travel(a, b) ->
+-- seconds | nil (nil and unknown points cost FAR). opts: { cap, seeds }:
+-- cap, the most quests the route may add to the log at any time (nil: no
+-- limit); seeds, orders of every stop to improve on besides the planner's own
+-- (the pick-up guide's one-quest-at-a-time route). -> order (stop indices),
+-- cost. The stops at hand (AT_HAND) come first; ties keep the authored order.
+function Dungeons.PlanStops(stops, from, finish, travel, opts)
 	local n = #stops
-	local memoT = {}
+	local cap = opts and opts.cap
+	-- Travel memoised by place: a quest's accept and the giver stop beside it,
+	-- or its turn-in and the next quest's accept, are separate points at one
+	-- spot, and each estimate plans a route.
+	local memoT, placeKey = {}, {}
+	local function pk(p)
+		local k = placeKey[p]
+		if not k then
+			k = type(p) == "table" and p.map and (p.map .. ":" .. tostring(p.x) .. ":" .. tostring(p.y) .. ":" .. tostring(p.f)) or p
+			placeKey[p] = k
+		end
+		return k
+	end
 	local function T(a, b)
 		if a == nil or b == nil then return FAR end
 		if a == b then return 0 end
-		local row = memoT[a]
+		local ka, kb = pk(a), pk(b)
+		if ka == kb then return 0 end
+		local row = memoT[ka]
 		if not row then
 			row = {}
-			memoT[a] = row
+			memoT[ka] = row
 		end
-		local t = row[b]
+		local t = row[kb]
 		if t == nil then
 			t = travel(a, b) or FAR
-			row[b] = t
+			row[kb] = t
 		end
 		return t
 	end
 	local function outOf(i) return i == 0 and from or stops[i].outP end
 	local function tail(i) return finish and T(outOf(i), finish) or 0 end
+	local function delta(i) return stops[i].log or 0 end
 	-- Bits as powers of two (Lua 5.1 has no bit operators).
 	local pow = {}
 	for i = 1, n do pow[i] = 2 ^ (i - 1) end
 	local function has(mask, i) return math.floor(mask / pow[i]) % 2 == 1 end
+	-- The quests the stops of `mask` added to the log, kept per mask.
+	local openMemo = {}
+	local function openOf(mask)
+		local v = openMemo[mask]
+		if v then return v end
+		v = 0
+		for i = 1, n do
+			if has(mask, i) then v = v + delta(i) end
+		end
+		openMemo[mask] = v
+		return v
+	end
 	local function ready(mask, i)
 		if has(mask, i) then return false end
 		for _, d in ipairs(stops[i].deps) do
 			if not has(mask, d) then return false end
 		end
+		if cap and delta(i) > 0 and openOf(mask) + delta(i) > cap then return false end
 		return true
 	end
 	local order = {}
@@ -933,14 +1165,45 @@ function Dungeons.PlanStops(stops, from, finish, travel)
 		local mask, last = mask0, last0
 		while mask ~= full do
 			local i = nextOf[mask * (n + 1) + last]
-			if not i then break end -- a dependency cycle: the rest cannot be placed
+			if not i then break end -- a dependency cycle or a full log: the rest cannot be placed
 			order[#order + 1] = i
 			mask, last = mask + pow[i], i
 		end
 		if #order == n then return order, total end
 		order = prefix()
 	end
-	-- Many stops: nearest-next first...
+	-- Many stops: first orders, each every stop after its dependencies and
+	-- within the log's room (the stops at hand stay first)...
+	local deps = {}
+	for i = 1, n do
+		local set = {}
+		for _, d in ipairs(stops[i].deps) do set[d] = true end
+		deps[i] = set
+	end
+	local function capOk(o)
+		if not cap then return true end
+		local open = 0
+		for _, i in ipairs(o) do
+			open = open + delta(i)
+			if open > cap then return false end
+		end
+		return true
+	end
+	local function valid(o)
+		if #o ~= n then return false end
+		local pos = {}
+		for p, i in ipairs(o) do pos[i] = p end
+		for p, i in ipairs(o) do
+			if not pos[i] then return false end
+			for d in pairs(deps[i]) do
+				if not pos[d] or pos[d] > p then return false end
+			end
+		end
+		return capOk(o)
+	end
+	local candidates = {}
+	-- ...nearest-next...
+	local near = prefix()
 	local mask, last = mask0, last0
 	for _ = fixed + 1, n do
 		local bc, bi = math.huge, nil
@@ -951,11 +1214,70 @@ function Dungeons.PlanStops(stops, from, finish, travel)
 			end
 		end
 		if not bi then break end
-		order[#order + 1] = bi
+		near[#near + 1] = bi
 		mask, last = mask + pow[bi], bi
 	end
-	-- ...then moved one stop at a time while that shortens the path and keeps
-	-- every stop after its dependencies (the stops at hand stay first).
+	candidates[#candidates + 1] = near
+	-- ...cheapest insertion: each stop, once its dependencies are in, where
+	-- it adds the least, never before one of them nor where the log is full...
+	local ins = prefix()
+	local placed = {}
+	for k = 1, fixed do placed[ins[k]] = true end
+	for _ = fixed + 1, n do
+		local bi
+		for i = 1, n do
+			if not placed[i] then
+				local ok = true
+				for d in pairs(deps[i]) do ok = ok and placed[d] end
+				if ok then
+					bi = i
+					break
+				end
+			end
+		end
+		if not bi then break end
+		local lo = fixed
+		for p = fixed + 1, #ins do
+			if deps[bi][ins[p]] then lo = p end
+		end
+		-- The most the log holds from each position on, for an accept's room.
+		local peak = {}
+		if cap and delta(bi) > 0 then
+			local open, at = 0, {}
+			for p, i in ipairs(ins) do
+				open = open + delta(i)
+				at[p] = open
+			end
+			at[0] = 0
+			local m = -math.huge
+			for p = #ins, 0, -1 do
+				m = math.max(m, at[p])
+				peak[p] = m
+			end
+		end
+		local bc, bp = math.huge, nil
+		for p = lo, #ins do
+			if not (peak[p] and peak[p] + delta(bi) > cap) then
+				local a = p == 0 and 0 or ins[p]
+				local nx = ins[p + 1]
+				local v = T(outOf(a), stops[bi].inP) + (nx and (T(stops[bi].outP, stops[nx].inP) - T(outOf(a), stops[nx].inP)) or (tail(bi) - tail(a)))
+				if v < bc then bc, bp = v, p end
+			end
+		end
+		if not bp then break end
+		table.insert(ins, bp + 1, bi)
+		placed[bi] = true
+	end
+	candidates[#candidates + 1] = ins
+	-- ...and the seeds, with the stops at hand moved first.
+	for _, seed in ipairs(opts and opts.seeds or {}) do
+		local o, first = prefix(), {}
+		for k = 1, fixed do first[o[k]] = true end
+		for _, i in ipairs(seed) do
+			if not first[i] then o[#o + 1] = i end
+		end
+		candidates[#candidates + 1] = o
+	end
 	local function cost(o)
 		local c, prev = 0, 0
 		for _, i in ipairs(o) do
@@ -964,43 +1286,103 @@ function Dungeons.PlanStops(stops, from, finish, travel)
 		end
 		return c + tail(prev)
 	end
-	local function valid(o)
-		local pos = {}
-		for p, i in ipairs(o) do pos[i] = p end
-		for p, i in ipairs(o) do
-			for _, d in ipairs(stops[i].deps) do
-				if not pos[d] or pos[d] > p then return false end
-			end
-		end
-		return true
-	end
-	local c = cost(order)
-	local improved, rounds = true, 0
-	while improved and rounds < 50 do
-		improved, rounds = false, rounds + 1
-		for a = fixed + 1, #order do
-			for b = fixed + 1, #order do
-				if a ~= b then
-					local o = {}
-					for k, v in ipairs(order) do o[k] = v end
-					local moved = table.remove(o, a)
-					table.insert(o, b, moved)
-					if valid(o) then
-						local oc = cost(o)
-						if oc < c then order, c, improved = o, oc, true end
+	-- Then each improved by moving runs of one to three stops elsewhere while
+	-- that shortens the path, keeps every stop after its dependencies and the
+	-- log within its room. A chain's links move together: Sunken Temple's
+	-- Alliance guide went from Stormwind to the Plaguelands for four quests in
+	-- a row and back to Stormwind before In Search of the Temple, which starts
+	-- there.
+	local function improve(o)
+		local m = #o
+		local function outAt(k) return k <= 0 and from or stops[o[k]].outP end
+		local function inAt(k) return stops[o[k]].inP end
+		local function tailAt(k) return tail(k <= 0 and 0 or o[k]) end
+		-- The cost of the edge leaving position k (k = 0: the player), to the next stop or the entrance.
+		local function edge(k) return k < m and T(outAt(k), inAt(k + 1)) or tailAt(k) end
+		local function movable(a, L, b)
+			if b < a then
+				for q = b + 1, a - 1 do
+					for s = a, a + L - 1 do
+						if deps[o[s]][o[q]] then return false end
+					end
+				end
+			else
+				for q = a + L, b do
+					for s = a, a + L - 1 do
+						if deps[o[q]][o[s]] then return false end
 					end
 				end
 			end
+			return true
+		end
+		local function moved(a, L, b)
+			local x, run = {}, {}
+			for k, v in ipairs(o) do
+				if k >= a and k < a + L then run[#run + 1] = v end
+			end
+			for k = 0, m do
+				if k > 0 and (k < a or k >= a + L) then x[#x + 1] = o[k] end
+				if k == b then
+					for _, v in ipairs(run) do x[#x + 1] = v end
+				end
+			end
+			return x
+		end
+		local rounds, improved = 0, true
+		while improved and rounds < 50 do
+			improved, rounds = false, rounds + 1
+			for L = 1, 3 do
+				for a = fixed + 1, m - L + 1 do
+					local z = a + L - 1
+					-- Out: the edges into and out of the run give way to one across it.
+					local out = (z < m and T(outAt(a - 1), inAt(z + 1)) or tailAt(a - 1)) - T(outAt(a - 1), inAt(a)) - edge(z)
+					for b = fixed, m do
+						if b < a - 1 or b > z then
+							local into = T(outAt(b), inAt(a)) + (b < m and T(outAt(z), inAt(b + 1)) or tail(o[z])) - edge(b)
+							if out + into < -0.5 and movable(a, L, b) then
+								local x = moved(a, L, b)
+								if capOk(x) then
+									o = x
+									improved = true
+									break
+								end
+							end
+						end
+					end
+					if improved then break end
+				end
+				if improved then break end
+			end
+		end
+		return o
+	end
+	local bestO, bestC
+	for _, o in ipairs(candidates) do
+		if valid(o) then
+			o = improve(o)
+			local c = cost(o)
+			if not bestC or c < bestC then bestO, bestC = o, c end
 		end
 	end
-	return order, c
+	if bestO then return bestO, bestC end
+	-- Nothing fits the log's room: the route without it.
+	if cap then return Dungeons.PlanStops(stops, from, finish, travel, { seeds = opts.seeds }) end
+	return near, cost(near)
 end
 
--- plan -> stops: each open prerequisite quest once (after the one before it
--- in its chain; it starts at its giver nearest the player and leaves the
+-- plan -> stops: each open prerequisite quest once (after the quests it
+-- requires; it starts at its giver nearest the player and leaves the
 -- player at its turn-in; `opens`: the page quests it comes before, each
 -- once) and each giver once per set of prerequisites its quests wait on (a
 -- giver comes up again for a quest still waiting).
+-- A prerequisite waits only on what it needs: the quests its own `pre` and
+-- `preAny` name among the stops, the breadcrumb spliced in right before it
+-- (turned in where it is given, plan.closedBy), and, for one an item starts
+-- (no giver: the item drops, or a quest before it gives it), the quest
+-- before it. A page quest's other prerequisites are free of each other:
+-- Ramstein's six (Nathanos Blightcaller, Stratholme) in the list's order sent
+-- a Horde player from the Plaguelands to the Undercity and back for The
+-- Champion of the Banshee Queen, the Undercity passed on the way there.
 local function stopsOf(plan, from)
 	local Lk = LK()
 	local stops, byKey = {}, {}
@@ -1008,6 +1390,13 @@ local function stopsOf(plan, from)
 		stops[#stops + 1] = s
 		byKey[s.key] = #stops
 		return s
+	end
+	local function dep(s, i)
+		if not i or i == byKey[s.key] then return end
+		for _, d in ipairs(s.deps) do
+			if d == i then return end
+		end
+		s.deps[#s.deps + 1] = i
 	end
 	for _, t in ipairs(plan.take) do
 		local prev
@@ -1019,16 +1408,14 @@ local function stopsOf(plan, from)
 				local start = endPoint(Lk.QuestEnd(r.start, from))
 				local drop = not start and Dungeons.DropPoint(plan.dungeon.key, r, from, r) or nil
 				local finish = endPoint(Lk.QuestEnd(r["end"], start or drop or from))
-				add({ key = k, rec = r, inP = start or drop, outP = finish or start or drop, deps = {}, drop = drop, opens = {} })
+				add({ key = k, rec = r, inP = start or drop, outP = finish or start or drop, deps = {}, drop = drop, opens = {}, item = start == nil })
 			end
 			local s = stops[byKey[k]]
 			local opens = s.opens
 			if opens[#opens] ~= t.quest then opens[#opens + 1] = t.quest end
-			if prev and prev ~= byKey[k] then
-				local dup = false
-				for _, d in ipairs(s.deps) do dup = dup or d == prev end
-				if not dup then s.deps[#s.deps + 1] = prev end
-			end
+			for _, id in ipairs(r.pre or {}) do dep(s, byKey["q" .. id]) end
+			for _, id in ipairs(r.preAny or {}) do dep(s, byKey["q" .. id]) end
+			if prev and (s.item or (plan.closedBy and plan.closedBy[stops[prev].rec.id])) then dep(s, prev) end
 			prev = byKey[k]
 			deps[#deps + 1] = k
 		end
@@ -1048,14 +1435,14 @@ local function stopsOf(plan, from)
 end
 
 -- stops (each with a unique `key`) -> order. With the player's position
--- (`from`) the cheapest path (PlanStops, ending at `finish` when given),
--- kept for the character as CharState()[field][key]; without one (a rebuild
--- after /reload) the kept order, then the authored one, each stop after its
--- dependencies.
-function Dungeons.OrderStops(stops, from, finish, field, key)
+-- (`from`) the cheapest path (PlanStops, ending at `finish` when given, with
+-- `opts`: its log room and seeds), kept for the character as
+-- CharState()[field][key]; without one (a rebuild after /reload) the kept
+-- order, then the authored one, each stop after its dependencies.
+function Dungeons.OrderStops(stops, from, finish, field, key, opts)
 	local order
 	if from then
-		order = Dungeons.PlanStops(stops, from, finish, LK().Travel)
+		order = Dungeons.PlanStops(stops, from, finish, opts and opts.travel or LK().Travel, opts)
 		local keys = {}
 		for i, s in ipairs(order) do keys[i] = stops[s].key end
 		saveOrder(field, key, keys)
@@ -1091,51 +1478,317 @@ function Dungeons.OpensNote(quests, breadcrumb, note)
 	return note and (text .. " " .. note) or text
 end
 
--- plan -> steps (the givers and prerequisites in route order): the
--- cheapest path to the entrance, or the order kept for the character.
-local function route(key, plan)
+function Dungeons.MarkOpens(step, quest, opens, breadcrumb)
+	local goals = step and step.goals
+	if type(goals) ~= "table" then return end
+	local target = goals[1]
+	for _, g in ipairs(goals) do
+		if g.t == "accept" and g.quest == quest then
+			target = g
+			break
+		end
+	end
+	if target then target.note = Dungeons.OpensNote(opens, breadcrumb, target.note) end
+end
+
+-- A quest's mob: the kill and the walk to the next one. Anything else (an
+-- object to use or loot, a talk, an event) per count.
+local KILL_SECONDS = 40
+local USE_SECONDS = 30
+local MIN_CHANCE = 2 -- percent: a rarer drop counts as this (no hour-long farms)
+-- Calibrated (0.3.8) on players' recordings of the pick-up guides'
+-- prerequisite quests: 46 quests with three or more people who did one
+-- alone (accept to hand-in with no other quest taken, handed in or worked
+-- in between; one run per person). Summed, the low quarters come to 371
+-- minutes and the medians to 445; the estimate, 429 (travel as the route
+-- planner has it, 465 without these two). Per quest it stays rough: drops
+-- that run dry (A Recipe For Death) take longer, errands on a flight
+-- shorter.
+local TRAVEL_FACTOR = 0.7 -- players' ways are shorter than the planner's estimate
+local STEP_SECONDS = 75 -- each quest's own talks, loot and turn-in
+
+function Dungeons.ObjectiveSeconds(o)
+	local n = math.max(1, tonumber(o and o.count) or 1)
+	if o.type == "kill" then return n * KILL_SECONDS end
+	if o.type == "item" then
+		local C = ns.Codex
+		local it = C and C.Item and C.Item(o.id)
+		local best
+		for _, src in ipairs(it and it.sources or {}) do
+			local c = src.type == "drop" and src.npc and tonumber(src.chance)
+			if c and c > 0 and (not best or c > best) then best = c end
+		end
+		if best then return n * KILL_SECONDS * 100 / math.max(MIN_CHANCE, math.min(100, best)) end
+	end
+	return n * USE_SECONDS
+end
+
+function Dungeons.PrereqSeconds(step, rec, pos)
 	local Lk = LK()
+	local travel = Lk and Lk.Travel
+	local t, at = 0, pos
+	for _, g in ipairs(step and step.goals or {}) do
+		if g.map and g.x and g.y then
+			local p = { map = g.map, x = g.x, y = g.y, f = g.f }
+			if travel and at then t = t + (travel(at, p) or 0) end
+			at = p
+		end
+	end
+	t = t * TRAVEL_FACTOR + STEP_SECONDS
+	for _, o in ipairs(rec and rec.objectives or {}) do t = t + Dungeons.ObjectiveSeconds(o) end
+	return t
+end
+
+-- Seconds as "about" minutes: to 5 minutes, at least 5; whole hours alone ("1 h"). -> text
+function Dungeons.PrereqTime(seconds)
+	local m = math.max(5, math.floor(((tonumber(seconds) or 0) / 60 + 2.5) / 5) * 5)
+	if m >= 60 and m % 60 == 0 then return format(L["%d h"], m / 60) end
+	if m >= 60 then return format(L["%d h %d min"], math.floor(m / 60), m % 60) end
+	return format(L["%d min"], m)
+end
+
+-- Carrying several prerequisites at once: each prerequisite quest is up to
+-- three stops, its accept (at its giver, or where the item that starts it
+-- drops), its objectives (from the first placed one to the last) and its
+-- turn-in, so the route can take two quests in one town and hand them in
+-- together, or do two quests' objectives in one zone before going back
+-- (the dungeon sweep, 0.4.0: Uldaman's Alliance guide went Loch Modan, the
+-- Badlands, Loch Modan and the Badlands again for Badlands Reagent Run and
+-- Murdaloc, both handed in at Thelsamar). A quest stays one stop when it is
+-- timed (QuestDB.TimeLimit), has an event or escort objective, or its step
+-- is no quest of its own ("First do the quest"). The log's room bounds how
+-- many the route carries: the log's size less LOG_FREE and the quests in it.
+local LOG_FREE = 5
+
+local function pointOf(g) return { map = g.map, x = g.x, y = g.y, f = g.f } end
+
+local function timed(id)
+	local Q = ns.QuestDB
+	return Q and Q.IsLoaded and Q.IsLoaded() and Q.TimeLimit and Q.TimeLimit(id) ~= nil or false
+end
+
+-- An accept or turn-in goal's NPC or object, as the giver stops key theirs.
+local function npcKeyOf(g)
+	if g and g.npc then return "gnpc" .. g.npc end
+	if g and g.object then return "gobject" .. g.object end
+	return nil
+end
+
+-- whole (stopsOf's stops: one per prerequisite quest and per giver) ->
+-- stops (kind "giver", "whole", "a", "o", "t"), parts (whole index -> its
+-- stops' indices, in order). A stop's `log`: the quests it adds to the log
+-- (an accept 1, a giver its accepts) or takes off (a turn-in -1).
+local function splitStops(whole, from)
+	local Lk = LK()
+	local out, parts = {}, {}
+	local function add(s)
+		out[#out + 1] = s
+		return #out
+	end
+	for i, s in ipairs(whole) do
+		local list = {}
+		if s.giver then
+			list[1] = add({ key = s.key, kind = "giver", giverKey = s.giverKey, giver = s.giver, inP = s.inP, outP = s.outP,
+				accepts = s.accepts, log = #s.accepts, deps = {} })
+		else
+			local r = s.rec
+			local step = Lk.QuestStep(r, s.inP or from)
+			local goals = step and step.goals or {}
+			local acc, turn = goals[1], goals[#goals]
+			local split = #goals >= 2 and acc.t == "accept" and turn.t == "turnin" and located(turn) and not timed(r.id)
+			local objs, placed = {}, {}
+			for k = 2, #goals - 1 do
+				local g = goals[k]
+				if g.t == "complete" then split = false end
+				objs[#objs + 1] = g
+				if located(g) then placed[#placed + 1] = g end
+			end
+			local base = { rec = r, drop = s.drop, opens = s.opens, step = step }
+			local function part(t)
+				for k, v in pairs(base) do t[k] = v end
+				t.deps = {}
+				return add(t)
+			end
+			if not split then
+				list[1] = part({ key = s.key, kind = "whole", inP = s.inP, outP = s.outP, log = 0, first = true })
+			else
+				local aGoals = { acc }
+				if #placed == 0 then
+					for _, g in ipairs(objs) do aGoals[#aGoals + 1] = g end
+					objs = {}
+				end
+				-- One in the log already needs no trip to its giver: its accept
+				-- (done) rides with its objectives, else its turn-in (#1256).
+				local own = inLog(r.id)
+				if not own then
+					list[1] = part({ key = "a" .. r.id, kind = "a", inP = s.inP, outP = s.inP, goals = aGoals, npcKey = npcKeyOf(acc), log = 1, hasObj = #objs > 0 })
+				end
+				if #objs > 0 then
+					local goals = objs
+					if own then
+						goals = aGoals
+						for _, g in ipairs(objs) do goals[#goals + 1] = g end
+					end
+					list[#list + 1] = part({ key = "o" .. r.id, kind = "o", inP = pointOf(placed[1]), outP = pointOf(placed[#placed]), goals = goals, log = 0 })
+				end
+				local tp = pointOf(turn)
+				local tGoals = { turn }
+				if own and #list == 0 then
+					tGoals = aGoals
+					tGoals[#tGoals + 1] = turn
+				end
+				list[#list + 1] = part({ key = "t" .. r.id, kind = "t", inP = tp, outP = tp, goals = tGoals, npcKey = npcKeyOf(turn), log = -1 })
+				out[list[1]].first = true
+				for k = 2, #list do out[list[k]].deps[1] = list[k - 1] end
+			end
+		end
+		parts[i] = list
+	end
+	-- What came before a whole stop comes before its first part, and its last
+	-- part (the turn-in) is what comes before what waits on it.
+	for i, s in ipairs(whole) do
+		local first = out[parts[i][1]]
+		for _, d in ipairs(s.deps) do
+			local l = parts[d]
+			first.deps[#first.deps + 1] = l[#l]
+		end
+	end
+	return out, parts
+end
+
+-- The quests the route may add to the log: its room (the log's size less
+-- LOG_FREE and the quests in it), never less than the givers' accepts and
+-- one prerequisite, as the one-quest-at-a-time route needs.
+local function logRoom(stops)
+	local C = ns.Compat
+	local room = (C.GetLogCap and C.GetLogCap() or 20) - LOG_FREE - #(C.GetLogQuests and C.GetLogQuests() or {})
+	local need = 1
+	for _, s in ipairs(stops) do
+		if s.kind == "giver" then need = need + s.log end
+	end
+	return math.max(room, need)
+end
+
+-- plan -> steps (the givers and prerequisites in route order): the
+-- cheapest path to the entrance, or the order kept for the character;
+-- and the prerequisites among them: { n, seconds }. The path is planned
+-- over the split stops (splitStops), seeded with the one-quest-at-a-time
+-- route (each prerequisite a stop of its own, as before), so it is never
+-- longer than that one. Steps: a quest's parts in a row are one step, titled
+-- with the quest (as before); an accept or a turn-in on its own is a step at
+-- its NPC, one with the givers' accepts and other such stops at that NPC in
+-- a row.
+local function route(key, plan)
 	local from = ns.PlayerPoint()
-	local stops = stopsOf(plan, from)
+	local whole = stopsOf(plan, from)
 	local e = plan.dungeon.entrance
 	local finish = located(e) and { map = e.map, x = e.x, y = e.y, f = e.f == "e" and "e" or nil } or nil
-	local order = Dungeons.OrderStops(stops, from, finish, "dungeonPickup", key)
-	local steps, pos, lastGiver = {}, from, nil
+	local stops, parts = splitStops(whole, from)
+	local opts
+	if from then
+		-- One travel cache for both plans (the seed's and the split one), by place.
+		local cache, travel = {}, LK().Travel
+		local function cached(a, b)
+			local k = a.map .. ":" .. tostring(a.x) .. ":" .. tostring(a.y) .. ":" .. tostring(a.f) .. ">" .. b.map .. ":" .. tostring(b.x) .. ":" .. tostring(b.y) .. ":" .. tostring(b.f)
+			local t = cache[k]
+			if t == nil then
+				t = travel(a, b) or false
+				cache[k] = t
+			end
+			return t or nil
+		end
+		local seed = {}
+		for _, i in ipairs((Dungeons.PlanStops(whole, from, finish, cached))) do
+			for _, j in ipairs(parts[i]) do seed[#seed + 1] = j end
+		end
+		opts = { cap = logRoom(stops), seeds = { seed }, travel = cached }
+	end
+	local order = Dungeons.OrderStops(stops, from, finish, "dungeonPickup", key, opts)
+	-- Units: a quest's parts in a row, or a stop at an NPC on its own.
+	local units, pos, prereq = {}, from, {}
+	local pre = { n = 0, seconds = 0 }
+	local last
+	local NEXT = { a = { o = true, t = true }, o = { t = true } }
 	for _, i in ipairs(order) do
 		local s = stops[i]
-		if s.giver then
-			-- Stops at the same giver in a row are one step.
-			local step = lastGiver == s.giverKey and steps[#steps] or nil
-			if not step then
-				step = { title = s.giver.name or L["Quest giver"], goals = {} }
-				steps[#steps + 1] = step
+		if s.kind == "giver" then
+			local u = { npcKey = s.giverKey, lone = true, title = s.giver.name or L["Quest giver"], goals = {} }
+			if s.giver.kind == "drop" then u.goals[#u.goals + 1] = collectGoal(s.giver) end
+			for _, t in ipairs(s.accepts) do
+				u.goals[#u.goals + 1] = acceptGoal(t.quest, t.rec, s.giver)
+				for _, g in ipairs(atGiver(t.rec, s.giver)) do u.goals[#u.goals + 1] = g end
 			end
-			if s.giver.kind == "drop" then step.goals[#step.goals + 1] = collectGoal(s.giver) end
-			for _, t in ipairs(s.accepts) do step.goals[#step.goals + 1] = acceptGoal(t.quest, t.rec, s.giver) end
-			lastGiver = s.giverKey
+			units[#units + 1] = u
+			last = nil
 		else
-			local step = Lk.QuestStep(s.rec, s.inP or pos)
-			-- One an item starts collects the item first, where it drops.
-			if s.drop and step and step.goals and step.goals[1] and step.goals[1].t == "accept" then
-				table.insert(step.goals, 1, collectGoal(s.drop))
+			local r = s.rec
+			prereq[r.id] = true
+			local goals = {}
+			for _, g in ipairs(s.kind == "whole" and (s.step and s.step.goals or {}) or s.goals) do goals[#goals + 1] = g end
+			local first = s.first
+			if first then
+				-- One an item starts collects the item first, where it drops.
+				if s.drop and goals[1] and goals[1].t == "accept" then table.insert(goals, 1, collectGoal(s.drop)) end
+				pre.seconds = pre.seconds + Dungeons.PrereqSeconds(s.step, r, pos)
 			end
-			-- A breadcrumb's accept knows the quest that closes it.
-			local by = plan.closedBy and plan.closedBy[s.rec.id]
-			if by and step then
-				for _, g in ipairs(step.goals or {}) do
-					if g.t == "accept" and g.quest == s.rec.id then g.closedBy = by end
+			local u
+			if last and last.quest == r.id and NEXT[last.kind] and NEXT[last.kind][s.kind] then
+				u = last
+				u.lone = false
+			else
+				u = { quest = r.id, title = (s.step and s.step.title) or r.title, goals = {}, npcKey = s.npcKey,
+					lone = s.kind == "a" or s.kind == "t" }
+				units[#units + 1] = u
+			end
+			u.kind = s.kind
+			for _, g in ipairs(goals) do u.goals[#u.goals + 1] = g end
+			-- The step's note (what is inside where, talks, made items) goes with the objectives.
+			if s.step and s.step.note and (s.kind == "whole" or s.kind == "o" or (s.kind == "a" and not s.hasObj) or (s.kind == "t" and s.first)) then u.note = s.step.note end
+			if first then
+				-- A breadcrumb's accept knows the quest that closes it.
+				local by = plan.closedBy and plan.closedBy[r.id]
+				if by then
+					for _, g in ipairs(goals) do
+						if g.t == "accept" and g.quest == r.id then g.closedBy = by end
+					end
 				end
+				-- Why the step is in a dungeon's guide: the page quests it opens (a
+				-- breadcrumb: leads to), so a quest out in the world is not a mystery
+				-- (Rear Guard Patrol before the Ruins of Lordaeron's The Wrath of Rath'mael).
+				Dungeons.MarkOpens({ goals = goals }, r.id, s.opens, by ~= nil)
 			end
-			-- Why the step is in a dungeon's guide: the page quests it opens (a
-			-- breadcrumb: leads to), so a quest out in the world is not a mystery
-			-- (Rear Guard Patrol before the Ruins of Lordaeron's The Wrath of Rath'mael).
-			if step then step.note = Dungeons.OpensNote(s.opens, by ~= nil, step.note) end
-			steps[#steps + 1] = step
-			lastGiver = nil
+			last = s.kind ~= "whole" and u or nil
 		end
 		pos = s.outP or pos
 	end
-	return steps
+	-- Steps: lone stops at the same NPC in a row are one step.
+	local steps = {}
+	local prev
+	for _, u in ipairs(units) do
+		local name
+		if u.lone and u.quest then
+			local g = u.goals[#u.goals]
+			name = g and (g.npcName or g.objName)
+		end
+		if u.lone and prev and prev.lone and prev.npcKey and prev.npcKey == u.npcKey then
+			for _, g in ipairs(u.goals) do prev.step.goals[#prev.step.goals + 1] = g end
+			if u.note then prev.step.note = prev.step.note and (prev.step.note .. " " .. u.note) or u.note end
+		else
+			local step = { title = (u.lone and u.quest and name) or u.title, goals = u.goals, note = u.note }
+			steps[#steps + 1] = step
+			u.step = step
+			prev = u
+		end
+	end
+	for _, step in ipairs(steps) do
+		for _, g in ipairs(step.goals) do
+			if g.quest and prereq[g.quest] then
+				pre.n = pre.n + 1
+				break
+			end
+		end
+	end
+	return steps, pre
 end
 
 -- The dungeons whose pick-up guide the heads-up opened (the offer rule):
@@ -1159,7 +1812,7 @@ function Dungeons.PickupGuide(key)
 	if not plan then return nil, err end
 	if #plan.take == 0 then return nil, "nothing" end
 	local d = plan.dungeon
-	local steps = route(key, plan)
+	local steps, pre = route(key, plan)
 	if #steps == 0 then return nil, "nothing" end
 	local last = { title = d.name, goals = {} }
 	-- The quests already in the log: one line in the step's note, not a row
@@ -1168,13 +1821,13 @@ function Dungeons.PickupGuide(key)
 	for i, pq in ipairs(plan.carried) do carried[i] = ns.Quoted(pq.title) or "" end
 	if #carried > 0 then notes[1] = format(L["In your log already: %s"], table.concat(carried, ", ")) end
 	-- The quests that wait for a level, in the accent: they come back then
-	-- (a chat line and a map pin say so, below).
-	local Theme = ns.Theme
-	local accent = Theme and Theme.Hex and Theme.Hex("accent")
+	-- (a chat line and a map pin say so, below). The colour is the goal's
+	-- `accent` (the guide window paints it in the look's accent): guide text
+	-- prints literally, so a colour code in it showed as "|cff...|r" (#1993).
 	local watched = {}
 	for _, w in ipairs(plan.waiting) do
 		local text = format(L["Comes back at level %d: %s"], w.level, ns.Quoted(w.quest.title) or "")
-		last.goals[#last.goals + 1] = { t = "note", text = accent and ("|c" .. accent .. text .. "|r") or text }
+		last.goals[#last.goals + 1] = { t = "note", text = text, accent = true }
 		watched[#watched + 1] = { id = w.quest.id, title = w.quest.title, level = w.level }
 	end
 	Dungeons.watch[key] = watched
@@ -1191,6 +1844,13 @@ function Dungeons.PickupGuide(key)
 	-- so does the dungeon's page.
 	last.goals[#last.goals + 1] = { t = "note", text = L["After the run: choose Hand in the quests at the end of this guide or on the dungeon's page."] }
 	steps[#steps + 1] = last
+	-- How much of the way is prerequisites, and about how long they take: on
+	-- the first goal, the first thing the window says.
+	local first = steps[1] and steps[1].goals and steps[1].goals[1]
+	if pre.n > 0 and first then
+		local head = format(L["Prerequisite quests: %d of %d steps, about %s."], pre.n, #steps, Dungeons.PrereqTime(pre.seconds))
+		first.note = first.note and (head .. " " .. first.note) or head
+	end
 	return { title = format(L["%s: pick up the quests"], d.name), steps = steps, dungeon = key }
 end
 

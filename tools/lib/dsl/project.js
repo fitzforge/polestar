@@ -243,12 +243,14 @@ function compileSources(sources, data, diag = new Diagnostics(), opts = {}) {
 
 // Gives each guide `_localised`: the copy Guides.lua holds, its prose with
 // name tokens (tokens.js), which the pack's translations are keyed by. A token
-// its author wrote that the data does not know is an error. -> tokens.js's
-// stats.
+// its author wrote that the data does not know is an error; a step title's
+// object of the step's own goals before a lower-case word is a warning. ->
+// tokens.js's stats.
 function localise(guides, data, diag) {
 	const r = tokeniseGuides(guides, data);
 	guides.forEach((g, i) => hidden(g, '_localised', r.guides[i]));
 	for (const p of r.problems) diag.error(p.guide._ast.file, p.line, p.message, 'write a name token as {kind:id}, kind one of npc object item quest zone area spell faction skill, with an id the data has');
+	for (const t of r.titleObjects) diag.warn(t.guide._ast.file, t.line, t.message, t.hint);
 	return r.stats;
 }
 
@@ -530,13 +532,15 @@ function textsDirRefusal(dir, packId) {
 }
 
 // Addon folders of the release: always these (Polestar_Nav is committed:
-// Polestar's walking router and maps, `nav pack`), plus the generated
+// Polestar's walking router and maps, `nav pack`; Polestar_Options is the
+// settings window, Polestar_SkinAPI the Skin API's checks and Polestar_Looks
+// the game looks with Hearth, all three loaded on demand), plus the generated
 // data addons when they have been built (each skipped while its folder or TOC
 // is missing; `pack` refuses a release without the Codex, which Lookup,
 // Dungeons and Rares read: forge-release's codex_refusal), the language
 // folders last (our guides' texts and the game's names, `forge guide
 // compile` and `forge data names`, committed; the client loads only its own).
-const RELEASE_ADDONS = ['Polestar', 'Polestar_Guides', 'Polestar_Nav'];
+const RELEASE_ADDONS = ['Polestar', 'Polestar_Guides', 'Polestar_Nav', 'Polestar_Options', 'Polestar_SkinAPI', 'Polestar_Looks'];
 const RELEASE_DATA_ADDONS = [
 	'Polestar_QuestDB', 'Polestar_ItemDB', 'Polestar_Codex',
 	...LOCALE_CODES.map(languageAddon),

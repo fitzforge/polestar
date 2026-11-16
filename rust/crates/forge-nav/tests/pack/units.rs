@@ -116,6 +116,9 @@ fn pack_into(grid: &Path, out: &Path, cells: usize) -> Result<forge_nav::pack::P
 		generator: "forge nav pack",
 		leffe: None,
 		zlib_literals: false,
+		places: None,
+		ledges: false,
+		spawns: None,
 		log: &log,
 	})?;
 	ship_pack(&pack, out)?;
@@ -143,6 +146,9 @@ fn ship_writes_files_pack_json_and_nav_xml_and_check_finds_changed_missing_unlis
 		generator: "forge nav pack",
 		leffe: None,
 		zlib_literals: false,
+		places: None,
+		ledges: false,
+		spawns: None,
 		log: &|_| {},
 	})
 	.unwrap();

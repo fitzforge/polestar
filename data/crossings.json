@@ -981,7 +981,7 @@
 			"id": "undercity-south-lift",
 			"name": "Undercity",
 			"open": "both",
-			"note": "Polestar's fixed way in and out of the Undercity, by its south lift: the nodes follow Fitz's own walk (2026-10-23), their heights from Polestar's walking grid. The three nodes after the Ruins mouth cover the courtyard and gate the client already calls the Undercity (map 1458), so a player there is on the way out, not routed down and back up (Fitz, 2026-10-25)",
+			"note": "Polestar's fixed way in and out of the Undercity, by its south lift: the nodes follow Fitz's own walk (2026-10-23), their heights from Polestar's walking grid. The three nodes after the Ruins mouth cover the courtyard and gate the client already calls the Undercity (map 1458), so a player there is on the way out, not routed down and back up (Fitz, 2026-10-25). The courtyard's node is alone: no floor of the city lies under it, so with real paths off (no floor known) a player there is held too (#2224)",
 			"nodes": [
 				{
 					"map": 1420,
@@ -995,7 +995,8 @@
 					"x": 66.35,
 					"y": 4.5,
 					"z": 61,
-					"radius": 12
+					"radius": 12,
+					"alone": true
 				},
 				{
 					"map": 1458,
@@ -1095,6 +1096,16 @@
 			]
 		},
 		{
+			"id": "wizards-sanctum-tower",
+			"name": "Wizard's Sanctum",
+			"open": "mouth",
+			"note": "The Wizard's Sanctum's portal down to the mage trainers' chamber (area trigger 704) stands in the tower's top room: the walking maps climb the tower's stairs to their top (height 147, 164 yd from the ground floor) but have no floor in the room (148.6), so the walk to the portal ended on another floor (#1970). The mouth is the stairs' top; the second node is the portal (the trigger's place, on the room's floor), and the portal back up lands beside it.",
+			"nodes": [
+				{ "map": 1453, "x": 38.18, "y": 81.5, "z": 147, "radius": 5 },
+				{ "map": 1453, "x": 37.23, "y": 82.7, "z": 148.6, "radius": 5 }
+			]
+		},
+		{
 			"id": "deeprun-tram-stormwind",
 			"name": "Deeprun Tram",
 			"open": "mouth",
@@ -1102,6 +1113,120 @@
 			"nodes": [
 				{ "map": 1453, "x": 60.48, "y": 12.4, "z": 92, "radius": 8 },
 				{ "map": 1453, "x": 63.75, "y": 8.49, "z": 92, "radius": 10 }
+			]
+		},
+		{
+			"id": "stormrage-barrow-dens",
+			"name": "Stormrage Barrow Dens",
+			"open": "mouth",
+			"note": "The Stormrage Barrow Dens: the walking maps join the den to the world nowhere, so the arrow pointed through the den's wall at the next goal outside (#1919). The nodes follow Polestar's walking grid's way from the mouth down the spiral ramp and the tunnel to the alcoves of the Relic of the Claw and the Relic of the Silent Shadow, their heights from it; players' recorded walks (25 passes, 2026-11-05 to 2026-11-12) go in at the same mouth and down the same tunnel.",
+			"nodes": [
+				{ "map": 1450, "x": 71.17, "y": 61.77, "z": 464, "radius": 12 },
+				{ "map": 1450, "x": 72.07, "y": 62.59, "z": 464, "radius": 5 },
+				{ "map": 1450, "x": 72.85, "y": 62.66, "z": 459, "radius": 5 },
+				{ "map": 1450, "x": 72.6, "y": 61.91, "z": 455, "radius": 5 },
+				{ "map": 1450, "x": 72.07, "y": 62.04, "z": 451, "radius": 5 },
+				{ "map": 1450, "x": 72.34, "y": 62.99, "z": 446, "radius": 5 },
+				{ "map": 1450, "x": 73.6, "y": 64.89, "z": 441, "radius": 8 },
+				{ "map": 1450, "x": 74.59, "y": 64.75, "z": 438, "radius": 6 },
+				{ "map": 1450, "x": 74.77, "y": 65.02, "z": 436, "radius": 5 },
+				{ "map": 1450, "x": 74.87, "y": 65.83, "z": 432, "radius": 5 },
+				{ "map": 1450, "x": 74.96, "y": 66.24, "z": 440, "radius": 5 },
+				{ "map": 1450, "x": 75.23, "y": 67.05, "z": 439, "radius": 8 }
+			]
+		},
+		{
+			"id": "stormrage-barrow-dens-west",
+			"name": "Stormrage Barrow Dens",
+			"open": "mouth",
+			"note": "The Stormrage Barrow Dens, west branch: the same way in as stormrage-barrow-dens, then west over the bridge to the alcove of the Relic of the Fang (Polestar's walking grid's way, its heights; #1919).",
+			"nodes": [
+				{ "map": 1450, "x": 71.17, "y": 61.77, "z": 464, "radius": 12 },
+				{ "map": 1450, "x": 72.07, "y": 62.59, "z": 464, "radius": 5 },
+				{ "map": 1450, "x": 72.85, "y": 62.66, "z": 459, "radius": 5 },
+				{ "map": 1450, "x": 72.6, "y": 61.91, "z": 455, "radius": 5 },
+				{ "map": 1450, "x": 72.07, "y": 62.04, "z": 451, "radius": 5 },
+				{ "map": 1450, "x": 72.34, "y": 62.99, "z": 446, "radius": 5 },
+				{ "map": 1450, "x": 73.6, "y": 64.89, "z": 441, "radius": 8 },
+				{ "map": 1450, "x": 74.59, "y": 64.75, "z": 438, "radius": 6 },
+				{ "map": 1450, "x": 74.68, "y": 65.42, "z": 435, "radius": 5 },
+				{ "map": 1450, "x": 74.32, "y": 65.56, "z": 430, "radius": 5 },
+				{ "map": 1450, "x": 73.24, "y": 66.24, "z": 428, "radius": 6 },
+				{ "map": 1450, "x": 72.43, "y": 65.97, "z": 429, "radius": 8 }
+			]
+		},
+		{
+			"id": "banethil-barrow-den",
+			"name": "Ban'ethil Barrow Den",
+			"open": "mouth",
+			"note": "Ban'ethil Barrow Den: no walk of the walking maps (nor of Polestar's walking grid) joins the den to the hollow outside: at its mouth the two are cut apart on several floor levels, so inside the den the arrow pointed through the rock at the next goal, and from outside it sent players round the hills (#1341). The mouth node stands where players' recorded walks go in (151 passes, 2026-11-04 to 2026-11-12, as the guide's own way in at 44.3,57.9); the nodes after it follow the grid's way through the den down to Oben Rageclaw, their heights from it.",
+			"nodes": [
+				{ "map": 1438, "x": 44.46, "y": 57.61, "z": 1329, "radius": 8 },
+				{ "map": 1438, "x": 44.17, "y": 58.16, "z": 1316, "radius": 5 },
+				{ "map": 1438, "x": 43.97, "y": 58.3, "z": 1313, "radius": 5 },
+				{ "map": 1438, "x": 43.5, "y": 58.56, "z": 1310, "radius": 5 },
+				{ "map": 1438, "x": 43.06, "y": 59.02, "z": 1304, "radius": 5 },
+				{ "map": 1438, "x": 43.13, "y": 59.57, "z": 1302, "radius": 5 },
+				{ "map": 1438, "x": 43.39, "y": 59.94, "z": 1301, "radius": 5 },
+				{ "map": 1438, "x": 43.9, "y": 59.72, "z": 1297, "radius": 5 },
+				{ "map": 1438, "x": 43.88, "y": 60.13, "z": 1291, "radius": 5 },
+				{ "map": 1438, "x": 43.43, "y": 60.68, "z": 1289, "radius": 5 },
+				{ "map": 1438, "x": 43.19, "y": 60.74, "z": 1285, "radius": 5 },
+				{ "map": 1438, "x": 42.94, "y": 61.3, "z": 1282, "radius": 5 },
+				{ "map": 1438, "x": 43.15, "y": 61.85, "z": 1278, "radius": 5 },
+				{ "map": 1438, "x": 43.6, "y": 61.9, "z": 1273, "radius": 5 },
+				{ "map": 1438, "x": 44.05, "y": 61.5, "z": 1271, "radius": 5 },
+				{ "map": 1438, "x": 44.21, "y": 61.54, "z": 1275, "radius": 5 },
+				{ "map": 1438, "x": 44.5, "y": 61.4, "z": 1280, "radius": 5 },
+				{ "map": 1438, "x": 44.87, "y": 61.3, "z": 1279, "radius": 6 },
+				{ "map": 1438, "x": 44.95, "y": 61.6, "z": 1280, "radius": 8 }
+			]
+		},
+		{
+			"id": "banethil-barrow-den-east",
+			"name": "Ban'ethil Barrow Den",
+			"open": "mouth",
+			"note": "Ban'ethil Barrow Den, east room: the same way in as banethil-barrow-den, then east to the chest of the Gnarlpine Fang above the entrance hall (Polestar's walking grid's way, its heights; #1341).",
+			"nodes": [
+				{ "map": 1438, "x": 44.46, "y": 57.61, "z": 1329, "radius": 8 },
+				{ "map": 1438, "x": 44.17, "y": 58.16, "z": 1316, "radius": 5 },
+				{ "map": 1438, "x": 43.97, "y": 58.3, "z": 1313, "radius": 5 },
+				{ "map": 1438, "x": 43.5, "y": 58.56, "z": 1310, "radius": 5 },
+				{ "map": 1438, "x": 43.06, "y": 59.02, "z": 1304, "radius": 5 },
+				{ "map": 1438, "x": 43.13, "y": 59.57, "z": 1302, "radius": 5 },
+				{ "map": 1438, "x": 43.39, "y": 59.94, "z": 1301, "radius": 5 },
+				{ "map": 1438, "x": 44.05, "y": 59.45, "z": 1296, "radius": 5 },
+				{ "map": 1438, "x": 44.25, "y": 59.15, "z": 1294, "radius": 5 },
+				{ "map": 1438, "x": 44.37, "y": 58.6, "z": 1291, "radius": 8 }
+			]
+		},
+		{
+			"id": "banethil-barrow-den-lower",
+			"name": "Ban'ethil Barrow Den",
+			"open": "mouth",
+			"note": "Ban'ethil Barrow Den, lower rooms: the same way in as banethil-barrow-den to the hall before Oben Rageclaw, then north under the Rune of Nesting's ledge and down to the chest of the Sapphire of Sky (Polestar's walking grid's way, its heights; a node between the ledge and the room under it holds both; #1341).",
+			"nodes": [
+				{ "map": 1438, "x": 44.46, "y": 57.61, "z": 1329, "radius": 8 },
+				{ "map": 1438, "x": 44.17, "y": 58.16, "z": 1316, "radius": 5 },
+				{ "map": 1438, "x": 43.97, "y": 58.3, "z": 1313, "radius": 5 },
+				{ "map": 1438, "x": 43.5, "y": 58.56, "z": 1310, "radius": 5 },
+				{ "map": 1438, "x": 43.06, "y": 59.02, "z": 1304, "radius": 5 },
+				{ "map": 1438, "x": 43.13, "y": 59.57, "z": 1302, "radius": 5 },
+				{ "map": 1438, "x": 43.39, "y": 59.94, "z": 1301, "radius": 5 },
+				{ "map": 1438, "x": 43.9, "y": 59.72, "z": 1297, "radius": 5 },
+				{ "map": 1438, "x": 43.88, "y": 60.13, "z": 1291, "radius": 5 },
+				{ "map": 1438, "x": 43.43, "y": 60.68, "z": 1289, "radius": 5 },
+				{ "map": 1438, "x": 43.19, "y": 60.74, "z": 1285, "radius": 5 },
+				{ "map": 1438, "x": 42.94, "y": 61.3, "z": 1282, "radius": 5 },
+				{ "map": 1438, "x": 43.15, "y": 61.85, "z": 1278, "radius": 5 },
+				{ "map": 1438, "x": 43.6, "y": 61.9, "z": 1273, "radius": 5 },
+				{ "map": 1438, "x": 44.05, "y": 61.5, "z": 1271, "radius": 5 },
+				{ "map": 1438, "x": 44.21, "y": 61.23, "z": 1270, "radius": 5 },
+				{ "map": 1438, "x": 44.25, "y": 60.93, "z": 1285, "radius": 6 },
+				{ "map": 1438, "x": 44.21, "y": 60.68, "z": 1266, "radius": 5 },
+				{ "map": 1438, "x": 44.33, "y": 60.87, "z": 1266, "radius": 5 },
+				{ "map": 1438, "x": 44.37, "y": 62.15, "z": 1256, "radius": 6 },
+				{ "map": 1438, "x": 44.7, "y": 62.46, "z": 1256, "radius": 8 }
 			]
 		}
 	],
@@ -1112,6 +1237,14 @@
 			"map": 1438,
 			"box": { "x1": 45, "y1": 81.5, "x2": 68, "y2": 100 },
 			"note": "At the foot of Teldrassil, on the tree's map: no walk joins it to the top, only the Darnassus portals, the boats and the flight master do; the fall from the rim kills (recorded descents, #1761). The box holds only ground Polestar's walking grid reaches from the flight master and none it reaches from Dolanaar (sampled every map percent of Teldrassil 44-68 x 76-100, every half percent along the rim)"
+		},
+		{
+			"id": "wizards-sanctum-chamber",
+			"name": "Wizard's Sanctum",
+			"map": 1453,
+			"box": { "x1": 35.78, "y1": 77.67, "x2": 40.24, "y2": 83.8 },
+			"z": { "min": 10, "max": 50 },
+			"note": "The mage trainers' chamber under the Wizard's Sanctum (Jennea Cannon, Maginor Dumas, Elsharin, Larimaine Purdue, Garion Wendell and the High Order Mage stand at heights 29.6 to 30.7): neither walking map, nor Polestar's walking grid, has its floor, so a goal there landed on the terrain buried under the Mage Quarter and the plan hearthed, or walked over it (#1970). Reached only by the tower's portal down (area trigger 704) and left by the one back up (702), whose ends in the chamber it holds. The height range keeps out the tower's floors above it (106 to 177) and the buried terrain (60)."
 		}
 	]
 }

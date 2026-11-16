@@ -38,3 +38,8 @@ workspace = true
 [[example]]
 name = "trail_walks"
 required-features = ["world"]
+
+# stage::both (the hybrid walks' pass scheduling) lives in the world pipeline.
+[[test]]
+name = "walks_serial"
+required-features = ["world"]

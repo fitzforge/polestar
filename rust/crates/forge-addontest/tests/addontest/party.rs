@@ -590,8 +590,13 @@ fn party_the_group_section_has_its_switches_all_on_by_default_the_panel_too_1018
 	let out = run_with(
 		r#"
 local keys = {}
+-- The settings window's addon too (its Look pages register when it loads).
+Polestar.UI.LoadOptions()
 Polestar.Widgets.OnOptionsRegistered(function(spec)
-	for _, c in ipairs(spec.controls) do
+	-- A section's on/off in its header (spec.toggle) is a control too.
+	local list = { unpack(spec.controls or {}) }
+	if spec.toggle then table.insert(list, 1, spec.toggle) end
+	for _, c in ipairs(list) do
 		if c.key and c.key:sub(1, 6) == "party." then keys[#keys + 1] = spec.page .. "/" .. spec.section .. "/" .. c.key end
 	end
 end)
@@ -611,11 +616,15 @@ emit({ Polestar.Get("party.chatEcho"), Polestar.Get("party.chatHideOthers"), Pol
 			"Questing/Group/party.waitForGroup",
 			"Questing/Group/party.lootNeeds",
 			"Questing/Group/party.panel",
-			"Questing/Group/party.chat",
-			"Questing/Group/party.chatLoot",
-			"Questing/Group/party.chatEcho",
-			"Questing/Group/party.chatHideOthers",
-			"Questing/Group/party.chatOnlyNeeded"
+			// What Polestar says in party chat has its own section.
+			"Questing/Party chat/party.chat",
+			"Questing/Party chat/party.chatLoot",
+			"Questing/Party chat/party.chatEcho",
+			"Questing/Party chat/party.chatOnlyNeeded",
+			"Questing/Party chat/party.chatHideOthers",
+			// The panel's switch also heads its look tab (Options > Trackers > Party panel), registered with the
+			// settings window's addon (Polestar_Options/UI/Looks/Trackers.lua).
+			"Trackers/Party panel/party.panel"
 		])
 	);
 	assert_eq!(out[1], json!([true, true, true, true, true, true, true]), "the panel opens by itself once a member is heard (#1018)");
@@ -1478,6 +1487,84 @@ emit(PP.Frame():IsShown())"#
 	assert_eq!(out[6], true);
 	assert_eq!(out[7], json!([true, [1429, 40, 50, "Party: Ana"], false]), "Ben's place is not known: no arrow");
 	assert_eq!(out[8], false, "solo: hidden");
+}
+
+// The panel's own rules (Options > Trackers > Party panel): inside an instance it is kept or hidden as set, whatever
+// its fight rule; in a fight it is kept or hidden as set, or at "As the guide window" (the default) hidden only when
+// the guide window hides in fights. The guide window is kept inside instances here, so the panel's own rule decides
+// there. Each line: the panel's fight rule, the guide window's, the panel's in instances; then whether it shows out of
+// a fight and in one, outside a dungeon and inside. /polestar party says why it cannot show.
+#[test]
+fn party_the_panel_hides_inside_an_instance_when_set_to_whatever_its_fight_rule_and_as_the_guide_window_in_a_fight() {
+	let out = group(&format!(
+		"{PANEL_GUIDE}{}",
+		r#"
+local PP = Polestar.UI.PartyPanel
+p.join("Ana")
+p.receive("Ana-TestRealm", "1P|5|0.0.1|test|3|test/g")
+p.receive("Ana-TestRealm", "1|33:3/8")
+stub.advance(1)
+-- The guide window kept inside instances: there the panel's own rule decides.
+Polestar.Set("ui.instance", "show")
+local function inside(on) w.inInstance = on; stub.fire("PLAYER_ENTERING_WORLD", false, false) end
+local function fight(on) stub.inCombat = on; stub.fire(on and "PLAYER_REGEN_DISABLED" or "PLAYER_REGEN_ENABLED") end
+local out = {}
+for _, rule in ipairs({ "guide", "show", "hide" }) do
+	Polestar.Set("trackers.party.combat", rule)
+	for _, guide in ipairs({ "show", "hide" }) do
+		Polestar.Set("ui.combat", guide)
+		for _, there in ipairs({ "show", "hide" }) do
+			Polestar.Set("trackers.party.instance", there)
+			local seen = ""
+			for _, dungeon in ipairs({ false, true }) do
+				inside(dungeon)
+				for _, combat in ipairs({ false, true }) do
+					fight(combat)
+					seen = seen .. (PP.Frame():IsShown() and "1" or "0")
+					fight(false)
+				end
+			end
+			inside(false)
+			out[#out + 1] = rule .. " " .. guide .. " " .. there .. " " .. seen
+		end
+	end
+end
+emit(out)
+-- /polestar party says why it cannot show: inside a dungeon, or until the fight ends.
+Polestar.Set("trackers.party.combat", "guide")
+inside(true)
+stub.messages = {}
+Polestar.RunCommand("party")
+local why = { stub.messages[#stub.messages] or false }
+inside(false)
+fight(true)
+stub.messages = {}
+Polestar.RunCommand("party")
+why[2] = stub.messages[#stub.messages] or false
+fight(false)
+emit(why)"#
+	));
+	assert_eq!(
+		out[0],
+		json!([
+			"guide show show 1111",
+			"guide show hide 1100",
+			"guide hide show 1010",
+			"guide hide hide 1000",
+			"show show show 1111",
+			"show show hide 1100",
+			"show hide show 1111",
+			"show hide hide 1100",
+			"hide show show 1010",
+			"hide show hide 1000",
+			"hide hide show 1010",
+			"hide hide hide 1000"
+		])
+	);
+	assert_eq!(
+		out[1],
+		json!(["|cff4fd1c5Polestar|r: The party panel is hidden inside instances: Options > Trackers > Party panel.", "|cff4fd1c5Polestar|r: The party panel comes back after combat."])
+	);
 }
 
 // The row's height counts the step line only while it shows, so the needs line must hang under the name then, not

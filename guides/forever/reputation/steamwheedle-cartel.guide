@@ -97,6 +97,7 @@ step Tinkee Steamboil
 step Everlook: Felnok Steelspring
   zone Winterspring
   tip Felnok Steelspring is in Everlook. The Chillwind Chimaeras (level 55-57) south-west of Everlook drop the horns one time in five.
+  level 54
   turnin 4808                         -- 50 Everlook
   accept 4809
   collect 12444 x8 quest 4809.1 @55.4,47.5 -- Uncracked Chillwind Horn: Chillwind Chimaeras

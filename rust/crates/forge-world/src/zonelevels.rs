@@ -1,10 +1,29 @@
 //! Zone level ranges (port of tools/lib/maps/zonelevels.js zoneLevels, default options as the
 //! world calls it): spawn-weighted P10..P90 of normal-rank creatures friendly to neither
 //! faction, critters more than 15 levels under the median dropped.
+//!
+//! Danger floors (#1490): a zone's danger (Nav/Danger.lua, the world's travel safety, nav eval)
+//! is priced from its lowest level, the P10. Where a low pocket at the zone's edge pulls the P10
+//! well under the ground most walks cross, DANGER_FLOORS names the level that ground starts at;
+//! the zone's range (the world map's label, the Engine's candidates) keeps its P10.
 
 use crate::data::{Entity, Zone};
 use forge_core::{js_round, round1};
 use std::collections::BTreeMap;
+
+/// (uiMapID, danger floor, why). The low-pocket sweep flags a zone whose ground (the area-weighted
+/// median of 400 yd squares' own P10) sits 4 or more levels above its P10; a floor is set where the
+/// client's sub-zone levels (AreaTable ExplorationLevel, lower quartile) agree and walks cross the
+/// zone on the way elsewhere. Swept 2026-11-09 over every zone with a range: Alterac Mountains only
+/// (Stranglethorn Vale's rise from 32 in the north is the zone's entry, not a pocket; Tirisfal Glades'
+/// and Zephras Isle's matter only at levels 1-3 inside their own start zones; Moonglade's sub-zones say
+/// 15, so the two sources disagree there).
+pub const DANGER_FLOORS: &[(u32, f64, &str)] = &[(
+	1416,
+	30.0,
+	"Alterac Mountains: P10 24 from the Lordamere Lake murlocs (15-19) and the bears on the Hillsbrad border (20-26); \
+	 Strahnbrad, the Crushridge ogres and the Syndicate are 30-40. Ground 30, sub-zones' lower quartile 30.",
+)];
 
 pub struct ZoneLevel {
 	pub id: u32,
@@ -13,6 +32,15 @@ pub struct ZoneLevel {
 	pub x: f64,
 	pub y: f64,
 	pub weight: f64,
+	/// DANGER_FLOORS' floor, when it is above min: what zone danger prices the zone from.
+	pub danger: Option<f64>,
+}
+
+impl ZoneLevel {
+	/// The level zone danger prices the zone from: its danger floor, else its lowest level.
+	pub fn danger_level(&self) -> Option<f64> {
+		self.danger.or(self.min)
+	}
 }
 
 /// Spawn-weighted percentile of [(value, weight)] sorted by value.
@@ -93,15 +121,18 @@ pub fn zone_levels(npcs: &BTreeMap<u32, Entity>, zones: &BTreeMap<u32, Zone>, sp
 		by_value(&mut px);
 		by_value(&mut py);
 		let two = |v: &[(f64, f64, f64)]| v.iter().map(|s| (s.0, s.1)).collect::<Vec<_>>();
+		let min = percentile(&kept, 0.1);
+		let danger = DANGER_FLOORS.iter().find(|f| f.0 == id).map(|f| f.1).filter(|f| min.is_some_and(|m| *f > m));
 		out.insert(
 			id,
 			ZoneLevel {
 				id,
-				min: percentile(&kept, 0.1),
+				min,
 				max: percentile(&kept, 0.9),
 				x: round1(percentile(&two(&px), 0.5).unwrap_or(f64::NAN)),
 				y: round1(percentile(&two(&py), 0.5).unwrap_or(f64::NAN)),
 				weight: js_round(weight),
+				danger,
 			},
 		);
 	}

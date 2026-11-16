@@ -31,6 +31,15 @@ mapping. A changed file no rule maps to a test is listed as unmapped
 not the gate: `npm test` (every file) is what CI runs, so run it before you
 push.
 
+`npm run test:reported` runs the reported-problems gate (`tools/reported-gate.js`,
+a release gate): for every confirmed player report that was fixed, the tests
+`reported-gate.json` names (node files and forge crates' tests), with the
+whole of `guides-reported.test.js`, the judge's player-report seeds on the
+shipped guides and the danger gate (`--levels`, the release candidate's
+calibrated level model), then the reports whose tests fail. A fix for a
+report adds the report and its test to `reported-gate.json`;
+`reported-gate.test.js` checks that every test named there exists.
+
 CI (`.github/workflows/ci.yml`, on pushes to main and next and on pull
 requests) installs Lua 5.1, runs `npm test`, the translations check and
 `forge changelog check`, then rebuilds the UI renders with
@@ -58,7 +67,7 @@ not the layer. They fall into these layers:
 | Commands | `node tools/polestar.js <command>` run as a child process (or in-process with its output captured), its exit code and output checked | `compile.test.js`, `lint*.test.js`, `install.test.js`, `pack.test.js`, `new.test.js`, `dev.test.js`, `record.test.js`, `release.test.js` (`version`), `play.test.js`, `cli-help.test.js` (`--help` prints the usage and does no work) |
 | Addon modules | The addon's own Lua under Lua 5.1, against the fake client, through `helpers/lua.js` | `core.test.js`, `engine*.test.js`, `nav*.test.js`, `quests*.test.js`, `gear*.test.js`, `maps*.test.js`, `qol.test.js`, `lookup*.test.js`, `dungeons-*.test.js`, `ui*.test.js`, `rares.test.js`, `recorder*.test.js` |
 | End to end | A guide compiled by the real compiler and played in the whole addon | `e2e.test.js`, `guides.test.js` (every authored guide, every class), `playtest.test.js`, `acceptance-packs.test.js` |
-| Static and docs | Checks over files rather than behaviour at run time | `syntax.test.js` (every addon file compiles, no stray globals, every file loaded by a manifest), `guides-parse.test.js` (every guide parses, and `Polestar_Guides` holds exactly those guides), `media-refs.test.js` (every texture in `Media` is named by the addon), `svg-assets.test.js` (every committed SVG is well-formed for a browser: no `--` in a comment), `wording.test.js` (the addon, the guides, every doc and the pack template name no other guide product), `docs-packs.test.js` (the pack docs name every verb and key), `docs-cheatsheet.test.js`, `packs-parity.test.js` (lint and the runtime refuse the same guides), `text-fit.test.js` (text stays inside its window), `i18n.test.js` (every shipped locale file loads with no stale key or broken format, `i18n sync` keeps every translation, a translated client reads its language from the start), `workflows.test.js` (every job's own `defaults.run` names `shell: bash`, so a command piped through `tee` still fails its step) |
+| Static and docs | Checks over files rather than behaviour at run time | `syntax.test.js` (every addon file compiles, no stray globals, every file loaded by a manifest), `guides-parse.test.js` (every guide parses, and `Polestar_Guides` holds exactly those guides), `media-refs.test.js` (every texture in `Media` is named by the addon), `svg-assets.test.js` (every committed SVG is well-formed for a browser: no `--` in a comment), `wording.test.js` (no tracked file names another guide product or says a route was compared with one; the rules are `tools/lib/public-text.json`), `public-text.test.js` (the same rules over commit messages and pull request text: the commit-msg hook and the *Public text* check), `docs-packs.test.js` (the pack docs name every verb and key), `docs-cheatsheet.test.js`, `packs-parity.test.js` (lint and the runtime refuse the same guides), `text-fit.test.js` (text stays inside its window), `i18n.test.js` (every shipped locale file loads with no stale key or broken format, `i18n sync` keeps every translation, a translated client reads its language from the start), `workflows.test.js` (every job's own `defaults.run` names `shell: bash`, so a command piped through `tee` still fails its step) |
 | Performance | CPU budgets: the whole addon with every module on, and the Recorder while it records. Memory budgets: what a compiled data pack costs resident | `perf.test.js`, `recorder-perf.test.js`, forge-addontest's `questdb-memory` (the quest database), `guides-memory.test.js` (the guide pack: what it costs resident, what one faction's share of it weighs, and what validating it allocates) |
 
 ## The fake client: tests/lua

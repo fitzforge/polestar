@@ -10,7 +10,7 @@ return {
 	-- {spell:10797} Starshards · {spell:2651} Elune's Grace
 	["{spell:10797} and {spell:2651}"] = "{spell:10797}與{spell:2651}",
 	-- {spell:10797} Starshards · {spell:2651} Elune's Grace
-	["The Night Elf priest spells: {spell:10797} at 10, {spell:2651} at 20. Free, no objectives."] = "",
+	["The Night Elf priest spells: {spell:10797} at 10, {spell:2651} at 20. Free, no objectives."] = "夜精靈的牧師法術：10級的{spell:10797}，20級的{spell:2651}。免費，沒有任務目標。",
 
 	-- Step 1: Starshards: Laurna Morninglight
 	-- {npc:3600} Laurna Morninglight · {area:186} Dolanaar · {quest:5628} Returning Home · {npc:11401} Priestess Alathea · {zone:1457} Darnassus
@@ -119,5 +119,4 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 10, go to {npc:11401} in the Temple of the Moon. Priest trainers elsewhere ({npc:3600} in {area:186}, {npc:377} in {area:87}, {npc:1226} in {area:131}) send you to her with {quest:5628}."] = "10級時，到月神殿找{npc:11401}。其他地方的牧師訓練師（{area:186}的{npc:3600}、{area:87}的{npc:377}、{area:131}的{npc:1226}）會用{quest:5628}派你去找她。",
 	-- ["At 20, {npc:11401} teaches {quest:5672}. {npc:376} in {zone:1453} and {npc:11406} in {zone:1455} send you to her with a quest of the same name."] = "20級時，{npc:11401}會教你{quest:5672}。{zone:1453}的{npc:376}和{zone:1455}的{npc:11406}會用同名任務派你去找她。",
-	-- ["The Night Elf priest spells: {spell:10797} at 10, {spell:2651} at 20."] = "夜精靈的牧師法術：10級的{spell:10797}，20級的{spell:2651}。",
 }

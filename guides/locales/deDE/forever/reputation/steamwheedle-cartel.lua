@@ -207,5 +207,7 @@ return {
 	["Revered to Exalted is 21,000 more with each town: 840 of {npc:14637}'s turn-ins or 140 Free Knot runs. No quartermaster sells anything for Exalted: this is for the title bar only."] = "Von Respektvoll bis Ehrfürchtig sind es weitere 21.000 bei jeder Stadt: 840 Abgaben bei {npc:14637} oder 140 Free-Knot-Durchläufe. Kein Rüstmeister verkauft etwas für Ehrfürchtig: Das ist nur für die Titelleiste.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Souvenir Sea Shell, Honored"] = "Souvenir Sea Shell, Wohlwollend",
+	-- ["{npc:265575}, {faction:21}'s quartermaster. Friendly, level 30 gear: {item:274745} 1g 10s (Strength, Agility), {item:274746} 1g 48s (healing and spell damage), {item:274747} 1g 3s (Intellect, Spirit). Honored: {item:274748}, a gun, 3g 11s (attack power, Stamina); Souvenir Sea Shell, a necklace, 1g 66s (health regeneration, Stamina). Revered: {item:274022}, 5g."] = "{npc:265575}, der Rüstmeister von {faction:21}. Freundlich, Ausrüstung für Stufe 30: {item:274745} 1g 10s (Stärke, Beweglichkeit), {item:274746} 1g 48s (Heilung und Zauberschaden), {item:274747} 1g 3s (Intelligenz, Willenskraft). Wohlwollend: {item:274748}, eine Schusswaffe, 3g 11s (Angriffskraft, Ausdauer); Souvenir Sea Shell, eine Halskette, 1g 66s (Gesundheitsregeneration, Ausdauer). Respektvoll: {item:274022}, 5g.",
 	-- ["{quest:5525}: 150 to every town"] = "{quest:5525}: 150 für jede Stadt",
 }

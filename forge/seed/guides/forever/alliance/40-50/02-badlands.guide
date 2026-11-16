@@ -2,26 +2,67 @@
 guide forever/alliance/40-50/02-badlands
 title Badlands & The Hinterlands
 faction Alliance
-levels 43-43
+levels 45-46
 zone Badlands
-next forever/alliance/40-50/03-feralas
+next forever/40-50/shendralas
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: Rhapsody's Kalimdor Kocktail (1452).
+# Opens at Thelsamar, where the Riverglades guide's flight lands (Ghak's mushrooms for the Uldaman dig), then Hammertoe's
+# Digsite and Garek. Scrounging (733) is handed to Sigrun on 30-40/06, so the digsite stop here is only for the optional
+# Fiery Blaze Enchantments (fix round 1, 0.4.0: 40-50/01 no longer flies Ironforge -> Thelsamar -> back for Ghak).
+# Safety Checks (97617), taken from Dorgaron on 30-40/06's Badlands loop: its Pristine Mattock lies at Agmond's End among
+# the Stonevault Shamans (40-41) beside Murdaloc (42), taken here with him, and Dorgaron takes the quest on the ride north.
+
+step Thelsamar
+  zone Loch Modan
+  tip Ghak Healtouch is below ground in Thelsamar, by the inn, where the flight lands. His mushrooms grow in the Uldaman dig at the Badlands' northern edge, on this guide's loop back north.
+  accept 17                           -- Ghak Healtouch, below ground
+
+step Badlands
+  zone Badlands
+  goto 53.8,43.3 "Badlands"
+
+# ---------------------------------------------------------------- The Badlands
+
+step Hammertoe's Digsite
+  zone Badlands
+  tip Ride south out of Loch Modan through the pass into the Badlands; Sigrun Ironhew camps at the dig.
+  accept 706 optional                 -- Fiery Blaze Enchantments: its Black Drake's Heart is a rare drop, so the work and hand-in are optional too
+
+step Garek
+  tip Garek camps by himself in Dustwind Gulch, south-east of the digsite.
+  accept 732
 
 step Agmond's End
   zone Badlands
+  tip Dorgaron's Pristine Mattock lies in the middle of the Stonevault trogg camp, where Murdaloc walks.
   kill 2945 quest 739                 -- Murdaloc
   kill 2893 quest 739                 -- Stonevault Bonesnapper
+  collect 278404 quest 97617 @49.3,68.3 map 1418 -- Pristine Mattock
 
 step Valley of Fangs
   turnin 705                          -- Rigglefuzz: Blue Pearls from Stranglethorn
   note Rigglefuzz's next quest pays no experience: skip it.
 
 step Boss Tho'grun
-  tip Ride west across the Badlands to the Dustbelcher camp at Camp Boff. Boss Tho'grun stands in its middle with Wyrmhunters and Maulers around him.
+  tip Boss Tho'grun does not stay at Camp Boff: he walks a long loop around the Badlands with his guards, from the camp in the west along the south of the zone to about 61,69, north to about 49,49 and back west to the camp. The arrow follows his loop west from here until you meet him.
+  loop
+  goto 38.8,56.1
+  goto 31.5,58.7
+  goto 24.7,56.7
+  goto 18.2,60.8
+  goto 12.5,67.5
+  goto 12.7,75.5
+  goto 20.1,78.5
+  goto 30.2,73.5
+  goto 41.6,72.2
+  goto 51.2,73.4
+  goto 61.4,69.3
+  goto 54.0,58.6
+  goto 48.8,48.7
   collect 4640 quest 732              -- Sign of the Earth
 
 step Garek
@@ -35,6 +76,11 @@ step Lethlor Ravine
 
 step Hammertoe's Digsite
   turnin 706 optional                 -- Sigrun Ironhew
+
+step Dorgaron
+  zone Badlands
+  tip Dorgaron camps at the foot of the pass into Loch Modan, on the way north.
+  turnin 97617                        -- Dorgaron
 
 # ---------------------------------------------------------------- Loch Modan
 
@@ -54,7 +100,7 @@ step Into Badlands
 
 step Badlands
   zone Badlands
-  goto 37.4,14.9 "Badlands"
+  goto 37.4,14.9 "The Uldaman dig"
 
 step The Uldaman dig
   zone Badlands
@@ -64,7 +110,7 @@ step The Uldaman dig
 
 step Back to Loch Modan
   zone Badlands
-  goto 49.4,8.0 "Loch Modan"
+  goto 49.4,8.0 "Ironband's Excavation Site"
 
 step Ironband's Excavation Site
   zone Loch Modan
@@ -90,9 +136,15 @@ step Southshore
   turnin 1052                         -- Raleigh the Devout, upstairs
   note Raleigh's next errand is in the Scarlet Monastery: skip it.
 
+step Loremaster Dibbs
+  when onquest 95786
+  zone Hillsbrad Foothills
+  tip Loremaster Dibbs stands in Southshore, by the inn.
+  turnin 95786                        -- Loremaster Dibbs
+
 step The Hinterlands
   zone The Hinterlands
-  goto 11.8,46.8 "The Hinterlands"
+  goto 11.8,46.8 "Aerie Peak"
 
 step Aerie Peak
   zone The Hinterlands
@@ -104,7 +156,6 @@ step Aerie Peak
   accept 1451
   accept 2988
   accept 2880                         -- Fraggar Thundermantle, inside
-  sethome "Aerie Peak" npc 7744       -- Innkeeper Thulfram: the last guide binds here, so this usually ticks at once; below ground
 
 # ---------------------------------------------------------------- Aerie Peak
 
@@ -115,6 +166,7 @@ step Rhapsody Shindigger
 
 step Witherbark villages
   tip The first two cages stand together in the Witherbark village south of Rhapsody; the third is in the next village to the east. Every Witherbark troll can drop a necklace.
+  tip Careful: Witch Doctor Ti'ik (49) and his Hexed Larvae (45) keep to the huts of the western village, around 25,64: take the necklaces from the trolls outside.
   interact 144068 quest 2988          -- Third Witherbark Cage
   interact 144067 quest 2988          -- Second Witherbark Cage
   collect 9259 quest 2880             -- Troll Tribal Necklace
@@ -122,7 +174,6 @@ step Witherbark villages
 
 step Aerie Peak
   turnin 2880                         -- Fraggar Thundermantle, inside
-  accept 2881 optional                -- Fraggar keeps paying for necklaces: hand in any extras
   turnin 2988                         -- Gryphon Master Talonaxe, beside the flight master at the top; inside
   note Talonaxe's next task waits for a later Hinterlands guide.
 
@@ -140,25 +191,51 @@ step Boat to Theramore
 
 step Theramore
   zone Dustwallow Marsh
-  tip Privateer Groy stands on the docks where the boat lands.
-  turnin 623                          -- Privateer Groy
   turnin 1287                         -- Captain Garran Vimes, on the top floor
-  accept 1288
-  turnin 1288                         -- Lady Jaina Proudmoore, on the top floor
   turnin 1258                         -- Morgan Stern, inside
 
 step Cortello's Riddle
   when onquest 625
   turnin 625                          -- Inside Bloodfen Burrow
 
+# Mudsprocket: Drazzit Dripvalve's and Gizzix Grimegurgle's three Wyrmbog quests (98205, 98215, 98231, level 44,
+# whelps and Firemane 41-44), after Theramore at about 45.4, then back to Theramore's flight master for Shen'dralas.
+# They were on the Feralas guide behind `when zone "Dustwallow Marsh"`, which the route never met: it reaches Feralas
+# from Shen'dralas (fix round 1, 0.4.0).
+
+step Mudsprocket
+  zone Dustwallow Marsh
+  tip Take the road south-west out of Theramore to Mudsprocket, the goblin camp at the edge of the Wyrmbog. Drazzit and Gizzix stand together in the camp.
+  accept 98205                        -- Drazzit Dripvalve
+  accept 98215
+  accept 98231                        -- Gizzix Grimegurgle
+
+step The Wyrmbog
+  zone Dustwallow Marsh
+  tip The Wyrmtail grows in the bog east of the camp: gather it first. Then the Searing Hatchlings and Whelps (41-43) and the Firemane dragonkin nest in the bog north and west of Mudsprocket, on the way back; all of them drop the shed scales.
+  tip Careful: the Firemane Scalebanes and Flamecallers are 43-44 and cast fire: pull them one at a time.
+  collect 280092 quest 98231 @46.2,80.2 -- Wyrmtail
+  kill 4323 quest 98205               -- Searing Hatchling
+  kill 4324 quest 98205               -- Searing Whelp
+  collect 279934 quest 98215          -- Shed Dark Dragonscale
+
+step Mudsprocket
+  zone Dustwallow Marsh
+  tip Then ride back north-east to Theramore's flight master.
+  turnin 98205                        -- Drazzit Dripvalve
+  turnin 98215
+  turnin 98231                        -- Gizzix Grimegurgle
+
 step Theramore flight master
   only Warlock
   zone Dustwallow Marsh
+  when onquest 4488
   goto 67.5,51.2 "Theramore flight master"
 
 step Ratchet
   only Human,Warlock
   zone The Barrens
+  when onquest 4488
   goto 63.1,37.1 "Ratchet"
 
 step Warlock: Summon Felsteed

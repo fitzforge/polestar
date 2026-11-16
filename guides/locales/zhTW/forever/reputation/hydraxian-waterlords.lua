@@ -64,7 +64,7 @@ return {
 
 	-- Step 10: Hands of the Enemy
 	-- {npc:12118} Lucifron · {npc:12259} Gehennas · {npc:12264} Shazzrah · {npc:12098} Sulfuron Harbinger · {area:2717} Molten Core
-	["{npc:12118}, {npc:12259}, {npc:12264} and {npc:12098} are {area:2717} bosses: each drops his hand for the quest."] = "",
+	["{npc:12118}, {npc:12259}, {npc:12264} and {npc:12098} are {area:2717} bosses: each drops his hand for the quest."] = "{npc:12118}、{npc:12259}、{npc:12264}和{npc:12098}是{area:2717}的首領：每一個都會掉落任務要的手。",
 	-- {item:17332} Hand of Shazzrah
 	["{item:17332}: raid of 40"] = "",
 
@@ -98,7 +98,6 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Both elementals roam north-western {zone:1451}; the Rumblers cluster a little further north."] = "這兩種元素都在{zone:1451}西北部遊蕩；沙漠奔行者聚集在稍微更北的地方。",
-	-- ["Bring the Hands of Lucifron, Gehennas, Shazzrah and Sulfuron from the {area:2717}."] = "帶回{area:2717}的魯西弗隆之手、基赫納斯之手、沙斯拉爾之手和薩弗隆之手。",
 	-- ["Dust Stormers and Desert Rumblers"] = "灰塵風暴與沙漠奔行者",
 	-- ["Keep clearing the {area:2717} until Exalted."] = "繼續清{area:2717}直到崇拜。",
 	-- ["Kill a {npc:11668}, a {npc:11658}, an {npc:11673} and a {npc:12101} in the {area:2717}. Every {area:2717} elemental and boss also counts toward the Waterlords."] = "在{area:2717}擊殺一個{npc:11668}、一個{npc:11658}、一個{npc:11673}和一個{npc:12101}。{area:2717}的每個元素和首領也都會計入此聲望。",

@@ -411,6 +411,9 @@ pub struct World<'c, 'd> {
 	pub worked: Vec<Worked>,
 	/// Items an `optional` collect asked for: an optional accept they start is the same player's.
 	pub opt_collected: FxHashSet<Id>,
+	/// Quests the chain hands in `direct` (non-legacy): never in the log, so R3 takes their objective items
+	/// as obtainable without them.
+	pub direct: FxHashSet<Id>,
 	pub findings: Vec<Finding>,
 	pub step: String,
 	pub pos_step: String,
@@ -441,6 +444,7 @@ impl<'c, 'd> World<'c, 'd> {
 			travelled: None,
 			worked: Vec::new(),
 			opt_collected: FxHashSet::default(),
+			direct: FxHashSet::default(),
 			findings: Vec::new(),
 			step: String::new(),
 			pos_step: String::new(),
@@ -463,13 +467,16 @@ impl<'c, 'd> World<'c, 'd> {
 
 	/// The taxi node of a getfp or fly line: its `node`, else by name among the usable ones.
 	pub fn node(&self, x: &V) -> Option<V> {
-		let nd = x.get("node");
-		if has(&nd) {
-			if let Some(&i) = self.ctx.node_ix.get(&id_of(&nd)) {
+		self.node_at(&x.get("node"), &x.get("location"))
+	}
+
+	/// The taxi node `nd`, else the usable one named `loc` (a getfp's location, a `taxi` predicate's name).
+	pub fn node_at(&self, nd: &V, loc: &V) -> Option<V> {
+		if has(nd) {
+			if let Some(&i) = self.ctx.node_ix.get(&id_of(nd)) {
 				return Some(self.ctx.nodes[i].clone());
 			}
 		}
-		let loc = x.get("location");
 		let name = if loc.truthy() { loc.to_js_string().to_lowercase() } else { String::new() };
 		self.ctx.nodes.iter().find(|n| self.usable(n) && (n.get("short").to_js_string().to_lowercase() == name || n.get("name").to_js_string().to_lowercase() == name)).cloned()
 	}

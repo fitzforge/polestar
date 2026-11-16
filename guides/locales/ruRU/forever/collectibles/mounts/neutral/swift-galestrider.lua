@@ -13,7 +13,7 @@ return {
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "{skill:762}: подмастерье",
 	-- {skill:762} Riding
-	["Swift Galestriders need level 60 and Journeyman {skill:762}. Train it at your own race's riding trainer; see the Level 60 mount guides for where."] = "",
+	["Swift Galestriders need level 60 and Journeyman {skill:762}. Train it at your own race's riding trainer; see the Level 60 mount guides for where."] = "Для стремительных буреногов нужны 60-й уровень и навык {skill:762} (подмастерье). Изучите его у учителя верховой езды вашей расы; где его найти, см. в гайдах по средствам передвижения 60-го уровня.",
 
 	-- Step 2: Skyboat from Dalaran
 	-- {area:279} Dalaran
@@ -45,10 +45,6 @@ return {
 
 	-- Step 6: Genn Fairweather
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
-	["{npc:265756} is at the {area:17684} in {area:16638}, the island's harbour town, near the skyboat docks. The Forever client lists each Swift Galestrider at 200g; choose one."] = "",
+	["{npc:265756} is at the {area:17684} in {area:16638}, the island's harbour town, near the skyboat docks. The Forever client lists each Swift Galestrider at 200g; choose one."] = "{npc:265756} находится здесь: {area:17684} ({area:16638}) – портовый город острова, рядом с пристанью небесных кораблей. Клиент Forever указывает цену каждого стремительного буренога 200 з.; выберите одного.",
 	["200g"] = "200 з.",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Swift Galestriders need level 60 and Journeyman {skill:762} from a riding trainer of your faction; see the Level 60 mount guides for where."] = "Для стремительных буреногов нужны 60-й уровень и навык {skill:762} (подмастерье) от учителя верховой езды вашей фракции; где его найти, см. в гайдах по средствам передвижения 60-го уровня.",
-	-- ["{npc:265756} is in {area:16638}, the island's harbour town, near the skyboat docks. The Forever client lists each Swift Galestrider at 200g; choose one."] = "{npc:265756} находится здесь: {area:16638} — портовый город острова, рядом с пристанью небесных кораблей. Клиент Forever указывает цену каждого стремительного буренога 200 з.; выберите одного.",
 }

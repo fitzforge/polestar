@@ -12,7 +12,9 @@ use crate::cmangos::{db_url, DB_REV};
 
 const LIFT_ENTRIES: [f64; 9] = [4170.0, 4171.0, 11898.0, 11899.0, 20649.0, 20652.0, 20655.0, 47296.0, 47297.0];
 const TRAM_ENTRIES: [f64; 6] = [176080.0, 176081.0, 176082.0, 176083.0, 176084.0, 176085.0];
-const PORTAL_TRIGGERS: [f64; 2] = [527.0, 542.0];
+/// The walk-in portals' triggers: Darnassus and Rut'theran Village (527, 542), and the Wizard's Sanctum's in
+/// Stormwind (704: the tower's top room down to the mage trainers' chamber; 702: back up; #1970).
+const PORTAL_TRIGGERS: [f64; 4] = [527.0, 542.0, 702.0, 704.0];
 
 pub struct ClassicDb {
 	pub rev: &'static str,
@@ -189,7 +191,10 @@ fn dump_lines(dump: &Path) -> Result<impl Iterator<Item = String>, String> {
 pub fn load_classic_db(sources: &Path) -> Result<ClassicDb, String> {
 	let dir = sources.join("cmangos").join(&DB_REV[..12]);
 	let file = dir.join("transit.json");
-	if !file.exists() {
+	// A cache from before a trigger joined PORTAL_TRIGGERS lacks its portal: extracted again from the dump.
+	let stale =
+		file.exists() && std::fs::read_to_string(&file).ok().and_then(|t| parse_json(&t).ok()).is_none_or(|d| PORTAL_TRIGGERS.iter().any(|t| !d.get("portals").has(&forge_guide::js::num_str(*t))));
+	if !file.exists() || (stale && dir.join("classicdb.sql.gz").exists()) {
 		let dump = dir.join("classicdb.sql.gz");
 		if !dump.exists() {
 			return Err(format!("--offline: missing cached {}", file.display()));

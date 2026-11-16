@@ -127,3 +127,22 @@ stub.world.onQuest(1093, { { type = "monster", required = 1, fulfilled = 0 } })"
 	assert_eq!(out[1]["live"], 5, "{}", out[1]);
 	assert_eq!(out[1]["arrow"], "4:1", "{}", out[1]);
 }
+
+// Barrens, Free From the Hold (Fitz, 0.3.7.1): on the escort out of Northwatch Hold the arrow offered the Hearthstone.
+// Engine.EscortRunning tells the travel planner when the live step's escort runs, so it walks: before the accept
+// nothing runs, from the accept until the escort is done it runs, and once done it stops.
+#[test]
+fn the_escort_runs_from_its_accept_until_it_is_done_and_tells_the_travel_planner() {
+	let out = run(
+		"",
+		r#"
+		local r = { before = E.EscortRunning() }
+		stub.world.accept(731, { { required = 1, fulfilled = 0 } }); flush(); flush()
+		r.live = E.GetLiveStep()
+		r.running = E.EscortRunning()
+		stub.world.progress(731, 1, 1); flush(); flush()
+		r.done = E.EscortRunning()
+		emit(r)"#,
+	);
+	assert_eq!(out[0], json!({ "before": false, "live": 2, "running": true, "done": false }));
+}

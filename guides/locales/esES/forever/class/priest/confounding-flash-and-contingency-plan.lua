@@ -10,7 +10,7 @@ return {
 	-- {quest:94817} Confounding Flash · {quest:94818} Contingency Plan
 	["{quest:94817} and {quest:94818}"] = "{quest:94817} y {quest:94818}",
 	-- {quest:94817} Confounding Flash · {quest:94818} Contingency Plan
-	["The Gnome priest spells, new in Forever: {quest:94817} at 10, {quest:94818} at 20. Free, no objectives."] = "",
+	["The Gnome priest spells, new in Forever: {quest:94817} at 10, {quest:94818} at 20. Free, no objectives."] = "Los hechizos de sacerdote gnomo, nuevos en Forever: {quest:94817} a nivel 10 y {quest:94818} a nivel 20. Gratis, sin objetivos.",
 
 	-- Step 1: Confounding Flash: Maxan Anvol
 	-- {npc:1226} Maxan Anvol · {area:2102} Thunderbrew Distillery · {area:131} Kharanos · {quest:94817} Confounding Flash · {npc:258785} High Priestess Mims · {zone:1455} Ironforge
@@ -93,5 +93,4 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 10, go to {npc:258785} in the {object:32386}, in {zone:1455}'s {object:32362}. {npc:1226} in {area:131}, {npc:377} in {area:87} and {npc:376} in {zone:1453} send you to her with a quest of the same name (its text may say {zone:1453}: Mims is in {zone:1455})."] = "A nivel 10, ve con {npc:258785} en {object:32386}, en {object:32362} de {zone:1455}. {npc:1226} en {area:131}, {npc:377} en {area:87} y {npc:376} en {zone:1453} te envían con ella con una misión del mismo nombre (su texto puede decir {zone:1453}: Mims está en {zone:1455}).",
 	-- ["At 20, {npc:258785} teaches {quest:94818}. {npc:376} in {zone:1453} sends you to her with a quest of the same name."] = "A nivel 20, {npc:258785} enseña {quest:94818}. {npc:376} en {zone:1453} te envía con ella con una misión del mismo nombre.",
-	-- ["The Gnome priest spells, new in Forever: one at 10, one at 20."] = "Los hechizos de sacerdote gnomo, nuevos en Forever: uno a nivel 10 y otro a nivel 20.",
 }

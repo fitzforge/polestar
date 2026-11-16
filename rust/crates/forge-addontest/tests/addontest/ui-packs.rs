@@ -67,6 +67,7 @@ guide("elsewhere/two", "probs")
 assert(Polestar.RegisterPack(meta("Dung", "dung", "Dungeon Pack")))
 guide("dung/deadmines", "dung", { category = "Dungeons" })
 stub.login()
+Polestar.UI.LoadOptions()
 UI, O, P = Polestar.UI, Polestar.UI.Options, Polestar.UI.Packs
 function openPage() UI.ShowOptions("guidepacks"); return P.view end
 function rowOf(addon)
@@ -206,6 +207,25 @@ fn show_lists_the_problems_copy_report_fills_a_selected_box_with_the_pack_versio
 	assert_eq!(out["selected"], true, "all of its text selected, after the frame too");
 }
 
+// The game gives addons no clipboard: Copy report selects the report, and a line over it says to press Ctrl+C
+// (Cmd+C on a Mac).
+#[test]
+fn copy_report_says_over_the_selected_report_how_to_copy_it_ctrl_c_or_cmd_c_on_a_mac() {
+	let script = r#"
+		openPage()
+		local before = rowOf("Probs").CopyHint:IsShown()
+		rowOf("Probs").CopyReport:Click()
+		stub.advance(0.1)
+		local row = rowOf("Probs")
+		local hl = row.Report.highlight
+		emit({ before = before, hint = row.CopyHint:IsShown() and row.CopyHint:GetText() or false,
+			selected = stub.focus == row.Report and hl ~= nil and hl[1] == 0 and hl[2] == #row.Report:GetText(),
+			over = select(5, row.CopyHint:GetPoint()) > select(5, row.Report:GetPoint()),
+			others = rowOf("JoeAddon").CopyHint:IsShown() })"#;
+	assert_eq!(run(script), json!({ "before": false, "hint": "Selected: press Ctrl+C to copy.", "selected": true, "over": true, "others": false }));
+	assert_eq!(run_with(script, "function IsMacClient() return true end")["hint"], "Selected: press Cmd+C to copy.");
+}
+
 #[test]
 fn copy_report_keeps_the_report_open_and_selects_it_again_hide_or_escape_closes_it() {
 	let out = run(r#"
@@ -234,7 +254,8 @@ fn the_report_box_grows_to_fit_a_long_problem_message_as_it_wraps() {
 	let out = run(r#"
 		openPage()
 		local probs = G.Pack("probs").problems
-		probs[#probs + 1] = { message = string.rep("a step's target names a quest that no guide in the pack has ", 6) }
+		-- Long enough to wrap in the settings window at its widest default size.
+		probs[#probs + 1] = { message = string.rep("a step's target names a quest that no guide in the pack has ", 16) }
 		rowOf("Probs").CopyReport:Click()
 		local report = rowOf("Probs").Report
 		local _, newlines = report:GetText():gsub("\n", "")

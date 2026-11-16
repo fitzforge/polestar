@@ -139,6 +139,28 @@ const GLYPHS = {
 		subtract(dot(15, 9.4, 6.6), dot(9, 14.6, 8.4)),
 		subtract(dot(9, 14.6, 6.6), ring(9, 14.6, 4.1, 1.3)),
 	),
+	// While you're here's sell and repair reminders: the signs the game shows for merchants and repairers (the
+	// merchant's tied coin bag, the repair anvil), drawn our way. The bag: a round sack, its neck tied and the
+	// cloth gathered above the tie, a coin before it.
+	'icon-sell': union(
+		subtract(
+			union(
+				dot(10.6, 14.6, 6.6),
+				poly([[8.4, 9], [12.8, 9], [15.4, 11.6], [5.8, 11.6]]),
+				box(10.6, 7.6, 3.2, 1.05, 0.5),
+				poly([[7, 2], [9.4, 3.4], [10.6, 2.2], [11.8, 3.4], [14.2, 2], [13, 5.8], [8.2, 5.8]]),
+			),
+			dot(17.4, 17.6, 5.6),
+		),
+		subtract(dot(17.4, 17.6, 4.2), ring(17.4, 17.6, 2.2, 1.1)),
+	),
+	// The anvil, its horn to the left, and a hammer striking it.
+	'icon-repair': union(
+		poly([[2.4, 12.6], [16.6, 12.6], [16.6, 15], [13.6, 17.2], [10.4, 17.2], [7.6, 15], [5, 15]]),
+		box(12, 18.8, 1.9, 1.8),
+		box(12, 21, 5.6, 1.3, 0.5),
+		rotate(union(box(14.6, 7, 4.8, 1.8, 0.4), line(14.6, 7, 14.6, -0.6, 1.9)), 42, 14.6, 7),
+	),
 	'icon-level': union(polyline([[6, 12.5], [12, 6.5], [18, 12.5]], 2.6), polyline([[6, 18.5], [12, 12.5], [18, 18.5]], 2.6)),
 	'icon-note': subtract(dot(12, 12, 9.5), union(line(12, 10.6, 12, 17, 2.5), dot(12, 7.1, 1.6))),
 	// Professions: rising bars for a skill rank, a scroll for a recipe to
@@ -245,6 +267,18 @@ const GLYPHS = {
 	info: subtract(dot(12, 12, 9.5), union(line(12, 10.6, 12, 17, 2.5), dot(12, 7.1, 1.6))),
 	plus: union(line(12, 5, 12, 19, 2.4), line(5, 12, 19, 12, 2.4)),
 	reload: union(arc(12, 12.5, 7.2, -60, 250, 2.4), poly([[19.6, 2.6], [20.4, 10], [13.2, 8.2]])),
+	// A speaker and two waves: a sound you can hear before you pick it.
+	speaker: union(
+		box(5.4, 12, 2.6, 3.4, 0.6),
+		poly([[7.6, 8.6], [13, 4.4], [13, 19.6], [7.6, 15.4]]),
+		arc(13.4, 12, 4.4, -48, 48, 2.2),
+		arc(13.4, 12, 8.2, -50, 50, 2.2),
+	),
+	// An eye: look through (the settings window's Peek).
+	eye: union(
+		subtract(sdf.intersect(dot(12, 21, 14), dot(12, 3, 14)), sdf.intersect(dot(12, 21, 12.1), dot(12, 3, 12.1))),
+		dot(12, 12, 2.9),
+	),
 	layers: union(
 		poly([[12, 3], [21, 8], [12, 13], [3, 8]]),
 		polyline([[3.6, 12.2], [12, 16.8], [20.4, 12.2]], 2.1),
@@ -349,6 +383,43 @@ function shadow() {
 
 function white() {
 	return new Canvas(8, 8).fill(() => -1, [1, 1, 1, 1]);
+}
+
+// The switch (Theme/Widgets.lua W.Toggle, W.Switch) and the slider's thumb,
+// each part one texture drawn whole at its own shape, at three sizes. The
+// client makes no mipmaps for these files, so a texture shrunk to under half
+// its size aliases at its edge; Theme.SharpMedia picks the smallest size at
+// or above the part's height on screen, so none is ever shrunk by two or
+// more, from UI scale 0.64 on a 1080p screen to 1.5 on a 4K one.
+//   disc-N            the knob and the thumb (N x N)
+//   switch-edge-N     the 36x18 track's outline, filled (2N x N)
+//   switch-fill-N     the track's fill, one unit (N/18 px) inside the edge
+//   switch-focus-N    the focus ring: a 44x26 capsule ring 2 units wide, in
+//                     a 52x26 texture (drawn 4 units round the track)
+//   knob-shadow       one soft disc, blurred past any aliasing: the knob's
+//                     edge sits at 14/18 of its radius, still about half
+//                     strength there, fading out at the texture's edge
+// A wider capsule (the knob held down, chips) is a disc's two halves with
+// its middle column stretched between them (W.Capsule).
+const SHARP_SIZES = [16, 32, 64];
+function disc(n) {
+	return new Canvas(n, n).fill(sdf.circle(n / 2, n / 2, n / 2 - 0.5), [1, 1, 1, 1]);
+}
+const capsuleShape = (cx, cy, hw, hh) => sdf.box(cx, cy, hw, hh, hh);
+function switchEdge(n) {
+	return new Canvas(2 * n, n).fill(capsuleShape(n, n / 2, n - 0.5, n / 2 - 0.5), [1, 1, 1, 1]);
+}
+function switchFill(n) {
+	const e = n / 18;
+	return new Canvas(2 * n, n).fill(capsuleShape(n, n / 2, n - 0.5 - e, n / 2 - 0.5 - e), [1, 1, 1, 1]);
+}
+function switchFocus(n) {
+	const u = n / 26;
+	const mid = capsuleShape(n, n / 2, 22 * u - 0.5 - u, 13 * u - 0.5 - u);
+	return new Canvas(2 * n, n).fill((x, y) => Math.abs(mid(x, y)) - u, [1, 1, 1, 1]);
+}
+function knobShadow() {
+	return new Canvas(32, 32).fill(sdf.circle(16, 16, 12.5), [1, 1, 1, 1], { feather: 7 });
 }
 
 // ---------------------------------------------------------------------------
@@ -656,6 +727,13 @@ function forever() {
 function generate(addonRoot) {
 	const dir = path.join(addonRoot, 'Media', 'UI');
 	const written = [];
+	for (const n of SHARP_SIZES) {
+		written.push(disc(n).write(path.join(dir, `disc-${n}.tga`)));
+		written.push(switchEdge(n).write(path.join(dir, `switch-edge-${n}.tga`)));
+		written.push(switchFill(n).write(path.join(dir, `switch-fill-${n}.tga`)));
+		written.push(switchFocus(n).write(path.join(dir, `switch-focus-${n}.tga`)));
+	}
+	written.push(knobShadow().write(path.join(dir, 'knob-shadow.tga')));
 	for (const [name, shape] of Object.entries(GLYPHS)) written.push(glyph(shape).write(path.join(dir, `${name}.tga`)));
 	written.push(glyph(discordMark()).write(path.join(dir, 'discord.tga')));
 	written.push(glow().write(path.join(dir, 'glow.tga')));

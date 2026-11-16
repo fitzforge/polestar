@@ -1,0 +1,971 @@
+//! Grid joins (`forge nav pack --leffe`): walks players make that our navigation grid makes and Leffe's navigation
+//! maps do not: a mine his maps cut off from its mouth, a tower's top, a stretch of road, rope bridges (Fitz,
+//! 2026-10-25: where his maps have no walkable surface and our grid does, fill from our grid in the pack builder).
+//! Each join of joins.json (two places, compiled in) is routed on our grid both ways (Walker::route_path: the guide
+//! bake's drawn way; a join it walks one way only goes back along the same cells, back_along), and that way goes into
+//! the clusters of his maps it crosses:
+//! - each of its cells stands on his surface there nearest the way's height (within MATCH_YD), else on a floor of ours
+//!   added after the cell's floors (with our surface's value, class and area), so every entrance keeps its layer;
+//! - a step of the way his maps cannot make is added: an arc inside a cluster, an entrance on each side and an edge
+//!   between them across a cluster border;
+//! - each entrance of a cluster the way changed gets an edge to every entrance of the cluster it now reaches for
+//!   less, priced as the router prices the grid (pack/ingame.rs), unless the cluster's edges already lead there for
+//!   no more; an entrance's edges across a border always stay;
+//! - the components the way joins become one (Path.lua answers "unreachable" without a search when the start's and
+//!   the goal's entrances share none).
+//!
+//! A way with a climb his maps lack is refused (Forever's client slides off a face over 60 degrees), a way off his maps
+//! is refused, and a lift ride is left to the lift chokepoints. A way his maps already make adds nothing. A way with a
+//! fall his maps lack that hurts (over SAFE_FALL, the height a fall starts to hurt; pack/drops.rs's limit too) goes in
+//! only where his maps make no other way between its ends (his_way): players are not walked off a ledge that hurts
+//! them when another way exists. A fall kept is logged and counted, for an in-game check.
+
+use super::cells::{CellGrid, ZQ};
+use super::ingame::{self, cost_value, yards_value, Cluster, Edge, Row, HERE};
+use super::leffe::Out;
+use super::NONE;
+use crate::cost::{Ground, Profile};
+use crate::f4::pack::WALK_TAN;
+use crate::grid::{cls, Grid, SAFE_FALL, STEP};
+use crate::legs::SnapAsk;
+use crate::space::WayCell;
+use crate::walker::Walker;
+use rayon::prelude::*;
+use rustc_hash::{FxHashMap, FxHashSet};
+use std::collections::{BTreeMap, BTreeSet};
+use std::path::Path;
+use std::sync::Arc;
+
+/// A cell of the way stands on his surface when its height is within this of the way's (his base heights are stored
+/// to 2 yd, his floors to 1 yd; our columns are half his cells, so a slope differs by a few yards across one).
+pub const MATCH_YD: f64 = 3.5;
+/// A step of the way his maps make by a walk of at most this cost (yd at plain ground's price) needs no arc or
+/// entrance: his surfaces lie a little differently from our columns, and the way is not his only walk.
+const NEAR: f64 = 40.0;
+/// An entrance keeps at most this many edges (the graph field's degree symbol).
+const DEGREE: usize = 63;
+/// The component a new entrance has until the merge gives it one.
+const UNSET: u32 = u32::MAX;
+/// The router gives up on a walk past DETOUR times the straight line plus DETOUR_YD yards (Path.lua's): a way of his
+/// longer than that is no way the arrow finds.
+const DETOUR: f64 = 8.0;
+const DETOUR_YD: f64 = 2000.0;
+
+/// A join as joins.json writes it: two places on one map, routed both ways.
+#[derive(Clone, Debug)]
+pub struct Join {
+	pub id: String,
+	pub map: u32,
+	pub a: (f64, f64, Option<f64>),
+	pub b: (f64, f64, Option<f64>),
+}
+
+/// The joins of joins.json (compiled in).
+pub fn joins() -> Vec<Join> {
+	let v: serde_json::Value = serde_json::from_str(include_str!("joins.json")).expect("joins.json");
+	let end = |e: &serde_json::Value| (e[0].as_f64().expect("joins.json: x"), e[1].as_f64().expect("joins.json: y"), e[2].as_f64());
+	v["joins"]
+		.as_array()
+		.expect("joins.json: joins")
+		.iter()
+		.map(|j| Join { id: j["id"].as_str().expect("joins.json: id").to_string(), map: j["map"].as_u64().expect("joins.json: map") as u32, a: end(&j["a"]), b: end(&j["b"]) })
+		.collect()
+}
+
+/// One direction of a join: its id ("<id> a-b" or "b-a") and our grid's drawn way.
+#[derive(Clone, Debug)]
+pub struct JoinWay {
+	pub id: String,
+	pub cells: Vec<WayCell>,
+}
+
+/// Our grid's drawn way of each join of `map`, both ways: a walk for no faction, as the guide bake draws a leg
+/// (Walker::route_path). `hubs`: the ground layers' hubs.json, when there is one. A join our grid walks one way only is
+/// joined back along the same cells (back_along); one it cannot walk either way is logged and left out.
+pub fn ways(grid_dir: &Path, map: u32, hubs: Option<&Path>, log: &(dyn Fn(&str) + Sync)) -> Result<Vec<JoinWay>, String> {
+	let list: Vec<Join> = joins().into_iter().filter(|j| j.map == map).collect();
+	if list.is_empty() {
+		return Ok(Vec::new());
+	}
+	let grid = Arc::new(Grid::open(grid_dir, 256)?);
+	let walk = grid_dir.join("walk");
+	let roads = std::fs::read_dir(&walk)
+		.map_err(|e| format!("joins: {}: {e}", walk.display()))?
+		.flatten()
+		.filter_map(|e| e.file_name().to_str()?.strip_prefix("roads-0-")?.strip_suffix(".bin").map(String::from))
+		.min()
+		.ok_or_else(|| format!("joins: no walk/roads-0-<tag>.bin in {} (forge nav prepare)", grid_dir.display()))?;
+	let hubs = hubs.and_then(|h| std::fs::read(h).ok());
+	let ground = Arc::new(Ground::load(grid_dir, &roads, &[map], hubs.as_deref())?);
+	let profile = Profile::walk(None, ground, None);
+	let walker = Walker::new(grid);
+	let ask = |e: (f64, f64, Option<f64>)| SnapAsk { c: map, wx: e.0, wy: e.1, z: e.2, radius: 20.0, under: true, stand: true };
+	let mut out = Vec::new();
+	for j in list {
+		let ab = walker.route_path(&ask(j.a), &ask(j.b), &profile, "")?.map(|w| w.cells);
+		let ba = walker.route_path(&ask(j.b), &ask(j.a), &profile, "")?.map(|w| w.cells);
+		let (ab, ba) = match (ab, ba) {
+			(None, None) => {
+				log(&format!("join {}: our grid has no way", j.id));
+				continue;
+			}
+			(Some(ab), None) => {
+				let back = back_along(&ab);
+				log(&format!("join {} b-a: our grid has no way; {}", j.id, if back.is_some() { "joined back along a-b" } else { "a-b rises too steeply back, left out" }));
+				(Some(ab), back)
+			}
+			(None, Some(ba)) => {
+				let back = back_along(&ba);
+				log(&format!("join {} a-b: our grid has no way; {}", j.id, if back.is_some() { "joined back along b-a" } else { "b-a rises too steeply back, left out" }));
+				(back, Some(ba))
+			}
+			(ab, ba) => (ab, ba),
+		};
+		out.extend(ab.map(|cells| JoinWay { id: format!("{} a-b", j.id), cells }));
+		out.extend(ba.map(|cells| JoinWay { id: format!("{} b-a", j.id), cells }));
+	}
+	Ok(out)
+}
+
+/// A way our grid makes one way only, walked back along its cells, or None when a step back rises more than the walk
+/// slope allows (STEP, else WALK_TAN over the step's run): a drop is no way up. Players walk the places joins.json
+/// lists both ways, so a way back our grid's search misses (a step onto the Shadowprey inn's floor it takes only
+/// down) goes in along the same cells. A step's class is the class of the step into its cell: going back, the step
+/// into a cell is the one out of it forward, a fall or jump becoming a walk.
+pub fn back_along(cells: &[WayCell]) -> Option<Vec<WayCell>> {
+	let mut out: Vec<WayCell> = cells.iter().rev().copied().collect();
+	for i in (1..out.len()).rev() {
+		let (a, b) = (out[i - 1], out[i]);
+		if b.z - a.z > STEP.max((b.x - a.x).hypot(b.y - a.y) * WALK_TAN) {
+			return None;
+		}
+		out[i].cls = match a.cls {
+			cls::FALL | cls::JUMP => cls::WALK,
+			c => c,
+		};
+	}
+	if let Some(first) = out.first_mut() {
+		first.cls = cls::WALK;
+	}
+	Some(out)
+}
+
+/// What the joins added, for the log and PACK.json.
+#[derive(Clone, Debug, Default)]
+pub struct JoinStats {
+	pub ways: usize,
+	pub refused: usize,
+	/// Ways his maps already made.
+	pub walkable: usize,
+	pub floors: usize,
+	pub arcs: usize,
+	pub entrances: usize,
+	pub edges: usize,
+	/// Components joined into another.
+	pub merged: usize,
+	pub clusters: usize,
+	/// Ways kept with a fall that hurts, his maps making no other way between their ends (for an in-game check).
+	pub falls: usize,
+}
+
+/// The frame of his maps.
+pub struct Geo {
+	pub c: usize,
+	pub cs: f64,
+	pub zstep: f64,
+	pub x0: f64,
+	pub y0: f64,
+	pub ny: i64,
+	pub swim: f64,
+}
+
+/// A cell of the way on his cells: cluster, local cell, global cell, the way's height, the class of the step into
+/// it (crate::grid::cls), and its flat yards from the cell before.
+#[derive(Clone, Copy, Debug)]
+struct Pt {
+	k: u32,
+	lc: usize,
+	gx: i64,
+	gy: i64,
+	z: f64,
+	cls: u8,
+	yd: f64,
+}
+
+fn points(g: &Geo, cells: &[WayCell]) -> Option<Vec<Pt>> {
+	let c = g.c as i64;
+	let mut out = Vec::with_capacity(cells.len());
+	for (i, w) in cells.iter().enumerate() {
+		let (gx, gy) = (((w.x - g.x0) / g.cs).floor() as i64, ((w.y - g.y0) / g.cs).floor() as i64);
+		if gx < 0 || gy < 0 {
+			return None;
+		}
+		let yd = if i == 0 { 0.0 } else { (w.x - cells[i - 1].x).hypot(w.y - cells[i - 1].y) };
+		out.push(Pt { k: ((gx / c) * g.ny + gy / c) as u32, lc: ((gx % c) * c + gy % c) as usize, gx, gy, z: w.z, cls: w.cls, yd });
+	}
+	Some(out)
+}
+
+/// Our surface in global cell (gx, gy) nearest height z, within MATCH_YD: its value, class and area.
+fn ours(cg: &CellGrid, gx: i64, gy: i64, z: f64) -> Option<(u8, u8, u32)> {
+	let (_, l) = cg.at(gx, gy)?;
+	let cell = (gx as usize * cg.gh + gy as usize) as u32;
+	let cl = cg.cluster(cg.cluster_of_cell(cell))?;
+	let mut best: Option<((u8, u8, u32), f64)> = None;
+	if cl.val[l] != 0 {
+		let g = (cl.zq[l] as f64 * ZQ as f64 - z).abs();
+		best = Some(((cl.val[l], cl.cls.as_ref().map_or(0, |v| v[l]), cl.area.as_ref().map_or(0, |a| a[l])), g));
+	}
+	if let Some(&f0) = cg.floor_at.get(&cell) {
+		let mut f = f0 as usize;
+		while f < cg.floor_cell.len() && cg.floor_cell[f] == cell {
+			let g = (cg.floor_z[f] - z).abs();
+			if best.is_none_or(|b| g < b.1) {
+				best = Some(((cg.floor_val[f], cg.floor_class[f], cg.floor_area[f]), g));
+			}
+			f += 1;
+		}
+	}
+	best.filter(|b| b.1 <= MATCH_YD).map(|b| b.0)
+}
+
+/// His surface the way's cell stands on.
+fn matched(c: &Cluster, p: &Pt) -> Option<usize> {
+	c.surface(p.lc, -1, p.z).filter(|&v| (c.z[v] - p.z).abs() <= MATCH_YD)
+}
+
+fn has_move(c: &Cluster, a: usize, b: usize, buf: &mut Vec<(usize, f64)>) -> bool {
+	c.moves(a, false, buf);
+	buf.iter().any(|m| m.0 == b)
+}
+
+/// Whether his maps make the way's step into p[i]: both cells on one surface of his, or a move of his between them.
+fn his_step(cl: &BTreeMap<u32, (Cluster, Vec<Row>)>, p: &[Pt], i: usize, buf: &mut Vec<(usize, f64)>) -> bool {
+	let c = &cl[&p[i].k].0;
+	p[i - 1].k == p[i].k && matches!((matched(c, &p[i - 1]), matched(c, &p[i])), (Some(a), Some(b)) if a == b || has_move(c, a, b, buf))
+}
+
+/// Whether his maps already make the step from node a of cluster ka to node b of cluster kb, so a join adds nothing for
+/// it: a move of his or a walk of at most NEAR inside one cluster; across the border at offset `off`, an edge of an
+/// entrance a reaches within NEAR whose end reaches b within NEAR.
+fn his_near(cl: &BTreeMap<u32, (Cluster, Vec<Row>)>, (ka, a): (u32, usize), (kb, b): (u32, usize), off: u32, swim: f64, buf: &mut Vec<(usize, f64)>) -> bool {
+	let (ca, rows_a) = &cl[&ka];
+	if ka == kb {
+		return has_move(ca, a, b, buf) || ca.bounded(a, NEAR, NONE, swim).contains_key(&b);
+	}
+	let (cb, rows_b) = &cl[&kb];
+	let from_a = ca.bounded(a, NEAR, NONE, swim);
+	rows_a.iter().any(|r| {
+		ca.surface(r.cell as usize, r.layer as i32, 0.0).is_some_and(|n| from_a.contains_key(&n))
+			&& r.edges.iter().any(|e| {
+				e.off == off && rows_b.get(e.ent as usize).and_then(|t| cb.surface(t.cell as usize, t.layer as i32, 0.0)).is_some_and(|tn| tn == b || cb.bounded(tn, NEAR, NONE, swim).contains_key(&b))
+			})
+	})
+}
+
+/// Whether the way's step into p[i] is a fall that hurts (more than SAFE_FALL) the join would add: a cell of it on no
+/// surface of his, or no step of his between them (his_near). A lift ride down is no fall (the joins leave rides to the
+/// lift chokepoints), and a step to a cluster no neighbour's adds nothing.
+fn adds_fall(g: &Geo, cl: &BTreeMap<u32, (Cluster, Vec<Row>)>, p: &[Pt], i: usize, buf: &mut Vec<(usize, f64)>) -> bool {
+	let (qa, qb) = (&p[i - 1], &p[i]);
+	if qb.cls == cls::LIFT || qa.z - qb.z <= SAFE_FALL {
+		return false;
+	}
+	let (Some(a), Some(b)) = (matched(&cl[&qa.k].0, qa), matched(&cl[&qb.k].0, qb)) else { return true };
+	if qa.k == qb.k {
+		return a != b && !his_near(cl, (qa.k, a), (qb.k, b), HERE, g.swim, buf);
+	}
+	let (dkx, dky) = (qb.k as i64 / g.ny - qa.k as i64 / g.ny, qb.k as i64 % g.ny - qa.k as i64 % g.ny);
+	let neighbour = dkx.abs() <= 1 && dky.abs() <= 1 && (qa.gx - qb.gx).abs() <= 1 && (qa.gy - qb.gy).abs() <= 1;
+	neighbour && !his_near(cl, (qa.k, a), (qb.k, b), ((dkx + 1) * 3 + dky + 1) as u32, g.swim, buf)
+}
+
+/// Every cluster's entrance rows (the graph fields of `outs`, his as written).
+fn all_rows(outs: &[(u32, Out)]) -> Result<FxHashMap<u32, Vec<Row>>, String> {
+	outs.iter().filter_map(|(k, o)| o.graph.as_deref().map(|s| ingame::decode_graph(s).map(|rows| (*k, rows)).map_err(|e| format!("joins: cluster {k}: {e}")))).collect()
+}
+
+/// His maps' way from the way's first cell to its last that the router finds (no longer than DETOUR times the straight
+/// line plus DETOUR_YD), in yards: inside the start's cluster, or out by its entrances along his graph's edges (`rows`,
+/// every cluster's) to an entrance of the end's cluster that reaches the end. None past the limit, or with an end on no
+/// surface of his.
+fn his_way(g: &Geo, cl: &BTreeMap<u32, (Cluster, Vec<Row>)>, rows: &FxHashMap<u32, Vec<Row>>, p: &[Pt]) -> Option<f64> {
+	let (s, t) = (&p[0], &p[p.len() - 1]);
+	let (cs, ct) = (&cl[&s.k].0, &cl[&t.k].0);
+	let (ns, nt) = (matched(cs, s)?, matched(ct, t)?);
+	let limit = DETOUR * ((s.gx - t.gx) as f64).hypot((s.gy - t.gy) as f64) * g.cs + DETOUR_YD;
+	let from = cs.dijkstra(&[(ns, 0.0, 0.0)], NONE, g.swim, false).1;
+	let to = ct.dijkstra(&[(nt, 0.0, 0.0)], NONE, g.swim, true).1;
+	let node = |c: &Cluster, r: &Row| c.surface(r.cell as usize, r.layer as i32, 0.0);
+	let mut best = if s.k == t.k { from[nt] } else { f64::INFINITY };
+	let goal: FxHashMap<usize, f64> = rows.get(&t.k).into_iter().flatten().enumerate().filter_map(|(r, row)| Some((r, to[node(ct, row)?]))).filter(|e| e.1.is_finite()).collect();
+	let mut dist: FxHashMap<(u32, usize), f64> = FxHashMap::default();
+	let mut heap = std::collections::BinaryHeap::new();
+	for (r, row) in rows.get(&s.k).into_iter().flatten().enumerate() {
+		if let Some(y) = node(cs, row).map(|n| from[n]).filter(|y| y.is_finite()) {
+			dist.insert((s.k, r), y);
+			heap.push(std::cmp::Reverse((y.to_bits(), s.k, r)));
+		}
+	}
+	while let Some(std::cmp::Reverse((bits, k, r))) = heap.pop() {
+		let d = f64::from_bits(bits);
+		if d >= best || d > limit {
+			break;
+		}
+		if dist.get(&(k, r)).is_some_and(|&x| d > x) {
+			continue;
+		}
+		if k == t.k {
+			if let Some(&y) = goal.get(&r) {
+				best = best.min(d + y);
+			}
+		}
+		for e in rows.get(&k).and_then(|v| v.get(r)).map_or(&[][..], |row| &row.edges[..]) {
+			let k2 = k as i64 + (e.off as i64 / 3 - 1) * g.ny + e.off as i64 % 3 - 1;
+			let (r2, d2) = (e.ent as usize, d + e.yards as f64);
+			if k2 >= 0 && dist.get(&(k2 as u32, r2)).is_none_or(|&x| d2 < x) {
+				dist.insert((k2 as u32, r2), d2);
+				heap.push(std::cmp::Reverse((d2.to_bits(), k2 as u32, r2)));
+			}
+		}
+	}
+	(best <= limit).then_some(best)
+}
+
+/// The octile distance between two nodes' cells, in cells (a step no shorter keeps Path.lua's heuristics consistent).
+fn octile(c: &Cluster, a: usize, b: usize) -> f64 {
+	let (ca, cb) = (c.cell(a) as i64, c.cell(b) as i64);
+	let n = c.c as i64;
+	let (dx, dy) = ((ca / n - cb / n).abs() as f64, (ca % n - cb % n).abs() as f64);
+	dx.max(dy) + (std::f64::consts::SQRT_2 - 1.0) * dx.min(dy)
+}
+
+/// The row of cluster `rows` at node's cell and layer, made (component unset) when it has none. -> (row, made).
+fn row_at(c: &Cluster, rows: &mut Vec<Row>, node: usize) -> Result<(usize, bool), String> {
+	let (cell, layer) = (c.cell(node) as u32, c.layer(node));
+	if let Some(r) = rows.iter().position(|r| r.cell == cell && r.layer == layer) {
+		return Ok((r, false));
+	}
+	if rows.len() >= 4095 || layer >= 64 {
+		return Err(format!("joins: no room for an entrance at cell {cell} layer {layer}"));
+	}
+	rows.push(Row { cell, layer, comp: UNSET, edges: Vec::new() });
+	Ok((rows.len() - 1, true))
+}
+
+/// The component ids a graph field's rows carry (each row's 2 symbols after its cell and layer).
+fn comps_of(s: &str) -> Vec<u32> {
+	let b = s.as_bytes();
+	let v = |i: usize| super::B64.iter().position(|&c| c == b[i]).unwrap_or(0) as u32;
+	let n = (v(0) * 64 + v(1)) as usize;
+	(0..n).map(|r| v(2 + r * 7 + 4) * 64 + v(2 + r * 7 + 5)).collect()
+}
+
+/// The graph field with each row's component replaced by `to`'s.
+fn relabel(s: &str, to: &FxHashMap<u32, u32>) -> String {
+	let comps = comps_of(s);
+	let mut b = s.as_bytes().to_vec();
+	for (r, c) in comps.into_iter().enumerate() {
+		if let Some(&n) = to.get(&c) {
+			let n = n.min(4095);
+			b[2 + r * 7 + 4] = super::B64[(n / 64) as usize];
+			b[2 + r * 7 + 5] = super::B64[(n % 64) as usize];
+		}
+	}
+	String::from_utf8(b).expect("graph field is base64")
+}
+
+fn find(parent: &mut FxHashMap<u32, u32>, x: u32) -> u32 {
+	let mut r = x;
+	while let Some(&p) = parent.get(&r) {
+		if p == r {
+			break;
+		}
+		r = p;
+	}
+	let mut y = x;
+	while y != r {
+		let p = parent[&y];
+		parent.insert(y, r);
+		y = p;
+	}
+	r
+}
+
+/// Joins the sets of a and b. -> the set ids kept and gone, None when already one.
+fn union(parent: &mut FxHashMap<u32, u32>, a: u32, b: u32) -> Option<(u32, u32)> {
+	parent.entry(a).or_insert(a);
+	parent.entry(b).or_insert(b);
+	let (ra, rb) = (find(parent, a), find(parent, b));
+	if ra == rb {
+		return None;
+	}
+	// the smaller id stays: the component his maps already call it
+	let (keep, gone) = if ra < rb { (ra, rb) } else { (rb, ra) };
+	parent.insert(gone, keep);
+	Some((keep, gone))
+}
+
+/// Cluster edges after a join: each entrance (row) gets an edge to every entrance of its cluster it reaches for less
+/// with the join's floors and arcs than before (`bf`, the cluster before them), priced per profile as the router prices
+/// the grid; only rows whose search meets the way (`marks`, the way's nodes) can gain one. An edge the cluster's edges
+/// already walk for no more (through another entrance, in the router's rounded costs) is not added: a join that opens a
+/// village to an inn would otherwise give every entrance of each an edge to every entrance of the other, past the 63 a
+/// row holds. A row still over 63 keeps its edges across the cluster's borders (its only way into the next cluster:
+/// the Shadowprey inn's floor leaves its cluster through one entrance), then its cheapest, his and the join's alike, as
+/// for his edges past 63 (keeping the join's first had dropped edges of his as short as 4 yd for longer new ones). ->
+/// the (row, row) pairs reached for less, and how many new edges stay.
+fn cluster_edges(after: &Cluster, rows: &mut [Row], bf: &Cluster, marks: &[usize], swim: f64) -> (Vec<(usize, usize)>, usize) {
+	let nodes_after: Vec<Option<usize>> = rows.iter().map(|r| after.surface(r.cell as usize, r.layer as i32, 0.0)).collect();
+	let nodes_before: Vec<Option<usize>> = rows.iter().map(|r| if r.comp == UNSET { None } else { bf.surface(r.cell as usize, r.layer as i32, 0.0) }).collect();
+	let (mut pairs, mut made) = (Vec::new(), 0);
+	for r in 0..rows.len() {
+		let Some(ra) = nodes_after[r] else { continue };
+		let none_after = after.dijkstra(&[(ra, 0.0, 0.0)], NONE, swim, false);
+		if !marks.iter().any(|&m| none_after.0[m].is_finite()) {
+			continue;
+		}
+		let ga = [after.dijkstra(&[(ra, 0.0, 0.0)], 0, swim, false).0, after.dijkstra(&[(ra, 0.0, 0.0)], 1, swim, false).0, none_after.0];
+		let gb = nodes_before[r].map(|rb| [0, 1, 2].map(|p| bf.dijkstra(&[(rb, 0.0, 0.0)], p, swim, false).0));
+		// the entrances reached for less, the nearest first: a far one the edges to a near one already lead to needs none
+		let mut reached: Vec<(usize, [f64; 3])> = Vec::new();
+		for t in 0..rows.len() {
+			let Some(ta) = nodes_after[t].filter(|_| t != r) else { continue };
+			let ca = [ga[0][ta], ga[1][ta], ga[2][ta]];
+			if !ca[NONE].is_finite() {
+				continue;
+			}
+			let cb = match (&gb, nodes_before[t]) {
+				(Some(gb), Some(tb)) => [gb[0][tb], gb[1][tb], gb[2][tb]],
+				_ => [f64::INFINITY; 3],
+			};
+			if (0..3).any(|p| ca[p] < cb[p] - 1.0) {
+				reached.push((t, ca));
+				pairs.push((r, t));
+			}
+		}
+		reached.sort_by(|a, b| a.1[NONE].total_cmp(&b.1[NONE]).then(a.0.cmp(&b.0)));
+		let mut walked = [row_costs(rows, r, 0), row_costs(rows, r, 1), row_costs(rows, r, 2)];
+		let mut pushed = FxHashSet::default();
+		for (t, ca) in reached {
+			let rec = Edge { off: HERE, ent: t as u32, cost: ca.map(cost_value), yards: yards_value(none_after.1[nodes_after[t].unwrap()]) };
+			let cost = rec.cost;
+			if (0..3).all(|p| walked[p][t] <= cost[p] as u64 + 1) {
+				continue;
+			}
+			match rows[r].edges.iter_mut().find(|e| e.off == HERE && e.ent == t as u32) {
+				Some(e) => {
+					if rec.cost[NONE] < e.cost[NONE] {
+						e.yards = rec.yards;
+					}
+					for p in 0..3 {
+						e.cost[p] = e.cost[p].min(rec.cost[p]);
+					}
+				}
+				None => {
+					rows[r].edges.push(rec);
+					pushed.insert(t as u32);
+				}
+			}
+			for (p, w) in walked.iter_mut().enumerate() {
+				lower_row_cost(rows, w, t, cost[p] as u64, p);
+			}
+		}
+		if rows[r].edges.len() > DEGREE {
+			let mut e = std::mem::take(&mut rows[r].edges);
+			e.sort_by_key(|x| (x.off == HERE, x.cost[NONE]));
+			e.truncate(DEGREE);
+			rows[r].edges = e;
+		}
+		made += rows[r].edges.iter().filter(|e| e.off == HERE && pushed.contains(&e.ent)).count();
+	}
+	(pairs, made)
+}
+
+/// The router's cost from row `r` to every row of its cluster over the rows' edges inside it (rounded, as the graph
+/// field stores them), for profile p; u64::MAX where they lead nowhere.
+fn row_costs(rows: &[Row], r: usize, p: usize) -> Vec<u64> {
+	let mut d = vec![u64::MAX; rows.len()];
+	lower_row_cost(rows, &mut d, r, 0, p);
+	d
+}
+
+/// `d` (row_costs') with row t reached for cost c, and every row its edges lead to lowered after it.
+fn lower_row_cost(rows: &[Row], d: &mut [u64], t: usize, c: u64, p: usize) {
+	if c >= d[t] {
+		return;
+	}
+	d[t] = c;
+	let mut heap = std::collections::BinaryHeap::from([std::cmp::Reverse((c, t))]);
+	while let Some(std::cmp::Reverse((c, u))) = heap.pop() {
+		if c > d[u] {
+			continue;
+		}
+		for e in rows[u].edges.iter().filter(|e| e.off == HERE) {
+			let (v, cv) = (e.ent as usize, c + e.cost[p] as u64);
+			if v < d.len() && cv < d[v] {
+				d[v] = cv;
+				heap.push(std::cmp::Reverse((cv, v)));
+			}
+		}
+	}
+}
+
+/// Puts the ways into the clusters of `outs` (his clusters as written, by cluster key). -> what was added, and the
+/// area rows of the floors added.
+pub(super) fn apply(g: &Geo, outs: &mut [(u32, Out)], ways: &[JoinWay], cg: &CellGrid, log: &(dyn Fn(&str) + Sync)) -> Result<(JoinStats, BTreeSet<u32>), String> {
+	let mut st = JoinStats::default();
+	let mut areas = BTreeSet::new();
+	if ways.is_empty() {
+		return Ok((st, areas));
+	}
+	let at: FxHashMap<u32, usize> = outs.iter().enumerate().map(|(i, (k, _))| (*k, i)).collect();
+	let pts: Vec<Option<Vec<Pt>>> = ways.iter().map(|w| points(g, &w.cells)).collect();
+	// every cluster of his a way crosses, decoded
+	let mut cl: BTreeMap<u32, (Cluster, Vec<Row>)> = BTreeMap::new();
+	for p in pts.iter().flatten().flatten() {
+		if cl.contains_key(&p.k) {
+			continue;
+		}
+		let Some(&i) = at.get(&p.k) else { continue };
+		let o = &outs[i].1;
+		let (Some(grid), Some(height)) = (o.grid.as_deref(), o.height.as_deref()) else { continue };
+		let c = Cluster::decode(g.c, g.cs, g.zstep, grid, height, o.floor.as_deref(), o.class.as_deref(), o.area.as_deref(), o.arc.as_deref()).map_err(|e| format!("joins: cluster {}: {e}", p.k))?;
+		let rows = o.graph.as_deref().map(ingame::decode_graph).transpose().map_err(|e| format!("joins: cluster {}: {e}", p.k))?.unwrap_or_default();
+		cl.insert(p.k, (c, rows));
+	}
+	let before: BTreeMap<u32, Cluster> = cl.iter().map(|(k, (c, _))| (*k, c.clone())).collect();
+	let mut buf = Vec::new();
+	// refusals: off his maps, a climb he lacks, or a fall that hurts he lacks where his maps make another way
+	let mut keep = vec![true; ways.len()];
+	let mut rows_all: Option<FxHashMap<u32, Vec<Row>>> = None;
+	for (w, p) in pts.iter().enumerate() {
+		let mut why = match p {
+			None => Some("off the map's frame".to_string()),
+			Some(p) if p.iter().any(|q| !cl.contains_key(&q.k)) => Some("crosses a cluster his maps have no data for".to_string()),
+			Some(p) => (1..p.len())
+				.find_map(|i| (p[i].cls == cls::CLIMB && !his_step(&cl, p, i, &mut buf)).then(|| format!("climbs a face his maps lack at {:.1},{:.1}", ways[w].cells[i].x, ways[w].cells[i].y))),
+		};
+		if let (None, Some(p)) = (&why, p) {
+			if let Some(i) = (1..p.len()).find(|&i| adds_fall(g, &cl, p, i, &mut buf)) {
+				let (h, at) = (p[i - 1].z - p[i].z, &ways[w].cells[i]);
+				if rows_all.is_none() {
+					rows_all = Some(all_rows(outs)?);
+				}
+				if let Some(yd) = his_way(g, &cl, rows_all.as_ref().unwrap(), p) {
+					why = Some(format!("falls {h:.0} yd at {:.1},{:.1}, a fall that hurts, where his maps make another way between its ends ({yd:.0} yd)", at.x, at.y));
+				} else {
+					st.falls += 1;
+					log(&format!("join {}: falls {h:.0} yd at {:.1},{:.1}, a fall that hurts; his maps make no other way between its ends, so it goes in", ways[w].id, at.x, at.y));
+				}
+			}
+		}
+		if let Some(why) = why {
+			keep[w] = false;
+			st.refused += 1;
+			log(&format!("join {}: refused: {why}", ways[w].id));
+		}
+	}
+	// floors of ours where his maps have no surface near the way
+	let mut changed: BTreeSet<u32> = BTreeSet::new();
+	let mut added = vec![(0usize, 0usize, 0usize); ways.len()]; // per way: floors, arcs, edges
+	for (w, p) in pts.iter().enumerate() {
+		let Some(p) = p.as_ref().filter(|_| keep[w]) else { continue };
+		for q in p {
+			let c = &mut cl.get_mut(&q.k).unwrap().0;
+			if matched(c, q).is_some() {
+				continue;
+			}
+			let (val, class, area) = ours(cg, q.gx, q.gy, q.z).unwrap_or((1, 0, 0));
+			c.add_floor(q.lc, val.max(1), q.z, class, area);
+			if area != 0 {
+				areas.insert(area);
+			}
+			st.floors += 1;
+			added[w].0 += 1;
+			changed.insert(q.k);
+		}
+	}
+	// the way's steps his maps cannot make: arcs inside a cluster, entrances and an edge across a border
+	let mut on_way: FxHashMap<u32, FxHashSet<usize>> = FxHashMap::default();
+	let mut joined: Vec<((u32, usize), (u32, usize))> = Vec::new();
+	for (w, p) in pts.iter().enumerate() {
+		let Some(p) = p.as_ref().filter(|_| keep[w]) else { continue };
+		// the way as nodes of his: consecutive cells on one node are one, keeping the hardest step into it and the yards
+		let mut seq: Vec<(u32, usize, Pt)> = Vec::new();
+		for q in p {
+			let node = matched(&cl[&q.k].0, q).ok_or_else(|| format!("joins: {}: no surface at cluster {} cell {} after the floors", ways[w].id, q.k, q.lc))?;
+			on_way.entry(q.k).or_default().insert(node);
+			match seq.last_mut() {
+				Some(last) if last.0 == q.k && last.1 == node => {
+					last.2.yd += q.yd;
+					if q.cls == cls::LIFT || (q.cls == cls::FALL || q.cls == cls::JUMP) && last.2.cls != cls::LIFT {
+						last.2.cls = q.cls;
+					}
+				}
+				_ => seq.push((q.k, node, *q)),
+			}
+		}
+		for i in 1..seq.len() {
+			let ((ka, a, pa), (kb, b, pb)) = (seq[i - 1], seq[i]);
+			if pb.cls == cls::LIFT {
+				continue;
+			}
+			if ka == kb {
+				if !his_near(&cl, (ka, a), (kb, b), HERE, g.swim, &mut buf) {
+					let c = &mut cl.get_mut(&ka).unwrap().0;
+					let yards = pb.yd.max(octile(c, a, b) * g.cs);
+					c.add_arc(a, b, yards);
+					st.arcs += 1;
+					added[w].1 += 1;
+					changed.insert(ka);
+				}
+				continue;
+			}
+			let (dkx, dky) = (kb as i64 / g.ny - ka as i64 / g.ny, kb as i64 % g.ny - ka as i64 % g.ny);
+			if dkx.abs() > 1 || dky.abs() > 1 || (pa.gx - pb.gx).abs() > 1 || (pa.gy - pb.gy).abs() > 1 {
+				log(&format!("join {}: a step from cluster {ka} to {kb} that is no neighbour's, left out", ways[w].id));
+				continue;
+			}
+			let off = ((dkx + 1) * 3 + dky + 1) as u32;
+			// His maps cross this border near the way already: an entrance the way's cell reaches within NEAR, its edge
+			// across, and the way's next cell within NEAR of that edge's end.
+			if his_near(&cl, (ka, a), (kb, b), off, g.swim, &mut buf) {
+				continue;
+			}
+			let (ra, made_a) = {
+				let (c, rows) = cl.get_mut(&ka).unwrap();
+				row_at(c, rows, a)?
+			};
+			let (rb, made_b) = {
+				let (c, rows) = cl.get_mut(&kb).unwrap();
+				row_at(c, rows, b)?
+			};
+			st.entrances += made_a as usize + made_b as usize;
+			let len = if pa.gx != pb.gx && pa.gy != pb.gy { std::f64::consts::SQRT_2 } else { 1.0 };
+			let cost: [u32; 3] = {
+				let c = &cl[&kb].0;
+				[0, 1, 2].map(|p| cost_value(c.step_cost(b, len, p, g.swim)))
+			};
+			let rows = &mut cl.get_mut(&ka).unwrap().1;
+			if !rows[ra].edges.iter().any(|e| e.off == off && e.ent == rb as u32) {
+				rows[ra].edges.push(Edge { off, ent: rb as u32, cost, yards: yards_value(len * g.cs) });
+				st.edges += 1;
+				added[w].2 += 1;
+				joined.push(((ka, ra), (kb, rb)));
+			}
+			changed.insert(ka);
+			changed.insert(kb);
+		}
+	}
+	// each entrance of a changed cluster: an edge to every entrance it now reaches for less (clusters side by side)
+	let mut work: Vec<(u32, &mut (Cluster, Vec<Row>))> = cl.iter_mut().filter(|(k, _)| changed.contains(*k)).map(|(k, v)| (*k, v)).collect();
+	let priced: Vec<(u32, Vec<(usize, usize)>, usize)> = work
+		.par_iter_mut()
+		.map(|(k, (after, rows))| {
+			let marks: Vec<usize> = on_way.get(&*k).map(|s| s.iter().copied().collect()).unwrap_or_default();
+			let (pairs, made) = cluster_edges(after, rows, &before[&*k], &marks, g.swim);
+			(*k, pairs, made)
+		})
+		.collect();
+	for (k, pairs, made) in priced {
+		st.edges += made;
+		joined.extend(pairs.into_iter().map(|(r, t)| ((k, r), (k, t))));
+	}
+	// components: the ones the joins join become one; a new entrance takes the component of what it joins
+	let mut parent: FxHashMap<u32, u32> = FxHashMap::default();
+	let mut fresh = outs.iter().filter_map(|(_, o)| o.graph.as_deref()).flat_map(comps_of).max().unwrap_or(0) + 1;
+	let first_fresh = fresh;
+	for (_, rows) in cl.values_mut() {
+		for r in rows.iter_mut().filter(|r| r.comp == UNSET) {
+			r.comp = fresh;
+			fresh += 1;
+		}
+	}
+	for &((ka, ra), (kb, rb)) in &joined {
+		let (a, b) = (cl[&ka].1[ra].comp, cl[&kb].1[rb].comp);
+		// (two of his components joined; a new entrance only takes the component of what it joins)
+		if union(&mut parent, a, b).is_some_and(|(keep, gone)| keep < first_fresh && gone < first_fresh) {
+			st.merged += 1;
+		}
+	}
+	let keys: Vec<u32> = parent.keys().copied().collect();
+	let to: FxHashMap<u32, u32> = keys.into_iter().map(|c| (c, find(&mut parent, c))).filter(|(c, r)| c != r).collect();
+	for (_, rows) in cl.values_mut() {
+		for r in rows.iter_mut() {
+			if let Some(&n) = to.get(&r.comp) {
+				r.comp = n;
+			}
+		}
+	}
+	// written back: the changed clusters' fields, every other graph's components
+	st.clusters = changed.len();
+	for (k, o) in outs.iter_mut() {
+		if let Some((c, rows)) = cl.get(k).filter(|_| changed.contains(k)) {
+			o.floor = c.floor_field()?;
+			o.class = Some(c.class_field());
+			o.area = c.area_field()?;
+			o.arc = c.arc_field();
+			o.graph = if rows.is_empty() { None } else { Some(ingame::encode_graph(rows)?) };
+			o.max_degree = rows.iter().map(|r| r.edges.len()).max().unwrap_or(0).max(o.max_degree);
+			o.stats.entrances = rows.len();
+			o.areas.extend(c.area.iter().copied().filter(|&a| a != 0));
+		} else if !to.is_empty() {
+			if let Some(s) = o.graph.as_deref() {
+				o.graph = Some(relabel(s, &to));
+			}
+		}
+	}
+	for (w, way) in ways.iter().enumerate() {
+		if !keep[w] {
+			continue;
+		}
+		st.ways += 1;
+		let (f, a, e) = added[w];
+		if f + a + e == 0 {
+			st.walkable += 1;
+			log(&format!("join {}: his maps make it already", way.id));
+		} else {
+			log(&format!("join {}: {} cells of our grid, {f} floors, {a} arcs, {e} border edges added", way.id, way.cells.len()));
+		}
+	}
+	Ok((st, areas))
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+	use crate::pack::encode::{encode_heights, run_length};
+
+	const C: usize = 8;
+	const CS: f64 = 1600.0 / 3.0 / 128.0;
+
+	fn geo(ny: i64) -> Geo {
+		Geo { c: C, cs: CS, zstep: 2.0, x0: 0.0, y0: 0.0, ny, swim: 3.0 }
+	}
+
+	/// A cluster of plain ground at height 0 but the `blocked` cells, with entrance rows.
+	fn out(blocked: &[(usize, usize)], rows: Vec<Row>) -> Out {
+		let mut val = vec![1u8; C * C];
+		for &(x, y) in blocked {
+			val[x * C + y] = 0;
+		}
+		let grid = run_length(&val.iter().map(|v| v * 16).collect::<Vec<u8>>());
+		let height = encode_heights(&val, &vec![0; C * C], C).unwrap();
+		Out { grid: Some(grid), height: Some(height), graph: (!rows.is_empty()).then(|| ingame::encode_graph(&rows).unwrap()), ..Default::default() }
+	}
+
+	fn decoded(o: &Out) -> Cluster {
+		Cluster::decode(C, CS, 2.0, o.grid.as_deref().unwrap(), o.height.as_deref().unwrap(), o.floor.as_deref(), o.class.as_deref(), o.area.as_deref(), o.arc.as_deref()).unwrap()
+	}
+
+	/// Our grid's way through global cells (gx, gy), at height 0, each cell's centre.
+	fn way(id: &str, cells: &[(i64, i64)]) -> JoinWay {
+		JoinWay { id: id.into(), cells: cells.iter().map(|&(x, y)| WayCell { x: (x as f64 + 0.5) * CS, y: (y as f64 + 0.5) * CS, z: 0.0, floor: 0, cls: cls::WALK }).collect() }
+	}
+
+	fn reaches(c: &Cluster, from: usize, to: usize) -> bool {
+		c.dijkstra(&[(from, 0.0, 0.0)], NONE, 3.0, false).0[to].is_finite()
+	}
+
+	/// A wall his maps have across the way (a mine's shaft he lacks): the way's cell there gets a floor of ours, and
+	/// arcs join it to his ground either side, so the search walks through.
+	#[test]
+	fn a_gap_inside_a_cluster_gets_a_floor_and_arcs_and_walks() {
+		let wall: Vec<(usize, usize)> = (0..C).map(|y| (4, y)).collect();
+		let mut outs = vec![(0u32, out(&wall, Vec::new()))];
+		let (a, b) = (3 * C + 2, 5 * C + 2);
+		assert!(!reaches(&decoded(&outs[0].1), a, b), "his maps alone: the wall cuts the cluster in two");
+		let cg = CellGrid::new(C, 1, 1, 0, 0);
+		let (st, _) = apply(&geo(1), &mut outs, &[way("mine a-b", &[(3, 2), (4, 2), (5, 2)]), way("mine b-a", &[(5, 2), (4, 2), (3, 2)])], &cg, &|_| {}).unwrap();
+		assert_eq!((st.ways, st.floors, st.arcs, st.refused), (2, 1, 4, 0), "one floor in the wall's cell, an arc each way either side: {st:?}");
+		let c = decoded(&outs[0].1);
+		assert_eq!(c.t(), C * C + 1, "the floor is in the written floor field");
+		assert!(reaches(&c, a, b) && reaches(&c, b, a), "the way walks both ways through the wall's cell");
+	}
+
+	/// A way his maps make already adds nothing.
+	#[test]
+	fn a_way_his_maps_make_adds_nothing() {
+		let mut outs = vec![(0u32, out(&[], Vec::new()))];
+		let before = outs[0].1.grid.clone();
+		let cg = CellGrid::new(C, 1, 1, 0, 0);
+		let (st, _) = apply(&geo(1), &mut outs, &[way("plain a-b", &[(1, 1), (2, 2), (3, 3)])], &cg, &|_| {}).unwrap();
+		assert_eq!((st.walkable, st.floors, st.arcs, st.edges, st.clusters), (1, 0, 0, 0, 0));
+		assert_eq!(outs[0].1.grid, before);
+		assert!(outs[0].1.floor.is_none() && outs[0].1.arc.is_none());
+	}
+
+	/// Two clusters side by side his maps never join (no entrance on their border): the way across gets an entrance
+	/// on each side and an edge between them, each cluster's entrance an edge to the new one, and the two components
+	/// become one.
+	#[test]
+	fn a_way_across_a_border_gets_entrances_edges_and_one_component() {
+		let row = |cell: usize, comp: u32| Row { cell: cell as u32, layer: 0, comp, edges: Vec::new() };
+		// cluster 0: global y 0..8, cluster 1: global y 8..16 (ny 2: cluster k = gx / C * 2 + gy / C)
+		let mut outs = vec![(0u32, out(&[], vec![row(C + 1, 7)])), (1u32, out(&[], vec![row(C + 6, 9)]))];
+		let cg = CellGrid::new(C, 1, 2, 0, 0);
+		let cells: Vec<(i64, i64)> = (5..12).map(|y| (1, y)).collect();
+		let back: Vec<(i64, i64)> = cells.iter().rev().copied().collect();
+		let (st, _) = apply(&geo(2), &mut outs, &[way("road a-b", &cells), way("road b-a", &back)], &cg, &|_| {}).unwrap();
+		assert_eq!(st.entrances, 2, "{st:?}");
+		assert_eq!(st.merged, 1, "the two components become one: {st:?}");
+		let r0 = ingame::decode_graph(outs[0].1.graph.as_deref().unwrap()).unwrap();
+		let r1 = ingame::decode_graph(outs[1].1.graph.as_deref().unwrap()).unwrap();
+		assert!(r0.iter().chain(&r1).all(|r| r.comp == 7), "every entrance in component 7: {r0:?} {r1:?}");
+		// cluster 0's own entrance reaches the new border entrance, which crosses to cluster 1's, which reaches cluster
+		// 1's own entrance
+		let (old0, new0) = (0usize, r0.iter().position(|r| r.cell as usize == C + 7).expect("an entrance at the border, cluster 0"));
+		let new1 = r1.iter().position(|r| r.cell as usize == C).expect("an entrance at the border, cluster 1");
+		assert!(r0[old0].edges.iter().any(|e| e.off == HERE && e.ent as usize == new0), "cluster 0: its entrance to the border's");
+		assert!(r0[new0].edges.iter().any(|e| e.off == 5 && e.ent as usize == new1), "across the border (offset dy +1)");
+		assert!(r1[new1].edges.iter().any(|e| e.off == HERE && e.ent == 0), "cluster 1: the border's to its entrance");
+		assert!(r1[new1].edges.iter().any(|e| e.off == 3 && e.ent as usize == new0), "and back across (offset dy -1)");
+	}
+
+	/// A climb his maps lack is refused (Forever's client slides off a face over 60 degrees): nothing is added.
+	#[test]
+	fn a_way_with_a_climb_his_maps_lack_is_refused() {
+		let wall: Vec<(usize, usize)> = (0..C).map(|y| (4, y)).collect();
+		let mut outs = vec![(0u32, out(&wall, Vec::new()))];
+		let cg = CellGrid::new(C, 1, 1, 0, 0);
+		let mut w = way("cliff a-b", &[(3, 2), (4, 2), (5, 2)]);
+		w.cells[1].cls = cls::CLIMB;
+		let (st, _) = apply(&geo(1), &mut outs, &[w], &cg, &|_| {}).unwrap();
+		assert_eq!((st.refused, st.ways, st.floors, st.arcs), (1, 0, 0, 0));
+		assert!(outs[0].1.floor.is_none() && outs[0].1.arc.is_none());
+	}
+
+	/// His maps of a ledge: west of column 4 the ground stands 20 yd high, east of it at 0; column 4 is a wall but at
+	/// the rows in `gaps`, where his maps step down beside it.
+	fn ledge(gaps: &[usize]) -> Out {
+		let mut val = vec![1u8; C * C];
+		let mut zq = vec![0i32; C * C];
+		for x in 0..C {
+			for y in 0..C {
+				if x < 4 {
+					zq[x * C + y] = 10; // 20 yd, at the height step of 2
+				} else if x == 4 && !gaps.contains(&y) {
+					val[x * C + y] = 0;
+				}
+			}
+		}
+		let grid = run_length(&val.iter().map(|v| v * 16).collect::<Vec<u8>>());
+		Out { grid: Some(grid), height: Some(encode_heights(&val, &zq, C).unwrap()), ..Default::default() }
+	}
+
+	/// Our grid's way off the ledge: along row 0, then a 20-yd fall over the wall to the ground (a fall that hurts).
+	fn off_the_ledge() -> JoinWay {
+		let at = |x: f64, z: f64, cls: u8| WayCell { x: (x + 0.5) * CS, y: 0.5 * CS, z, floor: 0, cls };
+		JoinWay { id: "ledge a-b".into(), cells: vec![at(2.0, 20.0, cls::WALK), at(3.0, 20.0, cls::WALK), at(5.0, 0.0, cls::FALL)] }
+	}
+
+	/// A fall that hurts his maps lack does not go in where his maps make another way between the way's ends (down
+	/// beside the wall at row 7, over 60 yd round): players are not walked off a ledge that hurts them when another way
+	/// exists.
+	#[test]
+	fn a_fall_that_hurts_is_left_out_where_his_maps_make_another_way() {
+		let mut outs = vec![(0u32, ledge(&[7]))];
+		let cg = CellGrid::new(C, 1, 1, 0, 0);
+		let (st, _) = apply(&geo(1), &mut outs, &[off_the_ledge()], &cg, &|_| {}).unwrap();
+		assert_eq!((st.refused, st.ways, st.arcs, st.falls), (1, 0, 0, 0), "{st:?}");
+		assert!(outs[0].1.floor.is_none() && outs[0].1.arc.is_none());
+	}
+
+	/// Where his maps make no other way down (the wall has no gap), the fall goes in, counted for an in-game check.
+	#[test]
+	fn a_fall_that_hurts_goes_in_where_his_maps_make_no_other_way_and_is_counted() {
+		let mut outs = vec![(0u32, ledge(&[]))];
+		let (top, foot) = (3 * C, 5 * C);
+		assert!(!reaches(&decoded(&outs[0].1), top, foot), "his maps alone: no way down");
+		let cg = CellGrid::new(C, 1, 1, 0, 0);
+		let (st, _) = apply(&geo(1), &mut outs, &[off_the_ledge()], &cg, &|_| {}).unwrap();
+		assert_eq!((st.refused, st.ways, st.arcs, st.falls), (0, 1, 1, 1), "{st:?}");
+		assert!(reaches(&decoded(&outs[0].1), top, foot), "the way down walks");
+	}
+
+	/// A fall his maps make within a few yards (down beside the wall at row 1) is none the join adds: the way goes in as
+	/// his maps already make it, refused for nothing.
+	#[test]
+	fn a_fall_his_maps_make_close_by_is_not_the_joins() {
+		let mut outs = vec![(0u32, ledge(&[1]))];
+		let cg = CellGrid::new(C, 1, 1, 0, 0);
+		let (st, _) = apply(&geo(1), &mut outs, &[off_the_ledge()], &cg, &|_| {}).unwrap();
+		assert_eq!((st.refused, st.walkable, st.arcs, st.falls), (0, 1, 0, 0), "{st:?}");
+	}
+
+	/// A lift ride down is no fall: the way's ride is left to the lift chokepoints, refused for nothing.
+	#[test]
+	fn a_lift_ride_down_is_no_fall() {
+		let mut outs = vec![(0u32, ledge(&[7]))];
+		let mut ride = off_the_ledge();
+		ride.cells[2].cls = cls::LIFT;
+		let cg = CellGrid::new(C, 1, 1, 0, 0);
+		let (st, _) = apply(&geo(1), &mut outs, &[ride], &cg, &|_| {}).unwrap();
+		assert_eq!((st.refused, st.arcs, st.falls), (0, 0, 0), "{st:?}");
+	}
+
+	/// A join gives an entrance no edge its cluster's edges already lead along for no more: through a gap in a wall,
+	/// the entrance by the gap gets an edge, the one beyond it that his edges join to it does not.
+	#[test]
+	fn a_join_adds_no_edge_the_clusters_edges_already_lead_along() {
+		let wall: Vec<(usize, usize)> = (0..C).map(|y| (4, y)).collect();
+		let here = |ent: u32, cost: u32| Edge { off: HERE, ent, cost: [cost; 3], yards: cost };
+		// west of the wall A (1, 2); east of it B (5, 2) by the gap and C (7, 2) past it, his edges between B and C
+		let rows = vec![
+			Row { cell: (C + 2) as u32, layer: 0, comp: 1, edges: Vec::new() },
+			Row { cell: (5 * C + 2) as u32, layer: 0, comp: 2, edges: vec![here(2, 8)] },
+			Row { cell: (7 * C + 2) as u32, layer: 0, comp: 2, edges: vec![here(1, 8)] },
+		];
+		let mut outs = vec![(0u32, out(&wall, rows))];
+		let cg = CellGrid::new(C, 1, 1, 0, 0);
+		let (st, _) = apply(&geo(1), &mut outs, &[way("gap a-b", &[(3, 2), (4, 2), (5, 2)]), way("gap b-a", &[(5, 2), (4, 2), (3, 2)])], &cg, &|_| {}).unwrap();
+		let got = ingame::decode_graph(outs[0].1.graph.as_deref().unwrap()).unwrap();
+		let to = |r: usize| got[r].edges.iter().map(|e| e.ent).collect::<Vec<_>>();
+		assert_eq!((to(0), to(2)), (vec![1], vec![1]), "A to B only (B leads on to C), C to B only: {got:?}");
+		assert!(to(1).contains(&0) && to(1).contains(&2), "B to A and to C: {got:?}");
+		assert_eq!(st.edges, 2, "A and B joined both ways: {st:?}");
+	}
+
+	/// A join that gives an entrance more edges than a row holds (63) keeps its edge across the cluster's border (the
+	/// Shadowprey inn's floor leaves its cluster by one entrance, and its 63 new edges to the village had pushed that
+	/// edge out, so the inn could be walked out of but never into), then its cheapest: a 4-yd edge of his stays, the
+	/// dearest new ones go.
+	#[test]
+	fn an_entrances_edge_across_its_border_stays_when_a_join_gives_it_more_edges_than_a_row_holds() {
+		let wall: Vec<(usize, usize)> = (0..C).map(|y| (4, y)).collect();
+		let across = Edge { off: 5, ent: 0, cost: [3; 3], yards: 3 };
+		let near = Edge { off: HERE, ent: 1, cost: [4; 3], yards: 4 };
+		let mut rows =
+			vec![Row { cell: (C + 2) as u32, layer: 0, comp: 7, edges: vec![across.clone(), near.clone()] }, Row { cell: (C + 3) as u32, layer: 0, comp: 7, edges: vec![Edge { ent: 0, ..near }] }];
+		rows.extend((0..70).map(|_| Row { cell: (6 * C + 2) as u32, layer: 0, comp: 8, edges: Vec::new() }));
+		let mut outs = vec![(0u32, out(&wall, rows))];
+		let cg = CellGrid::new(C, 1, 1, 0, 0);
+		apply(&geo(1), &mut outs, &[way("door a-b", &[(3, 2), (4, 2), (5, 2)]), way("door b-a", &[(5, 2), (4, 2), (3, 2)])], &cg, &|_| {}).unwrap();
+		let got = ingame::decode_graph(outs[0].1.graph.as_deref().unwrap()).unwrap();
+		assert_eq!(got[0].edges.len(), DEGREE, "{:?}", got[0].edges);
+		assert!(got[0].edges.contains(&across), "the edge across the border stays: {:?}", got[0].edges);
+		assert!(got[0].edges.contains(&near), "the 4-yd edge of his stays: {:?}", got[0].edges);
+	}
+
+	fn cell(x: f64, z: f64, cls: u8) -> WayCell {
+		WayCell { x, y: 0.0, z, floor: 0, cls }
+	}
+
+	/// A way our grid makes only down a step (the Shadowprey inn's door: 3.1 yd over a 3-yd run, under the walk
+	/// slope) goes back up along the same cells, the fall into the lower cell becoming a walk into the upper one.
+	#[test]
+	fn a_way_our_grid_walks_one_way_only_is_walked_back_along_its_cells() {
+		let down = [cell(0.0, 48.6, cls::WALK), cell(3.0, 45.5, cls::FALL), cell(6.0, 45.0, cls::WALK)];
+		let back = back_along(&down).expect("a 3.1-yd rise over 3 yd is under the walk slope");
+		assert_eq!(back.iter().map(|c| c.x).collect::<Vec<_>>(), vec![6.0, 3.0, 0.0]);
+		assert_eq!(back.iter().map(|c| c.cls).collect::<Vec<_>>(), vec![cls::WALK, cls::WALK, cls::WALK]);
+	}
+
+	/// A drop steeper than the walk slope is no way up: nothing goes back.
+	#[test]
+	fn a_drop_steeper_than_the_walk_slope_is_not_walked_back() {
+		let down = [cell(0.0, 60.0, cls::WALK), cell(2.0, 50.0, cls::FALL), cell(4.0, 50.0, cls::WALK)];
+		assert!(back_along(&down).is_none(), "10 yd up over a 2-yd run");
+	}
+}

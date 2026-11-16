@@ -54,6 +54,10 @@ return {
 	["14 areas to discover here, levels 36-44. Flight paths: {area:16724} in the south-east (Alliance), {area:16743} in the middle (Horde)."] = "",
 	-- {zone:1418} Badlands · {area:345} Agmond's End · {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {area:2417} Blackrock Pass · {area:977} Steamwheedle Port · {zone:1446} Tanaris · {area:16727} Powderfuse Port · {area:17780} Krol'dok Stronghold
 	["From the south of the {zone:1418}, past {area:345}, a way leads down into the {zone:2548} by {area:16685}. (The {zone:2548} also open off northern Redridge through {area:2417}, and a ship runs from {area:977} in {zone:1446} to {area:16727}, the neutral goblin port on its coast.) {area:17780} is an ogre clan's outdoor dungeon."] = "",
+	-- {area:16724} Farholde Keep · {npc:257087} Gretchen Mayberry
+	["Flight path here: {area:16724} ({npc:257087})."] = "Маршрут полета здесь: {area:16724} ({npc:257087}).",
+	-- {area:16743} Rog'mar
+	["Flight path here: {area:16743} (Grakna)."] = "Маршрут полета здесь: {area:16743} (Гракна).",
 
 	-- Step 9: Swamp of Sorrows (1/2)
 	["11 areas to discover here, levels 36-43."] = "Местностей для открытия: 11, уровни 36-43.",
@@ -70,7 +74,7 @@ return {
 	-- {zone:1435} Swamp of Sorrows · {zone:1430} Deadwind Pass · {zone:1431} Duskwood · {zone:1434} Stranglethorn Vale
 	["Ride west out of the {zone:1435} through {zone:1430} (level 50+ creatures off the road) into {zone:1431} and take the road south into northern {zone:1434}."] = "",
 	-- {zone:1454} Orgrimmar · {zone:1458} Undercity · {area:117} Grom'gol Base Camp
-	["Or take the zeppelin from {zone:1454} or the {zone:1458} to {area:117}."] = "",
+	["Or take the zeppelin from {zone:1454} or the {zone:1458} to {area:117}."] = "Или сядьте на дирижабль ({zone:1454} или {zone:1458}). Цель: {area:117}.",
 	-- {area:35} Booty Bay
 	["Flight path here: {area:35} (Gyll)."] = "Маршрут полета здесь: {area:35} (Гилл).",
 	-- {area:35} Booty Bay · {object:3202} Grom'gol
@@ -88,6 +92,5 @@ return {
 	-- ["Fly to {area:42} (or {zone:1453}) and take the road south out of {zone:1431} into northern {zone:1434}."] = "Летите сюда: {area:42} (или {zone:1453}) – и по дороге на юг из зоны {zone:1431} в северную часть зоны {zone:1434}.",
 	-- ["Go back north into {zone:1431} and follow its road east through {zone:1430} (level 50+ creatures off the road) into the {zone:1435}."] = "Вернитесь на север в зону {zone:1431} и по ее дороге на восток через зону {zone:1430} (вне дороги существа 50+ уровня) – в зону {zone:1435}.",
 	-- ["Picks up in {zone:1424}, where the 1-30 guide leaves the Horde and passes the Alliance. 15 areas to discover here, levels 27-39."] = "Продолжение в зоне {zone:1424}, где гайд 1-30 оставляет Орду и через которую проводит Альянс. Местностей для открытия: 15, уровни 27-39.",
-	-- ["Take the zeppelin from {zone:1454} or the {zone:1458} to {area:117}."] = "Сядьте на дирижабль ({zone:1454} или {zone:1458}). Цель: {area:117}.",
 	-- ["The {zone:2548} lie east of the {zone:1418} and the {zone:1428}: the way in is the fork east off the {zone:1433} road (a ship also runs from {zone:1446} to {area:16727}, the neutral goblin port on its coast). {area:17780} is an ogre clan's outdoor dungeon."] = "{zone:2548} – к востоку от зон {zone:1418} и {zone:1428}: вход – развилка на восток от дороги в зоне {zone:1433} (также ходит корабль из зоны {zone:1446}. Цель: {area:16727} – нейтральный гоблинский порт на ее побережье). {area:17780} – подземелье клана огров под открытым небом.",
 }

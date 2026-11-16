@@ -53,4 +53,7 @@ return {
 	["{npc:7428}, elite"] = "{npc:7428}, Elite",
 	-- {npc:7429} Frostmaul Preserver
 	["{npc:7429}, elite"] = "{npc:7429}, Elite",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The Winterspring Frostsaber: 840 quest turn-ins in {zone:1452}, with Timbermaw reputation on the side."] = "Der Winterquell-Frostsäbler: 840 Questabgaben in {zone:1452}, nebenbei Ruf bei der Holzschlundfeste.",
 }

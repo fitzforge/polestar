@@ -1,0 +1,7 @@
+#!/bin/sh
+# Polestar's commit-msg hook: refuses a commit whose message breaks the public-text rule (CONTRIBUTING.md,
+# "Commits and pull requests"). A pushed message is public for good, so it is checked before the commit
+# exists. Turn it on once per clone:
+#
+#   git config core.hooksPath tools/hooks
+exec node "$(git rev-parse --show-toplevel)/tools/public-text.js" --commit-msg "$1"

@@ -25,6 +25,8 @@ sequenceDiagram
 | What happens | Who does it | What the player sees |
 |---|---|---|
 | A new post | the bot, at once | "Tracked as fitzforge/polestar#N. Replies in this thread, from anyone, are copied to the issue.", tag **Tracked** |
+| A new post whose report is from an older Polestar than the latest full release (GitHub's latest release; drafts, prereleases, other releases such as the Client's, and `dev` builds never count; read at most every 10 minutes) | the bot, at once, after "Tracked as" | "You're on 0.3.6, 0.3.7 is out. Please update and tell us if it still happens. Download it from CurseForge: <link>", and the same as a comment on the issue (marked `polestar-bot:update`: never relayed back to the thread, never quoted as a maintainer's word). Once per issue: only as the post is filed |
+| An issue opened on GitHub with a bug form whose **Polestar version** is older than the latest full release | `discord-issue-sync.yml` | the same reply as a comment on the issue, once (a re-run finds the mark). Issues filed from Discord are left to the bot |
 | Anyone writes in the thread (text, screenshots, a new report) | the bot | nothing; it becomes a comment on the issue, the reporter's marked "(the reporter)". What is said before the post is filed (while it waits for the hourly limit) is copied, in order, once it is. The bot's own messages, pins, renames and a sticker or embed alone are not copied. Only the reporter's screenshots are copied to GitHub; other players' are linked on Discord. Each Discord user gets 5 new reports and 20 follow-ups (edits included) an hour; past that, the bot logs them and files them a second after the hour allows (up to 100 waiting; a restart drops the wait, and its backfill and catch-up file skipped posts and copy skipped follow-ups). A held post gets one reply, "Thanks! You've sent a few reports this hour; this one will be filed automatically in about N minutes.", which becomes the "Tracked as" reply once it is filed. Server staff (the owner, and roles with Administrator, Manage Server, Manage Messages or Manage Threads) and the users in `RATE_EXEMPT_IDS` have no limits |
 | The reporter edits the post's first message | the bot | nothing; the issue body is written again |
 | Anyone edits a later message | the bot | nothing; its comment is written again |
@@ -41,12 +43,28 @@ sequenceDiagram
 
 ## What an issue holds
 
-The post's title, then "Reported by *name* on Discord" with a link to the
+The post's whole title (a link in it kept as text), then "Reported by *name* on Discord" with a link to the
 thread and the post's forum tags, the player's words (with the lines the
 report sets under them, the right spot and the other addons), a table read
 from the report's details (version, client and locale, character, guide,
-step and the step the guide is really at, zone and map, errors), the details
-folded under "Full report", and the screenshots.
+step and the step the guide is really at, zone and map, routes, settings,
+errors), the settings the player changed folded under "Settings", the
+details folded under "Full report", and the screenshots.
+
+The settings come from the report's Settings section (Report.lua,
+`settingsSection`), found by its first line's English words under the
+translated label. The table's row says how many changed and the profile
+("23 changed · profile Raid (character)", or "all defaults"); the fold lists
+one setting a line, `key = value (default d)`, as the report ranks them. A
+report past the section's cap shows the settings that rank first and ends
+its list with `+N more #<Adler-32 of them all>` and a packed line
+(`!PSR1!<Adler-32>!<base64 of zlib>`: the settings the list left out, then
+every look, one a line); the bot unfolds that and adds it to the list, which
+then must match the Adler-32 after "+N more" (the packed line's own checksum
+too; at most 64 KB unfolded). A packed line that is cut off, damaged or too
+large, or a list that no longer matches, leaves
+the list as the report shows it, the looks line and "+N more" under it, and
+a note saying it did not unfold.
 
 Labels: `discord`, `triage` and `bug` on every one, then from the report
 `v0.2.3`, `guide:01-elwynn-forest`, `locale:enUS` and `lua-error` when it
@@ -268,13 +286,14 @@ the bot, `notify.js`, `links.js` or `known.js` against something else,
 | File | What it does |
 |---|---|
 | `bot.js` | The service: settings, the gateway, the sync |
-| `notify.js` | The Actions' entry: `issue` (closed, reopened) and `release` |
+| `notify.js` | The Actions' entry: `issue` (closed, reopened), `comment`, `release`, and `update` (an issue opened on GitHub) |
 | `links.js` | The Actions' entry for pull requests: `event`, and `sweep` for every open one (`--dry-run`) |
 | `known.js` | The Actions' entry for the #known-issues board (`--dry-run` prints it) |
 | `lib/report.js` | The addon's report (`addon/Polestar/UI/Report.lua`) read back into fields |
 | `lib/issue.js` | Issue title, body, labels and comments; the marker; making player text inert |
 | `lib/sync.js` | Posts, follow-ups and edits to issues; the index and the backfill |
 | `lib/notify.js` | Close, reopen and release messages, tags and locks; the testers' ping for a prerelease |
+| `lib/update.js` | The update reply: versions compared, the latest full release (kept 10 minutes), the reply's words, the bug form's version |
 | `lib/links.js` | Which issues a pull request addresses; the issue's pull requests comment, the overlap warning and their labels |
 | `lib/known.js` | The #known-issues board: which issues, their words made inert, grouping, the fixed sections, splitting and writing in place |
 | `lib/gateway.js`, `lib/discord.js`, `lib/github.js` | The Discord gateway and the two REST APIs; the media branch |

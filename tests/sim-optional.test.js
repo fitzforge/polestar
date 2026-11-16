@@ -56,3 +56,85 @@ test('sim compare scores the guides without their optional goals; --with-optiona
 		fs.rmSync(simDir, { recursive: true, force: true });
 	}
 });
+
+test('the routes play a `when dungeon` step only for a chosen dungeon and a `when !dungeon` step only for one not chosen', () => {
+	const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'polestar-dungeon-'));
+	try {
+		fs.cpSync(path.join(FIX, 'guides'), dir, { recursive: true });
+		const north = path.join(dir, 'forever', 'horde', '02-north.guide');
+		fs.appendFileSync(north, '\nstep The run\n  when dungeon "Wailing Caverns"\n  accept 90020\n  turnin 90020\n\nstep Solo\n  when !dungeon "Wailing Caverns"\n  level 7\n');
+		const play = (dungeons) => loadPolestarRoutes({ guidesDir: dir, dataDir: path.join(FIX, 'data'), faction: 'Horde', race: 'Orc', dungeons }).default.events;
+		const solo = play(null);
+		assert.ok(!quests(solo).some((x) => x.endsWith(' 90020')), 'none chosen: the solo route');
+		assert.ok(solo.some((e) => e.t === 'level' && e.level === 7));
+		for (const chosen of [['Wailing Caverns'], 'all']) {
+			const run = play(chosen);
+			assert.ok(quests(run).includes('accept 90020') && quests(run).includes('turnin 90020'), String(chosen));
+			assert.ok(!run.some((e) => e.t === 'level' && e.level === 7), String(chosen));
+		}
+		assert.ok(!quests(play(['The Deadmines'])).some((x) => x.endsWith(' 90020')), 'another dungeon');
+	} finally {
+		fs.rmSync(dir, { recursive: true, force: true });
+	}
+});
+
+test('the routes play a `when group` step only for a group quest the character does and a `when !group` step only for one it skips', () => {
+	const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'polestar-group-'));
+	try {
+		fs.cpSync(path.join(FIX, 'guides'), dir, { recursive: true });
+		const north = path.join(dir, 'forever', 'horde', '02-north.guide');
+		fs.appendFileSync(north, '\nstep The elite\n  when group 90020\n  accept 90020\n  turnin 90020\n\nstep Alone\n  when !group 90020\n  level 7\n');
+		const play = (groups) => loadPolestarRoutes({ guidesDir: dir, dataDir: path.join(FIX, 'data'), faction: 'Horde', race: 'Orc', groups }).default.events;
+		const solo = play(null);
+		assert.ok(!quests(solo).some((x) => x.endsWith(' 90020')), 'none chosen: a solo player skips it');
+		assert.ok(solo.some((e) => e.t === 'level' && e.level === 7));
+		for (const chosen of [[90020], ['90020'], 'all']) {
+			const run = play(chosen);
+			assert.ok(quests(run).includes('accept 90020') && quests(run).includes('turnin 90020'), String(chosen));
+			assert.ok(!run.some((e) => e.t === 'level' && e.level === 7), String(chosen));
+		}
+		assert.ok(!quests(play([90021])).some((x) => x.endsWith(' 90020')), 'another group quest');
+	} finally {
+		fs.rmSync(dir, { recursive: true, force: true });
+	}
+});
+
+test('a fractional `level` step grinds into the level, not only to its start', () => {
+	const { compileSequence } = require('../tools/lib/sim/sequence');
+	const { K_GRIND } = require('../tools/lib/sim/run');
+	const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'polestar-frac-'));
+	try {
+		fs.cpSync(path.join(FIX, 'guides'), dir, { recursive: true });
+		const north = path.join(dir, 'forever', 'horde', '02-north.guide');
+		fs.appendFileSync(north, '\nstep Grind\n  level 6.5\n\nstep More\n  level 6+2000\n\nstep Whole\n  level 7\n');
+		const events = loadPolestarRoutes({ guidesDir: dir, dataDir: path.join(FIX, 'data'), faction: 'Horde', race: 'Orc' }).default.events;
+		const levels = events.filter((e) => e.t === 'level' && e.level >= 6 && e.level <= 7);
+		// level 6 takes 3600 XP: 6.5 is 1800 into it; 6+2000 is written as 56% (2016)
+		assert.deepEqual(levels, [
+			{ t: 'level', level: 6, xp: 1800 },
+			{ t: 'level', level: 6, xp: 2016 },
+			{ t: 'level', level: 7, xp: null },
+		]);
+		const seq = compileSequence({ qIndex: new Map() }, levels);
+		assert.deepEqual([...seq.kind], [K_GRIND, K_GRIND, K_GRIND]);
+		assert.deepEqual([...seq.q], [6, 6, 7]);
+		assert.deepEqual([...seq.task], [1800, 2016, 0]);
+	} finally {
+		fs.rmSync(dir, { recursive: true, force: true });
+	}
+});
+
+test('a dungeon quest runs its dungeon once, and only when the sequence took the quest: a hand-in alone runs nothing', () => {
+	const { compileSequence } = require('../tools/lib/sim/sequence');
+	const { K_DUNGEON, K_TURNIN } = require('../tools/lib/sim/run');
+	// two dungeon quests (index 0, 1) in dungeon 0, one open-world quest (2) with one task
+	const run = {
+		qIndex: new Map([[100, 0], [101, 1], [102, 2]]), qDungeon: [0, 0, -1], dungeons: [{ pt: 7 }],
+		qTask0: [0, 0, 0], qTask1: [0, 0, 1], taskPt: [3], qAccept: [1, 1, 1], qGiver: [1, 1, 1], qEnder: [2, 2, 2],
+	};
+	const kinds = (events) => Array.from(compileSequence(run, events).kind);
+	assert.equal(kinds([{ t: 'turnin', q: 100 }, { t: 'turnin', q: 101 }]).filter((k) => k === K_DUNGEON).length, 0, 'never taken: no run');
+	const took = kinds([{ t: 'accept', q: 100 }, { t: 'accept', q: 101 }, { t: 'complete', q: 100 }, { t: 'turnin', q: 100 }, { t: 'turnin', q: 101 }]);
+	assert.equal(took.filter((k) => k === K_DUNGEON).length, 1, 'one run for both quests');
+	assert.equal(took.filter((k) => k === K_TURNIN).length, 2);
+});

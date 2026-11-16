@@ -39,7 +39,7 @@ T.FIRST_LEVEL = 10 -- the fallback only: one point a level from here
 -- Coming soon (Fitz, 0.3.1): the plans are not ready to steer players' picks.
 -- While set, there is no plan: the Talents section says "Coming soon", the
 -- talent frame gets no marks, tooltips no lines, chat no reminders, and the
--- Options page no Talents tab (Talents/Options.lua, UI/Options.lua). Unset it
+-- Options page no Talents tab (Polestar_Options: Talents/Options.lua, UI/Options.lua). Unset it
 -- and restore that tab to bring the plans back.
 T.SOON = true
 
@@ -194,7 +194,13 @@ local function call(fn, ...)
 	if ok then return a, b end
 end
 
-function Client.ConfigID() return C_ClassTalents and call(C_ClassTalents.GetActiveConfigID) end
+-- The config the talent frame shows (Compat.TalentConfigs: the active spec
+-- group's, else C_ClassTalents.GetActiveConfigID's).
+function Client.ConfigID()
+	local C = ns.Compat
+	if C and C.TalentConfigs then return (C.TalentConfigs())[1] end
+	return C_ClassTalents and call(C_ClassTalents.GetActiveConfigID)
+end
 function Client.TreeNodes(tree) return C_Traits and call(C_Traits.GetTreeNodes, tree) end
 function Client.NodeInfo(config, id) return C_Traits and call(C_Traits.GetNodeInfo, config, id) end
 function Client.Level() return UnitLevel("player") or 1 end

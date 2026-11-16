@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Shylenai
 	-- {npc:8665} Shylenai · {area:1659} Craftsmen's Terrace · {zone:1457} Darnassus · {item:280803} Eagle Owl
-	["{npc:8665}, the owl trainer, stands on the {area:1659} in {zone:1457}, beside the food and general goods vendors. She sells three owls (50s each); the {item:280803} is new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "",
+	["{npc:8665}, the owl trainer, stands on the {area:1659} in {zone:1457}, beside the food and general goods vendors. She sells three owls (50s each); the {item:280803} is new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "{npc:8665}, la instructora de búhos, está en {area:1659}, en {zone:1457}, junto a los vendedores de comida y de objetos generales. Vende tres búhos (50s cada uno); el {item:280803} es nuevo en Forever. Cada objeto de mascota enseña su compañero cuando lo usas; los objetivos quedan marcados después.",
 	-- {item:8500} Great Horned Owl
 	["{item:8500}, 50s"] = "{item:8500}, 50s",
 	-- {item:8501} Hawk Owl

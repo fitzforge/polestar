@@ -49,6 +49,12 @@ fn instance_map(m: &Value) -> InstanceMap {
 		inner: list("inner"),
 		zones: list("zones"),
 		corpse: m["corpse"].as_object().map(|_| Corpse { c: m["corpse"]["c"].as_f64().unwrap(), x: m["corpse"]["x"].as_f64().unwrap(), y: m["corpse"]["y"].as_f64().unwrap() }),
+		finder: m["finder"].as_object().map(|f| forge_data::codex::client::Finder {
+			min: f["min"].as_f64().unwrap_or(0.0),
+			max: f["max"].as_f64().unwrap_or(0.0),
+			players: f["players"].as_f64().unwrap_or(5.0),
+			players_max: f.get("playersMax").and_then(Value::as_f64).or(f["players"].as_f64()).unwrap_or(5.0),
+		}),
 	}
 }
 
@@ -71,7 +77,19 @@ fn journal(inputs: &Value, codex: &Value) -> V {
 		zones: obj(&codex["zones"]),
 	};
 	build_journal(
-		&JournalInputs { maps: &maps, frames: &frames, fv_quests: &fq, fv_objects: &fo, fv_zones: &fz, fv_dungeons: &fd, journal_quests: &jq, attunement_table: &att, store_xp: &Default::default() },
+		&JournalInputs {
+			maps: &maps,
+			frames: &frames,
+			fv_quests: &fq,
+			fv_objects: &fo,
+			fv_zones: &fz,
+			fv_dungeons: &fd,
+			journal_quests: &jq,
+			attunement_table: &att,
+			store_xp: &Default::default(),
+			recorded_dungeons: &forge_guide::js::V::obj(),
+			levels_table: &forge_guide::js::V::obj(),
+		},
 		&c,
 	)
 	.0
@@ -79,6 +97,51 @@ fn journal(inputs: &Value, codex: &Value) -> V {
 
 fn journal_json(inputs: &Value, codex: &Value) -> Value {
 	plain(&journal(inputs, codex))
+}
+
+#[test]
+fn maraudon_lists_rot_and_regret_with_its_existing_quest_facts() {
+	// #2430: the water comes from Maraudon, but the outdoor giver/ender and an item without
+	// an instance source do not place the quest there automatically. Facts from QuestieDB
+	// 4dbb82440a27856f8dccf57094a5d792cdc7cc9b, src/corrections/Forever/traces/
+	// foreverQuestTraces.lua and foreverQuestRelationTraces.lua (93404, 93594).
+	// The relation is upstream's observed prerequisite, not a new hard-coded unlock rule.
+	let mut c = codex();
+	c["instances"]["maraudon"] = json!({ "name": "Maraudon", "map": 349 });
+	c["quests"]["93404"] = json!({
+		"title": "Rot and Regret", "level": 49, "pre": [93594],
+		"start": { "npc": [254674] }, "end": { "npc": [254674] },
+		"objectives": [{ "type": "kill", "id": 254674 }, { "type": "item", "id": 258296 }]
+	});
+	c["quests"]["93594"] = json!({
+		"title": "Word of the Woods", "level": 43,
+		"start": { "npc": [254578] }, "end": { "npc": [254674] }
+	});
+	c["npcs"]["254674"] = json!({ "name": "Woodwyrd" });
+	c["items"]["258296"] = json!({ "name": "Vial of Earth Song Water" });
+	let mut i = inputs();
+	let before = journal_json(&i, &c);
+	assert_eq!(ids(&before["dungeons"]["maraudon"]["quests"]), json!([]));
+	let table: Value = serde_json::from_str(&std::fs::read_to_string(forge_addontest::run::root().join("data/codex/journal-quests.json")).unwrap()).unwrap();
+	i["journalQuests"] = table["quests"].clone();
+	let after = journal_json(&i, &c);
+	let page = &after["dungeons"]["maraudon"];
+	assert_eq!(ids(&page["quests"]), json!([93404]));
+	let q = page_quest(page, 93404);
+	assert_eq!(q["start"]["id"], 254674);
+	assert_eq!(q["finish"]["id"], 254674);
+	assert_eq!(
+		q["objectives"],
+		json!([
+			{ "k": "kill", "id": 254674, "name": "Woodwyrd" },
+			{ "k": "item", "id": 258296, "name": "Vial of Earth Song Water" }
+		])
+	);
+	assert_eq!(q["chain"], json!([93594]));
+	assert_eq!(page["chain"]["93594"]["title"], "Word of the Woods");
+	for key in before["dungeons"].as_object().unwrap().keys().filter(|k| *k != "maraudon") {
+		assert_eq!(after["dungeons"][key], before["dungeons"][key], "unrelated page {key}");
+	}
 }
 
 fn num(x: f64) -> Value {
@@ -140,6 +203,51 @@ fn instancemapsof_instances_only_their_areas_inner_on_the_map_itself_the_zone_ho
 	);
 	// JS passed undefined for both; the Rust port takes slices, so no rows.
 	assert!(instance_maps_of(&[], &[]).is_empty());
+}
+
+// Fitz, 2026-11-14 (the Dungeons hub's 50-60 band: "Missing game art for these zones"): Forever's Blackmaw Hold
+// has no corpse point and nobody has recorded its door, so its page had no zone and its card no painting. The
+// client's AreaTable names an open-world area after it (1216 "Blackmaw Hold" under Azshara, 16; build
+// 1.60.1.70888), so the page takes Azshara as its zone. Alcaz Prison's name is on no outdoor area (Alcaz Island
+// shares only a word, no evidence: the Drowned Reef is in Arathi, The Drowned City's door in Stranglethorn), so it
+// stays without one.
+#[test]
+fn a_dungeon_without_an_entrance_takes_the_zone_the_clients_areas_name_it_in_blackmaw_hold_azshara() {
+	let maps: [&[(&str, &str)]; 3] = [
+		&[("ID", "1"), ("MapName_lang", "Kalimdor"), ("InstanceType", "0"), ("CorpseMapID", "-1")],
+		&[("ID", "2974"), ("MapName_lang", "Blackmaw Hold"), ("InstanceType", "1"), ("AreaTableID", "16554"), ("CorpseMapID", "-1"), ("Corpse_0", "0"), ("Corpse_1", "0")],
+		&[("ID", "2994"), ("MapName_lang", "Alcaz Prison"), ("InstanceType", "1"), ("AreaTableID", "0"), ("CorpseMapID", "-1"), ("Corpse_0", "0"), ("Corpse_1", "0")],
+	];
+	let areas: [&[(&str, &str)]; 7] = [
+		&[("ID", "15"), ("AreaName_lang", "Dustwallow Marsh"), ("ContinentID", "1"), ("ParentAreaID", "0")],
+		&[("ID", "16"), ("AreaName_lang", "Azshara"), ("ContinentID", "1"), ("ParentAreaID", "0")],
+		&[("ID", "1216"), ("AreaName_lang", "Blackmaw Hold"), ("ContinentID", "1"), ("ParentAreaID", "16")],
+		&[("ID", "2079"), ("AreaName_lang", "Alcaz Island"), ("ContinentID", "1"), ("ParentAreaID", "15")],
+		&[("ID", "16554"), ("AreaName_lang", "Blackmaw Hold"), ("ContinentID", "2974"), ("ParentAreaID", "0")],
+		&[("ID", "16620"), ("AreaName_lang", "Alcaz Prison"), ("ContinentID", "2994"), ("ParentAreaID", "0")],
+		&[("ID", "17311"), ("AreaName_lang", "Blackmaw Grove"), ("ContinentID", "2974"), ("ParentAreaID", "16554")],
+	];
+	let found = instance_maps_of(rows(&maps).as_slice(), rows(&areas).as_slice());
+	let out: Vec<Value> = found.iter().map(map_json).collect();
+	assert_eq!(
+		Value::Array(out.clone()),
+		json!([
+			{ "id": 2974, "name": "Blackmaw Hold", "raid": false, "players": null, "area": 16554, "areas": [1216, 16554, 17311], "inner": [16554, 17311], "zones": [16], "corpse": null },
+			{ "id": 2994, "name": "Alcaz Prison", "raid": false, "players": null, "area": null, "areas": [16620], "inner": [16620], "zones": [], "corpse": null },
+		])
+	);
+	let inst =
+		|key: &str, name: &str, map: i64| json!({ "key": key, "name": name, "kind": "dungeon", "forever": true, "areaId": null, "map": map, "entrance": null, "levels": [50, 55, 59], "bosses": [] });
+	let codex = json!({ "instances": { "blackmaw-hold": inst("blackmaw-hold", "Blackmaw Hold", 2974), "alcaz-prison": inst("alcaz-prison", "Alcaz Prison", 2994) } });
+	let inputs = json!({
+		"client": { "instanceMaps": out },
+		"forever": { "zones": { "1445": { "id": 1445, "name": "Dustwallow Marsh", "areaId": 15, "type": 3 }, "1447": { "id": 1447, "name": "Azshara", "areaId": 16, "type": 3 } } },
+	});
+	let pages = journal_json(&inputs, &codex);
+	let page = |k: &str| pages["dungeons"][k].clone();
+	assert_eq!((page("blackmaw-hold")["zone"].clone(), page("blackmaw-hold")["zoneName"].clone()), (json!(1447), json!("Azshara")));
+	assert_eq!(page("blackmaw-hold")["entrance"], Value::Null, "the zone, not a made-up door");
+	assert_eq!((page("alcaz-prison")["zone"].clone(), page("alcaz-prison")["zoneName"].clone()), (Value::Null, Value::Null));
 }
 
 #[test]
@@ -383,7 +491,7 @@ fn buildjournal_a_quest_an_unplaced_object_of_the_instance_starts_is_picked_up_i
 	assert_eq!(json!([wanted["inside"], wanted["start"]["inside"]]), json!([false, false]), "placed outside: {wanted}");
 }
 
-// SweepDungeons' 'handin-missed' / 'quest-dropped' findings: turn-ins at NPCs and objects that stand only inside
+// The dungeon sweep's 'handin-missed' / 'quest-dropped' findings: turn-ins at NPCs and objects that stand only inside
 // an instance (Commander Gor'shak in Blackrock Depths, the Altar of Hakkar in the Sunken Temple) and a giver
 // inside (the Hall of Thanes' Ghostly Attendant) carried no `inside`, so the hand-in guide filed them as turned
 // in nowhere known. An unplaced NPC the Codex puts in this instance, or an unplaced object listing its map,
