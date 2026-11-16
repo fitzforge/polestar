@@ -371,6 +371,45 @@ fn training_with_dargh_trueaim_at_the_farstrider_lodge_ticks_loch_modan_s_train_
 	assert_eq!(out, json!({ "before": 1, "after": 2 }), "trained with Dargh Trueaim: the step is done");
 }
 
+// Portal trainers (2485, 2489, 2492, 4165, 5957, 5958) teach only Teleport/Portal spells, never
+// class spells (#2559): a `train class` step skips them when picking candidates even if they stand
+// nearest, and interacting with them does not count as a candidate.
+#[test]
+fn portal_trainers_are_never_chosen_for_train_class_steps_2559() {
+	let portal_trainers = [
+		(2485, "Larimaine Purdue (Stormwind)"),
+		(2489, "Milstaff Stormeye (Ironforge)"),
+		(2492, "Lexington Mortaim (Undercity)"),
+		(4165, "Elissa Dumas (Darnassus)"),
+		(5957, "Birgitte Cranston (Thunder Bluff)"),
+		(5958, "Thuul (Orgrimmar)"),
+	];
+	for (npc, name) in portal_trainers {
+		let out = run(None, r#"stub.world.class = "MAGE""#, &format!("emit({{ portal = Polestar.Engine.IsClassTrainer({npc}) }})"));
+		assert_eq!(out["portal"], false, "{name} is not a class trainer");
+	}
+
+	let out = run(
+		None,
+		r#"local w = stub.world
+		w.addMap(1453, { name = "Stormwind City", c = 0, left = 1380.971, right = 36.701, top = -8278.851, bottom = -9175.205 })
+		w.race, w.raceName, w.faction, w.class = "Human", "Human", "Alliance", "MAGE"
+		w.level = 15
+		w.moveTo(1453, 50.4, 86.0)
+		Polestar.RegisterGuide({ id = "test/sw", pack = "test", title = "Stormwind", faction = "Alliance", minLevel = 10, maxLevel = 20, steps = {
+			{ goals = { { t = "train", class = true, candidates = {
+				{ npc = 2485, npcName = "Larimaine Purdue", map = 1453, x = 50.39, y = 85.99, z = 29.7, faction = "A", classes = { "MAGE" } },
+				{ npc = 5497, npcName = "Jennea Cannon", map = 1453, x = 49.56, y = 85.8, z = 29.7, faction = "A", classes = { "MAGE" } },
+			} } } },
+			{ goals = { { t = "level", level = 16 } } },
+		} })"#,
+		r#"Polestar.Engine.SetGuide("test/sw"); stub.advance(0.5)
+		local v = Polestar.Engine.GetStepView(1)
+		emit({ pickedNpc = v.goals[1].npc, pickedName = v.goals[1].npcName })"#,
+	);
+	assert_eq!(out, json!({ "pickedNpc": 5497, "pickedName": "Jennea Cannon" }), "picks Jennea Cannon, skipping portal trainer Larimaine Purdue");
+}
+
 // Grezz trains warriors in step 1; step 2 holds the route; step 3 trains again.
 const AGAIN: &str = r#"
 local grezz = { { npc = 3353, npcName = "Grezz Ragefist", map = 1454, x = 79.8, y = 31.4, f = "e", faction = "H", classes = { "WARRIOR" } } }

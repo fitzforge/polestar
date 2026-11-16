@@ -21,6 +21,9 @@ const { checkPinnedTables } = require('../data/pinned');
 const FILES = ['quests', 'npcs', 'objects', 'items', 'zones', 'map-frames', 'meta'];
 const OPTIONAL = ['professions', 'factions', 'trainers', 'races', 'travel', 'spawnz'];
 
+// Capital portal trainers: teach only Teleport/Portal spells, never class spells (#2559).
+const PORTAL_TRAINERS = new Set([2485, 2489, 2492, 4165, 5957, 5958]);
+
 // Classic skill lines (game facts), so `skill <Profession> <N>` resolves even
 // without professions.json. Riding (762) is Forever's one riding skill: the
 // client's SkillLineAbility puts every racial riding spell under it
@@ -230,7 +233,7 @@ class Data {
 		let list;
 		if (this.hasTrainers) {
 			list = Object.values(this.trainersRaw)
-				.filter((t) => t && Number(t.id) > 0 && Array.isArray(t.classes) && t.classes.length)
+				.filter((t) => t && Number(t.id) > 0 && !PORTAL_TRAINERS.has(Number(t.id)) && Array.isArray(t.classes) && t.classes.length)
 				.map((t) => ({ id: Number(t.id), classes: t.classes.map(String) }));
 		} else {
 			const { curatedTrainers } = require('./trainers');

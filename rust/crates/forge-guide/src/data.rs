@@ -140,6 +140,9 @@ pub struct Raw {
 	pub areas: V,
 }
 
+/// Capital portal trainers: teach only Teleport/Portal spells, never class spells (#2559).
+pub const PORTAL_TRAINERS: [f64; 6] = [2485.0, 2489.0, 2492.0, 4165.0, 5957.0, 5958.0];
+
 impl Data {
 	/// `new Data(raw, { dir, missing })`.
 	pub fn new(raw: Raw, dir: Option<String>, missing: Vec<String>) -> Data {
@@ -385,7 +388,7 @@ impl Data {
 			self.trainers_raw
 				.values()
 				.into_iter()
-				.filter(|t| t.truthy() && t.get("id").num() > 0.0 && t.get("classes").is_arr() && !t.get("classes").is_empty())
+				.filter(|t| t.truthy() && t.get("id").num() > 0.0 && !PORTAL_TRAINERS.contains(&t.get("id").num()) && t.get("classes").is_arr() && !t.get("classes").is_empty())
 				.map(|t| {
 					let classes: Vec<V> = t.get("classes").items().iter().map(|c| V::from(c.to_js_string())).collect();
 					obj! { "id" => t.get("id").num(), "classes" => classes }.into()

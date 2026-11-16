@@ -233,6 +233,9 @@ const CURATED: &[(&str, &str, i64)] = &[
 
 const CLASS_FILES: [&str; 9] = ["WARRIOR", "PALADIN", "HUNTER", "ROGUE", "PRIEST", "SHAMAN", "MAGE", "WARLOCK", "DRUID"];
 
+/// Capital portal trainers: teach only Teleport/Portal spells, never class spells (#2559).
+pub const PORTAL_TRAINERS: [i64; 6] = [2485, 2489, 2492, 4165, 5957, 5958];
+
 struct Entry {
 	name: V,
 	classes: IndexSet<String>,
@@ -384,7 +387,12 @@ pub fn build_trainers(data: &Data, guides: Option<&Path>, recordings: &Recording
 		let (classes, is_trusted) = if !trusted.is_empty() { (trusted, true) } else { (pick(&|_| true), false) };
 		let n = data.npc(&V::Num(id as f64));
 		let known = n.truthy();
-		if classes.len() != 1 || profession.contains(&id) || (entries.contains_key(&id) && !is_trusted) || (!known && !by_class.values().flatten().any(|w| recordings::vouched(w))) {
+		if classes.len() != 1
+			|| profession.contains(&id)
+			|| PORTAL_TRAINERS.contains(&id)
+			|| (entries.contains_key(&id) && !is_trusted)
+			|| (!known && !by_class.values().flatten().any(|w| recordings::vouched(w)))
+		{
 			continue;
 		}
 		let nm = if n.truthy() && n.get("name").truthy() { n.get("name") } else { name.clone() };

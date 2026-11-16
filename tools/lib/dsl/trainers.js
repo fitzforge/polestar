@@ -273,6 +273,9 @@ const CURATED = [
 	['WARLOCK', 'Strahad Farsan', BARRENS],
 ];
 
+// Capital portal trainers: teach only Teleport/Portal spells, never class spells (#2559).
+const PORTAL_TRAINERS = new Set([2485, 2489, 2492, 4165, 5957, 5958]);
+
 function nameKey(s) {
 	return String(s).trim().toLowerCase();
 }
@@ -382,7 +385,7 @@ function buildTrainers({ data, guidesDir, recordingsDir }) {
 	}
 	for (const [id, s] of [...seen].sort((a, b) => a[0] - b[0])) {
 		// Weapon masters and profession trainers open for any class; class trainers for one.
-		if (s.classes.size !== 1 || profession.has(id)) continue;
+		if (s.classes.size !== 1 || profession.has(id) || PORTAL_TRAINERS.has(id)) continue;
 		const n = data.npc(id);
 		add(entries, id, n && n.name ? n.name : s.name, [...s.classes][0], 'record');
 		counts.record++;

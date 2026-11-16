@@ -2584,7 +2584,7 @@ local function pickFor(goal)
 	local list, tier, cost, extra, order, gap = {}, {}, {}, {}, {}, {}
 	local reasonable = false
 	for i, c in ipairs(goal.candidates) do
-		if Guides.CandidateMatches(c, player) then
+		if Guides.CandidateMatches(c, player) and (not goal.class or not Engine.IsClassTrainer or Engine.IsClassTrainer(c.npc)) then
 			list[#list + 1] = c
 			order[c] = i * 1e-6 -- stable among equals
 			if farm then
@@ -2969,6 +2969,7 @@ end
 -- One of the goal's candidates, and, for a candidate that names the classes
 -- it serves (class trainers), one for the character's class.
 local function isCandidate(goal, npc)
+	if goal.class and Engine.IsClassTrainer and not Engine.IsClassTrainer(npc) then return false end
 	for _, c in ipairs(goal.candidates) do
 		if c.npc == npc then
 			if type(c.classes) ~= "table" or not player then return true end
