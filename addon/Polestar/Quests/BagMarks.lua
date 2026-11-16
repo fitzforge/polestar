@@ -150,10 +150,10 @@ local function needed(link)
 	return id and Q.IsItemNeeded(id) or false
 end
 
--- Baganator and BagSmith place the quest icon. Baganator also places the leftover border.
+-- Baganator and BagSmith place the quest icon and leftover border as corner widgets.
 local WIDGET = "polestar_quest_needed"
 local RED_WIDGET = "polestar_quest_leftover"
-local baganatorBorders = setmetatable({}, { __mode = "k" })
+local widgetBorders = setmetatable({}, { __mode = "k" })
 local registeredBags = {}
 
 local function cornerAPI(name)
@@ -177,16 +177,15 @@ local function registerBag(name)
 		t:SetTexture(ICON)
 		return t
 	end, { corner = "top_right", priority = 1 }, nil, options)
-	if name == "Baganator" then
-		API.RegisterCornerWidget(ns.L["Polestar quest leftovers"], RED_WIDGET, function(_, details)
-			return isOn() and type(details) == "table" and Q.IsObsoleteQuestItem(details.itemID) or false
-		end, function(button)
-			local frame = CreateFrame("Frame", nil, button)
-			frame:SetSize(1, 1)
-			borderFor(button, baganatorBorders, frame)
-			return frame
-		end, { corner = "top_left", priority = 1 })
-	end
+	API.RegisterCornerWidget(ns.L["Polestar quest leftovers"], RED_WIDGET, function(_, details)
+		return isOn() and type(details) == "table" and Q.IsObsoleteQuestItem(details.itemID) or false
+	end, function(button)
+		local frame = CreateFrame("Frame")
+		frame:SetParent(button)
+		frame:SetSize(1, 1)
+		borderFor(button, widgetBorders, frame)
+		return frame
+	end, { corner = "top_left", priority = 1 }, nil, options)
 	return true
 end
 
@@ -299,7 +298,7 @@ function Q.RedrawBagMarks()
 	for name in pairs(registeredBags) do
 		local API = cornerAPI(name)
 		if API and API.RequestItemButtonsRefresh and (not API.IsCornerWidgetActive or API.IsCornerWidgetActive(WIDGET)
-			or name == "Baganator" and API.IsCornerWidgetActive(RED_WIDGET)) then
+			or API.IsCornerWidgetActive(RED_WIDGET)) then
 			local B = _G[name]
 			local reasons = name == "Baganator" and B.Constants and B.Constants.RefreshReason
 			if name == "BagSmith" then

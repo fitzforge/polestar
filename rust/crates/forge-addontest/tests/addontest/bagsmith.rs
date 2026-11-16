@@ -27,7 +27,7 @@ fn run(before: &str, script: &str) -> Vec<Value> {
 }
 
 #[test]
-fn bagsmith_registers_all_four_widgets_once_before_or_after_polestar_with_list_rows() {
+fn bagsmith_registers_all_five_widgets_once_before_or_after_polestar_with_list_rows() {
 	for late in [false, true] {
 		let script = format!(
 			r#"
@@ -40,6 +40,7 @@ for id, w in pairs(widgets) do
  local slot = CreateFrame("Frame", nil, UIParent)
  slot:SetSize(32, 32); slot.bagsmithRowSlot = true
  local t = w.init(slot)
+ if id == "polestar_quest_leftover" then t = t:GetRegions() end
  result[id] = {{ list = w.options.listRows, corner = w.position.corner, texture = type(t.texture) == "string", width = t:GetWidth() }}
 end
 emit(result)
@@ -47,10 +48,14 @@ emit(result)
 			if late { API } else { "" }
 		);
 		let out = run(if late { "" } else { API }, &script);
-		assert_eq!(out[0], 4);
-		for (id, corner, width) in
-			[("polestar_upgrade", "top_left", 20.0), ("polestar_quest_needed", "top_right", 16.0), ("polestar_step_item", "bottom_left", 19.2), ("polestar_kept_item", "top_left", 14.0)]
-		{
+		assert_eq!(out[0], 5);
+		for (id, corner, width) in [
+			("polestar_upgrade", "top_left", 20.0),
+			("polestar_quest_needed", "top_right", 16.0),
+			("polestar_quest_leftover", "top_left", 60.8),
+			("polestar_step_item", "bottom_left", 19.2),
+			("polestar_kept_item", "top_left", 14.0),
+		] {
 			assert_eq!(out[1][id]["list"], true);
 			assert_eq!(out[1][id]["corner"], corner);
 			assert_eq!(out[1][id]["texture"], true);
@@ -77,6 +82,7 @@ Baganator = { API = {
 		&format!(
 			r#"
 {API}
+BagSmith.API.IsCornerWidgetActive = function(id) return id == "polestar_quest_leftover" end
 stub.addonLoaded("BagSmith")
 stub.addonLoaded("Baganator")
 stub.addonLoaded("BagSmith")
@@ -87,7 +93,7 @@ emit({{baganatorRefreshes, refreshes}})
 "#
 		),
 	);
-	assert_eq!(out[0], json!([5, 4]));
+	assert_eq!(out[0], json!([5, 5]));
 	assert_eq!(out[1], json!([1, 1]));
 }
 
@@ -102,6 +108,7 @@ G.IsUpgrade = function(link) return link == "item:9002" end
 G.FillsEmptySlot = function() return false end
 Q.IsRunning = function() return true end
 Q.IsItemNeeded = function(id) return id == 9002 end
+Q.IsObsoleteQuestItem = function(id) return id == 9004 end
 QoL.CurrentStep = function() return { goals = { { t = "use", item = 9002, status = "active" } } }, {} end
 Polestar.Engine.KeptItems = function() return { [9003] = 2 } end
 QoL.Client.SellPrice = function() return 10 end
@@ -109,6 +116,7 @@ QoL.BagGlow.Refresh()
 local function verdict(id, details) return widgets[id].update(nil, details) end
 emit({verdict("polestar_upgrade", {itemLink = "item:9002"}), verdict("polestar_upgrade", {itemLink = "item:9004"}),
  verdict("polestar_quest_needed", {itemLink = "item:9002"}), verdict("polestar_quest_needed", {}),
+ verdict("polestar_quest_leftover", {itemID = 9004}), verdict("polestar_quest_leftover", {itemID = 9002}),
  verdict("polestar_step_item", {itemID = 9002}), verdict("polestar_kept_item", {itemID = 9003}),
  verdict("polestar_kept_item", {itemID = 9002})})
 for _, w in pairs(widgets) do assert(w.update(nil, nil) == false); assert(w.update(nil, {}) == false) end
@@ -130,15 +138,15 @@ Polestar.Set("qol.questBagMarks", false)
 Polestar.Set("qol.bagGlow", false)
 stub.advance(0.3)
 emit({verdict("polestar_upgrade", {itemLink = "item:9002"}), verdict("polestar_quest_needed", {itemLink = "item:9002"}),
- verdict("polestar_step_item", {itemID = 9002}), verdict("polestar_kept_item", {itemID = 9003})})
+ verdict("polestar_quest_leftover", {itemID = 9004}), verdict("polestar_step_item", {itemID = 9002}), verdict("polestar_kept_item", {itemID = 9003})})
 hidden = true; refreshes = 0
 G.Bags.Redraw(); Q.RedrawBagMarks(); QoL.BagGlow.Redraw()
 emit(refreshes)
 "#,
 	);
-	assert_eq!(out[0], json!([true, false, true, false, true, true, false]));
+	assert_eq!(out[0], json!([true, false, true, false, true, false, true, true, false]));
 	assert_eq!(out[1], true);
 	assert_eq!(out[2], true);
-	assert_eq!(out[3], json!([false, false, false, false]));
+	assert_eq!(out[3], json!([false, false, false, false, false]));
 	assert_eq!(out[4], 0);
 }
