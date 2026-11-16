@@ -243,6 +243,7 @@ function sessionItems(s, xpModel, completed) {
 				if (cur && Number.isInteger(e.lvl) && num(e.xp) !== null) cur.obsCum = xpModel.cum(e.lvl, e.xp);
 				break;
 			case 'taxi':
+			case 'enter':
 				lastPos = null;
 				break;
 			default:
@@ -254,7 +255,9 @@ function sessionItems(s, xpModel, completed) {
 		// the event's facts and timing, but leave the walking anchor unchanged.
 		const dialogPosition = e.e === 'accept' || e.e === 'turnin' || (e.e === 'detail' && num(e.item) > 0);
 		// Instance entries carry the cached last outdoor position, not a sample
-		// at their event time. Keep the preceding player anchor and event timing.
+		// at their event time. Clear the anchor across the stay (case 'enter'
+		// above): the next outdoor sample may follow a different exit or a
+		// hearthstone. Keep event timing.
 		const entrance = e.e === 'enter';
 		while (tripIndex < trips.length && trips[tripIndex][1] < k) tripIndex++;
 		const trip = trips[tripIndex];

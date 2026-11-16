@@ -11324,10 +11324,13 @@ are omitted too; ordinary NPC/object detail and offer positions still count.
 Instance-entry (`enter`) coordinates are excluded from travel distance: they
 are the recorder's cached last outdoor position, which may precede newer
 player samples when the loading screen has no usable position. The event's
-timestamp still counts for play time, and it does not replace or clear the
-last player-position anchor. Fresh and stale entrance coordinates are
-indistinguishable, so sparse recordings can undercount travel to a portal
-when no other fresh sample records that movement.
+timestamp still counts for play time, but it clears the last player-position
+anchor. The first outdoor sample after the stay starts a new trail: a different
+exit, a hearthstone or a ghost run must not become a walk merely because the
+time spent inside makes its speed seem plausible. Fresh and stale entrance
+coordinates are indistinguishable, so travel to the portal and back to the
+first outdoor sample is conservatively omitted; walking after that sample
+counts normally.
 
 ### Route planner (`planner`)
 
