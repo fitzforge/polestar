@@ -94,7 +94,7 @@ return {
 
 	-- Step 19: Gadgetzan
 	-- {quest:654} Tanaris Field Sampling
-	["Keep the Model 4711-FTZ Power Source Bilgewhizzle gave you: it starts {quest:654}, a two-hour timer, so use it on the way back north from Scrimshank's hive."] = "Guarda la Fuente de energía modelo 4711-FTZ que te dio Bilgewhizzle: inicia {quest:654}, con un temporizador de dos horas, así que úsala de regreso al norte desde la colmena de Patagolpe.",
+	["Keep the Model 4711-FTZ Power Source Bilgewhizzle gave you: it starts {quest:654}, a two-hour timer, so use it on the way back north from Scrimshank's hive."] = "Guarda la Fuente de alimentación modelo 4711-FTZ que te dio Bilgewhizzle: inicia {quest:654}, con un temporizador de dos horas, así que úsala de regreso al norte desde la colmena de Patagolpe.",
 
 	-- Step 20: Gadgetzan
 	-- {quest:2864} Tran'rek · {quest:3362} Thistleshrub Valley · {area:983} Dunemaul Compound · {area:1938} Broken Pillar
@@ -119,7 +119,7 @@ return {
 	-- Step 24: Tanaris Field Sampling
 	-- {area:976} Gadgetzan · {item:8524} Model 4711-FTZ Power Source
 	-- plural, as words: Blisterpaw Hyenas = {npc:5426} Blisterpaw Hyena · Glasshide Basilisks = {npc:5419} Glasshide Basilisk · Scorpid Hunters = {npc:5422} Scorpid Hunter
-	["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each."] = "De regreso al norte, justo al sur de {area:976}, usa ahora el {item:8524}: empieza el temporizador de dos horas. Las Hienas Zarpaampolla, los Basiliscos Pielvidrio y los Cazadores Escórpido comparten las dunas aquí. Cada uno puede soltar una muestra sin probar: úsala, y o bien pasa como aceptable o se pierde. Sigue matando hasta tener ocho de cada una.",
+	["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each."] = "De regreso al norte, justo al sur de {area:976}, usa ahora el {item:8524}: empieza el temporizador de dos horas. Las Hienas Llagapata, los Basiliscos Cristaldermo y los Cazadores Escórpido comparten las dunas aquí. Cada uno puede soltar una muestra sin probar: úsala, y o bien pasa como aceptable o se pierde. Sigue matando hasta tener ocho de cada una.",
 	-- {item:8524} Model 4711-FTZ Power Source
 	["Use the {item:8524}"] = "Usa {item:8524}",
 

@@ -94,7 +94,7 @@ return {
 	-- {npc:2216} Apothecary Lydon
 	["{npc:2216}, inside"] = "{npc:2216}, adentro",
 	-- {npc:2393} Christoph Jeffcoat · {quest:7321} Soothing Turtle Bisque
-	["{npc:2393}: {quest:7321}, the Snapjaws of the river south of town"] = "{npc:2393}: {quest:7321}, las Tortugas Mordedoras del río al sur del pueblo",
+	["{npc:2393}: {quest:7321}, the Snapjaws of the river south of town"] = "{npc:2393}: {quest:7321}, los Quijaforte del río al sur del pueblo",
 	-- {item:3713} Soothing Spices · {npc:2393} Christoph Jeffcoat
 	["{item:3713}, from {npc:2393}"] = "{item:3713}, de {npc:2393}",
 
@@ -137,9 +137,9 @@ return {
 	-- {area:272} Tarren Mill
 	["The river south of {area:272}: kill these as you meet them"] = "El río al sur de {area:272}: mata a estos a medida que los encuentres",
 	-- {area:272} Tarren Mill · {area:271} Southshore · {item:3712} Turtle Meat
-	["South from {area:272} along the river: Snapjaws (29) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "Al sur de {area:272} siguiendo el río: las Tortugas Mordedoras (29) toman el sol en sus orillas hasta las colinas sobre {area:271}. Algunas llevan {item:3712}.",
+	["South from {area:272} along the river: Snapjaws (29) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "Al sur de {area:272} siguiendo el río: los Quijaforte (29) toman el sol en sus orillas hasta las colinas sobre {area:271}. Algunas llevan {item:3712}.",
 	-- {item:3712} Turtle Meat
-	["{item:3712}, from the Snapjaws"] = "{item:3712}, de las Tortugas Mordedoras",
+	["{item:3712}, from the Snapjaws"] = "{item:3712}, de los Quijaforte",
 
 	-- Step 29: Mudsnout Blossoms
 	-- {area:290} Dun Garok
@@ -209,7 +209,7 @@ return {
 	-- {item:3712} Turtle Meat
 	["Finish the {item:3712}"] = "Termina la {item:3712}",
 	-- {item:3712} Turtle Meat · {area:272} Tarren Mill
-	["Still short of ten {item:3712}? The Snapjaws line the river east of {area:272}, on your way back from the mine."] = "¿Aún no tienes diez de {item:3712}? Los Bocadientes bordean el río al este de {area:272}, de camino de vuelta desde la mina.",
+	["Still short of ten {item:3712}? The Snapjaws line the river east of {area:272}, on your way back from the mine."] = "¿Aún no tienes diez de {item:3712}? Los Quijaforte bordean el río al este de {area:272}, de camino de vuelta desde la mina.",
 
 	-- Step 42: Tarren Mill
 	-- {area:272} Tarren Mill · {area:271} Southshore

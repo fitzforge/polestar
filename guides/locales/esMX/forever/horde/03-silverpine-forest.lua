@@ -129,7 +129,7 @@ return {
 	-- Step 24: The Cult of the Damned
 	-- {npc:267009} Hadric Harlson
 	-- plural, as words: Dark Neophytes = {npc:267006} Dark Neophyte · Dark Enforcers = {npc:275437} Dark Enforcer · Necrotic Crystal Fragments = {item:275851} Necrotic Crystal Fragment
-	["The cultists camp a short walk south-east of {npc:267009}. Dark Neophytes and Dark Enforcers drop the Necrotic Crystal Fragments; more fragments, black crystals, lie on the ground among the tents."] = "Los sectarios acampan a poca distancia al sureste de {npc:267009}. Los neófitos oscuros y los ejecutores oscuros sueltan los Fragmentos de cristal necrótico; hay más fragmentos, cristales negros, en el suelo entre las tiendas.",
+	["The cultists camp a short walk south-east of {npc:267009}. Dark Neophytes and Dark Enforcers drop the Necrotic Crystal Fragments; more fragments, black crystals, lie on the ground among the tents."] = "Los sectarios acampan a poca distancia al sureste de {npc:267009}. Los neófitos oscuros y los déspotas oscuros sueltan los Trozos de cristal necrótico; hay más fragmentos, cristales negros, en el suelo entre las tiendas.",
 
 	-- Step 27: The Sepulcher
 	-- {area:228} The Sepulcher · {npc:2226} Karos Razok

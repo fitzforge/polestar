@@ -153,13 +153,13 @@ return {
 
 	-- Step 26: Highland raptors and Plains Creepers
 	-- plural, as words: Plains Creepers = {npc:2563} Plains Creeper
-	["Highland raptors and Plains Creepers"] = "Raptores de las tierras altas y reptadores de llanura",
+	["Highland raptors and Plains Creepers"] = "Raptores de las tierras altas y trepadores de las llanuras",
 	-- {area:321} Hammerfall
 	-- plural, as words: Highland Striders = {npc:2559} Highland Strider · Plains Creepers = {npc:2563} Plains Creeper
-	["On the way back north, Highland Striders roam the hills all around {area:321} and drop the eyes, and south of it the Plains Creepers (32-33) spin their webs in the grass; they carry the spidersilk."] = "De regreso al norte, los zancudos de las Tierras Altas recorren las colinas alrededor de {area:321} y sueltan los ojos, y al sur los reptadores de llanura (32-33) tejen sus telarañas en la hierba; ellos llevan la seda de araña.",
+	["On the way back north, Highland Striders roam the hills all around {area:321} and drop the eyes, and south of it the Plains Creepers (32-33) spin their webs in the grass; they carry the spidersilk."] = "De regreso al norte, los zancudos de las Tierras Altas recorren las colinas alrededor de {area:321} y sueltan los ojos, y al sur los trepadores de las llanuras (32-33) tejen sus telarañas en la hierba; ellos llevan la seda de araña.",
 	-- {item:278225} Surgical Spidersilk
 	-- plural, as words: Plains Creepers = {npc:2563} Plains Creeper
-	["{item:278225}, from Plains Creepers"] = "{item:278225}, de los reptadores de llanura",
+	["{item:278225}, from Plains Creepers"] = "{item:278225}, de los trepadores de las llanuras",
 
 	-- Step 27: Hammerfall
 	-- {area:321} Hammerfall

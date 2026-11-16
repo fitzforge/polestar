@@ -105,9 +105,9 @@ return {
 
 	-- Step 16: Elder Stranglethorn Tigers
 	-- plural, as words: Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger
-	["Elder Stranglethorn Tigers"] = "Tigres de Tuercespina ancianos",
+	["Elder Stranglethorn Tigers"] = "Tigres de Tuercespina mayores",
 	-- plural, as words: Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger
-	["The Elder Stranglethorn Tigers (34-35) roam the hills south-west of the camp. Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly."] = "Los Tigres de Tuercespina ancianos (34-35) recorren las colinas al suroeste del campamento. Cuidado: Los campamentos trols están cerca de la zona de los tigres, y los trols pueden unirse a la pelea si atraes sin cuidado.",
+	["The Elder Stranglethorn Tigers (34-35) roam the hills south-west of the camp. Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly."] = "Los Tigres de Tuercespina mayores (34-35) recorren las colinas al suroeste del campamento. Cuidado: Los campamentos trols están cerca de la zona de los tigres, y los trols pueden unirse a la pelea si atraes sin cuidado.",
 
 	-- Step 17: Nesingwary's camp
 	["Back north to the camp."] = "Regresa al norte, al campamento.",

@@ -251,7 +251,7 @@ return {
 	-- plural, as words: Hungry Bandits = {npc:252802} Hungry Bandit
 	["Stormapples and flutterfly dust lie all over the orchard; Hungry Bandits raid it. Galestriders graze in the fields east of it. The broken construct floats at the orchard's north edge."] = "Hay tormanzanas y polvo de alabatiente por todo el huerto; varios {npc:252802} lo saquean. Los Zancavientos pastan en los campos al este. El ensamblaje roto flota en el borde norte del huerto.",
 	-- plural, as words: Ripe Stormapples = {item:253591} Ripe Stormapple
-	["Ripe Stormapples"] = "Manzanas tormenta maduras",
+	["Ripe Stormapples"] = "Tormanzanas maduras",
 	-- plural, as words: Hungry Bandits = {npc:252802} Hungry Bandit
 	["Hungry Bandits"] = "Bandidos hambrientos",
 	-- {npc:268592} Olariaan Swiftburn
@@ -262,7 +262,7 @@ return {
 	["{area:16626}: kill these as you meet them"] = "{area:16626}: mata a estos según te los encuentres",
 	-- {area:16663} Windfield Orchard
 	-- plural, as words: Blood-Stained Bandit Masks = {item:253596} Blood-Stained Bandit Mask
-	["The Highwayman Bandits hold the hills north of {area:16663}; they drop the Blood-Stained Bandit Masks."] = "Los salteadores bandidos ocupan las colinas al norte de {area:16663}; sueltan las Máscaras de bandido manchadas de sangre.",
+	["The Highwayman Bandits hold the hills north of {area:16663}; they drop the Blood-Stained Bandit Masks."] = "Los salteadores bandidos ocupan las colinas al norte de {area:16663}; sueltan las Máscaras de bandido manchadas con sangre.",
 
 	-- Step 55: Standing Our Ground
 	-- {npc:252800} Aamelia Windfield
@@ -404,7 +404,7 @@ return {
 	-- Step 86: Windsong Lake
 	-- {item:257128} Zephyrseed · {npc:254344} Endaria Mistgaze · {quest:93736} Unwelcome Spirits · {area:16625} Windsong Lake · {npc:259013} Resaan Nimbuswalker
 	-- plural, as words: Wind Hollows = {npc:251676} Wind Hollow · Wind Hollow Essences = {item:262357} Wind Hollow Essence
-	["{item:257128} cones grow south of the hermit; the Wind Hollows drift east of the lake and also drop the Wind Hollow Essences for {npc:254344}'s {quest:93736}. The refugees' belongings lie along the north shore of {area:16625}; {npc:259013} is at its north-west end."] = "Las piñas de {item:257128} crecen al sur del ermitaño; los huecos de viento flotan al este del lago y también sueltan las Esencias de hueco de viento para {quest:93736} de {npc:254344}. Las pertenencias de los refugiados están a lo largo de la orilla norte de {area:16625}; {npc:259013} está en su extremo noroeste.",
+	["{item:257128} cones grow south of the hermit; the Wind Hollows drift east of the lake and also drop the Wind Hollow Essences for {npc:254344}'s {quest:93736}. The refugees' belongings lie along the north shore of {area:16625}; {npc:259013} is at its north-west end."] = "Las piñas de {item:257128} crecen al sur del ermitaño; los huecos de viento flotan al este del lago y también sueltan las Esencias de hoya del viento para {quest:93736} de {npc:254344}. Las pertenencias de los refugiados están a lo largo de la orilla norte de {area:16625}; {npc:259013} está en su extremo noroeste.",
 
 	-- Step 88: The Shrine of Akir
 	-- {area:16629} Shrine of Akir

@@ -62,7 +62,7 @@ return {
 	-- plural, as words: Raptor Heads = {item:5062} Raptor Head
 	["Raptor Heads as you go"] = "Cabezas de raptor sobre la marcha",
 	-- plural, as words: Sunscale Screechers = {npc:3255} Sunscale Screecher
-	["Sunscale raptors roam the plains north and east of the Crossroads, and about three in four drop a head: kill the ones you pass on the way. Careful: Sunscale Screechers call nearby allies within 30 yd once below 30% health."] = "Los raptores Solescama recorren las llanuras al norte y al este del Cruce, y unos tres de cada cuatro sueltan una cabeza: mata a los que encuentres en el camino. Cuidado: los chilladores Solescama llaman a los aliados cercanos en 30 m cuando bajan del 30 % de salud.",
+	["Sunscale raptors roam the plains north and east of the Crossroads, and about three in four drop a head: kill the ones you pass on the way. Careful: Sunscale Screechers call nearby allies within 30 yd once below 30% health."] = "Los raptores Solescama recorren las llanuras al norte y al este del Cruce, y unos tres de cada cuatro sueltan una cabeza: mata a los que encuentres en el camino. Cuidado: los estridadores Solescama llaman a los aliados cercanos en 30 m cuando bajan del 30 % de salud.",
 
 	-- Step 15: Plainstrider Beaks as you go
 	-- plural, as words: Plainstrider Beaks = {item:5087} Plainstrider Beak
@@ -180,7 +180,7 @@ return {
 	["Finish the Raptor Heads"] = "Termina las cabezas de raptor",
 	-- {quest:881} Echeyakee
 	-- plural, as words: Sunscale Lashtails = {npc:3254} Sunscale Lashtail
-	["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "¿Aún te faltan para doce? Los colazotes y chilladores Solescama recorren las llanuras al noreste del Cruce, de regreso al sur desde la guarida de {quest:881}.",
+	["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "¿Aún te faltan para doce? Los colazotes y estridadores Solescama recorren las llanuras al noreste del Cruce, de regreso al sur desde la guarida de {quest:881}.",
 
 	-- Step 39: The Crossroads
 	-- {npc:3464} Gazrog · {npc:3338} Sergra Darkthorn · {npc:3449} Darsok Swiftdagger · {npc:3429} Thork
@@ -495,7 +495,7 @@ return {
 	["{quest:882}, a big Sunscale raptor, only comes to a fresh kill: loot a {item:10338} from a zhevra, then use it at the {object:147538} north-west of {area:392}, north of the road to the Crossroads, and be ready when he arrives."] = "{quest:882}, un gran raptor Solescama, solo acude a una presa fresca: saquea {item:10338} de una zhebra y úsalo en {object:147538}, al noroeste de {area:392} y al norte del camino al Cruce, y prepárate para cuando llegue.",
 	-- {item:10338} Fresh Zhevra Carcass
 	-- plural, as words: Zhevra Chargers = {npc:3426} Zhevra Charger
-	["{item:10338}, from any zhevra; Zhevra Chargers graze around the tree"] = "{item:10338}, de cualquier zhebra; los embestidores zhebra pastan alrededor del árbol",
+	["{item:10338}, from any zhevra; Zhevra Chargers graze around the tree"] = "{item:10338}, de cualquier zhebra; los destreros zhebra pastan alrededor del árbol",
 	-- {object:147538} Dead Tree · {quest:882} Ishamuhale
 	["At the {object:147538}: summons {quest:882}"] = "En {object:147538}: invoca a {quest:882}",
 
@@ -638,7 +638,7 @@ return {
 	["{area:1076}: kill these as you meet them"] = "{area:1076}: mata a estos según te los encuentres",
 	-- {area:2539} Malaka'jin · {npc:11858} Grundig Darkcloud
 	-- plural, as words: Grimtotem Brutes = {npc:11912} Grimtotem Brute · Deepmoss Creepers = {npc:4005} Deepmoss Creeper
-	["North up the road from {area:2539}: {npc:11858} and his Grimtotem Brutes hold the bend in the road, and the Deepmoss Creepers and Venomspitters lurk in the webs on both sides of the path all the way up."] = "Al norte por el camino desde {area:2539}: {npc:11858} y sus brutos Tótem Siniestro ocupan la curva del camino, y los reptadores y escupevenenos Musgondo acechan en las telarañas a ambos lados del sendero hasta arriba.",
+	["North up the road from {area:2539}: {npc:11858} and his Grimtotem Brutes hold the bend in the road, and the Deepmoss Creepers and Venomspitters lurk in the webs on both sides of the path all the way up."] = "Al norte por el camino desde {area:2539}: {npc:11858} y sus brutos Tótem Siniestro ocupan la curva del camino, y los trepadores y escupevenenos Musgondo acechan en las telarañas a ambos lados del sendero hasta arriba.",
 
 	-- Step 144: Ziz Fizziks
 	-- {area:1076} Webwinder Path · {quest:1483} Ziz Fizziks · {area:461} Windshear Crag
@@ -650,7 +650,7 @@ return {
 	-- {area:461} Windshear Crag
 	["East of Ziz, the Venture Company is clear-cutting {area:461}; one of the Operators carries the blueprints."] = "Al este de Ziz, Ventura y Cía. está talando {area:461}; uno de los operarios lleva los planos.",
 	-- plural, as words: Venture Co. Loggers = {npc:3989} Venture Co. Logger
-	["Venture Co. Loggers, all over the clear-cut"] = "Leñadores de Ventura y Cía., por toda la zona talada",
+	["Venture Co. Loggers, all over the clear-cut"] = "Madereros de Ventura y Cía., por toda la zona talada",
 
 	-- Step 146: Piznik
 	-- {npc:4276} Piznik · {area:2160} Windshear Mine
