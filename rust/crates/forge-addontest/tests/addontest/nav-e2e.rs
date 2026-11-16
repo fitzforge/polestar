@@ -3576,6 +3576,38 @@ fn t_2470_from_the_windbreak_graveyard_the_walk_to_a_corpse_in_the_screeching_ca
 	assert!(f(&out["corpse"]["yards"]) < 2200.0, "it stays in Thousand Needles: {out}");
 }
 
+// 0.4.1's border sweep (#2048): an Alliance player at level 24 in the Riverglades, 250 yd north of a Redridge goal
+// (Redridge 46.1,37.3, the Alliance Redridge guide's goal 292), follows the arrow along the zone line. Each zone change
+// planned again before the walking engine had searched the last plan's walk, and an unsearched live walk was never
+// kept, so the route went from the crossing's way (86 s) to the walk straight there (63 s) and back every second, 224
+// times in 4 minutes, and the player never got there. The live walk is priced by its estimate until its path is in:
+// the walk straight there stays, and the player arrives.
+#[test]
+fn following_the_arrow_from_the_riverglades_along_the_zone_line_to_a_redridge_goal_never_flips_and_arrives_2048() {
+	skip_unless_ready!();
+	let out = run(
+		&[
+			FOLLOW_ARROW,
+			r#"
+		w.faction = "Alliance"
+		w.race, w.raceName = "Human", "Human"
+		w.setLevel(24)
+		Polestar.CharState().flags.taxiSeen = { [0] = true, [1] = true }
+		local x, y = -8865.1, -2682
+		local z = ground(0, x, y, nil) or 0
+		place(N.danger.ZoneAt(0, x, y), x, y, z)
+		stub.advance(1)
+		N.Sample()
+		N.SetTarget(1433, 46.1, 37.3, "Goal", "l")
+		emit(follow(0, x, y, z, 240))"#,
+		]
+		.concat(),
+		true,
+	);
+	assert!(f(&out["flips"]) <= 1.0, "the route goes back and forth {} times: {out}", out["flips"]);
+	assert!(out["arrived"].as_f64().is_some(), "following the arrow gets the player to the goal: {out}");
+}
+
 // The border sweep (#1543, #2048; a measuring tool, not a check: `--ignored`). NAV_SWEEP_GOALS names a JSON file of
 // guide goals, each { id, faction, level, c, gx, gy, tmap, tx, ty, tf, tz, cand = [[x, y] x 8] } (the 8 points 250 yd
 // round the goal); NAV_SWEEP_OUT where the results go (JSON); NAV_SWEEP_THREADS how many runs at once (default 4),

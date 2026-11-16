@@ -3274,6 +3274,11 @@ end
 -- 118 times in 4 minutes; from Stonetalon Mountains into the Barrens, the walk to the crossing at its 274 s estimate
 -- against the Barrens' own walk through a pass, 351 s along its path but 60 s by its straight line). The same way is
 -- taken fresh as before, and near the walk's end (a crossing just walked through) the fresh plan as before.
+-- A live walk whose path the walking engine has not answered yet (planned a moment ago, its search under way) is
+-- priced as the fresh plan prices it, by its straight line x WALK_DETOUR (0.4.1's border sweep: from the Riverglades
+-- 250 yd from a Redridge goal, the player walked the zone line, each zone change planned again before the last plan's
+-- walk was searched, and the route went from the crossing's way (86 s) to the walk straight there (63 s) and back
+-- every second, 224 times in 4 minutes).
 local keep = { SAVES = 20, OFF = 25, AHEAD = 50, NEAR = 100, MAX = 4, ways = {} }
 keepLive = function(old, i, progress, fresh, target, pc, px, py)
 	local cur = old and old[i]
@@ -3285,9 +3290,14 @@ keepLive = function(old, i, progress, fresh, target, pc, px, py)
 	local gc, gx, gy = P and P.c or g.c, P and P.wx or g.wx, P and P.wy or g.wy
 	local _, off
 	if W and W.Progress then _, off = W.Progress(gc, gx, gy) end
-	if not (off and off <= keep.OFF) then return false end
-	local along = W and W.Left and W.Left(gc, gx, gy)
-	if along then along = along - (cur.tail or 0) else along = progress end
+	local along
+	if off == nil and W and W.Searches and W.Searches(pc) and gc == pc then
+		along = yards(pc, px, py, gc, gx, gy) * WALK_DETOUR - (cur.tail or 0)
+	else
+		if not (off and off <= keep.OFF) then return false end
+		along = W and W.Left and W.Left(gc, gx, gy)
+		if along then along = along - (cur.tail or 0) else along = progress end
+	end
 	if not (along and along >= keep.AHEAD) then return false end
 	local left = along / RUN_SPEED + (cur.rest or 0)
 	local cost = fresh[1].seconds + (fresh[1].rest or 0)
