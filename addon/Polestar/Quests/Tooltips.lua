@@ -48,6 +48,8 @@ local function addObjectiveLines(tt, list, selfKind, selfID, selfName)
 		local isSelf = o.kind == selfKind and (o.id == selfID or (selfName ~= nil and o.name == selfName))
 		if isSelf and o.kind == 1 and o.name then
 			what = L["Kill"] .. " " .. o.name .. " " .. what
+		elseif isSelf and o.kind == 5 and o.name then
+			what = L["Talk to"] .. " " .. o.name .. " " .. what
 		elseif not isSelf and o.name then
 			what = o.name .. " " .. what
 		end
@@ -140,7 +142,7 @@ ns.On("QUESTDB_UPDATED", function() ahead = nil end)
 -- Public so other tooltip paths (and tests) can ask for the same lines.
 function Q.AddUnitLines(tt, npcID)
 	if not (npcID and tooltipsOn()) then return 0 end
-	return addObjectiveLines(tt, Q.ObjectivesForNpc(npcID), 1, npcID)
+	return addObjectiveLines(tt, Q.ObjectivesForNpc(npcID), 1, npcID) + addObjectiveLines(tt, Q.ObjectivesForTalk(npcID), 5, npcID)
 end
 
 function Q.AddItemLines(tt, itemID)

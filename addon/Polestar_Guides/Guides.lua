@@ -3434,6 +3434,7 @@ do
 				{
 					title = "{quest:1714}",
 					note = "Click {object:89931} with the 24 charms in your bags and {quest:1712} in your log. Its window asks for the charms straight away, with nothing to accept: Continue, then Complete, and it hands you the {quest:1714}.",
+					when = { { k = "has", n = 8, item = 4479 }, { k = "has", n = 8, item = 4480 }, { k = "has", n = 8, item = 4481 } },
 					goals = {
 						{ t = "level", level = 39 },
 						{ t = "turnin", quest = 1714, title = "Essence of the Exile", object = 89931, objName = "Bath'rah's Cauldron", qlvl = 37, parent = 1712, map = 1416, x = 79.32, y = 66.8, z = 49.9, f = "e", note = "{object:89931}: {quest:1714}", direct = true },
@@ -4038,6 +4039,7 @@ do
 				{
 					title = "Back to {npc:15077}",
 					note = "Hurry back and hand the 40 Tastyfish to {npc:15077}: the first players to do so win, and the winners get the coin with their prize. If you are too late to win, {npc:15078} still pays a little gold for every 5 Tastyfish.",
+					when = { { k = "has", n = 40, item = 19807 } },
 					goals = {
 						{ t = "turnin", quest = 8193, title = "Master Angler", npc = 15077, npcName = "Riggle Bassbait", qlvl = 60, map = 1434, x = 27.35, y = 76.88, z = 16, f = "e", direct = true },
 						{ t = "collect", item = 274026, itemName = "Extravagant Extravaganza Coin", map = 1434, x = 27.4, y = 76.9, f = "e", note = "The winner's coin, from {npc:15077}" },
