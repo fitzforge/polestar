@@ -2162,3 +2162,61 @@ fn a_click_that_needs_an_item_the_bags_lack_is_no_line_until_the_item_is_there_1
 	let all = json!("3:1:work:1 4:1:work:1 5:1:work:1");
 	assert_eq!(run_remains(false), vec![all.clone(), all.clone(), all]);
 }
+
+// #2330 (HumiD, Goblin Sponsorship): Cozzle's footlocker opens only with Cozzle's Key, which the same step takes from
+// Foreman Cozzle first; While you're here offered the footlocker's blueprints on their own. The step collects the key
+// for no quest, and the quest database names it among the items the quest uses without asking for them: the step
+// fetches it for its own later goal, so the blueprints (a collect from the footlocker beside the player) are no line
+// until the key is in the bags; then they are. A drop the step collects for no quest that the later goal's quest does
+// not use (9104's Tricksters after an unrelated quest-starting drop) holds nothing back.
+const KEY_WORLD: &str = r#"
+w.onQuest(9103, { { required = 1, type = "item" } }, "Goblin Sponsorship")
+w.onQuest(9104, { 1 }, "Tricksters")
+"#;
+const KEY_GUIDE: &str = r#"
+Polestar.RegisterGuide({
+	id = "test/footlocker", pack = "test", title = "Footlocker", minLevel = 1, maxLevel = 10,
+	steps = {
+		{ title = "Wolves", goals = { { t = "kill", target = "Young Wolf", npc = 299, count = 8, quest = 33, oi = 1, map = 1429, x = 60, y = 60 } } },
+		{ title = "Cozzle's Footlocker", goals = {
+			{ t = "collect", item = 90006, itemName = "Cozzle's Key", npc = 90008, map = 1429, x = 70, y = 70 },
+			{ t = "collect", item = 90007, itemName = "Fuel Regulator Blueprints", quest = 9103, title = "Goblin Sponsorship", oi = 1, map = 1429, x = 47.6, y = 45.5 },
+		} },
+		{ title = "Tricksters", goals = {
+			{ t = "collect", item = 90009, itemName = "A Flute", map = 1429, x = 70, y = 70 },
+			{ t = "kill", target = "Trickster", npc = 90010, count = 1, quest = 9104, title = "Tricksters", oi = 1, map = 1429, x = 47.7, y = 45.1 },
+		} },
+	},
+})
+"#;
+const KEY_DB: &str = r#"
+Polestar.QuestDB.SetMeta({ schema = 2 })
+AddRecords("quests", {
+	[9103] = { "Goblin Sponsorship", 5, 3, nil, nil, 2, 9200, 9200, nil, nil, nil, { 2, 90007, 1 }, 1429, nil, nil, nil, nil, nil, 90006 },
+	[9104] = { "Tricksters", 5, 3, nil, nil, 2, 9200, 9200, nil, nil, nil, { 1, 90010, 1 }, 1429 },
+})
+"#;
+
+#[test]
+fn a_chest_s_loot_whose_quest_needs_a_key_the_bags_lack_is_no_line_until_the_key_is_there_2330() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}{KEY_WORLD}"),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Quests/QuestDB.lua"])],
+		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/footlocker" }"#.into())],
+		script: [
+			TEST_PACK,
+			TEST_SOURCE,
+			KEY_GUIDE,
+			HELPERS,
+			&format!("{}{KEY_DB}", forge_addontest::questdb::ADD_RECORDS_LUA),
+			"stub.login()",
+			r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#,
+			r#"Polestar.Set("behavior.whileHereRadius", 60); stub.advance(0.6)"#,
+			"emit(cands())\nw.addItem(90006, 1); flush()\nemit(cands())",
+		]
+		.join("\n"),
+		..Default::default()
+	});
+	assert_eq!(out, vec![json!("3:2:work:1"), json!("2:2:work:1 3:2:work:1")], "the blueprints wait for the key; the Tricksters never wait");
+}

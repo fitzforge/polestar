@@ -10953,6 +10953,10 @@ end
 --     Remains, #1540), unless a use goal of the quest names that item (the
 --     Giant Softshell Clam gives the clam Clam Bait's use goal opens); the
 --     items are the quest's, not each objective's;
+--   * not waiting on its own step: an earlier collect of that step, for no
+--     quest, of an item the goal's quest needs for its work (an item the
+--     step gets for its own later goal: Cozzle's Key before his footlocker,
+--     #2330) holds it back until that collect is done (Own.hereAfterOwn);
 --   * with mobs at most HERE_MOBS_ABOVE levels over the player (a spot's `lvl`,
 --     else the goal's), measured to such places only (Fitz: never send a solo
 --     player at mobs 2 or more levels above them; 1 is fine);
@@ -11778,6 +11782,27 @@ function Own.hereCarries(q)
 	return not uses
 end
 
+-- Whether goal g of step s (quest q's) waits on its own step (#2330): an
+-- earlier goal of the step collects, for no quest, an item q uses without
+-- asking for it (QuestDB.UsesOnly), and is not done: the step fetches it
+-- for this goal (Foreman Cozzle's key, which opens the footlocker holding
+-- Goblin Sponsorship's blueprints). Either signal alone holds nothing back:
+-- a drop collected on the way for another reason, or an item the quest
+-- names that the guide leaves to the player.
+function Own.hereAfterOwn(s, g, q)
+	local Q = ns.QuestDB
+	if not (Q and Q.IsLoaded()) then return false end
+	local goals = guide.steps[s].goals
+	for i = 1, g - 1 do
+		local other = goals[i]
+		if other.t == "collect" and other.quest == nil and other.item and Q.UsesOnly(q, other.item)
+			and goalApplies(other) and not goalDone(s, i, other) then
+			return true
+		end
+	end
+	return false
+end
+
 -- Whether goal g of later step s, one of Own.hereGoalsOn's for a quest in
 -- the log (an accept: one not taken), is a candidate, as what ("work",
 -- "turnin" or "take"), how many are left (see above), and for a hand-in or a
@@ -11819,6 +11844,7 @@ function Own.hereFits(s, g, goal, live, shown)
 	end
 	if t == "use" and goal.item and C.GetItemCount(goal.item) < 1 then return nil end
 	if t == "interact" and not Own.hereCarries(q) then return nil end
+	if Own.hereAfterOwn(s, g, q) then return nil end
 	if not Own.hereLevelOk(goal, Own.hereTop) then return nil end
 	local left = (max or goal.count or 1) - (cur or 0)
 	if left < 1 then return nil end
@@ -12906,7 +12932,8 @@ end
 
 -- What changes the candidates: the quest log, a turn-in (it opens the
 -- quests after it: pick-ups), the level, the bags (the item a use or a
--- click needs: Own.hereCarries), the player's pins, ticks and skips, a new
+-- click needs, or a step fetches for its own later goal: Own.hereCarries,
+-- Own.hereAfterOwn), the player's pins, ticks and skips, a new
 -- zone (which also ends the zone stay: dismissed lines may come back), the
 -- settings.
 function Own.hereChanged() Own.hereDirty = true end
