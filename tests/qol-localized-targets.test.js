@@ -40,6 +40,7 @@ function targetSetup(source) {
 			? '{ t = "collect", item = 500100, quest = 500200, oi = 1 }'
 			: '{ t = "collect", item = 500100 }';
 	return String.raw`
+		Polestar.Set("qol.targetSimple", true) -- the single button's name; the list hides it
 		Q.SetMeta({ schema = 2 })
 		Q.AddChunk("npcs", 500101, 500101, "\n500101\t'Old Target;9000;1;1;50;50;0\n")
 		${source === 'fromNpcs' ? '' : String.raw`Q.AddChunk("items", 500100, 500100, "\n500100\t'Test Item;1;500101;50;0\n")`}

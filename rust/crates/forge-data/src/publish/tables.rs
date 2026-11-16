@@ -316,7 +316,14 @@ impl Asm<'_> {
 		for k in ["races", "classes"] {
 			let (v, p) = field(k);
 			match v {
-				Some(Value::Null) | None => c.fields.push((if k == "races" { "races" } else { "classes" }, json!(0), p)),
+				// No restriction stated: 0, every race or class, when an independent source holds the
+				// record without one; a record only a correction makes, not setting the field, leaves it
+				// out (unknown, which 0 would not say).
+				Some(Value::Null) | None => {
+					if p.backed() {
+						c.fields.push((if k == "races" { "races" } else { "classes" }, json!(0), p))
+					}
+				}
 				Some(x) => {
 					if let Some(n) = x.as_u64().or_else(|| x.as_f64().map(|f| f as u64)) {
 						c.fields.push((if k == "races" { "races" } else { "classes" }, json!(n), p));

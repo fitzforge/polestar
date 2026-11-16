@@ -201,9 +201,10 @@ fn done_feeder_steps_move_on_a_skipped_one_keeps_its_quests_skipped_at_the_next_
 			"Night Run turnin:23 turnin:24 turnin:25",
 		])
 	);
-	// King of the Foulweald is not left out; with Between a Rock and a Thistlefur in the log it stays open
-	// (a held prerequisite counts as coming, #1372).
-	assert_eq!(out["karang"][1], "pending:nil");
+	// King of the Foulweald is not left out. Between a Rock and a Thistlefur is in the log but its kills were skipped:
+	// Karang takes it in only once they are done, so the accept says so (a held prerequisite counts as coming only
+	// when finished, #1372, #1998).
+	assert_eq!(out["karang"][1], "skipped:Hand in \u{201c}Between a Rock and a Thistlefur\u{201d} first");
 }
 
 #[test]
@@ -386,9 +387,10 @@ fn t_1353_malifax_and_a_player_who_did_the_route_on_the_shipped_ashenvale() {
 	println!("{}", serde_json::to_string_pretty(&out).unwrap());
 	let before = ids(&out["before"]["requires"]);
 	// The hunt trophies (2, 23, 24) wait in the guide itself for The Ashenvale Hunt (`when turnedin 6383`, #1531,
-	// 58d54acf1): never a Requires line, before the plan or after. 6621 still needs the plan.
-	assert!(before.contains(&6621), "6621 was passed: {before:?}");
-	for q in [2, 23, 24] {
+	// 58d54acf1): never a Requires line, before the plan or after. King of the Foulweald (6621) opens with Between a
+	// Rock and a Thistlefur (216), which the guide takes itself from Karang since the 0.4.0 Horde route: no Requires
+	// line either.
+	for q in [2, 23, 24, 6621] {
 		assert!(!before.contains(&q), "{q} waits in the guide, no Requires line: {before:?}");
 	}
 	let after = ids(&out["after"]["requires"]);
@@ -413,7 +415,7 @@ fn t_1353_malifax_and_a_player_who_did_the_route_on_the_shipped_ashenvale() {
 	assert_eq!(normal["after"], normal["before"]);
 }
 
-// The fresh-start sweep (EngineReview036, 0.3.6): an Orc 39 loading Stranglethorn Vale (Horde 40-50) with no
+// The fresh-start sweep (0.3.6): an Orc 39 loading Stranglethorn Vale (Horde 40-50) with no
 // earlier guides got Bloody Bone Necklace (596) put in as a local feeder for Split Bone Necklace (598), which
 // also needs The Vile Reef (629): the plan followed only the first missing prerequisite, so 598 still read
 // "Requires The Vile Reef" on its accept, its skulls and its hand-in, and the feeder opened nothing. Same for Big
@@ -600,6 +602,130 @@ fn t_1442_a_prerequisite_the_guide_has_only_for_other_races_is_missing_for_a_cha
 	assert_eq!(planned["hidden"], json!([4727]));
 }
 
+// A prerequisite in the log counts as coming only when the route takes the player to hand it in: a step for the
+// character at an NPC or object the Codex says takes it in. A Night Elf holding Washed Ashore (4681), whose
+// Darkshore steps of it are for the other races, is told to hand it in to Gwennyth Bly'Leggonde first, not shown
+// Beached Sea Turtle (4727) as ready. `gwennyth`: Lua goals for a step at Gwennyth (npc 10219) put before
+// Cliffspring Falls, or ""; `pre`: Beached Sea Turtle's `pre` list (any one of them opens it).
+fn held_darkshore(gwennyth: &str, codex_end: &str, guides: &str, pre: &str) -> Value {
+	held_darkshore_with(gwennyth, codex_end, guides, pre, "{}")
+}
+
+// held_darkshore with Washed Ashore's objectives in the log (`held`: a stub objectives list, "{}" for none).
+fn held_darkshore_with(gwennyth: &str, codex_end: &str, guides: &str, pre: &str, held: &str) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: r#"local w = stub.world
+w.addMap(1439, { name = "Darkshore", c = 1, left = 1000, right = -1000, top = 1000, bottom = -3000 })
+w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
+w.moveTo(1439, 53, 18)
+w.race, w.raceName, w.faction, w.class, w.className, w.level = "NightElf", "NightElf", "Alliance", "HUNTER", "Hunter", 17
+w.complete({ 3524 })
+w.onQuest(4681, {held}, "Washed Ashore")"#
+			.replace("{held}", held),
+		addons: vec![Addon::name("Polestar")],
+		script: format!(
+			r#"{TEST_PACK}
+{TEST_SOURCE}
+local D = 1439
+local OTHERS = {{ races = {{ "Human", "Dwarf", "Gnome" }} }}
+local steps = {{
+	{{ title = "Auberdine", goals = {{ {{ t = "accept", quest = 4681, title = "Washed Ashore", only = OTHERS, npc = 10219, map = D, x = 37, y = 44 }} }} }},
+	{{ title = "The skeletal turtle", goals = {{ {{ t = "collect", item = 12289, itemName = "Sea Turtle Remains", quest = 4681, oi = 1, only = OTHERS, map = D, x = 36, y = 70 }} }} }},
+	{{ title = "Auberdine", goals = {{ {{ t = "turnin", quest = 4681, title = "Washed Ashore", only = OTHERS, npc = 10219, map = D, x = 37, y = 44 }} }} }},
+}}
+local extra = {{ {gwennyth} }}
+if #extra > 0 then steps[#steps + 1] = {{ title = "Gwennyth Bly'Leggonde", goals = extra }} end
+steps[#steps + 1] = {{ title = "Cliffspring Falls", goals = {{
+	{{ t = "accept", quest = 4727, title = "Beached Sea Turtle", pre = {pre}, preTitles = {{ [4681] = "Washed Ashore" }}, object = 176196, map = D, x = 53, y = 18 }},
+	{{ t = "accept", quest = 999, title = "Fine Crab Chunks", map = D, x = 53, y = 18 }},
+}} }}
+Polestar.RegisterGuide({{ id = "test/ds", pack = "test", title = "Darkshore", faction = "Alliance", minLevel = 15, maxLevel = 19, steps = steps }})
+{guides}
+E = Polestar.Engine
+-- The Codex: every quest open to the character; Washed Ashore taken in by {codex_end}.
+Polestar.Codex.Quest = function(id) return {{ id = id, title = "Quest " .. id, faction = "A", ["end"] = id == 4681 and {codex_end} or nil }} end
+Polestar.Codex.Npc = function(id) return id == 10219 and {{ id = id, name = "Gwennyth Bly'Leggonde" }} or nil end
+stub.login(); stub.advance(0.25)
+Polestar.Set("behavior.autoAccept", false)
+stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.25)
+E.SetGuide("test/ds"); stub.advance(0.25)
+local out, g = {{}}, E.GetGuide()
+for i = 1, E.GetStepCount() do
+	local v = E.GetStepView(i)
+	for k, goal in ipairs(g.steps[i].goals) do
+		if goal.quest == 4727 then out[#out + 1] = goal.quest .. ":" .. v.goals[k].status .. ":" .. tostring(v.goals[k].unavailableText) end
+	end
+end
+local hidden = {{}}
+for q in pairs(g.hidden or {{}}) do hidden[#hidden + 1] = q end
+emit({{ goals = out, hidden = hidden, steps = E.GetStepCount() }})"#
+		),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+const AT_GWENNYTH: &str = "{ npc = { 10219 } }";
+const WASHED_ASHORE: &str = "{ 4681 }";
+
+// An earlier guide that gives Washed Ashore and another quest Beached Sea Turtle could follow on from, both far
+// away.
+const NE_DARKSHORE_EITHER: &str = r#"
+Polestar.RegisterGuide({ id = "test/nds", pack = "test", title = "Darkshore (Night Elf)", faction = "Alliance", minLevel = 12, maxLevel = 14, next = "test/ds", steps = {
+	{ title = "Far away", goals = { { t = "accept", quest = 996, title = "Another Way In", map = 1429, x = 50, y = 50 },
+		{ t = "accept", quest = 4681, title = "Washed Ashore", map = 1429, x = 50, y = 50 } } },
+	{ title = "Far away", goals = { { t = "turnin", quest = 996, title = "Another Way In", map = 1429, x = 50, y = 50 },
+		{ t = "turnin", quest = 4681, title = "Washed Ashore", map = 1429, x = 50, y = 50 } } },
+} })
+"#;
+
+#[test]
+fn a_held_prerequisite_the_route_never_hands_in_says_hand_it_in_first_with_its_ender() {
+	let out = held_darkshore("", AT_GWENNYTH, "", WASHED_ASHORE);
+	assert_eq!(out["goals"], json!(["4727:skipped:Hand in “Washed Ashore” to Gwennyth Bly'Leggonde first"]), "{out}");
+}
+
+#[test]
+fn a_held_prerequisite_whose_ender_a_step_stands_at_keeps_its_follow_up_open() {
+	// A step for every race at Gwennyth (another of her quests): the player hands Washed Ashore in there.
+	let out = held_darkshore(r#"{ t = "accept", quest = 998, title = "A Letter", npc = 10219, map = D, x = 37, y = 44 }"#, AT_GWENNYTH, "", WASHED_ASHORE);
+	assert_eq!(out["goals"], json!(["4727:pending:nil"]), "{out}");
+	// The Codex cannot say who takes it in: the giver's window has the last word, as before (#1372).
+	let unknown = held_darkshore("", "nil", "", WASHED_ASHORE);
+	assert_eq!(unknown["goals"], json!(["4727:active:nil"]), "{unknown}");
+}
+
+#[test]
+fn t_1998_a_held_prerequisite_not_finished_yet_says_hand_it_in_first_though_a_step_stands_at_its_ender() {
+	// Young Crocolisk Skins (484) taken on an earlier guide and left unfinished: James Halloran stands on the
+	// route, but takes it in only once its objective is done, so Apprentice's Duties is not his to offer yet.
+	let at = r#"{ t = "accept", quest = 998, title = "A Letter", npc = 10219, map = D, x = 37, y = 44 }"#;
+	let out = held_darkshore_with(at, AT_GWENNYTH, "", WASHED_ASHORE, "{ { required = 1, fulfilled = 0 } }");
+	assert_eq!(out["goals"], json!(["4727:skipped:Hand in “Washed Ashore” to Gwennyth Bly'Leggonde first"]), "{out}");
+	// Its objective done: handed in on the way, the follow-up stays open.
+	let done = held_darkshore_with(at, AT_GWENNYTH, "", WASHED_ASHORE, "{ { required = 1, fulfilled = 1 } }");
+	assert_eq!(done["goals"], json!(["4727:pending:nil"]), "{done}");
+}
+
+fn nothing_hidden(out: &Value) -> bool {
+	out["hidden"].as_array().is_none_or(|a| a.is_empty()) && out["hidden"].as_object().is_none_or(|o| o.is_empty())
+}
+
+#[test]
+fn a_held_prerequisite_handed_in_far_away_keeps_its_follow_up_in_the_guide() {
+	// The Night Elf's own earlier guide hands Washed Ashore in, far away: no feeder goes in, and Beached Sea
+	// Turtle is not left out with "Requires" either: it says where to hand the held quest in.
+	let out = held_darkshore("", AT_GWENNYTH, NE_DARKSHORE, WASHED_ASHORE);
+	assert!(nothing_hidden(&out), "{out}");
+	assert_eq!(out["goals"], json!(["4727:skipped:Hand in “Washed Ashore” to Gwennyth Bly'Leggonde first"]), "{out}");
+	// Either of two quests opens it, the held one listed second: the plan follows the held one, as the line does,
+	// not the first one's far-away chain, which would leave Beached Sea Turtle out.
+	let either = held_darkshore("", AT_GWENNYTH, NE_DARKSHORE_EITHER, "{ 996, 4681 }");
+	assert!(nothing_hidden(&either), "{either}");
+	assert_eq!(either["goals"], json!(["4727:skipped:Hand in “Washed Ashore” to Gwennyth Bly'Leggonde first"]), "{either}");
+}
+
 // #1442 on the shipped Darkshore (03-darkshore, 15-19) for a Night Elf Hunter at 17. The guide's Washed Ashore,
 // How Big a Threat? and Plagued Lands steps are for the other races (a Night Elf does them in its own
 // Darkshore guide); the Codex is stubbed to say every quest is the character's (they are open to every
@@ -631,4 +757,116 @@ fn t_1442_darkshore_s_follow_ups_for_a_night_elf_who_skipped_its_own_darkshore_a
 	// A Night Elf who played its own Darkshore: the guide as written, nothing waiting.
 	let route = shipped_with("Alliance", "NightElf", "HUNTER", 17, NE_DARKSHORE_DONE, NE_DARKSHORE_LOG, "forever/alliance/03-darkshore", ALL_MINE);
 	assert!(lines(&route["feeders"]).is_empty() && ids(&route["hidden"]).is_empty(), "{route}");
+}
+
+// #2350 (0.4.0 upgrade sweep, Horde Stranglethorn 40-50 standing at its Grom'gol feeder step): a pack update
+// passed every feeder step behind the player's new place as one it added, and counted none as the player's
+// place, so the feeder step the player stood at, which the save's guide had planned in too, passed with its
+// quests. A feeder step the save had is the guide's own: it stays and holds the player there.
+const SAVE: &str = r#"
+E.SetGuide("test/07"); flush(); stub.advance(11)
+emit({ live = E.GetLiveStep(), title = E.GetStepView(E.GetLiveStep()).title })
+stub.fire("PLAYER_LOGOUT")
+local function ser(v)
+	if type(v) == "string" then return string.format("%q", v) end
+	if type(v) ~= "table" then return tostring(v) end
+	local parts = {}
+	for k, x in pairs(v) do
+		if type(x) ~= "function" then parts[#parts + 1] = "[" .. ser(k) .. "]=" .. ser(x) end
+	end
+	return "{" .. table.concat(parts, ",") .. "}"
+end
+emit({ save = "PolestarCharDB = " .. ser(PolestarCharDB) })
+"#;
+
+#[test]
+fn a_feeder_step_the_save_s_guide_had_stays_where_the_player_is_after_a_pack_update() {
+	// 6442 and 25 done, 6382 carried: the player is at the Night Run feeder step (Senani's accepts need 6383).
+	let before = "w.complete({ 6442, 25 })\n";
+	let first = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}{before}"),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		script: format!("{TEST_PACK}\n{TEST_SOURCE}\nFUR = {{ {FAR} }}\n{GUIDES}\n{HELPERS}\n{SAVE}"),
+		..Default::default()
+	});
+	assert_eq!(first[0], json!({ "live": 3, "title": "Night Run" }), "{}", first[0]);
+	let save = first[1]["save"].as_str().expect("the save").to_string();
+	// The next pack: the same guides, a step added at the end of test/07 (an update of that guide).
+	let pack = TEST_PACK.replace(r#"version = "1""#, r#"version = "2""#);
+	let guides = GUIDES.replace(
+		r#"{ title = "Night Run", goals = { hand(23"#,
+		r#"{ title = "New ahead", goals = { acc(26, "Something New", nil, 60, 60) } },
+	{ title = "Night Run", goals = { hand(23"#,
+	);
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}{before}"),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".to_string(), save)],
+		script: format!("{pack}\n{TEST_SOURCE}\nFUR = {{ {FAR} }}\n{guides}\n{HELPERS}\nstub.advance(11)\nemit({{ live = E.GetLiveStep(), status = E.GetStepView(3).status, shape = shape() }})"),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["live"], 3, "still at Night Run: {out}");
+	assert_eq!(out["status"], "current", "{out}");
+}
+
+// #2494 (Fyurie, Night Elf Warrior 50, 0.3.7.2, Azshara, Western Plaguelands & Burning Steppes): opened fresh, the
+// guide began with a feeder step from Searing Gorge that only said "Accept The Horn of the Beast" from Margol's Horn,
+// with no arrow: the accept of a quest an item starts came in without the item's own collect, so it cost nothing and
+// went in as "local" though the horn is in another zone. The item's collect goes with its accept: a horn in the
+// guide's zones goes in, with the walk and the work it costs; one elsewhere leaves the follow-up out.
+const HORN_GUIDES: &str = r#"
+local A = 1440
+local function acc(q, title, pre, x, y) return { t = "accept", quest = q, title = title, pre = pre, map = A, x = x, y = y, qlvl = 24 } end
+Polestar.RegisterGuide({ id = "test/sg", pack = "test", title = "Searing Gorge", faction = "Horde", minLevel = 20, maxLevel = 24, next = "test/bs", steps = {
+	{ title = "Thorium Point", goals = { acc(500, "Something Else", nil, 50, 50) } },
+	{ title = "Margol's Horn", goals = {
+		{ t = "collect", item = 10000, itemName = "Margol's Horn", count = 1, map = HORN[1], x = HORN[2], y = HORN[3] },
+		{ t = "accept", quest = 3181, title = "The Horn of the Beast", item = 10000, qlvl = 24 },
+	} },
+} })
+Polestar.RegisterGuide({ id = "test/bs", pack = "test", title = "Burning Steppes", faction = "Horde", minLevel = 24, maxLevel = 30, steps = {
+	{ title = "Morgan's Vigil", goals = { acc(501, "Another Errand", nil, 50, 50) } },
+	{ title = "Pebblebitty", goals = {
+		{ t = "turnin", quest = 3181, title = "The Horn of the Beast", map = A, x = 52, y = 52 },
+		acc(3182, "Proving Grounds", { 3181 }, 52, 52),
+	} },
+} })
+"#;
+
+fn run_horn(horn: &str) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.to_string(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		script: format!(
+			r#"{TEST_PACK}
+{TEST_SOURCE}
+HORN = {{ {horn} }}
+{HORN_GUIDES}
+{HELPERS}
+E.SetGuide("test/bs"); flush()
+local g = E.GetGuide()
+local r = {{ shape = shape(), hidden = {{}} }}
+for q in pairs(g.hidden or {{}}) do r.hidden[#r.hidden + 1] = q end
+table.sort(r.hidden)
+emit(r)"#
+		),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+#[test]
+fn t_2494_a_feeder_accept_from_an_item_comes_with_the_item_s_collect() {
+	let near = run_horn("1440, 51, 51");
+	// The horn's step, with its collect, goes in first (beside the guide's opening stop, as near as any).
+	assert_eq!(near["shape"], json!(["Margol's Horn <test/sg 2> collect accept:3181", "Morgan's Vigil accept:501", "Pebblebitty turnin:3181 accept:3182"]), "{near}");
+	assert_eq!(near["hidden"].as_array().map_or(0, |a| a.len()), 0, "{near}");
+	// The horn in another zone: no feeder, and the follow-up waits for the earlier guide.
+	let far = run_horn("1429, 50, 50");
+	assert_eq!(far["hidden"], json!([3182]), "{far}");
+	assert!(!far["shape"].to_string().contains("<test/sg"), "{far}");
 }

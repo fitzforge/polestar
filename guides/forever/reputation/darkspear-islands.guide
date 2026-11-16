@@ -70,7 +70,7 @@ step Merchant Coast
 step Horde Warbringer
   only Horde
   when level<40
-  tip The Horde Warbringer pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time (Conflict at Darkspear Islands), then 100 for every 3 more. The nearest stand at Mor'shan in the north of the Barrens and in Orgrimmar; others in Thunder Bluff and the Undercity, at Hammerfall and by the Alterac Valley gate. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 Darkspear Islands marks: hand in or spend them before you reach that.
+  tip The Horde Warbringer pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time (Conflict at Darkspear Islands), then 100 for every 3 more. One stands here at the Merchant Coast, beside the portal; others at Mor'shan in the north of the Barrens, in Orgrimmar, Thunder Bluff and the Undercity, at Hammerfall and by the Alterac Valley gate. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 Darkspear Islands marks: hand in or spend them before you reach that.
   accept 98887
   collect 274895 x3 quest 98887.1 @65,35  -- Darkspear Islands Marks of Honor: play games
   turnin 98887
@@ -79,7 +79,7 @@ step Horde Warbringer
   only Horde
   when level>=40
   when level<50
-  tip The Horde Warbringer pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time in each bracket (Conflict at Darkspear Islands), then keeps taking 3 more. The nearest stand at Mor'shan in the north of the Barrens and in Orgrimmar. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 Darkspear Islands marks.
+  tip The Horde Warbringer pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time in each bracket (Conflict at Darkspear Islands), then keeps taking 3 more. One stands here at the Merchant Coast, beside the portal; others at Mor'shan in the north of the Barrens and in Orgrimmar. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 Darkspear Islands marks.
   level 40
   accept 98889 npc 15350
   collect 274895 x3 quest 98889.1 @65,35  -- Darkspear Islands Marks of Honor: play games
@@ -89,7 +89,7 @@ step Horde Warbringer
   only Horde
   when level>=50
   when level<60
-  tip The Horde Warbringer pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time in each bracket (Conflict at Darkspear Islands), then keeps taking 3 more. The nearest stand at Mor'shan in the north of the Barrens and in Orgrimmar. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 Darkspear Islands marks.
+  tip The Horde Warbringer pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time in each bracket (Conflict at Darkspear Islands), then keeps taking 3 more. One stands here at the Merchant Coast, beside the portal; others at Mor'shan in the north of the Barrens and in Orgrimmar. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 Darkspear Islands marks.
   level 50
   accept 98891 npc 15350
   collect 274895 x3 quest 98891.1 @65,35  -- Darkspear Islands Marks of Honor: play games
@@ -98,7 +98,7 @@ step Horde Warbringer
 step Horde Warbringer
   only Horde
   when level>=60
-  tip The Horde Warbringer pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time in each bracket (Conflict at Darkspear Islands), then keeps taking 3 more. The nearest stand at Mor'shan in the north of the Barrens and in Orgrimmar. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 Darkspear Islands marks.
+  tip The Horde Warbringer pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time in each bracket (Conflict at Darkspear Islands), then keeps taking 3 more. One stands here at the Merchant Coast, beside the portal; others at Mor'shan in the north of the Barrens and in Orgrimmar. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 Darkspear Islands marks.
   level 60
   accept 98893 npc 15350
   collect 274895 x3 quest 98893.1 @65,35  -- Darkspear Islands Marks of Honor: play games
@@ -165,19 +165,19 @@ step Northwatch Hold
 
 step Alliance Brigadier General
   only Alliance
-  zone Arathi Highlands
+  zone The Barrens
   when level<40
-  tip The Alliance Brigadier General pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time (Darkspear Islands Clash), then 100 for every 3 more. He stands in Stormwind, Ironforge and Darnassus, at Silverwing Grove in southern Ashenvale, at Refuge Pointe in the Arathi Highlands and at both gates of Alterac Valley. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 Darkspear Islands marks: hand in or spend them before you reach that.
+  tip The Alliance Brigadier General pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time (Darkspear Islands Clash), then 100 for every 3 more. One stands here at Northwatch Hold, beside the portal; others in Stormwind, Ironforge and Darnassus, at Silverwing Grove in southern Ashenvale, at Refuge Pointe in the Arathi Highlands and at both gates of Alterac Valley. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 Darkspear Islands marks: hand in or spend them before you reach that.
   accept 98895
   collect 274895 x3 quest 98895.1 map 1413 @63.4,58.7  -- Darkspear Islands Marks of Honor: play games
   turnin 98895
 
 step Alliance Brigadier General
   only Alliance
-  zone Arathi Highlands
+  zone The Barrens
   when level>=40
   when level<50
-  tip The Alliance Brigadier General pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time in each bracket (Darkspear Islands Clash), then keeps taking 3 more. He stands in Stormwind, Ironforge and Darnassus, at Silverwing Grove in southern Ashenvale and at Refuge Pointe. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 Darkspear Islands marks.
+  tip The Alliance Brigadier General pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time in each bracket (Darkspear Islands Clash), then keeps taking 3 more. One stands here at Northwatch Hold, beside the portal; others in Stormwind, Ironforge and Darnassus, at Silverwing Grove in southern Ashenvale and at Refuge Pointe. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 Darkspear Islands marks.
   level 40
   accept 98897 npc 15351
   collect 274895 x3 quest 98897.1 map 1413 @63.4,58.7  -- Darkspear Islands Marks of Honor: play games
@@ -185,10 +185,10 @@ step Alliance Brigadier General
 
 step Alliance Brigadier General
   only Alliance
-  zone Arathi Highlands
+  zone The Barrens
   when level>=50
   when level<60
-  tip The Alliance Brigadier General pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time in each bracket (Darkspear Islands Clash), then keeps taking 3 more. He stands in Stormwind, Ironforge and Darnassus, at Silverwing Grove in southern Ashenvale and at Refuge Pointe. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 Darkspear Islands marks.
+  tip The Alliance Brigadier General pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time in each bracket (Darkspear Islands Clash), then keeps taking 3 more. One stands here at Northwatch Hold, beside the portal; others in Stormwind, Ironforge and Darnassus, at Silverwing Grove in southern Ashenvale and at Refuge Pointe. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 Darkspear Islands marks.
   level 50
   accept 98899 npc 15351
   collect 274895 x3 quest 98899.1 map 1413 @63.4,58.7  -- Darkspear Islands Marks of Honor: play games
@@ -196,9 +196,9 @@ step Alliance Brigadier General
 
 step Alliance Brigadier General
   only Alliance
-  zone Arathi Highlands
+  zone The Barrens
   when level>=60
-  tip The Alliance Brigadier General pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time in each bracket (Darkspear Islands Clash), then keeps taking 3 more. He stands in Stormwind, Ironforge and Darnassus, at Silverwing Grove in southern Ashenvale and at Refuge Pointe. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 Darkspear Islands marks.
+  tip The Alliance Brigadier General pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time in each bracket (Darkspear Islands Clash), then keeps taking 3 more. One stands here at Northwatch Hold, beside the portal; others in Stormwind, Ironforge and Darnassus, at Silverwing Grove in southern Ashenvale and at Refuge Pointe. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 Darkspear Islands marks.
   level 60
   accept 98901 npc 15351
   collect 274895 x3 quest 98901.1 map 1413 @63.4,58.7  -- Darkspear Islands Marks of Honor: play games

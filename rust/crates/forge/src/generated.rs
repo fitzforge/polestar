@@ -131,7 +131,7 @@ pub fn cut_seed(checkout: &Path, force: bool) -> Result<usize, String> {
 		hashes.insert(f.clone(), sha256(&b));
 	}
 	let doc = json!({
-		"about": "The leveling guides Forge starts from, cut from guides/ by `forge guide seed` once, when Forge took them over (a re-seed resets every route's baseline). Never edit them: a fix goes into the checkout's fix records (docs/FORGE.md, \"Fixing a generated guide\"). files: path under forge/seed/guides -> SHA-256.",
+		"about": "The leveling guides Forge starts from, cut from guides/ by `forge guide seed` once, when Forge took them over (a re-seed resets every route's baseline). Contributors never edit them: a fix goes into the checkout's fix records (docs/FORGE.md, \"Fixing a generated guide\"). When the maintainer edits a generated guide by hand, the same hunk goes into the seed in that commit, and what the writer recomputes (order, audience, travel, the step a goal is on) into fix records. files: path under forge/seed/guides -> SHA-256.",
 		"from": { "commit": git(checkout, &["rev-parse", "HEAD"]) },
 		"files": hashes,
 	});

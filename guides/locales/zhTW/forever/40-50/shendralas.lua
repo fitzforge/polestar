@@ -1,0 +1,167 @@
+-- Chinese (traditional) (zhTW): the guide forever/40-50/shendralas (forever/40-50/shendralas.guide).
+-- Written by `forge i18n guides sync zhTW`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
+-- name there in Chinese (traditional) (the English is listed above the line). A name the English has in the plural, as words,
+-- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
+-- A token marked "no name in this language" would show in English: write that name in Chinese (traditional) words instead.
+-- The comments are rewritten by sync.
+return {
+	-- Guide
+	-- {zone:1444} Feralas
+	["About a dozen quests on a short trip into Forever's new zone (about 45-46 for the Alliance, 47 for the Horde), then on to {zone:1444}."] = "短程前往Forever新地區，約十來個任務（聯盟約45-46級，部落47級），之後前往{zone:1444}。",
+
+	-- Step 1: North into Desolace
+	-- {area:405} Desolace
+	["North into {area:405}"] = "向北進入{area:405}",
+	-- {zone:2652} Shen'dralas · {area:405} Desolace · {area:2657} Valley of Bones · {area:1099} Camp Mojache · {area:2577} Dire Maul
+	["New in Forever: this guide follows what players did in {zone:2652}. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\n{zone:2652} lies south of {area:405}, through the {area:2657}, and has no flight path of its own. From {area:1099} ride north-west on the road past {area:2577} and on north into {area:405}: the road comes out on {area:405}'s southern edge."] = "Forever新內容：本指南依照玩家在{zone:2652}的實際流程編寫。若有步驟錯誤，請在Polestar的Discord或GitHub告訴我們，並註明是哪個步驟。\n{zone:2652}位於{area:405}南方，經由{area:2657}進入，沒有自己的飛行路線。從{area:1099}沿道路向西北騎，經過{area:2577}後繼續向北進入{area:405}：道路會通到{area:405}的南緣。",
+	-- {area:405} Desolace · {zone:1444} Feralas
+	["{area:405}, where the road from {zone:1444} comes in"] = "{area:405}，來自{zone:1444}的道路入口處",
+
+	-- Step 2: Fly to Shadowprey Village
+	-- {area:2408} Shadowprey Village
+	["Fly to {area:2408}"] = "",
+	-- {zone:2652} Shen'dralas · {area:405} Desolace · {area:2657} Valley of Bones · {zone:1454} Orgrimmar · {object:3202} Grom'gol · {zone:1458} Undercity
+	["New in Forever: this guide follows what players did in {zone:2652}. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\n{zone:2652} lies south of {area:405}, through the {area:2657}, and has no flight path of its own. Its quests are for levels 41-45. Coming from the Eastern Kingdoms, take the zeppelin to {zone:1454} first (from {object:3202} or the {zone:1458})."] = "Forever新內容：本指南依照玩家在{zone:2652}的實際流程編寫。若有步驟錯誤，請在Polestar的Discord或GitHub告訴我們，並註明是哪個步驟。\n{zone:2652}位於{area:405}南方，經由{area:2657}進入，沒有自己的飛行路線。其任務適合41-45級。若從東部王國過來，先搭飛艇到{zone:1454}（從{object:3202}或{zone:1458}出發）。",
+	-- {zone:1454} Orgrimmar
+	["{zone:1454} flight master"] = "{zone:1454}的飛行管理員",
+
+	-- Step 3: Fly to Nijel's Point
+	-- {area:608} Nijel's Point
+	["Fly to {area:608}"] = "飛往{area:608}",
+	-- {zone:2652} Shen'dralas · {area:405} Desolace · {area:2657} Valley of Bones · {area:150} Menethil Harbor
+	["New in Forever: this guide follows what players did in {zone:2652}. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\n{zone:2652} lies south of {area:405}, through the {area:2657}, and has no flight path of its own. Its quests are for levels 41-45. Coming from the Eastern Kingdoms, take the boat from {area:150} to Theramore first."] = "Forever新內容：本指南依照玩家在{zone:2652}的實際流程編寫。若有步驟錯誤，請在Polestar的Discord或GitHub告訴我們，並註明是哪個步驟。\n{zone:2652}位於{area:405}南方，經由{area:2657}進入，沒有自己的飛行路線。其任務適合41-45級。若從東部王國過來，先從{area:150}搭船到塞拉摩。",
+
+	-- Step 4: Into the Valley of Bones
+	-- {area:2657} Valley of Bones
+	["Into the {area:2657}"] = "進入{area:2657}",
+	-- {area:405} Desolace · {area:2408} Shadowprey Village · {area:606} Gelkis Village · {area:2657} Valley of Bones · {area:16651} Shen'dralas
+	["Ride east along {area:405}'s southern edge (from {area:2408}: past {area:606}): the {area:2657} opens there into {area:16651}."] = "沿著{area:405}南緣向東騎（從{area:2408}出發：經過{area:606}）：{area:2657}在那裡通往{area:16651}。",
+
+	-- Step 5: Into the Valley of Bones
+	-- {area:608} Nijel's Point · {area:405} Desolace · {area:604} Magram Village · {area:2657} Valley of Bones · {area:16651} Shen'dralas
+	["Ride south from {area:608} down the road through eastern {area:405} to {area:604}: just past its western edge the path climbs into the {area:2657} and {area:16651}."] = "從{area:608}沿道路向南穿過{area:405}東部，前往{area:604}：剛過其西緣，小路便向上通往{area:2657}和{area:16651}。",
+
+	-- Step 6: The Valley of Bones: a Tattered Journal
+	-- {area:2657} Valley of Bones · {quest:93644} Tattered Journal
+	["The {area:2657}: a {quest:93644}"] = "{area:2657}：{quest:93644}",
+	-- {quest:93644} Tattered Journal · {zone:2652} Shen'dralas · {area:2657} Valley of Bones
+	-- plural, as words: Outcast Necromancers = {npc:11559} Outcast Necromancer · Magram Necromancers = {npc:253272} Magram Necromancer · Magram Necrokhans = {npc:253274} Magram Necrokhan
+	["New in Forever: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nThe Outcast Necromancers and the Magram Necromancers of the valley drop a {quest:93644} whose writer lives in {zone:2652}: players got it within a few kills. The Magram centaurs leave you be until you attack; the Magram Necrokhans among them (level 45) are elites: leave them be.\nThe Gelkis and Magram centaurs have {area:2657} quest chains of their own, worth about 20,000 to 30,000 more experience, but each chain asks for Honored with its clan. The two clans are rivals, so work for one of them: the Gelkis and Magram Centaur Reputation guide, under Reputation, shows how."] = "Forever新內容：若有步驟錯誤，請在Polestar的Discord或GitHub告訴我們，並註明是哪個步驟。\n山谷中的被放逐的死靈法師和瑪格拉姆死靈法師會掉落{quest:93644}，其作者住在{zone:2652}：玩家通常擊殺幾隻就拿到了。瑪格拉姆半人馬在你攻擊前不會理你；其中的瑪格拉姆亡靈可汗（45級）是精英：別去惹牠們。\n吉爾吉斯和瑪格拉姆半人馬各有自己的{area:2657}任務鏈，約可多得20,000到30,000經驗，但每條任務鏈都需要該部族的尊敬聲望。兩個部族互為敵對，所以只能選一個：「聲望」下的吉爾吉斯與瑪格拉姆半人馬聲望指南有說明。",
+
+	-- Step 7: The western pylon
+	["The western pylon"] = "西側的水晶塔",
+	-- {quest:92914} Strange Pylons
+	-- plural, as words: Decrepit Pylon Protectors = {npc:252711} Decrepit Pylon Protector
+	["East through the valley to the strange crystal on its pedestal: clicking it starts {quest:92914}. The Decrepit Pylon Protectors (levels 42-43) around it are the mana elementals that guard it. Corpsefeeders (level 45, elite) roam the valley east of here."] = "向東穿過山谷，前往基座上的奇異水晶：點擊它開始{quest:92914}。周圍的衰朽水晶塔守護者（42-43級）是守護它的法力元素。食屍者（45級，精英）在此處以東的山谷中遊蕩。",
+
+	-- Step 8: Bristleback Retreat: the eastern pylon
+	-- {area:16677} Bristleback Retreat
+	["{area:16677}: the eastern pylon"] = "{area:16677}：東側的水晶塔",
+	-- {area:16677} Bristleback Retreat · {npc:253527} Kog'thug the Brave
+	["East along the valley road to the quilboar of {area:16677}: the second pylon stands at the eastern end of their camp. A Corpsefeeder (level 45, elite) walks this road: let it pass. The Bristlebacks (levels 42-43) attack on sight; {npc:253527} (level 43, elite) and his bodyguards hold the south side of the camp."] = "沿山谷道路向東前往{area:16677}的野豬人：第二座水晶塔位於其營地東端。有一隻食屍者（45級，精英）在這條路上巡邏：讓牠先走過去。鬃背野豬人（42-43級）見人就打；{npc:253527}（43級，精英）和他的護衛佔據營地南側。",
+	["the eastern pylon"] = "東側的水晶塔",
+
+	-- Step 9: The temple of Shen'dralas: the third pylon
+	-- {zone:2652} Shen'dralas
+	["The temple of {zone:2652}: the third pylon"] = "{zone:2652}的神殿：第三座水晶塔",
+	["South to the Shen'dralar temple at the zone's heart, keeping west of Kog'thug's bodyguards: the third pylon stands inside. The temple's guards are neutral: leave them be."] = "向南前往地區中心的辛德拉神殿，保持在科格薩格護衛的西邊：第三座水晶塔就在裡面。神殿守衛是中立的：別去惹他們。",
+
+	-- Step 10: Evenshade's Overlook
+	-- {npc:253471} Mordent Evenshade · {quest:93644} Tattered Journal
+	["North-west from the temple to {npc:253471}'s camp on the overlook, beside the spirit healer: the {quest:93644} is his, and he wants to hear about the pylons."] = "從神殿向西北前往瞭望台上{npc:253471}的營地，就在靈魂醫者旁：{quest:93644}是他的，他也想聽聽水晶塔的事。",
+
+	-- Step 11: North into Desolace
+	-- {npc:253471} Mordent Evenshade · {area:405} Desolace · {area:604} Magram Village
+	["{npc:253471} wants a fragment and a shard of the pylons back from {area:405}'s two centaur villages: {area:604} lies just beyond the valley's northern way out.\nCareful: if you have killed Magram or Gelkis centaurs, that clan's guards may attack you when you walk into its village."] = "{npc:253471}要你從{area:405}的兩座半人馬村莊取回水晶塔的碎片和裂片：{area:604}就在山谷北邊出口外不遠處。\n小心：如果你殺過瑪格拉姆或吉爾吉斯半人馬，走進該氏族的村莊時，牠們的守衛可能會攻擊你。",
+
+	-- Step 12: Magram Village
+	-- {item:255656} Pylon Fragment
+	-- plural, as words: Magram Guardians = {npc:255560} Magram Guardian
+	["The {item:255656} lies at the western edge of the village; Magram Guardians (levels 39-41) watch over it."] = "{item:255656}在村莊西緣，由瑪格拉姆守護者（39-41級）看守。",
+
+	-- Step 13: Gelkis Village
+	-- {area:405} Desolace · {area:606} Gelkis Village · {item:255657} Pylon Shard
+	-- plural, as words: Gelkis Guardians = {npc:255561} Gelkis Guardian
+	["West along {area:405}'s southern edge to {area:606}: the {item:255657} lies at its southern end, watched by Gelkis Guardians (levels 39-41)."] = "沿著{area:405}南緣向西前往{area:606}：{item:255657}在村莊南端，由吉爾吉斯守護者（39-41級）看守。",
+
+	-- Step 14: Back into the Valley of Bones
+	-- {area:2657} Valley of Bones
+	["Back into the {area:2657}"] = "回到{area:2657}",
+	-- {area:405} Desolace · {area:2657} Valley of Bones · {area:16651} Shen'dralas
+	["East again along {area:405}'s southern edge: the {area:2657} opens into {area:16651}."] = "再沿著{area:405}南緣向東：{area:2657}通往{area:16651}。",
+
+	-- Step 16: The temple: the Mana Sieve
+	-- {item:255662} Mana Sieve
+	["The temple: the {item:255662}"] = "神殿：{item:255662}",
+	-- {npc:253471} Mordent Evenshade · {item:255662} Mana Sieve · {npc:255486} Historian Biraxas · {quest:96018} Powering the Pylons
+	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift
+	["{npc:253471} sends you for the {item:255662}, kept inside the temple beside {npc:255486}. {quest:96018} asks you to gather mana with the Sieve before you repair the pylons: with it in your bags you can handle the Unstable Mana Rifts, the floating sparks of mana all along the road north."] = "{npc:253471}派你去取{item:255662}，它就放在神殿內{npc:255486}旁邊。{quest:96018}要你在修復水晶塔之前先用過濾器收集法力：背包裡帶著它，就能處理不穩定的法力裂隙，也就是沿著北邊道路漂浮的法力火花。",
+
+	-- Step 17: The western pylon: repair it
+	["The western pylon: repair it"] = "西邊的水晶塔：修復它",
+	-- {spell:1289727} Repair and Recharge Pylon · {area:2657} Valley of Bones
+	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift · Decrepit Pylon Protectors = {npc:252711} Decrepit Pylon Protector · Magram Necrokhans = {npc:253274} Magram Necrokhan · Nascent Pylon Protectors = {npc:276401} Nascent Pylon Protector
+	["North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Decrepit Pylon Protectors guard it: kill one beside the pylon, then use {spell:1289727} on it, as players did to repair it.\nCareful: the pylon stands at the edge of the {area:2657}, where Magram Necrokhans and Corpsefeeders (elites, level 45) walk, and Nascent Pylon Protectors (elites, 43) wander the road. Pull the Decrepit Pylon Protectors away from them before you repair it."] = "沿著道路向北前往第一座水晶塔，途中從不穩定的法力裂隙收集法力。衰朽的水晶塔守護者守在塔旁：在水晶塔旁殺一隻，再對牠使用{spell:1289727}，就像其他玩家修復它時那樣。\n小心：水晶塔位於{area:2657}邊緣，瑪格拉姆死靈可汗和食屍者（精英，45級）在那裡走動，新生水晶塔守護者（精英，43級）在道路上遊蕩。修復前先把衰朽的水晶塔守護者拉離牠們。",
+	-- {npc:252711} Decrepit Pylon Protector · {spell:1289727} Repair and Recharge Pylon
+	["{npc:252711}, then {spell:1289727} on it"] = "{npc:252711}，然後對牠使用{spell:1289727}",
+
+	-- Step 18: Bristleback Retreat: repair the eastern pylon
+	-- {area:16677} Bristleback Retreat
+	["{area:16677}: repair the eastern pylon"] = "{area:16677}：修復東邊的水晶塔",
+	-- {npc:252711} Decrepit Pylon Protector · {npc:253527} Kog'thug the Brave
+	["East along the valley road to the eastern pylon and repair it the same way, a {npc:252711} first, coming in from the west: {npc:253527} (level 43, elite) and his bodyguards hold the south side of the quilboar camp, and a Corpsefeeder (level 45, elite) walks the road."] = "沿著山谷道路向東前往東邊的水晶塔，用同樣的方式修復，先殺一隻{npc:252711}，從西邊接近：{npc:253527}（43級，精英）和他的保鏢佔據豬人營地南側，還有一隻食屍者（45級，精英）在道路上走動。",
+
+	-- Step 19: Evenshade's Overlook
+	-- {npc:253471} Mordent Evenshade · {quest:93016} A Brief History Lesson
+	["Back west along the valley road and south to {npc:253471}. {quest:93016} asks you to hear him out: talk to him once more, then hand it in."] = "沿著山谷道路回頭向西，再往南找{npc:253471}。{quest:93016}要你聽他把話說完：再和他對話一次，然後繳交任務。",
+	-- {npc:253471} Mordent Evenshade
+	["{npc:253471}: hear him out"] = "{npc:253471}：聽他說完",
+
+	-- Step 20: Liranne
+	-- {quest:93568} Partially Digested Collar · {npc:255385} Liranne
+	["A Prowler gave up a {quest:93568}: {npc:255385}, north of the temple, knows whose it was."] = "一隻潛獵者掉落了{quest:93568}：神殿北邊的{npc:255385}知道它是誰的。",
+
+	-- Step 21: The temple: Magister Kirandis
+	-- {npc:254656} Magister Kirandis
+	["The temple: {npc:254656}"] = "神殿：{npc:254656}",
+	-- {npc:254656} Magister Kirandis · {npc:254578} Mithera · {quest:93341} Forlorn Gardens
+	["{npc:254656} waits inside the temple. Then {npc:254578}, on the temple's eastern side, has work in the {quest:93341}."] = "{npc:254656}在神殿內等著。接著，神殿東側的{npc:254578}在{quest:93341}有工作給你。",
+
+	-- Step 22: The Forlorn Gardens: the pedestal
+	-- {quest:93341} Forlorn Gardens
+	["The {quest:93341}: the pedestal"] = "{quest:93341}：基座",
+	-- {quest:93341} Forlorn Gardens
+	["East of the temple the {quest:93341} have run wild, and their plants attack on sight. Examine the pedestal at the gardens' southern end."] = "神殿東邊的{quest:93341}已經荒蕪失控，裡面的植物一見到你就會攻擊。檢查花園南端的基座。",
+
+	-- Step 24: The Forlorn Gardens
+	-- {quest:93341} Forlorn Gardens
+	["The {quest:93341}"] = "{quest:93341}",
+	-- {npc:254674} Woodwyrd · {area:2100} Maraudon
+	-- plural, as words: Rowdy Roses = {npc:254566} Rowdy Rose · Terrible Tulips = {npc:254567} Terrible Tulip · Malevolent Marigolds = {npc:254572} Malevolent Marigold · Nascent Pylon Protectors = {npc:276401} Nascent Pylon Protector
+	["Rowdy Roses and Terrible Tulips grow all over the gardens; the Malevolent Marigolds keep to the northern part. {npc:254674}, the treant in the middle of the gardens, has a request of his own that needs water from {area:2100}, a dungeon: this guide leaves it.\nThe Shen'dralar who wander the gardens are neutral, like the temple's guards: leave them be and pull the flowers away from them. Careful: Nascent Pylon Protectors (elites, 43) wander the zone's middle, the gardens too: keep clear of them."] = "狂暴玫瑰和恐怖鬱金香長滿整個花園；惡毒金盞花則待在北邊。花園中央的樹人{npc:254674}有自己的請求，需要地城{area:2100}的水：本指南跳過它。\n在花園遊蕩的辛德拉是中立的，和神殿守衛一樣：別理他們，把花怪拉離他們身邊。小心：新生水晶塔守護者（精英，43級）在地區中部遊蕩，花園裡也有：離牠們遠一點。",
+
+	-- Step 25: Mithera
+	-- {npc:255486} Historian Biraxas · {npc:254656} Magister Kirandis · {npc:252711} Decrepit Pylon Protector
+	["{npc:255486}, inside the temple, has a task for you now that you have met {npc:254656}: the heart of a {npc:252711} (42-43, not elite), a short ride back up the road north."] = "既然你已見過{npc:254656}，神殿內的{npc:255486}有任務給你：取得一隻{npc:252711}（42-43級，非精英）的心臟，沿路往北騎一小段就到。",
+
+	-- Step 26: A Heart of Crystal
+	-- {npc:253471} Mordent Evenshade
+	-- plural, as words: Decrepit Pylon Protectors = {npc:252711} Decrepit Pylon Protector
+	["The nearest Decrepit Pylon Protectors stand by the road north, from the middle of the zone up to the western pylon, and around {npc:253471}'s overlook: one of them carries the heart Biraxas wants."] = "最近的衰朽的水晶塔守護者站在北邊道路旁，從地區中部一直到西邊的水晶塔，以及{npc:253471}的瞭望點周圍：其中一隻身上帶著比拉克薩斯要的心臟。",
+
+	-- Step 27: Historian Biraxas
+	-- {zone:2652} Shen'dralas · {area:2657} Valley of Bones
+	["{zone:2652} is done: ride back north through the {area:2657}; the next step says where your route goes on from there."] = "{zone:2652}完成了：向北騎回並穿過{area:2657}；下一個步驟會告訴你接下來的路線。",
+
+	-- Step 28: Shadowprey Village
+	-- {zone:2652} Shen'dralas · {area:2657} Valley of Bones · {area:405} Desolace · {area:2408} Shadowprey Village · {area:1637} Orgrimmar · {zone:1444} Feralas · {area:1099} Camp Mojache
+	["{zone:2652} is done. Ride back north through the {area:2657} and west along {area:405}'s southern edge to {area:2408}: the next guide picks up in {area:1637}, with the {zone:1444} guide's hand-ins. Your hearthstone is bound at {area:1099}: if it is ready, hearth there and fly to {area:1637} from {area:1099} instead."] = "{zone:2652}完成了。向北騎回並穿過{area:2657}，再沿著{area:405}南緣往西前往{area:2408}：下一個指南從{area:1637}開始，繳交{zone:1444}指南的任務。你的爐石綁定在{area:1099}：如果爐石已冷卻完畢，就用爐石回去，改從{area:1099}飛往{area:1637}。",
+	-- {area:2408} Shadowprey Village
+	["{area:2408} flight master"] = "{area:2408}的飛行管理員",
+
+	-- Step 29: Back to your route
+	["Back to your route"] = "回到你的路線",
+	-- {zone:2652} Shen'dralas · {zone:1444} Feralas · {area:2657} Valley of Bones · {area:405} Desolace · {area:1108} Forgotten Coast · {area:1116} Feathermoon Stronghold
+	["{zone:2652} is done. Your {zone:1444} guide picks up from here: ride back north through the {area:2657}, west along {area:405}'s southern edge and south into {zone:1444}, to the dock on the {area:1108} where the boat crosses to {area:1116}."] = "{zone:2652}完成了。接下來由你的{zone:1444}指南接手：向北騎回並穿過{area:2657}，沿著{area:405}南緣往西，再向南進入{zone:1444}，前往{area:1108}的碼頭，從那裡坐船前往{area:1116}。",
+}

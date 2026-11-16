@@ -82,6 +82,12 @@ fn maps_of(v: &Value) -> Vec<InstanceMap> {
 			inner: nums(&m["inner"]),
 			zones: nums(&m["zones"]),
 			corpse: m["corpse"].as_object().map(|_| Corpse { c: m["corpse"]["c"].as_f64().unwrap_or(0.0), x: m["corpse"]["x"].as_f64().unwrap_or(0.0), y: m["corpse"]["y"].as_f64().unwrap_or(0.0) }),
+			finder: m["finder"].as_object().map(|f| forge_data::codex::client::Finder {
+				min: f["min"].as_f64().unwrap_or(0.0),
+				max: f["max"].as_f64().unwrap_or(0.0),
+				players: f["players"].as_f64().unwrap_or(5.0),
+				players_max: f.get("playersMax").and_then(Value::as_f64).or(f["players"].as_f64()).unwrap_or(5.0),
+			}),
 		})
 		.collect()
 }
@@ -116,6 +122,8 @@ fn journal(codex: &Value, inputs: &Value) -> (V, Vec<String>) {
 			journal_quests: &journal_quests,
 			attunement_table: &table,
 			store_xp: &Default::default(),
+			recorded_dungeons: &forge_guide::js::V::obj(),
+			levels_table: &forge_guide::js::V::obj(),
 		},
 		&c,
 	)
@@ -261,7 +269,27 @@ fn with_the_local_codex_the_onyxia_blackwing_lair_naxxramas_and_dalaran_chains_f
 	let get = |key: &str, id: &str| -> Value { by[key].as_array().unwrap().iter().find(|a| a["id"] == id).unwrap().clone() };
 	assert_eq!(shape(&get("onyxias-lair", "drakefire-h")), "4903 > 4941 > 4974 > 6566 > 6567 > 6568 > 6569 > 6570 > 6582 > 6583 > 6584 > 6585 > 6601 > 6602*");
 	assert_eq!(get("onyxias-lair", "drakefire-h")["steps"][11]["after"], json!([6582, 6583, 6584]), "the three Tests of Skulls before Axtroz");
-	assert_eq!(shape(&get("city-of-dalaran", "sewer-key")), "544 > 545 > 93680 > 92434 > 96984*");
+	// The Horde's sewer key: Prison Break In, Key to the City and Dalaran Patrols, then Blood in the Streets and the
+	// goal. The data builds differ on whether Dalaran Patrols needs Key to the City (545's `pre`), so the first three
+	// follow the loaded data: every quest of the chain comes after each prerequisite the data or the cited links give
+	// it (`pre`) and after one of its `preAny`.
+	let key = get("city-of-dalaran", "sewer-key");
+	let order = quests_of(&key);
+	let mut quests = order.clone();
+	quests.sort_unstable();
+	assert_eq!(quests, vec![544, 545, 92434, 93680, 96984], "{}", shape(&key));
+	assert!(shape(&key).ends_with(" > 92434 > 96984*"), "Blood in the Streets, then the goal: {}", shape(&key));
+	let links = list(&table["attunements"]).into_iter().find(|e| e["id"] == "sewer-key").unwrap()["links"].clone();
+	let ids = |v: &Value| -> Vec<i64> { list(v).iter().filter_map(Value::as_i64).filter(|p| order.contains(p)).collect() };
+	for (i, q) in order.iter().enumerate() {
+		let rec = &real["quests"][q.to_string()];
+		let before = &order[..i];
+		for p in ids(&rec["pre"]).into_iter().chain(ids(&links[q.to_string()]["pre"])) {
+			assert!(before.contains(&p), "{q} comes after its prerequisite {p}: {}", shape(&key));
+		}
+		let any = ids(&rec["preAny"]);
+		assert!(any.is_empty() || any.iter().any(|p| before.contains(p)), "{q} comes after one of {any:?}: {}", shape(&key));
+	}
 	assert_eq!(shape(&get("blackwing-lair", "blackhand")), "drop:18987 > 7761*", "the Quartermaster drops the letter that starts it");
 	assert_eq!(shape(&get("naxxramas", "dread-citadel")), "9121* > 9122* > 9123*");
 	assert!(by["blackrock-spire"].is_null(), "Forever removed the Seal of Ascension");

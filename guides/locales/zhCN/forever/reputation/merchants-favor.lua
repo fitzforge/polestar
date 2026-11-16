@@ -33,7 +33,7 @@ return {
 
 	-- Step 4: Gather your writs
 	["Gather your writs"] = "收集你的文书。",
-	["Craftsman's Writs are the camp's reputation: 75 for a Journeyman writ, 125 for an Expert, 200 for an Artisan. Each asks for one crafted item, the one its title names. Make it or buy it on the Auction House; you need not know the profession. Each writ can be done once a day, and any number of different ones. Take the quest only of writs whose item you have or will buy on the way (right-click the writ), keep the writ in your bags, then tick this: the next steps lead to each customer you hold a writ for."] = "",
+	["Craftsman's Writs are the camp's reputation: 75 for a Journeyman writ, 125 for an Expert, 200 for an Artisan. Each asks for one crafted item, the one its title names. Make it or buy it on the Auction House; you need not know the profession. Each writ can be done once a day, and any number of different ones. Take the quest only of writs whose item you have or will buy on the way (right-click the writ), keep the writ in your bags, then tick this: the next steps lead to each customer you hold a writ for."] = "工匠文书是营地声望的来源：中级文书75点，高级125点，大师级200点。每份要求一件制作物品，名称就是文书标题中的物品。自行制作或在拍卖行购买即可，不需要掌握对应专业。每份文书每天可做一次，不同文书的数量不限。只接取已有所需物品、或会顺路购买物品的文书任务（右键点击文书），将文书留在背包中，再勾选这一步：后续步骤会带你前往所持文书对应的各位客户。",
 	["Take the quests of the writs you can fill"] = "接受你能完成的文书任务",
 
 	-- Step 5: Duskwood writ customers
@@ -62,7 +62,7 @@ return {
 	-- {item:4252} Dark Leather Shoulders
 	["{item:4252}, 75 reputation"] = "{item:4252}，75 点声望",
 	-- {item:3388} Lesser Troll's Blood Elixir
-	["{item:3388}, 75 reputation"] = "",
+	["{item:3388}, 75 reputation"] = "{item:3388}，75 点声望",
 	-- {item:10048} Colorful Kilt
 	["{item:10048}, 75 reputation"] = "{item:10048}，75 点声望",
 
@@ -72,7 +72,7 @@ return {
 	-- {npc:8305} Kixxle · {area:205} Dun Modr
 	["{npc:8305} stands about 600 yards south of {area:205}. Five Journeyman writs go to him: the most of any customer. Customers show no quest mark: right-click them anyway."] = "{npc:8305}站在{area:205}以南约600码处。有5种中级文书要交给他，是所有客户中最多的。客户不会显示任务标记：直接右键点击即可。",
 	-- {item:5996} Draught of Water Breathing
-	["{item:5996}, 75 reputation"] = "",
+	["{item:5996}, 75 reputation"] = "{item:5996}，75 点声望",
 	-- {item:3484} Green Iron Boots
 	["{item:3484}, 75 reputation"] = "{item:3484}，75 点声望",
 	-- {item:8069} Crafted Solid Shot
@@ -92,7 +92,7 @@ return {
 	-- {item:11128} Golden Rod
 	["{item:11128}, 75 reputation"] = "{item:11128}，75 点声望",
 	-- {npc:789} Kimberly Hiett · {area:69} Lakeshire
-	["bring it: engineers make it; {npc:789} in {area:69} lists it (not yet seen in her window up to level 30), or the Auction House"] = "",
+	["bring it: engineers make it; {npc:789} in {area:69} lists it (not yet seen in her window up to level 30), or the Auction House"] = "带上它：工程学可以制作；{area:69}的{npc:789}的商品列表中有售（截至30级，尚未在她的商店窗口中见到），也可在拍卖行购买",
 	-- {item:4384} Explosive Sheep
 	["{item:4384}, 75 reputation"] = "{item:4384}，75 点声望",
 	-- {item:5958} Fine Leather Pants
@@ -121,8 +121,8 @@ return {
 	-- {npc:257281} Sos'mol · {npc:257282} Alan Sneeks · {npc:6176} Bath'rah the Windwatcher · {area:272} Tarren Mill
 	["{npc:257281} and {npc:257282} are close together in the south-west of the mountains; Syndicate thugs roam around {npc:257282}. {npc:6176} stands on the eastern edge, above {area:272}. Customers show no quest mark: right-click them anyway."] = "{npc:257281}和{npc:257282}在山脉西南部，彼此很近；{npc:257282}周围有辛迪加暴徒游荡。{npc:6176}站在东缘、{area:272}上方。客户没有任务标记：仍然右键点击他们。",
 	-- {item:3391} Elixir of Ogre Strength
-	["{item:3391}, 75 reputation"] = "",
-	["bring it: leatherworkers make it, or buy it at the Auction House"] = "",
+	["{item:3391}, 75 reputation"] = "{item:3391}，75 点声望",
+	["bring it: leatherworkers make it, or buy it at the Auction House"] = "带上它：找制皮师制作，或在拍卖行购买",
 	-- {item:18662} Heavy Leather Ball
 	["{item:18662}, 75 reputation"] = "{item:18662}，75 点声望",
 	-- {item:5540} Pearl-handled Dagger
@@ -176,7 +176,7 @@ return {
 	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {area:484} Freewind Post · {npc:4720} Rizzle Brassbolts · {npc:4706} Razzeric · {npc:4496} Goblin Pit Boss · {npc:6548} Magus Tirth
 	["All five stand at the {area:2240} on the {area:439}, south-east of {area:484}: {npc:4720}, the chicken \"Plucky\" Johnson, {npc:4706}, the {npc:4496} and {npc:6548}. Customers show no quest mark: right-click them anyway."] = "五名目标都在 {area:484} 东南方、{area:439} 上的 {area:2240}：{npc:4720}、小鸡胆大的约翰森、{npc:4706}、{npc:4496} 和 {npc:6548}。顾客头上没有任务标记：直接右键点击他们。",
 	-- {item:8951} Elixir of Defense
-	["{item:8951}, 75 reputation"] = "",
+	["{item:8951}, 75 reputation"] = "{item:8951}，75 点声望",
 	-- {item:3848} Big Bronze Knife
 	["{item:3848}, 75 reputation"] = "{item:3848}，75 点声望",
 	-- {item:4380} Big Bronze Bomb
@@ -241,7 +241,7 @@ return {
 	-- Step 27: Friendly to Honored
 	["Friendly to Honored"] = "友善到尊敬",
 	-- {skill:197} Tailoring · {skill:165} Leatherworking · {skill:333} Enchanting · {skill:164} Blacksmithing · {skill:202} Engineering · {skill:171} Alchemy · {skill:185} Cooking · {npc:256742} Dianne Softstep · {area:1002} Three Corners · {npc:256672} Kurvelk Shadowhoof · {item:262902} Forged Delivery Receipt · {item:248549} Waylaid Crate · {item:262917} Notarized Shipping Container · {npc:256390} Marcy Baker · {npc:256386} Dokimi · {quest:93862} Crate Return
-	["Friendly opens the first gated recipes at the camp's profession vendors ({skill:197} 25, {skill:165} 17, {skill:333} 13, {skill:164} 10, {skill:202} 10, {skill:171} 5, {skill:185} 2) and the Uncertified Scribe: {npc:256742} at {area:1002}, {npc:256672} at the south end of the Crossroads camp. The scribe's {item:262902} (15 Merchant's Favor) turns an empty {item:248549} into a {item:262917}; hand it to {npc:256390} or {npc:256386} for 50 reputation ({quest:93862}). Any crate works, so buy the cheapest one the Auction House has. Honored is 6000 more: 80 Journeyman writs, 48 Expert, 30 Artisan, or 120 crate returns (1,800 Favor and 120 crates). Mix both: every writ you can fill, returns with spare Favor. The Legacy perk Diplomat adds up to 10% to every gain."] = "友善后可在营地专业商人处购买第一批有声望要求的配方（{skill:197} 25、{skill:165} 17、{skill:333} 13、{skill:164} 10、{skill:202} 10、{skill:171} 5、{skill:185} 2），还可使用Uncertified Scribe的服务：{npc:256742}在{area:1002}，{npc:256672}在十字路口营地南端。其出售的{item:262902}（15 Merchant's Favor）可将空的{item:248549}变成{item:262917}；交给{npc:256390}或{npc:256386}可获得50声望（{quest:93862}）。任何箱子都行，买拍卖行最便宜的即可。到尊敬还需6000声望：相当于80份中级文书、48份高级文书、30份大师级文书，或归还120个箱子（需要1,800 Merchant's Favor和120个箱子）。两种方式搭配：能交的文书都交，用多余的Merchant's Favor归还箱子。Legacy特长Diplomat可使每次声望获取最多提高10%。",
+	["Friendly opens the first gated recipes at the camp's profession vendors ({skill:197} 25, {skill:165} 17, {skill:333} 13, {skill:164} 10, {skill:202} 10, {skill:171} 5, {skill:185} 2) and the Uncertified Scribe: {npc:256742} at {area:1002}, {npc:256672} at the south end of the Crossroads camp. The scribe's {item:262902} (15 Merchant's Favor) turns an empty {item:248549} into a {item:262917}; hand it to {npc:256390} or {npc:256386} for 50 reputation ({quest:93862}). Any crate works, so buy the cheapest one the Auction House has. Honored is 6000 more: 80 Journeyman writs, 48 Expert, 30 Artisan, or 120 crate returns (1,800 Favor and 120 crates). Mix both: every writ you can fill, returns with spare Favor. The Legacy perk Diplomat adds up to 10% to every gain."] = "友善后可在营地专业商人处购买第一批有声望要求的配方（{skill:197} 25、{skill:165} 17、{skill:333} 13、{skill:164} 10、{skill:202} 10、{skill:171} 5、{skill:185} 2），还可使用Uncertified Scribe的服务：{npc:256742}在{area:1002}，{npc:256672}在十字路口营地南端。其出售的{item:262902}（15 Merchant's Favor）可将空的{item:248549}变成{item:262917}；交给{npc:256390}或{npc:256386}可获得50声望（{quest:93862}）。任何箱子都行，买拍卖行最便宜的即可。到尊敬还需6000声望：相当于80份中级文书、48份高级文书、30份大师级文书，或归还120个箱子（需要1,800 Merchant's Favor和120个箱子）。两种方式搭配：能交的文书都交，用多余的Merchant's Favor归还箱子。传承特长外交家可使每次声望获取最多提高10%。",
 	-- {item:262902} Forged Delivery Receipt
 	["{item:262902}, 15 Merchant's Favor"] = "{item:262902}，15 点商人青睐。",
 	-- {quest:93862} Crate Return

@@ -102,6 +102,80 @@ fn guides_sync_writes_every_text_with_its_names_and_check_fails_on_a_lost_token_
 	let _ = std::fs::remove_dir_all(&dir);
 }
 
+/// `guides sync` on reference data read from a Forever client build whose tables are not in the sources
+/// beside it: the texts would name spells as words and places without their area, and every good
+/// translation of them would move out as stale. It stops with one error and writes nothing.
+#[test]
+fn guides_sync_refuses_data_whose_client_build_tables_are_not_beside_it() {
+	let dir = Path::new(env!("CARGO_TARGET_TMPDIR")).join(format!("i18n-pinned-{}", std::process::id()));
+	let _ = std::fs::remove_dir_all(&dir);
+	let pack = dir.join("pack");
+	std::fs::create_dir_all(pack.join("guides")).unwrap();
+	std::fs::write(pack.join("pack.json"), r#"{"id":"texts","title":"Texts Pack","author":"Ann","version":"1.0.0","license":"CC0-1.0","folder":"PolestarPack_Texts"}"#).unwrap();
+	std::fs::write(pack.join("guides/main.guide"), GUIDE).unwrap();
+	let data = dir.join("forever");
+	std::fs::create_dir_all(&data).unwrap();
+	for e in std::fs::read_dir(root().join("tests/fixtures/dsl/data")).unwrap().flatten() {
+		std::fs::copy(e.path(), data.join(e.file_name())).unwrap();
+	}
+	let mut meta: serde_json::Value = serde_json::from_str(&std::fs::read_to_string(data.join("meta.json")).unwrap()).unwrap();
+	meta["sources"].as_array_mut().unwrap().push(serde_json::json!({
+		"name": "World of Warcraft: Forever client tables (UiMap, UiMapAssignment, AreaTable, SpellName) read from the installed client",
+		"revision": "wowf 1.60.1.7",
+	}));
+	std::fs::write(data.join("meta.json"), meta.to_string()).unwrap();
+	let (d, p) = (data.to_string_lossy().into_owned(), pack.to_string_lossy().into_owned());
+	let sync = forge(&["guides", "sync", "frFR", "--pack", &p, "--data", &d]);
+	assert_eq!(sync.status, 1, "{}", sync.stdout);
+	assert!(sync.stderr.contains("forge i18n: the reference data was built from Forever client build 1.60.1.7, but "), "{}", sync.stderr);
+	assert!(sync.stderr.contains("sources/wago/1.60.1.7 lacks SpellName.csv, SkillLineAbility.csv, AreaTable.csv"), "{}", sync.stderr);
+	assert!(!pack.join("locales").exists(), "nothing written");
+	let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
+fn guides_sync_preserves_retired_lua_escapes_across_repeated_runs() {
+	let dir = Path::new(env!("CARGO_TARGET_TMPDIR")).join(format!("i18n-retired-escapes-{}", std::process::id()));
+	let _ = std::fs::remove_dir_all(&dir);
+	std::fs::create_dir_all(dir.join("guides")).unwrap();
+	std::fs::create_dir_all(dir.join("locales/frFR/guides")).unwrap();
+	std::fs::write(dir.join("pack.json"), r#"{"id":"texts","title":"Texts Pack","author":"Ann","version":"1.0.0","license":"CC0-1.0","folder":"PolestarPack_Texts"}"#).unwrap();
+	std::fs::write(dir.join("guides/main.guide"), GUIDE).unwrap();
+	let file = dir.join("locales/frFR/guides/main.lua");
+	std::fs::write(
+		&file,
+		r#"return {
+	["a few {npc:6} at a time"] = "quelques {npc:6} à la fois",
+	["Old path C:\\123"] = "Copier C:\\123\\notes",
+	["Old slash apostrophe \\'"] = "Antislash \\' suivi",
+	["Old Unicode"] = "é 中文",
+	["Old escaped bytes"] = "\195\169 \228\184\173\230\150\135",
+	["Old literal escape"] = "Copier \\u007b",
+}
+"#,
+	)
+	.unwrap();
+	let data = root().join("tests/fixtures/dsl/data");
+	let (d, p) = (data.to_string_lossy().into_owned(), dir.to_string_lossy().into_owned());
+	let sync = || forge(&["guides", "sync", "frFR", "--pack", &p, "--data", &d]);
+	let first = sync();
+	assert_eq!(first.status, 0, "{}", first.stderr);
+	let canonical = std::fs::read_to_string(&file).unwrap();
+	assert!(canonical.contains(r#"["a few {npc:6} at a time"] = "quelques {npc:6} à la fois","#));
+	assert!(canonical.contains(r#"-- ["Old path C:\\123"] = "Copier C:\\123\\notes","#));
+	assert!(canonical.contains(r#"-- ["Old slash apostrophe \\'"] = "Antislash \\' suivi","#));
+	assert!(canonical.contains(r#"-- ["Old escaped bytes"] = "é 中文","#));
+	// A translator may spell UTF-8 as Lua decimal bytes in a retired entry too.
+	// Sync normalises that spelling while keeping the same text.
+	std::fs::write(&file, canonical.replace(r#"-- ["Old escaped bytes"] = "é 中文","#, r#"-- ["Old escaped bytes"] = "\195\169 \228\184\173\230\150\135","#)).unwrap();
+	for run in 2..=3 {
+		let result = sync();
+		assert_eq!(result.status, 0, "sync {run}: {}", result.stderr);
+		assert_eq!(std::fs::read_to_string(&file).unwrap(), canonical, "sync {run} changed or lost a translation");
+	}
+	let _ = std::fs::remove_dir_all(&dir);
+}
+
 /// `i18n audit` (tests/i18n-audit.test.js, the command): no finding is exit 0 with a JSON document;
 /// no client tables is exit 1 with the reason.
 #[test]

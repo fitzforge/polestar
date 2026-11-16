@@ -167,16 +167,29 @@ version throughout.
    forge data questdb
    forge data itemdb && forge data gear
    forge data sources --only builders && forge data codex   # release-safe inputs only
-   forge release credits                     # Guiding Stars: data/credits.json + merged or folded PRs + issues (needs gh)
+   forge release credits                     # Guiding Stars: data/credits.json + merged or folded PRs + issues (needs gh) + translators; --release-ref <branch> when HEAD isn't the release
    forge guide lint
    forge guide compile
+   forge guide lint experimental && forge guide compile experimental   # Polestar Experimental (alpha guides)
    ```
+
+   `experimental/` holds Polestar Experimental: guides for Forever's new
+   zones in testing, a pack of Polestar's own that ships in the zip as
+   `Polestar_Experimental`, loaded on demand and off until a player chooses
+   one of its guides at a route choice or switches it on under Options >
+   Community guides (PACK_FORMAT.md, "Polestar's own extra packs"). `forge
+   release version` sets its `pack.json` with `guides/pack.json`, and `forge
+   release pack` builds it again and stops on an error in it. `forge guide
+   compile` reads it too: Polestar_Guides carries the index of the
+   experimental guides our route choices offer, so compile both after an
+   edit to either.
 
    `Polestar_QuestDB` is not in the repository (it is ignored, like the
    Codex): build it with `forge data questdb` on every release machine
    before `forge release pack`, or the zip goes out without it. The language
    folders (`Polestar_<locale>`: guide texts and names) are committed; rebuild
-   their names with `forge data names` when the data changed.
+   their names with `forge data names` when the data changed, and their
+   subzone names with `forge data subzones` when the walking maps did.
 
    Compile after `forge release version`, never before: `forge release
    version` writes the TOCs, but the guide pack's version in
@@ -188,9 +201,24 @@ version throughout.
    `Polestar_Guides*` TOC equal the release version (a test build carries
    its `x.y.z-rcN` the same way).
 
+   After the last change to a leveling guide, regenerate
+   `addon/Polestar/Core/LegacySteps.lua` with every release players may
+   update from as an `--old` (each `vX.Y.Z` tag's `guides`, the last release
+   included): `git archive <tag> guides | tar -x -C <dir>/<tag>`, then
+   `node tools/legacy-steps.js --old <dir>/v0.3.4/guides ... --old
+   <dir>/<last release>/guides`, and commit it. The mapping above reads a
+   save's changed steps from it: a step it does not list keeps no check-off,
+   skip or saved view, and nothing in its stretch passes behind the player;
+   its `ns.LegacyMovedIn` (the quests each guide now offers that a release
+   offered in another guide) keeps old-route progress from placing a player.
+   0.3.7.2 changed 23 guide files without a new one, and 0.4.0's had no
+   0.3.7.x in it (#2350).
+
    Don't regenerate `addon/Polestar/Nav/TravelData.lua` (`forge data
-   travel`) on a release build unless its output keeps every portal of the
-   committed file: check `git diff` before committing.
+   travel`) on a release build unless its output keeps every portal and
+   every flight point of the committed file (the Forever ones need the
+   Forever build's TaxiNodes and TaxiPath in `data/sources`: `forge data
+   sources --only builders`): check `git diff` before committing.
 
    Pass `--questie` explicitly on a release build. Without it the build
    picks the first QuestieDB it finds among the installed clients, so a
@@ -201,6 +229,16 @@ version throughout.
    `Polestar_Codex/Meta.lua`, unless the release moves to a newer one on
    purpose; the data build's statistics check stops a build whose QuestieDB
    changed underneath it.
+
+   A newer QuestieDB can narrow quests' races: its generated Forever quest
+   base takes a web-database scrape's race lists, which can leave out races
+   that take the quest in game (1.0.14 narrowed 75 quests; corrections set
+   them back). Before a release moves to one, build it once into a copy of
+   `data/forever` (`--out <copy>`), lint every guide on that build, and read
+   the statistics report's `quests.races.*` lines. Build into a copy, never
+   an empty folder: the knowledge base adds the Forever world database's
+   class trainers to the `trainers.json` it finds in the output folder, and
+   the statistics check compiles the guides with the files already there.
 
    `forge i18n guides sync` and `forge guide compile` read the client's
    AreaTable from `data/sources/wago/<build>/AreaTable.csv`, found beside
@@ -214,8 +252,26 @@ version throughout.
    packing, compare each `addon/Polestar_<locale>/Texts.lua`'s entry count
    with the last release's: a large drop means translations went missing.
 
+   Run `credits` on the commit the release ships, before it reaches
+   `next`: contributors' pull requests batched into the release's
+   integration branch (merged at their exact head commits) are still open
+   on GitHub until that push, and count only because their head is on the
+   release ref. The ref is the checkout's `HEAD`; from another checkout name
+   it with `--release-ref` (e.g. `--release-ref origin/dev-040`). Drafts
+   count the same way, only when their head is on the ref. A pull request
+   whose author pushed again after the batch doesn't count (and GitHub won't
+   mark it merged) until the batch merges its new head. Issues that such an
+   open pull request closes count for their reporters as fixed. Check the
+   printed line: "N by merged pull requests alone" against the total shows
+   how many contributors the batches add.
+
    Before `credits`, add new Ko-fi supporters to `data/credits.json`
-   (names only, highest total first; amounts are never stored). The bug
+   (names only, highest total first; amounts are never stored), and anyone
+   whose idea shipped though someone else built it to its `ideas`
+   (`{ "name": "<login>", "ref": <pull request or issue> }`; the changelog's
+   "idea by" and "idea first proposed by" credits are the list to check). The
+   translators come from the locales' `translators` (rust/crates/forge-guide/
+   src/locales.rs and tools/lib/i18n/locales.js). The bug
    reporters column counts a reporter's useful reports from the issues: the
    Discord name the bot filed it under ("**Reported by <name> on
    [Discord](...)**"), else the GitHub login that opened it. A report counts
@@ -237,12 +293,27 @@ version throughout.
    node --test "tests/**/*.test.js"
    ```
 
+   Then the reported-problems gate: every player-reported problem that was
+   fixed stays fixed. It runs the tests `tests/reported-gate.json` names for
+   each confirmed report, the whole of `tests/guides-reported.test.js`, the
+   judge's player-report seeds on the shipped guides and the danger gate
+   (`tools/danger-gate.js`) on the candidate's calibrated level model, and
+   names the reports whose tests fail:
+
+   ```sh
+   npm run test:reported -- --levels <Alliance.json>,<Horde.json>
+   ```
+
+   A fix for a report adds the report to `tests/reported-gate.json` with the
+   test that pins it (`tests/reported-gate.test.js` checks every test named
+   there exists).
+
 4. Pack and check the archives:
 
    ```sh
-   rm -rf dist && forge release pack     # stops naming any guide whose legs are stale; add --bake --grid <canon grid> --leffe <Leffe's maps> to bake them
+   rm -rf dist && forge release pack     # stops naming any leveling guide whose legs are stale or missing; add --bake --grid <canon grid> --leffe <Leffe's maps> to bake them
    (cd dist && sha256sum -c SHA256SUMS)
-   unzip -l dist/Polestar-0.2.0.zip      # Polestar_Codex/ with its LICENSE-DATA.txt, and Polestar_Nav/ with its LICENSE and CREDITS.md, are listed
+   unzip -l dist/Polestar-0.2.0.zip      # Polestar_Codex/ with its LICENSE-DATA.txt, Polestar_Nav/ with its LICENSE and CREDITS.md, and Polestar_Experimental/ are listed
    forge nav check                       # Polestar_Nav's walking maps match its PACK.json
    ```
 
@@ -300,7 +371,7 @@ version throughout.
 
    ```sh
    forge changelog build 0.2.0     # writes "## 0.2.0 (<today>)", deletes the fragments
-   git add CHANGELOG.md changes package.json guides/pack.json addon/Polestar addon/Polestar_Guides addon/Polestar_ItemDB addon/Polestar_Nav addon/Polestar_Recorder
+   git add CHANGELOG.md changes package.json guides/pack.json experimental/pack.json addon/Polestar addon/Polestar_Guides addon/Polestar_Experimental addon/Polestar_ItemDB addon/Polestar_Nav addon/Polestar_Recorder
    git commit -m "Release: 0.2.0"
    git switch main && git merge --ff-only next && git switch next
    git tag -a v0.2.0 -m "Polestar 0.2.0" main

@@ -6,6 +6,15 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (traditional) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:1121} Isle of Dread
+	["Feathermoon's isle, ogres, yetis and the {area:1121}."] = "羽月的島嶼、食人魔、雪人和{area:1121}。",
+	["Two new flight paths for later"] = "兩條之後要用的新飛行路線",
+	-- {zone:1446} Tanaris
+	["Then on to {zone:1446}"] = "接著前往{zone:1446}",
+	["Stays on the main route"] = "留在主要路線上",
+	["Boats to and from the island"] = "往返小島的船",
+
 	-- Step 1: Into The Barrens
 	-- {zone:1413} The Barrens
 	["Into {zone:1413}"] = "",
@@ -53,7 +62,8 @@ return {
 
 	-- Step 12: Gordunni ogres
 	["Gordunni ogres"] = "戈杜尼巨魔",
-	["Ride east to the Gordunni camp in the hills south-east of the yeti valley: Warlocks and Shaman hold the camp, Brutes wander the slopes around it and further north."] = "向東騎往雪人山谷東南方山丘上的戈杜尼營地：戈杜尼術士和薩滿佔據營地，戈杜尼蠻兵在周圍和更北邊的山坡上遊蕩。",
+	-- {npc:5236} Gordunni Shaman
+	["Ride east to the Gordunni camp in the hills south-east of the yeti valley: Warlocks and Shaman hold the camp, Brutes wander the slopes around it and further north.\nCareful: the {npc:5236} are 44-45 and the Warlocks 43-44, casters a level or two over you here: pull them one at a time from the camp's edge, and take the Brutes (42-43) on the slopes first."] = "向東騎往雪人山谷東南方山丘上的戈杜尼營地：戈杜尼術士和薩滿佔據營地，戈杜尼蠻兵在周圍和更北邊的山坡上遊蕩。\n小心：{npc:5236}是44-45級，術士是43-44級，這些施法者比你高一兩級：從營地邊緣一次拉一隻，並先打山坡上的蠻兵（42-43級）。",
 
 	-- Step 13: Feral Scar Vale
 	-- {npc:5346} Bloodroar the Stalker
@@ -62,7 +72,7 @@ return {
 	-- Step 14: Isle of Dread
 	-- {area:1121} Isle of Dread · {area:1120} Sardor Isle · {npc:8136} Lord Shalzaru
 	-- plural, as words: Hatecrest Serpent Guards = {npc:5333} Hatecrest Serpent Guard
-	["The {area:1121} is the island just south of {area:1120}: swim over. Hatecrest Serpent Guards and Sorceresses hold it; {npc:8136} (level 47) waits in the cave at its south end. Pull his guards first."] = "",
+	["The {area:1121} is the island just south of {area:1120}: swim over. Hatecrest Serpent Guards and Sorceresses hold it; {npc:8136} (level 47) waits in the cave at its south end. Pull his guards first."] = "{area:1121}是{area:1120}南邊不遠的小島：游過去。憎世毒蛇守衛和憎世巫師佔據那裡；{npc:8136}（47級）在南端的洞穴裡等著。先拉他的守衛。",
 	-- {item:9248} Mysterious Relic
 	["{item:9248}; below ground"] = "",
 
@@ -71,28 +81,37 @@ return {
 	["Coming from the south: {npc:7877} and {npc:7878} first, then {npc:7900} beside {npc:7880}'s building, then the stairs. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:7852} is by the flight master, on the way out."] = "",
 	-- {npc:7879} Quintis Jonespyre
 	["{npc:7879}, upstairs"] = "",
+	-- {npc:7852} Pratt McGrubben
+	["{npc:7852}'s next order, Improved Quality, wants Rage Scar hides from yetis of 46-49: skip it."] = "{npc:7852}的下一個訂單「品質提升」需要46-49級雪人的狂怒之痕毛皮：跳過。",
 
 	-- Step 16: Fly to Thalanaar
 	-- {area:489} Thalanaar
 	["Fly to {area:489}"] = "",
 	["Feathermoon flight master"] = "",
 
-	-- Step 17: Feralas
+	-- Step 17: Back to the coast
+	["Back to the coast"] = "回到海岸",
+	-- {zone:1444} Feralas · {zone:2652} Shen'dralas · {area:489} Thalanaar
+	["You came into {zone:1444} from {zone:2652}, so {area:489}'s flight path is still to learn: take the boat back to the coast and ride east along the road; you pick up the flight path when this guide ends at {area:489}."] = "你是從{zone:2652}進入{zone:1444}的，所以還沒學到{area:489}的飛行路線：搭船回到海岸，沿道路向東騎；本指南在{area:489}結束時你會取得該飛行路線。",
+
+	-- Step 18: Feralas
 	["Grimtotem camp"] = "恐怖圖騰營地",
 
-	-- Step 18: Grimtotem camp
+	-- Step 19: Grimtotem camp
 	-- {area:489} Thalanaar · {npc:7956} Kindal Moonweaver
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
-	["From {area:489} ride west along the road to the Grimtotem camp north of it. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "",
+	["From {area:489} ride west along the road to the Grimtotem camp north of it. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "從{area:489}沿道路向西騎，前往北邊的恐怖圖騰營地。{npc:7956}在營地外等候；放出中央圍欄裡的小精龍，保護{npc:7956}和至少六隻小精龍存活。",
 
-	-- Step 19: Grimtotem tauren
+	-- Step 20: Grimtotem tauren
 	["Grimtotem tauren"] = "恐怖圖騰牛頭人",
+	-- {npc:222286} Namida Grimtotem
+	["Careful: {npc:222286}, an elite of level 43, stands at the camp's north-east edge, around 67,39: pull the Naturalists, Raiders and Shamans away from her."] = "小心：{npc:222286}，43級精英，站在營地東北邊，約67,39：把博學者、襲擊者和薩滿從她身邊拉開。",
 
-	-- Step 20: Jer'kai Moonweaver
+	-- Step 21: Jer'kai Moonweaver
 	-- {zone:1457} Darnassus
 	["for Tyrande in {zone:1457}: the route takes you there at 47"] = "給{zone:1457}的泰蘭妲：路線會在47級時帶你去那裡",
 
-	-- Step 21: The Writhing Deep
+	-- Step 22: The Writhing Deep
 	-- {area:489} Thalanaar
 	["Ride south-east to the Woodpaw gnolls; the courier's backpacks lie in their southern camp, and a parcel inside them starts a delivery to {area:489}. The Zukk'ash hive is just south: fight down to the pod that holds Raschal, free him and keep him alive on the way out."] = "向東南騎往木爪豺狼人處；信使的背包在他們南邊的營地裡，裡面的一個包裹會開始一個送往{area:489}的任務。祖卡什蟲巢就在南邊：一路殺到關著拉斯卡爾的繭，救出他並在離開途中保護他存活。",
 	-- {item:11463} Undelivered Parcel
@@ -100,73 +119,58 @@ return {
 	-- {object:164954} Zukk'ash Pod
 	["{object:164954}, inside"] = "",
 
-	-- Step 22: High Wilderness: kill these as you meet them
-	-- {area:1136} High Wilderness
-	["{area:1136}: kill these as you meet them"] = "",
-	-- {quest:7735} Pristine Yeti Hide · {npc:7852} Pratt McGrubben · {npc:14637} Zorbin Fandazzle · {area:978} Zul'Farrak
-	["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a {quest:7735}, which {npc:7852} pays for too.\n{npc:14637}'s quests on the coast need level 45: grind the yetis here until level 44.5, so the kills also bring {npc:7852}'s hides. Or, with a group, run the {area:978} dungeon instead."] = "",
-	-- {npc:5296} Rage Scar Yeti
-	["grind on {npc:5296}"] = "",
-
-	-- Step 23: Rage Scar Hold
-	-- {quest:7735} Pristine Yeti Hide
-	["No {quest:7735} yet? Keep killing the Rage Scar yetis until one drops, then right-click it."] = "",
-
-	-- Step 24: Feathermoon Stronghold
-	-- {npc:7880} Ginro Hearthkindle
-	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
-
-	-- Step 25: Feathermoon Stronghold
-	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
-	["{npc:3936} then asks you to carry news to {zone:1457}: skip it, {area:976} sends you there instead."] = "{npc:3936}接著會要你把消息帶到{zone:1457}：跳過，{area:976}會改派你去那裡。",
-
-	-- Step 27: Grind to 45
+	-- Step 23: Grind to 45
 	["Grind to 45"] = "練到45級",
-	-- {area:1105} Feral Scar Vale · {npc:14637} Zorbin Fandazzle · {area:978} Zul'Farrak · {area:1517} Uldaman
-	["Ride east into {area:1105}. {npc:14637}'s quests on the coast need level 45. Or, with a group, run the {area:978} dungeon or the {area:1517} dungeon instead."] = "",
+	-- {area:1105} Feral Scar Vale · {area:978} Zul'Farrak
+	["Ride west into {area:1105}: its yetis are 43-45. The Rage Scar yetis in the hills to the north are 46-49: leave them. Or, with a group, run the {area:978} dungeon instead."] = "向西騎進{area:1105}：那裡的雪人是43-45級。北邊山丘上的狂怒之痕雪人是46-49級：別碰。或者，有小隊的話改打{area:978}地城。",
 	-- {npc:5292} Feral Scar Yeti · {area:1105} Feral Scar Vale · {zone:1444} Feralas
 	["grind on {npc:5292} at {area:1105}, {zone:1444}"] = "在{zone:1444}的{area:1105}擊殺{npc:5292}練等",
 
-	-- Step 28: Zorbin Fandazzle
-	-- {area:1108} Forgotten Coast
-	["Ride back to the {area:1108}; the goblin stands by the dock."] = "騎回{area:1108}；那個哥布林站在碼頭旁。",
+	-- Step 24: Ironfur bears
+	["Ironfur bears"] = "鐵鬃熊",
+	-- {area:1105} Feral Scar Vale · {area:1136} High Wilderness
+	-- plural, as words: Ironfur Bears = {npc:5268} Ironfur Bear · Ironfur Patriarchs = {npc:5274} Ironfur Patriarch
+	["Ride north out of {area:1105}: the Ironfur Bears (41-42) at the foot of the {area:1136} drop Rhapsody's last liver.\nCareful: Ironfur Patriarchs (48-49) and the Rage Scar yetis (46-49) roam the hills further north: stay at their edge."] = "向北騎出{area:1105}：{area:1136}山腳下的鐵鬃熊（41-42級）會掉落拉普索迪的最後一個肝臟。\n小心：鐵鬃熊族王（48-49級）和狂怒之痕雪人（46-49級）在更北邊的山丘上遊蕩：待在牠們的外圍。",
 
-	-- Step 29: Forgotten Coast: kill these as you meet them
-	-- {area:1108} Forgotten Coast
-	["{area:1108}: kill these as you meet them"] = "",
-	-- {item:18904} Zorbin's Ultra-Shrinker
-	-- plural, as words: Shore Striders = {npc:5359} Shore Strider · Deep Striders = {npc:5360} Deep Strider · Wave Striders = {npc:5361} Wave Strider · Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray
-	["Shore Striders, Deep Striders and Wave Striders (elite giants) wade along the coast north of the dock: zap one with {item:18904} and kill the shrunken giant. Sea Elementals and Sea Sprays drift in the same surf."] = "海岸巨人、深海巨人和波濤巨人（精英巨人）在碼頭北邊的海岸涉水：用{item:18904}電擊一隻，然後殺死縮小後的巨人。海元素和巨型海元素在同一片浪中漂浮。",
+	-- Step 25: Feathermoon Stronghold
+	-- {npc:7880} Ginro Hearthkindle
+	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 
-	-- Step 30: Zorbin Fandazzle
-	-- {npc:14637} Zorbin Fandazzle
-	["{npc:14637}'s refills are level 55: skip them."] = "{npc:14637}的補充任務是55級：跳過。",
-	-- {zone:1446} Tanaris · {area:489} Thalanaar
-	["The {zone:1446} guide starts with the trip east, past {area:489}."] = "",
+	-- Step 26: Feathermoon Stronghold
+	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
+	["{npc:3936} then asks you to carry news to {zone:1457}: skip it, {area:976} sends you there instead."] = "{npc:3936}接著會要你把消息帶到{zone:1457}：跳過，{area:976}會改派你去那裡。",
 
-	-- Step 31: Thalanaar
+	-- Step 28: Ride to Thalanaar
+	-- {area:489} Thalanaar
+	["Ride to {area:489}"] = "騎往{area:489}",
+	-- {area:489} Thalanaar · {zone:1441} Thousand Needles
+	["No flight path to {area:489} yet: take the boat back to the coast and ride east along the road to {area:489}, on the {zone:1441} border."] = "還沒有到{area:489}的飛行路線：搭船回到海岸，沿道路向東騎往{zone:1441}邊界上的{area:489}。",
+
+	-- Step 29: Thalanaar
 	-- {zone:1441} Thousand Needles
 	["Ride north-east to the night elf outpost on the {zone:1441} border."] = "向東北騎往{zone:1441}邊界上的夜精靈前哨站。",
 	-- {npc:4048} Falfindel Waywarder · {area:489} Thalanaar
 	["{npc:4048} walks around {area:489}: look inside the circle on the map"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Boat to the {area:1108} and ride east across {zone:1444} to the Grimtotem camp north of the road. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "搭船前往{area:1108}，向東騎過{zone:1444}，前往道路北邊的恐怖圖騰營地。{npc:7956}在營地外等候；放出中央圍欄裡的小精龍，保護{npc:7956}和至少六隻小精龍存活。",
 	-- ["Boat to the {area:1108} and ride east into {area:1105}. {npc:14637}'s quests on the coast need level 45."] = "搭船前往{area:1108}，向東騎進{area:1105}。{npc:14637}在海岸的任務需要45級。",
 	-- ["From Theramore, fly to {area:608} and ride south out of {zone:1443} into {zone:1444}; the road leads west to the {area:1108} dock, where the boat crosses to Feathermoon on {area:1120}."] = "從塞拉摩飛往{area:608}，向南騎出{zone:1443}進入{zone:1444}；道路向西通往{area:1108}的碼頭，船會從那裡渡海前往{area:1120}的羽月要塞。",
 	-- ["Giants and elementals"] = "巨人與元素",
 	-- ["Hearth to Feathermoon."] = "使用爐石回到羽月要塞。",
 	-- ["Rage Scar yetis"] = "怒痕雪人",
 	-- ["Ride back north-west to the {area:1108} dock and take the boat to the island."] = "向西北騎回{area:1108}的碼頭，搭船前往島上。",
+	-- ["Ride back to the {area:1108}; the goblin stands by the dock."] = "騎回{area:1108}；那個哥布林站在碼頭旁。",
 	-- ["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide; one may drop a {quest:7735}, which {npc:7852} pays for too."] = "沿著道路向西騎回去，然後向北進入怒痕雪人的山丘。這裡的每隻雪人都可能掉落毛皮；其中可能會掉落{quest:7735}，{npc:7852}也會為它付錢。",
+	-- ["Ride east to the Gordunni camp in the hills south-east of the yeti valley: Warlocks and Shaman hold the camp, Brutes wander the slopes around it and further north."] = "向東騎往雪人山谷東南方山丘上的戈杜尼營地：戈杜尼術士和薩滿佔據營地，戈杜尼蠻兵在周圍和更北邊的山坡上遊蕩。",
 	-- ["Ride west to the friendly mountain giant at the foot of the hills. Land Walkers and Cliff Giants around him are elite: give them room."] = "向西騎往山丘腳下友善的山嶺巨人。他周圍的大地行者和峭壁巨人是精英：離牠們遠一點。",
 	-- ["Ring the bell whenever {npc:7774} stops to wander, and lead her south to {npc:7765}."] = "每當{npc:7774}停下來亂逛時就搖鈴，帶她向南到{npc:7765}處。",
 	-- ["Running {area:978} instead of grinding gets you there faster in a group. The troll city lies in northern {zone:1446}, the next zone on the route; come back to {npc:14637} on the {area:1108} afterwards."] = "組隊打{area:978}代替練等能更快達到目標。這座食人妖城市位於{zone:1446}北部，也就是路線的下一個地區；之後回到{area:1108}的{npc:14637}處。",
-	-- ["Swim south from the island to the {area:1121}. Hatecrest Serpent Guards and Sorceresses hold it; {npc:8136} (level 47) waits in the cave at its south end. Pull his guards first."] = "從島上向南游到{area:1121}。憎世毒蛇守衛和憎世巫師佔據那裡；{npc:8136}（47級）在南端的洞穴裡等著。先拉他的守衛。",
-	-- ["You end at the {area:1108} dock: the {zone:1446} guide starts with the trip east from here."] = "你在{area:1108}的碼頭結束：{zone:1446}指南從這裡向東出發開始。",
+	-- ["Shore Striders, Deep Striders and Wave Striders (elite giants) wade along the coast north of the dock: zap one with {item:18904} and kill the shrunken giant. Sea Elementals and Sea Sprays drift in the same surf."] = "海岸巨人、深海巨人和波濤巨人（精英巨人）在碼頭北邊的海岸涉水：用{item:18904}電擊一隻，然後殺死縮小後的巨人。海元素和巨型海元素在同一片浪中漂浮。",
+	-- ["The {zone:1446} guide starts with the trip east, past {area:489}."] = "{zone:1446}指南從向東的行程開始，途經{area:489}。",
 	-- ["grind on {npc:5292} at {area:1105}, {area:357}"] = "在{area:357}的{area:1105}擊殺{npc:5292}練等",
 	-- ["if you carry {quest:1100} from {zone:1441}"] = "如果你帶著{zone:1441}的{quest:1100}",
 	-- ["{area:978} instead of grinding"] = "以{area:978}代替練等",
+	-- ["{npc:14637}'s refills are level 55: skip them."] = "{npc:14637}的補充任務是55級：跳過。",
 	-- ["{npc:7774} wanders the hills north of {npc:7765}, among the Northspring harpies; her bell is in the chest beside her."] = "{npc:7774}在{npc:7765}北邊的山丘上、北泉鷹身人之間遊蕩；她的鈴鐺在她旁邊的箱子裡。",
 	-- ["{npc:7774}'s escort"] = "護送{npc:7774}",
 }

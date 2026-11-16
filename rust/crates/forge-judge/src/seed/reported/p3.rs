@@ -13,7 +13,7 @@ const LOCH_MODAN: &str = "forever/alliance/03-loch-modan.guide";
 const ZEPHRAS_HORDE: &str = "forever/horde/skyborne/01-zephras-isle.guide";
 const ZEPHRAS_ALLIANCE: &str = "forever/alliance/skyborne/01-zephras-isle.guide";
 const STONETALON_HORDE: &str = "forever/horde/05-stonetalon-mountains.guide";
-const ASHENVALE_ALLIANCE: &str = "forever/alliance/06-ashenvale.guide";
+const WETLANDS: &str = "forever/alliance/06-wetlands.guide";
 const BARRENS_04: &str = "forever/horde/02-the-barrens.guide";
 
 pub fn tests() -> Vec<SeedTest> {
@@ -140,10 +140,16 @@ fn great_outdoors(ctx: &Ctx, c: &mut Check) {
 	}
 }
 
+/// Sato: the Scrawny Ursera step leads to the slope west of Thendal Village. The spawn fix is in the private corrections
+/// overlay, so without it there is nothing to check (tests/guides-reported.test.js skips the same case).
 fn scrawny_ursera(ctx: &Ctx, c: &mut Check) {
-	let pts = crate::seed::correction(&ctx.root, "npcs", "250926").get("addSpawns").get("2521").get("pts");
-	if !pts.is_arr() {
-		c.ok(false, "the corrections add Scrawny Ursera spawns");
+	let fix = crate::seed::correction(&ctx.root, "npcs", "250926").get("addSpawns");
+	if !fix.truthy() {
+		c.skip("needs the private corrections overlay (data/local/corrections-private.json)");
+		return;
+	}
+	let pts = fix.get("2521").get("pts");
+	if !c.ok(pts.is_arr(), "the corrections add Scrawny Ursera spawns") {
 		return;
 	}
 	let pts = pts.items();
@@ -265,8 +271,16 @@ fn cloth_auction_house(ctx: &Ctx, c: &mut Check) {
 	for (guide, quests) in cases {
 		let Some(all) = goals(ctx, c, guide) else { return };
 		for &quest in quests {
-			let list: Vec<&Row> =
-				all.iter().filter(|r| t_is(&r.goal, "collect") && num_is(&r.goal, "quest", quest as f64) && r.goal.get("item").as_num().is_some_and(|i| cloth.contains(&i))).collect();
+			// (The donations are handed in on the spot, #1699: their cloth is collected on the step that hands them in.)
+			let at_step: Vec<usize> = all.iter().filter(|r| t_is(&r.goal, "turnin") && num_is(&r.goal, "quest", quest as f64)).map(|r| r.s).collect();
+			let list: Vec<&Row> = all
+				.iter()
+				.filter(|r| {
+					t_is(&r.goal, "collect")
+						&& (num_is(&r.goal, "quest", quest as f64) || (r.goal.get("quest").is_undef() && at_step.contains(&r.s)))
+						&& r.goal.get("item").as_num().is_some_and(|i| cloth.contains(&i))
+				})
+				.collect();
 			if !c.ok(!list.is_empty(), &format!("{guide}: the cloth of {quest}")) {
 				return;
 			}
@@ -286,7 +300,7 @@ fn cloth_auction_house(ctx: &Ctx, c: &mut Check) {
 					return;
 				};
 				for s in non_alt(goal) {
-					if !c.ok(num_is(&s, "x", x) && num_is(&s, "y", y), &format!("{guide}: {quest}: the arrow picks only the Auction House")) {
+					if !c.eq((s.get("x").as_num(), s.get("y").as_num()), (Some(x), Some(y)), &format!("{guide}: {quest}: the arrow picks only the Auction House")) {
 						return;
 					}
 				}
@@ -753,15 +767,15 @@ fn echo_ridge(ctx: &Ctx, c: &mut Check) {
 
 fn kadrak_map(ctx: &Ctx, c: &mut Check) {
 	let Some(list) = goals(ctx, c, STONETALON_HORDE) else { return };
-	for (i, (t, q)) in [("turnin", 6541), ("accept", 6543), ("turnin", 6543)].into_iter().enumerate() {
-		let Some(k) = at(c, &list, &format!("Kadrak goal {}", i + 1), is(t, q)) else { return };
-		let g = &list[k].goal;
-		if !c.ok(num_is(g, "map", 1413.0), &format!("{t} {q} is on The Barrens (1413), not {}", g.get("map").to_js_string())) {
-			return;
-		}
+	// (The Warsong Reports, 6543, is left out since the final route review; Kadrak keeps Report to Kadrak.)
+	let Some(k) = at(c, &list, "turnin 6541", is("turnin", 6541)) else { return };
+	let g = &list[k].goal;
+	if !c.ok(num_is(g, "map", 1413.0), &format!("turnin 6541 is on The Barrens (1413), not {}", g.get("map").to_js_string())) {
+		return;
 	}
-	let Some(s) = at(c, &list, "the Warsong Scout Update", |g| t_is(g, "collect") && num_is(g, "item", 16764.0)) else { return };
-	c.ok(num_is(&list[s].goal, "map", 1440.0), "the Warsong Scout is still in Ashenvale");
+	// (Ashenvale Outrunners, the old anchor here, waits for the 26 visit since 0.3.7.)
+	let Some(s) = at(c, &list, "turnin 6382", is("turnin", 6382)) else { return };
+	c.ok(num_is(&list[s].goal, "map", 1440.0), "Senani at Splintertree is still in Ashenvale");
 }
 
 fn tirion_hut(ctx: &Ctx, c: &mut Check) {
@@ -788,7 +802,8 @@ fn tirion_hut(ctx: &Ctx, c: &mut Check) {
 			}
 		}
 	}
-	for guide in ["forever/alliance/50-60/04-western-plaguelands.guide", "forever/horde/50-60/02-felwood.guide"] {
+	// Horde: since the 0.4.0 level tidy Tirion's hunts are taken on 50-60/05's ride east past his hut, where they are done.
+	for guide in ["forever/alliance/50-60/04-western-plaguelands.guide", "forever/horde/50-60/05-eastern-plaguelands.guide"] {
 		for q in [5542, 5543, 5544] {
 			if !c.ok(found.contains(&format!("{guide} accept {q}")), &format!("{guide} takes {q} from Tirion")) {
 				return;
@@ -823,7 +838,8 @@ fn lion_hides(ctx: &Ctx, c: &mut Check) {
 
 fn raptor_horns(ctx: &Ctx, c: &mut Check) {
 	let Some(list) = goals(ctx, c, BARRENS_04) else { return };
-	let hills = list.iter().position(|r| r.step.get("title").as_str() == Some("The Dry Hills") && is("collect", 95494)(&r.goal));
+	// The step where Vrang's harpy quest is worked in the Dry Hills (its title is the route's own).
+	let hills = list.iter().position(|r| is("collect", 95494)(&r.goal));
 	let Some(hills) = hills else {
 		c.ok(false, "the Dry Hills step is in the guide");
 		return;
@@ -844,8 +860,22 @@ fn raptor_horns(ctx: &Ctx, c: &mut Check) {
 			return;
 		}
 	}
-	let Some(t) = at(c, &list, "the Raptor Horns turn-in", is("turnin", 865)) else { return };
-	c.ok(horns < t, "before the horns are handed in at Ratchet");
+	// The first Ratchet stop hands the horns in only when they are done (#1078); the unconditional hand-in, on
+	// the second pass, comes after the Dry Hills.
+	let hand: Vec<usize> = list.iter().enumerate().filter(|(_, r)| is("turnin", 865)(&r.goal)).map(|(i, _)| i).collect();
+	let Some(&last) = hand.last() else {
+		c.ok(false, "the Raptor Horns turn-in is in the guide");
+		return;
+	};
+	if !c.ok(horns < last, "before the horns are handed in at Ratchet") {
+		return;
+	}
+	for &i in hand.iter().filter(|&&i| i < horns) {
+		let waits = list[i].step.get("when").items().iter().any(|p| p.get("k").as_str() == Some("complete") && !p.get("neg").truthy() && p.get("q").as_num() == Some(865.0));
+		if !c.ok(waits, &format!("the hand-in at goal {i}, before the Dry Hills, waits for the horns to be done")) {
+			return;
+		}
+	}
 }
 
 fn iron_pike(ctx: &Ctx, c: &mut Check) {
@@ -907,7 +937,8 @@ fn iron_pike(ctx: &Ctx, c: &mut Check) {
 }
 
 fn elemental_bracers(ctx: &Ctx, c: &mut Check) {
-	let Some(list) = goals(ctx, c, ASHENVALE_ALLIANCE) else { return };
+	// 0.4.0 fix round: Elemental Bracers moved from 06-ashenvale to the Wetlands guide's Krolg leg (as the node case).
+	let Some(list) = goals(ctx, c, WETLANDS) else { return };
 	let Some(bracers) = at(c, &list, "collect 12220", |g| t_is(g, "collect") && num_is(g, "item", 12220.0)) else { return };
 	let Some(scroll) = at(c, &list, "collect 5455", |g| t_is(g, "collect") && num_is(g, "item", 5455.0) && num_is(g, "quest", 1016.0)) else { return };
 	let b = &list[bracers].goal;

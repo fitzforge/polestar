@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {zone:1447} Azshara · {area:1417} Sunken Temple
-	["Experience at 50 through {zone:1447} and the {area:1417}; Classic's item choice may be gone on Forever."] = "",
+	["Experience at 50 through {zone:1447} and the {area:1417}; Classic's item choice may be gone on Forever."] = "50레벨에 {zone:1447}와(과) {area:1417}을(를) 통한 경험치. Forever에서는 클래식의 아이템 선택이 사라졌을 수 있습니다.",
 	["Experience"] = "경험치",
 
 	-- Step 1: The Hunter's Charm (Alliance)
@@ -53,7 +53,6 @@ return {
 	["In Classic Ogtinc let you choose the {item:19991}, the {item:19992} or the {item:20083} here. Forever's change notes say the choice is gone, though its quest page still lists three unnamed rewards: look at the reward window before you hand in."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Experience at 50 through {zone:1447} and the {area:1417}; Forever removed the Classic item choice."] = "50레벨에 {zone:1447}와(과) {area:1417}을(를) 통한 경험치. Forever에서는 클래식의 아이템 선택이 사라졌습니다.",
 	-- ["Morphaz is an elite dragon boss inside the {area:1417}, a five-player dungeon: bring a group. The temple stands in the middle of the {area:74}; swim down into it to reach the entrance. Horde: fly to {area:75}; Alliance: fly to {area:42} or {area:1438} and ride on."] = "몰파즈는 5인 던전인 {area:1417} 안의 정예 용 우두머리입니다. 파티를 데려가세요. 사원은 {area:74} 한가운데에 있으며, 물속으로 헤엄쳐 내려가면 입구가 나옵니다. 호드는 {area:75}(으)로, 얼라이언스는 {area:42}나 {area:1438}(으)로 날아간 뒤 말을 타고 가세요.",
 	-- ["Mosshoof Coursers graze all over {zone:1447}; one in a dozen or so drops a pair of Perfect Courser Antlers."] = "{npc:8761}은(는) {zone:1447} 곳곳에서 풀을 뜯습니다. 열두 마리 중 하나꼴로 {item:20017} 한 쌍을 떨어뜨립니다.",
 	-- ["Wavethrashers crawl along {zone:1447}'s coasts: Young Wavethrashers on the north-east shore and Wavethrashers on the east coast drop the scales about twice as often as the Great Wavethrashers of the south shore."] = "폭풍히드라는 {zone:1447} 해안을 따라 기어다닙니다. 북동쪽 해안의 어린 폭풍히드라와 동쪽 해안의 폭풍히드라는 남쪽 해안의 거대한 폭풍히드라보다 비늘을 약 두 배 자주 떨어뜨립니다.",

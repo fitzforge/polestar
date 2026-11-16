@@ -32,9 +32,8 @@ return {
 	["{item:15290}, 20g"] = "{item:15290}，20金",
 	["new in Forever, 20g; beta players found it here"] = "",
 	-- {item:277960} Lavender Kodo
-	["{item:277960} is a new Forever kodo (level 40, 20g in the client) whose source is not known yet."] = "",
+	["{item:277960} is a new Forever kodo (level 40, 20g in the client) whose source is not known yet."] = "{item:277960}是Forever新增的科多獸（40級，用戶端標示20金），來源尚未得知。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["{item:275993} and {item:277960} are new Forever kodos (level 40, 20g in the client) whose source is not known yet."] = "{item:275993}和{item:277960}是Forever新增的科多獸（40級，用戶端標示20金），來源尚未得知。",
 	-- ["{npc:3690} and {npc:3685}'s kodos are in {area:222}, {zone:1412}. At 40 {npc:3690} teaches {skill:762} (100g per Blizzard's designers), and learning it gives you a mount. The Forever client lets every Horde race ride these."] = "{npc:3690}和{npc:3685}的科多獸在{zone:1412}的{area:222}。40級時{npc:3690}教授{skill:762}（依暴雪設計師為100金），學會後會獲得一隻坐騎。Forever用戶端允許所有部落種族騎乘。",
 }

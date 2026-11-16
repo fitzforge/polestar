@@ -48,6 +48,7 @@ step Grazle
 
 step Deadwood Village
   tip The Deadwood furbolgs (level 48-50) hold the village at the south end of Felwood. Keep every Deadwood Headdress Feather: they are worth 10 reputation each later and never stop counting. Overlord Ror (15 reputation) and the rare Ragepaw (25) live here and count until Exalted. Forever pays quests in full at any level; in Classic grey mobs gave about a fifth, about 1 a kill for these furbolgs at 60. Do it while leveling if you can.
+  level 50
   kill 7153 quest 8460.1
   kill 7155 quest 8460.2
   kill 7154 quest 8460.3
@@ -65,6 +66,7 @@ step Nafien
 
 step Felpaw Village
   tip The northern Deadwood (level 53-55) camp just south of the tunnel. They drop feathers about half the time: the best feather spot. Chieftain Bloodmaw gives 15 until Exalted.
+  level 55
   kill 7156 quest 8461.1
   kill 7157 quest 8461.2
   kill 7158 quest 8461.3
@@ -84,6 +86,7 @@ step Salfa
 
 step Winterfall Village
   tip Winterfall Village lies in the east of Winterspring, just past Everlook. Keep every Winterfall Spirit Beads you loot (10 reputation each later). The Shamans, Den Watchers and Ursas share their spawn points, so kill every furbolg in the village to make the ones you need appear; more Ursas walk the ridge just south-west of the village. Grizzle Snowpaw (rare) and High Chief Winterfall, in the cave at the back, give 25 until Exalted. Alliance: the Wintersaber Trainers' Winterfall Intrusion asks for the same Shamans and Ursas.
+  level 58
   kill 7439 quest 8464.1
   kill 7440 quest 8464.2
   kill 7438 quest 8464.3
@@ -96,7 +99,7 @@ step Back to Salfa
 
 step Unfriendly to Neutral
   tip Unfriendly to Neutral is 3,000: about 540 more kills after these quests. Three camps: the northern Deadwood by the Felwood mouth of the tunnel; the Winterfall camps around Frostfire Hot Springs and Timbermaw Post, just south and south-east of Salfa (Pathfinders give 6 a kill, Den Watchers and Totemics 5, the shortest walk to a turn-in); and Winterfall Village in the east. Pick the least crowded. Keep all feathers and beads.
-  level 52
+  level 53
   collect 21377 x5 nearest optional   -- Deadwood Headdress Feathers: keep them
   collect 21383 x5 nearest optional   -- Winterfall Spirit Beads: keep them
   kill 7442 optional @31.5,36.0       -- Winterfall Pathfinders, Frostfire Hot Springs

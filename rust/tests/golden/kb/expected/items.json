@@ -36,7 +36,7 @@
 "4862":{"id":4862,"name":"Scorpid Worker Tail","drops":{"npc":{"3124":80,"3281":80},"object":{}},"vendors":[]},
 "4863":{"id":4863,"name":"Gnomish Tools","drops":{"npc":{},"object":{"3236":100}},"vendors":[]},
 "4864":{"id":4864,"name":"Minshina's Skull","drops":{"npc":{},"object":{"3237":100}},"vendors":[]},
-"4865":{"id":4865,"name":null,"drops":{"npc":{"3098":25},"object":{"3240":100}},"vendors":[],"seen":{"npc":{"3098":{"n":1,"of":4}},"object":{"3240":{"n":1,"of":1}}},"source":["recorder-gap:drops"]},
+"4865":{"id":4865,"name":null,"drops":{"npc":{"3098":50},"object":{"3240":100}},"vendors":[],"seen":{"npc":{"3098":{"n":1,"of":2}},"object":{"3240":{"n":1,"of":1}}},"source":["recorder-gap:drops"]},
 "4866":{"id":4866,"name":"Zalazane's Head","drops":{"npc":{"3205":100},"object":{}},"vendors":[]},
 "4869":{"id":4869,"name":"Fizzle's Claw","drops":{"npc":{"3203":100},"object":{}},"vendors":[]},
 "4870":{"id":4870,"name":"Canvas Scraps","drops":{"npc":{"3119":80,"3120":80,"3128":80,"3129":80,"3192":80,"5808":80,"5809":80},"object":{}},"vendors":[]},

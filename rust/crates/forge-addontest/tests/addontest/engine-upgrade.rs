@@ -1,4 +1,4 @@
-//! An update never moves a player back (0.3.5 -> 0.3.6, UpgradeMid036: 26 of 199 recorded mid-guide saves
+//! An update never moves a player back (0.3.5 -> 0.3.6: 26 of 199 recorded mid-guide saves
 //! were sent back to a quest the update put behind them). A save made with an older version of a guide
 //! (CharState().shapes and stepKeys, no shapeVersions) loads the new one: what the update added behind the
 //! player passes for them (Own.noteAdded, Own.passAdded), what it added ahead stays, a quest they carry keeps
@@ -116,7 +116,7 @@ fn check_offs_skips_and_the_view_of_a_changed_step_go_to_the_step_with_the_same_
 	assert_eq!(out["live"], 8, "the view kept, the player still at 103's hand-in: {out}");
 }
 
-// The 6 states UpgradeMid036 still saw sent back (Wetlands 98216, Hillsbrad 98283, Stranglethorn 1287, Silithus
+// The 6 states the upgrade check still saw sent back (Wetlands 98216, Hillsbrad 98283, Stranglethorn 1287, Silithus
 // 6390): a quest the player carries whose work the update moved behind them. 108 is in the log; its kill and
 // hand-in are only in the step the update added behind the player.
 const BEHIND_GUIDE_FROM: &str = r#"{ title = "New behind", goals = { a(108, 40) } },"#;
@@ -244,7 +244,7 @@ fn reset_progress_brings_back_what_an_update_passed() {
 	assert_eq!(out[1]["live"], 2, "{}", out[1]);
 }
 
-// UpgradeMid036 on the final candidate (Skyborne Druid, Zephras Isle): the player skipped 0.3.5's Raan Wildwind
+// The upgrade check on the final candidate (Skyborne Druid, Zephras Isle): the player skipped 0.3.5's Raan Wildwind
 // step whole; 0.3.6 split it, its training going to a new Zerril Softbreeze step after the Camping 101 steps. The
 // skip went with the first half only, so the training half came back and pulled the live step 14 steps back. A
 // step all of whose goals came from a step the player skipped whole is skipped too.
@@ -272,7 +272,7 @@ fn a_skipped_step_an_update_split_stays_skipped_in_every_part() {
 	assert_eq!(out["skipped"]["5"], true, "the split-off half keeps the skip: {out}");
 }
 
-// UpgradeMid036 on the 0.3.6 candidate (Wetlands, a 0.3.5 save at Anilia, step 42, carrying Bloom of the
+// The upgrade check on the 0.3.6 candidate (Wetlands, a 0.3.5 save at Anilia, step 42, carrying Bloom of the
 // Heavens taken off the route): Menethil's second stop gained that quest's hand-in (new) beside its hand-ins and
 // a vendor check-off the save had there too. The vendor never holds that step (Own.sideVendor), so the player's
 // place is still past it, and the carried quest is still to do; before, the vendor read as open work the update
@@ -377,4 +377,43 @@ fn a_prerequisite_the_update_passed_far_away_drops_the_quest_that_needs_it_and_i
 	assert!(!shape.iter().any(|s| s.contains(":112")), "112 and its hand-in drop out: {shape:?}");
 	assert_eq!(out["hidden"], true);
 	assert_eq!(out["requires"].as_array().map_or(0, |a| a.len()), 0, "{shape:?}");
+}
+
+// #2350 (Redridge, 0.3.7 -> 0.3.7.2; every guide 0.4.0 changed): the save's step for 102's accept changed, and no
+// earlier release's steps (Core/LegacySteps.lua) list its goals. Read as all new, it held nothing, the player's
+// place went past it to the walk, and the update passed it behind them with 102 never taken: the Lakeshire
+// pick-ups, gone. A changed step whose old goals are unknown is no step the update added: it stays, and holds the
+// player there. What the update did add (108, between two kept steps) still passes.
+#[test]
+fn a_changed_step_whose_old_goals_no_release_lists_stays_open_where_the_player_is() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.replace("w.complete({ 100, 102 })\nw.onQuest(103, { { required = 5, fulfilled = 1 } }, \"Quest 103\")", "w.complete({ 100 })"),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".to_string(), saved(""))],
+		login: false,
+		script: format!("{TEST_PACK}\n{TEST_SOURCE}\n{GUIDE}\n{}", SCRIPT.replace(r#"{ [h("accept:102")] = "accept:102" }"#, "{}")),
+	})
+	.remove(0);
+	assert_eq!(out["live"], 4, "at 102's accept, not taken yet: {out}");
+	assert_eq!(out["changed"], json!(["active", "active"]), "{out}");
+	assert_eq!(out["status"][1], "na", "108, added between kept steps, passes: {out}");
+}
+
+// #2350: what an update added behind the player that they have done shows done (the quest handed in), not as a
+// step that does not apply.
+#[test]
+fn what_an_update_added_behind_the_player_that_they_have_done_shows_done() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}\nstub.world.complete({{ 108, 109 }})"),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".to_string(), saved(""))],
+		login: false,
+		script: format!("{TEST_PACK}\n{TEST_SOURCE}\n{GUIDE}\n{SCRIPT}"),
+	})
+	.remove(0);
+	assert_eq!(out["live"], 8, "{out}");
+	assert_eq!(out["status"][1], "done", "{out}");
+	assert_eq!(out["changed"], json!(["done", "done"]), "{out}");
 }

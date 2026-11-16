@@ -22,8 +22,8 @@ return {
 	["Both diamonds are rare: the auction house is the quick way. Miners find the {item:12800} in about one Thorium vein in a hundred (the Small Thorium Veins north of {area:2418} in the {zone:1428} respawn every five minutes). The {item:18335} drops from high-level elites at about one in a hundred, best from the rare elite Revanchion (about one in nine)."] = "Os dois diamantes são raros: a Casa de Leilões é o jeito rápido. Mineiros acham {item:12800} em cerca de um veio de Tório a cada cem (os Veios de Tório Escasso ao norte de {area:2418}, em {zone:1428}, voltam a cada cinco minutos). {item:18335} cai de elites de nível alto em cerca de um a cada cem, melhor do elite raro Revanchion (cerca de um a cada nove).",
 
 	-- Step 3: Sagorne Creststrider
-	-- {quest:7668} The Darkreaver Menace
-	["{quest:7668} needs level 60."] = "{quest:7668} requer nível 60.",
+	-- {quest:8258} The Darkreaver Menace
+	["{quest:8258} needs level 60."] = "{quest:8258} requer nível 60.",
 	-- {item:18746} Divination Scryer
 	["he hands you the {item:18746}"] = "ele lhe entrega o {item:18746}",
 
@@ -41,4 +41,5 @@ return {
 	-- ["An {item:12800} comes from Thorium veins, a {item:18335} from the elites of the {zone:1422}, both rarely: buy them at the auction house if you can."] = "Um {item:12800} vem de veios de tório, um {item:18335} dos elites das {zone:1422}, ambos raramente: compre-os na casa de leilões se puder.",
 	-- ["At 58 {npc:13417}, the shaman trainer in the {object:172957}, asks for two rare diamonds."] = "No nível 58, {npc:13417}, o instrutor de xamã no {object:172957}, pede dois diamantes raros.",
 	-- ["{area:2057} lies under {area:2298}, the island town in the south-east of the {zone:1422}. Use the {item:18746} in the heart of the {object:179746}'s basement, beat the spirits it calls, then {npc:14516}. All are elite: bring a group."] = "{area:2057} fica embaixo de {area:2298}, a cidade na ilha do sudeste das {zone:1422}. Use o {item:18746} no centro do porão do Grande Ossuário, derrote os espíritos que ele chama e depois {npc:14516}. Todos são elite: leve um grupo.",
+	-- ["{quest:7668} needs level 60."] = "{quest:7668} requer nível 60.",
 }

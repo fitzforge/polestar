@@ -2,19 +2,23 @@
 -- wow_stub.lua (and stub_ui.lua). stub.pad holds the state:
 --   enabled, devices (C_GamePad), labelStyle ("Letters" | "Shapes"),
 --   down = { [button] = true } (wow_stub.lua's stub.keysDown, which IsKeyDown
---   reads), saved = { [key] = action }
---   (SetBinding / GetBindingKey), overrides = { [owner] = { [key] = buttonName } },
+--   reads), saved = { [key] = action } (SetBinding / GetBindingKey in the
+--   default binding context), gamepad = { [key] = action } (the gamepad
+--   interface's context, Enum.BindingContext.GamepadModeInGameCore; an action
+--   named GAMEPAD... is its own), gamepadOn (that context active, as the
+--   game's gamepad interface turns it on), overrides = { [owner] = { [key] = buttonName } },
 --   blocked = { "SetOverrideBindingClick", ... } (protected calls refused in
 --   combat), ran = { action, ... } (saved bindings the game ran).
 -- stub.press(key[, down]) delivers a gamepad button the way the client does:
 -- frames reading the gamepad first (shown, EnableGamePadButton, an
 -- OnGamePadButtonDown script) unless they let it through
 -- (SetPropagateKeyboardInput), then the override bindings, then the saved
--- binding. stub.key(key) delivers a keyboard key to the frames reading it.
+-- binding: the gamepad context's while it is active, else the default
+-- context's. stub.key(key) delivers a keyboard key to the frames reading it.
 
 local pad = {
 	enabled = true, devices = { 1 }, labelStyle = "Letters",
-	down = stub.keysDown, saved = {}, overrides = {}, blocked = {}, ran = {}, saves = 0,
+	down = stub.keysDown, saved = {}, gamepad = {}, gamepadOn = false, overrides = {}, blocked = {}, ran = {}, saves = 0,
 }
 stub.pad = pad
 
@@ -62,21 +66,36 @@ function stub.overrideCount()
 	return n
 end
 
-function GetBindingAction(key, checkOverride)
+local GAMEPAD_CONTEXT = 9
+Enum.BindingContext.None = 0
+Enum.BindingContext.GamepadModeInGameCore = GAMEPAD_CONTEXT
+C_KeyBindings = {}
+function C_KeyBindings.GetBindingContextForAction(action)
+	return action:find("^GAMEPAD") and GAMEPAD_CONTEXT or 0
+end
+function C_KeyBindings.IsBindingContextActive(context)
+	return context == GAMEPAD_CONTEXT and pad.gamepadOn or false
+end
+local function bindings(context)
+	if context == GAMEPAD_CONTEXT then return pad.gamepad end
+	return pad.saved
+end
+
+function GetBindingAction(key, checkOverride, context)
 	if checkOverride then
 		local button = stub.overrides()[key]
 		if button then return "CLICK " .. button .. ":LeftButton" end
 	end
-	return pad.saved[key] or ""
+	return bindings(context)[key] or ""
 end
-function SetBinding(key, action)
+function SetBinding(key, action, context)
 	protected("SetBinding")
-	pad.saved[key] = action
+	bindings(context)[key] = action
 	return true
 end
-function GetBindingKey(action)
+function GetBindingKey(action, _, context)
 	local keys = {}
-	for key, a in pairs(pad.saved) do if a == action then keys[#keys + 1] = key end end
+	for key, a in pairs(bindings(context)) do if a == action then keys[#keys + 1] = key end end
 	table.sort(keys)
 	return unpack(keys)
 end
@@ -113,7 +132,8 @@ function stub.press(key, down)
 		if b then stub.RunScript(b, "OnClick", "LeftButton", down) end
 		return "override"
 	end
-	if down and pad.saved[key] then pad.ran[#pad.ran + 1] = pad.saved[key] end
+	local ran = pad.gamepadOn and pad.gamepad[key] or pad.saved[key]
+	if down and ran then pad.ran[#pad.ran + 1] = ran end
 	return "game"
 end
 

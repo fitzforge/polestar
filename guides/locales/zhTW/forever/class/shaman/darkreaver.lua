@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {area:2057} Scholomance · {item:20134} Skyfury Helm
-	["A {area:2057} fight at 60 for Horde reputation; the {item:20134} may be gone in Forever."] = "",
+	["A {area:2057} fight at 60 for Horde reputation; the {item:20134} may be gone in Forever."] = "60級時在{area:2057}的一場戰鬥，換取部落聲望；{item:20134}在Forever中可能已經沒有了。",
 	["200 Horde reputation"] = "200點部落聲望",
 
 	-- Step 1: Sagorne Creststrider
@@ -22,8 +22,8 @@ return {
 	["Both diamonds are rare: the auction house is the quick way. Miners find the {item:12800} in about one Thorium vein in a hundred (the Small Thorium Veins north of {area:2418} in the {zone:1428} respawn every five minutes). The {item:18335} drops from high-level elites at about one in a hundred, best from the rare elite Revanchion (about one in nine)."] = "",
 
 	-- Step 3: Sagorne Creststrider
-	-- {quest:7668} The Darkreaver Menace
-	["{quest:7668} needs level 60."] = "{quest:7668}需要60級。",
+	-- {quest:8258} The Darkreaver Menace
+	["{quest:8258} needs level 60."] = "{quest:8258}需要60級。",
 	-- {item:18746} Divination Scryer
 	["he hands you the {item:18746}"] = "他會交給你{item:18746}",
 
@@ -37,8 +37,8 @@ return {
 	["{npc:13417}: 200 Horde reputation; the {item:20134} may be gone"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["A {area:2057} fight at 60 for Horde reputation; Forever removed the {item:20134}."] = "60級時在{area:2057}的一場戰鬥，換取部落聲望；Forever移除了{item:20134}。",
 	-- ["An {item:12800} comes from Thorium veins, a {item:18335} from the elites of the {zone:1422}, both rarely: buy them at the auction house if you can."] = "{item:12800}來自瑟銀礦脈，{item:18335}來自{zone:1422}的精英怪，兩者都很稀有：能的話就在拍賣場購買。",
 	-- ["At 58 {npc:13417}, the shaman trainer in the {object:172957}, asks for two rare diamonds."] = "58級時，{object:172957}的薩滿訓練師{npc:13417}會要你帶兩顆稀有鑽石。",
 	-- ["{area:2057} lies under {area:2298}, the island town in the south-east of the {zone:1422}. Use the {item:18746} in the heart of the {object:179746}'s basement, beat the spirits it calls, then {npc:14516}. All are elite: bring a group."] = "{area:2057}位於{zone:1422}東南方的島嶼城鎮{area:2298}之下。在大藏骨堂地下室的中心使用{item:18746}，擊敗它召喚出的靈魂，然後擊敗{npc:14516}。全都是精英：找小隊一起去。",
+	-- ["{quest:7668} needs level 60."] = "{quest:7668}需要60級。",
 }

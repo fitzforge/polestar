@@ -444,6 +444,11 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	}
 	let changed_set: FxHashSet<i64> = changed.iter().copied().collect();
 	let live = |m: i64| changed_set.contains(&m) || !maps.frames.contains_key(&m);
+	// The frame a map's points are in: Forever's for a live-frame point (`f` "l"), else the Era one.
+	let frame_of = |map: i64, f: &str| -> Option<Frame> {
+		let ff = fmaps.as_ref().and_then(|m| m.frames.get(&map));
+		(if f == "l" { ff } else { None }).or_else(|| maps.frames.get(&map)).or(ff).copied()
+	};
 
 	let mut qstats = None;
 	let mut quest_counts = None;
@@ -459,8 +464,7 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 			fmaps.as_ref().and_then(|f| f.resolve_area(area)).or_else(|| maps.resolve_area(area))
 		};
 		let to_world = |map: i64, f: &str, x: f64, y: f64| -> Option<World> {
-			let ff = fmaps.as_ref().and_then(|m| m.frames.get(&map));
-			let fr = (if f == "l" { ff } else { None }).or_else(|| maps.frames.get(&map)).or(ff)?;
+			let fr = frame_of(map, f)?;
 			Some(World { c: fr.c, wx: fr.top + ((fr.bottom - fr.top) * y) / 100.0, wy: fr.left + ((fr.right - fr.left) * x) / 100.0 })
 		};
 		// Area -> its dungeon or raid map (Forever's AreaTable + Map, else Era's AreaTable).
@@ -496,6 +500,19 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	}
 
 	lap("questie merge");
+	// A spawn listed on a continent's map and on a zone's or a city's stays off the continent's
+	// (spawns::drop_map_copies; the merge already left out pfQuest's other copies).
+	let (mut points, mut npcs, mut objects) = (0, 0, 0);
+	for (table, count) in [(&norm.npcs, &mut npcs), (&norm.objects, &mut objects)] {
+		for e in table.values() {
+			if let Some((spawns, n)) = crate::spawns::drop_map_copies(&e.get("spawns"), &frame_of) {
+				e.set("spawns", spawns);
+				points += n;
+				*count += 1;
+			}
+		}
+	}
+	log(&format!("continent copies: {points} spawn points dropped from {npcs} NPCs and {objects} objects"));
 	// The web zone lists' change notes, before our own corrections.
 	let mut wh = None;
 	if qz.is_some() && o.web_zones {
@@ -821,6 +838,13 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 		kb = Some(out);
 	}
 
+	// NPC records that are only a city's or a faction's name with no spawn and nothing referring to them (QuestieDB
+	// 1.0.14's "Orgrimmar" and "Stormwind"): checked after the knowledge base, which adds spawns and roles.
+	let placeholders = extras::drop_place_name_npcs(&norm.npcs, &norm.quests, &norm.items, &zones, &factions);
+	if !placeholders.is_empty() {
+		log(&format!("place-name NPCs: {} dropped ({})", placeholders.len(), placeholders.iter().map(i64::to_string).collect::<Vec<_>>().join(", ")));
+	}
+
 	// ---- meta.json sources
 	let mut sources: Vec<V> = Vec::new();
 	sources.push(obj_of(vec![
@@ -841,6 +865,15 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	]));
 	if let Some(q) = &qz {
 		let qi = q.questie.as_ref().map(|i| obj_of(vec![("url", s(QUESTIE_REPO)), ("version", so(&i.version)), ("revision", so(&i.build_commit)), ("authors", so(&i.author))])).unwrap_or(V::Null);
+		let d = &q.dynamic;
+		let dynamic = obj_of(vec![
+			("providers", arr(d.providers.iter().map(|p| s(p)).collect())),
+			("classes", arr(d.classes.iter().map(|c| s(c)).collect())),
+			("unioned", V::Num(d.unioned.len() as f64)),
+			("taken", V::Num(d.agreed.len() as f64)),
+			("kept", V::Num(d.kept.len() as f64)),
+			("skipped", V::Num(d.skipped as f64)),
+		]);
 		sources.push(obj_of(vec![
 			("name", s("QuestieDB (Questie-Forever), baked Forever store and support data")),
 			("url", s(QUESTIEDB_REPO)),
@@ -852,6 +885,7 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 			("contract", so(&q.contract)),
 			("questie", qi),
 			("dir", s(&q.dir.to_string_lossy())),
+			("dynamicCorrections", dynamic),
 		]));
 	}
 	if let Some(w) = webxp.as_ref().filter(|w| !w.xp.is_empty()) {

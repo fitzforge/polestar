@@ -213,8 +213,9 @@ emit({ total = P.total, moved = P.frame:GetParent() == nextBar, shown = P.frame:
 	assert.deepEqual(moved, { total: 250, moved: true, shown: true });
 });
 
-test('registers only one quest XP toggle in Trackers / Experience', () => {
+test('registers only one quest XP toggle in Trackers & map / Experience', () => {
 	const [settings] = run(String.raw`
+dofile("addon/Polestar_Options/QoL/Options.lua")
 local found = {}
 for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
 	for _, control in ipairs(spec.controls) do
@@ -227,7 +228,7 @@ end
 emit(found)
 `);
 	assert.deepEqual(settings, {
-		'qol.questXPOverlay': { tab: 'Trackers', section: 'Experience', kind: 'toggle', help: true, default: true },
+		'qol.questXPOverlay': { tab: 'Trackers & map', section: 'Experience', kind: 'toggle', help: true, default: true },
 	});
 });
 

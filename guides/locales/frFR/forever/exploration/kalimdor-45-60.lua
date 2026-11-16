@@ -84,6 +84,8 @@ return {
 	["9 areas to discover here. Its creatures are level 54-60."] = "9 zones à découvrir ici. Ses créatures sont de niveau 54-60.",
 	-- {zone:2482} Mount Hyjal · {zone:1452} Winterspring · {area:2256} Darkwhisper Gorge
 	["{zone:2482} is reached from {zone:1452} through {area:2256} in the south. It is Forever's endgame leveling zone."] = "On rejoint {zone:2482} depuis {zone:1452} par {area:2256}, au sud. C'est la zone de progression de fin de jeu de Forever.",
+	-- {area:16849} Summit of Eternity · {npc:41861} Fayran Elthas · {area:16853} Tainted Foothills
+	["Flight paths here: {area:16849} ({npc:41861}), {area:16853} (Bluebell)."] = "Trajets aériens ici : {area:16849} ({npc:41861}), {area:16853} (Bluebell).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["9 areas to discover here."] = "9 zones à découvrir ici.",

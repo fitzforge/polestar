@@ -12,7 +12,7 @@ return {
 	-- Step 1: Learn to ride
 	["Learn to ride"] = "學習騎術",
 	-- {skill:762} Riding
-	["Galestriders need level 40 and {skill:762}. Train it at your own race's riding trainer; see the Level 40 mount guides for where."] = "",
+	["Galestriders need level 40 and {skill:762}. Train it at your own race's riding trainer; see the Level 40 mount guides for where."] = "逐風者需要40級和{skill:762}。向你自己種族的騎術訓練師學習；地點請見40級坐騎指南。",
 
 	-- Step 2: Skyboat from Dalaran
 	-- {area:279} Dalaran
@@ -44,10 +44,6 @@ return {
 
 	-- Step 6: Genn Fairweather
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
-	["{npc:265756} is at the {area:17684} in {area:16638}, the island's harbour town, near the skyboat docks. The Forever client lists each Galestrider at 20g; choose one."] = "",
+	["{npc:265756} is at the {area:17684} in {area:16638}, the island's harbour town, near the skyboat docks. The Forever client lists each Galestrider at 20g; choose one."] = "{npc:265756}在島上的港口城鎮{area:16638}的{area:17684}，靠近天空船碼頭。Forever 用戶端中每隻逐風者標價20金；選一隻。",
 	["20g"] = "20金",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Galestriders need level 40 and {skill:762} ({spell:1285849} comes with it in the Forever client). Any riding trainer of your faction teaches it; see the Level 40 mount guides for where."] = "逐風者需要40級和{skill:762}（在 Forever 用戶端中{spell:1285849}會一起學會）。你陣營的任何騎術訓練師都能教；地點請見40級坐騎指南。",
-	-- ["{npc:265756} is in {area:16638}, the island's harbour town, near the skyboat docks. The Forever client lists each Galestrider at 20g; choose one."] = "{npc:265756}在島上的港口城鎮{area:16638}，靠近天空船碼頭。Forever 用戶端中每隻逐風者標價20金；選一隻。",
 }

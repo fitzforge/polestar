@@ -150,3 +150,56 @@ emit({
 		})
 	);
 }
+
+// A grind step and the finished quests in the log (0.4.0, #1431: Mokii saw "3,233 XP to go" in
+// Dustwallow while carrying 7,600 XP of Brackenwall's hand-ins). Step 1 grinds to level 6 (2,800 XP at level 5);
+// step 2 hands in A (1,500 XP) and B (1,000), finished; step 3 takes a level-6 quest, where the level is needed;
+// step 4 hands in C (5,000, finished), after it. The XP is the client's (GetQuestLogRewardXP). A and B give 2,500:
+// short of 2,800, the step says so and holds; at 400 XP in they cover the 2,400 left: the level goal reads done
+// ("hand in first") and the route moves on to the hand-ins. C never counts: it comes after the level is needed.
+// A handed in (its 1,500 XP: 1,900), B still covers the 900 left; B handed in, level 6: the gated accept is next.
+const GRIND: &str = r#"
+Polestar.RegisterGuide({
+	id = "test/grind", pack = "test", title = "Grind", minLevel = 1, maxLevel = 8,
+	steps = {
+		{ title = "Grind", goals = { { t = "level", level = 6, map = 1429, x = 40, y = 40 } } },
+		{ title = "Town", goals = { { t = "turnin", quest = 40, title = "A", npc = 240, map = 1429, x = 42, y = 35 },
+			{ t = "turnin", quest = 41, title = "B", npc = 240, map = 1429, x = 42, y = 35 } } },
+		{ title = "Gate", goals = { { t = "accept", quest = 42, title = "Gated", npc = 240, minLevel = 6, map = 1429, x = 42, y = 35 } } },
+		{ title = "Later", goals = { { t = "turnin", quest = 43, title = "C", npc = 241, map = 1429, x = 60, y = 60 } } },
+	},
+})
+"#;
+
+#[test]
+fn a_grind_step_counts_the_finished_quests_the_guide_hands_in_before_the_level_is_needed() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}\nw.level = 5; w.xp, w.xpMax = 0, 2800\nw.onQuest(40, {{}}, \"A\"); w.onQuest(41, {{}}, \"B\"); w.onQuest(43, {{}}, \"C\")\n"),
+		addons: vec![core()],
+		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/grind" }"#.into())],
+		script: [
+			TEST_PACK,
+			TEST_SOURCE,
+			GRIND,
+			"function GetQuestLogRewardXP(q) return ({ [40] = 1500, [41] = 1000, [43] = 5000 })[q] end",
+			HELPERS,
+			r#"
+		local function g() return E.GetStepView(1).goals[1] end
+		emit({ live = E.GetLiveStep(), left = g().xpLeft, ready = g().readyXp or false })
+		w.setXP(400); flush()
+		emit({ live = E.GetLiveStep(), status = g().status, first = g().handInFirst or false })
+		w.turnIn(40); w.setXP(1900); flush()
+		emit({ live = E.GetLiveStep(), first = g().handInFirst or false })
+		w.turnIn(41); w.setLevel(6); w.setXP(100, 3600); flush()
+		emit(E.GetLiveStep())
+	"#,
+		]
+		.join("\n"),
+		..Default::default()
+	});
+	assert_eq!(out[0], json!({ "live": 1, "left": 2800, "ready": 2500 }), "{out:?}");
+	assert_eq!(out[1], json!({ "live": 2, "status": "done", "first": true }), "{out:?}");
+	assert_eq!(out[2], json!({ "live": 2, "first": true }), "{out:?}");
+	assert_eq!(out[3], json!(3), "{out:?}");
+}

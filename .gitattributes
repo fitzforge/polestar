@@ -12,6 +12,7 @@ tests/fixtures/data/sources/** -text
 # Generated files: collapsed in diffs and left out of the language statistics.
 # Each one is rebuilt by a `node tools/polestar.js` command; edit the generator, not the file.
 addon/Polestar_Guides/** linguist-generated
+addon/Polestar_Experimental/** linguist-generated
 addon/Polestar_ItemDB/*.lua linguist-generated
 addon/Polestar_[a-z][a-z][A-Z][A-Z]/** linguist-generated
 addon/Polestar/Core/ClassTrainers.lua linguist-generated

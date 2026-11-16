@@ -30,16 +30,20 @@
 --       elite, rare elite or boss out in the world, or an item it drops,
 --       carries the compiled guides' `group` ({ kind = "elite", rank, lvl }),
 --       so the step says "Elite: group advised" (Rear Guard Patrol's Riptear,
---       before the Ruins of Lordaeron's The Wrath of Rath'mael)
+--       before the Ruins of Lordaeron's The Wrath of Rath'mael); so does an
+--       object's work among hostile elites, as the Codex build marks it
+--       (Berard's Bookshelf in Pyrewood Village, #1778). A kill the
+--       Codex marks with `useItem` (an item used on that NPC) is a use of
+--       that item, at the NPC's spawns; a tame stays a tame (#2468)
 --   Lookup.AcceptPre(goal, quest) -> goal
 --       an accept goal with the Codex quest's prerequisites as a compiled
 --       guide's accept carries them (all of `pre` as preAll, one of `preAny`
 --       as pre, without those of another faction, race or class while one
---       is left; their titles as preTitles), so the Engine tells "Requires X
---       first" when the route no longer brings X, and a giver's window that
---       does not list the quest for that reason passes it (#1406: Gryan
---       Stoutmantle's The Defias Brotherhood after The Defias Traitor's step
---       was skipped)
+--       is left; a child quest's `parent`; their titles as
+--       preTitles), so the Engine tells "Requires X first" when the route no
+--       longer brings X, and a giver's window that does not list the quest
+--       for that reason passes it (#1406: Gryan Stoutmantle's The Defias
+--       Brotherhood after The Defias Traitor's step was skipped)
 --   Lookup.SpawnZ(kind, id, point) -> z | nil
 --       the height of NPC or object `id`'s Codex spawn at point { map, x, y, f }
 --       (kind "npc" | "object"): its spawn on that map and frame nearest the
@@ -132,22 +136,21 @@ function Lookup.CuratedGuide(kind, id)
 		return nil
 	end
 	local player = ns.Compat.GetPlayerInfo()
-	-- The suggestion source's guides first, then ours: one for this character,
-	-- else one for anyone.
+	-- The suggestion source's guides first, then ours: one this character can
+	-- follow, never another faction's, class's or race's (#2462).
 	local source = ns.Guides.SuggestSource()
 	local from = source == "guides" and { "guides" } or { source, "guides" }
 	local list = ns.Guides.List()
-	local fallback
 	for _, pack in ipairs(from) do
 		for _, h in ipairs(list) do
 			if h.pack == pack and type(h.id) == "string" and h.id:sub(1, #PREFIX) ~= PREFIX
-				and ((itemId and holds(h.collects, itemId)) or (spellName and keywordMatch(h.keywords, spellName))) then
-				if ns.Guides.GuideMatches(h, player) then return h.id end
-				fallback = fallback or h.id
+				and ((itemId and holds(h.collects, itemId)) or (spellName and keywordMatch(h.keywords, spellName)))
+				and ns.Guides.GuideMatches(h, player) then
+				return h.id
 			end
 		end
 	end
-	return fallback
+	return nil
 end
 
 ---------------------------------------------------------------------------
@@ -208,8 +211,23 @@ local function percent(n)
 	return format("%.3g%%", n)
 end
 
+-- An item source that needs a group out in the world: an elite, a rare elite
+-- or a boss. While anything else with a known spawn gives the item
+-- REAL_CHANCE percent of the time or more (or at an unknown chance), a step
+-- collects it there instead, as compiled guides do (resolve.rs elite_split):
+-- Indurium's flakes come from the Stonevault Bonesnappers and Shamans in the
+-- Badlands, not from the elites in Uldaman's cave the data has at 100%
+-- (#2236).
+local REAL_CHANCE = 1
+
+local function soloSource(kind, rec, chance)
+	if kind == "npc" and (rec.elite or rec.boss) then return false end
+	return chance == nil or chance >= REAL_CHANCE
+end
+
 -- Where to collect a quest item: the nearest spawn of its best drop or object
--- source; else, with `inside` (see questStep), where its best source without
+-- source (of those that need no group, when there are any: soloSource); else,
+-- with `inside` (see questStep), where its best source without
 -- a known spawn is, unless that source rarely gives it (under INSIDE_CHANCE
 -- percent: Razorgore's 1.5% Nexus Crystal is no errand) -> point, its name
 -- (an inside source only), the best source's spawns (a placed source only),
@@ -218,7 +236,8 @@ local function itemSpot(itemId, from, inside)
 	local C = Codex()
 	local item = C.Item(itemId)
 	if not item then return nil end
-	local best, bestChance, bestSpawns, bestNpc, placed, placedChance, placedName
+	-- best[1]: the best placed source that needs no group; best[2]: the best of all.
+	local best, placed, placedChance, placedName = {}, nil, nil, nil
 	for _, src in ipairs(item.sources or {}) do
 		local rec, kind, id
 		if src.type == "drop" and src.npc then
@@ -228,16 +247,16 @@ local function itemSpot(itemId, from, inside)
 		end
 		local chance = src.chance or 0
 		if rec and rec.spawns and #rec.spawns > 0 then
-			if not best or chance > bestChance then
-				best, bestChance, bestSpawns = Lookup.Nearest(rec.spawns, from), chance, rec.spawns
-				bestNpc = kind == "npc" and rec or nil
+			for i = soloSource(kind, rec, src.chance) and 1 or 2, 2 do
+				if not best[i] or chance > best[i].chance then best[i] = { rec = rec, kind = kind, chance = chance } end
 			end
-		elseif kind and inside and not best and (src.chance == nil or chance >= INSIDE_CHANCE) and (not placed or chance > placedChance) then
+		elseif kind and inside and not best[2] and (src.chance == nil or chance >= INSIDE_CHANCE) and (not placed or chance > placedChance) then
 			local p = inside(kind, id)
 			if p then placed, placedChance, placedName = p, chance, (rec and rec.name) or (C.Name(kind, id)) end
 		end
 	end
-	if best then return best, nil, bestSpawns, bestNpc end
+	local b = best[1] or best[2]
+	if b then return Lookup.Nearest(b.rec.spawns, from), nil, b.rec.spawns, b.kind == "npc" and b.rec or nil end
 	return placed, placedName
 end
 
@@ -246,7 +265,8 @@ end
 -- carry them: tools/lib/dsl/resolve.js), so the step reads "Kill Burning
 -- Blade Fanatic or Burning Blade Apprentice for Lieutenant's Insignia"
 -- instead of only the item (#1589, Hidden Enemies: the insignia drops in
--- Skull Rock's cave). Of its NPC and object sources with a known spawn, best
+-- Skull Rock's cave). Of its NPC and object sources with a known spawn (those
+-- that need no group when there are any, as itemSpot), best
 -- chance first: named when there are at most two (each one is where it
 -- drops), else when the best gives it NAMED_CHANCE percent of the time or
 -- more, with a second of the same kind that does too. -> goal
@@ -256,7 +276,7 @@ local function itemFrom(goal, itemId)
 	local C = Codex()
 	local item = C.Item(itemId)
 	if not item then return goal end
-	local located = {}
+	local located, solo = {}, {}
 	for _, src in ipairs(item.sources or {}) do
 		local kind, rec
 		if src.type == "drop" and src.npc then
@@ -265,9 +285,12 @@ local function itemFrom(goal, itemId)
 			kind, rec = "object", C.Object(src.object)
 		end
 		if rec and rec.name and rec.spawns and #rec.spawns > 0 then
-			located[#located + 1] = { kind = kind, id = src.npc or src.object, rec = rec, chance = src.chance or 0 }
+			local s = { kind = kind, id = src.npc or src.object, rec = rec, chance = src.chance or 0 }
+			located[#located + 1] = s
+			if soloSource(kind, rec, src.chance) then solo[#solo + 1] = s end
 		end
 	end
+	if #solo > 0 then located = solo end
 	if #located == 0 then return goal end
 	table.sort(located, function(a, b)
 		if a.chance ~= b.chance then return a.chance > b.chance end
@@ -288,6 +311,21 @@ local function itemFrom(goal, itemId)
 	return goal
 end
 
+-- The step's line for an item no mob or object gives where the data places
+-- them, made by a profession (Rough Dynamite, Engineering: A Dynamite Plan,
+-- #2363 and #2445): which profession makes it, and that the Auction House
+-- sells it. nil when no profession makes it.
+local function madeLine(itemId, name)
+	local item = Codex().Item(itemId)
+	for _, src in ipairs(item and item.sources or {}) do
+		if src.type == "craft" and src.skillLine then
+			local prof = Lookup.ProfessionName and Lookup.ProfessionName(src.skillLine)
+			return format(L["%s: nothing drops it. It is made with %s, or bought at the Auction House."], name, prof and L[prof] or L["Profession"])
+		end
+	end
+	return nil
+end
+
 -- A Codex NPC that needs a group out in the world -> the compiled guides'
 -- `group` for a goal at it ({ kind = "elite", rank = 1 elite | 2 rare elite
 -- | 3 boss, lvl }, UI.GroupLine), else nil. One inside an instance is part
@@ -299,6 +337,18 @@ local function eliteGroup(npc)
 	if not (npc and (npc.elite or npc.boss)) or npc.instance or npc.faction then return nil end
 	if npc.level and npc.level > MAX_LEVEL then return nil end
 	return { kind = "elite", rank = npc.boss and 3 or (npc.rare and 2) or 1, lvl = npc.level }
+end
+
+-- An objective's hostile elites for the character's side, as the Codex build
+-- marked them (objective.elites[side] = { rank, lvl }: an object to use, or
+-- an item only objects give, among elites; forge-data codex/elites.rs) ->
+-- the same `group` as an elite target's, else nil. Read, never searched
+-- for in game (#1778: Berard's Bookshelf in Pyrewood Village).
+local function eliteMark(o)
+	local code = o.elites and Lookup.PlayerInfo().code
+	local e = code and o.elites[code]
+	if not (e and e.rank) then return nil end
+	return { kind = "elite", rank = e.rank, lvl = e.lvl }
 end
 
 -- Spawn areas (docs/GUIDE_FORMAT.md, "Spawn areas"), as compiled goals get
@@ -450,6 +500,21 @@ function Lookup.AcceptPre(goal, q)
 		goal.pre = #own > 0 and own or any
 		for _, id in ipairs(goal.pre) do title(id) end
 	end
+	-- The quests whose taking closes it for good (a breadcrumb's target, an
+	-- exclusive quest): the Engine passes the accept once one is in the log
+	-- or done, "No longer offered: you took X" (#1996: The Greenwarden after
+	-- Tramping Paws).
+	local closed = q and q.closedBy
+	if type(closed) == "table" and #closed > 0 then
+		goal.closedBy = closed
+		for _, id in ipairs(closed) do title(id) end
+	end
+	-- A child quest: its giver offers it only while the parent is in the log.
+	local parent = q and tonumber(q.parent)
+	if parent then
+		goal.parent = parent
+		title(parent)
+	end
 	goal.preTitles = titles
 	return goal
 end
@@ -547,30 +612,51 @@ local function questStep(q, from, isTarget, opts)
 	local here = giver and giver.spawn or from
 	local event = nil
 	local talks = {} -- the NPCs of talk objectives, for the step's note
+	local made = {} -- the lines for items made by a profession, for the step's note
 	for oi, o in ipairs(q.objectives or {}) do
 		local count = o.count or 1
 		if o.type == "kill" and o.id then
 			local npc = C.Npc(o.id)
 			local target = (npc and npc.name) or o.text or npcName(o.id)
-			local s = npc and Lookup.Nearest(npc.spawns, here)
+			-- No placed NPC (a kill credit, Riverglades' "[DNT] Kill Credit"): the
+			-- objective's own place, where players' recordings show it ticking.
+			local s = (npc and Lookup.Nearest(npc.spawns, here)) or ((o.map and o.x and o.y) and o or nil)
 			if not s and inside then
 				s = inside("npc", o.id)
 				mark(s, target)
 			end
-			goals[#goals + 1] = spawnSpots(at({ t = "kill", target = target, npc = o.id, tame = o.tame,
-				quest = q.id, oi = oi, count = count, title = q.title, group = eliteGroup(npc) }, s), npc and npc.spawns)
+			-- `useItem`: the item this kill is really a use of (Codex, from a
+			-- use-item-on-mob mechanic). The engine then says Use. A tame
+			-- (Taming the Beast) stays a kill the engine words as Tame.
+			local goal = { target = target, npc = o.id, quest = q.id, oi = oi, count = count, title = q.title, group = eliteGroup(npc) }
+			if type(o.useItem) == "number" and o.useItem > 0 and not o.tame then
+				goal.t = "use"
+				goal.item = o.useItem
+				goal.itemName = itemName(o.useItem)
+			else
+				goal.t = "kill"
+				goal.tame = o.tame
+			end
+			goals[#goals + 1] = spawnSpots(at(goal, s), npc and npc.spawns)
 		elseif o.type == "item" and o.id then
 			local name = (C.Name("item", o.id)) or o.text or itemName(o.id)
 			local s, source, spawns, dropper = itemSpot(o.id, here, inside)
 			if source then mark(s, name) end
+			if not s then
+				-- Nothing places a source: the objective's own place, where
+				-- players' recordings show it collected (A Dynamite Plan's
+				-- Rough Dynamite at Stormwind's auctioneers), and how it is had.
+				if o.map and o.x and o.y then s = o end
+				made[#made + 1] = madeLine(o.id, name)
+			end
 			goals[#goals + 1] = spawnSpots(at(itemFrom({ t = "collect", item = o.id, itemName = name,
-				quest = q.id, oi = oi, count = count, title = q.title, group = eliteGroup(dropper) }, o.id), s), spawns)
+				quest = q.id, oi = oi, count = count, title = q.title, group = eliteGroup(dropper) or eliteMark(o) }, o.id), s), spawns)
 		elseif o.type == "talk" and o.id then
 			-- Speak to an NPC (Hidden Enemies: Neeru Fireblade): the engine counts it by the
 			-- quest's objective line, so it holds the step until done.
 			local npc = C.Npc(o.id)
 			local who = (npc and npc.name) or o.text or npcName(o.id)
-			local s = npc and Lookup.Nearest(npc.spawns, here)
+			local s = (npc and Lookup.Nearest(npc.spawns, here)) or ((o.map and o.x and o.y) and o or nil)
 			if not s and inside then
 				s = inside("npc", o.id)
 				mark(s, who)
@@ -580,13 +666,13 @@ local function questStep(q, from, isTarget, opts)
 		elseif o.type == "object" and o.id then
 			local obj = C.Object(o.id)
 			local objName = (obj and obj.name) or o.text or (L["Object"] .. " " .. o.id)
-			local s = obj and Lookup.Nearest(obj.spawns, here)
+			local s = (obj and Lookup.Nearest(obj.spawns, here)) or ((o.map and o.x and o.y) and o or nil)
 			if not s and inside then
 				s = inside("object", o.id)
 				mark(s, objName)
 			end
 			goals[#goals + 1] = spawnSpots(at({ t = "interact", object = o.id, objName = objName,
-				quest = q.id, oi = oi, count = count, title = q.title }, s), obj and obj.spawns)
+				quest = q.id, oi = oi, count = count, title = q.title, group = eliteMark(o) }, s), obj and obj.spawns)
 		else
 			event = event or o
 		end
@@ -596,7 +682,7 @@ local function questStep(q, from, isTarget, opts)
 	end
 	goals[#goals + 1] = endGoal("turnin", q, finish)
 	local step = { title = q.title, goals = goals }
-	if #order > 0 or #talks > 0 then
+	if #order > 0 or #talks > 0 or #made > 0 then
 		local lines = {}
 		for i, inst in ipairs(order) do
 			lines[i] = format(L["%s: inside %s."], concat(within[inst], ", "), inst)
@@ -606,6 +692,7 @@ local function questStep(q, from, isTarget, opts)
 		for _, who in ipairs(talks) do
 			lines[#lines + 1] = format(L["%s: click through what they say until the quest's line is done."], who)
 		end
+		for _, line in ipairs(made) do lines[#lines + 1] = line end
 		step.note = concat(lines, " ")
 	end
 	return step
@@ -816,6 +903,14 @@ builders.entrance = function(ctx, row)
 	if not located(row) then return nil, "nolocation" end
 	return { { title = ctx.name, goals = { at({ t = "goto", text = ctx.name, entrance = true }, row) } } }
 end
+
+-- A zone's flight master, inn or middle (Sources' zone rows, #1743): one
+-- goto, and the arrow's route (flights, boats, portals) leads the way there.
+builders.flight = function(ctx, row)
+	if not located(row) then return nil, "nolocation" end
+	return { { title = ctx.name, goals = { at({ t = "goto", text = row.label }, row) } } }
+end
+builders.inn, builders.middle = builders.flight, builders.flight
 
 local function entityName(kind, entity)
 	if not entity then return nil end

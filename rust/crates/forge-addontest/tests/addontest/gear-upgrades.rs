@@ -118,8 +118,8 @@ fn upgrade_line_unusable_items_say_why_class_restricted_the_downgrade_in_red_equ
 	let cls_only = run(r#"emit(line("item:9150"))"#).remove(0);
 	let worn = run(r#"g.equip(1, "item:9101"); emit(line("item:9101"))"#).remove(0);
 	assert_eq!(mail, false, "the worn helm itself");
-	assert_eq!(mage_line, "Polestar · Frost | armor you cannot wear");
-	assert_eq!(cls_only, "Polestar · Arms | not for your class");
+	assert_eq!(mage_line, "Polestar | armor you cannot wear");
+	assert_eq!(cls_only, "Polestar | not for your class");
 	assert_eq!(worn, false);
 }
 
@@ -128,8 +128,8 @@ fn upgrade_line_why_an_item_is_unusable_is_in_the_client_language() {
 	let es = fake_locale("itIT", &[("armor you cannot wear", "armadura que no puedes llevar"), ("not for your class", "no es para tu clase")]);
 	let mage_line = run_with(r#"emit(line("item:9101"))"#, Opts { locale: es.clone(), ..mage() }).remove(0);
 	let cls = run_with(r#"emit(line("item:9150"))"#, Opts { locale: es, ..Default::default() }).remove(0);
-	assert_eq!(mage_line, "Polestar · Frost | armadura que no puedes llevar");
-	assert_eq!(cls, "Polestar · Arms | no es para tu clase");
+	assert_eq!(mage_line, "Polestar | armadura que no puedes llevar");
+	assert_eq!(cls, "Polestar | no es para tu clase");
 }
 
 #[test]
@@ -143,9 +143,9 @@ fn two_hand_vs_one_hand_a_two_hander_against_main_off_hand_a_one_hander_against_
 	"#);
 	let (two_hand, one_hand, main_hand) = (text(&out[0]), text(&out[1]), text(&out[2]));
 	// The slot is the client's word for it (MAINHANDSLOT).
-	assert!(is_match(two_hand, r"^Polestar · Arms \| \+[\d.]+% upgrade · "));
+	assert!(is_match(two_hand, r"^Polestar \| \+[\d.]+% upgrade · "));
 	assert!(two_hand.ends_with(&format!(" · {main_hand}")), "{two_hand}");
-	assert!(is_match(one_hand, r"^Polestar · Arms \| -[\d.]+% downgrade · "));
+	assert!(is_match(one_hand, r"^Polestar \| -[\d.]+% downgrade · "));
 	assert!(one_hand.ends_with(&format!(" · {main_hand}")), "{one_hand}");
 }
 
@@ -161,10 +161,10 @@ fn rings_and_trinkets_against_the_weaker_equipped_one_a_unique_ring_only_against
 		emit(line("item:9131"))
 	"#);
 	// 9122 (str 2) against the weaker ring 9120 (str 4): -50%
-	assert_eq!(out[0], "Polestar · Arms | -50% downgrade · Finger");
-	assert_eq!(out[1], "Polestar · Arms | +50% upgrade · Finger");
-	assert_eq!(out[2], "Polestar · Arms | big upgrade · Trinket");
-	assert_eq!(out[3], "Polestar · Arms | upgrade (empty slot)");
+	assert_eq!(out[0], "Polestar | -50% downgrade · Finger");
+	assert_eq!(out[1], "Polestar | +50% upgrade · Finger");
+	assert_eq!(out[2], "Polestar | big upgrade · Trinket");
+	assert_eq!(out[3], "Polestar | upgrade (empty slot)");
 }
 
 #[test]
@@ -205,7 +205,12 @@ fn reward_item_tooltips_best_pick_on_an_upgrade_pick_reward_pick_naming_it_on_th
 	assert_eq!(other[1], "Reward pick | Militia Helm");
 	// No upgrade: the reward panel's coin (the most valuable) decides, not Gear.
 	assert!(!none.as_array().unwrap().iter().any(|l| is_match(text(l), r"^(Best|Reward) pick")), "{}", none);
-	assert_eq!(off.as_array().unwrap().len(), 1);
+	// The upgrade line, then the weights it was scored with: no pick line.
+	assert_eq!(off.as_array().unwrap().len(), 2, "{}", off);
+	// The weights' line closes every tooltip with an upgrade line or a pick.
+	for lines in [best, other, none, off] {
+		assert_eq!(lines.as_array().unwrap().last().map(text), Some("Scored for Arms until you spend talent points"), "{}", lines);
+	}
 }
 
 #[test]

@@ -12,68 +12,72 @@ return {
 	-- {npc:840} Watcher Backus · {area:42} Darkshire
 	["{npc:840}, at the north entrance of town; walks around {area:42}: look inside the circle on the map"] = "{npc:840}, na entrada norte da cidade; anda por {area:42}: procure dentro do círculo no mapa",
 
-	-- Step 3: Nightbane Shadow Weavers
+	-- Step 3: Councilman Millstipe
+	-- {quest:377} Crime and Punishment · {area:717} Stockade · {npc:270} Councilman Millstipe
+	["{quest:377}, from your {area:717} run: {npc:270} is in the town hall, beside Commander Althea."] = "{quest:377}, da sua ida à masmorra {area:717}: {npc:270} está na prefeitura, ao lado da Comandante Aldora.",
+
+	-- Step 4: Nightbane Shadow Weavers
 	-- plural, as words: Nightbane Shadow Weavers = {npc:533} Nightbane Shadow Weaver
 	["Nightbane Shadow Weavers"] = "Tece-sombras Nocturnos",
 	-- {area:42} Darkshire
 	["The worgen hold the woods of Brightwood, west of {area:42} and north of the road. Pull them one at a time."] = "Os worgens dominam a mata do Bosque Brilhante, a oeste de {area:42} e ao norte da estrada. Puxe um de cada vez.",
 
-	-- Step 5: Nightbane Dark Runners
+	-- Step 6: Nightbane Dark Runners
 	-- plural, as words: Nightbane Dark Runners = {npc:205} Nightbane Dark Runner
 	["Nightbane Dark Runners"] = "Corretrevas Nocturnos",
 	-- {area:42} Darkshire
 	["The Dark Runners prowl the woods south of the road, west of {area:42}."] = "Os Corretrevas rondam a mata ao sul da estrada, a oeste de {area:42}.",
 
-	-- Step 7: Nightbane Vile Fangs and the Insane Ghoul
+	-- Step 8: The Insane Ghoul
 	-- {npc:511} Insane Ghoul
+	["The {npc:511}"] = "O {npc:511}",
+	-- {npc:511} Insane Ghoul · {area:121} Tranquil Gardens Cemetery · {area:42} Darkshire · {npc:663} Calor
 	-- plural, as words: Nightbane Vile Fangs = {npc:206} Nightbane Vile Fang
-	["Nightbane Vile Fangs and the {npc:511}"] = "Presas Torpes Nocturnos e {npc:511}",
-	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {npc:511} Insane Ghoul · {spell:8282} Curse of Blood
-	["The strongest worgen roam the woods south of {area:42}, west and south of the {area:121}. The {npc:511} hides in the small crypt by the cemetery.\nCareful: {spell:8282} lasts 10 minutes and adds 13 to each hit of physical damage you take.\nCareful: Some worgen outside the cave stand in groups, including one camp of four. To avoid adds, pull them one at a time from the raised ground next to the cave entrance."] = "Os worgens mais fortes andam pela mata ao sul de {area:42}, a oeste e ao sul de {area:121}. O {npc:511} se esconde na criptinha junto ao cemitério.\nCuidado: {spell:8282} dura 10 minutos e soma 13 a cada golpe de dano físico que você leva.\nCuidado: alguns worgens fora da caverna ficam em grupo, incluindo um acampamento de quatro. Para não puxar a mais, puxe um de cada vez do terreno alto ao lado da entrada da caverna.",
+	["The {npc:511} hides in the small crypt by the {area:121}, south of {area:42}. {npc:663}'s Nightbane Vile Fangs and Tainted Ones (level 29-31) roam the woods around it: they come at the end of this guide, a level later."] = "O {npc:511} se esconde na criptinha junto ao {area:121}, ao sul de {area:42}. Os Presas Torpes Nocturnos e Maculados de {npc:663} (nível 29-31) andam pela mata ao redor: eles ficam para o fim deste guia, um nível depois.",
 	-- {item:1946} Mary's Looking Glass
 	["{item:1946}; inside"] = "{item:1946}; lá dentro",
 
-	-- Step 8: Darkshire
+	-- Step 9: Darkshire
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}, inside"] = "{npc:276}, lá dentro",
-	-- {npc:661} Jonathan Carevin · {npc:633} Elaine Carevin
-	["{npc:661}, by {npc:633}'s house; inside"] = "{npc:661}, junto à casa de {npc:633}; lá dentro",
 
-	-- Step 9: Vul'Gol Ogre Mound: kill these as you meet them
+	-- Step 10: Vul'Gol Ogre Mound: kill these as you meet them
 	-- {area:93} Vul'Gol Ogre Mound
 	["{area:93}: kill these as you meet them"] = "{area:93}: vá matando estes pelo caminho",
-	-- {area:42} Darkshire · {object:119} Abercrombie's Crate
-	["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "Siga para sudoeste, de {area:42}, até a Gruta de Vul'Gol. {object:119} fica no acampamento da entrada; ogros Punhalasca o guardam.",
+	-- {area:42} Darkshire · {object:119} Abercrombie's Crate · {npc:300} Zzarc' Vul
+	["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it. {npc:300} is inside the ogre mound's cave: go in by the cave mouth on the mound's west side."] = "Siga para sudoeste, de {area:42}, até a Gruta de Vul'Gol. {object:119} fica no acampamento da entrada; ogros Punhalasca o guardam. {npc:300} está dentro da caverna da gruta: entre pela boca da caverna no lado oeste da gruta.",
 	-- {npc:272273} Lost Watcher · {quest:96138} Merrick's Bow
 	["Only if a {npc:272273} dropped {quest:96138}: right-click it"] = "Só se um {npc:272273} deixou cair {quest:96138}: clique com o botão direito nele",
 	["Below ground"] = "No subterrâneo",
 
-	-- Step 10: Defias Strongbox
+	-- Step 11: Defias Strongbox
 	-- {zone:1431} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
 	["The Defias camp lies in the south-west of {zone:1431}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "O acampamento dos Défias fica no sudoeste de {zone:1431}, ao sul de {area:94}, perto da fronteira com {zone:1436}. A caixa-forte fica entre as barracas.",
 	-- {item:5947} Defias Docket
 	["{item:5947}; inside"] = "{item:5947}; lá dentro",
 
-	-- Step 12: Raven Hill Cemetery: kill these as you meet them
+	-- Step 13: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
 	["{area:492}: kill these as you meet them"] = "{area:492}: vá matando estes pelo caminho",
 	-- {area:492} Raven Hill Cemetery · {npc:522} Mor'Ladim · {npc:311} Sven Yorgen
 	-- plural, as words: Plague Spreaders = {npc:604} Plague Spreader · Skeletal Raiders = {npc:1110} Skeletal Raider
 	["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him.\nSkeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp.\nCareful: The skeletons in the catacombs are packed close together, so you can easily pull extra mobs."] = "Os Vetores da Peste andam pela metade norte de {area:492}. {npc:522}, um elite, perambula entre os túmulos: fique longe dele.\nSaqueadores, Curandeiros e Guardadores Descarnados ocupam a parte oeste do cemitério, logo a leste do acampamento de {npc:311}.\nCuidado: os esqueletos das catacumbas ficam amontoados, então é fácil puxar monstro a mais.",
 
-	-- Step 13: The Weathered Grave
+	-- Step 14: The Weathered Grave
 	-- {npc:311} Sven Yorgen · {npc:268} Sirra Von'Indi · {area:42} Darkshire
-	["The grave stands among the skeletons at the cemetery's north-west corner, on the way to {npc:311}. Its quest and the next are talk-only, to {npc:268} and Commander Althea in {area:42}: level 35 from level 28, but no fight."] = "O túmulo fica entre os esqueletos, no canto noroeste do cemitério, no caminho para {npc:311}. A missão dele e a seguinte são só de conversa, com {npc:268} e a Comandante Aldora, em {area:42}: nível 35 a partir do nível 28, mas sem luta.",
+	["The grave stands among the skeletons at the cemetery's north-west corner, on the way to {npc:311}. Its quest and the next are talk-only, to {npc:268} and Commander Althea in {area:42}: level 35 quests, but no fight."] = "O túmulo fica entre os esqueletos, no canto noroeste do cemitério, no caminho para {npc:311}. A missão dele e a seguinte são só de conversa, com {npc:268} e a Comandante Aldora, em {area:42}: missões de nível 35, mas sem luta.",
 
-	-- Step 14: Sven Yorgen's Camp
+	-- Step 15: Sven Yorgen's Camp
 	-- {npc:311} Sven Yorgen
 	["{npc:311}'s Camp"] = "Acampamento do {npc:311}",
 	-- {npc:1212} Bishop Farthing · {zone:1453} Stormwind
 	["For {npc:1212} in {zone:1453}, in the next guide"] = "Para {npc:1212}, em {zone:1453}, no próximo guia",
 
-	-- Step 15: Back to Darkshire
+	-- Step 16: Back to Darkshire
 	-- {area:42} Darkshire
 	["Back to {area:42}"] = "De volta a {area:42}",
+	-- {area:42} Darkshire · {npc:311} Sven Yorgen · {zone:1431} Duskwood
+	["Hearth back to {area:42} (bound at the start of this guide): {npc:311}'s camp is at the far west of {zone:1431}."] = "Use a Pedra de Regresso para voltar a {area:42} (vinculada no início deste guia): o acampamento de {npc:311} fica no extremo oeste de {zone:1431}.",
 	-- {npc:263} Lord Ello Ebonlocke
 	["{npc:263}, in the town hall"] = "{npc:263}, na prefeitura",
 	-- {npc:268} Sirra Von'Indi
@@ -84,12 +88,24 @@ return {
 	-- {npc:482} Elling Trias · {zone:1453} Stormwind
 	["For {npc:482} in {zone:1453}, in the next guide"] = "Para {npc:482}, em {zone:1453}, no próximo guia",
 
-	-- Step 16: Viktori Prism'Antras
+	-- Step 17: Nightbane Vile Fangs and Tainted Ones
+	-- plural, as words: Nightbane Vile Fangs = {npc:206} Nightbane Vile Fang
+	["Nightbane Vile Fangs and Tainted Ones"] = "Presas Torpes Nocturnos e Maculados",
+	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {spell:8282} Curse of Blood
+	["The strongest worgen roam the woods south of {area:42}, west and south of the {area:121}.\nCareful: {spell:8282} lasts 10 minutes and adds 13 to each hit of physical damage you take.\nCareful: Some worgen outside the cave stand in groups, including one camp of four. To avoid adds, pull them one at a time from the raised ground next to the cave entrance.\nCareful: Gutspill, a level 32 abomination, walks these woods: let it pass."] = "Os worgens mais fortes andam pela mata ao sul de {area:42}, a oeste e ao sul de {area:121}.\nCuidado: {spell:8282} dura 10 minutos e soma 13 a cada golpe de dano físico que você leva.\nCuidado: alguns worgens fora da caverna ficam em grupo, incluindo um acampamento de quatro. Para não puxar a mais, puxe um de cada vez do terreno alto ao lado da entrada da caverna.\nCuidado: Tripa Solta, uma abominação de nível 32, anda por essa mata: deixe-a passar.",
+
+	-- Step 18: Calor and Jonathan Carevin
+	-- {npc:663} Calor · {npc:661} Jonathan Carevin
+	["{npc:663} and {npc:661}"] = "{npc:663} e {npc:661}",
+	-- {npc:661} Jonathan Carevin · {npc:633} Elaine Carevin
+	["{npc:661}, by {npc:633}'s house; inside"] = "{npc:661}, junto à casa de {npc:633}; lá dentro",
+
+	-- Step 19: Viktori Prism'Antras
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}'s house stands at the east end of town, on the way to the flight master."] = "A casa de {npc:276} fica na ponta leste da cidade, no caminho para o mestre de voo.",
 	["Inside"] = "Lá dentro",
 
-	-- Step 17: Fly to Menethil Harbor
+	-- Step 20: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Voe para {area:150}",
 	-- {area:42} Darkshire
@@ -110,8 +126,10 @@ return {
 	-- ["For {quest:5762} in Stranglethorn, later"] = "Para {quest:5762}, na Selva do Espinhaço, mais tarde",
 	-- ["From Theramore follow the road west out of Dustwallow into the {zone:1413} and south along it; give {area:378} a wide berth. {area:485} at the {zone:1413}' south end takes you down into {zone:1441}. The journal lies at the foot of the lift."] = "De Theramore, siga a estrada para o oeste, saindo do Pântano Vadeoso para {zone:1413}, e desça para o sul por ela; mantenha distância de {area:378}. {area:485}, no extremo sul de {zone:1413}, leva você para baixo, até {zone:1441}. O diário fica ao pé do elevador.",
 	-- ["From {npc:352} in {zone:1453}"] = "De {npc:352}, em {zone:1453}",
+	-- ["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "Siga para sudoeste, de {area:42}, até a Gruta de Vul'Gol. {object:119} fica no acampamento da entrada; ogros Punhalasca o guardam.",
 	-- ["Her house stands on the hill south-east of {area:42}."] = "A casa dela fica na colina a sudeste de {area:42}.",
 	-- ["Nightbane Shadow Weavers"] = "Tece-sombras Nocturnos",
+	-- ["Nightbane Vile Fangs and the {npc:511}"] = "Presas Torpes Nocturnos e {npc:511}",
 	-- ["No {item:4371} for {quest:174}? {npc:3133} sells it in the house beside {npc:276}, in limited stock; {npc:1448} in {area:150} sells it too."] = "Sem {item:4371} para {quest:174}? {npc:3133} vende na casa ao lado de {npc:276}, em estoque limitado; {npc:1448}, em {area:150}, também vende.",
 	-- ["On the road south through the {zone:1413}, {npc:6244} camps east of the road, north-east of {area:378}; come in from the east and keep clear of the Horde guards."] = "Na estrada para o sul por {zone:1413}, {npc:6244} acampa a leste da estrada, a nordeste de {area:378}; chegue pelo leste e fique longe dos guardas da Horda.",
 	-- ["Plague Spreaders"] = "Vetores da Peste",
@@ -126,10 +144,12 @@ return {
 	-- ["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him."] = "Os Vetores da Peste andam pela metade norte de {area:492}. {npc:522}, um elite, vaga entre os túmulos: fique longe dele.",
 	-- ["The captain walks the deck of the wrecked ship; his strongbox sits in the hold."] = "O capitão anda pelo convés do navio naufragado; a caixa-forte dele fica no porão.",
 	-- ["The dig and {npc:1353}"] = "A escavação e {npc:1353}",
+	-- ["The grave stands among the skeletons at the cemetery's north-west corner, on the way to {npc:311}. Its quest and the next are talk-only, to {npc:268} and Commander Althea in {area:42}: level 35 from level 28, but no fight."] = "O túmulo fica entre os esqueletos, no canto noroeste do cemitério, no caminho para {npc:311}. A missão dele e a seguinte são só de conversa, com {npc:268} e a Comandante Aldora, em {area:42}: nível 35 a partir do nível 28, mas sem luta.",
 	-- ["The next step, Defeat Nek'rosh, pits you against an elite chieftain: skip it."] = "A próxima etapa, Derrotar Nek'rosh, coloca você contra um chefe elite: pule-a.",
 	-- ["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it."] = "As relíquias ficam na própria escavação. {npc:1353}, um Rasgaqueixo grande, ronda o vale dos raptores logo a oeste.",
 	-- ["The salt flats"] = "As planícies de sal",
 	-- ["The strongest worgen roam the woods south of {area:42}, west and south of the {area:121}. The {npc:511} hides in the small crypt by the cemetery."] = "Os worgens mais fortes vagam pela mata ao sul de {area:42}, a oeste e ao sul de {area:121}. {npc:511} se esconde na pequena cripta junto ao cemitério.",
+	-- ["The strongest worgen roam the woods south of {area:42}, west and south of the {area:121}. The {npc:511} hides in the small crypt by the cemetery.\nCareful: {spell:8282} lasts 10 minutes and adds 13 to each hit of physical damage you take.\nCareful: Some worgen outside the cave stand in groups, including one camp of four. To avoid adds, pull them one at a time from the raised ground next to the cave entrance."] = "Os worgens mais fortes andam pela mata ao sul de {area:42}, a oeste e ao sul de {area:121}. O {npc:511} se esconde na criptinha junto ao cemitério.\nCuidado: {spell:8282} dura 10 minutos e soma 13 a cada golpe de dano físico que você leva.\nCuidado: alguns worgens fora da caverna ficam em grupo, incluindo um acampamento de quatro. Para não puxar a mais, puxe um de cada vez do terreno alto ao lado da entrada da caverna.",
 	-- ["The wreck of the Third Fleet"] = "O naufrágio da Terceira Frota",
 	-- ["To Theramore"] = "Para Theramore",
 	-- ["{area:492}, west"] = "{area:492}, oeste",

@@ -33,11 +33,17 @@ fn instance_map(m: &Value) -> InstanceMap {
 		inner: list("inner"),
 		zones: list("zones"),
 		corpse: m["corpse"].as_object().map(|c| Corpse { c: c["c"].as_f64().unwrap(), x: c["x"].as_f64().unwrap(), y: c["y"].as_f64().unwrap() }),
+		finder: m["finder"].as_object().map(|f| forge_data::codex::client::Finder {
+			min: f["min"].as_f64().unwrap_or(0.0),
+			max: f["max"].as_f64().unwrap_or(0.0),
+			players: f["players"].as_f64().unwrap_or(5.0),
+			players_max: f.get("playersMax").and_then(Value::as_f64).or(f["players"].as_f64()).unwrap_or(5.0),
+		}),
 	}
 }
 
 /// The fixture's Codex as a pack, with its Dungeons journal (`buildJournal(fixture.inputs, fixture.codex)`).
-fn pack() -> CodexPack {
+pub(crate) fn pack() -> CodexPack {
 	let f = fixture("dungeons.json");
 	pack_of(&f["codex"], &f["inputs"])
 }
@@ -68,6 +74,8 @@ fn pack_of(codex: &Value, inputs: &Value) -> CodexPack {
 			journal_quests: &[],
 			attunement_table: &attunements,
 			store_xp: &Default::default(),
+			recorded_dungeons: &v(&inputs["recordedDungeons"]),
+			levels_table: &v(&inputs["levelsTable"]),
 		},
 		&c,
 	);
@@ -182,9 +190,10 @@ fn show_dungeon_nil_opens_the_hub_at_home_level_bands_in_the_sidebar_the_dungeon
 }
 
 // Fitz, 2026-11-08 (a level 13 Horde Warlock saw the Ruins of Lordaeron, 15-22, and The Hall of Thanes, in
-// Ironforge, under "For your level"): a dungeon is for your level from its recommended start, and
-// one whose way in lies inside the other faction's capital is not under that faction's filter. The Ruins,
-// outside the Undercity, can be reached by both.
+// Ironforge, under "For your level"): a dungeon is for your level from its recommended start. Fitz, 2026-11-14:
+// a city dungeon (its way in inside a capital, or under it: the Ruins of Lordaeron, the Undercity's) is its
+// faction's only, so never under the other faction's filter, nor under All for a player of the other faction
+// (SETUP's player is a Horde Tauren).
 #[test]
 fn for_your_level_starts_at_the_recommended_level_and_leaves_out_dungeons_inside_the_other_factions_capital() {
 	let f = fixture("dungeons.json");
@@ -217,8 +226,8 @@ fn for_your_level_starts_at_the_recommended_level_and_leaves_out_dungeons_inside
 	assert_eq!(out["h15"], json!(["Ragefire Chasm", "Ruins of Lordaeron"]));
 	assert_eq!(out["h22"], json!(["Ruins of Lordaeron"]));
 	assert_eq!(out["a13"], json!(["The Hall of Thanes"]), "not Ragefire Chasm (Orgrimmar) for the Alliance");
-	assert_eq!(out["a15"], json!(["Ruins of Lordaeron", "The Hall of Thanes"]), "the Ruins lie outside the Undercity: the Alliance can get there");
-	assert_eq!(out["all13"], json!(["Ragefire Chasm", "The Hall of Thanes"]), "All shows both sides'");
+	assert_eq!(out["a15"], json!(["The Hall of Thanes"]), "not the Ruins of Lordaeron (the Undercity's) for the Alliance");
+	assert_eq!(out["all13"], json!(["Ragefire Chasm"]), "All: never the Horde player's other faction's city dungeon (The Hall of Thanes)");
 }
 
 // A player asked why Uldaman (35-47) showed under "For your level" at 35, where most of it suits ~42. It still
@@ -388,6 +397,61 @@ fn a_page_s_veiled_hub_title_stays_veiled_through_a_theme_repaint() {
 	assert_eq!(out[0]["back"], json!([1, true]));
 }
 
+// The chip's one number, broken down in its panel by what the character can do about each quest: take and
+// hand in now, reach its level first, or do the chain before it; the rows add up to the headline. Left out and
+// named: another class's, the other faction's, one closed by a quest taken, the lesser of an exclusive pair.
+#[test]
+fn the_levels_panel_breaks_the_number_down_ready_level_chain_and_names_what_was_left_out() {
+	let out = run(r#"
+		uistub.player.level, uistub.player.xp, uistub.player.xpMax = 20, 0, 23200
+		local D, C = Polestar.Dungeons, Polestar.Compat
+		local function q(id, xp, t)
+			t = t or {}
+			t.id, t.level, t.rewards = id, 22, { xp = xp }
+			t.minLevel = t.minLevel or 18
+			return t
+		end
+		local quests = {
+			q(1, 2000),                                  -- ready
+			q(2, 1000, { minLevel = 23 }),              -- level
+			q(3, 1000, { chain = { 90 } }),             -- chain: 90 not done
+			q(4, 5000, { classes = { "WARLOCK" } }),    -- another class
+			q(5, 5000, { faction = "A" }),              -- the other faction
+			q(6, 5000, { closedBy = { 91 } }),          -- closed: 91 taken
+			q(7, 1500, { closedBy = { 8 } }),           -- an exclusive pair: 7 counts (worth more)
+			q(8, 500, { closedBy = { 7 } }),
+		}
+		D.Quests = function(_, side)
+			local out = {}
+			for _, x in ipairs(quests) do if not side or not x.faction or x.faction == side then out[#out + 1] = x end end
+			return out
+		end
+		D.QuestFor = function(x) if x.classes then return { classes = x.classes }, "class" end end
+		C.IsQuestCompleted = function() return false end
+		C.IsOnQuest = function(id) return id == 91 end
+		local s = D.QuestXP("wailing-caverns", { level = 20, xp = 0, xpMax = 23200, class = "DRUID", faction = "Horde" })
+		local rows = {}
+		for _, r in ipairs(Polestar.UI.LevelTip.Shares(s)) do rows[#rows + 1] = { r.group, r.n, r.need, r.text } end
+		-- The panel: beside other rows, the ready row says where those quests alone leave you.
+		Polestar.Dungeons.Open("wailing-caverns")
+		local _, _, pg = DS.Frames()
+		Polestar.UI.LevelTip.Set(pg.XP, s, {})
+		pg.XP:GetScript("OnEnter")(pg.XP)
+		local t = Polestar.UI.LevelTip.Frame()
+		local sub = t.ReadyNow:IsShown() and { t.ReadyNow:GetText(), t.ReadyThen:GetText() } or false
+		emit({ xp = s.xp, groups = { s.groups.ready.xp, s.groups.level.xp, s.groups.chain.xp }, left = s.left,
+			head = Polestar.UI.LevelTip.Text(s.levels), rows = rows,
+			ready = { s.ready.from.level, s.ready.from.xp, s.ready.to.level, s.ready.to.xp }, sub = sub })"#);
+	let out = &out[0];
+	assert_eq!(out["xp"], 5500);
+	assert_eq!(out["groups"], json!([3500, 1000, 1000]));
+	assert_eq!(out["left"], json!({ "class": 1, "race": 0, "faction": 1, "closed": 1, "alt": 1 }));
+	assert_eq!(out["head"], "+24% of a level");
+	assert_eq!(out["rows"], json!([["ready", 2, 18, "+15%"], ["level", 1, 23, "+5%"], ["chain", 1, 18, "+4%"]]), "the rows add up to the headline");
+	assert_eq!(out["ready"], json!([20, 0, 20, 3500]), "the ready quests alone, from now: 2,000 + 1,500");
+	assert_eq!(out["sub"], json!(["Now: 0% into level 20", "After: 15% into level 20"]));
+}
+
 #[test]
 fn the_levels_chip_what_the_quests_still_to_do_are_worth_hovering_it_shows_the_xp_a_bar_of_the_levels_it_spans_and_what_was_counted_none_at_60() {
 	let out = run(r#"
@@ -401,8 +465,10 @@ fn the_levels_chip_what_the_quests_still_to_do_are_worth_hovering_it_shows_the_x
 		local cells, marks = 0, {}
 		for _, c in ipairs(t.Cells) do if c:IsShown() then cells = cells + 1 end end
 		for _, m in ipairs(t.Marks) do if m:IsShown() then marks[#marks + 1] = m:GetText() end end
+		local rows = {}
+		for i, l in ipairs(t.RowL) do if l:IsShown() then rows[#rows + 1] = { l:GetText(), t.RowR[i]:GetText() } end end
 		local tip = { t:IsShown(), t.Head:GetText(), t.Levels:GetText(), t.XP:GetText(), t.Now:GetText(), t.Then:GetText(), t.Notes:GetText(),
-			cells, marks, t.Cells[1].Gain:IsShown(), t.Cells[2].Gain:IsShown() }
+			cells, marks, t.Cells[1].Gain:IsShown(), t.Cells[2].Gain:IsShown(), rows, t.ReadyNow:IsShown() and { t.ReadyNow:GetText(), t.ReadyThen:GetText() } or false }
 		pg.XP:GetScript("OnLeave")(pg.XP)
 		local left = t:IsShown()
 		uistub.player.level = 60
@@ -419,11 +485,13 @@ fn the_levels_chip_what_the_quests_still_to_do_are_worth_hovering_it_shows_the_x
 			"5,850 XP",
 			"Now: 85% into level 20",
 			"After: 9% into level 21",
-			"3 quests for you, not done yet.\n1 more has no XP known and is not counted.",
+			"Not counted: 1 with no XP known",
 			2,
 			["20", "21", "22"],
 			true,
 			true,
+			[["Ready to take and hand in · 3 quests", "+24%"]],
+			false,
 		])
 	);
 	assert_eq!(out["left"], false, "leaving the chip hides the panel");
@@ -519,6 +587,8 @@ fn a_page_with_quests_to_pick_up_pick_up_the_quests_is_the_primary_action_the_en
 		emit({ pickup = shown(pg.Pickup), go = shown(pg.Go), quiet = shown(pg.GoQuiet), none = shown(pg.PickupNone), corner = corner(),
 			tip = { pg.Pickup.psTip, pg.Pickup.psTipLines } })
 		done[1486], done[959] = true, true
+		stub.fire("QUEST_TURNED_IN", 1486)
+		stub.fire("QUEST_TURNED_IN", 959)
 		DS.Render()
 		pg.PickupNone:Click()
 		emit({ pickup = shown(pg.Pickup), go = shown(pg.Go), none = shown(pg.PickupNone), corner = corner(), tip = pg.PickupNone.psTipLines, printed = printed,
@@ -596,10 +666,13 @@ fn hand_in_the_quests_shows_only_while_one_of_the_pages_quests_is_in_the_log_lea
 		emit({ lead = shown(pg.HandIn), quiet = shown(pg.HandInQuiet), corner = corner(), tip = pg.HandInQuiet.psTipLines, printed = printed,
 			tabs = #Polestar.Engine.GetTabs(), fits = pg.Sub:GetWidth() > 0, map = pg.MapBtn:IsShown(), go = shown(pg.GoQuiet) })
 		log[914] = nil
+		stub.fire("QUEST_REMOVED", 914)
 		DS.Render()
 		emit({ lead = shown(pg.HandIn), quiet = shown(pg.HandInQuiet) })
 		log[914] = true
 		Polestar.Compat.IsQuestReadyForTurnIn = function(id) return id == 914 end
+		stub.fire("QUEST_ACCEPTED", 914)
+		stub.fire("QUEST_LOG_UPDATE")
 		local asked = {}
 		Polestar.Dungeons.HandIn = function(key) asked[#asked + 1] = key return "lookup/handin/" .. key end
 		DS.Render()
@@ -900,6 +973,61 @@ fn map_the_entrance_on_its_zone_with_the_quest_givers_there() {
 	assert_eq!(out["blocks"], false, "the other tabs\u{2019} rows are hidden");
 }
 
+// Fitz, 2026-11-14 (the 50-60 band: "Missing game art for these zones"): Forever's Blackmaw Hold and The
+// Shaper's Terrace showed the bare night band and no zone. A dungeon whose door nobody has recorded takes the zone
+// the client's areas name it in (Blackmaw Hold: Azshara): its card and page paint that zone and name it, and the Map
+// tab says the door isn't known yet but where the dungeon lies. One with no zone at all (Alcaz Prison) wears its own
+// loading screen (Dungeons.Art), never the bare night band.
+#[test]
+fn a_dungeon_without_a_known_door_paints_its_zone_and_names_it_else_its_loading_screen_never_the_bare_band() {
+	let f = fixture("dungeons.json");
+	let mut codex = f["codex"].clone();
+	let mut inputs = f["inputs"].clone();
+	codex["instances"]["blackmaw-hold"]["map"] = json!(2974);
+	codex["instances"]["alcaz-prison"] =
+		json!({ "key": "alcaz-prison", "name": "Alcaz Prison", "kind": "dungeon", "forever": true, "areaId": null, "map": 2994, "entrance": null, "levels": [46, 48, 53], "bosses": [] });
+	let maps = inputs["client"]["instanceMaps"].as_array_mut().unwrap();
+	maps.push(json!({ "id": 2974, "name": "Blackmaw Hold", "raid": false, "players": null, "area": 16554, "areas": [1216, 16554], "inner": [16554], "zones": [16], "corpse": null }));
+	maps.push(json!({ "id": 2994, "name": "Alcaz Prison", "raid": false, "players": null, "area": null, "areas": [16620], "inner": [16620], "zones": [], "corpse": null }));
+	inputs["forever"]["zones"]["1447"] = json!({ "id": 1447, "name": "Azshara", "areaId": 16, "type": 3 });
+	let out = run_pack(
+		r#"
+		-- Azshara's painting: one art layer of 4x3 tiles; no other zone has art here.
+		C_Map = C_Map or {}
+		C_Map.GetMapArtLayers = function(id) if id == 1447 then return { { layerWidth = 1002, layerHeight = 668, tileWidth = 256, tileHeight = 256 } } end return {} end
+		C_Map.GetMapArtLayerTextures = function(id) if id == 1447 then local t = {} for i = 1, 12 do t[i] = 200 + i end return t end return {} end
+		Polestar.Dungeons.Open()
+		DS.SetFaction("All")
+		DS.SetBand("all")
+		local function card(name)
+			for _, c in ipairs(DS.cards) do if c:IsShown() and c.Name:GetText() == name then return c end end
+		end
+		local bm, ap = card("Blackmaw Hold"), card("Alcaz Prison")
+		local out = { bmArt = bm.psArt, bmBand = bm.Art.Band:IsShown(), bmStats = bm.Stats:GetText(),
+			apArt = ap.psArt, apBand = ap.Art.Band:IsShown(), apPic = ap.Art.psPic ~= nil and ap.Art.psPic:IsShown() }
+		Polestar.Dungeons.Open("blackmaw-hold")
+		local _, _, pg = DS.Frames()
+		out.bmSub, out.bmHeadBand = pg.Sub:GetText(), pg.Art.Band:IsShown()
+		DS.SetTab("map")
+		out.bmMap, out.bmNote = DS.Shown().map, pg.MapNote:GetText()
+		Polestar.Dungeons.Open("alcaz-prison")
+		DS.SetTab("map")
+		out.apMap, out.apNote, out.apHeadBand = DS.Shown().map, pg.MapNote:GetText(), pg.Art.Band:IsShown()
+		emit(out)"#,
+		Some(pack_of(&codex, &inputs)),
+	);
+	let out = &out[0];
+	assert_eq!((&out["bmArt"], &out["bmBand"]), (&json!("zone"), &json!(false)), "Blackmaw Hold's card: Azshara's painting");
+	assert!(out["bmStats"].as_str().unwrap().contains("Azshara"), "{}", out["bmStats"]);
+	assert!(out["bmSub"].as_str().unwrap().contains("Azshara"), "the page header names the zone: {}", out["bmSub"]);
+	assert_eq!(out["bmHeadBand"], false);
+	assert_eq!(out["bmMap"], "zone");
+	assert_eq!(out["bmNote"], "The entrance of this dungeon is not known yet; it lies in Azshara.");
+	assert_eq!((&out["apArt"], &out["apBand"], &out["apPic"]), (&json!("picture"), &json!(false), &json!(true)), "Alcaz Prison: its loading screen");
+	assert_eq!((&out["apMap"], &out["apHeadBand"]), (&json!("picture"), &json!(false)));
+	assert_eq!(out["apNote"], "The entrance of this dungeon is not known yet.");
+}
+
 #[test]
 fn speed_pages_reuse_pooled_frames_only_cards_in_view_are_painted_open_and_tab_switches_stay_fast() {
 	let out = run(r#"
@@ -975,7 +1103,7 @@ fn without_the_codex_pack_an_empty_state_that_says_where_to_get_the_release_leav
 }
 
 #[test]
-fn leaving_dungeons_removes_its_faction_buttons_and_restores_the_guide_filters() {
+fn leaving_dungeons_removes_its_faction_buttons_and_restores_the_guide_list() {
 	let out = run(r#"
 		stub.cascadeVisibility = true
 		Polestar.Dungeons.Open("wailing-caverns")
@@ -994,20 +1122,16 @@ fn leaving_dungeons_removes_its_faction_buttons_and_restores_the_guide_filters()
 		P.SetCategory("All")
 		r.left = visible()
 		r.title = PolestarPicker.Title:GetAlpha()
-		r.filters = {}
-		for _, b in ipairs(PolestarPicker.factionButtons) do
-			b:Click()
-			local selected = Polestar.Get("ui.pickerFaction")
-			local count, valid = 0, true
-			for _, entry in ipairs((P.Entries(selected, "", "All"))) do
-				if entry.kind == "guide" then
-					count = count + 1
-					local f = entry.guide.faction
-					if selected ~= "All" and f and f ~= selected then valid = false end
-				end
+		-- The guide list, back: the character's side only (no faction filter of its own, #2462).
+		local count, valid, mine = 0, true, Polestar.UI.PlayerFaction()
+		for _, entry in ipairs((P.Entries("", "All"))) do
+			if entry.kind == "guide" then
+				count = count + 1
+				local f = entry.guide.faction
+				if f and f ~= mine then valid = false end
 			end
-			r.filters[#r.filters + 1] = { b.psKey, selected, b:IsVisible(), count > 0, valid }
 		end
+		r.guides = { count > 0, valid, PolestarPicker.factionButtons == nil }
 		P.ShowSection("Dungeons")
 		r.returned = visible()
 		P.ShowSection("Guides")
@@ -1021,12 +1145,7 @@ fn leaving_dungeons_removes_its_faction_buttons_and_restores_the_guide_filters()
 	assert_eq!(out["title"], 1, "the dungeon page must not leave the guide heading veiled");
 	assert_eq!(out["returned"], 3);
 	assert_eq!(out["leftAgain"], 0);
-	for filter in out["filters"].as_array().unwrap() {
-		assert_eq!(filter[0], filter[1]);
-		assert_eq!(filter[2], true);
-		assert_eq!(filter[3], true);
-		assert_eq!(filter[4], true);
-	}
+	assert_eq!(out["guides"], json!([true, true, true]));
 }
 
 #[test]
@@ -1154,7 +1273,7 @@ fn a_level_up_tells_once_that_wailing_caverns_is_open_and_its_button_picks_up_th
 		json!({
 			"shown": true,
 			"dungeon": "wailing-caverns",
-			"head": "LEVEL 20 · DUNGEON",
+			"head": "Level 20 · Dungeon",
 			"title": "Wailing Caverns is open to you",
 			"line": "2 quests to pick up  ·  Levels 17–24  ·  The Barrens",
 			"badge": "+25% OF A LEVEL",
@@ -1250,19 +1369,123 @@ fn turn_these_off_stops_the_heads_ups_and_it_waits_for_combat_and_for_a_class_qu
 	assert_eq!(out[3], json!({ "setting": false, "shown": false, "candidates": 0 }));
 }
 
+// Wailing Caverns (17-24) is best at 19 in the fixture: it comes due there, and a login heads-up tells it up to two
+// levels after that.
 #[test]
-fn at_login_only_a_dungeon_whose_range_began_in_the_last_two_levels_is_told() {
+fn at_login_only_a_dungeon_that_came_due_at_its_best_at_level_in_the_last_two_levels_is_told() {
 	let out = run(&format!(
 		r#"{HEADS_UP}
 		local function keys(list) local t = {{}} for _, c in ipairs(list) do t[#t + 1] = c.key end return t end
-		emit({{ login20 = keys(DT.Candidates(20, "login")), login19 = keys(DT.Candidates(19, "login")), levelup20 = keys(DT.Candidates(20, "levelup")),
-			below = keys(DT.Candidates(16, "levelup")), above = keys(DT.Candidates(25, "levelup")) }})"#
+		emit({{ login18 = keys(DT.Candidates(18, "login")), login19 = keys(DT.Candidates(19, "login")), login21 = keys(DT.Candidates(21, "login")),
+			login22 = keys(DT.Candidates(22, "login")), levelup20 = keys(DT.Candidates(20, "levelup")), below = keys(DT.Candidates(16, "levelup")),
+			above = keys(DT.Candidates(25, "levelup")) }})"#
 	));
 	assert_eq!(
 		out[0],
-		json!({ "login20": {}, "login19": ["wailing-caverns"], "levelup20": ["wailing-caverns"], "below": {}, "above": {} }),
-		"17-24: three levels in at 20 is too old for a login heads-up, two at 19 is not"
+		json!({ "login18": {}, "login19": ["wailing-caverns"], "login21": ["wailing-caverns"], "login22": {}, "levelup20": ["wailing-caverns"], "below": {}, "above": {} }),
+		"best at 19: three levels past it at 22 is too old for a login heads-up, two at 21 is not; 18 is below it"
 	);
+}
+
+// A level 44 character was told the City of Dalaran (28-60) was open to them, for one quest worth 1% of a level.
+// The card now waits for the level the dungeon suits best (Dungeons.BestAt: 19 for the fixture's Wailing Caverns,
+// 17-24), not the start of its range, though both its quests are offered from 17.
+#[test]
+fn the_dungeon_card_waits_for_the_dungeons_best_at_level_not_the_start_of_its_range() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		local seen = {{}}
+		for _, n in ipairs({{ 17, 18, 19 }}) do
+			uistub.player.level = n
+			levelUp(n)
+			local c = card()
+			seen[#seen + 1] = c.shown and c.head or false
+		end
+		emit({{ best = Polestar.Dungeons.BestAt("wailing-caverns"), seen = seen }})"#
+	));
+	assert_eq!(out[0], json!({ "best": 19, "seen": [false, false, "Level 19 · Dungeon"] }));
+}
+
+// No card when the quests to take now are worth under a tenth of a level (MIN_WORTH): with Trouble at the Docks
+// carried, Deviate Hides (1486) is the one to take; the level 20 character's XP to level is set so it is worth
+// 9.9%, then 10%.
+#[test]
+fn no_dungeon_card_for_quests_worth_under_a_tenth_of_a_level_and_one_from_a_tenth() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		log[959] = true
+		Polestar.Dungeons.Load()
+		local q = Polestar.Dungeons.Quest("wailing-caverns", 1486)
+		local entry = {{ {{ id = 1486, level = q.level, xp = q.rewards.xp }} }}
+		local xp = Polestar.Levels.Run(entry).questXP
+		uistub.player.xp = 0
+		local out = {{}}
+		for i, need in ipairs({{ math.ceil(xp / 0.099), xp * 10 }}) do
+			uistub.player.xpMax = need
+			local c = DT.Candidates(20, "levelup")[1]
+			out[i] = {{ worth = math.floor(Polestar.Levels.Run(entry).levels * 1000 + 0.5) / 10, card = c and c.key or false, take = c and c.take or false }}
+		end
+		emit(out)"#
+	));
+	assert_eq!(out[0], json!([{ "worth": 9.9, "card": false, "take": false }, { "worth": 10, "card": "wailing-caverns", "take": 1 }]));
+}
+
+// A card put off with Later below the dungeon's best-at level (here shown by the command at 18) comes back once at
+// best-at (19); put off again there, it never comes back.
+#[test]
+fn a_dungeon_card_put_off_with_later_below_best_at_comes_back_once_at_best_at_then_never() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		local function told() return (Polestar.CharState().dungeonToastSeen or {{}})["wailing-caverns"] or false end
+		uistub.player.level = 18
+		Polestar.RunCommand("dungeontoast wailing caverns")
+		local early = card().head or false
+		CT.frame.Later:Click()
+		emit({{ early = early, told = told() }})
+		levelUp(18)
+		emit({{ again18 = card().shown }})
+		uistub.player.level = 19
+		levelUp(19)
+		local back = card().head or false
+		CT.frame.Later:Click()
+		emit({{ back = back, told = told() }})
+		for _, n in ipairs({{ 20, 21 }}) do
+			uistub.player.level = n
+			levelUp(n)
+		end
+		emit({{ after = card().shown }})"#
+	));
+	assert_eq!(out[0], json!({ "early": "Level 18 · Dungeon", "told": "later" }));
+	assert_eq!(out[1], json!({ "again18": false }), "not before best-at");
+	assert_eq!(out[2], json!({ "back": "Level 19 · Dungeon", "told": true }));
+	assert_eq!(out[3], json!({ "after": false }), "once only");
+}
+
+// A character told about a dungeon at the start of its range by an older version (dungeonToastSeen[key] = true,
+// no dungeonToastBestAt) and still below its best-at level hears about it once more at best-at, as after Later;
+// one already at or past best-at keeps it told.
+#[test]
+fn a_dungeon_told_by_an_older_version_below_best_at_comes_back_once_at_best_at_and_one_past_it_stays_told() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		local function told() return (Polestar.CharState().dungeonToastSeen or {{}})["wailing-caverns"] or false end
+		local st = Polestar.CharState()
+		st.dungeonToastSeen, st.dungeonToastBestAt = {{ ["wailing-caverns"] = true }}, nil
+		uistub.player.level = 18
+		levelUp(18)
+		emit({{ shown = card().shown, told = told(), marked = st.dungeonToastBestAt or false }})
+		uistub.player.level = 19
+		levelUp(19)
+		emit({{ shown = card().dungeon or false, told = told() }})
+		CT.Hide()
+		st.dungeonToastSeen, st.dungeonToastBestAt = {{ ["wailing-caverns"] = true }}, nil
+		uistub.player.level = 20
+		levelUp(20)
+		emit({{ shown = card().shown, told = told(), marked = st.dungeonToastBestAt or false }})"#
+	));
+	assert_eq!(out[0], json!({ "shown": false, "told": "later", "marked": true }));
+	assert_eq!(out[1], json!({ "shown": "wailing-caverns", "told": true }));
+	assert_eq!(out[2], json!({ "shown": false, "told": true, "marked": true }), "past best-at: no second card");
 }
 
 // "Or a finished prerequisite" (#836): the fixture's Wailing Caverns has no page quest that opens another, so
@@ -1280,6 +1503,9 @@ fn handing_in_a_quest_of_the_dungeons_page_tells_it_once_its_follow_ups_open() {
 			end
 			return p
 		end
+		-- The login check goes first (4 s, no Codex yet: it waits, and the level-up covers it), so that a
+		-- dungeon due by now at login isn't taken for one told by the hand-in.
+		stub.advance(5)
 		levelUp(20)
 		emit({{ levelUp = card().shown }})
 		log[914], done[914] = nil, true
@@ -1321,10 +1547,11 @@ fn the_command_says_so_for_a_dungeon_with_nothing_to_pick_up_or_a_character_with
 	assert_eq!(out[1], json!({ "shown": false, "printed": ["No dungeon has opened up for this character."] }));
 }
 
-// #869's screenshot: on the guide window at its narrowest the header ("LEVEL 19 · DUNGEON") wrapped and was cut
+// #869's screenshot: on the guide window at its narrowest the header ("Level 19 · Dungeon") wrapped and was cut
 // beside the chip, and "Turn these off" ran to the card's edge. Where they don't fit on one line, the chip goes
-// under the header; where the buttons don't fit in one row, Later and Turn these off take a row of their own
-// under the actions, and no row runs past the card's edge.
+// under the header (in the house look, where the facts line sits under the title, under the facts); where the
+// buttons don't fit in one row, Later and Turn these off take a row of their own under the actions, and no row runs
+// past the card's edge.
 #[test]
 fn on_a_narrow_window_the_chip_goes_under_the_header_and_the_buttons_wrap_inside_the_card() {
 	let out = run(&format!(
@@ -1345,13 +1572,196 @@ fn on_a_narrow_window_the_chip_goes_under_the_header_and_the_buttons_wrap_inside
 				sums[#rows] = (sums[#rows] or 0) + gap + b:GetWidth()
 				r[#r + 1] = names[b]
 			end
-			for _, s in ipairs(sums) do if s > width - 32 then fits = false end end
-			emit({{ chip = f.Badge:GetPoint(1), oneLine = f.Head:GetUnboundedStringWidth() <= f.Head:GetWidth(), badge = f.Badge.Text:GetText(),
+			-- Inside the card: from the first button's left edge to the card's right padding (14).
+			local left = select(4, f.Act:GetPoint(1))
+			for _, s in ipairs(sums) do if s > width - left - 14 then fits = false end end
+			emit({{ under = select(4, f.Badge:GetPoint(1)) == select(4, f.Giver:GetPoint(1)), oneLine = f.Head:GetUnboundedStringWidth() <= f.Head:GetWidth(), badge = f.Badge.Text:GetText(),
 				rows = rows, fits = fits }})
 		end"#
 	));
-	assert_eq!(out[0], json!({ "chip": "TOPRIGHT", "oneLine": true, "badge": "+25% OF A LEVEL", "rows": [["act", "more", "later", "off"]], "fits": true }), "beside them on a wide window");
-	assert_eq!(out[1], json!({ "chip": "TOPLEFT", "oneLine": true, "badge": "+25% OF A LEVEL", "rows": [["act"], ["more"], ["later", "off"]], "fits": true }), "under them at the narrowest");
+	assert_eq!(out[0], json!({ "under": false, "oneLine": true, "badge": "+25% OF A LEVEL", "rows": [["act", "more", "later", "off"]], "fits": true }), "beside them on a wide window");
+	assert_eq!(out[1], json!({ "under": true, "oneLine": true, "badge": "+25% OF A LEVEL", "rows": [["act"], ["more"], ["later", "off"]], "fits": true }), "under them at the narrowest");
+}
+
+// #2375: the pickup count can make one button wider than the entire card. Check the
+// complete label, not just row wrapping: clipping the text would hide the quest levels.
+#[test]
+fn the_heads_up_keeps_the_complete_pickup_count_button_inside_the_card() {
+	let out = run_with(
+		r#"
+		local CT = Polestar.UI.ClassToast
+		Polestar.Set("ui.textSize", 1.15)
+		Polestar.UI.GuideFrame.frame:SetWidth(280)
+		local label = "Pick up the quests (5 now · 2 from level 20)"
+		CT.ShowCard({ head = "LEVEL 17 · DUNGEON", title = "Wailing Caverns is open to you",
+			giver = "5 quests to pick up · Levels 17–22 · The Barrens", badge = "+1.4 LEVELS",
+			act = { label = label }, more = { label = "Open in Dungeons" }, off = { label = "Turn these off" } })
+		local f, b = CT.frame, CT.frame.Act
+		-- The card's padding each side, and the class stripe's width where the look draws it (the house look doesn't).
+		local stripe = f.Stripe:IsShown() and 4 or 0
+		emit({ label = b.Label:GetText(), bounded = b:GetWidth() <= f:GetWidth() - 28 - stripe,
+			complete = not b.Label:IsTruncated(), labelFits = b.Label:GetStringHeight() + 4 <= b:GetHeight(),
+			width = b:GetWidth(), height = b:GetHeight() })"#,
+		false,
+	);
+	assert_eq!(out[0]["label"], "Pick up the quests (5 now · 2 from level 20)");
+	assert_eq!(out[0]["bounded"], true, "the complete button must fit between the card's left and right padding: {}", out[0]);
+	assert_eq!(out[0]["complete"], true, "the count and level must remain readable: {}", out[0]);
+	assert_eq!(out[0]["labelFits"], true, "a wrapped label needs enough button height: {}", out[0]);
+}
+
+// The stub stores anchors rather than resolving screen coordinates. Resolve these
+// button/label rectangles relative to the card so the tests check their actual
+// occupied space, including centered labels and buttons beside a preceding row item.
+const TOAST_BOUNDS: &str = r#"
+local CT, T = Polestar.UI.ClassToast, Polestar.Theme
+local function buttonBounds()
+	local f, errors, rects, shown = CT.frame, {}, {}, {}
+	local fractions = { TOPLEFT = {0, 0}, TOP = {.5, 0}, TOPRIGHT = {1, 0}, LEFT = {0, .5}, CENTER = {.5, .5},
+		RIGHT = {1, .5}, BOTTOMLEFT = {0, 1}, BOTTOM = {.5, 1}, BOTTOMRIGHT = {1, 1} }
+	local function rect(o)
+		if rects[o] then return rects[o] end
+		if o == f then return { x = 0, y = 0, w = f:GetWidth(), h = f:GetHeight() } end
+		local w, h = o:GetWidth(), o:GetHeight()
+		if o:GetObjectType() == "FontString" then
+			if w <= 0 then w = o:GetUnboundedStringWidth() end
+			if h <= 0 then h = o:GetStringHeight() end
+		end
+		local point, rel, at, x, y = o:GetPoint(1)
+		local r, a, b = rect(rel), fractions[point], fractions[at]
+		local result = { x = r.x + r.w * b[1] + x - w * a[1], y = r.y + r.h * b[2] - y - h * a[2], w = w, h = h }
+		rects[o] = result
+		return result
+	end
+	for _, name in ipairs({ "Act", "Open", "ShowMe", "More", "Later", "Off" }) do
+		local b = f[name]
+		if b:IsShown() then
+			local r, label = rect(b), rect(b.Label)
+			local left = 14 + (f.Stripe:IsShown() and 4 or 0)
+			if r.x < left - .01 or r.x + r.w > f:GetWidth() - 14 + .01 or r.y < 0 or r.y + r.h > f:GetHeight() - 14 + .01 then
+				errors[#errors + 1] = name .. " outside card padding"
+			end
+			if b.Label:IsTruncated() or label.x < r.x - .01 or label.x + label.w > r.x + r.w + .01
+				or label.y < r.y - .01 or label.y + label.h > r.y + r.h + .01 or b.Label:GetStringHeight() + 4 > r.h then
+				errors[#errors + 1] = name .. " label does not fit"
+			end
+			for _, other in ipairs(shown) do
+				local q = rect(other)
+				if math.min(r.x + r.w, q.x + q.w) > math.max(r.x, q.x) + .01 and math.min(r.y + r.h, q.y + q.h) > math.max(r.y, q.y) + .01 then
+					errors[#errors + 1] = name .. " overlaps another button"
+				end
+			end
+			shown[#shown + 1] = b
+		end
+	end
+	return errors
+end
+"#;
+
+#[test]
+fn heads_up_action_and_secondary_buttons_keep_complete_labels_in_every_look_and_card_width() {
+	let out = run_with(
+		&format!(
+			r#"{TOAST_BOUNDS}
+			local w, cases, failures = Polestar.UI.GuideFrame.frame, 0, {{}}
+			-- Longer translations also have to fit the class quest's built-in actions.
+			Polestar.L["Open in a new tab"] = "Open this class quest guide in a new tab"
+			Polestar.L["Show me"] = "Show me the way to this class quest giver"
+			for _, skin in ipairs({{ "polestar", "halo", "hearth", "forever", "blizzard", "classic" }}) do
+				Polestar.Set("ui.skin", skin)
+				for _, scale in ipairs({{ .8, 1.15, 1.4 }}) do
+					Polestar.Set("ui.textSize", scale)
+					for _, width in ipairs({{ 260, 620 }}) do
+						w:SetWidth(width)
+						for _, kind in ipairs({{ "dungeon", "class-guide", "class-giver", "no-action" }}) do
+							local m = {{ head = "LEVEL 17 · DUNGEON", title = "Wailing Caverns is open to you", badge = "+1.4 LEVELS",
+								giver = "5 quests to pick up · Levels 17–22 · The Barrens", route = "Your route takes you there soon.",
+								more = {{ label = "Open these quests and rewards in Dungeons" }},
+								off = {{ label = "Turn off these dungeon heads-up reminders" }},
+								later = {{ label = "Remind me after I have finished these quests" }} }}
+							if kind == "dungeon" then m.act = {{ label = "Pick up the quests (5 now · 2 from level 20)" }}
+							elseif kind == "class-guide" then m.guideId = "class/druid"
+							elseif kind == "no-action" then m.noAct = true end
+							CT.ShowCard(m)
+							local errors = buttonBounds()
+							cases = cases + 1
+							if #errors > 0 then failures[#failures + 1] = {{ skin, scale, width, kind, errors }} end
+						end
+					end
+				end
+			end
+			emit({{ cases = cases, failures = failures }})"#
+		),
+		false,
+	);
+	assert_eq!(out[0]["cases"], 144);
+	assert_eq!(out[0]["failures"], json!({}), "each visible button and complete label must stay inside the full card, without overlaps");
+}
+
+#[test]
+fn heads_up_buttons_reflow_on_resize_and_reset_when_the_card_is_reused() {
+	let out = run_with(
+		&format!(
+			r#"{TOAST_BOUNDS}
+			local w = Polestar.UI.GuideFrame.frame
+			local label = "Pick up the quests (5 now · 2 from level 20)"
+			Polestar.Set("ui.textSize", 1.4)
+			w:SetWidth(260)
+			CT.ShowCard({{ head = "DUNGEON", title = "Wailing Caverns", act = {{ label = label }}, more = {{ label = "Open in Dungeons" }} }})
+			local f, states = CT.frame, {{}}
+			local function state()
+				states[#states + 1] = {{ width = f.Act:GetWidth(), height = f.Act:GetHeight(), cardHeight = f:GetHeight(), errors = buttonBounds() }}
+			end
+			state()
+			-- SetWidth does not dispatch OnSizeChanged in the stub; the client does.
+			w:SetWidth(620); stub.RunScript(w, "OnSizeChanged", 620, w:GetHeight()); state()
+			w:SetWidth(260); stub.RunScript(w, "OnSizeChanged", 260, w:GetHeight()); state()
+			-- A fresh model reuses the same button and must shed the old wrapped height.
+			CT.ShowCard({{ head = "UPDATE", title = "A new version", act = {{ label = "Open" }}, later = {{ label = "Got it" }} }})
+			state()
+			emit({{ states = states, label = f.Act.Label:GetText(), later = f.Later.Label:GetText(), same = f == CT.frame,
+				baseHeight = T.Metric("buttonH", 28) }})"#
+		),
+		false,
+	);
+	let states = out[0]["states"].as_array().unwrap();
+	for state in states {
+		assert_eq!(state["errors"], json!({}), "all resize/reuse states must fit: {state}");
+	}
+	assert!(states[0]["height"].as_f64().unwrap() > states[1]["height"].as_f64().unwrap(), "the long label wraps only at the narrow width: {states:?}");
+	assert!(states[0]["cardHeight"].as_f64().unwrap() > states[1]["cardHeight"].as_f64().unwrap(), "the card grows to contain the taller button and rows");
+	assert_eq!(states[0], states[2], "a second narrowing must not retain the wide dimensions");
+	assert_eq!(states[3]["height"], out[0]["baseHeight"], "a short replacement label restores the ordinary button height");
+	assert_eq!(out[0]["label"], "Open");
+	assert_eq!(out[0]["later"], "Got it");
+	assert_eq!(out[0]["same"], true);
+}
+
+#[test]
+fn wrapped_heads_up_buttons_keep_their_actions_and_dismissal_semantics() {
+	let out = run_with(
+		r#"
+		local CT, calls = Polestar.UI.ClassToast, {}
+		Polestar.UI.GuideFrame.frame:SetWidth(260)
+		Polestar.Set("ui.textSize", 1.4)
+		local m = { head = "DUNGEON", title = "Wailing Caverns" }
+		for _, key in ipairs({ "act", "more", "off", "later" }) do
+			local action = key
+			m[key] = { label = "Pick up the quests (5 now · 2 from level 20)", run = function(model)
+				calls[#calls + 1] = { action, model == m }
+			end }
+		end
+		CT.ShowCard(m)
+		local f = CT.frame
+		f.Act:Click(); f.More:Click()
+		local kept = f:IsShown() and CT.current == m
+		f.Off:Click()
+		local offHid = not f:IsShown() and CT.current == nil
+		CT.ShowCard(m); f.Later:Click()
+		emit({ calls = calls, kept = kept, offHid = offHid, laterHid = not f:IsShown() and CT.current == nil })"#,
+		false,
+	);
+	assert_eq!(out[0], json!({ "calls": [["act", true], ["more", true], ["off", true], ["later", true]], "kept": true, "offHid": true, "laterHid": true }));
 }
 
 // Fitz's design for #836, offered from one level below the quests' level (Fitz, 2026-11-10: the game gives many
@@ -1416,6 +1826,49 @@ fn only_dungeons_with_quests_for_the_characters_faction_are_told_and_counted_for
 	));
 	assert_eq!(out[0], json!({ "horde": [["wailing-caverns", 3]] }), "the Deadmines has nothing for the Horde");
 	assert_eq!(out[1], json!({ "alliance": [["deadmines", 1], ["wailing-caverns", 2]] }), "Leaders of the Fang is not the Alliance's");
+}
+
+// Fitz, 2026-11-14 (#2026): a city dungeon is its faction's only, so the heads-up never tells the other faction one
+// is open, though its page has quests for them (the Ruins of Lordaeron has Alliance quests; The Hall of Thanes has one
+// for both sides). The fixture's Wailing Caverns (quests for both sides) under each city dungeon's key in turn: the
+// card is the owners' only, and the Deadmines (the Alliance's quest) stays as it was.
+#[test]
+fn the_dungeon_heads_up_never_tells_the_other_faction_about_a_city_dungeon() {
+	let as_key = |key: &str| {
+		let f = fixture("dungeons.json");
+		let (mut codex, mut inputs) = (f["codex"].clone(), f["inputs"].clone());
+		let mut wc = codex["instances"].as_object_mut().unwrap().remove("wailing-caverns").unwrap();
+		wc["key"] = json!(key);
+		codex["instances"][key] = wc;
+		for d in inputs["forever"]["dungeons"]["dungeons"].as_array_mut().unwrap() {
+			if d["key"] == "wailing-caverns" {
+				d["key"] = json!(key);
+			}
+		}
+		pack_of(&codex, &inputs)
+	};
+	let script = format!(
+		r#"{HEADS_UP}
+		log[914] = nil
+		uistub.player.level = 21
+		local function list()
+			local t = {{}}
+			for _, c in ipairs(DT.Candidates(21, "any")) do t[#t + 1] = c.key end
+			table.sort(t)
+			return t
+		end
+		emit({{ horde = list() }})
+		uistub.player.race, uistub.player.class, uistub.player.faction = "Human", "WARRIOR", "Alliance"
+		UnitRace = function() return "Human", "Human", 1 end
+		UnitFactionGroup = function() return "Alliance", "Alliance" end
+		emit({{ alliance = list() }})"#
+	);
+	let rol = run_pack(&script, Some(as_key("ruins-of-lordaeron")));
+	assert_eq!(rol[0], json!({ "horde": ["ruins-of-lordaeron"] }), "the Undercity's dungeon is the Horde's");
+	assert_eq!(rol[1], json!({ "alliance": ["deadmines"] }), "never the Ruins of Lordaeron for the Alliance");
+	let hot = run_pack(&script, Some(as_key("the-hall-of-thanes")));
+	assert_eq!(hot[0], json!({ "horde": {} }), "never The Hall of Thanes (Ironforge) for the Horde");
+	assert_eq!(hot[1], json!({ "alliance": ["deadmines", "the-hall-of-thanes"] }), "Ironforge's dungeon is the Alliance's");
 }
 
 // "Pick up the quests" builds the dungeon's real pick-up guide and opens it in a new tab beside the leveling guide.
@@ -1492,7 +1945,7 @@ fn the_login_and_hand_in_checks_never_load_the_codex_the_login_one_runs_once_it_
 		emit({{ loaded = X.IsLoaded(), shown = card().dungeon or false, head = card().head or false }})"#
 	));
 	assert_eq!(out[0], json!({ "start": false, "loaded": false, "shown": false }));
-	assert_eq!(out[1], json!({ "loaded": true, "shown": "wailing-caverns", "head": "LEVEL 19 · DUNGEON" }));
+	assert_eq!(out[1], json!({ "loaded": true, "shown": "wailing-caverns", "head": "Level 19 · Dungeon" }));
 }
 
 // Fitz (2026-11-07): The Hall of Thanes is in Ironforge; Horde can do it, but only through Ironforge. The level 20
@@ -1560,4 +2013,298 @@ fn a_quest_only_some_classes_or_races_may_take_says_who_it_is_for_and_one_not_fo
 	assert_eq!(warlock["lookup"], false);
 	assert_eq!(orc["docks"]["state"], "Not for your race");
 	assert_eq!(orc["lookup"], "Tauren only");
+}
+
+// Fitz, 2026-11-13: never offer a dungeon too low. "For your level" starts at a dungeon's floor (the level its
+// run in the route starts at: its range's bottom or where players who killed a boss there entered, whichever is
+// higher), not its range's bottom, and the page's group size is the Group Finder's: 5 for the Deadmines and
+// Sunken Temple (the old Map table's 10 and 20 were caps), 5-10 for Blackrock Spire's two wings.
+#[test]
+fn for_your_level_starts_at_the_floor_and_the_page_shows_the_group_finders_size() {
+	let out = run(r#"
+		Polestar.Dungeons.Load()
+		Polestar.Dungeons.Register("dungeon", {
+			deadmines = { name = "Deadmines", kind = "dungeon", minLevel = 17, maxLevel = 26, floor = 19.6, players = 5, zoneName = "Westfall" },
+			["sunken-temple"] = { name = "Sunken Temple", kind = "dungeon", minLevel = 50, maxLevel = 60, floor = 50, players = 5, zoneName = "Swamp of Sorrows" },
+			["blackrock-spire"] = { name = "Blackrock Spire", kind = "dungeon", minLevel = 55, maxLevel = 60, floor = 55, players = 5, playersMax = 10, zoneName = "Searing Gorge" },
+		}, { deadmines = "return {}", ["sunken-temple"] = "return {}", ["blackrock-spire"] = "return {}" })
+		local function at(level)
+			uistub.player.level = level
+			Polestar.Dungeons.Open()
+			DS.SetFaction("All")
+			DS.SetBand("level")
+			return cardNames()
+		end
+		local function sub(key)
+			Polestar.Dungeons.Open(key)
+			local _, _, pg = DS.Frames()
+			return pg.Sub:GetText()
+		end
+		emit({ at19 = at(19), at20 = at(20), dm = sub("deadmines"), st = sub("sunken-temple"), brs = sub("blackrock-spire"),
+			floor = Polestar.Dungeons.Get("deadmines").floor, best = Polestar.Dungeons.BestAt("deadmines") })"#);
+	let out = &out[0];
+	assert!(!strs(&out["at19"]).iter().any(|n| n == "Deadmines"), "19 is in the Deadmines' 17-26 but under its floor 19.6: {}", out["at19"]);
+	assert!(strs(&out["at20"]).iter().any(|n| n == "Deadmines"), "from the floor up: {}", out["at20"]);
+	assert_eq!(out["floor"], 19.6);
+	assert!(out["best"].as_i64().unwrap() >= 20, "best at never under the floor: {}", out["best"]);
+	assert!(out["dm"].as_str().unwrap().contains("5 players"), "{}", out["dm"]);
+	assert!(out["st"].as_str().unwrap().contains("5 players"), "{}", out["st"]);
+	assert!(out["brs"].as_str().unwrap().contains("5\u{2013}10 players") || out["brs"].as_str().unwrap().contains("5-10 players"), "{}", out["brs"]);
+}
+
+// Fitz, 2026-11-13: never offer a dungeon too low. With players' recorded entries setting Wailing Caverns' floor at
+// 20.3 (71 people with a boss kill, a quarter of them under 20.3: the Codex's `levels_of`), a level 20 character, inside
+// its 17-24 range but under the floor, sees it neither in "For your level" nor on the card that says it is open; the
+// card comes at its best-at level, which never sits under the floor.
+#[test]
+fn between_the_range_and_the_floor_players_recorded_entries_set_neither_the_hub_nor_the_card_offers_the_dungeon() {
+	let f = fixture("dungeons.json");
+	let mut inputs = f["inputs"].clone();
+	inputs["recordedDungeons"] = json!({ "43": { "people": 71, "p25": 20.3, "p90": 25.6 } });
+	let out = run_pack(
+		&format!(
+			r#"{HEADS_UP}
+		local function keys(list) local t = {{}} for _, c in ipairs(list) do t[#t + 1] = c.key end return t end
+		Polestar.Dungeons.Load()
+		local best = Polestar.Dungeons.BestAt("wailing-caverns")
+		uistub.player.level = 20
+		Polestar.Dungeons.Open()
+		DS.SetFaction("All")
+		DS.SetBand("level")
+		emit({{ floor = Polestar.Dungeons.Get("wailing-caverns").floor, best = best, hub20 = cardNames(),
+			card20 = keys(DT.Candidates(20, "any")), cardBest = keys(DT.Candidates(best, "any")) }})"#
+		),
+		Some(pack_of(&f["codex"], &inputs)),
+	);
+	let out = &out[0];
+	assert_eq!(out["floor"], 20.3);
+	assert!(out["best"].as_f64().unwrap() >= 21.0, "best at never under the floor: {}", out["best"]);
+	assert!(!strs(&out["hub20"]).iter().any(|n| n == "Wailing Caverns"), "level 20, under the floor 20.3: not for your level: {}", out["hub20"]);
+	assert!(!strs(&out["card20"]).iter().any(|k| k == "wailing-caverns"), "and no card: {}", out["card20"]);
+	assert!(strs(&out["cardBest"]).iter().any(|k| k == "wailing-caverns"), "the card at its best-at level: {}", out["cardBest"]);
+}
+
+// ---------------------------------------------------------------------------
+// The dungeon line under a grind step (UI/DungeonToast.lua, DT.GrindLine; the guide window's card)
+// ---------------------------------------------------------------------------
+
+// A leveling guide whose first step grinds to 21 (a goto done, then `level 21`), its second a hand-in; the
+// level 20 Tauren has the fixture's Wailing Caverns attunement (need: each; 90003 and 90004 done), so Wailing Caverns
+// (17-24, best at 19, four Horde quests) fits; the Deadmines' one quest is the Alliance's. grindGuide(id, o):
+// o.faction, o.category, o.note (the step's tip), o.only (the step's), o.status (the level goal's).
+const GRIND: &str = r#"
+local DT, GF = Polestar.UI.DungeonToast, Polestar.UI.GuideFrame
+UnitLevel = function() return uistub.player.level end
+UnitFactionGroup = function() return uistub.player.faction, uistub.player.faction end
+done[90003], done[90004] = true, true
+local function G(t, f) f.t = t; return f end
+local function grindGuide(id, o)
+	o = o or {}
+	uistub.guides[id] = { id = id, pack = "guides", title = "The Barrens", faction = o.faction or "Horde", minLevel = 17, maxLevel = 23,
+		category = o.category or "Leveling", zone = 1413, zoneName = "The Barrens", author = "Polestar", version = 1, steps = {
+		{ title = "Level 21", note = o.note, only = o.only, goals = {
+			G("goto", { verb = "Go to", subject = "the Stagnant Oasis", subjectKind = "place", map = 1413, x = 55, y = 42, status = "done" }),
+			G("level", { verb = "Reach level", subject = "21", subjectKind = "level", level = 21, map = 1413, x = 55, y = 42, status = o.status or "active", xpLeft = 4200 }),
+		} },
+		{ title = "Crossroads", goals = {
+			G("turnin", { verb = "Turn in", subject = "Disciples of Naralex", subjectKind = "quest", quest = 870, npc = 3448, npcName = "Tonga Runetotem", map = 1413, x = 52, y = 31, status = "pending" }),
+		} },
+	} }
+	table.insert(uistub.order, id)
+end
+local function dungeonLine()
+	for _, l in ipairs(GF.lines) do if l:IsShown() and l.psKey == "dungeon" then return l end end
+end
+local function said()
+	local l = dungeonLine()
+	return l and l.Text:GetText() or false
+end
+local function show(id, step)
+	uistub.openTabs({ { id, step or 1 } }, 1)
+	Polestar.Set("ui.shown", true)
+	stub.advance(0.5)
+	GF.Render()
+end
+"#;
+
+const WC_LINE: &str = "Or run Wailing Caverns (17–24) with a group: 2 quests to pick up first.";
+
+// Fitz (0.4.0): "If we have to suggest a grinding step ... also say: hey, you can do a dungeon for some extra levels",
+// and "maybe do a dungeon WITH DUNGEON QUESTS, people are usually happy to do it". The line waits for the Codex
+// (never loads it: 7 MB), then sits right under the level goal's row with the dungeon glyph and a chevron that points
+// on, saying the quests to pick up first; hovered, its levels and zone; a click opens the dungeon's page in Dungeons
+// (its Quests tab) and nothing else: no Engine call (the step, the route and the arrow stay).
+#[test]
+fn a_grind_step_offers_a_dungeon_at_your_level_under_its_level_goal_and_a_click_opens_its_page_in_dungeons() {
+	let out = run(&format!(
+		r#"{GRIND}
+		grindGuide("t/grind")
+		show("t/grind")
+		local before = said()
+		Polestar.Codex.Load()
+		local l = dungeonLine()
+		local _, under = l:GetPoint(1)
+		emit({{ before = before, codex = Polestar.Codex.IsLoaded(), text = l.Text:GetText(), under = under and under.psGoal and under.psGoal.t or false,
+			icon = l.Icon:GetTexture() == Polestar.Theme.Media("icon-dungeon"), chevron = l.Chevron:GetTexture() == Polestar.Theme.Media("chevron-right") }})
+		stub.RunScript(l, "OnEnter")
+		local tip, shown = GameTooltip.lines, GameTooltip:IsShown()
+		stub.RunScript(l, "OnLeave")
+		emit({{ tip = tip, shown = shown, left = GameTooltip:IsShown() }})
+		local opened, open = {{}}, Polestar.Dungeons.Open
+		Polestar.Dungeons.Open = function(k) opened[#opened + 1] = k return true end
+		local calls = #uistub.calls
+		l:Click()
+		emit({{ opened = opened, engine = #uistub.calls - calls, step = Polestar.Engine.GetStepIndex(), still = said() }})"#
+	));
+	assert_eq!(out[0], json!({ "before": false, "codex": true, "text": WC_LINE, "under": "level", "icon": true, "chevron": true }));
+	assert_eq!(out[1], json!({ "tip": ["Wailing Caverns", "Levels 17–24  ·  The Barrens", "Click to see its quests in Dungeons"], "shown": true, "left": false }));
+	assert_eq!(out[2], json!({ "opened": ["wailing-caverns"], "engine": 0, "step": 1, "still": WC_LINE }), "a suggestion: no route change");
+}
+
+// Only an open `level` goal on the current step of a leveling guide: not the hand-in step, not a level goal already
+// reached (or covered by finished quests), not a class's own step, not a reputation guide's level goal.
+#[test]
+fn no_dungeon_line_on_other_steps_a_reached_level_a_class_step_or_outside_leveling_guides() {
+	let out = run(&format!(
+		r#"{GRIND}
+		Polestar.Codex.Load()
+		grindGuide("t/grind")
+		grindGuide("t/done", {{ status = "done" }})
+		grindGuide("t/class", {{ only = {{ classes = {{ "DRUID" }} }} }})
+		grindGuide("t/rep", {{ category = "Reputation" }})
+		local out = {{}}
+		show("t/grind"); out.grind = said()
+		show("t/grind", 2); out.turnin = said()
+		show("t/done"); out.reached = said()
+		show("t/class"); out.classStep = said()
+		show("t/rep"); out.reputation = said()
+		show("t/grind"); out.back = said()
+		local E = Polestar.Engine
+		local v = E.GetStepView(1)
+		v.goals[2].handInFirst = true
+		out.covered = DT.GrindLine(E.GetGuide(), v, v.goals[2]) or false
+		emit(out)"#
+	));
+	assert_eq!(out[0], json!({ "grind": WC_LINE, "turnin": false, "reached": false, "classStep": false, "reputation": false, "back": WC_LINE, "covered": false }));
+}
+
+// None when no dungeon fits the level now (under Wailing Caverns' floor 17, past its top 24; Blackmaw Hold 55-60 is
+// far off), when its attunement every player needs is missing, or when the dungeon heads-ups or the Dungeons
+// module are turned off; back when they are turned on again.
+#[test]
+fn no_dungeon_line_when_none_fits_the_level_one_cannot_be_entered_or_the_dungeon_heads_ups_are_off() {
+	let out = run(&format!(
+		r#"{GRIND}
+		Polestar.Codex.Load()
+		grindGuide("t/grind")
+		show("t/grind")
+		local function at(n) local p = DT.GrindPick(n, "H", nil, nil) return p and p.key or false end
+		local out = {{ l14 = at(14), l16 = at(16), l17 = at(17), l24 = at(24), l25 = at(25), l40 = at(40), l57 = at(57) }}
+		-- Blackmaw Hold has no quests: the line says the climb instead.
+		out.noQuests = DT.GrindPick(57, "H", nil, nil).text
+		done[90003], done[90004] = nil, nil
+		out.noAttune = at(20)
+		done[90003], done[90004] = true, true
+		Polestar.Set("dungeons.headsUp", false); out.off = said()
+		Polestar.Set("dungeons.headsUp", true); out.on = said()
+		Polestar.Set("dungeons.enabled", false); out.dungeonsOff = said()
+		Polestar.Set("dungeons.enabled", true); out.dungeonsOn = said()
+		uistub.player.level = 25
+		stub.fire("PLAYER_LEVEL_UP", 25)
+		out.past = said()
+		emit(out)"#
+	));
+	assert_eq!(
+		out[0],
+		json!({ "l14": false, "l16": false, "l17": "wailing-caverns", "l24": "wailing-caverns", "l25": false, "l40": false, "l57": "blackmaw-hold",
+			"noQuests": "Or run Blackmaw Hold (55–60) with a group for a faster climb.", "noAttune": false, "off": false, "on": WC_LINE, "dungeonsOff": false, "dungeonsOn": WC_LINE, "past": false })
+	);
+}
+
+// Faction-correct: the Horde never gets the Deadmines (its one quest is the Alliance's): nothing at 26, past Wailing
+// Caverns' top; the Alliance gets Wailing Caverns while it fits with quests to pick up (the Deadmines suits 20 best
+// but its quest isn't offered yet), then the Deadmines at 26, on the window too. A dungeon the step's tip already
+// names comes first (the guide's own "run Wailing Caverns instead").
+#[test]
+fn the_dungeon_line_is_faction_correct_and_prefers_the_dungeon_the_steps_tip_names() {
+	let out = run(&format!(
+		r#"{GRIND}
+		Polestar.Codex.Load()
+		local function at(n, side, note) local p = DT.GrindPick(n, side, nil, note) return p and p.key or false end
+		local horde = {{ at(17, "H"), at(20, "H"), at(26, "H") }}
+		-- The pick-up plan reads the character: an Alliance one for the Alliance's picks.
+		uistub.player.race, uistub.player.faction = "Human", "Alliance"
+		emit({{ horde = horde, alliance = {{ at(17, "A"), at(20, "A"), at(26, "A") }},
+			named = at(20, "A", "Short of 21? Or, with a group, run Wailing Caverns instead.") }})
+		uistub.player.level = 26
+		grindGuide("t/alliance", {{ faction = "Alliance" }})
+		show("t/alliance")
+		emit({{ alliance = said() }})"#
+	));
+	assert_eq!(out[0], json!({ "horde": ["wailing-caverns", "wailing-caverns", false], "alliance": ["wailing-caverns", "wailing-caverns", "deadmines"], "named": "wailing-caverns" }));
+	assert_eq!(out[1], json!({ "alliance": "Or run The Deadmines (17–26) with a group: 1 quest to pick up first." }));
+}
+
+// Worked out when the step changes, not at each repaint: fifty repaints of the card (kills, a timed quest's clock)
+// read the dungeon list once and ask the pick-up plan once; the cached answer costs no memory; the line has no
+// OnUpdate. A level-up works it out again.
+#[test]
+fn the_dungeon_line_is_worked_out_once_per_step_and_level_not_at_each_repaint() {
+	let out = run(&format!(
+		r#"{GRIND}
+		Polestar.Codex.Load()
+		grindGuide("t/grind")
+		local Dg = Polestar.Dungeons
+		local list, plan = Dg.List, Dg.PickupPlan
+		local n = {{ list = 0, plan = 0 }}
+		Dg.List = function(...) n.list = n.list + 1 return list(...) end
+		Dg.PickupPlan = function(...) n.plan = n.plan + 1 return plan(...) end
+		show("t/grind")
+		local first = {{ list = n.list, plan = n.plan, line = said() }}
+		for _ = 1, 50 do GF.Update(); GF.Refill() end
+		stub.advance(5)
+		local after = {{ list = n.list, plan = n.plan }}
+		local E = Polestar.Engine
+		local v, g = E.GetStepView(1), E.GetGuide()
+		DT.GrindLine(g, v, v.goals[2])
+		collectgarbage("collect")
+		local k0 = collectgarbage("count")
+		for _ = 1, 10000 do DT.GrindLine(g, v, v.goals[2]) end
+		local kib = collectgarbage("count") - k0
+		uistub.player.level = 21
+		stub.fire("PLAYER_LEVEL_UP", 21)
+		emit({{ first = first, after = after, kib = kib < 1, onUpdate = dungeonLine():GetScript("OnUpdate") ~= nil, levelUp = n.list }})"#
+	));
+	assert_eq!(out[0], json!({ "first": { "list": 1, "plan": 1, "line": WC_LINE }, "after": { "list": 1, "plan": 1 }, "kib": true, "onUpdate": false, "levelUp": 2 }));
+}
+
+// Quests first, then the nearest givers (Fitz: "where quests start outside, prefer the dungeon whose quest givers are
+// nearest"): with quests to pick up for both Wailing Caverns and the Deadmines (plans written here, givers on one
+// continent), the Alliance 22 grinding at the origin gets the one whose nearest giver is closer, whichever that is;
+// one without quests comes after any with them, however near.
+#[test]
+fn of_the_dungeons_with_quests_the_line_prefers_the_one_whose_quest_givers_are_nearest_the_grind() {
+	let out = run(&format!(
+		r#"{GRIND}
+		Polestar.Codex.Load()
+		uistub.player.race, uistub.player.faction = "Human", "Alliance"
+		Polestar.Compat.MapToWorld = function(map, x, y) return 1, x, y end
+		local givers = {{}}
+		Polestar.Dungeons.PickupPlan = function(key)
+			local take = {{}}
+			for _, g in ipairs(givers[key] or {{}}) do take[#take + 1] = {{ giver = {{ map = 1440, x = g[1], y = g[2] }} }} end
+			return {{ take = take }}
+		end
+		local spot = {{ map = 1440, x = 0, y = 0 }}
+		local function at() local p = DT.GrindPick(22, "A", spot, nil) return p and (p.key .. ":" .. p.take) or false end
+		local out = {{}}
+		givers = {{ ["wailing-caverns"] = {{ {{ 50, 50 }}, {{ 40, 40 }} }}, deadmines = {{ {{ 10, 10 }} }} }}
+		out.deadminesNearer = at()
+		givers = {{ ["wailing-caverns"] = {{ {{ 50, 50 }}, {{ 3, 4 }} }}, deadmines = {{ {{ 10, 10 }} }} }}
+		out.cavernsNearer = at()
+		givers = {{ ["wailing-caverns"] = {{ {{ 80, 80 }} }}, deadmines = {{}} }}
+		out.onlyQuests = at()
+		emit(out)"#
+	));
+	assert_eq!(out[0], json!({ "deadminesNearer": "deadmines:1", "cavernsNearer": "wailing-caverns:2", "onlyQuests": "wailing-caverns:1" }));
 }

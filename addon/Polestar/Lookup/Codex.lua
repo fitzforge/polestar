@@ -13,6 +13,8 @@
 --   Codex.IsLoaded() ; Codex.Meta()
 --   Codex.Item(id) / Npc(id) / Object(id) / Quest(id) / Instance(key) / Zone(id) / Faction(id)
 --       (a quest's `xp`: its full XP reward, nil when not known or the pack predates it;
+--       a child quest's `parent`: the quest its giver wants in the log, nil when none or
+--       the pack predates it;
 --       an event objective's `map`, `x`, `y`, `f`: where it is done, when known;
 --       a talk objective's `id`: the NPC to speak to, absent from packs before it;
 --       an NPC's or object's spawns { map, x, y, f, z }: z the height of its
@@ -329,8 +331,14 @@ local function decodeNpc(group, id, s)
 	}
 end
 
+-- An object record: treasure;loot;spawn groups...[;z<heights>][;m<faction>][;i<instance>] (the instance an
+-- object lies in, last: Upper Blackrock Spire's Rookery Eggs).
 local function decodeObject(group, id, s)
 	local t, n = split(s, ";")
+	local instance
+	if n >= 3 and sub(t[n], 1, 1) == "i" then
+		instance, n = unesc(sub(t[n], 2)), n - 1
+	end
 	local mailbox, faction
 	if n >= 3 and (t[n] == "m" or t[n] == "mA" or t[n] == "mH" or t[n] == "mAH") then
 		mailbox, faction = true, sub(t[n], 2)
@@ -339,7 +347,7 @@ local function decodeObject(group, id, s)
 	end
 	local heights
 	heights, n = heightsField(t, n)
-	return { id = id, name = nameOf(group, id), treasure = t[1] == "1", mailbox = mailbox,
+	return { id = id, name = nameOf(group, id), treasure = t[1] == "1", mailbox = mailbox, instance = instance,
 		faction = faction, loot = numbers(t[2]), spawns = decodeSpawns(t, 3, n, heights) }
 end
 
@@ -369,16 +377,36 @@ local function decodeQuest(group, id, s)
 		elseif lead == "x" then
 			-- Its full XP reward: x<xp>.
 			rec.xp = tonumber(sub(f, 2))
+		elseif lead == "c" then
+			-- The quests whose taking closes it for good (#1996): c<id>,<id>...
+			rec.closedBy = numbers(sub(f, 2))
+		elseif lead == "u" then
+			-- A child quest's parent, which must be in the log: u<quest>.
+			rec.parent = tonumber(sub(f, 2))
 		elseif f == "t" then
 			-- The kill objective before it is a beast to tame (Taming the Beast).
 			local o = rec.objectives[#rec.objectives]
 			if o then o.tame = true end
+		elseif lead == "a" then
+			-- The kill objective before it is done by using this item on the
+			-- NPC (the Codex build's useItem, #2468): a<item>.
+			local o = rec.objectives[#rec.objectives]
+			if o then o.useItem = tonumber(sub(f, 2)) end
 		elseif lead == "p" then
 			-- Where the objective before it is done (an event's area): p<map>,<x>,<y>,<f>.
 			local o = rec.objectives[#rec.objectives]
 			local _, _, map, x, y, fac = find(f, "^p(%d+),(%-?%d+),(%-?%d+),(%a*)$")
 			if o and map then
 				o.map, o.x, o.y, o.f = tonumber(map), tonumber(x) / 10, tonumber(y) / 10, fac ~= "" and fac or nil
+			end
+		elseif lead == "w" then
+			-- Hostile elites at the objective before it, for a side (the Codex build's
+			-- mark, #1778): w<A|H><rank>,<level> -> o.elites[side] = { rank, lvl }.
+			local o = rec.objectives[#rec.objectives]
+			local _, _, side, rank, lvl = find(f, "^w([AH])(%d+),(%d*)$")
+			if o and side then
+				o.elites = o.elites or {}
+				o.elites[side] = { rank = tonumber(rank), lvl = tonumber(lvl) }
 			end
 		end
 	end

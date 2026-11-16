@@ -26,9 +26,10 @@ const KEYS_CROSSING: &[&str] = &["id", "a", "b", "ab", "ba", "oneWay", "source"]
 const KEYS_END: &[&str] = &["map", "x", "y", "z", "radius", "offMap"];
 const KEYS_OPEN: &[&str] = &["a", "b", "oneWay", "source"];
 const KEYS_CHAIN: &[&str] = &["id", "name", "open", "note", "nodes"];
-const KEYS_NODE: &[&str] = &["map", "x", "y", "z", "radius", "caption", "back", "offMap"];
+const KEYS_NODE: &[&str] = &["map", "x", "y", "z", "radius", "caption", "back", "alone", "offMap"];
 /// (`box`: x1, y1, x2, y2 in map percent of the area's uiMap.)
-const KEYS_AREA: &[&str] = &["id", "name", "map", "box", "note", "source"];
+/// (`z`: min and max, a height range: a place only the portals that land in it reach.)
+const KEYS_AREA: &[&str] = &["id", "name", "map", "box", "z", "note", "source"];
 
 /// A checked point: map percent, radius, world position (and a chain node's captions).
 #[derive(Clone, Debug)]
@@ -44,6 +45,9 @@ pub struct XPt {
 	pub wy: f64,
 	pub caption: Option<String>,
 	pub back: Option<String>,
+	/// A chain node with nothing walkable above or below it within its reach: a player there whose height is unknown
+	/// is on its floor (the Undercity's courtyard inside the Ruins' mouth).
+	pub alone: bool,
 }
 
 #[derive(Clone, Debug)]
@@ -77,7 +81,9 @@ pub struct Chain {
 
 /// A part of a zone no walk joins to the rest of it (Rut'theran Village at the foot of Teldrassil): the
 /// planner treats it as a zone of its own, reached only by crossings, portals, ships and flights.
-/// World box: top/bottom (wx), left/right (wy), as a zone frame.
+/// World box: top/bottom (wx), left/right (wy), as a zone frame. With a height range (zmin, zmax) it holds only the
+/// points at those heights: a place the walking maps have no floor in, under or over others on its map, reached only
+/// by the portals that land in it (the Wizard's Sanctum's chamber under its tower, #1970).
 #[derive(Clone, Debug)]
 pub struct Area {
 	pub id: String,
@@ -88,6 +94,7 @@ pub struct Area {
 	pub bottom: f64,
 	pub left: f64,
 	pub right: f64,
+	pub z: Option<(f64, f64)>,
 }
 
 #[derive(Clone, Debug, Default)]
@@ -191,7 +198,7 @@ fn check_point(p: &V, at: &str, keys: &[&str], frames: &Frames, errors: &mut Vec
 	}
 	let (map, x, y) = (map.unwrap(), p.get("x").num(), p.get("y").num());
 	let w = frames.to_world(map as i64, x, y).unwrap();
-	Some(XPt { map, x: Some(x), y: Some(y), r: p.get("radius").num(), z: zv.as_num(), c: w.c, wx: round(w.wx, 1), wy: round(w.wy, 1), caption: None, back: None })
+	Some(XPt { map, x: Some(x), y: Some(y), r: p.get("radius").num(), z: zv.as_num(), c: w.c, wx: round(w.wx, 1), wy: round(w.wy, 1), caption: None, back: None, alone: false })
 }
 
 fn yards(a: &XPt, b: &XPt) -> f64 {
@@ -354,7 +361,12 @@ pub fn validate_crossings(doc: &V, frames: &Frames) -> (Vec<String>, Set) {
 				let get = |f: &str| if n.is_object() { n.get(f) } else { V::Undef };
 				let caption = check_caption(&get("caption"), &format!("{at}.nodes[{k}].caption"), &mut errors);
 				let back = check_caption(&get("back"), &format!("{at}.nodes[{k}].back"), &mut errors);
-				p.map(|p| XPt { caption, back, ..p })
+				let av = get("alone");
+				if !av.is_undef() && !matches!(av, V::Bool(_)) {
+					errors.push(format!("{at}.nodes[{k}]: alone must be true or false"));
+				}
+				let alone = matches!(av, V::Bool(true));
+				p.map(|p| XPt { caption, back, alone, ..p })
 			})
 			.collect();
 		if nodes.iter().any(Option::is_none) {
@@ -404,9 +416,21 @@ pub fn validate_crossings(doc: &V, frames: &Frames) -> (Vec<String>, Set) {
 			errors.push(format!("{at}: box x1 < x2 and y1 < y2"));
 			continue;
 		}
+		let zr = e.get("z");
+		let z = if zr.is_undef() {
+			None
+		} else {
+			match (zr.get("min").as_num().filter(|v| v.is_finite()), zr.get("max").as_num().filter(|v| v.is_finite())) {
+				(Some(lo), Some(hi)) if is_obj(&zr) && lo < hi => Some((lo, hi)),
+				_ => {
+					errors.push(format!("{at}: z must give min < max (yards)"));
+					continue;
+				}
+			}
+		};
 		let Some(map) = map else { continue };
-		let (Some(a), Some(z)) = (frames.to_world(map as i64, x1, y1), frames.to_world(map as i64, x2, y2)) else { continue };
-		out.areas.push(Area { id: e.get("id").to_js_string(), name: name.to_js_string(), map, c: a.c, top: round(a.wx, 1), bottom: round(z.wx, 1), left: round(a.wy, 1), right: round(z.wy, 1) });
+		let (Some(a), Some(b)) = (frames.to_world(map as i64, x1, y1), frames.to_world(map as i64, x2, y2)) else { continue };
+		out.areas.push(Area { id: e.get("id").to_js_string(), name: name.to_js_string(), map, c: a.c, top: round(a.wx, 1), bottom: round(b.wx, 1), left: round(a.wy, 1), right: round(b.wy, 1), z });
 	}
 	(errors, out)
 }
@@ -466,7 +490,7 @@ pub fn recorded_crossings(steps: &[ZoneStep], frames: &Frames) -> Vec<Crossing> 
 				let wx = round(sx / g.n, 1);
 				let wy = round(sy / g.n, 1);
 				let p = frames.to_map(map, g.c, wx, wy);
-				XPt { map: map as f64, x: p.map(|p| round(p.0, 2)), y: p.map(|p| round(p.1, 2)), r: RECORDED_RADIUS, z: None, c: g.c, wx, wy, caption: None, back: None }
+				XPt { map: map as f64, x: p.map(|p| round(p.0, 2)), y: p.map(|p| round(p.1, 2)), r: RECORDED_RADIUS, z: None, c: g.c, wx, wy, caption: None, back: None, alone: false }
 			};
 			let mut sessions: Vec<String> = g.sessions.iter().cloned().collect();
 			sessions.sort_by(|a, b| cmp_utf16(a, b));
@@ -586,7 +610,7 @@ pub fn crossings_lua(set: &Set, frames: &Frames, complete: bool, live: &Live) ->
 		l.push("\t},".into());
 	}
 	if !set.chains.is_empty() {
-		l.push("\t-- nodes: uiMap, continent, world yards, z (the floor height when given), radius, caption walking in, caption walking out".into());
+		l.push("\t-- nodes: uiMap, continent, world yards, z (the floor height when given), radius, caption walking in, caption walking out, alone (nothing walkable above or below it)".into());
 		l.push("\tchains = {".into());
 		for ch in &set.chains {
 			l.push(format!("\t\t{{ id = {}, name = {}, open = {}, nodes = {{", lua_str(&ch.id), lua_str(&ch.name), lua_str(&ch.open)));
@@ -602,6 +626,9 @@ pub fn crossings_lua(set: &Set, frames: &Frames, complete: bool, live: &Live) ->
 				if let Some(b) = n.back.as_ref().filter(|s| !s.is_empty()) {
 					parts.push(format!("back = {}", lua_str(b)));
 				}
+				if n.alone {
+					parts.push("alone = true".into());
+				}
 				l.push(format!("\t\t\t{{ {} }},", parts.join(", ")));
 			}
 			l.push("\t\t} },".into());
@@ -609,11 +636,13 @@ pub fn crossings_lua(set: &Set, frames: &Frames, complete: bool, live: &Live) ->
 		l.push("\t},".into());
 	}
 	if !set.areas.is_empty() {
-		l.push("\t-- parts of a zone no walk joins to the rest of it: id, name, uiMap, continent, world box (top, bottom: wx; left, right: wy)".into());
+		l.push("\t-- parts of a zone no walk joins to the rest of it: id, name, uiMap, continent, world box (top, bottom: wx; left, right: wy),".into());
+		l.push("\t-- with a height range (zmin, zmax) a place only the portals that land in it reach".into());
 		l.push("\tareas = {".into());
 		for a in &set.areas {
+			let z = a.z.map_or(String::new(), |(lo, hi)| format!(", zmin = {}, zmax = {}", num_str(lo), num_str(hi)));
 			l.push(format!(
-				"\t\t{{ id = {}, name = {}, map = {}, c = {}, top = {}, bottom = {}, left = {}, right = {} }},",
+				"\t\t{{ id = {}, name = {}, map = {}, c = {}, top = {}, bottom = {}, left = {}, right = {}{z} }},",
 				lua_str(&a.id),
 				lua_str(&a.name),
 				num_str(a.map),
@@ -721,5 +750,45 @@ mod tests {
 		let (errors, set) = validate_crossings(&bad, &frames());
 		assert!(set.areas.is_empty());
 		assert_eq!(errors.len(), 4, "{errors:?}");
+	}
+
+	// A chain node with nothing walkable above or below it (`alone`, #2224: the Undercity's courtyard inside the Ruins'
+	// mouth) is written as such; anything but true or false is an error.
+	#[test]
+	fn a_chain_node_alone_on_its_floor_is_checked_and_written_2224() {
+		let doc = parse_json(
+			r#"{ "schema": 1, "chains": [ { "id": "hall", "open": "both", "nodes": [ { "map": 1438, "x": 50, "y": 90, "z": 60, "radius": 30 },
+				{ "map": 1438, "x": 51, "y": 90, "z": 61, "radius": 12, "alone": true }, { "map": 1438, "x": 52, "y": 90, "z": 62, "radius": 20 } ] } ] }"#,
+		)
+		.unwrap();
+		let (errors, set) = validate_crossings(&doc, &frames());
+		assert!(errors.is_empty(), "{errors:?}");
+		assert_eq!(set.chains[0].nodes.iter().map(|n| n.alone).collect::<Vec<_>>(), vec![false, true, false]);
+		let lua = crossings_lua(&set, &frames(), true, &Live::new()).join("\n");
+		assert!(lua.contains("z = 61, r = 12, alone = true }"), "{lua}");
+		assert_eq!(lua.matches("alone = true").count(), 1, "{lua}");
+
+		let bad = parse_json(
+			r#"{ "schema": 1, "chains": [ { "id": "hall", "nodes": [ { "map": 1438, "x": 50, "y": 90, "radius": 30 }, { "map": 1438, "x": 51, "y": 90, "radius": 12, "alone": "yes" } ] } ] }"#,
+		)
+		.unwrap();
+		let (errors, _) = validate_crossings(&bad, &frames());
+		assert_eq!(errors, vec!["chains[0] (hall).nodes[1]: alone must be true or false".to_string()]);
+	}
+
+	// #1970: the Wizard's Sanctum's chamber, under its tower on the same map: an area with a height range holds only
+	// the points at those heights, a place only the portals that land in it reach.
+	#[test]
+	fn an_area_with_a_height_range_is_checked_and_written_with_it_1970() {
+		let doc = parse_json(
+			r#"{ "schema": 1, "areas": [ { "id": "chamber", "name": "Chamber", "map": 1438, "box": { "x1": 47, "y1": 84, "x2": 66, "y2": 100 }, "z": { "min": 10, "max": 50 } },
+				{ "id": "bad-z", "name": "Bad", "map": 1438, "box": { "x1": 47, "y1": 84, "x2": 66, "y2": 100 }, "z": { "min": 50, "max": 10 } } ] }"#,
+		)
+		.unwrap();
+		let (errors, set) = validate_crossings(&doc, &frames());
+		assert_eq!(errors, vec!["areas[1] (bad-z): z must give min < max (yards)".to_string()]);
+		assert_eq!(set.areas.iter().map(|a| (a.id.as_str(), a.z)).collect::<Vec<_>>(), vec![("chamber", Some((10.0, 50.0)))]);
+		let lua = crossings_lua(&set, &frames(), true, &Live::new()).join("\n");
+		assert!(lua.contains("\t\t{ id = \"chamber\", name = \"Chamber\", map = 1438, c = 1, top = 8980.5, bottom = 8437.5, left = 1421.5, right = 454.1, zmin = 10, zmax = 50 },"), "{lua}");
 	}
 }

@@ -143,9 +143,12 @@ fn a_guide_the_update_really_changed_still_passes_its_new_steps_behind_the_playe
 
 // A recorded Night Elf Hunter's save, mid Loch Modan: 0.3.6 had loaded their 0.3.5 save and passed the steps of
 // Rat Catching (385) it added behind them (`gone`). The save is from before own shapes were stored; its shape is
-// the guide as planned for the character (63 steps), the guide as registered has 64. A pack version change
-// with the same Loch Modan sent them back to The Farstrider Lodge (Rat Catching's accept, step 16); they stay at
-// Lakeshire (step 36: #1833 split the boars, Daryl and the crocolisks into three steps before it).
+// the guide as planned for the character (63 steps). A pack version change with the same Loch Modan sent them
+// back to The Farstrider Lodge (Rat Catching's accept, step 16); they stay at Lakeshire. The 0.4.0 pack's first
+// Lakeshire stop (36, their 34) no longer takes Marshal Marris's Blackrock quests (20, 98387: on the first Redridge
+// visit since c41c0e1b76), but still Messenger to Stormwind (120), which they have not taken: they stay there. Read
+// as a step the update added (no earlier release's steps listed it then), it passed and put them at the second
+// stop (42), with 120 gone (#2350).
 const LOCH_WORLD: &str = include_str!("engine-upgrade-twice/loch-modan-world.lua");
 const LOCH_SAVE: &str = include_str!("engine-upgrade-twice/loch-modan-save.lua");
 

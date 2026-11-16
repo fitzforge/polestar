@@ -222,10 +222,24 @@ pub fn quest_faction(q: &V, npcs: &V) -> Val {
 	Val::Num(side as f64)
 }
 
-/// Sorted top-N sources from { "<id>": chance } (ties by id).
-fn top_sources(drops: &V, cap: usize) -> Vec<(f64, f64)> {
-	let mut out: Vec<(f64, f64)> =
-		if drops.is_object() { drops.entries().into_iter().map(|(k, c)| (forge_guide::js::str_to_num(&k), round_chance(c.num()))).filter(|(id, _)| id.is_finite()).collect() } else { Vec::new() };
+/// A creature the game keeps for its own tests or as a placeholder ("TEST WOLF (ALPHA FIRST)", "[PH]"): no drop
+/// source to show, though the data lists it (Tough Wolf Meat's two test wolves, which no spawn puts in the world, read
+/// in the target list's rows for Elwynn Forest's wolves).
+fn test_creature(npcs: &V, id: f64) -> bool {
+	thread_local! {
+		static RE: regex::Regex = regex::Regex::new(r"(?i)^(QA)?test\b|\[PH\]|\bunused\b|\bdeprecated\b|\bDEBUG\b").unwrap();
+	}
+	let name = npcs.get(&num_str(id)).get("name");
+	name.truthy() && RE.with(|r| r.is_match(&name.to_js_string()))
+}
+
+/// Sorted top-N sources from { "<id>": chance } (ties by id), the ones `keep` takes.
+fn top_sources(drops: &V, cap: usize, keep: impl Fn(f64) -> bool) -> Vec<(f64, f64)> {
+	let mut out: Vec<(f64, f64)> = if drops.is_object() {
+		drops.entries().into_iter().map(|(k, c)| (forge_guide::js::str_to_num(&k), round_chance(c.num()))).filter(|(id, _)| id.is_finite() && keep(*id)).collect()
+	} else {
+		Vec::new()
+	};
 	out.sort_by(|a, b| {
 		let d = b.1 - a.1;
 		if d != 0.0 && !d.is_nan() {
@@ -392,8 +406,8 @@ pub fn build(data_dir: &Path, root: &Path, o: &Options) -> Result<Output, String
 			warnings.push(format!("item {id} referenced by a quest is missing from items.json"));
 			continue;
 		}
-		let droppers = top_sources(&field(&it, "drops", "npc"), o.max_droppers);
-		let obj_sources = top_sources(&field(&it, "drops", "object"), o.max_object_sources);
+		let droppers = top_sources(&field(&it, "drops", "npc"), o.max_droppers, |n| !test_creature(&npcs, n));
+		let obj_sources = top_sources(&field(&it, "drops", "object"), o.max_object_sources, |_| true);
 		let mut vendors = list(&it.get("vendors"));
 		vendors.sort_by(|a, b| a.partial_cmp(b).unwrap());
 		vendors.truncate(o.max_vendors);

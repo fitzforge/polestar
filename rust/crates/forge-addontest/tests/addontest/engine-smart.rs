@@ -217,8 +217,9 @@ fn suggest_prefers_the_current_zone_then_the_nearest_by_travel_race_chains_win_t
 	assert_eq!(home, "test/silverpine");
 }
 
+// Engine.OUTGROWN: most players run a little ahead of the route, so a guide is outgrown 3 levels past its top, not 2.
 #[test]
-fn guide_outleveled_fires_once_per_guide_when_the_level_passes_maxlevel_2() {
+fn guide_outleveled_fires_once_per_guide_three_levels_past_its_top_never_at_two() {
 	let out = run(
 		"stub.world.level = 5",
 		r#"
@@ -231,14 +232,16 @@ fn guide_outleveled_fires_once_per_guide_when_the_level_passes_maxlevel_2() {
 			Polestar.On("GUIDE_OUTLEVELED", function(id, s) fired[#fired + 1] = id .. ">" .. tostring(s) end)
 			local w = stub.world
 			w.setLevel(7); flush()
-			local at7 = #fired
 			w.setLevel(8); flush()
+			local at8 = #fired
 			w.setLevel(9); flush()
-			emit({ at7 = at7, fired = fired, guide = E.GetGuide().id })
+			local at9 = #fired
+			w.setLevel(10); flush()
+			emit({ at8 = at8, at9 = at9, fired = fired, guide = E.GetGuide().id, margin = E.OUTGROWN })
 		"#,
 		true,
 	);
-	assert_eq!(out, json!({ "at7": 0, "fired": ["test/low>test/mid"], "guide": "test/low" }));
+	assert_eq!(out, json!({ "at8": 0, "at9": 1, "fired": ["test/low>test/mid"], "guide": "test/low", "margin": 3 }));
 }
 
 const SKIP_GREY_ON: Option<&str> = Some("PolestarDB = { schema = 1, settings = { behavior = { skipGrey = true } } }");
@@ -542,10 +545,12 @@ fn a_vendor_in_a_zone_far_above_the_character_comes_after_every_other_choice_sti
 
 // #1357 (MrBackus, Skyborne Shaman 30): Orgrimmar's training step came up while he stood in the Barrens by
 // Ratchet, and the nearest Shaman trainer by line was Shikrik in the Valley of Trials, a starter village.
-// A `train class` goal carries its step's zone: that map's trainers come first wherever the player stands,
-// unless one stands within 100 yards of them (the Skyborne camp's trainers below Thunder Bluff).
+// A `train class` goal of Polestar's own guides carries its step's zone: that map's trainers come first wherever the
+// player stands, unless one stands within 100 yards of them (the Skyborne camp's trainers below Thunder Bluff).
+const OUR_PACK: &str = r#"assert(Polestar.RegisterPack({ addon = "Polestar_Guides", id = "guides", format = 1, title = "Polestar Guides", author = "Polestar", version = "1", license = "GPL-3.0" }))"#;
 const ZONE_FIRST: &str = r#"
-	Polestar.RegisterGuide({ id = "test/tc", pack = "test", title = "Train", minLevel = 1, maxLevel = 60, steps = {
+	${OUR_PACK}
+	Polestar.RegisterGuide({ id = "forever/tc", pack = "guides", title = "Train", minLevel = 1, maxLevel = 60, steps = {
 		{ goals = { { t = "train", class = true, zone = 1454, candidates = ${SHIKRIK_KARDRIS} } } },
 		{ goals = { { t = "train", class = true, candidates = ${SHIKRIK_KARDRIS} } } },
 		{ goals = { { t = "train", class = true, zone = 1454, candidates = {
@@ -568,10 +573,10 @@ fn train_class_ranks_its_step_s_zone_first_wherever_the_player_stands_unless_a_t
 		}"#;
 	let out = run(
 		r#"stub.world.race, stub.world.raceName, stub.world.class, stub.world.className = "Skyborne", "Skyborne", "SHAMAN", "Shaman""#,
-		&ZONE_FIRST.replace("${SHIKRIK_KARDRIS}", cands),
+		&ZONE_FIRST.replace("${OUR_PACK}", OUR_PACK).replace("${SHIKRIK_KARDRIS}", cands),
 		None,
 		r#"
-			E.SetGuide("test/tc")
+			E.SetGuide("forever/tc")
 			local function npc(s) return E.GetStepView(s).goals[1].npcName end
 			local first = { npc(1), npc(2), npc(3), npc(4) }
 			E.CycleCandidate(1, 1)
@@ -588,4 +593,46 @@ fn train_class_ranks_its_step_s_zone_first_wherever_the_player_stands_unless_a_t
 		}),
 		"the step's zone first; no zone: the nearest; a trainer by the player stays first; a zone with no trainer of the class: the nearest"
 	);
+}
+
+// A community pack's step can't know the player's race: the Protection Paladin pack trains in Dun Morogh and
+// Ironforge, and its steps' zone sent Human paladins in Elwynn Forest to the Dwarf trainers. A community pack's
+// `train class` goes to the nearest trainer of the player's class; the same step in Polestar's own guides keeps its
+// zone.
+const PALADIN_STEPS: &str = r#"{
+		{ goals = { { t = "train", class = true, zone = 1426, candidates = {
+			{ npc = 1232, npcName = "Azar Stronghammer", map = 1426, x = 47.6, y = 52.07, faction = "A", classes = { "PALADIN" } },
+			{ npc = 926, npcName = "Bromos Grummner", map = 1426, x = 28.83, y = 68.33, faction = "A", classes = { "PALADIN" } },
+			{ npc = 925, npcName = "Brother Sammuel", map = 1429, x = 50.43, y = 42.12, faction = "A", classes = { "PALADIN" } },
+			{ npc = 927, npcName = "Brother Wilhelm", map = 1429, x = 41.1, y = 66.04, faction = "A", classes = { "PALADIN" } },
+		} } } },
+		{ goals = { { t = "level", level = 60 } } },
+	}"#;
+const PALADIN_GUIDES: &str = r#"
+	${OUR_PACK}
+	Polestar.RegisterGuide({ id = "forever/paladin", pack = "guides", title = "Paladin", minLevel = 1, maxLevel = 60, steps = ${STEPS} })
+	Polestar.RegisterGuide({ id = "test/paladin", pack = "test", title = "Paladin", minLevel = 1, maxLevel = 60, steps = ${STEPS} })
+"#;
+
+#[test]
+fn a_community_pack_s_train_class_leads_to_the_nearest_trainer_of_the_class_polestar_s_own_guides_keep_the_step_s_zone() {
+	let out = run(
+		r#"
+		local w = stub.world
+		w.addMap(1426, { name = "Dun Morogh", c = 0, left = 1802.083, right = -3122.917, top = -3877.083, bottom = -7160.417 })
+		w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1535.417, right = -1935.417, top = -7939.583, bottom = -10254.166 })
+		w.race, w.raceName, w.faction, w.class, w.className = "Human", "Human", "Alliance", "PALADIN", "Paladin"
+		w.level = 14
+		w.moveTo(1429, 55, 70)
+		w.zone, w.subzone = "Elwynn Forest", "Crystal Lake"
+		"#,
+		&PALADIN_GUIDES.replace("${OUR_PACK}", OUR_PACK).replace("${STEPS}", PALADIN_STEPS),
+		None,
+		r#"
+			local function npc(id) E.SetGuide(id); return E.GetStepView(1).goals[1].npcName end
+			emit({ ours = npc("forever/paladin"), pack = npc("test/paladin") })
+		"#,
+		true,
+	);
+	assert_eq!(out, json!({ "ours": "Bromos Grummner", "pack": "Brother Wilhelm" }), "by Crystal Lake: our step's zone, Dun Morogh; the pack's step, the trainer in Goldshire");
 }

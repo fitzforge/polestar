@@ -14,7 +14,7 @@ return {
 	["{npc:5497} at the top of the Wizard's Sanctum, {zone:1453}'s {object:2101}, sends you to {npc:6546}; Bink in {zone:1455} gives the same quest."] = "{npc:5497}在{zone:1453}的{object:2101}、巫师圣殿顶部，会让你前往{npc:6546}处；{zone:1455}的彬克也提供同一任务。",
 
 	-- Step 2: Journey to the Marsh (Orgrimmar)
-	-- {npc:5885} Deino · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:6546} Tabetha · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {npc:3048} Ursyn Ghull · {zone:1456} Thunder Bluff
+	-- {npc:5885} Deino · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge · {npc:6546} Tabetha · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {npc:3048} Ursyn Ghull · {zone:1456} Thunder Bluff
 	["{npc:5885}, one of {zone:1454}'s mage trainers in {object:173161}, sends you to {npc:6546}; {npc:4568} in the {zone:1458} and {npc:3048} in {zone:1456} give the same quest."] = "{npc:5885}是{zone:1454}的法师训练师之一，位于{object:173161}，会让你前往{npc:6546}处；{zone:1458}的{npc:4568}和{zone:1456}的{npc:3048}也提供同一任务。",
 
 	-- Step 3: Tabetha

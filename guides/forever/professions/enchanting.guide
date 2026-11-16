@@ -85,6 +85,14 @@ step Enchanting 1-75: vendor goods
   buy 6217 x1 nearest
   buy 247786 x32 nearest
 
+step Enchanting 1-75: Auction House
+  tip What 1-75 takes that the Auction House sells: 51 Strange Dust. The counts drop by what your bags, bank and mail hold.
+  auction 10940 x51
+
+step Strange Dust
+  tip 51 Strange Dust for Enchant Chest - Inferior Stamina: Enchanting: disenchant green items of item level 5-20.
+  collect 10940 x51 anywhere gather Enchanting 1
+
 step Enchant Bracer - Inferior Stamina to 25
   tip Enchant Bracer - Inferior Stamina is orange at 1 (yellow 20, green 22, grey 25): about 31 crafts to 25. Each takes 1 Mote of Magic. One Mote of Magic (10c) a craft; grey at 25 on Forever. Make the Runed Copper Rod first: the recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one.
   craft 7421 x1 -- a tool: keep it in your bags
@@ -96,7 +104,7 @@ step Enchanting recipes at 25
   learn 1230643
 
 step Enchant Chest - Inferior Stamina to 75
-  tip Enchant Chest - Inferior Stamina is orange at 25 (yellow 70, green 90, grey 110): about 51 crafts to 75. Each takes 1 Strange Dust. One Strange Dust a craft: the dust most level 5-20 greens break into, armour above all. Lesser Magic Essence (from weapons) does the same job through Bracer - Minor Deflect or Chest - Minor Absorption if you have more of it. Strange Dust (51 for 1-75): Enchanting: disenchant green items of item level 5-20; or the Auction House. Enchant any item for that slot in your bags, even a grey one.
+  tip Enchant Chest - Inferior Stamina is orange at 25 (yellow 70, green 90, grey 110): about 51 crafts to 75. Each takes 1 Strange Dust. One Strange Dust a craft: the dust most level 5-20 greens break into, armour above all. Lesser Magic Essence (from weapons) does the same job through Bracer - Minor Deflect or Chest - Minor Absorption if you have more of it. Enchant any item for that slot in your bags, even a grey one.
   craft 7420 until 75
   skill Enchanting 75
 
@@ -109,8 +117,36 @@ step Journeyman Enchanting
   train Enchanting Journeyman
   learn 7771
 
+step Enchanting 75-150: vendor goods
+  tip Buy the whole bracket's share in one go: 4 Lesser Magic Essence (32s). The arrow picks the nearest seller of your faction. Lesser Magic Essence: no vendor of the other faction sells it; that side gathers or buys it at the Auction House (next steps).
+  buy 10938 x4 nearest only Horde
+
+step Enchanting 75-150: Auction House
+  tip What 75-150 takes that the Auction House sells: 1 Shadowgem, 1 Silver Rod, 4 Lesser Magic Essence, 121 Strange Dust and 20 Soul Dust. The counts drop by what your bags, bank and mail hold.
+  auction 1210 x1
+  auction 6338 x1
+  auction 10938 x4 only Alliance
+  auction 10940 x121
+  auction 11083 x20
+
+step Shadowgem
+  tip 1 Shadowgem for Runed Silver Rod: Shadowgem turns up in about one Copper Vein, Tin Vein or Silver Vein in 100: keep the ones you find while mining.
+  collect 1210 x1 anywhere gather Mining 1
+
+step Silver Rod
+  tip 1 Silver Rod for Runed Silver Rod: Blacksmithing: Silver Rod.
+  collect 6338 x1 anywhere gather Blacksmithing 75
+
+step Strange Dust
+  tip 121 Strange Dust for Enchant Chest - Inferior Stamina, Enchant Cloak - Minor Protection and Runed Silver Rod: Enchanting: disenchant green items of item level 5-20.
+  collect 10940 x121 anywhere gather Enchanting 1
+
+step Soul Dust
+  tip 20 Soul Dust for Enchant Bracer - Lesser Stamina: Enchanting: disenchant green items of item level 21-30.
+  collect 11083 x20 anywhere gather Enchanting 1
+
 step Enchant Chest - Inferior Stamina to 90
-  tip Enchant Chest - Inferior Stamina is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 Strange Dust. One Strange Dust a craft: the dust most level 5-20 greens break into, armour above all. Lesser Magic Essence (from weapons) does the same job through Bracer - Minor Deflect or Chest - Minor Absorption if you have more of it. Strange Dust (121 for 75-150): Enchanting: disenchant green items of item level 5-20; or the Auction House. Enchant any item for that slot in your bags, even a grey one.
+  tip Enchant Chest - Inferior Stamina is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 Strange Dust. One Strange Dust a craft: the dust most level 5-20 greens break into, armour above all. Lesser Magic Essence (from weapons) does the same job through Bracer - Minor Deflect or Chest - Minor Absorption if you have more of it. Enchant any item for that slot in your bags, even a grey one.
   craft 7420 until 90
 
 step Enchant Cloak - Minor Protection to 130
@@ -123,7 +159,7 @@ step Enchanting recipes at 130
   learn 13501
 
 step Enchant Bracer - Lesser Stamina to 150
-  tip Enchant Bracer - Lesser Stamina is orange at 130 (yellow 155, green 175, grey 195): about 20 crafts to 150, a point every craft. Each takes 1 Soul Dust. One Soul Dust a craft (level 21-30 greens). Make the Runed Silver Rod first: the recipe needs it in your bags, so keep it there. Shadowgem (1 for 75-150): Shadowgem turns up in about one Copper Vein, Tin Vein or Silver Vein in 100: buy it at the Auction House, or keep the ones you find while mining. Silver Rod (1 for 75-150): Blacksmithing: Silver Rod; or the Auction House. Lesser Magic Essence (4 for 75-150): Enchanting: disenchant green items of item level 5-15; or the Auction House. Soul Dust (20 for 75-150): Enchanting: disenchant green items of item level 21-30; or the Auction House. Enchant any item for that slot in your bags, even a grey one. Enchanting 150 is a Legacy System milestone.
+  tip Enchant Bracer - Lesser Stamina is orange at 130 (yellow 155, green 175, grey 195): about 20 crafts to 150, a point every craft. Each takes 1 Soul Dust. One Soul Dust a craft (level 21-30 greens). Make the Runed Silver Rod first: the recipe needs it in your bags, so keep it there. Lesser Magic Essence (4 for 75-150): Alliance: Enchanting: disenchant green items of item level 5-15; or the Auction House. Enchant any item for that slot in your bags, even a grey one. Enchanting 150 is a Legacy System milestone.
   craft 7795 x1 -- a tool: keep it in your bags
   craft 13501 until 150
   skill Enchanting 150
@@ -131,27 +167,62 @@ step Enchant Bracer - Lesser Stamina to 150
 # ---------------------------------------------------------------- Expert (150-225)
 section Enchanting 150-225
 
+step Enchanting 150-225: Auction House
+  tip What 150-225 takes that the Auction House sells: 1 Iridescent Pearl, 1 Black Pearl, 1 Greater Astral Essence, 71 Soul Dust, 1 Golden Rod, 1 Greater Mystic Essence, 21 Vision Dust and 1 Truesilver Rod. The counts drop by what your bags, bank and mail hold.
+  auction 5500 x1
+  auction 7971 x1
+  auction 11082 x1
+  auction 11083 x71
+  auction 11128 x1
+  auction 11135 x1
+  auction 11137 x21
+  auction 11144 x1
+
 step Iridescent Pearl (Alliance)
   only Alliance
   zone Wetlands
-  tip 1 Iridescent Pearl for Runed Golden Rod: open the Giant Clams at the marked spot, or buy it at the Auction House.
-  collect 5500 x1 @20.7,18.1 era
+  tip 1 Iridescent Pearl for Runed Golden Rod: open the Giant Clams at the marked spot.
+  collect 5500 x1 @20.7,18.1 era gather
 
 step Iridescent Pearl (Horde)
   only Horde
   zone Ashenvale
-  tip 1 Iridescent Pearl for Runed Golden Rod: open the Giant Clams at the marked spot, or buy it at the Auction House.
-  collect 5500 x1 @12.3,10 era
+  tip 1 Iridescent Pearl for Runed Golden Rod: open the Giant Clams at the marked spot.
+  collect 5500 x1 @12.3,10 era gather
+
+step Greater Astral Essence
+  zone Azeroth
+  tip 1 Greater Astral Essence for Runed Golden Rod: Enchanting: disenchant green items of item level 16-25.
+  collect 11082 x1 anywhere gather Enchanting 1
+
+step Soul Dust
+  tip 71 Soul Dust for Runed Golden Rod, Enchant Bracer - Lesser Stamina and Enchant Boots - Lesser Agility: Enchanting: disenchant green items of item level 21-30.
+  collect 11083 x71 anywhere gather Enchanting 1
+
+step Golden Rod
+  tip 1 Golden Rod for Runed Golden Rod: Blacksmithing: Golden Rod.
+  collect 11128 x1 anywhere gather Blacksmithing 125
+
+step Greater Mystic Essence
+  tip 1 Greater Mystic Essence for Runed Truesilver Rod: Enchanting: disenchant green items of item level 26-35.
+  collect 11135 x1 anywhere gather Enchanting 1
+
+step Vision Dust
+  tip 21 Vision Dust for Runed Truesilver Rod and Enchant Cloak - Greater Defense: Enchanting: disenchant green items of item level 31-40.
+  collect 11137 x21 anywhere gather Enchanting 1
+
+step Truesilver Rod
+  tip 1 Truesilver Rod for Runed Truesilver Rod: Blacksmithing: Truesilver Rod.
+  collect 11144 x1 anywhere gather Blacksmithing 175
 
 step Expert Enchanting
-  zone Azeroth
   tip Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs Enchanting 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance Kitta Firewind (Elwynn Forest); Horde Hgarth (Stonetalon Mountains). The arrow picks the nearest of your faction. Learn now: Runed Golden Rod (from 150). 150-225 takes 1 Iridescent Pearl, 1 Black Pearl, 1 Greater Astral Essence, 71 Soul Dust, 1 Golden Rod, 1 Greater Mystic Essence, 21 Vision Dust and 1 Truesilver Rod to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach Enchant Boots - Lesser Agility (from 160), Runed Truesilver Rod (from 200) and Enchant Cloak - Greater Defense (from 205), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3.
   level 20
   train Enchanting Expert
   learn 13628
 
 step Enchant Bracer - Lesser Stamina to 160
-  tip Enchant Bracer - Lesser Stamina is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 Soul Dust. One Soul Dust a craft (level 21-30 greens). Make the Runed Golden Rod now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Greater Astral Essence (1 for 150-225): Enchanting: disenchant green items of item level 16-25; or the Auction House. Soul Dust (71 for 150-225): Enchanting: disenchant green items of item level 21-30; or the Auction House. Golden Rod (1 for 150-225): Blacksmithing: Golden Rod; or the Auction House. Enchant any item for that slot in your bags, even a grey one.
+  tip Enchant Bracer - Lesser Stamina is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 Soul Dust. One Soul Dust a craft (level 21-30 greens). Make the Runed Golden Rod now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one.
   craft 13628 x1 -- a tool: keep it in your bags
   craft 13501 until 160
 
@@ -169,7 +240,7 @@ step Enchanting recipes at 205
   learn 13746
 
 step Enchant Cloak - Greater Defense to 225
-  tip Enchant Cloak - Greater Defense is orange at 205 (yellow 225, green 245, grey 265): about 20 crafts to 225, a point every craft. Each takes 1 Vision Dust. One Vision Dust a craft (level 31-40 greens). Make the Runed Truesilver Rod first: the recipe needs it in your bags, so keep it there. Black Pearl (1 for 150-225): Black Pearl is a rare drop (no mob gives it one time in 50): buy it at the Auction House, or keep the ones you find. Greater Mystic Essence (1 for 150-225): Enchanting: disenchant green items of item level 26-35; or the Auction House. Vision Dust (21 for 150-225): Enchanting: disenchant green items of item level 31-40; or the Auction House. Truesilver Rod (1 for 150-225): Blacksmithing: Truesilver Rod; or the Auction House. Enchant any item for that slot in your bags, even a grey one. Enchanting 225 is a Legacy System milestone.
+  tip Enchant Cloak - Greater Defense is orange at 205 (yellow 225, green 245, grey 265): about 20 crafts to 225, a point every craft. Each takes 1 Vision Dust. One Vision Dust a craft (level 31-40 greens). Make the Runed Truesilver Rod first: the recipe needs it in your bags, so keep it there. Black Pearl (1 for 150-225): Black Pearl is a rare drop (no mob gives it one time in 50): buy it at the Auction House, or keep the ones you find. Enchant any item for that slot in your bags, even a grey one. Enchanting 225 is a Legacy System milestone.
   craft 13702 x1 -- a tool: keep it in your bags
   craft 13746 until 225
   skill Enchanting 225
@@ -195,25 +266,39 @@ step Formula: Enchant Shield - Greater Stamina
   tip Formula: Enchant Shield - Greater Stamina teaches Enchant Shield - Greater Stamina (Enchanting 265) for 1g 20s. Sold by Alliance: Mythrin'dir (Darnassus), limited stock; Horde: Daniel Bartlett (Undercity), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it.
   buy 16217 nearest
 
+step Enchanting 225-300: Auction House
+  tip What 225-300 takes that the Auction House sells: 34 Purple Lotus, 39 Vision Dust and 208 Dream Dust. The counts drop by what your bags, bank and mail hold.
+  auction 8831 x34
+  auction 11137 x39
+  auction 11176 x208
+
 step Purple Lotus (Alliance)
   only Alliance
   zone The Hinterlands
-  tip 34 Purple Lotus for Lesser Mana Oil: Herbalism: Purple Lotus (skill 210) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55); or the Auction House. The densest patch of Purple Lotus in The Hinterlands is marked.
-  collect 8831 x34 @66.3,71.6 era
+  tip 34 Purple Lotus for Lesser Mana Oil: Herbalism: Purple Lotus (skill 210) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55). The densest patch of Purple Lotus in The Hinterlands is marked.
+  collect 8831 x34 @66.3,71.6 era gather Herbalism 210
 
 step Purple Lotus (Horde)
   only Horde
   zone Feralas
-  tip 34 Purple Lotus for Lesser Mana Oil: Herbalism: Purple Lotus (skill 210) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55); or the Auction House. The densest patch of Purple Lotus in Feralas is marked.
-  collect 8831 x34 @56.7,68.9 era
+  tip 34 Purple Lotus for Lesser Mana Oil: Herbalism: Purple Lotus (skill 210) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55). The densest patch of Purple Lotus in Feralas is marked.
+  collect 8831 x34 @56.7,68.9 era gather Herbalism 210
+
+step Vision Dust
+  zone Azeroth
+  tip 39 Vision Dust for Enchant Gloves - Agility: Enchanting: disenchant green items of item level 31-40.
+  collect 11137 x39 anywhere gather Enchanting 1
+
+step Dream Dust
+  tip 208 Dream Dust for Lesser Mana Oil and Enchant Shield - Greater Stamina: Enchanting: disenchant green items of item level 41-50.
+  collect 11176 x208 anywhere gather Enchanting 1
 
 step Enchant Gloves - Agility to 253
-  zone Azeroth
-  tip Enchant Gloves - Agility is orange at 225 (yellow 230, green 250, grey 270): about 39 crafts to 253. Each takes 1 Vision Dust. Annora teaches it with Artisan: learn it on that visit. Vision Dust again; bring about 40. Vision Dust (39 for 225-300): Enchanting: disenchant green items of item level 31-40; or the Auction House. Enchant any item for that slot in your bags, even a grey one.
+  tip Enchant Gloves - Agility is orange at 225 (yellow 230, green 250, grey 270): about 39 crafts to 253. Each takes 1 Vision Dust. Annora teaches it with Artisan: learn it on that visit. Vision Dust again; bring about 40. Enchant any item for that slot in your bags, even a grey one.
   craft 13815 until 253
 
 step Lesser Mana Oil to 275
-  tip Lesser Mana Oil is orange at 253 (yellow 260, green 270, grey 280): about 34 crafts to 275. Each takes 1 Dream Dust, 1 Purple Lotus and 1 Crystal Vial. One Dream Dust (level 41-50 greens) and one Purple Lotus (herbalists) a craft; the oil sells well. Kania sells the formula at the inn of Cenarion Hold (Silithus): fly there, the mobs around it are level 55 and up. Dream Dust (208 for 225-300): Enchanting: disenchant green items of item level 41-50; or the Auction House.
+  tip Lesser Mana Oil is orange at 253 (yellow 260, green 270, grey 280): about 34 crafts to 275. Each takes 1 Dream Dust, 1 Purple Lotus and 1 Crystal Vial. One Dream Dust (level 41-50 greens) and one Purple Lotus (herbalists) a craft; the oil sells well. Kania sells the formula at the inn of Cenarion Hold (Silithus): fly there, the mobs around it are level 55 and up.
   learn 25127 -- from the recipe in your bags
   craft 25127 until 275
 
