@@ -16687,6 +16687,206 @@
 			],
 			"reason": "High Chief Winterfall (59, elite) stays in the cave at the back of Winterfall Village and the step's tip says to stay out of it; the quest's Shaman, Den Watchers and Ursa (55-58) hold the village, at or under the 59 player",
 			"evidence": "route level 58.9 (integrated Alliance route, rested level model); High Chief Winterfall 59-59, Xandivious 62-62; recordings (2026-11-15): done by 1 (median 55.47), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/40-50/shendralas.guide@Alliance|kill 96018.2|elite",
+			"guide": "forever/40-50/shendralas.guide@Alliance",
+			"goal": "kill 96018.2",
+			"kind": "elite",
+			"title": "The western pylon: repair it",
+			"level": 46.2,
+			"mobs": [
+				"Magram Necrokhan 45-45 x4",
+				"Corpsefeeder 45-45 x3"
+			],
+			"reason": "the step's Careful tip names the Magram Necrokhans and Corpsefeeders (45, elites) of the Valley of Bones' edge and says to pull the Decrepit Pylon Protectors away from them; they are under the 46.2 player (the same flag as the earlier `use 96018.2` row, the goal now a kill)",
+			"evidence": "route level 46.2 (Alliance route after fix round 1, rested level model); Magram Necrokhan 45-45 x4, Corpsefeeder 45-45 x3; recordings (2026-11-15): done by 10 (median 44.51), deaths 4, abandons 0"
+		},
+		{
+			"key": "forever/40-50/shendralas.guide@Alliance|kill 96018.3|elite",
+			"guide": "forever/40-50/shendralas.guide@Alliance",
+			"goal": "kill 96018.3",
+			"kind": "elite",
+			"title": "Bristleback Retreat: repair the eastern pylon",
+			"level": 46.2,
+			"mobs": [
+				"Corpsefeeder 45-45 x2",
+				"Magram Necrokhan 45-45"
+			],
+			"reason": "the step's tip names the Corpsefeeder (45, elite) on the road and Kog'thug's guards, and says to come in from the west; the elites are under the 46.2 player",
+			"evidence": "route level 46.2 (Alliance route after fix round 1, rested level model); Corpsefeeder 45-45 x2, Magram Necrokhan 45-45; recordings (2026-11-15): done by 10 (median 44.52), deaths 3, abandons 0"
+		},
+		{
+			"key": "forever/alliance/40-50/01-stranglethorn-vale.guide|collect 98233.1|over",
+			"guide": "forever/alliance/40-50/01-stranglethorn-vale.guide",
+			"goal": "collect 98233.1",
+			"kind": "over",
+			"title": "Corrosive Swamp Oozes",
+			"level": 39.6,
+			"mobs": [
+				"Elder Daggermaw 48-49 x6"
+			],
+			"reason": "Elder Daggermaw (272384, 48-49) has 24 spawns in the data around 46-49,55-60 but no player has ever met one: 0 kills and 0 deaths by it in 7,917 sessions, while 21 people's positions crossed that ground; the oozes themselves are 38-40",
+			"evidence": "route level 39.6 (Alliance route after fix round 1, rested level model); Elder Daggermaw 48-49 x6; recordings (2026-11-15): done by 3 (median 40.28), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/alliance/40-50/01-stranglethorn-vale.guide|collect 97047.1|elite",
+			"guide": "forever/alliance/40-50/01-stranglethorn-vale.guide",
+			"goal": "collect 97047.1",
+			"kind": "elite",
+			"title": "Kurzen's Compound",
+			"level": 40.8,
+			"mobs": [
+				"Colonel Kurzen 39-40"
+			],
+			"reason": "the same flag as the 30-40/04b row before fix round 1 moved The Cook in the Cage's work here: Colonel Kurzen (39-40, elite) stands at the compound's north end and the step's Careful tip says to take the key from the Subchiefs further south and leave him be; he is under the 40.8 player",
+			"evidence": "route level 40.8 (Alliance route after fix round 1, rested level model); Colonel Kurzen 39-40; recordings (2026-11-15): done by 32 (median 36.89), deaths 2, abandons 6"
+		},
+		{
+			"key": "forever/alliance/40-50/05-the-hinterlands.guide|collect 86616.1|elite",
+			"guide": "forever/alliance/40-50/05-the-hinterlands.guide",
+			"goal": "collect 86616.1",
+			"kind": "elite",
+			"title": "Vilebranch Soothsayers",
+			"level": 47.9,
+			"mobs": [
+				"Morta'gya the Keeper 50-50",
+				"Qiaga the Keeper 50-50"
+			],
+			"reason": "Qiaga the Keeper and Morta'gya the Keeper (50, elites) stand at the altar's south-east side; the goal points at the Soothsayers' western spawns (45.3,66.7) and the step's Careful tip names both and says to stay off the altar (fix round 1 danger review)",
+			"evidence": "route level 47.9 (Alliance route after fix round 1, rested level model); Morta'gya the Keeper 50-50, Qiaga the Keeper 50-50; recordings (2026-11-15): done by 4 (median 48.15), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|kill 3823.2|pack",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "kill 3823.2",
+			"kind": "pack",
+			"title": "Dreadmaul Rock",
+			"level": 52,
+			"mobs": [
+				"7 spawns 54+"
+			],
+			"reason": "the 54+ spawns are the rare ogres Gorgon'och and Hahk'Zor (54) around Dreadmaul Rock (the step's rare rows say the same); the recorded deaths at the rock (3, Horde) were to Firegut Brutes and Ogres (50-52), at or under the player after the step's Level 52 top-up",
+			"evidence": "route level 52 (Alliance route after fix round 1, rested level model); 7 spawns 54+; recordings (2026-11-15): done by 2 (median 53.55), deaths 2, abandons 2"
+		},
+		{
+			"key": "forever/alliance/50-60/06-silithus.guide|kill 8281.1|elite",
+			"guide": "forever/alliance/50-60/06-silithus.guide",
+			"goal": "kill 8281.1",
+			"kind": "elite",
+			"title": "Silithus: kill these as you meet them",
+			"level": 58.4,
+			"mobs": [
+				"Xil'xix 62-62"
+			],
+			"reason": "the same flag as the Western Plaguelands guide's row before fix round 1 moved the Dredge Crushers here: a kill-as-you-meet-them step, the player picks which mobs to fight; Xil'xix (62, elite) has one spawn at 49.1,56.0, away from the Crushers' sands west of the hold",
+			"evidence": "route level 58.4 (Alliance route after fix round 1, rested level model); Xil'xix 62-62; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|kill 95318.1|elite",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "kill 95318.1",
+			"kind": "elite",
+			"title": "The Ashen camp",
+			"level": 58,
+			"mobs": [
+				"Awakened Fel Ash Slime 58-58"
+			],
+			"reason": "the step's Careful tip names the Awakened Fel Ash Slimes (58, elites) and says to pull the Acolytes away from them; they are at the player's level",
+			"evidence": "route level 58 (Alliance route after fix round 1, rested level model, Mount Hyjal option); Awakened Fel Ash Slime 58-58; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|collect 95317.1|elite",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "collect 95317.1",
+			"kind": "elite",
+			"title": "The Ashen camp",
+			"level": 58,
+			"mobs": [
+				"Awakened Fel Ash Slime 58-58"
+			],
+			"reason": "see the kill 95318.1 row: the same step and tip",
+			"evidence": "route level 58 (Alliance route after fix round 1, rested level model, Mount Hyjal option); Awakened Fel Ash Slime 58-58; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|collect 95378.3|elite",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "collect 95378.3",
+			"kind": "elite",
+			"title": "The warlocks",
+			"level": 58.2,
+			"mobs": [
+				"Awakened Fel Ash Slime 58-58"
+			],
+			"reason": "the step's Careful tip names the Awakened Fel Ash Slimes (58, elites) and says to keep clear of them; they are at the player's level",
+			"evidence": "route level 58.2 (Alliance route after fix round 1, rested level model, Mount Hyjal option); Awakened Fel Ash Slime 58-58; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|kill 93617.1|elite",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "kill 93617.1",
+			"kind": "elite",
+			"title": "Predatory stags",
+			"level": 58.9,
+			"mobs": [
+				"Spectral Frostwyrm 61-61 x4"
+			],
+			"reason": "the Spectral Frostwyrms (61, elites) fly over the western meadows; the step's Careful tip says to keep out from under them, and the stags roam the meadows east of Kala'th",
+			"evidence": "route level 58.9 (Alliance route after fix round 1, rested level model, Mount Hyjal option); Spectral Frostwyrm 61-61 x4; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|collect 92317.1|elite",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "collect 92317.1",
+			"kind": "elite",
+			"title": "Bones and stolen life",
+			"level": 58.9,
+			"mobs": [
+				"Spectral Frostwyrm 61-61 x3"
+			],
+			"reason": "the step's Careful tip names the Death Wailers and the Spectral Frostwyrms (61, elites) circling over the meadows and says to keep out from under them; the drop comes from the Fleshflay Raveners",
+			"evidence": "route level 58.9 (Alliance route after fix round 1, rested level model, Mount Hyjal option); Spectral Frostwyrm 61-61 x3; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|kill 93826.1|elite",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "kill 93826.1",
+			"kind": "elite",
+			"title": "The Deadwood camps",
+			"level": 59.1,
+			"mobs": [
+				"Head Scratcher 60-60 x5"
+			],
+			"reason": "the step's tip names Head Scratcher (60, elite) at the camps' eastern end (as the 93826.2 row)",
+			"evidence": "route level 59.1 (Alliance route after fix round 1, rested level model, Mount Hyjal option); Head Scratcher 60-60 x5; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|complete 92593|elite",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "complete 92593",
+			"kind": "elite",
+			"title": "Dae'gun",
+			"level": 59.2,
+			"mobs": [
+				"Doomguard 58-59"
+			],
+			"reason": "the step's Careful tips name the Doomguards (58-59, elites), Doomguard Xarkul and the Legion Hulks and say to pull the hounds and sentinels away from them; the Doomguards are at the player's level",
+			"evidence": "route level 59.2 (Alliance route after fix round 1, rested level model, Mount Hyjal option); Doomguard 58-59; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|collect 93407.1|elite",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "collect 93407.1",
+			"kind": "elite",
+			"title": "The Blackthorne camps",
+			"level": 59.5,
+			"mobs": [
+				"Blackthorne Priest 60-60",
+				"Blackthorne Courier 60-60",
+				"Jereman 60-60"
+			],
+			"reason": "a group-choice step (`when group 93584`): its tip names the elite Outrunners, Priests, the Courier, Ve'han Talongrasp and Ghansurok",
+			"evidence": "route level 59.5 (Alliance route after fix round 1, rested level model, Mount Hyjal option); Blackthorne Priest 60-60, Blackthorne Courier 60-60, Jereman 60-60; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
 		}
 	]
 }

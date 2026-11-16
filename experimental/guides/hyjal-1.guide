@@ -643,7 +643,7 @@ step Marrosis
 step Bones and stolen life
   when onquest 96957
   tip The sun-bleached bones lie all over Mourning's Rest; the Fleshflay Raveners there carry the drop of stolen life.
-  tip Careful: Death Wailers (61, rare elites) drift over Mourning's Rest: keep out of their way.
+  tip Careful: Death Wailers (61, rare elites) drift over Mourning's Rest: keep out of their way. Spectral Frostwyrms (61, elites) circle over the meadows around it: keep out from under them.
   collect 275927 x20 quest 96957.1 @25.4,53.5  -- Sun-Bleached Bone
   collect 272973 quest 92317.1          -- Drop of Stolen Life
 

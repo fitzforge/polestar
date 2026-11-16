@@ -11875,12 +11875,29 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "The Vilebranch Soothsayers (46-47) walk the ground around the foot of the Altar of Zul: their totems are for Maret Firetend. Leave the elites on the top platform alone.",
+			"tip": "The Vilebranch Soothsayers (46-47) walk the ground around the foot of the Altar of Zul: their totems are for Maret Firetend.",
 			"note": "40-50/04-05 (fix round 1, 0.4.0): Repurposed Totems (86616, 4,400 XP) from Farseer Maret Firetend by Aerie Peak; the totems from the Vilebranch Soothsayers around the Altar of Zul, which 40-50/05 visits for The Altar of Zul. Players' recordings tick it at 46-49,64-69.",
 			"source": [
 				{
 					"kind": "recording",
 					"ref": "quest 86616 objective ticks at Hinterlands 46-49,64-69 (4 people accepted, 2 handed in)"
+				}
+			]
+		},
+		{
+			"id": "hinterlands-altar-keepers-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 86616,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Qiaga the Keeper and Morta'gya the Keeper (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar.",
+			"note": "40-50/05 (fix round 1, 0.4.0, danger review): the goal points at the Vilebranch Soothsayers' western spawns (45.3,66.7); Qiaga the Keeper and Morta'gya the Keeper (50, elites; spawns 48.6-48.8,68.2-68.4) killed players at 44.1,64.5 and 48.0,66.2 (players' recordings, levels 43-46), where the route has about 47.9.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "deaths at Hinterlands 44.09,64.52 (killer 7996 Qiaga the Keeper) and 47.98,66.2 (killer 8636 Morta'gya the Keeper)"
 				}
 			]
 		},
