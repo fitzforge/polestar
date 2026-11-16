@@ -46,9 +46,8 @@ why Every Horde quest of the Drowned City in one run, lead-ins included.
 #   Sunken Hollow, at a mean of 21.61,27.65 and at levels 35 to 42
 #   (data/codex/entrances.json), and completed 95770 at 21.7-22.0,27.1-28.1,
 #   under the Vile Reef (forever-db corrections), so 21.8,27.6 serves both.
-#   They looted the four
-#   rubbings from four tablets (objects 642943-642946) and the idol from
-#   Deathless Marrow (data/codex/recorded.json).
+#   They looted the four rubbings from four tablets (objects 642943-642946)
+#   and the idol from Deathless Marrow (data/codex/recorded.json).
 # - The dungeon's size and levels: the client's group finder (five players,
 #   levels 35 to 42).
 # - Places outside: the client's world map areas (Ruins of Zul'Kunda for
