@@ -377,6 +377,17 @@ test(`${TIRISFAL}: yiliev0's report (#674): Gordo's report is searched for along
 	assert.ok(yards(at_(spots[spots.length - 1]), spawn) <= 30, 'and ends at his spawn');
 });
 
+// Hand-in sweep (2026-11-16, after Kerlonian's escort): A Void Path (98252) had the Eye of Kilrogg's flight to the
+// road only in the tip, so the window showed the hand-in alone. The step lists the objective before it.
+test(`${STONETALON}: A Void Path shows the Eye of Kilrogg's objective before its hand-in`, { skip }, () => {
+	const list = goals(STONETALON);
+	const accept = at(list, 'accept 98252', is('accept', 98252));
+	const work = at(list, 'complete 98252', is('complete', 98252));
+	const turnin = at(list, 'turnin 98252', is('turnin', 98252));
+	assert.ok(accept < work && work < turnin, 'accept, the objective, then the hand-in');
+	assert.equal(list[work].s, list[turnin].s, 'in the hand-in step');
+});
+
 test(`${STONETALON}: the Warsong update goals name the scouts who hand them over, from the data`, { skip }, () => {
 	const list = goals(STONETALON);
 	// The Warsong Reports (6543) is left out since the final route review (route-fixes skip); holds if a build takes it.
