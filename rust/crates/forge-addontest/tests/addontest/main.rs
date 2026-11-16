@@ -86,6 +86,8 @@ mod engine_catchup;
 mod engine_die;
 #[path = "engine-direct.rs"]
 mod engine_direct;
+#[path = "engine-direct-gated.rs"]
+mod engine_direct_gated;
 #[path = "engine-dungeon-route.rs"]
 mod engine_dungeon_route;
 #[path = "engine-dwell.rs"]

@@ -147,6 +147,7 @@ step Captured Arko'narin
 
 step Maybess Riverbreeze
   when available 5887
+  when has 11515 x6
   tip On the way back south to Greta, Maybess takes the shards on the west side of the Sanctuary.
   turnin 5887 direct -- Maybess Riverbreeze
 
@@ -267,6 +268,7 @@ step Beads for Salfa
   collect 21383 x5
 
 step Salfa
+  when has 21383 x5
   turnin 8469 direct
 
 # ---------------------------------------------------------------- Level 60
