@@ -13771,7 +13771,7 @@ do
 			pack = "guides",
 			title = "{zone:1451}, {zone:1448}, {zone:1452} & the Plaguelands",
 			faction = "Alliance",
-			minLevel = 57,
+			minLevel = 58,
 			maxLevel = 60,
 			category = "Leveling",
 			zone = 1451,
