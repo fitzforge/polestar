@@ -5581,14 +5581,26 @@
 			{
 				"a": [
 					"task",
-					188
+					195
 				],
 				"b": [
 					"turnin",
 					574
 				],
 				"faction": "Alliance",
-				"why": "Alliance 30-40/04b fix round 1 (0.4.0): Sin'Dall's hill lies about 180 yd from the first jungle-ruins tablet, so the loop goes Zul'Kunda, Sin'Dall and the Lashtails, Nesingwary's tents, then the Rebel Camp hand-ins and south to Booty Bay (about 2,240 yd) instead of Zul'Kunda, the Rebel Camp, back south-west to Sin'Dall and north to Nesingwary (about 2,700 yd)."
+				"why": "Alliance 30-40/04b fix round 1 (0.4.0): Sin'Dall's hill, where the Lashtail Raptors run, lies about 180 yd from the first jungle-ruins tablet, so the loop goes Zul'Kunda, the Lashtails, Nesingwary's tents, then the Rebel Camp hand-ins and south to Booty Bay (about 2,240 yd) instead of Zul'Kunda, the Rebel Camp, back south-west to the hill and north to Nesingwary (about 2,700 yd)."
+			},
+			{
+				"a": [
+					"task",
+					192
+				],
+				"b": [
+					"task",
+					188
+				],
+				"faction": "Alliance",
+				"why": "Alliance fix round 2 (0.4.0): Sin'Dall (37) is killed on 40-50/01-stranglethorn-vale's ride from the north-west coast to Nesingwary's camp at about 41, after the Shadowmaw Panthers, and handed to Ajeck there with Panther Mastery. On 30-40/04b players reach her hill at about 35.5 (level model without accept-time grinding; 3 recorded players, 4 deaths at the hill): two over them."
 			},
 			{
 				"a": [
@@ -14762,7 +14774,7 @@
 					188
 				],
 				"faction": "Alliance",
-				"why": "Alliance level tidy (0.4.0): Tiger Mastery's Sin'Dall (37) was hunted on Stranglethorn's first loop at about 34 (recorded 25th percentile 34.7, 8 players died on that coast). Ajeck gives it on that loop, when the elder tigers are handed in, and Sin'Dall's hill, just south-west of Nesingwary's camp, is hunted at the end of the second loop (30-40/04b) at about 36, after Desolace, the Rebel Camp and before the hunters' hand-ins.",
+				"why": "Alliance level tidy (0.4.0): Tiger Mastery's Sin'Dall (37) was hunted on Stranglethorn's first loop at about 34 (recorded 25th percentile 34.7, 8 players died on that coast). Ajeck gives it on that loop, when the elder tigers are handed in, and Sin'Dall's hill, just south-west of Nesingwary's camp, is hunted on 40-50/01-stranglethorn-vale's ride from the north-west coast to the camp at about 41 (fix round 2; at about 35.5 on 30-40/04b she was still two over).",
 				"source": "Alliance level tidy 2026-11-15"
 			},
 			{

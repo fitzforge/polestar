@@ -5933,7 +5933,7 @@
 				"goal": "accept"
 			},
 			"tip": "South along the road: the hunters' tents stand just west of it.",
-			"note": "Review (0.3.6, 30-40/04b): Nesingwary's camp is visited on the way in from the Rebel Camp. Since the 0.4.0 level tidy it gives Tiger Mastery (Sin'Dall, 188) and Raptor Mastery (Lashtails, 195) there, hunted on Sin'Dall's hill south-west of the camp after the Rebel Camp, at the end of the loop; Panther Mastery (192) moved to 40-50/01.",
+			"note": "Review (0.3.6, 30-40/04b): Nesingwary's camp is visited on the way in from the Rebel Camp. Since the 0.4.0 level tidy it gives Tiger Mastery (Sin'Dall, 188) and Raptor Mastery (Lashtails, 195) there; the Lashtails are hunted around Sin'Dall's hill south-west of the camp after the Rebel Camp, at the end of the loop, and Sin'Dall herself and Panther Mastery (192) on 40-50/01.",
 			"source": [
 				{
 					"kind": "pfquest",

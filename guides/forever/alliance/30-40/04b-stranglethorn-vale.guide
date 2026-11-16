@@ -5,16 +5,17 @@ faction Alliance
 levels 35-37
 zone Stranglethorn Vale
 next forever/alliance/30-40/05-arathi-highlands
-pitch For characters of 35 to 37, but several quests here are level 37-38: on purpose, for their experience. Sin'Dall is 37 and the water elementals 36-37: pull them one at a time.
+pitch For characters of 35 to 37, but several quests here are level 37-38: on purpose, for their experience. The water elementals are 36-37: pull them one at a time.
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Since 2026-11-07 Stranglethorn's second loop, after Desolace (the first loop is 30-40/04, which takes its Booty Bay
 # quests). In from Duskwood at the north, down through the jungle, out at Booty Bay.
-# Level tidy (0.4.0): Sin'Dall (Tiger Mastery, 188) and the Lashtail Raptors (Raptor Mastery, 195) are hunted here at about
-# 36 instead of on the first loop at 33-34, where Ajeck and Hemet give them (Nesingwary's camp on the way in takes them for
-# whoever didn't). Panther Mastery's Shadowmaw Panthers (192, 37-38) and Troll Witchery's Skullsplitter trolls (205, 39-42)
+# Level tidy (0.4.0): the Lashtail Raptors (Raptor Mastery, 195) are hunted here at about 36 instead of on the first loop at
+# 33-34, where Hemet gives it (Nesingwary's camp on the way in takes it for whoever didn't). Sin'Dall (Tiger Mastery, 188,
+# level 37) waits for 40-50/01-stranglethorn-vale at about 41 (fix round 2: players reach this hill at about 35.5).
+# Panther Mastery's Shadowmaw Panthers (192, 37-38) and Troll Witchery's Skullsplitter trolls (205, 39-42)
 # are three and four levels over players here: 40-50/01-stranglethorn-vale works both at about 41. Brother Nimetz gives
 # Troll Witchery here, when Kurzen's Mystery is handed in, and it is carried to that guide. Wendel Mathers'
 # Cook in the Cage (97047) is taken at his cage here and worked on 40-50/01's Rebel Camp stop at about 41: its key drops
@@ -48,8 +49,8 @@ step Rebel Camp
 
 step Nesingwary's Expedition
   tip South along the road: the hunters' tents stand just west of it. Ajeck and Hemet gave you these on the first loop: take them now only if you didn't.
-  accept 188                          -- Ajeck Rouack, if 30-40/04 didn't give it: Sin'Dall, after the jungle ruins
-  accept 195                          -- Hemet Nesingwary, if 30-40/04 didn't give it: the Lashtail Raptors, with Sin'Dall
+  accept 188                          -- Ajeck Rouack, if 30-40/04 didn't give it: Sin'Dall, in the 40-50 Stranglethorn guide
+  accept 195                          -- Hemet Nesingwary, if 30-40/04 didn't give it: the Lashtail Raptors, after the jungle ruins
 
 step Bookie Herod
   when onquest 200
@@ -98,10 +99,9 @@ step The Ruins of Zul'Kunda
   complete 341 optional               -- Chapter III
   complete 342 optional               -- Chapter IV
 
-step Sin'Dall and the Lashtail raptors
-  tip East from the ruins to the hilltop south-west of Nesingwary's camp: Sin'Dall, the great tiger (37), lairs there, and the Lashtail Raptors run in the jungle around it. Then on to the hunters' tents.
+step The Lashtail raptors
+  tip East from the ruins to the hilltop south-west of Nesingwary's camp: the Lashtail Raptors run in the jungle around it. Leave Sin'Dall, the great tiger (37) on the hilltop, to the 40-50 Stranglethorn guide: you're about 35 here. Then on to the hunters' tents.
   kill 686 quest 195                  -- Lashtail Raptor
-  collect 3879 quest 188              -- Paw of Sin'Dall
 
 step Nesingwary's Expedition
   turnin 339 optional                 -- Barnil Stonepot
@@ -111,7 +111,6 @@ step Nesingwary's Expedition
   turnin 338 optional
   turnin 195                          -- Hemet Nesingwary
   accept 196                          -- Hemet Nesingwary: the Jungle Stalkers come in 40-50
-  turnin 188                          -- Ajeck Rouack
 
 step Rebel Camp
   tip North-east up the road to the Rebel Camp, then back south through the jungle.

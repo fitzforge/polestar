@@ -13725,7 +13725,9 @@ test('Alliance level tidy 30-40: no solo quest sends players at mobs two levels 
 	for (const q of [188, 195]) {
 		assert.ok(!stv.some(({ goal }) => goal.quest === q && !['accept', 'turnin'].includes(goal.t)), `04: ${q} not worked at 34`);
 		assert.ok(stv.some(({ goal }) => is('accept', q)(goal)), `04: ${q} taken where its giver hands in the elder tigers and raptors`);
-		assert.ok(at(stv2, `accept ${q}`, is('accept', q)) < at(stv2, `turnin ${q}`, is('turnin', q)), `04b: ${q} taken and handed in`);
+		// Fix round 2 (0.4.0): Sin'Dall (188, 37) is worked on 40-50/01 at about 41 (players reach 04b's hill at about 35.5).
+		if (q === 195) assert.ok(at(stv2, `accept ${q}`, is('accept', q)) < at(stv2, `turnin ${q}`, is('turnin', q)), `04b: ${q} taken and handed in`);
+		else assert.ok(!stv2.some(({ goal }) => goal.quest === q && goal.t !== 'accept'), `04b: ${q} not worked at 35`);
 	}
 	const level = stv.filter(({ goal }) => goal.t === 'level').at(-1).goal;
 	assert.notEqual(level.npc, 1085, '04: the top-up to 34 is not on the elder tigers (34-35)');
@@ -13733,7 +13735,7 @@ test('Alliance level tidy 30-40: no solo quest sends players at mobs two levels 
 	assert.ok(stv.some(({ goal }) => is('accept', 192)(goal)), '04: Erlgadin gives Panther Mastery on the Panthers hand-in');
 	assert.equal(stv2[at(stv2, 'accept 205', is('accept', 205))].s, stv2[at(stv2, 'turnin 207', is('turnin', 207))].s, '04b: Nimetz gives Troll Witchery on the Kurzen hand-in');
 	const jungle = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
-	for (const [q, giver] of [[192, 196], [205, 622]]) {
+	for (const [q, giver] of [[192, 196], [205, 622], [188, 196]]) {
 		const work = jungle.findIndex(({ goal }) => goal.quest === q && ['kill', 'collect'].includes(goal.t));
 		assert.ok(work >= 0 && work < at(jungle, `turnin ${q}`, is('turnin', q)), `40-50/01: ${q} worked before its hand-in`);
 		assert.ok(Math.abs(jungle[at(jungle, `turnin ${q}`, is('turnin', q))].s - jungle[at(jungle, `turnin ${giver}`, is('turnin', giver))].s) <= 1, `40-50/01: ${q} handed in with ${giver}, on the ride north`);
