@@ -3276,7 +3276,11 @@ holds at its opening, see "Not yet available"):
   quest taken in another guide is no sign of where the player is in this
   one (Fitz, 0.3.6: Tincho at 28.7, carrying Dangerous! from the 22-24
   Hillsbrad visit, was put past Orgrimmar, training and the Undercity in
-  Hillsbrad 29-32, at every load). And a soft step behind it passes only
+  Hillsbrad 29-32, at every load), nor on a quest an earlier release's route
+  offered in another leveling guide (`ns.LegacyMovedIn` in LegacySteps.lua,
+  resident, from `tools/legacy-steps.js`: 0.4.0 offers Dangerous! on Hillsbrad
+  30-40's first Tarren Mill stop, and Tincho's old-route progress put him there
+  again). And a soft step behind it passes only
   when the quest work it leads to (the next quest goal for the character
   after it they can do, not waiting for a level or a prerequisite) is done or
   under way, or left out by the catch-up (`leadsToDone`): progress on a quest

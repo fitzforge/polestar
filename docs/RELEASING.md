@@ -208,7 +208,9 @@ version throughout.
    `node tools/legacy-steps.js --old <dir>/v0.3.4/guides ... --old
    <dir>/<last release>/guides`, and commit it. The mapping above reads a
    save's changed steps from it: a step it does not list keeps no check-off,
-   skip or saved view, and nothing in its stretch passes behind the player.
+   skip or saved view, and nothing in its stretch passes behind the player;
+   its `ns.LegacyMovedIn` (the quests each guide now offers that a release
+   offered in another guide) keeps old-route progress from placing a player.
    0.3.7.2 changed 23 guide files without a new one, and 0.4.0's had no
    0.3.7.x in it (#2350).
 

@@ -14,6 +14,14 @@
 //   node tools/legacy-steps.js --old /tmp/v034/guides --old /tmp/v035/guides
 //
 // Needs reference data (data/forever, or --data). Writes nothing else.
+//
+// It also writes ns.LegacyMovedIn, kept resident: per guide, the quests it
+// offers now that an earlier release's route offered in another leveling
+// guide of its faction, not in this one. A character who played that route
+// may have done them before ever reaching this guide, so the Engine's
+// placement does not take their progress as a sign of where the player is in
+// it (anchorStep; Tincho, a 0.3.x Horde Warrior at 28.7 carrying Dangerous!
+// into 0.4.0's Hillsbrad 30-40, which now offers it at Tarren Mill).
 
 const fs = require('node:fs');
 const path = require('node:path');
@@ -92,18 +100,26 @@ function optionality(g) {
 	return { opt, req };
 }
 
+const accepts = (g) => new Set(g.steps.flatMap((st) => st.goals.filter((goal) => goal.t === 'accept' && goal.quest != null).map((goal) => goal.quest)));
 const now = new Map();
 const nowReq = new Map();
+const offersNow = new Map(); // id -> { faction, quests }
 for (const g of leveling(current)) {
 	now.set(g.id, new Set(g.steps.map(part)));
 	nowReq.set(g.id, optionality(g).req);
+	offersNow.set(g.id, { faction: g.faction, quests: accepts(g) });
 }
 const legacy = new Map(); // id -> Map(hash -> part)
 // id -> the quest goals an earlier release had as optional only that block now:
 // a player could have passed them, so an update must not send them back there.
 const required = new Map();
+// id -> the quests it offers now that an earlier release offered in another
+// leveling guide of the faction and not in it.
+const movedIn = new Map();
 for (const dir of olds) {
-	for (const g of leveling(dir)) {
+	const gs = leveling(dir);
+	const offeredThen = new Map(gs.map((g) => [g.id, accepts(g)]));
+	for (const g of gs) {
 		const keep = now.get(g.id);
 		if (!keep) continue;
 		const m = legacy.get(g.id) || legacy.set(g.id, new Map()).get(g.id);
@@ -113,6 +129,15 @@ for (const dir of olds) {
 		}
 		const r = required.get(g.id) || required.set(g.id, new Set()).get(g.id);
 		for (const x of optionality(g).opt) if (nowReq.get(g.id).has(x)) r.add(x);
+	}
+	for (const [id, { faction, quests }] of offersNow) {
+		const own = offeredThen.get(id) || new Set();
+		for (const g of gs) {
+			if (g.id === id || g.faction !== faction) continue;
+			for (const q of accepts(g)) {
+				if (quests.has(q) && !own.has(q)) (movedIn.get(id) || movedIn.set(id, new Set()).get(id)).add(q);
+			}
+		}
 	}
 }
 
@@ -143,5 +168,18 @@ for (const id of [...new Set([...legacy.keys(), ...required.keys()])].sort()) {
 	lines.push('\t},');
 }
 lines.push('} end', '');
+lines.push(
+	'-- Per guide, the quests it offers that an earlier release\'s route offered in another leveling',
+	'-- guide of its faction, not in this one: their progress is no sign of the player\'s place in it',
+	'-- (the Engine\'s anchorStep). Kept resident: placement reads it at every load.',
+	'ns.LegacyMovedIn = {',
+);
+let moved = 0;
+for (const id of [...movedIn.keys()].sort()) {
+	const qs = [...movedIn.get(id)].sort((a, b) => a - b);
+	lines.push(`\t[${lua(id)}] = ${lua(qs.join(','))},`);
+	moved += qs.length;
+}
+lines.push('}', '');
 fs.writeFileSync(out, lines.join('\n'));
-console.log(`wrote ${path.relative(process.cwd(), out)}: ${n} steps of ${legacy.size} guides`);
+console.log(`wrote ${path.relative(process.cwd(), out)}: ${n} steps of ${legacy.size} guides; ${moved} quests moved into ${movedIn.size} guides`);

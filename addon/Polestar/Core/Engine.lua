@@ -4141,6 +4141,21 @@ function Own.nextStepDone(s)
 	return false
 end
 
+-- The quests guide `id` offers that an earlier release's route offered in
+-- another leveling guide of its faction, not in this one (ns.LegacyMovedIn,
+-- tools/legacy-steps.js), as a set, built once per guide. A character who
+-- played that route may have done them before ever reaching this guide.
+Own.movedInSets = {}
+function Own.movedIn(id)
+	local set = Own.movedInSets[id]
+	if set then return set end
+	set = {}
+	local list = ns.LegacyMovedIn and ns.LegacyMovedIn[id]
+	for q in ((type(list) == "string" and list or "") .. ","):gmatch("(%d+),") do set[tonumber(q)] = true end
+	Own.movedInSets[id] = set
+	return set
+end
+
 -- The last step with quest progress in the live quest log, or 0: a done quest
 -- goal, or an objective with some progress. The route has demonstrably got
 -- that far. Class and race steps and goals (`only`) and optional goals are no
@@ -4156,19 +4171,25 @@ local function anchorStep(added)
 	-- Warrior at 28.7 carrying Dangerous! (567) from the 22-24 Hillsbrad visit,
 	-- was put at Tarren Mill in Hillsbrad 29-32: that quest's done kills at the
 	-- Azurelode Mine (step 32) passed the flight to the Crossroads, Orgrimmar,
-	-- training and the Undercity, at every load.
+	-- training and the Undercity, at every load. Nor does a quest an earlier
+	-- release's route offered in another guide (Own.movedIn): 0.4.0 offers
+	-- Dangerous! and Lydon's 509 on Hillsbrad 30-40's first Tarren Mill stop,
+	-- so Tincho's old-route progress put him there again. A player who went
+	-- that way in this guide keeps its passed travel and training in the save
+	-- (CharState().manual), so a reload does not send them back.
 	local offered = {}
 	for s, step in ipairs(steps) do
 		for _, goal in ipairs(step.goals) do
 			if goal.t == "accept" and goal.quest and not offered[goal.quest] then offered[goal.quest] = s end
 		end
 	end
+	local moved = Own.movedIn(guide.id)
 	for s = #steps, 1, -1 do
 		local step = steps[s]
 		if not step.only then
 			for g, goal in ipairs(step.goals) do
 				if not goal.only and not goal.optional and isQuestGoal(goal) and goalApplies(goal)
-					and (goal.direct or (goal.quest and offered[goal.quest] and offered[goal.quest] <= s))
+					and (goal.direct or (goal.quest and offered[goal.quest] and offered[goal.quest] <= s and not moved[goal.quest]))
 					and not (added and Own.goalMoved(added, s, goal)) then
 					local done, cur = goalDone(s, g, goal)
 					if done or (goal.oi and (cur or 0) > 0) then return s end
