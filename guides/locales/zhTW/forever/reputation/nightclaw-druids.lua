@@ -94,12 +94,12 @@ return {
 
 	-- Step 14: Honored to Revered
 	["Honored to Revered"] = "尊敬到崇敬",
-	["Honored opens the chest and leg patterns (skill 60, 12s 50c): Skyforged chainmail and legguards, Gustwoven harness and trousers, Windraveled jerkin and pants, Stormsewn vest and leggings. Revered is 12000 more: 12 turn-ins (60 ears, about 160 cultist kills at the Shrine) up to level 18, 60 turn-ins (300 ears) from level 22."] = "尊敬開放胸甲和腿部圖樣（技能60，12銀50銅）：天鍛鎖甲與護腿、風織胸甲與長褲、風行之皮上衣與長褲、風暴縫製背心與護腿。崇敬還需12000：18級前12次交付（60只耳朵，在神殿約160個邪教徒擊殺），22級起60次交付（300只耳朵）。",
+	["Honored opens the chest and leg patterns (skill 60, 12s 50c): Skyforged chainmail and legguards, Gustwoven harness and trousers, Windraveled jerkin and pants, Stormsewn vest and leggings. Revered is 12000 more: 12 turn-ins (60 ears, about 160 cultist kills at the Shrine) up to level 18, 60 turn-ins (300 ears) from level 22."] = "尊敬開放胸甲和腿部圖樣（技能60，12銀50銅）：天鍛鎖甲與護腿、風織胸甲與長褲、風行之皮上衣與長褲、風暴縫製背心與護腿。崇敬還需12000：18級前12次交付（60隻耳朵，在神殿約160個邪教徒擊殺），22級起60次交付（300隻耳朵）。",
 
 	-- Step 15: Revered to Exalted
 	["Revered to Exalted"] = "崇敬到崇拜",
 	-- {item:280347} Shadowgale Squirrel
-	["Revered opens the {item:280347}, a companion pet, for 50s. Exalted is 21000 more: 21 turn-ins (105 ears, about 280 kills) up to level 18, 105 turn-ins (525 ears) from level 22."] = "崇敬開放{item:280347}，一隻小夥伴，售價50銀。崇拜還需21000：18級前21次交付（105只耳朵，約280殺），22級起105次交付（525只耳朵）。",
+	["Revered opens the {item:280347}, a companion pet, for 50s. Exalted is 21000 more: 21 turn-ins (105 ears, about 280 kills) up to level 18, 105 turn-ins (525 ears) from level 22."] = "崇敬開放{item:280347}，一隻小夥伴，售價50銀。崇拜還需21000：18級前21次交付（105隻耳朵，約280殺），22級起105次交付（525隻耳朵）。",
 	-- {item:280347} Shadowgale Squirrel
 	["{item:280347}, 50s"] = "{item:280347}，50銀",
 

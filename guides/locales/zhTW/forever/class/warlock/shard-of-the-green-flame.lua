@@ -13,7 +13,7 @@ return {
 	-- Step 1: Niby the Almighty
 	-- {npc:14469} Niby the Almighty · {npc:14470} Impsy · {zone:1448} Felwood · {area:1997} Bloodvenom Post · {area:1765} Bloodvenom Falls
 	-- plural, as words: Flawless Fel Essences = {quest:7602} Flawless Fel Essence
-	["At 50 {npc:14469} and his imp {npc:14470} wait on a rise in central {zone:1448} just north-east of {area:1997}: coming north over the {area:1765} bridge, they stand off the road to the east, past a few oozes. {npc:14469} sends you to {npc:14470}, beside him, who wants three Flawless Fel Essences from three places."] = "50級時，{npc:14469}和他的小鬼{npc:14470}在{zone:1448}中部、{area:1997}東北的一處高地上等候：從{area:1765}的橋向北走，他們位於道路東側、經過幾只泥漿怪之後。{npc:14469}會把你派給身旁的{npc:14470}，後者要你從三個地方帶回三份無瑕的惡魔精華。",
+	["At 50 {npc:14469} and his imp {npc:14470} wait on a rise in central {zone:1448} just north-east of {area:1997}: coming north over the {area:1765} bridge, they stand off the road to the east, past a few oozes. {npc:14469} sends you to {npc:14470}, beside him, who wants three Flawless Fel Essences from three places."] = "50級時，{npc:14469}和他的小鬼{npc:14470}在{zone:1448}中部、{area:1997}東北的一處高地上等候：從{area:1765}的橋向北走，他們位於道路東側、經過幾隻泥漿怪之後。{npc:14469}會把你派給身旁的{npc:14470}，後者要你從三個地方帶回三份無瑕的惡魔精華。",
 
 	-- Step 2: Azshara
 	-- {zone:1447} Azshara

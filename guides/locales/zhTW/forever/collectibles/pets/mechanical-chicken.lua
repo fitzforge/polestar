@@ -42,7 +42,7 @@ return {
 	["Rescue OOX-09/HL"] = "拯救OOX-09/HL",
 	-- {area:351} Skulk Rock
 	-- plural, as words: Marauding Owlbeasts = {npc:7808} Marauding Owlbeast · Vilebranch Ambushers = {npc:7809} Vilebranch Ambusher
-	["OOX-09/HL waits on the largest island of the lake west of {area:351}. Its escort to the shore beyond Overlook Cliff has two ambushes of three: Marauding Owlbeasts, then Vilebranch Ambushers; the robot warns you just before each."] = "OOX-09/HL在{area:351}以西湖中最大的島上等待。護送它到眺望崖對岸的岸邊會遭遇兩撥各三隻的伏擊：先是遊蕩的貓頭鷹獸，然後是邪枝伏擊者；每次伏擊前機器人都會警告你。",
+	["OOX-09/HL waits on the largest island of the lake west of {area:351}. Its escort to the shore beyond Overlook Cliff has two ambushes of three: Marauding Owlbeasts, then Vilebranch Ambushers; the robot warns you just before each."] = "OOX-09/HL在{area:351}以西湖中最大的島上等待。護送它到眺望崖另一側的岸邊會遭遇兩撥各三隻的伏擊：先是遊蕩的貓頭鷹獸，然後是邪枝伏擊者；每次伏擊前機器人都會警告你。",
 	["Escort OOX-09/HL"] = "護送OOX-09/HL",
 
 	-- Step 7: Oglethorpe Obnoticus in Booty Bay

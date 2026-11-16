@@ -245,7 +245,7 @@ return {
 	-- {quest:7819} Additional Runecloth
 	["{quest:7819} to Honored"] = "{quest:7819}到尊敬",
 	-- {quest:7819} Additional Runecloth · {item:14047} Runecloth
-	["{quest:7819}: 20 {item:14047} for 50 reputation, as often as you like. Friendly to Honored is 6,000: 120 hand-ins, 2,400 {item:14047}, less what the quests gave you (an Undead starts at Friendly 1,000: 100 hand-ins; every other race starts at Neutral 500 and first needs 50 hand-ins, 1,000 {item:14047}, to reach Friendly). Hand in every 20 you carry, one after another."] = "{quest:7819}：20塊{item:14047}換50點聲望，想交多少次都行。友善到尊敬是6000點：120次上繳、2400塊{item:14047}，還要減去任務給你的部分（亡靈從友善1000點起步：100次上繳；其他種族從中立500點起步，先要用50次上繳、1000塊{item:14047}衝到友善）。每攢夠20塊就連續上繳。",
+	["{quest:7819}: 20 {item:14047} for 50 reputation, as often as you like. Friendly to Honored is 6,000: 120 hand-ins, 2,400 {item:14047}, less what the quests gave you (an Undead starts at Friendly 1,000: 100 hand-ins; every other race starts at Neutral 500 and first needs 50 hand-ins, 1,000 {item:14047}, to reach Friendly). Hand in every 20 you carry, one after another."] = "{quest:7819}：20塊{item:14047}換50點聲望，想交多少次都行。友善到尊敬是6000點：120次上繳、2400塊{item:14047}，還要減去任務給你的部分（不死族從友善1000點起步：100次上繳；其他種族從中立500點起步，先要用50次上繳、1000塊{item:14047}衝到友善）。每攢夠20塊就連續上繳。",
 
 	-- Step 41: Additional Runecloth to Revered
 	-- {quest:7819} Additional Runecloth

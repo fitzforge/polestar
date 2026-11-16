@@ -322,7 +322,7 @@ return {
 
 	-- Step 57: Sentinel Hill
 	-- {area:108} Sentinel Hill · {npc:467} The Defias Traitor
-	["Back north up the road to {area:108}. {npc:467} waits at the foot of the tower ramp; if he is missing, someone is escorting him and he is back within minutes."] = "沿路往北迴到{area:108}。{npc:467}在塔樓斜坡腳下等著；如果他不在，就是有人正在護送他，幾分鐘內就會回來。",
+	["Back north up the road to {area:108}. {npc:467} waits at the foot of the tower ramp; if he is missing, someone is escorting him and he is back within minutes."] = "沿路往北回到{area:108}。{npc:467}在塔樓斜坡腳下等著；如果他不在，就是有人正在護送他，幾分鐘內就會回來。",
 
 	-- Step 58: The Defias Traitor
 	-- {area:20} Moonbrook
@@ -356,7 +356,7 @@ return {
 
 	-- Step 64: Sentinel Hill
 	-- {npc:234} Gryan Stoutmantle
-	["Back north to {npc:234} and the gryphons."] = "往北迴到{npc:234}和獅鷲那裡。",
+	["Back north to {npc:234} and the gryphons."] = "往北回到{npc:234}和獅鷲那裡。",
 
 	-- Step 65: Lakeshire
 	-- {npc:415} Verner Osgood · {npc:344} Magistrate Solomon

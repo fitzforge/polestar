@@ -89,7 +89,7 @@ return {
 
 	-- Step 15: Ameth'Aran
 	-- {area:447} Ameth'Aran
-	["Back north to {area:447}: the flame burns in the south of the ruins."] = "往北迴到{area:447}：火焰在廢墟南部燃燒。",
+	["Back north to {area:447}: the flame burns in the south of the ruins."] = "往北回到{area:447}：火焰在廢墟南部燃燒。",
 
 	-- Step 16: The red crystal
 	["Back north-east into the mountains to the crystal."] = "向東北回到山中的水晶那裡。",

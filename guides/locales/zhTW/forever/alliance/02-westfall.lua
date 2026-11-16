@@ -255,7 +255,7 @@ return {
 	["{area:20}: kill these as you meet them"] = "{area:20}：遇到就殺",
 	-- {area:108} Sentinel Hill · {area:20} Moonbrook · {object:1166} Alexston's Chest · {area:219} Alexston Farmstead · {npc:1646} Baros Alexston · {area:113} Gold Coast Quarry
 	-- plural, as words: Defias Pillagers = {npc:589} Defias Pillager
-	["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}. {object:1166} stands in the farmhouse at the {area:219}, among them: {npc:1646}' compass is inside.\nCareful: The {area:113} cave holds many Defias packed together, so it is easy to pull several at once there."] = "迪菲亞掠奪者和搶劫者佔據{area:108}以西的農場，位於海岸道路和{area:20}之間。{object:1166}立在{area:219}的農舍裡，就混在他們當中：{npc:1646}的指南針在裡面。\n小心：{area:113}的洞穴裡擠滿了迪菲亞，在那裡很容易一次拉來好幾只。",
+	["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}. {object:1166} stands in the farmhouse at the {area:219}, among them: {npc:1646}' compass is inside.\nCareful: The {area:113} cave holds many Defias packed together, so it is easy to pull several at once there."] = "迪菲亞掠奪者和搶劫者佔據{area:108}以西的農場，位於海岸道路和{area:20}之間。{object:1166}立在{area:219}的農舍裡，就混在他們當中：{npc:1646}的指南針在裡面。\n小心：{area:113}的洞穴裡擠滿了迪菲亞，在那裡很容易一次拉來好幾隻。",
 	-- {item:2998} A Simple Compass · {object:1166} Alexston's Chest
 	["{item:2998}, from {object:1166}"] = "{item:2998}，來自{object:1166}",
 

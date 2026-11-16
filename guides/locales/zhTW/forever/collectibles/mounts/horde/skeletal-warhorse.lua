@@ -13,7 +13,7 @@ return {
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "中級{skill:762}",
 	-- {npc:4773} Velma Warnam · {npc:4731} Zachariah Post · {area:159} Brill · {zone:1420} Tirisfal Glades · {skill:762} Riding · {faction:68} Undercity
-	["{npc:4773} and {npc:4731}'s stable are in {area:159}, {zone:1420}. At 60 {npc:4773} teaches Journeyman {skill:762} to Undead for 1,000g (10% less at Honored with {faction:68}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each skeletal warhorse costs 200g here."] = "{npc:4773}和{npc:4731}的馬廄位於{zone:1420}的{area:159}。60級時，{npc:4773}以1000金教導亡靈中級{skill:762}（{faction:68}達到尊敬可便宜10%）；暴雪說會附贈一隻坐騎。其他種族在自己種族的騎術訓練師那裡學習。這裡的每匹骷髏戰馬售價200金。",
+	["{npc:4773} and {npc:4731}'s stable are in {area:159}, {zone:1420}. At 60 {npc:4773} teaches Journeyman {skill:762} to Undead for 1,000g (10% less at Honored with {faction:68}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each skeletal warhorse costs 200g here."] = "{npc:4773}和{npc:4731}的馬廄位於{zone:1420}的{area:159}。60級時，{npc:4773}以1000金教導不死族中級{skill:762}（{faction:68}達到尊敬可便宜10%）；暴雪說會附贈一隻坐騎。其他種族在自己種族的騎術訓練師那裡學習。這裡的每匹骷髏戰馬售價200金。",
 	-- {npc:4773} Velma Warnam
 	["{npc:4773}, riding trainer"] = "騎術訓練師{npc:4773}",
 
@@ -21,7 +21,7 @@ return {
 	-- {spell:10906} Undead Horsemanship
 	["{spell:10906} for other races"] = "其他種族需要{spell:10906}",
 	-- {spell:10906} Undead Horsemanship · {skill:762} Riding · {npc:4773} Velma Warnam · {faction:68} Undercity
-	["Any Horde race can buy these skeletal horses, but riding one also takes {spell:10906}, which only Undead get with {skill:762}. {npc:4773} teaches it to other races once they are Exalted with {faction:68} (the Undercity Reputation guide shows the way). Until then, don't buy a skeletal horse for this character."] = "任何部落種族都能買這些骷髏馬，但騎乘還需要{spell:10906}，而只有亡靈能透過{skill:762}獲得。其他種族在{faction:68}達到崇拜後，{npc:4773}才會教（幽暗城聲望攻略裡有路線）。在此之前，別給這個角色買骷髏馬。",
+	["Any Horde race can buy these skeletal horses, but riding one also takes {spell:10906}, which only Undead get with {skill:762}. {npc:4773} teaches it to other races once they are Exalted with {faction:68} (the Undercity Reputation guide shows the way). Until then, don't buy a skeletal horse for this character."] = "任何部落種族都能買這些骷髏馬，但騎乘還需要{spell:10906}，而只有不死族能透過{skill:762}獲得。其他種族在{faction:68}達到崇拜後，{npc:4773}才會教（幽暗城聲望攻略裡有路線）。在此之前，別給這個角色買骷髏馬。",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "挑選顏色",

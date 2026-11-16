@@ -362,7 +362,7 @@ return {
 	-- {quest:7832} Additional Runecloth
 	["{quest:7832} to Honored"] = "{quest:7832}到尊敬",
 	-- {quest:7832} Additional Runecloth · {item:14047} Runecloth
-	["{quest:7832}: 20 {item:14047} for 50 reputation, as often as you like. Friendly to Honored is 6,000: 120 hand-ins, 2,400 {item:14047}, less what the quests gave you (an orc starts at Friendly 1,000: 100 hand-ins; an Undead or Skyborne starts at Neutral 2,000 and first needs 20 hand-ins, 400 {item:14047}, to reach Friendly). Hand in every 20 you carry, one after another."] = "{quest:7832}：20個{item:14047}換50聲望，不限次數。友善到尊敬需6,000點：120次交付，2,400個{item:14047}，減去任務已給的部分（獸人起始友善1,000：100次交付；亡靈或Skyborne起始中立2,000，先需20次交付、400個{item:14047}才能到友善）。身上每有20個就交一次，連續交。",
+	["{quest:7832}: 20 {item:14047} for 50 reputation, as often as you like. Friendly to Honored is 6,000: 120 hand-ins, 2,400 {item:14047}, less what the quests gave you (an orc starts at Friendly 1,000: 100 hand-ins; an Undead or Skyborne starts at Neutral 2,000 and first needs 20 hand-ins, 400 {item:14047}, to reach Friendly). Hand in every 20 you carry, one after another."] = "{quest:7832}：20個{item:14047}換50聲望，不限次數。友善到尊敬需6,000點：120次交付，2,400個{item:14047}，減去任務已給的部分（獸人起始友善1,000：100次交付；不死族或天裔精靈起始中立2,000，先需20次交付、400個{item:14047}才能到友善）。身上每有20個就交一次，連續交。",
 
 	-- Step 59: Additional Runecloth to Revered
 	-- {quest:7832} Additional Runecloth

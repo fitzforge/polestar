@@ -31,7 +31,7 @@ return {
 
 	-- Step 4: Halgar's Summons (Undercity)
 	-- {npc:5724} Ageron Kargal · {area:2119} Gallows' End Tavern · {area:159} Brill · {npc:5675} Carendin Halgar · {zone:1420} Tirisfal Glades · {npc:5875} Gan'rul Bloodeye · {zone:1458} Undercity · {object:36082} Magic Quarter
-	["At 10 {npc:5724}, upstairs in the {area:2119} in {area:159}, sends you to {npc:5675}: the version for the Undead, and for Orcs and Trolls who level in {zone:1420} instead of taking {npc:5875}'s. {npc:5675} stands in the {zone:1458}'s {object:36082}, by the Temple of the Damned."] = "10級時，{area:159}{area:2119}樓上的{npc:5724}讓你去找{npc:5675}：這個版本面向亡靈，以及在{zone:1420}練級、不接{npc:5875}版本的獸人和食人妖。{npc:5675}站在{zone:1458}的{object:36082}裡，就在詛咒神廟旁。",
+	["At 10 {npc:5724}, upstairs in the {area:2119} in {area:159}, sends you to {npc:5675}: the version for the Undead, and for Orcs and Trolls who level in {zone:1420} instead of taking {npc:5875}'s. {npc:5675} stands in the {zone:1458}'s {object:36082}, by the Temple of the Damned."] = "10級時，{area:159}{area:2119}樓上的{npc:5724}讓你去找{npc:5675}：這個版本面向不死族，以及在{zone:1420}練級、不接{npc:5875}版本的獸人和食人妖。{npc:5675}站在{zone:1458}的{object:36082}裡，就在詛咒神廟旁。",
 	-- {npc:5724} Ageron Kargal · {area:159} Brill
 	["{npc:5724}, upstairs in the {area:159} inn"] = "{npc:5724}，在{area:159}旅店樓上",
 

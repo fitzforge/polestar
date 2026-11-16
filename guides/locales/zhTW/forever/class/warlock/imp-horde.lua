@@ -29,7 +29,7 @@ return {
 
 	-- Step 4: Venya Marthand (Undead)
 	-- {npc:5667} Venya Marthand
-	["{npc:5667} (Undead)"] = "{npc:5667}（亡靈）",
+	["{npc:5667} (Undead)"] = "{npc:5667}（不死族）",
 	-- {item:9578} Tainted Scroll · {npc:1569} Shadow Priest Sarvis · {area:154} Deathknell · {npc:5667} Venya Marthand
 	-- plural, as words: Rattlecage Skulls = {item:6281} Rattlecage Skull
 	["Your first letter ({item:9578}, from {npc:1569} after The Mindless Ones) points you to Maximillion, the warlock trainer in {area:154}. {npc:5667} waits inside the building beside him and asks for three Rattlecage Skulls."] = "你的第一封信（{item:9578}，完成前置任務後由{npc:1569}給你）指向{area:154}的術士訓練師馬克西米利安。{npc:5667}就在他旁邊的屋子裡等你，要三個響骨骷髏頭。",

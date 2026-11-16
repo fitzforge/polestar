@@ -206,7 +206,7 @@ return {
 	-- {quest:7837} Additional Runecloth
 	["{quest:7837} to Honored"] = "{quest:7837}到尊敬",
 	-- {quest:7837} Additional Runecloth · {item:14047} Runecloth
-	["{quest:7837}: 20 {item:14047} for 50 reputation, as often as you like. Friendly to Honored is 6,000: 120 hand-ins, 2,400 {item:14047}, less what the quests gave you (a troll starts at Friendly 1,000: 100 hand-ins; an Undead or Skyborne at Neutral 2,000 first needs 20 more to reach Friendly). Hand in every 20 you carry, one after another."] = "{quest:7837}：20張{item:14047}換50點聲望，可無限重複。友善到尊敬是6000點：120次交付，2400張{item:14047}，再減去任務已給的（食人妖從友善1000點開始：100次交付；亡靈或天裔從中立2000點開始，需先多交20次才到友善）。身上每攢夠20張就連續交掉。",
+	["{quest:7837}: 20 {item:14047} for 50 reputation, as often as you like. Friendly to Honored is 6,000: 120 hand-ins, 2,400 {item:14047}, less what the quests gave you (a troll starts at Friendly 1,000: 100 hand-ins; an Undead or Skyborne at Neutral 2,000 first needs 20 more to reach Friendly). Hand in every 20 you carry, one after another."] = "{quest:7837}：20張{item:14047}換50點聲望，可無限重複。友善到尊敬是6000點：120次交付，2400張{item:14047}，再減去任務已給的（食人妖從友善1000點開始：100次交付；不死族或天裔從中立2000點開始，需先多交20次才到友善）。身上每攢夠20張就連續交掉。",
 
 	-- Step 35: Additional Runecloth to Revered
 	-- {quest:7837} Additional Runecloth

@@ -375,7 +375,7 @@ return {
 
 	-- Step 89: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
-	["Ride back to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "繼續向西騎到{area:3425}。{npc:15189}在他那棟樓的樓上：從裡面上樓，箭頭分不清樓層。",
+	["Ride back to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "騎回{area:3425}。{npc:15189}在他那棟樓的樓上：從裡面上樓，箭頭分不清樓層。",
 	-- {npc:15189} Beetix Ficklespragg · {npc:15191} Windcaller Proudhorn · {zone:1451} Silithus · {area:3425} Cenarion Hold
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher
 	["{npc:15189}'s and {npc:15191}'s next tasks (the Stonelash scorpids and the Dredge Crushers) wait for the {zone:1451} guide's {area:3425} stop: take them then."] = "{npc:15189}和{npc:15191}的下一個任務（石鞭蠍和掘泥摧毀者）留到{zone:1451}指南的{area:3425}站再接。",

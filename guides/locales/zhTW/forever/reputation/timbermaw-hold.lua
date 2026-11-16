@@ -37,7 +37,7 @@ return {
 	-- {npc:15395} Nafien
 	["Back to {npc:15395}"] = "返回{npc:15395}",
 	-- {quest:8460} Timbermaw Ally
-	["These quests and their kills bring you just past Unfriendly (500 from the start). If {quest:8460} paid you less (at level 60 in Classic: 30), kill about 40 more northern Deadwood. From Unfriendly the Timbermaw in the tunnel leave you alone."] = "這些任務及其擊殺會把你剛好帶過冷淡（從開始算500點）。如果{quest:8460}給你的較少（經典舊世60級時為30點），就再殺約40只北邊死木熊怪。達到冷淡後，隧道裡的木喉就不會再攻擊你。",
+	["These quests and their kills bring you just past Unfriendly (500 from the start). If {quest:8460} paid you less (at level 60 in Classic: 30), kill about 40 more northern Deadwood. From Unfriendly the Timbermaw in the tunnel leave you alone."] = "這些任務及其擊殺會把你剛好帶過冷淡（從開始算500點）。如果{quest:8460}給你的較少（經典舊世60級時為30點），就再殺約40隻北邊死木熊怪。達到冷淡後，隧道裡的木喉就不會再攻擊你。",
 
 	-- Step 7: Salfa
 	-- {zone:1452} Winterspring · {npc:11556} Salfa

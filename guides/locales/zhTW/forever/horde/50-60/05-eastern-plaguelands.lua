@@ -261,9 +261,9 @@ return {
 
 	-- Step 55: Marshal's Refuge
 	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock · {npc:8737} Linken
-	["The flight lands at {area:541}: {npc:9997} stands beside the flight master, and {npc:8737} by the cave a few steps away. {npc:9997}'s work is in Un'Goro on the next guide's way back north."] = "飛行點在{area:541}降落：{npc:9997}站在飛行管理員旁，{npc:8737}在幾步外的洞穴旁。{npc:9997}的活在安戈洛，下一篇指南往北迴來時做。",
+	["The flight lands at {area:541}: {npc:9997} stands beside the flight master, and {npc:8737} by the cave a few steps away. {npc:9997}'s work is in Un'Goro on the next guide's way back north."] = "飛行點在{area:541}降落：{npc:9997}站在飛行管理員旁，{npc:8737}在幾步外的洞穴旁。{npc:9997}的活在安戈洛，下一篇指南往北回來時做。",
 	-- {quest:3941} A Gnome's Assistance · {npc:9117} J.D. Collie · {area:541} Marshal's Refuge
-	["{quest:3941} goes to {npc:9117} in the cave here, on the next guide's return to {area:541}: keep it."] = "{quest:3941}要交給這裡洞穴裡的{npc:9117}，下一篇指南迴到{area:541}時：留著它。",
+	["{quest:3941} goes to {npc:9117} in the cave here, on the next guide's return to {area:541}: keep it."] = "{quest:3941}要交給這裡洞穴裡的{npc:9117}，下一篇指南回到{area:541}時：留著它。",
 
 	-- Step 56: Layo Starstrike
 	-- {area:3077} Valor's Rest · {zone:1451} Silithus · {npc:13220} Layo Starstrike

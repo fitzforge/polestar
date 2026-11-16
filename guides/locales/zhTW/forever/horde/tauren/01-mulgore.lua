@@ -181,7 +181,7 @@ return {
 	-- {npc:2988} Morin Cloudstalker · {quest:99079} Longwalker Malah · {area:821} Rolling Plains
 	["The well lies south-east of the village. {npc:2988} camps beside it, and {quest:99079} stands on the {area:821} a little east."] = "水井在村子東南方。{npc:2988}在井旁紮營，{quest:99079}在稍偏東的{area:821}上。",
 	-- {npc:2988} Morin Cloudstalker
-	["{npc:2988} walks around here: look inside the circle on the map"] = "{npc:2988}在這一帶走動：看地圖上的圓圈裡",
+	["{npc:2988} walks around here: look inside the circle on the map"] = "{npc:2988}在這一帶走動：查看地圖上圓圈的範圍",
 
 	-- Step 36: Mulgore: kill these as you meet them
 	-- {zone:1412} Mulgore

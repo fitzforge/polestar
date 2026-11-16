@@ -48,7 +48,7 @@ return {
 
 	-- Step 12: Piznik
 	-- {npc:4276} Piznik · {area:2160} Windshear Mine
-	["{npc:4276}'s defence is hard alone at this level: grouping up is encouraged, look for people to do it with. Skip it if you are alone.\n{npc:4276} mines at the bottom of the {area:2160} at the east end of the crag, past its kobolds (levels 19-23). Talk to him, then keep him alive for five minutes while he mines: a dozen or more kobolds come at him in waves, melee fighters first, then casters, and the mine's own kobolds respawn into the fight. If he dies, the quest fails."] = "在這個等級，{npc:4276}的防守很難獨自完成：建議組隊，找幾個人一起做。只有你一個人就跳過。\n{npc:4276}在峭壁東端{area:2160}底部挖礦，要穿過他的狗頭人（19-23級）。和他對話，然後在他挖礦的五分鐘裡保住他的命：十幾只狗頭人會分波衝上來，先是近戰，然後是施法者，礦洞裡的狗頭人也會加入戰鬥。他死了，任務就失敗。",
+	["{npc:4276}'s defence is hard alone at this level: grouping up is encouraged, look for people to do it with. Skip it if you are alone.\n{npc:4276} mines at the bottom of the {area:2160} at the east end of the crag, past its kobolds (levels 19-23). Talk to him, then keep him alive for five minutes while he mines: a dozen or more kobolds come at him in waves, melee fighters first, then casters, and the mine's own kobolds respawn into the fight. If he dies, the quest fails."] = "在這個等級，{npc:4276}的防守很難獨自完成：建議組隊，找幾個人一起做。只有你一個人就跳過。\n{npc:4276}在峭壁東端{area:2160}底部挖礦，要穿過他的狗頭人（19-23級）。和他對話，然後在他挖礦的五分鐘裡保住他的命：十幾隻狗頭人會分波衝上來，先是近戰，然後是施法者，礦洞裡的狗頭人也會重生並加入戰鬥。他死了，任務就失敗。",
 	["Below ground"] = "地下",
 	-- {npc:4276} Piznik
 	["Keep {npc:4276} alive while he mines, below ground"] = "在地下保住挖礦中的{npc:4276}",

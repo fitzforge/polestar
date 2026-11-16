@@ -238,7 +238,7 @@ return {
 	-- Step 40: Yowler
 	-- {area:95} Redridge Canyons · {area:997} Render's Valley · {npc:518} Yowler
 	-- plural, as words: Redridge Alphas = {npc:445} Redridge Alpha
-	["From the keep head back west along the lake's north shore and north up the {area:95}. Just south of {area:997}, {npc:518}, a level 25 gnoll, walks among the Redridge Alphas and Mystics."] = "從要塞沿湖的北岸向西，再向北走{area:95}。{area:997}正南，25級的豺狼人{npc:518}在赤脊阿爾法和赤脊秘法師中間走動。",
+	["From the keep head back west along the lake's north shore and north up the {area:95}. Just south of {area:997}, {npc:518}, a level 25 gnoll, walks among the Redridge Alphas and Mystics."] = "從要塞沿湖的北岸向西回走，再向北走{area:95}。{area:997}正南，25級的豺狼人{npc:518}在赤脊阿爾法和赤脊秘法師中間走動。",
 
 	-- Step 41: Render's Valley
 	-- {area:95} Redridge Canyons · {area:997} Render's Valley · {area:69} Lakeshire

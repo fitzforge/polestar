@@ -32,11 +32,11 @@ return {
 
 	-- Step 6: Impsy
 	-- {npc:14470} Impsy · {npc:14469} Niby the Almighty · {area:1997} Bloodvenom Post · {area:1765} Bloodvenom Falls · {quest:8419} An Imp's Request · {item:20613} Rotting Wood · {item:20614} Bloodvenom Essence
-	["{npc:14470} waits beside {npc:14469} on a rise just north-east of {area:1997}: coming north over the {area:1765} bridge, they stand off the road to the east, past a few oozes. Hand him the trainer's {quest:8419} with the cloth. Next he wants ten {item:20613} and four {item:20614}."] = "{npc:14470}在{area:1997}東北方的一處高地上，就在{npc:14469}旁邊：從{area:1765}橋上向北走，他們站在路東側、離路有點距離，要經過幾只軟泥怪。把帶著布的{quest:8419}交給他。接下來他要十個{item:20613}和四個{item:20614}。",
+	["{npc:14470} waits beside {npc:14469} on a rise just north-east of {area:1997}: coming north over the {area:1765} bridge, they stand off the road to the east, past a few oozes. Hand him the trainer's {quest:8419} with the cloth. Next he wants ten {item:20613} and four {item:20614}."] = "{npc:14470}在{area:1997}東北方的一處高地上，就在{npc:14469}旁邊：從{area:1765}橋上向北走，他們站在路東側、離路有點距離，要經過幾隻軟泥怪。把帶著布的{quest:8419}交給他。接下來他要十個{item:20613}和四個{item:20614}。",
 
 	-- Step 7: Impsy: Hot and Itchy
 	-- {npc:14470} Impsy · {npc:14469} Niby the Almighty · {area:1997} Bloodvenom Post · {area:1765} Bloodvenom Falls · {quest:8420} Hot and Itchy · {item:20613} Rotting Wood · {item:20614} Bloodvenom Essence
-	["{npc:14470} waits beside {npc:14469} on a rise just north-east of {area:1997}: coming north over the {area:1765} bridge, they stand off the road to the east, past a few oozes. Take his own {quest:8420} and hand him the cloth at once. Next he wants ten {item:20613} and four {item:20614}."] = "{npc:14470}在{area:1997}東北方的一處高地上，就在{npc:14469}旁邊：從{area:1765}橋上向北走，他們站在路東側、離路有點距離，要經過幾只軟泥怪。接他本人的{quest:8420}，並立即把布交給他。接下來他要十個{item:20613}和四個{item:20614}。",
+	["{npc:14470} waits beside {npc:14469} on a rise just north-east of {area:1997}: coming north over the {area:1765} bridge, they stand off the road to the east, past a few oozes. Take his own {quest:8420} and hand him the cloth at once. Next he wants ten {item:20613} and four {item:20614}."] = "{npc:14470}在{area:1997}東北方的一處高地上，就在{npc:14469}旁邊：從{area:1765}橋上向北走，他們站在路東側、離路有點距離，要經過幾隻軟泥怪。接他本人的{quest:8420}，並立即把布交給他。接下來他要十個{item:20613}和四個{item:20614}。",
 
 	-- Step 8: Rotting Wood and Bloodvenom
 	-- {item:20613} Rotting Wood

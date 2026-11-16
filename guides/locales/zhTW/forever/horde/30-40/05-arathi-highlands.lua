@@ -189,7 +189,7 @@ return {
 	-- {area:321} Hammerfall
 	["Back to {area:321}"] = "返回{area:321}",
 	-- {area:321} Hammerfall
-	["Back north-east to {area:321}."] = "向東北迴到{area:321}。",
+	["Back north-east to {area:321}."] = "向東北回到{area:321}。",
 
 	-- Step 32: Boulderfist quests for a group
 	["Boulderfist quests for a group"] = "石拳的組隊任務",

@@ -10,7 +10,7 @@ return {
 	-- {item:9514} Arcane Staff
 	["Ley or {item:9514} or Orb (Horde)"] = "魔網、{item:9514}或寶珠（部落）",
 	-- {area:368} Echo Isles
-	["A staff or an off-hand orb at 10: Orcs and Trolls on the {area:368}, the Undead at a Tirisfal farm."] = "10級時可選法杖或副手寶珠：獸人和食人妖在{area:368}，亡靈在提里斯法的一處農場。",
+	["A staff or an off-hand orb at 10: Orcs and Trolls on the {area:368}, the Undead at a Tirisfal farm."] = "10級時可選法杖或副手寶珠：獸人和食人妖在{area:368}，不死族在提里斯法的一處農場。",
 
 	-- Step 1: Un'thuwa
 	["Un'thuwa"] = "安蘇瓦",
@@ -19,7 +19,7 @@ return {
 
 	-- Step 2: Cain Firesong (Brill)
 	-- {npc:2128} Cain Firesong · {area:159} Brill · {area:2119} Gallows' End Tavern · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {quest:1884} Ju-Ju Heaps · {quest:1883} Speak with Un'thuwa · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {area:368} Echo Isles
-	["At 10 {npc:2128}, the {area:159} mage trainer upstairs in the {area:2119}, sends you to {npc:4568} in the {zone:1458}. Taking it shuts out {quest:1884}; if {quest:1883} (from {zone:1454} or {zone:1456}) is in your log, abandon it first or {npc:2128} cannot give you this one. (A Troll who took this one in {area:159} follows the Balnir steps; an Undead who took {quest:1884} in Sen'jin, the {area:368} steps.)"] = "10級時，{area:159}的法師訓練師{npc:2128}（在{area:2119}樓上）會派你去找{zone:1458}的{npc:4568}。接受此任務會關閉{quest:1884}；若日誌裡已有{quest:1883}（來自{zone:1454}或{zone:1456}），請先放棄它，否則{npc:2128}無法給你這個任務。（在{area:159}接了此任務的食人妖，走巴爾尼爾那條路線；在森金村接了{quest:1884}的亡靈，走{area:368}路線。）",
+	["At 10 {npc:2128}, the {area:159} mage trainer upstairs in the {area:2119}, sends you to {npc:4568} in the {zone:1458}. Taking it shuts out {quest:1884}; if {quest:1883} (from {zone:1454} or {zone:1456}) is in your log, abandon it first or {npc:2128} cannot give you this one. (A Troll who took this one in {area:159} follows the Balnir steps; an Undead who took {quest:1884} in Sen'jin, the {area:368} steps.)"] = "10級時，{area:159}的法師訓練師{npc:2128}（在{area:2119}樓上）會派你去找{zone:1458}的{npc:4568}。接受此任務會關閉{quest:1884}；若日誌裡已有{quest:1883}（來自{zone:1454}或{zone:1456}），請先放棄它，否則{npc:2128}無法給你這個任務。（在{area:159}接了此任務的食人妖，走巴爾尼爾那條路線；在森金村接了{quest:1884}的不死族，走{area:368}路線。）",
 
 	-- Step 3: The Ju-Ju Heaps
 	-- {quest:1884} Ju-Ju Heaps

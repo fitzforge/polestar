@@ -198,7 +198,7 @@ return {
 
 	-- Step 40: Razor Hill
 	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3147} Furl Scornbrow · {npc:3142} Orgnil Soulscar · {npc:266940} Turroc
-	["Back north-west to {area:362}: {npc:3139} first, then {npc:3147} in the watchtower, then {npc:3142} and {npc:266940} on the way out east to the shore."] = "往西北迴到{area:362}：先找{npc:3139}，再到瞭望塔裡的{npc:3147}，然後是往東去海岸路上的{npc:3142}和{npc:266940}。",
+	["Back north-west to {area:362}: {npc:3139} first, then {npc:3147} in the watchtower, then {npc:3142} and {npc:266940} on the way out east to the shore."] = "往西北回到{area:362}：先找{npc:3139}，再到瞭望塔裡的{npc:3147}，然後是往東去海岸路上的{npc:3142}和{npc:266940}。",
 	-- {npc:266940} Turroc
 	["{npc:266940}, inside"] = "{npc:266940}，在裡面",
 
