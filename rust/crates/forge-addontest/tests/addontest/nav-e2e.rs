@@ -609,6 +609,37 @@ fn b_where_the_straight_line_is_blocked_thelsamar_to_the_stonewrought_dam_the_ar
 	assert!(d <= len + 0.5 && d > len - second - 0.5, "the yards shown ({d:.1}) are the detour's ({len:.1})");
 }
 
+// #1422 (sesgoe): from the Great Forge in Ironforge (47.58,52.97), the arrow to Afadra Dunwall (Ironforge 33.20,47.90,
+// the Hall of Thanes' pick-up guide) pointed straight across the city, 117 yd. The walking maps walk to her spot (her
+// spawn's floor, 464.8) through the halls, about 175 yd: the arrow aims along that walk, not straight at her.
+#[test]
+fn issue_1422_from_the_great_forge_the_arrow_to_afadra_dunwall_follows_the_walk_through_the_halls() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		local _, sx, sy = C.MapToWorld(1455, 47.58, 52.97, "e")
+		place(1455, sx, sy)
+		local f = guide(1455, 33.2, 47.9, "Afadra Dunwall")
+		for _ = 1, 10 do stub.advance(0.1); aim() end
+		local a = aim()
+		local _, tx, ty = N.GetTargetWorld()
+		local pts = f and f.points or {}
+		-- How far the aim turns from the straight line to her: the cosine between the two bearings.
+		local ax, ay, bx, by = (a.x or sx) - sx, (a.y or sy) - sy, tx - sx, ty - sy
+		local la, lb = sqrt(ax * ax + ay * ay), sqrt(bx * bx + by * by)
+		emit({ map = f and f.map or false, n = #pts, length = length(pts), straight = lb, state = a.state,
+			cos = la > 0 and (ax * bx + ay * by) / (la * lb) or 1, offPath = #pts > 1 and offPath(pts, a.x or sx, a.y or sy) or -1,
+			endGap = #pts > 0 and dist(pts[#pts].x, pts[#pts].y, tx, ty) or -1 })"#,
+		true,
+	);
+	let (len, straight) = (f(&out["length"]), f(&out["straight"]));
+	assert_eq!(out["map"], 0, "the walking engine searched the walk");
+	assert!(len > straight * 1.2, "a walk through the halls ({len:.0} yd), not the straight line ({straight:.0} yd)");
+	assert!(f(&out["endGap"]) < 10.0, "the walk ends at her spot");
+	assert!(f(&out["offPath"]) < 2.0, "the arrow aims at a point on the walk ({} yd off it)", out["offPath"]);
+	assert!(f(&out["cos"]) < 0.87, "the walk's first stretch leads away from the straight line to her (cos {})", out["cos"]);
+}
+
 // #1650 (Rheuz): from the Suspicious Barrel at the Stonewrought Dam's east end, the walk back west to Chief Engineer
 // Hinderweir VII (Loch Modan, Era 46.05,13.61, his height 310.3). A few yards north-east of the barrel the maps have
 // no surface at the dam's level (the slope's foot), and the nearest surface without a height is the ridge above,
