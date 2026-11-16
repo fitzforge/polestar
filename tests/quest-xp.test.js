@@ -70,7 +70,7 @@ emit(GameTooltip.lines)
 	assert.deepEqual(barTip, tickTip);
 	assert.equal(barTip[0], 'Experience: 500 / 1000');
 	assert.equal(barTip[1], 'Rested XP: 200');
-	assert.equal(barTip.filter((line) => line.includes('Pending Quest XP')).length, 1);
+	assert.equal(barTip.filter((line) => line.includes('Pending quest XP')).length, 1);
 	assert.ok(barTip.some((line) => line.includes('850 / 1000 (85.0%)')));
 });
 
@@ -81,7 +81,7 @@ q.xp = 900
 stub.fire("PLAYER_XP_UPDATE", "player"); stub.runTimers()
 local f = P.frame
 local _, _, _, left = f.Tint:GetPoint(1)
-emit({ total = P.total, right = left + f.Tint:GetWidth(), level = f.LevelLabel:IsShown(), rescanned = q.rewardReads ~= reads })
+emit({ total = P.total, right = left + f.Tint:GetWidth(), level = f.LevelLabel:IsShown(), label = f.LevelLabel:GetText(), rescanned = q.rewardReads ~= reads })
 stub.RunScript(bar, "OnEnter")
 emit(GameTooltip.lines)
 stub.fire("QUEST_TURNED_IN", 11, 250, 0); stub.runTimers()
@@ -95,7 +95,7 @@ q.level, q.rested = q.maxLevel, nil
 stub.fire("PLAYER_LEVEL_UP", q.level); stub.runTimers()
 emit({ total = P.total, shown = f:IsShown(), rested = q.rested or 0 })
 `);
-	assert.deepEqual(overflow, { total: 350, right: 562, level: true, rescanned: false });
+	assert.deepEqual(overflow, { total: 350, right: 562, level: true, label: '+1 level', rescanned: false });
 	assert.ok(tip.some((line) => line.includes('at least +1 level')));
 	assert.ok(!tip.some((line) => line.includes('XP after turn-ins')));
 	assert.deepEqual(turned, { total: 100, count: 1 });
@@ -124,7 +124,7 @@ emit({ total = P.total, shown = P.frame:IsShown(), lines = GameTooltip.lines })
 	assert.deepEqual(disabled, { shown: false, lines: ['Experience: 500 / 1000', 'Rested XP: 200'] });
 	assert.equal(enabled.total, 250);
 	assert.equal(enabled.shown, true);
-	assert.ok(enabled.lines.some((line) => line.includes('Pending Quest XP')));
+	assert.ok(enabled.lines.some((line) => line.includes('Pending quest XP')));
 });
 
 test('the blue rested marker follows the native marker above the quest fill', () => {
@@ -189,7 +189,7 @@ emit(GameTooltip.lines)
 	assert.equal(barTip.shown, true);
 	assert.equal(barTip.owner, true);
 	assert.ok(barTip.lines.includes('Current XP | 500 / 1000 (50.0%)'));
-	assert.ok(barTip.lines.some((line) => line.includes('Pending Quest XP')));
+	assert.ok(barTip.lines.some((line) => line.includes('Pending quest XP')));
 	assert.equal(barHidden, true);
 	assert.equal(tickHidden, true);
 	assert.deepEqual(otherTip, ['Another tooltip']);
