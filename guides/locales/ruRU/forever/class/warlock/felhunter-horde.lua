@@ -17,7 +17,7 @@ return {
 
 	-- Step 2: Seeking Strahad (Undercity)
 	-- {npc:5675} Carendin Halgar · {object:36082} Magic Quarter · {npc:6251} Strahad Farsan · {area:392} Ratchet · {zone:1420} Tirisfal Glades · {zone:1411} Durotar · {quest:3001} Seeking Strahad
-	["At 30 {npc:5675}, in the {object:36082}, sends you to {npc:6251} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}. Take only one {quest:3001}: if {npc:6251} offers nothing, drop the duplicate from your log."] = "",
+	["At 30 {npc:5675}, in the {object:36082}, sends you to {npc:6251} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}. Take only one {quest:3001}: if {npc:6251} offers nothing, drop the duplicate from your log."] = "На 30-м уровне {npc:5675} ({object:36082}) отправляет вас к NPC {npc:6251} ({area:392}). Дирижабль летит из зоны {zone:1420} в {zone:1411}. Возьмите только одно задание {quest:3001}: если {npc:6251} ничего не предлагает, удалите дубликат из журнала.",
 
 	-- Step 3: Strahad Farsan
 	-- {area:392} Ratchet · {zone:1454} Orgrimmar · {npc:6251} Strahad Farsan · {npc:6266} Menara Voidrender · {npc:6293} Jorah Annison · {zone:1458} Undercity

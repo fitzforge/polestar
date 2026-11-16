@@ -9,7 +9,7 @@ return {
 	-- Step 1: Stormwind
 	-- {zone:1429} Elwynn Forest · {quest:174} Look to the Stars · {area:42} Darkshire · {item:4371} Bronze Tube · {npc:3133} Herble Baubbletump · {object:2096} Trade District
 	["Train, then leave by the main gate and follow the road east through {zone:1429}.\n{quest:174} in {area:42} needs a {item:4371}. Its vendors keep only one or two, and {npc:3133} in {area:42} is nearly always sold out: buy one at the Auction House in the {object:2096} on your way out. An engineer can make one too."] = "Treine, depois saia pelo portão principal e siga a estrada para leste por {zone:1429}.\n{quest:174} em {area:42} precisa de {item:4371}. Os vendedores de lá guardam só um ou dois, e {npc:3133} em {area:42} quase sempre está sem estoque: compre um na Casa de Leilões do {object:2096} ao sair. Um engenheiro também pode fazer um.",
-	["Level 18 and 20 spells"] = "Feitiços de nível 18 e 20",
+	["Your new spells"] = "Seus novos feitiços",
 	-- {item:4371} Bronze Tube · {quest:174} Look to the Stars · {area:42} Darkshire
 	["{item:4371}: the Auction House, for {quest:174} in {area:42}"] = "{item:4371}: Casa de Leilões, para {quest:174} em {area:42}",
 
@@ -133,8 +133,8 @@ return {
 	-- {area:492} Raven Hill Cemetery
 	["{area:492}: kill these as you meet them"] = "{area:492}: vá matando estes pelo caminho",
 	-- {npc:522} Mor'Ladim
-	-- plural, as words: Skeletal Horrors = {npc:202} Skeletal Horror · Skeletal Fiends = {npc:531} Skeletal Fiend
-	["The cemetery lies north of the village. Skeletal Horrors and Skeletal Fiends walk its southern half. {npc:522}, an elite, wanders the graves: keep away from him."] = "O cemitério fica ao norte do vilarejo. Horrores Descarnados e Malévolos Descarnados andam pela metade sul. {npc:522}, um elite, vaga entre os túmulos: fique longe dele.",
+	-- plural, as words: Skeletal Horrors = {npc:202} Skeletal Horror · Skeletal Fiends = {npc:531} Skeletal Fiend · Flesh Eaters = {npc:3} Flesh Eater · Bone Chewers = {npc:210} Bone Chewer · Plague Spreaders = {npc:604} Plague Spreader · Fetid Corpses = {npc:1270} Fetid Corpse
+	["The cemetery lies north of the village. Skeletal Horrors and Skeletal Fiends (23-25) walk its southern half and carry the fingers; for the fangs, Flesh Eaters (24-25) drop the most, so leave the Bone Chewers, Plague Spreaders and Fetid Corpses (26-30) further in alone. {npc:522}, an elite, wanders the graves: keep away from him.\nCareful: Eliza, a level 31 elite, rises from her grave at the cemetery's north end: keep away from it."] = "O cemitério fica ao norte da vila. Horrores Descarnados e Malévolos Descarnados (23-25) andam pela metade sul e carregam os dedos; para as presas, os Comedores de Carne (24-25) soltam mais, então deixe em paz os Mastigossos, Vetores da Peste e Cadáveres Fétidos (26-30) mais para dentro. {npc:522}, um elite, vaga entre os túmulos: fique longe dele.\nCuidado: Eliza, uma elite de nível 31, se levanta do túmulo na ponta norte do cemitério: fique longe dele.",
 
 	-- Step 22: Watcher Dodds
 	-- {area:245} Yorgen Farmstead
@@ -283,11 +283,13 @@ return {
 	-- ["Greater Tarantulas crawl on the slopes around the mill north-east of the lake; Blackrock Renegades hold the mill itself."] = "Grandes Tarântulas rastejam nas encostas em volta do moinho a nordeste do lago; Renegados Rocha Negra ocupam o próprio moinho.",
 	-- ["Head north out of {area:69} up the {area:95} to {area:997}. Blackrock Champions camp in the valley."] = "Saia de {area:69} rumo ao norte, subindo os {area:95} até o {area:997}. Campeões Rocha Negra acampam no vale.",
 	-- ["Lake murlocs"] = "Murlocs do lago",
+	-- ["Level 18 and 20 spells"] = "Feitiços de nível 18 e 20",
 	-- ["Murloc Flesheaters and Tidecallers line the south shore east of the bridge. Any of them can carry a {item:1467} or a fin."] = "Carniceiros Murloc e Chamarés ocupam a margem sul a leste da ponte. Qualquer um deles pode levar um {item:1467} ou uma barbatana.",
 	-- ["Redridge Mongrels and other gnolls hold the hills east of {area:1002}, north of the road; Redridge Thrashers prowl among them, Poachers camp south of the road. Dire Condors and Great Goretusks roam the same hills."] = "Mestiços de Cristarrubra e outros gnolls ocupam as colinas a leste de {area:1002}, ao norte da estrada; Espancadores de Cristarrubra rondam entre eles, Caçadores Ilegais acampam ao sul da estrada. Condores Hediondos e Grandes Goretuscos vagam pelas mesmas colinas.",
 	-- ["Shaman training"] = "Treino de xamã",
 	-- ["Swim east from the bridge into {area:68}; the chest lies on the lake bed."] = "Nade a leste da ponte para dentro do {area:68}; o baú está no fundo do lago.",
 	-- ["The Wanted poster by the inn: {npc:703}, in {area:1000}"] = "O cartaz de PROCURA-SE perto da estalagem: {npc:703}, em {area:1000}",
+	-- ["The cemetery lies north of the village. Skeletal Horrors and Skeletal Fiends walk its southern half. {npc:522}, an elite, wanders the graves: keep away from him."] = "O cemitério fica ao norte do vilarejo. Horrores Descarnados e Malévolos Descarnados andam pela metade sul. {npc:522}, um elite, vaga entre os túmulos: fique longe dele.",
 	-- ["The road from Elwynn enters Redridge at {area:1002}. {npc:464} stands where the roads to Redridge and {zone:1431} meet."] = "A estrada de Elwynn entra em Cristarrubra em {area:1002}. {npc:464} fica onde se encontram as estradas para Cristarrubra e {zone:1431}.",
 	-- ["The road into {zone:1429}"] = "A estrada para {zone:1429}",
 	-- ["The {area:442} boat docks at {area:17203}. Walk up into the city for training and {npc:1646}, then leave by the main gate and follow the road east through {zone:1429}."] = "O navio de {area:442} atraca em {area:17203}. Suba até a cidade para treinar e falar com {npc:1646}, depois saia pelo portão principal e siga a estrada a leste por {zone:1429}.",

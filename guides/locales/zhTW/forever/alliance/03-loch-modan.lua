@@ -221,8 +221,8 @@ return {
 
 	-- Step 40: Sunken Chest
 	-- {area:68} Lake Everstill · {item:1467} Spotted Sunfish
-	-- plural, as words: Murloc Flesheaters = {npc:422} Murloc Flesheater
-	["Back toward town, swim east from the bridge into {area:68}; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a {item:1467}."] = "",
+	-- plural, as words: Murloc Flesheaters = {npc:422} Murloc Flesheater · Lake Threshers = {npc:14357} Lake Thresher
+	["Back toward town, swim east from the bridge into {area:68}; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a {item:1467}.\nCareful: Lake Threshers, level 25 elites, swim in the lake: keep your distance from them while you dive for the chest."] = "往城鎮方向回去，從橋往東游進{area:68}；箱子在湖底一艘沉船旁。魚人食腐者和魚人召潮者散布在它周圍的南岸：牠們都可能帶著{item:1467}。\n小心：止水湖蛇頸龍是25級精英，在湖裡游動：潛水找箱子時和牠們保持距離。",
 	-- {item:1309} Oslow's Toolbox
 	["{item:1309}; underwater"] = "",
 

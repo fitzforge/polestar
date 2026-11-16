@@ -6,45 +6,69 @@
 -- A token marked "no name in this language" would show in English: write that name in Portuguese (Brazil) words instead.
 -- The comments are rewritten by sync.
 return {
-	-- Step 2: Valley of Fangs
+	-- Step 1: Thelsamar
+	-- {npc:1470} Ghak Healtouch · {area:144} Thelsamar · {area:1517} Uldaman · {zone:1418} Badlands
+	["{npc:1470} is below ground in {area:144}, by the inn, where the flight lands. His mushrooms grow in the {area:1517} dig at the {zone:1418}' northern edge, on this guide's loop back north."] = "{npc:1470} fica no subsolo de {area:144}, junto à estalagem, onde o voo pousa. Os cogumelos dele crescem na escavação de {area:1517}, na borda norte de {zone:1418}, no retorno deste guia para o norte.",
+	-- {npc:1470} Ghak Healtouch
+	["{npc:1470}, below ground"] = "{npc:1470}, no subterrâneo",
+
+	-- Step 3: Hammertoe's Digsite
+	-- {zone:1432} Loch Modan · {zone:1418} Badlands · {npc:2860} Sigrun Ironhew
+	["Ride south out of {zone:1432} through the pass into the {zone:1418}; {npc:2860} camps at the dig."] = "Cavalgue para o sul, saindo de {zone:1432} pelo desfiladeiro até {zone:1418}; {npc:2860} acampa na escavação.",
+	-- {quest:706} Fiery Blaze Enchantments · {item:4612} Black Drake's Heart
+	["{quest:706}: its {item:4612} is a rare drop, so the work and hand-in are optional too"] = "{quest:706}: o {item:4612} é um saque raro, então o trabalho e a entrega também são opcionais",
+
+	-- Step 4: Garek
+	-- {npc:2888} Garek · {area:1898} Dustwind Gulch
+	["{npc:2888} camps by himself in {area:1898}, south-east of the digsite."] = "{npc:2888} acampa sozinho em {area:1898}, a sudeste da escavação.",
+
+	-- Step 5: Agmond's End
+	-- {npc:269577} Dorgaron · {item:278404} Pristine Mattock · {quest:739} Murdaloc
+	["{npc:269577}'s {item:278404} lies in the middle of the Stonevault trogg camp, where {quest:739} walks."] = "O {item:278404} de {npc:269577} está no meio do acampamento dos troggs Cofrepétreo, onde {quest:739} anda.",
+
+	-- Step 6: Valley of Fangs
 	-- {npc:2817} Rigglefuzz
 	-- plural, as words: Blue Pearls = {item:4611} Blue Pearl
 	["{npc:2817}: Blue Pearls from Stranglethorn"] = "{npc:2817}: Pérolas Azuis da Selva do Espinhaço",
 	-- {npc:2817} Rigglefuzz
 	["{npc:2817}'s next quest pays no experience: skip it."] = "A próxima missão de {npc:2817} não dá experiência: pule.",
 
-	-- Step 3: Boss Tho'grun
+	-- Step 7: Boss Tho'grun
 	-- {npc:2944} Boss Tho'grun · {area:342} Camp Boff · {zone:1418} Badlands
 	["{npc:2944} does not stay at {area:342}: he walks a long loop around the {zone:1418} with his guards, from the camp in the west along the south of the zone to about 61,69, north to about 49,49 and back west to the camp. The arrow follows his loop west from here until you meet him."] = "{npc:2944} não fica em {area:342}: ele percorre um longo circuito por {zone:1418} com seus guardas, do acampamento no oeste ao longo do sul da zona até mais ou menos 61,69, depois para o norte até mais ou menos 49,49 e de volta para o oeste até o acampamento. A seta segue o circuito dele para o oeste a partir daqui até você encontrá-lo.",
 
-	-- Step 4: Garek
+	-- Step 8: Garek
 	-- {area:1898} Dustwind Gulch
 	["Ride back east to {area:1898}."] = "Volte a leste até {area:1898}.",
 	-- {npc:2888} Garek
 	["{npc:2888}'s next task is an elite hunt: skip it."] = "A próxima tarefa de {npc:2888} é uma caçada elite: pule.",
 
-	-- Step 5: Lethlor Ravine
+	-- Step 9: Lethlor Ravine
 	-- {npc:2888} Garek · {item:4612} Black Drake's Heart
 	-- plural, as words: Scalding Whelps = {npc:2725} Scalding Whelp · Scorched Guardians = {npc:2726} Scorched Guardian
 	["The Scalding Whelps nest in the ravine east of {npc:2888}; leave the Scorched Guardians (elite) alone. The {item:4612} drops rarely: take it if it comes while you grind."] = "Os Dragonetes Escaldantes fazem ninho na ravina a leste de {npc:2888}; deixe os Guardiões Flâmeos (elite) em paz. {item:4612} cai raramente: pegue se aparecer enquanto você farma.",
 
-	-- Step 7: Into Loch Modan
+	-- Step 11: Dorgaron
+	-- {npc:269577} Dorgaron · {zone:1432} Loch Modan
+	["{npc:269577} camps at the foot of the pass into {zone:1432}, on the way north."] = "{npc:269577} acampa ao pé da passagem para {zone:1432}, no caminho para o norte.",
+
+	-- Step 12: Into Loch Modan
 	-- {zone:1432} Loch Modan
 	["Into {zone:1432}"] = "Rumo a {zone:1432}",
 
-	-- Step 8: Ironband's Excavation Site
+	-- Step 13: Ironband's Excavation Site
 	-- {zone:1432} Loch Modan
 	["Ride north through the pass into {zone:1432} and east along the south shore to Ironband's camp."] = "Cavalgue para o norte pelo desfiladeiro até {zone:1432} e para leste pela margem sul até o acampamento de Bandaferro.",
 
-	-- Step 9: Into Badlands
+	-- Step 14: Into Badlands
 	-- {zone:1418} Badlands
 	["Into {zone:1418}"] = "Rumo a {zone:1418}",
 
-	-- Step 10: Badlands
+	-- Step 15: Badlands
 	-- {area:1517} Uldaman
 	["The {area:1517} dig"] = "A escavação de {area:1517}",
 
-	-- Step 11: The Uldaman dig
+	-- Step 16: The Uldaman dig
 	-- {area:1517} Uldaman · {zone:1418} Badlands
 	["Back through the pass: the Stonevault troggs dig outside {area:1517} at the {zone:1418}' northern edge. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "De volta pelo desfiladeiro: os Troggs da Abóbada de Pedra escavam fora de {area:1517}, na borda norte de {zone:1418}. As urnas entalhadas e os aglomerados de cogumelos magenta ficam nas cavernas e túneis deles, fora da masmorra.",
 	-- {item:8047} Magenta Fungus Cap
@@ -52,26 +76,24 @@ return {
 	-- {object:2743} Carved Stone Urn
 	["{object:2743}; below ground"] = "{object:2743}; no subterrâneo",
 
-	-- Step 12: Back to Loch Modan
+	-- Step 17: Back to Loch Modan
 	-- {zone:1432} Loch Modan
 	["Back to {zone:1432}"] = "De volta a {zone:1432}",
 
-	-- Step 13: Ironband's Excavation Site
+	-- Step 18: Ironband's Excavation Site
 	["Ride back north to Ironband's camp."] = "Cavalgue de volta para o norte até o acampamento de Bandaferro.",
 
-	-- Step 14: Thelsamar
+	-- Step 19: Thelsamar
 	-- {area:144} Thelsamar
 	["Ride west along the loch to {area:144}."] = "Cavalgue para oeste ao longo do lago até {area:144}.",
-	-- {npc:1470} Ghak Healtouch
-	["{npc:1470}, below ground"] = "{npc:1470}, no subterrâneo",
 
-	-- Step 15: Fly to Southshore
+	-- Step 20: Fly to Southshore
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "Voar para {area:271}",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "Mestre de voo de {area:144}",
 
-	-- Step 16: Southshore
+	-- Step 21: Southshore
 	-- {npc:3980} Raleigh the Devout
 	["{npc:3980} preaches by the inn."] = "{npc:3980} prega junto à estalagem.",
 	-- {npc:3980} Raleigh the Devout
@@ -79,7 +101,11 @@ return {
 	-- {area:796} Scarlet Monastery
 	["Raleigh's next errand is in the {area:796}: skip it."] = "A próxima tarefa de Raul é em {area:796}: pule.",
 
-	-- Step 18: Aerie Peak
+	-- Step 22: Loremaster Dibbs
+	-- {npc:2277} Loremaster Dibbs · {area:271} Southshore
+	["{npc:2277} stands in {area:271}, by the inn."] = "{npc:2277} fica em {area:271}, junto à estalagem.",
+
+	-- Step 24: Aerie Peak
 	-- {area:271} Southshore · {zone:1425} The Hinterlands · {area:348} Aerie Peak · {npc:5635} Falstad Wildhammer · {quest:1450} Gryphon Master Talonaxe · {npc:7884} Fraggar Thundermantle
 	["Ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "Saia de {area:271} para o nordeste pela estrada até as {zone:1425}; {area:348} fica logo depois da divisa. {npc:5635} recebe a corte no alto, {quest:1450} cuida do aviário e {npc:7884} fica junto à estalagem.",
 	-- {quest:1450} Gryphon Master Talonaxe
@@ -87,46 +113,57 @@ return {
 	-- {npc:7884} Fraggar Thundermantle
 	["{npc:7884}, inside"] = "{npc:7884}, lá dentro",
 
-	-- Step 19: Rhapsody Shindigger
+	-- Step 25: Rhapsody Shindigger
 	-- {npc:5634} Rhapsody Shindigger · {area:348} Aerie Peak
 	["{npc:5634} camps on the road east of {area:348}."] = "{npc:5634} acampa na estrada a leste de {area:348}.",
 
-	-- Step 20: Witherbark villages
+	-- Step 26: Witherbark villages
 	["Witherbark villages"] = "Aldeias Cascasseca",
 	-- {npc:5634} Rhapsody Shindigger · {npc:270772} Witch Doctor Ti'ik
 	["The first two cages stand together in the Witherbark village south of {npc:5634}; the third is in the next village to the east. Every Witherbark troll can drop a necklace.\nCareful: {npc:270772} (49) and his Hexed Larvae (45) keep to the huts of the western village, around 25,64: take the necklaces from the trolls outside."] = "As duas primeiras jaulas ficam juntas na aldeia Cascasseca ao sul de {npc:5634}; a terceira está na aldeia seguinte, a leste. Qualquer troll Cascasseca pode soltar um colar.\nCuidado: {npc:270772} (49) e suas Larvas Enfeitiçadas (45) ficam nas cabanas da aldeia oeste, por volta de 25,64: pegue os colares dos trolls de fora.",
 
-	-- Step 21: Aerie Peak
+	-- Step 27: Aerie Peak
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, beside the flight master at the top; inside"] = "{npc:5636}, ao lado do mestre de voo, lá no topo; lá dentro",
 	-- {zone:1425} The Hinterlands
 	["Talonaxe's next task waits for a later {zone:1425} guide."] = "A próxima tarefa de Garra-de-acha fica para um guia posterior das {zone:1425}.",
 
-	-- Step 22: Fly to Menethil Harbor
+	-- Step 28: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Voe para {area:150}",
 	-- {area:348} Aerie Peak
 	["{area:348} flight master"] = "Mestre de voo de {area:348}",
 
-	-- Step 24: Theramore
+	-- Step 30: Theramore
 	["Theramore"] = "Ilha Theramore",
-	-- {npc:2616} Privateer Groy
-	["{npc:2616} stands on the docks where the boat lands."] = "{npc:2616} fica nas docas onde o barco atraca.",
 	-- {npc:4944} Captain Garran Vimes
 	["{npc:4944}, on the top floor"] = "{npc:4944}, no último andar",
-	-- {npc:4968} Lady Jaina Proudmoore
-	["{npc:4968}, on the top floor"] = "{npc:4968}, no último andar",
 	-- {npc:4794} Morgan Stern
 	["{npc:4794}, inside"] = "{npc:4794}, lá dentro",
 
-	-- Step 25: Cortello's Riddle
+	-- Step 31: Cortello's Riddle
 	-- {area:498} Bloodfen Burrow
 	["Inside {area:498}"] = "Dentro de {area:498}",
 
-	-- Step 26: Theramore flight master
+	-- Step 32: Mudsprocket
+	["Mudsprocket"] = "Lamaroda",
+	-- {area:511} Wyrmbog · {npc:270723} Drazzit Dripvalve · {npc:270727} Gizzix Grimegurgle
+	["Take the road south-west out of Theramore to Mudsprocket, the goblin camp at the edge of the {area:511}. {npc:270723} and {npc:270727} stand together in the camp."] = "Pegue a estrada a sudoeste de Theramore até Lamaroda, o acampamento goblin na borda de {area:511}. {npc:270723} e {npc:270727} ficam juntos no acampamento.",
+
+	-- Step 33: The Wyrmbog
+	-- {area:511} Wyrmbog
+	["The {area:511}"] = "{area:511}",
+	-- {item:280092} Wyrmtail
+	-- plural, as words: Searing Hatchlings = {npc:4323} Searing Hatchling · Firemane Scalebanes = {npc:4328} Firemane Scalebane
+	["The {item:280092} grows in the bog east of the camp: gather it first. Then the Searing Hatchlings and Whelps (41-43) and the Firemane dragonkin nest in the bog north and west of Mudsprocket, on the way back; all of them drop the shed scales.\nCareful: the Firemane Scalebanes and Flamecallers are 43-44 and cast fire: pull them one at a time."] = "O {item:280092} cresce no pântano a leste do acampamento: colete-o primeiro. Depois, os Dragonetes Calcinantes e Filhotes (41-43) e os dragonetes Flamigrenha fazem ninho no pântano ao norte e a oeste de Lamaroda, no caminho de volta; todos derrubam as escamas soltas.\nCuidado: os Escamortes Flamigrenha e Invocadores de Chamas são 43-44 e lançam fogo: puxe um de cada vez.",
+
+	-- Step 34: Mudsprocket
+	["Then ride back north-east to Theramore's flight master."] = "Depois volte a nordeste até o mestre de voo de Theramore.",
+
+	-- Step 35: Theramore flight master
 	["Theramore flight master"] = "Mestre de voo de Theramore",
 
-	-- Step 28: Warlock: Summon Felsteed
+	-- Step 37: Warlock: Summon Felsteed
 	-- {quest:3631} Summon Felsteed
 	["Warlock: {quest:3631}"] = "Bruxo: {quest:3631}",
 	-- {zone:1413} Barrens · {area:392} Ratchet · {npc:6251} Strahad Farsan
@@ -149,7 +186,9 @@ return {
 	-- ["The battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers."] = "O esqueleto danificado fica na beira do acampamento dos troggs da Abóbada de Pedra; {quest:739}, o assassino de Agmundo, anda entre os Quebraossos.",
 	-- ["grind on {npc:2725} at {area:339}, {zone:1418}"] = "farme {npc:2725} em {area:339}, {zone:1418}",
 	-- ["{npc:1573}, the {object:32372}"] = "{npc:1573}, {object:32372}",
+	-- ["{npc:2616} stands on the docks where the boat lands."] = "{npc:2616} fica nas docas onde o barco atraca.",
 	-- ["{npc:2888} camps by himself in {area:1898}, south-east of the digsite."] = "{npc:2888} acampa sozinho em {area:1898}, a sudeste da escavação.",
+	-- ["{npc:4968}, on the top floor"] = "{npc:4968}, no último andar",
 	-- ["{npc:5634}'s cocktail needs parts from Kalimdor: skip it."] = "O coquetel de {npc:5634} precisa de ingredientes de Kalimdor: pule.",
 	-- ["{npc:5636}, beside the flight master at the top"] = "{npc:5636}, ao lado do mestre de voo, no alto",
 	-- ["{npc:7744}: the last guide binds here, so this usually ticks at once; below ground"] = "{npc:7744}: o guia anterior vincula a Pedra de Regresso aqui, então isso costuma marcar na hora; no subterrâneo",

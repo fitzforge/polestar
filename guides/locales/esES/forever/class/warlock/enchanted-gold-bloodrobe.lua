@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {npc:6266} Menara Voidrender
-	["A rare cloth robe for your 30s from {npc:6266}; its last parts wait for levels 35 and 37."] = "Una toga de tela rara para la treintena, de {npc:6266}; sus últimas piezas esperan a los niveles 35 y 37.",
+	["A rare cloth robe for your 30s from {npc:6266}; its last parts wait for levels 37 and 39."] = "Una toga de tela rara para la treintena, de {npc:6266}; sus últimas piezas esperan a los niveles 37 y 39.",
 
 	-- Step 1: In Search of Menara Voidrender (Stormwind)
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6266} Menara Voidrender · {area:392} Ratchet · {item:5770} Robes of Arcana · {item:3577} Gold Bar
@@ -60,7 +60,7 @@ return {
 	-- Step 10: Mannoroc Coven
 	-- {area:602} Mannoroc Coven · {zone:1443} Desolace · {spell:686} Shadow Bolt
 	-- plural, as words: Lesser Infernals = {npc:4676} Lesser Infernal · Demon Portal Guardians = {npc:11937} Demon Portal Guardian
-	["The Lesser Infernals (36-37) and Demon Portal Guardians (38) of {area:602}, in the south of {zone:1443}, drop the stone half the time. The guide waits for level 35 first: at 31 they are too strong to solo. They resist fire, so use {spell:686} and Corruption."] = "Los Infernales inferiores (36-37) y los Guardias del portal demoníaco (38) de {area:602}, en el sur de {zone:1443}, sueltan la piedra la mitad de las veces. La guía espera primero al nivel 35: a nivel 31 son demasiado fuertes para ir en solitario. Resisten el fuego, así que usa {spell:686} y Corrupción.",
+	["The Lesser Infernals (36-37) and Demon Portal Guardians (38) of {area:602}, in the south of {zone:1443}, drop the stone half the time. The guide waits for level 39 first: at 31 they are too strong to solo. They resist fire, so use {spell:686} and Corruption."] = "Los infernales inferiores (36-37) y los guardias del portal demoníaco (38) de {area:602}, en el sur de {zone:1443}, sueltan la piedra la mitad de las veces. La guía espera primero al nivel 39: a nivel 31 son demasiado fuertes para ir en solitario. Resisten el fuego, así que usa {spell:686} y Corrupción.",
 
 	-- Step 11: Menara Voidrender again
 	-- {npc:6266} Menara Voidrender
@@ -75,7 +75,7 @@ return {
 	-- Step 13: Smoldering Coal
 	-- {area:334} Circle of West Binding · {zone:1417} Arathi Highlands · {spell:686} Shadow Bolt · {area:321} Hammerfall · {item:6265} Soul Shard · {spell:1120} Drain Soul
 	-- plural, as words: Burning Exiles = {npc:2760} Burning Exile · Cresting Charms = {item:4481} Cresting Charm · Cresting Exiles = {npc:2761} Cresting Exile
-	["The Burning Exiles (level 38-39), fire elementals at the {area:334} in western {zone:1417}, drop the coal about one time in three. The guide waits for level 37 first: below it they hit too hard to solo. They resist fire: {spell:686} and Corruption. The Cresting Charms from the Cresting Exiles near {area:321} finish one off once you have hurt it. Make a {item:6265} with {spell:1120} on the way."] = "Los Exiliados ardientes (nivel 38-39), elementales de fuego en {area:334}, en el oeste de {zone:1417}, sueltan el carbón aproximadamente una vez de cada tres. La guía espera primero al nivel 37: por debajo pegan demasiado fuerte para ir en solitario. Resisten el fuego: {spell:686} y Corrupción. Los Talismanes blasonados de los exiliados de agua ({npc:2761}) cerca de {area:321} rematan a uno cuando ya lo has herido. Crea un {item:6265} con {spell:1120} por el camino.",
+	["The Burning Exiles (level 38-39), fire elementals at the {area:334} in western {zone:1417}, drop the coal about one time in three. The guide waits for level 39 first: below it they hit too hard to solo. They resist fire: {spell:686} and Corruption. The Cresting Charms from the Cresting Exiles near {area:321} finish one off once you have hurt it. Make a {item:6265} with {spell:1120} on the way."] = "Los Exiliados ardientes (nivel 38-39), elementales de fuego en {area:334}, en el oeste de {zone:1417}, sueltan el carbón aproximadamente una vez de cada tres. La guía espera primero al nivel 39: por debajo pegan demasiado fuerte para ir en solitario. Resisten el fuego: {spell:686} y Corrupción. Los Talismanes blasonados de los exiliados de agua cerca de {area:321} rematan a uno cuando ya lo has herido. Crea un {item:6265} con {spell:1120} por el camino.",
 	-- {item:6265} Soul Shard · {spell:1120} Drain Soul
 	["{item:6265}: {spell:1120} on an Exile as it dies"] = "",
 
@@ -86,12 +86,15 @@ return {
 	["Wait beside {npc:6266} while she finishes the robe"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A rare cloth robe for your 30s from {npc:6266}; its last parts wait for levels 35 and 37."] = "Una toga de tela rara para la treintena, de {npc:6266}; sus últimas piezas esperan a los niveles 35 y 37.",
 	-- ["A rare cloth robe for your 30s, which {npc:6266} makes from the parts you bring her."] = "Una toga de tela rara para la treintena, que {npc:6266} confecciona con las piezas que le lleves.",
 	-- ["At 31 {npc:4563} in the {object:36082} sends you to {npc:6266} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}."] = "A nivel 31, {npc:4563}, en {object:36082}, te envía con {npc:6266} en {area:392}. El zepelín de {zone:1420} vuela a {zone:1411}.",
 	-- ["Bring {npc:6266} a {item:5770}: tailors sew it from a pattern that drops; otherwise buy one at the Auction House. Her next errand needs a {item:3577}: smelted from {item:2776}, or from the Auction House."] = "Llévale a {npc:6266} una {item:5770}: los sastres la cosen con un patrón que se obtiene como botín; si no, cómprala en la casa de subastas. Su siguiente encargo requiere una {item:3577}: se funde a partir de {item:2776} o se compra en la casa de subastas.",
+	-- ["The Burning Exiles (level 38-39), fire elementals at the {area:334} in western {zone:1417}, drop the coal about one time in three. The guide waits for level 37 first: below it they hit too hard to solo. They resist fire: {spell:686} and Corruption. The Cresting Charms from the Cresting Exiles near {area:321} finish one off once you have hurt it. Make a {item:6265} with {spell:1120} on the way."] = "Los Exiliados ardientes (nivel 38-39), elementales de fuego en {area:334}, en el oeste de {zone:1417}, sueltan el carbón aproximadamente una vez de cada tres. La guía espera primero al nivel 37: por debajo pegan demasiado fuerte para ir en solitario. Resisten el fuego: {spell:686} y Corrupción. Los Talismanes blasonados de los exiliados de agua ({npc:2761}) cerca de {area:321} rematan a uno cuando ya lo has herido. Crea un {item:6265} con {spell:1120} por el camino.",
 	-- ["The Burning Exiles, fire elementals in western {zone:1417}, drop the coal."] = "Los exiliados ardientes, elementales de fuego del oeste de {zone:1417}, sueltan el carbón.",
 	-- ["The Hatefury satyrs of {area:603}, in north-eastern {zone:1443}, carry the blood; the Lesser Infernals of Mannoroc Coven, in the south, the stone."] = "Los sátiros Odio Feroz de {area:603}, en el noreste de {zone:1443}, llevan la sangre; los infernales inferiores de Aquelarre Mannoroc, en el sur, la piedra.",
 	-- ["The Hatefury satyrs of {area:603}, in north-eastern {zone:1443}, carry the blood; the Lesser Infernals of {area:602}, in the south, the stone."] = "Los sátiros Odio Feroz de {area:603}, en el noreste de {zone:1443}, llevan la sangre; los infernales inferiores de {area:602}, en el sur, la piedra.",
+	-- ["The Lesser Infernals (36-37) and Demon Portal Guardians (38) of {area:602}, in the south of {zone:1443}, drop the stone half the time. The guide waits for level 35 first: at 31 they are too strong to solo. They resist fire, so use {spell:686} and Corruption."] = "Los Infernales inferiores (36-37) y los Guardias del portal demoníaco (38) de {area:602}, en el sur de {zone:1443}, sueltan la piedra la mitad de las veces. La guía espera primero al nivel 35: a nivel 31 son demasiado fuertes para ir en solitario. Resisten el fuego, así que usa {spell:686} y Corrupción.",
 	-- ["Wait for the robe"] = "Espera la toga",
 	-- ["{npc:2670} in {area:35} has the thread for you."] = "{npc:2670}, en {area:35}, tiene el hilo para ti.",
 	-- ["{npc:2670} sells tailoring supplies in {area:35}. Bring him the {item:3577}."] = "{npc:2670} vende suministros de sastrería en {area:35}. Llévale la {item:3577}.",

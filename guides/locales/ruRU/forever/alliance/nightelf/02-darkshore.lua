@@ -25,8 +25,6 @@ return {
 	["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "Корабль причаливает к западу от деревни. Распорядитель полетов стоит на холме к югу от таверны; дающие задания расположены вдоль главной улицы. {npc:3666} находится на верхнем этаже таверны: поднимитесь по лестнице внутри, стрелка не различает этажи.",
 	-- {npc:3666} Wizbang Cranktoggle
 	["{npc:3666}, upstairs in the inn"] = "{npc:3666}, верхний этаж таверны",
-	-- {npc:3644} Cerellean Whiteclaw
-	["{npc:3644}, on the pier"] = "{npc:3644}, на пирсе",
 
 	-- Step 5: The skeletal turtle
 	["The skeletal turtle"] = "Скелет черепахи",
@@ -58,8 +56,6 @@ return {
 	["Read the {object:17188}"] = "Прочитайте: {object:17188}",
 	-- {object:17189} Fall of Ameth'Aran
 	["Read the {object:17189}"] = "Прочитайте: {object:17189}",
-	-- {item:5382} Anaya's Pendant · {npc:3667} Anaya Dawnrunner
-	["{item:5382}: {npc:3667}, level 16; pull her away from the Highborne"] = "{item:5382}: {npc:3667}, 16-й уровень; выманите ее подальше от высокорожденных",
 
 	-- Step 9: The red crystal
 	["The red crystal"] = "Красный кристалл",
@@ -83,7 +79,7 @@ return {
 	["Blackwood furbolgs"] = "Фурболги Чернолесья",
 	-- {area:442} Auberdine
 	-- plural, as words: Blackwood Pathfinders = {npc:2167} Blackwood Pathfinder
-	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "Землепроходцы и заклинатели ветра из племени Чернолесья занимают лагерь к юго-востоку (ориентир: {area:442}).",
+	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}.\nCareful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time."] = "Землепроходцы и говорящие с ветром из племени Чернолесья занимают лагерь к юго-востоку от места {area:442}.\nОсторожно: говорящие с ветром (13-14) атакуют издалека, а фурболги стоят парами: выманивайте их по одному.",
 
 	-- Step 14: The southern beaches
 	["The southern beaches"] = "Южные пляжи",
@@ -101,10 +97,6 @@ return {
 	-- Step 17: Bashal'Aran
 	-- {npc:3650} Asterion · {area:442} Auberdine
 	["North along the hills to {npc:3650}, then west down to {area:442}."] = "На север вдоль холмов к NPC {npc:3650}, затем на запад вниз в {area:442}.",
-
-	-- Step 18: Auberdine
-	-- {npc:3644} Cerellean Whiteclaw
-	["{npc:3644}, where the pier meets the shore, on the way to the boat"] = "{npc:3644}, там, где пирс выходит на берег, по пути к кораблю",
 
 	-- Step 19: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
@@ -148,5 +140,9 @@ return {
 	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "{npc:257446} ({zone:1426}); {area:87}: учителя шаманов нет",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "Землепроходцы и заклинатели ветра из племени Чернолесья занимают лагерь к юго-востоку (ориентир: {area:442}).",
 	-- ["Into {area:148}"] = "Путь в {area:148}",
+	-- ["{item:5382}: {npc:3667}, level 16; pull her away from the Highborne"] = "{item:5382}: {npc:3667}, 16-й уровень; выманите ее подальше от высокорожденных",
+	-- ["{npc:3644}, on the pier"] = "{npc:3644}, на пирсе",
+	-- ["{npc:3644}, where the pier meets the shore, on the way to the boat"] = "{npc:3644}, там, где пирс выходит на берег, по пути к кораблю",
 }

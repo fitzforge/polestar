@@ -26,7 +26,7 @@ return {
 	["{area:2246}: kill these as you meet them"] = "",
 	-- {item:14047} Runecloth
 	-- plural, as words: Ragged Owlbeasts = {npc:7450} Ragged Owlbeast
-	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh."] = "Землепроходцы, дозорные и тотемисты живут в лагерях фурболгов вокруг горячих источников; лохматые совухи бродят по склонам между ними. Сначала убивайте тотемистов. Сохраняйте всю добытую ткань ({item:14047}) для Мейлоша.",
+	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "Землепроходцы, дозорные и тотемисты живут в лагерях фурболгов вокруг горячих источников; лохматые совухи бродят по склонам между ними. Сначала убивайте тотемистов. Сохраняйте всю добытую ткань ({item:14047}) для Мейлоша.\nОсторожно: дозорные бывают 56 уровня: выманивайте по одному и держитесь подальше от тотемов в лагерях.",
 	-- {item:12771} Empty Firewater Flask
 	["{item:12771}: about one Winterfall furbolg in ten carries one; keep killing them until it drops"] = "",
 	-- {quest:8471} Winterfall Ritual Totem
@@ -41,7 +41,7 @@ return {
 	["Raging Owlbeasts"] = "Бешеные совухи",
 	-- {area:2251} Lake Kel'Theril · {area:2246} Frostfire Hot Springs · {area:2255} Everlook
 	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast
-	["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}."] = "",
+	["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time."] = "Бешеные совухи бродят по холмам к северу от места {area:2251}, у дороги между {area:2246} и {area:2255}. Осторожно: самые крупные – 56 уровня: выманивайте по одному.",
 
 	-- Step 8: Everlook
 	-- {area:2255} Everlook
@@ -53,82 +53,67 @@ return {
 	-- Step 9: Ice Thistle yetis
 	["Ice Thistle yetis"] = "Йети ледополохов",
 	-- {area:2255} Everlook
-	["The yeti hills start just south-east of {area:2255}. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in."] = "Холмы йети начинаются чуть к юго-востоку от места {area:2255}. Мех падает с любого йети; рога – только с матриархов и патриархов, оставьте их на после сдачи.",
-
-	-- Step 11: Level 55.04
-	["Level 55.04"] = "",
-	-- {area:2255} Everlook · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
 	-- plural, as words: Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti
-	["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. The Ice Thistle Yetis (55-56) are the lowest here; the Matriarchs and Patriarchs (56-58) hit harder. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "Наберите здесь уровень 55.04, прежде чем сдавать задания здесь: {area:2255}; они поднимут вас до 56-го уровня. Йети ледополохов (55-56) здесь самые низкоуровневые; матриархи и патриархи (56-58) бьют сильнее. Или, с группой, пройдите вместо этого подземелье {area:1584} или подземелье {area:1583} (нижняя часть).",
-	-- {npc:7458} Ice Thistle Yeti
-	["grind on {npc:7458}"] = "",
+	["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit."] = "Холмы йети начинаются чуть к юго-востоку от места {area:2255}. Мех падает с любого йети: бейте йети с Холмов ледополоха (55-56) и не трогайте матриархов и патриархов (56-58) – их рога понадобятся позже.",
 
-	-- Step 12: Pristine Yeti Horns
-	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
-	["Pristine Yeti Horns"] = "Безупречные рога йети ({item:12367})",
-	["Matriarchs and Patriarchs hit hard: pull them one at a time."] = "Матриархи и патриархи бьют сильно: выманивайте по одному.",
-	["Below ground"] = "Под землей",
-
-	-- Step 13: Chillwind chimaeras
+	-- Step 10: Chillwind chimaeras
 	["Chillwind chimaeras"] = "Хладноветрые химеры",
 	-- {area:2255} Everlook · {area:2245} Mazthoril
 	["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite."] = "Химеры бродят по снежным полям к югу и западу от места {area:2255}. Держитесь подальше от пещеры ({area:2245}): синие дракониды там – элита.",
 
-	-- Step 14: Umi Rumplesnicker
-	-- {area:976} Gadgetzan
-	["Umi's third prank targets goblins in {area:976} and Un'Goro: keep it for later."] = "Третья шутка Юми – над гоблинами ({area:976}) и в Ун'Горо: сохраните на потом.",
+	-- Step 11: Everlook
+	-- {zone:1423} Eastern Plaguelands · {area:2255} Everlook
+	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
+	["Umi: keep it, the Pristine Yeti Horns come on the {zone:1423} guide's {area:2255} stop at about 57"] = "Уми: не сдавайте, нетронутые рога йети – в гайде по зоне {zone:1423}, при остановке в месте {area:2255} примерно на 57 уровне",
+	["The Matriarchs and Patriarchs that carry Umi's horns are 56-58: leave them for that later stop."] = "Матриархи и патриархи с рогами для Уми – 56-58 уровня: оставьте их на ту остановку.",
 
-	-- Step 15: Winterfall Village
-	-- {area:2255} Everlook · {npc:10738} High Chief Winterfall
-	["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} in the cave at the back is elite: stay out."] = "Деревня фурболгов занимает долину к северо-востоку от места {area:2255}. Сначала убивайте шаманов: они лечат. {npc:10738} в пещере в глубине – элита: не заходите.",
-
-	-- Step 16: Fly to Camp Mojache
+	-- Step 12: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "Летите сюда: {area:1099}",
 	-- {area:2255} Everlook
 	["{area:2255} flight master"] = "",
 
-	-- Step 18: Evoroot
+	-- Step 14: Evoroot
 	-- {item:11242} Evoroot · {npc:7775} Gregan Brewspewer · {area:1114} Ruins of Ravenwind
 	["The {item:11242} grows inside a ruined building north of {npc:7775}'s camp, east of the harpies' {area:1114}: climb in through the broken part of its wall."] = "{item:11242} растет внутри разрушенного здания к северу от лагеря {npc:7775}, к востоку от места {area:1114} гарпий: заберитесь внутрь через разрушенную часть стены.",
 
-	-- Step 19: The Videre Elixir
+	-- Step 15: The Videre Elixir
 	-- {npc:7775} Gregan Brewspewer · {area:976} Gadgetzan
 	["Back south to {npc:7775}. Keep the elixir and don't drink it yet: it kills you, and that is how you meet Gaeriyan by {area:976} later."] = "Обратно на юг к {npc:7775}. Сохраните эликсир и пока не пейте его: он убивает, и именно так вы позже встретите Гаэрияна у места {area:976}.",
 	-- {item:11243} Videre Elixir · {npc:7775} Gregan Brewspewer
 	["{item:11243}, {npc:7775}'s reward"] = "{item:11243}, награда от {npc:7775}",
 
-	-- Step 21: Fly to Thunder Bluff
+	-- Step 17: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "Летите сюда: {area:1638}",
 	-- {area:2408} Shadowprey Village
 	["{area:2408} flight master"] = "Распорядитель полетов: {area:2408}",
 
-	-- Step 22: Bluff Runner Windstrider
+	-- Step 18: Bluff Runner Windstrider
 	-- {npc:10881} Bluff Runner Windstrider · {npc:14728} Rumstag Proudstrider · {area:1641} Hunter Rise
 	["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
 
-	-- Step 23: Elder Rise
+	-- Step 19: Elder Rise
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} on {area:1639}; {npc:246344}"] = "{npc:3033} ({area:1639}); {npc:246344}",
 	-- {quest:1123} Rabine Saturna · {zone:1450} Moonglade
 	["{quest:1123} waits in {zone:1450}: keep it for later."] = "{quest:1123} ждет здесь: {zone:1450} – сохраните на потом.",
 
-	-- Step 24: Bashana Runetotem
+	-- Step 20: Bashana Runetotem
 	-- {npc:9087} Bashana Runetotem · {item:11040} Morrowgrain · {quest:3761} Un'Goro Soil · {quest:3782} Morrowgrain Research · {item:11020} Evergreen Pouch
 	["{npc:9087} buys {item:11040} grown from your {quest:3761}. {quest:3782} wants ten, and the {item:11020} gives one try every ten minutes: take it only if you already have the grain."] = "",
 
-	-- Step 25: Fly to Orgrimmar
+	-- Step 21: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Летите сюда: {area:1637}",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "",
 
-	-- Step 26: Vehena
+	-- Step 22: Vehena
 	-- {object:172961} Valley of Spirits
 	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
 
-	-- Step 27: Rashona Straglash
+	-- Step 23: Rashona Straglash
 	-- {object:172958} Valley of Honor
 	["In the {object:172958}."] = "Ориентир: {object:172958}.",
 	-- {item:14047} Runecloth
@@ -138,6 +123,7 @@ return {
 	-- ["Any Winterfall furbolg can carry the beads; the camps just south of {npc:11556} are the closest."] = "Бусы может нести любой фурболг Зимней Спячки; ближайшие лагеря – чуть к югу от персонажа {npc:11556}.",
 	-- ["Back at {area:1099}."] = "Снова здесь: {area:1099}.",
 	-- ["Back to {area:2255}"] = "Назад: {area:2255}",
+	-- ["Below ground"] = "Под землей",
 	-- ["Chillwind chimaeras"] = "Хладноветрые химеры",
 	-- ["From Krakle in Un'Goro"] = "От Кракла из Ун'Горо",
 	-- ["Frostfire Winterfall camp"] = "Лагерь Зимней Спячки у источников",
@@ -146,10 +132,16 @@ return {
 	-- ["Grind to 55"] = "Набейте 55-й уровень",
 	-- ["He stands on {area:1641}. Each donation wants cloth from your bags; hand them in when you have it, later in the route."] = "Он стоит здесь: {area:1641}. Каждое пожертвование требует ткани из сумок; сдайте, когда она будет, позже по маршруту.",
 	-- ["In the {object:172961}."] = "Ориентир: {object:172961}.",
+	-- ["Matriarchs and Patriarchs hit hard: pull them one at a time."] = "Матриархи и патриархи бьют сильно: выманивайте по одному.",
 	-- ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh."] = "Землепроходцы, дозорные и тотемисты живут в лагерях фурболгов вокруг горячих источников; лохматые совухи бродят по склонам между ними. Сначала убивайте тотемистов. Сохраняйте всю добытую ткань ({item:14047}) для Мейлоша.",
+	-- ["Pristine Yeti Horns"] = "Безупречные рога йети ({item:12367})",
 	-- ["Ride back west to {area:2246}."] = "Возвращайтесь на запад сюда: {area:2246}.",
 	-- ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "Езжайте на восток, затем на юг через место {area:2249}. Великаны ледяного молота там – элита 59-го уровня: держитесь середины и не останавливайтесь. Странный источник – у входа сюда: {area:2256}, в южном конце.",
 	-- ["Ride west along the road past {area:2251}; Raging Owlbeasts roam the hills north of it."] = "Езжайте на запад по дороге мимо места {area:2251}; бешеные совухи бродят по холмам к северу.",
+	-- ["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} in the cave at the back is elite: stay out."] = "Деревня фурболгов занимает долину к северо-востоку от места {area:2255}. Сначала убивайте шаманов: они лечат. {npc:10738} в пещере в глубине – элита: не заходите.",
+	-- ["The yeti hills start just south-east of {area:2255}. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in."] = "Холмы йети начинаются чуть к юго-востоку от места {area:2255}. Мех падает с любого йети; рога – только с матриархов и патриархов, оставьте их на после сдачи.",
+	-- ["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. The Ice Thistle Yetis (55-56) are the lowest here; the Matriarchs and Patriarchs (56-58) hit harder. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "Наберите здесь уровень 55.04, прежде чем сдавать задания здесь: {area:2255}; они поднимут вас до 56-го уровня. Йети ледополохов (55-56) здесь самые низкоуровневые; матриархи и патриархи (56-58) бьют сильнее. Или, с группой, пройдите вместо этого подземелье {area:1584} или подземелье {area:1583} (нижняя часть).",
+	-- ["Umi's third prank targets goblins in {area:976} and Un'Goro: keep it for later."] = "Третья шутка Юми – над гоблинами ({area:976}) и в Ун'Горо: сохраните на потом.",
 	-- ["grind on {npc:7440} at {area:2244}, {zone:1452}"] = "бейте монстров {npc:7440}: {area:2244}, {zone:1452}",
 	-- ["{item:12771}, a rare drop from the Winterfall furbolgs"] = "{item:12771}, редкая добыча с фурболгов Зимней Спячки",
 	-- ["{npc:10307}, beside him"] = "{npc:10307}, рядом с ним",

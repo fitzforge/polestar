@@ -92,8 +92,11 @@ return {
 	-- {area:2240} Mirage Raceway
 	["{area:2240}: kill these as you meet them"] = "",
 	-- {object:19868} Rocket Car Rubble
-	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Basilisks = {npc:4147} Saltstone Basilisk
-	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "",
+	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Gazers = {npc:4150} Saltstone Gazer · Scorpid Terrors = {npc:4139} Scorpid Terror
+	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "Hay {object:19868} por todo el llano. Los Atracadores escórpidos y los Carroñeros de los Llanos de Sal deambulan por la mitad norte, y las Tortugas brillavalva (30-31) por el centro: mátalas para conseguir los caparazones. Cuidado: los Sacudidores caparallantes (34-35) deambulan por todo el llano, y los Observadores Gapo Salino (34-35) y los Terrores escórpidos (33-34) ocupan el extremo sur: déjalos y quédate en la mitad norte.",
+	-- {item:5795} Hardened Tortoise Shell
+	-- plural, as words: Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise
+	["{item:5795}, from the Sparkleshell Tortoises"] = "{item:5795}, de las Tortugas brillavalva",
 	-- {npc:4078} Collin Mauren · {zone:1453} Stormwind
 	-- plural, as words: Saltstone Basilisks = {npc:4147} Saltstone Basilisk
 	["Crystalized Scale, from the Saltstone Basilisks: eight for {npc:4078} in {zone:1453}"] = "",

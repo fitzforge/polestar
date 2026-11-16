@@ -111,7 +111,7 @@ return {
 
 	-- Step 17: Old Fire-Eye
 	-- {item:268484} Moonsilver Blade · {quest:95140} Old Fire-Eye · {area:228} Sepulcher · {area:17065} Gilneas
-	["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): the guide waits for level 22 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "{item:268484}을(를) 장착하세요. 거대한 늑대인간 {quest:95140}은(는) {area:228} 남쪽 숲에서 {area:17065} 관문 쪽으로 돌아다닙니다. 정예(25레벨)입니다. 가이드는 먼저 22레벨까지 기다리며, 파티를 권장합니다. 플레이어들은 22레벨부터 그를 처치했고, 한 명은 도우미가 한 명 더 필요했으며, 다른 한 명은 25레벨에 혼자 잡았습니다. 그 검으로 처음 공격이 적중할 때까지 보라색 보호막이 그를 지킵니다. 보호막이 깨지면 메시지가 나옵니다.",
+	["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): the guide waits for level 25 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "{item:268484}을(를) 장착하세요. 거대한 늑대인간 {quest:95140}은(는) {area:228} 남쪽 숲에서 {area:17065} 관문 쪽으로 돌아다닙니다. 정예(25레벨)입니다. 가이드는 먼저 25레벨까지 기다리며, 파티를 권장합니다. 플레이어들은 22레벨부터 그를 처치했고, 한 명은 도우미가 한 명 더 필요했으며, 다른 한 명은 25레벨에 혼자 잡았습니다. 그 검으로 처음 공격이 적중할 때까지 보라색 보호막이 그를 지킵니다. 보호막이 깨지면 메시지가 나옵니다.",
 	-- {npc:259620} Lumina Windsinger · {area:228} Sepulcher
 	["{npc:259620}, the {area:228}"] = "{npc:259620}, {area:228}",
 	-- {quest:95140} Old Fire-Eye · {item:268484} Moonsilver Blade
@@ -122,6 +122,7 @@ return {
 	["Back to {npc:259620} in the {area:228} with the {item:268484} (the quest asks for it): she takes it and blesses it with the magic of her people into {item:267369}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): the guide waits for level 22 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "{item:268484}을(를) 장착하세요. 거대한 늑대인간 {quest:95140}은(는) {area:228} 남쪽 숲에서 {area:17065} 관문 쪽으로 돌아다닙니다. 정예(25레벨)입니다. 가이드는 먼저 22레벨까지 기다리며, 파티를 권장합니다. 플레이어들은 22레벨부터 그를 처치했고, 한 명은 도우미가 한 명 더 필요했으며, 다른 한 명은 25레벨에 혼자 잡았습니다. 그 검으로 처음 공격이 적중할 때까지 보라색 보호막이 그를 지킵니다. 보호막이 깨지면 메시지가 나옵니다.",
 	-- ["Free her with the key, then stay close while she fights her way out of the keep."] = "열쇠로 그녀를 풀어준 뒤, 그녀가 싸우며 성채를 빠져나가는 동안 가까이 있으십시오.",
 	-- ["No item yet: a Forsaken paladin rescue story; its sequel, the {item:268484}, cannot be finished yet."] = "아직 아이템 없음: 포세이큰 성기사 구출 이야기입니다. 후속인 {item:268484}은(는) 아직 완료할 수 없습니다.",
 	-- ["Once she is clear of {area:235}, Lumina waits for you in the {area:228}. Speak with her again to hear what really happened on the road."] = "{area:235}을(를) 벗어나면 Lumina가 {area:228}에서 기다립니다. 다시 대화하여 길에서 실제로 무슨 일이 있었는지 들으십시오.",

@@ -9,7 +9,7 @@ return {
 	-- Step 1: Stormwind
 	-- {zone:1429} Elwynn Forest · {quest:174} Look to the Stars · {area:42} Darkshire · {item:4371} Bronze Tube · {npc:3133} Herble Baubbletump · {object:2096} Trade District
 	["Train, then leave by the main gate and follow the road east through {zone:1429}.\n{quest:174} in {area:42} needs a {item:4371}. Its vendors keep only one or two, and {npc:3133} in {area:42} is nearly always sold out: buy one at the Auction House in the {object:2096} on your way out. An engineer can make one too."] = "先训练，然后从城门出去，沿大路向东穿过{zone:1429}。\n{area:42}的{quest:174}需要一根{item:4371}。商人只备一两根，{area:42}的{npc:3133}几乎总是售罄：出门路上在{object:2096}的拍卖行买一根。工程师也能自己做一根。",
-	["Level 18 and 20 spells"] = "18级和20级法术",
+	["Your new spells"] = "你的新法术",
 	-- {item:4371} Bronze Tube · {quest:174} Look to the Stars · {area:42} Darkshire
 	["{item:4371}: the Auction House, for {quest:174} in {area:42}"] = "{item:4371}：拍卖行，为{area:42}的{quest:174}备的",
 
@@ -133,8 +133,8 @@ return {
 	-- {area:492} Raven Hill Cemetery
 	["{area:492}: kill these as you meet them"] = "{area:492}：沿途击杀以下目标",
 	-- {npc:522} Mor'Ladim
-	-- plural, as words: Skeletal Horrors = {npc:202} Skeletal Horror · Skeletal Fiends = {npc:531} Skeletal Fiend
-	["The cemetery lies north of the village. Skeletal Horrors and Skeletal Fiends walk its southern half. {npc:522}, an elite, wanders the graves: keep away from him."] = "墓地位于村子北边。恐怖骸骨和骸骨魔在墓地南半部游荡。精英{npc:522}在墓地间徘徊：离他远点。",
+	-- plural, as words: Skeletal Horrors = {npc:202} Skeletal Horror · Skeletal Fiends = {npc:531} Skeletal Fiend · Flesh Eaters = {npc:3} Flesh Eater · Bone Chewers = {npc:210} Bone Chewer · Plague Spreaders = {npc:604} Plague Spreader · Fetid Corpses = {npc:1270} Fetid Corpse
+	["The cemetery lies north of the village. Skeletal Horrors and Skeletal Fiends (23-25) walk its southern half and carry the fingers; for the fangs, Flesh Eaters (24-25) drop the most, so leave the Bone Chewers, Plague Spreaders and Fetid Corpses (26-30) further in alone. {npc:522}, an elite, wanders the graves: keep away from him.\nCareful: Eliza, a level 31 elite, rises from her grave at the cemetery's north end: keep away from it."] = "墓地在村庄北边。{npc:202}和{npc:531}（23-25级）在墓地南半部游荡，身上有手指；獠牙则是{npc:3}（24-25级）掉得最多，所以别去惹更深处的{npc:210}、{npc:604}和{npc:1270}（26-30级）。精英{npc:522}在墓间游荡：远离他。\n小心：31级精英伊莉莎会从墓地北端她的坟墓中升起：远离那里。",
 
 	-- Step 22: Watcher Dodds
 	-- {area:245} Yorgen Farmstead
@@ -284,6 +284,7 @@ return {
 	-- ["Greater Tarantulas crawl on the slopes around the mill north-east of the lake; Blackrock Renegades hold the mill itself."] = "巨型狼蛛在湖东北伐木场周围的山坡上爬行；黑石叛节者占据着伐木场。",
 	-- ["Head north out of {area:69} up the {area:95} to {area:997}. Blackrock Champions camp in the valley."] = "从{area:69}向北出发，沿{area:95}上行到{area:997}。黑石勇士在山谷中扎营。",
 	-- ["Lake murlocs"] = "湖边的鱼人",
+	-- ["Level 18 and 20 spells"] = "18级和20级法术",
 	-- ["Murloc Flesheaters and Tidecallers line the south shore east of the bridge. Any of them can carry a {item:1467} or a fin."] = "鱼人食腐者和鱼人招潮者分布在桥东的南岸。它们都可能带有{item:1467}或鳍。",
 	-- ["Redridge Mongrels and other gnolls hold the hills east of {area:1002}, north of the road; Redridge Thrashers prowl among them, Poachers camp south of the road. Dire Condors and Great Goretusks roam the same hills."] = "混血赤脊山豺狼人和其他豺狼人占据着{area:1002}以东、道路以北的山丘；赤脊山鞭笞者在其中游荡，赤脊山偷猎者在道路以南扎营。恐鹫和巨型血牙野猪也在这片山丘游荡。",
 	-- ["Redridge Mongrels and other gnolls hold the hills east of {area:1002}, north of the road; Redridge Thrashers prowl among them, Poachers camp south of the road. Redridge Brutes, for the Iron Pikes and Rivets, hold the hills further north; Dire Condors and Great Goretusks roam the hills east of them."] = "{npc:423}和其他豺狼人占据着{area:1002}以东、道路以北的山丘；{npc:712}在其中游荡，赤脊山偷猎者在道路南边扎营。掉落{item:2856}和铁铆钉的{npc:426}在更北边的山丘；{npc:428}和{npc:547}在它们东边的山丘游荡。",
@@ -291,6 +292,7 @@ return {
 	-- ["South down the valley's east side to the Blackrock camps east of {area:2099}. Renegades, Grunts and Outrunners fill them; keep east of the keep, whose orcs are elite."] = "沿山谷东侧向南，前往{area:2099}东边的黑石营地。营地里有黑石叛节者、步兵和前锋；保持在要塞东边，要塞里的兽人都是精英。",
 	-- ["Swim east from the bridge into {area:68}; the chest lies on the lake bed."] = "从桥边向东游进{area:68}；箱子在湖底。",
 	-- ["The Wanted poster by the inn: {npc:703}, in {area:1000}"] = "旅店旁的通缉令：{area:1000}的{npc:703}",
+	-- ["The cemetery lies north of the village. Skeletal Horrors and Skeletal Fiends walk its southern half. {npc:522}, an elite, wanders the graves: keep away from him."] = "墓地位于村子北边。恐怖骸骨和骸骨魔在墓地南半部游荡。精英{npc:522}在墓地间徘徊：离他远点。",
 	-- ["The road from Elwynn enters Redridge at {area:1002}. {npc:464} stands where the roads to Redridge and {zone:1431} meet."] = "来自艾尔文森林的道路在{area:1002}进入赤脊山。{npc:464}站在通往赤脊山和{zone:1431}的道路交汇处。",
 	-- ["The road into {zone:1429}"] = "通往{zone:1429}的路",
 	-- ["The {area:442} boat docks at {area:17203}. Walk up into the city for training and {npc:1646}, then leave by the main gate and follow the road east through {zone:1429}."] = "来自{area:442}的船停靠在{area:17203}。走进城里学习技能并找{npc:1646}，然后从正门离开，沿道路向东穿过{zone:1429}。",

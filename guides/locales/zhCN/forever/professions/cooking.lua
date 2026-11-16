@@ -69,7 +69,7 @@ return {
 
 	-- Step 13: Charred Wolf Meat: ingredients
 	-- {npc:250874} Vuldren Alpha
-	["Vuldren, {npc:250874} in Zephras Isle, or wherever the arrow points"] = "",
+	["Vuldren, {npc:250874} in Zephras Isle, or wherever the arrow points"] = "泽风岛的瓦尔德伦、{npc:250874}，或箭头指向的地点",
 
 	-- Step 14: Charred Wolf Meat (1-50)
 	-- {spell:2538} Charred Wolf Meat · {object:29784} Basic Campfire · {item:2672} Stringy Wolf Meat
@@ -102,12 +102,11 @@ return {
 	-- Step 26: Coyote Steak: ingredients
 	-- {spell:2541} Coyote Steak
 	["{spell:2541}: ingredients"] = "{spell:2541}：材料",
-	-- {npc:834} Coyote · {npc:833} Coyote Packleader · {zone:1436} Westfall
-	["{npc:834} (54%), {npc:833} (51%) in {zone:1436}, or wherever the arrow points"] = "{zone:1436} 的 {npc:834}（54%）、{npc:833}（51%），或箭头指向的其他地点",
+	-- {npc:833} Coyote Packleader · {zone:1436} Westfall
+	["Coyote (54%), {npc:833} (51%) in {zone:1436}, or wherever the arrow points"] = "{zone:1436}的山狗（54%）、{npc:833}（51%），或箭头指向的其他地点",
 
 	-- Step 27: Coyote Steak (50-90)
 	-- {spell:2541} Coyote Steak · {object:29784} Basic Campfire · {skill:185} Cooking · {zone:1436} Westfall · {npc:235} Salma Saldean · {area:108} Sentinel Hill · {item:733} Westfall Stew · {item:724} Goretusk Liver Pie
-	-- plural, as words: Coyotes = {npc:834} Coyote
 	["{spell:2541} is orange from 50 (yellow at 90, green at 110, grey at 130): about 40 crafts to 90. Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 50 for 1s. Coyotes roam the middle of {zone:1436}; {npc:235} on the farm north of {area:108} also gives {item:733} and {item:724} quests that use what you loot here."] = "{spell:2541}从技能50起为橙色（90变黄，110变绿，130变灰）：约制作40次可到90。可在任意火源旁烹饪：城镇炉火或自己的{object:29784}都行。任意{skill:185}训练师都可在技能50时以1银币教授。山狗在{zone:1436}中部游荡；{area:108}北面农场的{npc:235}还提供{item:733}和{item:724}任务，会用到这里拾取的材料。",
 
 	-- Step 28: Crab Cake: shopping
@@ -419,6 +418,7 @@ return {
 	-- ["{npc:4701} (55%), {npc:4702} (54%), {npc:4700} (40%) in {zone:1443}, or wherever the arrow points"] = "{npc:4701}（55%）、{npc:4702}（54%）、{npc:4700}（40%），在{zone:1443}，或前往箭头指向的地点",
 	-- ["{npc:547} (35%), {npc:157} (34%) in {zone:1436}, or wherever the arrow points"] = "{npc:547}（35%）、{npc:157}（34%），在{zone:1436}，或前往箭头指向的地点",
 	-- ["{npc:7099} (40%) in {zone:1448}, or wherever the arrow points"] = "{npc:7099}（40%），在{zone:1448}，或前往箭头指向的地点",
+	-- ["{npc:834} (54%), {npc:833} (51%) in {zone:1436}, or wherever the arrow points"] = "{zone:1436} 的 {npc:834}（54%）、{npc:833}（51%），或箭头指向的其他地点",
 	-- ["{quest:6610} asks for 20 {item:8932} (check the quest log); innkeepers and food vendors sell it, and the arrow picks the nearest."] = "{quest:6610}需要20块{item:8932}（查看任务日志）；旅店老板和食物商人有售，箭头指向最近的一位。",
 	-- ["{spell:2538} is orange from 1 (yellow at 45, grey at 85): about 50 crafts to 50. Cook at any fire: {object:29784} comes with {skill:185}."] = "{spell:2538}从1起为橙色（45变黄，85变灰）：约制作50次可到50。任何火堆都能烹饪：学会{skill:185}即获得{object:29784}。",
 	-- ["{spell:2540} is orange from 1 (yellow at 45, grey at 85): about 50 crafts to 50. Cook at any fire: {object:29784} comes with {skill:185}."] = "{spell:2540}从1起为橙色（45变黄，85变灰）：约制作50次可到50。任何火堆都能烹饪：学会{skill:185}即获得{object:29784}。",

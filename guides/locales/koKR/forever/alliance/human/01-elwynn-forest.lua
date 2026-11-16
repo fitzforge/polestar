@@ -129,8 +129,8 @@ return {
 	["Level 5.77"] = "",
 	-- {quest:91752} The Big Picture
 	["If you skipped {quest:91752}, grind here to level 5.77 to stay on the route's plan."] = "",
-	-- {npc:40} Kobold Miner
-	["grind on {npc:40}"] = "",
+	-- {npc:113} Stonetusk Boar
+	["grind on {npc:113}"] = "{npc:113} 사냥",
 
 	-- Step 23: Sam Sarsaparilla
 	-- {npc:263399} Sam Sarsaparilla · {skill:129} First Aid · {area:87} Goldshire
@@ -280,6 +280,8 @@ return {
 	["Level 8.39"] = "",
 	-- {quest:91775} Book Return
 	["If you skipped {quest:91775}, grind here to level 8.39 to stay on the route's plan."] = "",
+	-- {npc:40} Kobold Miner
+	["grind on {npc:40}"] = "",
 
 	-- Step 54: Class trainer
 	["Class trainer"] = "직업 전문가",
@@ -319,9 +321,9 @@ return {
 	-- Step 61: Downstream and Princess
 	-- {quest:91733} Downstream · {npc:330} Princess
 	["{quest:91733} and {npc:330}"] = "{quest:91733}와(과) {npc:330}",
-	-- {item:247813} Waterlogged Saw · {npc:330} Princess · {area:62} Brackwell Pumpkin Patch · {npc:390} Porcine Entourage · {npc:248278} Croaky
-	-- plural, as words: Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear
-	["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: {npc:248278} is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional."] = "{item:247813}, 도끼, 연장통은 다리 남쪽 강에 있습니다. 큰 멧돼지인 {npc:330}은(는) 강 서쪽 {area:62}에서 {npc:390}와(과) 함께 땅을 파헤칩니다. 새끼 돼지부터 떼어 내십시오. 가는 길에 굶주린 늑대와 새끼 숲곰을 처치하십시오. 주의: {npc:248278}은(는) 멀록 해안의 11레벨 정예입니다. 파티가 있거나 10레벨이 된 뒤에만 그의 머리를 노리십시오. 아니면 건드리지 마십시오. 선택 사항입니다.",
+	-- {item:247813} Waterlogged Saw · {npc:330} Princess · {area:62} Brackwell Pumpkin Patch · {npc:390} Porcine Entourage · {npc:261} Guard Thomas · {npc:248278} Croaky
+	-- plural, as words: Young Forest Bears = {npc:822} Young Forest Bear · Prowlers = {npc:118} Prowler
+	["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Young Forest Bears on the way; the Prowlers (level 9-10) wait for the walk back to {npc:261}, after the logging camp and the mine. Careful: {npc:248278} is a level 11 elite on the murloc shore. Only go for his head with a group; otherwise leave him: it's optional."] = "{item:247813}, 도끼, 연장통은 다리 남쪽 강에 있습니다. 큰 멧돼지인 {npc:330}은(는) 강 서쪽 {area:62}에서 {npc:390}와(과) 함께 땅을 파헤칩니다. 새끼 돼지부터 떼어 내세요. 가는 길에 새끼곰을 처치하세요. 굶주린 늑대(9-10레벨)는 벌목장과 광산을 마친 뒤 {npc:261}에게 돌아가는 길에 잡으세요. 주의: {npc:248278}은(는) 멀록 해안의 11레벨 정예입니다. 파티가 있을 때만 그의 머리를 노리세요. 아니면 건드리지 마세요. 선택 사항입니다.",
 
 	-- Step 62: Croaky
 	-- {npc:248278} Croaky · {quest:91740} Croaky's Head
@@ -331,13 +333,14 @@ return {
 	["Level 8.85"] = "",
 	-- {quest:91740} Croaky's Head
 	["If you skipped {quest:91740}, grind here to level 8.85 to stay on the route's plan."] = "",
-	-- {npc:118} Prowler
-	["grind on {npc:118}"] = "",
+	-- {npc:1922} Gray Forest Wolf
+	["grind on {npc:1922}"] = "{npc:1922} 사냥",
 
 	-- Step 66: The Eastvale Logging Camp
 	-- {area:88} Eastvale Logging Camp
 	["The {area:88}"] = "{area:88}",
-	["The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it."] = "야영지는 다리 북동쪽에 있습니다. 장작 더미는 야영지 주변과 북쪽 숲에 있습니다.",
+	-- {area:86} Stone Cairn Lake
+	["The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it.\nCareful: Elmpaw, a level 12 elite gnoll, walks the woods and hills from the logging camp north to {area:86} and the gnoll camps: keep clear of him when you see him coming."] = "야영지는 다리 북동쪽에 있습니다. 나무 묶음은 야영지 주변과 그 북쪽 숲에 놓여 있습니다.\n주의: 12레벨 정예 놀인 엘름포가 벌목장에서 북쪽 {area:86}와(과) 놀 야영지까지 숲과 언덕을 돌아다닙니다. 다가오는 것이 보이면 피하세요.",
 	-- {npc:278} Sara Timberlain
 	["{npc:278}, inside"] = "",
 
@@ -345,9 +348,9 @@ return {
 	["It lies by the river north-west of the logging camp."] = "벌목장 북서쪽 강가에 있습니다.",
 
 	-- Step 68: Stone Cairn Lake
-	-- {area:86} Stone Cairn Lake · {object:56} Rolf's corpse
+	-- {area:86} Stone Cairn Lake · {object:56} Rolf's corpse · {npc:6866} Defias Bodyguard
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard · Red Linen Bandanas = {item:1019} Red Linen Bandana
-	["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "데피아즈단 견습마술사가 {area:86} 기슭에 야영하며, 붉은 리넨 복면도 떨어뜨립니다. {object:56}은(는) 북동쪽 기슭의 멀록 마을에 있습니다.",
+	["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore.\nCareful: the Rogue Wizards cast from range and a {npc:6866} (10) walks the shore with them: pull them one at a time."] = "데피아즈단 견습마술사가 {area:86} 기슭에 야영하며, 붉은 리넨 복면도 떨어뜨립니다. {object:56}은(는) 북동쪽 기슭의 멀록 마을에 있습니다.\n주의: 견습마술사는 원거리에서 주문을 쓰고, {npc:6866}(10)이(가) 함께 기슭을 돌아다닙니다. 한 마리씩 끌어오세요.",
 	-- plural, as words: Red Linen Bandanas = {item:1019} Red Linen Bandana
 	["Red Linen Bandanas"] = "붉은 리넨 복면",
 
@@ -379,8 +382,9 @@ return {
 	["Follow the road east past the {area:91} to the bridge. Finish the Prowlers and Young Forest Bears around the river south of it."] = "길을 따라 동쪽으로 {area:91}을(를) 지나 다리로 가십시오. 다리 남쪽 강 주변의 굶주린 늑대와 새끼 숲곰을 마저 처치하십시오.",
 
 	-- Step 75: Stone Cairn Lake
+	-- {npc:6866} Defias Bodyguard
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake."] = "벌목장 북동쪽입니다. 데피아즈단 견습마술사가 호숫가에 야영하고 있습니다.",
+	["North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake.\nCareful: the Rogue Wizards cast from range and a {npc:6866} (10) walks the shore with them: pull them one at a time."] = "벌목장 북동쪽입니다. 데피아즈단 견습마술사가 호숫가에 야영합니다.\n주의: 견습마술사는 원거리에서 주문을 쓰고, {npc:6866}(10)이(가) 함께 기슭을 돌아다닙니다. 한 마리씩 끌어오세요.",
 
 	-- Step 76: The Tower of Azora
 	["Follow the hills south to the tower, on the road west."] = "언덕을 따라 남쪽, 서쪽 길가의 탑으로 가십시오.",
@@ -493,6 +497,7 @@ return {
 	-- ["Back to the Cathedral of Light."] = "빛의 대성당으로 돌아가십시오.",
 	-- ["Bait ingredients"] = "미끼 재료",
 	-- ["Boar meat"] = "멧돼지 고기",
+	-- ["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "데피아즈단 견습마술사가 {area:86} 기슭에 야영하며, 붉은 리넨 복면도 떨어뜨립니다. {object:56}은(는) 북동쪽 기슭의 멀록 마을에 있습니다.",
 	-- ["Follow the road north from {area:87} into {zone:1453}. {npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in {object:2100} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "길을 따라 북쪽으로 {area:87}에서 {zone:1453}(으)로 가십시오. {npc:6171}와(과) {npc:6173}은(는) 빛의 대성당에 있으며, {npc:6174}은(는) {object:2100}에서 {item:2589} 10개를 요구합니다(인간형 몹이 떨어뜨리고, 경매장에서도 판매합니다).",
 	-- ["Follow the road south out of the valley to {area:87}. {npc:295} is in the Lion's Pride Inn; {npc:240} stands outside the smithy across the road, {npc:253} at the inn's front and {npc:241} by the road south of it."] = "길을 따라 남쪽으로 골짜기를 빠져나가 {area:87}(으)로 가십시오. {npc:295}은(는) 사자무리 여관에, {npc:240}은(는) 길 건너 대장간 밖에, {npc:253}은(는) 여관 앞에, {npc:241}은(는) 그 남쪽 길가에 있습니다.",
 	-- ["Follow the road west back to {area:87}."] = "길을 따라 서쪽 {area:87}(으)로 돌아가십시오.",
@@ -507,14 +512,17 @@ return {
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way. {npc:248278} roams the murloc shore too: right-click the head it drops. {npc:248278} is elite: grouping up is advised."] = "멀록 채집꾼과 멀록 잠복꾼이 다리 남쪽 강을 따라 있습니다. 데피아즈단인 {npc:473}이(가) 그 서쪽 {area:62}을(를) 돌아다닙니다. 가는 길에 굶주린 늑대와 새끼곰을 마저 처치하십시오. {npc:248278}도 멀록 해안을 돌아다닙니다: 떨어뜨리는 머리를 오른쪽 클릭하십시오. {npc:248278}은(는) 정예입니다: 파티를 권장합니다.",
 	-- ["Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp."] = "멀록과 멀록 길잡이가 동쪽 기슭을 차지하고 있으며, 잡동사니 더미는 그들의 야영지에 있습니다.",
 	-- ["Murlocs and the Collector"] = "멀록과 수집가",
+	-- ["North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake."] = "벌목장 북동쪽입니다. 데피아즈단 견습마술사가 호숫가에 야영하고 있습니다.",
 	-- ["Ride back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "{area:87}을(를) 지나 다시 나가 동쪽 길을 따라 {area:62}(으)로 가십시오. {npc:881}(9레벨)은(는) 농가 옆에 있습니다.",
 	-- ["Ride back out through {area:87} and east along the road to the {area:62}. {quest:1688} (level 9) stands by its farmhouse."] = "{area:87}을(를) 지나 다시 나가 동쪽 길을 따라 {area:62}(으)로 가십시오. {quest:1688}(9레벨)은(는) 농가 옆에 있습니다.",
 	-- ["Ride back out through {area:87} and east to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "{area:87}을(를) 지나 다시 나가 동쪽 {area:86}(으)로 가십시오. {npc:6172}은(는) 호수 남쪽에 쓰러져 있으니 {item:6866}을(를) 사용하십시오. 주변의 데피아즈단 견습마술사가 {item:6846}을(를) 가지고 있습니다.",
 	-- ["She sits inside the farmhouse."] = "그녀는 농가 안에 앉아 있습니다.",
 	-- ["Speak with {npc:1430}"] = "{npc:1430}와(과) 대화",
 	-- ["Stonetusk Boars graze between the vineyards and the farm."] = "돌엄니멧돼지가 포도밭과 농장 사이에서 풀을 뜯습니다.",
+	-- ["The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it."] = "야영지는 다리 북동쪽에 있습니다. 장작 더미는 야영지 주변과 북쪽 숲에 있습니다.",
 	-- ["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels."] = "광산은 놀 야영지 남서쪽에 있습니다. {item:247816}은(는) 입구 근처에 있으며, 코볼트 흙점쟁이가 터널을 차지하고 있습니다.",
 	-- ["The murloc camp"] = "멀록 야영지",
+	-- ["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: {npc:248278} is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional."] = "{item:247813}, 도끼, 연장통은 다리 남쪽 강에 있습니다. 큰 멧돼지인 {npc:330}은(는) 강 서쪽 {area:62}에서 {npc:390}와(과) 함께 땅을 파헤칩니다. 새끼 돼지부터 떼어 내십시오. 가는 길에 굶주린 늑대와 새끼 숲곰을 처치하십시오. 주의: {npc:248278}은(는) 멀록 해안의 11레벨 정예입니다. 파티가 있거나 10레벨이 된 뒤에만 그의 머리를 노리십시오. 아니면 건드리지 마십시오. 선택 사항입니다.",
 	-- ["Torn Murloc Fins"] = "찢어진 멀록 지느러미",
 	-- ["Use the {item:6866} on {npc:6172}"] = "{npc:6172}에게 {item:6866} 사용",
 	-- ["{area:18} and the wolves"] = "{area:18}와(과) 늑대",

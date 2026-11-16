@@ -173,8 +173,7 @@ return {
 	["{npc:1938}: his books lie in the {area:227} farmhouse, on the walk north"] = "",
 	-- {npc:1937} Apothecary Renferrel · {zone:1458} Undercity
 	["{npc:1937}: Zinge in the {zone:1458}, on the way to the zeppelin at the end"] = "",
-	-- {area:233} Ambermill
-	["{area:233} comes later, down the lake shore"] = "{area:233}은(는) 나중에, 호숫가를 따라 내려가며",
+	["Allister's Ambermill Investigations is for the ride through Silverpine at 22; leave it."] = "앨리스터의 앰버밀 조사는 22레벨에 은빛소나무 숲을 지날 때 하니 받지 마세요.",
 
 	-- Step 37: Valgan's Field farmhouse
 	-- {area:227} Valgan's Field
@@ -195,16 +194,12 @@ return {
 	["Follow the lake shore south-east from the Yoricks' house: the Vile Fin Shredders and Tidehunters along it drop the murloc eyes."] = "요릭 가족의 집에서 호숫가를 따라 남동쪽으로 가세요. 그 길의 썩은지느러미멀록 갈퀴잡이와 썩은지느러미멀록 바다사냥꾼이 멀록 눈알을 떨어뜨립니다.",
 
 	-- Step 40: The Decrepit Ferry
-	-- {object:1593} Corpse Laden Boat · {area:233} Ambermill
-	["Follow the lake shore south from the murlocs: the {object:1593} lies at the ferry landing, on the way to {area:233}."] = "",
+	-- {object:1593} Corpse Laden Boat
+	["Follow the lake shore south from the murlocs: the {object:1593} lies at the ferry landing."] = "멀록이 있는 곳에서 호숫가를 따라 남쪽으로 가세요. {object:1593}은(는) 나루터에 있습니다.",
 
-	-- Step 41: Ambermill
-	-- {area:233} Ambermill · {npc:2540} Dalaran Serpent · {npc:2120} Archmage Ataeric
-	["Keep south along the shore from the ferry to {area:233}. Protectors guard the outskirts and Mages the town; both drop pendants. Careful: each Mage (15) fights with a {npc:2540} (15) beside it: pull one Mage at a time from the outskirts. Stay out of the middle, where {npc:2120} (22) stands."] = "",
-
-	-- Step 42: The Sepulcher
+	-- Step 41: The Sepulcher
 	-- {area:228} The Sepulcher
-	["Back north-west up the road to the {area:228}."] = "길을 따라 다시 북서쪽 {area:228}까지 올라가세요.",
+	["From the ferry back west up the road to the {area:228}."] = "나루터에서 길을 따라 다시 서쪽 {area:228}까지 올라가세요.",
 	-- {npc:1937} Apothecary Renferrel
 	["{npc:1937}: for Quinn, on the road north at the end"] = "{npc:1937}: 퀸을 위해, 마지막에 북쪽 길에서",
 	-- {npc:1938} Dalar Dawnweaver
@@ -212,16 +207,16 @@ return {
 	-- {npc:1499} Magistrate Sevren · {area:159} Brill
 	["{npc:1499} in {area:159}, on the way to the zeppelin at the end"] = "",
 
-	-- Step 43: The Ivar Patch
+	-- Step 42: The Ivar Patch
 	-- {zone:1420} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
 	["Take the road north toward {zone:1420}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "{zone:1420} 방향으로 길을 따라 북쪽으로 가세요. {area:238}의 요릭 가족 집이 가는 길에 있습니다. {quest:425}은(는) 그 서쪽으로 조금 걸어간 곳에 숨어 있습니다.",
 	["Inside"] = "",
 
-	-- Step 45: Magistrate Sevren
+	-- Step 44: Magistrate Sevren
 	-- {area:159} Brill · {npc:1499} Magistrate Sevren
 	["{area:159} is a short walk north up the road from the zeppelin towers; {npc:1499} is in the town hall."] = "{area:159}은(는) 비행선 탑에서 길을 따라 북쪽으로 조금 걸어가면 나옵니다. {npc:1499}은(는) 마을 회관에 있습니다.",
 
-	-- Step 47: The Undercity
+	-- Step 46: The Undercity
 	-- {object:1661} The Undercity · {area:153} Ruins of Lordaeron · {npc:2050} Raleigh Andrean · {npc:7683} Alessandro Luca · {npc:11044} Doctor Martin Felben · {npc:5204} Apothecary Zinge · {npc:2055} Master Apothecary Faranell
 	["{object:1661} lies under the {area:153}, beside the zeppelin towers. {npc:2050} stands at the inn by the way down; {npc:7683} on the way down to the Apothecarium, where {npc:11044} and {npc:5204} stand beside {npc:2055}."] = "",
 	-- {npc:4556} Gordon Wendham
@@ -239,25 +234,25 @@ return {
 	-- {npc:260093} Garen Largo · {area:1497} Undercity
 	["{npc:260093}, the {area:1497}'s paladin trainer"] = "",
 
-	-- Step 48: Brom Killian
+	-- Step 47: Brom Killian
 	-- {npc:4598} Brom Killian · {zone:1458} Undercity
 	["{npc:4598}, the mining trainer, works in the {zone:1458}."] = "채광 상급자 {npc:4598}은(는) {zone:1458}에서 일합니다.",
 	-- {npc:4598} Brom Killian · {npc:265812} Eleanor Shackleton
 	["{npc:4598}: Camping 101, from {npc:265812}'s campfire in Tirisfal"] = "{npc:4598}: 야영 기초, 티리스팔의 {npc:265812}의 모닥불에서",
 
-	-- Step 49: Basil Frye
+	-- Step 48: Basil Frye
 	-- {npc:4605} Basil Frye · {zone:1458} Undercity
 	["{npc:4605}, the blacksmithing trainer, works in the {zone:1458}."] = "대장기술 상급자 {npc:4605}은(는) {zone:1458}에서 일합니다.",
 	-- {npc:4605} Basil Frye · {npc:265812} Eleanor Shackleton
 	["{npc:4605}: Camping 101, from {npc:265812}'s campfire in Tirisfal"] = "{npc:4605}: 야영 기초, 티리스팔의 {npc:265812}의 모닥불에서",
 
-	-- Step 50: Graham Van Talen
+	-- Step 49: Graham Van Talen
 	-- {npc:4586} Graham Van Talen · {zone:1458} Undercity
 	["{npc:4586}, the engineering trainer, works in the {zone:1458}."] = "기계공학 상급자 {npc:4586}은(는) {zone:1458}에서 일합니다.",
 	-- {npc:4586} Graham Van Talen · {npc:265812} Eleanor Shackleton
 	["{npc:4586}: Camping 101, from {npc:265812}'s campfire in Tirisfal"] = "{npc:4586}: 야영 기초, 티리스팔의 {npc:265812}의 모닥불에서",
 
-	-- Step 51: Lady Sylvanas Windrunner
+	-- Step 50: Lady Sylvanas Windrunner
 	-- {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter
 	["{npc:10181} holds court in the {object:36126}."] = "",
 	-- {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter · {quest:93739} Exploring the Horde
@@ -265,45 +260,46 @@ return {
 	-- {npc:10181} Lady Sylvanas Windrunner
 	["Talk to {npc:10181}"] = "",
 
-	-- Step 52: Zeppelin to Orgrimmar
+	-- Step 51: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "{zone:1454}행 비행선",
 
-	-- Step 53: Orgrimmar
+	-- Step 52: Orgrimmar
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "",
 
-	-- Step 54: Valley of Strength
+	-- Step 53: Valley of Strength
 	-- {npc:268701} Thatog · {object:172982} Valley of Strength
 	["Walk in through the main gate. {npc:268701} stands in the {object:172982}."] = "정문으로 들어가세요. {npc:268701}은(는) {object:172982}에 서 있습니다.",
 
-	-- Step 57: Neeru Fireblade
+	-- Step 56: Neeru Fireblade
 	-- {area:2437} Ragefire Chasm · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {npc:3216} Neeru Fireblade
 	["For your {area:2437} run: the {object:172960} is the canyon under the {object:172982}; {npc:3216} stands at its far end, next to the {area:2437} portal."] = "{area:2437} 공략용: {object:172960}은(는) {object:172982} 아래의 협곡입니다. {npc:3216}은(는) 그 맨 끝, {area:2437} 차원문 옆에 서 있습니다.",
 
-	-- Step 58: Ragefire Chasm
+	-- Step 57: Ragefire Chasm
 	-- {area:2437} Ragefire Chasm · {object:172960} Cleft of Shadow · {npc:3216} Neeru Fireblade · {npc:11520} Taragaman the Hungerer · {npc:11518} Jergosh the Invoker · {npc:4949} Thrall
 	["{area:2437} is a dungeon for a group of five, about levels 13 to 18, and a full run takes 30 to 45 minutes. Its portal is in the {object:172960}, beside {npc:3216}.\nInside: past Oggleflint and his troggs, {npc:11520} waits in the lava cave and drops his heart. {npc:11518} and Bazzalan, further in, are for {npc:4949}'s Hidden Enemies, which this route leaves out."] = "{area:2437}은(는) 약 13~18레벨 5인 파티용 던전이며, 전체 공략에 30~45분이 걸립니다. 차원문은 {object:172960}의 {npc:3216} 옆에 있습니다.\n내부: 오글플린트와 트로그들을 지나면 {npc:11520}이(가) 용암 동굴에서 기다리며 심장을 떨어뜨립니다. 더 안쪽의 {npc:11518}와(과) 바잘란은 {npc:4949}의 '숨어 있는 적' 퀘스트 대상이며, 이 경로에서는 제외합니다.",
 
-	-- Step 59: Neeru Fireblade
+	-- Step 58: Neeru Fireblade
 	-- {npc:3216} Neeru Fireblade
 	["Back out through the portal: {npc:3216} stands beside it."] = "차원문으로 다시 나가십시오. {npc:3216}은(는) 그 옆에 서 있습니다.",
 
-	-- Step 63: Sayoc
+	-- Step 62: Sayoc
 	-- {spell:197} Two-Handed Axes · {npc:11868} Sayoc · {object:172958} Valley of Honor
 	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Paladin fastest."] = "",
 
-	-- Step 65: Valley of Wisdom
+	-- Step 64: Valley of Wisdom
 	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom · {area:379} Far Watch Post
 	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
 	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684}와(과) {npc:268682}은(는) {object:172957}의 그롬마쉬 요새 뒤에 앉아 있고, 매끈한 바위가 그 주변에 놓여 있습니다. 다음 가이드는 여기서 {area:379}와(과) 크로스로드까지 걸어갑니다.",
 
-	-- Step 66: Zor Lonetree
+	-- Step 65: Zor Lonetree
 	-- {npc:4047} Zor Lonetree · {npc:4049} Seereth Stonebreak
 	["{npc:4047}: {npc:4049}, on the road into Stonetalon in the next guide"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At the {area:2362}"] = "{area:2362}에서",
+	-- ["Back north-west up the road to the {area:228}."] = "길을 따라 다시 북서쪽 {area:228}까지 올라가세요.",
 	-- ["Cast {spell:18960}; {npc:11802} is in {area:2361}. The Shrine Baubles lie on the bed of {area:656} and fade within minutes: swim one straight to the {area:2362} on the north-west shore, use it there and speak to {npc:11799}."] = "{spell:18960}을(를) 시전하세요. {npc:11802}은(는) {area:2361}에 있습니다. 제단 구슬은 {area:656} 바닥에 있으며 몇 분 안에 사라집니다. 하나를 들고 곧장 북서쪽 기슭의 {area:2362}까지 헤엄쳐 가서 사용하고 {npc:11799}에게 말을 거세요.",
 	-- ["Fly to {area:1638}: {npc:3033} trains you on {area:1639}. Skyborne: fly back to {zone:1454} for the zeppelin afterwards."] = "{area:1638}(으)로 날아가세요. {npc:3033}이(가) {area:1639}에서 훈련시켜 줍니다. 스카이본: 그 후 비행선을 타러 {zone:1454}(으)로 날아 돌아가세요.",
 	-- ["Follow the lake shore south-east and swim out to {area:172}. Rot Hide gnolls cover the island; every type drops ichor. Stay out of {area:235} on its north side unless you go for the optional niche: the gnolls there are level 18-22."] = "호숫가를 따라 남동쪽으로 가서 {area:172}까지 헤엄쳐 가세요. 썩은가죽 놀이 섬을 뒤덮고 있으며, 모든 종류가 체액을 떨어뜨립니다. 선택 사항인 벽감에 가는 게 아니라면 섬 북쪽의 {area:235}에는 들어가지 마세요. 그곳의 놀은 18-22레벨입니다.",
@@ -337,6 +333,7 @@ return {
 	-- ["Zeppelin tower"] = "비행선 탑",
 	-- ["grind on {npc:1909} at {area:1338}, {zone:1421}"] = "{zone:1421}의 {area:1338}에서 {npc:1909}을(를) 사냥하세요",
 	-- ["{area:1338} shore"] = "{area:1338} 기슭",
+	-- ["{area:233} comes later, down the lake shore"] = "{area:233}은(는) 나중에, 호숫가를 따라 내려가며",
 	-- ["{item:15877}, from a {object:177785} in the lake"] = "호수 속 {object:177785}에서 얻는 {item:15877}",
 	-- ["{item:3317}: a rare drop from the gnolls"] = "{item:3317}: 놀에게서 드물게 떨어짐",
 	-- ["{npc:11066}, the enchanting trainer, works in the Drag."] = "마법부여 상급자 {npc:11066}은(는) 골목길에서 일합니다.",

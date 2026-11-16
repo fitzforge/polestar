@@ -7,13 +7,13 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Auberdine
-	-- {npc:3649} Thundris Windweaver · {npc:3702} Alanndarian Nightsong · {npc:2913} Archaeologist Hollee · {npc:3693} Terenthis · {npc:3694} Sentinel Selarin
-	["From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} stands beside {npc:3693} by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment."] = "Depuis le quai (ou l'auberge, si vous avez utilisé votre pierre de foyer), montez d'abord à l'extrémité nord du village ({npc:3649}, {npc:3702} près du puits de lune, {npc:2913}), puis descendez la rue principale : l'affiche AVIS DE RECHERCHE devant l'auberge, {npc:3693} à son extrémité est, là où la route part vers le sud. {npc:3694} se tient à côté de {npc:3693}, près du maître de vol ; si elle n'y est pas, elle a été tuée et réapparaît bientôt : attendez un instant.",
+	-- {npc:3649} Thundris Windweaver · {npc:3702} Alanndarian Nightsong · {npc:2913} Archaeologist Hollee · {npc:3693} Terenthis · {npc:3694} Sentinel Selarin · {quest:990} Trek to Ashenvale · {npc:3692} Volcor
+	["From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} ({quest:990}) is beside {npc:3693} only for a few minutes at a time: she comes shortly after someone hands in {npc:3692}'s escort and leaves again about 5 minutes later. If she isn't there, don't wait: the guide offers her quest again when you hand in {npc:3692}'s escort to {npc:3693} yourself. Changing layer can also find her."] = "Depuis le quai (ou l'auberge, si vous avez utilisé votre pierre de foyer), montez d'abord à l'extrémité nord du village ({npc:3649}, {npc:3702} près du puits de lune, {npc:2913}), puis descendez la rue principale : l'affiche AVIS DE RECHERCHE devant l'auberge, {npc:3693} à son extrémité est, là où la route part vers le sud. {npc:3694} ({quest:990}) n'est à côté de {npc:3693} que quelques minutes à la fois : elle arrive peu après que quelqu'un a rendu l'escorte de {npc:3692} et repart environ 5 minutes plus tard. Si elle n'y est pas, n'attendez pas : le guide vous repropose sa quête quand vous rendez vous-même l'escorte de {npc:3692} à {npc:3693}. Changer de couche peut aussi vous la faire trouver.",
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston
 	["{npc:3649}, north end of the village: {npc:1646}'s reply"] = "{npc:3649}, extrémité nord du village : la réponse de {npc:1646}",
 	["The WANTED poster"] = "L'affiche AVIS DE RECHERCHE",
 	-- {npc:3694} Sentinel Selarin · {npc:3693} Terenthis · {npc:3691} Raene Wolfrunner · {area:415} Astranaar
-	["{npc:3694}, beside {npc:3693}: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694}, à côté de {npc:3693} : pour {npc:3691} à {area:415}, dans le prochain guide",
+	["{npc:3694}, beside {npc:3693} if she is there: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694}, à côté de {npc:3693} si elle est là : pour {npc:3691} à {area:415}, dans le prochain guide",
 
 	-- Step 2: Lunar Fungus and Earthroot
 	-- {item:15851} Lunar Fungus · {item:2449} Earthroot
@@ -122,6 +122,12 @@ return {
 	-- {npc:12298} Sickly Deer
 	["Cure {npc:12298}"] = "Soignez : {npc:12298}",
 
+	-- Step 21: Auberdine
+	-- {quest:990} Trek to Ashenvale · {npc:3694} Sentinel Selarin · {npc:3693} Terenthis · {npc:3692} Volcor
+	["No {quest:990} yet? Give it a minute after the hand-in: {npc:3694} comes to {npc:3693}'s side shortly after {npc:3692}'s escort is handed in. Changing layer can also find her."] = "Pas encore {quest:990} ? Attendez une minute après avoir rendu la quête : {npc:3694} vient à côté de {npc:3693} peu après que l'escorte de {npc:3692} a été rendue. Changer de couche peut aussi vous la faire trouver.",
+	-- {npc:3694} Sentinel Selarin · {quest:990} Trek to Ashenvale · {npc:3691} Raene Wolfrunner · {area:415} Astranaar · {zone:1440} Ashenvale
+	["{npc:3694}, once she comes: {quest:990}, for {npc:3691} in {area:415} on your next {zone:1440} visit"] = "{npc:3694}, une fois arrivée : {quest:990}, pour {npc:3691} à {area:415} lors de votre prochain passage en {zone:1440}",
+
 	-- Step 22: Auberdine flight master
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "Maître de vol d'{area:442}",
@@ -135,8 +141,8 @@ return {
 	["Cast {spell:18960}"] = "Lancez {spell:18960}",
 
 	-- Step 27: Dendrite Starblaze
-	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "Lancez {spell:18960}. {npc:11802} se tient à l'étage de son bâtiment à {area:2361} : montez par l'intérieur, la flèche ne distingue pas les étages. Apprenez-y la route aérienne si vous ne l'avez pas.",
+	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:493} Moonglade · {npc:10897} Sindrayl
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. No {area:493} flight path yet? Learn it from {npc:10897}, south of the lake: the flight master in {area:2361} flies only Druids, from her gossip, and has none to learn."] = "Lancez {spell:18960}. {npc:11802} se tient à l'étage de son bâtiment à {area:2361} : montez par l'intérieur, la flèche ne distingue pas les étages. Pas encore le trajet aérien de {area:493} ? Apprenez-le auprès de {npc:10897}, au sud du lac : le maître de vol de {area:2361} ne transporte que les druides, via son dialogue, et n'a aucun trajet à apprendre.",
 
 	-- Step 28: Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
@@ -168,7 +174,10 @@ return {
 	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}. {npc:4217} is a Druid trainer: learn your new spells from him."] = "Prenez le portail pour monter jusqu'à {npc:4217}, puis reprenez un vol pour {area:442} et la route du sud vers {zone:1440}. {npc:4217} est un maître des druides : apprenez vos nouveaux sorts auprès de lui.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "Lancez {spell:18960}. {npc:11802} se tient à l'étage de son bâtiment à {area:2361} : montez par l'intérieur, la flèche ne distingue pas les étages. Apprenez-y la route aérienne si vous ne l'avez pas.",
+	-- ["From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} stands beside {npc:3693} by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment."] = "Depuis le quai (ou l'auberge, si vous avez utilisé votre pierre de foyer), montez d'abord à l'extrémité nord du village ({npc:3649}, {npc:3702} près du puits de lune, {npc:2913}), puis descendez la rue principale : l'affiche AVIS DE RECHERCHE devant l'auberge, {npc:3693} à son extrémité est, là où la route part vers le sud. {npc:3694} se tient à côté de {npc:3693}, près du maître de vol ; si elle n'y est pas, elle a été tuée et réapparaît bientôt : attendez un instant.",
 	-- ["Moonstalker Sires prowl the woods around the glaive. The {object:10076} and the {object:12666} sit at the bottom of the crater; {npc:3584} stands on its north side."] = "Des Géniteurs traquelunes rôdent dans les bois autour du glaive. Le {object:10076} et le {object:12666} se trouvent au fond du cratère ; {npc:3584} se tient sur son flanc nord.",
+	-- ["{npc:3694}, beside {npc:3693}: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694}, à côté de {npc:3693} : pour {npc:3691} à {area:415}, dans le prochain guide",
 	-- ["{npc:4217}: Cat Form"] = "{npc:4217} : Forme de félin",
 	-- ["{npc:4217}: Cure Poison"] = "{npc:4217} : Guérison du poison",
 }

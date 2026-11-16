@@ -20,7 +20,7 @@ return {
 
 	-- Step 2: Argent Dawn Commission (Horde)
 	-- {quest:5405} Argent Dawn Commission
-	["{quest:5405} (Horde)"] = "",
+	["{quest:5405} (Horde)"] = "{quest:5405} (Horda)",
 	-- {npc:10839} Argent Officer Garush · {area:152} Bulwark · {zone:1420} Tirisfal Glades · {zone:1422} Western Plaguelands · {object:2160} The Argent Dawn · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel
 	["{npc:10839} stands at the {area:152}, on the road from {zone:1420} into the {zone:1422}. {object:2160} starts at Neutral 200 for everyone. Wear the Commission trinket while you fight the Scourge: Scourgestones only drop while you wear it. {npc:11039} at {area:2268} gives the same Commission; you can only take one."] = "",
 

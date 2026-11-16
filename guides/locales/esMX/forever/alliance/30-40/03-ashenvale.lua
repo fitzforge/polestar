@@ -92,8 +92,11 @@ return {
 	-- {area:2240} Mirage Raceway
 	["{area:2240}: kill these as you meet them"] = "{area:2240}: mata a estos según te los encuentres",
 	-- {object:19868} Rocket Car Rubble
-	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Basilisks = {npc:4147} Saltstone Basilisk
-	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "{object:19868} está por todas las salinas. Los atracadores escórpidos y los carroñeros de las Salinas recorren la mitad norte, y las tortugas mordedoras brillavalva todas las salinas. Los basiliscos Piedra de sal y los vitropieles ocupan el centro; los observadores (34-35), solo el extremo sur.",
+	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Gazers = {npc:4150} Saltstone Gazer · Scorpid Terrors = {npc:4139} Scorpid Terror
+	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "Hay {object:19868} por todo el desierto. Los atracadores escórpidos y los carroñeros del Desierto de Sal rondan la mitad norte, y las tortugas brillavalva (30-31) el centro del desierto: cázalas para los caparazones. Cuidado: los mordedores brillavalva (34-35) deambulan por todo el desierto, y los observadores Piedra de sal (34-35) y los terrores escórpidos (33-34) ocupan el extremo sur: déjalos y quédate en la mitad norte.",
+	-- {item:5795} Hardened Tortoise Shell
+	-- plural, as words: Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise
+	["{item:5795}, from the Sparkleshell Tortoises"] = "{item:5795}, de las tortugas brillavalva",
 	-- {npc:4078} Collin Mauren · {zone:1453} Stormwind
 	-- plural, as words: Saltstone Basilisks = {npc:4147} Saltstone Basilisk
 	["Crystalized Scale, from the Saltstone Basilisks: eight for {npc:4078} in {zone:1453}"] = "Escama cristalizada, de los basiliscos Piedra de sal: ocho para {npc:4078} en {zone:1453}",
@@ -156,5 +159,6 @@ return {
 	-- ["{npc:3970}: for {npc:1480} in Menethil, at the end of this guide"] = "{npc:3970}: para {npc:1480} en Menethil, al final de esta guía",
 	-- ["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619} dirige a los sátiros de {area:429}; él lleva la rama.",
 	-- ["{npc:5082}, {npc:4963} and Tapoke Jahn are all at Menethil's inn; {npc:4962} fights you when you talk to {npc:4963}, but gives up once beaten. {npc:1480} stands a short walk north-east of the inn."] = "{npc:5082}, {npc:4963} y {npc:4962} están en la posada de Menethil; Tapoke te ataca cuando hablas con {npc:4963}, pero se rinde al ser derrotado. {npc:1480} está a poca distancia al noreste de la posada.",
+	-- ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "{object:19868} está por todas las salinas. Los atracadores escórpidos y los carroñeros de las Salinas recorren la mitad norte, y las tortugas mordedoras brillavalva todas las salinas. Los basiliscos Piedra de sal y los vitropieles ocupan el centro; los observadores (34-35), solo el extremo sur.",
 	-- ["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}: para {npc:3961} en {area:415}",
 }

@@ -23,6 +23,8 @@ return {
 	["{npc:9528}, in the ruins just east of {npc:11554}"] = "{npc:9528}，在{npc:11554}東邊的廢墟裡",
 	-- {npc:9116} Eridan Bluewind
 	["{npc:9116}, inside"] = "",
+	-- {npc:10920} Kelek Skykeeper · {quest:86577} A Sampling of Putrescence · {zone:1448} Felwood
+	["{npc:10920}: {quest:86577}, from the bears and wolves you meet in {zone:1448}"] = "{npc:10920}：{quest:86577}，來自你在{zone:1448}遇到的熊和狼",
 
 	-- Step 4: Grazle
 	-- {npc:11554} Grazle · {area:2479} Emerald Sanctuary
@@ -58,6 +60,10 @@ return {
 	-- {npc:7109} Jadefire Felsworn
 	["grind on {npc:7109}"] = "",
 
+	-- Step 10: Ruins of Constellas
+	-- {npc:9454} Xavathras · {area:2481} Ruins of Constellas
+	["Careful: {npc:9454} (54) stands at the back of the {area:2481}, at about 32.2,67.1, with Shadowstalkers around him: clear them one at a time, then pull him alone at full health."] = "小心：{npc:9454}（54級）站在{area:2481}後方，約32.2,67.1，周圍有暗影潛行者：一次清掉一隻，然後在滿血時單獨拉他。",
+
 	-- Step 11: Jaedenar
 	-- {area:1763} Jaedenar
 	["{area:1763} is the ruined temple north of the glen."] = "",
@@ -65,7 +71,12 @@ return {
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
 	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "",
 
-	-- Step 13: Level 52.9
+	-- Step 12: Putrescent organs: kill these as you meet them
+	["Putrescent organs: kill these as you meet them"] = "腐爛的器官：遇到就擊殺",
+	-- {zone:1448} Felwood · {npc:10920} Kelek Skykeeper · {area:1763} Jaedenar
+	["{zone:1448}'s Angerclaw bears and Felpaw wolves carry the putrescent organs {npc:10920} wants: the Bears and Wolves (47-48) of the south and the Maulers and Scavengers (49-50) along the road north of {area:1763}. Kill them as you ride between the stops."] = "{zone:1448}的怒爪熊和魔爪狼身上有{npc:10920}要的腐爛器官：南部的熊和狼（47-48級），以及{area:1763}北邊道路沿途的重擊者和食腐者（49-50級）。在各個地點之間移動時順手擊殺。",
+
+	-- Step 14: Level 52.9
 	["Level 52.9"] = "",
 	-- {area:2479} Emerald Sanctuary · {area:1766} Shatter Scar Vale
 	-- plural, as words: Entropic Beasts = {npc:9878} Entropic Beast
@@ -73,35 +84,36 @@ return {
 	-- {npc:9878} Entropic Beast
 	["grind on {npc:9878}"] = "",
 
-	-- Step 14: Shatter Scar Vale
+	-- Step 15: Shatter Scar Vale
+	-- {npc:7136} Infernal Sentry
 	-- plural, as words: Entropic Beasts = {npc:9878} Entropic Beast
-	["Follow the road north to the cratered vale and walk to each crater, killing the Entropic Beasts and Horrors between them."] = "沿著道路向北前往坑窪山谷，走到每個坑洞，並擊殺途中的熱能野獸和熱能恐獸。",
+	["Follow the road north to the cratered vale and walk to each crater, killing the Entropic Beasts and Horrors between them.\nCareful: an {npc:7136} (53, elite) stands among the craters: walk round it."] = "沿著道路向北前往坑窪山谷，走到每個坑洞，並擊殺途中的熱能野獸和熱能恐獸。\n小心：坑洞之間站著一隻{npc:7136}（53級，精英）：繞過它。",
 	["First crater"] = "第一個坑洞",
 	["Second crater"] = "第二個坑洞",
 	["Third crater"] = "第三個坑洞",
 
-	-- Step 15: Irontree Woods
+	-- Step 16: Irontree Woods
 	-- {area:1767} Irontree Woods · {area:2618} Jadefire Run · {item:11503} Blood Amber
 	["The Warpwood treants of {area:1767}, east of {area:2618}, carry the {item:11503}."] = "{area:2618}東邊{area:1767}的曲木樹人帶著{item:11503}。",
 	["Below ground"] = "地下",
 
-	-- Step 16: Jadefire Run: kill these as you meet them
+	-- Step 17: Jadefire Run: kill these as you meet them
 	-- {area:2618} Jadefire Run
 	["{area:2618}: kill these as you meet them"] = "",
 	-- {area:2618} Jadefire Run · {npc:10648} Xavaric · {quest:939} Flute of Xavaric · {item:11674} Jadefire Felbind
-	["{area:2618} is the satyr valley in the north-west, with {npc:10648} at its far end. He drops the {quest:939}; every Jadefire satyr can drop {item:11674}."] = "{area:2618}是西北方的薩特山谷，{npc:10648}在山谷盡頭。他會掉落{quest:939}；每個碧火薩特都可能掉落{item:11674}。",
+	["{area:2618} is the satyr valley in the north-west, with {npc:10648} at its far end. He drops the {quest:939}; every Jadefire satyr can drop {item:11674}.\nCareful: {npc:10648} (55) stands at the valley's far end with Hellcallers (53-54) around him: clear them one at a time before you pull him."] = "{area:2618}是西北方的薩特山谷，{npc:10648}在山谷盡頭。他會掉落{quest:939}；每個碧火薩特都可能掉落{item:11674}。\n小心：{npc:10648}（55級）站在山谷盡頭，周圍有地獄召喚者（53-54級）：先一次一隻清掉它們，再拉他。",
 
-	-- Step 17: Jaedenar again
+	-- Step 18: Jaedenar again
 	-- {area:1763} Jaedenar
 	["{area:1763} again"] = "再次前往{area:1763}",
 	-- {item:12922} Empty Canteen · {area:1763} Jaedenar
 	["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}."] = "",
 
-	-- Step 18: The Emerald Sanctuary
+	-- Step 19: The Emerald Sanctuary
 	-- {area:1763} Jaedenar · {area:2479} Emerald Sanctuary · {zone:1448} Felwood
 	["Ride south-east from {area:1763} to the {area:2479}, the druids' camp by the road in southern {zone:1448}."] = "",
 
-	-- Step 19: The Emerald Sanctuary
+	-- Step 20: The Emerald Sanctuary
 	-- {zone:1457} Darnassus
 	["The vial is filled in {zone:1457}: keep it; inside"] = "瓶子在{zone:1457}裝滿：保留此任務；在裡面",
 	-- {zone:1413} Barrens
@@ -109,19 +121,19 @@ return {
 	-- {npc:10924} Ivy Leafrunner · {npc:11079} Wynd Nightchaser · {zone:1452} Winterspring
 	["{npc:10924}: for {npc:11079} in {zone:1452}, keep it"] = "{npc:10924}：給{zone:1452}的{npc:11079}，先留著",
 
-	-- Step 20: Nafien
+	-- Step 21: Nafien
 	-- {area:1769} Timbermaw Hold · {npc:15395} Nafien
 	["Ride north up the road from the Sanctuary, all the way to the cave mouth of {area:1769}; {npc:15395} guards it."] = "從聖地沿著道路向北騎，一路到{area:1769}的洞口；{npc:15395}守在那裡。",
 
-	-- Step 21: Felpaw Village
+	-- Step 22: Felpaw Village
 	-- {area:1762} Felpaw Village · {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {area:1769} Timbermaw Hold
-	["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. Keep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 58.\nCareful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "",
+	["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. Keep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 58.\nCareful: Den Watchers are level 53-54 and the Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "{area:1762}的死木熊怪佈滿洞穴西邊的山丘。持續擊殺直到掉落{quest:8470}（約三十隻掉一個），然後右鍵點擊它：木喉要塞對你中立後，{area:1769}的{npc:11558}就會收下它，若已經中立就現在交，否則等最後一份指南在58級再次經過洞穴時交。\n小心：巢穴守衛是53-54級，復仇者是54-55級；血量低於50%時會呼叫25碼內的同伴，低於15%時會逃跑求援。",
 
-	-- Step 22: Nafien
+	-- Step 23: Nafien
 	-- {zone:1452} Winterspring
 	["Salfa stands at the {zone:1452} end of the tunnel: keep it"] = "薩爾法站在隧道的{zone:1452}那一端：保留此任務",
 
-	-- Step 24: Timbermaw Hold
+	-- Step 25: Timbermaw Hold
 	-- {npc:11558} Kernda
 	["Step into the cave: {npc:11558} stands just inside."] = "走進洞穴：{npc:11558}就站在入口內。",
 	-- {npc:11558} Kernda
@@ -130,6 +142,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Five feathers buy a little Timbermaw reputation"] = "五根羽毛可換取少量木喉聲望",
 	-- ["Fly from {area:1998} to the Sanctuary's end of the road, or ride south along it."] = "從{area:1998}飛往道路上聖地那一端，或沿路向南騎。",
+	-- ["Follow the road north to the cratered vale and walk to each crater, killing the Entropic Beasts and Horrors between them."] = "沿著道路向北前往坑窪山谷，走到每個坑洞，並擊殺途中的熱能野獸和熱能恐獸。",
 	-- ["Keep her alive until she is out of the cave"] = "在她離開洞穴之前保住她的性命",
 	-- ["Oozes"] = "軟泥怪",
 	-- ["Ride east to the night elf camp at {area:1998}."] = "向東騎往{area:1998}的夜精靈營地。",
@@ -140,6 +153,7 @@ return {
 	-- ["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back."] = "碧火薩特佔據道路西邊的山谷，{npc:9454}在山谷深處。",
 	-- ["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}. If you freed {npc:11018}, go back into {area:1770} for the succubus {npc:9518}; Trey Lightforge's remains lie beside her."] = "在{area:1763}中央的腐化月井使用{item:12922}。如果你釋放了{npc:11018}，回到{area:1770}找魅魔{npc:9518}；特雷·萊弗治的殘骸就在她旁邊。",
 	-- ["{area:1763} is the ruined temple north of the glen. Some of its cultists drop a {item:13140}, about one kill in thirty: it opens {npc:11018}'s cell in {area:1770}, the cave at the back. If it drops, clear the way out before you free her; if not, skip her quests."] = "{area:1763}是山谷北邊的神殿廢墟。部分教徒會掉落{item:13140}，大約每三十次擊殺一次：它能打開後方洞穴{area:1770}裡{npc:11018}的牢房。若有掉落，先清出離開的路再釋放她；若沒有，跳過她的任務。",
+	-- ["{area:2618} is the satyr valley in the north-west, with {npc:10648} at its far end. He drops the {quest:939}; every Jadefire satyr can drop {item:11674}."] = "{area:2618}是西北方的薩特山谷，{npc:10648}在山谷盡頭。他會掉落{quest:939}；每個碧火薩特都可能掉落{item:11674}。",
 	-- ["{item:13140}, a rare drop"] = "{item:13140}，稀有掉落",
 	-- ["{npc:11016}, in {area:1770}"] = "{npc:11016}，在{area:1770}",
 	-- ["{npc:11557}: thirty {quest:6031}, handed in when you pass through again at 57"] = "{npc:11557}：三十塊{quest:6031}，在57級再次經過時繳交",

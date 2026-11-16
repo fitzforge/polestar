@@ -8,12 +8,12 @@
 return {
 	-- Guide
 	-- {area:1121} Isle of Dread
-	["Feathermoon's isle, ogres, yetis and the {area:1121}."] = "",
-	["Two new flight paths for later"] = "",
+	["Feathermoon's isle, ogres, yetis and the {area:1121}."] = "L'île de Pennelune, des ogres, des yétis et l'{area:1121}.",
+	["Two new flight paths for later"] = "Deux nouveaux trajets aériens pour plus tard",
 	-- {zone:1446} Tanaris
-	["Then on to {zone:1446}"] = "",
-	["Stays on the main route"] = "",
-	["Boats to and from the island"] = "",
+	["Then on to {zone:1446}"] = "Puis direction {zone:1446}",
+	["Stays on the main route"] = "Reste sur l'itinéraire principal",
+	["Boats to and from the island"] = "Bateaux aller-retour pour l'île",
 
 	-- Step 1: Into The Barrens
 	-- {zone:1413} The Barrens
@@ -62,7 +62,8 @@ return {
 
 	-- Step 12: Gordunni ogres
 	["Gordunni ogres"] = "Les ogres Gordunni",
-	["Ride east to the Gordunni camp in the hills south-east of the yeti valley: Warlocks and Shaman hold the camp, Brutes wander the slopes around it and further north."] = "Chevauchez vers l'est jusqu'au camp Gordunni dans les collines au sud-est de la vallée des yétis : des Démonistes Gordunni et des Chamans Gordunni tiennent le camp, des Brutes Gordunni errent sur les pentes alentour et plus au nord.",
+	-- {npc:5236} Gordunni Shaman
+	["Ride east to the Gordunni camp in the hills south-east of the yeti valley: Warlocks and Shaman hold the camp, Brutes wander the slopes around it and further north.\nCareful: the {npc:5236} are 44-45 and the Warlocks 43-44, casters a level or two over you here: pull them one at a time from the camp's edge, and take the Brutes (42-43) on the slopes first."] = "Chevauchez vers l'est jusqu'au camp Gordunni dans les collines au sud-est de la vallée des yétis : des Démonistes Gordunni et des Chamans Gordunni tiennent le camp, des Brutes Gordunni errent sur les pentes alentour et plus au nord.\nAttention : les {npc:5236} sont de niveau 44-45 et les Démonistes 43-44, des lanceurs de sorts d'un ou deux niveaux de plus que vous ici : attirez-les un par un depuis le bord du camp, et commencez par les Brutes (42-43) sur les pentes.",
 
 	-- Step 13: Feral Scar Vale
 	-- {npc:5346} Bloodroar the Stalker
@@ -80,30 +81,37 @@ return {
 	["Coming from the south: {npc:7877} and {npc:7878} first, then {npc:7900} beside {npc:7880}'s building, then the stairs. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:7852} is by the flight master, on the way out."] = "En venant du sud : d'abord {npc:7877} et {npc:7878}, puis {npc:7900} à côté du bâtiment de {npc:7880}, puis l'escalier. {npc:7880} se tient à l'étage de son bâtiment : montez par l'intérieur, la flèche ne distingue pas les étages. {npc:7852} est près du maître de vol, sur le chemin de la sortie.",
 	-- {npc:7879} Quintis Jonespyre
 	["{npc:7879}, upstairs"] = "{npc:7879}, à l'étage",
+	-- {npc:7852} Pratt McGrubben
+	["{npc:7852}'s next order, Improved Quality, wants Rage Scar hides from yetis of 46-49: skip it."] = "La commande suivante de {npc:7852}, Qualité supérieure, demande des peaux de yétis Griffe féroce de niveau 46-49 : passez-la.",
 
 	-- Step 16: Fly to Thalanaar
 	-- {area:489} Thalanaar
 	["Fly to {area:489}"] = "Prendre un vol pour {area:489}",
 	["Feathermoon flight master"] = "Maître de vol de Plumelune",
 
-	-- Step 17: Feralas
+	-- Step 17: Back to the coast
+	["Back to the coast"] = "Retour sur la côte",
+	-- {zone:1444} Feralas · {zone:2652} Shen'dralas · {area:489} Thalanaar
+	["You came into {zone:1444} from {zone:2652}, so {area:489}'s flight path is still to learn: take the boat back to the coast and ride east along the road; you pick up the flight path when this guide ends at {area:489}."] = "Vous êtes arrivé en {zone:1444} depuis {zone:2652}, le trajet aérien de {area:489} reste donc à apprendre : reprenez le bateau vers la côte et chevauchez vers l'est par la route ; vous prendrez le trajet aérien à la fin de ce guide, à {area:489}.",
+
+	-- Step 18: Feralas
 	["Grimtotem camp"] = "Le camp Totem sinistre",
 
-	-- Step 18: Grimtotem camp
+	-- Step 19: Grimtotem camp
 	-- {area:489} Thalanaar · {npc:7956} Kindal Moonweaver
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
 	["From {area:489} ride west along the road to the Grimtotem camp north of it. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "Depuis {area:489}, chevauchez vers l'ouest par la route jusqu'au camp Totem sinistre, au nord de celle-ci. {npc:7956} attend à l'extérieur ; libérez les Fées fléchetteuses de l'enclos au centre et gardez {npc:7956} et au moins six d'entre elles en vie.",
 
-	-- Step 19: Grimtotem tauren
+	-- Step 20: Grimtotem tauren
 	["Grimtotem tauren"] = "Taurens Totem sinistre",
 	-- {npc:222286} Namida Grimtotem
 	["Careful: {npc:222286}, an elite of level 43, stands at the camp's north-east edge, around 67,39: pull the Naturalists, Raiders and Shamans away from her."] = "Attention : {npc:222286}, une élite de niveau 43, se tient au bord nord-est du camp, vers 67,39 : attirez les Naturalistes, les Écumeurs et les Chamans loin d'elle.",
 
-	-- Step 20: Jer'kai Moonweaver
+	-- Step 21: Jer'kai Moonweaver
 	-- {zone:1457} Darnassus
 	["for Tyrande in {zone:1457}: the route takes you there at 47"] = "pour Tyrande Whisperwind à {zone:1457} : l'itinéraire vous y mène au niveau 47",
 
-	-- Step 21: The Writhing Deep
+	-- Step 22: The Writhing Deep
 	-- {area:489} Thalanaar
 	["Ride south-east to the Woodpaw gnolls; the courier's backpacks lie in their southern camp, and a parcel inside them starts a delivery to {area:489}. The Zukk'ash hive is just south: fight down to the pod that holds Raschal, free him and keep him alive on the way out."] = "Chevauchez au sud-est jusqu'aux gnolls Griffebois ; les sacs à dos du messager se trouvent dans leur camp sud, et un colis à l'intérieur lance une livraison pour {area:489}. La ruche Zukk'ash est juste au sud : descendez jusqu'à l'Alvéole de Zukk'ash qui retient Raschal, libérez-le et gardez-le en vie à la sortie.",
 	-- {item:11463} Undelivered Parcel
@@ -111,22 +119,18 @@ return {
 	-- {object:164954} Zukk'ash Pod
 	["{object:164954}, inside"] = "{object:164954}, à l'intérieur",
 
-	-- Step 22: Grind to 45
+	-- Step 23: Grind to 45
 	["Grind to 45"] = "Farmer jusqu'au niveau 45",
 	-- {area:1105} Feral Scar Vale · {area:978} Zul'Farrak
-	["Ride west into {area:1105}: its yetis are 43-45. The Rage Scar yetis in the hills to the north are 46-48, so they wait until you are 45. Or, with a group, run the {area:978} dungeon instead."] = "Chevauchez vers l'ouest jusqu'à {area:1105} : ses yétis sont de niveau 43-45. Les Yétis Griffe féroce des collines au nord sont de niveau 46-48 : ils attendront que vous soyez niveau 45. Ou, en groupe, faites plutôt le donjon {area:978}.",
+	["Ride west into {area:1105}: its yetis are 43-45. The Rage Scar yetis in the hills to the north are 46-49: leave them. Or, with a group, run the {area:978} dungeon instead."] = "Chevauchez vers l'ouest jusqu'au {area:1105} : ses yétis sont de niveau 43-45. Les Yétis Griffe féroce des collines au nord sont de niveau 46-49 : laissez-les. Ou, en groupe, faites plutôt le donjon {area:978}.",
 	-- {npc:5292} Feral Scar Yeti · {area:1105} Feral Scar Vale · {zone:1444} Feralas
 	["grind on {npc:5292} at {area:1105}, {zone:1444}"] = "farmez les {npc:5292} au {area:1105}, {zone:1444}",
 
-	-- Step 23: High Wilderness: kill these as you meet them
-	-- {area:1136} High Wilderness
-	["{area:1136}: kill these as you meet them"] = "{area:1136} : tuez-les au passage",
-	-- {area:1105} Feral Scar Vale · {quest:7735} Pristine Yeti Hide · {npc:7852} Pratt McGrubben
-	["Ride north out of {area:1105} into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a {quest:7735}, which {npc:7852} pays for too.\nCareful: the Rage Scar yetis are level 46-48, still one to three above you at 45: take them from the edge of the hills, one at a time."] = "Chevauchez vers le nord en quittant {area:1105} jusqu'aux collines des Griffe féroce. Chaque yéti ici peut lâcher une peau, et environ un sur trente une {quest:7735}, que {npc:7852} rachète aussi.\nAttention : les Yétis Griffe féroce sont de niveau 46-48, encore un à trois niveaux au-dessus de vous au niveau 45 : prenez-les depuis le bord des collines, un par un.",
-
-	-- Step 24: Rage Scar Hold
-	-- {quest:7735} Pristine Yeti Hide
-	["No {quest:7735} yet? Keep killing the Rage Scar yetis until one drops, then right-click it."] = "Pas encore de {quest:7735} ? Continuez à tuer les Yétis Griffe féroce jusqu'à ce que l'un d'eux en lâche une, puis faites un clic droit dessus.",
+	-- Step 24: Ironfur bears
+	["Ironfur bears"] = "Ours Ferpoil",
+	-- {area:1105} Feral Scar Vale · {area:1136} High Wilderness
+	-- plural, as words: Ironfur Bears = {npc:5268} Ironfur Bear · Ironfur Patriarchs = {npc:5274} Ironfur Patriarch
+	["Ride north out of {area:1105}: the Ironfur Bears (41-42) at the foot of the {area:1136} drop Rhapsody's last liver.\nCareful: Ironfur Patriarchs (48-49) and the Rage Scar yetis (46-49) roam the hills further north: stay at their edge."] = "Sortez du {area:1105} vers le nord : les Ours Ferpoil (41-42) au pied des {area:1136} lâchent le dernier foie pour Rhapsody.\nAttention : des Patriarches Ferpoil (48-49) et les Yétis Griffe féroce (46-49) rôdent dans les collines plus au nord : restez en bordure.",
 
 	-- Step 25: Feathermoon Stronghold
 	-- {npc:7880} Ginro Hearthkindle
@@ -136,24 +140,13 @@ return {
 	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
 	["{npc:3936} then asks you to carry news to {zone:1457}: skip it, {area:976} sends you there instead."] = "{npc:3936} vous demande ensuite de porter des nouvelles à {zone:1457} : passez, {area:976} vous y envoie à la place.",
 
-	-- Step 28: Zorbin Fandazzle
-	-- {area:1108} Forgotten Coast
-	["Ride back to the {area:1108}; the goblin stands by the dock."] = "Revenez à la {area:1108} ; le gobelin se tient près du quai.",
+	-- Step 28: Ride to Thalanaar
+	-- {area:489} Thalanaar
+	["Ride to {area:489}"] = "Chevauchez jusqu'à {area:489}",
+	-- {area:489} Thalanaar · {zone:1441} Thousand Needles
+	["No flight path to {area:489} yet: take the boat back to the coast and ride east along the road to {area:489}, on the {zone:1441} border."] = "Pas encore de trajet aérien vers {area:489} : reprenez le bateau vers la côte et chevauchez vers l'est par la route jusqu'à {area:489}, à la frontière des {zone:1441}.",
 
-	-- Step 29: Forgotten Coast: kill these as you meet them
-	-- {area:1108} Forgotten Coast
-	["{area:1108}: kill these as you meet them"] = "{area:1108} : tuez-les au passage",
-	-- {item:18904} Zorbin's Ultra-Shrinker
-	-- plural, as words: Shore Striders = {npc:5359} Shore Strider · Deep Striders = {npc:5360} Deep Strider · Wave Striders = {npc:5361} Wave Strider · Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray
-	["Shore Striders, Deep Striders and Wave Striders (elite giants) wade along the coast north of the dock: zap one with {item:18904} and kill the shrunken giant. Sea Elementals and Sea Sprays drift in the same surf."] = "Des Marcheurs des rivages, des Marcheurs des profondeurs et des Marcheurs des vagues (géants élites) arpentent la côte au nord du quai : frappez-en un avec l'{item:18904} et tuez le géant rétréci. Des Elémentaires marins et des Embruns dérivent dans les mêmes vagues.",
-
-	-- Step 30: Zorbin Fandazzle
-	-- {npc:14637} Zorbin Fandazzle
-	["{npc:14637}'s refills are level 55: skip them."] = "Les recharges de {npc:14637} Fandazzle sont de niveau 55 : passez-les.",
-	-- {zone:1446} Tanaris · {area:489} Thalanaar
-	["The {zone:1446} guide starts with the trip east, past {area:489}."] = "Le guide de {zone:1446} commence par le trajet vers l'est, en passant {area:489}.",
-
-	-- Step 31: Thalanaar
+	-- Step 29: Thalanaar
 	-- {zone:1441} Thousand Needles
 	["Ride north-east to the night elf outpost on the {zone:1441} border."] = "Chevauchez au nord-est jusqu'à l'avant-poste elfe de la nuit à la frontière de {zone:1441}.",
 	-- {npc:4048} Falfindel Waywarder · {area:489} Thalanaar
@@ -167,16 +160,26 @@ return {
 	-- ["Hearth to Feathermoon."] = "Pierre de foyer vers le Bastion de Pennelune.",
 	-- ["Hearth to {area:1116}"] = "Pierre de foyer vers le {area:1116}",
 	-- ["Into {area:17}"] = "Vers les {area:17}",
+	-- ["No {quest:7735} yet? Keep killing the Rage Scar yetis until one drops, then right-click it."] = "Pas encore de {quest:7735} ? Continuez à tuer les Yétis Griffe féroce jusqu'à ce que l'un d'eux en lâche une, puis faites un clic droit dessus.",
 	-- ["Rage Scar yetis"] = "Yétis Griffe féroce",
 	-- ["Ride back north-west to the {area:1108} dock and take the boat to the island."] = "Revenez au nord-ouest jusqu'au quai de la {area:1108} et prenez le bateau pour l'île.",
+	-- ["Ride back to the {area:1108}; the goblin stands by the dock."] = "Revenez à la {area:1108} ; le gobelin se tient près du quai.",
 	-- ["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide; one may drop a {quest:7735}, which {npc:7852} pays for too."] = "Revenez vers l'ouest par la route, puis montez au nord dans les collines du Repaire des Griffes féroces. Tout yéti ici peut laisser tomber une peau ; l'un d'eux peut donner une {quest:7735}, que {npc:7852} McGrubben paie aussi.",
+	-- ["Ride east to the Gordunni camp in the hills south-east of the yeti valley: Warlocks and Shaman hold the camp, Brutes wander the slopes around it and further north."] = "Chevauchez vers l'est jusqu'au camp Gordunni dans les collines au sud-est de la vallée des yétis : des Démonistes Gordunni et des Chamans Gordunni tiennent le camp, des Brutes Gordunni errent sur les pentes alentour et plus au nord.",
+	-- ["Ride north out of {area:1105} into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a {quest:7735}, which {npc:7852} pays for too.\nCareful: the Rage Scar yetis are level 46-48, still one to three above you at 45: take them from the edge of the hills, one at a time."] = "Chevauchez vers le nord en quittant {area:1105} jusqu'aux collines des Griffe féroce. Chaque yéti ici peut lâcher une peau, et environ un sur trente une {quest:7735}, que {npc:7852} rachète aussi.\nAttention : les Yétis Griffe féroce sont de niveau 46-48, encore un à trois niveaux au-dessus de vous au niveau 45 : prenez-les depuis le bord des collines, un par un.",
+	-- ["Ride west into {area:1105}: its yetis are 43-45. The Rage Scar yetis in the hills to the north are 46-48, so they wait until you are 45. Or, with a group, run the {area:978} dungeon instead."] = "Chevauchez vers l'ouest jusqu'à {area:1105} : ses yétis sont de niveau 43-45. Les Yétis Griffe féroce des collines au nord sont de niveau 46-48 : ils attendront que vous soyez niveau 45. Ou, en groupe, faites plutôt le donjon {area:978}.",
 	-- ["Ride west to the friendly mountain giant at the foot of the hills. Land Walkers and Cliff Giants around him are elite: give them room."] = "Chevauchez vers l'ouest jusqu'au géant des montagnes amical au pied des collines. Les Marcheurs des terres et les Géants des falaises autour de lui sont élites : gardez vos distances.",
 	-- ["Ring the bell whenever {npc:7774} stops to wander, and lead her south to {npc:7765}."] = "Faites sonner la cloche chaque fois que {npc:7774} s'arrête pour vagabonder, et ramenez-la au sud jusqu'à {npc:7765}.",
 	-- ["Running {area:978} instead of grinding gets you there faster in a group. The troll city lies in northern {zone:1446}, the next zone on the route; come back to {npc:14637} on the {area:1108} afterwards."] = "Faire {area:978} au lieu de farmer vous y amène plus vite en groupe. La cité troll se trouve au nord de {zone:1446}, la zone suivante de l'itinéraire ; revenez voir {npc:14637} Fandazzle sur la {area:1108} ensuite.",
+	-- ["Shore Striders, Deep Striders and Wave Striders (elite giants) wade along the coast north of the dock: zap one with {item:18904} and kill the shrunken giant. Sea Elementals and Sea Sprays drift in the same surf."] = "Des Marcheurs des rivages, des Marcheurs des profondeurs et des Marcheurs des vagues (géants élites) arpentent la côte au nord du quai : frappez-en un avec l'{item:18904} et tuez le géant rétréci. Des Elémentaires marins et des Embruns dérivent dans les mêmes vagues.",
 	-- ["Swim south from the island to the {area:1121}. Hatecrest Serpent Guards and Sorceresses hold it; {npc:8136} (level 47) waits in the cave at its south end. Pull his guards first."] = "Nagez vers le sud depuis l'île jusqu'à l'{area:1121}. Des Gardes-serpents Hainecrête et des Ensorceleuses Hainecrête la tiennent ; {npc:8136} (niveau 47) attend dans la grotte à son extrémité sud. Attirez d'abord ses gardes.",
+	-- ["The {zone:1446} guide starts with the trip east, past {area:489}."] = "Le guide de {zone:1446} commence par le trajet vers l'est, en passant {area:489}.",
 	-- ["grind on {npc:5292} at {area:1105}, {area:357}"] = "tuez des {npc:5292} en boucle au {area:1105}, {area:357}",
 	-- ["if you carry {quest:1100} from {zone:1441}"] = "si vous avez {quest:1100} de {zone:1441}",
+	-- ["{area:1108}: kill these as you meet them"] = "{area:1108} : tuez-les au passage",
+	-- ["{area:1136}: kill these as you meet them"] = "{area:1136} : tuez-les au passage",
 	-- ["{area:978} instead of grinding"] = "{area:978} au lieu de farmer",
+	-- ["{npc:14637}'s refills are level 55: skip them."] = "Les recharges de {npc:14637} Fandazzle sont de niveau 55 : passez-les.",
 	-- ["{npc:7765}'s camp"] = "Le camp de {npc:7765}",
 	-- ["{npc:7774} wanders the hills north of {npc:7765}, among the Northspring harpies; her bell is in the chest beside her."] = "{npc:7774} Leafrunner erre dans les collines au nord de {npc:7765}, parmi les harpies Ruissenord ; sa cloche est dans le coffre à côté d'elle.",
 	-- ["{npc:7774}'s escort"] = "L'escorte de {npc:7774}",

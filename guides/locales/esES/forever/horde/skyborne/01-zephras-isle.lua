@@ -145,7 +145,7 @@ return {
 	-- {area:16624} Shen'dar Village
 	["{area:16624} hand-ins"] = "",
 	-- {npc:251905} Zerril Softbreeze · {npc:251906} Teeri Wellwind · {npc:251991} Taleen Shimmerthread · {npc:252172} Danarii Bellowveil · {npc:251523} Constable Aonda · {area:16624} Shen'dar Village · {item:5469} Strider Meat
-	["{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} and {npc:251523} all stand in {area:16624}. If you are still short of {item:5469}, the Galestriders graze just south of the village."] = "",
+	["{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} and {npc:251523} all stand in {area:16624}. If you are still short of {item:5469}, the Galestriders graze just west of the village; the Al'Aketh camps south and south-east of it are a level or two higher."] = "{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} y {npc:251523} están en {area:16624}. Si aún te falta {item:5469}, los zancudos vendaval pastan justo al oeste del poblado; los campamentos Al'Aketh al sur y sureste son un nivel o dos más altos.",
 
 	-- Step 32: Shen'dar Highlands: kill these as you meet them
 	-- {area:16623} Shen'dar Highlands
@@ -353,6 +353,10 @@ return {
 	-- {npc:252476} Talaanis Shadowsong
 	["talk to {npc:252476}"] = "habla con {npc:252476}",
 
+	-- Step 75: Desperate Times
+	-- {npc:251968} Ayessa Dawnsinger · {npc:252475} Elaadrin Evengale
+	["Valennia asks you to hear out both leaders: {npc:251968} of the Horde and {npc:252475} of the Alliance. {npc:252475}'s name shows red to you, but he talks to you all the same, and the quest needs both."] = "Valennia te pide que escuches a ambos líderes: {npc:251968} de la Horda y {npc:252475} de la Alianza. El nombre de {npc:252475} te aparece en rojo, pero habla contigo igualmente, y la misión necesita a ambos.",
+
 	-- Step 77: Desperate Times
 	-- {npc:253844} Valennia Stormfist
 	["talk to {npc:253844}"] = "habla con {npc:253844}",
@@ -442,7 +446,7 @@ return {
 	-- {npc:259119} Alaana Stormwalker · {zone:1454} Orgrimmar
 	["{npc:259119}: keep it: Thrall in {zone:1454}, at the start of the next guide"] = "{npc:259119}: guárdala: Thrall en {zone:1454}, al principio de la siguiente guía",
 	-- {npc:259118} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
-	["{npc:259118}, by the landing: for {npc:3033} in {zone:1456}"] = "",
+	["{npc:259118}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:259118}, junto al aterrizaje: para {npc:3033} en {zone:1456}",
 
 	-- Step 97: Clarice Foster
 	-- {npc:5543} Clarice Foster · {area:2197} Pools of Vision · {area:1640} Spirit Rise

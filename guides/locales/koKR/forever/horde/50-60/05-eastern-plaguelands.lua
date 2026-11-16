@@ -6,67 +6,76 @@
 -- A token marked "no name in this language" would show in English: write that name in Korean words instead.
 -- The comments are rewritten by sync.
 return {
-	-- Step 2: Light's Hope Chapel
+	-- Step 1: Into Eastern Plaguelands
+	-- {zone:1423} Eastern Plaguelands
+	["Into {zone:1423}"] = "",
+
+	-- Step 2: Tirion Fordring
+	-- {zone:1423} Eastern Plaguelands · {npc:1855} Tirion Fordring · {area:2619} Thondroril River
+	["Ride east along the road into the {zone:1423}. {npc:1855} lives in a small house by the {area:2619}, just north of the road at the border; his three hunts are on this guide's ground."] = "길을 따라 동쪽의 {zone:1423}(으)로 가세요. {npc:1855}은(는) 경계의 길 바로 북쪽, {area:2619} 옆의 작은 집에 삽니다. 그의 사냥 퀘스트 세 개는 이 가이드의 지역에서 진행됩니다.",
+
+	-- Step 4: Light's Hope Chapel
 	-- {zone:1422} Western Plaguelands · {zone:1423} Eastern Plaguelands · {object:92525} Argent Dawn
 	["Follow the road east from the {zone:1422}, over the river and across the whole {zone:1423}, to the {object:92525}'s chapel in the far east."] = "{zone:1422}에서 길을 따라 동쪽으로 가서 강을 건너고 {zone:1423} 전체를 가로질러, 동쪽 끝에 있는 {object:92525}의 예배당으로 가세요.",
 
-	-- Step 3: Pamela Redpath
+	-- Step 5: Pamela Redpath
 	-- {npc:10926} Pamela Redpath · {area:2262} Darrowshire
 	["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "{npc:10926}의 유령은 남서쪽의 {area:2262} 폐허에 서 있습니다.",
 
-	-- Step 4: Pamela's Doll
+	-- Step 6: Pamela's Doll
 	-- {npc:10926} Pamela Redpath
 	["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "인형의 머리와 양쪽 몸통은 {npc:10926} 주변의 집들에 있습니다. 가방에서 합치세요.",
 	["Inside"] = "",
 
-	-- Step 5: Pamela Redpath
+	-- Step 7: Pamela Redpath
 	-- {npc:11063} Carlin Redpath · {area:2268} Light's Hope Chapel
 	["a message for {npc:11063} at {area:2268}"] = "{area:2268}의 {npc:11063}에게 전할 전갈",
 	-- {quest:5152} Auntie Marlene · {npc:10927} Marlene Redpath · {area:197} Sorrow Hill · {zone:1422} Western Plaguelands
 	["Keep {quest:5152}: {npc:10927} lives at {area:197} in the {zone:1422}."] = "{quest:5152}은(는) 보관하세요. {npc:10927}은(는) {zone:1422}의 {area:197}에 살고 있습니다.",
 
-	-- Step 6: Zaeldarr the Outcast
+	-- Step 8: Zaeldarr the Outcast
 	-- {area:2262} Darrowshire
 	["Zaeldarr lurks just west of {area:2262}."] = "잴다르는 {area:2262} 바로 서쪽에 숨어 있습니다.",
 	["Below ground"] = "지하",
 
-	-- Step 7: Pestilent Scar
+	-- Step 9: Pestilent Scar
 	-- {npc:10411} Eye of Naxxramas
 	-- plural, as words: Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
 	["Careful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "주의: {npc:10411}은(는) 전투 중이 아닐 때 투명해지며, 전투가 시작되면 바위날개 가고일을 부릅니다. 3마리만 존재하며 15분마다 다시 나타납니다.",
 
-	-- Step 8: Back to Light's Hope Chapel
+	-- Step 10: Back to Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
 	["Back to {area:2268}"] = "{area:2268}(으)로 돌아가기",
 	-- {quest:5211} Defenders of Darrowshire · {area:2264} Corin's Crossing
 	["{quest:5211}'s spirits come with the {area:2264} stop later in this guide: keep it."] = "{quest:5211}의 영혼은 이 가이드 후반의 {area:2264} 단계에서 함께 처리합니다. 보관하세요.",
 
-	-- Step 9: Fly to Tarren Mill
+	-- Step 11: Fly to Tarren Mill
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "{area:272}(으)로 날아가기",
 	-- {area:2268} Light's Hope Chapel
 	["{area:2268} flight master"] = "",
 
-	-- Step 10: To Sorrow Hill
+	-- Step 12: To Sorrow Hill
 	-- {area:197} Sorrow Hill
 	["To {area:197}"] = "{area:197}(으)로",
 
-	-- Step 11: Sorrow Hill
+	-- Step 13: Sorrow Hill
 	-- {area:272} Tarren Mill · {npc:10927} Marlene Redpath · {area:197} Sorrow Hill · {npc:10936} Joseph Redpath
 	["Ride north up the road from {area:272}. {npc:10927}'s house stands by the road at {area:197}, and {npc:10936}'s monument is in the graveyard behind it."] = "{area:272}에서 길을 따라 북쪽으로 가세요. {npc:10927}의 집은 {area:197}의 길가에 있으며, {npc:10936}의 기념비는 그 뒤 묘지에 있습니다.",
 	-- {npc:10927} Marlene Redpath
 	["{npc:10927}, upstairs"] = "{npc:10927}, 위층",
 
-	-- Step 12: Chromie
+	-- Step 14: Chromie
 	-- {npc:10667} Chromie
 	["Ride north-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges."] = "북서쪽의 안도할로 가세요. {npc:10667}은(는) 마을 서쪽의 폐허가 된 여관에서 기다립니다. 안의 해골들은 54-57레벨이니 가장자리로 다니세요.",
 	["Upstairs"] = "위층",
 
-	-- Step 13: The Annals of Darrowshire
+	-- Step 15: The Annals of Darrowshire
+	-- {npc:10996} Fallen Hero · {zone:1422} Western Plaguelands
 	-- plural, as words: Musty Tomes = {object:176150} Musty Tome
-	["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "연대기는 안도할 마을 회관의 퀴퀴한 고서 사이에 있습니다. 맞는 것을 찾을 때까지 열어 보세요.",
+	["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one.\nCareful: a {npc:10996}, a level 58-59 elite, can stand in Andorhal, as at many other spots of the {zone:1422}: give it room."] = "연대기는 안도할 마을 회관의 곰팡이 슨 고서 사이에 있습니다. 맞는 것을 찾을 때까지 열어 보세요.\n주의: {zone:1422}의 다른 여러 곳처럼 안도할에도 58-59레벨 정예인 {npc:10996}이(가) 있을 수 있습니다. 거리를 두세요.",
 
-	-- Step 15: Fly to Light's Hope Chapel
+	-- Step 17: Fly to Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
 	["Fly to {area:2268}"] = "{area:2268}(으)로 날아가기",
 	-- {area:272} Tarren Mill · {area:2268} Light's Hope Chapel
@@ -74,67 +83,84 @@ return {
 	-- {area:272} Tarren Mill
 	["{area:272} flight master"] = "",
 
-	-- Step 16: Light's Hope Chapel
+	-- Step 18: Light's Hope Chapel
 	-- {quest:5168} Heroes of Darrowshire
 	["{quest:5168}'s items lie in the later Plaguelands zones: keep it."] = "{quest:5168}의 물품은 나중의 역병지대 지역에 있습니다. 보관하세요.",
 
-	-- Step 17: Eastern Plaguelands: kill these as you meet them
+	-- Step 19: Eastern Plaguelands: kill these as you meet them
 	-- {zone:1423} Eastern Plaguelands
 	["{zone:1423}: kill these as you meet them"] = "",
 	-- plural, as words: Plaguehounds = {npc:8597} Plaguehound · Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub
-	["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground.\nThe shattered sword lies on the ground north-west of the lake."] = "",
+	["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground. Careful: the biggest Plaguehounds are 56, pull them one at a time.\nThe shattered sword lies on the ground north-west of the lake."] = "역병사냥개와 그 새끼들은 예배당 남서쪽 호숫가를 돌아다니며, 역병박쥐와 청소부구더기도 같은 곳에 있습니다. 주의: 가장 높은 역병사냥개는 56레벨이니 한 번에 한 마리씩 끌어오세요.\n부러진 검은 호수 북서쪽 땅에 있습니다.",
 
-	-- Step 18: Nathanos Blightcaller
-	-- {npc:15193} The Banshee Queen · {area:2260} Marris Stead · {area:2261} Undercroft
-	["{npc:15193}'s champion holds the {area:2260} farmhouse, north of the {area:2261}."] = "{npc:15193}의 용사가 {area:2261} 북쪽의 {area:2260} 농가를 차지하고 있습니다.",
+	-- Step 20: Nathanos Blightcaller
+	-- {npc:15193} The Banshee Queen · {area:2260} Marris Stead · {area:2261} Undercroft · {npc:8564} Ranger
+	["{npc:15193}'s champion holds the {area:2260} farmhouse, north of the {area:2261}. His {npc:8564} hunt, in the north of the zone, waits for the next guide's Plaguelands trip."] = "{npc:15193}의 용사가 {area:2261} 북쪽의 {area:2260} 농가를 차지하고 있습니다. 지역 북쪽에서 하는 그의 {npc:8564} 사냥은 다음 가이드의 역병지대 방문 때 처리합니다.",
+	-- plural, as words: Rangers = {npc:8564} Ranger
+	["keep it: the Rangers (59-60) wait for the next guide's second ride into the north"] = "보관하세요: 순찰자(59-60레벨)는 다음 가이드에서 북쪽으로 두 번째 갈 때 처리합니다",
 
-	-- Step 19: Eastern Plaguelands: kill these as you meet them
+	-- Step 21: Eastern Plaguelands: kill these as you meet them
 	-- {area:2260} Marris Stead · {area:2627} Terrordale
 	-- plural, as words: Plaguehound Runts = {npc:8596} Plaguehound Runt · Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub
 	["Plaguehound Runts and Plaguebats roam the hills north of the {area:2260}, Carrion Grubs crawl among them; work north toward {area:2627}."] = "새끼 역병사냥개와 역병박쥐는 {area:2260} 북쪽 언덕을 돌아다니고, 청소부구더기가 그 사이를 기어다닙니다. 북쪽 {area:2627} 방향으로 나아가세요.",
 
-	-- Step 20: Egan
-	-- {npc:11140} Egan · {area:2627} Terrordale
-	["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner."] = "유령 {npc:11140}은(는) 북서쪽 구석, {area:2627}의 오두막 옆에 서 있습니다.",
+	-- Step 22: Egan
+	-- {npc:11140} Egan · {area:2627} Terrordale · {npc:12384} Augustus the Touched
+	["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut."] = "유령 {npc:11140}은(는) 북서쪽 구석, {area:2627}의 오두막 옆에 서 있습니다. {npc:12384}은(는) 오두막 안에 앉아 있습니다.",
+	-- {npc:12384} Augustus the Touched
+	["{npc:12384}, inside"] = "{npc:12384}, 안쪽",
 
-	-- Step 21: Plaguewood: kill these as you meet them
+	-- Step 23: Terrordale: kill these as you meet them
+	-- {area:2627} Terrordale
+	["{area:2627}: kill these as you meet them"] = "{area:2627}: 만나는 대로 처치하세요",
+	-- {area:2627} Terrordale · {item:15042} Empty Termite Jar
+	-- plural, as words: Large Termite Mounds = {object:177464} Large Termite Mound · Ziggurat Protectors = {npc:12262} Ziggurat Protector
+	["The book lies in the ruined inn of {area:2627}; the undead in the town are 54-56, so pull them one at a time.\nThe Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass.\nCareful: Ziggurat Protectors (58, elite) stand by the ziggurats east and north-east of the town: take the mounds nearer the town and stay clear of them."] = "책은 {area:2627}의 폐허가 된 여관에 있습니다. 마을의 언데드는 54-56레벨이니 한 번에 한 마리씩 끌어오세요.\n큰 흰개미집은 {area:2627} 동쪽 언덕 곳곳에 있습니다. 지나가는 흰개미집마다 {item:15042}을(를) 사용하세요.\n주의: 지구라트 파수병(58레벨, 정예)이 마을 동쪽과 북동쪽 지구라트 옆에 서 있습니다. 마을에 가까운 흰개미집을 이용하고 그들을 피하세요.",
+	-- {quest:5510} Minion's Scourgestones · {area:2627} Terrordale · {item:12846} Argent Dawn Commission
+	["{quest:5510}: the {area:2627} undead drop them while you wear the {item:12846}"] = "{quest:5510}: {item:12846}을(를) 착용하고 있으면 {area:2627}의 언데드가 떨어뜨립니다",
+
+	-- Step 24: Augustus the Touched
+	-- {npc:11615} Mickey Levine · {area:813} Bulwark · {zone:1422} Western Plaguelands
+	["Keep the termites: {npc:11615} at the {area:813} takes them on the next guide's ride into the {zone:1422}."] = "흰개미는 보관하세요: 다음 가이드에서 {zone:1422}에 갈 때 {area:813}의 {npc:11615}에게 제출합니다.",
+
+	-- Step 25: Level 56
+	["Level 56"] = "56레벨",
+	-- {npc:11878} Nathanos Blightcaller · {area:1583} Blackrock Spire
+	-- plural, as words: Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound · Noxious Plaguebats = {npc:8601} Noxious Plaguebat
+	["Top up here to level 56 before the Frenzied Plaguehounds of Northdale (57-58): the Noxious Plaguebats (54-56) over the fields on the way east are at your level, and {npc:11878} wants twenty of them. Or, with a group, run the {area:1583} dungeon (Lower) instead."] = "북쪽골의 광포한 역병사냥개(57-58레벨) 전에 이곳에서 56레벨까지 올리세요. 동쪽으로 가는 길의 들판 위 맹독 역병박쥐(54-56레벨)가 레벨에 맞고, {npc:11878}이(가) 20마리를 원합니다. 또는 파티와 함께 {area:1583} 던전(하층)을 도세요.",
+	-- {npc:8601} Noxious Plaguebat
+	["grind on {npc:8601}"] = "{npc:8601} 사냥",
+
+	-- Step 26: Plaguewood: kill these as you meet them
 	-- {area:2277} Plaguewood
 	["{area:2277}: kill these as you meet them"] = "",
 	-- {area:2272} Northdale · {area:2271} Eastwall Tower · {area:2273} Zul'Mashar
-	-- plural, as words: Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound · Monstrous Plaguebats = {npc:8602} Monstrous Plaguebat
-	["Frenzied Plaguehounds and Monstrous Plaguebats share the fields around {area:2272} and {area:2271}, south of {area:2273}."] = "광포한 역병사냥개와 기괴한 역병박쥐는 {area:2273} 남쪽, {area:2272}와(과) {area:2271} 주변 들판에 함께 있습니다.",
+	-- plural, as words: Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound · Noxious Plaguebats = {npc:8601} Noxious Plaguebat · Monstrous Plaguebats = {npc:8602} Monstrous Plaguebat
+	["Frenzied Plaguehounds share the fields around {area:2272} and {area:2271}, south of {area:2273}; Noxious Plaguebats fly over the fields of the north, and Monstrous Plaguebats around {area:2272} and {area:2271}. Careful: the hounds are 57-58 and the biggest Monstrous Plaguebats 58: pull them one at a time."] = "광포한 역병사냥개는 {area:2273} 남쪽 {area:2272}와(과) {area:2271} 주변 들판에 있습니다. 맹독 역병박쥐는 북쪽 들판 위를, 기괴한 역병박쥐는 {area:2272}와(과) {area:2271} 주변을 날아다닙니다. 주의: 사냥개는 57-58레벨, 가장 높은 기괴한 역병박쥐는 58레벨이니 한 번에 한 마리씩 끌어오세요.",
 
-	-- Step 22: Eastern Plaguelands: kill these as you meet them
-	-- {area:2275} Northpass Tower · {area:2622} Pestilent Scar
-	-- plural, as words: Rangers = {npc:8564} Ranger · Pathstriders = {npc:8565} Pathstrider · Noxious Plaguebats = {npc:8601} Noxious Plaguebat · Blighted Horrors = {npc:8521} Blighted Horror
-	["The high elf Rangers, Pathstriders and Woodsmen guard the lodge by {area:2275}; the Registry lies inside. Rangers reach 60: pull one at a time. Noxious Plaguebats fly over the fields on the way.\nThe skull sits in the {area:2622}, among Blighted Horrors and Plague Monstrosities."] = "하이 엘프 순찰자, 길잡이, 수렵꾼이 {area:2275} 옆의 오두막을 지키고 있으며, 명부는 그 안에 있습니다. 순찰자는 60레벨까지 됩니다. 한 번에 한 명씩 끌어오세요. 가는 길에 맹독 역병박쥐가 들판 위를 날아다닙니다.\n해골은 {area:2622}에서 역병 걸린 공포와 역병 괴물 사이에 있습니다.",
+	-- Step 27: Eastern Plaguelands: kill these as you meet them
+	-- {area:2622} Pestilent Scar
+	-- plural, as words: Blighted Horrors = {npc:8521} Blighted Horror
+	["The skull sits in the {area:2622}, among Blighted Horrors and Plague Monstrosities."] = "해골은 {area:2622}의 황폐의 그림자와 역병의 괴수 사이에 있습니다.",
 	["Underwater"] = "물속",
 
-	-- Step 23: Pathstrider
-	-- {npc:8565} Pathstrider · {area:2276} Quel'Lithien Lodge
-	["{npc:8565} walks around {area:2276}: look inside the circle on the map"] = "",
-
-	-- Step 24: Corin's Crossing
+	-- Step 28: Corin's Crossing
 	-- {area:2264} Corin's Crossing · {item:15447} Living Rot · {item:15454} Mortar and Pestle · {spell:10228} Greater Invisibility · {quest:5211} Defenders of Darrowshire · {npc:11063} Carlin Redpath
 	-- plural, as words: Unseen Servants = {npc:8538} Unseen Servant · Darrowshire Spirits = {npc:11064} Darrowshire Spirit
-	["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "오두막에서 길을 따라 남쪽의 {area:2264}(으)로 가세요. {item:15447}은(는) 10분 안에 상합니다. 마을의 스컬지를 빨리 처치하고, 일곱 조각을 바로 {item:15454}(으)로 빻으세요.\n주의: 보이지 않는 하인은 생명력이 40%로 떨어지면 25미터 안의 동료에게 도움을 요청합니다. 전투 중이 아닐 때는 {spell:10228}(으)로 투명해지기도 합니다. 마을 안에서 도움 요청이 일어나면 많은 몹이 전투에 합류할 수 있습니다. 마을 외곽에서 싸우면 이 위험이 줄어듭니다.\n퀘스트 목록에 {quest:5211}이(가) 있으면(이 가이드 시작 부분에서 {npc:11063}에게 받음), 마을 주변의 스컬지가 다로우샤이어 영혼을 남깁니다. 각 영혼에게 말을 걸어 해방하세요. {item:15447} 작업을 시작하기 전에 영혼들을 해방하세요.",
+	["Ride south to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "길을 따라 남쪽의 {area:2264}(으)로 가세요. {item:15447}은(는) 10분 안에 상합니다. 마을의 스컬지를 빨리 처치하고, 일곱 조각을 바로 {item:15454}(으)로 빻으세요.\n주의: 보이지 않는 하수인은 생명력이 40%로 떨어지면 25미터 안의 동료에게 도움을 요청합니다. 전투 중이 아닐 때는 {spell:10228}(으)로 투명해지기도 합니다. 마을 안에서 도움 요청이 일어나면 많은 몹이 전투에 합류할 수 있습니다. 마을 외곽에서 싸우면 이 위험이 줄어듭니다.\n퀘스트 목록에 {quest:5211}이(가) 있으면(이 가이드 시작 부분에서 {npc:11063}에게 받음), 마을 주변의 스컬지가 다로우샤이어 영혼을 남깁니다. 각 영혼에게 말을 걸어 해방하세요. {item:15447} 작업을 시작하기 전에 영혼들을 해방하세요.",
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["Free Darrowshire Spirits: talk to them"] = "대로우샤이어 영혼 해방: 말 걸기",
 
-	-- Step 25: Nathanos Blightcaller
+	-- Step 29: Nathanos Blightcaller
 	-- {area:2260} Marris Stead
 	["Ride west to the {area:2260}."] = "서쪽의 {area:2260}(으)로 가세요.",
 
-	-- Step 27: Duskwing, Oh How I Hate Thee...
-	-- {npc:11897} Duskwing
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:11897} is a level 60 elite: most classes solo it at level 62, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
-
-	-- Step 29: Class trainer
+	-- Step 31: Class trainer
 	["Class trainer"] = "직업 전문가",
 	-- {zone:1454} Orgrimmar · {zone:1447} Azshara
 	["Hearth to {zone:1454}: the Hearthstone is still bound there from the {zone:1447} guide (Mages teleport). Train before the flight."] = "귀환석으로 {zone:1454}에 가십시오. 귀환석은 {zone:1447} 가이드 때부터 아직 그곳에 설정되어 있습니다(마법사는 순간이동). 비행하기 전에 훈련하십시오.",
 
-	-- Step 30: Fly to Bloodvenom Post
+	-- Step 32: Fly to Bloodvenom Post
 	-- {area:1997} Bloodvenom Post
 	["Fly to {area:1997}"] = "",
 	-- {zone:1454} Orgrimmar · {zone:1447} Azshara
@@ -142,109 +168,121 @@ return {
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "{zone:1454} 비행 조련사",
 
-	-- Step 31: Fly to Thunder Bluff
+	-- Step 33: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "{area:1638}(으)로 날아가기",
 	-- {zone:1454} Orgrimmar · {zone:1447} Azshara
 	["Hearth to {zone:1454}: the Hearthstone is still bound there from the {zone:1447} guide. Then the flight master."] = "귀환석으로 {zone:1454}에 가십시오. 귀환석은 {zone:1447} 가이드 때부터 아직 그곳에 설정되어 있습니다. 그다음 비행 조련사로 가십시오.",
 
-	-- Step 32: Thunder Bluff
+	-- Step 34: Thunder Bluff
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} (Druids) trains on {area:1639}, {npc:246344} (Paladins) in the city too."] = "",
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} on {area:1639}; {npc:246344}"] = "{area:1639}의 {npc:3033}, {npc:246344}",
 
-	-- Step 33: Fly to Bloodvenom Post
+	-- Step 35: Fly to Bloodvenom Post
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "",
 
-	-- Step 35: Deadwood Cauldron
+	-- Step 37: Deadwood Cauldron
 	-- {area:1762} Felpaw Village · {area:1769} Timbermaw Hold
 	["Ride north up the road. The cauldron stands in {area:1762}, just south-west of {area:1769}; the Deadwood furbolgs there are hostile."] = "길을 따라 북쪽으로 가세요. 가마솥은 {area:1769} 바로 남서쪽의 {area:1762}에 있습니다. 그곳의 마른가지일족 털보숭이는 적대적입니다.",
 
-	-- Step 36: Kernda
+	-- Step 38: Kernda
 	-- {quest:8471} Winterfall Ritual Totem · {npc:11558} Kernda · {zone:1448} Felwood · {area:1769} Timbermaw Hold
 	["Only if a {quest:8471} dropped for you: {npc:11558} waits at the {zone:1448} entrance of {area:1769}, and speaks to you only at Neutral with the Timbermaw."] = "{quest:8471}을(를) 얻었을 때만: {npc:11558}은(는) {area:1769}의 {zone:1448} 쪽 입구에서 기다리며, 나무구렁 평판이 중립일 때만 말을 겁니다.",
 	-- {npc:11558} Kernda
 	["{npc:11558} walks around here: look inside the circle on the map"] = "",
 
-	-- Step 38: Rabine Saturna
+	-- Step 40: Rabine Saturna
 	-- {area:1769} Timbermaw Hold · {zone:1450} Moonglade · {npc:11801} Rabine Saturna · {area:2361} Nighthaven
 	["Go through {area:1769} and take the {zone:1450} branch of the tunnel. {npc:11801} is in {area:2361}."] = "{area:1769}을(를) 지나 터널의 {zone:1450} 갈래로 가세요. {npc:11801}은(는) {area:2361}에 있습니다.",
 
-	-- Step 39: Rabine Saturna
+	-- Step 41: Rabine Saturna
 	-- {zone:1451} Silithus
 	["Both quests lead to {zone:1451}: keep them."] = "두 퀘스트 모두 {zone:1451}(으)로 이어집니다. 보관하세요.",
 
-	-- Step 40: Salfa
-	-- {zone:1452} Winterspring · {npc:11556} Salfa
-	["Back through the tunnel and take the {zone:1452} exit: {npc:11556} stands right where it comes out."] = "터널로 돌아가 {zone:1452} 출구로 나가세요. {npc:11556}은(는) 출구 바로 앞에 서 있습니다.",
-
-	-- Step 42: Donova Snowden
+	-- Step 43: Donova Snowden
 	-- {zone:1452} Winterspring · {area:2246} Frostfire Hot Springs
 	["From the tunnel's {zone:1452} exit, ride south to {area:2246}."] = "터널의 {zone:1452} 출구에서 남쪽 {area:2246}(으)로 가십시오.",
 	-- {quest:5086} Toxic Horrors · {zone:1448} Felwood
 	["{quest:5086} are in {zone:1448}, on a later trip: keep it."] = "{quest:5086}은(는) 나중에 {zone:1448}에 갈 때 처리합니다. 보관하세요.",
 
-	-- Step 43: Moontouched Owlbeasts
+	-- Step 44: Moontouched Owlbeasts
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
 	["Moontouched Owlbeasts"] = "달빛 깃든 올빼미야수",
 	-- {area:2255} Everlook · {area:2241} Frostsaber Rock
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
-	["Ride east to {area:2255} and north out of it; the Moontouched Owlbeasts roam the hills of {area:2241}'s southern slopes. Pull them one at a time.\nCareful: Hailspite, level 60 elites, gather in the snowfields south-east of {area:2255}, where a few Moontouched Owlbeasts roam too: stay on the slopes north of town."] = "동쪽의 {area:2255}(으)로 가서 북쪽으로 나가세요. 달빛 깃든 올빼미야수는 {area:2241} 남쪽 비탈의 언덕을 돌아다닙니다. 한 번에 한 마리씩 끌어오세요.\n주의: 60레벨 정예인 Hailspite가 {area:2255} 남동쪽 설원에 모여 있고, 그곳에도 달빛 깃든 올빼미야수 몇 마리가 돌아다닙니다. 마을 북쪽 비탈에 머무르세요.",
+	["Ride east to {area:2255} and north out of it; the Moontouched Owlbeasts roam the hills of {area:2241}'s southern slopes. Careful: they are 57-58: pull them one at a time.\nCareful: Hailspite, level 60 elites, gather in the snowfields south-east of {area:2255}, where a few Moontouched Owlbeasts roam too: stay on the slopes north of town."] = "동쪽의 {area:2255}(으)로 가서 북쪽으로 나가세요. 달빛 깃든 올빼미야수는 {area:2241} 남쪽 비탈의 언덕을 돌아다닙니다. 주의: 57-58레벨이니 한 번에 한 마리씩 끌어오세요.\n주의: 60레벨 정예인 헤일스파이트가 {area:2255} 남동쪽 설원에 모여 있고, 그곳에도 달빛 깃든 올빼미야수 몇 마리가 돌아다닙니다. 마을 북쪽 비탈에 머무르세요.",
 
-	-- Step 45: Fly to Gadgetzan
+	-- Step 45: Pristine Yeti Horns
+	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
+	["Pristine Yeti Horns"] = "온전한 설인 뿔",
+	-- {area:2255} Everlook
+	["Umi's horns, carried from your last {area:2255} stop: the yeti hills start just south-east of {area:2255}. Only Matriarchs and Patriarchs drop horns, and the Patriarchs reach 58: pull them one at a time."] = "지난 {area:2255} 방문 때 받은 우미의 뿔 퀘스트: 설인 언덕은 {area:2255} 바로 남동쪽에서 시작됩니다. 우두머리 암컷과 수컷만 뿔을 떨어뜨리며, 수컷은 58레벨까지 있으니 한 번에 한 마리씩 끌어오세요.",
+
+	-- Step 46: Umi Rumplesnicker
+	-- {area:976} Gadgetzan · {area:2255} Everlook
+	["Umi's third prank targets goblins in {area:976}, Un'Goro and {area:2255}: keep it for later."] = "우미의 세 번째 장난은 {area:976}, 운고로 분화구, {area:2255}의 고블린이 대상입니다. 나중을 위해 보관하세요.",
+
+	-- Step 47: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "{area:976}(으)로 날아가기",
 	-- {area:2255} Everlook
 	["{area:2255} flight master"] = "",
 
-	-- Step 46: Gaeriyan
+	-- Step 48: Gaeriyan
 	-- {item:11243} Videre Elixir · {area:976} Gadgetzan · {npc:9299} Gaeriyan
 	["Drink the {item:11243} at the graveyard just east of {area:976}: it kills you, and only as a ghost can you see {npc:9299}, in a rocky crevice in the hills due north of it. Talk to him there, then run back to your body and resurrect: the Conspicuous Gravestone he sends you to stands in that graveyard."] = "{area:976} 바로 동쪽 묘지에서 {item:11243}을(를) 마시세요. 마시면 죽으며, 유령 상태에서만 그 정북쪽 언덕의 바위 틈에 있는 {npc:9299}을(를) 볼 수 있습니다. 그곳에서 그에게 말을 건 뒤 시체로 달려가 부활하세요. 그가 알려 주는 눈에 띄는 묘비는 그 묘지에 있습니다.",
 
-	-- Step 47: Sprinkle
+	-- Step 49: Sprinkle
 	-- {item:12928} Umi's Mechanical Yeti · {npc:7583} Sprinkle · {area:976} Gadgetzan · {npc:10977} Quixxil · {npc:10978} Legacki
 	["Use {item:12928} on {npc:7583}, the goblin girl in {area:976}. {npc:10977} and {npc:10978} are scared later in the route."] = "{area:976}의 고블린 소녀 {npc:7583}에게 {item:12928}을(를) 사용하세요. {npc:10977}와(과) {npc:10978}은(는) 나중에 경로 중 놀래 줍니다.",
 	-- {npc:7583} Sprinkle · {item:12928} Umi's Mechanical Yeti
 	["Scare {npc:7583} with {item:12928}"] = "{item:12928}(으)로 {npc:7583} 겁주기",
 
-	-- Step 48: Gaeriyan
+	-- Step 50: Alchemist Pestlezugg
+	-- {quest:4493} March of the Silithid · {zone:1454} Orgrimmar · {zone:1447} Azshara
+	["Inside: {quest:4493}, if you took it in {zone:1454} on the {zone:1447} guide"] = "안쪽: {zone:1447} 가이드 중 {zone:1454}에서 {quest:4493}을(를) 받았다면",
+
+	-- Step 52: Gaeriyan
 	-- {quest:3914} Linken's Sword · {npc:8737} Linken
 	["{quest:3914} goes back to {npc:8737} in Un'Goro: keep it."] = "{quest:3914}은(는) 운고로 분화구의 {npc:8737}에게 돌아갑니다. 보관하세요.",
 
-	-- Step 49: Marvon Rivetseeker
+	-- Step 53: Marvon Rivetseeker
 	-- {npc:7771} Marvon Rivetseeker · {area:1336} Lost Rigger Cove · {area:976} Gadgetzan
 	["{npc:7771} camps by the {area:1336} road, south of {area:976}."] = "{npc:7771}은(는) {area:976} 남쪽, {area:1336}(으)로 가는 길가에 야영하고 있습니다.",
 
-	-- Step 50: Fly to Marshal's Refuge
+	-- Step 54: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
 	["Fly to {area:541}"] = "",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "{area:976} 비행 조련사",
 
-	-- Step 51: Marshal's Refuge
+	-- Step 55: Marshal's Refuge
 	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock · {npc:8737} Linken
 	["The flight lands at {area:541}: {npc:9997} stands beside the flight master, and {npc:8737} by the cave a few steps away. {npc:9997}'s work is in Un'Goro on the next guide's way back north."] = "",
 	-- {quest:3941} A Gnome's Assistance · {npc:9117} J.D. Collie · {area:541} Marshal's Refuge
 	["{quest:3941} goes to {npc:9117} in the cave here, on the next guide's return to {area:541}: keep it."] = "",
 
-	-- Step 52: Layo Starstrike
+	-- Step 56: Layo Starstrike
 	-- {area:3077} Valor's Rest · {zone:1451} Silithus · {npc:13220} Layo Starstrike
 	["The pass from Un'Goro comes out at {area:3077}, the graveyard in north-east {zone:1451}. {npc:13220} stands among the graves."] = "운고로 분화구에서 오는 고갯길은 {zone:1451} 북동쪽의 묘지인 {area:3077}(으)로 이어집니다. {npc:13220}은(는) 무덤 사이에 서 있습니다.",
 
-	-- Step 53: The Spirits of Southwind
+	-- Step 57: The Spirits of Southwind
 	-- {area:2738} Southwind Village · {object:179565} Dusty Reliquary · {quest:1123} Rabine Saturna
 	["Ride south-west to the ruins of {area:2738}. The {object:179565} for {quest:1123} sits inside one of the ruined houses."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A torn scroll lies at the entrance of the {area:2261}, the crypt south of the {area:2260}."] = "찢어진 두루마리는 {area:2260} 남쪽의 납골당인 {area:2261} 입구에 있습니다.",
 	-- ["Back through the tunnel and take the {area:618} exit, then ride south to {area:2246}."] = "터널로 돌아가 {area:618} 출구로 나간 뒤, 남쪽의 {area:2246}(으)로 가세요.",
+	-- ["Back through the tunnel and take the {zone:1452} exit: {npc:11556} stands right where it comes out."] = "터널로 돌아가 {zone:1452} 출구로 나가세요. {npc:11556}은(는) 출구 바로 앞에 서 있습니다.",
 	-- ["Back to {area:1638}"] = "{area:1638}(으)로 돌아가기",
 	-- ["Fly to the {zone:1458}, take the zeppelin to {zone:1454} and fly on to {area:1638}."] = "{zone:1458}(으)로 날아가 {zone:1454}행 비행선을 탄 뒤 {area:1638}(으)로 날아가세요.",
 	-- ["Fly to {area:1099}"] = "{area:1099}(으)로 날아가기",
 	-- ["Fly to {area:1099}. The hippogryph nests are in the south of {zone:1444}; each holds an egg for the {object:142071}."] = "{area:1099}(으)로 날아가세요. 히포그리프 둥지는 {zone:1444} 남부에 있으며, 둥지마다 {object:142071}에 쓸 알이 하나씩 있습니다.",
 	-- ["Fly to {area:541}, then ride south-west through Un'Goro to the pass into {zone:1451}. The next guide opens at {area:3077}, where the pass comes out."] = "{area:541}(으)로 날아간 뒤, 남서쪽으로 운고로 분화구를 지나 {zone:1451}(으)로 가는 고갯길로 가세요. 다음 가이드는 고갯길이 끝나는 {area:3077}에서 시작합니다.",
+	-- ["Frenzied Plaguehounds and Monstrous Plaguebats share the fields around {area:2272} and {area:2271}, south of {area:2273}."] = "광포한 역병사냥개와 기괴한 역병박쥐는 {area:2273} 남쪽, {area:2272}와(과) {area:2271} 주변 들판에 함께 있습니다.",
 	-- ["Go through {area:1769} and take the {area:493} branch of the tunnel. {npc:11801} is in {area:2361}."] = "{area:1769}을(를) 지나 터널의 {area:493} 갈래로 가세요. {npc:11801}은(는) {area:2361}에 있습니다.",
 	-- ["Hameya hides among the Mossflayer trolls of {area:2273}, in the north-east corner."] = "하메야는 북동쪽 구석, {area:2273}의 이끼껍질부족 트롤 사이에 숨어 있습니다.",
 	-- ["Hameya's mound"] = "하메야의 흙더미",
@@ -254,9 +292,13 @@ return {
 	-- ["On {area:1641}. Have the Wool, Silk and Mageweave in your bags."] = "{area:1641}에 있습니다. 양모 옷감, 비단 옷감, 마법 옷감을 가방에 넣어 두세요.",
 	-- ["Only if you still carry {quest:2741}: ride south from {area:1099}; the hippogryph nests are in the south of {zone:1444}, each holds an egg for the Egg-O-Matic."] = "아직 {quest:2741}을(를) 가지고 있을 때만: {area:1099}에서 남쪽으로 가세요. 히포그리프 둥지는 {zone:1444} 남부에 있으며, 둥지마다 에그-오-매틱에 쓸 알이 하나씩 있습니다.",
 	-- ["Plaguehounds and their runts roam the shores of the lake south-west of the chapel."] = "역병사냥개와 새끼 역병사냥개는 예배당 남서쪽 호숫가를 돌아다닙니다.",
+	-- ["Ride east to {area:2255} and north out of it; the Moontouched Owlbeasts roam the hills of {area:2241}'s southern slopes. Pull them one at a time.\nCareful: Hailspite, level 60 elites, gather in the snowfields south-east of {area:2255}, where a few Moontouched Owlbeasts roam too: stay on the slopes north of town."] = "동쪽의 {area:2255}(으)로 가서 북쪽으로 나가세요. 달빛 깃든 올빼미야수는 {area:2241} 남쪽 비탈의 언덕을 돌아다닙니다. 한 번에 한 마리씩 끌어오세요.\n주의: 60레벨 정예인 Hailspite가 {area:2255} 남동쪽 설원에 모여 있고, 그곳에도 달빛 깃든 올빼미야수 몇 마리가 돌아다닙니다. 마을 북쪽 비탈에 머무르세요.",
 	-- ["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the end of the Un'Goro guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "오두막에서 길을 따라 남쪽의 {area:2264}(으)로 가세요. {item:15447}은(는) 10분 안에 상합니다. 마을의 스컬지를 빨리 처치하고, 일곱 조각을 바로 {item:15454}(으)로 빻으세요.\n주의: 보이지 않는 하인은 생명력이 40%로 떨어지면 25미터 안의 동료에게 도움을 요청합니다. 전투 중이 아닐 때는 {spell:10228}(으)로 투명해지기도 합니다. 마을 안에서 도움 요청이 일어나면 많은 몹이 전투에 합류할 수 있습니다. 마을 외곽에서 싸우면 이 위험이 줄어듭니다.\n퀘스트 목록에 {quest:5211}이(가) 있으면(운고로 분화구 가이드 끝에서 {npc:11063}에게 받음), 마을 주변의 스컬지가 다로우샤이어 영혼을 남깁니다. 각 영혼에게 말을 걸어 해방하세요. {item:15447} 작업을 시작하기 전에 영혼들을 해방하세요.",
+	-- ["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "오두막에서 길을 따라 남쪽의 {area:2264}(으)로 가세요. {item:15447}은(는) 10분 안에 상합니다. 마을의 스컬지를 빨리 처치하고, 일곱 조각을 바로 {item:15454}(으)로 빻으세요.\n주의: 보이지 않는 하인은 생명력이 40%로 떨어지면 25미터 안의 동료에게 도움을 요청합니다. 전투 중이 아닐 때는 {spell:10228}(으)로 투명해지기도 합니다. 마을 안에서 도움 요청이 일어나면 많은 몹이 전투에 합류할 수 있습니다. 마을 외곽에서 싸우면 이 위험이 줄어듭니다.\n퀘스트 목록에 {quest:5211}이(가) 있으면(이 가이드 시작 부분에서 {npc:11063}에게 받음), 마을 주변의 스컬지가 다로우샤이어 영혼을 남깁니다. 각 영혼에게 말을 걸어 해방하세요. {item:15447} 작업을 시작하기 전에 영혼들을 해방하세요.",
 	-- ["Ride south from {area:1099}: the hippogryph nests are in the south of {zone:1444}; each holds an egg for the {object:142071}."] = "{area:1099}에서 남쪽으로 가세요. 히포그리프 둥지는 {zone:1444} 남부에 있으며, 둥지마다 {object:142071}에 쓸 알이 하나씩 있습니다.",
 	-- ["Sword of Marduk"] = "마르두크의 검",
+	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "연대기는 안도할 마을 회관의 퀴퀴한 고서 사이에 있습니다. 맞는 것을 찾을 때까지 열어 보세요.",
+	-- ["The high elf Rangers, Pathstriders and Woodsmen guard the lodge by {area:2275}; the Registry lies inside. Rangers reach 60: pull one at a time. Noxious Plaguebats fly over the fields on the way.\nThe skull sits in the {area:2622}, among Blighted Horrors and Plague Monstrosities."] = "하이 엘프 순찰자, 길잡이, 수렵꾼이 {area:2275} 옆의 오두막을 지키고 있으며, 명부는 그 안에 있습니다. 순찰자는 60레벨까지 됩니다. 한 번에 한 명씩 끌어오세요. 가는 길에 맹독 역병박쥐가 들판 위를 날아다닙니다.\n해골은 {area:2622}에서 역병 걸린 공포와 역병 괴물 사이에 있습니다.",
 	-- ["The shattered sword lies on the ground north-west of the lake."] = "부서진 검은 호수 북서쪽 땅바닥에 있습니다.",
 	-- ["The skull sits in the {area:2622}, among Blighted Horrors and Plague Monstrosities."] = "해골은 {area:2622}의 황폐의 그림자와 역병의 괴수 사이에 있습니다.",
 	-- ["The western hills"] = "서쪽 언덕",
@@ -267,6 +309,8 @@ return {
 	-- ["{item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once."] = "{item:15447}은(는) 10분 안에 상합니다. 마을의 스컬지를 빨리 처치하고, 일곱 조각을 바로 {item:15454}(으)로 빻으세요.",
 	-- ["{npc:10880} walks the {object:172982} and the streets off it: look for him on the way to the flight master's tower; the circle on the map is his walk."] = "{npc:10880}은(는) {object:172982}와(과) 그 주변 거리를 돌아다닙니다. 비행 조련사의 탑으로 가는 길에 찾아보세요. 지도의 원이 그의 이동 경로입니다.",
 	-- ["{npc:10880}: for {npc:7776} at {quest:7492}, at the end of this guide"] = "{npc:10880}: 이 가이드 끝의 {quest:7492}에 있는 {npc:7776}에게 전달",
+	-- ["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner."] = "유령 {npc:11140}은(는) 북서쪽 구석, {area:2627}의 오두막 옆에 서 있습니다.",
+	-- ["{npc:15193}'s champion holds the {area:2260} farmhouse, north of the {area:2261}."] = "{npc:15193}의 용사가 {area:2261} 북쪽의 {area:2260} 농가를 차지하고 있습니다.",
 	-- ["{npc:15193}'s champion holds the {area:2260} farmhouse."] = "{npc:15193}의 용사가 {area:2260} 농가를 차지하고 있습니다.",
 	-- ["{npc:9299} is a ghost at the graveyard just north of {area:976}; the Conspicuous Gravestone is south of it, outside the town wall."] = "{npc:9299}은(는) {area:976} 바로 북쪽 묘지의 유령입니다. 눈에 띄는 묘비는 그 남쪽, 마을 성벽 밖에 있습니다.",
 	-- ["{object:1661}'s flight master is in the {object:36078}'s west tower, outside the walls."] = "{object:1661}의 비행 조련사는 성벽 밖, {object:36078}의 서쪽 탑에 있습니다.",

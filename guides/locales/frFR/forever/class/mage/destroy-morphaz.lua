@@ -17,7 +17,7 @@ return {
 
 	-- Step 2: Magecraft (Orgrimmar)
 	-- {npc:7311} Uthel'nay · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge · {npc:4567} Pierce Shackleton · {zone:1458} Undercity · {npc:3047} Archmage Shymm · {zone:1456} Thunder Bluff
-	["{npc:7311}, one of {zone:1454}'s mage trainers in {object:173161}, gives it; so do {npc:4567} in the {zone:1458} and {npc:3047} in {zone:1456}."] = "{npc:7311}, l'un des maîtres des mages d'{zone:1454}, dans le pavillon Darkbriar, la donne ; tout comme {npc:4567} à {zone:1458} et {npc:3047} aux {zone:1456}.",
+	["{npc:7311}, one of {zone:1454}'s mage trainers in {object:173161}, gives it; so do {npc:4567} in the {zone:1458} and {npc:3047} in {zone:1456}."] = "{npc:7311}, l'un des maîtres des mages d'{zone:1454}, dans le {object:173161}, la donne ; tout comme {npc:4567} à {zone:1458} et {npc:3047} aux {zone:1456}.",
 
 	-- Step 3: Sanath Lim-yo
 	-- {area:3137} Talrendis Point · {area:1237} Valormok · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara · {area:1221} Ruins of Eldarath · {npc:8379} Archmage Xylem

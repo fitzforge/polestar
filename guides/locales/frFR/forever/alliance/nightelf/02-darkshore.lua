@@ -25,8 +25,6 @@ return {
 	["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "Le bateau accoste à l'ouest du village. Le maître de vol se tient sur la colline au sud de l'auberge ; les donneurs de quêtes sont répartis le long de la rue principale. {npc:3666} se tient à l'étage de l'auberge : montez par l'escalier intérieur, la flèche ne distingue pas les étages.",
 	-- {npc:3666} Wizbang Cranktoggle
 	["{npc:3666}, upstairs in the inn"] = "{npc:3666}, à l'étage de l'auberge",
-	-- {npc:3644} Cerellean Whiteclaw
-	["{npc:3644}, on the pier"] = "{npc:3644}, sur la jetée",
 
 	-- Step 5: The skeletal turtle
 	["The skeletal turtle"] = "La tortue squelettique",
@@ -58,8 +56,6 @@ return {
 	["Read the {object:17188}"] = "Lisez {object:17188}",
 	-- {object:17189} Fall of Ameth'Aran
 	["Read the {object:17189}"] = "Lisez {object:17189}",
-	-- {item:5382} Anaya's Pendant · {npc:3667} Anaya Dawnrunner
-	["{item:5382}: {npc:3667}, level 16; pull her away from the Highborne"] = "{item:5382} : {npc:3667}, niveau 16 ; éloignez-la des Bien-nés",
 
 	-- Step 9: The red crystal
 	["The red crystal"] = "Le cristal rouge",
@@ -83,7 +79,7 @@ return {
 	["Blackwood furbolgs"] = "Les furbolgs Noirbois",
 	-- {area:442} Auberdine
 	-- plural, as words: Blackwood Pathfinders = {npc:2167} Blackwood Pathfinder
-	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "Des Guides Noirbois et des Messagers du Vent Noirbois tiennent le camp au sud-est d'{area:442}.",
+	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}.\nCareful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time."] = "Les Guides Noirbois et les Parlevents occupent le camp au sud-est d'{area:442}.\nAttention : les Parlevents (13-14) lancent des sorts à distance et les furbolgs se tiennent par deux : attirez-les un par un.",
 
 	-- Step 14: The southern beaches
 	["The southern beaches"] = "Les plages du sud",
@@ -101,10 +97,6 @@ return {
 	-- Step 17: Bashal'Aran
 	-- {npc:3650} Asterion · {area:442} Auberdine
 	["North along the hills to {npc:3650}, then west down to {area:442}."] = "Vers le nord le long des collines jusqu'à {npc:3650}, puis descendez vers l'ouest jusqu'à {area:442}.",
-
-	-- Step 18: Auberdine
-	-- {npc:3644} Cerellean Whiteclaw
-	["{npc:3644}, where the pier meets the shore, on the way to the boat"] = "{npc:3644}, là où la jetée rejoint le rivage, sur le chemin du bateau",
 
 	-- Step 19: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
@@ -149,6 +141,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south"] = "Retour au sud",
+	-- ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "Des Guides Noirbois et des Messagers du Vent Noirbois tiennent le camp au sud-est d'{area:442}.",
 	-- ["Follow the coast north-east to the {area:443}. Mathystra Relics lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore."] = "Suivez la côte vers le nord-est jusqu'aux {area:443}. Des Reliques de Mathystra jonchent les ruines ; des Myrmidons, des Ensorceleuses et des Guerriers Tempécaille les gardent, et des Maîtresses des bêtes Tempécaille arpentent le rivage.",
 	-- ["Follow the road north."] = "Suivez la route vers le nord.",
 	-- ["Follow the road south. Onu is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "Suivez la route vers le sud. Onu est l'ancien du Bosquet ; {npc:270269} et {npc:11218} dorment à côté de lui.",
@@ -160,4 +153,7 @@ return {
 	-- ["Rabid Thistle Bears roam the hills just east of {area:442}. Use {item:7586} on one and lead it back to him."] = "Des Ours des chardons enragés parcourent les collines juste à l'est d'{area:442}. Utilisez l'{item:7586} sur l'un d'eux et ramenez-le jusqu'à lui.",
 	-- ["The naga"] = "Les nagas",
 	-- ["The {area:448}"] = "{area:448}",
+	-- ["{item:5382}: {npc:3667}, level 16; pull her away from the Highborne"] = "{item:5382} : {npc:3667}, niveau 16 ; éloignez-la des Bien-nés",
+	-- ["{npc:3644}, on the pier"] = "{npc:3644}, sur la jetée",
+	-- ["{npc:3644}, where the pier meets the shore, on the way to the boat"] = "{npc:3644}, là où la jetée rejoint le rivage, sur le chemin du bateau",
 }

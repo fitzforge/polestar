@@ -26,7 +26,7 @@ return {
 	["{area:2246}: kill these as you meet them"] = "",
 	-- {item:14047} Runecloth
 	-- plural, as words: Ragged Owlbeasts = {npc:7450} Ragged Owlbeast
-	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh."] = "길잡이, 보초, 토템술사가 온천 주변 털보숭이 야영지에 함께 있고, 털복숭이 올빼미야수가 그 사이 비탈을 돌아다닙니다. 토템술사를 먼저 처치하세요. 얻는 {item:14047}은(는) 모두 메일로쉬를 위해 모아 두세요.",
+	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "길잡이, 보초, 토템술사가 온천 주변 털보숭이 야영지에 함께 있고, 털복숭이 올빼미야수가 그 사이 비탈을 돌아다닙니다. 토템술사를 먼저 처치하세요. 얻는 {item:14047}은(는) 모두 메일로쉬를 위해 모아 두세요.\n주의: 보초는 56레벨까지 있습니다. 한 번에 한 마리씩 끌어오고 야영지의 토템은 피하세요.",
 	-- {item:12771} Empty Firewater Flask
 	["{item:12771}: about one Winterfall furbolg in ten carries one; keep killing them until it drops"] = "",
 	-- {quest:8471} Winterfall Ritual Totem
@@ -41,7 +41,7 @@ return {
 	["Raging Owlbeasts"] = "흉포한 올빼미야수",
 	-- {area:2251} Lake Kel'Theril · {area:2246} Frostfire Hot Springs · {area:2255} Everlook
 	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast
-	["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}."] = "",
+	["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time."] = "흉포한 올빼미야수는 {area:2246}와(과) {area:2255} 사이 길가, {area:2251} 북쪽 언덕을 돌아다닙니다. 주의: 가장 큰 것은 56레벨입니다. 한 번에 한 마리씩 끌어오세요.",
 
 	-- Step 8: Everlook
 	-- {area:2255} Everlook
@@ -53,82 +53,67 @@ return {
 	-- Step 9: Ice Thistle yetis
 	["Ice Thistle yetis"] = "얼음엉겅퀴설인",
 	-- {area:2255} Everlook
-	["The yeti hills start just south-east of {area:2255}. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in."] = "설인 언덕은 {area:2255} 바로 남동쪽에서 시작합니다. 모든 설인이 털가죽을 떨어뜨리지만, 뿔은 맹렬한 설인과 덩치큰 설인만 떨어뜨리므로 완료 후를 위해 남겨 두세요.",
-
-	-- Step 11: Level 55.04
-	["Level 55.04"] = "",
-	-- {area:2255} Everlook · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
 	-- plural, as words: Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti
-	["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. The Ice Thistle Yetis (55-56) are the lowest here; the Matriarchs and Patriarchs (56-58) hit harder. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "{area:2255}에서 퀘스트를 제출하기 전에 이곳에서 55.04레벨까지 올리십시오. 제출하면 56레벨이 됩니다. 이곳에서는 얼음엉겅퀴설인(55-56)이 가장 레벨이 낮고, 맹렬한 얼음엉겅퀴설인과 덩치큰 얼음엉겅퀴설인(56-58)은 더 강하게 공격합니다. 또는 파티와 함께 대신 {area:1584} 던전이나 {area:1583} 던전(아래쪽)을 도십시오.",
-	-- {npc:7458} Ice Thistle Yeti
-	["grind on {npc:7458}"] = "",
+	["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit."] = "설인 언덕은 {area:2255} 바로 남동쪽에서 시작합니다. 모든 설인이 털가죽을 떨어뜨립니다. 얼음엉겅퀴설인(55-56)을 사냥하고, 맹렬한 설인과 덩치큰 설인(56-58)은 남겨 두세요. 뿔은 나중에 다시 올 때 모읍니다.",
 
-	-- Step 12: Pristine Yeti Horns
-	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
-	["Pristine Yeti Horns"] = "온전한 설인 뿔",
-	["Matriarchs and Patriarchs hit hard: pull them one at a time."] = "맹렬한 설인과 덩치큰 설인은 세게 때립니다. 한 번에 한 마리씩 끌어오세요.",
-	["Below ground"] = "지하",
-
-	-- Step 13: Chillwind chimaeras
+	-- Step 10: Chillwind chimaeras
 	["Chillwind chimaeras"] = "서리바람 키메라",
 	-- {area:2255} Everlook · {area:2245} Mazthoril
 	["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite."] = "키메라는 {area:2255} 남쪽과 서쪽의 설원을 돌아다닙니다. {area:2245} 동굴은 피하세요. 그곳의 푸른 용족은 정예입니다.",
 
-	-- Step 14: Umi Rumplesnicker
-	-- {area:976} Gadgetzan
-	["Umi's third prank targets goblins in {area:976} and Un'Goro: keep it for later."] = "우미의 세 번째 장난은 {area:976}와(과) 운고로 분화구의 고블린을 노립니다. 나중을 위해 보관하세요.",
+	-- Step 11: Everlook
+	-- {zone:1423} Eastern Plaguelands · {area:2255} Everlook
+	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
+	["Umi: keep it, the Pristine Yeti Horns come on the {zone:1423} guide's {area:2255} stop at about 57"] = "우미: 퀘스트를 유지하세요. 온전한 설인 뿔은 {zone:1423} 가이드의 {area:2255} 방문 때(약 57레벨) 모읍니다",
+	["The Matriarchs and Patriarchs that carry Umi's horns are 56-58: leave them for that later stop."] = "우미의 뿔을 지닌 맹렬한 설인과 덩치큰 설인은 56-58레벨입니다. 나중 방문 때까지 남겨 두세요.",
 
-	-- Step 15: Winterfall Village
-	-- {area:2255} Everlook · {npc:10738} High Chief Winterfall
-	["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} in the cave at the back is elite: stay out."] = "털보숭이 마을이 {area:2255} 북동쪽 골짜기를 가득 메우고 있습니다. 치유하는 주술사를 먼저 처치하세요. 안쪽 동굴의 {npc:10738}은(는) 정예입니다. 들어가지 마세요.",
-
-	-- Step 16: Fly to Camp Mojache
+	-- Step 12: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "{area:1099}(으)로 날아가기",
 	-- {area:2255} Everlook
 	["{area:2255} flight master"] = "",
 
-	-- Step 18: Evoroot
+	-- Step 14: Evoroot
 	-- {item:11242} Evoroot · {npc:7775} Gregan Brewspewer · {area:1114} Ruins of Ravenwind
 	["The {item:11242} grows inside a ruined building north of {npc:7775}'s camp, east of the harpies' {area:1114}: climb in through the broken part of its wall."] = "{item:11242}은(는) 하피의 {area:1114} 동쪽, {npc:7775} 야영지 북쪽의 무너진 건물 안에서 자랍니다. 벽의 부서진 곳으로 들어가세요.",
 
-	-- Step 19: The Videre Elixir
+	-- Step 15: The Videre Elixir
 	-- {npc:7775} Gregan Brewspewer · {area:976} Gadgetzan
 	["Back south to {npc:7775}. Keep the elixir and don't drink it yet: it kills you, and that is how you meet Gaeriyan by {area:976} later."] = "남쪽의 {npc:7775}에게 돌아가세요. 비약은 보관하고 아직 마시지 마세요. 마시면 죽는데, 나중에 {area:976} 근처에서 가에리얀을 만나는 방법이 바로 그것입니다.",
 	-- {item:11243} Videre Elixir · {npc:7775} Gregan Brewspewer
 	["{item:11243}, {npc:7775}'s reward"] = "{item:11243}, {npc:7775}의 보상",
 
-	-- Step 21: Fly to Thunder Bluff
+	-- Step 17: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "{area:1638}(으)로 날아가기",
 	-- {area:2408} Shadowprey Village
 	["{area:2408} flight master"] = "{area:2408} 비행 조련사",
 
-	-- Step 22: Bluff Runner Windstrider
+	-- Step 18: Bluff Runner Windstrider
 	-- {npc:10881} Bluff Runner Windstrider · {npc:14728} Rumstag Proudstrider · {area:1641} Hunter Rise
 	["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
 
-	-- Step 23: Elder Rise
+	-- Step 19: Elder Rise
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} on {area:1639}; {npc:246344}"] = "{area:1639}의 {npc:3033}, {npc:246344}",
 	-- {quest:1123} Rabine Saturna · {zone:1450} Moonglade
 	["{quest:1123} waits in {zone:1450}: keep it for later."] = "{quest:1123}은(는) {zone:1450}에서 기다립니다. 나중을 위해 보관하세요.",
 
-	-- Step 24: Bashana Runetotem
+	-- Step 20: Bashana Runetotem
 	-- {npc:9087} Bashana Runetotem · {item:11040} Morrowgrain · {quest:3761} Un'Goro Soil · {quest:3782} Morrowgrain Research · {item:11020} Evergreen Pouch
 	["{npc:9087} buys {item:11040} grown from your {quest:3761}. {quest:3782} wants ten, and the {item:11020} gives one try every ten minutes: take it only if you already have the grain."] = "",
 
-	-- Step 25: Fly to Orgrimmar
+	-- Step 21: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "{area:1637}(으)로 날아가기",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "",
 
-	-- Step 26: Vehena
+	-- Step 22: Vehena
 	-- {object:172961} Valley of Spirits
 	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
 
-	-- Step 27: Rashona Straglash
+	-- Step 23: Rashona Straglash
 	-- {object:172958} Valley of Honor
 	["In the {object:172958}."] = "{object:172958}에 있습니다.",
 	-- {item:14047} Runecloth
@@ -138,6 +123,7 @@ return {
 	-- ["Any Winterfall furbolg can carry the beads; the camps just south of {npc:11556} are the closest."] = "눈사태일족 털보숭이는 누구나 구슬을 지니고 있을 수 있습니다. {npc:11556} 바로 남쪽 야영지가 가장 가깝습니다.",
 	-- ["Back at {area:1099}."] = "{area:1099}에 돌아왔습니다.",
 	-- ["Back to {area:2255}"] = "{area:2255}(으)로 돌아가기",
+	-- ["Below ground"] = "지하",
 	-- ["Chillwind chimaeras"] = "서리바람 키메라",
 	-- ["From Krakle in Un'Goro"] = "운고로 분화구의 크래클에게서",
 	-- ["Frostfire Winterfall camp"] = "얼음불꽃 눈사태일족 야영지",
@@ -146,10 +132,16 @@ return {
 	-- ["Grind to 55"] = "55레벨까지 사냥",
 	-- ["He stands on {area:1641}. Each donation wants cloth from your bags; hand them in when you have it, later in the route."] = "그는 {area:1641}에 서 있습니다. 기부마다 가방 속 옷감이 필요합니다. 나중에 경로 중 옷감이 모이면 건네세요.",
 	-- ["In the {object:172961}."] = "{object:172961}에 있습니다.",
+	-- ["Matriarchs and Patriarchs hit hard: pull them one at a time."] = "맹렬한 설인과 덩치큰 설인은 세게 때립니다. 한 번에 한 마리씩 끌어오세요.",
 	-- ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh."] = "길잡이, 보초, 토템술사가 온천 주변 털보숭이 야영지에 함께 있고, 털복숭이 올빼미야수가 그 사이 비탈을 돌아다닙니다. 토템술사를 먼저 처치하세요. 얻는 {item:14047}은(는) 모두 메일로쉬를 위해 모아 두세요.",
+	-- ["Pristine Yeti Horns"] = "온전한 설인 뿔",
 	-- ["Ride back west to {area:2246}."] = "서쪽의 {area:2246}(으)로 돌아가세요.",
 	-- ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "동쪽으로 간 뒤 남쪽으로 {area:2249}을(를) 내려가세요. 그곳의 서리망치거인은 59레벨 정예입니다. 가운데로 다니며 멈추지 마세요. 이상한 근원은 남쪽 끝, {area:2256} 입구에 있습니다.",
 	-- ["Ride west along the road past {area:2251}; Raging Owlbeasts roam the hills north of it."] = "길을 따라 서쪽으로 {area:2251}을(를) 지나가세요. 흉포한 올빼미야수는 그 북쪽 언덕을 돌아다닙니다.",
+	-- ["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} in the cave at the back is elite: stay out."] = "털보숭이 마을이 {area:2255} 북동쪽 골짜기를 가득 메우고 있습니다. 치유하는 주술사를 먼저 처치하세요. 안쪽 동굴의 {npc:10738}은(는) 정예입니다. 들어가지 마세요.",
+	-- ["The yeti hills start just south-east of {area:2255}. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in."] = "설인 언덕은 {area:2255} 바로 남동쪽에서 시작합니다. 모든 설인이 털가죽을 떨어뜨리지만, 뿔은 맹렬한 설인과 덩치큰 설인만 떨어뜨리므로 완료 후를 위해 남겨 두세요.",
+	-- ["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. The Ice Thistle Yetis (55-56) are the lowest here; the Matriarchs and Patriarchs (56-58) hit harder. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "{area:2255}에서 퀘스트를 제출하기 전에 이곳에서 55.04레벨까지 올리십시오. 제출하면 56레벨이 됩니다. 이곳에서는 얼음엉겅퀴설인(55-56)이 가장 레벨이 낮고, 맹렬한 얼음엉겅퀴설인과 덩치큰 얼음엉겅퀴설인(56-58)은 더 강하게 공격합니다. 또는 파티와 함께 대신 {area:1584} 던전이나 {area:1583} 던전(아래쪽)을 도십시오.",
+	-- ["Umi's third prank targets goblins in {area:976} and Un'Goro: keep it for later."] = "우미의 세 번째 장난은 {area:976}와(과) 운고로 분화구의 고블린을 노립니다. 나중을 위해 보관하세요.",
 	-- ["grind on {npc:7440} at {area:2244}, {zone:1452}"] = "{zone:1452} {area:2244}에서 {npc:7440} 사냥",
 	-- ["{item:12771}, a rare drop from the Winterfall furbolgs"] = "눈사태일족 털보숭이가 드물게 떨어뜨리는 {item:12771}",
 	-- ["{npc:10307}, beside him"] = "그 옆의 {npc:10307}",

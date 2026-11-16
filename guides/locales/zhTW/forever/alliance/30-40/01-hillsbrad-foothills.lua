@@ -133,18 +133,34 @@ return {
 	-- {area:1025} The Green Belt · {npc:270637} Howin Kindfeather · {npc:1244} Rethiel the Greenwarden
 	["Back east along the road to the {area:1025}: {npc:270637} camps among the Fenrunners, just west of {npc:1244}. Then west again to Menethil for the boat."] = "沿著道路向東回到{area:1025}：{npc:270637}在沼澤奔行者之間紮營，就在{npc:1244}西邊不遠處。然後再向西回到米奈希爾港搭船。",
 
-	-- Step 29: Level 30.8
+	-- Step 29: Menethil Harbor
+	-- {npc:2094} James Halloran · {npc:1239} First Mate Fitzsimmons · {area:2104} Deepwater Tavern
+	["{npc:2094} stands by the docks; {npc:1239} sits in the {area:2104}, south of the keep."] = "{npc:2094}站在碼頭邊；{npc:1239}坐在要塞南邊的{area:2104}裡。",
+
+	-- Step 30: Captain Halyndor
+	-- {npc:1160} Captain Halyndor · {npc:270589} Nightveiled Rotheap · {zone:1437} Wetlands
+	["North along the coast from Menethil to the wreck of the Intrepid: {npc:1160} (30) is aboard, and the locked strongbox sits in the wreck. Careful: {npc:270589}, a level 31-32 elite, roams the {zone:1437}: give it a wide berth."] = "從米奈希爾沿海岸往北前往無畏號殘骸：{npc:1160}（30）在船上，上鎖的保險箱就在殘骸裡。小心：31-32級精英{npc:270589}在{zone:1437}遊蕩：離它遠一點。",
+	-- {item:2629} Intrepid Strongbox Key · {npc:1160} Captain Halyndor
+	["{item:2629}, from {npc:1160}"] = "{item:2629}，來自{npc:1160}",
+
+	-- Step 31: Glorin Steelbrow
+	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern
+	["Back south to Menethil: {npc:1217} stands in the {area:2104}."] = "往南回到米奈希爾：{npc:1217}站在{area:2104}裡。",
+	-- {npc:1284} Archbishop Benedictus · {zone:1453} Stormwind
+	["For {npc:1284} in {zone:1453}, at the end of this guide"] = "",
+
+	-- Step 32: Level 30.8
 	["Level 30.8"] = "",
 	-- {quest:474} Defeat Nek'rosh · {area:133} Gnomeregan · {area:796} Scarlet Monastery
 	["Skipped {quest:474} and short of 30.8? Kill the Bluegill murlocs on the coast south of Menethil until level 30.8. Or, with a group, run the {area:133} dungeon or the {area:796} dungeon (Graveyard) instead."] = "",
 	-- {npc:1418} Bluegill Raider
 	["grind on {npc:1418}"] = "刷{npc:1418}",
 
-	-- Step 31: Boat to Southshore
+	-- Step 33: Boat to Southshore
 	-- {area:271} Southshore
 	["Boat to {area:271}"] = "搭船前往{area:271}",
 
-	-- Step 32: Southshore
+	-- Step 34: Southshore
 	-- {npc:2711} Phin Odelic · {npc:2430} Chef Jessen · {npc:2382} Darren Malvew · {npc:2381} Micha Yance · {npc:2438} Bartolo Ginsetti · {npc:2366} Barkeep Kelly · {quest:98463} Talk of the Town
 	["Off the boat, walk up the pier into town: {npc:2711} and Lieutenant Farren stand by the inn, {npc:2430} upstairs, {npc:2382} east of it; the flight master is at the north end, {npc:2381} and {npc:2438} between her and the inn, Maleb in the town hall at the west side.\n{npc:2366} may not offer {quest:98463} on Forever: if she doesn't, skip it."] = "",
 	-- {npc:2711} Phin Odelic
@@ -160,56 +176,49 @@ return {
 	-- {item:3713} Soothing Spices · {npc:2381} Micha Yance
 	["{item:3713}, from {npc:2381}"] = "{item:3713}，來自{npc:2381}",
 	-- {npc:2276} Magistrate Henry Maleb
-	["{npc:2276}, inside"] = "",
+	["{npc:2276}, inside: keep it, the Syndicate camp waits for the road north to Arathi (05-arathi-highlands)"] = "{npc:2276}，在室內：先保留，辛迪加營地等到往北前往阿拉希的路上再做（05-arathi-highlands）",
 
-	-- Step 33: Bartolo Ginsetti
+	-- Step 35: Bartolo Ginsetti
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {skill:165} Leatherworking · {item:2997} Bolt of Woolen Cloth · {skill:197} Tailoring
 	["{npc:2438} makes a yeti fur cloak for anyone who brings a {item:3719} ({skill:165}) and a {item:2997} ({skill:197}); no vendor sells either, so this step shows only when you carry both."] = "",
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {item:2997} Bolt of Woolen Cloth
 	["{npc:2438}, between the flight master and the inn: he wants a {item:3719} and a {item:2997} too"] = "",
 
-	-- Step 34: Torn Fin murlocs
+	-- Step 36: Torn Fin murlocs
 	["Torn Fin murlocs"] = "碎鰭魚人",
 	-- {area:295} Western Strand · {area:271} Southshore
 	["The Torn Fin murlocs crowd the {area:295}, south-west of {area:271}.\nCareful: One camp holds a tight cluster of Oracles that all aggro together."] = "碎鰭魚人聚集在{area:271}西南方的{area:295}。\n小心：其中一個營地有一群緊挨在一起的神諭者，會一起被引過來。",
 
-	-- Step 35: Farren
+	-- Step 37: Farren
 	["Farren"] = "法爾林",
 	["Inside"] = "",
 
-	-- Step 36: Murloc heads
+	-- Step 38: Murloc heads
 	["Murloc heads"] = "魚人頭",
 	["Back to the same murlocs; not every one drops a head."] = "回到同一群魚人；不是每隻都會掉落頭。",
 
-	-- Step 38: Daggerspine naga
+	-- Step 40: Daggerspine naga
 	["Daggerspine naga"] = "刺脊納迦",
 	-- {area:271} Southshore
 	["The naga hold the shore south-east of {area:271}."] = "納迦佔據{area:271}東南方的海岸。",
 
-	-- Step 39: Farren
+	-- Step 41: Farren
 	-- {object:2117} Stormwind Keep
 	["A report for {object:2117}; inside"] = "給{object:2117}的報告；在裡面",
 
-	-- Step 41: Southshore
+	-- Step 43: Southshore
 	-- {npc:251493} Captain McManus · {quest:98059} Hillsbrad's Hoard · {item:279386} Sealed Company Request · {area:287} Hillsbrad · {area:271} Southshore
-	["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave.\n{quest:98059}: {npc:251493} hands you a {item:279386} for the {area:287} council, in the farms west of {area:271}; you deliver it after the Syndicate camp."] = "",
+	["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave.\n{quest:98059}: {npc:251493} hands you a {item:279386} for the {area:287} council, in the farms west of {area:271}."] = "{npc:251493}站在飛行管理員西北方，就在往北去雪人洞穴的路上。\n{quest:98059}：{npc:251493}給你一份{item:279386}，要交給{area:287}議會，位於{area:271}西邊的農場。",
 
-	-- Step 42: Yeti cave
+	-- Step 44: Yeti cave
 	["Yeti cave"] = "雪人洞穴",
 	-- {area:271} Southshore · {area:277} Foothill Caverns · {npc:13602} The Abominable Greench
 	-- plural, as words: Giant Yetis = {npc:2251} Giant Yeti
-	["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "雪人住在{area:271}北邊山丘上的洞穴裡，就在往北去辛迪加營地的路上。\n待在{area:277}裡：更北邊的洞穴裡有成對出現的山嶺雪人和巨型雪人（32-34級），以及36級精英{npc:13602}。",
-
-	-- Step 43: Alterac Mountains
-	["Syndicate camp"] = "辛迪加營地",
-
-	-- Step 44: Syndicate camp
-	-- {area:287} Hillsbrad · {area:272} Tarren Mill
-	["The Syndicate camp sits on the Alterac border in northern {area:287}, west of {area:272} (Horde); the documents lie in the camp, and its Footpads and Thieves are the Syndicate Maleb wants."] = "辛迪加營地位於{area:287}北部的奧特蘭克邊界，在{area:272}（部落）西邊；文件就在營地裡，營地裡的辛迪加盜賊和竊賊正是馬勒布要的辛迪加成員。",
+	["The yetis live in the cave in the hills north of {area:271}.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "雪人住在{area:271}北邊山丘上的洞穴裡。\n待在{area:277}裡：更北邊的洞穴裡有成對出現的山嶺雪人和巨型雪人（32-34級），以及36級精英{npc:13602}。",
 
 	-- Step 45: Hillsbrad Fields
-	-- {area:286} Hillsbrad Fields
-	["South-west from the Syndicate camp to the {area:286} farms."] = "",
+	-- {area:271} Southshore · {area:286} Hillsbrad Fields
+	["West from {area:271} to the {area:286} farms."] = "從{area:271}向西前往{area:286}的農場。",
 
 	-- Step 46: Hillsbrad council
 	-- {area:287} Hillsbrad
@@ -241,7 +250,7 @@ return {
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "飛往{zone:1453}",
 	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "",
+	["{zone:1455} flight master"] = "{zone:1455}飛行管理員",
 
 	-- Step 56: Elling Trias
 	-- {object:2096} Trade District
@@ -286,10 +295,13 @@ return {
 	-- ["Red whelps fill the hills west of the gates, Maddened Rotclaws the {area:1025}, Razormaws the northern slopes; Neru stands in the north-east (use the {item:279996}).\n{quest:98283} is elite: grouping up is advised."] = "紅色雛龍遍布大門西邊的山丘，{npc:271334}在{area:1025}，刺喉龍在北面山坡；奈爾魯站在東北方（使用{item:279996}）。\n{quest:98283}是精英：建議組隊。",
 	-- ["Red whelps fill the hills west of the gates, Maddened Rotclaws the {area:1025}, Razormaws the northern slopes; {npc:271458} stands in the north-east (use the {item:279996}).\n{quest:98283} is elite: grouping up is advised."] = "紅色雛龍遍布大門西邊的山丘，瘋狂的腐爪龍在{area:1025}，刺喉龍在北面山坡；{npc:271458}站在東北方（使用{item:279996}）。\n{quest:98283}是精英：建議組隊。",
 	-- ["South to the Dragonmaw's {area:1036}; the {object:671518} lies in the camp."] = "向南前往龍喉的{area:1036}；{object:671518}就在營地裡。",
+	-- ["Syndicate camp"] = "辛迪加營地",
 	-- ["Take the {area:2257} from the {object:28027} to {zone:1455}."] = "從{object:28027}搭乘{area:2257}前往{zone:1455}。",
 	-- ["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one."] = "{npc:270892}就站在維爾加營地西邊：在其中一個旁邊使用他給你的{item:279996}。",
+	-- ["The Syndicate camp sits on the Alterac border in northern {area:287}, west of {area:272} (Horde); the documents lie in the camp, and its Footpads and Thieves are the Syndicate Maleb wants."] = "辛迪加營地位於{area:287}北部的奧特蘭克邊界，在{area:272}（部落）西邊；文件就在營地裡，營地裡的辛迪加盜賊和竊賊正是馬勒布要的辛迪加成員。",
 	-- ["The Villards"] = "韋拉德一家",
 	-- ["The next step, {quest:474}, pits you against an elite chieftain: skip it."] = "下一步「{quest:474}」要你對抗一名精英酋長：跳過它。",
+	-- ["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "雪人住在{area:271}北邊山丘上的洞穴裡，就在往北去辛迪加營地的路上。\n待在{area:277}裡：更北邊的洞穴裡有成對出現的山嶺雪人和巨型雪人（32-34級），以及36級精英{npc:13602}。",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on your way back south."] = "雪人住在{area:271}北邊山丘的洞穴裡，就在你往南回去的路上。",
 	-- ["West to the farms of {area:287}: place the {item:279386} on the bookkeeping table in the town hall, where {npc:2335} and the councilmen stand."] = "向西前往{area:287}的農場：把{item:279386}放在市政廳裡的帳簿桌上，{npc:2335}和議員們就站在那裡。",
 	-- ["Whelps, raptors and {npc:271458}"] = "雛龍、迅猛龍與{npc:271458}",

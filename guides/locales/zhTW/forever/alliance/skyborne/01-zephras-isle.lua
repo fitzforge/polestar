@@ -184,7 +184,7 @@ return {
 	-- {area:16623} Shen'dar Highlands
 	["{area:16623}: kill these as you meet them"] = "",
 	-- plural, as words: Highlands Bandits = {npc:251918} Highlands Bandit
-	["The Highlands Bandits camp north-east of the village. \"Badwind\" Bennic waits at the far north end of their camp."] = "高地強盜在村子東北方紮營。『惡風』班尼克在營地最北端等著。",
+	["The Highlands Bandits camp north-east of the village. \"Badwind\" Bennic waits at the far north end of their camp.\nCareful: the bandits stand in close groups and players often died in this camp: pull them one at a time from the edge."] = "高地強盜在村子東北方紮營。『惡風』班尼克在營地最北端等著。\n小心：強盜們站得很密集，很多玩家都死在這個營地：從邊緣一次拉一隻。",
 	-- plural, as words: Highlands Bandits = {npc:251918} Highlands Bandit
 	["Highlands Bandits"] = "高地強盜",
 	["\"Badwind\" Bennic, below ground"] = "",
@@ -244,7 +244,7 @@ return {
 
 	-- Step 55: Fendaal Windstone
 	-- {area:16638} Valanaar · {npc:273017} Fendaal Windstone · {quest:98512} Al'Aketh Assassins
-	["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him."] = "",
+	["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him.\nCareful: the {quest:98512} (9-10) stand close together: pull them one at a time."] = "在往東南前往{area:16638}的路上，{npc:273017}監視著他北邊不遠處的{quest:98512}。\n小心：{quest:98512}（9-10級）站得很近：一次拉一隻。",
 
 	-- Step 56: Valanaar, the turncoat
 	-- {area:16638} Valanaar
@@ -379,46 +379,50 @@ return {
 
 	-- Step 79: Desperate times
 	["Desperate times"] = "危急時刻",
+
+	-- Step 80: Desperate Times
+	-- {npc:252475} Elaadrin Evengale · {npc:251968} Ayessa Dawnsinger
+	["Valennia asks you to hear out both leaders: {npc:252475} of the Alliance and {npc:251968} of the Horde. {npc:251968}'s name shows red to you, but she talks to you all the same, and the quest needs both."] = "瓦蘭妮雅要你聽聽兩位領袖的說法：聯盟的{npc:252475}和部落的{npc:251968}。{npc:251968}的名字對你顯示為紅色，但她照樣會跟你對話，而任務需要兩人都談過。",
 	["Upstairs"] = "樓上",
 
-	-- Step 81: Paladin trainer
+	-- Step 82: Paladin trainer
 	-- {npc:5148} Beldruk Doombrow · {zone:1455} Ironforge · {area:16638} Valanaar
 	["{npc:5148} in {zone:1455}; {area:16638} has no paladin trainer"] = "",
 
-	-- Step 82: Priest trainer
+	-- Step 83: Priest trainer
 	-- {npc:5141} Theodrus Frostbeard · {zone:1455} Ironforge · {area:16638} Valanaar
 	["{npc:5141} in {zone:1455}; {area:16638} has no priest trainer"] = "",
 
-	-- Step 83: Shaman trainer
+	-- Step 84: Shaman trainer
 	-- {npc:258098} Eldrun Stormbreaker · {zone:1455} Ironforge · {area:16638} Valanaar
 	["{npc:258098} in {zone:1455}; {area:16638} has no shaman trainer"] = "",
 
-	-- Step 84: Warlock trainer
+	-- Step 85: Warlock trainer
 	-- {npc:5172} Briarthorn · {zone:1455} Ironforge · {area:16638} Valanaar
 	["{npc:5172} in {zone:1455}; {area:16638} has no warlock trainer"] = "{zone:1455}的{npc:5172}；{area:16638}沒有術士訓練師",
 
-	-- Step 85: Desperate times
+	-- Step 86: Desperate times
 	-- {npc:253844} Valennia Stormfist
 	["Meet {npc:253844} at the gate"] = "在大門與{npc:253844}會合",
 	-- {npc:255853} Urs'endris · {area:16638} Valanaar · {spell:5487} Bear Form
 	["{npc:255853}, by the falls north-east of {area:16638}, on the way north: {spell:5487}"] = "{npc:255853}，在{area:16638}東北方瀑布旁，就在向北的路上：{spell:5487}",
 
-	-- Step 86: Elegael Thornpaw
+	-- Step 87: Elegael Thornpaw
 	-- {area:16631} Shadowgale Forest · {npc:257944} Elegael Thornpaw
 	["Head north into {area:16631}. {npc:257944} camps in its east."] = "向北進入{area:16631}。{npc:257944}在森林東部紮營。",
 
-	-- Step 87: Shadowgale Forest: kill these as you meet them
+	-- Step 88: Shadowgale Forest: kill these as you meet them
 	-- {area:16631} Shadowgale Forest
 	["{area:16631}: kill these as you meet them"] = "",
 	-- {npc:257944} Elegael Thornpaw · {item:265105} Lady's Tear Moss
 	-- plural, as words: Al'Aketh Stormchasers = {npc:252664} Al'Aketh Stormchaser
 	["Al'Aketh Stormchasers and Footsoldiers camp just north of {npc:257944} and drop the heirloom; the Shrieklings west of her drop the feathers and talons; the {item:265105} grows along the stream west of her."] = "奧拉凱斯追風者和步行兵就在{npc:257944}北邊紮營，會掉落傳家寶；她西邊的始祖鳥會掉落羽毛和利爪；{item:265105}沿著她西邊的溪流生長。",
 
-	-- Step 88: Elegael Thornpaw again
+	-- Step 89: Elegael Thornpaw again
 	-- {npc:257944} Elegael Thornpaw
 	["{npc:257944} again"] = "再找{npc:257944}",
 
-	-- Step 89: Vayn Moongaze
+	-- Step 90: Vayn Moongaze
 	-- {npc:254151} Vayn Moongaze · {npc:258130} Jorel Windsinger · {npc:258134} Naaleos Leafwhisper · {npc:257944} Elegael Thornpaw · {npc:253622} Commander Haalien · {quest:94490} Ripped Missive · {quest:94489} The Wounds of Betrayal
 	["{npc:254151}, {npc:258130} and {npc:258134} are north-east of {npc:257944}; {npc:253622} stands east of them. Haalien also drops a {quest:94490}. For {quest:94489}, enter the Nightfang Den, heal 7 injured druids and find {npc:258130}."] = "{npc:254151}、{npc:258130}和{npc:258134}在{npc:257944}東北方；{npc:253622}站在他們東邊。哈利安也會掉落{quest:94490}。{quest:94489}：進入Nightfang Den，治療7名受傷的德魯伊，並找到{npc:258130}。",
 	["Heal the injured druids in the Nightfang Den"] = "在Nightfang Den治療受傷的德魯伊",
@@ -427,26 +431,26 @@ return {
 	-- {item:258771} Al'Aketh Cultist's Ear · {npc:254151} Vayn Moongaze
 	["{item:258771}: the Stormchasers and Footsoldiers around {npc:254151}'s camp"] = "",
 
-	-- Step 90: Elegael Thornpaw, the missive
+	-- Step 91: Elegael Thornpaw, the missive
 	-- {npc:257944} Elegael Thornpaw
 	["{npc:257944}, the missive"] = "{npc:257944}，信件",
 
-	-- Step 91: The Strange Hermit
+	-- Step 92: The Strange Hermit
 	-- {quest:93159} The Strange Hermit · {npc:257944} Elegael Thornpaw
 	-- plural, as words: Zephyrseed Cones = {object:613238} Zephyrseed Cone
 	["{quest:93159} lives west of {npc:257944}. The Zephyrseed Cones lie in the woods between his hut and {npc:257944}."] = "{quest:93159}住在{npc:257944}西邊。和風之種錐果散落在他的小屋與{npc:257944}之間的樹林裡。",
 
-	-- Step 92: Ruins of Ban'aethal: kill these as you meet them
+	-- Step 93: Ruins of Ban'aethal: kill these as you meet them
 	-- {area:16833} Ruins of Ban'aethal
 	["{area:16833}: kill these as you meet them"] = "",
 	-- {item:266433} Abandoned Belongings · {npc:259013} Resaan Nimbuswalker
 	-- plural, as words: Wind Hollows = {npc:251676} Wind Hollow
 	["North of the cones: the Wind Hollows drift around the refugees' camp, the {item:266433} lie between the tents, and {npc:259013} lies at its north end."] = "錐果的北邊：風之空靈在難民營地周圍飄蕩，{item:266433}散落在帳篷之間，{npc:259013}躺在營地北端。",
 
-	-- Step 93: Back to the Hermit
+	-- Step 94: Back to the Hermit
 	["Back to the Hermit"] = "返回隱士處",
 
-	-- Step 94: The Shrine of Akir
+	-- Step 95: The Shrine of Akir
 	-- {area:16629} Shrine of Akir
 	["The {area:16629}"] = "{area:16629}",
 	-- {area:16629} Shrine of Akir · {npc:253576} Hyusaa Quickbreeze · {npc:253590} Valennia Stormfist
@@ -456,31 +460,31 @@ return {
 	-- {npc:253590} Valennia Stormfist
 	["{npc:253590}, in the sanctum; upstairs"] = "{npc:253590}，在內殿裡；在樓上",
 
-	-- Step 95: Portal to Rohashi Spires
+	-- Step 96: Portal to Rohashi Spires
 	-- {area:16630} Rohashi Spires
 	["Portal to {area:16630}"] = "",
 
-	-- Step 96: High Priestess Lorthuna
+	-- Step 97: High Priestess Lorthuna
 	-- {area:16630} Rohashi Spires · {npc:252475} Elaadrin Evengale · {object:617084} Portal to Valanaar (no name in this language: may be words)
 	["Lorthuna waits up on the {area:16630}, east of the shrine: take the Portal to {area:16630} in the inner sanctum, beside Valennia, and cross the heights east to {npc:252475}. When she falls, the {object:617084} beside her takes you back to town."] = "",
 
-	-- Step 97: Valanaar, the fate of Zephras
+	-- Step 98: Valanaar, the fate of Zephras
 	-- {area:16638} Valanaar
 	["{area:16638}, the fate of Zephras"] = "{area:16638}，微風島的命運",
 	-- {object:617084} Portal to Valanaar (no name in this language: may be words) · {npc:252475} Elaadrin Evengale · {npc:252476} Talaanis Shadowsong · {npc:259012} Ealaane Nimbuswalker
 	["The {object:617084} sets you down beside {npc:252475} at the south end of the town. {npc:252476} is at the north end, {npc:259012} a few steps north-west of her."] = "",
 
-	-- Step 100: Elaadrin Evengale
+	-- Step 101: Elaadrin Evengale
 	-- {npc:252475} Elaadrin Evengale · {area:279} Dalaran · {area:16638} Valanaar · {npc:259084} Denaaris Stargale
 	["{npc:252475} sends you on to {area:279}. Take the skycutter from the dock tower just south of {area:16638}: it lands by the Kirin Tor camp west of {area:279}, beside {npc:259084} and the Skyborne Portal."] = "",
 	-- {npc:252475} Elaadrin Evengale · {npc:259084} Denaaris Stargale
 	["{npc:252475}: {npc:259084} waits by the Skyborne portal"] = "{npc:252475}：{npc:259084}在天裔精靈傳送門旁等候",
 
-	-- Step 101: Leave Zephras Isle to Alterac Mountains
+	-- Step 102: Leave Zephras Isle to Alterac Mountains
 	-- {zone:2521} Zephras Isle · {zone:1416} Alterac Mountains
 	["Leave {zone:2521} to {zone:1416}"] = "",
 
-	-- Step 102: Denaaris Stargale
+	-- Step 103: Denaaris Stargale
 	-- {npc:259084} Denaaris Stargale · {area:279} Dalaran · {zone:1453} Stormwind
 	["{npc:259084} stands beside the Skyborne Portal, where the skycutter lands by the Kirin Tor camp west of {area:279}. The portal takes you to {zone:1453}."] = "{npc:259084}站在天裔精靈傳送門旁，也就是{area:279}西邊祈倫托營地旁的天空快艇降落處。傳送門會帶你前往{zone:1453}。",
 	-- {npc:259084} Denaaris Stargale
@@ -490,52 +494,52 @@ return {
 	-- {object:631299} Skyborne Portal to Stormwind
 	["{object:631299}, inside"] = "",
 
-	-- Step 103: Stormwind flight master
+	-- Step 104: Stormwind flight master
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "",
 
-	-- Step 104: Stormwind Keep
+	-- Step 105: Stormwind Keep
 	-- {object:2117} Stormwind Keep · {zone:1436} Westfall
 	["Bolvar Fordragon stands in the throne room of {object:2117}, at the north end of the city. Then leave by the main gate for {zone:1436}."] = "伯瓦爾·弗塔根公爵站在城市北端{object:2117}的王座廳裡。然後從正門離開，前往{zone:1436}。",
 	-- {npc:234} Gryan Stoutmantle · {area:108} Sentinel Hill
 	["For {npc:234} at {area:108}"] = "交給{area:108}的{npc:234}",
 
-	-- Step 105: Baros Alexston
+	-- Step 106: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {zone:1436} Westfall
 	["{npc:1646} stands in {object:2098}, on the way from the Keep to the main gate: his compass is in his old house in {zone:1436}, on the way."] = "",
 
-	-- Step 106: Stormwind trainers
+	-- Step 107: Stormwind trainers
 	-- {zone:1453} Stormwind
 	["{zone:1453} trainers"] = "{zone:1453}訓練師",
 	-- {zone:1453} Stormwind · {object:2100} Old Town · {object:28027} Dwarven District · {object:2101} Mage Quarter · {npc:5504} Sheldras Moontree
 	["Level 14 spells while you're in {zone:1453}: warriors and rogues train in {object:2100}, hunters in the {object:28027}, mages in the Wizard's Sanctum of the {object:2101}. Druids train with {npc:5504} below."] = "趁你在{zone:1453}時學習14級法術：戰士和盜賊在{object:2100}訓練，獵人在{object:28027}，法師在{object:2101}的法師塔。德魯伊則在下方向{npc:5504}學習。",
 
-	-- Step 107: Woo Ping
+	-- Step 108: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "",
 
-	-- Step 108: Woo Ping
+	-- Step 109: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
 
-	-- Step 109: Woo Ping
+	-- Step 110: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "",
 
-	-- Step 111: Sheldras Moontree
+	-- Step 112: Sheldras Moontree
 	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form · {zone:1439} Darkshore
 	["{npc:5504}, {zone:1453}'s druid trainer, teaches you {spell:18960}. {npc:11802}'s welcome waits for your {spell:499} trip at the end of {zone:1439}."] = "{npc:5504}是{zone:1453}的德魯伊訓練師，會教你{spell:18960}。{npc:11802}的歡迎任務在你{spell:499}任務旅程的終點{zone:1439}等著你。",
 
-	-- Step 112: Druid trainer
+	-- Step 113: Druid trainer
 	["Druid trainer"] = "德魯伊訓練師",
 	-- {npc:5504} Sheldras Moontree
 	["Level 14 spells while you're with {npc:5504}."] = "趁你在{npc:5504}那裡時學習14級法術。",
 
-	-- Step 114: Jennea Cannon
+	-- Step 115: Jennea Cannon
 	-- {npc:5497} Jennea Cannon · {object:2101} Mage Quarter · {quest:1861} Mirror Lake
 	["{npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}; she gives you a flask for the {quest:1861} waterfall."] = "{npc:5497}站在{object:2101}的法師塔裡；她會給你一個裝{quest:1861}瀑布水的瓶子。",
 
-	-- Step 115: Mirror Lake
+	-- Step 116: Mirror Lake
 	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
 	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "從正門離開{zone:1453}。{quest:1861}瀑布在城門西南方，位於向西前往{zone:1436}的路上：在瀑布底下裝滿{item:7207}。",
 
@@ -556,6 +560,7 @@ return {
 	-- ["Speak with {npc:251903} and {npc:254089}, north-west of the village"] = "與村子西北方的{npc:251903}和{npc:254089}交談",
 	-- ["Stand with {npc:252800} against {npc:252863}"] = "與{npc:252800}一起對抗{npc:252863}",
 	-- ["Take the road south-east. {npc:257006} and {npc:252448} stand by the road west of {area:16638}; Windsong Crawlers line the shore further west, around 51,70."] = "沿著道路向東南走。{npc:257006}和{npc:252448}站在{area:16638}西邊的路旁；風歌蟹遍布更西邊的海岸，約在51,70附近。",
+	-- ["The Highlands Bandits camp north-east of the village. \"Badwind\" Bennic waits at the far north end of their camp."] = "高地強盜在村子東北方紮營。『惡風』班尼克在營地最北端等著。",
 	-- ["The Novice Seers practise in the clearing west of Shen'dar."] = "見習先知在申德村西邊的空地上練習。",
 	-- ["The Windfield farm"] = "荒原農場",
 	-- ["The hippogryph roost"] = "角鷹獸棲地",

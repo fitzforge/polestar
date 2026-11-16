@@ -198,6 +198,16 @@ L["A place where it can spawn: it may be up, or gathered already."] = "생성될
 L["Hand in"] = "제출"
 L["%s offers it and takes it back in one talk: it never goes in your quest log"] = "%s이(가) 한 번의 대화에서 퀘스트를 주고 바로 받습니다: 퀘스트 목록에는 들어가지 않습니다"
 L["Offered and taken back in one talk: it never goes in your quest log"] = "한 번의 대화에서 주고 바로 받습니다: 퀘스트 목록에는 들어가지 않습니다"
+L["Repair at %s"] = "%s에게서 수리"
+L["Sell at %s"] = "%s에게 판매"
+L["bags full"] = "가방 가득 참"
+L["1 free slot"] = "빈 칸 1개"
+L["%d free slots"] = "빈 칸 %d개"
+L["Repair and sell before heading out: gear at %d%%, %s"] = "출발 전에 수리 및 판매: 장비 내구도 %d%%, %s"
+L["Repair before heading out: gear at %d%%"] = "출발 전에 수리: 장비 내구도 %d%%"
+L["The guide heads out of town next and your gear is worn: repair it here before it breaks."] = "가이드가 곧 마을을 떠나는데 장비가 많이 닳았습니다. 부서지기 전에 여기서 수리하세요."
+L["Sell before heading out: %s"] = "출발 전에 판매: %s"
+L["The guide heads out of town next and your bags are nearly full: sell what you don't need here."] = "가이드가 곧 마을을 떠나는데 가방이 거의 가득 찼습니다. 필요 없는 아이템을 여기서 판매하세요."
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "보상을 선택해 제출을 마치십시오."
@@ -2504,6 +2514,12 @@ L["Set Polestar up again, a page at a time: questing, groups, your route, your l
 L["Show experimental guides"] = "실험적 가이드 표시"
 L["Polestar's guides for Forever's new zones, still being tested: listed in the guide menu under Leveling with an Experimental chip. They are never picked for you; a route choice offers their zone where it fits either way."] = "아직 시험 중인 Forever 신규 지역용 Polestar 가이드: 가이드 메뉴의 레벨업 아래에 실험적 표시와 함께 나열됩니다. 자동으로 선택되지는 않으며, 경로 선택에서는 어느 쪽이든 맞는 곳에서 해당 지역을 제안합니다."
 L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "더 빠르면 아는 순간이동 주문으로 경로를 시작합니다: 마법사의 도시 순간이동, 드루이드의 달의 숲, 주술사의 영혼의 귀환(두 번째 귀환석처럼). 도시 순간이동에는 가방에 순간이동의 룬이 필요합니다."
+L["Sell and repair reminders"] = "판매 및 수리 알림"
+L["When the guide is about to head out of town with your bags nearly full or your gear worn, a merchant or repairer on the way, once per visit. Click it to point the arrow there."] = "가이드가 마을을 떠나기 직전에 가방이 거의 가득 찼거나 장비가 닳았으면, 가는 길에 있는 상인이나 수리 상인을 방문당 한 번 알려줍니다. 클릭하면 화살표가 그곳을 가리킵니다."
+L["Sell: fewer free bag slots than"] = "판매: 가방 빈 칸이 다음보다 적을 때"
+L["Reminds you to sell when fewer bag slots are free than this, or than the items the next steps collect. 0 counts those items alone."] = "가방 빈 칸이 이 값보다, 또는 다음 단계에서 수집할 아이템 수보다 적으면 판매를 알립니다. 0이면 그 아이템 수만 기준으로 합니다."
+L["Repair: gear worn below"] = "수리: 장비 내구도가 다음 미만일 때"
+L["Reminds you to repair when a piece of your gear is below this share of its durability. 0: never."] = "장비 중 하나의 내구도가 이 비율 미만이면 수리를 알립니다. 0: 알리지 않음."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"

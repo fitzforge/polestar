@@ -198,6 +198,16 @@ L["A place where it can spawn: it may be up, or gathered already."] = "Мест�
 L["Hand in"] = "Сдать"
 L["%s offers it and takes it back in one talk: it never goes in your quest log"] = "%s выдает и принимает его в одном разговоре: оно не попадает в журнал заданий"
 L["Offered and taken back in one talk: it never goes in your quest log"] = "Выдается и принимается в одном разговоре: не попадает в журнал заданий"
+L["Repair at %s"] = "Починиться у %s"
+L["Sell at %s"] = "Продать у %s"
+L["bags full"] = "сумки полны"
+L["1 free slot"] = "1 свободная ячейка"
+L["%d free slots"] = "Свободных ячеек: %d"
+L["Repair and sell before heading out: gear at %d%%, %s"] = "Почините и продайте перед уходом: прочность %d%%, %s"
+L["Repair before heading out: gear at %d%%"] = "Почините снаряжение перед уходом: прочность %d%%"
+L["The guide heads out of town next and your gear is worn: repair it here before it breaks."] = "Дальше гайд уводит из города, а ваше снаряжение изношено: почините его здесь, пока оно не сломалось."
+L["Sell before heading out: %s"] = "Продайте перед уходом: %s"
+L["The guide heads out of town next and your bags are nearly full: sell what you don't need here."] = "Дальше гайд уводит из города, а ваши сумки почти полны: продайте здесь все ненужное."
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Выберите награду, чтобы сдать задание."
@@ -2504,6 +2514,12 @@ L["Set Polestar up again, a page at a time: questing, groups, your route, your l
 L["Show experimental guides"] = "Показывать экспериментальные гайды"
 L["Polestar's guides for Forever's new zones, still being tested: listed in the guide menu under Leveling with an Experimental chip. They are never picked for you; a route choice offers their zone where it fits either way."] = "Гайды Polestar для новых зон Forever, которые еще проходят проверку: в меню гайдов в разделе «Прокачка» с меткой «Экспериментальный». Они никогда не выбираются за вас; выбор маршрута в любом случае предлагает их зону там, где она подходит."
 L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "Маршрут может начинаться с известного вам заклинания телепорта, если так быстрее: городские телепорты мага, Лунная поляна друида или Астральное возвращение шамана (как второй камень возвращения). Для телепорта в город нужна руна телепортации в сумках."
+L["Sell and repair reminders"] = "Напоминания о продаже и починке"
+L["When the guide is about to head out of town with your bags nearly full or your gear worn, a merchant or repairer on the way, once per visit. Click it to point the arrow there."] = "Когда гайд вот-вот уведет из города, а сумки почти полны или снаряжение изношено, показывается торговец или ремонтник по пути, один раз за посещение. Щелкните, чтобы направить туда стрелку."
+L["Sell: fewer free bag slots than"] = "Продажа: свободных ячеек меньше"
+L["Reminds you to sell when fewer bag slots are free than this, or than the items the next steps collect. 0 counts those items alone."] = "Напоминает о продаже, когда свободных ячеек в сумках меньше этого числа или меньше, чем предметов, собираемых в следующих шагах. 0 — учитывать только эти предметы."
+L["Repair: gear worn below"] = "Починка: прочность ниже"
+L["Reminds you to repair when a piece of your gear is below this share of its durability. 0: never."] = "Напоминает о починке, когда прочность какого-либо предмета снаряжения опускается ниже этой доли. 0 — никогда."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"

@@ -45,7 +45,7 @@ return {
 	["{npc:251291}, Prideclaw"] = "{npc:251291}, 무리발톱",
 	["Prideclaw, Galestrider"] = "",
 	["Prideclaw, Vuldren"] = "",
-	["Cloudrunner, Galestrider"] = "",
+	["Cloudrunner, Galestrider"] = "구름달리기, 바람걸음",
 	-- {npc:250928} Highlands Ursera
 	["Prideclaw, {npc:250928}"] = "무리발톱, {npc:250928}",
 

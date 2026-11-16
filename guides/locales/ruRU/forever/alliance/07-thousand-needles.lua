@@ -28,26 +28,24 @@ return {
 	-- {area:42} Darkshire
 	["The Dark Runners prowl the woods south of the road, west of {area:42}."] = "Вестники Тьмы рыщут по лесу к югу от дороги, к западу от поселка {area:42}.",
 
-	-- Step 8: Nightbane Vile Fangs and the Insane Ghoul
+	-- Step 8: The Insane Ghoul
 	-- {npc:511} Insane Ghoul
+	["The {npc:511}"] = "{npc:511}",
+	-- {npc:511} Insane Ghoul · {area:121} Tranquil Gardens Cemetery · {area:42} Darkshire · {npc:663} Calor
 	-- plural, as words: Nightbane Vile Fangs = {npc:206} Nightbane Vile Fang
-	["Nightbane Vile Fangs and the {npc:511}"] = "Ярые Клыки Ночной Погибели и {npc:511}",
-	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {npc:511} Insane Ghoul · {spell:8282} Curse of Blood
-	["The strongest worgen roam the woods south of {area:42}, west and south of the {area:121}. The {npc:511} hides in the small crypt by the cemetery.\nCareful: {spell:8282} lasts 10 minutes and adds 13 to each hit of physical damage you take.\nCareful: Some worgen outside the cave stand in groups, including one camp of four. To avoid adds, pull them one at a time from the raised ground next to the cave entrance."] = "",
+	["The {npc:511} hides in the small crypt by the {area:121}, south of {area:42}. {npc:663}'s Nightbane Vile Fangs and Tainted Ones (level 29-31) roam the woods around it: they come at the end of this guide, a level later."] = "{npc:511} прячется в маленьком склепе ({area:121}), к югу от поселка {area:42}. Ярые Клыки Ночной Погибели и Порченые (29-31-й уровень) для NPC {npc:663} бродят по лесу вокруг: они будут в конце этого гайда, уровнем позже.",
 	-- {item:1946} Mary's Looking Glass
 	["{item:1946}; inside"] = "",
 
 	-- Step 9: Darkshire
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}, inside"] = "",
-	-- {npc:661} Jonathan Carevin · {npc:633} Elaine Carevin
-	["{npc:661}, by {npc:633}'s house; inside"] = "{npc:661} – у дома, где живет {npc:633}; внутри",
 
 	-- Step 10: Vul'Gol Ogre Mound: kill these as you meet them
 	-- {area:93} Vul'Gol Ogre Mound
 	["{area:93}: kill these as you meet them"] = "",
-	-- {area:42} Darkshire · {object:119} Abercrombie's Crate
-	["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "Идите на юго-запад от места {area:42} к кургану огров. {object:119} лежит в лагере у входа; его охраняют огры из клана Дробящего Кулака.",
+	-- {area:42} Darkshire · {object:119} Abercrombie's Crate · {npc:300} Zzarc' Vul
+	["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it. {npc:300} is inside the ogre mound's cave: go in by the cave mouth on the mound's west side."] = "Идите на юго-запад от поселка {area:42} к кургану огров. {object:119} лежит в лагере у входа; его охраняют огры из клана Дробящего Кулака. {npc:300} – внутри пещеры кургана: входите через вход в пещеру на западной стороне кургана.",
 	-- {npc:272273} Lost Watcher · {quest:96138} Merrick's Bow
 	["Only if a {npc:272273} dropped {quest:96138}: right-click it"] = "Только если с противника {npc:272273} выпал предмет «{quest:96138}»: щелкните по нему правой кнопкой",
 	["Below ground"] = "Под землей",
@@ -67,7 +65,7 @@ return {
 
 	-- Step 14: The Weathered Grave
 	-- {npc:311} Sven Yorgen · {npc:268} Sirra Von'Indi · {area:42} Darkshire
-	["The grave stands among the skeletons at the cemetery's north-west corner, on the way to {npc:311}. Its quest and the next are talk-only, to {npc:268} and Commander Althea in {area:42}: level 35 from level 28, but no fight."] = "",
+	["The grave stands among the skeletons at the cemetery's north-west corner, on the way to {npc:311}. Its quest and the next are talk-only, to {npc:268} and Commander Althea in {area:42}: level 35 quests, but no fight."] = "Могила стоит среди скелетов в северо-западном углу кладбища, по пути к NPC {npc:311}. Ее задание и следующее – только разговоры, с NPC {npc:268} и командиром Алтеей в поселке {area:42}: задания 35-го уровня, но без боя.",
 
 	-- Step 15: Sven Yorgen's Camp
 	-- {npc:311} Sven Yorgen
@@ -78,6 +76,8 @@ return {
 	-- Step 16: Back to Darkshire
 	-- {area:42} Darkshire
 	["Back to {area:42}"] = "Назад: {area:42}",
+	-- {area:42} Darkshire · {npc:311} Sven Yorgen · {zone:1431} Duskwood
+	["Hearth back to {area:42} (bound at the start of this guide): {npc:311}'s camp is at the far west of {zone:1431}."] = "Камень возвращения – в поселок {area:42} (привязан в начале гайда): лагерь NPC {npc:311} – на крайнем западе зоны {zone:1431}.",
 	-- {npc:263} Lord Ello Ebonlocke
 	["{npc:263}, in the town hall"] = "{npc:263} – в ратуше",
 	-- {npc:268} Sirra Von'Indi
@@ -88,12 +88,24 @@ return {
 	-- {npc:482} Elling Trias · {zone:1453} Stormwind
 	["For {npc:482} in {zone:1453}, in the next guide"] = "Для NPC {npc:482} ({zone:1453}), в следующем гайде",
 
-	-- Step 17: Viktori Prism'Antras
+	-- Step 17: Nightbane Vile Fangs and Tainted Ones
+	-- plural, as words: Nightbane Vile Fangs = {npc:206} Nightbane Vile Fang
+	["Nightbane Vile Fangs and Tainted Ones"] = "Ярые Клыки Ночной Погибели и Порченые",
+	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {spell:8282} Curse of Blood
+	["The strongest worgen roam the woods south of {area:42}, west and south of the {area:121}.\nCareful: {spell:8282} lasts 10 minutes and adds 13 to each hit of physical damage you take.\nCareful: Some worgen outside the cave stand in groups, including one camp of four. To avoid adds, pull them one at a time from the raised ground next to the cave entrance.\nCareful: Gutspill, a level 32 abomination, walks these woods: let it pass."] = "Самые сильные ворги бродят по лесу к югу от поселка {area:42}, к западу и югу от кладбища ({area:121}).\nОсторожно: {spell:8282} длится 10 минут и добавляет 13 к каждому полученному удару физического урона.\nОсторожно: некоторые ворги у пещеры стоят группами, в том числе один лагерь из четырех. Чтобы не собрать лишних, выманивайте их по одному с возвышенности у входа в пещеру.\nОсторожно: по этому лесу ходит Кишкодер, поганище 32-го уровня: пропустите его.",
+
+	-- Step 18: Calor and Jonathan Carevin
+	-- {npc:663} Calor · {npc:661} Jonathan Carevin
+	["{npc:663} and {npc:661}"] = "{npc:663} и {npc:661}",
+	-- {npc:661} Jonathan Carevin · {npc:633} Elaine Carevin
+	["{npc:661}, by {npc:633}'s house; inside"] = "{npc:661} – у дома, где живет {npc:633}; внутри",
+
+	-- Step 19: Viktori Prism'Antras
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}'s house stands at the east end of town, on the way to the flight master."] = "Дом NPC {npc:276} стоит в восточной части города, по пути к распорядителю полетов.",
 	["Inside"] = "Внутри",
 
-	-- Step 18: Fly to Menethil Harbor
+	-- Step 20: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Летите сюда: {area:150}",
 	-- {area:42} Darkshire
@@ -114,8 +126,10 @@ return {
 	-- ["For {quest:5762} in Stranglethorn, later"] = "Для задания «{quest:5762}» в Тернистой долине, позже",
 	-- ["From Theramore follow the road west out of Dustwallow into the {zone:1413} and south along it; give {area:378} a wide berth. {area:485} at the {zone:1413}' south end takes you down into {zone:1441}. The journal lies at the foot of the lift."] = "С острова Терамор идите по дороге на запад из Пылевых топей в зону {zone:1413} и по ней на юг; обходите {area:378} стороной. {area:485} в южной части зоны {zone:1413} спустит вас в зону {zone:1441}. Дневник лежит у подножия подъемника.",
 	-- ["From {npc:352} in {zone:1453}"] = "Выдает {npc:352} ({zone:1453})",
+	-- ["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "Идите на юго-запад от места {area:42} к кургану огров. {object:119} лежит в лагере у входа; его охраняют огры из клана Дробящего Кулака.",
 	-- ["Her house stands on the hill south-east of {area:42}."] = "Ее дом стоит на холме к юго-востоку от поселка {area:42}.",
 	-- ["Nightbane Shadow Weavers"] = "Тенеткачи Ночной Погибели",
+	-- ["Nightbane Vile Fangs and the {npc:511}"] = "Ярые Клыки Ночной Погибели и {npc:511}",
 	-- ["No {item:4371} for {quest:174}? {npc:3133} sells it in the house beside {npc:276}, in limited stock; {npc:1448} in {area:150} sells it too."] = "Нет предмета {item:4371} для задания «{quest:174}»? Его продает {npc:3133} в доме рядом с {npc:276}, запас ограничен; продает его и {npc:1448} ({area:150}).",
 	-- ["On the road south through the {zone:1413}, {npc:6244} camps east of the road, north-east of {area:378}; come in from the east and keep clear of the Horde guards."] = "По пути на юг через зону {zone:1413}: {npc:6244} стоит лагерем к востоку от дороги, к северо-востоку от места {area:378}; подходите с востока и держитесь подальше от стражей Орды.",
 	-- ["Plague Spreaders"] = "Распространители чумы",

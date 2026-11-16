@@ -45,7 +45,7 @@ return {
 	["{npc:251291}, Prideclaw"] = "{npc:251291}、群爪",
 	["Prideclaw, Galestrider"] = "",
 	["Prideclaw, Vuldren"] = "",
-	["Cloudrunner, Galestrider"] = "",
+	["Cloudrunner, Galestrider"] = "雲行者、疾風行者",
 	-- {npc:250928} Highlands Ursera
 	["Prideclaw, {npc:250928}"] = "群爪、{npc:250928}",
 

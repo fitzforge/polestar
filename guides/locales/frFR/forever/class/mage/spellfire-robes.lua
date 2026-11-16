@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Uthel'nay (Orgrimmar)
 	-- {npc:7311} Uthel'nay · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge · {object:172961} Valley of Spirits · {zone:1420} Tirisfal Glades
-	["{npc:7311} is one of {zone:1454}'s mage trainers, in {object:173161} in the {object:172961}. Then take the zeppelin to {zone:1420} from the tower outside {zone:1454}'s main gate."] = "{npc:7311} est l'un des maîtres des mages d'{zone:1454}, dans le pavillon Darkbriar, dans {object:172961}. Prenez ensuite le zeppelin pour {zone:1420} depuis la tour devant la porte principale d'{zone:1454}.",
+	["{npc:7311} is one of {zone:1454}'s mage trainers, in {object:173161} in the {object:172961}. Then take the zeppelin to {zone:1420} from the tower outside {zone:1454}'s main gate."] = "{npc:7311} est l'un des maîtres des mages d'{zone:1454}, au {object:173161}, dans la {object:172961}. Prenez ensuite le zeppelin pour {zone:1420} depuis la tour devant la porte principale d'{zone:1454}.",
 
 	-- Step 2: Cain Firesong (Brill)
 	-- {npc:2128} Cain Firesong · {area:159} Brill · {area:2119} Gallows' End Tavern

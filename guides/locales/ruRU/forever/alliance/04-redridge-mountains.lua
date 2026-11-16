@@ -9,7 +9,7 @@ return {
 	-- Step 1: Stormwind
 	-- {zone:1429} Elwynn Forest · {quest:174} Look to the Stars · {area:42} Darkshire · {item:4371} Bronze Tube · {npc:3133} Herble Baubbletump · {object:2096} Trade District
 	["Train, then leave by the main gate and follow the road east through {zone:1429}.\n{quest:174} in {area:42} needs a {item:4371}. Its vendors keep only one or two, and {npc:3133} in {area:42} is nearly always sold out: buy one at the Auction House in the {object:2096} on your way out. An engineer can make one too."] = "",
-	["Level 18 and 20 spells"] = "Заклинания 18-го и 20-го уровней",
+	["Your new spells"] = "Ваши новые заклинания",
 	-- {item:4371} Bronze Tube · {quest:174} Look to the Stars · {area:42} Darkshire
 	["{item:4371}: the Auction House, for {quest:174} in {area:42}"] = "",
 
@@ -133,8 +133,8 @@ return {
 	-- {area:492} Raven Hill Cemetery
 	["{area:492}: kill these as you meet them"] = "",
 	-- {npc:522} Mor'Ladim
-	-- plural, as words: Skeletal Horrors = {npc:202} Skeletal Horror · Skeletal Fiends = {npc:531} Skeletal Fiend
-	["The cemetery lies north of the village. Skeletal Horrors and Skeletal Fiends walk its southern half. {npc:522}, an elite, wanders the graves: keep away from him."] = "Кладбище лежит к северу от деревни. В его южной части бродят ужасные скелеты и скелеты-губители. Среди могил бродит элитный противник {npc:522}: держитесь от него подальше.",
+	-- plural, as words: Skeletal Horrors = {npc:202} Skeletal Horror · Skeletal Fiends = {npc:531} Skeletal Fiend · Flesh Eaters = {npc:3} Flesh Eater · Bone Chewers = {npc:210} Bone Chewer · Plague Spreaders = {npc:604} Plague Spreader · Fetid Corpses = {npc:1270} Fetid Corpse
+	["The cemetery lies north of the village. Skeletal Horrors and Skeletal Fiends (23-25) walk its southern half and carry the fingers; for the fangs, Flesh Eaters (24-25) drop the most, so leave the Bone Chewers, Plague Spreaders and Fetid Corpses (26-30) further in alone. {npc:522}, an elite, wanders the graves: keep away from him.\nCareful: Eliza, a level 31 elite, rises from her grave at the cemetery's north end: keep away from it."] = "Кладбище лежит к северу от деревни. Ужасные скелеты и Скелеты-губители (23-25) ходят по его южной половине, с них падают пальцы; клыки чаще всего падают с плотоядов (24-25), так что костеглодов, распространителей чумы и зловонных трупов (26-30) дальше не трогайте. Среди могил бродит {npc:522}, элита: держитесь от него подальше.\nОсторожно: Элиза, элита 31 уровня, поднимается из могилы в северном конце кладбища: держитесь от нее подальше.",
 
 	-- Step 22: Watcher Dodds
 	-- {area:245} Yorgen Farmstead
@@ -279,10 +279,12 @@ return {
 	-- ["Gnolls toward {area:1002}"] = "Гноллы по пути к месту {area:1002}",
 	-- ["Head north out of {area:69} up the {area:95} to {area:997}. Blackrock Champions camp in the valley."] = "Идите на север из места {area:69} вверх через {area:95} сюда: {area:997}. В долине стоят лагерем воители из клана Черной Горы.",
 	-- ["Lake murlocs"] = "Озерные мурлоки",
+	-- ["Level 18 and 20 spells"] = "Заклинания 18-го и 20-го уровней",
 	-- ["Redridge Mongrels and other gnolls hold the hills east of {area:1002}, north of the road; Redridge Thrashers prowl among them, Poachers camp south of the road. Dire Condors and Great Goretusks roam the same hills."] = "Полукровки из стаи Красногорья и другие гноллы удерживают холмы к востоку от места {area:1002}, к северу от дороги; между ними бродят твердозубы из стаи Красногорья, а браконьеры стоят лагерем к югу от дороги. По тем же холмам бродят ужасающие кондоры и большие жутевепри.",
 	-- ["Shaman training"] = "Обучение шамана",
 	-- ["Swim east from the bridge into {area:68}; the chest lies on the lake bed."] = "Плывите от моста на восток ({area:68}); сундук лежит на дне озера.",
 	-- ["The Wanted poster by the inn: {npc:703}, in {area:1000}"] = "Объявление о розыске у таверны: {npc:703}, {area:1000}",
+	-- ["The cemetery lies north of the village. Skeletal Horrors and Skeletal Fiends walk its southern half. {npc:522}, an elite, wanders the graves: keep away from him."] = "Кладбище лежит к северу от деревни. В его южной части бродят ужасные скелеты и скелеты-губители. Среди могил бродит элитный противник {npc:522}: держитесь от него подальше.",
 	-- ["The {area:442} boat docks at {area:17203}. Walk up into the city for training and {npc:1646}, then leave by the main gate and follow the road east through {zone:1429}."] = "Корабль из места {area:442} причаливает здесь: {area:17203}. Поднимитесь в город за обучением и к NPC {npc:1646}, затем выйдите через главные ворота и идите по дороге на восток через зону {zone:1429}.",
 	-- ["Tram to {zone:1455}"] = "Поезд до {zone:1455}",
 	-- ["{item:1075}: any Shadowhide gnoll"] = "{item:1075}: любой гнолл из стаи Темношкуров",

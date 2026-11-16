@@ -7,13 +7,13 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Auberdine
-	-- {npc:3649} Thundris Windweaver · {npc:3702} Alanndarian Nightsong · {npc:2913} Archaeologist Hollee · {npc:3693} Terenthis · {npc:3694} Sentinel Selarin
-	["From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} stands beside {npc:3693} by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment."] = "Vom Dock aus (oder vom Gasthaus, falls du deinen Ruhestein benutzt hast) zuerst hoch zum Nordende des Dorfes ({npc:3649}, {npc:3702} am Mondbrunnen, {npc:2913}), dann die Hauptstraße hinunter: das Steckbrief-Plakat vor dem Gasthaus, {npc:3693} an ihrem Ostende, wo die Straße nach Süden aus dem Dorf führt. {npc:3694} steht neben {npc:3693} beim Flugmeister; wenn sie nicht da ist, wurde sie getötet und erscheint gleich wieder: Warte einen Moment.",
+	-- {npc:3649} Thundris Windweaver · {npc:3702} Alanndarian Nightsong · {npc:2913} Archaeologist Hollee · {npc:3693} Terenthis · {npc:3694} Sentinel Selarin · {quest:990} Trek to Ashenvale · {npc:3692} Volcor
+	["From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} ({quest:990}) is beside {npc:3693} only for a few minutes at a time: she comes shortly after someone hands in {npc:3692}'s escort and leaves again about 5 minutes later. If she isn't there, don't wait: the guide offers her quest again when you hand in {npc:3692}'s escort to {npc:3693} yourself. Changing layer can also find her."] = "Vom Dock aus (oder vom Gasthaus, falls du deinen Ruhestein benutzt hast) zuerst hoch zum Nordende des Dorfes ({npc:3649}, {npc:3702} am Mondbrunnen, {npc:2913}), dann die Hauptstraße hinunter: das Steckbrief-Plakat vor dem Gasthaus, {npc:3693} an ihrem Ostende, wo die Straße nach Süden aus dem Dorf führt. {npc:3694} ({quest:990}) steht jeweils nur für ein paar Minuten neben {npc:3693}: Sie kommt kurz nachdem jemand die Eskorte von {npc:3692} abgibt und geht etwa 5 Minuten später wieder. Wenn sie nicht da ist, warte nicht: Der Guide bietet ihre Quest erneut an, wenn du die Eskorte von {npc:3692} selbst bei {npc:3693} abgibst. Ein Layerwechsel kann sie ebenfalls finden.",
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston
 	["{npc:3649}, north end of the village: {npc:1646}'s reply"] = "{npc:3649}, Nordende des Dorfes: die Antwort an {npc:1646}",
 	["The WANTED poster"] = "Der Steckbrief",
 	-- {npc:3694} Sentinel Selarin · {npc:3693} Terenthis · {npc:3691} Raene Wolfrunner · {area:415} Astranaar
-	["{npc:3694}, beside {npc:3693}: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694}, neben {npc:3693}: für {npc:3691} in {area:415}, im nächsten Guide",
+	["{npc:3694}, beside {npc:3693} if she is there: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694}, neben {npc:3693}, falls sie da ist: für {npc:3691} in {area:415}, im nächsten Guide",
 
 	-- Step 2: Lunar Fungus and Earthroot
 	-- {item:15851} Lunar Fungus · {item:2449} Earthroot
@@ -122,6 +122,12 @@ return {
 	-- {npc:12298} Sickly Deer
 	["Cure {npc:12298}"] = "Heile {npc:12298}",
 
+	-- Step 21: Auberdine
+	-- {quest:990} Trek to Ashenvale · {npc:3694} Sentinel Selarin · {npc:3693} Terenthis · {npc:3692} Volcor
+	["No {quest:990} yet? Give it a minute after the hand-in: {npc:3694} comes to {npc:3693}'s side shortly after {npc:3692}'s escort is handed in. Changing layer can also find her."] = "Noch kein {quest:990}? Warte nach der Abgabe einen Moment: {npc:3694} kommt kurz nach der Abgabe der Eskorte von {npc:3692} an die Seite von {npc:3693}. Ein Layerwechsel kann sie ebenfalls finden.",
+	-- {npc:3694} Sentinel Selarin · {quest:990} Trek to Ashenvale · {npc:3691} Raene Wolfrunner · {area:415} Astranaar · {zone:1440} Ashenvale
+	["{npc:3694}, once she comes: {quest:990}, for {npc:3691} in {area:415} on your next {zone:1440} visit"] = "{npc:3694}, sobald sie kommt: {quest:990}, für {npc:3691} in {area:415} bei deinem nächsten Besuch in {zone:1440}",
+
 	-- Step 22: Auberdine flight master
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "Flugmeister von {area:442}",
@@ -135,8 +141,8 @@ return {
 	["Cast {spell:18960}"] = "Wirke {spell:18960}",
 
 	-- Step 27: Dendrite Starblaze
-	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "Wirke {spell:18960}. {npc:11802} steht oben in seinem Gebäude in {area:2361}: Geh drinnen nach oben, der Pfeil kann die Stockwerke nicht unterscheiden. Lerne dort die Flugroute, falls du sie noch nicht hast.",
+	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:493} Moonglade · {npc:10897} Sindrayl
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. No {area:493} flight path yet? Learn it from {npc:10897}, south of the lake: the flight master in {area:2361} flies only Druids, from her gossip, and has none to learn."] = "Wirke {spell:18960}. {npc:11802} steht oben in seinem Gebäude in {area:2361}: Geh drinnen nach oben, der Pfeil kann die Stockwerke nicht unterscheiden. Noch keine Flugroute in {area:493}? Lerne sie bei {npc:10897} südlich des Sees: Die Flugmeisterin in {area:2361} fliegt nur Druiden, über ihr Gesprächsmenü, und hat keine Route zu lernen.",
 
 	-- Step 28: Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
@@ -168,7 +174,10 @@ return {
 	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}. {npc:4217} is a Druid trainer: learn your new spells from him."] = "Nimm das Portal nach oben zu {npc:4217}, flieg dann zurück nach {area:442} für die Straße nach Süden in den {zone:1440}. {npc:4217} ist ein Druidenlehrer: Lerne deine neuen Zauber bei ihm.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "Wirke {spell:18960}. {npc:11802} steht oben in seinem Gebäude in {area:2361}: Geh drinnen nach oben, der Pfeil kann die Stockwerke nicht unterscheiden. Lerne dort die Flugroute, falls du sie noch nicht hast.",
+	-- ["From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} stands beside {npc:3693} by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment."] = "Vom Dock aus (oder vom Gasthaus, falls du deinen Ruhestein benutzt hast) zuerst hoch zum Nordende des Dorfes ({npc:3649}, {npc:3702} am Mondbrunnen, {npc:2913}), dann die Hauptstraße hinunter: das Steckbrief-Plakat vor dem Gasthaus, {npc:3693} an ihrem Ostende, wo die Straße nach Süden aus dem Dorf führt. {npc:3694} steht neben {npc:3693} beim Flugmeister; wenn sie nicht da ist, wurde sie getötet und erscheint gleich wieder: Warte einen Moment.",
 	-- ["Moonstalker Sires prowl the woods around the glaive. The {object:10076} and the {object:12666} sit at the bottom of the crater; {npc:3584} stands on its north side."] = "Mondpirscherpatriarchen streifen durch die Wälder rund um die Gleve. Die {object:10076} und der {object:12666} stehen am Grund des Kraters; {npc:3584} steht an seiner Nordseite.",
+	-- ["{npc:3694}, beside {npc:3693}: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694}, neben {npc:3693}: für {npc:3691} in {area:415}, im nächsten Guide",
 	-- ["{npc:4217}: Cat Form"] = "{npc:4217}: Katzengestalt",
 	-- ["{npc:4217}: Cure Poison"] = "{npc:4217}: Vergiftung heilen",
 }

@@ -107,8 +107,8 @@ return {
 	["{item:14047}: the Scarlet outside {area:2266}"] = "",
 
 	-- Step 17: Undercity: Harbinger Balthazad
-	-- {area:152} Bulwark · {npc:10879} Harbinger Balthazad · {faction:68} Undercity
-	["The level 55 to 60 quests pay in full. First the {area:152}: {npc:10879}, by the {faction:68}'s elevators, sends you there."] = "",
+	-- {area:152} Bulwark · {npc:10879} Harbinger Balthazad · {faction:68} Undercity · {object:36126} Royal Quarter · {quest:5961} The Champion of the Banshee Queen · {npc:11878} Nathanos Blightcaller · {quest:6136} The Corpulent One
+	["The level 55 to 60 quests pay in full. First the {area:152}: {npc:10879}, by the {faction:68}'s elevators, sends you there. Lady Sylvanas in the {object:36126} gives {quest:5961}, an introduction to {npc:11878}: {quest:6136}, his last quest here, needs it handed in."] = "레벨 55~60 퀘스트는 평판을 전부 줍니다. 먼저 {area:152}: {faction:68} 승강기 옆의 {npc:10879}이(가) 그곳으로 보냅니다. {object:36126}의 실바나스 여왕이 {npc:11878} 소개 퀘스트인 {quest:5961}을(를) 줍니다. 그의 여기 마지막 퀘스트인 {quest:6136}은(는) 이를 제출해야 합니다.",
 
 	-- Step 18: Bulwark: Scarlet Diversions
 	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {npc:10837} High Executor Derrington · {faction:68} Undercity · {item:12814} Flame in a Bottle · {area:200} Dalson's Tears · {area:199} Felstone Field · {item:12807} Scourge Banner
@@ -172,7 +172,7 @@ return {
 
 	-- Step 28: Nathanos Blightcaller
 	-- {npc:11878} Nathanos Blightcaller · {zone:1423} Eastern Plaguelands · {faction:68} Undercity
-	["{npc:11878}, the Ranger Lord, keeps his camp on the western edge of the {zone:1423}. His quests are level 58 to 60 and pay in full: 500 {faction:68} reputation."] = "",
+	["{npc:11878}, the Ranger Lord, keeps his camp on the western edge of the {zone:1423}. His quests are level 58 to 60 and pay in full: 525 {faction:68} reputation with Sylvanas's introduction."] = "순찰대 군주 {npc:11878}은(는) {zone:1423} 서쪽 끝에 야영지를 두고 있습니다. 그의 퀘스트는 레벨 58~60이며 평판이 깎이지 않고 전부 오릅니다. 실바나스의 소개를 받으면 {faction:68} 평판 525입니다.",
 
 	-- Step 29: Plaguebats, Quel'Lithien Lodge and Corin's Crossing
 	-- {area:2276} Quel'Lithien Lodge · {area:2264} Corin's Crossing
@@ -193,7 +193,7 @@ return {
 	-- {npc:11897} Duskwing · {area:2260} Marris Stead · {npc:11896} Borelgore · {area:2272} Northdale
 	["{npc:11897}, an elite bat, roams the fields north of {area:2260}. {npc:11896} paces a long valley west of {area:2272}."] = "",
 	-- {npc:11878} Nathanos Blightcaller · {faction:68} Undercity · {area:2279} Stratholme · {npc:12337} Crimson Courier
-	["{npc:11878}: 500 {faction:68} reputation. His {area:2279} quests (The {npc:12337}, The Scarlet Oracle, Demetria, Ramstein) need a group."] = "",
+	["{npc:11878}: 525 {faction:68} reputation with Sylvanas's introduction. His {area:2279} quests (The {npc:12337}, The Scarlet Oracle, Demetria, Ramstein) need a group."] = "{npc:11878}: 실바나스의 소개를 받으면 {faction:68} 평판 525. 그의 {area:2279} 퀘스트({npc:12337}, 붉은십자군 신탁자, 데메트리아, 람스타인)는 파티가 필요합니다.",
 
 	-- Step 32: The Spider God (optional chain)
 	-- {quest:2936} The Spider God

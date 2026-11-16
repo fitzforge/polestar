@@ -221,8 +221,8 @@ return {
 
 	-- Step 40: Sunken Chest
 	-- {area:68} Lake Everstill · {item:1467} Spotted Sunfish
-	-- plural, as words: Murloc Flesheaters = {npc:422} Murloc Flesheater
-	["Back toward town, swim east from the bridge into {area:68}; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a {item:1467}."] = "Zurück Richtung Stadt, schwimm von der Brücke nach Osten in {area:68}; die Truhe liegt auf dem Seegrund neben einem gesunkenen Boot. Murloc Flesheaters und Tidecallers säumen das Südufer um sie herum: Jeder von ihnen kann einen {item:1467} tragen.",
+	-- plural, as words: Murloc Flesheaters = {npc:422} Murloc Flesheater · Lake Threshers = {npc:14357} Lake Thresher
+	["Back toward town, swim east from the bridge into {area:68}; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a {item:1467}.\nCareful: Lake Threshers, level 25 elites, swim in the lake: keep your distance from them while you dive for the chest."] = "Zurück Richtung Stadt, schwimm von der Brücke nach Osten in {area:68}; die Truhe liegt auf dem Seegrund neben einem gesunkenen Boot. Murlocfleischfresser und Gezeitenrufer säumen das Südufer um sie herum: Jeder von ihnen kann einen {item:1467} tragen.\nVorsicht: Seedrescher, Elites der Stufe 25, schwimmen im See: Halte Abstand zu ihnen, während du nach der Truhe tauchst.",
 	-- {item:1309} Oslow's Toolbox
 	["{item:1309}; underwater"] = "{item:1309}; unter Wasser",
 
@@ -415,6 +415,7 @@ return {
 	["{npc:1646}: for {npc:1719}, at the {area:717}'s gate"] = "{npc:1646}: für {npc:1719}, am Tor von {area:717}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back toward town, swim east from the bridge into {area:68}; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a {item:1467}."] = "Zurück Richtung Stadt, schwimm von der Brücke nach Osten in {area:68}; die Truhe liegt auf dem Seegrund neben einem gesunkenen Boot. Murloc Flesheaters und Tidecallers säumen das Südufer um sie herum: Jeder von ihnen kann einen {item:1467} tragen.",
 	-- ["{npc:261} guards the bridge on this road east, past the {area:91}: {npc:240}'s {quest:35}, from your walk through {area:87}, goes to him."] = "{npc:261} bewacht die Brücke an dieser Straße nach Osten, hinter dem {area:91}: {quest:35} von {npc:240}, von deinem Weg durch {area:87}, geht zu ihm.",
 	-- ["{npc:341}: {quest:98386}, for your next Redridge visit"] = "{npc:341}: {quest:98386}, für deinen nächsten Besuch in Rotkammgebirge",
 	-- ["{npc:382}: the Blackrock camps are for your next Redridge visit, at about 24"] = "{npc:382}: Die Blackrock-Lager sind für deinen nächsten Besuch in Rotkammgebirge, bei etwa Stufe 24",

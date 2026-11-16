@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {npc:6266} Menara Voidrender
-	["A rare cloth robe for your 30s from {npc:6266}; its last parts wait for levels 35 and 37."] = "30多級用的稀有布甲長袍，由{npc:6266}製作；最後幾樣材料要等到35級和37級。",
+	["A rare cloth robe for your 30s from {npc:6266}; its last parts wait for levels 37 and 39."] = "30多級用的稀有布甲長袍，由{npc:6266}製作；最後幾樣材料要等到37級和39級。",
 
 	-- Step 1: In Search of Menara Voidrender (Stormwind)
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6266} Menara Voidrender · {area:392} Ratchet · {item:5770} Robes of Arcana · {item:3577} Gold Bar
@@ -60,7 +60,7 @@ return {
 	-- Step 10: Mannoroc Coven
 	-- {area:602} Mannoroc Coven · {zone:1443} Desolace · {spell:686} Shadow Bolt
 	-- plural, as words: Lesser Infernals = {npc:4676} Lesser Infernal · Demon Portal Guardians = {npc:11937} Demon Portal Guardian
-	["The Lesser Infernals (36-37) and Demon Portal Guardians (38) of {area:602}, in the south of {zone:1443}, drop the stone half the time. The guide waits for level 35 first: at 31 they are too strong to solo. They resist fire, so use {spell:686} and Corruption."] = "{zone:1443}南部{area:602}的次級地獄火（36-37級）和惡魔之門的衛士（38級）有一半機率掉落石頭。指南會先等到35級：31級時牠們太強，無法單刷。牠們有火焰抗性，所以使用{spell:686}和腐蝕術。",
+	["The Lesser Infernals (36-37) and Demon Portal Guardians (38) of {area:602}, in the south of {zone:1443}, drop the stone half the time. The guide waits for level 39 first: at 31 they are too strong to solo. They resist fire, so use {spell:686} and Corruption."] = "{zone:1443}南部{area:602}的次級地獄火（36-37級）和惡魔之門衛士（38級）有一半機率掉落石頭。指南會先等到39級：31級時牠們太強，無法單刷。牠們有火焰抗性，所以使用{spell:686}和腐蝕術。",
 
 	-- Step 11: Menara Voidrender again
 	-- {npc:6266} Menara Voidrender
@@ -75,7 +75,7 @@ return {
 	-- Step 13: Smoldering Coal
 	-- {area:334} Circle of West Binding · {zone:1417} Arathi Highlands · {spell:686} Shadow Bolt · {area:321} Hammerfall · {item:6265} Soul Shard · {spell:1120} Drain Soul
 	-- plural, as words: Burning Exiles = {npc:2760} Burning Exile · Cresting Charms = {item:4481} Cresting Charm · Cresting Exiles = {npc:2761} Cresting Exile
-	["The Burning Exiles (level 38-39), fire elementals at the {area:334} in western {zone:1417}, drop the coal about one time in three. The guide waits for level 37 first: below it they hit too hard to solo. They resist fire: {spell:686} and Corruption. The Cresting Charms from the Cresting Exiles near {area:321} finish one off once you have hurt it. Make a {item:6265} with {spell:1120} on the way."] = "烈焰流放者（38-39級）是{zone:1417}西部{area:334}的火元素，煤炭掉落率約三分之一。指南會先等到37級：低於這個等級時牠們打得太痛，無法單刷。牠們抵抗火焰：使用{spell:686}和腐蝕術。先把牠打傷，再用{area:321}附近水浪流放者掉落的海浪符咒就能解決牠。途中用{spell:1120}製作一個{item:6265}。",
+	["The Burning Exiles (level 38-39), fire elementals at the {area:334} in western {zone:1417}, drop the coal about one time in three. The guide waits for level 39 first: below it they hit too hard to solo. They resist fire: {spell:686} and Corruption. The Cresting Charms from the Cresting Exiles near {area:321} finish one off once you have hurt it. Make a {item:6265} with {spell:1120} on the way."] = "烈焰流放者（38-39級）是{zone:1417}西部{area:334}的火元素，煤炭掉落率約三分之一。指南會先等到39級：低於這個等級時牠們打得太痛，無法單刷。牠們抵抗火焰：使用{spell:686}和腐蝕術。先把牠打傷，再用{area:321}附近水浪流放者掉落的海浪符咒就能解決牠。途中用{spell:1120}製作一個{item:6265}。",
 	-- {item:6265} Soul Shard · {spell:1120} Drain Soul
 	["{item:6265}: {spell:1120} on an Exile as it dies"] = "",
 
@@ -86,12 +86,15 @@ return {
 	["Wait beside {npc:6266} while she finishes the robe"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A rare cloth robe for your 30s from {npc:6266}; its last parts wait for levels 35 and 37."] = "30多級用的稀有布甲長袍，由{npc:6266}製作；最後幾樣材料要等到35級和37級。",
 	-- ["A rare cloth robe for your 30s, which {npc:6266} makes from the parts you bring her."] = "30多級用的稀有布甲長袍，由{npc:6266}用你帶來的材料製作。",
 	-- ["At 31 {npc:4563} in the {object:36082} sends you to {npc:6266} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}."] = "31級時，{object:36082}的{npc:4563}會派你去找{area:392}的{npc:6266}。從{zone:1420}出發的飛艇飛往{zone:1411}。",
 	-- ["Bring {npc:6266} a {item:5770}: tailors sew it from a pattern that drops; otherwise buy one at the Auction House. Her next errand needs a {item:3577}: smelted from {item:2776}, or from the Auction House."] = "帶一件{item:5770}給{npc:6266}：裁縫可用掉落的圖樣縫製；否則在拍賣場購買。她的下一個差事需要一個{item:3577}：由{item:2776}熔煉，或在拍賣場購買。",
+	-- ["The Burning Exiles (level 38-39), fire elementals at the {area:334} in western {zone:1417}, drop the coal about one time in three. The guide waits for level 37 first: below it they hit too hard to solo. They resist fire: {spell:686} and Corruption. The Cresting Charms from the Cresting Exiles near {area:321} finish one off once you have hurt it. Make a {item:6265} with {spell:1120} on the way."] = "烈焰流放者（38-39級）是{zone:1417}西部{area:334}的火元素，煤炭掉落率約三分之一。指南會先等到37級：低於這個等級時牠們打得太痛，無法單刷。牠們抵抗火焰：使用{spell:686}和腐蝕術。先把牠打傷，再用{area:321}附近水浪流放者掉落的海浪符咒就能解決牠。途中用{spell:1120}製作一個{item:6265}。",
 	-- ["The Burning Exiles, fire elementals in western {zone:1417}, drop the coal."] = "{zone:1417}西部的火元素烈焰流放者會掉落悶燒煤。",
 	-- ["The Hatefury satyrs of {area:603}, in north-eastern {zone:1443}, carry the blood; the Lesser Infernals of Mannoroc Coven, in the south, the stone."] = "{zone:1443}東北部{area:603}的怨怒薩特身上帶著血；南部瑪諾洛克集會所的次級地獄火身上帶著石頭。",
 	-- ["The Hatefury satyrs of {area:603}, in north-eastern {zone:1443}, carry the blood; the Lesser Infernals of {area:602}, in the south, the stone."] = "{zone:1443}東北部{area:603}的怨怒薩特身上帶著血；南部{area:602}的次級地獄火身上帶著石頭。",
+	-- ["The Lesser Infernals (36-37) and Demon Portal Guardians (38) of {area:602}, in the south of {zone:1443}, drop the stone half the time. The guide waits for level 35 first: at 31 they are too strong to solo. They resist fire, so use {spell:686} and Corruption."] = "{zone:1443}南部{area:602}的次級地獄火（36-37級）和惡魔之門的衛士（38級）有一半機率掉落石頭。指南會先等到35級：31級時牠們太強，無法單刷。牠們有火焰抗性，所以使用{spell:686}和腐蝕術。",
 	-- ["Wait for the robe"] = "等待長袍完成",
 	-- ["{npc:2670} in {area:35} has the thread for you."] = "{area:35}的{npc:2670}有你要的線。",
 	-- ["{npc:2670} sells tailoring supplies in {area:35}. Bring him the {item:3577}."] = "{npc:2670}在{area:35}出售裁縫用品。把{item:3577}交給他。",

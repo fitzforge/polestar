@@ -17,7 +17,7 @@ return {
 
 	-- Step 2: Seeking Strahad (Undercity)
 	-- {npc:5675} Carendin Halgar · {object:36082} Magic Quarter · {npc:6251} Strahad Farsan · {area:392} Ratchet · {zone:1420} Tirisfal Glades · {zone:1411} Durotar · {quest:3001} Seeking Strahad
-	["At 30 {npc:5675}, in the {object:36082}, sends you to {npc:6251} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}. Take only one {quest:3001}: if {npc:6251} offers nothing, drop the duplicate from your log."] = "",
+	["At 30 {npc:5675}, in the {object:36082}, sends you to {npc:6251} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}. Take only one {quest:3001}: if {npc:6251} offers nothing, drop the duplicate from your log."] = "30레벨에 {object:36082}의 {npc:5675}이(가) {area:392}의 {npc:6251}에게 보냅니다. {zone:1420}에서 비행선을 타면 {zone:1411}(으)로 갑니다. {quest:3001}은(는) 하나만 받으십시오. {npc:6251}이(가) 아무것도 주지 않으면 퀘스트 목록에서 중복된 것을 버리십시오.",
 
 	-- Step 3: Strahad Farsan
 	-- {area:392} Ratchet · {zone:1454} Orgrimmar · {npc:6251} Strahad Farsan · {npc:6266} Menara Voidrender · {npc:6293} Jorah Annison · {zone:1458} Undercity

@@ -92,8 +92,11 @@ return {
 	-- {area:2240} Mirage Raceway
 	["{area:2240}: kill these as you meet them"] = "",
 	-- {object:19868} Rocket Car Rubble
-	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Basilisks = {npc:4147} Saltstone Basilisk
-	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "",
+	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Gazers = {npc:4150} Saltstone Gazer · Scorpid Terrors = {npc:4139} Scorpid Terror
+	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "{object:19868}散布在整片鹽湖上。恐蠍搶奪者和鹽湖食腐鷲在北半部遊蕩，鹽殼龜（30-31）在鹽湖中部：獵殺牠們取得龜殼。注意：鹽殼鉗嘴龜（34-35）在整片鹽湖遊蕩，鹽石凝視者（34-35）和恐蠍（33-34）佔據最南端：別理牠們，待在北半部。",
+	-- {item:5795} Hardened Tortoise Shell
+	-- plural, as words: Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise
+	["{item:5795}, from the Sparkleshell Tortoises"] = "{item:5795}，來自鹽殼龜",
 	-- {npc:4078} Collin Mauren · {zone:1453} Stormwind
 	-- plural, as words: Saltstone Basilisks = {npc:4147} Saltstone Basilisk
 	["Crystalized Scale, from the Saltstone Basilisks: eight for {npc:4078} in {zone:1453}"] = "",

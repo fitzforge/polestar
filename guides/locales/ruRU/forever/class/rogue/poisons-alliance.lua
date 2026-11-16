@@ -19,22 +19,23 @@ return {
 	-- {npc:7053} Klaven Mortwake · {zone:1436} Westfall · {zone:1431} Duskwood · {item:8046} Kearnen's Journal
 	["Kearnen hides stealthed against the west side of a big tree with two small trees in front of it, just north of {npc:7053}'s Defias tower in the far east of {zone:1436}, by the {zone:1431} border. Read {item:8046} for the tower's layout if you like."] = "",
 
-	-- Step 3: The Defias Tower Key
-	-- {item:7923} Defias Tower Key
-	["The {item:7923}"] = "",
-	-- {npc:7051} Malformed Defias Drone · {spell:921} Pick Pocket · {spell:2983} Sprint
-	-- plural, as words: Defias Drones = {npc:7050} Defias Drone
-	["Get the key first. The {npc:7051} (level 23, not elite) starts at the tower entrance and walks a loop around the outside; it is the spiky-haired one trailing yellow sparkles. Stealth up and {spell:921} it from behind: it always has the key. It hits hard: if stealth breaks, {spell:2983} away. Watch for the pair of Defias Drones that also patrol."] = "",
+	-- Step 3: Klaven's Tower, with a group
+	-- {quest:2359} Klaven's Tower
+	["{quest:2359}, with a group"] = "{quest:2359}, с группой",
+	-- {npc:7053} Klaven Mortwake · {npc:7051} Malformed Defias Drone · {spell:921} Pick Pocket · {object:123214} Duskwood Chest · {spell:9810} Touch of Zanzil
+	-- plural, as words: Defias Tower Patrollers = {npc:7052} Defias Tower Patroller
+	["{npc:7053} on the top floor is a level 26 elite: easier at 24 or with a friend. Get the key first: the {npc:7051} (level 23, the spiky-haired one trailing yellow sparkles) walks a loop around the tower; stealth up and {spell:921} it from behind. Then up the tower past the Defias Tower Patrollers (23) and Sentries (24) to the {object:123214} beside Klaven's desk (Lockpicking about 70-75). Opening it poisons you with the {spell:9810}, which stops your stealth for a while."] = "{npc:7053} на верхнем этаже – элита 26-го уровня: проще на 24-м или с другом. Сначала добудьте ключ: {npc:7051} (23-й уровень, тот, что с торчащими волосами и желтыми искрами) ходит по кругу вокруг башни; уйдите в незаметность и примените {spell:921} сзади. Затем поднимитесь по башне мимо патрульных башни из Братства Справедливости (23) и часовых (24) к объекту {object:123214} у стола Клейвена (Взлом замков около 70-75). Открыв его, вы получите яд {spell:9810}, который на время не дает уйти в незаметность.",
 	-- {spell:921} Pick Pocket · {npc:7051} Malformed Defias Drone · {item:7923} Defias Tower Key
 	["{spell:921} the {npc:7051} for the {item:7923}"] = "{spell:921}: {npc:7051} – добудьте {item:7923}",
-
-	-- Step 4: Klaven's journal
-	["Klaven's journal"] = "",
-	-- {npc:7053} Klaven Mortwake · {object:123214} Duskwood Chest · {area:97} Alther's Mill · {spell:9810} Touch of Zanzil
-	-- plural, as words: Defias Tower Patrollers = {npc:7052} Defias Tower Patroller
-	["Sneak up the tower. Defias Tower Patrollers (23) and Sentries (24) guard the floors; an Ambush with a dagger kills them outright if you would rather clear them. {npc:7053}, a level 26 elite, waits on the top floor: Sap him, or bring a friend. The {object:123214} beside his desk needs Lockpicking of about 70-75 (practise on the boxes at {area:97} in Redridge first). A trick: while the Sentries are away, jump from the chair to the lamp to the bookshelf above the chest, step out of stealth and open the chest from there. Opening it poisons you with the {spell:9810}, which stops your stealth for a while and lets the drone see you; that is why the key comes first. Then get out."] = "",
 	-- {item:7908} Klaven Mortwake's Journal · {object:123214} Duskwood Chest
 	["{item:7908}: the {object:123214}, top floor"] = "{item:7908}: {object:123214}, верхний этаж",
+
+	-- Step 4: Klaven's Tower, solo
+	-- {quest:2359} Klaven's Tower
+	["{quest:2359}, solo"] = "{quest:2359}, в одиночку",
+	-- {npc:7051} Malformed Defias Drone · {spell:921} Pick Pocket · {spell:2983} Sprint · {npc:7053} Klaven Mortwake · {object:123214} Duskwood Chest · {area:97} Alther's Mill · {spell:9810} Touch of Zanzil
+	-- plural, as words: Defias Drones = {npc:7050} Defias Drone · Defias Tower Patrollers = {npc:7052} Defias Tower Patroller
+	["Get the key first. The {npc:7051} (level 23, not elite) starts at the tower entrance and walks a loop around the outside; it is the spiky-haired one trailing yellow sparkles. Stealth up and {spell:921} it from behind: it always has the key. It hits hard: if stealth breaks, {spell:2983} away. Watch for the pair of Defias Drones that also patrol. Then sneak up the tower. Defias Tower Patrollers (23) and Sentries (24) guard the floors; an Ambush with a dagger kills them outright if you would rather clear them. {npc:7053}, a level 26 elite, waits on the top floor: Sap him, or bring a friend. The {object:123214} beside his desk needs Lockpicking of about 70-75 (practise on the boxes at {area:97} in Redridge first). A trick: while the Sentries are away, jump from the chair to the lamp to the bookshelf above the chest, step out of stealth and open the chest from there. Opening it poisons you with the {spell:9810}, which stops your stealth for a while and lets the drone see you; that is why the key comes first. Then get out."] = "Сначала добудьте ключ. {npc:7051} (23-й уровень, не элита) начинает у входа в башню и ходит по кругу снаружи; это тот, что с торчащими волосами и желтыми искрами. Уйдите в незаметность и примените {spell:921} сзади: ключ у него всегда. Он больно бьет: если незаметность спадет, убегайте ({spell:2983}). Остерегайтесь пары мертвяков из Братства Справедливости, которые тоже патрулируют. Затем прокрадитесь вверх по башне. Этажи охраняют патрульные башни из Братства Справедливости (23) и часовые (24); Внезапный удар кинжалом убивает их сразу, если хотите их зачистить. {npc:7053}, элита 26-го уровня, ждет на верхнем этаже: оглушите его Ошеломлением или позовите друга. {object:123214} у его стола требует Взлома замков около 70-75 (сначала потренируйтесь на ящиках у места {area:97} в Красногорье). Хитрость: пока часовых нет рядом, прыгните со стула на лампу, затем на книжную полку над сундуком, выйдите из незаметности и откройте сундук оттуда. Открыв его, вы получите яд {spell:9810}, который на время не дает уйти в незаметность и позволяет мертвяку вас увидеть; поэтому ключ – первым делом. Затем уходите.",
 
 	-- Step 5: Master Mathias Shaw
 	-- {zone:1453} Stormwind · {item:7676} Thistle Tea · {spell:8681} Instant Poison · {item:2928} Dust of Decay · {item:3371} Empty Vial · {npc:1325} Jasper Fel · {npc:1326} Sloan McCoy · {object:2100} Old Town

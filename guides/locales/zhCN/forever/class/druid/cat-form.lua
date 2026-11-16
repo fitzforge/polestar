@@ -15,8 +15,8 @@ return {
 	["{npc:4217} stands in the {area:1658}. Skyborne far from {zone:1457}: cast {spell:18960} and take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed), then the portal up. No {spell:1066} yet? Take A Lesson to Learn from him too: it also goes to {npc:11802}, and its Trial of the Lake (the {spell:1066} guide) is in the same {area:493}."] = "{npc:4217} 站在 {area:1658}。天裔角色若离 {zone:1457} 很远：施放 {spell:18960}，搭乘 {area:2361} 中部 {npc:11800} 的航班（她会将德鲁伊送到 {area:702}，无需解锁飞行路线），然后通过传送门上去。还没有{spell:1066}？也向他接受“必修的课程”：这个任务同样要找 {npc:11802}，后续的“湖中试炼”（见{spell:1066}指南）也在同一个 {area:493} 完成。",
 
 	-- Step 3: Dendrite Starblaze
-	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "施放{spell:18960}。{npc:11802}在{area:2361}他那栋建筑的楼上：从室内上楼，箭头无法区分楼层。如果还没有那里的飞行路线，顺便学会。",
+	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:493} Moonglade · {npc:10897} Sindrayl
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. No {area:493} flight path yet? Learn it from {npc:10897}, south of the lake: the flight master in {area:2361} flies only Druids, from her gossip, and has none to learn."] = "施放{spell:18960}。{npc:11802}在{area:2361}他所在建筑的楼上：从室内上去，箭头无法区分楼层。还没有{area:493}的飞行路线？去湖南边找{npc:10897}学习：{area:2361}的飞行管理员只通过对话为德鲁伊提供飞行，没有飞行路线可学。",
 
 	-- Step 4: The relics of the Barrow Dens
 	["The relics of the Barrow Dens"] = "兽穴的圣物",
@@ -62,6 +62,7 @@ return {
 	-- ["Cast Teleport: {area:493}. {npc:11802} is in {area:2361}; learn the flight path there if you do not have it."] = "施放传送：{area:493}。{npc:11802}在{area:2361}；如果还没有那里的飞行路线，就去学会。",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}."] = "施放{spell:18960}。{npc:11802}在{area:2361}。",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; learn the flight path there if you do not have it."] = "施放{spell:18960}。{npc:11802}在{area:2361}；如果还没有那里的飞行路线，顺便学会。",
+	-- ["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "施放{spell:18960}。{npc:11802}在{area:2361}他那栋建筑的楼上：从室内上楼，箭头无法区分楼层。如果还没有那里的飞行路线，顺便学会。",
 	-- ["Take the portal up to {npc:4217} in the {area:1658}."] = "乘传送门上到{area:1658}找{npc:4217}。",
 	-- ["{npc:3033} stands in the druids' hut on {area:1639}. No Aquatic Form yet? Take A Lesson to Learn from him too: it also goes to {npc:11802}, and its Trial of the Lake (the Aquatic Form guide) is in the same {area:493}."] = "{npc:3033}站在{area:1639}的德鲁伊小屋内。还没学会水栖形态？也从他那里接受“必修的课程”：同样是去找{npc:11802}，后续的“湖中试炼”（水栖形态指南）也在同一个{area:493}。",
 	-- ["{npc:3033} stands on {area:1639}."] = "{npc:3033}站在{area:1639}。",

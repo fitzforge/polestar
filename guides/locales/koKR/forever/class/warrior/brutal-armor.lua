@@ -34,7 +34,7 @@ return {
 
 	-- Step 6: Thun'grim Firegaze
 	-- {npc:5878} Thun'grim Firegaze · {area:1699} Thorn Hill · {quest:1838} Brutal Armor · {item:7587} Thun'grim's Instructions
-	["{npc:5878}'s hut sits on top of {area:1699}, east of the Crossroads: climb the broad ridge on the north or east side. {quest:1838} is a level 30 quest; take it now and gather on the way. {item:7587} list where each material comes from."] = "",
+	["{npc:5878}'s hut sits on top of {area:1699}, east of the Crossroads: climb the broad ridge on the north or east side. {quest:1838} is a level 30 quest, so the guide waits for level 29 before you take it. {item:7587} list where each material comes from."] = "{npc:5878}의 오두막은 크로스로드 동쪽 {area:1699} 꼭대기에 있습니다. 북쪽이나 동쪽의 넓은 능선으로 올라가세요. {quest:1838}은(는) 30레벨 퀘스트이므로 가이드는 29레벨까지 기다린 뒤 수락합니다. {item:7587}에 각 재료를 어디서 얻는지 적혀 있습니다.",
 
 	-- Step 7: Windshear Mine
 	-- {area:2160} Windshear Mine · {area:461} Windshear Crag · {area:460} Sun Rock Retreat · {spell:116} Frostbolt
@@ -46,9 +46,9 @@ return {
 	-- Step 8: Hillsbrad Miners
 	-- plural, as words: Hillsbrad Miners = {npc:2269} Hillsbrad Miner
 	["Hillsbrad Miners"] = "{npc:2269}",
-	-- {item:7127} Powdered Azurite · {area:271} Southshore · {spell:71} Defensive Stance · {area:272} Tarren Mill
+	-- {item:7127} Powdered Azurite · {quest:1838} Brutal Armor · {area:271} Southshore · {spell:71} Defensive Stance · {area:272} Tarren Mill
 	-- plural, as words: Hillsbrad Miners = {npc:2269} Hillsbrad Miner
-	["You need 10 {item:7127}. The guide waits for level 25 first. The Hillsbrad Miners (level 26-27) work the mine in the hills west of {area:271} and drop the azurite four kills in five; they fight in {spell:71}, sunder your armor and run for help at 30% health. Fly to {area:272} and head south-west."] = "{item:7127} 10개가 필요합니다. 가이드는 먼저 25레벨까지 기다립니다. 힐스브래드 광부(26-27레벨)는 {area:271} 서쪽 언덕의 광산에서 일하며, 다섯 마리 중 네 마리꼴로 남동석을 떨어뜨립니다. {spell:71}(으)로 싸우며, 방어도를 깎고 생명력 30%에서 도움을 청하러 도망갑니다. {area:272}(으)로 날아가서 남서쪽으로 가세요.",
+	["You need 10 {item:7127}. The guide waits for level 30 first ({quest:1838} is a level 30 quest). The Hillsbrad Miners (level 26-27) work the mine in the hills west of {area:271} and drop the azurite four kills in five; they fight in {spell:71}, sunder your armor and run for help at 30% health. Fly to {area:272} and head south-west."] = "{item:7127} 10개가 필요합니다. 가이드는 먼저 30레벨까지 기다립니다({quest:1838}은(는) 30레벨 퀘스트입니다). 힐스브래드 광부(26-27레벨)는 {area:271} 서쪽 언덕의 광산에서 일하며, 다섯 마리 중 네 마리꼴로 남동석을 떨어뜨립니다. {spell:71}(으)로 싸우며, 방어도를 깎고 생명력 30%에서 도움을 청하러 도망갑니다. {area:272}(으)로 날아가서 남서쪽으로 가세요.",
 	-- {item:7127} Powdered Azurite
 	-- plural, as words: Hillsbrad Miners = {npc:2269} Hillsbrad Miner
 	["{item:7127}, from the Hillsbrad Miners"] = "{item:7127}, 힐스브래드 광부에게서",
@@ -57,7 +57,7 @@ return {
 	-- {area:1717} Razorfen Kraul
 	["Roogug in {area:1717}"] = "{area:1717}의 루구그",
 	-- {area:1717} Razorfen Kraul · {zone:1413} Barrens · {spell:403} Lightning Bolt
-	["Roogug is an elite quilboar (level 28) inside {area:1717}, the dungeon at the south end of the {zone:1413}; a five-player dungeon: needs a group of five, his guards come with him. The guide waits for level 26 first. Inside take the left path at the first fork, cross the vine bridge over the pig pens, go past the room with the big cauldron: he waits in the room on the right. He casts {spell:403} and calls Earth Rumblers. The vial always drops."] = "루구그는 {zone:1413} 남쪽 끝의 던전 {area:1717} 안에 있는 정예 가시멧돼지(28레벨)입니다. 5인 던전이라 5인 파티가 필요하며, 그의 경비병도 함께 덤빕니다. 가이드는 먼저 26레벨까지 기다립니다. 안에서 첫 갈림길에서 왼쪽 길로 가서 돼지우리 위의 덩굴 다리를 건너고, 큰 가마솥이 있는 방을 지나가세요. 그는 오른쪽 방에서 기다립니다. {spell:403}을(를) 시전하고 바위 정령을 부릅니다. 약병은 항상 떨어집니다.",
+	["Roogug is an elite quilboar (level 28) inside {area:1717}, the dungeon at the south end of the {zone:1413}; a five-player dungeon: needs a group of five, his guards come with him. The guide waits for level 30 first. Inside take the left path at the first fork, cross the vine bridge over the pig pens, go past the room with the big cauldron: he waits in the room on the right. He casts {spell:403} and calls Earth Rumblers. The vial always drops."] = "루구그는 {zone:1413} 남쪽 끝의 던전 {area:1717} 안에 있는 정예 가시멧돼지(28레벨)입니다. 5인 던전이라 5인 파티가 필요하며, 그의 경비병도 함께 덤빕니다. 가이드는 먼저 30레벨까지 기다립니다. 안에서 첫 갈림길에서 왼쪽 길로 가서 돼지우리 위의 덩굴 다리를 건너고, 큰 가마솥이 있는 방을 지나가세요. 그는 오른쪽 방에서 기다립니다. {spell:403}을(를) 시전하고 바위 정령을 부릅니다. 약병은 항상 떨어집니다.",
 	-- {item:6841} Vial of Phlogiston
 	["{item:6841}, from Roogug"] = "{item:6841}, 루구그에게서",
 
@@ -106,6 +106,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly to {area:378}. South of the camp the Silithid Mounds dot the {area:390}: the silithid there carry the Twitching Antennae."] = "{area:378}(으)로 날아가세요. 야영지 남쪽 {area:390}에 실리시드 흙더미가 흩어져 있으며, 그곳의 실리시드가 꿈틀거리는 더듬이를 지니고 있습니다.",
+	-- ["Roogug is an elite quilboar (level 28) inside {area:1717}, the dungeon at the south end of the {zone:1413}; a five-player dungeon: needs a group of five, his guards come with him. The guide waits for level 26 first. Inside take the left path at the first fork, cross the vine bridge over the pig pens, go past the room with the big cauldron: he waits in the room on the right. He casts {spell:403} and calls Earth Rumblers. The vial always drops."] = "루구그는 {zone:1413} 남쪽 끝의 던전 {area:1717} 안에 있는 정예 가시멧돼지(28레벨)입니다. 5인 던전이라 5인 파티가 필요하며, 그의 경비병도 함께 덤빕니다. 가이드는 먼저 26레벨까지 기다립니다. 안에서 첫 갈림길에서 왼쪽 길로 가서 돼지우리 위의 덩굴 다리를 건너고, 큰 가마솥이 있는 방을 지나가세요. 그는 오른쪽 방에서 기다립니다. {spell:403}을(를) 시전하고 바위 정령을 부릅니다. 약병은 항상 떨어집니다.",
 	-- ["Roogug is an elite quilboar inside {area:1717}, the dungeon at the south end of the {zone:1413}; he drops the {item:6841}. {area:1717} is a dungeon: grouping up is advised."] = "루구그는 {zone:1413} 남쪽 끝의 던전인 {area:1717} 안의 정예 가시멧돼지족이며 {item:6841}을(를) 떨어뜨립니다. {area:1717}은(는) 던전이니 파티를 권장합니다.",
 	-- ["Sturdy Dragonmaw Shinbones"] = "{item:7134}",
 	-- ["The Dragonmaw orcs camp in the middle of the {zone:1437}, south of the road; Raiders, Swamprunners, Centurions, Shadowwarders and Bonewarders all drop the Sturdy Dragonmaw Shinbones."] = "용아귀부족 오크는 {zone:1437} 한가운데, 길 남쪽에 진을 치고 있습니다. 약탈자, 늪길잡이, 백인대장, 어둠보초병, 해골감시자 모두 {item:7134}을(를) 떨어뜨립니다.",
@@ -114,5 +115,6 @@ return {
 	-- ["The {area:429} satyrs camp in eastern {zone:1440}, with the Felmusk satyrs further west; both drop Uncloven Satyr Hooves."] = "{area:429} 사티로스는 {zone:1440} 동부에 진을 치고 있고, 검은유혹의 사티로스는 더 서쪽에 있습니다. 둘 다 사티로스 통발굽을 떨어뜨립니다.",
 	-- ["The {npc:6167} roams the south-west of Stonetalon near the Fledgling and Young Chimaeras; she drops the {item:6840}."] = "{npc:6167}은(는) 돌발톱 산맥 남서쪽에서 어린 키메라, 새끼 키메라 근처를 돌아다니며 {item:6840}을(를) 떨어뜨립니다.",
 	-- ["Uncloven {quest:1842}"] = "통발굽 {quest:1842}",
+	-- ["You need 10 {item:7127}. The guide waits for level 25 first. The Hillsbrad Miners (level 26-27) work the mine in the hills west of {area:271} and drop the azurite four kills in five; they fight in {spell:71}, sunder your armor and run for help at 30% health. Fly to {area:272} and head south-west."] = "{item:7127} 10개가 필요합니다. 가이드는 먼저 25레벨까지 기다립니다. 힐스브래드 광부(26-27레벨)는 {area:271} 서쪽 언덕의 광산에서 일하며, 다섯 마리 중 네 마리꼴로 남동석을 떨어뜨립니다. {spell:71}(으)로 싸우며, 방어도를 깎고 생명력 30%에서 도움을 청하러 도망갑니다. {area:272}(으)로 날아가서 남서쪽으로 가세요.",
 	-- ["{npc:5878} camps beside the road east of the {area:380}. {quest:1838} is a level 30 quest; you can take it now and gather for it on the way."] = "{npc:5878}은(는) {area:380} 동쪽 길가에 진을 치고 있습니다. {quest:1838}은(는) 30레벨 퀘스트이지만 지금 받아서 가는 길에 재료를 모을 수 있습니다.",
 }

@@ -145,7 +145,7 @@ return {
 	-- {area:16624} Shen'dar Village
 	["{area:16624} hand-ins"] = "",
 	-- {npc:251905} Zerril Softbreeze · {npc:251906} Teeri Wellwind · {npc:251991} Taleen Shimmerthread · {npc:252172} Danarii Bellowveil · {npc:251523} Constable Aonda · {area:16624} Shen'dar Village · {item:5469} Strider Meat
-	["{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} and {npc:251523} all stand in {area:16624}. If you are still short of {item:5469}, the Galestriders graze just south of the village."] = "",
+	["{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} and {npc:251523} all stand in {area:16624}. If you are still short of {item:5469}, the Galestriders graze just west of the village; the Al'Aketh camps south and south-east of it are a level or two higher."] = "{npc:251905}、{npc:251906}、{npc:251991}、{npc:252172}和{npc:251523}都在{area:16624}。如果{item:5469}還不夠，疾風陸行鳥就在村莊西邊不遠處吃草；村莊南邊和東南邊的Al'Aketh營地等級高一兩級。",
 
 	-- Step 32: Shen'dar Highlands: kill these as you meet them
 	-- {area:16623} Shen'dar Highlands
@@ -353,6 +353,10 @@ return {
 	-- {npc:252476} Talaanis Shadowsong
 	["talk to {npc:252476}"] = "與{npc:252476}交談",
 
+	-- Step 75: Desperate Times
+	-- {npc:251968} Ayessa Dawnsinger · {npc:252475} Elaadrin Evengale
+	["Valennia asks you to hear out both leaders: {npc:251968} of the Horde and {npc:252475} of the Alliance. {npc:252475}'s name shows red to you, but he talks to you all the same, and the quest needs both."] = "瓦蓮妮亞要你聽聽雙方領袖的說法：部落的{npc:251968}和聯盟的{npc:252475}。{npc:252475}的名字對你顯示為紅色，但他照樣會和你交談，而任務需要兩人都談過。",
+
 	-- Step 77: Desperate Times
 	-- {npc:253844} Valennia Stormfist
 	["talk to {npc:253844}"] = "與{npc:253844}交談",
@@ -442,7 +446,7 @@ return {
 	-- {npc:259119} Alaana Stormwalker · {zone:1454} Orgrimmar
 	["{npc:259119}: keep it: Thrall in {zone:1454}, at the start of the next guide"] = "{npc:259119}：先留著：{zone:1454}的索爾，在下一份指南開頭",
 	-- {npc:259118} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
-	["{npc:259118}, by the landing: for {npc:3033} in {zone:1456}"] = "",
+	["{npc:259118}, by the landing: for {npc:3033} in {zone:1456}"] = "降落處旁的{npc:259118}：給{zone:1456}的{npc:3033}",
 
 	-- Step 97: Clarice Foster
 	-- {npc:5543} Clarice Foster · {area:2197} Pools of Vision · {area:1640} Spirit Rise

@@ -7,13 +7,13 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {item:277246} Ruby-Adorned Blade · {area:796} Scarlet Monastery
-	["The {item:277246}, C's payment for a solo job inside the {area:796}."] = "A {item:277246}, o pagamento de C por um serviço solo dentro do {area:796}.",
+	-- {item:277246} Ruby-Adorned Blade · {area:796} Scarlet Monastery · {item:210183} Horn of Xelthos
+	["The {item:277246}, C's payment for a solo job in the {area:796}, after The {item:210183}."] = "A {item:277246}, o pagamento de C por um serviço solo no {area:796}, depois de A {item:210183}.",
 
 	-- Step 1: C's dead drop
 	["C's dead drop"] = "O ponto de entrega de C",
-	-- {object:410369} Dead Drop · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
-	["C's next job comes by letter: once you are level 30 and have done the horn job, visit any capital city and C's letter arrives in the mailbox; only then does the {object:410369} near {area:204}, in southern Silverpine just south of {area:236}, offer it. The quest data lists a minimum of 25, but players get the letter, and the job, at 30."] = "A próxima missão de C vem por carta: quando você estiver no nível 30 e tiver feito a missão do chifre, visite qualquer capital e a carta de C chega na caixa de correio; só então {object:410369}, perto de {area:204}, no sul de Pinhaprata, logo ao sul de {area:236}, a oferece. Os dados da missão listam um mínimo de 25, mas os jogadores recebem a carta, e a missão, no 30.",
+	-- {item:210183} Horn of Xelthos · {object:410369} Dead Drop · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
+	["C's next job comes by letter: once you are level 30 and have done the horn job (The {item:210183}, its payment from this {object:410369} handed in), visit any capital city and C's letter arrives in the mailbox; only then does the {object:410369} near {area:204}, in southern Silverpine just south of {area:236}, offer it. The quest data lists a minimum of 25, but players get the letter, and the job, at 30."] = "A próxima missão de C vem por carta: quando você estiver no nível 30 e tiver feito a missão da trompa (A {item:210183}, com o pagamento entregue nesta {object:410369}), visite qualquer capital e a carta de C chega na caixa de correio; só então {object:410369}, perto de {area:204}, no sul de Pinhaprata, logo ao sul de {area:236}, a oferece. Os dados da missão listam um mínimo de 25, mas os jogadores recebem a carta, e a missão, no 30.",
 
 	-- Step 2: The Scarlet Monastery
 	-- {area:796} Scarlet Monastery
@@ -29,8 +29,10 @@ return {
 	["Place the eye in the {object:410369} near Pyrewood. Check a capital mailbox for C's payment letter on your next planned city visit, then return here for the reward quest. The payment may not be available immediately; do not repeat the infiltration just because the reward has not appeared."] = "Coloque o olho em {object:410369} perto de Lenhardente. Olhe a caixa de correio de uma capital, na sua próxima visita planejada à cidade, para ver a carta de pagamento de C, e volte aqui para a missão de recompensa. O pagamento pode não estar disponível na hora; não repita a infiltração só porque a recompensa ainda não apareceu.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["C's next job comes by letter: once you are level 30 and have done the horn job, visit any capital city and C's letter arrives in the mailbox; only then does the {object:410369} near {area:204}, in southern Silverpine just south of {area:236}, offer it. The quest data lists a minimum of 25, but players get the letter, and the job, at 30."] = "A próxima missão de C vem por carta: quando você estiver no nível 30 e tiver feito a missão do chifre, visite qualquer capital e a carta de C chega na caixa de correio; só então {object:410369}, perto de {area:204}, no sul de Pinhaprata, logo ao sul de {area:236}, a oferece. Os dados da missão listam um mínimo de 25, mas os jogadores recebem a carta, e a missão, no 30.",
 	-- ["Find the Eye of Bhossca inside the {area:796}."] = "Encontre o Olho de Bhossca dentro do {area:796}.",
 	-- ["Place the eye in the {object:410369} near Pyrewood. C's payment is the second Eye of Bhossca quest at the same chest."] = "Coloque o olho no {object:410369} perto de Vilarejo Lenhardente. O pagamento de C é a segunda missão Olho de Bhossca, no mesmo baú.",
 	-- ["The monastery stands in the far north-east of {zone:1420}. Go in alone; C advises a disguise from the monastery's grounds before you enter."] = "O monastério fica no extremo nordeste de {zone:1420}. Entre sozinho; C recomenda pegar um disfarce nos arredores do monastério antes de entrar.",
+	-- ["The {item:277246}, C's payment for a solo job inside the {area:796}."] = "A {item:277246}, o pagamento de C por um serviço solo dentro do {area:796}.",
 	-- ["The {object:410369} is a chest near {area:204} in southern Silverpine, just south of {area:236}. C's next note waits there once you are 25."] = "O {object:410369} é um baú perto de {area:204}, no sul da Floresta de Pinhaprata, logo ao sul de {area:236}. O próximo bilhete de C espera lá quando você tiver nível 25.",
 }

@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Lord Grayson Shadowbreaker (Ironforge)
 	-- {npc:5149} Brandur Ironhammer · {object:32362} Mystic Ward · {quest:7670} Lord Grayson Shadowbreaker · {zone:1453} Stormwind
-	["At 60 {npc:5149} in the {object:32362} sends you to {quest:7670} in {zone:1453}'s Cathedral of Light."] = "",
+	["At 60 {npc:5149} in the {object:32362} sends you to {quest:7670} in {zone:1453}'s Cathedral of Light."] = "На 60-м уровне {npc:5149} ({object:32362}) отправляет вас к NPC {quest:7670} в Собор Света ({zone:1453}).",
 
 	-- Step 2: Lord Grayson Shadowbreaker
 	-- {spell:23214} Summon Charger · {area:2279} Stratholme · {area:2057} Scholomance · {item:14047} Runecloth · {item:8836} Arthas' Tears · {npc:6171} Duthorian Rall

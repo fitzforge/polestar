@@ -25,8 +25,6 @@ return {
 	["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "O barco atraca a oeste do vilarejo. O mestre de voo fica na colina ao sul da estalagem; os PNJs de missão ficam espalhados pela rua principal. {npc:3666} fica no andar de cima da estalagem: suba a escada por dentro, a seta não diferencia os andares.",
 	-- {npc:3666} Wizbang Cranktoggle
 	["{npc:3666}, upstairs in the inn"] = "{npc:3666}, no andar de cima da estalagem",
-	-- {npc:3644} Cerellean Whiteclaw
-	["{npc:3644}, on the pier"] = "{npc:3644}, no píer",
 
 	-- Step 5: The skeletal turtle
 	["The skeletal turtle"] = "A tartaruga esquelética",
@@ -58,8 +56,6 @@ return {
 	["Read the {object:17188}"] = "Leia {object:17188}",
 	-- {object:17189} Fall of Ameth'Aran
 	["Read the {object:17189}"] = "Leia {object:17189}",
-	-- {item:5382} Anaya's Pendant · {npc:3667} Anaya Dawnrunner
-	["{item:5382}: {npc:3667}, level 16; pull her away from the Highborne"] = "{item:5382}: {npc:3667}, nível 16; puxe-a para longe dos Altaneiros",
 
 	-- Step 9: The red crystal
 	["The red crystal"] = "O cristal vermelho",
@@ -83,7 +79,7 @@ return {
 	["Blackwood furbolgs"] = "Furbolgs Bosqueneros",
 	-- {area:442} Auberdine
 	-- plural, as words: Blackwood Pathfinders = {npc:2167} Blackwood Pathfinder
-	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "Desbravadores Bosqueneros e Vozes-do-vento Bosqueneros ocupam o acampamento a sudeste de {area:442}.",
+	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}.\nCareful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time."] = "Desbravadores e Falaventos Bosquenero ocupam o acampamento a sudeste de {area:442}.\nCuidado: os Falaventos (13-14) lançam feitiços à distância e os furbolgs ficam em pares: puxe-os um de cada vez.",
 
 	-- Step 14: The southern beaches
 	["The southern beaches"] = "As praias do sul",
@@ -101,10 +97,6 @@ return {
 	-- Step 17: Bashal'Aran
 	-- {npc:3650} Asterion · {area:442} Auberdine
 	["North along the hills to {npc:3650}, then west down to {area:442}."] = "Ao norte pelas colinas até {npc:3650}, depois a oeste, descendo até {area:442}.",
-
-	-- Step 18: Auberdine
-	-- {npc:3644} Cerellean Whiteclaw
-	["{npc:3644}, where the pier meets the shore, on the way to the boat"] = "{npc:3644}, onde o píer encontra a praia, no caminho para o barco",
 
 	-- Step 19: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
@@ -148,5 +140,9 @@ return {
 	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "{npc:257446} em {zone:1426}; {area:87} não tem instrutor de xamã",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "Desbravadores Bosqueneros e Vozes-do-vento Bosqueneros ocupam o acampamento a sudeste de {area:442}.",
 	-- ["Into {area:148}"] = "Rumo a {area:148}",
+	-- ["{item:5382}: {npc:3667}, level 16; pull her away from the Highborne"] = "{item:5382}: {npc:3667}, nível 16; puxe-a para longe dos Altaneiros",
+	-- ["{npc:3644}, on the pier"] = "{npc:3644}, no píer",
+	-- ["{npc:3644}, where the pier meets the shore, on the way to the boat"] = "{npc:3644}, onde o píer encontra a praia, no caminho para o barco",
 }

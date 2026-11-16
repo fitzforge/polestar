@@ -38,9 +38,9 @@ return {
 	-- Step 7: Badlands: kill these as you meet them
 	-- {zone:1418} Badlands
 	["{zone:1418}: kill these as you meet them"] = "",
-	-- {area:1878} The Dustbowl · {zone:1418} Badlands
+	-- {area:1878} The Dustbowl · {zone:1418} Badlands · {npc:2817} Rigglefuzz
 	-- plural, as words: Elder Crag Coyotes = {npc:2729} Elder Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard · Malevolent Mirages = {npc:269756} Malevolent Mirage
-	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth."] = "",
+	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth.\nCareful: the Giant Buzzards are 39-41, and the 41s are two over you at 39: pick the 39s and 40s and pull them one at a time. The Buzzards (37) you kill later for {npc:2817}'s wings drop gizzards too, more rarely."] = "老峭壁山狗和巨型禿鷲在{area:1878}南邊的盆地遊蕩。山狗會掉落顎骨和尖牙；巨型禿鷲掉落砂囊。小心：惡毒幻象（42級精英）在{zone:1418}四處飄移：離牠們遠一點。\n小心：巨型禿鷲是39-41級，41級的比39級的你高兩級：挑39和40級的打，一次拉一隻。之後為{npc:2817}的翅膀擊殺的禿鷲（37級）也會掉落砂囊，但機率較低。",
 
 	-- Step 8: Rock Elementals
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental

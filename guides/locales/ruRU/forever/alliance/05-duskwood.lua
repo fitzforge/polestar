@@ -66,9 +66,9 @@ return {
 	-- Step 13: Ghoul Ribs
 	-- plural, as words: Ghoul Ribs = {item:884} Ghoul Rib
 	["Ghoul Ribs"] = "Ребра вурдалака",
-	-- {area:492} Raven Hill Cemetery · {npc:948} Rotted One · {spell:3428} Summon Flesh Eating Worms
+	-- {area:492} Raven Hill Cemetery · {npc:522} Mor'Ladim · {npc:948} Rotted One · {spell:3428} Summon Flesh Eating Worms
 	-- plural, as words: Flesh Eaters = {npc:3} Flesh Eater · Bone Chewers = {npc:210} Bone Chewer · Plague Spreaders = {npc:604} Plague Spreader · Brain Eaters = {npc:570} Brain Eater
-	["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "{area:492}, северная часть: ребро может выпасть с любого вурдалака – плотояды, костеглоды, распространители чумы и мозгоеды.\nОсторожно: {npc:948}, умирая, применяет {spell:3428}, что приводит дополнительных противников.",
+	["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters and Bone Chewers (24-27) are the easier kills; Plague Spreaders and Brain Eaters (27-29) drop them too. {npc:522}, an elite, wanders the graves: keep away from him.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "{area:492}, северная часть: ребро может выпасть с любого вурдалака. Плотояды и костеглоды (24-27) убиваются легче; распространители чумы и мозгоеды (27-29) тоже их роняют. Среди могил бродит {npc:522}, элита: держитесь от него подальше.\nОсторожно: {npc:948}, умирая, применяет {spell:3428}, что приводит дополнительных противников.",
 
 	-- Step 15: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
@@ -111,7 +111,7 @@ return {
 
 	-- Step 23: Class trainer
 	["Class trainer"] = "Учитель классовых навыков",
-	["Level 22 and 24 spells"] = "Заклинания 22-го и 24-го уровней",
+	["Your new spells"] = "Ваши новые заклинания",
 
 	-- Step 24: Gazin Tenorm
 	-- {zone:1453} Stormwind · {npc:6173} Gazin Tenorm · {npc:6171} Duthorian Rall
@@ -140,10 +140,12 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Continue west to {area:94}. The {object:673515} glows by the ruined house south of the road."] = "Идите дальше на запад, к деревне {area:94}. {object:673515} светится у разрушенного дома к югу от дороги.",
+	-- ["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "{area:492}, северная часть: ребро может выпасть с любого вурдалака – плотояды, костеглоды, распространители чумы и мозгоеды.\nОсторожно: {npc:948}, умирая, применяет {spell:3428}, что приводит дополнительных противников.",
 	-- ["Follow the road north-west past the cemetery to {npc:311}'s camp on the far west edge of the forest. {npc:893} stands beside {npc:311}."] = "Идите по дороге на северо-запад мимо кладбища к лагерю {npc:311} на дальнем западном краю леса. {npc:893} стоит рядом со {npc:311}.",
 	-- ["Follow the road south from {area:1002} into {area:10}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133} sells it in the house beside {npc:276}, in limited stock; {npc:1448} in {area:150} sells it too.\n{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "Идите по дороге на юг от развилки {area:1002} в зону {area:10}; поселок {area:42} лежит в восточной части леса.\nНет предмета {item:4371} для задания {quest:174}? Его продает {npc:3133} в доме рядом с домом {npc:276}, запас ограничен; его же продает {npc:1448} ({area:150}).\nДом {npc:276} стоит в восточной части города. {npc:3133} продает инженерные товары в соседнем доме.",
 	-- ["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest."] = "Идите по дороге на юг от развилки {area:1002} в зону {zone:1431}; поселок {area:42} лежит в восточной части леса.",
 	-- ["For {npc:302}, on the hill south-east of town"] = "Для NPC {npc:302} – на холме к юго-востоку от города",
+	-- ["Level 22 and 24 spells"] = "Заклинания 22-го и 24-го уровней",
 	-- ["Rabid Dire Wolves roam the woods around the cemetery and {npc:289}, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders crawl east of the cemetery and drop the venom. Every ghoul of the cemetery's northern half can drop a fang."] = "Бешеные лютые волки бродят по лесу вокруг кладбища и хижины, где живет {npc:289}, а голодные лютые волки – по холмам к северо-востоку от него. Карликовые ядовитые кругопряды ползают к востоку от кладбища, с них падает яд. С любого вурдалака в северной части кладбища может выпасть клык.",
 	-- ["Ride back east along the road to the {area:245}."] = "Езжайте назад на восток по дороге: {area:245}.",
 	-- ["Ride back east to {area:42}."] = "Езжайте назад на восток, в поселок {area:42}.",

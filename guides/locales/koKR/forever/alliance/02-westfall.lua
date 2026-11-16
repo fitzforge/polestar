@@ -170,19 +170,7 @@ return {
 	["{area:918}'s well"] = "",
 	["Fill the vial at the farm's well"] = "농장 우물에서 약병 채우기",
 
-	-- Step 35: Molsen Farm's Harvest Watchers
-	-- {area:918} Molsen Farm
-	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
-	["{area:918}'s Harvest Watchers"] = "",
-	-- {area:918} Molsen Farm · {item:732} Okra · {item:255155} Precessive Autocognition Assembly · {npc:573} Foe Reaper 4000
-	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
-	["Harvest Watchers and Golems work the fields around {area:918}; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone."] = "허수아비골렘 보초와 허수아비골렘이 {area:918} 주변 밭에서 일하며, 골렘 등가용수철, 허수아비골렘 회전안정기, {item:732}, 가끔 {item:255155}을(를) 떨어뜨립니다. 20레벨 희귀 몹 {npc:573}이(가) 이곳을 돌아다니니 건드리지 마십시오.",
-	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
-	["Harvest Watchers"] = "허수아비골렘 보초",
-	-- {item:814} Flask of Oil · {npc:392} Captain Grayson · {area:115} Westfall Lighthouse
-	["{item:814}: keep five for {npc:392} at the {area:115}, later on the route"] = "{item:814}: 경로 후반에 {area:115}의 {npc:392}에게 줄 5개를 남겨 두세요",
-
-	-- Step 36: The gnoll hills
+	-- Step 35: The gnoll hills
 	["The gnoll hills"] = "놀 언덕",
 	-- {area:111} Jangolode Mine · {area:916} The Jansen Stead
 	-- plural, as words: Riverpaw Gnolls = {npc:117} Riverpaw Gnoll
@@ -190,7 +178,7 @@ return {
 	-- plural, as words: Gnoll Paws = {item:725} Gnoll Paw
 	["Gnoll Paws"] = "놀의 앞발",
 
-	-- Step 37: The Longshore murlocs
+	-- Step 36: The Longshore murlocs
 	-- {area:2} Longshore
 	["The {area:2} murlocs"] = "",
 	-- {area:916} The Jansen Stead
@@ -199,15 +187,27 @@ return {
 	-- plural, as words: Longshore Murloc Gills = {item:254548} Longshore Murloc Gill
 	["Longshore Murloc Gills"] = "기나긴 해안 멀록 아가미",
 
-	-- Step 38: Furlbrow's Wardrobe
+	-- Step 37: Furlbrow's Wardrobe
 	-- {object:290} Furlbrow's Wardrobe · {area:916} The Jansen Stead · {npc:502} Benny Blaanco
 	["{object:290} stands in the ruined house east of the mine, on the way to the {area:916}.\nCareful: Two Defias stand guard inside, one of them the level 15 named {npc:502}. They are linked, so attacking either one brings both."] = "",
 	-- {object:290} Furlbrow's Wardrobe
 	["{object:290}; inside"] = "",
 
-	-- Step 39: The Jansen Stead
+	-- Step 38: The Jansen Stead
 	["Sacks of Oats in the fields around the farm"] = "",
 	["Fill the vial at the well"] = "우물에서 약병 채우기",
+
+	-- Step 39: Harvest Watchers north of Saldean's Farm
+	-- {area:107} Saldean's Farm
+	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
+	["Harvest Watchers north of {area:107}"] = "{area:107} 북쪽의 허수아비골렘 보초",
+	-- {area:916} The Jansen Stead · {area:107} Saldean's Farm · {item:732} Okra · {item:255155} Precessive Autocognition Assembly · {npc:573} Foe Reaper 4000
+	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
+	["On the way south from the {area:916} to {area:107}: Harvest Watchers (level 14-15) and Golems work the fields west of the road; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks these fields: leave it alone."] = "{area:916}에서 남쪽 {area:107}(으)로 가는 길에: 허수아비골렘 보초(14-15레벨)와 골렘이 길 서쪽 밭에서 일하며, 골렘 등가용수철, 허수아비골렘 회전안정기, {item:732}, 가끔 {item:255155}을(를) 떨어뜨립니다. 20레벨 희귀 몹 {npc:573}이(가) 이 밭을 돌아다니니 건드리지 마십시오.",
+	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
+	["Harvest Watchers"] = "허수아비골렘 보초",
+	-- {item:814} Flask of Oil · {npc:392} Captain Grayson · {area:115} Westfall Lighthouse
+	["{item:814}: keep five for {npc:392} at the {area:115}, later on the route"] = "{item:814}: 경로 후반에 {area:115}의 {npc:392}에게 줄 5개를 남겨 두세요",
 
 	-- Step 40: Finish the Goretusk Livers
 	-- plural, as words: Goretusk Livers = {item:723} Goretusk Liver
@@ -272,6 +272,8 @@ return {
 	["{npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in the {object:2096} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "",
 	-- {quest:2998} Tome of Divinity
 	["Right-click the {quest:2998} he gives you"] = "",
+	-- {item:2589} Linen Cloth · {zone:1436} Westfall · {object:2096} Trade District · {object:2100} Old Town
+	["{item:2589}: you have it from {zone:1436}'s Defias; if not, the Auction House here in the {object:2096} (not the level 25 thugs in {object:2100})"] = "{item:2589}: {zone:1436}의 데피아즈에게서 얻었을 것입니다. 없다면 이곳 {object:2096}의 경매장을 이용하십시오({object:2100}의 25레벨 불량배는 피하십시오)",
 	-- {npc:6172} Henze Faulk · {area:86} Stone Cairn Lake
 	["{npc:6172}, by {area:86} in Elwynn, on the road to Redridge"] = "",
 
@@ -381,6 +383,7 @@ return {
 	-- ["For {npc:11026} in {zone:1453}'s {object:28027}"] = "{zone:1453} {object:28027}의 {npc:11026}에게",
 	-- ["Further north along the road. The Furlbrows sit by their burned farm. Collect the oats from the Sacks of Oats in the fields as you go and fill the vial at the stead's well."] = "길을 따라 더 북쪽으로 가십시오. 펄브로우 부부가 불탄 농장 옆에 앉아 있습니다. 가는 길에 밭의 귀리 부대에서 귀리를 모으고, 농장 우물에서 약병을 채우십시오.",
 	-- ["Further north along the road. The Furlbrows sit by their burned farm. Collect the oats from the Sacks of Oats in the fields as you go."] = "길을 따라 더 북쪽으로 가십시오. 펄브로우 부부가 불탄 농장 옆에 앉아 있습니다. 가는 길에 밭의 귀리 부대에서 귀리를 모으십시오.",
+	-- ["Harvest Watchers and Golems work the fields around {area:918}; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone."] = "허수아비골렘 보초와 허수아비골렘이 {area:918} 주변 밭에서 일하며, 골렘 등가용수철, 허수아비골렘 회전안정기, {item:732}, 가끔 {item:255155}을(를) 떨어뜨립니다. 20레벨 희귀 몹 {npc:573}이(가) 이곳을 돌아다니니 건드리지 마십시오.",
 	-- ["Hearthstone on cooldown? Follow the road north-east."] = "귀환석이 재사용 대기 중이라면 북동쪽 길을 따라가십시오.",
 	-- ["North of Molsen Farm. Defias Trappers and Smugglers camp outside the mine, Kobold Diggers work inside. {object:290} stands by the ruined house east of the mine."] = "몰센 농장 북쪽입니다. 데피아즈단 덫사냥꾼과 데피아즈단 밀수업자가 광산 밖에 진을 치고, 코볼트 채굴꾼이 안에서 일합니다. {object:290}은(는) 광산 동쪽의 폐가 옆에 있습니다.",
 	-- ["North of Molsen Farm. Defias Trappers and Smugglers camp outside the mine. {object:290} stands by the ruined house east of the mine."] = "몰센 농장 북쪽입니다. 데피아즈단 덫사냥꾼과 데피아즈단 밀수업자가 광산 밖에 진을 치고 있습니다. {object:290}은(는) 광산 동쪽의 폐가 옆에 있습니다.",

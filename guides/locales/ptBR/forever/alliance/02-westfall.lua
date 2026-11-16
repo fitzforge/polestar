@@ -170,19 +170,7 @@ return {
 	["{area:918}'s well"] = "o poço de {area:918}",
 	["Fill the vial at the farm's well"] = "Encha o frasco no poço da fazenda",
 
-	-- Step 35: Molsen Farm's Harvest Watchers
-	-- {area:918} Molsen Farm
-	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
-	["{area:918}'s Harvest Watchers"] = "Guarda-colheitas de {area:918}",
-	-- {area:918} Molsen Farm · {item:732} Okra · {item:255155} Precessive Autocognition Assembly · {npc:573} Foe Reaper 4000
-	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
-	["Harvest Watchers and Golems work the fields around {area:918}; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone."] = "Guarda-colheitas e Golens trabalham nos campos ao redor de {area:918}; eles soltam as isomolas, os giroestabilizadores, {item:732} e, às vezes, {item:255155}. {npc:573}, um raro de nível 20, anda por aqui: deixe-o em paz.",
-	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
-	["Harvest Watchers"] = "Guarda-colheitas",
-	-- {item:814} Flask of Oil · {npc:392} Captain Grayson · {area:115} Westfall Lighthouse
-	["{item:814}: keep five for {npc:392} at the {area:115}, later on the route"] = "{item:814}: guarde cinco para {npc:392} em {area:115}, mais adiante na rota",
-
-	-- Step 36: The gnoll hills
+	-- Step 35: The gnoll hills
 	["The gnoll hills"] = "As colinas dos gnolls",
 	-- {area:111} Jangolode Mine · {area:916} The Jansen Stead
 	-- plural, as words: Riverpaw Gnolls = {npc:117} Riverpaw Gnoll
@@ -190,7 +178,7 @@ return {
 	-- plural, as words: Gnoll Paws = {item:725} Gnoll Paw
 	["Gnoll Paws"] = "Patas de Gnoll",
 
-	-- Step 37: The Longshore murlocs
+	-- Step 36: The Longshore murlocs
 	-- {area:2} Longshore
 	["The {area:2} murlocs"] = "Os murlocs de {area:2}",
 	-- {area:916} The Jansen Stead
@@ -199,15 +187,27 @@ return {
 	-- plural, as words: Longshore Murloc Gills = {item:254548} Longshore Murloc Gill
 	["Longshore Murloc Gills"] = "Barbatanas de Murloc da Praia Grande",
 
-	-- Step 38: Furlbrow's Wardrobe
+	-- Step 37: Furlbrow's Wardrobe
 	-- {object:290} Furlbrow's Wardrobe · {area:916} The Jansen Stead · {npc:502} Benny Blaanco
 	["{object:290} stands in the ruined house east of the mine, on the way to the {area:916}.\nCareful: Two Defias stand guard inside, one of them the level 15 named {npc:502}. They are linked, so attacking either one brings both."] = "{object:290} fica na casa em ruínas a leste da mina, no caminho para {area:916}.\nCuidado: dois Défias montam guarda lá dentro, um deles o chamado {npc:502}, de nível 15. Eles estão ligados: atacar qualquer um dos dois chama os dois.",
 	-- {object:290} Furlbrow's Wardrobe
 	["{object:290}; inside"] = "{object:290}; lá dentro",
 
-	-- Step 39: The Jansen Stead
+	-- Step 38: The Jansen Stead
 	["Sacks of Oats in the fields around the farm"] = "Sacos de Aveia nos campos em volta da fazenda",
 	["Fill the vial at the well"] = "Encha o frasco no poço",
+
+	-- Step 39: Harvest Watchers north of Saldean's Farm
+	-- {area:107} Saldean's Farm
+	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
+	["Harvest Watchers north of {area:107}"] = "Guarda-colheitas ao norte de {area:107}",
+	-- {area:916} The Jansen Stead · {area:107} Saldean's Farm · {item:732} Okra · {item:255155} Precessive Autocognition Assembly · {npc:573} Foe Reaper 4000
+	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
+	["On the way south from the {area:916} to {area:107}: Harvest Watchers (level 14-15) and Golems work the fields west of the road; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks these fields: leave it alone."] = "No caminho para o sul, de {area:916} até {area:107}: Guarda-colheitas (nível 14-15) e Golens trabalham nos campos a oeste da estrada; eles soltam as isomolas, os giroestabilizadores, {item:732} e, às vezes, {item:255155}. {npc:573}, um raro de nível 20, anda por esses campos: deixe-o em paz.",
+	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
+	["Harvest Watchers"] = "Guarda-colheitas",
+	-- {item:814} Flask of Oil · {npc:392} Captain Grayson · {area:115} Westfall Lighthouse
+	["{item:814}: keep five for {npc:392} at the {area:115}, later on the route"] = "{item:814}: guarde cinco para {npc:392} em {area:115}, mais adiante na rota",
 
 	-- Step 40: Finish the Goretusk Livers
 	-- plural, as words: Goretusk Livers = {item:723} Goretusk Liver
@@ -272,6 +272,8 @@ return {
 	["{npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in the {object:2096} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "{npc:6171} e {npc:6173} ficam na Catedral da Luz; {npc:6174} fica no {object:2096} e pede dez {item:2589} (humanoides deixam cair; a Casa de Leilões vende).",
 	-- {quest:2998} Tome of Divinity
 	["Right-click the {quest:2998} he gives you"] = "Clique com o botão direito no {quest:2998} que ele entrega",
+	-- {item:2589} Linen Cloth · {zone:1436} Westfall · {object:2096} Trade District · {object:2100} Old Town
+	["{item:2589}: you have it from {zone:1436}'s Defias; if not, the Auction House here in the {object:2096} (not the level 25 thugs in {object:2100})"] = "{item:2589}: você já tem dos Défias de {zone:1436}; se não, na Casa de Leilões aqui no {object:2096} (não com os bandidos de nível 25 na {object:2100})",
 	-- {npc:6172} Henze Faulk · {area:86} Stone Cairn Lake
 	["{npc:6172}, by {area:86} in Elwynn, on the road to Redridge"] = "{npc:6172}, perto de {area:86} em Elwynn, na estrada para Cristarrubra",
 
@@ -387,6 +389,7 @@ return {
 	-- ["From {zone:1436}, walk to {zone:1453}; the tram from {zone:1455} arrives in the {object:28027}. {npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug. If {npc:5480} doesn't offer {quest:1638}, go straight to {npc:6089}: he gives {quest:1639} without it."] = "De {zone:1436}, caminhe até {zone:1453}; o metrô de {zone:1455} chega no {object:28027}. {npc:5480} treina guerreiros na {object:2100}; {npc:6089} e {npc:6090} ficam juntos ao lado da {object:2152}. {npc:6090} luta com você pela caneca dele. Se {npc:5480} não oferecer {quest:1638}, vá direto a {npc:6089}: ele entrega {quest:1639} mesmo sem ela.",
 	-- ["Further north along the road. The Furlbrows sit by their burned farm. Collect the oats from the Sacks of Oats in the fields as you go and fill the vial at the stead's well."] = "Mais ao norte pela estrada. Os Taturana estão sentados junto à fazenda incendiada. No caminho, colete a aveia dos Sacos de Aveia nos campos e encha o frasco no poço da propriedade.",
 	-- ["Further north along the road. The Furlbrows sit by their burned farm. Collect the oats from the Sacks of Oats in the fields as you go."] = "Mais ao norte pela estrada. Os Taturana estão sentados junto à fazenda incendiada. No caminho, colete a aveia dos Sacos de Aveia nos campos.",
+	-- ["Harvest Watchers and Golems work the fields around {area:918}; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone."] = "Guarda-colheitas e Golens trabalham nos campos ao redor de {area:918}; eles soltam as isomolas, os giroestabilizadores, {item:732} e, às vezes, {item:255155}. {npc:573}, um raro de nível 20, anda por aqui: deixe-o em paz.",
 	-- ["Hearthstone on cooldown? Follow the road north-east."] = "Pedra de Regresso em recarga? Siga a estrada para o nordeste.",
 	-- ["Murloc Coastrunners and Raiders line the beach north of the mine. They flee at low health: pull one at a time."] = "Murlocs Correcosta e Murlocs Saqueadores ocupam a praia ao norte da mina. Eles fogem com pouca vida: puxe um de cada vez.",
 	-- ["North of Molsen Farm. Defias Trappers and Smugglers camp outside the mine, Kobold Diggers work inside. {object:290} stands by the ruined house east of the mine."] = "Ao norte da Fazenda dos Peçanha. Coureadores e Contrabandistas Défias acampam do lado de fora da mina; Escavadores Kobold trabalham lá dentro. {object:290} fica junto à casa em ruínas a leste da mina.",
@@ -410,6 +413,7 @@ return {
 	-- ["{area:109}: kill these as you meet them"] = "{area:109}: vá matando estes pelo caminho",
 	-- ["{area:20} and the Defias hills"] = "{area:20} e as colinas Défias",
 	-- ["{area:54}: kill these as you meet them"] = "{area:54}: vá matando estes pelo caminho",
+	-- ["{area:918}'s Harvest Watchers"] = "Guarda-colheitas de {area:918}",
 	-- ["{area:918}: kill these as you meet them"] = "{area:918}: vá matando estes pelo caminho",
 	-- ["{item:254676}, from the crates around {area:20}"] = "{item:254676}, dos caixotes ao redor de {area:20}",
 	-- ["{npc:234} and {npc:821} stand at the top of the stone tower. {npc:491} is in the tower, {npc:878} and {npc:253092} on the south side of the hill, next to the inn and {npc:523} the gryphon master."] = "{npc:234} e {npc:821} ficam no alto da torre de pedra. {npc:491} está na torre; {npc:878} e {npc:253092}, no lado sul do morro, junto à estalagem e a {npc:523}, o mestre de grifos.",

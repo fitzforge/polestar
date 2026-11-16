@@ -20,7 +20,7 @@ return {
 
 	-- Step 2: Argent Dawn Commission (Horde)
 	-- {quest:5405} Argent Dawn Commission
-	["{quest:5405} (Horde)"] = "",
+	["{quest:5405} (Horde)"] = "{quest:5405} (Horda)",
 	-- {npc:10839} Argent Officer Garush · {area:152} Bulwark · {zone:1420} Tirisfal Glades · {zone:1422} Western Plaguelands · {object:2160} The Argent Dawn · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel
 	["{npc:10839} stands at the {area:152}, on the road from {zone:1420} into the {zone:1422}. {object:2160} starts at Neutral 200 for everyone. Wear the Commission trinket while you fight the Scourge: Scourgestones only drop while you wear it. {npc:11039} at {area:2268} gives the same Commission; you can only take one."] = "{npc:10839} está en {area:152}, en el camino de {zone:1420} a {zone:1422}. {object:2160} empieza en Neutral 200 para todos. Lleva puesto el abalorio de la Comisión mientras peleas contra la Plaga: las piedras de la Plaga solo caen mientras lo llevas. {npc:11039}, en {area:2268}, da la misma Comisión; solo puedes tomar una.",
 

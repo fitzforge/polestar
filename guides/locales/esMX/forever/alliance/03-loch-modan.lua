@@ -221,8 +221,8 @@ return {
 
 	-- Step 40: Sunken Chest
 	-- {area:68} Lake Everstill · {item:1467} Spotted Sunfish
-	-- plural, as words: Murloc Flesheaters = {npc:422} Murloc Flesheater
-	["Back toward town, swim east from the bridge into {area:68}; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a {item:1467}."] = "De vuelta hacia el pueblo, nada al este desde el puente hasta {area:68}; el cofre está en el fondo del lago junto a un bote hundido. Los comecarne y clamamareas múrloc ocupan la orilla sur alrededor: cualquiera puede llevar un {item:1467}.",
+	-- plural, as words: Murloc Flesheaters = {npc:422} Murloc Flesheater · Lake Threshers = {npc:14357} Lake Thresher
+	["Back toward town, swim east from the bridge into {area:68}; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a {item:1467}.\nCareful: Lake Threshers, level 25 elites, swim in the lake: keep your distance from them while you dive for the chest."] = "De vuelta hacia el pueblo, nada al este desde el puente hasta {area:68}; el cofre está en el fondo del lago junto a un bote hundido. Los comecarnes y clamamareas múrloc ocupan la orilla sur alrededor: cualquiera puede llevar un {item:1467}.\nCuidado: los trilladores del Lago, élites de nivel 25, nadan en el lago: mantén la distancia mientras buceas por el cofre.",
 	-- {item:1309} Oslow's Toolbox
 	["{item:1309}; underwater"] = "{item:1309}; bajo el agua",
 
@@ -416,6 +416,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back down to the east shore below the boars' hills: {npc:270693}, a crocolisk, patrols it among the Loch Crocolisks."] = "Baja de nuevo a la orilla este, debajo de las colinas de los jabalíes: {npc:270693}, un crocolisco, la patrulla entre los crocoliscos del lago.",
+	-- ["Back toward town, swim east from the bridge into {area:68}; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a {item:1467}."] = "De vuelta hacia el pueblo, nada al este desde el puente hasta {area:68}; el cofre está en el fondo del lago junto a un bote hundido. Los comecarne y clamamareas múrloc ocupan la orilla sur alrededor: cualquiera puede llevar un {item:1467}.",
 	-- ["Elder Mountain Boars"] = "Jabalíes monteses mayores",
 	-- ["{npc:261} guards the bridge on this road east, past the {area:91}: {npc:240}'s {quest:35}, from your walk through {area:87}, goes to him."] = "{npc:261} vigila el puente de este camino al este, pasando {area:91}: {quest:35} de {npc:240}, de tu paso por {area:87}, va para él.",
 	-- ["{npc:341}: {quest:98386}, for your next Redridge visit"] = "{npc:341}: {quest:98386}, para tu próxima visita a Crestagrana",

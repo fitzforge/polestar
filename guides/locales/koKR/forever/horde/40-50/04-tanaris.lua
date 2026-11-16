@@ -21,6 +21,8 @@ return {
 	["The flight lands beside {npc:7876}. Take the town's quests before riding west to {area:979}."] = "",
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "윈드라이더 조련사 옆의 {npc:7876}",
+	-- {npc:11758} Andi Lynn · {area:1938} Broken Pillar
+	["{npc:11758}: keep it, the Dunemaul ogres and Gor'marok (49) wait for the {area:1938} at about 52, at the end of 40-50/06"] = "{npc:11758}: 보관하세요. 모래망치 오우거와 고르마로크(49)는 40-50/06 끝, 52레벨쯤 {area:1938}에서 처리합니다",
 
 	-- Step 4: Gadgetzan
 	-- {area:978} Zul'Farrak · {area:979} Sandsorrow Watch · {npc:7407} Chief Engineer Bilgewhizzle · {quest:2768} Divino-matic Rod · {quest:2864} Tran'rek
@@ -60,23 +62,23 @@ return {
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {item:9978} Gahz'ridian Detector · {area:983} Dunemaul Compound
 	["West along the road south; {npc:7771} camps by the ruins at the {area:1938}. Put on his {item:9978}: it shows the buried ornaments, here and around the {area:983}."] = "길을 따라 서쪽으로, 남쪽 방향으로 가세요. {npc:7771}은(는) {area:1938}의 폐허 옆에 야영하고 있습니다. 그의 {item:9978}을(를) 착용하면 이곳과 {area:983} 주변에 묻힌 장식품이 보입니다.",
 
-	-- Step 13: Broken Pillar: kill these as you meet them
-	-- {area:1938} Broken Pillar
-	["{area:1938}: kill these as you meet them"] = "",
-	-- {area:982} Noxious Lair · {npc:12046} Gor'marok the Ravager · {quest:3161} Gahz'ridian
-	["South of the {area:982} the Dunemaul ogres hold their compound, with {npc:12046} at its eastern end. Dig up {quest:3161} ornaments between the fights."] = "{area:982} 남쪽에서 모래망치 오우거가 거주지를 차지하고 있으며, 동쪽 끝에 {npc:12046}이(가) 있습니다. 싸우는 사이사이에 {quest:3161} 장식품을 파내세요.",
-	["Below ground"] = "지하",
+	-- Step 13: Gahz'ridian ornaments
+	-- {quest:3161} Gahz'ridian
+	["{quest:3161} ornaments"] = "{quest:3161} 장신구",
+	-- {quest:3161} Gahz'ridian · {area:1938} Broken Pillar · {area:983} Dunemaul Compound · {npc:12046} Gor'marok the Ravager
+	["Dig up the {quest:3161} ornaments around the {area:1938} and north of the {area:983}. Leave the ogres for now: {npc:12046} is 49 and the Brutes 46-48; the {area:983} comes at the end of 40-50/06, at about 52."] = "{area:1938} 주변과 {area:983} 북쪽에서 {quest:3161} 장신구를 파내세요. 오우거는 지금은 두세요. {npc:12046}은(는) 49레벨, 모래망치 투사는 46-48레벨입니다. {area:983}은(는) 40-50/06 끝, 52레벨쯤에 합니다.",
 
-	-- Step 14: Noxious Lair
+	-- Step 14: The Noxious Lair
 	-- {npc:4196} Silithid Swarm
 	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
-	["West, the Centipaar insects swarm around their hives; any of them drops the parts.\nCareful: Centipaar Swarmers cast {npc:4196} both in and out of combat, which brings small adds that interrupt you."] = "",
+	["West, the Centipaar insects swarm around their hives; any of them drops the parts.\nCareful: Centipaar Swarmers cast {npc:4196} both in and out of combat, which brings small adds that interrupt you. The Sandreavers are 49-50: take the Workers and Tunnelers."] = "서쪽에서는 센티파르 곤충이 벌집 주변에 몰려 있습니다. 어느 것이든 부품을 떨어뜨립니다.\n주의: 우두머리 센티파르는 전투 중이든 아니든 {npc:4196}을(를) 시전해 작은 쫄을 불러내며, 이들이 시전을 방해합니다. 모래약탈자는 49-50레벨이니 일꾼과 굴착꾼을 잡으세요.",
 
 	-- Step 15: Thistleshrub Valley: kill these as you meet them
 	-- {quest:3362} Thistleshrub Valley
 	["{quest:3362}: kill these as you meet them"] = "",
-	-- {zone:1446} Tanaris
-	["West of the compound the cactus creatures fill the valley; only the Dew Collectors carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 49-50 and wander a lot, so you can easily pull extra mobs."] = "거주지 서쪽 골짜기에는 선인장 괴물이 가득합니다. 이슬먹는 덤불나무괴물만 이슬샘을 지니고 있습니다. {zone:1446}의 몬스터 대부분이 드물게 OOX-17/TN 조난 탐지기를 떨어뜨릴 수 있습니다. 얻으면 보관하세요.\n주의: 이 지역의 다른 덤불나무괴물은 49-50레벨이며 많이 돌아다니므로 몹을 더 끌어오기 쉽습니다.",
+	-- {zone:1446} Tanaris · {quest:2864} Tran'rek · {area:1938} Broken Pillar
+	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
+	["West of the compound the cactus creatures fill the valley; only the Dew Collectors (47-48) carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave {quest:2864}'s Gnarled Thistleshrubs and Rootshapers for the {area:1938} ride into Un'Goro at about 51."] = "거주지 서쪽 골짜기에는 선인장 괴물이 가득합니다. 이슬먹는 덤불나무괴물(47-48)만 이슬샘을 지니고 있습니다. {zone:1446}의 몬스터 대부분이 드물게 OOX-17/TN 조난 탐지기를 떨어뜨릴 수 있습니다. 얻으면 보관하세요.\n주의: 이 지역의 다른 덤불나무괴물은 48-50레벨이며 많이 돌아다니므로 몹을 더 끌어오기 쉽습니다. 골짜기 가장자리의 이슬먹는 덤불나무괴물을 잡고, {quest:2864}의 옹이진 덤불나무괴물과 뿌리술사는 51레벨쯤 운고로로 가는 길의 {area:1938}을(를) 위해 남겨 두세요.",
 	-- {item:8623} OOX-17/TN Distress Beacon
 	["{item:8623}, a rare drop"] = "드물게 떨어지는 {item:8623}",
 
@@ -95,14 +97,19 @@ return {
 	["Keep the Model 4711-FTZ Power Source Bilgewhizzle gave you: it starts {quest:654}, a two-hour timer, so use it on the way back north from Scrimshank's hive."] = "빌지위즐이 준 4711-FTZ형 동력원은 버리지 말고 보관하세요. 2시간 제한이 있는 {quest:654} 퀘스트를 시작하므로, 스크림섕크의 벌집에서 북쪽으로 돌아오는 길에 사용하세요.",
 
 	-- Step 20: Gadgetzan
+	-- {quest:2864} Tran'rek · {quest:3362} Thistleshrub Valley · {area:983} Dunemaul Compound · {area:1938} Broken Pillar
+	["Keep {quest:2864}'s {quest:3362}: its Rootshapers (49-50) come with the {area:983} at the {area:1938}, on the way into Un'Goro at about 51."] = "{quest:2864}의 {quest:3362}을(를) 보관하세요. 뿌리술사(49-50)는 51레벨쯤 운고로로 가는 길에 {area:1938}의 {area:983}와(과) 함께 처리합니다.",
 	-- {item:8526} Violet Tragan · {zone:1425} Hinterlands
 	["the {item:8526} grows in the {zone:1425}, around level 48"] = "{item:8526}은(는) 48레벨쯤 {zone:1425}에서 자랍니다",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "",
+	-- {npc:11758} Andi Lynn · {area:983} Dunemaul Compound · {area:1938} Broken Pillar
+	["{npc:11758}'s {area:983} stays in your log for the {area:1938} at about 52."] = "{npc:11758}의 {area:983}은(는) 52레벨쯤 {area:1938}을(를) 위해 퀘스트 목록에 남겨 두세요.",
 
 	-- Step 22: Scrimshank's gear
 	["Scrimshank's gear"] = "스크림섕크의 장비",
 	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "",
+	["Below ground"] = "지하",
 
 	-- Step 23: OOX-17/TN
 	["OOX-17/TN"] = "OOX-17/TN",
@@ -152,18 +159,18 @@ return {
 	["{area:246}'s slavers and golems"] = "",
 	-- {area:1446} Thorium Point · {npc:8479} Velarok Windblade
 	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Heavy War Golems = {npc:5854} Heavy War Golem
-	["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below {npc:8479}."] = "",
+	["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below {npc:8479}. Careful: the biggest golems are 49: pull them one at a time."] = "{area:1446}에서 남쪽으로 용광로에 들어가세요. 검은무쇠단 감독관과 노예상인이 길에서 노예를 부리고, 육중한 전투골렘이 {npc:8479} 아래 바닥을 순찰합니다. 주의: 가장 큰 골렘은 49레벨이니 하나씩 끌어오세요.",
 
 	-- Step 33: Velarok Windblade
 	-- {npc:8479} Velarok Windblade · {area:1446} Thorium Point
-	["{npc:8479} stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "",
+	["{npc:8479} stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "{npc:8479}은(는) {area:1446} 남쪽, 용광로 가장자리에 홀로 서 있습니다. 그의 이야기를 들으세요.",
 
 	-- Step 36: Searing Gorge: kill these as you meet them
 	-- {zone:1427} Searing Gorge
 	["{zone:1427}: kill these as you meet them"] = "",
 	-- {npc:8479} Velarok Windblade · {item:11818} Grimesilt Outhouse Key · {area:1443} The Slag Pit
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Blazing Elementals = {npc:5850} Blazing Elemental · Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Searing Lava Spiders = {npc:5858} Searing Lava Spider · Incendosaurs = {npc:9318} Incendosaur · Dark Iron Slavers = {npc:5844} Dark Iron Slaver
-	["Heavy War Golems patrol the Cauldron below {npc:8479} and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Searing Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "",
+	["Heavy War Golems patrol the Cauldron below {npc:8479} and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Searing Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee. The biggest Incendosaurs and Lava Spiders are 49: pull them one at a time."] = "육중한 전투골렘은 {npc:8479} 아래 용광로를 순찰하며 기름을 떨어뜨리고, 그 사이를 떠도는 용암 정령과 이글거리는 정령은 심장을 떨어뜨립니다. 검은무쇠단 감독관과 노예상인이 길에서 노예를 부립니다. 노예상인이 {item:11818}을(를) 떨어뜨릴 수 있으니 보관하세요.\n거대한 용암거미는 협곡 남서쪽의 고원과 용암 웅덩이를 돌아다닙니다.\n{area:1443}은(는) 용광로 북쪽에 있습니다. 인센도사우루스가 용암 웅덩이에서 헤엄치니 가장자리로 끌어내세요. 비밀 설계도는 구덩이 위쪽 바위턱에 있습니다.\n주의: 검은무쇠단 노예상인(45-46레벨)은 공격받으면 15미터 내 동료를 부르고, 15미터 거리에서 그물을 던지며, 근접전에서 찢어발기기를 씁니다. 가장 큰 인센도사우루스와 용암거미는 49레벨이니 하나씩 끌어오세요.",
 	-- {item:11818} Grimesilt Outhouse Key
 	["{item:11818}, a rare drop"] = "드물게 떨어지는 {item:11818}",
 	-- {area:1443} The Slag Pit
@@ -171,7 +178,7 @@ return {
 
 	-- Step 38: Thorium Point
 	-- {area:1446} Thorium Point · {npc:8479} Velarok Windblade
-	["Ride back north to {area:1446}, just past {npc:8479}."] = "",
+	["Ride back north to {area:1446}, just past {npc:8479}."] = "{npc:8479}을(를) 막 지나 북쪽의 {area:1446}(으)로 돌아가세요.",
 
 	-- Step 39: The Steamsmiths' furnaces
 	["The Steamsmiths' furnaces"] = "증기기술자의 용광로",
@@ -208,6 +215,7 @@ return {
 	-- ["Ride back north to {area:1446}. Stay here: the next guide starts with the flight to {area:75}."] = "북쪽의 {area:1446}(으)로 돌아가세요. 여기 머무르세요. 다음 가이드는 {area:75}행 비행으로 시작합니다.",
 	-- ["Ride south-west to {area:976}."] = "남서쪽의 {area:976}(으)로 가세요.",
 	-- ["South down the road again."] = "다시 길을 따라 남쪽으로 가세요.",
+	-- ["South of the {area:982} the Dunemaul ogres hold their compound, with {npc:12046} at its eastern end. Dig up {quest:3161} ornaments between the fights."] = "{area:982} 남쪽에서 모래망치 오우거가 거주지를 차지하고 있으며, 동쪽 끝에 {npc:12046}이(가) 있습니다. 싸우는 사이사이에 {quest:3161} 장식품을 파내세요.",
 	-- ["South-east of Gadgetzan the Wastewander bandits camp in the dunes; {npc:7847} stands in the eastern camp."] = "가젯잔 남동쪽 모래언덕에 사막유랑단 약탈자가 야영하고 있습니다. {npc:7847}은(는) 동쪽 야영지에 서 있습니다.",
 	-- ["The Dark Iron Lookouts stand on the ridges around the sentry towers south of the Cauldron; about one in ten carries the {item:18960}."] = "검은무쇠단 망꾼은 용광로 남쪽 감시탑 주변 능선에 서 있습니다. 열 명 중 한 명 정도가 {item:18960}을(를) 지니고 있습니다.",
 	-- ["The Dark Iron Steamsmiths work the furnaces in the middle of the Cauldron; half of them carry a {item:10551}, one in ten the {item:18959}. Slaves, Slavers and Taskmasters carry daggers too."] = "검은무쇠단 증기기술자는 용광로 한가운데의 화로에서 일합니다. 절반은 {item:10551}을(를), 열 명 중 한 명은 {item:18959}을(를) 지니고 있습니다. 노예, 노예상인, 감독관도 단검을 지니고 있습니다.",
@@ -217,6 +225,7 @@ return {
 	-- ["The {object:142071} machine, in the middle of town: the egg is in southern {zone:1444}, around level 50"] = "마을 한가운데의 {object:142071} 기계: 알은 50레벨쯤 {zone:1444} 남부에 있습니다",
 	-- ["Velarok Windblade"] = "벨라로크 윈드블레이드",
 	-- ["Velarok stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "벨라로크는 {area:1446} 남쪽, 용광로 가장자리에 홀로 서 있습니다. 그의 이야기를 들으세요.",
+	-- ["West of the compound the cactus creatures fill the valley; only the Dew Collectors carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 49-50 and wander a lot, so you can easily pull extra mobs."] = "거주지 서쪽 골짜기에는 선인장 괴물이 가득합니다. 이슬먹는 덤불나무괴물만 이슬샘을 지니고 있습니다. {zone:1446}의 몬스터 대부분이 드물게 OOX-17/TN 조난 탐지기를 떨어뜨릴 수 있습니다. 얻으면 보관하세요.\n주의: 이 지역의 다른 덤불나무괴물은 49-50레벨이며 많이 돌아다니므로 몹을 더 끌어오기 쉽습니다.",
 	-- ["West, the Centipaar insects swarm around their hives; any of them drops the parts."] = "서쪽에서는 센티파르 곤충이 벌집 주변에 몰려 있습니다. 누구나 부품을 떨어뜨립니다.",
 	-- ["the {object:150075} in the square"] = "광장의 {object:150075}",
 	-- ["{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge."] = "{area:1443}은(는) 용광로 북쪽에 있습니다. 인센도사우루스가 용암 웅덩이에서 헤엄칩니다. 가장자리로 끌어오세요. 비밀 설계도는 구덩이 위쪽 바위 턱에 있습니다.",

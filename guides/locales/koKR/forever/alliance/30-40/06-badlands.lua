@@ -10,57 +10,77 @@ return {
 	-- {zone:1418} Badlands
 	["Into {zone:1418}"] = "",
 
-	-- Step 3: Hammertoe's Digsite
+	-- Step 2: Dorgaron
+	-- {npc:269577} Dorgaron · {area:346} Hammertoe's Digsite · {area:345} Agmond's End
+	-- plural, as words: Stonevault Bonesnappers = {npc:2893} Stonevault Bonesnapper
+	["{npc:269577} of the Explorers' League camps at the foot of the pass. His artifacts drop from the Shadowforge diggers at {area:346} and the Stonevault Bonesnappers at {area:345}, and the helmet lies in the Shadowforge camp."] = "탐험가 연맹의 {npc:269577}이(가) 고개 기슭에 야영하고 있습니다. 그의 유물은 {area:346}의 어둠괴철로단 채굴꾼과 {area:345}의 바위동굴일족 뼈다귀싸움꾼에게서 떨어지며, 안전모는 어둠괴철로단 야영지에 있습니다.",
+	-- {npc:269577} Dorgaron · {item:278404} Pristine Mattock · {zone:1418} Badlands
+	["{npc:269577}: keep it, the {item:278404} waits for the 40-50 {zone:1418} visit"] = "{npc:269577}: 보관하세요. {item:278404}은(는) 40-50레벨 {zone:1418} 방문 때 사용합니다",
+
+	-- Step 4: Hammertoe's Digsite
 	-- {zone:1432} Loch Modan · {zone:1418} Badlands · {npc:2910} Prospector Ryedol · {npc:2860} Sigrun Ironhew
 	["Head back west to the road and follow it south out of {zone:1432} through the pass into the {zone:1418}. {npc:2910} and {npc:2860} camp side by side at the dig."] = "서쪽 길로 돌아가 남쪽으로 따라가 고개를 지나 {zone:1432}에서 {zone:1418}(으)로 가십시오. {npc:2910}와(과) {npc:2860}은(는) 발굴 현장에 나란히 야영하고 있습니다.",
 
-	-- Step 4: Hammertoe's Digsite: kill these as you meet them
+	-- Step 5: Hammertoe's Digsite: kill these as you meet them
 	-- {area:346} Hammertoe's Digsite
 	["{area:346}: kill these as you meet them"] = "",
+	-- {npc:269577} Dorgaron
 	-- plural, as words: Crag Coyotes = {npc:2727} Crag Coyote
-	["The Shadowforge dwarves camp just north of the digsite; the crumpled map lies among their tents. Tunnelers and Darkweavers carry Ryedol's pick. Crag Coyotes roam the slopes around it."] = "어둠괴철로단 드워프들이 발굴 현장 바로 북쪽에 야영하고 있으며, 구겨진 지도는 천막 사이에 있습니다. 어둠괴철로단 채굴꾼과 어둠괴철로단 흑마술사가 라이돌의 행운의 곡괭이를 가지고 있습니다. 바위산코요테가 주변 비탈을 돌아다닙니다.",
+	["The Shadowforge dwarves camp just north of the digsite; the crumpled map and {npc:269577}'s mining helmet lie among their tents. Tunnelers and Darkweavers carry Ryedol's pick and {npc:269577}'s artifacts. Crag Coyotes roam the slopes around it."] = "어둠괴철로단 드워프들이 발굴 현장 바로 북쪽에 야영하고 있으며, 구겨진 지도와 {npc:269577}의 채굴용 안전모는 천막 사이에 있습니다. 어둠괴철로단 채굴꾼과 어둠괴철로단 흑마술사가 라이돌의 곡괭이와 {npc:269577}의 유물을 가지고 있습니다. 바위산코요테가 주변 비탈을 돌아다닙니다.",
+	-- {item:278403} Explorers' League Mining Helmet
+	["{item:278403}, in the Shadowforge camp"] = "{item:278403}, 어둠괴철로단 야영지에 있음",
+	-- {item:7847} Buzzard Gizzard
+	-- plural, as words: Starving Buzzards = {npc:2829} Starving Buzzard · Giant Buzzards = {npc:2831} Giant Buzzard
+	["{item:7847}: the Starving Buzzards (35-37) circling the hills north of the digsite drop it most often; leave the Giant Buzzards (39-41) of the far west"] = "{item:7847}: 발굴 현장 북쪽 언덕 위를 맴도는 굶주린 대머리수리(35-37)가 가장 자주 떨어뜨립니다. 먼 서쪽의 거대한 대머리수리(39-41)는 무시하십시오",
 
-	-- Step 5: The excavation crate
+	-- Step 6: The excavation crate
 	["The excavation crate"] = "발굴 상자",
 	["Head north-east to the abandoned dig; the supply crate lies there among the Dustbelcher ogres."] = "북동쪽 버려진 발굴 현장으로 가십시오. 보급품 상자는 먼지목도리 오우거들 사이에 있습니다.",
 
-	-- Step 6: Hammertoe's Digsite
+	-- Step 7: Hammertoe's Digsite
 	-- {area:1517} Uldaman
 	["Ryedol's next errand goes into {area:1517}: skip it."] = "라이돌의 다음 심부름은 {area:1517}(으)로 가니 건너뛰십시오.",
 
-	-- Step 7: Valley of Fangs
+	-- Step 8: Valley of Fangs
 	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {zone:1418} Badlands
 	["{npc:4618} and {npc:2817} camp together in the {area:1877}, in the middle of the {zone:1418}."] = "{npc:4618}와(과) {npc:2817}은(는) {zone:1418} 한가운데 {area:1877}에 함께 야영하고 있습니다.",
 	["The clams lie on Stranglethorn's north-west coast, in the next guide: keep it"] = "조개는 다음 가이드의 가시덤불 골짜기 북서 해안에 있습니다. 보관하십시오",
 
-	-- Step 8: Agmond's End
+	-- Step 9: Agmond's End
 	["The battered skeleton lies just east of the ogres, at the edge of the Stonevault trogg camp; the Bonesnappers and Shamans around it drop the flakes. Theldurin sits by the ruined camp further south."] = "부서진 해골은 오우거 바로 동쪽, 바위동굴일족 트로그 야영지 가장자리에 있습니다. 주변의 바위동굴일족 뼈다귀싸움꾼과 바위동굴일족 주술사가 조각을 떨어뜨립니다. 실성한 텔두린은 더 남쪽의 폐허가 된 야영지 옆에 앉아 있습니다.",
 
-	-- Step 9: Agmond's End: kill these as you meet them
+	-- Step 10: Agmond's End: kill these as you meet them
 	-- {area:345} Agmond's End
 	["{area:345}: kill these as you meet them"] = "",
 	-- {quest:739} Murdaloc · {spell:5242} Battle Shout · {spell:1160} Demoralizing Shout · {area:340} Kargath
-	-- plural, as words: Dustbelcher Lords = {npc:2719} Dustbelcher Lord
-	["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "",
+	-- plural, as words: Dustbelcher Maulers = {npc:2717} Dustbelcher Mauler · Stonevault Bonesnappers = {npc:2893} Stonevault Bonesnapper · Dustbelcher Lords = {npc:2719} Dustbelcher Lord
+	["Buzzards circle the plain to the east. Careful: the Dustbelcher Maulers, Shamans and Wyrmhunters (40-43) camp far to the south-west: leave them.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: the Stonevault Bonesnappers are 39-40 and the Shamans 40-41, a level or two over you here: pull them from the camp's edge, one at a time.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "대머리수리가 동쪽 평원 위를 맴돕니다. 주의: 먼지목도리일족 싸움꾼, 주술사, 용사냥꾼(40-43)이 멀리 남서쪽에 야영하고 있으니 무시하십시오.\n부서진 해골은 바위동굴일족 트로그 야영지 가장자리에 있습니다. 아그몬드를 죽인 {quest:739}은(는) 뼈다귀싸움꾼들 사이를 돌아다닙니다.\n주의: 바위동굴일족 뼈다귀싸움꾼은 39-40, 주술사는 40-41레벨로 지금보다 한두 레벨 높습니다. 야영지 가장자리에서 하나씩 끌어오십시오.\n주의: 먼지목도리일족 우두머리는 44-45레벨입니다. {spell:5242}와(과) {spell:1160}을(를) 사용하며, 생명력이 50% 미만이 되면 15미터 내의 아군에게 도움을 청합니다. {area:340}에서 남쪽으로 약 750미터 거리에 일곱 마리가 서 있습니다.",
+	-- {item:7847} Buzzard Gizzard · {area:345} Agmond's End
+	["{item:7847}, if you still need one: the Buzzards east of {area:345} drop it only rarely"] = "{item:7847}, 아직 필요하다면: {area:345} 동쪽의 대머리수리는 아주 드물게 떨어뜨립니다",
 	-- {quest:739} Murdaloc · {zone:1418} Badlands
 	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {zone:1418} guide at 43, and kill the Bonesnappers for this quest now."] = "",
+	-- {item:278402} Unstudied Artifact
+	["{item:278402}, from the Shadowforge diggers and the Bonesnappers"] = "{item:278402}, 어둠괴철로단 채굴꾼과 뼈다귀싸움꾼에게서",
 
-	-- Step 10: Theldurin the Lost
+	-- Step 11: Theldurin the Lost
 	-- {area:1517} Uldaman
 	["Theldurin sits by the ruined camp south of the trogg camp. His tablet lies just inside {area:1517}'s cave mouth, beside level 38 elites: a quest for a group."] = "텔두린은 트로그 야영지 남쪽의 폐허가 된 야영지 옆에 앉아 있습니다. 그의 석판은 {area:1517} 동굴 입구 바로 안쪽, 38레벨 정예 옆에 있습니다. 파티용 퀘스트입니다.",
 
-	-- Step 11: Lotwil Veriatus
+	-- Step 12: Lotwil Veriatus
 	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus
 	["Head west into the {area:1878}; {npc:2921} works by his machines in the middle of it."] = "서쪽 {area:1878}(으)로 가십시오. {npc:2921}은(는) 그 한가운데 기계 옆에서 일합니다.",
 
-	-- Step 12: Lesser Rock Elementals
+	-- Step 13: Lesser Rock Elementals
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental
 	["Lesser Rock Elementals"] = "하급 바위 정령",
-	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus · {npc:1470} Ghak Healtouch
-	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard
-	["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}; every rock elemental can drop {npc:1470}'s Rock Elemental Shards."] = "하급 바위 정령이 {npc:2921} 서쪽 {area:1878}을(를) 돌아다닙니다. 모든 바위 정령이 {npc:1470}의 바위 정령 파편을 떨어뜨릴 수 있습니다.",
+	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus · {npc:1470} Ghak Healtouch · {npc:2860} Sigrun Ironhew · {npc:269756} Malevolent Mirage
+	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard · Dustbelcher Ogres = {npc:2701} Dustbelcher Ogre
+	["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}; every rock elemental can drop {npc:1470}'s Rock Elemental Shards. The Dustbelcher Ogres (38-39) on the {area:1878}'s west side drop {npc:2860}'s scrap. Careful: a {npc:269756}, a level 42 elite, drifts about the {area:1878}: give it a wide berth.\nCareful: the Lesser Rock Elementals are 37-39 and hit hard: fight them one at a time."] = "하급 바위 정령은 {npc:2921} 서쪽의 {area:1878}을(를) 돌아다닙니다. 모든 바위 정령이 {npc:1470}의 바위 정령 파편을 떨어뜨릴 수 있습니다. {area:1878} 서쪽의 먼지목도리 오우거(38-39)가 {npc:2860}의 금속 조각을 떨어뜨립니다. 주의: 42레벨 정예인 {npc:269756}이(가) {area:1878}을(를) 떠돌아다니니 멀리 피하십시오.\n주의: 하급 바위 정령은 37-39레벨이고 강하게 때리니 하나씩 상대하십시오.",
+	-- {item:4630} Scrap Metal
+	-- plural, as words: Dustbelcher Ogres = {npc:2701} Dustbelcher Ogre
+	["{item:4630}, from the Dustbelcher Ogres"] = "{item:4630}, 먼지목도리 오우거에게서",
 
-	-- Step 14: The Ancient Chest
+	-- Step 15: The Ancient Chest
 	-- {object:126260} Ancient Chest
 	["The {object:126260}"] = "{object:126260}",
 	-- {area:1517} Uldaman · {zone:1418} Badlands · {npc:2932} Magregan Deepshadow
@@ -69,49 +89,34 @@ return {
 	-- {item:4631} Tablet of Ryun'eh
 	["{item:4631}; below ground"] = "",
 
-	-- Step 15: Valley of Fangs
+	-- Step 16: Valley of Fangs
 	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {area:1517} Uldaman · {area:345} Agmond's End
 	["{npc:4618} and {npc:2817} camp in the {area:1877}, on the road between {area:1517} and {area:345}."] = "{npc:4618}와(과) {npc:2817}은(는) {area:1517}와(과) {area:345} 사이 길 위의 {area:1877}에 야영하고 있습니다.",
 	-- {npc:4454} Fizzle Brassbolts · {area:2240} Mirage Raceway · {zone:1446} Tanaris
 	["For {npc:4454} at the {area:2240}: the {zone:1446} guide passes him at 45, keep it"] = "{area:2240}의 {npc:4454}에게: {zone:1446} 가이드가 45레벨에 그를 지나갑니다. 보관하십시오",
 
-	-- Step 16: Sigrun Ironhew
+	-- Step 17: Sigrun Ironhew
 	-- {area:1877} Valley of Fangs · {area:346} Hammertoe's Digsite · {npc:2860} Sigrun Ironhew
 	["East from the {area:1877} to {area:346}: {npc:2860} takes the scrap metal."] = "{area:1877}에서 동쪽 {area:346}(으)로 가십시오. {npc:2860}이(가) 고철을 받습니다.",
 
-	-- Step 17: Theldurin the Lost
+	-- Step 18: Theldurin the Lost
 	-- {area:345} Agmond's End
 	["Head south to {area:345}."] = "남쪽 {area:345}(으)로 가십시오.",
 	-- {npc:2786} Gerrig Bonegrip · {zone:1455} Ironforge
 	["for {npc:2786} in {zone:1455}: keep it"] = "{zone:1455}의 {npc:2786}에게: 보관하십시오",
 
-	-- Step 18: Rock Elementals
+	-- Step 19: Rock Elementals
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental
 	["Rock Elementals"] = "바위 정령",
-	-- {npc:2921} Lotwil Veriatus
+	-- {npc:2921} Lotwil Veriatus · {npc:269756} Malevolent Mirage · {area:1878} Dustbowl
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental · Giant Buzzards = {npc:2831} Giant Buzzard · Elder Crag Coyotes = {npc:2729} Elder Crag Coyote
-	["The Rock Elementals roam south-east of {npc:2921}; Giant Buzzards and Elder Crag Coyotes share the plain to their west."] = "{npc:92}은(는) {npc:2921}의 남동쪽을 돌아다니고, {npc:2831}와(과) {npc:2729}은(는) 그 서쪽 평원에 함께 있습니다.",
+	["The Rock Elementals roam south-east of {npc:2921}; Giant Buzzards and Elder Crag Coyotes share the plain to their west. Careful: a {npc:269756}, a level 42 elite, drifts about the {area:1878}: give it a wide berth."] = "바위 정령은 {npc:2921}의 남동쪽을 돌아다니고, 거대한 대머리수리와 덩치큰 바위산코요테는 그 서쪽 평원에 함께 있습니다. 주의: 42레벨 정예인 {npc:269756}이(가) {area:1878}을(를) 떠돌아다니니 멀리 피하십시오.",
 
-	-- Step 19: Lotwil Veriatus
-	-- {npc:2921} Lotwil Veriatus · {item:4628} Bracers of Rock Binding
-	-- plural, as words: Greater Rock Elementals = {npc:2736} Greater Rock Elemental
-	["{npc:2921}'s last test is optional: five {item:4628}, which only the Greater Rock Elementals (42-44) in the south-western gulches drop, about one kill in five, well above your level. Take it only if you can handle them one at a time; otherwise hand in the slabs and move on."] = "",
-
-	-- Step 20: Bracers of Rock Binding
-	-- plural, as words: Greater Rock Elementals = {npc:2736} Greater Rock Elemental
-	["South-west into the gulches: only the Greater Rock Elementals there drop the bracers."] = "",
-
-	-- Step 22: Lucien Tosselwrench
-	-- {npc:2920} Lucien Tosselwrench · {npc:2921} Lotwil Veriatus · {item:2868} Patterned Bronze Bracers
-	["{npc:2920}, beside {npc:2921}, trades for {item:2868}, a blacksmith's craft: this step shows only when you carry a pair."] = "",
-	-- {npc:2920} Lucien Tosselwrench · {npc:2921} Lotwil Veriatus
-	["{npc:2920}, beside {npc:2921}"] = "{npc:2920}, {npc:2921} 옆",
-
-	-- Step 23: To Stoutlager Inn
+	-- Step 21: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
 	["To {area:2101}"] = "{area:2101}(으)로",
 
-	-- Step 24: Thelsamar
+	-- Step 22: Thelsamar
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, in the inn; below ground"] = "",
 
@@ -133,7 +138,10 @@ return {
 	-- ["Take the boat to Theramore from the far pier."] = "가장 먼 부두에서 테라모어 섬행 배를 타십시오.",
 	-- ["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east."] = "먼지목도리 오우거가 골짜기 바로 남쪽에 야영하며, 누구든 고철을 떨어뜨립니다. 대머리수리는 동쪽 평원을 맴돕니다.",
 	-- ["The Greater Rock Elementals (level 42) walk the far south-west corner below {area:342}; pull them one at a time. The Dustbelcher Wyrmhunters and Maulers at {area:342} also drop scrap."] = "상급 바위 정령(42레벨)은 {area:342} 아래 남서쪽 끝을 걷습니다. 하나씩 끌어오십시오. {area:342}의 먼지목도리일족 고룡사냥꾼과 먼지목도리일족 싸움꾼도 고철을 떨어뜨립니다.",
+	-- ["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}; every rock elemental can drop {npc:1470}'s Rock Elemental Shards."] = "하급 바위 정령이 {npc:2921} 서쪽 {area:1878}을(를) 돌아다닙니다. 모든 바위 정령이 {npc:1470}의 바위 정령 파편을 떨어뜨릴 수 있습니다.",
 	-- ["The Maraudine centaurs hold the {area:607} west of the graveyard; every kind drops the totems."] = "마라우돈일족 켄타우로스가 무덤 서쪽 {area:607}을(를) 차지하고 있으며, 모든 종류가 토템을 떨어뜨립니다.",
+	-- ["The Rock Elementals roam south-east of {npc:2921}; Giant Buzzards and Elder Crag Coyotes share the plain to their west."] = "{npc:92}은(는) {npc:2921}의 남동쪽을 돌아다니고, {npc:2831}와(과) {npc:2729}은(는) 그 서쪽 평원에 함께 있습니다.",
+	-- ["The Shadowforge dwarves camp just north of the digsite; the crumpled map lies among their tents. Tunnelers and Darkweavers carry Ryedol's pick. Crag Coyotes roam the slopes around it."] = "어둠괴철로단 드워프들이 발굴 현장 바로 북쪽에 야영하고 있으며, 구겨진 지도는 천막 사이에 있습니다. 어둠괴철로단 채굴꾼과 어둠괴철로단 흑마술사가 라이돌의 행운의 곡괭이를 가지고 있습니다. 바위산코요테가 주변 비탈을 돌아다닙니다.",
 	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "슬리더블레이드 나가가 {npc:11863}의 탑 북쪽, 북서 해안을 차지하고 있습니다. 카르니톨의 가방은 그 앞바다 해저에 있으며, 어떤 나가든 랙모어의 금 열쇠를 떨어뜨릴 수 있습니다. 최북단 끝 앞바다의 {area:2406}까지 헤엄쳐 가서 {object:177673}에 {item:15766}을(를) 사용하세요. {npc:12369}(38)이(가) 나타나면 처치하여 {quest:6027}을(를) 얻으세요.",
 	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "슬리더블레이드 나가가 {npc:11863}의 탑 북쪽, 북서 해안을 차지하고 있습니다. 카르니톨의 가방은 그 앞바다 해저에 있습니다. 최북단 끝 앞바다의 {area:2406}까지 헤엄쳐 가서 {object:177673}에 {item:15766}을(를) 사용하세요. {npc:12369}(38)이(가) 나타나면 처치하여 {quest:6027}을(를) 얻으세요.",
 	-- ["The battered skeleton lies just east of the ogres, at the edge of the Stonevault trogg camp; the Bonesnappers and Shamans around it drop the flakes. Theldurin sits by the ruined camp further south."] = "부서진 해골은 오우거 바로 동쪽, 바위동굴일족 트로그 야영지 가장자리에 있습니다. 주변의 바위동굴일족 뼈다귀싸움꾼과 바위동굴일족 주술사가 조각을 떨어뜨립니다. 실성한 텔두린은 더 남쪽의 폐허가 된 야영지 옆에 앉아 있습니다.",
@@ -160,6 +168,7 @@ return {
 	-- ["{npc:12369}, a centaur chieftain, camps on the north-west coast, north of {npc:11863}'s tower."] = "켄타우로스 족장 {npc:12369}은(는) {npc:11863}의 탑 북쪽, 북서 해안에 야영하고 있습니다.",
 	-- ["{npc:1470}, in the inn"] = "{npc:1470}, 여관 안",
 	-- ["{npc:217590}: catch it, for My Little Friends"] = "{npc:217590}: 잡으십시오, My Little Friends용",
+	-- ["{npc:2920}, beside {npc:2921}"] = "{npc:2920}, {npc:2921} 옆",
 	-- ["{npc:2921}'s next test needs crafted gear: skip it."] = "{npc:2921}의 다음 실험에는 제작 장비가 필요하니 건너뛰십시오.",
 	-- ["{npc:5638}'s next task, {item:6245}, is a drop on the far coast: skip it."] = "{npc:5638}의 다음 임무인 {item:6245}은(는) 먼 해안에서 떨어지는 아이템이니 건너뛰십시오.",
 	-- ["{npc:5638}, if 30-40/02 didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}: 30-40/02에서 받지 않았다면 수락하십시오. 난파선은 {npc:11863}의 탑 아래에 있습니다",

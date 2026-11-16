@@ -60,48 +60,52 @@ return {
 	-- plural, as words: Corrupted Soul Shards = {item:11515} Corrupted Soul Shard
 	["Corrupted Soul Shards from the cultists, {quest:5887}"] = "사교도에게서 오염된 영혼석 조각, {quest:5887}",
 
-	-- Step 13: Maybess Riverbreeze
+	-- Step 13: A Strange Red Key
+	-- {item:13140} Blood Red Key · {npc:11018} Arko'narin
+	-- plural, as words: Jaedenar Enforcers = {npc:7114} Jaedenar Enforcer
+	["A {item:13140} dropped: the Jaedenar Enforcers, Darkweavers, Warlocks and Legionnaires of Shadow Hold carry one now and then. Use it to start the quest, then free {npc:11018} from her cage in the cave's south end on your way out."] = "{item:13140}이(가) 나왔습니다. 그림자 요새의 자에데나르 집행자, 암흑술사, 흑마법사, 군단병이 가끔 지니고 있습니다. 사용해서 퀘스트를 시작한 뒤, 나가는 길에 동굴 남쪽 끝 우리에서 {npc:11018}을(를) 풀어 주세요.",
+
+	-- Step 14: Captured Arko'narin
+	-- {npc:11016} Captured Arko'narin
+	["{npc:11016}, below ground"] = "",
+
+	-- Step 15: Maybess Riverbreeze
 	-- {npc:9529} Maybess Riverbreeze
 	["On the way back south to Greta, {npc:9529} takes the shards on the west side of the Sanctuary."] = "남쪽의 그레타에게 돌아가는 길에 성소 서쪽의 {npc:9529}에게 조각을 건네세요.",
 
-	-- Step 14: Greta Mosshoof
+	-- Step 16: Greta Mosshoof
 	["South to the Sanctuary once more."] = "다시 남쪽 성소로 가세요.",
 
-	-- Step 15: Toxic Horrors
+	-- Step 17: Toxic Horrors
 	-- {zone:1448} Felwood · {area:1767} Irontree Woods · {quest:5086} Toxic Horrors · {npc:14524} Vartrus the Ancient
 	-- plural, as words: Ancient Irontree Walkers = {npc:235912} Ancient Irontree Walker
 	["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet.\nCareful: Ancient Irontree Walkers, level 59 elites, walk among the {quest:5086}, and {npc:14524} (63, elite) roams the woods: work the Horrors at the north tip of {area:1767}, one at a time."] = "",
 
-	-- Step 17: Umber
+	-- Step 19: Umber
 	-- {zone:1450} Moonglade · {npc:11939} Umber · {area:2361} Nighthaven
 	["Through the Timbermaw tunnel to {zone:1450}. {npc:11939} reads in a house in {area:2361}."] = "나무구렁일족 동굴을 지나 {zone:1450}(으)로 가세요. {npc:11939}은(는) {area:2361}의 한 집에서 책을 읽고 있습니다.",
 	-- {npc:11939} Umber · {area:2361} Nighthaven
 	["{npc:11939} walks around {area:2361}: look inside the circle on the map"] = "",
 
-	-- Step 19: Class trainer
+	-- Step 21: Class trainer
 	["Class trainer"] = "직업 전문가",
 
-	-- Step 20: Rabine Saturna
+	-- Step 22: Rabine Saturna
 	-- {npc:11801} Rabine Saturna · {area:2577} Dire Maul
 	["{npc:11801}'s Shards of the Felvine needs {area:2577}. Skip it."] = "{npc:11801}의 악령덩굴 조각은 {area:2577}이(가) 필요합니다. 건너뛰세요.",
 
-	-- Step 23: Donova Snowden
+	-- Step 25: Donova Snowden
 	-- {zone:1452} Winterspring · {npc:9298} Donova Snowden
 	["Back into the Timbermaw tunnel and take the {zone:1452} exit; {npc:9298} camps by the hot springs just outside."] = "다시 나무구렁일족 동굴로 들어가 {zone:1452} 쪽 출구로 나가세요. {npc:9298}은(는) 바로 밖 온천 옆에 있습니다.",
 	["From Krakle in Un'Goro"] = "운고로 분화구의 크래클에게서",
 
-	-- Step 24: Winterfall Runners
+	-- Step 26: Winterfall Runners
 	-- {area:1769} Timbermaw Hold · {area:2244} Winterfall Village · {npc:9298} Donova Snowden · {spell:5384} Feign Death
 	["The runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "",
 
-	-- Step 25: Salfa
-	-- {zone:1423} Eastern Plaguelands
-	["only if still carried: the {zone:1423} guide hands it in on its way through"] = "아직 가지고 있을 때만: {zone:1423} 가이드가 지나가는 길에 제출합니다",
-
-	-- Step 26: Beads for Salfa
-	-- {npc:11556} Salfa
-	["Any Winterfall furbolg can carry the beads; the camps just south of {npc:11556} are the closest."] = "눈사태일족 털보숭이는 누구나 구슬을 지니고 있을 수 있습니다. {npc:11556} 바로 남쪽 야영지가 가장 가깝습니다.",
-	["Frostfire Winterfall camp"] = "얼음불꽃 눈사태일족 야영지",
+	-- Step 27: Salfa
+	-- {quest:8464} Winterfall Activity · {area:2255} Everlook · {area:2256} Darkwhisper Gorge
+	["{quest:8464}'s village is north-east of {area:2255}, on this guide's way back from {area:2256}."] = "{quest:8464}의 마을은 {area:2255} 북동쪽, 이 가이드에서 {area:2256}에서 돌아오는 길에 있습니다.",
 
 	-- Step 28: Meilosh
 	-- {quest:6031} Runecloth · {area:1769} Timbermaw Hold · {npc:11557} Meilosh
@@ -125,21 +129,32 @@ return {
 	-- {npc:7446} Rabid Shardtooth
 	["grind on {npc:7446}"] = "",
 
-	-- Step 33: Donova Snowden
-	-- {area:2246} Frostfire Hot Springs
-	["Ride back west to {area:2246}."] = "서쪽의 {area:2246}(으)로 돌아가세요.",
-	-- {npc:9298} Donova Snowden · {npc:10738} High Chief Winterfall
-	["{npc:9298} next sends you after {npc:10738}, an elite in his cave. Skip it."] = "{npc:9298}은(는) 다음으로 동굴 속 정예인 {npc:10738}을(를) 처치하라고 보냅니다. 건너뛰세요.",
-
-	-- Step 34: Are We There, Yeti?
+	-- Step 33: Are We There, Yeti?
+	-- {area:2255} Everlook
+	["Ride north to {area:2255}."] = "북쪽 {area:2255}(으)로 가세요.",
 	-- {npc:10978} Legacki · {npc:10980} Umi's Mechanical Yeti
 	["Scare {npc:10978} with {npc:10980}"] = "",
 
-	-- Step 35: Everlook
-	-- {area:2255} Everlook
-	["Ride east along the road to {area:2255}."] = "길을 따라 동쪽 {area:2255}(으)로 가세요.",
+	-- Step 35: Winterfall Village
+	-- {area:2255} Everlook · {npc:10738} High Chief Winterfall
+	["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} (59, elite) and Xandivious (62) are in the cave at the back: stay out."] = "털보숭이 마을은 {area:2255} 북동쪽 골짜기에 있습니다. 치유하는 주술사를 먼저 처치하세요. {npc:10738}(59, 정예)과 잔디비우스(62)는 안쪽 동굴에 있으니 들어가지 마세요.",
 
-	-- Step 36: Grind to 60
+	-- Step 36: Donova Snowden
+	-- {area:2246} Frostfire Hot Springs
+	["Ride back west along the road to {area:2246}."] = "길을 따라 서쪽 {area:2246}(으)로 돌아가세요.",
+	-- {npc:9298} Donova Snowden · {npc:10738} High Chief Winterfall
+	["{npc:9298} next sends you after {npc:10738}, an elite in his cave. Skip it."] = "{npc:9298}은(는) 다음으로 동굴 속 정예인 {npc:10738}을(를) 처치하라고 보냅니다. 건너뛰세요.",
+
+	-- Step 37: Salfa
+	-- {zone:1452} Winterspring
+	["North of Donova, at the tunnel's {zone:1452} exit."] = "도노바 북쪽, 동굴의 {zone:1452} 출구에 있습니다.",
+
+	-- Step 38: Beads for Salfa
+	-- {npc:11556} Salfa · {quest:8464} Winterfall Activity
+	["{npc:11556} takes the beads only once {quest:8464} is handed in: any Winterfall furbolg can carry them, and the camps just south of {npc:11556} are the closest."] = "{npc:11556}은(는) {quest:8464}을(를) 제출한 뒤에야 구슬을 받습니다. 눈사태일족 털보숭이는 누구나 구슬을 지니고 있을 수 있으며, {npc:11556} 바로 남쪽 야영지가 가장 가깝습니다.",
+	["Frostfire Winterfall camp"] = "얼음불꽃 눈사태일족 야영지",
+
+	-- Step 40: Grind to 60
 	["Grind to 60"] = "60까지 사냥",
 	-- {area:2249} Frostwhisper Gorge · {zone:1452} Winterspring · {area:2255} Everlook
 	-- plural, as words: Rabid Shardtooths = {npc:7446} Rabid Shardtooth
@@ -152,6 +167,7 @@ return {
 	["In {zone:1456}: fly from {area:2255}"] = "{zone:1456}에서: {area:2255}에서 비행",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Any Winterfall furbolg can carry the beads; the camps just south of {npc:11556} are the closest."] = "눈사태일족 털보숭이는 누구나 구슬을 지니고 있을 수 있습니다. {npc:11556} 바로 남쪽 야영지가 가장 가깝습니다.",
 	-- ["Back into the Timbermaw tunnel and take the {area:618} exit; {npc:9298} camps by the hot springs just outside."] = "다시 나무구렁일족 동굴로 들어가 {area:618} 쪽 출구로 나가세요. {npc:9298}은(는) 바로 밖 온천 옆에 있습니다.",
 	-- ["Dungeon instead of grinding"] = "사냥 대신 던전",
 	-- ["Fly to {area:431} and ride north-west along the road out of {zone:1440} into {area:361}. The {area:2479} is the druids' camp just past the border."] = "{area:431}(으)로 날아간 뒤 길을 따라 북서쪽으로 달려 {zone:1440}에서 {area:361}(으)로 가세요. {area:2479}은(는) 경계를 막 지난 곳의 드루이드 야영지입니다.",
@@ -160,10 +176,13 @@ return {
 	-- ["Only if {npc:9298} gave you {quest:5086}: ride north up the {area:361} road to {area:1767}; the {quest:5086} ooze between the trees."] = "{npc:9298}에게 {quest:5086}을(를) 받았을 때만: {area:361} 길을 따라 북쪽 {area:1767}(으)로 가세요. {quest:5086}이(가) 나무 사이를 떠돕니다.",
 	-- ["Optional. Running {area:2279}, {area:2057}, Lower Blackrock Spire or {area:1584} with a group instead of grinding gets you there faster."] = "선택 사항. 사냥 대신 파티로 {area:2279}, {area:2057}, 검은바위 첨탑 하층, {area:1584}을(를) 돌면 더 빨리 도달합니다.",
 	-- ["Optional: with a group, a 55-60 dungeon replaces the grind below."] = "선택 사항: 파티가 있으면 55-60 던전으로 아래 사냥을 대신하세요.",
+	-- ["Ride back west to {area:2246}."] = "서쪽의 {area:2246}(으)로 돌아가세요.",
+	-- ["Ride east along the road to {area:2255}."] = "길을 따라 동쪽 {area:2255}(으)로 가세요.",
 	-- ["The quests run out here. Rabid Shardtooths prowl {area:2249} in southern {area:618}, south of the road from {area:2255}."] = "여기서 퀘스트가 끝납니다. 광포한 톱니이빨곰이 {area:618} 남쪽, {area:2255}에서 오는 길 남쪽의 {area:2249}을(를) 돌아다닙니다.",
 	-- ["Through the Timbermaw tunnel to {area:493}. {npc:11939} reads in a house in {area:2361}."] = "나무구렁일족 동굴을 지나 {area:493}(으)로 가세요. {npc:11939}은(는) {area:2361}의 한 집에서 책을 읽고 있습니다.",
 	-- ["Zeppelin to {zone:1454}"] = "비행선 타고 {zone:1454}(으)로",
 	-- ["grind on {npc:7446} at {area:2249}, {area:618}"] = "{area:618}, {area:2249}에서 {npc:7446} 사냥",
+	-- ["only if still carried: the {zone:1423} guide hands it in on its way through"] = "아직 가지고 있을 때만: {zone:1423} 가이드가 지나가는 길에 제출합니다",
 	-- ["{npc:10306}'s next {quest:4741} would bring you back here from {area:618}. Skip it."] = "{npc:10306}의 다음 퀘스트 {quest:4741}은(는) {area:618}에서 여기로 다시 와야 합니다. 건너뛰세요.",
 	-- ["{npc:9116}'s Silver Heart needs an {item:11173} from northern {area:361} and a ride back here. Skip it."] = "{npc:9116}의 은색 심장은 {area:361} 북쪽의 {item:11173}을(를) 가지고 여기로 돌아와야 합니다. 건너뛰세요.",
 	-- ["{npc:9529} stands on the west side of the Sanctuary, the way out to {area:1763}. With {quest:4102} done, her {quest:5887} asks for six Corrupted Soul Shards: the Shadow Council cultists in {area:1763} and {area:1770} drop them about one kill in three, and you fight dozens of them for {npc:10922}."] = "{npc:9529}은(는) 성소 서쪽, {area:1763}(으)로 나가는 길목에 서 있습니다. {quest:4102}을(를) 완료했다면 그녀의 {quest:5887}에서 오염된 영혼석 조각 여섯 개를 요구합니다. {area:1763}와(과) {area:1770}의 어둠의 의회 사교도가 대략 세 마리에 하나꼴로 떨어뜨리며, {npc:10922}의 퀘스트를 위해 어차피 수십 마리를 상대하게 됩니다.",

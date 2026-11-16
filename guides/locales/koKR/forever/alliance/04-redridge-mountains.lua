@@ -9,7 +9,7 @@ return {
 	-- Step 1: Stormwind
 	-- {zone:1429} Elwynn Forest · {quest:174} Look to the Stars · {area:42} Darkshire · {item:4371} Bronze Tube · {npc:3133} Herble Baubbletump · {object:2096} Trade District
 	["Train, then leave by the main gate and follow the road east through {zone:1429}.\n{quest:174} in {area:42} needs a {item:4371}. Its vendors keep only one or two, and {npc:3133} in {area:42} is nearly always sold out: buy one at the Auction House in the {object:2096} on your way out. An engineer can make one too."] = "",
-	["Level 18 and 20 spells"] = "18레벨과 20레벨 주문",
+	["Your new spells"] = "새 주문",
 	-- {item:4371} Bronze Tube · {quest:174} Look to the Stars · {area:42} Darkshire
 	["{item:4371}: the Auction House, for {quest:174} in {area:42}"] = "",
 
@@ -133,8 +133,8 @@ return {
 	-- {area:492} Raven Hill Cemetery
 	["{area:492}: kill these as you meet them"] = "",
 	-- {npc:522} Mor'Ladim
-	-- plural, as words: Skeletal Horrors = {npc:202} Skeletal Horror · Skeletal Fiends = {npc:531} Skeletal Fiend
-	["The cemetery lies north of the village. Skeletal Horrors and Skeletal Fiends walk its southern half. {npc:522}, an elite, wanders the graves: keep away from him."] = "묘지는 마을 북쪽에 있습니다. 묘지 남쪽 절반에는 해골 병사와 해골 악령이 돌아다닙니다. 정예인 {npc:522}이(가) 무덤 사이를 배회하니 멀리하십시오.",
+	-- plural, as words: Skeletal Horrors = {npc:202} Skeletal Horror · Skeletal Fiends = {npc:531} Skeletal Fiend · Flesh Eaters = {npc:3} Flesh Eater · Bone Chewers = {npc:210} Bone Chewer · Plague Spreaders = {npc:604} Plague Spreader · Fetid Corpses = {npc:1270} Fetid Corpse
+	["The cemetery lies north of the village. Skeletal Horrors and Skeletal Fiends (23-25) walk its southern half and carry the fingers; for the fangs, Flesh Eaters (24-25) drop the most, so leave the Bone Chewers, Plague Spreaders and Fetid Corpses (26-30) further in alone. {npc:522}, an elite, wanders the graves: keep away from him.\nCareful: Eliza, a level 31 elite, rises from her grave at the cemetery's north end: keep away from it."] = "묘지는 마을 북쪽에 있습니다. 해골 병사와 해골 악령(23-25)이 남쪽 절반을 돌아다니며 손가락을 지니고 있습니다. 송곳니는 굶주린 시체(24-25)가 가장 많이 떨어뜨리니, 더 안쪽의 뼈만남은 시체, 역병걸린 시체, 악취나는 시체(26-30)는 건드리지 마십시오. 정예 {npc:522}이(가) 무덤 사이를 돌아다니니 멀리하십시오.\n주의: 31레벨 정예 엘리자가 묘지 북쪽 끝의 무덤에서 일어나니 그곳을 멀리하십시오.",
 
 	-- Step 22: Watcher Dodds
 	-- {area:245} Yorgen Farmstead
@@ -277,10 +277,12 @@ return {
 	-- ["Gnolls toward {area:1002}"] = "{area:1002} 쪽의 놀",
 	-- ["Head north out of {area:69} up the {area:95} to {area:997}. Blackrock Champions camp in the valley."] = "{area:69}에서 북쪽으로 나가 {area:95}을(를) 올라 {area:997}(으)로 가세요. 검은바위부족 용사가 계곡에 진을 치고 있습니다.",
 	-- ["Lake murlocs"] = "호수 멀록",
+	-- ["Level 18 and 20 spells"] = "18레벨과 20레벨 주문",
 	-- ["Redridge Mongrels and other gnolls hold the hills east of {area:1002}, north of the road; Redridge Thrashers prowl among them, Poachers camp south of the road. Dire Condors and Great Goretusks roam the same hills."] = "붉은마루일족 싸움꾼과 다른 놀들은 {area:1002} 동쪽, 길 북쪽의 언덕을 차지하고 있습니다. 붉은마루일족 약탈자가 그 사이를 배회하고, 밀렵꾼은 길 남쪽에 진을 치고 있습니다. 광포한 대머리수리와 큰 뿔엄니멧돼지도 같은 언덕을 돌아다닙니다.",
 	-- ["Shaman training"] = "주술사 훈련",
 	-- ["Swim east from the bridge into {area:68}; the chest lies on the lake bed."] = "다리에서 동쪽으로 헤엄쳐 {area:68}(으)로 가세요. 상자는 호수 바닥에 있습니다.",
 	-- ["The Wanted poster by the inn: {npc:703}, in {area:1000}"] = "여관 옆 현상수배 게시판: {npc:703}, {area:1000}에 있음",
+	-- ["The cemetery lies north of the village. Skeletal Horrors and Skeletal Fiends walk its southern half. {npc:522}, an elite, wanders the graves: keep away from him."] = "묘지는 마을 북쪽에 있습니다. 묘지 남쪽 절반에는 해골 병사와 해골 악령이 돌아다닙니다. 정예인 {npc:522}이(가) 무덤 사이를 배회하니 멀리하십시오.",
 	-- ["The {area:442} boat docks at {area:17203}. Walk up into the city for training and {npc:1646}, then leave by the main gate and follow the road east through {zone:1429}."] = "{area:442}행 배는 {area:17203}에 정박합니다. 도시로 올라가 훈련을 받고 {npc:1646}을(를) 만난 뒤, 정문으로 나가 길을 따라 동쪽으로 {zone:1429}을(를) 지나가세요.",
 	-- ["{item:1075}: any Shadowhide gnoll"] = "{item:1075}: 아무 잿빛가죽 놀",
 	-- ["{item:280911}: Redridge Thrashers"] = "{item:280911}: 붉은마루일족 약탈자",

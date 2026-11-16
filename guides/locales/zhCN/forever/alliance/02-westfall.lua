@@ -96,7 +96,7 @@ return {
 	-- {area:108} Sentinel Hill · {npc:523} Thor
 	["{area:108}'s tower and {npc:523}"] = "{area:108}的塔和{npc:523}",
 	-- {npc:234} Gryan Stoutmantle · {npc:821} Captain Danuvin · {npc:491} Quartermaster Lewis · {npc:523} Thor · {npc:878} Scout Galiaan · {npc:1323} Osric Strang · {zone:1453} Stormwind · {npc:279} Morgan Pestle · {object:2096} Trade District · {object:2156} Limited Immunity · {object:2100} Old Town · {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {npc:352} Dungar Longdrink
-	["{npc:234} and {npc:821} stand at the top of the stone tower, {npc:491} inside it, {npc:523} the gryphon master on the south side of the hill with {npc:878} beside him. {npc:523} gives you Lewis' note for {npc:1323} with a free flight to {zone:1453}: take it now. In {zone:1453}, {npc:279}'s shop is in the {object:2096} by the gryphons, {npc:1323}'s shop, {object:2156}, in {object:2100}; {npc:1646} stands in {object:2098} on the way back to {npc:352}, the gryphon master."] = "{npc:234}和{npc:821}站在石塔顶上，{npc:491}在塔里，狮鹫管理员{npc:523}在山丘南侧，{npc:878}在他旁边。{npc:523}会给你一封刘易斯写给{npc:1323}的信，还附一次去{zone:1453}的免费飞行：现在就坐。到了{zone:1453}，{npc:279}的店在{object:2096}、狮鹫旁边；{npc:1323}的店，有限无敌，在{object:2100}；回程去找狮鹫管理员{npc:352}的路上，{npc:1646}站在{object:2098}。",
+	["{npc:234} and {npc:821} stand at the top of the stone tower, {npc:491} inside it, {npc:523} the gryphon master on the south side of the hill with {npc:878} beside him. {npc:523} gives you Lewis' note for {npc:1323} with a free flight to {zone:1453}: take it now. In {zone:1453}, {npc:279}'s shop is in the {object:2096} by the gryphons, {npc:1323}'s shop, {object:2156}, in {object:2100}; {npc:1646} stands in {object:2098} on the way back to {npc:352}, the gryphon master."] = "{npc:234}和{npc:821}站在石塔顶上，{npc:491}在塔里，狮鹫管理员{npc:523}在山丘南侧，{npc:878}在他旁边。{npc:523}会给你一封刘易斯写给{npc:1323}的信，还附一次去{zone:1453}的免费飞行：现在就坐。到了{zone:1453}，{npc:279}的店在{object:2096}、狮鹫旁边；{npc:1323}的店{object:2156}在{object:2100}；回程去找狮鹫管理员{npc:352}的路上，{npc:1646}站在{object:2098}。",
 	-- {npc:491} Quartermaster Lewis
 	["{npc:491}, inside"] = "{npc:491}，在塔内",
 	-- {npc:878} Scout Galiaan · {npc:523} Thor
@@ -108,7 +108,7 @@ return {
 	-- {npc:279} Morgan Pestle · {object:2096} Trade District
 	["{npc:279}, {object:2096}, by the gryphons"] = "{npc:279}，{object:2096}，在狮鹫旁",
 	-- {npc:1323} Osric Strang · {object:2156} Limited Immunity · {object:2100} Old Town
-	["{npc:1323}, {object:2156} in {object:2100}"] = "{npc:1323}，有限无敌，在{object:2100}",
+	["{npc:1323}, {object:2156} in {object:2100}"] = "{npc:1323}，{object:2100}的{object:2156}",
 
 	-- Step 22: Defensive Stance
 	-- {npc:5480} Ilsa Corbin · {object:2100} Old Town · {npc:1323} Osric Strang · {zone:1455} Ironforge · {object:28027} Dwarven District · {npc:6089} Harry Burlguard · {npc:6090} Bartleby · {object:2152} Pig and Whistle Tavern · {quest:1638} A Warrior's Training · {quest:1639} Bartleby the Drunk
@@ -170,19 +170,7 @@ return {
 	["{area:918}'s well"] = "{area:918}的井",
 	["Fill the vial at the farm's well"] = "在农场的井里装满药瓶",
 
-	-- Step 35: Molsen Farm's Harvest Watchers
-	-- {area:918} Molsen Farm
-	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
-	["{area:918}'s Harvest Watchers"] = "{area:918}的{npc:114}",
-	-- {area:918} Molsen Farm · {item:732} Okra · {item:255155} Precessive Autocognition Assembly · {npc:573} Foe Reaper 4000
-	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
-	["Harvest Watchers and Golems work the fields around {area:918}; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone."] = "{npc:114}和麦田傀儡在{area:918}周围的田里干活；它们掉落同位弹簧、陀螺稳定器、{item:732}，有时还有{item:255155}。{npc:573}是20级稀有怪，在此巡逻：别惹它。",
-	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
-	["Harvest Watchers"] = "{npc:114}",
-	-- {item:814} Flask of Oil · {npc:392} Captain Grayson · {area:115} Westfall Lighthouse
-	["{item:814}: keep five for {npc:392} at the {area:115}, later on the route"] = "{item:814}：留五个，路线后面要交给{area:115}的{npc:392}",
-
-	-- Step 36: The gnoll hills
+	-- Step 35: The gnoll hills
 	["The gnoll hills"] = "豺狼人山丘",
 	-- {area:111} Jangolode Mine · {area:916} The Jansen Stead
 	-- plural, as words: Riverpaw Gnolls = {npc:117} Riverpaw Gnoll
@@ -190,7 +178,7 @@ return {
 	-- plural, as words: Gnoll Paws = {item:725} Gnoll Paw
 	["Gnoll Paws"] = "{item:725}",
 
-	-- Step 37: The Longshore murlocs
+	-- Step 36: The Longshore murlocs
 	-- {area:2} Longshore
 	["The {area:2} murlocs"] = "{area:2}的鱼人",
 	-- {area:916} The Jansen Stead
@@ -199,15 +187,27 @@ return {
 	-- plural, as words: Longshore Murloc Gills = {item:254548} Longshore Murloc Gill
 	["Longshore Murloc Gills"] = "{item:254548}",
 
-	-- Step 38: Furlbrow's Wardrobe
+	-- Step 37: Furlbrow's Wardrobe
 	-- {object:290} Furlbrow's Wardrobe · {area:916} The Jansen Stead · {npc:502} Benny Blaanco
 	["{object:290} stands in the ruined house east of the mine, on the way to the {area:916}.\nCareful: Two Defias stand guard inside, one of them the level 15 named {npc:502}. They are linked, so attacking either one brings both."] = "{object:290}在矿洞东边的废墟房屋里，位于前往{area:916}的路上。\n小心：屋内有两个迪菲亚守卫，其中一个是15级的{npc:502}。它们是关联的，攻击任何一个都会引来两个。",
 	-- {object:290} Furlbrow's Wardrobe
 	["{object:290}; inside"] = "怀表就在屋里的{object:290}里",
 
-	-- Step 39: The Jansen Stead
+	-- Step 38: The Jansen Stead
 	["Sacks of Oats in the fields around the farm"] = "在农场周围收集一袋燕麦",
 	["Fill the vial at the well"] = "在井里装满药瓶",
+
+	-- Step 39: Harvest Watchers north of Saldean's Farm
+	-- {area:107} Saldean's Farm
+	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
+	["Harvest Watchers north of {area:107}"] = "{area:107}北边的{npc:114}",
+	-- {area:916} The Jansen Stead · {area:107} Saldean's Farm · {item:732} Okra · {item:255155} Precessive Autocognition Assembly · {npc:573} Foe Reaper 4000
+	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
+	["On the way south from the {area:916} to {area:107}: Harvest Watchers (level 14-15) and Golems work the fields west of the road; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks these fields: leave it alone."] = "从{area:916}向南前往{area:107}的路上：{npc:114}（14-15级）和麦田傀儡在道路西边的田里干活；它们掉落同位弹簧、陀螺稳定器、{item:732}，有时还有{item:255155}。{npc:573}是20级稀有怪，在这片田里巡逻：别惹它。",
+	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
+	["Harvest Watchers"] = "{npc:114}",
+	-- {item:814} Flask of Oil · {npc:392} Captain Grayson · {area:115} Westfall Lighthouse
+	["{item:814}: keep five for {npc:392} at the {area:115}, later on the route"] = "{item:814}：留五个，路线后面要交给{area:115}的{npc:392}",
 
 	-- Step 40: Finish the Goretusk Livers
 	-- plural, as words: Goretusk Livers = {item:723} Goretusk Liver
@@ -272,6 +272,8 @@ return {
 	["{npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in the {object:2096} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "{npc:6171}和{npc:6173}在光明大教堂；{npc:6174}在{object:2096}，需要十块{item:2589}（人形怪掉落；拍卖行也有卖）。",
 	-- {quest:2998} Tome of Divinity
 	["Right-click the {quest:2998} he gives you"] = "在包里右键点击他给你的{quest:2998}",
+	-- {item:2589} Linen Cloth · {zone:1436} Westfall · {object:2096} Trade District · {object:2100} Old Town
+	["{item:2589}: you have it from {zone:1436}'s Defias; if not, the Auction House here in the {object:2096} (not the level 25 thugs in {object:2100})"] = "{item:2589}：{zone:1436}的迪菲亚身上应该已经打到了；没有的话，去{object:2096}这里的拍卖行买（别去打{object:2100}那些25级的暴徒）",
 	-- {npc:6172} Henze Faulk · {area:86} Stone Cairn Lake
 	["{npc:6172}, by {area:86} in Elwynn, on the road to Redridge"] = "{npc:6172}，在艾尔文森林的{area:86}旁，通往赤脊山的路上",
 
@@ -398,6 +400,7 @@ return {
 	-- ["Further north along the road. The Furlbrows sit by their burned farm. Collect the oats from the Sacks of Oats in the fields as you go and fill the vial at the stead's well."] = "沿道路继续向北。法布隆夫妇坐在被烧毁的农场旁。沿途从田里的一袋燕麦收集燕麦，并在农场的井里装满药瓶。",
 	-- ["Further north along the road. The Furlbrows sit by their burned farm. Collect the oats from the Sacks of Oats in the fields as you go."] = "沿道路继续向北。法布隆夫妇坐在被烧毁的农场旁。沿途从田里的一袋燕麦收集燕麦。",
 	-- ["Goldshire"] = "闪金镇",
+	-- ["Harvest Watchers and Golems work the fields around {area:918}; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone."] = "{npc:114}和麦田傀儡在{area:918}周围的田里干活；它们掉落同位弹簧、陀螺稳定器、{item:732}，有时还有{item:255155}。{npc:573}是20级稀有怪，在此巡逻：别惹它。",
 	-- ["Hearthstone on cooldown? Follow the road north-east."] = "炉石在冷却？沿道路向东北走。",
 	-- ["Jasperlode Mine"] = "詹戈洛德矿洞",
 	-- ["Jasperlode Mine: kill these as you meet them"] = "詹戈洛德矿洞：下面这些，遇到了就顺手杀",
@@ -433,6 +436,7 @@ return {
 	-- ["{area:109}: kill these as you meet them"] = "{area:109}：遇到就击杀",
 	-- ["{area:20} and the Defias hills"] = "{area:20}和迪菲亚山丘",
 	-- ["{area:54}: kill these as you meet them"] = "{area:54}：沿途击杀以下目标",
+	-- ["{area:918}'s Harvest Watchers"] = "{area:918}的{npc:114}",
 	-- ["{area:918}: kill these as you meet them"] = "{area:918}：下面这些，遇到了就顺手杀",
 	-- ["{item:254676}, from the crates around {area:20}"] = "{item:254676}，来自{area:20}周围的箱子",
 	-- ["{npc:234} and {npc:821} stand at the top of the stone tower. {npc:491} is in the tower, {npc:878} and {npc:253092} on the south side of the hill, next to the inn and {npc:523} the gryphon master."] = "{npc:234}和{npc:821}站在石塔顶上。{npc:491}在塔内，{npc:878}和{npc:253092}在山丘南侧，旅店和狮鹫管理员{npc:523}旁边。",

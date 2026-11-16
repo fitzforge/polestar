@@ -35,7 +35,7 @@ return {
 
 	-- Step 3: Searing Lava Spiders
 	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
-	["Searing Lava Spiders"] = "{npc:5857}",
+	["Searing Lava Spiders"] = "巨型熔岩蜘蛛",
 	["The spiders roam the lava pools and plateaus of the south-west."] = "蜘蛛在西南部的熔岩池和高地上游荡。",
 
 	-- Step 4: The Slag Pit

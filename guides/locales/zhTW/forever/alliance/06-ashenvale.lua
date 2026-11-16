@@ -80,37 +80,19 @@ return {
 	-- {area:1276} Talondeep Path · {area:421} Mystral Lake
 	["Back north through the {area:1276}: west of {area:421}, the stardust bushes grow among the ruins."] = "向北穿過{area:1276}回去：在{area:421}西邊，星塵灌木生長在廢墟之間。",
 
-	-- Step 19: Mystral Lake
-	-- {npc:3885} Sentinel Velene Starstrike · {area:420} Silverwind Refuge · {area:421} Mystral Lake · {npc:12759} Tideress
-	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
-	["{npc:3885} stands at the {area:420} on the east shore of {area:421}. Befouled Water Elementals wade in the lake. Careful: {npc:12759}, a level 27 water elemental, walks the lake among them; she drops the bracers too, but the small elementals are the safer kills at this level."] = "{npc:3885}站在{area:421}東岸的{area:420}。污濁的水元素在湖中涉水。小心：27級水元素{npc:12759}在牠們之間的湖中走動；她也會掉落護腕，但以你現在的等級，打小元素比較安全。",
-	["Underwater"] = "在水下",
-	-- {item:5456} Divining Scroll
-	-- plural, as words: Intact Elemental Bracers = {item:12220} Intact Elemental Bracer
-	["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "擊殺元素取得5個完整的元素護腕，然後使用{item:5456}",
-
-	-- Step 20: The Foulweald
-	["The Foulweald"] = "汙林熊怪",
-	-- {area:415} Astranaar
-	["The Foulweald furbolgs live in the woods south of the road, south-east of {area:415}. The Den Watcher and the Ursas guard the den."] = "汙林熊怪住在道路南邊、{area:415}東南方的樹林中。汙林衛兵和汙林巨熊怪守護巢穴。",
-
-	-- Step 21: Shael'dryn
+	-- Step 19: Shael'dryn
 	-- {area:419} Howling Vale · {npc:3916} Shael'dryn
 	["Follow the road east to the {area:419}; {npc:3916} stands by the moonwell."] = "沿道路向東前往{area:419}；{npc:3916}站在月井旁。",
 
-	-- Step 22: Dal Bloodclaw
-	-- {npc:3987} Dal Bloodclaw · {area:415} Astranaar
-	["{npc:3987} (25) leads the Thistlefur furbolgs at the camp north of {area:415}. Clear his guards first, one at a time.\nCareful: The furbolgs near him usually join in when he is pulled. Killing the ones along his path first lets you fight him alone."] = "{npc:3987}（25級）率領{area:415}北邊營地的薊皮熊怪。先一個一個清掉他的守衛。\n小心：拉他的時候，附近的熊怪通常會一起加入。先殺掉他巡邏路線上的熊怪，就能單獨和他打。",
+	-- Step 20: Astranaar
+	-- {npc:3916} Shael'dryn · {area:415} Astranaar · {npc:3664} Ilkrud Magthrull · {npc:3894} Pelturas Whitemoon
+	["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "從{npc:3916}沿路往西回去，{area:415}就在前往{npc:3664}的路上：{npc:3894}在旅店後方的建築內。",
 
-	-- Step 23: Astranaar
-	-- {npc:3987} Dal Bloodclaw · {area:415} Astranaar · {npc:3691} Raene Wolfrunner · {npc:3894} Pelturas Whitemoon
-	["South from {npc:3987}'s camp, {area:415} is on the way west: {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "",
-
-	-- Step 24: Ilkrud Magthrull
+	-- Step 21: Ilkrud Magthrull
 	-- {area:415} Astranaar · {area:412} Ruins of Ordil'Aran · {npc:3664} Ilkrud Magthrull
 	["From {area:415} head south-west to the {area:412} south of the shrine: {npc:3664} and his voidwalkers hold them. Pull his guards first."] = "",
 
-	-- Step 25: The Zoram Strand
+	-- Step 22: The Zoram Strand
 	-- {area:414} Zoram Strand · {npc:3846} Talen
 	["Follow the coast north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "沿海岸向北前往{area:414}。{npc:3846}在海灘上紮營；怒尾納迦遍布海岸。",
 	-- {item:5424} Ancient Statuette
@@ -118,11 +100,11 @@ return {
 	-- {item:5490} Wrathtail Head
 	["{item:5490}: any Wrathtail naga on the strand"] = "",
 
-	-- Step 27: Ruuzel
+	-- Step 24: Ruuzel
 	-- {quest:1009} Ruuzel · {area:414} Zoram Strand
 	["{quest:1009} walks the northern tip of the {area:414} with Wrathtail guards."] = "{quest:1009}帶著怒尾守衛在{area:414}的北端走動。",
 
-	-- Step 28: Blackfathom Deeps
+	-- Step 25: Blackfathom Deeps
 	-- {area:2797} Blackfathom Deeps · {npc:4787} Argent Guard Thaelrid · {zone:1457} Darnassus
 	-- plural, as words: Corrupted Brain Stems = {item:5952} Corrupted Brain Stem
 	["{area:2797} is a dungeon for a group of five, about levels 22 to 30, and a full run takes about an hour. The way in is the sunken ruins at the north end of the strand: go down the stairs into the pit, swim through the tunnels under the wall, past the blue crystals, to the portal.\nInside: the naga and the satyrs drop the Corrupted Brain Stems for Gershala. {npc:4787}, by a campfire in an underwater side room off Ghamoo-ra's room, has a quest for {zone:1457}, which this route leaves to the Dungeons page."] = "{area:2797}是五人地城，約22到30級，完整打一次約需一小時。入口是海灘北端的沉沒廢墟：走下樓梯進入深坑，游過牆下的隧道，經過藍色水晶，到達傳送門。\n裡面：納迦和薩特會掉落給葛沙拉的腐化的腦幹。{npc:4787}在迦莫拉房間旁一間水下側室的營火邊，有一個前往{zone:1457}的任務，本路線把它留給地城頁面。",
@@ -130,35 +112,37 @@ return {
 	-- plural, as words: Corrupted Brain Stems = {item:5952} Corrupted Brain Stem
 	["{quest:1275}: Corrupted Brain Stems"] = "{quest:1275}：腐化的腦幹",
 
-	-- Step 30: Maestra's Post
+	-- Step 27: Maestra's Post
 	-- {npc:3663} Delgren the Purifier · {zone:1440} Ashenvale
 	["{npc:3663}: its circles are for your next {zone:1440} visit, at about 28"] = "",
 
-	-- Step 31: Astranaar
+	-- Step 28: Astranaar
 	-- {area:413} Maestra's Post · {area:415} Astranaar · {npc:3845} Shindrell Swiftfire
 	["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} stands by the flight master."] = "",
 
-	-- Step 32: Fly to Auberdine
+	-- Step 29: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "飛往{area:442}",
 	-- {area:415} Astranaar
 	["{area:415} flight master"] = "",
 
-	-- Step 33: Terenthis
-	-- {npc:3693} Terenthis
-	["{npc:3693} stands by the flight master, at the east end of the main street; then back west to the dock."] = "{npc:3693}站在飛行管理員旁，在主街東端；然後向西回到碼頭。",
+	-- Step 30: Terenthis
+	-- {npc:3693} Terenthis · {quest:990} Trek to Ashenvale · {npc:3694} Sentinel Selarin
+	["{npc:3693} stands by the flight master, at the east end of the main street. No {quest:990} yet? Give it a minute after the hand-in: {npc:3694} comes to {npc:3693}'s side shortly after Volcor's escort is handed in. Changing layer can also find her. Then back west to the dock."] = "{npc:3693}站在主街東端的飛行管理員旁邊。還沒拿到{quest:990}？繳交後稍等一下：繳交沃科爾的護送任務後不久，{npc:3694}就會來到{npc:3693}身邊。切換分層也可能找到她。然後往西回到碼頭。",
 	-- {npc:3693} Terenthis · {zone:1439} Darkshore
 	["{npc:3693}: Volcor's escort from the end of {zone:1439}"] = "{npc:3693}：{zone:1439}結尾的沃爾科護送任務",
+	-- {npc:3694} Sentinel Selarin · {quest:990} Trek to Ashenvale · {npc:3691} Raene Wolfrunner · {area:415} Astranaar · {zone:1440} Ashenvale
+	["{npc:3694}, once she comes: {quest:990}, for {npc:3691} in {area:415} on your next {zone:1440} visit"] = "{npc:3694}，等她出現後：{quest:990}，下次到{zone:1440}時交給{area:415}的{npc:3691}",
 
-	-- Step 34: Boat to Menethil Harbor
+	-- Step 31: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "搭船前往{area:150}",
 
-	-- Step 35: To Menethil Harbor
+	-- Step 32: To Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["To {area:150}"] = "前往{area:150}",
 
-	-- Step 36: Menethil Harbor
+	-- Step 33: Menethil Harbor
 	-- {npc:1242} Karl Boran · {npc:2094} James Halloran · {npc:2086} Valstag Ironjaw · {npc:1239} First Mate Fitzsimmons · {npc:1480} Caitlin Grassman · {npc:2111} Sida · {npc:2096} Tarrel Rockweaver
 	["Off the boat, walk up the pier: {npc:1242} on the pier, {npc:2094} by the docks to the north, {npc:2086} in the keep, the inn ({npc:1239}) east of it with {npc:1480} and {npc:2111} beside it, {npc:2096} by the north gate on the way out east."] = "",
 	-- {npc:1242} Karl Boran
@@ -172,27 +156,27 @@ return {
 	-- {npc:2096} Tarrel Rockweaver
 	["{npc:2096}, by the north gate"] = "{npc:2096}，在北門旁",
 
-	-- Step 37: Spoils of War
+	-- Step 34: Spoils of War
 	-- {npc:270589} Nightveiled Rotheap · {zone:1437} Wetlands
 	["Timber and iron piles lie around the keep and along the harbor's walls. Careful: {npc:270589}, a level 31 elite, roams the {zone:1437}' shores and roads: if it comes by, give it room."] = "木材和鐵堆放在城堡周圍和港口的城牆邊。小心：31級精英{npc:270589}在{zone:1437}的海岸和道路上遊蕩：如果牠經過，就讓開。",
 
-	-- Step 38: Bluegill Marsh
+	-- Step 35: Bluegill Marsh
 	-- {npc:1259} Gobbler
 	-- plural, as words: Bluegill Murlocs = {npc:1024} Bluegill Murloc
 	["Follow the coast north out of Menethil. Bluegill Murlocs fill the marsh; {npc:1259} walks with a pack in the middle of it."] = "沿海岸向北離開米奈希爾港。藍腮魚人遍布沼澤；{npc:1259}帶著一群魚人在中間走動。",
 
-	-- Step 39: Young crocolisks
+	-- Step 36: Young crocolisks
 	["Young crocolisks"] = "小鱷魚",
 	-- {zone:1437} Wetlands
 	-- plural, as words: Young Wetlands Crocolisks = {npc:1417} Young Wetlands Crocolisk
 	["From the marsh head east across the {zone:1437}. Young Wetlands Crocolisks lurk in the pools north of the excavation site."] = "從沼澤向東穿過{zone:1437}。小濕地鱷魚潛伏在挖掘場北邊的水池中。",
 
-	-- Step 40: Whelgar's Excavation Site
+	-- Step 37: Whelgar's Excavation Site
 	["The excavation site sits on the hill south of the road."] = "挖掘場在道路南邊的山丘上。",
 	-- {npc:1076} Merrin Rockweaver
 	["{npc:1076}, below ground"] = "",
 
-	-- Step 41: The raptor hills
+	-- Step 38: The raptor hills
 	["The raptor hills"] = "迅猛龍丘陵",
 	-- {npc:1021} Mottled Screecher
 	-- plural, as words: Mottled Raptors = {npc:1020} Mottled Raptor · Mottled Screechers = {npc:1021} Mottled Screecher
@@ -200,31 +184,31 @@ return {
 	-- {npc:1021} Mottled Screecher · {npc:270589} Nightveiled Rotheap
 	["{npc:1021}; careful: {npc:270589}, a level 31 elite, roams these hills"] = "{npc:1021}；小心：{npc:270589}，31級精英，在這些丘陵間遊蕩",
 
-	-- Step 42: Ormer Ironbraid
+	-- Step 39: Ormer Ironbraid
 	-- {npc:1078} Ormer Ironbraid · {zone:1437} Wetlands
 	["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 27"] = "",
 
-	-- Step 43: The Green Belt
+	-- Step 40: The Green Belt
 	-- {npc:2093} Einar Stonegrip · {npc:1244} Rethiel the Greenwarden
 	["{npc:2093} camps by the road; {npc:1244} stands farther east, by the river."] = "{npc:2093}在路邊紮營；{npc:1244}站在更東邊的河邊。",
 
-	-- Step 44: Thelgen Rock
+	-- Step 41: Thelgen Rock
 	-- {area:1021} Thelgen Rock
 	-- plural, as words: Cave Stalkers = {npc:4040} Cave Stalker · Leech Stalkers = {npc:1111} Leech Stalker · Highland Lurkers = {npc:260804} Highland Lurker
 	["Cave Stalkers and Leech Stalkers fill {area:1021}, the cave south-east of the excavation site. Careful: Highland Lurkers and Horrors, level 28 elites, walk the same cave among them: pull the stalkers one at a time and keep clear of the elites."] = "洞穴捕獵者和吸血捕獵者遍布挖掘場東南方的洞穴{area:1021}。小心：28級精英高地潛伏者和高地恐魔也在同一個洞穴裡走動：一次拉一隻捕獵者，遠離精英。",
 
-	-- Step 45: The Mosshide gnolls
+	-- Step 42: The Mosshide gnolls
 	["The Mosshide gnolls"] = "蘚皮豺狼人",
 	-- {area:1025} The Green Belt
 	-- plural, as words: Mosshide Gnolls = {npc:1007} Mosshide Gnoll
 	["Mosshide Gnolls and Mongrels hold the hills south-east of the {area:1025}."] = "蘚皮豺狼人和混血蘚皮豺狼人佔據{area:1025}東南方的丘陵。",
 
-	-- Step 46: Rethiel the Greenwarden
+	-- Step 43: Rethiel the Greenwarden
 	-- {area:309} Ironbeard's Tomb · {npc:1244} Rethiel the Greenwarden · {zone:1437} Wetlands
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner
 	["Its flint comes from the Mosshide Fenrunners on the way to {area:309}; {npc:1244} takes it on your next {zone:1437} visit"] = "",
 
-	-- Step 47: Ironbeard's Tomb
+	-- Step 44: Ironbeard's Tomb
 	-- {npc:1244} Rethiel the Greenwarden · {area:309} Ironbeard's Tomb · {area:205} Dun Modr · {npc:2111} Sida
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner · Monstrous Oozes = {npc:1033} Monstrous Ooze
 	["North-west from {npc:1244}: Mosshide Fenrunners and Mistweavers roam the riverbanks on the way, and almost every one drops flint. Black, Crimson and Monstrous Oozes fill {area:309}, just west of the road to {area:205} and north of Einar's camp. Any ooze there may hold {npc:2111}'s bag."] = "",
@@ -232,7 +216,7 @@ return {
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner
 	["{item:2611}: Mosshide Fenrunners and Mistweavers"] = "",
 
-	-- Step 48: Menethil
+	-- Step 45: Menethil
 	["Menethil"] = "",
 	-- {area:150} Menethil Harbor · {area:2104} Deepwater Tavern · {npc:2096} Tarrel Rockweaver · {npc:2111} Sida · {npc:1480} Caitlin Grassman · {npc:2086} Valstag Ironjaw · {npc:2094} James Halloran · {npc:1242} Karl Boran
 	["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road into Menethil: {npc:2096} by the road in at the north gate, {npc:2111} and {npc:1480} at the inn, {npc:2086} in the keep, {npc:2094} on the west side by the docks, {npc:1242} on the pier north of the inn."] = "",
@@ -243,7 +227,7 @@ return {
 	-- {npc:1242} Karl Boran
 	["{npc:1242}, on the pier"] = "",
 
-	-- Step 49: Fly to Ironforge
+	-- Step 46: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "飛往{area:1537}",
 	-- {npc:1571} Shellei Brondir
@@ -251,7 +235,7 @@ return {
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "",
 
-	-- Step 50: Ironforge
+	-- Step 47: Ironforge
 	-- {object:32372} Great Forge · {npc:4081} Lomac Gearstrip · {object:171524} Tinker Town · {area:2257} Deeprun Tram
 	["The gryphons land in the {object:32372}. {npc:4081} stands in {object:171524}, east of it, by the {area:2257}."] = "",
 	-- {item:4371} Bronze Tube · {area:42} Darkshire · {npc:5175} Gearcutter Cogspinner · {npc:4081} Lomac Gearstrip
@@ -259,27 +243,27 @@ return {
 	-- {item:5352} Book: The Powers Below · {zone:1439} Darkshore · {npc:2786} Gerrig Bonegrip · {object:32383} Forlorn Cavern
 	["Only with {item:5352} from {zone:1439}: {npc:2786}, the {object:32383}"] = "只有在持有{zone:1439}的{item:5352}時：{npc:2786}，{object:32383}",
 
-	-- Step 51: Buliwyf Stonehand
+	-- Step 48: Buliwyf Stonehand
 	-- {spell:197} Two-Handed Axes · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward
 	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "",
 
-	-- Step 52: Buliwyf Stonehand
+	-- Step 49: Buliwyf Stonehand
 	-- {spell:199} Two-Handed Maces · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward
 	["While you're here: learn {spell:199} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "",
 
-	-- Step 53: Buliwyf Stonehand
+	-- Step 50: Buliwyf Stonehand
 	-- {spell:197} Two-Handed Axes · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward
 	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Paladin fastest."] = "",
 
-	-- Step 54: Tram to Stormwind
+	-- Step 51: Tram to Stormwind
 	-- {zone:1453} Stormwind
 	["Tram to {zone:1453}"] = "搭地鐵前往{zone:1453}",
 
-	-- Step 55: Sprite Jumpsprocket
+	-- Step 52: Sprite Jumpsprocket
 	-- {quest:92748} Explosive Consultation · {zone:1432} Loch Modan · {object:28027} Dwarven District · {npc:11026} Sprite Jumpsprocket
 	["Still carrying {quest:92748} (you used your Hearthstone at the end of {zone:1432})? The tram comes in at the {object:28027}, where {npc:11026} stands."] = "還帶著{quest:92748}嗎（你在{zone:1432}結束時用了爐石）？地鐵抵達{object:28027}，{npc:11026}就站在那裡。",
 
-	-- Step 56: Baros Alexston
+	-- Step 53: Baros Alexston
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:1646} Baros Alexston
 	["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)"] = "",
 	-- {npc:1646} Baros Alexston · {area:442} Auberdine
@@ -287,7 +271,7 @@ return {
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
 	["For {npc:3649}, back in {area:442} (06-wetlands)"] = "",
 
-	-- Step 57: Cathedral Square
+	-- Step 54: Cathedral Square
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:376} High Priestess Laurena
 	["The tram comes in at the {object:28027}; walk west to the {object:2098}. {npc:376} is in the Cathedral of Light."] = "",
 	-- {npc:376} High Priestess Laurena · {npc:11406} High Priest Rohan · {zone:1455} Ironforge
@@ -297,19 +281,19 @@ return {
 	-- {npc:376} High Priestess Laurena · {npc:11401} Priestess Alathea · {zone:1457} Darnassus
 	["{npc:376}: {npc:11401} in {zone:1457} takes it, later"] = "{npc:376}：由{zone:1457}的{npc:11401}接收，稍後",
 
-	-- Step 58: Master Mathias Shaw
+	-- Step 55: Master Mathias Shaw
 	-- {object:2100} Old Town
 	["Mathias Shaw is at SI:7 in {object:2100}, south of the Keep."] = "",
 	-- {npc:332} Master Mathias Shaw · {npc:7024} Agent Kearnen · {zone:1436} Westfall · {zone:1431} Duskwood
 	["{npc:332}: {npc:7024} in {zone:1436} takes it, at the end of {zone:1431}'s second loop"] = "",
 
-	-- Step 59: Collin Mauren
+	-- Step 56: Collin Mauren
 	-- {object:2164} The Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6122} Gakin the Darkbinder
 	["{object:2164} is in the {object:2101}. Warlocks: {npc:6122} is in its cellar."] = "{object:2164}在{object:2101}。術士：{npc:6122}在它的地下室。",
 	-- {npc:6122} Gakin the Darkbinder · {npc:6244} Takar the Seer · {zone:1413} Barrens
 	["{npc:6122}: {npc:6244} in the {zone:1413} takes it, later"] = "{npc:6122}：由{zone:1413}的{npc:6244}接收，稍後",
 
-	-- Step 60: Trade District
+	-- Step 57: Trade District
 	-- {zone:1453} Stormwind · {zone:1431} Duskwood
 	["Next: training in {zone:1453}, then the road east through Elwynn and south to {zone:1431}."] = "",
 
@@ -331,6 +315,7 @@ return {
 	-- ["Hearth to Menethil"] = "用爐石回到米奈希爾港",
 	-- ["Hearthstone on cooldown? Ride back north through the {area:1276}."] = "爐石在冷卻中？向北騎回去穿過{area:1276}。",
 	-- ["Kerlonian sleeps at the {area:448} in southern {zone:1439}. Use the {item:13536} to wake him and lead him south along the road into {zone:1440} to {npc:11219} at {area:413}; blow the horn again whenever he falls asleep."] = "克羅尼亞·恒影睡在{zone:1439}南部的{area:448}。使用{item:13536}叫醒他，沿道路向南帶他進入{zone:1440}，到{area:413}找{npc:11219}；每當他睡著就再吹一次號角。",
+	-- ["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "擊殺元素取得5個完整的元素護腕，然後使用{item:5456}",
 	-- ["Mosshide Fenrunners and Mistweavers roam the riverbanks just west and south of {npc:1244}; almost every one drops flint."] = "蘚皮沼澤行者和蘚皮織霧者在{npc:1244}西邊和南邊不遠的河岸遊蕩；幾乎每一隻都會掉落燧石。",
 	-- ["Mottled Raptors and Screechers roam the hills west of the excavation site."] = "雜斑迅猛龍和雜斑尖嘯龍在挖掘場西邊的丘陵遊蕩。",
 	-- ["Next: fly to {area:42}."] = "下一步：飛往{area:42}。",
@@ -343,11 +328,14 @@ return {
 	-- ["Take the {area:2257} from {object:171524} to {zone:1453}'s {object:28027}, then walk to the {object:2098}."] = "從{object:171524}搭乘{area:2257}前往{zone:1453}的{object:28027}，然後走到{object:2098}。",
 	-- ["The Bluegill hovels"] = "藍腮魚人小屋",
 	-- ["The Dragonmaw camp lies south of the road, just west of the {area:1025}: Raiders, Swamprunners and Bonewarders. {npc:2092}'s quest in {zone:1426} needs level 28."] = "龍喉營地在道路南邊、{area:1025}西邊不遠處：有龍喉襲擊者、龍喉沼澤行者和龍喉白骨守衛。{npc:2092}在{zone:1426}的任務需要28級。",
+	-- ["The Foulweald"] = "汙林熊怪",
+	-- ["The Foulweald furbolgs live in the woods south of the road, south-east of {area:415}. The Den Watcher and the Ursas guard the den."] = "汙林熊怪住在道路南邊、{area:415}東南方的樹林中。汙林衛兵和汙林巨熊怪守護巢穴。",
 	-- ["The bigger raptors hunt in the valley just west of the dig."] = "體型更大的迅猛龍在挖掘場西邊不遠的山谷中狩獵。",
 	-- ["The excavation site sits on the hill south of the road."] = "挖掘場在道路南邊的山丘上。",
 	-- ["The raptor hills"] = "迅猛龍丘陵",
 	-- ["The {area:1025}"] = "{area:1025}",
 	-- ["Three containers in the murloc hovels, south to north: the {object:261}, then the {object:142151}, then the {object:259} at the north end."] = "魚人小屋中的三個容器，由南到北：{object:261}，然後是{object:142151}，最後是北端的{object:259}。",
+	-- ["Underwater"] = "在水下",
 	-- ["Venture Co. loggers"] = "風險投資公司樵夫",
 	-- ["grind on Dragonmaw Raiders and Swamprunners at the Dragonmaw camp, {zone:1437}"] = "在{zone:1437}的龍喉營地刷龍喉襲擊者和龍喉沼澤行者",
 	-- ["{item:15885}: join the two halves"] = "{item:15885}：合成兩半",
@@ -362,6 +350,9 @@ return {
 	-- ["{npc:2104} stands in {area:2103}, a short walk from {npc:1242}."] = "{npc:2104}站在{area:2103}，離{npc:1242}不遠。",
 	-- ["{npc:3649}: Alexston's reply"] = "{npc:3649}：巴洛斯·艾力克斯頓的回信",
 	-- ["{npc:3664} and his voidwalkers hold the {area:412} south of the shrine. Pull his guards first."] = "{npc:3664}和他的虛無行者佔據神殿南邊的{area:412}。先拉他的守衛。",
+	-- ["{npc:3693} stands by the flight master, at the east end of the main street; then back west to the dock."] = "{npc:3693}站在飛行管理員旁，在主街東端；然後向西回到碼頭。",
+	-- ["{npc:3885} stands at the {area:420} on the east shore of {area:421}. Befouled Water Elementals wade in the lake. Careful: {npc:12759}, a level 27 water elemental, walks the lake among them; she drops the bracers too, but the small elementals are the safer kills at this level."] = "{npc:3885}站在{area:421}東岸的{area:420}。污濁的水元素在湖中涉水。小心：27級水元素{npc:12759}在牠們之間的湖中走動；她也會掉落護腕，但以你現在的等級，打小元素比較安全。",
+	-- ["{npc:3987} (25) leads the Thistlefur furbolgs at the camp north of {area:415}. Clear his guards first, one at a time.\nCareful: The furbolgs near him usually join in when he is pulled. Killing the ones along his path first lets you fight him alone."] = "{npc:3987}（25級）率領{area:415}北邊營地的薊皮熊怪。先一個一個清掉他的守衛。\n小心：拉他的時候，附近的熊怪通常會一起加入。先殺掉他巡邏路線上的熊怪，就能單獨和他打。",
 	-- ["{npc:4201}, in the hut north of them"] = "{npc:4201}，在他們北邊的小屋裡",
 	-- ["{npc:4276} mines in the {area:2160} at the east end of the crag. Talk to him and fend off the Venture Co. raiders while he mines."] = "{npc:4276}在峭壁東端的{area:2160}採礦。和他交談，在他採礦時擊退風險投資公司的襲擊者。",
 	-- ["{npc:482}, the cheese shop in the {object:2096}"] = "{npc:482}，{object:2096}的乳酪店",

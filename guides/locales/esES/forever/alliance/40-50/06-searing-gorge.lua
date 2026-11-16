@@ -60,17 +60,17 @@ return {
 	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
 	["Searing Lava Spiders"] = "Arañas de lava abrasadoras",
 	-- {npc:8436} Zamael Lunthistle · {npc:8479} Velarok Windblade
-	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "",
+	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "Las arañas deambulan por las mesetas y charcas de lava al sur de {npc:8436}, de camino a {npc:8479}.",
 
 	-- Step 15: Velarok Windblade
 	-- {npc:8479} Velarok Windblade · {area:1446} Thorium Point
-	["{npc:8479} stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "",
+	["{npc:8479} stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "{npc:8479} está en el borde de La Caldera, al sur de {area:1446}. Escucha su historia.",
 
 	-- Step 18: Golems and elementals
 	["Golems and elementals"] = "Gólems y elementales",
 	-- {npc:8479} Velarok Windblade
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Magma Elementals = {npc:5855} Magma Elemental
-	["Heavy War Golems patrol the floor of the Cauldron below {npc:8479}; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "",
+	["Heavy War Golems patrol the floor of the Cauldron below {npc:8479}; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "Los Gólems de guerra pesados patrullan el fondo de La Caldera bajo {npc:8479}; los Elementales de magma vagan entre ellos. Gólems y elementales sueltan el aceite; los elementales, los corazones.",
 
 	-- Step 20: Dark Iron dwarves: kill these as you meet them
 	["Dark Iron dwarves: kill these as you meet them"] = "",
@@ -104,11 +104,11 @@ return {
 
 	-- Step 30: The Torch of Retribution
 	-- {npc:8479} Velarok Windblade
-	["Listen to {npc:8479}'s story once more."] = "",
+	["Listen to {npc:8479}'s story once more."] = "Escucha la historia de {npc:8479} una vez más.",
 
 	-- Step 31: Velarok Windblade
 	-- {quest:3453} The Torch of Retribution · {npc:8479} Velarok Windblade · {quest:3462} Squire Maltrake
-	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "",
+	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "{quest:3453} está en el suelo a los pies de {npc:8479}; {quest:3462} está a su lado.",
 	-- {quest:3462} Squire Maltrake · {area:1446} Thorium Point
 	["{quest:3462}: hand it in on the way back to {area:1446}"] = "{quest:3462}: entrégala de camino de vuelta a {area:1446}",
 
@@ -133,7 +133,7 @@ return {
 
 	-- Step 36: Squire Maltrake
 	-- {npc:8509} Squire Maltrake · {npc:8479} Velarok Windblade · {area:1446} Thorium Point
-	["{npc:8509} and the dragonflight's hoard are beside {npc:8479}, on the rim south of {area:1446}."] = "",
+	["{npc:8509} and the dragonflight's hoard are beside {npc:8479}, on the rim south of {area:1446}."] = "{npc:8509} y el tesoro del Vuelo Negro están junto a {npc:8479}, en el borde al sur de {area:1446}.",
 	-- {object:149502} Hoard of the Black Dragonflight · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous · {zone:1428} Burning Steppes
 	["The {object:149502} it gives holds a {item:10575}: keep it for {npc:9459} in the {zone:1428}"] = "El {object:149502} que te da contiene una {item:10575}: guárdala para {npc:9459}, en {zone:1428}",
 

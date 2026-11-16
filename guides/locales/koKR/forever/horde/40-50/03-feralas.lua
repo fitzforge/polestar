@@ -8,28 +8,38 @@
 return {
 	-- Guide
 	-- {zone:1435} Swamp of Sorrows · {zone:1444} Feralas
-	["{zone:1435} and Dustwallow first, then {zone:1444}."] = "",
-	["Takes you to level 47"] = "",
+	["{zone:1435} and Dustwallow first, then {zone:1444}."] = "{zone:1435}와(과) 먼지진흙 습지대를 먼저, 그다음 {zone:1444}.",
+	["Takes you to level 47"] = "47레벨까지 진행",
 	-- {zone:1446} Tanaris
-	["Then on to {zone:1446}"] = "",
-	["Stays on the main route"] = "",
-	["Three zones, lots of travel"] = "",
+	["Then on to {zone:1446}"] = "이어서 {zone:1446}(으)로",
+	["Stays on the main route"] = "주요 경로에 머무름",
+	["Three zones, lots of travel"] = "세 지역, 이동이 많음",
 
-	-- Step 1: Zeppelin to Undercity
+	-- Step 1: Orgrimmar
+	-- {object:172960} Cleft of Shadow · {object:172958} Valley of Honor
+	["From the flight master: the {object:172960}, then the Drag, then the {object:172958}."] = "비행 조련사에서: {object:172960}, 그다음 골목길, 그다음 {object:172958}.",
+	-- {npc:7010} Zilzibin Drumlore
+	["{npc:7010}, the Drag"] = "{npc:7010}, 골목길",
+	-- {npc:6986} Dran Droffers
+	["{npc:6986}, the Drag"] = "골목길의 {npc:6986}",
+	-- {zone:1425} Hinterlands
+	["for the {zone:1425}, around level 50"] = "50레벨쯤 {zone:1425}에서",
+
+	-- Step 3: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "{zone:1458}행 비행선",
 
-	-- Step 2: Apothecary Zinge
+	-- Step 4: Apothecary Zinge
 	-- {npc:2934} Keeper Bel'dugur
 	["{npc:2934}, on the way back to Zinge"] = "징에에게 돌아가는 길의 {npc:2934}",
 	-- {item:8523} Field Testing Kit · {area:976} Gadgetzan
 	["the {item:8523} from these errands: keep it, Tanaris Field Sampling hands it back in {area:976}"] = "",
 
-	-- Step 3: Undercity
+	-- Step 5: Undercity
 	-- {npc:7825} Oran Snakewrithe · {object:36126} Royal Quarter
 	["{npc:7825}, the {object:36126}"] = "{object:36126}의 {npc:7825}",
 
-	-- Step 4: Riding at 40
+	-- Step 6: Riding at 40
 	["Riding at 40"] = "40레벨 탈것 타기",
 	-- {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {object:3202} Grom'gol
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, a short ride north of the zeppelin towers, with {npc:4731}'s skeletal horses (20 gold each) beside her. Ride back to the towers for the {object:3202} zeppelin."] = "탈것 타기는 40레벨이 필요하며 100골드가 듭니다. 배우면 탈것도 하나 받습니다. 각 종족은 자기 종족의 상급자에게서 배웁니다. 당신의 상급자는 비행선 탑에서 북쪽으로 조금 가면 나오는 {area:159}의 {npc:4773}이며, 그 옆에 {npc:4731}의 해골마(각 20골드)가 있습니다. {object:3202}행 비행선을 타려면 탑으로 돌아가십시오.",
@@ -38,23 +48,25 @@ return {
 	-- {npc:4731} Zachariah Post · {npc:4773} Velma Warnam · {area:159} Brill
 	["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "해골마: {area:159}의 {npc:4773} 옆의 {npc:4731}",
 
-	-- Step 5: Zeppelin to Grom'gol
+	-- Step 7: Zeppelin to Grom'gol
 	-- {object:3202} Grom'gol
 	["Zeppelin to {object:3202}"] = "{object:3202}행 비행선",
 
-	-- Step 6: Fly to Stonard
+	-- Step 8: Fly to Stonard
 	-- {area:75} Stonard
 	["Fly to {area:75}"] = "{area:75}(으)로 날아가기",
+	-- {object:3202} Grom'gol · {area:75} Stonard
+	["The zeppelin lands at {object:3202}: Stranglethorn's errands are done (40-50/02), so fly straight on to {area:75}."] = "비행선은 {object:3202}에 내립니다. 가시덤불 골짜기의 심부름은 끝났으니(40-50/02) 곧바로 {area:75}(으)로 비행하세요.",
 	-- {object:3202} Grom'gol
 	["{object:3202} flight master"] = "",
 
-	-- Step 7: To Stonard
+	-- Step 9: To Stonard
 	-- {area:75} Stonard
 	["To {area:75}"] = "{area:75}(으)로",
 	-- {area:75} Stonard · {zone:2548} Riverglades · {zone:1435} Swamp of Sorrows · {object:3202} Grom'gol · {zone:1431} Duskwood · {zone:1430} Deadwind Pass
 	["No flight path to {area:75} yet (the {zone:2548} skip the {zone:1435}): ride north-east from {object:3202} through {zone:1431} and {zone:1430} into the swamp, then east along the road to {area:75}, and learn its flight path."] = "아직 {area:75} 비행 경로가 없다면({zone:2548}은(는) {zone:1435}을(를) 건너뜁니다): {object:3202}에서 북동쪽으로 {zone:1431}와(과) {zone:1430}을(를) 지나 늪으로 들어간 뒤, 길을 따라 동쪽 {area:75}까지 가서 비행 경로를 익히십시오.",
 
-	-- Step 8: Stonard
+	-- Step 10: Stonard
 	-- {npc:5591} Dar · {area:75} Stonard · {npc:1443} Fel'zerul
 	["Coming from Stranglethorn, you carry these already. Starting here: {npc:5591} stands inside {area:75}'s great hall and {npc:1443} on its top floor."] = "",
 	-- {npc:5591} Dar
@@ -62,25 +74,25 @@ return {
 	-- {npc:1443} Fel'zerul
 	["{npc:1443}, on the top floor"] = "",
 
-	-- Step 9: A Soggy Scroll
+	-- Step 11: A Soggy Scroll
 	["Ride west along the road; the scroll lies at the water's edge in the swamp's far west."] = "길을 따라 서쪽으로 가세요. 두루마리는 늪 맨 서쪽의 물가에 있습니다.",
 	-- {object:2555} Musty Scroll · {zone:1445} Dustwallow Marsh
 	["for the {object:2555} in {zone:1445}, later in this guide"] = "이 가이드 후반에 {zone:1445}의 {object:2555}을(를) 위해",
 
-	-- Step 10: Sawtooth crocolisks
+	-- Step 12: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "톱니악어",
 	-- {area:75} Stonard
 	["The crocolisks wallow in the pools around Galen's old camp, just north of {area:75}, on the way back east; about one in four drops a flank."] = "",
 
-	-- Step 11: Pool of Tears
+	-- Step 13: Pool of Tears
 	-- {area:75} Stonard · {quest:1424} Pool of Tears
 	["Back east past {area:75}: the Atal'ai artifacts lie in the water and on the banks of the {quest:1424}."] = "{area:75}을(를) 지나 동쪽으로 돌아가세요. 아탈라이 유물은 {quest:1424}의 물속과 기슭에 있습니다.",
 
-	-- Step 12: Misty Reed Post
+	-- Step 14: Misty Reed Post
 	-- {npc:5592} Tok'Kar
 	["Follow the road south-east to the small Horde post on the shore. {npc:5592} takes the crocolisk flanks from the last swamp visit."] = "",
 
-	-- Step 13: The Forbidding Sea: kill these as you meet them
+	-- Step 15: The Forbidding Sea: kill these as you meet them
 	-- {area:2403} The Forbidding Sea
 	["{area:2403}: kill these as you meet them"] = "",
 	-- {npc:272377} Methuselah Crab
@@ -88,44 +100,46 @@ return {
 	["The snappers line the strand south of the post.\nThe Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "",
 	["Underwater"] = "물속",
 
-	-- Step 15: Murlocs of the Misty Reed
+	-- Step 17: Murlocs of the Misty Reed
 	["Murlocs of the Misty Reed"] = "안개갈대 멀록",
 	-- plural, as words: Marsh Murlocs = {npc:747} Marsh Murloc
 	["The Marsh Murlocs live on the strand south of the post; the Inkspewers are along the shore east of it and the Flesheaters further west, around the huts on the western shore."] = "늪지멀록은 주둔지 남쪽 해변에 삽니다. 먹물쟁이는 주둔지 동쪽 해안을 따라 있고, 청소부는 더 서쪽, 서쪽 해안의 오두막 주변에 있습니다.",
 	["Below ground"] = "지하",
 
-	-- Step 17: Continued Threat
+	-- Step 19: Continued Threat
 	["The same murloc shore again: Inkspewers east of the post, Flesheaters around the western huts, and the Oracles among both."] = "",
 
-	-- Step 19: Stonard
+	-- Step 21: Stonard
 	-- {npc:5598} Atal'ai Exile · {zone:1425} Hinterlands
 	["for the {npc:5598} in the {zone:1425}, around level 48"] = "48레벨쯤 {zone:1425}의 {npc:5598}에게",
 
-	-- Step 20: To Camp Mojache
+	-- Step 22: To Camp Mojache
 	-- {area:1099} Camp Mojache
 	["To {area:1099}"] = "",
+	-- {area:1099} Camp Mojache · {zone:1444} Feralas · {zone:1446} Tanaris
+	["Hearth to {area:1099}: your hearthstone is still bound there from the {zone:1444} & {zone:1446} guide."] = "귀환석으로 {area:1099}에 가세요. {zone:1444} & {zone:1446} 가이드 이후 귀환석이 아직 그곳에 귀속되어 있습니다.",
 
-	-- Step 21: Camp Mojache
+	-- Step 23: Camp Mojache
 	-- {zone:1425} Hinterlands
 	["for the {zone:1425} owlbeasts, around level 48"] = "48레벨쯤 {zone:1425}의 올빼미야수를 위해",
 
-	-- Step 22: Fly to Brackenwall Village
+	-- Step 24: Fly to Brackenwall Village
 	-- {area:496} Brackenwall Village
 	["Fly to {area:496}"] = "",
 	-- {area:1099} Camp Mojache
 	["{area:1099} flight master"] = "{area:1099}의 비행 조련사",
 
-	-- Step 23: Brackenwall Village
+	-- Step 25: Brackenwall Village
 	-- {npc:4500} Overlord Mok'Morokk · {npc:4502} Tharg · {npc:4501} Draz'Zilb · {area:511} Wyrmbog
 	["{npc:4500}, {npc:4502} and {npc:4501} (below ground) are in the village; their quests are for the {area:511} on this trip."] = "",
 	-- {npc:4501} Draz'Zilb
 	["{npc:4501}, below ground"] = "",
 
-	-- Step 24: Dustwallow Marsh
+	-- Step 26: Dustwallow Marsh
 	-- {object:2555} Musty Scroll
 	["The {object:2555}"] = "",
 
-	-- Step 25: The Musty Scroll
+	-- Step 27: The Musty Scroll
 	-- {object:2555} Musty Scroll
 	["Ride south-west to the {object:2555}."] = "",
 	-- {object:2555} Musty Scroll
@@ -133,7 +147,7 @@ return {
 	-- {area:498} Bloodfen Burrow
 	["Inside {area:498}"] = "",
 
-	-- Step 26: The Dragonmurk: kill these as you meet them
+	-- Step 28: The Dragonmurk: kill these as you meet them
 	-- {area:510} The Dragonmurk
 	["{area:510}: kill these as you meet them"] = "",
 	-- {area:511} Wyrmbog
@@ -141,71 +155,80 @@ return {
 	-- {npc:4329} Firemane Scout · {area:510} The Dragonmurk
 	["{npc:4329} walks around {area:510}: look inside the circle on the map"] = "",
 
-	-- Step 27: Brackenwall Village
+	-- Step 29: Brackenwall Village
 	["Ride back north to Brackenwall."] = "북쪽의 담쟁이 마을로 돌아가세요.",
 
-	-- Step 28: Onyxia's eggs
+	-- Step 30: Onyxia's eggs
 	["Onyxia's eggs"] = "오닉시아의 알",
 	-- {area:511} Wyrmbog
 	["The Eggs of Onyxia lie in the dragon caves in the {area:511}'s south-east, guarded by the scalebanes; smash five."] = "오닉시아의 알은 {area:511} 남동쪽의 용 동굴에 있으며, 맹독전사가 지키고 있습니다. 다섯 개를 깨부수세요.",
 	["Dragon caves"] = "용 동굴",
 
-	-- Step 29: Level 45.37
+	-- Step 31: Level 45.37
 	["Level 45.37"] = "45.37레벨",
 	-- {npc:4500} Overlord Mok'Morokk · {area:511} Wyrmbog · {area:978} Zul'Farrak
 	["{npc:4500}'s challenge, back in Brackenwall, needs a group of three. Alone, grind the Firemane scouts here on the {area:511}'s northern edge to level 45.37 before you ride back north, so you don't come back down for it. Or, with a group, run the {area:978} dungeon instead."] = "담쟁이 마을로 돌아가서 하는 {npc:4500}의 도전에는 3인 파티가 필요합니다. 혼자라면 북쪽으로 돌아가기 전에 이곳 {area:511} 북쪽 가장자리의 화염갈기혈족 정찰병을 사냥해 45.37레벨까지 올리세요. 그러면 다시 내려올 필요가 없습니다. 파티가 있다면 대신 {area:978} 던전을 도세요.",
 	-- {npc:4329} Firemane Scout
 	["grind on {npc:4329}"] = "",
 
-	-- Step 31: Challenge Overlord Mok'Morokk
+	-- Step 33: Challenge Overlord Mok'Morokk
 	-- {quest:1173} Challenge Overlord Mok'Morokk · {npc:4500} Overlord Mok'Morokk · {npc:4501} Draz'Zilb
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:1173} needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\n{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "",
 
-	-- Step 32: Fly to Camp Mojache
+	-- Step 34: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "{area:1099}(으)로 날아가기",
 	-- {area:496} Brackenwall Village
 	["{area:496} flight master"] = "",
 
-	-- Step 33: Sprite darters and forest walkers
+	-- Step 35: Sprite darters and forest walkers
 	["Sprite darters and forest walkers"] = "화살요정용과 나무정령",
 	-- {item:9589} Encrusted Minerals · {npc:272401} Vale Screamer
 	-- plural, as words: Wandering Forest Walkers = {npc:7584} Wandering Forest Walker · Splintered Logs = {item:9590} Splintered Log
 	["The sprite darters flit over the grove just west of the camp and carry the {item:9589}; the Wandering Forest Walkers, a little further west, carry the Splintered Logs.\nCareful: a {npc:272401} (level 60) flies over the forest west of the camp: keep clear of it."] = "화살요정용은 야영지 바로 서쪽 숲 위를 날아다니며 {item:9589}을(를) 지니고 있습니다. 조금 더 서쪽의 떠도는 나무정령은 쪼개진 통나무를 지니고 있습니다.\n주의: 야영지 서쪽 숲 위로 {npc:272401}(60레벨)이(가) 날아다닙니다. 가까이 가지 마세요.",
 
-	-- Step 34: Frayfeather hippogryphs
+	-- Step 36: Frayfeather hippogryphs
 	["Frayfeather hippogryphs"] = "공작날개 히포그리프",
 	["South of the vale the Frayfeather hippogryphs roost on the slopes; nearly every one drops sinew and metallic fragments."] = "골짜기 남쪽 비탈에 공작날개 히포그리프가 둥지를 틀고 있습니다. 거의 모두 힘줄과 금속 파편을 떨어뜨립니다.",
 
-	-- Step 35: Zorbin Fandazzle
+	-- Step 37: Zorbin Fandazzle
 	-- {area:1108} Forgotten Coast · {npc:14637} Zorbin Fandazzle
 	["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "북서쪽의 {area:1108}(으)로 가세요. {npc:14637}이(가) 부두에서 기다립니다.",
 
-	-- Step 36: Rogue Vale screechers
+	-- Step 38: Rogue Vale screechers
 	["Rogue Vale screechers"] = "도적의 골짜기 날카로운비명",
 	-- {npc:14637} Zorbin Fandazzle · {npc:5308} Rogue Vale Screecher · {item:10699} Yeh'kinya's Bramble
 	["Rogue Vale opens just north of {npc:14637}'s dock. Kill a {npc:5308}, use {item:10699} on its body before you loot it, then talk to the spirit that rises: it is friendly. Three spirits in all."] = "도적의 골짜기는 {npc:14637}의 부두 바로 북쪽에서 시작됩니다. {npc:5308}을(를) 처치하고, 전리품을 챙기기 전에 시체에 {item:10699}을(를) 사용한 뒤, 나타나는 혼령에게 말을 거세요. 혼령은 우호적입니다. 모두 세 마리입니다.",
 
-	-- Step 37: Forgotten Coast: kill these as you meet them
+	-- Step 39: Forgotten Coast: kill these as you meet them
 	-- {area:1108} Forgotten Coast
 	["{area:1108}: kill these as you meet them"] = "",
+	-- {item:18904} Zorbin's Ultra-Shrinker · {zone:1444} Feralas · {npc:14637} Zorbin Fandazzle
+	-- plural, as words: Sea Sprays = {npc:5462} Sea Spray · Water Elemental Cores = {item:18958} Water Elemental Core · Sea Elementals = {npc:5461} Sea Elemental · Deep Striders = {npc:5360} Deep Strider · Land Walkers = {npc:5357} Land Walker · Cliff Giants = {npc:5358} Cliff Giant
+	["The Sea Sprays (47-48) wash along the shore just south of the dock: they drop the Water Elemental Cores as well as the Sea Elementals (48-49) do. The Wave and Deep Striders (47-49) wade in the water off the same beach: zap them with {item:18904} first, and shrunken they lose their elite strength. Leave the Land Walkers and Cliff Giants (48-50) of the northern hills for your next {zone:1444} visit.\nThe Ultra-Shrinker lasts two hours: hand both quests back to {npc:14637} before you leave the coast."] = "바다 물보라 정령(47-48)은 부두 바로 남쪽 해안을 따라 다닙니다. 바다 정령(48-49)과 마찬가지로 물의 정령 핵을 떨어뜨립니다. 파도 거인과 성큼걸이 바다거인(47-49)은 같은 해변 앞바다에 있습니다. 먼저 {item:18904}(으)로 쏘면 작아져서 정예의 힘을 잃습니다. 북쪽 언덕의 평지거인과 절벽거인(48-50)은 다음 {zone:1444} 방문 때로 남겨 두세요.\n형상축소기는 2시간 지속됩니다. 해안을 떠나기 전에 두 퀘스트 모두 {npc:14637}에게 제출하세요.",
+	-- {item:18958} Water Elemental Core
+	-- plural, as words: Sea Sprays = {npc:5462} Sea Spray
+	["{item:18958}, from the Sea Sprays"] = "{item:18958}, 바다 물보라 정령에게서",
 	-- {item:18904} Zorbin's Ultra-Shrinker
-	["Sea elementals and sea sprays wash along the shore around the dock. Zap the giants with {item:18904} first: shrunken, they lose their elite strength. Shore striders wade in the water; the land walkers and cliff giants roam the hills further north."] = "부두 주변 해안에는 바다 정령과 바다 물보라 정령이 밀려다닙니다. 거인에게는 먼저 {item:18904}을(를) 쏘세요. 작아지면 정예의 힘을 잃습니다. 성큼걸이 해안거인은 물속을 걷고, 평지거인과 절벽거인은 더 북쪽 언덕을 돌아다닙니다.",
+	-- plural, as words: Deep Striders = {npc:5360} Deep Strider
+	["{item:18904}, on the Wave and Deep Striders in the water"] = "{item:18904}, 물속의 파도 거인과 성큼걸이 바다거인에게 사용",
 
-	-- Step 38: Northspring harpies
-	["Northspring harpies"] = "바람계곡일족 하피",
-	["The Northspring harpies nest on the ridges in the far north-west. They are 48-50, a few levels above you: the Windcallers heal, so kill them first and pull one at a time."] = "바람계곡일족 하피는 맨 북서쪽 능선에 둥지를 틀고 있습니다. 48-50레벨로 나보다 몇 레벨 높습니다. 바람마녀가 치유하니 먼저 처치하고, 한 번에 하나씩 끌어오세요.",
+	-- Step 40: Zorbin Fandazzle
+	-- {npc:14637} Zorbin Fandazzle
+	["Back to {npc:14637} on the dock."] = "부두의 {npc:14637}에게 돌아가세요.",
 
-	-- Step 39: Rage Scar yetis
+	-- Step 41: Rage Scar yetis
 	["Rage Scar yetis"] = "분노한 무쇠설인",
 	-- {quest:7738} Perfect Yeti Hide
-	["On the way back south-east from the harpies, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a {quest:7738}, which starts a quest of its own."] = "하피에게서 남동쪽으로 돌아가는 길에, 길가 언덕의 동굴 주변에 분노한 무쇠설인이 삽니다. 누구나 {quest:7738}도 떨어뜨릴 수 있으며, 이것은 별도의 퀘스트를 시작합니다.",
+	["On the way back south-east from the coast, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a {quest:7738}, which starts a quest of its own."] = "해안에서 남동쪽으로 돌아가는 길에, 길가 언덕의 동굴 주변에 분노한 무쇠설인이 삽니다. 누구나 {quest:7738}도 떨어뜨릴 수 있으며, 이것은 별도의 퀘스트를 시작합니다.",
 	-- {quest:7738} Perfect Yeti Hide
 	["{quest:7738}, a rare drop"] = "드물게 떨어지는 {quest:7738}",
 
-	-- Step 40: Camp Mojache
+	-- Step 42: Camp Mojache
 	-- {npc:7854} Jangdor Swiftstrider
 	["{npc:7854}, inside"] = "",
+	-- {npc:7776} Talo Thornhoof · {zone:1444} Feralas
+	["{npc:7776}'s Northspring harpies (48-50) wait for your {zone:1444} visit at about 51: keep the quest."] = "{npc:7776}의 북녘샘 하피(48-50)는 51레벨쯤 {zone:1444}에 갈 때 처리합니다. 퀘스트를 보관하세요.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly to {object:3202}"] = "{object:3202}(으)로 날아가기",
@@ -213,8 +236,10 @@ return {
 	-- ["Monstrous Crawlers"] = "괴물게",
 	-- ["Murlocs of the Misty Reed"] = "안개갈대 멀록",
 	-- ["Northspring harpies"] = "바람계곡일족 하피",
+	-- ["On the way back south-east from the harpies, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a {quest:7738}, which starts a quest of its own."] = "하피에게서 남동쪽으로 돌아가는 길에, 길가 언덕의 동굴 주변에 분노한 무쇠설인이 삽니다. 누구나 {quest:7738}도 떨어뜨릴 수 있으며, 이것은 별도의 퀘스트를 시작합니다.",
 	-- ["Ride back east to the camp. Stay here: the next guide starts with the flight to {area:976}."] = "동쪽 야영지로 돌아가세요. 여기 머무르세요. 다음 가이드는 {area:976}행 비행으로 시작합니다.",
 	-- ["Ride south-west to the {object:2555}, then east through the {area:511}. The Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "남서쪽의 {object:2555}(으)로 간 뒤, 동쪽으로 {area:511}을(를) 지나가세요. 화염갈기혈족 정찰병과 불꽃술사가 갓 부화한 화염 새끼용, 화염 새끼용과 함께 북쪽 가장자리를 돌아다니고, 맹독전사는 더 남동쪽의 용 동굴을 지킵니다. 모크모로크의 코담배, 그로그주, 금고는 용족 야영지에 있습니다.",
+	-- ["Sea elementals and sea sprays wash along the shore around the dock. Zap the giants with {item:18904} first: shrunken, they lose their elite strength. Shore striders wade in the water; the land walkers and cliff giants roam the hills further north."] = "부두 주변 해안에는 바다 정령과 바다 물보라 정령이 밀려다닙니다. 거인에게는 먼저 {item:18904}을(를) 쏘세요. 작아지면 정예의 힘을 잃습니다. 성큼걸이 해안거인은 물속을 걷고, 평지거인과 절벽거인은 더 북쪽 언덕을 돌아다닙니다.",
 	-- ["South-west, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "남서쪽 {area:1105}에 설인이 굴을 파고 삽니다. 그곳의 설인은 모두 두꺼운 가죽을 떨어뜨릴 수 있습니다.",
 	-- ["The Marsh Murlocs live on the strand south of the post; the Inkspewers are along the shore east of it and the Flesheaters further west, around the huts on the western shore."] = "늪지멀록은 주둔지 남쪽 해변에 삽니다. 먹물쟁이는 주둔지 동쪽 해안을 따라 있고, 청소부는 더 서쪽, 서쪽 해안의 오두막 주변에 있습니다.",
 	-- ["The Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see on the way south."] = "괴물게는 동쪽 해안의 해변을 드문드문 돌아다닙니다. 남쪽으로 가는 길에 보이는 대로 모두 처치하세요.",

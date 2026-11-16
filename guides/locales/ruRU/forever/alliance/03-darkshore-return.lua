@@ -7,13 +7,13 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Auberdine
-	-- {npc:3649} Thundris Windweaver · {npc:3702} Alanndarian Nightsong · {npc:2913} Archaeologist Hollee · {npc:3693} Terenthis · {npc:3694} Sentinel Selarin
-	["From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} stands beside {npc:3693} by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment."] = "",
+	-- {npc:3649} Thundris Windweaver · {npc:3702} Alanndarian Nightsong · {npc:2913} Archaeologist Hollee · {npc:3693} Terenthis · {npc:3694} Sentinel Selarin · {quest:990} Trek to Ashenvale · {npc:3692} Volcor
+	["From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} ({quest:990}) is beside {npc:3693} only for a few minutes at a time: she comes shortly after someone hands in {npc:3692}'s escort and leaves again about 5 minutes later. If she isn't there, don't wait: the guide offers her quest again when you hand in {npc:3692}'s escort to {npc:3693} yourself. Changing layer can also find her."] = "От причала (или от таверны, если вы использовали Камень возвращения) сначала в северную часть деревни ({npc:3649}, {npc:3702} у лунного колодца, {npc:2913}), затем вниз по главной улице: плакат «Разыскивается» у таверны, {npc:3693} в восточном конце улицы, где дорога уходит на юг. {npc:3694} ({quest:990}) стоит рядом с NPC {npc:3693} лишь несколько минут: она приходит вскоре после того, как кто-то сдаст сопровождение NPC {npc:3692}, и уходит примерно через 5 минут. Если ее нет, не ждите: гайд снова предложит ее задание, когда вы сами сдадите сопровождение NPC {npc:3692} персонажу {npc:3693}. Также найти ее может помочь смена слоя.",
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston
 	["{npc:3649}, north end of the village: {npc:1646}'s reply"] = "",
 	["The WANTED poster"] = "Плакат «РАЗЫСКИВАЕТСЯ»",
 	-- {npc:3694} Sentinel Selarin · {npc:3693} Terenthis · {npc:3691} Raene Wolfrunner · {area:415} Astranaar
-	["{npc:3694}, beside {npc:3693}: for {npc:3691} in {area:415}, in the next guide"] = "",
+	["{npc:3694}, beside {npc:3693} if she is there: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694} рядом с NPC {npc:3693}, если она там: для NPC {npc:3691} в {area:415}, в следующем гайде",
 
 	-- Step 2: Lunar Fungus and Earthroot
 	-- {item:15851} Lunar Fungus · {item:2449} Earthroot
@@ -122,6 +122,12 @@ return {
 	-- {npc:12298} Sickly Deer
 	["Cure {npc:12298}"] = "",
 
+	-- Step 21: Auberdine
+	-- {quest:990} Trek to Ashenvale · {npc:3694} Sentinel Selarin · {npc:3693} Terenthis · {npc:3692} Volcor
+	["No {quest:990} yet? Give it a minute after the hand-in: {npc:3694} comes to {npc:3693}'s side shortly after {npc:3692}'s escort is handed in. Changing layer can also find her."] = "Еще нет задания {quest:990}? Подождите минуту после сдачи: {npc:3694} приходит к NPC {npc:3693} вскоре после сдачи сопровождения NPC {npc:3692}. Также найти ее может помочь смена слоя.",
+	-- {npc:3694} Sentinel Selarin · {quest:990} Trek to Ashenvale · {npc:3691} Raene Wolfrunner · {area:415} Astranaar · {zone:1440} Ashenvale
+	["{npc:3694}, once she comes: {quest:990}, for {npc:3691} in {area:415} on your next {zone:1440} visit"] = "{npc:3694}, когда придет: {quest:990}, для NPC {npc:3691} в {area:415} при следующем визите в зону {zone:1440}",
+
 	-- Step 22: Auberdine flight master
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "",
@@ -135,8 +141,8 @@ return {
 	["Cast {spell:18960}"] = "",
 
 	-- Step 27: Dendrite Starblaze
-	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "",
+	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:493} Moonglade · {npc:10897} Sindrayl
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. No {area:493} flight path yet? Learn it from {npc:10897}, south of the lake: the flight master in {area:2361} flies only Druids, from her gossip, and has none to learn."] = "Примените {spell:18960}. {npc:11802} стоит наверху в своем здании ({area:2361}): поднимитесь внутри, стрелка не различает этажи. Еще нет маршрута полета в {area:493}? Изучите его у NPC {npc:10897} к югу от озера: Распорядитель полетов в {area:2361} возит только друидов (через диалог) и маршрута для изучения не дает.",
 
 	-- Step 28: Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven

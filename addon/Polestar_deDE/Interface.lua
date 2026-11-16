@@ -209,6 +209,16 @@ L["A place where it can spawn: it may be up, or gathered already."] = "Ein Ort, 
 L["Hand in"] = "Abgeben"
 L["%s offers it and takes it back in one talk: it never goes in your quest log"] = "%s bietet sie an und nimmt sie im selben Gespräch zurück: Sie landet nie in deinem Questlog"
 L["Offered and taken back in one talk: it never goes in your quest log"] = "Im selben Gespräch angeboten und zurückgenommen: Sie landet nie in deinem Questlog"
+L["Repair at %s"] = "Reparieren bei %s"
+L["Sell at %s"] = "Verkaufen bei %s"
+L["bags full"] = "Taschen voll"
+L["1 free slot"] = "1 freier Platz"
+L["%d free slots"] = "%d freie Plätze"
+L["Repair and sell before heading out: gear at %d%%, %s"] = "Vor dem Aufbruch reparieren und verkaufen: Ausrüstung bei %d%%, %s"
+L["Repair before heading out: gear at %d%%"] = "Vor dem Aufbruch reparieren: Ausrüstung bei %d%%"
+L["The guide heads out of town next and your gear is worn: repair it here before it breaks."] = "Der Guide verlässt als Nächstes die Stadt und deine Ausrüstung ist abgenutzt: Repariere sie hier, bevor sie kaputtgeht."
+L["Sell before heading out: %s"] = "Vor dem Aufbruch verkaufen: %s"
+L["The guide heads out of town next and your bags are nearly full: sell what you don't need here."] = "Der Guide verlässt als Nächstes die Stadt und deine Taschen sind fast voll: Verkaufe hier, was du nicht brauchst."
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Benötigt Polestar %s oder neuer."
@@ -1490,6 +1500,12 @@ L["Set Polestar up again, a page at a time: questing, groups, your route, your l
 L["Show experimental guides"] = "Experimentelle Guides zeigen"
 L["Polestar's guides for Forever's new zones, still being tested: listed in the guide menu under Leveling with an Experimental chip. They are never picked for you; a route choice offers their zone where it fits either way."] = "Polestars Guides für die neuen Gebiete von Forever, noch im Test: im Guide-Menü unter Leveln mit der Marke „Experimentell“. Sie werden nie für dich ausgewählt; eine Routenwahl bietet ihr Gebiet ohnehin an, wo es passt."
 L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "Routen können mit einem Teleportzauber beginnen, den du kennst, wenn das schneller ist: die Stadtteleports eines Magiers, die Mondlichtung eines Druiden oder der Astrale Rückruf eines Schamanen (wie ein zweiter Ruhestein). Ein Stadtteleport braucht eine Rune der Teleportation in deinen Taschen."
+L["Sell and repair reminders"] = "Erinnerungen zum Verkaufen und Reparieren"
+L["When the guide is about to head out of town with your bags nearly full or your gear worn, a merchant or repairer on the way, once per visit. Click it to point the arrow there."] = "Wenn der Guide gleich die Stadt verlässt und deine Taschen fast voll oder deine Ausrüstung abgenutzt ist, wird einmal pro Besuch ein Händler oder Reparaturhändler auf dem Weg angezeigt. Klicke darauf, um den Pfeil dorthin zeigen zu lassen."
+L["Sell: fewer free bag slots than"] = "Verkaufen: weniger freie Taschenplätze als"
+L["Reminds you to sell when fewer bag slots are free than this, or than the items the next steps collect. 0 counts those items alone."] = "Erinnert dich ans Verkaufen, wenn weniger Taschenplätze frei sind als dieser Wert oder als die Gegenstände, die die nächsten Schritte sammeln. 0 zählt nur diese Gegenstände."
+L["Repair: gear worn below"] = "Reparieren: Ausrüstung unter"
+L["Reminds you to repair when a piece of your gear is below this share of its durability. 0: never."] = "Erinnert dich ans Reparieren, wenn ein Ausrüstungsteil unter diesen Anteil seiner Haltbarkeit fällt. 0: nie."
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Bereit zur Abgabe"

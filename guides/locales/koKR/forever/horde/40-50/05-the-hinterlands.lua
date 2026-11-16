@@ -41,7 +41,8 @@ return {
 	-- {area:307} The Overlook Cliffs
 	["{area:307}: kill these as you meet them"] = "",
 	-- {npc:2491} Whiskey Slim · {area:307} The Overlook Cliffs
-	["The big turtles crawl along the beaches north of the village, and {npc:2491}'s bottles of port lie on the same beaches, from the village up to the {area:307}: pick them up as you go. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "큰 거북은 마을 북쪽 해변을 기어다니며, {npc:2491}의 포트와인 병도 같은 해변, 마을에서 {area:307}까지 있습니다. 지나가며 주우세요. 무쇠턱바다거북이 드물게 OOX-09/HL 조난 탐지기를 떨어뜨릴 수 있습니다. 보관하세요.",
+	-- plural, as words: Saltwater Snapjaws = {npc:2505} Saltwater Snapjaw
+	["The big turtles crawl along the beaches north of the village, and {npc:2491}'s bottles of port lie on the same beaches, from the village up to the {area:307}: pick them up as you go. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it.\nCareful: the biggest Saltwater Snapjaws are 50: pull them one at a time."] = "큰 거북은 마을 북쪽 해변을 기어다니며, {npc:2491}의 포트와인 병도 같은 해변, 마을에서 {area:307}까지 있습니다. 지나가며 주우세요. 무쇠턱바다거북이 드물게 OOX-09/HL 조난 탐지기를 떨어뜨릴 수 있습니다. 보관하세요.\n주의: 가장 큰 무쇠턱바다거북은 50레벨이니 하나씩 끌어오세요.",
 	-- {object:2068} Pupellyverbos Port
 	["{object:2068}, on the beaches"] = "",
 	-- {item:8704} OOX-09/HL Distress Beacon
@@ -168,7 +169,7 @@ return {
 	["{area:1440}: kill these as you meet them"] = "",
 	-- {npc:5982} Black Slayer · {spell:5416} Venom Sting · {npc:8301} Clack the Reaver
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger
-	["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills.\nEast of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "퀘스트 다섯 개가 같은 재료를 요구합니다. 한 번에 모두 모으세요. 길 서쪽 언덕에는 {npc:5982}, 굶주린 칼송곳니하이에나, 스콜포크 독침전갈, 죽음의 눈 바실리스크가 함께 있습니다.\n길 동쪽에서는 잿빛갈기 멧돼지와 잿빛갈기 꿀꿀이가 붉은돌 바실리스크 옆 비탈에서 땅을 파헤칩니다. 더 남쪽의 52레벨 지옥멧돼지는 피하세요.\n주의: 스콜포크 독침전갈은 {spell:5416}을(를) 사용하고, {npc:8301}은(는) 넘어뜨리기도 사용합니다.",
+	["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills.\nEast of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south.\nCareful: Scorpok Stingers (50-51) use {spell:5416}; {npc:8301} adds Knockdown. Pull the Stingers one at a time."] = "퀘스트 다섯 개가 같은 재료를 요구합니다. 한 번에 모두 모으세요. 길 서쪽 언덕에는 {npc:5982}, 굶주린 칼송곳니하이에나, 스콜포크 독침전갈, 죽음의 눈 바실리스크가 함께 있습니다.\n길 동쪽에서는 잿빛갈기 멧돼지와 잿빛갈기 꿀꿀이가 붉은돌 바실리스크 옆 비탈에서 땅을 파헤칩니다. 더 남쪽의 52레벨 지옥멧돼지는 피하세요.\n주의: 스콜포크 독침전갈(50-51)은 {spell:5416}을(를) 사용하고, {npc:8301}은(는) 넘어뜨리기도 사용합니다. 독침전갈은 하나씩 끌어오세요.",
 
 	-- Step 38: The bloodmages
 	["Ride back north to the bloodmages."] = "북쪽의 피의 마법사에게 돌아가세요.",
@@ -195,8 +196,10 @@ return {
 	-- ["South-west, the Silvermane Howlers roam the hills east of the Witherbark villages."] = "남서쪽, 마른나무껍질부족 마을 동쪽 언덕에 긴울음 은빛갈기늑대가 돌아다닙니다.",
 	-- ["The Silvermane Stalkers, Savage Owlbeasts and Razorbeak Skylords share the hills between the temples and {area:351}. Use the {item:9618} on the owlbeasts you kill. The Skylords also drop Long Elegant Feathers: keep ten for {npc:14738}'s second message."] = "긴발톱 은빛갈기늑대, 포악한 올빼미야수, 우두머리 뾰족부리그리핀이 사원과 {area:351} 사이 언덕에 함께 있습니다. 처치한 올빼미야수에 {item:9618}을(를) 사용하세요. 우두머리 뾰족부리그리핀은 길고 고운 깃털도 떨어뜨립니다. {npc:14738}의 두 번째 전갈을 위해 열 개를 보관하세요.",
 	-- ["The Vilebranch temples"] = "썩은가지부족 사원",
+	-- ["The big turtles crawl along the beaches north of the village, and {npc:2491}'s bottles of port lie on the same beaches, from the village up to the {area:307}: pick them up as you go. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "큰 거북은 마을 북쪽 해변을 기어다니며, {npc:2491}의 포트와인 병도 같은 해변, 마을에서 {area:307}까지 있습니다. 지나가며 주우세요. 무쇠턱바다거북이 드물게 OOX-09/HL 조난 탐지기를 떨어뜨릴 수 있습니다. 보관하세요.",
 	-- ["The central hills"] = "중앙 언덕",
 	-- ["The eastern slopes"] = "동쪽 비탈",
+	-- ["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills.\nEast of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "퀘스트 다섯 개가 같은 재료를 요구합니다. 한 번에 모두 모으세요. 길 서쪽 언덕에는 {npc:5982}, 굶주린 칼송곳니하이에나, 스콜포크 독침전갈, 죽음의 눈 바실리스크가 함께 있습니다.\n길 동쪽에서는 잿빛갈기 멧돼지와 잿빛갈기 꿀꿀이가 붉은돌 바실리스크 옆 비탈에서 땅을 파헤칩니다. 더 남쪽의 52레벨 지옥멧돼지는 피하세요.\n주의: 스콜포크 독침전갈은 {spell:5416}을(를) 사용하고, {npc:8301}은(는) 넘어뜨리기도 사용합니다.",
 	-- ["The next guide starts here, at {area:3317}."] = "다음 가이드는 여기 {area:3317}에서 시작합니다.",
 	-- ["The northern beasts"] = "북쪽의 짐승들",
 	-- ["Vilebranch soothsayers"] = "썩은가지부족 예언자",

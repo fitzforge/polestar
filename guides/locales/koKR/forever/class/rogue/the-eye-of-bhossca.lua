@@ -7,13 +7,13 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {item:277246} Ruby-Adorned Blade · {area:796} Scarlet Monastery
-	["The {item:277246}, C's payment for a solo job inside the {area:796}."] = "{item:277246}: {area:796} 안에서 혼자 하는 임무에 대한 C의 보수.",
+	-- {item:277246} Ruby-Adorned Blade · {area:796} Scarlet Monastery · {item:210183} Horn of Xelthos
+	["The {item:277246}, C's payment for a solo job in the {area:796}, after The {item:210183}."] = "{item:277246}: {item:210183} 다음, {area:796}에서 혼자 하는 임무에 대한 C의 보수.",
 
 	-- Step 1: C's dead drop
 	["C's dead drop"] = "C의 비밀 보관함",
-	-- {object:410369} Dead Drop · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
-	["C's next job comes by letter: once you are level 30 and have done the horn job, visit any capital city and C's letter arrives in the mailbox; only then does the {object:410369} near {area:204}, in southern Silverpine just south of {area:236}, offer it. The quest data lists a minimum of 25, but players get the letter, and the job, at 30."] = "",
+	-- {item:210183} Horn of Xelthos · {object:410369} Dead Drop · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
+	["C's next job comes by letter: once you are level 30 and have done the horn job (The {item:210183}, its payment from this {object:410369} handed in), visit any capital city and C's letter arrives in the mailbox; only then does the {object:410369} near {area:204}, in southern Silverpine just south of {area:236}, offer it. The quest data lists a minimum of 25, but players get the letter, and the job, at 30."] = "C의 다음 임무는 편지로 옵니다. 30레벨이 되고 뿔 임무({item:210183}, 그 보수를 이 {object:410369}에 제출)를 마친 뒤 아무 수도에 가면 우편함에 C의 편지가 도착합니다. 그래야 은빛소나무 숲 남부, {area:236} 바로 남쪽 {area:204} 근처의 {object:410369}에서 임무를 받을 수 있습니다. 퀘스트 데이터상 최소 25레벨이지만, 플레이어들은 30레벨에 편지와 임무를 받습니다.",
 
 	-- Step 2: The Scarlet Monastery
 	-- {area:796} Scarlet Monastery
@@ -32,5 +32,6 @@ return {
 	-- ["Find the Eye of Bhossca inside the {area:796}."] = "{area:796} 안에서 Eye of Bhossca를 찾으십시오.",
 	-- ["Place the eye in the {object:410369} near Pyrewood. C's payment is the second Eye of Bhossca quest at the same chest."] = "장작나무 마을 근처의 {object:410369}에 눈을 넣으십시오. C의 보수는 같은 상자에서 받는 두 번째 Eye of Bhossca 퀘스트입니다.",
 	-- ["The monastery stands in the far north-east of {zone:1420}. Go in alone; C advises a disguise from the monastery's grounds before you enter."] = "수도원은 {zone:1420} 북동쪽 끝에 있습니다. 혼자 들어가십시오. C는 들어가기 전에 수도원 부지에서 변장을 구하라고 조언합니다.",
+	-- ["The {item:277246}, C's payment for a solo job inside the {area:796}."] = "{item:277246}: {area:796} 안에서 혼자 하는 임무에 대한 C의 보수.",
 	-- ["The {object:410369} is a chest near {area:204} in southern Silverpine, just south of {area:236}. C's next note waits there once you are 25."] = "{object:410369}은(는) 은빛소나무 숲 남쪽 {area:204} 근처, {area:236} 바로 남쪽에 있는 상자입니다. 25레벨이 되면 그곳에 C의 다음 쪽지가 있습니다.",
 }

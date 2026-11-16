@@ -92,8 +92,11 @@ return {
 	-- {area:2240} Mirage Raceway
 	["{area:2240}: kill these as you meet them"] = "{area:2240}：沿途击杀以下目标",
 	-- {object:19868} Rocket Car Rubble
-	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Basilisks = {npc:4147} Saltstone Basilisk
-	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "{object:19868}遍布整片平原。恐蝎劫掠者和盐湖食腐鹫出没于北半部，盐壳钳嘴龟（乌龟）则遍布平原。盐石蜥蜴和盐石水晶蜥蜴在中部；盐石凝视者（34-35级）只在最南端。",
+	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Gazers = {npc:4150} Saltstone Gazer · Scorpid Terrors = {npc:4139} Scorpid Terror
+	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "{object:19868}散落在整片盐滩上。恐蝎劫掠者和盐湖食腐鹫在北半部游荡，盐壳龟（30-31级）在盐滩中部：猎杀它们获取龟壳。注意：盐壳钳嘴龟（34-35级）在整片盐滩游荡，盐石凝视者（34-35级）和恐蝎（33-34级）占据最南端：别惹它们，待在北半部。",
+	-- {item:5795} Hardened Tortoise Shell
+	-- plural, as words: Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise
+	["{item:5795}, from the Sparkleshell Tortoises"] = "{item:5795}，盐壳龟掉落",
 	-- {npc:4078} Collin Mauren · {zone:1453} Stormwind
 	-- plural, as words: Saltstone Basilisks = {npc:4147} Saltstone Basilisk
 	["Crystalized Scale, from the Saltstone Basilisks: eight for {npc:4078} in {zone:1453}"] = "水晶鳞片，盐石蜥蜴掉落：为{zone:1453}的{npc:4078}收集八片",
@@ -157,5 +160,6 @@ return {
 	-- ["{npc:3970}: for {npc:1480} in Menethil, at the end of this guide"] = "{npc:3970}：交给米奈希尔港的{npc:1480}，在本指南结尾",
 	-- ["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619}率领{area:429}的萨特；树枝在他身上。",
 	-- ["{npc:5082}, {npc:4963} and Tapoke Jahn are all at Menethil's inn; {npc:4962} fights you when you talk to {npc:4963}, but gives up once beaten. {npc:1480} stands a short walk north-east of the inn."] = "{npc:5082}、{npc:4963}和{npc:4962} Jahn都在米奈希尔港的旅店里；你和{npc:4963}交谈时Tapoke会和你打，但被打败后就会放弃。{npc:1480}在旅店东北方不远处。",
+	-- ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "{object:19868}遍布整片平原。恐蝎劫掠者和盐湖食腐鹫出没于北半部，盐壳钳嘴龟（乌龟）则遍布平原。盐石蜥蜴和盐石水晶蜥蜴在中部；盐石凝视者（34-35级）只在最南端。",
 	-- ["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}：交给{area:415}的{npc:3961}",
 }

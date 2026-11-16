@@ -21,6 +21,8 @@ return {
 	["The flight lands beside {npc:7876}. Take the town's quests before riding west to {area:979}."] = "",
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "{npc:7876}, рядом с распорядителем полетов",
+	-- {npc:11758} Andi Lynn · {area:1938} Broken Pillar
+	["{npc:11758}: keep it, the Dunemaul ogres and Gor'marok (49) wait for the {area:1938} at about 52, at the end of 40-50/06"] = "{npc:11758}: сохраните задание, огры Песчаной Бури и Гор'марок (49) подождут до {area:1938} примерно на 52-м уровне, в конце 40-50/06",
 
 	-- Step 4: Gadgetzan
 	-- {area:978} Zul'Farrak · {area:979} Sandsorrow Watch · {npc:7407} Chief Engineer Bilgewhizzle · {quest:2768} Divino-matic Rod · {quest:2864} Tran'rek
@@ -60,23 +62,23 @@ return {
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {item:9978} Gahz'ridian Detector · {area:983} Dunemaul Compound
 	["West along the road south; {npc:7771} camps by the ruins at the {area:1938}. Put on his {item:9978}: it shows the buried ornaments, here and around the {area:983}."] = "На запад по дороге на юг; {npc:7771} стоит лагерем у руин ({area:1938}). Наденьте его предмет {item:9978}: он показывает закопанные украшения – здесь и вокруг места {area:983}.",
 
-	-- Step 13: Broken Pillar: kill these as you meet them
-	-- {area:1938} Broken Pillar
-	["{area:1938}: kill these as you meet them"] = "",
-	-- {area:982} Noxious Lair · {npc:12046} Gor'marok the Ravager · {quest:3161} Gahz'ridian
-	["South of the {area:982} the Dunemaul ogres hold their compound, with {npc:12046} at its eastern end. Dig up {quest:3161} ornaments between the fights."] = "К югу от места {area:982} огры клана Песчаного Молота занимают свой лагерь, {npc:12046} – в его восточной части. Между боями выкапывайте украшения ({quest:3161}).",
-	["Below ground"] = "Под землей",
+	-- Step 13: Gahz'ridian ornaments
+	-- {quest:3161} Gahz'ridian
+	["{quest:3161} ornaments"] = "{quest:3161}",
+	-- {quest:3161} Gahz'ridian · {area:1938} Broken Pillar · {area:983} Dunemaul Compound · {npc:12046} Gor'marok the Ravager
+	["Dig up the {quest:3161} ornaments around the {area:1938} and north of the {area:983}. Leave the ogres for now: {npc:12046} is 49 and the Brutes 46-48; the {area:983} comes at the end of 40-50/06, at about 52."] = "Выкапывайте газ'ридианские украшения ({quest:3161}) у места {area:1938} и к северу от места {area:983}. Огров пока оставьте: {npc:12046} 49-го уровня, а громилы 46-48-го; {area:983} – в конце 40-50/06, примерно на 52-м уровне.",
 
-	-- Step 14: Noxious Lair
+	-- Step 14: The Noxious Lair
 	-- {npc:4196} Silithid Swarm
 	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
-	["West, the Centipaar insects swarm around their hives; any of them drops the parts.\nCareful: Centipaar Swarmers cast {npc:4196} both in and out of combat, which brings small adds that interrupt you."] = "",
+	["West, the Centipaar insects swarm around their hives; any of them drops the parts.\nCareful: Centipaar Swarmers cast {npc:4196} both in and out of combat, which brings small adds that interrupt you. The Sandreavers are 49-50: take the Workers and Tunnelers."] = "На западе вокруг своих ульев роятся насекомые-сентипаары; части падают с любого из них.\nОсторожно: членистоноги-сентипаары применяют {npc:4196} в бою и вне боя, призывая мелких существ, которые прерывают вас. Песчаные разорители 49-50-го уровня: бейте рабочих и проходчиков.",
 
 	-- Step 15: Thistleshrub Valley: kill these as you meet them
 	-- {quest:3362} Thistleshrub Valley
 	["{quest:3362}: kill these as you meet them"] = "",
-	-- {zone:1446} Tanaris
-	["West of the compound the cactus creatures fill the valley; only the Dew Collectors carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 49-50 and wander a lot, so you can easily pull extra mobs."] = "К западу от лагеря долину заполняют кактусовые существа; росяная железа – только у собирателей росы. С большинства монстров ({zone:1446}) изредка падает аварийный маяк КПХ-17/TN: сохраните его, если выпадет.\nОсторожно: другие тернистые существа в округе 49-50-го уровня и много бродят, так что легко привлечь лишних противников.",
+	-- {zone:1446} Tanaris · {quest:2864} Tran'rek · {area:1938} Broken Pillar
+	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
+	["West of the compound the cactus creatures fill the valley; only the Dew Collectors (47-48) carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave {quest:2864}'s Gnarled Thistleshrubs and Rootshapers for the {area:1938} ride into Un'Goro at about 51."] = "К западу от лагеря долину заполняют кактусовые существа; росяная железа – только у собирателей росы (47-48). С большинства монстров ({zone:1446}) изредка падает аварийный маяк КПХ-17/TN: сохраните его, если выпадет.\nОсторожно: другие тернистые существа в округе 48-50-го уровня и много бродят, так что легко привлечь лишних противников: бейте собирателей росы на краю долины, а бугристых шипошкуров и формирователей корней для NPC {quest:2864} оставьте на поездку через {area:1938} в Ун'Горо примерно на 51-м уровне.",
 	-- {item:8623} OOX-17/TN Distress Beacon
 	["{item:8623}, a rare drop"] = "{item:8623}, редкая добыча",
 
@@ -95,14 +97,19 @@ return {
 	["Keep the Model 4711-FTZ Power Source Bilgewhizzle gave you: it starts {quest:654}, a two-hour timer, so use it on the way back north from Scrimshank's hive."] = "Сохраните источник энергии модели 4711-FTZ, который дал вам Трюмогуд: он начинает задание {quest:654} с двухчасовым таймером, так что используйте его на обратном пути на север от улья Холстомера.",
 
 	-- Step 20: Gadgetzan
+	-- {quest:2864} Tran'rek · {quest:3362} Thistleshrub Valley · {area:983} Dunemaul Compound · {area:1938} Broken Pillar
+	["Keep {quest:2864}'s {quest:3362}: its Rootshapers (49-50) come with the {area:983} at the {area:1938}, on the way into Un'Goro at about 51."] = "Сохраните задание {quest:3362} от NPC {quest:2864}: его формирователи корней (49-50) – вместе с {area:983} у места {area:1938}, по пути в Ун'Горо примерно на 51-м уровне.",
 	-- {item:8526} Violet Tragan · {zone:1425} Hinterlands
 	["the {item:8526} grows in the {zone:1425}, around level 48"] = "{item:8526} растет здесь: {zone:1425}, примерно на 48-м уровне",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "",
+	-- {npc:11758} Andi Lynn · {area:983} Dunemaul Compound · {area:1938} Broken Pillar
+	["{npc:11758}'s {area:983} stays in your log for the {area:1938} at about 52."] = "Задание {area:983} от NPC {npc:11758} остается в журнале до места {area:1938} примерно на 52-м уровне.",
 
 	-- Step 22: Scrimshank's gear
 	["Scrimshank's gear"] = "Устройство Холстомера",
 	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "",
+	["Below ground"] = "Под землей",
 
 	-- Step 23: OOX-17/TN
 	["OOX-17/TN"] = "КПХ-17/TN",
@@ -152,18 +159,18 @@ return {
 	["{area:246}'s slavers and golems"] = "",
 	-- {area:1446} Thorium Point · {npc:8479} Velarok Windblade
 	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Heavy War Golems = {npc:5854} Heavy War Golem
-	["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below {npc:8479}."] = "",
+	["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below {npc:8479}. Careful: the biggest golems are 49: pull them one at a time."] = "Езжайте на юг от места {area:1446} в Котлован: надсмотрщики и поработители из клана Черного Железа гоняют рабов по тропам, а тяжелые боевые големы патрулируют дно ниже места, где стоит {npc:8479}. Осторожно: самые крупные големы 49-го уровня: привлекайте их по одному.",
 
 	-- Step 33: Velarok Windblade
 	-- {npc:8479} Velarok Windblade · {area:1446} Thorium Point
-	["{npc:8479} stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "",
+	["{npc:8479} stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "{npc:8479} стоит один к югу от места {area:1446}, на краю Котлована. Выслушайте его историю.",
 
 	-- Step 36: Searing Gorge: kill these as you meet them
 	-- {zone:1427} Searing Gorge
 	["{zone:1427}: kill these as you meet them"] = "",
 	-- {npc:8479} Velarok Windblade · {item:11818} Grimesilt Outhouse Key · {area:1443} The Slag Pit
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Blazing Elementals = {npc:5850} Blazing Elemental · Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Searing Lava Spiders = {npc:5858} Searing Lava Spider · Incendosaurs = {npc:9318} Incendosaur · Dark Iron Slavers = {npc:5844} Dark Iron Slaver
-	["Heavy War Golems patrol the Cauldron below {npc:8479} and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Searing Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "",
+	["Heavy War Golems patrol the Cauldron below {npc:8479} and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Searing Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee. The biggest Incendosaurs and Lava Spiders are 49: pull them one at a time."] = "Тяжелые боевые големы патрулируют Котлован ниже места, где стоит {npc:8479}, с них падает масло; с бродящих среди них магмовых и пылающих элементалей падают сердца. Надсмотрщики и поработители из клана Черного Железа гоняют рабов по тропам; с поработителя может упасть {item:11818}: сохраните его.\nБольшие лавовые пауки бродят по плато и лавовым озерам на юго-западе ущелья.\n{area:1443} – на севере Котлована. Пламезавры плавают в его лавовых озерах: выманивайте их к краю. Секретные чертежи лежат на верхнем уступе ямы.\nОсторожно: поработители из клана Черного Железа (45-46-го уровня) зовут на помощь союзников в радиусе 15 м, бросают сеть с 15 м и применяют Кровопускание в ближнем бою. Самые крупные пламезавры и лавовые пауки 49-го уровня: привлекайте их по одному.",
 	-- {item:11818} Grimesilt Outhouse Key
 	["{item:11818}, a rare drop"] = "{item:11818}, редкая добыча",
 	-- {area:1443} The Slag Pit
@@ -171,7 +178,7 @@ return {
 
 	-- Step 38: Thorium Point
 	-- {area:1446} Thorium Point · {npc:8479} Velarok Windblade
-	["Ride back north to {area:1446}, just past {npc:8479}."] = "",
+	["Ride back north to {area:1446}, just past {npc:8479}."] = "Возвращайтесь на север к месту {area:1446}, сразу за NPC {npc:8479}.",
 
 	-- Step 39: The Steamsmiths' furnaces
 	["The Steamsmiths' furnaces"] = "Горны кузнецов",
@@ -208,6 +215,7 @@ return {
 	-- ["Ride back north to {area:1446}. Stay here: the next guide starts with the flight to {area:75}."] = "Возвращайтесь на север сюда: {area:1446}. Оставайтесь здесь: следующее руководство начинается с полета сюда: {area:75}.",
 	-- ["Ride south-west to {area:976}."] = "Езжайте на юго-запад сюда: {area:976}.",
 	-- ["South down the road again."] = "Снова на юг по дороге.",
+	-- ["South of the {area:982} the Dunemaul ogres hold their compound, with {npc:12046} at its eastern end. Dig up {quest:3161} ornaments between the fights."] = "К югу от места {area:982} огры клана Песчаного Молота занимают свой лагерь, {npc:12046} – в его восточной части. Между боями выкапывайте украшения ({quest:3161}).",
 	-- ["South-east of Gadgetzan the Wastewander bandits camp in the dunes; {npc:7847} stands in the eastern camp."] = "К юго-востоку от Прибамбасска в дюнах стоят лагерем бандиты Скитальцев Пустыни; {npc:7847} – в восточном лагере.",
 	-- ["The Dark Iron Lookouts stand on the ridges around the sentry towers south of the Cauldron; about one in ten carries the {item:18960}."] = "Наблюдатели из клана Черного Железа стоят на хребтах у сторожевых башен к югу от Котлована; {item:18960} – примерно у каждого десятого.",
 	-- ["The Dark Iron Steamsmiths work the furnaces in the middle of the Cauldron; half of them carry a {item:10551}, one in ten the {item:18959}. Slaves, Slavers and Taskmasters carry daggers too."] = "Кузнецы из клана Черного Железа работают у горнов в центре Котлована; у половины – {item:10551}, у каждого десятого – {item:18959}. Кинжалы есть также у рабов, поработителей и надсмотрщиков.",
@@ -217,6 +225,7 @@ return {
 	-- ["The {object:142071} machine, in the middle of town: the egg is in southern {zone:1444}, around level 50"] = "Устройство {object:142071} в центре города: яйцо находится на юге края {zone:1444}, примерно на 50-м уровне",
 	-- ["Velarok Windblade"] = "Веларок Клинок Ветра",
 	-- ["Velarok stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "Веларок стоит один к югу от места {area:1446}, на краю Котлована. Выслушайте его историю.",
+	-- ["West of the compound the cactus creatures fill the valley; only the Dew Collectors carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 49-50 and wander a lot, so you can easily pull extra mobs."] = "К западу от лагеря долину заполняют кактусовые существа; росяная железа – только у собирателей росы. С большинства монстров ({zone:1446}) изредка падает аварийный маяк КПХ-17/TN: сохраните его, если выпадет.\nОсторожно: другие тернистые существа в округе 49-50-го уровня и много бродят, так что легко привлечь лишних противников.",
 	-- ["West, the Centipaar insects swarm around their hives; any of them drops the parts."] = "К западу насекомые-сентипаары роятся у своих ульев; части тел падают с любого.",
 	-- ["the {object:150075} in the square"] = "{object:150075} на площади",
 	-- ["{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge."] = "{area:1443} – на севере Котлована. В лавовых озерах плавают пламезавры: выманивайте их к краю. Секретные планы лежат на верхнем уступе ямы.",

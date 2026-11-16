@@ -145,7 +145,7 @@ return {
 	-- {area:16624} Shen'dar Village
 	["{area:16624} hand-ins"] = "",
 	-- {npc:251905} Zerril Softbreeze · {npc:251906} Teeri Wellwind · {npc:251991} Taleen Shimmerthread · {npc:252172} Danarii Bellowveil · {npc:251523} Constable Aonda · {area:16624} Shen'dar Village · {item:5469} Strider Meat
-	["{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} and {npc:251523} all stand in {area:16624}. If you are still short of {item:5469}, the Galestriders graze just south of the village."] = "",
+	["{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} and {npc:251523} all stand in {area:16624}. If you are still short of {item:5469}, the Galestriders graze just west of the village; the Al'Aketh camps south and south-east of it are a level or two higher."] = "{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172}, {npc:251523}은(는) 모두 {area:16624}에 있습니다. {item:5469}이(가) 아직 부족하다면 마을 바로 서쪽에서 질풍타조가 풀을 뜯습니다. 마을 남쪽과 남동쪽의 알아케스 야영지는 한두 레벨 더 높습니다.",
 
 	-- Step 32: Shen'dar Highlands: kill these as you meet them
 	-- {area:16623} Shen'dar Highlands
@@ -353,6 +353,10 @@ return {
 	-- {npc:252476} Talaanis Shadowsong
 	["talk to {npc:252476}"] = "{npc:252476}와(과) 대화하세요",
 
+	-- Step 75: Desperate Times
+	-- {npc:251968} Ayessa Dawnsinger · {npc:252475} Elaadrin Evengale
+	["Valennia asks you to hear out both leaders: {npc:251968} of the Horde and {npc:252475} of the Alliance. {npc:252475}'s name shows red to you, but he talks to you all the same, and the quest needs both."] = "발렌니아는 두 지도자의 이야기를 모두 들어 보라고 합니다. 호드의 {npc:251968}와(과) 얼라이언스의 {npc:252475}입니다. {npc:252475}의 이름은 빨간색으로 보이지만 그래도 대화할 수 있으며, 퀘스트에는 두 사람 모두 필요합니다.",
+
 	-- Step 77: Desperate Times
 	-- {npc:253844} Valennia Stormfist
 	["talk to {npc:253844}"] = "{npc:253844}와(과) 대화하세요",
@@ -442,7 +446,7 @@ return {
 	-- {npc:259119} Alaana Stormwalker · {zone:1454} Orgrimmar
 	["{npc:259119}: keep it: Thrall in {zone:1454}, at the start of the next guide"] = "{npc:259119}: 보관하세요. 다음 가이드 시작에 {zone:1454}의 스랄",
 	-- {npc:259118} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
-	["{npc:259118}, by the landing: for {npc:3033} in {zone:1456}"] = "",
+	["{npc:259118}, by the landing: for {npc:3033} in {zone:1456}"] = "착륙장 옆의 {npc:259118}: {zone:1456}의 {npc:3033}에게",
 
 	-- Step 97: Clarice Foster
 	-- {npc:5543} Clarice Foster · {area:2197} Pools of Vision · {area:1640} Spirit Rise

@@ -123,7 +123,7 @@ return {
 	-- {faction:2799} Theramore Expeditionary Force
 	["{faction:2799} to Exalted"] = "",
 	-- {item:271924} Rebels' Rugged Reaper · {item:271928} Clever Expeditionary's Spellblade · {item:271932} Insurgent's Manifesto
-	["Revered to Exalted is 21000 reputation, half the climb. Revered opens the weapons for levels 28, 38, 48 and 58: {item:271924} (two-handed axe), {item:271928} (dagger), Guerrilla's Jagged Mace and {item:271932} (off-hand), 1g44s to 37g15s."] = "",
+	["Revered to Exalted is 21000 reputation, half the climb. Revered opens the weapons for levels 28, 38, 48 and 58: {item:271924} (two-handed axe), {item:271928} (dagger), Guerrilla's Jagged Mace and {item:271932} (off-hand), 1g44s to 37g15s."] = "От почтения до превознесения – 21000 репутации, половина пути. Почтение открывает оружие для 28, 38, 48 и 58-го уровней: {item:271924} (двуручный топор), {item:271928} (кинжал), Зазубренная булава партизана и {item:271932} (для левой руки), от 1з 44с до 37з 15с.",
 	-- {npc:263569} Bryanna Embreeze
 	["{npc:263569}: Revered rewards"] = "",
 

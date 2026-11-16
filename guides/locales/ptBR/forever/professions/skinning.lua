@@ -45,7 +45,7 @@ return {
 	["{npc:251291}, Prideclaw"] = "{npc:251291}, Garraltiva",
 	["Prideclaw, Galestrider"] = "Garraltiva, Vagaventos",
 	["Prideclaw, Vuldren"] = "Garraltiva, Vuldren",
-	["Cloudrunner, Galestrider"] = "",
+	["Cloudrunner, Galestrider"] = "Corre-nuvens, Vagaventos",
 	-- {npc:250928} Highlands Ursera
 	["Prideclaw, {npc:250928}"] = "Garraltiva, {npc:250928}",
 

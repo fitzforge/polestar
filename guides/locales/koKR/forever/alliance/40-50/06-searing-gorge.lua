@@ -60,17 +60,17 @@ return {
 	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
 	["Searing Lava Spiders"] = "이글거리는 용암거미",
 	-- {npc:8436} Zamael Lunthistle · {npc:8479} Velarok Windblade
-	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "",
+	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "거미는 {npc:8436} 남쪽, {npc:8479}에게 가는 길의 고원과 용암 웅덩이를 돌아다닙니다.",
 
 	-- Step 15: Velarok Windblade
 	-- {npc:8479} Velarok Windblade · {area:1446} Thorium Point
-	["{npc:8479} stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "",
+	["{npc:8479} stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "{npc:8479}은(는) {area:1446} 남쪽, 용광로 가장자리에 서 있습니다. 그의 이야기를 들으십시오.",
 
 	-- Step 18: Golems and elementals
 	["Golems and elementals"] = "골렘과 정령",
 	-- {npc:8479} Velarok Windblade
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Magma Elementals = {npc:5855} Magma Elemental
-	["Heavy War Golems patrol the floor of the Cauldron below {npc:8479}; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "",
+	["Heavy War Golems patrol the floor of the Cauldron below {npc:8479}; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "{npc:8479} 아래 용광로 바닥을 육중한 전투골렘이 순찰하고, 그 사이를 용암 정령이 떠다닙니다. 기름은 골렘과 정령이, 심장은 정령이 떨어뜨립니다.",
 
 	-- Step 20: Dark Iron dwarves: kill these as you meet them
 	["Dark Iron dwarves: kill these as you meet them"] = "",
@@ -104,11 +104,11 @@ return {
 
 	-- Step 30: The Torch of Retribution
 	-- {npc:8479} Velarok Windblade
-	["Listen to {npc:8479}'s story once more."] = "",
+	["Listen to {npc:8479}'s story once more."] = "{npc:8479}의 이야기를 한 번 더 들으십시오.",
 
 	-- Step 31: Velarok Windblade
 	-- {quest:3453} The Torch of Retribution · {npc:8479} Velarok Windblade · {quest:3462} Squire Maltrake
-	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "",
+	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "{quest:3453}은(는) {npc:8479}의 발치 땅바닥에 놓여 있고, {quest:3462}은(는) 그 옆에 서 있습니다.",
 	-- {quest:3462} Squire Maltrake · {area:1446} Thorium Point
 	["{quest:3462}: hand it in on the way back to {area:1446}"] = "{quest:3462}: {area:1446}(으)로 돌아가는 길에 완료하십시오",
 
@@ -133,7 +133,7 @@ return {
 
 	-- Step 36: Squire Maltrake
 	-- {npc:8509} Squire Maltrake · {npc:8479} Velarok Windblade · {area:1446} Thorium Point
-	["{npc:8509} and the dragonflight's hoard are beside {npc:8479}, on the rim south of {area:1446}."] = "",
+	["{npc:8509} and the dragonflight's hoard are beside {npc:8479}, on the rim south of {area:1446}."] = "{npc:8509}와(과) 용군단의 보물은 {area:1446} 남쪽 가장자리, {npc:8479} 옆에 있습니다.",
 	-- {object:149502} Hoard of the Black Dragonflight · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous · {zone:1428} Burning Steppes
 	["The {object:149502} it gives holds a {item:10575}: keep it for {npc:9459} in the {zone:1428}"] = "보상으로 받는 {object:149502}에는 {item:10575}이(가) 들어 있습니다: {zone:1428}의 {npc:9459}에게 가져갈 수 있도록 간직하십시오",
 

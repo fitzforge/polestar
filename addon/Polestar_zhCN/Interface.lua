@@ -198,6 +198,16 @@ L["A place where it can spawn: it may be up, or gathered already."] = "可能刷
 L["Hand in"] = "交还"
 L["%s offers it and takes it back in one talk: it never goes in your quest log"] = "%s 在同一次对话中发布并收回此任务：它不会进入你的任务日志"
 L["Offered and taken back in one talk: it never goes in your quest log"] = "在同一次对话中发布并收回：不会进入你的任务日志"
+L["Repair at %s"] = "在 %s 处修理"
+L["Sell at %s"] = "在 %s 处出售"
+L["bags full"] = "背包已满"
+L["1 free slot"] = "剩余 1 个空位"
+L["%d free slots"] = "剩余 %d 个空位"
+L["Repair and sell before heading out: gear at %d%%, %s"] = "出发前修理并出售：装备耐久 %d%%，%s"
+L["Repair before heading out: gear at %d%%"] = "出发前修理：装备耐久 %d%%"
+L["The guide heads out of town next and your gear is worn: repair it here before it breaks."] = "指南接下来将离开城镇，而你的装备已有磨损：趁装备损坏前在这里修理。"
+L["Sell before heading out: %s"] = "出发前出售：%s"
+L["The guide heads out of town next and your bags are nearly full: sell what you don't need here."] = "指南接下来将离开城镇，而你的背包快满了：在这里卖掉不需要的物品。"
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "选择一个奖励以完成交还。"
@@ -2504,6 +2514,12 @@ L["Set Polestar up again, a page at a time: questing, groups, your route, your l
 L["Show experimental guides"] = "显示实验性指南"
 L["Polestar's guides for Forever's new zones, still being tested: listed in the guide menu under Leveling with an Experimental chip. They are never picked for you; a route choice offers their zone where it fits either way."] = "Polestar 为 Forever 新地区制作的指南，仍在测试中：列在指南菜单的“练级”下，带有“实验性”标签。它们不会被自动选中；无论如何，路线选择都会在合适的位置提供它们的地区。"
 L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "更快时，路线可从你已学会的传送法术开始：法师的城市传送、德鲁伊的月光林地，或萨满祭司的星界传送（相当于第二块炉石）。城市传送需要背包中有传送符文。"
+L["Sell and repair reminders"] = "出售和修理提醒"
+L["When the guide is about to head out of town with your bags nearly full or your gear worn, a merchant or repairer on the way, once per visit. Click it to point the arrow there."] = "当指南即将离开城镇，而你的背包快满或装备已有磨损时，提示途中的商人或修理商，每次进城一次。点击提示可将箭头指向该处。"
+L["Sell: fewer free bag slots than"] = "出售：背包空位少于"
+L["Reminds you to sell when fewer bag slots are free than this, or than the items the next steps collect. 0 counts those items alone."] = "当背包空位少于此数值，或少于接下来步骤要收集的物品数时，提醒你出售。设为 0 则只计算这些物品。"
+L["Repair: gear worn below"] = "修理：装备耐久低于"
+L["Reminds you to repair when a piece of your gear is below this share of its durability. 0: never."] = "当你的任一装备耐久低于此比例时，提醒你修理。0：从不提醒。"
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"

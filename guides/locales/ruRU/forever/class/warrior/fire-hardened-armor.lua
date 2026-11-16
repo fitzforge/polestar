@@ -24,7 +24,7 @@ return {
 
 	-- Step 4: Yorus Barleybrew
 	-- {quest:1698} Yorus Barleybrew · {area:69} Lakeshire · {area:98} Rethban Caverns
-	["{quest:1698} sits in the inn at {area:69}. His test is timed: before you take it, clear the Redridge gnolls on the path to the {area:98} in the hills north-west of {area:69}, including the two on the rock by the cave mouth (climb it from its right side)."] = "",
+	["{quest:1698} sits in the inn at {area:69}. His test is timed, and it is a level 22 quest, so the guide waits for level 21 before you take it: before that, clear the Redridge gnolls on the path to the {area:98} in the hills north-west of {area:69}, including the two on the rock by the cave mouth (climb it from its right side)."] = "{quest:1698} сидит в таверне ({area:69}). Его испытание ограничено по времени, и это задание 22-го уровня, поэтому гайд ждет 21-го уровня, прежде чем вы его возьмете: до этого перебейте гноллов Красногорья на пути к месту {area:98} на холмах к северо-западу от места {area:69}, включая двух на скале у входа в пещеру (забирайтесь на нее справа).",
 
 	-- Step 5: The Rethban Gauntlet
 	-- {npc:6166} Yorus Barleybrew · {spell:8553} Barleybrew Scalder · {area:98} Rethban Caverns · {area:69} Lakeshire
@@ -35,69 +35,73 @@ return {
 	["Enter the {area:98} and come back; below ground, at the first fork"] = "Войдите сюда и вернитесь: {area:98}; под землей, у первой развилки",
 
 	-- Step 6: The Shieldsmith
-	-- {npc:5413} Furen Longbeard · {item:6843} Cask of Scalder · {npc:6166} Yorus Barleybrew · {item:6970} Furen's Favor · {quest:1701} Fire Hardened Mail · {item:6842} Furen's Instructions
-	["{npc:5413} works in the Dwarven District of Stormwind. He takes the {item:6843} (lost it? abandon the quest and {npc:6166} gives a new one) and gives you {item:6970}, a shield; {quest:1701} is a level 28 quest, with {item:6842} listing what it needs."] = "{npc:5413} работает в Квартале дворфов Штормграда. Он забирает {item:6843} (потеряли? откажитесь от задания, и {npc:6166} даст новый) и дает вам щит: {item:6970}. {quest:1701} – задание 28-го уровня; что для него нужно, перечислено в предмете {item:6842}.",
+	-- {npc:5413} Furen Longbeard · {item:6843} Cask of Scalder · {npc:6166} Yorus Barleybrew · {item:6970} Furen's Favor
+	["{npc:5413} works in the Dwarven District of Stormwind. He takes the {item:6843} (lost it? abandon the quest and {npc:6166} gives a new one) and gives you {item:6970}, a shield."] = "{npc:5413} работает в Квартале дворфов Штормграда. Он забирает {item:6843} (потеряли? откажитесь от задания, и {npc:6166} даст новый) и дает вам щит: {item:6970}.",
 
-	-- Step 7: Scorched Spider Fangs
+	-- Step 7: Fire Hardened Mail
+	-- {npc:5413} Furen Longbeard · {quest:1701} Fire Hardened Mail · {object:28027} Dwarven District · {item:6842} Furen's Instructions
+	["{npc:5413}'s next task, {quest:1701}, is a level 28 quest: its chimaeras and Roogug are level 28, so the guide waits for level 27 before you take it. Come back to {npc:5413} in the {object:28027} then; {item:6842} list what it needs."] = "Следующее поручение NPC {npc:5413}, {quest:1701}, – задание 28-го уровня: химеры и Ругуг в нем 28-го уровня, поэтому гайд ждет 27-го уровня, прежде чем вы его возьмете. Тогда возвращайтесь к NPC {npc:5413} ({object:28027}); что нужно, перечислено в предмете {item:6842}.",
+
+	-- Step 8: Scorched Spider Fangs
 	-- plural, as words: Scorched Spider Fangs = {item:6838} Scorched Spider Fang
 	["Scorched Spider Fangs"] = "Опаленные паучьи клыки",
 	-- {zone:1437} Wetlands · {area:836} Dun Algaz
-	-- plural, as words: Leech Stalkers = {npc:1111} Leech Stalker · Cave Stalkers = {npc:4040} Cave Stalker
-	["You need 50 fangs. The Leech Stalkers and Cave Stalkers (level 21-22) crawl in the middle of the {zone:1437}, north of {area:836}; every one drops a fang. They poison; back in 5 minutes."] = "",
+	-- plural, as words: Leech Stalkers = {npc:1111} Leech Stalker · Cave Stalkers = {npc:4040} Cave Stalker · Highland Horrors = {npc:260808} Highland Horror
+	["You need 50 fangs. The Leech Stalkers and Cave Stalkers (level 21-22) crawl in the middle of the {zone:1437}, north of {area:836}; every one drops a fang, but the Highland Horrors and Lurkers (elites, 28-29) roam the same ground, so the guide waits for level 28. The spiders poison; back in 5 minutes."] = "Нужно 50 клыков. Ловцы-кровопийцы и пещерные ловцы (21-22 уровень) ползают в центре зоны {zone:1437}, к северу от места {area:836}; с каждого падает клык, но там же бродят ужасы нагорья и затаившиеся (элита, 28-29), поэтому гайд ждет 28-го уровня. Пауки отравляют; возрождаются через 5 минут.",
 
-	-- Step 8: Charred and Galvanized Horns
+	-- Step 9: Charred and Galvanized Horns
 	-- plural, as words: Galvanized Horns = {item:6840} Galvanized Horn
 	["Charred and Galvanized Horns"] = "Обугленные и гальванизированные рога",
 	-- {area:460} Sun Rock Retreat · {area:465} Charred Vale · {item:6840} Galvanized Horn · {npc:6167} Chimaera Matriarch · {spell:3396} Corrosive Poison · {spell:403} Lightning Bolt · {area:467} Stonetalon Peak
 	-- plural, as words: Charred Horns = {item:6839} Charred Horn · Young Chimaeras = {npc:4032} Young Chimaera
-	["The chimaeras live south-west of {area:460} in the {area:465}; the guide waits for level 26 first. You need 12 Charred Horns from the Fledgling (level 25-27) and Young Chimaeras (23-25), four kills in five, and the {item:6840} from the {npc:6167} (28, the big one), also four in five. Only three Fledglings, two Young and one Matriarch live there, each back in 5 minutes, so expect to wait. Fledglings and the Matriarch spit {spell:3396}, the Young cast {spell:403}. Alliance: fly to {area:467} and head south."] = "Химеры живут к юго-западу от места {area:460}, здесь: {area:465}; сначала гайд ждет 26-го уровня. Нужно 12 обугленных рогов с химер-слетков (25-27 уровень) и молодых химер (23-25) – падают в четырех случаях из пяти, – и {item:6840} с NPC {npc:6167} (28, самая большая), тоже в четырех случаях из пяти. Там живут всего три слетка, две молодые химеры и одна матриарх, каждая возрождается через 5 минут, так что придется подождать. Слетки и матриарх плюются ядом ({spell:3396}), молодые применяют {spell:403}. Альянс: летите сюда: {area:467}, и идите на юг.",
+	["The chimaeras live south-west of {area:460} in the {area:465}; the guide waits for level 28 first. You need 12 Charred Horns from the Fledgling (level 25-27) and Young Chimaeras (23-25), four kills in five, and the {item:6840} from the {npc:6167} (28, the big one), also four in five. Only three Fledglings, two Young and one Matriarch live there, each back in 5 minutes, so expect to wait. Fledglings and the Matriarch spit {spell:3396}, the Young cast {spell:403}. Alliance: fly to {area:467} and head south."] = "Химеры живут к юго-западу от места {area:460}, здесь: {area:465}; сначала гайд ждет 28-го уровня. Нужно 12 обугленных рогов с химер-слетков (25-27 уровень) и молодых химер (23-25) – падают в четырех случаях из пяти, – и {item:6840} с NPC {npc:6167} (28, самая большая), тоже в четырех случаях из пяти. Там живут всего три слетка, две молодые химеры и одна матриарх, каждая возрождается через 5 минут, так что придется подождать. Слетки и матриарх плюются ядом ({spell:3396}), молодые применяют {spell:403}. Альянс: летите сюда: {area:467}, и идите на юг.",
 	-- {item:6839} Charred Horn
 	["{item:6839}, from the young chimaeras"] = "{item:6839}: с молодых химер",
 	-- {item:6840} Galvanized Horn · {npc:6167} Chimaera Matriarch
 	["{item:6840}, from the {npc:6167}"] = "{item:6840}: {npc:6167}",
 
-	-- Step 9: Roogug in Razorfen Kraul
+	-- Step 10: Roogug in Razorfen Kraul
 	-- {area:1717} Razorfen Kraul
 	["Roogug in {area:1717}"] = "Ругуг — {area:1717}",
 	-- {area:1717} Razorfen Kraul · {zone:1413} Barrens · {spell:403} Lightning Bolt
-	["Roogug is an elite quilboar (level 28) inside {area:1717}, the dungeon at the south end of the {zone:1413}; a five-player dungeon: needs a group of five, and his guards come with him. Inside take the left path at the first fork, cross the root bridge, go past the big empty cauldron: he is in a dead end on the right, with about ten elites on the way. He casts {spell:403} and calls Earth Rumblers. The vial always drops."] = "",
+	["Roogug is an elite quilboar (level 28) inside {area:1717}, the dungeon at the south end of the {zone:1413}; a five-player dungeon: needs a group of five, and his guards come with him. The guide waits for level 28 first. Inside take the left path at the first fork, cross the root bridge, go past the big empty cauldron: he is in a dead end on the right, with about ten elites on the way. He casts {spell:403} and calls Earth Rumblers. The vial always drops."] = "Ругуг – элитный свинобраз (28-й уровень) в подземелье {area:1717} на южной окраине зоны {zone:1413}; подземелье на пятерых: нужна группа из пяти человек, и с ним приходят его стражи. Сначала гайд ждет 28-го уровня. Внутри на первой развилке идите налево, перейдите мост из корней, пройдите мимо большого пустого котла: он в тупике справа, по пути около десяти элитных противников. Он применяет {spell:403} и призывает земляных грохотунов. Флакон падает всегда.",
 	-- {item:6841} Vial of Phlogiston
 	["{item:6841}, from Roogug"] = "{item:6841} — с Ругуга",
 
-	-- Step 10: Furen's Armor
+	-- Step 11: Furen's Armor
 	-- {npc:5413} Furen Longbeard · {object:28027} Dwarven District
 	["Back to {npc:5413} in the {object:28027} for the hauberk. He then sends you to the smith of your race; the other two smiths' pieces are open to you as well: talk to them directly."] = "Вернитесь за хауберком: {npc:5413} ({object:28027}). Затем он отправит вас к кузнецу вашей расы; части двух других кузнецов вам тоже доступны: поговорите с ними напрямую.",
 
-	-- Step 11: Grimand Elmore
+	-- Step 12: Grimand Elmore
 	-- {npc:1416} Grimand Elmore · {object:28027} Dwarven District · {npc:5413} Furen Longbeard · {quest:1705} Burning Blood · {item:6845} Burning Rock
 	["{npc:1416} keeps the weapon shop in the north-west of the {object:28027}, a short walk from {npc:5413}. He wants 20 {quest:1705} and the {item:6845}."] = "",
 
-	-- Step 12: Burning Blood
+	-- Step 13: Burning Blood
 	-- {zone:1431} Duskwood · {area:42} Darkshire · {quest:1705} Burning Blood · {spell:3427} Infected Wound
-	["The Nightbane worgen of {zone:1431} (Dark Runners, Vile Fangs, Shadow Weavers, Worgen and Tainted Ones, level 26-31) south and west of {area:42} drop the {quest:1705} four kills in five. The Tainted Ones poison and howl; Vile Fangs cause {spell:3427}."] = "Воргены из стаи Ночной Погибели в зоне {zone:1431} (вестники Тьмы, Ярые Клыки, тенеткачи, воргены и нечистые воргены, 26-31 уровень) к югу и западу от места {area:42} роняют {quest:1705} в четырех случаях из пяти. Нечистые воргены отравляют и воют; Ярые Клыки вызывают {spell:3427}.",
+	["The Nightbane worgen of {zone:1431} (Dark Runners, Vile Fangs, Shadow Weavers, Worgen and Tainted Ones, level 26-31) south and west of {area:42} drop the {quest:1705} four kills in five; the guide waits for level 28 first. The Tainted Ones poison and howl; Vile Fangs cause {spell:3427}."] = "Воргены из стаи Ночной Погибели в зоне {zone:1431} (вестники Тьмы, Ярые Клыки, тенеткачи, воргены и нечистые воргены, 26-31 уровень) к югу и западу от места {area:42} роняют {quest:1705} в четырех случаях из пяти; сначала гайд ждет 28-го уровня. Нечистые воргены отравляют и воют; Ярые Клыки вызывают {spell:3427}.",
 	-- {quest:1705} Burning Blood
 	["{quest:1705}, from the Nightbane worgen"] = "{quest:1705}: с воргенов Ночной Погибели",
 
-	-- Step 13: Gutspill
+	-- Step 14: Gutspill
 	-- {npc:6170} Gutspill · {item:6845} Burning Rock · {area:2161} Roland's Doom · {area:42} Darkshire
-	["{npc:6170} (level 32, not elite) carries the {item:6845}, four kills in five; the guide waits for level 30 first. He walks between the inside and the mouth of the {area:2161} mine south-east of {area:42}, so wait at the entrance and pull him outside. He poisons and howls."] = "{npc:6170} (32-й уровень, не элитный) носит {item:6845}, падает в четырех случаях из пяти; сначала гайд ждет 30-го уровня. Он ходит между глубиной и входом шахты ({area:2161}) к юго-востоку от места {area:42}, так что ждите у входа и выманите его наружу. Он отравляет и воет.",
+	["{npc:6170} (level 32, not elite) carries the {item:6845}, four kills in five; the guide waits for level 32 first. He walks between the inside and the mouth of the {area:2161} mine south-east of {area:42}, so wait at the entrance and pull him outside. He poisons and howls."] = "{npc:6170} (32-й уровень, не элитный) носит {item:6845}, падает в четырех случаях из пяти; сначала гайд ждет 32-го уровня. Он ходит между глубиной и входом шахты ({area:2161}) к юго-востоку от места {area:42}, так что ждите у входа и выманите его наружу. Он отравляет и воет.",
 	-- {item:6845} Burning Rock · {npc:6170} Gutspill
 	["{item:6845}, from {npc:6170}"] = "{item:6845}: {npc:6170}",
 
-	-- Step 15: Mathiel
+	-- Step 16: Mathiel
 	-- {quest:1703} Mathiel · {area:1660} Warrior's Terrace · {zone:1457} Darnassus · {quest:1710} Sunscorched Shells
 	["{quest:1703} works on the south side of the {area:1660} in {zone:1457}. He wants 20 {quest:1710}."] = "",
 
-	-- Step 16: Sunscorched Shells
+	-- Step 17: Sunscorched Shells
 	-- {area:482} Highperch · {zone:1441} Thousand Needles
 	-- plural, as words: Highperch Wyverns = {npc:4107} Highperch Wyvern
-	["The shells lie on the ground under the wyvern nests at {area:482} in western {zone:1441}, deeper into the gorge. Only nine exist and each returns 3 minutes after you pick it, so you will wait; some shell-like things there cannot be looted. Highperch Wyverns (level 28-31) guard them and sometimes come several at once."] = "",
+	["The shells lie on the ground under the wyvern nests at {area:482} in western {zone:1441}, deeper into the gorge. Only nine exist and each returns 3 minutes after you pick it, so you will wait; some shell-like things there cannot be looted. Highperch Wyverns (level 28-31) guard them and sometimes come several at once: the guide waits for level 30 first."] = "Панцири лежат на земле под гнездами виверн ({area:482}) на западе зоны {zone:1441}, в глубине ущелья. Их всего девять, и каждый появляется снова через 3 минуты после того, как вы его подберете, так что придется подождать; некоторые похожие на панцири предметы подобрать нельзя. Их охраняют виверны Скального гнездовья (28-31 уровень), иногда нападая по несколько сразу: сначала гайд ждет 30-го уровня.",
 
-	-- Step 18: Klockmort Spannerspan
+	-- Step 19: Klockmort Spannerspan
 	-- {area:2257} Deeprun Tram · {zone:1453} Stormwind · {zone:1455} Ironforge · {quest:1704} Klockmort Spannerspan · {object:171524} Tinker Town · {item:6848} Searing Coral
 	["Ride the {area:2257} from {zone:1453} to {zone:1455}. {quest:1704}, a gnome smith, works in {object:171524} near the engineering trainers. He wants 20 {item:6848}."] = "",
 
-	-- Step 19: Iron Coral
+	-- Step 20: Iron Coral
 	-- {quest:1708} Iron Coral · {area:150} Menethil Harbor · {item:5996} Draught of Water Breathing
 	["The {quest:1708} grows on the sea floor just south of {area:150}, by the murloc huts and a wrecked boat: eight there and two south-east of the harbor, each back in 3 minutes, so you will wait for respawns to reach 20. The murlocs can net you underwater: watch your breath, and a {item:5996} removes the risk."] = "",
 	-- {item:6848} Searing Coral · {quest:1708} Iron Coral
@@ -110,10 +114,14 @@ return {
 	-- ["Roogug is an elite quilboar inside {area:1717}, the dungeon at the south end of the {zone:1413}; he drops the {item:6841}. {area:1717} is a dungeon: grouping up is advised."] = "Ругуг — элитный свинобраз внутри подземелья {area:1717} на южном краю зоны {zone:1413}; с него падает {item:6841}. {area:1717} — подземелье: лучше собрать группу.",
 	-- ["The Fledgling and Young Chimaeras roam the south-west of Stonetalon, with the {npc:6167} among them: the young ones drop the {item:6839}, the Matriarch the {item:6840}."] = "Химеры-слетки и молодые химеры бродят на юго-западе Когтистых гор, и с ними {npc:6167}: с молодых падает {item:6839}, с матриарха — {item:6840}.",
 	-- ["The Leech Stalkers and Cave Stalkers crawl around 46,61 in the middle of the {zone:1437}; they drop the {item:6838}."] = "Ловцы-кровопийцы и пещерные ловцы ползают около 46,61 в центре зоны {zone:1437}; с них падает {item:6838}.",
+	-- ["The Nightbane worgen of {zone:1431} (Dark Runners, Vile Fangs, Shadow Weavers, Worgen and Tainted Ones, level 26-31) south and west of {area:42} drop the {quest:1705} four kills in five. The Tainted Ones poison and howl; Vile Fangs cause {spell:3427}."] = "Воргены из стаи Ночной Погибели в зоне {zone:1431} (вестники Тьмы, Ярые Клыки, тенеткачи, воргены и нечистые воргены, 26-31 уровень) к югу и западу от места {area:42} роняют {quest:1705} в четырех случаях из пяти. Нечистые воргены отравляют и воют; Ярые Клыки вызывают {spell:3427}.",
 	-- ["The Nightbane worgen of {zone:1431} drop the {quest:1705}. {npc:6170} walks in the far south-east of {zone:1431} and carries the {item:6845}."] = "С воргенов Ночной Погибели в зоне {zone:1431} падает {quest:1705}. {npc:6170} бродит на крайнем юго-востоке зоны {zone:1431} и несет {item:6845}.",
+	-- ["The chimaeras live south-west of {area:460} in the {area:465}; the guide waits for level 26 first. You need 12 Charred Horns from the Fledgling (level 25-27) and Young Chimaeras (23-25), four kills in five, and the {item:6840} from the {npc:6167} (28, the big one), also four in five. Only three Fledglings, two Young and one Matriarch live there, each back in 5 minutes, so expect to wait. Fledglings and the Matriarch spit {spell:3396}, the Young cast {spell:403}. Alliance: fly to {area:467} and head south."] = "Химеры живут к юго-западу от места {area:460}, здесь: {area:465}; сначала гайд ждет 26-го уровня. Нужно 12 обугленных рогов с химер-слетков (25-27 уровень) и молодых химер (23-25) – падают в четырех случаях из пяти, – и {item:6840} с NPC {npc:6167} (28, самая большая), тоже в четырех случаях из пяти. Там живут всего три слетка, две молодые химеры и одна матриарх, каждая возрождается через 5 минут, так что придется подождать. Слетки и матриарх плюются ядом ({spell:3396}), молодые применяют {spell:403}. Альянс: летите сюда: {area:467}, и идите на юг.",
 	-- ["The {quest:1708} grows along the {zone:1437}' west coast, south of {area:150}."] = "{quest:1708} растет вдоль западного побережья зоны {zone:1437}, к югу от места {area:150}.",
 	-- ["The {quest:1710} lie along the western edge of {zone:1441}."] = "{quest:1710} лежат вдоль западного края зоны {zone:1441}.",
 	-- ["{npc:1416} is in {zone:1453}, a short walk from {npc:5413}."] = "{npc:1416} — в городе {zone:1453}, недалеко от {npc:5413}.",
+	-- ["{npc:5413} works in the Dwarven District of Stormwind. He takes the {item:6843} (lost it? abandon the quest and {npc:6166} gives a new one) and gives you {item:6970}, a shield; {quest:1701} is a level 28 quest, with {item:6842} listing what it needs."] = "{npc:5413} работает в Квартале дворфов Штормграда. Он забирает {item:6843} (потеряли? откажитесь от задания, и {npc:6166} даст новый) и дает вам щит: {item:6970}. {quest:1701} – задание 28-го уровня; что для него нужно, перечислено в предмете {item:6842}.",
+	-- ["{npc:6170} (level 32, not elite) carries the {item:6845}, four kills in five; the guide waits for level 30 first. He walks between the inside and the mouth of the {area:2161} mine south-east of {area:42}, so wait at the entrance and pull him outside. He poisons and howls."] = "{npc:6170} (32-й уровень, не элитный) носит {item:6845}, падает в четырех случаях из пяти; сначала гайд ждет 30-го уровня. Он ходит между глубиной и входом шахты ({area:2161}) к юго-востоку от места {area:42}, так что ждите у входа и выманите его наружу. Он отравляет и воет.",
 	-- ["{quest:1698} is in {area:69}, at the inn. His test is timed: run north-west into the {area:98}, reach the first fork and come back to him before the timer runs out. Do not die and release your spirit."] = "{quest:1698} — в таверне, локация: {area:69}. Испытание на время: бегите на северо-запад в {area:98}, доберитесь до первой развилки и вернитесь к нему, пока не истек таймер. Не умирайте и не отпускайте дух.",
 	-- ["{quest:1703} is a smith in {zone:1457}."] = "{quest:1703} — кузнец в городе {zone:1457}.",
 }

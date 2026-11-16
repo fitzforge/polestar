@@ -38,9 +38,9 @@ return {
 	-- Step 7: Badlands: kill these as you meet them
 	-- {zone:1418} Badlands
 	["{zone:1418}: kill these as you meet them"] = "{zone:1418}：沿途击杀以下目标",
-	-- {area:1878} The Dustbowl · {zone:1418} Badlands
+	-- {area:1878} The Dustbowl · {zone:1418} Badlands · {npc:2817} Rigglefuzz
 	-- plural, as words: Elder Crag Coyotes = {npc:2729} Elder Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard · Malevolent Mirages = {npc:269756} Malevolent Mirage
-	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth."] = "老峭壁山狗和巨型秃鹫在{area:1878}南面的盆地中游荡。山狗同时掉落颚骨和尖牙，巨型秃鹫掉落胃。小心：恶毒幻象（42级，精英）在{zone:1418}各处飘荡：远远绕开它们。",
+	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth.\nCareful: the Giant Buzzards are 39-41, and the 41s are two over you at 39: pick the 39s and 40s and pull them one at a time. The Buzzards (37) you kill later for {npc:2817}'s wings drop gizzards too, more rarely."] = "老峭壁山狗和巨型秃鹫在{area:1878}南面的盆地中游荡。山狗同时掉落颚骨和尖牙，巨型秃鹫掉落胃。小心：恶毒幻象（42级，精英）在{zone:1418}各处飘荡：远远绕开它们。\n小心：巨型秃鹫为39-41级，你39级时41级的比你高两级：挑39和40级的打，一次引一只。之后为{npc:2817}的翅膀击杀的秃鹫（37级）也会掉落胃，但几率较低。",
 
 	-- Step 8: Rock Elementals
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental
@@ -94,6 +94,7 @@ return {
 	-- ["Head north back to {area:340}. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "向北返回{area:340}。{npc:5394}站在{area:340}的上层，远高于飞行管理员：沿坡道上去，箭头无法区分上下层。",
 	-- ["Keep north on the road; the chest lies in the {area:1517} dig site, at the foot of the ruins north-west of the road."] = "继续沿道路向北；箱子在{area:1517}挖掘场，位于道路西北方的废墟脚下。",
 	-- ["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards.\nThe bigger Rock Elementals stand on the slopes north-west of the {area:1878}; each one drops a slab. Every rock elemental can drop {npc:6868}'s Rock Elemental Shards."] = "峭壁老山狗和巨型秃鹫在{area:1878}南边的盆地中游荡。山狗掉落颚骨和尖牙；巨型秃鹫掉落胃。\n更大的石元素站在{area:1878}西北方的山坡上；每个都掉落一块石板。每个石元素都可能掉落{npc:6868}要的石元素的碎片。",
+	-- ["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth."] = "老峭壁山狗和巨型秃鹫在{area:1878}南面的盆地中游荡。山狗同时掉落颚骨和尖牙，巨型秃鹫掉落胃。小心：恶毒幻象（42级，精英）在{zone:1418}各处飘荡：远远绕开它们。",
 	-- ["The Stonevault troggs dig around the cave mouths south of the {area:1877}, on the way to {area:345}; the Bonesnappers and Shamans drop the flakes. The Buzzards for {npc:2817}'s wings circle the hills between the {area:1877} and {area:345}."] = "石窟穴居人在{area:1877}南边、通往{area:345}路上的洞口周围挖掘；石窟断骨者和石窟萨满祭司掉落薄片。{npc:2817}要的翅膀来自在{area:1877}和{area:345}之间山丘上盘旋的秃鹫。",
 	-- ["The next guide flies from {area:340} to {area:35}."] = "下一篇指南会从 {area:340} 飞往 {area:35}。",
 	-- ["Theldurin sits among the dwarven ruins at {area:345}, south of the {area:1877}."] = "塞尔杜林坐在{area:1877}南边{area:345}的矮人废墟中。",

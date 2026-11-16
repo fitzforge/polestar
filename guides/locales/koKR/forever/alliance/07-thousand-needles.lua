@@ -28,26 +28,24 @@ return {
 	-- {area:42} Darkshire
 	["The Dark Runners prowl the woods south of the road, west of {area:42}."] = "암흑길잡이는 {area:42} 서쪽, 길 남쪽 숲을 어슬렁거립니다.",
 
-	-- Step 8: Nightbane Vile Fangs and the Insane Ghoul
+	-- Step 8: The Insane Ghoul
 	-- {npc:511} Insane Ghoul
+	["The {npc:511}"] = "{npc:511}",
+	-- {npc:511} Insane Ghoul · {area:121} Tranquil Gardens Cemetery · {area:42} Darkshire · {npc:663} Calor
 	-- plural, as words: Nightbane Vile Fangs = {npc:206} Nightbane Vile Fang
-	["Nightbane Vile Fangs and the {npc:511}"] = "{npc:206}와(과) {npc:511}",
-	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {npc:511} Insane Ghoul · {spell:8282} Curse of Blood
-	["The strongest worgen roam the woods south of {area:42}, west and south of the {area:121}. The {npc:511} hides in the small crypt by the cemetery.\nCareful: {spell:8282} lasts 10 minutes and adds 13 to each hit of physical damage you take.\nCareful: Some worgen outside the cave stand in groups, including one camp of four. To avoid adds, pull them one at a time from the raised ground next to the cave entrance."] = "",
+	["The {npc:511} hides in the small crypt by the {area:121}, south of {area:42}. {npc:663}'s Nightbane Vile Fangs and Tainted Ones (level 29-31) roam the woods around it: they come at the end of this guide, a level later."] = "{npc:511}은(는) {area:42} 남쪽, {area:121} 옆의 작은 납골당에 숨어 있습니다. {npc:663}의 파멸의어둠일족 송곳니투사와 오염된 자(29-31레벨)는 그 주변 숲을 돌아다닙니다. 이들은 한 레벨 뒤, 이 가이드 끝에서 처리합니다.",
 	-- {item:1946} Mary's Looking Glass
 	["{item:1946}; inside"] = "",
 
 	-- Step 9: Darkshire
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}, inside"] = "",
-	-- {npc:661} Jonathan Carevin · {npc:633} Elaine Carevin
-	["{npc:661}, by {npc:633}'s house; inside"] = "{npc:661}, {npc:633}의 집, 안",
 
 	-- Step 10: Vul'Gol Ogre Mound: kill these as you meet them
 	-- {area:93} Vul'Gol Ogre Mound
 	["{area:93}: kill these as you meet them"] = "",
-	-- {area:42} Darkshire · {object:119} Abercrombie's Crate
-	["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "{area:42}에서 남서쪽 오우거 소굴로 가세요. {object:119}은(는) 입구의 야영지에 있으며 망치주먹 오우거가 지킵니다.",
+	-- {area:42} Darkshire · {object:119} Abercrombie's Crate · {npc:300} Zzarc' Vul
+	["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it. {npc:300} is inside the ogre mound's cave: go in by the cave mouth on the mound's west side."] = "{area:42}에서 남서쪽 오우거 소굴로 가세요. {object:119}은(는) 입구의 야영지에 있으며 망치주먹 오우거가 지킵니다. {npc:300}은(는) 오우거 소굴의 동굴 안에 있습니다. 소굴 서쪽의 동굴 입구로 들어가세요.",
 	-- {npc:272273} Lost Watcher · {quest:96138} Merrick's Bow
 	["Only if a {npc:272273} dropped {quest:96138}: right-click it"] = "{npc:272273}이(가) {quest:96138}을(를) 떨어뜨렸을 때만: 오른쪽 클릭하세요",
 	["Below ground"] = "지하",
@@ -67,7 +65,7 @@ return {
 
 	-- Step 14: The Weathered Grave
 	-- {npc:311} Sven Yorgen · {npc:268} Sirra Von'Indi · {area:42} Darkshire
-	["The grave stands among the skeletons at the cemetery's north-west corner, on the way to {npc:311}. Its quest and the next are talk-only, to {npc:268} and Commander Althea in {area:42}: level 35 from level 28, but no fight."] = "",
+	["The grave stands among the skeletons at the cemetery's north-west corner, on the way to {npc:311}. Its quest and the next are talk-only, to {npc:268} and Commander Althea in {area:42}: level 35 quests, but no fight."] = "무덤은 {npc:311}에게 가는 길, 묘지 북서쪽 구석의 해골들 사이에 있습니다. 이 퀘스트와 다음 퀘스트는 {area:42}의 {npc:268}와(과) 사령관 알테아에게 대화만 하면 됩니다. 35레벨 퀘스트지만 전투가 없습니다.",
 
 	-- Step 15: Sven Yorgen's Camp
 	-- {npc:311} Sven Yorgen
@@ -78,6 +76,8 @@ return {
 	-- Step 16: Back to Darkshire
 	-- {area:42} Darkshire
 	["Back to {area:42}"] = "{area:42}(으)로 돌아가기",
+	-- {area:42} Darkshire · {npc:311} Sven Yorgen · {zone:1431} Duskwood
+	["Hearth back to {area:42} (bound at the start of this guide): {npc:311}'s camp is at the far west of {zone:1431}."] = "귀환석으로 {area:42}(으)로 돌아가세요(이 가이드 시작 시 설정). {npc:311}의 야영지는 {zone:1431} 서쪽 끝에 있습니다.",
 	-- {npc:263} Lord Ello Ebonlocke
 	["{npc:263}, in the town hall"] = "{npc:263}, 마을 회관 안",
 	-- {npc:268} Sirra Von'Indi
@@ -88,12 +88,24 @@ return {
 	-- {npc:482} Elling Trias · {zone:1453} Stormwind
 	["For {npc:482} in {zone:1453}, in the next guide"] = "다음 가이드에서 {zone:1453}의 {npc:482}에게",
 
-	-- Step 17: Viktori Prism'Antras
+	-- Step 17: Nightbane Vile Fangs and Tainted Ones
+	-- plural, as words: Nightbane Vile Fangs = {npc:206} Nightbane Vile Fang
+	["Nightbane Vile Fangs and Tainted Ones"] = "파멸의어둠일족 송곳니투사와 오염된 자",
+	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {spell:8282} Curse of Blood
+	["The strongest worgen roam the woods south of {area:42}, west and south of the {area:121}.\nCareful: {spell:8282} lasts 10 minutes and adds 13 to each hit of physical damage you take.\nCareful: Some worgen outside the cave stand in groups, including one camp of four. To avoid adds, pull them one at a time from the raised ground next to the cave entrance.\nCareful: Gutspill, a level 32 abomination, walks these woods: let it pass."] = "가장 강한 늑대인간은 {area:42} 남쪽, {area:121} 서쪽과 남쪽 숲을 돌아다닙니다.\n주의: {spell:8282}은(는) 10분간 지속되며, 받는 물리 피해가 타격마다 13 증가합니다.\n주의: 동굴 밖의 일부 늑대인간은 무리 지어 있으며, 4마리가 모인 곳도 있습니다. 추가로 끌려오지 않도록 동굴 입구 옆 높은 지대에서 하나씩 끌어오세요.\n주의: 32레벨 누더기골렘 거트스필이 이 숲을 돌아다닙니다. 지나가게 두세요.",
+
+	-- Step 18: Calor and Jonathan Carevin
+	-- {npc:663} Calor · {npc:661} Jonathan Carevin
+	["{npc:663} and {npc:661}"] = "{npc:663}와(과) {npc:661}",
+	-- {npc:661} Jonathan Carevin · {npc:633} Elaine Carevin
+	["{npc:661}, by {npc:633}'s house; inside"] = "{npc:661}, {npc:633}의 집, 안",
+
+	-- Step 19: Viktori Prism'Antras
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}'s house stands at the east end of town, on the way to the flight master."] = "{npc:276}의 집은 비행 조련사로 가는 길, 마을 동쪽 끝에 있습니다.",
 	["Inside"] = "",
 
-	-- Step 18: Fly to Menethil Harbor
+	-- Step 20: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "{area:150}(으)로 비행",
 	-- {area:42} Darkshire
@@ -114,8 +126,10 @@ return {
 	-- ["For {quest:5762} in Stranglethorn, later"] = "나중에 가시덤불 골짜기에서 {quest:5762}에게",
 	-- ["From Theramore follow the road west out of Dustwallow into the {zone:1413} and south along it; give {area:378} a wide berth. {area:485} at the {zone:1413}' south end takes you down into {zone:1441}. The journal lies at the foot of the lift."] = "테라모어에서 길을 따라 서쪽으로 먼지진흙 습지대를 빠져나와 {zone:1413}에 들어간 뒤, 길을 따라 남쪽으로 가세요. {area:378}은(는) 멀리 돌아가세요. {zone:1413} 남쪽 끝의 {area:485}을(를) 타면 {zone:1441}(으)로 내려갑니다. 일지는 승강장 아래에 있습니다.",
 	-- ["From {npc:352} in {zone:1453}"] = "{zone:1453}의 {npc:352}에게서",
+	-- ["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "{area:42}에서 남서쪽 오우거 소굴로 가세요. {object:119}은(는) 입구의 야영지에 있으며 망치주먹 오우거가 지킵니다.",
 	-- ["Her house stands on the hill south-east of {area:42}."] = "그녀의 집은 {area:42} 남동쪽 언덕 위에 있습니다.",
 	-- ["Nightbane Shadow Weavers"] = "{npc:533}",
+	-- ["Nightbane Vile Fangs and the {npc:511}"] = "{npc:206}와(과) {npc:511}",
 	-- ["No {item:4371} for {quest:174}? {npc:3133} sells it in the house beside {npc:276}, in limited stock; {npc:1448} in {area:150} sells it too."] = "{quest:174}에 쓸 {item:4371}이(가) 없나요? {npc:276} 옆집의 {npc:3133}이(가) 한정 수량으로 팔고, {area:150}의 {npc:1448}도 팝니다.",
 	-- ["On the road south through the {zone:1413}, {npc:6244} camps east of the road, north-east of {area:378}; come in from the east and keep clear of the Horde guards."] = "{zone:1413}을(를) 지나 남쪽으로 가는 길에서, {npc:6244}은(는) 길 동쪽, {area:378} 북동쪽에 진을 치고 있습니다. 동쪽에서 접근하고 호드 경비병을 피하세요.",
 	-- ["Plague Spreaders"] = "{npc:604}",

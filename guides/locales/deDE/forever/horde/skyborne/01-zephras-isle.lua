@@ -145,7 +145,7 @@ return {
 	-- {area:16624} Shen'dar Village
 	["{area:16624} hand-ins"] = "Abgaben in {area:16624}",
 	-- {npc:251905} Zerril Softbreeze · {npc:251906} Teeri Wellwind · {npc:251991} Taleen Shimmerthread · {npc:252172} Danarii Bellowveil · {npc:251523} Constable Aonda · {area:16624} Shen'dar Village · {item:5469} Strider Meat
-	["{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} and {npc:251523} all stand in {area:16624}. If you are still short of {item:5469}, the Galestriders graze just south of the village."] = "{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} und {npc:251523} stehen alle in {area:16624}. Wenn dir noch {item:5469} fehlt, grasen die Galestriders direkt südlich des Dorfes.",
+	["{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} and {npc:251523} all stand in {area:16624}. If you are still short of {item:5469}, the Galestriders graze just west of the village; the Al'Aketh camps south and south-east of it are a level or two higher."] = "{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} und {npc:251523} stehen alle in {area:16624}. Wenn dir noch {item:5469} fehlt, grasen die Galestriders direkt westlich des Dorfes; die Lager der Al'Aketh südlich und südöstlich davon sind ein bis zwei Stufen höher.",
 
 	-- Step 32: Shen'dar Highlands: kill these as you meet them
 	-- {area:16623} Shen'dar Highlands
@@ -353,6 +353,10 @@ return {
 	-- {npc:252476} Talaanis Shadowsong
 	["talk to {npc:252476}"] = "sprich mit {npc:252476}",
 
+	-- Step 75: Desperate Times
+	-- {npc:251968} Ayessa Dawnsinger · {npc:252475} Elaadrin Evengale
+	["Valennia asks you to hear out both leaders: {npc:251968} of the Horde and {npc:252475} of the Alliance. {npc:252475}'s name shows red to you, but he talks to you all the same, and the quest needs both."] = "Valennia bittet dich, beide Anführer anzuhören: {npc:251968} von der Horde und {npc:252475} von der Allianz. Der Name von {npc:252475} erscheint dir rot, aber er spricht trotzdem mit dir, und die Quest braucht beide.",
+
 	-- Step 77: Desperate Times
 	-- {npc:253844} Valennia Stormfist
 	["talk to {npc:253844}"] = "sprich mit {npc:253844}",
@@ -442,7 +446,7 @@ return {
 	-- {npc:259119} Alaana Stormwalker · {zone:1454} Orgrimmar
 	["{npc:259119}: keep it: Thrall in {zone:1454}, at the start of the next guide"] = "{npc:259119}: Behalte es: Thrall in {zone:1454}, am Anfang des nächsten Guides",
 	-- {npc:259118} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
-	["{npc:259118}, by the landing: for {npc:3033} in {zone:1456}"] = "",
+	["{npc:259118}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:259118}, bei der Landestelle: für {npc:3033} in {zone:1456}",
 
 	-- Step 97: Clarice Foster
 	-- {npc:5543} Clarice Foster · {area:2197} Pools of Vision · {area:1640} Spirit Rise
@@ -572,6 +576,7 @@ return {
 	-- ["{npc:251374} sends you to the {area:16988}, just east of the village: drink the {item:6635} there to see the {npc:251166}, then take the {item:6656} back to him."] = "{npc:251374} schickt dich zur {area:16988}, gleich östlich des Dorfs: Trink dort {item:6635}, um {npc:251166} zu sehen, und bring dann {item:6656} zu ihm zurück.",
 	-- ["{npc:251374} stands in the village."] = "{npc:251374} steht im Dorf.",
 	-- ["{npc:251374}, at the village centre"] = "{npc:251374}, in der Dorfmitte",
+	-- ["{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} and {npc:251523} all stand in {area:16624}. If you are still short of {item:5469}, the Galestriders graze just south of the village."] = "{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} und {npc:251523} stehen alle in {area:16624}. Wenn dir noch {item:5469} fehlt, grasen die Galestriders direkt südlich des Dorfes.",
 	-- ["{npc:252095} waits in {area:16622}, south-west of the village. The Al'Aketh camp is just beyond her; {npc:256935} leads it."] = "{npc:252095} wartet in {area:16622}, südwestlich des Dorfs. Das Lager der Al'Aketh liegt gleich hinter ihr; {npc:256935} führt es an.",
 	-- ["{npc:252359} stands on {area:16638}'s east side."] = "{npc:252359} steht auf der Ostseite von {area:16638}.",
 	-- ["{npc:252377} stands in the middle of {area:16638}."] = "{npc:252377} steht mitten in {area:16638}.",

@@ -19,7 +19,7 @@ return {
 
 	-- Step 2: Alliance Brigadier General
 	-- {npc:15351} Alliance Brigadier General · {quest:8402} Fight for Warsong Gulch · {area:3319} Silverwing Grove · {npc:14733} Sentinel Farsong · {zone:1453} Stormwind · {zone:1455} Ironforge · {zone:1457} Darnassus · {area:320} Refuge Pointe · {zone:1417} Arathi Highlands · {zone:1459} Alterac Valley · {zone:1460} Warsong Gulch
-	["The {npc:15351} pays 100 reputation for 3 Warsong Gulch Marks of Honor the first time, then 50 for every 3 more ({quest:8402}). One stands right here at {area:3319} beside {npc:14733}; others in {zone:1453}, {zone:1455} and {zone:1457}, at {area:320} in the {zone:1417} and at both gates of {zone:1459}. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:1460} marks: hand in or spend them before you reach that."] = "",
+	["The {npc:15351} pays 100 reputation for 3 Warsong Gulch Marks of Honor the first time, then 50 for every 3 more ({quest:8402}). One stands right here at {area:3319} beside {npc:14733}; others in {zone:1453}, {zone:1455} and {zone:1457}, at {area:320} in the {zone:1417} and at both gates of {zone:1459}. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:1460} marks: hand in or spend them before you reach that."] = "{npc:15351}首次接受3枚战歌峡谷荣誉奖章时，会提供100点声望，之后每3枚提供50点（{quest:8402}）。这里{area:3319}的{npc:14733}旁就有一位；其他人在{zone:1453}、{zone:1455}和{zone:1457}，以及{zone:1417}的{area:320}和{zone:1459}两侧大门处。无限服PvP装备除了荣誉外也需要荣誉奖章：交还前先决定想换什么。{zone:1460}奖章最多携带30枚：达到上限前及时交还或花掉。",
 	["three Warsong Gulch Marks of Honor"] = "三枚战歌峡谷荣誉奖章",
 
 	-- Step 3: Silverwing Sentinels to Friendly
@@ -68,7 +68,7 @@ return {
 
 	-- Step 9: Horde Warbringer
 	-- {npc:15350} Horde Warbringer · {quest:8429} Battle of Warsong Gulch · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {zone:1458} Undercity · {area:321} Hammerfall · {zone:1417} Arathi Highlands · {zone:1459} Alterac Valley · {zone:1416} Alterac Mountains · {zone:1460} Warsong Gulch
-	["The {npc:15350} pays 100 reputation for 3 Warsong Gulch Marks of Honor the first time, then 50 for every 3 more ({quest:8429}). One stands right here at Mor'shan; others in {zone:1454}, {zone:1456} (and on the plain below it) and the {zone:1458}, at {area:321} in the {zone:1417} and at the {zone:1459} gate in the {zone:1416}. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:1460} marks: hand in or spend them before you reach that."] = "",
+	["The {npc:15350} pays 100 reputation for 3 Warsong Gulch Marks of Honor the first time, then 50 for every 3 more ({quest:8429}). One stands right here at Mor'shan; others in {zone:1454}, {zone:1456} (and on the plain below it) and the {zone:1458}, at {area:321} in the {zone:1417} and at the {zone:1459} gate in the {zone:1416}. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:1460} marks: hand in or spend them before you reach that."] = "向{npc:15350}首次交还3枚战歌峡谷荣誉奖章可获100声望，之后每3枚奖励50声望（{quest:8429}）。莫尔杉这里就有一位；其他位于{zone:1454}、{zone:1456}（及其下方平原）、{zone:1458}、{zone:1417}的{area:321}，以及{zone:1416}的{zone:1459}大门旁。无限服PvP装备除荣誉外也消耗荣誉奖章：交还前先决定要买什么。{zone:1460}奖章最多携带30枚：达到上限前及时交还或花掉。",
 
 	-- Step 10: Warsong Outriders to Friendly
 	-- {faction:889} Warsong Outriders

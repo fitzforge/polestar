@@ -18,67 +18,65 @@ return {
 	-- {area:2255} Everlook
 	["{area:2255}'s inn"] = "Таверна ({area:2255})",
 	-- {zone:1455} Ironforge · {zone:1425} Hinterlands · {zone:1452} Winterspring · {area:2255} Everlook
-	["Your Hearthstone is not set at {zone:1455} (the {zone:1425} guide binds there at 47, and this guide leaves {zone:1452} through it): bind at {area:2255} instead, for the trips back to town."] = "Ваш камень возвращения не привязан к месту {zone:1455} (гайд по зоне {zone:1425} привязывает вас там на 47-м уровне, и этот гайд покидает зону {zone:1452} через него): вместо этого привяжитесь здесь ({area:2255}), чтобы возвращаться в город.",
+	["Your Hearthstone is not set at {zone:1455} (the {zone:1425} guide binds there, and this guide leaves {zone:1452} through it): bind at {area:2255} instead, for the trips back to town."] = "Ваш камень возвращения не привязан к месту {zone:1455} (гайд по зоне {zone:1425} привязывает вас там, и этот гайд покидает зону {zone:1452} через него): вместо этого привяжитесь здесь ({area:2255}), чтобы возвращаться в город.",
 
 	-- Step 5: Everlook
-	-- {npc:11629} Jessica Redpath · {area:2262} Darrowshire
-	["{npc:11629}: keep it for {area:2262}; inside"] = "{npc:11629}: сохраните для места {area:2262}; внутри",
 	-- {npc:10431} Gregor Greystone
-	["{npc:10431}: keep both for the Plaguelands; inside"] = "{npc:10431}: сохраните оба для Чумных земель; внутри",
+	["{npc:10431}: keep it for the Plaguelands; inside"] = "{npc:10431}: сохраните для Чумных земель; внутри",
 	-- {npc:11754} Meggi Peppinrocker · {area:2255} Everlook
 	["{npc:11754} walks around {area:2255}: look inside the circle on the map"] = "",
-	-- {item:12383} Moontouched Feather
-	["{item:12383}, 110 yd north"] = "{item:12383}, 110 м к северу",
 
-	-- Step 7: Ice Thistle Hills: kill these as you meet them
-	-- {area:2247} Ice Thistle Hills
-	["{area:2247}: kill these as you meet them"] = "",
-	-- {area:2244} Winterfall Village · {area:2255} Everlook
-	-- plural, as words: Chillwind Chimaeras = {npc:7448} Chillwind Chimaera
-	["Ice Thistle yetis live in the hills south of {area:2244}, Chillwind Chimaeras in the valley toward {area:2255}."] = "Йети с Холмов ледополоха живут на холмах к югу от места {area:2244}, хладноветрые химеры — в долине по пути к месту {area:2255}.",
-
-	-- Step 8: The Ruins of Kel'Theril
-	-- {area:2253} Starfall Village
-	-- plural, as words: Moontouched Feathers = {item:12383} Moontouched Feather
-	["The ruins lie around the frozen lake south of {area:2253}. Pick up the four relic fragments lying in the ruins and the Moontouched Feathers on the ground where the wildkin roam."] = "Руины окружают замерзшее озеро к югу от места {area:2253}. Подберите четыре фрагмента реликвий, лежащих в руинах, и светолунные перья на земле там, где бродят дикие совухи.",
-
-	-- Step 9: Donova Snowden
+	-- Step 7: Donova Snowden
 	-- {npc:9298} Donova Snowden
 	["Follow the road west to {npc:9298}'s camp beside the hot springs."] = "Идите по дороге на запад к лагерю {npc:9298} у горячих источников.",
 	-- {zone:1444} Feralas
 	["Keep it: Gregan in {zone:1444} brews the elixir later"] = "Сохраните: Греган ({zone:1444}) позже сварит эликсир",
 
-	-- Step 10: Frostfire Hot Springs: kill these as you meet them
+	-- Step 8: Level 55 at Frostfire Hot Springs
 	-- {area:2246} Frostfire Hot Springs
-	["{area:2246}: kill these as you meet them"] = "",
-	-- {npc:11556} Salfa · {npc:9298} Donova Snowden · {item:12771} Empty Firewater Flask · {quest:8471} Winterfall Ritual Totem · {item:14047} Runecloth · {zone:1452} Winterspring
-	["The western Winterfall camp sits in the hills between {npc:11556} and {npc:9298}. Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need) and a {quest:8471} (about one in thirty: it comes within the top-ups): right-click whichever drops. Keep the {item:14047} the furbolgs drop for Meilosh.\nThe rest of {zone:1452}'s work is level 55-58: stay on this camp until level 54, so your first kills also count for {npc:9298} and {npc:11556}."] = "",
+	["Level 55 at {area:2246}"] = "55-й уровень у места {area:2246}",
+	-- {npc:11556} Salfa · {npc:9298} Donova Snowden · {item:14047} Runecloth · {area:1584} Blackrock Depths · {area:2577} Dire Maul
+	["The western Winterfall camp sits in the hills between {npc:11556} and {npc:9298}. Top up here first to level 55 on its Pathfinders (53-54) at the camp's edge: the Den Watchers inside are 55-56. Killing them raises your Timbermaw reputation and fills your bags with {item:14047} for Meilosh. Or, with a group, run {area:1584} or {area:2577} instead."] = "Западный лагерь племени Зимней Спячки стоит на холмах между NPC {npc:11556} и {npc:9298}. Сначала доберите здесь 55-й уровень на следопытах (53-54) на краю лагеря: дозорные логова внутри — 55-56-го уровня. Их убийство повышает репутацию у Древобрюхих и наполняет сумки предметом {item:14047} для Мелиоша. Или, если есть группа, пройдите вместо этого {area:1584} или {area:2577}.",
 	-- {npc:7442} Winterfall Pathfinder
 	["grind on {npc:7442}"] = "",
 
-	-- Step 11: Donova Snowden
+	-- Step 9: Frostfire Hot Springs: kill these as you meet them
+	-- {area:2246} Frostfire Hot Springs
+	["{area:2246}: kill these as you meet them"] = "",
+	-- {item:12771} Empty Firewater Flask · {quest:8471} Winterfall Ritual Totem · {item:14047} Runecloth
+	["Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need) and a {quest:8471} (about one in thirty): right-click whichever drops. Keep the {item:14047} the furbolgs drop for Meilosh."] = "С любого фурболга здесь может выпасть {item:12771} (примерно один из десяти: попадется за то число убийств, что нужно для этих заданий) и {quest:8471} (примерно один из тридцати): щелкните правой кнопкой мыши по выпавшему. Сохраните {item:14047}, которая падает с фурболгов, для Мелиоша.",
+
+	-- Step 10: Donova Snowden
 	-- {zone:1448} Felwood
 	["The Deadwood cauldron in {zone:1448}: keep it"] = "Котел Мертвого Леса ({zone:1448}): сохраните",
 
-	-- Step 12: Level 55.05
+	-- Step 11: Level 55.05
 	["Level 55.05"] = "",
-	-- {area:2255} Everlook · {area:2246} Frostfire Hot Springs · {area:1769} Timbermaw Hold · {quest:8471} Winterfall Ritual Totem
-	["Top up here to level 55.05 before the hand-ins at {area:2255}: they take you to level 56. Grind the Winterfall furbolgs camped by {area:2246} (Pathfinders, Totemics, Den Watchers): killing them raises your Timbermaw reputation, which the quests here and the walk through {area:1769} need, one of them drops the {quest:8471}, and they fill your bags with the thirty Runecloth Meilosh asks for."] = "",
+	-- {area:2255} Everlook · {area:2246} Frostfire Hot Springs · {area:1769} Timbermaw Hold · {quest:8471} Winterfall Ritual Totem · {area:1584} Blackrock Depths · {area:2577} Dire Maul
+	["Top up here to level 55.05 before the hand-ins at {area:2255}: they take you to level 56. Grind the Winterfall furbolgs camped by {area:2246} (Pathfinders, Totemics, Den Watchers): killing them raises your Timbermaw reputation, which the quests here and the walk through {area:1769} need, one of them drops the {quest:8471}, and they fill your bags with the thirty Runecloth Meilosh asks for. Or, with a group, run {area:1584} or {area:2577} instead."] = "Доберите здесь 55.05 уровня перед сдачей заданий в месте {area:2255}: они поднимут вас до 56-го. Убивайте фурболгов Зимней Спячки у места {area:2246} (следопытов, тотемщиков, дозорных логова): это повышает репутацию у Древобрюхих, нужную для здешних заданий и прохода через {area:1769}, с одного из них падает {quest:8471}, а еще они наполнят сумки тридцатью рунными тканями для Мелиоша. Или, если есть группа, пройдите вместо этого {area:1584} или {area:2577}.",
 
-	-- Step 13: Winterfall Ritual Totem
+	-- Step 12: Winterfall Ritual Totem
 	["Any Winterfall furbolg can drop the totem, about one kill in thirty: if the top-up did not bring one, keep killing them here until it drops, then right-click it."] = "",
 	-- {area:1769} Timbermaw Hold
 	["For Kernda in {area:1769}: keep it"] = "Для Кернды ({area:1769}): сохраните",
 
-	-- Step 15: Winterfall Village
-	-- {area:2255} Everlook · {npc:10738} High Chief Winterfall
-	["The Winterfall furbolg village lies east of {area:2255}: Shaman (56-57), Den Watchers (55-56) and Ursa (57-58), all above you. Kill the Shaman first, they heal, and pull from the edge. {npc:10738} in the cave at the back is elite: stay out."] = "Деревня фурболгов из племени Зимней Спячки лежит к востоку от места {area:2255}: шаманы (56-57), дозорные (55-56) и ведмеди (57-58), все выше вас. Сначала убивайте шаманов, они лечат, и выманивайте с краю. {npc:10738} в пещере в глубине — элитный: не заходите туда.",
+	-- Step 13: The Ruins of Kel'Theril
+	-- {area:2253} Starfall Village
+	-- plural, as words: Moontouched Feathers = {item:12383} Moontouched Feather
+	["The ruins lie around the frozen lake south of {area:2253}. Pick up the four relic fragments lying in the ruins and the Moontouched Feathers on the ground where the wildkin roam."] = "Руины окружают замерзшее озеро к югу от места {area:2253}. Подберите четыре фрагмента реликвий, лежащих в руинах, и светолунные перья на земле там, где бродят дикие совухи.",
+
+	-- Step 14: Ice Thistle Hills: kill these as you meet them
+	-- {area:2247} Ice Thistle Hills
+	["{area:2247}: kill these as you meet them"] = "",
+	-- {area:2244} Winterfall Village · {area:2255} Everlook
+	-- plural, as words: Chillwind Chimaeras = {npc:7448} Chillwind Chimaera · Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti · Rogue Ice Thistles = {npc:7457} Rogue Ice Thistle · Fledgling Chillwinds = {npc:7447} Fledgling Chillwind · Chillwind Ravagers = {npc:7449} Chillwind Ravager
+	["Ice Thistle yetis live in the hills south of {area:2244}, Chillwind Chimaeras in the valley toward {area:2255}.\nCareful: the Ice Thistle Yetis are 55-56 and the Chimaeras 55-57: take the Rogue Ice Thistles (53-55) and the Fledgling Chillwinds (53-55) at the edge of the hills, and leave the Chillwind Ravagers (57-59) alone."] = "Йети с Холмов ледополоха живут на холмах к югу от места {area:2244}, хладноветрые химеры — в долине по пути к месту {area:2255}.\nОсторожно: йети с Холмов ледополоха 55-56-го уровня, а химеры 55-57-го: бейте ледополохов-разбойников (53-55) и стылодыхов-слетков (53-55) на краю холмов, а хладновеев-опустошителей (57-59) не трогайте.",
 
 	-- Step 16: Pristine Yeti Horns
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
 	["Pristine Yeti Horns"] = "Нетронутые рога йети",
 	-- plural, as words: Ice Thistle Matriarchs = {npc:7459} Ice Thistle Matriarch
-	["Back to the hills: only the Ice Thistle Matriarchs and Patriarchs carry the horns."] = "Вернитесь на холмы: рога есть только у матриархов и патриархов ледополохов.",
+	["Back to the hills: only the Ice Thistle Matriarchs (56-57) and Patriarchs (57-58) carry the horns.\nCareful: take the Matriarchs at the edge of the hills, one at a time, and leave the Patriarchs: their horns drop from both."] = "Обратно на холмы: рога есть только у матриархов (56-57) и патриархов (57-58) ледополохов.\nОсторожно: бейте матриархов на краю холмов по одному, а патриархов не трогайте: рога падают с обоих.",
 
 	-- Step 17: Everlook
 	-- {npc:10978} Legacki
@@ -96,48 +94,71 @@ return {
 	-- {zone:1455} Ironforge
 	["{zone:1455} inn"] = "Таверна: {zone:1455}",
 
-	-- Step 20: Fly to Chillwind Camp
+	-- Step 20: Laris Geardawdle
+	-- {npc:9616} Laris Geardawdle · {object:32356} Hall of Explorers · {zone:1448} Felwood
+	["{npc:9616} works in the {object:32356}: hand him {zone:1448}'s ooze jars now, on your way through."] = "{npc:9616} работает в месте {object:32356}: отдайте ему банки со слизью из зоны {zone:1448} сейчас, по пути.",
+	-- {zone:1451} Silithus
+	["Its jars are filled on the {zone:1451} guide's Un'Goro visit: keep it"] = "Банки наполняются во время визита в Ун'Горо по гайду {zone:1451}: сохраните",
+
+	-- Step 21: Fly to Chillwind Camp
 	-- {area:3197} Chillwind Camp
 	["Fly to {area:3197}"] = "Летите сюда: {area:3197}",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "Распорядитель полетов ({zone:1455})",
 
-	-- Step 21: Fly to Theramore
+	-- Step 22: Fly to Theramore
 	["Fly to Theramore"] = "Лететь на остров Терамор",
 	-- {area:2255} Everlook
 	["{area:2255} flight master"] = "",
 
-	-- Step 22: Boat to Menethil Harbor
+	-- Step 23: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "Корабль: {area:150}",
 
-	-- Step 23: Fly to Chillwind Camp
+	-- Step 24: Fly to Chillwind Camp
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "",
 
-	-- Step 24: Chillwind Camp
+	-- Step 25: Chillwind Camp
 	["Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master."] = "Чистое Сердце, Дума, Доблестный Кулак и Макдоннел стоят в центре лагеря, у распорядителя полетов.",
 	-- {npc:11616} Nathaniel Dumah · {area:2627} Terrordale
 	["{npc:11616}: the termites come later, in {area:2627}"] = "{npc:11616}: термиты будут позже, здесь: {area:2627}",
 	-- {npc:10838} Commander Ashlam Valorfist
 	["{npc:10838}: the watchtowers are in Andorhal, keep it"] = "",
+
+	-- Step 26: Felstone Field cauldron
+	-- {area:199} Felstone Field
+	["{area:199} cauldron"] = "Котел: {area:199}",
+	-- {area:199} Felstone Field · {npc:11075} Cauldron Lord Bilemaw
+	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
+	["North-west out of the camp to {area:199}, west of Andorhal: {npc:11075} (53) guards the cauldron among the Jabbering Ghouls (54)."] = "Из лагеря на северо-запад, сюда: {area:199}, к западу от Андорала: {npc:11075} (53) охраняет котел среди болтливых вурдалаков (54).",
+
+	-- Step 27: Chillwind Camp
+	-- {npc:11053} High Priestess MacDonnell · {area:3197} Chillwind Camp
+	["Back to {npc:11053} at {area:3197}."] = "Вернитесь к NPC {npc:11053} ({area:3197}).",
 	-- {npc:11053} High Priestess MacDonnell · {area:200} Dalson's Tears
 	["{npc:11053}: the cauldron is at {area:200}, keep it"] = "",
 
-	-- Step 25: Mulgris Deepriver
+	-- Step 28: Marlene Redpath
+	-- {area:3197} Chillwind Camp · {npc:10927} Marlene Redpath · {area:197} Sorrow Hill · {quest:5142} Little Pamela · {area:2262} Darrowshire
+	["On the road east out of {area:3197}, {npc:10927}'s farmhouse stands on {area:197}: her {quest:5142} goes to the same ghost in {area:2262}."] = "На дороге на восток от места {area:3197} стоит дом NPC {npc:10927} ({area:197}): ее задание {quest:5142} ведет к тому же призраку ({area:2262}).",
+	-- {npc:10927} Marlene Redpath · {area:2262} Darrowshire
+	["{npc:10927}: keep it for {area:2262}"] = "{npc:10927}: сохраните для места {area:2262}",
+
+	-- Step 29: Mulgris Deepriver
 	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {zone:1423} Eastern Plaguelands
 	["{npc:10739} stands by the farm at the {area:202}, on the road east to the {zone:1423}."] = "",
 	["Inside"] = "Внутри",
 
-	-- Step 26: Into Eastern Plaguelands
+	-- Step 30: Into Eastern Plaguelands
 	-- {zone:1423} Eastern Plaguelands
 	["Into {zone:1423}"] = "",
 
-	-- Step 28: Pamela Redpath
+	-- Step 32: Pamela Redpath
 	-- {zone:1423} Eastern Plaguelands · {area:2262} Darrowshire · {npc:10926} Pamela Redpath
 	["Follow the southern road east into the {zone:1423}; the ruins of {area:2262} lie south of it. {npc:10926}'s ghost plays by the ruined house at the south end."] = "Идите по южной дороге на восток в зону {zone:1423}; руины ({area:2262}) лежат к югу от нее. Призрак {npc:10926} играет у разрушенного дома в южной части.",
 
-	-- Step 29: Pamela Redpath's doll
+	-- Step 33: Pamela Redpath's doll
 	-- {npc:10926} Pamela Redpath
 	["{npc:10926}'s doll"] = "Кукла {npc:10926}",
 	-- {area:2262} Darrowshire
@@ -147,37 +168,35 @@ return {
 	-- {item:12888} Pamela's Doll's Right Side
 	["{item:12888}; inside"] = "",
 
-	-- Step 30: Pamela Redpath
+	-- Step 34: Pamela Redpath
 	-- {quest:5152} Auntie Marlene · {zone:1422} Western Plaguelands
 	["{quest:5152}, in the {zone:1422}: keep it"] = "{quest:5152}, {zone:1422}: сохраните",
 
-	-- Step 31: Light's Hope Chapel
+	-- Step 35: Light's Hope Chapel
 	["Follow the road east across the zone to the chapel."] = "Идите по дороге на восток через всю зону к часовне.",
+	-- {npc:11063} Carlin Redpath · {area:2264} Corin's Crossing
+	["{npc:11063}'s next task, at {area:2264}, is among Scourge of 57-60: skip it."] = "Следующее задание NPC {npc:11063} ({area:2264}) — среди Плети 57-60-го уровня: пропустите его.",
 	-- {npc:11038} Caretaker Alen
 	["{npc:11038}: Zaeldarr is a level 54 elite"] = "{npc:11038}: Заэльдарр – элитный противник 54-го уровня",
 
-	-- Step 32: Corin's Crossing
-	-- {area:2264} Corin's Crossing · {npc:10411} Eye of Naxxramas
-	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit · Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
-	["The Scourge around {area:2264}, west of the chapel, drop both kinds of Scourgestone; Darrowshire Spirits rise from them: talk to each one to free it.\nCareful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "С Плети вокруг места {area:2264}, к западу от часовни, падают оба вида камней Плети; из убитых поднимаются духи Дарроушира: поговорите с каждым, чтобы освободить его.\nОсторожно: {npc:10411} вне боя невидим, а когда начинается бой, призывает горгулий Камнекрылов. Их всего 3, и они возрождаются каждые 15 мин.",
-	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
-	["Free Darrowshire Spirits: talk to them"] = "Освободите духов Дарроушира: поговорите с ними",
-
-	-- Step 33: The Undercroft
+	-- Step 36: The Undercroft
 	-- {area:2261} The Undercroft
 	["Zaeldarr is elite: grouping up is advised. He waits at the bottom of the {area:2261}, the crypt in the south-west of the zone."] = "Зельдарр — элитный: лучше собрать группу. Он ждет на самом дне ({area:2261}) — склепа на юго-западе зоны.",
 	-- {item:15785} Zaeldarr's Head
 	["{item:15785}; below ground"] = "",
 
-	-- Step 34: Light's Hope Chapel
+	-- Step 37: Light's Hope Chapel
 	-- {area:3197} Chillwind Camp
 	["The next guide starts here and flies to {area:3197}."] = "Следующий гайд начинается здесь и ведет полетом сюда: {area:3197}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to the hills: only the Ice Thistle Matriarchs and Patriarchs carry the horns."] = "Вернитесь на холмы: рога есть только у матриархов и патриархов ледополохов.",
 	-- ["Fly to {area:271}"] = "Летите сюда: {area:271}",
 	-- ["Follow the southern road east into the {area:139}; the ruins of {area:2262} lie south of it. {npc:10926}'s ghost plays by the ruined house at the south end."] = "Идите по южной дороге на восток в зону {area:139}; руины ({area:2262}) лежат к югу от нее. Призрак {npc:10926} играет у разрушенного дома в южной части.",
 	-- ["Follow {npc:9298}'s directions to the mouth of {area:2256}, past the Frostmaul giants: pass them one at a time."] = "Следуйте указаниям {npc:9298} ко входу сюда: {area:2256}, мимо великанов ледяного молота: проходите мимо них по одному.",
+	-- ["Free Darrowshire Spirits: talk to them"] = "Освободите духов Дарроушира: поговорите с ними",
 	-- ["From {area:271}, ride north up the road through Alterac to {area:3197}."] = "Отсюда: {area:271} скачите на север по дороге через Альтеракские горы сюда: {area:3197}.",
+	-- ["Ice Thistle yetis live in the hills south of {area:2244}, Chillwind Chimaeras in the valley toward {area:2255}."] = "Йети с Холмов ледополоха живут на холмах к югу от места {area:2244}, хладноветрые химеры — в долине по пути к месту {area:2255}.",
 	-- ["Optional: {area:1417}"] = "Необязательно: {area:1417}",
 	-- ["Pick up the supplies around the wagon and take {npc:10301}'s amulet back from the owlbeasts nearby."] = "Подберите припасы вокруг повозки и заберите амулет {npc:10301} у совухов поблизости.",
 	-- ["Pristine Yeti Horns"] = "Нетронутые рога йети",
@@ -187,17 +206,23 @@ return {
 	-- ["Ride west along the road to the night elf village."] = "Скачите на запад по дороге к деревне ночных эльфов.",
 	-- ["Ride west along the road to {npc:10301}."] = "Скачите на запад по дороге к {npc:10301}.",
 	-- ["Short of level 54 after the yetis? Running the {area:1417} (50-54) instead of grinding gets you there faster in a group. Come back to {area:2255} afterwards."] = "Не хватает до 54-го уровня после йети? Прохождение подземелья {area:1417} (50-54) в группе доведет вас быстрее, чем охота. После этого вернитесь сюда: {area:2255}.",
+	-- ["The Scourge around {area:2264}, west of the chapel, drop both kinds of Scourgestone; Darrowshire Spirits rise from them: talk to each one to free it.\nCareful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "С Плети вокруг места {area:2264}, к западу от часовни, падают оба вида камней Плети; из убитых поднимаются духи Дарроушира: поговорите с каждым, чтобы освободить его.\nОсторожно: {npc:10411} вне боя невидим, а когда начинается бой, призывает горгулий Камнекрылов. Их всего 3, и они возрождаются каждые 15 мин.",
 	-- ["The Winterfall camp"] = "Лагерь Зимней Спячки",
+	-- ["The Winterfall furbolg village lies east of {area:2255}: Shaman (56-57), Den Watchers (55-56) and Ursa (57-58), all above you. Kill the Shaman first, they heal, and pull from the edge. {npc:10738} in the cave at the back is elite: stay out."] = "Деревня фурболгов из племени Зимней Спячки лежит к востоку от места {area:2255}: шаманы (56-57), дозорные (55-56) и ведмеди (57-58), все выше вас. Сначала убивайте шаманов, они лечат, и выманивайте с краю. {npc:10738} в пещере в глубине — элитный: не заходите туда.",
 	-- ["The western Winterfall camp sits in the hills between {npc:11556} and {npc:9298}. Any furbolg here can drop an {item:12771} (about one in ten) and, rarely, a {quest:8471}: right-click whichever drops. Keep the {quest:6031} the furbolgs drop for Meilosh."] = "Западный лагерь племени Зимней Спячки стоит на холмах между NPC {npc:11556} и {npc:9298}. С любого фурболга здесь может выпасть {item:12771} (примерно один из десяти) и, редко, {quest:8471}: щелкните правой кнопкой мыши по выпавшему. Сохраните {quest:6031}, который падает с фурболгов, для Мелиоша.",
 	-- ["The western Winterfall furbolgs drop the beads."] = "Бусы падают с фурболгов западного лагеря Зимней Спячки.",
 	-- ["The {area:2247}"] = "{area:2247}",
 	-- ["Walk through {area:1769} to {zone:1448} and fly on to the Eastern Kingdoms ({area:442}, the boat to {area:150}). Fly to {area:271} and ride north up the road through Alterac to {area:3197}."] = "Пройдите через {area:1769} в зону {zone:1448} и летите дальше в Восточные королевства ({area:442}, корабль до места {area:150}). Летите сюда: {area:271} и скачите на север по дороге через Альтеракские горы сюда: {area:3197}.",
+	-- ["Your Hearthstone is not set at {zone:1455} (the {zone:1425} guide binds there at 47, and this guide leaves {zone:1452} through it): bind at {area:2255} instead, for the trips back to town."] = "Ваш камень возвращения не привязан к месту {zone:1455} (гайд по зоне {zone:1425} привязывает вас там на 47-м уровне, и этот гайд покидает зону {zone:1452} через него): вместо этого привяжитесь здесь ({area:2255}), чтобы возвращаться в город.",
 	-- ["grind on {npc:7460} at the {area:2247}, {zone:1452}"] = "убивайте противников {npc:7460}: {area:2247}, {zone:1452}",
+	-- ["{item:12383}, 110 yd north"] = "{item:12383}, 110 м к северу",
 	-- ["{item:12771}, a rare drop"] = "{item:12771}, редкая добыча",
 	-- ["{npc:10301}'s camp"] = "Лагерь {npc:10301}",
 	-- ["{npc:10301}'s supplies"] = "Припасы {npc:10301}",
+	-- ["{npc:10431}: keep both for the Plaguelands; inside"] = "{npc:10431}: сохраните оба для Чумных земель; внутри",
 	-- ["{npc:11118}: the last guide binds here, so this usually ticks at once"] = "{npc:11118}: предыдущий гайд привязывает вас здесь, так что это обычно отмечается сразу",
 	-- ["{npc:11556} guards the mouth of {area:1769}, north-west of {npc:9298}."] = "{npc:11556} охраняет вход сюда: {area:1769}, к северо-западу от {npc:9298}.",
+	-- ["{npc:11629}: keep it for {area:2262}; inside"] = "{npc:11629}: сохраните для места {area:2262}; внутри",
 	-- ["{npc:12250} is elite: grouping up is advised. He waits at the bottom of the {area:2261}, the crypt in the south-west of the zone."] = "{npc:12250} — элитный: лучше собрать группу. Он ждет на самом дне {area:2261} — склепа на юго-западе зоны.",
 	-- ["{quest:5152}, in the {area:28}: keep it"] = "{quest:5152}, {area:28}: сохраните",
 	-- ["{quest:6031}, for Meilosh later"] = "{quest:6031}, для Мелиоша позже",
