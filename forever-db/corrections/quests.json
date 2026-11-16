@@ -3500,7 +3500,13 @@
 			],
 			"preAny": [
 				91859
-			]
+			],
+			"end": {
+				"npc": [],
+				"object": [
+					566037
+				]
+			}
 		},
 		"source": [
 			{
@@ -3510,9 +3516,13 @@
 			{
 				"kind": "factoruide",
 				"ref": "pre_any 91859"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16, excluded contributors left out): all 14 hand-ins (14 people) were at the Charred Remains (object 566037), Silverpine Forest 64.9,34.3, none to Deathguard Baldren"
 			}
 		],
-		"note": "The Lumina Windsinger chain (Undead Paladins): Deathguard Baldren's A Grim Fate (91860) follows A Curious Pair (91859), handed in to him. The merged data had no prerequisite."
+		"note": "The Lumina Windsinger chain (Undead Paladins): Deathguard Baldren's A Grim Fate (91860) follows A Curious Pair (91859), handed in to him. The merged data had no prerequisite. It is handed in at the Charred Remains on Fenris Isle, its one objective; the merged data also named Deathguard Baldren, its giver, as an ender, so the hand-in pointed back to the Sepulcher."
 	},
 	"91861": {
 		"set": {

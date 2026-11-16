@@ -5269,6 +5269,17 @@ test("forever/class/paladin/lumina-windsinger.guide: Free Lumina waits for the e
 	assert.ok(goal.map === 1421 && Math.hypot(goal.x - 65.7, goal.y - 29.7) < 1, `leads where the escort ends (${goal.map} ${goal.x},${goal.y})`);
 });
 
+// Found by the playtest's hand-in check (2026-11-17): A Grim Fate (91860) is handed in at the Charred Remains on
+// Fenris Isle (all 14 recorded hand-ins), but the data also named Deathguard Baldren, its giver, as an ender, so the
+// pyre step's hand-in pointed back to the Sepulcher. It names the remains.
+test("forever/class/paladin/lumina-windsinger.guide: A Grim Fate is handed in at the Charred Remains, not back at the Sepulcher", { skip }, () => {
+	const list = goals('forever/class/paladin/lumina-windsinger.guide');
+	const { goal, step } = list[at(list, 'turnin 91860', is('turnin', 91860))];
+	assert.equal(step.title, 'The pyre on Fenris Isle');
+	assert.equal(goal.object, 566037, 'the Charred Remains');
+	assert.ok(goal.map === 1421 && Math.hypot(goal.x - 64.9, goal.y - 34.3) < 1, `on Fenris Isle (${goal.map} ${goal.x},${goal.y})`);
+});
+
 // #1813 (Alliance, Cozy Sleeping Bag): the Barrens' way into Stonetalon runs through Honor's Stand, and the road
 // on to the hills past Malaka'jin and Sun Rock Retreat. Players' recordings of Stepping Stones (79192, Alliance):
 // about 40 runs, most entering Stonetalon from the Barrens at 83.5,97, 7 people dead at Honor's Stand (one of them
