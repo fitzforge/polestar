@@ -121,7 +121,7 @@ ns.Credits = {
 	},
 	-- Bug reporters by confirmed or fixed reports, most first (the top 40).
 	bugReporters = {
-		{ name = "Fyurie", reports = 24 },
+		{ name = "Fyurie", reports = 29 },
 		{ name = "Pynte", reports = 22 },
 		{ name = "Bennistrov", reports = 16 },
 		{ name = "thmastin", reports = 12 },
@@ -134,8 +134,8 @@ ns.Credits = {
 		{ name = "AurumTitanos", reports = 7 },
 		{ name = "Tazul | Robin", reports = 7 },
 		{ name = "Ioney", reports = 7 },
+		{ name = "Rohkin", reports = 7 },
 		{ name = "petllama", reports = 6 },
-		{ name = "Rohkin", reports = 6 },
 		{ name = "Pilk", reports = 6 },
 		{ name = "Konky88", reports = 6 },
 		{ name = "doctor-house", reports = 6 },
@@ -154,13 +154,13 @@ ns.Credits = {
 		{ name = "Malifax", reports = 4 },
 		{ name = "Redrett", reports = 4 },
 		{ name = "dogacaral", reports = 4 },
+		{ name = "Corey", reports = 4 },
 		{ name = "shacklef00rd", reports = 4 },
 		{ name = "Yendi", reports = 3 },
 		{ name = "Smuve", reports = 3 },
 		{ name = "Bill", reports = 3 },
 		{ name = "Tor", reports = 3 },
-		{ name = "MgM", reports = 3 },
-		{ name = "Deadshot0330", reports = 3 },
+		{ name = "zeike", reports = 3 },
 	},
 	-- Translators by language (the locales' translators); `language` is the interface key shown.
 	translators = {
