@@ -3655,6 +3655,11 @@ local function navButton(f, i)
 	b.Changed:SetSize(6, 6)
 	b.Changed:Hide()
 	b:SetScript("OnClick", function(self) if f.psOnNav and not self.psHeading then f.psOnNav(self.psKey) end end)
+	-- A one-line row cut short (item.oneLine) reads whole in its tooltip.
+	b:SetScript("OnEnter", function(self)
+		if self.psItem and self.psItem.oneLine and self.Label:IsTruncated() then W.Tooltip(self, "ANCHOR_RIGHT", self.psItem.label) end
+	end)
+	b:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
 	b.psShell = f
 	f.navButtons[i] = b
 	return b
@@ -3669,7 +3674,9 @@ end
 -- A tree: { group = true, key, label, folded } is a group's header (32px, a
 -- muted label on the text edge, a chevron at the right: down open, right
 -- folded), a choice that folds or opens it (onSelect(key)); rows with
--- `indent` sit under it, their glyph 12px further in. A row's `new` (a
+-- `indent` sit under it, their glyph 12px further in. A row with `oneLine`
+-- keeps its label to one line, cut short with its whole text in the
+-- tooltip (a community pack's long name). A row's `new` (a
 -- number) is an accent chip at its right edge, `changed` a 6px accent dot
 -- (settings off their default there) before that.
 --
@@ -3738,6 +3745,7 @@ local function navRow(b, item, on)
 	-- The label ends short of the count (or dot), as wide as that is, and
 	-- takes a second line rather than run under it or off the sidebar.
 	b.Label:ClearAllPoints()
+	if not item.oneLine then b.Label:SetWidth(0) end
 	if item.heading or item.group then
 		b.Label:SetPoint("LEFT", b, "LEFT", SHELL.side, 0)
 		b.Label:SetPoint("RIGHT", b, "RIGHT", -(pad + (item.group and 20 or 0)), 0)
@@ -3753,9 +3761,18 @@ local function navRow(b, item, on)
 		local reserve = edge > 0 and edge + 8 or 0
 		if b.Changed:IsShown() then reserve = reserve + 6 + 8 end
 		b.Label:SetPoint("LEFT", b.Icon, "RIGHT", 12, 0)
-		b.Label:SetPoint("RIGHT", b, "RIGHT", -(pad + reserve), 0)
+		if item.oneLine then
+			-- Its width set, not anchored, so it measures where it is cut.
+			local room = (b.psShell.psSidebar or SHELL.sidebar) - 1 - (b.psShell.psNavRoom or 0)
+				- (SHELL.side + (item.indent and NAV_INDENT or 0)) - 16 - 12 - pad - reserve
+			b.Label:SetWidth(max(1, room))
+		else
+			b.Label:SetPoint("RIGHT", b, "RIGHT", -(pad + reserve), 0)
+		end
 		b:Enable()
 	end
+	b.Label:SetWordWrap(not item.oneLine)
+	b.Label:SetMaxLines(item.oneLine and 0 or 2)
 end
 
 -- The tree's group headers are shorter than the rows.
