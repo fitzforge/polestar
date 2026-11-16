@@ -930,7 +930,7 @@ test(`${DWARF_DUN_MOROGH}: a Hunter takes Taming the Beast on the return to Khar
 	assert.equal(list[take].s, list[at(list, 'kill 1126 (tame)', (g) => g.t === 'kill' && g.quest === 6064)].s, 'taken on the Taming the Beast step');
 	assert.ok(take > at(list, 'turnin 99161 (Father Gavin)', is('turnin', 99161)), 'after Misty Pine Refuge');
 	const kharanos = list[at(list, 'turnin 412 (Razzle)', is('turnin', 412))].step;
-	assert.ok(!kharanos.goals.some((g) => g.t === 'level' && (g.only || []).concat(g.onlyClass || []).join(' ').includes('Hunter')), 'no level gate for Hunters on the Kharanos east stop');
+	assert.ok(!kharanos.goals.some((g) => g.t === 'level' && /HUNTER|Hunter/.test(JSON.stringify(g.only || {}))), 'no level gate for Hunters on the Kharanos east stop');
 });
 
 test(`Visur's report (#859): no guide asks for a kill the game's objectives do not count, or for a kill of someone it asks you to talk to`, { skip }, () => {
@@ -5019,7 +5019,8 @@ test(`${REDRIDGE}: the Henze Faulk step tracks 1786.1 with an objective goal, no
 	assert.ok(!/\bKill\b/.test(line(0).text), `"${line(0).text}" does not read Kill`);
 	assert.notEqual(line(0).status, 'done', 'open while the quest log has Henze to do');
 	assert.equal(line(1).status, 'done', 'done once the quest log counts him');
-	for (const guide of [UN_GORO_ALLIANCE, 'forever/horde/50-60/01-un-goro-crater.guide']) {
+	// (Fix round 1, 0.4.0: the Alliance's Northern Pylon is on the Western Plaguelands guide's Un'Goro visit.)
+	for (const guide of ['forever/alliance/50-60/04-western-plaguelands.guide', 'forever/horde/50-60/01-un-goro-crater.guide']) {
 		const pylon = goals(guide);
 		assert.ok(!pylon.some(({ goal }) => is('complete', 4285)(goal)), `${guide}: no bare complete 4285`);
 		const { goal } = pylon[at(pylon, 'interact 164955 quest 4285.1', (g) => g.t === 'interact' && g.quest === 4285 && g.oi === 1)];
@@ -7407,14 +7408,17 @@ test('forever/alliance/40-50/03-feralas.guide: final review: the level-45 grind 
 
 // Final route review, Alliance 40-60: Loch Modan once each way (Ghak's quest from Thelsamar where the flight lands, the
 // seed's order). Since 0.3.7 the loop is done from the Badlands at 43, where the route already is: Ghak's quest is taken
-// in Thelsamar on the way into the Badlands (Stranglethorn guide's end) and handed in where the Badlands guide flies
+// in Thelsamar where the Riverglades guide's flight lands (the Badlands guide's first step; until fix round 1 the
+// Stranglethorn guide flew there and back for it) and handed in where the Badlands guide flies
 // out, and the Hinterlands guide only sets the hearth there. The Booty Bay flight after Nethergarde was only for The
 // Monogrammed Sash's group; since 0.3.7 it is for everyone (MacKinley and the Bloodsail captains), and the Sash and
 // Negolash steps stay group-only.
 test('forever/alliance/40-50/05-the-hinterlands.guide: final review: Loch Modan once each way, the Sash and Negolash only for the group', { skip }, () => {
-	const stv = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
-	assert.ok(at(stv, 'fly Thelsamar', (g) => g.t === 'fly' && /Thelsamar/.test(g.location || '')) < at(stv, 'accept 17', is('accept', 17)), 'Ghak where the flight lands');
 	const bad = goals('forever/alliance/40-50/02-badlands.guide');
+	assert.ok(!goals('forever/alliance/40-50/01-stranglethorn-vale.guide').some(({ goal }) => goal.quest === 17), 'no Thelsamar trip on the Stranglethorn guide');
+	assert.equal(bad[at(bad, 'accept 17', is('accept', 17))].step.title, 'Thelsamar', 'Ghak on the Badlands guide\'s opening Thelsamar step, where the flight lands');
+	assert.ok(at(bad, 'accept 17', is('accept', 17)) < at(bad, 'accept 732', is('accept', 732)), 'before the Badlands');
+	assert.match(fs.readFileSync(path.join(__dirname, '..', 'guides', 'forever', 'alliance', '40-50', '01b-riverglades.guide'), 'utf8'), /\n\s+fly "Thelsamar"\n(?![\s\S]*\nstep )/, 'the Riverglades guide ends on the flight to Thelsamar');
 	const sb = (what, pred) => bad[at(bad, what, pred)].s;
 	assert.ok(sb('turnin 706', is('turnin', 706)) < sb('turnin 739', is('turnin', 739)), 'the Badlands first, then Ironband');
 	assert.ok(sb('turnin 739', is('turnin', 739)) < sb('urns', (g) => g.t === 'collect' && g.quest === 704), 'Ironband, then the dig');

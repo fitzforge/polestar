@@ -35,7 +35,7 @@ next forever/alliance/40-50/02-badlands
 
 step Into the Riverglades
   when !zone "Riverglades"
-  tip Fly from Thelsamar to Lakeshire in Redridge, then follow the road north out of town and up through Blackrock Pass: it comes down into the western Riverglades by the Bristle Hills.
+  tip Fly from Ironforge to Lakeshire in Redridge, then follow the road north out of town and up through Blackrock Pass: it comes down into the western Riverglades by the Bristle Hills.
   fly "Lakeshire"
   zone Redridge Mountains
   goto 44.8,8.9 "Blackrock Pass"
@@ -468,8 +468,8 @@ step Wharfmaster Whizzbuzz
 # Left out on purpose:
 # - Shipping and Handling (95296) and I Know a Guy (95295): Friz's errands end in Tanaris and Booty Bay, and the
 #   second one sends you back here.
-# - From Port to Port (95219): Friz's cask goes to Feathermoon Stronghold in Feralas; only players of level 43 or
-#   more go on to Feralas from here, and the Feralas guide doesn't hand it in.
+# - From Port to Port (95219): Friz's cask goes to Feathermoon Stronghold in Feralas, three guides on, for 330
+#   experience.
 
 step Beast Entrails as you go
   along until argo
@@ -597,12 +597,10 @@ step Wheatley
 # Order: Farholde Keep's errands for the west; Terral's Watch (with Sister Rowland's phial on the way for players who
 # took Brother Lowley's jobs); Turner's Logging Camp; Gelinda Coppergleam's Cinderscale hollow south-west of Southern
 # Watch (levels 39-42); Sergeant Riftan's camp below Twilight's Shroud and the Twilight cult's camps and ogre mine
-# (levels 41-44); the hearth to Farholde Keep; Stormwind for Marshal Ryan's crest; Menethil Harbor and the boat to
-# Theramore, where the Feralas guide (43-45) starts; below level 43, the Stranglethorn Vale guide (40-43) from
-# Theramore instead.
-# Class trainers: none in the Riverglades. Whoever passes through Stormwind trains there; a player going on to
-# Feralas (level 43 or more) flies there to train in any case, as the Feralas guide passes no trainer (shamans train
-# in Ironforge); the Stranglethorn Vale guide has its own Stormwind and Ironforge stops.
+# (levels 41-44); the hearth to Farholde Keep; Stormwind for Marshal Ryan's crest and the class trainer; then the
+# flight to Thelsamar, where the Badlands & Hinterlands guide starts.
+# Class trainers: none in the Riverglades. Everyone trains in Stormwind on the way out (shamans fly to Ironforge, as
+# Stormwind has no shaman trainer).
 # Offered only after another quest is handed in (players' recordings): High Stakes after Foreman's Plight;
 # Bring Me His Head after Sergeant Riftan's first three; News to Farholde after Bring Me His Head; Dying Wish after
 # Saving Marshal Ryan; Delivering Closure after Dying Wish; The Twilight Threat after News to Farholde.
@@ -730,6 +728,12 @@ step Your class trainer
   when zone "Stormwind City"
   tip No class trainer stands in the Riverglades: train here in Stormwind before you fly on.
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid
+
+step Stormwind flight master
+  only Shaman
+  when zone "Stormwind City"
+  zone Stormwind City
+  goto 66.3,62.7 "Stormwind flight master"
 
 step Shaman trainer
   only Shaman

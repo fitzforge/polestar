@@ -5589,6 +5589,78 @@
 				],
 				"faction": "Alliance",
 				"why": "Alliance 30-40/04b fix round 1 (0.4.0): Sin'Dall's hill lies about 180 yd from the first jungle-ruins tablet, so the loop goes Zul'Kunda, Sin'Dall and the Lashtails, Nesingwary's tents, then the Rebel Camp hand-ins and south to Booty Bay (about 2,240 yd) instead of Zul'Kunda, the Rebel Camp, back south-west to Sin'Dall and north to Nesingwary (about 2,700 yd)."
+			},
+			{
+				"a": [
+					"turnin",
+					1560
+				],
+				"b": [
+					"task",
+					82
+				],
+				"faction": "Alliance",
+				"why": "Alliance 40-50 fix round 1 (0.4.0): the Noxious Lair's Centipaar (Workers 48-49, Sandreavers and Swarmers 49-50) were two to three over players on the Tanaris guide at about 47: the chain (82, 10, 110, 113, 162) is worked on the Un'Goro guide's Gadgetzan landing at about 49.5; the accept stays where the route passes Fizzledowser."
+			},
+			{
+				"a": [
+					"turnin",
+					2874
+				],
+				"b": [
+					"task",
+					604
+				],
+				"faction": "Alliance",
+				"why": "Alliance 40-50 fix round 1 (0.4.0): the Wild Shore camp's Warlocks and Swashbucklers (41-43) were two over players on 40-50/01 at about 41: The Bloodsail Buccaneers' charts, orders and Swashbucklers (604) are done on 40-50/05's level-48 Booty Bay stop, where 608 is taken; the accept stays on 40-50/01."
+			},
+			{
+				"a": [
+					"task",
+					5082
+				],
+				"b": [
+					"task",
+					3783
+				],
+				"faction": "Alliance",
+				"why": "Alliance Winterspring fix round 1 (0.4.0): the Ice Thistle Hills (Yetis 55-56, Chimaeras 55-57) and the Ruins of Kel'Theril (Anguished Highborne 55-56) come after the Frostfire top-up, on the ride back east, not at 53.7 before it."
+			},
+			{
+				"a": [
+					"turnin",
+					5904
+				],
+				"b": [
+					"task",
+					6023
+				],
+				"faction": "Alliance",
+				"why": "Alliance 50-60 fix round 1 (0.4.0): Huntsman Radley and Cavalier Durgen (57, Scarlet Spellbinders 58 at his tower), Gahrron's Withering's cauldron (Cauldron Lord Soulwrath 58) and Redpath's Shield (Haunting Visions 57-58) were two to three over players on the Western Plaguelands guide at about 55-56: they are done on the Silithus guide's Plaguelands leg at about 59.5; the accepts stay where the route passes their givers."
+			},
+			{
+				"a": [
+					"accept",
+					8282
+				],
+				"b": [
+					"task",
+					8278
+				],
+				"faction": "Alliance",
+				"why": "Alliance 50-60 fix round 1 (0.4.0): the Silithus sands' Rock Stalkers (57-59), Dredge Crushers and Stonelash Flayers (57-58) were three over players on the Western Plaguelands guide at about 57: Noggle's Last Hope and Stepping Up Security are worked on the Silithus guide's Cenarion Hold arrival, before their hand-ins there."
+			},
+			{
+				"a": [
+					"turnin",
+					4512
+				],
+				"b": [
+					"accept",
+					6030
+				],
+				"faction": "Alliance",
+				"why": "Alliance 50-60 fix round 1 (0.4.0): Laris Geardawdle's jars (4512) are handed in on the Winterspring guide's Ironforge stop; the Silithus guide flew Talrendis -> Auberdine -> boat -> Ironforge -> boat -> Theramore -> Gadgetzan for that hand-in alone."
 			}
 		],
 		"notes": [
@@ -5598,7 +5670,12 @@
 			"First-visit flight paths (2026-11-10, Fitz in game at Ratchet): a getfp goes in the first step that stands within about 60 yd of its flight master, not a later visit. Ratchet: Bragok stands 16 yd from Sputtervalve (accept 894) on the first Ratchet stop (horde/02-the-barrens), learned there instead of on the fly step after the beach. Camp Taurajo: Omusa Thunderhorn stands 54 yd from Kirge Sternhorn (accept 854), where Tauren pass at the end of tauren/01-mulgore, learned there instead of at 02-the-barrens' Camp Taurajo stop. Sweep of every leveling chain (all races, both factions; first route goal within 40 and 100 yd of each flight master vs its first getfp): these two only; no flight master passed with no getfp. The route writer's first-visit rule (60 yd, docs/forge/writer.md) writes both on every build.",
 			"Item-started quests' hand-ins hold (0.3.8): Sharptalon's Claw (2), Ursangous's Paw (23) and Shadumbra's Head (24) at Senani Thunderheart (horde/07-ashenvale), The Admiral's Orders (830) at Gar'Thok (orc and troll 01-durotar), Burning Shadows (832) at Neeru Fireblade (horde/03-silverpine-forest, the Neeru step now `when onquest 829,832`) and Attack on Camp Narache (781) at Chief Hawkwind (tauren/01-mulgore) were optional hand-ins beside other work at the same NPC, and the addon never holds an optional goal, so players who had the quest walked past its NPC and carried it finished. The hand-ins are plain goals (hidden for anyone who never took the quest). The guide writer marks such a hand-in optional ('optional at its NPC'); a writer rule that keeps an item-started quest's hand-in required is needed before the next route build, or that build marks them optional again.",
 			"Durotar (Orc, Troll), 0.4.0 start audit: no \"Mage trainer\" step on the Razor Hill training stop at about 11 sending Mages back to Mai'ah in the Valley of Trials (Razor Hill has no mage trainer, the stop's away-trainer line in forge-writer's training pass). Mages train with Un'Thuwa at Sen'jin on the way through at 8-10 and in Orgrimmar on the next guide's arrival at about 12; players' recordings (0.3.5+) show no Mage making the trip. Hand edit, pinned by tests/guides-reported.test.js; a later writer round turns this into the training pass's rule.",
-			"06-wetlands (0.4.0 fix round): a solo player who took the optional group quests The Branch of Cenarius (1031, Geltharis 32) or Insane Druids (1012, the Dor'Danil Barrow Den) gets a step after Illiyana to abandon them (`when !group`, `when onquest 1031,1012`): the route has no step to finish them alone. Training lines on 04 and 05 say 'Your new spells' instead of spell levels the player has passed. Hand edits."
+			"06-wetlands (0.4.0 fix round): a solo player who took the optional group quests The Branch of Cenarius (1031, Geltharis 32) or Insane Druids (1012, the Dor'Danil Barrow Den) gets a step after Illiyana to abandon them (`when !group`, `when onquest 1031,1012`): the route has no step to finish them alone. Training lines on 04 and 05 say 'Your new spells' instead of spell levels the player has passed. Hand edits.",
+			"Un'Goro Crater, fix round 1 (0.4.0): the first visit (40-50/07, 49-50) takes Torwa, the raft, Muigin's petals and the power crystals, with no top-up to 51; the pylons (4285, 4287, 4288, 4321), Shizzle's Flyer (4503), the bones and the expedition (3881, 3882, 3883) and A-Me 01 (4243) are taken and done on the Western Plaguelands guide's Un'Goro visit at about 57 (their Frenzied Pterrordax 51-54, Elder Diemetradons 53-55, Glutinous Oozes 52-54 and Gorishi 51-54 were two to four over players at 51). Their accepts are not carried from the first visit: seven quests through four guides would take the quest log past 35 on the Western Plaguelands guide. Hand edits.",
+			"40-50/01 -> 01b -> 02 (fix round 1, 0.4.0): the Stranglethorn guide ends in Ironforge; the Riverglades guide flies Ironforge -> Lakeshire; Ghak's mushrooms (17) are taken at the Thelsamar landing the Riverglades guide ends with. 40-50/02 no longer opens on a second hand-in of Scrounging (733), which 30-40/06 takes. Mudsprocket's three Wyrmbog quests (98205, 98215, 98231) are at the end of 40-50/02 after Theramore: on 40-50/03 they were behind `when zone \"Dustwallow Marsh\"`, which the route (from Shen'dralas) never met. Hand edits.",
+			"Mount Hyjal hand-off (fix round 1, 0.4.0): 50-60/04 learns Moonglade's flight path on its Rabine Saturna stop; the Mount Hyjal guide's log is lighter by the Summit's five group quests. Hand edits.",
+			"50-60/04 (fix round 1, 0.4.0): the Sorrow Hill and Writhing Haunt scourgestone lines say the stones drop only while the Argent Dawn Commission is worn; Moonglade's flight path is learnt from Sindrayl on the Rabine Saturna stop (the Mount Hyjal option flies there; 'Fly to Moonglade' failed in 13 of 13 honest playtest runs), and the step after it says to hearth to Ratchet, where the guide bound. Hand edits.",
+			"Fix round 1 (0.4.0): Teldrassil's Twisted Hatred (98403) is accepted in its own `when group 98403` step, like its work; Druids get Sentinel Selarin's offer (990) on 03-darkshore-return's Druid Auberdine stop with the same wait-or-change-layer tip as the other two stops; the Badlands' Buzzard Gizzard (7847) points at the Starving Buzzards (35-37, 15%) north of Hammertoe's Digsite and the Agmond's End line says the Buzzards there drop it rarely (players went to the Giant Buzzards, 39-41). Hand edits."
 		],
 		"never": [
 			{
@@ -8109,6 +8186,11 @@
 				"q": 651,
 				"size": 2,
 				"why": "Alliance 30-40 fix round 1 (0.4.0): Stones of Binding's Stone of East Binding is guarded by three Cresting Exiles (38-39) that attack together, two over players on 30-40/05 at about 37 (recorded 25th percentile 37.8), with no later Arathi visit: the quest (accept, the three keys, the hand-in) is a group choice."
+			},
+			{
+				"q": 93584,
+				"size": 3,
+				"why": "Mount Hyjal (Alliance, fix round 1, 0.4.0): the Blackthorne camps north-east of the Summit of Eternity hold elite Outrunners, Priests and a Courier (60) as often as the Cultists and Adepts, with Ve'han Talongrasp (60 elite) in the middle and Ghansurok (61 elite) on the ridge; one recorded player stopped at 1/10. Cult Closure, Twisted Tools, A Thorn in the Paw, Cleansing Winds and Paying Back the Pact (93584, 92533, 93407, 92017, 92169) are one group choice."
 			}
 		]
 	},
@@ -10271,7 +10353,6 @@
 					"turnin",
 					1396
 				],
-				"faction": "Alliance",
 				"reason": "Alliance 30-40 fix round 1 (0.4.0): This Light of Mine (level 34, 2,700 XP), Father Tuttle's escort to the Harborage on the route's own walk from Watcher Biggs to Magtoor; more quest experience in a band whose levels sat a little low (players' recordings: 6 of 10 people finished it).",
 				"issue": "-"
 			},
@@ -10281,8 +10362,97 @@
 					"turnin",
 					1389
 				],
-				"faction": "Alliance",
 				"reason": "Alliance 30-40 fix round 1 (0.4.0): The Visiting Mage (level 38, 1,450 XP), from Magtoor at the Draenethyst hand-in to Azore Aldamort, whom 06b visits on its way to the Karnitol wreck: no extra walk. Its follow-up (93465) is far off the route and stays out.",
+				"issue": "-"
+			},
+			{
+				"q": 98233,
+				"after": [
+					"accept",
+					1265
+				],
+				"reason": "Alliance 40-50 fix round 1 (0.4.0): Sword in the Slime (level 42, 3,450 XP) from Guard Jameson in Theramore; its oozes are on the route's ride back east from the Shady Rest Inn.",
+				"issue": "-"
+			},
+			{
+				"q": 95786,
+				"after": [
+					"turnin",
+					205
+				],
+				"reason": "Alliance 40-50 fix round 1 (0.4.0): An Acquaintance in Southshore (level 40, 3,150 XP) from Brother Nimetz at the Rebel Camp hand-in of Troll Witchery, to Loremaster Dibbs on the Badlands & Hinterlands guide's Southshore stop: a delivery between two stops the route makes (players' recordings: 19 people handed it in).",
+				"issue": "-"
+			},
+			{
+				"q": 97540,
+				"after": [
+					"turnin",
+					1560
+				],
+				"reason": "Alliance 40-50 fix round 1 (0.4.0): Oasis (3,550 XP), offered by Tooga beside Torta right after Tooga's Quest and handed in on the spot (players' recordings, 5 people).",
+				"issue": "-"
+			},
+			{
+				"q": 86616,
+				"after": [
+					"accept",
+					2989
+				],
+				"reason": "Alliance 40-50 fix round 1 (0.4.0): Repurposed Totems (4,400 XP), Maret Firetend by Aerie Peak, the totems at the Altar of Zul, which the Hinterlands guide visits.",
+				"issue": "-"
+			},
+			{
+				"q": 86620,
+				"after": [
+					"accept",
+					2989
+				],
+				"reason": "Alliance 40-50 fix round 1 (0.4.0): Fledgling Rescue (4,900 XP), Gryphon Master Talonaxe, the eggs in the hills just east of Aerie Peak on the ride back.",
+				"issue": "-"
+			},
+			{
+				"q": 88807,
+				"after": [
+					"accept",
+					5535
+				],
+				"reason": "Alliance 50-60 fix round 1 (0.4.0): Talrendis Point's quests beside the shrine the Burning Steppes guide starts at (Slay the Spitelash, Home on the Range, Saving a Sentinel; about 13,000 XP) before the top-up for Kim'jael's camp.",
+				"issue": "-"
+			},
+			{
+				"q": 89001,
+				"after": [
+					"accept",
+					5535
+				],
+				"reason": "See 88807.",
+				"issue": "-"
+			},
+			{
+				"q": 88857,
+				"after": [
+					"accept",
+					5536
+				],
+				"reason": "See 88807: Keldara is held in the Haldarr camp the guide clears for 5536.",
+				"issue": "-"
+			},
+			{
+				"q": 86577,
+				"after": [
+					"accept",
+					5155
+				],
+				"reason": "Alliance 50-60 fix round 1 (0.4.0): A Sampling of Putrescence (5,650 XP), Kelek Skykeeper at the Emerald Sanctuary, from Felwood's bears and wolves on the route's own rides.",
+				"issue": "-"
+			},
+			{
+				"q": 99257,
+				"after": [
+					"turnin",
+					93362
+				],
+				"reason": "Shen'dralas (fix round 1, 0.4.0, both factions): A Heart of Crystal (3,600 XP) from Historian Biraxas is a non-elite Decrepit Pylon Protector (42-43) by the road north: on the route, no longer optional.",
 				"issue": "-"
 			}
 		],
@@ -10728,6 +10898,12 @@
 				"q": 7726,
 				"faction": "Alliance",
 				"reason": "Level tidy 0.4.0 (Alliance 40-60, minimum fixes): Refuel for the Zapping needs Fuel for the Zapping (7721), which the Feralas guide leaves out. Left out.",
+				"issue": "-"
+			},
+			{
+				"q": 4296,
+				"faction": "Alliance",
+				"reason": "Alliance 50-60 fix round 1 (0.4.0): Tablet of the Seven's tablet stands in the Dark Iron camp of the Ruins of Thaurissan with Thauris Balgarr (57), five over players on the Burning Steppes guide at about 52, and the route has no later Burning Steppes visit. Left out.",
 				"issue": "-"
 			}
 		],

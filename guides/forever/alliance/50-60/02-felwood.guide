@@ -26,6 +26,7 @@ step The Emerald Sanctuary
   accept 4421                         -- Eridan Bluewind, inside
   accept 5156                         -- Taronn Redfeather
   accept 5155                         -- Greta Mosshoof
+  accept 86577                        -- Kelek Skykeeper: A Sampling of Putrescence, from the bears and wolves you meet in Felwood
 
 # ---------------------------------------------------------------- Getting there
 
@@ -80,6 +81,12 @@ step Jaedenar
   kill 7112 quest 5155.4              -- Jaedenar Cultist
   collect 11949 quest 4512.2          -- Filled Tainted Ooze Jar: Tainted Oozes slide about Jaedenar's fel pools
 
+step Putrescent organs: kill these as you meet them
+  zone Felwood
+  tip Felwood's Angerclaw bears and Felpaw wolves carry the putrescent organs Kelek wants: the Bears and Wolves (47-48) of the south and the Maulers and Scavengers (49-50) along the road north of Jaedenar. Kill them as you ride between the stops.
+  collect 277958 quest 86577          -- Putrescent Bear Organs
+  collect 277959 quest 86577          -- Putrescent Wolf Organs
+
 step The Emerald Sanctuary
   turnin 5155                         -- Greta Mosshoof
   accept 5157
@@ -94,6 +101,7 @@ step Level 52.9
 
 step Shatter Scar Vale
   tip Follow the road north to the cratered vale and walk to each crater, killing the Entropic Beasts and Horrors between them.
+  tip Careful: an Infernal Sentry (53, elite) stands among the craters: walk round it.
   goto 41.6,43.0 "First crater"
   goto 40.4,41.2 "Second crater"
   goto 42.2,40.3 "Third crater"
@@ -129,6 +137,7 @@ step Jaedenar again
 step The Emerald Sanctuary
   tip Ride south-east from Jaedenar to the Emerald Sanctuary, the druids' camp by the road in southern Felwood.
   turnin 5156                         -- Taronn Redfeather
+  turnin 86577                        -- Kelek Skykeeper
 
 step The Emerald Sanctuary
   turnin 939

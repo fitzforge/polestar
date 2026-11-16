@@ -67,7 +67,6 @@ step Watcher Biggs
 step Father Tuttle
   tip North-west of Watcher Biggs, Father Tuttle waits by the road: lead him north to the Harborage, on your way there. Stay close to him and clear what attacks him; if he falls, abandon the quest and go on.
   accept 93585                        -- Father Tuttle
-  complete 93585                      -- Escort him to the Harborage
 
 step The Harborage
   tip Follow the road north to the draenei of the Harborage. Karana and Pelluk stand beside Magtoor: their Lost Ones are the ones you meet in the Fallow Sanctuary anyway.

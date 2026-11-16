@@ -21,35 +21,6 @@ con Boats to and from the island
 # Since the Riverglades and Shen'dralas joined the route, players arrive here at about 46: Lord Shalzaru (47) and the
 # Gordunni (44-46) are done on the guide's own loop again.
 
-# Mudsprocket: Drazzit Dripvalve's and Gizzix Grimegurgle's three Wyrmbog quests (98205, 98215, 98231, level 44,
-# whelps and Firemane 41-44), on the ride west out of Dustwallow Marsh after Theramore. Shown only when you start the
-# guide in Dustwallow Marsh (players coming from Shen'dralas skip it).
-
-step Mudsprocket
-  when zone "Dustwallow Marsh"
-  zone Dustwallow Marsh
-  tip Before the ride west, take the road south-west out of Theramore to Mudsprocket, the goblin camp at the edge of the Wyrmbog. Drazzit and Gizzix stand together in the camp.
-  accept 98205                        -- Drazzit Dripvalve
-  accept 98215
-  accept 98231                        -- Gizzix Grimegurgle
-
-step The Wyrmbog
-  when zone "Dustwallow Marsh"
-  zone Dustwallow Marsh
-  tip The Wyrmtail grows in the bog east of the camp: gather it first. Then the Searing Hatchlings and Whelps (41-43) and the Firemane dragonkin nest in the bog north and west of Mudsprocket, on the way back; all of them drop the shed scales.
-  tip Careful: the Firemane Scalebanes and Flamecallers are 43-44 and cast fire: pull them one at a time.
-  collect 280092 quest 98231 @46.2,80.2 -- Wyrmtail
-  kill 4323 quest 98205               -- Searing Hatchling
-  kill 4324 quest 98205               -- Searing Whelp
-  collect 279934 quest 98215          -- Shed Dark Dragonscale
-
-step Mudsprocket
-  when zone "Dustwallow Marsh"
-  zone Dustwallow Marsh
-  turnin 98205                        -- Drazzit Dripvalve
-  turnin 98215
-  turnin 98231                        -- Gizzix Grimegurgle
-
 step Into The Barrens
   when !turnedin 93394
   zone The Barrens
@@ -213,9 +184,16 @@ step Feathermoon Stronghold
   note Shandris then asks you to carry news to Darnassus: skip it, Gadgetzan sends you there instead.
 
 step Fly to Thalanaar
+  when taxi "Thalanaar"
   zone Feralas
   goto 30.3,43.3 "Feathermoon flight master"
   fly "Thalanaar"
+
+step Ride to Thalanaar
+  when !taxi "Thalanaar"
+  zone Feralas
+  tip No flight path to Thalanaar yet: take the boat back to the coast and ride east along the road to Thalanaar, on the Thousand Needles border.
+  goto 89.5,45.9 "Thalanaar"
 
 step Thalanaar
   when onquest 4281

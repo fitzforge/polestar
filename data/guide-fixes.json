@@ -6709,13 +6709,13 @@
 			"at": {
 				"quest": 8318,
 				"goal": "accept",
-				"guide": "forever/alliance/50-60/04-western-plaguelands"
+				"guide": "forever/alliance/50-60/06-silithus"
 			},
 			"follows": {
-				"quest": 8281,
+				"quest": 8282,
 				"goal": "accept"
 			},
-			"note": "50-60/04 (Alliance): Secret Communication (8318) needs level 57, and the level model reaches the first Cenarion Hold stop just under it, so taking it there made the model grind 15 minutes first and the route's last hand-in fell after 60. Bor Wildmane gives it on the second stop, after Stepping Up Security (8281). 0.3.6 hand edit.",
+			"note": "Secret Communication (8318) needs level 57. Fix round 1 (0.4.0): Bor Wildmane gives it on the Silithus guide's Cenarion Hold arrival (06, about 58.4), with Noggle's Lost Satchel, where its texts and hand-in are; on the Western Plaguelands guide's second Cenarion Hold stop the level model reached it at 56.95 and ground 33 minutes to take it.",
 			"source": [
 				{
 					"kind": "questie",
@@ -10927,23 +10927,6 @@
 			"issue": 2448
 		},
 		{
-			"id": "a4060-ungoro-petals-level-51",
-			"faction": "Alliance",
-			"at": {
-				"quest": 4141,
-				"goal": "objective",
-				"objective": 1
-			},
-			"level": 51,
-			"note": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes): Un'Goro's camps from Fire Plume Ridge on are 51-54 (Bloodpetal Trappers 52-53, Gorishi 51-53, Diemetradons 51-52, Frenzied Pterrordax 51-54) and the calibrated level model with rested experience reaches them at about 50. A top-up to 51 on the Bloodpetal Threshers (49-50) of the eastern jungle comes first; it replaces most of the Pterrordax top-up to 49.79 after the refuge and Azshara's to 50.4, which the player is then past.",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "npcs 6511 Bloodpetal Thresher 49-50, 6512 Bloodpetal Trapper 52-53, 9166 Pterrordax 50-52 in Forever's data"
-				}
-			]
-		},
-		{
 			"id": "a4060-ungoro-northern-pylon-careful",
 			"faction": "Alliance",
 			"at": {
@@ -10951,8 +10934,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Careful: the Frenzied Pterrordax here are 51-54: take the scales from the Pterrordax (50-52) and Young Diemetradons (49-50), one at a time.",
-			"note": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes): the slopes by the Northern Pylon mix Pterrordax (50-52) with Frenzied Pterrordax (51-54) around a 51 player; Shizzle's scales drop from the lower ones.",
+			"tip": "The pylon stands on the slope east of the refuge. Pterrordax circle the slopes around it: they count for Spraggle and drop Shizzle's scales.",
+			"note": "Un'Goro's Northern Pylon (4285) and Shizzle's Flyer (4503) are done on the Western Plaguelands guide's Un'Goro visit at about 57 since fix round 1 (0.4.0): the Frenzied Pterrordax (51-54) around the pylon were three over players at the first visit's 51.",
 			"source": [
 				{
 					"kind": "client",
@@ -10968,8 +10951,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Careful: the Elder Diemetradons (53-55) and Glutinous Oozes (52-54) roam the south-west too: take the bones and scales from the Diemetradons (51-52) at the edge.",
-			"note": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes): the south-west jungle's Diemetradons are 51-52 with Elder Diemetradons (53-55) and Glutinous Oozes (52-54) among them, around a 51 player.",
+			"tip": "West across the south of the crater: Dinosaur Bones lie on the ground in the south-west, among the stegodons: those are elite, pick the bones up around them and take the rest from the Diemetradons. The expedition's Research Equipment lies in the south-west jungle.",
+			"note": "Un'Goro's bones and expedition (3881, 3882) are done on the Western Plaguelands guide's Un'Goro visit at about 57 since fix round 1 (0.4.0): the Elder Diemetradons (53-55) and Glutinous Oozes (52-54) of the south-west were three over players at the first visit's 51.",
 			"source": [
 				{
 					"kind": "client",
@@ -11002,8 +10985,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Careful: the ruins' War Reavers and Thaurissan Firewalkers are 53-55: take the relics at the edge of the ruins and pull one at a time.",
-			"note": "Level tidy 0.4.0 (Alliance 50-60, minimum fixes): the Ruins of Thaurissan's Spies and Agents are 53-54 with War Reavers and Firewalkers up to 55 around the relics, one to three over the 52 player there.",
+			"tip": "Careful: the ruins' War Reavers and Thaurissan Firewalkers are 53-55, and Thauris Balgarr (57) holds the Dark Iron camp south-west of Flame Crest: take the relics at the edge of the ruins, pull one at a time, and keep away from the camp.",
+			"note": "Level tidy 0.4.0 (Alliance 50-60, minimum fixes): the Ruins of Thaurissan's Spies and Agents are 53-54 with War Reavers and Firewalkers up to 55 around the relics, one to three over the 52 player there. 50-60/01 (fix round 1, 0.4.0): Tablet of the Seven (4296) is left out: its tablet stands in the Dark Iron camp with Thauris Balgarr (57), five over players at about 52. The relics are taken on the ruins' southern edge, nearest Flame Crest.",
 			"source": [
 				{
 					"kind": "client",
@@ -11018,8 +11001,8 @@
 				"quest": 3601,
 				"goal": "accept"
 			},
-			"level": 52,
-			"note": "Level tidy 0.4.0 (Alliance 50-60, minimum fixes): Kim'jael's camp and the Thalassian Base Camp are blood elves of 51-53 (Magister Hawkhelm 53), two over the 51 player there in the calibrated level model with rested experience. A short top-up to 52 on the Spitelash Myrmidons (50-51) on the way north comes first; it replaces part of the later top-ups in this guide and Felwood.",
+			"level": 51,
+			"note": "Level tidy 0.4.0, fix round 1 (Alliance 50-60): Kim'jael's camp and the Thalassian Base Camp are blood elves of 51-53 (Surveyors 51-52, Reclaimers 52-53, Magister Hawkhelm 53). A top-up to 51 (the guide writes 51.3) on the Spitelash Myrmidons (50-51) on the way north comes first, after the Ruins of Eldarath's runes on the same naga; with a Careful tip the camp's range top is one over the low end. With the first Un'Goro visit lighter (fix round 1) a top-up to 52 grew to about 12 model hours.",
 			"source": [
 				{
 					"kind": "client",
@@ -11506,22 +11489,6 @@
 			]
 		},
 		{
-			"id": "teldrassil-twisted-hatred-group-accept",
-			"faction": "Alliance",
-			"at": {
-				"quest": 98403,
-				"goal": "accept"
-			},
-			"when": "group 98403",
-			"note": "Teldrassil (0.4.0 audit): Twisted Hatred's work (Xethorr the Wicked, a level 12 elite) is a group step, so its accept is for groups too, like the other group quests of the starts; with it in a solo log, While you're here could offer the elite on the webwoods walk.",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "npc Xethorr the Wicked level 12 elite"
-				}
-			]
-		},
-		{
 			"id": "teldrassil-gnarlpine-hold-careful",
 			"faction": "Alliance",
 			"at": {
@@ -11662,24 +11629,6 @@
 				}
 			],
 			"issue": 1811
-		},
-		{
-			"id": "1811-selarin-after-escort-darkshore-return-tip",
-			"faction": "Alliance",
-			"at": {
-				"quest": 990,
-				"goal": "accept",
-				"guide": "forever/alliance/03-darkshore-return"
-			},
-			"tip": "No Trek to Ashenvale yet? Give it a minute after the hand-in: Sentinel Selarin comes to Terenthis's side shortly after Volcor's escort is handed in. Changing layer can also find her.",
-			"note": "The tip of the Druid Auberdine step with Selarin's second offer (1811-selarin-after-escort-darkshore-return).",
-			"source": [
-				{
-					"kind": "in-game-check",
-					"ref": "player check 2026-11-16: no Selarin on her spot; after a layer change she was there"
-				}
-			],
-			"issue": 2469
 		},
 		{
 			"id": "duskwood-return-hearth-darkshire",
@@ -11832,22 +11781,6 @@
 			]
 		},
 		{
-			"id": "badlands-gizzard-starving-buzzards",
-			"faction": "Alliance",
-			"at": {
-				"quest": 2500,
-				"goal": "objective",
-				"objective": 2
-			},
-			"note": "30-40/06 (fix round 1, 0.4.0): Buzzard Gizzard (7847) drops from Starving Buzzards 15% (35-37, six spawns 48.9-60.8,13.8-39.7 north of Hammertoe's Digsite), Buzzards 5% (37-39) and Giant Buzzards 20% (39-41, the far west). The digsite step's line points at the Starving Buzzards (57.5,28.6) and the Agmond's End line says the Buzzards drop it rarely: players went to the Giant Buzzards, two to three over them (22 people finished 2500 at a median of 41).",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "items 7847 drops: npc 2829 15%, 2830 5%, 2831 20%; npcs 2829 spawns"
-				}
-			]
-		},
-		{
 			"id": "swamp-this-light-of-mine",
 			"faction": "Alliance",
 			"at": {
@@ -11861,6 +11794,296 @@
 				{
 					"kind": "recording",
 					"ref": "quest 93585: 10 people accepted at Father Tuttle (255597), 6 handed in to Magtoor (1776), 3 escort fails"
+				}
+			]
+		},
+		{
+			"id": "stv-bloodsail-snuff-from-the-camp",
+			"faction": "Alliance",
+			"at": {
+				"quest": 587,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Every Bloodsail drops Snuff and one of them carries Dizzy's eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the Wild Shore camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit.",
+			"note": "40-50/01 (fix round 1, 0.4.0): Snuff and Dizzy's Eye drop from every Bloodsail; the Wild Shore camp's Warlocks and Swashbucklers (41-43) were two over players at about 41, so the eye and the snuff come from the Bloodsail camp's Raiders and Mages (39-41) and The Bloodsail Buccaneers' charts, orders and Swashbucklers (604) wait for the level-48 Booty Bay stop on 40-50/05.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "items 3910, 3897 drop from npcs 1561, 1562 (Bloodsail Raider, Mage 39-41) and 1563, 1564 (Swashbuckler, Warlock 41-43)"
+				}
+			]
+		},
+		{
+			"id": "dustwallow-sword-in-the-slime",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98233,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "On the ride back east, the Corrosive Swamp Oozes (38-40) creep through the marsh south of the road, between the middle of the marsh and Theramore: one of them carries Jameson's training sword.",
+			"note": "40-50/01 (fix round 1, 0.4.0): Sword in the Slime (98233, level 42, 3,450 XP) from Guard Jameson in Theramore; the sword drops from the Corrosive Swamp Oozes (38-40, 44-55,50-59) on the route's ride back east from the Shady Rest Inn. Players' recordings: 5 people took it at about 40, 3 handed it in.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 98233: 5 Alliance people accepted, 3 turned in (40-50/01 players)"
+				}
+			]
+		},
+		{
+			"id": "badlands-ghak-at-the-thelsamar-landing",
+			"faction": "Alliance",
+			"at": {
+				"quest": 17,
+				"goal": "accept",
+				"guide": "forever/alliance/40-50/02-badlands"
+			},
+			"tip": "Ghak Healtouch is below ground in Thelsamar, by the inn, where the flight lands. His mushrooms grow in the Uldaman dig at the Badlands' northern edge, on this guide's loop back north.",
+			"note": "Fix round 1 (0.4.0): Uldaman's Magenta Fungus Caps (17) are taken from Ghak where the Riverglades guide's flight to Thelsamar lands, the Badlands guide's first step. The Stranglethorn guide no longer flies Ironforge to Thelsamar for him and then back west for the Riverglades.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 17 giver Ghak Healtouch (1470), Thelsamar"
+				}
+			]
+		},
+		{
+			"id": "tanaris-tooga-oasis",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97540,
+				"goal": "accept"
+			},
+			"note": "40-50/04 (fix round 1, 0.4.0): Oasis (97540, 3,550 XP) is offered by Tooga beside Torta right after Tooga's Quest (1560) is handed in, and handed in to him on the spot: players' recordings, 5 people, every one within a minute of 1560's hand-in at 66.5,25.7.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 97540: accept and turn-in at npc 5955 Tooga, 3-30 s after 1560's hand-in, 5 people"
+				}
+			],
+			"follows": {
+				"quest": 1560,
+				"goal": "turnin"
+			}
+		},
+		{
+			"id": "hinterlands-repurposed-totems",
+			"faction": "Alliance",
+			"at": {
+				"quest": 86616,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The Vilebranch Soothsayers (46-47) walk the ground around the foot of the Altar of Zul: their totems are for Maret Firetend. Leave the elites on the top platform alone.",
+			"note": "40-50/04-05 (fix round 1, 0.4.0): Repurposed Totems (86616, 4,400 XP) from Farseer Maret Firetend by Aerie Peak; the totems from the Vilebranch Soothsayers around the Altar of Zul, which 40-50/05 visits for The Altar of Zul. Players' recordings tick it at 46-49,64-69.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 86616 objective ticks at Hinterlands 46-49,64-69 (4 people accepted, 2 handed in)"
+				}
+			]
+		},
+		{
+			"id": "hinterlands-fledgling-rescue",
+			"faction": "Alliance",
+			"at": {
+				"quest": 86620,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "On the way back to Aerie Peak: the lost gryphon eggs lie in the hills just east of the aviary.",
+			"note": "40-50/04-05 (fix round 1, 0.4.0): Fledgling Rescue (86620, 4,900 XP) from Gryphon Master Talonaxe; the eggs lie in the hills just east of Aerie Peak (players' recordings tick them at 14-22,47-52), on 40-50/05's ride back there.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 86620 objective ticks at Hinterlands 14-22,47-52 (6 people accepted, 5 handed in)"
+				}
+			]
+		},
+		{
+			"id": "azshara-talrendis-spitelash",
+			"faction": "Alliance",
+			"at": {
+				"quest": 88807,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The Spitelash Warriors (46-47) and Screamers (47-48) hold the western shore north-east of the satyrs.",
+			"note": "50-60/01 (fix round 1, 0.4.0): Commander Truesong's Slay the Spitelash (88807, 4,400 XP) and Berdun Cliffbrew's Home on the Range (89001, 4,400 XP) at Talrendis Point, beside the shrine the guide starts at, and Sentinel Keldara Sunblade's escort out of the satyrs' camp the guide already clears (88857, 4,200 XP), handed in to Truesong on the way back to the shrine: about 13,000 quest experience before the top-up for Kim'jael's camp.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quests 88807, 89001, 88857: 2-4 Alliance people handed each in at Talrendis Point"
+				}
+			]
+		},
+		{
+			"id": "azshara-eldarath-runes-before-the-top-up",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3449,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The Spitelash naga of the Ruins of Eldarath carry Some Rune. Tymor's runes stand among the ruins: use his Drawing Kit on each. The naga here are the ones the top-up below asks for, so these kills count towards it.",
+			"note": "50-60/01 (fix round 1, 0.4.0): three of Tymor's four runes (3449) are taken in the Ruins of Eldarath before the top-up for Kim'jael's camp, on the same Spitelash naga, so their kills count for it; they were after Kim'jael, with fractional top-ups between.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 6194-6196 Spitelash Serpent Guard, Siren, Myrmidon 48-52 at the Ruins of Eldarath"
+				}
+			]
+		},
+		{
+			"id": "darnassus-gracina-rise-of-the-silithid",
+			"faction": "Alliance",
+			"at": {
+				"quest": 162,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/01-burning-steppes"
+			},
+			"tip": "Gracina Spiritmight stands beside Tyrande in the Temple of the Moon, in the south of the city.",
+			"note": "Fix round 1 (0.4.0): the Noxious Lair chain (82, 10, 110, 113) is done on the Un'Goro guide's Tanaris landing at about 49.5 (its Centipaar, 48-50, were two over players on the Tanaris guide at 47), so Rise of the Silithid (162) is handed to Gracina on the Burning Steppes guide's Darnassus stop at about 52.9, where March of the Silithid (4493) is taken for Gadgetzan.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs Centipaar Worker 48-49, Sandreaver 49-50, Swarmer 49-50 (Tanaris)"
+				}
+			]
+		},
+		{
+			"id": "felwood-sampling-of-putrescence",
+			"faction": "Alliance",
+			"at": {
+				"quest": 86577,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Felwood's Angerclaw bears and Felpaw wolves carry the putrescent organs Kelek wants: the Bears and Wolves (47-48) of the south and the Maulers and Scavengers (49-50) along the road north of Jaedenar. Kill them as you ride between the stops.",
+			"note": "50-60/02 (fix round 1, 0.4.0): Kelek Skykeeper's A Sampling of Putrescence (86577, 5,650 XP) at the Emerald Sanctuary, from the bears and wolves the route rides through in Felwood; handed in on the guide's later Emerald Sanctuary stop. Players' recordings: 3 people finished it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 86577: 3 people accepted and handed in at Kelek Skykeeper (10920)"
+				}
+			]
+		},
+		{
+			"id": "felwood-infernal-sentry-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5156,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: an Infernal Sentry (53, elite) stands among the craters: walk round it.",
+			"note": "50-60/02 (fix round 1, 0.4.0): an elite on the way in Shatter Scar Vale at about 53 for the player: a route-around tip.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npc Infernal Sentry 53 elite, Shatter Scar Vale"
+				}
+			]
+		},
+		{
+			"id": "wpl-andorhal-elites-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5097,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Skeletal Warlords and Flesh Golems (57, elites) walk Andorhal's streets, and the Fallen Hero of the Horde (59, elite) wanders between Andorhal and Northridge: keep to the towers at the town's edge and let them pass.",
+			"note": "50-60/04 (fix round 1, 0.4.0): elites on the way in Andorhal at about 55 for the player: route-around tips (also on the Temporal Parasites step).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs Skeletal Warlord 57 elite, Flesh Golem 57 elite, Fallen Hero of the Horde 59 elite"
+				}
+			]
+		},
+		{
+			"id": "wpl-andorhal-parasites-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4971,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Temporal Parasites are 55-57, and Skeletal Warlords and Flesh Golems (57, elites) walk the streets: draw the parasites out by the silos, one at a time, and let the elites pass.",
+			"note": "50-60/04 (fix round 1, 0.4.0): range-top parasites and elites on the way at about 55.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs Temporal Parasite 55-57"
+				}
+			]
+		},
+		{
+			"id": "epl-plaguehounds-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5542,
+				"goal": "objective",
+				"objective": 3
+			},
+			"tip": "Careful: the Frenzied Plaguehounds are 57-58: pull them one at a time.",
+			"note": "50-60/04 (fix round 1, 0.4.0): range-top Plaguehounds at about 56 for the player.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npc 8598 Frenzied Plaguehound 57-58"
+				}
+			]
+		},
+		{
+			"id": "bs-kumisha-from-the-keep",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3501,
+				"goal": "accept"
+			},
+			"tip": "Kum'isha waits at the Rise of the Defiler, the hill south-west of the keep. The Blasted Lands mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have. Come at her hill straight from the keep, along the road, and leave by the same way.",
+			"note": "50-60/01 (fix round 1, 0.4.0): only Kum'isha's hand-in is on her hill among the Shadowsworn and Dreadmaul camps (53-55); the tip keeps the player on the road from the keep.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Blasted Lands camps around Rise of the Defiler 53-55"
+				}
+			]
+		},
+		{
+			"id": "silithus-twilight-keepers-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 8279,
+				"goal": "objective",
+				"objective": 2
+			},
+			"tip": "Careful: the Twilight Keepers are level 60, a level or two over you: clear the cultists around each one first and fight the keeper at full health.",
+			"note": "50-60/06 (fix round 1, 0.4.0): the Twilight Keepers (60) are single named targets at about 58.6; Careful tips on each keeper's step.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 11803, 15200, 11804 level 60"
+				}
+			]
+		},
+		{
+			"id": "silithus-hive-ashi-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 8318,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: take the texts from the Twilight Avengers and Geolords; leave the Twilight Flamereavers (60) and stay out of the hive's mouth, where the Hive'Ashi elites (59-60) wait.",
+			"note": "50-60/06 (fix round 1, 0.4.0): range-top cultists and the hive's elites at about 58.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Twilight Flamereaver 60; Hive'Ashi elites 59-60"
 				}
 			]
 		}

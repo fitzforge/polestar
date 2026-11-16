@@ -147,7 +147,7 @@ step Zul'Farrak
 
 step Gadgetzan
   turnin 992                          -- Senior Surveyor Fizzledowser
-  accept 82
+  accept 82                           -- keep it: the Noxious Lair's Centipaar (48-50) wait for the Un'Goro guide's Gadgetzan landing at about 49.5
 
 step Tran'rek
   when dungeon "Zul'Farrak"
@@ -181,14 +181,9 @@ step The Broken Pillar
 step Rhapsody's Kalimdor Kocktail
   collect 6257 quest 1452.1 @43.5,40.6 map 1446
 
-step The Noxious Lair
-  tip Ride north-west to the Centipaar hive in the dunes. Any Centipaar can drop insect parts.
-  tip Careful: Centipaar Swarmers cast Silithid Swarm both in and out of combat, which brings small adds that interrupt you.
-  collect 8587 quest 82               -- Centipaar Insect Parts
-
 step Dunemaul Compound
   tip Ride south-west to the ogre compound and keep to its south end; the compound's quest waits for the Un'Goro guide.
-  tip Why the grind to 47: Tooga waits at the edge of the Thistleshrub Valley (mobs of 48-50) and the Gaping Chasm's silithids (47-50) come next. Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes and Enforcers (46-48) inside.
+  tip Why the grind to 47: Tooga waits at the edge of the Thistleshrub Valley (mobs of 48-50). Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes and Enforcers (46-48) inside.
   level 47.06 grind 5471               -- grind on Dunemaul Ogre, at the compound's south end
 
 step Tooga's escort
@@ -196,11 +191,8 @@ step Tooga's escort
   accept 1560                         -- Tooga
   complete 1560
   turnin 1560                         -- Torta
-
-step Gadgetzan
-  tip Ride back west to Gadgetzan; Alchemist Pestlezugg is inside.
-  turnin 82                           -- Alchemist Pestlezugg, inside
-  accept 10                           -- Senior Surveyor Fizzledowser
+  accept 97540                        -- Tooga, beside her: Oasis
+  turnin 97540
 
 # ---------------------------------------------------------------- The south
 
@@ -209,19 +201,8 @@ step Caliph Scorpidsting
   tip Careful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them.
   collect 8723 x1 quest 2781          -- Caliph Scorpidsting's Head
 
-step The Gaping Chasm
-  tip Ride south past the Broken Pillar to the Gaping Chasm, the Hazzali tunnels; Scrimshank's gear lies deep inside.
-  tip Careful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds.
-  collect 8593 x1 quest 10            -- Scrimshank's Surveying Gear; below ground
-
 step Gadgetzan
   turnin 2781                         -- Chief Engineer Bilgewhizzle
-  turnin 10                           -- Senior Surveyor Fizzledowser
-  accept 110
-  turnin 110                          -- Alchemist Pestlezugg, inside
-  accept 113
-  turnin 113                          -- Senior Surveyor Fizzledowser
-  accept 162                          -- for Darnassus, next
 
 # ---------------------------------------------------------------- To Darnassus
 
@@ -260,7 +241,6 @@ step Temple of the Moon
   tip Step through the portal into Darnassus. The Temple of the Moon is in the south of the city.
   turnin 2972                         -- Tyrande Whisperwind
   turnin 4267
-  turnin 162                          -- Gracina Spiritmight, beside her
 
 step Thyn'tel Bladeweaver
   when onquest 1037
@@ -327,6 +307,8 @@ step Aerie Peak
   getfp "Aerie Peak"
   accept 2989                         -- Gryphon Master Talonaxe, beside the flight master
   accept 2877                         -- Fraggar Thundermantle, inside
+  accept 86620                        -- Gryphon Master Talonaxe: Fledgling Rescue, the eggs in the hills just east of Aerie Peak
+  accept 86616                        -- Farseer Maret Firetend, just east of the aviary: Repurposed Totems, from the Altar of Zul's Soothsayers
 
 step The Hinterlands
   when onquest 1452

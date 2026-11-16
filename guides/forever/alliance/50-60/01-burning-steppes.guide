@@ -27,12 +27,35 @@ step Shadowsong Shrine
   kill 6116 quest 5535.1              -- Highborne Apparition
   kill 6117 quest 5535.2              -- Highborne Lichling
 
+step Talrendis Point
+  zone Azshara
+  tip Just north-east of the shrine: Commander Truesong and Berdun Cliffbrew keep the Alliance camp at Talrendis Point.
+  accept 88807                        -- Commander Truesong: Slay the Spitelash
+  accept 89001                        -- Berdun Cliffbrew: Home on the Range
+
+step Mosshoof Runners
+  tip The Mosshoof Runners (45-47) graze the hills north of Talrendis Point, on the way to the satyrs.
+  collect 238463 quest 89001          -- Mosshoof Hide
+
 step Azshara: kill these as you meet them
   zone Azshara
-  tip The Highborne ghosts haunt the ruins around the shrine; the Haldarr satyrs hold the camp just north of it.
+  tip The Highborne ghosts haunt the ruins around the shrine; the Haldarr satyrs hold the camp just north of it. Sentinel Keldara Sunblade is held in the satyrs' camp: free her and walk her out.
   kill 6127 quest 5536.3              -- Haldarr Felsworn
   kill 6126 quest 5536.2              -- Haldarr Trickster
   kill 6125 quest 5536.1              -- Haldarr Satyr
+  accept 88857                        -- Sentinel Keldara Sunblade, in the camp
+  complete 88857                      -- Help her escape the camp
+
+step The western shore
+  tip The Spitelash Warriors (46-47) and Screamers (47-48) hold the western shore north-east of the satyrs.
+  kill 6190 quest 88807               -- Spitelash Warrior
+  kill 6193 quest 88807               -- Spitelash Screamer
+
+step Talrendis Point
+  tip Back south-west to Talrendis Point.
+  turnin 88807                        -- Commander Truesong
+  turnin 88857
+  turnin 89001                        -- Berdun Cliffbrew
 
 step Shadowsong Shrine
   turnin 5535                         -- Loh'atu
@@ -51,24 +74,6 @@ step Ogtinc
   turnin 8254                         -- Ogtinc
   accept 8255
 
-step Mosshoof Coursers
-  zone Azshara
-  only Priest
-  tip The nearest Mosshoof Coursers graze the hills north-east of the Bear's Head, toward the Legashi Encampment; a larger herd roams the open ground to the south.
-  collect 20027 quest 8255.1          -- Healthy Courser Gland
-
-step Azshara
-  only Priest
-  zone Azshara
-  when onquest 8255
-  goto 42.4,42.6 "Ogtinc"
-
-step Ogtinc
-  zone Azshara
-  only Priest
-  turnin 8255                         -- Ogtinc
-  accept 8256
-
 step Sanath Lim-yo
   zone Azshara
   tip Top up here, if you need to, on the Thunderhead hippogryphs around Sanath Lim-yo's camp.
@@ -86,14 +91,40 @@ step Archmage Xylem
   tip The apprentice at the top of the tower sends you back down.
   accept 8251                         -- The blood elves are at the Thalassian Base Camp, on the way to Kim'jael
 
-step Level 52 on the way north
-  when level<52
-  tip Top up to level 52 on the Spitelash Myrmidons (50-51) of the ruins between Sanath's camp and the north: the blood elves at Kim'jael's camp are 52-53. Or, with a group, run the Sunken Temple dungeon instead.
+step The Ruins of Eldarath
+  tip The Spitelash naga of the Ruins of Eldarath carry Some Rune. Tymor's runes stand among the ruins: use his Drawing Kit on each. The naga here are the ones the top-up below asks for, so these kills count towards it.
+  collect 10563 quest 3449.1          -- Rune of Beth'Amara
+  collect 10564 quest 3449.2          -- Rune of Jin'yael
+  collect 10565 quest 3449.3          -- Rune of Markri
+
+step Level 51.3 on the way north
+  when level<51.3
+  tip Top up to level 51.3 on the Spitelash Myrmidons (50-51) of the ruins between Sanath's camp and the north: the blood elves at Kim'jael's camp are 51-53. Or, with a group, run the Sunken Temple dungeon instead.
   goto 46.5,54.5 map 1447 "Spitelash Myrmidon"
-  level 52 grind 6196                  -- grind on Spitelash Myrmidon
+  level 51.3 grind 6196                -- grind on Spitelash Myrmidon
+
+step Mosshoof Coursers
+  zone Azshara
+  only Priest
+  tip The nearest Mosshoof Coursers graze the hills north-east of the Bear's Head, toward the Legashi Encampment; a larger herd roams the open ground to the south.
+  tip Careful: the Mosshoof Coursers are 52-53, a level or two over you here: pull them one at a time from the herd's edge.
+  collect 20027 quest 8255.1          -- Healthy Courser Gland
+
+step Azshara
+  only Priest
+  zone Azshara
+  when onquest 8255
+  goto 42.4,42.6 "Ogtinc"
+
+step Ogtinc
+  zone Azshara
+  only Priest
+  turnin 8255                         -- Ogtinc
+  accept 8256
 
 step Kim'jael
   tip Kim'jael camps at the Legashi Encampment in the north; his equipment lies all over the Thalassian Base Camp just south-east of him.
+  tip Careful: the Blood Elf Surveyors are 51-52 and the Reclaimers 52-53, with Magister Hawkhelm (53) among them: take the equipment from the camp's edge and pull the elves one at a time.
   accept 3601
   collect 10717 quest 3601.1          -- Kim'Jael's Compass
   collect 10715 quest 3601.2          -- Kim'Jael's Scope
@@ -104,22 +135,11 @@ step Kim'jael
   accept 5534
   level 50.65 grind 6196               -- grind on Spitelash Myrmidon
 
-step The Ruins of Eldarath
-  tip The Spitelash naga of the Ruins of Eldarath carry Some Rune. Tymor's four runes stand among the ruins: use his Drawing Kit on each.
-  collect 10563 quest 3449.1          -- Rune of Beth'Amara
-  level 50.69 grind 6196               -- grind on Spitelash Myrmidon
-
 step The Shattered Strand
   collect 13815 quest 5534.1
 
 step Kim'jael
   turnin 5534
-
-step The Ruins of Eldarath
-  collect 10564 quest 3449.2          -- Rune of Jin'yael
-  level 50.8 grind 6196               -- grind on Spitelash Myrmidon
-  collect 10565 quest 3449.3          -- Rune of Markri
-  level 50.85 grind 6196               -- grind on Spitelash Myrmidon
 
 step Rubbing: Rune of Sael'hai
   collect 10566 quest 3449.4          -- Rune of Sael'hai
@@ -300,24 +320,20 @@ step Morgan's Vigil
 step Flame Crest
   tip Follow the road west, then climb north to the goblin camp on Flame Crest.
   accept 4726                         -- Tinkee Steamboil
-  accept 4296                         -- Maxwort Uberglint
 
 step Ruins of Thaurissan: kill these as you meet them
   zone Burning Steppes
-  tip The relics are the carved stones scattered through the Ruins of Thaurissan around Flame Crest: click them until the information is recovered.
-  tip Read the tablet in the Dark Iron camp among the ruins, south-west of Flame Crest, to copy the transcript.
+  tip The relics are the carved stones scattered through the Ruins of Thaurissan around Flame Crest: click them until the information is recovered. Take the ones on the ruins' southern edge, nearest Flame Crest.
   tip Use the Draco-Incarcinatrix 900 on a Black Broodling on the slopes east of Flame Crest just before it dies, then loot the essence it leaves.
   tip Careful: a Malfunctioning Reaver (level 56, rare) walks the slopes by the broodlings, and the Black Dragonspawn and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull.
-  tip Careful: the ruins' War Reavers and Thaurissan Firewalkers are 53-55: take the relics at the edge of the ruins and pull one at a time.
+  tip Careful: the ruins' War Reavers and Thaurissan Firewalkers are 53-55, and Thauris Balgarr (57) holds the Dark Iron camp south-west of Flame Crest: take the relics at the edge of the ruins, pull one at a time, and keep away from the camp.
   interact 153556 quest 3701.1        -- Thaurissan Relic
   collect 12283 quest 4726.1
   use 12284 quest 4726.1 @81.0,28.0 map 1428
-  collect 11470 quest 4296.1
 
 step Flame Crest
   turnin 4726                         -- Tinkee Steamboil
   accept 4808                         -- Ends with Felnok Steelspring in Everlook, Winterspring: keep it
-  turnin 4296                         -- Maxwort Uberglint
 
 step Cyrus Therepentous
   when turnedin 3481
@@ -403,7 +419,7 @@ step Blasted Lands
   goto 52.0,35.7 "Rise of the Defiler"
 
 step Kum'isha the Collector
-  tip Kum'isha waits at the Rise of the Defiler, the hill south-west of the keep. The Blasted Lands mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have.
+  tip Kum'isha waits at the Rise of the Defiler, the hill south-west of the keep. The Blasted Lands mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have. Come at her hill straight from the keep, along the road, and leave by the same way.
   tip Careful: Felcular, Razelikh the Defiler and Ilifar are all level 60 elites. Razelikh casts Mana Burn, Strong Cleave and Decimate, and as its health drops it adds Razelikh's Tear, Flames of Chaos and then Enrage at 15%.
   tip Careful: Vek'zol, a level 55 elite, stands by Kum'isha's hill (about 50,35) and to the west (about 39,32), and the Dreadmaul and Shadowsworn camps around it are 53-55: take the fragments from the mobs on the way from the keep, not beside him.
   accept 3501                         -- Kum'isha the Collector walks around here: look inside the circle on the map
@@ -486,7 +502,7 @@ step Rut'theran Village
   accept 978                          -- The wildkin are in Winterspring: keep it
 
 step Portal to Darnassus
-  when onquest 3764
+  when onquest 3764,162
   zone Teldrassil
   goto 55.9,89.3 "Portal to Darnassus"
 
@@ -501,6 +517,13 @@ step Darnassus
   tip The portal in Rut'theran Village leads up to Darnassus: Jenal waits in the Cenarion Enclave, in the north of the city.
   turnin 3764                         -- Jenal, in the Cenarion Enclave
   train class only Druid              -- Ironforge has no druid trainer
+
+step Gracina Spiritmight
+  when onquest 162
+  zone Darnassus
+  tip Gracina Spiritmight stands beside Tyrande in the Temple of the Moon, in the south of the city.
+  turnin 162                          -- Gracina Spiritmight: Rise of the Silithid, from Gadgetzan
+  accept 4493                         -- For Alchemist Pestlezugg in Gadgetzan, on the Western Plaguelands guide: keep it
 
 step Portal to Teldrassil
   when zone "Darnassus"

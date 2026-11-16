@@ -29,6 +29,7 @@ step Theramore
   turnin 1260                         -- Morgan Stern, inside
   accept 1204
   accept 1265                         -- Commander Samaul, on the top floor of Foothold Citadel
+  accept 98233                        -- Guard Jameson: Sword in the Slime, from the oozes on the way back east
   buy 3713 x3 npc 4897                -- Soothing Spices, for "Swamp Eye" Jarl
 
 step Sentry Point
@@ -77,6 +78,10 @@ step The Shady Rest Inn
   tip The burned inn stands on the road west, toward the Barrens; the guard's badge lies in the ashes.
   accept 1252 @29.8,48.2              -- Theramore Guard Badge
 
+step Corrosive Swamp Oozes
+  tip On the ride back east, the Corrosive Swamp Oozes (38-40) creep through the marsh south of the road, between the middle of the marsh and Theramore: one of them carries Jameson's training sword.
+  collect 280203 quest 98233 @49.3,55.7 map 1445 -- Jameson's Training Sword
+
 # ---------------------------------------------------------------- Theramore
 
 step Theramore
@@ -84,6 +89,7 @@ step Theramore
   turnin 1219                         -- Theramore Lieutenant
   accept 1220
   turnin 1252                         -- On the top floor
+  turnin 98233                        -- Guard Jameson
   accept 1259
   turnin 1259                         -- Adjutant Tesoran, on the top floor
   accept 1285
@@ -236,26 +242,21 @@ step Booty Bay
   accept 599
   accept 576                          -- Dizzy One-Eye
   turnin 599                          -- Fleet Master Seahorn
-  accept 604
+  accept 604                          -- keep it: the Wild Shore camp's charts and Swashbucklers (41-43) wait for the level-48 Booty Bay stop
   accept 587                          -- Deeg, on the top floor
   turnin 610                          -- Catelyn the Blade, upstairs
   accept 611                          -- Gazban swims off the north-west coast, on the northern loop
 
-step Wild Shore: kill these as you meet them
+step Bloodsail pirates: kill these as you meet them
   zone Stranglethorn Vale
-  tip Every Bloodsail drops Snuff and one of them carries Dizzy's eye; the Swashbucklers walk the shore just north of town. The charts and orders lie in the pirate camp on the Wild Shore, south of Booty Bay.
-  tip Careful: the Wild Shore camp's Warlocks and Swashbucklers are level 41-43, a level or more above you, and stand close together: pull them singly from the edge.
-  collect 3920 quest 604              -- Bloodsail Charts
+  tip Every Bloodsail drops Snuff and one of them carries Dizzy's eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the Wild Shore camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit.
   collect 3910 quest 587              -- Snuff
   collect 3897 quest 576              -- Dizzy's Eye
-  collect 3921 quest 604              -- Bloodsail Orders
-  kill 1563 quest 604                 -- Bloodsail Swashbuckler
 
 step Booty Bay
   turnin 587                          -- Deeg, on the top floor
   note Fin Fizracket's Stranglethorn Fever (Mokk the Savage) waits for the level-48 Booty Bay stop: leave it for now.
-  turnin 604                          -- Fleet Master Seahorn
-  note Seahorn now offers The Bloodsail Buccaneers: leave it. Its three captains are level 45-48 with crews around them, and the route brings you back to Seahorn at 48 for it.
+  note Seahorn's Bloodsail Buccaneers: keep it for the level-48 Booty Bay stop, with the Wild Shore camp.
   turnin 576                          -- Dizzy One-Eye
 
 step Gorilla hills
@@ -316,6 +317,7 @@ step Rebel Camp
 
 step Brother Nimetz
   turnin 205
+  accept 95786                        -- Brother Nimetz: the Savage Coast report bundle for Loremaster Dibbs in Southshore, on the Badlands & Hinterlands guide: keep it
 
 step Kurzen's Compound
   tip East from the Rebel Camp to Kurzen's Compound: Wendel Mathers is caged at its western edge. The Kurzen Subchiefs (35-36) and Elites (36-37) carry his cage key; the fighter's uniform lies in a supply crate in the compound's eastern part.
@@ -602,29 +604,3 @@ step Riding at 40
   tip At 40 with 100 gold you can learn to ride, and learning it gives you a mount. Binjy Featherwhistle teaches Gnomes at Steelgrill's Depot, just east of Kharanos, beside Milli Featherwhistle's mechanostriders. Forever may let any race learn from any riding trainer (unconfirmed). Collectibles, Mounts · Level 40 lists every colour.
   train 7954 optional                 -- Binjy Featherwhistle
   vendor 7955 optional                -- Milli Featherwhistle: other colours, 20g
-
-step Fly to Thelsamar
-  when taxi "Thelsamar"
-  when !zone "Dun Morogh"
-  zone Ironforge
-  goto 55.9,47.9 "Ironforge flight master"
-  fly "Thelsamar"
-  zone Loch Modan
-
-step Loch Modan
-  when zone "Dun Morogh"
-  zone Loch Modan
-  tip Ride east out of Dun Morogh through the tunnel into Loch Modan and on along the road to Thelsamar.
-  goto 35.5,48.4 "Thelsamar"
-
-step Loch Modan
-  when !taxi "Thelsamar"
-  when !zone "Dun Morogh"
-  zone Loch Modan
-  tip No flight path to Thelsamar yet: ride out of Ironforge's gates, east through Dun Morogh and the tunnel into Loch Modan, and on along the road to Thelsamar.
-  goto 35.5,48.4 "Thelsamar"
-
-step Thelsamar
-  zone Loch Modan
-  tip Ghak Healtouch is below ground in Thelsamar, by the inn. His mushrooms grow in the Uldaman dig in the Badlands; the Badlands & Hinterlands guide, after the Riverglades, takes you there and back through Thelsamar.
-  accept 17                           -- Ghak Healtouch, below ground

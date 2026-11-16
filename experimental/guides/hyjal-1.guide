@@ -185,6 +185,7 @@ step Felflick
 
 step The Ashen camp
   tip The Ashen Acolytes hold the camp at the north of the scar. Not every Acolyte carries notes: keep killing them after the twelve kills until you have all twelve notes.
+  tip Careful: Awakened Fel Ash Slimes (58, elite) ooze about the scar: pull the Acolytes away from them.
   kill 260422 x12 quest 95318.1         -- Ashen Acolyte
   collect 274396 x12 quest 95317.1      -- Fel Ash Experimentation Notes
 
@@ -217,6 +218,7 @@ step Felflick
 
 step The warlocks
   tip The three warlocks and Brashann Grimdark are in and around the Ashen camp at the north of the scar.
+  tip Careful: Awakened Fel Ash Slimes (58, elite) ooze about the scar: keep clear of them.
   collect 273291 quest 95378.1          -- Bones of Tyaeha Darkoath
   collect 273292 quest 95378.2          -- Bones of Dazka Shadowsleep
   collect 273290 quest 95378.3          -- Bones of Frezzlie Popwhiz
@@ -500,6 +502,7 @@ step Eluneth
 
 step Owl feathers
   tip The Hyjal Owls roost on the slopes between Eluneth and Barkskin Burrow: their feathers are for Elderwild.
+  tip Careful: Death Wailers (61, rare elites) drift over the western slopes: give them a wide berth.
   tip Careful: Grimroot, the elite treant (level 60), walks the western slopes here: pull the owls away from his path.
   collect 253341 x9 quest 95027.1 only Alliance  -- Hyjal Owl Feather
   collect 253341 x9 quest 92609.1 only Horde
@@ -511,6 +514,7 @@ step Unmarked Grave
 
 step Mourning's Rest
   tip The Scourge hold the ruins of Mourning's Rest, east of Elderwild: Fleshflay Raveners and Forgotten Soldiers everywhere, Eternal Sentries among them. Burn the bone pile at the south-eastern end with the Survivor's Torch: the Scourge Reanimator that answers carries the amulet.
+  tip Careful: Death Wailers (61, rare elites) drift over Mourning's Rest: keep out of their way.
   tip Careful: Grimroot, the elite treant (level 60), walks the slopes on the way in: give him room.
   tip Careful: the Scourge Reanimator is level 59-60: burn the bone pile last, at full health, with the ruins around it cleared.
   kill 249247 x3 quest 92449.1 only Alliance  -- Forgotten Soldier
@@ -599,6 +603,7 @@ step Brie
 step Foxes
   only Alliance
   tip The Rustleaf Foxes are thick in the woods around Johun's camp.
+  tip Careful: Jezerelle the Swaying (61, rare) walks the woods north of the camp: leave her be.
   collect 274586 x9 quest 92014.1 @42.5,35.0  -- Rustleaf Fox Tail
 
 step Johun "Punchy" Dillas
@@ -621,6 +626,7 @@ step The burnt buildings
 step Predatory stags
   when onquest 93617
   tip The Predatory Hyjal Stags roam the same meadows, east of Kala'th.
+  tip Careful: Spectral Frostwyrms (61, elites) circle over the western meadows: keep out from under them.
   kill 256809 x6 quest 93617.1          -- Predatory Hyjal Stag
 
 step Kala'th
@@ -637,6 +643,7 @@ step Marrosis
 step Bones and stolen life
   when onquest 96957
   tip The sun-bleached bones lie all over Mourning's Rest; the Fleshflay Raveners there carry the drop of stolen life.
+  tip Careful: Death Wailers (61, rare elites) drift over Mourning's Rest: keep out of their way.
   collect 275927 x20 quest 96957.1 @25.4,53.5  -- Sun-Bleached Bone
   collect 272973 quest 92317.1          -- Drop of Stolen Life
 
@@ -769,6 +776,7 @@ step Renalard
 
 step Dae'gun
   tip Work west back through Dae'gun: the Felguard Sentinels and Defiling Hounds are everywhere, the hounds carry the essence, and the Horde base's rubble (wire, scrap and dung) lies all over it. Light the two bonfires on your way, scout the Horde tower in the middle, take Azgalor's ashes west of the tower, and pick up the abandoned supplies, a few just north-west of Renalard and the rest in the western half: Renalard's tuft of fur, used on a demon, distracts it while you take them.
+  tip Careful: Legion Hulks (60, rare elites) stomp through Dae'gun's camps: give them room.
   tip Careful: Doomguards (elites, 58-59) stand among the demons, and Doomguard Xarkul (elite, 61) walks the camp: pull the hounds and sentinels to you, away from them.
   kill 249229 x12 quest 95793.1         -- Felguard Sentinel
   collect 271220 x6 quest 92960.1       -- Ephemeral Essence
@@ -793,6 +801,7 @@ step Johun "Punchy" Dillas
 
 step Bethra'zel and Maerion
   tip North-east to Bethra'zel: use Elaena's eye on him to drain him, then kill him. Doomguard Xarkul, an elite (level 61), walks this corner of Dae'gun: keep out of his way.
+  tip Careful: Legion Hulks (60, rare elites) stomp through Dae'gun's camps: give them room.
   tip Maerion Thaelemaches waits a little further north-east. His Felhound Spikes come from the Defiling Hounds, and in our only recording about one hound in ten had one: kill the hounds around him while you are here, and leave his quest if the twelve spikes are slow to come.
   kill 263394 quest 96003.1             -- Bethra'zel
   accept 97009                          -- Maerion Thaelemaches: Maerion's Misery
@@ -817,15 +826,19 @@ step The Summit of Eternity
   tip East up to the Summit of Eternity, the druids' camp. Fayran Elthas, the flight master, stands at its north end; Marn Euhorn, Toron Rockhoof and Thisalee Crow along the path south; Tiala Whitemane indoors next to Thisalee; Sebelia, the innkeeper, at the south-east end. The Horde's hand-in to Thisalee is not in our recordings yet.
   getfp "Summit of Eternity" @68.7,44.1  -- Fayran Elthas, at the flight point
   turnin 96991                          -- Marn Euhorn
-  accept 92017                          -- Cleansing Winds
-  accept 92533                          -- Toron Rockhoof: Twisted Tools
   turnin 91688 only Alliance            -- Thisalee Crow
   turnin 95248 only Horde
   turnin 96025
-  accept 93584                          -- Cult Closure
-  accept 93407                          -- Tiala Whitemane: A Thorn in the Paw
   accept 93197                          -- Sebelia: Mending Communications: for Innkeeper Vizzie in Everlook, at the end
   sethome "Summit of Eternity" npc 243815  -- Sebelia
+
+step The Summit's Blackthorne quests
+  when group 93584
+  tip A group stop: the Blackthorne camps north-east of the Summit hold elite Outrunners, Priests and a Courier (60) as often as the Cultists and Adepts, with Ve'han Talongrasp (60, elite) in the middle and Ghansurok (61, elite) on the ridge. Grouping up is encouraged, look for people to do it with. Skip these if you are alone.
+  accept 92017                          -- Marn Euhorn: Cleansing Winds
+  accept 92533                          -- Toron Rockhoof: Twisted Tools
+  accept 93584                          -- Thisalee Crow: Cult Closure
+  accept 93407                          -- Tiala Whitemane: A Thorn in the Paw
 
 step Fly to the Tainted Foothills
   tip Fly down to Bluebell for Kaylaena and Ketharas.
@@ -871,9 +884,13 @@ step Tiala Whitemane
   when onquest 90647
   tip Indoors at the Summit, next to Thisalee Crow.
   turnin 90647
+
+step Tiala Whitemane
+  when group 93584
   accept 92169                          -- Paying Back the Pact
 
 step The Blackthorne camps
+  when group 93584
   when onquest 92169
   tip The Blackthorne cultists camp on the slopes north-east of the Summit (level 60, with elite Outrunners, Priests and a Courier among them: pull carefully). Ve'han Talongrasp, an elite (level 60) who leads them, stands among them: leave him be. Ghansurok, an elite chimaera (level 61), also roams the ridge north of the camps.
   tip Use Tiala's staff on a Pact member to strip its ward, then kill it, ten times: pick Cultists and Adepts, whom Thisalee wants dead too. The Cultists carry the kris and the Adepts the staff; the thorn seeds lie in the woods there, and the hippogryphs and chimaeras roam the slopes all around. Not finished in our recordings yet: if something here is off, tell us.
@@ -887,6 +904,7 @@ step The Blackthorne camps
   collect 274288 x3 quest 92017.2       -- Oily Chimaera Hair
 
 step The Blackthorne camps
+  when group 93584
   when !onquest 92169
   tip The Blackthorne cultists camp on the slopes north-east of the Summit (level 60, with elite Outrunners, Priests and a Courier among them: pull carefully). Ve'han Talongrasp, an elite (level 60) who leads them, stands among them: leave him be. Ghansurok, an elite chimaera (level 61), also roams the ridge north of the camps.
   tip The Cultists carry the kris and the Adepts the staff; the thorn seeds lie in the woods there, and the hippogryphs and chimaeras roam the slopes all around. Not finished in our recordings yet: if something here is off, tell us.
@@ -899,10 +917,12 @@ step The Blackthorne camps
   collect 274288 x3 quest 92017.2       -- Oily Chimaera Hair
 
 step Tiala Whitemane
+  when group 93584
   when onquest 92169
   turnin 92169
 
 step The Summit of Eternity
+  when group 93584
   turnin 93584                          -- Thisalee Crow
   turnin 92533                          -- Toron Rockhoof
   turnin 93407                          -- Tiala Whitemane
