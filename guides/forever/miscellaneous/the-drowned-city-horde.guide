@@ -32,8 +32,9 @@ why Every Horde quest of the Drowned City in one run, lead-ins included.
 # dungeon, so their goals stand at the entrance (@21.8,27.6, Sunken Hollow,
 # the point forever/horde/40-50/01-stranglethorn-vale uses) with `group 5`,
 # and the steps follow a run of my own. Locating the Lost City (95770) points
-# there too. Arrival is a `goto` labelled "Sunken Hollow" (the area's name):
-# done on entering the cavern, or once the work inside is done.
+# there too. Arrival is `enter "The Drowned City"` at that point: done once
+# the zone text reads the dungeon's name, as it did inside on my run (the
+# client's area 16550).
 #
 # Sources (facts only):
 # - Quests, NPCs, items, objects and rewards: data/forever (QuestieDB Forever).
@@ -112,7 +113,7 @@ step Mazu'kon
 step To the Drowned City
   zone Stranglethorn Vale
   tip A dungeon for five players of level 35 to 42. Meet your group at its entrance in Sunken Hollow, under the Vile Reef: from the shore west of Grom'gol, swim due west. Water breathing helps.
-  goto 21.8,27.6 "Sunken Hollow" r 25
+  enter "The Drowned City" @21.8,27.6
 
 step First tablet
   tip Past the Makrura Snappers and Chasm Crawlers waits Zul'Alai, the first boss. The first tablet comes soon after him: click it for the rubbing.

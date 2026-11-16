@@ -119,7 +119,7 @@ step Krazek
 
 step To the Drowned City
   tip A dungeon for five players of level 35 to 42. Meet your group at its entrance in Sunken Hollow, under the Vile Reef: due west of Grom'gol and south-west of the reef's tablet. Grom'gol is the Horde's camp: keep clear of its guards. Water breathing helps.
-  goto 21.8,27.6 "Sunken Hollow" r 25
+  enter "The Drowned City" @21.8,27.6
 
 step I'lalai Fetishes
   along until dibbs
