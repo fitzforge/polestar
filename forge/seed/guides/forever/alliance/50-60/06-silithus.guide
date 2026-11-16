@@ -223,6 +223,7 @@ step Cenarion Hold
   accept 8278                         -- Beetix Ficklespragg, upstairs
   accept 8281                         -- Windcaller Proudhorn
   accept 8318                         -- Bor Wildmane: his Twilight texts come from the dig after the next stop here
+  accept 8304                         -- Commander Mar'alith: Bronzebeard's Encampment comes later, on the way south
 
 step Silithus: kill these as you meet them
   zone Silithus
@@ -237,7 +238,6 @@ step Cenarion Hold
   turnin 8281
   turnin 8278
   accept 8282                         -- Noggle Ficklespragg, upstairs beside Beetix
-  accept 8304                         -- Commander Mar'alith
 
 step Hive'Ashi: kill these as you meet them
   zone Silithus

@@ -6724,6 +6724,26 @@
 			]
 		},
 		{
+			"id": "cenarion-hold-dearest-natalia-first-stop",
+			"faction": "Alliance",
+			"at": {
+				"quest": 8304,
+				"goal": "accept",
+				"guide": "forever/alliance/50-60/06-silithus"
+			},
+			"follows": {
+				"quest": 8318,
+				"goal": "accept"
+			},
+			"note": "Dearest Natalia (8304) needs level 58. Fix round 1 (0.4.0): the Silithus guide's first Cenarion Hold stop is at about 58.4 (level model), so Commander Mar'alith gives it there, with Beetix's, Windcaller Proudhorn's and Bor Wildmane's quests; on the next stop the flow audit had the route walk past him and come back 18 minutes later for it.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 8304 minLevel 58, giver and ender Commander Mar'alith (15181, 49.2,34.2 Silithus)"
+				}
+			]
+		},
+		{
 			"id": "razor-hill-taijin-letter-beside-turroc",
 			"faction": "Horde",
 			"at": {

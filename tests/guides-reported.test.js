@@ -10497,7 +10497,10 @@ test('forever/alliance 40-60: givers and hand-ins taken when the route passes th
 	assert.ok(!wpl.some(({ goal }) => goal.quest === 8318), 'no Secret Communication under level 57');
 	const si = goals('forever/alliance/50-60/06-silithus.guide');
 	const ss = (what, pred) => si[at(si, what, pred)].s;
-	assert.equal(ss('accept 8304', is('accept', 8304)), ss('accept 8282', is('accept', 8282)), 'Mar\'alith on the first Cenarion Hold stop');
+	// Fix round 1 (0.4.0): the first Cenarion Hold stop of the Silithus guide is at about 58.4, over Dearest Natalia's
+	// minimum (58): Mar'alith gives it there, with Beetix's and Windcaller Proudhorn's quests (the flow audit had the
+	// route walk past him and come back for it).
+	assert.equal(ss('accept 8304', is('accept', 8304)), ss('accept 8278', is('accept', 8278)), 'Mar\'alith on the first Cenarion Hold stop');
 	assert.equal(ss('accept 8318', is('accept', 8318)), ss('accept 8278', is('accept', 8278)), 'Bor Wildmane on the first Cenarion Hold stop of the Silithus guide');
 });
 
