@@ -914,6 +914,25 @@ test(`Visur's report (#859): Desperate Times talks to Valennia, Ayessa and Elaad
 	}
 });
 
+// Desperate Times on the Alliance Zephras guide (0.4.0 audit): Ayessa Dawnsinger, the Horde's leader the quest needs,
+// shows hostile to every recorded Alliance Skyborne (10 people) and still talks to them (25 of 25 completions talked
+// to both leaders). The step says so, as the Horde guide's step does for Elaadrin.
+test('Zephras Isle (Alliance): Desperate Times says Ayessa shows red but talks to you, and the quest needs both leaders', { skip }, () => {
+	const tips = stepTips('forever/alliance/skyborne/01-zephras-isle.guide', /^\s+talk 251968 quest 92640\.2\b/).join(' ');
+	assert.match(tips, /Ayessa's name shows red to you, but she talks to you all the same, and the quest needs both/);
+});
+
+// Dwarf Hunters (0.4.0 audit): Taming the Beast (6064) is taken on the walk back to Grif Wildheart after Misty Pine,
+// where the Hunter is past level 10, not at the Kharanos east stop, where the guide made them wait for level 10.
+test(`${DWARF_DUN_MOROGH}: a Hunter takes Taming the Beast on the return to Kharanos, with no wait for level 10 on the way east`, { skip }, () => {
+	const list = goals(DWARF_DUN_MOROGH);
+	const take = at(list, 'accept 6064', is('accept', 6064));
+	assert.equal(list[take].s, list[at(list, 'kill 1126 (tame)', (g) => g.t === 'kill' && g.quest === 6064)].s, 'taken on the Taming the Beast step');
+	assert.ok(take > at(list, 'turnin 99161 (Father Gavin)', is('turnin', 99161)), 'after Misty Pine Refuge');
+	const kharanos = list[at(list, 'turnin 412 (Razzle)', is('turnin', 412))].step;
+	assert.ok(!kharanos.goals.some((g) => g.t === 'level' && (g.only || []).concat(g.onlyClass || []).join(' ').includes('Hunter')), 'no level gate for Hunters on the Kharanos east stop');
+});
+
 test(`Visur's report (#859): no guide asks for a kill the game's objectives do not count, or for a kill of someone it asks you to talk to`, { skip }, () => {
 	data = data || loadData(DATA);
 	// The Cult of the Damned counts Dark Neophytes and Dark Enforcers only.
@@ -2073,8 +2092,8 @@ test(`${ELWYNN}: Applejack reports (#820, #823, #2312): direct hand-ins after th
 // step (players' recordings; 12 deaths in the archive by #977). His head stays an
 // optional extra (#221), collected only in the steps for players who group for it
 // (#979); the river step everyone plays still says he is an elite and to leave him
-// without a group or below level 10.
-test(`${ELWYNN}: Croaky's Head is collected only by groups, and the river step warns he is a level 11 elite, for a group or from level 10`, { skip }, () => {
+// without a group (an elite is a group choice at any level: 0.4.0 level tidy).
+test(`${ELWYNN}: Croaky's Head is collected only by groups, and the river step warns he is a level 11 elite, for a group only`, { skip }, () => {
 	const steps = compiled(ELWYNN).steps;
 	const heads = steps.filter((st) => st.goals.some((g) => g.t === 'collect' && g.item === 247826));
 	assert.ok(heads.length > 0, 'the head is still an optional goal');
@@ -2083,7 +2102,8 @@ test(`${ELWYNN}: Croaky's Head is collected only by groups, and the river step w
 	assert.ok(river, "the river step of Ormin Pelford's Waterlogged tools");
 	const tip = [].concat(river.note || []).join(' ');
 	assert.match(tip, /level 11 elite/, tip);
-	assert.match(tip, /with a group or once you're level 10/, tip);
+	assert.match(tip, /Only go for his head with a group;/, tip);
+	assert.doesNotMatch(tip, /once you're level 10/, tip);
 });
 
 // Swelling Forces (98013, level 20 naga) needs Return to Onu (950), which only
@@ -11320,19 +11340,23 @@ test('Horde Thousand Needles: Darkcloud chests south-east, south-west, north-wes
 // Players' route (0.3.6): Twisted Hatred (98403, 900 XP), Tallonkai's Forever follow-up to Twisted Hatred
 // (932), is a group quest (Xethorr the Wicked is a level 12 elite): offered on the jewel's hand-in to Tallonkai, its
 // Befouled Webwoods and Xethorr sit north-west of Dolanaar on the way to the Oracle Glade once Shayla's hand-in moved to the
-// walk south from the glade to Ursal (shorter for everyone), and it goes back to Tallonkai on the Dolanaar stop after Ursal.
-test(`${TELDRASSIL}: Twisted Hatred's webwoods on the way to the Oracle Glade, handed in after Ursal`, { skip }, () => {
+// walk south from the glade to Ursal (shorter for everyone). 0.4.0 audit: the accept is for groups only, like the other
+// group quests (with it in a solo log, While you're here could offer the elite), and it goes back to Tallonkai on the
+// next Dolanaar stop, upstairs in the same inn, before Lake Al'Ameth and Ursal.
+test(`${TELDRASSIL}: Twisted Hatred's webwoods on the way to the Oracle Glade for groups, handed in on the next Dolanaar stop`, { skip }, () => {
 	const list = goals(TELDRASSIL);
 	const take = at(list, 'accept 98403', is('accept', 98403));
 	const jewel = at(list, 'turnin 2459', is('turnin', 2459));
-	assert.ok(list[take].s === list[jewel].s && list[take].goal.optional, "offered with the jewel's hand-in, optional");
+	assert.ok(jewel < take && list[take].s === list[jewel].s + 1, "offered right after the jewel's hand-in");
+	assert.ok((list[take].step.when || []).some((p) => p.k === 'group' && [p.q].flat().includes(98403) && !p.neg), 'the accept is under when group 98403');
 	const webs = at(list, 'kill 272096', (g) => g.t === 'kill' && g.quest === 98403);
 	const moss = at(list, 'collect 281023', (g) => g.t === 'collect' && g.quest === 98403);
 	const glade = at(list, 'accept 937', is('accept', 937));
 	assert.ok(jewel < webs && webs < glade && list[moss].s === list[webs].s, 'between the jewel hand-in at Dolanaar and the glade');
 	assert.ok((list[webs].step.when || []).some((p) => p.k === 'group' && [p.q].flat().includes(98403) && !p.neg), 'Xethorr is elite: under when group 98403');
 	const hand = at(list, 'turnin 98403', is('turnin', 98403));
-	assert.ok(hand > at(list, 'kill 486 (Ursal)', (g) => g.t === 'kill' && g.quest === 486), 'handed to Tallonkai on the Dolanaar stop after Ursal');
+	assert.ok(hand > at(list, 'accept 99050 (Byancie)', is('accept', 99050)), 'handed to Tallonkai on the Dolanaar stop after the glade');
+	assert.ok(hand < at(list, 'kill 486 (Ursal)', (g) => g.t === 'kill' && g.quest === 486), 'before Lake Al\'Ameth and Ursal');
 	assert.ok((list[hand].step.when || []).some((p) => p.k === 'complete' && !p.neg), 'only once the quest is done');
 });
 

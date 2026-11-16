@@ -5517,6 +5517,30 @@
 				],
 				"faction": "Horde",
 				"why": "Horde 50-60 audit (0.4.0): Winterfall Activity (8464) is complete at the end of the Winterspring guide (Winterfall Village, about 55.4) and was handed in to Salfa only in the Felwood guide at about 59.7. Salfa stands where Timbermaw Hold's tunnel comes out into Winterspring (27.7,34.5), which the Eastern Plaguelands guide rides out of on its way from Moonglade to Donova Snowden (564 yd on): the hand-in goes there, three levels earlier, with no detour. The Felwood guide keeps a hand-in only while it is still carried."
+			},
+			{
+				"a": [
+					"turnin",
+					99161
+				],
+				"b": [
+					"accept",
+					6064
+				],
+				"faction": "Alliance",
+				"why": "Dun Morogh (Dwarf Hunters, 0.4.0 audit): Taming the Beast is taken on the walk back to Grif Wildheart after Misty Pine Refuge, where the Hunter is past level 10, not on the Kharanos east stop, which made Hunters wait up to about 20 minutes for level 10 (level model)."
+			},
+			{
+				"a": [
+					"turnin",
+					98403
+				],
+				"b": [
+					"task",
+					486
+				],
+				"faction": "Alliance",
+				"why": "Teldrassil (0.4.0 audit): a group that did Twisted Hatred hands it to Tallonkai on the next Dolanaar stop, upstairs in the same inn, instead of walking past him and coming back after Lake Al'Ameth and Ursal."
 			}
 		],
 		"notes": [

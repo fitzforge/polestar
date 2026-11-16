@@ -113,6 +113,7 @@ step Auberdine
 step Blackwood furbolgs
   zone Darkshore
   tip Blackwood Pathfinders and Windtalkers hold the camp south-east of Auberdine.
+  tip Careful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time.
   kill 2167 quest 985
   kill 2324 quest 985
 

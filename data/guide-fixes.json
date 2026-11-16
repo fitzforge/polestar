@@ -1043,7 +1043,7 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "The Waterlogged Saw, Axe and Toolbox lie in the river south of the bridge. Princess, a big boar, roots in the Brackwell Pumpkin Patch west of the river with her Porcine Entourage: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: Croaky is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional.",
+			"tip": "The Waterlogged Saw, Axe and Toolbox lie in the river south of the bridge. Princess, a big boar, roots in the Brackwell Pumpkin Patch west of the river with her Porcine Entourage: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: Croaky is a level 11 elite on the murloc shore. Only go for his head with a group; otherwise leave him: it's optional.",
 			"note": "The Downstream step comes at about 8.6 and lists Croaky's Head (an optional extra, #221) on Croaky's shore; players died to him at 8-9, so the tip makes skipping him the default: with a group or from level 10 only.",
 			"source": [
 				{
@@ -11437,6 +11437,206 @@
 				}
 			],
 			"issue": 2419
+		},
+		{
+			"id": "dun-morogh-gnomeregan-road-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 412,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Leper Gnomes (8-10) walk the road in twos and threes, and many players died here: pull them one at a time.",
+			"note": "Dun Morogh (Dwarf and Gnome, 0.4.0 audit): the Gnomeregan road's Leper Gnomes are 8-10 at about level 9 for the player, in close groups; 19 people died there in players' recordings. Within the level bar, so a Careful line rather than a move.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "deaths on the Gnomeregan road: 19 people; npcs Leper Gnome 8-10"
+				}
+			]
+		},
+		{
+			"id": "dun-morogh-kharanos-level-10-camp",
+			"faction": "Alliance",
+			"at": {
+				"quest": 412,
+				"goal": "turnin"
+			},
+			"tip": "Back east through Kharanos: Senir by Eric's campfire takes the Frostmane Hold report, and Razzle Sprysprocket the cogs and gears. The class quests here wait for level 10: Priests and Shamans still short of it finish on the Ice Claw Bears (7-8) in the fields just south of Kharanos.",
+			"note": "Dun Morogh (0.4.0 audit): the Kharanos east stop waits for level 10 for the Priest and Shaman class quests (about 8-17 minutes in the level model); the step now names a camp at the player's level for the last kills.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 1196 Ice Claw Bear 7-8, Dun Morogh"
+				}
+			]
+		},
+		{
+			"id": "dun-morogh-vagash-group-wording",
+			"faction": "Alliance",
+			"at": {
+				"quest": 314,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "These are elite mobs: grouping up is encouraged, look for people to do it with. Vagash is a level 12 elite: take him on with a group. Alone, skip it: the Loch Modan quests ahead make up the experience.",
+			"note": "Dun Morogh (0.4.0 audit): Protecting the Herd is a group step; the tip no longer invites a solo pull of a level 12 elite at 14, and no longer promises a grind the guide doesn't have (the Loch Modan loop replaced it).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npc Vagash level 12 elite"
+				}
+			]
+		},
+		{
+			"id": "dun-morogh-silver-stream-geomancers-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 307,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Tunnel Rat Geomancers (12-13) cast from range in the narrow tunnels: pull them one at a time.",
+			"note": "Loch Modan on the Dun Morogh guides (0.4.0 audit): casters one level over the player in the mine's tunnels.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npc Tunnel Rat Geomancer 12-13"
+				}
+			]
+		},
+		{
+			"id": "teldrassil-twisted-hatred-group-accept",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98403,
+				"goal": "accept"
+			},
+			"when": "group 98403",
+			"note": "Teldrassil (0.4.0 audit): Twisted Hatred's work (Xethorr the Wicked, a level 12 elite) is a group step, so its accept is for groups too, like the other group quests of the starts; with it in a solo log, While you're here could offer the elite on the webwoods walk.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npc Xethorr the Wicked level 12 elite"
+				}
+			]
+		},
+		{
+			"id": "teldrassil-gnarlpine-hold-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 930,
+				"goal": "accept"
+			},
+			"tip": "Careful: the Gnarlpine Avengers (9-10) and Augurs here stand close together and many players died at the Hold: pull them one at a time.",
+			"note": "Teldrassil (0.4.0 audit): Gnarlpine Hold at about 8-9 for the player; 17 people died there in players' recordings.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "deaths at Gnarlpine Hold: 17 people"
+				}
+			]
+		},
+		{
+			"id": "elwynn-stone-cairn-wizards-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 83,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Rogue Wizards cast from range and a Defias Bodyguard (10) walks the shore with them: pull them one at a time.",
+			"note": "Elwynn Forest (0.4.0 audit): Stone Cairn Lake's Defias Rogue Wizards are casters and a Defias Bodyguard (10) walks with them at about 9 for the player. Also on the second lake step (91724).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 474 Defias Rogue Wizard, 6866 Defias Bodyguard 10"
+				}
+			]
+		},
+		{
+			"id": "elwynn-stone-cairn-wizards-careful-2",
+			"faction": "Alliance",
+			"at": {
+				"quest": 91724,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Rogue Wizards cast from range and a Defias Bodyguard (10) walks the shore with them: pull them one at a time.",
+			"note": "Elwynn Forest (0.4.0 audit): the second Stone Cairn Lake step, as elwynn-stone-cairn-wizards-careful.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 474 Defias Rogue Wizard, 6866 Defias Bodyguard 10"
+				}
+			]
+		},
+		{
+			"id": "nightelf-darkshore-blackwood-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 985,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time.",
+			"note": "Night Elf Darkshore (0.4.0 audit): the Blackwood camp's Windtalkers are casters one over the player at about 13; 4 people died there in players' recordings.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "deaths at the Blackwood camp: 4 people; npc 2324 Blackwood Windtalker 13-14"
+				}
+			]
+		},
+		{
+			"id": "zephras-alliance-bandits-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 92517,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the bandits stand in close groups and players often died in this camp: pull them one at a time from the edge.",
+			"note": "Zephras Isle (Alliance, 0.4.0 audit): the Highlands Bandits' camp; 6 people died there in players' recordings.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "deaths in the Shen'dar Highlands bandit camp: 6 people"
+				}
+			]
+		},
+		{
+			"id": "zephras-alliance-assassins-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98512,
+				"goal": "accept"
+			},
+			"tip": "Careful: the Al'Aketh Assassins (9-10) stand close together: pull them one at a time.",
+			"note": "Zephras Isle (Alliance, 0.4.0 audit): Fendaal Windstone's assassins are 9-10 at about 9 for the player.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npc 254626 Al'Aketh Assassin 9-10"
+				}
+			]
+		},
+		{
+			"id": "zephras-desperate-times-both-leaders-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 92640,
+				"goal": "objective",
+				"objective": 2
+			},
+			"tip": "Valennia asks you to hear out both leaders: Elaadrin Evengale of the Alliance and Ayessa Dawnsinger of the Horde. Ayessa's name shows red to you, but she talks to you all the same, and the quest needs both.",
+			"note": "Desperate Times (92640) on the Alliance Skyborne guide, the mirror of zephras-desperate-times-both-leaders: Ayessa Dawnsinger, the Horde's leader, shows hostile to Alliance Skyborne and still talks to them; the quest needs both leaders.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "npc 251968 seen hostile by 10 Alliance Skyborne and 1 Night Elf; quest 92640: 25 of 25 Alliance completions talked to Ayessa Dawnsinger and Elaadrin Evengale"
+				}
+			]
 		}
 	]
 }

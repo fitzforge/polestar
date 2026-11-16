@@ -419,6 +419,7 @@ step Brewnall Village
 
 step The Gnomeregan road
   tip Leper Gnomes wander the Gnomeregan road north of Brewnall Village and carry the cogs and gears. Frostmane Hold comes next, in the hills south-west of the village.
+  tip Careful: the Leper Gnomes (8-10) walk the road in twos and threes, and many players died here: pull them one at a time.
   collect 3083 quest 412.1                    -- Restabilization Cog: Leper Gnomes
   collect 3084 quest 412.2                    -- Gyromechanic Gear: Leper Gnomes
   goto 25.1,50.94 live "Frostmane Hold"
@@ -440,11 +441,10 @@ step Tundra MacGrann
 # ---------------------------------------------------------------- East through Kharanos
 
 step Kharanos
-  tip Back east through Kharanos: Senir by Eric's campfire takes the Frostmane Hold report, and Razzle Sprysprocket the cogs and gears. The class quests here wait for level 10.
+  tip Back east through Kharanos: Senir by Eric's campfire takes the Frostmane Hold report, and Razzle Sprysprocket the cogs and gears. The class quests here wait for level 10: Priests and Shamans still short of it finish on the Ice Claw Bears (7-8) in the fields just south of Kharanos.
   turnin 287                                  -- Senir Whitebeard
   accept 291                                  -- Senir Whitebeard: Senator Barin Redstone in Ironforge takes it
   turnin 412                                  -- Razzle Sprysprocket
-  accept 6064 only Hunter                     -- Grif Wildheart, at the smithy
   accept 94449 only Shaman                    -- Ingrid Dunwald: Bruegs Kindleborn by the South Gate takes it
   level 10 only Priest
   accept 5637 only Priest,Dwarf               -- Maxan Anvol: High Priest Rohan in Ironforge takes it
@@ -453,6 +453,7 @@ step Kharanos
 step Taming the Beast
   only Hunter
   tip Each of Grif Wildheart's quests hands you a Taming Rod: use it on the beast he names, then bring the rod back to him at the Kharanos smithy. Large Crag Boars, Snow Leopards and Ice Claw Bears all roam the fields just south and east of Kharanos.
+  accept 6064                                 -- Grif Wildheart, at the smithy
   kill 1126 quest 6064.1 "Tame Large Crag Boar" -- Large Crag Boar: tame it with the Taming Rod
   turnin 6064                                 -- Grif Wildheart
   accept 6084
