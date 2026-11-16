@@ -537,6 +537,9 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 			None => public,
 		}
 	};
+	// Talks the quest data lists as kills (talk.rs), before the corrections so they keep the last word.
+	let talks = crate::talk::retype(&norm.quests, &norm.npcs);
+	log(&format!("talk objectives: {} quest(s) whose kill objective is a talk to a friendly NPC", talks.len()));
 	// Applied with or without Forever's quest data: a correction for an absent record becomes the
 	// record when it can stand alone, else it is named in the warnings.
 	let applied = crate::corrections::apply(&corrections, &norm.quests, &norm.npcs, &norm.objects, &norm.items, true);
