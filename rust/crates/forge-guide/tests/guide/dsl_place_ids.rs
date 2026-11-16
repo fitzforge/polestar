@@ -287,16 +287,9 @@ fn a_getfp_never_resolves_to_a_classs_own_flight_master() {
 	assert_eq!(m[0], json!(["Moonglade", 49, 10897, "Sindrayl", 1450, 48.1, 67.34]), "Moonglade's flight path is Sindrayl's");
 	assert_eq!(m[1], none("Nighthaven"), "Nighthaven's flight masters teach no flight path");
 	assert_eq!((m[2][1].clone(), m[2][2].clone()), (Value::Null, json!(11800)), "nor does Silva Fil'naveth, named by her npc");
-	assert!(
-		alliance.diag.sorted().iter().any(|d| d.message.starts_with("getfp \"Nighthaven\": no ")),
-		"a getfp naming Nighthaven warns: {}",
-		alliance.text
-	);
+	assert!(alliance.diag.sorted().iter().any(|d| d.message.starts_with("getfp \"Nighthaven\": no ")), "a getfp naming Nighthaven warns: {}", alliance.text);
 	let both = "guide t/both\ntitle Both\nlevels 1-10\nzone Elwynn Forest\n\nstep Moonglade\n  getfp \"Moonglade\" only Alliance\n  getfp \"Moonglade\" only Horde\n";
 	let r = compile_with(both, &data);
 	assert!(r.errors.is_empty(), "{}", r.text);
-	assert_eq!(
-		masters(&r),
-		vec![json!(["Moonglade", 49, 10897, "Sindrayl", 1450, 48.1, 67.34]), json!(["Moonglade", 69, 12740, "Faustron", 1450, 32.15, 66.33])]
-	);
+	assert_eq!(masters(&r), vec![json!(["Moonglade", 49, 10897, "Sindrayl", 1450, 48.1, 67.34]), json!(["Moonglade", 69, 12740, "Faustron", 1450, 32.15, 66.33])]);
 }

@@ -47,13 +47,7 @@ emit({{ from = G.Get(id) ~= nil, shendralas = G.Get("forever/40-50/shendralas") 
 #[test]
 fn a_route_through_shendralas_skips_the_other_faction_s_feralas_and_still_says_what_is_off_the_route() {
 	let a = run("Alliance", "Human", "forever/alliance/40-50/02-badlands");
-	assert_eq!(
-		a,
-		json!({ "from": true, "shendralas": true, "horde": false, "alliance": true, "offRoute": ["Stray Errand"] })
-	);
+	assert_eq!(a, json!({ "from": true, "shendralas": true, "horde": false, "alliance": true, "offRoute": ["Stray Errand"] }));
 	let h = run("Horde", "Orc", "forever/horde/40-50/02-feralas");
-	assert_eq!(
-		h,
-		json!({ "from": true, "shendralas": true, "horde": true, "alliance": false, "offRoute": ["Stray Errand"] })
-	);
+	assert_eq!(h, json!({ "from": true, "shendralas": true, "horde": true, "alliance": false, "offRoute": ["Stray Errand"] }));
 }

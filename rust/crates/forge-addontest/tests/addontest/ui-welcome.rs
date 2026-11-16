@@ -742,10 +742,15 @@ fn the_route_page_map_is_the_websites_demo_each_style_its_own_walk_a_switch_leav
 	assert_eq!(out["first"]["ghost"], 0, "no ghost before a switch");
 	// The client leaves a line region under 8px undrawn, so a walk of short segments showed as fragments.
 	for s in ["fastest", "balanced", "roads"] {
-		let pts: Vec<(f64, f64)> = out["seen"][s]["trail"].as_array().unwrap().iter().map(|p| {
-			let (x, y) = p.as_str().unwrap().split_once(',').unwrap();
-			(x.parse().unwrap(), y.parse().unwrap())
-		}).collect();
+		let pts: Vec<(f64, f64)> = out["seen"][s]["trail"]
+			.as_array()
+			.unwrap()
+			.iter()
+			.map(|p| {
+				let (x, y) = p.as_str().unwrap().split_once(',').unwrap();
+				(x.parse().unwrap(), y.parse().unwrap())
+			})
+			.collect();
 		assert!(pts.len() > 2, "{s}: the walk drawn whole");
 		for w in pts.windows(2) {
 			let d = ((w[1].0 - w[0].0).powi(2) + (w[1].1 - w[0].1).powi(2)).sqrt();

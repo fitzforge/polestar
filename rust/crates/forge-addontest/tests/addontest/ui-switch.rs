@@ -38,14 +38,7 @@ fn run(script: &str, skins: bool) -> Value {
 	if skins {
 		addons.extend(SKINS.iter().map(|(_, addon, _)| Addon::name(addon)));
 	}
-	emitted(&RunAddon {
-		stubs: vec!["stub_world.lua"],
-		addons,
-		login: true,
-		script: format!("local T, W = Polestar.Theme, Polestar.Widgets\n{script}"),
-		..Default::default()
-	})
-	.remove(0)
+	emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons, login: true, script: format!("local T, W = Polestar.Theme, Polestar.Widgets\n{script}"), ..Default::default() }).remove(0)
 }
 
 // The switch as a player sees it, in every look the house switch is drawn in (the house look in each colour

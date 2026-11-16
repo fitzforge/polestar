@@ -359,14 +359,12 @@ fn target_list_without_a_model_a_close_mob_shows_its_own_portrait_else_the_cross
 // drawn again. The row asks the server for the creature (its unit link's tooltip) and draws the model once it is in.
 #[test]
 fn target_list_a_creature_the_client_has_not_met_is_asked_for_and_its_model_drawn_once_it_is_in() {
-	let out = run(
-		r#"
+	let out = run(r#"
 		kobolds()
 		emit({ faces(), q.creatureAsks > 0 })
 		stub.advance(1.5)
 		emit(faces())
-	"#,
-	);
+	"#);
 	assert_eq!(out[0], json!([[[false, "red"], [false, "red"], [false, "red"]], true]), "none cached yet: the crosshair, and the client asks");
 	assert_eq!(out[1], json!([[6, "red"], [257, "red"], [80, "red"]]), "the server's answer in: the models");
 }
@@ -374,8 +372,7 @@ fn target_list_a_creature_the_client_has_not_met_is_asked_for_and_its_model_draw
 // While its model waits (the server not answering), a close mob's own portrait shows rather than an empty model.
 #[test]
 fn target_list_a_row_whose_model_waits_shows_a_close_mob_s_portrait() {
-	let out = run(
-		r#"
+	let out = run(r#"
 		q.serverCreatures = false
 		kobolds()
 		q.units.nameplate3 = { name = "Kobold Worker" }
@@ -391,8 +388,7 @@ fn target_list_a_row_whose_model_waits_shows_a_close_mob_s_portrait() {
 		local asks = q.creatureAsks
 		stub.advance(5)
 		emit({ face(1), q.creatureAsks == asks })
-	"#,
-	);
+	"#);
 	assert_eq!(out[0], json!(["portrait:Kobold Worker", "green"]));
 	assert_eq!(out[1], json!([257, "green"]));
 	assert_eq!(out[2], json!([[false, "red"], true]));

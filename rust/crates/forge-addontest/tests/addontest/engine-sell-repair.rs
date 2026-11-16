@@ -118,11 +118,7 @@ fn a_merchant_on_the_way_shows_before_the_route_heads_out_with_the_bags_nearly_f
 		"#);
 	assert_eq!(out["inTown"], json!({}), "the route's next goal is in town: not heading out yet");
 	assert_eq!(out["live"], json!(2));
-	assert_eq!(
-		out["out"],
-		json!([["sell", "Sell before heading out: 2 free slots", "Brog Hamfist (General Supplies)", 30, "icon-sell"]]),
-		"the Horde merchant 6 yd off is never offered"
-	);
+	assert_eq!(out["out"], json!([["sell", "Sell before heading out: 2 free slots", "Brog Hamfist (General Supplies)", 30, "icon-sell"]]), "the Horde merchant 6 yd off is never offered");
 	assert_eq!(out["aim"], json!(true));
 	assert_eq!(out["wp"], json!([1429, 43, 65, "Sell at Brog Hamfist", -4, 2]));
 	assert_eq!(out["sold"], json!({}));
@@ -240,11 +236,12 @@ fn the_next_steps_loot_raises_the_free_slots_wanted() {
 // route heads out all the same.
 #[test]
 fn a_flight_out_of_town_heads_out_too() {
-	let fly = GUIDE.replace(
-		r#"{ title = "The farm", goals = { { t = "kill", target = "Young Wolf", npc = 299, count = 8, quest = 33, oi = 1, map = 1429, x = 60, y = 40 } } },"#,
-		r#"{ title = "Fly out", goals = { { t = "fly", location = "Stormwind", map = 1429, x = 42.3, y = 64.5 } } },"#,
-	)
-	.replace("SELLS", "");
+	let fly = GUIDE
+		.replace(
+			r#"{ title = "The farm", goals = { { t = "kill", target = "Young Wolf", npc = 299, count = 8, quest = 33, oi = 1, map = 1429, x = 60, y = 40 } } },"#,
+			r#"{ title = "Fly out", goals = { { t = "fly", location = "Stormwind", map = 1429, x = 42.3, y = 64.5 } } },"#,
+		)
+		.replace("SELLS", "");
 	assert!(fly.contains("Fly out"));
 	let out = run_with(
 		&fly,

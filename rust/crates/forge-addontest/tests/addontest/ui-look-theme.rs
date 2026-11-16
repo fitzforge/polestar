@@ -366,7 +366,11 @@ fn the_preview_paints_from_the_theme_on_one_stage_and_follows_a_change_live() {
 	assert_eq!(out["fit"], 1, "a band wide enough: real size");
 	assert_eq!(out["hint"], false);
 	assert_eq!(out["labels"], json!(["Guide window", "Heads-up card", "Rare alert"]));
-	assert_eq!((out["stage"].clone(), out["inside"].clone(), out["overlap"].clone(), out["rows"].clone()), (json!(true), json!(true), json!(false), json!(1)), "one row on the stage, inside it, apart");
+	assert_eq!(
+		(out["stage"].clone(), out["inside"].clone(), out["overlap"].clone(), out["rows"].clone()),
+		(json!(true), json!(true), json!(false), json!(1)),
+		"one row on the stage, inside it, apart"
+	);
 	let near = |v: &Value| {
 		let a = v.as_array().unwrap();
 		a.iter().all(|x| (n(x) - n(&a[0])).abs() <= 1.0)
@@ -390,8 +394,7 @@ fn the_preview_paints_from_the_theme_on_one_stage_and_follows_a_change_live() {
 // doubled behind their faces). The same in the box that shows the choice, also after a theme repaint.
 #[test]
 fn a_font_list_shows_each_name_once_in_its_own_face_in_the_list_and_in_the_box() {
-	let out = run(
-		r#"
+	let out = run(r#"
 		local O = Polestar.UI.Options
 		Polestar.UI.ShowOptions("theme")
 		O.Select("theme", "Text")
@@ -421,8 +424,7 @@ fn a_font_list_shows_each_name_once_in_its_own_face_in_the_list_and_in_the_box()
 			Polestar.Widgets.HideMenu()
 			out[key] = { list = list, box = labels(row.Button) }
 		end
-		emit(out)"#,
-	);
+		emit(out)"#);
 	for key in ["ui.font", "ui.headingFont"] {
 		let list = out[key]["list"].as_array().unwrap();
 		assert!(list.len() >= 5, "{key}: the faces listed: {}", out[key]);

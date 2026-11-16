@@ -145,9 +145,7 @@ fn a_carried_quests_camp_two_levels_up_is_not_offered_one_level_up_is_whatever_t
 	assert!(has(&ogres("lvl = 6,"), "7:1:work:1"), "ogres 1 over: the line: {:?}", ogres("lvl = 6,"));
 	assert!(has(&ogres("qlvl = 7, lvl = 6,"), "7:1:work:1"), "a quest 2 over, its ogres 1 over: the line: {:?}", ogres("qlvl = 7, lvl = 6,"));
 	// A spot's own level counts for that spot: both spawn areas 2 over, none; one of them 1 over, the line.
-	let candles = |a: &str, b: &str| {
-		row(&[(spots, &format!("spots = {{ {{ x = 52.0, y = 35.1, r = 15, n = 3, lvl = {a} }}, {{ x = 53.0, y = 36.0, r = 10, n = 2, lvl = {b} }} }}"))])
-	};
+	let candles = |a: &str, b: &str| row(&[(spots, &format!("spots = {{ {{ x = 52.0, y = 35.1, r = 15, n = 3, lvl = {a} }}, {{ x = 53.0, y = 36.0, r = 10, n = 2, lvl = {b} }} }}"))]);
 	assert!(!has(&candles("7", "7"), "3:"), "both candle spots 2 over: no line: {:?}", candles("7", "7"));
 	assert!(has(&candles("7", "6"), "3:1:work:2"), "one candle spot 1 over: the line: {:?}", candles("7", "6"));
 	// The pick-up of a quest 2 over stays a line (the quest's level alone makes no camp dangerous); 3 over does not.

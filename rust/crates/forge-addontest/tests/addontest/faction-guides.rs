@@ -53,14 +53,8 @@ end
 "#;
 
 fn run(before: &str, script: &str) -> Value {
-	emitted(&RunAddon {
-		stubs: vec!["stub_world.lua"],
-		before: format!("{WORLD}{before}"),
-		addons: vec!["Polestar".into()],
-		script: [GUIDES, HELPERS, script].join("\n"),
-		..Default::default()
-	})
-	.remove(0)
+	emitted(&RunAddon { stubs: vec!["stub_world.lua"], before: format!("{WORLD}{before}"), addons: vec!["Polestar".into()], script: [GUIDES, HELPERS, script].join("\n"), ..Default::default() })
+		.remove(0)
 }
 
 // The reporter's path: the guide menu's Class list (its filter on "All", account-wide), then Recently loaded.

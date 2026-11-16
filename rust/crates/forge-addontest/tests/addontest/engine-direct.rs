@@ -12,8 +12,7 @@ use forge_addontest::run::root;
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::{json, Value};
 
-const GUIDES: [&str; 3] =
-	["forever/horde/40-50/01-stranglethorn-vale.guide", "forever/horde/40-50/01b-riverglades.guide", "forever/horde/40-50/02-feralas.guide"];
+const GUIDES: [&str; 3] = ["forever/horde/40-50/01-stranglethorn-vale.guide", "forever/horde/40-50/01b-riverglades.guide", "forever/horde/40-50/02-feralas.guide"];
 
 const SCRIPT: &str = r#"
 ${loads}
@@ -63,8 +62,7 @@ fn run(log: &str) -> Option<Value> {
 		return None;
 	}
 	let data = forge_guide::data::load_data(&data_dir).expect("data/forever");
-	let files: Vec<(String, String)> =
-		GUIDES.iter().map(|g| (format!("guides/{g}"), std::fs::read_to_string(root().join("guides").join(g)).unwrap())).collect();
+	let files: Vec<(String, String)> = GUIDES.iter().map(|g| (format!("guides/{g}"), std::fs::read_to_string(root().join("guides").join(g)).unwrap())).collect();
 	let refs: Vec<(&str, &str)> = files.iter().map(|(f, t)| (f.as_str(), t.as_str())).collect();
 	let compiled = compile_with(&refs, &data, None);
 	let pack = write_test_pack(&compiled.guides, &data, &our_manifest());

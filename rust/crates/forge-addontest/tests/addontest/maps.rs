@@ -211,9 +211,7 @@ fn no_flight_master_is_called_undiscovered_on_a_continent_without_a_flight_map_o
 fn moonglade_pins(race: &str, class: &str, class_name: &str, faction: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua", "stub_maps.lua"],
-		before: format!(
-			"stub.maps.useWorld(); local w = stub.world; w.faction, w.race, w.raceName = \"{faction}\", \"{race}\", \"{race}\"; w.class, w.className = \"{class}\", \"{class_name}\""
-		),
+		before: format!("stub.maps.useWorld(); local w = stub.world; w.faction, w.race, w.raceName = \"{faction}\", \"{race}\", \"{race}\"; w.class, w.className = \"{class}\", \"{class_name}\""),
 		addons: vec![Addon::files("Polestar", &FILES)],
 		saved: vec![("Polestar".into(), TRAVEL_PINS.into())],
 		login: true,

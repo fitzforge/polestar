@@ -1395,8 +1395,16 @@ fn a_variant_s_card_shows_its_own_second_accent_and_glow_beside_the_accent() {
 
 // The skins in the download, with Polestar and the example skin, as the Theme page gets them.
 const CONCEPT_SKINS: [&str; 10] = [
-	"Polestar_Skin_Vellum", "Polestar_Skin_Lumen", "Polestar_Skin_Beacon", "Polestar_Skin_Aurora", "Polestar_Skin_Hairline",
-	"Polestar_Skin_Umbra", "Polestar_Skin_Waymark", "Polestar_Skin_Lanterns", "Polestar_Skin_Sheen", "Polestar_Skin_Example",
+	"Polestar_Skin_Vellum",
+	"Polestar_Skin_Lumen",
+	"Polestar_Skin_Beacon",
+	"Polestar_Skin_Aurora",
+	"Polestar_Skin_Hairline",
+	"Polestar_Skin_Umbra",
+	"Polestar_Skin_Waymark",
+	"Polestar_Skin_Lanterns",
+	"Polestar_Skin_Sheen",
+	"Polestar_Skin_Example",
 ];
 
 fn run_all_cards(script: &str) -> Value {

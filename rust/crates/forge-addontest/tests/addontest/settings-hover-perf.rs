@@ -244,15 +244,8 @@ fn run(alloc: bool) -> Value {
 	if alloc {
 		stubs.push("stub_alloc.lua");
 	}
-	emitted(&RunAddon {
-		stubs,
-		addons: vec![Addon::name("Polestar")],
-		login: true,
-		before: "stub.profile.start()".into(),
-		script: SCRIPT.replace("ROUNDS", &ROUNDS.to_string()),
-		..Default::default()
-	})
-	.remove(0)
+	emitted(&RunAddon { stubs, addons: vec![Addon::name("Polestar")], login: true, before: "stub.profile.start()".into(), script: SCRIPT.replace("ROUNDS", &ROUNDS.to_string()), ..Default::default() })
+		.remove(0)
 }
 
 fn num(v: &Value) -> f64 {

@@ -804,9 +804,7 @@ fn a_feeder_step_the_save_s_guide_had_stays_where_the_player_is_after_a_pack_upd
 		before: format!("{WORLD}{before}"),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
 		saved: vec![("Polestar".to_string(), save)],
-		script: format!(
-			"{pack}\n{TEST_SOURCE}\nFUR = {{ {FAR} }}\n{guides}\n{HELPERS}\nstub.advance(11)\nemit({{ live = E.GetLiveStep(), status = E.GetStepView(3).status, shape = shape() }})"
-		),
+		script: format!("{pack}\n{TEST_SOURCE}\nFUR = {{ {FAR} }}\n{guides}\n{HELPERS}\nstub.advance(11)\nemit({{ live = E.GetLiveStep(), status = E.GetStepView(3).status, shape = shape() }})"),
 		..Default::default()
 	})
 	.remove(0);
@@ -865,11 +863,7 @@ emit(r)"#
 fn t_2494_a_feeder_accept_from_an_item_comes_with_the_item_s_collect() {
 	let near = run_horn("1440, 51, 51");
 	// The horn's step, with its collect, goes in first (beside the guide's opening stop, as near as any).
-	assert_eq!(
-		near["shape"],
-		json!(["Margol's Horn <test/sg 2> collect accept:3181", "Morgan's Vigil accept:501", "Pebblebitty turnin:3181 accept:3182"]),
-		"{near}"
-	);
+	assert_eq!(near["shape"], json!(["Margol's Horn <test/sg 2> collect accept:3181", "Morgan's Vigil accept:501", "Pebblebitty turnin:3181 accept:3182"]), "{near}");
 	assert_eq!(near["hidden"].as_array().map_or(0, |a| a.len()), 0, "{near}");
 	// The horn in another zone: no feeder, and the follow-up waits for the earlier guide.
 	let far = run_horn("1429, 50, 50");

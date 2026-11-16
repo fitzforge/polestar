@@ -211,7 +211,9 @@ fn the_flight_timer_and_the_instance_tracker_follow_the_pointer_and_stay_where_t
 		before: "stub.maps.useWorld(); stub.maps.place(0, 800); stub.world.faction = \"Alliance\"".into(),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml", "Maps/Maps.xml"])],
 		login: true,
-		script: [HELPERS, r#"
+		script: [
+			HELPERS,
+			r#"
 		local M = Polestar.Maps
 		local frames = {
 			timer = M.CompactFrame("PolestarDragTimer", "maps.timerPos", "TOP", 0, -140),
@@ -246,7 +248,9 @@ fn the_flight_timer_and_the_instance_tracker_follow_the_pointer_and_stay_where_t
 		out.shift = drag(f, f).follows
 		local p = Polestar.Get("maps.timerPos")
 		out.form = type(p) == "table" and p[1] == "CENTER" and math.floor(p[2]) == p[2] and math.floor(p[3]) == p[3]
-		emit(out)"#].join("\n"),
+		emit(out)"#,
+		]
+		.join("\n"),
 		..Default::default()
 	})
 	.remove(0);
@@ -267,7 +271,9 @@ fn the_arrow_follows_the_pointer_saves_its_spot_and_a_plain_click_still_takes_th
 		stubs: vec!["stub_nav.lua"],
 		addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Theme/Theme.xml", "Nav/Nav.xml"])],
 		login: true,
-		script: [HELPERS, r#"
+		script: [
+			HELPERS,
+			r#"
 		local nav = stub.nav
 		local m, x, y = nav.mapPoint(100, 0)
 		Polestar.Nav.SetTarget(m, x, y, "T")
@@ -295,7 +301,9 @@ fn the_arrow_follows_the_pointer_saves_its_spot_and_a_plain_click_still_takes_th
 		stub.RunScript(f, "OnMouseUp", "LeftButton")
 		local a1 = { f:GetPoint(1) }
 		out.locked = a0[4] == a1[4] and a0[5] == a1[5]
-		emit(out)"#].join("\n"),
+		emit(out)"#,
+		]
+		.join("\n"),
 		..Default::default()
 	})
 	.remove(0);

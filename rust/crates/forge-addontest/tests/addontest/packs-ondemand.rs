@@ -178,11 +178,7 @@ emit(out)"#,
 			"guides": n, "count": n, "loads": 1, "rows": 0, "setting": true }),
 		"no saved choice: shown, loaded at login, every guide in; not on the Community guides page"
 	);
-	assert_eq!(
-		out["off"],
-		json!({ "status": "off", "guides": 0, "get": false, "saved": false, "fired": "packs polestar-experimental" }),
-		"switched off: hidden, and the choice saved"
-	);
+	assert_eq!(out["off"], json!({ "status": "off", "guides": 0, "get": false, "saved": false, "fired": "packs polestar-experimental" }), "switched off: hidden, and the choice saved");
 	assert_eq!(
 		out["again"],
 		json!({ "status": "on", "guides": n, "loads": 1, "saved": false, "fired": "packs polestar-experimental" }),

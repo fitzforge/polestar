@@ -2185,10 +2185,7 @@ fn no_dungeon_line_on_other_steps_a_reached_level_a_class_step_or_outside_leveli
 		out.covered = DT.GrindLine(E.GetGuide(), v, v.goals[2]) or false
 		emit(out)"#
 	));
-	assert_eq!(
-		out[0],
-		json!({ "grind": WC_LINE, "turnin": false, "reached": false, "classStep": false, "reputation": false, "back": WC_LINE, "covered": false })
-	);
+	assert_eq!(out[0], json!({ "grind": WC_LINE, "turnin": false, "reached": false, "classStep": false, "reputation": false, "back": WC_LINE, "covered": false }));
 }
 
 // None when no dungeon fits the level now (under Wailing Caverns' floor 17, past its top 24; Blackmaw Hold 55-60 is
@@ -2244,10 +2241,7 @@ fn the_dungeon_line_is_faction_correct_and_prefers_the_dungeon_the_steps_tip_nam
 		show("t/alliance")
 		emit({{ alliance = said() }})"#
 	));
-	assert_eq!(
-		out[0],
-		json!({ "horde": ["wailing-caverns", "wailing-caverns", false], "alliance": ["wailing-caverns", "wailing-caverns", "deadmines"], "named": "wailing-caverns" })
-	);
+	assert_eq!(out[0], json!({ "horde": ["wailing-caverns", "wailing-caverns", false], "alliance": ["wailing-caverns", "wailing-caverns", "deadmines"], "named": "wailing-caverns" }));
 	assert_eq!(out[1], json!({ "alliance": "Or run The Deadmines (17–26) with a group: 1 quest to pick up first." }));
 }
 
@@ -2281,10 +2275,7 @@ fn the_dungeon_line_is_worked_out_once_per_step_and_level_not_at_each_repaint() 
 		stub.fire("PLAYER_LEVEL_UP", 21)
 		emit({{ first = first, after = after, kib = kib < 1, onUpdate = dungeonLine():GetScript("OnUpdate") ~= nil, levelUp = n.list }})"#
 	));
-	assert_eq!(
-		out[0],
-		json!({ "first": { "list": 1, "plan": 1, "line": WC_LINE }, "after": { "list": 1, "plan": 1 }, "kib": true, "onUpdate": false, "levelUp": 2 })
-	);
+	assert_eq!(out[0], json!({ "first": { "list": 1, "plan": 1, "line": WC_LINE }, "after": { "list": 1, "plan": 1 }, "kib": true, "onUpdate": false, "levelUp": 2 }));
 }
 
 // Quests first, then the nearest givers (Fitz: "where quests start outside, prefer the dungeon whose quest givers are
