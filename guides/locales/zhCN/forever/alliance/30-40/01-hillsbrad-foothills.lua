@@ -133,20 +133,36 @@ return {
 	-- {area:1025} The Green Belt · {npc:270637} Howin Kindfeather · {npc:1244} Rethiel the Greenwarden
 	["Back east along the road to the {area:1025}: {npc:270637} camps among the Fenrunners, just west of {npc:1244}. Then west again to Menethil for the boat."] = "沿路向东返回{area:1025}：{npc:270637}的营地在{npc:1244}西边不远，周围是藓皮沼泽行者。然后再向西返回米奈希尔坐船。",
 
-	-- Step 29: Level 30.8
+	-- Step 29: Menethil Harbor
+	-- {npc:2094} James Halloran · {npc:1239} First Mate Fitzsimmons · {area:2104} Deepwater Tavern
+	["{npc:2094} stands by the docks; {npc:1239} sits in the {area:2104}, south of the keep."] = "{npc:2094}站在码头边；{npc:1239}坐在要塞南边的{area:2104}里。",
+
+	-- Step 30: Captain Halyndor
+	-- {npc:1160} Captain Halyndor · {npc:270589} Nightveiled Rotheap · {zone:1437} Wetlands
+	["North along the coast from Menethil to the wreck of the Intrepid: {npc:1160} (30) is aboard, and the locked strongbox sits in the wreck. Careful: {npc:270589}, a level 31-32 elite, roams the {zone:1437}: give it a wide berth."] = "从米奈希尔沿海岸向北前往无畏号残骸：{npc:1160}（30级）在船上，上锁的保险箱就在残骸里。注意：31-32级精英{npc:270589}在{zone:1437}游荡：远远避开它。",
+	-- {item:2629} Intrepid Strongbox Key · {npc:1160} Captain Halyndor
+	["{item:2629}, from {npc:1160}"] = "{item:2629}：从{npc:1160}处获得",
+
+	-- Step 31: Glorin Steelbrow
+	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern
+	["Back south to Menethil: {npc:1217} stands in the {area:2104}."] = "向南返回米奈希尔：{npc:1217}站在{area:2104}里。",
+	-- {npc:1284} Archbishop Benedictus · {zone:1453} Stormwind
+	["For {npc:1284} in {zone:1453}, at the end of this guide"] = "交给{zone:1453}的{npc:1284}，在本指南末尾完成",
+
+	-- Step 32: Level 30.8
 	["Level 30.8"] = "30.8级",
 	-- {quest:474} Defeat Nek'rosh · {area:133} Gnomeregan · {area:796} Scarlet Monastery
 	["Skipped {quest:474} and short of 30.8? Kill the Bluegill murlocs on the coast south of Menethil until level 30.8. Or, with a group, run the {area:133} dungeon or the {area:796} dungeon (Graveyard) instead."] = "跳过了{quest:474}，还没到30.8级？在米奈希尔以南的海岸刷蓝腮鱼人，直到30.8级。也可以组队去{area:133}副本或{area:796}副本（墓地）。",
 	-- {npc:1418} Bluegill Raider
 	["grind on {npc:1418}"] = "反复击杀{npc:1418}补足经验",
 
-	-- Step 31: Boat to Southshore
+	-- Step 33: Boat to Southshore
 	-- {area:271} Southshore
 	["Boat to {area:271}"] = "乘船前往{area:271}",
 
-	-- Step 32: Southshore
+	-- Step 34: Southshore
 	-- {npc:2711} Phin Odelic · {npc:2430} Chef Jessen · {npc:2382} Darren Malvew · {npc:2381} Micha Yance · {npc:2438} Bartolo Ginsetti · {npc:2366} Barkeep Kelly · {quest:98463} Talk of the Town
-	["Off the boat, walk up the pier into town: {npc:2711} and Lieutenant Farren stand by the inn, {npc:2430} upstairs, {npc:2382} east of it; the flight master is at the north end, {npc:2381} and {npc:2438} between her and the inn, Maleb in the town hall at the west side.\n{npc:2366} may not offer {quest:98463} on Forever: if she doesn't, skip it."] = "下船后沿码头走进镇子：{npc:2711}和法尔林·奥里涅尔中尉站在旅店旁，{npc:2430}在楼上，{npc:2382}在旅店东边；飞行管理员在北端，{npc:2381}和{npc:2438}在她和旅店之间，赫尼·马雷布镇长在西侧的市政厅。\n在无限版本中，{npc:2366}可能不提供{quest:98463}：如果没有，就跳过。",
+	["Off the boat, walk up the pier into town: {npc:2711} and Lieutenant Farren stand by the inn, {npc:2430} upstairs, {npc:2382} east of it; the flight master is at the north end, {npc:2381} and {npc:2438} between her and the inn, Maleb in the town hall at the west side.\n{npc:2366} may not offer {quest:98463} on Forever: if she doesn't, skip it."] = "下船后沿码头走进镇子：{npc:2711}和法尔林·奥里涅尔中尉站在旅店旁，{npc:2430}在楼上，{npc:2382}在旅店东边；飞行管理员在北端，{npc:2381}和{npc:2438}在她和旅店之间，赫尼·马雷布镇长在西侧的市政厅。\n在Forever中，{npc:2366}可能不提供{quest:98463}：如果没有，就跳过。",
 	-- {npc:2711} Phin Odelic
 	["{npc:2711}: his trail leads to Arathi"] = "{npc:2711}：他的线索指向阿拉希高地",
 	-- {npc:2228} Lieutenant Farren Orinelle
@@ -160,56 +176,49 @@ return {
 	-- {item:3713} Soothing Spices · {npc:2381} Micha Yance
 	["{item:3713}, from {npc:2381}"] = "{item:3713}，来自{npc:2381}",
 	-- {npc:2276} Magistrate Henry Maleb
-	["{npc:2276}, inside"] = "{npc:2276}：在屋内",
+	["{npc:2276}, inside: keep it, the Syndicate camp waits for the road north to Arathi (05-arathi-highlands)"] = "{npc:2276}：在屋内。先保留，辛迪加营地留到向北去阿拉希的路上再做（05-arathi-highlands）",
 
-	-- Step 33: Bartolo Ginsetti
+	-- Step 35: Bartolo Ginsetti
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {skill:165} Leatherworking · {item:2997} Bolt of Woolen Cloth · {skill:197} Tailoring
 	["{npc:2438} makes a yeti fur cloak for anyone who brings a {item:3719} ({skill:165}) and a {item:2997} ({skill:197}); no vendor sells either, so this step shows only when you carry both."] = "带来一件{item:3719}（{skill:165}制作）和一卷{item:2997}（{skill:197}制作），{npc:2438}就会制作雪人毛皮披风。这两样都没有商人出售，因此只有同时携带两样物品时才会显示本步骤。",
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {item:2997} Bolt of Woolen Cloth
 	["{npc:2438}, between the flight master and the inn: he wants a {item:3719} and a {item:2997} too"] = "{npc:2438}，在飞行管理员与旅店之间：他还需要一件{item:3719}和一卷{item:2997}",
 
-	-- Step 34: Torn Fin murlocs
+	-- Step 36: Torn Fin murlocs
 	["Torn Fin murlocs"] = "碎鳍鱼人",
 	-- {area:295} Western Strand · {area:271} Southshore
 	["The Torn Fin murlocs crowd the {area:295}, south-west of {area:271}.\nCareful: One camp holds a tight cluster of Oracles that all aggro together."] = "碎鳍鱼人密集分布于{area:271}西南侧的{area:295}。\n注意：其中一个营地有一群紧挨着的神谕者，拉怪时会全部参战。",
 
-	-- Step 35: Farren
+	-- Step 37: Farren
 	["Farren"] = "法尔林·奥里涅尔中尉",
 	["Inside"] = "在里面",
 
-	-- Step 36: Murloc heads
+	-- Step 38: Murloc heads
 	["Murloc heads"] = "鱼人头",
 	["Back to the same murlocs; not every one drops a head."] = "回到同一群鱼人那里；不是每只都掉头。",
 
-	-- Step 38: Daggerspine naga
+	-- Step 40: Daggerspine naga
 	["Daggerspine naga"] = "刺脊纳迦",
 	-- {area:271} Southshore
 	["The naga hold the shore south-east of {area:271}."] = "纳迦占据着{area:271}东南方的海岸。",
 
-	-- Step 39: Farren
+	-- Step 41: Farren
 	-- {object:2117} Stormwind Keep
 	["A report for {object:2117}; inside"] = "给{object:2117}的报告，进入屋内交付",
 
-	-- Step 41: Southshore
+	-- Step 43: Southshore
 	-- {npc:251493} Captain McManus · {quest:98059} Hillsbrad's Hoard · {item:279386} Sealed Company Request · {area:287} Hillsbrad · {area:271} Southshore
-	["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave.\n{quest:98059}: {npc:251493} hands you a {item:279386} for the {area:287} council, in the farms west of {area:271}; you deliver it after the Syndicate camp."] = "{npc:251493}站在飞行管理员西北方，就在向北去雪人洞穴的路上。\n{quest:98059}：{npc:251493}会交给你一份{item:279386}，要送到{area:271}以西农场里的{area:287}议会；完成辛迪加营地的事后再去送。",
+	["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave.\n{quest:98059}: {npc:251493} hands you a {item:279386} for the {area:287} council, in the farms west of {area:271}."] = "{npc:251493}站在飞行管理员西北方，就在向北去雪人洞穴的路上。\n{quest:98059}：{npc:251493}会交给你一份{item:279386}，要交给{area:271}以西农场里的{area:287}议会。",
 
-	-- Step 42: Yeti cave
+	-- Step 44: Yeti cave
 	["Yeti cave"] = "雪人洞穴",
 	-- {area:271} Southshore · {area:277} Foothill Caverns · {npc:13602} The Abominable Greench
 	-- plural, as words: Giant Yetis = {npc:2251} Giant Yeti
-	["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "雪人住在{area:271}北边山丘上的洞穴里，就在向北去辛迪加营地的路上。\n待在{area:277}里：更北边的洞穴里有成对出现的山岭雪人和巨型雪人（32-34级），以及36级精英{npc:13602}。",
-
-	-- Step 43: Alterac Mountains
-	["Syndicate camp"] = "辛迪加营地",
-
-	-- Step 44: Syndicate camp
-	-- {area:287} Hillsbrad · {area:272} Tarren Mill
-	["The Syndicate camp sits on the Alterac border in northern {area:287}, west of {area:272} (Horde); the documents lie in the camp, and its Footpads and Thieves are the Syndicate Maleb wants."] = "辛迪加营地在{area:287}北部、奥特兰克边境上，{area:272}（部落）西边；文件在营地里，营地里的辛迪加潜行者和盗贼就是马雷布要找的辛迪加。",
+	["The yetis live in the cave in the hills north of {area:271}.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "雪人住在{area:271}北边山丘上的洞穴里。\n待在{area:277}里：更北边的洞穴里有成对出现的山岭雪人和巨型雪人（32-34级），以及36级精英{npc:13602}。",
 
 	-- Step 45: Hillsbrad Fields
-	-- {area:286} Hillsbrad Fields
-	["South-west from the Syndicate camp to the {area:286} farms."] = "从辛迪加营地向西南前往{area:286}的农场。",
+	-- {area:271} Southshore · {area:286} Hillsbrad Fields
+	["West from {area:271} to the {area:286} farms."] = "从{area:271}向西前往{area:286}的农场。",
 
 	-- Step 46: Hillsbrad council
 	-- {area:287} Hillsbrad
@@ -299,13 +308,17 @@ return {
 	-- ["Red whelps fill the hills west of the gates, Maddened Rotclaws the {area:1025}, Razormaws the northern slopes; {npc:271458} stands in the north-east (use the {item:279996}).\n{quest:98283} is elite: grouping up is advised."] = "大门西边的山丘上满是红色雏龙，{area:1025}满是{npc:271334}，北坡是刺喉龙；{npc:271458}站在东北方（使用{item:279996}）。\n{quest:98283}是精英：建议组队。",
 	-- ["South to the Dragonmaw's {area:1036}: the first catapult stands on the way, and the {object:671518} lies in the camp."] = "向南到龙喉的{area:1036}：第一架投石车就在路上，{object:671518}在营地里。",
 	-- ["South to the Dragonmaw's {area:1036}; the {object:671518} lies in the camp."] = "向南到龙喉的{area:1036}；{object:671518}在营地里。",
+	-- ["South-west from the Syndicate camp to the {area:286} farms."] = "从辛迪加营地向西南前往{area:286}的农场。",
+	-- ["Syndicate camp"] = "辛迪加营地",
 	-- ["Take the {area:2257} from the {object:28027} to {zone:1455}."] = "从{object:28027}乘{area:2257}前往{zone:1455}。",
 	-- ["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one."] = "{npc:270892}就在勘察员维尔加营地的西边：在其中一个旁边使用他给你的{item:279996}。",
+	-- ["The Syndicate camp sits on the Alterac border in northern {area:287}, west of {area:272} (Horde); the documents lie in the camp, and its Footpads and Thieves are the Syndicate Maleb wants."] = "辛迪加营地在{area:287}北部、奥特兰克边境上，{area:272}（部落）西边；文件在营地里，营地里的辛迪加潜行者和盗贼就是马雷布要找的辛迪加。",
 	-- ["The Syndicate camp sits on the Alterac border in northern {area:287}, west of {area:272} (Horde); the documents lie in the camp."] = "辛迪加营地在{area:287}北部、奥特兰克边境上，{area:272}（部落）西边；文件在营地里。",
 	-- ["The Torn Fin murlocs crowd the {area:295}, south-west of {area:271}."] = "碎鳍鱼人挤满了{area:271}西南方的{area:295}。",
 	-- ["The Villards"] = "维拉德一家",
 	-- ["The next step, {quest:474}, pits you against an elite chieftain: skip it."] = "后续任务{quest:474}需要挑战精英酋长，跳过即可。",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp."] = "雪人住在{area:271}北边山丘上的洞穴里，就在向北去辛迪加营地的路上。",
+	-- ["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "雪人住在{area:271}北边山丘上的洞穴里，就在向北去辛迪加营地的路上。\n待在{area:277}里：更北边的洞穴里有成对出现的山岭雪人和巨型雪人（32-34级），以及36级精英{npc:13602}。",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on your way back south."] = "雪人住在{area:271}北边山丘上的洞穴里，就在你向南返回的路上。",
 	-- ["To {area:2104}"] = "前往{area:2104}",
 	-- ["West to the farms of {area:287}: place the {item:279386} on the bookkeeping table in the town hall, where {npc:2335} and the councilmen stand."] = "向西到{area:287}的农场：把{item:279386}放在市政厅的记账桌上，{npc:2335}和议员们站在那里。",
@@ -318,10 +331,12 @@ return {
 	-- ["{npc:2104}: for {npc:270637}"] = "{npc:2104}：交给{npc:270637}",
 	-- ["{npc:2104}: for {npc:270637}, back east along the road"] = "{npc:2104}：交给{npc:270637}，沿路向东返回",
 	-- ["{npc:211033}: only offered once you have handed in library books (the Library Books guide)"] = "{npc:211033}：交过图书馆书籍后才会提供此任务，详见《图书馆藏书》指南",
+	-- ["{npc:2276}, inside"] = "{npc:2276}：在屋内",
 	-- ["{npc:2438} also wants a {item:3719} ({skill:165}), a {item:2997} ({skill:197}) and {item:2321} (any trade supplier): the cloak is turned in when you are back in {area:271} later."] = "{npc:2438}还需要{item:3719}（{skill:165}）、{item:2997}（{skill:197}）和{item:2321}（任意商贸供应商均有出售）：披风等稍后回到{area:271}时再交。",
 	-- ["{npc:2438} also wants a {item:3719}, a {item:2997} and {item:2321}: crafted or bought; the cloak is turned in when you are back in {area:271} later."] = "{npc:2438}还要一件{item:3719}、一匹{item:2997}和{item:2321}：制作或购买；披风之后回到{area:271}时再交。",
 	-- ["{npc:2438}: only if you have or can buy a {item:3719} ({skill:165}) and a {item:2997} ({skill:197}); no vendor sells them"] = "{npc:2438}：仅在已有或能买到{item:3719}（{skill:165}）和{item:2997}（{skill:197}）时接；商人不卖这些",
 	-- ["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave."] = "{npc:251493}站在飞行管理员西北方，就在向北去雪人洞穴的路上。",
+	-- ["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave.\n{quest:98059}: {npc:251493} hands you a {item:279386} for the {area:287} council, in the farms west of {area:271}; you deliver it after the Syndicate camp."] = "{npc:251493}站在飞行管理员西北方，就在向北去雪人洞穴的路上。\n{quest:98059}：{npc:251493}会交给你一份{item:279386}，要送到{area:271}以西农场里的{area:287}议会；完成辛迪加营地的事后再去送。",
 	-- ["{npc:270844}: for {npc:3649} in {area:442} (02-desolace)"] = "{npc:270844}：交给{area:442}的{npc:3649}（02-desolace）",
 	-- ["{npc:2708} is in the {object:2164}; {npc:211033} near the canal; {npc:5081} south of the {object:2101}."] = "{npc:2708}在{object:2164}；{npc:211033}在运河附近；{npc:5081}在{object:2101}南边。",
 	-- ["{npc:271462} stands in the south-eastern hills: use the {item:279996} beside it."] = "{npc:271462}站在东南方的山丘上：在它旁边使用{item:279996}。",

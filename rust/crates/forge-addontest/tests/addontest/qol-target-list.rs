@@ -29,15 +29,15 @@ local function rows()
 	return out
 end
 local function macro() return t:GetAttribute("macrotext") end
--- A row's face (a portrait, the model's creature id, or false) and the
--- crosshair behind it: green while a living one is close, else red.
+-- A row's face (the creature id its model drew, a portrait, or false) and
+-- the crosshair behind it: green while a living one is close, else red.
 local function face(i)
 	local r = B.rows[i]
 	local g, c = { Polestar.Theme.Color("success") }, { r.Mark:GetVertexColor() }
 	local green = c[1] == g[1] and c[2] == g[2] and c[3] == g[3]
 	-- The row's green wash shows with the green crosshair, never without.
 	assert(r.Near:IsShown() == green, "row wash and crosshair disagree")
-	return { tostring(r.Face:GetTexture()):match("portrait:.*") or (r.Model:IsShown() and r.Model.creature) or false,
+	return { (r.Model:IsShown() and r.Model.creature) or tostring(r.Face:GetTexture()):match("portrait:.*") or false,
 		green and "green" or "red" }
 end
 local function faces() return { face(1), face(2), face(3) } end
@@ -248,13 +248,14 @@ fn target_list_the_set_s_screen_clamp_covers_the_rows_on_their_side_and_the_lowe
 	// Five rows of 30 with 2 between end 158 under the target button's top
 	// (-26): the rare button's centre goes to -26 - 158 - 8 - 18 = -210, and
 	// the clamp reaches its foot (-228, 18 under the holder's: -210); sideways
-	// it covers the 180-wide rows and the 8 spacing.
-	assert_eq!(out[1], json!([5, [0, 188, 44, -210]]));
-	assert_eq!(out[2], json!([-188, 0, 44, -210]));
+	// it covers the 208-wide rows and the 8 spacing.
+	assert_eq!(out[1], json!([5, [0, 216, 44, -210]]));
+	assert_eq!(out[2], json!([-216, 0, 44, -210]));
 	assert_eq!(out[3], json!(-210));
 }
 
-const MODELS: &str = r#"stub.Methods.SetCreature = function(self, id) self.creature = id end"#;
+// The kobolds' creatures in the client's cache (stub_qol.lua: SetCreature draws only a cached creature).
+const MODELS: &str = r#"stub.qol.creatures[6], stub.qol.creatures[257], stub.qol.creatures[80] = "Kobold Vermin", "Kobold Worker", "Kobold Laborer""#;
 
 #[test]
 fn target_list_faces_are_models_by_id_over_a_crosshair_that_turns_green_while_one_is_close() {
@@ -351,6 +352,64 @@ fn target_list_without_a_model_a_close_mob_shows_its_own_portrait_else_the_cross
 	);
 	assert_eq!(out[0], json!([false, "red"]), "no id: no model, the crosshair alone");
 	assert_eq!(out[1], json!(["portrait:Kobold Vermin", "green"]));
+}
+
+// Fitz on the 0.4.0 preview: every row of the Redridge gnolls showed the red crosshair. SetCreature draws a creature
+// only from the client's cache, and the row called it once, before the client had met them: an empty model, never
+// drawn again. The row asks the server for the creature (its unit link's tooltip) and draws the model once it is in.
+#[test]
+fn target_list_a_creature_the_client_has_not_met_is_asked_for_and_its_model_drawn_once_it_is_in() {
+	let out = run(r#"
+		kobolds()
+		emit({ faces(), q.creatureAsks > 0 })
+		stub.advance(1.5)
+		emit(faces())
+	"#);
+	assert_eq!(out[0], json!([[[false, "red"], [false, "red"], [false, "red"]], true]), "none cached yet: the crosshair, and the client asks");
+	assert_eq!(out[1], json!([[6, "red"], [257, "red"], [80, "red"]]), "the server's answer in: the models");
+}
+
+// While its model waits (the server not answering), a close mob's own portrait shows rather than an empty model.
+#[test]
+fn target_list_a_row_whose_model_waits_shows_a_close_mob_s_portrait() {
+	let out = run(r#"
+		q.serverCreatures = false
+		kobolds()
+		q.units.nameplate3 = { name = "Kobold Worker" }
+		stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate3")
+		stub.runTimers()
+		emit(face(2))
+		-- The client has met it now (its nameplate): the model.
+		q.creatures[257] = "Kobold Worker"
+		stub.advance(1.5)
+		emit(face(2))
+		-- Long past the wait, the server never answering: no more asks.
+		stub.advance(60)
+		local asks = q.creatureAsks
+		stub.advance(5)
+		emit({ face(1), q.creatureAsks == asks })
+	"#);
+	assert_eq!(out[0], json!(["portrait:Kobold Worker", "green"]));
+	assert_eq!(out[1], json!([257, "green"]));
+	assert_eq!(out[2], json!([[false, "red"], true]));
+}
+
+// A model hidden drops what it drew unless it is kept: the list hidden with UIParent (Alt+Z) and shown again keeps
+// its models.
+#[test]
+fn target_list_models_stay_drawn_through_the_list_being_hidden() {
+	let out = run_with(
+		r#"
+		stub.cascadeVisibility = true
+		kobolds()
+		UIParent:Hide()
+		UIParent:Show()
+		stub.runTimers()
+		emit(faces())
+	"#,
+		MODELS,
+	);
+	assert_eq!(out[0], json!([[6, "red"], [257, "red"], [80, "red"]]));
 }
 
 #[test]
@@ -1316,11 +1375,11 @@ fn target_list_in_a_row_the_rows_hang_under_the_target_button_and_the_rare_butto
 		r#"stub.Methods.SetClampRectInsets = function(self, ...) self.clamp = { ... } end"#,
 	);
 	// Row: the target button 44 right of the quest item button. Three rows (94 tall) from its left edge, 8 under
-	// it; the rare button's centre past their right end (44 - 18 + 180), 8 + 18 further: 232. Clamp: the
+	// it; the rare button's centre past their right end (44 - 18 + 208), 8 + 18 further: 260. Clamp: the
 	// Hearthstone slot at -44 on the left, the rare button on the right, the rows' foot (-26 - 8 - 94 = -128, 18
 	// under the holder's: -102) below.
-	assert_eq!(out[0], json!([["TOPLEFT", "BOTTOMLEFT", 0, -8, true], ["TOPLEFT", "TOPLEFT", 0, 0, true], [232, 0], [-44, 232, 0, -102]]));
-	assert_eq!(out[1], json!([["TOPRIGHT", "BOTTOMRIGHT", 0, -8, true], ["TOPRIGHT", "TOPRIGHT", 0, 0, true], [-232, 0], [-232, 44, 0, -102]]), "reversed: the other way");
+	assert_eq!(out[0], json!([["TOPLEFT", "BOTTOMLEFT", 0, -8, true], ["TOPLEFT", "TOPLEFT", 0, 0, true], [260, 0], [-44, 260, 0, -102]]));
+	assert_eq!(out[1], json!([["TOPRIGHT", "BOTTOMRIGHT", 0, -8, true], ["TOPRIGHT", "TOPRIGHT", 0, 0, true], [-260, 0], [-260, 44, 0, -102]]), "reversed: the other way");
 	assert_eq!(out[2], json!([-88, 0]), "back in its slot once the rows go");
 }
 

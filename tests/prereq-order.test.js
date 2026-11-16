@@ -50,6 +50,16 @@ test('`when group` is played both ways: a group step\'s accept needs its prerequ
 	assert.deepEqual(check({ 'group.guide': g }), ['group.guide:9 281<-279 Dwarf t/group']);
 });
 
+// A guide for both factions (no `faction`, as Shen'dralas since 0.4.0) sits on each side's route: the path goes
+// through it and on by the player's own faction's `next` option, so the guide after it is no start of its own.
+test('a guide for both factions is on the path between its sides\' guides, and each side goes on by its own `next`', { skip }, () => {
+	const before = head('t/before', 'race Dwarf\nnext t/shared') + 'step Karl Boran\n  accept 279\n  turnin 279\n';
+	const shared = 'guide t/shared\ntitle t/shared\nlevels 20-30\nzone Wetlands\nnext t/after-horde\nnext t/after\n\nstep Wetlands\n  goto 10.8,59.8\n';
+	const after = head('t/after') + 'step Karl Boran\n  accept 281\n';
+	const horde = head('t/after-horde', '', 'Horde') + 'step Karl Boran\n  goto 10.8,59.8\n';
+	assert.deepEqual(check({ 'before.guide': before, 'shared.guide': shared, 'after.guide': after, 'after-horde.guide': horde }), []);
+});
+
 // #1299: the data named no prerequisite for This Land Was Their Land, which the giver offers only after Defeat
 // Nek'rosh, so the check above passed an accept nobody could take. The prerequisites players' recordings teach
 // (data/recorded/quests.json) count too. Here Claws from the Deep (279, no prerequisite in the data) plays as if

@@ -114,6 +114,23 @@ fn the_ids_kept_are_the_ones_the_guides_the_quest_database_and_the_codex_name() 
 	assert!(e.contains("forge data questdb") && e.contains("--questdb"), "{e}");
 }
 
+// Polestar's own pack carries the experimental index (Polestar.RegisterExperimental) since 0.4.0, and Polestar
+// Experimental's guides sit in their own folder beside it: the index loads, and those guides' ids are kept too.
+#[test]
+fn the_experimental_index_loads_and_polestar_experimental_s_guides_count() {
+	let f = fix();
+	let tmp = scratch("names-experimental");
+	for d in ["Polestar_Guides", "Polestar_Experimental"] {
+		std::fs::create_dir_all(tmp.join(d)).unwrap();
+	}
+	let ours = std::fs::read_to_string(f.join("Guides.lua")).unwrap();
+	std::fs::write(tmp.join("Polestar_Guides/Guides.lua"), format!("{ours}\nPolestar.RegisterExperimental({{ {{ id = \"polestar-experimental/x\", faction = \"Horde\" }} }})\n")).unwrap();
+	std::fs::write(tmp.join("Polestar_Experimental/Guides.lua"), "Polestar.RegisterGuide({ id = \"x\", steps = { { goals = { { t = \"accept\", quest = 93407, npc = 243815 } } } } })\n").unwrap();
+	let u = names::used_ids(&tmp.join("Polestar_Guides/Guides.lua"), &f.join("questdb"), &f.join("codex")).unwrap();
+	assert!(u.ids[0].contains(&93407) && u.ids[1].contains(&243815), "the experimental guide's quest and NPC: {:?} {:?}", u.ids[0], u.ids[1]);
+	assert_eq!(u.counts[0], ("guides", [5, 5, 1, 3]));
+}
+
 fn fixture_built(ding: bool) -> BTreeMap<String, names::Built> {
 	let f = fix();
 	let u = names::used_ids(&f.join("Guides.lua"), &f.join("questdb"), &f.join("codex")).unwrap();

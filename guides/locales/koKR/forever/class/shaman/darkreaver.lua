@@ -22,8 +22,8 @@ return {
 	["Both diamonds are rare: the auction house is the quick way. Miners find the {item:12800} in about one Thorium vein in a hundred (the Small Thorium Veins north of {area:2418} in the {zone:1428} respawn every five minutes). The {item:18335} drops from high-level elites at about one in a hundred, best from the rare elite Revanchion (about one in nine)."] = "",
 
 	-- Step 3: Sagorne Creststrider
-	-- {quest:7668} The Darkreaver Menace
-	["{quest:7668} needs level 60."] = "{quest:7668}은(는) 60레벨이 필요합니다.",
+	-- {quest:8258} The Darkreaver Menace
+	["{quest:8258} needs level 60."] = "{quest:8258}은(는) 60레벨이 필요합니다.",
 	-- {item:18746} Divination Scryer
 	["he hands you the {item:18746}"] = "그가 {item:18746}을(를) 줍니다",
 
@@ -40,4 +40,5 @@ return {
 	-- ["An {item:12800} comes from Thorium veins, a {item:18335} from the elites of the {zone:1422}, both rarely: buy them at the auction house if you can."] = "{item:12800}은(는) 토륨 광맥에서, {item:18335}은(는) {zone:1422}의 정예 몹에게서 나오며 둘 다 드뭅니다. 가능하면 경매장에서 사세요.",
 	-- ["At 58 {npc:13417}, the shaman trainer in the {object:172957}, asks for two rare diamonds."] = "58레벨에 {object:172957}의 주술사 상급자 {npc:13417}이(가) 희귀한 다이아몬드 두 개를 요구합니다.",
 	-- ["{area:2057} lies under {area:2298}, the island town in the south-east of the {zone:1422}. Use the {item:18746} in the heart of the {object:179746}'s basement, beat the spirits it calls, then {npc:14516}. All are elite: bring a group."] = "{area:2057}은(는) {zone:1422} 남동쪽의 섬 마을인 {area:2298} 아래에 있습니다. 거대한 납골당 지하실 중앙에서 {item:18746}을(를) 사용하고 나타나는 영혼들을 물리친 뒤 {npc:14516}을(를) 물리치세요. 모두 정예이니 파티를 데려가세요.",
+	-- ["{quest:7668} needs level 60."] = "{quest:7668}은(는) 60레벨이 필요합니다.",
 }

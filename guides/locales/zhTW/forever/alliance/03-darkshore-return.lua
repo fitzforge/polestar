@@ -7,13 +7,13 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Auberdine
-	-- {npc:3649} Thundris Windweaver · {npc:3702} Alanndarian Nightsong · {npc:2913} Archaeologist Hollee · {npc:3693} Terenthis · {npc:3694} Sentinel Selarin
-	["From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} stands beside {npc:3693} by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment."] = "",
+	-- {npc:3649} Thundris Windweaver · {npc:3702} Alanndarian Nightsong · {npc:2913} Archaeologist Hollee · {npc:3693} Terenthis · {npc:3694} Sentinel Selarin · {quest:990} Trek to Ashenvale · {npc:3692} Volcor
+	["From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} ({quest:990}) is beside {npc:3693} only for a few minutes at a time: she comes shortly after someone hands in {npc:3692}'s escort and leaves again about 5 minutes later. If she isn't there, don't wait: the guide offers her quest again when you hand in {npc:3692}'s escort to {npc:3693} yourself. Changing layer can also find her."] = "從碼頭（或旅店，如果你用了爐石）先往上到村子北端（{npc:3649}、月井旁的{npc:3702}、{npc:2913}），再沿主街往下走：旅店外的通緝告示，以及主街東端、道路往南離開處的{npc:3693}。{npc:3694}（{quest:990}）每次只會在{npc:3693}身旁待幾分鐘：有人繳交{npc:3692}的護送任務後不久她就會出現，約5分鐘後又離開。如果她不在，別等：等你自己把{npc:3692}的護送任務交給{npc:3693}時，指南會再提供她的任務。切換位面也可能找到她。",
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston
 	["{npc:3649}, north end of the village: {npc:1646}'s reply"] = "",
 	["The WANTED poster"] = "通緝海報",
 	-- {npc:3694} Sentinel Selarin · {npc:3693} Terenthis · {npc:3691} Raene Wolfrunner · {area:415} Astranaar
-	["{npc:3694}, beside {npc:3693}: for {npc:3691} in {area:415}, in the next guide"] = "",
+	["{npc:3694}, beside {npc:3693} if she is there: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694}，如果她在{npc:3693}身旁：交給{area:415}的{npc:3691}，在下一個指南",
 
 	-- Step 2: Lunar Fungus and Earthroot
 	-- {item:15851} Lunar Fungus · {item:2449} Earthroot
@@ -122,6 +122,12 @@ return {
 	-- {npc:12298} Sickly Deer
 	["Cure {npc:12298}"] = "",
 
+	-- Step 21: Auberdine
+	-- {quest:990} Trek to Ashenvale · {npc:3694} Sentinel Selarin · {npc:3693} Terenthis · {npc:3692} Volcor
+	["No {quest:990} yet? Give it a minute after the hand-in: {npc:3694} comes to {npc:3693}'s side shortly after {npc:3692}'s escort is handed in. Changing layer can also find her."] = "還沒拿到{quest:990}？繳交後等一下：{npc:3692}的護送任務繳交後不久，{npc:3694}就會來到{npc:3693}身旁。切換位面也可能找到她。",
+	-- {npc:3694} Sentinel Selarin · {quest:990} Trek to Ashenvale · {npc:3691} Raene Wolfrunner · {area:415} Astranaar · {zone:1440} Ashenvale
+	["{npc:3694}, once she comes: {quest:990}, for {npc:3691} in {area:415} on your next {zone:1440} visit"] = "{npc:3694}，等她出現後：{quest:990}，下次到{zone:1440}時交給{area:415}的{npc:3691}",
+
 	-- Step 22: Auberdine flight master
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "",
@@ -135,8 +141,8 @@ return {
 	["Cast {spell:18960}"] = "",
 
 	-- Step 27: Dendrite Starblaze
-	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "施放{spell:18960}。{npc:11802}站在{area:2361}他建築的樓上：從裡面走上去，箭頭無法分辨樓層。如果你還沒有那裡的飛行路線就學起來。",
+	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:493} Moonglade · {npc:10897} Sindrayl
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. No {area:493} flight path yet? Learn it from {npc:10897}, south of the lake: the flight master in {area:2361} flies only Druids, from her gossip, and has none to learn."] = "施放{spell:18960}。{npc:11802}站在{area:2361}他建築的樓上：從裡面走上去，箭頭無法分辨樓層。還沒有{area:493}的飛行路線？向湖南邊的{npc:10897}學習：{area:2361}的飛行管理員只透過對話載德魯伊，也沒有飛行路線可學。",
 
 	-- Step 28: Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
@@ -168,5 +174,6 @@ return {
 	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}. {npc:4217} is a Druid trainer: learn your new spells from him."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "施放{spell:18960}。{npc:11802}站在{area:2361}他建築的樓上：從裡面走上去，箭頭無法分辨樓層。如果你還沒有那裡的飛行路線就學起來。",
 	-- ["Moonstalker Sires prowl the woods around the glaive. The {object:10076} and the {object:12666} sit at the bottom of the crater; {npc:3584} stands on its north side."] = "月夜雄虎在月刃周圍的樹林中徘徊。{object:10076}和{object:12666}在坑底；{npc:3584}站在北側。",
 }

@@ -43,8 +43,8 @@ next forever/alliance/06-wetlands
 #   and the walk north through Goldshire (training) to Stormwind's gryphon is
 #   on the way to Menethil; the Darkshire flight path and hearth are taken on
 #   the first loop's visit (04-redridge-mountains).
-# - Dropped Awaiting Word (236): a no-XP breadcrumb to Watcher Callahan at
-#   Manor Mistmantle, a detour north the route never passes otherwise.
+# - No Awaiting Word (236): Watcher Dodds doesn't offer it on Forever (#2148;
+#   forever-db/corrections removes it from the data).
 # - Redridge's elites (Tharil'zun 19, Gath'Ilzogg 169, Incinerator Gar'im
 #   95999, Shadow Magic's Blackrock Shadowcasters 115) and Lieutenant Fangore
 #   (180, 26) are on 04-redridge-mountains' loop at about 25, where those
@@ -157,7 +157,7 @@ step Abercrombie
   accept 133
 
 step Ghoul Ribs
-  tip Every ghoul of the Raven Hill Cemetery's northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.
+  tip Every ghoul of the Raven Hill Cemetery's northern half can drop a rib: Flesh Eaters and Bone Chewers (24-27) are the easier kills; Plague Spreaders and Brain Eaters (27-29) drop them too. Mor'Ladim, an elite, wanders the graves: keep away from him.
   tip Careful: A Rotted One casts Summon Flesh Eating Worms as it dies, which brings extra adds.
   collect 884 quest 133
 
@@ -229,7 +229,7 @@ step Elwynn Forest
 
 step Class trainer
   only Warrior,Paladin,Hunter,Priest,Mage,Warlock,Druid
-  train class only Warrior,Paladin,Hunter,Priest,Mage,Warlock,Druid -- Level 22 and 24 spells
+  train class only Warrior,Paladin,Hunter,Priest,Mage,Warlock,Druid -- Your new spells
 
 step Gazin Tenorm
   only Human,Paladin

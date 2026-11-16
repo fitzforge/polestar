@@ -9,7 +9,7 @@ return {
 	-- Step 1: Into the Badlands
 	-- {zone:1418} Badlands
 	["Into the {zone:1418}"] = "A {zone:1418}",
-	-- {object:2673} Thandol Span (no name in this language: may be words) · {zone:1437} Wetlands · {object:1668} Dun Algaz (no name in this language: may be words) · {zone:1432} Loch Modan · {area:144} Thelsamar · {zone:1418} Badlands · {area:1877} Valley of Fangs
+	-- {object:2673} Thandol Span · {zone:1437} Wetlands · {object:1668} Dun Algaz (no name in this language: may be words) · {zone:1432} Loch Modan · {area:144} Thelsamar · {zone:1418} Badlands · {area:1877} Valley of Fangs
 	["Head for the {object:2673}, the great bridge at Arathi's southern edge, cross it and follow the road south through the {zone:1437} to the {object:1668} tunnel into {zone:1432}. {area:144}, the dwarf town on the road in the middle of {zone:1432}, has guards who attack the Horde: leave the road before it and pass the town on the hills to its west. The road leaves {zone:1432} to the south into the {zone:1418}; follow it to the goblin camp in the {area:1877}."] = "Dirígete a {object:2673}, el gran puente en el borde sur de Arathi, crúzalo y sigue el camino al sur por {zone:1437} hasta el túnel de {object:1668} que lleva a {zone:1432}. {area:144}, el pueblo enano en el camino en medio de {zone:1432}, tiene guardias que atacan a la Horda: sal del camino antes de llegar y rodea el pueblo por las colinas del oeste. El camino sale de {zone:1432} por el sur hacia {zone:1418}; síguelo hasta el campamento goblin de {area:1877}.",
 
 	-- Step 2: Valley of Fangs
@@ -38,9 +38,9 @@ return {
 	-- Step 7: Badlands: kill these as you meet them
 	-- {zone:1418} Badlands
 	["{zone:1418}: kill these as you meet them"] = "{zone:1418}: mata a estos según te los encuentres",
-	-- {area:1878} The Dustbowl · {zone:1418} Badlands
+	-- {area:1878} The Dustbowl · {zone:1418} Badlands · {npc:2817} Rigglefuzz
 	-- plural, as words: Elder Crag Coyotes = {npc:2729} Elder Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard · Malevolent Mirages = {npc:269756} Malevolent Mirage
-	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth."] = "Los coyotes del risco ancianos y los buitres gigantes recorren la cuenca al sur de {area:1878}. Los coyotes sueltan tanto las mandíbulas como los colmillos; los buitres gigantes sueltan las mollejas. Cuidado: Los espejismos malévolos (42, élite) flotan por {zone:1418}: mantente bien lejos de ellos.",
+	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth.\nCareful: the Giant Buzzards are 39-41, and the 41s are two over you at 39: pick the 39s and 40s and pull them one at a time. The Buzzards (37) you kill later for {npc:2817}'s wings drop gizzards too, more rarely."] = "Los coyotes del risco mayores y las águilas ratoneras gigantes recorren la cuenca al sur de {area:1878}. Los coyotes sueltan tanto las mandíbulas como los colmillos; las águilas ratoneras gigantes sueltan las mollejas. Cuidado: Los espejismos malévolos (42, élite) flotan por {zone:1418}: mantente bien lejos de ellos.\nCuidado: las águilas ratoneras gigantes son de nivel 39-41, y las de 41 están dos niveles por encima de ti si eres 39: elige las de 39 y 40 y atráelas de una en una. Las águilas ratoneras (37) que matarás después por las alas para {npc:2817} también sueltan mollejas, pero con menos frecuencia.",
 
 	-- Step 8: Rock Elementals
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental
@@ -90,6 +90,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Keep north on the road; the chest lies in the {area:1517} dig site, at the foot of the ruins north-west of the road."] = "Sigue al norte por el camino; el cofre está en la excavación de {area:1517}, al pie de las ruinas al noroeste del camino.",
+	-- ["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth."] = "Los coyotes del risco ancianos y los buitres gigantes recorren la cuenca al sur de {area:1878}. Los coyotes sueltan tanto las mandíbulas como los colmillos; los buitres gigantes sueltan las mollejas. Cuidado: Los espejismos malévolos (42, élite) flotan por {zone:1418}: mantente bien lejos de ellos.",
 	-- ["Theldurin sits among the dwarven ruins at {area:345}, south of the {area:1877}."] = "Theldurin está sentado entre las ruinas enanas de {area:345}, al sur de {area:1877}.",
 	-- ["{npc:2920}: only if you carry {item:2868} ({skill:164} or the Auction House)"] = "{npc:2920}: solo si llevas {item:2868} ({skill:164} o la casa de subastas)",
 }

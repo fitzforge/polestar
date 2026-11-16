@@ -122,8 +122,8 @@ return {
 	-- Step 23: Theramore Expeditionary Force to Exalted
 	-- {faction:2799} Theramore Expeditionary Force
 	["{faction:2799} to Exalted"] = "",
-	-- {item:271924} Rebels' Rugged Reaper · {item:271928} Clever Expeditionary's Spellblade · {item:271936} Guerrilla's Jagged Mace · {item:271932} Insurgent's Manifesto
-	["Revered to Exalted is 21000 reputation, half the climb. Revered opens the weapons for levels 28, 38, 48 and 58: {item:271924} (two-handed axe), {item:271928} (dagger), {item:271936} and {item:271932} (off-hand), 1g44s to 37g15s."] = "",
+	-- {item:271924} Rebels' Rugged Reaper · {item:271928} Clever Expeditionary's Spellblade · {item:271932} Insurgent's Manifesto
+	["Revered to Exalted is 21000 reputation, half the climb. Revered opens the weapons for levels 28, 38, 48 and 58: {item:271924} (two-handed axe), {item:271928} (dagger), Guerrilla's Jagged Mace and {item:271932} (off-hand), 1g44s to 37g15s."] = "매우 우호적에서 확고한 동맹까지는 평판 21000으로, 전체의 절반입니다. 매우 우호적이 되면 레벨 28, 38, 48, 58 무기가 열립니다: {item:271924}(양손 도끼), {item:271928}(단검), 게릴라의 톱니 철퇴, {item:271932}(보조장비), 1g44s에서 37g15s.",
 	-- {npc:263569} Bryanna Embreeze
 	["{npc:263569}: Revered rewards"] = "",
 

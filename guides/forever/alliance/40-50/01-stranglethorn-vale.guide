@@ -2,9 +2,9 @@
 guide forever/alliance/40-50/01-stranglethorn-vale
 title Stranglethorn Vale, Dustwallow Marsh & Swamp of Sorrows
 faction Alliance
-levels 40-43
+levels 39-41
 zone Stranglethorn Vale
-next forever/alliance/40-50/02-badlands
+next forever/alliance/40-50/01b-riverglades
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -15,6 +15,12 @@ next forever/alliance/40-50/02-badlands
 # The Bloodsail Buccaneers (608) is taken on the level-48 Booty Bay stop (40-50/05).
 # Left out: A Meal Served Cold (212): its 30-minute limit can't last from Stormwind to the
 # Cold Eye Basilisks and back.
+# Level tidy (0.4.0): Panther Mastery (192, Shadowmaw Panthers 37-38) and Troll Witchery (205, the Skullsplitter Mystics'
+# fetishes, 39-40) are worked here at about 41, between the Jungle Stalkers and the north-west coast, and handed in at
+# Nesingwary's camp and the Rebel Camp on the same ride north; they were three and four levels over players on the 30-40
+# Stranglethorn loops, which give them (30-40/04 and 04b) for this visit. Tiger Mastery's Sin'Dall (188, level 37), on
+# the hilltop south-west of Nesingwary's camp, is killed on the ride from the north-west coast to the camp (fix round 2:
+# players reached her at about 35.5 on 04b).
 
 # ---------------------------------------------------------------- Theramore
 
@@ -25,6 +31,7 @@ step Theramore
   turnin 1260                         -- Morgan Stern, inside
   accept 1204
   accept 1265                         -- Commander Samaul, on the top floor of Foothold Citadel
+  accept 98233                        -- Guard Jameson: Sword in the Slime, from the oozes on the way back east
   buy 3713 x3 npc 4897                -- Soothing Spices, for "Swamp Eye" Jarl
 
 step Sentry Point
@@ -41,6 +48,7 @@ step Swamplight Manor
   tip Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house. Jarl wants three Soothing Spices: if you passed Helenia Olden, buy them from her in Theramore first.
   accept 1219                         -- Loose Dirt
   accept 1218                         -- "Swamp Eye" Jarl
+  buy 3713 x3 npc 4897                -- Soothing Spices: Helenia Olden in Theramore, if you left without them
   turnin 1218                         -- with the spices from Theramore
   accept 1206
 
@@ -65,12 +73,16 @@ step Darkmist Cavern
   collect 5884 quest 1206             -- Unpopped Darkmist Eye
 
 step Mudcrush Durtfeet
-  tip Ride south to the giant's hut in the middle of the marsh.
+  tip Head south to the giant's hut in the middle of the marsh.
   accept 1177
 
 step The Shady Rest Inn
   tip The burned inn stands on the road west, toward the Barrens; the guard's badge lies in the ashes.
   accept 1252 @29.8,48.2              -- Theramore Guard Badge
+
+step Corrosive Swamp Oozes
+  tip On the way back east, the Corrosive Swamp Oozes (38-40) creep through the marsh south of the road, between the middle of the marsh and Theramore: one of them carries Jameson's training sword. Careful: Elder Daggermaws (48-49) lurk in the water among them, and the larger Bubbling Swamp Oozes (39-40) are elite: leave both alone.
+  collect 280203 quest 98233 @49.3,55.7 map 1445 -- Jameson's Training Sword
 
 # ---------------------------------------------------------------- Theramore
 
@@ -80,6 +92,7 @@ step Theramore
   accept 1220
   turnin 1252                         -- On the top floor
   accept 1259
+  turnin 98233                        -- Guard Jameson
   turnin 1259                         -- Adjutant Tesoran, on the top floor
   accept 1285
   turnin 1285                         -- Captain Garran Vimes
@@ -119,7 +132,7 @@ step The Barrens
 step The Affray
   only Warrior
   zone The Barrens
-  tip On the ride north to Ratchet, Fray Island lies off the Merchant Coast south of the town: wade over the sand bar shallows. Klannoc Macleod sends four challengers and then Big Will (level 33) at you, one at a time.
+  tip On the way north to Ratchet, Fray Island lies off the Merchant Coast south of the town: wade over the sand bar shallows. Klannoc Macleod sends four challengers and then Big Will (level 33) at you, one at a time.
   turnin 1718                             -- Klannoc Macleod
   accept 1719
   complete 1719                           -- Defeat the challengers and Big Will
@@ -132,8 +145,6 @@ step Foothold Citadel
   when level>=40
   tip The boat leaves from Theramore: report to Captain Garran Vimes on the top floor of Foothold Citadel on the way to the docks.
   turnin 1287                         -- Captain Garran Vimes, on the top floor
-  accept 1288
-  turnin 1288                         -- Lady Jaina Proudmoore, on the top floor
 
 step Boat to Menethil Harbor
   only Human
@@ -174,7 +185,7 @@ step Riding at 40
 step Boat to Booty Bay
   only Dwarf,Gnome,NightElf,Skyborne
   zone The Barrens
-  tip Ride north-west into the Barrens and up the coast to Ratchet: the boat to Booty Bay leaves from its dock, and Ratchet's gryphon master stands just above it.
+  tip Head north-west into the Barrens and up the coast to Ratchet: the boat to Booty Bay leaves from its dock, and Ratchet's gryphon master stands just above it.
   getfp "Ratchet"
   goto 63.4,38.5 "Boat to Booty Bay"
 
@@ -182,7 +193,7 @@ step Boat to Booty Bay
   only Human
   when level<40
   zone The Barrens
-  tip Ride north-west into the Barrens and up the coast to Ratchet: the boat to Booty Bay leaves from its dock, and Ratchet's gryphon master stands just above it.
+  tip Head north-west into the Barrens and up the coast to Ratchet: the boat to Booty Bay leaves from its dock, and Ratchet's gryphon master stands just above it.
   note Level 40 with 100 gold later on? Randal Hunter teaches riding at Eastvale Logging Camp in Elwynn Forest: Collectibles, Mounts · Level 40 has the trip.
   getfp "Ratchet"
   goto 63.4,38.5 "Boat to Booty Bay"
@@ -207,10 +218,10 @@ step Booty Bay
   zone Stranglethorn Vale
   turnin 627 optional -- Krazek, upstairs
   accept 622                          -- for Corporal Kaleb at the Rebel Camp, on the northern loop
-  accept 617                          -- Privateer Bloads
-  turnin 669                          -- Fleet Master Seahorn, top floor
+  accept 617                          -- Privateer Bloads: keep it, its naga (43-44) wait for the level-48 Booty Bay stop
+  turnin 669 optional                 -- Fleet Master Seahorn, top floor: Sunken Treasure, if you did Faldir's Cove with a group
   accept 209                          -- Kebok, upstairs: the Skullsplitter trolls, on the northern loop
-  accept 621                          -- Inside
+  accept 621                          -- Crank Fizzlebub, inside: keep it, Zanzil's village (43-44) waits for the level-48 Booty Bay stop
   note Seahorn's next errand goes back to Arathi: skip it.
   turnin 603                          -- Catelyn the Blade, upstairs
   accept 610
@@ -231,88 +242,74 @@ step Booty Bay
   accept 599
   accept 576                          -- Dizzy One-Eye
   turnin 599                          -- Fleet Master Seahorn
-  accept 604
+  accept 604                          -- keep it: the Wild Shore camp's charts and Swashbucklers (41-43) wait for the level-48 Booty Bay stop
   accept 587                          -- Deeg, on the top floor
   turnin 610                          -- Catelyn the Blade, upstairs
   accept 611                          -- Gazban swims off the north-west coast, on the northern loop
 
-step Wild Shore: kill these as you meet them
+step Bloodsail pirates: kill these as you meet them
   zone Stranglethorn Vale
-  tip Every Bloodsail drops Snuff and one of them carries Dizzy's eye; the Swashbucklers walk the shore just north of town. The charts and orders lie in the pirate camp on the Wild Shore, south of Booty Bay.
-  tip Careful: the Wild Shore camp's Warlocks and Swashbucklers are level 41-43, a level or more above you, and stand close together: pull them singly from the edge.
-  collect 3920 quest 604              -- Bloodsail Charts
-  collect 3910 quest 587              -- Snuff
-  collect 3897 quest 576              -- Dizzy's Eye
-  collect 3921 quest 604              -- Bloodsail Orders
-  kill 1563 quest 604                 -- Bloodsail Swashbuckler
+  tip Every Bloodsail drops Snuff and one of them carries Dizzy's eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the Wild Shore camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit.
+  collect 3910 quest 587 @28.0,70.5 map 1434 -- Snuff
+  collect 3897 quest 576 @28.0,70.5 map 1434 -- Dizzy's Eye
 
 step Booty Bay
   turnin 587                          -- Deeg, on the top floor
-  accept 348                          -- Fin Fizracket
-  turnin 604                          -- Fleet Master Seahorn
-  note Seahorn now offers The Bloodsail Buccaneers: leave it. Its three captains are level 45-48 with crews around them, and the route brings you back to Seahorn at 48 for it.
+  note Fin Fizracket's Stranglethorn Fever (Mokk the Savage) waits for the level-48 Booty Bay stop: leave it for now.
+  note Seahorn's Bloodsail Buccaneers: keep it for the level-48 Booty Bay stop, with the Wild Shore camp.
   turnin 576                          -- Dizzy One-Eye
 
 step Gorilla hills
-  tip Ride inland to the Mistvale gorilla hills. Elder Mistvale Gorillas drop the giblets; Witch Doctor Unbagwa sits among them.
+  tip Head inland to the Mistvale gorilla hills. Elder Mistvale Gorillas drop the giblets.
   collect 3919 quest 606              -- Mistvale Giblets
-  collect 2799 x10 -- Gorilla Fang
-
-step Unbagwa's ritual
-  tip Hand in the fangs and stay: three waves of gorillas come, Mokk the Savage last. Fight at full health.
-  turnin 349 direct -- Witch Doctor Unbagwa, inside Spirit Den
-  collect 2797 quest 348              -- Heart of Mokk
-# ---------------------------------------------------------------- North of the bay
-
-step Naga Explorers
-  tip The naga comb the beaches north of the Bloodsail camp; they drop the reeds.
-  collect 4029 quest 617              -- Akiris Reed
 
 step Booty Bay
-  tip Ride back down to town; Shaky stands at the tunnel mouth.
+  tip Head back down to town; Shaky stands at the tunnel mouth.
   turnin 606                          -- "Shaky" Phillipe
   accept 607
-  turnin 617                          -- Privateer Bloads
-  accept 623                          -- for Privateer Groy in Theramore: keep it
   accept 2872                         -- for Stoley in Tanaris: keep it; on the top floor
-  turnin 348                          -- Fin Fizracket
   turnin 607                          -- "Sea Wolf" MacKinley, on the top floor
-  accept 609
+  accept 609                          -- "Sea Wolf" MacKinley: keep it, for the level-48 Booty Bay stop, with Zanzil's village
 
 step Cortello's scroll
   tip Optional: Cortello's scroll lies inside one of the three Bloodsail ships anchored off the coast just south of Booty Bay, on a middle or lower deck, and is not always on the same ship. Their crews are 42-45 pirates: clear your way from the edge, one at a time, and leave the captains (45-48), whom the route comes back for at 48.
   collect 4056 optional               -- Cortello's Riddle
   accept 624 optional                 -- for the Swamp of Sorrows later
 
-step Zanzil's village
-  tip Every Zanzil follower can drop the mixture; Chucky "Ten Thumbs" walks the south of the camp.
-  collect 4016 quest 621              -- Zanzil's Mixture
-  collect 3926 quest 609              -- Chucky's Huge Ring
-  collect 3925 quest 609              -- Jon-Jon's Golden Spyglass
-
 # ---------------------------------------------------------------- The jungle
-
-step Maury and Jon-Jon
-  tip Ride north to the hills west of the road. Maury "Club Foot" Wilkins and Jon-Jon the Crow stand together just north of Zanzil's village.
-  collect 3924 quest 609              -- Maury's Clubbed Foot
 
 step Jungle Stalkers
   tip The Jungle Stalkers roam the slopes west of the mine.
   kill 687 quest 196.1 @32.1,43.1 map 1434 -- Jungle Stalker
 
+step Zul'Mamwe's Mystics and the Shadowmaw Panthers
+  tip East from the stalkers' slopes to the ruins of Zul'Mamwe: the Skullsplitter Mystics (39-40) in its northern half carry Brother Nimetz's fetishes. Careful: the Witch Doctors, Berserkers and Headhunters (41-44) hold the ruins' southern half: stay north. Then north-west toward the coast: the Shadowmaw Panthers (37-38) prowl the jungle west of the ruins, often stealthed.
+  collect 2466 quest 205 @45.5,36.5 map 1434 -- Skullsplitter Fetish, from the Skullsplitter Mystics
+  kill 684 quest 192 @42.4,32.5 map 1434 -- Shadowmaw Panther
+
 # ---------------------------------------------------------------- The far north
 
 step The north-west coast
-  tip Ride north-west from the mine to the bay on the north-west coast. The Giant Clams lie on its floor and hold the pearls; Gazban swims among them and drops the Stone of the Tides.
+  tip Go on north-west to the bay on the north-west coast. The Giant Clams lie on its floor and hold the pearls; Gazban swims among them and drops the Stone of the Tides.
   collect 4611 quest 705              -- Blue Pearl; underwater
   collect 4034 quest 611              -- Stone of the Tides
 
+step Sin'Dall
+  tip North-east from the bay toward Nesingwary's camp: Sin'Dall, the great tiger (37), lairs on the hilltop just south-west of the camp.
+  collect 3879 quest 188              -- Paw of Sin'Dall
+
 step Hemet Nesingwary
   turnin 196
+  turnin 192                          -- Sir S. J. Erlgadin, beside him
+  turnin 188                          -- Ajeck Rouack, beside them
 
 step Hemet Nesingwary
   when group 197
   accept 197
+
+step Sir S. J. Erlgadin
+  when group 193
+  accept 193
 
 step Arbor Tarantula
   when onquest 93176
@@ -320,25 +317,26 @@ step Arbor Tarantula
   collect 213566 "Arbor Tarantula Specimen" @43.1,16.7
 
 step Rebel Camp
-  tip Ride north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale.
+  tip Head north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale.
   turnin 622                          -- Corporal Kaleb
 
 step Brother Nimetz
   turnin 205
+  accept 95786                        -- Brother Nimetz: the Savage Coast report bundle for Loremaster Dibbs in Southshore, on the Badlands & Hinterlands guide: keep it
+
+step Kurzen's Compound
+  tip East from the Rebel Camp to Kurzen's Compound: Wendel Mathers is caged at its western edge. The Kurzen Subchiefs (35-36) and Elites (36-37) carry his cage key; the fighter's uniform lies in a supply crate in the compound's eastern part.
+  tip Careful: Colonel Kurzen, an elite of 39-40, stands at the compound's north end beside three of the Subchiefs: take the key from the Subchiefs and Elites further south and leave him be.
+  accept 97047 @44.3,7.9 map 1434     -- Wendel Mathers, in his cage, if you didn't take it on the 30-40 loop
+  collect 216616 quest 97047          -- Compound Cage Key, from the Subchiefs (or the Elites)
+  collect 216617 quest 97047 @50.0,8.0 map 1434 -- Kurzen Fighter's Uniform, in the supply crate
+  turnin 97047 @44.3,7.9 map 1434     -- Wendel Mathers, back at his cage on the way out
+  accept 97048                        -- For Captain Aransas in Booty Bay, at the end of the jungle loop
 
 step Panther Mastery
   when group 193
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Bhag'thera is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back.
   collect 3876 quest 193.1 @49.4,24.0 map 1434
-
-step Level 42.16 at Zul'Mamwe
-  when !group 193
-  when !group 197
-  when !group 208
-  when level<42.16
-  tip Alone, you skip Nesingwary's three elite hunts: take their experience from the Skullsplitter trolls of Zul'Mamwe instead, just east of the mine, so every kill also counts for Kebok's tusks. Or, with a group, run the Uldaman dungeon instead.
-  goto 45.5,36.5 map 1434 "Skullsplitter Warrior"
-  level 42.16 grind 667                -- grind on Skullsplitter Warrior
 
 step Ruins of Zul'Mamwe: kill these as you meet them
   zone Stranglethorn Vale
@@ -375,22 +373,13 @@ step Hemet Nesingwary
   when group 208
   turnin 208
 
-step Level 42.16
-  when level<42.16
-  tip Still short of level 42.16 after the hunts you did? Make up the rest on the Cold Eye Basilisks by the Crystalvein Mine, on your way south to Booty Bay. Or, with a group, run the Uldaman dungeon instead.
-  goto 36.3,42.3 map 1434 "Cold Eye Basilisk"
-  level 42.16 grind 690                -- grind on Cold Eye Basilisk
-
 step Booty Bay
-  tip Ride south down the road to Booty Bay.
+  tip Follow the road south to Booty Bay.
   turnin 611                          -- Baron Revilgaz
-  note Crank's next Zanzil errand starts in Thousand Needles: skip it.
   turnin 209                          -- Kebok, upstairs
-  turnin 621                          -- Inside
-  note MacKinley's next task sends you after elite ogres: skip it.
   turnin 600                          -- Crank Fizzlebub
-  turnin 609                          -- "Sea Wolf" MacKinley, on the top floor
   accept 2864                         -- Krazek: for Tran'rek in Tanaris, keep it
+  turnin 97048                        -- Captain Aransas
 
 # ---------------------------------------------------------------- Stormwind
 
@@ -510,13 +499,6 @@ step Misty Valley
   when onquest 624
   turnin 624
 
-step Level 42.46
-  when !group 543
-  when level<42.46
-  tip If you skipped The Perenolde Tiara, grind here to level 42.46 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead.
-  goto 5.5,31.4 map 1435 "Tangled Horror"
-  level 42.46 grind 766                -- grind on Tangled Horror
-
 step Cortello's Riddle
   accept 625
   turnin 93176 optional               -- Amaryllis Webb: My Little Friends, from 30-40/05-arathi-highlands
@@ -530,14 +512,15 @@ step Watcher Biggs
 
 step The sunken temple
   zone Swamp of Sorrows
-  tip Ride east; the Tangled Horrors along the way also drop the essays. Search the edge of the Pool of Tears, where the temple's ruins break the water.
+  tip Head east; the Tangled Horrors along the way also drop the essays. Search the edge of the Pool of Tears, where the temple's ruins break the water.
   goto 70.2,45.2
   complete 1448 @70.2,45.2
 
 step Misty Reed Strand
-  tip The driftwood washes up along the eastern shore.
+  tip The Silt Crawlers (40-41) crowd the north end of the eastern shore, and the driftwood washes up along it from there.
+  tip Careful: the big Monstrous Crawlers (43-44) further south on the shore are over you: take the legs at the north end and pick up the driftwood without pulling them.
+  collect 5938 quest 1258 @80.0,8.0   -- Pristine Crawler Leg, from the Silt Crawlers
   collect 6146 quest 1398             -- Sundried Driftwood
-  collect 5938 quest 1258             -- Pristine Crawler Leg, from the Silt Crawlers on the same shore
 
 step Watcher Biggs
   turnin 1398
@@ -605,45 +588,3 @@ step Riding at 40
   tip At 40 with 100 gold you can learn to ride, and learning it gives you a mount. Binjy Featherwhistle teaches Gnomes at Steelgrill's Depot, just east of Kharanos, beside Milli Featherwhistle's mechanostriders. Forever may let any race learn from any riding trainer (unconfirmed). Collectibles, Mounts · Level 40 lists every colour.
   train 7954 optional                 -- Binjy Featherwhistle
   vendor 7955 optional                -- Milli Featherwhistle: other colours, 20g
-
-step Fly to Thelsamar
-  when taxi "Thelsamar"
-  when !zone "Dun Morogh"
-  zone Ironforge
-  goto 55.9,47.9 "Ironforge flight master"
-  fly "Thelsamar"
-  zone Loch Modan
-
-step Loch Modan
-  when zone "Dun Morogh"
-  zone Loch Modan
-  tip Ride east out of Dun Morogh through the tunnel into Loch Modan and on along the road to Thelsamar.
-  goto 35.5,48.4 "Thelsamar"
-
-step Loch Modan
-  when !taxi "Thelsamar"
-  when !zone "Dun Morogh"
-  zone Loch Modan
-  tip No flight path to Thelsamar yet: ride out of Ironforge's gates, east through Dun Morogh and the tunnel into Loch Modan, and on along the road to Thelsamar.
-  goto 35.5,48.4 "Thelsamar"
-
-step Thelsamar
-  zone Loch Modan
-  tip Ghak Healtouch is below ground in Thelsamar, by the inn. His mushrooms grow in the Uldaman dig in the Badlands; the next guide takes you there and back through Thelsamar.
-  accept 17                           -- Ghak Healtouch, below ground
-
-step Badlands
-  zone Badlands
-  goto 53.8,43.3 "Hammertoe's Digsite"
-
-# ---------------------------------------------------------------- The Badlands
-
-step Hammertoe's Digsite
-  zone Badlands
-  tip Ride south out of Loch Modan through the pass into the Badlands; Sigrun Ironhew camps at the dig.
-  turnin 733                          -- Sigrun Ironhew
-  accept 706 optional                 -- Fiery Blaze Enchantments: its Black Drake's Heart is a rare drop, so the work and hand-in are optional too
-
-step Garek
-  tip Garek camps by himself in Dustwind Gulch, south-east of the digsite.
-  accept 732

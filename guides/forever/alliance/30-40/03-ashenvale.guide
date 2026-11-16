@@ -2,7 +2,7 @@
 guide forever/alliance/30-40/03-ashenvale
 title Wetlands, Dustwallow Marsh & Thousand Needles
 faction Alliance
-levels 32-33
+levels 31-33
 zone Wetlands
 next forever/alliance/30-40/04-stranglethorn-vale
 
@@ -10,7 +10,9 @@ next forever/alliance/30-40/04-stranglethorn-vale
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: Blessed Arm (322), The Black Shield (1319, 1320), Highperch Venom (1135), Hardened Shells (1105),
-# Load Lightening (1176), A Bump in the Road (1175), Fiora Longears (1132).
+# Load Lightening (1176), Fiora Longears (1132).
+# Level tidy (0.4.0): A Bump in the Road (1175) is left out: its Saltstone Gazers are 34-35, two and three levels over
+# players at the Raceway (about 32-33), and the route's next Raceway visit is at 45 (40-50/04-tanaris).
 # Fizzle offers Martek the Exiled (1106) once Salt Flat Venom and Hardened Shells are both handed in: taken here, for the
 # Badlands at the end of 30-40 (Indurium, 1108), and News for Fizzle (1137) back at the Raceway in 40-50/04.
 # Since 2026-11-07 the Mirage Raceway and Dustwallow Marsh's Shady Rest quests are done here, on one crossing to
@@ -117,18 +119,14 @@ step Mirage Raceway
   turnin 1179                             -- Wizzle Brassbolts
   accept 1105                             -- Wizzle Brassbolts
   accept 1176                             -- Pozzik
-  accept 1175                             -- Trackmaster Zherin
 
 step Mirage Raceway: kill these as you meet them
   zone Thousand Needles
-  tip Rocket Car Rubble lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south.
+  tip Rocket Car Rubble lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half.
   collect 5794 quest 1104                 -- Salty Scorpid Venom
   collect 5798 quest 1110                 -- Rocket Car Parts
   collect 5848 quest 1176                 -- Hollow Vulture Bone
-  collect 5795 quest 1105                 -- Hardened Tortoise Shell
-  kill 4147 quest 1175.1                  -- Saltstone Basilisk
-  kill 4151 quest 1175.2                  -- Saltstone Crystalhide
-  kill 4150 quest 1175.3                  -- Saltstone Gazer
+  collect 5795 quest 1105 @76.4,58.2 map 1441 -- Hardened Tortoise Shell, from the Sparkleshell Tortoises
   collect 5675 quest 1078.1 optional      -- Crystalized Scale, from the Saltstone Basilisks: eight for Collin Mauren in Stormwind
 
 step Mirage Raceway
@@ -137,7 +135,6 @@ step Mirage Raceway
   turnin 1104                             -- Fizzle Brassbolts
   accept 1106                             -- Fizzle Brassbolts: for Martek in the Badlands, at the end of 30-40
   turnin 1176                             -- Pozzik
-  turnin 1175                             -- Trackmaster Zherin
 
 step Into Tanaris
   zone Thousand Needles

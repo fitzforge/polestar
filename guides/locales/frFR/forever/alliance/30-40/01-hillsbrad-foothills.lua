@@ -133,18 +133,34 @@ return {
 	-- {area:1025} The Green Belt · {npc:270637} Howin Kindfeather · {npc:1244} Rethiel the Greenwarden
 	["Back east along the road to the {area:1025}: {npc:270637} camps among the Fenrunners, just west of {npc:1244}. Then west again to Menethil for the boat."] = "Revenez vers l'est par la route jusqu'à la {area:1025} : {npc:270637} campe parmi les Courfangeux, juste à l'ouest de {npc:1244}. Puis retournez à l'ouest jusqu'à Menethil pour le bateau.",
 
-	-- Step 29: Level 30.8
+	-- Step 29: Menethil Harbor
+	-- {npc:2094} James Halloran · {npc:1239} First Mate Fitzsimmons · {area:2104} Deepwater Tavern
+	["{npc:2094} stands by the docks; {npc:1239} sits in the {area:2104}, south of the keep."] = "{npc:2094} se tient près des quais ; le {npc:1239} est assis dans la {area:2104}, au sud du donjon.",
+
+	-- Step 30: Captain Halyndor
+	-- {npc:1160} Captain Halyndor · {npc:270589} Nightveiled Rotheap · {zone:1437} Wetlands
+	["North along the coast from Menethil to the wreck of the Intrepid: {npc:1160} (30) is aboard, and the locked strongbox sits in the wreck. Careful: {npc:270589}, a level 31-32 elite, roams the {zone:1437}: give it a wide berth."] = "Au nord le long de la côte depuis Menethil jusqu'à l'épave de l'Intrépide : le {npc:1160} (30) est à bord, et le coffre verrouillé se trouve dans l'épave. Attention : {npc:270589}, un élite de niveau 31-32, parcourt les {zone:1437} : tenez-vous bien à l'écart.",
+	-- {item:2629} Intrepid Strongbox Key · {npc:1160} Captain Halyndor
+	["{item:2629}, from {npc:1160}"] = "{item:2629}, du {npc:1160}",
+
+	-- Step 31: Glorin Steelbrow
+	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern
+	["Back south to Menethil: {npc:1217} stands in the {area:2104}."] = "Retour au sud jusqu'à Menethil : {npc:1217} se trouve dans la {area:2104}.",
+	-- {npc:1284} Archbishop Benedictus · {zone:1453} Stormwind
+	["For {npc:1284} in {zone:1453}, at the end of this guide"] = "Pour {npc:1284} à {zone:1453}, à la fin de ce guide",
+
+	-- Step 32: Level 30.8
 	["Level 30.8"] = "Niveau 30.8",
 	-- {quest:474} Defeat Nek'rosh · {area:133} Gnomeregan · {area:796} Scarlet Monastery
 	["Skipped {quest:474} and short of 30.8? Kill the Bluegill murlocs on the coast south of Menethil until level 30.8. Or, with a group, run the {area:133} dungeon or the {area:796} dungeon (Graveyard) instead."] = "Vous avez passé {quest:474} et n'avez pas atteint 30.8 ? Tuez les murlocs Branchie-bleue sur la côte au sud de Menethil jusqu'au niveau 30.8. Ou, en groupe, faites plutôt le donjon {area:133} ou le donjon {area:796} (Cimetière).",
 	-- {npc:1418} Bluegill Raider
 	["grind on {npc:1418}"] = "tuez en boucle : {npc:1418}",
 
-	-- Step 31: Boat to Southshore
+	-- Step 33: Boat to Southshore
 	-- {area:271} Southshore
 	["Boat to {area:271}"] = "Bateau pour {area:271}",
 
-	-- Step 32: Southshore
+	-- Step 34: Southshore
 	-- {npc:2711} Phin Odelic · {npc:2430} Chef Jessen · {npc:2382} Darren Malvew · {npc:2381} Micha Yance · {npc:2438} Bartolo Ginsetti · {npc:2366} Barkeep Kelly · {quest:98463} Talk of the Town
 	["Off the boat, walk up the pier into town: {npc:2711} and Lieutenant Farren stand by the inn, {npc:2430} upstairs, {npc:2382} east of it; the flight master is at the north end, {npc:2381} and {npc:2438} between her and the inn, Maleb in the town hall at the west side.\n{npc:2366} may not offer {quest:98463} on Forever: if she doesn't, skip it."] = "En descendant du bateau, remontez la jetée jusqu'en ville : {npc:2711} et le lieutenant Farren se tiennent près de l'auberge, {npc:2430} à l'étage, {npc:2382} à l'est ; le maître de vol est à l'extrémité nord, {npc:2381} et {npc:2438} entre elle et l'auberge, Maleb dans l'hôtel de ville, du côté ouest.\n{npc:2366} ne propose peut-être pas {quest:98463} sur Forever : si elle ne la propose pas, passez-la.",
 	-- {npc:2711} Phin Odelic
@@ -160,56 +176,49 @@ return {
 	-- {item:3713} Soothing Spices · {npc:2381} Micha Yance
 	["{item:3713}, from {npc:2381}"] = "{item:3713}, chez {npc:2381}",
 	-- {npc:2276} Magistrate Henry Maleb
-	["{npc:2276}, inside"] = "{npc:2276}, à l'intérieur",
+	["{npc:2276}, inside: keep it, the Syndicate camp waits for the road north to Arathi (05-arathi-highlands)"] = "{npc:2276}, à l'intérieur : gardez-la, le camp du Syndicat attend la route du nord vers Arathi (05-arathi-highlands)",
 
-	-- Step 33: Bartolo Ginsetti
+	-- Step 35: Bartolo Ginsetti
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {skill:165} Leatherworking · {item:2997} Bolt of Woolen Cloth · {skill:197} Tailoring
 	["{npc:2438} makes a yeti fur cloak for anyone who brings a {item:3719} ({skill:165}) and a {item:2997} ({skill:197}); no vendor sells either, so this step shows only when you carry both."] = "{npc:2438} confectionne une cape en fourrure de yéti pour quiconque lui apporte une {item:3719} ({skill:165}) et un {item:2997} ({skill:197}) ; aucun marchand ne vend l'un ou l'autre, donc cette étape n'apparaît que si vous portez les deux.",
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {item:2997} Bolt of Woolen Cloth
 	["{npc:2438}, between the flight master and the inn: he wants a {item:3719} and a {item:2997} too"] = "{npc:2438}, entre le maître de vol et l'auberge : il veut aussi une {item:3719} et un {item:2997}",
 
-	-- Step 34: Torn Fin murlocs
+	-- Step 36: Torn Fin murlocs
 	["Torn Fin murlocs"] = "Murlocs Aileron déchiré",
 	-- {area:295} Western Strand · {area:271} Southshore
 	["The Torn Fin murlocs crowd the {area:295}, south-west of {area:271}.\nCareful: One camp holds a tight cluster of Oracles that all aggro together."] = "Les murlocs Aileron déchiré se pressent dans {area:295}, au sud-ouest d'{area:271}.\nAttention : un camp abrite un groupe serré d'Oracles qui attaquent tous ensemble.",
 
-	-- Step 35: Farren
+	-- Step 37: Farren
 	["Farren"] = "Farren",
 	["Inside"] = "À l'intérieur",
 
-	-- Step 36: Murloc heads
+	-- Step 38: Murloc heads
 	["Murloc heads"] = "Têtes de murloc",
 	["Back to the same murlocs; not every one drops a head."] = "Retournez voir les mêmes murlocs ; tous ne lâchent pas de tête.",
 
-	-- Step 38: Daggerspine naga
+	-- Step 40: Daggerspine naga
 	["Daggerspine naga"] = "Nagas Daguéchine",
 	-- {area:271} Southshore
 	["The naga hold the shore south-east of {area:271}."] = "Les nagas tiennent le rivage au sud-est de {area:271}.",
 
-	-- Step 39: Farren
+	-- Step 41: Farren
 	-- {object:2117} Stormwind Keep
 	["A report for {object:2117}; inside"] = "Un rapport pour {object:2117} ; à l'intérieur",
 
-	-- Step 41: Southshore
+	-- Step 43: Southshore
 	-- {npc:251493} Captain McManus · {quest:98059} Hillsbrad's Hoard · {item:279386} Sealed Company Request · {area:287} Hillsbrad · {area:271} Southshore
-	["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave.\n{quest:98059}: {npc:251493} hands you a {item:279386} for the {area:287} council, in the farms west of {area:271}; you deliver it after the Syndicate camp."] = "{npc:251493} se tient au nord-ouest du maître de vol, sur le chemin de la grotte des yétis, au nord.\n{quest:98059} : {npc:251493} vous remet une {item:279386} pour le conseil de {area:287}, dans les fermes à l'ouest d'{area:271} ; vous la livrez après le camp du Syndicat.",
+	["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave.\n{quest:98059}: {npc:251493} hands you a {item:279386} for the {area:287} council, in the farms west of {area:271}."] = "{npc:251493} se tient au nord-ouest du maître de vol, sur le chemin de la grotte des yétis, au nord.\n{quest:98059} : {npc:251493} vous remet une {item:279386} pour le conseil de {area:287}, dans les fermes à l'ouest d'{area:271}.",
 
-	-- Step 42: Yeti cave
+	-- Step 44: Yeti cave
 	["Yeti cave"] = "Grotte des yétis",
 	-- {area:271} Southshore · {area:277} Foothill Caverns · {npc:13602} The Abominable Greench
 	-- plural, as words: Giant Yetis = {npc:2251} Giant Yeti
-	["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "Les yétis vivent dans la grotte des collines au nord d'{area:271}, sur le chemin du camp du Syndicat, plus au nord.\nRestez dans {area:277} : la grotte plus au nord abrite des Yétis des montagnes et des Yétis géants (32-34) par deux, et {npc:13602}, un élite de niveau 36.",
-
-	-- Step 43: Alterac Mountains
-	["Syndicate camp"] = "Camp du Syndicat",
-
-	-- Step 44: Syndicate camp
-	-- {area:287} Hillsbrad · {area:272} Tarren Mill
-	["The Syndicate camp sits on the Alterac border in northern {area:287}, west of {area:272} (Horde); the documents lie in the camp, and its Footpads and Thieves are the Syndicate Maleb wants."] = "Le camp du Syndicat se trouve à la frontière d'Alterac, au nord de {area:287}, à l'ouest de {area:272} (Horde) ; les documents sont dans le camp, et ses Détrousseurs et Larrons sont les membres du Syndicat que veut Maleb.",
+	["The yetis live in the cave in the hills north of {area:271}.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "Les yétis vivent dans la grotte des collines au nord d'{area:271}.\nRestez dans {area:277} : la grotte plus au nord abrite des Yétis des montagnes et des Yétis géants (32-34) par deux, et {npc:13602}, un élite de niveau 36.",
 
 	-- Step 45: Hillsbrad Fields
-	-- {area:286} Hillsbrad Fields
-	["South-west from the Syndicate camp to the {area:286} farms."] = "Au sud-ouest du camp du Syndicat, jusqu'aux fermes de {area:286}.",
+	-- {area:271} Southshore · {area:286} Hillsbrad Fields
+	["West from {area:271} to the {area:286} farms."] = "À l'ouest d'{area:271}, jusqu'aux fermes de {area:286}.",
 
 	-- Step 46: Hillsbrad council
 	-- {area:287} Hillsbrad
@@ -296,12 +305,16 @@ return {
 	-- ["Red whelps fill the hills west of the gates, Maddened Rotclaws the {area:1025}, Razormaws the northern slopes; Neru stands in the north-east (use the {item:279996}).\n{quest:98283} is elite: grouping up is advised."] = "Des Dragonnets rouges peuplent les collines à l'ouest des portes, des Griffes pourries affolées {area:1025}, des tranchegueules les pentes nord ; Neru se dresse au nord-est (utilisez la {item:279996}).\n{quest:98283} est élite : mieux vaut grouper.",
 	-- ["Red whelps fill the hills west of the gates, Maddened Rotclaws the {area:1025}, Razormaws the northern slopes; {npc:271458} stands in the north-east (use the {item:279996}).\n{quest:98283} is elite: grouping up is advised."] = "Des Dragonnets rouges peuplent les collines à l'ouest des portes, des Griffes pourries affolées la {area:1025}, des tranchegueules les pentes nord ; {npc:271458} se dresse au nord-est (utilisez la {item:279996}).\n{quest:98283} est élite : mieux vaut grouper.",
 	-- ["South to the Dragonmaw's {area:1036}; the {object:671518} lies in the camp."] = "Au sud, vers {area:1036} des Dragonmaw ; {object:671518} se trouve dans le camp.",
+	-- ["South-west from the Syndicate camp to the {area:286} farms."] = "Au sud-ouest du camp du Syndicat, jusqu'aux fermes de {area:286}.",
+	-- ["Syndicate camp"] = "Camp du Syndicat",
 	-- ["Take the {area:2257} from the {object:28027} to {zone:1455}."] = "Prenez {area:2257} depuis {object:28027} jusqu'à {zone:1455}.",
 	-- ["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one."] = "Les Goaz Warders se dressent juste à l'ouest du camp de Whelgar : utilisez la {item:279996} qu'il vous a donnée à côté de l'un d'eux.",
+	-- ["The Syndicate camp sits on the Alterac border in northern {area:287}, west of {area:272} (Horde); the documents lie in the camp, and its Footpads and Thieves are the Syndicate Maleb wants."] = "Le camp du Syndicat se trouve à la frontière d'Alterac, au nord de {area:287}, à l'ouest de {area:272} (Horde) ; les documents sont dans le camp, et ses Détrousseurs et Larrons sont les membres du Syndicat que veut Maleb.",
 	-- ["The Torn Fin murlocs crowd the {area:295}, south-west of {area:271}."] = "Les murlocs Aileron déchiré grouillent sur {area:295}, au sud-ouest de {area:271}.",
 	-- ["The Villards"] = "Les Villard",
 	-- ["The next step, Defeat Nek'rosh, pits you against an elite chieftain: skip it."] = "L'étape suivante, Vaincre Nek'rosh, vous oppose à un chef élite : passez-la.",
 	-- ["The next step, {quest:474}, pits you against an elite chieftain: skip it."] = "L'étape suivante, {quest:474}, vous oppose à un chef élite : passez-la.",
+	-- ["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "Les yétis vivent dans la grotte des collines au nord d'{area:271}, sur le chemin du camp du Syndicat, plus au nord.\nRestez dans {area:277} : la grotte plus au nord abrite des Yétis des montagnes et des Yétis géants (32-34) par deux, et {npc:13602}, un élite de niveau 36.",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on your way back south."] = "Les yétis vivent dans la grotte des collines au nord de {area:271}, sur votre retour vers le sud.",
 	-- ["To {area:2104}"] = "Vers {area:2104}",
 	-- ["West to the farms of {area:287}: place the {item:279386} on the bookkeeping table in the town hall, where {npc:2335} and the councilmen stand."] = "À l'ouest vers les fermes de {area:287} : posez la {item:279386} sur la table des registres de l'hôtel de ville, où se tiennent {npc:2335} et les conseillers.",
@@ -315,7 +328,9 @@ return {
 	-- ["{npc:2104} stands in {area:2103}; {npc:2094} stands by the north gate."] = "{npc:2104} se tient dans {area:2103} ; {npc:2094} se tient près de la porte nord.",
 	-- ["{npc:2104}: for {npc:270637}"] = "{npc:2104} : pour {npc:270637}",
 	-- ["{npc:211033}: only offered once you have handed in library books (the Library Books guide)"] = "{npc:211033} : proposée seulement une fois que vous avez rendu des livres de la bibliothèque (le guide Livres de la bibliothèque)",
+	-- ["{npc:2276}, inside"] = "{npc:2276}, à l'intérieur",
 	-- ["{npc:2438} also wants a {item:3719}, a {item:2997} and {item:2321}: crafted or bought; the cloak is turned in when you are back in {area:271} later."] = "{npc:2438} veut aussi une {item:3719}, un {item:2997} et du {item:2321} : fabriqués ou achetés ; la cape se rend plus tard, à votre retour à {area:271}.",
+	-- ["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave.\n{quest:98059}: {npc:251493} hands you a {item:279386} for the {area:287} council, in the farms west of {area:271}; you deliver it after the Syndicate camp."] = "{npc:251493} se tient au nord-ouest du maître de vol, sur le chemin de la grotte des yétis, au nord.\n{quest:98059} : {npc:251493} vous remet une {item:279386} pour le conseil de {area:287}, dans les fermes à l'ouest d'{area:271} ; vous la livrez après le camp du Syndicat.",
 	-- ["{npc:270844}: for {npc:3649} in {area:442} (02-desolace)"] = "{npc:270844} : pour {npc:3649} à {area:442} (02-desolace)",
 	-- ["{npc:2784}, the {object:171709}"] = "{npc:2784}, {object:171709}",
 	-- ["{npc:5683} waits north of {area:205} by the {area:880}; {npc:271322} a short walk further north-east."] = "{npc:5683} attend au nord de {area:205}, près du {area:880} ; {npc:271322} à quelques pas plus au nord-est.",

@@ -145,7 +145,7 @@ return {
 	-- {area:16624} Shen'dar Village
 	["{area:16624} hand-ins"] = "在{area:16624}交任务",
 	-- {npc:251905} Zerril Softbreeze · {npc:251906} Teeri Wellwind · {npc:251991} Taleen Shimmerthread · {npc:252172} Danarii Bellowveil · {npc:251523} Constable Aonda · {area:16624} Shen'dar Village · {item:5469} Strider Meat
-	["{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} and {npc:251523} all stand in {area:16624}. If you are still short of {item:5469}, the Galestriders graze just south of the village."] = "{npc:251905}、{npc:251906}、{npc:251991}、{npc:252172} 和 {npc:251523} 都在 {area:16624}。如果 {item:5469} 还不够，疾风陆行鸟就在村子正南边吃草。",
+	["{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} and {npc:251523} all stand in {area:16624}. If you are still short of {item:5469}, the Galestriders graze just west of the village; the Al'Aketh camps south and south-east of it are a level or two higher."] = "{npc:251905}、{npc:251906}、{npc:251991}、{npc:252172} 和 {npc:251523} 都在 {area:16624}。如果 {item:5469} 还不够，疾风陆行鸟就在村子正西边吃草；村子南边和东南边的阿尔阿凯斯营地要高一两级。",
 
 	-- Step 32: Shen'dar Highlands: kill these as you meet them
 	-- {area:16623} Shen'dar Highlands
@@ -353,6 +353,10 @@ return {
 	-- {npc:252476} Talaanis Shadowsong
 	["talk to {npc:252476}"] = "与{npc:252476}交谈",
 
+	-- Step 75: Desperate Times
+	-- {npc:251968} Ayessa Dawnsinger · {npc:252475} Elaadrin Evengale
+	["Valennia asks you to hear out both leaders: {npc:251968} of the Horde and {npc:252475} of the Alliance. {npc:252475}'s name shows red to you, but he talks to you all the same, and the quest needs both."] = "瓦伦妮娅请你听取双方领袖的意见：部落的{npc:251968}和联盟的{npc:252475}。{npc:252475}的名字对你显示为红色，但他照样会和你对话，而任务需要两人都谈过。",
+
 	-- Step 77: Desperate Times
 	-- {npc:253844} Valennia Stormfist
 	["talk to {npc:253844}"] = "与{npc:253844}交谈",
@@ -441,8 +445,8 @@ return {
 	["You leave the isle for good. {npc:259119} waits where the airship lands."] = "你将永远离开这座岛。{npc:259119}在飞艇降落处等候。",
 	-- {npc:259119} Alaana Stormwalker · {zone:1454} Orgrimmar
 	["{npc:259119}: keep it: Thrall in {zone:1454}, at the start of the next guide"] = "{npc:259119}：保留任务，下篇指南开始时交给{zone:1454}的萨尔",
-	-- {npc:253957} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
-	["{npc:253957}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:253957}，在降落处旁：交给{zone:1456}的{npc:3033}",
+	-- {npc:259118} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
+	["{npc:259118}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:259118}，在降落处旁：交给{zone:1456}的{npc:3033}",
 
 	-- Step 97: Clarice Foster
 	-- {npc:5543} Clarice Foster · {area:2197} Pools of Vision · {area:1640} Spirit Rise
@@ -571,12 +575,14 @@ return {
 	-- ["{npc:251374} sends you to the {area:16988}, just east of the village: drink the {item:6635} there to see the {npc:251166}, then take the {item:6656} back to him."] = "{npc:251374}让你去村子东边不远处的{area:16988}：在那里喝下{item:6635}以看到{npc:251166}，然后把{item:6656}带回给他。",
 	-- ["{npc:251374} stands in the village."] = "{npc:251374}站在村子里。",
 	-- ["{npc:251374}, at the village centre"] = "{npc:251374}，在村子中央",
+	-- ["{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} and {npc:251523} all stand in {area:16624}. If you are still short of {item:5469}, the Galestriders graze just south of the village."] = "{npc:251905}、{npc:251906}、{npc:251991}、{npc:252172} 和 {npc:251523} 都在 {area:16624}。如果 {item:5469} 还不够，疾风陆行鸟就在村子正南边吃草。",
 	-- ["{npc:252095} waits in {area:16622}, south-west of the village. The Al'Aketh camp is just beyond her; {npc:256935} leads it."] = "{npc:252095}在村子西南方的{area:16622}等候。奥拉凯斯营地就在她身后；{npc:256935}是营地首领。",
 	-- ["{npc:252359} stands on {area:16638}'s east side."] = "{npc:252359}站在{area:16638}东侧。",
 	-- ["{npc:252377} stands in the middle of {area:16638}."] = "{npc:252377}站在{area:16638}中央。",
 	-- ["{npc:252377}: Defensive Stance"] = "{npc:252377}：防御姿态",
 	-- ["{npc:252382} stands on {area:16638}'s west side."] = "{npc:252382}站在{area:16638}西侧。",
 	-- ["{npc:252389} in {area:16638} hands you a {item:15908} three times: tame a {npc:254588} by the lakes north-west of town, an {npc:251707} in the fields west of town and a {npc:250874} at {area:16663}, returning to her after each. {npc:254411} stands beside her."] = "{area:16638}的{npc:252389}会三次交给你{item:15908}：在城镇西北方的湖边驯服一只{npc:254588}，在城镇西边的田野驯服一只{npc:251707}，在{area:16663}驯服一只{npc:250874}，每次驯服后都回到她那里。{npc:254411}站在她旁边。",
+	-- ["{npc:253957}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:253957}，在降落处旁：交给{zone:1456}的{npc:3033}",
 	-- ["{npc:254411}: Beast Training"] = "{npc:254411}：训练野兽",
 	-- ["{npc:255853} waits by the falls just north of the watchtower."] = "{npc:255853}在瞭望塔北边不远处的瀑布旁等候。",
 	-- ["{npc:255853}: Bear Form"] = "{npc:255853}：熊形态",

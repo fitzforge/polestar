@@ -222,5 +222,7 @@ end)
 ns.RegisterEvent("ZONE_CHANGED_NEW_AREA", wake)
 
 Theme.OnChanged(function()
-	for frame in pairs(attached) do refresh(frame, false) end
+	for frame in pairs(attached) do
+		if not (Theme.LiveHidden and Theme.LiveHidden(frame)) then refresh(frame, false) end
+	end
 end)

@@ -173,8 +173,7 @@ return {
 	["{npc:1938}: his books lie in the {area:227} farmhouse, on the walk north"] = "{npc:1938}: os livros dele ficam na casa da fazenda de {area:227}, na caminhada para o norte",
 	-- {npc:1937} Apothecary Renferrel · {zone:1458} Undercity
 	["{npc:1937}: Zinge in the {zone:1458}, on the way to the zeppelin at the end"] = "{npc:1937}: Zilda em {zone:1458}, no caminho para o zepelim, no fim",
-	-- {area:233} Ambermill
-	["{area:233} comes later, down the lake shore"] = "{area:233} vem depois, descendo pela margem do lago",
+	["Allister's Ambermill Investigations is for the ride through Silverpine at 22; leave it."] = "Investigações em Moinho Âmbar, de Allister, é para a passagem por Pinhaprata no nível 22; deixe-a.",
 
 	-- Step 37: Valgan's Field farmhouse
 	-- {area:227} Valgan's Field
@@ -195,16 +194,12 @@ return {
 	["Follow the lake shore south-east from the Yoricks' house: the Vile Fin Shredders and Tidehunters along it drop the murloc eyes."] = "Siga a margem do lago para o sudeste a partir da casa dos Yorick: os Retalhadores Pinavil e os Caçamarés que andam por ela soltam os olhos de murloc.",
 
 	-- Step 40: The Decrepit Ferry
-	-- {object:1593} Corpse Laden Boat · {area:233} Ambermill
-	["Follow the lake shore south from the murlocs: the {object:1593} lies at the ferry landing, on the way to {area:233}."] = "Siga a margem do lago para o sul, saindo dos murlocs: {object:1593} fica no embarcadouro da balsa, a caminho de {area:233}.",
+	-- {object:1593} Corpse Laden Boat
+	["Follow the lake shore south from the murlocs: the {object:1593} lies at the ferry landing."] = "Siga a margem do lago para o sul, saindo dos murlocs: {object:1593} fica no embarcadouro da balsa.",
 
-	-- Step 41: Ambermill
-	-- {area:233} Ambermill · {npc:2540} Dalaran Serpent · {npc:2120} Archmage Ataeric
-	["Keep south along the shore from the ferry to {area:233}. Protectors guard the outskirts and Mages the town; both drop pendants. Careful: each Mage (15) fights with a {npc:2540} (15) beside it: pull one Mage at a time from the outskirts. Stay out of the middle, where {npc:2120} (22) stands."] = "Continue ao sul pela margem, saindo da balsa, até {area:233}. Protetoras guardam a periferia e Magos a cidade; ambos deixam cair pingentes. Cuidado: cada Mago (15) luta com um {npc:2540} (15) ao lado: puxe um Mago de cada vez a partir da periferia. Fique longe do meio, onde fica {npc:2120} (22).",
-
-	-- Step 42: The Sepulcher
+	-- Step 41: The Sepulcher
 	-- {area:228} The Sepulcher
-	["Back north-west up the road to the {area:228}."] = "De volta ao noroeste pela estrada, até {area:228}.",
+	["From the ferry back west up the road to the {area:228}."] = "Da balsa, volte para oeste pela estrada até {area:228}.",
 	-- {npc:1937} Apothecary Renferrel
 	["{npc:1937}: for Quinn, on the road north at the end"] = "{npc:1937}: para o Quintino, na estrada ao norte, no final",
 	-- {npc:1938} Dalar Dawnweaver
@@ -212,16 +207,16 @@ return {
 	-- {npc:1499} Magistrate Sevren · {area:159} Brill
 	["{npc:1499} in {area:159}, on the way to the zeppelin at the end"] = "{npc:1499} em {area:159}, a caminho do zepelim no fim",
 
-	-- Step 43: The Ivar Patch
+	-- Step 42: The Ivar Patch
 	-- {zone:1420} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
 	["Take the road north toward {zone:1420}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "Pegue a estrada para o norte rumo a {zone:1420}: a casa dos Yorick, em {area:238}, fica no caminho. {quest:425} espreita a uma curta caminhada a oeste dela.",
 	["Inside"] = "Lá dentro",
 
-	-- Step 45: Magistrate Sevren
+	-- Step 44: Magistrate Sevren
 	-- {area:159} Brill · {npc:1499} Magistrate Sevren
 	["{area:159} is a short walk north up the road from the zeppelin towers; {npc:1499} is in the town hall."] = "{area:159} fica a uma curta caminhada para o norte pela estrada, saindo das torres do zepelim; {npc:1499} está na prefeitura.",
 
-	-- Step 47: The Undercity
+	-- Step 46: The Undercity
 	-- {object:1661} The Undercity (no name in this language: may be words) · {area:153} Ruins of Lordaeron · {npc:2050} Raleigh Andrean · {npc:7683} Alessandro Luca · {npc:11044} Doctor Martin Felben · {npc:5204} Apothecary Zinge · {npc:2055} Master Apothecary Faranell
 	["{object:1661} lies under the {area:153}, beside the zeppelin towers. {npc:2050} stands at the inn by the way down; {npc:7683} on the way down to the Apothecarium, where {npc:11044} and {npc:5204} stand beside {npc:2055}."] = "{object:1661} fica sob {area:153}, ao lado das torres dos zepelins. {npc:2050} fica na estalagem, junto à descida; {npc:7683} na descida para o Apothecarium, onde {npc:11044} e {npc:5204} ficam ao lado de {npc:2055}.",
 	-- {npc:4556} Gordon Wendham
@@ -239,25 +234,25 @@ return {
 	-- {npc:260093} Garen Largo · {area:1497} Undercity
 	["{npc:260093}, the {area:1497}'s paladin trainer"] = "{npc:260093}, o treinador de paladinos da {area:1497}",
 
-	-- Step 48: Brom Killian
+	-- Step 47: Brom Killian
 	-- {npc:4598} Brom Killian · {zone:1458} Undercity
 	["{npc:4598}, the mining trainer, works in the {zone:1458}."] = "{npc:4598}, o instrutor de mineração, trabalha em {zone:1458}.",
 	-- {npc:4598} Brom Killian · {npc:265812} Eleanor Shackleton
 	["{npc:4598}: Camping 101, from {npc:265812}'s campfire in Tirisfal"] = "{npc:4598}: Acampamento 101, da fogueira de {npc:265812} em Tirisfal",
 
-	-- Step 49: Basil Frye
+	-- Step 48: Basil Frye
 	-- {npc:4605} Basil Frye · {zone:1458} Undercity
 	["{npc:4605}, the blacksmithing trainer, works in the {zone:1458}."] = "{npc:4605}, o instrutor de ferraria, trabalha em {zone:1458}.",
 	-- {npc:4605} Basil Frye · {npc:265812} Eleanor Shackleton
 	["{npc:4605}: Camping 101, from {npc:265812}'s campfire in Tirisfal"] = "{npc:4605}: Acampamento 101, da fogueira de {npc:265812} em Tirisfal",
 
-	-- Step 50: Graham Van Talen
+	-- Step 49: Graham Van Talen
 	-- {npc:4586} Graham Van Talen · {zone:1458} Undercity
 	["{npc:4586}, the engineering trainer, works in the {zone:1458}."] = "{npc:4586}, o instrutor de engenharia, trabalha em {zone:1458}.",
 	-- {npc:4586} Graham Van Talen · {npc:265812} Eleanor Shackleton
 	["{npc:4586}: Camping 101, from {npc:265812}'s campfire in Tirisfal"] = "{npc:4586}: Acampamento 101, da fogueira de {npc:265812} em Tirisfal",
 
-	-- Step 51: Lady Sylvanas Windrunner
+	-- Step 50: Lady Sylvanas Windrunner
 	-- {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter (no name in this language: may be words)
 	["{npc:10181} holds court in the {object:36126}."] = "{npc:10181} despacha em {object:36126}.",
 	-- {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter (no name in this language: may be words) · {quest:93739} Exploring the Horde
@@ -265,48 +260,50 @@ return {
 	-- {npc:10181} Lady Sylvanas Windrunner
 	["Talk to {npc:10181}"] = "Fale com {npc:10181}",
 
-	-- Step 52: Zeppelin to Orgrimmar
+	-- Step 51: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "Zepelim para {zone:1454}",
 
-	-- Step 53: Orgrimmar
+	-- Step 52: Orgrimmar
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength (no name in this language: may be words)
 	["{zone:1454}'s {object:172982}"] = "{object:172982} de {zone:1454}",
 
-	-- Step 54: Valley of Strength
+	-- Step 53: Valley of Strength
 	-- {npc:268701} Thatog · {object:172982} Valley of Strength (no name in this language: may be words)
 	["Walk in through the main gate. {npc:268701} stands in the {object:172982}."] = "Entre pelo portão principal. {npc:268701} fica em {object:172982}.",
 
-	-- Step 57: Neeru Fireblade
+	-- Step 56: Neeru Fireblade
 	-- {area:2437} Ragefire Chasm · {object:172960} Cleft of Shadow (no name in this language: may be words) · {object:172982} Valley of Strength (no name in this language: may be words) · {npc:3216} Neeru Fireblade
 	["For your {area:2437} run: the {object:172960} is the canyon under the {object:172982}; {npc:3216} stands at its far end, next to the {area:2437} portal."] = "Para a masmorra {area:2437}: o {object:172960} é o cânion sob o {object:172982}; {npc:3216} fica no fundo dele, ao lado do portal de {area:2437}.",
 
-	-- Step 58: Ragefire Chasm
+	-- Step 57: Ragefire Chasm
 	-- {area:2437} Ragefire Chasm · {object:172960} Cleft of Shadow (no name in this language: may be words) · {npc:3216} Neeru Fireblade · {npc:11520} Taragaman the Hungerer · {npc:11518} Jergosh the Invoker · {npc:4949} Thrall
 	["{area:2437} is a dungeon for a group of five, about levels 13 to 18, and a full run takes 30 to 45 minutes. Its portal is in the {object:172960}, beside {npc:3216}.\nInside: past Oggleflint and his troggs, {npc:11520} waits in the lava cave and drops his heart. {npc:11518} and Bazzalan, further in, are for {npc:4949}'s Hidden Enemies, which this route leaves out."] = "{area:2437} é uma masmorra para um grupo de cinco, por volta dos níveis 13 a 18, e percorrê-la inteira leva de 30 a 45 minutos. O portal fica no {object:172960}, ao lado de {npc:3216}.\nLá dentro: depois de Oggleflint e seus troggs, {npc:11520} espera na caverna de lava e deixa cair o coração dele. {npc:11518} e Bazzalan, mais adiante, são para Hidden Enemies, de {npc:4949}, que esta rota deixa de fora.",
 
-	-- Step 59: Neeru Fireblade
+	-- Step 58: Neeru Fireblade
 	-- {npc:3216} Neeru Fireblade
 	["Back out through the portal: {npc:3216} stands beside it."] = "Saia de volta pelo portal: {npc:3216} fica ao lado dele.",
 
-	-- Step 63: Sayoc
+	-- Step 62: Sayoc
 	-- {spell:197} Two-Handed Axes · {npc:11868} Sayoc · {object:172958} Valley of Honor (no name in this language: may be words)
 	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Paladin fastest."] = "Já que está aqui: aprenda {spell:197} com {npc:11868} ({object:172958}, 10 pratas); arma de duas mãos é o jeito mais rápido de upar Paladino.",
 
-	-- Step 65: Valley of Wisdom
+	-- Step 64: Valley of Wisdom
 	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom (no name in this language: may be words) · {area:379} Far Watch Post
 	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
 	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684} e {npc:268682} ficam atrás da Fortaleza Grommash, em {object:172957}; os Pedregulhos Lisos estão em volta deles. O próximo guia vai daqui até {area:379} e a Encruzilhada.",
 
-	-- Step 66: Zor Lonetree
+	-- Step 65: Zor Lonetree
 	-- {npc:4047} Zor Lonetree · {npc:4049} Seereth Stonebreak
 	["{npc:4047}: {npc:4049}, on the road into Stonetalon in the next guide"] = "{npc:4047}: {npc:4049}, na estrada que entra em Torres de Pedra, no próximo guia",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At the {area:2362}"] = "Em {area:2362}",
+	-- ["Back north-west up the road to the {area:228}."] = "De volta ao noroeste pela estrada, até {area:228}.",
 	-- ["Cast {spell:18960}; {npc:11802} is in {area:2361}. The Shrine Baubles lie on the bed of {area:656} and fade within minutes: swim one straight to the {area:2362} on the north-west shore, use it there and speak to {npc:11799}."] = "Lance {spell:18960}; {npc:11802} está em {area:2361}. Os Adornos de Altar ficam no fundo de {area:656} e somem em poucos minutos: nade com um direto até {area:2362} na margem noroeste, use-o lá e fale com {npc:11799}.",
 	-- ["Druid trainer"] = "Instrutor de druida",
 	-- ["Fly to {area:1638}: {npc:3033} trains you on {area:1639}. Skyborne: fly back to {zone:1454} for the zeppelin afterwards."] = "Voe até {area:1638}: {npc:3033} treina você no {area:1639}. Nascido nos Céus: depois, voe de volta a {zone:1454} para o zepelim.",
+	-- ["Follow the lake shore south from the murlocs: the {object:1593} lies at the ferry landing, on the way to {area:233}."] = "Siga a margem do lago para o sul, saindo dos murlocs: {object:1593} fica no embarcadouro da balsa, a caminho de {area:233}.",
 	-- ["Follow the lake shore south-east and swim out to {area:172}. Rot Hide gnolls cover the island; every type drops ichor. Stay out of {area:235} on its north side unless you go for the optional niche: the gnolls there are level 18-22."] = "Siga a margem do lago para sudeste e nade até {area:172}. Gnolls Putricouro cobrem a ilha; todo tipo deixa cair linfa. Fique fora de {area:235}, no lado norte, a menos que vá ao nicho opcional: os gnolls lá são de nível 18-22.",
 	-- ["Follow the lake shore south-east toward {area:172}: the Vile Fin Shredders and Tidehunters along it drop the murloc eyes."] = "Siga a margem do lago para sudeste rumo a {area:172}: os Retalhadores e Caçamarés Pinavil ao longo dela deixam cair os olhos de murloc.",
 	-- ["Follow the road north out of Silverpine into {zone:1420} and east to the zeppelin towers outside the {area:153}. Take the zeppelin to {zone:1454}."] = "Siga a estrada para o norte saindo de Pinhaprata até {zone:1420} e para leste até as torres de zepelim do lado de fora das {area:153}. Pegue o zepelim para {zone:1454}.",
@@ -316,6 +313,7 @@ return {
 	-- ["Into Silverpine"] = "Rumo a Pinhaprata",
 	-- ["Keep it: Thork at the {area:380}"] = "Guarde-o: Thork na {area:380}",
 	-- ["Keep it: {npc:2216} in {area:272}, a later guide"] = "Guarde-o: {npc:2216} em {area:272}, num guia posterior",
+	-- ["Keep south along the shore from the ferry to {area:233}. Protectors guard the outskirts and Mages the town; both drop pendants. Careful: each Mage (15) fights with a {npc:2540} (15) beside it: pull one Mage at a time from the outskirts. Stay out of the middle, where {npc:2120} (22) stands."] = "Continue ao sul pela margem, saindo da balsa, até {area:233}. Protetoras guardam a periferia e Magos a cidade; ambos deixam cair pingentes. Cuidado: cada Mago (15) luta com um {npc:2540} (15) ao lado: puxe um Mago de cada vez a partir da periferia. Fique longe do meio, onde fica {npc:2120} (22).",
 	-- ["Moonrage Bloodhowlers"] = "Uivassangues Lunafúria",
 	-- ["Mottled Worgs prowl the hills around the house. Then walk south along the lake shore: the Vile Fin Shredders and Tidehunters there drop the murloc eyes."] = "Worgs Mosqueados rondam as colinas em volta da casa. Depois ande para o sul pela margem do lago: os Retalhadores e Caçamarés Pinavil de lá deixam cair os olhos de murloc.",
 	-- ["North again to the Yoricks' house. {quest:425} lurks a short walk west of it."] = "De novo ao norte até a casa dos Yorick. {quest:425} espreita a uma curta caminhada a oeste dela.",
@@ -342,6 +340,7 @@ return {
 	-- ["Zeppelin tower"] = "Torre de zepelim",
 	-- ["grind on {npc:1909} at {area:1338}, {zone:1421}"] = "farme {npc:1909} no {area:1338}, {zone:1421}",
 	-- ["{area:1338} shore"] = "Margem do {area:1338}",
+	-- ["{area:233} comes later, down the lake shore"] = "{area:233} vem depois, descendo pela margem do lago",
 	-- ["{area:233} comes later, on the southern loop"] = "{area:233} vem depois, no circuito sul",
 	-- ["{item:15877}, from a {object:177785} in the lake"] = "{item:15877}, de um {object:177785} no lago",
 	-- ["{item:3317}: a rare drop from the gnolls"] = "{item:3317}: item raro dos gnolls",

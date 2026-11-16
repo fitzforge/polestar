@@ -204,7 +204,8 @@ fn follow_ups(ctx: &Ctx, c: &mut Check) {
 		(&[LOCH_MODAN, REDRIDGE], 98386, &[89], false),
 		(&[WESTFALL], 92745, &[92742, 92744], false),
 		(&[WESTFALL, LOCH_MODAN], 92747, &[92745, 92744], false),
-		(&[HILLSBRAD_HORDE], 98094, &[528], false),
+		// Scout Support leads to Valuable Vantages, left out of the Horde route since the 0.4.0 level tidy.
+		(&[HILLSBRAD_HORDE], 98094, &[528], true),
 		(&[SILVERPINE], 91920, &[430], false),
 		(&[SILVERPINE], 91921, &[91920], true),
 		(&[HILLSBRAD_ALLIANCE], 98209, &[98208], true),

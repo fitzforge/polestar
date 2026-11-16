@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {npc:6266} Menara Voidrender
-	["A rare cloth robe for your 30s from {npc:6266}; its last parts wait for levels 35 and 37."] = "Редкое тканевое одеяние для 30-х уровней от NPC {npc:6266}; последние его части ждут 35-го и 37-го уровней.",
+	["A rare cloth robe for your 30s from {npc:6266}; its last parts wait for levels 37 and 39."] = "Редкое тканевое одеяние для 30-х уровней от NPC {npc:6266}; последние его части ждут 37-го и 39-го уровней.",
 
 	-- Step 1: In Search of Menara Voidrender (Stormwind)
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6266} Menara Voidrender · {area:392} Ratchet · {item:5770} Robes of Arcana · {item:3577} Gold Bar
@@ -42,7 +42,7 @@ return {
 	["{npc:6266} stands by {npc:6251}'s tower on the hill above {area:392}, behind the engineers' hut. She takes the robe, then sends the gold bar to {npc:2670} in {area:35}."] = "",
 
 	-- Step 7: Xizk Goodstitch
-	-- {area:392} Ratchet · {area:35} Booty Bay · {npc:2670} Xizk Goodstitch · {object:59851} A Tailor to Cities (no name in this language: may be words) · {item:3577} Gold Bar
+	-- {area:392} Ratchet · {area:35} Booty Bay · {npc:2670} Xizk Goodstitch · {object:59851} A Tailor to Cities · {item:3577} Gold Bar
 	["The boat from {area:392} sails to {area:35}. {npc:2670} runs {object:59851} on an upper level of the town. Give him the {item:3577}; he will spin the thread later."] = "",
 
 	-- Step 8: Back to Menara Voidrender
@@ -60,7 +60,7 @@ return {
 	-- Step 10: Mannoroc Coven
 	-- {area:602} Mannoroc Coven · {zone:1443} Desolace · {spell:686} Shadow Bolt
 	-- plural, as words: Lesser Infernals = {npc:4676} Lesser Infernal · Demon Portal Guardians = {npc:11937} Demon Portal Guardian
-	["The Lesser Infernals (36-37) and Demon Portal Guardians (38) of {area:602}, in the south of {zone:1443}, drop the stone half the time. The guide waits for level 35 first: at 31 they are too strong to solo. They resist fire, so use {spell:686} and Corruption."] = "Младшие инферналы (36-37) и стражи портала демонов (38) на юге зоны {zone:1443} ({area:602}) роняют камень в половине случаев. Сначала гайд ждет 35-го уровня: на 31-м они слишком сильны для одиночки. Они устойчивы к огню, так что используйте {spell:686} и «Порчу».",
+	["The Lesser Infernals (36-37) and Demon Portal Guardians (38) of {area:602}, in the south of {zone:1443}, drop the stone half the time. The guide waits for level 39 first: at 31 they are too strong to solo. They resist fire, so use {spell:686} and Corruption."] = "Младшие инферналы (36-37) и стражи портала демонов (38) на юге зоны {zone:1443} ({area:602}) роняют камень в половине случаев. Сначала гайд ждет 39-го уровня: на 31-м они слишком сильны для одиночки. Они устойчивы к огню, так что используйте {spell:686} и «Порчу».",
 
 	-- Step 11: Menara Voidrender again
 	-- {npc:6266} Menara Voidrender
@@ -75,7 +75,7 @@ return {
 	-- Step 13: Smoldering Coal
 	-- {area:334} Circle of West Binding · {zone:1417} Arathi Highlands · {spell:686} Shadow Bolt · {area:321} Hammerfall · {item:6265} Soul Shard · {spell:1120} Drain Soul
 	-- plural, as words: Burning Exiles = {npc:2760} Burning Exile · Cresting Charms = {item:4481} Cresting Charm · Cresting Exiles = {npc:2761} Cresting Exile
-	["The Burning Exiles (level 38-39), fire elementals at the {area:334} in western {zone:1417}, drop the coal about one time in three. The guide waits for level 37 first: below it they hit too hard to solo. They resist fire: {spell:686} and Corruption. The Cresting Charms from the Cresting Exiles near {area:321} finish one off once you have hurt it. Make a {item:6265} with {spell:1120} on the way."] = "Пылающие изгои (38-39 уровень), огненные элементали у места {area:334} на западе зоны {zone:1417}, роняют уголь примерно в одном случае из трех. Сначала гайд ждет 37-го уровня: раньше они бьют слишком сильно для одиночки. Они устойчивы к огню: {spell:686} и «Порча». Обереги Гребня с морских изгоев у места {area:321} добивают раненого изгоя. По пути сделайте {item:6265} с помощью {spell:1120}.",
+	["The Burning Exiles (level 38-39), fire elementals at the {area:334} in western {zone:1417}, drop the coal about one time in three. The guide waits for level 39 first: below it they hit too hard to solo. They resist fire: {spell:686} and Corruption. The Cresting Charms from the Cresting Exiles near {area:321} finish one off once you have hurt it. Make a {item:6265} with {spell:1120} on the way."] = "Пылающие изгои (38-39 уровень), огненные элементали у места {area:334} на западе зоны {zone:1417}, роняют уголь примерно в одном случае из трех. Сначала гайд ждет 39-го уровня: раньше они бьют слишком сильно для одиночки. Они устойчивы к огню: {spell:686} и «Порча». Обереги Гребня с морских изгоев у места {area:321} добивают раненого изгоя. По пути сделайте {item:6265} с помощью {spell:1120}.",
 	-- {item:6265} Soul Shard · {spell:1120} Drain Soul
 	["{item:6265}: {spell:1120} on an Exile as it dies"] = "",
 
@@ -86,12 +86,15 @@ return {
 	["Wait beside {npc:6266} while she finishes the robe"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A rare cloth robe for your 30s from {npc:6266}; its last parts wait for levels 35 and 37."] = "Редкое тканевое одеяние для 30-х уровней от NPC {npc:6266}; последние его части ждут 35-го и 37-го уровней.",
 	-- ["A rare cloth robe for your 30s, which {npc:6266} makes from the parts you bring her."] = "Редкое тканевое одеяние для 30-х уровней; {npc:6266} создает его из принесенных вами частей.",
 	-- ["At 31 {npc:4563} in the {object:36082} sends you to {npc:6266} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}."] = "На 31-м уровне {npc:4563} ({object:36082}) отправляет вас к персонажу {npc:6266} ({area:392}). Дирижабль летит: {zone:1420} → {zone:1411}.",
 	-- ["Bring {npc:6266} a {item:5770}: tailors sew it from a pattern that drops; otherwise buy one at the Auction House. Her next errand needs a {item:3577}: smelted from {item:2776}, or from the Auction House."] = "Принесите {npc:6266} предмет {item:5770}: портные шьют его по выкройке, которая падает с врагов; иначе купите на аукционе. Для следующего поручения нужен {item:3577}: выплавьте из предмета {item:2776} или купите на аукционе.",
+	-- ["The Burning Exiles (level 38-39), fire elementals at the {area:334} in western {zone:1417}, drop the coal about one time in three. The guide waits for level 37 first: below it they hit too hard to solo. They resist fire: {spell:686} and Corruption. The Cresting Charms from the Cresting Exiles near {area:321} finish one off once you have hurt it. Make a {item:6265} with {spell:1120} on the way."] = "Пылающие изгои (38-39 уровень), огненные элементали у места {area:334} на западе зоны {zone:1417}, роняют уголь примерно в одном случае из трех. Сначала гайд ждет 37-го уровня: раньше они бьют слишком сильно для одиночки. Они устойчивы к огню: {spell:686} и «Порча». Обереги Гребня с морских изгоев у места {area:321} добивают раненого изгоя. По пути сделайте {item:6265} с помощью {spell:1120}.",
 	-- ["The Burning Exiles, fire elementals in western {zone:1417}, drop the coal."] = "Уголь падает с пылающих изгоев – огненных элементалей на западе зоны {zone:1417}.",
 	-- ["The Hatefury satyrs of {area:603}, in north-eastern {zone:1443}, carry the blood; the Lesser Infernals of Mannoroc Coven, in the south, the stone."] = "Кровь носят сатиры из племени Ярой Ненависти ({area:603}, северо-восток зоны {zone:1443}), камень – младшие инферналы на юге (Поле Маннорок).",
 	-- ["The Hatefury satyrs of {area:603}, in north-eastern {zone:1443}, carry the blood; the Lesser Infernals of {area:602}, in the south, the stone."] = "Кровь носят сатиры из племени Ярой Ненависти ({area:603}, северо-восток зоны {zone:1443}), камень – младшие инферналы на юге ({area:602}).",
+	-- ["The Lesser Infernals (36-37) and Demon Portal Guardians (38) of {area:602}, in the south of {zone:1443}, drop the stone half the time. The guide waits for level 35 first: at 31 they are too strong to solo. They resist fire, so use {spell:686} and Corruption."] = "Младшие инферналы (36-37) и стражи портала демонов (38) на юге зоны {zone:1443} ({area:602}) роняют камень в половине случаев. Сначала гайд ждет 35-го уровня: на 31-м они слишком сильны для одиночки. Они устойчивы к огню, так что используйте {spell:686} и «Порчу».",
 	-- ["Wait for the robe"] = "Дождитесь одеяния",
 	-- ["{npc:2670} in {area:35} has the thread for you."] = "У персонажа {npc:2670} ({area:35}) есть для вас нить.",
 	-- ["{npc:2670} sells tailoring supplies in {area:35}. Bring him the {item:3577}."] = "{npc:2670} продает товары для портных ({area:35}). Принесите ему: {item:3577}.",

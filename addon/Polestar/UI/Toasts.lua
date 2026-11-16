@@ -415,7 +415,9 @@ end)
 
 -- A theme change repaints the windows' grounds: the toasts' own go back on.
 Theme.OnChanged(function()
-	for frame in pairs(attached) do refresh(frame, false) end
+	for frame in pairs(attached) do
+		if not (Theme.LiveHidden and Theme.LiveHidden(frame)) then refresh(frame, false) end
+	end
 end)
 
 ---------------------------------------------------------------------------

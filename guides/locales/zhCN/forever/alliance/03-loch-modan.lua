@@ -221,8 +221,8 @@ return {
 
 	-- Step 40: Sunken Chest
 	-- {area:68} Lake Everstill · {item:1467} Spotted Sunfish
-	-- plural, as words: Murloc Flesheaters = {npc:422} Murloc Flesheater
-	["Back toward town, swim east from the bridge into {area:68}; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a {item:1467}."] = "往镇子方向回走，从桥边向东游进{area:68}：箱子就在湖床上、沉船旁。{npc:422}和鱼人潮行者在南岸一带出没，每个都可能带着{item:1467}。",
+	-- plural, as words: Murloc Flesheaters = {npc:422} Murloc Flesheater · Lake Threshers = {npc:14357} Lake Thresher
+	["Back toward town, swim east from the bridge into {area:68}; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a {item:1467}.\nCareful: Lake Threshers, level 25 elites, swim in the lake: keep your distance from them while you dive for the chest."] = "往镇子方向回走，从桥边向东游进{area:68}：箱子就在湖床上、沉船旁。{npc:422}和鱼人潮行者在南岸一带出没，每个都可能带着{item:1467}。\n小心：{npc:14357}是25级精英，在湖里游动：潜水找箱子时与它们保持距离。",
 	-- {item:1309} Oslow's Toolbox
 	["{item:1309}; underwater"] = "{item:1309}；水下",
 
@@ -415,6 +415,7 @@ return {
 	["{npc:1646}: for {npc:1719}, at the {area:717}'s gate"] = "{npc:1646}：交给{area:717}大门处的{npc:1719}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back toward town, swim east from the bridge into {area:68}; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a {item:1467}."] = "往镇子方向回走，从桥边向东游进{area:68}：箱子就在湖床上、沉船旁。{npc:422}和鱼人潮行者在南岸一带出没，每个都可能带着{item:1467}。",
 	-- ["Elder Mountain Boars and {npc:270693}"] = "老山猪和{npc:270693}",
 	-- ["South along the west shore. A {object:665289} lies on the loch bed east of {area:144} (it moves between several spots): open it for the {item:278051}, which starts the quest."] = "沿西岸向南走。{area:144}东面的湖底有一个{object:665289}（会在几处位置间变换）：打开可获得{item:278051}，用它接任务。",
 	-- ["The Elder Mountain Boars roam the hills north-west of the lodge, along the east shore. {npc:270693}, a crocolisk, patrols the shore below them. {quest:258} runs for 12 minutes."] = "老山猪出没于小屋西北、东岸沿线的山丘。鳄鱼{npc:270693}在山丘下方的岸边巡逻。{quest:258}限时12分钟。",

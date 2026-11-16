@@ -32,19 +32,21 @@ return {
 	-- {item:8051} Flare Gun
 	["{item:8051}, twice, at Fizzule"] = "",
 
-	-- Step 4: Silixiz's Tower Key
-	-- {item:8066} Fizzule's Whistle · {npc:7287} Foreman Silixiz · {spell:921} Pick Pocket
-	["Keep {item:8066} in your bags and use it on him every time you come near, or he turns hostile. {npc:7287} (level 22) walks by the tower: hug the wall, stealth up behind him and {spell:921} the key. Killing him does not give it; if his pockets are empty, kill him and wait 4 1/2 minutes for him to come back."] = "",
+	-- Step 4: The Venture Co. tower, with a group
+	["The Venture Co. tower, with a group"] = "風險投資公司的塔，組隊",
+	-- {npc:7288} Grand Foreman Puzik Gallywix · {item:8066} Fizzule's Whistle · {npc:7287} Foreman Silixiz · {object:129127} Gallywix's Lockbox · {spell:9810} Touch of Zanzil · {npc:2391} Serge Hinott
+	-- plural, as words: Mutated Venture Co. Drones = {npc:7310} Mutated Venture Co. Drone
+	["{npc:7288} on the top floor is a level 23 elite: easier at 23 or with a friend. Keep {item:8066} in your bags and use it on him every time you come near, or he turns hostile. First Pick Pocket Silixiz's Tower Key from {npc:7287} (level 22), who walks by the tower: stealth up behind him (killing him does not give it). Then clear the tower floor by floor (everything comes back after 4 1/2 minutes): Mutated Venture Co. Drones (25) on the ground floor, Patrollers on the second, Lookouts on the open third, Gallywix on top, back 10 minutes after a kill. Pick {object:129127} beside him for the cache: it poisons you with the {spell:9810}, which weakens your stealth and agility until {npc:2391} cures it."] = "頂樓的{npc:7288}是23級精英：23級或找朋友會比較輕鬆。把{item:8066}放在背包裡，每次靠近他時都對他使用，否則他會變成敵對。先從在塔旁走動的{npc:7287}（22級）身上偷取希里克斯的塔樓鑰匙：潛行到他背後（殺死他拿不到）。然後逐層清塔（所有怪4分半後重生）：一樓是變異風險投資公司工人（25級），二樓是巡邏者，開放的三樓是瞭望者，頂樓是加里維克斯，擊殺後10分鐘重生。打開他旁邊的{object:129127}取得寶箱物品：它會讓你中{spell:9810}之毒，削弱你的潛行和敏捷，直到{npc:2391}為你治療。",
 	-- {item:8072} Silixiz's Tower Key
 	["Pick Pocket Foreman Silixiz for {item:8072}"] = "",
-
-	-- Step 5: The Venture Co. tower
-	["The Venture Co. tower"] = "",
-	-- {spell:1943} Rupture · {spell:2098} Eviscerate · {npc:7288} Grand Foreman Puzik Gallywix · {spell:1776} Gouge · {spell:5277} Evasion · {item:7676} Thistle Tea · {object:129127} Gallywix's Lockbox · {spell:9810} Touch of Zanzil · {npc:2391} Serge Hinott
-	-- plural, as words: Mutated Venture Co. Drones = {npc:7310} Mutated Venture Co. Drone
-	["Inside, floor by floor (everything comes back after 4 1/2 minutes): the Mutated Venture Co. Drones (level 25) on the ground floor die to one Ambush with a dagger; the Patrollers on the second floor take half their health from a one-point {spell:1943}; the Lookouts on the open third floor from a one-point {spell:2098}. {npc:7288} waits on the top floor: a level 23 elite, back 10 minutes after a kill. Open with Ambush (about half his health), then {spell:1776}, {spell:5277}, a healing potion and {item:7676}; a friend makes it easy. One head per kill. Then pick {object:129127} beside him for the cache: it poisons you with the {spell:9810}, which weakens your stealth and agility until {npc:2391} cures it."] = "",
 	-- {item:8074} Gallywix's Head · {npc:7288} Grand Foreman Puzik Gallywix
 	["{item:8074}: {npc:7288} (elite)"] = "{item:8074}：{npc:7288}（精英）",
+
+	-- Step 5: The Venture Co. tower, solo
+	["The Venture Co. tower, solo"] = "風險投資公司的塔，單人",
+	-- {item:8066} Fizzule's Whistle · {npc:7287} Foreman Silixiz · {spell:921} Pick Pocket · {spell:1943} Rupture · {spell:2098} Eviscerate · {npc:7288} Grand Foreman Puzik Gallywix · {spell:1776} Gouge · {spell:5277} Evasion · {item:7676} Thistle Tea · {object:129127} Gallywix's Lockbox · {spell:9810} Touch of Zanzil · {npc:2391} Serge Hinott
+	-- plural, as words: Mutated Venture Co. Drones = {npc:7310} Mutated Venture Co. Drone
+	["Keep {item:8066} in your bags and use it on him every time you come near, or he turns hostile. {npc:7287} (level 22) walks by the tower: hug the wall, stealth up behind him and {spell:921} the key. Killing him does not give it; if his pockets are empty, kill him and wait 4 1/2 minutes for him to come back. Inside, floor by floor (everything comes back after 4 1/2 minutes): the Mutated Venture Co. Drones (level 25) on the ground floor die to one Ambush with a dagger; the Patrollers on the second floor take half their health from a one-point {spell:1943}; the Lookouts on the open third floor from a one-point {spell:2098}. {npc:7288} waits on the top floor: a level 23 elite, back 10 minutes after a kill. Open with Ambush (about half his health), then {spell:1776}, {spell:5277}, a healing potion and {item:7676}; a friend makes it easy. One head per kill. Then pick {object:129127} beside him for the cache: it poisons you with the {spell:9810}, which weakens your stealth and agility until {npc:2391} cures it."] = "把{item:8066}放在背包裡，每次靠近他時都對他使用，否則他會變成敵對。{npc:7287}（22級）在塔旁走動：貼著牆，潛行到他背後用{spell:921}偷鑰匙。殺死他拿不到鑰匙；如果他口袋是空的，殺掉他並等4分半讓他重生。塔內逐層（所有怪4分半後重生）：一樓的變異風險投資公司工人（25級）用匕首一次伏擊就死；二樓的巡邏者吃一星{spell:1943}會掉一半血；開放的三樓的瞭望者則是一星{spell:2098}。{npc:7288}在頂樓等著：23級精英，擊殺後10分鐘重生。用伏擊開場（約他一半的血），然後{spell:1776}、{spell:5277}、治療藥水和{item:7676}；有朋友幫忙就很輕鬆。每次擊殺一顆頭。然後打開他旁邊的{object:129127}取得寶箱物品：它會讓你中{spell:9810}之毒，削弱你的潛行和敏捷，直到{npc:2391}為你治療。",
 
 	-- Step 6: Back to Shenthul
 	-- {npc:3401} Shenthul

@@ -17,7 +17,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 |---|---|---|
 | `guide <id>` | First line: the guide's id, starting with your pack id and `/` | `guide joe-routes/goldshire` |
 | `title <text>` | The name players see in the guide menu | `title Goldshire to Westfall` |
-| `levels <min>-<max>` | The character levels the guide is for | `levels 5-10` |
+| `levels <min>-<max>` | The character levels the guide is for; a guide both factions play may give each side its own, one line each: `levels 45-46 Alliance` and `levels 47-48 Horde` | `levels 5-10` |
 | `zone <Name>` | The zone the guide's coordinates are in, until a step names another | `zone Elwynn Forest` |
 | `zone map <uiMapID>` | The same, by map id | `zone map 1429` |
 | `faction <Faction>` | Only for `Alliance` or `Horde` characters | `faction Alliance` |

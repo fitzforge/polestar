@@ -9,6 +9,8 @@
 // inputs = {
 //   forever: { items, npcs, objects, quests, zones, factions, professions, trainers,
 //              mapFrames, meta, instances (recorded), dungeons|null },  (data/forever/*.json)
+//   mechanics: data/forever/mechanics.json ({ quests }) | null. A kill it does by using an
+//              item on that NPC keeps useItem; absent, the objectives stay as they were.
 //   atlasloot|null, rarescanner|null                      (--local-extras only)
 //   client: clientFacts(tables) + { instanceMaps, instances: instanceFacts() }|null,
 //   curated: [item ids guides collect], curatedGates: curatedRepGates(), entrances: curatedEntrances(),
@@ -132,10 +134,13 @@ function round1(v) {
 // (dsl/escort.js): its place is where the walk ends, and the arrow belongs
 // at its start, the giver, as in the compiled guides (#256). A Hunter's
 // Taming the Beast beast is kill credit in the data, but it is tamed with
-// the quest's Taming Rod, not killed: `tame` (#565).
-function objectiveOf(o, escort, tame) {
+// the quest's Taming Rod, not killed: `tame` (#565). A kill the mechanics
+// do by using an item on that NPC keeps `useItem`; Lookup says Use. A tame
+// stays a tame (#2468).
+function objectiveOf(o, escort, tame, useItem) {
 	const out = { type: o.type, id: o.id ?? null, count: o.count ?? null, text: o.text ?? null };
 	if (tame && o.type === 'kill') out.tame = true;
+	else if (o.type === 'kill' && useItem) out.useItem = useItem;
 	if (o.type === 'event' && !escort && int(o.map) && Number.isFinite(o.x) && Number.isFinite(o.y)) {
 		out.map = int(o.map);
 		out.x = round1(o.x);
@@ -149,6 +154,47 @@ function objectiveOf(o, escort, tame) {
 // out (a Hunter's Taming the Beast).
 function tamesWithRod(q) {
 	return /\bTaming Rod to tame\b/i.test(q.objectiveText || '');
+}
+
+// data/forever/mechanics.json, or the same shape passed to mergeCodex: the
+// quests map. Missing file: none.
+function mechanicsQuests(inputs) {
+	const m = inputs && inputs.mechanics;
+	if (!m || typeof m !== 'object' || Array.isArray(m)) return {};
+	if (m.quests && typeof m.quests === 'object' && !Array.isArray(m.quests)) return m.quests;
+	return m;
+}
+
+function positiveInt(v) {
+	const n = int(v);
+	return Number.isInteger(n) && n > 0 ? n : null;
+}
+
+// The item a kill objective is really a use of, matching the writer's
+// use_item (objectives.rs): a high or medium use-item-on-mob, then its
+// params item for this NPC (no `npcs` list means every NPC of the quest),
+// else a readSteps use-item on that NPC. No item: the kill stays a kill.
+function useItemOn(mechanics, questId, npcId) {
+	const e = mechanics && mechanics[questId];
+	if (!e) return null;
+	const drives = Array.isArray(e.kinds) && e.kinds.some((k) => k && k.kind === 'use-item-on-mob' && (k.confidence === 'high' || k.confidence === 'medium'));
+	if (!drives) return null;
+	const npc = positiveInt(npcId);
+	if (!npc) return null;
+	const params = Array.isArray(e.params) ? e.params : [];
+	for (const p of params) {
+		if (!p || p.kind !== 'use-item-on-mob') continue;
+		const item = positiveInt(p.item);
+		if (!item) continue;
+		if (!Array.isArray(p.npcs) || p.npcs.some((n) => positiveInt(n) === npc)) return item;
+	}
+	const steps = Array.isArray(e.readSteps) ? e.readSteps : [];
+	for (const s of steps) {
+		const target = s && s.target;
+		const item = s && s.item && positiveInt(s.item.id);
+		if (item && s.action === 'use-item' && target && target.type === 'npc' && positiveInt(target.id) === npc) return item;
+	}
+	return null;
 }
 
 function slug(s) {
@@ -1193,6 +1239,7 @@ function mergeCodex(inputs) {
 
 	// ----- quests
 	const quests = {};
+	const mechs = mechanicsQuests(inputs);
 	const questIds = new Set([...Object.keys(questsIn), ...Object.keys(questRewards)].map(Number));
 	// Blocking prerequisites only (breadcrumbs, the quest itself and exclusives dropped).
 	const prereqs = (q) => {
@@ -1215,7 +1262,10 @@ function mergeCodex(inputs) {
 				classes: int(q.classes),
 				start: { npc: (q.start && q.start.npc) || [], object: (q.start && q.start.object) || [], item: (q.start && q.start.item) || [] },
 				end: { npc: (q.end && q.end.npc) || [], object: (q.end && q.end.object) || [] },
-				objectives: (q.objectives || []).filter((o) => ['kill', 'item', 'object', 'event'].includes(o.type)).map((o) => objectiveOf(o, isEscort(q), tamesWithRod(q))),
+				objectives: (q.objectives || []).filter((o) => ['kill', 'item', 'object', 'event'].includes(o.type)).map((o) => {
+					const tame = tamesWithRod(q);
+					return objectiveOf(o, isEscort(q), tame, o.type === 'kill' && !tame ? useItemOn(mechs, id, o.id) : null);
+				}),
 				...prereqs(q),
 				zone: int(q.zone),
 				rewards,

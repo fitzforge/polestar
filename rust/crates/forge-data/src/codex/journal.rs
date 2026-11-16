@@ -302,8 +302,12 @@ pub struct JournalInputs<'a> {
 
 /// People with a boss kill a dungeon needs before their entries set its floor.
 pub const FLOOR_PEOPLE: f64 = 5.0;
-/// How far players' 90th percentile entry may sit over a dungeon's top before the build warns.
-pub const CHECK_SLACK: f64 = 3.0;
+/// How far players' 90th percentile entry may sit over a dungeon's top before the build warns. 8: the 0.4.0
+/// recordings of 2026-11-15 (7,940 sessions: 79 people in the Deadmines, 78 in Wailing Caverns, 74 in Ruins of
+/// Lordaeron) put the late tail of the early dungeons 5.5 to 7.2 levels over the Group Finder's top (players back
+/// for a carry or a drop), their 25th percentile unchanged (19.5, 20.4, 18.2); a broken join or a 60 top is many
+/// more levels out.
+pub const CHECK_SLACK: f64 = 8.0;
 
 /// A dungeon's range and floor (journal pages' `minLevel`, `maxLevel`, `floor`).
 #[derive(Clone, Debug, PartialEq)]
@@ -398,6 +402,29 @@ fn match_map<'a>(inst: &V, maps: &'a [InstanceMap]) -> Option<&'a InstanceMap> {
 		});
 	}
 	m
+}
+
+/// journal.js `zoneOfAreas(m, zonesIn, quests)`: the zone of an instance whose entrance is not known,
+/// the zone map (UiMap type 3, or 6 an orphan zone) of the outdoor areas the client names after it
+/// (`InstanceMap::zones`), where the most of its quests start or end when there are several, else
+/// the lowest id.
+fn zone_of_areas(m: &InstanceMap, zones_in: &V, quests: &[V]) -> Option<f64> {
+	if m.zones.is_empty() {
+		return None;
+	}
+	let mut found: Vec<f64> = zones_in
+		.values()
+		.into_iter()
+		.filter(|z| {
+			let (a, t) = (z.get("areaId"), z.get("type"));
+			a.truthy() && m.zones.contains(&a.num()) && (t.is_nullish() || t.num() == 3.0 || t.num() == 6.0)
+		})
+		.map(|z| z.get("id").num())
+		.collect();
+	let at = |p: V, id: f64| p.truthy() && p.get("map").is_num() && p.get("map").num() == id;
+	let givers = |id: f64| quests.iter().filter(|q| at(q.get("start"), id) || at(q.get("finish"), id)).count();
+	found.sort_by(|a, b| givers(*b).cmp(&givers(*a)).then(super::util::by_num(*a, *b)));
+	found.first().copied()
 }
 
 /// An ordered set of strings (JS Set).
@@ -1152,7 +1179,7 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 			})
 			.collect();
 		let lv = inst.get("levels");
-		let zone = if entrance.truthy() { entrance.get("map") } else { V::Null };
+		let zone = if entrance.truthy() { entrance.get("map") } else { m.and_then(|m| zone_of_areas(m, inp.fv_zones, &quests)).map(V::Num).unwrap_or(V::Null) };
 		let zname = if zone.truthy() {
 			let z = codex.zones.get(&kstr(&zone));
 			let z = if z.truthy() { z } else { inp.fv_zones.get(&kstr(&zone)) };
@@ -1602,7 +1629,7 @@ mod tests {
 		let f = finder(15.0, 22.0);
 		assert!(recorded_check("Ruins of Lordaeron", Some(&f), &V::Num(22.0), &rec(75.0, 17.9, 24.9)).is_empty(), "p90 2.9 over the top: inside the slack");
 		assert_eq!(recorded_check("Ruins of Lordaeron", Some(&f), &V::Num(60.0), &rec(75.0, 14.0, 24.9)).len(), 1, "a p25 under the finder's minimum");
-		assert_eq!(recorded_check("Ruins of Lordaeron", Some(&f), &V::Num(20.0), &rec(75.0, 17.9, 24.9)).len(), 1, "a p90 more than 3 over the top");
+		assert_eq!(recorded_check("Ruins of Lordaeron", Some(&f), &V::Num(16.0), &rec(75.0, 17.9, 24.9)).len(), 1, "a p90 more than 8 over the top");
 		assert!(recorded_check("Sunken Temple", Some(&f), &V::Num(20.0), &rec(4.0, 10.0, 40.0)).is_empty(), "under 5 people: no check");
 		assert!(recorded_check("Molten Core", None, &V::Num(60.0), &rec(40.0, 10.0, 40.0)).is_empty(), "no finder row: no check");
 	}

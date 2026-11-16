@@ -637,7 +637,7 @@ fn the_targeting_page_offers_the_target_button_who_it_targets_its_mark_and_ping_
 	assert_eq!(
 		out["start"],
 		json!({ "title": "Targeting", "button": true, "plate": true, "mark": true, "ping": false, "stage": true, "simple": false, "plateEnabled": false,
-			"note": "The step key targets the same names without the button. Move frames, in Settings, moves the button." }),
+			"note": "No button? The key \"Use the step button\" (Key Bindings, Polestar) targets the same names. Move frames, in Settings, moves the button." }),
 		"their defaults, the preview and the line on the step key and Move frames"
 	);
 	assert_eq!(out["simple"], json!([true, true]), "Simple target button writes qol.targetSimple, and who it targets is the single button's");
@@ -715,13 +715,13 @@ fn the_route_page_map_is_the_websites_demo_each_style_its_own_walk_a_switch_leav
 			return n
 		end
 		local first = { place = plain(m.Place:GetText()), trail = drawn(m.TrailCore),
-			ghost = shown(m.GhostLines), road = shown(m.RoadLines), note = plain(m.Note:GetText()) }
+			ghost = shown(m.GhostLines), note = plain(m.Note:GetText()) }
 		local seen = {}
 		for _, s in ipairs({ "fastest", "roads", "balanced" }) do
 			local before = Polestar.Get("nav.routeStyle") or "balanced"
 			PolestarWelcome.Styles[s == "fastest" and 1 or s == "balanced" and 2 or 3]:Click()
 			local just = { running = Polestar.Anim.IsRunning(m, "value"), share = m.psShare, ghost = m.psGhost,
-				ghostLines = shown(m.GhostLines), roadAlpha = m.Road:GetAlpha() }
+				ghostLines = shown(m.GhostLines) }
 			stub.advance(0.2)
 			local mid = { share = m.psShare, trail = shown(m.TrailCore) }
 			stub.advance(2)
@@ -731,13 +731,32 @@ fn the_route_page_map_is_the_websites_demo_each_style_its_own_walk_a_switch_leav
 		Polestar.Set("ui.reduceMotion", true)
 		Polestar.Set("nav.routeStyle", "roads")
 		local reduced = { running = Polestar.Anim.IsRunning(m, "value"), share = m.psShare, trail = drawn(m.TrailCore),
-			ghost = m.psGhost, ghostAlpha = m.Ghost:GetAlpha(), roadAlpha = m.Road:GetAlpha() }
-		emit({ first = first, seen = seen, reduced = reduced })"#);
+			ghost = m.psGhost, ghostAlpha = m.Ghost:GetAlpha() }
+		-- The route line's look: Dots draws the walk as marks, no line.
+		Polestar.Set("nav.lineStyle", "dots")
+		local dots = { marks = shown(m.TrailMarks), lines = shown(m.TrailCore) }
+		emit({ first = first, seen = seen, reduced = reduced, dots = dots })"#);
 	assert_eq!(out["first"]["place"], "Elwynn Forest", "the site's zone, whatever the character's");
 	assert_eq!(out["first"]["note"], "Go to Westfall \u{b7} 1519 yd", "where the walk goes, and Balanced's yards");
 	assert_eq!(out["first"]["trail"], out["seen"]["balanced"]["trail"], "a fresh account sees Balanced's walk");
 	assert_eq!(out["first"]["ghost"], 0, "no ghost before a switch");
-	assert!(out["first"]["road"].as_u64().unwrap() > 0, "the dotted road under the trail");
+	// The client leaves a line region under 8px undrawn, so a walk of short segments showed as fragments.
+	for s in ["fastest", "balanced", "roads"] {
+		let pts: Vec<(f64, f64)> = out["seen"][s]["trail"]
+			.as_array()
+			.unwrap()
+			.iter()
+			.map(|p| {
+				let (x, y) = p.as_str().unwrap().split_once(',').unwrap();
+				(x.parse().unwrap(), y.parse().unwrap())
+			})
+			.collect();
+		assert!(pts.len() > 2, "{s}: the walk drawn whole");
+		for w in pts.windows(2) {
+			let d = ((w[1].0 - w[0].0).powi(2) + (w[1].1 - w[0].1).powi(2)).sqrt();
+			assert!(d >= 7.9, "{s}: no segment the client would leave undrawn: {d:.1} px between {:?} and {:?}", w[0], w[1]);
+		}
+	}
 	let trails: Vec<&Value> = ["fastest", "balanced", "roads"].iter().map(|s| &out["seen"][s]["trail"]).collect();
 	assert_eq!(trails.iter().map(|p| p.to_string()).collect::<HashSet<_>>().len(), 3, "each style its own walk");
 	for (s, p) in ["fastest", "balanced", "roads"].iter().zip(&trails) {
@@ -749,7 +768,6 @@ fn the_route_page_map_is_the_websites_demo_each_style_its_own_walk_a_switch_leav
 		assert_eq!(o["just"]["share"], 0.0, "{s}: from the start");
 		assert_eq!(o["just"]["ghost"], o["before"], "{s}: the last style's walk is the ghost");
 		assert!(o["just"]["ghostLines"].as_u64().unwrap() > 0, "{s}: drawn dashed");
-		assert_eq!(o["just"]["roadAlpha"], 0.0, "{s}: the new road fades in");
 		let mid = o["mid"]["share"].as_f64().unwrap();
 		assert!(mid > 0.0 && mid < 1.0, "{s}: part of the trail on the way: {o}");
 		assert_eq!(o["after"], 1.0, "{s}: whole once replayed");
@@ -762,7 +780,8 @@ fn the_route_page_map_is_the_websites_demo_each_style_its_own_walk_a_switch_leav
 	assert_eq!(out["reduced"]["trail"], out["seen"]["roads"]["trail"], "and it is Roads' walk");
 	assert_eq!(out["reduced"]["ghost"], "balanced", "the last style left as the ghost");
 	assert_eq!(out["reduced"]["ghostAlpha"], 0.55, "at once faint");
-	assert_eq!(out["reduced"]["roadAlpha"], 1.0, "the road at once");
+	assert_eq!(out["dots"]["lines"], 0, "Dots: no line");
+	assert!(out["dots"]["marks"].as_u64().unwrap() > 10, "Dots: the walk as marks: {}", out["dots"]);
 }
 
 // The route line's look on the route page (with the route lines: Maps/RouteLines.lua, stood in for here by its
@@ -838,6 +857,8 @@ fn the_look_page_lists_the_looks_beside_a_preview_loads_them_only_once_shown_and
 		stub.RunScript(find("Blizzard"), "OnEnter")
 		local hover = { preview = p.PreviewName:GetText(), line = p.PreviewLine:GetText() ~= "", skin = Polestar.Get("ui.skin") }
 		stub.RunScript(find("Blizzard"), "OnLeave")
+		-- A moment later (the gap to the next card is crossed without the preview flashing back).
+		stub.advance(0.2)
 		local left = p.PreviewName:GetText()
 		find("Blizzard"):Click()
 		local now = { skin = Polestar.Get("ui.skin"), live = Polestar.Theme.SkinId(), picked = find("Blizzard").psSelected,

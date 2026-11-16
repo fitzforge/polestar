@@ -14,7 +14,7 @@ return {
 	["{npc:5497} at the top of the Wizard's Sanctum, {zone:1453}'s {object:2101}, sends you to {npc:6546}; Bink in {zone:1455} gives the same quest."] = "{zone:1453} {object:2101}의 마법사의 성소 꼭대기에 있는 {npc:5497}이(가) {npc:6546}에게 보냅니다. {zone:1455}의 빙크도 같은 퀘스트를 줍니다.",
 
 	-- Step 2: Journey to the Marsh (Orgrimmar)
-	-- {npc:5885} Deino · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:6546} Tabetha · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {npc:3048} Ursyn Ghull · {zone:1456} Thunder Bluff
+	-- {npc:5885} Deino · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge · {npc:6546} Tabetha · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {npc:3048} Ursyn Ghull · {zone:1456} Thunder Bluff
 	["{npc:5885}, one of {zone:1454}'s mage trainers in {object:173161}, sends you to {npc:6546}; {npc:4568} in the {zone:1458} and {npc:3048} in {zone:1456} give the same quest."] = "{zone:1454}의 {object:173161}에 있는 마법사 상급자 중 한 명인 {npc:5885}이(가) {npc:6546}에게 보냅니다. {zone:1458}의 {npc:4568}와(과) {zone:1456}의 {npc:3048}도 같은 퀘스트를 줍니다.",
 
 	-- Step 3: Tabetha

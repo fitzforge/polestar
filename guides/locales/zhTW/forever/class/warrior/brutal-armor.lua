@@ -34,7 +34,7 @@ return {
 
 	-- Step 6: Thun'grim Firegaze
 	-- {npc:5878} Thun'grim Firegaze · {area:1699} Thorn Hill · {quest:1838} Brutal Armor · {item:7587} Thun'grim's Instructions
-	["{npc:5878}'s hut sits on top of {area:1699}, east of the Crossroads: climb the broad ridge on the north or east side. {quest:1838} is a level 30 quest; take it now and gather on the way. {item:7587} list where each material comes from."] = "",
+	["{npc:5878}'s hut sits on top of {area:1699}, east of the Crossroads: climb the broad ridge on the north or east side. {quest:1838} is a level 30 quest, so the guide waits for level 29 before you take it. {item:7587} list where each material comes from."] = "{npc:5878}的小屋位於十字路口東邊的{area:1699}頂上：從北側或東側的寬闊山脊爬上去。{quest:1838}是30級任務，所以指南會等到29級再讓你接。{item:7587}列出了每種材料的來源。",
 
 	-- Step 7: Windshear Mine
 	-- {area:2160} Windshear Mine · {area:461} Windshear Crag · {area:460} Sun Rock Retreat · {spell:116} Frostbolt
@@ -46,9 +46,9 @@ return {
 	-- Step 8: Hillsbrad Miners
 	-- plural, as words: Hillsbrad Miners = {npc:2269} Hillsbrad Miner
 	["Hillsbrad Miners"] = "希爾斯布萊德礦工",
-	-- {item:7127} Powdered Azurite · {area:271} Southshore · {spell:71} Defensive Stance · {area:272} Tarren Mill
+	-- {item:7127} Powdered Azurite · {quest:1838} Brutal Armor · {area:271} Southshore · {spell:71} Defensive Stance · {area:272} Tarren Mill
 	-- plural, as words: Hillsbrad Miners = {npc:2269} Hillsbrad Miner
-	["You need 10 {item:7127}. The guide waits for level 25 first. The Hillsbrad Miners (level 26-27) work the mine in the hills west of {area:271} and drop the azurite four kills in five; they fight in {spell:71}, sunder your armor and run for help at 30% health. Fly to {area:272} and head south-west."] = "你需要10個{item:7127}。指南會先等到25級。希爾斯布萊德礦工（26-27級）在{area:271}西邊山中的礦坑工作，每擊殺五隻約有四隻掉落碧藍石；他們以{spell:71}戰鬥，會破甲，並在生命值30%時逃跑求援。飛到{area:272}後往西南走。",
+	["You need 10 {item:7127}. The guide waits for level 30 first ({quest:1838} is a level 30 quest). The Hillsbrad Miners (level 26-27) work the mine in the hills west of {area:271} and drop the azurite four kills in five; they fight in {spell:71}, sunder your armor and run for help at 30% health. Fly to {area:272} and head south-west."] = "你需要10個{item:7127}。指南會先等到30級（{quest:1838}是30級任務）。希爾斯布萊德礦工（26-27級）在{area:271}西邊山中的礦坑工作，每擊殺五隻約有四隻掉落藍銅粉；他們以{spell:71}戰鬥，會破甲，並在生命值30%時逃跑求援。飛到{area:272}後往西南走。",
 	-- {item:7127} Powdered Azurite
 	-- plural, as words: Hillsbrad Miners = {npc:2269} Hillsbrad Miner
 	["{item:7127}, from the Hillsbrad Miners"] = "{item:7127}，來自希爾斯布萊德礦工",
@@ -57,7 +57,7 @@ return {
 	-- {area:1717} Razorfen Kraul
 	["Roogug in {area:1717}"] = "{area:1717}的魯古格",
 	-- {area:1717} Razorfen Kraul · {zone:1413} Barrens · {spell:403} Lightning Bolt
-	["Roogug is an elite quilboar (level 28) inside {area:1717}, the dungeon at the south end of the {zone:1413}; a five-player dungeon: needs a group of five, his guards come with him. The guide waits for level 26 first. Inside take the left path at the first fork, cross the vine bridge over the pig pens, go past the room with the big cauldron: he waits in the room on the right. He casts {spell:403} and calls Earth Rumblers. The vial always drops."] = "魯古格是{area:1717}裡的一個精英野豬人（28級），該地城位於{zone:1413}最南端；這是五人地城，需要五人小隊，他的守衛會跟他一起戰鬥。指南會先等到26級。進去後在第一個岔路走左邊，穿過豬圈上方的藤橋，經過有大鍋的房間：他在右側的房間裡等著。他會施放{spell:403}並召喚地行者。藥瓶必定掉落。",
+	["Roogug is an elite quilboar (level 28) inside {area:1717}, the dungeon at the south end of the {zone:1413}; a five-player dungeon: needs a group of five, his guards come with him. The guide waits for level 30 first. Inside take the left path at the first fork, cross the vine bridge over the pig pens, go past the room with the big cauldron: he waits in the room on the right. He casts {spell:403} and calls Earth Rumblers. The vial always drops."] = "魯古格是{area:1717}裡的一個精英野豬人（28級），該地城位於{zone:1413}最南端；這是五人地城，需要五人小隊，他的守衛會跟他一起戰鬥。指南會先等到30級。進去後在第一個岔路走左邊，穿過豬圈上方的藤橋，經過有大鍋的房間：他在右側的房間裡等著。他會施放{spell:403}並召喚地行者。藥瓶必定掉落。",
 	-- {item:6841} Vial of Phlogiston
 	["{item:6841}, from Roogug"] = "{item:6841}，來自魯古格",
 
@@ -106,6 +106,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly to {area:378}. South of the camp the Silithid Mounds dot the {area:390}: the silithid there carry the Twitching Antennae."] = "飛往{area:378}。營地南邊的{area:390}散布著異種蠍土丘：那裡的異種蠍帶著顫抖的觸角。",
+	-- ["Roogug is an elite quilboar (level 28) inside {area:1717}, the dungeon at the south end of the {zone:1413}; a five-player dungeon: needs a group of five, his guards come with him. The guide waits for level 26 first. Inside take the left path at the first fork, cross the vine bridge over the pig pens, go past the room with the big cauldron: he waits in the room on the right. He casts {spell:403} and calls Earth Rumblers. The vial always drops."] = "魯古格是{area:1717}裡的一個精英野豬人（28級），該地城位於{zone:1413}最南端；這是五人地城，需要五人小隊，他的守衛會跟他一起戰鬥。指南會先等到26級。進去後在第一個岔路走左邊，穿過豬圈上方的藤橋，經過有大鍋的房間：他在右側的房間裡等著。他會施放{spell:403}並召喚地行者。藥瓶必定掉落。",
 	-- ["Roogug is an elite quilboar inside {area:1717}, the dungeon at the south end of the {zone:1413}; he drops the {item:6841}. {area:1717} is a dungeon: grouping up is advised."] = "魯古格是{area:1717}裡的精英野豬人，那是{zone:1413}南端的地城；他會掉落{item:6841}。{area:1717}是地城：建議組隊。",
 	-- ["Sturdy Dragonmaw Shinbones"] = "結實的龍喉脛骨",
 	-- ["The Dragonmaw orcs camp in the middle of the {zone:1437}, south of the road; Raiders, Swamprunners, Centurions, Shadowwarders and Bonewarders all drop the Sturdy Dragonmaw Shinbones."] = "龍喉獸人在{zone:1437}中部、道路南邊紮營；龍喉襲擊者、龍喉沼澤行者、龍喉百夫長、龍喉暗影守衛和龍喉白骨守衛都會掉落結實的龍喉脛骨。",
@@ -114,5 +115,6 @@ return {
 	-- ["The {area:429} satyrs camp in eastern {zone:1440}, with the Felmusk satyrs further west; both drop Uncloven Satyr Hooves."] = "{area:429}的薩特在{zone:1440}東部紮營，魔草薩特在更西邊；兩者都會掉落完整的薩特之蹄。",
 	-- ["The {npc:6167} roams the south-west of Stonetalon near the Fledgling and Young Chimaeras; she drops the {item:6840}."] = "{npc:6167}在石爪山脈西南部、奇美拉雛獸和小奇美拉附近遊蕩；她會掉落{item:6840}。",
 	-- ["Uncloven {quest:1842}"] = "完整的{quest:1842}",
+	-- ["You need 10 {item:7127}. The guide waits for level 25 first. The Hillsbrad Miners (level 26-27) work the mine in the hills west of {area:271} and drop the azurite four kills in five; they fight in {spell:71}, sunder your armor and run for help at 30% health. Fly to {area:272} and head south-west."] = "你需要10個{item:7127}。指南會先等到25級。希爾斯布萊德礦工（26-27級）在{area:271}西邊山中的礦坑工作，每擊殺五隻約有四隻掉落碧藍石；他們以{spell:71}戰鬥，會破甲，並在生命值30%時逃跑求援。飛到{area:272}後往西南走。",
 	-- ["{npc:5878} camps beside the road east of the {area:380}. {quest:1838} is a level 30 quest; you can take it now and gather for it on the way."] = "{npc:5878}在{area:380}東邊的路旁紮營。{quest:1838}是30級任務；你可以現在接下，順路收集材料。",
 }

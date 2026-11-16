@@ -11,8 +11,8 @@ return {
 	["Your epic mount at 60, summoned at will: the faster step up from the Warhorse."] = "Dein episches Reittier mit 60, jederzeit beschworen: die schnellere Stufe nach dem Schlachtross.",
 
 	-- Step 1: Lord Grayson Shadowbreaker (Ironforge)
-	-- {npc:5149} Brandur Ironhammer · {object:32362} Mystic Ward (no name in this language: may be words) · {quest:7638} Lord Grayson Shadowbreaker · {zone:1453} Stormwind
-	["At 60 {npc:5149} in the {object:32362} sends you to {quest:7638} in {zone:1453}'s Cathedral of Light."] = "Mit 60 schickt dich {npc:5149} ({object:32362}) zu {quest:7638} in der Kathedrale des Lichts in {zone:1453}.",
+	-- {npc:5149} Brandur Ironhammer · {object:32362} Mystic Ward (no name in this language: may be words) · {quest:7670} Lord Grayson Shadowbreaker · {zone:1453} Stormwind
+	["At 60 {npc:5149} in the {object:32362} sends you to {quest:7670} in {zone:1453}'s Cathedral of Light."] = "Mit 60 schickt dich {npc:5149} ({object:32362}) zu {quest:7670} in der Kathedrale des Lichts in {zone:1453}.",
 
 	-- Step 2: Lord Grayson Shadowbreaker
 	-- {spell:23214} Summon Charger · {area:2279} Stratholme · {area:2057} Scholomance · {item:14047} Runecloth · {item:8836} Arthas' Tears · {npc:6171} Duthorian Rall
@@ -33,7 +33,7 @@ return {
 	["Lord Grayson blesses the censer into the {item:18752} for {area:2627}."] = "Lord Grayson segnet das Räuchergefäß zum {item:18752} für {area:2627}.",
 
 	-- Step 5: Exorcising Terrordale
-	-- {area:2627} Terrordale · {zone:1423} Eastern Plaguelands · {area:2279} Stratholme · {object:179747} Terrordale Haunting Spirit (no name in this language: may be words) · {item:18752} Exorcism Censer · {spell:7713} Wailing Dead · {spell:2878} Turn Undead
+	-- {area:2627} Terrordale · {zone:1423} Eastern Plaguelands · {area:2279} Stratholme · {object:179747} Terrordale Haunting Spirit · {item:18752} Exorcism Censer · {spell:7713} Wailing Dead · {spell:2878} Turn Undead
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit
 	["{area:2627} lies in the far north-west of the {zone:1423}, west of the {area:2279} gates. Stand inside a green glowing patch on the ground (a {object:179747}; some are inside the ruined houses) and use the {item:18752}: up to three Terrordale Spirits (level 59-60) rise and attack. Their {spell:7713} lowers all your stats by 30%: fight them one at a time and use {spell:2878}. The patches come back quickly; several paladins can work side by side."] = "{area:2627} liegt im äußersten Nordwesten der {zone:1423}, westlich der Tore von {area:2279}. Stell dich in eine grün leuchtende Stelle am Boden (ein {object:179747}; manche liegen in den zerstörten Häusern) und benutze das {item:18752}: Bis zu drei Terrordale Spirits (Stufe 59-60) erheben sich und greifen an. Ihr {spell:7713} senkt alle deine Werte um 30%: Bekämpfe sie einzeln und benutze {spell:2878}. Die Stellen kehren schnell zurück; mehrere Paladine können Seite an Seite arbeiten.",
 	-- {item:18752} Exorcism Censer
@@ -119,6 +119,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["An {item:12800} comes from Thorium veins, a {item:18335} from the elites of the {zone:1422}, both rarely: the Auction House is the usual source."] = "{item:12800} stammt aus Thoriumadern, {item:18335} von den Elitegegnern in {zone:1422}, beide selten: Meist kaufst du sie im Auktionshaus.",
 	-- ["Arcanite Bars: the Auction House"] = "Arkanitbarren: Auktionshaus",
+	-- ["At 60 {npc:5149} in the {object:32362} sends you to {quest:7638} in {zone:1453}'s Cathedral of Light."] = "Mit 60 schickt dich {npc:5149} ({object:32362}) zu {quest:7638} in der Kathedrale des Lichts in {zone:1453}.",
 	-- ["Bring 150 gold for {npc:1416} along with the materials."] = "Bring für {npc:1416} 150 Gold zusammen mit den Materialien mit.",
 	-- ["Supply Crates, inside"] = "Vorratskisten, drinnen",
 	-- ["Terrordale Spirits"] = "Schreckenstalgeister",

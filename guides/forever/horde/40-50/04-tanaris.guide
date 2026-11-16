@@ -2,7 +2,7 @@
 guide forever/horde/40-50/04-tanaris
 title Tanaris & Searing Gorge
 faction Horde
-levels 46-48
+levels 48-49
 zone Tanaris
 next forever/horde/40-50/05-the-hinterlands
 pitch Gadgetzan and the Searing Gorge at 46-48: the Wastewander camps, Tooga's escort and Thorium Point.
@@ -25,7 +25,7 @@ step Gadgetzan
   zone Tanaris
   tip The flight lands beside Tran'rek. Take the town's quests before riding west to Sandsorrow Watch.
   accept 3362                           -- Tran'rek, beside the wind rider master
-  accept 5863                           -- Andi Lynn
+  accept 5863                           -- Andi Lynn: keep it, the Dunemaul ogres and Gor'marok (49) wait for the Broken Pillar at about 52, at the end of 40-50/06
   turnin 243
   accept 379
   sethome "Gadgetzan" npc 7733          -- Innkeeper Fizzgrimble
@@ -91,7 +91,7 @@ step Trenton Lighthammer
 # Flow: Camp Mojache (where the previous guide ends) -> fly Gadgetzan
 # (bind) -> Sandsorrow Watch -> Gadgetzan -> Caliph Scorpidsting -> Marvon
 # Rivetseeker -> the Noxious Lair -> Dunemaul Compound -> Thistleshrub
-# Valley -> Tooga's escort to Steamwheedle Port -> Gadgetzan -> Marvon ->
+# Valley (Marin's dew glands) -> Tooga's escort to Steamwheedle Port -> Gadgetzan -> Marvon ->
 # Scrimshank's gear (OOX-17/TN if you found its beacon) -> Tanaris Field
 # Sampling -> Gadgetzan -> the boat from Steamwheedle Port to Powderfuse Port
 # and the ride into the Searing Gorge by its eastern pass -> the Grimesilt Dig
@@ -150,26 +150,21 @@ step Marvon Rivetseeker
   tip West along the road south; Marvon camps by the ruins at the Broken Pillar. Put on his Gahz'ridian Detector: it shows the buried ornaments, here and around the Dunemaul Compound.
   accept 3161
 
-step Broken Pillar: kill these as you meet them
+step Gahz'ridian ornaments
   zone Tanaris
-  tip South of the Noxious Lair the Dunemaul ogres hold their compound, with Gor'marok the Ravager at its eastern end. Dig up Gahz'ridian ornaments between the fights.
+  tip Dig up the Gahz'ridian ornaments around the Broken Pillar and north of the Dunemaul Compound. Leave the ogres for now: Gor'marok the Ravager is 49 and the Brutes 46-48; the Dunemaul Compound comes at the end of 40-50/06, at about 52.
   collect 8443 quest 3161.1 @52.3,45.3 map 1446
-  kill 5474 quest 5863.1
-  kill 5472 quest 5863.2
-  kill 12046 quest 5863.3 @41.5,57.8  -- Below ground
 
 step The Noxious Lair
   tip West, the Centipaar insects swarm around their hives; any of them drops the parts.
-  tip Careful: Centipaar Swarmers cast Silithid Swarm both in and out of combat, which brings small adds that interrupt you.
+  tip Careful: Centipaar Swarmers cast Silithid Swarm both in and out of combat, which brings small adds that interrupt you. The Sandreavers are 49-50: take the Workers and Tunnelers.
   collect 8587 quest 82.1
 
 step Thistleshrub Valley: kill these as you meet them
   zone Tanaris
-  tip West of the compound the cactus creatures fill the valley; only the Dew Collectors carry a dew gland. Most mobs in Tanaris can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.
-  tip Careful: The other thistleshrub mobs in the area are level 49-50 and wander a lot, so you can easily pull extra mobs.
-  kill 5490 quest 3362.1
+  tip West of the compound the cactus creatures fill the valley; only the Dew Collectors (47-48) carry a dew gland. Most mobs in Tanaris can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.
+  tip Careful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave Tran'rek's Gnarled Thistleshrubs and Rootshapers for the Broken Pillar ride into Un'Goro at about 51.
   collect 8623 optional                 -- OOX-17/TN Distress Beacon, a rare drop
-  kill 5485 quest 3362.2
   collect 8428 quest 2605.1 @29.2,66.1
 
 step Tooga's escort
@@ -186,18 +181,18 @@ step Slake That Thirst
   collect 8483 quest 379.1 @60.0,23.4 map 1446
 
 step Gadgetzan
-  turnin 5863                           -- Andi Lynn
   turnin 379
   note Keep the Model 4711-FTZ Power Source Bilgewhizzle gave you: it starts Tanaris Field Sampling, a two-hour timer, so use it on the way back north from Scrimshank's hive.
 
 step Gadgetzan
   turnin 2605                           -- Marin Noggenfogger
   accept 2606
-  turnin 3362                           -- Tran'rek
+  note Keep Tran'rek's Thistleshrub Valley: its Rootshapers (49-50) come with the Dunemaul Compound at the Broken Pillar, on the way into Un'Goro at about 51.
   turnin 2606                           -- Sprinkle
   accept 2641                           -- the Violet Tragan grows in the Hinterlands, around level 48
   turnin 82                             -- Alchemist Pestlezugg, inside
   accept 10                             -- Senior Surveyor Fizzledowser
+  note Andi Lynn's Dunemaul Compound stays in your log for the Broken Pillar at about 52.
 
 step Marvon Rivetseeker
   turnin 3161
@@ -272,7 +267,7 @@ step Thorium Point
 
 step The Cauldron's slavers and golems
   zone Searing Gorge
-  tip Ride south from Thorium Point into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below Velarok.
+  tip Ride south from Thorium Point into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below Velarok. Careful: the biggest golems are 49: pull them one at a time.
   kill 5846 quest 7729.1
   kill 5844 quest 7729.2
   kill 5854 quest 7723.1
@@ -294,7 +289,7 @@ step Searing Gorge: kill these as you meet them
   tip Heavy War Golems patrol the Cauldron below Velarok and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the Grimesilt Outhouse Key: keep it.
   tip The Searing Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.
   tip The Slag Pit opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.
-  tip Careful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee.
+  tip Careful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee. The biggest Incendosaurs and Lava Spiders are 49: pull them one at a time.
   collect 11818 optional                -- Grimesilt Outhouse Key, a rare drop
   collect 10509 quest 3442.1
   collect 10511 quest 3442.2

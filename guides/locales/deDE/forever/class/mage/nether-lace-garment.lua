@@ -14,7 +14,7 @@ return {
 	["{npc:4568} stands in the {zone:1458}'s {object:36082}. Orcs and Trolls use {spell:3563} or take the zeppelin from {zone:1454} to {zone:1420} for her."] = "{npc:4568} steht im {object:36082} von {zone:1458}. Orcs und Trolle nutzen {spell:3563} oder nehmen den Zeppelin von {zone:1454} nach {zone:1420} zu ihr.",
 
 	-- Step 2: Deino
-	-- {zone:1454} Orgrimmar · {spell:3567} Teleport: Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:5885} Deino · {object:172961} Valley of Spirits · {item:7269} Deino's Flask
+	-- {zone:1454} Orgrimmar · {spell:3567} Teleport: Orgrimmar · {object:173161} Darkbriar Lodge · {npc:5885} Deino · {object:172961} Valley of Spirits · {item:7269} Deino's Flask
 	["Take the zeppelin to {zone:1454} (or use {spell:3567}, which lands you on the upper floor of {object:173161}). {npc:5885} stands with the mage trainers on the lower floor of {object:173161} in the {object:172961}. She hands you {item:7269}."] = "Nimm den Zeppelin nach {zone:1454} (oder nutze {spell:3567}, das dich im oberen Stockwerk von {object:173161} absetzt). {npc:5885} steht bei den Magierlehrern im unteren Stockwerk von {object:173161} im {object:172961}. Sie gibt dir {item:7269}.",
 
 	-- Step 3: The Xavian Waterfall

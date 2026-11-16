@@ -122,8 +122,8 @@ return {
 	-- Step 23: Theramore Expeditionary Force to Exalted
 	-- {faction:2799} Theramore Expeditionary Force
 	["{faction:2799} to Exalted"] = "{faction:2799} jusqu'à Exalté",
-	-- {item:271924} Rebels' Rugged Reaper · {item:271928} Clever Expeditionary's Spellblade · {item:271936} Guerrilla's Jagged Mace · {item:271932} Insurgent's Manifesto
-	["Revered to Exalted is 21000 reputation, half the climb. Revered opens the weapons for levels 28, 38, 48 and 58: {item:271924} (two-handed axe), {item:271928} (dagger), {item:271936} and {item:271932} (off-hand), 1g44s to 37g15s."] = "De Révéré à Exalté, il faut 21000 de réputation, la moitié de la montée. Révéré ouvre les armes pour les niveaux 28, 38, 48 et 58 : {item:271924} (hache à deux mains), {item:271928} (dague), {item:271936} et {item:271932} (main gauche), 1 po 44 pa à 37 po 15 pa.",
+	-- {item:271924} Rebels' Rugged Reaper · {item:271928} Clever Expeditionary's Spellblade · {item:271932} Insurgent's Manifesto
+	["Revered to Exalted is 21000 reputation, half the climb. Revered opens the weapons for levels 28, 38, 48 and 58: {item:271924} (two-handed axe), {item:271928} (dagger), Guerrilla's Jagged Mace and {item:271932} (off-hand), 1g44s to 37g15s."] = "De Révéré à Exalté, il faut 21000 de réputation, la moitié de la montée. Révéré ouvre les armes pour les niveaux 28, 38, 48 et 58 : {item:271924} (hache à deux mains), {item:271928} (dague), Masse dentelée de guérillero et {item:271932} (main gauche), 1 po 44 pa à 37 po 15 pa.",
 	-- {npc:263569} Bryanna Embreeze
 	["{npc:263569}: Revered rewards"] = "{npc:263569} : récompenses Révéré",
 
@@ -132,4 +132,7 @@ return {
 	["Exalted gives the Legacy Point \"Master of Darkspear Islands\" and opens the epics: gloves in plate, mail, leather and cloth for levels 50 and 60 ({item:271940}, Gloves, Handguards and Handwraps, 3g94s to 15g16s) and level 60 shoulders in every armor type ({item:271955}, Shoulders, Spaulders, Mantle, Epaulets, Shoulderpads and Shoulderguards, 9g44s to 16g86s). The {item:276504} comes from a short questline that Exalted opens here."] = "Exalté donne le point d'héritage « Master of Darkspear Islands » et ouvre les épiques : gants en plaques, mailles, cuir et tissu pour les niveaux 50 et 60 ({item:271940}, Gants, Garde-mains et Mitaines, 3 po 94 pa à 15 po 16 pa) et épaulières de niveau 60 pour chaque type d'armure ({item:271955}, Épaules, Spallières, Mantelet, Épaulettes, Protège-épaules et Garde-épaules, 9 po 44 pa à 16 po 86 pa). Le {item:276504} vient d'une courte suite de quêtes qu'Exalté ouvre ici.",
 	-- {npc:263569} Bryanna Embreeze
 	["{npc:263569}: Exalted rewards"] = "{npc:263569} : récompenses Exalté",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Revered to Exalted is 21000 reputation, half the climb. Revered opens the weapons for levels 28, 38, 48 and 58: {item:271924} (two-handed axe), {item:271928} (dagger), {item:271936} and {item:271932} (off-hand), 1g44s to 37g15s."] = "De Révéré à Exalté, il faut 21000 de réputation, la moitié de la montée. Révéré ouvre les armes pour les niveaux 28, 38, 48 et 58 : {item:271924} (hache à deux mains), {item:271928} (dague), {item:271936} et {item:271932} (main gauche), 1 po 44 pa à 37 po 15 pa.",
 }

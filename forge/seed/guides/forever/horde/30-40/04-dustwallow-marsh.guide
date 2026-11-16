@@ -2,7 +2,7 @@
 guide forever/horde/30-40/04-dustwallow-marsh
 title Dustwallow Marsh & Desolace
 faction Horde
-levels 36-38
+levels 36-37
 zone Dustwallow Marsh
 next forever/horde/30-40/05-arathi-highlands
 
@@ -12,18 +12,26 @@ next forever/horde/30-40/05-arathi-highlands
 # Added here: The Theramore Docks (1202), Parts of the Swarm (1184). Goblin Sponsorship (1178) and
 # Wharfmaster Dizzywig (1111) are handed in at Ratchet on the way to the Booty Bay boat, in 03.
 # Left out: Gizelton Caravan (5943), The Kolkar of Desolace (1362).
+# Carved Centaur Totems (93225) and Ghost-o-plasm Round Up (6134) are worked at 38 on the Maraudine
+# Scouts, Wranglers and Maulers (36-39) of the valley's eastern edge and on the Magrami Spectres
+# (38-39), each with a tip to keep away from the elites beside them (Khan Hratha and the Rock Worms,
+# 41-42; the Magram Necrokhans and Corpsefeeders, 45). The ghost-o-plasm comes last, after Mannoroc
+# Coven just north of the Valley of Bones (#2357).
 
-# Dustwallow at 37-38, after Stranglethorn (the 2026-11-07 re-order), then a short second
-# Desolace visit for the zone's 38-40 quests (the 33-36 ones are in
-# forever/horde/30-40/02-thousand-needles).
+# Dustwallow at 35-36, after Stranglethorn (the 2026-11-07 re-order), then a top-up to 36 if needed
+# and a short second Desolace visit for the zone's 37-40 quests at 36-38 (the 33-36 ones are in
+# forever/horde/30-40/02-thousand-needles). Where only the top of a camp is two over you (the
+# Maraudine Maulers, the spectres, the portal guardians, 38-39), the step says which to pull.
 #
 # Flow: Grom'gol (where the previous guide ends) -> zeppelin to Orgrimmar (Soothing Spices) -> fly to the Crossroads (Korran) -> fly to Camp Taurajo -> the Shady
 # Rest Inn -> Brackenwall Village (flight path) -> Reethe -> Witch Hill (Stinky) -> the Mirefin
 # murlocs -> Swamplight Manor -> the spiders and venomspitters -> Brackenwall -> Swamplight
 # Manor -> the Theramore docks -> Brackenwall -> fly to Ratchet (Stinky's Mebok;
-# Warriors: The Affray on Fray Island) -> fly to Shadowprey Village -> Mannoroc Coven -> Ghost
-# Walker Post -> the Valley of Spears (Melizza) -> Hornizz -> the Valley of Bones -> Hornizz and
-# Ghost Walker Post -> Shadowprey -> fly to Orgrimmar (Belgrom, Hunter and Shaman training),
+# Warriors: The Affray on Fray Island) -> fly to Shadowprey Village (Taiga's Hand of Iruxos, Drulzegar's
+# Other Fish to Fry) -> Ghost Walker Post (Gurda, Felgur) -> the Valley of Spears (Melizza) -> Hornizz ->
+# Ghost Walker Post -> Thunder Axe Fortress -> Sar'theris Strand (the Slitherblade, 34-36, at 37-38: they
+# were two over on the first visit at 33) -> Shadowprey (Taiga, Drulzegar) -> Mannoroc Coven -> the Valley of Bones -> Hornizz ->
+# hearth to Shadowprey -> fly to Orgrimmar (Belgrom, Hunter and Shaman training),
 # where the next guide takes the Undercity zeppelin.
 #
 # Class training: Hunters and Shamans in Orgrimmar at the end; Druids in Thunder Bluff on the
@@ -94,13 +102,6 @@ step Brackenwall Village
   turnin 1321                         -- Do'gol
   accept 1322
 
-# ---------------------------------------------------------------- Dustwallow Marsh
-
-step Questioning Reethe
-  tip Ogron waits in the Quagmire east of the village. Follow him to Reethe and keep him alive through the fight that breaks out.
-  accept 1273
-  complete 1273 @42.6,38.1 map 1445
-
 # ---------------------------------------------------------------- Witch Hill
 
 step Stinky Ignatz
@@ -125,8 +126,8 @@ step Swamp Eye Jarl
 
 step Brackenwall Village: kill these as you meet them
   zone Dustwallow Marsh
-  tip Head west back across the marsh. The Darkfang Venomspitters on the ridges north of Brackenwall drop the venom sacs. Theramore Infiltrators (35-36) sneak through the same woods: they are stealthed, so look closely.
-  tip The Darkmist spiders swarm the cavern mouth north-west of Brackenwall; every kind drops eyes.
+  tip Head west back across the marsh. The Darkfang Lurkers (36-37) and Venomspitters (37-38) on the ridges north of Brackenwall drop the venom sacs. Theramore Infiltrators (35-36) sneak through the same woods: they are stealthed, so look closely.
+  tip The Darkmist spiders swarm the cavern mouth north-west of Brackenwall; every kind drops eyes. Work its outer edge, where the Spiders and Recluses (35-37) stand: the Lurkers and Silkspinners (37-39) deeper in are two or three over you.
   tip Careful: Darkfang Lurkers (level 36-37) use Sneak to stealth while out of combat and cast Poison once fighting.
   tip Careful: Stealthed spiders in the same area will attack you on sight.
   tip Careful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them.
@@ -141,32 +142,38 @@ step Brackenwall Village
   turnin 1322                         -- Do'gol
   accept 1323
   turnin 1323                         -- Krog
-  turnin 1273                         -- Krog
+
+step Questioning Reethe
+  zone Dustwallow Marsh
+  tip On the way east, Ogron waits in the Quagmire east of the village. Follow him to Reethe and keep him alive through the fight that breaks out: Private Hallan and Theramore Skirmishers (36) join it.
+  accept 1273
+  complete 1273 @42.6,38.1 map 1445
 
 step Swamp Eye Jarl
-  tip Head east back to the Swamplight Manor.
+  tip On east to the Swamplight Manor.
   accept 1239                         -- Loose Dirt, now that Nazeer has read the report
   turnin 1206
   accept 1203 optional                -- only if you carry a Moonsteel Broadsword (Blacksmithing or the Auction House)
   turnin 1203 optional
 
 step The Theramore Docks
-  tip South-east from the manor to Theramore Isle: the Captain's Footlocker lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57, and a death here is a long run back from the spirit healer.
+  tip South-east from the manor to Theramore Isle: the Captain's Footlocker lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57, and a death here is a long run back from the spirit healer. Young Murk Threshers (40-41) circle in the water around the docks: grab the footlocker and swim straight out.
   collect 5882 quest 1202.1 @71.5,51.2 map 1445 -- Underwater
 
 step Brackenwall Village
-  tip Head back west to Brackenwall with the head: Mudcrush Durtfeet stands at the south edge of the village where the road comes in, Nazeer Bloodpike in the village.
+  tip Head back west to Brackenwall with the head: Mudcrush Durtfeet stands at the south edge of the village where the road comes in, Nazeer Bloodpike and Krog in the village.
   turnin 1177                         -- Mudcrush Durtfeet
   turnin 1202                         -- Nazeer Bloodpike
   turnin 1239                         -- Nazeer Bloodpike
   accept 1240                         -- For Kin'weelay at Grom'gol, in forever/horde/40-50/01-stranglethorn-vale
+  turnin 1273                         -- Krog
 
-step Level 37.5
-  when level<37.5
+step Level 36
+  when level<36
   zone Dustwallow Marsh
-  tip Desolace's last quests and Alterac are 38-41. Still below 37.5 after Brackenwall's hand-ins? The Darkmist spiders and Lurkers (35-38) by the cavern north-west of the village are the closest: kill them until level 37.5.
-  goto 31.4,22.2 map 1445 "Darkmist cavern"
-  level 37.5 grind 4377               -- grind on Darkmist Lurker
+  tip Desolace's last quests are 36-39. Still below 36 after Brackenwall's hand-ins? The Drywallow Crocolisks (35-36) along the river east of the village are the closest at your level: kill them until level 36.
+  goto 44.5,24.8 map 1445 "Drywallow Crocolisks"
+  level 36 grind 4341                 -- grind on Drywallow Crocolisk
 
 # ---------------------------------------------------------------- Ratchet
 
@@ -190,34 +197,36 @@ step The Affray
   complete 1719 @68.6,48.7 map 1413
   turnin 1719                         -- Klannoc Macleod: Berserker Stance
 
+step Ratchet flight master
+  zone The Barrens
+  only Warrior
+  tip Back north along the coast to Ratchet's flight master.
+  goto 63.1,37.1 "Ratchet flight master"
+
 # ---------------------------------------------------------------- Desolace, the second visit
 
 step Fly to Shadowprey Village
   zone The Barrens
-  goto 63.1,37.1 "Ratchet flight master"
+  tip Fly to Shadowprey Village from the flight master you are next to: Ratchet's, or Brackenwall's if you had no errand in Ratchet.
   fly "Shadowprey Village"
   zone Desolace
 
 step Shadowprey Village
   zone Desolace
-  tip Taiga Wisemane stands in the village.
-  accept 5581                         -- Taiga Wisemane
-
-step Portals of the Legion
-  zone Desolace
-  tip Head east to Mannoroc Coven. With the Hand of Iruxos from Taiga in your bags, open a demon portal's ring: a Demon Portal Guardian (38-39) comes out; kill it to close that portal. Six portals. Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake.
-  goto 52.0,78.0 "Mannoroc Coven"
-  complete 5581
+  tip Taiga Wisemane and Drulzegar Skraghook stand in the village.
+  accept 5381                         -- Taiga Wisemane: the Hand of Iruxos, at Thunder Axe Fortress later on this visit
+  accept 6143                         -- Drulzegar Skraghook: the Slitherblade of Sar'theris Strand, on the way back from Thunder Axe Fortress
 
 step Ghost Walker Post
   zone Desolace
-  tip North to the post; Gurda Wildmane stands beside Felgur.
+  tip East along the road to Ghost Walker Post; Gurda Wildmane stands beside Felgur Twocuts.
   accept 93225                        -- Gurda Wildmane
-  accept 1366                         -- Felgur Twocuts: his Centaur Bounty, from the same Maraudine
+  accept 1366                         -- Felgur Twocuts: his Centaur Bounty, from the same Maraudine as Gurda's totems
 
 step Valley of Spears
   zone Desolace
-  tip West of the post, the Maraudine centaurs hold the Valley of Spears. Every Maraudine can drop a Carved Centaur Totem and an ear for Felgur's Centaur Bounty. Stay with the Maraudine (36-39) in the valley: the Magram's village in the south-east has the same drops, but its Necromancers (42-43) and Guardians (39-41) are well above you.
+  tip West of the post, the Maraudine centaurs hold the Valley of Spears; every Maraudine can drop a Carved Centaur Totem and an ear for Felgur's Centaur Bounty. Stay with the Scouts and Wranglers (36-38) at the valley's eastern edge; the Maulers and Windchasers (38-39) a little further in are up to two over you at 37: pull them one at a time.
+  tip Careful: Khan Hratha and the Rock Worms (41-42, elite) hold the valley's north-western end with the Khan Guards and Marauders (39-40), and the Magram's village in the south-east has Necromancers (42-43): keep east of the arrow.
   collect 254432 x5 quest 93225.1 @33.0,54.0 map 1443
   collect 6067 quest 1366
 
@@ -232,28 +241,54 @@ step Hornizz Brimbuzzle
   zone Desolace
   tip Hornizz waits at the goblin camp on the west side of the Kodo Graveyard.
   turnin 6132
-  accept 6134
+  accept 6134                         -- Hornizz Brimbuzzle: the ghost-o-plasm, after Mannoroc Coven at the end of this visit
+
+step Ghost Walker Post
+  zone Desolace
+  turnin 93225                        -- Gurda Wildmane
+  turnin 1366                         -- Felgur Twocuts
+
+step Thunder Axe Fortress
+  zone Desolace
+  tip North up the road to Thunder Axe Fortress. Clear the middle of the largest building, then use the Demon Pick on the red Hand of Iruxos Crystal there. A Demon Spirit (37) comes out: kill it for the Demon Box. The Burning Blade around it are well under you now.
+  use 14523 quest 5381.1 @55.0,26.7 map 1443 -- Demon Pick, on the Hand of Iruxos Crystal
+  collect 13542 quest 5381
+
+step Sar'theris Strand
+  zone Desolace
+  tip West from the fortress to the coast at Sar'theris Strand: the Slitherblade Myrmidons, Naga and Sorceresses hold the beach. Pull them one at a time; the Sea Witches and Oracles (34-36) cast from range.
+  kill 4714 quest 6143.1
+  kill 4711 quest 6143.2
+  kill 4712 quest 6143.3
+
+step Shadowprey Village
+  zone Desolace
+  tip South down the coast to Shadowprey: Taiga takes the box and sends you to Mannoroc Coven with it; Drulzegar takes the naga.
+  turnin 5381                         -- Taiga Wisemane
+  accept 5581
+  turnin 6143                         -- Drulzegar Skraghook
+
+step Portals of the Legion
+  zone Desolace
+  tip Head east to Mannoroc Coven. With the Hand of Iruxos from Taiga in your bags, open a demon portal's ring: a Demon Portal Guardian (38-39) comes out; kill it to close that portal. Six portals. Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake.
+  goto 52.0,78.0 "Mannoroc Coven"
+  complete 5581
 
 step The Valley of Bones
   zone Desolace
-  tip Head south-east to the bone fields of the Valley of Bones, where Undead Ravagers roam, at Desolace's southern edge. Use the Crate of Ghost Magnets at the arrow to draw the Magrami Spectres: they drop the ghost-o-plasm.
+  tip South-east of the coven, the bone fields of the Valley of Bones, where Undead Ravagers roam, at Desolace's southern edge: keep south of the Magram's village on the way. Use the Crate of Ghost Magnets at the arrow to draw the Magrami Spectres (38-39): they come in numbers, so fight them with your back to the valley's edge. They drop the ghost-o-plasm.
   tip Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields just west of the arrow, well above you: use the crate at the arrow, on the valley's eastern side, and pull the spectres away from them.
   use 15848 quest 6134.1 @64.4,91.7 map 1443
   collect 15849 quest 6134 @64.4,91.7 map 1443 -- Ghost-o-plasm
 
 step Hornizz Brimbuzzle
   zone Desolace
-  tip North to the goblin camp on the west side of the Kodo Graveyard.
+  tip North-west to the goblin camp on the west side of the Kodo Graveyard, back past Mannoroc Coven: keep west of the Magram's village.
   turnin 6134
-
-step Ghost Walker Post
-  zone Desolace
-  turnin 1366                         -- Felgur Twocuts
-  turnin 93225                        -- Gurda Wildmane
 
 step Shadowprey
   zone Desolace
-  tip West to Shadowprey.
+  tip Hearth to Shadowprey: your hearthstone is still bound there.
   turnin 5581                         -- Taiga Wisemane
 
 # ---------------------------------------------------------------- Orgrimmar

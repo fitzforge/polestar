@@ -13,9 +13,11 @@
 // 1.0 <look>-groups-dungeons (with "Dungeons in my route", which shows once
 // dungeons in the route are turned on, Core/Init.lua's ns.dungeonRoute, and
 // the route has dungeons and its setting), <look>-groups-held (the same route
-// and a saved Run them with the switch off: group quests only) and
+// and a saved Run them with the switch off: group quests only),
 // <look>-look-gamepad (the gamepad's button names, shown while a gamepad is in
-// use).
+// use) and Targeting with every combination of its switches
+// (<look>-targeting-<list|simple>-<plate|noplate>-<mark|nomark>), the button
+// off (-off) and a key on it (-key).
 //
 // The UI scale: UIParent at that scale, its size in UI units the screen's
 // 1920 x 1080 over it, as the client has it.
@@ -76,6 +78,19 @@ for (const [name, [id, folder, variant]] of Object.entries(LOOKS)) {
 	shots[`${name}-groups-dungeons`] = { title: `${name}: Groups and dungeons with "Dungeons in my route"`, lua: `${base}\n${page('1.0', 'groups', DUNGEONS)}` };
 	shots[`${name}-groups-held`] = { title: `${name}: Groups while dungeons in the route are held back`, lua: `${base}\n${page('1.0', 'groups', HELD)}` };
 	shots[`${name}-look-gamepad`] = { title: `${name}: Your look with the gamepad's button names`, lua: `${base}\n${page('1.0', 'look', `${ALL_SKINS}\n${GAMEPAD}`)}` };
+	// Targeting with each combination of its switches (the list or the single
+	// button, who it targets, the mark), the button off, and a key bound to it.
+	for (const simple of [false, true]) {
+		for (const plate of [false, true]) {
+			for (const mark of [false, true]) {
+				const combo = `${simple ? 'simple' : 'list'}-${plate ? 'plate' : 'noplate'}-${mark ? 'mark' : 'nomark'}`;
+				const set = `Polestar.Set("qol.targetSimple", ${simple}); Polestar.Set("qol.targetPlate", ${plate}); Polestar.Set("qol.markTarget", ${mark})`;
+				shots[`${name}-targeting-${combo}`] = { title: `${name}: Targeting, ${combo}`, lua: `${base}\n${page('1.0', 'targeting', set)}` };
+			}
+		}
+	}
+	shots[`${name}-targeting-off`] = { title: `${name}: Targeting with the button off`, lua: `${base}\n${page('1.0', 'targeting', 'Polestar.Set("qol.targetButton", false)')}` };
+	shots[`${name}-targeting-key`] = { title: `${name}: Targeting with a key on the button`, lua: `${base}\n${page('1.0', 'targeting', 'function GetBindingKey(a) if a == "CLICK PolestarTargetButton:LeftButton" then return "SHIFT-T" end end')}` };
 }
 
 module.exports = {

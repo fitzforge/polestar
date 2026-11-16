@@ -6,6 +6,15 @@
 -- A token marked "no name in this language" would show in English: write that name in Korean words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1443} Desolace
+	["Kodo bones, demons and lost treasure in south {zone:1443}."] = "남부 {zone:1443}의 코도 뼈, 악마, 잃어버린 보물.",
+	["Short: about one level of quests"] = "짧음: 약 1레벨 분량의 퀘스트",
+	-- {zone:1434} Stranglethorn Vale
+	["Then on to {zone:1434}"] = "이후 {zone:1434}(으)로",
+	["Stays on the main route"] = "주요 경로에 머무름",
+	["A long trip out to Kalimdor"] = "칼림도어까지 먼 여정",
+
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "{area:150}(으)로 비행",
@@ -20,6 +29,8 @@ return {
 	-- Step 4: Nijel's Point
 	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort
 	["{npc:5638}, if 30-40/02 didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}: 30-40/02에서 받지 않았다면. 난파선은 {npc:11863}의 탑 아래에 있습니다",
+	-- {npc:5396} Captain Pentigast
+	["{npc:5396}, if 30-40/02 didn't give it"] = "{npc:5396}, 30-40/02에서 받지 않았다면",
 
 	-- Step 5: Bibbly F'utzbuckle
 	-- {area:2407} Kormek's Hut
@@ -29,61 +40,85 @@ return {
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard · {area:2407} Kormek's Hut · {object:176751} Kodo Bones
 	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019}은(는) {area:2407} 남서쪽, {area:596} 가장자리에 서 있습니다. {object:176751}은(는) 해골들 사이에 있습니다.",
 
-	-- Step 7: Flesh Picker
+	-- Step 7: Hornizz Brimbuzzle
+	-- {quest:6134} Ghost-o-plasm Round Up · {area:2657} Valley of Bones
+	-- plural, as words: Magram Necrokhans = {npc:253274} Magram Necrokhan
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:6134}'s magnets draw the Magrami Spectres a few yards from the Magram Necrokhans and Corpsefeeders (45, elite) in the {area:2657}. Skip it if you are alone."] = "정예 몹입니다. 파티를 권장하니 함께할 사람을 찾으십시오. {quest:6134}의 자석은 {area:2657}에서 마그람일족 강령왕과 시체먹이(45, 정예)로부터 몇 미터 떨어진 곳으로 마그라미 유령을 끌어냅니다. 혼자라면 건너뛰십시오.",
+
+	-- Step 8: Flesh Picker
 	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
 	["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s {item:213565}."] = "{npc:217590}이(가) {area:596}을(를) 기어다닙니다. {npc:217412}의 {item:213565}에 든 도구로 한 마리를 잡으십시오.",
 
-	-- Step 8: Maraudine centaurs
+	-- Step 9: Maraudine centaurs
 	["Maraudine centaurs"] = "마라우돈일족 켄타우로스",
 	-- {area:607} Valley of Spears
 	["The Maraudine centaurs hold the {area:607} west of the graveyard; every kind drops the totems."] = "마라우돈일족 켄타우로스가 묘지 서쪽 {area:607}을(를) 차지하고 있으며, 모든 종류가 토템을 떨어뜨립니다.",
 
-	-- Step 9: Melizza Brimbuzzle
+	-- Step 10: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
 	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277}은(는) 묘지 서쪽 켄타우로스 야영지에 갇혀 있습니다. 풀어 주고 나가는 동안 살려 두십시오. 그녀는 묘지 옆에서 멈춥니다.\n주의: 스크립트로 등장하는 무리는 서로 연결되어 있고 호위 중에만 나타나므로, 미리 처치하거나 하나씩 끌어올 수 없습니다. 시작하기 전에 길의 일반 켄타우로스를 처치해 두면 도움이 됩니다.",
 	-- {npc:12277} Melizza Brimbuzzle
 	["escort {npc:12277} back toward the graveyard"] = "{npc:12277}을(를) 묘지 쪽으로 호위",
 
-	-- Step 10: Mannoroc Coven
-	-- {area:602} Mannoroc Coven · {zone:1443} Desolace
-	-- plural, as words: Mana Eaters = {npc:4678} Mana Eater · Ley Hunters = {npc:4685} Ley Hunter · Nether Maidens = {npc:4679} Nether Maiden · Doomwarder Captains = {npc:4680} Doomwarder Captain
-	["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "악마들은 {zone:1443} 남부의 {area:602}에 모여 있습니다. 지옥사냥개(마나 포식자, 마법사 사냥개, 지맥 사냥개), 황천의 처녀와 황천의 자매, 그리고 구덩이 주변의 파멸의 수호대장입니다.\n주의: 이곳 몹 대부분은 순찰 경로를 걸으므로 몹을 더 끌어오기 쉽습니다.",
+	-- Step 11: Mannoroc Coven
+	-- {area:602} Mannoroc Coven · {zone:1443} Desolace · {npc:5760} Lord Azrethoc
+	-- plural, as words: Nether Maidens = {npc:4679} Nether Maiden · Doomwarder Captains = {npc:4680} Doomwarder Captain
+	["The demons gather at the {area:602} in southern {zone:1443}. Nether Maidens (37-38) hold its north-west side and drop the wings; Doomwarder Captains (38) stand at the south end and drop the blood.\nCareful: Nether Sorceresses (39-40) stand beside the Doomwarder Captains, and {npc:5760}, a level 40 elite, walks the coven's middle: pull the captains away from them. Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "악마들은 {zone:1443} 남부의 {area:602}에 모여 있습니다. 황천의 요녀(37-38)가 북서쪽을 차지하고 있으며 날개를 떨어뜨리고, 파멸의경비대 부대장(38)은 남쪽 끝에 서 있으며 혈액을 떨어뜨립니다.\n주의: 파멸의경비대 부대장 옆에는 황천의 여마법사(39-40)가 서 있고, 40레벨 정예인 {npc:5760}이(가) 마녀단 한가운데를 돌아다닙니다. 부대장을 그들에게서 멀리 끌어내십시오. 이곳 몹 대부분이 순찰 경로를 돌아다니므로 다른 몹까지 끌려오기 쉽습니다.",
+	-- {item:6251} Nether Wing
+	-- plural, as words: Nether Maidens = {npc:4679} Nether Maiden
+	["{item:6251}, from the Nether Maidens"] = "{item:6251}, 황천의 요녀에게서 획득",
+	-- {item:6252} Doomwarder Blood
+	-- plural, as words: Doomwarder Captains = {npc:4680} Doomwarder Captain
+	["{item:6252}, from the Doomwarder Captains"] = "{item:6252}, 파멸의경비대 부대장에게서 획득",
 
-	-- Step 11: The Valley of Bones
+	-- Step 12: The Valley of Bones
 	-- {area:2657} Valley of Bones
 	["The {area:2657}"] = "{area:2657}",
-	-- {item:15848} Crate of Ghost Magnets
-	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre · Magram Necrokhans = {npc:253274} Magram Necrokhan · Magram Necromancers = {npc:253272} Magram Necromancer
-	["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them."] = "언데드 약탈자가 마그람일족 마을 남쪽, 마녀단 동쪽의 뼈 들판을 돌아다닙니다. 화살표는 들판 서쪽 가장자리로 안내합니다. 그런 다음 들판 동쪽의 화살표 위치에서 {item:15848}을(를) 사용해 마그람 유령을 끌어내십시오. 주의: 마그람일족 강령왕과 시체먹이(45, 정예)가 마그람일족 강령술사(42)와 함께 두 화살표 사이 뼈 들판을 돌아다닙니다. 약탈자와 유령을 그들에게서 멀리 끌어내십시오.",
+	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magram Necrokhans = {npc:253274} Magram Necrokhan · Magram Necromancers = {npc:253272} Magram Necromancer
+	["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields further east, with Magram Necromancers (42): pull the Ravagers to you, away from them."] = "언데드 약탈자가 마그람일족 마을 남쪽, 마녀단 동쪽의 뼈 들판을 돌아다닙니다. 화살표는 들판 서쪽 가장자리로 안내합니다. 주의: 마그람일족 강령왕과 시체먹이(45, 정예)가 마그람일족 강령술사(42)와 함께 더 동쪽의 뼈 들판을 돌아다닙니다. 약탈자를 그들에게서 멀리 끌어내십시오.",
 
-	-- Step 14: Azore Aldamort
+	-- Step 13: The ghost magnets
+	["The ghost magnets"] = "유령 유인기",
+	-- {item:15848} Crate of Ghost Magnets
+	["Use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres; the Necrokhans and Corpsefeeders (45, elite) walk close by: keep the group together."] = "들판 동쪽의 화살표 위치에서 {item:15848}을(를) 사용해 마그라미 유령을 끌어내십시오. 강령왕과 시체먹이(45, 정예)가 가까이 돌아다니니 파티와 함께 움직이십시오.",
+
+	-- Step 14: Mannoroc Coven
+	-- {npc:5760} Lord Azrethoc
+	-- plural, as words: Mana Eaters = {npc:4678} Mana Eater · Mage Hunters = {npc:4681} Mage Hunter
+	["Back at the coven on the way west: the Mana Eaters (37-38) on its north edge and the Mage Hunters (38-39) further in drop the brains. {npc:5760} (40, elite) walks among the Mage Hunters: pull them out to you."] = "서쪽으로 가는 길에 다시 마녀단으로: 북쪽 가장자리의 마나먹는 지옥사냥개(37-38)와 더 안쪽의 마법사 사냥개(38-39)가 뇌를 떨어뜨립니다. {npc:5760}(40, 정예)이(가) 마법사 사냥개 사이를 돌아다니니 사냥개를 끌어내십시오.",
+
+	-- Step 17: Azore Aldamort
 	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
 	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "길을 따라 서쪽으로 {zone:1443} 북부를 가로질러 {area:2405} 폐허로 가십시오. 난파선으로 가는 길, 그곳 언덕 위에 {npc:11863}의 탑이 서 있습니다.",
+	-- {npc:11863} Azore Aldamort · {quest:93464} The Visiting Mage · {zone:1435} Swamp of Sorrows
+	["{npc:11863}: {quest:93464}, from Magtoor in the {zone:1435}"] = "{npc:11863}: {quest:93464}, {zone:1435}의 마그투르에게서 받음",
 
-	-- Step 15: Karnitol's Chest
+	-- Step 18: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort
 	["The wrecked ship's chest lies just south-west of {npc:11863}'s tower."] = "난파선의 상자는 {npc:11863}의 탑 바로 남서쪽에 있습니다.",
 
-	-- Step 16: Claim Rackmore's Treasure!
-	-- {object:177787} Rackmore's Log · {object:35251} Karnitol's Chest
-	["{object:177787} lies beside {object:35251}. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "{object:177787}은(는) {object:35251} 옆에 있습니다. 그의 은 열쇠는 난파선 주변의 마른집게 게가 떨어뜨리고, 황금 열쇠는 다음에 갈 북서쪽 해안의 칼날비늘 나가에게서 얻습니다.",
+	-- Step 19: Claim Rackmore's Treasure!
+	-- {object:177787} Rackmore's Log · {object:35251} Karnitol's Chest · {zone:1443} Desolace
+	["{object:177787} lies beside {object:35251}, if you didn't take it on your first {zone:1443} visit. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "첫 {zone:1443} 방문 때 받지 않았다면, {object:177787}은(는) {object:35251} 옆에 있습니다. 그의 은 열쇠는 난파선 주변의 마른집게 게가 떨어뜨리고, 황금 열쇠는 다음에 갈 북서쪽 해안의 칼날비늘 나가에게서 얻습니다.",
+	-- {object:177787} Rackmore's Log
+	["{object:177787}, if 30-40/02 didn't take it"] = "{object:177787}: 30-40/02에서 받지 않았다면",
 	["Underwater"] = "물속",
 
-	-- Step 17: Sar'theris Strand: kill these as you meet them
+	-- Step 20: Sar'theris Strand: kill these as you meet them
 	-- {area:598} Sar'theris Strand
 	["{area:598}: kill these as you meet them"] = "{area:598}: 만나는 대로 처치하십시오",
-	-- {npc:11863} Azore Aldamort · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words) · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
+	-- {npc:11863} Azore Aldamort · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
 	["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "칼날비늘 나가가 {npc:11863}의 탑 북쪽, 북서쪽 해안을 차지하고 있습니다. 카니톨의 가방은 그 앞바다 해저에 있으며, 어느 나가든 랙모어의 황금 열쇠를 떨어뜨릴 수 있습니다. 맨 북쪽 끝 앞바다의 {area:2406}까지 헤엄쳐 가서 {object:177673}에 {item:15766}을(를) 사용하십시오. {npc:12369}(38)이(가) 솟아오르니 처치해서 {quest:6027}을(를) 얻으십시오.",
 	-- {item:15881} Rackmore's Golden Key
 	["{item:15881}, from the Slitherblade naga"] = "{item:15881}, 칼날비늘 나가에게서 획득",
-	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words)
+	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue
 	["{item:15766}, on the {object:177673}"] = "{item:15766}, {object:177673}에 사용",
 
-	-- Step 18: Rackmore's Chest
-	-- {object:177673} Serpent Statue (no name in this language: may be words)
+	-- Step 21: Rackmore's Chest
+	-- {object:177673} Serpent Statue
 	["Rackmore's chest lies just south-east of the {object:177673}."] = "랙모어의 상자는 {object:177673} 바로 남동쪽에 있습니다.",
 
-	-- Step 21: Nijel's Point
+	-- Step 24: Nijel's Point
 	-- {area:608} Nijel's Point · {npc:5396} Captain Pentigast · {npc:5638} Kreldig Ungor · {npc:1182} Brother Anton
 	["Follow the road north to {area:608}: {npc:5396} stands at its south end, {npc:5638} in the middle, {npc:1182} to the north."] = "길을 따라 북쪽 {area:608}(으)로 가십시오. {npc:5396}은(는) 남쪽 끝에, {npc:5638}은(는) 한가운데에, {npc:1182}은(는) 북쪽에 서 있습니다.",
 	-- {npc:5637} Roetten Stonehammer · {zone:1455} Ironforge
@@ -91,7 +126,12 @@ return {
 	-- {npc:3980} Raleigh the Devout · {area:271} Southshore
 	["for {npc:3980} in {area:271}: keep it"] = "{area:271}의 {npc:3980}에게: 보관하십시오",
 
-	-- Step 22: Fly to Theramore
+	-- Step 25: Fly to Theramore
 	["Fly to Theramore"] = "테라모어 섬으로 비행",
 	["The next guide starts in Theramore."] = "다음 가이드는 테라모어 섬에서 시작합니다.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "악마들은 {zone:1443} 남부의 {area:602}에 모여 있습니다. 지옥사냥개(마나 포식자, 마법사 사냥개, 지맥 사냥개), 황천의 처녀와 황천의 자매, 그리고 구덩이 주변의 파멸의 수호대장입니다.\n주의: 이곳 몹 대부분은 순찰 경로를 걸으므로 몹을 더 끌어오기 쉽습니다.",
+	-- ["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them."] = "언데드 약탈자가 마그람일족 마을 남쪽, 마녀단 동쪽의 뼈 들판을 돌아다닙니다. 화살표는 들판 서쪽 가장자리로 안내합니다. 그런 다음 들판 동쪽의 화살표 위치에서 {item:15848}을(를) 사용해 마그람 유령을 끌어내십시오. 주의: 마그람일족 강령왕과 시체먹이(45, 정예)가 마그람일족 강령술사(42)와 함께 두 화살표 사이 뼈 들판을 돌아다닙니다. 약탈자와 유령을 그들에게서 멀리 끌어내십시오.",
+	-- ["{object:177787} lies beside {object:35251}. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "{object:177787}은(는) {object:35251} 옆에 있습니다. 그의 은 열쇠는 난파선 주변의 마른집게 게가 떨어뜨리고, 황금 열쇠는 다음에 갈 북서쪽 해안의 칼날비늘 나가에게서 얻습니다.",
 }

@@ -19,8 +19,8 @@ return {
 	["{npc:10840} stands in {area:3197}, in the south of the {zone:1422}. {object:2160} starts at Neutral 200 for everyone. Wear the Commission trinket while you fight the Scourge: Scourgestones only drop while you wear it. {npc:11039} at {area:2268} gives the same Commission; you can only take one."] = "",
 
 	-- Step 2: Argent Dawn Commission (Horde)
-	-- {quest:5401} Argent Dawn Commission
-	["{quest:5401} (Horde)"] = "{quest:5401} (Орда)",
+	-- {quest:5405} Argent Dawn Commission
+	["{quest:5405} (Horde)"] = "{quest:5405} (Орда)",
 	-- {npc:10839} Argent Officer Garush · {area:152} Bulwark · {zone:1420} Tirisfal Glades · {zone:1422} Western Plaguelands · {object:2160} The Argent Dawn · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel
 	["{npc:10839} stands at the {area:152}, on the road from {zone:1420} into the {zone:1422}. {object:2160} starts at Neutral 200 for everyone. Wear the Commission trinket while you fight the Scourge: Scourgestones only drop while you wear it. {npc:11039} at {area:2268} gives the same Commission; you can only take one."] = "",
 
@@ -123,9 +123,9 @@ return {
 	["{item:19442} ({skill:129}), 10 gold"] = "",
 
 	-- Step 11: Mantles of the Dawn
-	-- {npc:11536} Quartermaster Miranda Breechlock · {quest:5504} Mantles of the Dawn · {faction:529} Argent Dawn · {item:18173} Shadow Mantle of the Dawn · {item:13810} Blessed Sunfruit
+	-- {npc:11536} Quartermaster Miranda Breechlock · {quest:5513} Mantles of the Dawn · {faction:529} Argent Dawn · {item:18173} Shadow Mantle of the Dawn · {item:13810} Blessed Sunfruit
 	-- plural, as words: Argent Dawn Valor Tokens = {item:12844} Argent Dawn Valor Token
-	["At Revered, {npc:11536} takes 10 Argent Dawn Valor Tokens for {quest:5504} (100 reputation). After it, any {faction:529} quartermaster sells the five shoulder enchants for 10 gold each: Flame, Frost, Arcane, Nature and {item:18173}, +5 to that resistance. Revered also opens the {item:13810} and its juice (60 silver) and the Revered recipes."] = "",
+	["At Revered, {npc:11536} takes 10 Argent Dawn Valor Tokens for {quest:5513} (100 reputation). After it, any {faction:529} quartermaster sells the five shoulder enchants for 10 gold each: Flame, Frost, Arcane, Nature and {item:18173}, +5 to that resistance. Revered also opens the {item:13810} and its juice (60 silver) and the Revered recipes."] = "",
 	-- plural, as words: Argent Dawn Valor Tokens = {item:12844} Argent Dawn Valor Token
 	["Argent Dawn Valor Tokens, from the stone turn-ins"] = "",
 	-- {item:18170} Frost Mantle of the Dawn
@@ -162,4 +162,5 @@ return {
 	-- ["{faction:529} to Exalted"] = "{faction:529} до уровня «Превознесение»",
 	-- ["{object:2160} starts out Neutral. Take the Commission from {npc:10839} at {area:152} and wear it: in Classic, Scourgestones only drop while the {quest:5401} trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains."] = "{object:2160}: начальная репутация – равнодушие. Возьмите жетон у NPC {npc:10839} ({area:152}) и наденьте: в Classic камни Плети падают, только пока надет аксессуар {quest:5401}. Бонус наследия Forever «Дипломат» ускоряет рост репутации.",
 	-- ["{object:2160} starts out Neutral. Take the Commission from {npc:10840} at {area:3197} and wear it: in Classic, Scourgestones only drop while the {quest:5401} trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains."] = "{object:2160}: начальная репутация – равнодушие. Возьмите жетон у NPC {npc:10840} ({area:3197}) и наденьте: в Classic камни Плети падают, только пока надет аксессуар {quest:5401}. Бонус наследия Forever «Дипломат» ускоряет рост репутации.",
+	-- ["{quest:5401} (Horde)"] = "{quest:5401} (Орда)",
 }

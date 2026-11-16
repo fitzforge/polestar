@@ -10,57 +10,77 @@ return {
 	-- {zone:1418} Badlands
 	["Into {zone:1418}"] = "Rumo a {zone:1418}",
 
-	-- Step 3: Hammertoe's Digsite
+	-- Step 2: Dorgaron
+	-- {npc:269577} Dorgaron · {area:346} Hammertoe's Digsite · {area:345} Agmond's End
+	-- plural, as words: Stonevault Bonesnappers = {npc:2893} Stonevault Bonesnapper
+	["{npc:269577} of the Explorers' League camps at the foot of the pass. His artifacts drop from the Shadowforge diggers at {area:346} and the Stonevault Bonesnappers at {area:345}, and the helmet lies in the Shadowforge camp."] = "{npc:269577}, da Liga dos Exploradores, acampa no pé da passagem. Os artefatos dele caem dos escavadores Umbraforja em {area:346} e dos Quebraossos da Abóbada de Pedra em {area:345}, e o capacete está no acampamento Umbraforja.",
+	-- {npc:269577} Dorgaron · {item:278404} Pristine Mattock · {zone:1418} Badlands
+	["{npc:269577}: keep it, the {item:278404} waits for the 40-50 {zone:1418} visit"] = "{npc:269577}: guarde-o, o {item:278404} fica para a visita a {zone:1418} no 40-50",
+
+	-- Step 4: Hammertoe's Digsite
 	-- {zone:1432} Loch Modan · {zone:1418} Badlands · {npc:2910} Prospector Ryedol · {npc:2860} Sigrun Ironhew
 	["Head back west to the road and follow it south out of {zone:1432} through the pass into the {zone:1418}. {npc:2910} and {npc:2860} camp side by side at the dig."] = "Volte para oeste até a estrada e siga por ela para o sul, saindo de {zone:1432} pela passagem até {zone:1418}. {npc:2910} e {npc:2860} acampam lado a lado na escavação.",
 
-	-- Step 4: Hammertoe's Digsite: kill these as you meet them
+	-- Step 5: Hammertoe's Digsite: kill these as you meet them
 	-- {area:346} Hammertoe's Digsite
 	["{area:346}: kill these as you meet them"] = "{area:346}: vá matando estes pelo caminho",
+	-- {npc:269577} Dorgaron
 	-- plural, as words: Crag Coyotes = {npc:2727} Crag Coyote
-	["The Shadowforge dwarves camp just north of the digsite; the crumpled map lies among their tents. Tunnelers and Darkweavers carry Ryedol's pick. Crag Coyotes roam the slopes around it."] = "Os anões de Umbraforja acampam logo ao norte da escavação; o Mapa Amassado está entre as barracas. Escavadores e Tecetrevas carregam a picareta de Ryedol. Coiotes do Rochedo vagam pelas encostas ao redor.",
+	["The Shadowforge dwarves camp just north of the digsite; the crumpled map and {npc:269577}'s mining helmet lie among their tents. Tunnelers and Darkweavers carry Ryedol's pick and {npc:269577}'s artifacts. Crag Coyotes roam the slopes around it."] = "Os anões de Umbraforja acampam logo ao norte da escavação; o Mapa Amassado e o capacete de mineração de {npc:269577} estão entre as barracas. Escavadores e Tecetrevas carregam a picareta de Ryedol e os artefatos de {npc:269577}. Coiotes do Rochedo vagam pelas encostas ao redor.",
+	-- {item:278403} Explorers' League Mining Helmet
+	["{item:278403}, in the Shadowforge camp"] = "{item:278403}, no acampamento Umbraforja",
+	-- {item:7847} Buzzard Gizzard
+	-- plural, as words: Starving Buzzards = {npc:2829} Starving Buzzard · Giant Buzzards = {npc:2831} Giant Buzzard
+	["{item:7847}: the Starving Buzzards (35-37) circling the hills north of the digsite drop it most often; leave the Giant Buzzards (39-41) of the far west"] = "{item:7847}: os Urubus Famintos (35-37) que voam em círculos pelas colinas ao norte da escavação são os que mais soltam; deixe os Urubus Gigantes (39-41) do extremo oeste",
 
-	-- Step 5: The excavation crate
+	-- Step 6: The excavation crate
 	["The excavation crate"] = "O caixote da escavação",
 	["Head north-east to the abandoned dig; the supply crate lies there among the Dustbelcher ogres."] = "Siga para nordeste até a escavação abandonada; o caixote de suprimentos está lá, no meio dos ogros Arrota-pó.",
 
-	-- Step 6: Hammertoe's Digsite
+	-- Step 7: Hammertoe's Digsite
 	-- {area:1517} Uldaman
 	["Ryedol's next errand goes into {area:1517}: skip it."] = "A próxima tarefa de Ryedol é em {area:1517}: pule.",
 
-	-- Step 7: Valley of Fangs
+	-- Step 8: Valley of Fangs
 	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {zone:1418} Badlands
 	["{npc:4618} and {npc:2817} camp together in the {area:1877}, in the middle of the {zone:1418}."] = "{npc:4618} e {npc:2817} acampam juntos em {area:1877}, no meio de {zone:1418}.",
 	["The clams lie on Stranglethorn's north-west coast, in the next guide: keep it"] = "Os mariscos ficam no litoral noroeste da Selva do Espinhaço, no próximo guia: guarde-a",
 
-	-- Step 8: Agmond's End
+	-- Step 9: Agmond's End
 	["The battered skeleton lies just east of the ogres, at the edge of the Stonevault trogg camp; the Bonesnappers and Shamans around it drop the flakes. Theldurin sits by the ruined camp further south."] = "O esqueleto danificado fica logo a leste dos ogros, na beira do acampamento dos troggs da Abóbada de Pedra; os Quebraossos e Xamãs ao redor soltam as lascas. Theldurin está sentado junto ao acampamento em ruínas, mais ao sul.",
 
-	-- Step 9: Agmond's End: kill these as you meet them
+	-- Step 10: Agmond's End: kill these as you meet them
 	-- {area:345} Agmond's End
 	["{area:345}: kill these as you meet them"] = "{area:345}: vá matando estes pelo caminho",
 	-- {quest:739} Murdaloc · {spell:5242} Battle Shout · {spell:1160} Demoralizing Shout · {area:340} Kargath
-	-- plural, as words: Dustbelcher Lords = {npc:2719} Dustbelcher Lord
-	["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "Os ogros Arrota-pó acampam logo ao sul do vale; qualquer um deles solta sucata. Urubus voam em círculos pela planície a leste.\nO esqueleto surrado fica na beira do acampamento de troggs da Abóbada de Pedra; {quest:739}, o assassino de Agmond, anda entre os Quebraossos.\nCuidado: os Grandes Arrota-pó são de nível 44-45. Eles usam {spell:5242} e {spell:1160}, e abaixo de 50% de vida chamam aliados a até 15 metros. Sete deles ficam a cerca de 750 metros ao sul de {area:340}.",
+	-- plural, as words: Dustbelcher Maulers = {npc:2717} Dustbelcher Mauler · Stonevault Bonesnappers = {npc:2893} Stonevault Bonesnapper · Dustbelcher Lords = {npc:2719} Dustbelcher Lord
+	["Buzzards circle the plain to the east. Careful: the Dustbelcher Maulers, Shamans and Wyrmhunters (40-43) camp far to the south-west: leave them.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: the Stonevault Bonesnappers are 39-40 and the Shamans 40-41, a level or two over you here: pull them from the camp's edge, one at a time.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "Urubus voam em círculos pela planície a leste. Cuidado: os Espancadores, Xamãs e Caçadores de Serpes Arrota-pó (40-43) acampam bem a sudoeste: deixe-os.\nO esqueleto surrado fica na beira do acampamento de troggs da Abóbada de Pedra; {quest:739}, o assassino de Agmond, anda entre os Quebraossos.\nCuidado: os Quebraossos da Abóbada de Pedra são 39-40 e os Xamãs 40-41, um ou dois níveis acima de você aqui: puxe-os da beira do acampamento, um de cada vez.\nCuidado: os Grandes Arrota-pó são de nível 44-45. Eles usam {spell:5242} e {spell:1160}, e abaixo de 50% de vida chamam aliados a até 15 metros. Sete deles ficam a cerca de 750 metros ao sul de {area:340}.",
+	-- {item:7847} Buzzard Gizzard · {area:345} Agmond's End
+	["{item:7847}, if you still need one: the Buzzards east of {area:345} drop it only rarely"] = "{item:7847}, se ainda precisar de uma: os Urubus a leste de {area:345} raramente a soltam",
 	-- {quest:739} Murdaloc · {zone:1418} Badlands
 	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {zone:1418} guide at 43, and kill the Bonesnappers for this quest now."] = "O próprio {quest:739} (42) anda entre os Quebraossos: deixe-o para o guia posterior de {zone:1418} no nível 43, e mate agora os Quebraossos para esta missão.",
+	-- {item:278402} Unstudied Artifact
+	["{item:278402}, from the Shadowforge diggers and the Bonesnappers"] = "{item:278402}, dos escavadores Umbraforja e dos Quebraossos",
 
-	-- Step 10: Theldurin the Lost
+	-- Step 11: Theldurin the Lost
 	-- {area:1517} Uldaman
 	["Theldurin sits by the ruined camp south of the trogg camp. His tablet lies just inside {area:1517}'s cave mouth, beside level 38 elites: a quest for a group."] = "Theldurin está sentado junto ao acampamento em ruínas, ao sul do acampamento dos troggs. A tábua dele fica logo na entrada da caverna de {area:1517}, ao lado de elites de nível 38: uma missão para grupo.",
 
-	-- Step 11: Lotwil Veriatus
+	-- Step 12: Lotwil Veriatus
 	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus
 	["Head west into the {area:1878}; {npc:2921} works by his machines in the middle of it."] = "Siga para oeste até {area:1878}; {npc:2921} trabalha junto às máquinas dele, bem no meio.",
 
-	-- Step 12: Lesser Rock Elementals
+	-- Step 13: Lesser Rock Elementals
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental
 	["Lesser Rock Elementals"] = "Elementais Inferiores da Rocha",
-	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus · {npc:1470} Ghak Healtouch
-	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard
-	["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}; every rock elemental can drop {npc:1470}'s Rock Elemental Shards."] = "Os Elementais Inferiores da Rocha vagam por {area:1878}, a oeste de {npc:2921}; todo elemental da rocha pode soltar os Estilhaços de Elemental da Rocha de {npc:1470}.",
+	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus · {npc:1470} Ghak Healtouch · {npc:2860} Sigrun Ironhew · {npc:269756} Malevolent Mirage
+	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard · Dustbelcher Ogres = {npc:2701} Dustbelcher Ogre
+	["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}; every rock elemental can drop {npc:1470}'s Rock Elemental Shards. The Dustbelcher Ogres (38-39) on the {area:1878}'s west side drop {npc:2860}'s scrap. Careful: a {npc:269756}, a level 42 elite, drifts about the {area:1878}: give it a wide berth.\nCareful: the Lesser Rock Elementals are 37-39 and hit hard: fight them one at a time."] = "Os Elementais Inferiores da Rocha vagam por {area:1878} a oeste de {npc:2921}; qualquer elemental da rocha pode soltar os Estilhaços de Elemental da Rocha de {npc:1470}. Os Ogros Arrota-pó (38-39) no lado oeste de {area:1878} soltam a sucata de {npc:2860}. Cuidado: um {npc:269756}, elite de nível 42, vaga por {area:1878}: mantenha distância.\nCuidado: os Elementais Inferiores da Rocha são 37-39 e batem forte: enfrente-os um de cada vez.",
+	-- {item:4630} Scrap Metal
+	-- plural, as words: Dustbelcher Ogres = {npc:2701} Dustbelcher Ogre
+	["{item:4630}, from the Dustbelcher Ogres"] = "{item:4630}, dos Ogros Arrota-pó",
 
-	-- Step 14: The Ancient Chest
+	-- Step 15: The Ancient Chest
 	-- {object:126260} Ancient Chest
 	["The {object:126260}"] = "{object:126260}",
 	-- {area:1517} Uldaman · {zone:1418} Badlands · {npc:2932} Magregan Deepshadow
@@ -69,49 +89,34 @@ return {
 	-- {item:4631} Tablet of Ryun'eh
 	["{item:4631}; below ground"] = "{item:4631}; no subterrâneo",
 
-	-- Step 15: Valley of Fangs
+	-- Step 16: Valley of Fangs
 	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {area:1517} Uldaman · {area:345} Agmond's End
 	["{npc:4618} and {npc:2817} camp in the {area:1877}, on the road between {area:1517} and {area:345}."] = "{npc:4618} e {npc:2817} acampam em {area:1877}, na estrada entre {area:1517} e {area:345}.",
 	-- {npc:4454} Fizzle Brassbolts · {area:2240} Mirage Raceway · {zone:1446} Tanaris
 	["For {npc:4454} at the {area:2240}: the {zone:1446} guide passes him at 45, keep it"] = "Para {npc:4454} em {area:2240}: o guia de {zone:1446} passa por ele no nível 45, guarde-o",
 
-	-- Step 16: Sigrun Ironhew
+	-- Step 17: Sigrun Ironhew
 	-- {area:1877} Valley of Fangs · {area:346} Hammertoe's Digsite · {npc:2860} Sigrun Ironhew
 	["East from the {area:1877} to {area:346}: {npc:2860} takes the scrap metal."] = "Para leste, de {area:1877} até {area:346}: {npc:2860} recebe a sucata.",
 
-	-- Step 17: Theldurin the Lost
+	-- Step 18: Theldurin the Lost
 	-- {area:345} Agmond's End
 	["Head south to {area:345}."] = "Siga para o sul até {area:345}.",
 	-- {npc:2786} Gerrig Bonegrip · {zone:1455} Ironforge
 	["for {npc:2786} in {zone:1455}: keep it"] = "para {npc:2786} em {zone:1455}: guarde-a",
 
-	-- Step 18: Rock Elementals
+	-- Step 19: Rock Elementals
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental
 	["Rock Elementals"] = "Elementais da Rocha",
-	-- {npc:2921} Lotwil Veriatus
+	-- {npc:2921} Lotwil Veriatus · {npc:269756} Malevolent Mirage · {area:1878} Dustbowl
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental · Giant Buzzards = {npc:2831} Giant Buzzard · Elder Crag Coyotes = {npc:2729} Elder Crag Coyote
-	["The Rock Elementals roam south-east of {npc:2921}; Giant Buzzards and Elder Crag Coyotes share the plain to their west."] = "Os Elementais da Rocha vagam a sudeste de {npc:2921}; Urubus Gigantes e Coiotes Anciões do Rochedo dividem a planície a oeste deles.",
+	["The Rock Elementals roam south-east of {npc:2921}; Giant Buzzards and Elder Crag Coyotes share the plain to their west. Careful: a {npc:269756}, a level 42 elite, drifts about the {area:1878}: give it a wide berth."] = "Os Elementais da Rocha vagam a sudeste de {npc:2921}; Urubus Gigantes e Coiotes Anciões do Rochedo dividem a planície a oeste deles. Cuidado: um {npc:269756}, elite de nível 42, vaga por {area:1878}: mantenha distância.",
 
-	-- Step 19: Lotwil Veriatus
-	-- {npc:2921} Lotwil Veriatus · {item:4628} Bracers of Rock Binding
-	-- plural, as words: Greater Rock Elementals = {npc:2736} Greater Rock Elemental
-	["{npc:2921}'s last test is optional: five {item:4628}, which only the Greater Rock Elementals (42-44) in the south-western gulches drop, about one kill in five, well above your level. Take it only if you can handle them one at a time; otherwise hand in the slabs and move on."] = "O último teste de {npc:2921} é opcional: cinco {item:4628}, que só os Elementais Maiores da Rocha (42-44) das ravinas do sudoeste soltam, mais ou menos uma morte em cinco, bem acima do seu nível. Só faça se der conta deles um de cada vez; senão, entregue as lajes e siga em frente.",
-
-	-- Step 20: Bracers of Rock Binding
-	-- plural, as words: Greater Rock Elementals = {npc:2736} Greater Rock Elemental
-	["South-west into the gulches: only the Greater Rock Elementals there drop the bracers."] = "Ao sudoeste, nas ravinas: só os Elementais Maiores da Rocha de lá soltam os braceletes.",
-
-	-- Step 22: Lucien Tosselwrench
-	-- {npc:2920} Lucien Tosselwrench · {npc:2921} Lotwil Veriatus · {item:2868} Patterned Bronze Bracers
-	["{npc:2920}, beside {npc:2921}, trades for {item:2868}, a blacksmith's craft: this step shows only when you carry a pair."] = "{npc:2920}, ao lado de {npc:2921}, troca por {item:2868}, uma criação de ferreiro: este passo só aparece quando você leva um par.",
-	-- {npc:2920} Lucien Tosselwrench · {npc:2921} Lotwil Veriatus
-	["{npc:2920}, beside {npc:2921}"] = "{npc:2920}, ao lado de {npc:2921}",
-
-	-- Step 23: To Stoutlager Inn
+	-- Step 21: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
 	["To {area:2101}"] = "Para {area:2101}",
 
-	-- Step 24: Thelsamar
+	-- Step 22: Thelsamar
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, in the inn; below ground"] = "{npc:1470}, na estalagem; no subterrâneo",
 
@@ -137,11 +142,16 @@ return {
 	-- ["Ride south to {area:345}."] = "Cavalgue para o sul até {area:345}.",
 	-- ["Ride west into the {area:1878}; {npc:2921} works by his machines in the middle of it."] = "Cavalgue para o oeste até {area:1878}; {npc:2921} trabalha junto às máquinas dele, no meio da área.",
 	-- ["Shadowforge camp"] = "Acampamento de Umbraforja",
+	-- ["South-west into the gulches: only the Greater Rock Elementals there drop the bracers."] = "Ao sudoeste, nas ravinas: só os Elementais Maiores da Rocha de lá soltam os braceletes.",
 	-- ["Take the boat to Theramore from the far pier."] = "Pegue o barco para a Ilha Theramore no píer mais distante.",
 	-- ["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east."] = "Os ogros Arrota-pó acampam logo ao sul do vale; qualquer um deles solta sucata. Urubus sobrevoam a planície a leste.",
+	-- ["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "Os ogros Arrota-pó acampam logo ao sul do vale; qualquer um deles solta sucata. Urubus voam em círculos pela planície a leste.\nO esqueleto surrado fica na beira do acampamento de troggs da Abóbada de Pedra; {quest:739}, o assassino de Agmond, anda entre os Quebraossos.\nCuidado: os Grandes Arrota-pó são de nível 44-45. Eles usam {spell:5242} e {spell:1160}, e abaixo de 50% de vida chamam aliados a até 15 metros. Sete deles ficam a cerca de 750 metros ao sul de {area:340}.",
 	-- ["The Greater Rock Elementals (level 42) walk the far south-west corner below {area:342}; pull them one at a time. The Dustbelcher Wyrmhunters and Maulers at {area:342} also drop scrap."] = "Os Elementais Maiores da Rocha (nível 42) andam no extremo sudoeste, abaixo de {area:342}; puxe um de cada vez. Os Caçadores de Serpes e Espancadores Arrota-pó em {area:342} também soltam sucata.",
 	-- ["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}."] = "Os Elementais Inferiores da Rocha vagam por {area:1878}, a oeste de {npc:2921}.",
+	-- ["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}; every rock elemental can drop {npc:1470}'s Rock Elemental Shards."] = "Os Elementais Inferiores da Rocha vagam por {area:1878}, a oeste de {npc:2921}; todo elemental da rocha pode soltar os Estilhaços de Elemental da Rocha de {npc:1470}.",
 	-- ["The Maraudine centaurs hold the {area:607} west of the graveyard; every kind drops the totems."] = "Os centauros Maraudinos ocupam {area:607}, a oeste do cemitério; todos os tipos soltam os totens.",
+	-- ["The Rock Elementals roam south-east of {npc:2921}; Giant Buzzards and Elder Crag Coyotes share the plain to their west."] = "Os Elementais da Rocha vagam a sudeste de {npc:2921}; Urubus Gigantes e Coiotes Anciões do Rochedo dividem a planície a oeste deles.",
+	-- ["The Shadowforge dwarves camp just north of the digsite; the crumpled map lies among their tents. Tunnelers and Darkweavers carry Ryedol's pick. Crag Coyotes roam the slopes around it."] = "Os anões de Umbraforja acampam logo ao norte da escavação; o Mapa Amassado está entre as barracas. Escavadores e Tecetrevas carregam a picareta de Ryedol. Coiotes do Rochedo vagam pelas encostas ao redor.",
 	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "Os nagas Lâmina Sinuosa dominam a costa noroeste, ao norte da torre de {npc:11863}; a bolsa de Karnitol está no fundo do mar diante dela, e qualquer naga pode soltar a chave dourada de Rackmore. Nade até {area:2406}, na ponta extrema norte, e use o {item:15766} no {object:177673}: {npc:12369} (38) surge; mate-o para obter {quest:6027}.",
 	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "Os nagas Lâmina Sinuosa dominam a costa noroeste, ao norte da torre de {npc:11863}; a bolsa de Karnitol está no fundo do mar diante dela. Nade até {area:2406}, na ponta extrema norte, e use o {item:15766} no {object:177673}: {npc:12369} (38) surge; mate-o para obter {quest:6027}.",
 	-- ["The battered skeleton lies just east of the ogres, at the edge of the Stonevault trogg camp; the Bonesnappers and Shamans around it drop the flakes. Theldurin sits by the ruined camp further south."] = "O esqueleto danificado fica logo a leste dos ogros, na beira do acampamento dos troggs da Abóbada de Pedra; os Quebraossos e Xamãs ao redor soltam as lascas. Theldurin está sentado junto ao acampamento em ruínas, mais ao sul.",
@@ -174,7 +184,10 @@ return {
 	-- ["{npc:12369}, a centaur chieftain, camps on the north-west coast, north of {npc:11863}'s tower."] = "{npc:12369}, um chefe centauro, acampa no litoral noroeste, ao norte da torre de {npc:11863}.",
 	-- ["{npc:1470}, in the inn"] = "{npc:1470}, na estalagem",
 	-- ["{npc:217590}: catch it, for My Little Friends"] = "{npc:217590}: capture-o, para My Little Friends",
+	-- ["{npc:2920}, beside {npc:2921}"] = "{npc:2920}, ao lado de {npc:2921}",
+	-- ["{npc:2920}, beside {npc:2921}, trades for {item:2868}, a blacksmith's craft: this step shows only when you carry a pair."] = "{npc:2920}, ao lado de {npc:2921}, troca por {item:2868}, uma criação de ferreiro: este passo só aparece quando você leva um par.",
 	-- ["{npc:2920}, beside {npc:2921}, wants {item:2868}, a blacksmith's craft: skip him unless you carry a pair."] = "{npc:2920}, ao lado de {npc:2921}, quer {item:2868}, um item de ferreiro: pule-o a menos que você tenha um par.",
+	-- ["{npc:2921}'s last test is optional: five {item:4628}, which only the Greater Rock Elementals (42-44) in the south-western gulches drop, about one kill in five, well above your level. Take it only if you can handle them one at a time; otherwise hand in the slabs and move on."] = "O último teste de {npc:2921} é opcional: cinco {item:4628}, que só os Elementais Maiores da Rocha (42-44) das ravinas do sudoeste soltam, mais ou menos uma morte em cinco, bem acima do seu nível. Só faça se der conta deles um de cada vez; senão, entregue as lajes e siga em frente.",
 	-- ["{npc:2921}'s next test needs crafted gear: skip it."] = "O próximo teste de {npc:2921} exige equipamento fabricado: pule.",
 	-- ["{npc:4618} and {npc:2817} camp together in the {area:1877}, in the middle of the {area:3}."] = "{npc:4618} e {npc:2817} acampam juntos em {area:1877}, no meio de {area:3}.",
 	-- ["{npc:5638}'s next task, {item:6245}, is a drop on the far coast: skip it."] = "A próxima tarefa de {npc:5638}, {item:6245}, é um saque no litoral distante: pule.",

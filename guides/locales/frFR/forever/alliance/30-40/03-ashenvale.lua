@@ -31,6 +31,8 @@ return {
 	["The wreck of the Flying Osprey lies in the shallows south of the keep."] = "L'épave du Flying Osprey repose dans les hauts-fonds au sud du donjon.",
 
 	-- Step 6: Lightforge Ingots
+	-- plural, as words: Lightforge Ingots = {item:2702} Lightforge Ingot
+	["Lightforge Ingots"] = "Lingots de sancteforge",
 	["The Bluegill murlocs on the beach south-west of Menethil carry the ingots."] = "Les murlocs Branchie-bleue sur la plage au sud-ouest du Port de Menethil portent les lingots.",
 	-- {item:2702} Lightforge Ingot
 	["{item:2702}; underwater"] = "{item:2702} ; sous l'eau",
@@ -90,8 +92,11 @@ return {
 	-- {area:2240} Mirage Raceway
 	["{area:2240}: kill these as you meet them"] = "{area:2240} : tuez-les au passage",
 	-- {object:19868} Rocket Car Rubble
-	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Basilisks = {npc:4147} Saltstone Basilisk
-	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "Des {object:19868} jonchent toutes les salines. Des Ravageurs scorpides et des Charognards des salines parcourent la moitié nord, des Claqueurs Brillecoque (tortues) toutes les salines. Les Basilics du sel gemme et les Peaux-de-cristal tiennent le centre ; les Contemplateurs (34-35) seulement l'extrême sud.",
+	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Gazers = {npc:4150} Saltstone Gazer · Scorpid Terrors = {npc:4139} Scorpid Terror
+	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "Les {object:19868} jonchent les Salines. Les Scorpides ravageurs et les Charognards des Salines errent dans la moitié nord, les Tortues nacrétoiles (30-31) au milieu des Salines : chassez-les pour les carapaces. Attention : les Mordeuses nacrétoiles (34-35) errent dans toutes les Salines, et les Contemplateurs du sel gemme (34-35) et les Scorpides terrifiants (33-34) tiennent l'extrême sud : laissez-les et restez dans la moitié nord.",
+	-- {item:5795} Hardened Tortoise Shell
+	-- plural, as words: Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise
+	["{item:5795}, from the Sparkleshell Tortoises"] = "{item:5795}, sur les Tortues nacrétoiles",
 	-- {npc:4078} Collin Mauren · {zone:1453} Stormwind
 	-- plural, as words: Saltstone Basilisks = {npc:4147} Saltstone Basilisk
 	["Crystalized Scale, from the Saltstone Basilisks: eight for {npc:4078} in {zone:1453}"] = "Écailles cristallisées, sur les Basilics du sel gemme : huit pour {npc:4078} à {zone:1453}",
@@ -133,7 +138,6 @@ return {
 	-- ["Geltharis"] = "Geltharis",
 	-- ["Hearth to {area:415}"] = "Pierre de foyer vers {area:415}",
 	-- ["Insane druids"] = "Druides fous",
-	-- ["Lightforge Ingots"] = "Lingots de sancteforge",
 	-- ["Melyria and {npc:3901}"] = "Sentinelle Melyria Frostshadow et {npc:3901}",
 	-- ["Rusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel."] = "Des Coffres rouillés se trouvent autour des camps de furbolgs Sombretaillis à l'ouest des Réprouvés ; ouvrez-les jusqu'à trouver le Pommeau en fer.",
 	-- ["Take the boat to {area:150} from {area:442}'s docks."] = "Prenez le bateau pour {area:150} aux quais d'{area:442}.",
@@ -168,5 +172,6 @@ return {
 	-- ["{npc:3970}: for {npc:1480} in Menethil, at the end of this guide"] = "{npc:3970} : pour {npc:1480} au Port de Menethil, à la fin de ce guide",
 	-- ["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619} dirige les satyres de {area:429} ; il porte la branche.",
 	-- ["{npc:5082}, {npc:4963} and Tapoke Jahn are all at Menethil's inn; {npc:4962} fights you when you talk to {npc:4963}, but gives up once beaten. {npc:1480} stands a short walk north-east of the inn."] = "{npc:5082}, {npc:4963} et {npc:4962} \"Slim\" Jahn sont tous à l'auberge du Port de Menethil ; Tapoke vous attaque quand vous parlez à {npc:4963}, mais abandonne une fois vaincu. {npc:1480} se tient à quelques pas au nord-est de l'auberge.",
+	-- ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "Des {object:19868} jonchent toutes les salines. Des Ravageurs scorpides et des Charognards des salines parcourent la moitié nord, des Claqueurs Brillecoque (tortues) toutes les salines. Les Basilics du sel gemme et les Peaux-de-cristal tiennent le centre ; les Contemplateurs (34-35) seulement l'extrême sud.",
 	-- ["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176} : pour {npc:3961} à {area:415}",
 }

@@ -149,7 +149,8 @@ function UI.GuideWindowScene(band)
 	local c = CreateFrame("Frame", nil, band)
 	if c.SetClipsChildren then c:SetClipsChildren(true) end
 	c.psHeight, c.psTopAligned, c.psNoHot, c.psNoScroll = PREVIEW_H, true, true, true
-	-- The crop's fade, over the window, into the band's ground.
+	-- The crop's fade, over the window, into the band's ground (c.psFadeTo:
+	-- a function -> r, g, b of the ground it stands on, when not the band's).
 	local over = CreateFrame("Frame", nil, c)
 	over:SetAllPoints(c)
 	over:SetFrameLevel(c:GetFrameLevel() + 30)
@@ -159,14 +160,24 @@ function UI.GuideWindowScene(band)
 	c.Fade:SetPoint("BOTTOMRIGHT", c, "BOTTOMRIGHT", 0, 0)
 	c.Fade:SetHeight(CUT_FADE)
 	c.Fade:Hide()
-	W.Painter(c.Fade, function(t)
-		local r, g, b = Theme.Color("bg")
+	local function paintFade(t)
+		local to, r, g, b = rawget(c, "psFadeTo"), nil, nil, nil
+		if type(to) == "function" then r, g, b = to() else r, g, b = Theme.Color("bg") end
+		local a = 1
 		if t.SetGradient and CreateColor then
-			t:SetGradient("VERTICAL", CreateColor(r, g, b, 1), CreateColor(r, g, b, 0))
+			t:SetGradient("VERTICAL", CreateColor(r, g, b, a), CreateColor(r, g, b, 0))
 		else
-			t:SetVertexColor(r, g, b, 0.6)
+			t:SetVertexColor(r, g, b, 0.6 * a)
 		end
-	end)
+	end
+	W.Painter(c.Fade, paintFade)
+	-- The fade into the ground `colorOf()` -> r, g, b (nil: the band's) over
+	-- `height` px (nil: CUT_FADE).
+	function c:FadeTo(colorOf, height)
+		self.psFadeTo = colorOf
+		self.Fade:SetHeight(height or CUT_FADE)
+		paintFade(self.Fade)
+	end
 	local G = UI.GuideFrame.Copy(c, SAMPLE)
 	c.Copy, c.Window = G, G.frame
 

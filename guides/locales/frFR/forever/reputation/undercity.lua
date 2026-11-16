@@ -107,8 +107,8 @@ return {
 	["{item:14047}: the Scarlet outside {area:2266}"] = "{item:14047} : la Croisade écarlate devant {area:2266}",
 
 	-- Step 17: Undercity: Harbinger Balthazad
-	-- {area:152} Bulwark · {npc:10879} Harbinger Balthazad · {faction:68} Undercity
-	["The level 55 to 60 quests pay in full. First the {area:152}: {npc:10879}, by the {faction:68}'s elevators, sends you there."] = "Les quêtes de niveau 55 à 60 paient en entier. D'abord le {area:152} : {npc:10879}, près des ascenseurs de {faction:68}, vous y envoie.",
+	-- {area:152} Bulwark · {npc:10879} Harbinger Balthazad · {faction:68} Undercity · {object:36126} Royal Quarter · {quest:5961} The Champion of the Banshee Queen · {npc:11878} Nathanos Blightcaller · {quest:6136} The Corpulent One
+	["The level 55 to 60 quests pay in full. First the {area:152}: {npc:10879}, by the {faction:68}'s elevators, sends you there. Lady Sylvanas in the {object:36126} gives {quest:5961}, an introduction to {npc:11878}: {quest:6136}, his last quest here, needs it handed in."] = "Les quêtes de niveau 55 à 60 paient en entier. D'abord le {area:152} : {npc:10879}, près des ascenseurs de {faction:68}, vous y envoie. Dame Sylvanas, dans le {object:36126}, donne {quest:5961}, une introduction auprès de {npc:11878} : {quest:6136}, sa dernière quête ici, exige qu'elle soit rendue.",
 
 	-- Step 18: Bulwark: Scarlet Diversions
 	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {npc:10837} High Executor Derrington · {faction:68} Undercity · {item:12814} Flame in a Bottle · {area:200} Dalson's Tears · {area:199} Felstone Field · {item:12807} Scourge Banner
@@ -172,7 +172,7 @@ return {
 
 	-- Step 28: Nathanos Blightcaller
 	-- {npc:11878} Nathanos Blightcaller · {zone:1423} Eastern Plaguelands · {faction:68} Undercity
-	["{npc:11878}, the Ranger Lord, keeps his camp on the western edge of the {zone:1423}. His quests are level 58 to 60 and pay in full: 500 {faction:68} reputation."] = "{npc:11878}, le seigneur forestier, a son camp à la lisière ouest des {zone:1423}. Ses quêtes sont de niveau 58 à 60 et paient en entier : 500 de réputation {faction:68}.",
+	["{npc:11878}, the Ranger Lord, keeps his camp on the western edge of the {zone:1423}. His quests are level 58 to 60 and pay in full: 525 {faction:68} reputation with Sylvanas's introduction."] = "{npc:11878}, le seigneur forestier, a son camp à la lisière ouest des {zone:1423}. Ses quêtes sont de niveau 58 à 60 et paient en entier : 525 de réputation {faction:68} avec l'introduction de Sylvanas.",
 
 	-- Step 29: Plaguebats, Quel'Lithien Lodge and Corin's Crossing
 	-- {area:2276} Quel'Lithien Lodge · {area:2264} Corin's Crossing
@@ -193,7 +193,7 @@ return {
 	-- {npc:11897} Duskwing · {area:2260} Marris Stead · {npc:11896} Borelgore · {area:2272} Northdale
 	["{npc:11897}, an elite bat, roams the fields north of {area:2260}. {npc:11896} paces a long valley west of {area:2272}."] = "{npc:11897}, une chauve-souris élite, parcourt les champs au nord de la {area:2260}. {npc:11896} arpente une longue vallée à l'ouest de {area:2272}.",
 	-- {npc:11878} Nathanos Blightcaller · {faction:68} Undercity · {area:2279} Stratholme · {npc:12337} Crimson Courier
-	["{npc:11878}: 500 {faction:68} reputation. His {area:2279} quests (The {npc:12337}, The Scarlet Oracle, Demetria, Ramstein) need a group."] = "{npc:11878} : 500 de réputation {faction:68}. Ses quêtes de {area:2279} (Le {npc:12337}, L'Oracle écarlate, Demetria, Ramstein) demandent un groupe.",
+	["{npc:11878}: 525 {faction:68} reputation with Sylvanas's introduction. His {area:2279} quests (The {npc:12337}, The Scarlet Oracle, Demetria, Ramstein) need a group."] = "{npc:11878} : 525 de réputation {faction:68} avec l'introduction de Sylvanas. Ses quêtes de {area:2279} (Le {npc:12337}, L'Oracle écarlate, Demetria, Ramstein) demandent un groupe.",
 
 	-- Step 32: The Spider God (optional chain)
 	-- {quest:2936} The Spider God
@@ -268,7 +268,10 @@ return {
 	-- ["Keep handing in {quest:7819}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Continuez à rendre {quest:7819}, 20 {item:14047} à la fois. {item:14047} : Adeptes noirs et Ombremages (niveau 58-60) dans les {zone:1423}, ou l'hôtel des ventes.",
 	-- ["Kolkar centaur (level 30-33) drop it here. The Auction House works too."] = "Les centaures kolkar (niveau 30-33) en lâchent ici. L'hôtel des ventes fonctionne aussi.",
 	-- ["The Plaguelands' level 55-60 quests and {item:14047} to Exalted, with Tirisfal's old quests as an optional extra."] = "Les quêtes de niveau 55-60 des Maleterres et l'{item:14047} jusqu'à Exalté, avec les anciennes quêtes des clairières de Tirisfal en option.",
+	-- ["The level 55 to 60 quests pay in full. First the {area:152}: {npc:10879}, by the {faction:68}'s elevators, sends you there."] = "Les quêtes de niveau 55 à 60 paient en entier. D'abord le {area:152} : {npc:10879}, près des ascenseurs de {faction:68}, vous y envoie.",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "Les Massacreurs de la KapitalRisk de la {area:381} (niveau 16-17) en lâchent ici. L'hôtel des ventes fonctionne aussi.",
+	-- ["{npc:11878}, the Ranger Lord, keeps his camp on the western edge of the {zone:1423}. His quests are level 58 to 60 and pay in full: 500 {faction:68} reputation."] = "{npc:11878}, le seigneur forestier, a son camp à la lisière ouest des {zone:1423}. Ses quêtes sont de niveau 58 à 60 et paient en entier : 500 de réputation {faction:68}.",
+	-- ["{npc:11878}: 500 {faction:68} reputation. His {area:2279} quests (The {npc:12337}, The Scarlet Oracle, Demetria, Ramstein) need a group."] = "{npc:11878} : 500 de réputation {faction:68}. Ses quêtes de {area:2279} (Le {npc:12337}, L'Oracle écarlate, Demetria, Ramstein) demandent un groupe.",
 	-- ["{npc:14729} takes cloth for {faction:68} in {faction:68}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7819} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14729} prend les étoffes pour {faction:68} à {faction:68}. Les premiers dons d'étoffe de laine, de soie, de tisse-mage et d'{item:14047} (60 étoffes chacun) se font une fois et donnent le plus de réputation par étoffe ; ensuite, {quest:7819} se répète jusqu'à Exalté. Être Exalté auprès de la ville d'une autre race permet d'acheter les montures de cette race. L'atout Diplomate de l'Héritage de Forever augmente les gains de réputation.",
 	-- ["{npc:14729}: {item:14047} delivered"] = "{npc:14729} : {item:14047} livrée",
 	-- ["{quest:7819} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7819} prend 20 {item:14047} par remise et se répète à volonté. Apportez l'{item:14047} par multiples de 20 et rendez tout d'un coup, une remise après l'autre. {item:14047} : Adeptes noirs et Ombremages (niveau 58-60) dans les {zone:1423}, ou l'hôtel des ventes.",

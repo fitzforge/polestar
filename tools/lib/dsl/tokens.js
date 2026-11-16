@@ -97,11 +97,12 @@ function dataName(data, kind, id) {
 }
 
 // Every { kind, id, name } a goal names, its own (the NPC, object, target or
-// item it shows) flagged `own`.
+// item it shows) flagged `own`, its exclusives' titles (in preTitles and
+// closedBy: quests that close the goal's) `closes`.
 function goalNames(goal, data) {
 	const out = [];
-	const add = (kind, id, name, own = false) => {
-		if (Number.isInteger(id) && str(name)) out.push({ kind, id, name, own });
+	const add = (kind, id, name, own = false, closes = false) => {
+		if (Number.isInteger(id) && str(name)) out.push({ kind, id, name, own, closes });
 	};
 	add('quest', goal.quest, goal.title);
 	add('npc', goal.npc, goal.npcName, true);
@@ -122,7 +123,7 @@ function goalNames(goal, data) {
 	for (const list of [goal.rewards && goal.rewards.items, goal.rewards && goal.rewards.choices]) {
 		for (const r of list || []) add('item', r.item, r.itemName);
 	}
-	for (const [id, title] of Object.entries(goal.preTitles || {})) add('quest', Number(id), title);
+	for (const [id, title] of Object.entries(goal.preTitles || {})) add('quest', Number(id), title, false, (goal.closedBy || []).includes(Number(id)));
 	if (Number.isInteger(goal.area)) add('area', goal.area, dataName(data, 'area', goal.area));
 	if (Number.isInteger(goal.quest)) {
 		for (const o of data.questObjectives(goal.quest)) {
@@ -548,9 +549,16 @@ function guideIndex(guide, data, common) {
 	return idx;
 }
 
+// The names a step's text reads first: its goals' own. An exclusive's title
+// that is also one of the step's own quests' titles is left out, so the step's
+// quest is the token: Forever's same-named variants ("Call of Air" 96136 for
+// Skyborne, 1531 for the others; the Great Cat Spirit's per race) close each
+// other, and the lower id would win otherwise. (A same-named prerequisite, the
+// next quest of a chain, keeps its place.)
 function stepIndex(step, data, common) {
 	const idx = new NameIndex(common);
-	for (const goal of step.goals || []) for (const n of goalNames(goal, data)) idx.add(n.kind, n.id, n.name, STEP);
+	const ownQuests = new Set((step.goals || []).filter((g) => Number.isInteger(g.quest) && str(g.title)).map((g) => g.title));
+	for (const goal of step.goals || []) for (const n of goalNames(goal, data)) if (!(n.closes && ownQuests.has(n.name))) idx.add(n.kind, n.id, n.name, STEP);
 	idx.addFirsts(npcsOf(step.goals || [], data), STEP, data);
 	return idx;
 }

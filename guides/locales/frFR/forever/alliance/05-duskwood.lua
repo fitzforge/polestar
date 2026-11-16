@@ -66,9 +66,9 @@ return {
 	-- Step 13: Ghoul Ribs
 	-- plural, as words: Ghoul Ribs = {item:884} Ghoul Rib
 	["Ghoul Ribs"] = "Côtes de goule",
-	-- {area:492} Raven Hill Cemetery · {npc:948} Rotted One · {spell:3428} Summon Flesh Eating Worms
+	-- {area:492} Raven Hill Cemetery · {npc:522} Mor'Ladim · {npc:948} Rotted One · {spell:3428} Summon Flesh Eating Worms
 	-- plural, as words: Flesh Eaters = {npc:3} Flesh Eater · Bone Chewers = {npc:210} Bone Chewer · Plague Spreaders = {npc:604} Plague Spreader · Brain Eaters = {npc:570} Brain Eater
-	["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "Toutes les goules de la moitié nord du {area:492} peuvent lâcher une côte : Dévoreurs, Mâcheurs d'os, Répandeurs de peste et Mangeurs de cervelle.\nAttention : un {npc:948} lance {spell:3428} en mourant, ce qui fait apparaître des renforts.",
+	["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters and Bone Chewers (24-27) are the easier kills; Plague Spreaders and Brain Eaters (27-29) drop them too. {npc:522}, an elite, wanders the graves: keep away from him.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "Toutes les goules de la moitié nord du {area:492} peuvent lâcher une côte : les Dévoreurs et les Mâcheurs d'os (24-27) sont les plus faciles à tuer ; les Répandeurs de peste et les Mangeurs de cervelle (27-29) en lâchent aussi. {npc:522}, un élite, erre parmi les tombes : tenez-vous loin de lui.\nAttention : un {npc:948} lance {spell:3428} en mourant, ce qui fait apparaître des renforts.",
 
 	-- Step 15: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
@@ -111,7 +111,7 @@ return {
 
 	-- Step 23: Class trainer
 	["Class trainer"] = "Maître de classe",
-	["Level 22 and 24 spells"] = "Sorts des niveaux 22 et 24",
+	["Your new spells"] = "Vos nouveaux sorts",
 
 	-- Step 24: Gazin Tenorm
 	-- {zone:1453} Stormwind · {npc:6173} Gazin Tenorm · {npc:6171} Duthorian Rall
@@ -141,6 +141,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Continue west to {area:94}. The {object:673515} glows by the ruined house south of the road."] = "Continuez vers l'ouest jusqu'à {area:94}. Le {object:673515} brille près de la maison en ruine au sud de la route.",
 	-- ["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters."] = "Toute goule de la moitié nord de {area:492} peut laisser tomber une côte : Dévoreurs, Mâcheurs d'os, Répandeurs de peste et Mangeurs de cervelle.",
+	-- ["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "Toutes les goules de la moitié nord du {area:492} peuvent lâcher une côte : Dévoreurs, Mâcheurs d'os, Répandeurs de peste et Mangeurs de cervelle.\nAttention : un {npc:948} lance {spell:3428} en mourant, ce qui fait apparaître des renforts.",
 	-- ["Fly to {zone:1453}"] = "Prendre un vol pour {zone:1453}",
 	-- ["Follow the road north-west past the cemetery to {npc:311}'s camp on the far west edge of the forest. {npc:893} stands beside {npc:311}."] = "Suivez la route vers le nord-ouest après le cimetière jusqu'au camp de {npc:311}, à l'extrême ouest de la forêt. {npc:893} se tient à côté de {npc:311}.",
 	-- ["Follow the road south from {area:1002} into {area:10}; {area:42} lies on the east side of the forest."] = "Suivez la route vers le sud depuis {area:1002} jusqu'au {area:10} ; {area:42} se trouve à l'est de la forêt.",
@@ -148,6 +149,7 @@ return {
 	-- ["Head back east along the road to the {area:245}."] = "Retournez vers l'est par la route jusqu'à {area:245}.",
 	-- ["Head back east to {area:42}."] = "Retournez vers l'est jusqu'à {area:42}.",
 	-- ["Hearth to {area:42}"] = "Pierre de foyer vers {area:42}",
+	-- ["Level 22 and 24 spells"] = "Sorts des niveaux 22 et 24",
 	-- ["No {item:4371} for {quest:174}? {npc:3133} sells it in the house beside {npc:276}, in limited stock; {npc:1448} in {area:150} sells it too.\n{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "Pas de {item:4371} pour {quest:174} ? {npc:3133} en vend dans la maison voisine de celle de {npc:276}, en quantité limitée ; {npc:1448}, à {area:150}, en vend aussi.\nLa maison de {npc:276} se trouve à l'extrémité est de la ville. {npc:3133} vend des articles d'ingénierie dans la maison voisine.",
 	-- ["Rabid Dire Wolves roam the woods around the cemetery and {npc:289}, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders crawl east of the cemetery and drop the venom. Every ghoul of the cemetery's northern half can drop a fang."] = "Les Loups redoutables enragés rôdent dans les bois autour du cimetière et de {npc:289}, les Loups redoutables affamés dans les collines au nord-est de lui. Les Araignées Tisse-venin pygmées rampent à l'est du cimetière et laissent tomber le venin. Toute goule de la moitié nord du cimetière peut laisser tomber un croc.",
 	-- ["Rabid Dire Wolves roam the woods around the cemetery and {npc:289}, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders crawl east of the cemetery and drop the venom. Every ghoul of the cemetery's northern half can drop a fang.\nCareful: Wolves and other spider types share the area along the {area:40} border, so you can easily pull several mobs at once."] = "Des Loups redoutables enragés parcourent les bois autour du cimetière et de {npc:289}, des Loups redoutables affamés les collines au nord-est de chez lui. Des Araignées Tisse-venin pygmées rampent à l'est du cimetière et lâchent le venin. Toutes les goules de la moitié nord du cimetière peuvent lâcher un croc.\nAttention : des loups et d'autres types d'araignées partagent la zone le long de la frontière avec {area:40} : vous pouvez facilement attirer plusieurs monstres à la fois.",

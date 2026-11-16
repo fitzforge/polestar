@@ -66,9 +66,9 @@ return {
 	-- Step 13: Ghoul Ribs
 	-- plural, as words: Ghoul Ribs = {item:884} Ghoul Rib
 	["Ghoul Ribs"] = "구울 해골",
-	-- {area:492} Raven Hill Cemetery · {npc:948} Rotted One · {spell:3428} Summon Flesh Eating Worms
+	-- {area:492} Raven Hill Cemetery · {npc:522} Mor'Ladim · {npc:948} Rotted One · {spell:3428} Summon Flesh Eating Worms
 	-- plural, as words: Flesh Eaters = {npc:3} Flesh Eater · Bone Chewers = {npc:210} Bone Chewer · Plague Spreaders = {npc:604} Plague Spreader · Brain Eaters = {npc:570} Brain Eater
-	["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "{area:492} 북쪽 절반의 모든 구울이 해골을 떨어뜨릴 수 있습니다: 굶주린 시체, 뼈만남은 시체, 역병걸린 시체, 걸신들린 시체.\n주의: {npc:948}은(는) 죽을 때 {spell:3428}을(를) 시전해 몹을 추가로 불러냅니다.",
+	["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters and Bone Chewers (24-27) are the easier kills; Plague Spreaders and Brain Eaters (27-29) drop them too. {npc:522}, an elite, wanders the graves: keep away from him.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "{area:492} 북쪽 절반의 모든 구울이 갈비뼈를 떨어뜨릴 수 있습니다. 굶주린 시체와 뼈만남은 시체(24-27)가 잡기 쉽고, 역병걸린 시체와 걸신들린 시체(27-29)도 떨어뜨립니다. 정예 {npc:522}이(가) 무덤 사이를 돌아다니니 멀리하십시오.\n주의: {npc:948}은(는) 죽을 때 {spell:3428}을(를) 시전해 몹을 추가로 불러냅니다.",
 
 	-- Step 15: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
@@ -111,7 +111,7 @@ return {
 
 	-- Step 23: Class trainer
 	["Class trainer"] = "직업 전문가",
-	["Level 22 and 24 spells"] = "레벨 22, 24 주문",
+	["Your new spells"] = "새 주문",
 
 	-- Step 24: Gazin Tenorm
 	-- {zone:1453} Stormwind · {npc:6173} Gazin Tenorm · {npc:6171} Duthorian Rall
@@ -140,8 +140,10 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Continue west to {area:94}. The {object:673515} glows by the ruined house south of the road."] = "서쪽 {area:94}(으)로 계속 가십시오. {object:673515}은(는) 길 남쪽 무너진 집 옆에서 빛나고 있습니다.",
+	-- ["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "{area:492} 북쪽 절반의 모든 구울이 해골을 떨어뜨릴 수 있습니다: 굶주린 시체, 뼈만남은 시체, 역병걸린 시체, 걸신들린 시체.\n주의: {npc:948}은(는) 죽을 때 {spell:3428}을(를) 시전해 몹을 추가로 불러냅니다.",
 	-- ["Follow the road north-west past the cemetery to {npc:311}'s camp on the far west edge of the forest. {npc:893} stands beside {npc:311}."] = "묘지를 지나 길을 따라 북서쪽으로, 숲 서쪽 끝의 {npc:311}의 야영지까지 가십시오. {npc:893}은(는) {npc:311} 옆에 서 있습니다.",
 	-- ["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest."] = "{area:1002}에서 길을 따라 남쪽 {zone:1431}(으)로 가십시오. {area:42}은(는) 숲 동쪽에 있습니다.",
+	-- ["Level 22 and 24 spells"] = "레벨 22, 24 주문",
 	-- ["Rabid Dire Wolves roam the woods around the cemetery and {npc:289}, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders crawl east of the cemetery and drop the venom. Every ghoul of the cemetery's northern half can drop a fang."] = "광포한 그늘숲늑대는 묘지와 {npc:289} 주변 숲을, 굶주린 그늘숲늑대는 그의 북동쪽 언덕을 돌아다닙니다. 새끼 그물독거미는 묘지 동쪽을 기어다니며 독을 떨어뜨립니다. 묘지 북쪽 절반의 모든 구울이 송곳니를 떨어뜨릴 수 있습니다.",
 	-- ["Ride back east along the road to the {area:245}."] = "길을 따라 동쪽 {area:245}(으)로 돌아가십시오.",
 	-- ["Ride back east to {area:42}."] = "동쪽 {area:42}(으)로 돌아가십시오.",

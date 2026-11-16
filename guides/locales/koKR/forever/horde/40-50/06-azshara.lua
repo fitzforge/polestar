@@ -19,7 +19,8 @@ return {
 	["{npc:7406}, inside"] = "",
 	-- {npc:2491} Whiskey Slim
 	["{npc:2491}, in the inn"] = "",
-	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
+	-- {zone:1446} Tanaris
+	["\"Sea Wolf\" MacKinley, on the top floor: Stoley's shipment from {zone:1446}"] = "꼭대기 층의 \"바다늑대\" 매킨리: {zone:1446}에서 온 스톨리의 화물",
 	-- {npc:2487} Fleet Master Seahorn
 	["{npc:2487}, on the balcony of the same building"] = "",
 
@@ -56,8 +57,8 @@ return {
 	["Zeppelin to {zone:1454}"] = "비행선 타고 {zone:1454}(으)로",
 
 	-- Step 19: Zilzibin Drumlore
-	-- {zone:1454} Orgrimmar · {npc:7010} Zilzibin Drumlore · {zone:1446} Tanaris · {zone:1447} Azshara
-	["On the way through {zone:1454} to the flight master, step into the Drag: {npc:7010} takes the insect report from {zone:1446}, and its experience shortens the top-up to 50 in {zone:1447}."] = "{zone:1454}을(를) 지나 비행 조련사로 가는 길에 골목길에 들르세요. {npc:7010}이(가) {zone:1446}의 곤충 보고서를 받으며, 그 경험치로 {zone:1447}에서 50 레벨까지 채우는 사냥이 줄어듭니다.",
+	-- {zone:1454} Orgrimmar · {npc:7010} Zilzibin Drumlore · {zone:1446} Tanaris
+	["On the way through {zone:1454} to the flight master, step into the Drag: {npc:7010} takes the insect report from {zone:1446}."] = "{zone:1454}을(를) 지나 비행 조련사로 가는 길에 골목길에 들르세요. {npc:7010}이(가) {zone:1446}의 곤충 보고서를 받습니다.",
 	-- {npc:7010} Zilzibin Drumlore
 	["{npc:7010}, the Drag"] = "{npc:7010}, 골목길",
 
@@ -80,185 +81,168 @@ return {
 	-- {npc:6117} Highborne Lichling · {area:1235} Shadowsong Shrine
 	["{npc:6117} walks around {area:1235}: look inside the circle on the map"] = "",
 
-	-- Step 24: Level 50
-	["Level 50"] = "",
-	-- {quest:4493} March of the Silithid · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar · {zone:1447} Azshara
-	["Top up here to level 50: {quest:4493}, from {npc:7010} in {zone:1454} at the end of {zone:1447}, needs it."] = "",
-	-- {npc:6125} Haldarr Satyr
-	["grind on {npc:6125}"] = "",
-
-	-- Step 25: Loh'atu
+	-- Step 24: Loh'atu
 	-- {npc:11548} Loh'atu · {area:3137} Talrendis Point
 	["Back to {npc:11548} at the shrine; stay west of the {area:3137} guards."] = "제단의 {npc:11548}에게 돌아가세요. {area:3137} 경비병의 서쪽으로 다니세요.",
 
-	-- Step 26: Valormok
+	-- Step 25: Valormok
 	-- {area:1237} Valormok
 	["Follow the road north to {area:1237}, the Horde camp."] = "길을 따라 북쪽의 호드 야영지 {area:1237}(으)로 가세요.",
-	-- {npc:8395} Sanath Lim-yo
-	["{npc:8395}, at the east edge of the camp: no experience, only a teleport to Azshara Tower"] = "야영지 동쪽 끝의 {npc:8395}: 경험치 없음, 아즈샤라 탑으로 순간이동만 가능",
 
-	-- Step 28: Undamaged Hippogryph Feathers
-	-- plural, as words: Undamaged Hippogryph Feathers = {item:10450} Undamaged Hippogryph Feather
-	["Undamaged Hippogryph Feathers"] = "온전한 히포그리프 깃털",
-	-- {area:1237} Valormok
-	-- plural, as words: Thunderhead Hippogryphs = {npc:6375} Thunderhead Hippogryph
-	["The Thunderhead Hippogryphs fly over the hills just south of {area:1237}."] = "천둥뿔 히포그리프가 {area:1237} 바로 남쪽 언덕 위를 날아다닙니다.",
-
-	-- Step 30: Kim'jael
-	-- {area:1227} Bay of Storms
-	["Ride north-east to the goblin's camp on the cliffs above the {area:1227}."] = "북동쪽 {area:1227} 위 절벽의 고블린 야영지로 가세요.",
-
-	-- Step 31: Thalassian Base Camp
-	-- {npc:8420} Kim'jael
-	["The blood elves' camp lies just south of {npc:8420}. His four pieces of equipment lie in the crates around the camp."] = "블러드 엘프 야영지는 {npc:8420} 바로 남쪽에 있습니다. 그의 장비 네 개는 야영지 주변 상자에 있습니다.",
-
-	-- Step 33: Ruins of Eldarath: kill these as you meet them
-	-- {area:1221} Ruins of Eldarath
-	["{area:1221}: kill these as you meet them"] = "",
-	-- {npc:8420} Kim'jael
-	["Ride south-west to the ruins. The four tablets lie among the ruins, guarded by Spitelash naga; any Siren or Myrmidon can carry {npc:8420}'s rune."] = "남서쪽 폐허로 가세요. 석판 네 개가 폐허 곳곳에 있고 원한의꼬리일족 나가가 지킵니다. 원한의꼬리일족 세이렌이나 원한의꼬리일족 미르미돈 누구나 {npc:8420}의 룬을 지니고 있을 수 있습니다.",
-
-	-- Step 34: Kim'jael
-	-- {npc:8420} Kim'jael
-	["Back north-east to {npc:8420}."] = "북동쪽 {npc:8420}에게 돌아가세요.",
-
-	-- Step 35: Jediga
-	-- {area:1237} Valormok
-	["Ride west back to {area:1237}."] = "서쪽 {area:1237}(으)로 돌아가세요.",
-	-- {npc:4046} Magatha Grimtotem · {npc:8659} Jes'rimon · {npc:6522} Andron Gant · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar · {zone:1458} Undercity
-	["Keep the deliveries for {npc:4046}, {npc:8659} and {npc:6522}: you pass {zone:1456}, {zone:1454} and the {zone:1458} later."] = "{npc:4046}, {npc:8659}, {npc:6522}에게 줄 배달품은 보관하세요. 나중에 {zone:1456}, {zone:1454}, {zone:1458}을(를) 지나갑니다.",
-
-	-- Step 36: Archmage Xylem
-	-- {area:1237} Valormok
-	["Xylem's tower stands on the cliff just north of {area:1237}; the path winds up its north side."] = "실렘의 탑은 {area:1237} 바로 북쪽 절벽 위에 있습니다. 길은 북쪽 면을 따라 구불구불 올라갑니다.",
-	["Upstairs"] = "위층",
-
-	-- Step 38: Fly to Orgrimmar
+	-- Step 26: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "{area:1637}(으)로 날아가기",
 	-- {area:1237} Valormok
 	["{area:1237} flight master"] = "",
 
-	-- Step 39: Orgrimmar
+	-- Step 27: Orgrimmar
 	-- {npc:7010} Zilzibin Drumlore
 	["{npc:7010}, the Drag: if you still carry it"] = "{npc:7010}, 골목길: 아직 가지고 있다면",
-	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
-	["{npc:8659}, the {object:172960}"] = "{object:172960}의 {npc:8659}",
 
-	-- Step 40: Orgrimmar
-	-- {npc:8659} Jes'rimon · {quest:3504} Betrayed · {area:1237} Valormok
-	["Keep {npc:8659}'s payment and Ag'tor's {quest:3504}: they go back to {area:1237} on a later visit."] = "{npc:8659}의 대금과 아그토르의 {quest:3504}은(는) 보관하세요. 나중에 {area:1237}에 다시 갈 때 가져갑니다.",
+	-- Step 28: Zilzibin Drumlore
+	-- {quest:4494} March of the Silithid · {npc:7010} Zilzibin Drumlore · {zone:1447} Azshara
+	["{quest:4494} needs level 50: {npc:7010}, in the Drag, gives it from then on. Under 50, the {zone:1447} guide at 55 offers it again."] = "{quest:4494}은(는) 50레벨이 필요합니다. 그때부터 골목길의 {npc:7010}이(가) 줍니다. 50레벨 미만이면 55레벨 {zone:1447} 가이드에서 다시 받을 수 있습니다.",
 
-	-- Step 41: Paladin trainer
+	-- Step 30: Paladin trainer
 	["Paladin trainer"] = "",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
 	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
 
-	-- Step 42: Fly to Thunder Bluff
+	-- Step 31: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "{area:1638}(으)로 날아가기",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "{zone:1454} 비행 조련사",
 
-	-- Step 43: Thunder Bluff
-	-- {zone:1456} Thunder Bluff · {area:1099} Camp Mojache · {area:378} Camp Taurajo · {zone:1412} Mulgore · {npc:4046} Magatha Grimtotem · {area:1639} Elder Rise · {npc:3033} Turak Runetotem · {npc:246344} Alodan the Hopeful
-	["Fly to {zone:1456}; it is on the way to {area:1099}. No flight path there yet? Fly to {area:378} and ride west through {zone:1412}. Hamuul and {npc:4046} are on the {area:1639}; Druids and Paladins train here ({npc:3033}, {npc:246344})."] = "{zone:1456}(으)로 날아가세요. {area:1099}(으)로 가는 길목입니다. 아직 비행 경로가 없다면 {area:378}(으)로 날아가 {zone:1412}을(를) 지나 서쪽으로 가세요. 하뮬과 {npc:4046}은(는) {area:1639}에 있습니다. 드루이드와 성기사는 여기서 기술을 배웁니다({npc:3033}, {npc:246344}).",
+	-- Step 32: Thunder Bluff
+	-- {zone:1456} Thunder Bluff · {area:1099} Camp Mojache · {area:378} Camp Taurajo · {zone:1412} Mulgore · {area:1639} Elder Rise · {npc:3033} Turak Runetotem · {npc:246344} Alodan the Hopeful
+	["Fly to {zone:1456}; it is on the way to {area:1099}. No flight path there yet? Fly to {area:378} and ride west through {zone:1412}. Hamuul and Magatha are on the {area:1639}; Druids and Paladins train here ({npc:3033}, {npc:246344})."] = "{zone:1456}(으)로 날아가세요. {area:1099}(으)로 가는 길목입니다. 아직 비행 경로가 없다면 {area:378}(으)로 날아가 {zone:1412}을(를) 지나 서쪽으로 가세요. 하뮬과 마가사는 {area:1639}에 있습니다. 드루이드와 성기사는 여기서 기술을 배웁니다({npc:3033}, {npc:246344}).",
 	-- {npc:6746} Innkeeper Pala
 	["{npc:6746}, at the inn: for Hamuul"] = "여관의 {npc:6746}: 하뮬에게",
 	-- {npc:5769} Arch Druid Hamuul Runetotem · {area:1639} Elder Rise
 	["{npc:5769}, on the {area:1639}"] = "{npc:5769}, {area:1639}",
 
-	-- Step 44: Class trainer
+	-- Step 33: Class trainer
 	["Class trainer"] = "직업 전문가",
 
-	-- Step 45: Thunder Bluff
-	-- {quest:3761} Un'Goro Soil · {npc:4046} Magatha Grimtotem · {npc:8587} Jediga
-	["{quest:3761} is gathered in the next guide; {npc:4046}'s payment goes back to {npc:8587} later."] = "{quest:3761}은(는) 다음 가이드에서 모읍니다. {npc:4046}의 대금은 나중에 {npc:8587}에게 가져갑니다.",
+	-- Step 34: Thunder Bluff
+	-- {quest:3761} Un'Goro Soil
+	["{quest:3761} is gathered in the next guide."] = "{quest:3761}은(는) 다음 가이드에서 모읍니다.",
 
-	-- Step 46: Fly to Camp Mojache
+	-- Step 35: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "{area:1099}(으)로 날아가기",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "",
 
-	-- Step 47: Camp Mojache
+	-- Step 36: Camp Mojache
 	-- {npc:7776} Talo Thornhoof · {zone:1448} Felwood
 	["{npc:7776}: the bears are in {zone:1448}"] = "{npc:7776}: 곰은 {zone:1448}에 있음",
 
-	-- Step 48: Frayfeather Hippogryphs
+	-- Step 37: Frayfeather Hippogryphs
 	-- plural, as words: Frayfeather Hippogryphs = {npc:5300} Frayfeather Hippogryph
 	["Frayfeather Hippogryphs"] = "공작날개 히포그리프",
 	["The hippogryphs nest on the hills south-west of the camp. Kill one, then use the Muisek Vessel on its body."] = "히포그리프는 야영지 남서쪽 언덕에 둥지를 틉니다. 하나를 처치한 뒤 시체에 뮤세크 단지를 사용하세요.",
 
-	-- Step 49: Hippogryph nests
+	-- Step 38: Hippogryph nests
 	["Hippogryph nests"] = "히포그리프 둥지",
 	-- {area:2522} Ruins of Isildien · {object:142071} Egg-O-Matic
 	["The hippogryph nests are on the hills to the south, around the {area:2522}; each holds an egg for the {object:142071}."] = "히포그리프 둥지는 남쪽 언덕, {area:2522} 주변에 있습니다. 둥지마다 {object:142071}에 넣을 알이 하나씩 있습니다.",
 
-	-- Step 51: Sprite Darters
+	-- Step 40: Sprite Darters
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
 	["Sprite Darters"] = "화살요정용",
 	["The faerie dragons flit around the woods just west of the camp. Use the vessel on each one you kill."] = "요정용은 야영지 바로 서쪽 숲을 날아다닙니다. 처치할 때마다 단지를 사용하세요.",
 
-	-- Step 53: Wandering Forest Walkers
+	-- Step 42: Wandering Forest Walkers
 	-- plural, as words: Wandering Forest Walkers = {npc:7584} Wandering Forest Walker
 	["Wandering Forest Walkers"] = "떠도는 나무정령",
 	-- {zone:1444} Feralas
 	["The treants wander the forest roads between the camp and the middle of {zone:1444}; there are only a few, so look along the paths."] = "나무정령은 야영지와 {zone:1444} 중앙 사이의 숲길을 떠돕니다. 수가 적으니 길을 따라 찾아보세요.",
 
-	-- Step 56: The Forgotten Coast: kill these as you meet them
+	-- Step 45: The Forgotten Coast: kill these as you meet them
 	-- {area:1108} The Forgotten Coast
 	["{area:1108}: kill these as you meet them"] = "",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	-- plural, as words: Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray · Land Walkers = {npc:5357} Land Walker · Cliff Giants = {npc:5358} Cliff Giant
 	["The Sea Elementals and Sea Sprays wash along the shore around the dock.\nThe Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "바다 정령과 바다 물보라가 부두 주변 해안을 따라 밀려다닙니다.\n평지거인과 절벽거인이 부두 북쪽 언덕을 돌아다닙니다. 먼저 각각에게 {item:18904}을(를) 쏘세요. 줄어들면 더 이상 정예가 아닙니다. 축소된 거인은 모두 잔여물을 떨어뜨립니다. 시체에 뮤세크 단지도 사용하세요.",
 
-	-- Step 58: Back to Camp Mojache
+	-- Step 47: Northspring harpies
+	["Northspring harpies"] = "바람계곡일족 하피",
+	["The Northspring harpies nest on the ridges in the far north-west, past the giants' hills. The Windcallers heal, so kill them first and pull one at a time."] = "북녘골 하피는 거인 언덕 너머 북서쪽 끝 능선에 둥지를 틉니다. 바람소환사는 치유를 하니 먼저 처치하고, 하나씩 끌어오세요.",
+
+	-- Step 48: Back to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Back to {area:1099}"] = "{area:1099}(으)로 돌아가기",
 
-	-- Step 59: Fly to Gadgetzan
+	-- Step 49: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "{area:976}(으)로 날아가기",
 	-- {area:1099} Camp Mojache
 	["{area:1099} flight master"] = "{area:1099}의 비행 조련사",
 
-	-- Step 60: Gadgetzan
+	-- Step 50: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "",
 
-	-- Step 62: Gadgetzan
+	-- Step 52: Gadgetzan
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "와이번 조련사 옆의 {npc:7876}",
 	-- {object:142071} Egg-O-Matic
 	["The {object:142071}, in the middle of town"] = "마을 한가운데의 {object:142071}",
-	-- {npc:7876} Tran'rek · {zone:1449} Un'Goro Crater
-	["{npc:7876}'s tar and Pestlezugg's samples come from {zone:1449}."] = "{npc:7876}의 타르와 페슬저그의 표본은 {zone:1449}에서 구합니다.",
+	-- {zone:1449} Un'Goro Crater
+	["Pestlezugg's samples come from {zone:1449}."] = "페슬저그의 표본은 {zone:1449}에서 구합니다.",
 
-	-- Step 63: Marvon Rivetseeker
+	-- Step 53: Marvon Rivetseeker
 	-- {area:1938} Broken Pillar · {npc:7771} Marvon Rivetseeker · {zone:1449} Un'Goro Crater
 	["Ride south along the road to the {area:1938}; {npc:7771} camps beside it. From here the road west leads down into {zone:1449}, where the next guide starts."] = "길을 따라 남쪽 {area:1938}(으)로 가세요. {npc:7771}이(가) 그 옆에 있습니다. 여기서 서쪽 길을 따라 내려가면 다음 가이드가 시작되는 {zone:1449}입니다.",
 	-- {quest:3444} The Stone Circle · {npc:7771} Marvon Rivetseeker
 	["Keep {quest:3444}: {npc:7771}'s chest is opened on a later visit."] = "{quest:3444}은(는) 보관하세요. {npc:7771}의 상자는 나중에 다시 와서 엽니다.",
 
+	-- Step 54: The Dunemaul Compound
+	-- {area:1938} Broken Pillar · {npc:12046} Gor'marok the Ravager · {npc:11758} Andi Lynn · {zone:1446} Tanaris
+	["South of the {area:1938} the Dunemaul ogres hold their compound, with {npc:12046} at its eastern end: {npc:11758}'s quest, carried from your first {zone:1446} visit."] = "{area:1938} 남쪽에 모래망치 오우거의 주둔지가 있고, 동쪽 끝에 {npc:12046}이(가) 있습니다. 처음 {zone:1446}에 왔을 때 받아 둔 {npc:11758}의 퀘스트입니다.",
+
+	-- Step 55: Thistleshrub Valley
+	-- {quest:3362} Thistleshrub Valley · {npc:7876} Tran'rek · {zone:1446} Tanaris · {area:976} Gadgetzan · {npc:11758} Andi Lynn
+	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
+	["West from the compound, on the way to Un'Goro's ramp: {quest:3362}'s Gnarled Thistleshrubs and Rootshapers (48-50) are {npc:7876}'s, carried from your first {zone:1446} visit. They wander a lot: pull them one at a time. {npc:7876} takes them on the next guide's {area:976} stop, with {npc:11758}'s."] = "주둔지에서 서쪽, 운고로 비탈길로 가는 길목입니다. {quest:3362}의 옹이진 덤불나무괴물과 뿌리조각사(48-50)는 처음 {zone:1446}에 왔을 때 받아 둔 {npc:7876}의 퀘스트입니다. 많이 돌아다니니 하나씩 끌어오세요. 다음 가이드에서 {area:976}에 들를 때 {npc:11758}의 퀘스트와 함께 {npc:7876}에게 제출합니다.",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back north-east to {npc:8420}."] = "북동쪽 {npc:8420}에게 돌아가세요.",
 	-- ["Fly from {area:1237} to {zone:1454}, walk out of the main gate to the zeppelin towers and take the zeppelin to {object:3202}."] = "{area:1237}에서 {zone:1454}(으)로 날아간 뒤, 정문으로 나가 비행선 탑에서 {object:3202}행 비행선을 타세요.",
 	-- ["Fly to the {area:1497}"] = "{area:1497}(으)로 비행",
+	-- ["Fly to {zone:1456}; it is on the way to {area:1099}. No flight path there yet? Fly to {area:378} and ride west through {zone:1412}. Hamuul and {npc:4046} are on the {area:1639}; Druids and Paladins train here ({npc:3033}, {npc:246344})."] = "{zone:1456}(으)로 날아가세요. {area:1099}(으)로 가는 길목입니다. 아직 비행 경로가 없다면 {area:378}(으)로 날아가 {zone:1412}을(를) 지나 서쪽으로 가세요. 하뮬과 {npc:4046}은(는) {area:1639}에 있습니다. 드루이드와 성기사는 여기서 기술을 배웁니다({npc:3033}, {npc:246344}).",
 	-- ["Follow the road south; the basilisks bask on the rocks east of it in the middle of the jungle. Their shards drop often."] = "길을 따라 남쪽으로 가세요. 바실리스크는 정글 한가운데, 길 동쪽 바위 위에서 햇볕을 쬡니다. 조각은 자주 나옵니다.",
 	-- ["From {area:3317}'s flight master, fly to the {area:1497}."] = "{area:3317}의 비행 조련사에게서 {area:1497}(으)로 날아가세요.",
 	-- ["Highborne and Haldarr satyrs"] = "명가 유령과 할다르 사티로스",
 	-- ["Ironjaw Basilisks"] = "무쇠턱 바실리스크",
+	-- ["Keep the deliveries for {npc:4046}, {npc:8659} and {npc:6522}: you pass {zone:1456}, {zone:1454} and the {zone:1458} later."] = "{npc:4046}, {npc:8659}, {npc:6522}에게 줄 배달품은 보관하세요. 나중에 {zone:1456}, {zone:1454}, {zone:1458}을(를) 지나갑니다.",
 	-- ["Keep {area:1417} for {npc:7771} in {zone:1446}."] = "{area:1417}은(는) {zone:1446}의 {npc:7771}을(를) 위해 보관하세요.",
+	-- ["Keep {npc:8659}'s payment and Ag'tor's {quest:3504}: they go back to {area:1237} on a later visit."] = "{npc:8659}의 대금과 아그토르의 {quest:3504}은(는) 보관하세요. 나중에 {area:1237}에 다시 갈 때 가져갑니다.",
+	-- ["On the way through {zone:1454} to the flight master, step into the Drag: {npc:7010} takes the insect report from {zone:1446}, and its experience shortens the top-up to 50 in {zone:1447}."] = "{zone:1454}을(를) 지나 비행 조련사로 가는 길에 골목길에 들르세요. {npc:7010}이(가) {zone:1446}의 곤충 보고서를 받으며, 그 경험치로 {zone:1447}에서 50 레벨까지 채우는 사냥이 줄어듭니다.",
 	-- ["Only once all three robots are home"] = "로봇 세 대가 모두 돌아온 뒤에만",
 	-- ["Ride into {area:16}"] = "{area:16}(으)로 이동",
+	-- ["Ride north-east to the goblin's camp on the cliffs above the {area:1227}."] = "북동쪽 {area:1227} 위 절벽의 고블린 야영지로 가세요.",
 	-- ["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "북서쪽 {area:1108}(으)로 가세요. {npc:14637}이(가) 부두에서 기다립니다.",
+	-- ["Ride south-west to the ruins. The four tablets lie among the ruins, guarded by Spitelash naga; any Siren or Myrmidon can carry {npc:8420}'s rune."] = "남서쪽 폐허로 가세요. 석판 네 개가 폐허 곳곳에 있고 원한의꼬리일족 나가가 지킵니다. 원한의꼬리일족 세이렌이나 원한의꼬리일족 미르미돈 누구나 {npc:8420}의 룬을 지니고 있을 수 있습니다.",
+	-- ["Ride west back to {area:1237}."] = "서쪽 {area:1237}(으)로 돌아가세요.",
 	-- ["Sea elementals"] = "바다 정령",
 	-- ["Take the zeppelin back to {zone:1454}."] = "비행선을 타고 {zone:1454}(으)로 돌아가세요.",
 	-- ["Take the zeppelin to {zone:1454} from the tower outside the {zone:1458}, then fly to {area:431}."] = "{zone:1458} 밖의 탑에서 비행선을 타고 {zone:1454}(으)로 간 뒤 {area:431}(으)로 날아가세요.",
 	-- ["The Sea Elementals and Sea Sprays wash along the shore around the dock."] = "바다 정령과 바다 물보라 정령이 부두 주변 해안을 따라 밀려다닙니다.",
+	-- ["The Thunderhead Hippogryphs fly over the hills just south of {area:1237}."] = "천둥뿔 히포그리프가 {area:1237} 바로 남쪽 언덕 위를 날아다닙니다.",
+	-- ["The blood elves' camp lies just south of {npc:8420}. His four pieces of equipment lie in the crates around the camp."] = "블러드 엘프 야영지는 {npc:8420} 바로 남쪽에 있습니다. 그의 장비 네 개는 야영지 주변 상자에 있습니다.",
 	-- ["The {object:2076} beside {npc:2519}"] = "{npc:2519} 옆의 {object:2076}",
 	-- ["To {object:3202}"] = "{object:3202}(으)로",
+	-- ["Undamaged Hippogryph Feathers"] = "온전한 히포그리프 깃털",
+	-- ["Upstairs"] = "위층",
+	-- ["Xylem's tower stands on the cliff just north of {area:1237}; the path winds up its north side."] = "실렘의 탑은 {area:1237} 바로 북쪽 절벽 위에 있습니다. 길은 북쪽 면을 따라 구불구불 올라갑니다.",
 	-- ["Zapped giants"] = "축소된 거인",
 	-- ["{npc:7776}: the bears are in {zone:1448}"] = "{npc:7776}: 곰은 {zone:1448}에 있음",
 	-- ["{npc:7825} stands in the {object:36082}."] = "{npc:7825}은(는) {object:36082}에 있습니다.",
+	-- ["{npc:7876}'s tar and Pestlezugg's samples come from {zone:1449}."] = "{npc:7876}의 타르와 페슬저그의 표본은 {zone:1449}에서 구합니다.",
+	-- ["{npc:8395}, at the east edge of the camp: no experience, only a teleport to Azshara Tower"] = "야영지 동쪽 끝의 {npc:8395}: 경험치 없음, 아즈샤라 탑으로 순간이동만 가능",
+	-- ["{npc:8659}, the {object:172960}"] = "{object:172960}의 {npc:8659}",
+	-- ["{quest:3761} is gathered in the next guide; {npc:4046}'s payment goes back to {npc:8587} later."] = "{quest:3761}은(는) 다음 가이드에서 모읍니다. {npc:4046}의 대금은 나중에 {npc:8587}에게 가져갑니다.",
 }

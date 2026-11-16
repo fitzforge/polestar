@@ -73,10 +73,10 @@ return {
 	-- Step 14: The Minor Manifestation of Fire
 	-- {npc:5893} Minor Manifestation of Fire
 	["The {npc:5893}"] = "La {npc:5893}",
-	-- {item:6636} Fire Sapta · {object:63674} Shaman Shrine (no name in this language: may be words) · {spell:8017} Rockbiter Weapon · {spell:8042} Earth Shock · {item:6655} Glowing Ember
-	["Drink the {item:6636} beside the {object:63674}, the big grey stone just below the summit, then climb to the plateau. Of the fire elementals there only the one in the middle can be attacked: it is level 12, immune to fire and grows stronger the longer the fight lasts, so open at once with {spell:8017} and {spell:8042} and leave the others alone. Its {item:6655} drops every time."] = "Buvez le {item:6636} à côté du sanctuaire chaman, la grande pierre grise juste sous le sommet, puis montez sur le plateau. Parmi les élémentaires de feu qui s'y trouvent, seul celui du milieu peut être attaqué : il est de niveau 12, insensible au feu et devient plus fort à mesure que le combat dure ; ouvrez donc aussitôt avec {spell:8017} et {spell:8042} et laissez les autres tranquilles. Sa {item:6655} tombe à chaque fois.",
-	-- {item:6636} Fire Sapta · {object:63674} Shaman Shrine (no name in this language: may be words)
-	["{item:6636}, beside the {object:63674}"] = "{item:6636}, à côté du sanctuaire chaman",
+	-- {item:6636} Fire Sapta · {object:63674} Shaman Shrine · {spell:8017} Rockbiter Weapon · {spell:8042} Earth Shock · {item:6655} Glowing Ember
+	["Drink the {item:6636} beside the {object:63674}, the big grey stone just below the summit, then climb to the plateau. Of the fire elementals there only the one in the middle can be attacked: it is level 12, immune to fire and grows stronger the longer the fight lasts, so open at once with {spell:8017} and {spell:8042} and leave the others alone. Its {item:6655} drops every time."] = "Buvez le {item:6636} à côté de l'{object:63674}, la grande pierre grise juste sous le sommet, puis montez sur le plateau. Parmi les élémentaires de feu qui s'y trouvent, seul celui du milieu peut être attaqué : il est de niveau 12, insensible au feu et devient plus fort à mesure que le combat dure ; ouvrez donc aussitôt avec {spell:8017} et {spell:8042} et laissez les autres tranquilles. Sa {item:6655} tombe à chaque fois.",
+	-- {item:6636} Fire Sapta · {object:63674} Shaman Shrine
+	["{item:6636}, beside the {object:63674}"] = "{item:6636}, à côté de l'{object:63674}",
 
 	-- Step 15: The Brazier of the Dormant Flame
 	-- {object:61934} Brazier of the Dormant Flame

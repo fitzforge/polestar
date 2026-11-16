@@ -15,7 +15,7 @@ return {
 
 	-- Step 1: Thorium Point
 	-- {area:1446} Thorium Point · {npc:14624} Master Smith Burninate · {quest:7722} What the Flux? · {item:18942} Fiery Flux
-	["{area:1446} is the scaffolded camp on the north-west rim of the Cauldron, with a flight point. Everyone starts Neutral with the Brotherhood. These seven quests (level 48 to 50) pay 100 reputation each: 700 in all, 800 with the pillow below. Forever pays them in full at any level. {npc:14624}'s {quest:7722} also opens his {item:18942} turn-ins, so it is needed at any level. The numbers in this guide leave out the Legacy perk Diplomat, which adds up to 10%."] = "{area:1446}是大熔炉西北边缘搭着脚手架的营地，设有飞行点。所有人与瑟银兄弟会的起始声望都是中立。这七个任务（48至50级）各奖励100点声望，总计700点，加上下方的枕头任务则为800点。无限版本中，这些任务在任何等级都奖励全额声望。{npc:14624}的{quest:7722}还会开启他接受{item:18942}的交付任务，因此无论多少级都需要做。本指南的数值未计入传承特长外交家，它最多可增加10%。",
+	["{area:1446} is the scaffolded camp on the north-west rim of the Cauldron, with a flight point. Everyone starts Neutral with the Brotherhood. These seven quests (level 48 to 50) pay 100 reputation each: 700 in all, 800 with the pillow below. Forever pays them in full at any level. {npc:14624}'s {quest:7722} also opens his {item:18942} turn-ins, so it is needed at any level. The numbers in this guide leave out the Legacy perk Diplomat, which adds up to 10%."] = "{area:1446}是大熔炉西北边缘搭着脚手架的营地，设有飞行点。所有人与瑟银兄弟会的起始声望都是中立。这七个任务（48至50级）各奖励100点声望，总计700点，加上下方的枕头任务则为800点。Forever中，这些任务在任何等级都奖励全额声望。{npc:14624}的{quest:7722}还会开启他接受{item:18942}的交付任务，因此无论多少级都需要做。本指南的数值未计入传承特长外交家，它最多可增加10%。",
 	-- {object:179827} Wanted/Missing/Lost & Found
 	["The {object:179827} board"] = "{object:179827}布告板",
 	-- {npc:14621} Overseer Maltorius
@@ -34,8 +34,8 @@ return {
 	["{item:18960}, Dark Iron Lookouts"] = "{item:18960}，来自黑铁哨兵。",
 
 	-- Step 3: Searing Lava Spiders
-	-- plural, as words: Searing Lava Spiders = {npc:5857} Searing Lava Spider
-	["Searing Lava Spiders"] = "{npc:5857}",
+	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
+	["Searing Lava Spiders"] = "巨型熔岩蜘蛛",
 	["The spiders roam the lava pools and plateaus of the south-west."] = "蜘蛛在西南部的熔岩池和高地上游荡。",
 
 	-- Step 4: The Slag Pit
@@ -124,7 +124,7 @@ return {
 	-- Step 12: Lokhtos Darkbargainer to Revered
 	-- {npc:12944} Lokhtos Darkbargainer
 	["{npc:12944} to Revered"] = "向 {npc:12944} 交还材料直到崇敬",
-	-- {npc:12944} Lokhtos Darkbargainer · {area:1584} Blackrock Depths · {item:11000} Shadowforge Key · {object:161460} Shadowforge Lock (no name in this language: may be words) · {item:17010} Fiery Core · {item:17011} Lava Core · {item:11382} Blood of the Mountain · {item:17012} Core Leather · {item:11370} Dark Iron Ore · {area:2717} Molten Core · {zone:1427} Searing Gorge · {zone:1428} Burning Steppes · {item:16980} Flarecore Mantle · {item:19156} Flarecore Robe · {item:19149} Lava Belt · {item:16984} Black Dragonscale Boots · {item:16989} Fiery Chain Girdle · {item:19148} Dark Iron Helm · {item:17015} Dark Iron Reaver · {item:17016} Dark Iron Destroyer · {item:273576} Enchant Weapon - Mighty Spirit
+	-- {npc:12944} Lokhtos Darkbargainer · {area:1584} Blackrock Depths · {item:11000} Shadowforge Key · {object:161460} Shadowforge Lock · {item:17010} Fiery Core · {item:17011} Lava Core · {item:11382} Blood of the Mountain · {item:17012} Core Leather · {item:11370} Dark Iron Ore · {area:2717} Molten Core · {zone:1427} Searing Gorge · {zone:1428} Burning Steppes · {item:16980} Flarecore Mantle · {item:19156} Flarecore Robe · {item:19149} Lava Belt · {item:16984} Black Dragonscale Boots · {item:16989} Fiery Chain Girdle · {item:19148} Dark Iron Helm · {item:17015} Dark Iron Reaver · {item:17016} Dark Iron Destroyer · {item:273576} Enchant Weapon - Mighty Spirit
 	-- plural, as words: Dark Iron Deposits = {object:165658} Dark Iron Deposit
 	["Honored to Revered is 12,000 reputation, all of it from {npc:12944} in the Grim Guzzler, the tavern deep in {area:1584}. The way there: with the {item:11000}, open the East Garrison door near the entrance; without it, win the Ring of Law and climb to the East Garrison. Pull the {object:161460} there to lower the bridge to the Manufactory, the only way to the Guzzler. His Favor Amongst the Brotherhood turn-ins never stop counting: 1 {item:17010}, 1 {item:17011} or 1 {item:11382} for 200, 2 {item:17012} for 150, 10 {item:11370} for 50. To Revered that is 60 cores, 160 {item:17012} or 2,400 {item:11370}. The cores and the leather come only from the {area:2717}, which is not among the first raids Blizzard has announced for Forever; until it opens, {item:11370} is the way. Miners with 230 skill find Dark Iron Deposits around the Cauldron in {zone:1427}, across the {zone:1428} and inside {area:1584}, and a deposit now and then gives a {item:11382}; the ore also sells on the Auction House. Honored opens {item:16980} 18g, {item:19156} 6g, {item:19149} 6g, {item:16984} 16g, {item:16989} 9g, {item:19148} 6g, {item:17015} 22g, {item:17016} 22g and {item:273576} 8g."] = "从尊敬到崇敬需要 12,000 点声望，全部来自 {area:1584} 深处酒馆黑铁酒吧中的 {npc:12944}。前往路线：若有 {item:11000}，打开入口附近的东部兵营大门；若没有，先打赢秩序竞技场，再爬上东部兵营。在那里拉动 {object:161460}，放下通往制造厂的桥，这是前往酒吧的唯一路线。他提供的“兄弟会的好感”交还任务始终有效：1 个 {item:17010}、1 个 {item:17011} 或 1 个 {item:11382} 各换 200 点，2 个 {item:17012} 换 150 点，10 个 {item:11370} 换 50 点。升到崇敬需要 60 个核心、160 个 {item:17012} 或 2,400 个 {item:11370}。核心和皮革只来自 {area:2717}，它不在暴雪已公布的无限首批团队副本中；开放之前，只能走 {item:11370} 这条路。技能达到 230 的矿工可在 {zone:1427} 大熔炉周围、{zone:1428} 各处及 {area:1584} 内找到黑铁矿脉，矿脉偶尔也会产出 {item:11382}；矿石也可在拍卖行买到。尊敬后解锁：{item:16980} 18 金、{item:19156} 6 金、{item:19149} 6 金、{item:16984} 16 金、{item:16989} 9 金、{item:19148} 6 金、{item:17015} 22 金、{item:17016} 22 金和 {item:273576} 8 金。",
 	-- {item:17010} Fiery Core · {area:2717} Molten Core

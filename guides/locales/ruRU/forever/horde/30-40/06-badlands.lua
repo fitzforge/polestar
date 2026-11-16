@@ -9,7 +9,7 @@ return {
 	-- Step 1: Into the Badlands
 	-- {zone:1418} Badlands
 	["Into the {zone:1418}"] = "В край {zone:1418}",
-	-- {object:2673} Thandol Span (no name in this language: may be words) · {zone:1437} Wetlands · {object:1668} Dun Algaz · {zone:1432} Loch Modan · {area:144} Thelsamar · {zone:1418} Badlands · {area:1877} Valley of Fangs
+	-- {object:2673} Thandol Span · {zone:1437} Wetlands · {object:1668} Dun Algaz · {zone:1432} Loch Modan · {area:144} Thelsamar · {zone:1418} Badlands · {area:1877} Valley of Fangs
 	["Head for the {object:2673}, the great bridge at Arathi's southern edge, cross it and follow the road south through the {zone:1437} to the {object:1668} tunnel into {zone:1432}. {area:144}, the dwarf town on the road in the middle of {zone:1432}, has guards who attack the Horde: leave the road before it and pass the town on the hills to its west. The road leaves {zone:1432} to the south into the {zone:1418}; follow it to the goblin camp in the {area:1877}."] = "",
 
 	-- Step 2: Valley of Fangs
@@ -38,9 +38,9 @@ return {
 	-- Step 7: Badlands: kill these as you meet them
 	-- {zone:1418} Badlands
 	["{zone:1418}: kill these as you meet them"] = "",
-	-- {area:1878} The Dustbowl · {zone:1418} Badlands
+	-- {area:1878} The Dustbowl · {zone:1418} Badlands · {npc:2817} Rigglefuzz
 	-- plural, as words: Elder Crag Coyotes = {npc:2729} Elder Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard · Malevolent Mirages = {npc:269756} Malevolent Mirage
-	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth."] = "",
+	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth.\nCareful: the Giant Buzzards are 39-41, and the 41s are two over you at 39: pick the 39s and 40s and pull them one at a time. The Buzzards (37) you kill later for {npc:2817}'s wings drop gizzards too, more rarely."] = "Старые скальные койоты и гигантские канюки бродят по котловине к югу от места {area:1878}. С койотов падают и челюсти, и клыки; с гигантских канюков – желудки. Осторожно: зловредные миражи (42, элита) бродят по зоне {zone:1418}: обходите их стороной.\nОсторожно: гигантские канюки 39-41 уровня, а 41-е на два уровня выше вас на 39-м: выбирайте 39-х и 40-х и выманивайте по одному. Канюки (37), которых вы позже бьете ради крыльев для {npc:2817}, тоже роняют желудки, но реже.",
 
 	-- Step 8: Rock Elementals
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental

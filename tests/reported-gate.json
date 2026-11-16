@@ -496,11 +496,11 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/class-quests.rs", "test": "only_the_quest_data_makes_a_class_quest_never_a_line_s_only" }
 		] },
 		"820": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: Onrevax's and bob's reports (#820, #823): the Applejack Still comes once, after the Stonefield apples and before De Vries" },
+			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: Applejack reports (#820, #823, #2312): direct hand-ins after the Stonefield apples, with no early accept" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/quests.rs", "test": "the_applejack_still_s_apples_are_protected_from_the_guide_until_it_is_past_the_still_820" }
 		] },
 		"823": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: Onrevax's and bob's reports (#820, #823): the Applejack Still comes once, after the Stonefield apples and before De Vries" }
+			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: Applejack reports (#820, #823, #2312): direct hand-ins after the Stonefield apples, with no early accept" }
 		] },
 		"825": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "Zephras Isle: A Last Request's note and Skypriest Aanders count the objectives the game gives them (#825)" }
@@ -678,7 +678,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "terrain_beside_a_target_measured_from_far_away_the_player_s_walk_is_straight_never_the_far_measure_less_the_yards_moved_1053" }
 		] },
 		"1089": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Trek to Ashenvale (#1089): the step that takes it from Sentinel Selarin says she respawns if she is not there" }
+			{ "node": "tests/guides-reported.test.js", "test": "Trek to Ashenvale (#1089, #1811): Sentinel Selarin comes and goes; her quest never holds a step and is offered again after the escort" }
 		] },
 		"1224": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "${guide}: #1224: the troll whelps are worked in the Coldridge field step with Felix's parts, before Grelin" }
@@ -774,7 +774,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "with_six_tabs_open_a_dungeon_guide_never_takes_the_active_tab_a_hand_in_still_takes_the_finished_pick_up_s_tab" }
 		] },
 		"1333": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ASHENVALE_HORDE}: Maazias's report: The Tear of the Moons is done on the road from Camp Taurajo to the Great Lift, not in the Barrens 24-26 (#1333)" },
+			{ "node": "tests/guides-reported.test.js", "test": "${ASHENVALE_HORDE}: Maazias's report: The Tear of the Moons is not sent at players two levels under it (#1333)" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/levels.rs", "test": "a_delivery_s_level_gives_no_hint_a_quest_with_work_elsewhere_still_does_1333" }
 		] },
 		"1334": { "tests": [
@@ -945,8 +945,8 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-flights.rs", "test": "a_flight_to_a_known_landing_the_zone_text_names_otherwise_is_done_on_landing_1530" }
 		] },
 		"1575": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Tincho on Discord (#1575): the Flame of Uzel step warns about the higher yetis and Frostmaw at the flame" },
-			{ "node": "tests/guides-reported.test.js", "test": "Danger at the spot (#1575, #1695): the Syndicate missives fallback warns that the Syndicate are above you" },
+			{ "node": "tests/guides-reported.test.js", "test": "Tincho on Discord (#1575), Maazias (#1925): Helcular's flames and grave are not on the Horde route" },
+			{ "node": "tests/guides-reported.test.js", "test": "Danger at the spot (#1575, #1695): the Syndicate missives fallback comes when the Syndicate are under you" },
 			{ "node": "tests/guides-reported.test.js", "test": "Danger at the spot (#1575): the steps players died at among elites say so, in every leveling guide holding the goal" },
 			{ "node": "tests/guides-reported.test.js", "test": "Danger at the spot (#1575): goals an item several mobs drop point at the ones at the route's level, not a camp 4+ levels over (#1695's pattern)" }
 		] },
@@ -1051,8 +1051,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-unavailable.rs", "test": "t_1661_a_child_quest_whose_parent_is_not_in_the_log_and_that_the_route_no_longer_brings_is_passed" }
 		] },
 		"1667": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "forever/class/warlock/enchanted-gold-bloodrobe.guide: no kill or drop comes before the guide waits for mobs at most 2 levels above (#1667)" },
-			{ "node": "tests/guides-reported.test.js", "test": "class guides: no kill or drop of mobs more than 4 levels above what the guide has reached (#1667 sweep)" }
+			{ "node": "tests/guides-reported.test.js", "test": "class guides: every step waits on its own level for mobs and quests at most 1 above it (Fitz's rule, #1667, Kapu)" }
 		] },
 		"1674": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/travel-build.rs", "test": "from_lorthunas_terrace_to_elaadrin_in_valanaar_the_route_takes_the_portal_down_never_the_hearthstone" }
@@ -1079,7 +1078,7 @@
 		"1695": { "tests": [
 			{ "node": "tests/danger-gate.test.js", "test": "a collect whose tour reaches droppers 4+ over while ones at your level drop it too is flagged mixed (#1695)" },
 			{ "node": "tests/guides-reported.test.js", "test": "Kolbi on Discord (#1695): Helcular's Rod is farmed on the Foothill Caverns' 30-32 yetis, never toured into the 32-34 cave" },
-			{ "node": "tests/guides-reported.test.js", "test": "Danger at the spot (#1575, #1695): the Syndicate missives fallback warns that the Syndicate are above you" },
+			{ "node": "tests/guides-reported.test.js", "test": "Danger at the spot (#1575, #1695): the Syndicate missives fallback comes when the Syndicate are under you" },
 			{ "node": "tests/guides-reported.test.js", "test": "Danger at the spot (#1575): goals an item several mobs drop point at the ones at the route's level, not a camp 4+ levels over (#1695's pattern)" }
 		] },
 		"1697": { "tests": [
@@ -1202,7 +1201,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_waiting_quest_s_line_is_plain_text_marked_accent_never_a_colour_code_the_window_prints_1993" }
 		] },
 		"1999": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Bennistrov's report (#1999): Feralas never sends you to the Rage Scar yetis below 45" }
+			{ "node": "tests/guides-reported.test.js", "test": "Bennistrov's report (#1999): Feralas never sends you to the Rage Scar yetis" }
 		] },
 		"2014": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "Henrig Lonebrow's Journal lies where players loot it now, its old spot gone (#2014)" }
@@ -1240,6 +1239,10 @@
 		] },
 		"2311": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "#2311: a complete that leads its step has a place for the arrow" }
+		] },
+		"2312": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: Applejack reports (#820, #823, #2312): direct hand-ins after the Stonefield apples, with no early accept" },
+			{ "cargo": "forge", "target": "guide_direct_hand_ins", "file": "rust/crates/forge/tests/guide_direct_hand_ins.rs", "test": "applejack_corrections_remove_accepts_and_preserve_the_elwynn_route" }
 		] },
 		"2326": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "#2326: Feralas (Horde): the Screecher Spirits are talked to, after the bramble" }

@@ -94,6 +94,8 @@ mod engine_empty_stop;
 mod engine_enter;
 #[path = "engine-exact-points.rs"]
 mod engine_exact_points;
+#[path = "engine-faction-levels.rs"]
+mod engine_faction_levels;
 #[path = "engine-failed-quest.rs"]
 mod engine_failed_quest;
 #[path = "engine-feeders.rs"]
@@ -152,6 +154,8 @@ mod engine_review;
 mod engine_routes;
 #[path = "engine-sections.rs"]
 mod engine_sections;
+#[path = "engine-sell-repair.rs"]
+mod engine_sell_repair;
 #[path = "engine-skip-ahead.rs"]
 mod engine_skip_ahead;
 #[path = "engine-skip-undo.rs"]
@@ -200,6 +204,8 @@ mod engine_when_upgrade;
 mod engine_while_here;
 #[path = "engine-zone-walk.rs"]
 mod engine_zone_walk;
+#[path = "faction-guides.rs"]
+mod faction_guides;
 #[path = "flight-map-notice.rs"]
 mod flight_map_notice;
 mod gamepad;
@@ -264,6 +270,8 @@ mod maps_overlays;
 mod maps_reveal;
 #[path = "maps-services.rs"]
 mod maps_services;
+#[path = "memory-session.rs"]
+mod memory_session;
 mod names;
 #[path = "names-memory.rs"]
 mod names_memory;
@@ -385,6 +393,8 @@ mod riding;
 mod route_experimental;
 #[path = "route-plan.rs"]
 mod route_plan;
+#[path = "route-plan-sides.rs"]
+mod route_plan_sides;
 #[path = "settings-coverage.rs"]
 mod settings_coverage;
 #[path = "settings-effects.rs"]
@@ -393,10 +403,16 @@ mod settings_effects;
 mod settings_essentials;
 #[path = "settings-game.rs"]
 mod settings_game;
+#[path = "settings-hover-perf.rs"]
+mod settings_hover_perf;
 #[path = "settings-migration.rs"]
 mod settings_migration;
+#[path = "settings-perf.rs"]
+mod settings_perf;
 #[path = "settings-roundtrip.rs"]
 mod settings_roundtrip;
+#[path = "settings-session.rs"]
+mod settings_session;
 #[path = "settings-smoke.rs"]
 mod settings_smoke;
 #[path = "skins-bundled.rs"]
@@ -489,6 +505,8 @@ mod ui_scrub;
 mod ui_settings_ux;
 #[path = "ui-steplist.rs"]
 mod ui_steplist;
+#[path = "ui-switch.rs"]
+mod ui_switch;
 #[path = "ui-thanks.rs"]
 mod ui_thanks;
 #[path = "ui-transparent.rs"]
@@ -501,6 +519,8 @@ mod ui_welcome;
 mod ui_whatsnew;
 #[path = "ui-while-here.rs"]
 mod ui_while_here;
+#[path = "ui-window-drag.rs"]
+mod ui_window_drag;
 #[path = "ui-zoneart.rs"]
 mod ui_zoneart;
 #[path = "where.rs"]

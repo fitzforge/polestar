@@ -106,7 +106,7 @@ return {
 	-- {area:17044} Gloomrise
 	["{area:17044} (optional hub)"] = "{area:17044}（可选任务点）",
 	-- {area:17045} Skywatcher Plateau · {faction:81} Thunder Bluff · {zone:1454} Orgrimmar · {npc:259118} Muln Earthfury · {npc:264074} Mazu'kon · {npc:264072} Yorn Grimtotem
-	["Forever pays these old quests in full at any level. The Earthen Ring camp on the {area:17045}, north-west of {faction:81}: 300 {faction:81} reputation in 20 minutes, plus 100 each for {zone:1454} and the Darkspear Trolls and 450 Earthen Ring. {npc:259118}, {npc:264074} and {npc:264072} stand in the camp."] = "在无限版本中，这些旧任务在任何等级都提供全额声望。{faction:81}西北方{area:17045}上的大地之环营地：20分钟可获得300点{faction:81}声望，另有{zone:1454}和暗矛巨魔各100点，以及大地之环450点。{npc:259118}、{npc:264074}和{npc:264072}站在营地里。",
+	["Forever pays these old quests in full at any level. The Earthen Ring camp on the {area:17045}, north-west of {faction:81}: 300 {faction:81} reputation in 20 minutes, plus 100 each for {zone:1454} and the Darkspear Trolls and 450 Earthen Ring. {npc:259118}, {npc:264074} and {npc:264072} stand in the camp."] = "在Forever中，这些旧任务在任何等级都提供全额声望。{faction:81}西北方{area:17045}上的大地之环营地：20分钟可获得300点{faction:81}声望，另有{zone:1454}和暗矛巨魔各100点，以及大地之环450点。{npc:259118}、{npc:264074}和{npc:264072}站在营地里。",
 	-- {npc:259118} Muln Earthfury · {quest:96259} Defending the Dead · {quest:96261} The Broodmother
 	["{npc:259118}: {quest:96259}, +100 ({quest:96261} comes once it is handed in)"] = "{npc:259118}：{quest:96259}，+100（交还后可接{quest:96261}）",
 	-- {npc:264074} Mazu'kon · {quest:96241} Talkin' bout Toxins, Mon

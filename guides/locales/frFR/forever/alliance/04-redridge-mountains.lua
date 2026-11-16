@@ -9,7 +9,7 @@ return {
 	-- Step 1: Stormwind
 	-- {zone:1429} Elwynn Forest · {quest:174} Look to the Stars · {area:42} Darkshire · {item:4371} Bronze Tube · {npc:3133} Herble Baubbletump · {object:2096} Trade District
 	["Train, then leave by the main gate and follow the road east through {zone:1429}.\n{quest:174} in {area:42} needs a {item:4371}. Its vendors keep only one or two, and {npc:3133} in {area:42} is nearly always sold out: buy one at the Auction House in the {object:2096} on your way out. An engineer can make one too."] = "Entraînez-vous, puis sortez par la porte principale et suivez la route vers l'est à travers {zone:1429}.\n{quest:174}, à {area:42}, demande un {item:4371}. Ses marchands n'en ont qu'un ou deux, et {npc:3133} à {area:42} est presque toujours en rupture de stock : achetez-en un à l'hôtel des ventes de {object:2096} en partant. Un ingénieur peut aussi en fabriquer un.",
-	["Level 18 and 20 spells"] = "Sorts des niveaux 18 et 20",
+	["Your new spells"] = "Vos nouveaux sorts",
 	-- {item:4371} Bronze Tube · {quest:174} Look to the Stars · {area:42} Darkshire
 	["{item:4371}: the Auction House, for {quest:174} in {area:42}"] = "{item:4371} : l'hôtel des ventes, pour {quest:174} à {area:42}",
 
@@ -133,8 +133,8 @@ return {
 	-- {area:492} Raven Hill Cemetery
 	["{area:492}: kill these as you meet them"] = "{area:492} : tuez-les au passage",
 	-- {npc:522} Mor'Ladim
-	-- plural, as words: Skeletal Horrors = {npc:202} Skeletal Horror · Skeletal Fiends = {npc:531} Skeletal Fiend
-	["The cemetery lies north of the village. Skeletal Horrors and Skeletal Fiends walk its southern half. {npc:522}, an elite, wanders the graves: keep away from him."] = "Le cimetière se trouve au nord du village. Les Squelettes infernaux et les Démons squelettes errent dans sa moitié sud. {npc:522}, un élite, rôde parmi les tombes : tenez-vous à l'écart.",
+	-- plural, as words: Skeletal Horrors = {npc:202} Skeletal Horror · Skeletal Fiends = {npc:531} Skeletal Fiend · Flesh Eaters = {npc:3} Flesh Eater · Bone Chewers = {npc:210} Bone Chewer · Plague Spreaders = {npc:604} Plague Spreader · Fetid Corpses = {npc:1270} Fetid Corpse
+	["The cemetery lies north of the village. Skeletal Horrors and Skeletal Fiends (23-25) walk its southern half and carry the fingers; for the fangs, Flesh Eaters (24-25) drop the most, so leave the Bone Chewers, Plague Spreaders and Fetid Corpses (26-30) further in alone. {npc:522}, an elite, wanders the graves: keep away from him.\nCareful: Eliza, a level 31 elite, rises from her grave at the cemetery's north end: keep away from it."] = "Le cimetière se trouve au nord du village. Des Squelettes infernaux et des Démons squelettes (23-25) arpentent sa moitié sud et portent les doigts ; pour les crocs, ce sont les Dévoreurs (24-25) qui en lâchent le plus : laissez donc tranquilles les Mâcheurs d'os, Répandeurs de peste et Cadavres fétides (26-30) plus loin. {npc:522}, un élite, erre parmi les tombes : tenez-vous loin de lui.\nAttention : Eliza, une élite de niveau 31, sort de sa tombe à l'extrémité nord du cimetière : tenez-vous-en éloigné.",
 
 	-- Step 22: Watcher Dodds
 	-- {area:245} Yorgen Farmstead
@@ -283,6 +283,7 @@ return {
 	-- ["Hearth to {area:69}"] = "Pierre de foyer vers {area:69}",
 	-- ["Inside"] = "À l'intérieur",
 	-- ["Lake murlocs"] = "Murlocs du lac",
+	-- ["Level 18 and 20 spells"] = "Sorts des niveaux 18 et 20",
 	-- ["Murloc Flesheaters and Tidecallers line the south shore east of the bridge. Any of them can carry a {item:1467} or a fin.\nGreater Tarantulas crawl on the slopes around the mill north-east of the lake."] = "Des Dévoreurs murlocs et des Mande-flots murlocs bordent la rive sud à l'est du pont. N'importe lequel peut porter un {item:1467} ou une nageoire.\nDes Grandes tarentules rampent sur les pentes autour du moulin au nord-est du lac.",
 	-- ["On the top floor"] = "Au dernier étage",
 	-- ["Only once {quest:97914} is handed in: for {npc:3649}, back in {area:442} (06-ashenvale)"] = "Seulement une fois {quest:97914} rendue : pour {npc:3649}, de retour à {area:442} (06-ashenvale)",
@@ -291,6 +292,7 @@ return {
 	-- ["Shaman training"] = "Entraînement de chaman",
 	-- ["Swim east from the bridge into {area:68}; the chest lies on the lake bed."] = "Nagez vers l'est depuis le pont dans {area:68} ; le coffre repose au fond du lac.",
 	-- ["The Wanted poster by the inn: {npc:703}, in {area:1000}"] = "L'avis de recherche près de l'auberge : {npc:703}, à {area:1000}",
+	-- ["The cemetery lies north of the village. Skeletal Horrors and Skeletal Fiends walk its southern half. {npc:522}, an elite, wanders the graves: keep away from him."] = "Le cimetière se trouve au nord du village. Les Squelettes infernaux et les Démons squelettes errent dans sa moitié sud. {npc:522}, un élite, rôde parmi les tombes : tenez-vous à l'écart.",
 	-- ["The {area:442} boat docks at {area:17203}. Walk up into the city for training and {npc:1646}, then leave by the main gate and follow the road east through {area:12}."] = "Le bateau d'{area:442} accoste au {area:17203}. Montez en ville pour vous entraîner et voir {npc:1646}, puis sortez par la grande porte et suivez la route vers l'est à travers la {area:12}.",
 	-- ["The {area:442} boat docks at {area:17203}. Walk up into the city for training and {npc:1646}, then leave by the main gate and follow the road east through {zone:1429}."] = "Le bateau d'{area:442} accoste à {area:17203}. Montez en ville pour l'entraînement et {npc:1646}, puis sortez par la porte principale et suivez la route vers l'est à travers {zone:1429}.",
 	-- ["Tram to {zone:1455}"] = "Tram pour {zone:1455}",

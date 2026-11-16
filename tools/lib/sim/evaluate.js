@@ -111,6 +111,8 @@ class Evaluator {
 		this.hook = null;
 		this.onEvent = null; // exports: ('grind' | 'fp' | 'bind' | 'hearth', info)
 		this.catchUp = !!opts.catchUp;
+		// Running a package (the route search): see step().
+		this.inPackage = false;
 	}
 
 	setTables(tables, opts = {}) {
@@ -176,6 +178,7 @@ class Evaluator {
 		this.logDeferred = 0;
 		this.logSkipped = 0;
 		this.logAbandoned = 0;
+		this.underMin = 0;
 		this.awayPending = false;
 	}
 
@@ -560,9 +563,9 @@ class Evaluator {
 	}
 
 	// Quest q is red: more than `dangerGap` levels above the character, its mobs
-	// would kill it. Its work waits for the level; its accept does not (the game
-	// hands a quest over at its minimum level), unless the accept works on the
-	// spot (a quest-starting item's kills).
+	// would kill it. In the route search its work waits for the level; its
+	// accept does not (the game hands a quest over at its minimum level),
+	// unless the accept works on the spot (a quest-starting item's kills).
 	red(q) {
 		return this.level + this.p.dangerGap < this.run.qLevel[q];
 	}
@@ -572,27 +575,42 @@ class Evaluator {
 	// room for, is deferred (runPackage takes it once the level allows / a
 	// turn-in frees a slot) instead of grinding for it; without, a full log
 	// skips it (counted).
+	// Outside a package (`this.inPackage` false: a written route played step by
+	// step, the level model) the route's order is the player's: no accept or
+	// quest work waits for a level the route doesn't hold for with its own
+	// `level` steps. A red quest is taken where the route picks it up and
+	// worked where the route works it ("pick up now, do later"); an accept
+	// under the quest's minimum level is refused, as the game refuses it, and
+	// counted (underMin): a guide bug to report, not a grind. (The 0.4.0 audit:
+	// the model ground 189 min before Carved Centaur Totems, 178 before The
+	// Apes of Un'Goro and 123 before Jungle Stalkers, red pick-ups for a later
+	// visit.)
 	step(kind, q, task, pt) {
 		const r = this.run;
 		if (kind === K_ACCEPT) {
 			if (this.done[q] || this.active[q] || !this.prereqOk(q)) return;
-			// Too low for the quest: under its minimum level, or red with work on
-			// the spot. (The 0.4.0 audit: the model ground 385 min before the
-			// accept-only pick-up of The Apes of Un'Goro, kept for the second
-			// Un'Goro visit, and 51 min before Carved Centaur Totems.)
 			const works = task >= 0;
-			const low = this.level < r.qMinLevel[q] || (works && this.red(q));
-			if (this.defer && low) {
-				this.deferred++;
-				return;
-			}
-			// Grinding fills gaps only: a quest more than `gateGap` levels
-			// above the character is not available yet (skipped; the level it
-			// opens at is kept for the package's catch-up).
-			const opens = works ? Math.max(r.qMinLevel[q] - this.p.gateGap, r.qLevel[q] - this.p.dangerGap - this.p.gateGap) : r.qMinLevel[q] - this.p.gateGap;
-			if (this.level < opens) {
-				if (opens < this.gateNeed) this.gateNeed = opens;
-				return;
+			if (!this.inPackage) {
+				if (this.level < r.qMinLevel[q]) {
+					this.underMin++;
+					return;
+				}
+			} else {
+				// Too low for the quest: under its minimum level, or red with
+				// work on the spot.
+				const low = this.level < r.qMinLevel[q] || (works && this.red(q));
+				if (this.defer && low) {
+					this.deferred++;
+					return;
+				}
+				// Grinding fills gaps only: a quest more than `gateGap` levels
+				// above the character is not available yet (skipped; the level
+				// it opens at is kept for the package's catch-up).
+				const opens = works ? Math.max(r.qMinLevel[q] - this.p.gateGap, r.qLevel[q] - this.p.dangerGap - this.p.gateGap) : r.qMinLevel[q] - this.p.gateGap;
+				if (this.level < opens) {
+					if (opens < this.gateNeed) this.gateNeed = opens;
+					return;
+				}
 			}
 			// The quest log is full: give up a low quest (abandonable), else
 			// wait for a turn-in (this pass), the package's second pass or a
@@ -609,8 +627,10 @@ class Evaluator {
 				this.unreachable++;
 				return;
 			}
-			if (this.level < r.qMinLevel[q]) this.grindTo(r.qMinLevel[q]);
-			if (works && this.red(q)) this.grindTo(r.qLevel[q] - this.p.dangerGap);
+			if (this.inPackage) {
+				if (this.level < r.qMinLevel[q]) this.grindTo(r.qMinLevel[q]);
+				if (works && this.red(q)) this.grindTo(r.qLevel[q] - this.p.dangerGap);
+			}
 			if (drop >= 0) this.abandon(drop);
 			if (works) this.doWork(task);
 			this.time += this.p.talkSec;
@@ -621,10 +641,10 @@ class Evaluator {
 			if (!this.active[q] || this.taskDone[task]) return;
 			// Done by kills for other quests: no trip.
 			if (!this.covered(task)) {
-				// Work on a red quest: on level first, a gap of up to `gateGap`
-				// levels ground; further under, not yet (the level it opens at is
-				// kept for the package's catch-up).
-				if (this.red(q)) {
+				// Work on a red quest in the route search: on level first, a gap
+				// of up to `gateGap` levels ground; further under, not yet (the
+				// level it opens at is kept for the package's catch-up).
+				if (this.inPackage && this.red(q)) {
 					if (this.defer) {
 						this.deferred++;
 						return;
@@ -639,7 +659,7 @@ class Evaluator {
 					this.unreachable++;
 					return;
 				}
-				if (this.red(q)) this.grindTo(r.qLevel[q] - this.p.dangerGap);
+				if (this.inPackage && this.red(q)) this.grindTo(r.qLevel[q] - this.p.dangerGap);
 				this.doWork(task);
 			}
 			this.set1(J_TASK, this.taskDone, task);
@@ -752,6 +772,7 @@ class Evaluator {
 		const e = r.pkgEnd[p];
 		const before = this.steps;
 		this.gateNeed = 99;
+		this.inPackage = true;
 		this.defer = true;
 		this.deferred = 0;
 		const pend = this.pending;
@@ -771,6 +792,7 @@ class Evaluator {
 			for (let s = r.pkgStart[p]; s < e && !this.finished; s++) this.step(r.sKind[s], r.sQuest[s], r.sTask[s], r.sPt[s]);
 		}
 		this.awayPending = false;
+		this.inPackage = false;
 		return true;
 	}
 
@@ -863,6 +885,7 @@ class Evaluator {
 			logSkipped: this.logSkipped,
 			logAbandoned: this.logAbandoned,
 			acceptedNeverTurnedIn: this.neverTurnedIn(),
+			acceptsUnderMinLevel: this.underMin,
 			...extra,
 		};
 	}

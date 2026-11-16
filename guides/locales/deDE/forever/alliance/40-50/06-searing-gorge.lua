@@ -57,20 +57,20 @@ return {
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:8436} stands inside the Twilight camp at {area:1442}, west of {area:1446}, among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites), with {npc:8282} (level 51, rare elite) beside him: {quest:3377} needs a group of 4. Skip it if you are alone."] = "Das sind Elite-Mobs: Eine Gruppe wird empfohlen, such dir Mitspieler dafür. {npc:8436} steht im Twilight-Lager bei {area:1442}, westlich von {area:1446}, zwischen Twilight-Feuerwachen, Twilight-Götzendienern und Twilight-Geomanten (Elites der Stufe 48-49), mit {npc:8282} (Stufe 51, Rare-Elite) neben sich: {quest:3377} braucht eine Gruppe von 4. Überspring sie, wenn du allein bist.",
 
 	-- Step 14: Searing Lava Spiders
-	-- plural, as words: Searing Lava Spiders = {npc:5857} Searing Lava Spider
+	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
 	["Searing Lava Spiders"] = "Versengende Lavaspinnen",
-	-- {npc:8436} Zamael Lunthistle
-	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Velarok."] = "Die Spinnen streifen über die Plateaus und Lavatümpel südlich von {npc:8436}, auf dem Weg zu Velarok.",
+	-- {npc:8436} Zamael Lunthistle · {npc:8479} Velarok Windblade
+	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "Die Spinnen streifen über die Plateaus und Lavatümpel südlich von {npc:8436}, auf dem Weg zu {npc:8479}.",
 
 	-- Step 15: Velarok Windblade
-	["Velarok Windblade"] = "Velarok Windblade",
-	-- {area:1446} Thorium Point
-	["Velarok stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "Velarok steht am Rand des Kessels, südlich von {area:1446}. Hör dir seine Geschichte an.",
+	-- {npc:8479} Velarok Windblade · {area:1446} Thorium Point
+	["{npc:8479} stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "{npc:8479} steht am Rand des Kessels, südlich von {area:1446}. Hör dir seine Geschichte an.",
 
 	-- Step 18: Golems and elementals
 	["Golems and elementals"] = "Golems und Elementare",
+	-- {npc:8479} Velarok Windblade
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Magma Elementals = {npc:5855} Magma Elemental
-	["Heavy War Golems patrol the floor of the Cauldron below Velarok; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "Heavy War Golems patrouillieren auf dem Boden des Kessels unterhalb von Velarok; Magma Elementals treiben zwischen ihnen umher. Golems und Elementare lassen das Öl fallen, Elementare die Herzen.",
+	["Heavy War Golems patrol the floor of the Cauldron below {npc:8479}; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "Schwere Kriegsgolems patrouillieren unterhalb von {npc:8479} über den Boden des Kessels; Magmaelementare treiben zwischen ihnen. Golems und Elementare droppen das Öl, Elementare die Herzen.",
 
 	-- Step 20: Dark Iron dwarves: kill these as you meet them
 	["Dark Iron dwarves: kill these as you meet them"] = "Dunkeleisenzwerge: Töte diese, sobald sie dir begegnen",
@@ -103,11 +103,12 @@ return {
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back."] = "Das sind Elite-Mobs: Eine Gruppe wird empfohlen, such dir Mitspieler dafür. {npc:5860} (Elite der Stufe 50) braucht eine Gruppe von 3. Überspring ihn, wenn du allein bist: Die Route lässt dich die Erfahrung wieder erfarmen.",
 
 	-- Step 30: The Torch of Retribution
-	["Listen to Velarok's story once more."] = "Hör dir die Geschichte von Velarok noch einmal an.",
+	-- {npc:8479} Velarok Windblade
+	["Listen to {npc:8479}'s story once more."] = "Hör dir die Geschichte von {npc:8479} noch einmal an.",
 
 	-- Step 31: Velarok Windblade
-	-- {quest:3453} The Torch of Retribution · {quest:3462} Squire Maltrake
-	["{quest:3453} lies on the ground at Velarok's feet; {quest:3462} stands beside him."] = "{quest:3453} liegt zu Füßen von Velarok auf dem Boden; {quest:3462} steht neben ihm.",
+	-- {quest:3453} The Torch of Retribution · {npc:8479} Velarok Windblade · {quest:3462} Squire Maltrake
+	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "{quest:3453} liegt zu Füßen von {npc:8479} auf dem Boden; {quest:3462} steht neben ihm.",
 	-- {quest:3462} Squire Maltrake · {area:1446} Thorium Point
 	["{quest:3462}: hand it in on the way back to {area:1446}"] = "{quest:3462}: Gib sie auf dem Rückweg zur {area:1446} ab",
 
@@ -131,8 +132,8 @@ return {
 	["Below ground"] = "Unter der Erde",
 
 	-- Step 36: Squire Maltrake
-	-- {npc:8509} Squire Maltrake · {area:1446} Thorium Point
-	["{npc:8509} and the dragonflight's hoard are beside Velarok, on the rim south of {area:1446}."] = "{npc:8509} und der Hort des Drachenschwarms befinden sich neben Velarok, am Rand südlich der {area:1446}.",
+	-- {npc:8509} Squire Maltrake · {npc:8479} Velarok Windblade · {area:1446} Thorium Point
+	["{npc:8509} and the dragonflight's hoard are beside {npc:8479}, on the rim south of {area:1446}."] = "{npc:8509} und der Hort des Drachenschwarms befinden sich neben {npc:8479}, am Rand südlich von {area:1446}.",
 	-- {object:149502} Hoard of the Black Dragonflight · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous · {zone:1428} Burning Steppes
 	["The {object:149502} it gives holds a {item:10575}: keep it for {npc:9459} in the {zone:1428}"] = "Der {object:149502}, den sie dir gibt, enthält eine {item:10575}: Behalte sie für {npc:9459} in der {zone:1428}",
 
@@ -162,6 +163,7 @@ return {
 	-- ["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {zone:1427}. {area:1446} is the scaffolded camp on the north-west rim."] = "Reite von {area:144} nach Süden ins {zone:1418}, dann nach Westen an der Hordestadt {area:340} vorbei (halte Abstand) und den Pfad hinauf in die {zone:1427}. Die {area:1446} ist das eingerüstete Lager am Nordwestrand.",
 	-- ["Greater Lava Spiders"] = "Versengende Lavaspinnen",
 	-- ["Heavy War Golems patrol the floor of the Cauldron below Kalaran; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "Schwere Kriegsgolems patrouillieren unterhalb von Kalaran über den Boden des Kessels; Magmaelementare treiben zwischen ihnen. Golems und Elementare droppen das Öl, Elementare die Herzen.",
+	-- ["Heavy War Golems patrol the floor of the Cauldron below Velarok; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "Heavy War Golems patrouillieren auf dem Boden des Kessels unterhalb von Velarok; Magma Elementals treiben zwischen ihnen umher. Golems und Elementare lassen das Öl fallen, Elementare die Herzen.",
 	-- ["Kalaran stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "Kalaran steht am Rand des Kessels, südlich der {area:1446}. Hör dir seine Geschichte an.",
 	-- ["Listen to Velarok's story once more."] = "Hör dir die Geschichte von Velarok noch einmal an.",
 	-- ["Ride east across the Cauldron to the {area:247} in the south-east. The prisoner in the wooden outhouse wants 15 {item:4306} and eight dead Dark Iron Geologists from the dig site around it. The outhouse also opens with the key, if you found one."] = "Reite nach Osten über den Kessel zur {area:247} im Südosten. Der Gefangene im hölzernen Abort will 15 {item:4306} und acht tote Geologen der Dunkeleisenzwerge von der Grabungsstätte drumherum. Der Abort lässt sich auch mit dem Schlüssel öffnen, falls du einen gefunden hast.",
@@ -169,8 +171,11 @@ return {
 	-- ["The dwarf stands by the road at the dig site. Follow him north along the road and fight off the {object:147516} ambushes. When it is over, read the {object:175704} he leaves on the road in {area:1959}."] = "Der Zwerg steht an der Straße bei der Grabungsstätte. Folge ihm auf der Straße nach Norden und wehr die Hinterhalte der {object:147516}-Zwerge ab. Wenn es vorbei ist, lies den {object:175704}, den er im {area:1959} auf der Straße zurücklässt.",
 	-- ["The night elf stands alone west of {area:1446}. Hear his story."] = "Der Nachtelf steht allein westlich der {area:1446}. Hör dir seine Geschichte an.",
 	-- ["The spiders roam the plateaus and lava pools in the south-west of the gorge."] = "Die Spinnen streifen über die Plateaus und Lavateiche im Südwesten der Schlucht.",
+	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Velarok."] = "Die Spinnen streifen über die Plateaus und Lavatümpel südlich von {npc:8436}, auf dem Weg zu Velarok.",
+	-- ["Velarok Windblade"] = "Velarok Windblade",
+	-- ["Velarok stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "Velarok steht am Rand des Kessels, südlich von {area:1446}. Hör dir seine Geschichte an.",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}: Der letzte Guide bringt dich per Ruhestein hierher, daher ist das meist sofort abgehakt",
-	-- ["{npc:8509} and the dragonflight's hoard are beside Velarok, on the rim south of {area:1446}."] = "{npc:8509} und der Hort des Drachenschwarms sind neben Velarok, auf dem Rand südlich von {area:1446}.",
+	-- ["{npc:8509} and the dragonflight's hoard are beside Velarok, on the rim south of {area:1446}."] = "{npc:8509} und der Hort des Drachenschwarms befinden sich neben Velarok, am Rand südlich der {area:1446}.",
 	-- ["{object:147516} dwarves"] = "{object:147516}-Zwerge",
-	-- ["{quest:3453} lies on the ground at Velarok's feet; {quest:3462} stands beside him."] = "{quest:3453} liegt auf dem Boden zu Velaroks Füßen; {quest:3462} steht neben ihm.",
+	-- ["{quest:3453} lies on the ground at Velarok's feet; {quest:3462} stands beside him."] = "{quest:3453} liegt zu Füßen von Velarok auf dem Boden; {quest:3462} steht neben ihm.",
 }

@@ -16,7 +16,7 @@ return {
 	["{npc:5497} at the top of the Wizard's Sanctum, {zone:1453}'s {object:2101}, sends you back to {npc:6546}; Bink in {zone:1455} gives the same quest."] = "{zone:1453}{object:2101}法師塔頂端的{npc:5497}會派你回去找{npc:6546}；{zone:1455}的彬克也提供同一個任務。",
 
 	-- Step 2: Return to the Marsh (Orgrimmar)
-	-- {npc:5885} Deino · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:6546} Tabetha · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {npc:3048} Ursyn Ghull · {zone:1456} Thunder Bluff
+	-- {npc:5885} Deino · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge · {npc:6546} Tabetha · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {npc:3048} Ursyn Ghull · {zone:1456} Thunder Bluff
 	["{npc:5885}, one of {zone:1454}'s mage trainers in {object:173161}, sends you back to {npc:6546}; {npc:4568} in the {zone:1458} and {npc:3048} in {zone:1456} give the same quest."] = "{zone:1454}位於{object:173161}的法師訓練師之一{npc:5885}會派你回去找{npc:6546}；{zone:1458}的{npc:4568}和{zone:1456}的{npc:3048}也提供同一個任務。",
 
 	-- Step 3: Tabetha
@@ -30,7 +30,7 @@ return {
 
 	-- Step 5: The Exorcism
 	-- {npc:6546} Tabetha · {quest:1955} The Exorcism · {npc:6549} Demon of the Orb
-	["Back at {npc:6546}'s. Hand in the orb now; {quest:1955} waits for level 38. Kill the critters around the cottage first: they join the fight. Accepting {quest:1955} starts a 3 minute timer, and {npc:6546} calls the {npc:6549} out in her garden: a level 40 elite that resists many spells, roots and slows. Grouping up is encouraged: a mage of 40 may need help or potions, at about 45 it is soloable. You can pull it from range from the dock. The timer keeps running after it dies, so hand the quest in straight away. If time runs out, abandon the quest and take it again; she calls the demon again."] = "回到{npc:6546}那裡。現在先繳交寶珠；{quest:1955}要等到38級。先清掉小屋周圍的小動物，牠們也會加入戰鬥。接取{quest:1955}即開始三分鐘倒數，{npc:6546}會在花園召喚出{npc:6549}。牠是40級精英，對許多法術、定身和緩速有較強抗性。建議組隊，40級法師可能需要幫手或藥水，約45級時可單人完成。可以從碼頭遠程拉怪。擊殺後倒數仍會繼續，務必立刻繳交任務。若時間用完，放棄任務後重新接取，她會再次召喚惡魔。",
+	["Back at {npc:6546}'s. Hand in the orb now; {quest:1955} waits for level 40. Kill the critters around the cottage first: they join the fight. Accepting {quest:1955} starts a 3 minute timer, and {npc:6546} calls the {npc:6549} out in her garden: a level 40 elite that resists many spells, roots and slows. Grouping up is encouraged: a mage of 40 may need help or potions, at about 45 it is soloable. You can pull it from range from the dock. The timer keeps running after it dies, so hand the quest in straight away. If time runs out, abandon the quest and take it again; she calls the demon again."] = "回到{npc:6546}那裡。現在先繳交寶珠；{quest:1955}要等到40級。先清掉小屋周圍的小動物，牠們也會加入戰鬥。接受{quest:1955}即開始三分鐘倒數，{npc:6546}會在花園召喚出{npc:6549}。牠是40級精英，對許多法術、定身和緩速有較強抗性。建議組隊，40級法師可能需要幫手或藥水，約45級時可單人完成。可以從碼頭遠程拉怪。擊殺後倒數仍會繼續，務必立刻繳交任務。若時間用完，放棄任務後重新接受，她會再次召喚惡魔。",
 	-- {npc:6549} Demon of the Orb
 	["{npc:6549} (elite, 40)"] = "",
 
@@ -54,11 +54,13 @@ return {
 	-- {quest:2846} Tiara of the Deep · {area:978} Zul'Farrak
 	["{quest:2846} in {area:978}"] = "{area:978}中的{quest:2846}",
 	-- {area:978} Zul'Farrak · {zone:1446} Tanaris · {npc:7795} Hydromancer Velratha
-	["{area:978}, the troll dungeon in north-western {zone:1446}, needs a group of five; the guide waits for level 44. {npc:7795} is one of the bosses by the sacred pool, and the tiara always drops."] = "{area:978}是{zone:1446}西北部的食人妖地城，需要五人小隊；指南會等到44級。{npc:7795}是聖池旁的首領之一，頭冠必定掉落。",
+	["{area:978}, the troll dungeon in north-western {zone:1446}, needs a group of five; the guide waits for level 46. {npc:7795} is one of the bosses by the sacred pool, and the tiara always drops."] = "{area:978}是{zone:1446}西北部的食人妖地城，需要五人小隊；指南會等到46級。{npc:7795}是聖池旁的首領之一，頭冠必定掉落。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back at {npc:6546}'s. Hand in the orb now; {quest:1955} waits for level 38. Kill the critters around the cottage first: they join the fight. Accepting {quest:1955} starts a 3 minute timer, and {npc:6546} calls the {npc:6549} out in her garden: a level 40 elite that resists many spells, roots and slows. Grouping up is encouraged: a mage of 40 may need help or potions, at about 45 it is soloable. You can pull it from range from the dock. The timer keeps running after it dies, so hand the quest in straight away. If time runs out, abandon the quest and take it again; she calls the demon again."] = "回到{npc:6546}那裡。現在先繳交寶珠；{quest:1955}要等到38級。先清掉小屋周圍的小動物，牠們也會加入戰鬥。接取{quest:1955}即開始三分鐘倒數，{npc:6546}會在花園召喚出{npc:6549}。牠是40級精英，對許多法術、定身和緩速有較強抗性。建議組隊，40級法師可能需要幫手或藥水，約45級時可單人完成。可以從碼頭遠程拉怪。擊殺後倒數仍會繼續，務必立刻繳交任務。若時間用完，放棄任務後重新接取，她會再次召喚惡魔。",
 	-- ["Back to {npc:6546}. She opens a mana rift beside her cottage: kill twelve {quest:1957} within ten minutes."] = "回到{npc:6546}處。她會在小屋旁打開一道法力裂縫：在十分鐘內擊殺十二個{quest:1957}。",
 	-- ["The Burning Blade Summoners work the {area:602} in southern {zone:1443}; any of them carries an {item:7291}."] = "火刃召喚師在{zone:1443}南部的{area:602}活動；他們每一個都帶著{item:7291}。",
 	-- ["{area:1517} is a dungeon in the northern {zone:1418}, by the {object:178824}: a group of five. Defeat the {npc:7023} inside for its power source."] = "{area:1517}是{zone:1418}北部的地城，位於{object:178824}旁：五人小隊。擊敗裡面的{npc:7023}取得它的能量源。",
+	-- ["{area:978}, the troll dungeon in north-western {zone:1446}, needs a group of five; the guide waits for level 44. {npc:7795} is one of the bosses by the sacred pool, and the tiara always drops."] = "{area:978}是{zone:1446}西北部的食人妖地城，需要五人小隊；指南會等到44級。{npc:7795}是聖池旁的首領之一，頭冠必定掉落。",
 	-- ["{npc:6546} draws the demon out of the orb beside her cottage. The {npc:6549} is elite: grouping up is advised. You have three minutes before it slips back into the orb."] = "{npc:6546}會在她的小屋旁把惡魔從寶珠中引出來。{npc:6549}是精英：建議組隊。你有三分鐘，之後它就會溜回寶珠裡。",
 }

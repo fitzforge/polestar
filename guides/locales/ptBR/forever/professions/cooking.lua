@@ -68,8 +68,8 @@ return {
 	["{item:6888} is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own {object:29784}. {item:6888} comes with {skill:185} (the client teaches it with the skill); {item:2678} are a cooking vendor's. The Strigid owls of {zone:1438} drop a {item:6889} more often than not, and {zone:1439}'s moonkin drop them too. Fishers can cook {item:6290} (recipe 40c) from Rut'theran's waters instead, and {npc:6286} in {area:186} gives Recipe of the Kaldorei (seven Small Spider Legs from the Webwood spiders) for {item:5472}, orange from 10 to 50."] = "{item:6888} é laranja desde 1 (amarelo em 45, verde em 65, cinza em 85): cerca de 50 criações até 50. Cozinhe em qualquer fogueira: a lareira de uma cidade ou a sua própria {object:29784}. {item:6888} vem com {skill:185} (o cliente ensina junto com a habilidade); {item:2678} são de vendedor de culinária. As corujas Estrígidas de {zone:1438} soltam {item:6889} na maioria das vezes, e os luniscantes de {zone:1439} também. Pescadores podem cozinhar {item:6290} (receita 40c) com as águas de Rut'theran, e {npc:6286} em {area:186} dá a Receita dos Kaldorei (sete Pernas Pequenas de Aranha das aranhas Lenhateias) por {item:5472}, laranja de 10 a 50.",
 
 	-- Step 13: Charred Wolf Meat: ingredients
-	-- {npc:250873} Juvenile Vuldren
-	["{npc:250873} in Zephras Isle, or wherever the arrow points"] = "{npc:250873} na Ilha de Zefras, ou onde a seta apontar",
+	-- {npc:250874} Vuldren Alpha
+	["Vuldren, {npc:250874} in Zephras Isle, or wherever the arrow points"] = "Vuldren, {npc:250874} na Ilha de Zefras, ou onde a seta apontar",
 
 	-- Step 14: Charred Wolf Meat (1-50)
 	-- {spell:2538} Charred Wolf Meat · {object:29784} Basic Campfire · {item:2672} Stringy Wolf Meat
@@ -102,12 +102,11 @@ return {
 	-- Step 26: Coyote Steak: ingredients
 	-- {spell:2541} Coyote Steak
 	["{spell:2541}: ingredients"] = "{spell:2541}: ingredientes",
-	-- {npc:834} Coyote · {npc:833} Coyote Packleader · {zone:1436} Westfall
-	["{npc:834} (54%), {npc:833} (51%) in {zone:1436}, or wherever the arrow points"] = "{npc:834} (54%), {npc:833} (51%) em {zone:1436}, ou onde a seta apontar",
+	-- {npc:833} Coyote Packleader · {zone:1436} Westfall
+	["Coyote (54%), {npc:833} (51%) in {zone:1436}, or wherever the arrow points"] = "Coiote (54%), {npc:833} (51%) em {zone:1436}, ou onde a seta apontar",
 
 	-- Step 27: Coyote Steak (50-90)
 	-- {spell:2541} Coyote Steak · {object:29784} Basic Campfire · {skill:185} Cooking · {zone:1436} Westfall · {npc:235} Salma Saldean · {area:108} Sentinel Hill · {item:733} Westfall Stew · {item:724} Goretusk Liver Pie
-	-- plural, as words: Coyotes = {npc:834} Coyote
 	["{spell:2541} is orange from 50 (yellow at 90, green at 110, grey at 130): about 40 crafts to 90. Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 50 for 1s. Coyotes roam the middle of {zone:1436}; {npc:235} on the farm north of {area:108} also gives {item:733} and {item:724} quests that use what you loot here."] = "{spell:2541} é laranja desde 50 (amarelo em 90, verde em 110, cinza em 130): cerca de 40 criações até 90. Cozinhe em qualquer fogueira: a lareira de uma cidade ou a sua própria {object:29784}. Qualquer instrutor de {skill:185} ensina a partir da perícia 50 por 1s. Coiotes vagam pelo meio de {zone:1436}; {npc:235}, na fazenda ao norte de {area:108}, também dá missões de {item:733} e {item:724} que usam o que você coleta aqui.",
 
 	-- Step 28: Crab Cake: shopping
@@ -411,6 +410,7 @@ return {
 	-- ["{npc:1549} (88%) in {zone:1420}, or wherever the arrow points"] = "{npc:1549} (88%) em {zone:1420}, ou onde a seta apontar",
 	-- ["{npc:1689} (38%), {npc:1127} (36%) in {zone:1426}, or wherever the arrow points"] = "{npc:1689} (38%), {npc:1127} (36%) em {zone:1426}, ou onde a seta apontar",
 	-- ["{npc:2385} (56%) in {zone:1424}, or wherever the arrow points"] = "{npc:2385} (56%) em {zone:1424}, ou onde a seta apontar",
+	-- ["{npc:250873} in Zephras Isle, or wherever the arrow points"] = "{npc:250873} na Ilha de Zefras, ou onde a seta apontar",
 	-- ["{npc:3099} (99%), {npc:3100} (74%) in {zone:1411}, or wherever the arrow points"] = "{npc:3099} (99%), {npc:3100} (74%) em {zone:1411}, ou onde a seta apontar",
 	-- ["{npc:3244} (33%) in {zone:1413}, or wherever the arrow points"] = "{npc:3244} (33%) em {zone:1413}, ou onde a seta apontar",
 	-- ["{npc:3818} (53%) in {zone:1440}, or wherever the arrow points"] = "{npc:3818} (53%) em {zone:1440}, ou onde a seta apontar",
@@ -418,6 +418,7 @@ return {
 	-- ["{npc:4701} (55%), {npc:4702} (54%), {npc:4700} (40%) in {zone:1443}, or wherever the arrow points"] = "{npc:4701} (55%), {npc:4702} (54%), {npc:4700} (40%) em {zone:1443}, ou onde a seta apontar",
 	-- ["{npc:547} (35%), {npc:157} (34%) in {zone:1436}, or wherever the arrow points"] = "{npc:547} (35%), {npc:157} (34%) em {zone:1436}, ou onde a seta apontar",
 	-- ["{npc:7099} (40%) in {zone:1448}, or wherever the arrow points"] = "{npc:7099} (40%) em {zone:1448}, ou onde a seta apontar",
+	-- ["{npc:834} (54%), {npc:833} (51%) in {zone:1436}, or wherever the arrow points"] = "{npc:834} (54%), {npc:833} (51%) em {zone:1436}, ou onde a seta apontar",
 	-- ["{quest:6610} asks for 20 {item:8932} (check the quest log); innkeepers and food vendors sell it, and the arrow picks the nearest."] = "{quest:6610} pede 20 {item:8932} (confira o Registro de Missões); estalajadeiros e vendedores de comida o vendem, e a seta escolhe o mais próximo.",
 	-- ["{spell:2538} is orange from 1 (yellow at 45, grey at 85): about 50 crafts to 50. Cook at any fire: {object:29784} comes with {skill:185}."] = "{spell:2538} fica laranja a partir de 1 (amarelo em 45, cinza em 85): cerca de 50 criações até 50. Cozinhe em qualquer fogo: {object:29784} vem com {skill:185}.",
 	-- ["{spell:2540} is orange from 1 (yellow at 45, grey at 85): about 50 crafts to 50. Cook at any fire: {object:29784} comes with {skill:185}."] = "{spell:2540} fica laranja a partir de 1 (amarelo em 45, cinza em 85): cerca de 50 criações até 50. Cozinhe em qualquer fogo: {object:29784} vem com {skill:185}.",

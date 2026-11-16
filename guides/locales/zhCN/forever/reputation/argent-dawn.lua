@@ -19,8 +19,8 @@ return {
 	["{npc:10840} stands in {area:3197}, in the south of the {zone:1422}. {object:2160} starts at Neutral 200 for everyone. Wear the Commission trinket while you fight the Scourge: Scourgestones only drop while you wear it. {npc:11039} at {area:2268} gives the same Commission; you can only take one."] = "{npc:10840} 站在 {zone:1422} 南部的 {area:3197}。所有人的 {object:2160} 声望都从中立 200 点开始。与天灾军团战斗时要装备委任徽章饰品：只有戴着它才会掉落天灾石。{area:2268} 的 {npc:11039} 也会给予相同的委任徽章；只能领取其中一个。",
 
 	-- Step 2: Argent Dawn Commission (Horde)
-	-- {quest:5401} Argent Dawn Commission
-	["{quest:5401} (Horde)"] = "{quest:5401}（部落）",
+	-- {quest:5405} Argent Dawn Commission
+	["{quest:5405} (Horde)"] = "{quest:5405}（部落）",
 	-- {npc:10839} Argent Officer Garush · {area:152} Bulwark · {zone:1420} Tirisfal Glades · {zone:1422} Western Plaguelands · {object:2160} The Argent Dawn · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel
 	["{npc:10839} stands at the {area:152}, on the road from {zone:1420} into the {zone:1422}. {object:2160} starts at Neutral 200 for everyone. Wear the Commission trinket while you fight the Scourge: Scourgestones only drop while you wear it. {npc:11039} at {area:2268} gives the same Commission; you can only take one."] = "{npc:10839} 站在 {area:152}，位于从 {zone:1420} 通往 {zone:1422} 的路上。所有人的 {object:2160} 起始声望均为中立200点。与天灾作战时要装备委任徽章饰品：只有佩戴时才会掉落天灾石。{area:2268} 的 {npc:11039} 也会提供同样的委任徽章；只能领取一个。",
 
@@ -123,9 +123,9 @@ return {
 	["{item:19442} ({skill:129}), 10 gold"] = "{item:19442}（{skill:129}），10 金",
 
 	-- Step 11: Mantles of the Dawn
-	-- {npc:11536} Quartermaster Miranda Breechlock · {quest:5504} Mantles of the Dawn · {faction:529} Argent Dawn · {item:18173} Shadow Mantle of the Dawn · {item:13810} Blessed Sunfruit
+	-- {npc:11536} Quartermaster Miranda Breechlock · {quest:5513} Mantles of the Dawn · {faction:529} Argent Dawn · {item:18173} Shadow Mantle of the Dawn · {item:13810} Blessed Sunfruit
 	-- plural, as words: Argent Dawn Valor Tokens = {item:12844} Argent Dawn Valor Token
-	["At Revered, {npc:11536} takes 10 Argent Dawn Valor Tokens for {quest:5504} (100 reputation). After it, any {faction:529} quartermaster sells the five shoulder enchants for 10 gold each: Flame, Frost, Arcane, Nature and {item:18173}, +5 to that resistance. Revered also opens the {item:13810} and its juice (60 silver) and the Revered recipes."] = "达到崇敬后，{npc:11536} 会收取 10 枚银色黎明勇气勋章，用于完成 {quest:5504}（100 点声望）。完成后，任意 {faction:529} 军需官都会出售五种肩部附魔，每种 10 金币：火焰、冰霜、奥术、自然和 {item:18173}，对应抗性 +5。崇敬还会解锁 {item:13810} 及其果汁（60 银）和崇敬配方。",
+	["At Revered, {npc:11536} takes 10 Argent Dawn Valor Tokens for {quest:5513} (100 reputation). After it, any {faction:529} quartermaster sells the five shoulder enchants for 10 gold each: Flame, Frost, Arcane, Nature and {item:18173}, +5 to that resistance. Revered also opens the {item:13810} and its juice (60 silver) and the Revered recipes."] = "达到崇敬后，{npc:11536} 会收取 10 枚银色黎明勇气勋章，用于完成 {quest:5513}（100 点声望）。完成后，任意 {faction:529} 军需官都会出售五种肩部附魔，每种 10 金币：火焰、冰霜、奥术、自然和 {item:18173}，对应抗性 +5。崇敬还会解锁 {item:13810} 及其果汁（60 银）和崇敬配方。",
 	-- plural, as words: Argent Dawn Valor Tokens = {item:12844} Argent Dawn Valor Token
 	["Argent Dawn Valor Tokens, from the stone turn-ins"] = "银色黎明勇气勋章，通过交还天灾石获得",
 	-- {item:18170} Frost Mantle of the Dawn
@@ -152,6 +152,7 @@ return {
 	["Argent Dawn Valor Tokens"] = "银色黎明勇气勋章",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["At Revered, {npc:11536} takes 10 Argent Dawn Valor Tokens for {quest:5504} (100 reputation). After it, any {faction:529} quartermaster sells the five shoulder enchants for 10 gold each: Flame, Frost, Arcane, Nature and {item:18173}, +5 to that resistance. Revered also opens the {item:13810} and its juice (60 silver) and the Revered recipes."] = "达到崇敬后，{npc:11536} 会收取 10 枚银色黎明勇气勋章，用于完成 {quest:5504}（100 点声望）。完成后，任意 {faction:529} 军需官都会出售五种肩部附魔，每种 10 金币：火焰、冰霜、奥术、自然和 {item:18173}，对应抗性 +5。崇敬还会解锁 {item:13810} 及其果汁（60 银）和崇敬配方。",
 	-- ["Corruptor's Scourgestones and dungeons to Revered"] = "用堕落者的天灾石和地下城刷到崇敬",
 	-- ["Dark Adepts and Shadowmages (level 58-60) drop Invader's Scourgestones here, along with Minion's stones and {item:14047}. Hand Invader's in 10 at a time and Minion's 20 at a time to {npc:11039} at {area:2268}. In Classic both stop giving reputation at Honored."] = "这里的黑暗教徒和暗影法师（58-60级）掉落侵略者的天灾石，还有爪牙的天灾石和{item:14047}。把侵略者的天灾石每10个、爪牙的天灾石每20个交给{area:2268}的{npc:11039}。在经典版中，两者到尊敬后就不再给声望。",
 	-- ["From Honored on, Corruptor's Scourgestones (one per turn-in) and Scourge kills in {area:2279} and {area:2057} carry the reputation. Corruptor's stones drop from the Scourge bosses there ({npc:1853}, {npc:10433}, Vectus) and from {npc:1852} and Putridius in {zone:1422}. Many dungeon runs pay off faster than any open-world farm."] = "从尊敬开始，声望来自堕落者的天灾石（每次交还一个）和在{area:2279}、{area:2057}中击杀天灾军团。堕落者的天灾石由那里的天灾首领（{npc:1853}、{npc:10433}、维克图斯）以及{zone:1422}的{npc:1852}和普特迪乌斯掉落。多刷地下城比任何野外刷怪都快。",
@@ -165,4 +166,5 @@ return {
 	-- ["{faction:529} to Exalted"] = "{faction:529}刷到崇拜",
 	-- ["{object:2160} starts out Neutral. Take the Commission from {npc:10839} at {area:152} and wear it: in Classic, Scourgestones only drop while the {quest:5401} trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains."] = "{object:2160}初始为中立。从{area:152}的{npc:10839}处领取委任徽章并装备：在经典版中，只有装备了{quest:5401}饰品时才会掉落天灾石。Forever的传承外交官特权可提高声望获取。",
 	-- ["{object:2160} starts out Neutral. Take the Commission from {npc:10840} at {area:3197} and wear it: in Classic, Scourgestones only drop while the {quest:5401} trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains."] = "{object:2160}初始为中立。从{area:3197}的{npc:10840}处领取委任徽章并装备：在经典版中，只有装备了{quest:5401}饰品时才会掉落天灾石。Forever的传承外交官特权可提高声望获取。",
+	-- ["{quest:5401} (Horde)"] = "{quest:5401}（部落）",
 }

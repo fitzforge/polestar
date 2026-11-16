@@ -10,57 +10,77 @@ return {
 	-- {zone:1418} Badlands
 	["Into {zone:1418}"] = "进入{zone:1418}",
 
-	-- Step 3: Hammertoe's Digsite
+	-- Step 2: Dorgaron
+	-- {npc:269577} Dorgaron · {area:346} Hammertoe's Digsite · {area:345} Agmond's End
+	-- plural, as words: Stonevault Bonesnappers = {npc:2893} Stonevault Bonesnapper
+	["{npc:269577} of the Explorers' League camps at the foot of the pass. His artifacts drop from the Shadowforge diggers at {area:346} and the Stonevault Bonesnappers at {area:345}, and the helmet lies in the Shadowforge camp."] = "探险者协会的{npc:269577}在山口脚下扎营。他要的文物由{area:346}的暗炉挖掘者和{area:345}的石窟断骨者掉落，头盔则在暗炉营地里。",
+	-- {npc:269577} Dorgaron · {item:278404} Pristine Mattock · {zone:1418} Badlands
+	["{npc:269577}: keep it, the {item:278404} waits for the 40-50 {zone:1418} visit"] = "{npc:269577}：保留它，{item:278404}留到40-50级再来{zone:1418}时交",
+
+	-- Step 4: Hammertoe's Digsite
 	-- {zone:1432} Loch Modan · {zone:1418} Badlands · {npc:2910} Prospector Ryedol · {npc:2860} Sigrun Ironhew
 	["Head back west to the road and follow it south out of {zone:1432} through the pass into the {zone:1418}. {npc:2910} and {npc:2860} camp side by side at the dig."] = "向西回到道路，再沿路向南离开{zone:1432}，穿过山口进入{zone:1418}。{npc:2910}和{npc:2860}在挖掘场并排扎营。",
 
-	-- Step 4: Hammertoe's Digsite: kill these as you meet them
+	-- Step 5: Hammertoe's Digsite: kill these as you meet them
 	-- {area:346} Hammertoe's Digsite
 	["{area:346}: kill these as you meet them"] = "{area:346}：沿途击杀以下目标",
+	-- {npc:269577} Dorgaron
 	-- plural, as words: Crag Coyotes = {npc:2727} Crag Coyote
-	["The Shadowforge dwarves camp just north of the digsite; the crumpled map lies among their tents. Tunnelers and Darkweavers carry Ryedol's pick. Crag Coyotes roam the slopes around it."] = "暗炉矮人在挖掘场北边不远处扎营；弄皱的地图在他们的帐篷之间。暗炉隧道工和暗炉巫师带着勘察员雷杜尔的镐。{npc:2727}在周围的山坡上游荡。",
+	["The Shadowforge dwarves camp just north of the digsite; the crumpled map and {npc:269577}'s mining helmet lie among their tents. Tunnelers and Darkweavers carry Ryedol's pick and {npc:269577}'s artifacts. Crag Coyotes roam the slopes around it."] = "暗炉矮人在挖掘场北边不远处扎营；弄皱的地图和{npc:269577}的采矿头盔在他们的帐篷之间。暗炉隧道工和暗炉巫师带着勘察员雷杜尔的镐和{npc:269577}的文物。峭壁山狗在周围的山坡上游荡。",
+	-- {item:278403} Explorers' League Mining Helmet
+	["{item:278403}, in the Shadowforge camp"] = "{item:278403}，在暗炉营地里",
+	-- {item:7847} Buzzard Gizzard
+	-- plural, as words: Starving Buzzards = {npc:2829} Starving Buzzard · Giant Buzzards = {npc:2831} Giant Buzzard
+	["{item:7847}: the Starving Buzzards (35-37) circling the hills north of the digsite drop it most often; leave the Giant Buzzards (39-41) of the far west"] = "{item:7847}：在挖掘场北边山丘上空盘旋的饥饿的秃鹫（35-37级）掉率最高；别去打远处西边的巨型秃鹫（39-41级）",
 
-	-- Step 5: The excavation crate
+	-- Step 6: The excavation crate
 	["The excavation crate"] = "挖掘补给箱",
 	["Head north-east to the abandoned dig; the supply crate lies there among the Dustbelcher ogres."] = "向东北前往废弃挖掘场，补给箱就在火烟食人魔之间。",
 
-	-- Step 6: Hammertoe's Digsite
+	-- Step 7: Hammertoe's Digsite
 	-- {area:1517} Uldaman
 	["Ryedol's next errand goes into {area:1517}: skip it."] = "勘察员雷杜尔的下一个差事要进入{area:1517}：跳过。",
 
-	-- Step 7: Valley of Fangs
+	-- Step 8: Valley of Fangs
 	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {zone:1418} Badlands
 	["{npc:4618} and {npc:2817} camp together in the {area:1877}, in the middle of the {zone:1418}."] = "{npc:4618}和{npc:2817}一起在{zone:1418}中部的{area:1877}扎营。",
 	["The clams lie on Stranglethorn's north-west coast, in the next guide: keep it"] = "蚌壳在荆棘谷西北海岸，在下一份指南里：先留着",
 
-	-- Step 8: Agmond's End
+	-- Step 9: Agmond's End
 	["The battered skeleton lies just east of the ogres, at the edge of the Stonevault trogg camp; the Bonesnappers and Shamans around it drop the flakes. Theldurin sits by the ruined camp further south."] = "破损的骷髅就在食人魔东边、石窟穴居人营地边缘；周围的石窟断骨者和石窟萨满祭司掉落碎片。迷失者塞尔杜林坐在更南边的废弃营地旁。",
 
-	-- Step 9: Agmond's End: kill these as you meet them
+	-- Step 10: Agmond's End: kill these as you meet them
 	-- {area:345} Agmond's End
 	["{area:345}: kill these as you meet them"] = "{area:345}：沿途击杀以下目标",
 	-- {quest:739} Murdaloc · {spell:5242} Battle Shout · {spell:1160} Demoralizing Shout · {area:340} Kargath
-	-- plural, as words: Dustbelcher Lords = {npc:2719} Dustbelcher Lord
-	["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "火烟食人魔在山谷南边不远处扎营；任何一个都会掉落废料。秃鹫在东边的平原上空盘旋。\n破损的骷髅在石窟穴居人营地边缘；杀死阿格蒙德的凶手{quest:739}在石窟断骨者之间游荡。\n小心：火烟领主为44-45级。它们会使用{spell:5242}和{spell:1160}，生命值低于50%时会向15码内的同伴求援。有七个站在{area:340}以南约750码处。",
+	-- plural, as words: Dustbelcher Maulers = {npc:2717} Dustbelcher Mauler · Stonevault Bonesnappers = {npc:2893} Stonevault Bonesnapper · Dustbelcher Lords = {npc:2719} Dustbelcher Lord
+	["Buzzards circle the plain to the east. Careful: the Dustbelcher Maulers, Shamans and Wyrmhunters (40-43) camp far to the south-west: leave them.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: the Stonevault Bonesnappers are 39-40 and the Shamans 40-41, a level or two over you here: pull them from the camp's edge, one at a time.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "秃鹫在东边的平原上空盘旋。小心：火烟虐待者、火烟萨满祭司和火烟猎龙者（40-43级）在远处西南方扎营：别去惹它们。\n破损的骷髅在石窟穴居人营地边缘；杀死阿格蒙德的凶手{quest:739}在石窟断骨者之间游荡。\n小心：石窟断骨者为39-40级，石窟萨满祭司为40-41级，比你此时高一两级：从营地边缘逐个拉怪。\n小心：火烟领主为44-45级。它们会使用{spell:5242}和{spell:1160}，生命值低于50%时会向15码内的同伴求援。有七个站在{area:340}以南约750码处。",
+	-- {item:7847} Buzzard Gizzard · {area:345} Agmond's End
+	["{item:7847}, if you still need one: the Buzzards east of {area:345} drop it only rarely"] = "{item:7847}，如果还需要的话：{area:345}以东的秃鹫掉率很低",
 	-- {quest:739} Murdaloc · {zone:1418} Badlands
 	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {zone:1418} guide at 43, and kill the Bonesnappers for this quest now."] = "{quest:739}本人（42级）在石窟断骨者之间走动：留到43级、后面的{zone:1418}指南再打他，现在先杀石窟断骨者完成此任务。",
+	-- {item:278402} Unstudied Artifact
+	["{item:278402}, from the Shadowforge diggers and the Bonesnappers"] = "{item:278402}，由暗炉挖掘者和石窟断骨者掉落",
 
-	-- Step 10: Theldurin the Lost
+	-- Step 11: Theldurin the Lost
 	-- {area:1517} Uldaman
 	["Theldurin sits by the ruined camp south of the trogg camp. His tablet lies just inside {area:1517}'s cave mouth, beside level 38 elites: a quest for a group."] = "塞尔杜林坐在穴居人营地南边的废弃营地旁。他的石板就在{area:1517}洞口内侧不远处，旁边有38级精英：这是组队任务。",
 
-	-- Step 11: Lotwil Veriatus
+	-- Step 12: Lotwil Veriatus
 	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus
 	["Head west into the {area:1878}; {npc:2921} works by his machines in the middle of it."] = "向西进入{area:1878}；{npc:2921}在中央的机器旁工作。",
 
-	-- Step 12: Lesser Rock Elementals
+	-- Step 13: Lesser Rock Elementals
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental
 	["Lesser Rock Elementals"] = "次级石元素",
-	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus · {npc:1470} Ghak Healtouch
-	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard
-	["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}; every rock elemental can drop {npc:1470}'s Rock Elemental Shards."] = "小型岩石元素在{npc:2921}西边的{area:1878}游荡；所有岩石元素都可能掉落{npc:1470}要的岩石元素碎片。",
+	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus · {npc:1470} Ghak Healtouch · {npc:2860} Sigrun Ironhew · {npc:269756} Malevolent Mirage
+	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard · Dustbelcher Ogres = {npc:2701} Dustbelcher Ogre
+	["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}; every rock elemental can drop {npc:1470}'s Rock Elemental Shards. The Dustbelcher Ogres (38-39) on the {area:1878}'s west side drop {npc:2860}'s scrap. Careful: a {npc:269756}, a level 42 elite, drifts about the {area:1878}: give it a wide berth.\nCareful: the Lesser Rock Elementals are 37-39 and hit hard: fight them one at a time."] = "次级石元素在{npc:2921}以西的{area:1878}游荡；所有石元素都可能掉落{npc:1470}要的石元素的碎片。{area:1878}西侧的火烟食人魔（38-39级）掉落{npc:2860}要的废料。小心：一个42级精英{npc:269756}在{area:1878}四处飘荡：离它远点。\n小心：次级石元素为37-39级，伤害很高：逐个击杀。",
+	-- {item:4630} Scrap Metal
+	-- plural, as words: Dustbelcher Ogres = {npc:2701} Dustbelcher Ogre
+	["{item:4630}, from the Dustbelcher Ogres"] = "{item:4630}，由火烟食人魔掉落",
 
-	-- Step 14: The Ancient Chest
+	-- Step 15: The Ancient Chest
 	-- {object:126260} Ancient Chest
 	["The {object:126260}"] = "{object:126260}",
 	-- {area:1517} Uldaman · {zone:1418} Badlands · {npc:2932} Magregan Deepshadow
@@ -69,49 +89,34 @@ return {
 	-- {item:4631} Tablet of Ryun'eh
 	["{item:4631}; below ground"] = "{item:4631}：在地下",
 
-	-- Step 15: Valley of Fangs
+	-- Step 16: Valley of Fangs
 	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {area:1517} Uldaman · {area:345} Agmond's End
 	["{npc:4618} and {npc:2817} camp in the {area:1877}, on the road between {area:1517} and {area:345}."] = "{npc:4618} 和 {npc:2817} 驻扎在 {area:1517} 与 {area:345} 之间道路上的 {area:1877}。",
 	-- {npc:4454} Fizzle Brassbolts · {area:2240} Mirage Raceway · {zone:1446} Tanaris
 	["For {npc:4454} at the {area:2240}: the {zone:1446} guide passes him at 45, keep it"] = "交给{area:2240}的{npc:4454}：{zone:1446}指南在45级时会经过，先留着",
 
-	-- Step 16: Sigrun Ironhew
+	-- Step 17: Sigrun Ironhew
 	-- {area:1877} Valley of Fangs · {area:346} Hammertoe's Digsite · {npc:2860} Sigrun Ironhew
 	["East from the {area:1877} to {area:346}: {npc:2860} takes the scrap metal."] = "从{area:1877}向东前往{area:346}：{npc:2860}收废金属。",
 
-	-- Step 17: Theldurin the Lost
+	-- Step 18: Theldurin the Lost
 	-- {area:345} Agmond's End
 	["Head south to {area:345}."] = "向南前往{area:345}。",
 	-- {npc:2786} Gerrig Bonegrip · {zone:1455} Ironforge
 	["for {npc:2786} in {zone:1455}: keep it"] = "交给{zone:1455}的{npc:2786}：先留着",
 
-	-- Step 18: Rock Elementals
+	-- Step 19: Rock Elementals
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental
 	["Rock Elementals"] = "{npc:92}",
-	-- {npc:2921} Lotwil Veriatus
+	-- {npc:2921} Lotwil Veriatus · {npc:269756} Malevolent Mirage · {area:1878} Dustbowl
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental · Giant Buzzards = {npc:2831} Giant Buzzard · Elder Crag Coyotes = {npc:2729} Elder Crag Coyote
-	["The Rock Elementals roam south-east of {npc:2921}; Giant Buzzards and Elder Crag Coyotes share the plain to their west."] = "{npc:92}在{npc:2921}东南方游荡；{npc:2831}和{npc:2729}分布在它们西边的平原上。",
+	["The Rock Elementals roam south-east of {npc:2921}; Giant Buzzards and Elder Crag Coyotes share the plain to their west. Careful: a {npc:269756}, a level 42 elite, drifts about the {area:1878}: give it a wide berth."] = "石元素在{npc:2921}东南方游荡；巨型秃鹫和老峭壁山狗分布在它们西边的平原上。小心：一个42级精英{npc:269756}在{area:1878}四处飘荡：离它远点。",
 
-	-- Step 19: Lotwil Veriatus
-	-- {npc:2921} Lotwil Veriatus · {item:4628} Bracers of Rock Binding
-	-- plural, as words: Greater Rock Elementals = {npc:2736} Greater Rock Elemental
-	["{npc:2921}'s last test is optional: five {item:4628}, which only the Greater Rock Elementals (42-44) in the south-western gulches drop, about one kill in five, well above your level. Take it only if you can handle them one at a time; otherwise hand in the slabs and move on."] = "{npc:2921}的最后一项试验可选：需要五个{item:4628}，只有西南沟壑的巨型石元素（42-44级）掉落，约杀五只掉一个，等级远高于你。只有能一次对付一只时才接；否则交完石片就继续赶路。",
-
-	-- Step 20: Bracers of Rock Binding
-	-- plural, as words: Greater Rock Elementals = {npc:2736} Greater Rock Elemental
-	["South-west into the gulches: only the Greater Rock Elementals there drop the bracers."] = "向西南进入峡谷：只有那里的巨型石元素才掉落护腕。",
-
-	-- Step 22: Lucien Tosselwrench
-	-- {npc:2920} Lucien Tosselwrench · {npc:2921} Lotwil Veriatus · {item:2868} Patterned Bronze Bracers
-	["{npc:2920}, beside {npc:2921}, trades for {item:2868}, a blacksmith's craft: this step shows only when you carry a pair."] = "{npc:2920}就在{npc:2921}旁边，可以用锻造制作的{item:2868}与他交换；只有携带一副时才会显示本步骤。",
-	-- {npc:2920} Lucien Tosselwrench · {npc:2921} Lotwil Veriatus
-	["{npc:2920}, beside {npc:2921}"] = "{npc:2920}，在{npc:2921}旁边",
-
-	-- Step 23: To Stoutlager Inn
+	-- Step 21: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
 	["To {area:2101}"] = "前往{area:2101}",
 
-	-- Step 24: Thelsamar
+	-- Step 22: Thelsamar
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, in the inn; below ground"] = "{npc:1470}，位于旅店地下室",
 
@@ -137,11 +142,16 @@ return {
 	-- ["Ride south to {area:345}."] = "向南骑到{area:345}。",
 	-- ["Ride west into the {area:1878}; {npc:2921} works by his machines in the middle of it."] = "向西骑进{area:1878}；{npc:2921}在中间的机器旁工作。",
 	-- ["Shadowforge camp"] = "暗炉营地",
+	-- ["South-west into the gulches: only the Greater Rock Elementals there drop the bracers."] = "向西南进入峡谷：只有那里的巨型石元素才掉落护腕。",
 	-- ["Take the boat to Theramore from the far pier."] = "从最远的码头乘船前往塞拉摩岛。",
 	-- ["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east."] = "火烟食人魔在山谷南边不远处扎营；任何一个都会掉落废料。秃鹫在东边的平原上空盘旋。",
+	-- ["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "火烟食人魔在山谷南边不远处扎营；任何一个都会掉落废料。秃鹫在东边的平原上空盘旋。\n破损的骷髅在石窟穴居人营地边缘；杀死阿格蒙德的凶手{quest:739}在石窟断骨者之间游荡。\n小心：火烟领主为44-45级。它们会使用{spell:5242}和{spell:1160}，生命值低于50%时会向15码内的同伴求援。有七个站在{area:340}以南约750码处。",
 	-- ["The Greater Rock Elementals (level 42) walk the far south-west corner below {area:342}; pull them one at a time. The Dustbelcher Wyrmhunters and Maulers at {area:342} also drop scrap."] = "{npc:2736}（42级）在{area:342}下方的西南角巡逻；一次拉一个。{area:342}的{npc:2716}和火烟虐待者也会掉落废料。",
 	-- ["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}."] = "{npc:2735}在{npc:2921}西边的{area:1878}游荡。",
+	-- ["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}; every rock elemental can drop {npc:1470}'s Rock Elemental Shards."] = "小型岩石元素在{npc:2921}西边的{area:1878}游荡；所有岩石元素都可能掉落{npc:1470}要的岩石元素碎片。",
 	-- ["The Maraudine centaurs hold the {area:607} west of the graveyard; every kind drops the totems."] = "玛洛迪半人马占据着墓地西边的{area:607}；每种都会掉落图腾。",
+	-- ["The Rock Elementals roam south-east of {npc:2921}; Giant Buzzards and Elder Crag Coyotes share the plain to their west."] = "{npc:92}在{npc:2921}东南方游荡；{npc:2831}和{npc:2729}分布在它们西边的平原上。",
+	-- ["The Shadowforge dwarves camp just north of the digsite; the crumpled map lies among their tents. Tunnelers and Darkweavers carry Ryedol's pick. Crag Coyotes roam the slopes around it."] = "暗炉矮人在挖掘场北边不远处扎营；弄皱的地图在他们的帐篷之间。暗炉隧道工和暗炉巫师带着勘察员雷杜尔的镐。{npc:2727}在周围的山坡上游荡。",
 	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "滑刃纳迦占据着{npc:11863}的塔楼北边的西北海岸；卡尼托的挎包就在近海的海底，任何纳迦都可能掉落拉克摩尔的金钥匙。游到最北端外海的{area:2406}，对{object:177673}使用{item:15766}：{npc:12369}（38级）会出现；杀死他获得{quest:6027}。",
 	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "滑刃纳迦占据着{npc:11863}的塔楼北边的西北海岸；卡尼托的挎包就在近海的海底。游到最北端外海的{area:2406}，对{object:177673}使用{item:15766}：{npc:12369}（38级）会出现；杀死他获得{quest:6027}。",
 	-- ["The battered skeleton lies just east of the ogres, at the edge of the Stonevault trogg camp; the Bonesnappers and Shamans around it drop the flakes. Theldurin sits by the ruined camp further south."] = "破损的骷髅就在食人魔东边、石窟穴居人营地边缘；周围的石窟断骨者和石窟萨满祭司掉落碎片。迷失者塞尔杜林坐在更南边的废弃营地旁。",
@@ -174,7 +184,10 @@ return {
 	-- ["{npc:12369}, a centaur chieftain, camps on the north-west coast, north of {npc:11863}'s tower."] = "{npc:12369}是一个半人马首领，在{npc:11863}的塔北边的西北海岸扎营。",
 	-- ["{npc:1470}, in the inn"] = "{npc:1470}，在旅店里",
 	-- ["{npc:217590}: catch it, for My Little Friends"] = "{npc:217590}：抓住它，用于我的小朋友们",
+	-- ["{npc:2920}, beside {npc:2921}"] = "{npc:2920}，在{npc:2921}旁边",
+	-- ["{npc:2920}, beside {npc:2921}, trades for {item:2868}, a blacksmith's craft: this step shows only when you carry a pair."] = "{npc:2920}就在{npc:2921}旁边，可以用锻造制作的{item:2868}与他交换；只有携带一副时才会显示本步骤。",
 	-- ["{npc:2920}, beside {npc:2921}, wants {item:2868}, a blacksmith's craft: skip him unless you carry a pair."] = "{npc:2920}在{npc:2921}旁，需要锻造制作的{item:2868}：身上没有一副就跳过。",
+	-- ["{npc:2921}'s last test is optional: five {item:4628}, which only the Greater Rock Elementals (42-44) in the south-western gulches drop, about one kill in five, well above your level. Take it only if you can handle them one at a time; otherwise hand in the slabs and move on."] = "{npc:2921}的最后一项试验可选：需要五个{item:4628}，只有西南沟壑的巨型石元素（42-44级）掉落，约杀五只掉一个，等级远高于你。只有能一次对付一只时才接；否则交完石片就继续赶路。",
 	-- ["{npc:2921}'s next test needs crafted gear: skip it."] = "{npc:2921}的下一个测试需要制作的装备：跳过。",
 	-- ["{npc:4618} and {npc:2817} camp together in the {area:1877}, in the middle of the {area:3}."] = "{npc:4618}和{npc:2817}一起在{area:3}中部的{area:1877}扎营。",
 	-- ["{npc:5638}'s next task, {item:6245}, is a drop on the far coast: skip it."] = "{npc:5638}的下一个任务{item:6245}是远处海岸的掉落物：跳过。",

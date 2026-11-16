@@ -66,9 +66,9 @@ return {
 	-- Step 13: Ghoul Ribs
 	-- plural, as words: Ghoul Ribs = {item:884} Ghoul Rib
 	["Ghoul Ribs"] = "食屍鬼的肋骨",
-	-- {area:492} Raven Hill Cemetery · {npc:948} Rotted One · {spell:3428} Summon Flesh Eating Worms
+	-- {area:492} Raven Hill Cemetery · {npc:522} Mor'Ladim · {npc:948} Rotted One · {spell:3428} Summon Flesh Eating Worms
 	-- plural, as words: Flesh Eaters = {npc:3} Flesh Eater · Bone Chewers = {npc:210} Bone Chewer · Plague Spreaders = {npc:604} Plague Spreader · Brain Eaters = {npc:570} Brain Eater
-	["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "{area:492}北半部的每個食屍鬼都可能掉落肋骨：食腐者、噬骨者、瘟疫食屍鬼和食腦者。\n小心：{npc:948}死亡時會施放{spell:3428}，引來額外的怪。",
+	["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters and Bone Chewers (24-27) are the easier kills; Plague Spreaders and Brain Eaters (27-29) drop them too. {npc:522}, an elite, wanders the graves: keep away from him.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "{area:492}北半部的每個食屍鬼都可能掉落肋骨：食腐者和噬骨者（24-27級）比較好打；瘟疫食屍鬼和食腦者（27-29級）也會掉。精英{npc:522}在墳墓間遊蕩：離他遠一點。\n小心：{npc:948}死亡時會施放{spell:3428}，引來額外的怪。",
 
 	-- Step 15: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
@@ -111,7 +111,7 @@ return {
 
 	-- Step 23: Class trainer
 	["Class trainer"] = "職業訓練師",
-	["Level 22 and 24 spells"] = "22和24級法術",
+	["Your new spells"] = "你的新法術",
 
 	-- Step 24: Gazin Tenorm
 	-- {zone:1453} Stormwind · {npc:6173} Gazin Tenorm · {npc:6171} Duthorian Rall
@@ -140,8 +140,10 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Continue west to {area:94}. The {object:673515} glows by the ruined house south of the road."] = "繼續向西前往{area:94}。{object:673515}在道路南邊的廢墟房屋旁發光。",
+	-- ["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "{area:492}北半部的每個食屍鬼都可能掉落肋骨：食腐者、噬骨者、瘟疫食屍鬼和食腦者。\n小心：{npc:948}死亡時會施放{spell:3428}，引來額外的怪。",
 	-- ["Follow the road north-west past the cemetery to {npc:311}'s camp on the far west edge of the forest. {npc:893} stands beside {npc:311}."] = "沿著道路向西北經過墓地，前往森林最西緣的{npc:311}營地。{npc:893}站在{npc:311}旁邊。",
 	-- ["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest."] = "沿著道路從{area:1002}向南進入{zone:1431}；{area:42}位於森林東側。",
+	-- ["Level 22 and 24 spells"] = "22和24級法術",
 	-- ["Rabid Dire Wolves roam the woods around the cemetery and {npc:289}, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders crawl east of the cemetery and drop the venom. Every ghoul of the cemetery's northern half can drop a fang."] = "瘋狂的恐狼在墓地和{npc:289}周圍的樹林遊蕩，饑餓的恐狼在他東北方的山丘上。小型結網毒蜘蛛在墓地東邊爬行，會掉落毒液。墓地北半部的每個食屍鬼都可能掉落尖牙。",
 	-- ["Ride back east along the road to the {area:245}."] = "沿著道路向東騎回{area:245}。",
 	-- ["Ride back east to {area:42}."] = "向東騎回{area:42}。",

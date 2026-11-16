@@ -21,6 +21,8 @@ return {
 	["The flight lands beside {npc:7876}. Take the town's quests before riding west to {area:979}."] = "",
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "{npc:7876}, junto al maestro de jinetes del viento",
+	-- {npc:11758} Andi Lynn · {area:1938} Broken Pillar
+	["{npc:11758}: keep it, the Dunemaul ogres and Gor'marok (49) wait for the {area:1938} at about 52, at the end of 40-50/06"] = "{npc:11758}: consérvala, los ogros Dunemaul y Gor'marok (49) esperan en {area:1938} hacia el nivel 52, al final de 40-50/06",
 
 	-- Step 4: Gadgetzan
 	-- {area:978} Zul'Farrak · {area:979} Sandsorrow Watch · {npc:7407} Chief Engineer Bilgewhizzle · {quest:2768} Divino-matic Rod · {quest:2864} Tran'rek
@@ -60,23 +62,23 @@ return {
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {item:9978} Gahz'ridian Detector · {area:983} Dunemaul Compound
 	["West along the road south; {npc:7771} camps by the ruins at the {area:1938}. Put on his {item:9978}: it shows the buried ornaments, here and around the {area:983}."] = "Ve al oeste por el camino del sur; {npc:7771} acampa junto a las ruinas de {area:1938}. Ponte su {item:9978}: muestra los adornos enterrados, aquí y alrededor de {area:983}.",
 
-	-- Step 13: Broken Pillar: kill these as you meet them
-	-- {area:1938} Broken Pillar
-	["{area:1938}: kill these as you meet them"] = "",
-	-- {area:982} Noxious Lair · {npc:12046} Gor'marok the Ravager · {quest:3161} Gahz'ridian
-	["South of the {area:982} the Dunemaul ogres hold their compound, with {npc:12046} at its eastern end. Dig up {quest:3161} ornaments between the fights."] = "Al sur de {area:982}, los ogros Machacaduna ocupan su base, con {npc:12046} en el extremo este. Desentierra adornos de {quest:3161} entre combate y combate.",
-	["Below ground"] = "Bajo tierra",
+	-- Step 13: Gahz'ridian ornaments
+	-- {quest:3161} Gahz'ridian
+	["{quest:3161} ornaments"] = "Adornos de {quest:3161}",
+	-- {quest:3161} Gahz'ridian · {area:1938} Broken Pillar · {area:983} Dunemaul Compound · {npc:12046} Gor'marok the Ravager
+	["Dig up the {quest:3161} ornaments around the {area:1938} and north of the {area:983}. Leave the ogres for now: {npc:12046} is 49 and the Brutes 46-48; the {area:983} comes at the end of 40-50/06, at about 52."] = "Desentierra los adornos de {quest:3161} alrededor de {area:1938} y al norte de {area:983}. Deja a los ogros por ahora: {npc:12046} es de nivel 49 y los Brutos de 46-48; {area:983} llega al final de 40-50/06, hacia el nivel 52.",
 
-	-- Step 14: Noxious Lair
+	-- Step 14: The Noxious Lair
 	-- {npc:4196} Silithid Swarm
 	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
-	["West, the Centipaar insects swarm around their hives; any of them drops the parts.\nCareful: Centipaar Swarmers cast {npc:4196} both in and out of combat, which brings small adds that interrupt you."] = "",
+	["West, the Centipaar insects swarm around their hives; any of them drops the parts.\nCareful: Centipaar Swarmers cast {npc:4196} both in and out of combat, which brings small adds that interrupt you. The Sandreavers are 49-50: take the Workers and Tunnelers."] = "Al oeste, los insectos Centipaar pululan alrededor de sus colmenas; cualquiera suelta las piezas.\nCuidado: los Enjambristas Centipaar lanzan {npc:4196} dentro y fuera de combate, lo que atrae pequeños añadidos que te interrumpen. Los Atracadunas son de nivel 49-50: ve a por los Obreros y los Tuneleros.",
 
 	-- Step 15: Thistleshrub Valley: kill these as you meet them
 	-- {quest:3362} Thistleshrub Valley
 	["{quest:3362}: kill these as you meet them"] = "",
-	-- {zone:1446} Tanaris
-	["West of the compound the cactus creatures fill the valley; only the Dew Collectors carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 49-50 and wander a lot, so you can easily pull extra mobs."] = "Al oeste de la base, las criaturas cactus llenan el valle; solo los Colectores de rocío Cardizal llevan una glándula de rocío. Casi todos los enemigos de {zone:1446} pueden soltar, rara vez, el Localizador de emergencia OOX-17/TN: guárdalo si te sale uno.\nCuidado: los demás cardizales de la zona son de nivel 49-50 y deambulan mucho, así que es fácil atraer enemigos de más.",
+	-- {zone:1446} Tanaris · {quest:2864} Tran'rek · {area:1938} Broken Pillar
+	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
+	["West of the compound the cactus creatures fill the valley; only the Dew Collectors (47-48) carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave {quest:2864}'s Gnarled Thistleshrubs and Rootshapers for the {area:1938} ride into Un'Goro at about 51."] = "Al oeste de la base, las criaturas cactus llenan el valle; solo los Colectores de rocío (47-48) llevan una glándula de rocío. Casi todos los enemigos de {zone:1446} pueden soltar, rara vez, el Localizador de emergencia OOX-17/TN: guárdalo si te sale uno.\nCuidado: los demás cardizales de la zona son de nivel 48-50 y deambulan mucho, así que es fácil atraer enemigos de más: mata a los Colectores de rocío del borde del valle y deja los Cardizales nudosos y los Formarraíces de {quest:2864} para el viaje a {area:1938} de camino a Un'Goro, hacia el nivel 51.",
 	-- {item:8623} OOX-17/TN Distress Beacon
 	["{item:8623}, a rare drop"] = "{item:8623}, botín poco común",
 
@@ -95,14 +97,19 @@ return {
 	["Keep the Model 4711-FTZ Power Source Bilgewhizzle gave you: it starts {quest:654}, a two-hour timer, so use it on the way back north from Scrimshank's hive."] = "Guarda la Fuente de energía modelo 4711-FTZ que te dio Bilgewhizzle: inicia {quest:654}, con un temporizador de dos horas, así que úsala al volver al norte desde la colmena de Patagolpe.",
 
 	-- Step 20: Gadgetzan
+	-- {quest:2864} Tran'rek · {quest:3362} Thistleshrub Valley · {area:983} Dunemaul Compound · {area:1938} Broken Pillar
+	["Keep {quest:2864}'s {quest:3362}: its Rootshapers (49-50) come with the {area:983} at the {area:1938}, on the way into Un'Goro at about 51."] = "Conserva {quest:3362} de {quest:2864}: sus Formarraíces (49-50) van con {area:983} en {area:1938}, de camino a Un'Goro hacia el nivel 51.",
 	-- {item:8526} Violet Tragan · {zone:1425} Hinterlands
 	["the {item:8526} grows in the {zone:1425}, around level 48"] = "el {item:8526} crece en {zone:1425}, hacia el nivel 48",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "",
+	-- {npc:11758} Andi Lynn · {area:983} Dunemaul Compound · {area:1938} Broken Pillar
+	["{npc:11758}'s {area:983} stays in your log for the {area:1938} at about 52."] = "{area:983} de {npc:11758} se queda en tu registro para {area:1938}, hacia el nivel 52.",
 
 	-- Step 22: Scrimshank's gear
 	["Scrimshank's gear"] = "Equipo de análisis de Patagolpe",
 	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "",
+	["Below ground"] = "Bajo tierra",
 
 	-- Step 23: OOX-17/TN
 	["OOX-17/TN"] = "OOX-17/TN",
@@ -150,29 +157,28 @@ return {
 	-- Step 32: The Cauldron's slavers and golems
 	-- {area:246} The Cauldron
 	["{area:246}'s slavers and golems"] = "",
-	-- {area:1446} Thorium Point
+	-- {area:1446} Thorium Point · {npc:8479} Velarok Windblade
 	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Heavy War Golems = {npc:5854} Heavy War Golem
-	["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below Velarok."] = "",
+	["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below {npc:8479}. Careful: the biggest golems are 49: pull them one at a time."] = "Cabalga al sur desde {area:1446} hacia La Caldera: los Capataces y Esclavistas Hierro Negro arrean a los esclavos por los caminos, y los Gólems de guerra pesados patrullan el fondo bajo {npc:8479}. Cuidado: los gólems más grandes son de nivel 49: atráelos de uno en uno.",
 
 	-- Step 33: Velarok Windblade
-	["Velarok Windblade"] = "Velarok Windblade",
-	-- {area:1446} Thorium Point
-	["Velarok stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "Velarok está solo al sur de {area:1446}, al borde de La Caldera. Escucha su historia.",
+	-- {npc:8479} Velarok Windblade · {area:1446} Thorium Point
+	["{npc:8479} stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "{npc:8479} está solo al sur de {area:1446}, al borde de La Caldera. Escucha su historia.",
 
 	-- Step 36: Searing Gorge: kill these as you meet them
 	-- {zone:1427} Searing Gorge
 	["{zone:1427}: kill these as you meet them"] = "",
-	-- {item:11818} Grimesilt Outhouse Key · {area:1443} The Slag Pit
-	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Blazing Elementals = {npc:5850} Blazing Elemental · Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Searing Lava Spiders = {npc:5857} Searing Lava Spider · Incendosaurs = {npc:9318} Incendosaur · Dark Iron Slavers = {npc:5844} Dark Iron Slaver
-	["Heavy War Golems patrol the Cauldron below Velarok and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Searing Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "",
+	-- {npc:8479} Velarok Windblade · {item:11818} Grimesilt Outhouse Key · {area:1443} The Slag Pit
+	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Blazing Elementals = {npc:5850} Blazing Elemental · Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Searing Lava Spiders = {npc:5858} Searing Lava Spider · Incendosaurs = {npc:9318} Incendosaur · Dark Iron Slavers = {npc:5844} Dark Iron Slaver
+	["Heavy War Golems patrol the Cauldron below {npc:8479} and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Searing Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee. The biggest Incendosaurs and Lava Spiders are 49: pull them one at a time."] = "Los Gólems de guerra pesados patrullan La Caldera bajo {npc:8479} y sueltan el aceite; los Elementales de magma y los Elementales llameantes que vagan entre ellos sueltan los corazones. Los Capataces y Esclavistas Hierro Negro arrean a los esclavos por los caminos; un Esclavista puede soltar la {item:11818}: guárdala.\nLas Lavarañas superiores recorren las mesetas y las charcas de lava del suroeste de la garganta.\n{area:1443} se abre al norte de La Caldera. Los Incendosaurios nadan en sus charcas de lava: atráelos al borde. Los planos secretos están en la cornisa superior del foso.\nCuidado: los Esclavistas Hierro Negro (nivel 45-46) piden ayuda a aliados a menos de 15 m al atraerlos, lanzan Red desde hasta 15 m y usan Desgarrar cuerpo a cuerpo. Los Incendosaurios y Lavarañas más grandes son de nivel 49: atráelos de uno en uno.",
 	-- {item:11818} Grimesilt Outhouse Key
 	["{item:11818}, a rare drop"] = "{item:11818}, botín poco común",
 	-- {area:1443} The Slag Pit
 	["Below ground: the plans, on the {area:1443}'s upper ledge"] = "Bajo tierra: los planos, en la cornisa superior de {area:1443}",
 
 	-- Step 38: Thorium Point
-	-- {area:1446} Thorium Point
-	["Ride back north to {area:1446}, just past Velarok."] = "",
+	-- {area:1446} Thorium Point · {npc:8479} Velarok Windblade
+	["Ride back north to {area:1446}, just past {npc:8479}."] = "Cabalga de vuelta al norte hasta {area:1446}, justo pasado {npc:8479}.",
 
 	-- Step 39: The Steamsmiths' furnaces
 	["The Steamsmiths' furnaces"] = "Los hornos de los Vapoherreros",
@@ -209,6 +215,7 @@ return {
 	-- ["Ride back north to {area:1446}. Stay here: the next guide starts with the flight to {area:75}."] = "Vuelve al norte hasta {area:1446}. Quédate aquí: la siguiente guía empieza con el vuelo a {area:75}.",
 	-- ["Ride south-west to {area:976}."] = "Cabalga al suroeste hasta {area:976}.",
 	-- ["South down the road again."] = "Vuelve al sur por el camino.",
+	-- ["South of the {area:982} the Dunemaul ogres hold their compound, with {npc:12046} at its eastern end. Dig up {quest:3161} ornaments between the fights."] = "Al sur de {area:982}, los ogros Machacaduna ocupan su base, con {npc:12046} en el extremo este. Desentierra adornos de {quest:3161} entre combate y combate.",
 	-- ["South-east of Gadgetzan the Wastewander bandits camp in the dunes; {npc:7847} stands in the eastern camp."] = "Al sureste de Gadgetzan acampan los Bandidos Deambuladores en las dunas; {npc:7847} está en el campamento del este.",
 	-- ["The Dark Iron Lookouts stand on the ridges around the sentry towers south of the Cauldron; about one in ten carries the {item:18960}."] = "Los Vigías Hierro Negro vigilan las crestas alrededor de las torres de guardia al sur de La Caldera; uno de cada diez, más o menos, lleva el {item:18960}.",
 	-- ["The Dark Iron Steamsmiths work the furnaces in the middle of the Cauldron; half of them carry a {item:10551}, one in ten the {item:18959}. Slaves, Slavers and Taskmasters carry daggers too."] = "Los Vapoherreros Hierro Negro trabajan en los hornos del centro de La Caldera; la mitad lleva una {item:10551} y uno de cada diez la {item:18959}. Los esclavos, Esclavistas y Capataces también llevan dagas.",
@@ -216,6 +223,9 @@ return {
 	-- ["The Steamsmiths' furnaces"] = "Los hornos de los Vapoherreros",
 	-- ["The boat to {area:35} docks at {area:392}'s pier, below the flight master's hill."] = "El barco a {area:35} atraca en el muelle de {area:392}, bajo la colina del maestro de vuelo.",
 	-- ["The {object:142071} machine, in the middle of town: the egg is in southern {zone:1444}, around level 50"] = "La máquina {object:142071}, en el centro del pueblo: el huevo está en el sur de {zone:1444}, hacia el nivel 50",
+	-- ["Velarok Windblade"] = "Velarok Windblade",
+	-- ["Velarok stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "Velarok está solo al sur de {area:1446}, al borde de La Caldera. Escucha su historia.",
+	-- ["West of the compound the cactus creatures fill the valley; only the Dew Collectors carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 49-50 and wander a lot, so you can easily pull extra mobs."] = "Al oeste de la base, las criaturas cactus llenan el valle; solo los Colectores de rocío Cardizal llevan una glándula de rocío. Casi todos los enemigos de {zone:1446} pueden soltar, rara vez, el Localizador de emergencia OOX-17/TN: guárdalo si te sale uno.\nCuidado: los demás cardizales de la zona son de nivel 49-50 y deambulan mucho, así que es fácil atraer enemigos de más.",
 	-- ["West, the Centipaar insects swarm around their hives; any of them drops the parts."] = "Al oeste, los insectos Centipaar pululan alrededor de sus colmenas; cualquiera de ellos suelta los trozos.",
 	-- ["the {object:150075} in the square"] = "el {object:150075} de la plaza",
 	-- ["{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge."] = "{area:1443} se abre al norte de La Caldera. Los Incendosaurios nadan en sus pozas de lava: atráelos hasta el borde. Los planos secretos están en la cornisa superior de la fosa.",

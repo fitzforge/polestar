@@ -25,8 +25,6 @@ return {
 	["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:3666} Wizbang Cranktoggle
 	["{npc:3666}, upstairs in the inn"] = "{npc:3666}, en el piso de arriba de la posada",
-	-- {npc:3644} Cerellean Whiteclaw
-	["{npc:3644}, on the pier"] = "{npc:3644}, en el muelle",
 
 	-- Step 5: The skeletal turtle
 	["The skeletal turtle"] = "La tortuga esquelética",
@@ -58,8 +56,6 @@ return {
 	["Read the {object:17188}"] = "Lee {object:17188}",
 	-- {object:17189} Fall of Ameth'Aran
 	["Read the {object:17189}"] = "Lee {object:17189}",
-	-- {item:5382} Anaya's Pendant · {npc:3667} Anaya Dawnrunner
-	["{item:5382}: {npc:3667}, level 16; pull her away from the Highborne"] = "{item:5382}: {npc:3667}, nivel 16; apártala de los altonatos",
 
 	-- Step 9: The red crystal
 	["The red crystal"] = "El cristal rojo",
@@ -83,7 +79,7 @@ return {
 	["Blackwood furbolgs"] = "Furbolgs Bosquenegro",
 	-- {area:442} Auberdine
 	-- plural, as words: Blackwood Pathfinders = {npc:2167} Blackwood Pathfinder
-	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "Los Abrecaminos Bosque Negro y los Soplavientos Bosquenegro ocupan el campamento al sureste de {area:442}.",
+	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}.\nCareful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time."] = "Los Abrecaminos Bosque Negro y los Hablavientos ocupan el campamento al sureste de {area:442}.\nCuidado: los Hablavientos (13-14) lanzan hechizos a distancia y los fúrbolgs van en parejas: atráelos de uno en uno.",
 
 	-- Step 14: The southern beaches
 	["The southern beaches"] = "Las playas del sur",
@@ -101,10 +97,6 @@ return {
 	-- Step 17: Bashal'Aran
 	-- {npc:3650} Asterion · {area:442} Auberdine
 	["North along the hills to {npc:3650}, then west down to {area:442}."] = "",
-
-	-- Step 18: Auberdine
-	-- {npc:3644} Cerellean Whiteclaw
-	["{npc:3644}, where the pier meets the shore, on the way to the boat"] = "{npc:3644}, donde el muelle se une a la orilla, de camino al barco",
 
 	-- Step 19: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
@@ -148,5 +140,9 @@ return {
 	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "Los Abrecaminos Bosque Negro y los Soplavientos Bosquenegro ocupan el campamento al sureste de {area:442}.",
 	-- ["Into {area:148}"] = "Hacia {area:148}",
+	-- ["{item:5382}: {npc:3667}, level 16; pull her away from the Highborne"] = "{item:5382}: {npc:3667}, nivel 16; apártala de los altonatos",
+	-- ["{npc:3644}, on the pier"] = "{npc:3644}, en el muelle",
+	-- ["{npc:3644}, where the pier meets the shore, on the way to the boat"] = "{npc:3644}, donde el muelle se une a la orilla, de camino al barco",
 }

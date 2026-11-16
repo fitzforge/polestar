@@ -11,8 +11,8 @@ return {
 	["Your epic mount at 60, summoned at will: the faster step up from the Warhorse."] = "60레벨의 영웅 탈것으로, 언제든 소환할 수 있습니다. 전투마보다 빠른 상위 탈것입니다.",
 
 	-- Step 1: Lord Grayson Shadowbreaker (Ironforge)
-	-- {npc:5149} Brandur Ironhammer · {object:32362} Mystic Ward (no name in this language: may be words) · {quest:7638} Lord Grayson Shadowbreaker · {zone:1453} Stormwind
-	["At 60 {npc:5149} in the {object:32362} sends you to {quest:7638} in {zone:1453}'s Cathedral of Light."] = "60레벨에 {object:32362}의 {npc:5149}이(가) 당신을 {zone:1453} 빛의 대성당의 {quest:7638}에게 보냅니다.",
+	-- {npc:5149} Brandur Ironhammer · {object:32362} Mystic Ward (no name in this language: may be words) · {quest:7670} Lord Grayson Shadowbreaker · {zone:1453} Stormwind
+	["At 60 {npc:5149} in the {object:32362} sends you to {quest:7670} in {zone:1453}'s Cathedral of Light."] = "60레벨에 {object:32362}의 {npc:5149}이(가) {zone:1453} 빛의 대성당의 {quest:7670}(으)로 보냅니다.",
 
 	-- Step 2: Lord Grayson Shadowbreaker
 	-- {spell:23214} Summon Charger · {area:2279} Stratholme · {area:2057} Scholomance · {item:14047} Runecloth · {item:8836} Arthas' Tears · {npc:6171} Duthorian Rall
@@ -33,7 +33,7 @@ return {
 	["Lord Grayson blesses the censer into the {item:18752} for {area:2627}."] = "",
 
 	-- Step 5: Exorcising Terrordale
-	-- {area:2627} Terrordale · {zone:1423} Eastern Plaguelands · {area:2279} Stratholme · {object:179747} Terrordale Haunting Spirit (no name in this language: may be words) · {item:18752} Exorcism Censer · {spell:7713} Wailing Dead · {spell:2878} Turn Undead
+	-- {area:2627} Terrordale · {zone:1423} Eastern Plaguelands · {area:2279} Stratholme · {object:179747} Terrordale Haunting Spirit · {item:18752} Exorcism Censer · {spell:7713} Wailing Dead · {spell:2878} Turn Undead
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit
 	["{area:2627} lies in the far north-west of the {zone:1423}, west of the {area:2279} gates. Stand inside a green glowing patch on the ground (a {object:179747}; some are inside the ruined houses) and use the {item:18752}: up to three Terrordale Spirits (level 59-60) rise and attack. Their {spell:7713} lowers all your stats by 30%: fight them one at a time and use {spell:2878}. The patches come back quickly; several paladins can work side by side."] = "",
 	-- {item:18752} Exorcism Censer
@@ -118,6 +118,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["An {item:12800} comes from Thorium veins, a {item:18335} from the elites of the {zone:1422}, both rarely: the Auction House is the usual source."] = "{item:12800}은(는) 토륨 광맥에서, {item:18335}은(는) {zone:1422}의 정예 몹에게서 나오며 둘 다 드뭅니다. 보통은 경매장에서 구합니다.",
+	-- ["At 60 {npc:5149} in the {object:32362} sends you to {quest:7638} in {zone:1453}'s Cathedral of Light."] = "60레벨에 {object:32362}의 {npc:5149}이(가) 당신을 {zone:1453} 빛의 대성당의 {quest:7638}에게 보냅니다.",
 	-- ["Bring 150 gold for {npc:1416} along with the materials."] = "재료와 함께 {npc:1416}에게 줄 150골드를 가져가세요.",
 	-- ["Supply Crates, inside"] = "보급품 상자, 던전 안",
 	-- ["The {spell:23214} chain is long: it takes you through {area:2279}, {area:2577} and {area:2057}, and costs about 350 gold in donations on top of the materials. Lord Grayson stands in the Cathedral of Light."] = "{spell:23214} 연계 퀘스트는 깁니다. {area:2279}, {area:2577}, {area:2057}을(를) 거치며, 재료 외에 기부금으로 약 350골드가 듭니다. 그레이슨 경은 빛의 대성당에 서 있습니다.",

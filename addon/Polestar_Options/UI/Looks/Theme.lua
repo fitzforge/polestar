@@ -118,6 +118,62 @@ local function buildNamesPreview(view)
 	return f
 end
 
+-- The settings window's parts drawn in the accent: a region in the accent,
+-- at least half opaque; a frame's border or pill (a switch's track) by its
+-- frame. Found by walking the window, once for the tab on screen: kept until
+-- another tab shows or a setting or the look changes, so an accent row's
+-- hover lights them without walking every frame again. The gamepad's focus
+-- ring moves on its own and is looked at each time.
+local windowAccents
+do
+	local kept, out, seen, own = {}, {}, {}, {}
+	local keptView
+	local ar, ag, ab
+	local function regions(fr, list, ...)
+		for i = 1, select("#", ...) do
+			local r = (select(i, ...))
+			local cr, cg, cb, ca
+			if r:GetObjectType() == "FontString" then cr, cg, cb, ca = r:GetTextColor() else cr, cg, cb, ca = r:GetVertexColor() end
+			if cr and (ca or 1) >= 0.5 and r:IsShown() and math.abs(cr - ar) + math.abs(cg - ag) + math.abs(cb - ab) < 0.02 then
+				local part = own[r] and fr or r
+				if not seen[part] then
+					seen[part] = true
+					list[#list + 1] = part
+				end
+			end
+		end
+	end
+	local function walk(fr, list)
+		if not fr:IsVisible() or ns.UI.Preview.IsBand(fr) then return end
+		for k in pairs(own) do own[k] = nil end
+		for _, t in ipairs(rawget(fr, "psBorder") or {}) do own[t] = true end
+		for _, t in ipairs(rawget(fr, "parts") or {}) do own[t] = true end
+		regions(fr, list, fr:GetRegions())
+		for i = 1, fr:GetNumChildren() do walk((select(i, fr:GetChildren())), list) end
+	end
+	local function forget() keptView = nil end
+	ns.On("SETTING_CHANGED", forget)
+	Theme.OnChanged(forget)
+	function windowAccents()
+		local O = ns.UI.Options
+		local view = O and O.view or false
+		ar, ag, ab = Theme.Accent()
+		if keptView ~= view then
+			for k in pairs(seen) do seen[k] = nil end
+			for i = #kept, 1, -1 do kept[i] = nil end
+			walk(PolestarOptions, kept)
+			keptView = view
+		end
+		local ring = _G.PolestarPadRing
+		if not (ring and ring:IsVisible()) then return kept end
+		for i = #out, 1, -1 do out[i] = nil end
+		for i = 1, #kept do out[i] = kept[i] end
+		walk(ring, out)
+		for i = #kept + 1, #out do seen[out[i]] = nil end
+		return out
+	end
+end
+
 -- A click on a part finds its setting; the pointer on a setting's row lights
 -- the parts it changes (the settings window's own, for what dresses it), on
 -- preview f: the guide window G (UI.GuideWindowScene, a copy of the window
@@ -183,35 +239,8 @@ function lightParts(f, G, heads, toast, card)
 	-- And every part of the settings window drawn in the accent as the row is
 	-- hovered (the emblem, the open page's row, the open tab's underline, the
 	-- sliders' fills, the switches that are on, chips, primary buttons, a
-	-- focused box's ring) and the gamepad's focus ring: a region in the
-	-- accent, at least half opaque; a frame's border by its frame.
+	-- focused box's ring) and the gamepad's focus ring: windowAccents below.
 	if win then
-		local P = ns.UI.Preview
-		local function windowAccents()
-			local out, seen, ar, ag, ab = {}, {}, Theme.Accent()
-			local function walk(fr)
-				if not fr:IsVisible() or P.IsBand(fr) then return end
-				-- A border's pieces or a pill's (a switch's track) by their frame.
-				local own = {}
-				for _, t in ipairs(rawget(fr, "psBorder") or {}) do own[t] = true end
-				for _, t in ipairs(rawget(fr, "parts") or {}) do own[t] = true end
-				for _, r in ipairs({ fr:GetRegions() }) do
-					local cr, cg, cb, ca
-					if r:GetObjectType() == "FontString" then cr, cg, cb, ca = r:GetTextColor() else cr, cg, cb, ca = r:GetVertexColor() end
-					if cr and (ca or 1) >= 0.5 and r:IsShown() and math.abs(cr - ar) + math.abs(cg - ag) + math.abs(cb - ab) < 0.02 then
-						local part = own[r] and fr or r
-						if not seen[part] then
-							seen[part] = true
-							out[#out + 1] = part
-						end
-					end
-				end
-				for _, c in ipairs({ fr:GetChildren() }) do walk(c) end
-			end
-			walk(win)
-			if _G.PolestarPadRing then walk(_G.PolestarPadRing) end
-			return out
-		end
 		f:LightEach("ui.accent", windowAccents, true)
 		f:LightEach("ui.classAccent", windowAccents, true)
 	end
@@ -256,21 +285,47 @@ function lightParts(f, G, heads, toast, card)
 	end
 end
 
--- Theme v2, a band (UI.Preview.Band): the three surfaces the theme styles,
--- side by side, 32 apart, their feet on one line, a label under each: the
--- guide window (a copy drawn by its own code, UI.GuideWindowScene: its head
--- and its goals, cut under them and faded into the panel), the heads-up card
--- (on the window's scale, as it sits on the window) and the rare alert; drawn
--- by their own code at their real size, all smaller alike where the band
--- cannot hold the three across (the band's hint line says so).
-local TRIO_GAP, ROWS_ROOM, SIDE = 32, 24, 16 -- between two; the window's ground under its goals; the window's own room a side
+-- Theme v2, a band (UI.Preview.Band): the three surfaces the theme styles on
+-- one stage, a framed panel across the band: the guide window (a copy drawn
+-- by its own code, UI.GuideWindowScene: its head and its goals, cut under
+-- them and faded into the stage), the heads-up card (on the window's scale,
+-- as it sits on the window) and the rare alert, drawn by their own code at
+-- their real size, each centred on its row's middle line, the space between
+-- them even, a caption under each on one line. A band too narrow for the
+-- three across at STAGE_FIT of their size or more takes the window on a row
+-- of its own and the two cards under it (then each on its own row); past
+-- that, all smaller alike, never overlapping, and nothing says so.
+local GAP, MAX_GAP, ROWS_ROOM, SIDE = 32, 72, 12, 16 -- between two (least, most); the window's ground under its goals; the window's own room a side
+local STAGE_PAD, ROW_GAP, CAP_GAP, CAP_H, STAGE_FIT, CUT_FADE = 20, 20, 10, 15, 0.8, 20
+local ARRANGEMENTS = { { { 1, 2, 3 } }, { { 1 }, { 2, 3 } }, { { 1 }, { 2 }, { 3 } } }
 local function buildPreview(view)
 	local UI = ns.UI
 	local TS = UI.Toasts
-	local f = UI.Preview.Band(view, { watch = { "ui.", "guideWindow.", "toasts." } })
+	local P = UI.Preview
+	local f = P.Band(view, { watch = { "ui.", "guideWindow.", "toasts." }, fitNote = false })
+	-- The stage: the panel colour laid on the band's ground (opaque, so the
+	-- window's cut fades into exactly it) inside a hairline, under the three.
+	local stage = CreateFrame("Frame", nil, f)
+	stage:SetFrameLevel(f:GetFrameLevel())
+	stage.Fill = stage:CreateTexture(nil, "BACKGROUND", nil, -6)
+	stage.Fill:SetTexture(Theme.Media("white"))
+	stage.Fill:SetAllPoints(stage)
+	local function stageColor()
+		local r, g, b, a = Theme.Color("panel")
+		local br, bg, bb = Theme.Color("bg")
+		a = a or 1
+		return r * a + br * (1 - a), g * a + bg * (1 - a), b * a + bb * (1 - a)
+	end
+	W.Painter(stage, function(s)
+		s.Fill:SetVertexColor(stageColor())
+		Theme.Border(s, Theme.Wash("border"))
+	end)
+	stage:Hide()
+	f.Stage = stage
 	local G = UI.GuideWindowScene and UI.GuideWindowScene(f)
 	f.Scene, f.Guide = G, G and G.Window
 	f.StepTitle = G and G.Copy.parts.person.Name
+	if G and G.FadeTo then G:FadeTo(stageColor, CUT_FADE) end
 	local heads = TS and TS.Sandbox and TS.Sandbox("headsup", f)
 	local toast = TS and TS.Sandbox and TS.Sandbox("rare", f)
 	f.Heads, f.Toast = heads, toast
@@ -281,10 +336,35 @@ local function buildPreview(view)
 	if heads then parts[#parts + 1] = { kind = "headsup", frame = heads, label = f:Label(L["Heads-up card"]) } end
 	if toast then parts[#parts + 1] = { kind = "rare", frame = toast, label = f:Label(L["Rare alert"]) } end
 	f.Parts = parts
+	-- The stage over the band's ground, the parts over the stage, each
+	-- caption on it.
+	stage:SetFrameLevel(f:GetFrameLevel() + 1)
+	for _, p in ipairs(parts) do
+		p.label:SetParent(stage)
+		local fr = p.kind == "guide" and G or p.frame
+		if fr:GetFrameLevel() <= stage:GetFrameLevel() then fr:SetFrameLevel(stage:GetFrameLevel() + 2) end
+	end
 	lightParts(f, G, heads, toast)
 	if #parts == 0 then return f end
-	local snap = UI.Preview.Snap
-	function f:Content()
+	local snap = P.Snap
+	-- Rows of parts (indexes into `parts`, those it has) -> the stage's
+	-- natural width and height, each row's width and tallest part.
+	local function measure(rows)
+		local wide, high, sized = 0, STAGE_PAD * 2, {}
+		for i, row in ipairs(rows) do
+			local w, tall = 0, 0
+			for j, at in ipairs(row) do
+				local p = parts[at]
+				w = w + p.w + (j > 1 and GAP or 0)
+				tall = max(tall, p.h)
+			end
+			sized[i] = { list = row, w = w, tall = tall }
+			wide = max(wide, w)
+			high = high + tall + CAP_GAP + CAP_H + (i > 1 and ROW_GAP or 0)
+		end
+		return wide + STAGE_PAD * 2, high, sized
+	end
+	function f:Content(width, tall)
 		local t = self:TrueScale()
 		local scale = (tonumber(ns.Get("ui.scale")) or 1) * t
 		-- Each one's size at its real size (band units).
@@ -304,32 +384,63 @@ local function buildPreview(view)
 				p.w, p.h = p.frame:GetWidth() * p.k, p.frame:GetHeight() * p.k
 			end
 		end
-		local total, tall, labels = 0, 0, {}
-		for i, p in ipairs(parts) do
-			labels[i] = { p.label, total + p.w / 2 }
-			total = total + p.w + (i < #parts and TRIO_GAP or 0)
-			tall = max(tall, p.h)
-		end
-		return total, tall, function(left, top, k)
-			local x, foot = left, top + tall * k
-			for _, p in ipairs(parts) do
-				local g = p.k * k
-				if p.kind == "guide" then
-					-- Its box the window and the room it keeps a side, as tall
-					-- as the cut, its foot on the others'.
-					G:SetScale(k)
-					G:ClearAllPoints()
-					G:SetPoint("TOPLEFT", self, "TOPLEFT", snap(self, x - SIDE * k) / k, -snap(self, foot - p.h * k) / k)
-					G:Resize(p.w + SIDE * 2, p.h)
-				else
-					p.frame.psBandScale = g
-					p.frame:SetScale(g)
-					p.frame:ClearAllPoints()
-					p.frame:SetPoint("TOPLEFT", self, "TOPLEFT", snap(p.frame, x / g), snap(p.frame, -(foot - p.h * k) / g))
-				end
-				x = x + (p.w + TRIO_GAP) * k
+		-- The first arrangement the band holds at STAGE_FIT or more (across
+		-- and in the height it may take), else the one it holds largest.
+		local room = max(1, (width or 0) - 2 * (P.BAND_SIDE or 24))
+		local best, bestFit
+		for _, rows in ipairs(ARRANGEMENTS) do
+			local list = {}
+			for _, row in ipairs(rows) do
+				local kept = {}
+				for _, at in ipairs(row) do if parts[at] then kept[#kept + 1] = at end end
+				if #kept > 0 then list[#list + 1] = kept end
 			end
-		end, labels
+			local w, h = measure(list)
+			local fit = min(1, room / w, tall and tall > 0 and tall / h or 1)
+			if not best or fit > bestFit + 0.001 then best, bestFit = list, fit end
+			if fit >= STAGE_FIT then best = list break end
+		end
+		local natural, high, sized = measure(best)
+		f.psRows = #sized
+		-- The stage spans the band; the parts share what is over.
+		local wide = max(natural, room)
+		return wide, high, function(left, top, k)
+			stage:ClearAllPoints()
+			stage:SetPoint("TOPLEFT", self, "TOPLEFT", snap(self, left), -snap(self, top))
+			stage:SetSize(snap(self, wide * k), snap(self, high * k))
+			stage:Show()
+			local y = top + STAGE_PAD * k
+			for _, row in ipairs(sized) do
+				local n = #row.list
+				local parts_w = row.w - (n - 1) * GAP
+				local gap = n > 1 and min(MAX_GAP, max(GAP, (wide - parts_w) / (n + 1))) or 0
+				local x = left + (wide - parts_w - (n - 1) * gap) / 2 * k
+				local mid = y + row.tall / 2 * k
+				for _, at in ipairs(row.list) do
+					local p = parts[at]
+					local g = p.k * k
+					local ptop = mid - p.h / 2 * k
+					if p.kind == "guide" then
+						-- Its box the window and the room it keeps a side, as
+						-- tall as the cut.
+						G:SetScale(k)
+						G:ClearAllPoints()
+						G:SetPoint("TOPLEFT", self, "TOPLEFT", snap(self, x - SIDE * k) / k, -snap(self, ptop) / k)
+						G:Resize(p.w + SIDE * 2, p.h)
+					else
+						p.frame.psBandScale = g
+						p.frame:SetScale(g)
+						p.frame:ClearAllPoints()
+						p.frame:SetPoint("TOPLEFT", self, "TOPLEFT", snap(p.frame, x / g), snap(p.frame, -ptop / g))
+					end
+					p.label:ClearAllPoints()
+					p.label:SetPoint("TOP", self, "TOPLEFT", snap(self, x + p.w / 2 * k), -snap(self, y + (row.tall + CAP_GAP) * k))
+					p.label:SetWidth(max(1, (p.w + gap) * k))
+					x = x + (p.w + gap) * k
+				end
+				y = y + (row.tall + CAP_GAP + CAP_H + ROW_GAP) * k
+			end
+		end
 	end
 	return f
 end
@@ -371,8 +482,15 @@ local function presetShown() return skinPreset() or presetApplied() end
 
 local skinCards = Theme.DrawSkinCard and true or false
 local schemeCards = Theme.DrawSchemeCard and true or false
--- The cards' picture: a small guide window and the arrow (Theme/SkinPicker.lua).
-local CARD_ART = { 220, 124 }
+-- The cards' picture: a miniature of the look's guide window (Theme/SkinPicker.lua),
+-- at least this size, the cards sharing the row (W.Cards' grid).
+local CARD_ART = { 200, 116 }
+-- The skin cards' groups: Polestar's own looks, the game's, the skins from addons.
+local function skinGroup(c)
+	if c.addon then return L["More looks"] end
+	if Theme.GameSkin(c.value) then return L["Game looks"] end
+	return L["Polestar looks"]
+end
 
 -- Four tabs, sections by element: Colour (the skin and accent, the grounds),
 -- Text (its face, sizes, outline, shadow and colours), Names (the colours
@@ -386,7 +504,7 @@ local SPECS = {
 		preview = buildPreview,
 		subtitle = L["The look every Polestar window shares: skin, colours, type, frames and motion."],
 		controls = {
-		{ kind = skinCards and "cards" or "dropdown", key = "ui.skin", label = L["Skin"], wide = true, art = CARD_ART,
+		{ kind = skinCards and "cards" or "dropdown", key = "ui.skin", label = L["Skin"], wide = true, art = CARD_ART, grid = true,
 			search = "theme, look, style, frame, skin, halo, hearth, blizzard, classic, forever, inn, wood, ember, parchment",
 			help = L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans), Hearth (an inn by the fire: warm wood, ember light, parchment text), or the game's own art: WoW Forever, Blizzard and Classic. Style, compact mode and the colours you pick work in each."],
 			-- The skin drawn (a saved skin whose addon is gone draws Polestar;
@@ -401,7 +519,7 @@ local SPECS = {
 						local from = string.format(L["From the addon %s"], c.addon)
 						tip = tip and (tip .. "\n" .. from) or from
 					end
-					list[i] = { value = c.value, label = c.text, tip = tip,
+					list[i] = { value = c.value, label = c.text, tip = tip, group = skinGroup(c),
 						draw = skinCards and function(card, v) Theme.DrawSkinCard(card, v) end or nil }
 				end
 				return list
@@ -409,7 +527,7 @@ local SPECS = {
 		-- A skin in several versions (its variants, Skin API 2): the player's
 		-- pick, kept per skin (ui.skinVariants.<id>); shown while the skin in
 		-- use has them.
-		{ kind = "cards", label = L["Variant"], wide = true, new = NEW, art = CARD_ART,
+		{ kind = "cards", label = L["Variant"], wide = true, new = NEW, art = CARD_ART, grid = true,
 			search = "skin variant, skin version, skin colours, skin style",
 			help = L["This skin comes in several versions: pick yours. Each skin keeps its own."],
 			needs = function() return Theme.SkinVariants ~= nil and Theme.SkinVariants(Theme.SkinId()) ~= nil end,
@@ -452,7 +570,7 @@ local SPECS = {
 			help = L["The accent follows your class: warlock purple, shaman blue, druid orange. Picking your own accent turns this off."] },
 	} },
 	{ page = PAGE, tab = L["Colour"], section = L["Background"], controls = {
-		{ kind = schemeCards and "cards" or "dropdown", key = "ui.scheme", label = L["Scheme"], wide = true, art = CARD_ART,
+		{ kind = schemeCards and "cards" or "dropdown", key = "ui.scheme", label = L["Scheme"], wide = true, art = CARD_ART, grid = true,
 			search = "colour scheme, theme, dark mode, darker, dusk, night, graphite",
 			-- A skin may bring its own scheme; then this has no effect.
 			disabled = function() return houseOnly() or (Theme.SkinScheme and Theme.SkinScheme() ~= nil) or false end,

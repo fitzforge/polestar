@@ -221,8 +221,8 @@ return {
 
 	-- Step 40: Sunken Chest
 	-- {area:68} Lake Everstill · {item:1467} Spotted Sunfish
-	-- plural, as words: Murloc Flesheaters = {npc:422} Murloc Flesheater
-	["Back toward town, swim east from the bridge into {area:68}; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a {item:1467}."] = "En revenant vers la ville, nagez vers l'est depuis le pont dans le {area:68} ; le coffre repose au fond du lac à côté d'une barque coulée. Des Dévoreurs murlocs et des Mande-flots murlocs bordent la rive sud autour : n'importe lequel peut porter un {item:1467}.",
+	-- plural, as words: Murloc Flesheaters = {npc:422} Murloc Flesheater · Lake Threshers = {npc:14357} Lake Thresher
+	["Back toward town, swim east from the bridge into {area:68}; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a {item:1467}.\nCareful: Lake Threshers, level 25 elites, swim in the lake: keep your distance from them while you dive for the chest."] = "En revenant vers la ville, nagez vers l'est depuis le pont dans le {area:68} ; le coffre repose au fond du lac à côté d'une barque coulée. Des Dévoreurs murlocs et des Mande-flots murlocs bordent la rive sud autour : n'importe lequel peut porter un {item:1467}.\nAttention : des Batteurs lacustres, élites de niveau 25, nagent dans le lac : gardez vos distances en plongeant vers le coffre.",
 	-- {item:1309} Oslow's Toolbox
 	["{item:1309}; underwater"] = "{item:1309} ; sous l'eau",
 
@@ -413,4 +413,7 @@ return {
 	["For your {area:717} run, later in {zone:1453}: keep it until then."] = "Pour votre expédition dans {area:717}, plus tard à {zone:1453} : gardez-la jusque-là.",
 	-- {npc:1646} Baros Alexston · {npc:1719} Warden Thelwater · {area:717} Stockade
 	["{npc:1646}: for {npc:1719}, at the {area:717}'s gate"] = "{npc:1646} : pour {npc:1719}, à l'entrée de {area:717}",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back toward town, swim east from the bridge into {area:68}; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a {item:1467}."] = "En revenant vers la ville, nagez vers l'est depuis le pont dans le {area:68} ; le coffre repose au fond du lac à côté d'une barque coulée. Des Dévoreurs murlocs et des Mande-flots murlocs bordent la rive sud autour : n'importe lequel peut porter un {item:1467}.",
 }

@@ -23,6 +23,8 @@ return {
 	["{npc:9528}, in the ruins just east of {npc:11554}"] = "{npc:9528} – в руинах чуть восточнее (ориентир: {npc:11554})",
 	-- {npc:9116} Eridan Bluewind
 	["{npc:9116}, inside"] = "",
+	-- {npc:10920} Kelek Skykeeper · {quest:86577} A Sampling of Putrescence · {zone:1448} Felwood
+	["{npc:10920}: {quest:86577}, from the bears and wolves you meet in {zone:1448}"] = "{npc:10920}: {quest:86577}, с медведей и волков, встреченных в зоне {zone:1448}",
 
 	-- Step 4: Grazle
 	-- {npc:11554} Grazle · {area:2479} Emerald Sanctuary
@@ -58,6 +60,10 @@ return {
 	-- {npc:7109} Jadefire Felsworn
 	["grind on {npc:7109}"] = "",
 
+	-- Step 10: Ruins of Constellas
+	-- {npc:9454} Xavathras · {area:2481} Ruins of Constellas
+	["Careful: {npc:9454} (54) stands at the back of the {area:2481}, at about 32.2,67.1, with Shadowstalkers around him: clear them one at a time, then pull him alone at full health."] = "Осторожно: {npc:9454} (54) стоит в глубине руин ({area:2481}), около 32.2,67.1, а вокруг него – крадущиеся в тени: убивайте их по одному, затем выманите его одного при полном здоровье.",
+
 	-- Step 11: Jaedenar
 	-- {area:1763} Jaedenar
 	["{area:1763} is the ruined temple north of the glen."] = "",
@@ -65,7 +71,12 @@ return {
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
 	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "{item:11949}: нечистые слизнюки ползают по озерам скверны ({area:1763})",
 
-	-- Step 13: Level 52.9
+	-- Step 12: Putrescent organs: kill these as you meet them
+	["Putrescent organs: kill these as you meet them"] = "Гниющие органы: убивайте встречных",
+	-- {zone:1448} Felwood · {npc:10920} Kelek Skykeeper · {area:1763} Jaedenar
+	["{zone:1448}'s Angerclaw bears and Felpaw wolves carry the putrescent organs {npc:10920} wants: the Bears and Wolves (47-48) of the south and the Maulers and Scavengers (49-50) along the road north of {area:1763}. Kill them as you ride between the stops."] = "Медведи Злобного Когтя и волки Сквернолапа в зоне {zone:1448} носят гниющие органы, нужные NPC {npc:10920}: медведи и волки (47-48) на юге, а также громилы и падальщики (49-50) вдоль дороги к северу от места {area:1763}. Убивайте их, проезжая между остановками.",
+
+	-- Step 14: Level 52.9
 	["Level 52.9"] = "",
 	-- {area:2479} Emerald Sanctuary · {area:1766} Shatter Scar Vale
 	-- plural, as words: Entropic Beasts = {npc:9878} Entropic Beast
@@ -73,35 +84,36 @@ return {
 	-- {npc:9878} Entropic Beast
 	["grind on {npc:9878}"] = "",
 
-	-- Step 14: Shatter Scar Vale
+	-- Step 15: Shatter Scar Vale
+	-- {npc:7136} Infernal Sentry
 	-- plural, as words: Entropic Beasts = {npc:9878} Entropic Beast
-	["Follow the road north to the cratered vale and walk to each crater, killing the Entropic Beasts and Horrors between them."] = "Идите по дороге на север в долину с кратерами и обойдите каждый кратер, убивая по пути энтропических зверей и энтропических ужасов.",
+	["Follow the road north to the cratered vale and walk to each crater, killing the Entropic Beasts and Horrors between them.\nCareful: an {npc:7136} (53, elite) stands among the craters: walk round it."] = "Идите по дороге на север в долину с кратерами и обойдите каждый кратер, убивая по пути энтропических зверей и энтропических ужасов.\nОсторожно: среди кратеров стоит {npc:7136} (53, элитный): обойдите его.",
 	["First crater"] = "Первый кратер",
 	["Second crater"] = "Второй кратер",
 	["Third crater"] = "Третий кратер",
 
-	-- Step 15: Irontree Woods
+	-- Step 16: Irontree Woods
 	-- {area:1767} Irontree Woods · {area:2618} Jadefire Run · {item:11503} Blood Amber
 	["The Warpwood treants of {area:1767}, east of {area:2618}, carry the {item:11503}."] = "{item:11503} носят древни-криводревы ({area:1767}, к востоку от места {area:2618}).",
 	["Below ground"] = "Под землей",
 
-	-- Step 16: Jadefire Run: kill these as you meet them
+	-- Step 17: Jadefire Run: kill these as you meet them
 	-- {area:2618} Jadefire Run
 	["{area:2618}: kill these as you meet them"] = "",
 	-- {area:2618} Jadefire Run · {npc:10648} Xavaric · {quest:939} Flute of Xavaric · {item:11674} Jadefire Felbind
-	["{area:2618} is the satyr valley in the north-west, with {npc:10648} at its far end. He drops the {quest:939}; every Jadefire satyr can drop {item:11674}."] = "{area:2618} – долина сатиров на северо-западе; {npc:10648} – в ее дальнем конце. С него падает {quest:939}; с любого сатира из племени Нефритового Пламени может упасть {item:11674}.",
+	["{area:2618} is the satyr valley in the north-west, with {npc:10648} at its far end. He drops the {quest:939}; every Jadefire satyr can drop {item:11674}.\nCareful: {npc:10648} (55) stands at the valley's far end with Hellcallers (53-54) around him: clear them one at a time before you pull him."] = "{area:2618} – долина сатиров на северо-западе; {npc:10648} – в ее дальнем конце. С него падает {quest:939}; с любого сатира из племени Нефритового Пламени может упасть {item:11674}.\nОсторожно: {npc:10648} (55) стоит в дальнем конце долины, а вокруг него – призыватели ада (53-54): убейте их по одному, прежде чем выманивать его.",
 
-	-- Step 17: Jaedenar again
+	-- Step 18: Jaedenar again
 	-- {area:1763} Jaedenar
 	["{area:1763} again"] = "Снова: {area:1763}",
 	-- {item:12922} Empty Canteen · {area:1763} Jaedenar
 	["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}."] = "",
 
-	-- Step 18: The Emerald Sanctuary
+	-- Step 19: The Emerald Sanctuary
 	-- {area:1763} Jaedenar · {area:2479} Emerald Sanctuary · {zone:1448} Felwood
 	["Ride south-east from {area:1763} to the {area:2479}, the druids' camp by the road in southern {zone:1448}."] = "Езжайте на юго-восток ({area:1763} → {area:2479}) к лагерю друидов у дороги на юге зоны {zone:1448}.",
 
-	-- Step 19: The Emerald Sanctuary
+	-- Step 20: The Emerald Sanctuary
 	-- {zone:1457} Darnassus
 	["The vial is filled in {zone:1457}: keep it; inside"] = "Склянка наполняется здесь: {zone:1457} – сохраните задание; внутри",
 	-- {zone:1413} Barrens
@@ -109,19 +121,19 @@ return {
 	-- {npc:10924} Ivy Leafrunner · {npc:11079} Wynd Nightchaser · {zone:1452} Winterspring
 	["{npc:10924}: for {npc:11079} in {zone:1452}, keep it"] = "{npc:10924}: для NPC {npc:11079} в зоне {zone:1452}, сохраните",
 
-	-- Step 20: Nafien
+	-- Step 21: Nafien
 	-- {area:1769} Timbermaw Hold · {npc:15395} Nafien
 	["Ride north up the road from the Sanctuary, all the way to the cave mouth of {area:1769}; {npc:15395} guards it."] = "Езжайте от Святилища по дороге на север, до самого входа в пещеру ({area:1769}); его охраняет {npc:15395}.",
 
-	-- Step 21: Felpaw Village
+	-- Step 22: Felpaw Village
 	-- {area:1762} Felpaw Village · {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {area:1769} Timbermaw Hold
-	["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. Keep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 58.\nCareful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "",
+	["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. Keep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 58.\nCareful: Den Watchers are level 53-54 and the Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "Фурболги Мертвого Леса из места {area:1762} заполняют холмы к западу от пещеры. Убивайте их, пока с одного не упадет {quest:8470} (примерно один на тридцать), затем щелкните по нему правой кнопкой: {npc:11558} ({area:1769}) примет его, когда Древобрюхи станут к вам равнодушны – сейчас, если уже, или когда последний гайд снова пройдет мимо пещеры на 58-м уровне.\nОсторожно: стражи логова – 53-54 уровня, мстители – 54-55; при здоровье ниже 50% они зовут союзников в радиусе 25 м, а ниже 15% убегают за помощью.",
 
-	-- Step 22: Nafien
+	-- Step 23: Nafien
 	-- {zone:1452} Winterspring
 	["Salfa stands at the {zone:1452} end of the tunnel: keep it"] = "Сальфа стоит у выхода из туннеля в зону {zone:1452}: сохраните задание",
 
-	-- Step 24: Timbermaw Hold
+	-- Step 25: Timbermaw Hold
 	-- {npc:11558} Kernda
 	["Step into the cave: {npc:11558} stands just inside."] = "Войдите в пещеру: {npc:11558} стоит сразу у входа.",
 	-- {npc:11558} Kernda
@@ -130,6 +142,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Five feathers buy a little Timbermaw reputation"] = "Пять перьев дают немного репутации у Древобрюхов",
 	-- ["Fly from {area:1998} to the Sanctuary's end of the road, or ride south along it."] = "Летите ({area:1998}) к концу дороги у Святилища или езжайте по ней на юг.",
+	-- ["Follow the road north to the cratered vale and walk to each crater, killing the Entropic Beasts and Horrors between them."] = "Идите по дороге на север в долину с кратерами и обойдите каждый кратер, убивая по пути энтропических зверей и энтропических ужасов.",
 	-- ["Keep her alive until she is out of the cave"] = "Не дайте ей погибнуть, пока она не выйдет из пещеры",
 	-- ["Oozes"] = "Слизнюки",
 	-- ["Ride east to the night elf camp at {area:1998}."] = "Езжайте на восток к лагерю ночных эльфов: {area:1998}.",
@@ -140,6 +153,7 @@ return {
 	-- ["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back."] = "Сатиры из племени Нефритового Пламени занимают долину к западу от дороги; {npc:9454} – в ее глубине.",
 	-- ["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}. If you freed {npc:11018}, go back into {area:1770} for the succubus {npc:9518}; Trey Lightforge's remains lie beside her."] = "Используйте {item:12922} у оскверненного лунного колодца в центре храма ({area:1763}). Если вы освободили персонажа {npc:11018}, вернитесь сюда: {area:1770} – за суккубом {npc:9518}; рядом с ней лежат останки Трея Светогорна.",
 	-- ["{area:1763} is the ruined temple north of the glen. Some of its cultists drop a {item:13140}, about one kill in thirty: it opens {npc:11018}'s cell in {area:1770}, the cave at the back. If it drops, clear the way out before you free her; if not, skip her quests."] = "{area:1763} – разрушенный храм к северу от долины. С некоторых его культистов падает {item:13140}, примерно с одного из тридцати: он открывает камеру, где сидит {npc:11018} ({area:1770}, пещера в глубине). Если ключ выпал, расчистите путь к выходу, прежде чем освобождать ее; если нет, пропустите ее задания.",
+	-- ["{area:2618} is the satyr valley in the north-west, with {npc:10648} at its far end. He drops the {quest:939}; every Jadefire satyr can drop {item:11674}."] = "{area:2618} – долина сатиров на северо-западе; {npc:10648} – в ее дальнем конце. С него падает {quest:939}; с любого сатира из племени Нефритового Пламени может упасть {item:11674}.",
 	-- ["{item:13140}, a rare drop"] = "{item:13140}: редкая добыча",
 	-- ["{npc:11016}, in {area:1770}"] = "{npc:11016} – здесь: {area:1770}",
 	-- ["{npc:11557}: thirty {quest:6031}, handed in when you pass through again at 57"] = "{npc:11557}: тридцать шт. {quest:6031}, сдаются, когда вы снова пройдете здесь на 57-м уровне",

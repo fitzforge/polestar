@@ -11,8 +11,6 @@ return {
 	["Follow the road west past {area:460} (Horde) and south-west through the {area:465} into {zone:1443}; {area:608} stands at the top of the pass."] = "Suivez la route vers l'ouest après {area:460} (Horde), puis au sud-ouest par {area:465} jusqu'en {zone:1443} ; {area:608} se trouve en haut du col.",
 	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
 	["{npc:5638}: the wreck's chest lies below {npc:11863}'s tower, on the way to {area:599}"] = "{npc:5638} : le coffre de l'épave se trouve en contrebas de la tour d'{npc:11863}, sur le chemin de {area:599}",
-	-- {npc:5396} Captain Pentigast · {npc:5752} Corporal Melkins
-	["{npc:5396}, beside {npc:5752}"] = "{npc:5396}, à côté de {npc:5752}",
 
 	-- Step 2: Malem chest
 	["Malem chest"] = "Coffre de Malem",
@@ -27,6 +25,10 @@ return {
 	-- Step 5: Nijel's Point
 	-- {npc:5642} Vahlarriel Demonslayer · {area:599} Thunder Axe Fortress
 	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "{npc:5642} : la Lame ardente à {area:599}, où mènent ses recherches",
+	-- {npc:5752} Corporal Melkins
+	["{npc:5752}: the Kolkar are at the end of this guide"] = "{npc:5752} : les Kolkar sont à la fin de ce guide",
+	-- {npc:5396} Captain Pentigast · {npc:5752} Corporal Melkins
+	["{npc:5396}, beside {npc:5752}"] = "{npc:5396}, à côté de {npc:5752}",
 
 	-- Step 6: Azore Aldamort
 	-- {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
@@ -37,6 +39,8 @@ return {
 	["The wrecked ship lies just south-west of {npc:11863}'s tower; its chest sits beside {object:177787}."] = "L'épave du navire se trouve juste au sud-ouest de la tour d'{npc:11863} ; son coffre est posé à côté de {object:177787}.",
 	-- {npc:5638} Kreldig Ungor
 	["For {npc:5638}, at the end of this guide"] = "Pour {npc:5638}, à la fin de ce guide",
+	-- {object:177787} Rackmore's Log · {zone:1443} Desolace
+	["{object:177787}, beside the chest: keep it, its keys and chest come on {zone:1443}'s south loop at the end of 30-40"] = "{object:177787}, à côté du coffre : gardez-le, ses clés et son coffre viennent lors de la boucle sud de {zone:1443}, à la fin de 30-40",
 
 	-- Step 8: Dalinda Malem
 	-- {npc:5644} Dalinda Malem · {area:608} Nijel's Point

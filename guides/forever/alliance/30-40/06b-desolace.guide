@@ -5,6 +5,11 @@ faction Alliance
 levels 38-39
 zone Desolace
 next forever/alliance/40-50/01-stranglethorn-vale
+pitch Kodo bones, demons and lost treasure in south Desolace.
+pro Short: about one level of quests
+pro Then on to Stranglethorn Vale
+pro Stays on the main route
+con A long trip out to Kalimdor
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -42,7 +47,7 @@ step Nijel's Point
   accept 261
   accept 1466
   accept 1454                         -- Kreldig Ungor, if 30-40/02 didn't take it: the wreck lies below Azore's tower
-  accept 93224                        -- Captain Pentigast
+  accept 93224                        -- Captain Pentigast, if 30-40/02 didn't give it
 
 # ---------------------------------------------------------------- Desolace: the south loop
 
@@ -53,6 +58,10 @@ step Bibbly F'utzbuckle
 step Kodo Graveyard
   tip Hornizz stands at the edge of the Kodo Graveyard, south-west of Kormek's Hut; Kodo Bones lie among the skeletons.
   collect 13703 quest 5501            -- Kodo Bone
+
+step Hornizz Brimbuzzle
+  when group 6134
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Ghost-o-plasm Round Up's magnets draw the Magrami Spectres a few yards from the Magram Necrokhans and Corpsefeeders (45, elite) in the Valley of Bones. Skip it if you are alone.
   accept 6134                         -- Hornizz Brimbuzzle
 
 step Flesh Picker
@@ -71,26 +80,35 @@ step Melizza Brimbuzzle
   complete 6132 @40.1,61.6            -- escort Melizza back toward the graveyard
 
 step Mannoroc Coven
-  tip The demons gather at the Mannoroc Coven in southern Desolace: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.
-  tip Careful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs.
-  collect 6251 quest 1466             -- Nether Wing
-  collect 6252 quest 1466             -- Doomwarder Blood
+  tip The demons gather at the Mannoroc Coven in southern Desolace. Nether Maidens (37-38) hold its north-west side and drop the wings; Doomwarder Captains (38) stand at the south end and drop the blood.
+  tip Careful: Nether Sorceresses (39-40) stand beside the Doomwarder Captains, and Lord Azrethoc, a level 40 elite, walks the coven's middle: pull the captains away from them. Most of the mobs here walk patrol routes, so you can easily pull extra mobs.
+  collect 6251 quest 1466 @50.5,74.3 map 1443 -- Nether Wing, from the Nether Maidens
+  collect 6252 quest 1466 @51.7,83.4 map 1443 -- Doomwarder Blood, from the Doomwarder Captains
 
 step The Valley of Bones
-  tip Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the Crate of Ghost Magnets at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them.
+  tip Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields further east, with Magram Necromancers (42): pull the Ravagers to you, away from them.
   kill 11561 quest 261 @61.1,90.9 map 1443 -- Undead Ravager
+
+step The ghost magnets
+  when group 6134
+  tip Use the Crate of Ghost Magnets at its arrow, on the fields' eastern side, to draw the Magrami Spectres; the Necrokhans and Corpsefeeders (45, elite) walk close by: keep the group together.
   use 15848 quest 6134.1 @64.4,91.7 map 1443
   collect 15849 quest 6134 @64.4,91.7 map 1443 -- Ghost-o-plasm
 
 step Mannoroc Coven
-  collect 6250 quest 1466             -- Felhound Brain
+  tip Back at the coven on the way west: the Mana Eaters (37-38) on its north edge and the Mage Hunters (38-39) further in drop the brains. Lord Azrethoc (40, elite) walks among the Mage Hunters: pull them out to you.
+  collect 6250 quest 1466 @52.2,68.1 map 1443 -- Felhound Brain
 
 step Hornizz Brimbuzzle
   turnin 6132
+
+step Hornizz Brimbuzzle
+  when group 6134
   turnin 6134                         -- Hornizz Brimbuzzle
 
 step Azore Aldamort
   turnin 5741
+  turnin 93464                        -- Azore Aldamort: The Visiting Mage, from Magtoor in the Swamp of Sorrows
   tip Follow the road west across the north of Desolace to the ruins of Ethel Rethor. Azore's tower stands on the hill there, on the way to the wreck.
   accept 6027
 
@@ -100,15 +118,15 @@ step Karnitol's Chest
   accept 1455
 
 step Claim Rackmore's Treasure!
-  tip Rackmore's Log lies beside Karnitol's Chest. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next.
-  accept 6161
+  tip Rackmore's Log lies beside Karnitol's Chest, if you didn't take it on your first Desolace visit. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next.
+  accept 6161                         -- Rackmore's Log, if 30-40/02 didn't take it
   collect 15878 quest 6161.1 @34.7,33.5 map 1443 -- Underwater
 
 step Sar'theris Strand: kill these as you meet them
   zone Desolace
   tip The Slitherblade naga hold the north-west coast north of Azore's tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to Ranazjar Isle off the far northern tip and use the Gem of the Serpent on the Serpent Statue: Lord Kragaru (38) rises; kill him for the Book of the Ancients.
   collect 6245 quest 1456.1 @33.2,10.5 map 1443 -- Underwater
-  collect 15881 quest 6161.2 @30.0,12.2 map 1443 -- Rackmore's Golden Key, from the Slitherblade naga
+  collect 15881 quest 6161.2 @27.9,7.7 map 1443 -- Rackmore's Golden Key, from the Slitherblade naga
   use 15766 quest 6027.1 @28.2,6.7 map 1443 -- Gem of the Serpent, on the Serpent Statue
   collect 15803 quest 6027            -- Book of the Ancients
 

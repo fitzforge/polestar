@@ -22,7 +22,8 @@ const NEUTRAL = new Set(['goto', 'note', 'fly', 'level', 'die', 'vendor', 'buy',
 
 // Dynamic Questing, as addon/Polestar/Core/Engine.lua (Own.HERE_*; behavior.whileHere* defaults)
 const WH_RADIUS = 180.0;                 // behavior.whileHereRadius, to a spawn spot's centre
-const WH_ABOVE = 2;                      // Own.HERE_ABOVE
+const WH_MOBS_ABOVE = 1;                 // Own.HERE_MOBS_ABOVE: a line's mobs at most this many levels over the player
+const WH_ABOVE_036 = 2;                  // 0.3.6 Own.HERE_ABOVE, for mobs too
 const WH_VERBS = new Set(['kill', 'collect', 'interact', 'use']);
 const WH_TURNIN_036 = 30.0;              // 0.3.6 Own.HERE_TURNIN
 const WH_TOWN = 100.0, WH_FAR = 250.0, WH_SOON = 2, WH_XP = 2;         // 0.3.7 (#1393)
@@ -108,17 +109,22 @@ function whenOk(when, level, walk = null, dungeons = '', dungeonQuests = 'all') 
 
 // A chain played as the addon hands over at each guide's end: the guide's `next` choices (nextChoices, the first the
 // default) whose `nextWhen` holds at the walk's level, and of those the first one a wanted route choice names (`route`:
-// substrings of guide ids: "riverglades", "shendralas", "hyjal"), else the first.
+// substrings of guide ids: "riverglades", "shendralas", "hyjal"), else the first. With `side` ({ guides, faction }) a
+// choice that is another faction's guide is passed over, as the addon goes on by the character's faction (a guide for
+// both, such as Shen'dralas, names each side's way back).
 class Router {
-	constructor(start, route = [], dungeons = '', dungeonQuests = 'all') {
+	constructor(start, route = [], dungeons = '', dungeonQuests = 'all', side = null) {
 		this.start = start;
 		this.route = route;
 		this.dungeons = dungeons;
 		this.dungeonQuests = dungeonQuests;
+		this.side = side;
 	}
 
 	nextOf(g, level) {
-		const choices = (truthy(g.nextChoices) ? list(g.nextChoices) : [g.next]).filter(Boolean);
+		const s = this.side;
+		const ours = (c) => !s || !s.guides.has(c) || !s.guides.get(c).faction || s.guides.get(c).faction === s.faction;
+		const choices = (truthy(g.nextChoices) ? list(g.nextChoices) : [g.next]).filter((c) => c && ours(c));
 		const nw = g.nextWhen || {};
 		const ok0 = choices.filter((c) => whenOk(nw[c], level, null, this.dungeons, this.dungeonQuests));
 		const ok = ok0.length ? ok0 : choices;
@@ -604,7 +610,8 @@ class Walk {
 				this.itemN.set(src, Math.max(this.itemN.get(src), 1));
 			}
 		}
-		if (tt === 'turnin' && q != null && !this.turninAt.has(q)) this.turninAt.set(q, e.i);
+		// An `abandon` takes the quest out of the log as a hand-in does (no experience): the chain's end with it.
+		if ((tt === 'turnin' || tt === 'abandon') && q != null && !this.turninAt.has(q)) this.turninAt.set(q, e.i);
 		if (OBJ_TYPES.has(tt) && q != null) {
 			this.objLast.set(q, e);
 			this.played.add(okeyOf(go));
@@ -707,7 +714,7 @@ class Walk {
 		if (this.dynBlocked()) return [];
 		const out = [];
 		const L = this.L;
-		const top = L + WH_ABOVE;
+		const top = L + (this.dyn === '036' ? WH_ABOVE_036 : WH_MOBS_ABOVE);
 		for (const c of this.whGoals.get(gid) || []) {
 			if (c.si <= si) continue;
 			const go = c.go;
@@ -946,6 +953,6 @@ class Walk {
 }
 
 module.exports = {
-	NEAR, HUB, STOP_YD, SAMPLE_YD, OBJ_TYPES, NEUTRAL, truthy, list, Counter, applies, whenOk, Router, dungeonOf, okeyOf,
+	NEAR, HUB, STOP_YD, SAMPLE_YD, OBJ_TYPES, NEUTRAL, WH_MOBS_ABOVE, truthy, list, Counter, applies, whenOk, Router, dungeonOf, okeyOf,
 	circleEnter, segDist, minBy, Walk,
 };

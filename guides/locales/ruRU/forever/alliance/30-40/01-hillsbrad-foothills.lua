@@ -133,18 +133,34 @@ return {
 	-- {area:1025} The Green Belt · {npc:270637} Howin Kindfeather · {npc:1244} Rethiel the Greenwarden
 	["Back east along the road to the {area:1025}: {npc:270637} camps among the Fenrunners, just west of {npc:1244}. Then west again to Menethil for the boat."] = "Назад на восток по дороге в {area:1025}: {npc:270637} стоит лагерем среди топяных бегунов, чуть западнее NPC {npc:1244}. Затем снова на запад к Гавани Менетилов на корабль.",
 
-	-- Step 29: Level 30.8
+	-- Step 29: Menethil Harbor
+	-- {npc:2094} James Halloran · {npc:1239} First Mate Fitzsimmons · {area:2104} Deepwater Tavern
+	["{npc:2094} stands by the docks; {npc:1239} sits in the {area:2104}, south of the keep."] = "{npc:2094} стоит у причалов; {npc:1239} сидит в таверне ({area:2104}), к югу от крепости.",
+
+	-- Step 30: Captain Halyndor
+	-- {npc:1160} Captain Halyndor · {npc:270589} Nightveiled Rotheap · {zone:1437} Wetlands
+	["North along the coast from Menethil to the wreck of the Intrepid: {npc:1160} (30) is aboard, and the locked strongbox sits in the wreck. Careful: {npc:270589}, a level 31-32 elite, roams the {zone:1437}: give it a wide berth."] = "На север вдоль берега от Менетила к обломкам «Отважного»: {npc:1160} (30) на борту, запертый сейф – в обломках. Осторожно: {npc:270589}, элита 31-32-го уровня, бродит по зоне {zone:1437}: обходите его стороной.",
+	-- {item:2629} Intrepid Strongbox Key · {npc:1160} Captain Halyndor
+	["{item:2629}, from {npc:1160}"] = "{item:2629} – от NPC {npc:1160}",
+
+	-- Step 31: Glorin Steelbrow
+	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern
+	["Back south to Menethil: {npc:1217} stands in the {area:2104}."] = "Назад на юг в Менетил: {npc:1217} стоит в таверне ({area:2104}).",
+	-- {npc:1284} Archbishop Benedictus · {zone:1453} Stormwind
+	["For {npc:1284} in {zone:1453}, at the end of this guide"] = "",
+
+	-- Step 32: Level 30.8
 	["Level 30.8"] = "",
 	-- {quest:474} Defeat Nek'rosh · {area:133} Gnomeregan · {area:796} Scarlet Monastery
 	["Skipped {quest:474} and short of 30.8? Kill the Bluegill murlocs on the coast south of Menethil until level 30.8. Or, with a group, run the {area:133} dungeon or the {area:796} dungeon (Graveyard) instead."] = "",
 	-- {npc:1418} Bluegill Raider
 	["grind on {npc:1418}"] = "убивайте цель {npc:1418}",
 
-	-- Step 31: Boat to Southshore
+	-- Step 33: Boat to Southshore
 	-- {area:271} Southshore
 	["Boat to {area:271}"] = "Корабль: {area:271}",
 
-	-- Step 32: Southshore
+	-- Step 34: Southshore
 	-- {npc:2711} Phin Odelic · {npc:2430} Chef Jessen · {npc:2382} Darren Malvew · {npc:2381} Micha Yance · {npc:2438} Bartolo Ginsetti · {npc:2366} Barkeep Kelly · {quest:98463} Talk of the Town
 	["Off the boat, walk up the pier into town: {npc:2711} and Lieutenant Farren stand by the inn, {npc:2430} upstairs, {npc:2382} east of it; the flight master is at the north end, {npc:2381} and {npc:2438} between her and the inn, Maleb in the town hall at the west side.\n{npc:2366} may not offer {quest:98463} on Forever: if she doesn't, skip it."] = "",
 	-- {npc:2711} Phin Odelic
@@ -160,56 +176,49 @@ return {
 	-- {item:3713} Soothing Spices · {npc:2381} Micha Yance
 	["{item:3713}, from {npc:2381}"] = "{item:3713}: продает {npc:2381}",
 	-- {npc:2276} Magistrate Henry Maleb
-	["{npc:2276}, inside"] = "",
+	["{npc:2276}, inside: keep it, the Syndicate camp waits for the road north to Arathi (05-arathi-highlands)"] = "{npc:2276}, внутри: оставьте его, лагерь Синдиката – по пути на север в Арати (05-arathi-highlands)",
 
-	-- Step 33: Bartolo Ginsetti
+	-- Step 35: Bartolo Ginsetti
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {skill:165} Leatherworking · {item:2997} Bolt of Woolen Cloth · {skill:197} Tailoring
 	["{npc:2438} makes a yeti fur cloak for anyone who brings a {item:3719} ({skill:165}) and a {item:2997} ({skill:197}); no vendor sells either, so this step shows only when you carry both."] = "",
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {item:2997} Bolt of Woolen Cloth
 	["{npc:2438}, between the flight master and the inn: he wants a {item:3719} and a {item:2997} too"] = "",
 
-	-- Step 34: Torn Fin murlocs
+	-- Step 36: Torn Fin murlocs
 	["Torn Fin murlocs"] = "Мурлоки из племени Рваного Плавника",
 	-- {area:295} Western Strand · {area:271} Southshore
 	["The Torn Fin murlocs crowd the {area:295}, south-west of {area:271}.\nCareful: One camp holds a tight cluster of Oracles that all aggro together."] = "Мурлоки из племени Рваного Плавника толпятся здесь: {area:295}, к юго-западу (ориентир: {area:271}).\nОсторожно: в одном из лагерей тесно стоят оракулы, которые нападают все вместе.",
 
-	-- Step 35: Farren
+	-- Step 37: Farren
 	["Farren"] = "Фаррен",
 	["Inside"] = "Внутри",
 
-	-- Step 36: Murloc heads
+	-- Step 38: Murloc heads
 	["Murloc heads"] = "Головы мурлоков",
 	["Back to the same murlocs; not every one drops a head."] = "Назад к тем же мурлокам; голова падает не с каждого.",
 
-	-- Step 38: Daggerspine naga
+	-- Step 40: Daggerspine naga
 	["Daggerspine naga"] = "Наги из клана Пронзающего Гребня",
 	-- {area:271} Southshore
 	["The naga hold the shore south-east of {area:271}."] = "Наги занимают берег к юго-востоку (ориентир: {area:271}).",
 
-	-- Step 39: Farren
+	-- Step 41: Farren
 	-- {object:2117} Stormwind Keep
 	["A report for {object:2117}; inside"] = "Донесение: {object:2117}; внутри",
 
-	-- Step 41: Southshore
+	-- Step 43: Southshore
 	-- {npc:251493} Captain McManus · {quest:98059} Hillsbrad's Hoard · {item:279386} Sealed Company Request · {area:287} Hillsbrad · {area:271} Southshore
-	["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave.\n{quest:98059}: {npc:251493} hands you a {item:279386} for the {area:287} council, in the farms west of {area:271}; you deliver it after the Syndicate camp."] = "",
+	["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave.\n{quest:98059}: {npc:251493} hands you a {item:279386} for the {area:287} council, in the farms west of {area:271}."] = "{npc:251493} стоит к северо-западу от распорядителя полетов, по пути на север к пещере йети.\n{quest:98059}: {npc:251493} дает вам {item:279386} для совета ({area:287}), на фермах к западу от {area:271}.",
 
-	-- Step 42: Yeti cave
+	-- Step 44: Yeti cave
 	["Yeti cave"] = "Пещера йети",
 	-- {area:271} Southshore · {area:277} Foothill Caverns · {npc:13602} The Abominable Greench
 	-- plural, as words: Giant Yetis = {npc:2251} Giant Yeti
-	["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "Йети живут в пещере на холмах к северу (ориентир: {area:271}), по пути на север к лагерю Синдиката.\nОставайтесь здесь: {area:277}. В пещере дальше к северу парами ходят горные и гигантские йети (32-34) и {npc:13602}, элитный противник 36-го уровня.",
-
-	-- Step 43: Alterac Mountains
-	["Syndicate camp"] = "Лагерь Синдиката",
-
-	-- Step 44: Syndicate camp
-	-- {area:287} Hillsbrad · {area:272} Tarren Mill
-	["The Syndicate camp sits on the Alterac border in northern {area:287}, west of {area:272} (Horde); the documents lie in the camp, and its Footpads and Thieves are the Syndicate Maleb wants."] = "Лагерь Синдиката – на границе с Альтеракскими горами, на севере области {area:287}, к западу от места {area:272} (Орда); документы лежат в лагере, а его разбойники и воры – это те члены Синдиката, которые нужны Малебу.",
+	["The yetis live in the cave in the hills north of {area:271}.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "Йети живут в пещере на холмах к северу (ориентир: {area:271}).\nОставайтесь здесь: {area:277}. В пещере дальше к северу парами ходят горные и гигантские йети (32-34) и {npc:13602}, элита 36-го уровня.",
 
 	-- Step 45: Hillsbrad Fields
-	-- {area:286} Hillsbrad Fields
-	["South-west from the Syndicate camp to the {area:286} farms."] = "",
+	-- {area:271} Southshore · {area:286} Hillsbrad Fields
+	["West from {area:271} to the {area:286} farms."] = "На запад от {area:271} к фермам ({area:286}).",
 
 	-- Step 46: Hillsbrad council
 	-- {area:287} Hillsbrad
@@ -241,7 +250,7 @@ return {
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "Лететь в {zone:1453}",
 	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "",
+	["{zone:1455} flight master"] = "Распорядитель полетов ({zone:1455})",
 
 	-- Step 56: Elling Trias
 	-- {object:2096} Trade District
@@ -289,12 +298,15 @@ return {
 	-- ["Red whelps fill the hills west of the gates, Maddened Rotclaws the {area:1025}, Razormaws the northern slopes; Neru stands in the north-east (use the {item:279996}).\n{quest:98283} is elite: grouping up is advised."] = "Красные дракончики – на холмах к западу от ворот, разъяренные гнилокогти – здесь: {area:1025}, острозубы – на северных склонах; Неру стоит на северо-востоке (используйте {item:279996}).\n{quest:98283} – элитное задание: лучше собрать группу.",
 	-- ["Red whelps fill the hills west of the gates, Maddened Rotclaws the {area:1025}, Razormaws the northern slopes; {npc:271458} stands in the north-east (use the {item:279996}).\n{quest:98283} is elite: grouping up is advised."] = "Красные дракончики – на холмах к западу от ворот, разъяренные гнилокогти – в месте {area:1025}, острозубы – на северных склонах; {npc:271458} стоит на северо-востоке (используйте {item:279996}).\n{quest:98283} – элитное задание: лучше собрать группу.",
 	-- ["South to the Dragonmaw's {area:1036}; the {object:671518} lies in the camp."] = "На юг, в лагерь клана Драконьей Пасти ({area:1036}); {object:671518} лежит в лагере.",
+	-- ["Syndicate camp"] = "Лагерь Синдиката",
 	-- ["Take the {area:2257} from the {object:28027} to {zone:1455}."] = "Поезд ({area:2257}) из района {object:28027}. Цель: {zone:1455}.",
 	-- ["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one."] = "Хранители Гоаз стоят чуть западнее лагеря Велгара: используйте рядом с одним из них {item:279996}, полученный от него.",
+	-- ["The Syndicate camp sits on the Alterac border in northern {area:287}, west of {area:272} (Horde); the documents lie in the camp, and its Footpads and Thieves are the Syndicate Maleb wants."] = "Лагерь Синдиката – на границе с Альтеракскими горами, на севере области {area:287}, к западу от места {area:272} (Орда); документы лежат в лагере, а его разбойники и воры – это те члены Синдиката, которые нужны Малебу.",
 	-- ["The Syndicate camp sits on the Alterac border in northern {area:287}, west of {area:272} (Horde); the documents lie in the camp."] = "Лагерь Синдиката – на границе с Альтеракскими горами, на севере области {area:287}, к западу от места {area:272} (Орда); документы лежат в лагере.",
 	-- ["The Villards"] = "Вилларды",
 	-- ["The next step, {quest:474}, pits you against an elite chieftain: skip it."] = "Следующий шаг, «{quest:474}», сводит вас с элитным вождем: пропустите его.",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp."] = "Йети живут в пещере на холмах к северу (ориентир: {area:271}), по пути на север к лагерю Синдиката.",
+	-- ["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "Йети живут в пещере на холмах к северу (ориентир: {area:271}), по пути на север к лагерю Синдиката.\nОставайтесь здесь: {area:277}. В пещере дальше к северу парами ходят горные и гигантские йети (32-34) и {npc:13602}, элитный противник 36-го уровня.",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on your way back south."] = "Йети живут в пещере на холмах к северу (ориентир: {area:271}), по пути обратно на юг.",
 	-- ["West to the farms of {area:287}: place the {item:279386} on the bookkeeping table in the town hall, where {npc:2335} and the councilmen stand."] = "На запад к фермам ({area:287}): положите {item:279386} на счетоводный стол в ратуше, где стоят {npc:2335} и члены совета.",
 	-- ["Whelps, raptors and {npc:271458}"] = "Дракончики, ящеры и {npc:271458}",

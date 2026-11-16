@@ -1161,23 +1161,40 @@ GF.Part(function(GF)
 
 		-- Summary lines: a person of the step other than the focus, the persons
 		-- done ("before") or the focus's finished goals ("done"); a click opens
-		-- or closes the goals it stands for in place.
+		-- or closes the goals it stands for in place. The dungeon line under a
+		-- grind (psDungeon, UI.DungeonToast.GrindLine) opens that dungeon's page.
 		local function lineClick(self)
 			local key = self.psKey
+			W.HideTooltip(self)
+			if self.psDungeon then
+				UI.DungeonToast.GrindOpen(self.psDungeon.key)
+				return
+			end
 			if key == "done" then
 				model.doneOpen = not model.doneOpen
 			else
 				model.open[key] = (not model.open[key]) or nil
 			end
-			W.HideTooltip(self)
 			GF.Refill()
 		end
 
 		local function lineEnter(self)
-			local tips, list = {}, self.psGoals
-			for i = 1, list and min(#list, 12) or 0 do tips[#tips + 1] = UI.GoalLine(list[i]) end
-			local open = (self.psKey == "done" and model.doneOpen) or (self.psKey ~= "done" and model.open[self.psKey])
-			tips[#tips + 1] = { open and L["Click to fold them away"] or L["Click to list them"], Theme.Accent() }
+			local tips = {}
+			local d = self.psDungeon
+			if d then
+				local where = {}
+				local range = UI.LevelRange(d.minLevel, d.maxLevel)
+				if range then where[#where + 1] = string.format(L["Levels %s"], range) end
+				if d.zoneName then where[#where + 1] = d.zoneName end
+				if #where > 0 then tips[1] = table.concat(where, "  \194\183  ") end
+				if d.enemy then tips[#tips + 1] = { d.enemy, Theme.TipColor("warning") } end
+				tips[#tips + 1] = { d.take > 0 and L["Click to see its quests in Dungeons"] or L["Click to open it in Dungeons"], Theme.Accent() }
+			else
+				local list = self.psGoals
+				for i = 1, list and min(#list, 12) or 0 do tips[#tips + 1] = UI.GoalLine(list[i]) end
+				local open = (self.psKey == "done" and model.doneOpen) or (self.psKey ~= "done" and model.open[self.psKey])
+				tips[#tips + 1] = { open and L["Click to fold them away"] or L["Click to list them"], Theme.Accent() }
+			end
 			W.Tooltip(self, tooltipAnchor(), self.psTitle or "", tips)
 			GF.HoverIn()
 			barWake()
@@ -1785,10 +1802,11 @@ GF.Part(function(GF)
 				nav.Title:SetText(guide.title or guide.id)
 			end
 			nav.psMeta = UI.GuideMeta(guide)
+			nav.psExperimental = ns.Guides.IsExperimental and ns.Guides.IsExperimental(guide) or nil
 		else
 			nav.Steps.Count:SetText("")
 			nav.Title:SetText(L["Polestar"])
-			nav.psMeta = nil
+			nav.psMeta, nav.psExperimental = nil, nil
 		end
 		W.SetIconState(nav.Prev, false, guide ~= nil)
 		W.SetIconState(nav.Next, false, guide ~= nil and index ~= nil)
@@ -2126,15 +2144,16 @@ GF.Part(function(GF)
 		return table.concat(kinds, ", ")
 	end
 
-	-- Paint a summary line: `icon` a verb glyph or "check"; `list` the goals
-	-- its tooltip names; `open` whether its goals are listed under it.
+	-- Paint a summary line: `icon` a verb glyph, "check" or "icon-dungeon"; `list`
+	-- the goals its tooltip names; `open` whether its goals are listed under
+	-- it. The dungeon line (key "dungeon") is a link: its chevron points on.
 	local function paintLine(l, key, icon, iconColor, text, list, title, open)
-		l.psKey, l.psGoals, l.psTitle = key, list, title
-		l.Icon:SetTexture(icon == "check" and Theme.Media("check") or Theme.VerbIcon(icon))
+		l.psKey, l.psGoals, l.psTitle, l.psDungeon = key, list, title, nil
+		l.Icon:SetTexture((icon == "check" or icon == "icon-dungeon") and Theme.Media(icon) or Theme.VerbIcon(icon))
 		W.Color(l.Icon, iconColor)
 		l.Text:SetText(text)
 		if l ~= fold.glow then W.Color(l.Text, "textDim") end
-		l.Chevron:SetTexture(Theme.Media(open and "chevron-up" or "chevron-down"))
+		l.Chevron:SetTexture(Theme.Media(key == "dungeon" and "chevron-right" or open and "chevron-up" or "chevron-down"))
 		l.psK = nil
 		l:SetAlpha(1)
 		l:Show()
@@ -2245,6 +2264,17 @@ GF.Part(function(GF)
 			area.items[area.n], l.psAt = l, area.n
 			return l
 		end
+		-- Under an open goal that grinds to a level, on the live window's current
+		-- step: a dungeon at the character's level, one line that opens its
+		-- page (UI.DungeonToast.GrindLine, worked out once per step and level).
+		local function addDungeon(goal)
+			if goal.t ~= "level" or not GF.live then return end
+			local DT = UI.DungeonToast
+			local d = DT and DT.GrindLine and DT.GrindLine(guide, view, goal)
+			if not d then return end
+			local l = addLine("dungeon", "icon-dungeon", "dungeon", d.text, nil, d.name, false)
+			l.psDungeon = d
+		end
 		-- A group's rows as painted (shownGoals), the class card's accept left out.
 		local function goalsOf(grp)
 			local list = shownGoals(view, grp)
@@ -2272,6 +2302,7 @@ GF.Part(function(GF)
 			-- on their rows and stepped back while open.
 			for _, goal in ipairs(cardGoals(view, groups, focus)) do
 				addRow(goal, rowWho(goal, groups, focus), focus ~= nil and goal.group ~= focus)
+				addDungeon(goal)
 			end
 		else
 			-- The focus person's other groups on the same visit (Thundris
@@ -2404,6 +2435,7 @@ GF.Part(function(GF)
 				local k = kept[i]
 				if k == true then
 					addRow(goal, nil, false)
+					addDungeon(goal)
 				elseif k then
 					addRow(goal, nil, false, k)
 				elseif model.doneOpen then
@@ -2510,7 +2542,9 @@ GF.Part(function(GF)
 	local function render()
 		if not F or not ns.IsLoggedIn() then return end
 		local E, G = Engine(), ns.Guides
-		strip.psHasTabs = GF.TabsOf(E) ~= nil
+		local tl = GF.TabsOf(E)
+		strip.psHasTabs = tl ~= nil
+		strip.psTabN = tl and #tl or 0
 		local guide = E and E.GetGuide and E.GetGuide()
 		local list = G and G.List and G.List()
 		if not guide then
@@ -2666,10 +2700,7 @@ GF.Part(function(GF)
 
 	local function draggable(frame)
 		if not GF.live then return frame end
-		frame:EnableMouse(true)
-		frame:RegisterForDrag("LeftButton")
-		frame:SetScript("OnDragStart", GF.DragStart)
-		frame:SetScript("OnDragStop", GF.DragStop)
+		ns.DragWindow(frame, F, { locked = function() return ns.Get("ui.locked") end, onStop = function() GF.DragStop() end })
 		return hoverable(frame)
 	end
 
@@ -2847,6 +2878,7 @@ GF.Part(function(GF)
 			local lines = {}
 			if view and view.title and view.title ~= "" then lines[#lines + 1] = view.title end
 			if nav.psMeta and nav.psMeta ~= "" then lines[#lines + 1] = nav.psMeta end
+			if nav.psExperimental then lines[#lines + 1] = { L["Experimental"], Theme.Color("experimental") } end
 			W.Tooltip(self, tooltipAnchor(), nav.Title:GetText() or "", lines)
 			GF.HoverIn()
 		end)
@@ -3245,7 +3277,9 @@ GF.Part(function(GF)
 				return entries
 			end)
 		end
-		Theme.OnChanged(function() if ns.IsLoggedIn() then GF.Render() end end)
+		-- Drawn anew after a full refresh; a live repaint (a slider dragged)
+		-- recolours its parts where they stand (W.Color).
+		Theme.OnChanged(function() if ns.IsLoggedIn() then GF.Render() end end, true)
 	end
 
 	---------------------------------------------------------------------------
@@ -3366,10 +3400,13 @@ GF.Part(function(GF)
 
 		-- The tabs changed (a step moved on, a tab opened or closed): their titles
 		-- and progress are redrawn. The window is laid out again only when the
-		-- strip itself comes or goes; a step change already laid it out (Render).
+		-- strip itself comes or goes (compact mode shows it from two tabs); a
+		-- step change already laid it out (Render).
 		ns.On("TABS_CHANGED", whenReady(function()
-			local has = GF.TabsOf(Engine()) ~= nil
-			if has ~= strip.psHasTabs then
+			local tl = GF.TabsOf(Engine())
+			local has, was = tl ~= nil, GF.StripShown()
+			strip.psTabN = tl and #tl or 0
+			if has ~= strip.psHasTabs or was ~= GF.StripShown() then
 				strip.psHasTabs = has
 				GF.Layout()
 			elseif GF.StripShown() then

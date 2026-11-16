@@ -60,48 +60,52 @@ return {
 	-- plural, as words: Corrupted Soul Shards = {item:11515} Corrupted Soul Shard
 	["Corrupted Soul Shards from the cultists, {quest:5887}"] = "Fragments d'âme corrompus sur les cultistes, {quest:5887}",
 
-	-- Step 13: Maybess Riverbreeze
+	-- Step 13: A Strange Red Key
+	-- {item:13140} Blood Red Key · {npc:11018} Arko'narin
+	-- plural, as words: Jaedenar Enforcers = {npc:7114} Jaedenar Enforcer
+	["A {item:13140} dropped: the Jaedenar Enforcers, Darkweavers, Warlocks and Legionnaires of Shadow Hold carry one now and then. Use it to start the quest, then free {npc:11018} from her cage in the cave's south end on your way out."] = "Une {item:13140} est tombée : les Massacreurs, Tisseurs de ténèbres, Démonistes et Légionnaires de Jaedenar du Bastion des ombres en portent une de temps en temps. Utilisez-la pour commencer la quête, puis libérez {npc:11018} de sa cage au fond sud de la grotte en repartant.",
+
+	-- Step 14: Captured Arko'narin
+	-- {npc:11016} Captured Arko'narin
+	["{npc:11016}, below ground"] = "{npc:11016}, sous terre",
+
+	-- Step 15: Maybess Riverbreeze
 	-- {npc:9529} Maybess Riverbreeze
 	["On the way back south to Greta, {npc:9529} takes the shards on the west side of the Sanctuary."] = "En redescendant au sud vers Greta, {npc:9529} prend les fragments du côté ouest du Sanctuaire d'émeraude.",
 
-	-- Step 14: Greta Mosshoof
+	-- Step 16: Greta Mosshoof
 	["South to the Sanctuary once more."] = "Retournez encore au sud au Sanctuaire d'émeraude.",
 
-	-- Step 15: Toxic Horrors
+	-- Step 17: Toxic Horrors
 	-- {zone:1448} Felwood · {area:1767} Irontree Woods · {quest:5086} Toxic Horrors · {npc:14524} Vartrus the Ancient
 	-- plural, as words: Ancient Irontree Walkers = {npc:235912} Ancient Irontree Walker
 	["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet.\nCareful: Ancient Irontree Walkers, level 59 elites, walk among the {quest:5086}, and {npc:14524} (63, elite) roams the woods: work the Horrors at the north tip of {area:1767}, one at a time."] = "Remontez la route du {zone:1448} vers le nord jusqu'au {area:1767} ; les {quest:5086} suintent entre les arbres, et la plupart d'entre elles laissent tomber une gouttelette.\nAttention : des Anciens marcheurs Arbrefer, des élites de niveau 59, marchent parmi les {quest:5086}, et {npc:14524} (63, élite) parcourt les bois : attaquez les Horreurs à la pointe nord du {area:1767}, une à la fois.",
 
-	-- Step 17: Umber
+	-- Step 19: Umber
 	-- {zone:1450} Moonglade · {npc:11939} Umber · {area:2361} Nighthaven
 	["Through the Timbermaw tunnel to {zone:1450}. {npc:11939} reads in a house in {area:2361}."] = "Traversez le tunnel des Grumegueules jusqu'à {zone:1450}. {npc:11939} lit dans une maison de {area:2361}.",
 	-- {npc:11939} Umber · {area:2361} Nighthaven
 	["{npc:11939} walks around {area:2361}: look inside the circle on the map"] = "{npc:11939} se promène autour de {area:2361} : cherchez dans le cercle sur la carte",
 
-	-- Step 19: Class trainer
+	-- Step 21: Class trainer
 	["Class trainer"] = "Maître de classe",
 
-	-- Step 20: Rabine Saturna
+	-- Step 22: Rabine Saturna
 	-- {npc:11801} Rabine Saturna · {area:2577} Dire Maul
 	["{npc:11801}'s Shards of the Felvine needs {area:2577}. Skip it."] = "Le Fragment de la Gangrevigne de {npc:11801} demande {area:2577}. Passez-la.",
 
-	-- Step 23: Donova Snowden
+	-- Step 25: Donova Snowden
 	-- {zone:1452} Winterspring · {npc:9298} Donova Snowden
 	["Back into the Timbermaw tunnel and take the {zone:1452} exit; {npc:9298} camps by the hot springs just outside."] = "Retournez dans le tunnel des Grumegueules et prenez la sortie de {zone:1452} ; {npc:9298} campe près des sources chaudes juste dehors.",
 	["From Krakle in Un'Goro"] = "De la part de Krakle, à Un'Goro",
 
-	-- Step 24: Winterfall Runners
+	-- Step 26: Winterfall Runners
 	-- {area:1769} Timbermaw Hold · {area:2244} Winterfall Village · {npc:9298} Donova Snowden · {spell:5384} Feign Death
 	["The runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "Les Messagers Tombe-hiver suivent la route du {area:1769} vers {area:2244} en petits groupes ; attendez au bord de la route près de {npc:9298} et tuez-les à leur passage. Chacun porte une caisse.\nAttention : rendre la quête fait apparaître trois ou quatre embusqués Tombe-hiver de niveau 56-57 qui vous attaquent ; vous pouvez leur échapper sur votre monture, camouflé ou avec {spell:5384}, et ils se rassemblent ensuite près du lac pour que vous puissiez prendre la quête suivante.",
 
-	-- Step 25: Salfa
-	-- {zone:1423} Eastern Plaguelands
-	["only if still carried: the {zone:1423} guide hands it in on its way through"] = "seulement si vous l'avez encore : le guide de {zone:1423} la rend en passant",
-
-	-- Step 26: Beads for Salfa
-	-- {npc:11556} Salfa
-	["Any Winterfall furbolg can carry the beads; the camps just south of {npc:11556} are the closest."] = "N'importe quel furbolg Tombe-hiver peut porter les perles ; les camps juste au sud de {npc:11556} sont les plus proches.",
-	["Frostfire Winterfall camp"] = "Camp Tombe-hiver des sources chaudes",
+	-- Step 27: Salfa
+	-- {quest:8464} Winterfall Activity · {area:2255} Everlook · {area:2256} Darkwhisper Gorge
+	["{quest:8464}'s village is north-east of {area:2255}, on this guide's way back from {area:2256}."] = "Le village de {quest:8464} est au nord-est de {area:2255}, sur le chemin du retour de {area:2256} dans ce guide.",
 
 	-- Step 28: Meilosh
 	-- {quest:6031} Runecloth · {area:1769} Timbermaw Hold · {npc:11557} Meilosh
@@ -125,21 +129,32 @@ return {
 	-- {npc:7446} Rabid Shardtooth
 	["grind on {npc:7446}"] = "tuez en boucle : {npc:7446}",
 
-	-- Step 33: Donova Snowden
-	-- {area:2246} Frostfire Hot Springs
-	["Ride back west to {area:2246}."] = "Revenez vers l'ouest jusqu'à {area:2246}.",
-	-- {npc:9298} Donova Snowden · {npc:10738} High Chief Winterfall
-	["{npc:9298} next sends you after {npc:10738}, an elite in his cave. Skip it."] = "{npc:9298} vous envoie ensuite contre {npc:10738}, un élite dans sa grotte. Passez-la.",
-
-	-- Step 34: Are We There, Yeti?
+	-- Step 33: Are We There, Yeti?
+	-- {area:2255} Everlook
+	["Ride north to {area:2255}."] = "Allez vers le nord jusqu'à {area:2255}.",
 	-- {npc:10978} Legacki · {npc:10980} Umi's Mechanical Yeti
 	["Scare {npc:10978} with {npc:10980}"] = "Effrayez {npc:10978} avec {npc:10980}",
 
-	-- Step 35: Everlook
-	-- {area:2255} Everlook
-	["Ride east along the road to {area:2255}."] = "Suivez la route vers l'est jusqu'à {area:2255}.",
+	-- Step 35: Winterfall Village
+	-- {area:2255} Everlook · {npc:10738} High Chief Winterfall
+	["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} (59, elite) and Xandivious (62) are in the cave at the back: stay out."] = "Le village furbolg remplit la vallée au nord-est de {area:2255}. Tuez d'abord les chamans ; ils soignent. {npc:10738} (59, élite) et Xandivious (62) sont dans la grotte au fond : n'y allez pas.",
 
-	-- Step 36: Grind to 60
+	-- Step 36: Donova Snowden
+	-- {area:2246} Frostfire Hot Springs
+	["Ride back west along the road to {area:2246}."] = "Revenez vers l'ouest par la route jusqu'à {area:2246}.",
+	-- {npc:9298} Donova Snowden · {npc:10738} High Chief Winterfall
+	["{npc:9298} next sends you after {npc:10738}, an elite in his cave. Skip it."] = "{npc:9298} vous envoie ensuite contre {npc:10738}, un élite dans sa grotte. Passez-la.",
+
+	-- Step 37: Salfa
+	-- {zone:1452} Winterspring
+	["North of Donova, at the tunnel's {zone:1452} exit."] = "Au nord de Donova, à la sortie du tunnel côté {zone:1452}.",
+
+	-- Step 38: Beads for Salfa
+	-- {npc:11556} Salfa · {quest:8464} Winterfall Activity
+	["{npc:11556} takes the beads only once {quest:8464} is handed in: any Winterfall furbolg can carry them, and the camps just south of {npc:11556} are the closest."] = "{npc:11556} n'accepte les perles qu'une fois {quest:8464} rendue : n'importe quel furbolg Tombe-hiver peut les porter, et les camps juste au sud de {npc:11556} sont les plus proches.",
+	["Frostfire Winterfall camp"] = "Camp Tombe-hiver des sources chaudes",
+
+	-- Step 40: Grind to 60
 	["Grind to 60"] = "Monter au niveau 60",
 	-- {area:2249} Frostwhisper Gorge · {zone:1452} Winterspring · {area:2255} Everlook
 	-- plural, as words: Rabid Shardtooths = {npc:7446} Rabid Shardtooth
@@ -152,6 +167,7 @@ return {
 	["In {zone:1456}: fly from {area:2255}"] = "Pour {zone:1456} : volez depuis {area:2255}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Any Winterfall furbolg can carry the beads; the camps just south of {npc:11556} are the closest."] = "N'importe quel furbolg Tombe-hiver peut porter les perles ; les camps juste au sud de {npc:11556} sont les plus proches.",
 	-- ["Back into the Timbermaw tunnel and take the {area:618} exit; {npc:9298} camps by the hot springs just outside."] = "Retournez dans le tunnel des Grumegueules et prenez la sortie vers {area:618} ; {npc:9298} campe près des sources chaudes juste à la sortie.",
 	-- ["Dungeon instead of grinding"] = "Donjon au lieu de tuer des monstres",
 	-- ["Fly to {area:431} and ride north-west along the road out of {zone:1440} into {area:361}. The {area:2479} is the druids' camp just past the border."] = "Volez jusqu'à {area:431} et suivez la route vers le nord-ouest pour sortir d'{zone:1440} et entrer en {area:361}. {area:2479} est le camp des druides juste après la frontière.",
@@ -163,6 +179,8 @@ return {
 	-- ["Optional. Running {area:2279}, {area:2057}, Lower Blackrock Spire or {area:1584} with a group instead of grinding gets you there faster."] = "Facultatif. Faire {area:2279}, {area:2057}, le bas du Pic Rochenoire ou {area:1584} en groupe au lieu de tuer des monstres vous y amène plus vite.",
 	-- ["Optional. Running {area:2279}, {area:2057}, Lower {area:1583} or {area:1584} with a group instead of grinding gets you there faster."] = "Facultatif. Faire {area:2279}, {area:2057}, {area:1583} (partie basse) ou {area:1584} en groupe au lieu de tuer des monstres vous y mène plus vite.",
 	-- ["Optional: with a group, a 55-60 dungeon replaces the grind below."] = "Facultatif : en groupe, un donjon 55-60 remplace l'enchaînement de monstres ci-dessous.",
+	-- ["Ride back west to {area:2246}."] = "Revenez vers l'ouest jusqu'à {area:2246}.",
+	-- ["Ride east along the road to {area:2255}."] = "Suivez la route vers l'est jusqu'à {area:2255}.",
 	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one."] = "Chevauchez vers le nord-ouest jusqu'à {area:1763}. Les quatre braseros se dressent parmi les bâtiments du Conseil des ombres ; utilisez l'eau purifiée sur chacun.",
 	-- ["The quests run out here. Rabid Shardtooths prowl {area:2249} in southern {area:618}, south of the road from {area:2255}."] = "Il n'y a plus de quêtes ici. Les Crocs acérés enragés rôdent dans {area:2249}, au sud de {area:618}, au sud de la route venant de {area:2255}.",
 	-- ["Through the Timbermaw tunnel to {area:493}. {npc:11939} reads in a house in {area:2361}."] = "Passez par le tunnel des Grumegueules jusqu'à {area:493}. {npc:11939} lit dans une maison de {area:2361}.",
@@ -171,6 +189,7 @@ return {
 	-- ["Zeppelin to {zone:1454}"] = "Zeppelin pour {zone:1454}",
 	-- ["grind on {npc:7441}"] = "tuez en boucle : {npc:7441}",
 	-- ["grind on {npc:7446} at {area:2249}, {area:618}"] = "tuez en boucle : {npc:7446} à {area:2249}, {area:618}",
+	-- ["only if still carried: the {zone:1423} guide hands it in on its way through"] = "seulement si vous l'avez encore : le guide de {zone:1423} la rend en passant",
 	-- ["sixty {item:14047}, if you carry them"] = "soixante {item:14047}, si vous les avez sur vous",
 	-- ["{npc:10306}'s next {quest:4741} would bring you back here from {area:618}. Skip it."] = "La quête suivante de {npc:10306}, {quest:4741}, vous ferait revenir ici depuis {area:618}. Passez-la.",
 	-- ["{npc:11558}, at the tunnel mouth; walks around here: look inside the circle on the map"] = "{npc:11558}, à l'entrée du tunnel ; se promène par ici : cherchez à l'intérieur du cercle sur la carte",

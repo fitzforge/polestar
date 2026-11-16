@@ -2,15 +2,45 @@
 guide forever/horde/40-50/03-feralas
 title Feralas, Dustwallow Marsh & Swamp of Sorrows
 faction Horde
-levels 45-47
+levels 46-48
 zone Feralas
 next forever/horde/40-50/04-tanaris
-next polestar-experimental/shendralas
+pitch Swamp of Sorrows and Dustwallow first, then Feralas.
+pro Takes you to level 47
+pro Then on to Tanaris
+pro Stays on the main route
+con Three zones, lots of travel
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: Errand for Apothecary Zinge (232), Cortello's Riddle (626), Continued Threat (1428).
+# Level tidy (0.4.0): Stranglethorn's level 43-46 work, taken in 40-50/01 at 41-42 where its mobs ran 2-4 levels over
+# the player (#2353, #2102), is done on 40-50/02's Grom'gol stop at about 45, right after the Riverglades: this guide
+# only passes Grom'gol between the zeppelin and the flight to Stonard. Vengeance on the Northspring (3063) is taken
+# here and done on 40-50/06's Feralas loop at about 51: its harpies are 48-50.
+# Orgrimmar first: the flight from Shadowprey after Shen'dralas lands there, so the Feralas guide's Orgrimmar hand-ins
+# (Neeru, Zilzibin, Belgrom, Uthel'nay) and training come on this stop; 40-50/02 rides from Camp Mojache straight into
+# Shen'dralas instead of flying to Orgrimmar and back out to Shadowprey.
+
+# ---------------------------------------------------------------- Orgrimmar
+
+step Orgrimmar
+  zone Orgrimmar
+  tip From the flight master: the Cleft of Shadow, then the Drag, then the Valley of Honor.
+  turnin 3121                           -- Neeru Fireblade, Cleft of Shadow
+  accept 3122
+  turnin 7732                           -- Zilzibin Drumlore, the Drag
+  accept 649                            -- Dran Droffers, the Drag
+  turnin 649                            -- Malton Droffers
+  accept 650                            -- for the Hinterlands, around level 50
+  turnin 2976                           -- Belgrom Rockmaul, Valley of Honor
+  train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+
+step Orgrimmar
+  zone Orgrimmar
+  when onquest 3002
+  turnin 3002                           -- Uthel'nay, Valley of Spirits
 
 step Zeppelin to Undercity
   zone Durotar
@@ -34,9 +64,10 @@ step Undercity
   train class only Warrior,Paladin,Rogue,Priest,Mage,Warlock
 
 step Riding at 40
-  only Undead
+  only Undead,!Warlock
   zone Tirisfal Glades
   when level>=40
+  when !skill Riding 1
   tip Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is Velma Warnam in Brill, a short ride north of the zeppelin towers, with Zachariah Post's skeletal horses (20 gold each) beside her. Ride back to the towers for the Grom'gol zeppelin.
   train 4773 optional                   -- Velma Warnam, riding trainer
   note "Skeletal horses: Zachariah Post, beside Velma Warnam in Brill."
@@ -48,6 +79,7 @@ step Zeppelin to Grom'gol
 step Fly to Stonard
   when taxi "Stonard"
   zone Stranglethorn Vale
+  tip The zeppelin lands at Grom'gol: Stranglethorn's errands are done (40-50/02), so fly straight on to Stonard.
   goto 32.5,29.3 "Grom'gol flight master"
   fly "Stonard"
   zone Swamp of Sorrows
@@ -127,6 +159,7 @@ step Stonard
 
 step To Camp Mojache
   zone Feralas
+  tip Hearth to Camp Mojache: your hearthstone is still bound there from the Feralas & Tanaris guide.
   goto 74.8,45.2 "Camp Mojache"
 
 step Camp Mojache
@@ -241,20 +274,19 @@ step Rogue Vale screechers
 
 step The Forgotten Coast: kill these as you meet them
   zone Feralas
-  tip Sea elementals and sea sprays wash along the shore around the dock. Zap the giants with Zorbin's Ultra-Shrinker first: shrunken, they lose their elite strength. Shore striders wade in the water; the land walkers and cliff giants roam the hills further north.
-  collect 18958 quest 7721.1
+  tip The Sea Sprays (47-48) wash along the shore just south of the dock: they drop the Water Elemental Cores as well as the Sea Elementals (48-49) do. The Wave and Deep Striders (47-49) wade in the water off the same beach: zap them with Zorbin's Ultra-Shrinker first, and shrunken they lose their elite strength. Leave the Land Walkers and Cliff Giants (48-50) of the northern hills for your next Feralas visit.
+  tip The Ultra-Shrinker lasts two hours: hand both quests back to Zorbin before you leave the coast.
+  collect 18958 quest 7721.1 @44.94,48.6 map 1444 -- Water Elemental Core, from the Sea Sprays
+  use 18904 quest 7003.1 @44.12,49.08 map 1444 -- Zorbin's Ultra-Shrinker, on the Wave and Deep Striders in the water
   collect 18956 quest 7003.1
-  use 18904 quest 7003.1 @40.1,38.6 map 1444
 
-step Northspring harpies
-  tip The Northspring harpies nest on the ridges in the far north-west. They are 48-50, a few levels above you: the Windcallers heal, so kill them first and pull one at a time.
-  kill 5362 quest 3063.1
-  kill 5363 quest 3063.2
-  kill 5364 quest 3063.3
-  kill 5366 quest 3063.4
+step Zorbin Fandazzle
+  tip Back to Zorbin on the dock.
+  turnin 7003
+  turnin 7721
 
 step Rage Scar yetis
-  tip On the way back south-east from the harpies, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a Perfect Yeti Hide, which starts a quest of its own.
+  tip On the way back south-east from the coast, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a Perfect Yeti Hide, which starts a quest of its own.
   collect 18947 quest 7734.1
   collect 18972 optional                -- Perfect Yeti Hide, a rare drop
   accept 7738 optional
@@ -265,4 +297,4 @@ step Camp Mojache
   turnin 7734                           -- Jangdor Swiftstrider, inside
   turnin 7738 optional
   turnin 3128                           -- Witch Doctor Uzer'i
-  turnin 3063                           -- Talo Thornhoof
+  note Talo's Northspring harpies (48-50) wait for your Feralas visit at about 51: keep the quest.

@@ -75,8 +75,8 @@ return {
 	["{npc:4606}: take her {quest:5642} letter"] = "{npc:4606}: toma su carta de {quest:5642}",
 
 	-- Step 12: Shadowguard: Ur'kyo
-	-- {npc:6018} Ur'kyo · {object:172961} Valley of Spirits · {quest:5642} Shadowguard
-	["At 20, {npc:6018} in the {object:172961} teaches {quest:5642} with a quest he gives and takes back at once."] = "A nivel 20, {npc:6018} en {object:172961} enseña {quest:5642} con una misión que te da y recibe enseguida.",
+	-- {npc:6018} Ur'kyo · {object:172961} Valley of Spirits · {quest:5680} Shadowguard
+	["At 20, {npc:6018} in the {object:172961} teaches {quest:5680} with a quest he gives and takes back at once."] = "A nivel 20, {npc:6018} en {object:172961} enseña {quest:5680} con una misión que te da y recibe enseguida.",
 
 	-- Step 13: Shadowguard: Miles Welsh's letter
 	-- {quest:5642} Shadowguard · {npc:3044} Miles Welsh
@@ -88,6 +88,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 10, go to {npc:6018} in the {object:172961}, on {zone:1454}'s west side. Priest trainers elsewhere ({npc:3706} in {area:362}, {npc:3044} in {zone:1456}) send you to him with a quest of the same name."] = "A nivel 10, ve con {npc:6018} en {object:172961}, en el lado oeste de {zone:1454}. Los instructores de sacerdotes de otros lugares ({npc:3706} en {area:362}, {npc:3044} en {zone:1456}) te mandan con él con una misión del mismo nombre.",
+	-- ["At 20, {npc:6018} in the {object:172961} teaches {quest:5642} with a quest he gives and takes back at once."] = "A nivel 20, {npc:6018} en {object:172961} enseña {quest:5642} con una misión que te da y recibe enseguida.",
 	-- ["At 20, {npc:6018} teaches {quest:5642}. {npc:3044} in {zone:1456} and Aelthalyste in the {zone:1458} send you to him with a quest of the same name."] = "A nivel 20, {npc:6018} enseña {quest:5642}. {npc:3044} en {zone:1456} y Aelthalyste en {zone:1458} te mandan con él con una misión del mismo nombre.",
 	-- ["The Troll priest spells: {quest:5652} at 10, {quest:5642} at 20."] = "Los hechizos de sacerdote trol: {quest:5652} a nivel 10 y {quest:5642} a nivel 20.",
 }

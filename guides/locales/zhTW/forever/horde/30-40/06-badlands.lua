@@ -9,7 +9,7 @@ return {
 	-- Step 1: Into the Badlands
 	-- {zone:1418} Badlands
 	["Into the {zone:1418}"] = "進入{zone:1418}",
-	-- {object:2673} Thandol Span (no name in this language: may be words) · {zone:1437} Wetlands · {object:1668} Dun Algaz · {zone:1432} Loch Modan · {area:144} Thelsamar · {zone:1418} Badlands · {area:1877} Valley of Fangs
+	-- {object:2673} Thandol Span · {zone:1437} Wetlands · {object:1668} Dun Algaz · {zone:1432} Loch Modan · {area:144} Thelsamar · {zone:1418} Badlands · {area:1877} Valley of Fangs
 	["Head for the {object:2673}, the great bridge at Arathi's southern edge, cross it and follow the road south through the {zone:1437} to the {object:1668} tunnel into {zone:1432}. {area:144}, the dwarf town on the road in the middle of {zone:1432}, has guards who attack the Horde: leave the road before it and pass the town on the hills to its west. The road leaves {zone:1432} to the south into the {zone:1418}; follow it to the goblin camp in the {area:1877}."] = "",
 
 	-- Step 2: Valley of Fangs
@@ -38,9 +38,9 @@ return {
 	-- Step 7: Badlands: kill these as you meet them
 	-- {zone:1418} Badlands
 	["{zone:1418}: kill these as you meet them"] = "",
-	-- {area:1878} The Dustbowl · {zone:1418} Badlands
+	-- {area:1878} The Dustbowl · {zone:1418} Badlands · {npc:2817} Rigglefuzz
 	-- plural, as words: Elder Crag Coyotes = {npc:2729} Elder Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard · Malevolent Mirages = {npc:269756} Malevolent Mirage
-	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth."] = "",
+	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth.\nCareful: the Giant Buzzards are 39-41, and the 41s are two over you at 39: pick the 39s and 40s and pull them one at a time. The Buzzards (37) you kill later for {npc:2817}'s wings drop gizzards too, more rarely."] = "老峭壁山狗和巨型禿鷲在{area:1878}南邊的盆地遊蕩。山狗會掉落顎骨和尖牙；巨型禿鷲掉落砂囊。小心：惡毒幻象（42級精英）在{zone:1418}四處飄移：離牠們遠一點。\n小心：巨型禿鷲是39-41級，41級的比39級的你高兩級：挑39和40級的打，一次拉一隻。之後為{npc:2817}的翅膀擊殺的禿鷲（37級）也會掉落砂囊，但機率較低。",
 
 	-- Step 8: Rock Elementals
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental

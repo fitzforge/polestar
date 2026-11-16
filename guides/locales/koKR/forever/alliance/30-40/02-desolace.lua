@@ -11,8 +11,6 @@ return {
 	["Follow the road west past {area:460} (Horde) and south-west through the {area:465} into {zone:1443}; {area:608} stands at the top of the pass."] = "길을 따라 서쪽으로 {area:460}(호드)을(를) 지나, 남서쪽 {area:465}을(를) 거쳐 {zone:1443}(으)로 가십시오. {area:608}은(는) 고개 꼭대기에 있습니다.",
 	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
 	["{npc:5638}: the wreck's chest lies below {npc:11863}'s tower, on the way to {area:599}"] = "{npc:5638}: 난파선의 궤짝은 {npc:11863}의 탑 아래, {area:599}(으)로 가는 길에 있습니다",
-	-- {npc:5396} Captain Pentigast · {npc:5752} Corporal Melkins
-	["{npc:5396}, beside {npc:5752}"] = "{npc:5752} 옆의 {npc:5396}",
 
 	-- Step 2: Malem chest
 	["Malem chest"] = "말렘의 궤짝",
@@ -27,6 +25,10 @@ return {
 	-- Step 5: Nijel's Point
 	-- {npc:5642} Vahlarriel Demonslayer · {area:599} Thunder Axe Fortress
 	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "",
+	-- {npc:5752} Corporal Melkins
+	["{npc:5752}: the Kolkar are at the end of this guide"] = "{npc:5752}: 콜카르는 이 가이드 끝에서 처리합니다",
+	-- {npc:5396} Captain Pentigast · {npc:5752} Corporal Melkins
+	["{npc:5396}, beside {npc:5752}"] = "{npc:5752} 옆의 {npc:5396}",
 
 	-- Step 6: Azore Aldamort
 	-- {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
@@ -37,6 +39,8 @@ return {
 	["The wrecked ship lies just south-west of {npc:11863}'s tower; its chest sits beside {object:177787}."] = "난파선은 {npc:11863}의 탑 바로 남서쪽에 있습니다. 궤짝은 {object:177787} 옆에 있습니다.",
 	-- {npc:5638} Kreldig Ungor
 	["For {npc:5638}, at the end of this guide"] = "{npc:5638}에게, 이 가이드 마지막에",
+	-- {object:177787} Rackmore's Log · {zone:1443} Desolace
+	["{object:177787}, beside the chest: keep it, its keys and chest come on {zone:1443}'s south loop at the end of 30-40"] = "{object:177787}, 궤짝 옆: 보관하세요. 열쇠와 궤짝은 30-40 마지막의 {zone:1443} 남쪽 순회에서 처리합니다",
 
 	-- Step 8: Dalinda Malem
 	-- {npc:5644} Dalinda Malem · {area:608} Nijel's Point

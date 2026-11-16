@@ -3,7 +3,7 @@ guide forever/horde/skyborne/01-zephras-isle
 title Zephras Isle
 faction Horde
 race Skyborne
-levels 1-14
+levels 1-15
 zone Zephras Isle
 coords live
 next forever/horde/03-silverpine-forest
@@ -241,10 +241,10 @@ step Shen'dar Village: kill these as you meet them
   zone Zephras Isle
   tip Prideclaws and Galestriders share the meadows around Shen'dar Village; the Galestriders graze thickest just west of it. They drop both the Small Eggs and the Strider Meat for Zerril.
   collect 6889 quest 92553.1 @42.1,39.4
-  collect 5469 quest 92553.2
+  collect 5469 quest 92553.2 @38.6,43.6
 
 step Shen'dar Village hand-ins
-  tip Zerril, Teeri, Taleen, Danarii and Constable Aonda all stand in Shen'dar Village. If you are still short of Strider Meat, the Galestriders graze just south of the village.
+  tip Zerril, Teeri, Taleen, Danarii and Constable Aonda all stand in Shen'dar Village. If you are still short of Strider Meat, the Galestriders graze just west of the village; the Al'Aketh camps south and south-east of it are a level or two higher.
   turnin 92553                        -- Zerril Softbreeze
 
 step Shen'dar Highlands: kill these as you meet them
@@ -561,8 +561,9 @@ step Unfortunate News
   accept 92640
 
 step Desperate Times
+  tip Valennia asks you to hear out both leaders: Ayessa Dawnsinger of the Horde and Elaadrin Evengale of the Alliance. Elaadrin's name shows red to you, but he talks to you all the same, and the quest needs both.
   talk 252383 quest 92640.1 -- Upstairs
-  talk 251968 quest 92640.2
+  talk 251968 quest 92640.2           -- Ayessa Dawnsinger
   talk 252475 quest 92640.3 @66.59,79.92 -- Elaadrin Evengale
   turnin 92640                        -- Valennia Stormfist
   accept 93065

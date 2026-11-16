@@ -3436,3 +3436,111 @@ fn t_2005_from_the_lake_shore_the_route_to_the_relic_of_the_claw_goes_in_by_the_
 	assert_eq!(out["viaMouth"], true, "a leg ends at the den's mouth: {out}");
 	assert!(f(&out["chainLegs"]) >= 2.0, "the walk in follows the chain's nodes: {out}");
 }
+
+// The walk from the player's spot (map coordinates in `frame`: "e" era, nil live) to a goal point with its compiled
+// height (the goal's `z`, docs/GUIDE_FORMAT.md "Heights"): where it ends (yards from the goal in the plane, its
+// height), its length and its cost ("unreachable" when the walking maps have no way there).
+const HEIGHT_WALK: &str = r#"
+local function heightWalk(frame, map, x, y, tmap, tx, ty, z, label)
+	N.ClearTarget()
+	for _ = 1, 5 do stub.advance(0.05) end
+	local _, px, py = C.MapToWorld(map, x, y, frame)
+	local _, wx, wy = C.MapToWorld(tmap, tx, ty, frame)
+	place(map, px, py, 0)
+	local f = walkFor(tmap, wx, wy, label, z)
+	local q = f or finds[#finds]
+	local pts = q and q.points or {}
+	local last = pts[#pts]
+	local r = { cost = q and q.cost or false, found = last ~= nil }
+	if last then r.d, r.z, r.yards = floor(dist(last.x, last.y, wx, wy)), r1(last.z), floor(length(pts)) end
+	return r
+end
+"#;
+
+/// #2454 (Onrevax, Human Paladin 36, 0.3.7.2, Cloak of the Divine Storm, "Summoner's Salt"): in the Redridge
+/// Canyons (28.44,23.44 live), 200 yd below the north-west Blackrock camp, the line led where he could not pass.
+/// In 0.3.7.2 the collect (23.5,12.0 live) had no height. 0.4.0 compiles it with the camp's floor (z 163.9, the
+/// nearest Summoner's spawn): the walk from his spot climbs round to the camp (about 1,070 yd) and ends on its floor,
+/// as it does from Lakeshire. `flat`: the same walk without the height, printed beside it.
+#[test]
+fn t_2454_from_the_redridge_canyons_the_walk_to_the_summoners_camp_ends_on_the_camps_floor() {
+	skip_unless_ready!();
+	let out = run(
+		&format!(
+			"{FLOOR_WALK}{HEIGHT_WALK}{}",
+			r#"
+		Polestar.Set("nav.travel", false)
+		w.faction = "Alliance"
+		w.race, w.raceName = "Human", "Human"
+		w.setLevel(36)
+		-- The compiled collect (addon/Polestar_Guides_Alliance, cloak-of-the-divine-storm): 1433 23.5,12 live, z 163.9.
+		local GOAL = { 1433, 23.5, 12.0, 163.9 }
+		emit({
+			fromSpot = heightWalk(nil, 1433, 28.44, 23.44, GOAL[1], GOAL[2], GOAL[3], GOAL[4], "Summoner's Salt"),
+			fromLakeshire = heightWalk(nil, 1433, 26.5, 44.5, GOAL[1], GOAL[2], GOAL[3], GOAL[4], "Summoner's Salt "),
+			flat = heightWalk(nil, 1433, 28.44, 23.44, GOAL[1], GOAL[2], GOAL[3], nil, "Summoner's Salt  "),
+		})"#
+		),
+		true,
+	);
+	eprintln!("2454: {out}");
+	assert_eq!(out["fromSpot"]["found"], true, "a walk from his spot is found: {out}");
+	assert!(f(&out["fromSpot"]["d"]) < 15.0, "it ends at the camp: {out}");
+	assert!((f(&out["fromSpot"]["z"]) - 163.9).abs() < 8.0, "on the camp's floor: {out}");
+	assert_eq!(out["fromLakeshire"]["found"], true, "so does the walk from Lakeshire: {out}");
+	assert!(f(&out["fromLakeshire"]["d"]) < 15.0, "ending at the camp: {out}");
+}
+
+/// #2451 (Conflict, Scourge Rogue 28, 0.3.7.2, Ashenvale & Thousand Needles, "Splithoof Hold"): from the southern
+/// Barrens (43.75,60.89), bound for the Ancient Brazier deep in Splithoof Hold's cave (Thousand Needles 42.0,31.5),
+/// the line kept leading towards Razorfen Downs. In 0.3.7.2 the use and collect had no height, so the walk ended on
+/// whichever surface over the point was cheapest (a shorter walk, not into the cave); 0.4.0 compiles them with the
+/// brazier's floor (z -70.5, the object's spawn): the walk ends at the brazier, in the cave.
+#[test]
+fn t_2451_from_the_southern_barrens_the_walk_to_the_ancient_brazier_ends_in_splithoof_holds_cave() {
+	skip_unless_ready!();
+	let out = run(
+		&format!(
+			"{FLOOR_WALK}{HEIGHT_WALK}{}",
+			r#"
+		Polestar.Set("nav.travel", false)
+		w.faction = "Horde"
+		w.race, w.raceName = "Scourge", "Undead"
+		w.setLevel(28)
+		emit({
+			withZ = heightWalk("e", 1413, 43.75, 60.89, 1441, 42.0, 31.5, -70.5, "Ancient Brazier"),
+			flat = heightWalk("e", 1413, 43.75, 60.89, 1441, 42.0, 31.5, nil, "Ancient Brazier "),
+		})"#
+		),
+		true,
+	);
+	eprintln!("2451: {out}");
+	assert_eq!(out["withZ"]["found"], true, "a walk is found: {out}");
+	assert!(f(&out["withZ"]["d"]) < 15.0, "it ends at the brazier: {out}");
+	assert!((f(&out["withZ"]["z"]) + 70.5).abs() < 8.0, "on the cave's floor: {out}");
+}
+
+/// #2470 (Syllirra, Orc Warlock 29, 0.3.7.2, Ashenvale & Thousand Needles, "The Screeching Canyon"): dead in the
+/// Screeching Canyon (Thousand Needles 26.63,53.55 live), the ghost at the Windbreak Canyon graveyard (56.18,50.15
+/// live, 1,304 yd away) was led round through Tanaris, "26:59 total time". The walk on 0.4.0's maps, printed.
+#[test]
+fn t_2470_from_the_windbreak_graveyard_the_walk_to_a_corpse_in_the_screeching_canyon_stays_in_thousand_needles() {
+	skip_unless_ready!();
+	let out = run(
+		&format!(
+			"{FLOOR_WALK}{HEIGHT_WALK}{}",
+			r#"
+		Polestar.Set("nav.travel", false)
+		w.faction = "Horde"
+		w.race, w.raceName = "Orc", "Orc"
+		w.setLevel(29)
+		emit({ corpse = heightWalk(nil, 1441, 56.18, 50.15, 1441, 26.63, 53.55, nil, "Your corpse") })"#
+		),
+		true,
+	);
+	eprintln!("2470: {out}");
+	assert_eq!(out["corpse"]["found"], true, "a walk is found: {out}");
+	assert!(f(&out["corpse"]["d"]) < 15.0, "it ends at the corpse: {out}");
+	// 0.4.0's maps: about 1,720 yd across the canyons; a walk round through Tanaris is several times that.
+	assert!(f(&out["corpse"]["yards"]) < 2200.0, "it stays in Thousand Needles: {out}");
+}

@@ -6,21 +6,40 @@
 -- A token marked "no name in this language" would show in English: write that name in Spanish (Spain) words instead.
 -- The comments are rewritten by sync.
 return {
-	-- Step 1: Zeppelin to Undercity
+	-- Guide
+	-- {zone:1435} Swamp of Sorrows · {zone:1444} Feralas
+	["{zone:1435} and Dustwallow first, then {zone:1444}."] = "Primero {zone:1435} y Marjal Revolcafango, luego {zone:1444}.",
+	["Takes you to level 47"] = "Te lleva al nivel 47",
+	-- {zone:1446} Tanaris
+	["Then on to {zone:1446}"] = "Después, a {zone:1446}",
+	["Stays on the main route"] = "Sigue en la ruta principal",
+	["Three zones, lots of travel"] = "Tres zonas, muchos viajes",
+
+	-- Step 1: Orgrimmar
+	-- {object:172960} Cleft of Shadow · {object:172958} Valley of Honor
+	["From the flight master: the {object:172960}, then the Drag, then the {object:172958}."] = "Desde el maestro de vuelo: el {object:172960}, luego la Calle Mayor y después el {object:172958}.",
+	-- {npc:7010} Zilzibin Drumlore
+	["{npc:7010}, the Drag"] = "{npc:7010}, La Calada",
+	-- {npc:6986} Dran Droffers
+	["{npc:6986}, the Drag"] = "{npc:6986}, La Calle Mayor",
+	-- {zone:1425} Hinterlands
+	["for the {zone:1425}, around level 50"] = "para {zone:1425}, hacia el nivel 50",
+
+	-- Step 3: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "Zepelín a {zone:1458}",
 
-	-- Step 2: Apothecary Zinge
+	-- Step 4: Apothecary Zinge
 	-- {npc:2934} Keeper Bel'dugur
 	["{npc:2934}, on the way back to Zinge"] = "{npc:2934}, de camino de vuelta a Zinge",
 	-- {item:8523} Field Testing Kit · {area:976} Gadgetzan
 	["the {item:8523} from these errands: keep it, Tanaris Field Sampling hands it back in {area:976}"] = "",
 
-	-- Step 3: Undercity
+	-- Step 5: Undercity
 	-- {npc:7825} Oran Snakewrithe · {object:36126} Royal Quarter
 	["{npc:7825}, the {object:36126}"] = "{npc:7825}, {object:36126}",
 
-	-- Step 4: Riding at 40
+	-- Step 6: Riding at 40
 	["Riding at 40"] = "Equitación a nivel 40",
 	-- {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {object:3202} Grom'gol (no name in this language: may be words)
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, a short ride north of the zeppelin towers, with {npc:4731}'s skeletal horses (20 gold each) beside her. Ride back to the towers for the {object:3202} zeppelin."] = "La equitación requiere nivel 40 y cuesta 100 de oro; al aprenderla recibes una montura. Cada raza la aprende con el instructor de su propia raza: el tuyo es {npc:4773} en {area:159}, a poca distancia al norte de las torres de zepelín, con los caballos esqueléticos de {npc:4731} (20 de oro cada uno) a su lado. Vuelve a las torres para el zepelín a {object:3202}.",
@@ -29,23 +48,25 @@ return {
 	-- {npc:4731} Zachariah Post · {npc:4773} Velma Warnam · {area:159} Brill
 	["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "Caballos esqueléticos: {npc:4731}, junto a {npc:4773}, en {area:159}.",
 
-	-- Step 5: Zeppelin to Grom'gol
+	-- Step 7: Zeppelin to Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Zeppelin to {object:3202}"] = "Zepelín a {object:3202}",
 
-	-- Step 6: Fly to Stonard
+	-- Step 8: Fly to Stonard
 	-- {area:75} Stonard
 	["Fly to {area:75}"] = "Vuela a {area:75}",
+	-- {object:3202} Grom'gol (no name in this language: may be words) · {area:75} Stonard
+	["The zeppelin lands at {object:3202}: Stranglethorn's errands are done (40-50/02), so fly straight on to {area:75}."] = "El zepelín aterriza en {object:3202}: los encargos de Tuercespina ya están hechos (40-50/02), así que vuela directamente a {area:75}.",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["{object:3202} flight master"] = "",
 
-	-- Step 7: To Stonard
+	-- Step 9: To Stonard
 	-- {area:75} Stonard
 	["To {area:75}"] = "A {area:75}",
 	-- {area:75} Stonard · {zone:2548} Riverglades · {zone:1435} Swamp of Sorrows · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1431} Duskwood · {zone:1430} Deadwind Pass
 	["No flight path to {area:75} yet (the {zone:2548} skip the {zone:1435}): ride north-east from {object:3202} through {zone:1431} and {zone:1430} into the swamp, then east along the road to {area:75}, and learn its flight path."] = "Aún no tienes la ruta de vuelo a {area:75} ({zone:2548} se saltan {zone:1435}): cabalga al noreste desde {object:3202} por {zone:1431} y {zone:1430} hasta el pantano; luego al este por el camino hasta {area:75}, y aprende su ruta de vuelo.",
 
-	-- Step 8: Stonard
+	-- Step 10: Stonard
 	-- {npc:5591} Dar · {area:75} Stonard · {npc:1443} Fel'zerul
 	["Coming from Stranglethorn, you carry these already. Starting here: {npc:5591} stands inside {area:75}'s great hall and {npc:1443} on its top floor."] = "",
 	-- {npc:5591} Dar
@@ -53,25 +74,25 @@ return {
 	-- {npc:1443} Fel'zerul
 	["{npc:1443}, on the top floor"] = "",
 
-	-- Step 9: A Soggy Scroll
+	-- Step 11: A Soggy Scroll
 	["Ride west along the road; the scroll lies at the water's edge in the swamp's far west."] = "Cabalga hacia el oeste por el camino; el pergamino está a la orilla del agua, en el extremo oeste del pantano.",
 	-- {object:2555} Musty Scroll · {zone:1445} Dustwallow Marsh
 	["for the {object:2555} in {zone:1445}, later in this guide"] = "para {object:2555} en {zone:1445}, más adelante en esta guía",
 
-	-- Step 10: Sawtooth crocolisks
+	-- Step 12: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "Crocoliscos Denteserra",
 	-- {area:75} Stonard
 	["The crocolisks wallow in the pools around Galen's old camp, just north of {area:75}, on the way back east; about one in four drops a flank."] = "",
 
-	-- Step 11: Pool of Tears
+	-- Step 13: Pool of Tears
 	-- {area:75} Stonard · {quest:1424} Pool of Tears
 	["Back east past {area:75}: the Atal'ai artifacts lie in the water and on the banks of the {quest:1424}."] = "Vuelve al este pasando {area:75}: los artefactos Atal'ai están en el agua y en las orillas de {quest:1424}.",
 
-	-- Step 12: Misty Reed Post
+	-- Step 14: Misty Reed Post
 	-- {npc:5592} Tok'Kar
 	["Follow the road south-east to the small Horde post on the shore. {npc:5592} takes the crocolisk flanks from the last swamp visit."] = "",
 
-	-- Step 13: The Forbidding Sea: kill these as you meet them
+	-- Step 15: The Forbidding Sea: kill these as you meet them
 	-- {area:2403} The Forbidding Sea
 	["{area:2403}: kill these as you meet them"] = "",
 	-- {npc:272377} Methuselah Crab
@@ -79,44 +100,46 @@ return {
 	["The snappers line the strand south of the post.\nThe Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "",
 	["Underwater"] = "Bajo el agua",
 
-	-- Step 15: Murlocs of the Misty Reed
+	-- Step 17: Murlocs of the Misty Reed
 	["Murlocs of the Misty Reed"] = "Múrlocs de Juncobruma",
 	-- plural, as words: Marsh Murlocs = {npc:747} Marsh Murloc
 	["The Marsh Murlocs live on the strand south of the post; the Inkspewers are along the shore east of it and the Flesheaters further west, around the huts on the western shore."] = "Los Múrlocs del pantano viven en la playa al sur del puesto; los Vomitatintas están en la orilla al este y los Comecarnes más al oeste, alrededor de las chozas de la orilla oeste.",
 	["Below ground"] = "Bajo tierra",
 
-	-- Step 17: Continued Threat
+	-- Step 19: Continued Threat
 	["The same murloc shore again: Inkspewers east of the post, Flesheaters around the western huts, and the Oracles among both."] = "",
 
-	-- Step 19: Stonard
+	-- Step 21: Stonard
 	-- {npc:5598} Atal'ai Exile · {zone:1425} Hinterlands
 	["for the {npc:5598} in the {zone:1425}, around level 48"] = "para {npc:5598} en {zone:1425}, hacia el nivel 48",
 
-	-- Step 20: To Camp Mojache
+	-- Step 22: To Camp Mojache
 	-- {area:1099} Camp Mojache
 	["To {area:1099}"] = "",
+	-- {area:1099} Camp Mojache · {zone:1444} Feralas · {zone:1446} Tanaris
+	["Hearth to {area:1099}: your hearthstone is still bound there from the {zone:1444} & {zone:1446} guide."] = "Usa la piedra de hogar para ir a {area:1099}: sigue vinculada allí desde la guía de {zone:1444} y {zone:1446}.",
 
-	-- Step 21: Camp Mojache
+	-- Step 23: Camp Mojache
 	-- {zone:1425} Hinterlands
 	["for the {zone:1425} owlbeasts, around level 48"] = "para las lechubestias de {zone:1425}, hacia el nivel 48",
 
-	-- Step 22: Fly to Brackenwall Village
+	-- Step 24: Fly to Brackenwall Village
 	-- {area:496} Brackenwall Village
 	["Fly to {area:496}"] = "",
 	-- {area:1099} Camp Mojache
 	["{area:1099} flight master"] = "Maestro de vuelo de {area:1099}",
 
-	-- Step 23: Brackenwall Village
+	-- Step 25: Brackenwall Village
 	-- {npc:4500} Overlord Mok'Morokk · {npc:4502} Tharg · {npc:4501} Draz'Zilb · {area:511} Wyrmbog
 	["{npc:4500}, {npc:4502} and {npc:4501} (below ground) are in the village; their quests are for the {area:511} on this trip."] = "",
 	-- {npc:4501} Draz'Zilb
 	["{npc:4501}, below ground"] = "",
 
-	-- Step 24: Dustwallow Marsh
+	-- Step 26: Dustwallow Marsh
 	-- {object:2555} Musty Scroll
 	["The {object:2555}"] = "",
 
-	-- Step 25: The Musty Scroll
+	-- Step 27: The Musty Scroll
 	-- {object:2555} Musty Scroll
 	["Ride south-west to the {object:2555}."] = "",
 	-- {object:2555} Musty Scroll
@@ -124,7 +147,7 @@ return {
 	-- {area:498} Bloodfen Burrow
 	["Inside {area:498}"] = "",
 
-	-- Step 26: The Dragonmurk: kill these as you meet them
+	-- Step 28: The Dragonmurk: kill these as you meet them
 	-- {area:510} The Dragonmurk
 	["{area:510}: kill these as you meet them"] = "",
 	-- {area:511} Wyrmbog
@@ -132,71 +155,80 @@ return {
 	-- {npc:4329} Firemane Scout · {area:510} The Dragonmurk
 	["{npc:4329} walks around {area:510}: look inside the circle on the map"] = "",
 
-	-- Step 27: Brackenwall Village
+	-- Step 29: Brackenwall Village
 	["Ride back north to Brackenwall."] = "Vuelve cabalgando al norte, a Murohelecho.",
 
-	-- Step 28: Onyxia's eggs
+	-- Step 30: Onyxia's eggs
 	["Onyxia's eggs"] = "Huevos de Onyxia",
 	-- {area:511} Wyrmbog
 	["The Eggs of Onyxia lie in the dragon caves in the {area:511}'s south-east, guarded by the scalebanes; smash five."] = "Los Huevos de Onyxia están en las cuevas de dragones del sureste de {area:511}, guardados por los Horrocrustos; destroza cinco.",
 	["Dragon caves"] = "Cuevas de dragones",
 
-	-- Step 29: Level 45.37
+	-- Step 31: Level 45.37
 	["Level 45.37"] = "Nivel 45.37",
 	-- {npc:4500} Overlord Mok'Morokk · {area:511} Wyrmbog · {area:978} Zul'Farrak
 	["{npc:4500}'s challenge, back in Brackenwall, needs a group of three. Alone, grind the Firemane scouts here on the {area:511}'s northern edge to level 45.37 before you ride back north, so you don't come back down for it. Or, with a group, run the {area:978} dungeon instead."] = "El desafío de {npc:4500}, de vuelta en Murohelecho, requiere un grupo de tres. Si vas solo, mata Exploradores Pirocabello aquí, en el borde norte de {area:511}, hasta el nivel 45.37 antes de volver cabalgando al norte, para no tener que bajar otra vez a por ello. O bien, con un grupo, haz en su lugar la mazmorra de {area:978}.",
 	-- {npc:4329} Firemane Scout
 	["grind on {npc:4329}"] = "",
 
-	-- Step 31: Challenge Overlord Mok'Morokk
+	-- Step 33: Challenge Overlord Mok'Morokk
 	-- {quest:1173} Challenge Overlord Mok'Morokk · {npc:4500} Overlord Mok'Morokk · {npc:4501} Draz'Zilb
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:1173} needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\n{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "",
 
-	-- Step 32: Fly to Camp Mojache
+	-- Step 34: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "Vuela a {area:1099}",
 	-- {area:496} Brackenwall Village
 	["{area:496} flight master"] = "",
 
-	-- Step 33: Sprite darters and forest walkers
+	-- Step 35: Sprite darters and forest walkers
 	["Sprite darters and forest walkers"] = "Duendes dardo y Caminabosques",
 	-- {item:9589} Encrusted Minerals · {npc:272401} Vale Screamer
 	-- plural, as words: Wandering Forest Walkers = {npc:7584} Wandering Forest Walker · Splintered Logs = {item:9590} Splintered Log
 	["The sprite darters flit over the grove just west of the camp and carry the {item:9589}; the Wandering Forest Walkers, a little further west, carry the Splintered Logs.\nCareful: a {npc:272401} (level 60) flies over the forest west of the camp: keep clear of it."] = "Los duendes dardo revolotean sobre la arboleda justo al oeste del campamento y llevan los {item:9589}; los Caminabosques deambulantes, un poco más al oeste, llevan los Troncos astillados.\nCuidado: un {npc:272401} (nivel 60) sobrevuela el bosque al oeste del campamento: no te acerques a él.",
 
-	-- Step 34: Frayfeather hippogryphs
+	-- Step 36: Frayfeather hippogryphs
 	["Frayfeather hippogryphs"] = "Hipogrifos Plumavieja",
 	["South of the vale the Frayfeather hippogryphs roost on the slopes; nearly every one drops sinew and metallic fragments."] = "Al sur del valle, los Hipogrifos Plumavieja anidan en las laderas; casi todos sueltan tendones y fragmentos metálicos.",
 
-	-- Step 35: Zorbin Fandazzle
+	-- Step 37: Zorbin Fandazzle
 	-- {area:1108} Forgotten Coast · {npc:14637} Zorbin Fandazzle
 	["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "Cabalga hacia el noroeste hasta {area:1108}; {npc:14637} espera en el muelle.",
 
-	-- Step 36: Rogue Vale screechers
+	-- Step 38: Rogue Vale screechers
 	["Rogue Vale screechers"] = "Pícaros estridadores del valle",
 	-- {npc:14637} Zorbin Fandazzle · {npc:5308} Rogue Vale Screecher · {item:10699} Yeh'kinya's Bramble
 	["Rogue Vale opens just north of {npc:14637}'s dock. Kill a {npc:5308}, use {item:10699} on its body before you loot it, then talk to the spirit that rises: it is friendly. Three spirits in all."] = "Rogue Vale se abre justo al norte del muelle de {npc:14637}. Mata a un {npc:5308}, usa {item:10699} sobre su cuerpo antes de despojarlo y luego habla con el espíritu que se alza: es amistoso. Son tres espíritus en total.",
 
-	-- Step 37: Forgotten Coast: kill these as you meet them
+	-- Step 39: Forgotten Coast: kill these as you meet them
 	-- {area:1108} Forgotten Coast
 	["{area:1108}: kill these as you meet them"] = "",
+	-- {item:18904} Zorbin's Ultra-Shrinker · {zone:1444} Feralas · {npc:14637} Zorbin Fandazzle
+	-- plural, as words: Sea Sprays = {npc:5462} Sea Spray · Water Elemental Cores = {item:18958} Water Elemental Core · Sea Elementals = {npc:5461} Sea Elemental · Deep Striders = {npc:5360} Deep Strider · Land Walkers = {npc:5357} Land Walker · Cliff Giants = {npc:5358} Cliff Giant
+	["The Sea Sprays (47-48) wash along the shore just south of the dock: they drop the Water Elemental Cores as well as the Sea Elementals (48-49) do. The Wave and Deep Striders (47-49) wade in the water off the same beach: zap them with {item:18904} first, and shrunken they lose their elite strength. Leave the Land Walkers and Cliff Giants (48-50) of the northern hills for your next {zone:1444} visit.\nThe Ultra-Shrinker lasts two hours: hand both quests back to {npc:14637} before you leave the coast."] = "Los Rocíos marinos (47-48) recorren la orilla justo al sur del muelle: sueltan Núcleos elementales de Agua igual que los Elementales marinos (48-49). Los Zancaolas y Zancaprofundas (47-49) vadean el agua frente a la misma playa: dispárales primero con el {item:18904} y, encogidos, pierden su fuerza de élite. Deja los Caminantes de la tierra y Gigantes del risco (48-50) de las colinas del norte para tu próxima visita a {zone:1444}.\nEl Ultra-reductor dura dos horas: entrega ambas misiones a {npc:14637} antes de dejar la costa.",
+	-- {item:18958} Water Elemental Core
+	-- plural, as words: Sea Sprays = {npc:5462} Sea Spray
+	["{item:18958}, from the Sea Sprays"] = "{item:18958}, de los Rocíos marinos",
 	-- {item:18904} Zorbin's Ultra-Shrinker
-	["Sea elementals and sea sprays wash along the shore around the dock. Zap the giants with {item:18904} first: shrunken, they lose their elite strength. Shore striders wade in the water; the land walkers and cliff giants roam the hills further north."] = "Elementales marinos y Rocíos del mar recorren la orilla alrededor del muelle. Dispara primero a los gigantes con {item:18904}: encogidos, pierden su fuerza de élite. Los Zancacostas vadean en el agua; los Caminantes de la tierra y los Gigantes del risco recorren las colinas más al norte.",
+	-- plural, as words: Deep Striders = {npc:5360} Deep Strider
+	["{item:18904}, on the Wave and Deep Striders in the water"] = "{item:18904}, sobre los Zancaolas y Zancaprofundas del agua",
 
-	-- Step 38: Northspring harpies
-	["Northspring harpies"] = "Arpías Nortearroyo",
-	["The Northspring harpies nest on the ridges in the far north-west. They are 48-50, a few levels above you: the Windcallers heal, so kill them first and pull one at a time."] = "Las Arpías Nortearroyo anidan en las crestas del extremo noroeste. Son de nivel 48-50, unos niveles por encima de ti: las Clamavientos curan, así que mátalas primero y atráelas de una en una.",
+	-- Step 40: Zorbin Fandazzle
+	-- {npc:14637} Zorbin Fandazzle
+	["Back to {npc:14637} on the dock."] = "Vuelve con {npc:14637}, en el muelle.",
 
-	-- Step 39: Rage Scar yetis
+	-- Step 41: Rage Scar yetis
 	["Rage Scar yetis"] = "Yetis Estigmodio",
 	-- {quest:7738} Perfect Yeti Hide
-	["On the way back south-east from the harpies, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a {quest:7738}, which starts a quest of its own."] = "De vuelta al sureste desde las arpías, los Yetis Estigmodio viven alrededor de las cuevas de las colinas junto al camino. Cualquiera puede soltar también una {quest:7738}, que inicia su propia misión.",
+	["On the way back south-east from the coast, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a {quest:7738}, which starts a quest of its own."] = "De vuelta al sureste desde la costa, los Yetis Estigmodio viven alrededor de las cuevas de las colinas junto al camino. Cualquiera puede soltar también un {quest:7738}, que inicia su propia misión.",
 	-- {quest:7738} Perfect Yeti Hide
 	["{quest:7738}, a rare drop"] = "{quest:7738}, botín raro",
 
-	-- Step 40: Camp Mojache
+	-- Step 42: Camp Mojache
 	-- {npc:7854} Jangdor Swiftstrider
 	["{npc:7854}, inside"] = "",
+	-- {npc:7776} Talo Thornhoof · {zone:1444} Feralas
+	["{npc:7776}'s Northspring harpies (48-50) wait for your {zone:1444} visit at about 51: keep the quest."] = "Las arpías Fuenteboreal (48-50) de {npc:7776} esperan a tu visita a {zone:1444} hacia el nivel 51: conserva la misión.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly to {object:3202}"] = "Vuela a {object:3202}",
@@ -204,8 +236,10 @@ return {
 	-- ["Monstrous Crawlers"] = "Reptadores monstruosos",
 	-- ["Murlocs of the Misty Reed"] = "Múrlocs de Juncobruma",
 	-- ["Northspring harpies"] = "Arpías Nortearroyo",
+	-- ["On the way back south-east from the harpies, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a {quest:7738}, which starts a quest of its own."] = "De vuelta al sureste desde las arpías, los Yetis Estigmodio viven alrededor de las cuevas de las colinas junto al camino. Cualquiera puede soltar también una {quest:7738}, que inicia su propia misión.",
 	-- ["Ride back east to the camp. Stay here: the next guide starts with the flight to {area:976}."] = "Vuelve cabalgando al este hasta el campamento. Quédate aquí: la siguiente guía empieza con el vuelo a {area:976}.",
 	-- ["Ride south-west to the {object:2555}, then east through the {area:511}. The Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "Cabalga hacia el suroeste hasta {object:2555} y luego al este por {area:511}. Los Exploradores y Ceniazotes Pirocabello recorren su borde norte con las Proles y Crías abrasadoras; los Horrocrustos guardan las cuevas de dragones más al sureste. El rapé, el grog y la caja fuerte de Mok'Morokk están en los campamentos de los dragonantes.",
+	-- ["Sea elementals and sea sprays wash along the shore around the dock. Zap the giants with {item:18904} first: shrunken, they lose their elite strength. Shore striders wade in the water; the land walkers and cliff giants roam the hills further north."] = "Elementales marinos y Rocíos del mar recorren la orilla alrededor del muelle. Dispara primero a los gigantes con {item:18904}: encogidos, pierden su fuerza de élite. Los Zancacostas vadean en el agua; los Caminantes de la tierra y los Gigantes del risco recorren las colinas más al norte.",
 	-- ["South-west, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "Al suroeste, los yetis tienen su guarida en {area:1105}; cualquier yeti de allí puede soltar una piel gruesa.",
 	-- ["The Marsh Murlocs live on the strand south of the post; the Inkspewers are along the shore east of it and the Flesheaters further west, around the huts on the western shore."] = "Los Múrlocs del pantano viven en la playa al sur del puesto; los Vomitatintas están en la orilla al este y los Comecarnes más al oeste, alrededor de las chozas de la orilla oeste.",
 	-- ["The Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see on the way south."] = "Los Reptadores monstruosos recorren las playas de la costa este, pocos y dispersos: mata a todos los que veas de camino al sur.",

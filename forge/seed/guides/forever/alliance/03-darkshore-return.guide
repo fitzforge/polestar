@@ -23,14 +23,14 @@ next forever/alliance/06-ashenvale
 
 step Auberdine
   zone Darkshore
-  tip From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first (Thundris Windweaver, Alanndarian Nightsong by the moonwell, Archaeologist Hollee), then down the main street: the WANTED poster outside the inn, Terenthis at its east end, where the road leaves south. Sentinel Selarin stands beside Terenthis by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment.
+  tip From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first (Thundris Windweaver, Alanndarian Nightsong by the moonwell, Archaeologist Hollee), then down the main street: the WANTED poster outside the inn, Terenthis at its east end, where the road leaves south. Sentinel Selarin (Trek to Ashenvale) is beside Terenthis only for a few minutes at a time: she comes shortly after someone hands in Volcor's escort and leaves again about 5 minutes later. If she isn't there, don't wait: the guide offers her quest again when you hand in Volcor's escort to Terenthis yourself. Changing layer can also find her.
   turnin 97926 optional                       -- Thundris Windweaver, north end of the village: Baros Alexston's reply
   accept 6123 only NightElf,Skyborne,Druid             -- Alanndarian Nightsong
   accept 729                                  -- Archaeologist Hollee
   vendor nearest optional
   accept 4740                                 -- The WANTED poster
   accept 986                                  -- Terenthis
-  accept 990                                  -- Sentinel Selarin, beside Terenthis: for Raene Wolfrunner in Astranaar, in the next guide
+  accept 990 optional                         -- Sentinel Selarin, beside Terenthis if she is there: for Raene Wolfrunner in Astranaar, in the next guide
 
 step Lunar Fungus and Earthroot
   only NightElf,Skyborne,Druid
@@ -163,7 +163,9 @@ step Volcor
 
 step Auberdine
   only Druid
+  tip No Trek to Ashenvale yet? Give it a minute after the hand-in: Sentinel Selarin comes to Terenthis's side shortly after Volcor's escort is handed in. Changing layer can also find her.
   turnin 994                                  -- Terenthis
+  accept 990 optional                         -- Sentinel Selarin, once she comes: Trek to Ashenvale, for Raene Wolfrunner in Astranaar on your next Ashenvale visit
 
 step Auberdine flight master
   only Druid
@@ -200,7 +202,7 @@ step Moonglade
 step Dendrite Starblaze
   only Druid
   zone Moonglade
-  tip Cast Teleport: Moonglade. Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it.
+  tip Cast Teleport: Moonglade. Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. No Moonglade flight path yet? Learn it from Sindrayl, south of the lake: the flight master in Nighthaven flies only Druids, from her gossip, and has none to learn.
   turnin 98393 only NightElf,Skyborne -- Dendrite Starblaze
   accept 98394 only NightElf
   turnin 6124 only NightElf,Skyborne                   -- Dendrite Starblaze
@@ -214,7 +216,7 @@ step Dendrite Starblaze
   when onquest 94914
   turnin 94914 only Skyborne                  -- Dendrite Starblaze: the welcome from Sheldras
 
-step Dendrite Starblaze
+step Sindrayl
   only Druid
   zone Moonglade
   getfp "Moonglade"

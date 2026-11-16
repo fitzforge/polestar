@@ -16,7 +16,7 @@ return {
 	["{npc:331}, the Master Mage, stands in the Wizard's Sanctum in {zone:1453}'s {object:2101}; Dink in {zone:1455} gives the same quest."] = "마법사 길드장 {npc:331}은(는) {zone:1453} {object:2101}의 마법사의 성소에 있습니다. {zone:1455}의 딩크도 같은 퀘스트를 줍니다.",
 
 	-- Step 2: Magecraft (Orgrimmar)
-	-- {npc:7311} Uthel'nay · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:4567} Pierce Shackleton · {zone:1458} Undercity · {npc:3047} Archmage Shymm · {zone:1456} Thunder Bluff
+	-- {npc:7311} Uthel'nay · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge · {npc:4567} Pierce Shackleton · {zone:1458} Undercity · {npc:3047} Archmage Shymm · {zone:1456} Thunder Bluff
 	["{npc:7311}, one of {zone:1454}'s mage trainers in {object:173161}, gives it; so do {npc:4567} in the {zone:1458} and {npc:3047} in {zone:1456}."] = "{zone:1454}의 {object:173161}에 있는 마법사 상급자 중 한 명인 {npc:7311}이(가) 줍니다. {zone:1458}의 {npc:4567}와(과) {zone:1456}의 {npc:3047}도 줍니다.",
 
 	-- Step 3: Sanath Lim-yo

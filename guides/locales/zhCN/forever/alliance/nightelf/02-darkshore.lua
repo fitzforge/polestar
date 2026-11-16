@@ -25,8 +25,6 @@ return {
 	["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "船停靠在村庄西边。飞行管理员站在旅店南边的山坡上；任务给予者分布在主街两旁。{npc:3666}在旅店楼上：从室内楼梯上去，箭头无法区分楼层。",
 	-- {npc:3666} Wizbang Cranktoggle
 	["{npc:3666}, upstairs in the inn"] = "{npc:3666}，在旅店楼上",
-	-- {npc:3644} Cerellean Whiteclaw
-	["{npc:3644}, on the pier"] = "{npc:3644}，在码头上",
 
 	-- Step 5: The skeletal turtle
 	["The skeletal turtle"] = "骷髅海龟",
@@ -58,8 +56,6 @@ return {
 	["Read the {object:17188}"] = "阅读{object:17188}",
 	-- {object:17189} Fall of Ameth'Aran
 	["Read the {object:17189}"] = "阅读{object:17189}",
-	-- {item:5382} Anaya's Pendant · {npc:3667} Anaya Dawnrunner
-	["{item:5382}: {npc:3667}, level 16; pull her away from the Highborne"] = "{item:5382}：{npc:3667}，16级；把她从上层精灵身边引开",
 
 	-- Step 9: The red crystal
 	["The red crystal"] = "红色水晶",
@@ -83,7 +79,7 @@ return {
 	["Blackwood furbolgs"] = "黑木熊怪",
 	-- {area:442} Auberdine
 	-- plural, as words: Blackwood Pathfinders = {npc:2167} Blackwood Pathfinder
-	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "{npc:2167}和黑木风语者占据着{area:442}东南方的营地。",
+	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}.\nCareful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time."] = "黑木探路者和黑木风语者占据着{area:442}东南方的营地。\n小心：风语者（13-14级）会远程施法，熊怪成对站着：一次拉一只。",
 
 	-- Step 14: The southern beaches
 	["The southern beaches"] = "南部海滩",
@@ -101,10 +97,6 @@ return {
 	-- Step 17: Bashal'Aran
 	-- {npc:3650} Asterion · {area:442} Auberdine
 	["North along the hills to {npc:3650}, then west down to {area:442}."] = "沿山丘向北找到{npc:3650}，然后向西下山前往{area:442}。",
-
-	-- Step 18: Auberdine
-	-- {npc:3644} Cerellean Whiteclaw
-	["{npc:3644}, where the pier meets the shore, on the way to the boat"] = "{npc:3644}，在码头与岸边相接处，去坐船时顺路经过",
 
 	-- Step 19: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
@@ -148,5 +140,9 @@ return {
 	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "{npc:257446}在{zone:1426}；{area:87}没有萨满祭司训练师",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "{npc:2167}和黑木风语者占据着{area:442}东南方的营地。",
 	-- ["Into {area:148}"] = "前往{area:148}",
+	-- ["{item:5382}: {npc:3667}, level 16; pull her away from the Highborne"] = "{item:5382}：{npc:3667}，16级；把她从上层精灵身边引开",
+	-- ["{npc:3644}, on the pier"] = "{npc:3644}，在码头上",
+	-- ["{npc:3644}, where the pier meets the shore, on the way to the boat"] = "{npc:3644}，在码头与岸边相接处，去坐船时顺路经过",
 }

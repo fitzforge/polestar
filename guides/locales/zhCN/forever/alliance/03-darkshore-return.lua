@@ -7,13 +7,13 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Auberdine
-	-- {npc:3649} Thundris Windweaver · {npc:3702} Alanndarian Nightsong · {npc:2913} Archaeologist Hollee · {npc:3693} Terenthis · {npc:3694} Sentinel Selarin
-	["From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} stands beside {npc:3693} by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment."] = "从码头（如果用了炉石，则从旅店）先到村庄北端（{npc:3649}、月亮井旁的{npc:3702}，以及{npc:2913}），再沿主街往下走：旅店外有通缉告示，{npc:3693}在主街东端、道路向南出村的位置。{npc:3694}站在飞行管理员旁的{npc:3693}身边；如果她不在，说明刚被击杀，稍等片刻就会刷新。",
+	-- {npc:3649} Thundris Windweaver · {npc:3702} Alanndarian Nightsong · {npc:2913} Archaeologist Hollee · {npc:3693} Terenthis · {npc:3694} Sentinel Selarin · {quest:990} Trek to Ashenvale · {npc:3692} Volcor
+	["From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} ({quest:990}) is beside {npc:3693} only for a few minutes at a time: she comes shortly after someone hands in {npc:3692}'s escort and leaves again about 5 minutes later. If she isn't there, don't wait: the guide offers her quest again when you hand in {npc:3692}'s escort to {npc:3693} yourself. Changing layer can also find her."] = "从码头（如果用了炉石，则从旅店）先到村庄北端（{npc:3649}、月亮井旁的{npc:3702}，以及{npc:2913}），再沿主街往下走：旅店外有通缉告示，{npc:3693}在主街东端、道路向南出村的位置。{npc:3694}（{quest:990}）每次只在{npc:3693}身边待几分钟：有人交还{npc:3692}的护送任务后不久她就会出现，约5分钟后离开。如果她不在，别等：你自己向{npc:3693}交还{npc:3692}的护送任务时，指南会再次提示她的任务。切换位面也可能找到她。",
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston
 	["{npc:3649}, north end of the village: {npc:1646}'s reply"] = "{npc:3649}，在村庄北端：{npc:1646}的回信",
 	["The WANTED poster"] = "通缉布告",
 	-- {npc:3694} Sentinel Selarin · {npc:3693} Terenthis · {npc:3691} Raene Wolfrunner · {area:415} Astranaar
-	["{npc:3694}, beside {npc:3693}: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694}就在{npc:3693}旁边：交给{area:415}的{npc:3691}，见下一篇指南",
+	["{npc:3694}, beside {npc:3693} if she is there: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694}，如果她在{npc:3693}旁边：交给{area:415}的{npc:3691}，见下一篇指南",
 
 	-- Step 2: Lunar Fungus and Earthroot
 	-- {item:15851} Lunar Fungus · {item:2449} Earthroot
@@ -122,6 +122,12 @@ return {
 	-- {npc:12298} Sickly Deer
 	["Cure {npc:12298}"] = "治愈{npc:12298}",
 
+	-- Step 21: Auberdine
+	-- {quest:990} Trek to Ashenvale · {npc:3694} Sentinel Selarin · {npc:3693} Terenthis · {npc:3692} Volcor
+	["No {quest:990} yet? Give it a minute after the hand-in: {npc:3694} comes to {npc:3693}'s side shortly after {npc:3692}'s escort is handed in. Changing layer can also find her."] = "还没拿到{quest:990}？交还后稍等一会儿：{npc:3692}的护送任务交还后不久，{npc:3694}就会来到{npc:3693}身边。切换位面也可能找到她。",
+	-- {npc:3694} Sentinel Selarin · {quest:990} Trek to Ashenvale · {npc:3691} Raene Wolfrunner · {area:415} Astranaar · {zone:1440} Ashenvale
+	["{npc:3694}, once she comes: {quest:990}, for {npc:3691} in {area:415} on your next {zone:1440} visit"] = "{npc:3694}出现后：{quest:990}，下次去{zone:1440}时交给{area:415}的{npc:3691}",
+
 	-- Step 22: Auberdine flight master
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "{area:442}的飞行管理员",
@@ -135,8 +141,8 @@ return {
 	["Cast {spell:18960}"] = "施放{spell:18960}",
 
 	-- Step 27: Dendrite Starblaze
-	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "施放{spell:18960}。{npc:11802}在{area:2361}他所在建筑的楼上：从室内上去，箭头无法区分楼层。如果还没有那里的飞行路线，就去学习。",
+	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:493} Moonglade · {npc:10897} Sindrayl
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. No {area:493} flight path yet? Learn it from {npc:10897}, south of the lake: the flight master in {area:2361} flies only Druids, from her gossip, and has none to learn."] = "施放{spell:18960}。{npc:11802}在{area:2361}他所在建筑的楼上：从室内上去，箭头无法区分楼层。还没有{area:493}的飞行路线？去湖南边找{npc:10897}学习：{area:2361}的飞行管理员只通过对话为德鲁伊提供飞行，没有飞行路线可学。",
 
 	-- Step 28: Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
@@ -168,7 +174,10 @@ return {
 	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}. {npc:4217} is a Druid trainer: learn your new spells from him."] = "通过传送门上去找 {npc:4217}，再飞回 {area:442}，沿路向南前往 {zone:1440}。{npc:4217} 是德鲁伊训练师：向他学习新法术。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "施放{spell:18960}。{npc:11802}在{area:2361}他所在建筑的楼上：从室内上去，箭头无法区分楼层。如果还没有那里的飞行路线，就去学习。",
+	-- ["From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} stands beside {npc:3693} by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment."] = "从码头（如果用了炉石，则从旅店）先到村庄北端（{npc:3649}、月亮井旁的{npc:3702}，以及{npc:2913}），再沿主街往下走：旅店外有通缉告示，{npc:3693}在主街东端、道路向南出村的位置。{npc:3694}站在飞行管理员旁的{npc:3693}身边；如果她不在，说明刚被击杀，稍等片刻就会刷新。",
 	-- ["From the dock, up to the north end of the village first ({npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south."] = "从码头先上行到村庄北端（{npc:3702} 在月亮井旁，还有 {npc:2913}），再沿主街往下走：通缉告示在旅店外，{npc:3693} 在主街东端、道路向南出村的位置。",
 	-- ["Moonstalker Sires prowl the woods around the glaive. The {object:10076} and the {object:12666} sit at the bottom of the crater; {npc:3584} stands on its north side."] = "{npc:2237}在主宰之剑周围的树林里潜行。{object:10076}和{object:12666}在陨坑底部；{npc:3584}站在陨坑北侧。",
+	-- ["{npc:3694}, beside {npc:3693}: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694}就在{npc:3693}旁边：交给{area:415}的{npc:3691}，见下一篇指南",
 	-- ["{npc:3694}: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694}：交给 {area:415} 的 {npc:3691}，见下一篇指南",
 }

@@ -44,10 +44,10 @@ return {
 	-- {npc:251291} Hippogryph Youth
 	["{npc:251291}, Prideclaw"] = "{npc:251291}, Garraltiva",
 	["Prideclaw, Galestrider"] = "Garraltiva, Vagaventos",
+	["Prideclaw, Vuldren"] = "Garraltiva, Vuldren",
+	["Cloudrunner, Galestrider"] = "Corre-nuvens, Vagaventos",
 	-- {npc:250928} Highlands Ursera
 	["Prideclaw, {npc:250928}"] = "Garraltiva, {npc:250928}",
-	["Galestrider, Cloudrunner"] = "Vagaventos, Correnuvens",
-	["Prideclaw, Vuldren"] = "Garraltiva, Vuldren",
 
 	-- Step 6: Beasts 1-9: Durotar (1-50)
 	-- {zone:1411} Durotar
@@ -246,6 +246,7 @@ return {
 	-- ["Duskbat"] = "Quiropúsculo",
 	-- ["Duskbat, {npc:1513}"] = "Quiropúsculo, {npc:1513}",
 	-- ["Expert {skill:393} raises the cap to 225; it needs skill 125 and character level 20. The arrow picks the nearest {skill:393} trainer of your faction."] = "{skill:393} (Perito) eleva o limite para 225; requer perícia 125 e nível de personagem 20. A seta escolhe o instrutor de {skill:393} mais próximo da sua facção.",
+	-- ["Galestrider, Cloudrunner"] = "Vagaventos, Correnuvens",
 	-- ["Galestrider, Prideclaw"] = "Vagaventos, Garraltiva",
 	-- ["Journeyman {skill:393} raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest {skill:393} trainer of your faction."] = "{skill:393} Profissional eleva o limite para 150; requer perícia 50 e nível de personagem 10. A seta escolhe o instrutor de {skill:393} mais próximo da sua facção.",
 	-- ["Kill and skin Coyote (10), {npc:833} (11), {npc:454} (12), Goretusk (14), {npc:547} (16, needs 60) along the loop until {skill:393} 100; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20."] = "Mate e esfole Coiote (10), {npc:833} (11), {npc:454} (12), Goretusco (14), {npc:547} (16, requer 60) ao longo do circuito até {skill:393} 100; esfole as feras de nível mais alto que sua perícia permitir. Uma fera de nível N requer perícia (N-10)x10 até o nível 20 e Nx5 acima disso. Nível da zona 10-20.",

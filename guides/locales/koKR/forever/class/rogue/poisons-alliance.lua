@@ -19,22 +19,23 @@ return {
 	-- {npc:7053} Klaven Mortwake · {zone:1436} Westfall · {zone:1431} Duskwood · {item:8046} Kearnen's Journal
 	["Kearnen hides stealthed against the west side of a big tree with two small trees in front of it, just north of {npc:7053}'s Defias tower in the far east of {zone:1436}, by the {zone:1431} border. Read {item:8046} for the tower's layout if you like."] = "",
 
-	-- Step 3: The Defias Tower Key
-	-- {item:7923} Defias Tower Key
-	["The {item:7923}"] = "",
-	-- {npc:7051} Malformed Defias Drone · {spell:921} Pick Pocket · {spell:2983} Sprint
-	-- plural, as words: Defias Drones = {npc:7050} Defias Drone
-	["Get the key first. The {npc:7051} (level 23, not elite) starts at the tower entrance and walks a loop around the outside; it is the spiky-haired one trailing yellow sparkles. Stealth up and {spell:921} it from behind: it always has the key. It hits hard: if stealth breaks, {spell:2983} away. Watch for the pair of Defias Drones that also patrol."] = "",
+	-- Step 3: Klaven's Tower, with a group
+	-- {quest:2359} Klaven's Tower
+	["{quest:2359}, with a group"] = "{quest:2359}, 파티로",
+	-- {npc:7053} Klaven Mortwake · {npc:7051} Malformed Defias Drone · {spell:921} Pick Pocket · {object:123214} Duskwood Chest · {spell:9810} Touch of Zanzil
+	-- plural, as words: Defias Tower Patrollers = {npc:7052} Defias Tower Patroller
+	["{npc:7053} on the top floor is a level 26 elite: easier at 24 or with a friend. Get the key first: the {npc:7051} (level 23, the spiky-haired one trailing yellow sparkles) walks a loop around the tower; stealth up and {spell:921} it from behind. Then up the tower past the Defias Tower Patrollers (23) and Sentries (24) to the {object:123214} beside Klaven's desk (Lockpicking about 70-75). Opening it poisons you with the {spell:9810}, which stops your stealth for a while."] = "꼭대기 층의 {npc:7053}은(는) 26레벨 정예입니다. 24레벨이 되거나 친구와 함께하면 쉽습니다. 먼저 열쇠를 얻으세요. {npc:7051}(23레벨, 노란 반짝임을 끌고 다니는 뾰족 머리)이 탑 주위를 돕니다. 은신한 뒤 뒤에서 {spell:921}하세요. 그다음 데피아즈단 순찰병(23)과 보초병(24)을 지나 탑을 올라 클라벤의 책상 옆 {object:123214}(으)로 가세요(자물쇠 따기 약 70-75). 열면 {spell:9810}에 중독되어 한동안 은신할 수 없습니다.",
 	-- {spell:921} Pick Pocket · {npc:7051} Malformed Defias Drone · {item:7923} Defias Tower Key
 	["{spell:921} the {npc:7051} for the {item:7923}"] = "",
-
-	-- Step 4: Klaven's journal
-	["Klaven's journal"] = "",
-	-- {npc:7053} Klaven Mortwake · {object:123214} Duskwood Chest · {area:97} Alther's Mill · {spell:9810} Touch of Zanzil
-	-- plural, as words: Defias Tower Patrollers = {npc:7052} Defias Tower Patroller
-	["Sneak up the tower. Defias Tower Patrollers (23) and Sentries (24) guard the floors; an Ambush with a dagger kills them outright if you would rather clear them. {npc:7053}, a level 26 elite, waits on the top floor: Sap him, or bring a friend. The {object:123214} beside his desk needs Lockpicking of about 70-75 (practise on the boxes at {area:97} in Redridge first). A trick: while the Sentries are away, jump from the chair to the lamp to the bookshelf above the chest, step out of stealth and open the chest from there. Opening it poisons you with the {spell:9810}, which stops your stealth for a while and lets the drone see you; that is why the key comes first. Then get out."] = "",
 	-- {item:7908} Klaven Mortwake's Journal · {object:123214} Duskwood Chest
 	["{item:7908}: the {object:123214}, top floor"] = "{object:123214} 꼭대기 층의 {item:7908}",
+
+	-- Step 4: Klaven's Tower, solo
+	-- {quest:2359} Klaven's Tower
+	["{quest:2359}, solo"] = "{quest:2359}, 혼자",
+	-- {npc:7051} Malformed Defias Drone · {spell:921} Pick Pocket · {spell:2983} Sprint · {npc:7053} Klaven Mortwake · {object:123214} Duskwood Chest · {area:97} Alther's Mill · {spell:9810} Touch of Zanzil
+	-- plural, as words: Defias Drones = {npc:7050} Defias Drone · Defias Tower Patrollers = {npc:7052} Defias Tower Patroller
+	["Get the key first. The {npc:7051} (level 23, not elite) starts at the tower entrance and walks a loop around the outside; it is the spiky-haired one trailing yellow sparkles. Stealth up and {spell:921} it from behind: it always has the key. It hits hard: if stealth breaks, {spell:2983} away. Watch for the pair of Defias Drones that also patrol. Then sneak up the tower. Defias Tower Patrollers (23) and Sentries (24) guard the floors; an Ambush with a dagger kills them outright if you would rather clear them. {npc:7053}, a level 26 elite, waits on the top floor: Sap him, or bring a friend. The {object:123214} beside his desk needs Lockpicking of about 70-75 (practise on the boxes at {area:97} in Redridge first). A trick: while the Sentries are away, jump from the chair to the lamp to the bookshelf above the chest, step out of stealth and open the chest from there. Opening it poisons you with the {spell:9810}, which stops your stealth for a while and lets the drone see you; that is why the key comes first. Then get out."] = "먼저 열쇠를 얻으세요. {npc:7051}(23레벨, 비정예)은(는) 탑 입구에서 출발해 바깥을 한 바퀴 돕니다. 노란 반짝임을 끌고 다니는 뾰족 머리입니다. 은신한 뒤 뒤에서 {spell:921}하세요. 항상 열쇠를 갖고 있습니다. 공격이 아프니 은신이 풀리면 {spell:2983}로 도망치세요. 함께 순찰하는 데피아즈단 일꾼 두 마리도 조심하세요. 그다음 몰래 탑을 오르세요. 데피아즈단 순찰병(23)과 보초병(24)이 각 층을 지킵니다. 처치하고 싶다면 단검 매복 한 방에 죽습니다. 26레벨 정예 {npc:7053}은(는) 꼭대기 층에서 기다립니다. 혼절시키거나 친구를 데려오세요. 책상 옆 {object:123214}은(는) 자물쇠 따기 약 70-75가 필요합니다(먼저 붉은마루 산맥 {area:97}의 상자로 연습하세요). 요령: 보초병이 자리를 비운 사이 의자에서 램프, 궤짝 위 책장으로 뛰어올라 은신을 풀고 거기서 궤짝을 여세요. 열면 {spell:9810}에 중독되어 한동안 은신할 수 없고 일꾼에게 발각됩니다. 그래서 열쇠를 먼저 얻는 것입니다. 그다음 빠져나오세요.",
 
 	-- Step 5: Master Mathias Shaw
 	-- {zone:1453} Stormwind · {item:7676} Thistle Tea · {spell:8681} Instant Poison · {item:2928} Dust of Decay · {item:3371} Empty Vial · {npc:1325} Jasper Fel · {npc:1326} Sloan McCoy · {object:2100} Old Town
@@ -49,7 +50,7 @@ return {
 
 	-- Step 7: The cure's ingredients
 	["The cure's ingredients"] = "치료제 재료",
-	-- {zone:1453} Stormwind · {item:3421} Simple Wildflowers · {npc:1303} Felicia Gump · {object:2096} Trade District · {item:3372} Leaded Vial · {npc:1257} Keldric Boucher · {npc:1325} Jasper Fel · {item:4371} Bronze Tube · {item:8431} Spool of Light Chartreuse Silk Thread · {object:2177} The Finest Thread (no name in this language: may be words) · {item:6452} Anti-Venom · {skill:129} First Aid · {spell:526} Cure Poison · {spell:9810} Touch of Zanzil
+	-- {zone:1453} Stormwind · {item:3421} Simple Wildflowers · {npc:1303} Felicia Gump · {object:2096} Trade District · {item:3372} Leaded Vial · {npc:1257} Keldric Boucher · {npc:1325} Jasper Fel · {item:4371} Bronze Tube · {item:8431} Spool of Light Chartreuse Silk Thread · {object:2177} The Finest Thread · {item:6452} Anti-Venom · {skill:129} First Aid · {spell:526} Cure Poison · {spell:9810} Touch of Zanzil
 	["All four are in {zone:1453}. {item:3421}: Bernard or {npc:1303}'s flower shop by the {object:2096} canal. A {item:3372}: many general goods and alchemy vendors ({npc:1257}, {npc:1325} and others). A {item:4371}: the Auction House in the {object:2096}; the engineering suppliers keep only one and are nearly always sold out, and an engineer can make one. The {item:8431} lies on the floor beside the left end of the counter in {object:2177}, the tailor's shop on the canals; you can only pick it up with this quest. If you skip the cure, an {item:6452} ({skill:129}) or a druid's {spell:526} also clears the {spell:9810}."] = "",
 	-- {item:4371} Bronze Tube
 	["{item:4371}: the Auction House"] = "",

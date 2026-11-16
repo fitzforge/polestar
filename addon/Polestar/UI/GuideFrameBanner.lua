@@ -15,7 +15,8 @@ ns.UI.GuideFrame.Part(function(GF)
 	end)
 
 	---------------------------------------------------------------------------
-	-- Banners: the tab the player just closed, with its Reopen (for
+	-- Banners: a guide of the other faction, whose it is (Engine.OtherFaction,
+	-- never dismissed, after the way back from a trip); the tab the player just closed, with its Reopen (for
 	-- GF.CLOSED_SECONDS, shown even with no tab left); "Continue automatically"
 	-- moving on from a finished leveling guide (for SKIPPED_SECONDS); the group
 	-- quest the live step waits on
@@ -118,7 +119,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		local nextId = E.NextGuide and E.NextGuide(g.id)
 		local nextGuide = nextId and G and G.Get and G.Get(nextId)
 		if nextGuide then
-			local lv = UI.LevelRange(nextGuide.minLevel, nextGuide.maxLevel)
+			local lv = UI.GuideLevels(nextGuide)
 			return { guideId = g.id, label = (nextGuide.title or nextId) .. (lv and (" (" .. lv .. ")") or "") }
 		end
 		local choice = E.GetRouteChoice and E.GetRouteChoice(g.id)
@@ -137,6 +138,10 @@ ns.UI.GuideFrame.Part(function(GF)
 		-- On the way to a nearby service, a dungeon or a trainer (Nav.StartTrip): the way back first.
 		local t = navTrip()
 		if t then return "trip", t end
+		-- A guide of the other faction (an import, an old saved tab): whose it
+		-- is, for as long as it is open; never dismissed (#2462).
+		local side = g ~= nil and E.OtherFaction and E.OtherFaction(g.id)
+		if side then return "faction", side end
 		-- The tab just closed, until it is open again.
 		local ct = notices.closedTab
 		if ct and not (E and E.TabIds and E.TabIds()[ct.guideId]) then return "closedTab", ct end
@@ -395,6 +400,15 @@ ns.UI.GuideFrame.Part(function(GF)
 				or string.format(L["%s in %d steps: start looking for a group."], n.name or "", n.steps or 0))
 			banner.Jump:Hide()
 			banner.Close:Show()
+			local h = floor(9 + banner.Text:GetStringHeight() + 9 + 0.5)
+			banner:SetHeight(h)
+			return h
+		elseif kind == "faction" then
+			-- Another faction's guide (Engine.OtherFaction): the arrow stays off in it.
+			banner.Icon:SetTexture(Theme.Media("flag"))
+			banner.Text:SetText(string.format(L["This guide is for %s characters. Polestar won't guide you through it."], ns.FactionName(n) or n))
+			banner.Jump:Hide()
+			banner.Close:Hide()
 			local h = floor(9 + banner.Text:GetStringHeight() + 9 + 0.5)
 			banner:SetHeight(h)
 			return h
@@ -758,7 +772,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		elseif kind == "away" then
 			-- Looking ahead or back: closed for this step (awayNotice), another step has its own
 			notices.away = n.guideId .. ":" .. n.index
-		elseif kind == "group" or kind == "lost" or kind == "dungeon" or kind == "dungeonRun" then
+		elseif kind == "group" or kind == "lost" or kind == "dungeon" or kind == "dungeonRun" or kind == "faction" then
 			-- a group quest, a lost one or a dungeon is answered, never dismissed
 		elseif kind == "dungeonSoon" then
 			-- closed for this dungeon's run

@@ -11,8 +11,6 @@ return {
 	["Follow the road west past {area:460} (Horde) and south-west through the {area:465} into {zone:1443}; {area:608} stands at the top of the pass."] = "Идите по дороге на запад мимо места {area:460} (Орда) и на юго-запад через {area:465} в зону {zone:1443}; {area:608} – на вершине перевала.",
 	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
 	["{npc:5638}: the wreck's chest lies below {npc:11863}'s tower, on the way to {area:599}"] = "{npc:5638}: сундук с обломков корабля лежит под башней {npc:11863}, по пути к месту {area:599}",
-	-- {npc:5396} Captain Pentigast · {npc:5752} Corporal Melkins
-	["{npc:5396}, beside {npc:5752}"] = "{npc:5396} – рядом с NPC {npc:5752}",
 
 	-- Step 2: Malem chest
 	["Malem chest"] = "Сундук Малема",
@@ -27,6 +25,10 @@ return {
 	-- Step 5: Nijel's Point
 	-- {npc:5642} Vahlarriel Demonslayer · {area:599} Thunder Axe Fortress
 	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "",
+	-- {npc:5752} Corporal Melkins
+	["{npc:5752}: the Kolkar are at the end of this guide"] = "{npc:5752}: колкары – в конце этого гайда",
+	-- {npc:5396} Captain Pentigast · {npc:5752} Corporal Melkins
+	["{npc:5396}, beside {npc:5752}"] = "{npc:5396} – рядом с NPC {npc:5752}",
 
 	-- Step 6: Azore Aldamort
 	-- {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
@@ -37,6 +39,8 @@ return {
 	["The wrecked ship lies just south-west of {npc:11863}'s tower; its chest sits beside {object:177787}."] = "Разбитый корабль лежит чуть к юго-западу от башни {npc:11863}; его сундук стоит рядом с объектом {object:177787}.",
 	-- {npc:5638} Kreldig Ungor
 	["For {npc:5638}, at the end of this guide"] = "Для NPC {npc:5638}, в конце этого гайда",
+	-- {object:177787} Rackmore's Log · {zone:1443} Desolace
+	["{object:177787}, beside the chest: keep it, its keys and chest come on {zone:1443}'s south loop at the end of 30-40"] = "{object:177787} рядом с сундуком: сохраните их – ключи и сундук будут на южном круге зоны {zone:1443} в конце 30-40",
 
 	-- Step 8: Dalinda Malem
 	-- {npc:5644} Dalinda Malem · {area:608} Nijel's Point

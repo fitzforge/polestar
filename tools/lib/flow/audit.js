@@ -169,7 +169,7 @@ function runAudit(compiled, dataDir, opts = {}, log = () => {}) {
 	const branchRows = [];
 	for (const b of branchesOf(G, data.races, { faction, starts, classes })) {
 		const common = { race: b.race, cls: b.cls, faction: b.faction, guides: G, legs, data, longFly, dungeons, dungeonQuests };
-		let w = new Walk({ ...common, chain: new Router(b.first, route, dungeons, dungeonQuests) });
+		let w = new Walk({ ...common, chain: new Router(b.first, route, dungeons, dungeonQuests, { guides: G, faction: b.faction }) });
 		let r = analyse(w, data.quests, data.proj);
 		const bkey = `${b.start}/${b.cls}`;
 		let strict = null;
@@ -360,7 +360,7 @@ function runAudit(compiled, dataDir, opts = {}, log = () => {}) {
 
 // The experimental route choices a faction's leveling guides offer (`next` options in Polestar Experimental) and the
 // compiled guides hold (compile the experimental pack too), as [label, guide id]: "riverglades" for
-// polestar-experimental/riverglades-horde-1.
+// polestar-experimental/riverglades-alliance-1.
 function routeChoices(compiled, faction) {
 	const have = new Set(compiled.guides.map((g) => g.id));
 	const out = new Map();

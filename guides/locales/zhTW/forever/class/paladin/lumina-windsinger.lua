@@ -111,7 +111,7 @@ return {
 
 	-- Step 17: Old Fire-Eye
 	-- {item:268484} Moonsilver Blade · {quest:95140} Old Fire-Eye · {area:228} Sepulcher · {area:17065} Gilneas
-	["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): the guide waits for level 22 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "裝備{item:268484}。巨大的狼人{quest:95140}在{area:228}南側、往{area:17065}大門方向的林地遊蕩。他是精英（25級）：指南會先等到22級，並建議組隊；玩家從22級起就擊殺過他，有人需要再找一個幫手，也有人在25級時獨自擊敗他。在你用這把劍第一次擊中他之前，他會受到紫色護盾保護；護盾破裂時會出現提示訊息。",
+	["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): the guide waits for level 25 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "裝備{item:268484}。巨大的狼人{quest:95140}在{area:228}南側、往{area:17065}大門方向的林地遊蕩。他是精英（25級）：指南會先等到25級，並建議組隊；玩家從22級起就擊殺過他，有人需要再找一個幫手，也有人在25級時獨自擊敗他。在你用這把劍第一次擊中他之前，他會受到紫色護盾保護；護盾破裂時會出現提示訊息。",
 	-- {npc:259620} Lumina Windsinger · {area:228} Sepulcher
 	["{npc:259620}, the {area:228}"] = "{npc:259620}，{area:228}",
 	-- {quest:95140} Old Fire-Eye · {item:268484} Moonsilver Blade
@@ -122,6 +122,7 @@ return {
 	["Back to {npc:259620} in the {area:228} with the {item:268484} (the quest asks for it): she takes it and blesses it with the magic of her people into {item:267369}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): the guide waits for level 22 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "裝備{item:268484}。巨大的狼人{quest:95140}在{area:228}南側、往{area:17065}大門方向的林地遊蕩。他是精英（25級）：指南會先等到22級，並建議組隊；玩家從22級起就擊殺過他，有人需要再找一個幫手，也有人在25級時獨自擊敗他。在你用這把劍第一次擊中他之前，他會受到紫色護盾保護；護盾破裂時會出現提示訊息。",
 	-- ["Free her with the key, then stay close while she fights her way out of the keep."] = "用鑰匙救出她，然後在她殺出要塞時待在她身邊。",
 	-- ["No item yet: a Forsaken paladin rescue story; its sequel, the {item:268484}, cannot be finished yet."] = "目前沒有物品：一段被遺忘者聖騎士的救援故事；它的續篇{item:268484}目前還無法完成。",
 	-- ["Once she is clear of {area:235}, Lumina waits for you in the {area:228}. Speak with her again to hear what really happened on the road."] = "一旦她離開了{area:235}，露蜜娜會在{area:228}等你。再次與她交談，聽聽路上到底發生了什麼事。",

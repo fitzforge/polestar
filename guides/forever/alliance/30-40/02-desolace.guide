@@ -2,7 +2,7 @@
 guide forever/alliance/30-40/02-desolace
 title Desolace
 faction Alliance
-levels 35-36
+levels 33-35
 zone Desolace
 next forever/alliance/30-40/04b-stranglethorn-vale
 
@@ -14,7 +14,8 @@ next forever/alliance/30-40/04b-stranglethorn-vale
 # whose totems the Kolkar drop with Centaur Bounty's ears (#1602; 30-40/06 keeps it for a player who loads it fresh).
 # Left out: Bodyguard for Hire (5821).
 # Since 2026-11-07 this first Desolace visit comes after Stranglethorn's first loop (33-35); the south loop stays at
-# the end of 30-40/06 (38-39), which dives for Karnitol's satchel on its north-west coast.
+# the end of 30-40/06 (38-39), which dives for Karnitol's satchel on its north-west coast. Claim Rackmore's Treasure! (6161)
+# is taken from Rackmore's Log beside Karnitol's Chest here and carried to that south loop, where its keys and chest are.
 
 # ---------------------------------------------------------------- Getting there
 
@@ -26,8 +27,6 @@ step Nijel's Point
   turnin 1453                         -- Kreldig Ungor
   accept 1458
   accept 1454                         -- Kreldig Ungor: the wreck's chest lies below Azore's tower, on the way to Thunder Axe Fortress
-  accept 1387                         -- Corporal Melkins
-  accept 93224                        -- Captain Pentigast, beside Corporal Melkins
   accept 1437                         -- Vahlarriel Demonslayer
 
 step Malem chest
@@ -54,6 +53,8 @@ step Nijel's Point
   turnin 1465
   accept 1438
   accept 97284                        -- Vahlarriel Demonslayer: the Burning Blade in Thunder Axe Fortress, where her search leads
+  accept 1387                         -- Corporal Melkins: the Kolkar are at the end of this guide
+  accept 93224                        -- Captain Pentigast, beside Corporal Melkins
 
 # ---------------------------------------------------------------- Thunder Axe Fortress
 
@@ -65,6 +66,7 @@ step Karnitol's Chest
   tip The wrecked ship lies just south-west of Azore's tower; its chest sits beside Rackmore's Log.
   turnin 1454                         -- Karnitol's Chest
   accept 1455                         -- For Kreldig Ungor, at the end of this guide
+  accept 6161                         -- Rackmore's Log, beside the chest: keep it, its keys and chest come on Desolace's south loop at the end of 30-40
 
 step Dalinda Malem
   tip Dalinda hides inside the Burning Blade's fortress south-west of Nijel's Point.

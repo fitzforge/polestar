@@ -68,8 +68,8 @@ return {
 	["{item:6888} is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own {object:29784}. {item:6888} comes with {skill:185} (the client teaches it with the skill); {item:2678} are a cooking vendor's. The Strigid owls of {zone:1438} drop a {item:6889} more often than not, and {zone:1439}'s moonkin drop them too. Fishers can cook {item:6290} (recipe 40c) from Rut'theran's waters instead, and {npc:6286} in {area:186} gives Recipe of the Kaldorei (seven Small Spider Legs from the Webwood spiders) for {item:5472}, orange from 10 to 50."] = "{item:6888} est orange dès 1 (jaune à 45, vert à 65, gris à 85) : environ 50 préparations jusqu'à 50. Cuisinez à n'importe quel feu : le foyer d'une ville ou votre propre {object:29784}. {item:6888} vient avec {skill:185} (le client l'enseigne avec la compétence) ; les {item:2678} s'achètent chez un marchand de cuisine. Les Hiboux strigides de {zone:1438} laissent tomber un {item:6889} plus d'une fois sur deux, et les séléniens de {zone:1439} aussi. Les pêcheurs peuvent plutôt cuisiner le {item:6290} (recette 40 pc) pêché dans les eaux de Rut'theran, et {npc:6286} à {area:186} donne Une recette kaldorei (sept Petites pattes d'araignée sur les araignées Tissebois) pour {item:5472}, orange de 10 à 50.",
 
 	-- Step 13: Charred Wolf Meat: ingredients
-	-- {npc:250873} Juvenile Vuldren
-	["{npc:250873} in Zephras Isle, or wherever the arrow points"] = "{npc:250873} sur l'île de Zéphras, ou là où la flèche indique",
+	-- {npc:250874} Vuldren Alpha
+	["Vuldren, {npc:250874} in Zephras Isle, or wherever the arrow points"] = "Vuldrène, {npc:250874} sur l'île de Zéphras, ou là où la flèche indique",
 
 	-- Step 14: Charred Wolf Meat (1-50)
 	-- {spell:2538} Charred Wolf Meat · {object:29784} Basic Campfire · {item:2672} Stringy Wolf Meat
@@ -102,12 +102,11 @@ return {
 	-- Step 26: Coyote Steak: ingredients
 	-- {spell:2541} Coyote Steak
 	["{spell:2541}: ingredients"] = "{spell:2541} : ingrédients",
-	-- {npc:834} Coyote · {npc:833} Coyote Packleader · {zone:1436} Westfall
-	["{npc:834} (54%), {npc:833} (51%) in {zone:1436}, or wherever the arrow points"] = "{npc:834} (54 %), {npc:833} (51 %) dans {zone:1436}, ou là où la flèche indique",
+	-- {npc:833} Coyote Packleader · {zone:1436} Westfall
+	["Coyote (54%), {npc:833} (51%) in {zone:1436}, or wherever the arrow points"] = "Coyote (54 %), {npc:833} (51 %) dans {zone:1436}, ou là où la flèche indique",
 
 	-- Step 27: Coyote Steak (50-90)
 	-- {spell:2541} Coyote Steak · {object:29784} Basic Campfire · {skill:185} Cooking · {zone:1436} Westfall · {npc:235} Salma Saldean · {area:108} Sentinel Hill · {item:733} Westfall Stew · {item:724} Goretusk Liver Pie
-	-- plural, as words: Coyotes = {npc:834} Coyote
 	["{spell:2541} is orange from 50 (yellow at 90, green at 110, grey at 130): about 40 crafts to 90. Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 50 for 1s. Coyotes roam the middle of {zone:1436}; {npc:235} on the farm north of {area:108} also gives {item:733} and {item:724} quests that use what you loot here."] = "{spell:2541} est orange dès 50 (jaune à 90, vert à 110, gris à 130) : environ 40 préparations jusqu'à 90. Cuisinez à n'importe quel feu : le foyer d'une ville ou votre propre {object:29784}. Tout maître de {skill:185} l'enseigne dès la compétence 50 pour 1 pa. Les Coyotes parcourent le centre de {zone:1436} ; {npc:235}, à la ferme au nord de {area:108}, donne aussi des quêtes de {item:733} et de {item:724} qui utilisent ce que vous ramassez ici.",
 
 	-- Step 28: Crab Cake: shopping
@@ -411,6 +410,7 @@ return {
 	-- ["{npc:1549} (88%) in {zone:1420}, or wherever the arrow points"] = "{npc:1549} (88%) ({zone:1420}), ou là où pointe la flèche",
 	-- ["{npc:1689} (38%), {npc:1127} (36%) in {zone:1426}, or wherever the arrow points"] = "{npc:1689} (38%), {npc:1127} (36%) ({zone:1426}), ou là où pointe la flèche",
 	-- ["{npc:2385} (56%) in {zone:1424}, or wherever the arrow points"] = "{npc:2385} (56%) ({zone:1424}), ou là où pointe la flèche",
+	-- ["{npc:250873} in Zephras Isle, or wherever the arrow points"] = "{npc:250873} sur l'île de Zéphras, ou là où la flèche indique",
 	-- ["{npc:3099} (99%), {npc:3100} (74%) in {zone:1411}, or wherever the arrow points"] = "{npc:3099} (99%), {npc:3100} (74%) ({zone:1411}), ou là où pointe la flèche",
 	-- ["{npc:3244} (33%) in {zone:1413}, or wherever the arrow points"] = "{npc:3244} (33%) ({zone:1413}), ou là où pointe la flèche",
 	-- ["{npc:3818} (53%) in {zone:1440}, or wherever the arrow points"] = "{npc:3818} (53%) ({zone:1440}), ou là où pointe la flèche",
@@ -418,6 +418,7 @@ return {
 	-- ["{npc:4701} (55%), {npc:4702} (54%), {npc:4700} (40%) in {zone:1443}, or wherever the arrow points"] = "{npc:4701} (55%), {npc:4702} (54%), {npc:4700} (40%) ({zone:1443}), ou là où pointe la flèche",
 	-- ["{npc:547} (35%), {npc:157} (34%) in {zone:1436}, or wherever the arrow points"] = "{npc:547} (35%), {npc:157} (34%) ({zone:1436}), ou là où pointe la flèche",
 	-- ["{npc:7099} (40%) in {zone:1448}, or wherever the arrow points"] = "{npc:7099} (40%) ({zone:1448}), ou là où pointe la flèche",
+	-- ["{npc:834} (54%), {npc:833} (51%) in {zone:1436}, or wherever the arrow points"] = "{npc:834} (54 %), {npc:833} (51 %) dans {zone:1436}, ou là où la flèche indique",
 	-- ["{quest:6610} asks for 20 {item:8932} (check the quest log); innkeepers and food vendors sell it, and the arrow picks the nearest."] = "{quest:6610} demande 20 {item:8932} (voir le journal des quêtes) ; les aubergistes et marchands de nourriture en vendent, et la flèche indique le plus proche.",
 	-- ["{spell:2538} is orange from 1 (yellow at 45, grey at 85): about 50 crafts to 50. Cook at any fire: {object:29784} comes with {skill:185}."] = "{spell:2538} est orange dès 1 (jaune à 45, gris à 85) : environ 50 préparations jusqu'à 50. Cuisinez à n'importe quel feu : {object:29784} s'apprend avec {skill:185}.",
 	-- ["{spell:2540} is orange from 1 (yellow at 45, grey at 85): about 50 crafts to 50. Cook at any fire: {object:29784} comes with {skill:185}."] = "{spell:2540} est orange dès 1 (jaune à 45, gris à 85) : environ 50 préparations jusqu'à 50. Cuisinez à n'importe quel feu : {object:29784} s'apprend avec {skill:185}.",

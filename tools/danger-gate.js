@@ -1,14 +1,17 @@
 #!/usr/bin/env node
 'use strict';
-// The danger-at-the-spot release gate (#1575): every leveling guide's kill/collect/use goals against the hostile mobs
-// around them and the route's level there, and its grinds' camps against the level each grind starts at (#2207;
-// tools/lib/danger.js has the rules), compared with the reviewed baseline in data/danger-baseline.json. A flag the
-// baseline lacks fails the gate, so a route rebuild or a guide edit that sends players among mobs well above them,
-// elites, a high camp or a grind on mobs 2+ levels over them is caught before it ships.
+// The danger-at-the-spot release gate (#1575): every leveling guide's kill/collect/use goals (our guides' and
+// Polestar's experimental guides') against the hostile mobs around them and the route's level there, and its grinds'
+// camps against the level each grind starts at (#2207; tools/lib/danger.js has the rules), compared with the reviewed
+// baseline in data/danger-baseline.json. A flag the baseline lacks fails the gate, so a route rebuild or a guide edit
+// that sends players among mobs well above them, elites, a high camp or a grind on mobs 2+ levels over them is caught
+// before it ships.
 //
-//   node tools/danger-gate.js --levels <Alliance.json>,<Horde.json> [options]
+//   node tools/danger-gate.js --levels <Alliance.json>,<Horde.json>[,<Alliance-exp.json>,<Horde-exp.json>] [options]
 //     --levels FILES       the calibrated level model's output per faction (the release audit's level run on the
-//                          release candidate): the route's level at each step comes from it
+//                          release candidate): the route's level at each step comes from it; the experimental
+//                          guides' from a run that takes each experimental route choice (its branches name their
+//                          `faction`), given after them. Without it they are read at their header's first level
 //     --baseline FILE      the reviewed flags (default data/danger-baseline.json)
 //     --data DIR           reference data (default data/forever); --guides DIR (default guides)
 //     --recordings FILE    a recordings index (the maintainer's local rec index: deaths, objective ticks, abandons):

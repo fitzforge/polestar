@@ -3,7 +3,7 @@ guide forever/alliance/skyborne/01-zephras-isle
 title Zephras Isle
 faction Alliance
 race Skyborne
-levels 1-14
+levels 1-15
 zone Zephras Isle
 next forever/alliance/02-westfall
 
@@ -265,6 +265,7 @@ step Village quests
 step Shen'dar Highlands: kill these as you meet them
   zone Zephras Isle
   tip The Highlands Bandits camp north-east of the village. "Badwind" Bennic waits at the far north end of their camp.
+  tip Careful: the bandits stand in close groups and players often died in this camp: pull them one at a time from the edge.
   kill 251918 quest 92517.1                   -- Highlands Bandits
   collect 257945 quest 93319.1
   kill 255534 quest 92517.2                   -- "Badwind" Bennic, below ground
@@ -358,6 +359,7 @@ step Shen'dar Village again
 
 step Fendaal Windstone
   tip On the road south-east to Valanaar, Fendaal Windstone watches the Al'Aketh Assassins just north of him.
+  tip Careful: the Al'Aketh Assassins (9-10) stand close together: pull them one at a time.
   accept 98512                                -- Fendaal Windstone
   kill 254626 quest 98512.1
   turnin 98512                                -- Fendaal Windstone
@@ -540,9 +542,12 @@ step Desperate times
   complete 94568 @66.17,76.51
   turnin 94568
   accept 92640
+
+step Desperate Times
+  tip Valennia asks you to hear out both leaders: Elaadrin Evengale of the Alliance and Ayessa Dawnsinger of the Horde. Ayessa's name shows red to you, but she talks to you all the same, and the quest needs both.
   talk 252383 quest 92640.1           -- Upstairs
-  talk 251968 quest 92640.2 @59.15,79.73 map 2521 live
-  talk 252475 quest 92640.3
+  talk 251968 quest 92640.2 @59.15,79.73 map 2521 live -- Ayessa Dawnsinger
+  talk 252475 quest 92640.3           -- Elaadrin Evengale
   turnin 92640                                -- Valennia Stormfist
   accept 93065
 

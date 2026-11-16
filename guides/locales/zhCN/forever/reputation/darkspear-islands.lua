@@ -122,8 +122,8 @@ return {
 	-- Step 23: Theramore Expeditionary Force to Exalted
 	-- {faction:2799} Theramore Expeditionary Force
 	["{faction:2799} to Exalted"] = "{faction:2799}刷到崇拜",
-	-- {item:271924} Rebels' Rugged Reaper · {item:271928} Clever Expeditionary's Spellblade · {item:271936} Guerrilla's Jagged Mace · {item:271932} Insurgent's Manifesto
-	["Revered to Exalted is 21000 reputation, half the climb. Revered opens the weapons for levels 28, 38, 48 and 58: {item:271924} (two-handed axe), {item:271928} (dagger), {item:271936} and {item:271932} (off-hand), 1g44s to 37g15s."] = "从崇敬到崇拜需要21000声望，占整个冲声望过程的一半。崇敬后可购买28、38、48和58级的武器：{item:271924}（双手斧）、{item:271928}（匕首）、{item:271936}和{item:271932}（副手），价格1金币44银币至37金币15银币。",
+	-- {item:271924} Rebels' Rugged Reaper · {item:271928} Clever Expeditionary's Spellblade · {item:271932} Insurgent's Manifesto
+	["Revered to Exalted is 21000 reputation, half the climb. Revered opens the weapons for levels 28, 38, 48 and 58: {item:271924} (two-handed axe), {item:271928} (dagger), Guerrilla's Jagged Mace and {item:271932} (off-hand), 1g44s to 37g15s."] = "从崇敬到崇拜需要21000声望，占整个冲声望过程的一半。崇敬后可购买28、38、48和58级的武器：{item:271924}（双手斧）、{item:271928}（匕首）、游击队员的锯齿锤和{item:271932}（副手），价格1金币44银币至37金币15银币。",
 	-- {npc:263569} Bryanna Embreeze
 	["{npc:263569}: Revered rewards"] = "{npc:263569}：崇敬奖励",
 
@@ -132,4 +132,7 @@ return {
 	["Exalted gives the Legacy Point \"Master of Darkspear Islands\" and opens the epics: gloves in plate, mail, leather and cloth for levels 50 and 60 ({item:271940}, Gloves, Handguards and Handwraps, 3g94s to 15g16s) and level 60 shoulders in every armor type ({item:271955}, Shoulders, Spaulders, Mantle, Epaulets, Shoulderpads and Shoulderguards, 9g44s to 16g86s). The {item:276504} comes from a short questline that Exalted opens here."] = "崇拜会给予传承点数“暗矛群岛主宰”，并开放史诗装备：适合 50 和 60 级的板甲、锁甲、皮甲和布甲手套（{item:271940}、手套、护手和裹手，3 金 94 银至 15 金 16 银），以及适合 60 级、涵盖所有护甲类型的肩部装备（{item:271955}等各类护肩，9 金 44 银至 16 金 86 银）。崇拜还会在这里开放一条简短任务线，奖励 {item:276504}。",
 	-- {npc:263569} Bryanna Embreeze
 	["{npc:263569}: Exalted rewards"] = "{npc:263569}：崇拜奖励",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Revered to Exalted is 21000 reputation, half the climb. Revered opens the weapons for levels 28, 38, 48 and 58: {item:271924} (two-handed axe), {item:271928} (dagger), {item:271936} and {item:271932} (off-hand), 1g44s to 37g15s."] = "从崇敬到崇拜需要21000声望，占整个冲声望过程的一半。崇敬后可购买28、38、48和58级的武器：{item:271924}（双手斧）、{item:271928}（匕首）、{item:271936}和{item:271932}（副手），价格1金币44银币至37金币15银币。",
 }

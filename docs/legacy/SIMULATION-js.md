@@ -442,9 +442,14 @@ packages.
   Tauren robustness tail, 90% interval 93-225 h). The search does not use it
   (it would turn the gate into "grind to any package": a trial run let the
   Human route grind 6 -> 26 before Duskwood).
-- Guide sequences (`sim compare`) are scored as written: only travel, levels
-  and prerequisites apply, not these route rules. Their `optional` goals are
-  left out (§5).
+- Guide sequences (`sim compare`, the level model) are scored as written:
+  only travel, levels and prerequisites apply, not these route rules. Their
+  `optional` goals are left out (§5). No accept or quest work waits for a
+  level the guide doesn't hold for with its own `level` steps: a quest far
+  above the character is picked up where the guide picks it up and worked
+  where the guide works it, without grinding first. An accept under the
+  quest's minimum level is refused (the game won't hand it over) and counted
+  in `acceptsUnderMinLevel`, a guide bug to fix.
 
 ### Rules (data/rules.json)
 

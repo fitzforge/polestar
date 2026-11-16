@@ -286,18 +286,22 @@ struct Named {
 	id: f64,
 	name: String,
 	own: bool,
+	/// An exclusive's title (in the goal's preTitles and closedBy): a quest that closes the goal's.
+	closes: bool,
 }
 
 fn static_kind(k: &str) -> Option<&'static str> {
 	KINDS.iter().copied().find(|x| *x == k)
 }
 
-/// Every { kind, id, name } a goal names, its own (the NPC, object, target or item it shows) flagged `own`.
+/// Every { kind, id, name } a goal names, its own (the NPC, object, target or item it shows) flagged `own`, its
+/// exclusives' titles `closes`.
 fn goal_names(goal: &V, data: &Data) -> Vec<Named> {
 	let mut out = Vec::new();
+	let closes = std::cell::Cell::new(false);
 	let mut add = |kind: &'static str, id: &V, name: &V, own: bool| {
 		if let (Some(id), Some(name)) = (int_of(id), str_(name)) {
-			out.push(Named { kind, id, name: name.to_string(), own });
+			out.push(Named { kind, id, name: name.to_string(), own, closes: closes.get() });
 		}
 	};
 	add("quest", &goal.get("quest"), &goal.get("title"), false);
@@ -331,9 +335,13 @@ fn goal_names(goal: &V, data: &Data) -> Vec<Named> {
 	}
 	let pre = goal.get("preTitles");
 	if pre.truthy() {
+		let closed_by = goal.get("closedBy").items();
 		for (id, title) in pre.entries() {
-			add("quest", &V::Num(str_to_num(&id)), &title, false);
+			let id = str_to_num(&id);
+			closes.set(closed_by.iter().any(|c| c.as_num() == Some(id)));
+			add("quest", &V::Num(id), &title, false);
 		}
+		closes.set(false);
 	}
 	let area = goal.get("area");
 	if is_int(&area) {
@@ -1347,11 +1355,19 @@ fn guide_index(guide: &V, data: &Data, common: &Rc<FxHashSet<String>>, ctx: &mut
 	idx
 }
 
+/// The names a step's text reads first: its goals' own. An exclusive's title that is also one of the step's own
+/// quests' titles is left out, so the step's quest is the token: Forever's same-named variants ("Call of Air" 96136
+/// for Skyborne, 1531 for the others; the Great Cat Spirit's per race) close each other, and the lower id would win
+/// otherwise. (A same-named prerequisite, the next quest of a chain, keeps its place.)
 fn step_index(step: &V, data: &Data, common: &Rc<FxHashSet<String>>, ctx: &Ctx) -> NameIndex {
 	let mut idx = NameIndex::new(common.clone());
 	let goals = or_empty(&step.get("goals"));
+	let own_quests: FxHashSet<String> = goals.iter().filter(|g| is_int(&g.get("quest"))).filter_map(|g| str_(&g.get("title")).map(str::to_string)).collect();
 	for goal in &goals {
 		for n in goal_names(goal, data) {
+			if n.closes && own_quests.contains(&n.name) {
+				continue;
+			}
 			idx.add(n.kind, &V::Num(n.id), Some(&n.name), STEP);
 		}
 	}

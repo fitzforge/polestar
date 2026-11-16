@@ -7,13 +7,13 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Auberdine
-	-- {npc:3649} Thundris Windweaver · {npc:3702} Alanndarian Nightsong · {npc:2913} Archaeologist Hollee · {npc:3693} Terenthis · {npc:3694} Sentinel Selarin
-	["From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} stands beside {npc:3693} by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment."] = "Do cais (ou da estalagem, se você usou a Pedra de Regresso), suba primeiro até a ponta norte da vila ({npc:3649}, {npc:3702} junto ao poço lunar, {npc:2913}) e depois desça a rua principal: o cartaz de PROCURA-SE do lado de fora da estalagem e {npc:3693} na ponta leste dela, onde a estrada sai para o sul. {npc:3694} fica ao lado de {npc:3693}, junto ao mestre de voo; se ela não estiver lá, foi morta e reaparece em breve: espere um momento.",
+	-- {npc:3649} Thundris Windweaver · {npc:3702} Alanndarian Nightsong · {npc:2913} Archaeologist Hollee · {npc:3693} Terenthis · {npc:3694} Sentinel Selarin · {quest:990} Trek to Ashenvale · {npc:3692} Volcor
+	["From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} ({quest:990}) is beside {npc:3693} only for a few minutes at a time: she comes shortly after someone hands in {npc:3692}'s escort and leaves again about 5 minutes later. If she isn't there, don't wait: the guide offers her quest again when you hand in {npc:3692}'s escort to {npc:3693} yourself. Changing layer can also find her."] = "Do cais (ou da estalagem, se você usou a Pedra de Regresso), suba primeiro até a ponta norte da vila ({npc:3649}, {npc:3702} junto ao poço lunar, {npc:2913}) e depois desça a rua principal: o cartaz de PROCURA-SE do lado de fora da estalagem e {npc:3693} na ponta leste da rua, onde a estrada sai para o sul. {npc:3694} ({quest:990}) fica ao lado de {npc:3693} só por alguns minutos de cada vez: ela chega logo depois que alguém entrega a escolta de {npc:3692} e vai embora uns 5 minutos depois. Se ela não estiver lá, não espere: o guia oferece a missão dela de novo quando você mesmo entregar a escolta de {npc:3692} a {npc:3693}. Trocar de camada também pode encontrá-la.",
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston
 	["{npc:3649}, north end of the village: {npc:1646}'s reply"] = "{npc:3649}, ponta norte da vila: a resposta de {npc:1646}",
 	["The WANTED poster"] = "O cartaz de PROCURA-SE",
 	-- {npc:3694} Sentinel Selarin · {npc:3693} Terenthis · {npc:3691} Raene Wolfrunner · {area:415} Astranaar
-	["{npc:3694}, beside {npc:3693}: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694}, ao lado de {npc:3693}: para {npc:3691} em {area:415}, no próximo guia",
+	["{npc:3694}, beside {npc:3693} if she is there: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694}, ao lado de {npc:3693}, se ela estiver lá: para {npc:3691} em {area:415}, no próximo guia",
 
 	-- Step 2: Lunar Fungus and Earthroot
 	-- {item:15851} Lunar Fungus · {item:2449} Earthroot
@@ -122,6 +122,12 @@ return {
 	-- {npc:12298} Sickly Deer
 	["Cure {npc:12298}"] = "Cure {npc:12298}",
 
+	-- Step 21: Auberdine
+	-- {quest:990} Trek to Ashenvale · {npc:3694} Sentinel Selarin · {npc:3693} Terenthis · {npc:3692} Volcor
+	["No {quest:990} yet? Give it a minute after the hand-in: {npc:3694} comes to {npc:3693}'s side shortly after {npc:3692}'s escort is handed in. Changing layer can also find her."] = "Ainda sem {quest:990}? Espere um minuto após a entrega: {npc:3694} vem para o lado de {npc:3693} logo depois que a escolta de {npc:3692} é entregue. Trocar de camada também pode encontrá-la.",
+	-- {npc:3694} Sentinel Selarin · {quest:990} Trek to Ashenvale · {npc:3691} Raene Wolfrunner · {area:415} Astranaar · {zone:1440} Ashenvale
+	["{npc:3694}, once she comes: {quest:990}, for {npc:3691} in {area:415} on your next {zone:1440} visit"] = "{npc:3694}, quando ela chegar: {quest:990}, para {npc:3691} em {area:415} na sua próxima visita a {zone:1440}",
+
 	-- Step 22: Auberdine flight master
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "Mestre de voo de {area:442}",
@@ -135,8 +141,8 @@ return {
 	["Cast {spell:18960}"] = "Use {spell:18960}",
 
 	-- Step 27: Dendrite Starblaze
-	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "Lance {spell:18960}. {npc:11802} fica no andar de cima do prédio dele em {area:2361}: suba por dentro, a seta não diferencia os andares. Aprenda a rota de voo de lá, se ainda não tiver.",
+	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:493} Moonglade · {npc:10897} Sindrayl
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. No {area:493} flight path yet? Learn it from {npc:10897}, south of the lake: the flight master in {area:2361} flies only Druids, from her gossip, and has none to learn."] = "Lance {spell:18960}. {npc:11802} fica no andar de cima do prédio dele em {area:2361}: suba por dentro, a seta não diferencia os andares. Ainda sem a rota de voo de {area:493}? Aprenda com {npc:10897}, ao sul do lago: a mestre de voo em {area:2361} só leva Druidas, pela conversa, e não tem rota para aprender.",
 
 	-- Step 28: Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
@@ -168,6 +174,9 @@ return {
 	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}. {npc:4217} is a Druid trainer: learn your new spells from him."] = "Pegue o portal para subir até {npc:4217} e depois voe de volta para {area:442} para a estrada ao sul até {zone:1440}. {npc:4217} é instrutor de druida: aprenda com ele seus feitiços novos.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "Lance {spell:18960}. {npc:11802} fica no andar de cima do prédio dele em {area:2361}: suba por dentro, a seta não diferencia os andares. Aprenda a rota de voo de lá, se ainda não tiver.",
+	-- ["From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} stands beside {npc:3693} by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment."] = "Do cais (ou da estalagem, se você usou a Pedra de Regresso), suba primeiro até a ponta norte da vila ({npc:3649}, {npc:3702} junto ao poço lunar, {npc:2913}) e depois desça a rua principal: o cartaz de PROCURA-SE do lado de fora da estalagem e {npc:3693} na ponta leste dela, onde a estrada sai para o sul. {npc:3694} fica ao lado de {npc:3693}, junto ao mestre de voo; se ela não estiver lá, foi morta e reaparece em breve: espere um momento.",
 	-- ["From the dock, up to the north end of the village first ({npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south."] = "Do cais, suba primeiro até a ponta norte da vila ({npc:3702}, junto ao poço lunar, e {npc:2913}) e depois desça a rua principal: o cartaz de PROCURA-SE do lado de fora da estalagem e {npc:3693} na ponta leste dela, onde a estrada sai para o sul.",
 	-- ["Moonstalker Sires prowl the woods around the glaive. The {object:10076} and the {object:12666} sit at the bottom of the crater; {npc:3584} stands on its north side."] = "Espreitalunas Machos rondam a mata ao redor da glaive. {object:10076} e {object:12666} ficam no fundo da cratera; {npc:3584} fica no lado norte.",
+	-- ["{npc:3694}, beside {npc:3693}: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694}, ao lado de {npc:3693}: para {npc:3691} em {area:415}, no próximo guia",
 }

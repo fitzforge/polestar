@@ -11,8 +11,6 @@ return {
 	["Follow the road west past {area:460} (Horde) and south-west through the {area:465} into {zone:1443}; {area:608} stands at the top of the pass."] = "Folge der Straße nach Westen an {area:460} (Horde) vorbei und nach Südwesten durch {area:465} nach {zone:1443}; {area:608} liegt oben am Pass.",
 	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
 	["{npc:5638}: the wreck's chest lies below {npc:11863}'s tower, on the way to {area:599}"] = "{npc:5638}: Die Truhe des Wracks liegt unterhalb von {npc:11863}s Turm, auf dem Weg nach {area:599}",
-	-- {npc:5396} Captain Pentigast · {npc:5752} Corporal Melkins
-	["{npc:5396}, beside {npc:5752}"] = "{npc:5396}, neben {npc:5752}",
 
 	-- Step 2: Malem chest
 	["Malem chest"] = "Truhe der Malems",
@@ -27,6 +25,10 @@ return {
 	-- Step 5: Nijel's Point
 	-- {npc:5642} Vahlarriel Demonslayer · {area:599} Thunder Axe Fortress
 	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "{npc:5642}: die Brennende Klinge in {area:599}, wohin ihre Suche führt",
+	-- {npc:5752} Corporal Melkins
+	["{npc:5752}: the Kolkar are at the end of this guide"] = "{npc:5752}: Die Kolkar kommen am Ende dieses Guides",
+	-- {npc:5396} Captain Pentigast · {npc:5752} Corporal Melkins
+	["{npc:5396}, beside {npc:5752}"] = "{npc:5396}, neben {npc:5752}",
 
 	-- Step 6: Azore Aldamort
 	-- {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
@@ -37,6 +39,8 @@ return {
 	["The wrecked ship lies just south-west of {npc:11863}'s tower; its chest sits beside {object:177787}."] = "Das Schiffswrack liegt direkt südwestlich von {npc:11863}s Turm; seine Truhe steht neben {object:177787}.",
 	-- {npc:5638} Kreldig Ungor
 	["For {npc:5638}, at the end of this guide"] = "Für {npc:5638}, am Ende dieses Guides",
+	-- {object:177787} Rackmore's Log · {zone:1443} Desolace
+	["{object:177787}, beside the chest: keep it, its keys and chest come on {zone:1443}'s south loop at the end of 30-40"] = "{object:177787}, neben der Truhe: Behalte es, die Schlüssel und die Truhe kommen auf der Südrunde durch {zone:1443} am Ende von 30-40",
 
 	-- Step 8: Dalinda Malem
 	-- {npc:5644} Dalinda Malem · {area:608} Nijel's Point

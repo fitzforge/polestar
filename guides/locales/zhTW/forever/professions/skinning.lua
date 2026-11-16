@@ -44,10 +44,10 @@ return {
 	-- {npc:251291} Hippogryph Youth
 	["{npc:251291}, Prideclaw"] = "{npc:251291}、群爪",
 	["Prideclaw, Galestrider"] = "",
+	["Prideclaw, Vuldren"] = "",
+	["Cloudrunner, Galestrider"] = "雲行者、疾風行者",
 	-- {npc:250928} Highlands Ursera
 	["Prideclaw, {npc:250928}"] = "群爪、{npc:250928}",
-	["Galestrider, Cloudrunner"] = "逐風者、雲行者",
-	["Prideclaw, Vuldren"] = "",
 
 	-- Step 6: Beasts 1-9: Durotar (1-50)
 	-- {zone:1411} Durotar
@@ -244,6 +244,7 @@ return {
 	-- ["Beasts 48-54: {zone:1449} (275-300)"] = "野獸 48-54：{zone:1449}（275-300）",
 	-- ["Duskbat"] = "夜行蝙蝠",
 	-- ["Duskbat, {npc:1513}"] = "夜行蝙蝠、{npc:1513}",
+	-- ["Galestrider, Cloudrunner"] = "逐風者、雲行者",
 	-- ["Journeyman {skill:393} raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest {skill:393} trainer of your faction."] = "中級{skill:393}將上限提高至 150；需要技能 50 且角色等級 10。箭頭會指向你陣營最近的{skill:393}訓練師。",
 	-- ["Kill and skin {npc:1150} (30), {npc:683} (30), {npc:855} (30), {npc:681} (30), {npc:688} (31, needs 155), {npc:1108} (32, needs 160), Panther (32, needs 160), {npc:682} (32, needs 160), {npc:685} (33, needs 165), {npc:689} (34, needs 170), {npc:1085} (34, needs 170) along the loop until {skill:393} 175; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 30-45."] = "沿路線擊殺並剝皮：{npc:1150}（30）、{npc:683}（30）、{npc:855}（30）、{npc:681}（30）、{npc:688}（31，需要 155）、{npc:1108}（32，需要 160）、黑豹（32，需要 160）、{npc:682}（32，需要 160）、{npc:685}（33，需要 165）、{npc:689}（34，需要 170）、{npc:1085}（34，需要 170），直到{skill:393}達到 175；剝取你技能允許的最高等級野獸。L 級野獸在 20 級以下需要技能 (L-10)x10，20 級以上需要 Lx5。區域等級 30-45。",
 	-- ["Kill and skin {npc:1417} (21), {npc:1020} (22), {npc:1015} (23), {npc:1400} (23), {npc:1016} (24), {npc:1021} (24), {npc:2089} (25), {npc:1022} (25), {npc:1023} (26, needs 130), {npc:1018} (27, needs 135), {npc:1019} (29, needs 145) along the loop until {skill:393} 150; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 20-30."] = "沿路線擊殺並剝皮：{npc:1417}（21）、{npc:1020}（22）、{npc:1015}（23）、{npc:1400}（23）、{npc:1016}（24）、{npc:1021}（24）、{npc:2089}（25）、{npc:1022}（25）、{npc:1023}（26，需要 130）、{npc:1018}（27，需要 135）、{npc:1019}（29，需要 145），直到{skill:393}達到 150；剝取你技能允許的最高等級野獸。L 級野獸在 20 級以下需要技能 (L-10)x10，20 級以上需要 Lx5。區域等級 20-30。",

@@ -508,7 +508,9 @@ fn ellesmereui_font_a_refresh_sets_the_text_again_a_frame_later_so_a_string_draw
 		T.Refresh()
 		stub.advance(0.1)
 		local ownFont = sets
+		sets = 0
 		Polestar.Set("ui.matchFont", true)
+		local switched = sets
 		stub.advance(0.1)
 		sets = 0
 		T.Refresh()
@@ -520,12 +522,15 @@ fn ellesmereui_font_a_refresh_sets_the_text_again_a_frame_later_so_a_string_draw
 		T.Refresh()
 		local syncTwo = sets
 		stub.advance(0.1)
-		emit({ ownFont = ownFont, sameFrame = sameFrame, later = later, twiceLater = sets - syncTwo, text = fs:GetText() })"#,
+		emit({ ownFont = ownFont, switched = switched, sameFrame = sameFrame, later = later, twiceLater = sets - syncTwo, text = fs:GetText() })"#,
 		"stub.withEllesmere()",
 	);
-	assert_eq!(out["ownFont"], 2, "without EllesmereUI's font the one re-set stands, nothing is queued");
-	assert_eq!(out["sameFrame"], 2, "the refresh sets the text again at once");
-	assert_eq!(out["later"], 2, "and once more a frame later");
+	// A string's text is set again where its font changed (the switch to EllesmereUI's); a refresh that changes
+	// no font leaves the strings as they are, but while the font is EllesmereUI's sets them again a frame later.
+	assert_eq!(out["ownFont"], 0, "without EllesmereUI's font a refresh that changes no font sets nothing, nothing is queued");
+	assert_eq!(out["switched"], 2, "EllesmereUI's font taken: the text set again at once");
+	assert_eq!(out["sameFrame"], 0, "the same font: nothing set again at once");
+	assert_eq!(out["later"], 2, "and once a frame later");
 	assert_eq!(out["twiceLater"], 2, "refreshes in one frame share one later pass");
 	assert_eq!(out["text"], "Innkeeper Heather");
 }
@@ -848,7 +853,9 @@ fn skins_a_window_repaints_from_the_house_style_to_halo_veil_no_fill_to_hearth_b
 	let house = json!({ "bg": true, "veil": false, "board": false, "ember": false, "border": true, "shadow": true });
 	assert_eq!(out["house"], house);
 	assert_eq!(out["halo"], json!({ "bg": false, "veil": true, "board": false, "ember": false, "border": false, "shadow": false }), "Halo: the soft veil alone");
-	assert_eq!((out["veilAlpha"].as_f64().unwrap() * 100.0).round() / 100.0, 0.84, "the big windows' veil");
+	// The big windows' veil (84 %) scaled by the window's opacity against its default 94 %: the settings window
+	// (W.Shell) is opaque whatever ui.bgOpacity says, so 0.84 / 0.94.
+	assert_eq!((out["veilAlpha"].as_f64().unwrap() * 100.0).round() / 100.0, 0.89, "the big windows' veil, at full opacity");
 	assert_eq!(
 		out["hearth"],
 		json!({ "bg": false, "veil": false, "board": true, "ember": true, "border": true, "shadow": true }),

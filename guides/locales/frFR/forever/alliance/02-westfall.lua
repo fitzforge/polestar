@@ -95,7 +95,7 @@ return {
 	-- Step 20: Sentinel Hill's tower and Thor
 	-- {area:108} Sentinel Hill · {npc:523} Thor
 	["{area:108}'s tower and {npc:523}"] = "Tour de {area:108} et {npc:523}",
-	-- {npc:234} Gryan Stoutmantle · {npc:821} Captain Danuvin · {npc:491} Quartermaster Lewis · {npc:523} Thor · {npc:878} Scout Galiaan · {npc:1323} Osric Strang · {zone:1453} Stormwind · {npc:279} Morgan Pestle · {object:2096} Trade District · {object:2156} Limited Immunity (no name in this language: may be words) · {object:2100} Old Town · {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {npc:352} Dungar Longdrink
+	-- {npc:234} Gryan Stoutmantle · {npc:821} Captain Danuvin · {npc:491} Quartermaster Lewis · {npc:523} Thor · {npc:878} Scout Galiaan · {npc:1323} Osric Strang · {zone:1453} Stormwind · {npc:279} Morgan Pestle · {object:2096} Trade District · {object:2156} Limited Immunity · {object:2100} Old Town · {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {npc:352} Dungar Longdrink
 	["{npc:234} and {npc:821} stand at the top of the stone tower, {npc:491} inside it, {npc:523} the gryphon master on the south side of the hill with {npc:878} beside him. {npc:523} gives you Lewis' note for {npc:1323} with a free flight to {zone:1453}: take it now. In {zone:1453}, {npc:279}'s shop is in the {object:2096} by the gryphons, {npc:1323}'s shop, {object:2156}, in {object:2100}; {npc:1646} stands in {object:2098} on the way back to {npc:352}, the gryphon master."] = "{npc:234} et {npc:821} se tiennent au sommet de la tour de pierre, {npc:491} à l'intérieur, {npc:523}, le maître des griffons, sur le flanc sud de la colline avec {npc:878} à côté de lui. {npc:523} vous remet la note de Lewis pour {npc:1323} avec un vol gratuit pour {zone:1453} : prenez-le maintenant. À {zone:1453}, la boutique de {npc:279} est dans {object:2096}, près des griffons, celle de {npc:1323}, {object:2156}, dans {object:2100} ; {npc:1646} se tient dans {object:2098}, sur le chemin du retour vers {npc:352}, le maître des griffons.",
 	-- {npc:491} Quartermaster Lewis
 	["{npc:491}, inside"] = "{npc:491}, à l'intérieur",
@@ -107,7 +107,7 @@ return {
 	-- Step 21: Osric Strang
 	-- {npc:279} Morgan Pestle · {object:2096} Trade District
 	["{npc:279}, {object:2096}, by the gryphons"] = "{npc:279}, {object:2096}, près des griffons",
-	-- {npc:1323} Osric Strang · {object:2156} Limited Immunity (no name in this language: may be words) · {object:2100} Old Town
+	-- {npc:1323} Osric Strang · {object:2156} Limited Immunity · {object:2100} Old Town
 	["{npc:1323}, {object:2156} in {object:2100}"] = "{npc:1323}, {object:2156} dans {object:2100}",
 
 	-- Step 22: Defensive Stance
@@ -170,19 +170,7 @@ return {
 	["{area:918}'s well"] = "Puits de {area:918}",
 	["Fill the vial at the farm's well"] = "Remplissez la fiole au puits de la ferme",
 
-	-- Step 35: Molsen Farm's Harvest Watchers
-	-- {area:918} Molsen Farm
-	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
-	["{area:918}'s Harvest Watchers"] = "Gardiens des moissons de {area:918}",
-	-- {area:918} Molsen Farm · {item:732} Okra · {item:255155} Precessive Autocognition Assembly · {npc:573} Foe Reaper 4000
-	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
-	["Harvest Watchers and Golems work the fields around {area:918}; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone."] = "Des Gardiens des moissons et des Golems des moissons travaillent les champs autour de {area:918} ; ils lâchent les isoressorts, les gyrostabiliseurs, du {item:732} et parfois un {item:255155}. {npc:573}, un rare de niveau 20, rôde ici : laissez-le tranquille.",
-	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
-	["Harvest Watchers"] = "Gardiens des moissons",
-	-- {item:814} Flask of Oil · {npc:392} Captain Grayson · {area:115} Westfall Lighthouse
-	["{item:814}: keep five for {npc:392} at the {area:115}, later on the route"] = "{item:814} : gardez-en cinq pour {npc:392} au {area:115}, plus tard sur l'itinéraire",
-
-	-- Step 36: The gnoll hills
+	-- Step 35: The gnoll hills
 	["The gnoll hills"] = "Les collines des gnolls",
 	-- {area:111} Jangolode Mine · {area:916} The Jansen Stead
 	-- plural, as words: Riverpaw Gnolls = {npc:117} Riverpaw Gnoll
@@ -190,7 +178,7 @@ return {
 	-- plural, as words: Gnoll Paws = {item:725} Gnoll Paw
 	["Gnoll Paws"] = "Pattes de gnoll",
 
-	-- Step 37: The Longshore murlocs
+	-- Step 36: The Longshore murlocs
 	-- {area:2} Longshore
 	["The {area:2} murlocs"] = "Les murlocs de {area:2}",
 	-- {area:916} The Jansen Stead
@@ -199,15 +187,27 @@ return {
 	-- plural, as words: Longshore Murloc Gills = {item:254548} Longshore Murloc Gill
 	["Longshore Murloc Gills"] = "Branchies de Murloc de Longrivage",
 
-	-- Step 38: Furlbrow's Wardrobe
+	-- Step 37: Furlbrow's Wardrobe
 	-- {object:290} Furlbrow's Wardrobe · {area:916} The Jansen Stead · {npc:502} Benny Blaanco
 	["{object:290} stands in the ruined house east of the mine, on the way to the {area:916}.\nCareful: Two Defias stand guard inside, one of them the level 15 named {npc:502}. They are linked, so attacking either one brings both."] = "{object:290} se trouve dans la maison en ruine à l'est de la mine, sur le chemin de {area:916}.\nAttention : deux Défias montent la garde à l'intérieur, dont {npc:502}, un nommé de niveau 15. Ils sont liés : attaquer l'un attire les deux.",
 	-- {object:290} Furlbrow's Wardrobe
 	["{object:290}; inside"] = "{object:290} ; à l'intérieur",
 
-	-- Step 39: The Jansen Stead
+	-- Step 38: The Jansen Stead
 	["Sacks of Oats in the fields around the farm"] = "Sacs d'avoine dans les champs autour de la ferme",
 	["Fill the vial at the well"] = "Remplissez la fiole au puits",
+
+	-- Step 39: Harvest Watchers north of Saldean's Farm
+	-- {area:107} Saldean's Farm
+	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
+	["Harvest Watchers north of {area:107}"] = "Gardiens des moissons au nord de {area:107}",
+	-- {area:916} The Jansen Stead · {area:107} Saldean's Farm · {item:732} Okra · {item:255155} Precessive Autocognition Assembly · {npc:573} Foe Reaper 4000
+	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
+	["On the way south from the {area:916} to {area:107}: Harvest Watchers (level 14-15) and Golems work the fields west of the road; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks these fields: leave it alone."] = "En descendant au sud de {area:916} vers {area:107} : des Gardiens des moissons (niveau 14-15) et des Golems travaillent les champs à l'ouest de la route ; ils lâchent les isoressorts, les gyrostabiliseurs, du {item:732} et parfois un {item:255155}. {npc:573}, un rare de niveau 20, arpente ces champs : laissez-le tranquille.",
+	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
+	["Harvest Watchers"] = "Gardiens des moissons",
+	-- {item:814} Flask of Oil · {npc:392} Captain Grayson · {area:115} Westfall Lighthouse
+	["{item:814}: keep five for {npc:392} at the {area:115}, later on the route"] = "{item:814} : gardez-en cinq pour {npc:392} au {area:115}, plus tard sur l'itinéraire",
 
 	-- Step 40: Finish the Goretusk Livers
 	-- plural, as words: Goretusk Livers = {item:723} Goretusk Liver
@@ -272,6 +272,8 @@ return {
 	["{npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in the {object:2096} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "{npc:6171} et {npc:6173} sont dans la Cathédrale de la Lumière ; {npc:6174} se tient dans {object:2096} et demande dix {item:2589} (les humanoïdes en lâchent, l'hôtel des ventes en vend).",
 	-- {quest:2998} Tome of Divinity
 	["Right-click the {quest:2998} he gives you"] = "Faites un clic droit sur le {quest:2998} qu'il vous donne",
+	-- {item:2589} Linen Cloth · {zone:1436} Westfall · {object:2096} Trade District · {object:2100} Old Town
+	["{item:2589}: you have it from {zone:1436}'s Defias; if not, the Auction House here in the {object:2096} (not the level 25 thugs in {object:2100})"] = "{item:2589} : vous en avez obtenu sur les Défias de {zone:1436} ; sinon, l'hôtel des ventes ici, dans le {object:2096} (pas les voyous de niveau 25 de la {object:2100})",
 	-- {npc:6172} Henze Faulk · {area:86} Stone Cairn Lake
 	["{npc:6172}, by {area:86} in Elwynn, on the road to Redridge"] = "{npc:6172}, près de {area:86} dans la forêt d'Elwynn, sur la route des Carmines",
 
@@ -384,6 +386,7 @@ return {
 	-- ["For {npc:11026} in {zone:1453}'s {object:28027}"] = "Pour {npc:11026} dans {object:28027} de {zone:1453}",
 	-- ["Further north along the road. The Furlbrows sit by their burned farm. Collect the oats from the Sacks of Oats in the fields as you go and fill the vial at the stead's well."] = "Plus au nord sur la route. Les Furlbrow sont assis près de leur ferme incendiée. En chemin, ramassez l'avoine des Sacs d'avoine dans les champs et remplissez la fiole au puits de la ferme.",
 	-- ["Further north along the road. The Furlbrows sit by their burned farm. Collect the oats from the Sacks of Oats in the fields as you go."] = "Plus au nord sur la route. Les Furlbrow sont assis près de leur ferme incendiée. En chemin, ramassez l'avoine des Sacs d'avoine dans les champs.",
+	-- ["Harvest Watchers and Golems work the fields around {area:918}; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone."] = "Des Gardiens des moissons et des Golems des moissons travaillent les champs autour de {area:918} ; ils lâchent les isoressorts, les gyrostabiliseurs, du {item:732} et parfois un {item:255155}. {npc:573}, un rare de niveau 20, rôde ici : laissez-le tranquille.",
 	-- ["Hearth to {area:108}"] = "Pierre de foyer vers {area:108}",
 	-- ["Hearthstone on cooldown? Follow the road north-east."] = "Pierre de foyer en recharge ? Suivez la route vers le nord-est.",
 	-- ["Inside"] = "À l'intérieur",
@@ -408,6 +411,7 @@ return {
 	-- ["{area:20} and the Defias hills"] = "{area:20} et les collines des Défias",
 	-- ["{area:40}: kill these as you meet them"] = "{area:40} : tuez-les au passage",
 	-- ["{area:54}: kill these as you meet them"] = "{area:54} : tuez-les au passage",
+	-- ["{area:918}'s Harvest Watchers"] = "Gardiens des moissons de {area:918}",
 	-- ["{item:2449} for Gathering the Cure (6123) in {zone:1439}: {npc:1313}, {skill:171} Supplies; herbalists pick it there instead"] = "{item:2449} pour Rassembler les ingrédients du remède (6123) à {zone:1439} : {npc:1313}, fournitures d'{skill:171} ; les herboristes la cueillent plutôt sur place",
 	-- ["{item:254676}, from the crates around {area:20}"] = "{item:254676}, dans les caisses autour de {area:20}",
 	-- ["{item:731} on the way"] = "{item:731} en chemin",

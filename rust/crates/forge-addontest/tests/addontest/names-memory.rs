@@ -14,7 +14,10 @@ use forge_addontest::{emitted, Addon, RunAddon};
 /// KiB (Lua 5.1, 64-bit), measured here on the committed packs on 2026-10-24 (deDE 34,534 names, ruRU 38,223):
 /// deDE resident 1,022, peak 1,041; ruRU resident 1,789, peak 1,818. The packs of Names.Add tables cost deDE
 /// 3,199 resident and 9,385 at the peak, ruRU 4,364 and 10,867 (namesequal.lua, lua5.1).
-const BUDGET: [(&str, f64, f64); 2] = [("deDE", 1065.0, 1085.0), ("ruRU", 1860.0, 1890.0)];
+/// 0.4.0 (2026-11-15): more zones and the web quest database's names back (deDE 36,562 names, ruRU 40,269):
+/// deDE resident 1,097, peak 1,127; ruRU resident 1,911, peak 1,941. Size budgets may grow for 0.4.0 (Fitz): the
+/// budgets are those figures and about 1 %.
+const BUDGET: [(&str, f64, f64); 2] = [("deDE", 1108.0, 1138.0), ("ruRU", 1930.0, 1960.0)];
 
 /// KiB, as BUDGET, measured here on the committed Subzones.lua on 2026-11-14 (built at 1.60.1.70888; deDE 2,665
 /// areas, ruRU 3,073): deDE resident 65, peak 69; ruRU resident 109, peak 113. The budgets are those and about 5 %.

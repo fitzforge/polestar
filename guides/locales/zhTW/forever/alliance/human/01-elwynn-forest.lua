@@ -129,8 +129,8 @@ return {
 	["Level 5.77"] = "",
 	-- {quest:91752} The Big Picture
 	["If you skipped {quest:91752}, grind here to level 5.77 to stay on the route's plan."] = "",
-	-- {npc:40} Kobold Miner
-	["grind on {npc:40}"] = "",
+	-- {npc:113} Stonetusk Boar
+	["grind on {npc:113}"] = "擊殺{npc:113}練等",
 
 	-- Step 23: Sam Sarsaparilla
 	-- {npc:263399} Sam Sarsaparilla · {skill:129} First Aid · {area:87} Goldshire
@@ -280,6 +280,8 @@ return {
 	["Level 8.39"] = "",
 	-- {quest:91775} Book Return
 	["If you skipped {quest:91775}, grind here to level 8.39 to stay on the route's plan."] = "",
+	-- {npc:40} Kobold Miner
+	["grind on {npc:40}"] = "",
 
 	-- Step 54: Class trainer
 	["Class trainer"] = "職業訓練師",
@@ -319,9 +321,9 @@ return {
 	-- Step 61: Downstream and Princess
 	-- {quest:91733} Downstream · {npc:330} Princess
 	["{quest:91733} and {npc:330}"] = "{quest:91733}與{npc:330}",
-	-- {item:247813} Waterlogged Saw · {npc:330} Princess · {area:62} Brackwell Pumpkin Patch · {npc:390} Porcine Entourage · {npc:248278} Croaky
-	-- plural, as words: Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear
-	["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: {npc:248278} is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional."] = "{item:247813}、浸水的斧頭和浸水的工具箱在橋南邊的河裡。{npc:330}是一頭大野豬，和她的{npc:390}在河西邊的{area:62}拱土：先把小豬引開。沿途擊殺覓食的灰狼和小森林熊。小心：{npc:248278}是魚人海岸上的11級精英。只有組隊或到了10級才去拿他的頭；否則別理他：這是可選的。",
+	-- {item:247813} Waterlogged Saw · {npc:330} Princess · {area:62} Brackwell Pumpkin Patch · {npc:390} Porcine Entourage · {npc:261} Guard Thomas · {npc:248278} Croaky
+	-- plural, as words: Young Forest Bears = {npc:822} Young Forest Bear · Prowlers = {npc:118} Prowler
+	["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Young Forest Bears on the way; the Prowlers (level 9-10) wait for the walk back to {npc:261}, after the logging camp and the mine. Careful: {npc:248278} is a level 11 elite on the murloc shore. Only go for his head with a group; otherwise leave him: it's optional."] = "{item:247813}、浸水的斧頭和浸水的工具箱在橋南邊的河裡。{npc:330}是一頭大野豬，和她的{npc:390}在河西邊的{area:62}拱土：先把小豬引開。沿途擊殺小森林熊；覓食的灰狼（9-10級）留到伐木場和礦坑之後、走回{npc:261}的路上再打。小心：{npc:248278}是魚人海岸上的11級精英。只有組隊才去拿他的頭；否則別理他：這是可選的。",
 
 	-- Step 62: Croaky
 	-- {npc:248278} Croaky · {quest:91740} Croaky's Head
@@ -331,13 +333,14 @@ return {
 	["Level 8.85"] = "",
 	-- {quest:91740} Croaky's Head
 	["If you skipped {quest:91740}, grind here to level 8.85 to stay on the route's plan."] = "",
-	-- {npc:118} Prowler
-	["grind on {npc:118}"] = "",
+	-- {npc:1922} Gray Forest Wolf
+	["grind on {npc:1922}"] = "刷{npc:1922}",
 
 	-- Step 66: The Eastvale Logging Camp
 	-- {area:88} Eastvale Logging Camp
 	["The {area:88}"] = "{area:88}",
-	["The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it."] = "營地在橋的東北方。一捆木柴散落在營地周圍及其北邊的樹林裡。",
+	-- {area:86} Stone Cairn Lake
+	["The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it.\nCareful: Elmpaw, a level 12 elite gnoll, walks the woods and hills from the logging camp north to {area:86} and the gnoll camps: keep clear of him when you see him coming."] = "營地在橋的東北方。成捆的木材散落在營地周圍和營地北邊的樹林裡。\n小心：12級精英豺狼人榆爪在樹林和山丘間遊蕩，從伐木營地往北一直到{area:86}和豺狼人營地：看到他過來就避開。",
 	-- {npc:278} Sara Timberlain
 	["{npc:278}, inside"] = "",
 
@@ -345,9 +348,9 @@ return {
 	["It lies by the river north-west of the logging camp."] = "它躺在伐木場西北方的河邊。",
 
 	-- Step 68: Stone Cairn Lake
-	-- {area:86} Stone Cairn Lake · {object:56} Rolf's corpse
+	-- {area:86} Stone Cairn Lake · {object:56} Rolf's corpse · {npc:6866} Defias Bodyguard
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard · Red Linen Bandanas = {item:1019} Red Linen Bandana
-	["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "迪菲亞流浪巫師在{area:86}岸邊紮營；他們也會掉落紅色亞麻面罩。{object:56}在東北岸的魚人村裡。",
+	["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore.\nCareful: the Rogue Wizards cast from range and a {npc:6866} (10) walks the shore with them: pull them one at a time."] = "迪菲亞流浪巫師在{area:86}岸邊紮營；他們也會掉落紅色亞麻面罩。{object:56}在東北岸的魚人村裡。\n小心：流浪巫師會遠程施法，還有一名{npc:6866}（10級）跟著他們在岸邊走動：一次拉一隻。",
 	-- plural, as words: Red Linen Bandanas = {item:1019} Red Linen Bandana
 	["Red Linen Bandanas"] = "紅色亞麻面罩",
 
@@ -379,8 +382,9 @@ return {
 	["Follow the road east past the {area:91} to the bridge. Finish the Prowlers and Young Forest Bears around the river south of it."] = "沿著道路向東經過{area:91}走到橋邊。在橋南邊的河流周圍殺完覓食的灰狼和小森林熊。",
 
 	-- Step 75: Stone Cairn Lake
+	-- {npc:6866} Defias Bodyguard
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake."] = "在伐木場東北方。迪菲亞流浪巫師在湖岸邊紮營。",
+	["North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake.\nCareful: the Rogue Wizards cast from range and a {npc:6866} (10) walks the shore with them: pull them one at a time."] = "在伐木營地東北方。迪菲亞流浪巫師在湖岸邊紮營。\n小心：流浪巫師會遠程施法，還有一名{npc:6866}（10級）跟著他們在岸邊走動：一次拉一隻。",
 
 	-- Step 76: The Tower of Azora
 	["Follow the hills south to the tower, on the road west."] = "沿著山丘向南走到塔，在往西的路上。",
@@ -492,6 +496,7 @@ return {
 	-- ["Back to the Cathedral of Light."] = "回到光明大教堂。",
 	-- ["Bait ingredients"] = "誘餌材料",
 	-- ["Boar meat"] = "野豬肉",
+	-- ["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "迪菲亞流浪巫師在{area:86}岸邊紮營；他們也會掉落紅色亞麻面罩。{object:56}在東北岸的魚人村裡。",
 	-- ["Follow the road north from {area:87} into {zone:1453}. {npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in {object:2100} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "沿著道路從{area:87}向北進入{zone:1453}。{npc:6171}和{npc:6173}在光明大教堂裡；{npc:6174}站在{object:2100}，向你要十塊{item:2589}（人型生物會掉落；拍賣場也有賣）。",
 	-- ["Follow the road south out of the valley to {area:87}. {npc:295} is in the Lion's Pride Inn; {npc:240} stands outside the smithy across the road, {npc:253} at the inn's front and {npc:241} by the road south of it."] = "沿著道路向南離開山谷前往{area:87}。{npc:295}在旅店裡；{npc:240}站在路對面的鐵匠鋪外，{npc:253}在旅店門前，{npc:241}在旅店南邊的路旁。",
 	-- ["Follow the road west back to {area:87}."] = "沿著道路向西回到{area:87}。",
@@ -506,14 +511,17 @@ return {
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way. {npc:248278} roams the murloc shore too: right-click the head it drops. {npc:248278} is elite: grouping up is advised."] = "魚人強盜和魚人潛伏者分布在橋南邊的河岸。迪菲亞的{npc:473}在橋西邊的{area:62}走動。沿途把覓食的灰狼和小森林熊殺完。{npc:248278}也在魚人河岸遊蕩：右鍵點擊牠掉落的頭顱。{npc:248278}是精英：建議組隊。",
 	-- ["Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp."] = "魚人和魚人士兵佔據東岸；垃圾堆在牠們的營地裡。",
 	-- ["Murlocs and the Collector"] = "魚人與收藏家",
+	-- ["North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake."] = "在伐木場東北方。迪菲亞流浪巫師在湖岸邊紮營。",
 	-- ["Ride back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "騎馬穿過{area:87}，沿著道路向東前往{area:62}。{npc:881}（等級9）站在農舍旁。",
 	-- ["Ride back out through {area:87} and east along the road to the {area:62}. {quest:1688} (level 9) stands by its farmhouse."] = "騎馬穿過{area:87}，沿著道路向東前往{area:62}。{quest:1688}（等級9）站在農舍旁。",
 	-- ["Ride back out through {area:87} and east to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "騎馬穿過{area:87}，向東前往{area:86}。{npc:6172}躺在湖的南邊：對他使用{item:6866}。他周圍的迪菲亞流浪巫師身上帶著{item:6846}。",
 	-- ["She sits inside the farmhouse."] = "她坐在農舍裡。",
 	-- ["Speak with {npc:1430}"] = "與{npc:1430}交談",
 	-- ["Stonetusk Boars graze between the vineyards and the farm."] = "石牙野豬在葡萄園和農場之間覓食。",
+	-- ["The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it."] = "營地在橋的東北方。一捆木柴散落在營地周圍及其北邊的樹林裡。",
 	-- ["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels."] = "礦坑在豺狼人營地西南方。{item:247816}在入口附近；狗頭人地卜師佔據隧道。",
 	-- ["The murloc camp"] = "魚人營地",
+	-- ["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: {npc:248278} is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional."] = "{item:247813}、浸水的斧頭和浸水的工具箱在橋南邊的河裡。{npc:330}是一頭大野豬，和她的{npc:390}在河西邊的{area:62}拱土：先把小豬引開。沿途擊殺覓食的灰狼和小森林熊。小心：{npc:248278}是魚人海岸上的11級精英。只有組隊或到了10級才去拿他的頭；否則別理他：這是可選的。",
 	-- ["Torn Murloc Fins"] = "破損的魚人鱗片",
 	-- ["Use the {item:6866} on {npc:6172}"] = "對{npc:6172}使用{item:6866}",
 	-- ["{area:18} and the wolves"] = "{area:18}與狼群",

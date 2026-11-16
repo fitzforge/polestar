@@ -4,12 +4,17 @@ title Silithus, Felwood, Winterspring & the Plaguelands
 faction Alliance
 levels 58-60
 zone Silithus
-pitch The main route to 60: Silithus, Felwood, Winterspring and the Plaguelands, with the hand-ins in Stormwind, Ironforge and Light's Hope on the way.
+pitch Silithus, Felwood, Winterspring and the Plaguelands.
+pro Takes you all the way to 60
+pro Stays on the main route
+pro Moonglade flight path on the way
+con Lots of flying between zones
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Toxic Horrors (5086), Of Lost Honor (5845).
+# Added here: Toxic Horrors (5086), Of Lost Honor (5845: only after Of Forgotten Memories, 5781, whose Mercutio is a
+# group choice, so a solo player never gets it and its steps hide themselves).
 # Left out: Taking Back Silithus (8275).
 
 # ---------------------------------------------------------------- Ratchet
@@ -112,38 +117,55 @@ step Azshara
   zone Azshara
   goto 11.9,77.5 "Talrendis Point"
 
+step Fly to Gadgetzan
+  when !onquest 4512
+  when zone "Azshara"
+  zone Azshara
+  tip Laris Geardawdle's jars went to Ironforge on the Winterspring guide's Ironforge stop: fly straight to Gadgetzan.
+  goto 11.9,77.5 "Talrendis Point flight master"
+  fly "Gadgetzan"
+  zone Tanaris
+
 step Fly to Auberdine
+  when onquest 4512
   zone Azshara
   goto 11.9,77.5 "Talrendis Point flight master"
   fly "Auberdine"
   zone Darkshore
 
 step Boat to Menethil Harbor
+  when onquest 4512
   zone Darkshore
   goto 32.4,43.8 "Boat to Menethil Harbor"
 
 step Fly to Ironforge
+  when onquest 4512
   zone Wetlands
   goto 9.5,59.7 "Menethil Harbor flight master"
   fly "Ironforge"
   zone Ironforge
 
 step Laris Geardawdle
+  when onquest 4512
   zone Ironforge
   turnin 4512                         -- Laris Geardawdle
   accept 4513                         -- Its jars are filled on the Un'Goro visit
 
 step Fly to Menethil Harbor
+  when onquest 4513
+  when zone "Ironforge"
   zone Ironforge
   goto 55.9,47.9 "Ironforge flight master"
   fly "Menethil Harbor"
   zone Wetlands
 
 step Boat to Theramore
+  when zone "Wetlands"
   zone Wetlands
   goto 5.13,63.61 "Boat to Theramore"
 
 step Fly to Gadgetzan
+  when zone "Dustwallow Marsh"
   zone Dustwallow Marsh
   goto 67.5,51.2 "Theramore flight master"
   fly "Gadgetzan"
@@ -196,15 +218,33 @@ step Fly to Cenarion Hold
   zone Silithus
 
 step Cenarion Hold
+  zone Silithus
+  tip Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
+  accept 8278                         -- Beetix Ficklespragg, upstairs
+  accept 8281                         -- Windcaller Proudhorn
+  accept 8318                         -- Bor Wildmane: his Twilight texts come from the dig after the next stop here
+  accept 8304                         -- Commander Mar'alith: Bronzebeard's Encampment comes later, on the way south
+  accept 9415                         -- Rifleman Torrig, at the Alliance tents: for Marshal Bluewall at Hive'Zora
+  accept 8284                         -- Geologist Larksbane: the tablet fragments come from the Twilight dig
+
+step Silithus: kill these as you meet them
+  zone Silithus
+  tip From the hold, west into the sands: Dredge Crushers dig there; Stonelash Pincers, Flayers and Rock Stalkers hunt the same sands.
+  collect 20374 quest 8278.2          -- Stonelash Pincer Stinger
+  kill 11741 quest 8281.1             -- Dredge Crusher walks around here: look inside the circle on the map
+  collect 20377 quest 8278.3          -- Rock Stalker Fang
+  collect 20375 quest 8278.1          -- Stonelash Flayer Stinger
+
+step Cenarion Hold
   tip Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 8281
   turnin 8278
   accept 8282                         -- Noggle Ficklespragg, upstairs beside Beetix
-  accept 8304                         -- Commander Mar'alith
 
 step Hive'Ashi: kill these as you meet them
   zone Silithus
   tip The Twilight's Hammer dig fills the north-west corner: tablet fragments lie on the ground and the Dust Stormers and Desert Rumblers carry them too. Every cultist can drop an Encrypted Twilight Text: keep twenty, ten for Bor Wildmane and ten for Hermit Ortell later.
+  tip Careful: take the texts from the Twilight Avengers and Geolords; leave the Twilight Flamereavers (60) and stay out of the hive's mouth, where the Hive'Ashi elites (59-60) wait.
   collect 20404 quest 8318.1          -- Twilight's Hammer cultists
   collect 20378 quest 8284.1          -- Twilight Tablet Fragments
   collect 20404 x20 optional          -- Ten more for True Believers
@@ -240,15 +280,18 @@ step Bronzebeard's Encampment
   talk 15170 quest 8304.2
 
 step The Twilight Post
+  tip Careful: the Twilight Keepers are level 60, a level or two over you: clear the cultists around each one first and fight the keeper at full health.
   tip Twilight Keeper Exeter holds the cultists' camp in the far south-west.
   collect 20395 quest 8279.2          -- Twilight Keeper Exeter
 
 step Twilight Keeper Mayna
   tip Ride north along the west side to Mayna's small camp.
+  tip Careful: Mayna is level 60: clear her camp first and fight her at full health.
   collect 20394 quest 8279.1
 
 step Twilight Keeper Havunth
   tip Havunth's camp sits just west of Cenarion Hold.
+  tip Careful: Havunth is level 60: clear his camp first and fight him at full health.
   collect 20396 quest 8279.3
 
 step Hermit Ortell
@@ -289,6 +332,14 @@ step Everlook
 step Everlook
   zone Winterspring
   accept 6604                         -- Harlo Wigglesworth
+
+step Winterfall Village
+  when onquest 8464
+  zone Winterspring
+  tip Salfa's Winterfall Activity waited for this visit: the furbolg village lies just east of Everlook, with Shaman (56-57), Den Watchers (55-56) and Ursa (57-58). Kill the Shaman first, they heal. High Chief Winterfall in the cave at the back is elite: stay out.
+  kill 7439 quest 8464.1              -- Winterfall Shaman
+  kill 7440 quest 8464.2              -- Winterfall Den Watcher
+  kill 7438 quest 8464.3              -- Winterfall Ursa
 
 step Starfall Village
   zone Winterspring
@@ -408,9 +459,9 @@ step Rabine Saturna
 step Umber
   turnin 1185 direct
 
-step Nighthaven
+step Sindrayl
   zone Moonglade
-  tip Learn the flight path in Nighthaven.
+  tip Sindrayl, Moonglade's flight master, stands south of the lake, outside Nighthaven: learn the flight path from him. The flight master in Nighthaven itself flies only Druids, from her gossip, and has no flight path to learn.
   getfp "Moonglade"
 
 # ---------------------------------------------------------------- Teldrassil and Darnassus
@@ -552,6 +603,7 @@ step Chillwind Camp
   accept 6185                         -- Flint Shadowmore: the agents' remains lie at the Marris Stead in the Eastern Plaguelands
   turnin 5903                         -- Nathaniel Dumah
   accept 5904
+  accept 5225                         -- High Priestess MacDonnell: Gahrron's Withering's cauldron, on this loop
 
 step Andorhal
   tip Chromie waits in the ruined inn on the west side of Andorhal, the ruined city north of the camp. Araj the Summoner guards his phylactery in the middle of the town.
@@ -569,6 +621,43 @@ step Northridge Lumber Camp
   tip Ride north up the road to the lumber mill and set the termite barrel down in the middle of it.
   turnin 5904                         -- Termite Barrel
   accept 6389
+
+step Kirsta Deepshadow
+  tip Kirsta hides at the Northridge lumber camp's edge.
+  accept 6023
+
+step Radley and Durgen
+  when onquest 6023
+  tip Huntsman Radley walks the Northridge camp east of Kirsta Deepshadow; Cavalier Durgen guards the tower at Hearthglen's southern approach.
+  tip Careful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight.
+  kill 11613 quest 6023.1             -- Huntsman Radley
+  kill 11611 quest 6023.2             -- Cavalier Durgen
+
+step Kirsta Deepshadow
+  when onquest 6023
+  tip Kirsta hides at the lumber camp's edge.
+  turnin 6023
+  accept 6025
+
+step Hearthglen overlook
+  when onquest 6025
+  tip Climb the hill west of Hearthglen to look down on the town.
+  tip Careful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby.
+  goto 45.8,18.3
+  complete 6025 @45.8,18.3
+
+step Kirsta Deepshadow
+  when onquest 6025
+  turnin 6025
+
+step Gahrron's Withering
+  when onquest 5225,5168
+  zone Western Plaguelands
+  tip Ride south-east to Gahrron's Withering: Cauldron Lord Soulwrath guards the cauldron, and Redpath's Shield lies east of the barn.
+  collect 13196 quest 5225.1          -- Gahrron's Withering Cauldron Key
+  turnin 5225                         -- Scourge Cauldron
+  accept 5226                         -- For High Priestess MacDonnell at Chillwind Camp, at the end of this guide
+  collect 12955 quest 5168.2          -- Redpath's Shield
 
 step Tirion Fordring (optional)
   zone Eastern Plaguelands
@@ -659,3 +748,5 @@ step Chillwind Camp
   note Flint's next task goes to Stormwind: you are level 60 now, skip it.
   turnin 5803 optional                -- Alchemist Arbington
   turnin 5505 direct optional
+  turnin 5226                         -- High Priestess MacDonnell
+  turnin 5237 direct -- Commander Ashlam Valorfist

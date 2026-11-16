@@ -125,7 +125,7 @@ local PORTRAIT_CAP = 16
 -- applyRows); TL.anchor: the mark (the set's handle and the way to its
 -- settings). TL.info, cap, keep, progress, item: what TargetNames collects
 -- for the rows (Buttons.TargetInfo).
-local TL = { MAX = 8, W = 180, H = 30, GAP = 2, FACE = 26, ANCHOR = 22, NEAR = 0.3, FLASH = 0.7,
+local TL = { MAX = 8, W = 208, H = 30, GAP = 2, FACE = 26, ANCHOR = 22, NEAR = 0.3, FLASH = 0.7,
 	rows = {}, info = {}, cap = MAX_NAMES }
 
 local Buttons = {}
@@ -461,13 +461,14 @@ local function place()
 end
 
 -- The frame a drag carries (the holder, or the bag button) and where its
--- spot is saved.
+-- spot is saved. It follows the pointer as ns.DragWindow moves a window (the
+-- frame's scale counted, which StartMoving's drop got wrong on a scaled set).
 local moving
 local function stopMoving()
 	local f = moving
 	if not f then return end
 	moving = nil
-	f:StopMovingOrSizing()
+	ns.StopDrag()
 	local point, _, relPoint, x, y = f:GetPoint(1)
 	if point then QoL.State()[f == bag and "bagButtonPos" or "buttonPos"] = { point, relPoint, x, y } end
 	if relabel then relabel() end
@@ -497,6 +498,14 @@ local function hoverEnd(b)
 	if not b.dragging then useOnKeyDown(b, nil) end
 end
 
+-- The press's spot, so a drag carries the set from there (ns.StartDrag).
+local function onPress(b, button)
+	if button == "LeftButton" then b.psPressX, b.psPressY = GetCursorPosition() end
+end
+
+-- The drag starts on the client's drag start (the secure release must hear
+-- of it first, useOnKeyDown), and carries the set from the press's own spot:
+-- it catches up the client's few pixels at once, then follows exactly.
 local function onDragStart(b)
 	if QoL.InLockdown() then return end
 	b.dragging = true
@@ -504,7 +513,7 @@ local function onDragStart(b)
 	-- Locked: still a drag, so its release uses nothing, but the set stays.
 	if ns.DragLocked() then return end
 	moving = b == bag and bag or holder
-	moving:StartMoving()
+	ns.StartDrag(b, moving, nil, b.psPressX, b.psPressY)
 end
 
 local function onDragStop(b)
@@ -895,6 +904,7 @@ local function wire(b, onEnter)
 		hoverEnd(self)
 		if GameTooltip and GameTooltip:GetOwner() == self then GameTooltip:Hide() end
 	end)
+	b:HookScript("OnMouseDown", onPress)
 	b:SetScript("OnDragStart", onDragStart)
 	b:SetScript("OnDragStop", onDragStop)
 	-- A step that ends mid-drag hides the button the drag started on.
@@ -914,7 +924,7 @@ local function newButton(name, kind, onEnter)
 	buildFace(b, kind)
 	paintFace(b)
 	local T = Theme()
-	if T and T.OnChanged then T.OnChanged(function() paintFace(b) end) end
+	if T and T.OnChanged then T.OnChanged(function() if not (T.LiveHidden and T.LiveHidden(b)) then paintFace(b) end end) end
 
 	wire(b, onEnter)
 
@@ -1904,9 +1914,10 @@ do
 		color(r.Count, cur and max and max > 0 and cur >= max and "success" or "text")
 	end
 
-	-- Faces: a close living mob's own portrait (the target, or a mob with a
-	-- nameplate), else the creature's model by id, else the crosshair. Plain
-	-- textures and a model, so they change in combat too.
+	-- Faces: the creature's model by id once the client has the creature in
+	-- its cache, else a close living mob's own portrait (the target, or a mob
+	-- with a nameplate), else the crosshair. Plain textures and a model, so
+	-- they change in combat too.
 	local FACE_UNITS = { "target" }
 	for i = 1, 40 do FACE_UNITS[#FACE_UNITS + 1] = "nameplate" .. i end
 	local closeByName = {}
@@ -1950,6 +1961,36 @@ do
 		paintBorder(r, r.psHover)
 	end
 
+	-- Creatures a row's model waits for (Compat.CreatureCached false), by when
+	-- each was first asked for (GetTime). The server's answer comes with no
+	-- event, so the faces repaint each second while one waits, for MODEL_WAIT
+	-- seconds; past that only a close one (the client has met it) is asked.
+	local MODEL_WAIT, waiting = 30, {}
+
+	-- The row's model by id: SetCreature draws a creature only from the
+	-- client's cache (an uncached one leaves the model empty, and it does not
+	-- try again), so it is called once the client has it. true when drawn,
+	-- false while it waits, nil once it waited too long.
+	local function paintModel(r, m, close)
+		if m.drawn == r.npc and m:IsShown() then return true end
+		m.drawn = nil
+		m:Hide()
+		local now = GetTime and GetTime() or 0
+		local first = waiting[r.npc]
+		if first and not close and now - first > MODEL_WAIT then return nil end
+		if ns.Compat.CreatureCached(r.npc) == false then
+			waiting[r.npc] = first or now
+			return false
+		end
+		waiting[r.npc] = nil
+		m:Show()
+		m.drawn = r.npc
+		m:SetCreature(r.npc)
+		if m.SetPortraitZoom then m:SetPortraitZoom(1) end
+		return true
+	end
+
+	-- true while the row's model waits for its creature.
 	local function paintRowFace(r, units)
 		local unit = units[r.applied]
 		local m = r.Model
@@ -1963,27 +2004,23 @@ do
 			r.near = near
 			setNear(r, near, true)
 		end
+		local drawn
 		if r.npc and m.SetCreature then
-			r.Face:SetTexture(nil)
-			-- A model that was hidden is loaded again: the client may drop it.
-			if m.npc ~= r.npc or not m:IsShown() then
-				m:Show()
-				m.npc = r.npc
-				m:SetCreature(r.npc)
-				if m.SetPortraitZoom then m:SetPortraitZoom(1) end
-			end
-			r.face = "model"
-		elseif unit and SetPortraitTexture then
-			-- No id for a model: the close mob's own portrait.
+			drawn = paintModel(r, m, near)
+		else
 			m:Hide()
-			r.face = unit
+			m.drawn = nil
+		end
+		if drawn then
+			r.Face:SetTexture(nil)
+		elseif unit and SetPortraitTexture then
+			-- No model (yet): the close mob's own portrait.
 			SetPortraitTexture(r.Face, unit, true)
 			r.Face:SetVertexColor(1, 1, 1, 1)
 		else
-			m:Hide()
-			r.face = nil
 			r.Face:SetTexture(nil)
 		end
+		return drawn == false
 	end
 
 	-- A folded row's macro holds only the names that fit in a macro. The first
@@ -2029,8 +2066,17 @@ do
 				paintCounts()
 			end
 		end
+		local wait = false
 		for i = 1, #TL.rows do
-			if TL.rows[i].applied then paintRowFace(TL.rows[i], units) end
+			if TL.rows[i].applied and paintRowFace(TL.rows[i], units) then wait = true end
+		end
+		-- A model waiting for its creature: the faces again in a second.
+		if wait and not TL.faceRetry then
+			TL.faceRetry = true
+			ns.After(1, function()
+				TL.faceRetry = nil
+				paintFaces()
+			end)
 		end
 	end
 	local paintFacesSoon = QoL.Coalesce(paintFaces)
@@ -2246,10 +2292,13 @@ do
 		face:SetPoint("LEFT", r, "LEFT", 2, 0)
 		r.Face = face
 
-		-- Over the crosshair: a creature whose model is not loaded yet leaves it seen.
+		-- Over the crosshair: a creature whose model is not drawn leaves it seen.
+		-- Kept while hidden (the list, UIParent): a hidden model drops what it
+		-- drew otherwise, and the row would not draw it again.
 		if not plain then
 			local model = CreateFrame("PlayerModel", nil, r)
 			model:SetAllPoints(face)
+			if model.SetKeepModelOnHide then model:SetKeepModelOnHide(true) end
 			model:Hide()
 			r.Model = model
 		end
@@ -2353,7 +2402,7 @@ do
 		buildRow(r)
 		paintLook(r)
 		local T = Theme()
-		if T and T.OnChanged then T.OnChanged(function() paintLook(r) end) end
+		if T and T.OnChanged then T.OnChanged(function() if not (T.LiveHidden and T.LiveHidden(r)) then paintLook(r) end end) end
 		wire(r, rowTooltip)
 		r:HookScript("PostClick", function(self, _, down)
 			if down or self.dragging then return end
@@ -2405,7 +2454,7 @@ do
 		buildMark(a)
 		paintLook(a)
 		local T = Theme()
-		if T and T.OnChanged then T.OnChanged(function() paintLook(a) end) end
+		if T and T.OnChanged then T.OnChanged(function() if not (T.LiveHidden and T.LiveHidden(a)) then paintLook(a) end end) end
 
 		wire(a, anchorTooltip)
 		a:SetScript("OnClick", function(self, which)
@@ -2433,13 +2482,16 @@ do
 	-- page, Install's Targeting page): the Polestar mark and n rows, drawn by
 	-- the live list's own code (buildRow, buildMark, paintLook); never a
 	-- secure template, no scripts, nothing the clicks or the bindings see.
-	-- -> { mark = frame, rows = { frame, ... } }
-	function Buttons.NewListFaces(parent, n)
-		local f = { mark = CreateFrame("Button", nil, parent), rows = {} }
+	-- faces: each row with the live row's creature model too, so a row whose
+	-- entry has an id shows that creature's face as the list does in the game.
+	-- -> { mark = frame, rows = { frame, ... }, faces = true or nil }
+	local NO_UNITS = {}
+	function Buttons.NewListFaces(parent, n, faces)
+		local f = { mark = CreateFrame("Button", nil, parent), rows = {}, faces = faces and true or nil }
 		buildMark(f.mark)
 		for i = 1, n or 3 do
 			f.rows[i] = CreateFrame("Button", nil, parent)
-			buildRow(f.rows[i], true)
+			buildRow(f.rows[i], not faces)
 		end
 		return f
 	end
@@ -2458,6 +2510,8 @@ do
 				r.psNear = e.near and true or nil
 				paintText(r)
 				paintCount(r)
+				-- The creature's face by its id, as the live row (no unit near: a preview).
+				if f.faces then paintRowFace(r, NO_UNITS) end
 				setNear(r, r.psNear, false)
 				paintLook(r)
 				r:Show()

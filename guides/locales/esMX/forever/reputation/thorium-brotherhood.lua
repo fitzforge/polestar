@@ -34,7 +34,7 @@ return {
 	["{item:18960}, Dark Iron Lookouts"] = "{item:18960}, oteadores Hierro Negro",
 
 	-- Step 3: Searing Lava Spiders
-	-- plural, as words: Searing Lava Spiders = {npc:5857} Searing Lava Spider
+	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
 	["Searing Lava Spiders"] = "Arañas de lava superiores",
 	["The spiders roam the lava pools and plateaus of the south-west."] = "Las arañas recorren las pozas de lava y mesetas del suroeste.",
 

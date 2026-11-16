@@ -44,10 +44,10 @@ return {
 	-- {npc:251291} Hippogryph Youth
 	["{npc:251291}, Prideclaw"] = "{npc:251291}, Rudelkralle",
 	["Prideclaw, Galestrider"] = "Prideclaw, Galestrider",
+	["Prideclaw, Vuldren"] = "Prideclaw, Vuldren",
+	["Cloudrunner, Galestrider"] = "Cloudrunner, Galestrider",
 	-- {npc:250928} Highlands Ursera
 	["Prideclaw, {npc:250928}"] = "Prideclaw, {npc:250928}",
-	["Galestrider, Cloudrunner"] = "Windschreiter, Wolkenläufer",
-	["Prideclaw, Vuldren"] = "Prideclaw, Vuldren",
 
 	-- Step 6: Beasts 1-9: Durotar (1-50)
 	-- {zone:1411} Durotar
@@ -247,6 +247,7 @@ return {
 	-- ["Duskbat"] = "Nachtsauger",
 	-- ["Duskbat, {npc:1513}"] = "Nachtsauger, {npc:1513}",
 	-- ["Expert {skill:393} raises the cap to 225; it needs skill 125 and character level 20. The arrow picks the nearest {skill:393} trainer of your faction."] = "{skill:393} (Experte) hebt die Obergrenze auf 225; erfordert Fertigkeit 125 und Charakterstufe 20. Der Pfeil wählt den nächsten Lehrer für {skill:393} deiner Fraktion.",
+	-- ["Galestrider, Cloudrunner"] = "Windschreiter, Wolkenläufer",
 	-- ["Galestrider, Prideclaw"] = "Galestrider, Prideclaw",
 	-- ["Journeyman {skill:393} raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest {skill:393} trainer of your faction."] = "{skill:393} (Geselle) hebt die Obergrenze auf 150; erfordert Fertigkeit 50 und Charakterstufe 10. Der Pfeil wählt den nächsten Lehrer für {skill:393} deiner Fraktion.",
 	-- ["Kill and skin Coyote (10), {npc:833} (11), {npc:454} (12), Goretusk (14), {npc:547} (16, needs 60) along the loop until {skill:393} 100; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20."] = "Töte und häute Kojote (10), {npc:833} (11), {npc:454} (12), Geiferzahn (14), {npc:547} (16, erfordert 60) entlang der Route bis {skill:393} 100; häute die höchststufigen Bestien, die deine Fertigkeit erlaubt. Eine Bestie der Stufe L erfordert bis Stufe 20 Fertigkeit (L-10)x10, darüber Lx5. Gebietsstufe 10-20.",

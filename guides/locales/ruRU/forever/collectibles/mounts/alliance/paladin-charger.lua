@@ -11,8 +11,8 @@ return {
 	["Your epic mount at 60, summoned at will: the faster step up from the Warhorse."] = "Ваше эпическое средство передвижения на 60-м уровне, призываемое в любой момент: более быстрая замена боевого коня.",
 
 	-- Step 1: Lord Grayson Shadowbreaker (Ironforge)
-	-- {npc:5149} Brandur Ironhammer · {object:32362} Mystic Ward · {quest:7638} Lord Grayson Shadowbreaker · {zone:1453} Stormwind
-	["At 60 {npc:5149} in the {object:32362} sends you to {quest:7638} in {zone:1453}'s Cathedral of Light."] = "На 60-м уровне {npc:5149} ({object:32362}) отправляет вас к NPC {quest:7638} в Собор Света ({zone:1453}).",
+	-- {npc:5149} Brandur Ironhammer · {object:32362} Mystic Ward · {quest:7670} Lord Grayson Shadowbreaker · {zone:1453} Stormwind
+	["At 60 {npc:5149} in the {object:32362} sends you to {quest:7670} in {zone:1453}'s Cathedral of Light."] = "На 60-м уровне {npc:5149} ({object:32362}) отправляет вас к NPC {quest:7670} в Собор Света ({zone:1453}).",
 
 	-- Step 2: Lord Grayson Shadowbreaker
 	-- {spell:23214} Summon Charger · {area:2279} Stratholme · {area:2057} Scholomance · {item:14047} Runecloth · {item:8836} Arthas' Tears · {npc:6171} Duthorian Rall
@@ -33,7 +33,7 @@ return {
 	["Lord Grayson blesses the censer into the {item:18752} for {area:2627}."] = "",
 
 	-- Step 5: Exorcising Terrordale
-	-- {area:2627} Terrordale · {zone:1423} Eastern Plaguelands · {area:2279} Stratholme · {object:179747} Terrordale Haunting Spirit (no name in this language: may be words) · {item:18752} Exorcism Censer · {spell:7713} Wailing Dead · {spell:2878} Turn Undead
+	-- {area:2627} Terrordale · {zone:1423} Eastern Plaguelands · {area:2279} Stratholme · {object:179747} Terrordale Haunting Spirit · {item:18752} Exorcism Censer · {spell:7713} Wailing Dead · {spell:2878} Turn Undead
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit
 	["{area:2627} lies in the far north-west of the {zone:1423}, west of the {area:2279} gates. Stand inside a green glowing patch on the ground (a {object:179747}; some are inside the ruined houses) and use the {item:18752}: up to three Terrordale Spirits (level 59-60) rise and attack. Their {spell:7713} lowers all your stats by 30%: fight them one at a time and use {spell:2878}. The patches come back quickly; several paladins can work side by side."] = "",
 	-- {item:18752} Exorcism Censer
@@ -118,6 +118,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["An {item:12800} comes from Thorium veins, a {item:18335} from the elites of the {zone:1422}, both rarely: the Auction House is the usual source."] = "{item:12800} добывается из ториевых жил, {item:18335} — с элитных противников зоны {zone:1422}, оба редко: обычно их покупают на аукционе.",
+	-- ["At 60 {npc:5149} in the {object:32362} sends you to {quest:7638} in {zone:1453}'s Cathedral of Light."] = "На 60-м уровне {npc:5149} ({object:32362}) отправляет вас к NPC {quest:7638} в Собор Света ({zone:1453}).",
 	-- ["Bring 150 gold for {npc:1416} along with the materials."] = "Вместе с материалами возьмите 150 золотых для {npc:1416}.",
 	-- ["Supply Crates, inside"] = "Ящики с припасами, внутри",
 	-- ["The {spell:23214} chain is long: it takes you through {area:2279}, {area:2577} and {area:2057}, and costs about 350 gold in donations on top of the materials. Lord Grayson stands in the Cathedral of Light."] = "Цепочка {spell:23214} длинная: она проведет вас через {area:2279}, {area:2577} и {area:2057} и обойдется примерно в 350 золотых пожертвований сверх материалов. Лорд Грейсон стоит в Соборе Света.",

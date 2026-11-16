@@ -6,7 +6,7 @@
 const { FORMAT, NEEDS, TOC_MARKER, TOC_TITLE_PREFIX, LEGACY_TOC_TITLE_PREFIX } = require('../pack/format');
 const { header } = require('../generated');
 
-const GUIDE_KEYS = ['id', 'pack', 'title', 'faction', 'races', 'classes', 'minLevel', 'maxLevel', 'category', 'folder', 'keywords', 'collects', 'reward', 'why', 'zone', 'zoneName', 'next', 'nextChoices', 'nextWhen', 'pitch', 'pros', 'cons', 'author', 'version', 'group', 'names', 'written', 'sections', 'steps'];
+const GUIDE_KEYS = ['id', 'pack', 'title', 'faction', 'races', 'classes', 'minLevel', 'maxLevel', 'factionLevels', 'category', 'folder', 'keywords', 'collects', 'reward', 'why', 'zone', 'zoneName', 'next', 'nextChoices', 'nextWhen', 'pitch', 'pros', 'cons', 'author', 'version', 'group', 'names', 'written', 'sections', 'steps'];
 // `image` follows note, so a step without one is emitted as before; so does `section`.
 const STEP_KEYS = ['title', 'note', 'image', 'label', 'only', 'when', 'along', 'skipto', 'section', 'goals'];
 // A step's picture: its path in the pack's addon folder (no extension) and its size in pixels.
@@ -242,6 +242,10 @@ function emitGuide(guide, sourceRel, { deferred = false } = {}) {
 		} else if (k === 'steps') {
 			const lines = stepLines(v, '\t\t\t', shared);
 			out.push(`\t\t\tsteps = {`, ...lines.slice(1, -1), '\t\t\t},');
+		} else if (k === 'factionLevels') {
+			// `levels <min>-<max> <Faction>`: each faction's range, Alliance first.
+			const parts = ['Alliance', 'Horde'].filter((f) => v[f]).map((f) => `${f} = { min = ${scalar(v[f].min)}, max = ${scalar(v[f].max)} }`);
+			out.push(`\t\t\tfactionLevels = { ${parts.join(', ')} },`);
 		} else if (k === 'nextWhen') {
 			// guide id -> its predicates, in the order of nextChoices.
 			out.push(`\t\t\tnextWhen = { ${Object.keys(v).map((id) => `[${luaString(id)}] = ${list(v[id], WHEN_KEYS)}`).join(', ')} },`);
@@ -308,6 +312,8 @@ function guideData(guide) {
 				}
 				return s;
 			});
+		} else if (k === 'factionLevels') {
+			out[k] = dataInline(v, Object.keys(v).sort());
 		} else if (k === 'nextWhen') {
 			const m = {};
 			for (const id of Object.keys(v)) m[id] = dataList(v[id], WHEN_KEYS);

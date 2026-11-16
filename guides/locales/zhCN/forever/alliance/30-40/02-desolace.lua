@@ -11,8 +11,6 @@ return {
 	["Follow the road west past {area:460} (Horde) and south-west through the {area:465} into {zone:1443}; {area:608} stands at the top of the pass."] = "沿道路向西经过{area:460}（部落），再向西南穿过{area:465}进入{zone:1443}；{area:608}在山口顶部。",
 	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
 	["{npc:5638}: the wreck's chest lies below {npc:11863}'s tower, on the way to {area:599}"] = "{npc:5638}：沉船的箱子在{npc:11863}的塔下方，位于前往{area:599}的路上",
-	-- {npc:5396} Captain Pentigast · {npc:5752} Corporal Melkins
-	["{npc:5396}, beside {npc:5752}"] = "{npc:5396}，在{npc:5752}旁边",
 
 	-- Step 2: Malem chest
 	["Malem chest"] = "玛雷姆的箱子",
@@ -27,6 +25,10 @@ return {
 	-- Step 5: Nijel's Point
 	-- {npc:5642} Vahlarriel Demonslayer · {area:599} Thunder Axe Fortress
 	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "{npc:5642}：追查线索将指向{area:599}的火刃",
+	-- {npc:5752} Corporal Melkins
+	["{npc:5752}: the Kolkar are at the end of this guide"] = "{npc:5752}：科卡尔半人马在本指南末尾",
+	-- {npc:5396} Captain Pentigast · {npc:5752} Corporal Melkins
+	["{npc:5396}, beside {npc:5752}"] = "{npc:5396}，在{npc:5752}旁边",
 
 	-- Step 6: Azore Aldamort
 	-- {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
@@ -37,6 +39,8 @@ return {
 	["The wrecked ship lies just south-west of {npc:11863}'s tower; its chest sits beside {object:177787}."] = "沉船就在{npc:11863}的塔西南方不远处；箱子在{object:177787}旁边。",
 	-- {npc:5638} Kreldig Ungor
 	["For {npc:5638}, at the end of this guide"] = "交给{npc:5638}，在本指南结尾",
+	-- {object:177787} Rackmore's Log · {zone:1443} Desolace
+	["{object:177787}, beside the chest: keep it, its keys and chest come on {zone:1443}'s south loop at the end of 30-40"] = "{object:177787}：在箱子旁。先保留，钥匙和箱子在30-40级末尾{zone:1443}南部环线时再做",
 
 	-- Step 8: Dalinda Malem
 	-- {npc:5644} Dalinda Malem · {area:608} Nijel's Point

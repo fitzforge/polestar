@@ -145,7 +145,7 @@ return {
 	-- {area:16624} Shen'dar Village
 	["{area:16624} hand-ins"] = "",
 	-- {npc:251905} Zerril Softbreeze · {npc:251906} Teeri Wellwind · {npc:251991} Taleen Shimmerthread · {npc:252172} Danarii Bellowveil · {npc:251523} Constable Aonda · {area:16624} Shen'dar Village · {item:5469} Strider Meat
-	["{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} and {npc:251523} all stand in {area:16624}. If you are still short of {item:5469}, the Galestriders graze just south of the village."] = "",
+	["{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} and {npc:251523} all stand in {area:16624}. If you are still short of {item:5469}, the Galestriders graze just west of the village; the Al'Aketh camps south and south-east of it are a level or two higher."] = "{npc:251905}、{npc:251906}、{npc:251991}、{npc:252172}和{npc:251523}都在{area:16624}。如果{item:5469}還不夠，疾風陸行鳥就在村莊西邊不遠處吃草；村莊南邊和東南邊的Al'Aketh營地等級高一兩級。",
 
 	-- Step 32: Shen'dar Highlands: kill these as you meet them
 	-- {area:16623} Shen'dar Highlands
@@ -353,6 +353,10 @@ return {
 	-- {npc:252476} Talaanis Shadowsong
 	["talk to {npc:252476}"] = "與{npc:252476}交談",
 
+	-- Step 75: Desperate Times
+	-- {npc:251968} Ayessa Dawnsinger · {npc:252475} Elaadrin Evengale
+	["Valennia asks you to hear out both leaders: {npc:251968} of the Horde and {npc:252475} of the Alliance. {npc:252475}'s name shows red to you, but he talks to you all the same, and the quest needs both."] = "瓦蓮妮亞要你聽聽雙方領袖的說法：部落的{npc:251968}和聯盟的{npc:252475}。{npc:252475}的名字對你顯示為紅色，但他照樣會和你交談，而任務需要兩人都談過。",
+
 	-- Step 77: Desperate Times
 	-- {npc:253844} Valennia Stormfist
 	["talk to {npc:253844}"] = "與{npc:253844}交談",
@@ -441,8 +445,8 @@ return {
 	["You leave the isle for good. {npc:259119} waits where the airship lands."] = "你將永遠離開這座島。{npc:259119}在飛艇降落處等著。",
 	-- {npc:259119} Alaana Stormwalker · {zone:1454} Orgrimmar
 	["{npc:259119}: keep it: Thrall in {zone:1454}, at the start of the next guide"] = "{npc:259119}：先留著：{zone:1454}的索爾，在下一份指南開頭",
-	-- {npc:253957} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
-	["{npc:253957}, by the landing: for {npc:3033} in {zone:1456}"] = "降落處旁的{npc:253957}：給{zone:1456}的{npc:3033}",
+	-- {npc:259118} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
+	["{npc:259118}, by the landing: for {npc:3033} in {zone:1456}"] = "降落處旁的{npc:259118}：給{zone:1456}的{npc:3033}",
 
 	-- Step 97: Clarice Foster
 	-- {npc:5543} Clarice Foster · {area:2197} Pools of Vision · {area:1640} Spirit Rise
@@ -559,6 +563,7 @@ return {
 	-- ["{npc:252359} stands on {area:16638}'s east side."] = "{npc:252359}站在{area:16638}的東側。",
 	-- ["{npc:252382} stands on {area:16638}'s west side."] = "{npc:252382}站在{area:16638}的西側。",
 	-- ["{npc:252389} in {area:16638} hands you a {item:15908} three times: tame a {npc:254588} by the lakes north-west of town, an {npc:251707} in the fields west of town and a {npc:250874} at {area:16663}, returning to her after each. {npc:254411} stands beside her."] = "{area:16638}的{npc:252389}會三次交給你{item:15908}：馴服城鎮西北方湖邊的一隻{npc:254588}、城鎮西邊田野中的一隻{npc:251707}，以及{area:16663}的一隻{npc:250874}，每次完成後回去找她。{npc:254411}站在她身旁。",
+	-- ["{npc:253957}, by the landing: for {npc:3033} in {zone:1456}"] = "降落處旁的{npc:253957}：給{zone:1456}的{npc:3033}",
 	-- ["{npc:255853} waits by the falls just north of the watchtower."] = "{npc:255853}在瞭望塔北邊不遠的瀑布旁等著。",
 	-- ["{npc:258443} roams the slopes just south of the turncoat's house."] = "{npc:258443}在叛徒房子南邊不遠的山坡上遊蕩。",
 	-- ["{npc:263664}'s campfire"] = "{npc:263664}的營火",

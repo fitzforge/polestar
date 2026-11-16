@@ -448,7 +448,7 @@ fn buttons_preview_draws_the_target_list_beside_the_target_face_and_the_single_f
 	);
 	assert_eq!(out["list"], json!([false, true, true, "Rot Hide Mongrel", "3/8", true, "Executor Zygand", true, "plain"]), "the mark and the rows in the target face's place, the first one close");
 	assert_eq!(out["rare"], -146, "the rare button clear of three rows, as on the screen");
-	assert_eq!(out["row"], json!(["TOPLEFT", "BOTTOMLEFT", 232]), "in a row the rows hang under the target face, the rare button past them");
+	assert_eq!(out["row"], json!(["TOPLEFT", "BOTTOMLEFT", 260]), "in a row the rows hang under the target face, the rare button past them (208 + 52)");
 	assert_eq!(out["simple"], json!([true, false, false, "Rot Hide Mongrel"]), "Simple target button: the single face again");
 }
 
@@ -474,9 +474,9 @@ fn move_frames_box_for_the_quest_buttons_covers_the_target_list_s_rows_while_the
 	);
 	assert_eq!(out["rows"], 2);
 	let d = |i: usize| out["with"][i].as_f64().unwrap() - out["before"][i].as_f64().unwrap();
-	// Two rows (30 + 2 + 30) beside the target button add the 8 spacing and their 180 to the column's right; they
+	// Two rows (30 + 2 + 30) beside the target button add the 8 spacing and their 208 to the column's right; they
 	// end 62 under its top (-26), so the rare button goes to -88 - 8 - 18 = -114, its foot 26 under its slot's.
-	assert_eq!(d(0), 188.0, "{out}");
+	assert_eq!(d(0), 216.0, "{out}");
 	assert_eq!(d(1), 26.0, "{out}");
 }
 

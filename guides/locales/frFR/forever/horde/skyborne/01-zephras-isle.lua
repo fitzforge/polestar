@@ -145,7 +145,7 @@ return {
 	-- {area:16624} Shen'dar Village
 	["{area:16624} hand-ins"] = "Quêtes à rendre à {area:16624}",
 	-- {npc:251905} Zerril Softbreeze · {npc:251906} Teeri Wellwind · {npc:251991} Taleen Shimmerthread · {npc:252172} Danarii Bellowveil · {npc:251523} Constable Aonda · {area:16624} Shen'dar Village · {item:5469} Strider Meat
-	["{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} and {npc:251523} all stand in {area:16624}. If you are still short of {item:5469}, the Galestriders graze just south of the village."] = "{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} et {npc:251523} se tiennent tous à {area:16624}. S'il vous manque encore de la {item:5469}, les Trotteurs des trombes paissent juste au sud du village.",
+	["{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} and {npc:251523} all stand in {area:16624}. If you are still short of {item:5469}, the Galestriders graze just west of the village; the Al'Aketh camps south and south-east of it are a level or two higher."] = "{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} et {npc:251523} se tiennent tous à {area:16624}. S'il vous manque encore de la {item:5469}, les Trotteurs des trombes paissent juste à l'ouest du village ; les camps Al'Aketh au sud et au sud-est sont d'un niveau ou deux de plus.",
 
 	-- Step 32: Shen'dar Highlands: kill these as you meet them
 	-- {area:16623} Shen'dar Highlands
@@ -353,6 +353,10 @@ return {
 	-- {npc:252476} Talaanis Shadowsong
 	["talk to {npc:252476}"] = "parlez à {npc:252476}",
 
+	-- Step 75: Desperate Times
+	-- {npc:251968} Ayessa Dawnsinger · {npc:252475} Elaadrin Evengale
+	["Valennia asks you to hear out both leaders: {npc:251968} of the Horde and {npc:252475} of the Alliance. {npc:252475}'s name shows red to you, but he talks to you all the same, and the quest needs both."] = "Valennia vous demande d'écouter les deux chefs : {npc:251968} pour la Horde et {npc:252475} pour l'Alliance. Le nom de {npc:252475} apparaît en rouge pour vous, mais il vous parle quand même, et la quête requiert les deux.",
+
 	-- Step 77: Desperate Times
 	-- {npc:253844} Valennia Stormfist
 	["talk to {npc:253844}"] = "parlez à {npc:253844}",
@@ -441,8 +445,8 @@ return {
 	["You leave the isle for good. {npc:259119} waits where the airship lands."] = "Vous quittez l'île pour de bon. {npc:259119} attend là où se pose le dirigeable.",
 	-- {npc:259119} Alaana Stormwalker · {zone:1454} Orgrimmar
 	["{npc:259119}: keep it: Thrall in {zone:1454}, at the start of the next guide"] = "{npc:259119} : gardez-la : Thrall à {zone:1454}, au début du guide suivant",
-	-- {npc:253957} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
-	["{npc:253957}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:253957}, près de l'aire d'atterrissage : pour {npc:3033} à {zone:1456}",
+	-- {npc:259118} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
+	["{npc:259118}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:259118}, près de l'aire d'atterrissage : pour {npc:3033} à {zone:1456}",
 
 	-- Step 97: Clarice Foster
 	-- {npc:5543} Clarice Foster · {area:2197} Pools of Vision · {area:1640} Spirit Rise
@@ -577,6 +581,7 @@ return {
 	-- ["{npc:251374} sends you to the {area:16988}, just east of the village: drink the {item:6635} there to see the {npc:251166}, then take the {item:6656} back to him."] = "{npc:251374} vous envoie à la {area:16988}, juste à l'est du village : buvez-y {item:6635} pour voir {npc:251166}, puis rapportez-lui {item:6656}.",
 	-- ["{npc:251374} stands in the village."] = "{npc:251374} se tient dans le village.",
 	-- ["{npc:251374}, at the village centre"] = "{npc:251374}, au centre du village",
+	-- ["{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} and {npc:251523} all stand in {area:16624}. If you are still short of {item:5469}, the Galestriders graze just south of the village."] = "{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} et {npc:251523} se tiennent tous à {area:16624}. S'il vous manque encore de la {item:5469}, les Trotteurs des trombes paissent juste au sud du village.",
 	-- ["{npc:252095} waits in {area:16622}, south-west of the village. The Al'Aketh camp is just beyond her; {npc:256935} leads it."] = "{npc:252095} attend au {area:16622}, au sud-ouest du village. Le camp al'aketh se trouve juste derrière elle ; {npc:256935} le dirige.",
 	-- ["{npc:252359} stands on {area:16638}'s east side."] = "{npc:252359} se tient à l'est de {area:16638}.",
 	-- ["{npc:252377} stands in the middle of {area:16638}."] = "{npc:252377} se tient au milieu de {area:16638}.",
@@ -584,6 +589,7 @@ return {
 	-- ["{npc:252382} stands on {area:16638}'s west side."] = "{npc:252382} se tient à l'ouest de {area:16638}.",
 	-- ["{npc:252389} in {area:16638} hands you a {item:15908} three times: tame a {npc:254588} by the lakes north-west of town, an {npc:251707} in the fields west of town and a {npc:250874} at {area:16663}, returning to her after each. {npc:254411} stands beside her."] = "{npc:252389}, à {area:16638}, vous remet trois fois un {item:15908} : apprivoisez un {npc:254588} près des lacs au nord-ouest de la ville, un {npc:251707} dans les champs à l'ouest de la ville et un {npc:250874} au {area:16663}, en revenant la voir après chacun. {npc:254411} se tient à côté d'elle.",
 	-- ["{npc:252802} along the way to {npc:252800}"] = "{npc:252802} sur le chemin de {npc:252800}",
+	-- ["{npc:253957}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:253957}, près de l'aire d'atterrissage : pour {npc:3033} à {zone:1456}",
 	-- ["{npc:254411}: Beast Training"] = "{npc:254411} : Dressage des bêtes",
 	-- ["{npc:255853} waits by the falls just north of the watchtower."] = "{npc:255853} attend près des chutes juste au nord de la tour de guet.",
 	-- ["{npc:255853}: Bear Form"] = "{npc:255853} : Forme d’ours",

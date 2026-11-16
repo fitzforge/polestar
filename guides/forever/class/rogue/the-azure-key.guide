@@ -57,32 +57,38 @@ step A Simple Request (Horde)
 step Lord Jorach Ravenholdt
   zone Alterac Mountains
   tip Ravenholdt Manor hides in the hills east of Tarren Mill. Horde fly to Tarren Mill, Alliance to Southshore. The trail starts behind the plateau north of Durnholde Keep, climbs into the hills and runs through a small tunnel into the Alterac Mountains; Lord Jorach is inside the manor. Do not attack anyone at the manor: lost Ravenholdt reputation makes him refuse to speak to you.
+  level 51
   turnin 8233                                 -- Lord Jorach Ravenholdt
   accept 8234
 
 step Sealed Azure Bag
   zone Azshara
   tip Alliance fly to Talrendis Point, Horde to Valormok. Only the level 50-51 Timbermaw Shamans in the furbolg hills of northern Azshara carry the bag (the level 47-49 furbolgs further south do not): about one kill in thirty drops it. Pick Pocket them instead and you lose no Timbermaw reputation; if you are Unfriendly or better with Timbermaw Hold, mark them At War in your reputation panel first. They cast Lightning Bolt and Lightning Cloud, heal each other and run at low health.
+  level 52
   getfp "Talrendis Point" only Alliance
   getfp "Valormok" only Horde
   collect 19775 quest 8234.1                  -- Sealed Azure Bag: Timbermaw Shaman
 
 step Archmage Xylem
   tip Sanath Lim-yo, camped below the cliffs just east of Valormok, teleports you up (dismount first); a trail leads to Xylem's tower.
+  level 51
   turnin 8234                                 -- Archmage Xylem
   accept 8235
 
 step Encoded Fragments
   tip The Forest Oozes (level 52-53, Diseased Slime up close) drop a fragment four times in five: the biggest group, seven of them, is in the Bitter Reaches hills of north-eastern Azshara, four more south-east of Valormok. Pick their pockets before the kill for an extra fragment or two. Killing the Mistwing Ravagers and hippogryphs that share their spots makes more oozes appear.
+  level 53
   collect 20023 x10 quest 8235.1              -- Encoded Fragment: Forest Ooze
 
 step Back to Xylem
+  level 51
   turnin 8235                                 -- Archmage Xylem
   accept 8236
 
 step Morphaz in the Sunken Temple
   zone Swamp of Sorrows
   tip Morphaz, a level 52 elite green drake, lives deep in the Sunken Temple: a group of five, level 50-54. The temple stands in the Pool of Tears; climb into the sunken building, swim down through it and follow the passage to the portal. Horde: fly to Stonard; Alliance: fly to Nethergarde Keep and ride on. He is not there when you arrive: first kill the six troll guardians (elites of 50-52) on the platforms around the upper ring, which opens the way down (the left-hand ramp from the entrance) to Jammal'an the Prophet in the Pit of Sacrifice. Jammal'an's death brings out two drakes, Weaver and Dreamscythe; when both are dead, Morphaz and Hazzas appear together and fight as a pair. Their Acid Breath is nature damage: nature protection potions help; poisons and Blind do not work on them. The key always drops. Hunters, Priests and Mages of 50 need Morphaz too: one clear serves them all.
+  level 51
   collect 20022 quest 8236.1 @69.9,53.6       -- Azure Key: Morphaz, inside the temple
 
 step Lord Ravenholdt

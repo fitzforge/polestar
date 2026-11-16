@@ -949,8 +949,14 @@ fn the_settings_window_is_its_own_window_no_hub_rail_the_hub_stays_and_it_moves_
 			tagline = settings.Tagline:GetText(), main = settings.psMainW, width = settings:GetWidth() - settings.psSidebar - 2 }
 		UI.ShowPicker()
 		local back = { settings = settings:IsShown(), hub = hub:IsShown() }
-		stub.RunScript(settings.Header, "OnDragStart")
-		emit({ opened = opened, back = back, moving = rawget(settings, "moving") == true })"#);
+		-- ns.DragWindow: a press on the header and the pointer's travel move the window (it then hangs by its corner).
+		stub.cursor = { 900, 500 }
+		stub.RunScript(settings.Header, "OnMouseDown", "LeftButton")
+		stub.cursor = { 910, 490 }
+		stub.advance(0.1)
+		stub.RunScript(settings.Header, "OnMouseUp", "LeftButton")
+		local point, _, relPoint = settings:GetPoint(1)
+		emit({ opened = opened, back = back, moving = point == "TOPLEFT" and relPoint == "BOTTOMLEFT" })"#);
 	assert_eq!(out["opened"]["shown"], true);
 	assert_eq!(out["opened"]["hub"], true, "the hub stays");
 	assert_eq!(out["opened"]["rail"], true, "no hub rail");
@@ -2377,6 +2383,32 @@ fn new_settings_put_a_pill_on_their_section_and_a_count_on_their_page_until_open
 	let later = run_opts(script, "", "", &format!("{LOOK_PAGE}\nPolestarDB.optionsSeen = {{ fakepins = \"0.3.6\" }}"));
 	assert_eq!(later["before"], "2", "seen up to 0.3.6: the 0.3.7 settings are new");
 	assert_eq!(later["pill"], "New");
+}
+
+// A page's sidebar row shows the changed dot while the page holds a setting off its default, whether or not its
+// section is turned off: here the Medallions section stays on (its header's switch at its default) while its size
+// is changed. With every setting at its default there is no dot. (A section's "turned off" test once stood in for
+// "holds a change", so a changed setting under a section that was on showed nothing.)
+#[test]
+fn a_page_s_changed_dot_shows_a_setting_off_its_default_under_a_section_that_is_on_and_none_at_the_defaults() {
+	let out = run_opts(
+		r#"
+		local function dot()
+			for _, b in ipairs(PolestarOptions.navButtons) do
+				if b:IsShown() and b.Label:GetText() == "Fake pins" then return b.Changed:IsShown() end
+			end
+			return "no row"
+		end
+		UI.ShowOptions("guide")
+		local defaults = dot()
+		Polestar.Set("fake.medalSize", 1.5)
+		O.RefreshNav()
+		emit({ defaults = defaults, changed = dot(), sectionOn = Polestar.Get("fake.medal") })"#,
+		"",
+		"",
+		LOOK_PAGE,
+	);
+	assert_eq!(out, json!({ "defaults": false, "changed": true, "sectionOn": true }));
 }
 
 // A tab's preview is built when the tab first shows, laid out across the main column and pinned between the tab

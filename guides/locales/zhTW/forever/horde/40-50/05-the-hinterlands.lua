@@ -41,7 +41,8 @@ return {
 	-- {area:307} The Overlook Cliffs
 	["{area:307}: kill these as you meet them"] = "",
 	-- {npc:2491} Whiskey Slim · {area:307} The Overlook Cliffs
-	["The big turtles crawl along the beaches north of the village, and {npc:2491}'s bottles of port lie on the same beaches, from the village up to the {area:307}: pick them up as you go. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "大海龜在村子北邊的海灘上爬行，{npc:2491}的波特酒瓶也散落在同一片海灘上，從村子一路到{area:307}：邊走邊撿。鉗嘴龜偶爾會掉落OOX-09/HL的求救信標：留著它。",
+	-- plural, as words: Saltwater Snapjaws = {npc:2505} Saltwater Snapjaw
+	["The big turtles crawl along the beaches north of the village, and {npc:2491}'s bottles of port lie on the same beaches, from the village up to the {area:307}: pick them up as you go. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it.\nCareful: the biggest Saltwater Snapjaws are 50: pull them one at a time."] = "大海龜在村子北邊的海灘上爬行，{npc:2491}的波特酒瓶也散落在同一片海灘上，從村子一路到{area:307}：邊走邊撿。鉗嘴龜偶爾會掉落OOX-09/HL的求救信標：留著它。\n小心：最大的海水鉗嘴龜是50級：一次拉一隻。",
 	-- {object:2068} Pupellyverbos Port
 	["{object:2068}, on the beaches"] = "",
 	-- {item:8704} OOX-09/HL Distress Beacon
@@ -168,7 +169,7 @@ return {
 	["{area:1440}: kill these as you meet them"] = "",
 	-- {npc:5982} Black Slayer · {spell:5416} Venom Sting · {npc:8301} Clack the Reaver
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger
-	["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills.\nEast of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "五個任務需要相同的材料：一趟全部收集。道路西邊，{npc:5982}禿鷲、饑餓的彎牙土狼、厚甲毒刺蠍和死眼蜥蜴共同分布在丘陵上。\n道路東邊，灰鬃野豬和灰鬃咕嚕豬在紅石蜥蜴旁的山坡上拱土。遠離更南邊的52級地獄野豬。\n小心：厚甲毒刺蠍會使用{spell:5416}；{npc:8301}還會擊倒。",
+	["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills.\nEast of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south.\nCareful: Scorpok Stingers (50-51) use {spell:5416}; {npc:8301} adds Knockdown. Pull the Stingers one at a time."] = "五個任務需要相同的材料：一趟全部收集。道路西邊，{npc:5982}禿鷲、饑餓的彎牙土狼、厚甲毒刺蠍和死眼蜥蜴共同分布在丘陵上。\n道路東邊，灰鬃野豬和灰鬃咕嚕豬在紅石蜥蜴旁的山坡上拱土。遠離更南邊的52級地獄野豬。\n小心：厚甲毒刺蠍（50-51級）會使用{spell:5416}；{npc:8301}還會擊倒。毒刺蠍一次拉一隻。",
 
 	-- Step 38: The bloodmages
 	["Ride back north to the bloodmages."] = "向北騎回血法師那裡。",
@@ -195,8 +196,10 @@ return {
 	-- ["South-west, the Silvermane Howlers roam the hills east of the Witherbark villages."] = "往西南，銀鬃嗥狼在枯木村落東邊的丘陵遊蕩。",
 	-- ["The Silvermane Stalkers, Savage Owlbeasts and Razorbeak Skylords share the hills between the temples and {area:351}. Use the {item:9618} on the owlbeasts you kill. The Skylords also drop Long Elegant Feathers: keep ten for {npc:14738}'s second message."] = "銀鬃捕獵者、野蠻的梟獸和翱翔的鋒喙獅鷲獸共同分布在神廟與{area:351}之間的丘陵。對你殺死的梟獸使用{item:9618}。翱翔的鋒喙獅鷲獸也會掉落細長的獅鷲獸羽毛：留十根給{npc:14738}的第二個訊息。",
 	-- ["The Vilebranch temples"] = "邪枝神廟",
+	-- ["The big turtles crawl along the beaches north of the village, and {npc:2491}'s bottles of port lie on the same beaches, from the village up to the {area:307}: pick them up as you go. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "大海龜在村子北邊的海灘上爬行，{npc:2491}的波特酒瓶也散落在同一片海灘上，從村子一路到{area:307}：邊走邊撿。鉗嘴龜偶爾會掉落OOX-09/HL的求救信標：留著它。",
 	-- ["The central hills"] = "中部丘陵",
 	-- ["The eastern slopes"] = "東坡",
+	-- ["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills.\nEast of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "五個任務需要相同的材料：一趟全部收集。道路西邊，{npc:5982}禿鷲、饑餓的彎牙土狼、厚甲毒刺蠍和死眼蜥蜴共同分布在丘陵上。\n道路東邊，灰鬃野豬和灰鬃咕嚕豬在紅石蜥蜴旁的山坡上拱土。遠離更南邊的52級地獄野豬。\n小心：厚甲毒刺蠍會使用{spell:5416}；{npc:8301}還會擊倒。",
 	-- ["The next guide starts here, at {area:3317}."] = "下一份指南從{area:3317}開始。",
 	-- ["The northern beasts"] = "北方的野獸",
 	-- ["Vilebranch soothsayers"] = "邪枝占卜者",

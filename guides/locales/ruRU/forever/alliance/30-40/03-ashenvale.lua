@@ -31,6 +31,8 @@ return {
 	["The wreck of the Flying Osprey lies in the shallows south of the keep."] = "Обломки «Flying Osprey» лежат на мелководье к югу от крепости.",
 
 	-- Step 6: Lightforge Ingots
+	-- plural, as words: Lightforge Ingots = {item:2702} Lightforge Ingot
+	["Lightforge Ingots"] = "Слитки светлостали",
 	["The Bluegill murlocs on the beach south-west of Menethil carry the ingots."] = "Слитки у мурлоков из племени Синежабрых на пляже к юго-западу от Менетила.",
 	-- {item:2702} Lightforge Ingot
 	["{item:2702}; underwater"] = "",
@@ -90,8 +92,11 @@ return {
 	-- {area:2240} Mirage Raceway
 	["{area:2240}: kill these as you meet them"] = "",
 	-- {object:19868} Rocket Car Rubble
-	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Basilisks = {npc:4147} Saltstone Basilisk
-	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "",
+	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Gazers = {npc:4150} Saltstone Gazer · Scorpid Terrors = {npc:4139} Scorpid Terror
+	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "{object:19868} разбросаны по всей равнине. Скорпиды-разорители и солончаковые падальщики бродят в северной половине, блестопанцирные черепахи (30-31) – в середине равнины: бейте их ради панцирей. Осторожно: блестопанцирные крепкохваты (34-35) бродят по всей равнине, а просоленные взорени (34-35) и скорпиды-убийцы (33-34) держат дальний юг: не трогайте их и держитесь северной половины.",
+	-- {item:5795} Hardened Tortoise Shell
+	-- plural, as words: Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise
+	["{item:5795}, from the Sparkleshell Tortoises"] = "{item:5795} – с блестопанцирных черепах",
 	-- {npc:4078} Collin Mauren · {zone:1453} Stormwind
 	-- plural, as words: Saltstone Basilisks = {npc:4147} Saltstone Basilisk
 	["Crystalized Scale, from the Saltstone Basilisks: eight for {npc:4078} in {zone:1453}"] = "",
@@ -131,7 +136,6 @@ return {
 	-- ["From {area:608}"] = "Откуда: {area:608}",
 	-- ["Geltharis"] = "Гелтарис",
 	-- ["Insane druids"] = "Обезумевшие друиды",
-	-- ["Lightforge Ingots"] = "Слитки светлостали",
 	-- ["Melyria and {npc:3901}"] = "Мелирия и {npc:3901}",
 	-- ["Rusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel."] = "Ржавые сундуки стоят вокруг лагерей фурболгов из Чащобы к западу от Отрекшихся; открывайте их, пока в одном не найдется навершие.",
 	-- ["Take the boat to {area:150} from {area:442}'s docks."] = "Плывите на корабле в {area:150} с причалов места {area:442}.",

@@ -10,6 +10,8 @@
 //   await spell(id) -> { id, name, sub, icon, desc, cost, range, cast, cooldown } | null
 //   await item(id)  -> { id, name, quality, icon, level, minLevel, sell, classID, startsQuest } | null
 //   await luaData({ spells: [...], items: [...] }) -> Lua source setting STUDIO_DATA
+//   await zoneArt() -> { maps: { [uiMapID]: { artID, layer, textures } }, files: [fileID, ...] }
+//     every zone painting of the client (the art cache's maps.json entries)
 //   classSpells(addonDir, cls) -> { [level]: [ { id, cost, rank, prev, races, level } ] }  (QoL/ClassSpells.lua)
 
 const fs = require('node:fs');
@@ -156,4 +158,45 @@ function classSpells(addonDir, cls) {
 	return out;
 }
 
-module.exports = { spell, item, luaData, classSpells };
+// Every zone painting the client has, from its map tables, as C_Map answers
+// them in game (GetMapArtLayers' layer 1, GetMapArtLayerTextures, GetMapArtID;
+// the lowest phase's art) and as the art cache's maps.json holds them, with
+// the files they draw: the base tiles and every overlay tile (UI.ZoneArt's
+// full reveal). read(name) -> the table's rows (default: the client's tables).
+async function zoneArt(read = async (name) => [...(await table(name)).byId.values()]) {
+	const n = Number;
+	const artOf = new Map();
+	for (const r of [...(await read('UiMapXMapArt'))].sort((a, b) => n(a.PhaseID) - n(b.PhaseID) || n(a.ID) - n(b.ID))) {
+		if (!artOf.has(n(r.UiMapID))) artOf.set(n(r.UiMapID), n(r.UiMapArtID));
+	}
+	const styleOf = new Map((await read('UiMapArt')).map((r) => [n(r.ID), n(r.UiMapArtStyleID)]));
+	const layerOf = new Map((await read('UiMapArtStyleLayer')).filter((r) => n(r.LayerIndex) === 0).map((r) => [n(r.UiMapArtStyleID), r]));
+	const tilesOf = new Map();
+	for (const r of await read('UiMapArtTile')) {
+		if (n(r.LayerIndex) !== 0) continue;
+		if (!tilesOf.has(n(r.UiMapArtID))) tilesOf.set(n(r.UiMapArtID), []);
+		tilesOf.get(n(r.UiMapArtID)).push(r);
+	}
+	const overlayArt = new Map((await read('WorldMapOverlay')).map((r) => [n(r.ID), n(r.UiMapArtID)]));
+	const overlayFiles = new Map();
+	for (const r of await read('WorldMapOverlayTile')) {
+		const a = overlayArt.get(n(r.WorldMapOverlayID));
+		if (a === undefined) continue;
+		if (!overlayFiles.has(a)) overlayFiles.set(a, []);
+		overlayFiles.get(a).push(n(r.FileDataID));
+	}
+	const maps = {}, files = new Set();
+	for (const [id, artID] of artOf) {
+		const L = layerOf.get(styleOf.get(artID)), tiles = tilesOf.get(artID);
+		if (!L || !tiles) continue;
+		const layer = { layerWidth: n(L.LayerWidth), layerHeight: n(L.LayerHeight), tileWidth: n(L.TileWidth), tileHeight: n(L.TileHeight) };
+		const cols = Math.ceil(layer.layerWidth / layer.tileWidth);
+		const textures = [];
+		for (const t of tiles) textures[n(t.RowIndex) * cols + n(t.ColIndex)] = n(t.FileDataID);
+		maps[id] = { artID, layer, textures };
+		for (const f of [...textures, ...(overlayFiles.get(artID) || [])]) if (f) files.add(f);
+	}
+	return { maps, files: [...files] };
+}
+
+module.exports = { spell, item, luaData, classSpells, zoneArt };

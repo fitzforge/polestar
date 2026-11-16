@@ -271,6 +271,11 @@ end
 -- -> { { addon, title, notes, ids = { id, ... }, loaded, reason }, ... };
 -- reason is the client's ("DISABLED", "INTERFACE_VERSION", "DEP_MISSING"...)
 -- when it cannot load, nil when it is loaded or can load.
+-- The client gives an addon that loads on demand, not loaded yet, as not
+-- loadable with reason "DEMAND_LOADED" ("DEP_DEMAND_LOADED" when one it
+-- depends on loads on demand): LoadAddOn loads it, as Blizzard_AddOnList
+-- reads it too.
+local ON_DEMAND = { DEMAND_LOADED = true, DEP_DEMAND_LOADED = true }
 function Theme.InstalledSkins()
 	local A = C_AddOns
 	local out = {}
@@ -284,7 +289,7 @@ function Theme.InstalledSkins()
 			if #ids > 0 then
 				local loaded = A.IsAddOnLoaded and A.IsAddOnLoaded(name) and true or false
 				out[#out + 1] = { addon = name, title = title or name, notes = notes, ids = ids, loaded = loaded,
-					reason = not loaded and not loadable and (reason or "DISABLED") or nil }
+					reason = not loaded and not loadable and not ON_DEMAND[reason] and (reason or "DISABLED") or nil }
 			end
 		end
 	end

@@ -17,6 +17,8 @@
 --   Nearby.Near(kind, yards) -> place, yards | nil, reason   the nearest one in the player's zone
 --       within `yards` in a straight line, without the planner's estimate (the auction house
 --       reminder, UI/AuctionBuys.lua); reason as Find's, or "none"
+--   Nearby.PlacesOn(kind, c) -> places | nil, reason   every spawn of a kind on continent c, with
+--       world c, wx, wy (the Engine's sell and repair reminders measure them); reason as Find's
 --   Nearby.Rank(places, here, estimate) -> place, seconds   pure, for the tests
 --   place = { id, name, map, x, y, f, z? }   z: the class trainer's height (Core/ClassTrainers.lua);
 --           the Codex's places carry none
@@ -267,16 +269,21 @@ local function friendly(faction, code)
 	return faction == nil or faction == "AH" or (code ~= nil and faction:find(code, 1, true) ~= nil)
 end
 
+-- The spawns of the Codex NPCs with `role` on the player's side, outside
+-- instances. A class's own flight master (Nav.TaxiNpcClass: Nighthaven's fly
+-- Druids only, from their gossip) is a flight master for that class alone.
 local function rolePlaces(role)
 	local list = index[role]
 	if list then return list end
 	local X, C = ns.Codex, ns.Compat
 	local info = C.GetPlayerInfo and C.GetPlayerInfo()
 	local code = info and FACTION[info.faction]
+	local only = role == "flightmaster" and Nav.TaxiNpcClass
 	list = {}
 	for _, id in ipairs(X.WithRole(role)) do
 		local npc = X.Npc(id)
-		if npc and not npc.instance and friendly(npc.faction, code) then
+		local class = only and only(id)
+		if npc and not npc.instance and friendly(npc.faction, code) and not (class and class ~= (info and info.class)) then
 			for _, s in ipairs(npc.spawns or {}) do
 				local c, wx, wy = C.MapToWorld(s.map, s.x, s.y, s.f)
 				if c then
@@ -480,6 +487,26 @@ function Nearby.Near(key, yards)
 	end
 	if not best then return nil, "none" end
 	return best, bestD
+end
+
+-- Every spawn of a kind on continent c (world c, wx, wy each): the list, made
+-- once per kind and continent until the index is dropped | nil, reason (as
+-- Find's). For a check that measures them itself (Engine's sell and repair
+-- reminders, While you're here): the Codex's friendly NPCs outside instances.
+function Nearby.PlacesOn(key, c)
+	key = ALIAS[key] or key
+	local kind = BY_KEY[key]
+	if not kind then return nil, "kind" end
+	local at = "on:" .. key .. ":" .. tostring(c)
+	if index[at] then return index[at] end
+	local places, why = candidates(kind)
+	if not places then return nil, why end
+	local list = {}
+	for _, p in ipairs(places) do
+		if p.c == c then list[#list + 1] = p end
+	end
+	index[at] = list
+	return list
 end
 
 local function kindLabel(key, line)

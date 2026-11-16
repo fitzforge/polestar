@@ -17,10 +17,16 @@ return {
 	["Ride south-east off the {area:439} into {zone:1446}. {area:976} is just inside the border."] = "向東南騎離{area:439}進入{zone:1446}。{area:976}就在邊界內側。",
 	-- {quest:2864} Tran'rek
 	["{quest:2864}, north side of town"] = "{quest:2864}，在城鎮北側",
+	-- {quest:2864} Tran'rek · {quest:3362} Thistleshrub Valley · {area:976} Gadgetzan
+	["{quest:2864}: keep it, the {quest:3362} waits for the Un'Goro guide's {area:976} landing"] = "{quest:2864}：留著，{quest:3362}留到安戈洛指南抵達{area:976}時再做",
+	-- {npc:7564} Marin Noggenfogger
+	["{npc:7564}: keep it for the same landing"] = "{npc:7564}：留到同一次抵達時再做",
 	-- {npc:7407} Chief Engineer Bilgewhizzle
 	["{npc:7407}, by the water tower"] = "{npc:7407}，在水塔旁",
 	-- {npc:7408} Spigot Operator Luglunket
 	["{npc:7408}, next to him"] = "{npc:7408}，在他旁邊",
+	-- {npc:11758} Andi Lynn · {area:983} Dunemaul Compound
+	["{npc:11758}: keep it, the {area:983} waits for the same landing"] = "{npc:11758}：留著，{area:983}留到同一次抵達時再做",
 	-- {npc:7763} Curgle Cranklehop · {area:702} Rut'theran Village
 	["{npc:7763}: his crate goes to {area:702}, later"] = "{npc:7763}：他的箱子要送到{area:702}，稍後",
 
@@ -35,6 +41,8 @@ return {
 	["The same poster: {npc:7847} comes much later, after {area:976}"] = "同一張告示：{npc:7847}要很久以後才會出現，在{area:976}之後",
 	-- {npc:7882} Security Chief Bilgewhizzle
 	["{npc:7882}, inside"] = "",
+	-- {npc:7882} Security Chief Bilgewhizzle · {quest:97530} Dunemaul Dues
+	["{npc:7882}: {quest:97530}, the bangles come from the ogres on your way south"] = "{npc:7882}：{quest:97530}，手鐲來自你南下途中的巨魔",
 	-- {npc:7881} Stoley
 	["{npc:7881}, in the port's tavern; inside"] = "{npc:7881}，在港口的旅店裡；在裡面",
 
@@ -71,7 +79,7 @@ return {
 	-- {area:979} Sandsorrow Watch
 	["The pool by {area:979}"] = "{area:979}旁的水池",
 	-- {area:979} Sandsorrow Watch · {item:8584} Untapped Dowsing Widget
-	["Ride north-west to the Sandfury troll camp at {area:979}. Use the {item:8584} at the edge of its pool; the trolls stand close, so pull the nearest first."] = "向西北騎往{area:979}的沙怒食人妖營地。在水池邊緣使用{item:8584}；食人妖站得很近，先拉最近的。",
+	["Ride north-west to the Sandfury troll camp at {area:979}. Use the {item:8584} at the edge of its pool to tap it; the trolls stand close, so pull the nearest first.\nCareful: tapping the pool brings Scarabs (level 44-47) out of the sand to attack you: tap it, then step away from the trolls and fight the Scarabs one by one."] = "向西北騎往{area:979}的沙怒食人妖營地。在水池邊緣使用{item:8584}探測水源；食人妖站得很近，先拉最近的。\n小心：探測水池會讓聖甲蟲（44-47級）從沙中鑽出攻擊你：探測後離開食人妖，逐一對付聖甲蟲。",
 	-- {item:8585} Tapped Dowsing Widget
 	["Gives the {item:8585}"] = "會給你{item:8585}",
 	-- {area:979} Sandsorrow Watch
@@ -86,6 +94,10 @@ return {
 	["{quest:3042}: the Sandfury trolls, inside"] = "{quest:3042}：沙怒食人妖，在裡面",
 	-- {quest:2768} Divino-matic Rod · {npc:7604} Sergeant Bly
 	["{quest:2768}: {npc:7604}, inside"] = "{quest:2768}：{npc:7604}，在裡面",
+
+	-- Step 16: Gadgetzan
+	-- {area:982} Noxious Lair · {area:976} Gadgetzan
+	["keep it: the {area:982}'s Centipaar (48-50) wait for the Un'Goro guide's {area:976} landing at about 49.5"] = "留著：{area:982}的山帕爾蟲（48-50級）留到安戈洛指南約49.5級抵達{area:976}時再打",
 
 	-- Step 17: Tran'rek
 	-- {area:978} Zul'Farrak · {npc:7876} Tran'rek
@@ -105,55 +117,33 @@ return {
 	-- {area:1938} Broken Pillar · {npc:7771} Marvon Rivetseeker · {quest:3161} Gahz'ridian
 	["Ride south to the dig camp at the {area:1938}. {npc:7771} hands you a detector helm: wear it to see the {quest:3161} mounds, which lie thick in the sand around the camp and south-west toward the ogres."] = "向南騎往{area:1938}的挖掘營地。{npc:7771}會給你一頂探測頭盔：戴上它就能看見{quest:3161}土堆，它們密集分布在營地周圍的沙地上，以及往西南方巨魔那邊。",
 
-	-- Step 22: The Noxious Lair
-	-- {npc:4196} Silithid Swarm
-	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
-	["Ride north-west to the Centipaar hive in the dunes. Any Centipaar can drop insect parts.\nCareful: Centipaar Swarmers cast {npc:4196} both in and out of combat, which brings small adds that interrupt you."] = "",
-
-	-- Step 23: Dunemaul Compound
-	-- {npc:12046} Gor'marok the Ravager · {quest:3362} Thistleshrub Valley
+	-- Step 22: Dunemaul Compound
+	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley
 	-- plural, as words: Dunemaul Ogres = {npc:5471} Dunemaul Ogre
-	["Ride south-west to the ogre compound. Brutes and Enforcers (46-48) fill it; {npc:12046} (49) stands in the middle with guards around him: clear them first.\nWhy the grind to 47: the {quest:3362} comes next, with mobs of 48-50 and quests of level 50. Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes."] = "向西南騎往巨魔營地。裡面滿是砂槌蠻兵和砂槌執行者（46-48級）；{npc:12046}（49級）站在中央，周圍有守衛：先清掉守衛。\n為什麼要刷到47級：接下來是{quest:3362}，那裡的怪是48-50級，任務是50級。在營地南端較安全的營地刷砂槌巨魔（45-46級），不要刷砂槌蠻兵。",
-	-- {npc:12046} Gor'marok the Ravager
-	["{npc:12046}, below ground"] = "",
+	["Ride south-west to the ogre compound and keep to its south end; the compound's quest waits for the Un'Goro guide.\nWhy the grind to 47: {npc:5955} waits at the edge of the {quest:3362} (mobs of 48-50). Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes and Enforcers (46-48) inside."] = "向西南騎往巨魔營地，待在南端；營地的任務留給安戈洛指南。\n為何要練到47級：{npc:5955}在{quest:3362}邊緣等著（怪物48-50級）。在營地南端較安全的地方擊殺砂槌巨魔（45-46級）練等，別打裡面的蠻兵和執行者（46-48級）。",
+	-- {item:278186} Brilliantly Polished Bangle
+	["{item:278186}, from any Dunemaul ogre"] = "{item:278186}，任何砂槌巨魔都會掉落",
 	-- {npc:5471} Dunemaul Ogre
 	["grind on {npc:5471}, at the compound's south end"] = "刷{npc:5471}，在營地南端",
 
-	-- Step 24: Thistleshrub Valley: kill these as you meet them
-	-- {quest:3362} Thistleshrub Valley
-	["{quest:3362}: kill these as you meet them"] = "",
-	-- {quest:3362} Thistleshrub Valley
-	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
-	["Ride south into {quest:3362}. The Dew Collectors drop the glands; only some are full, so keep the Laden one. Gnarled Thistleshrubs and Rootshapers share the valley. The Thistleshrubs are 48-50, above you: pull one at a time.\nCareful: The other thistleshrub mobs in the area are level 49-50 and wander a lot, so you can easily pull extra mobs."] = "向南騎進{quest:3362}。灌木露水收集者會掉落腺體；只有一部分是飽滿的，所以保留飽滿的露水腺。長瘤的灌木獸和灌木塑根者也在山谷裡。灌木獸是48-50級，比你高：一次拉一隻。\n小心：這一帶其他的灌木怪是49-50級，而且到處遊蕩，很容易多拉到怪。",
-
-	-- Step 25: Tooga's escort
+	-- Step 23: Tooga's escort
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "護送{npc:5955}",
-	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port
-	["The little turtle {npc:5955} hides at the north end of the valley. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "小烏龜{npc:5955}躲在山谷北端。帶他回家找他的妻子{npc:6015}，她在{area:977}東邊的水邊：他走得很慢，沙漠的野獸會攻擊他，所以要保住他的性命。",
+	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley · {npc:6015} Torta · {area:977} Steamwheedle Port
+	["The little turtle {npc:5955} hides at the north end of the {quest:3362}: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "小烏龜{npc:5955}躲在{quest:3362}北端：從邊緣把他帶走，別去惹薊棘灌木（48-50級）。帶他回家找他的妻子{npc:6015}，她在{area:977}東邊不遠的水邊：他走得很慢，沙漠的野獸會攻擊他，所以要保住他的性命。",
+	-- {npc:5955} Tooga
+	["{npc:5955}, beside her: Oasis"] = "{npc:5955}，在她旁邊：綠洲",
 
-	-- Step 26: Gadgetzan
-	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn
-	["Ride back west to {area:976}: {npc:11758} stands on the east side of town, where you come in."] = "",
-	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	-- Step 24: Steamwheedle Port
+	-- {npc:6015} Torta · {area:977} Steamwheedle Port
+	["From {npc:6015}, {area:977} is just west along the shore."] = "從{npc:6015}那裡沿著海岸往西不遠就是{area:977}。",
 
-	-- Step 27: Caliph Scorpidsting
+	-- Step 25: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "",
 
-	-- Step 28: The Gaping Chasm
-	-- {area:1938} Broken Pillar · {area:981} The Gaping Chasm
-	["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "向南騎過{area:1938}前往{area:981}，也就是哈札里的隧道；謝申克的設備在深處。\n小心：有一隻蟲子守著設備。許多蟲子在隧道裡巡邏，有些是50級，所以戰鬥常常會引來額外的怪。",
-	-- {item:8593} Scrimshank's Surveying Gear
-	["{item:8593}; below ground"] = "",
-
-	-- Step 29: Gadgetzan
-	-- {zone:1457} Darnassus
-	["for {zone:1457}, next"] = "給{zone:1457}，接下來",
-
-	-- Step 30: Fly to Auberdine
+	-- Step 27: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "飛往{area:442}",
 	-- {zone:1457} Darnassus · {npc:7763} Curgle Cranklehop · {area:442} Auberdine · {area:150} Menethil Harbor · {area:348} Aerie Peak
@@ -161,13 +151,13 @@ return {
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "{area:976}飛行管理員",
 
-	-- Step 31: Teldrassil
+	-- Step 28: Teldrassil
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:3838} Vesprystus
 	["Take the boat from {area:442}'s dock to {area:702}; {npc:3838}, the hippogryph master, stands on the rise just east of the landing: learn the flight path on the way up to the village."] = "從{area:442}的碼頭搭船前往{area:702}；角鷹獸管理員{npc:3838}站在碼頭東邊不遠的坡上：上坡前往村莊的路上學會飛行路線。",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "{area:702}飛行管理員",
 
-	-- Step 32: Rut'theran Village
+	-- Step 29: Rut'theran Village
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
 	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907}站在樓上，在{npc:7916}上方：從裡面走上去，箭頭無法分辨樓層。",
 	-- {npc:7907} Daryn Lightwind · {zone:1446} Tanaris
@@ -176,54 +166,53 @@ return {
 	["{npc:7916}: the feathers lie in the {zone:1425}, next"] = "{npc:7916}：羽毛在{zone:1425}，接下來",
 	["the book on her table"] = "她桌上的書",
 
-	-- Step 34: Temple of the Moon
+	-- Step 31: Temple of the Moon
 	["Temple of the Moon"] = "月神殿",
 	-- {zone:1457} Darnassus
 	["Step through the portal into {zone:1457}. The Temple of the Moon is in the south of the city."] = "穿過傳送門進入{zone:1457}。月神殿在城市南部。",
-	-- {npc:7740} Gracina Spiritmight
-	["{npc:7740}, beside her"] = "{npc:7740}，在她旁邊",
 
-	-- Step 38: Cenarion Enclave
+	-- Step 35: Cenarion Enclave
 	-- {npc:3516} Arch Druid Fandral Staghelm
 	["{npc:3516}, at the top of the tree"] = "{npc:3516}，在樹頂",
 
-	-- Step 39: Class trainer
+	-- Step 36: Class trainer
 	["Class trainer"] = "職業訓練師",
 
-	-- Step 40: Cenarion Enclave
+	-- Step 37: Cenarion Enclave
 	-- {zone:1449} Un'Goro Crater
 	["the soil comes from {zone:1449}, later"] = "土壤來自{zone:1449}，稍後",
 
-	-- Step 41: Portal to Teldrassil
+	-- Step 38: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
 	["Portal to {zone:1438}"] = "前往{zone:1438}的傳送門",
 
-	-- Step 43: Boat to Menethil Harbor
+	-- Step 40: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "搭船前往{area:150}",
 
-	-- Step 44: Fly to Aerie Peak
+	-- Step 41: Fly to Aerie Peak
 	-- {area:348} Aerie Peak
 	["Fly to {area:348}"] = "",
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "",
 
-	-- Step 45: Fly to Southshore
+	-- Step 42: Fly to Southshore
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "飛往{area:271}",
 
-	-- Step 46: Hinterlands
+	-- Step 43: Hinterlands
 	-- {area:348} Aerie Peak · {area:271} Southshore · {zone:1425} Hinterlands
 	["No flight path to {area:348} yet: ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border."] = "還沒有{area:348}的飛行路線：沿道路從{area:271}向東北騎進{zone:1425}；{area:348}就在邊界過去不遠。",
 
-	-- Step 47: Aerie Peak
+	-- Step 44: Aerie Peak
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, beside the flight master"] = "",
 	-- {npc:7884} Fraggar Thundermantle
 	["{npc:7884}, inside"] = "",
-
-	-- Step 50: Sprinkle's Secret Ingredient
-	["Underwater"] = "在水下",
+	-- {npc:5636} Gryphon Master Talonaxe · {quest:86620} Fledgling Rescue · {area:348} Aerie Peak
+	["{npc:5636}: {quest:86620}, the eggs in the hills just east of {area:348}"] = "{npc:5636}：{quest:86620}，蛋在{area:348}東邊不遠的山丘上",
+	-- {npc:270263} Farseer Maret Firetend · {quest:86616} Repurposed Totems · {area:355} Altar of Zul
+	["{npc:270263}, just east of the aviary: {quest:86616}, from the {area:355}'s Soothsayers"] = "{npc:270263}，在獅鷲棲所東邊不遠：{quest:86616}，從{area:355}的占卜者身上取得",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly from {area:976} to Theramore, take the boat to {area:150} and fly to {area:1537}. Train."] = "從{area:976}飛往塞拉摩，搭船前往{area:150}，再飛往{area:1537}。訓練。",
@@ -233,14 +222,22 @@ return {
 	-- ["Hearth to {area:976}."] = "用爐石回{area:976}。",
 	-- ["Ride back west to {area:976}."] = "向西騎回{area:976}。",
 	-- ["Ride north-west to the Centipaar hive in the dunes. Any Centipaar can drop insect parts."] = "向西北騎往沙丘中的森提帕爾蟲巢。所有森提帕爾都可能掉落昆蟲肢體。",
+	-- ["Ride north-west to the Sandfury troll camp at {area:979}. Use the {item:8584} at the edge of its pool; the trolls stand close, so pull the nearest first."] = "向西北騎往{area:979}的沙怒食人妖營地。在水池邊緣使用{item:8584}；食人妖站得很近，先拉最近的。",
+	-- ["Ride south into {quest:3362}. The Dew Collectors drop the glands; only some are full, so keep the Laden one. Gnarled Thistleshrubs and Rootshapers share the valley. The Thistleshrubs are 48-50, above you: pull one at a time.\nCareful: The other thistleshrub mobs in the area are level 49-50 and wander a lot, so you can easily pull extra mobs."] = "向南騎進{quest:3362}。灌木露水收集者會掉落腺體；只有一部分是飽滿的，所以保留飽滿的露水腺。長瘤的灌木獸和灌木塑根者也在山谷裡。灌木獸是48-50級，比你高：一次拉一隻。\n小心：這一帶其他的灌木怪是49-50級，而且到處遊蕩，很容易多拉到怪。",
+	-- ["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "向南騎過{area:1938}前往{area:981}，也就是哈札里的隧道；謝申克的設備在深處。\n小心：有一隻蟲子守著設備。許多蟲子在隧道裡巡邏，有些是50級，所以戰鬥常常會引來額外的怪。",
 	-- ["Ride south-east off the {area:439} into {area:440}. {area:976} is just inside the border."] = "向東南騎離{area:439}進入{area:440}。{area:976}就在邊界內側。",
 	-- ["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first."] = "向東南騎往{area:985}。{npc:7847}站在南方廢土營地的中央：先清掉他周圍的敵人。",
+	-- ["Ride south-west to the ogre compound. Brutes and Enforcers (46-48) fill it; {npc:12046} (49) stands in the middle with guards around him: clear them first.\nWhy the grind to 47: the {quest:3362} comes next, with mobs of 48-50 and quests of level 50. Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes."] = "向西南騎往巨魔營地。裡面滿是砂槌蠻兵和砂槌執行者（46-48級）；{npc:12046}（49級）站在中央，周圍有守衛：先清掉守衛。\n為什麼要刷到47級：接下來是{quest:3362}，那裡的怪是48-50級，任務是50級。在營地南端較安全的營地刷砂槌巨魔（45-46級），不要刷砂槌蠻兵。",
 	-- ["Rizzle's plans"] = "瑞茲爾的設計圖",
 	-- ["The Wanted poster by {npc:7882}"] = "{npc:7882}旁邊的通緝告示",
+	-- ["The little turtle {npc:5955} hides at the north end of the valley. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "小烏龜{npc:5955}躲在山谷北端。帶他回家找他的妻子{npc:6015}，她在{area:977}東邊的水邊：他走得很慢，沙漠的野獸會攻擊他，所以要保住他的性命。",
+	-- ["Underwater"] = "在水下",
 	-- ["Wastewander bandits"] = "廢土強盜",
 	-- ["While {npc:4709} keeps Rizzle talking, his plans lie unguarded in the gnome camp across the track."] = "趁{npc:4709}拖住瑞茲爾說話時，他的設計圖就無人看守地放在賽道對面的地精營地裡。",
+	-- ["for {zone:1457}, next"] = "給{zone:1457}，接下來",
 	-- ["for {zone:1457}: the route takes you there at 47"] = "交給{zone:1457}：路線會在47級時帶你去那裡",
 	-- ["{npc:11758}, on the east side of town"] = "{npc:11758}，在城鎮東側",
 	-- ["{npc:7583}'s next ingredient grows in the {zone:1425}, and the route never brings it back: skip it."] = "{npc:7583}的下一種材料生長在{zone:1425}，而路線不會再帶你回來：跳過。",
+	-- ["{npc:7740}, beside her"] = "{npc:7740}，在她旁邊",
 	-- ["{npc:7881}'s next delivery goes back to {area:35}: skip it."] = "{npc:7881}的下一批貨要送回{area:35}：跳過。",
 }

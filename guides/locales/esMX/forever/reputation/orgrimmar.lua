@@ -228,7 +228,7 @@ return {
 	-- Step 38: Prowlers, Serena Bloodfeather and Echeyakee
 	-- {npc:3452} Serena Bloodfeather · {quest:881} Echeyakee
 	["Prowlers, {npc:3452} and {quest:881}"] = "Merodeadores, {npc:3452} y {quest:881}",
-	-- {quest:876} Serena Bloodfeather · {npc:3338} Sergra Darkthorn · {item:10327} Horn of Echeyakee · {object:147524} Echeyakee's Lair (no name in this language: may be words)
+	-- {quest:876} Serena Bloodfeather · {npc:3338} Sergra Darkthorn · {item:10327} Horn of Echeyakee · {object:147524} Echeyakee's Lair
 	-- plural, as words: Savannah Prowlers = {npc:3425} Savannah Prowler
 	["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "Los merodeadores de la sabana están al oeste y al norte del Cruce. {quest:876} dirige a las arpías Alabruja del extremo noroeste. Luego {npc:3338} te da el {item:10327}: sóplalo junto a los huesos de kodo de {object:147524}, al norte del pueblo, y mata al león blanco.",
 
@@ -327,15 +327,11 @@ return {
 	-- {quest:4721} Wild Guardians · {faction:76} Orgrimmar
 	["{quest:4721}: 300 {faction:76} reputation."] = "{quest:4721}: 300 de reputación con {faction:76}.",
 
-	-- Step 54: Belgrom Rockmaul: Betrayed
-	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {object:173084} Hall of the Brave (no name in this language: may be words) · {quest:3504} Betrayed
-	["{npc:4485} stands in the {object:172958} outside the {object:173084}. The first two {quest:3504} quests are level 53 and pay in full at 60 too, as every quest does in Forever."] = "{npc:4485} está en {object:172958}, afuera de {object:173084}. Las dos primeras misiones de {quest:3504} son de nivel 53 y también pagan completo a 60, como toda misión en Forever.",
+	-- Step 54: Valormok: Betrayed
+	-- {area:1237} Valormok · {zone:1447} Azshara · {quest:3505} Betrayed · {npc:8576} Ag'tor Bloodfist · {npc:4485} Belgrom Rockmaul
+	["Fly to {area:1237} in western {zone:1447}: on Forever, {quest:3505} starts with {npc:8576} there, with no letter from {npc:4485} first. The {quest:3505} quests are level 53 and pay in full at 60 too, as every quest does in Forever. {npc:8576} sends you north-east to the blood elf camp on the bluffs of the northern peninsula."] = "Vuela a {area:1237}, en el oeste de {zone:1447}: en Forever, {quest:3505} empieza allí con {npc:8576}, sin necesidad de la carta de {npc:4485}. Las misiones de {quest:3505} son de nivel 53 y también pagan completo a 60, como todas las misiones en Forever. {npc:8576} te manda al noreste, al campamento de elfos de sangre en los riscos de la península norte.",
 
-	-- Step 55: Valormok
-	-- {area:1237} Valormok · {zone:1447} Azshara · {npc:8576} Ag'tor Bloodfist
-	["Fly to {area:1237} in western {zone:1447}. {npc:8576} sends you north-east to the blood elf camp on the bluffs of the northern peninsula."] = "Vuela a {area:1237}, en el oeste de {zone:1447}. {npc:8576} te manda al noreste, al campamento de los elfos de sangre en los riscos de la península norte.",
-
-	-- Step 56: Magus Rimtori's camp
+	-- Step 55: Magus Rimtori's camp
 	-- {npc:8578} Magus Rimtori
 	["{npc:8578}'s camp"] = "Campamento de {npc:8578}",
 	-- {object:151286} Kaldorei Tome of Summoning · {npc:8578} Magus Rimtori
@@ -345,7 +341,7 @@ return {
 	-- {object:151286} Kaldorei Tome of Summoning
 	["the {object:151286}"] = "el {object:151286}",
 
-	-- Step 57: Valormok and Orgrimmar
+	-- Step 56: Valormok and Orgrimmar
 	-- {area:1237} Valormok · {faction:76} Orgrimmar
 	["{area:1237} and {faction:76}"] = "{area:1237} y {faction:76}",
 	-- {npc:4485} Belgrom Rockmaul · {faction:76} Orgrimmar
@@ -353,7 +349,7 @@ return {
 	-- {quest:3506} Betrayed · {faction:76} Orgrimmar
 	["{quest:3506}: 300 {faction:76} reputation at 60."] = "{quest:3506}: 300 de reputación con {faction:76} a nivel 60.",
 
-	-- Step 58: Blackrock Mountain, with a group
+	-- Step 57: Blackrock Mountain, with a group
 	["Blackrock Mountain, with a group"] = "Montaña Roca Negra, en grupo",
 	-- {area:340} Kargath · {zone:1418} Badlands · {faction:76} Orgrimmar · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire · {quest:4724} The Pack Mistress · {item:12652} Bijou's Reconnaissance Report · {quest:4903} Warlord's Command · {npc:3144} Eitrigg
 	["{area:340} in the {zone:1418} hands out {faction:76} quests for {area:1584} and {area:1583}, all level 58 to 60 and paid in full: Precarious Predicament and Operation: Death to Angerforge (150 each), {quest:4724} and {item:12652} (100 each), {quest:4903} (150), {npc:3144}'s Wisdom (100) and For The Horde! (Rend's head, 200 to every Horde city). These are dungeon quests: take them when your group goes."] = "{area:340}, en {zone:1418}, da misiones de {faction:76} para {area:1584} y {area:1583}, todas de nivel 58 a 60 y pagadas completas: Situación precaria y Operación: Muerte a Furiaforja (150 cada una), {quest:4724} y {item:12652} (100 cada una), {quest:4903} (150), La sabiduría de {npc:3144} (100) y ¡Por la Horda! (la cabeza de Rend, 200 para cada ciudad de la Horda). Son misiones de mazmorra: tómalas cuando vaya tu grupo.",
@@ -362,19 +358,19 @@ return {
 	-- {npc:9081} Galamav the Marksman · {quest:4724} The Pack Mistress
 	["{npc:9081}: {quest:4724}, +100, a group of five"] = "{npc:9081}: {quest:4724}, +100, un grupo de cinco",
 
-	-- Step 59: Additional Runecloth to Honored
+	-- Step 58: Additional Runecloth to Honored
 	-- {quest:7832} Additional Runecloth
 	["{quest:7832} to Honored"] = "{quest:7832} hasta Honorable",
 	-- {quest:7832} Additional Runecloth · {item:14047} Runecloth
 	["{quest:7832}: 20 {item:14047} for 50 reputation, as often as you like. Friendly to Honored is 6,000: 120 hand-ins, 2,400 {item:14047}, less what the quests gave you (an orc starts at Friendly 1,000: 100 hand-ins; an Undead or Skyborne starts at Neutral 2,000 and first needs 20 hand-ins, 400 {item:14047}, to reach Friendly). Hand in every 20 you carry, one after another."] = "{quest:7832}: 20 {item:14047} por 50 de reputación, cuantas veces quieras. De Amistoso a Honorable son 6.000: 120 entregas, 2.400 {item:14047}, menos lo que te dieron las misiones (un orco empieza en Amistoso 1.000: 100 entregas; un no-muerto o Celeste empieza en Neutral 2.000 y primero necesita 20 entregas, 400 {item:14047}, para llegar a Amistoso). Entrega cada 20 que lleves, una tras otra.",
 
-	-- Step 60: Additional Runecloth to Revered
+	-- Step 59: Additional Runecloth to Revered
 	-- {quest:7832} Additional Runecloth
 	["{quest:7832} to Revered"] = "{quest:7832} hasta Reverenciado",
 	-- {item:14047} Runecloth
 	["Honored to Revered is 12,000: 240 hand-ins, 4,800 {item:14047}. The Auction House price of a stack decides whether to farm or buy."] = "De Honorable a Reverenciado son 12.000: 240 entregas, 4.800 {item:14047}. El precio de una pila en la casa de subastas decide si conviene farmear o comprar.",
 
-	-- Step 61: Additional Runecloth to Exalted
+	-- Step 60: Additional Runecloth to Exalted
 	-- {quest:7832} Additional Runecloth
 	["{quest:7832} to Exalted"] = "{quest:7832} hasta Exaltado",
 	-- {item:14047} Runecloth · {faction:76} Orgrimmar · {npc:3362} Ogunaro Wolfrunner · {object:172958} Valley of Honor
@@ -385,11 +381,13 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Dark Adepts and Shadowmages (level 58-60) drop it here; every Scourge kill here also counts toward the {object:92525} (see that guide). The Auction House works too."] = "Los Adeptos oscuros y Magos oscuros (nivel 58-60) lo sueltan aquí; cada muerte de la Plaga aquí también cuenta para {object:92525} (consulta esa guía). También sirve la casa de subastas.",
 	-- ["Dunemaul ogres (level 45-48) drop it here. The Auction House works too."] = "Los Ogros Machacaduna (nivel 45-48) lo sueltan aquí. También sirve la casa de subastas.",
+	-- ["Fly to {area:1237} in western {zone:1447}. {npc:8576} sends you north-east to the blood elf camp on the bluffs of the northern peninsula."] = "Vuela a {area:1237}, en el oeste de {zone:1447}. {npc:8576} te manda al noreste, al campamento de los elfos de sangre en los riscos de la península norte.",
 	-- ["Keep handing in {quest:7832} until {faction:76} is Exalted. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Sigue entregando {quest:7832} hasta ser Exaltado con {faction:76}. {item:14047}: Adeptos oscuros y Magos oscuros (nivel 58-60) en {zone:1423}, o la casa de subastas.",
 	-- ["Keep handing in {quest:7832}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Sigue entregando {quest:7832}, 20 {item:14047} cada vez. {item:14047}: Adeptos oscuros y Magos oscuros (nivel 58-60) en {zone:1423}, o la casa de subastas.",
 	-- ["Kolkar centaur (level 30-33) drop it here. The Auction House works too."] = "Los Centauros Kolkar (nivel 30-33) lo sueltan aquí. También sirve la casa de subastas.",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "Los Déspotas de Ventura y Cía. de {area:381} (nivel 16-17) lo sueltan aquí. También sirve la casa de subastas.",
 	-- ["{npc:14726} takes cloth for {faction:76} in {faction:76}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7832} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14726} acepta paño para {faction:76} en {faction:76}. Las primeras donaciones de Paño de lana, Paño de seda, Paño de tejido mágico y {item:14047} (60 paños cada una) se hacen una sola vez y dan la mayor reputación por paño; después, {quest:7832} se repite hasta Exaltado. Ser Exaltado con la ciudad de otra raza te permite comprar las monturas de esa raza. La ventaja Diplomático del Legado de Forever aumenta la reputación obtenida.",
 	-- ["{npc:14726}: {item:14047} delivered"] = "{npc:14726}: {item:14047} entregado",
+	-- ["{npc:4485} stands in the {object:172958} outside the {object:173084}. The first two {quest:3504} quests are level 53 and pay in full at 60 too, as every quest does in Forever."] = "{npc:4485} está en {object:172958}, afuera de {object:173084}. Las dos primeras misiones de {quest:3504} son de nivel 53 y también pagan completo a 60, como toda misión en Forever.",
 	-- ["{quest:7832} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7832} pide 20 {item:14047} por entrega y se repite cuantas veces quieras. Lleva {item:14047} en múltiplos de 20 y entrégalos todos de una vez, una entrega tras otra. {item:14047}: Adeptos oscuros y Magos oscuros (nivel 58-60) en {zone:1423}, o la casa de subastas.",
 }

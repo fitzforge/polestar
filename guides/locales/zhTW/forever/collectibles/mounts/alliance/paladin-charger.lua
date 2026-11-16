@@ -11,8 +11,8 @@ return {
 	["Your epic mount at 60, summoned at will: the faster step up from the Warhorse."] = "60級的史詩坐騎，可隨時召喚：比戰馬更快的升級。",
 
 	-- Step 1: Lord Grayson Shadowbreaker (Ironforge)
-	-- {npc:5149} Brandur Ironhammer · {object:32362} Mystic Ward · {quest:7638} Lord Grayson Shadowbreaker · {zone:1453} Stormwind
-	["At 60 {npc:5149} in the {object:32362} sends you to {quest:7638} in {zone:1453}'s Cathedral of Light."] = "60級時，{object:32362}的{npc:5149}會派你去找{zone:1453}光明大教堂的{quest:7638}。",
+	-- {npc:5149} Brandur Ironhammer · {object:32362} Mystic Ward · {quest:7670} Lord Grayson Shadowbreaker · {zone:1453} Stormwind
+	["At 60 {npc:5149} in the {object:32362} sends you to {quest:7670} in {zone:1453}'s Cathedral of Light."] = "60級時，{object:32362}的{npc:5149}會派你去找{zone:1453}光明大教堂的{quest:7670}。",
 
 	-- Step 2: Lord Grayson Shadowbreaker
 	-- {spell:23214} Summon Charger · {area:2279} Stratholme · {area:2057} Scholomance · {item:14047} Runecloth · {item:8836} Arthas' Tears · {npc:6171} Duthorian Rall
@@ -33,7 +33,7 @@ return {
 	["Lord Grayson blesses the censer into the {item:18752} for {area:2627}."] = "",
 
 	-- Step 5: Exorcising Terrordale
-	-- {area:2627} Terrordale · {zone:1423} Eastern Plaguelands · {area:2279} Stratholme · {object:179747} Terrordale Haunting Spirit (no name in this language: may be words) · {item:18752} Exorcism Censer · {spell:7713} Wailing Dead · {spell:2878} Turn Undead
+	-- {area:2627} Terrordale · {zone:1423} Eastern Plaguelands · {area:2279} Stratholme · {object:179747} Terrordale Haunting Spirit · {item:18752} Exorcism Censer · {spell:7713} Wailing Dead · {spell:2878} Turn Undead
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit
 	["{area:2627} lies in the far north-west of the {zone:1423}, west of the {area:2279} gates. Stand inside a green glowing patch on the ground (a {object:179747}; some are inside the ruined houses) and use the {item:18752}: up to three Terrordale Spirits (level 59-60) rise and attack. Their {spell:7713} lowers all your stats by 30%: fight them one at a time and use {spell:2878}. The patches come back quickly; several paladins can work side by side."] = "",
 	-- {item:18752} Exorcism Censer
@@ -118,6 +118,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["An {item:12800} comes from Thorium veins, a {item:18335} from the elites of the {zone:1422}, both rarely: the Auction House is the usual source."] = "{item:12800}來自瑟銀礦脈，{item:18335}來自{zone:1422}的精英怪，兩者都很稀有：通常從拍賣場取得。",
+	-- ["At 60 {npc:5149} in the {object:32362} sends you to {quest:7638} in {zone:1453}'s Cathedral of Light."] = "60級時，{object:32362}的{npc:5149}會派你去找{zone:1453}光明大教堂的{quest:7638}。",
 	-- ["Bring 150 gold for {npc:1416} along with the materials."] = "除了材料，再帶150金幣給{npc:1416}。",
 	-- ["Supply Crates, inside"] = "補給箱，在裡面",
 	-- ["The {spell:23214} chain is long: it takes you through {area:2279}, {area:2577} and {area:2057}, and costs about 350 gold in donations on top of the materials. Lord Grayson stands in the Cathedral of Light."] = "{spell:23214}任務鏈很長：會帶你進入{area:2279}、{area:2577}和{area:2057}，除了材料之外還要捐獻約350金幣。格雷森公爵站在光明大教堂裡。",

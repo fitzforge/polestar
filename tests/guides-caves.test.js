@@ -126,17 +126,6 @@ const FLOORS = [
 		z: -70.5, // the Ancient Brazier's spawn (spawnz.json), the object the Cloven Hoof comes out of
 	},
 	{
-		// Redrett (#1782): the Rod of Helcular at the Flames of Azel and Veraz, in the Foothill Caverns under Darrow Hill.
-		guide: 'forever/horde/30-40/01-hillsbrad-foothills.guide',
-		target: (g) => g.t === 'use' && g.quest === 553 && g.oi === 1,
-		z: 72.9, // the Flame of Azel's spawn (spawnz.json)
-	},
-	{
-		guide: 'forever/horde/30-40/01-hillsbrad-foothills.guide',
-		target: (g) => g.t === 'use' && g.quest === 553 && g.oi === 2,
-		z: 53.5, // the Flame of Veraz, a level down
-	},
-	{
 		// Redrett (#1786): "Azurelode Mine" leads to the Hillsbrad Miners inside, not onto the hill over the tunnels.
 		guide: 'forever/horde/30-40/01-hillsbrad-foothills.guide',
 		target: (g) => g.t === 'goto' && g.area === 288 && g.x === 28.5 && g.y === 55,
@@ -168,3 +157,12 @@ for (const c of FLOORS) {
 		assert.equal(goal.z, c.z, JSON.stringify(goal));
 	});
 }
+
+// Redrett (#1782) had the Rod of Helcular used at the Flames of Azel and Veraz, in the Foothill Caverns under Darrow
+// Hill, with each flame's floor height. Since the 0.4.0 level tidy Helcular's Revenge part 2 (553) is left out of the
+// Horde route (#1925: its last flame stands among yetis 32-34 and its end inside Southshore), so no goal there needs
+// a height any more.
+test("forever/horde/30-40/01-hillsbrad-foothills.guide: Helcular's flames are no longer a goal (#1925)", { skip }, () => {
+	const goals = compiled('forever/horde/30-40/01-hillsbrad-foothills.guide').steps.flatMap((step) => step.goals);
+	assert.ok(!goals.some((g) => g.quest === 553), "no Helcular's Revenge goal");
+});

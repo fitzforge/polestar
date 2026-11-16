@@ -36,8 +36,10 @@ const { goalLines, whenHolds, fits, START_NODES, taxiNodes, taxiNode } = require
 
 const FACTIONS = ['Alliance', 'Horde'];
 
+// A leveling guide of one faction's route, or one both factions' routes pass through (no `faction`, such as
+// forever/40-50/shendralas: each side goes on to its own next guide).
 function leveling(g) {
-	return (g.category == null || g.category === 'Leveling') && FACTIONS.includes(g.faction);
+	return (g.category == null || g.category === 'Leveling') && (FACTIONS.includes(g.faction) || g.faction == null);
 }
 
 // A path's races: the start's `race` header, else its faction's races.
@@ -47,23 +49,25 @@ function racesOf(g) {
 }
 
 // Every path from each start: guides no other leveling guide leads to (a
-// cycle with no way in starts at its first guide).
+// cycle with no way in starts at its first guide). A path keeps to its start's
+// faction: a guide for both factions goes on to that faction's next guide, and
+// never starts a path itself.
 function paths(guides) {
 	const list = guides.filter(leveling);
 	const byId = new Map(list.map((g) => [g.id, g]));
-	const options = (g) => (g.nextChoices && g.nextChoices.length ? g.nextChoices : g.next ? [g.next] : []).filter((id) => byId.has(id));
-	const into = new Set(list.flatMap(options));
+	const options = (g, side) => (g.nextChoices && g.nextChoices.length ? g.nextChoices : g.next ? [g.next] : []).filter((id) => byId.has(id) && (!side || byId.get(id).faction == null || byId.get(id).faction === side));
+	const into = new Set(list.flatMap((g) => options(g)));
 	const out = [];
 	const reached = new Set();
 	const walk = (path) => {
 		const g = path[path.length - 1];
 		reached.add(g.id);
-		const next = options(g).filter((id) => !path.some((p) => p.id === id));
+		const next = options(g, path[0].faction).filter((id) => !path.some((p) => p.id === id));
 		if (!next.length) out.push(path);
 		for (const id of next) walk([...path, byId.get(id)]);
 	};
-	for (const g of list) if (!into.has(g.id)) walk([g]);
-	for (const g of list) if (!reached.has(g.id)) walk([g]);
+	for (const g of list) if (g.faction && !into.has(g.id)) walk([g]);
+	for (const g of list) if (g.faction && !reached.has(g.id)) walk([g]);
 	return out;
 }
 

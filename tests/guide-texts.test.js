@@ -194,6 +194,29 @@ test('a name inside a longer proper name the data lacks stays words', () => {
 	assert.equal(r.guides[0]._localised.steps[0].note, 'Young Kobold Vermin Runts sit by {npc:197}; Kobold Vermin Chiefs too, and {npc:6}.');
 });
 
+// Forever gives Skyborne shamans their own Call of Air (96136) beside everyone
+// else's (1531), each closing the other, so the goal taking 96136 lists 1531 in
+// its preTitles and closedBy. The step's text means its own quest. A same-named
+// prerequisite (the Honored Eye of Zuldazar 8050 after the Friendly one, 8049)
+// keeps the token it had. The same cases run in forge
+// (tests/guide/tokens_pre_titles.rs).
+test("a step's own quest is its text's token over a same-named exclusive of it, not over a same-named prerequisite", () => {
+	const { tokeniseGuides } = require('../tools/lib/dsl/tokens');
+	const { fixtureData } = require('./helpers/dsl');
+	const step = (note, goal) => ({ title: 'Step', note, goals: [{ t: 'accept', ...goal }] });
+	const guide = {
+		id: 't/main',
+		title: 'Test',
+		steps: [
+			step('At 30 Skyborne shamans get their own Call of Air.', { quest: 96136, title: 'Call of Air', preTitles: { 1531: 'Call of Air' }, closedBy: [1531] }),
+			step('Then The Eye of Zuldazar, Honored.', { quest: 8050, title: 'The Eye of Zuldazar', preTitles: { 8049: 'The Eye of Zuldazar' } }),
+		],
+	};
+	const r = tokeniseGuides([guide], fixtureData());
+	assert.equal(r.guides[0].steps[0].note, 'At 30 Skyborne shamans get their own {quest:96136}.');
+	assert.equal(r.guides[0].steps[1].note, 'Then {quest:8049}, Honored.');
+});
+
 // "Dark Iron dwarves: kill these as you meet them" took the token of an object
 // named "Dark Iron" that no goal of its step names, so a translated client read
 // "Черное Железо dwarves: ...". Such an object's name stays words before a

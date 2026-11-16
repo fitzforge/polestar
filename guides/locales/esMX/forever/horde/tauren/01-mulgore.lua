@@ -72,8 +72,8 @@ return {
 	["{npc:3209} walks around {area:221}: look inside the circle on the map"] = "{npc:3209} da vueltas por {area:221}: búscalo dentro del círculo del mapa",
 
 	-- Step 12: Seer Ravenfeather
-	-- {npc:5888} Seer Ravenfeather · {area:221} Camp Narache · {quest:1516} Call of Earth
-	["{npc:5888} stands in {area:221}. {quest:1516} needs level 4, which you reach with the turn-ins here."] = "{npc:5888} está en {area:221}. {quest:1516} necesita nivel 4, que alcanzas con las entregas de aquí.",
+	-- {npc:5888} Seer Ravenfeather · {area:221} Camp Narache · {quest:1519} Call of Earth
+	["{npc:5888} stands in {area:221}. {quest:1519} needs level 4, which you reach with the turn-ins here."] = "{npc:5888} está en {area:221}. {quest:1519} necesita nivel 4, que alcanzas con las entregas de aquí.",
 
 	-- Step 13: Ritual Salve
 	-- {area:358} Brambleblade Ravine
@@ -172,8 +172,8 @@ return {
 	["{npc:3069}, beside {npc:3067}: {quest:97934}"] = "{npc:3069}, junto a {npc:3067}: {quest:97934}",
 
 	-- Step 32: Poison Water
-	-- plural, as words: Adult Plainstriders = {npc:2956} Adult Plainstrider
-	["Prairie Wolves and Adult Plainstriders roam the plains around the village."] = "Los lobos de pradera y los Zancudos de llanura adultos ({npc:2956}) deambulan por las llanuras alrededor del poblado.",
+	-- plural, as words: Wiry Swoops = {npc:2969} Wiry Swoop · Adult Plainstriders = {npc:2956} Adult Plainstrider · Elder Plainstriders = {npc:2957} Elder Plainstrider · Prairie Wolf Alphas = {npc:2960} Prairie Wolf Alpha
+	["Prairie Wolves, Wiry Swoops and Adult Plainstriders roam the plains around the village; the plains just south of it, toward the well, hold them without the Elder Plainstriders (8-9) and Prairie Wolf Alphas (9-10) that roam farther out."] = "Los lobos de pradera, los Aguilones nervudos y los Zancudos de llanura adultos recorren las llanuras alrededor de la aldea; las llanuras justo al sur, hacia el pozo, los tienen sin los Zancudos de llanura viejos (8-9) ni los Lobos alfa de pradera (9-10) que recorren más lejos.",
 	-- {object:2910} Well Stone
 	["{object:2910}, 170 yd east"] = "{object:2910}, a 170 m al este",
 
@@ -216,38 +216,26 @@ return {
 	-- {zone:1456} Thunder Bluff
 	["The wrecked caravan lies north-west of the centaurs, east of the road to {zone:1456}."] = "La caravana destrozada está al noroeste de los centauros, al este del camino a {zone:1456}.",
 
-	-- Step 43: Morin Cloudstalker
-	-- {area:396} Winterhoof Water Well
-	["Back south-east to the {area:396}."] = "De vuelta al sureste a {area:396}.",
-
-	-- Step 44: Galak centaurs
-	["Galak centaurs"] = "Centauros Galak",
-	["The Galak centaurs camp on the plains east of the well; Herak leads them."] = "Los centauros Galak acampan en las llanuras al este del pozo; Herak los dirige.",
-
-	-- Step 45: The Venture Co. Mine
-	-- {quest:765} Supervisor Fizsprocket · {item:281031} Mulgore Expansion Plans · {quest:98424} Fizsprocket's Notes
-	["The goblins work the mine in the hills north-east of the well. {quest:765} stands in the back of the mine; his {item:281031} start {quest:98424}, and the other pages lie inside the mine."] = "Los goblins trabajan la mina en las colinas al noreste del pozo. {quest:765} está al fondo de la mina; sus {item:281031} inician {quest:98424}, y las otras páginas están dentro de la mina.",
-
-	-- Step 46: Wildmane Water Well
+	-- Step 43: Wildmane Water Well
 	-- {zone:1456} Thunder Bluff · {area:398} Wildmane Water Well · {zone:1412} Mulgore
 	["Cross north-west past {zone:1456} to the {area:398} in the far north of {zone:1412}."] = "Cruza al noroeste pasando {zone:1456} hasta {area:398}, en el extremo norte de {zone:1412}.",
 
-	-- Step 47: Seer Wiserunner
+	-- Step 44: Seer Wiserunner
 	-- {npc:2984} Seer Wiserunner · {area:404} Bael'dun Digsite
 	["{npc:2984} stands at the edge of the {area:404}, south of the well."] = "{npc:2984} está al borde de {area:404}, al sur del pozo.",
 
-	-- Step 48: Dangers of the Windfury
+	-- Step 45: Dangers of the Windfury
 	-- {area:819} Windfury Ridge
 	["The Windfury harpies hold {area:819}, north and west of the well."] = "Las arpías Viento Furioso ocupan {area:819}, al norte y al oeste del pozo.",
 
-	-- Step 49: Dwarven Digging
+	-- Step 46: Dwarven Digging
 	-- {area:404} Bael'dun Digsite
 	-- plural, as words: Prospector's Picks = {item:4702} Prospector's Pick
 	["The dwarves of the {area:404} carry the Prospector's Picks. Smash them at the dwarves' forge in the digsite."] = "Los enanos de {area:404} llevan los Picos de prospector. Destrúyelos en la forja de los enanos de la excavación.",
 	-- {item:4703} Broken Tools
 	["{item:4703}, at the digsite forge"] = "{item:4703}, en la forja de la excavación",
 
-	-- Step 50: Sharing the Land
+	-- Step 47: Sharing the Land
 	-- {area:818} Palemane Rock · {npc:272203} Perith Stormhoof
 	["The Palemane gnolls hold {area:818}, south of the digsite and west of Bloodhoof. {npc:272203} is held in their camp: lead him out."] = "Los gnolls Crines Pálidas ocupan {area:818}, al sur de la excavación y al oeste de Poblado Pezuña de Sangre. {npc:272203} está cautivo en su campamento: guíalo afuera.",
 	-- {npc:2950} Palemane Skinner · {area:16677} Bristleback Retreat
@@ -255,19 +243,45 @@ return {
 	-- {npc:2951} Palemane Poacher
 	["{npc:2951}, below ground"] = "{npc:2951}, bajo tierra",
 
-	-- Step 51: Bloodhoof Village
-	-- {npc:2993} Baine Bloodhoof · {npc:3057} Cairne Bloodhoof · {zone:1456} Thunder Bluff
-	["{npc:2993}, for {npc:3057} in {zone:1456}"] = "{npc:2993}, para {npc:3057} en {zone:1456}",
+	-- Step 48: Bloodhoof Village
 	-- {npc:2948} Mull Thunderhorn · {zone:1456} Thunder Bluff
 	["{npc:2948}, for Hamuul in {zone:1456}"] = "{npc:2948}, para Hamuul en {zone:1456}",
 
-	-- Step 52: Yaw Sharpmane
+	-- Step 49: Yaw Sharpmane
 	-- {npc:3065} Yaw Sharpmane · {area:222} Bloodhoof Village · {item:15908} Taming Rod · {npc:2956} Adult Plainstrider · {npc:2959} Prairie Stalker · {npc:2970} Swoop
 	["{npc:3065} stands at the north end of {area:222}. Tame with the {item:15908}: an {npc:2956} on the plains, a {npc:2959} north of the village, a {npc:2970} to the north-west."] = "{npc:3065} está en el extremo norte de {area:222}. Doma con {item:15908}: un {npc:2956} en las llanuras, un {npc:2959} al norte de la aldea y un {npc:2970} al noroeste.",
 	-- {item:15908} Taming Rod
 	["Tame it with the {item:15908}"] = "Domestícalo con {item:15908}",
 
-	-- Step 54: Red Rocks
+	-- Step 50: Morin Cloudstalker
+	-- {area:396} Winterhoof Water Well
+	["South-east to the {area:396}."] = "Al sureste a {area:396}.",
+
+	-- Step 51: Galak centaurs
+	["Galak centaurs"] = "Centauros Galak",
+	["The Galak centaurs camp on the plains east of the well; Herak leads them."] = "Los centauros Galak acampan en las llanuras al este del pozo; Herak los dirige.",
+
+	-- Step 52: Level 11
+	["Level 11"] = "Nivel 11",
+	-- {quest:765} Supervisor Fizsprocket · {quest:764} The Venture Co.
+	-- plural, as words: Venture Co. Workers = {npc:2978} Venture Co. Worker
+	["Top up here to level 11 before the mine: {quest:765} is 12. The Venture Co. Workers (8-9) in the hills outside it count for {quest:764} too."] = "Sube aquí hasta nivel 11 antes de la mina: {quest:765} es de nivel 12. Los Trabajadores de Ventura y Cía. (8-9) en las colinas afuera también cuentan para {quest:764}.",
+	-- {npc:2978} Venture Co. Worker
+	["grind on {npc:2978}"] = "farmea {npc:2978}",
+
+	-- Step 53: The Venture Co. Mine
+	-- {quest:765} Supervisor Fizsprocket · {item:281031} Mulgore Expansion Plans · {quest:98424} Fizsprocket's Notes
+	["The goblins work the mine in the hills north-east of the well. {quest:765} stands in the back of the mine; his {item:281031} start {quest:98424}, and the other pages lie inside the mine.\nCareful: the goblins stand close together in the tunnels and {quest:765} is level 12: clear the way one pull at a time."] = "Los goblins trabajan la mina en las colinas al noreste del pozo. {quest:765} está al fondo de la mina; sus {item:281031} inician {quest:98424}, y las otras páginas están dentro de la mina.\nCuidado: los goblins están muy juntos en los túneles y {quest:765} es de nivel 12: despeja el camino atrayendo de uno en uno.",
+
+	-- Step 54: Morin Cloudstalker
+	-- {area:396} Winterhoof Water Well
+	["Back south to the {area:396}."] = "De vuelta al sur a {area:396}.",
+
+	-- Step 55: Bloodhoof Village
+	-- {npc:2993} Baine Bloodhoof · {npc:3057} Cairne Bloodhoof · {zone:1456} Thunder Bluff
+	["{npc:2993}, for {npc:3057} in {zone:1456}"] = "{npc:2993}, para {npc:3057} en {zone:1456}",
+
+	-- Step 56: Red Rocks
 	-- {area:225} Red Rocks · {zone:1456} Thunder Bluff · {npc:3233} Lorekeeper Raintotem · {npc:2994} Ancestral Spirit
 	-- plural, as words: Bristleback Interlopers = {npc:3232} Bristleback Interloper
 	["Head north to {area:225}, east of {zone:1456}. {npc:3233} stands at the foot of the rocks; the Bristleback Interlopers dig at the burial ground and the {npc:2994} waits on top."] = "Ve al norte hasta {area:225}, al este de {zone:1456}. {npc:3233} está al pie de las rocas; los Intrusos Erizapúas ({npc:3232}) excavan en el cementerio y el {npc:2994} espera en la cima.",
@@ -275,15 +289,15 @@ return {
 	-- plural, as words: Flatland Prowlers = {npc:3566} Flatland Prowler
 	["{item:5203}: Flatland Prowlers roam the plains around {area:225}"] = "{item:5203}: los merodeadores de las estepas recorren las llanuras alrededor de {area:225}",
 
-	-- Step 55: Thunder Bluff
+	-- Step 57: Thunder Bluff
 	-- {npc:3057} Cairne Bloodhoof
 	["{npc:3057}'s tent"] = "La tienda de {npc:3057}",
 
-	-- Step 56: Thunder Bluff
+	-- Step 58: Thunder Bluff
 	-- {npc:2995} Tal · {npc:3057} Cairne Bloodhoof
 	["Ride a lift up to the mesas. {npc:2995} keeps the wind riders on the central rise; {npc:3057} stands in the great tent there."] = "Sube en un elevador a las mesetas. {npc:2995} cuida a los jinetes del viento en la elevación central; {npc:3057} está en la gran tienda de allí.",
 
-	-- Step 57: Traditions of the Bluff
+	-- Step 59: Traditions of the Bluff
 	-- {npc:269068} Eylah Sunhorn · {npc:3014} Nida Winterhoof · {npc:3012} Nata Dawnstrider · {npc:3005} Mahu · {npc:3027} Naal Mistrunner · {item:278078} Prepared Incense
 	["{npc:269068} wants tauren incense: buy its four parts from {npc:3014} the herbalist, {npc:3012} the enchanting supplier, {npc:3005} the leatherworking supplier and {npc:3027} the cooking supplier, then combine them into {item:278078}."] = "{npc:269068} quiere incienso tauren: compra sus cuatro partes a {npc:3014} la herbolaria, a {npc:3012} la proveedora de encantamiento, a {npc:3005} la proveedora de peletería y a {npc:3027} el proveedor de cocina; luego combínalas en {item:278078}.",
 	-- {npc:2987} Eyahn Eagletalon · {npc:269068} Eylah Sunhorn
@@ -301,7 +315,7 @@ return {
 	-- {npc:6746} Innkeeper Pala · {quest:5926} Heeding the Call · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
 	["{npc:6746}: {quest:5926}, for {npc:3033} on {area:1639}"] = "{npc:6746}: {quest:5926}, para {npc:3033} en {area:1639}",
 
-	-- Step 64: Hunter Rise
+	-- Step 66: Hunter Rise
 	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
 	["Use the {item:278078} at the ceremonial mat and burner on the south-facing cliff of {area:1641}."] = "Usa {item:278078} en la estera ceremonial y el quemador del acantilado sur de {area:1641}.",
 	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
@@ -311,66 +325,66 @@ return {
 	-- {npc:3039} Holt Thunderhorn · {npc:3041} Torm Ragetotem
 	["{npc:3039}, beside {npc:3041}"] = "{npc:3039}, junto a {npc:3041}",
 
-	-- Step 66: Ansekhwa
+	-- Step 68: Ansekhwa
 	-- {spell:199} Two-Handed Maces · {npc:11869} Ansekhwa
 	["While you're here: learn {spell:199} from {npc:11869} (10 silver); two-handers level a Warrior fastest."] = "Ya que estás aquí: aprende {spell:199} con {npc:11869} (10 de plata); las armas de dos manos hacen subir de nivel más rápido a un guerrero.",
 
-	-- Step 67: Ansekhwa
+	-- Step 69: Ansekhwa
 	-- {npc:11869} Ansekhwa
 	["While you're here: learn Staves from {npc:11869} (10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Ya que estás aquí: aprende Bastones con {npc:11869} (10 de plata); el arma cuerpo a cuerpo de un cazador vale sobre todo por sus estadísticas, y las de dos manos son las que más tienen.",
 
-	-- Step 68: Class trainer
+	-- Step 70: Class trainer
 	["Class trainer"] = "Instructor de clase",
 
-	-- Step 69: Rogue trainer
+	-- Step 71: Rogue trainer
 	["Rogue trainer"] = "Instructor de pícaros",
 	-- {npc:3155} Rwag · {zone:1411} Durotar · {zone:1412} Mulgore
 	["{npc:3155} in {zone:1411}; {zone:1412} has no rogue trainer"] = "{npc:3155} en {zone:1411}; {zone:1412} no tiene instructor de pícaros",
 
-	-- Step 70: Warlock trainer
+	-- Step 72: Warlock trainer
 	["Warlock trainer"] = "Instructor de brujos",
 	-- {npc:3156} Nartok · {zone:1411} Durotar · {zone:1412} Mulgore
 	["{npc:3156} in {zone:1411}; {zone:1412} has no warlock trainer"] = "{npc:3156} en {zone:1411}; {zone:1412} no tiene instructor de brujos",
 
-	-- Step 72: Clarice Foster
+	-- Step 74: Clarice Foster
 	-- {npc:5543} Clarice Foster · {area:2197} Pools of Vision · {area:1640} Spirit Rise
 	["{npc:5543} stands in the {area:2197}, the cave under {area:1640}: go down inside, the arrow cannot tell the floors apart."] = "{npc:5543} está en {area:2197}, la cueva debajo de {area:1640}: baja por dentro, la flecha no distingue los pisos.",
 	-- {npc:5906} Xanis Flameweaver · {npc:5543} Clarice Foster · {area:1640} Spirit Rise
 	["{npc:5906}, a few steps from {npc:5543} on {area:1640}"] = "{npc:5906}, a pocos pasos de {npc:5543} en {area:1640}",
 
-	-- Step 74: Elder Rise
+	-- Step 76: Elder Rise
 	-- {npc:5769} Arch Druid Hamuul Runetotem · {npc:3448} Tonga Runetotem
 	["{npc:5769}: for {npc:3448} at the Crossroads"] = "{npc:5769}: para {npc:3448} en el Cruce",
 
-	-- Step 75: Turak Runetotem
+	-- Step 77: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise
 	["{npc:3033} trains druids in the Cenarion Circle's tent on {area:1639}."] = "{npc:3033} entrena a los druidas en la tienda del Círculo Cenarion en {area:1639}.",
 
-	-- Step 76: Moonglade
+	-- Step 78: Moonglade
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {quest:5930} Great Bear Spirit
 	["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5930} sits in the north-western woods. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Lanza {spell:18960}. {npc:11802} está en {area:2361}; {quest:5930} está en el bosque del noroeste. {npc:11802} está en el piso de arriba de su edificio: sube por dentro, la flecha no distingue los pisos.",
 
-	-- Step 77: Back to Thunder Bluff
+	-- Step 79: Back to Thunder Bluff
 	-- {area:1639} Elder Rise
 	["Cross to {area:1639}."] = "Cruza a {area:1639}.",
 
-	-- Step 78: The Moonkin Stone
+	-- Step 80: The Moonkin Stone
 	-- {object:177525} Moonkin Stone
 	["The {object:177525}"] = "{object:177525}",
 	-- {zone:1412} Mulgore · {item:15710} Cenarion Lunardust
 	["The stone stands in the pass out of {zone:1412}, on your way east. Use the {item:15710} there and defeat Lunaclaw."] = "La piedra está en el paso que sale de {zone:1412}, de camino al este. Usa {item:15710} allí y derrota a Garraluna.",
 
-	-- Step 79: Into Mulgore
+	-- Step 81: Into Mulgore
 	-- {zone:1412} Mulgore
 	["Into {zone:1412}"] = "Hacia {zone:1412}",
 	-- {area:1639} Elder Rise · {zone:1456} Thunder Bluff · {zone:1412} Mulgore · {zone:1413} Barrens
 	["From {area:1639}, take {zone:1456}'s north lift down: at its foot the way runs east along the ledge, then south-east across {zone:1412} to the {zone:1413}."] = "Desde {area:1639}, baja por el elevador norte de {zone:1456}: al pie, el camino va al este por la cornisa y luego al sureste a través de {zone:1412} hasta {zone:1413}.",
 
-	-- Step 80: Into Barrens
+	-- Step 82: Into Barrens
 	-- {zone:1413} Barrens
 	["Into {zone:1413}"] = "Hacia {zone:1413}",
 
-	-- Step 81: Kirge Sternhorn
+	-- Step 83: Kirge Sternhorn
 	-- {npc:3418} Kirge Sternhorn · {area:378} Camp Taurajo · {zone:1412} Mulgore · {area:458} Gold Road
 	["{npc:3418} stands at {area:378}, where the road from {zone:1412} meets the {area:458} north to the Crossroads."] = "{npc:3418} está en {area:378}, donde el camino de {zone:1412} se une a {area:458}, que va al norte hacia El Cruce.",
 	-- {npc:3418} Kirge Sternhorn · {npc:3429} Thork
@@ -378,7 +392,7 @@ return {
 	-- {npc:10378} Omusa Thunderhorn · {npc:3418} Kirge Sternhorn
 	["{npc:10378}, beside {npc:3418}"] = "{npc:10378}, junto a {npc:3418}",
 
-	-- Step 83: The Crossroads
+	-- Step 85: The Crossroads
 	-- {zone:1412} Mulgore · {npc:3448} Tonga Runetotem · {quest:860} Sergra Darkthorn · {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} Barrens
 	["Leave {zone:1412} by the south-eastern pass and follow the road to the Crossroads. {npc:3448} stands at the south gate, {quest:860} by the inn, {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "Sal de {zone:1412} por el paso del sureste y sigue el camino hasta el Cruce. {npc:3448} está en la puerta sur, {quest:860} junto a la posada y {npc:3615} en la plataforma de la torre. Las misiones propias de {area:380} vienen después de {zone:1421}, en la guía de {zone:1413}.",
 	-- {npc:3429} Thork
@@ -386,42 +400,42 @@ return {
 	-- {npc:3615} Devrak
 	["{npc:3615}, the wind rider master"] = "{npc:3615}, el maestro de jinetes del viento",
 
-	-- Step 84: Jahan Hawkwing
+	-- Step 86: Jahan Hawkwing
 	-- {npc:3483} Jahan Hawkwing · {npc:3615} Devrak · {zone:1456} Thunder Bluff · {npc:3033} Turak Runetotem
 	["{npc:3483} sells armor on the north side of the Crossroads. His bundle goes to {npc:3615}, who sends it with you on the flight to {zone:1456} you take for {npc:3033} anyway."] = "{npc:3483} vende armaduras en el lado norte del Cruce. Su paquete va para {npc:3615}, que te lo manda en el vuelo a {zone:1456} que igual tomas para ir con {npc:3033}.",
 
-	-- Step 85: Class turn-in in Thunder Bluff
+	-- Step 87: Class turn-in in Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Class turn-in in {area:1638}"] = "Entrega de clase en {area:1638}",
 	-- {npc:8359} Ahanu
 	["{npc:8359}, by the wind riders on the central rise"] = "{npc:8359}, junto a los jinetes del viento en la elevación central",
 
-	-- Step 90: Kranal Fiss
+	-- Step 92: Kranal Fiss
 	-- {npc:5907} Kranal Fiss · {area:379} Far Watch Post
 	["{npc:5907} stands alone on the ridge above the Razormane camp, north-east of the Crossroads on the road to {area:379}."] = "{npc:5907} está solo en la loma encima del campamento Crines de Acero, al noreste del Cruce, en el camino a {area:379}.",
 
-	-- Step 91: Uzzek
+	-- Step 93: Uzzek
 	-- {area:379} Far Watch Post · {area:814} Southfury River · {zone:1454} Orgrimmar · {npc:5810} Uzzek · {npc:3337} Kargal Battlescar
 	["{area:379} sits above the {area:814} bridge on the road to {zone:1454}: {npc:5810} stands beside {npc:3337}."] = "{area:379} está encima del puente de {area:814}, en el camino a {zone:1454}: {npc:5810} está junto a {npc:3337}.",
 
-	-- Step 92: Telf Joolam
+	-- Step 94: Telf Joolam
 	-- {area:379} Far Watch Post · {zone:1411} Durotar · {npc:5900} Telf Joolam
 	["Over the bridge below {area:379} and south along the {zone:1411} bank of the river to where a narrow trail climbs the mountain: {npc:5900} keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail."] = "Cruza el puente bajo {area:379} y ve al sur por la orilla del río del lado de {zone:1411} hasta donde un sendero estrecho sube la montaña: {npc:5900} cuida el santuario en la cima. Cuidado con los bordes al subir, y baja por el mismo sendero.",
 
-	-- Step 93: Thunder lizards on the way north
+	-- Step 95: Thunder lizards on the way north
 	["Thunder lizards on the way north"] = "Truenagartos de camino al norte",
 	-- {area:369} Thunder Ridge · {zone:1454} Orgrimmar · {item:6486} Singed Scale · {npc:5810} Uzzek · {area:379} Far Watch Post
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
 	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes them when the next guide passes {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "Los truenagartos y lomorrayos pastan en {area:369}, junto al camino al norte hacia {zone:1454}; cualquiera puede soltar una {item:6486}. {npc:5810} las recibe cuando la siguiente guía pasa por {area:379}.\nCuidado: Halikor, un élite de nivel 12, recorre {area:369} entre los lagartos: ubícalo antes de atraer.",
 
-	-- Step 94: Dustwind Gulch cultists
+	-- Step 96: Dustwind Gulch cultists
 	-- {area:1898} Dustwind Gulch
 	["{area:1898} cultists"] = "Cultores de {area:1898}",
 	-- {area:1898} Dustwind Gulch · {zone:1454} Orgrimmar · {item:6652} Reagent Pouch · {item:5026} Fire Tar
 	-- plural, as words: Burning Blade Cultists = {npc:3199} Burning Blade Cultist
 	["Burning Blade Cultists hold {area:1898}, east of the road north to {zone:1454}; they drop the {item:6652}. The {item:5026} comes from the Razormane on the next guide's first visit to their camp."] = "Los cultores Filo Ardiente ocupan {area:1898}, al este del camino al norte hacia {zone:1454}; sueltan {item:6652}. {item:5026} lo sueltan los Crines de Acero en la primera visita de la siguiente guía a su campamento.",
 
-	-- Step 95: To Orgrimmar
+	-- Step 97: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "A {zone:1454}",
 	-- {area:379} Far Watch Post · {area:814} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
@@ -430,6 +444,7 @@ return {
 	["{zone:1454}'s {object:172982}"] = "{object:172982} de {zone:1454}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back south-east to the {area:396}."] = "De vuelta al sureste a {area:396}.",
 	-- ["Back to Bloodhoof"] = "De vuelta a Poblado Pezuña de Sangre",
 	-- ["Battleboars graze north of the shrine; the Bristleback quilboar hold the ravine to the north-east. {npc:8554} stands at its eastern end, and the {item:4851} lies on the ground in the camp."] = "Los jabaguerreros pastan al norte del santuario; los jabaespines Erizapúas ocupan el barranco al noreste. {npc:8554} está en su extremo este y {item:4851} está en el suelo del campamento.",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5930} sits in the north-western woods."] = "Lanza {spell:18960}. {npc:11802} está en {area:2361}; {quest:5930} está en el bosque del noroeste.",
@@ -443,12 +458,14 @@ return {
 	-- ["Leave {zone:1412} by the south-eastern pass and follow the road to the {area:380}. {quest:860} stands by the inn, {npc:3448} at the south gate. {zone:1413} guide starts here."] = "Sal de {zone:1412} por el paso del sureste y sigue el camino hasta {area:380}. {quest:860} está junto a la posada y {npc:3448}, en la puerta sur. La guía de {zone:1413} empieza aquí.",
 	-- ["Plainstriders roam the grass all around the camp."] = "Los zancudos de llanura deambulan por el pasto alrededor del campamento.",
 	-- ["Prairie Wolf Alphas"] = "Lobos alfa de pradera",
+	-- ["Prairie Wolves and Adult Plainstriders roam the plains around the village."] = "Los lobos de pradera y los Zancudos de llanura adultos ({npc:2956}) deambulan por las llanuras alrededor del poblado.",
 	-- ["Ride down to {area:222} and tame with the {item:15908}: an {npc:2956} on the plains, a {npc:2959} north of the village, a Swoop to the north-west."] = "Baja cabalgando a {area:222} y domestica con {item:15908}: un {npc:2956} en las llanuras, un {npc:2959} al norte del poblado y un aguilón al noroeste.",
 	-- ["Speak with {npc:3067}"] = "Habla con {npc:3067}",
 	-- ["Swoops glide over the plains all around Bloodhoof."] = "Los aguilones planean sobre las llanuras alrededor de Poblado Pezuña de Sangre.",
 	-- ["The Galak centaurs camp on the plains east of the well; {npc:275767} leads them."] = "Los centauros Galak acampan en las llanuras al este del pozo; {npc:275767} los dirige.",
 	-- ["The Galak centaurs camp on the plains north of the {area:821}; Herak leads them. Prairie Wolf Alphas roam among the wolves."] = "Los centauros Galak acampan en las llanuras al norte de {area:821}; Herak los dirige. Los Lobos alfa de pradera ({npc:2960}) recorren la zona entre los lobos.",
 	-- ["The dwarves of the {area:404} carry the Prospector's Picks. Smash them at the forge in {area:222}."] = "Los enanos de {area:404} llevan los Picos de prospector ({item:4702}). Destrúyelos en la forja de {area:222}.",
+	-- ["The goblins work the mine in the hills north-east of the well. {quest:765} stands in the back of the mine; his {item:281031} start {quest:98424}, and the other pages lie inside the mine."] = "Los goblins trabajan la mina en las colinas al noreste del pozo. {quest:765} está al fondo de la mina; sus {item:281031} inician {quest:98424}, y las otras páginas están dentro de la mina.",
 	-- ["The well lies north of the village. Well Stones sit around the well, {item:4809} lies under the trees nearby. Kill wolves, cougars, plainstriders and swoops on the way for {quest:766} and {quest:761}."] = "El pozo está al norte del poblado. Las Piedras de pozo ({item:4808}) están alrededor del pozo y {item:4809} está bajo los árboles cercanos. Mata lobos, pumas, zancudos y aguilones en el camino para {quest:766} y {quest:761}.",
 	-- ["The well lies north of the village. Well Stones sit around the well, {object:2912} lies under the trees nearby. Kill wolves, cougars, plainstriders and swoops on the way for {quest:766} and {quest:761}."] = "El pozo está al norte del poblado. Las Piedras de pozo están alrededor del pozo y {object:2912} está bajo los árboles cercanos. Mata lobos, pumas, zancudos y aguilones en el camino para {quest:766} y {quest:761}.",
 	-- ["The well lies south-east of the village."] = "El pozo está al sureste del poblado.",
@@ -471,6 +488,7 @@ return {
 	-- ["{npc:3209}, next to {npc:2980}"] = "{npc:3209}, junto a {npc:2980}",
 	-- ["{npc:3441}: for {quest:860} at the {area:380}"] = "{npc:3441}: para {quest:860} en {area:380}",
 	-- ["{npc:5769}: for {npc:3448} at the {area:380}"] = "{npc:5769}: para {npc:3448} en {area:380}",
+	-- ["{npc:5888} stands in {area:221}. {quest:1516} needs level 4, which you reach with the turn-ins here."] = "{npc:5888} está en {area:221}. {quest:1516} necesita nivel 4, que alcanzas con las entregas de aquí.",
 	-- ["{npc:6746} on the central rise sends you to {npc:3033} on {area:1639}."] = "{npc:6746}, en la elevación central, te manda con {npc:3033} en {area:1639}.",
 	-- ["{npc:6775} stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, hunt the cougars from there south and east, then come back up to {npc:2980}."] = "{npc:6775} está en el extremo oeste del campamento, en la esquina noroeste de las colinas donde merodean los Pumas monteses ({npc:2961}): acepta su misión, caza los pumas desde allí hacia el sur y el este, y luego regresa con {npc:2980}.",
 	-- ["{quest:96130} and {quest:756}"] = "{quest:96130} y {quest:756}",

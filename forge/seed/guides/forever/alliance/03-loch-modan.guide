@@ -2,7 +2,7 @@
 guide forever/alliance/03-loch-modan
 title Loch Modan, Redridge Mountains & Westfall
 faction Alliance
-levels 17-21
+levels 18-22
 zone Loch Modan
 next forever/alliance/03-darkshore-return
 
@@ -302,6 +302,7 @@ step Deputy Feldon
 
 step Sunken Chest
   tip Back toward town, swim east from the bridge into Lake Everstill; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a Spotted Sunfish.
+  tip Careful: Lake Threshers, level 25 elites, swim in the lake: keep your distance from them while you dive for the chest.
   collect 1309 quest 125                      -- Oslow's Toolbox; underwater
   collect 1467 quest 127                      -- Spotted Sunfish
 

@@ -60,7 +60,7 @@ Every line before the first `step`.
 |---|---|---|
 | `guide` | yes, first line | id: `[a-z0-9_-]+` parts joined by single `/` (none leading or trailing), unique across all guides; it starts with the pack's id and `/` (`joe-routes/elwynn`; Polestar's own guides: `forever/`) |
 | `title` | yes | rest of line |
-| `levels` | yes | `<min>-<max>` |
+| `levels` | yes | `<min>-<max>`: the character levels the route brings players here at. A guide both factions play (no `faction` line) may give each side its own: `levels <min>-<max> Alliance` and `levels <min>-<max> Horde`, a line each (see "Levels per faction") |
 | `zone` | yes | default zone: map name from `data/forever/zones.json`, or `map <uiMapID>` |
 | `faction` | no | `Alliance` or `Horde` |
 | `race` | no | comma list (see Conditions) |
@@ -75,8 +75,26 @@ Every line before the first `step`.
 | `author` | no | default: the pack's author (`pack.json`) |
 | `version` | no | integer, default `1` |
 | `coords` | no | `era` (default) or `live`: the map frame of coordinates typed in this guide (`@x,y`, `goto`, `explore`). Era-frame ones compile with `f = "e"`; on a map without Era bounds they compile live. `record draft` writes `coords live`. |
-| `pitch` | no | one line selling the zone, shown on its card in the route choice window (required, as a warning, when the guide is a route option) |
-| `pro` / `con` | no | repeatable: one advantage / disadvantage per line, shown under the pitch. Keep them short, factual and true for every race that can choose the route. |
+| `pitch` | no | one short sentence about the zone, shown on its card in the route choice window: 60 characters at most, so it fits two lines (required, as a warning, when the guide is a route option) |
+| `pro` / `con` | no | repeatable: one advantage / disadvantage per line, shown under the pitch. The card shows the first 3 pros and the first con, each on one line: 38 characters at most (a longer one is cut; the card's tooltip has every one whole). Keep them short, plain, factual and true for every race that can choose the route. Our own route options write exactly 3 and 1 (tests/route-choice-copy.test.js). |
+
+**Levels per faction.** Where the two factions' routes bring characters to a
+shared guide at different levels, each side gets its own range, so the guide
+menu, the suggestions and the "outgrown" notice speak to each player's level:
+
+```
+guide forever/40-50/shendralas
+title Shen'dralas
+levels 45-46 Alliance
+levels 47-48 Horde
+```
+
+Each line names one faction once. A plain `levels <min>-<max>` beside one
+faction's line is the other faction's range; beside both it is an error, as
+is a faction line on a guide with a `faction` header (it has one range) or a
+faction line with neither the other faction's nor a plain one. The compiled
+guide carries `factionLevels` with each side's range, and `minLevel` /
+`maxLevel` span both (what a Polestar older than 0.4.0 shows).
 
 A route choice, as excerpts of two guides' headers (a pack's Tirisfal guide
 offering our Barrens or its own Silverpine):
@@ -280,6 +298,9 @@ read after login), and reads that from then on: a "buy water" step passed
 because the bags were full is stored as skipped and does not come back when
 the water runs out, and a step that applied stays done. The player can
 unskip such a step like any other; it then applies whatever its `when`.
+One failure is never stored: a `complete <quest>` that fails while the
+player carries the quest (a Wanted hand-in passed before the elite is dead)
+is checked again, and the step comes back once the quest is done.
 Resetting the guide's progress forgets the stored outcomes.
 
 While its `when` fails, a step counts as one that does not apply: like a step
@@ -1001,6 +1022,14 @@ gets no `spots`, except an NPC who walks around:
   15 yd of its edge), and otherwise the region is its places (a creature
   players meet at several places along its way), its points outside the
   region become alternatives, and a spawn it moves away from stays one.
+  Your coordinates at a spawn of a target that stands at several places,
+  inside a recorded spot backed by at least half the best-backed one's
+  players, are that place: players do it there, though more do it elsewhere
+  (Westfall's oats at the Jansen Stead, one farm of the several players gather
+  at, #621). The goal keeps its point and its places, and the recorded spots
+  of the target's other places are alternatives, never one zone-wide search.
+  A creature at one spawn that players meet along its way is no such place:
+  every place they met it is searched.
   Trouble in the Valley (95621): players loot Benedict's Orders within 47 yd
   of 41.8,15.5, so that is the area, not 112 yd around Corporal Adamore's
   spawns. The recordings' coordinates are the game client's: its map frame
@@ -1081,8 +1110,11 @@ Polestar compares IDs, or names the game gives in the same language:
 - `node`: on `getfp`, the taxi node of its flight master (`npc`), else of the
   one flight point (`travel.json`) of that name or town serving every faction
   the goal applies to (Booty Bay has one per faction, so a goal for both gets
-  none). In the game the goal is done once the flight map lists that node as
-  known.
+  none: write one goal per side, `only Alliance` and `only Horde`). Never a
+  class's own flight master (`travel.json` `class`: Nighthaven's fly Druids
+  from their gossip and teach no flight path), so `getfp "Nighthaven"` warns
+  and `getfp "Moonglade"` is Sindrayl's or Faustron's. In the game the goal is
+  done once the flight map lists that node as known.
 - `sethome` completes by its inn: `travel build` gives every inn its area,
   and binding at the innkeeper the goal names (or the innkeeper of the inn its
   location names) completes it.
@@ -1288,9 +1320,11 @@ Warnings:
   earlier in the chain, not yet turned in or abandoned): the game does not
   offer it until the breadcrumb is handed in
 - a non-`optional` `accept` never turned in later in the guide or the guides
-  after it, checked for every route choice; when a next guide's race or class
-  leaves out the characters still holding the quest, the warning says so (its
-  turn-ins do not count for them)
+  after it, checked for every route choice; each character goes on only
+  through the next guides it can follow (a guide for both factions with one
+  `next` per faction hands each faction to its own), and when no next guide's
+  race, class or faction takes the characters still holding the quest, the
+  warning says so (its turn-ins do not count for them)
 - `complete` on a quest with no objectives: the turn-in is the action; use `turnin`
 - a `turnin` whose quest's objectives ask for an item the world gives (a drop,
   an object, a vendor or a container; not one the quest or an NPC hands over)
@@ -1621,9 +1655,9 @@ Polestar's own guides may offer one of Polestar's experimental guides as one
 more option, an alpha route through one of Forever's new zones:
 
 ```
-guide forever/horde/30-40/06-badlands
-next forever/horde/40-50/01-stranglethorn-vale
-next polestar-experimental/riverglades-horde-1
+guide forever/alliance/30-40/06-badlands
+next forever/alliance/30-40/06b-desolace
+next polestar-experimental/riverglades-alliance-1
 ```
 
 The first line stays the route's default: an experimental guide may never be

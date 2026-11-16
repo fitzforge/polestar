@@ -120,6 +120,19 @@ test('a `when taxi` step plays only while its flight path was learnt on the way,
 	assert.deepEqual(flights(`${learnt}step Walk\n  when !taxi "Crossroads"\n${fly}`), []);
 });
 
+// The honest play read every `when zone` as holding, so a `when !zone` step never played: the way into the
+// Riverglades and into Shen'dralas (`when !zone`, for players not there yet) was skipped and the zone's first
+// stop read as a zone change with no travel line. The predicate now reads the zone of the last place a line put
+// the player at.
+test('a `when zone` step plays only in that zone, `!zone` only outside it', { skip }, () => {
+	const boars = 'step Boars\n  kill 3098 @44.5,70.6\n\n';
+	const into = 'step Into the Barrens\n  when !zone "The Barrens"\n  zone The Barrens\n  goto 55,40 "Follow the road west into the Barrens"\n\n';
+	const zhevra = 'step Zhevra\n  zone The Barrens\n  kill 3242 @55,40\n';
+	assert.deepEqual(of(play(boars + into + zhevra), 'R1'), [], 'outside the Barrens the way in plays');
+	const there = 'step In the Barrens only\n  when zone "The Barrens"\n  zone The Barrens\n  goto 55,40 "Follow the road west into the Barrens"\n\n';
+	assert.match(of(play(boars + there + zhevra), 'R1')[0].reason, /Durotar to The Barrens/, 'a step for players in the Barrens is not played from Durotar');
+});
+
 test('R3: a collect needs a source in the data (An Apple Treat\'s applejack)', { skip }, () => {
 	const bad = play('step An Apple Treat\n  accept 91738\n  collect 247824 quest 91738.1\n', { persona: HUMAN });
 	assert.match(of(bad, 'R3')[0].reason, /Thunder Applejack: the data has no mob, object or vendor/);
@@ -206,6 +219,36 @@ test('chains follow the main route; a catch-up guide behind `when` is its own ch
 	const g = (id, next, nextChoices, nextWhen) => ({ id, next, nextChoices, nextWhen, steps: [] });
 	const out = chains([g('a-catchup', 'b'), g('a', 'a-catchup', ['a-catchup', 'b'], { 'a-catchup': [{ k: 'level', op: '<', n: 9 }] }), g('b', null)]);
 	assert.deepEqual(out.map((c) => c.map((x) => x.id)), [['a', 'b'], ['a-catchup']]);
+});
+
+// Shen'dralas (forever/40-50/shendralas) is played by both sides and lists `next forever/horde/40-50/03-feralas` before
+// the Alliance one; the engine offers each side only its own guide (Guides.GuideMatches). The honest play took the first
+// option whatever the side, so the Alliance chain ran on into the Horde guides and Alliance Feralas was played alone.
+test('chains follow the side\'s own `next` out of a guide both sides play', () => {
+	const { chains } = require('../tools/lib/playtest-honest');
+	const g = (id, faction, ...next) => ({ id, faction, next: next[0] || null, nextChoices: next, steps: [] });
+	const guides = [g('start-a', 'Alliance', 'shared'), g('start-h', 'Horde', 'shared'), g('shared', null, 'h', 'a'), g('h', 'Horde'), g('a', 'Alliance')];
+	const ids = (side) => chains(guides, side).map((c) => c.map((x) => x.id));
+	assert.deepEqual(ids('Alliance'), [['start-a', 'shared', 'a']]);
+	assert.deepEqual(ids('Horde'), [['start-h', 'shared', 'h']]);
+});
+
+test('each side plays its own chain through a guide both sides play, as its own personas', { skip }, () => {
+	const { compileSources } = require('../tools/lib/dsl/project');
+	const { honestPlay } = require('../tools/lib/playtest-honest');
+	data = data || require('../tools/lib/dsl/data').loadData(require('../tools/lib/paths').DATA);
+	const head = (id, faction, zone, ...next) => `guide test/${id}\ntitle ${id}\n${faction ? `faction ${faction}\n` : ''}levels 40-45\nzone ${zone}\n${next.map((n) => `next test/${n}\n`).join('')}\n`;
+	const texts = [
+		head('start-a', 'Alliance', 'Elwynn Forest', 'shared') + 'step Wait\n  goto 48,42\n',
+		head('start-h', 'Horde', 'Durotar', 'shared') + 'step Wait\n  goto 52,43\n',
+		head('shared', null, 'Desolace', 'h', 'a') + 'step Wait\n  goto 50,50\n',
+		head('a', 'Alliance', 'Wetlands') + 'step Menethil Harbor\n  goto 9.5,59.7\n\nstep Fly\n  fly "Stormwind"\n',
+		head('h', 'Horde', 'The Barrens') + 'step The Crossroads\n  goto 51.5,30.3\n\nstep Fly\n  fly "Orgrimmar"\n',
+	];
+	const { guides } = compileSources(texts.map((text, i) => ({ file: `g${i}.guide`, source: `g${i}.guide`, text })), data);
+	const personas = (root) => (root.faction === 'Horde' ? [ORC] : root.faction === 'Alliance' ? [HUMAN] : [HUMAN, ORC]);
+	const who = new Set(of(honestPlay(guides, data, personas, { play: ['test/a', 'test/h'] }), 'R1').map((f) => `${f.guide} ${f.race}`));
+	assert.deepEqual([...who].sort(), ['test/a Human', 'test/h Orc']);
 });
 
 test('`when dungeon` holds only for a dungeon the honest player chose; `when !dungeon` for the solo route', () => {

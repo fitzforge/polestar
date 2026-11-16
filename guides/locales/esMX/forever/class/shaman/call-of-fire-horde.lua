@@ -73,9 +73,9 @@ return {
 	-- Step 14: The Minor Manifestation of Fire
 	-- {npc:5893} Minor Manifestation of Fire
 	["The {npc:5893}"] = "La {npc:5893}",
-	-- {item:6636} Fire Sapta · {object:63674} Shaman Shrine (no name in this language: may be words) · {spell:8017} Rockbiter Weapon · {spell:8042} Earth Shock · {item:6655} Glowing Ember
+	-- {item:6636} Fire Sapta · {object:63674} Shaman Shrine · {spell:8017} Rockbiter Weapon · {spell:8042} Earth Shock · {item:6655} Glowing Ember
 	["Drink the {item:6636} beside the {object:63674}, the big grey stone just below the summit, then climb to the plateau. Of the fire elementals there only the one in the middle can be attacked: it is level 12, immune to fire and grows stronger the longer the fight lasts, so open at once with {spell:8017} and {spell:8042} and leave the others alone. Its {item:6655} drops every time."] = "Bebe {item:6636} junto a {object:63674}, la gran piedra gris justo debajo de la cima, y luego sube a la meseta. De los elementales de fuego de ahí, solo se puede atacar al del medio: es de nivel 12, inmune al fuego y se vuelve más fuerte cuanto más dura la pelea, así que empieza enseguida con {spell:8017} y {spell:8042} y deja en paz a los otros. Su {item:6655} cae siempre.",
-	-- {item:6636} Fire Sapta · {object:63674} Shaman Shrine (no name in this language: may be words)
+	-- {item:6636} Fire Sapta · {object:63674} Shaman Shrine
 	["{item:6636}, beside the {object:63674}"] = "{item:6636}, junto a {object:63674}",
 
 	-- Step 15: The Brazier of the Dormant Flame

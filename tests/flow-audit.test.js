@@ -119,6 +119,14 @@ test('a route choice is taken where a guide offers it, and nextWhen picks the op
 	assert.equal(new Router('g').nextOf(byLevel, 43), 'x/high');
 });
 
+test('a guide for both factions goes on by the character\'s faction, as the addon does', () => {
+	const shen = { next: 'h/feralas', nextChoices: ['h/feralas', 'a/feralas'] };
+	const guides = new Map([['h/feralas', { faction: 'Horde' }], ['a/feralas', { faction: 'Alliance' }]]);
+	assert.equal(new Router('g', [], '', 'all', { guides, faction: 'Alliance' }).nextOf(shen, 45), 'a/feralas');
+	assert.equal(new Router('g', [], '', 'all', { guides, faction: 'Horde' }).nextOf(shen, 45), 'h/feralas');
+	assert.equal(new Router('g').nextOf(shen, 45), 'h/feralas', 'without a side, the first');
+});
+
 test('with dungeons in the route, a pick-up stop there only for a dungeon quest is a dungeon trip; without them it is not walked', (t) => {
 	const guides = [guide('test/d', [
 		[accept(10, 1, 10, 10)],
@@ -148,6 +156,26 @@ test('a step or goal for the other faction is not played: a shared guide\'s `onl
 	const run = runAudit({ guides, legs: {} }, dataDir(t), { dynamic: null, longFly: 0 });
 	assert.equal(run.branches[0].log_max, 2, 'quests 10 and 2 only');
 	assert.equal(run.branches[0].never_handed, 1, 'quest 2; quests 1 and 11 are the Alliance\'s');
+});
+
+// Own.HERE_MOBS_ABOVE: the dynamic walk takes a While-here line only where its mobs are at most 1 level over the player
+// (a spot's level, else the goal's), as the addon offers it, and the strict walk counts only such a camp as deferred
+// work. Level 1: quest 1 is taken at the camp, the walk goes 1,000 yd east past its boars (level `lvl`) and back, and
+// the route comes to them only after that.
+test('a carried quest\'s camp passed on the way is a While-here line and deferred work only where its mobs are at most one level over the player', (t) => {
+	const dir = dataDir(t);
+	const data = loadData(dir);
+	const walk = (lvl, spotLvl) => {
+		const boars = { ...kill(1, 10.25, 10.01), lvl, ...(spotLvl != null ? { spotsPacked: `10.25,10.01,0,40,3,,${spotLvl}` } : {}) };
+		const g = guide('test/m', [[accept(1, 1, 10, 10)], [goto_(11, 10)], [goto_(10, 10)], [boars], [turnin(1, 1, 10, 10)]], { races: ['Orc'] });
+		const w = new Walk({ chain: ['test/m'], race: 'Orc', cls: 'WARRIOR', guides: new Map([[g.id, g]]), legs: {}, data, dyn: '037' });
+		const strict = runAudit({ guides: [g], legs: {} }, dir, { dynamic: null, longFly: 0 }).guides['test/m'];
+		return [w.dynMoves.length, strict.findings.filter((f) => f.type === 'deferred').length];
+	};
+	assert.deepEqual(walk(2), [1, 1], 'boars 1 over: taken on the way, deferred by the route');
+	assert.deepEqual(walk(3), [0, 0], 'boars 2 over: left for the route');
+	assert.deepEqual(walk(2, 3), [0, 0], 'the spot\'s own level counts: 2 over');
+	assert.deepEqual(walk(3, 2), [1, 1], 'the spot\'s own level counts: 1 over');
 });
 
 test('the modes cover the default route, each route choice the compiled guides hold and all of them; with dungeons, both dungeon styles too', () => {

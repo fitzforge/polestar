@@ -34,6 +34,7 @@ step Before you start
 
 step Booty Bay Bruisers to Neutral
   tip Look at your Bloodsail bar first. A new character starts Hated, 500 short of Hostile: 260 Bruisers to Neutral, at 25 each. But every Booty Bay quest you did while leveling took five times its Booty Bay reward off Bloodsail (An OOX of Your Own, Stranglethorn Fever and Facing Negolash 1,000 each), and every Bloodsail pirate you killed 25 more: after Booty Bay's quests you sit near the bottom of Hated, up to 1,680 Bruisers from Neutral. Divide what the bar still lacks to Hostile, plus 6,000, by 25. Bruisers (level 57) hit hard, net you and knock you back, and new ones come when a goblin calls for help. Fight on the path that turns left from the tunnel up to the blacksmith's house: two Bruisers patrol it and rarely meet. Once they are down, step into the house (or hit one of the goblins inside) and a fresh Bruiser comes running. Players manage 30 to 40 an hour. Booty Bay is Hated after about 53 Bruisers from a fresh Neutral 500. At the New Year celebration the town's goblins are drunk and do not fight back. The Blackwater crew at Faldir's Cove in the Arathi Highlands (level 37-40) are easier but pay only 5 each. Do not kill Bloodsail pirates: each costs 25.
+  level 56
   goto 29.0,75.6 "the path to the smithy"
   kill 4624 optional                  -- Booty Bay Bruiser: +25
   rep 87 Neutral
@@ -45,6 +46,7 @@ step Dressing the Part
 
 step Bruisers to Friendly
   tip Neutral to Friendly is 3,000 more: 120 Bruisers. Friendly is the last standing that unlocks anything.
+  level 56
   goto 29.0,75.6 "the path to the smithy"
   kill 4624 optional                  -- Booty Bay Bruiser: +25
   rep 87 Friendly
@@ -57,6 +59,7 @@ step Avast Ye, Scallywag
 
 step Avast Ye, Admiral!
   tip Baron Revilgaz and Fleet Master Seahorn stand on the top floor of the Booty Bay inn, out on the balcony. Both are level 60 and Bruisers come to their aid: clear the stairs first and pull them one at a time. They come back, so a friend can kill them too.
+  level 59
   kill 2496 quest 4621.1              -- Baron Revilgaz
   kill 2487 quest 4621.2              -- Fleet Master Seahorn
 

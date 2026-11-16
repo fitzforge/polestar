@@ -66,9 +66,9 @@ return {
 	-- Step 13: Ghoul Ribs
 	-- plural, as words: Ghoul Ribs = {item:884} Ghoul Rib
 	["Ghoul Ribs"] = "Costillas de necrófago",
-	-- {area:492} Raven Hill Cemetery · {npc:948} Rotted One · {spell:3428} Summon Flesh Eating Worms
+	-- {area:492} Raven Hill Cemetery · {npc:522} Mor'Ladim · {npc:948} Rotted One · {spell:3428} Summon Flesh Eating Worms
 	-- plural, as words: Flesh Eaters = {npc:3} Flesh Eater · Bone Chewers = {npc:210} Bone Chewer · Plague Spreaders = {npc:604} Plague Spreader · Brain Eaters = {npc:570} Brain Eater
-	["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "Cualquier necrófago de la mitad norte de {area:492} puede soltar una costilla: comecarnes, roehuesos, propagadores de peste y comecerebros.\nCuidado: {npc:948} lanza {spell:3428} al morir, lo que trae enemigos de más.",
+	["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters and Bone Chewers (24-27) are the easier kills; Plague Spreaders and Brain Eaters (27-29) drop them too. {npc:522}, an elite, wanders the graves: keep away from him.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "Cualquier necrófago de la mitad norte de {area:492} puede soltar una costilla: los comecarnes y masticahuesos Oseral (24-27) son más fáciles de matar; los propagadores de la Peste y comesesos (27-29) también las sueltan. {npc:522}, un élite, deambula entre las tumbas: mantente lejos de él.\nCuidado: {npc:948} lanza {spell:3428} al morir, lo que trae enemigos de más.",
 
 	-- Step 15: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
@@ -111,7 +111,7 @@ return {
 
 	-- Step 23: Class trainer
 	["Class trainer"] = "Instructor de clase",
-	["Level 22 and 24 spells"] = "Hechizos de nivel 22 y 24",
+	["Your new spells"] = "Tus nuevos hechizos",
 
 	-- Step 24: Gazin Tenorm
 	-- {zone:1453} Stormwind · {npc:6173} Gazin Tenorm · {npc:6171} Duthorian Rall
@@ -141,8 +141,10 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Continue west to {area:94}. The {object:673515} glows by the ruined house south of the road."] = "Sigue al oeste hasta {area:94}. {object:673515} brilla junto a la casa en ruinas al sur del camino.",
 	-- ["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters."] = "Cualquier necrófago de la mitad norte de {area:492} puede soltar una costilla: comecarnes, masticahuesos Oseral, propagadores de peste y comesesos.",
+	-- ["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "Cualquier necrófago de la mitad norte de {area:492} puede soltar una costilla: comecarnes, roehuesos, propagadores de peste y comecerebros.\nCuidado: {npc:948} lanza {spell:3428} al morir, lo que trae enemigos de más.",
 	-- ["Follow the road north-west past the cemetery to {npc:311}'s camp on the far west edge of the forest. {npc:893} stands beside {npc:311}."] = "Sigue el camino al noroeste pasando el cementerio hasta el campamento de {npc:311}, en el extremo oeste del bosque. {npc:893} está junto a {npc:311}.",
 	-- ["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest."] = "Sigue el camino al sur desde {area:1002} hacia {zone:1431}; {area:42} está en el lado este del bosque.",
+	-- ["Level 22 and 24 spells"] = "Hechizos de nivel 22 y 24",
 	-- ["Next: {zone:1453} for training, then the boat from {area:17203} to {area:442} for {zone:1440}."] = "Siguiente: {zone:1453} para entrenar, y luego el barco de {area:17203} a {area:442} para ir a {zone:1440}.",
 	-- ["Rabid Dire Wolves roam the woods around the cemetery and {npc:289}, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders crawl east of the cemetery and drop the venom. Every ghoul of the cemetery's northern half can drop a fang."] = "Los lobos temibles rabiosos deambulan por el bosque alrededor del cementerio y de {npc:289}; los lobos temibles famélicos, por las colinas al noreste de él. Las telarácnidas venenosas pigmeas se arrastran al este del cementerio y sueltan el veneno. Cualquier necrófago de la mitad norte del cementerio puede soltar un colmillo.",
 	-- ["Ride back east along the road to the {area:245}."] = "Cabalga de vuelta al este por el camino hasta {area:245}.",

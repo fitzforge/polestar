@@ -68,8 +68,8 @@ return {
 	["{item:6888} is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own {object:29784}. {item:6888} comes with {skill:185} (the client teaches it with the skill); {item:2678} are a cooking vendor's. The Strigid owls of {zone:1438} drop a {item:6889} more often than not, and {zone:1439}'s moonkin drop them too. Fishers can cook {item:6290} (recipe 40c) from Rut'theran's waters instead, and {npc:6286} in {area:186} gives Recipe of the Kaldorei (seven Small Spider Legs from the Webwood spiders) for {item:5472}, orange from 10 to 50."] = "{item:6888} es naranja desde 1 (amarillo a 45, verde a 65, gris a 85): unas 50 fabricaciones hasta 50. Cocina en cualquier fuego: un hogar de pueblo o tu propia {object:29784}. {item:6888} viene con {skill:185} (el cliente la enseña con la habilidad); {item:2678} se compra a un mercader de cocina. Los búhos estrígidos de {zone:1438} sueltan {item:6889} más veces que no, y los lechúcicos de {zone:1439} también. Los pescadores pueden cocinar en su lugar {item:6290} (receta 40c) con lo que pesquen en las aguas de Rut'theran, y {npc:6286} en {area:186} da Receta de los kaldorei (siete patas de araña pequeñas de las arañas Tejemadera) para {item:5472}, naranja de 10 a 50.",
 
 	-- Step 13: Charred Wolf Meat: ingredients
-	-- {npc:250873} Juvenile Vuldren
-	["{npc:250873} in Zephras Isle, or wherever the arrow points"] = "{npc:250873} en la isla Zephras, o donde indique la flecha",
+	-- {npc:250874} Vuldren Alpha
+	["Vuldren, {npc:250874} in Zephras Isle, or wherever the arrow points"] = "Vuldren, {npc:250874} en la isla Zephras, o donde indique la flecha",
 
 	-- Step 14: Charred Wolf Meat (1-50)
 	-- {spell:2538} Charred Wolf Meat · {object:29784} Basic Campfire · {item:2672} Stringy Wolf Meat
@@ -102,12 +102,11 @@ return {
 	-- Step 26: Coyote Steak: ingredients
 	-- {spell:2541} Coyote Steak
 	["{spell:2541}: ingredients"] = "{spell:2541}: ingredientes",
-	-- {npc:834} Coyote · {npc:833} Coyote Packleader · {zone:1436} Westfall
-	["{npc:834} (54%), {npc:833} (51%) in {zone:1436}, or wherever the arrow points"] = "{npc:834} (54%), {npc:833} (51%) en {zone:1436}, o donde indique la flecha",
+	-- {npc:833} Coyote Packleader · {zone:1436} Westfall
+	["Coyote (54%), {npc:833} (51%) in {zone:1436}, or wherever the arrow points"] = "Coyote (54%), {npc:833} (51%) en {zone:1436}, o donde indique la flecha",
 
 	-- Step 27: Coyote Steak (50-90)
 	-- {spell:2541} Coyote Steak · {object:29784} Basic Campfire · {skill:185} Cooking · {zone:1436} Westfall · {npc:235} Salma Saldean · {area:108} Sentinel Hill · {item:733} Westfall Stew · {item:724} Goretusk Liver Pie
-	-- plural, as words: Coyotes = {npc:834} Coyote
 	["{spell:2541} is orange from 50 (yellow at 90, green at 110, grey at 130): about 40 crafts to 90. Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 50 for 1s. Coyotes roam the middle of {zone:1436}; {npc:235} on the farm north of {area:108} also gives {item:733} and {item:724} quests that use what you loot here."] = "{spell:2541} es naranja desde 50 (amarillo a 90, verde a 110, gris a 130): unas 40 fabricaciones hasta 90. Cocina en cualquier fuego: un hogar de pueblo o tu propia {object:29784}. Cualquier instructor de {skill:185} lo enseña desde la habilidad 50 por 1s. Los coyotes recorren el centro de {zone:1436}; {npc:235}, en la granja al norte de {area:108}, también da misiones de {item:733} y {item:724} que usan lo que saquees aquí.",
 
 	-- Step 28: Crab Cake: shopping
@@ -408,6 +407,7 @@ return {
 	-- ["{npc:1549} (88%) in {zone:1420}, or wherever the arrow points"] = "{npc:1549} (88%) en {zone:1420}, o donde indique la flecha",
 	-- ["{npc:1689} (38%), {npc:1127} (36%) in {zone:1426}, or wherever the arrow points"] = "{npc:1689} (38%), {npc:1127} (36%) en {zone:1426}, o donde indique la flecha",
 	-- ["{npc:2385} (56%) in {zone:1424}, or wherever the arrow points"] = "{npc:2385} (56%) en {zone:1424}, o donde indique la flecha",
+	-- ["{npc:250873} in Zephras Isle, or wherever the arrow points"] = "{npc:250873} en la isla Zephras, o donde indique la flecha",
 	-- ["{npc:3099} (99%), {npc:3100} (74%) in {zone:1411}, or wherever the arrow points"] = "{npc:3099} (99%), {npc:3100} (74%) en {zone:1411}, o donde indique la flecha",
 	-- ["{npc:3244} (33%) in {zone:1413}, or wherever the arrow points"] = "{npc:3244} (33%) en {zone:1413}, o donde indique la flecha",
 	-- ["{npc:3818} (53%) in {zone:1440}, or wherever the arrow points"] = "{npc:3818} (53%) en {zone:1440}, o donde indique la flecha",
@@ -415,6 +415,7 @@ return {
 	-- ["{npc:4701} (55%), {npc:4702} (54%), {npc:4700} (40%) in {zone:1443}, or wherever the arrow points"] = "{npc:4701} (55%), {npc:4702} (54%), {npc:4700} (40%) en {zone:1443}, o donde indique la flecha",
 	-- ["{npc:547} (35%), {npc:157} (34%) in {zone:1436}, or wherever the arrow points"] = "{npc:547} (35%), {npc:157} (34%) en {zone:1436}, o donde indique la flecha",
 	-- ["{npc:7099} (40%) in {zone:1448}, or wherever the arrow points"] = "{npc:7099} (40%) en {zone:1448}, o donde indique la flecha",
+	-- ["{npc:834} (54%), {npc:833} (51%) in {zone:1436}, or wherever the arrow points"] = "{npc:834} (54%), {npc:833} (51%) en {zone:1436}, o donde indique la flecha",
 	-- ["{quest:6610} asks for 20 {item:8932} (check the quest log); innkeepers and food vendors sell it, and the arrow picks the nearest."] = "{quest:6610} pide 20 {item:8932} (revisa el registro de misiones); lo venden los taberneros y mercaderes de comida, y la flecha elige el más cercano.",
 	-- ["{spell:2538} is orange from 1 (yellow at 45, grey at 85): about 50 crafts to 50. Cook at any fire: {object:29784} comes with {skill:185}."] = "{spell:2538} es naranja desde 1 (amarillo en 45, gris en 85): unas 50 creaciones hasta 50. Cocina en cualquier fuego: {object:29784} viene con {skill:185}.",
 	-- ["{spell:2540} is orange from 1 (yellow at 45, grey at 85): about 50 crafts to 50. Cook at any fire: {object:29784} comes with {skill:185}."] = "{spell:2540} es naranja desde 1 (amarillo en 45, gris en 85): unas 50 creaciones hasta 50. Cocina en cualquier fuego: {object:29784} viene con {skill:185}.",

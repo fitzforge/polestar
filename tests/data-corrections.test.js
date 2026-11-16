@@ -278,6 +278,19 @@ test('Khan Jehn waits for Checking Things Out, the end of Nerlokh\'s chain (#233
 	assert.equal(corrections.quests[93128].set.races, null, 'still open to every race');
 });
 
+// Sable (#2507): Shadumbra walks a long path through Raynewood Retreat, and the kill step pointed only at her spawn at
+// its western end (57.5,56.05). Her points follow the path players kill her on, from the road to its north-east end;
+// the two other Ashenvale hunt targets walk paths too (Forever's world database, players' recordings).
+test('Shadumbra has her whole path through Raynewood Retreat, not one spot at its western end (#2507)', () => {
+	const pts = corrections.npcs[12677]?.set?.spawns?.[1440]?.pts || [];
+	assert.ok(pts.some(([x, y]) => x === 57.5 && y === 56.05), 'her spawn stays one of them');
+	assert.ok(pts.some(([x, y]) => x > 61 && y < 50.5), 'the north-east end, where the report found her');
+	assert.ok(pts.length >= 4, `points along the path: ${JSON.stringify(pts)}`);
+	for (const [id, name] of [[12678, 'Ursangous'], [12676, 'Sharptalon']]) {
+		assert.ok((corrections.npcs[id]?.set?.spawns?.[1440]?.pts || []).length >= 4, `${name}: points along his path`);
+	}
+});
+
 test('Daniel Stitchsong stands at the reported Three Corners spot in live coordinates (#1966)', () => {
 	assert.deepEqual(corrections.npcs[256734]?.addSpawns, {
 		1433: { f: 'l', pts: [[9.96, 72.71]] },
@@ -513,4 +526,16 @@ test('the Searing Lava Spider and Velarok Windblade have the names the game show
 // (an object's work among hostile elites) would mark For Honor and An Enticing Offer. It stands nowhere.
 test('Infernal 278863 stands nowhere players go: no spawns (#1575)', () => {
 	assert.deepEqual(corrections.npcs[278863].set, { spawns: {} });
+});
+
+// Blood of My Blood (93429, Karana at the Harborage) had no objective in the data, so the Fallow Sanctuary step's kill
+// line could not count. Players' recordings tick its one line ("Lost One slain" x10) on a kill of any of the
+// sanctuary's Lost One Hunters, Muckdwellers, Seers and Riftseekers.
+test('Blood of My Blood counts 10 of any Fallow Sanctuary Lost One', () => {
+	const [o, ...rest] = corrections.quests[93429].set.objectives;
+	assert.deepEqual(rest, []);
+	assert.equal(o.type, 'kill');
+	assert.equal(o.count, 10);
+	assert.deepEqual(o.credit, [759, 760, 761, 762]);
+	assert.ok(o.credit.includes(o.id), 'the kill names one of the credited Lost Ones');
 });

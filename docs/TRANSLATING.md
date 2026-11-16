@@ -229,7 +229,9 @@ text repeats it. Each finding names its source:
 fixed in Polestar yet, each with a reason and the scenes it shows in: names
 as `"kind:id"` (`no-source`: no source of `forge data names` has it, mostly
 Forever's own NPCs, objects and items, which the client shows once the
-player has seen them; `same-as-english`: every source names it as in
+player has seen them, and `objective:<quest>`, a dungeon quest's objective
+text no source has for its event objective, which the Dungeons page then shows
+as the quest data's English objective lines; `same-as-english`: every source names it as in
 English, which `forge data names` records in `data/local/names-same-as-english.json`
 for the baseline), and texts as `"text:<the text>"` whose English a
 translation keeps (`kept-english`). A text whose only English is such is no

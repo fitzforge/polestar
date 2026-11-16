@@ -232,5 +232,48 @@ ns.RegisterCommand("questlog", function() ns.Fire("SHOW_QUEST_ROOM") end, L["Lis
 ns.RegisterCommand("report", function() ns.Fire("SHOW_REPORT") end, L["Report a problem with the step on screen"])
 ns.RegisterCommand("discord", function() ns.Fire("SHOW_DISCORD") end, L["The invite to the Polestar Discord"])
 
+-- What Polestar's addons hold in memory, as the client counts it, before and
+-- after a full garbage collection: a debug aid for reports. The client's
+-- figure carries the garbage an addon made that the collector has not freed
+-- yet; what is left after the collection is what the addon keeps.
+local function memoryNames()
+	local A = C_AddOns or {}
+	local count, info, loaded = A.GetNumAddOns or GetNumAddOns, A.GetAddOnInfo or GetAddOnInfo, A.IsAddOnLoaded or IsAddOnLoaded
+	local names = { ADDON }
+	if not (count and info and loaded) then return names end
+	for i = 1, count() or 0 do
+		local name = info(i)
+		if type(name) == "string" and name ~= ADDON and name:find("^Polestar_") and loaded(name) then names[#names + 1] = name end
+	end
+	return names
+end
+
+local function readMemory(names, into)
+	UpdateAddOnMemoryUsage()
+	local total = 0
+	for i, name in ipairs(names) do
+		into[i] = GetAddOnMemoryUsage(name) or 0
+		total = total + into[i]
+	end
+	return total
+end
+
+local function megabytes(kib) return ("%.2f MB"):format(kib / 1024) end
+
+ns.RegisterCommand("memory", function()
+	if not (UpdateAddOnMemoryUsage and GetAddOnMemoryUsage) then return end
+	local names, before, after = memoryNames(), {}, {}
+	local b = readMemory(names, before)
+	collectgarbage("collect")
+	local a = readMemory(names, after)
+	ns.Print(L["Memory before and after a full garbage collection (what is left is what Polestar keeps):"])
+	for i, name in ipairs(names) do
+		if before[i] > 0 or after[i] > 0 then
+			DEFAULT_CHAT_FRAME:AddMessage(("  %s  %s -> %s"):format(name, megabytes(before[i]), megabytes(after[i])))
+		end
+	end
+	DEFAULT_CHAT_FRAME:AddMessage("  " .. (L["All of Polestar: %s -> %s (%s was garbage)"]):format(megabytes(b), megabytes(a), megabytes(math.max(0, b - a))))
+end, L["Show Polestar's memory before and after a full garbage collection"], true)
+
 ns.RegisterCommand("packs", function() ns.Fire("SHOW_OPTIONS", "guidepacks") end, L["Open the Community guides page"])
 ns.RegisterCommand("gamepad", function() ns.Fire("SHOW_OPTIONS", "gamepad") end, L["Open the Gamepad page: button names and bindings"])

@@ -57,20 +57,20 @@ return {
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:8436} stands inside the Twilight camp at {area:1442}, west of {area:1446}, among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites), with {npc:8282} (level 51, rare elite) beside him: {quest:3377} needs a group of 4. Skip it if you are alone."] = "정예 몹입니다. 파티를 맺는 것을 권장하니 함께할 사람을 찾아보십시오. {npc:8436}은(는) {area:1446} 서쪽, {area:1442}의 황혼의 망치단 야영지에서 황혼의망치단 화염경비병, 황혼의망치단 우상숭배자, 황혼의망치단 풍수사(48-49레벨 정예) 사이에 서 있고, 그 옆에는 {npc:8282}(51레벨 희귀 정예)이(가) 있습니다. {quest:3377}에는 4인 파티가 필요합니다. 혼자라면 건너뛰십시오.",
 
 	-- Step 14: Searing Lava Spiders
-	-- plural, as words: Searing Lava Spiders = {npc:5857} Searing Lava Spider
+	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
 	["Searing Lava Spiders"] = "이글거리는 용암거미",
-	-- {npc:8436} Zamael Lunthistle
-	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Velarok."] = "거미는 {npc:8436} 남쪽, 벨라로크에게 가는 길의 고원과 용암 웅덩이를 돌아다닙니다.",
+	-- {npc:8436} Zamael Lunthistle · {npc:8479} Velarok Windblade
+	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "거미는 {npc:8436} 남쪽, {npc:8479}에게 가는 길의 고원과 용암 웅덩이를 돌아다닙니다.",
 
 	-- Step 15: Velarok Windblade
-	["Velarok Windblade"] = "벨라로크 윈드블레이드",
-	-- {area:1446} Thorium Point
-	["Velarok stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "벨라로크는 {area:1446} 남쪽, 용광로 가장자리에 서 있습니다. 그의 이야기를 들으십시오.",
+	-- {npc:8479} Velarok Windblade · {area:1446} Thorium Point
+	["{npc:8479} stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "{npc:8479}은(는) {area:1446} 남쪽, 용광로 가장자리에 서 있습니다. 그의 이야기를 들으십시오.",
 
 	-- Step 18: Golems and elementals
 	["Golems and elementals"] = "골렘과 정령",
+	-- {npc:8479} Velarok Windblade
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Magma Elementals = {npc:5855} Magma Elemental
-	["Heavy War Golems patrol the floor of the Cauldron below Velarok; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "벨라로크 아래 용광로 바닥을 육중한 전투골렘이 순찰하고, 그 사이를 용암 정령이 떠다닙니다. 골렘 기름은 골렘과 정령이, 화염의 심장은 정령이 떨어뜨립니다.",
+	["Heavy War Golems patrol the floor of the Cauldron below {npc:8479}; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "{npc:8479} 아래 용광로 바닥을 육중한 전투골렘이 순찰하고, 그 사이를 용암 정령이 떠다닙니다. 기름은 골렘과 정령이, 심장은 정령이 떨어뜨립니다.",
 
 	-- Step 20: Dark Iron dwarves: kill these as you meet them
 	["Dark Iron dwarves: kill these as you meet them"] = "",
@@ -103,11 +103,12 @@ return {
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back."] = "",
 
 	-- Step 30: The Torch of Retribution
-	["Listen to Velarok's story once more."] = "벨라록의 이야기를 한 번 더 들으십시오.",
+	-- {npc:8479} Velarok Windblade
+	["Listen to {npc:8479}'s story once more."] = "{npc:8479}의 이야기를 한 번 더 들으십시오.",
 
 	-- Step 31: Velarok Windblade
-	-- {quest:3453} The Torch of Retribution · {quest:3462} Squire Maltrake
-	["{quest:3453} lies on the ground at Velarok's feet; {quest:3462} stands beside him."] = "{quest:3453}은(는) 벨라록의 발치 땅바닥에 놓여 있고, {quest:3462}은(는) 그 옆에 서 있습니다.",
+	-- {quest:3453} The Torch of Retribution · {npc:8479} Velarok Windblade · {quest:3462} Squire Maltrake
+	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "{quest:3453}은(는) {npc:8479}의 발치 땅바닥에 놓여 있고, {quest:3462}은(는) 그 옆에 서 있습니다.",
 	-- {quest:3462} Squire Maltrake · {area:1446} Thorium Point
 	["{quest:3462}: hand it in on the way back to {area:1446}"] = "{quest:3462}: {area:1446}(으)로 돌아가는 길에 완료하십시오",
 
@@ -131,8 +132,8 @@ return {
 	["Below ground"] = "지하",
 
 	-- Step 36: Squire Maltrake
-	-- {npc:8509} Squire Maltrake · {area:1446} Thorium Point
-	["{npc:8509} and the dragonflight's hoard are beside Velarok, on the rim south of {area:1446}."] = "{npc:8509}와(과) 용군단의 보물은 {area:1446} 남쪽 가장자리, 벨라록 옆에 있습니다.",
+	-- {npc:8509} Squire Maltrake · {npc:8479} Velarok Windblade · {area:1446} Thorium Point
+	["{npc:8509} and the dragonflight's hoard are beside {npc:8479}, on the rim south of {area:1446}."] = "{npc:8509}와(과) 용군단의 보물은 {area:1446} 남쪽 가장자리, {npc:8479} 옆에 있습니다.",
 	-- {object:149502} Hoard of the Black Dragonflight · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous · {zone:1428} Burning Steppes
 	["The {object:149502} it gives holds a {item:10575}: keep it for {npc:9459} in the {zone:1428}"] = "보상으로 받는 {object:149502}에는 {item:10575}이(가) 들어 있습니다: {zone:1428}의 {npc:9459}에게 가져갈 수 있도록 간직하십시오",
 
@@ -160,7 +161,14 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["For {npc:8256} in {area:1537}, later"] = "나중에 {area:1537}의 {npc:8256}에게",
 	-- ["Greater Lava Spiders"] = "거대한 용암거미",
+	-- ["Heavy War Golems patrol the floor of the Cauldron below Velarok; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "벨라로크 아래 용광로 바닥을 육중한 전투골렘이 순찰하고, 그 사이를 용암 정령이 떠다닙니다. 골렘 기름은 골렘과 정령이, 화염의 심장은 정령이 떨어뜨립니다.",
+	-- ["Listen to Velarok's story once more."] = "벨라록의 이야기를 한 번 더 들으십시오.",
 	-- ["The night elf stands alone west of {area:1446}. Hear his story."] = "나이트 엘프 잠마엘 룬시슬이 {area:1446} 서쪽에 홀로 서 있습니다. 그의 이야기를 들으십시오.",
+	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Velarok."] = "거미는 {npc:8436} 남쪽, 벨라로크에게 가는 길의 고원과 용암 웅덩이를 돌아다닙니다.",
+	-- ["Velarok Windblade"] = "벨라로크 윈드블레이드",
+	-- ["Velarok stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "벨라로크는 {area:1446} 남쪽, 용광로 가장자리에 서 있습니다. 그의 이야기를 들으십시오.",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}: 이전 가이드가 귀환석으로 이곳에 데려오므로 보통 바로 완료됩니다",
+	-- ["{npc:8509} and the dragonflight's hoard are beside Velarok, on the rim south of {area:1446}."] = "{npc:8509}와(과) 용군단의 보물은 {area:1446} 남쪽 가장자리, 벨라록 옆에 있습니다.",
 	-- ["{object:147516} dwarves"] = "{object:147516} 드워프",
+	-- ["{quest:3453} lies on the ground at Velarok's feet; {quest:3462} stands beside him."] = "{quest:3453}은(는) 벨라록의 발치 땅바닥에 놓여 있고, {quest:3462}은(는) 그 옆에 서 있습니다.",
 }

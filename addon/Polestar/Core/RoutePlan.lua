@@ -27,6 +27,7 @@ local function nextGuide(g, player)
 		-- once taken: chosen, and its guide in (Engine, Own.offerTaken).
 		if G.ExperimentalOffer(g, id) then
 			if id == remembered and target and not cond then return id, false end
+		elseif not target and G.OtherSidePart(g, id) then -- the other faction's guide (Guides.OtherSidePart): not this route
 		elseif not target then
 			unloaded = true
 			if id == remembered and not cond then return id, false end

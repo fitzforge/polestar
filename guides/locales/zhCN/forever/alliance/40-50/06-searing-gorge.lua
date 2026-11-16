@@ -57,20 +57,20 @@ return {
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:8436} stands inside the Twilight camp at {area:1442}, west of {area:1446}, among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites), with {npc:8282} (level 51, rare elite) beside him: {quest:3377} needs a group of 4. Skip it if you are alone."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:8436}站在{area:1446}西边{area:1442}的暮光营地里，周围是暮光火焰卫士、暮光崇拜者和暮光地占师（48-49 级精英），旁边还有{npc:8282}（51 级稀有精英）：{quest:3377}需要 4 人小队。独自一人时可跳过。",
 
 	-- Step 14: Searing Lava Spiders
-	-- plural, as words: Searing Lava Spiders = {npc:5857} Searing Lava Spider
-	["Searing Lava Spiders"] = "{npc:5857}",
-	-- {npc:8436} Zamael Lunthistle
-	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Velarok."] = "蜘蛛在{npc:8436}南边的平台和熔岩池周围活动，前往Velarok时会经过。",
+	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
+	["Searing Lava Spiders"] = "巨型熔岩蜘蛛",
+	-- {npc:8436} Zamael Lunthistle · {npc:8479} Velarok Windblade
+	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "蜘蛛在{npc:8436}南面的高地和熔岩池一带游荡，前往{npc:8479}的路上会经过。",
 
 	-- Step 15: Velarok Windblade
-	["Velarok Windblade"] = "Velarok Windblade",
-	-- {area:1446} Thorium Point
-	["Velarok stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "Velarok站在{area:1446}南边的大熔炉边缘。听他讲述故事。",
+	-- {npc:8479} Velarok Windblade · {area:1446} Thorium Point
+	["{npc:8479} stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "{npc:8479}站在{area:1446}南边的大熔炉边缘。听他讲述他的故事。",
 
 	-- Step 18: Golems and elementals
 	["Golems and elementals"] = "傀儡和元素",
+	-- {npc:8479} Velarok Windblade
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Magma Elementals = {npc:5855} Magma Elemental
-	["Heavy War Golems patrol the floor of the Cauldron below Velarok; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "重型作战傀儡在Velarok下方的大熔炉底部巡逻，熔岩元素也在其中游荡。傀儡和元素都会掉落油，只有元素掉落心脏。",
+	["Heavy War Golems patrol the floor of the Cauldron below {npc:8479}; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "重型作战傀儡在{npc:8479}下方的大熔炉底部巡逻，熔岩元素也在其中游荡。傀儡和元素都会掉落油，只有元素掉落心脏。",
 
 	-- Step 20: Dark Iron dwarves: kill these as you meet them
 	["Dark Iron dwarves: kill these as you meet them"] = "黑铁矮人：沿途击杀",
@@ -103,11 +103,12 @@ return {
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:5860}（50 级精英）需要 3 人小队。独自一人时可跳过，路线会安排刷怪补回经验。",
 
 	-- Step 30: The Torch of Retribution
-	["Listen to Velarok's story once more."] = "再听一次Velarok讲述他的故事。",
+	-- {npc:8479} Velarok Windblade
+	["Listen to {npc:8479}'s story once more."] = "再听一次{npc:8479}讲述他的故事。",
 
 	-- Step 31: Velarok Windblade
-	-- {quest:3453} The Torch of Retribution · {quest:3462} Squire Maltrake
-	["{quest:3453} lies on the ground at Velarok's feet; {quest:3462} stands beside him."] = "{quest:3453}就放在Velarok脚边的地上；{quest:3462}站在他身旁。",
+	-- {quest:3453} The Torch of Retribution · {npc:8479} Velarok Windblade · {quest:3462} Squire Maltrake
+	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "{quest:3453}就放在{npc:8479}脚边的地上；{quest:3462}站在他身旁。",
 	-- {quest:3462} Squire Maltrake · {area:1446} Thorium Point
 	["{quest:3462}: hand it in on the way back to {area:1446}"] = "{quest:3462}：在返回{area:1446}的路上交付",
 
@@ -131,8 +132,8 @@ return {
 	["Below ground"] = "在地下",
 
 	-- Step 36: Squire Maltrake
-	-- {npc:8509} Squire Maltrake · {area:1446} Thorium Point
-	["{npc:8509} and the dragonflight's hoard are beside Velarok, on the rim south of {area:1446}."] = "{npc:8509}和黑龙军团的宝藏就在Velarok旁边，位于{area:1446}南边的边缘上。",
+	-- {npc:8509} Squire Maltrake · {npc:8479} Velarok Windblade · {area:1446} Thorium Point
+	["{npc:8509} and the dragonflight's hoard are beside {npc:8479}, on the rim south of {area:1446}."] = "{npc:8509}和黑龙军团的宝藏就在{npc:8479}旁边，位于{area:1446}南边的边缘上。",
 	-- {object:149502} Hoard of the Black Dragonflight · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous · {zone:1428} Burning Steppes
 	["The {object:149502} it gives holds a {item:10575}: keep it for {npc:9459} in the {zone:1428}"] = "它给出的{object:149502}里有一件{item:10575}：留着交给{zone:1428}的{npc:9459}",
 
@@ -165,8 +166,10 @@ return {
 	-- ["Greater Lava Spiders"] = "{npc:5858}",
 	-- ["Heavy War Golems patrol the floor of the Cauldron below Kalaran; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "{npc:5854}在卡拉然·温布雷下方的大熔炉底部巡逻；{npc:5855}在它们之间飘荡。傀儡和元素掉落油，元素掉落核心。",
 	-- ["Heavy War Golems patrol the floor of the Cauldron below Kalaran; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts.\nTaskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a {item:10551}. The Steamsmiths work at the furnaces in the middle (the {item:18959}), the Lookouts stand on the southern ridges (the Spyglass). Any {object:147516} may drop the {item:11818}: keep it.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "重型作战傀儡在卡拉然·温布雷下方的大熔炉底部巡逻，熔岩元素也在其中游荡。傀儡和元素都会掉落油，元素还会掉落心脏。\n工头和奴隶贩子在大熔炉各处驱赶奴隶，都有几率携带{item:10551}。铸造师在中央熔炉处工作，掉落{item:18959}；斥候位于南侧山脊，掉落望远镜。任意{object:147516}均有几率掉落{item:11818}，请保留。\n注意：45–46 级的黑铁奴隶贩子被拉到时，会召唤 15 码内盟友支援，最远可在 15 码处投网，并在近战使用撕裂。",
+	-- ["Heavy War Golems patrol the floor of the Cauldron below Velarok; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "重型作战傀儡在Velarok下方的大熔炉底部巡逻，熔岩元素也在其中游荡。傀儡和元素都会掉落油，只有元素掉落心脏。",
 	-- ["Kalaran Windblade"] = "卡拉然·温布雷",
 	-- ["Kalaran stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "卡拉然·温布雷站在{area:1446}南边的大熔炉边缘。听他讲述他的故事。",
+	-- ["Listen to Velarok's story once more."] = "再听一次Velarok讲述他的故事。",
 	-- ["Ride east across the Cauldron to the {area:247} in the south-east. The prisoner in the wooden outhouse wants 15 {item:4306} and eight dead Dark Iron Geologists from the dig site around it. The outhouse also opens with the key, if you found one."] = "向东骑过大熔炉到东南方的{area:247}。木头厕所里的囚犯想要15块{item:4306}，并要你杀死周围挖掘场的八名{npc:5839}。如果你找到了钥匙，也能用它打开厕所。",
 	-- ["Ride north-west across the Cauldron to {area:1446}, the scaffolded camp on the north-west rim."] = "向西北骑行穿过大熔炉，到达{area:1446}，即西北边缘搭着脚手架的营地。",
 	-- ["Taskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a {item:10551}. The Steamsmiths work at the furnaces in the middle (the {item:18959}), the Lookouts stand on the southern ridges (the Spyglass). Any {object:147516} may drop the {item:11818}: keep it."] = "黑铁工头和黑铁奴隶贩子在大熔炉各处驱使奴隶，任何一个都可能带着{item:10551}。黑铁锻造师在中间的熔炉旁干活（{item:18959}），黑铁哨兵站在南边的山脊上（侦查员的望远镜）。任何{object:147516}都可能掉落{item:11818}：留着它。",
@@ -174,7 +177,12 @@ return {
 	-- ["The night elf stands alone west of {area:1446}. Hear his story."] = "那个暗夜精灵独自站在{area:1446}西边。听他讲述他的故事。",
 	-- ["The spiders roam the plateaus and lava pools in the south-west of the gorge."] = "蜘蛛在峡谷西南部的高地和熔岩池中游荡。",
 	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Kalaran."] = "蜘蛛在{npc:8436}南面的高地和熔岩池一带游荡，前往卡拉然的路上会经过。",
+	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Velarok."] = "蜘蛛在{npc:8436}南边的平台和熔岩池周围活动，前往Velarok时会经过。",
+	-- ["Velarok Windblade"] = "Velarok Windblade",
+	-- ["Velarok stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "Velarok站在{area:1446}南边的大熔炉边缘。听他讲述故事。",
 	-- ["{area:1442}: kill these as you meet them"] = "{area:1442}：沿途击杀以下目标",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}：上一份指南用炉石把你送到这里，所以这一步通常会立即完成",
+	-- ["{npc:8509} and the dragonflight's hoard are beside Velarok, on the rim south of {area:1446}."] = "{npc:8509}和黑龙军团的宝藏就在Velarok旁边，位于{area:1446}南边的边缘上。",
 	-- ["{object:147516} dwarves"] = "{object:147516}矮人",
+	-- ["{quest:3453} lies on the ground at Velarok's feet; {quest:3462} stands beside him."] = "{quest:3453}就放在Velarok脚边的地上；{quest:3462}站在他身旁。",
 }

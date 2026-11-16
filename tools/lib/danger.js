@@ -1,11 +1,14 @@
 'use strict';
 // Danger at the spot (#1575): for every located kill/collect/use/interact/complete goal of the leveling guides
-// (forever/alliance, forever/horde), the hostile mobs around it against the level the route expects there; and for
-// every grind (a `level` goal the route reaches by grinding, #2207), its camp against the level the grind starts at.
+// (forever/alliance, forever/horde, and Polestar's experimental guides in experimental/guides), the hostile mobs
+// around it against the level the route expects there; and for every grind (a `level` goal the route reaches by
+// grinding, #2207), its camp against the level the grind starts at.
 //
 //   levelsOf(files) -> Map(guide id -> { start, q: Map(quest -> level after its turn-in) })
 //     files: the calibrated level model's output for each faction (the release audit's level run: an array of race x class
-//     branches, each { rows: [{ id, start, tq: [[quest, level], ...] }] }); levels are the mean over the branches.
+//     branches, each { rows: [{ id, start, tq: [[quest, level], ...] }] }); levels are the mean over the branches. The
+//     experimental guides' levels come from a run of the model that takes each experimental route choice (its branches
+//     name their `faction`; a guide for both sides then has each side's levels as `<id>@<faction>`).
 //   sweep({ dataDir, guidesDir, levels, guides?, archive? }) -> { flags: [{ key, guide, step, title, goal, quest, oi,
 //     kind, level, levelEnd (grind), margin, mobs: [...] }], census: null | { sessions, cleared: [...], added: [...] } }
 //   compare(flags, baseline) -> { fail: [flag], borderline: [flag], stale: [row] }
@@ -156,18 +159,24 @@ function readCensus(dir, { world, targets }) {
 	return { sessions, met, died, near: new Map([...near].map(([id, people]) => [id, people.size])) };
 }
 
+// A branch that names its `faction` (the experimental route choices' model) also counts under `<id>@<faction>`, so a
+// guide for both sides gets each side's own level there.
 function levelsOf(files) {
 	const per = new Map();
+	const add = (id, r) => {
+		if (!per.has(id)) per.set(id, { start: [], q: new Map() });
+		const g = per.get(id);
+		g.start.push(r.start);
+		for (const [q, l] of r.tq || []) {
+			if (!g.q.has(q)) g.q.set(q, []);
+			g.q.get(q).push(l);
+		}
+	};
 	for (const file of files) {
 		for (const branch of JSON.parse(fs.readFileSync(file, 'utf8'))) {
 			for (const r of branch.rows || []) {
-				if (!per.has(r.id)) per.set(r.id, { start: [], q: new Map() });
-				const g = per.get(r.id);
-				g.start.push(r.start);
-				for (const [q, l] of r.tq || []) {
-					if (!g.q.has(q)) g.q.set(q, []);
-					g.q.get(q).push(l);
-				}
+				add(r.id, r);
+				if (branch.faction) add(`${r.id}@${branch.faction}`, r);
 			}
 		}
 	}
@@ -291,34 +300,53 @@ function sweep({ dataDir, guidesDir, levels, guides = null, archive = null }) {
 			else if (p.endsWith('.guide')) files.push(p);
 		}
 	})(path.join(guidesDir, 'forever'));
+	// Polestar's experimental guides (experimental/guides beside guidesDir) too: each for its own faction, a guide for
+	// both once per side (its key then names the side: `experimental/guides/shendralas.guide@Horde`). Their levels
+	// come from the experimental route choices' model rows (a `mode` run of the level model, given in --levels).
+	// A leveling guide of the route for both factions (forever/40-50/shendralas: no `faction`, no `category`) is
+	// swept once per side the same way (`forever/40-50/shendralas.guide@Alliance`).
+	const expDir = path.join(guidesDir, '..', 'experimental', 'guides');
+	const shared = (file) => !/^(faction|category)\s/m.test(fs.readFileSync(file, 'utf8').split('\n# ')[0]);
+	const units = files.sort().map((file) => {
+		const rel = path.relative(guidesDir, file).split(path.sep).join('/');
+		return { file, rel, sides: rel.startsWith('forever/alliance/') ? ['Alliance'] : rel.startsWith('forever/horde/') ? ['Horde'] : shared(file) ? null : [] };
+	});
+	if (fs.existsSync(expDir)) {
+		for (const name of fs.readdirSync(expDir).filter((f) => f.endsWith('.guide')).sort()) units.push({ file: path.join(expDir, name), rel: `experimental/guides/${name}`, sides: null });
+	}
 	// The work goals and the grinds, each with the counted npcs within RARE_R of its points.
 	const work = [];
-	for (const file of files.sort()) {
-		const rel = path.relative(guidesDir, file).split(path.sep).join('/');
-		const faction = rel.startsWith('forever/alliance/') ? 'Alliance' : rel.startsWith('forever/horde/') ? 'Horde' : null;
-		if (!faction || (guides && !guides.includes(rel))) continue;
-		const g = compileSources([{ file, text: fs.readFileSync(file, 'utf8') }], data).guides[0];
+	const fits = (only, faction) => !only || !only.factions || only.factions.includes(faction);
+	for (const unit of units) {
+		if (unit.sides && !unit.sides.length) continue;
+		if (guides && !guides.includes(unit.rel)) continue;
+		const g = compileSources([{ file: unit.file, text: fs.readFileSync(unit.file, 'utf8') }], data).guides[0];
 		if (!g) continue;
-		const lm = levels.get(g.id);
-		let level = lm ? lm.start : g.minLevel || 1;
-		g.steps.forEach((step, si) => {
-			for (const goal of step.goals) {
-				if (goal.t === 'level') {
-					// Over the route's level here, the route grinds: its camp is the goal's point and spots.
-					const end = goal.level + (goal.frac || 0);
-					if (end > level && goal.map != null && goal.x != null) {
-						work.push({ rel, side: faction[0], si, step, goal, level, end, near: nearOf(goal, [{ x: goal.x, y: goal.y }, ...(goal.spots || [])]) });
+		const sides = unit.sides || (g.faction ? [g.faction] : ['Alliance', 'Horde']);
+		for (const faction of sides) {
+			const rel = !unit.sides && !g.faction ? `${unit.rel}@${faction}` : unit.rel;
+			const lm = levels.get(`${g.id}@${faction}`) || levels.get(g.id);
+			let level = lm ? lm.start : g.minLevel || 1;
+			g.steps.forEach((step, si) => {
+				if (!fits(step.only, faction)) return;
+				for (const goal of step.goals) {
+					if (goal.t === 'level') {
+						// Over the route's level here, the route grinds: its camp is the goal's point and spots.
+						const end = goal.level + (goal.frac || 0);
+						if (end > level && goal.map != null && goal.x != null) {
+							work.push({ rel, side: faction[0], si, step, goal, level, end, near: nearOf(goal, [{ x: goal.x, y: goal.y }, ...(goal.spots || [])]) });
+						}
+						level = Math.max(level, goal.level);
 					}
-					level = Math.max(level, goal.level);
+					if (goal.t === 'turnin' && lm && lm.q.has(goal.quest)) level = Math.max(level, lm.q.get(goal.quest));
 				}
-				if (goal.t === 'turnin' && lm && lm.q.has(goal.quest)) level = Math.max(level, lm.q.get(goal.quest));
-			}
-			for (const goal of step.goals) {
-				if (!WORK.has(goal.t) || goal.map == null || goal.x == null) continue;
-				if (goal.t === 'collect' && !goal.quest) continue;
-				work.push({ rel, side: faction[0], si, step, goal, level, near: nearOf(goal, [{ x: goal.x, y: goal.y }, ...(goal.spots || []).slice(0, 4)]) });
-			}
-		});
+				for (const goal of step.goals) {
+					if (!WORK.has(goal.t) || goal.map == null || goal.x == null || !fits(goal.only, faction)) continue;
+					if (goal.t === 'collect' && !goal.quest) continue;
+					work.push({ rel, side: faction[0], si, step, goal, level, near: nearOf(goal, [{ x: goal.x, y: goal.y }, ...(goal.spots || []).slice(0, 4)]) });
+				}
+			});
+		}
 	}
 	const census = archive
 		? readCensus(archive, { world: (map, x, y) => world(map, x, y, 'l'), targets: new Map([...new Set(work.flatMap((w) => w.near.map((m) => m.id)))].map((id) => [id, spawnsOf.get(id)])) })

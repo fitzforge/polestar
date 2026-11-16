@@ -421,7 +421,10 @@ their own client, so nothing trusts a single upload.
   has (a quest's title, level, objectives, giver or ender, rewards, XP, an
   NPC's name, rank or level, a spawn, a learned path, a trainer's list, a
   drop chance) changes only on the evidence of 3 distinct counted voters
-  (for a drop chance, each with 10 kills of their own), or of `local` or
+  (for a drop chance, each with 10 loot windows of their own: a recorded
+  kill may be a death the player only saw, so kills are no samples; an item
+  that drops only for a quest counts only the windows its objective was
+  open for, `wanted`), or of `local` or
   `sent-*`; one counted voter fills only gaps no other source has. Nothing
   a recording says overrides one of Polestar's own corrections
   (`forever-db/corrections`): the build keeps the corrected value and lists

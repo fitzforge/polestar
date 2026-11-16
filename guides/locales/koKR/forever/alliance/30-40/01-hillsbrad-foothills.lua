@@ -133,18 +133,34 @@ return {
 	-- {area:1025} The Green Belt · {npc:270637} Howin Kindfeather · {npc:1244} Rethiel the Greenwarden
 	["Back east along the road to the {area:1025}: {npc:270637} camps among the Fenrunners, just west of {npc:1244}. Then west again to Menethil for the boat."] = "길을 따라 다시 동쪽 {area:1025}(으)로 가십시오. {npc:270637}은(는) {npc:1244} 바로 서쪽, Fenrunner 사이에 야영하고 있습니다. 그런 다음 배를 타러 다시 서쪽 메네실 항구로 가십시오.",
 
-	-- Step 29: Level 30.8
+	-- Step 29: Menethil Harbor
+	-- {npc:2094} James Halloran · {npc:1239} First Mate Fitzsimmons · {area:2104} Deepwater Tavern
+	["{npc:2094} stands by the docks; {npc:1239} sits in the {area:2104}, south of the keep."] = "{npc:2094}은(는) 부두 옆에 있고, {npc:1239}은(는) 성채 남쪽의 {area:2104}에 앉아 있습니다.",
+
+	-- Step 30: Captain Halyndor
+	-- {npc:1160} Captain Halyndor · {npc:270589} Nightveiled Rotheap · {zone:1437} Wetlands
+	["North along the coast from Menethil to the wreck of the Intrepid: {npc:1160} (30) is aboard, and the locked strongbox sits in the wreck. Careful: {npc:270589}, a level 31-32 elite, roams the {zone:1437}: give it a wide berth."] = "메네실에서 해안을 따라 북쪽으로 인트레피드호 잔해까지 가십시오. {npc:1160}(30)이(가) 배 위에 있고, 잠긴 금고는 잔해 안에 있습니다. 주의: 31-32레벨 정예 {npc:270589}이(가) {zone:1437}을(를) 돌아다닙니다. 멀리 피하세요.",
+	-- {item:2629} Intrepid Strongbox Key · {npc:1160} Captain Halyndor
+	["{item:2629}, from {npc:1160}"] = "{item:2629}, {npc:1160}에게서 획득",
+
+	-- Step 31: Glorin Steelbrow
+	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern
+	["Back south to Menethil: {npc:1217} stands in the {area:2104}."] = "남쪽 메네실로 돌아가세요. {npc:1217}은(는) {area:2104}에 있습니다.",
+	-- {npc:1284} Archbishop Benedictus · {zone:1453} Stormwind
+	["For {npc:1284} in {zone:1453}, at the end of this guide"] = "",
+
+	-- Step 32: Level 30.8
 	["Level 30.8"] = "",
 	-- {quest:474} Defeat Nek'rosh · {area:133} Gnomeregan · {area:796} Scarlet Monastery
 	["Skipped {quest:474} and short of 30.8? Kill the Bluegill murlocs on the coast south of Menethil until level 30.8. Or, with a group, run the {area:133} dungeon or the {area:796} dungeon (Graveyard) instead."] = "",
 	-- {npc:1418} Bluegill Raider
 	["grind on {npc:1418}"] = "{npc:1418} 사냥",
 
-	-- Step 31: Boat to Southshore
+	-- Step 33: Boat to Southshore
 	-- {area:271} Southshore
 	["Boat to {area:271}"] = "{area:271}행 배",
 
-	-- Step 32: Southshore
+	-- Step 34: Southshore
 	-- {npc:2711} Phin Odelic · {npc:2430} Chef Jessen · {npc:2382} Darren Malvew · {npc:2381} Micha Yance · {npc:2438} Bartolo Ginsetti · {npc:2366} Barkeep Kelly · {quest:98463} Talk of the Town
 	["Off the boat, walk up the pier into town: {npc:2711} and Lieutenant Farren stand by the inn, {npc:2430} upstairs, {npc:2382} east of it; the flight master is at the north end, {npc:2381} and {npc:2438} between her and the inn, Maleb in the town hall at the west side.\n{npc:2366} may not offer {quest:98463} on Forever: if she doesn't, skip it."] = "",
 	-- {npc:2711} Phin Odelic
@@ -160,56 +176,49 @@ return {
 	-- {item:3713} Soothing Spices · {npc:2381} Micha Yance
 	["{item:3713}, from {npc:2381}"] = "{item:3713}, {npc:2381}에게서",
 	-- {npc:2276} Magistrate Henry Maleb
-	["{npc:2276}, inside"] = "",
+	["{npc:2276}, inside: keep it, the Syndicate camp waits for the road north to Arathi (05-arathi-highlands)"] = "{npc:2276}, 안쪽: 보관하세요. 비밀결사대 야영지는 북쪽 아라시로 가는 길(05-arathi-highlands)에서 처리합니다",
 
-	-- Step 33: Bartolo Ginsetti
+	-- Step 35: Bartolo Ginsetti
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {skill:165} Leatherworking · {item:2997} Bolt of Woolen Cloth · {skill:197} Tailoring
 	["{npc:2438} makes a yeti fur cloak for anyone who brings a {item:3719} ({skill:165}) and a {item:2997} ({skill:197}); no vendor sells either, so this step shows only when you carry both."] = "",
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {item:2997} Bolt of Woolen Cloth
 	["{npc:2438}, between the flight master and the inn: he wants a {item:3719} and a {item:2997} too"] = "",
 
-	-- Step 34: Torn Fin murlocs
+	-- Step 36: Torn Fin murlocs
 	["Torn Fin murlocs"] = "너덜지느러미멀록",
 	-- {area:295} Western Strand · {area:271} Southshore
 	["The Torn Fin murlocs crowd the {area:295}, south-west of {area:271}.\nCareful: One camp holds a tight cluster of Oracles that all aggro together."] = "너덜지느러미멀록이 {area:271} 남서쪽 {area:295}에 몰려 있습니다.\n주의: 한 야영지에는 신탁자가 빽빽이 모여 있어 한꺼번에 덤벼듭니다.",
 
-	-- Step 35: Farren
+	-- Step 37: Farren
 	["Farren"] = "파렌",
 	["Inside"] = "",
 
-	-- Step 36: Murloc heads
+	-- Step 38: Murloc heads
 	["Murloc heads"] = "멀록 머리",
 	["Back to the same murlocs; not every one drops a head."] = "같은 멀록에게 돌아가십시오. 모두 머리를 떨어뜨리지는 않습니다.",
 
-	-- Step 38: Daggerspine naga
+	-- Step 40: Daggerspine naga
 	["Daggerspine naga"] = "비수가시일족 나가",
 	-- {area:271} Southshore
 	["The naga hold the shore south-east of {area:271}."] = "나가가 {area:271} 남동쪽 해안을 차지하고 있습니다.",
 
-	-- Step 39: Farren
+	-- Step 41: Farren
 	-- {object:2117} Stormwind Keep
 	["A report for {object:2117}; inside"] = "{object:2117}에 보낼 보고서, 안",
 
-	-- Step 41: Southshore
+	-- Step 43: Southshore
 	-- {npc:251493} Captain McManus · {quest:98059} Hillsbrad's Hoard · {item:279386} Sealed Company Request · {area:287} Hillsbrad · {area:271} Southshore
-	["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave.\n{quest:98059}: {npc:251493} hands you a {item:279386} for the {area:287} council, in the farms west of {area:271}; you deliver it after the Syndicate camp."] = "",
+	["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave.\n{quest:98059}: {npc:251493} hands you a {item:279386} for the {area:287} council, in the farms west of {area:271}."] = "{npc:251493}은(는) 비행 조련사 북서쪽, 북쪽 설인 동굴로 가는 길에 있습니다.\n{quest:98059}: {npc:251493}이(가) {area:271} 서쪽 농장에 있는 {area:287} 의회에 전할 {item:279386}을(를) 줍니다.",
 
-	-- Step 42: Yeti cave
+	-- Step 44: Yeti cave
 	["Yeti cave"] = "설인 동굴",
 	-- {area:271} Southshore · {area:277} Foothill Caverns · {npc:13602} The Abominable Greench
 	-- plural, as words: Giant Yetis = {npc:2251} Giant Yeti
-	["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "설인들은 {area:271} 북쪽 언덕의 동굴에 살며, 북쪽의 비밀결사대 야영지로 가는 길에 있습니다.\n{area:277}에만 머무르세요. 더 북쪽의 동굴에는 산악 설인과 거대한 설인(32-34)이 짝을 지어 있고, 36레벨 정예 {npc:13602}도 있습니다.",
-
-	-- Step 43: Alterac Mountains
-	["Syndicate camp"] = "비밀결사대 야영지",
-
-	-- Step 44: Syndicate camp
-	-- {area:287} Hillsbrad · {area:272} Tarren Mill
-	["The Syndicate camp sits on the Alterac border in northern {area:287}, west of {area:272} (Horde); the documents lie in the camp, and its Footpads and Thieves are the Syndicate Maleb wants."] = "비밀결사대 야영지는 {area:272}(호드) 서쪽, {area:287} 북부의 알터랙 경계에 있습니다. 문서는 야영지 안에 있으며, 그곳의 노상강도와 도둑이 말렙이 원하는 비밀결사대입니다.",
+	["The yetis live in the cave in the hills north of {area:271}.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "설인들은 {area:271} 북쪽 언덕의 동굴에 삽니다.\n{area:277}에만 머무르세요. 더 북쪽의 동굴에는 산악 설인과 거대한 설인(32-34)이 짝을 지어 있고, 36레벨 정예 {npc:13602}도 있습니다.",
 
 	-- Step 45: Hillsbrad Fields
-	-- {area:286} Hillsbrad Fields
-	["South-west from the Syndicate camp to the {area:286} farms."] = "",
+	-- {area:271} Southshore · {area:286} Hillsbrad Fields
+	["West from {area:271} to the {area:286} farms."] = "{area:271}에서 서쪽으로 {area:286} 농장까지 가십시오.",
 
 	-- Step 46: Hillsbrad council
 	-- {area:287} Hillsbrad
@@ -286,10 +295,13 @@ return {
 	-- ["Red whelps fill the hills west of the gates, Maddened Rotclaws the {area:1025}, Razormaws the northern slopes; Neru stands in the north-east (use the {item:279996}).\n{quest:98283} is elite: grouping up is advised."] = "새끼 붉은용이 성문 서쪽 언덕에, 광기에 물든 썩은발톱이 {area:1025}에, 무쇠턱 랩터가 북쪽 비탈에 가득합니다. 네루는 북동쪽에 있습니다({item:279996} 사용).\n{quest:98283}은(는) 정예이므로 파티를 권장합니다.",
 	-- ["Red whelps fill the hills west of the gates, Maddened Rotclaws the {area:1025}, Razormaws the northern slopes; {npc:271458} stands in the north-east (use the {item:279996}).\n{quest:98283} is elite: grouping up is advised."] = "새끼 붉은용이 성문 서쪽 언덕에, 광기에 물든 썩은발톱이 {area:1025}에, 무쇠턱 랩터가 북쪽 비탈에 가득합니다. {npc:271458}은(는) 북동쪽에 있습니다({item:279996} 사용).\n{quest:98283}은(는) 정예이므로 파티를 권장합니다.",
 	-- ["South to the Dragonmaw's {area:1036}; the {object:671518} lies in the camp."] = "남쪽의 용아귀부족 {area:1036}(으)로 가십시오. {object:671518}은(는) 야영지 안에 있습니다.",
+	-- ["Syndicate camp"] = "비밀결사대 야영지",
 	-- ["Take the {area:2257} from the {object:28027} to {zone:1455}."] = "{object:28027}에서 {area:2257}을(를) 타고 {zone:1455}(으)로 가십시오.",
 	-- ["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one."] = "Goaz Warder들은 웰가의 야영지 바로 서쪽에 있습니다. 그 중 하나 옆에서 그가 준 {item:279996}을(를) 사용하십시오.",
+	-- ["The Syndicate camp sits on the Alterac border in northern {area:287}, west of {area:272} (Horde); the documents lie in the camp, and its Footpads and Thieves are the Syndicate Maleb wants."] = "비밀결사대 야영지는 {area:272}(호드) 서쪽, {area:287} 북부의 알터랙 경계에 있습니다. 문서는 야영지 안에 있으며, 그곳의 노상강도와 도둑이 말렙이 원하는 비밀결사대입니다.",
 	-- ["The Villards"] = "빌라드 남매",
 	-- ["The next step, {quest:474}, pits you against an elite chieftain: skip it."] = "다음 단계인 {quest:474}는 정예 족장과 싸워야 합니다. 건너뛰십시오.",
+	-- ["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "설인들은 {area:271} 북쪽 언덕의 동굴에 살며, 북쪽의 비밀결사대 야영지로 가는 길에 있습니다.\n{area:277}에만 머무르세요. 더 북쪽의 동굴에는 산악 설인과 거대한 설인(32-34)이 짝을 지어 있고, 36레벨 정예 {npc:13602}도 있습니다.",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on your way back south."] = "설인은 {area:271} 북쪽 언덕의 동굴에 삽니다. 남쪽으로 돌아가는 길에 있습니다.",
 	-- ["West to the farms of {area:287}: place the {item:279386} on the bookkeeping table in the town hall, where {npc:2335} and the councilmen stand."] = "서쪽 {area:287} 농장으로 가십시오. {npc:2335}와(과) 원로들이 있는 마을 회관의 장부 탁자에 {item:279386}을(를) 놓으십시오.",
 	-- ["Whelps, raptors and {npc:271458}"] = "새끼 용, 랩터, {npc:271458}",

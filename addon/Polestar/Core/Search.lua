@@ -229,20 +229,26 @@ local function blobOf(kind)
 	return full
 end
 
+-- The guides search offers: those this character can follow, as the guide
+-- menu lists them (Guides.GuideMatches, or their side's other starting
+-- zones): never the other faction's (#2462), nor another class's or race's.
 local function guideList()
-	local list = ns.Guides and ns.Guides.List and ns.Guides.List() or {}
-	local source = ns.Guides and ns.Guides.SuggestSource and ns.Guides.SuggestSource() or "guides"
+	local G = ns.Guides
+	local list = G and G.List and G.List() or {}
+	local source = G and G.SuggestSource and G.SuggestSource() or "guides"
 	if guideIndex and guideCount == #list and guideSource == source then return guideIndex end
 	guideCount, guideSource = #list, source
 	guideIndex = {}
 	curated = {}
+	local player = ns.Compat.GetPlayerInfo()
 	for _, h in ipairs(list) do
 		local id = h.id
-		if type(id) == "string" and sub(id, 1, 7) ~= "lookup/" and type(h.collects) == "table"
+		local fits = G.GuideMatches(h, player) or G.OtherStart(h, player)
+		if fits and type(id) == "string" and sub(id, 1, 7) ~= "lookup/" and type(h.collects) == "table"
 			and (h.pack == source or h.pack == "guides") then
 			for i = 1, #h.collects do curated[h.collects[i]] = true end
 		end
-		if type(id) == "string" and sub(id, 1, 7) ~= "lookup/" and type(h.title) == "string" then
+		if fits and type(id) == "string" and sub(id, 1, 7) ~= "lookup/" and type(h.title) == "string" then
 			local keys = {}
 			if type(h.keywords) == "table" then
 				for i = 1, #h.keywords do
@@ -256,8 +262,9 @@ local function guideList()
 			if type(zone) == "string" and zone ~= h.zoneName then where[#where + 1] = fold(zone) end
 			if type(h.category) == "string" then where[#where + 1] = fold(h.category) end
 			local sublabel = zone or h.category
-			if h.minLevel and h.maxLevel then
-				sublabel = (sublabel and (sublabel .. " \194\183 ") or "") .. h.minLevel .. "-" .. h.maxLevel
+			local lo, hi = G.Levels(h)
+			if lo and hi then
+				sublabel = (sublabel and (sublabel .. " \194\183 ") or "") .. lo .. "-" .. hi
 			end
 			guideIndex[#guideIndex + 1] = {
 				id = id, title = h.title, folded = fold(h.title), keys = keys, where = where, subtitle = sublabel,

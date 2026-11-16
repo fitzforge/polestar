@@ -75,8 +75,8 @@ return {
 	["{npc:4606}: take her {quest:5642} letter"] = "{npc:4606}：领取她的{quest:5642}信件",
 
 	-- Step 12: Shadowguard: Ur'kyo
-	-- {npc:6018} Ur'kyo · {object:172961} Valley of Spirits · {quest:5642} Shadowguard
-	["At 20, {npc:6018} in the {object:172961} teaches {quest:5642} with a quest he gives and takes back at once."] = "达到 20 级后，{object:172961} 中的 {npc:6018} 会给予一个任务，并立即接受交还，以此教你 {quest:5642}。",
+	-- {npc:6018} Ur'kyo · {object:172961} Valley of Spirits · {quest:5680} Shadowguard
+	["At 20, {npc:6018} in the {object:172961} teaches {quest:5680} with a quest he gives and takes back at once."] = "达到 20 级后，{object:172961} 中的 {npc:6018} 会给予一个任务，并立即接受交还，以此教你 {quest:5680}。",
 
 	-- Step 13: Shadowguard: Miles Welsh's letter
 	-- {quest:5642} Shadowguard · {npc:3044} Miles Welsh
@@ -88,6 +88,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 10, go to {npc:6018} in the {object:172961}, on {zone:1454}'s west side. Priest trainers elsewhere ({npc:3706} in {area:362}, {npc:3044} in {zone:1456}) send you to him with a quest of the same name."] = "10级时，去{zone:1454}西侧的{object:172961}找{npc:6018}。其他地方的牧师训练师（{area:362}的{npc:3706}、{zone:1456}的{npc:3044}）会用同名任务把你派去找他。",
+	-- ["At 20, {npc:6018} in the {object:172961} teaches {quest:5642} with a quest he gives and takes back at once."] = "达到 20 级后，{object:172961} 中的 {npc:6018} 会给予一个任务，并立即接受交还，以此教你 {quest:5642}。",
 	-- ["At 20, {npc:6018} teaches {quest:5642}. {npc:3044} in {zone:1456} and Aelthalyste in the {zone:1458} send you to him with a quest of the same name."] = "20级时，{npc:6018}传授{quest:5642}。{zone:1456}的{npc:3044}和{zone:1458}的艾萨莱斯特会用同名任务把你派去找他。",
 	-- ["The Troll priest spells: {quest:5652} at 10, {quest:5642} at 20."] = "巨魔牧师法术：10级{quest:5652}，20级{quest:5642}。",
 }

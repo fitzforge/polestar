@@ -129,8 +129,8 @@ return {
 	["Level 5.77"] = "Stufe 5,77",
 	-- {quest:91752} The Big Picture
 	["If you skipped {quest:91752}, grind here to level 5.77 to stay on the route's plan."] = "Wenn du {quest:91752} übersprungen hast, grinde hier bis Stufe 5,77, um im Plan der Route zu bleiben.",
-	-- {npc:40} Kobold Miner
-	["grind on {npc:40}"] = "Grinde an {npc:40}",
+	-- {npc:113} Stonetusk Boar
+	["grind on {npc:113}"] = "Grinde an {npc:113}",
 
 	-- Step 23: Sam Sarsaparilla
 	-- {npc:263399} Sam Sarsaparilla · {skill:129} First Aid · {area:87} Goldshire
@@ -280,6 +280,8 @@ return {
 	["Level 8.39"] = "Stufe 8,39",
 	-- {quest:91775} Book Return
 	["If you skipped {quest:91775}, grind here to level 8.39 to stay on the route's plan."] = "Wenn du {quest:91775} übersprungen hast, grinde hier bis Stufe 8,39, um im Plan der Route zu bleiben.",
+	-- {npc:40} Kobold Miner
+	["grind on {npc:40}"] = "Grinde an {npc:40}",
 
 	-- Step 54: Class trainer
 	["Class trainer"] = "Klassenlehrer",
@@ -319,9 +321,9 @@ return {
 	-- Step 61: Downstream and Princess
 	-- {quest:91733} Downstream · {npc:330} Princess
 	["{quest:91733} and {npc:330}"] = "{quest:91733} und {npc:330}",
-	-- {item:247813} Waterlogged Saw · {npc:330} Princess · {area:62} Brackwell Pumpkin Patch · {npc:390} Porcine Entourage · {npc:248278} Croaky
-	-- plural, as words: Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear
-	["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: {npc:248278} is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional."] = "{item:247813}, die Durchnässte Axt und der Durchnässte Werkzeugkasten liegen im Fluss südlich der Brücke. {npc:330}, ein großer Eber, wühlt in {area:62} westlich des Flusses mit ihrem {npc:390}: Lock zuerst die Ferkel weg. Töte unterwegs Streuner und Junge Waldbären. Vorsicht: {npc:248278} ist ein Elite der Stufe 11 am Murlocufer. Hol dir seinen Kopf nur mit einer Gruppe oder ab Stufe 10; sonst lass ihn in Ruhe: Die Quest ist optional.",
+	-- {item:247813} Waterlogged Saw · {npc:330} Princess · {area:62} Brackwell Pumpkin Patch · {npc:390} Porcine Entourage · {npc:261} Guard Thomas · {npc:248278} Croaky
+	-- plural, as words: Young Forest Bears = {npc:822} Young Forest Bear · Prowlers = {npc:118} Prowler
+	["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Young Forest Bears on the way; the Prowlers (level 9-10) wait for the walk back to {npc:261}, after the logging camp and the mine. Careful: {npc:248278} is a level 11 elite on the murloc shore. Only go for his head with a group; otherwise leave him: it's optional."] = "{item:247813}, die Durchnässte Axt und der Durchnässte Werkzeugkasten liegen im Fluss südlich der Brücke. {npc:330}, ein großer Eber, wühlt in {area:62} westlich des Flusses mit ihrem {npc:390}: Lock zuerst die Ferkel weg. Töte unterwegs Junge Waldbären; die Streuner (Stufe 9-10) heben wir uns für den Rückweg zu {npc:261} auf, nach dem Holzfällerlager und der Mine. Vorsicht: {npc:248278} ist ein Elite der Stufe 11 am Murlocufer. Hol dir seinen Kopf nur mit einer Gruppe; sonst lass ihn in Ruhe: Die Quest ist optional.",
 
 	-- Step 62: Croaky
 	-- {npc:248278} Croaky · {quest:91740} Croaky's Head
@@ -331,13 +333,14 @@ return {
 	["Level 8.85"] = "Stufe 8,85",
 	-- {quest:91740} Croaky's Head
 	["If you skipped {quest:91740}, grind here to level 8.85 to stay on the route's plan."] = "Wenn du {quest:91740} übersprungen hast, grinde hier bis Stufe 8,85, um im Plan der Route zu bleiben.",
-	-- {npc:118} Prowler
-	["grind on {npc:118}"] = "Grinde an {npc:118}",
+	-- {npc:1922} Gray Forest Wolf
+	["grind on {npc:1922}"] = "Grinde an {npc:1922}",
 
 	-- Step 66: The Eastvale Logging Camp
 	-- {area:88} Eastvale Logging Camp
 	["The {area:88}"] = "{area:88}",
-	["The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it."] = "Das Lager liegt nordöstlich der Brücke. Kleinholzbündel liegen rund um das Lager und in den Wäldern nördlich davon.",
+	-- {area:86} Stone Cairn Lake
+	["The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it.\nCareful: Elmpaw, a level 12 elite gnoll, walks the woods and hills from the logging camp north to {area:86} and the gnoll camps: keep clear of him when you see him coming."] = "Das Lager liegt nordöstlich der Brücke. Holzbündel liegen im Lager und in den Wäldern nördlich davon.\nVorsicht: Elmpaw, ein Gnoll-Elite der Stufe 12, läuft durch die Wälder und Hügel vom Holzfällerlager nach Norden bis {area:86} und zu den Gnolllagern: Halte Abstand, wenn du ihn kommen siehst.",
 	-- {npc:278} Sara Timberlain
 	["{npc:278}, inside"] = "{npc:278}, drinnen",
 
@@ -345,9 +348,9 @@ return {
 	["It lies by the river north-west of the logging camp."] = "Er liegt am Fluss nordwestlich des Holzfällerlagers.",
 
 	-- Step 68: Stone Cairn Lake
-	-- {area:86} Stone Cairn Lake · {object:56} Rolf's corpse
+	-- {area:86} Stone Cairn Lake · {object:56} Rolf's corpse · {npc:6866} Defias Bodyguard
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard · Red Linen Bandanas = {item:1019} Red Linen Bandana
-	["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "Abtrünnige Hexer der Defias lagern an den Ufern von {area:86}; sie lassen auch die Roten Leinenkopftücher fallen. {object:56} liegt im Murlocdorf am Nordostufer.",
+	["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore.\nCareful: the Rogue Wizards cast from range and a {npc:6866} (10) walks the shore with them: pull them one at a time."] = "Abtrünnige Hexer der Defias lagern an den Ufern von {area:86}; sie lassen auch die Roten Leinenkopftücher fallen. {object:56} liegt im Murlocdorf am Nordostufer.\nVorsicht: Die Abtrünnigen Hexer zaubern aus der Ferne und eine {npc:6866} (10) läuft mit ihnen am Ufer entlang: Zieh sie einzeln.",
 	-- plural, as words: Red Linen Bandanas = {item:1019} Red Linen Bandana
 	["Red Linen Bandanas"] = "Rote Leinenkopftücher",
 
@@ -379,8 +382,9 @@ return {
 	["Follow the road east past the {area:91} to the bridge. Finish the Prowlers and Young Forest Bears around the river south of it."] = "Folge der Straße nach Osten am {area:91} vorbei bis zur Brücke. Erledige die Prowlers und Young Forest Bears am Fluss südlich davon.",
 
 	-- Step 75: Stone Cairn Lake
+	-- {npc:6866} Defias Bodyguard
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake."] = "Nordöstlich des Holzfällerlagers. Abtrünnige Hexer der Defias lagern an den Ufern des Sees.",
+	["North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake.\nCareful: the Rogue Wizards cast from range and a {npc:6866} (10) walks the shore with them: pull them one at a time."] = "Nordöstlich des Holzfällerlagers. Abtrünnige Hexer der Defias lagern an den Ufern des Sees.\nVorsicht: Die Abtrünnigen Hexer zaubern aus der Ferne und eine {npc:6866} (10) läuft mit ihnen am Ufer entlang: Zieh sie einzeln.",
 
 	-- Step 76: The Tower of Azora
 	["Follow the hills south to the tower, on the road west."] = "Folge den Hügeln nach Süden zum Turm, an der Straße nach Westen.",
@@ -492,6 +496,7 @@ return {
 	-- ["Back to the Cathedral of Light."] = "Zurück zur Kathedrale des Lichts.",
 	-- ["Bait ingredients"] = "Köderzutaten",
 	-- ["Boar meat"] = "Eberfleisch",
+	-- ["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "Abtrünnige Hexer der Defias lagern an den Ufern von {area:86}; sie lassen auch die Roten Leinenkopftücher fallen. {object:56} liegt im Murlocdorf am Nordostufer.",
 	-- ["Follow the road east past the {area:91} to the bridge."] = "Folge der Straße nach Osten an {area:91} vorbei zur Brücke.",
 	-- ["Follow the road north from {area:87} into {zone:1453}. {npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in {object:2100} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "Folge der Straße nach Norden von {area:87} nach {zone:1453}. {npc:6171} und {npc:6173} sind in der Kathedrale des Lichts; {npc:6174} steht in {object:2100} und bittet um zehn {item:2589} (Humanoide lassen ihn fallen; das Auktionshaus verkauft ihn).",
 	-- ["Follow the road south out of the valley to {area:87}. {npc:295} is in the Lion's Pride Inn; {npc:240} stands outside the smithy across the road, {npc:253} at the inn's front and {npc:241} by the road south of it."] = "Folge der Straße nach Süden aus dem Tal nach {area:87}. {npc:295} ist im Gasthaus „Zur Höhle des Löwen“; {npc:240} steht vor der Schmiede auf der anderen Straßenseite, {npc:253} vor dem Gasthaus und {npc:241} an der Straße südlich davon.",
@@ -507,6 +512,7 @@ return {
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way. {npc:248278} roams the murloc shore too: right-click the head it drops. {npc:248278} is elite: grouping up is advised."] = "Murlocfutterwühler und Murloclauerer säumen den Fluss südlich der Brücke. {npc:473}, ein Defias, streift durch {area:62} westlich davon. Erledige unterwegs die Streuner und Jungen Waldbären. Auch {npc:248278} streift am Murlocufer umher: Rechtsklicke den Kopf, den er fallen lässt. {npc:248278} ist ein Elitegegner: Eine Gruppe wird empfohlen.",
 	-- ["Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp."] = "Murlocs und Murlocbachläufer halten das Ostufer; die Schrotthaufen liegen in ihrem Lager.",
 	-- ["Murlocs and the Collector"] = "Murlocs und der Sammler",
+	-- ["North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake."] = "Nordöstlich des Holzfällerlagers. Abtrünnige Hexer der Defias lagern an den Ufern des Sees.",
 	-- ["Ride back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "Reite zurück durch {area:87} und auf der Straße nach Osten zu {area:62}. {npc:881} (Stufe 9) steht bei dem Bauernhaus.",
 	-- ["Ride back out through {area:87} and east along the road to the {area:62}. {quest:1688} (level 9) stands by its farmhouse."] = "Reite zurück durch {area:87} und auf der Straße nach Osten zu {area:62}. {quest:1688} (Stufe 9) steht bei dem Bauernhaus.",
 	-- ["Ride back out through {area:87} and east to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "Reite zurück durch {area:87} und nach Osten zu {area:86}. {npc:6172} liegt südlich des Sees: Benutze {item:6866} an ihm. Die Abtrünnigen Hexer der Defias um ihn herum tragen {item:6846} bei sich.",
@@ -518,11 +524,14 @@ return {
 	-- ["Summon Voidwalker"] = "Leerwandler beschwören",
 	-- ["Tame Beast"] = "Wildtier zähmen",
 	-- ["The Stonefield farm is west of the mine. Ma and \"Auntie\" Bernice stand by the house."] = "Der Hof der Steinfelds liegt westlich der Mine. Mutter Stonefield und Tantchen Bernice stehen beim Haus.",
+	-- ["The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it."] = "Das Lager liegt nordöstlich der Brücke. Kleinholzbündel liegen rund um das Lager und in den Wäldern nördlich davon.",
 	-- ["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels."] = "Die Mine liegt südwestlich der Gnolllager. {item:247816} liegen nahe dem Eingang; Koboldgeomanten halten die Tunnel.",
 	-- ["The murloc camp"] = "Das Murloclager",
 	-- ["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way."] = "{item:247813}, die Durchnässte Axt und der Durchnässte Werkzeugkasten liegen im Fluss südlich der Brücke. {npc:330}, ein großer Eber, wühlt in {area:62} westlich des Flusses mit ihrem {npc:390}: Lock zuerst die Ferkel weg. Töte unterwegs Streuner und Junge Waldbären.",
+	-- ["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: {npc:248278} is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional."] = "{item:247813}, die Durchnässte Axt und der Durchnässte Werkzeugkasten liegen im Fluss südlich der Brücke. {npc:330}, ein großer Eber, wühlt in {area:62} westlich des Flusses mit ihrem {npc:390}: Lock zuerst die Ferkel weg. Töte unterwegs Streuner und Junge Waldbären. Vorsicht: {npc:248278} ist ein Elite der Stufe 11 am Murlocufer. Hol dir seinen Kopf nur mit einer Gruppe oder ab Stufe 10; sonst lass ihn in Ruhe: Die Quest ist optional.",
 	-- ["Torn Murloc Fins"] = "Zerrissene Murlocflossen",
 	-- ["Use the {item:6866} on {npc:6172}"] = "Benutze {item:6866} an {npc:6172}",
+	-- ["grind on {npc:118}"] = "Grinde an {npc:118}",
 	-- ["{area:18} and the wolves"] = "{area:18} und die Wölfe",
 	-- ["{area:57}'s mouth"] = "Eingang von {area:57}",
 	-- ["{item:1006}: Princess"] = "{item:1006}: Prinzessin",

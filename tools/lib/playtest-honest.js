@@ -38,10 +38,11 @@
 // A broken line is reported, then played as the stub world would (the quest
 // taken, the item given), so one cause gives one finding, not a cascade.
 // Chains are played whole: each guide with no guide leading into it and
-// every guide its `next` (the first option) leads to, carrying the state.
+// every guide its `next` (the first option for the persona's side) leads to,
+// carrying the state.
 //
 //   const { honestPlay } = require('./playtest-honest');
-//   const findings = honestPlay(guides, data, { race: 'Orc', faction: 'Horde', cls: 'WARRIOR' }, { kb });
+//   const findings = honestPlay(guides, data, (root) => [{ race: 'Orc', faction: 'Horde', cls: 'WARRIOR' }], { kb });
 //   // [{ rule, severity: 'fail'|'warn', guide, file, line, step, title, reason, repair }]
 
 const fs = require('node:fs');
@@ -310,6 +311,10 @@ function whenHolds(w, when) {
 				ok = w.known.has(n ? n.id : p.name);
 				break;
 			}
+			case 'zone': // the zone of the last place a line put the player at; before any, the step plays either way
+				if (!w.pos || !p.name || typeof w.zoneName !== 'function') ok = !p.neg;
+				else ok = String(w.zoneName(w.pos.map)).toLowerCase() === String(p.name).toLowerCase();
+				break;
 			default: ok = true;
 		}
 		if (p.neg && p.k !== 'level') ok = !ok;
@@ -736,15 +741,23 @@ function collect(w, x, gi, find, p) {
 // Chains through `next`: the main route, the first option offered without a
 // `when` (a catch-up guide behind `when level<N` is its own chain), else the
 // first. Each guide no other leads into, then each guide its next leads to,
-// once; a cycle's guides start their own.
-function chains(guides) {
-	const byId = new Map(guides.map((g) => [g.id, g]));
+// once; a cycle's guides start their own. With `faction`, the chains of that
+// side only: its guides and those of both sides, and an option to the other
+// side's guide is skipped the way the engine skips it (Guides.GuideMatches), so
+// a guide both sides play, listing the Horde option first, leads an Alliance
+// chain to the Alliance guide.
+function chains(guides, faction = null) {
+	const side = (g) => !faction || !g.faction || String(g.faction).toLowerCase() === faction.toLowerCase();
+	const ours = guides.filter(side);
+	const byId = new Map(ours.map((g) => [g.id, g]));
+	const theirs = new Set(guides.filter((g) => !side(g)).map((g) => g.id));
+	const optionsOf = (g) => (g.nextChoices && g.nextChoices.length ? g.nextChoices : g.next ? [g.next] : []).filter((id) => !theirs.has(id));
 	const nextOf = (g) => {
-		const opts = g.nextChoices && g.nextChoices.length ? g.nextChoices : g.next ? [g.next] : [];
+		const opts = optionsOf(g);
 		return opts.find((id) => !(g.nextWhen && g.nextWhen[id])) || opts[0] || null;
 	};
 	// Roots: guides no option of another leads to (a catch-up guide is not one).
-	const into = new Set(guides.flatMap((g) => (g.nextChoices && g.nextChoices.length ? g.nextChoices : g.next ? [g.next] : [])).filter((id) => byId.has(id)));
+	const into = new Set(ours.flatMap(optionsOf).filter((id) => byId.has(id)));
 	const seen = new Set();
 	const out = [];
 	const walk = (g) => {
@@ -756,8 +769,8 @@ function chains(guides) {
 		}
 		if (chain.length) out.push(chain);
 	};
-	for (const g of guides) if (!into.has(g.id)) walk(g);
-	for (const g of guides) walk(g);
+	for (const g of ours) if (!into.has(g.id)) walk(g);
+	for (const g of ours) walk(g);
 	return out;
 }
 
@@ -791,19 +804,23 @@ function startRouteNodes(starts, data, persona, root, groups, chosen, memo) {
 	return memo.get(key);
 }
 
-// Play every chain holding a guide of `play` (ids) as each of its personas
+// Play every chain holding a guide of `play` (ids) as each of its personas,
+// each side's chains (chains(guides, side)) as that side's personas only
 // -> findings of those guides, by file and line.
 function honestPlay(guides, data, personas, { kb = null, play = null, groups = 'skip', chosen = null } = {}) {
 	const report = play ? new Set(play) : null;
 	const out = [];
-	const all = chains(guides);
-	const starts = all.filter((c) => minLevel(c[0]) <= 1 && c[0].races && c[0].races.length);
 	const memo = new Map();
-	for (const chain of all) {
-		if (report && !chain.some((g) => report.has(g.id))) continue;
-		for (const persona of personas(chain[0])) {
-			const known = startRouteNodes(starts, data, persona, chain[0], groups, chosen, memo);
-			for (const f of playChain(chain, data, persona, { kb, report, groups, chosen, known })) out.push({ ...f, race: persona.race, cls: persona.cls });
+	for (const side of ['Alliance', 'Horde']) {
+		const all = chains(guides, side);
+		const starts = all.filter((c) => minLevel(c[0]) <= 1 && c[0].races && c[0].races.length);
+		for (const chain of all) {
+			if (report && !chain.some((g) => report.has(g.id))) continue;
+			for (const persona of personas(chain[0])) {
+				if (persona.faction !== side) continue;
+				const known = startRouteNodes(starts, data, persona, chain[0], groups, chosen, memo);
+				for (const f of playChain(chain, data, persona, { kb, report, groups, chosen, known })) out.push({ ...f, race: persona.race, cls: persona.cls });
+			}
 		}
 	}
 	return out.sort((a, b) => (a.file < b.file ? -1 : a.file > b.file ? 1 : a.line - b.line));

@@ -325,8 +325,9 @@ local function whileHereLine()
 	local st = E and E.WhileHereState and E.WhileHereState()
 	if not st then return nil end
 	local function step(s)
-		-- The Engine's GATHER_STEP (a gathering spot line) and FLY_STEP (a "Learn the flight path" line).
-		if type(s) == "number" and s < 1 then return s == -3 and "gathering spot" or "flight path" end
+		-- The Engine's VENDOR_STEP (a sell or repair reminder), GATHER_STEP (a gathering spot line) and FLY_STEP (a
+		-- "Learn the flight path" line).
+		if type(s) == "number" and s < 1 then return s == -4 and "sell or repair" or s == -3 and "gathering spot" or "flight path" end
 		return ("step %s (guide %d)"):format(tostring((E.StepNumber(s))), s)
 	end
 	if not st.on then return cut((L["While here: %s"]):format("off")) end
@@ -1180,10 +1181,10 @@ local function sizeDesc()
 	F.DescMeasure:SetText(((e:GetText() or ""):gsub("\n$", "\n ")))
 	local textH = F.DescMeasure:GetStringHeight()
 	local view = min(max(textH, DESC_LINES * LINE_H), DESC_LINES_MAX * LINE_H) + 16
-	local content = max(view, floor(textH + 16 + 0.5))
+	local content = max(view - 16, floor(textH + 0.5))
 	F.DescWell:SetHeight(view)
 	e:SetHeight(content)
-	W.SetScrollContent(F.DescScroll, content, view)
+	W.SetScrollContent(F.DescScroll, content, view - 16)
 end
 
 local function layout()
@@ -1345,9 +1346,7 @@ local function buildMark()
 	M:SetClampedToScreen(true)
 	M:EnableMouse(true)
 	M:SetMovable(true)
-	M:RegisterForDrag("LeftButton")
-	M:SetScript("OnDragStart", M.StartMoving)
-	M:SetScript("OnDragStop", M.StopMovingOrSizing)
+	ns.DragWindow(M, M)
 	M:SetWidth(MARK_W)
 	M:SetPoint("TOP", UIParent, "TOP", 0, -120)
 	M:Hide()
@@ -1389,7 +1388,10 @@ local function textArea()
 	Theme.Skin(well, "editbox")
 	F.DescWell = well
 	local sf = W.Scroll(well)
-	sf:SetAllPoints(well)
+	-- Vertical text insets can make a multiline edit box relayout every
+	-- frame and lose its caret (#1905). Keep that padding outside the box.
+	sf:SetPoint("TOPLEFT", well, "TOPLEFT", 0, -8)
+	sf:SetPoint("BOTTOMRIGHT", well, "BOTTOMRIGHT", 0, 8)
 	F.DescScroll = sf
 	-- The box is the view's scroll child, as the report box (W.ScrollChild);
 	-- a click anywhere on the well puts the cursor in it.
@@ -1402,8 +1404,10 @@ local function textArea()
 	Theme.Font(e, "label")
 	W.Color(e, "text")
 	e:SetWidth(BOX_W)
-	e:SetHeight(DESC_LINES * LINE_H + 16)
-	e:SetTextInsets(10, 10, 8, 8)
+	e:SetHeight(DESC_LINES * LINE_H)
+	e:SetTextInsets(10, 10, 0, 0)
+	e:EnableMouseWheel(true)
+	e:SetScript("OnMouseWheel", function(_, delta) sf:GetScript("OnMouseWheel")(sf, delta) end)
 	-- The text in the box's font at its inner width: what the well's height
 	-- is measured on. Hidden, never alpha 0 (F.Measure, #1753).
 	F.DescMeasure = W.Text(F, "label", "text")
@@ -1413,7 +1417,7 @@ local function textArea()
 	F.DescMeasure:SetNonSpaceWrap(true)
 	F.DescMeasure:Hide()
 	e.Placeholder = W.Text(e, "label", "textMuted")
-	e.Placeholder:SetPoint("TOPLEFT", e, "TOPLEFT", 10, -8)
+	e.Placeholder:SetPoint("TOPLEFT", e, "TOPLEFT", 10, 0)
 	e.Placeholder:SetWidth(BOX_W - 20)
 	e.Placeholder:SetJustifyH("LEFT")
 	e.Placeholder:SetWordWrap(true)
@@ -1423,9 +1427,21 @@ local function textArea()
 	e:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
 	-- The line being typed stays in view: y is the cursor's offset down
 	-- from the box's top, h its height.
-	e:SetScript("OnCursorChanged", function(_, _, y, _, h)
-		local view, at = well:GetHeight(), sf:GetVerticalScroll()
-		local top, bottom = -(y or 0), -(y or 0) + (h or LINE_H) + 8
+	local cursorX, cursorY, cursorH, cursorText
+	e:SetScript("OnCursorChanged", function(self, x, y, _, h)
+		-- Layout can repeat this event without moving the cursor. Following
+		-- those notifications would undo the player's wheel or thumb scroll.
+		-- An edit can keep the same coordinates, with its text notification
+		-- before or after this one: compare the text here as well.
+		local text = self:GetText()
+		if x == cursorX and y == cursorY and h == cursorH and text == cursorText then return end
+		local changed = text ~= cursorText
+		cursorX, cursorY, cursorH, cursorText = x, y, h, text
+		-- A cursor event can arrive before OnTextChanged sizes a new line.
+		-- Cache first so a repeated notification during resizing is ignored.
+		if changed then sizeDesc() end
+		local view, at = sf.psView or sf:GetHeight(), sf:GetVerticalScroll()
+		local top, bottom = -(y or 0), -(y or 0) + (h or LINE_H)
 		if top < at then
 			W.ScrollTo(sf, top)
 		elseif bottom > at + view then
@@ -1456,10 +1472,7 @@ local function build()
 	head:SetPoint("TOPLEFT", F, "TOPLEFT", 1, -1)
 	head:SetPoint("TOPRIGHT", F, "TOPRIGHT", -1, -1)
 	head:SetHeight(HEAD_H)
-	head:EnableMouse(true)
-	head:RegisterForDrag("LeftButton")
-	head:SetScript("OnDragStart", function() F:StartMoving() end)
-	head:SetScript("OnDragStop", function() F:StopMovingOrSizing() end)
+	ns.DragWindow(head, F)
 	F.Band = Theme.Band(head, "BACKGROUND", -5)
 	F.Band:SetAllPoints(head)
 	F.Band:SetTexCoord(Theme.BandCoords(WIDTH - 2, HEAD_H))

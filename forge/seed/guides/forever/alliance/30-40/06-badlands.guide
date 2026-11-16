@@ -2,7 +2,7 @@
 guide forever/alliance/30-40/06-badlands
 title Badlands
 faction Alliance
-levels 38-39
+levels 37-38
 zone Badlands
 next forever/alliance/30-40/06b-desolace
 
@@ -11,13 +11,23 @@ next forever/alliance/30-40/06b-desolace
 # into this file.
 # Split 2026-11-13 (0.4.0 route audit, Refs #2025): this guide is the Badlands loop, ending in Thelsamar with Ghak
 # Healtouch's hand-in; Desolace's south loop that used to follow it is 30-40/06b-desolace, the default next guide.
-# The split is where Riverglades (Polestar Experimental) joins the route as a choice: Thelsamar has the Stoutlager Inn
-# bind and the Lakeshire flight, and Riverglades' first part (37-40) starts at Blackrock Pass, north of Lakeshire; its
-# last part hands back to 40-50/03-feralas (43+) or 40-50/01-stranglethorn-vale at Theramore.
+# The Riverglades come later in the route (40-50/01b-riverglades, after Stranglethorn Vale), at the level of their port
+# and Western Front.
+# Level tidy (0.4.0): Scrounging's scrap (733) comes from the Dustbelcher Ogres (38-39) west of Agmond's End, away from the
+# Maulers and Shamans (41-43) further south-west; Lotwil's last test, the Bracers of Rock Binding (712, Greater Rock
+# Elementals 42-44), is left out of the solo route, and with it Lucien Tosselwrench's trade (716), which needs it.
+# Safety Checks (97617): Dorgaron gives it at the foot of the pass; the artifacts and the helmet come from the Shadowforge
+# diggers and the Stonevault Bonesnappers this guide already fights, and the Pristine Mattock, which lies among Agmond's
+# End's Stonevault Shamans (40-41) beside Murdaloc (42), waits for 40-50/02-badlands, which hands it in on its way north.
 
 step Into Badlands
   zone Badlands
   goto 49.4,8.0 "Into Badlands"
+
+step Dorgaron
+  zone Badlands
+  tip Dorgaron of the Explorers' League camps at the foot of the pass. His artifacts drop from the Shadowforge diggers at Hammertoe's Digsite and the Stonevault Bonesnappers at Agmond's End, and the helmet lies in the Shadowforge camp.
+  accept 97617                        -- Dorgaron: keep it, the Pristine Mattock waits for the 40-50 Badlands visit
 
 step Badlands
   zone Badlands
@@ -33,11 +43,12 @@ step Hammertoe's Digsite
 
 step Hammertoe's Digsite: kill these as you meet them
   zone Badlands
-  tip The Shadowforge dwarves camp just north of the digsite; the crumpled map lies among their tents. Tunnelers and Darkweavers carry Ryedol's pick. Crag Coyotes roam the slopes around it.
+  tip The Shadowforge dwarves camp just north of the digsite; the crumpled map and Dorgaron's mining helmet lie among their tents. Tunnelers and Darkweavers carry Ryedol's pick and Dorgaron's artifacts. Crag Coyotes roam the slopes around it.
   accept 720                          -- Crumpled Map
   collect 7846 quest 2500             -- Crag Coyote Fang
   collect 4616 quest 719              -- Ryedol's Lucky Pick
-  collect 7847 quest 2500             -- Buzzard Gizzard
+  collect 278403 quest 97617 @53.1,34.5 -- Explorers' League Mining Helmet, in the Shadowforge camp
+  collect 7847 quest 2500 @57.5,28.6 map 1418 -- Buzzard Gizzard: the Starving Buzzards (35-37) circling the hills north of the digsite drop it most often; leave the Giant Buzzards (39-41) of the far west
 
 step The excavation crate
   tip Head north-east to the abandoned dig; the supply crate lies there among the Dustbelcher ogres.
@@ -65,16 +76,17 @@ step Agmond's End
 
 step Agmond's End: kill these as you meet them
   zone Badlands
-  tip The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.
+  tip Buzzards circle the plain to the east. Careful: the Dustbelcher Maulers, Shamans and Wyrmhunters (40-43) camp far to the south-west: leave them.
   tip The battered skeleton lies at the edge of the Stonevault trogg camp; Murdaloc, Agmond's killer, walks among the Bonesnappers.
+  tip Careful: the Stonevault Bonesnappers are 39-40 and the Shamans 40-41, a level or two over you here: pull them from the camp's edge, one at a time.
   tip Careful: Dustbelcher Lords are level 44-45. They use Battle Shout and Demoralizing Shout, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of Kargath.
-  collect 4630 quest 733              -- Scrap Metal
   collect 3404 quest 703              -- Buzzard Wing
-  collect 7847 quest 2500             -- Buzzard Gizzard
+  collect 7847 quest 2500 @50.0,60.0 map 1418 -- Buzzard Gizzard, if you still need one: the Buzzards east of Agmond's End drop it only rarely
   accept 739                          -- Battered Dwarven Skeleton
   note Murdaloc himself (42) walks among the Bonesnappers: leave him for the later Badlands guide at 43, and kill the Bonesnappers for this quest now.
   collect 5797 quest 1108             -- Indurium Flake
   kill 2893 quest 739                 -- Stonevault Bonesnapper
+  collect 278402 quest 97617          -- Unstudied Artifact, from the Shadowforge diggers and the Bonesnappers
 
 step Theldurin the Lost
   when group 709
@@ -86,9 +98,11 @@ step Lotwil Veriatus
   accept 710
 
 step Lesser Rock Elementals
-  tip The Lesser Rock Elementals wander the Dustbowl west of Lotwil; every rock elemental can drop Ghak's Rock Elemental Shards.
+  tip The Lesser Rock Elementals wander the Dustbowl west of Lotwil; every rock elemental can drop Ghak's Rock Elemental Shards. The Dustbelcher Ogres (38-39) on the Dustbowl's west side drop Sigrun's scrap. Careful: a Malevolent Mirage, a level 42 elite, drifts about the Dustbowl: give it a wide berth.
+  tip Careful: the Lesser Rock Elementals are 37-39 and hit hard: fight them one at a time.
   collect 4626 quest 710              -- Small Stone Shard
   collect 7848 quest 2500             -- Rock Elemental Shard
+  collect 4630 quest 733 @29.5,59.3 map 1418 -- Scrap Metal, from the Dustbelcher Ogres
 
 step Lotwil Veriatus
   turnin 710
@@ -118,28 +132,11 @@ step Theldurin the Lost
   accept 727                          -- for Gerrig Bonegrip in Ironforge: keep it
 
 step Rock Elementals
-  tip The Rock Elementals roam south-east of Lotwil; Giant Buzzards and Elder Crag Coyotes share the plain to their west.
+  tip The Rock Elementals roam south-east of Lotwil; Giant Buzzards and Elder Crag Coyotes share the plain to their west. Careful: a Malevolent Mirage, a level 42 elite, drifts about the Dustbowl: give it a wide berth.
   collect 4627 quest 711              -- Large Stone Slab
 
 step Lotwil Veriatus
   turnin 711
-  accept 712 optional
-
-step Bracers of Rock Binding
-  when onquest 712
-  tip South-west into the gulches: only the Greater Rock Elementals there drop the bracers.
-  collect 4628 quest 712              -- Bracers of Rock Binding
-
-step Lotwil Veriatus
-  when complete 712
-  turnin 712
-
-step Lucien Tosselwrench
-  when has 2868
-  zone Badlands
-  tip Lucien Tosselwrench, beside Lotwil, trades for Patterned Bronze Bracers, a blacksmith's craft: this step shows only when you carry a pair.
-  accept 716                          -- Lucien Tosselwrench, beside Lotwil
-  turnin 716
 
 step To Stoutlager Inn
   zone Loch Modan

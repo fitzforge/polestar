@@ -11,7 +11,7 @@ return {
 	["A robe at 15 for Horde mages, from the {zone:1458} and {zone:1421}."] = "Eine Robe mit 15 für Magier der Horde, aus {zone:1458} und dem {zone:1421}.",
 
 	-- Step 1: Uthel'nay (Orgrimmar)
-	-- {npc:7311} Uthel'nay · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {object:172961} Valley of Spirits · {zone:1420} Tirisfal Glades
+	-- {npc:7311} Uthel'nay · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge · {object:172961} Valley of Spirits · {zone:1420} Tirisfal Glades
 	["{npc:7311} is one of {zone:1454}'s mage trainers, in {object:173161} in the {object:172961}. Then take the zeppelin to {zone:1420} from the tower outside {zone:1454}'s main gate."] = "{npc:7311} ist einer der Magierlehrer von {zone:1454}, in {object:173161} im {object:172961}. Nimm dann den Zeppelin nach {zone:1420} vom Turm vor dem Haupttor von {zone:1454}.",
 
 	-- Step 2: Cain Firesong (Brill)

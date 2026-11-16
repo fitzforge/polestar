@@ -145,7 +145,7 @@ return {
 	-- {area:16624} Shen'dar Village
 	["{area:16624} hand-ins"] = "",
 	-- {npc:251905} Zerril Softbreeze · {npc:251906} Teeri Wellwind · {npc:251991} Taleen Shimmerthread · {npc:252172} Danarii Bellowveil · {npc:251523} Constable Aonda · {area:16624} Shen'dar Village · {item:5469} Strider Meat
-	["{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} and {npc:251523} all stand in {area:16624}. If you are still short of {item:5469}, the Galestriders graze just south of the village."] = "",
+	["{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} and {npc:251523} all stand in {area:16624}. If you are still short of {item:5469}, the Galestriders graze just west of the village; the Al'Aketh camps south and south-east of it are a level or two higher."] = "{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} и {npc:251523} стоят здесь: {area:16624}. Если вам еще не хватает предмета {item:5469}, долгоноги пасутся чуть западнее деревни; лагеря Ал'Акет к югу и юго-востоку от нее на уровень-два выше.",
 
 	-- Step 32: Shen'dar Highlands: kill these as you meet them
 	-- {area:16623} Shen'dar Highlands
@@ -353,6 +353,10 @@ return {
 	-- {npc:252476} Talaanis Shadowsong
 	["talk to {npc:252476}"] = "поговорите с персонажем {npc:252476}",
 
+	-- Step 75: Desperate Times
+	-- {npc:251968} Ayessa Dawnsinger · {npc:252475} Elaadrin Evengale
+	["Valennia asks you to hear out both leaders: {npc:251968} of the Horde and {npc:252475} of the Alliance. {npc:252475}'s name shows red to you, but he talks to you all the same, and the quest needs both."] = "Валенния просит выслушать обоих лидеров: {npc:251968} от Орды и {npc:252475} от Альянса. Имя NPC {npc:252475} для вас красное, но он все равно с вами говорит, а для задания нужны оба.",
+
 	-- Step 77: Desperate Times
 	-- {npc:253844} Valennia Stormfist
 	["talk to {npc:253844}"] = "поговорите с персонажем {npc:253844}",
@@ -441,8 +445,8 @@ return {
 	["You leave the isle for good. {npc:259119} waits where the airship lands."] = "Вы покидаете остров навсегда. {npc:259119} ждет у места посадки.",
 	-- {npc:259119} Alaana Stormwalker · {zone:1454} Orgrimmar
 	["{npc:259119}: keep it: Thrall in {zone:1454}, at the start of the next guide"] = "{npc:259119}: сохраните задание: Тралл ({zone:1454}), в начале следующего гайда",
-	-- {npc:253957} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
-	["{npc:253957}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:253957}, у места посадки: для персонажа {npc:3033} ({zone:1456})",
+	-- {npc:259118} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
+	["{npc:259118}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:259118}, у места посадки: для персонажа {npc:3033} ({zone:1456})",
 
 	-- Step 97: Clarice Foster
 	-- {npc:5543} Clarice Foster · {area:2197} Pools of Vision · {area:1640} Spirit Rise
@@ -561,6 +565,7 @@ return {
 	-- ["{npc:252359} stands on {area:16638}'s east side."] = "{npc:252359} стоит в восточной части места {area:16638}.",
 	-- ["{npc:252382} stands on {area:16638}'s west side."] = "{npc:252382} стоит в западной части места {area:16638}.",
 	-- ["{npc:252389} in {area:16638} hands you a {item:15908} three times: tame a {npc:254588} by the lakes north-west of town, an {npc:251707} in the fields west of town and a {npc:250874} at {area:16663}, returning to her after each. {npc:254411} stands beside her."] = "{npc:252389} ({area:16638}) трижды дает вам предмет {item:15908}: приручите монстра {npc:254588} у озер к северо-западу от города, монстра {npc:251707} в полях к западу от города и монстра {npc:250874} ({area:16663}), каждый раз возвращаясь к ней. {npc:254411} стоит рядом с ней.",
+	-- ["{npc:253957}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:253957}, у места посадки: для персонажа {npc:3033} ({zone:1456})",
 	-- ["{npc:255853} waits by the falls just north of the watchtower."] = "{npc:255853} ждет у водопада чуть к северу от сторожевой башни.",
 	-- ["{npc:258443} roams the slopes just south of the turncoat's house."] = "{npc:258443} бродит по склонам чуть к югу от дома предателя.",
 	-- ["{npc:263664}'s campfire"] = "Костер {npc:263664}",

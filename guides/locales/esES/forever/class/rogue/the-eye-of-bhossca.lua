@@ -7,13 +7,13 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {item:277246} Ruby-Adorned Blade · {area:796} Scarlet Monastery
-	["The {item:277246}, C's payment for a solo job inside the {area:796}."] = "{item:277246}, el pago de C por un trabajo en solitario dentro de {area:796}.",
+	-- {item:277246} Ruby-Adorned Blade · {area:796} Scarlet Monastery · {item:210183} Horn of Xelthos
+	["The {item:277246}, C's payment for a solo job in the {area:796}, after The {item:210183}."] = "{item:277246}, el pago de C por un trabajo en solitario en {area:796}, después de {item:210183}.",
 
 	-- Step 1: C's dead drop
 	["C's dead drop"] = "El buzón muerto de C",
-	-- {object:410369} Dead Drop · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
-	["C's next job comes by letter: once you are level 30 and have done the horn job, visit any capital city and C's letter arrives in the mailbox; only then does the {object:410369} near {area:204}, in southern Silverpine just south of {area:236}, offer it. The quest data lists a minimum of 25, but players get the letter, and the job, at 30."] = "",
+	-- {item:210183} Horn of Xelthos · {object:410369} Dead Drop · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
+	["C's next job comes by letter: once you are level 30 and have done the horn job (The {item:210183}, its payment from this {object:410369} handed in), visit any capital city and C's letter arrives in the mailbox; only then does the {object:410369} near {area:204}, in southern Silverpine just south of {area:236}, offer it. The quest data lists a minimum of 25, but players get the letter, and the job, at 30."] = "El siguiente trabajo de C llega por carta: cuando seas nivel 30 y hayas hecho el trabajo del cuerno ({item:210183}, con su pago de este {object:410369} entregado), visita cualquier capital y la carta de C llegará al buzón; solo entonces el {object:410369} cerca de {area:204}, en el sur de Bosque de Argénteos, justo al sur de {area:236}, lo ofrece. Los datos de la misión indican un mínimo de 25, pero los jugadores reciben la carta, y el trabajo, a nivel 30.",
 
 	-- Step 2: The Scarlet Monastery
 	-- {area:796} Scarlet Monastery
@@ -32,5 +32,6 @@ return {
 	-- ["Find the Eye of Bhossca inside the {area:796}."] = "Encuentra el Eye of Bhossca dentro de {area:796}.",
 	-- ["Place the eye in the {object:410369} near Pyrewood. C's payment is the second Eye of Bhossca quest at the same chest."] = "Deja el ojo en {object:410369}, cerca de Piroleña. El pago de C es la segunda misión The Eye of Bhossca, en el mismo cofre.",
 	-- ["The monastery stands in the far north-east of {zone:1420}. Go in alone; C advises a disguise from the monastery's grounds before you enter."] = "El monasterio está en el extremo noreste de {zone:1420}. Entra solo; C aconseja conseguir un disfraz en los terrenos del monasterio antes de entrar.",
+	-- ["The {item:277246}, C's payment for a solo job inside the {area:796}."] = "{item:277246}, el pago de C por un trabajo en solitario dentro de {area:796}.",
 	-- ["The {object:410369} is a chest near {area:204} in southern Silverpine, just south of {area:236}. C's next note waits there once you are 25."] = "{object:410369} es un cofre cerca de {area:204}, en el sur del Bosque de Argénteos, justo al sur de {area:236}. La siguiente nota de C te espera allí a partir del nivel 25.",
 }

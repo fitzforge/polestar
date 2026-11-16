@@ -28,26 +28,24 @@ return {
 	-- {area:42} Darkshire
 	["The Dark Runners prowl the woods south of the road, west of {area:42}."] = "黑暗狼人在道路南側、{area:42}西邊的樹林中徘徊。",
 
-	-- Step 8: Nightbane Vile Fangs and the Insane Ghoul
+	-- Step 8: The Insane Ghoul
 	-- {npc:511} Insane Ghoul
+	["The {npc:511}"] = "{npc:511}",
+	-- {npc:511} Insane Ghoul · {area:121} Tranquil Gardens Cemetery · {area:42} Darkshire · {npc:663} Calor
 	-- plural, as words: Nightbane Vile Fangs = {npc:206} Nightbane Vile Fang
-	["Nightbane Vile Fangs and the {npc:511}"] = "夜行邪齒狼人與{npc:511}",
-	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {npc:511} Insane Ghoul · {spell:8282} Curse of Blood
-	["The strongest worgen roam the woods south of {area:42}, west and south of the {area:121}. The {npc:511} hides in the small crypt by the cemetery.\nCareful: {spell:8282} lasts 10 minutes and adds 13 to each hit of physical damage you take.\nCareful: Some worgen outside the cave stand in groups, including one camp of four. To avoid adds, pull them one at a time from the raised ground next to the cave entrance."] = "",
+	["The {npc:511} hides in the small crypt by the {area:121}, south of {area:42}. {npc:663}'s Nightbane Vile Fangs and Tainted Ones (level 29-31) roam the woods around it: they come at the end of this guide, a level later."] = "{npc:511}躲在{area:42}南邊、{area:121}旁的小墓穴裡。{npc:663}要的夜行邪齒狼人和墮落者（29-31級）在周圍的樹林裡遊蕩：它們在本指南最後、再升一級後處理。",
 	-- {item:1946} Mary's Looking Glass
 	["{item:1946}; inside"] = "",
 
 	-- Step 9: Darkshire
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}, inside"] = "",
-	-- {npc:661} Jonathan Carevin · {npc:633} Elaine Carevin
-	["{npc:661}, by {npc:633}'s house; inside"] = "{npc:661}，在{npc:633}的房子旁；在裡面",
 
 	-- Step 10: Vul'Gol Ogre Mound: kill these as you meet them
 	-- {area:93} Vul'Gol Ogre Mound
 	["{area:93}: kill these as you meet them"] = "",
-	-- {area:42} Darkshire · {object:119} Abercrombie's Crate
-	["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "從{area:42}向西南前往巨魔山。{object:119}放在入口處的營地裡；裂拳巨魔守衛著它。",
+	-- {area:42} Darkshire · {object:119} Abercrombie's Crate · {npc:300} Zzarc' Vul
+	["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it. {npc:300} is inside the ogre mound's cave: go in by the cave mouth on the mound's west side."] = "從{area:42}向西南前往巨魔山。{object:119}放在入口處的營地裡；裂拳巨魔守衛著它。{npc:300}在巨魔山的洞穴裡：從山丘西側的洞口進入。",
 	-- {npc:272273} Lost Watcher · {quest:96138} Merrick's Bow
 	["Only if a {npc:272273} dropped {quest:96138}: right-click it"] = "僅限{npc:272273}掉落了{quest:96138}時：右鍵點擊它",
 	["Below ground"] = "地下",
@@ -67,7 +65,7 @@ return {
 
 	-- Step 14: The Weathered Grave
 	-- {npc:311} Sven Yorgen · {npc:268} Sirra Von'Indi · {area:42} Darkshire
-	["The grave stands among the skeletons at the cemetery's north-west corner, on the way to {npc:311}. Its quest and the next are talk-only, to {npc:268} and Commander Althea in {area:42}: level 35 from level 28, but no fight."] = "",
+	["The grave stands among the skeletons at the cemetery's north-west corner, on the way to {npc:311}. Its quest and the next are talk-only, to {npc:268} and Commander Althea in {area:42}: level 35 quests, but no fight."] = "墳墓位於墓地西北角的骷髏之間，就在前往{npc:311}的路上。它的任務和下一個任務都只需對話，分別交給{area:42}的{npc:268}和指揮官艾希雅：雖是35級任務，但不用戰鬥。",
 
 	-- Step 15: Sven Yorgen's Camp
 	-- {npc:311} Sven Yorgen
@@ -78,6 +76,8 @@ return {
 	-- Step 16: Back to Darkshire
 	-- {area:42} Darkshire
 	["Back to {area:42}"] = "回到{area:42}",
+	-- {area:42} Darkshire · {npc:311} Sven Yorgen · {zone:1431} Duskwood
+	["Hearth back to {area:42} (bound at the start of this guide): {npc:311}'s camp is at the far west of {zone:1431}."] = "用爐石回到{area:42}（在本指南開頭綁定）：{npc:311}的營地在{zone:1431}的最西邊。",
 	-- {npc:263} Lord Ello Ebonlocke
 	["{npc:263}, in the town hall"] = "{npc:263}，在市政廳裡",
 	-- {npc:268} Sirra Von'Indi
@@ -88,12 +88,24 @@ return {
 	-- {npc:482} Elling Trias · {zone:1453} Stormwind
 	["For {npc:482} in {zone:1453}, in the next guide"] = "交給{zone:1453}的{npc:482}，在下一份指南",
 
-	-- Step 17: Viktori Prism'Antras
+	-- Step 17: Nightbane Vile Fangs and Tainted Ones
+	-- plural, as words: Nightbane Vile Fangs = {npc:206} Nightbane Vile Fang
+	["Nightbane Vile Fangs and Tainted Ones"] = "夜行邪齒狼人與墮落者",
+	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {spell:8282} Curse of Blood
+	["The strongest worgen roam the woods south of {area:42}, west and south of the {area:121}.\nCareful: {spell:8282} lasts 10 minutes and adds 13 to each hit of physical damage you take.\nCareful: Some worgen outside the cave stand in groups, including one camp of four. To avoid adds, pull them one at a time from the raised ground next to the cave entrance.\nCareful: Gutspill, a level 32 abomination, walks these woods: let it pass."] = "最強的狼人在{area:42}南邊的樹林裡遊蕩，位於{area:121}的西邊和南邊。\n小心：{spell:8282}持續10分鐘，使你受到的每次物理傷害增加13點。\n小心：洞穴外有些狼人成群站著，包括一個四隻的營地。為避免引到多隻，從洞穴入口旁的高地一次拉一隻。\n小心：32級憎惡「濺腸」在這片樹林中巡邏：讓它走過去。",
+
+	-- Step 18: Calor and Jonathan Carevin
+	-- {npc:663} Calor · {npc:661} Jonathan Carevin
+	["{npc:663} and {npc:661}"] = "{npc:663}和{npc:661}",
+	-- {npc:661} Jonathan Carevin · {npc:633} Elaine Carevin
+	["{npc:661}, by {npc:633}'s house; inside"] = "{npc:661}，在{npc:633}的房子旁；在裡面",
+
+	-- Step 19: Viktori Prism'Antras
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}'s house stands at the east end of town, on the way to the flight master."] = "{npc:276}的房子在城鎮東端，就在前往飛行管理員的路上。",
 	["Inside"] = "",
 
-	-- Step 18: Fly to Menethil Harbor
+	-- Step 20: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "飛往{area:150}",
 	-- {area:42} Darkshire
@@ -114,8 +126,10 @@ return {
 	-- ["For {quest:5762} in Stranglethorn, later"] = "交給荊棘谷的{quest:5762}，稍後",
 	-- ["From Theramore follow the road west out of Dustwallow into the {zone:1413} and south along it; give {area:378} a wide berth. {area:485} at the {zone:1413}' south end takes you down into {zone:1441}. The journal lies at the foot of the lift."] = "從塞拉摩沿著道路向西離開塵泥沼澤進入{zone:1413}，再沿路向南；遠離{area:378}。{zone:1413}南端的{area:485}帶你往下進入{zone:1441}。日記就在升降梯底下。",
 	-- ["From {npc:352} in {zone:1453}"] = "向{zone:1453}的{npc:352}取得",
+	-- ["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "從{area:42}向西南前往巨魔山。{object:119}放在入口處的營地裡；裂拳巨魔守衛著它。",
 	-- ["Her house stands on the hill south-east of {area:42}."] = "她的房子在{area:42}東南方的山丘上。",
 	-- ["Nightbane Shadow Weavers"] = "夜行織影狼人",
+	-- ["Nightbane Vile Fangs and the {npc:511}"] = "夜行邪齒狼人與{npc:511}",
 	-- ["No {item:4371} for {quest:174}? {npc:3133} sells it in the house beside {npc:276}, in limited stock; {npc:1448} in {area:150} sells it too."] = "沒有{quest:174}要的{item:4371}？{npc:3133}在{npc:276}旁邊的房子裡限量出售；{area:150}的{npc:1448}也有賣。",
 	-- ["On the road south through the {zone:1413}, {npc:6244} camps east of the road, north-east of {area:378}; come in from the east and keep clear of the Horde guards."] = "在向南穿過{zone:1413}的道路上，{npc:6244}在道路東邊、{area:378}東北方紮營；從東邊過去，避開部落衛兵。",
 	-- ["Plague Spreaders"] = "瘟疫食屍鬼",

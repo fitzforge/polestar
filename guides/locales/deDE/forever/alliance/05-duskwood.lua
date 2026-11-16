@@ -66,9 +66,9 @@ return {
 	-- Step 13: Ghoul Ribs
 	-- plural, as words: Ghoul Ribs = {item:884} Ghoul Rib
 	["Ghoul Ribs"] = "Ghulrippen",
-	-- {area:492} Raven Hill Cemetery · {npc:948} Rotted One · {spell:3428} Summon Flesh Eating Worms
+	-- {area:492} Raven Hill Cemetery · {npc:522} Mor'Ladim · {npc:948} Rotted One · {spell:3428} Summon Flesh Eating Worms
 	-- plural, as words: Flesh Eaters = {npc:3} Flesh Eater · Bone Chewers = {npc:210} Bone Chewer · Plague Spreaders = {npc:604} Plague Spreader · Brain Eaters = {npc:570} Brain Eater
-	["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "Jeder Ghul in der nördlichen Hälfte des {area:492} kann eine Rippe fallen lassen: Flesh Eaters, Bone Chewers, Plague Spreaders und Brain Eaters.\nVorsicht: Ein {npc:948} wirkt beim Sterben {spell:3428}, was zusätzliche Adds herbeiruft.",
+	["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters and Bone Chewers (24-27) are the easier kills; Plague Spreaders and Brain Eaters (27-29) drop them too. {npc:522}, an elite, wanders the graves: keep away from him.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "Jeder Ghul in der nördlichen Hälfte von {area:492} kann eine Rippe fallen lassen: Fleischfresser und Knochenkauer (24-27) sind leichter zu töten; Seuchenverbreiter und Hirnfresser (27-29) lassen sie auch fallen. {npc:522}, ein Elite, wandert zwischen den Gräbern: Halte dich von ihm fern.\nVorsicht: Ein {npc:948} wirkt beim Sterben {spell:3428}, was zusätzliche Adds herbeiruft.",
 
 	-- Step 15: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
@@ -111,7 +111,7 @@ return {
 
 	-- Step 23: Class trainer
 	["Class trainer"] = "Klassenlehrer",
-	["Level 22 and 24 spells"] = "Zauber der Stufen 22 und 24",
+	["Your new spells"] = "Deine neuen Zauber",
 
 	-- Step 24: Gazin Tenorm
 	-- {zone:1453} Stormwind · {npc:6173} Gazin Tenorm · {npc:6171} Duthorian Rall
@@ -141,11 +141,13 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Continue west to {area:94}. The {object:673515} glows by the ruined house south of the road."] = "Geh weiter nach Westen nach {area:94}. Die {object:673515} leuchtet beim zerstörten Haus südlich der Straße.",
 	-- ["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters."] = "Jeder Ghul der nördlichen Hälfte des {area:492} kann eine Rippe fallen lassen: Fleischfresser, Knochenkauer, Seuchenverbreiter und Hirnfresser.",
+	-- ["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "Jeder Ghul in der nördlichen Hälfte des {area:492} kann eine Rippe fallen lassen: Flesh Eaters, Bone Chewers, Plague Spreaders und Brain Eaters.\nVorsicht: Ein {npc:948} wirkt beim Sterben {spell:3428}, was zusätzliche Adds herbeiruft.",
 	-- ["Follow the road north-west past the cemetery to {npc:311}'s camp on the far west edge of the forest. {npc:893} stands beside {npc:311}."] = "Folge der Straße nach Nordwesten am Friedhof vorbei zu {npc:311}s Lager am äußersten Westrand des Waldes. {npc:893} steht neben {npc:311}.",
 	-- ["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest."] = "Folge der Straße von {area:1002} nach Süden in den {zone:1431}; {area:42} liegt auf der Ostseite des Waldes.",
 	-- ["Head back east along the road to the {area:245}."] = "Geh zurück nach Osten entlang der Straße zum {area:245}.",
 	-- ["Head back east to {area:42}."] = "Geh zurück nach Osten nach {area:42}.",
 	-- ["Head west along the road out of {area:94} into {area:40}. {npc:7024} watches {npc:7053}'s tower from the hills just inside the border. The {npc:7051} (level 23) guarding the tower carries its key; Klaven's journal is in the chest at the top."] = "Geh von {area:94} entlang der Straße nach Westen hinaus nach {area:40}. {npc:7024} beobachtet den Turm von {npc:7053} von den Hügeln knapp hinter der Grenze. Die {npc:7051} (Stufe 23), die den Turm bewacht, trägt den Schlüssel dazu; Klavens Tagebuch liegt in der Truhe ganz oben.",
+	-- ["Level 22 and 24 spells"] = "Zauber der Stufen 22 und 24",
 	-- ["Next: {zone:1453} for training, then the boat from {area:17203} to {area:442} for {zone:1440}."] = "Als Nächstes: {zone:1453} zum Trainieren, dann das Boot vom {area:17203} nach {area:442} für {zone:1440}.",
 	-- ["Rabid Dire Wolves roam the woods around the cemetery and {npc:289}, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders crawl east of the cemetery and drop the venom. Every ghoul of the cemetery's northern half can drop a fang."] = "Tollwütige Terrorwölfe streifen durch den Wald um den Friedhof und {npc:289}, Ausgehungerte Terrorwölfe durch die Hügel nordöstlich von ihm. Zwerggiftweberspinnen krabbeln östlich des Friedhofs und lassen das Gift fallen. Jeder Ghul der nördlichen Friedhofshälfte kann einen Fangzahn fallen lassen.",
 	-- ["Ride back east along the road to the {area:245}."] = "Reite die Straße zurück nach Osten zum {area:245}.",

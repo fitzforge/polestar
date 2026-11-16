@@ -1112,20 +1112,11 @@ function Nav.ResetArrowPosition()
 	ns.Set("nav.arrowPos", nil)
 end
 
-local moving = false
-frame:SetScript("OnDragStart", function(self)
-	if ns.DragLocked() then return end
-	moving = true
-	self:StartMoving()
-end)
-
-frame:SetScript("OnDragStop", function(self)
-	if not moving then return end
-	moving = false
-	self:StopMovingOrSizing()
+-- Dragged from the first pixel (ns.DragWindow); the spot saved on the drop.
+ns.DragWindow(frame, frame, { locked = function() return ns.DragLocked() end, onStop = function(self)
 	local point, _, relPoint, x, y = self:GetPoint(1)
 	if point then ns.Set("nav.arrowPos", { point = point, relPoint = relPoint, x = x, y = y }) end
-end)
+end })
 
 frame:SetScript("OnEnter", function(self)
 	mover:SetShown(not ns.DragLocked())
@@ -1142,12 +1133,13 @@ frame:SetScript("OnLeave", function()
 	GameTooltip:Hide()
 end)
 
--- A click (not a drag) on an area objective's arrow moves on to its next spot.
+-- A click (not a drag) on an area objective's arrow moves on to its next spot:
+-- not after a move, nor after the client's drag start (a locked drag).
 local dragged = false
-frame:SetScript("OnMouseDown", function() dragged = false end)
-frame:HookScript("OnDragStart", function() dragged = true end)
-frame:SetScript("OnMouseUp", function(_, button)
-	if button == "LeftButton" and not dragged then Nav.NextSpot() end
+frame:HookScript("OnMouseDown", function() dragged = false end)
+frame:SetScript("OnDragStart", function() dragged = true end)
+frame:HookScript("OnMouseUp", function(_, button)
+	if button == "LeftButton" and not dragged and not ns.DragMoved(frame) then Nav.NextSpot() end
 end)
 
 -- Opacity: nav.arrowAlpha, times nav.arrowCombatAlpha in combat.

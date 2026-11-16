@@ -145,7 +145,19 @@ async function prepare(sc, offline) {
 	}
 	const items = [...((sc.data && sc.data.items) || []), ...(sc.bags || []).map((b) => b[0])];
 	const data = await clientData.luaData({ spells, items });
-	const pulled = await art.pull([...new Set([...data.icons, ...(sc.art || [])])], { offline });
+	// Every zone painting the client has (UI.ZoneArt: the guide menu, the guide
+	// end, the route choice cards), from its map tables, so a shot never paints
+	// the night band where the game paints the zone.
+	const missing = [];
+	let zones = { files: [] };
+	try {
+		zones = await clientData.zoneArt();
+		art.addMaps(zones.maps);
+	} catch (err) {
+		missing.push(`zone art (${err.message})`);
+	}
+	const pulled = await art.pull([...new Set([...data.icons, ...(sc.art || []), ...zones.files])], { offline });
+	missing.push(...pulled.missing);
 	// The atlases whose sheets the cache holds (SetAtlas, C_Texture.GetAtlasInfo).
 	const atlases = art.readJson(path.join(art.dir(), 'atlases.json'), {});
 	const rows = Object.entries(atlases).filter(([, a]) => art.has(art.dir(), a.file))
@@ -156,7 +168,7 @@ async function prepare(sc, offline) {
 	const files = Object.entries(art.readJson(path.join(art.dir(), 'files.json'), {})).filter(([, fid]) => art.has(art.dir(), fid))
 		.map(([k, fid]) => `[${q(k)}] = ${fid}`);
 	const filesLua = files.length ? `STUDIO_FILES = { ${files.join(', ')} }\n` : '';
-	return { book, lua: data.lua + atlasLua + filesLua, missingArt: pulled.missing };
+	return { book, lua: data.lua + atlasLua + filesLua, missingArt: missing };
 }
 
 function setupLua(sc, book) {

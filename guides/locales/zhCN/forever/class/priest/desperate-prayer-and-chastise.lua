@@ -43,8 +43,8 @@ return {
 	["{npc:11401}: take her {quest:5634} letter"] = "{npc:11401}：领取她的{quest:5634}信件",
 
 	-- Step 6: Desperate Prayer: High Priest Rohan
-	-- {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries · {zone:1455} Ironforge · {object:32362} Mystic Ward · {quest:5634} Desperate Prayer
-	["At 10, go to {npc:11406} in the {object:32386}, in {zone:1455}'s {object:32362} (north-west of the city): he gives {quest:5634} and takes it back at once. No letter needed. {quest:5634} heals you instantly, costs no mana and has a long cooldown: keep it for emergencies."] = "达到 10 级后，前往 {zone:1455} 西北部 {object:32362} 的 {object:32386} 找 {npc:11406}：他会给予 {quest:5634}，并立即接受交还。不需要信件。{quest:5634} 能瞬间治疗你，不消耗法力，但冷却时间很长：留到紧急时刻再用。",
+	-- {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries · {zone:1455} Ironforge · {object:32362} Mystic Ward · {quest:5639} Desperate Prayer
+	["At 10, go to {npc:11406} in the {object:32386}, in {zone:1455}'s {object:32362} (north-west of the city): he gives {quest:5639} and takes it back at once. No letter needed. {quest:5639} heals you instantly, costs no mana and has a long cooldown: keep it for emergencies."] = "达到 10 级后，前往 {zone:1455} 西北部 {object:32362} 的 {object:32386} 找 {npc:11406}：他会给予 {quest:5639}，并立即接受交还。不需要信件。{quest:5639} 能瞬间治疗你，不消耗法力，但冷却时间很长：留到紧急时刻再用。",
 
 	-- Step 7: Desperate Prayer: Maxan Anvol's letter
 	-- {quest:5637} Desperate Prayer · {npc:1226} Maxan Anvol
@@ -109,6 +109,7 @@ return {
 	["Hand Alathea's letter to {npc:11406} in the {object:32386}, {zone:1455}'s {object:32362}: from {zone:1457}, the boats via {area:702} and {area:442} to {area:150}, then the road north through the {zone:1437} and {zone:1432} (or the boat to {area:17203} and the {area:2257})."] = "将阿兰希亚的信交给 {zone:1455} 的 {object:32362} 中、位于 {object:32386} 的 {npc:11406}：从 {zone:1457} 出发，经 {area:702} 和 {area:442} 乘船到 {area:150}，然后沿道路向北穿过 {zone:1437} 和 {zone:1432}（也可以乘船到 {area:17203}，再乘坐 {area:2257}）。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["At 10, go to {npc:11406} in the {object:32386}, in {zone:1455}'s {object:32362} (north-west of the city): he gives {quest:5634} and takes it back at once. No letter needed. {quest:5634} heals you instantly, costs no mana and has a long cooldown: keep it for emergencies."] = "达到 10 级后，前往 {zone:1455} 西北部 {object:32362} 的 {object:32386} 找 {npc:11406}：他会给予 {quest:5634}，并立即接受交还。不需要信件。{quest:5634} 能瞬间治疗你，不消耗法力，但冷却时间很长：留到紧急时刻再用。",
 	-- ["At 10, go to {npc:11406} in the {object:32386}, in {zone:1455}'s {object:32362}. Forever's quest text names Rohan, but the quest data has {npc:376} in {zone:1453}'s Cathedral of Light take it: try Rohan first, then Laurena (the {area:2257} links the cities)."] = "10级时，去{zone:1455}{object:32362}的{object:32386}找{npc:11406}。Forever 的任务文本写的是洛汉，但任务数据显示由{zone:1453}光明大教堂的{npc:376}接收：先试洛汉，再试劳瑞娜（{area:2257}连接两座城市）。",
 	-- ["At 20, {npc:11406} teaches {quest:5641}. {npc:376} in {zone:1453} and {npc:11401} in {zone:1457} send you to him with a quest of the same name."] = "20级时，{npc:11406}教授{quest:5641}。{zone:1453}的{npc:376}和{zone:1457}的{npc:11401}会用同名任务让你去找他。",
 	-- ["At 20, {npc:11406} teaches {spell:1277331}. {npc:376} in {zone:1453} and {npc:11401} in {zone:1457} send you to him with a quest of the same name."] = "20级时，{npc:11406}教授{spell:1277331}。{zone:1453}的{npc:376}和{zone:1457}的{npc:11401}会用同名任务让你去找他。",
