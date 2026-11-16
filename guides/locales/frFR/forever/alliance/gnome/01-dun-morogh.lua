@@ -399,7 +399,7 @@ return {
 	-- Step 82: Stonesplinter troggs
 	["Stonesplinter troggs"] = "Troggs Brisepierre",
 	-- {area:923} Stonesplinter Valley
-	["North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.\nCareful: Headsplitter, a level 15 trogg, walks {area:923} among the 11-12 troggs: work the camps at its north edge, near the post, and keep clear of him."] = "Au nord du poste, à l'ouest de la route : les troggs et les éclaireurs Brisepierre campent dans les collines. Les deux lâchent les Dents de pierre de trogg.\nAttention : Headsplitter, un trogg de niveau 15, parcourt {area:923} parmi les troggs de niveau 11-12 : occupez-vous des camps de sa lisière nord, près du poste, et tenez-vous loin de lui.",
+	["North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.\nCareful: Headsplitter, a level 15 trogg, walks {area:923} among the 11-12 troggs: work the camps at its north edge, near the post, and keep clear of him."] = "Au nord du poste, à l'ouest de la route : les troggs et les éclaireurs Brisepierre campent dans les collines. Les deux lâchent les Dents de pierre de trogg.\nAttention : Fendeur de têtes, un trogg de niveau 15, parcourt {area:923} parmi les troggs de niveau 11-12 : occupez-vous des camps de sa lisière nord, près du poste, et tenez-vous loin de lui.",
 
 	-- Step 83: Back to the tunnel post
 	["Back to the tunnel post"] = "Retour au poste du tunnel",
@@ -417,7 +417,7 @@ return {
 	["The west hills and the {area:925}"] = "Les collines de l'ouest et {area:925}",
 	-- {npc:1343} Mountaineer Stormpike · {area:925} Algaz Station
 	-- plural, as words: Elder Black Bears = {npc:1186} Elder Black Bear · Mountain Boars = {npc:1190} Mountain Boar · Forest Lurkers = {npc:1195} Forest Lurker
-	["North through the hills west of the road to {npc:1343} at the {area:925}. The Tunnel Rat kobolds dig in the hills on the way; Elder Black Bears, Mountain Boars and Forest Lurkers roam the same ground."] = "Vers le nord à travers les collines à l'ouest de la route, jusqu'à {npc:1343} à {area:925}. Les kobolds Rat des tunnels creusent dans les collines en chemin ; des Elder Black Bears, des Sangliers des montagnes et des Forest Lurkers parcourent les mêmes terres.",
+	["North through the hills west of the road to {npc:1343} at the {area:925}. The Tunnel Rat kobolds dig in the hills on the way; Elder Black Bears, Mountain Boars and Forest Lurkers roam the same ground."] = "Vers le nord à travers les collines à l'ouest de la route, jusqu'à {npc:1343} à {area:925}. Les kobolds Rat des tunnels creusent dans les collines en chemin ; des Anciens ours noirs, des Sangliers des montagnes et des Rôdeuses des forêts parcourent les mêmes terres.",
 	-- {item:3110} Tunnel Rat Ear
 	["{item:3110}: Tunnel Rat kobolds"] = "{item:3110} : kobolds Rat des tunnels",
 	-- {item:3172} Boar Intestines
@@ -425,10 +425,10 @@ return {
 	["{item:3172}: Mountain Boars"] = "{item:3172} : Sangliers des montagnes",
 	-- {item:3173} Bear Meat
 	-- plural, as words: Elder Black Bears = {npc:1186} Elder Black Bear
-	["{item:3173}: Elder Black Bears"] = "{item:3173} : Elder Black Bears",
+	["{item:3173}: Elder Black Bears"] = "{item:3173} : Anciens ours noirs",
 	-- {item:3174} Spider Ichor
 	-- plural, as words: Forest Lurkers = {npc:1195} Forest Lurker
-	["{item:3174}: Forest Lurkers"] = "{item:3174} : Forest Lurkers",
+	["{item:3174}: Forest Lurkers"] = "{item:3174} : Rôdeuses des forêts",
 	-- {npc:5413} Furen Longbeard · {zone:1453} Stormwind
 	["{npc:5413} in {zone:1453} takes it"] = "{npc:5413}, à {zone:1453}, la prend",
 
@@ -549,7 +549,7 @@ return {
 	["Tram to {zone:1453}"] = "Tram pour {zone:1453}",
 	-- {zone:1455} Ironforge · {area:2257} Deeprun Tram · {npc:12997} Monty · {item:17117} Rat Catcher's Flute · {npc:13018} Nipsy · {zone:1453} Stormwind
 	-- plural, as words: Deeprun Rats = {npc:13016} Deeprun Rat
-	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end."] = "Sur le quai de {zone:1455} du {area:2257}, {npc:12997} demande de l'aide contre les rats : utilisez son {item:17117} sur les Deeprun Rats autour du quai, rendez-les-lui, puis portez sa lettre à son frère {npc:13018}, au bout du côté de {zone:1453}.",
+	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end."] = "Sur le quai de {zone:1455} du {area:2257}, {npc:12997} demande de l'aide contre les rats : utilisez son {item:17117} sur les Rats des profondeurs autour du quai, rendez-les-lui, puis portez sa lettre à son frère {npc:13018}, au bout du côté de {zone:1453}.",
 	-- {npc:12997} Monty · {zone:1455} Ironforge
 	["{npc:12997}, on the {zone:1455} platform"] = "{npc:12997}, sur le quai de {zone:1455}",
 	-- {npc:13016} Deeprun Rat · {item:17117} Rat Catcher's Flute
