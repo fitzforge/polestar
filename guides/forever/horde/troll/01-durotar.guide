@@ -145,7 +145,8 @@ step Felstalker hooves
   collect 6640 quest 1516.1
 
 step Zureetha Fargaze
-  tip Inside the Den first (Gornek, your trainer, Ken'jai), then Zureetha and Canaga at the entrance, and Foreman Thazz'ril last, east of the Den on the way to Ukor.
+  tip Foreman Thazz'ril first, just east of the Den as you come down from the cave; then inside the Den (Gornek, your trainer, Ken'jai), and Zureetha and Canaga at the entrance on the way out east to Ukor.
+  turnin 6394                         -- Foreman Thazz'ril
   turnin 804 only !Shaman           -- Gornek, inside
   train class
   accept 5649 only Troll,Priest       -- Ken'jai, the priest trainer at the Den: for Tai'jin in Razor Hill
@@ -154,7 +155,6 @@ step Zureetha Fargaze
   accept 96652                        -- the Lost Journal on the ground beside her
   turnin 1516 only Shaman -- Canaga Earthcaller
   accept 1517 only Shaman
-  turnin 6394                         -- Foreman Thazz'ril
 
 step Call of Earth
   only Shaman
