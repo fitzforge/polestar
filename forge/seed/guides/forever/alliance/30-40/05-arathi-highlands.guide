@@ -340,6 +340,7 @@ step Faldir's Cove
 
 step Kor'gresh Coldrage
   tip South-east through the hills: Kor'gresh, an ogre mage, holds the cave at the southern end of the Witherbark valley.
+  tip Careful: Kor'gresh is level 39, a caster, one or two over you here: clear the cave mouth first, then pull him alone at full health.
   collect 4525 quest 693              -- Trelane's Wand of Invocation; below ground
 
 step Foggy MacKreel

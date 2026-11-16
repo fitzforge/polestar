@@ -78,6 +78,7 @@ step Agmond's End: kill these as you meet them
   zone Badlands
   tip Buzzards circle the plain to the east. Careful: the Dustbelcher Maulers, Shamans and Wyrmhunters (40-43) camp far to the south-west: leave them.
   tip The battered skeleton lies at the edge of the Stonevault trogg camp; Murdaloc, Agmond's killer, walks among the Bonesnappers.
+  tip Careful: the Stonevault Bonesnappers are 39-40 and the Shamans 40-41, a level or two over you here: pull them from the camp's edge, one at a time.
   tip Careful: Dustbelcher Lords are level 44-45. They use Battle Shout and Demoralizing Shout, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of Kargath.
   collect 3404 quest 703              -- Buzzard Wing
   collect 7847 quest 2500 @50.0,60.0 map 1418 -- Buzzard Gizzard, if you still need one: the Buzzards east of Agmond's End drop it only rarely
@@ -98,6 +99,7 @@ step Lotwil Veriatus
 
 step Lesser Rock Elementals
   tip The Lesser Rock Elementals wander the Dustbowl west of Lotwil; every rock elemental can drop Ghak's Rock Elemental Shards. The Dustbelcher Ogres (38-39) on the Dustbowl's west side drop Sigrun's scrap. Careful: a Malevolent Mirage, a level 42 elite, drifts about the Dustbowl: give it a wide berth.
+  tip Careful: the Lesser Rock Elementals are 37-39 and hit hard: fight them one at a time.
   collect 4626 quest 710              -- Small Stone Shard
   collect 7848 quest 2500             -- Rock Elemental Shard
   collect 4630 quest 733 @29.5,59.3 map 1418 -- Scrap Metal, from the Dustbelcher Ogres

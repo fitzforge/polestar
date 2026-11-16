@@ -6972,6 +6972,32 @@
 			]
 		},
 		{
+			"id": "way-savage-coast-east-of-zulkunda",
+			"faction": "Alliance",
+			"at": {
+				"quest": 605,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/30-40/04-stranglethorn-vale"
+			},
+			"way": {
+				"at": {
+					"map": 1434,
+					"x": 29.0,
+					"y": 14.0,
+					"frame": "era"
+				},
+				"label": "East of Zul'Kunda"
+			},
+			"note": "30-40/04 (fix round 2, 0.4.0): the walk from Sentinel Hill into Stranglethorn ended at the Crystalvein Mine (24.4,17.5), a straight line through the core of the Bloodscalp ruins of Zul'Kunda past Zimmix's cage (Bloodscalp Scouts, Mystics and Hunters 34-35, Headhunters and Berserkers 36-37, at about 33 for the player); the ruins wait for the second loop. It ends east of the ruins among the Panthers (32-33), and the Savage Coast step goes on west from there.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "creature spawns within 2 map units: 23.5,12.8 has 29 Bloodscalp trolls 34-37; 29.0,14.0 has 8 Panthers 32-33, 2 Bloodscalp Guerrillas 34 and a Stranglethorn Raptor 34"
+				}
+			]
+		},
+		{
 			"id": "levels-horde-hillsbrad-arathi-top-33",
 			"faction": "Horde",
 			"at": {
@@ -11722,6 +11748,65 @@
 				{
 					"kind": "client",
 					"ref": "npcs Cresting Exile 38-39 at the Stone of East Binding"
+				}
+			]
+		},
+		{
+			"id": "arathi-korgresh-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 693,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Kor'gresh is level 39, a caster, one or two over you here: clear the cave mouth first, then pull him alone at full health.",
+			"note": "30-40/05 (fix round 2, 0.4.0): Kor'gresh Coldrage (39) at about 37.9 for the player (level model without accept-time grinding); the step named him but not his level.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings: 15 people at Kor'gresh, 25th percentile 38.4; 13 killed him, no deaths"
+				}
+			]
+		},
+		{
+			"id": "badlands-agmonds-end-troggs-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 739,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Stonevault Bonesnappers are 39-40 and the Shamans 40-41, a level or two over you here: pull them from the camp's edge, one at a time.",
+			"note": "30-40/06 (fix round 2, 0.4.0): Agmond's End's troggs at about 38.9 for the player (level model without accept-time grinding); no tip named their levels.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings: 12 people at Agmond's End, 25th percentile 39.2; 3 deaths, none to a camp mob"
+				},
+				{
+					"kind": "client",
+					"ref": "npcs 2893 Stonevault Bonesnapper 39-40, 2894 Stonevault Shaman 40-41"
+				}
+			]
+		},
+		{
+			"id": "badlands-lesser-rock-elementals-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 710,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Lesser Rock Elementals are 37-39 and hit hard: fight them one at a time.",
+			"note": "30-40/06 (fix round 2, 0.4.0): the Dustbowl's elementals at about 38.9 for the player (level model without accept-time grinding); the step's tip named only the Mirage.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings: 9 people at the elementals, 25th percentile 39.7; 3 deaths, 1 to a Lesser Rock Elemental (39)"
+				},
+				{
+					"kind": "client",
+					"ref": "npc 2735 Lesser Rock Elemental 37-39"
 				}
 			]
 		},

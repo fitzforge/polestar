@@ -160,7 +160,7 @@ step Fly to Sentinel Hill
 
 step Stranglethorn Vale
   zone Stranglethorn Vale
-  goto 24.4,17.5 "The Savage Coast"
+  goto 29.0,14.0 "East of Zul'Kunda"
 
 # ---------------------------------------------------------------- The jungle loop
 
