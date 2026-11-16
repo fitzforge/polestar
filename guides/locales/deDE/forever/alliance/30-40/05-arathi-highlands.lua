@@ -205,7 +205,7 @@ return {
 
 	-- Step 46: Kor'gresh Coldrage
 	-- {area:327} Faldir's Cove · {npc:2793} Kor'gresh Coldrage
-	["East from {area:327} through the southern hills: {npc:2793}, an ogre mage, holds the cave at the southern end of the Witherbark valley."] = "Ostwärts von {area:327} durch die südlichen Hügel: {npc:2793}, ein Ogerhexenmeister, hält die Höhle am Südende des Welkenrinden-Tals.",
+	["East from {area:327} through the southern hills: {npc:2793}, an ogre mage, holds the cave at the southern end of the Witherbark valley."] = "Ostwärts von {area:327} durch die südlichen Hügel: {npc:2793}, ein Ogerhexenmeister, hält die Höhle am Südende des Witherbark-Tals.",
 	-- {item:4525} Trelane's Wand of Invocation
 	["{item:4525}; below ground"] = "{item:4525}; unter der Erde",
 
