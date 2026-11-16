@@ -1254,6 +1254,7 @@ Compat.ItemLink(itemID)                -> link | nil (nil while not cached)
 Compat.RequestItem(itemID)             -> bool   (cached; else requested: GET_ITEM_INFO_RECEIVED follows)
 Compat.SpellLink(spellID)              -> link | nil
 Compat.RequestSpell(spellID)           -> bool   (cached; else requested: SPELL_DATA_LOAD_RESULT follows)
+Compat.CreatureCached(npcID)           -> bool | nil (in the creature cache; else asked of the server via its unit link's tooltip, no event; nil: cannot tell)
 Compat.GetBindLocation()               -> string | nil
 Compat.IsOnTaxi()                      -> bool
 Compat.GetCurrentTaxiNode()            -> name of the open taxi map's node | nil
@@ -7137,9 +7138,14 @@ the row shows the item, its tooltip the chance too. A row's count ("3/8") is
 its first goal's `progress` of kind `count`; it is plain text, repainted on
 every refresh outside the signature, so it follows kills and loot in combat.
 The face is plain textures and a `PlayerModel`, so it changes in combat: the
-creature's model by id (`SetCreature`, portrait zoom) over a crosshair, which
-stays visible while the client has not loaded the model; without an id, a
-close mob's own portrait (`SetPortraitTexture`). The crosshair is green, and
+creature's model by id (`SetCreature`, portrait zoom) over a crosshair. `SetCreature`
+draws only a creature in the client's cache and is not retried by the client,
+so the row calls it once `Compat.CreatureCached` says the client has it; until
+then (the faces repaint each second while one waits, for 30 s; after that only
+when one is close) the model stays hidden and a close mob's own portrait
+(`SetPortraitTexture`) shows, else the crosshair alone; the same without an
+id. The model is kept while hidden (`SetKeepModelOnHide`), as a hidden model
+otherwise drops what it drew. The crosshair is green, and
 the row gets a faint green wash, while a living mob of that name is close (the
 target or a nameplate unit; secret values are passed over; `UNIT_HEALTH`
 catches one dying), else danger for a mob and textDim for an NPC. A left-click

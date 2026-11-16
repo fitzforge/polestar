@@ -151,6 +151,38 @@ function SetPortraitTexture(tex, unit)
 	tex:SetTexture(t and ("portrait:" .. tostring(t.name)) or nil)
 	q.portraits[#q.portraits + 1] = { unit = unit, name = t and t.name }
 end
+-- Models, as the client: a PlayerModel's SetCreature draws a creature only
+-- from the client's creature cache (q.creatures[id] = name; model.creature
+-- is what it drew, nil for an empty model), and a model hidden (its own Hide,
+-- or a parent's with stub.cascadeVisibility) drops what it drew unless
+-- SetKeepModelOnHide(true). The tooltip of a creature's unit link
+-- (C_TooltipInfo.GetHyperlink) names a cached one; an uncached one gets an
+-- empty tooltip and the client asks the server (q.creatureAsks counts the
+-- asks), whose answer lands in the cache q.creatureDelay seconds later with
+-- no event (q.serverCreatures = false: the server never answers).
+q.creatures, q.creatureAsks, q.creatureDelay, q.serverCreatures = {}, 0, 0.5, true
+M.SetCreature = function(self, id) self.creature = q.creatures[id] and id or nil end
+M.SetKeepModelOnHide = function(self, keep) self.keepModel = keep and true or false end
+local function dropModel(self) if not self.keepModel then self.creature = nil end end
+local createModel = CreateFrame
+function CreateFrame(kind, ...)
+	local f = createModel(kind, ...)
+	if kind == "PlayerModel" then f:HookScript("OnHide", dropModel) end
+	return f
+end
+C_TooltipInfo = C_TooltipInfo or {}
+local hyperlink = C_TooltipInfo.GetHyperlink
+function C_TooltipInfo.GetHyperlink(link, ...)
+	local id = tonumber(tostring(link):match("^unit:Creature%-0%-0%-0%-0%-(%d+)%-"))
+	if not id then return hyperlink and hyperlink(link, ...) or { lines = {} } end
+	local name = q.creatures[id]
+	if name then return { lines = { { leftText = name } } } end
+	q.creatureAsks = q.creatureAsks + 1
+	if q.serverCreatures then
+		C_Timer.After(q.creatureDelay, function() q.creatures[id] = q.creatures[id] or ("Creature " .. id) end)
+	end
+	return { lines = {} }
+end
 C_NamePlate = C_NamePlate or {}
 function C_NamePlate.GetNamePlates()
 	local out = {}

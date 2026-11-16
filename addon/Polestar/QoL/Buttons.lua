@@ -1914,9 +1914,10 @@ do
 		color(r.Count, cur and max and max > 0 and cur >= max and "success" or "text")
 	end
 
-	-- Faces: a close living mob's own portrait (the target, or a mob with a
-	-- nameplate), else the creature's model by id, else the crosshair. Plain
-	-- textures and a model, so they change in combat too.
+	-- Faces: the creature's model by id once the client has the creature in
+	-- its cache, else a close living mob's own portrait (the target, or a mob
+	-- with a nameplate), else the crosshair. Plain textures and a model, so
+	-- they change in combat too.
 	local FACE_UNITS = { "target" }
 	for i = 1, 40 do FACE_UNITS[#FACE_UNITS + 1] = "nameplate" .. i end
 	local closeByName = {}
@@ -1960,6 +1961,36 @@ do
 		paintBorder(r, r.psHover)
 	end
 
+	-- Creatures a row's model waits for (Compat.CreatureCached false), by when
+	-- each was first asked for (GetTime). The server's answer comes with no
+	-- event, so the faces repaint each second while one waits, for MODEL_WAIT
+	-- seconds; past that only a close one (the client has met it) is asked.
+	local MODEL_WAIT, waiting = 30, {}
+
+	-- The row's model by id: SetCreature draws a creature only from the
+	-- client's cache (an uncached one leaves the model empty, and it does not
+	-- try again), so it is called once the client has it. true when drawn,
+	-- false while it waits, nil once it waited too long.
+	local function paintModel(r, m, close)
+		if m.drawn == r.npc and m:IsShown() then return true end
+		m.drawn = nil
+		m:Hide()
+		local now = GetTime and GetTime() or 0
+		local first = waiting[r.npc]
+		if first and not close and now - first > MODEL_WAIT then return nil end
+		if ns.Compat.CreatureCached(r.npc) == false then
+			waiting[r.npc] = first or now
+			return false
+		end
+		waiting[r.npc] = nil
+		m:Show()
+		m.drawn = r.npc
+		m:SetCreature(r.npc)
+		if m.SetPortraitZoom then m:SetPortraitZoom(1) end
+		return true
+	end
+
+	-- true while the row's model waits for its creature.
 	local function paintRowFace(r, units)
 		local unit = units[r.applied]
 		local m = r.Model
@@ -1973,27 +2004,23 @@ do
 			r.near = near
 			setNear(r, near, true)
 		end
+		local drawn
 		if r.npc and m.SetCreature then
-			r.Face:SetTexture(nil)
-			-- A model that was hidden is loaded again: the client may drop it.
-			if m.npc ~= r.npc or not m:IsShown() then
-				m:Show()
-				m.npc = r.npc
-				m:SetCreature(r.npc)
-				if m.SetPortraitZoom then m:SetPortraitZoom(1) end
-			end
-			r.face = "model"
-		elseif unit and SetPortraitTexture then
-			-- No id for a model: the close mob's own portrait.
+			drawn = paintModel(r, m, near)
+		else
 			m:Hide()
-			r.face = unit
+			m.drawn = nil
+		end
+		if drawn then
+			r.Face:SetTexture(nil)
+		elseif unit and SetPortraitTexture then
+			-- No model (yet): the close mob's own portrait.
 			SetPortraitTexture(r.Face, unit, true)
 			r.Face:SetVertexColor(1, 1, 1, 1)
 		else
-			m:Hide()
-			r.face = nil
 			r.Face:SetTexture(nil)
 		end
+		return drawn == false
 	end
 
 	-- A folded row's macro holds only the names that fit in a macro. The first
@@ -2039,8 +2066,17 @@ do
 				paintCounts()
 			end
 		end
+		local wait = false
 		for i = 1, #TL.rows do
-			if TL.rows[i].applied then paintRowFace(TL.rows[i], units) end
+			if TL.rows[i].applied and paintRowFace(TL.rows[i], units) then wait = true end
+		end
+		-- A model waiting for its creature: the faces again in a second.
+		if wait and not TL.faceRetry then
+			TL.faceRetry = true
+			ns.After(1, function()
+				TL.faceRetry = nil
+				paintFaces()
+			end)
 		end
 	end
 	local paintFacesSoon = QoL.Coalesce(paintFaces)
@@ -2256,10 +2292,13 @@ do
 		face:SetPoint("LEFT", r, "LEFT", 2, 0)
 		r.Face = face
 
-		-- Over the crosshair: a creature whose model is not loaded yet leaves it seen.
+		-- Over the crosshair: a creature whose model is not drawn leaves it seen.
+		-- Kept while hidden (the list, UIParent): a hidden model drops what it
+		-- drew otherwise, and the row would not draw it again.
 		if not plain then
 			local model = CreateFrame("PlayerModel", nil, r)
 			model:SetAllPoints(face)
+			if model.SetKeepModelOnHide then model:SetKeepModelOnHide(true) end
 			model:Hide()
 			r.Model = model
 		end

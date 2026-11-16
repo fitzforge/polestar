@@ -838,6 +838,26 @@ function Compat.RequestSpell(spellID)
 	return false
 end
 
+-- Whether the client has a creature in its cache, which PlayerModel's
+-- SetCreature draws from (an uncached one draws nothing): true when the
+-- tooltip of its unit link names it; false otherwise, and asking for that
+-- tooltip has the client ask the server (no event follows the answer: ask
+-- again later). nil when the client cannot tell (no C_TooltipInfo). Kept
+-- for the session once true.
+local creaturesCached = {}
+function Compat.CreatureCached(npcID)
+	if type(npcID) ~= "number" then return false end
+	if creaturesCached[npcID] then return true end
+	local get = C_TooltipInfo and C_TooltipInfo.GetHyperlink
+	if not get then return nil end
+	local ok, data = pcall(get, ("unit:Creature-0-0-0-0-%d-0000000000"):format(npcID))
+	local line = ok and type(data) == "table" and type(data.lines) == "table" and data.lines[1]
+	local text = type(line) == "table" and line.leftText
+	if type(text) ~= "string" or text == "" or isSecret(text) or text == UNKNOWNOBJECT or text == RETRIEVING_DATA then return false end
+	creaturesCached[npcID] = true
+	return true
+end
+
 ---------------------------------------------------------------------------
 -- Maps and world coordinates
 ---------------------------------------------------------------------------
