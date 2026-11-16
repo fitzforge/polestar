@@ -1,3 +1,7 @@
+-- Freedoom Arcade by petllama (https://github.com/petllama/FreedoomArcade), in Polestar as Polestar_Arcade.
+-- Copyright (C) 2026 petllama. Ported from id Software's DOOM source (linuxdoom-1.10),
+-- Copyright (C) 1993-1996 id Software, Inc., released under the GNU GPL.
+-- GPL-2.0-or-later, with petllama's permission: see LICENSE and CREDITS.md in this folder.
 -- Sector / line specials: p_spec.c, p_doors.c, p_floor.c, p_plats.c, p_ceilng.c,
 -- p_lights.c, p_switch.c, p_telept.c
 local D = FreedoomArcade

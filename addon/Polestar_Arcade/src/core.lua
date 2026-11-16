@@ -1,3 +1,7 @@
+-- Freedoom Arcade by petllama (https://github.com/petllama/FreedoomArcade), in Polestar as Polestar_Arcade.
+-- Copyright (C) 2026 petllama. Ported from id Software's DOOM source (linuxdoom-1.10),
+-- Copyright (C) 1993-1996 id Software, Inc., released under the GNU GPL.
+-- GPL-2.0-or-later, with petllama's permission: see LICENSE and CREDITS.md in this folder.
 -- FreedoomArcade core: shared namespace, math helpers, random, binary decoding.
 -- Doom's 16.16 fixed point is replaced by plain Lua numbers in map units;
 -- angles stay in Doom's BAM convention (0 .. 2^32) so game code ports directly.

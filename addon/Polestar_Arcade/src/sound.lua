@@ -1,3 +1,5 @@
+-- Freedoom Arcade by petllama (https://github.com/petllama/FreedoomArcade), in Polestar as Polestar_Arcade.
+-- Copyright (C) 2026 petllama. GPL-2.0-or-later, with petllama's permission: see LICENSE and CREDITS.md in this folder.
 -- Sound effects through PlaySoundFile. WoW can't set per-sound volume, so distant
 -- sounds are culled instead of attenuated (Doom's clipping distance is 1200 units).
 local D = FreedoomArcade

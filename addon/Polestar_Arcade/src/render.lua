@@ -1,3 +1,7 @@
+-- Freedoom Arcade by petllama (https://github.com/petllama/FreedoomArcade), in Polestar as Polestar_Arcade.
+-- Copyright (C) 2026 petllama. Ported from id Software's DOOM source (linuxdoom-1.10),
+-- Copyright (C) 1993-1996 id Software, Inc., released under the GNU GPL.
+-- GPL-2.0-or-later, with petllama's permission: see LICENSE and CREDITS.md in this folder.
 -- Renderer: a floating point port of Doom's r_bsp / r_segs / r_plane / r_things.
 -- Instead of writing pixels, it emits textured quads to D.Draw:
 --   walls and sky  -> one quad per screen column

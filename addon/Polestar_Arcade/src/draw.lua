@@ -1,3 +1,5 @@
+-- Freedoom Arcade by petllama (https://github.com/petllama/FreedoomArcade), in Polestar as Polestar_Arcade.
+-- Copyright (C) 2026 petllama. GPL-2.0-or-later, with petllama's permission: see LICENSE and CREDITS.md in this folder.
 -- Draw backend: turns renderer quads into pooled WoW textures.
 -- Coordinates are in Doom's logical 320x200 screen space.
 local D = FreedoomArcade

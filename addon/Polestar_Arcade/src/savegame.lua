@@ -1,3 +1,7 @@
+-- Freedoom Arcade by petllama (https://github.com/petllama/FreedoomArcade), in Polestar as Polestar_Arcade.
+-- Copyright (C) 2026 petllama. Ported from id Software's DOOM source (linuxdoom-1.10),
+-- Copyright (C) 1993-1996 id Software, Inc., released under the GNU GPL.
+-- GPL-2.0-or-later, with petllama's permission: see LICENSE and CREDITS.md in this folder.
 -- Save games (p_saveg.c equivalent). A save is a plain Lua table (no functions or
 -- cycles) so it can live in SavedVariables. Object references become indices.
 local D = FreedoomArcade

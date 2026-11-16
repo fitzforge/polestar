@@ -25,7 +25,9 @@ this folder.
   the textures, flats, sprites and sounds they use, built from
   `freedoom1.wad` 0.13.0 by his `tools/build_assets.py` and cut down by
   `tools/subset.py`. Copyright (C) 2001-2024 Contributors to the Freedoom
-  project, BSD licence: `FREEDOOM-COPYING.txt`
+  project, BSD licence (3-clause): `FREEDOOM-COPYING.txt`, Freedoom's own
+  `COPYING.txt` from the 0.13.0 release; its contributors are listed in
+  `FREEDOOM-CREDITS.txt`, Freedoom's `CREDITS.txt`
   ([freedoom.github.io](https://freedoom.github.io/)).
 - **His tools and README**, as he wrote them.
 
@@ -45,6 +47,10 @@ Each change is a commit of its own on top of his, under
 - `FreedoomArcadeAPI` (version 1: `Open()`, `Close(saveAndPause)`,
   `IsOpen()`, `OnWindow(fn)`), which Polestar uses to put the game away
   before a landing.
+- A notice at the top of every Lua file the game loads: whose work it is and its licence
+  (petllama's engine and id Software's DOOM source under the GPL, Freedoom's
+  data under its BSD licence); his asset tools write the same notices into
+  the files they build.
 
 ## Building it again
 

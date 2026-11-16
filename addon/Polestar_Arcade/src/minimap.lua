@@ -1,3 +1,5 @@
+-- Freedoom Arcade by petllama (https://github.com/petllama/FreedoomArcade), in Polestar as Polestar_Arcade.
+-- Copyright (C) 2026 petllama. GPL-2.0-or-later, with petllama's permission: see LICENSE and CREDITS.md in this folder.
 -- Minimap button (no libraries): left-click opens/closes the game, drag to move it
 -- around the minimap edge. Also hooks the retail addon compartment if present.
 local D = FreedoomArcade

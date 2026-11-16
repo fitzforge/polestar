@@ -1,3 +1,5 @@
+-- Freedoom Arcade by petllama (https://github.com/petllama/FreedoomArcade), in Polestar as Polestar_Arcade.
+-- Copyright (C) 2026 petllama. GPL-2.0-or-later, with petllama's permission: see LICENSE and CREDITS.md in this folder.
 -- WoW integration: window, keyboard/mouse input, 35Hz game loop, slash commands.
 local D = FreedoomArcade
 local G, R, Draw = D.G, D.R, D.Draw

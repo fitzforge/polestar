@@ -1,3 +1,6 @@
+-- Freedoom Arcade by petllama (https://github.com/petllama/FreedoomArcade), in Polestar as Polestar_Arcade.
+-- This file was written for Polestar on top of petllama's code and is offered to him for his addon.
+-- GPL-2.0-or-later, like the rest of this folder: see LICENSE and CREDITS.md.
 -- FreedoomArcadeAPI: what other addons may call. Everything else in FreedoomArcade is internal and may
 -- change in any release; these stay as documented for a given version.
 --
