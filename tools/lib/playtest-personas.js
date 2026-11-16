@@ -17,6 +17,9 @@
 //   update     played the last release's guide up to a point, then updated:
 //              the current guide opens on that save (the Engine's mapping
 //              through Core/LegacySteps.lua) and the play goes on from there
+//   fresh      opened the guide with none of the earlier guides' quests done
+//              or carried (a character starting the route there); played for
+//              each guide the route leads into
 //
 // A play is stuck only when the guide holds the player on a step no action of
 // theirs can ever complete: a hand-in whose item is gone and that no step
@@ -26,7 +29,7 @@
 // first played once as the persona with nothing taken away (the baseline): a
 // guide stuck there counts as `baseline`, not as a persona's finding.
 
-const PERSONAS = ['skip', 'lost', 'elsewhere', 'update'];
+const PERSONAS = ['skip', 'lost', 'elsewhere', 'update', 'fresh'];
 
 // The items quest q's objectives ask for -> { item: count }.
 function itemNeeds(data, q) {

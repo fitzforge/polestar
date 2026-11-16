@@ -714,10 +714,14 @@ async function personaPlaytest({ dir = OFFICIAL_DIR, manifest, personas, filter 
 						return;
 					}
 					const plays = [];
-					for (const persona of personas.filter((p) => p !== 'update')) {
+					for (const persona of personas.filter((p) => p !== 'update' && p !== 'fresh')) {
 						for (const v of personaVariants(persona, g, data, sample)) {
 							plays.push(playGuideIn(pool, sim, g, { ...who, before: `${before}\n${v.before}`, script: lua(v.persona) }).then(([o]) => record(persona, v.variant, stuckOf(o))));
 						}
+					}
+					// fresh: a character who opens this guide with none of the earlier guides' quests done or carried.
+					if (personas.includes('fresh') && before.trim()) {
+						plays.push(playGuideIn(pool, sim, g, { ...who, script: lua(base) }).then(([o]) => record('fresh', 'opened the guide with nothing from the guides before it', stuckOf(o))));
 					}
 					const was = oldById.get(g.id);
 					if (personas.includes('update') && was && (g.category == null || g.category === 'Leveling') && shapeOf(was) !== shapeOf(g)) {

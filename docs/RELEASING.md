@@ -324,8 +324,9 @@ version throughout.
 
    Then the imperfect players: the guides played by players who skip a
    step, lose a quest item before its hand-in, did a quest before the guide
-   offers it, or update mid-guide from the last release (its save opened on
-   the new guides through `Core/LegacySteps.lua`). None may be stuck: held on
+   offers it, update mid-guide from the last release (its save opened on
+   the new guides through `Core/LegacySteps.lua`), or start the route at a
+   guide with nothing from the guides before it. None may be stuck: held on
    a step they can never complete. Give `--from` the last release's guides:
 
    ```sh

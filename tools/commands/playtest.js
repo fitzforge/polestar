@@ -68,6 +68,8 @@ follower, one race and class per guide, each variant a play of its own:
   elsewhere  did one of the guide's quests before the guide offers it
   update     played the last release's guide (--from) to a point, then
              updated: the guide opens on that save and goes on from there
+  fresh      opens a guide the route leads into with nothing from the guides
+             before it (a character who starts the route there)
 
 A play is stuck when the guide holds the player on a step they can never
 complete. One line per stuck play, then a count per persona:
@@ -79,7 +81,8 @@ A guide stuck with nothing taken away is listed once as \`baseline\`.
 Exit code 1 when any play is stuck.
 
 options:
-  --persona <list>      skip, lost, elsewhere, update (comma-separated) or all
+  --persona <list>      skip, lost, elsewhere, update, fresh (comma-separated)
+                        or all
   --sample <n>          the most skip and elsewhere plays per guide (default 8)
   --points <n>          update: the points of each changed guide (default 3)
   --from <dir>          update: the last release's guides (its pack.json names

@@ -97,7 +97,7 @@ test('update leaves the old guide at points spread over its steps, never its fir
 
 test('--persona names known personas; update needs --from; not with --honest', async () => {
 	for (const [args, re] of [
-		[['--persona', 'nope'], /--persona must be skip, lost, elsewhere, update or all \(got "nope"\)/],
+		[['--persona', 'nope'], /--persona must be skip, lost, elsewhere, update, fresh or all \(got "nope"\)/],
 		[['--persona', 'update'], /the update persona needs --from/],
 		[['--persona', 'skip', '--honest'], /does not go with --honest/],
 		[['--persona', 'skip', '--sample', '0'], /--sample must be a whole number/],
