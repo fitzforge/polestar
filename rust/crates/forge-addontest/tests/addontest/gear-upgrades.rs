@@ -24,12 +24,16 @@ const ITEMS: &str = r#"{
 	[9131] = "12 25 20 2 4 0 ap40",
 	[9140] = "13 25 20 2 2 15 agi3 dmin10 dmax18 speed1700",
 	[9150] = "1 25 20 2 4 1 int10 spi6 armor40 cls128",
+	[9160] = "15 25 20 2 2 2 agi3 dmin20 dmax30 speed2000",
+	[9161] = "13 25 0 1 2 14 dmin1 dmax2 speed2000",
+	[9162] = "21 25 20 2 2 15 agi3 dmin10 dmax18 speed1700",
+	[9163] = "22 25 20 2 2 15 agi3 dmin10 dmax18 speed1700",
 }"#;
 
 const LEVELING: &str = r#"{
-	names = { [9101] = "Militia Helm", [9102] = "Scholar Cap", [9103] = "Twin Helm" },
-	src = { [9101] = "q5001", [9102] = "q5001", [9103] = "q5001" },
-	quests = { [5001] = "20 15 1 12 0 0 0|9101,9102,9103||Alliance Choice" },
+	names = { [9101] = "Militia Helm", [9102] = "Scholar Cap", [9103] = "Twin Helm", [9110] = "Hunter Axe", [9140] = "Hunter Dagger" },
+	src = { [9101] = "q5001", [9102] = "q5001", [9103] = "q5001", [9110] = "q5002", [9140] = "q5002" },
+	quests = { [5001] = "20 15 1 12 0 0 0|9101,9102,9103||Alliance Choice", [5002] = "20 15 2 12 0 0 0|9110,9140||Hunter Choice" },
 	npcs = {}, zones = { [12] = "Elwynn Forest" },
 }"#;
 
@@ -211,6 +215,98 @@ fn reward_item_tooltips_best_pick_on_an_upgrade_pick_reward_pick_naming_it_on_th
 	for lines in [best, other, none, off] {
 		assert_eq!(lines.as_array().unwrap().last().map(text), Some("Scored for Arms until you spend talent points"), "{}", lines);
 	}
+}
+
+fn hunter() -> Opts {
+	Opts { cls: "HUNTER", class_name: "Hunter", class_id: 3, ..Default::default() }
+}
+
+const STATS: &str = "Your ranged damage uses this weapon's stats, not its damage";
+
+fn stats_lines(lines: &Value) -> usize {
+	lines.as_array().map_or(0, |l| l.iter().filter(|l| text(l) == STATS).count())
+}
+
+// #2229: a Hunter's melee weapon counts for its stats, said once, right under Polestar's score line, on a quest
+// reward choice (Hidden Enemies' staff).
+#[test]
+fn a_hunters_melee_reward_choice_says_once_under_the_score_line_that_its_stats_count_not_its_damage() {
+	let out = run_with(
+		r#"
+		emit(g.showTooltip(GameTooltip, "item:9140"))
+		emit(g.showTooltip(GameTooltip, "item:9110"))
+		Polestar.Set("gear.pickTooltip", false)
+		emit(g.showTooltip(GameTooltip, "item:9140")) -- no pick line, skill unknown: nothing to explain
+		Polestar.Set("gear.pickTooltip", true); Polestar.Set("gear.tooltip", false)
+		emit(g.showTooltip(GameTooltip, "item:9140")) -- no score line to sit under
+	"#,
+		hunter(),
+	);
+	for lines in &out[..2] {
+		let l = lines.as_array().unwrap();
+		assert!(text(&l[0]).starts_with("Polestar | "), "{lines}");
+		assert_eq!(text(&l[1]), STATS, "{lines}");
+		assert_eq!(stats_lines(lines), 1, "{lines}");
+		assert!(l.iter().any(|l| is_match(text(l), r"^(Best|Reward) pick \| ")), "{lines}");
+	}
+	assert_eq!(stats_lines(&out[2]), 0, "{}", out[2]);
+	assert_eq!(stats_lines(&out[3]), 0, "{}", out[3]);
+}
+
+// Off the reward window: only a weapon whose skill is under half its cap, the case the report met (a staff at
+// skill 1), in every melee slot; the scores and the reward pick do not change with the rank.
+#[test]
+fn a_hunters_melee_weapon_says_it_while_its_skill_is_under_half_its_cap_whatever_the_rank_the_score_stays() {
+	let out = run_with(
+		r#"
+		Polestar.Set("gear.pickTooltip", false)
+		for _, rank in ipairs({ 1, 54, 55, 110 }) do
+			w.learnSkill(173, "Daggers", rank, 110); w.learnSkill(172, "Two-Handed Axes", rank, 110)
+			local lines = {}
+			for _, id in ipairs({ 9140, 9110, 9162, 9163 }) do lines[#lines + 1] = g.showTooltip(GameTooltip, "item:" .. id) end
+			emit({ lines = lines, score = G.ScoreItem("item:9140"), pick = G.QuestPick(5002).entry.id })
+		end
+	"#,
+		hunter(),
+	);
+	for (i, shown) in [(0, true), (1, true), (2, false), (3, false)] {
+		for lines in out[i]["lines"].as_array().unwrap() {
+			assert_eq!(stats_lines(lines), usize::from(shown), "rank case {i}: {lines}");
+			if shown {
+				assert_eq!(text(&lines[1]), STATS, "{lines}");
+			}
+		}
+		assert_eq!(out[i]["score"], out[0]["score"]);
+		assert_eq!(out[i]["pick"], 9110);
+	}
+}
+
+#[test]
+fn the_hunter_stats_line_is_not_for_other_classes_ranged_or_untrained_weapons_tools_or_forever_leveling_bis_scores() {
+	let out = run_with(
+		r#"
+		for _, id in ipairs({ 9160, 9161 }) do emit(g.showTooltip(GameTooltip, "item:" .. id)) end
+		G.UsesFLB = function(min) return min == 2 end
+		emit(g.showTooltip(GameTooltip, "item:9140"))
+		G.UsesFLB = function() return false end
+		w.learnSkill(45, "Bows", 1, 110) -- skills readable, Daggers not trained
+		emit(g.showTooltip(GameTooltip, "item:9140"))
+	"#,
+		hunter(),
+	);
+	for lines in &out {
+		assert_eq!(stats_lines(lines), 0, "{lines}");
+	}
+	assert!(text(&out[3][0]).ends_with("| weapon skill not trained"), "{}", out[3]);
+	let warrior = run(r#"w.learnSkill(173, "Daggers", 1, 110); emit(g.showTooltip(GameTooltip, "item:9162"))"#);
+	assert_eq!(stats_lines(&warrior[0]), 0, "{}", warrior[0]);
+}
+
+#[test]
+fn the_hunter_stats_line_is_in_the_clients_language() {
+	let locale = fake_locale("itIT", &[(STATS, "il danno a distanza usa le statistiche dell'arma, non il suo danno")]);
+	let out = run_with(r#"emit(g.showTooltip(GameTooltip, "item:9140"))"#, Opts { locale, ..hunter() });
+	assert_eq!(text(&out[0][1]), "il danno a distanza usa le statistiche dell'arma, non il suo danno", "{}", out[0]);
 }
 
 #[test]
