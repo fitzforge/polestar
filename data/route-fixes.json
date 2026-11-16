@@ -10503,7 +10503,7 @@
 			},
 			{
 				"q": 95737,
-				"reason": "Alliance 12-30 fix round 2 (0.4.0): Seeking Caitlin (1,250 XP, talk only, minimum level 24) is taken from Llana beside Astranaar's flight master on 06-wetlands' last Ashenvale stop (about 29.3) and handed to Caitlin Grassman beside Menethil's inn on the way from the boat to the flight master: no walk added. Players' recordings: 28 accepts, 26 hand-ins.",
+				"reason": "Alliance 12-30 fix round 3 (0.4.0): Seeking Caitlin (1,250 XP, talk only, minimum level 24) is taken from Llana beside Astranaar's flight master on 06-wetlands' first Ashenvale stop, with Shindrell Swiftfire's quest (the level model's lowest arrival there is 27.9, every race and class), carried through Ashenvale and handed to Caitlin Grassman beside Menethil's inn on the way from the boat to the flight master: no walk added, and Llana is no longer passed on the first stop. Players' recordings: 28 accepts, 26 hand-ins.",
 				"issue": "-"
 			},
 			{
