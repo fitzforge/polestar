@@ -4,7 +4,7 @@
 		"A new English text fails; so does an entry whose scenes all ran in its locale, with the Codex and quest database built, without it showing (fixed: remove it). `forge i18n leaks --update-baseline` adds what the run found and drops the stale entries; it never takes English from the code or an untranslated string or guide text."
 	],
 	"reasons": {
-		"no-source": "no source of `i18n names` (the client tables, the web names cache, DingDB, pfQuest) names it in this language: mostly Forever's own NPCs, objects and items; the client shows its own name once the player has seen it (Names.Learn)",
+		"no-source": "no source of `i18n names` (the client tables, the web names cache, DingDB, pfQuest) names it in this language: mostly Forever's own NPCs, objects and items; the client shows its own name once the player has seen it (Names.Learn). \"objective:<quest>\": a dungeon quest's objective text no source has, whose event objectives the Dungeons page shows in the quest data's English (the only kind of text taken here: the event has no name of its own to look up)",
 		"same-as-english": "every source names it in this language as in English (a Latin-script client keeps the name): the English is the client's name, and the names addon does not store it",
 		"kept-english": "a translation writes these words as the English does: mostly the names of Forever-only places and items no client names otherwise; a translator can still translate them"
 	},
@@ -37826,6 +37826,13 @@
 				],
 				"english": "Fishing Trap"
 			},
+			"objective:93404": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Woodwyrd extinguished"
+			},
 			"text:1500 Merchant's Favor": {
 				"reason": "kept-english",
 				"scenes": [
@@ -40128,6 +40135,13 @@
 					"guides"
 				],
 				"english": "Windstone Formation"
+			},
+			"objective:93404": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Woodwyrd extinguished"
 			},
 			"text:1,500 Merchant's Favor": {
 				"reason": "kept-english",
