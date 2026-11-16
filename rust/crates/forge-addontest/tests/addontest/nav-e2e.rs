@@ -3519,3 +3519,28 @@ fn t_2451_from_the_southern_barrens_the_walk_to_the_ancient_brazier_ends_in_spli
 	assert!(f(&out["withZ"]["d"]) < 15.0, "it ends at the brazier: {out}");
 	assert!((f(&out["withZ"]["z"]) + 70.5).abs() < 8.0, "on the cave's floor: {out}");
 }
+
+/// #2470 (Syllirra, Orc Warlock 29, 0.3.7.2, Ashenvale & Thousand Needles, "The Screeching Canyon"): dead in the
+/// Screeching Canyon (Thousand Needles 26.63,53.55 live), the ghost at the Windbreak Canyon graveyard (56.18,50.15
+/// live, 1,304 yd away) was led round through Tanaris, "26:59 total time". The walk on 0.4.0's maps, printed.
+#[test]
+fn t_2470_from_the_windbreak_graveyard_the_walk_to_a_corpse_in_the_screeching_canyon_stays_in_thousand_needles() {
+	skip_unless_ready!();
+	let out = run(
+		&format!(
+			"{FLOOR_WALK}{HEIGHT_WALK}{}",
+			r#"
+		Polestar.Set("nav.travel", false)
+		w.faction = "Horde"
+		w.race, w.raceName = "Orc", "Orc"
+		w.setLevel(29)
+		emit({ corpse = heightWalk(nil, 1441, 56.18, 50.15, 1441, 26.63, 53.55, nil, "Your corpse") })"#
+		),
+		true,
+	);
+	eprintln!("2470: {out}");
+	assert_eq!(out["corpse"]["found"], true, "a walk is found: {out}");
+	assert!(f(&out["corpse"]["d"]) < 15.0, "it ends at the corpse: {out}");
+	// 0.4.0's maps: about 1,720 yd across the canyons; a walk round through Tanaris is several times that.
+	assert!(f(&out["corpse"]["yards"]) < 2200.0, "it stays in Thousand Needles: {out}");
+}

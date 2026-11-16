@@ -1106,6 +1106,132 @@
 		],
 		"note": "Private Rocknot (Rocknot's Ale) stands inside Blackrock Depths, in the Grim Guzzler."
 	},
+	"12676": {
+		"set": {
+			"spawns": {
+				"1440": {
+					"f": "e",
+					"pts": [
+						[
+							74.98,
+							70.06
+						],
+						[
+							76.8,
+							67.3
+						],
+						[
+							72.5,
+							70.6
+						],
+						[
+							71.7,
+							69.8
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20032787 (Sharptalon) walks waypoint path 800327870: Ashenvale 71.7,69.8 to 76.8,67.3 through his spawn at 74.98,70.06"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-16: 70 people killed Sharptalon from 71,67 to 78,65 (the most at 74,70, 73,70 and 72,70)"
+			}
+		],
+		"note": "Sharptalon walks a path through the hills south of Splintertree Post from 71.7,69.8 up to 76.8,67.3; the data had his spawn alone (sweep for #2507)."
+	},
+	"12677": {
+		"set": {
+			"spawns": {
+				"1440": {
+					"f": "e",
+					"pts": [
+						[
+							54.4,
+							54.9
+						],
+						[
+							57.5,
+							56.05
+						],
+						[
+							59.3,
+							54
+						],
+						[
+							60.4,
+							52.2
+						],
+						[
+							61.4,
+							49.8
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20032807 (Shadumbra) walks waypoint path 800328070: Ashenvale 54.4,54.9 to 59.4,54.0 through her spawn at 57.5,56.05"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-16: 55 people killed Shadumbra from 53,54 to 62,50 (the most at 58,55, 59,54, 60,52 and 61,49)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2507"
+			}
+		],
+		"note": "Shadumbra walks a long path through Raynewood Retreat, from the road at 54,55 past her spawn up to 61,50; the data had her spawn alone, so the kill step for Shadumbra's Head pointed only at the western end of her path (#2507)."
+	},
+	"12678": {
+		"set": {
+			"spawns": {
+				"1440": {
+					"f": "e",
+					"pts": [
+						[
+							39.76,
+							65.21
+						],
+						[
+							43,
+							63.1
+						],
+						[
+							40.7,
+							66.4
+						],
+						[
+							42,
+							68.7
+						],
+						[
+							43.7,
+							68.8
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20032808 (Ursangous) walks waypoint path 800328080: Ashenvale 39.7,63.1 to 43.7,68.8 through his spawn at 39.76,65.21"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-16: 69 people killed Ursangous from 38,62 to 43,69 (the most at 40,66, 41,66 and 39,65)"
+			}
+		],
+		"note": "Ursangous walks a loop south-east of Astranaar from 39.7,63.1 down to 43.7,68.8; the data had his spawn alone (sweep for #2507)."
+	},
 	"12944": {
 		"set": {
 			"instances": [

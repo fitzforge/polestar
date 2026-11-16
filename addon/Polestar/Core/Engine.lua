@@ -1675,17 +1675,21 @@ function Own.feederIndex(g)
 					seen[from] = true
 					further[#further + 1] = from
 					read[#read + 1] = from
+					local starters = layoutOf(fg).starters
 					for s, step in ipairs(fg.steps) do
 						if not step.feeder and Guides.Matches(step.only, player) and Own.dungeonStepMayHold(step) then
 							for _, goal in ipairs(step.goals) do
-								local q = goal.quest
+								-- The collect of an item that starts a quest goes with that quest's
+								-- accept (#2494: Margol's Horn before The Horn of the Beast).
+								local starts = starters[goal]
+								local q = goal.quest or (starts and starts.quest)
 								if q and Guides.Matches(goal.only, player) then
 									local list = idx.goals[q]
 									if not list then
 										list = {}
 										idx.goals[q] = list
 									end
-									list[#list + 1] = { id = from, d = d, s = s, step = step, goal = goal }
+									list[#list + 1] = { id = from, d = d, s = s, step = step, goal = goal, starter = starts ~= nil }
 									if goal.t == "accept" and not idx.first[q] then
 										idx.first[q] = { id = from, guide = fg.title, title = goal.title, d = d, s = s, pre = goal.pre, preAll = goal.preAll }
 									end
@@ -2055,10 +2059,12 @@ function Own.feederPlan(g)
 		for q, how in pairs(set) do
 			-- The quest's goals in the guide of its accept (another guide's copy
 			-- of the accept left out), and its work and hand-in in the guides after.
+			-- The collect of the item that starts it comes only with its accept.
 			local first = idx.first[q]
 			for _, e in ipairs(idx.goals[q] or NONE) do
-				local fits = not first or e.id == first.id or (e.d < first.d and e.goal.t ~= "accept")
-				if fits and (how == true or e.goal.t ~= "accept") then
+				local take = e.goal.t ~= "accept" and not e.starter
+				local fits = not first or e.id == first.id or (e.d < first.d and take)
+				if fits and (how == true or take) then
 					local k = e.id .. ":" .. e.s
 					local st = byKey[k]
 					if not st then
