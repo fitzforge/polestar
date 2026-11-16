@@ -2609,6 +2609,18 @@
 			{
 				"a": [
 					"task",
+					151
+				],
+				"b": [
+					"task",
+					9
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Westfall): The Killing Fields' Harvest Watchers (level 14-15) were killed right after Molsen Farm's well, where players were at 13 (players' recordings, 0.3.7+: 25th percentile 13.3 at that step, 18 people died there, 8 of them to a higher mob). Their biggest field (11 of 24 spawns) lies between the Jansen Stead and Saldean's Farm, so they are killed on the walk south after the Jansen Stead, right before Saldean's hand-ins, at about 14 (25th percentile 14.3-14.5 there): mobs at most one level up, no extra walking."
+			},
+			{
+				"a": [
+					"task",
 					22
 				],
 				"b": [
@@ -2704,15 +2716,135 @@
 			},
 			{
 				"a": [
+					"turnin",
+					319
+				],
+				"b": [
 					"task",
 					313
 				],
-				"b": [
+				"faction": "Alliance",
+				"why": "Level tidy (0.4.0, Dun Morogh): the Grizzled Den's Elder Wendigos and Wendigo Shamans are level 8 and stand through the cave, and players reached the first den visit at a recorded 25th percentile of 6.3 (28 people died there, most to Wendigos). The den (the manes, Flintfire's shipments, Mountaineer Cornelius) is done once, after Brewnall's first visit, with Frosthowl's Sack of Fish (the route already went back into the den for it at about 9): the model has the den at about 8.2 now. The Grizzled Den goes to Pilot Stonegear on the east-bound depot stop, beside Pilot Bellowfiz's Return to Bellowfiz.",
+				"source": "level tidy 0.4.0"
+			},
+			{
+				"a": [
 					"turnin",
-					317
+					315
+				],
+				"b": [
+					"task",
+					412
 				],
 				"faction": "Alliance",
-				"why": "Flow re-order (2026-11-07, Dun Morogh): Stocking Jetsteam (317) and The Grizzled Den (313) are both Steelgrill's Depot hand-ins at the two pilots standing side by side; the route walked to the depot for 317 alone after the boar and bear fields and came back after the den for 313 (dwarf/gnome 01-dun-morogh 'Steelgrill's Depot' after the fields on 0.3.4). The boars and bears are killed on the walk back from Rumbleshot's camp, both pilots take their quests on the one depot stop after the den and the Kharanos hand-ins, Razzle on the walk back west to Brewnall. The seed is re-cut for it."
+				"why": "Level tidy (0.4.0, Dun Morogh): the Leper Gnomes for Operation Recombobulation are level 8-10 and players reached them at a recorded 8.3; with the Grizzled Den moved after Brewnall they would come at about 7.6. They are worked on the Gnomeregan road after Brewnall's second visit (the model has it at about 9.1), on the way to Frostmane Hold, and Razzle takes the cogs on the walk back east through Kharanos.",
+				"source": "level tidy 0.4.0"
+			},
+			{
+				"a": [
+					"turnin",
+					315
+				],
+				"b": [
+					"task",
+					287
+				],
+				"faction": "Alliance",
+				"why": "Level tidy (0.4.0, Dun Morogh): Frostmane Hold's Hideskinners are level 9-10 and stand in pairs in the Hold (22 people died there, 11 to a higher troll); players reached it at a recorded 8.3. The Hold comes after Brewnall's second visit and the Leper Gnomes, at about 9.2, south-west of the village on the way to Tundra MacGrann, and Senir takes the report on the walk back east through Kharanos.",
+				"source": "level tidy 0.4.0"
+			},
+			{
+				"a": [
+					"turnin",
+					218
+				],
+				"b": [
+					"accept",
+					97277
+				],
+				"faction": "Alliance",
+				"why": "Level tidy (0.4.0, Coldridge Valley): Grund and Gozwin's Snow Leopard Prowler is level 6 and players took it at a recorded 4.8. It is done after Grik'nir and Grelin's hand-ins, from Anvilmar on the way north to the tunnel (the walk passes Anvilmar anyway), at about 5.4.",
+				"source": "level tidy 0.4.0"
+			},
+			{
+				"a": [
+					"turnin",
+					307
+				],
+				"b": [
+					"task",
+					94466
+				],
+				"faction": "Alliance",
+				"why": "Level tidy (0.4.0, Shamans, Loch Modan): Call of Fire's Stonesplinter Seers are level 13-14 and its Tunnel Rat Geomancers 12-13; Shamans did them right after the tunnel at a recorded 12.2 (the model has Gnome Shamans at 11.5), and 11 people died there. The Fire Tar comes off the Geomancers at the Silver Stream Mine with Filthy Paws, and the Reagent Pouch from the Seers after the second Thelsamar stop, at about 13.5; then the Fire Spirit Stone and Bruegs, and Shamans walk to Ironforge instead of flying.",
+				"source": "level tidy 0.4.0"
+			},
+			{
+				"a": [
+					"task",
+					91723
+				],
+				"b": [
+					"task",
+					52,
+					1
+				],
+				"faction": "Alliance",
+				"why": "Level tidy (0.4.0, Elwynn Forest): Protect the Frontier's Prowlers are level 9-10 and players reached the river step at a recorded 8.5 (19 died there). The Young Forest Bears (8-9) stay on the river step; the Prowlers are killed on the walk back to Guard Thomas after the logging camp and the Jasperlode Mine, at about 9.5, where the route already finished them.",
+				"source": "level tidy 0.4.0"
+			},
+			{
+				"a": [
+					"task",
+					456
+				],
+				"b": [
+					"task",
+					459
+				],
+				"faction": "Alliance",
+				"why": "Level tidy (0.4.0, Shadowglen): the Grells that carry the Fel Moss are level 2-3 and players start the field at level 1. The Young Nightsabers and Young Thistle Boars (1-2) around Aldrassil come first, then the Grells west of the tree, at about 2.",
+				"source": "level tidy 0.4.0"
+			},
+			{
+				"a": [
+					"turnin",
+					930
+				],
+				"b": [
+					"task",
+					486
+				],
+				"faction": "Alliance",
+				"why": "Level tidy (0.4.0, Teldrassil): Ursal the Mauler is level 12 among Gnarlpine of 9-11, and players reached him from the Oracle Glade at a recorded 10.8. He is hunted after Dolanaar and Lake Al'Ameth's hand-ins, at about 11.4, on the way back to Dolanaar again, where Athridas takes him; the walk is about the same length (Lake Al'Ameth to Ursal, then Dolanaar, instead of Ursal, Dolanaar, the lake and Dolanaar).",
+				"source": "level tidy 0.4.0"
+			},
+			{
+				"a": [
+					"task",
+					2518
+				],
+				"b": [
+					"task",
+					98392,
+					3
+				],
+				"faction": "Alliance",
+				"why": "Level tidy (0.4.0, Teldrassil): Witchmother Arysa is level 12 and players reached the named harpies at a recorded 10.5; Lady Sathrah's step is at 11.3. Hatescreech and Gaedress (10) are taken first, then Lady Sathrah by Wellspring Lake, and Arysa on the way back south to the moonwell.",
+				"source": "level tidy 0.4.0"
+			},
+			{
+				"a": [
+					"turnin",
+					109
+				],
+				"b": [
+					"accept",
+					963
+				],
+				"faction": "Alliance",
+				"why": "Level tidy (0.4.0, Night Elf Darkshore): For Love Eternal's Anaya Dawnrunner is level 16 and Night Elves reached Ameth'Aran at a recorded 25th percentile of 13.5 (the model 12.9). The quest waits for 03-darkshore, after Westfall, where it is done at about 17; this undoes the #2025 move into nightelf/02-darkshore.",
+				"source": "level tidy 0.4.0"
 			},
 			{
 				"a": [
@@ -3064,18 +3196,6 @@
 			},
 			{
 				"a": [
-					"task",
-					2870
-				],
-				"b": [
-					"turnin",
-					4127
-				],
-				"faction": "Alliance",
-				"why": "Flow review (2026-11-07, Alliance Feralas, #1167): Lord Shalzaru (2870) closes the southern mainland loop: from the Feral Scar yetis the walk goes on to the Isle of Dread and swims back to Sardor Isle, so Feathermoon takes the loop's hand-ins and Shalzaru's on one visit. It was a Feathermoon visit, then the boat out to the coast, the isle, and the boat back for his hand-in alone. The seed's note that Shalzaru waits for the end of the mainland loop (his level 47) still holds."
-			},
-			{
-				"a": [
 					"turnin",
 					208
 				],
@@ -3233,14 +3353,62 @@
 			{
 				"a": [
 					"turnin",
-					293
+					252
+				],
+				"b": [
+					"task",
+					222
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (07-thousand-needles, Duskwood 29-31): Worgen in the Woods' Nightbane Tainted Ones (30-31) and Vile Fangs (29-30) were hunted on the first loop south of Darkshire, where players were at 29 (players' recordings: 25th percentile 29.8, 5 people died there, 3 to a higher mob). They come after the west loop and Lord Ello's hand-in (252), right before the flight out of Darkshire, about a level later; Calor and Jonathan Carevin (223) are on the way back to the flight master. 222 and 223 pay 5,050 XP, so they stay in the route."
+			},
+			{
+				"a": [
+					"turnin",
+					1029
+				],
+				"b": [
+					"accept",
+					1025
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Ashenvale): An Aggressive Defense's Foulweald Den Watcher and Ursas (24-25) and Culling the Threat's Dal Bloodclaw (25) were 2 over players on 06-ashenvale (players' recordings, 0.3.7+: 25th percentile 23.3-23.5 at those steps, and no later step of that guide reaches 24). Raene gives both on 06-wetlands' Astranaar stop for her next part (1029 -> 1030) at about 29, where the quests still pay full XP: the Foulweald on the walk to Krolg, Dal Bloodclaw on the walk from Maestra's Post back to Astranaar, both handed in on the last Astranaar stop with 1046."
+			},
+			{
+				"a": [
+					"turnin",
+					1029
+				],
+				"b": [
+					"accept",
+					1054
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Ashenvale): see the pair before (turnin 1029 -> accept 1025): Culling the Threat is taken on the same Astranaar stop at about 29."
+			},
+			{
+				"a": [
+					"task",
+					1025
 				],
 				"b": [
 					"turnin",
-					1241
+					1030
 				],
 				"faction": "Alliance",
-				"why": "Flow (2026-11-07, Alliance 20-30): Cleansing the Eye goes to Archbishop Benedictus in the Cathedral on 06-wetlands' Stormwind stop, which takes The Missing Diplomat from Thomas in the same building, instead of being carried to the end of 30-40/01-hillsbrad-foothills."
+				"why": "Level tidy 0.4.0 (Ashenvale): the Foulweald (53,61) lies on 06-wetlands' walk from Astranaar south-east to Krolg (50.8,75), about 300 yd off the straight line."
+			},
+			{
+				"a": [
+					"turnin",
+					1140
+				],
+				"b": [
+					"task",
+					1054
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Ashenvale): Dal Bloodclaw's Thistlefur camp (39.6,36.3) lies between Maestra's Post (26,38) and Astranaar (36.6,49.6), about 650 yd more than the road, on 06-wetlands' last walk back to Astranaar's flight master."
 			},
 			{
 				"a": [
@@ -4953,18 +5121,6 @@
 			},
 			{
 				"a": [
-					"task",
-					1078
-				],
-				"b": [
-					"turnin",
-					1175
-				],
-				"faction": "Alliance",
-				"why": "Alliance 30-40 audit (0.3.7, 2026-11-09): Retrieval for Mauren (1078, level 26): its Crystalized Scales also drop from the Saltstone Basilisks (Forever's item data, 20%) that 30-40/03's Mirage Raceway step kills for A Bump in the Road at 32; the route farmed them on gray basilisks (23-27) in Stonetalon at 35 instead."
-			},
-			{
-				"a": [
 					"turnin",
 					1078
 				],
@@ -5474,6 +5630,162 @@
 			{
 				"a": [
 					"turnin",
+					99161
+				],
+				"b": [
+					"accept",
+					6064
+				],
+				"faction": "Alliance",
+				"why": "Dun Morogh (Dwarf Hunters, 0.4.0 audit): Taming the Beast is taken on the walk back to Grif Wildheart after Misty Pine Refuge, where the Hunter is past level 10, not on the Kharanos east stop, which made Hunters wait up to about 20 minutes for level 10 (level model)."
+			},
+			{
+				"a": [
+					"turnin",
+					98403
+				],
+				"b": [
+					"task",
+					486
+				],
+				"faction": "Alliance",
+				"why": "Teldrassil (0.4.0 audit): a group that did Twisted Hatred hands it to Tallonkai on the next Dolanaar stop, upstairs in the same inn, instead of walking past him and coming back after Lake Al'Ameth and Ursal."
+			},
+			{
+				"a": [
+					"task",
+					1025
+				],
+				"b": [
+					"accept",
+					1016
+				],
+				"faction": "Alliance",
+				"why": "Alliance 12-30 (0.4.0 fix round): Elemental Bracers (1016) is done on 06-wetlands' Ashenvale trip, between the Foulweald and Krolg, at about 29.7. On 06-ashenvale's Mystral Lake stop at 23-24 the Befouled Water Elementals (23-25) and Tideress (27, non-elite, drops the bracers) were two to four over the player: 0.3.5+ players' recordings show 4 people killed by Tideress and 4 by the elementals there."
+			},
+			{
+				"a": [
+					"task",
+					207
+				],
+				"b": [
+					"task",
+					97329
+				],
+				"faction": "Alliance",
+				"why": "Alliance 30-40 fix round 1 (0.4.0): Zimmix Sputterspark's rescue, Kebok's Bloodscalp Ears (189) and the Stolen Shipments (97328) are worked in the ruins of Zul'Kunda on 04b at about 36, beside the third troll tablet, not on 04's Savage Coast at about 34: the ruins' core (Berserkers, Headhunters, Witch Doctors 36-37) was three over the player there (0.3.5+ players' recordings: 23 deaths by 10 people in the ruins at 33.8-35.2)."
+			},
+			{
+				"a": [
+					"turnin",
+					622
+				],
+				"b": [
+					"task",
+					97047
+				],
+				"faction": "Alliance",
+				"why": "Alliance 30-40 fix round 1 (0.4.0): The Cook in the Cage is taken at Wendel's cage on 04b and worked from 40-50/01's Rebel Camp stop at about 41: the cage key drops only from Kurzen's Subchiefs (35-36, three of them beside Colonel Kurzen, a 39-40 elite) and Elites (36-37), two over players on 04b at about 35. Returning to Port (97048) goes to Captain Aransas on 40-50/01's Booty Bay stop."
+			},
+			{
+				"a": [
+					"task",
+					195
+				],
+				"b": [
+					"turnin",
+					574
+				],
+				"faction": "Alliance",
+				"why": "Alliance 30-40/04b fix round 1 (0.4.0): Sin'Dall's hill, where the Lashtail Raptors run, lies about 180 yd from the first jungle-ruins tablet, so the loop goes Zul'Kunda, the Lashtails, Nesingwary's tents, then the Rebel Camp hand-ins and south to Booty Bay (about 2,240 yd) instead of Zul'Kunda, the Rebel Camp, back south-west to the hill and north to Nesingwary (about 2,700 yd)."
+			},
+			{
+				"a": [
+					"task",
+					192
+				],
+				"b": [
+					"task",
+					188
+				],
+				"faction": "Alliance",
+				"why": "Alliance fix round 2 (0.4.0): Sin'Dall (37) is killed on 40-50/01-stranglethorn-vale's ride from the north-west coast to Nesingwary's camp at about 41, after the Shadowmaw Panthers, and handed to Ajeck there with Panther Mastery. On 30-40/04b players reach her hill at about 35.5 (level model without accept-time grinding; 3 recorded players, 4 deaths at the hill): two over them."
+			},
+			{
+				"a": [
+					"turnin",
+					1560
+				],
+				"b": [
+					"task",
+					82
+				],
+				"faction": "Alliance",
+				"why": "Alliance 40-50 fix round 1 (0.4.0): the Noxious Lair's Centipaar (Workers 48-49, Sandreavers and Swarmers 49-50) were two to three over players on the Tanaris guide at about 47: the chain (82, 10, 110, 113, 162) is worked on the Un'Goro guide's Gadgetzan landing at about 49.5; the accept stays where the route passes Fizzledowser."
+			},
+			{
+				"a": [
+					"turnin",
+					2874
+				],
+				"b": [
+					"task",
+					604
+				],
+				"faction": "Alliance",
+				"why": "Alliance 40-50 fix round 1 (0.4.0): the Wild Shore camp's Warlocks and Swashbucklers (41-43) were two over players on 40-50/01 at about 41: The Bloodsail Buccaneers' charts, orders and Swashbucklers (604) are done on 40-50/05's level-48 Booty Bay stop, where 608 is taken; the accept stays on 40-50/01."
+			},
+			{
+				"a": [
+					"task",
+					5082
+				],
+				"b": [
+					"task",
+					3783
+				],
+				"faction": "Alliance",
+				"why": "Alliance Winterspring fix round 1 (0.4.0): the Ice Thistle Hills (Yetis 55-56, Chimaeras 55-57) and the Ruins of Kel'Theril (Anguished Highborne 55-56) come after the Frostfire top-up, on the ride back east, not at 53.7 before it."
+			},
+			{
+				"a": [
+					"turnin",
+					5904
+				],
+				"b": [
+					"task",
+					6023
+				],
+				"faction": "Alliance",
+				"why": "Alliance 50-60 fix round 1 (0.4.0): Huntsman Radley and Cavalier Durgen (57, Scarlet Spellbinders 58 at his tower), Gahrron's Withering's cauldron (Cauldron Lord Soulwrath 58) and Redpath's Shield (Haunting Visions 57-58) were two to three over players on the Western Plaguelands guide at about 55-56: they are done on the Silithus guide's Plaguelands leg at about 59.5; the accepts stay where the route passes their givers."
+			},
+			{
+				"a": [
+					"accept",
+					8282
+				],
+				"b": [
+					"task",
+					8278
+				],
+				"faction": "Alliance",
+				"why": "Alliance 50-60 fix round 1 (0.4.0): the Silithus sands' Rock Stalkers (57-59), Dredge Crushers and Stonelash Flayers (57-58) were three over players on the Western Plaguelands guide at about 57: Noggle's Last Hope and Stepping Up Security are worked on the Silithus guide's Cenarion Hold arrival, before their hand-ins there."
+			},
+			{
+				"a": [
+					"turnin",
+					4512
+				],
+				"b": [
+					"accept",
+					6030
+				],
+				"faction": "Alliance",
+				"why": "Alliance 50-60 fix round 1 (0.4.0): Laris Geardawdle's jars (4512) are handed in on the Winterspring guide's Ironforge stop; the Silithus guide flew Talrendis -> Auberdine -> boat -> Ironforge -> boat -> Theramore -> Gadgetzan for that hand-in alone."
+			},
+			{
+				"a": [
+					"turnin",
 					5051
 				],
 				"b": [
@@ -5935,7 +6247,16 @@
 			"Forever follow-ups only after the quests before them: the turnin -> accept pairs above (the #51/#112/#128/#143/#148/#225 sweep), and every prerequisite the data has (the evaluator does not take a quest before them).",
 			"First-visit flight paths (2026-11-10, Fitz in game at Ratchet): a getfp goes in the first step that stands within about 60 yd of its flight master, not a later visit. Ratchet: Bragok stands 16 yd from Sputtervalve (accept 894) on the first Ratchet stop (horde/02-the-barrens), learned there instead of on the fly step after the beach. Camp Taurajo: Omusa Thunderhorn stands 54 yd from Kirge Sternhorn (accept 854), where Tauren pass at the end of tauren/01-mulgore, learned there instead of at 02-the-barrens' Camp Taurajo stop. Sweep of every leveling chain (all races, both factions; first route goal within 40 and 100 yd of each flight master vs its first getfp): these two only; no flight master passed with no getfp. The route writer's first-visit rule (60 yd, docs/forge/writer.md) writes both on every build.",
 			"Item-started quests' hand-ins hold (0.3.8): Sharptalon's Claw (2), Ursangous's Paw (23) and Shadumbra's Head (24) at Senani Thunderheart (horde/07-ashenvale), The Admiral's Orders (830) at Gar'Thok (orc and troll 01-durotar), Burning Shadows (832) at Neeru Fireblade (horde/03-silverpine-forest, the Neeru step now `when onquest 829,832`) and Attack on Camp Narache (781) at Chief Hawkwind (tauren/01-mulgore) were optional hand-ins beside other work at the same NPC, and the addon never holds an optional goal, so players who had the quest walked past its NPC and carried it finished. The hand-ins are plain goals (hidden for anyone who never took the quest). The guide writer marks such a hand-in optional ('optional at its NPC'); a writer rule that keeps an item-started quest's hand-in required is needed before the next route build, or that build marks them optional again.",
-			"Durotar (Orc, Troll), 0.4.0 start audit: no \"Mage trainer\" step on the Razor Hill training stop at about 11 sending Mages back to Mai'ah in the Valley of Trials (Razor Hill has no mage trainer, the stop's away-trainer line in forge-writer's training pass). Mages train with Un'Thuwa at Sen'jin on the way through at 8-10 and in Orgrimmar on the next guide's arrival at about 12; players' recordings (0.3.5+) show no Mage making the trip. Hand edit, pinned by tests/guides-reported.test.js; a later writer round turns this into the training pass's rule."
+			"Durotar (Orc, Troll), 0.4.0 start audit: no \"Mage trainer\" step on the Razor Hill training stop at about 11 sending Mages back to Mai'ah in the Valley of Trials (Razor Hill has no mage trainer, the stop's away-trainer line in forge-writer's training pass). Mages train with Un'Thuwa at Sen'jin on the way through at 8-10 and in Orgrimmar on the next guide's arrival at about 12; players' recordings (0.3.5+) show no Mage making the trip. Hand edit, pinned by tests/guides-reported.test.js; a later writer round turns this into the training pass's rule.",
+			"06-wetlands (0.4.0 fix round): a solo player who took the optional group quests The Branch of Cenarius (1031, Geltharis 32) or Insane Druids (1012, the Dor'Danil Barrow Den) gets a step after Illiyana to abandon them (`when !group`, `when onquest 1031,1012`): the route has no step to finish them alone. Training lines on 04 and 05 say 'Your new spells' instead of spell levels the player has passed. Hand edits.",
+			"Un'Goro Crater, fix round 1 (0.4.0): the first visit (40-50/07, 49-50) takes Torwa, the raft, Muigin's petals and the power crystals, with no top-up to 51; the pylons (4285, 4287, 4288, 4321), Shizzle's Flyer (4503), the bones and the expedition (3881, 3882, 3883) and A-Me 01 (4243) are taken and done on the Western Plaguelands guide's Un'Goro visit at about 57 (their Frenzied Pterrordax 51-54, Elder Diemetradons 53-55, Glutinous Oozes 52-54 and Gorishi 51-54 were two to four over players at 51). Their accepts are not carried from the first visit: seven quests through four guides would take the quest log past 35 on the Western Plaguelands guide. Hand edits.",
+			"40-50/01 -> 01b -> 02 (fix round 1, 0.4.0): the Stranglethorn guide ends in Ironforge; the Riverglades guide flies Ironforge -> Lakeshire; Ghak's mushrooms (17) are taken at the Thelsamar landing the Riverglades guide ends with. 40-50/02 no longer opens on a second hand-in of Scrounging (733), which 30-40/06 takes. Mudsprocket's three Wyrmbog quests (98205, 98215, 98231) are at the end of 40-50/02 after Theramore: on 40-50/03 they were behind `when zone \"Dustwallow Marsh\"`, which the route (from Shen'dralas) never met. Hand edits.",
+			"Mount Hyjal hand-off (fix round 1, 0.4.0): 50-60/04 learns Moonglade's flight path on its Rabine Saturna stop; the Mount Hyjal guide's log is lighter by the Summit's five group quests. Hand edits.",
+			"50-60/04 (fix round 1, 0.4.0): the Sorrow Hill and Writhing Haunt scourgestone lines say the stones drop only while the Argent Dawn Commission is worn; Moonglade's flight path is learnt from Sindrayl on the Rabine Saturna stop (the Mount Hyjal option flies there; 'Fly to Moonglade' failed in 13 of 13 honest playtest runs), and the step after it says to hearth to Ratchet, where the guide bound. Hand edits.",
+			"Fix round 1 (0.4.0): Teldrassil's Twisted Hatred (98403) is accepted in its own `when group 98403` step, like its work; Druids get Sentinel Selarin's offer (990) on 03-darkshore-return's Druid Auberdine stop with the same wait-or-change-layer tip as the other two stops; the Badlands' Buzzard Gizzard (7847) points at the Starving Buzzards (35-37, 15%) north of Hammertoe's Digsite and the Agmond's End line says the Buzzards there drop it rarely (players went to the Giant Buzzards, 39-41). Hand edits.",
+			"Alliance 50-60 fix round 3 (0.4.0): 50-60/01's top-up to 50.56 on the Thunderhead Hippogryphs (46-48, two to four under the player) around Sanath Lim-yo's camp is gone; its minutes land on the next one, \"Level 51.3 on the way north\" on the Spitelash Myrmidons (50-51), a `level` step with the dungeon line, where the Azshara quests that follow need the level (level model: no change to the route's hours). Hand edits.",
+			"Alliance 50-60 fix round 3 (0.4.0): after the Fallen Hero of the Horde (Swamp of Sorrows 34.3,66.1), 50-60/01 has a travel step back into the Blasted Lands to the bloodmages' camp by the road (50.6,14.2) before the beast hunt; the hunt's step changed zone with no travel line (honest playtest). Hand edits.",
+			"Alliance 40-50 fix round 2 (0.4.0): Snuff and Dizzy's Eye (587, 576) point at the Bloodsail camp north of Booty Bay (28.0,70.5; Raiders and Mages 39-41) instead of the Wild Shore's 41-45 pirates; Un'Goro's petals and soil at the Lashers and Threshers (56.6,35.0; 48-50) and J.D. Collie's crystals at the clusters on the jungle's north-eastern edge (72.2,21.1; Lashers, young Diemetradons and Pterrordax 48-50), away from the Flayers, Trappers, Tar Lords and oozes (50-54). Stranglethorn's three top-ups (42.16 at Zul'Mamwe, 42.16 on the basilisks, 42.46 in Dustwallow) are replaced by one top-up to 44.4 on the Riverglades' first Eastsea camp (buccaneers and musketeers 41-43) before the pirates' second wave (43-45), right before the content that needs it. Un'Goro's 49.79 top-up, shown only to players under the plan, points at the eastern jungle's Lashers and Threshers (48-50) instead of the Pterrordax (50-52); Azshara's 50.4 top-up (Highborne Apparitions 45-46, four under the player) is gone. Riverglades: In Need of Relief (96125) is taken on Watcher Cornelius's first hand-in stop and Out in the Field (95329) on the Saving Sunnyglade hand-in, where their givers stand; Claire's catalyst is filled first on the Sunnyglade step. Hand edits."
 		],
 		"never": [
 			{
@@ -6032,6 +6353,18 @@
 					93224
 				],
 				"why": "#1602: Captain Pentigast (66.7,10.9) stands beside Corporal Melkins (66.7,10.9) at Nijel's Point: both hand-ins on one stop."
+			},
+			{
+				"a": [
+					"turnin",
+					1465
+				],
+				"b": [
+					"accept",
+					1387
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): Centaur Bounty and Carved Centaur Totems are taken from Corporal Melkins and Captain Pentigast on 30-40/02's second Nijel's Point stop (Vahlarriel's, before the west), not on arrival: the Kolkar are the guide's last work, so the two ride the log through Sargeron one stop less. The totem quest is level 40 (its Kolkar are 33-36)."
 			},
 			{
 				"a": [
@@ -7058,18 +7391,6 @@
 			{
 				"a": [
 					"task",
-					609
-				],
-				"b": [
-					"task",
-					196
-				],
-				"faction": "Alliance",
-				"why": "Flow review (2026-11-07, Alliance Stranglethorn Vale 40-50, #1167): the Jungle Stalkers Raptor Mastery asks for (196) roam the slopes west of the Crystalvein Mine (23-35,37-52) where the Cold Eye Basilisks for A Meal Served Cold lie (27-28,40-43); they were killed on a trip of their own after the last Booty Bay stop, then a walk north to Nesingwary and back. Killed there with the basilisks. (2026-11-08: A Meal Served Cold is skipped for its 30-minute limit, so the stalkers are anchored after Maury and Jon-Jon, task 609, on the same jungle loop.)"
-			},
-			{
-				"a": [
-					"task",
 					2821
 				],
 				"b": [
@@ -8013,10 +8334,6 @@
 				"why": "#1542: Assassin's Contract starts from the contract (3668) that only the Shadowy Assassin (2434) drops: one stealthed mob on the edge of Southshore (players' recordings to 2026-11-10: seen by 5 people and killed by 4 in all, at spots spread from 47,62 to 55,54 on Hillsbrad's map). A required kill, collect and accept held the Southshore step of alliance/30-40/05-arathi-highlands until he showed up. Optional (take it if you spot him); the hand-in at Magistrate Henry Maleb stays a plain goal for whoever carries it."
 			},
 			{
-				"q": 523,
-				"why": "#1542: Baron's Demise follows Assassin's Contract (522), whose start drops only from the stealthed Shadowy Assassin; optional with it, so the route does not count on it. Its Strahnbrad objective and Southshore hand-in stay plain goals for whoever carries it."
-			},
-			{
 				"q": 4881,
 				"why": "Discord question (2026-11-09): Assassination Plot starts from the Assassination Note (12564), which only the Galak Messenger (10617) drops: one creature that walks a waypoint path about 1,300 yd long between the Galak camps of Thousand Needles (Forever's server data: MovementType 2, path 810106170, 66 nodes). Optional for the note and the accept (take it if you meet him); Kanati Greycloud's hand-in at Whitereach Post has its own step for whoever carries it, so it is never carried past."
 			},
@@ -8264,6 +8581,11 @@
 				"why": "Twisted Hatred (Teldrassil, level 12): Xethorr the Wicked is rank 1 at 12 in our creature data and players' recordings ('elite'), met at 9-11 on the walk to the Oracle Glade; recorded kills: 6 with no group, 3 grouped. A group of 2 is advised; the webwoods are soloable but the quest only completes with his moss."
 			},
 			{
+				"q": 3701,
+				"size": 2,
+				"why": "Alliance 50-60 fix round 2 (0.4.0): The Smoldering Ruins of Thaurissan's relics stand among the ruins' War Reavers and Thaurissan Firewalkers (53-55) with Thauris Balgarr (57) in range, two to five over players on the Burning Steppes guide at about 52, and the route has no later Burning Steppes visit: a group choice; the solo player skips it."
+			},
+			{
 				"q": 1173,
 				"size": 3,
 				"why": "Challenge Overlord Mok'Morokk is a fight with Overlord Mok'Morokk (level 45, rank 1 in Forever's creature data) the quest's event objective starts, so the world does not mark it elite; a rank-1 fight at 46-48 for a solo player, so a group of 3. Was optional (c15 review); now a group quest the route may take, with its solo fallback"
@@ -8322,6 +8644,16 @@
 				"q": 98310,
 				"size": 2,
 				"why": "Final route review (2026-11-07, Alliance Hillsbrad 30-40, #1173): Gleaning Our Future's four hearts drop only from Golm, Ados, Neru and Modr, level-32 rank-1 creatures in Forever's data that the Goaz Stones call up, at the route's 30-31; no recorded character has done it. An elite at the quest's level is a group quest: a group of 2, like Defeat Nek'rosh, with the route's solo fallback (the top-up for skipped group quests)."
+			},
+			{
+				"q": 1031,
+				"size": 2,
+				"why": "Level tidy 0.4.0 (Alliance, 06-wetlands' Ashenvale part): The Branch of Cenarius drops from Geltharis (level 32, normal) at the Xavian satyr camps (29-30), where players are at 29 (players' recordings: 25th percentile 28.6-29.2 on that stretch): 3 levels over a solo player. The route has no later Ashenvale visit east of Astranaar, and 30-40's only Ashenvale pass is a flight through Astranaar at about 35, so it is a group choice; the solo player skips it."
+			},
+			{
+				"q": 1012,
+				"size": 2,
+				"why": "Level tidy 0.4.0 (Alliance, 06-wetlands' Ashenvale part): Insane Druids' three level-32 druids sit deep in The Dor'Danil Barrow Den among quickly respawning Forsaken, at the route's 29 (3 over). Already optional; its barrow steps now wait for the group choice too. No later Ashenvale visit fits it."
 			},
 			{
 				"q": 541,
@@ -8392,6 +8724,21 @@
 				"q": 105,
 				"size": 3,
 				"why": "#1791 sweep: Alas, Andorhal's Araj's Phylactery Shard (17114) comes only from Araj's Phylactery (object 177241) at Western Plaguelands 45.27,69.21, where Araj the Summoner (1852, elite 61) stands among Skeletal Warlords (1788, elite 56-57). A group quest on the Horde 50-60 route, accept to hand-in."
+			},
+			{
+				"q": 665,
+				"size": 2,
+				"why": "Alliance level tidy (0.4.0): Faldir's Cove at the end of 30-40/05-arathi-highlands, about 38 for players (recorded 25th percentile 38.3): Professor Phizzlethorpe's escort (665) is ambushed by two level 40 water elementals, and the Drowned Reef's Daggerspine naga (664: Raiders 38-39, Sorceresses 39-40) are where 11 of 18 recorded players died. The whole cove (663, 662, 664, 665, 666, 668, 669) is one group choice on that step; the route has no later Arathi visit."
+			},
+			{
+				"q": 651,
+				"size": 2,
+				"why": "Alliance 30-40 fix round 1 (0.4.0): Stones of Binding's Stone of East Binding is guarded by three Cresting Exiles (38-39) that attack together, two over players on 30-40/05 at about 37 (recorded 25th percentile 37.8), with no later Arathi visit: the quest (accept, the three keys, the hand-in) is a group choice."
+			},
+			{
+				"q": 93584,
+				"size": 3,
+				"why": "Mount Hyjal (Alliance, fix round 1, 0.4.0): the Blackthorne camps north-east of the Summit of Eternity hold elite Outrunners, Priests and a Courier (60) as often as the Cultists and Adepts, with Ve'han Talongrasp (60 elite) in the middle and Ghansurok (61 elite) on the ridge; one recorded player stopped at 1/10. Cult Closure, Twisted Tools, A Thorn in the Paw, Cleansing Winds and Paying Back the Pact (93584, 92533, 93407, 92017, 92169) are one group choice."
 			}
 		]
 	},
@@ -8697,11 +9044,6 @@
 			{
 				"q": 1176,
 				"reason": "Alliance 30-40 re-order (2026-11-07): Load Lightening at the Mirage Raceway, at 33-34 on the Theramore crossing (30-40/03); left out at 30 for the level.",
-				"issue": "-"
-			},
-			{
-				"q": 1175,
-				"reason": "Alliance 30-40 re-order (2026-11-07): A Bump in the Road (the Saltstone basilisks, 30-35) at the Mirage Raceway, at 33-34 on the Theramore crossing (30-40/03); left out at 30 for the level.",
 				"issue": "-"
 			},
 			{
@@ -9919,11 +10261,6 @@
 				"issue": "-"
 			},
 			{
-				"q": 7735,
-				"reason": "Quest volume, Alliance 40-60 (0.3.7, 2026-11-09): Pristine Yeti Hide: half of Feralas' level-45 top-up is ground on the Rage Scar yetis (3% hide), so the hide is certain and handed to Pratt McGrubben on the next Feathermoon stop.",
-				"issue": "-"
-			},
-			{
 				"q": 1137,
 				"after": [
 					"turnin",
@@ -10103,11 +10440,6 @@
 					5149
 				],
 				"reason": "Quest volume, Horde 50-60 (0.3.7; moved to 50-60/05 by the 0.3.6 flow pass): Uncle Carlin (level 56, from 50, 2900 XP) is a message from Pamela Redpath in Darrowshire to Carlin Redpath at Light's Hope Chapel: 50-60/05 hands Pamela's doll in and rides back to the chapel to fly to Tarren Mill, where Carlin takes it and gives Defenders of Darrowshire (5211) on the same stop. A delivery with no fighting.",
-				"issue": "-"
-			},
-			{
-				"q": 3381,
-				"reason": "Quest volume, Alliance 50-60 (0.3.6 audit #11, 2026-11-09): A Meeting with the Master (48, 2200 XP; the data had no reward when the seed was cut, so it was written optional) is taken and handed in at Sanath Lim-yo's camp in Azshara (50-60/01), where the route tops up on the Thunderhead Hippogryphs that drop the two Undamaged Hippogryph Feathers (30% each): no walk of its own, and the XP comes before Burning Steppes' level-51 gate.",
 				"issue": "-"
 			},
 			{
@@ -10388,6 +10720,288 @@
 				"issue": "#2025"
 			},
 			{
+				"q": 290,
+				"after": [
+					"accept",
+					1132
+				],
+				"reason": "Alliance level tidy (0.4.0), agreed with the 12-30 slice: Lifting the Curse's Captain Halyndor (30) was met at about 28 in 06-wetlands (recorded 25th percentile 27.9). It is taken on 30-40/01-hillsbrad-foothills' Menethil stop at about 31, before the boat to Southshore, in place of most of that stop's top-up on the Bluegill murlocs.",
+				"issue": "-"
+			},
+			{
+				"q": 292,
+				"after": [
+					"turnin",
+					290
+				],
+				"reason": "Alliance level tidy (0.4.0): The Eye of Paleth comes from Intrepid's strongbox and goes to Glorin Steelbrow in Menethil's Deepwater Tavern on the same 30-40/01 stop.",
+				"issue": "-"
+			},
+			{
+				"q": 293,
+				"after": [
+					"turnin",
+					292
+				],
+				"reason": "Alliance level tidy (0.4.0): Cleansing the Eye goes from Glorin Steelbrow to Archbishop Benedictus, handed in on 30-40/01's own Stormwind stop (Cathedral of Light, with Bishop Farthing's 269).",
+				"issue": "-"
+			},
+			{
+				"q": 93429,
+				"after": [
+					"accept",
+					1389
+				],
+				"reason": "Swamp of Sorrows, #2416 (Yunra): Karana at the Harborage asks for ten Lost Ones, the mobs the route already kills in the Fallow Sanctuary for Draenethyst Crystals and The Lost Caravan (players' recordings: kills of Lost One Hunters, Muckdwellers and Seers count). Taken and handed in with Magtoor's quests.",
+				"issue": "#2416"
+			},
+			{
+				"q": 93430,
+				"after": [
+					"accept",
+					1389
+				],
+				"reason": "Swamp of Sorrows, #2416 (Yunra): Pelluk at the Harborage wants the Lucky Lure, which a Lost One Fisherman (35-36) drops on the Fallow Sanctuary's west side, on the route's way in (players' recordings: looted from a Lost One Fisherman). Taken and handed in with Magtoor's quests.",
+				"issue": "#2416"
+			},
+			{
+				"q": 505,
+				"after": [
+					"accept",
+					564
+				],
+				"reason": "Alliance level tidy (0.4.0): Syndicate Assassins' Footpads (32-33) and Thieves (33-34), with Syndicate Wizards (34-35) in the camp, were met at about 32 on 30-40/01's Southshore visit (recorded 25th percentile 32.8, 7 of 26 players died there). Magistrate Maleb's quest is taken on that Southshore stop, where the route already passes him, and carried; the camp is worked on 30-40/05's road north to Arathi at about 37, and the documents (510, 511) are handed in on the return to Southshore before Strahnbrad, so Noble Deaths (512) is done on the same Alterac trip.",
+				"issue": "-"
+			},
+			{
+				"q": 97617,
+				"reason": "Alliance level tidy (0.4.0), quest volume: Safety Checks (level 40, 3,150 XP). Dorgaron camps at the foot of the pass from Loch Modan into the Badlands, which 30-40/06 rides through to Hammertoe's Digsite; the artifacts drop from the Shadowforge diggers (35-36) and Stonevault Bonesnappers (39-40) that guide already fights, and the helmet lies in the Shadowforge camp (players' recordings at 52-54,30-34). The Pristine Mattock lies at Agmond's End among the Stonevault Shamans (40-41) beside Murdaloc (42) and is taken with him on 40-50/02's Badlands visit, which hands the quest in on its ride north.",
+				"issue": "-"
+			},
+			{
+				"q": 97329,
+				"after": [
+					"accept",
+					189
+				],
+				"reason": "Alliance level tidy (0.4.0), quest volume: Where's the Key? (35, 2,750 XP): Zimmix Sputterspark is caged in the Bloodscalp ruins on Stranglethorn's north-west coast, where 30-40/04's Savage Coast step already hunts Bloodscalp trolls for Kebok's ears at about 34 (the route walked past him); any Bloodscalp drops the key (players' recordings: 40 records of it). It makes up part of the experience the guide lost when Sin'Dall and the Lashtails moved to the second loop. Fix round 1 (0.4.0): worked in the ruins on 04b's Zul'Kunda step at about 36 instead (the ruins' core is 36-37).",
+				"issue": "-"
+			},
+			{
+				"q": 97331,
+				"after": [
+					"turnin",
+					97329
+				],
+				"reason": "Alliance level tidy (0.4.0), quest volume: Zimmix's Great Escape (35, 2,750 XP): lead Zimmix out of the ruins, then Wharfmaster Lozgil takes it on 30-40/04's second Booty Bay stop, with Kebok's ears. Fix round 1 (0.4.0): handed in on 04b's Booty Bay stop instead.",
+				"issue": "-"
+			},
+			{
+				"q": 97047,
+				"after": [
+					"accept",
+					574
+				],
+				"reason": "Alliance level tidy (0.4.0): The Cook in the Cage (level 38, 2,850 XP) and Returning to Port (97048, 2,850 XP): Wendel Mathers is caged at the western edge of Kurzen's Compound, where 30-40/04b's Special Forces step works at about 36; the key drops from the compound's Elites and Subchiefs (35-37, one level over at most) and the uniform lies in its eastern part (players' recordings: about 50,8), and Captain Aransas is on the guide's Booty Bay stop. 150 players are recorded doing it. Fix round 1 (0.4.0): the accept stays at Wendel's cage on 04b; the key, uniform and hand-in are on 40-50/01's Rebel Camp stop at about 41 (the Subchiefs and Elites are 35-37, Colonel Kurzen 39-40 elite beside them).",
+				"issue": "-"
+			},
+			{
+				"q": 97048,
+				"after": [
+					"turnin",
+					97047
+				],
+				"reason": "Alliance level tidy (0.4.0): Returning to Port follows The Cook in the Cage and is handed to Captain Aransas on 30-40/04b's Booty Bay stop. Fix round 1 (0.4.0): on 40-50/01's Booty Bay stop instead.",
+				"issue": "-"
+			},
+			{
+				"q": 97328,
+				"after": [
+					"accept",
+					194
+				],
+				"reason": "Alliance level tidy (0.4.0), quest volume: Anything of Value (35, 2,750 XP): the looted crate that starts it lies west of Nesingwary's camp, where 30-40/04 hunts the raptors (players' recordings: 31.5,12.8, 21 people, most on this guide at about 34.5), and the Stolen Shipments lie in the Bloodscalp ruins of Zul'Kunda, which the guide's Savage Coast step works for Kebok's ears and Zimmix; Wharfmaster Lozgil takes it with Zimmix's Great Escape on the second Booty Bay stop. Fix round 1 (0.4.0): the Stolen Shipments are taken in the ruins on 04b's Zul'Kunda step, handed to Lozgil on its Booty Bay stop.",
+				"issue": "-"
+			},
+			{
+				"q": 98205,
+				"after": [
+					"turnin",
+					1258
+				],
+				"reason": "Level tidy 0.4.0 (Alliance 40-50): an at-level quest on a walk the route already makes, so the band levels by questing rather than by the written grinds. Whelps are the Worst! (level 44, 3,750 XP): Mudsprocket lies just south of the road west out of Dustwallow Marsh, which the route rides after the level-43 Theramore stop on its way to Feralas; Searing Hatchlings and Whelps 41-43 (players' recordings: done at 44-48).",
+				"issue": "-"
+			},
+			{
+				"q": 98215,
+				"after": [
+					"turnin",
+					1258
+				],
+				"reason": "Level tidy 0.4.0 (Alliance 40-50): an at-level quest on a walk the route already makes, so the band levels by questing rather than by the written grinds. Dragon Scales, Post Burnt Tails (level 44, 3,750 XP): the scales drop from the same whelps and the Firemane dragonkin (41-44) of the Wyrmbog, taken with Whelps are the Worst!.",
+				"issue": "-"
+			},
+			{
+				"q": 98231,
+				"after": [
+					"turnin",
+					1258
+				],
+				"reason": "Level tidy 0.4.0 (Alliance 40-50): an at-level quest on a walk the route already makes, so the band levels by questing rather than by the written grinds. Active Ingredient (level 44, 3,750 XP): the Wyrmtail grows in the Wyrmbog east of Mudsprocket (players' recordings at 44-48,74-83), on the same Wyrmbog loop.",
+				"issue": "-"
+			},
+			{
+				"q": 93585,
+				"after": [
+					"turnin",
+					1396
+				],
+				"reason": "Alliance 30-40 fix round 1 (0.4.0): This Light of Mine (level 34, 2,700 XP), Father Tuttle's escort to the Harborage on the route's own walk from Watcher Biggs to Magtoor; more quest experience in a band whose levels sat a little low (players' recordings: 6 of 10 people finished it).",
+				"issue": "-"
+			},
+			{
+				"q": 93464,
+				"after": [
+					"turnin",
+					1389
+				],
+				"reason": "Alliance 30-40 fix round 1 (0.4.0): The Visiting Mage (level 38, 1,450 XP), from Magtoor at the Draenethyst hand-in to Azore Aldamort, whom 06b visits on its way to the Karnitol wreck: no extra walk. Its follow-up (93465) is far off the route and stays out.",
+				"issue": "-"
+			},
+			{
+				"q": 98233,
+				"after": [
+					"accept",
+					1265
+				],
+				"reason": "Alliance 40-50 fix round 1 (0.4.0): Sword in the Slime (level 42, 3,450 XP) from Guard Jameson in Theramore; its oozes are on the route's ride back east from the Shady Rest Inn.",
+				"issue": "-"
+			},
+			{
+				"q": 95786,
+				"after": [
+					"turnin",
+					205
+				],
+				"reason": "Alliance 40-50 fix round 1 (0.4.0): An Acquaintance in Southshore (level 40, 3,150 XP) from Brother Nimetz at the Rebel Camp hand-in of Troll Witchery, to Loremaster Dibbs on the Badlands & Hinterlands guide's Southshore stop: a delivery between two stops the route makes (players' recordings: 19 people handed it in).",
+				"issue": "-"
+			},
+			{
+				"q": 97540,
+				"after": [
+					"turnin",
+					1560
+				],
+				"reason": "Alliance 40-50 fix round 1 (0.4.0): Oasis (3,550 XP), offered by Tooga beside Torta right after Tooga's Quest and handed in on the spot (players' recordings, 5 people).",
+				"issue": "-"
+			},
+			{
+				"q": 86616,
+				"after": [
+					"accept",
+					2989
+				],
+				"reason": "Alliance 40-50 fix round 1 (0.4.0): Repurposed Totems (4,400 XP), Maret Firetend by Aerie Peak, the totems at the Altar of Zul, which the Hinterlands guide visits.",
+				"issue": "-"
+			},
+			{
+				"q": 86620,
+				"after": [
+					"accept",
+					2989
+				],
+				"reason": "Alliance 40-50 fix round 1 (0.4.0): Fledgling Rescue (4,900 XP), Gryphon Master Talonaxe, the eggs in the hills just east of Aerie Peak on the ride back.",
+				"issue": "-"
+			},
+			{
+				"q": 88807,
+				"after": [
+					"accept",
+					5535
+				],
+				"reason": "Alliance 50-60 fix round 1 (0.4.0): Talrendis Point's quests beside the shrine the Burning Steppes guide starts at (Slay the Spitelash, Home on the Range, Saving a Sentinel; about 13,000 XP) before the top-up for Kim'jael's camp.",
+				"issue": "-"
+			},
+			{
+				"q": 89001,
+				"after": [
+					"accept",
+					5535
+				],
+				"reason": "See 88807.",
+				"issue": "-"
+			},
+			{
+				"q": 88857,
+				"after": [
+					"accept",
+					5536
+				],
+				"reason": "See 88807: Keldara is held in the Haldarr camp the guide clears for 5536.",
+				"issue": "-"
+			},
+			{
+				"q": 86577,
+				"after": [
+					"accept",
+					5155
+				],
+				"reason": "Alliance 50-60 fix round 1 (0.4.0): A Sampling of Putrescence (5,650 XP), Kelek Skykeeper at the Emerald Sanctuary, from Felwood's bears and wolves on the route's own rides.",
+				"issue": "-"
+			},
+			{
+				"q": 87494,
+				"after": [
+					"accept",
+					4290
+				],
+				"reason": "Alliance 40-60 fix round 1 (0.4.0): Microcrystal Contamination (5,650 XP) starts from a Crystal Infused Scale that any ravasaur may drop; the Un'Goro guide's Threshadon carcass step stands among Venomhide Ravasaurs and Torwa Pathfinder takes it right after (players' recordings: 10 people took it at 49-54 all over the crater and handed it to Torwa). Optional, as the scale is a chance drop; the Western Plaguelands guide's Torwa stop takes it from whoever finds the scale later.",
+				"issue": "-"
+			},
+			{
+				"q": 87492,
+				"after": [
+					"accept",
+					4292
+				],
+				"reason": "Alliance 50-60 fix round 1 (0.4.0): Uncanny Crystal (5,650 XP, minimum level 50) from Torwa Pathfinder; its Damaged Blue Crystal (66.3,75.2) is a short ride west of Torwa (players' recordings: 7 people, 10-15 minutes). The first Un'Goro visit meets Torwa at about 49.7, under its minimum level, so the Western Plaguelands guide's Torwa stop (about 57.4) takes it.",
+				"issue": "-"
+			},
+			{
+				"q": 99257,
+				"after": [
+					"turnin",
+					93362
+				],
+				"reason": "Shen'dralas (fix round 1, 0.4.0, both factions): A Heart of Crystal (3,600 XP) from Historian Biraxas is a non-elite Decrepit Pylon Protector (42-43) by the road north: on the route, no longer optional.",
+				"issue": "-"
+			},
+			{
+				"q": 5639,
+				"reason": "Alliance starts fix round 2 (0.4.0): Dwarf Priests take High Priest Rohan's own Desperate Prayer (5639, minimum level 10) and hand it straight back on the Ironforge Mystic Ward stop, which the level model reaches at about 13.6, in place of Maxan Anvol's letter (5637), which made them wait in Kharanos for level 10 (about 17 minutes in the level model) for a letter that only sends them to Rohan.",
+				"issue": "-"
+			},
+			{
+				"q": 94817,
+				"reason": "Alliance starts fix round 2 (0.4.0): Gnome Priests take High Priestess Mims' own Confounding Flash (94817, minimum level 10) and hand it straight back on the Ironforge Mystic Ward stop, which the level model reaches at about 13.6, in place of Maxan Anvol's letter (94824), which made them wait in Kharanos for level 10 (about 17 minutes in the level model). A player's recording shows Mims' own quest taken and handed in at 13.",
+				"issue": "-"
+			},
+			{
+				"q": 95737,
+				"reason": "Alliance 12-30 fix round 3 (0.4.0): Seeking Caitlin (1,250 XP, talk only, minimum level 24) is taken from Llana beside Astranaar's flight master on 06-wetlands' first Ashenvale stop, with Shindrell Swiftfire's quest (the level model's lowest arrival there is 27.9, every race and class), carried through Ashenvale and handed to Caitlin Grassman beside Menethil's inn on the way from the boat to the flight master: no walk added, and Llana is no longer passed on the first stop. Players' recordings: 28 accepts, 26 hand-ins.",
+				"issue": "-"
+			},
+			{
+				"q": 97530,
+				"reason": "Alliance 40-50 fix round 2 (0.4.0): Dunemaul Dues (4,200 XP, level 47) is taken from Security Chief Bilgewhizzle on 40-50/04's first Steamwheedle Port stop, its bangle drops from every Dunemaul ogre of the compound's south end, where the guide already grinds, and it goes back to him from Torta, about 60 yd away, after Tooga's escort. Players' recordings: 7 accepts, 6 hand-ins at 46.3-47.8.",
+				"issue": "-"
+			},
+			{
+				"q": 88809,
+				"reason": "Alliance 50-60 fix round 2 (0.4.0): Preserving Eldarath (5,100 XP) is taken from Commander Truesong on 50-60/01's Talrendis hand-in; its Eldarath Relics drop from the Spitelash naga (48-51) of the top-up before Kim'jael, Lord Sarthiss (52) stands in their ruins, and it goes back to Truesong after Ravencrest, right before the hearth. Level model: with the four below, about 80 minutes less on the route and 2 hours less grinding.",
+				"issue": "-"
+			},
+			{
 				"q": 95141,
 				"after": [
 					"turnin",
@@ -10517,6 +11131,26 @@
 			{
 				"q": 86746,
 				"reason": "Horde 0.4.0 audit: The Legashi Threat (level 53, 5,250 XP, new in Forever) from Ekkal (Azshara 42.0,38.9), on 50-60/04's road between Valormok and the north-east; the Legashi satyrs (51-52) hold the hills north of the Thalassian Base Camp. Taken on the way out and handed in on the way back west. Players' recordings: taken and handed in at Ekkal, the satyrs killed at 56-59,19-23.",
+				"issue": "-"
+			},
+			{
+				"q": 92345,
+				"reason": "Alliance 50-60 fix round 2 (0.4.0): Beneath Nordrassil (550 XP, talk only) is taken from Commander Truesong on 50-60/01's Talrendis hand-in and handed to Mathrengyl Bearwalker in the Cenarion Enclave, where the same guide hands Un'Goro Soil to Jenal. Players' recordings: 3 accepts, 2 hand-ins in Darnassus.",
+				"issue": "-"
+			},
+			{
+				"q": 96797,
+				"reason": "Alliance 50-60 fix round 2 (0.4.0): The Orphan (4,100 XP, talk only): Orphan Matron Aria stands by Dalaran's walls, off 50-60/01's ride from Southshore north to Chillwind Camp, and Lieutenant Connar takes it inside Nethergarde Keep, where the same guide's flight lands. Players' recordings: 6 Alliance hand-ins.",
+				"issue": "-"
+			},
+			{
+				"q": 87295,
+				"reason": "Alliance 50-60 fix round 2 (0.4.0): Deflective Surface (5,100 XP): Bernie Heisten stands in Nethergarde Keep, where 50-60/01 lands; the Redstone Basilisk Scales drop from the basilisks the guide already kills for the bloodmages, and he takes them on the way back, before the hearth.",
+				"issue": "-"
+			},
+			{
+				"q": 5142,
+				"reason": "Alliance 50-60 fix round 2 (0.4.0): Little Pamela (2,800 XP) from Marlene Redpath on Sorrow Hill, on 50-60/03's road from Chillwind Camp east to the Eastern Plaguelands, in place of Sister Pamela (550 XP, exclusive with it, Jessica Redpath in Everlook): both go to Pamela in Darrowshire. Players' recordings: Marlene gave it to an Alliance player at 53.4.",
 				"issue": "-"
 			},
 			{
@@ -10902,6 +11536,150 @@
 				"issue": "-"
 			},
 			{
+				"q": 1175,
+				"faction": "Alliance",
+				"reason": "Alliance level tidy (0.4.0): A Bump in the Road needs six Saltstone Gazers (34-35), which hold the far south of the Shimmering Flats; players reach the Mirage Raceway at about 32-33 (30-40/03, recorded 25th percentile 33.0) and the route's next Raceway visit is at 45 (40-50/04), where the quest (level 33) is grey. Left out.",
+				"issue": "-"
+			},
+			{
+				"q": 537,
+				"faction": "Alliance",
+				"reason": "Alliance level tidy (0.4.0): Dark Council asks for Nagaz (40), who stands with Syndicate Enforcers (39-40) in north-west Alterac, on 30-40/05's Alterac trip at about 38; the 40-50 route's Southshore stop (02-badlands, about 43) would need a Stormpike-Maleb errand and a Crushridge trip of its own for about 4,500 XP. Left out, with Further Mysteries (525), which only leads to it.",
+				"issue": "-"
+			},
+			{
+				"q": 525,
+				"faction": "Alliance",
+				"reason": "Alliance level tidy (0.4.0): Further Mysteries only sends Stormpike's reply to Magistrate Maleb for Dark Council (537), which is left out.",
+				"issue": "-"
+			},
+			{
+				"q": 551,
+				"faction": "Alliance",
+				"reason": "Alliance level tidy (0.4.0): the Ensorcelled Parchment lies in a worn wooden chest beside Nagaz (40) and his Syndicate guards in north-west Alterac, about two levels over players on 30-40/05's Alterac trip. Left out, with Stormpike's Deciphering (554).",
+				"issue": "-"
+			},
+			{
+				"q": 554,
+				"faction": "Alliance",
+				"reason": "Alliance level tidy (0.4.0): Stormpike's Deciphering follows the Ensorcelled Parchment (551), which is left out.",
+				"issue": "-"
+			},
+			{
+				"q": 523,
+				"faction": "Alliance",
+				"reason": "Alliance level tidy (0.4.0): Baron's Demise asks for Baron Vardus (40), who turns up in Strahnbrad's inn cellar or a Syndicate tent camp north of it, on 30-40/05's Alterac trip at about 38. Left out; Assassin's Contract (522), which leads to it, stays optional.",
+				"issue": "-"
+			},
+			{
+				"q": 7003,
+				"faction": "Alliance",
+				"reason": "Level tidy 0.4.0 (Alliance 40-50, mobs two or more over the player block a solo step; player level = the recorded 25th percentile where 5+ players are recorded, else the calibrated level model): Zapped Giants: the zapped giants are 47-49 among elite Shore and Deep Striders (48-49) and Sea Elementals (48-49) at the Forgotten Coast, three or four over the player there (recorded 25th percentile 45.7, 5 players); the later Feralas stop (50-60/04) is at about 57, nine levels over the quest.",
+				"issue": "-"
+			},
+			{
+				"q": 7721,
+				"faction": "Alliance",
+				"reason": "Level tidy 0.4.0 (Alliance 40-50, mobs two or more over the player block a solo step; player level = the recorded 25th percentile where 5+ players are recorded, else the calibrated level model): Fuel for the Zapping: Sea Elementals 48-49 and Sea Sprays 47-48 at the Forgotten Coast, three or four over the 45 player there; the later Feralas stop is at about 57.",
+				"issue": "-"
+			},
+			{
+				"q": 7733,
+				"faction": "Alliance",
+				"reason": "Level tidy 0.4.0 (Alliance 40-50, mobs two or more over the player block a solo step): Improved Quality: the Rage Scar yetis are 46-49 (Elder Rage Scar 48-49) in the High Wilderness, two or more over the 45 player of the Feralas guide when it was written (Bennistrov's #1999: the guide wanted 47-48 mobs at 43); with the Riverglades and Shen'dralas in the route players end Feralas at about 47, still under the Elder Rage Scars, and the later Feralas stop (50-60/04) is at about 57, nine over the quest.",
+				"issue": "#1999"
+			},
+			{
+				"q": 7735,
+				"faction": "Alliance",
+				"reason": "Level tidy 0.4.0 (Alliance 40-50): Pristine Yeti Hide: a drop from the same Rage Scar yetis (46-49), left out with Improved Quality (7733).",
+				"issue": "#1999"
+			},
+			{
+				"q": 2641,
+				"faction": "Alliance",
+				"reason": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes: mobs two or more over the player block a solo step): The Thirsty Goblin (2605) waits for the Un'Goro guide's Gadgetzan landing at about 49 (Thistleshrub Valley 48-50, three over the 47 player of the Tanaris guide), so In Good Taste is handed in there and Sprinkle's Secret Ingredient comes after the route's last Hinterlands visit, where its water is drawn. Left out.",
+				"issue": "-"
+			},
+			{
+				"q": 2661,
+				"faction": "Alliance",
+				"reason": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes): Delivery for Marin follows Sprinkle's Secret Ingredient (2641), left out.",
+				"issue": "-"
+			},
+			{
+				"q": 2662,
+				"faction": "Alliance",
+				"reason": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes): Noggenfogger Elixir follows Delivery for Marin (2661), left out.",
+				"issue": "-"
+			},
+			{
+				"q": 3824,
+				"faction": "Alliance",
+				"reason": "Level tidy 0.4.0 (Alliance 50-60, minimum fixes: mobs two or more over the player block a solo step): Gor'tesh the Brute Lord (54) stands among the Blackrock Soldiers, Sorcerers, Slayers and Warlocks (55-57) at the foot of Blackrock Mountain, three to five over the 52-53 player of the Burning Steppes visit; the route makes no later Burning Steppes visit. Left out.",
+				"issue": "-"
+			},
+			{
+				"q": 3825,
+				"faction": "Alliance",
+				"reason": "Level tidy 0.4.0 (Alliance 50-60, minimum fixes): Ogre Head On A Stick = Party follows Gor'tesh the Brute Lord (3824), left out.",
+				"issue": "-"
+			},
+			{
+				"q": 4283,
+				"faction": "Alliance",
+				"reason": "Level tidy 0.4.0 (Alliance 50-60, minimum fixes): FIFTY! YEP! wants fifty Blackrock Medallions; below 53 only the seven Ember Worgs (51-52) drop them, so the work is the Blackrock orcs (55-58) at the foot of Blackrock Mountain, three to six over the 52-53 player. Left out.",
+				"issue": "-"
+			},
+			{
+				"q": 5211,
+				"faction": "Alliance",
+				"reason": "Level tidy 0.4.0 (Alliance 50-60, minimum fixes): Defenders of Darrowshire's spirits rise from the Scourge of Corin's Crossing (Crypt Slayers 58-59, Diseased Flayers 57-59, Scourge Champions 59-60), three to five over the 55 player of the Winterspring guide's Light's Hope stop; the later Eastern Plaguelands stop (50-60/04) is at about 56.5, still two to four under them. Left out.",
+				"issue": "-"
+			},
+			{
+				"q": 3381,
+				"faction": "Alliance",
+				"reason": "A Meeting with the Master is no longer a quest on Forever: Sanath Lim-yo's gossip teleports you to Archmage Xylem's tower for free, with no Undamaged Hippogryph Feathers asked (g4dz1n4's report, #2460, Dwarf Shaman 50 at Sanath on 0.3.7.2). The quest data's era rules mark it removed, and no recorded player took or handed it in. Left out; the Thunderhead Hippogryph top-up at Sanath's camp stays.",
+				"issue": "#2460"
+			},
+			{
+				"q": 7725,
+				"faction": "Alliance",
+				"reason": "Level tidy 0.4.0 (Alliance 40-60, minimum fixes): Again With the Zapped Giants needs Zapped Giants (7003), which the Feralas guide leaves out (its giants are 47-49 among elite Striders at 45). Left out.",
+				"issue": "-"
+			},
+			{
+				"q": 7726,
+				"faction": "Alliance",
+				"reason": "Level tidy 0.4.0 (Alliance 40-60, minimum fixes): Refuel for the Zapping needs Fuel for the Zapping (7721), which the Feralas guide leaves out. Left out.",
+				"issue": "-"
+			},
+			{
+				"q": 4296,
+				"faction": "Alliance",
+				"reason": "Alliance 50-60 fix round 1 (0.4.0): Tablet of the Seven's tablet stands in the Dark Iron camp of the Ruins of Thaurissan with Thauris Balgarr (57), five over players on the Burning Steppes guide at about 52, and the route has no later Burning Steppes visit. Left out.",
+				"issue": "-"
+			},
+			{
+				"q": 5637,
+				"faction": "Alliance",
+				"reason": "Alliance starts fix round 2 (0.4.0): Dwarf Priests take Rohan's own Desperate Prayer (5639) in Ironforge instead; the two are exclusive. Maxan Anvol's letter needs level 10 on the Kharanos east stop, which the level model reaches at about 9.8.",
+				"issue": "-"
+			},
+			{
+				"q": 94824,
+				"faction": "Alliance",
+				"reason": "Alliance starts fix round 2 (0.4.0): Gnome Priests take Mims' own Confounding Flash (94817) in Ironforge instead; the two are exclusive. Maxan Anvol's letter needs level 10 on the Kharanos east stop, which the level model reaches at about 9.8.",
+				"issue": "-"
+			},
+			{
+				"q": 5601,
+				"faction": "Alliance",
+				"reason": "Alliance 50-60 fix round 2 (0.4.0): Sister Pamela (550 XP) is exclusive with Little Pamela (5142, 2,800 XP), which Marlene Redpath gives on 50-60/03's road from Chillwind Camp to Darrowshire; both go to the same ghost.",
+				"issue": "-"
+			},
+			{
 				"q": 1878,
 				"faction": "Horde",
 				"reason": "#2394 (Zack): the Noonshade step asked for ten water pouches while Water Pouch Bounty (1707) needs five, so the step never ticked for players who stopped at five. The second bounty (1878, 380 XP) needed the other five; left out, the step asks for 1707's five.",
@@ -11144,19 +11922,6 @@
 				"faction": "Alliance",
 				"why": "Alliance 1-30 audit (#1415, route review vW1): Moonbrook Espionage goes with The People's Militia part 2 onto 03-loch-modan's Moonbrook walk; Explosive Consultation (92748) is handed to Sprite Jumpsprocket on the Stormwind stop before the boat.",
 				"source": "route review 2026-11-08 (vW1)"
-			},
-			{
-				"a": [
-					"turnin",
-					275
-				],
-				"b": [
-					"turnin",
-					292
-				],
-				"faction": "Alliance",
-				"why": "Alliance 1-30 audit (#1415, route review vWL4): The Eye of Paleth goes to Glorin Steelbrow (Deepwater Tavern) on the Menethil stop before the boat to Auberdine, not on a walk of its own between the two shipwreck trips (backtrack 15 -> 17, 1,039 yd).",
-				"source": "route review 2026-11-08 (vWL4)"
 			},
 			{
 				"a": [
@@ -13771,11 +14536,23 @@
 					2941
 				],
 				"b": [
-					"turnin",
-					2641
+					"task",
+					5863
 				],
 				"faction": "Alliance",
-				"why": "Alliance 40-60 order (2026-11-08, #1228): The Borrower (2941) goes to Curgle Cranklehop (52.4,26.9) first on the Gadgetzan stop, then Sprinkle and Marin Noggenfogger on the way out south to Un'Goro; the stop used to end at Curgle and walk back past Sprinkle."
+				"why": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes: mobs two or more over the player block a solo step): The Dunemaul Compound (Brutes 46-48, Gor'marok 49) is two over the 47-48 player of the Tanaris guide (the level model with the Riverglades and Shen'dralas in the route: 47.9 at the compound). It is taken at Gadgetzan's first stop and done on the Un'Goro guide's Gadgetzan landing at about 49.5, after The Borrower's hand-in, on the ride south-west toward the crater."
+			},
+			{
+				"a": [
+					"turnin",
+					2941
+				],
+				"b": [
+					"task",
+					3362
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes): Thistleshrub Valley (Rootshapers 49-50, Gnarled Thistleshrubs 48-49) and The Thirsty Goblin's Dew Collectors (47-48, among them) are three over the 47 player of the Tanaris guide (recorded 25th percentile 47.1, 8 players). Taken at Gadgetzan's first stop and done on the Un'Goro guide's Gadgetzan landing at about 49, after the Dunemaul Compound, then handed in at Gadgetzan before the ride to the crater."
 			},
 			{
 				"a": [
@@ -13787,7 +14564,19 @@
 					5216
 				],
 				"faction": "Alliance",
-				"why": "Alliance 40-60 order (2026-11-08, #1228): Janice Felstone's farmhouse (38.4,54.1) is the far end of the ride north from Chillwind Camp, so her parcel comes first and the Felstone Field cauldron (Cauldron Lord Bilemaw) on the way back south to the camp."
+				"why": "Alliance 40-60 order (2026-11-08, #1228): Janice Felstone's farmhouse (38.4,54.1) is the far end of the ride north from Chillwind Camp, so her parcel comes first. Since fix round 2 (0.4.0) the Felstone Field cauldron itself (Cauldron Lord Bilemaw 53, Jabbering Ghouls 54) waits for the Winterspring guide's Chillwind stop at about 55.6: on 50-60/01 at about 51.6 they were two and three over the player."
+			},
+			{
+				"a": [
+					"accept",
+					5097
+				],
+				"b": [
+					"task",
+					5216
+				],
+				"faction": "Alliance",
+				"why": "Alliance 50-60 fix round 2 (0.4.0): the Felstone Field cauldron is done from 50-60/03's Chillwind stop at about 55.6 (Bilemaw 53, Jabbering Ghouls 54), a short ride north-west of the camp, and MacDonnell takes it before Dalson's Tears' cauldron quest; on 50-60/01 at about 51.6 they were two and three over the player."
 			},
 			{
 				"a": [
@@ -14080,14 +14869,138 @@
 			{
 				"a": [
 					"turnin",
-					617
+					606
 				],
 				"b": [
 					"accept",
 					2872
 				],
 				"faction": "Alliance",
-				"why": "Level sweep (2026-11-08): Stoley's Debt (minimum level 40) is taken on the Booty Bay stop after the naga reeds (Akiris by the Bundle), at 40.6, not on arrival at 39.87-39.94 (the calibrated level model, every Alliance start); Stoley is in Tanaris, two guides on."
+				"why": "Level sweep (2026-11-08): Stoley's Debt (minimum level 40) is taken on the Booty Bay stop after the gorilla hills (Shaky's giblets), at about 40.6, not on arrival at 39.87-39.94 (the calibrated level model, every Alliance start); Stoley is in Tanaris, two guides on. (Level tidy 0.4.0: Akiris by the Bundle's naga wait for the level-48 Booty Bay stop.)"
+			},
+			{
+				"a": [
+					"turnin",
+					608
+				],
+				"b": [
+					"task",
+					617
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Alliance 40-50): Akiris by the Bundle's Naga Explorers are 43-44, three over the 41 player of the first Stranglethorn visit (recorded 25th percentile 41.8, 8 players). Taken and done on the level-48 Booty Bay stop of the Hinterlands guide after the Bloodsail captains, on the beaches north of town; carried from the first visit it took the quest log past 35 in the Riverglades."
+			},
+			{
+				"a": [
+					"turnin",
+					608
+				],
+				"b": [
+					"task",
+					621
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Alliance 40-50): Zanzil's village (Zanzil Naga, Witch Doctors and Zombies 43-44) is two over the 42 player of the first Stranglethorn visit (recorded 25th percentile 42.1, 6 players). Zanzil's Secret and Voodoo Dues are taken and done on the level-48 Booty Bay stop, north along the coast after the naga."
+			},
+			{
+				"a": [
+					"turnin",
+					608
+				],
+				"b": [
+					"task",
+					609
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes): Voodoo Dues' Maury, Jon-Jon and Chucky (43-44) stand in and beside Zanzil's village, two over the 42 player of the first Stranglethorn visit; done with Zanzil's Secret on the level-48 Booty Bay stop."
+			},
+			{
+				"a": [
+					"turnin",
+					608
+				],
+				"b": [
+					"task",
+					348
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Alliance 40-50): Mokk the Savage (44) answers Witch Doctor Unbagwa's ritual, three over the 41 player of the first Stranglethorn visit (recorded 25th percentile 41.5, 6 players, 5 of them died there). Stranglethorn Fever is taken on the level-48 Booty Bay stop and the ritual done there, at the Mistvale hills above town."
+			},
+			{
+				"a": [
+					"accept",
+					617
+				],
+				"b": [
+					"task",
+					587
+				],
+				"faction": "Alliance",
+				"why": "Alliance fix round 2 (0.4.0): Akiris by the Bundle, Zanzil's Secret and Voodoo Dues are taken where the first Stranglethorn visit passes their givers in Booty Bay (0-35 yd) and done on the level-48 Booty Bay stop: carried through the Riverglades the log peaks at about 33. Stranglethorn Fever (minimum level 40) stays on the level-48 stop.",
+				"source": "Alliance fix round 2 2026-11-16"
+			},
+			{
+				"a": [
+					"accept",
+					621
+				],
+				"b": [
+					"task",
+					587
+				],
+				"faction": "Alliance",
+				"why": "Alliance fix round 2 (0.4.0): Zanzil's Secret is taken on the first Booty Bay stop with Akiris by the Bundle (pair above).",
+				"source": "Alliance fix round 2 2026-11-16"
+			},
+			{
+				"a": [
+					"accept",
+					609
+				],
+				"b": [
+					"task",
+					205
+				],
+				"faction": "Alliance",
+				"why": "Alliance fix round 2 (0.4.0): Voodoo Dues is taken from MacKinley on the Booty Bay stop after the gorilla hills, where Shaky's errand is handed to him (pair above).",
+				"source": "Alliance fix round 2 2026-11-16"
+			},
+			{
+				"a": [
+					"turnin",
+					2874
+				],
+				"b": [
+					"accept",
+					348
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Alliance 40-50): Stranglethorn Fever is taken on the level-48 Booty Bay stop with Akiris by the Bundle (pair above).",
+				"source": "Alliance level tidy 2026-11-16"
+			},
+			{
+				"a": [
+					"turnin",
+					2801
+				],
+				"b": [
+					"task",
+					2581
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes): the bloodmages' five beast quests (Scorpok Stingers 50-51, Snickerfang Hyenas 49-50, Helboars 52-53) are three or four over the 47 player of the Hinterlands guide's Blasted Lands stop (recorded 25th percentile 47.8, 9 players). Taken there, done on the level-52 Blasted Lands stop of the 50-60 Burning Steppes guide with Kum'isha, and handed in at the bloodmages' camp before the hearth."
+			},
+			{
+				"a": [
+					"accept",
+					6604
+				],
+				"b": [
+					"task",
+					8464
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Alliance 50-60, minimum fixes): Winterfall Village's Shaman (56-57) and Ursa (57-58) are two and three over the 55 player of the Winterspring guide. Salfa's Winterfall Activity is taken there and its village kills done on the last guide's Everlook landing at about 59, east of town before the ride to Starfall Village; Salfa takes it on that guide's Winterspring stop as before."
 			},
 			{
 				"a": [
@@ -14731,6 +15644,227 @@
 				"faction": "Alliance",
 				"why": "Forest Song is on the road from the Emerald Sanctuary back to Talrendis Point, ridden right after Arei's escort (Ancient Spirit): the quest is handed in to Kayneth Stillwind there instead of on a later Gadgetzan -> Talrendis Point -> Forest Song -> Talrendis Point detour between flights (about 1,400 yd and a landing).",
 				"source": "0.4.0 audit (route audit A2)"
+			},
+			{
+				"a": [
+					"turnin",
+					1459
+				],
+				"b": [
+					"task",
+					188
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): Tiger Mastery's Sin'Dall (37) was hunted on Stranglethorn's first loop at about 34 (recorded 25th percentile 34.7, 8 players died on that coast). Ajeck gives it on that loop, when the elder tigers are handed in, and Sin'Dall's hill, just south-west of Nesingwary's camp, is hunted on 40-50/01-stranglethorn-vale's ride from the north-west coast to the camp at about 41 (fix round 2; at about 35.5 on 30-40/04b she was still two over).",
+				"source": "Alliance level tidy 2026-11-15"
+			},
+			{
+				"a": [
+					"turnin",
+					1459
+				],
+				"b": [
+					"task",
+					195
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): Raptor Mastery's Lashtail Raptors (35-36) were hunted on Stranglethorn's first loop at about 34 (recorded 25th percentile 34.3). Hemet gives it on that loop, when the Stranglethorn Raptors are handed in, and the Lashtails, which run around Sin'Dall's hill, are hunted with him at the end of the second loop (30-40/04b); Raptor Mastery (196) follows at the same hand-in.",
+				"source": "Alliance level tidy 2026-11-15"
+			},
+			{
+				"a": [
+					"task",
+					505
+				],
+				"b": [
+					"turnin",
+					634
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): the Syndicate camp on the Alterac border is worked on 30-40/05's road from Southshore to Arathi (about 1,300 yd more than the straight road), before Refuge Pointe's first stop.",
+				"source": "Alliance level tidy 2026-11-15"
+			},
+			{
+				"a": [
+					"accept",
+					500
+				],
+				"b": [
+					"task",
+					505
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): Syndicate Assassins is carried from 30-40/01's Southshore stop and worked after Marshal Redpath's stop on 30-40/05's way north, at about 37.",
+				"source": "Alliance level tidy 2026-11-16"
+			},
+			{
+				"a": [
+					"turnin",
+					191
+				],
+				"b": [
+					"accept",
+					192
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): Sir S. J. Erlgadin gives Panther Mastery (192) on 30-40/04's Panthers hand-in, where the route already stands at his tent; the Shadowmaw Panthers (37-38), three over players at 35, are hunted on 40-50/01's jungle ride at about 41 and handed in at Nesingwary's camp on that guide's ride north.",
+				"source": "Alliance level tidy 2026-11-16"
+			},
+			{
+				"a": [
+					"task",
+					196
+				],
+				"b": [
+					"task",
+					192
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): the Shadowmaw Panthers (37-38) prowl the jungle north-west of Zul'Mamwe, between the Jungle Stalkers' slopes and the north-west coast, which 40-50/01 rides at about 41.",
+				"source": "Alliance level tidy 2026-11-16"
+			},
+			{
+				"a": [
+					"task",
+					192
+				],
+				"b": [
+					"turnin",
+					196
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): Panther Mastery is handed to Sir S. J. Erlgadin with Hemet's Raptor Mastery, on 40-50/01's ride north to the Rebel Camp.",
+				"source": "Alliance level tidy 2026-11-16"
+			},
+			{
+				"a": [
+					"task",
+					196
+				],
+				"b": [
+					"task",
+					205
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): Troll Witchery's fetishes come from the Skullsplitter Mystics (39-40) in Zul'Mamwe's northern half, east of the Jungle Stalkers' slopes, on 40-50/01's jungle ride at about 41; at 35-36 on 30-40/04b the Skullsplitters (39-42) were four over the player (#2365).",
+				"source": "Alliance level tidy 2026-11-16"
+			},
+			{
+				"a": [
+					"turnin",
+					207
+				],
+				"b": [
+					"accept",
+					205
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): Brother Nimetz gives Troll Witchery on 30-40/04b's Kurzen's Mystery hand-in, where the route already stands; it is carried to 40-50/01, which works it and hands it in at the Rebel Camp.",
+				"source": "Alliance level tidy 2026-11-16"
+			},
+			{
+				"a": [
+					"task",
+					205
+				],
+				"b": [
+					"turnin",
+					196
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): Troll Witchery's fetishes are taken before the ride north, so Brother Nimetz takes them on the Rebel Camp stop that follows Nesingwary's camp.",
+				"source": "Alliance level tidy 2026-11-16"
+			},
+			{
+				"a": [
+					"accept",
+					6161
+				],
+				"b": [
+					"turnin",
+					1459
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): Rackmore's Log lies beside Karnitol's Chest, which 30-40/02 opens on the first Desolace visit; Claim Rackmore's Treasure! is taken there and carried to the south loop at the end of 30-40, where its keys and chest are.",
+				"source": "Alliance level tidy 2026-11-16"
+			},
+			{
+				"a": [
+					"accept",
+					97617
+				],
+				"b": [
+					"accept",
+					719
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): Dorgaron gives Safety Checks at the foot of the pass from Loch Modan, on 30-40/06's ride to Hammertoe's Digsite.",
+				"source": "Alliance level tidy 2026-11-16"
+			},
+			{
+				"a": [
+					"task",
+					739
+				],
+				"b": [
+					"turnin",
+					97617
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): Safety Checks' Pristine Mattock lies among Agmond's End's Stonevault Shamans (40-41) beside Murdaloc (42), one to three over players on 30-40/06 (about 38.5): it is taken with Murdaloc on 40-50/02's Badlands visit, which hands the quest to Dorgaron on its ride north to Loch Modan.",
+				"source": "Alliance level tidy 2026-11-16"
+			},
+			{
+				"a": [
+					"task",
+					4503
+				],
+				"b": [
+					"turnin",
+					4141
+				],
+				"faction": "Alliance",
+				"why": "Alliance 40-50 fix round 2 (0.4.0): Shizzle's Flyer is done on the first Un'Goro visit (40-50/07, about 50): the Fledgling Pterrordax (48-50) and Young Diemetradons (49-50) of the eastern jungle drop the same scales, at the player's level, on the step that takes Muigin's petals, and it goes back to Shizzle with the petals. At about 57 on the Western Plaguelands guide's visit it took some 80 kills of mobs five to eight under the player. Level model: route 1.85 h faster.",
+				"source": "Alliance fix round 2 2026-11-16"
+			},
+			{
+				"a": [
+					"turnin",
+					4291
+				],
+				"b": [
+					"accept",
+					4141
+				],
+				"faction": "Alliance",
+				"why": "Alliance 40-50 fix round 2 (0.4.0): The Scent of Lar'korwi goes back to Torwa from the raft on the first Un'Goro visit, at about 50, instead of riding the log for 29 hours through five guides to the second visit's Torwa stop.",
+				"source": "Alliance fix round 2 2026-11-16"
+			},
+			{
+				"a": [
+					"accept",
+					8278
+				],
+				"b": [
+					"accept",
+					9415
+				],
+				"faction": "Alliance",
+				"why": "Alliance 50-60 fix round 2 (0.4.0): Report to Marshal Bluewall and The Twilight Mystery are taken on the Silithus guide's first Cenarion Hold stop, where their work and hand-ins are, not on the Western Plaguelands guide's Cenarion Hold stop at about 57, which carried them through Mount Hyjal (quest log 36 there) and the trip back.",
+				"source": "Alliance fix round 2 2026-11-16"
+			},
+			{
+				"a": [
+					"accept",
+					8278
+				],
+				"b": [
+					"accept",
+					8284
+				],
+				"faction": "Alliance",
+				"why": "Alliance 50-60 fix round 2 (0.4.0): The Twilight Mystery is taken with Report to Marshal Bluewall on the Silithus guide's first Cenarion Hold stop (pair above).",
+				"source": "Alliance fix round 2 2026-11-16"
 			}
 		]
 	}

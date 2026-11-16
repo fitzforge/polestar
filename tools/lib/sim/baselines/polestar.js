@@ -185,6 +185,10 @@ function loadPolestarRoutes({ guidesDir, dataDir, data = null, faction = null, r
 		const list = g.nextChoices && g.nextChoices.length ? g.nextChoices : g.next ? [g.next] : [];
 		return list.filter((id) => byId.has(id));
 	};
+	// The guide's way on for this faction: its default `next` when that is one of ours, else its first option this
+	// faction follows (a leveling guide for both factions, such as forever/40-50/shendralas, lists each side's next
+	// guide; the addon goes on by the character's faction).
+	const nextOf = (g) => (g.next && byId.has(g.next) ? g.next : options(g)[0]);
 
 	// Graph of everything reachable from the start guide.
 	const nodes = [];
@@ -194,7 +198,7 @@ function loadPolestarRoutes({ guidesDir, dataDir, data = null, faction = null, r
 		const g = byId.get(queue[i]);
 		nodes.push({ id: g.id, title: g.title, levels: g.minLevel != null ? [g.minLevel, g.maxLevel ?? g.minLevel] : null, zone: g.zoneName || null });
 		for (const to of options(g)) {
-			edges.push({ from: g.id, to, default: to === g.next });
+			edges.push({ from: g.id, to, default: to === nextOf(g) });
 			if (!reach.has(to)) {
 				reach.add(to);
 				queue.push(to);
@@ -238,7 +242,7 @@ function loadPolestarRoutes({ guidesDir, dataDir, data = null, faction = null, r
 		const out = [];
 		for (let i = 0; i + 1 < ids.length; i++) {
 			const g = byId.get(ids[i]);
-			if (ids[i + 1] !== g.next) out.push({ from: ids[i], to: ids[i + 1] });
+			if (ids[i + 1] !== nextOf(g)) out.push({ from: ids[i], to: ids[i + 1] });
 		}
 		return out;
 	};
@@ -246,7 +250,7 @@ function loadPolestarRoutes({ guidesDir, dataDir, data = null, faction = null, r
 
 	// Default: follow `next` until it ends or would revisit a guide.
 	const defIds = [start.id];
-	for (let g = start; g.next && byId.has(g.next) && !defIds.includes(g.next); g = byId.get(g.next)) defIds.push(g.next);
+	for (let g = start; nextOf(g) && !defIds.includes(nextOf(g)); g = byId.get(nextOf(g))) defIds.push(nextOf(g));
 
 	// Complete paths through the choices (no guide twice), counted up to the cap.
 	let count = 0;
@@ -294,7 +298,7 @@ function loadPolestarRoutes({ guidesDir, dataDir, data = null, faction = null, r
 				const ids = [...prefix, o];
 				const seen = new Set(ids);
 				for (let cur = byId.get(o); ; ) {
-					const nx = cur.next && byId.has(cur.next) && !seen.has(cur.next) ? cur.next : options(cur).find((x) => !seen.has(x));
+					const nx = nextOf(cur) && !seen.has(nextOf(cur)) ? nextOf(cur) : options(cur).find((x) => !seen.has(x));
 					if (!nx) break;
 					ids.push(nx);
 					seen.add(nx);

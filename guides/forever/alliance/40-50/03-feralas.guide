@@ -2,7 +2,7 @@
 guide forever/alliance/40-50/03-feralas
 title Feralas
 faction Alliance
-levels 43-45
+levels 45-47
 zone Feralas
 next forever/alliance/40-50/04-tanaris
 pitch Feathermoon's isle, ogres, yetis and the Isle of Dread.
@@ -16,12 +16,18 @@ con Boats to and from the island
 # into this file.
 # Added here: Rise of the Silithid (4267).
 # Left out: Lonebrow's Journal (1100). The Giant Guardian (2844) and Wandering Shay (2845) come on the later Feralas stop (50-60/04).
+# Left out: Zorbin's Zapped Giants and Fuel for the Zapping (7003, 7721; Sea Elementals and zapped giants 47-49, elite
+# giants around them) and Pratt's Improved Quality and Pristine Yeti Hide (7733, 7735; Rage Scar yetis 46-49, #1999).
+# Since the Riverglades and Shen'dralas joined the route, players arrive here at about 46: Lord Shalzaru (47) and the
+# Gordunni (44-46) are done on the guide's own loop again.
 
 step Into The Barrens
+  when !turnedin 93394
   zone The Barrens
   goto 49.5,78.4 "Into The Barrens"
 
 step Thalanaar flight master
+  when !turnedin 93394
   zone Feralas
   goto 89.5,45.9 "Thalanaar flight master"
   getfp "Thalanaar"
@@ -81,6 +87,7 @@ step The courier's boat
 
 step Gordunni ogres
   tip Ride east to the Gordunni camp in the hills south-east of the yeti valley: Warlocks and Shaman hold the camp, Brutes wander the slopes around it and further north.
+  tip Careful: the Gordunni Shaman are 44-45 and the Warlocks 43-44, casters a level or two over you here: pull them one at a time from the camp's edge, and take the Brutes (42-43) on the slopes first.
   kill 5236 quest 2982                -- Gordunni Shaman
   kill 5232 quest 2982                -- Gordunni Brute
   kill 5240 quest 2982                -- Gordunni Warlock
@@ -107,12 +114,19 @@ step Feathermoon Stronghold
   turnin 4130                         -- Ginro Hearthkindle
   accept 4131
   turnin 2821                         -- Pratt McGrubben
-  accept 7733
+  note Pratt's next order, Improved Quality, wants Rage Scar hides from yetis of 46-49: skip it.
 
 step Fly to Thalanaar
+  when taxi "Thalanaar"
   zone Feralas
   goto 30.3,43.3 "Feathermoon flight master"
   fly "Thalanaar"
+
+step Back to the coast
+  when !taxi "Thalanaar"
+  zone Feralas
+  tip You came into Feralas from Shen'dralas, so Thalanaar's flight path is still to learn: take the boat back to the coast and ride east along the road; you pick up the flight path when this guide ends at Thalanaar.
+  goto 43.3,42.7 "The Forgotten Coast"
 
 step Feralas
   zone Feralas
@@ -147,26 +161,18 @@ step The Writhing Deep
   accept 4265
   complete 4265
 
-# ---------------------------------------------------------------- Level 45, then the Rage Scar yetis
+# ---------------------------------------------------------------- Level 45 in Feral Scar Vale
 
 step Grind to 45
   zone Feralas
-  tip Ride west into Feral Scar Vale: its yetis are 43-45. The Rage Scar yetis in the hills to the north are 46-48, so they wait until you are 45. Or, with a group, run the Zul'Farrak dungeon instead.
+  tip Ride west into Feral Scar Vale: its yetis are 43-45. The Rage Scar yetis in the hills to the north are 46-49: leave them. Or, with a group, run the Zul'Farrak dungeon instead.
   level 45 grind 5292 -- grind on Feral Scar Yeti at Feral Scar Vale, Feralas
 
-step High Wilderness: kill these as you meet them
+step Ironfur bears
   zone Feralas
-  when level>=45
-  tip Ride north out of Feral Scar Vale into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a Pristine Yeti Hide, which Pratt pays for too.
-  tip Careful: the Rage Scar yetis are level 46-48, still one to three above you at 45: take them from the edge of the hills, one at a time.
+  tip Ride north out of Feral Scar Vale: the Ironfur Bears (41-42) at the foot of the High Wilderness drop Rhapsody's last liver.
+  tip Careful: Ironfur Patriarchs (48-49) and the Rage Scar yetis (46-49) roam the hills further north: stay at their edge.
   collect 6258 quest 1452.2 @53.2,47.3 map 1444
-  collect 18947 quest 7733            -- Rage Scar Yeti Hide
-
-step Rage Scar Hold
-  when level>=45
-  tip No Pristine Yeti Hide yet? Keep killing the Rage Scar yetis until one drops, then right-click it.
-  collect 18969                       -- Pristine Yeti Hide
-  accept 7735
 
 step Feathermoon Stronghold
   tip Ginro Hearthkindle stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
@@ -177,34 +183,26 @@ step Feathermoon Stronghold
 
 step Feathermoon Stronghold
   note Shandris then asks you to carry news to Darnassus: skip it, Gadgetzan sends you there instead.
-  turnin 7733                         -- Pratt McGrubben
-  turnin 7735
 
-# ---------------------------------------------------------------- The Forgotten Coast
-
-step Boat to The Forgotten Coast
+step Fly to Thalanaar
+  when taxi "Thalanaar"
   zone Feralas
-  goto 31.0,39.8 "Boat to The Forgotten Coast"
+  goto 30.3,43.3 "Feathermoon flight master"
+  fly "Thalanaar"
 
-step Zorbin Fandazzle
-  tip Ride back to the Forgotten Coast; the goblin stands by the dock.
-  accept 7003
-  accept 7721
-
-step The Forgotten Coast: kill these as you meet them
+step Ride to Thalanaar
+  when !taxi "Thalanaar"
   zone Feralas
-  tip Shore Striders, Deep Striders and Wave Striders (elite giants) wade along the coast north of the dock: zap one with Zorbin's Ultra-Shrinker and kill the shrunken giant. Sea Elementals and Sea Sprays drift in the same surf.
-  collect 18958 quest 7721            -- Water Elemental Core
-  collect 18956 quest 7003            -- Miniaturization Residue
-  use 18904 quest 7003.1 @44.3,46.6 map 1444
-
-step Zorbin Fandazzle
-  turnin 7003
-  turnin 7721
-  note Zorbin's refills are level 55: skip them.
-  note The Tanaris guide starts with the trip east, past Thalanaar.
+  tip No flight path to Thalanaar yet: take the boat back to the coast and ride east along the road to Thalanaar, on the Thousand Needles border.
+  goto 89.5,45.9 "Thalanaar"
 
 step Thalanaar
   when onquest 4281
   tip Ride north-east to the night elf outpost on the Thousand Needles border.
   turnin 4281                         -- Falfindel Waywarder walks around Thalanaar: look inside the circle on the map
+
+step Thalanaar flight master
+  when !taxi "Thalanaar"
+  zone Feralas
+  goto 89.5,45.9 "Thalanaar flight master"
+  getfp "Thalanaar"

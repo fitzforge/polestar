@@ -1,7 +1,7 @@
 ---
 section: players
 ---
-- Polestar Experimental now has Mount Hyjal (levels 57-59) for the
+- Polestar Experimental now has Mount Hyjal (levels 57-60) for the
   Alliance, as one guide: the Tainted Foothills and Felblood Scar; Barkskin
   Burrow, Elderwild and the Cradle of Tranquility; then the Shrine of
   Aviana, Dae'gun and the Summit of Eternity. The zone's elite quests are a

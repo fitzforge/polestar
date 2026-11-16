@@ -551,18 +551,12 @@ fn the_real_route_compiled_with_the_offers_and_without_them_has_the_same_default
 			}
 		}
 	}
-	assert_eq!(offered.len(), 2, "the two offers: {offered:?}");
-	// The Horde has no offer since 0.4.0: the Riverglades and Shen'dralas are its route.
+	assert_eq!(offered.len(), 1, "the one offer (Mount Hyjal): {offered:?}");
+	// Since 0.4.0 the Riverglades and Shen'dralas are in both factions' routes: the Horde has no offer, the Alliance
+	// only Mount Hyjal.
 	for (race, faction, offers) in [
 		("Orc", "Horde", json!([])),
-		(
-			"Human",
-			"Alliance",
-			json!([
-				"forever/alliance/30-40/06-badlands -> polestar-experimental/riverglades-alliance-1",
-				"forever/alliance/50-60/04-western-plaguelands -> polestar-experimental/hyjal-1"
-			]),
-		),
+		("Human", "Alliance", json!(["forever/alliance/50-60/04-western-plaguelands -> polestar-experimental/hyjal-1"])),
 	] {
 		let (a, b) = (route_of(&with, race, faction), route_of(&without, race, faction));
 		assert!(a["route"].as_object().unwrap().len() > 20, "{race}: the guides are in");

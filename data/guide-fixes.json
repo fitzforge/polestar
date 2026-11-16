@@ -368,8 +368,9 @@
 			"id": "alliance-swamp-of-sorrows-noboru-roams",
 			"faction": "Alliance",
 			"at": { "quest": 1389, "goal": "objective", "objective": 1 },
-			"tip": "East along the road to the Fallow Sanctuary. The Lost One mobs drop the crystals. Noboru the Cudgel walks a long path through the ruins: if you meet him, kill him, his cudgel starts a quest for Magtoor. Don't wait for him.",
-			"note": "Roaming-NPC sweep: the step waited on Noboru the Cudgel (5477), who walks a waypoint path through the ruins; his cudgel (6196) and Noboru the Cudgel (1392) are optional now (route-fixes deliberate.optional 1392), so the tip says not to wait for him.",
+			"tip": "East along the road to the Fallow Sanctuary. The Draenethyst Crystals are the glowing blue crystals among the Lost Ones' tents: click them. Any Lost One counts for Karana, and the Lost One Fishermen on the sanctuary's west side carry Pelluk's Lucky Lure. Noboru the Cudgel walks a long path through the ruins; his cudgel starts a quest for Magtoor. Don't wait for him.",
+			"note": "Roaming-NPC sweep: the step waited on Noboru the Cudgel (5477), who walks a waypoint path through the ruins; his cudgel (6196) and Noboru the Cudgel (1392) are optional now (route-fixes deliberate.optional 1392), so the tip says not to wait for him. #2416 (Yunra, a level 37 Gnome Warlock on client 70938): the crystals are clicked from the blue crystal objects in the camps (the quest data's objective comes from the Draenethyst Crystals object), not dropped by the Lost Ones; Karana's (93429) and Pelluk's (93430) quests are worked on the same stop.",
+			"issue": 2416,
 			"source": [
 				{ "kind": "tdb", "ref": "creature 5477: MovementType 2, waypoint path 810054770 (56 nodes, 221 x 544 yd)" }
 			]
@@ -400,14 +401,73 @@
 		{
 			"id": "1089-auberdine-selarin-respawns",
 			"faction": "Alliance",
-			"at": { "quest": 990, "goal": "accept" },
-			"tip": "From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first (Thundris Windweaver, Alanndarian Nightsong by the moonwell, Archaeologist Hollee), then down the main street: the WANTED poster outside the inn, Terenthis at its east end, where the road leaves south. Sentinel Selarin stands beside Terenthis by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment.",
-			"note": "Trek to Ashenvale: Sentinel Selarin (npc 3694) stands beside Terenthis by Auberdine's flight master; the reporter found her missing, then she respawned (#1089). Her spot is right (players' recordings: 29 people opened her window at 38-40,43-45, Terenthis's spot), so the tip says to wait instead of moving the point. Since 0.4.0 03-loch-modan's gryphon to Stormwind and boat are skipped by a player who hearths to Auberdine (bound there on the first Darkshore visit), so the tip names the inn as well as the dock.",
+			"at": { "quest": 990, "goal": "accept", "guide": "forever/alliance/03-darkshore-return" },
+			"tip": "From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first (Thundris Windweaver, Alanndarian Nightsong by the moonwell, Archaeologist Hollee), then down the main street: the WANTED poster outside the inn, Terenthis at its east end, where the road leaves south. Sentinel Selarin (Trek to Ashenvale) is beside Terenthis only for a few minutes at a time: she comes shortly after someone hands in Volcor's escort and leaves again about 5 minutes later. If she isn't there, don't wait: the guide offers her quest again when you hand in Volcor's escort to Terenthis yourself. Changing layer can also find her.",
+			"note": "Trek to Ashenvale: Sentinel Selarin (npc 3694) stands beside Terenthis by Auberdine's flight master only for a few minutes at a time. She is not killed and respawning (#1089's first reading): she comes shortly after someone hands in Volcor's escort (Escape Through Force 994 / Stealth 995) and leaves about 5 minutes later (#1811, #2413). So her quest is optional (1811-selarin-optional: the step no longer holds a player while she is away), and the route offers it again right after the player's own escort hand-in (records 1811-selarin-after-escort-*). Her spot is right (players' recordings: 29 people opened her window at 38-40,43-45). Since 0.4.0 03-loch-modan's gryphon to Stormwind and boat are skipped by a player who hearths to Auberdine, so the tip names the inn as well as the dock.",
 			"source": [
-				{ "kind": "in-game-check", "ref": "#1089: missing, then respawned" },
-				{ "kind": "recording", "ref": "npc 3694 windows: 29 people at Darkshore 38-40,43-45" }
+				{ "kind": "in-game-check", "ref": "#1811 (caltman24, 0.3.7.2): standing on her spot, no Selarin; she came a few minutes later and was gone again after about 5 minutes. mrdick47 found her right after finishing the escort, after waiting about 10 minutes on a quiet realm" },
+				{ "kind": "recording", "ref": "03-darkshore-return step 1 on the 0.3.6+ route: 8 of 27 players took 990 there (1-32 minutes after reaching the step), 19 left the step without it (some after 12-45 minutes); 3 players on 0.3.4 who handed in the escort took 990 0.6-2.9 minutes later; npc 3694 windows: 32 people at Darkshore 38-40,43-45" },
+				{ "kind": "in-game-check", "ref": "player check 2026-11-16: no Selarin on her spot; after a layer change she was there" }
 			],
-			"issue": 1089
+			"issue": 1811
+		},
+		{
+			"id": "1811-selarin-optional",
+			"faction": "Alliance",
+			"at": { "quest": 990, "goal": "accept" },
+			"optional": true,
+			"note": "Trek to Ashenvale never holds a step: Sentinel Selarin is beside Terenthis only for a few minutes after an escort hand-in (#1811; evidence on 1089-auberdine-selarin-respawns).",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#1811 (caltman24, 0.3.7.2): no Selarin on her spot; she came a few minutes later and left after about 5 minutes" }
+			],
+			"issue": 1811
+		},
+		{
+			"id": "1811-selarin-after-escort-ashenvale",
+			"faction": "Alliance",
+			"at": { "quest": 990, "goal": "accept", "guide": "forever/alliance/06-ashenvale" },
+			"follows": { "quest": 994, "goal": "turnin" },
+			"note": "06-ashenvale's Auberdine stop, Volcor's escort (994) to Terenthis: a player who missed Sentinel Selarin on 03-darkshore-return's first Auberdine stop (she is there only for a few minutes after an escort hand-in, #1811) gets her offer right after their own hand-in. Raene Wolfrunner takes it on 06-wetlands' Astranaar stop (`when onquest 990`).",
+			"source": [
+				{ "kind": "recording", "ref": "3 players on 0.3.4 who handed in the escort took 990 from Selarin 0.6-2.9 minutes later" },
+				{ "kind": "in-game-check", "ref": "#1811: she arrived after an escort hand-in and left about 5 minutes later" }
+			],
+			"issue": 1811
+		},
+		{
+			"id": "1811-selarin-after-escort-ashenvale-tip",
+			"faction": "Alliance",
+			"at": { "quest": 990, "goal": "accept", "guide": "forever/alliance/06-ashenvale" },
+			"tip": "Terenthis stands by the flight master, at the east end of the main street. No Trek to Ashenvale yet? Give it a minute after the hand-in: Sentinel Selarin comes to Terenthis's side shortly after Volcor's escort is handed in. Changing layer can also find her. Then back west to the dock.",
+			"note": "The tip of 06-ashenvale's Terenthis step with Selarin's second offer (1811-selarin-after-escort-ashenvale).",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#1811: she arrived after an escort hand-in and left about 5 minutes later" },
+				{ "kind": "in-game-check", "ref": "player check 2026-11-16: no Selarin on her spot; after a layer change she was there" }
+			],
+			"issue": 1811
+		},
+		{
+			"id": "1811-selarin-after-escort-wetlands",
+			"faction": "Alliance",
+			"at": { "quest": 990, "goal": "accept", "guide": "forever/alliance/06-wetlands" },
+			"follows": { "quest": 994, "goal": "turnin" },
+			"note": "06-wetlands' Auberdine stop (a player who still carries Volcor's escort hands it in here): Selarin's offer right after the hand-in, as on 06-ashenvale (1811-selarin-after-escort-ashenvale); Raene takes it on the Astranaar stop that follows the flight.",
+			"source": [
+				{ "kind": "recording", "ref": "3 players on 0.3.4 who handed in the escort took 990 from Selarin 0.6-2.9 minutes later" }
+			],
+			"issue": 1811
+		},
+		{
+			"id": "1811-selarin-after-escort-wetlands-tip",
+			"faction": "Alliance",
+			"at": { "quest": 990, "goal": "accept", "guide": "forever/alliance/06-wetlands" },
+			"tip": "Terenthis stands by the flight master. No Trek to Ashenvale yet? Give it a minute after the hand-in: Sentinel Selarin comes to Terenthis's side shortly after Volcor's escort is handed in. Changing layer can also find her.",
+			"note": "The tip of 06-wetlands' Auberdine step with Selarin's second offer (1811-selarin-after-escort-wetlands).",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#1811: she arrived after an escort hand-in and left about 5 minutes later" },
+				{ "kind": "in-game-check", "ref": "player check 2026-11-16: no Selarin on her spot; after a layer change she was there" }
+			],
+			"issue": 1811
 		},
 		{
 			"id": "westfall-goretusk-livers-background",
@@ -971,6 +1031,39 @@
 			"issue": 820
 		},
 		{
+			"id": "level-tidy-elwynn-elmpaw",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5545,
+				"goal": "accept"
+			},
+			"tip": "Careful: Elmpaw, a level 12 elite gnoll, walks the woods and hills from the logging camp north to Stone Cairn Lake and the gnoll camps: keep clear of him when you see him coming.",
+			"note": "Level tidy (0.4.0): Elmpaw (npc 248299) is a level 12 elite whose 24 spawn points run from the Eastvale Logging Camp north to Stone Cairn Lake and the Riverpaw camps, where the route works at 9-10 alone; no step warned about him.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 248299 Elmpaw: level 12, rank elite, spawns 68-80,33-84 in Elwynn Forest"
+				}
+			]
+		},
+		{
+			"id": "level-tidy-teldrassil-xethorr",
+			"faction": "Alliance",
+			"at": {
+				"quest": 923,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Xethorr the Wicked, a level 12 elite, prowls the east edge of the Befouled Webwoods north-west of Dolanaar: if you are alone, keep clear of the webwoods and go round him.",
+			"note": "Level tidy (0.4.0): Twisted Hatred's webwoods and Xethorr are a group step, but every player walks from Dolanaar past the webwoods to the Wellspring River and the Oracle Glade at about 10; Xethorr (npc 272116, level 12 elite) walks their east edge.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 272116 Xethorr the Wicked: level 12, rank elite, spawns 49-50,40-52 in Teldrassil"
+				}
+			]
+		},
+		{
 			"id": "823-de-vries-apple-treat",
 			"faction": "Alliance",
 			"at": {
@@ -1012,7 +1105,7 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "The Waterlogged Saw, Axe and Toolbox lie in the river south of the bridge. Princess, a big boar, roots in the Brackwell Pumpkin Patch west of the river with her Porcine Entourage: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: Croaky is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional.",
+			"tip": "The Waterlogged Saw, Axe and Toolbox lie in the river south of the bridge. Princess, a big boar, roots in the Brackwell Pumpkin Patch west of the river with her Porcine Entourage: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: Croaky is a level 11 elite on the murloc shore. Only go for his head with a group; otherwise leave him: it's optional.",
 			"note": "The Downstream step comes at about 8.6 and lists Croaky's Head (an optional extra, #221) on Croaky's shore; players died to him at 8-9, so the tip makes skipping him the default: with a group or from level 10 only.",
 			"source": [
 				{
@@ -4376,11 +4469,12 @@
 			"id": "a4060-bs-accept-broodling-essence-52",
 			"faction": "Alliance",
 			"at": {
-				"quest": 4726,
-				"goal": "accept"
+				"quest": 3823,
+				"goal": "objective",
+				"objective": 1
 			},
 			"level": 52,
-			"note": "Burning Steppes, final route review before 0.3.5: the route topped up to 51.39 on the Firegut ogres of Dreadmaul Rock (78.7,44.7) on the way from Morgan's Vigil to Flame Crest, then, after the Flame Crest accepts (65.2,24.0), rode back to the same ogres for a top-up to 52. Nothing between the two gives experience, so the one top-up to 52 is on the way, before Flame Crest.",
+			"note": "Burning Steppes, final route review before 0.3.5: the route topped up to 51.39 on the Firegut ogres of Dreadmaul Rock (78.7,44.7) on the way from Morgan's Vigil to Flame Crest, then, after the Flame Crest accepts (65.2,24.0), rode back to the same ogres for a top-up to 52. Nothing between the two gives experience, so the one top-up to 52 is on the way, before Flame Crest. Level tidy 0.4.0 (Alliance 50-60, minimum fixes): the same top-up comes before Extinguish the Firegut's kills instead, on the Firegut Ogres (50-51) of the rock's near side: the Brutes on its east side are 52-53, two over the 51 player there in the calibrated level model with rested experience.",
 			"source": [
 				{
 					"kind": "recording",
@@ -4487,43 +4581,6 @@
 				{
 					"kind": "questie",
 					"ref": "npcs.json 682 (Stranglethorn Tiger), 736 (Panther) and 1096 (Venture Co. Geologist) spawns on map 1434"
-				}
-			]
-		},
-		{
-			"id": "alliance-badlands-lotwil-bracers-optional-greater-elementals",
-			"faction": "Alliance",
-			"at": {
-				"quest": 712,
-				"goal": "accept"
-			},
-			"tip": "Lotwil's last test is optional: five Bracers of Rock Binding, which only the Greater Rock Elementals (42-44) in the south-western gulches drop, about one kill in five, well above your level. Take it only if you can handle them one at a time; otherwise hand in the slabs and move on.",
-			"note": "Final route review 0.3.5: the Alliance step at Lotwil (about 38.8) took Study of the Elements: Rock (712, level 42) and listed its bracers and hand-in with no word on where they drop. Only the Greater Rock Elementals (2736, 42-44) drop them, at x 1-17, y 74-90 of the Badlands; the Horde guide says so in its tip.",
-			"source": [
-				{
-					"kind": "pfquest",
-					"ref": "npcs.json 2736 (Greater Rock Elemental) spawns on map 1418; quests.json 712 (level 42, 5 Bracers of Rock Binding)"
-				},
-				{
-					"kind": "questie",
-					"ref": "npcs.json 2736 (Greater Rock Elemental) spawns on map 1418; quests.json 712 (level 42, 5 Bracers of Rock Binding)"
-				}
-			]
-		},
-		{
-			"id": "alliance-stv-troll-witchery-level-36",
-			"faction": "Alliance",
-			"at": {
-				"quest": 205,
-				"goal": "objective",
-				"objective": 1
-			},
-			"level": 36,
-			"note": "Final route review 0.3.5 (Fitz: no step hides grinding): Troll Witchery's Skullsplitter Fetishes come from the Skullsplitter trolls (39-42, quest level 40) on 30-40/04b's southern leg, reached at about 35.9; the level model ground the rest of 35 there with no written step. A level 36 top-up on the Snapjaw Crocolisks (35) of the step before says so.",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "quest 205 level 40; npcs 667, 696, 780 (Skullsplitter Warrior, Axe Thrower, Mystic, 39-40) and 669, 670, 782, 784 (41-42)"
 				}
 			]
 		},
@@ -4740,7 +4797,7 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Goaz Warders (elite, 32) stand among the relics and the Loose Soil: pull them away one at a time, or work around them.",
+			"tip": "Goaz Warders (elite, 32) stand among the relics and the Loose Soil: work around them; don't pull them.",
 			"note": "Uncovering the Past (299): the Ancient Relics and the Loose Soil at Whelgar's Excavation Site (Wetlands 32-36,42-52) lie among the 21 Goaz Warders Forever added (33-37,46-53), elite at level 32, while the guide starts at 27; the step only mentioned them for the optional Titanic Keystone.",
 			"source": [
 				{
@@ -4771,48 +4828,6 @@
 				}
 			],
 			"pr": 1317
-		},
-		{
-			"id": "0306-level-sweep-desperate-prayer-10",
-			"at": {
-				"quest": 5637,
-				"goal": "accept"
-			},
-			"faction": "Alliance",
-			"level": 10,
-			"only": "Priest",
-			"note": "Level sweep (2026-11-08): Desperate Prayer needs level 10; the calibrated level model reaches Kharanos' class-quest stop at 9.48 for a Dwarf Priest. The Hunters' and Shamans' level-10 accepts there are gated already; the Priests' was not.",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "quest minimum levels in Forever's quest data"
-				},
-				{
-					"kind": "recording",
-					"ref": "players' recordings to 2026-11-08: Maxan Anvol did not offer it to a Dwarf Priest at level 8 on that step"
-				}
-			]
-		},
-		{
-			"id": "0306-level-sweep-confounding-flash-10",
-			"at": {
-				"quest": 94824,
-				"goal": "accept"
-			},
-			"faction": "Alliance",
-			"level": 10,
-			"only": "Priest",
-			"note": "Level sweep (2026-11-08): Confounding Flash needs level 10; the calibrated level model reaches Kharanos' class-quest stop at 9.48 for a Gnome Priest, the step's only ungated level-10 accept.",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "quest minimum levels in Forever's quest data"
-				},
-				{
-					"kind": "recording",
-					"ref": "players' recordings to 2026-11-08: Maxan Anvol did not offer it to a Gnome Priest at level 9 on that step"
-				}
-			]
 		},
 		{
 			"id": "0306-level-sweep-skybreaker-bulwark-10",
@@ -5025,6 +5040,16 @@
 				}
 			],
 			"pr": 1317
+		},
+		{
+			"id": "tidy040-branch-of-cenarius-optional",
+			"faction": "Alliance",
+			"at": { "quest": 1031, "goal": "accept" },
+			"optional": true,
+			"note": "The Branch of Cenarius (1031): Geltharis (32) is 3 levels over a player at Xavian (about 29), so the quest is a group choice (route-fixes group 1031): Anilia's offer never holds the step.",
+			"source": [
+				{ "kind": "recording", "ref": "06-wetlands' Xavian stretch on 0.3.7+: 25th percentile 28.6-29.2 (5-14 people per step); 3 people died near Geltharis, 2 to Xavian Hellcallers (30)" }
+			]
 		},
 		{
 			"id": "1336-insane-druids-barrow-den",
@@ -5631,10 +5656,11 @@
 			"faction": "Alliance",
 			"at": {
 				"quest": 5082,
-				"goal": "turnin"
+				"goal": "objective",
+				"objective": 1
 			},
-			"level": 54,
-			"note": "Winterspring (Alliance 53-56): the top-up to 55.05 was one block after Donova; its first part (to 54) is ground on the Frostfire Winterfall camp while Donova's and Salfa's kills still count (grind policy: no single block, grind on quest mobs).",
+			"level": 55,
+			"note": "Winterspring (Alliance 53-56): the top-up to 55.05 was one block after Donova; its first part (to 54) is ground on the Frostfire Winterfall camp while Donova's and Salfa's kills still count (grind policy: no single block, grind on quest mobs). Level tidy 0.4.0 (Alliance 50-60, minimum fixes): the top-up goes to 55 on the camp's Pathfinders (53-54) before the kills, since its Den Watchers are 55-56, two over the 54 player there; the later top-up to 55.05 is then nearly done.",
 			"source": [
 				{
 					"kind": "client",
@@ -5925,10 +5951,11 @@
 			"faction": "Alliance",
 			"at": {
 				"quest": 6161,
-				"goal": "accept"
+				"goal": "objective",
+				"objective": 1
 			},
-			"tip": "Rackmore's Log lies beside Karnitol's Chest. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next.",
-			"note": "Review (0.3.6): Claim Rackmore's Treasure! was Dwarf-only in 30-40/06 (a filter from an old per-race export; the quest's race mask is all races, and Scourge, Orc and Skyborne characters took it in the recordings). Silver key 15878: Drysnap Crawler/Pincer (11562/11563, 15%), which also spawn at 31-35,27-35 by the wreck; golden key 15881: every Slitherblade naga (4711-4719, 55%) of Sar'theris Strand, where the satchel and the Serpent Statue already take the route. The record races-6161-rackmores-treasure keeps its goals for every race.",
+			"tip": "Rackmore's Log lies beside Karnitol's Chest, if you didn't take it on your first Desolace visit. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next.",
+			"note": "Review (0.3.6): Claim Rackmore's Treasure! was Dwarf-only in 30-40/06 (a filter from an old per-race export; the quest's race mask is all races, and Scourge, Orc and Skyborne characters took it in the recordings). Silver key 15878: Drysnap Crawler/Pincer (11562/11563, 15%), which also spawn at 31-35,27-35 by the wreck; golden key 15881: every Slitherblade naga (4711-4719, 55%) of Sar'theris Strand, where the satchel and the Serpent Statue already take the route. The record races-6161-rackmores-treasure keeps its goals for every race. Since the 0.4.0 level tidy the log is read on the first Desolace visit (30-40/02, beside Karnitol's Chest) and the quest carried to the south loop, so the tip sits on the silver key.",
 			"source": [
 				{
 					"kind": "pfquest",
@@ -6041,11 +6068,11 @@
 			"id": "ba3040-stv-erlgadin-on-the-way-in",
 			"faction": "Alliance",
 			"at": {
-				"quest": 192,
+				"quest": 188,
 				"goal": "accept"
 			},
 			"tip": "South along the road: the hunters' tents stand just west of it.",
-			"note": "Review (0.3.6, 30-40/04b): Panther Mastery is taken at Nesingwary's on the way in from the Rebel Camp, so the Shadowmaw Panthers at Lake Nazferiti can be killed right after Kurzen's Compound (route-fixes pairs).",
+			"note": "Review (0.3.6, 30-40/04b): Nesingwary's camp is visited on the way in from the Rebel Camp. Since the 0.4.0 level tidy it gives Tiger Mastery (Sin'Dall, 188) and Raptor Mastery (Lashtails, 195) there; the Lashtails are hunted around Sin'Dall's hill south-west of the camp after the Rebel Camp, at the end of the loop, and Sin'Dall herself and Panther Mastery (192) on 40-50/01.",
 			"source": [
 				{
 					"kind": "pfquest",
@@ -6077,7 +6104,7 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "South from the compound to Lake Nazferiti: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals, and the Shadowmaw Panthers prowl stealthed in the jungle south and east of it.",
+			"tip": "South from the compound to Lake Nazferiti: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals. Careful: Venture Co. Agents (39) walk among them: take the Geologists on the camps' edges, one at a time. Shadowmaw Panthers (37-38) prowl stealthed in the jungle south and east of the lake: keep to the shore camps.",
 			"note": "Review (0.3.6, 30-40/04b): Venture Co. Geologist (1096) spawns 42-48,16-24 (two at 28,8); Shadowmaw Panther (684) 45-51,20-30 and 35-42,32-45. Both were listed on the north-west tablets' step, where there are none but two geologists (the Horde guide had the same fault, fixed in #1109).",
 			"source": [
 				{
@@ -6178,8 +6205,8 @@
 				"quest": 522,
 				"goal": "accept"
 			},
-			"tip": "A Shadowy Assassin lurks stealthed on the edge of Southshore, and few players find him. If you spot him, kill him and read the contract he carries: Magistrate Henry Maleb takes it. Don't wait for him: the rest of this step doesn't need him.",
-			"note": "#1542: the Southshore step waited on the Shadowy Assassin (2434), the only source of Assassin's Contract (3668, starts 522); his kill, the contract, 522 and Baron's Demise (523) are optional now (route-fixes deliberate.optional 522, 523), so the tip says not to wait for him.",
+			"tip": "A Shadowy Assassin (37-38) lurks stealthed on the edge of Southshore, and few players find him. Careful: he is a level or two over you; fight him only at full health, or leave him. His contract goes to Magistrate Henry Maleb. Don't wait for him: the rest of this step doesn't need him.",
+			"note": "#1542: the Southshore step waited on the Shadowy Assassin (2434), the only source of Assassin's Contract (3668, starts 522); his kill, the contract and 522 are optional now (route-fixes deliberate.optional 522), so the tip says not to wait for him. Baron's Demise (523, Baron Vardus 40), which the contract leads to, is left out of the route since the 0.4.0 level tidy.",
 			"source": [
 				{
 					"kind": "recording",
@@ -6335,15 +6362,15 @@
 			"id": "astranaar-pass-hand-ins-split",
 			"faction": "Alliance",
 			"at": {
-				"quest": 1025,
+				"quest": 1034,
 				"goal": "turnin",
 				"guide": "forever/alliance/06-ashenvale"
 			},
 			"split": {
 				"title": "Astranaar",
-				"tip": "South from Dal Bloodclaw's camp, Astranaar is on the way west: Raene Wolfrunner in the inn, Pelturas Whitemoon inside the building beyond it."
+				"tip": "Back west along the road from Shael'dryn, Astranaar is on the way to Ilkrud: Pelturas Whitemoon is inside the building beyond the inn."
 			},
-			"note": "06-ashenvale: after Dal Bloodclaw's camp, north of Astranaar, the route walks south-west through Astranaar to Ilkrud Magthrull with Raene Wolfrunner's hand-ins (1025, 1054) and Pelturas Whitemoon's (1034) ready. They are cut off the last Astranaar stop (with the vendor) and handed in on that pass (astranaar-pass-hand-ins-step), before Ilkrud's camp; the last stop, needed for the flight to Auberdine, is Shindrell Swiftfire's (1008) alone: about 260 yd of town walking saved. 0.3.6 hand edit.",
+			"note": "06-ashenvale: after Shael'dryn, the route walks back west through Astranaar to Ilkrud Magthrull with Pelturas Whitemoon's hand-in (1034) ready. It is cut off the last Astranaar stop (with the vendor) and handed in on that pass (astranaar-pass-hand-ins-step), before Ilkrud's camp; the last stop, needed for the flight to Auberdine, is Shindrell Swiftfire's (1008) alone: about 260 yd of town walking saved. 0.3.6 hand edit; since the 0.4.0 level tidy Raene's Foulweald and Dal Bloodclaw quests (1025, 1054) are on 06-wetlands' Ashenvale trip, so the pass follows Shael'dryn's step.",
 			"source": [
 				{
 					"kind": "questie",
@@ -6355,22 +6382,21 @@
 			"id": "astranaar-pass-hand-ins-step",
 			"faction": "Alliance",
 			"at": {
-				"quest": 1025,
+				"quest": 1034,
 				"goal": "turnin",
 				"guide": "forever/alliance/06-ashenvale"
 			},
 			"step": {
 				"after": {
-					"quest": 1054,
-					"goal": "objective",
-					"objective": 1
+					"quest": 1024,
+					"goal": "turnin"
 				}
 			},
-			"note": "06-ashenvale: the Astranaar hand-ins cut off the last stop (astranaar-pass-hand-ins-split) go right after Dal Bloodclaw's step, on the walk through Astranaar to Ilkrud Magthrull. 0.3.6 hand edit.",
+			"note": "06-ashenvale: the Astranaar hand-in cut off the last stop (astranaar-pass-hand-ins-split) goes right after Shael'dryn's step, on the walk back west through Astranaar to Ilkrud Magthrull. 0.3.6 hand edit, re-anchored in the 0.4.0 level tidy.",
 			"source": [
 				{
 					"kind": "questie",
-					"ref": "quest 1054 objective Dal Bloodclaw's Skull; enders Raene Wolfrunner (3691), Pelturas Whitemoon (3894)"
+					"ref": "quest 1024 ender Shael'dryn; 1034 ender Pelturas Whitemoon (3894)"
 				}
 			]
 		},
@@ -6754,17 +6780,37 @@
 			"at": {
 				"quest": 8318,
 				"goal": "accept",
-				"guide": "forever/alliance/50-60/04-western-plaguelands"
+				"guide": "forever/alliance/50-60/06-silithus"
 			},
 			"follows": {
 				"quest": 8281,
 				"goal": "accept"
 			},
-			"note": "50-60/04 (Alliance): Secret Communication (8318) needs level 57, and the level model reaches the first Cenarion Hold stop just under it, so taking it there made the model grind 15 minutes first and the route's last hand-in fell after 60. Bor Wildmane gives it on the second stop, after Stepping Up Security (8281). 0.3.6 hand edit.",
+			"note": "Secret Communication (8318) needs level 57. Fix round 1 (0.4.0): Bor Wildmane gives it on the Silithus guide's first Cenarion Hold stop (06, about 58), with Beetix's and Windcaller Proudhorn's quests, so the route doesn't walk past him; its texts drop at the Twilight dig after the next stop there, where he takes it back. On the Western Plaguelands guide's second Cenarion Hold stop the level model reached it at 56.95 and ground 33 minutes to take it.",
 			"source": [
 				{
 					"kind": "questie",
 					"ref": "quest 8318 minLevel 57, giver and ender Bor Wildmane (15306, 48.57,37.78 Silithus)"
+				}
+			]
+		},
+		{
+			"id": "cenarion-hold-dearest-natalia-first-stop",
+			"faction": "Alliance",
+			"at": {
+				"quest": 8304,
+				"goal": "accept",
+				"guide": "forever/alliance/50-60/06-silithus"
+			},
+			"follows": {
+				"quest": 8318,
+				"goal": "accept"
+			},
+			"note": "Dearest Natalia (8304) needs level 58. Fix round 1 (0.4.0): the Silithus guide's first Cenarion Hold stop is at about 58.4 (level model), so Commander Mar'alith gives it there, with Beetix's, Windcaller Proudhorn's and Bor Wildmane's quests; on the next stop the flow audit had the route walk past him and come back 18 minutes later for it.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 8304 minLevel 58, giver and ender Commander Mar'alith (15181, 49.2,34.2 Silithus)"
 				}
 			]
 		},
@@ -7039,6 +7085,32 @@
 			]
 		},
 		{
+			"id": "way-savage-coast-east-of-zulkunda",
+			"faction": "Alliance",
+			"at": {
+				"quest": 605,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/30-40/04-stranglethorn-vale"
+			},
+			"way": {
+				"at": {
+					"map": 1434,
+					"x": 29.0,
+					"y": 14.0,
+					"frame": "era"
+				},
+				"label": "East of Zul'Kunda"
+			},
+			"note": "30-40/04 (fix round 2, 0.4.0): the walk from Sentinel Hill into Stranglethorn ended at the Crystalvein Mine (24.4,17.5), a straight line through the core of the Bloodscalp ruins of Zul'Kunda past Zimmix's cage (Bloodscalp Scouts, Mystics and Hunters 34-35, Headhunters and Berserkers 36-37, at about 33 for the player); the ruins wait for the second loop. It ends east of the ruins among the Panthers (32-33), and the Savage Coast step goes on west from there.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "creature spawns within 2 map units: 23.5,12.8 has 29 Bloodscalp trolls 34-37; 29.0,14.0 has 8 Panthers 32-33, 2 Bloodscalp Guerrillas 34 and a Stranglethorn Raptor 34"
+				}
+			]
+		},
+		{
 			"id": "levels-horde-hillsbrad-arathi-top-33",
 			"faction": "Horde",
 			"at": {
@@ -7144,6 +7216,24 @@
 				{
 					"kind": "recording",
 					"ref": "the level model on players' recordings: Dwarf and Gnome starts leave Dun Morogh at 13.3-14.0"
+				}
+			]
+		},
+		{
+			"id": "levels-alliance-ungoro-top-50",
+			"faction": "Alliance",
+			"at": {
+				"goal": "levels",
+				"guide": "forever/alliance/40-50/07-un-goro-crater"
+			},
+			"levels": {
+				"top": 50
+			},
+			"note": "Un'Goro Crater (Alliance 40-50/07): fix round 1 (0.4.0) splits Un'Goro (the pylons, bones, hive and Shizzle move to the Western Plaguelands guide's visit at about 57) and the level model (rested experience, 28 race and class runs) brings players in at 49.31 and out at 50.40: the header says 49-50. The 0.4.0 Alliance headers give each guide's arrival (rounded down) to exit (rounded): 01 Stranglethorn 39-43, 02 45-46, 03 45-47, 04 46-48, 05 47-48, Burning Steppes 50-53, Felwood 52-53, Winterspring 53-56, Western Plaguelands 55-58, Silithus 58-60 (57.83 rounded up, so Mount Hyjal's players, who come back at about 59.6, are handed on to it).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "the level model on players' recordings, rested experience: Alliance 40-50/07 49.31 -> 50.40"
 				}
 			]
 		},
@@ -10315,7 +10405,7 @@
 				"quest": 1016,
 				"goal": "accept"
 			},
-			"tip": "Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake. Befouled Water Elementals wade in the lake. Careful: Tideress, a level 27 water elemental, walks the lake among them; she drops the bracers too, but the small elementals are the safer kills at this level.",
+			"tip": "Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake, just north of the road to Krolg. Befouled Water Elementals wade in the lake; Tideress, a level 27 water elemental, walks among them and drops the bracers too.",
 			"note": "Alliance 20-30 audit (0.4.0, #2025): Elemental Bracers (1016, quest level 24) is worked at about 23-24 on 06-ashenvale's Mystral Lake stop. Tideress (npc 12759, level 27) walks the lake among the Befouled Water Elementals (npc 3917, level 23) and drops the Intact Elemental Bracer as they do (items.json 12220: npcs 3917 and 12759), so players attack her. Players' recordings (addon 0.3.5 and later): Tideress killed 4 people (5 deaths) there and the Befouled Water Elementals 5 (6 deaths), at about 23.3. The step's tip named neither; the tip keeps the step's old tip, the sentence added.",
 			"source": [
 				{
@@ -10689,7 +10779,7 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Careful: Vek'zol, a level 55 elite, stands by Kum'isha's hill (about 50,35) and to the west (about 39,32): take the fragments from the mobs on the way from the keep, not beside him.",
+			"tip": "Careful: Vek'zol, a level 55 elite, stands by Kum'isha's hill (about 50,35) and to the west (about 39,32), and the Dreadmaul and Shadowsworn camps around it are 53-55: take the fragments from the mobs on the way from the keep, not beside him.",
 			"note": "Danger-at-the-spot sweep (#1575, 0.4.0 audit): Vek'zol (level 55, elite) stands at 49.9,35.5, beside Kum'isha's hill (52.0,35.7), and at 39.0-39.2,32.4-33.0 to the west, where a level 52 player collects Imperfect Draenethyst Fragments from the Blasted Lands mobs.",
 			"source": [
 				{
@@ -10788,10 +10878,11 @@
 			"at": {
 				"quest": 5863,
 				"goal": "objective",
-				"objective": 1
+				"objective": 1,
+				"guide": "forever/alliance/40-50/04-tanaris"
 			},
-			"tip": "Why the grind to 47: the Thistleshrub Valley comes next, with mobs of 48-50 and quests of level 50. Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes.",
-			"note": "Bennistrov's and Visur's report (#2207): the Dunemaul Compound step grinds to 47.06, almost a level for a player at 46.1. The gate stays: lowering it to 46.7 (enough for Fandral's level-47 errand in Darnassus) let the calibrated level model take the Thistleshrub Valley's level-50 quests at about 46.5 and added 15 accepts three or more levels over (Tanaris and the Searing Gorge). The tip says why; the written grind itself is on the level 45-46 Ogres at the compound's south end (the danger gate's grind check flagged the 46-48 Brutes).",
+			"tip": "Why the grind to 47: Tooga waits at the edge of the Thistleshrub Valley (mobs of 48-50) and the Gaping Chasm's silithids (47-50) come next. Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes and Enforcers (46-48) inside.",
+			"note": "Bennistrov's and Visur's report (#2207): the Dunemaul Compound step grinds to 47.06, almost a level for a player at 46.1. The gate stays: lowering it to 46.7 (enough for Fandral's level-47 errand in Darnassus) let the calibrated level model take the Thistleshrub Valley's level-50 quests at about 46.5 and added 15 accepts three or more levels over (Tanaris and the Searing Gorge). The tip says why; the written grind itself is on the level 45-46 Ogres at the compound's south end (the danger gate's grind check flagged the 46-48 Brutes). Level tidy 0.4.0 (minimum fixes): the compound's quest (5863) waits for the Un'Goro guide's Gadgetzan landing, so the Tanaris step holds only the grind; this tip is hand-written on it (a grind step has no quest goal to anchor on).",
 			"source": [
 				{
 					"kind": "recording",
@@ -10803,6 +10894,249 @@
 				}
 			],
 			"issue": 2207
+		},
+		{
+			"id": "2396-tanaris-water-survey-scarabs",
+			"faction": "Alliance",
+			"at": {
+				"quest": 992,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: tapping the pool brings Scarabs (level 44-47) out of the sand to attack you: tap it, then step away from the trolls and fight the Scarabs one by one.",
+			"note": "Fyurie's report (#2396): the pool step did not say that using the Untapped Dowsing Widget at the pool is the objective, nor that Scarabs come out when it is tapped (the reporter met them at 47). The step's first tip now says to tap the pool; this one warns about the Scarabs.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2396 (Fyurie, 0.3.7.2, Night Elf Warrior 48): the Scarabs came at the player after tapping; follow-up on the issue: they are level 47"
+				},
+				{
+					"kind": "questie",
+					"ref": "data/forever npcs.json 7269 Scarab, level 44-46, no fixed spawns (summoned)"
+				}
+			],
+			"issue": 2396
+		},
+		{
+			"id": "stv-sunken-treasure-optional",
+			"faction": "Alliance",
+			"at": {
+				"quest": 669,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/01-stranglethorn-vale"
+			},
+			"optional": true,
+			"note": "Since the 0.4.0 level tidy Faldir's Cove (662-669) is a group choice on 30-40/05 (its naga and water elementals are 38-40 at 38), so a solo player arrives in Booty Bay without Sunken Treasure; its hand-in to Fleet Master Seahorn stays for the players who did it and never holds the step.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "route-fixes deliberate.group 665 (Faldir's Cove group record); polestar playtest --honest: 'turn in Sunken Treasure: never accepted' on the solo route"
+				}
+			]
+		},
+		{
+			"id": "stv-sunken-treasure-note",
+			"faction": "Alliance",
+			"at": {
+				"quest": 669,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/01-stranglethorn-vale"
+			},
+			"goalNote": "Fleet Master Seahorn, top floor: Sunken Treasure, if you did Faldir's Cove with a group",
+			"note": "The goal note of the optional Sunken Treasure hand-in (stv-sunken-treasure-optional).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "route-fixes deliberate.group 665 (Faldir's Cove group record)"
+				}
+			]
+		},
+		{
+			"id": "stv-unbagwa-waves-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 349,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/05-the-hinterlands"
+			},
+			"tip": "Careful: three waves of gorillas come one after another with little rest between, then Mokk the Savage. Start at full health and mana, and stay near Unbagwa. Some classes find it hard alone: a friend makes it easy.",
+			"note": "Ice's report (Discord): Witch Doctor Unbagwa's ritual (Stranglethorn Fever, 349 handed in, then Mokk the Savage for 348) sends three waves of Mistvale gorillas back to back before Mokk; alone it was hard for the reporter's class. The step now says so up front.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "player report (Ice, Discord, 2026-11-16): three gorilla waves with little rest, then Mokk; hard alone for some classes"
+				}
+			]
+		},
+		{
+			"id": "2448-tanaris-rhapsody-ride-onquest",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1452,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/04-tanaris"
+			},
+			"when": "onquest 1452",
+			"note": "Fyurie's report (#2448): at the end of the Tanaris guide, the walk into the Hinterlands to Rhapsody Shindigger (26.9,48.6) showed to players without Rhapsody's Kalimdor Kocktail (1452), whose hand-in step was hidden, so they rode there for nothing and the next step pointed back. The hand-in and the walk to it (the walk has no quest goal to anchor on and carries the same line by hand) now show only while 1452 is in the log.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2448 (Fyurie, 0.3.7.2): the report's step dump shows the Rhapsody's Tale step hidden (needs Rhapsody's Kalimdor Kocktail) after the goto step"
+				}
+			],
+			"issue": 2448
+		},
+		{
+			"id": "a4060-ungoro-northern-pylon-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4285,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The pylon stands on the slope east of the refuge. Pterrordax circle the slopes around it: they count for Spraggle.",
+			"note": "Un'Goro's Northern Pylon (4285) is done on the Western Plaguelands guide's Un'Goro visit at about 57 since fix round 1 (0.4.0): the Frenzied Pterrordax (51-54) around the pylon were three over players at the first visit's 51. Shizzle's Flyer (4503) moved back to the first visit in fix round 2, on the Fledgling Pterrordax and Young Diemetradons (48-50) of the eastern jungle.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 9166 Pterrordax 50-52, Frenzied Pterrordax 51-54, 9162 Young Diemetradon 49-50 in Forever's data"
+				}
+			]
+		},
+		{
+			"id": "a4060-ungoro-bones-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3882,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "West across the south of the crater: Dinosaur Bones lie on the ground in the south-west, among the stegodons: those are elite, pick the bones up around them and take the rest from the Diemetradons. The expedition's Research Equipment lies in the south-west jungle.",
+			"note": "Un'Goro's bones and expedition (3881, 3882) are done on the Western Plaguelands guide's Un'Goro visit at about 57 since fix round 1 (0.4.0): the Elder Diemetradons (53-55) and Glutinous Oozes (52-54) of the south-west were three over players at the first visit's 51.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Diemetradon 51-52, Elder Diemetradon 53-55, Glutinous Ooze 52-54 in Forever's data"
+				}
+			]
+		},
+		{
+			"id": "a4060-ungoro-threshadon-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4290,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Venomhide Ravasaurs (50-51) hunt along the water there: pull them one at a time before you loot the carcass.",
+			"note": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes): the Threshadon carcass lies among Venomhide Ravasaurs of 50-51, one or two over the 49 player there.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npc 6508 Venomhide Ravasaur 50-51 in Forever's data"
+				}
+			]
+		},
+		{
+			"id": "a4060-thaurissan-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3701,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the ruins' War Reavers and Thaurissan Firewalkers are 53-55, and Thauris Balgarr (57) holds the Dark Iron camp south-west of Flame Crest: take the relics at the edge of the ruins, pull one at a time, and keep away from the camp.",
+			"note": "Level tidy 0.4.0 (Alliance 50-60, minimum fixes): the Ruins of Thaurissan's Spies and Agents are 53-54 with War Reavers and Firewalkers up to 55 around the relics, one to three over the 52 player there. 50-60/01 (fix round 1, 0.4.0): Tablet of the Seven (4296) is left out: its tablet stands in the Dark Iron camp with Thauris Balgarr (57), five over players at about 52. The relics are taken on the ruins' southern edge, nearest Flame Crest.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Thaurissan Spy 53-54, War Reaver 53-55, Thaurissan Firewalker 53-55 in Forever's data"
+				}
+			]
+		},
+		{
+			"id": "a4060-azshara-52-before-kimjael",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3601,
+				"goal": "accept"
+			},
+			"level": 51,
+			"note": "Level tidy 0.4.0, fix round 1 (Alliance 50-60): Kim'jael's camp and the Thalassian Base Camp are blood elves of 51-53 (Surveyors 51-52, Reclaimers 52-53, Magister Hawkhelm 53). A top-up to 51 (the guide writes 51.3) on the Spitelash Myrmidons (50-51) on the way north comes first, after the Ruins of Eldarath's runes on the same naga; with a Careful tip the camp's range top is one over the low end. With the first Un'Goro visit lighter (fix round 1) a top-up to 52 grew to about 12 model hours.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 6196 Spitelash Myrmidon 50-51, 6198 Blood Elf Surveyor 51-52, Blood Elf Reclaimer 52-53 in Forever's data"
+				}
+			]
+		},
+		{
+			"id": "a4060-ice-thistle-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3783,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Ice Thistle Yetis are 55-56 and the Chimaeras 55-57: take the Rogue Ice Thistles (53-55) and the Fledgling Chillwinds (53-55) at the edge of the hills, and leave the Chillwind Ravagers (57-59) alone.",
+			"note": "Level tidy 0.4.0 (Alliance 50-60, minimum fixes): the hills' yetis and chimaeras run 53-57 around a 54 player; both quests can be done on the 53-55 ones.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 7457 Rogue Ice Thistle 53-55, 7458 Ice Thistle Yeti 55-56 in Forever's data"
+				}
+			]
+		},
+		{
+			"id": "a4060-pristine-horns-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 977,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: take the Matriarchs at the edge of the hills, one at a time, and leave the Patriarchs: their horns drop from both.",
+			"note": "Level tidy 0.4.0 (Alliance 50-60, minimum fixes): Ice Thistle Matriarchs are 56-57 and Patriarchs 57-58 around a 55-56 player; the Matriarchs are enough.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Ice Thistle Matriarch 56-57, Ice Thistle Patriarch 57-58 in Forever's data"
+				}
+			]
+		},
+		{
+			"id": "a4060-xavaric-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4906,
+				"goal": "objective",
+				"objective": 4
+			},
+			"tip": "Careful: Xavaric (55) stands at the valley's far end with Hellcallers (53-54) around him: clear them one at a time before you pull him.",
+			"note": "Level tidy 0.4.0 (Alliance 50-60, minimum fixes): Jadefire Run's satyrs are 52-54 around a 53 player; Xavaric alone is 55.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npc 10648 Xavaric 55, Jadefire Hellcaller 53-54 in Forever's data"
+				}
+			]
+		},
+		{
+			"id": "felwood-xavathras-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4421,
+				"goal": "objective",
+				"objective": 4
+			},
+			"tip": "Careful: Xavathras (54) stands at the back of the Ruins of Constellas, at about 32.2,67.1, with Shadowstalkers around him: clear them one at a time, then pull him alone at full health.",
+			"note": "50-60/02 (fix round 2, 0.4.0): Xavathras (54) at about 52.6 for the player; The Corruption of the Jadefire (4421) opens Jadefire Run (4906), so it stays, with his level and place named.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npc 9454 Xavathras 54, Felwood 32.2,67.1; 7110 Jadefire Shadowstalker 51-52"
+				}
+			]
 		},
 		{
 			"id": "2253-galens-escape-careful",
@@ -11146,6 +11480,840 @@
 				}
 			],
 			"issue": 2284
+		},
+		{
+			"id": "2419-stranglethorn-booty-bay-bind-for-the-way-back",
+			"faction": "Alliance",
+			"at": {
+				"quest": 575,
+				"goal": "accept"
+			},
+			"tip": "Follow the main road south the length of the jungle, past the Grom'gol turn-off, to Booty Bay on the southern cape. Bind your hearthstone at the inn: it is your way back here from Nesingwary's camp at the end of the jungle loop.",
+			"note": "#2419 (Onrevax): 30-40/04-stranglethorn-vale walks the length of the jungle to Booty Bay for its flight point and quests, then works them in the north and comes back; the step now says the inn bind is the way back from Nesingwary's camp (about 2,900 yd), so the arrow's hearth advice covers the return.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2419: Onrevax, a level 34 Human Paladin on client 70938, at Nesingwary's Expedition on the step down to Booty Bay: an arrow of about 2,900 yd for a trip the route repeats later"
+				}
+			],
+			"issue": 2419
+		},
+		{
+			"id": "dun-morogh-gnomeregan-road-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 412,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Leper Gnomes (8-10) walk the road in twos and threes, and many players died here: pull them one at a time.",
+			"note": "Dun Morogh (Dwarf and Gnome, 0.4.0 audit): the Gnomeregan road's Leper Gnomes are 8-10 at about level 9 for the player, in close groups; 19 people died there in players' recordings. Within the level bar, so a Careful line rather than a move.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "deaths on the Gnomeregan road: 19 people; npcs Leper Gnome 8-10"
+				}
+			]
+		},
+		{
+			"id": "dun-morogh-kharanos-level-10-camp",
+			"faction": "Alliance",
+			"at": {
+				"quest": 412,
+				"goal": "turnin"
+			},
+			"tip": "Back east through Kharanos: Senir by Eric's campfire takes the Frostmane Hold report, and Razzle Sprysprocket the cogs and gears. The Shaman quest here waits for level 10: a Shaman still short of it finishes on the Ice Claw Bears (7-8), Snow Leopards and Large Crag Boars in the fields just south of Kharanos.",
+			"note": "Dun Morogh (0.4.0 audit, fix round 2): the Kharanos east stop waits for level 10 for the Shaman class quest (about 8 minutes in the level model; Priests now take their trainers' own quests in Ironforge); the step names the camps at the player's level south of Kharanos, three bears among the boars and leopards.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 1196 Ice Claw Bear 7-8, 1201 Snow Leopard 7-8, 1126 Large Crag Boar 6-7, Dun Morogh"
+				}
+			]
+		},
+		{
+			"id": "dun-morogh-vagash-group-wording",
+			"faction": "Alliance",
+			"at": {
+				"quest": 314,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "These are elite mobs: grouping up is encouraged, look for people to do it with. Vagash is a level 12 elite: take him on with a group. Alone, skip it: the Loch Modan quests ahead make up the experience.",
+			"note": "Dun Morogh (0.4.0 audit): Protecting the Herd is a group step; the tip no longer invites a solo pull of a level 12 elite at 14, and no longer promises a grind the guide doesn't have (the Loch Modan loop replaced it).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npc Vagash level 12 elite"
+				}
+			]
+		},
+		{
+			"id": "dun-morogh-silver-stream-geomancers-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 307,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Tunnel Rat Geomancers (12-13) cast from range in the narrow tunnels: pull them one at a time.",
+			"note": "Loch Modan on the Dun Morogh guides (0.4.0 audit): casters one level over the player in the mine's tunnels.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npc Tunnel Rat Geomancer 12-13"
+				}
+			]
+		},
+		{
+			"id": "teldrassil-gnarlpine-hold-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 930,
+				"goal": "accept"
+			},
+			"tip": "Careful: the Gnarlpine Avengers (9-10) and Augurs here stand close together and many players died at the Hold: pull them one at a time.",
+			"note": "Teldrassil (0.4.0 audit): Gnarlpine Hold at about 8-9 for the player; 17 people died there in players' recordings.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "deaths at Gnarlpine Hold: 17 people"
+				}
+			]
+		},
+		{
+			"id": "elwynn-stone-cairn-wizards-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 83,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Rogue Wizards cast from range and a Defias Bodyguard (10) walks the shore with them: pull them one at a time.",
+			"note": "Elwynn Forest (0.4.0 audit): Stone Cairn Lake's Defias Rogue Wizards are casters and a Defias Bodyguard (10) walks with them at about 9 for the player. Also on the second lake step (91724).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 474 Defias Rogue Wizard, 6866 Defias Bodyguard 10"
+				}
+			]
+		},
+		{
+			"id": "elwynn-stone-cairn-wizards-careful-2",
+			"faction": "Alliance",
+			"at": {
+				"quest": 91724,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Rogue Wizards cast from range and a Defias Bodyguard (10) walks the shore with them: pull them one at a time.",
+			"note": "Elwynn Forest (0.4.0 audit): the second Stone Cairn Lake step, as elwynn-stone-cairn-wizards-careful.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 474 Defias Rogue Wizard, 6866 Defias Bodyguard 10"
+				}
+			]
+		},
+		{
+			"id": "nightelf-darkshore-blackwood-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 985,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time.",
+			"note": "Night Elf Darkshore (0.4.0 audit): the Blackwood camp's Windtalkers are casters one over the player at about 13; 4 people died there in players' recordings.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "deaths at the Blackwood camp: 4 people; npc 2324 Blackwood Windtalker 13-14"
+				}
+			]
+		},
+		{
+			"id": "zephras-alliance-bandits-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 92517,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the bandits stand in close groups and players often died in this camp: pull them one at a time from the edge.",
+			"note": "Zephras Isle (Alliance, 0.4.0 audit): the Highlands Bandits' camp; 6 people died there in players' recordings.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "deaths in the Shen'dar Highlands bandit camp: 6 people"
+				}
+			]
+		},
+		{
+			"id": "zephras-alliance-assassins-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98512,
+				"goal": "accept"
+			},
+			"tip": "Careful: the Al'Aketh Assassins (9-10) stand close together: pull them one at a time.",
+			"note": "Zephras Isle (Alliance, 0.4.0 audit): Fendaal Windstone's assassins are 9-10 at about 9 for the player.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npc 254626 Al'Aketh Assassin 9-10"
+				}
+			]
+		},
+		{
+			"id": "zephras-desperate-times-both-leaders-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 92640,
+				"goal": "objective",
+				"objective": 2
+			},
+			"tip": "Valennia asks you to hear out both leaders: Elaadrin Evengale of the Alliance and Ayessa Dawnsinger of the Horde. Ayessa's name shows red to you, but she talks to you all the same, and the quest needs both.",
+			"note": "Desperate Times (92640) on the Alliance Skyborne guide, the mirror of zephras-desperate-times-both-leaders: Ayessa Dawnsinger, the Horde's leader, shows hostile to Alliance Skyborne and still talks to them; the quest needs both leaders.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "npc 251968 seen hostile by 10 Alliance Skyborne and 1 Night Elf; quest 92640: 25 of 25 Alliance completions talked to Ayessa Dawnsinger and Elaadrin Evengale"
+				}
+			]
+		},
+		{
+			"id": "1811-selarin-after-escort-darkshore-return",
+			"faction": "Alliance",
+			"at": {
+				"quest": 990,
+				"goal": "accept",
+				"guide": "forever/alliance/03-darkshore-return"
+			},
+			"follows": {
+				"quest": 994,
+				"goal": "turnin"
+			},
+			"note": "03-darkshore-return's Druid Auberdine stop, where Druids hand Volcor's escort (994) to Terenthis on this guide: Selarin's offer right after the hand-in, as on 06-ashenvale and 06-wetlands (1811-selarin-after-escort-ashenvale). Without it a Druid who missed her on the first stop never got her second offer: 06-ashenvale's Terenthis step is then all done for them and passes at once.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "3 players on 0.3.4 who handed in the escort took 990 from Selarin 0.6-2.9 minutes later"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1811: she arrived after an escort hand-in and left about 5 minutes later"
+				}
+			],
+			"issue": 1811
+		},
+		{
+			"id": "duskwood-return-hearth-darkshire",
+			"faction": "Alliance",
+			"at": {
+				"quest": 160,
+				"goal": "turnin",
+				"guide": "forever/alliance/07-thousand-needles"
+			},
+			"tip": "Hearth back to Darkshire (bound at the start of this guide): Sven's camp is at the far west of Duskwood.",
+			"note": "07 (Duskwood return): the guide binds at Darkshire on its first stop and then walked from Sven's camp, at the far west of the zone, back to Darkshire (about 1,750 yd in the flow audit on every race and class run); the hearth is ready there.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 07 reversals: Sven's Camp to Darkshire 1,746 yd on 28/28 runs"
+				}
+			]
+		},
+		{
+			"id": "duskwood-return-gutspill-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 222,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Gutspill, a level 32 abomination, walks these woods: let it pass.",
+			"note": "07 (Duskwood return): Gutspill (32) walks the woods of the Vile Fangs and Tainted Ones at about 30 for the player; 2 people died to him on this guide in players' recordings (0.3.5+).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "deaths to npc 6170 Gutspill on 07: 2 people at 29.2 and 30.1"
+				}
+			]
+		},
+		{
+			"id": "duskwood-return-weathered-grave-wording",
+			"faction": "Alliance",
+			"at": {
+				"quest": 225,
+				"goal": "accept"
+			},
+			"tip": "The grave stands among the skeletons at the cemetery's north-west corner, on the way to Sven. Its quest and the next are talk-only, to Sirra Von'Indi and Commander Althea in Darkshire: level 35 quests, but no fight.",
+			"note": "07 (Duskwood return): the tip said 'from level 28'; players are about 30 here in the level model.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "level model: 30.2 at the step"
+				}
+			]
+		},
+		{
+			"id": "duskwood-return-zzarc-vul-cave",
+			"faction": "Alliance",
+			"at": {
+				"quest": 181,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Head south-west from Darkshire to the ogre mound. Abercrombie's Crate sits in the camp at its entrance; Splinter Fist ogres guard it. Zzarc' Vul is inside the ogre mound's cave: go in by the cave mouth on the mound's west side.",
+			"note": "07 (Duskwood return): Zzarc' Vul is below ground in the Vul'Gol cave; the arrow walks in by the cave's floor height since #1945, and the tip now says where the mouth is (derschroeb's report: the mouth at 34.1,76.05).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2476: the cave mouth at Duskwood 34.10,76.05; 'way back outside works'"
+				}
+			],
+			"issue": 2476
+		},
+		{
+			"id": "redridge-raven-hill-eliza-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 101,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Eliza, a level 31 elite, rises from her grave at the cemetery's north end: keep away from it.",
+			"note": "04 (Duskwood and Redridge): Eliza (31 elite) stands at the north end of the Raven Hill Cemetery (28.8,30.9); 2 people died to her on this guide in players' recordings (0.3.5+). A route-around tip, the bar's remedy for an elite on the way.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "deaths to npc 314 Eliza on 04: 2 people at 25.6 and 27.3"
+				}
+			]
+		},
+		{
+			"id": "arathi-noboru-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1392,
+				"goal": "accept"
+			},
+			"tip": "Careful: Noboru is level 39, two over you here: fight him only with a friend or from level 38; otherwise let him pass.",
+			"note": "30-40/05 (fix round 1, 0.4.0): Noboru the Cudgel (39, non-elite, wanders) at about 37 for the player; the step no longer says to kill him on sight. 17 people killed him in players' recordings at a 25th percentile of 37.5.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "kills of npc 5477 Noboru the Cudgel: 17 people, p25 37.5"
+				}
+			]
+		},
+		{
+			"id": "arathi-stones-of-binding-group-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 651,
+				"goal": "accept"
+			},
+			"tip": "Stones of Binding is a group quest at this level: three Cresting Exiles (38-39) guard the Stone of East Binding and attack together. Grouping up is encouraged, look for people to do it with. Skip it if you are alone.",
+			"note": "30-40/05 (fix round 1, 0.4.0): the group choice's tip (route-fixes deliberate.group 651).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs Cresting Exile 38-39 at the Stone of East Binding"
+				}
+			]
+		},
+		{
+			"id": "arathi-korgresh-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 693,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Kor'gresh is level 39, a caster, one or two over you here: clear the cave mouth first, then pull him alone at full health.",
+			"note": "30-40/05 (fix round 2, 0.4.0): Kor'gresh Coldrage (39) at about 37.9 for the player (level model without accept-time grinding); the step named him but not his level.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings: 15 people at Kor'gresh, 25th percentile 38.4; 13 killed him, no deaths"
+				}
+			]
+		},
+		{
+			"id": "badlands-agmonds-end-troggs-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 739,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Stonevault Bonesnappers are 39-40 and the Shamans 40-41, a level or two over you here: pull them from the camp's edge, one at a time.",
+			"note": "30-40/06 (fix round 2, 0.4.0): Agmond's End's troggs at about 38.9 for the player (level model without accept-time grinding); no tip named their levels.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings: 12 people at Agmond's End, 25th percentile 39.2; 3 deaths, none to a camp mob"
+				},
+				{
+					"kind": "client",
+					"ref": "npcs 2893 Stonevault Bonesnapper 39-40, 2894 Stonevault Shaman 40-41"
+				}
+			]
+		},
+		{
+			"id": "badlands-lesser-rock-elementals-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 710,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Lesser Rock Elementals are 37-39 and hit hard: fight them one at a time.",
+			"note": "30-40/06 (fix round 2, 0.4.0): the Dustbowl's elementals at about 38.9 for the player (level model without accept-time grinding); the step's tip named only the Mirage.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings: 9 people at the elementals, 25th percentile 39.7; 3 deaths, 1 to a Lesser Rock Elemental (39)"
+				},
+				{
+					"kind": "client",
+					"ref": "npc 2735 Lesser Rock Elemental 37-39"
+				}
+			]
+		},
+		{
+			"id": "feralas-gordunni-casters-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2982,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Gordunni Shaman are 44-45 and the Warlocks 43-44, casters a level or two over you here: pull them one at a time from the camp's edge, and take the Brutes (42-43) on the slopes first.",
+			"note": "40-50/03 (fix round 2, 0.4.0): the Gordunni camp at about 43-46 for the player (players' recordings 25th percentile 43.2, 6 people); the round-1 decision kept the camp with a Careful tip, which was never written.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 5236 Gordunni Shaman 44-45, 5240 Gordunni Warlock 43-44, 5232 Gordunni Brute 42-43"
+				}
+			]
+		},
+		{
+			"id": "zulkunda-second-loop-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97329,
+				"goal": "accept"
+			},
+			"tip": "Careful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time.",
+			"note": "30-40/04b (fix round 1, 0.4.0): Zimmix's rescue, Kebok's ears and the Stolen Shipments in the ruins of Zul'Kunda at about 36: the core's trolls are one over the player.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "0.3.5+ players' recordings: 23 deaths by 10 people in the ruins at 33.8-35.2 on the first loop"
+				}
+			]
+		},
+		{
+			"id": "stv-cook-in-the-cage-40-50-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97047,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Colonel Kurzen, an elite of 39-40, stands at the compound's north end beside three of the Subchiefs: take the key from the Subchiefs and Elites further south and leave him be.",
+			"note": "40-50/01 (fix round 1, 0.4.0): The Cook in the Cage is worked from the Rebel Camp stop at about 41; three of the ten Subchief spawns stand within 42 yd of Colonel Kurzen.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 978 Kurzen Subchief spawns, 813 Colonel Kurzen 49.94,3.95"
+				}
+			]
+		},
+		{
+			"id": "swamp-this-light-of-mine",
+			"faction": "Alliance",
+			"at": {
+				"quest": 93585,
+				"goal": "accept",
+				"guide": "forever/alliance/30-40/05-arathi-highlands"
+			},
+			"tip": "North-west of Watcher Biggs, Father Tuttle (level 34) waits by the road: lead him north to the Harborage, on your way there. Stay close to him and clear what attacks him; if he falls, abandon the quest and go on.",
+			"note": "30-40/05 (fix round 1, 0.4.0; his level named in fix round 3): This Light of Mine (93585, level 34, 2,700 XP), Father Tuttle's escort to Magtoor, on the route's own walk from Watcher Biggs to the Harborage. Players' recordings: 10 people took it at about 37, 6 finished it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 93585: 10 people accepted at Father Tuttle (255597), 6 handed in to Magtoor (1776), 3 escort fails"
+				}
+			]
+		},
+		{
+			"id": "stv-bloodsail-snuff-from-the-camp",
+			"faction": "Alliance",
+			"at": {
+				"quest": 587,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Every Bloodsail drops Snuff and one of them carries Dizzy's eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the Wild Shore camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit.",
+			"note": "40-50/01 (fix round 1, 0.4.0): Snuff and Dizzy's Eye drop from every Bloodsail; the Wild Shore camp's Warlocks and Swashbucklers (41-43) were two over players at about 41, so the eye and the snuff come from the Bloodsail camp's Raiders and Mages (39-41) and The Bloodsail Buccaneers' charts, orders and Swashbucklers (604) wait for the level-48 Booty Bay stop on 40-50/05.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "items 3910, 3897 drop from npcs 1561, 1562 (Bloodsail Raider, Mage 39-41) and 1563, 1564 (Swashbuckler, Warlock 41-43)"
+				}
+			]
+		},
+		{
+			"id": "dustwallow-sword-in-the-slime",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98233,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "On the way back east, the Corrosive Swamp Oozes (38-40) creep through the marsh south of the road, between the middle of the marsh and Theramore: one of them carries Jameson's training sword. Careful: Elder Daggermaws (48-49) lurk in the water among them, and the larger Bubbling Swamp Oozes (39-40) are elite: leave both alone.",
+			"note": "40-50/01 (fix round 1, 0.4.0): Sword in the Slime (98233, level 42, 3,450 XP) from Guard Jameson in Theramore; the sword drops from the Corrosive Swamp Oozes (38-40, 44-55,50-59) on the route's ride back east from the Shady Rest Inn. Players' recordings: 5 people took it at about 40, 3 handed it in. Fix round 2: the tip names the Elder Daggermaws (48-49, five spawns within 3 map units of the oozes' point) and the elite Bubbling Swamp Oozes (39-40) around them.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 98233: 5 Alliance people accepted, 3 turned in (40-50/01 players)"
+				}
+			]
+		},
+		{
+			"id": "swamp-misty-reed-crawler-legs-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1258,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the big Monstrous Crawlers (43-44) further south on the shore are over you: take the legs at the north end and pick up the driftwood without pulling them.",
+			"note": "40-50/01 (fix round 3, 0.4.0): ... and Bugs' Pristine Crawler Legs drop from the Silt Crawlers (40-41) and the Monstrous Crawlers (43-44) of the Swamp of Sorrows' eastern shore; the level model plays this leg at about 40.7, and the goal had no point, so its arrow led to the Monstrous Crawlers' stretch (94.6,28.6). The goal now points at the Silt Crawlers' north end (80.0,8.0: 13 Silt Crawler spawns at 73-85,3-16, 17 north of y 24; the nearest Monstrous Crawler 7-8 map units away), and the tip names the Monstrous ones.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 922 Silt Crawler (40-41) and 1088 Monstrous Crawler (43-44) spawns on map 1435; item 5938 drops from both"
+				},
+				{
+					"kind": "recording",
+					"ref": "quest 1258: 5 Alliance people finished it (median level 45.8), 7 abandoned it"
+				}
+			]
+		},
+		{
+			"id": "badlands-ghak-at-the-thelsamar-landing",
+			"faction": "Alliance",
+			"at": {
+				"quest": 17,
+				"goal": "accept",
+				"guide": "forever/alliance/40-50/02-badlands"
+			},
+			"tip": "Ghak Healtouch is below ground in Thelsamar, by the inn, where the flight lands. His mushrooms grow in the Uldaman dig at the Badlands' northern edge, on this guide's loop back north.",
+			"note": "Fix round 1 (0.4.0): Uldaman's Magenta Fungus Caps (17) are taken from Ghak where the Riverglades guide's flight to Thelsamar lands, the Badlands guide's first step. The Stranglethorn guide no longer flies Ironforge to Thelsamar for him and then back west for the Riverglades.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 17 giver Ghak Healtouch (1470), Thelsamar"
+				}
+			]
+		},
+		{
+			"id": "tanaris-tooga-oasis",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97540,
+				"goal": "accept"
+			},
+			"note": "40-50/04 (fix round 1, 0.4.0): Oasis (97540, 3,550 XP) is offered by Tooga beside Torta right after Tooga's Quest (1560) is handed in, and handed in to him on the spot: players' recordings, 5 people, every one within a minute of 1560's hand-in at 66.5,25.7.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 97540: accept and turn-in at npc 5955 Tooga, 3-30 s after 1560's hand-in, 5 people"
+				}
+			],
+			"follows": {
+				"quest": 1560,
+				"goal": "turnin"
+			}
+		},
+		{
+			"id": "hinterlands-repurposed-totems",
+			"faction": "Alliance",
+			"at": {
+				"quest": 86616,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The Vilebranch Soothsayers (46-47) walk the ground around the foot of the Altar of Zul: their totems are for Maret Firetend. Careful: Qiaga the Keeper and Morta'gya the Keeper (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar.",
+			"note": "40-50/04-05 (fix round 1, 0.4.0): Repurposed Totems (86616, 4,400 XP) from Farseer Maret Firetend by Aerie Peak; the totems from the Vilebranch Soothsayers around the Altar of Zul, which 40-50/05 visits for The Altar of Zul. Players' recordings tick it at 46-49,64-69. Danger review: the goal points at the Soothsayers' western spawns (45.3,66.7) and the Careful line names Qiaga the Keeper and Morta'gya the Keeper (50, elites; spawns 48.6-48.8,68.2-68.4), who killed players at 44.1,64.5 and 48.0,66.2 (players' recordings, levels 43-46), where the route has about 47.9.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 86616 objective ticks at Hinterlands 46-49,64-69 (4 people accepted, 2 handed in)"
+				},
+				{
+					"kind": "recording",
+					"ref": "deaths at Hinterlands 44.09,64.52 (killer 7996 Qiaga the Keeper) and 47.98,66.2 (killer 8636 Morta'gya the Keeper)"
+				}
+			]
+		},
+		{
+			"id": "hinterlands-fledgling-rescue",
+			"faction": "Alliance",
+			"at": {
+				"quest": 86620,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "On the way back to Aerie Peak: the lost gryphon eggs lie in the hills just east of the aviary.",
+			"note": "40-50/04-05 (fix round 1, 0.4.0): Fledgling Rescue (86620, 4,900 XP) from Gryphon Master Talonaxe; the eggs lie in the hills just east of Aerie Peak (players' recordings tick them at 14-22,47-52), on 40-50/05's ride back there.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 86620 objective ticks at Hinterlands 14-22,47-52 (6 people accepted, 5 handed in)"
+				}
+			]
+		},
+		{
+			"id": "azshara-talrendis-spitelash",
+			"faction": "Alliance",
+			"at": {
+				"quest": 88807,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The Spitelash Warriors (46-47) and Screamers (47-48) hold the western shore north-east of the satyrs.",
+			"note": "50-60/01 (fix round 1, 0.4.0): Commander Truesong's Slay the Spitelash (88807, 4,400 XP) and Berdun Cliffbrew's Home on the Range (89001, 4,400 XP) at Talrendis Point, beside the shrine the guide starts at, and Sentinel Keldara Sunblade's escort out of the satyrs' camp the guide already clears (88857, 4,200 XP), handed in to Truesong on the way back to the shrine: about 13,000 quest experience before the top-up for Kim'jael's camp.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quests 88807, 89001, 88857: 2-4 Alliance people handed each in at Talrendis Point"
+				}
+			]
+		},
+		{
+			"id": "azshara-eldarath-runes-before-the-top-up",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3449,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The Spitelash naga of the Ruins of Eldarath carry Some Rune. Tymor's runes stand among the ruins: use his Drawing Kit on each. The naga here are the ones the top-up below asks for, so these kills count towards it.",
+			"note": "50-60/01 (fix round 1, 0.4.0): three of Tymor's four runes (3449) are taken in the Ruins of Eldarath before the top-up for Kim'jael's camp, on the same Spitelash naga, so their kills count for it; they were after Kim'jael, with fractional top-ups between.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 6194-6196 Spitelash Serpent Guard, Siren, Myrmidon 48-52 at the Ruins of Eldarath"
+				}
+			]
+		},
+		{
+			"id": "darnassus-gracina-rise-of-the-silithid",
+			"faction": "Alliance",
+			"at": {
+				"quest": 162,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/01-burning-steppes"
+			},
+			"tip": "Gracina Spiritmight stands beside Tyrande in the Temple of the Moon, in the south of the city.",
+			"note": "Fix round 1 (0.4.0): the Noxious Lair chain (82, 10, 110, 113) is done on the Un'Goro guide's Tanaris landing at about 49.5 (its Centipaar, 48-50, were two over players on the Tanaris guide at 47), so Rise of the Silithid (162) is handed to Gracina on the Burning Steppes guide's Darnassus stop at about 52.9, where March of the Silithid (4493) is taken for Gadgetzan.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs Centipaar Worker 48-49, Sandreaver 49-50, Swarmer 49-50 (Tanaris)"
+				}
+			]
+		},
+		{
+			"id": "felwood-sampling-of-putrescence",
+			"faction": "Alliance",
+			"at": {
+				"quest": 86577,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Felwood's Angerclaw bears and Felpaw wolves carry the putrescent organs Kelek wants: the Bears and Wolves (47-48) of the south and the Maulers and Scavengers (49-50) along the road north of Jaedenar. Kill them as you ride between the stops.",
+			"note": "50-60/02 (fix round 1, 0.4.0): Kelek Skykeeper's A Sampling of Putrescence (86577, 5,650 XP) at the Emerald Sanctuary, from the bears and wolves the route rides through in Felwood; handed in on the guide's later Emerald Sanctuary stop. Players' recordings: 3 people finished it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 86577: 3 people accepted and handed in at Kelek Skykeeper (10920)"
+				}
+			]
+		},
+		{
+			"id": "felwood-infernal-sentry-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5156,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: an Infernal Sentry (53, elite) stands among the craters: walk round it.",
+			"note": "50-60/02 (fix round 1, 0.4.0): an elite on the way in Shatter Scar Vale at about 53 for the player: a route-around tip.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npc Infernal Sentry 53 elite, Shatter Scar Vale"
+				}
+			]
+		},
+		{
+			"id": "wpl-andorhal-elites-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5097,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Skeletal Warlords and Flesh Golems (57, elites) walk Andorhal's streets, and the Fallen Hero of the Horde (59, elite) wanders between Andorhal and Northridge: keep to the towers at the town's edge and let them pass.",
+			"note": "50-60/04 (fix round 1, 0.4.0): elites on the way in Andorhal at about 55 for the player: route-around tips (also on the Temporal Parasites step).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs Skeletal Warlord 57 elite, Flesh Golem 57 elite, Fallen Hero of the Horde 59 elite"
+				}
+			]
+		},
+		{
+			"id": "wpl-andorhal-parasites-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4971,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Temporal Parasites are 55-57, and Skeletal Warlords and Flesh Golems (57, elites) walk the streets: draw the parasites out by the silos, one at a time, and let the elites pass.",
+			"note": "50-60/04 (fix round 1, 0.4.0): range-top parasites and elites on the way at about 55.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs Temporal Parasite 55-57"
+				}
+			]
+		},
+		{
+			"id": "epl-plaguehounds-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5542,
+				"goal": "objective",
+				"objective": 3
+			},
+			"tip": "Careful: the Frenzied Plaguehounds are 57-58: pull them one at a time.",
+			"note": "50-60/04 (fix round 1, 0.4.0): range-top Plaguehounds at about 56 for the player.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npc 8598 Frenzied Plaguehound 57-58"
+				}
+			]
+		},
+		{
+			"id": "bs-kumisha-from-the-keep",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3501,
+				"goal": "accept"
+			},
+			"tip": "Kum'isha waits at the Rise of the Defiler, the hill south-west of the keep. The Blasted Lands mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have. Come at her hill straight from the keep, along the road, and leave by the same way.",
+			"note": "50-60/01 (fix round 1, 0.4.0): only Kum'isha's hand-in is on her hill among the Shadowsworn and Dreadmaul camps (53-55); the tip keeps the player on the road from the keep.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Blasted Lands camps around Rise of the Defiler 53-55"
+				}
+			]
+		},
+		{
+			"id": "silithus-twilight-keepers-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 8279,
+				"goal": "objective",
+				"objective": 2
+			},
+			"tip": "Careful: the Twilight Keepers are level 60, a level or two over you: clear the cultists around each one first and fight the keeper at full health.",
+			"note": "50-60/06 (fix round 1, 0.4.0): the Twilight Keepers (60) are single named targets at about 58.6; Careful tips on each keeper's step.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 11803, 15200, 11804 level 60"
+				}
+			]
+		},
+		{
+			"id": "silithus-hive-ashi-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 8318,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: take the texts from the Twilight Avengers and Geolords; leave the Twilight Flamereavers (60) and stay out of the hive's mouth, where the Hive'Ashi elites (59-60) wait.",
+			"note": "50-60/06 (fix round 1, 0.4.0): range-top cultists and the hive's elites at about 58.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Twilight Flamereaver 60; Hive'Ashi elites 59-60"
+				}
+			]
+		},
+		{
+			"id": "ungoro-microcrystal-scale-from-ravasaurs",
+			"faction": "Alliance",
+			"at": {
+				"quest": 87494,
+				"goal": "accept"
+			},
+			"tip": "Any ravasaur may drop a Crystal Infused Scale: right-click it, Torwa takes it.",
+			"note": "Un'Goro (fix round 1, 0.4.0): Microcrystal Contamination starts from the Crystal Infused Scale (280459), a chance drop from the crater's ravasaurs (6505-6508, 48-51); the first visit's Threshadon carcass step stands among Venomhide Ravasaurs, right before Torwa.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "item 280459 drops: Ravasaur 6505, Ravasaur Runner 6506, Ravasaur Hunter 6507, Venomhide Ravasaur 6508; quest 87494 ender Torwa Pathfinder 9619"
+				}
+			]
+		},
+		{
+			"id": "ungoro-uncanny-crystal-west-of-torwa",
+			"faction": "Alliance",
+			"at": {
+				"quest": 87492,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The Damaged Blue Crystal is a short ride west of Torwa's camp.",
+			"note": "Un'Goro (fix round 1, 0.4.0): Uncanny Crystal's object (672518) stands at 66.3,75.2, Torwa Pathfinder at 71.6,76.0; players' recordings tick the objective at 66.1-66.3,74.9-75.3 (7 people).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 87492 objective ticks at 66.1-66.3,74.9-75.3 (Un'Goro Crater), 7 people"
+				}
+			]
+		},
+		{
+			"id": "ungoro-shizzle-scales-young-beasts-and-diemetradons",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4503,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Shizzle's scales: the Fledgling Pterrordax (48-50) glide over the north-east of the jungle and the Young Diemetradons (49-50) graze beside them. There are only ten of those: the Diemetradons (51) on the jungle's western edge, a short way west of the Threshers, drop the scales too. They are a level over you: take them one at a time.",
+			"note": "40-50/07 (fix round 3, 0.4.0): Shizzle's Flyer wants 8 Webbed Diemetradon Scales, a 20% drop from Young Diemetradons (49, 10 spawns over 58-72,20-39), Diemetradons (51) and Elder Diemetradons (53); about 40 kills on ten young beasts is a wait for respawns. The level model plays this step at about 49.7, so the Diemetradons on the jungle's western edge (52.8,31.8 and 54.5,28.5, the nearest to the step's point) are a level over the player: the tip sends players to them as well.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "item 11830 drops at 20% from npcs 9162 Young Diemetradon (49), 9163 Diemetradon (51), 9164 Elder Diemetradon (53); npc 9162 has 10 spawns on map 1449"
+				}
+			]
 		},
 		{
 			"id": "h-audit-040-thousand-needles-level-28-before-lakota",

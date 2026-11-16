@@ -527,3 +527,15 @@ test('the Searing Lava Spider and Velarok Windblade have the names the game show
 test('Infernal 278863 stands nowhere players go: no spawns (#1575)', () => {
 	assert.deepEqual(corrections.npcs[278863].set, { spawns: {} });
 });
+
+// Blood of My Blood (93429, Karana at the Harborage) had no objective in the data, so the Fallow Sanctuary step's kill
+// line could not count. Players' recordings tick its one line ("Lost One slain" x10) on a kill of any of the
+// sanctuary's Lost One Hunters, Muckdwellers, Seers and Riftseekers.
+test('Blood of My Blood counts 10 of any Fallow Sanctuary Lost One', () => {
+	const [o, ...rest] = corrections.quests[93429].set.objectives;
+	assert.deepEqual(rest, []);
+	assert.equal(o.type, 'kill');
+	assert.equal(o.count, 10);
+	assert.deepEqual(o.credit, [759, 760, 761, 762]);
+	assert.ok(o.credit.includes(o.id), 'the kill names one of the credited Lost Ones');
+});

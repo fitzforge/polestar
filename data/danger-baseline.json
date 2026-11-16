@@ -2,6 +2,306 @@
 	"about": "The danger-at-the-spot gate's reviewed flags (#1575; tools/danger-gate.js, tools/lib/danger.js). One row per flag the gate may raise on the release candidate, kept on purpose: key (guide|goal|kind), the step and the mobs flagged, why it stays (reason) and what players' recordings and the data show (evidence). A new flag fails the gate until it is fixed in the guide or reviewed into this file. Recorded with the 0.3.7 candidate, the calibrated level model and the recordings archive of 2026-11-11. The gate runs with the recordings archive's census (--archive): an npc players meet as friendly, or never meet where the data places it, is no threat. Rows that stopped flagging on the 0.4.0 development branch (2026-11-13) were dropped.",
 	"flags": [
 		{
+			"key": "forever/alliance/02-westfall.guide|collect 1644.1|target",
+			"guide": "forever/alliance/02-westfall.guide",
+			"goal": "collect 1644.1",
+			"kind": "target",
+			"title": "The Tome of Divinity",
+			"level": 16.3,
+			"mobs": [
+				"Old Town Thug 25-26",
+				"Forlorn Spirit 25-26"
+			],
+			"reason": "since the level tidy the Linen Cloth goal points at the Trade District Auction House and its note says the cloth comes from Westfall's Defias, not the level 25 thugs in Old Town, which the gate still counts as the item's droppers nearby",
+			"evidence": "route level 16.3; Old Town Thug 25-26, Forlorn Spirit 25-26; recordings (2026-11-15): done by 3 (median 12.25), deaths 4 (before the goal pointed at the Auction House), abandons 0"
+		},
+		{
+			"key": "forever/alliance/02-westfall.guide|collect 22.1|elite",
+			"guide": "forever/alliance/02-westfall.guide",
+			"goal": "collect 22.1",
+			"kind": "elite",
+			"title": "Goretusk Livers as you go",
+			"level": 15.1,
+			"mobs": [
+				"Harvest Golem V000-A 60-60"
+			],
+			"reason": "Harvest Golem V000-A (60, elite) is an event creature: 1 player met it in 7,917 recorded sessions; the goal's own mobs are Goretusks 12-15",
+			"evidence": "route level 15.1; Harvest Golem V000-A 60-60; recordings (2026-11-15): done by 87 (median 14.39), deaths 1, abandons 10"
+		},
+		{
+			"key": "forever/alliance/02-westfall.guide|collect 153.1|elite",
+			"guide": "forever/alliance/02-westfall.guide",
+			"goal": "collect 153.1",
+			"kind": "elite",
+			"title": "Red Leather Bandanas as you go",
+			"level": 15.1,
+			"mobs": [
+				"Harvest Golem V000-A 60-60"
+			],
+			"reason": "Harvest Golem V000-A (60, elite) is an event creature: 1 player met it in 7,917 recorded sessions; the goal's own mobs are Defias 10-15",
+			"evidence": "route level 15.1; Harvest Golem V000-A 60-60; recordings (2026-11-15): done by 85 (median 14.46), deaths 0, abandons 4"
+		},
+		{
+			"key": "forever/alliance/02-westfall.guide|kill 12.1|over",
+			"guide": "forever/alliance/02-westfall.guide",
+			"goal": "kill 12.1",
+			"kind": "over",
+			"title": "Defias Trappers and Smugglers",
+			"level": 15.1,
+			"mobs": [
+				"Harvest Golem V000-A 60-60 x2"
+			],
+			"reason": "Harvest Golem V000-A (60, elite) is an event creature: 1 player met it in 7,917 recorded sessions; the targets are Defias Trappers and Smugglers 11-13",
+			"evidence": "route level 15.1; Harvest Golem V000-A 60-60 x2; recordings (2026-11-15): done by 82 (median 14.14), deaths 1, abandons 10"
+		},
+		{
+			"key": "forever/alliance/02-westfall.guide|kill 12.1|elite",
+			"guide": "forever/alliance/02-westfall.guide",
+			"goal": "kill 12.1",
+			"kind": "elite",
+			"title": "Defias Trappers and Smugglers",
+			"level": 15.1,
+			"mobs": [
+				"Harvest Golem V000-A 60-60 x2"
+			],
+			"reason": "Harvest Golem V000-A (60, elite) is an event creature: 1 player met it in 7,917 recorded sessions; the targets are Defias Trappers and Smugglers 11-13",
+			"evidence": "route level 15.1; Harvest Golem V000-A 60-60 x2; recordings (2026-11-15): done by 82 (median 14.14), deaths 1, abandons 10"
+		},
+		{
+			"key": "forever/alliance/03-loch-modan.guide|kill 86585.1|over",
+			"guide": "forever/alliance/03-loch-modan.guide",
+			"goal": "kill 86585.1",
+			"kind": "over",
+			"title": "Mountaineer Ylva",
+			"level": 19.4,
+			"mobs": [
+				"Stonevault Cave Hunter 36-37 x2"
+			],
+			"reason": "warned at the step: its tip says the Stonevault Cave Hunters hold the pass south toward the Badlands and to stay by the banner; Headsplitter is the target",
+			"evidence": "route level 19.4; Stonevault Cave Hunter 36-37 x2; recordings (2026-11-15): done by 29 (median 20.67), deaths 3, abandons 1"
+		},
+		{
+			"key": "forever/alliance/06-ashenvale.guide|kill 294.2|elite",
+			"guide": "forever/alliance/06-ashenvale.guide",
+			"goal": "kill 294.2",
+			"kind": "elite",
+			"title": "The raptor hills",
+			"level": 24,
+			"mobs": [
+				"Nightveiled Rotheap 31-32"
+			],
+			"reason": "warned at the goal: its note names Nightveiled Rotheap (31, elite), who roams the hills",
+			"evidence": "route level 24; Nightveiled Rotheap 31-32; recordings (2026-11-15): done by 52 (median 27.17), deaths 2, abandons 14"
+		},
+		{
+			"key": "forever/alliance/06-wetlands.guide|collect 471.1|over",
+			"guide": "forever/alliance/06-wetlands.guide",
+			"goal": "collect 471.1",
+			"kind": "over",
+			"title": "The Lost Fleet: kill these as you meet them",
+			"level": 27.7,
+			"mobs": [
+				"Nightveiled Rotheap 31-32 x2"
+			],
+			"reason": "warned at the step: the Wetlands tips name Nightveiled Rotheap (31, elite), who roams the shores and roads",
+			"evidence": "route level 27.7; Nightveiled Rotheap 31-32 x2; recordings (2026-11-15): done by 49 (median 28.39), deaths 7, abandons 9"
+		},
+		{
+			"key": "forever/alliance/human/01-elwynn-forest.guide|collect 91725.1|elite",
+			"guide": "forever/alliance/human/01-elwynn-forest.guide",
+			"goal": "collect 91725.1",
+			"kind": "elite",
+			"title": "The gnoll camps",
+			"level": 9.3,
+			"mobs": [
+				"Elmpaw 12-12 x3"
+			],
+			"reason": "Elmpaw (12, elite) is named in the step's Careful tip; the goal is the Stolen Enchanting Supplies in the camps, 0 deaths recorded",
+			"evidence": "route level 9.3; Elmpaw 12-12 x3; recordings (2026-11-15): done by 48 (median 10.53), deaths 0, abandons 7"
+		},
+		{
+			"key": "forever/alliance/02-westfall.guide|collect 5545.1|elite",
+			"guide": "forever/alliance/02-westfall.guide",
+			"goal": "collect 5545.1",
+			"kind": "elite",
+			"title": "The Eastvale Logging Camp",
+			"level": 13.6,
+			"mobs": [
+				"Elmpaw 12-12"
+			],
+			"reason": "Elmpaw (12, elite) walks the woods north of the camp; the Bundles of Wood are on the ground, and no recorded death in 50 people",
+			"evidence": "route level 13.6; Elmpaw 12-12; recordings (2026-11-15): done by 50 (median 9.59), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/alliance/02-westfall.guide|collect 91725.1|elite",
+			"guide": "forever/alliance/02-westfall.guide",
+			"goal": "collect 91725.1",
+			"kind": "elite",
+			"title": "The gnoll camps",
+			"level": 13.7,
+			"mobs": [
+				"Elmpaw 12-12 x3"
+			],
+			"reason": "Elmpaw (12, elite) walks near the gnoll camps; the supplies are on the ground, and no recorded death in 48 people",
+			"evidence": "route level 13.7; Elmpaw 12-12 x3; recordings (2026-11-15): done by 48 (median 10.53), deaths 0, abandons 7"
+		},
+		{
+			"key": "forever/alliance/nightelf/02-darkshore.guide|collect 98025.1|rare",
+			"guide": "forever/alliance/nightelf/02-darkshore.guide",
+			"goal": "collect 98025.1",
+			"kind": "rare",
+			"title": "Ameth'Aran",
+			"level": 13.2,
+			"mobs": [
+				"Lady Moongazer 17-17"
+			],
+			"reason": "a rare not needed for the goal (Jai'vhanel is the target); no recorded death in 65 people",
+			"evidence": "route level 13.2; Lady Moongazer 17-17; recordings (2026-11-15): done by 65 (median 16.43), deaths 0, abandons 11"
+		},
+		{
+			"key": "forever/alliance/skyborne/01-zephras-isle.guide|collect 92684.1|rare",
+			"guide": "forever/alliance/skyborne/01-zephras-isle.guide",
+			"goal": "collect 92684.1",
+			"kind": "rare",
+			"title": "Gustberry Lowlands: kill these as you meet them",
+			"level": 10.2,
+			"mobs": [
+				"Tel'daeor the Stormspeaker 13-13"
+			],
+			"reason": "a rare (13) not needed for the goal; no recorded death in 25 people",
+			"evidence": "route level 10.2; Tel'daeor the Stormspeaker 13-13; recordings (2026-11-15): done by 25 (median 10.33), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/06-wetlands.guide|collect 98216.1|pack",
+			"guide": "forever/alliance/06-wetlands.guide",
+			"goal": "collect 98216.1",
+			"kind": "pack",
+			"title": "Goaz Warders",
+			"level": 28.1,
+			"mobs": [
+				"6 spawns 30+"
+			],
+			"reason": "a group choice (`when group 98216`): the Goaz Warders are elites, and the solo route skips the step",
+			"evidence": "route level 28.1; 6 spawns 30+; recordings (2026-11-15): done by 40 (median 30.3), deaths 0, abandons 4"
+		},
+		{
+			"key": "forever/alliance/skyborne/01-zephras-isle.guide|kill 92461.1|pack",
+			"guide": "forever/alliance/skyborne/01-zephras-isle.guide",
+			"goal": "kill 92461.1",
+			"kind": "pack",
+			"title": "Thendal Grove: kill these as you meet them",
+			"level": 1.1,
+			"mobs": [
+				"6 spawns 3+"
+			],
+			"reason": "the start area's first camp: Pesky Cirrusflies (1) are the targets; 52 people did it, 1 death",
+			"evidence": "route level 1.1; 6 spawns 3+; recordings (2026-11-15): done by 52 (median 1.1), deaths 1, abandons 0"
+		},
+		{
+			"key": "forever/alliance/05-duskwood.guide|collect 93.1|over",
+			"guide": "forever/alliance/05-duskwood.guide",
+			"goal": "collect 93.1",
+			"kind": "over",
+			"title": "Gooey Spider Legs",
+			"level": 26.9,
+			"mobs": [
+				"Disturbed Ghoul 30-30 x2"
+			],
+			"reason": "two Disturbed Ghouls (30) at the edge of the spiders' woods are not targets (Gooey Spider Legs come from the spiders); flagged since the level tidy moved the route level 0.2 lower; 1 recorded death in 21 people",
+			"evidence": "route level 26.9; Disturbed Ghoul 30-30 x2; recordings (2026-11-15): done by 21 (median 26.24), deaths 1, abandons 4"
+		},
+		{
+			"key": "forever/alliance/07-thousand-needles.guide|kill 323.1|pack",
+			"guide": "forever/alliance/07-thousand-needles.guide",
+			"goal": "kill 323.1",
+			"kind": "pack",
+			"title": "Raven Hill Cemetery: kill these as you meet them",
+			"level": 29.7,
+			"mobs": [
+				"12 spawns 31+"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which skeletons to fight (the targets are 26-29; the 31+ ones stand deeper in); flagged since the level tidy moved the route level 0.2 lower",
+			"evidence": "route level 29.7; 12 spawns 31+; recordings (2026-11-15): done by 45 (median 29.25), deaths 11, abandons 5"
+		},
+		{
+			"key": "forever/alliance/07-thousand-needles.guide|kill 323.2|pack",
+			"guide": "forever/alliance/07-thousand-needles.guide",
+			"goal": "kill 323.2",
+			"kind": "pack",
+			"title": "Raven Hill Cemetery: kill these as you meet them",
+			"level": 29.7,
+			"mobs": [
+				"12 spawns 31+"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which skeletons to fight (the targets are 26-29; the 31+ ones stand deeper in); flagged since the level tidy moved the route level 0.2 lower",
+			"evidence": "route level 29.7; 12 spawns 31+; recordings (2026-11-15): done by 45 (median 29.22), deaths 11, abandons 5"
+		},
+		{
+			"key": "forever/alliance/07-thousand-needles.guide|kill 323.3|pack",
+			"guide": "forever/alliance/07-thousand-needles.guide",
+			"goal": "kill 323.3",
+			"kind": "pack",
+			"title": "Raven Hill Cemetery: kill these as you meet them",
+			"level": 29.7,
+			"mobs": [
+				"8 spawns 31+"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which skeletons to fight (the targets are 26-29; the 31+ ones stand deeper in); flagged since the level tidy moved the route level 0.2 lower",
+			"evidence": "route level 29.7; 8 spawns 31+; recordings (2026-11-15): done by 45 (median 29.29), deaths 11, abandons 5"
+		},
+		{
+			"key": "forever/alliance/07-thousand-needles.guide|kill 58.1|rare",
+			"guide": "forever/alliance/07-thousand-needles.guide",
+			"goal": "kill 58.1",
+			"kind": "rare",
+			"title": "Raven Hill Cemetery: kill these as you meet them",
+			"level": 29.7,
+			"mobs": [
+				"Commander Felstrom 32-32 x2"
+			],
+			"reason": "a rare (Commander Felstrom, 32) not needed for the goal; flagged since the level tidy moved the route level 0.2 lower",
+			"evidence": "route level 29.7; Commander Felstrom 32-32 x2; recordings (2026-11-15): done by 52 (median 29.44), deaths 13, abandons 4"
+		},
+		{
+			"key": "forever/alliance/07-thousand-needles.guide|kill 323.1|rare",
+			"guide": "forever/alliance/07-thousand-needles.guide",
+			"goal": "kill 323.1",
+			"kind": "rare",
+			"title": "Raven Hill Cemetery: kill these as you meet them",
+			"level": 29.7,
+			"mobs": [
+				"Commander Felstrom 32-32 x8"
+			],
+			"reason": "a rare (Commander Felstrom, 32) not needed for the goal; flagged since the level tidy moved the route level 0.2 lower",
+			"evidence": "route level 29.7; Commander Felstrom 32-32 x8; recordings (2026-11-15): done by 45 (median 29.25), deaths 11, abandons 5"
+		},
+		{
+			"key": "forever/alliance/07-thousand-needles.guide|kill 323.2|rare",
+			"guide": "forever/alliance/07-thousand-needles.guide",
+			"goal": "kill 323.2",
+			"kind": "rare",
+			"title": "Raven Hill Cemetery: kill these as you meet them",
+			"level": 29.7,
+			"mobs": [
+				"Commander Felstrom 32-32 x9"
+			],
+			"reason": "a rare (Commander Felstrom, 32) not needed for the goal; flagged since the level tidy moved the route level 0.2 lower",
+			"evidence": "route level 29.7; Commander Felstrom 32-32 x9; recordings (2026-11-15): done by 45 (median 29.22), deaths 11, abandons 5"
+		},
+		{
+			"key": "forever/alliance/07-thousand-needles.guide|kill 323.3|rare",
+			"guide": "forever/alliance/07-thousand-needles.guide",
+			"goal": "kill 323.3",
+			"kind": "rare",
+			"title": "Raven Hill Cemetery: kill these as you meet them",
+			"level": 29.7,
+			"mobs": [
+				"Commander Felstrom 32-32 x7"
+			],
+			"reason": "a rare (Commander Felstrom, 32) not needed for the goal; flagged since the level tidy moved the route level 0.2 lower",
+			"evidence": "route level 29.7; Commander Felstrom 32-32 x7; recordings (2026-11-15): done by 45 (median 29.29), deaths 11, abandons 5"
+		},
+		{
 			"key": "forever/alliance/02-westfall.guide|collect 38.3|rare",
 			"guide": "forever/alliance/02-westfall.guide",
 			"goal": "collect 38.3",
@@ -2027,6 +2327,19 @@
 			],
 			"reason": "a rare near the goal with no recorded deaths at the spot",
 			"evidence": "route level 36.6; Lost One Chieftain 39-39; recordings (2026-11-11): done by 4 people at 37-39 (median 39), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/30-40/05-arathi-highlands.guide|kill 93429|rare",
+			"guide": "forever/alliance/30-40/05-arathi-highlands.guide",
+			"goal": "kill 93429",
+			"kind": "rare",
+			"title": "Fallow Sanctuary",
+			"level": 36.1,
+			"mobs": [
+				"Lost One Chieftain 39-39 x2"
+			],
+			"reason": "Blood of My Blood's new kill line (round 3: the quest had no objective in the data) on the same Fallow Sanctuary step and camp as the reviewed Draenethyst Crystals row; a rare (not elite) near the goal, which players do: 12 of the 13 recorded people who took it finished it",
+			"evidence": "route level 36.1; Lost One Chieftain 39-39 (rare, not elite); recordings (to 2026-11-16, quest 93429): 13 people took it, 12 finished at 36-38 (median 37), 0 abandoned; the gate counts 1 death within 60 yd"
 		},
 		{
 			"key": "forever/alliance/30-40/05-arathi-highlands.guide|collect 1421.1|rare",
@@ -6679,19 +6992,6 @@
 			],
 			"reason": "a rare near the goal with no recorded deaths at the spot",
 			"evidence": "route level 13.2; Lady Moongazer 17-17; recordings (2026-11-11): done by 45 people at 12-22 (median 16), 0 people died within 60 yd, 10 abandoned"
-		},
-		{
-			"key": "forever/alliance/nightelf/02-darkshore.guide|collect 963.1|rare",
-			"guide": "forever/alliance/nightelf/02-darkshore.guide",
-			"goal": "collect 963.1",
-			"kind": "rare",
-			"title": "Ameth'Aran",
-			"level": 13.2,
-			"mobs": [
-				"Lady Moongazer 17-17"
-			],
-			"reason": "a rare near the goal with no recorded deaths at the spot (the same step's Highborne Relics carry the same row)",
-			"evidence": "route level 13.2; Lady Moongazer 17-17; recordings (2026-11-13): done by 56 people (median 17.19), 0 people died within 60 yd, 5 abandoned"
 		},
 		{
 			"key": "forever/alliance/nightelf/02-darkshore.guide|kill 985.1|rare",
@@ -13268,8 +13568,8 @@
 			"evidence": "route level 59.5 (experimental route choices' model); Hyjal Sentinel 60-60, Blackthorne Courier 60-60 x2, Blackthorne Priest 60-60 x3, Ghansurok 61-61; recordings (2026-11-15): done by 0 people, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94678.1|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94678.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94678.1",
 			"kind": "rare",
 			"title": "The Bristle Hills",
@@ -13281,8 +13581,8 @@
 			"evidence": "route level 38.8 (experimental route choices' model); Scaldaron 43-43; recordings (2026-11-15): done by 14 people (median 40.41), 0 people died within 60 yd, 2 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94678.2|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94678.2|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94678.2",
 			"kind": "elite",
 			"title": "The Bristle Hills",
@@ -13294,8 +13594,8 @@
 			"evidence": "route level 38.8 (experimental route choices' model); Snargl 40-40; recordings (2026-11-15): done by 14 people (median 40.41), 0 people died within 60 yd, 2 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94678.2|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94678.2|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94678.2",
 			"kind": "rare",
 			"title": "The Bristle Hills",
@@ -13307,8 +13607,8 @@
 			"evidence": "route level 38.8 (experimental route choices' model); Twilight Forgemaster 46-46; recordings (2026-11-15): done by 14 people (median 40.41), 0 people died within 60 yd, 2 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94678.3|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94678.3|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94678.3",
 			"kind": "over",
 			"title": "The Bristle Hills",
@@ -13321,8 +13621,8 @@
 			"evidence": "route level 38.8 (experimental route choices' model); Cinderscale Warrior 41-42 x5, Scaldaron 43-43 x2; recordings (2026-11-15): done by 14 people (median 40.54), 0 people died within 60 yd, 2 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94678.3|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94678.3|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94678.3",
 			"kind": "rare",
 			"title": "The Bristle Hills",
@@ -13334,8 +13634,8 @@
 			"evidence": "route level 38.8 (experimental route choices' model); Scaldaron 43-43 x2; recordings (2026-11-15): done by 14 people (median 40.54), 0 people died within 60 yd, 2 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94678.3|pack",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94678.3|pack",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94678.3",
 			"kind": "pack",
 			"title": "The Bristle Hills",
@@ -13347,8 +13647,8 @@
 			"evidence": "route level 38.8 (experimental route choices' model); 7 spawns 40+; recordings (2026-11-15): done by 14 people (median 40.54), 0 people died within 60 yd, 2 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 94931.1|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 94931.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 94931.1",
 			"kind": "elite",
 			"title": "The Bristle Hills",
@@ -13360,8 +13660,8 @@
 			"evidence": "route level 38.8 (experimental route choices' model); Snargl 40-40 x3; recordings (2026-11-15): done by 14 people (median 41.19), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94614.2|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94614.2|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94614.2",
 			"kind": "elite",
 			"title": "Meadowsbrook and the river",
@@ -13373,8 +13673,8 @@
 			"evidence": "route level 38.9 (experimental route choices' model); Ghostmaw 42-42; recordings (2026-11-15): done by 21 people (median 40.56), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 94842.3|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 94842.3|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 94842.3",
 			"kind": "elite",
 			"title": "Meadowsbrook and the river",
@@ -13386,8 +13686,8 @@
 			"evidence": "route level 38.9 (experimental route choices' model); Ghostmaw 42-42; recordings (2026-11-15): done by 19 people (median 40.66), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 94842.1|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 94842.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 94842.1",
 			"kind": "elite",
 			"title": "Meadowsbrook and the river",
@@ -13399,8 +13699,8 @@
 			"evidence": "route level 38.9 (experimental route choices' model); Ghostmaw 42-42; recordings (2026-11-15): done by 19 people (median 40.66), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 94842.2|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 94842.2|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 94842.2",
 			"kind": "elite",
 			"title": "Meadowsbrook and the river",
@@ -13412,8 +13712,8 @@
 			"evidence": "route level 38.9 (experimental route choices' model); Ghostmaw 42-42; recordings (2026-11-15): done by 18 people (median 42.02), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 95603.1|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95603.1|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 95603.1",
 			"kind": "over",
 			"title": "The cathedral",
@@ -13425,8 +13725,8 @@
 			"evidence": "route level 39.3 (experimental route choices' model); Abbot Schuncke 53-53 x2; recordings (2026-11-15): done by 20 people (median 40.47), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 95603.1|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95603.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 95603.1",
 			"kind": "elite",
 			"title": "The cathedral",
@@ -13438,8 +13738,8 @@
 			"evidence": "route level 39.3 (experimental route choices' model); Abbot Schuncke 53-53 x2; recordings (2026-11-15): done by 20 people (median 40.47), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94924.1|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94924.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94924.1",
 			"kind": "elite",
 			"title": "The plains",
@@ -13451,8 +13751,8 @@
 			"evidence": "route level 39.5 (experimental route choices' model); Ghostmaw 42-42; recordings (2026-11-15): done by 22 people (median 40.97), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 95643.1|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95643.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 95643.1",
 			"kind": "elite",
 			"title": "The Twilight cult",
@@ -13465,8 +13765,8 @@
 			"evidence": "route level 39.8 (experimental route choices' model); Chogg'Zac 41-41 x15, Ghostmaw 42-42 x2; recordings (2026-11-15): done by 19 people (median 41.71), 9 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 95643.2|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95643.2|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 95643.2",
 			"kind": "elite",
 			"title": "The Twilight cult",
@@ -13478,8 +13778,8 @@
 			"evidence": "route level 39.8 (experimental route choices' model); Chogg'Zac 41-41 x16; recordings (2026-11-15): done by 19 people (median 41.71), 9 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|complete 95642|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|complete 95642|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "complete 95642",
 			"kind": "elite",
 			"title": "The Twilight cult",
@@ -13492,8 +13792,8 @@
 			"evidence": "route level 39.8 (experimental route choices' model); Chogg'Zac 41-41 x5, Ghostmaw 42-42; recordings (2026-11-15): done by 0 people, 9 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94877.2|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94877.2|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94877.2",
 			"kind": "elite",
 			"title": "The Twilight cult",
@@ -13505,8 +13805,8 @@
 			"evidence": "route level 39.8 (experimental route choices' model); Ghostmaw 42-42; recordings (2026-11-15): done by 21 people (median 41.31), 6 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94877.3|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94877.3|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94877.3",
 			"kind": "elite",
 			"title": "The Twilight cult",
@@ -13518,8 +13818,8 @@
 			"evidence": "route level 39.8 (experimental route choices' model); Ghostmaw 42-42; recordings (2026-11-15): done by 21 people (median 41.28), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 94961.1|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 94961.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 94961.1",
 			"kind": "elite",
 			"title": "The Twilight cult",
@@ -13531,8 +13831,8 @@
 			"evidence": "route level 39.8 (experimental route choices' model); Executioner Morg 46-46; recordings (2026-11-15): done by 26 people (median 41.34), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 94881.1|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 94881.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 94881.1",
 			"kind": "elite",
 			"title": "The Twilight cult",
@@ -13544,8 +13844,8 @@
 			"evidence": "route level 39.8 (experimental route choices' model); Chogg'Zac 41-41; recordings (2026-11-15): done by 21 people (median 41.3), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 95064.1|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95064.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 95064.1",
 			"kind": "elite",
 			"title": "The Rog'mar training grounds",
@@ -13558,8 +13858,8 @@
 			"evidence": "route level 40.3 (experimental route choices' model); Blademaster Kaijo 42-42, Ghostmaw 42-42 x2; recordings (2026-11-15): done by 16 people (median 42.29), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95426.1|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95426.1|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95426.1",
 			"kind": "over",
 			"title": "The Rog'mar training grounds",
@@ -13571,8 +13871,8 @@
 			"evidence": "route level 40.3 (experimental route choices' model); Rog'mar Grunt 55-55 x2; recordings (2026-11-15): done by 16 people (median 42.29), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95912.1|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95912.1|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95912.1",
 			"kind": "over",
 			"title": "Blademaster Kaijo",
@@ -13584,8 +13884,8 @@
 			"evidence": "route level 40.3 (experimental route choices' model); Rog'mar Grunt 55-55 x4; recordings (2026-11-15): done by 13 people (median 41.63), 0 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95984.1|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95984.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95984.1",
 			"kind": "elite",
 			"title": "The tallstriders and the marsh",
@@ -13597,8 +13897,8 @@
 			"evidence": "route level 40.3 (experimental route choices' model); Komuk 45-45; recordings (2026-11-15): done by 17 people (median 41.34), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95984.1|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95984.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95984.1",
 			"kind": "rare",
 			"title": "The tallstriders and the marsh",
@@ -13610,8 +13910,8 @@
 			"evidence": "route level 40.3 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 17 people (median 41.34), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95121.2|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95121.2|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95121.2",
 			"kind": "over",
 			"title": "The crawlers and Trapclaw",
@@ -13625,8 +13925,8 @@
 			"evidence": "route level 40.6 (experimental route choices' model); Powderfuse Bruiser 57-57 x6, Gul'gash 49-49 x2, Admiral Lamora 45-45 x4; recordings (2026-11-15): done by 36 people (median 40.73), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95121.2|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95121.2|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95121.2",
 			"kind": "rare",
 			"title": "The crawlers and Trapclaw",
@@ -13638,8 +13938,8 @@
 			"evidence": "route level 40.6 (experimental route choices' model); Gul'gash 49-49 x2; recordings (2026-11-15): done by 36 people (median 40.73), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95121.2|pack",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95121.2|pack",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95121.2",
 			"kind": "pack",
 			"title": "The crawlers and Trapclaw",
@@ -13651,8 +13951,8 @@
 			"evidence": "route level 40.6 (experimental route choices' model); 15 spawns 42+; recordings (2026-11-15): done by 36 people (median 40.73), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95988.1|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95988.1|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95988.1",
 			"kind": "over",
 			"title": "The crawlers and Trapclaw",
@@ -13664,8 +13964,8 @@
 			"evidence": "route level 40.6 (experimental route choices' model); Powderfuse Bruiser 57-57 x6; recordings (2026-11-15): done by 13 people (median 42.65), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95988.1|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95988.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95988.1",
 			"kind": "rare",
 			"title": "The crawlers and Trapclaw",
@@ -13677,8 +13977,8 @@
 			"evidence": "route level 40.6 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 13 people (median 42.65), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95988.1|pack",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95988.1|pack",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95988.1",
 			"kind": "pack",
 			"title": "The crawlers and Trapclaw",
@@ -13690,8 +13990,8 @@
 			"evidence": "route level 40.6 (experimental route choices' model); 11 spawns 42+; recordings (2026-11-15): done by 13 people (median 42.65), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95254.1|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95254.1|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95254.1",
 			"kind": "over",
 			"title": "The crawlers and Trapclaw",
@@ -13703,8 +14003,8 @@
 			"evidence": "route level 40.6 (experimental route choices' model); Powderfuse Bruiser 57-57 x7; recordings (2026-11-15): done by 30 people (median 41.43), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95254.1|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95254.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95254.1",
 			"kind": "rare",
 			"title": "The crawlers and Trapclaw",
@@ -13716,8 +14016,8 @@
 			"evidence": "route level 40.6 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 30 people (median 41.43), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95254.1|pack",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95254.1|pack",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95254.1",
 			"kind": "pack",
 			"title": "The crawlers and Trapclaw",
@@ -13729,8 +14029,8 @@
 			"evidence": "route level 40.6 (experimental route choices' model); 10 spawns 42+; recordings (2026-11-15): done by 30 people (median 41.43), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 95119.1|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95119.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 95119.1",
 			"kind": "rare",
 			"title": "The Eastsea pirates",
@@ -13742,8 +14042,8 @@
 			"evidence": "route level 40.6 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 27 people (median 42.09), 2 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 95119.2|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95119.2|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 95119.2",
 			"kind": "rare",
 			"title": "The Eastsea pirates",
@@ -13755,8 +14055,8 @@
 			"evidence": "route level 40.6 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 26 people (median 42.09), 1 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95288.1|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95288.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95288.1",
 			"kind": "rare",
 			"title": "The Eastsea pirates",
@@ -13768,8 +14068,8 @@
 			"evidence": "route level 40.6 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 27 people (median 42.36), 1 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95261.1|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95261.1|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95261.1",
 			"kind": "over",
 			"title": "Beast Entrails as you go",
@@ -13781,8 +14081,8 @@
 			"evidence": "route level 41 (experimental route choices' model); Powderfuse Bruiser 57-57 x2; recordings (2026-11-15): done by 27 people (median 41.72), 1 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95261.1|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95261.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95261.1",
 			"kind": "elite",
 			"title": "Beast Entrails as you go",
@@ -13796,8 +14096,8 @@
 			"evidence": "route level 41 (experimental route choices' model); Komuk 45-45, Old Rot-Chum 42-42 x2, Ghostmaw 42-42; recordings (2026-11-15): done by 27 people (median 41.72), 1 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95261.1|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95261.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95261.1",
 			"kind": "rare",
 			"title": "Beast Entrails as you go",
@@ -13809,8 +14109,8 @@
 			"evidence": "route level 41 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 27 people (median 41.72), 1 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 95122.1|target",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95122.1|target",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 95122.1",
 			"kind": "target",
 			"title": "The pirates' second wave",
@@ -13822,8 +14122,8 @@
 			"evidence": "route level 41 (experimental route choices' model); Eastsea Raider 44-45; recordings (2026-11-15): done by 23 people (median 42.66), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 95122.1|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95122.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 95122.1",
 			"kind": "rare",
 			"title": "The pirates' second wave",
@@ -13835,8 +14135,8 @@
 			"evidence": "route level 41 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 23 people (median 42.66), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 95122.2|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95122.2|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 95122.2",
 			"kind": "over",
 			"title": "The pirates' second wave",
@@ -13848,8 +14148,8 @@
 			"evidence": "route level 41 (experimental route choices' model); Eastsea Raider 44-45 x3; recordings (2026-11-15): done by 24 people (median 42.66), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|use 95165.3|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|use 95165.3|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "use 95165.3",
 			"kind": "rare",
 			"title": "The pirates' ships",
@@ -13861,8 +14161,8 @@
 			"evidence": "route level 41.2 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 20 people (median 43.28), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 95124.1|target",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95124.1|target",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 95124.1",
 			"kind": "target",
 			"title": "The pirates' ships",
@@ -13874,8 +14174,8 @@
 			"evidence": "route level 41.2 (experimental route choices' model); Admiral Lamora 45-45; recordings (2026-11-15): done by 20 people (median 43.28), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 95124.1|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95124.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 95124.1",
 			"kind": "rare",
 			"title": "The pirates' ships",
@@ -13887,8 +14187,8 @@
 			"evidence": "route level 41.2 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 20 people (median 43.28), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 95124.1|pack",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95124.1|pack",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 95124.1",
 			"kind": "pack",
 			"title": "The pirates' ships",
@@ -13900,8 +14200,8 @@
 			"evidence": "route level 41.2 (experimental route choices' model); 8 spawns 43+; recordings (2026-11-15): done by 20 people (median 43.28), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95124.2|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95124.2|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95124.2",
 			"kind": "over",
 			"title": "The pirates' ships",
@@ -13913,8 +14213,8 @@
 			"evidence": "route level 41.2 (experimental route choices' model); Admiral Lamora 45-45 x4; recordings (2026-11-15): done by 20 people (median 43.29), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|use 95165.2|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|use 95165.2|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "use 95165.2",
 			"kind": "over",
 			"title": "The pirates' ships",
@@ -13926,8 +14226,8 @@
 			"evidence": "route level 41.2 (experimental route choices' model); Admiral Lamora 45-45 x4; recordings (2026-11-15): done by 20 people (median 43.28), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|use 95165.1|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|use 95165.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "use 95165.1",
 			"kind": "rare",
 			"title": "The pirates' ships",
@@ -13939,8 +14239,8 @@
 			"evidence": "route level 41.2 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 20 people (median 43.27), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95261.2|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95261.2|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95261.2",
 			"kind": "rare",
 			"title": "Rotflesh Mushrooms",
@@ -13952,8 +14252,8 @@
 			"evidence": "route level 41.2 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 20 people (median 42.7), 0 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 96126.1|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 96126.1|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 96126.1",
 			"kind": "over",
 			"title": "Gronok's Key",
@@ -13965,8 +14265,8 @@
 			"evidence": "route level 41.2 (experimental route choices' model); Chub'chob 45-45 x7; recordings (2026-11-15): done by 13 people (median 43), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 96126.1|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 96126.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 96126.1",
 			"kind": "elite",
 			"title": "Gronok's Key",
@@ -13982,8 +14282,8 @@
 			"evidence": "route level 41.2 (experimental route choices' model); Bonegnaw 42-42 x4, Snufflesnout 44-44 x4, Chub'chob 45-45 x7, Kronk 42-42 x5, Mog'thar 43-43 x6; recordings (2026-11-15): done by 13 people (median 43), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 96126.1|pack",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 96126.1|pack",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 96126.1",
 			"kind": "pack",
 			"title": "Gronok's Key",
@@ -13995,8 +14295,8 @@
 			"evidence": "route level 41.2 (experimental route choices' model); 25 spawns 43+; recordings (2026-11-15): done by 13 people (median 43), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 96009.1|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 96009.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 96009.1",
 			"kind": "elite",
 			"title": "Turner's Logging Camp",
@@ -14008,8 +14308,8 @@
 			"evidence": "route level 41.7 (experimental route choices' model); Ghostmaw 42-42; recordings (2026-11-15): done by 18 people (median 42.1), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94889.1|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94889.1|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94889.1",
 			"kind": "over",
 			"title": "The Twilight camps",
@@ -14022,8 +14322,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Twilight Forgemaster 46-46 x5, Twilight Enforcer 45-45 x3; recordings (2026-11-15): done by 11 people (median 43.59), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94889.1|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94889.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94889.1",
 			"kind": "elite",
 			"title": "The Twilight camps",
@@ -14036,8 +14336,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Executioner Morg 46-46, Twilight Enforcer 45-45 x3; recordings (2026-11-15): done by 11 people (median 43.59), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94889.1|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94889.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94889.1",
 			"kind": "rare",
 			"title": "The Twilight camps",
@@ -14050,8 +14350,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Twilight Forgemaster 46-46 x5, Kargra the Blind 46-46; recordings (2026-11-15): done by 11 people (median 43.59), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94889.1|pack",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94889.1|pack",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94889.1",
 			"kind": "pack",
 			"title": "The Twilight camps",
@@ -14063,8 +14363,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); 11 spawns 43+; recordings (2026-11-15): done by 11 people (median 43.59), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94889.2|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94889.2|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94889.2",
 			"kind": "over",
 			"title": "The Twilight camps",
@@ -14078,8 +14378,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Executioner Morg 46-46 x3, Twilight Forgemaster 46-46 x2, Twilight Enforcer 45-45 x3; recordings (2026-11-15): done by 12 people (median 43.57), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94889.2|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94889.2|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94889.2",
 			"kind": "elite",
 			"title": "The Twilight camps",
@@ -14092,8 +14392,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Executioner Morg 46-46 x3, Twilight Enforcer 45-45 x3; recordings (2026-11-15): done by 12 people (median 43.57), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94889.2|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94889.2|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94889.2",
 			"kind": "rare",
 			"title": "The Twilight camps",
@@ -14106,8 +14406,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Twilight Forgemaster 46-46 x2, Kargra the Blind 46-46; recordings (2026-11-15): done by 12 people (median 43.57), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94889.2|pack",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94889.2|pack",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94889.2",
 			"kind": "pack",
 			"title": "The Twilight camps",
@@ -14119,8 +14419,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); 11 spawns 43+; recordings (2026-11-15): done by 12 people (median 43.57), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94889.3|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94889.3|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94889.3",
 			"kind": "over",
 			"title": "The Twilight camps",
@@ -14133,8 +14433,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Twilight Forgemaster 46-46 x5, Kargra the Blind 46-46 x2; recordings (2026-11-15): done by 12 people (median 43.57), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94889.3|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94889.3|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94889.3",
 			"kind": "elite",
 			"title": "The Twilight camps",
@@ -14146,8 +14446,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Executioner Morg 46-46; recordings (2026-11-15): done by 12 people (median 43.57), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94889.3|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94889.3|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94889.3",
 			"kind": "rare",
 			"title": "The Twilight camps",
@@ -14160,8 +14460,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Twilight Forgemaster 46-46 x5, Kargra the Blind 46-46 x2; recordings (2026-11-15): done by 12 people (median 43.57), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94889.3|pack",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94889.3|pack",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94889.3",
 			"kind": "pack",
 			"title": "The Twilight camps",
@@ -14173,8 +14473,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); 13 spawns 43+; recordings (2026-11-15): done by 12 people (median 43.57), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|complete 94888|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|complete 94888|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "complete 94888",
 			"kind": "over",
 			"title": "The Twilight camps",
@@ -14186,8 +14486,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Overlord Kilgar 46-46 x3; recordings (2026-11-15): done by 0 people, 9 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|complete 94888|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|complete 94888|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "complete 94888",
 			"kind": "elite",
 			"title": "The Twilight camps",
@@ -14201,8 +14501,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Executioner Morg 46-46, Overlord Kilgar 46-46 x3, Twilight Enforcer 45-45; recordings (2026-11-15): done by 0 people, 9 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|complete 94888|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|complete 94888|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "complete 94888",
 			"kind": "rare",
 			"title": "The Twilight camps",
@@ -14215,8 +14515,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Twilight Forgemaster 46-46, Kargra the Blind 46-46; recordings (2026-11-15): done by 0 people, 9 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|complete 94907|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|complete 94907|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "complete 94907",
 			"kind": "over",
 			"title": "The Twilight camps",
@@ -14228,8 +14528,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Kargra the Blind 46-46 x3; recordings (2026-11-15): done by 0 people, 2 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|complete 94907|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|complete 94907|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "complete 94907",
 			"kind": "elite",
 			"title": "The Twilight camps",
@@ -14241,8 +14541,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Twilight Enforcer 45-45; recordings (2026-11-15): done by 0 people, 2 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|complete 94907|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|complete 94907|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "complete 94907",
 			"kind": "rare",
 			"title": "The Twilight camps",
@@ -14255,8 +14555,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Twilight Forgemaster 46-46, Kargra the Blind 46-46 x3; recordings (2026-11-15): done by 0 people, 2 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|complete 94887|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|complete 94887|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "complete 94887",
 			"kind": "elite",
 			"title": "Marshal Ryan",
@@ -14269,8 +14569,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Overlord Kilgar 46-46, Executioner Morg 46-46; recordings (2026-11-15): done by 0 people, 0 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|complete 94887|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|complete 94887|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "complete 94887",
 			"kind": "rare",
 			"title": "Marshal Ryan",
@@ -14282,8 +14582,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Kargra the Blind 46-46; recordings (2026-11-15): done by 0 people, 0 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 96015.1|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 96015.1|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 96015.1",
 			"kind": "over",
 			"title": "The ogre mine",
@@ -14297,8 +14597,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Overlord Kilgar 46-46 x8, Executioner Morg 46-46 x5, Twilight Enforcer 45-45 x3; recordings (2026-11-15): done by 10 people (median 43.77), 8 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 96015.1|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 96015.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 96015.1",
 			"kind": "elite",
 			"title": "The ogre mine",
@@ -14312,8 +14612,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Overlord Kilgar 46-46 x8, Executioner Morg 46-46 x5, Twilight Enforcer 45-45 x3; recordings (2026-11-15): done by 10 people (median 43.77), 8 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 96015.1|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 96015.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 96015.1",
 			"kind": "rare",
 			"title": "The ogre mine",
@@ -14326,8 +14626,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Twilight Forgemaster 46-46, Kargra the Blind 46-46; recordings (2026-11-15): done by 10 people (median 43.77), 8 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 96015.1|pack",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 96015.1|pack",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 96015.1",
 			"kind": "pack",
 			"title": "The ogre mine",
@@ -14339,8 +14639,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); 21 spawns 43+; recordings (2026-11-15): done by 10 people (median 43.77), 8 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 96015.2|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 96015.2|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 96015.2",
 			"kind": "over",
 			"title": "The ogre mine",
@@ -14353,8 +14653,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Executioner Morg 46-46 x4, Twilight Enforcer 45-45 x3; recordings (2026-11-15): done by 10 people (median 43.77), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 96015.2|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 96015.2|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 96015.2",
 			"kind": "elite",
 			"title": "The ogre mine",
@@ -14367,8 +14667,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Executioner Morg 46-46 x4, Twilight Enforcer 45-45 x3; recordings (2026-11-15): done by 10 people (median 43.77), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 96015.2|pack",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 96015.2|pack",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 96015.2",
 			"kind": "pack",
 			"title": "The ogre mine",
@@ -14380,8 +14680,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); 9 spawns 43+; recordings (2026-11-15): done by 10 people (median 43.77), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 94890.1|target",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 94890.1|target",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 94890.1",
 			"kind": "target",
 			"title": "Bring Me His Head",
@@ -14393,8 +14693,8 @@
 			"evidence": "route level 42.2 (experimental route choices' model); Overlord Kilgar 46-46; recordings (2026-11-15): done by 8 people (median 43.75), 5 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 94890.1|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 94890.1|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 94890.1",
 			"kind": "over",
 			"title": "Bring Me His Head",
@@ -14407,8 +14707,8 @@
 			"evidence": "route level 42.2 (experimental route choices' model); Twilight Forgemaster 46-46 x2, Executioner Morg 46-46 x2; recordings (2026-11-15): done by 8 people (median 43.75), 5 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 94890.1|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 94890.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 94890.1",
 			"kind": "rare",
 			"title": "Bring Me His Head",
@@ -14421,8 +14721,8 @@
 			"evidence": "route level 42.2 (experimental route choices' model); Twilight Forgemaster 46-46 x2, Kargra the Blind 46-46; recordings (2026-11-15): done by 8 people (median 43.75), 5 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 94890.1|pack",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 94890.1|pack",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 94890.1",
 			"kind": "pack",
 			"title": "Bring Me His Head",
@@ -16019,6 +16319,1004 @@
 			],
 			"reason": "players meet Shen'dralar Citizen, Arondel, Kerelle, Shen'dralas Protector, Maralus, Jarael, Melanori, Naria only as neutral (the census), never hostile, and nobody died to them; the step's tip says to leave them be.",
 			"evidence": "route level 45.3 (experimental route choices' model); 59 spawns 47+; recordings (2026-11-15): done by 2 people (median 43.84), 0 people died within 60 yd, 1 abandoned"
+		},
+		{
+			"key": "forever/alliance/30-40/03-ashenvale.guide|collect 1110.1|over",
+			"guide": "forever/alliance/30-40/03-ashenvale.guide",
+			"goal": "collect 1110.1",
+			"kind": "over",
+			"title": "Mirage Raceway: kill these as you meet them",
+			"level": 31.8,
+			"mobs": [
+				"Sparkleshell Snapper 34-35 x3"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight; the tip says the Sparkleshell Snappers (34-35) wander the whole flats and to hunt the Tortoises (30-31) and keep to the north half",
+			"evidence": "route level 31.8; Sparkleshell Snapper 34-35 x3; recordings (2026-11-15): done by 68 (median 34.06), deaths 1, abandons 2"
+		},
+		{
+			"key": "forever/alliance/30-40/03-ashenvale.guide|collect 1105.1|mixed",
+			"guide": "forever/alliance/30-40/03-ashenvale.guide",
+			"goal": "collect 1105.1",
+			"kind": "mixed",
+			"title": "Mirage Raceway: kill these as you meet them",
+			"level": 31.8,
+			"mobs": [
+				"Sparkleshell Snapper 34-35"
+			],
+			"reason": "the shells also drop from the Sparkleshell Tortoises (30-31) the tip sends players to; the Snappers (34-35) wander the flats and the tip says to leave them",
+			"evidence": "route level 31.8; Sparkleshell Snapper 34-35; recordings (2026-11-15): done by 68 (median 34.27), deaths 0, abandons 5"
+		},
+		{
+			"key": "forever/alliance/30-40/04b-stranglethorn-vale.guide|collect 213.1|over",
+			"guide": "forever/alliance/30-40/04b-stranglethorn-vale.guide",
+			"goal": "collect 213.1",
+			"kind": "over",
+			"title": "Lake Nazferiti",
+			"level": 35.9,
+			"mobs": [
+				"Venture Co. Agent 39-39 x8"
+			],
+			"reason": "Venture Co. Agents (39) walk among the Geologists (34-36) who carry the crystals; the tip says to take the Geologists on the camps' edges one at a time",
+			"evidence": "route level 35.9; Venture Co. Agent 39-39 x8; recordings (2026-11-15): done by 61 (median 36.33), deaths 0, abandons 13"
+		},
+		{
+			"key": "forever/alliance/30-40/05-arathi-highlands.guide|kill 1396.3|pack",
+			"guide": "forever/alliance/30-40/05-arathi-highlands.guide",
+			"goal": "kill 1396.3",
+			"kind": "pack",
+			"title": "The western swamp",
+			"level": 36.5,
+			"mobs": [
+				"6 spawns 38+"
+			],
+			"reason": "the Swamp Jaguars (36-37) the quest asks for, at the route's 36.5; a pack of six spawns of 38 and over nearby",
+			"evidence": "route level 36.5; 6 spawns 38+; recordings (2026-11-15): done by 26 (median 37.76), deaths 2, abandons 0"
+		},
+		{
+			"key": "forever/alliance/30-40/05-arathi-highlands.guide|collect 93430.1|rare",
+			"guide": "forever/alliance/30-40/05-arathi-highlands.guide",
+			"goal": "collect 93430.1",
+			"kind": "rare",
+			"title": "Fallow Sanctuary",
+			"level": 36.6,
+			"mobs": [
+				"Molt Thorn 42-42"
+			],
+			"reason": "a rare roaming the Swamp of Sorrows (Molt Thorn, a crocolisk) near the Fallow Sanctuary; the Lucky Lure comes from the Lost One Fishermen (35-36) on the sanctuary's west side",
+			"evidence": "route level 36.6; Molt Thorn 42-42; recordings (2026-11-15): done by 13 (median 37.97), deaths 1, abandons 1"
+		},
+		{
+			"key": "forever/alliance/30-40/06-badlands.guide|collect 2500.1|over",
+			"guide": "forever/alliance/30-40/06-badlands.guide",
+			"goal": "collect 2500.1",
+			"kind": "over",
+			"title": "Agmond's End: kill these as you meet them",
+			"level": 38.4,
+			"mobs": [
+				"Malevolent Mirage 42-42 x2"
+			],
+			"reason": "a kill-as-you-meet-them step: the buzzards for the gizzards circle the plain east of Agmond's End; the Malevolent Mirage (42, elite) drifts across the Badlands and the steps' tips say to keep clear of it; the rares and the 40+ ogres are off the buzzards' plain",
+			"evidence": "route level 38.4; Malevolent Mirage 42-42 x2; recordings (2026-11-15): done by 22 (median 41.04), deaths 0, abandons 2"
+		},
+		{
+			"key": "forever/alliance/30-40/06-badlands.guide|collect 2500.1|elite",
+			"guide": "forever/alliance/30-40/06-badlands.guide",
+			"goal": "collect 2500.1",
+			"kind": "elite",
+			"title": "Agmond's End: kill these as you meet them",
+			"level": 38.4,
+			"mobs": [
+				"Malevolent Mirage 42-42 x2"
+			],
+			"reason": "a kill-as-you-meet-them step: the buzzards for the gizzards circle the plain east of Agmond's End; the Malevolent Mirage (42, elite) drifts across the Badlands and the steps' tips say to keep clear of it; the rares and the 40+ ogres are off the buzzards' plain",
+			"evidence": "route level 38.4; Malevolent Mirage 42-42 x2; recordings (2026-11-15): done by 22 (median 41.04), deaths 0, abandons 2"
+		},
+		{
+			"key": "forever/alliance/30-40/06-badlands.guide|collect 2500.1|rare",
+			"guide": "forever/alliance/30-40/06-badlands.guide",
+			"goal": "collect 2500.1",
+			"kind": "rare",
+			"title": "Agmond's End: kill these as you meet them",
+			"level": 38.4,
+			"mobs": [
+				"7:XT 41-41",
+				"Anathemus 45-45"
+			],
+			"reason": "a kill-as-you-meet-them step: the buzzards for the gizzards circle the plain east of Agmond's End; the Malevolent Mirage (42, elite) drifts across the Badlands and the steps' tips say to keep clear of it; the rares and the 40+ ogres are off the buzzards' plain",
+			"evidence": "route level 38.4; 7:XT 41-41, Anathemus 45-45; recordings (2026-11-15): done by 22 (median 41.04), deaths 0, abandons 2"
+		},
+		{
+			"key": "forever/alliance/30-40/06-badlands.guide|collect 2500.1|pack",
+			"guide": "forever/alliance/30-40/06-badlands.guide",
+			"goal": "collect 2500.1",
+			"kind": "pack",
+			"title": "Agmond's End: kill these as you meet them",
+			"level": 38.4,
+			"mobs": [
+				"11 spawns 40+"
+			],
+			"reason": "a kill-as-you-meet-them step: the buzzards for the gizzards circle the plain east of Agmond's End; the Malevolent Mirage (42, elite) drifts across the Badlands and the steps' tips say to keep clear of it; the rares and the 40+ ogres are off the buzzards' plain",
+			"evidence": "route level 38.4; 11 spawns 40+; recordings (2026-11-15): done by 22 (median 41.04), deaths 0, abandons 2"
+		},
+		{
+			"key": "forever/alliance/30-40/06b-desolace.guide|kill 261.1|over",
+			"guide": "forever/alliance/30-40/06b-desolace.guide",
+			"goal": "kill 261.1",
+			"kind": "over",
+			"title": "The Valley of Bones",
+			"level": 38.9,
+			"mobs": [
+				"Magram Necromancer 42-43 x2"
+			],
+			"reason": "the targets are the Undead Ravagers (37-38) on the bone fields' western edge; the step's tip names the Magram Necromancers (42) and the Necrokhans and Corpsefeeders (45, elite) further east and says to pull the Ravagers away from them",
+			"evidence": "route level 38.9; Magram Necromancer 42-43 x2; recordings (2026-11-15): done by 30 (median 37.26), deaths 5, abandons 4"
+		},
+		{
+			"key": "forever/alliance/30-40/06b-desolace.guide|use 6134.1|elite",
+			"guide": "forever/alliance/30-40/06b-desolace.guide",
+			"goal": "use 6134.1",
+			"kind": "elite",
+			"title": "The ghost magnets",
+			"level": 38.9,
+			"mobs": [
+				"Magram Necrokhan 45-45"
+			],
+			"reason": "a group choice (when group 6134, route-fixes deliberate.group 6134): solo players skip Ghost-o-plasm Round Up; the step's tip names the Necrokhans and Corpsefeeders (45, elite) for the group",
+			"evidence": "route level 38.9; Magram Necrokhan 45-45; recordings (2026-11-15): done by 18 (median 39.75), deaths 8, abandons 2"
+		},
+		{
+			"key": "forever/alliance/30-40/06b-desolace.guide|collect 6134.1|elite",
+			"guide": "forever/alliance/30-40/06b-desolace.guide",
+			"goal": "collect 6134.1",
+			"kind": "elite",
+			"title": "The ghost magnets",
+			"level": 38.9,
+			"mobs": [
+				"Magram Necrokhan 45-45"
+			],
+			"reason": "a group choice (when group 6134, route-fixes deliberate.group 6134): solo players skip Ghost-o-plasm Round Up; the step's tip names the Necrokhans and Corpsefeeders (45, elite) for the group",
+			"evidence": "route level 38.9; Magram Necrokhan 45-45; recordings (2026-11-15): done by 18 (median 39.75), deaths 8, abandons 2"
+		},
+		{
+			"key": "forever/40-50/shendralas.guide@Alliance|collect 99257.1|over",
+			"guide": "forever/40-50/shendralas.guide@Alliance",
+			"goal": "collect 99257.1",
+			"kind": "over",
+			"title": "A Heart of Crystal",
+			"level": 46.1,
+			"mobs": [
+				"Shen'dralar Citizen 60-60 x2",
+				"Shen'dralar Scholar 60-60 x2",
+				"Shen'dralas Protector 60-60 x2"
+			],
+			"reason": "the temple's Shen'dralar and its Protectors are neutral, and the heart comes from the Decrepit Pylon Protectors (42-43) along the road; players do it (done by 6 people (median level 43.94), 0 deaths, 1 abandoned)",
+			"evidence": "route level 46.1; Shen'dralar Citizen 60-60 x2, Shen'dralar Scholar 60-60 x2, Shen'dralas Protector 60-60 x2; recordings (2026-11-15): done by 6 people (median level 43.94), 0 deaths, 1 abandoned"
+		},
+		{
+			"key": "forever/40-50/shendralas.guide@Alliance|collect 99257.1|pack",
+			"guide": "forever/40-50/shendralas.guide@Alliance",
+			"goal": "collect 99257.1",
+			"kind": "pack",
+			"title": "A Heart of Crystal",
+			"level": 46.1,
+			"mobs": [
+				"6 spawns 48+"
+			],
+			"reason": "a pack of mobs a level or two above the player near the work, at about level 46 by the level model now that the zone is part of the route; players do it (done by 6 people (median level 43.94), 0 deaths, 1 abandoned)",
+			"evidence": "route level 46.1; 6 spawns 48+; recordings (2026-11-15): done by 6 people (median level 43.94), 0 deaths, 1 abandoned"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95943.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "collect 95943.1",
+			"kind": "rare",
+			"title": "Foreman's Crate",
+			"level": 45,
+			"mobs": [
+				"Gul'gash 49-49"
+			],
+			"reason": "Gul'gash, a rare elite of level 49, roams the coast and cliffs; the guide's tip on the pirates says to keep well away from him; players do it (done by 32 people (median level 40.67), 0 deaths, 0 abandoned)",
+			"evidence": "route level 45; Gul'gash 49-49; recordings (2026-11-15): done by 32 people (median level 40.67), 0 deaths, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94877.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "kill 94877.1",
+			"kind": "elite",
+			"title": "The Twilight cult",
+			"level": 45,
+			"mobs": [
+				"Executioner Morg 46-46"
+			],
+			"reason": "Executioner Morg (elite, 46) keeps to the Twilight camps in the west, away from Sunnyglade's streets where this work is; players do it (done by 33 people (median level 40.34), 9 deaths, 0 abandoned)",
+			"evidence": "route level 45; Executioner Morg 46-46; recordings (2026-11-15): done by 33 people (median level 40.34), 9 deaths, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94877.3|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "kill 94877.3",
+			"kind": "over",
+			"title": "The Twilight cult",
+			"level": 45,
+			"mobs": [
+				"Rog'mar Grunt 55-55 x2"
+			],
+			"reason": "Rog'mar Grunts (55) guard the Horde fort east of Sunnyglade; the guide's tips keep players west and north of its walls; players do it (done by 33 people (median level 40.71), 5 deaths, 0 abandoned)",
+			"evidence": "route level 45; Rog'mar Grunt 55-55 x2; recordings (2026-11-15): done by 33 people (median level 40.71), 5 deaths, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 94858.2|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "collect 94858.2",
+			"kind": "over",
+			"title": "Farmer Elbrim",
+			"level": 45,
+			"mobs": [
+				"Rog'mar Grunt 55-55 x3"
+			],
+			"reason": "Rog'mar Grunts (55) guard the Horde fort east of Sunnyglade; the guide's tips keep players west and north of its walls; players do it (done by 23 people (median level 42.52), 2 deaths, 0 abandoned)",
+			"evidence": "route level 45; Rog'mar Grunt 55-55 x3; recordings (2026-11-15): done by 23 people (median level 42.52), 2 deaths, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95912.1|pack",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "collect 95912.1",
+			"kind": "pack",
+			"title": "Blademaster Kaijo",
+			"level": 45,
+			"mobs": [
+				"6 spawns 47+"
+			],
+			"reason": "a pack of mobs a level or two above the player near the work, at about level 45 by the level model now that the zone is part of the route; players do it (done by 26 people (median level 42.01), 1 deaths, 1 abandoned)",
+			"evidence": "route level 45; 6 spawns 47+; recordings (2026-11-15): done by 26 people (median level 42.01), 1 deaths, 1 abandoned"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95254.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "collect 95254.1",
+			"kind": "elite",
+			"title": "The crawlers and Trapclaw",
+			"level": 45,
+			"mobs": [
+				"Komuk 45-45"
+			],
+			"reason": "Komuk, a Horde elite of level 45, ranges over the zone's wilds; the guide's tips say to take your beasts away from him; players do it (done by 46 people (median level 41.43), 1 deaths, 1 abandoned)",
+			"evidence": "route level 45; Komuk 45-45; recordings (2026-11-15): done by 46 people (median level 41.43), 1 deaths, 1 abandoned"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95288.1|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "collect 95288.1",
+			"kind": "over",
+			"title": "The Eastsea pirates",
+			"level": 45,
+			"mobs": [
+				"Gul'gash 49-49 x2"
+			],
+			"reason": "Gul'gash, a rare elite of level 49, roams the coast and cliffs; the guide's tip on the pirates says to keep well away from him; players do it (done by 46 people (median level 42.33), 1 deaths, 2 abandoned)",
+			"evidence": "route level 45; Gul'gash 49-49 x2; recordings (2026-11-15): done by 46 people (median level 42.33), 1 deaths, 2 abandoned"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95122.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "kill 95122.1",
+			"kind": "elite",
+			"title": "The pirates' second wave",
+			"level": 45,
+			"mobs": [
+				"Komuk 45-45"
+			],
+			"reason": "Komuk, a Horde elite of level 45, ranges over the zone's wilds; the guide's tips say to take your beasts away from him; players do it (done by 43 people (median level 42.9), 0 deaths, 0 abandoned)",
+			"evidence": "route level 45; Komuk 45-45; recordings (2026-11-15): done by 43 people (median level 42.9), 0 deaths, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95122.2|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "kill 95122.2",
+			"kind": "rare",
+			"title": "The pirates' second wave",
+			"level": 45,
+			"mobs": [
+				"Gul'gash 49-49"
+			],
+			"reason": "Gul'gash, a rare elite of level 49, roams the coast and cliffs; the guide's tip on the pirates says to keep well away from him; players do it (done by 44 people (median level 42.82), 0 deaths, 0 abandoned)",
+			"evidence": "route level 45; Gul'gash 49-49; recordings (2026-11-15): done by 44 people (median level 42.82), 0 deaths, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95124.2|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "collect 95124.2",
+			"kind": "rare",
+			"title": "The pirates' ships",
+			"level": 45,
+			"mobs": [
+				"Gul'gash 49-49"
+			],
+			"reason": "Gul'gash, a rare elite of level 49, roams the coast and cliffs; the guide's tip on the pirates says to keep well away from him; players do it (done by 36 people (median level 43.62), 2 deaths, 0 abandoned)",
+			"evidence": "route level 45; Gul'gash 49-49; recordings (2026-11-15): done by 36 people (median level 43.62), 2 deaths, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|use 95165.2|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "use 95165.2",
+			"kind": "rare",
+			"title": "The pirates' ships",
+			"level": 45,
+			"mobs": [
+				"Gul'gash 49-49"
+			],
+			"reason": "Gul'gash, a rare elite of level 49, roams the coast and cliffs; the guide's tip on the pirates says to keep well away from him; players do it (done by 36 people (median level 43.62), 2 deaths, 0 abandoned)",
+			"evidence": "route level 45; Gul'gash 49-49; recordings (2026-11-15): done by 36 people (median level 43.62), 2 deaths, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95261.1|pack",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "collect 95261.1",
+			"kind": "pack",
+			"title": "Finish the Beast Entrails",
+			"level": 45,
+			"mobs": [
+				"6 spawns 47+"
+			],
+			"reason": "a pack of mobs a level or two above the player near the work, at about level 45 by the level model now that the zone is part of the route; players do it (done by 49 people (median level 41.8), 0 deaths, 2 abandoned)",
+			"evidence": "route level 45; 6 spawns 47+; recordings (2026-11-15): done by 49 people (median level 41.8), 0 deaths, 2 abandoned"
+		},
+		{
+			"key": "forever/alliance/30-40/04b-stranglethorn-vale.guide|collect 97047.1|elite",
+			"guide": "forever/alliance/30-40/04b-stranglethorn-vale.guide",
+			"goal": "collect 97047.1",
+			"kind": "elite",
+			"title": "Kurzen's Compound",
+			"level": 35.8,
+			"mobs": [
+				"Colonel Kurzen 39-40"
+			],
+			"reason": "Colonel Kurzen (39-40, elite) stands at the compound's north end; the cage key comes from the Subchiefs and Elites at its western edge, and the step's Careful tip says to leave him be",
+			"evidence": "route level 35.8 (integrated Alliance route, rested level model); Colonel Kurzen 39-40; recordings (2026-11-15): done by 32 (median 36.89), deaths 2, abandons 6"
+		},
+		{
+			"key": "forever/alliance/30-40/04b-stranglethorn-vale.guide|collect 97047.1|pack",
+			"guide": "forever/alliance/30-40/04b-stranglethorn-vale.guide",
+			"goal": "collect 97047.1",
+			"kind": "pack",
+			"title": "Kurzen's Compound",
+			"level": 35.8,
+			"mobs": [
+				"6 spawns 37+"
+			],
+			"reason": "the compound's Elites and Commandos (35-37) stand close together; the step's tips say to take the key from the Subchiefs and pull the Elites one at a time",
+			"evidence": "route level 35.8 (integrated Alliance route, rested level model); 6 spawns 37+; recordings (2026-11-15): done by 32 (median 36.89), deaths 2, abandons 6"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|complete 94861|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "complete 94861",
+			"kind": "elite",
+			"title": "Hurley",
+			"level": 43,
+			"mobs": [
+				"Ghostmaw 42-42"
+			],
+			"reason": "Ghostmaw (42, elite) roams near Hurley's escort, a level under the player (43 by the level model now that the zone follows Stranglethorn)",
+			"evidence": "route level 43 (integrated Alliance route, rested level model); Ghostmaw 42-42; recordings (2026-11-15): done by 0 (median null), deaths 2, abandons 11"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|complete 94992|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "complete 94992",
+			"kind": "elite",
+			"title": "The lost horse",
+			"level": 43.2,
+			"mobs": [
+				"Ghostmaw 42-42"
+			],
+			"reason": "Ghostmaw (42, elite) roams the plains near the lost horse, a level under the player at 43",
+			"evidence": "route level 43.2 (integrated Alliance route, rested level model); Ghostmaw 42-42; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 3"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94877.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "kill 94877.1",
+			"kind": "rare",
+			"title": "The Twilight cult",
+			"level": 43.4,
+			"mobs": [
+				"Twilight Forgemaster 46-46"
+			],
+			"reason": "Twilight Forgemaster (46, rare) stands in the Twilight camp among the cultists the quest asks for; at 43.4 players do it (33 people, median 40.3)",
+			"evidence": "route level 43.4 (integrated Alliance route, rested level model); Twilight Forgemaster 46-46; recordings (2026-11-15): done by 33 (median 40.34), deaths 9, abandons 0"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 94961.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "collect 94961.1",
+			"kind": "rare",
+			"title": "The Twilight cult",
+			"level": 43.4,
+			"mobs": [
+				"Twilight Forgemaster 46-46"
+			],
+			"reason": "the same Twilight Forgemaster (46, rare) in the Twilight camp; players do it (42 people, median 41.4)",
+			"evidence": "route level 43.4 (integrated Alliance route, rested level model); Twilight Forgemaster 46-46; recordings (2026-11-15): done by 42 (median 41.37), deaths 5, abandons 0"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 4726.1|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 4726.1",
+			"kind": "over",
+			"title": "Ruins of Thaurissan: kill these as you meet them",
+			"level": 52.5,
+			"mobs": [
+				"Blackrock Bootlegger 57-58 x2",
+				"Sulfuron Smuggler 57-58 x2"
+			],
+			"reason": "a kill-as-you-meet step around the Ruins of Thaurissan: two Blackrock Bootleggers and Sulfuron Smugglers (57-58) within reach of the relic points; the step's Careful tip says to take the relics at the ruins' edge and pull one at a time",
+			"evidence": "route level 52.5 (integrated Alliance route, rested level model); Blackrock Bootlegger 57-58 x2, Sulfuron Smuggler 57-58 x2; recordings (2026-11-15): done by 5 (median 52.23), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2585.2|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2585.2",
+			"kind": "over",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 52.6,
+			"mobs": [
+				"Snickerfang Matriarch 60-60 x2"
+			],
+			"reason": "the bloodmages' beasts at the 52.6 player; the data lists two to five Snickerfang Matriarch spawns of 60 near the points, and players did these quests at about 48 (12-13 people, 1-2 deaths)",
+			"evidence": "route level 52.6 (integrated Alliance route, rested level model); Snickerfang Matriarch 60-60 x2; recordings (2026-11-15): done by 12 (median 48.35), deaths 1, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2601.2|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2601.2",
+			"kind": "over",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 52.6,
+			"mobs": [
+				"Snickerfang Matriarch 60-60 x3"
+			],
+			"reason": "the bloodmages' beasts at the 52.6 player; the data lists two to five Snickerfang Matriarch spawns of 60 near the points, and players did these quests at about 48 (12-13 people, 1-2 deaths)",
+			"evidence": "route level 52.6 (integrated Alliance route, rested level model); Snickerfang Matriarch 60-60 x3; recordings (2026-11-15): done by 12 (median 48.61), deaths 2, abandons 9"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2603.1|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2603.1",
+			"kind": "over",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 52.6,
+			"mobs": [
+				"Snickerfang Matriarch 60-60 x3"
+			],
+			"reason": "the bloodmages' beasts at the 52.6 player; the data lists two to five Snickerfang Matriarch spawns of 60 near the points, and players did these quests at about 48 (12-13 people, 1-2 deaths)",
+			"evidence": "route level 52.6 (integrated Alliance route, rested level model); Snickerfang Matriarch 60-60 x3; recordings (2026-11-15): done by 12 (median 48.21), deaths 2, abandons 9"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2581.2|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2581.2",
+			"kind": "over",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 52.6,
+			"mobs": [
+				"Snickerfang Matriarch 60-60 x5"
+			],
+			"reason": "the bloodmages' beasts at the 52.6 player; the data lists two to five Snickerfang Matriarch spawns of 60 near the points, and players did these quests at about 48 (12-13 people, 1-2 deaths)",
+			"evidence": "route level 52.6 (integrated Alliance route, rested level model); Snickerfang Matriarch 60-60 x5; recordings (2026-11-15): done by 13 (median 48.66), deaths 1, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2583.1|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2583.1",
+			"kind": "over",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 52.6,
+			"mobs": [
+				"Snickerfang Matriarch 60-60 x5"
+			],
+			"reason": "the bloodmages' beasts at the 52.6 player; the data lists two to five Snickerfang Matriarch spawns of 60 near the points, and players did these quests at about 48 (12-13 people, 1-2 deaths)",
+			"evidence": "route level 52.6 (integrated Alliance route, rested level model); Snickerfang Matriarch 60-60 x5; recordings (2026-11-15): done by 13 (median 48.36), deaths 1, abandons 5"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2585.3|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2585.3",
+			"kind": "over",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 52.6,
+			"mobs": [
+				"Snickerfang Matriarch 60-60 x5"
+			],
+			"reason": "the bloodmages' beasts at the 52.6 player; the data lists two to five Snickerfang Matriarch spawns of 60 near the points, and players did these quests at about 48 (12-13 people, 1-2 deaths)",
+			"evidence": "route level 52.6 (integrated Alliance route, rested level model); Snickerfang Matriarch 60-60 x5; recordings (2026-11-15): done by 13 (median 48.46), deaths 1, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2601.1|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2601.1",
+			"kind": "over",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 52.6,
+			"mobs": [
+				"Snickerfang Matriarch 60-60 x2"
+			],
+			"reason": "the bloodmages' beasts at the 52.6 player; the data lists two to five Snickerfang Matriarch spawns of 60 near the points, and players did these quests at about 48 (12-13 people, 1-2 deaths)",
+			"evidence": "route level 52.6 (integrated Alliance route, rested level model); Snickerfang Matriarch 60-60 x2; recordings (2026-11-15): done by 13 (median 48.42), deaths 2, abandons 9"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2583.3|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2583.3",
+			"kind": "over",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 52.6,
+			"mobs": [
+				"Snickerfang Matriarch 60-60 x2"
+			],
+			"reason": "the bloodmages' beasts at the 52.6 player; the data lists two to five Snickerfang Matriarch spawns of 60 near the points, and players did these quests at about 48 (12-13 people, 1-2 deaths)",
+			"evidence": "route level 52.6 (integrated Alliance route, rested level model); Snickerfang Matriarch 60-60 x2; recordings (2026-11-15): done by 13 (median 48.42), deaths 2, abandons 5"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2581.3|elite",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2581.3",
+			"kind": "elite",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 52.6,
+			"mobs": [
+				"Vek'zol 55-55"
+			],
+			"reason": "Vek'zol (55, elite) walks the ridge around 39,32; the step's Careful tip names him and Calefactus and says to hunt somewhere else when one comes near",
+			"evidence": "route level 52.6 (integrated Alliance route, rested level model); Vek'zol 55-55; recordings (2026-11-15): done by 12 (median 49.18), deaths 0, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2583.2|elite",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2583.2",
+			"kind": "elite",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 52.6,
+			"mobs": [
+				"Vek'zol 55-55"
+			],
+			"reason": "Vek'zol (55, elite) walks the ridge around 39,32; the step's Careful tip names him and Calefactus and says to hunt somewhere else when one comes near",
+			"evidence": "route level 52.6 (integrated Alliance route, rested level model); Vek'zol 55-55; recordings (2026-11-15): done by 12 (median 48.62), deaths 0, abandons 5"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2585.1|elite",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2585.1",
+			"kind": "elite",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 52.6,
+			"mobs": [
+				"Vek'zol 55-55"
+			],
+			"reason": "Vek'zol (55, elite) walks the ridge around 39,32; the step's Careful tip names him and Calefactus and says to hunt somewhere else when one comes near",
+			"evidence": "route level 52.6 (integrated Alliance route, rested level model); Vek'zol 55-55; recordings (2026-11-15): done by 12 (median 48.43), deaths 0, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/06-silithus.guide|kill 8464.1|elite",
+			"guide": "forever/alliance/50-60/06-silithus.guide",
+			"goal": "kill 8464.1",
+			"kind": "elite",
+			"title": "Winterfall Village",
+			"level": 58.9,
+			"mobs": [
+				"High Chief Winterfall 59-59",
+				"Xandivious 62-62"
+			],
+			"reason": "High Chief Winterfall (59, elite) stays in the cave at the back of Winterfall Village and the step's tip says to stay out of it; the quest's Shaman, Den Watchers and Ursa (55-58) hold the village, at or under the 59 player",
+			"evidence": "route level 58.9 (integrated Alliance route, rested level model); High Chief Winterfall 59-59, Xandivious 62-62; recordings (2026-11-15): done by 1 (median 55.47), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/40-50/shendralas.guide@Alliance|kill 96018.2|elite",
+			"guide": "forever/40-50/shendralas.guide@Alliance",
+			"goal": "kill 96018.2",
+			"kind": "elite",
+			"title": "The western pylon: repair it",
+			"level": 46.2,
+			"mobs": [
+				"Magram Necrokhan 45-45 x4",
+				"Corpsefeeder 45-45 x3"
+			],
+			"reason": "the step's Careful tip names the Magram Necrokhans and Corpsefeeders (45, elites) of the Valley of Bones' edge and says to pull the Decrepit Pylon Protectors away from them; they are under the 46.2 player (the same flag as the earlier `use 96018.2` row, the goal now a kill)",
+			"evidence": "route level 46.2 (Alliance route after fix round 1, rested level model); Magram Necrokhan 45-45 x4, Corpsefeeder 45-45 x3; recordings (2026-11-15): done by 10 (median 44.51), deaths 4, abandons 0"
+		},
+		{
+			"key": "forever/40-50/shendralas.guide@Alliance|kill 96018.3|elite",
+			"guide": "forever/40-50/shendralas.guide@Alliance",
+			"goal": "kill 96018.3",
+			"kind": "elite",
+			"title": "Bristleback Retreat: repair the eastern pylon",
+			"level": 46.2,
+			"mobs": [
+				"Corpsefeeder 45-45 x2",
+				"Magram Necrokhan 45-45"
+			],
+			"reason": "the step's tip names the Corpsefeeder (45, elite) on the road and Kog'thug's guards, and says to come in from the west; the elites are under the 46.2 player",
+			"evidence": "route level 46.2 (Alliance route after fix round 1, rested level model); Corpsefeeder 45-45 x2, Magram Necrokhan 45-45; recordings (2026-11-15): done by 10 (median 44.52), deaths 3, abandons 0"
+		},
+		{
+			"key": "forever/alliance/40-50/01-stranglethorn-vale.guide|collect 98233.1|over",
+			"guide": "forever/alliance/40-50/01-stranglethorn-vale.guide",
+			"goal": "collect 98233.1",
+			"kind": "over",
+			"title": "Corrosive Swamp Oozes",
+			"level": 39.6,
+			"mobs": [
+				"Elder Daggermaw 48-49 x6"
+			],
+			"reason": "Elder Daggermaw (272384, 48-49) has 24 spawns in the data around 46-49,55-60 but no player has ever met one: 0 kills and 0 deaths by it in 7,917 sessions, while 21 people's positions crossed that ground; the oozes themselves are 38-40",
+			"evidence": "route level 39.6 (Alliance route after fix round 1, rested level model); Elder Daggermaw 48-49 x6; recordings (2026-11-15): done by 3 (median 40.28), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/alliance/40-50/01-stranglethorn-vale.guide|collect 97047.1|elite",
+			"guide": "forever/alliance/40-50/01-stranglethorn-vale.guide",
+			"goal": "collect 97047.1",
+			"kind": "elite",
+			"title": "Kurzen's Compound",
+			"level": 40.8,
+			"mobs": [
+				"Colonel Kurzen 39-40"
+			],
+			"reason": "the same flag as the 30-40/04b row before fix round 1 moved The Cook in the Cage's work here: Colonel Kurzen (39-40, elite) stands at the compound's north end and the step's Careful tip says to take the key from the Subchiefs further south and leave him be; he is under the 40.8 player",
+			"evidence": "route level 40.8 (Alliance route after fix round 1, rested level model); Colonel Kurzen 39-40; recordings (2026-11-15): done by 32 (median 36.89), deaths 2, abandons 6"
+		},
+		{
+			"key": "forever/alliance/40-50/05-the-hinterlands.guide|collect 86616.1|elite",
+			"guide": "forever/alliance/40-50/05-the-hinterlands.guide",
+			"goal": "collect 86616.1",
+			"kind": "elite",
+			"title": "Vilebranch Soothsayers",
+			"level": 47.9,
+			"mobs": [
+				"Morta'gya the Keeper 50-50",
+				"Qiaga the Keeper 50-50"
+			],
+			"reason": "Qiaga the Keeper and Morta'gya the Keeper (50, elites) stand at the altar's south-east side; the goal points at the Soothsayers' western spawns (45.3,66.7) and the step's Careful tip names both and says to stay off the altar (fix round 1 danger review)",
+			"evidence": "route level 47.9 (Alliance route after fix round 1, rested level model); Morta'gya the Keeper 50-50, Qiaga the Keeper 50-50; recordings (2026-11-15): done by 4 (median 48.15), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|kill 3823.2|pack",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "kill 3823.2",
+			"kind": "pack",
+			"title": "Dreadmaul Rock",
+			"level": 52,
+			"mobs": [
+				"7 spawns 54+"
+			],
+			"reason": "the 54+ spawns are the rare ogres Gorgon'och and Hahk'Zor (54) around Dreadmaul Rock (the step's rare rows say the same); the recorded deaths at the rock (3, Horde) were to Firegut Brutes and Ogres (50-52), at or under the player after the step's Level 52 top-up",
+			"evidence": "route level 52 (Alliance route after fix round 1, rested level model); 7 spawns 54+; recordings (2026-11-15): done by 2 (median 53.55), deaths 2, abandons 2"
+		},
+		{
+			"key": "forever/alliance/50-60/06-silithus.guide|kill 8281.1|elite",
+			"guide": "forever/alliance/50-60/06-silithus.guide",
+			"goal": "kill 8281.1",
+			"kind": "elite",
+			"title": "Silithus: kill these as you meet them",
+			"level": 58.4,
+			"mobs": [
+				"Xil'xix 62-62"
+			],
+			"reason": "the same flag as the Western Plaguelands guide's row before fix round 1 moved the Dredge Crushers here: a kill-as-you-meet-them step, the player picks which mobs to fight; Xil'xix (62, elite) has one spawn at 49.1,56.0, away from the Crushers' sands west of the hold",
+			"evidence": "route level 58.4 (Alliance route after fix round 1, rested level model); Xil'xix 62-62; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|kill 95318.1|elite",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "kill 95318.1",
+			"kind": "elite",
+			"title": "The Ashen camp",
+			"level": 58,
+			"mobs": [
+				"Awakened Fel Ash Slime 58-58"
+			],
+			"reason": "the step's Careful tip names the Awakened Fel Ash Slimes (58, elites) and says to pull the Acolytes away from them; they are at the player's level",
+			"evidence": "route level 58 (Alliance route after fix round 1, rested level model, Mount Hyjal option); Awakened Fel Ash Slime 58-58; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|collect 95317.1|elite",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "collect 95317.1",
+			"kind": "elite",
+			"title": "The Ashen camp",
+			"level": 58,
+			"mobs": [
+				"Awakened Fel Ash Slime 58-58"
+			],
+			"reason": "see the kill 95318.1 row: the same step and tip",
+			"evidence": "route level 58 (Alliance route after fix round 1, rested level model, Mount Hyjal option); Awakened Fel Ash Slime 58-58; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|collect 95378.3|elite",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "collect 95378.3",
+			"kind": "elite",
+			"title": "The warlocks",
+			"level": 58.2,
+			"mobs": [
+				"Awakened Fel Ash Slime 58-58"
+			],
+			"reason": "the step's Careful tip names the Awakened Fel Ash Slimes (58, elites) and says to keep clear of them; they are at the player's level",
+			"evidence": "route level 58.2 (Alliance route after fix round 1, rested level model, Mount Hyjal option); Awakened Fel Ash Slime 58-58; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|kill 93617.1|elite",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "kill 93617.1",
+			"kind": "elite",
+			"title": "Predatory stags",
+			"level": 58.9,
+			"mobs": [
+				"Spectral Frostwyrm 61-61 x4"
+			],
+			"reason": "the Spectral Frostwyrms (61, elites) fly over the western meadows; the step's Careful tip says to keep out from under them, and the stags roam the meadows east of Kala'th",
+			"evidence": "route level 58.9 (Alliance route after fix round 1, rested level model, Mount Hyjal option); Spectral Frostwyrm 61-61 x4; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|collect 92317.1|elite",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "collect 92317.1",
+			"kind": "elite",
+			"title": "Bones and stolen life",
+			"level": 58.9,
+			"mobs": [
+				"Spectral Frostwyrm 61-61 x3"
+			],
+			"reason": "the step's Careful tip names the Death Wailers and the Spectral Frostwyrms (61, elites) circling over the meadows and says to keep out from under them; the drop comes from the Fleshflay Raveners",
+			"evidence": "route level 58.9 (Alliance route after fix round 1, rested level model, Mount Hyjal option); Spectral Frostwyrm 61-61 x3; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|kill 93826.1|elite",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "kill 93826.1",
+			"kind": "elite",
+			"title": "The Deadwood camps",
+			"level": 59.1,
+			"mobs": [
+				"Head Scratcher 60-60 x5"
+			],
+			"reason": "the step's tip names Head Scratcher (60, elite) at the camps' eastern end (as the 93826.2 row)",
+			"evidence": "route level 59.1 (Alliance route after fix round 1, rested level model, Mount Hyjal option); Head Scratcher 60-60 x5; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|complete 92593|elite",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "complete 92593",
+			"kind": "elite",
+			"title": "Dae'gun",
+			"level": 59.2,
+			"mobs": [
+				"Doomguard 58-59"
+			],
+			"reason": "the step's Careful tips name the Doomguards (58-59, elites), Doomguard Xarkul and the Legion Hulks and say to pull the hounds and sentinels away from them; the Doomguards are at the player's level",
+			"evidence": "route level 59.2 (Alliance route after fix round 1, rested level model, Mount Hyjal option); Doomguard 58-59; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|collect 93407.1|elite",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "collect 93407.1",
+			"kind": "elite",
+			"title": "The Blackthorne camps",
+			"level": 59.5,
+			"mobs": [
+				"Blackthorne Priest 60-60",
+				"Blackthorne Courier 60-60",
+				"Jereman 60-60"
+			],
+			"reason": "a group-choice step (`when group 93584`): its tip names the elite Outrunners, Priests, the Courier, Ve'han Talongrasp and Ghansurok",
+			"evidence": "route level 59.5 (Alliance route after fix round 1, rested level model, Mount Hyjal option); Blackthorne Priest 60-60, Blackthorne Courier 60-60, Jereman 60-60; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/30-40/04-stranglethorn-vale.guide|complete 578|over",
+			"guide": "forever/alliance/30-40/04-stranglethorn-vale.guide",
+			"goal": "complete 578",
+			"kind": "over",
+			"title": "The Savage Coast",
+			"level": 33.5,
+			"mobs": [
+				"Lesser Water Elemental 36-37 x3"
+			],
+			"reason": "an area trigger at the haunted island's edge (21.9,22.4): the step's tip says just reach its edge and leave, and names the Lesser Water Elementals (36-37); 27 players' recorded hand-ins of 578 at a 25th percentile of 35.3, no recorded death to the elementals",
+			"evidence": "route level 33.5 (Alliance route after fix round 2, level model without grinding before an accept); Lesser Water Elemental 36-37 x3; recordings (2026-11-16): done by 0 (median null), deaths 2, abandons 4"
+		},
+		{
+			"key": "forever/alliance/30-40/05-arathi-highlands.guide|collect 662.4|pack",
+			"guide": "forever/alliance/30-40/05-arathi-highlands.guide",
+			"goal": "collect 662.4",
+			"kind": "pack",
+			"title": "The Drowned Reef: kill these as you meet them",
+			"level": 36.9,
+			"mobs": [
+				"8 spawns 38+"
+			],
+			"reason": "a kill-as-you-meet step at the Drowned Reef: the level model (no grinding before an accept) puts players at 36.9 there, players' recordings at 39.2 (31 people, 2 deaths); Faldir's Cove's naga camp itself is a group stop the pitch and tip name",
+			"evidence": "route level 36.9 (Alliance route after fix round 2, level model without grinding before an accept); 8 spawns 38+; recordings (2026-11-16): done by 31 (median 39.21), deaths 2, abandons 2"
+		},
+		{
+			"key": "forever/alliance/30-40/06-badlands.guide|collect 1108.1|pack",
+			"guide": "forever/alliance/30-40/06-badlands.guide",
+			"goal": "collect 1108.1",
+			"kind": "pack",
+			"title": "Agmond's End: kill these as you meet them",
+			"level": 37.8,
+			"mobs": [
+				"16 spawns 39+"
+			],
+			"reason": "Agmond's End's trogg camp: the step's Careful tip names the Stonevault Bonesnappers (39-40) and Shamans (40-41) and says to pull from the camp's edge, one at a time; the level model puts players at 37.8, their recordings at 40.8 (32 people, 2 deaths)",
+			"evidence": "route level 37.8 (Alliance route after fix round 2, level model without grinding before an accept); 16 spawns 39+; recordings (2026-11-16): done by 32 (median 40.85), deaths 2, abandons 2"
+		},
+		{
+			"key": "forever/alliance/30-40/06-badlands.guide|kill 739.2|pack",
+			"guide": "forever/alliance/30-40/06-badlands.guide",
+			"goal": "kill 739.2",
+			"kind": "pack",
+			"title": "Agmond's End: kill these as you meet them",
+			"level": 37.8,
+			"mobs": [
+				"13 spawns 39+"
+			],
+			"reason": "Agmond's End's trogg camp: the step's Careful tip names the Stonevault Bonesnappers (39-40) and Shamans (40-41) and says to pull from the camp's edge, one at a time; the level model puts players at 37.8, their recordings at 40.9 (26 people, 2 deaths)",
+			"evidence": "route level 37.8 (Alliance route after fix round 2, level model without grinding before an accept); 13 spawns 39+; recordings (2026-11-16): done by 26 (median 40.88), deaths 2, abandons 3"
+		},
+		{
+			"key": "forever/alliance/30-40/06-badlands.guide|collect 97617.1|pack",
+			"guide": "forever/alliance/30-40/06-badlands.guide",
+			"goal": "collect 97617.1",
+			"kind": "pack",
+			"title": "Agmond's End: kill these as you meet them",
+			"level": 37.8,
+			"mobs": [
+				"16 spawns 39+"
+			],
+			"reason": "Agmond's End's trogg camp: the step's Careful tip names the Stonevault Bonesnappers (39-40) and Shamans (40-41) and says to pull from the camp's edge, one at a time; the Pristine Mattock itself waits for the 40-50 Badlands visit",
+			"evidence": "route level 37.8 (Alliance route after fix round 2, level model without grinding before an accept); 16 spawns 39+; recordings (2026-11-16): done by 4 (median 40.71), deaths 2, abandons 1"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94678.3|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "kill 94678.3",
+			"kind": "elite",
+			"title": "The Bristle Hills",
+			"level": 41,
+			"mobs": [
+				"Snargl 40-40"
+			],
+			"reason": "Snargl (40, elite) roams the Bristle Hills' south-western camps; the step's Careful tip says to pull the gnolls away from him and his own quest is a group choice; players' recordings: done at a median of 40.6 by 31 people, no deaths",
+			"evidence": "route level 41 (Alliance route after fix round 2, level model without grinding before an accept); Snargl 40-40; recordings (2026-11-16): done by 31 (median 40.55), deaths 0, abandons 2"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94877.1|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "kill 94877.1",
+			"kind": "over",
+			"title": "The Twilight cult",
+			"level": 41.8,
+			"mobs": [
+				"Executioner Morg 46-46 x2"
+			],
+			"reason": "Sunnyglade's cultists (37-41) are the step's targets; Executioner Morg (46) stands among them and the step's tips name the town's elite (Chogg'Zac) and say to pull the cultists out towards you; players' recordings: done at a median of 40.3 by 33 people",
+			"evidence": "route level 41.8 (Alliance route after fix round 2, level model without grinding before an accept); Executioner Morg 46-46 x2; recordings (2026-11-16): done by 33 (median 40.34), deaths 5, abandons 0"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 94881.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "collect 94881.1",
+			"kind": "rare",
+			"title": "The Twilight cult",
+			"level": 41.8,
+			"mobs": [
+				"Twilight Forgemaster 46-46"
+			],
+			"reason": "Sunnyglade's cultists (37-41) drop the charms; the Twilight Forgemaster (46, rare) stands among them and the step's tips say to pull the cultists out towards you; players' recordings: done at a median of 40.8 by 34 people",
+			"evidence": "route level 41.8 (Alliance route after fix round 2, level model without grinding before an accept); Twilight Forgemaster 46-46; recordings (2026-11-16): done by 34 (median 40.82), deaths 4, abandons 0"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 87295.1|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 87295.1",
+			"kind": "over",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 52.2,
+			"mobs": [
+				"Snickerfang Matriarch 60-60 x2"
+			],
+			"reason": "the Redstone Basilisks' slopes, the same point as the bloodmages' basilisk quests (baselined): the data lists two Snickerfang Matriarch spawns of 60 near it, and players did the bloodmages' quests there at about 48 (12-13 people, 1-2 deaths)",
+			"evidence": "route level 52.2 (Alliance route after fix round 2, level model without grinding before an accept); Snickerfang Matriarch 60-60 x2; recordings (2026-11-16): done by 1 (median 47.35), deaths 2, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|collect 95027.1|rare",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "collect 95027.1",
+			"kind": "rare",
+			"title": "Owl feathers",
+			"level": 58.5,
+			"mobs": [
+				"Death Wailer 61-61"
+			],
+			"reason": "Death Wailers (61, rare elites) drift over the western slopes and Mourning's Rest; the step's Careful tip names them and says to give them a wide berth (the Mount Hyjal option's level model reaches here at 58.5)",
+			"evidence": "route level 58.5 (Alliance route after fix round 2, level model without grinding before an accept, Mount Hyjal option); Death Wailer 61-61; recordings (2026-11-16): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|kill 92449.1|rare",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "kill 92449.1",
+			"kind": "rare",
+			"title": "Mourning's Rest",
+			"level": 58.5,
+			"mobs": [
+				"Death Wailer 61-61 x7"
+			],
+			"reason": "Death Wailers (61, rare elites) drift over the western slopes and Mourning's Rest; the step's Careful tip names them and says to give them a wide berth (the Mount Hyjal option's level model reaches here at 58.5)",
+			"evidence": "route level 58.5 (Alliance route after fix round 2, level model without grinding before an accept, Mount Hyjal option); Death Wailer 61-61 x7; recordings (2026-11-16): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|kill 92449.1|pack",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "kill 92449.1",
+			"kind": "pack",
+			"title": "Mourning's Rest",
+			"level": 58.5,
+			"mobs": [
+				"7 spawns 60+"
+			],
+			"reason": "Death Wailers (61, rare elites) drift over the western slopes and Mourning's Rest; the step's Careful tip names them and says to give them a wide berth (the Mount Hyjal option's level model reaches here at 58.5)",
+			"evidence": "route level 58.5 (Alliance route after fix round 2, level model without grinding before an accept, Mount Hyjal option); 7 spawns 60+; recordings (2026-11-16): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|kill 92449.2|rare",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "kill 92449.2",
+			"kind": "rare",
+			"title": "Mourning's Rest",
+			"level": 58.5,
+			"mobs": [
+				"Death Wailer 61-61 x5"
+			],
+			"reason": "Death Wailers (61, rare elites) drift over the western slopes and Mourning's Rest; the step's Careful tip names them and says to give them a wide berth (the Mount Hyjal option's level model reaches here at 58.5)",
+			"evidence": "route level 58.5 (Alliance route after fix round 2, level model without grinding before an accept, Mount Hyjal option); Death Wailer 61-61 x5; recordings (2026-11-16): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|collect 90865.1|rare",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "collect 90865.1",
+			"kind": "rare",
+			"title": "Mourning's Rest",
+			"level": 58.5,
+			"mobs": [
+				"Death Wailer 61-61 x3"
+			],
+			"reason": "Death Wailers (61, rare elites) drift over the western slopes and Mourning's Rest; the step's Careful tip names them and says to give them a wide berth (the Mount Hyjal option's level model reaches here at 58.5)",
+			"evidence": "route level 58.5 (Alliance route after fix round 2, level model without grinding before an accept, Mount Hyjal option); Death Wailer 61-61 x3; recordings (2026-11-16): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|collect 90702.1|rare",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "collect 90702.1",
+			"kind": "rare",
+			"title": "Mourning's Rest",
+			"level": 58.5,
+			"mobs": [
+				"Death Wailer 61-61 x5"
+			],
+			"reason": "Death Wailers (61, rare elites) drift over the western slopes and Mourning's Rest; the step's Careful tip names them and says to give them a wide berth (the Mount Hyjal option's level model reaches here at 58.5)",
+			"evidence": "route level 58.5 (Alliance route after fix round 2, level model without grinding before an accept, Mount Hyjal option); Death Wailer 61-61 x5; recordings (2026-11-16): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|collect 92591.1|rare",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "collect 92591.1",
+			"kind": "rare",
+			"title": "Mourning's Rest",
+			"level": 58.5,
+			"mobs": [
+				"Death Wailer 61-61 x4"
+			],
+			"reason": "Death Wailers (61, rare elites) drift over the western slopes and Mourning's Rest; the step's Careful tip names them and says to give them a wide berth (the Mount Hyjal option's level model reaches here at 58.5)",
+			"evidence": "route level 58.5 (Alliance route after fix round 2, level model without grinding before an accept, Mount Hyjal option); Death Wailer 61-61 x4; recordings (2026-11-16): done by 0 (median null), deaths 0, abandons 0"
 		},
 		{
 			"key": "forever/40-50/shendralas.guide@Horde|collect 99257.1|over",

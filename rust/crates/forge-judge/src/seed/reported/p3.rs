@@ -13,7 +13,7 @@ const LOCH_MODAN: &str = "forever/alliance/03-loch-modan.guide";
 const ZEPHRAS_HORDE: &str = "forever/horde/skyborne/01-zephras-isle.guide";
 const ZEPHRAS_ALLIANCE: &str = "forever/alliance/skyborne/01-zephras-isle.guide";
 const STONETALON_HORDE: &str = "forever/horde/05-stonetalon-mountains.guide";
-const ASHENVALE_ALLIANCE: &str = "forever/alliance/06-ashenvale.guide";
+const WETLANDS: &str = "forever/alliance/06-wetlands.guide";
 const BARRENS_04: &str = "forever/horde/02-the-barrens.guide";
 
 pub fn tests() -> Vec<SeedTest> {
@@ -937,7 +937,8 @@ fn iron_pike(ctx: &Ctx, c: &mut Check) {
 }
 
 fn elemental_bracers(ctx: &Ctx, c: &mut Check) {
-	let Some(list) = goals(ctx, c, ASHENVALE_ALLIANCE) else { return };
+	// 0.4.0 fix round: Elemental Bracers moved from 06-ashenvale to the Wetlands guide's Krolg leg (as the node case).
+	let Some(list) = goals(ctx, c, WETLANDS) else { return };
 	let Some(bracers) = at(c, &list, "collect 12220", |g| t_is(g, "collect") && num_is(g, "item", 12220.0)) else { return };
 	let Some(scroll) = at(c, &list, "collect 5455", |g| t_is(g, "collect") && num_is(g, "item", 5455.0) && num_is(g, "quest", 1016.0)) else { return };
 	let b = &list[bracers].goal;

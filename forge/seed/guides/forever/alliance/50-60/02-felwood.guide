@@ -2,7 +2,7 @@
 guide forever/alliance/50-60/02-felwood
 title Felwood
 faction Alliance
-levels 52-53
+levels 52-54
 zone Felwood
 next forever/alliance/50-60/03-winterspring
 
@@ -18,7 +18,7 @@ step Fly to Astranaar
 
 step Felwood
   zone Felwood
-  goto 54.2,86.8 "Felwood"
+  goto 54.2,86.8 "The Emerald Sanctuary"
 
 step The Emerald Sanctuary
   tip Ride north out of Astranaar into Felwood to the Emerald Sanctuary, the druids' camp by the road.
@@ -26,6 +26,7 @@ step The Emerald Sanctuary
   accept 4421                         -- Eridan Bluewind, inside
   accept 5156                         -- Taronn Redfeather
   accept 5155                         -- Greta Mosshoof
+  accept 86577                        -- Kelek Skykeeper: A Sampling of Putrescence, from the bears and wolves you meet in Felwood
 
 # ---------------------------------------------------------------- Getting there
 
@@ -49,8 +50,7 @@ step Level 52.58
 step Grazle
   turnin 8460
   accept 8462                         -- Nafien waits at the north end of Felwood
-  accept 8466 optional                -- Five feathers buy a little Timbermaw reputation
-  turnin 8466 optional
+  turnin 8466 direct optional
 
 step Level 52.69
   when level<52.69
@@ -69,6 +69,7 @@ step Jadefire Glen
   level 52.74 grind 7109               -- grind on Jadefire Felsworn
 
 step Ruins of Constellas
+  tip Careful: Xavathras (54) stands at the back of the Ruins of Constellas, at about 32.2,67.1, with Shadowstalkers around him: clear them one at a time, then pull him alone at full health.
   kill 7110 quest 4421.2              -- Jadefire Shadowstalker
   kill 7106 quest 4421.3              -- Jadefire Rogue
   kill 9454 quest 4421.4              -- Xavathras
@@ -80,6 +81,12 @@ step Jaedenar
   kill 7115 quest 5155.3              -- Jaedenar Adept
   kill 7112 quest 5155.4              -- Jaedenar Cultist
   collect 11949 quest 4512.2          -- Filled Tainted Ooze Jar: Tainted Oozes slide about Jaedenar's fel pools
+
+step Putrescent organs: kill these as you meet them
+  zone Felwood
+  tip Felwood's Angerclaw bears and Felpaw wolves carry the putrescent organs Kelek wants: the Bears and Wolves (47-48) of the south and the Maulers and Scavengers (49-50) along the road north of Jaedenar. Kill them as you ride between the stops.
+  collect 277958 quest 86577          -- Putrescent Bear Organs
+  collect 277959 quest 86577          -- Putrescent Wolf Organs
 
 step The Emerald Sanctuary
   turnin 5155                         -- Greta Mosshoof
@@ -95,6 +102,7 @@ step Level 52.9
 
 step Shatter Scar Vale
   tip Follow the road north to the cratered vale and walk to each crater, killing the Entropic Beasts and Horrors between them.
+  tip Careful: an Infernal Sentry (53, elite) stands among the craters: walk round it.
   goto 41.6,43.0 "First crater"
   goto 40.4,41.2 "Second crater"
   goto 42.2,40.3 "Third crater"
@@ -111,6 +119,7 @@ step Irontree Woods
 step Jadefire Run: kill these as you meet them
   zone Felwood
   tip Jadefire Run is the satyr valley in the north-west, with Xavaric at its far end. He drops the Flute of Xavaric; every Jadefire satyr can drop Jadefire Felbind.
+  tip Careful: Xavaric (55) stands at the valley's far end with Hellcallers (53-54) around him: clear them one at a time before you pull him.
   kill 10648 quest 4906.4             -- Xavaric
   collect 11668                       -- Flute of Xavaric
   accept 939
@@ -129,6 +138,7 @@ step Jaedenar again
 step The Emerald Sanctuary
   tip Ride south-east from Jaedenar to the Emerald Sanctuary, the druids' camp by the road in southern Felwood.
   turnin 5156                         -- Taronn Redfeather
+  turnin 86577                        -- Kelek Skykeeper
 
 step The Emerald Sanctuary
   turnin 939
@@ -148,7 +158,7 @@ step Nafien
 
 step Felpaw Village
   tip The Deadwood furbolgs of Felpaw Village fill the hills west of the cave. Keep killing them until one drops a Deadwood Ritual Totem, about one kill in thirty, then right-click it: Kernda in Timbermaw Hold takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 58.
-  tip Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.
+  tip Careful: Den Watchers are level 53-54 and the Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.
   kill 7156 quest 8461.1              -- Deadwood Den Watcher
   kill 7157 quest 8461.2              -- Deadwood Avenger
   kill 7158 quest 8461.3              -- Deadwood Shaman
@@ -158,11 +168,10 @@ step Felpaw Village
 step Nafien
   turnin 8461
   accept 8465                         -- Salfa stands at the Winterspring end of the tunnel: keep it
-  accept 8467 optional
 
 step Nafien
-  when complete 8467
-  turnin 8467
+  when has 21377 x5
+  turnin 8467 direct
 
 step Timbermaw Hold
   tip Step into the cave: Kernda stands just inside.

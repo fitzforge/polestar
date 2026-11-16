@@ -9,15 +9,15 @@ keywords shen'dralas, shendralas, valley of bones, evenshade's overlook, forlorn
 next forever/horde/40-50/03-feralas
 next forever/alliance/40-50/03-feralas
 
-# Polestar Experimental, Shen'dralas for both factions (2026-11-12). Hand-written from players' recordings of
+# Shen'dralas for both factions (2026-11-12, in both routes since 0.4.0). Hand-written from players' recordings of
 # the zone (99 sessions, 56 people, most of them passing through below level 40), with Forever's quest data for
 # titles, levels and objectives and the client's tables for item and spell names. Its quests are 41-45; on both
 # routes it comes at the levels the header gives each side. Horde: the route since 0.4.0, after the Feralas & Tanaris guide (40-50/02, Camp Mojache,
 # about level 46 with the Riverglades before it); in by the ride north from Camp Mojache into Desolace's south (a
 # fresh starter flies to Shadowprey Village), out by the flight from Shadowprey (or the hearth to Camp Mojache) to
-# Orgrimmar, where the next Feralas guide starts with Orgrimmar's hand-ins. Alliance: offered at the end of the Badlands guide (40-50/02,
-# Theramore, about level 43); in from Nijel's Point, out on the ride south into Feralas, where the Feralas guide
-# picks up at the Feathermoon boat.
+# Orgrimmar, where the next Feralas guide starts with Orgrimmar's hand-ins. Alliance: the route since 0.4.0, after the
+# Badlands guide (40-50/02, Theramore, about level 45 with the Riverglades before it); in from Nijel's Point, out on
+# the ride south into Feralas, where the Feralas guide picks up at the Feathermoon boat.
 # Order: the Tattered Journal from the valley's necromancers; Mordent Evenshade's pylons (find the three, the
 # fragment and the shard in Desolace's two centaur villages, the Mana Sieve and the repairs, his story, then
 # Magister Kirandis in the temple); the temple's own quests once Kirandis has been met; Mithera's Forlorn Gardens.
@@ -60,7 +60,7 @@ step Fly to Nijel's Point
   only Alliance
   when !zone "Shen'dralas"
   when !zone "Desolace"
-  tip Experimental route (alpha). It follows what players did in Shen'dralas and may still have rough spots: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
+  tip New in Forever: this guide follows what players did in Shen'dralas. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
   tip Shen'dralas lies south of Desolace, through the Valley of Bones, and has no flight path of its own. Its quests are for levels 41-45. Coming from the Eastern Kingdoms, take the boat from Menethil Harbor to Theramore first.
   fly "Nijel's Point"
 
@@ -179,16 +179,16 @@ step The Forlorn Gardens
   turnin 93594
 
 step Mithera
-  tip Historian Biraxas, inside the temple, has a task for you now that you have met Magister Kirandis: the heart of a Decrepit Pylon Protector, a short ride back up the road north. Otherwise Shen'dralas is done: hearth, or ride back north through the Valley of Bones to Desolace's flight points (Shadowprey Village for the Horde, Nijel's Point for the Alliance).
+  tip Historian Biraxas, inside the temple, has a task for you now that you have met Magister Kirandis: the heart of a Decrepit Pylon Protector (42-43, not elite), a short ride back up the road north.
   turnin 93362
-  accept 99257 optional               -- Historian Biraxas
+  accept 99257                        -- Historian Biraxas
 
 step A Heart of Crystal
   tip The nearest Decrepit Pylon Protectors stand by the road north, from the middle of the zone up to the western pylon, and around Mordent's overlook: one of them carries the heart Biraxas wants.
   collect 286647 quest 99257.1
 
 step Historian Biraxas
-  tip Shen'dralas is done: hearth, or ride back north through the Valley of Bones to Desolace.
+  tip Shen'dralas is done: ride back north through the Valley of Bones; the next step says where your route goes on from there.
   turnin 99257
 
 step Shadowprey Village

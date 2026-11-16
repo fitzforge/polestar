@@ -27,41 +27,23 @@ step Winterspring
 
 step Everlook's inn
   when !bound "Ironforge"
-  tip Your Hearthstone is not set at Ironforge (the Hinterlands guide binds there at 47, and this guide leaves Winterspring through it): bind at Everlook instead, for the trips back to town.
+  tip Your Hearthstone is not set at Ironforge (the Hinterlands guide binds there, and this guide leaves Winterspring through it): bind at Everlook instead, for the trips back to town.
   sethome "Everlook" npc 11118        -- Innkeeper Vizzie
 
 step Everlook
   getfp "Everlook"
-  accept 5601                         -- Jessica Redpath: keep it for Darrowshire; inside
-  accept 6028                         -- Gregor Greystone: keep both for the Plaguelands; inside
+  accept 6028                         -- Gregor Greystone: keep it for the Plaguelands; inside
   accept 6030
   turnin 4808                         -- Felnok Steelspring
   accept 4809
   accept 6603                         -- Meggi Peppinrocker walks around Everlook: look inside the circle on the map
   accept 3783                         -- Umi Rumplesnicker
-  collect 12383 quest 978.1                   -- Moontouched Feather, 110 yd north
 
 step Wynd Nightchaser
   turnin 5249                         -- Wynd Nightchaser
   accept 5244
   turnin 5244                         -- Jaron Stoneshaper
   accept 5245
-
-# ---------------------------------------------------------------- West along the road
-
-step Ice Thistle Hills: kill these as you meet them
-  zone Winterspring
-  tip Ice Thistle yetis live in the hills south of Winterfall Village, Chillwind Chimaeras in the valley toward Everlook.
-  collect 12366 quest 3783.1          -- Thick Yeti Fur
-  collect 12444 quest 4809.1          -- Uncracked Chillwind Horn
-
-step The Ruins of Kel'Theril
-  tip The ruins lie around the frozen lake south of Starfall Village. Pick up the four relic fragments lying in the ruins and the Moontouched Feathers on the ground where the wildkin roam.
-  collect 12896 quest 5245.1          -- First Relic Fragment
-  collect 12898 quest 5245.3          -- Third Relic Fragment
-  collect 12899 quest 5245.4          -- Fourth Relic Fragment
-  collect 12897 quest 5245.2          -- Second Relic Fragment
-  collect 12383 quest 978.1           -- Moontouched Feather
 
 step Donova Snowden
   tip Follow the road west to Donova's camp beside the hot springs.
@@ -70,17 +52,21 @@ step Donova Snowden
   turnin 6603
   accept 5082
 
+step Level 55 at Frostfire Hot Springs
+  when level<55
+  tip The western Winterfall camp sits in the hills between Salfa and Donova. Top up here first to level 55 on its Pathfinders (53-54) at the camp's edge: the Den Watchers inside are 55-56. Killing them raises your Timbermaw reputation and fills your bags with Runecloth for Meilosh. Or, with a group, run Blackrock Depths or Dire Maul instead.
+  goto 31.4,36.0 map 1452 "Winterfall Pathfinder"
+  level 55 grind 7442                  -- grind on Winterfall Pathfinder
+
 step Frostfire Hot Springs: kill these as you meet them
   zone Winterspring
-  tip The western Winterfall camp sits in the hills between Salfa and Donova. Any furbolg here can drop an Empty Firewater Flask (about one in ten: it comes within the kills these quests need) and a Winterfall Ritual Totem (about one in thirty: it comes within the top-ups): right-click whichever drops. Keep the Runecloth the furbolgs drop for Meilosh.
-  tip The rest of Winterspring's work is level 55-58: stay on this camp until level 54, so your first kills also count for Donova and Salfa.
+  tip Any furbolg here can drop an Empty Firewater Flask (about one in ten: it comes within the kills these quests need) and a Winterfall Ritual Totem (about one in thirty): right-click whichever drops. Keep the Runecloth the furbolgs drop for Meilosh.
   collect 12771                       -- Empty Firewater Flask
   accept 5083
   kill 7442 quest 5082.1              -- Winterfall Pathfinder
   kill 7440 quest 5082.2              -- Winterfall Den Watcher
   kill 7441 quest 5082.3              -- Winterfall Totemic
   kill 7440 quest 8464.2              -- Winterfall Den Watcher
-  level 54 grind 7442                  -- grind on Winterfall Pathfinder
 
 step Donova Snowden
   turnin 5082
@@ -89,7 +75,7 @@ step Donova Snowden
 
 step Level 55.05
   when level<55.05
-  tip Top up here to level 55.05 before the hand-ins at Everlook: they take you to level 56. Grind the Winterfall furbolgs camped by Frostfire Hot Springs (Pathfinders, Totemics, Den Watchers): killing them raises your Timbermaw reputation, which the quests here and the walk through Timbermaw Hold need, one of them drops the Winterfall Ritual Totem, and they fill your bags with the thirty Runecloth Meilosh asks for.
+  tip Top up here to level 55.05 before the hand-ins at Everlook: they take you to level 56. Grind the Winterfall furbolgs camped by Frostfire Hot Springs (Pathfinders, Totemics, Den Watchers): killing them raises your Timbermaw reputation, which the quests here and the walk through Timbermaw Hold need, one of them drops the Winterfall Ritual Totem, and they fill your bags with the thirty Runecloth Meilosh asks for. Or, with a group, run Blackrock Depths or Dire Maul instead.
   goto 31.4,36.0 map 1452 "Winterfall Pathfinder"
   level 55.05 grind 7442               -- grind on Winterfall Pathfinder
 
@@ -99,6 +85,23 @@ step Winterfall Ritual Totem
   collect 20742                       -- Winterfall Ritual Totem
   accept 8471                         -- For Kernda in Timbermaw Hold: keep it
 
+# ---------------------------------------------------------------- East along the road, at 55
+
+step The Ruins of Kel'Theril
+  tip The ruins lie around the frozen lake south of Starfall Village. Pick up the four relic fragments lying in the ruins and the Moontouched Feathers on the ground where the wildkin roam.
+  collect 12896 quest 5245.1          -- First Relic Fragment
+  collect 12898 quest 5245.3          -- Third Relic Fragment
+  collect 12899 quest 5245.4          -- Fourth Relic Fragment
+  collect 12897 quest 5245.2          -- Second Relic Fragment
+  collect 12383 quest 978.1           -- Moontouched Feather
+
+step Ice Thistle Hills: kill these as you meet them
+  zone Winterspring
+  tip Ice Thistle yetis live in the hills south of Winterfall Village, Chillwind Chimaeras in the valley toward Everlook.
+  tip Careful: the Ice Thistle Yetis are 55-56 and the Chimaeras 55-57: take the Rogue Ice Thistles (53-55) and the Fledgling Chillwinds (53-55) at the edge of the hills, and leave the Chillwind Ravagers (57-59) alone.
+  collect 12366 quest 3783.1          -- Thick Yeti Fur
+  collect 12444 quest 4809.1          -- Uncracked Chillwind Horn
+
 step Everlook
   turnin 4809                         -- Felnok Steelspring
   turnin 3783                         -- Umi Rumplesnicker
@@ -106,14 +109,9 @@ step Everlook
 
 # ---------------------------------------------------------------- The east
 
-step Winterfall Village
-  tip The Winterfall furbolg village lies east of Everlook: Shaman (56-57), Den Watchers (55-56) and Ursa (57-58), all above you. Kill the Shaman first, they heal, and pull from the edge. High Chief Winterfall in the cave at the back is elite: stay out.
-  kill 7439 quest 8464.1              -- Winterfall Shaman
-  kill 7440 quest 8464.2              -- Winterfall Den Watcher
-  kill 7438 quest 8464.3              -- Winterfall Ursa
-
 step Pristine Yeti Horns
-  tip Back to the hills: only the Ice Thistle Matriarchs and Patriarchs carry the horns.
+  tip Back to the hills: only the Ice Thistle Matriarchs (56-57) and Patriarchs (57-58) carry the horns.
+  tip Careful: take the Matriarchs at the edge of the hills, one at a time, and leave the Patriarchs: their horns drop from both.
   collect 12367 quest 977.1
 
 step Everlook
@@ -132,6 +130,14 @@ step Ironforge
   when bound "Ironforge"
   zone Ironforge
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+
+step Laris Geardawdle
+  when bound "Ironforge"
+  when onquest 4512
+  zone Ironforge
+  tip Laris Geardawdle works in the Hall of Explorers: hand him Felwood's ooze jars now, on your way through.
+  turnin 4512                         -- Laris Geardawdle
+  accept 4513                         -- Its jars are filled on the Silithus guide's Un'Goro visit: keep it
 
 step Fly to Chillwind Camp
   when bound "Ironforge"
@@ -167,7 +173,21 @@ step Chillwind Camp
   turnin 6028                         -- Argent Officer Pureheart
   accept 5903                         -- Nathaniel Dumah: the termites come later, in Terrordale
   accept 5097                         -- Commander Ashlam Valorfist: the watchtowers are in Andorhal, keep it
+
+step Felstone Field cauldron
+  tip North-west out of the camp to Felstone Field, west of Andorhal: Cauldron Lord Bilemaw (53) guards the cauldron among the Jabbering Ghouls (54).
+  collect 13194 quest 5216.1          -- Felstone Field Cauldron Key
+  turnin 5216                         -- Scourge Cauldron
+  accept 5217
+
+step Chillwind Camp
+  tip Back to High Priestess MacDonnell at Chillwind Camp.
+  turnin 5217                         -- High Priestess MacDonnell
   accept 5219                         -- High Priestess MacDonnell: the cauldron is at Dalson's Tears, keep it
+
+step Marlene Redpath
+  tip On the road east out of Chillwind Camp, Marlene Redpath's farmhouse stands on Sorrow Hill: her Little Pamela goes to the same ghost in Darrowshire.
+  accept 5142                         -- Marlene Redpath: keep it for Darrowshire
 
 step Mulgris Deepriver
   tip Mulgris stands by the farm at the Writhing Haunt, on the road east to the Eastern Plaguelands.
@@ -186,7 +206,7 @@ step Eastern Plaguelands
 step Pamela Redpath
   zone Eastern Plaguelands
   tip Follow the southern road east into the Eastern Plaguelands; the ruins of Darrowshire lie south of it. Pamela's ghost plays by the ruined house at the south end.
-  turnin 5601
+  turnin 5142
   accept 5149
 
 step Pamela's doll
@@ -207,22 +227,11 @@ step Pamela Redpath
 step Light's Hope Chapel
   tip Follow the road east across the zone to the chapel.
   getfp "Light's Hope Chapel"
-  sethome "Light's Hope Chapel"
   turnin 5241                         -- Carlin Redpath
-  accept 5211
+  note Carlin's next task, at Corin's Crossing, is among Scourge of 57-60: skip it.
   turnin 6030                         -- Duke Nicholas Zverenhoff
   turnin 5503 direct
   accept 6021 optional                -- Caretaker Alen: Zaeldarr is a level 54 elite
-
-# ---------------------------------------------------------------- Eastern Plaguelands
-
-step Corin's Crossing
-  zone Eastern Plaguelands
-  tip The Scourge around Corin's Crossing, west of the chapel, drop both kinds of Scourgestone; Darrowshire Spirits rise from them: talk to each one to free it.
-  tip Careful: Eye of Naxxramas goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min.
-  kill 11064 quest 5211.1 "Free Darrowshire Spirits: talk to them"
-  collect 12840 x20 -- Minion's Scourgestone
-  collect 12841 x10 -- Invader's Scourgestone
 
 # ---------------------------------------------------------------- The west
 
@@ -231,8 +240,5 @@ step The Undercroft
   collect 15785 quest 6021.1 optional -- Zaeldarr's Head; below ground
 
 step Light's Hope Chapel
-  turnin 5211                         -- Carlin Redpath
-  turnin 5509 direct -- Duke Nicholas Zverenhoff
-  turnin 5510 direct
   turnin 6021 optional                -- Caretaker Alen
   note The next guide starts here and flies to Chillwind Camp.

@@ -54,7 +54,9 @@ test("Shen'dralas: the temple's quests wait for Meeting the Magister, as the onl
 	assert.ok(first(is('accept', 93341), 'Forlorn Gardens taken') > met, 'Mithera after Kirandis');
 	const lateBiraxas = goals().findIndex(({ goal }, i) => i > met && is('accept', 99257)(goal));
 	assert.ok(lateBiraxas > met, 'Biraxas is offered again after Kirandis');
-	for (const { goal } of goals().filter(({ goal }) => is('accept', 99257)(goal))) assert.equal(goal.optional, true, 'never recorded: always optional');
+	// 0.4.0 fix round: A Heart of Crystal (a non-elite Decrepit Pylon Protector by the road, 3,600 XP; 2 recorded players
+	// did it) is part of both routes, no longer optional.
+	for (const { goal } of goals().filter(({ goal }) => is('accept', 99257)(goal))) assert.ok(!goal.optional, 'taken by the route');
 });
 
 // Each repair is its own quest log line, credited as a kill: in players' recordings (8 recorded repairs at each pylon,
