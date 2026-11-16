@@ -350,6 +350,7 @@ mod party_pair;
 #[path = "party-sync.rs"]
 mod party_sync;
 mod pause;
+mod placeholders;
 mod profiles;
 mod qol;
 #[path = "qol-bagglow.rs"]

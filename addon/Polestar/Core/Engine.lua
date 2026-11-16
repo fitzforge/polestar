@@ -5017,6 +5017,18 @@ function Own.namesake(title, who)
 	return type(title) == "string" and type(who) == "string" and title:lower() == who:lower()
 end
 
+-- A `logLine` goal's words (#2614): its quest-log line as the game words it
+-- (Compat.GetQuestObjectives leaves a placeholder's line unnamed), else the
+-- name the compiler gave it, else its quest's title.
+function Own.logLineText(goal)
+	local C = Compat()
+	local objs = goal.quest and goal.oi and C.GetQuestObjectives(goal.quest)
+	local o = objs and objs[Own.objectiveLine(goal, objs)]
+	local text = o and C.ObjectiveLabel(o.text)
+	if text and text ~= "" then return text end
+	return goal.target or goal.npcName or questTitle(goal)
+end
+
 -- verb, subject, subjectKind, detail. An accept above the character's level
 -- says from which level (an attunement's quests stay in its guide until then).
 -- Quests, NPCs, objects and items are named in the client's language where
@@ -5031,6 +5043,10 @@ local function describe(goal, s)
 	-- A material whose rest waits in the mail or the bank (Own.materialPlace): taken from there.
 	local held = (t == "auction" or goal.gather) and Own.materialPlace(goal)
 	if held then return L["Take"], N.Item(goal.item) or goal.itemName, "item", held.where == "mail" and L["from your mail"] or L["from your bank"] end
+	-- A kill or talk on one of the game's placeholder targets (`logLine`, #2614: a
+	-- "[DNT] Kill Credit", "PvP Tower Credit Marker"): the objective in the quest
+	-- log's words, else the compiler's; never the placeholder's name, never "Kill".
+	if goal.logLine then return "", Own.logLineText(goal), "text", goal.quest and fmt(L["for %s"], ns.Quoted(questTitle(goal))) or nil end
 	if t == "accept" then
 		-- A quest named after its NPC (a breadcrumb: "Thun'grim Firegaze" at
 		-- Thun'grim Firegaze) is not named twice: no "from"/"at" detail.

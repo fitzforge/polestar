@@ -207,6 +207,21 @@ local function npcName(id)
 	return (C.Name("npc", id)) or (L["NPC"] .. " " .. id)
 end
 
+-- Whether a kill or talk objective's target is one of the game's placeholders
+-- (#2614: "PvP Tower Credit Marker", a "[DNT] Kill Credit"). The data build makes
+-- such objectives events, so only an older Codex has one; the goal is then read
+-- by its quest-log line (Engine, `logLine`) and never names the placeholder.
+local function placeholderTarget(npc, o)
+	local P = ns.Compat.Placeholder
+	return P((npc and npc.name) or (Codex().Name("npc", o.id))) or (not npc and P(o.text))
+end
+
+-- The words for such an objective before the quest is in the log: its own
+-- text, else its quest's title.
+local function objectiveWords(o, q)
+	return (not ns.Compat.Placeholder(o.text) and o.text) or q.title
+end
+
 local function percent(n)
 	return format("%.3g%%", n)
 end
@@ -617,7 +632,8 @@ local function questStep(q, from, isTarget, opts)
 		local count = o.count or 1
 		if o.type == "kill" and o.id then
 			local npc = C.Npc(o.id)
-			local target = (npc and npc.name) or o.text or npcName(o.id)
+			local credit = placeholderTarget(npc, o)
+			local target = credit and objectiveWords(o, q) or (npc and npc.name) or o.text or npcName(o.id)
 			-- No placed NPC (a kill credit, Riverglades' "[DNT] Kill Credit"): the
 			-- objective's own place, where players' recordings show it ticking.
 			local s = (npc and Lookup.Nearest(npc.spawns, here)) or ((o.map and o.x and o.y) and o or nil)
@@ -628,11 +644,12 @@ local function questStep(q, from, isTarget, opts)
 			-- `useItem`: the item this kill is really a use of (Codex, from a
 			-- use-item-on-mob mechanic). The engine then says Use. A tame
 			-- (Taming the Beast) stays a kill the engine words as Tame.
-			local goal = { target = target, npc = o.id, quest = q.id, oi = oi, count = count, title = q.title, group = eliteGroup(npc) }
+			local goal = { target = target, npc = not credit and o.id or nil, logLine = credit or nil, quest = q.id, oi = oi, count = count, title = q.title, group = eliteGroup(npc) }
 			if type(o.useItem) == "number" and o.useItem > 0 and not o.tame then
 				goal.t = "use"
 				goal.item = o.useItem
 				goal.itemName = itemName(o.useItem)
+				goal.logLine = nil -- "Use <item>" says what to do
 			else
 				goal.t = "kill"
 				goal.tame = o.tame
@@ -655,14 +672,15 @@ local function questStep(q, from, isTarget, opts)
 			-- Speak to an NPC (Hidden Enemies: Neeru Fireblade): the engine counts it by the
 			-- quest's objective line, so it holds the step until done.
 			local npc = C.Npc(o.id)
-			local who = (npc and npc.name) or o.text or npcName(o.id)
+			local credit = placeholderTarget(npc, o)
+			local who = credit and objectiveWords(o, q) or (npc and npc.name) or o.text or npcName(o.id)
 			local s = (npc and Lookup.Nearest(npc.spawns, here)) or ((o.map and o.x and o.y) and o or nil)
 			if not s and inside then
 				s = inside("npc", o.id)
 				mark(s, who)
 			end
-			goals[#goals + 1] = at({ t = "talk", npc = o.id, npcName = who, quest = q.id, oi = oi, title = q.title }, s)
-			talks[#talks + 1] = who
+			goals[#goals + 1] = at({ t = "talk", npc = not credit and o.id or nil, npcName = who, logLine = credit or nil, quest = q.id, oi = oi, title = q.title }, s)
+			if not credit then talks[#talks + 1] = who end
 		elseif o.type == "object" and o.id then
 			local obj = C.Object(o.id)
 			local objName = (obj and obj.name) or o.text or (L["Object"] .. " " .. o.id)

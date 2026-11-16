@@ -401,6 +401,22 @@ function Compat.IsQuestFailed(questID)
 	return QL.IsFailed(questID) and true or false
 end
 
+-- The game's internal placeholder names (#2614; forge-guide's placeholder.rs,
+-- the same list): "[DNT] Kill Credit", a bare "Credit", "PvP Tower Credit
+-- Marker", Alterac Valley's "Trigger Ichman", "<UNUSED>". A player never reads
+-- one: the data and the compiler give such objectives their own words, and a
+-- quest-log line the game words with one reads as a line with no name yet.
+local PLACEHOLDER_TAGS = { "[DNT]", "(DNT)", "[PH]", "(DND)", "<UNUSED>", "<TEST>", "Credit Marker", "Kill Credit" }
+function Compat.Placeholder(name)
+	if type(name) ~= "string" then return false end
+	local s = name:match("^%s*(.-)%s*$")
+	if s == "Credit" or s:sub(1, 8) == "Trigger " or s:sub(1, 8) == "DND FLAG" then return true end
+	for i = 1, #PLACEHOLDER_TAGS do
+		if s:find(PLACEHOLDER_TAGS[i], 1, true) then return true end
+	end
+	return false
+end
+
 function Compat.GetQuestObjectives(questID)
 	if not (C_QuestLog and C_QuestLog.GetQuestObjectives) then return nil end
 	local raw = C_QuestLog.GetQuestObjectives(questID)
@@ -419,7 +435,9 @@ function Compat.GetQuestObjectives(questID)
 			-- #1952) counts past its 1 while unfinished; finished is the truth.
 			cur = req - 1
 		end
-		out[i] = { text = o.text or "", type = o.type or "", finished = finished, numFulfilled = cur, numRequired = req }
+		local text = o.text or ""
+		if Compat.Placeholder(Compat.ObjectiveLabel(text)) then text = "" end
+		out[i] = { text = text, type = o.type or "", finished = finished, numFulfilled = cur, numRequired = req }
 	end
 	return out
 end
