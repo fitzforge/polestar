@@ -476,6 +476,22 @@ end
 local function build()
 	f = newCard(ns.UIParent, "PolestarClassToast")
 	f:Hide()
+	f:SetMovable(true)
+	ns.DragWindow(f, f, {
+		locked = function() return ns.Get("ui.locked") end,
+		onStart = function(self)
+			local w2 = window()
+			if w2 then self:SetFrameLevel(w2:GetFrameLevel() + 5) end
+		end,
+		onStop = function(self)
+			local p = ns.Get("toasts.headsup.pos")
+			local point = type(p) == "table" and type(p[1]) == "string" and p[1] or CT.FREE_AT[1]
+			local x, y = ns.PointOffsets(self, point)
+			ns.Set("toasts.headsup.place", "free")
+			ns.Set("toasts.headsup.pos", { point, floor(x + 0.5), floor(y + 0.5) })
+			CT.Place(false)
+		end,
+	})
 	CT.frame = f
 
 	local w = window()
@@ -868,7 +884,7 @@ function CT.Place(animate)
 	f:SetScale((w:GetScale() or 1) * k)
 	f:SetFrameStrata(w:GetFrameStrata())
 	if place == "free" then
-		f:SetFrameLevel(w:GetFrameLevel())
+		f:SetFrameLevel(w:GetFrameLevel() + 5)
 	else
 		-- Behind the window, so it slides out from under its edge.
 		if w:GetFrameLevel() < 2 then w:SetFrameLevel(2) end

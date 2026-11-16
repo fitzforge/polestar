@@ -233,3 +233,30 @@ fn compact_draws_the_card_on_one_line_and_off_again_the_full_card_is_back() {
 	assert_eq!(out["back"], out["full"], "off again: the full card");
 	assert_eq!(out["giver"], true);
 }
+
+// Dragging the heads-up card directly with the mouse frees it from the window, sets toasts.headsup.place to "free",
+// and records its new drop position.
+#[test]
+fn dragging_the_heads_up_card_switches_its_place_to_free_and_saves_its_spot_2629() {
+	let out = run(r#"
+		CT.Show(1506)
+		stub.advance(1)
+		local f = CT.frame
+		local movable = f:IsMovable() and true or false
+		local placeBefore = Polestar.Get("toasts.headsup.place")
+		-- A drag on the card (pressed, moved, released)
+		stub.cursor = { 500, 500 }
+		stub.RunScript(f, "OnMouseDown", "LeftButton")
+		stub.advance(0.016)
+		stub.cursor = { 550, 450 }
+		stub.advance(0.016)
+		stub.RunScript(f, "OnMouseUp", "LeftButton")
+		local pos = Polestar.Get("toasts.headsup.pos")
+		emit({ movable = movable, placeBefore = placeBefore, placeAfter = Polestar.Get("toasts.headsup.place"),
+			side = CT.side, pos = type(pos) == "table" and pos[1] or false })"#);
+	assert_eq!(out["movable"], true, "card is movable");
+	assert_eq!(out["placeBefore"], "above");
+	assert_eq!(out["placeAfter"], "free", "dragging frees the card from the window");
+	assert_eq!(out["side"], "free");
+	assert_eq!(out["pos"], "TOP", "saved on its drop point");
+}
