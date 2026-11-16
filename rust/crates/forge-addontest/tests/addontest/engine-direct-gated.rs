@@ -362,8 +362,8 @@ fn elwynn_at_westbrook_with_the_applejack_hands_it_to_de_vries() {
 #[test]
 fn elwynn_a_0_4_0_save_at_westbrook_stays_there_and_de_vries_needs_the_applejack() {
 	let Some(out) = elwynn("", true) else { return };
-	assert_eq!(out["guide"], format!("{ELWYNN}"), "{out}");
-	assert!(out["liveStep"].as_u64().unwrap() > out["rainer"].as_u64().unwrap() - 1, "not sent back: {out}");
+	assert_eq!(out["guide"], ELWYNN, "{out}");
+	assert!(out["liveStep"].as_u64().unwrap() >= out["rainer"].as_u64().unwrap(), "not sent back: {out}");
 	assert_eq!(out["live"], "Forest's Edge", "{out}");
 	let Some(out) = elwynn("w.addItem(247824, 1)", true) else { return };
 	assert_eq!(out["live"], "Sergeant De Vries", "{out}");

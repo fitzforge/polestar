@@ -2395,15 +2395,34 @@ test(`forever/alliance/40-50/05-the-hinterlands.guide: Mokk's heart waits for Un
 	assert.ok(heart > ritual, 'the heart comes after the fangs are handed in');
 	assert.ok((steps[heart].when || []).some((p) => p.k === 'turnedin' && !p.neg && [].concat(p.q).includes(349)), 'and only once Unbagwa has them: Mokk comes from his ritual');
 });
-test('forever/horde/50-60/05-eastern-plaguelands.guide: Gaeriyan waits for Meet at the Grave and the Videre Elixir (#2561 sweep)', { skip }, () => {
-	// The elixir comes only from Gregan's Evoroot hand-in, gated on the Evoroot since #2561's sweep: without it the
-	// Gaeriyan step (drink the elixir) must not hold the route.
+test('forever/horde/50-60/05-eastern-plaguelands.guide: Gaeriyan waits for Meet at the Grave (#2561 sweep)', { skip }, () => {
+	// The elixir comes only from Gregan's Evoroot hand-in, gated on the Evoroot since #2561's sweep: a player without
+	// it never hands The Videre Elixir to Donova or takes Meet at the Grave, and the Gaeriyan step (drink the elixir)
+	// must not hold the route. Not `when has 11243`: drinking it there would drop the step before Gaeriyan.
 	const { steps } = compiled('forever/horde/50-60/05-eastern-plaguelands.guide');
 	const st = steps.find((s) => s.goals.some((g) => g.t === 'use' && g.item === 11243));
 	assert.ok(st && st.goals.some(is('turnin', 3912)), 'the elixir is drunk on the Gaeriyan step');
 	const when = st.when || [];
 	assert.ok(when.some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(3912)), 'only with Meet at the Grave in the log');
-	assert.ok(when.some((p) => p.k === 'has' && !p.neg && p.item === 11243), 'and the Videre Elixir in the bags');
+});
+// A step shown only while the bags hold an item (`when has I`) stops applying the moment the item is used up, so
+// nothing may follow the goal that uses it up (a `use`, an accept the item starts, a hand-in that takes it) but what
+// that goal hands over (a collect of its reward): the rest of the step would be passed half done.
+test('Every guide: a step gated on carrying an item holds no work after the goal that uses the item up (#2561 sweep)', { skip }, () => {
+	const bad = [];
+	for (const guide of allGuides()) {
+		for (const st of compiled(guide).steps) {
+			for (const p of (st.when || []).filter((w) => w.k === 'has' && !w.neg)) {
+				const uses = (g) => (g.t === 'use' && g.item === p.item) || (g.t === 'accept' && g.item === p.item)
+					|| (g.t === 'turnin' && data.quests[g.quest] && directNeeds(g.quest).has(p.item));
+				const at = st.goals.findIndex(uses);
+				if (at < 0) continue;
+				const after = st.goals.slice(at + 1).filter((g) => !g.optional && g.t !== 'collect' && g.t !== 'note' && !uses(g));
+				if (after.length) bad.push(`${guide} "${st.title}" (has ${p.item}): ${after.map((g) => `${g.t} ${g.quest || g.item || ''}`).join(', ')}`);
+			}
+		}
+	}
+	assert.deepEqual(bad, []);
 });
 test('Every guide: no required hand-in straight from the bags can hold the route without its items (#2561 sweep)', { skip }, () => {
 	const bad = [];

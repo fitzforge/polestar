@@ -11431,7 +11431,7 @@
 				"guide": "forever/horde/50-60/05-eastern-plaguelands"
 			},
 			"when": "onquest 3912",
-			"note": "#2561's sweep, the follow-on: the Videre Elixir (11243) comes only from The Videre Elixir's hand-in at Gregan (4041, horde/50-60/03-winterspring), which shows only with the Evoroot in the bags. A player without it carries no elixir, never hands The Videre Elixir (3909) to Donova and never takes Meet at the Grave (3912), yet the Gaeriyan step's `use 11243` held the route in Tanaris. The step shows only with 3912 in the log (this record) and the elixir in the bags (`when has 11243` on the guide's step).",
+			"note": "#2561's sweep, the follow-on: the Videre Elixir (11243) comes only from The Videre Elixir's hand-in at Gregan (4041, horde/50-60/03-winterspring), which shows only with the Evoroot in the bags. A player without it carries no elixir, never hands The Videre Elixir (3909) to Donova and never takes Meet at the Grave (3912), yet the Gaeriyan step's `use 11243` held the route in Tanaris. The step shows only with 3912 in the log (this record); not `when has 11243`, since drinking the elixir there would drop the step before Gaeriyan.",
 			"source": [
 				{
 					"kind": "client",
