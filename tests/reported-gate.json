@@ -1252,6 +1252,19 @@
 		] },
 		"2337": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "Khan Jehn waits for Checking Things Out, the end of Nerlokh's chain (#2337)" }
+		] },
+		"2535": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2535 #2539 #2543: stories heard from friendly NPCs are talks in the data, not kills" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_pick_up_guide_step_for_a_story_from_a_friendly_npc_says_talk_to_not_kill_2543" }
+		] },
+		"2539": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2535 #2539 #2543: stories heard from friendly NPCs are talks in the data, not kills" }
+		] },
+		"2543": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2535 #2539 #2543: stories heard from friendly NPCs are talks in the data, not kills" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_pick_up_guide_step_for_a_story_from_a_friendly_npc_says_talk_to_not_kill_2543" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/quests.rs", "test": "a_talk_objective_keeps_its_line_says_talk_to_on_the_npc_and_puts_no_skull_on_it_2543" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/quests.rs", "test": "a_pinned_quest_s_talk_line_is_built_as_a_talk_to_its_npc_2543" }
 		] }
 	},
 	"seedDrift": {}
