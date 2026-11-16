@@ -49,7 +49,7 @@ fn addon_dirs() -> Vec<PathBuf> {
 	entries.into_iter().filter(|e| e.file_type().unwrap().is_dir()).map(|e| e.path()).collect()
 }
 
-// Freedoom Arcade's build and test tools (its asset builder's mock of the game, its benchmarks): they run on a
+// Freedoom Arcade's build and test tools (its asset builder's mock of the game, its timing scripts): they run on a
 // developer's machine, never in the client, and no manifest loads them.
 const NOT_ADDON_CODE: &[&str] = &["Polestar_Arcade/tools"];
 
