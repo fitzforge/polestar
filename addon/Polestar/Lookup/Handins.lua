@@ -70,16 +70,15 @@ local function render(p)
 		steps[#steps + 1] = { title = at.name or L["Quest giver"], goals = goals,
 			note = p.uncertain and p.uncertain[i] and L["Travel time to this hand-in is unknown. Its location is still shown."] or nil }
 	end
-	local notes = {}
+	local unplaced = {}
 	for _, q in ipairs(p.unplaced) do
-		-- Quest IDs keep a new manual errand from inheriting another's check-off.
-		notes[#notes + 1] = { t = "note", quest = q.id, text = (L["Where it is turned in is not known: %s"]):format(ns.Quoted(q.title)) }
+		-- These are still live quest-log attempts. A generic task could retain
+		-- its check-off when the same repeatable is accepted again immediately.
+		unplaced[#unplaced + 1] = { t = "turnin", quest = q.id, title = q.title, currentLog = true,
+			note = (L["Where it is turned in is not known: %s"]):format(ns.Quoted(q.title)) }
 	end
-	if #notes > 0 then
-		-- A note-only step is considered finished by the guide engine. Keep
-		-- the remaining errands visible until the player deals with them.
-		table.insert(notes, 1, { t = "task", text = L["Hand in these quests manually; their locations are not known."] })
-		steps[#steps + 1] = { title = L["Hand-ins without a known location"], goals = notes }
+	if #unplaced > 0 then
+		steps[#steps + 1] = { title = L["Hand-ins without a known location"], goals = unplaced }
 	end
 	if #steps == 0 then steps[1] = note(L["No quests in your log are ready to hand in."]) end
 	if p.refining then steps[1].note = L["Refining the travel order. Travel times are estimates."] end

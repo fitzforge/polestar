@@ -16,10 +16,33 @@ w.abandon(7106); w.onQuest(7105,{}); stub.fire('QUEST_LOG_UPDATE'); settle()
 emit({checked=checked, live=E.GetLiveStep() or false, complete=E.GetTabs()[1].complete == true, notes=notes(E.GetGuide())})
 "#,
 	);
-	assert_eq!(out["checked"], true, "the earlier manual step was checked off");
+	assert_eq!(out["checked"], false, "unknown hand-ins remain active until the quest leaves the log, like known hand-ins");
 	assert_eq!(out["live"], 1, "a different unknown hand-in must be visible again");
 	assert_eq!(out["complete"], false);
 	assert!(out["notes"].as_str().unwrap().contains("Hostile Recipient"));
+}
+
+#[test]
+fn an_unknown_recipient_repeatable_stays_active_after_a_rapid_new_attempt() {
+	let out = run(
+		"w.repeatable[7106]=true; w.onQuest(7106,{})",
+		None,
+		r#"
+H.Start(); settle()
+E.ToggleGoal(1,1); settle()
+-- The same delivery is accepted before the hand-in guide's refresh runs.
+w.turnIn(7106); w.accept(7106,{}); settle()
+local live, complete = E.GetLiveStep() or false, E.GetTabs()[1].complete == true
+H.Start(); settle()
+emit({ready=H.Ready(), live=live, complete=complete,
+	reopenedLive=E.GetLiveStep() or false, reopenedComplete=E.GetTabs()[1].complete == true})
+"#,
+	);
+	assert_eq!(out["ready"], json!([7106]));
+	assert_eq!(out["live"], 1, "a new quest-log attempt must not inherit the manual check-off");
+	assert_eq!(out["complete"], false);
+	assert_eq!(out["reopenedLive"], 1, "opening the existing guide again still shows the new attempt");
+	assert_eq!(out["reopenedComplete"], false);
 }
 
 #[test]

@@ -7876,8 +7876,10 @@ seconds, the guide orders with the costs gathered so far and explains that
 the estimates are incomplete. Every stop with a known destination keeps
 its turn-in goal and waypoint, including when its incoming travel estimate
 is missing; such a stop carries an explanatory note. Quests whose hand-in
-location itself is unknown remain named in a separate manual step instead
-of being assigned an invented waypoint.
+location itself is unknown remain named in a separate step with ordinary
+`currentLog` turn-in goals and no coordinates. They have no invented
+waypoint, and a new attempt of the same repeatable cannot inherit a manual
+task's check-off.
 
 `Start()` opens the guide and shows the guide window; another call replans
 in the same tab. It returns the guide id on success, or `nil, reason` and a

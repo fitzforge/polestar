@@ -1,5 +1,6 @@
 //! Completed quest-log errands, independent of the player's leveling guide (#2480).
 //! Synthetic Codex data runs through the real pack decoder, planner and Engine tab lifecycle.
+//! size-exception: fixture setup and tab-lifecycle regressions share one harness.
 
 use forge_addontest::codex::{fixture, write_codex_pack, CodexOpts};
 use forge_addontest::{emitted, lua_value, Addon, RunAddon};
@@ -63,7 +64,9 @@ end
 local function notes(g)
 	local out = {}
 	for _, s in ipairs(g and g.steps or {}) do
-		for _, goal in ipairs(s.goals or {}) do if goal.t == "note" then out[#out + 1] = goal.text or "" end end
+		for _, goal in ipairs(s.goals or {}) do
+			if goal.t == "note" then out[#out + 1] = goal.text or "" elseif goal.note then out[#out + 1] = goal.note end
+		end
 	end
 	return table.concat(out, " ")
 end
@@ -159,11 +162,13 @@ fn hostile_and_missing_recipients_are_named_without_inventing_a_destination() {
 local id = H.Start(); settle()
 local g = Polestar.Guides.Get(id)
 local recipient
-for _, s in ipairs(g.steps) do for _, goal in ipairs(s.goals) do if goal.quest == 7107 then recipient = goal.npc end end end
+for _, s in ipairs(g.steps) do for _, goal in ipairs(s.goals) do
+	if goal.quest == 7107 then recipient = goal.npc else assert(not goal.map and not goal.npc and not goal.object, 'unknown recipient has no invented destination') end
+end end
 emit({ids=ids(g), recipient=recipient, notes=notes(g)})
 "#,
 	);
-	assert_eq!(out["ids"], json!([7107]));
+	assert_eq!(out["ids"], json!([7105, 7106, 7107, 7120]));
 	assert_eq!(out["recipient"], 5001);
 	let note = out["notes"].as_str().unwrap();
 	for title in ["Hostile Recipient", "Lost Recipient", "Uncatalogued Errand"] {
@@ -181,13 +186,13 @@ fn unknown_handins_remain_visible_as_actionable_information_even_after_known_han
 			r#"
 local g, live, task = E.GetGuide(), E.GetLiveStep(), false
 local view = live and E.GetStepView(live)
-for _,goal in ipairs(view and view.goals or {}) do if goal.t == 'task' and goal.status == 'active' then task = true end end
+for _,goal in ipairs(view and view.goals or {}) do if goal.t == 'turnin' and goal.quest == 7106 and goal.status == 'active' then task = true end end
 emit({id=id, ids=ids(g), notes=notes(g), live=live or false, task=task, complete=E.GetTabs()[1].complete == true})
 "#
 		);
 		let out = run(before, None, &script);
 		assert_eq!(out["id"], ID);
-		assert_eq!(out["ids"], json!({}));
+		assert_eq!(out["ids"], json!([7106]));
 		assert!(out["notes"].as_str().unwrap().contains("Lost Recipient"));
 		assert_eq!(out["live"], 1, "unknown hand-ins cannot disappear behind the completed-guide screen (mixed={mixed})");
 		assert_eq!(out["task"], true, "the player can review the remaining manual hand-in");
