@@ -62,7 +62,7 @@ every goal in it that is not `optional` is; its goals are open together.
 ## Goals
 
 `<verb> <arguments> <modifiers> [-- note]`. Every goal also takes
-`optional`, `only`, `"text"`, `group` and, except where the last column says
+`optional`, `only`, `"text"`, `group`, `either` and, except where the last column says
 otherwise, the place modifiers `@x,y`, `map`, `r`, `era` / `live`.
 
 | Line | What it does | Also takes |
@@ -86,12 +86,12 @@ otherwise, the place modifiers `@x,y`, `map`, `r`, `era` / `live`.
 | `fly "<Town>"` | Take a flight; done on landing | no place modifiers |
 | `train class` / `train <npc>` / `train <Profession> [Rank]` | Visit a trainer: the nearest of the player's class, that one, or the nearest of a profession | `npc`, `gossip` |
 | `buy <item> ["Name"]` | Buy an item; `nearest` picks the closest vendor selling it | `npc`, `xN`, `nearest` |
-| `auction <item> ["Name"]` | Buy `xN` (required) at the Auction House; the arrow leads to the nearest auctioneer of the player's faction. In a profession guide it applies while the player buys that material (Polestar 0.4.0) | `xN`, no place modifiers, no `group` |
+| `auction <item> ["Name"]` | Buy `xN` (required) at the Auction House; the arrow leads to the nearest auctioneer of the player's faction. In a profession guide it applies while the player buys that material (Polestar 0.4.0) | `xN`, no place modifiers, no `group`, no `either` |
 | `vendor nearest` / `vendor <npc>` | Sell and repair; done when the merchant's window opens in the step. Beside other goals it never holds the step (Polestar 0.3.5); alone in a step it waits for the window | `npc`, `gossip` |
 | `level <N>` | Reach level N, grinding if need be; `level 12.5` is halfway through 12, `level 12+2500` 2500 XP into it (whole percent; the pack then needs Polestar 0.2.6) | `grind`, no place modifiers |
 | `money <amount>` | Hold that much money (`1g50s`, `7s`, `25c` or copper); stays done for the rest of the step (Polestar 0.3.0) | no place modifiers, no `group` |
 | `task "<text>"` | Something Polestar cannot see; the player ticks it, and it holds the step until then unless `optional` (Polestar 0.3.0). With modifiers, quote the text | no `"text"`, no `group` |
-| `note <text>` | A line of information; never holds the step. With `only`, quote the text | no `"text"`, no `group` |
+| `note <text>` | A line of information; never holds the step. With `only`, quote the text | no `"text"`, no `group`, no `either` |
 | `skill <Profession> <N>` | Reach skill N (`"First Aid"` quoted) | |
 | `learn <spell> ["Name"]` | Learn a recipe or spell | `npc`, `item`, `nearest` |
 | `cast <spellId> ["Name"]` | Cast that spell while the goal is open (Polestar 0.3.0); name it unless it is a recipe in the data | coordinates |
@@ -99,7 +99,7 @@ otherwise, the place modifiers `@x,y`, `map`, `r`, `era` / `live`.
 | `rep <Faction> <Standing>` | Reach a standing, `Hated` to `Exalted`, with a faction by name or id | |
 | `explore <x>,<y> ["Area"]` | Discover the map area there | `map`, `r`, `era` / `live` only |
 | `achieve <id> "Name"` | Complete an achievement or Legacy Challenge; the name is required | `criteria` |
-| `wait <seconds> ["text"]` | A countdown (1 to 3600 seconds) that starts once the goals before it in the step are done: a boat, an event or a speech to sit through (Polestar 0.3.0) | no place modifiers, no `group` |
+| `wait <seconds> ["text"]` | A countdown (1 to 3600 seconds) that starts once the goals before it in the step are done: a boat, an event or a speech to sit through (Polestar 0.3.0) | no place modifiers, no `group`, no `either` |
 
 `nearest`, `train class` and `train <Profession>` pick the NPC or place when
 the step comes up, by the player's faction and position; they take no
@@ -124,6 +124,7 @@ After the arguments, in any order.
 | `"text"` | Right after an id: the name or title, for content missing from the data; later: the text players see |
 | `lvl <N>` | On `accept`: the level the quest needs |
 | `optional` | Never holds the step |
+| `either` | One of a set: the step is done when any one of its `either` goals is (two or more, none `optional`). A quest taken as one of them holds its later steps only for those who took it (Polestar 0.4.1) |
 | `group [N]` | Needs a group (of N players, 2-40); the guide window says so. Elites, dungeon and raid quests are found from the data without it |
 | `only <condition>, ...` | The goal is only for matching characters |
 | `nearest` | The closest vendor, trainer or drop place, picked in game |
@@ -170,7 +171,7 @@ outcome stays. A pack with `when` (on a step or a `next` line), `along` or
 `label` needs Polestar 0.2.6; with `money`, `task`, `enter`, `cast`, `abandon`, `destroy` or `die` goals, a `when money`,
 `when dungeon`, `when upgrade`, `when done`, `when skill`, `when cooldown`,
 `when group` or `when knows` predicate, or `skipto`, needs Polestar 0.3.0; with
-a `when taxi` predicate, Polestar 0.4.0.
+a `when taxi` predicate, Polestar 0.4.0; with `either`, Polestar 0.4.1.
 
 ## Lint errors that come up most
 

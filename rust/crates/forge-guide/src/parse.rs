@@ -61,52 +61,52 @@ pub const HEADER_KEYS: [&str; 20] =
 /// predicate holds, it jumps to the labelled step (resolve.rs, checkLabels).
 pub const STEP_KEYS: [&str; 10] = ["zone", "only", "tip", "image", "when", "label", "along", "background", "skipto", "loop"];
 
-// COMMON = text optional only group; COORDS = at map r frame (`frame` = the `era` / `live` modifiers).
+// COMMON = text optional only group either (`either`: one of a set in its step); COORDS = at map r frame (`frame` = the `era` / `live` modifiers).
 /// The modifiers each verb takes, in the JS object's order (VERBS is the verbs in this order).
 pub const MODS: [(&str, &[&str]); 33] = [
-	("accept", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "object", "item", "lvl"]),
+	("accept", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc", "object", "item", "lvl"]),
 	// `reward`/`choose`/`xp`/`money`: what the turn-in pays, shown on the goal.
 	// `direct`: handed in straight from the NPC's window, with no accept.
-	("turnin", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "object", "reward", "choose", "xp", "money", "direct"]),
-	("complete", &["text", "optional", "only", "group", "at", "map", "r", "frame"]),
-	("abandon", &["text", "optional", "only"]),
-	("destroy", &["text", "optional", "only"]),
-	("kill", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "quest", "count"]),
+	("turnin", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc", "object", "reward", "choose", "xp", "money", "direct"]),
+	("complete", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame"]),
+	("abandon", &["text", "optional", "only", "either"]),
+	("destroy", &["text", "optional", "only", "either"]),
+	("kill", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc", "quest", "count"]),
 	// `gather [<Profession> <rank>] [levels <min>-<max>]`: this bag count is its item's gather way (a profession
 	// guide's material, which the section's `auction` goal buys instead when the player chooses to buy it).
-	("collect", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "quest", "count", "nearest", "anywhere", "gather"]),
-	("goto", &["text", "optional", "only", "group", "map", "r", "frame"]),
-	("talk", &["text", "optional", "only", "group", "at", "map", "r", "frame", "gossip", "quest"]),
-	("interact", &["text", "optional", "only", "group", "at", "map", "r", "frame", "quest"]),
-	("use", &["text", "optional", "only", "group", "at", "map", "r", "frame", "quest"]),
-	("sethome", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc"]),
-	("hearth", &["text", "optional", "only", "group"]),
+	("collect", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc", "quest", "count", "nearest", "anywhere", "gather"]),
+	("goto", &["text", "optional", "only", "group", "either", "map", "r", "frame"]),
+	("talk", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "gossip", "quest"]),
+	("interact", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "quest"]),
+	("use", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "quest"]),
+	("sethome", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc"]),
+	("hearth", &["text", "optional", "only", "group", "either"]),
 	// `die "<Graveyard>" @x,y`: die and take the Spirit Healer's resurrection there (a deathskip).
-	("die", &["text", "optional", "only", "group", "at", "map", "r", "frame"]),
-	("getfp", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc"]),
-	("fly", &["text", "optional", "only", "group"]),
+	("die", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame"]),
+	("getfp", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc"]),
+	("fly", &["text", "optional", "only", "group", "either"]),
 	// `enter "<Place>"`: be in that zone or area (the zone or subzone text); coordinates only point the arrow.
-	("enter", &["text", "optional", "only", "group", "at", "map", "r", "frame"]),
-	("train", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "gossip"]),
-	("buy", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "count", "nearest"]),
+	("enter", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame"]),
+	("train", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc", "gossip"]),
+	("buy", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc", "count", "nearest"]),
 	// `auction <item> xN`: buy it at the Auction House (the arrow: the nearest auctioneer of the player's faction);
 	// applies while the player gets the item by buying it (Core/Materials.lua).
 	("auction", &["text", "optional", "only", "count"]),
-	("vendor", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "gossip"]),
+	("vendor", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc", "gossip"]),
 	// `grind <npcId>`: the mob a level is reached on; the arrow leads to its nearest spawn area.
-	("level", &["text", "optional", "only", "group", "grind"]),
+	("level", &["text", "optional", "only", "group", "either", "grind"]),
 	// `money <amount>`: hold that much; `task "<text>"`: done when the player ticks it.
-	("money", &["text", "optional", "only"]),
-	("task", &["optional", "only", "at", "map", "r", "frame"]),
+	("money", &["text", "optional", "only", "either"]),
+	("task", &["optional", "only", "either", "at", "map", "r", "frame"]),
 	("note", &["optional", "only", "at", "map", "r", "frame"]),
-	("skill", &["text", "optional", "only", "group", "at", "map", "r", "frame"]),
-	("learn", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "item", "nearest"]),
+	("skill", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame"]),
+	("learn", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc", "item", "nearest"]),
 	// `cast <spellId> ["Name"]`: the player casts that spell while the goal is open.
-	("cast", &["text", "optional", "only", "group", "at", "map", "r", "frame"]),
-	("craft", &["text", "optional", "only", "group", "at", "map", "r", "frame", "count", "until"]),
-	("rep", &["text", "optional", "only", "group", "at", "map", "r", "frame"]),
-	("explore", &["text", "optional", "only", "group", "map", "r", "frame"]),
-	("achieve", &["text", "optional", "only", "group", "at", "map", "r", "frame", "criteria"]),
+	("cast", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame"]),
+	("craft", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "count", "until"]),
+	("rep", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame"]),
+	("explore", &["text", "optional", "only", "group", "either", "map", "r", "frame"]),
+	("achieve", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "criteria"]),
 	// `wait <seconds> ["text"]`: done that long after the goals before it in the step are.
 	("wait", &["text", "optional", "only"]),
 ];
@@ -136,9 +136,9 @@ fn mod_label(m: &str) -> &str {
 		_ => m,
 	}
 }
-pub const MOD_WORDS: [&str; 24] = [
+pub const MOD_WORDS: [&str; 25] = [
 	"map", "npc", "object", "item", "quest", "r", "lvl", "optional", "only", "until", "criteria", "era", "live", "nearest", "anywhere", "gather", "reward", "choose", "xp", "money", "group", "direct",
-	"gossip", "grind",
+	"gossip", "grind", "either",
 ];
 // A party or raid: 2 to 40 players.
 const GROUP_MIN: f64 = 2.0;
@@ -1554,6 +1554,12 @@ fn parse_goal(verb: &str, line: &[u16], lex: &Lex, ln: f64, cx: &mut Cx) -> Opti
 			"optional" => {
 				use_!("optional");
 				goal.set("optional", true);
+				i += 1;
+				continue;
+			}
+			"either" => {
+				use_!("either");
+				goal.set("either", true);
 				i += 1;
 				continue;
 			}

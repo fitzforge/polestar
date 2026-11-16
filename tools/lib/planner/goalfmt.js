@@ -326,6 +326,7 @@ function formatGoal(fields) {
 	if (f.group) push('group', f.group.size !== undefined ? `group ${f.group.size}` : 'group');
 	const label = f.text !== undefined && !XY_POSITIONAL.includes(verb) && !TEXT_POSITIONAL.has(verb) ? quote(f.text) : null;
 	if (f.optional) push('optional', 'optional');
+	if (f.either) push('either', 'either');
 	const onlyText = f.onlyText !== undefined ? String(f.onlyText) : f.only ? conditionText(f.only) : '';
 	if (onlyText) push('only', `only ${onlyText.trim().replace(/\s*,\s*/g, ',')}`);
 	if (label !== null) {
@@ -465,10 +466,11 @@ const MODIFIER_FIELDS = {
 	group: [fld('group', 'group', 'Group')],
 	text: [fld('text', 'text', 'Label')],
 	optional: [fld('optional', 'bool', 'Optional')],
+	either: [fld('either', 'bool', 'One of a set (any one is enough)')],
 	only: [fld('onlyText', 'text', 'Only for')],
 };
 // Modifier order of the schema = the order formatGoal writes them.
-const MOD_ORDER = ['at', 'map', 'r', 'frame', 'npc', 'object', 'item', 'quest', 'count', 'lvl', 'grind', 'until', 'criteria', 'nearest', 'anywhere', 'gather', 'choose', 'reward', 'xp', 'money', 'direct', 'group', 'text', 'optional', 'only'];
+const MOD_ORDER = ['at', 'map', 'r', 'frame', 'npc', 'object', 'item', 'quest', 'count', 'lvl', 'grind', 'until', 'criteria', 'nearest', 'anywhere', 'gather', 'choose', 'reward', 'xp', 'money', 'direct', 'group', 'text', 'optional', 'either', 'only'];
 
 function verbSchema() {
 	const verbs = {};

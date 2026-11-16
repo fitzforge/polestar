@@ -22,7 +22,10 @@ const LEGS_FORMAT = 7;
 // An older Polestar refuses the pack as too new instead of refusing each guide with "bad when" or "unknown verb".
 const TAXI_FORMAT = 10;
 const MATERIALS_FORMAT = 10;
-const NEEDS = { 1: '0.1.0', 2: '0.2.4', 3: '0.2.5', 4: '0.2.6', 5: '0.3.0', 6: '0.3.0', 7: '0.3.0', 10: '0.4.0' };
+// Format 11, read by Polestar 0.4.1: a goal's `either` (one of a set in its step). An older Polestar would wait for
+// every goal of the set, so a pack that uses it is written in a format of its own.
+const EITHER_FORMAT = 11;
+const NEEDS = { 1: '0.1.0', 2: '0.2.4', 3: '0.2.5', 4: '0.2.6', 5: '0.3.0', 6: '0.3.0', 7: '0.3.0', 10: '0.4.0', 11: '0.4.1' };
 
 // A step with `label` or `along` (an older Polestar would stop at an along step).
 const usesAlong = (s) => s.label !== undefined || s.along !== undefined;
@@ -49,14 +52,19 @@ const usesTaxi = (g) => (g.steps || []).some((s) => (s.when || []).some(isTaxi) 
 // The `auction` goal and a collect's `gather` need format 10 too (MATERIALS_FORMAT).
 const usesMaterials = (g) => (g.steps || []).some((s) => (s.goals || []).some((goal) => goal.t === 'auction' || goal.gather));
 
-// The format a pack's compiled guides need: format 10 (TAXI_FORMAT, MATERIALS_FORMAT) when a guide has a `taxi`
-// predicate, an `auction` goal or a `gather` collect, MONEY_TASK_FORMAT when a guide
+// A goal marked `either` needs format 11 (EITHER_FORMAT).
+const usesEither = (g) => (g.steps || []).some((s) => (s.goals || []).some((goal) => goal.either));
+
+// The format a pack's compiled guides need: EITHER_FORMAT when a goal is one of an `either` set, format 10
+// (TAXI_FORMAT, MATERIALS_FORMAT) when a guide has a `taxi` predicate, an `auction` goal or a `gather` collect,
+// MONEY_TASK_FORMAT when a guide
 // uses money/task/enter/cast/abandon/destroy/die goals, a money, dungeon, upgrade, done, skill, cooldown, group or knows when predicate or a
 // `skipto`, WHEN_FORMAT when a step
 // has `when`, `label` or `along`, a level goal has `frac`, or a `next`
 // option has `when` (`nextWhen`), else FORMAT. A pack with baked legs is
 // LEGS_FORMAT (project.js buildPackFiles).
 function formatFor(guides) {
+	if ((guides || []).some(usesEither)) return EITHER_FORMAT;
 	if ((guides || []).some((g) => usesTaxi(g) || usesMaterials(g))) return TAXI_FORMAT;
 	if ((guides || []).some(usesMoneyTask)) return MONEY_TASK_FORMAT;
 	const uses = (guides || []).some((g) => (g.steps || []).some((s) => (Array.isArray(s.when) && s.when.length) || usesAlong(s)));
@@ -122,4 +130,4 @@ function placeholderLicense(license) {
 	return `Licensed under ${license}: ${LICENSE_PLACEHOLDER}.\n`;
 }
 
-module.exports = { FORMAT, WHEN_FORMAT, MONEY_TASK_FORMAT, LEGS_FORMAT, TAXI_FORMAT, MATERIALS_FORMAT, NEEDS, formatFor, PACK_ID_RE, FOLDER_RE, RESERVED_IDS, OWN_EXTRAS, GENERATED_MARKER, LEGACY_GENERATED_MARKER, isGenerated, TOC_MARKER, TOC_TITLE_PREFIX, LEGACY_TOC_TITLE_PREFIX, LICENSE_PLACEHOLDER, ownsGuideId, defaultFolder, placeholderLicense };
+module.exports = { FORMAT, WHEN_FORMAT, MONEY_TASK_FORMAT, LEGS_FORMAT, TAXI_FORMAT, MATERIALS_FORMAT, EITHER_FORMAT, NEEDS, formatFor, PACK_ID_RE, FOLDER_RE, RESERVED_IDS, OWN_EXTRAS, GENERATED_MARKER, LEGACY_GENERATED_MARKER, isGenerated, TOC_MARKER, TOC_TITLE_PREFIX, LEGACY_TOC_TITLE_PREFIX, LICENSE_PLACEHOLDER, ownsGuideId, defaultFolder, placeholderLicense };

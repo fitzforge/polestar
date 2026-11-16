@@ -225,6 +225,7 @@ Modifiers, in any order after the positional arguments:
 | `grind <npcId>` | On `level`: the mob the level is reached on; the arrow leads to its nearest spawn area. |
 | `optional` | Never blocks the step. |
 | `gather [<Profession> <rank>] [levels <min>-<max>]` | `collect` only: this bag count is the item's gather way in a profession guide (see "Materials"). `gather Mining 1`: it takes that profession at that rank (Herbalism for a herb, Mining to smelt a bar, Skinning for leather, Enchanting for dust; quoted for two words: `gather "First Aid" 1`); `gather levels 15-30`: it drops from mobs of those levels as the player levels (cloth, meat). Either, both (the profession first) or neither. |
+| `either` | One of a set: the step's goals marked `either` are alternatives, and the step is done when any one of them is. See "One of several". Pack format 11. |
 | `group [N]` | Needs a group, of `N` players (2–40) when given (`kill 1234 group 3`, `accept 7583 group 5`). The guide window says "Group of 3 advised" (or "Group advised") under the goal. Overrides what the compiler derives: see "Group content". |
 | `only <cond>[,<cond>...]` | Goal applies only to matching characters. |
 | `era` / `live` | Map frame of this goal's typed coordinates, overriding `coords`. |
@@ -535,7 +536,7 @@ upgrade`, `when done`, `when skill`, `when cooldown`, `when group` or `when know
 predicate (above) writes format 5 (Polestar 0.3.0 and later), because 0.2.6 knows `when` but
 not those predicates; `money`, `task`, `enter`, `cast`, `abandon`, `destroy` and `die` goals also need format 5
 (docs/PACK_FORMAT.md). A `when taxi` predicate writes format 10 (Polestar
-0.4.0 and later).
+0.4.0 and later), a goal marked `either` format 11 (Polestar 0.4.1 and later).
 
 ## Along the way
 
@@ -643,6 +644,47 @@ guides, a `background` record in `data/guide-fixes.json` writes all of this
 `background` changes nothing in the compiled guide: Polestar reads the step
 as the along step it is, so a pack with it is written in pack format 4, like
 `along`.
+
+## One of several
+
+`either` marks alternatives: the goals of a step that carry it are a set,
+and the step is done when any one of them is. The others then read done
+too, so the step never waits for a second one. Goals of the step without
+`either` hold it as usual.
+
+```
+step Volcor, in the furbolg cave
+  accept 994 either            -- Escape Through Force: fight the way out beside him,
+  accept 995 either            -- or Escape Through Stealth: he slips out alone
+
+step Terenthis, in Auberdine
+  turnin 994
+  turnin 995
+
+step Something to drink
+  buy 159 x5 either            -- water from the innkeeper,
+  collect 1179 x5 either       -- or the milk already in the bags
+```
+
+Use it where the game offers a choice (two quests of which a character gets
+one, any one of several items) or where two ways lead to the same end (the
+boat `either` the tunnel). A set needs two goals or more, and none of them
+`optional`: an optional goal never holds its step, so it cannot be one of
+the ways to finish it. A step has one set; a goal that is not for the
+character (`only`) is no way of theirs and finishes nothing.
+
+A quest taken as one of an `either` set is a choice, like an `optional`
+accept: its turn-in, objectives and `complete` goals later in the guide
+apply only while the quest is in the log or handed in, so the quests the
+player passed over never hold a step (Terenthis above asks for the one hand-in
+the player has). Polestar does not take the others for the player either:
+with "accept quests" on, the first quest of the set the player takes is the
+only one. Quests the data knows to close each other are what a set is for,
+and lint does not warn that one of them "is not offered once" the other is
+taken while both are of one set.
+
+A pack with `either` is written in pack format 11 (Polestar 0.4.1 and
+later): an older Polestar would wait for every goal of the set.
 
 ## Sections
 
@@ -1296,6 +1338,8 @@ Errors:
   label, or a label on its own step or an earlier one; a `when done` naming no
   label of the guide, or `done` on a `next` line
 - a `skipto` line without a label, `when` and one predicate
+- a single `either` goal in a step (a set is two or more), or a goal that is
+  both `either` and `optional`
 - `background` on a step without `along until <label>`, or a quest objective
   in a `background` step with no finish step (a later step, not an along one,
   working the same objective) before the step that hands its quest in

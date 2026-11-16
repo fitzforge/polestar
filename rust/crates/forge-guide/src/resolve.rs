@@ -1908,6 +1908,20 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 				}
 			}
 		}
+		// `either` marks a set: with one goal alone there is nothing to choose between.
+		let set: Vec<V> = s.get("goals").items().iter().filter(|g| g.get("either").truthy()).cloned().collect();
+		for g in &set {
+			if g.get("optional").truthy() {
+				r.err(
+					&g.get("line"),
+					"a goal cannot be both `either` and `optional`: an optional goal never holds its step",
+					Some("drop `optional`: once another `either` goal of the step is done, this one no longer holds it"),
+				);
+			}
+		}
+		if set.len() == 1 {
+			r.err(&set[0].get("line"), "`either` needs a second `either` goal in its step: the step is done when any one of them is", Some("mark every alternative `either`, or drop it"));
+		}
 		if s.get("loop").truthy() {
 			apply_loop(&step, s, r);
 			if let Some(last) = step.get("goals").items().iter().rev().find(|goal| !goal.get("x").is_undef()) {
@@ -3746,6 +3760,9 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 	}
 	if g.get("optional").truthy() {
 		goal.set("optional", true);
+	}
+	if g.get("either").truthy() {
+		goal.set("either", true);
 	}
 	if !g.get("gossip").is_undef() {
 		goal.set("gossip", g.get("gossip"));
