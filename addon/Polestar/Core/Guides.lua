@@ -633,6 +633,17 @@ function Own.validateSteps(steps)
 		for _, k in ipairs(step.skipto or {}) do
 			if k.when.k == "done" and not labelAt[k.when.label] then return ("step %d: bad skipto"):format(s) end
 		end
+		-- `backto` (format 11): { to = the label of this step or an earlier one, when = one predicate or none }.
+		local b = step.backto
+		if b ~= nil then
+			if type(b) ~= "table" or not isStr(b.to) or not labelAt[b.to] or labelAt[b.to] > s or step.along ~= nil then
+				return ("step %d: bad backto"):format(s)
+			end
+			if b.when ~= nil and (type(b.when) ~= "table" or not checkWhen({ b.when }) or b.when.k == "group"
+				or (b.when.k == "done" and not labelAt[b.when.label])) then
+				return ("step %d: bad backto"):format(s)
+			end
+		end
 	end
 	return nil
 end
@@ -646,7 +657,7 @@ Guides.Validate = validate
 ---------------------------------------------------------------------------
 
 -- Every format Polestar has shipped (docs/PACK_FORMAT.md, "Versioning").
-Guides.FORMATS = { [1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [6] = true, [7] = true, [8] = true, [9] = true }
+Guides.FORMATS = { [1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [6] = true, [7] = true, [8] = true, [9] = true, [11] = true }
 Guides.RESERVED = { guides = true, forever = true, lookup = true, draft = true, polestar = true, imported = true }
 local OFFICIAL_ADDON = "Polestar_Guides"
 local REQUIRED_META = { "addon", "title", "author", "version", "license" }

@@ -114,6 +114,7 @@ Step directives:
 | `background` | On an `along until` step: its goals are zone-wide, slow collections worked over the whole stay, each with a finish step before its hand-in. See "Background goals". |
 | `label <name>` | Names the step, for an `along until` or `skipto` before it, or a `when done` anywhere in the guide. |
 | `skipto <label> when <predicate>` | When the route reaches the step and the predicate holds, it skips this step and the ones after it up to the labelled step; several lines may follow one another, and the first that holds decides. See "Jumps". |
+| `backto <label> [when <predicate>]` | Once the step is done, the route goes back to the labelled step (this step or an earlier one) and the steps from there through this one open again; with `when`, only while the predicate holds. See "Going back". |
 | `tip <text>` | Player-facing step note (compiled to `step.note`). |
 | `image <path> [<w>x<h>]` | A picture shown in the guide window under the step's tip, while the tip is open, scaled to the window's width (at most 160 high): a screenshot of a spot that is hard to find, such as a cave mouth. `<path>` is the file's place in the pack folder, `/` between folders (`media/fargodeep-mine.tga`), a `.tga` or `.blp` file; without the extension the `.tga`, else the `.blp`. The file ships in the pack's addon folder at that path. `<w>x<h>` is the size it is drawn at (only the ratio counts: `512x256` is twice as wide as high); without it the compiler reads the file's own. One per step; a step with no `tip` reads "Picture of this spot" above it. See "Pictures" in the Cookbook. |
 | `loop` | The step's `goto` points, in order, are the places to search for its kill, collect and interact goals instead of a path to walk: see "Spawn areas", Loop. |
@@ -434,7 +435,8 @@ Polestar 0.2.6 and later read. A `when money`, `when dungeon`, `when
 upgrade`, `when done`, `when skill`, `when cooldown`, `when group` or `when knows`
 predicate (above) writes format 5 (Polestar 0.3.0 and later), because 0.2.6 knows `when` but
 not those predicates; `money`, `task`, `enter`, `cast`, `abandon`, `destroy` and `die` goals also need format 5
-(docs/PACK_FORMAT.md).
+(docs/PACK_FORMAT.md). A step's `backto` writes format 11 (Polestar 0.4.1 and
+later).
 
 ## Along the way
 
@@ -624,6 +626,51 @@ saved for the character with the steps the player skipped, so the jump does
 not undo itself when the predicate stops holding. The player can unskip any
 of them like a skipped step; the step carrying the `skipto` then takes no
 jump again. Resetting the guide's progress forgets the jump.
+
+### Going back
+
+`backto <label>` is the other direction: a round of steps played again. Once
+its step is done, the route goes back to the step carrying `label <label>`
+(the step itself, or one before it), and every step from there through the
+`backto` step is open again: the player's ticks, the results Polestar kept
+for them, skips and stored `when` outcomes are forgotten, so the quest log
+and the bags decide afresh. With `when <predicate>` the route goes back only
+while the predicate holds; without one, every time.
+
+```
+step Feathers off the Deadwood
+  label feathers
+  collect 21377 x5 anywhere
+
+step Grazle takes five at a time
+  turnin 8466 direct
+  backto feathers when has 21377 x5
+
+step On through the tunnel
+  note Timbermaw Hold lets you pass now.
+```
+
+Use it for what the game lets a character do again: a repeatable quest
+handed in while the bags hold another round's worth or until a level is
+reached, a farm and its hand-in. A round ends when the `backto` predicate
+stops holding, or when its steps no longer apply (their own `when`). The
+decision is made when the step is done and kept, across a `/reload` too:
+once the route has gone on, the step does not send it back later. A
+`backto` step that cannot be done again (its quests are handed in for good)
+sends the route back once, for what the round's other steps still offer,
+and is passed from then on; a round in which nothing is left to do is done
+again at once, and the route goes on. The player leaves a round at any time
+by skipping the `backto` step.
+
+A repeatable quest's hand-in is never flagged by the game. Polestar keeps it
+for the guide (until the guide's progress is reset), so the quest's steps
+stay done after a `/reload`, and a round opens it again for this guide only.
+Not covered: a round that abandons its own quest does not repeat.
+
+One `backto` per step, not on an `along` step; `group` is no predicate for
+it. `playtest` plays a round once, then skips the step that goes back. A
+pack with `backto` is written in pack format 11 (Polestar 0.4.1 and later):
+an older Polestar would play the round once and go on.
 
 `when done <label>` makes a step depend on whether another step was really
 done: true once the labelled step applies, its goals are done and it was not
@@ -968,6 +1015,8 @@ Errors:
   label, or a label on its own step or an earlier one; a `when done` naming no
   label of the guide, or `done` on a `next` line
 - a `skipto` line without a label, `when` and one predicate
+- a `backto` naming no label or a later step's, a second `backto` in a step, or
+  one on an `along` step
 - `background` on a step without `along until <label>`, or a quest objective
   in a `background` step with no finish step (a later step, not an along one,
   working the same objective) before the step that hands its quest in

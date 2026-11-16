@@ -916,6 +916,12 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		setIf(step, 'section', s.section);
 		// `skipto <label> when <predicate>`: { to, when } in the step's order, `when` one predicate.
 		if (s.skipto) step.skipto = s.skipto.map((k) => ({ to: k.to, when: resolveWhen([k.when], stepZone ? stepZone.id : null, null, data, warn)[0] }));
+		// `backto <label> [when <predicate>]`: { to, when? }.
+		if (s.backto) {
+			step.backto = { to: s.backto.to };
+			if (s.backto.when) step.backto.when = resolveWhen([s.backto.when], stepZone ? stepZone.id : null, null, data, warn)[0];
+			if (s.along !== undefined) err(s.backto.line, 'an `along` step is never the step the route is at: it cannot send the route back', 'put `backto` on the step that ends the round');
+		}
 		step.goals = [];
 		hidden(step, '_line', s.line);
 		hidden(step, '_only', s.only);
@@ -1006,9 +1012,10 @@ function resolveGuide(ast, data, diag, opts = {}) {
 }
 
 // Step labels are guide-wide: each names one step, `along until <label>` and
-// `skipto <label>` name a step after their own, and `done <label>` (in a
-// step's `when` or a `skipto`) names any step of the guide (ast.steps and the
-// compiled steps share their indexes).
+// `skipto <label>` name a step after their own, `backto <label>` its own step
+// or one before it, and `done <label>` (in a step's `when`, a `skipto` or a
+// `backto`) names any step of the guide (ast.steps and the compiled steps
+// share their indexes).
 function checkLabels(steps, err) {
 	const labels = new Map(); // name -> { index, line }
 	steps.forEach((s, i) => {
@@ -1028,7 +1035,12 @@ function checkLabels(steps, err) {
 			if (!t) err(k.line, `unknown label "${k.to}"`, 'name it on a later step with `label <name>`');
 			else if (t.index <= i) err(k.line, `\`skipto ${k.to}\` must name a later step (the label is on line ${t.line})`);
 		}
-		for (const p of [...(s.when || []), ...(s.skipto || []).map((k) => k.when)]) {
+		if (s.backto) {
+			const t = labels.get(s.backto.to);
+			if (!t) err(s.backto.line, `unknown label "${s.backto.to}"`, 'name the step the round starts at with `label <name>`');
+			else if (t.index > i) err(s.backto.line, `\`backto ${s.backto.to}\` must name this step or an earlier one (the label is on line ${t.line}); \`skipto\` jumps ahead`);
+		}
+		for (const p of [...(s.when || []), ...(s.skipto || []).map((k) => k.when), ...(s.backto && s.backto.when ? [s.backto.when] : [])]) {
 			if (p.k === 'done' && !labels.has(p.label)) err(p.line, `unknown label "${p.label}"`, 'name a step with `label <name>`');
 		}
 	});

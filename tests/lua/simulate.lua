@@ -143,6 +143,7 @@ local function act(i, g, r)
 	stub.advance(0.6)
 end
 local visited, stuck, guard = {}, nil, 0
+local last, enough = nil, {}
 -- The engine may move on to the next guide (a hand-over) during any advance:
 -- from then on nothing here may read or act on G's steps.
 local function left() return E.GetGuide() ~= G end
@@ -150,6 +151,10 @@ while guard < 4000 do
 	guard = guard + 1
 	local i = E.GetStepIndex()
 	if not i or left() then break end
+	-- A step whose backto sent the route back: one round is played, then the
+	-- simulated player has had enough and skips that step when it comes again.
+	if last and i < last and G.steps[last].backto then enough[last] = true end
+	last = i
 	visited[i] = true
 	local view = E.GetStepView(i)
 	-- A goal waiting for a level (an accept above the character's level, and
@@ -165,7 +170,12 @@ while guard < 4000 do
 	for _, g in ipairs(view.goals) do
 		if g.status ~= "done" and g.status ~= "na" and not g.optional and not g.side and g.t ~= "note" then open = g; break end
 	end
-	if need > w.level then
+	if enough[i] then
+		E.Skip()
+		stub.advance(0.6)
+		if left() then break end
+		if E.GetStepIndex() == i then stuck = { step = i, title = view.title, why = "the step that goes back could not be skipped" }; break end
+	elseif need > w.level then
 		w.setLevel(need)
 		stub.advance(0.6)
 		if left() then break end
@@ -185,7 +195,11 @@ while guard < 4000 do
 			if left() then break end
 			same = E.GetStepIndex() == i and E.GetStepView(i).goals[open.index].status ~= "done"
 		end
-		if same then
+		-- A step whose backto opened it again at once (nothing else in its round
+		-- needed doing): the round is played, and the step is skipped next time.
+		if same and G.steps[i].backto and not enough[i] then
+			enough[i] = true
+		elseif same then
 			stuck = { step = i, title = view.title, goal = open.index, t = open.t, text = open.text, status = after.goals[open.index].status }
 			break
 		end

@@ -8,7 +8,7 @@ const { header } = require('../generated');
 
 const GUIDE_KEYS = ['id', 'pack', 'title', 'faction', 'races', 'classes', 'minLevel', 'maxLevel', 'category', 'folder', 'keywords', 'collects', 'reward', 'why', 'zone', 'zoneName', 'next', 'nextChoices', 'nextWhen', 'pitch', 'pros', 'cons', 'author', 'version', 'group', 'names', 'written', 'sections', 'steps'];
 // `image` follows note, so a step without one is emitted as before; so does `section`.
-const STEP_KEYS = ['title', 'note', 'image', 'label', 'only', 'when', 'along', 'skipto', 'section', 'goals'];
+const STEP_KEYS = ['title', 'note', 'image', 'label', 'only', 'when', 'along', 'skipto', 'backto', 'section', 'goals'];
 // A step's picture: its path in the pack's addon folder (no extension) and its size in pixels.
 const IMAGE_KEYS = ['file', 'w', 'h'];
 // A step's `when` predicates and a `next` option's (`nextWhen`, format 4), in this key order.
@@ -201,6 +201,8 @@ function stepLines(steps, ind, shared) {
 			else if (sk === 'when') out.push(`${ind}\t\twhen = ${list(sv, WHEN_KEYS)},`);
 			// `skipto` (format 5): each jump's label, then its one predicate.
 			else if (sk === 'skipto') out.push(`${ind}\t\tskipto = { ${sv.map((k) => `{ to = ${luaString(k.to)}, when = ${inline(k.when, WHEN_KEYS)} }`).join(', ')} },`);
+			// `backto` (format 11): the label to go back to, and its predicate when it has one.
+			else if (sk === 'backto') out.push(`${ind}\t\tbackto = { to = ${luaString(sv.to)}${sv.when ? `, when = ${inline(sv.when, WHEN_KEYS)}` : ''} },`);
 			else out.push(`${ind}\t\t${sk} = ${scalar(sv)},`);
 		}
 		out.push(`${ind}\t},`);
@@ -303,6 +305,7 @@ function guideData(guide) {
 					else if (sk === 'image') s.image = dataInline(sv, IMAGE_KEYS);
 					else if (sk === 'when') s.when = dataList(sv, WHEN_KEYS);
 					else if (sk === 'skipto') s.skipto = sv.map((k) => ({ to: k.to, when: dataInline(k.when, WHEN_KEYS) }));
+					else if (sk === 'backto') s.backto = sv.when ? { to: sv.to, when: dataInline(sv.when, WHEN_KEYS) } : { to: sv.to };
 					else s[sk] = dataScalar(sv);
 				}
 				return s;

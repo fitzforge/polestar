@@ -105,6 +105,7 @@ function crowded(g) {
 			() => whens(step.when, `${s}.when`),
 			() => over(step.skipto, LIMITS.skipto, `${s}.skipto`),
 			...(step.skipto || []).map((jump, j) => () => quests(jump.when, `${s}.skipto[${j + 1}].when`)),
+			() => (step.backto && step.backto.when ? quests(step.backto.when, `${s}.backto.when`) : null),
 			() => over(step.goals, LIMITS.goals, `${s}.goals`),
 			...(step.goals || []).map((goal, j) => () => {
 				const at = `${s}.goals[${j + 1}]`;

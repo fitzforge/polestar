@@ -243,7 +243,7 @@ local WHEN = rec({ k = S, neg = B, op = S, n = N, frac = N, q = NL, item = N, sp
 -- A step's picture: read so a string carries the guide as its addon does, but
 -- an imported guide has no addon folder holding the file, so it shows none.
 local IMAGE = rec({ file = S, w = N, h = N })
-local STEP = rec({ title = S, note = S, image = IMAGE, label = S, only = ONLY, when = list(WHEN), along = BS, skipto = list(rec({ to = S, when = WHEN })), section = N, goals = list(GOAL) })
+local STEP = rec({ title = S, note = S, image = IMAGE, label = S, only = ONLY, when = list(WHEN), along = BS, skipto = list(rec({ to = S, when = WHEN })), backto = rec({ to = S, when = WHEN }), section = N, goals = list(GOAL) })
 local GUIDE = rec({
 	id = S, title = S, faction = S, races = LS, classes = LS, minLevel = N, maxLevel = N, category = S, folder = S, keywords = LS,
 	collects = LN, reward = list(rec({ item = N, itemName = S, quality = N, choice = B, spell = N, spellName = S, text = S })),
@@ -419,6 +419,10 @@ local function crowded(g)
 				at, n, cap = quests(jump.when, s .. ".skipto[" .. j .. "].when")
 				if at then return at, n, cap end
 			end
+		end
+		if type(step.backto) == "table" and type(step.backto.when) == "table" then
+			at, n, cap = quests(step.backto.when, s .. ".backto.when")
+			if at then return at, n, cap end
 		end
 		for j, goal in ipairs(step.goals or {}) do
 			local at2 = s .. ".goals[" .. j .. "]"

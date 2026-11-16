@@ -71,7 +71,7 @@ pub const GUIDE_KEYS: [&str; 29] = [
 	"steps",
 ];
 /// `image` follows note, so a step without one is emitted as before; so does `section`.
-pub const STEP_KEYS: [&str; 10] = ["title", "note", "image", "label", "only", "when", "along", "skipto", "section", "goals"];
+pub const STEP_KEYS: [&str; 11] = ["title", "note", "image", "label", "only", "when", "along", "skipto", "backto", "section", "goals"];
 /// A step's picture: its path in the pack's addon folder (no extension) and its size in pixels.
 pub const IMAGE_KEYS: [&str; 3] = ["file", "w", "h"];
 /// A step's `when` predicates and a `next` option's (`nextWhen`, format 4), in this key order.
@@ -584,6 +584,11 @@ fn step_lines(steps: &V, ind: &str, shared: &Shared) -> Vec<String> {
 					let jumps: Vec<String> = sv.items().iter().map(|k| format!("{{ to = {}, when = {} }}", lua_str_v(&k.get("to")), inline(&k.get("when"), &Keys::Fixed(&WHEN_KEYS), 2))).collect();
 					out.push(format!("{ind}\t\tskipto = {{ {} }},", jumps.join(", ")));
 				}
+				// `backto` (format 11): the label to go back to, and its predicate when it has one.
+				"backto" => {
+					let when = if sv.get("when").truthy() { format!(", when = {}", inline(&sv.get("when"), &Keys::Fixed(&WHEN_KEYS), 2)) } else { String::new() };
+					out.push(format!("{ind}\t\tbackto = {{ to = {}{when} }},", lua_str_v(&sv.get("to"))));
+				}
 				_ => out.push(format!("{ind}\t\t{sk} = {},", scalar(&sv, 2))),
 			}
 		}
@@ -750,6 +755,13 @@ pub fn guide_data(guide: &V) -> V {
 								"skipto",
 								V::from(sv.items().iter().map(|k| V::Obj(crate::obj! { "to" => k.get("to"), "when" => data_inline(&k.get("when"), &Keys::Fixed(&WHEN_KEYS), 2) })).collect::<Vec<_>>()),
 							),
+							"backto" => {
+								let b = crate::obj! { "to" => sv.get("to") };
+								if sv.get("when").truthy() {
+									b.set("when", data_inline(&sv.get("when"), &Keys::Fixed(&WHEN_KEYS), 2));
+								}
+								s.set("backto", V::Obj(b))
+							}
 							_ => s.set(sk, data_scalar(&sv, 2)),
 						}
 					}

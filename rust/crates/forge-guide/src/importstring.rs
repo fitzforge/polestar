@@ -133,6 +133,7 @@ fn crowded(g: &V) -> Option<(String, usize, usize)> {
 		let found = whens(&step.get("when"), &format!("{s}.when"))
 			.or_else(|| over(&step.get("skipto"), LIMITS.skipto, format!("{s}.skipto")))
 			.or_else(|| step.get("skipto").items().iter().enumerate().find_map(|(j, jump)| quests(&jump.get("when"), &format!("{s}.skipto[{}].when", j + 1))))
+			.or_else(|| if step.get("backto").get("when").truthy() { quests(&step.get("backto").get("when"), &format!("{s}.backto.when")) } else { None })
 			.or_else(|| over(&step.get("goals"), LIMITS.goals, format!("{s}.goals")));
 		if found.is_some() {
 			return found;
