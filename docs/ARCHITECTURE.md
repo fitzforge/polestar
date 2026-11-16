@@ -2177,6 +2177,47 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   the option asks for them there (only the kinds the character gathers, in
   200 yd cells; `GATHER_CHANGED` after a skill opens or closes a kind), and
   `Gather.Nearest` measures only the cells within the radius, allocation-free.
+  Sell and repair before heading out (0.4.0, #2344, an idea of Caliber's;
+  `behavior.whileHereVendors`, on by default, Options' "Sell and repair
+  reminders"): when the route heads out (a live step with an open `fly` or
+  `hearth` goal, whose arrow may lead to the flight master in town; else the
+  waypoint `VENDOR_OUT` (250) yards past the merchant or on another
+  continent) and the bags are nearly full
+  (fewer free slots, QoL's `Space.Count` of the bags that take any item, than
+  `behavior.whileHereSellSlots`, 4 by default, 0 to 16, or than the distinct
+  items the open `collect` goals of the live step and the route's next
+  `AHEAD` steps want that the bags hold none of) or the gear is worn (an
+  equipped piece, `GetInventoryItemDurability`, under
+  `behavior.whileHereRepairPercent`, 30% by default, 0 to 90, 0: never), the
+  nearest friendly merchant or repairer on the way is a line of its own, kind
+  "sell" or "repair": "Sell before heading out: 3 free slots", "Repair before
+  heading out: gear at 22%", under it the NPC and their title; with both
+  needed, the repairer's line says both ("Repair and sell before heading out:
+  gear at 22%, 3 free slots") and no sell line comes beside it. The places are
+  Nav/Nearby.lua's (`Nearby.PlacesOn`: the Codex's vendors without the
+  trainers, its repairers, the character's side or both, outside instances;
+  the Codex loads only once a reminder is needed and never in combat,
+  `PLAYER_REGEN_ENABLED` asks again); the nearest within `HERE_FAR` in a
+  straight line, picked again each `HERE_REPICK` yards, is weighed as a
+  hand-in (`Own.hereIn`: `behavior.whileHereTurninSeconds` out of the way, any
+  detour in the town the player rests in; the walk check), after the quest
+  lines and before a flight master's and a gathering spot's, with the lines'
+  blocks, dismiss and expiry. Once per visit and kind: once its line shows, or
+  the player opens a merchant's window (`MERCHANT_SHOW`; the repair kind only
+  at a merchant who repairs, `CanMerchantRepair`), that kind waits until the
+  player has been `VENDOR_AWAY` (400) yards from there
+  (`Own.hereVendorSpent`), so a dismiss holds for the visit; none comes while
+  a merchant's window is open, and none when the route's own next steps sell
+  (an open `vendor` goal). A click leads the arrow to the NPC ("Sell at Brog
+  Hamfist"; the waypoint's step is `VENDOR_STEP`, -4, its goal index the
+  kind's: 1 repair, 2 sell); sold or repaired, the line goes and the arrow
+  returns to the guide. The needs are read with each build, which
+  `BAG_UPDATE_DELAYED` asks for when the selling need flips or a line says the
+  free slots, and `UPDATE_INVENTORY_DURABILITY` when the repair need flips (a
+  shown repair line takes the new share without one); the poll allocates
+  nothing. Their glyphs (`icon-sell`, `icon-repair`, tools/media/ui.js) draw
+  the game's own signs for them, the merchant's tied coin bag and the
+  repairer's anvil, with a coin and a hammer.
   The arrival poll measures at most `HERE_MAX` of them (`Own.hereList`): all
   when that many fit, else the nearest (`Own.herePick`, again each
   `HERE_REPICK` yards the player moves). It (`Own.hereTick`, allocation-free:
