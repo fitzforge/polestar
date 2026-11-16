@@ -83,8 +83,9 @@
 -- The quest item, Hearthstone, target and rare buttons hang off one holder:
 -- the hearth above the item, target and rare below (or in a row:
 -- buttons.layout). A left-drag on any of them (or on the target list and its
--- Polestar mark) moves the set (out of combat; with ui.lockHud on, only a
--- Shift-drag); the position is per character, so the Hearthstone button,
+-- Polestar mark) moves the set (with ui.lockHud on, only a Shift-drag).
+-- In combat the mark drags an outline and the set moves when combat ends.
+-- The position is per character, so the Hearthstone button,
 -- shown only for hearth goals, appears in its slot of the moved set (the
 -- rare button further out while the target list shows). The bag button stands on its own: the same drag moves only
 -- it, to its own saved spot (by default two slots above the item, where it
@@ -433,6 +434,7 @@ local function placeNow()
 	holder:SetScale(s)
 	holder:SetSize(item, item)
 	holder:SetClampRectInsets(left, right, top, bottom)
+	holder.psDragInsets = { left, right, top, bottom }
 	holder:ClearAllPoints()
 	holder:SetPoint(p[1], UIParent, p[2], p[3], p[4])
 	for i = 1, #set do
@@ -464,17 +466,55 @@ end
 -- spot is saved. It follows the pointer as ns.DragWindow moves a window (the
 -- frame's scale counted, which StartMoving's drop got wrong on a scaled set).
 local moving
-local function stopMoving()
+local function stopMoving(keepPosition)
 	local f = moving
 	if not f then return end
 	moving = nil
-	ns.StopDrag()
+	ns.StopDrag(keepPosition)
+	if f == TL.dragPreview then return end
 	local point, _, relPoint, x, y = f:GetPoint(1)
 	if point then QoL.State()[f == bag and "bagButtonPos" or "buttonPos"] = { point, relPoint, x, y } end
 	if relabel then relabel() end
 end
--- Fires before lockdown begins: a drag still going stops while the set may move.
-ns.RegisterEvent("PLAYER_REGEN_DISABLED", stopMoving)
+-- Keep the last position if combat starts while a protected frame is moving.
+ns.RegisterEvent("PLAYER_REGEN_DISABLED", function() stopMoving(true) end)
+
+-- The holder is protected by the buttons anchored to it. Drag a plain
+-- outline in combat and leave the buttons usable at their current position.
+function TL.startCombatDrag(mark)
+	local left, top = holder:GetLeft(), holder:GetTop()
+	local insets = holder.psDragInsets
+	if not (left and top and insets) then return end
+	local leftInset, rightInset, topInset, bottomInset = unpack(insets)
+	local f = TL.dragPreview
+	if not f then
+		f = CreateFrame("Frame", nil, ns.UIParent)
+		f:SetFrameStrata("DIALOG")
+		f:SetMovable(true)
+		f:SetClampedToScreen(true)
+		f:Hide()
+		TL.dragPreview = f
+	end
+	f:SetScale(holder:GetScale())
+	f:SetSize(holder:GetWidth() + rightInset - leftInset, holder:GetHeight() + topInset - bottomInset)
+	f:ClearAllPoints()
+	f:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", left + leftInset, top + topInset)
+	local T = Theme()
+	local red, green, blue = T.Accent()
+	T.Border(f, red, green, blue, 0.85, nil, 2)
+	if ns.StartDrag(mark, f, {
+		onStart = function() f:Show() end,
+		onStop = function()
+			moving = nil
+			f:Hide()
+			local _, _, _, x, y = f:GetPoint(1)
+			QoL.State().buttonPos = { "TOPLEFT", "BOTTOMLEFT", x - leftInset, y - topInset }
+			QoL.Secure("place", placeNow)
+		end,
+	}, mark.psPressX, mark.psPressY) then
+		moving = f
+	end
+end
 
 -- Mouse clicks and drags. The secure click handler (SecureActionButton_OnClick)
 -- acts on the press when the button's useOnKeyDown attribute (nil: the
@@ -507,13 +547,15 @@ end
 -- of it first, useOnKeyDown), and carries the set from the press's own spot:
 -- it catches up the client's few pixels at once, then follows exactly.
 local function onDragStart(b)
-	if QoL.InLockdown() then return end
+	local inCombat = QoL.InLockdown()
+	if inCombat and b ~= TL.anchor then return end
 	b.dragging = true
-	useOnKeyDown(b, true)
+	if not inCombat then useOnKeyDown(b, true) end
 	-- Locked: still a drag, so its release uses nothing, but the set stays.
 	if ns.DragLocked() then return end
-	moving = b == bag and bag or holder
-	ns.StartDrag(b, moving, nil, b.psPressX, b.psPressY)
+	if inCombat then TL.startCombatDrag(b); return end
+	local f = b == bag and bag or holder
+	if ns.StartDrag(b, f, nil, b.psPressX, b.psPressY) then moving = f end
 end
 
 local function onDragStop(b)
@@ -2437,6 +2479,9 @@ do
 		end
 		tip:AddLine(ns.Get("ui.lockHud") and L["Right-click for its settings. Shift-drag to move."]
 			or L["Right-click for its settings. Drag to move."], 0.6, 0.6, 0.6)
+		if QoL.InLockdown() then
+			tip:AddLine(L["Dragging the Polestar mark in combat places the buttons after the fight."], 1, 1, 1, true)
+		end
 	end
 
 	-- Not secure: it only moves the set and opens the settings.

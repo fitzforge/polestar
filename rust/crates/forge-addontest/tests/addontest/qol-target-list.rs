@@ -963,6 +963,83 @@ fn target_list_dragging_the_mark_or_a_row_moves_the_set_and_never_the_bag_button
 }
 
 #[test]
+fn target_list_dragging_the_polestar_mark_in_combat_places_the_set_after_the_fight() {
+	let out = run(r#"
+		kobolds()
+		local a, bag = B.anchor, PolestarBagButton
+		local holder = select(2, t:GetPoint(1))
+		-- The real client protects the holder because secure buttons are anchored to it.
+		holder.secure = true
+		local function at(f) local p, _, rp, x, y = f:GetPoint(1); return { p, rp, x, y } end
+		local original, bagBefore = at(holder), at(bag)
+		local before = rows()
+		local preview
+		local function drag(dx, dy)
+			stub.cursor = { 500, 500 }
+			stub.RunScript(a, "OnMouseDown", "LeftButton")
+			stub.cursor = { 500 + dx, 500 + dy }
+			stub.RunScript(a, "OnDragStart", "LeftButton")
+			stub.advance(0.05)
+			if not preview then
+				for _, f in ipairs(stub.frames) do
+					if f:GetParent() == Polestar.UIParent and f:IsMovable() then preview = f; break end
+				end
+			end
+			local shown = preview and preview:IsShown() or false
+			stub.RunScript(a, "OnDragStop")
+			q.click(a)
+			stub.runTimers()
+			return { shown, preview and preview:IsShown() or false }
+		end
+
+		q.combat(true)
+		local previewShown = drag(40, 20)
+		local first = Polestar.QoL.State().buttonPos or false
+		Polestar.Set("ui.lockHud", true)
+		drag(60, 20)
+		local locked = Polestar.QoL.State().buttonPos or false
+		stub.keys.shift = true
+		drag(80, 30)
+		local last = Polestar.QoL.State().buttonPos or false
+		emit({ first, last, at(holder), original, rows(), before, Polestar.QoL.State().targetFolded or false, locked, previewShown })
+		q.combat(false)
+		emit({ at(holder), at(bag), bagBefore, rows() })
+	"#);
+	assert!(out[0][0].is_array(), "the icon's drag saved a position: {out:?}");
+	assert_ne!(out[0][0], out[0][1], "the last drag sets the destination");
+	assert_eq!(out[0][2], out[0][3], "the protected holder stays in place during the fight");
+	assert_eq!(out[0][4], out[0][5], "the targets and their macros remain available");
+	assert_eq!(out[0][6], false, "a drag release does not fold the list");
+	assert_eq!(out[0][7], out[0][0], "the HUD lock still requires Shift");
+	assert_eq!(out[0][8], json!([true, false]), "the outline shows during the drag and hides at release");
+	assert_eq!(out[1][0], out[0][1], "the set moves to the saved destination after the fight");
+	assert_eq!(out[1][1], out[1][2], "the bag button keeps its own spot");
+	assert_eq!(out[1][3], out[0][5]);
+}
+
+#[test]
+fn target_list_a_drag_stops_at_its_last_position_if_combat_starts() {
+	let out = run(r#"
+		kobolds()
+		local a = B.anchor
+		local holder = select(2, t:GetPoint(1))
+		holder.secure = true
+		stub.cursor = { 500, 500 }
+		stub.RunScript(a, "OnMouseDown", "LeftButton")
+		stub.cursor = { 530, 510 }
+		stub.RunScript(a, "OnDragStart", "LeftButton")
+		stub.advance(0.05)
+		local p, _, rp, x, y = holder:GetPoint(1)
+		stub.cursor = { 550, 520 }
+		q.combat(true)
+		stub.advance(0.05)
+		stub.RunScript(a, "OnDragStop")
+		emit({ Polestar.QoL.State().buttonPos or false, { p, rp, x, y } })
+	"#);
+	assert_eq!(out[0][0], out[0][1], "the last position was saved without moving the holder during lockdown");
+}
+
+#[test]
 fn target_list_a_use_goal_lists_the_creatures_its_item_works_on_with_its_count_and_no_drop_line() {
 	let out = run(r#"
 		q.step({
