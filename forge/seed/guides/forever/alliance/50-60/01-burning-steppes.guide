@@ -56,6 +56,8 @@ step Talrendis Point
   turnin 88807                        -- Commander Truesong
   turnin 88857
   turnin 89001                        -- Berdun Cliffbrew
+  accept 88809                        -- Commander Truesong: Preserving Eldarath, the relics drop from the naga of the top-up ahead
+  accept 92345                        -- Commander Truesong: Beneath Nordrassil, for Mathrengyl Bearwalker in Darnassus, keep it
 
 step Shadowsong Shrine
   turnin 5535                         -- Loh'atu
@@ -103,6 +105,15 @@ step Level 51.3 on the way north
   goto 46.5,54.5 map 1447 "Spitelash Myrmidon"
   level 51.3 grind 6196                -- grind on Spitelash Myrmidon
 
+step Lord Sarthiss
+  tip The Spitelash naga of these ruins drop Truesong's Eldarath Relics, top-up or not. Lord Sarthiss (52) stands in the ruins of Eldarath, south-west of the Myrmidons: pull him alone.
+  collect 280608 quest 88809.1        -- Eldarath Relic
+  collect 280610 quest 88809.2        -- Lord Sarthiss' Head
+
+step Ekkal
+  tip Ekkal camps by the road north to Kim'jael: his satyrs are in Kim'jael's camp.
+  accept 86746
+
 step Mosshoof Coursers
   zone Azshara
   only Priest
@@ -133,6 +144,10 @@ step Kim'jael
   collect 20028 quest 8251.1 only Mage -- Glittering Dust, from the blood elf surveyors and reclaimers
   turnin 3601
   accept 5534
+  tip Ekkal's satyrs, rogues and hellcallers (51-53) are the Legashi around Kim'jael's camp; the Legashi Soulstealers, Hellraisers and Blackguards (53) further east are not part of it: stay west of them.
+  kill 6200 quest 86746.1
+  kill 6201 quest 86746.2
+  kill 6202 quest 86746.3
   level 50.65 grind 6196               -- grind on Spitelash Myrmidon
 
 step The Shattered Strand
@@ -140,6 +155,10 @@ step The Shattered Strand
 
 step Kim'jael
   turnin 5534
+
+step Ekkal
+  tip On the road back south, Ekkal takes the satyrs.
+  turnin 86746
 
 step Rubbing: Rune of Sael'hai
   collect 10566 quest 3449.4          -- Rune of Sael'hai
@@ -179,6 +198,10 @@ step Ravencrest Monument
   tip Swim to the small island off the southern tip of Azshara. If Pilot Xiggs Fuselighter isn't there, fire your Standard Issue Flare Gun to signal him, and wait for him to land.
   turnin 3449
   accept 3461
+
+step Talrendis Point
+  tip Back to Truesong at Talrendis Point before you hearth.
+  turnin 88809
 
 step To Ironforge
   zone Ironforge
@@ -228,6 +251,11 @@ step Fly to Southshore
   goto 11.1,46.1 "Aerie Peak flight master"
   fly "Southshore"
   zone Hillsbrad Foothills
+
+step Orphan Matron Aria
+  zone Alterac Mountains
+  tip Ride north from Southshore into Alterac and west to the walls of Dalaran: Orphan Matron Aria stands outside them. Her quest goes to Lieutenant Connar in Nethergarde Keep, where this guide flies later.
+  accept 96797
 
 step Western Plaguelands
   zone Western Plaguelands
@@ -382,6 +410,8 @@ step Fly to Nethergarde Keep
 
 step Ambassador Ardalan
   tip Ardalan is inside Nethergarde Keep.
+  turnin 96797                        -- Lieutenant Connar
+  accept 87295                        -- Bernie Heisten: Deflective Surface, the scales come from the basilisks ahead
   accept 2783 @67.6,19.3 map 1419
 
 step Swamp of Sorrows
@@ -413,6 +443,7 @@ step Blasted Lands: kill these as you meet them
   collect 8393 quest 2581             -- Scorpok Pincer
   collect 8393 quest 2583
   collect 8393 quest 2585
+  collect 280181 quest 87295.1        -- Redstone Basilisk Scale
 
 step Blasted Lands
   zone Blasted Lands
@@ -434,6 +465,10 @@ step The bloodmages
   turnin 2583
   turnin 2585
   note The bloodmages' second tier pays for the same parts with a buff item and no experience: skip it.
+
+step Bernie Heisten
+  tip Back to Bernie Heisten in Nethergarde Keep before you hearth.
+  turnin 87295
 
 step To Ironforge
   zone Ironforge
@@ -502,7 +537,7 @@ step Rut'theran Village
   accept 978                          -- The wildkin are in Winterspring: keep it
 
 step Portal to Darnassus
-  when onquest 3764,162
+  when onquest 3764,162,92345
   zone Teldrassil
   goto 55.9,89.3 "Portal to Darnassus"
 
@@ -515,6 +550,7 @@ step Portal to Darnassus
 step Darnassus
   zone Darnassus
   tip The portal in Rut'theran Village leads up to Darnassus: Jenal waits in the Cenarion Enclave, in the north of the city.
+  turnin 92345                        -- Mathrengyl Bearwalker, in the Cenarion Enclave
   turnin 3764                         -- Jenal, in the Cenarion Enclave
   train class only Druid              -- Ironforge has no druid trainer
 
