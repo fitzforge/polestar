@@ -1769,7 +1769,7 @@ fn a_talk_objective_keeps_its_line_says_talk_to_on_the_npc_and_puts_no_skull_on_
 		]);
 		quests["91"] = q;
 	});
-	let db = build_db(&data.path().to_path_buf());
+	let db = build_db(data.path());
 	let out = run(
 		&db,
 		r#"
@@ -1815,7 +1815,7 @@ fn a_pinned_quest_s_talk_line_is_built_as_a_talk_to_its_npc_2543() {
 		q["objectives"] = json!([{ "type": "talk", "id": 197, "count": 1, "text": "Marshal McBride" }]);
 		quests["91"] = q;
 	});
-	let db = build_db(&data.path().to_path_buf());
+	let db = build_db(data.path());
 	let out = run(
 		&db,
 		r#"
