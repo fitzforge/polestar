@@ -179,7 +179,7 @@ return {
 	-- Step 27: Stormy Potential
 	-- {area:369} Thunder Ridge · {npc:3293} Rezlak
 	-- plural, as words: Charged Thunder Lizard Organs = {item:277665} Charged Thunder Lizard Organ
-	["The Charged Thunder Lizard Organs come from the thunder lizards on {area:369}, just west of {npc:3293}."] = "Los órganos de lagarto del trueno cargados salen de los lagartos del trueno de {area:369}, justo al oeste de {npc:3293}.",
+	["The Charged Thunder Lizard Organs come from the thunder lizards on {area:369}, just west of {npc:3293}."] = "Los órganos de Truenagarto cargados salen de los truenagartos de {area:369}, justo al oeste de {npc:3293}.",
 
 	-- Step 29: Skull Rock
 	-- {quest:828} Margoz · {quest:827} Skull Rock · {faction:76} Orgrimmar
@@ -219,7 +219,7 @@ return {
 	["Zhevras, quilboars, harpies and the {area:1697}"] = "Zhebras, jabaespines, arpías y {area:1697}",
 	-- {npc:3438} Kreenig Snarlsnout · {quest:3281} Stolen Silver · {area:1697} Raptor Grounds · {area:378} Camp Taurajo
 	-- plural, as words: Zhevra Runners = {npc:3242} Zhevra Runner · Witchwing Slayers = {npc:3278} Witchwing Slayer
-	["Zhevra Runners graze south and west of the town. {npc:3438} leads the Razormane camps north-east. The Witchwing Slayers carry the rings. The {quest:3281} is in the {area:1697} east of {area:378}: follow the nest-lined path on its left side to the last nest."] = "Los corredores zhebra pastan al sur y al oeste del pueblo. {npc:3438} dirige los campamentos Crines de Acero del noreste. Las asesinas Alabruja llevan los anillos. {quest:3281} está en {area:1697}, al este de {area:378}: sigue el sendero de nidos de su lado izquierdo hasta el último nido.",
+	["Zhevra Runners graze south and west of the town. {npc:3438} leads the Razormane camps north-east. The Witchwing Slayers carry the rings. The {quest:3281} is in the {area:1697} east of {area:378}: follow the nest-lined path on its left side to the last nest."] = "Los galopadores zhebra pastan al sur y al oeste del pueblo. {npc:3438} dirige los campamentos Crines de Acero del noreste. Las destripadoras Alabruja llevan los anillos. {quest:3281} está en {area:1697}, al este de {area:378}: sigue el sendero de nidos de su lado izquierdo hasta el último nido.",
 
 	-- Step 37: The Crossroads: hand in again
 	-- {area:380} The Crossroads
@@ -250,13 +250,13 @@ return {
 	["{area:392}: the repeatable keg"] = "{area:392}: el barril repetible",
 	-- {item:4897} Thunderhawk Saliva Gland · {item:4896} Kodo Liver · {npc:3238} Stormhide · {area:378} Camp Taurajo · {area:392} Ratchet
 	-- plural, as words: Lightning Glands = {item:4898} Lightning Gland · Greater Thunderhawks = {npc:3249} Greater Thunderhawk
-	["From now on Drohn takes 5 Lightning Glands, a {item:4897} and a {item:4896} for 50, as often as you like. The {npc:3238} thunder lizards (a gland about every other kill), the Greater Thunderhawks and the kodos south of {area:378} drop them. Gather several sets before you head back to {area:392}."] = "Desde ahora Drohn acepta 5 glándulas de relámpago, una {item:4897} y un {item:4896} por 50, cuantas veces quieras. Los lagartos del trueno {npc:3238} (una glándula más o menos una de cada dos muertes), los halcones del trueno mayores y los kodos al sur de {area:378} los sueltan. Junta varios juegos antes de volver a {area:392}.",
+	["From now on Drohn takes 5 Lightning Glands, a {item:4897} and a {item:4896} for 50, as often as you like. The {npc:3238} thunder lizards (a gland about every other kill), the Greater Thunderhawks and the kodos south of {area:378} drop them. Gather several sets before you head back to {area:392}."] = "Desde ahora Drohn acepta 5 glándulas relampagueantes, una {item:4897} y un {item:4896} por 50, cuantas veces quieras. Los lagartos del trueno {npc:3238} (una glándula más o menos una de cada dos muertes), los halcones Trueno superiores y los kodos al sur de {area:378} los sueltan. Junta varios juegos antes de volver a {area:392}.",
 	-- {item:4898} Lightning Gland
 	-- plural, as words: Stormhides = {npc:3238} Stormhide
-	["{item:4898}, from Stormhides"] = "{item:4898}, de los Pellejotormenta",
+	["{item:4898}, from Stormhides"] = "{item:4898}, de los tormenteros",
 	-- {item:4897} Thunderhawk Saliva Gland
 	-- plural, as words: Greater Thunderhawks = {npc:3249} Greater Thunderhawk
-	["{item:4897}, from Greater Thunderhawks"] = "{item:4897}, de los halcones del trueno mayores",
+	["{item:4897}, from Greater Thunderhawks"] = "{item:4897}, de los halcones Trueno superiores",
 	-- {item:4896} Kodo Liver
 	["{item:4896}, from the kodos"] = "{item:4896}, de los kodos",
 
@@ -293,7 +293,7 @@ return {
 	["{zone:1452}: owlbeasts"] = "{zone:1452}: lechubestias",
 	-- {area:2255} Everlook
 	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast · Ragged Owlbeasts = {npc:7450} Ragged Owlbeast
-	["Raging Owlbeasts north-west of {area:2255}, Ragged Owlbeasts further west."] = "Lechubestias rabiosas al noroeste de {area:2255}, lechubestias harapientas más al oeste.",
+	["Raging Owlbeasts north-west of {area:2255}, Ragged Owlbeasts further west."] = "Lechubestias enfurecidas al noroeste de {area:2255}, lechubestias pulgosas más al oeste.",
 
 	-- Step 49: Bloodvenom Post: hand in
 	-- {area:1997} Bloodvenom Post
@@ -302,10 +302,10 @@ return {
 	-- Step 50: Winterspring: Moontouched Owlbeasts
 	-- {zone:1452} Winterspring
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
-	["{zone:1452}: Moontouched Owlbeasts"] = "{zone:1452}: lechubestias tocadas por la luna",
+	["{zone:1452}: Moontouched Owlbeasts"] = "{zone:1452}: lechubestias lunadón",
 	-- {area:2255} Everlook
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
-	["Moontouched Owlbeasts north of {area:2255} and south of it."] = "Lechubestias tocadas por la luna al norte y al sur de {area:2255}.",
+	["Moontouched Owlbeasts north of {area:2255} and south of it."] = "Lechubestias lunadón al norte y al sur de {area:2255}.",
 
 	-- Step 51: Bloodvenom Post: hand in again
 	-- {area:1997} Bloodvenom Post
@@ -314,10 +314,10 @@ return {
 	-- Step 52: Winterspring: Berserk Owlbeasts
 	-- {zone:1452} Winterspring
 	-- plural, as words: Berserk Owlbeasts = {npc:7454} Berserk Owlbeast
-	["{zone:1452}: Berserk Owlbeasts"] = "{zone:1452}: lechubestias enloquecidas",
+	["{zone:1452}: Berserk Owlbeasts"] = "{zone:1452}: lechubestias rabiosas",
 	-- {area:2255} Everlook · {item:12558} Blue-feathered Necklace · {quest:4882} Guarding Secrets
 	-- plural, as words: Berserk Owlbeasts = {npc:7454} Berserk Owlbeast
-	["Most Berserk Owlbeasts are north of {area:2255}. A {item:12558} may drop from the owlbeasts now: use it to start {quest:4882}."] = "La mayoría de las lechubestias enloquecidas están al norte de {area:2255}. Ahora las lechubestias pueden soltar un {item:12558}: úsalo para iniciar {quest:4882}.",
+	["Most Berserk Owlbeasts are north of {area:2255}. A {item:12558} may drop from the owlbeasts now: use it to start {quest:4882}."] = "La mayoría de las lechubestias rabiosas están al norte de {area:2255}. Ahora las lechubestias pueden soltar un {item:12558}: úsalo para iniciar {quest:4882}.",
 
 	-- Step 53: Bloodvenom Post: last hand-in
 	-- {area:1997} Bloodvenom Post

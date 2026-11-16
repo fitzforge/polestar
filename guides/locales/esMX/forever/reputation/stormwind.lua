@@ -50,7 +50,7 @@ return {
 	["Northshire: Echo Ridge, {npc:103} and the vineyard"] = "Villanorte: Cresta del Eco, {npc:103} y el viñedo",
 	-- {area:34} Echo Ridge Mine · {npc:103} Garrick Padfoot · {quest:3904} Milly's Harvest · {object:83763} Stolen Books
 	-- plural, as words: Kobold Workers = {npc:257} Kobold Worker
-	["The Kobold Workers are in {area:34} north of the abbey; {npc:103} stands in the Defias camp east of the vineyard; {quest:3904} crates lie in the vineyard; the rats carrying the {object:83763} run about the abbey grounds."] = "Los obreros kóbold están en {area:34}, al norte de la abadía; {npc:103} está en el campamento Defias al este del viñedo; las cajas de {quest:3904} están en el viñedo; las ratas que llevan los {object:83763} corren por los terrenos de la abadía.",
+	["The Kobold Workers are in {area:34} north of the abbey; {npc:103} stands in the Defias camp east of the vineyard; {quest:3904} crates lie in the vineyard; the rats carrying the {object:83763} run about the abbey grounds."] = "Los trabajadores kóbold están en {area:34}, al norte de la abadía; {npc:103} está en el campamento Defias al este del viñedo; las cajas de {quest:3904} están en el viñedo; las ratas que llevan los {object:83763} corren por los terrenos de la abadía.",
 
 	-- Step 7: Northshire: second hand-in
 	["Northshire: second hand-in"] = "Villanorte: segunda entrega",
@@ -135,14 +135,14 @@ return {
 	["Eastvale: the work"] = "Vallefresno del Este: el trabajo",
 	-- {area:91} Tower of Azora · {area:54} Jasperlode Mine
 	-- plural, as words: Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear · Kobold Geomancers = {npc:476} Kobold Geomancer
-	["The murlocs along the river south of the bridge drop the fins; Prowlers and Young Forest Bears roam the woods; the Defias around the Brackwell farm and the {area:91} carry the bandanas; the enchanting supplies lie in their camps north of the tower; the Kobold Geomancers dig at {area:54}; the tools and the river finds lie along the river north of the logging camp."] = "Los múrlocs a lo largo del río al sur del puente sueltan las aletas; los merodeadores y osos del bosque jóvenes recorren el bosque; los Defias alrededor de la granja Brackwell y {area:91} llevan los pañuelos; los suministros de encantamiento están en sus campamentos al norte de la torre; los geomantes kóbold cavan en {area:54}; las herramientas y los hallazgos del río están a lo largo del río al norte del campamento maderero.",
+	["The murlocs along the river south of the bridge drop the fins; Prowlers and Young Forest Bears roam the woods; the Defias around the Brackwell farm and the {area:91} carry the bandanas; the enchanting supplies lie in their camps north of the tower; the Kobold Geomancers dig at {area:54}; the tools and the river finds lie along the river north of the logging camp."] = "Los múrlocs a lo largo del río al sur del puente sueltan las aletas; los merodeadores y osos del bosque jóvenes recorren el bosque; los Defias alrededor de la granja Brackwell y {area:91} llevan los pañuelos; los suministros de encantamiento están en sus campamentos al norte de la torre; los geománticos kóbold cavan en {area:54}; las herramientas y los hallazgos del río están a lo largo del río al norte del campamento maderero.",
 
 	-- Step 22: Eastvale: hand in
 	["Eastvale: hand in"] = "Vallefresno del Este: entregas",
 
 	-- Step 23: Eastvale: Defias Rogue Wizards
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["Eastvale: Defias Rogue Wizards"] = "Vallefresno del Este: magos renegados Defias",
+	["Eastvale: Defias Rogue Wizards"] = "Vallefresno del Este: zahoríes bribones de Defias",
 	["opens with Thomas' report"] = "se abre con el informe de Thomas",
 	-- {item:780} Torn Murloc Fin
 	["{item:780}, from the murlocs south of the bridge"] = "{item:780}, de los múrlocs al sur del puente",
@@ -238,7 +238,7 @@ return {
 	-- Step 40: Morgan's Vigil: Dragonkin Menace
 	-- {npc:9562} Helendis Riverhorn · {area:2418} Morgan's Vigil · {zone:1428} Burning Steppes · {quest:4183} The True Masters · {area:69} Lakeshire · {object:2117} Stormwind Keep · {faction:72} Stormwind · {zone:1457} Darnassus · {npc:7044} Black Drake · {npc:7040} Black Dragonspawn · {npc:7041} Black Wyrmkin
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
-	["{npc:9562} at {area:2418}, in the south-east of the {zone:1428}, starts {quest:4183}: a chain to {area:69} and {object:2117}, 175 {faction:72} and 175 {zone:1457} reputation (level 54). The Black Broodlings and the {npc:7044} live on the slopes north of the Vigil; the {npc:7040} and {npc:7041} west of it, in the middle of the zone."] = "{npc:9562}, en {area:2418}, en el sureste de {zone:1428}, inicia {quest:4183}: una cadena que va a {area:69} y {object:2117}, 175 de reputación con {faction:72} y 175 con {zone:1457} (nivel 54). Las crías negras y los {npc:7044} viven en las laderas al norte del Vigía; los {npc:7040} y {npc:7041}, al oeste, en el centro de la zona.",
+	["{npc:9562} at {area:2418}, in the south-east of the {zone:1428}, starts {quest:4183}: a chain to {area:69} and {object:2117}, 175 {faction:72} and 175 {zone:1457} reputation (level 54). The Black Broodlings and the {npc:7044} live on the slopes north of the Vigil; the {npc:7040} and {npc:7041} west of it, in the middle of the zone."] = "{npc:9562}, en {area:2418}, en el sureste de {zone:1428}, inicia {quest:4183}: una cadena que va a {area:69} y {object:2117}, 175 de reputación con {faction:72} y 175 con {zone:1457} (nivel 54). Las estirpes negras y los {npc:7044} viven en las laderas al norte del Vigía; los {npc:7040} y {npc:7041}, al oeste, en el centro de la zona.",
 
 	-- Step 41: Lakeshire: Magistrate Solomon
 	-- {npc:344} Magistrate Solomon · {area:69} Lakeshire

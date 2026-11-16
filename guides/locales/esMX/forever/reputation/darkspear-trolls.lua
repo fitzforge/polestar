@@ -148,7 +148,7 @@ return {
 	-- Step 22: Stormy Potential
 	-- {area:369} Thunder Ridge · {npc:3293} Rezlak
 	-- plural, as words: Charged Thunder Lizard Organs = {item:277665} Charged Thunder Lizard Organ
-	["The Charged Thunder Lizard Organs come from the thunder lizards on {area:369}, just west of {npc:3293}."] = "Los órganos de lagarto del trueno cargados salen de los lagartos del trueno de {area:369}, justo al oeste de {npc:3293}.",
+	["The Charged Thunder Lizard Organs come from the thunder lizards on {area:369}, just west of {npc:3293}."] = "Los órganos de Truenagarto cargados salen de los truenagartos de {area:369}, justo al oeste de {npc:3293}.",
 
 	-- Step 24: Skull Rock
 	-- {quest:828} Margoz · {quest:827} Skull Rock · {zone:1454} Orgrimmar
