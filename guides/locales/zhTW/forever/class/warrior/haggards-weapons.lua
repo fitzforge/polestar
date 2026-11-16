@@ -10,7 +10,7 @@ return {
 	-- {spell:71} Defensive Stance
 	["{spell:71} and a Weapon (Alliance)"] = "",
 	-- {spell:71} Defensive Stance · {zone:1453} Stormwind · {zone:1455} Ironforge · {zone:1457} Darnassus
-	["{spell:71} at 10 and a one-hand weapon of your choice from {zone:1453}, {zone:1455} or {zone:1457}."] = "",
+	["{spell:71} at 10 and a one-hand weapon of your choice from {zone:1453}, {zone:1455} or {zone:1457}."] = "10級時學會{spell:71}，並獲得一把來自{zone:1453}、{zone:1455}或{zone:1457}的自選單手武器。",
 
 	-- Step 1: Seena Skybreaker in Valanaar
 	-- {npc:252377} Seena Skybreaker · {area:16638} Valanaar
@@ -110,5 +110,4 @@ return {
 	-- ["{npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug."] = "{npc:5480}在{object:2100}訓練戰士；{npc:6089}和{npc:6090}一起站在那裡的{object:2152}旁。{npc:6090}會為了他的杯子和你決鬥。",
 	-- ["{npc:6093} camps in the far south-east of {zone:1429}, south-east of {npc:294}. He carries the key to the strongbox in his camp."] = "{npc:6093}在{zone:1429}的最東南方、{npc:294}東南方紮營。他身上帶著他營地裡保險箱的鑰匙。",
 	-- ["{npc:6093}: his key opens the strongbox"] = "{npc:6093}：他的鑰匙能打開保險箱",
-	-- ["{spell:71} and a one-hand weapon of your choice at 10."] = "10級時學會{spell:71}，並獲得一把自選的單手武器。",
 }

@@ -518,3 +518,24 @@ for i = 1, 4 do assert(a[i] == i); assert(a[i] == b[i]) end
 "#,
 	);
 }
+
+// #1953: Stranglethorn's Cozzle's Footlocker step collects Cozzle's Key from Foreman Cozzle, then the blueprints
+// from the footlocker the key opens. The tour sent the arrow to the footlocker first. One item for no quest is what
+// the work after it needs: the arrow takes it first, wherever it is, and the tour goes on once it is in the bags.
+#[test]
+fn issue_1953_a_key_for_no_quest_comes_before_the_work_after_it() {
+	let goals = r#"{ t = "collect", item = 5851, itemName = "Cozzle's Key", count = 1, map = 1429, x = 60, y = 50 },
+		{ t = "collect", item = 5852, itemName = "Fuel Regulator Blueprints", count = 1, quest = 1182, oi = 1, map = 1429, x = 49, y = 50 },
+		{ t = "kill", target = "Target 3", npc = 3, count = 1, map = 1429, x = 48, y = 50 }"#;
+	check(
+		goals,
+		"w.onQuest(1182, { 0 })",
+		END,
+		r#"
+assert(E.GetWaypoint().goalIndex == 1)
+w.addItem(5851, 1); flush()
+local g = E.GetWaypoint().goalIndex
+assert(g == 2 or g == 3)
+"#,
+	);
+}

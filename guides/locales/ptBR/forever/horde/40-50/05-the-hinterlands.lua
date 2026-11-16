@@ -41,7 +41,8 @@ return {
 	-- {area:307} The Overlook Cliffs
 	["{area:307}: kill these as you meet them"] = "{area:307}: vá matando estes pelo caminho",
 	-- {npc:2491} Whiskey Slim · {area:307} The Overlook Cliffs
-	["The big turtles crawl along the beaches north of the village, and {npc:2491}'s bottles of port lie on the same beaches, from the village up to the {area:307}: pick them up as you go. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "As tartarugas grandes rastejam pelas praias ao norte da aldeia, e as garrafas de vinho do porto de {npc:2491} ficam nas mesmas praias, da aldeia até {area:307}: pegue-as pelo caminho. Uma Mordelisca pode deixar cair, raramente, o Transmissor de Emergência OOX-09/HL: guarde-o.",
+	-- plural, as words: Saltwater Snapjaws = {npc:2505} Saltwater Snapjaw
+	["The big turtles crawl along the beaches north of the village, and {npc:2491}'s bottles of port lie on the same beaches, from the village up to the {area:307}: pick them up as you go. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it.\nCareful: the biggest Saltwater Snapjaws are 50: pull them one at a time."] = "As tartarugas grandes rastejam pelas praias ao norte da aldeia, e as garrafas de vinho do porto de {npc:2491} ficam nas mesmas praias, da aldeia até {area:307}: pegue-as pelo caminho. Uma Mordelisca pode deixar cair, raramente, o Transmissor de Emergência OOX-09/HL: guarde-o.\nCuidado: as maiores Mordeliscas de Água Salgada são nível 50: puxe uma de cada vez.",
 	-- {object:2068} Pupellyverbos Port
 	["{object:2068}, on the beaches"] = "{object:2068}, nas praias",
 	-- {item:8704} OOX-09/HL Distress Beacon
@@ -116,8 +117,8 @@ return {
 
 	-- Step 25: Level 49.02
 	["Level 49.02"] = "Nível 49.02",
-	-- {quest:7816} Gammerita, Mon! · {area:354} Jintha'Alor · {area:2100} Maraudon
-	["If you skipped {quest:7816} or the {area:354} group quests, grind here to level 49.02 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon instead."] = "Se você pulou {quest:7816} ou as missões de grupo de {area:354}, mate monstros aqui até o nível 49.02 para seguir o plano da rota. Ou, em grupo, faça a masmorra {area:2100}.",
+	-- {quest:7816} Gammerita, Mon! · {area:354} Jintha'Alor
+	["If you skipped {quest:7816} or the {area:354} group quests, grind here to level 49.02 to stay on the route's plan."] = "Se você pulou {quest:7816} ou as missões de grupo de {area:354}, mate monstros aqui até o nível 49.02 para seguir o plano da rota.",
 	-- {npc:2505} Saltwater Snapjaw
 	["grind on {npc:2505}"] = "mate {npc:2505} até subir",
 
@@ -125,21 +126,27 @@ return {
 	-- {area:353} Shadra'Alor
 	["South-west again, the exile hides by the ruins of {area:353}."] = "De volta a sudoeste, o exilado se esconde nas ruínas de {area:353}.",
 
-	-- Step 28: Grim Message
+	-- Step 27: Grim Message
 	-- {item:15002} Nimboya's Pike
 	["South of the lodge the Witherbark trolls hold their villages. Every one of them carries a skull: with twenty, use {item:15002} to make the Laden Pike, then plant it inside the village."] = "Ao sul do pavilhão, os trolls Cascasseca ocupam suas aldeias. Cada um deles carrega um crânio: com vinte, use {item:15002} para fazer o Pique de Nimboya Repleto e finque-o dentro da aldeia.",
 
-	-- Step 29: Aerie Peak
+	-- Step 28: Aerie Peak
 	-- {area:348} Aerie Peak
 	["Ride all the way west to the Wildhammer town of {area:348} and place the message by the well in its centre. The town is full of Alliance guards: get in, place it and get out."] = "Siga até o extremo oeste, até a cidade Martelo Feroz de {area:348}, e coloque a mensagem junto ao poço no centro. A cidade está cheia de guardas da Aliança: entre, coloque-a e saia.",
 	-- {area:348} Aerie Peak
 	["{area:348} well"] = "Poço de {area:348}",
 
-	-- Step 31: Fly to Stonard
+	-- Step 30: Fly to Stonard
 	-- {area:75} Stonard
 	["Fly to {area:75}"] = "Voe para {area:75}",
 	-- {area:3317} Revantusk Village
 	["{area:3317} flight master"] = "Mestre de voo de {area:3317}",
+
+	-- Step 31: To Stonard
+	-- {area:75} Stonard
+	["To {area:75}"] = "Para {area:75}",
+	-- {area:75} Stonard · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1431} Duskwood · {zone:1430} Deadwind Pass
+	["No flight path to {area:75} yet: the arrow takes the quickest way there (by the {object:3202} flight and the road through {zone:1431} and {zone:1430}). Learn {area:75}'s flight path when you arrive."] = "Ainda sem rota de voo para {area:75}: a seta leva pelo caminho mais rápido (pelo voo para {object:3202} e pela estrada por {zone:1431} e {zone:1430}). Aprenda a rota de voo de {area:75} quando chegar.",
 
 	-- Step 32: Fel'zerul
 	["On the top floor"] = "No último andar",
@@ -162,7 +169,7 @@ return {
 	["{area:1440}: kill these as you meet them"] = "{area:1440}: vá matando estes pelo caminho",
 	-- {npc:5982} Black Slayer · {spell:5416} Venom Sting · {npc:8301} Clack the Reaver
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger
-	["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills.\nEast of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "As cinco missões usam as mesmas partes: junte tudo numa passada só. A oeste da estrada, os abutres {npc:5982}, as Rasgarrindos Famintas, os Aguilhantes Escorpóde e os basiliscos Olho da Morte dividem as colinas.\nA leste da estrada, os javalis Jubacinza e o Grunhido fuçam as encostas ao lado dos basiliscos Itarrubra. Fique longe dos Javiltuscos de nível 52 mais ao sul.\nCuidado: os Aguilhantes Escorpóde usam {spell:5416}; {npc:8301} ainda derruba você.",
+	["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills.\nEast of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south.\nCareful: Scorpok Stingers (50-51) use {spell:5416}; {npc:8301} adds Knockdown. Pull the Stingers one at a time."] = "As cinco missões usam as mesmas partes: junte tudo numa passada só. A oeste da estrada, os abutres {npc:5982}, as Rasgarrindos Famintas, os Aguilhantes Escorpóde e os basiliscos Olho da Morte dividem as colinas.\nA leste da estrada, os javalis Jubacinza e os Grunhidores fuçam as encostas ao lado dos basiliscos Itarrubra. Fique longe dos Javiltuscos de nível 52 mais ao sul.\nCuidado: os Aguilhantes Escorpóde (50-51) usam {spell:5416}; {npc:8301} ainda derruba você. Puxe os Aguilhantes um de cada vez.",
 
 	-- Step 38: The bloodmages
 	["Ride back north to the bloodmages."] = "Volte para o norte até os magos de sangue.",
@@ -191,10 +198,12 @@ return {
 	-- ["The Highvale elves camp around {area:350}. Burn the report, the notes and the records in their camps. {npc:7780} is held inside the lodge: lead him out and fight off the ambush on the way."] = "Os elfos do Altovale acampam em volta do {area:350}. Queime o relatório, as anotações e os registros nos acampamentos deles. {npc:7780} está preso dentro do pavilhão: leve-o para fora e enfrente a emboscada no caminho.",
 	-- ["The Silvermane Stalkers, Savage Owlbeasts and Razorbeak Skylords share the hills between the temples and {area:351}. Use the {item:9618} on the owlbeasts you kill. The Skylords also drop Long Elegant Feathers: keep ten for {npc:14738}'s second message."] = "Os Espreitadores Jubaprata, as Ferujas Selvagens e os Senhores Celestes Bicavalha dividem as colinas entre os templos e {area:351}. Use o {item:9618} nas ferujas que matar. Os Senhores Celestes também derrubam Penas Longas Elegantes: guarde dez para a segunda mensagem de {npc:14738}.",
 	-- ["The Vilebranch temples"] = "Os templos Ramatorpe",
+	-- ["The big turtles crawl along the beaches north of the village, and {npc:2491}'s bottles of port lie on the same beaches, from the village up to the {area:307}: pick them up as you go. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "As tartarugas grandes rastejam pelas praias ao norte da aldeia, e as garrafas de vinho do porto de {npc:2491} ficam nas mesmas praias, da aldeia até {area:307}: pegue-as pelo caminho. Uma Mordelisca pode deixar cair, raramente, o Transmissor de Emergência OOX-09/HL: guarde-o.",
 	-- ["The big turtles crawl along the beaches north of the village. {npc:2491}'s port bottles lie on these beaches too, but his quest is not on this route. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "As tartarugas grandes rastejam pelas praias ao norte da aldeia. As garrafas de vinho do Porto de {npc:2491} também ficam nessas praias, mas a missão dele não está nesta rota. Uma mordelisca pode derrubar, raramente, o sinalizador de socorro do OOX-09/HL: guarde-o.",
 	-- ["The central hills"] = "As colinas centrais",
 	-- ["The eastern slopes"] = "As encostas do leste",
 	-- ["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills."] = "As cinco missões pedem as mesmas partes: junte tudo de uma vez. A oeste da estrada, os abutres {npc:5982}, as Rasgarrindas Famintas, os Aguilhantes Escorpódes e os basiliscos Olho da Morte dividem as colinas.",
+	-- ["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills.\nEast of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "As cinco missões usam as mesmas partes: junte tudo numa passada só. A oeste da estrada, os abutres {npc:5982}, as Rasgarrindos Famintas, os Aguilhantes Escorpóde e os basiliscos Olho da Morte dividem as colinas.\nA leste da estrada, os javalis Jubacinza e o Grunhido fuçam as encostas ao lado dos basiliscos Itarrubra. Fique longe dos Javiltuscos de nível 52 mais ao sul.\nCuidado: os Aguilhantes Escorpóde usam {spell:5416}; {npc:8301} ainda derruba você.",
 	-- ["The next guide starts here, at {area:3317}."] = "O próximo guia começa aqui, em {area:3317}.",
 	-- ["The northern beasts"] = "As feras do norte",
 	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} is a level 48 elite: most classes solo it at level 50, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {npc:7977} é elite de nível 48: a maioria das classes encara sozinha no nível 50, mas talvez você precise de ajuda. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.",

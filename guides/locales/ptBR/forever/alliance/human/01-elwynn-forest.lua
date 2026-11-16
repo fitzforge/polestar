@@ -129,8 +129,8 @@ return {
 	["Level 5.77"] = "Nível 5.77",
 	-- {quest:91752} The Big Picture
 	["If you skipped {quest:91752}, grind here to level 5.77 to stay on the route's plan."] = "Se você pulou {quest:91752}, mate monstros aqui até o nível 5.77 para seguir o plano da rota.",
-	-- {npc:40} Kobold Miner
-	["grind on {npc:40}"] = "mate {npc:40} até subir",
+	-- {npc:113} Stonetusk Boar
+	["grind on {npc:113}"] = "mate {npc:113} até subir",
 
 	-- Step 23: Sam Sarsaparilla
 	-- {npc:263399} Sam Sarsaparilla · {skill:129} First Aid · {area:87} Goldshire
@@ -139,22 +139,32 @@ return {
 	["Sit (/sit) by his campfire until you have {spell:1229451}"] = "Sente-se (/sit) junto à fogueira dele até ganhar {spell:1229451}",
 
 	-- Step 24: Camping 101: Skinning
+	-- {npc:6306} Helene Peltskinner · {skill:393} Skinning
+	["{npc:6306} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:6306} a recebe quando sua perícia em {skill:393} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:6306} Helene Peltskinner
 	["{npc:263399}: for {npc:6306} on the lake shore"] = "{npc:263399}: para {npc:6306}, na margem do lago",
 
 	-- Step 25: Camping 101: Leatherworking
+	-- {npc:1632} Adele Fielder · {skill:165} Leatherworking
+	["{npc:1632} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1632} a recebe quando sua perícia em {skill:165} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:1632} Adele Fielder
 	["{npc:263399}: for {npc:1632} on the lake shore"] = "{npc:263399}: para {npc:1632}, na margem do lago",
 
 	-- Step 26: Camping 101: Fishing
+	-- {npc:1651} Lee Brown · {skill:356} Fishing
+	["{npc:1651} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1651} a recebe quando sua perícia em {skill:356} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:1651} Lee Brown
 	["{npc:263399}: for {npc:1651} on the lake shore"] = "{npc:263399}: para {npc:1651}, na margem do lago",
 
 	-- Step 27: Camping 101: First Aid
+	-- {npc:2329} Michelle Belle · {skill:129} First Aid
+	["{npc:2329} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:2329} a recebe quando sua perícia em {skill:129} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:2329} Michelle Belle
 	["{npc:263399}: for {npc:2329} in the Lion's Pride Inn"] = "{npc:263399}: para {npc:2329}, na Estalagem Orgulho do Leão",
 
 	-- Step 28: Camping 101: Blacksmithing
+	-- {npc:514} Smith Argus · {skill:164} Blacksmithing
+	["{npc:514} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:514} a recebe quando sua perícia em {skill:164} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:514} Smith Argus · {area:87} Goldshire
 	["{npc:263399}: for {npc:514} at the {area:87} smithy"] = "{npc:263399}: para {npc:514}, na ferraria de {area:87}",
 
@@ -270,6 +280,8 @@ return {
 	["Level 8.39"] = "Nível 8.39",
 	-- {quest:91775} Book Return
 	["If you skipped {quest:91775}, grind here to level 8.39 to stay on the route's plan."] = "Se você pulou {quest:91775}, mate monstros aqui até o nível 8.39 para seguir o plano da rota.",
+	-- {npc:40} Kobold Miner
+	["grind on {npc:40}"] = "mate {npc:40} até subir",
 
 	-- Step 54: Class trainer
 	["Class trainer"] = "Instrutor de classe",
@@ -289,9 +301,9 @@ return {
 	["Head east out of {area:87} along the lake shore. {npc:383} stands on the shore north-east of town."] = "Saia de {area:87} para leste, pela margem do lago. {npc:383} fica na margem a nordeste da cidade.",
 
 	-- Step 58: Crystal Lake: kill these as you meet them
-	-- {area:91} Tower of Azora
+	-- {area:91} Tower of Azora · {npc:276180} Elder Finseer · {npc:261} Guard Thomas
 	-- plural, as words: Prowlers = {npc:118} Prowler
-	["The murlocs on the east shore drop the kelp. Skinners: Gray Forest Wolves roam the woods between the lake and the {area:91}; Prowlers further east give pelts too."] = "Os murlocs da margem leste soltam a alga. Esfoladores: Lobos Cinza da Floresta vagam pelo bosque entre o lago e {area:91}; Predadores mais a leste também dão peles.",
+	["The murlocs on the east shore drop the kelp. Skinners: Gray Forest Wolves roam the woods between the lake and the {area:91}; Prowlers further east give pelts too.\nCareful: {npc:276180}, a level 11 rare murloc, walks the river by {npc:261}' bridge, east of the Prowlers' woods: leave him be."] = "Os murlocs da margem leste soltam a alga. Esfoladores: Lobos Cinza da Floresta vagam pelo bosque entre o lago e {area:91}; Predadores mais a leste também dão peles.\nCuidado: {npc:276180}, um murloc raro de nível 11, anda pelo rio junto à ponte de {npc:261}, a leste da mata dos Predadores: deixe-o em paz.",
 	-- plural, as words: Crystal Kelp Fronds = {item:1256} Crystal Kelp Frond
 	["Crystal Kelp Fronds"] = "Folhas de Cristalga",
 
@@ -309,9 +321,9 @@ return {
 	-- Step 61: Downstream and Princess
 	-- {quest:91733} Downstream · {npc:330} Princess
 	["{quest:91733} and {npc:330}"] = "{quest:91733} e {npc:330}",
-	-- {item:247813} Waterlogged Saw · {npc:330} Princess · {area:62} Brackwell Pumpkin Patch · {npc:390} Porcine Entourage · {npc:248278} Croaky
-	-- plural, as words: Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear
-	["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: {npc:248278} is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional."] = "A {item:247813}, o Machado e a Caixa de Ferramentas estão no rio ao sul da ponte. {npc:330}, uma javalina graúda, fuça em {area:62}, a oeste do rio, com o {npc:390} dela: puxe os leitõezinhos para longe primeiro. Mate Predadores e Jovens Ursos da Floresta no caminho. Cuidado: {npc:248278} é elite de nível 11 na margem dos murlocs. Só vá atrás da cabeça dele em grupo ou depois do nível 10; senão deixe para lá: é opcional.",
+	-- {item:247813} Waterlogged Saw · {npc:330} Princess · {area:62} Brackwell Pumpkin Patch · {npc:390} Porcine Entourage · {npc:261} Guard Thomas · {npc:248278} Croaky
+	-- plural, as words: Young Forest Bears = {npc:822} Young Forest Bear · Prowlers = {npc:118} Prowler
+	["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Young Forest Bears on the way; the Prowlers (level 9-10) wait for the walk back to {npc:261}, after the logging camp and the mine. Careful: {npc:248278} is a level 11 elite on the murloc shore. Only go for his head with a group; otherwise leave him: it's optional."] = "A {item:247813}, o Machado e a Caixa de Ferramentas estão no rio ao sul da ponte. {npc:330}, uma javalina graúda, fuça em {area:62}, a oeste do rio, com o {npc:390} dela: puxe os leitõezinhos para longe primeiro. Mate Jovens Ursos da Floresta no caminho; os Predadores (nível 9-10) ficam para a volta até {npc:261}, depois do acampamento madeireiro e da mina. Cuidado: {npc:248278} é elite de nível 11 na margem dos murlocs. Só vá atrás da cabeça dele em grupo; senão deixe para lá: é opcional.",
 
 	-- Step 62: Croaky
 	-- {npc:248278} Croaky · {quest:91740} Croaky's Head
@@ -321,13 +333,14 @@ return {
 	["Level 8.85"] = "Nível 8.85",
 	-- {quest:91740} Croaky's Head
 	["If you skipped {quest:91740}, grind here to level 8.85 to stay on the route's plan."] = "Se você pulou {quest:91740}, mate monstros aqui até o nível 8.85 para seguir o plano da rota.",
-	-- {npc:118} Prowler
-	["grind on {npc:118}"] = "mate {npc:118} até subir",
+	-- {npc:1922} Gray Forest Wolf
+	["grind on {npc:1922}"] = "mate {npc:1922} até subir",
 
 	-- Step 66: The Eastvale Logging Camp
 	-- {area:88} Eastvale Logging Camp
 	["The {area:88}"] = "{area:88}",
-	["The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it."] = "O acampamento fica a nordeste da ponte. Feixes de Lenha estão espalhados pelo acampamento e pelo bosque ao norte dele.",
+	-- {area:86} Stone Cairn Lake
+	["The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it.\nCareful: Elmpaw, a level 12 elite gnoll, walks the woods and hills from the logging camp north to {area:86} and the gnoll camps: keep clear of him when you see him coming."] = "O acampamento fica a nordeste da ponte. Os Feixes de Lenha estão espalhados pelo acampamento e pelo bosque ao norte dele.\nCuidado: Elmpaw, um gnoll elite de nível 12, anda pelo bosque e pelas colinas desde o acampamento madeireiro, ao norte, até {area:86} e os acampamentos gnolls: mantenha distância quando o vir chegando.",
 	-- {npc:278} Sara Timberlain
 	["{npc:278}, inside"] = "{npc:278}, lá dentro",
 
@@ -335,9 +348,9 @@ return {
 	["It lies by the river north-west of the logging camp."] = "Fica junto ao rio, a noroeste do acampamento madeireiro.",
 
 	-- Step 68: Stone Cairn Lake
-	-- {area:86} Stone Cairn Lake · {object:56} Rolf's corpse
+	-- {area:86} Stone Cairn Lake · {object:56} Rolf's corpse · {npc:6866} Defias Bodyguard
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard · Red Linen Bandanas = {item:1019} Red Linen Bandana
-	["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "Teurgos Proscritos Défias acampam nas margens de {area:86}; eles também soltam as Bandanas de Linho Vermelhas. {object:56} está na aldeia murloc da margem nordeste.",
+	["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore.\nCareful: the Rogue Wizards cast from range and a {npc:6866} (10) walks the shore with them: pull them one at a time."] = "Teurgos Proscritos Défias acampam nas margens de {area:86}; eles também soltam as Bandanas de Linho Vermelhas. {object:56} está na aldeia murloc da margem nordeste.\nCuidado: os Teurgos lançam feitiços à distância e um {npc:6866} (10) anda pela margem com eles: puxe-os um de cada vez.",
 	-- plural, as words: Red Linen Bandanas = {item:1019} Red Linen Bandana
 	["Red Linen Bandanas"] = "Bandanas de Linho Vermelhas",
 
@@ -369,8 +382,9 @@ return {
 	["Follow the road east past the {area:91} to the bridge. Finish the Prowlers and Young Forest Bears around the river south of it."] = "Siga a estrada para leste, passando por {area:91}, até a ponte. Termine os Predadores e Jovens Ursos da Floresta em volta do rio, ao sul dela.",
 
 	-- Step 75: Stone Cairn Lake
+	-- {npc:6866} Defias Bodyguard
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake."] = "A nordeste do acampamento madeireiro. Teurgos Proscritos Défias acampam nas margens do lago.",
+	["North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake.\nCareful: the Rogue Wizards cast from range and a {npc:6866} (10) walks the shore with them: pull them one at a time."] = "A nordeste do acampamento madeireiro. Teurgos Proscritos Défias acampam nas margens do lago.\nCuidado: os Teurgos lançam feitiços à distância e um {npc:6866} (10) anda pela margem com eles: puxe-os um de cada vez.",
 
 	-- Step 76: The Tower of Azora
 	["Follow the hills south to the tower, on the road west."] = "Siga pelas colinas para o sul até a torre, na estrada para o oeste.",
@@ -482,6 +496,7 @@ return {
 	-- ["Back to the Cathedral of Light."] = "De volta à Catedral da Luz.",
 	-- ["Bait ingredients"] = "Ingredientes da isca",
 	-- ["Boar meat"] = "Carne de javali",
+	-- ["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "Teurgos Proscritos Défias acampam nas margens de {area:86}; eles também soltam as Bandanas de Linho Vermelhas. {object:56} está na aldeia murloc da margem nordeste.",
 	-- ["Follow the road east past the {area:91} to the bridge."] = "Siga a estrada para o leste, passando por {area:91}, até a ponte.",
 	-- ["Follow the road north from {area:87} into {zone:1453}. {npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in {object:2100} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "Siga a estrada para o norte, de {area:87} até {zone:1453}. {npc:6171} e {npc:6173} estão na Catedral da Luz; {npc:6174} fica em {object:2100} e pede dez {item:2589} (humanoides soltam; a Casa de Leilões vende).",
 	-- ["Follow the road south out of the valley to {area:87}. {npc:295} is in the Lion's Pride Inn; {npc:240} stands outside the smithy across the road, {npc:253} at the inn's front and {npc:241} by the road south of it."] = "Siga a estrada para o sul, saindo do vale, até {area:87}. {npc:295} está na Estalagem do Leão Orgulhoso; {npc:240} fica do lado de fora da ferraria, do outro lado da estrada; {npc:253}, na frente da estalagem; e {npc:241}, junto à estrada ao sul dela.",
@@ -497,6 +512,7 @@ return {
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way. {npc:248278} roams the murloc shore too: right-click the head it drops. {npc:248278} is elite: grouping up is advised."] = "Murlocs Colhedores e Murlocs Tocaieiros ocupam o rio ao sul da ponte. {npc:473}, um Défias, anda por {area:62}, a oeste dele. Termine os Predadores e Jovens Ursos da Floresta no caminho. {npc:248278} também ronda a margem dos murlocs: clique com o botão direito na cabeça que ele deixa cair. {npc:248278} é elite: é bom ir em grupo.",
 	-- ["Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp."] = "Murlocs e Murlocs Corredores ocupam a margem leste; as Pilhas de Sucata ficam no acampamento deles.",
 	-- ["Murlocs and the Collector"] = "Murlocs e o Coletor",
+	-- ["North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake."] = "A nordeste do acampamento madeireiro. Teurgos Proscritos Défias acampam nas margens do lago.",
 	-- ["Ride back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "Saia de novo passando por {area:87} e siga a estrada para o leste até {area:62}. {npc:881} (nível 9) fica junto à casa da fazenda.",
 	-- ["Ride back out through {area:87} and east to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "Saia de novo passando por {area:87} e siga para o leste até {area:86}. {npc:6172} está caído ao sul do lago: use o {item:6866} nele. Os Teurgos Proscritos Défias ao redor dele carregam o {item:6846}.",
 	-- ["Riverpaw Runts and Outrunners hold the hills south of the garrison, along the {zone:1436} border. {npc:100}, a level 12 gnoll, walks among them and carries the {item:1307}: right-click it."] = "Pata Molhada Miúdos e Vanguardeiros Pata Molhada ocupam as colinas ao sul da guarnição, ao longo da divisa com {zone:1436}. {npc:100}, um gnoll de nível 12, anda entre eles e carrega a {item:1307}: clique nela com o botão direito.",
@@ -504,12 +520,15 @@ return {
 	-- ["Speak with {npc:1430}"] = "Fale com {npc:1430}",
 	-- ["Stonetusk Boars graze between the vineyards and the farm."] = "Javalis Pedratusco pastam entre os vinhedos e a fazenda.",
 	-- ["The Stonefield farm is west of the mine. Ma and \"Auntie\" Bernice stand by the house."] = "A fazenda dos Campedra fica a oeste da mina. Mama e \"Titia\" Berenice ficam junto à casa.",
+	-- ["The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it."] = "O acampamento fica a nordeste da ponte. Feixes de Lenha estão espalhados pelo acampamento e pelo bosque ao norte dele.",
 	-- ["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels."] = "A mina fica a sudoeste dos acampamentos gnolls. {item:247816} estão perto da entrada; Geomantes Kobold ocupam os túneis.",
 	-- ["The murloc camp"] = "O acampamento murloc",
 	-- ["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way."] = "{item:247813}, o Machado Encharcado e a Caixa de Ferramentas Encharcada estão no rio ao sul da ponte. {npc:330}, uma javalina grande, fuça em {area:62}, a oeste do rio, com seu {npc:390}: afaste os leitões primeiro. Mate Predadores e Jovens Ursos da Floresta no caminho.",
+	-- ["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: {npc:248278} is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional."] = "A {item:247813}, o Machado e a Caixa de Ferramentas estão no rio ao sul da ponte. {npc:330}, uma javalina graúda, fuça em {area:62}, a oeste do rio, com o {npc:390} dela: puxe os leitõezinhos para longe primeiro. Mate Predadores e Jovens Ursos da Floresta no caminho. Cuidado: {npc:248278} é elite de nível 11 na margem dos murlocs. Só vá atrás da cabeça dele em grupo ou depois do nível 10; senão deixe para lá: é opcional.",
 	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:91740} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {quest:91740} pede um grupo de 2. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.",
 	-- ["Torn Murloc Fins"] = "Barbatanas Rasgadas de Murloc",
 	-- ["Use the {item:6866} on {npc:6172}"] = "Use o {item:6866} em {npc:6172}",
+	-- ["grind on {npc:118}"] = "mate {npc:118} até subir",
 	-- ["{area:18} and the wolves"] = "{area:18} e os lobos",
 	-- ["{area:57}'s mouth"] = "Boca de {area:57}",
 	-- ["{item:1006}: Princess"] = "{item:1006}: Princesa",

@@ -357,10 +357,10 @@ test('coordinates from live-frame (recorded) spawns are marked live', () => {
 	assert.equal(scout.frame, undefined);
 });
 
-test('XP heuristics: Classic level-difference rules', () => {
+test('XP heuristics: Forever level-difference rules (players\' recordings: half from 8 over on)', () => {
 	assert.equal(questXpShare(10, 5), 1);
 	assert.equal(questXpShare(11, 5), 0.8);
-	assert.equal(questXpShare(20, 5), 0.1);
+	assert.equal(questXpShare(20, 5), 0.5);
 	assert.equal(baseQuestXp(1), 100);
 	assert.equal(baseQuestXp(10), 800);
 	assert.equal(mobXp(10, 10), 95);

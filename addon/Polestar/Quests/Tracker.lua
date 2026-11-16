@@ -1418,7 +1418,8 @@ end
 -- Settings that need the database (Q.IsWanted), filter available quests,
 -- or only change how layers are published.
 local WANT = { ["qol.questDB"] = true, ["qol.mapObjectives"] = true, ["qol.minimapObjectives"] = true, ["qol.availableQuests"] = true,
-	["qol.turnInMarkers"] = true, ["qol.questTooltips"] = true, ["qol.questBagMarks"] = true, ["qol.questSellWarning"] = true, ["qol.nameplateIcons"] = true, ["qol.questLoot"] = true }
+	["qol.turnInMarkers"] = true, ["qol.questTooltips"] = true, ["qol.questBagMarks"] = true, ["qol.questSellWarning"] = true, ["qol.nameplateIcons"] = true, ["qol.questLoot"] = true,
+	["qol.auctionBuys"] = true }
 local FILTER = { ["qol.availableQuests"] = true, ["qol.lowLevelQuests"] = true, ["qol.questLevelWindow"] = true }
 local LOOK = { ["qol.mapObjectives"] = true, ["qol.minimapObjectives"] = true, ["qol.availableQuests"] = true,
 	["qol.turnInMarkers"] = true, ["qol.objectiveSpots"] = true, ["qol.objectiveAreaAlpha"] = true, ["qol.questMarkerSize"] = true,

@@ -44,11 +44,22 @@ function groupsFor(scope, faction) {
 	return [{ key: faction.toLowerCase(), faction }];
 }
 
+// Whether some point still gives skill-ups at the band's top skill. A zone
+// whose nodes all turn grey inside the band cannot take a player to its end,
+// however dense they are: Teldrassil's Amber (requirement 1, grey from 101)
+// for Mining 65-125.
+function coversTop(points, band) {
+	return points.some((p) => {
+		const c = color(band.to - 1, p.req);
+		return c !== null && c !== 'grey';
+	});
+}
+
 function rankIn(ctx, prof, band, zones) {
 	const ranked = [];
 	for (const id of zones) {
 		const points = prof.points(ctx, id, band.from, band.to);
-		if (points.length < (prof.minPoints || 6)) continue;
+		if (points.length < (prof.minPoints || 6) || !coversTop(points, band)) continue;
 		ranked.push({ zone: id, points, ...R.scorePoints(points, { perPoint: prof.stopYards || 0 }) });
 	}
 	return ranked.sort((a, b) => b.score - a.score || a.zone - b.zone);
@@ -321,4 +332,4 @@ function buildAll(ctx) {
 	return out;
 }
 
-module.exports = { plan, render, buildAll, mergePicks, rareKinds, label, OUT_DIR };
+module.exports = { plan, render, buildAll, mergePicks, rareKinds, label, coversTop, OUT_DIR };

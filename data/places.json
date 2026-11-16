@@ -2,6 +2,255 @@
 	"about": "Where an objective is done, or where the arrow leads for a quest's giver or ender, anchored on the quest (never a line). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file; FORGE.md, Fixing a generated guide, has the format. objective: the objective's number (as in `quest Q.N`), \"giver\" or \"ender\". at: { map, x, y, frame }; path: { map, frame, points } for a target that walks a road (a loop of gotos before the goal); write: true gives the objective its own goal line from the data before the quest's bare complete. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }, the kinds of forever-db/README.md) and its issue or pr.",
 	"places": [
 		{
+			"id": "621-westfall-oats-on-the-sack",
+			"quest": 151,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1436,
+				"x": 56.9,
+				"y": 20.7,
+				"frame": "era"
+			},
+			"note": "Handful of Oats (Poor Old Blanchy, #621, Xaden Ryan): the goal's point (56.8,19.1) stood about 50 yards from the nearest Sack of Oats; it now sits on the Jansen Stead's nearest sack, at 56.92,20.65, beside the farm and Verna's turn-in. The goal's zone-wide search in the build comes from players' recorded spots of the objective, spread over Westfall, not from this point.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "items.json 1528 Handful of Oats: from object 2724 Sack of Oats; objects.json 2724 spawns on map 1436, nearest to the Jansen Stead at 56.92,20.65"
+				}
+			],
+			"issue": 621
+		},
+		{
+			"id": "tidy040-barrens-harpy-raiders-east-slopes",
+			"quest": 867,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1413,
+				"x": 40.6,
+				"y": 16.8,
+				"frame": "era"
+			},
+			"note": "Harpy Raiders (867): every Witchwing drops the talons, and the goal toured the whole Dry Hills, whose western hills hold the Slayers (16), Windcallers (17) and the two stealthed Ambushers (17) around players at 15 (recorded 25th percentile 15.8, 61 people). The Witchwing Harpies (14) and Roguefeathers (15) nest on the eastern slopes: the arrow points at their densest spot, seven spawns within 40 yd and none of the 16-17s (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "items.json 5064 Witchwing Talon: dropped by 3276-3280; npcs.json spawns on map 1413: 3276 (14) and 3277 (15) at 39.9-41.9,14.3-19.7, 3278 (16) at 37.2-40.2,10.6-17.6, 3279 (17) at 37.6-38.2,15.6-16.5, 3280 (17) at 37.8-40.8,10.5-17.8"
+				}
+			],
+			"issue": 1980
+		},
+		{
+			"id": "tidy040-zephras-strider-meat-west-of-shendar",
+			"quest": 92553,
+			"objective": 2,
+			"faction": "Horde",
+			"at": {
+				"map": 2521,
+				"x": 38.6,
+				"y": 43.6,
+				"frame": "live"
+			},
+			"note": "Restocking the Larders (92553): the Galestriders (5-6) are the only Strider Meat droppers, spread over 310 spawns on the isle; without a point the goal led south of Shen'dar Village among the Al'Aketh Warriors and Stormcallers and Living Lightning (7-8) and the Highlands Ursera (7-8) around players at 6 (recorded 25th percentile 6.28, 18 people). The arrow points at the Galestriders west of the village (37.5-39.2,41.5-45.4), with none of the 7-8s near (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc Galestrider spawns on map 2521 at 37.5-39.2,41.5-45.4 (10+); Al'Aketh Warrior 40.5-42.4,62-64.1, Al'Aketh Stormcaller and Living Lightning 45.4-48.9,50.7-58.7, Highlands Ursera 42.5-45.9,59-69"
+				}
+			]
+		},
+		{
+			"id": "tidy040-mulgore-plainstrider-talons-south-of-bloodhoof",
+			"quest": 748,
+			"objective": 2,
+			"faction": "Horde",
+			"at": {
+				"map": 1412,
+				"x": 50.2,
+				"y": 67.0,
+				"frame": "era"
+			},
+			"note": "Poison Water and Mazzranache, Bloodhoof's first loop at about 6 (recorded 25th percentile 6.3, 25 people): without a point the goal led among the Elder Plainstriders (8-9), Prairie Wolf Alphas (9-10) and Taloned Swoops (8-10) around the village, 2-4 levels over. The arrow points at the plains just south of Bloodhoof, toward the well, where the same drops come from the 5-8s only (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1412 (live frame): Adult Plainstrider 2956 (6-8), Prairie Wolf 2958 (5-6), Wiry Swoop 2969 (5-7) south of Bloodhoof Village toward the Winterhoof Water Well; Elder Plainstrider 2957 (8-9), Prairie Wolf Alpha 2960 (9-10) and Taloned Swoop 2971 (8-10) none within 40 yd"
+				}
+			]
+		},
+		{
+			"id": "tidy040-mulgore-plainstrider-scales-south-of-bloodhoof",
+			"quest": 766,
+			"objective": 3,
+			"faction": "Horde",
+			"at": {
+				"map": 1412,
+				"x": 50.2,
+				"y": 67.0,
+				"frame": "era"
+			},
+			"note": "Poison Water and Mazzranache, Bloodhoof's first loop at about 6 (recorded 25th percentile 6.3, 25 people): without a point the goal led among the Elder Plainstriders (8-9), Prairie Wolf Alphas (9-10) and Taloned Swoops (8-10) around the village, 2-4 levels over. The arrow points at the plains just south of Bloodhoof, toward the well, where the same drops come from the 5-8s only (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1412 (live frame): Adult Plainstrider 2956 (6-8), Prairie Wolf 2958 (5-6), Wiry Swoop 2969 (5-7) south of Bloodhoof Village toward the Winterhoof Water Well; Elder Plainstrider 2957 (8-9), Prairie Wolf Alpha 2960 (9-10) and Taloned Swoop 2971 (8-10) none within 40 yd"
+				}
+			]
+		},
+		{
+			"id": "tidy040-mulgore-wolf-hearts-south-of-bloodhoof",
+			"quest": 766,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1412,
+				"x": 49.8,
+				"y": 65.3,
+				"frame": "era"
+			},
+			"note": "Poison Water and Mazzranache, Bloodhoof's first loop at about 6 (recorded 25th percentile 6.3, 25 people): without a point the goal led among the Elder Plainstriders (8-9), Prairie Wolf Alphas (9-10) and Taloned Swoops (8-10) around the village, 2-4 levels over. The arrow points at the plains just south of Bloodhoof, toward the well, where the same drops come from the 5-8s only (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1412 (live frame): Adult Plainstrider 2956 (6-8), Prairie Wolf 2958 (5-6), Wiry Swoop 2969 (5-7) south of Bloodhoof Village toward the Winterhoof Water Well; Elder Plainstrider 2957 (8-9), Prairie Wolf Alpha 2960 (9-10) and Taloned Swoop 2971 (8-10) none within 40 yd"
+				}
+			]
+		},
+		{
+			"id": "tidy040-mulgore-ambercorn-south-of-bloodhoof",
+			"quest": 771,
+			"objective": 2,
+			"faction": "Horde",
+			"at": {
+				"map": 1412,
+				"x": 48.7,
+				"y": 64.5,
+				"frame": "era"
+			},
+			"note": "Rite of Vision's Ambercorn on Bloodhoof's first loop at about 6: the goal led to an Ambercorn among Flatland Cougars, Venture Co. Taskmasters (7-8) and a Prairie Wolf Alpha (9-10). The arrow points at the Ambercorn just south of the village, on the way to the well, with no mob of 8 or more within 40 yd (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "objects.json 2912 Ambercorn spawns on map 1412; npcs.json spawns of every hostile npc of level 8+ none within 40 yd of 47.7,67.0 (live frame)"
+				}
+			]
+		},
+		{
+			"id": "tidy040-tirisfal-darkhound-blood-west-of-brill",
+			"quest": 367,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1420,
+				"x": 51.1,
+				"y": 50.5,
+				"frame": "era"
+			},
+			"note": "Cold Hearth Manor's step west of Brill at about 6.5 (recorded 25th percentile 6.6, 61 people): without a point the goal led among the Ravenous Darkhounds (9-10), Cursed Darkhounds (7-8) and Foothills Duskbats (12-13). The Decrepit Darkhounds (5-6) drop the blood and the hides too: the arrow points at them just west of Brill, with none of the 8+ within 40 yd (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1420: Decrepit Darkhound 1547 (5-6) at 49-51,47-59; Cursed Darkhound 1548 (7-8), Ravenous Darkhound 1549 (9-10), Foothills Duskbat (12-13) none within 40 yd of 51.1,50.5"
+				}
+			]
+		},
+		{
+			"id": "tidy040-tirisfal-darkhound-hides-west-of-brill",
+			"quest": 97558,
+			"objective": 2,
+			"faction": "Horde",
+			"at": {
+				"map": 1420,
+				"x": 51.1,
+				"y": 50.5,
+				"frame": "era"
+			},
+			"note": "Cold Hearth Manor's step west of Brill at about 6.5 (recorded 25th percentile 6.6, 61 people): without a point the goal led among the Ravenous Darkhounds (9-10), Cursed Darkhounds (7-8) and Foothills Duskbats (12-13). The Decrepit Darkhounds (5-6) drop the blood and the hides too: the arrow points at them just west of Brill, with none of the 8+ within 40 yd (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1420: Decrepit Darkhound 1547 (5-6) at 49-51,47-59; Cursed Darkhound 1548 (7-8), Ravenous Darkhound 1549 (9-10), Foothills Duskbat (12-13) none within 40 yd of 51.1,50.5"
+				}
+			]
+		},
+		{
+			"id": "tidy040-tirisfal-duskbat-pelts-north-of-brill",
+			"quest": 375,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1420,
+				"x": 60.5,
+				"y": 43.1,
+				"frame": "era"
+			},
+			"note": "Brill's north loop at about 7 (recorded 25th percentile 7.2, 54 people): the Greater Duskbats (6-7) and Vampiric Duskbats (8-9) both drop the pelts and the wings; the arrow points at the Greater Duskbats north of Brill, with no Vampiric Duskbat within 40 yd (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1420: Greater Duskbat 1553 (6-7) at 36.5-71.0,36.6-65.9; Vampiric Duskbat 1554 (8-9) none within 40 yd of 60.5,43.1"
+				}
+			]
+		},
+		{
+			"id": "tidy040-tirisfal-duskbat-wings-north-of-brill",
+			"quest": 97558,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1420,
+				"x": 60.5,
+				"y": 43.1,
+				"frame": "era"
+			},
+			"note": "Brill's north loop at about 7 (recorded 25th percentile 7.2, 54 people): the Greater Duskbats (6-7) and Vampiric Duskbats (8-9) both drop the pelts and the wings; the arrow points at the Greater Duskbats north of Brill, with no Vampiric Duskbat within 40 yd (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1420: Greater Duskbat 1553 (6-7) at 36.5-71.0,36.6-65.9; Vampiric Duskbat 1554 (8-9) none within 40 yd of 60.5,43.1"
+				}
+			]
+		},
+		{
+			"id": "tidy040-tirisfal-murloc-scales-north-shore",
+			"quest": 368,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1420,
+				"x": 60.8,
+				"y": 28.4,
+				"frame": "era"
+			},
+			"note": "Brill's north loop at about 8 at the shore (recorded 25th percentile 8.2-8.8, 50 people): every Vile Fin drops the scales and the Minor Oracles (8-9) and Muckdwellers (9-10) the skins; the arrow points at the shore straight north of Brill, where Puddlejumpers (7-8) and Minor Oracles stand with no Muckdweller or Attacker within 40 yd (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1420: Vile Fin Puddlejumper 1543 (7-8), Minor Oracle 1544 (8-9) around 58-62,27-29; Muckdweller 1545 (9-10) and Attacker 250283 (9-11) none within 40 yd of 60.8,28.4"
+				}
+			]
+		},
+		{
+			"id": "tidy040-tirisfal-murloc-skins-north-shore",
+			"quest": 97558,
+			"objective": 3,
+			"faction": "Horde",
+			"at": {
+				"map": 1420,
+				"x": 60.8,
+				"y": 28.4,
+				"frame": "era"
+			},
+			"note": "Brill's north loop at about 8 at the shore (recorded 25th percentile 8.2-8.8, 50 people): every Vile Fin drops the scales and the Minor Oracles (8-9) and Muckdwellers (9-10) the skins; the arrow points at the shore straight north of Brill, where Puddlejumpers (7-8) and Minor Oracles stand with no Muckdweller or Attacker within 40 yd (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1420: Vile Fin Puddlejumper 1543 (7-8), Minor Oracle 1544 (8-9) around 58-62,27-29; Muckdweller 1545 (9-10) and Attacker 250283 (9-11) none within 40 yd of 60.8,28.4"
+				}
+			]
+		},
+		{
 			"id": "1575-hillsbrad-alliance-yeti-fur-caverns",
 			"quest": 565,
 			"objective": 4,
@@ -48,6 +297,88 @@
 				}
 			],
 			"issue": 1575
+		},
+		{
+			"id": "1575-desolace-alliance-undead-ravagers-west",
+			"quest": 261,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1443,
+				"x": 61.1,
+				"y": 90.9,
+				"frame": "era"
+			},
+			"note": "Down the Scarlet Path's Undead Ravagers (261) on Desolace's south loop: the goal's arrow toured the bone fields of the Valley of Bones, where Magram Necrokhans and Corpsefeeders (45, elite; Shen'dralas spawns on the same ground) and Magram Necromancers (42) walk among the Ravagers, at a route level of 38.8. The arrow points at the fields' western edge, on a Ravager's spawn (3 Ravager spawns within 60 yd, 7 within 100, 13 within 150), with no elite or mob 3 levels over within 40 yd; 15 of the 18 people who killed Ravagers in the recordings did so within 60 yd of it.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json spawns: Undead Ravager (11561) on map 1443 at 58.3-65.2,81.5-92.1; Magram Necrokhan (253274), Corpsefeeder (253394) and Magram Necromancer (253272) on Shen'dralas (map 2652), over the bone fields at Desolace 59.6-65.9,85.1-94.2"
+				},
+				{
+					"kind": "recording",
+					"ref": "danger gate (players' recordings to 2026-11-12): the Ravagers done by 18 people at a median level of 38.0, nobody died within 60 yd"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-desolace-alliance-ghost-magnets-east",
+			"quest": 6134,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1443,
+				"x": 64.4,
+				"y": 91.7,
+				"frame": "era"
+			},
+			"note": "Ghost-o-plasm Round Up (6134) on Desolace's south loop: the Crate of Ghost Magnets' point (63.5,91.6) put it among Magram Necrokhans and Corpsefeeders (45, elite; Shen'dralas spawns over the Valley of Bones) at a route level of 38.8; players' recordings show 5 deaths within 60 yd of it. The crate works anywhere on the bone fields: the arrow points at the spot players used it on the fields' eastern side (Shen'dralas 33.5,29.0), 10 yd from the Magrami Spectre's spawn that drops the Ghost-o-plasm, with no elite within 40 yd; 59 of the 64 Ghost-o-plasm ticks in the recordings (all 8 people) came within 60 yd of it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings: Ghost-o-plasm objective ticks of 8 people on the bone fields, one at Shen'dralas 33.6,28.9; danger gate: 5 and 3 deaths within 60 yd of the old Ghost Magnets and Ghost-o-plasm points"
+				},
+				{
+					"kind": "questie",
+					"ref": "npcs.json spawns: Magrami Spectre (11560) at Desolace 64.18,91.63; Magram Necrokhan (253274) and Corpsefeeder (253394) on Shen'dralas (map 2652), the nearest 41-47 yd from 64.4,91.7"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "danger-desolace-centaur-totems-valley-of-spears",
+			"quest": 93225,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1443,
+				"x": 33.0,
+				"y": 54.0,
+				"frame": "era"
+			},
+			"note": "Carved Centaur Totems (93225): every Desolace centaur clan drops the totem, so the goal pointed at the Magram's village in the south-east, among Magram Necromancers (42-43) and Guardians (39-41), at a route level of 37. The step is the Valley of Spears west of Ghost Walker Post, whose Maraudine (36-39) drop it as well: the arrow points at the valley's eastern camps (where players' recordings show the totems collected), clear of the elite Rock Borers and Worms and the rare Cursed Centaur (40-43) at its south-western end.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "items 254432 droppers include the Maraudine Scout, Mauler, Windchaser and Wrangler; npcs.json Maraudine spawns at Desolace 30-34, 50-62"
+			}
+		},
+		{
+			"id": "danger-desolace-ghost-magnets-east-of-the-elites",
+			"quest": 6134,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1443,
+				"x": 64.4,
+				"y": 91.7,
+				"frame": "era"
+			},
+			"note": "Ghost-o-plasm Round Up (6134): the Valley of Bones is now part of Shen'dralas, and the old point (Desolace 63.5,91.6) put the Crate of Ghost Magnets among Magram Necrokhans and Corpsefeeders (45, elite) at a route level of 37; players' recordings show 8 deaths there. The crate works anywhere on the bone fields: players used it at this spot (Shen'dralas 33.6,28.9 on the zone's own map), on the valley's eastern side, kept on Desolace's map where the quest data places the spectres, with no elite or mob 3 levels over within 40 yd.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings: Ghost-o-plasm objective ticks of 8 people on Shen'dralas, one of them at 33.6,28.9; danger gate recordings: 5 and 3 deaths at the old point"
+			}
 		},
 		{
 			"id": "610-wetlands-fen-creepers",
@@ -2085,6 +2416,88 @@
 					"ref": "npc 2944: 574 sighting rows spread over the Badlands"
 				}
 			]
+		},
+		{
+			"id": "1575-burning-steppes-broodling-essence",
+			"quest": 4726,
+			"objective": 1,
+			"at": {
+				"map": 1428,
+				"x": 81.0,
+				"y": 28.0,
+				"frame": "era"
+			},
+			"note": "Broodling Essence: the Draco-Incarcinatrix is used on a Black Broodling, whose spawns are on the slopes east of Flame Crest (81-92,26-39); the Alliance guide's point at 72.4,28.2 stood among Fel Interlopers (55) and Flamekin (54) with no broodling near. 81.0,28.0 is beside a broodling spawn (81.0,28.2), where the Horde guide's point already is (#1575 sweep, 0.4.0 audit).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 7047 Black Broodling 51: 14 spawns at 81.0-91.9,26.5-62.1 in the Burning Steppes; Fel Interlopers (55) and Flamekin (54) at 69-72,26-32"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "azshara-3505-surveyors-east",
+			"quest": 3505,
+			"objective": 2,
+			"faction": "Horde",
+			"at": {
+				"map": 1447,
+				"x": 56.2,
+				"y": 29.9,
+				"frame": "era"
+			},
+			"note": "Betrayed (3505): the arrow for the Blood Elf Surveyors points at the camp's east side (four surveyors within 40 yd, no elite), away from the one Blackmaw Thrall (level 55-57 elite) that stands at the camp's west edge. Danger-at-the-spot gate (#1575): the surveyor spawn beside him flagged an elite 3.6 levels over the route there.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 6198 Blood Elf Surveyor spawns in Azshara 55.4-58.8,26.5-31.2; 250023 Blackmaw Thrall (55-57, elite) at 54.81,26.03"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "winterspring-4741-moontouched-north",
+			"quest": 4741,
+			"objective": 1,
+			"at": {
+				"map": 1452,
+				"x": 64.9,
+				"y": 17.8,
+				"frame": "era"
+			},
+			"faction": "Horde",
+			"note": "Wild Guardians (4741): the arrow for the Moontouched Owlbeasts points at the slopes north of Everlook, where the step's tip sends players, not at their southern spawns beside the Hailspite (level 60 elites) south-east of town. Danger-at-the-spot gate (#1575).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 7453 Moontouched Owlbeast: 12 spawns at 62-68,15-25 and more at 59-68,57-63; 269213 Hailspite (60, elite) at 65.6-67.9,54.6-59.4"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "felwood-5086-toxic-horrors-north-tip",
+			"quest": 5086,
+			"objective": 1,
+			"at": {
+				"map": 1448,
+				"x": 50.6,
+				"y": 22.4,
+				"frame": "era"
+			},
+			"note": "Toxic Horrors (5086), both factions: the arrow points at the Toxic Horror farthest from the Ancient Irontree Walkers (level 59 elites), at the north tip of Irontree Woods (about 63 yd from the nearest walker). Their spawns overlap the Horrors' almost exactly, and one recorded player died there on each faction's route. Danger-at-the-spot gate (#1575).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 7132 Toxic Horror spawns at 48.1-51.1,22.5-27.4; 235912 Ancient Irontree Walker (59, elite) at 47.0-50.3,23.9-28.8; 14524 Vartrus the Ancient (63, elite) at 47.78,24.08"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index (danger recordings): 1 death within 60 yd of the Toxic Horrors goal on each faction's route"
+				}
+			],
+			"issue": 1575
 		}
 	]
 }

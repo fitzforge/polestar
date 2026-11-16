@@ -280,10 +280,13 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Dokimi"] = "Dokimi",
+	-- ["Draught of Water Breathing, 75 reputation"] = "Draught of Water Breathing, 75 Ruf",
+	-- ["Elixir of Ogre Strength, 75 reputation"] = "Elixir of Ogre Strength, 75 Ruf",
 	-- ["Keep filling Waylaid Crates for Dokimi until Exalted."] = "Füll weiter Abgefangene Kisten für Dokimi, bis du Ehrfürchtig bist.",
 	-- ["Keep filling Waylaid Crates for Dokimi."] = "Füll weiter Abgefangene Kisten für Dokimi.",
 	-- ["Keep filling Waylaid Crates for {npc:214101} until Exalted."] = "Füll weiter Abgefangene Kisten für {npc:214101}, bis du Ehrfürchtig bist.",
 	-- ["Keep filling Waylaid Crates for {npc:214101}."] = "Füll weiter Abgefangene Kisten für {npc:214101}.",
+	-- ["Lesser Troll's Blood Elixir, 75 reputation"] = "Lesser Troll's Blood Elixir, 75 Ruf",
 	-- ["Merchant's Favor Reputation"] = "Ruf: Händlergunst",
 	-- ["The {faction:2586} is the Alliance's tradeskill faction in Forever. Its camp is at {area:1002} in western {zone:1433}. From level 10 mobs drop Waylaid Crates: fill each with the goods its label asks for and hand the {object:1561} to {npc:214101} at the camp for reputation and Merchant's Favor. Forever's Legacy Diplomat perk increases reputation gains."] = "Die {faction:2586} ist in Forever die Berufsfraktion der Allianz. Ihr Lager ist bei {area:1002} im westlichen {zone:1433}. Ab Stufe 10 lassen Gegner Abgefangene Kisten fallen: Füll jede mit den Waren, die ihr Etikett verlangt, und gib die {object:1561} bei {npc:214101} im Lager ab für Ruf und Merchant's Favor. Forevers Vermächtnis-Vorteil „Diplomat“ erhöht den Rufgewinn.",
 	-- ["{faction:2586} to Exalted"] = "{faction:2586} auf Ehrfürchtig",
@@ -295,4 +298,5 @@ return {
 	-- ["{faction:2587} to Friendly"] = "{faction:2587} auf Freundlich",
 	-- ["{faction:2587} to Honored"] = "{faction:2587} auf Wohlwollend",
 	-- ["{faction:2587} to Revered"] = "{faction:2587} auf Respektvoll",
+	-- ["{item:3389}, 75 reputation"] = "{item:3389}, 75 Ruf",
 }

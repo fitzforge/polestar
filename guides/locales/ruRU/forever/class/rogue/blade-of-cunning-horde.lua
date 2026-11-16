@@ -43,7 +43,7 @@ return {
 
 	-- Step 7: Mennet Carkad
 	-- {npc:2130} Marion Call · {area:2119} Gallows' End Tavern · {area:159} Brill · {quest:1885} Mennet Carkad · {zone:1458} Undercity
-	["At 10 {npc:2130}, the rogue trainer upstairs in the {area:2119} in {area:159}, sends you to {quest:1885} in the {zone:1458}."] = "",
+	["At 10 {npc:2130}, the rogue trainer upstairs in the {area:2119} in {area:159}, sends you to {quest:1885} in the {zone:1458}."] = "На 10-м уровне {npc:2130}, учитель разбойников наверху ({area:2119}, {area:159}), отправит вас сюда: {quest:1885} ({zone:1458}).",
 
 	-- Step 8: The Rogues' Quarter
 	-- {object:36073} Rogues' Quarter
@@ -70,7 +70,6 @@ return {
 	["{npc:6467} sends the ledger on to {npc:2425}, the big demon in the middle of the Hall of the Dark Lady in the {object:36126}, past its elite guards; the way in is the passage off the Apothecarium. If you lose the ledger, take another from {npc:6522}'s bookshelf."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 10 {npc:2130}, the rogue trainer in the {area:2119} in {area:159}, sends you to {quest:1885} in the {zone:1458}."] = "На 10-м уровне {npc:2130}, учитель разбойников ({area:2119}, {area:159}), отправит вас сюда: {quest:1885} ({zone:1458}).",
 	-- ["At 10 {npc:3170}, the rogue trainer in {area:362}, sends you to {quest:1859} in {zone:1454}."] = "На 10-м уровне {npc:3170}, учитель разбойников ({area:362}), отправит вас сюда: {quest:1859} ({zone:1454}).",
 	-- ["Tazan"] = "Тазан",
 	-- ["{item:7208}: Gamon"] = "{item:7208}: Гамон",

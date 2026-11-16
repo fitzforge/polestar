@@ -62,7 +62,7 @@ return {
 	-- {area:108} Sentinel Hill · {area:20} Moonbrook · {area:919} Stendel's Pond · {object:619896} Forgotten Shrine · {item:6637} Water Sapta · {npc:5894} Corrupt Minor Manifestation of Water · {spell:8056} Frost Shock · {spell:122} Frost Nova · {item:7811} Remaining Drops of Purest Water · {npc:258043} Norric Lochthane · {npc:5895} Minor Manifestation of Water · {item:7813} Shard of Water
 	["Fly to {area:108} and head south to {area:20}: {area:919} and the {object:619896} lie just north of it. Drink the {item:6637} by the shrine to see the {npc:5894} (level 22, {spell:8056} and {spell:122}; one spawn, back three minutes after a kill), defeat it for its bracers (always dropped), then place them and the {item:7811} on the {object:619896} (this, not {npc:258043}, ends the quest). Click the shrine again: the {npc:5895} rises beside it; speak to it before you walk off (if it is gone, abandon and take the quest again at the shrine). It gives you the {item:7813}."] = "飞往 {area:108}，再向南前往 {area:20}：{area:919} 和 {object:619896} 就在其北侧。在神殿旁喝下 {item:6637}，即可看见 {npc:5894}（22 级，会使用 {spell:8056} 和 {spell:122}；只有一个刷新点，击杀三分钟后刷新），击败它取得护腕（必定掉落），再将护腕和 {item:7811} 放在 {object:619896} 上（在这里完成任务，不是找 {npc:258043}）。再次点击神殿：{npc:5895} 会在旁边出现；离开前要与它交谈（若它已消失，在神殿处放弃并重新接受任务）。它会给你 {item:7813}。",
 	-- {npc:5895} Minor Manifestation of Water
-	["{npc:5895}, beside the shrine"] = "",
+	["{npc:5895}, beside the shrine"] = "{npc:5895}，在神龛旁",
 
 	-- Step 13: Norric Lochthane
 	-- {npc:258043} Norric Lochthane · {item:7813} Shard of Water · {item:5177} Water Totem

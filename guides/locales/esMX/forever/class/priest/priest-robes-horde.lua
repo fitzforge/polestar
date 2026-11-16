@@ -7,46 +7,46 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Priest Robes at 5 (Horde)"] = "",
-	["A free uncommon robe at 5: heal and fortify a wounded guard near your first town."] = "",
+	["Priest Robes at 5 (Horde)"] = "Túnicas de sacerdote a nivel 5 (Horda)",
+	["A free uncommon robe at 5: heal and fortify a wounded guard near your first town."] = "Una túnica poco común gratis a nivel 5: cura y fortalece a un guardia herido cerca de tu primer pueblo.",
 
 	-- Step 1: In Favor of Spirituality
 	-- {npc:3707} Ken'jai · {area:363} Valley of Trials · {npc:3706} Tai'jin · {area:362} Razor Hill · {spell:613} Lesser Heal
-	["At 5, {npc:3707}, the priest trainer in the Den in the middle of the {area:363}, sends you to {npc:3706} in {area:362}. Train {spell:613} (Rank 2) from him while you are here: it opens at level 4 for 1 silver, and the next quest needs exactly that rank."] = "",
+	["At 5, {npc:3707}, the priest trainer in the Den in the middle of the {area:363}, sends you to {npc:3706} in {area:362}. Train {spell:613} (Rank 2) from him while you are here: it opens at level 4 for 1 silver, and the next quest needs exactly that rank."] = "A nivel 5, {npc:3707}, el instructor de sacerdotes en la Guarida en el centro de {area:363}, te manda con {npc:3706} en {area:362}. Entrena {spell:613} (rango 2) con él mientras estás aquí: se abre a nivel 4 por 1 de plata, y la siguiente misión necesita justo ese rango.",
 
 	-- Step 2: Tai'jin
 	-- {area:363} Valley of Trials · {area:362} Razor Hill · {npc:3706} Tai'jin
-	["Follow the road out of the {area:363} north-east to {area:362}. {npc:3706} is inside the barracks, the first building on the right as you come into town."] = "",
+	["Follow the road out of the {area:363} north-east to {area:362}. {npc:3706} is inside the barracks, the first building on the right as you come into town."] = "Sigue el camino al noreste para salir de {area:363} hasta {area:362}. {npc:3706} está dentro del cuartel, el primer edificio a la derecha al entrar al pueblo.",
 	-- {spell:613} Lesser Heal · {npc:3707} Ken'jai
-	["{spell:613} (Rank 2), if {npc:3707} did not teach it yet"] = "",
+	["{spell:613} (Rank 2), if {npc:3707} did not teach it yet"] = "{spell:613} (rango 2), si {npc:3707} todavía no te lo enseñó",
 
 	-- Step 3: Grunt Kor'ja
 	-- {npc:12430} Grunt Kor'ja · {area:362} Razor Hill · {spell:613} Lesser Heal · {spell:1243} Power Word: Fortitude
-	["{npc:12430} kneels behind a group of rocks just off the road, a short walk south of {area:362}. Cast {spell:613} (Rank 2) on her first, then {spell:1243}. Rank 1 of {spell:613} does not count; drag Rank 2 onto your bar from the spellbook. She leaves once both land and is back in about 5 minutes."] = "",
+	["{npc:12430} kneels behind a group of rocks just off the road, a short walk south of {area:362}. Cast {spell:613} (Rank 2) on her first, then {spell:1243}. Rank 1 of {spell:613} does not count; drag Rank 2 onto your bar from the spellbook. She leaves once both land and is back in about 5 minutes."] = "{npc:12430} está arrodillada detrás de un grupo de rocas justo al lado del camino, a poca distancia al sur de {area:362}. Lanza primero {spell:613} (rango 2) sobre ella y luego {spell:1243}. El rango 1 de {spell:613} no cuenta; arrastra el rango 2 a tu barra desde el libro de hechizos. Se va cuando recibe los dos y vuelve en unos 5 minutos.",
 	-- {npc:12430} Grunt Kor'ja
 	["Heal and fortify {npc:12430}"] = "Sana y fortalece a {npc:12430}",
 
 	-- Step 4: Tai'jin
 	-- {area:362} Razor Hill · {npc:3706} Tai'jin · {item:16606} Juju Hex Robes
-	["Back in the {area:362} barracks: {npc:3706} gives you the {item:16606}."] = "",
+	["Back in the {area:362} barracks: {npc:3706} gives you the {item:16606}."] = "De vuelta en el cuartel de {area:362}: {npc:3706} te da {item:16606}.",
 
 	-- Step 5: In Favor of Darkness
 	-- {npc:2123} Dark Cleric Duesten · {area:154} Deathknell · {npc:2129} Dark Cleric Beryl · {area:159} Brill · {spell:613} Lesser Heal
-	["At 5, {npc:2123}, the priest trainer in the chapel of {area:154}, sends you to {npc:2129} in {area:159}. Train {spell:613} (Rank 2) from him while you are here: it opens at level 4 for 1 silver, and the next quest needs exactly that rank."] = "",
+	["At 5, {npc:2123}, the priest trainer in the chapel of {area:154}, sends you to {npc:2129} in {area:159}. Train {spell:613} (Rank 2) from him while you are here: it opens at level 4 for 1 silver, and the next quest needs exactly that rank."] = "A nivel 5, {npc:2123}, el instructor de sacerdotes en la capilla de {area:154}, te manda con {npc:2129} en {area:159}. Entrena {spell:613} (rango 2) con él mientras estás aquí: se abre a nivel 4 por 1 de plata, y la siguiente misión necesita justo ese rango.",
 
 	-- Step 6: Dark Cleric Beryl
 	-- {area:154} Deathknell · {area:159} Brill · {npc:2129} Dark Cleric Beryl · {area:2119} Gallows' End Tavern
-	["Follow the road east out of {area:154} to {area:159}. {npc:2129} is upstairs in the inn, {area:2119}."] = "",
+	["Follow the road east out of {area:154} to {area:159}. {npc:2129} is upstairs in the inn, {area:2119}."] = "Sigue el camino al este para salir de {area:154} hasta {area:159}. {npc:2129} está en el piso de arriba de la posada, {area:2119}.",
 	-- {spell:613} Lesser Heal
-	["{spell:613} (Rank 2), if Duesten did not teach it yet"] = "",
+	["{spell:613} (Rank 2), if Duesten did not teach it yet"] = "{spell:613} (rango 2), si Duesten todavía no te lo enseñó",
 
 	-- Step 7: Deathguard Kel
 	-- {npc:12428} Deathguard Kel · {area:159} Brill · {spell:613} Lesser Heal · {spell:1243} Power Word: Fortitude
-	["{npc:12428} kneels, half-dead, beside the north gate of {area:159}'s graveyard, a short walk north of the inn. Cast {spell:613} (Rank 2) on him first, then {spell:1243}: Fortitude first does not count, nor does Rank 1 of {spell:613}. If an addon gets in the way, cast both from the spellbook."] = "",
+	["{npc:12428} kneels, half-dead, beside the north gate of {area:159}'s graveyard, a short walk north of the inn. Cast {spell:613} (Rank 2) on him first, then {spell:1243}: Fortitude first does not count, nor does Rank 1 of {spell:613}. If an addon gets in the way, cast both from the spellbook."] = "{npc:12428} está arrodillado, medio muerto, junto a la puerta norte del cementerio de {area:159}, a poca distancia al norte de la posada. Lanza primero {spell:613} (rango 2) sobre él y luego {spell:1243}: Entereza primero no cuenta, ni tampoco el rango 1 de {spell:613}. Si un addon te molesta, lanza los dos desde el libro de hechizos.",
 	-- {npc:12428} Deathguard Kel
 	["Heal and fortify {npc:12428}"] = "Cura y fortalece a {npc:12428}",
 
 	-- Step 8: Dark Cleric Beryl
 	-- {area:159} Brill · {item:16607} Acolyte's Sacrificial Robes
-	["Back upstairs in the {area:159} inn: Beryl gives you the {item:16607}."] = "",
+	["Back upstairs in the {area:159} inn: Beryl gives you the {item:16607}."] = "De vuelta arriba en la posada de {area:159}: Beryl te da {item:16607}.",
 }

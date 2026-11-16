@@ -73,20 +73,20 @@ fn a_browse_folder_s_header_folds_its_guides_away_and_back_its_count_and_chevron
 		local home = shownIn(isFolder)
 		emit({ foldable = #home > 0 and home[1]:IsEnabled(), chevron = #home > 0 and home[1].Chevron:IsShown() })"#);
 	let open = json!([
-		"[Alliance 1\u{2013}30 3 v]",
-		"Elwynn Forest (1\u{2013}13)",
-		"Westfall (12\u{2013}17)",
-		"Darkshore (16\u{2013}21)",
 		"[Other starting zones 3 v]",
 		"Dun Morogh (1\u{2013}13)",
 		"Teldrassil (1\u{2013}11)",
-		"Zephras Isle (1\u{2013}15)"
+		"Zephras Isle (1\u{2013}15)",
+		"[Alliance 1\u{2013}30 3 v]",
+		"Elwynn Forest (1\u{2013}13)",
+		"Westfall (12\u{2013}17)",
+		"Darkshore (16\u{2013}21)"
 	]);
 	assert_eq!(out[0], json!({ "pane": open, "chevron": "chevron-down", "tip": "Collapse", "pad": "Collapse" }));
 	assert_eq!(
 		out[1],
 		json!({
-			"pane": ["[Alliance 1\u{2013}30 3 >]", "[Other starting zones 3 v]", "Dun Morogh (1\u{2013}13)", "Teldrassil (1\u{2013}11)", "Zephras Isle (1\u{2013}15)"],
+			"pane": ["[Other starting zones 3 v]", "Dun Morogh (1\u{2013}13)", "Teldrassil (1\u{2013}11)", "Zephras Isle (1\u{2013}15)", "[Alliance 1\u{2013}30 3 >]"],
 			"chevron": "chevron-right", "tip": "Expand", "pad": "Expand", "collapsed": true,
 		})
 	);
@@ -104,20 +104,20 @@ fn folded_folders_are_kept_account_wide_by_an_id_that_holds_in_every_language_an
 		PolestarPicker:Hide()
 		UI.ShowPicker()
 		local r = { saved = saved(), pane = pane() }
-		-- A Horde character on the same account sees the Alliance folders as left.
-		uistub.player.race, uistub.player.faction = "Orc", "Horde"
-		Polestar.Set("ui.pickerFaction", "Alliance")
-		header("Alliance 1\226\128\14730"):Click()
+		-- A Horde character on the same account: its own side's folders, the starts folded as left.
+		uistub.player.race, uistub.player.faction = "Scourge", "Horde"
+		P.Render()
 		r.horde = pane()
+		header("Horde 1\226\128\14730"):Click()
 		r.ids = {}
 		for id in pairs(saved()) do r.ids[#r.ids + 1] = id end
 		table.sort(r.ids)
 		emit(r)"#);
 	let out = &out[0];
 	assert_eq!(out["saved"], json!({ "Leveling/other-starts": true }), "in the account's settings, not the character's");
-	assert_eq!(out["pane"], json!(["[Alliance 1\u{2013}30 3 v]", "Elwynn Forest (1\u{2013}13)", "Westfall (12\u{2013}17)", "Darkshore (16\u{2013}21)", "[Other starting zones 3 >]"]));
-	assert_eq!(out["ids"], json!(["Leveling/Alliance/1", "Leveling/other-starts"]));
-	assert_eq!(out["horde"][0], "[Alliance 1\u{2013}30 6 >]", "the other faction's list: every Alliance start in the band, folded");
+	assert_eq!(out["pane"], json!(["[Other starting zones 3 >]", "[Alliance 1\u{2013}30 3 v]", "Elwynn Forest (1\u{2013}13)", "Westfall (12\u{2013}17)", "Darkshore (16\u{2013}21)"]));
+	assert_eq!(out["ids"], json!(["Leveling/Horde/1", "Leveling/other-starts"]));
+	assert_eq!(out["horde"], json!(["[Other starting zones 1 >]", "[Horde 1\u{2013}30 2 v]", "Tirisfal Glades (1\u{2013}13)", "The Barrens (12\u{2013}17)"]));
 }
 
 #[test]
@@ -141,8 +141,8 @@ fn opening_the_menu_unfolds_the_folder_of_the_open_guide_and_leaves_the_others_a
 		r.refolded = P.IsCollapsed("Leveling/Alliance/1")
 		emit(r)"#);
 	let out = &out[0];
-	assert_eq!(out["closed"], json!(["[Alliance 1\u{2013}30 3 >]", "[Other starting zones 3 >]"]));
-	assert_eq!(out["open"], json!(["[Alliance 1\u{2013}30 3 v]", "Elwynn Forest (1\u{2013}13)", "Westfall (12\u{2013}17)", "Darkshore (16\u{2013}21)", "[Other starting zones 3 >]"]));
+	assert_eq!(out["closed"], json!(["[Other starting zones 3 >]", "[Alliance 1\u{2013}30 3 >]"]));
+	assert_eq!(out["open"], json!(["[Other starting zones 3 >]", "[Alliance 1\u{2013}30 3 v]", "Elwynn Forest (1\u{2013}13)", "Westfall (12\u{2013}17)", "Darkshore (16\u{2013}21)"]));
 	assert_eq!(out["saved"], json!({ "Leveling/other-starts": true }));
 	assert_eq!(out["refolded"], true);
 }
@@ -169,22 +169,24 @@ fn guides_of_one_title_and_level_range_say_whose_they_are_by_race_else_by_factio
 		ds.id, ds.minLevel, ds.maxLevel = "forever/alliance/03-darkshore-return", 21, 23
 		uistub.guides[ds.id] = ds
 		table.insert(uistub.order, ds.id)
-		local function titles(filter)
+		local function titles()
 			local out = {}
-			for _, e in ipairs(P.Entries(filter, "", "Leveling")) do
+			for _, e in ipairs(P.Entries("", "Leveling")) do
 				if e.kind == "guide" and (e.guide.title == "Dun Morogh" or e.guide.title == "Zephras Isle" or e.guide.title == "Darkshore") then out[#out + 1] = e.title end
 			end
 			return out
 		end
 		UI.ShowPicker()
 		P.SetCategory("Leveling")
-		emit({ alliance = titles("Alliance"), all = titles("All"), rows = pane() })
+		-- Two sides' guides of one title and range (a tab of each open, say) say whose they are.
+		local both = P.Titles({ uistub.guides["forever/alliance/skyborne/01-zephras-isle"], zh })
+		emit({ alliance = titles(), both = { both[uistub.guides["forever/alliance/skyborne/01-zephras-isle"]], both[zh] }, rows = pane() })
 		-- Recent says it too.
 		Polestar.CharState().ui.recentGuides = { "forever/alliance/dwarf-gnome/01-dun-morogh", gnome.id }
 		P.SetView("recent")
 		emit({ recent = pane() })"#);
-	assert_eq!(out[0]["alliance"], json!(["Darkshore", "Darkshore", "Dun Morogh (Dwarf)", "Dun Morogh (Gnome)", "Zephras Isle"]));
-	assert_eq!(out[0]["all"], json!(["Dun Morogh (Dwarf)", "Dun Morogh (Gnome)", "Zephras Isle (Alliance)", "Darkshore", "Darkshore", "Zephras Isle (Horde)"]));
+	assert_eq!(out[0]["alliance"], json!(["Dun Morogh (Dwarf)", "Dun Morogh (Gnome)", "Zephras Isle", "Darkshore", "Darkshore"]), "the Horde Zephras Isle is not listed");
+	assert_eq!(out[0]["both"], json!(["Zephras Isle (Alliance)", "Zephras Isle (Horde)"]));
 	let rows = out[0]["rows"].as_array().unwrap();
 	assert!(rows.contains(&json!("Dun Morogh (Dwarf) (1\u{2013}13)")) && rows.contains(&json!("Dun Morogh (Gnome) (1\u{2013}13)")), "{rows:?}");
 	assert!(rows.contains(&json!("Darkshore (16\u{2013}21)")) && rows.contains(&json!("Darkshore (21\u{2013}23)")), "{rows:?}");

@@ -274,6 +274,10 @@ fn object_items_at_spawns(ctx: &Ctx, c: &mut Check) {
 
 fn warsong_reports(ctx: &Ctx, c: &mut Check) {
 	let Some(list) = goals(ctx, c, "forever/horde/05-stonetalon-mountains.guide") else { return };
+	// Left out since the final route review (route-fixes skip 6543); holds whenever a build takes it again.
+	if !list.iter().any(|r| is("accept", 6543)(&r.goal)) {
+		return;
+	}
 	let Some(reports) = at(c, &list, "the Warsong Reports", collect(16746.0, Some(None))) else { return };
 	let count = list[reports].goal.get("count");
 	c.ok(if count.truthy() { count.as_num() == Some(1.0) } else { true }, "any report in the bags shows the bundle was opened");
@@ -287,7 +291,7 @@ fn warsong_reports(ctx: &Ctx, c: &mut Check) {
 
 fn no_riding(ctx: &Ctx, c: &mut Check) {
 	let transport = Regex::new(
-		r"(?i)(?-u:\b)ride (?:it(?-u:\b)|(?:the |a |on the |up a |down the )?(?:boat|ferry|zeppelin|tram|Deeprun Tram|lift|elevator|airship|flight|hippogryph|gryphon|wind rider|bat|taxi))",
+		r"(?i)(?-u:\b)ride (?:it(?-u:\b)|(?:the |a |on the |up a |down the )?(?:boat|ferry|zeppelin|tram|Deeprun Tram|lift|elevator|airship|flight|hippogryph|gryphon|wind rider|wind current|bat|taxi))",
 	)
 	.unwrap();
 	let ride = Regex::new(r"(?i)(?-u:\b)(?:ride|rides|riding|rode)(?-u:\b)").unwrap();
@@ -300,12 +304,25 @@ fn no_riding(ctx: &Ctx, c: &mut Check) {
 		if !(g.get("minLevel").num() < 40.0) {
 			continue;
 		}
+		// (A step gated to level 40 or more, or any step after a `level` goal of 40 or more, is played with
+		// riding learned, so it may say ride.)
+		let mut mounted = false;
 		for step in g.get("steps").items() {
-			for text in std::iter::once(step.get("note")).chain(step.get("goals").items().iter().map(|goal| goal.get("note"))) {
-				let Some(text) = text.as_str() else { continue };
-				if ride.is_match(&transport.replace_all(text, "")) {
-					offenders.push(format!("{guide} (from level {}), step {}: {text}", g.get("minLevel").to_js_string(), step.get("title").to_js_string()));
+			let gated = step
+				.get("when")
+				.items()
+				.iter()
+				.any(|p| p.get("k").as_str() == Some("level") && p.get("op").as_str() == Some(">=") && !p.get("neg").truthy() && p.get("n").as_num().is_some_and(|n| n >= 40.0));
+			if !mounted && !gated {
+				for text in std::iter::once(step.get("note")).chain(step.get("goals").items().iter().map(|goal| goal.get("note"))) {
+					let Some(text) = text.as_str() else { continue };
+					if ride.is_match(&transport.replace_all(text, "")) {
+						offenders.push(format!("{guide} (from level {}), step {}: {text}", g.get("minLevel").to_js_string(), step.get("title").to_js_string()));
+					}
 				}
+			}
+			if step.get("goals").items().iter().any(|goal| goal.get("t").as_str() == Some("level") && goal.get("level").as_num().is_some_and(|l| l >= 40.0)) {
+				mounted = true;
 			}
 		}
 	}
@@ -330,14 +347,13 @@ fn flight_to_auberdine(ctx: &Ctx, c: &mut Check) {
 	}
 }
 
-const BY_LEVEL: [(&str, f64, f64); 11] = [
+// (#1415: Westfall's murloc gills and eyes moved to a loop along the whole north coast, data/places.json's
+// 385-westfall-murloc-gills path; their own case checks the loop stays on the north coast.)
+const BY_LEVEL: [(&str, f64, f64); 8] = [
 	(WESTFALL, 725.0, 102.0),
-	(WESTFALL, 254548.0, 92744.0),
-	(WESTFALL, 730.0, 38.0),
 	(DARKSHORE, 5385.0, 983.0),
 	(DARKSHORE, 5412.0, 1001.0),
 	("forever/horde/02-the-barrens.guide", 5087.0, 844.0),
-	("forever/horde/orc-troll/02-the-barrens.guide", 5087.0, 844.0),
 	(SILVERPINE, 3164.0, 429.0),
 	(SILVERPINE, 730.0, 91920.0),
 	(HILLSBRAD_HORDE, 3476.0, 496.0),
@@ -382,8 +398,9 @@ fn westfall_road_in(ctx: &Ctx, c: &mut Check) {
 	let Some(list) = goals(ctx, c, WESTFALL) else { return };
 	let Some(report) = at(c, &list, "turnin 109", is("turnin", 109)) else { return };
 	let hill = &list[report];
-	let Some(home) = at(c, &list, "sethome", |g| str_is(g, "t", "sethome")) else { return };
-	c.ok(hill.step.strict_eq(&list[home].step), "Report to Gryan Stoutmantle is handed in on the first Sentinel Hill stop");
+	c.ok(num_is(&hill.goal, "npc", 234.0), "Report to Gryan Stoutmantle is handed to Gryan");
+	let Some(gryan) = at(c, &list, "Gryan's first goal", |g| num_is(g, "npc", 234.0)) else { return };
+	c.ok(hill.step.strict_eq(&list[gryan].step), "Report to Gryan Stoutmantle is handed in on the first Sentinel Hill stop");
 	for q in [109, 36, 151, 64, 9, 22, 92909] {
 		// On Westfall's map: Dwarves and Gnomes take Report to Gryan Stoutmantle from Deputy Rainer at the end of east Elwynn.
 		let (take, map) = (is("accept", q), hill.goal.get("map").num());
@@ -406,12 +423,23 @@ fn westfall_road_in(ctx: &Ctx, c: &mut Check) {
 	}
 	let Some(elwynn) = goals(ctx, c, ELWYNN) else { return };
 	let elwynn: Vec<Row> = elwynn.into_iter().filter(everyone).collect();
-	let Some(last) = elwynn.last() else {
-		c.ok(false, "Elwynn has goals for everyone");
+	let Some(rainer) = at(c, &elwynn, "accept 109 from Deputy Rainer", |g| str_is(g, "t", "accept") && num_is(g, "quest", 109.0) && num_is(g, "npc", 963.0)) else { return };
+	let rainer = &elwynn[rainer].goal;
+	// Elwynn's last stop is the Westbrook Garrison on the road west (Deputy Rainer, or Sergeant De Vries beside him).
+	let Some(last) = elwynn.iter().rev().find(|r| located(r)) else {
+		c.ok(false, "Elwynn has placed goals for everyone");
 		return;
 	};
 	let last = &last.goal;
-	c.ok(str_is(last, "t", "accept") && num_is(last, "quest", 109.0) && num_is(last, "npc", 963.0), "Elwynn ends at Deputy Rainer on the road west");
+	c.ok(
+		ctx.yards(last, rainer).is_some_and(|y| y < 50.0),
+		&format!(
+			"Elwynn ends by Deputy Rainer on the road west, not at the hill: {} {} at {}",
+			last.get("t").to_js_string(),
+			last.get("quest").to_js_string(),
+			if last.get("npcName").truthy() { last.get("npcName").to_js_string() } else { last.get("npc").to_js_string() }
+		),
+	);
 	let hill_fp = hill.step.get("goals").items().into_iter().find(|g| str_is(g, "t", "getfp"));
 	let mut leaves = true;
 	for r in &elwynn {
@@ -523,8 +551,14 @@ fn battleworn_axes(ctx: &Ctx, c: &mut Check) {
 	let Some(list) = goals(ctx, c, REDRIDGE) else { return };
 	let Some(axes) = at(c, &list, "Battleworn Axe", collect(3014.0, None)) else { return };
 	let goal = &list[axes].goal;
-	let Some(pendant) = at(c, &list, "Shadowhide Pendant", collect(1075.0, None)) else { return };
-	c.ok(pendant < axes, "after the Galardell gnolls");
+	let Some(mill) = at(c, &list, "Alther's Mill tarantulas", is("kill", 98386)) else { return };
+	c.ok(mill < axes, "after Alther's Mill, on the way south-east");
+	// Galardell Valley comes after the camps, on the way back west (Redridge is entered at about 24.5 since
+	// Duskwood's first loop comes first, 2026-11-07); Fangore at the valley's north end on the same loop.
+	c.ok(!list[axes].step.get("goals").items().iter().any(|g| str_is(g, "t", "level")), "no top-up at the camps");
+	let after = |q: f64| list.iter().enumerate().all(|(i, r)| !num_is(&r.goal, "quest", q) || str_is(&r.goal, "t", "accept") || i > axes);
+	c.ok(after(91.0), "Solomon's Law's pendants after the camps");
+	c.ok(after(180.0), "Fangore's paw after the camps");
 	let f = if goal.get("f").truthy() { goal.get("f") } else { V::str("l") };
 	let here = point(&p, &goal.get("map"), &goal.get("x"), &goal.get("y"), &f);
 	let npcs = ctx.data.item(&V::Num(3014.0)).get("drops").get("npc");
@@ -615,16 +649,26 @@ fn making_do(ctx: &Ctx, c: &mut Check) {
 	c.ok(horizons < take, "Expanding Horizons is handed in first");
 	let Some(auberdine) = goals(ctx, c, WETLANDS) else { return };
 	let Some(give) = at(c, &auberdine, "turnin 97926", is("turnin", 97926)) else { return };
-	c.ok(auberdine[give].goal.get("optional").truthy(), "turnin 97926 is optional");
+	let back = &auberdine[give];
+	let held = back.step.get("when").items().iter().any(|p| p.get("k").as_str() == Some("onquest"));
+	c.ok(back.goal.get("optional").truthy() || held, "turnin 97926 holds nobody without it (optional, or only with it in the log: #1415)");
 }
 
 fn unrequited_love(ctx: &Ctx, c: &mut Check) {
-	let Some(list) = goals(ctx, c, ASHENVALE) else { return };
+	// Hollee's note is taken in Auberdine on the Darkshore guide and carried through Ashenvale to Menethil:
+	// the list is the chain from Darkshore.
+	let mut list: Vec<Row> = Vec::new();
+	for g in ["03-darkshore", "03-loch-modan", "03-darkshore-return", "06-ashenvale"] {
+		let Some(l) = goals(ctx, c, &format!("forever/alliance/{g}.guide")) else { return };
+		list.extend(l);
+	}
 	let Some(take) = at(c, &list, "accept 98461", is("accept", 98461)) else { return };
+	let Some(hollee) = at(c, &list, "turnin 731 (Hollee in Auberdine)", is("turnin", 731)) else { return };
+	c.ok(list[take].step.strict_eq(&list[hollee].step), "taken from Hollee on the Auberdine stop");
 	let Some(give) = at(c, &list, "turnin 98461", is("turnin", 98461)) else { return };
 	let Some(excavation) = at(c, &list, "accept 305", is("accept", 305)) else { return };
 	c.ok(take < give && give < excavation, "the note is taken, then handed in, then 305 is taken");
-	c.eq(list[give].s, list[excavation].s, "the hand-in is in the same Menethil step as 305");
+	c.ok(list[give].step.strict_eq(&list[excavation].step), "the hand-in is in the same Menethil step as 305");
 	c.ok(list[take].goal.get("optional").truthy() && list[give].goal.get("optional").truthy(), "both goals are optional");
 }
 

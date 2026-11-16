@@ -393,9 +393,9 @@ in PACK_FORMAT.md, "Rules Polestar enforces". Each row has a status:
 | Status | The row says | Fix |
 |---|---|---|
 | `on` | the switch on, the guide count | — |
-| `off` | the switch off: the player hid the pack's guides | switch it on; its tabs come back |
+| `off` | the switch off: the player hid the pack's guides, or a pack that loads on demand (`## LoadOnDemand: 1`, such as Polestar Experimental) is not switched on yet; such a pack shows no guide count until it has loaded | switch it on; its tabs come back. A pack that loads on demand loads then, and at every login while it stays on |
 | `disabled` | "turned off in the AddOns list", with **Enable and reload** | press it, or enable the addon in the AddOns list |
-| `not-loaded` | "not loaded: <the client's reason>" (out of date, a dependency missing), or "not loaded" when the client gives none | out of date: rebuild with an updated clone, or tick "Load out of date AddOns"; dependency missing: install or enable the addons on the pack's `## Dependencies` line (the AddOns list names them) |
+| `not-loaded` | "not loaded: <the client's reason>" (out of date, a dependency missing, or a pack that loads on demand whose addon could not load when it was switched on), or "not loaded" when the client gives none | out of date: rebuild with an updated clone, or tick "Load out of date AddOns"; dependency missing: install or enable the addons on the pack's `## Dependencies` line (the AddOns list names them) |
 | `too-new` | "needs Polestar <version> or newer", or "needs a newer Polestar" when its TOC gives no `X-Polestar-Needs` | update Polestar |
 | `refused` | "refused: <reason>" | one of the pack problems below |
 | `broken` | "broken: registered no guides" | see `no-guides` below |
@@ -474,7 +474,7 @@ checks authors meet most; the rest are listed in GUIDE_FORMAT.md
 | `<key>` contains control characters (line breaks, tabs or other invisible characters) | keep the value on one line |
 | `<key>` is N characters long; at most M fit | shorten it |
 | pack id "<id>" is malformed: 2 to 32 lowercase letters, digits and dashes, starting with a letter or digit | pick an id like `<author>-<name>`, e.g. `joe-routes` |
-| pack id "<id>" is reserved for Polestar ("guides", "forever", "lookup", "draft", "polestar" are) | pick another id |
+| pack id "<id>" is reserved for Polestar ("guides", "forever", "lookup", "draft", "polestar", "imported", "polestar-experimental" are) | pick another id |
 | version "<v>" is malformed: one word of letters, digits, ".", "+" and "-", at most 32 characters | write a version like `1.2.0` |
 | website "<url>" must start with https:// or http:// | write the full address |
 | folder "<name>" is malformed: 1 to 64 letters, digits, "_" and "-" / folder "<name>" looks like one of Polestar's own addons | pick a folder like `PolestarPack_JoesRoutes`, or leave `folder` out |

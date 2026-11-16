@@ -73,9 +73,9 @@ const TRAINER_YD: f64 = 150.0;
 const CITY_TRAINER_YD: f64 = 500.0;
 /// The route's travel estimates (as travel.rs): a walk at 7 yd/s, a flight at 25 yd/s plus a minute
 /// at the masters.
-const WALK_YPS: f64 = 7.0;
-const FLY_YPS: f64 = 25.0;
-const FLY_S: f64 = 60.0;
+pub(crate) const WALK_YPS: f64 = 7.0;
+pub(crate) const FLY_YPS: f64 = 25.0;
+pub(crate) const FLY_S: f64 = 60.0;
 
 /// A way quicker than a walk (Ctx::quicker_way): a flight between two flight paths (nodes), or a ride
 /// (its index in the world's rides).
@@ -127,6 +127,14 @@ pub struct Inputs<'a> {
 	/// guide hands in are listed (`Flag`), moved to a later visit to their giver (`Move`), or not
 	/// checked (`Off`).
 	pub fresh_openers: post::FreshOpeners,
+	/// Pass-by pickups (pass_by.rs): a quest whose giver an earlier walk passes, taken on that walk
+	/// with its work. Off: the route's visits stand.
+	pub pass_by: bool,
+	/// Nearby flight paths (nearby_fp.rs, with route travel): a stop by a flight master the route
+	/// later gains by flying from or to learns its path. Off: the route's flight paths stand.
+	pub nearby_fp: bool,
+	/// data/dungeon-runs.json (`dungeons_near`): None names no dungeon in a grind tip.
+	pub dungeon_runs: Option<&'a serde_json::Value>,
 }
 
 /// What apply_route wrote: the chain's guides (relative path, text), in chain order.
@@ -339,6 +347,9 @@ struct Ctx<'a> {
 	others_dup: FxHashSet<Key>,
 	wq: FxHashMap<u32, usize>,
 	zone_ids: Vec<(u32, String)>,
+	/// Per guide of the chain, its header zone's continent and the dungeon runs its grind tips may name
+	/// (`dungeons_near`).
+	dungeon_near: Vec<(Option<i64>, Vec<NearRun>)>,
 }
 
 struct Pier {
@@ -358,6 +369,42 @@ impl<'a> Ctx<'a> {
 
 	fn zone_name(&self, map: Option<u32>) -> Option<String> {
 		self.world.zones.get(&map?).filter(|z| !z.is_empty()).cloned()
+	}
+
+	/// The label of a travel-only goto to `pt`: where it leads, never just the zone's name, which reads
+	/// in game as "Go to The Barrens", a spot with nothing to do (#1450). The town whose flight master
+	/// stands within TOWN_YD of it in its zone ("To Camp Taurajo"), else the step it leads to (`dest`,
+	/// its title), else the client's area there ("To Everlook"), else the zone it crosses into ("Into
+	/// The Barrens").
+	fn dest_label(&self, pt: Option<u32>, dest: Option<&str>) -> String {
+		const TOWN_YD: f64 = 400.0;
+		let p = self.w(pt);
+		let town = p.and_then(|p| {
+			self.world
+				.nodes
+				.iter()
+				.filter(|n| n.kind == "fp")
+				.filter_map(|n| self.w(n.pt).filter(|q| q.c == p.c && q.map == p.map).map(|q| (js_hypot(q.wx - p.wx, q.wy - p.wy), n)))
+				.filter(|&(d, _)| d <= TOWN_YD)
+				.min_by(|a, b| a.0.total_cmp(&b.0))
+				.map(|(_, n)| n.name.split(',').next().unwrap_or("").trim().to_string())
+				.filter(|t| !t.is_empty())
+		});
+		if let Some(t) = town {
+			return format!("To {t}");
+		}
+		let is_zone = |s: &str| self.world.zones.values().any(|z| z == s);
+		if let Some(d) = dest.map(str::trim).filter(|d| !d.is_empty() && !is_zone(re!(r"^(Back to|To|Into) ").replace(d, "").as_ref())) {
+			return if re!(r"^(Back to|To|Into) ").is_match(d) { d.to_string() } else { format!("To {d}") };
+		}
+		let area = p.and_then(|p| self.area_at.and_then(|a| a.at(p.c, p.wx, p.wy))).map(|a| a.name).filter(|s| !s.is_empty() && !s.starts_with("area ") && !is_zone(s));
+		if let Some(a) = area {
+			return format!("To {a}");
+		}
+		match p.and_then(|p| self.zone_name(Some(p.map))) {
+			Some(z) => format!("Into {z}"),
+			None => "Onward".into(),
+		}
 	}
 
 	fn covers(&self, dst: usize, src: usize) -> bool {
@@ -1088,7 +1135,7 @@ impl<'a> Ctx<'a> {
 	}
 
 	/// v1 step `s` stands at training stop `at`: with no `zone` line of its own, or in the stop's zone,
-	/// or beside it. Not v1's "To Orgrimmar" with the route's Razor Hill training, c15 Rev15H1.
+	/// or beside it. Not v1's "To Orgrimmar" with the route's Razor Hill training, c15 review.
 	fn at_stop(&self, s: usize, at: Option<u32>) -> bool {
 		let st = &self.steps[s];
 		let at_p = self.w(at);
@@ -1119,6 +1166,15 @@ impl<'a> Ctx<'a> {
 	/// while the route's own 20.2 stop trained only Rogues and Warlocks).
 	fn above_level(&self, s: usize, lvl: Option<f64>) -> bool {
 		lvl.zip(self.v1_level_at(s)).is_some_and(|(a, n)| n > a.floor())
+	}
+
+	/// The dungeon runs a grind inserted at the route's event `order[at]`, at world point `pt`, may name
+	/// (`dungeons_near`, `runs_at`), the guide being the last one a route line up to it is in.
+	fn near_at(&self, order: &[Order], at: usize, pt: Option<u32>) -> Vec<(String, RunAt)> {
+		let at = at.min(order.len().saturating_sub(1));
+		let Some(f) = order.get(..=at).and_then(|o| o.iter().rev().find_map(|x| x.key.map(|k| k.0))) else { return Vec::new() };
+		let Some((home, runs)) = self.dungeon_near.get(f) else { return Vec::new() };
+		runs_at(runs, order, at, f, self.w(pt).map(|p| p.c).or(*home))
 	}
 
 	/// The route passes zone `zone` (any, with none) at level `lvl` or more at one of its lines in
@@ -1231,7 +1287,7 @@ fn own_part_split(route: &Route, guides: &BTreeMap<String, String>) -> Option<(R
 	let (order, gone): (Vec<(usize, &Order)>, Vec<(usize, &Order)>) = route.order.iter().enumerate().partition(|(i, o)| *i < js || !file(o).is_some_and(|f| both.contains(&f)));
 	// (Their quests are the shared tail's: dropped from this run's writing, so v1's lines of them leave
 	// the own copy too, unless this part takes them as well: its events before the join, not a tail
-	// hand-in in another guide, Ashenvale's for The Sleeper Has Awakened, Rev15NightElf.)
+	// hand-in in another guide, Ashenvale's for The Sleeper Has Awakened, c15 review.)
 	let kept: FxHashSet<u32> = order.iter().filter(|(i, _)| *i < js).filter_map(|(_, o)| o.q).collect();
 	let mut diff = route.diff.clone().unwrap_or_default();
 	for q in gone.iter().filter_map(|(_, o)| o.q) {
@@ -1262,8 +1318,8 @@ fn portal_name(node: &str) -> String {
 
 /// The way into a zone players do not find on the map by themselves, on a walk there: Riverglades
 /// (Forever's zone between Redridge and the Swamp of Sorrows) is entered on foot by Redridge Pass,
-/// south of the Bristle Hills (Rev14H2 B11; the walk store agrees); and the way out of it, by the
-/// zone walked into (Warcraft Wiki, Riverglades: adjacent regions; Rev15H2 B12, the walks from
+/// south of the Bristle Hills (c14 review B11; the walk store agrees); and the way out of it, by the
+/// zone walked into (Warcraft Wiki, Riverglades: adjacent regions; c15 review B12, the walks from
 /// Powderfuse Port to the Swamp of Sorrows and to Kargath). Not on a ride, a flight master's goto, or a
 /// step already in the zone.
 fn way_in_tip(zone: Option<&str>, came_from: Option<&str>, label: &str) -> Option<&'static str> {
@@ -1298,6 +1354,8 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 	let data = inp.data;
 	let world = inp.world;
 	let mut log = Vec::new();
+	// The level reads of the route's world (the level fit and the pass-by rule).
+	let ground = crate::level_fit::Ctx::new(world, data, inp.frames);
 	// Work too far above the player's level where the route has it goes to a later visit there where it
 	// fits, else its quest is left out (level_fit.rs, #977).
 	let level_fit = {
@@ -1305,22 +1363,44 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 		ex.quests.extend(inp.route.groups.iter().filter_map(|g| g.q).chain(inp.route.groups.iter().flat_map(|g| g.quests.iter().copied())));
 		ex.quests.extend(crate::hub::fix_optional(inp.route.faction.as_deref()));
 		ex.quests.extend(crate::hub::fix_kept(inp.route.faction.as_deref()));
-		crate::level_fit::fit(inp.route.order.clone(), world, data, inp.frames, &ex)
+		crate::level_fit::fit_in(inp.route.order.clone(), &ground, &ex)
 	};
 	log.extend(level_fit.log);
 	let level_left: Vec<u32> = level_fit.left_out;
-	let fitted = Route { order: level_fit.order, ..inp.route.clone() };
+	// The lines a class's own v1 step waits for stay where the route has them (the pass-by rule, the
+	// hub tour).
+	let pinned = if inp.pass_by || inp.route_travel { anchor_lines(inp) } else { FxHashSet::default() };
+	let is_pinned = |o: &Order| rel_of(o.from.as_deref()).is_some_and(|k| pinned.contains(&k));
+	// A quest whose giver an earlier walk passes is taken on that walk, with its work (pass_by.rs, #1959).
+	let order = if inp.pass_by {
+		let join = inp.route.shared.as_ref().and_then(|s| s.get("joinStep")).and_then(|v| v.as_u64()).map(|j| j as usize);
+		let pulled = crate::pass_by::pull(level_fit.order, &ground, &crate::pass_by::Pins::of(inp.route), &is_pinned, join);
+		log.extend(pulled.log);
+		pulled.order
+	} else {
+		level_fit.order
+	};
+	let fitted = Route { order, ..inp.route.clone() };
 	// With the route's own legs, the order walks each hub in one sweep (hub.rs).
 	let toured;
 	let route = if inp.route_travel {
-		let pinned = anchor_lines(inp);
-		let (order, moved) =
-			crate::hub::tour(fitted.order.clone(), world, data, &|o: &Order| rel_of(o.from.as_deref()).is_some_and(|k| pinned.contains(&k)), &crate::hub::fix_pairs(inp.route.faction.as_deref()));
+		let (order, moved) = crate::hub::tour(fitted.order.clone(), world, data, &is_pinned, &crate::hub::fix_pairs(inp.route.faction.as_deref()));
 		log.extend(moved);
 		toured = Route { order, ..fitted.clone() };
 		&toured
 	} else {
 		&fitted
+	};
+	// A stop by a flight master the route's later walks gain by flying from or to learns its path
+	// (nearby_fp.rs).
+	let nearby;
+	let route = if inp.route_travel && inp.nearby_fp {
+		let (order, more) = crate::nearby_fp::add(route.order.clone(), world, data, inp.walks);
+		log.extend(more);
+		nearby = Route { order, ..route.clone() };
+		&nearby
+	} else {
+		route
 	};
 	let quest = |q: u32| data.quests.get(&q);
 	let dedup = |xs: &[u32]| -> Vec<u32> {
@@ -1350,7 +1430,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 	// that no route event takes, in a guide the route plays: its lines go, as a dropped quest's. The
 	// route's seed never had it (left out before the seed: Swelling Forces, low XP for its detour), so
 	// the diff does not name it; its lines were written in the Night Elves' first Darkshore visit,
-	// under level and before the Return to Onu it needs, and again on the second, c17 RevA 5. (Other
+	// under level and before the Return to Onu it needs, and again on the second, c17 review, item 5. (Other
 	// v1 steps the route does not take stay, Dokimi's crates.) Not an optional quest, nor a class's or
 	// race's own (`only`, the data's class list: class quests are v1's steps, no events).
 	if !route.left_out.is_empty() {
@@ -2158,7 +2238,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 		}
 	}
 	// (An untagged bag line's quest, as `bag_quest`: it goes with that quest when the route drops it,
-	// c17 RevA 4: the Night Elves' first Darkshore visit had the bowl and samples of a quest taken
+	// c17 review, item 4: the Night Elves' first Darkshore visit had the bowl and samples of a quest taken
 	// only on the second, collects they could not finish there.)
 	let mut bag_quest: FxHashMap<Key, u32> = FxHashMap::default();
 	for st in &steps {
@@ -2176,6 +2256,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 			}
 		}
 	}
+	let dungeon_near = dungeons_near(&chain, inp.guides, inp.dungeon_runs, world, if route.faction.as_deref().is_some_and(|f| f.starts_with('H')) { 'H' } else { 'A' });
 	let mut cx = Ctx {
 		bag_quest,
 		race_dropped,
@@ -2216,6 +2297,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 		others_dup: FxHashSet::default(),
 		wq,
 		zone_ids: world.zones.iter().map(|(k, v)| (*k, v.clone())).collect(),
+		dungeon_near,
 	};
 	let mut anchor_of: FxHashMap<Key, Key> = FxHashMap::default();
 	fn put_at(m: &mut FxHashMap<Key, Vec<Line>>, anchor_of: &mut FxHashMap<Key, Key>, k2: Key, ls: Vec<Line>, front: bool) {
@@ -2428,7 +2510,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 			// (counted on the walk past, finished here: Rime's Wrath's elementals, thmastin): it stays
 			// in its own later step. (Not when the route writes that step before the quest's accept: the
 			// Prowlers of 52 in Elwynn's "Murlocs and the Collector", which the route visited first for
-			// Croaky's 91740, a `kill` with no accept before it, C14Plan.)
+			// Croaky's 91740, a `kill` with no accept before it, the c14 plan.)
 			let finisher = q.is_some_and(|q| {
 				let goal = |t: &str| re!(r"\s+optional\b").replace(&core(t), "").into_owned();
 				!re!(r"\soptional\b").is_match(split_comment(&l.text).0)
@@ -2758,7 +2840,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 		}
 		// (A class's steps closing a guide, after its last step the route names, stay at the end of that
 		// step, not carried into the next guide to its first named line: the Druids' Darnassus training
-		// after Rut'theran Village, written in Felwood after the Emerald Sanctuary, c15 Rev15A2 A5.)
+		// after Rut'theran Village, written in Felwood after the Emerald Sanctuary, c15 review A5.)
 		if let Some((ps, pk)) = prev_named.filter(|&(ps, _)| cx.steps[ps].file != cx.steps[si].file) {
 			let class_step = |os: usize| {
 				cx.steps[os].lines.iter().take_while(|l| l.kind != Kind::Goal).find(|l| is_head_ws(&l.text, "only")).is_some_and(|l| {
@@ -2806,7 +2888,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 
 	let mut order = post::item_accepts(post::timed_order(route_order, &cx.steps, &cx.named, &anchor_of, data, world), &cx.steps, &cx.named, &anchor_of, data);
 	// A top-up the route makes after a crossing, whose camp (the work before it) is on the shore left
-	// behind: done there, before the crossing, not by sea and back (Rev14A1: Level 20 in Darkshore's
+	// behind: done there, before the crossing, not by sea and back (c14 review: Level 20 in Darkshore's
 	// Grove after the Stormwind training, two boats; now before the boat to Stormwind).
 	{
 		const BACK: usize = 12;
@@ -3018,23 +3100,24 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 	// (Covered: every class the step trains has a trainer the route passes, a training stop or not, within
 	// SPARE_LVL. Seed 04-tanaris' "Ironforge ... Train", pulled to Aerie Peak at 43.1, was a step with no
 	// travel between two Aerie Peak steps after the route's Stormwind training and Ironforge pass at 42.3
-	// and 42.5, c15 Rev15A2. The Dwarf Shamans' tram from Stormwind at 12 stays: the route passes no
+	// and 42.5, c15 review. The Dwarf Shamans' tram from Stormwind at 12 stays: the route passes no
 	// Shaman trainer for fourteen levels.)
 	let route_ev_cls: Vec<(f64, FxHashSet<&'static str>)> =
 		if route_trains { order.iter().filter_map(|o| Some((o.lvl?, cx.trainer_classes_near(o.pt, train_fac, TRAINER_YD)))).filter(|(_, c)| !c.is_empty()).collect() } else { Vec::new() };
-	let spare_training =
-		|s: usize, lvl: Option<f64>| {
-			const SPARE_LVL: f64 = 2.0;
-			route_trains
-				&& trains(s) && just_training(s)
-				&& train_classes(s).is_none_or(|cls| {
-					cls.is_empty()
-						|| lvl.is_none() || cls.iter().all(|c| {
+	let spare_training = |s: usize, lvl: Option<f64>| {
+		const SPARE_LVL: f64 = 2.0;
+		route_trains
+			&& trains(s)
+			&& just_training(s)
+			&& train_classes(s).is_none_or(|cls| {
+				cls.is_empty()
+					|| lvl.is_none()
+					|| cls.iter().all(|c| {
 						route_train_cls.iter().any(|(l, here)| l.zip(lvl).is_none_or(|(a, b)| (a - b).abs() <= SPARE_LVL) && (here.is_empty() || here.contains(c.as_str())))
 							|| route_ev_cls.iter().any(|(l, here)| lvl.is_some_and(|b| (l - b).abs() <= SPARE_LVL) && here.contains(c.as_str()))
 					})
-				})
-		};
+			})
+	};
 	// A step's continent: its first placed line's, else its zone's.
 	let step_cont = |s: usize| -> Option<i64> {
 		let st = &cx.steps[s];
@@ -3076,10 +3159,10 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 			// (A training step away from the stop, neither beside it nor in its zone, comes only for
 			// classes with no trainer at the stop, their own trip from it (the Druids' Thunder Bluff after
 			// Orgrimmar). Not v1's "To Orgrimmar" (getfp and `train class`) with the Razor Hill training:
-			// everyone walked to Razor Hill, hearthed to Ratchet and walked back to Orgrimmar, c15 Rev15H1.)
+			// everyone walked to Razor Hill, hearthed to Ratchet and walked back to Orgrimmar, c15 review.)
 			if !cx.at_stop(os, at) {
 				// (Only where the stop's trainers are known: its town's, Stormwind's for v1's Ironforge
-				// step at the route's Stormwind training, c15 Rev15A2 B1.)
+				// step at the route's Stormwind training, c15 review B1.)
 				let here = cx.trainer_classes_near(at, train_fac, CITY_TRAINER_YD);
 				if !here.is_empty() && train_classes(os).is_none_or(|cls| cls.is_empty() || cls.iter().any(|c| here.contains(c.as_str()))) {
 					return false;
@@ -3312,7 +3395,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 						// (Else the route's next pass by one of theirs, a training stop or not, when it comes
 						// within MAX_TRAINING_GAP of their last training: no trip from a town without their
 						// trainer (Razor Hill's Paladins and Druids, the Druids' Thunder Bluff trips at 14-23,
-						// c15 Rev15H1). Past that, their own trip from here: the Dwarf Shamans' tram from
+						// c15 review). Past that, their own trip from here: the Dwarf Shamans' tram from
 						// Stormwind, not untrained from 12 to 26.)
 						let pass = order[oi + 1..].iter().position(|n| cx.trainer_classes_near(n.pt, fac, TRAINER_YD).contains(cl));
 						let in_time = |d: usize| order[oi + 1 + d].lvl.is_none_or(|b| b - last <= MAX_TRAINING_GAP);
@@ -3344,7 +3427,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 					}
 					// (A class kept with no trainer here takes its own trip: a step of its own at its nearest
 					// trainer, not this town's trainer step. Ironforge's step listed the Druids, who have no
-					// trainer there, c15 Rev15SkyA.)
+					// trainer there, c15 review.)
 					for &cl in keep.iter().filter(|c| !here.contains(**c)) {
 						if let Some((name, zone)) = cx.nearest_trainer(o.pt, fac, cl) {
 							let at = if zone.is_empty() { String::new() } else { format!(" in {zone}") };
@@ -3506,7 +3589,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 				// (A step standing at where this event's travel leads, far from where the route stands
 				// before it, goes after the leg, not as a walk there and the leg back: the Gnome Priests'
 				// and Warlocks' Ironforge class quests before the hearth to Kharanos and the walk into
-				// Ironforge, c15 Rev15DwarfGnome B3.)
+				// Ironforge, c15 review B3.)
 				let travels = its.as_ref().is_some_and(|i| i.iter().any(|x| matches!(x.t, ItemT::Hearth | ItemT::Network)));
 				// (Only a step with quest work in the event's own guide: v1's travel steps and a guide's
 				// closing walk to where the next one starts keep their place.)
@@ -3594,7 +3677,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 				let movable = movable && !in_run;
 				// (v1's travel step for the route's own ride from its dock, the Ratchet flight path and the
 				// boat to Booty Bay: before the piece whose leg rides from there, so the leg takes it at the
-				// dock, not as a trip after the hearth to Theramore and a flight back, Rev15A2 15.)
+				// dock, not as a trip after the hearth to Theramore and a flight back, c15 review, item 15.)
 				// (A v1 step that only trains, otherwise written over the sea after the route has crossed,
 				// goes the same way: by its zone's middle when its lines have no place. Orgrimmar's
 				// `train class` before the walk from Ratchet to the zeppelin, not a zeppelin trip back
@@ -3646,7 +3729,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 				// Gakin in Stormwind went with Crushridge Bounty's accept, moved to Hillsbrad, to the
 				// route's Stormwind stop before the Heartswood in Ashenvale; the hand-in then followed the
 				// Heartswood with a sea crossing there and back. It waits for Stormwind's stop after it, as
-				// v1 has it, c17 RevA 2.)
+				// v1 has it, c17 review, item 2.)
 				{
 					// (A step of a class's own run right after such a hand-in goes with it, in v1's order: Kranal
 					// Fiss's `turnin 1527` after Telf Joolam's `accept 1527`, c18 Tauren Shaman Call of Fire R5.)
@@ -3758,7 +3841,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 					// (Never back into an earlier guide: the Undead's "Riding at 40" written in the 30-40
 					// Stranglethorn guide, at its Undercity start, #404. A piece of the route's own, a way or a
 					// training stop, is in the guide of the pieces around it: the Tirisfal goto at 30-40
-					// Arathi's start let the riding step back two guides, c15 Rev15H2.)
+					// Arathi's start let the riding step back two guides, c15 review.)
 					let piece_gi = |j: usize| pieces[..=j].iter().rev().map(|p| p.gi).find(|&g| g >= 0).or_else(|| pieces[j..].iter().map(|p| p.gi).find(|&g| g >= 0));
 					let not_earlier = |j: usize| piece_gi(j).is_none_or(|g| g >= st.file as i64);
 					// (A pass over the sea is taken only at the step's level: its accepts' minimum, 40 for a
@@ -3817,7 +3900,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 					// walk's piece, this event's own or the recent one that brought the route here, written on
 					// the way at that crossing; the Warlocks' Takar the Seer on the walk from Theramore through
 					// the Barrens to Thousand Needles, not a trip back from the Mirage Raceway via Stonetalon,
-					// c15 C14Plan.)
+					// c15, the c14 plan.)
 					let crosses_near = |its: &[Item]| {
 						place.is_some_and(|pl| {
 							its.iter()
@@ -3889,7 +3972,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 						// piece there, before the crossing, within a top-up of its level (the writer's `level`
 						// line); not past the route's work over the sea and a crossing back. The Night Elf and
 						// Skyborne Druids' Cat Form from Auberdine, not after the boat and Stormwind's training,
-						// two sea crossings and a flight to Rut'theran from Stormwind, c17 RevA 1. Not after a
+						// two sea crossings and a flight to Rut'theran from Stormwind, c17 review, item 1. Not after a
 						// training step moved to the walk to the dock (above): the Druids' Thunder Bluff and
 						// Moonglade run after v1's "To Orgrimmar" went before the zeppelin with it, written as
 						// a Druid flight off at Ratchet, the Moonglade trial after the others' way to the
@@ -3917,7 +4000,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 					// (No pass there: right after its v1 step before, when only the route's added lines elsewhere and v1's steps
 					// placed with it are written since: v1's run after the route's last v1 line stays in v1's
 					// order, not past the route's added quests; the Shamans' Ironforge training right after
-					// Stormwind's, not after Theocritus in Elwynn, c15 Rev15A1 B1.)
+					// Stormwind's, not after Theocritus in Elwynn, c15 review B1.)
 					// (Not when the route has been to its zone since, a training stop there.)
 					let went_there = |p: &Piece| match &p.kind {
 						PieceKind::Ins { pt, .. } => cx.w(*pt).and_then(|w| cx.zone_name(Some(w.map))) == step_z,
@@ -3945,7 +4028,8 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 										PieceKind::Orphan(x) => cx.steps[*x].file == st.file,
 										PieceKind::Ins { pt, lines, .. } => !lines.is_empty() && (town_z(j).is_none() || cx.w(*pt).and_then(|w| cx.zone_name(Some(w.map))) != town_z(j)),
 									}
-							}) && ready_at(&pieces, j)
+							})
+							&& ready_at(&pieces, j)
 					}) {
 						let mut at = j + 1;
 						while at < pieces.len() && matches!(pieces[at].kind, PieceKind::Orphan(x) if cx.steps[x].file == st.file && x < os) {
@@ -3972,14 +4056,14 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 		// (Only a step whose other lines the route writes at their own events: the class quests Maxan
 		// hands out at Kharanos, which it does not name, are v1's there with the training. A quest the
 		// route takes at another of v1's lines counts as written: the Ironforge cloth donations of v1's
-		// training step, taken at the route's later Ironforge stop, c15 Rev15A2 B1; one it leaves out, too.)
+		// training step, taken at the route's later Ironforge stop, c15 review B1; one it leaves out, too.)
 		let just_trains = cx.steps[s].lines.iter().filter(|l| l.kind == Kind::Goal).all(|l| {
 			cx.named.contains(&l.key()) || re!(r"^\s+(train\s+class|fly|goto|hearth)\b").is_match(&l.text) || quest_of(&l.text).is_some_and(|q| in_route.contains(&q) || cx.dropped.contains(&q))
 		});
 		let elsewhere = o.t == OrderT::Train && just_trains && train_zone.is_some() && cx.steps[s].zone.is_some() && train_zone != cx.steps[s].zone;
 		if let (true, Some(l)) = (elsewhere, cx.step_line(key)) {
 			// (For the classes with a trainer in the route's city: Stormwind's line without the Shamans,
-			// who train at v1's own Ironforge line, c15 Rev15A2 B1.)
+			// who train at v1's own Ironforge line, c15 review B1.)
 			let tz = train_zone.as_deref().unwrap_or_default();
 			let cls: Vec<&str> = line_only(&l.text).map_or_else(|| CLASSES.to_vec(), |o| o.split(',').map(trim).collect());
 			let with: Vec<&str> = cls.iter().copied().filter(|c| cx.trainer_in_zone(tz, train_fac, c)).collect();
@@ -4084,7 +4168,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 	}
 	// A class's run of v1 steps (consecutive steps of one guide for the same classes, `only` line) stays
 	// together, at its first step's place: the Druids' Cat Form block, split around the Stormwind boat
-	// (Darnassus, boat, training, boat back, Moonglade), c15 Rev15A1/Rev15SkyA. A later step of the run
+	// (Darnassus, boat, training, boat back, Moonglade), c15 review. A later step of the run
 	// comes back to the run past the route's travel, unless a piece between holds a line of one of its
 	// quests.
 	{
@@ -4254,7 +4338,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 			let mut p = order.iter().rposition(|o| o.ix == Some(ev)).unwrap_or(0);
 			// (With no camp by the player or in their zone, a city's or Rut'theran's at 52, the grind waits
 			// for the route's next work at a camp, after it: the route's Stormwind and Ironforge stops
-			// went on in the city after a grind out in the field, c17 RevA 3.)
+			// went on in the city after a grind out in the field, c17 review, item 3.)
 			const FIELD_SCAN: usize = 200;
 			if !grind_camp(&cx, &order, p + 1, p + 1, None, true).2 {
 				let field = (p + 1..order.len().min(p + 1 + FIELD_SCAN)).find(|&i| order[i].t == OrderT::Task && grind_camp(&cx, &order, i + 1, i + 1, None, true).2);
@@ -4490,7 +4574,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 			let same_players = |p: &Piece| p.gi < 0 || cx.guide_races[p.gi as usize] == *players;
 			// (Not past the visit's way out, a route step that ends at its tram, boat, zeppelin or flight
 			// master: the Gnome Priests' Ironforge class quests after "The Deeprun Tram" left them in the
-			// city for the walk to Westfall, c15 Rev15DwarfGnome B3.)
+			// city for the walk to Westfall, c15 review B3.)
 			let way_out = |p: &Piece| match &p.kind {
 				PieceKind::Step { step, .. } => cx.steps[*step]
 					.lines
@@ -4567,7 +4651,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 	// A piece's classes when it is for some classes alone: its step's `only`, else its lines' when each
 	// is for some classes (Stormwind's `train class only Warrior,…`). The classes away that are not among
 	// them come back at a later piece of theirs, not to these classes' stop: the Shamans off to
-	// Ironforge's trainer, not back to Goldshire's training for the others, c15 Rev15A1 B3.
+	// Ironforge's trainer, not back to Goldshire's training for the others, c15 review B3.
 	let piece_classes = |k: &PieceKind| -> Option<String> {
 		if let PieceKind::Ins { lines, .. } = k {
 			let lists: Option<Vec<String>> = lines.iter().filter(|l| !l.trim().is_empty()).map(|l| line_only(l).map(str::to_string)).collect();
@@ -4814,7 +4898,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 			wr.fresh_fps.clear();
 			let p = pieces[i].clone();
 			// (Classes off in a city with their trainer train there, not at this stop: the Rogues and
-			// Paladins in Stormwind at the end of Duskwood, not walked to Goldshire's, c15 Rev15A1 B4.)
+			// Paladins in Stormwind at the end of Duskwood, not walked to Goldshire's, c15 review B4.)
 			if cx.route_travel {
 				if let PieceKind::Ins { t: Some(OrderT::Train), pt, lines, .. } = &p.kind {
 					let z = cx.w(*pt).and_then(|w| cx.zone_name(Some(w.map)));
@@ -4853,6 +4937,12 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 				let first_pt = match &p.kind {
 					PieceKind::Ins { pt, .. } => *pt,
 					PieceKind::Step { keys, .. } => cx.key_pt.get(&keys[0]).copied(),
+					PieceKind::Orphan(_) => None,
+				};
+				// (The title of the step the travel leads to: its zone-entry goto says where it leads, #1450.)
+				let dest: Option<String> = match &p.kind {
+					PieceKind::Ins { title, .. } => title.clone(),
+					PieceKind::Step { step, .. } => Some(trim(&re!(r"^step\s+").replace(&cx.steps[*step].title, "")).to_string()),
 					PieceKind::Orphan(_) => None,
 				};
 				let near_route = |wr: &Writer| -> bool {
@@ -4950,7 +5040,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 						moves = its.as_ref().is_some_and(|v| v.iter().any(|x| matches!(x.t, ItemT::Hearth | ItemT::Network)));
 					}
 					if !moves && !kept_same && !leg_done && !(is_ins && ins_lines_empty) {
-						wr.travel_to(wr.route_pt, first_pt);
+						wr.travel_to(wr.route_pt, first_pt, dest.as_deref());
 					}
 					wr.g.waypoints.clear();
 					wr.g.v1_moves.clear();
@@ -5005,7 +5095,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 						// (A guide's first piece: from where the route was in the guide before, on its continent:
 						// the walk to Feathermoon. A sea crossing there is v1's own opening travel's.)
 						let opening = cx.route_travel && !wr.g.body.iter().flatten().any(|l| l.starts_with("step ")) && matches!((cx.w(wr.route_pt), cx.w(first_pt)), (Some(a), Some(b)) if a.c == b.c);
-						wr.travel_to(if opening { last_pt.or(wr.route_pt) } else { last_pt }, first_pt);
+						wr.travel_to(if opening { last_pt.or(wr.route_pt) } else { last_pt }, first_pt, dest.as_deref());
 						wr.g.item_only = saved;
 						let flew = wr.g.body[n..].iter().flatten().any(|l| re!(r"^\s+(fly|hearth)\s").is_match(l));
 						if let Some(list) = gated.filter(|l| flew && cx.route_travel && only_classes(Some(l)) && Ctx::only_races(Some(l)).is_none()) {
@@ -5523,6 +5613,15 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 		*t = post::no_class_round_trips(t.split('\n').map(str::to_string).collect()).join("\n");
 		*t = re!(r"\n{3,}").replace_all(t, "\n\n").into_owned();
 	}
+	// (A flight path is learnt on the first visit to its flight master, after every pass that moves or
+	// merges steps: Ratchet's beside Sputtervalve on the first Ratchet stop, Camp Taurajo's at Kirge
+	// Sternhorn for Tauren, #1611.)
+	if cx.route_travel {
+		let fm = |name: &str| cx.fp_by_name(name).and_then(|f| cx.w(cx.world.nodes[f].pt));
+		for (fi, name, moved) in post::first_visit_flight_paths(&mut texts, &may, &fm, &work_place, post::FIRST_VISIT_FP_YD) {
+			log.push(format!("first-visit flight path: {} getfp \"{name}\" {}", chain[fi], if moved { "moved there" } else { "copied there" }));
+		}
+	}
 	for (f, t) in files.iter_mut().zip(texts) {
 		f.1 = t;
 	}
@@ -5872,7 +5971,8 @@ impl Writer<'_, '_> {
 		self.push(format!("  goto {},{} \"{label}\"{}", c[0], c[1], c[3]));
 	}
 
-	fn travel_to(&mut self, a: Option<u32>, b: Option<u32>) {
+	/// The way from `a` to `b`, the step titled `dest` (its travel-only steps say where they lead, #1450).
+	fn travel_to(&mut self, a: Option<u32>, b: Option<u32>, dest: Option<&str>) {
 		let cx = self.cx;
 		// (The classes away come back to where the route goes on, not to where it leaves from: the
 		// Mages and Warlocks via Goldshire's on the way to Rainer after a training stop, H4; the Dwarf
@@ -5886,7 +5986,7 @@ impl Writer<'_, '_> {
 			if let Some(best) = cx.crossing(pa, pb) {
 				self.goto_step(best.dep, &format!("{} to {}", best.kind, best.dest), false);
 			}
-			self.goto_step(b, &cx.zone_name(Some(pb.map)).unwrap_or_else(|| "Onward".into()), false);
+			self.goto_step(b, &cx.dest_label(b, dest), false);
 		} else if pa.map != pb.map && js_hypot(pa.wx - pb.wx, pa.wy - pb.wy) > ZONE_STEP_YD {
 			// (An island the route walks to, Feathermoon Stronghold off the Forgotten Coast: the flight
 			// toward its boat, then the boat.)
@@ -5903,7 +6003,7 @@ impl Writer<'_, '_> {
 					return;
 				}
 			}
-			self.walk_goto(a, b, &cx.zone_name(Some(pb.map)).unwrap_or_else(|| "Onward".into()), false);
+			self.walk_goto(a, b, &cx.dest_label(b, dest), false);
 		}
 	}
 
@@ -6553,7 +6653,7 @@ impl Writer<'_, '_> {
 									let zone_at = |pt: Option<u32>| cx.w(pt).and_then(|p| cx.zone_name(Some(p.map)));
 									let dest = if kind == "Portal" && zone_at(nb.pt).is_some() && zone_at(nb.pt) == zone_at(na.pt) {
 										// (A portal within one zone, up to the Rohashi Spires on Zephras Isle: named by
-										// the place it lands, its area, else its own name; Rev14SkyH.)
+										// the place it lands, its area, else its own name; c14 review.)
 										cx.w(nb.pt)
 											.and_then(|p| cx.area_at.and_then(|ar| ar.at(p.c, p.wx, p.wy)))
 											.map(|ar| ar.name)
@@ -6576,10 +6676,10 @@ impl Writer<'_, '_> {
 								let to = l.node.and_then(|n| cx.world.nodes.get(n)).and_then(|n| n.pt).or(l.to).or(x.to);
 								if let (Some(a), Some(b)) = (cx.w(at), cx.w(to)) {
 									if a.c == b.c && (a.map != b.map || js_hypot(a.wx - b.wx, a.wy - b.wy) > ZONE_STEP_YD) {
-										let label = cx.zone_name(Some(b.map)).unwrap_or_else(|| "Onward".into());
+										let label = cx.dest_label(to, None);
 										// (v1's steps waiting in a zone the walk crosses: the walk to that crossing,
 										// they, then on from where they end, Takar the Seer in the Barrens on the walk
-										// from Theramore to Thousand Needles, c15 C14Plan.)
+										// from Theramore to Thousand Needles, c15, the c14 plan.)
 										let ways = cx.borders.filter(|_| !self.pending_orphans.is_empty()).map(|bd| bd.waypoints(a.c, (a.wx, a.wy, a.map), (b.wx, b.wy, b.map))).unwrap_or_default();
 										let pending_in = |z: &str| self.pending_orphans.iter().any(|o| o.2.as_deref() == Some(z));
 										match ways.iter().position(|&(_, _, m)| cx.zone_name(Some(m)).is_some_and(|z| pending_in(&z))) {
@@ -6623,7 +6723,8 @@ impl Writer<'_, '_> {
 													.iter()
 													.find(|o| {
 														o.2.is_some()
-															&& !ends.contains(&o.2) && cx.w(cx.steps[o.1].lines.iter().find_map(|l| cx.line_pt(l))).map_or_else(|| crosses(o.2.as_deref().unwrap()), beside)
+															&& !ends.contains(&o.2)
+															&& cx.w(cx.steps[o.1].lines.iter().find_map(|l| cx.line_pt(l))).map_or_else(|| crosses(o.2.as_deref().unwrap()), beside)
 													})
 													.and_then(|o| o.2.clone());
 												match by {
@@ -6954,11 +7055,30 @@ impl Writer<'_, '_> {
 		if !has_zone && s.zone_in != self.g.zone {
 			self.zone_line(s.zone_in.clone());
 		}
+		// A step searched as a circuit (`loop`) that the route splits: each piece with work keeps the
+		// circuit, its gotos copied into a piece the route's lines brought none (below), and a piece of
+		// nothing but accepts and hand-ins is no circuit, so no `loop` (Westfall's Longshore murlocs, 0.4.0
+		// round: the Gills on a later visit took the gotos before them along, and the Murloc Eyes' piece
+		// kept a `loop` with no point, which the pack check refuses).
+		let circuit_piece: Option<Vec<&Line>> = (!whole && s.lines.iter().any(|l| l.kind == Kind::Every && trim(split_comment(&l.text).0) == "loop"))
+			.then(|| keys.unwrap_or_default().iter().flat_map(|k| cx.before.get(k).into_iter().flatten().chain(s.line(k.1)).chain(cx.after.get(k).into_iter().flatten())).collect());
+		let circuit_work = circuit_piece.as_ref().is_some_and(|p| p.iter().any(|l| l.kind == Kind::Goal && !matches!(head(&l.text), Some("accept" | "turnin" | "goto" | "note"))));
 		for l in &s.lines {
+			if circuit_piece.is_some() && !circuit_work && trim(split_comment(&l.text).0) == "loop" {
+				continue;
+			}
 			if l.kind == Kind::Every || (first && matches!(l.kind, Kind::First | Kind::Other)) {
 				self.push(l.text.clone());
 				if is_head_ws(&l.text, "zone") {
 					self.g.zone = Some(trim(&re!(r"^\s+zone\s+").replace(&l.text, "")).to_string());
+				}
+			}
+		}
+		if let (Some(piece), true) = (&circuit_piece, circuit_work) {
+			if piece.iter().filter(|l| is_head_ws(&l.text, "goto")).count() < 2 {
+				let have: FxHashSet<Key> = piece.iter().map(|l| l.key()).collect();
+				for l in s.lines.iter().filter(|l| is_head_ws(&l.text, "goto") && !have.contains(&l.key())) {
+					self.push(l.text.clone());
 				}
 			}
 		}
@@ -7267,10 +7387,8 @@ impl Writer<'_, '_> {
 				if let Some(t) = tram {
 					// (The tram between the two cities, the Warriors' Defensive Stance in Stormwind from
 					// Ironforge: no flight round about.)
-					if let Some(d) = cx.w(t.dep).filter(|d| d.map != here.map && js_hypot(d.wx - here.wx, d.wy - here.wy) > ZONE_STEP_YD) {
-						if let Some(z) = cx.zone_name(Some(d.map)) {
-							self.goto_step(t.dep, &z, true);
-						}
+					if cx.w(t.dep).is_some_and(|d| d.map != here.map && js_hypot(d.wx - here.wx, d.wy - here.wy) > ZONE_STEP_YD) {
+						self.goto_step(t.dep, &cx.dest_label(t.dep, None), true);
 					}
 					self.goto_step(t.dep, &format!("{} to {}", t.kind, t.dest), true);
 				} else if b.c == here.c && (b.map != here.map || js_hypot(b.wx - here.wx, b.wy - here.wy) > ZONE_STEP_YD) {
@@ -7287,7 +7405,7 @@ impl Writer<'_, '_> {
 							_ => w,
 						}
 					};
-					let label = cx.zone_name(Some(b.map)).unwrap_or_else(|| "Onward".into());
+					let label = cx.dest_label(p0, Some(trim(&re!(r"^step\s+").replace(&s.title, ""))));
 					if let Some((_, f0, f1)) = cx.best_flight_by(from, p0, &known, &yd) {
 						// (From where they are: over the crossings to its flight master, and on from where it
 						// lands, into another zone or far.)
@@ -7300,7 +7418,7 @@ impl Writer<'_, '_> {
 							self.goto_step(p0, &label, true);
 						}
 						out = Some((list.clone(), name));
-					} else if !(classes.iter().all(|c| *c == "Druid") && label == "Moonglade") && yd(from, p0).is_finite() {
+					} else if !(classes.iter().all(|c| *c == "Druid") && cx.zone_name(Some(b.map)).as_deref() == Some("Moonglade")) && yd(from, p0).is_finite() {
 						// (No flight quicker: their walk over the crossings, Thousand Needles up the Great Lift
 						// into the Barrens. Moonglade is the Druids' by their own spell.)
 						self.crossings(from, p0, true);
@@ -7313,12 +7431,10 @@ impl Writer<'_, '_> {
 						if let Some((f0, f1)) = cx.best_flight(from, best.dep, &known) {
 							let name = cx.world.nodes[f1].name.clone();
 							self.fly_step(f0, &name);
-						} else if let Some(d) = cx.w(best.dep).filter(|d| d.map != here.map && js_hypot(d.wx - here.wx, d.wy - here.wy) > ZONE_STEP_YD) {
+						} else if cx.w(best.dep).is_some_and(|d| d.map != here.map && js_hypot(d.wx - here.wx, d.wy - here.wy) > ZONE_STEP_YD) {
 							// (No flight there: the walk to the dock's zone, then the ride, the Undead Paladins'
 							// walk from the Crossroads to Orgrimmar's tower.)
-							if let Some(z) = cx.zone_name(Some(d.map)) {
-								self.goto_step(best.dep, &z, true);
-							}
+							self.goto_step(best.dep, &cx.dest_label(best.dep, None), true);
 						}
 						self.goto_step(best.dep, &format!("{} to {}", best.kind, best.dest), true);
 					}
@@ -7576,17 +7692,18 @@ impl Writer<'_, '_> {
 						if fp.c == t.c && (fp.map != t.map || js_hypot(fp.wx - t.wx, fp.wy - t.wy) > ZONE_STEP_YD) {
 							let z = cx.zone_name(Some(t.map)).unwrap_or_default();
 							self.push(format!("  zone {z}"));
-							self.push(format!("  goto {},{} \"{z}\"{}", c[0], c[1], c[3]));
+							self.push(format!("  goto {},{} \"{}\"{}", c[0], c[1], cx.dest_label(to, None), c[3]));
 						}
 					}
 				}
 				None => {
 					let Some(c) = coords_re(&cx.coords_of(to)) else { continue };
 					let z = cx.zone_name(c[2].parse().ok()).unwrap_or_default();
-					self.push(format!("step Back to {z}"));
+					let l = cx.dest_label(to, None);
+					self.push(format!("step {}", l.strip_prefix("To ").map_or_else(|| l.clone(), |t| format!("Back to {t}"))));
 					self.push(format!("  only {cl}"));
 					self.push(format!("  zone {z}"));
-					self.push(format!("  goto {},{} \"{z}\"{}", c[0], c[1], c[3]));
+					self.push(format!("  goto {},{} \"{l}\"{}", c[0], c[1], c[3]));
 				}
 			}
 			self.g.zone = None;
@@ -7971,11 +8088,36 @@ fn level_targets(order: &[Order], data: &Data) -> FxHashMap<Key, f64> {
 
 /// A grind top-up the route inserts (a `level` item with no v1 line, at its fractional `target`): a step
 /// of its own at the route's point for it, the camp of the work before it, skipped by a player already
-/// there (`when level<N`). Its tip says what it is for: the hand-ins after it, which finish the next
-/// level. None for a grind v1 has a line for (written there) or one with no target.
+/// there (`when level<N`). Its tip says what it is for: the hand-ins after it, and the level they take
+/// the player to, reckoned from their XP. None for a grind v1 has a line for (written there) or one with
+/// no target.
+///
+/// The target is the level the route needs after the hand-ins that follow it, before anything needs
+/// the level (an accept with a level the player is not yet at, or the next grind): their XP is taken off
+/// it, and a grind they cover whole is not written (the grind-or-hand-in review: "3,233 XP to go" at the camp before
+/// Brackenwall, with 7,600 XP of Brackenwall hand-ins in the log, #1431).
 fn level_ins(cx: &Ctx, order: &[Order], oi: usize) -> Option<Ins> {
 	let o = &order[oi];
-	let lvl = o.target.filter(|_| o.key.is_none())?;
+	let need = o.target.filter(|_| o.key.is_none())?;
+	let at = o.lvl.filter(|&l| l < need).unwrap_or(need);
+	// (A quest's reward at the player's level: its XP, else the estimate from its level.)
+	let xp_of = |q: Option<u32>, player: f64| -> f64 {
+		let Some(r) = q.and_then(|q| cx.data.quests.get(&q)) else { return 0.0 };
+		let Some(ql) = r.level.or(r.min_level) else { return 0.0 };
+		let full = r.xp.filter(|&x| x > 0.0).unwrap_or_else(|| forge_guide::xp::base_quest_xp(ql));
+		forge_guide::xp::quest_xp_at(full, player.floor(), ql)
+	};
+	// The hand-ins before the level is needed: up to the next grind, or an accept the player at the
+	// grind's start is too low for.
+	let ahead = order[oi + 1..].iter().take_while(|x| x.t != OrderT::Level);
+	let needed_by = |x: &Order| x.t == OrderT::Accept && x.q.and_then(|q| cx.data.quests.get(&q)).and_then(|r| r.min_level).is_some_and(|m| m > at.floor());
+	// (A route with no level before the grind, or an old one's `lvl` that is the target: as it is.)
+	let before: f64 = if o.lvl.is_some_and(|l| l < need) { ahead.clone().take_while(|x| !needed_by(x)).filter(|x| x.t == OrderT::Turnin).map(|x| xp_of(x.q, at)).sum() } else { 0.0 };
+	let lvl = crate::level_fit::level_of((crate::level_fit::total_xp(need) - before).max(0.0));
+	if before > 0.0 && lvl <= at {
+		return None;
+	}
+	let lvl = if before > 0.0 { lvl } else { need };
 	let n = level_str(lvl);
 	let (target, pt, _, spot) = grind_camp(cx, order, oi, oi + 1, o.pt, false);
 	let mut lines = vec![format!("  when level<{n}")];
@@ -7985,8 +8127,11 @@ fn level_ins(cx: &Ctx, order: &[Order], oi: usize) -> Option<Ins> {
 		.find(|x| x.t == OrderT::Turnin)
 		.and_then(|t| cx.w(t.pt))
 		.and_then(|p| cx.area_at.and_then(|a| a.at(p.c, p.wx, p.wy)).map(|a| a.name).filter(|s| !s.is_empty() && !s.starts_with("area ")).or_else(|| cx.zone_name(Some(p.map))));
-	let next = lvl.floor() as i64 + 1;
-	// (An accept this top-up is for, before any hand-in: named, Rev15OrcTroll B3.)
+	// (The level the hand-ins up to the next grind take a player at the target to, from their XP.)
+	let all: f64 = ahead.filter(|x| x.t == OrderT::Turnin).map(|x| xp_of(x.q, lvl)).sum();
+	let reached = crate::level_fit::level_of(crate::level_fit::total_xp(lvl) + all).floor() as i64;
+	let next = (reached > lvl.floor() as i64).then_some(reached);
+	// (An accept this top-up is for, before any hand-in: named, c15 review B3.)
 	let area_of = |pt: Option<u32>| {
 		cx.w(pt).and_then(|p| cx.area_at.and_then(|a| a.at(p.c, p.wx, p.wy)).map(|a| a.name).filter(|s| !s.is_empty() && !s.starts_with("area ")).or_else(|| cx.zone_name(Some(p.map))))
 	};
@@ -7995,13 +8140,15 @@ fn level_ins(cx: &Ctx, order: &[Order], oi: usize) -> Option<Ins> {
 		let min = r.min_level.filter(|&m| m > o.lvl.unwrap_or(0.0) && m <= lvl)?;
 		Some((r.title.clone()?, min, area_of(x.pt)))
 	});
-	let mut tip = match (gate, &hub) {
-		(Some((title, min, Some(h))), _) => format!("  tip Top up here to level {n}: {title}, at {h}, needs level {}.", level_str(min)),
-		(Some((title, min, None)), _) => format!("  tip Top up here to level {n}: {title} needs level {}.", level_str(min)),
-		(None, Some(h)) => format!("  tip Top up here to level {n} before the hand-ins at {h}: they take you to level {next}."),
-		(None, None) => format!("  tip Top up here to level {n} before the hand-ins that follow: they take you to level {next}."),
+	let mut tip = match (gate, &hub, next) {
+		(Some((title, min, Some(h))), _, _) => format!("  tip Top up here to level {n}: {title}, at {h}, needs level {}.", level_str(min)),
+		(Some((title, min, None)), _, _) => format!("  tip Top up here to level {n}: {title} needs level {}.", level_str(min)),
+		(None, Some(h), Some(next)) => format!("  tip Top up here to level {n} before the hand-ins at {h}: they take you to level {next}."),
+		(None, Some(h), None) => format!("  tip Top up here to level {n} before the hand-ins at {h}."),
+		(None, None, Some(next)) => format!("  tip Top up here to level {n} before the hand-ins that follow: they take you to level {next}."),
+		(None, None, None) => format!("  tip Top up here to level {n} before the hand-ins that follow."),
 	};
-	if let Some(d) = grind_dungeon_tip(cx.fac, lvl) {
+	if let Some(d) = grind_dungeon_tip(cx.fac, lvl, &cx.near_at(order, oi, pt)) {
 		tip = format!("{tip} {d}");
 	}
 	lines.push(tip);
@@ -8013,7 +8160,7 @@ fn level_ins(cx: &Ctx, order: &[Order], oi: usize) -> Option<Ins> {
 /// (the camp's mob) and point, whether the camp is local, and the camp mob's spawn nearest the point
 /// when none is near it (the arrow goes there). The camp: an objective worked shortly
 /// before it whose mobs are many (not one named or rare mob's spot: the Bloodtalon Matriarch on the
-/// Echo Isles, Rev14OrcTroll B3), hostile and about the player's level, near where the player is, else
+/// Echo Isles, c14 review B3), hostile and about the player's level, near where the player is, else
 /// the route's nearest one in the player's zone (local); else the route's next such camp, never in a
 /// city; else where the player is. `own`: the route's own point for the grind. `solo`: for a player
 /// alone, no camp of elites or of a group family's work.
@@ -8045,7 +8192,7 @@ fn grind_camp(cx: &Ctx, order: &[Order], before: usize, after: usize, own: Optio
 	let named = |e: &Entity, one: bool| e.rank.is_some_and(|r| r == 2.0 || r == 4.0) || (one && e.spawns.values().map(|s| s.pts.len()).sum::<usize>() < MANY_SPAWNS);
 	let elite = |e: &Entity| solo && e.rank.is_some_and(|r| r == 1.0 || r == 3.0);
 	// (Not a mob of the player's own side, General Marcus Jonathan for a kill credit in Winterspring's
-	// top-up, nor one far under the player, Teldrassil's at 52, c17 RevA 3.)
+	// top-up, nor one far under the player, Teldrassil's at 52, c17 review, item 3.)
 	let hostile = |e: &Entity| !e.faction.as_deref().is_some_and(|f| f.contains(cx.fac));
 	let on_level = |e: &Entity| lvl.zip(e.level).is_none_or(|(l, m)| m + CAMP_LVL_GAP >= l);
 	let camp = |w: &Order| -> Option<&Entity> {
@@ -8068,11 +8215,11 @@ fn grind_camp(cx: &Ctx, order: &[Order], before: usize, after: usize, own: Optio
 		_ => f64::INFINITY,
 	};
 	// (Else one the route works next, near the player: the Razormane huts 300 yd west of Razor Hill for
-	// the Orcs' level 10, not "Grind spot" in the middle of the town, Rev15OrcTroll B3.)
+	// the Orcs' level 10, not "Grind spot" in the middle of the town, c15 review B3.)
 	// (Else the route's camp in the town's zone nearest it; else, in a city or a zone with no camp at
 	// the player's level (Rut'theran at 52), the route's next camp in the field, where it goes on to:
 	// not Stormwind's or Ironforge's streets, nor Booty Bay's, for a skipped group quest's XP, c17
-	// RevA 3.) `local`: a camp by the player or in their zone.
+	// review, item 3.) `local`: a camp by the player or in their zone.
 	let task_camp = |w: &&Order| w.t == OrderT::Task && camp(w).is_some();
 	let local =
 		order[..before].iter().rev().take(CAMP_BACK).filter(task_camp).find(|w| near_here(w.pt)).or_else(|| order[after..].iter().take(CAMP_BACK).filter(task_camp).find(|w| near_here(w.pt))).or_else(
@@ -8117,40 +8264,113 @@ fn grind_lines(cx: &Ctx, target: &Option<(String, Option<u32>)>, pt: Option<u32>
 }
 
 /// Dungeons a grind step may name instead of its grind (Fitz's grind policy, 2026-11-08; never a raid):
-/// name, wing, lowest and highest level of the band it suits, and the faction letter it is for (' ' for
-/// both: the entrance is on that side's ground, Ragefire Chasm in Orgrimmar, the Stockade in Stormwind).
-const GRIND_DUNGEONS: [(&str, &str, u32, u32, char); 21] = [
+/// name, wing, lowest and highest level of its range, and the faction letter it is for (' ' for both:
+/// the entrance is on that side's ground, Ragefire Chasm in Orgrimmar, the Stockade in Stormwind). The
+/// range is the Codex's (forge-data journal.rs `levels_of`, Fitz, 2026-11-13): the client's Group Finder,
+/// never under the client's own minimum (Wailing Caverns from 17, The Shaper's Terrace 60), The Hall of
+/// Thanes to 18 (data/codex/levels.json). A tip names one only when its run in the route is near
+/// (`dungeons_near`).
+const GRIND_DUNGEONS: [(&str, &str, u32, u32, char); 30] = [
 	("Ragefire Chasm", "", 13, 18, 'H'),
 	("Wailing Caverns", "", 17, 24, ' '),
-	("Deadmines", "", 17, 24, 'A'),
-	("Shadowfang Keep", "", 22, 30, ' '),
+	("Deadmines", "", 17, 26, 'A'),
+	("Shadowfang Keep", "", 20, 30, ' '),
 	("Blackfathom Deeps", "", 24, 32, ' '),
-	("Stockade", "", 24, 30, 'A'),
-	("Razorfen Kraul", "", 25, 30, ' '),
-	("Gnomeregan", "", 28, 32, 'A'),
-	("Scarlet Monastery", "Graveyard", 28, 32, ' '),
-	("Scarlet Monastery", "Library", 32, 36, ' '),
-	("Scarlet Monastery", "Armory", 34, 38, ' '),
-	("Scarlet Monastery", "Cathedral", 36, 40, ' '),
-	("Razorfen Downs", "", 35, 40, ' '),
-	("Uldaman", "", 40, 45, ' '),
-	("Zul'Farrak", "", 44, 48, ' '),
-	("Maraudon", "", 46, 52, ' '),
-	("Sunken Temple", "", 50, 54, ' '),
-	("Blackrock Depths", "", 52, 58, ' '),
+	("Stockade", "", 24, 32, 'A'),
+	("Razorfen Kraul", "", 29, 38, ' '),
+	("Gnomeregan", "", 29, 38, 'A'),
+	("Scarlet Monastery", "Graveyard", 30, 38, ' '),
+	("Scarlet Monastery", "Library", 33, 41, ' '),
+	("Scarlet Monastery", "Armory", 36, 44, ' '),
+	("Scarlet Monastery", "Cathedral", 38, 46, ' '),
+	("Razorfen Downs", "", 37, 46, ' '),
+	("Uldaman", "", 41, 51, ' '),
+	("Zul'Farrak", "", 44, 54, ' '),
+	("Maraudon", "", 46, 55, ' '),
+	("Sunken Temple", "", 50, 60, ' '),
+	("Blackrock Depths", "", 52, 60, ' '),
 	("Blackrock Spire", "Lower", 55, 60, ' '),
 	("Scholomance", "", 58, 60, ' '),
 	("Stratholme", "", 58, 60, ' '),
+	// Forever's own, after the Classic ones: a tie in the range goes to the older dungeon.
+	("Hall of Thanes", "", 13, 18, ' '),
+	("Ruins of Lordaeron", "", 15, 22, ' '),
+	("Excavation Site", "", 26, 33, ' '),
+	("City of Dalaran", "", 28, 35, ' '),
+	("Drowned City", "", 35, 42, ' '),
+	("Krol'dok Stronghold", "", 40, 47, ' '),
+	("Alcaz Prison", "", 48, 55, ' '),
+	("Blackmaw Hold", "", 55, 60, ' '),
+	("Shaper's Terrace", "", 60, 60, ' '),
 ];
 
-/// The sentence a grind step to level `lvl` ends its tip with: the (at most two) dungeons of the faction
-/// whose band holds the level, nearest band middle first ("Or, with a group, run the Razorfen Kraul
-/// dungeon instead."; two wings of one dungeon in one bracket). None below every band.
-fn grind_dungeon_tip(fac: char, lvl: f64) -> Option<String> {
+/// Where a dungeon run a grind tip names is, seen from the grind (`Ctx::near_at`): at the grind's stop or
+/// behind it in the same guide, later in the same guide, or in the next guide; with the zone of its way in.
+#[derive(Clone, Debug, PartialEq)]
+enum RunAt {
+	Here,
+	Later(String),
+	Next(String),
+}
+
+/// A dungeon run a grind tip in a guide may name (`dungeons_near`): its key (`dungeon_key`), whether it is
+/// in a guide the guide leads to, the route event its record says it follows (`run.after` when that is a
+/// quest's goal: whether it comes after a grind in the same guide), and the zone and continent of its way in.
+#[derive(Clone, Debug, PartialEq)]
+struct NearRun {
+	key: String,
+	next: bool,
+	after: Option<(String, u32)>,
+	zone: String,
+	cont: Option<i64>,
+}
+
+/// Of a guide's `runs` (`dungeons_near`), those a grind at the route's event `order[at]` in guide `f` on
+/// continent `cont` may name: the way in on the grind's continent (unknown on either side: kept), each
+/// with where it is from the grind: in the next guide, later in this one (its record's anchor comes after
+/// the grind among the guide's events), or here (at the grind's stop or behind it).
+fn runs_at(runs: &[NearRun], order: &[Order], at: usize, f: usize, cont: Option<i64>) -> Vec<(String, RunAt)> {
+	runs.iter()
+		.filter(|r| cont.is_none() || r.cont.is_none() || r.cont == cont)
+		.map(|r| {
+			let place = if r.next {
+				RunAt::Next(r.zone.clone())
+			} else if r.after.as_ref().is_some_and(|(goal, q)| order.iter().position(|o| o.key.is_some_and(|k| k.0 == f) && anchors(o, goal, *q)).is_some_and(|p| p > at)) {
+				RunAt::Later(r.zone.clone())
+			} else {
+				RunAt::Here
+			};
+			(r.key.clone(), place)
+		})
+		.collect()
+}
+
+/// Whether route event `o` is a dungeon record's anchor: quest `q`'s `goal` (accept, turnin, or its work).
+fn anchors(o: &Order, goal: &str, q: u32) -> bool {
+	o.q == Some(q)
+		&& match goal {
+			"accept" => o.t == OrderT::Accept,
+			"turnin" => o.t == OrderT::Turnin,
+			_ => o.t == OrderT::Task,
+		}
+}
+
+/// The sentences a grind step to level `lvl` ends its tip with (Fitz, 2026-11-13): of the dungeon runs
+/// `near` names (`dungeons_near`), the (at most two) of the faction whose range holds the level, nearest
+/// range middle first. A run at the grind's stop or behind it: "Or, with a group, run the City of Dalaran
+/// dungeon instead." (two wings of one dungeon in one bracket); a run still to come is named as coming
+/// up, never as a detour from the grind: "With a group, the Uldaman run in the next guide, in Badlands,
+/// makes up the difference." None below every range, or with none near.
+fn grind_dungeon_tip(fac: char, lvl: f64, near: &[(String, RunAt)]) -> Option<String> {
 	let n = lvl.floor() as u32;
-	let mut fit: Vec<(u32, usize)> = GRIND_DUNGEONS.iter().enumerate().filter(|(_, d)| (d.4 == ' ' || d.4 == fac) && d.2 <= n && n <= d.3).map(|(i, d)| ((d.2 + d.3).abs_diff(2 * n), i)).collect();
+	let place = |name: &str| near.iter().find(|(k, _)| *k == dungeon_key(name)).map(|(_, p)| p);
+	let mut fit: Vec<(u32, usize)> =
+		GRIND_DUNGEONS.iter().enumerate().filter(|(_, d)| (d.4 == ' ' || d.4 == fac) && d.2 <= n && n <= d.3 && place(d.0).is_some()).map(|(i, d)| ((d.2 + d.3).abs_diff(2 * n), i)).collect();
 	fit.sort();
 	let picks: Vec<(&str, &str)> = fit.iter().take(2).map(|&(_, i)| (GRIND_DUNGEONS[i].0, GRIND_DUNGEONS[i].1)).collect();
+	if picks.is_empty() {
+		return None;
+	}
 	let one = |name: &str, wings: &[&str]| {
 		let w: Vec<&str> = wings.iter().copied().filter(|w| !w.is_empty()).collect();
 		if w.is_empty() {
@@ -8159,13 +8379,87 @@ fn grind_dungeon_tip(fac: char, lvl: f64) -> Option<String> {
 			format!("the {name} dungeon ({})", w.join(" or "))
 		}
 	};
-	let what = match picks.as_slice() {
-		[] => return None,
-		[(a, w)] => one(a, &[w]),
-		[(a, w1), (b, w2)] if a == b => one(a, &[w1, w2]),
-		[(a, w1), (b, w2), ..] => format!("{} or {}", one(a, &[w1]), one(b, &[w2])),
-	};
-	Some(format!("Or, with a group, run {what} instead."))
+	let here: Vec<(&str, &str)> = picks.iter().copied().filter(|(a, _)| place(a) == Some(&RunAt::Here)).collect();
+	let mut out = Vec::new();
+	match here.as_slice() {
+		[] => {}
+		[(a, w)] => out.push(one(a, &[w])),
+		[(a, w1), (b, w2)] if a == b => out.push(one(a, &[w1, w2])),
+		[(a, w1), (b, w2), ..] => out.push(format!("{} or {}", one(a, &[w1]), one(b, &[w2]))),
+	}
+	let mut out: Vec<String> = out.into_iter().map(|what| format!("Or, with a group, run {what} instead.")).collect();
+	let mut named: Vec<&str> = Vec::new();
+	for &(a, _) in &picks {
+		if named.contains(&a) {
+			continue;
+		}
+		named.push(a);
+		let (when, zone) = match place(a) {
+			Some(RunAt::Later(z)) => ("later in this guide", z),
+			Some(RunAt::Next(z)) => ("in the next guide", z),
+			_ => continue,
+		};
+		let at = if zone.is_empty() { String::new() } else { format!(", in {zone},") };
+		out.push(format!("With a group, the {a} run {when}{at} makes up the difference."));
+	}
+	Some(out.join(" "))
+}
+
+/// The dungeon runs a grind tip in each guide of `chain` may name (Fitz, 2026-11-13): those whose run in
+/// the route (data/dungeon-runs.json, the faction's or both factions') is in that guide or one it leads to
+/// (its `next` lines), with the continent of the guide's header zone (for a grind whose own point is
+/// unknown); `runs_at` keeps those on the grind's continent. A dungeon the route never runs, or runs guides
+/// later or across the sea, is no alternative to a grind.
+fn dungeons_near(chain: &[String], guides: &BTreeMap<String, String>, runs: Option<&serde_json::Value>, world: &World, fac: char) -> Vec<(Option<i64>, Vec<NearRun>)> {
+	let mut cont: FxHashMap<u32, i64> = FxHashMap::default();
+	for p in &world.points {
+		cont.entry(p.map).or_insert(p.c);
+	}
+	let zone_map: FxHashMap<&str, u32> = world.zones.iter().map(|(k, v)| (v.as_str(), *k)).collect();
+	let side = if fac == 'H' { "Horde" } else { "Alliance" };
+	// (key, guide, continent of the way in, anchor, zone of the way in)
+	type Rec = (String, String, Option<i64>, Option<(String, u32)>, String);
+	let runs: Vec<Rec> = runs
+		.and_then(|r| r.get("runs"))
+		.and_then(|r| r.as_array())
+		.map(|a| {
+			a.iter()
+				.filter_map(|r| {
+					let f = r.get("faction")?.as_str()?;
+					if f != side && f != "Both" {
+						return None;
+					}
+					let run = r.get("run")?;
+					let map = run.get("entrance").and_then(|e| e.get("map")).and_then(|m| m.as_u64()).map(|m| m as u32);
+					let after = run.get("after").and_then(|a| Some((a.get("goal")?.as_str()?.to_string(), u32::try_from(a.get("quest")?.as_u64()?).ok()?)));
+					let zone = map.and_then(|m| world.zones.get(&m).cloned()).unwrap_or_default();
+					Some((dungeon_key(r.get("dungeon")?.as_str()?), run.get("guide")?.as_str()?.to_string(), map.and_then(|m| cont.get(&m).copied()), after, zone))
+				})
+				.collect()
+		})
+		.unwrap_or_default();
+	chain
+		.iter()
+		.map(|f| {
+			let text = guides.get(f).map(String::as_str).unwrap_or("");
+			let own = f.trim_end_matches(".guide").to_string();
+			let next: Vec<String> = re!(r"(?m)^next\s+(\S+)").captures_iter(text).map(|m| m[1].to_string()).collect();
+			let c = re!(r"(?m)^zone\s+(.+?)\s*$").captures(text).and_then(|m| zone_map.get(&m[1]).copied()).and_then(|m| cont.get(&m).copied());
+			let near = runs
+				.iter()
+				.filter(|(_, g, _, _, _)| *g == own || next.contains(g))
+				.map(|(k, g, rc, after, zone)| NearRun { key: k.clone(), next: *g != own, after: if *g == own { after.clone() } else { None }, zone: zone.clone(), cont: *rc })
+				.collect();
+			(c, near)
+		})
+		.collect()
+}
+
+/// A dungeon's name as the grind tips and data/dungeon-runs.json compare it: lowercase, without a leading
+/// "The" and what follows a colon ("Excavation Site: Wetlands").
+fn dungeon_key(name: &str) -> String {
+	let n = name.split(':').next().unwrap_or(name).trim();
+	n.strip_prefix("The ").unwrap_or(n).to_lowercase()
 }
 
 /// A route's solo fallback after its event `p` (the order's index): the grind a player who skipped the
@@ -8177,9 +8471,9 @@ fn solo_fallback_ins(cx: &Ctx, order: &[Order], p: usize, root: u32, title: &str
 	let n = level_str(target);
 	let (camp, pt, _, spot) = grind_camp(cx, order, p + 1, p + 1, None, true);
 	// (A title's quotes, Wanted: "Hogger", are no quote of the tip's: the pack reads a quoted part and
-	// refuses the comma after it, C14Plan.)
+	// refuses the comma after it, the c14 plan.)
 	let plain = re!(r"\s+").replace_all(&title.replace('"', ""), " ").into_owned();
-	let dungeon = grind_dungeon_tip(cx.fac, target).map(|d| format!(" {d}")).unwrap_or_default();
+	let dungeon = grind_dungeon_tip(cx.fac, target, &cx.near_at(order, p, pt)).map(|d| format!(" {d}")).unwrap_or_default();
 	let mut lines = vec![format!("  when !group {root}"), format!("  when level<{n}"), format!("  tip If you skipped {plain}, grind here to level {n} to stay on the route's plan.{dungeon}")];
 	lines.extend(grind_lines(cx, &camp, pt, spot.as_ref(), &n));
 	(Ins { title: format!("Level {n}"), lines, map: spot.as_ref().map(|s| s.map).or_else(|| cx.map_of_pt(pt)) }, pt)
@@ -8259,7 +8553,7 @@ fn fold_topups(lines: Vec<String>, tops: &FxHashMap<String, TopUp>) -> Vec<Strin
 		}
 		let line = b.lines.iter().find(|l| level_re.is_match(l))?.clone();
 		// (Not one that holds other work: the route's bind flushed into it, the Night Elves' Auberdine
-		// sethome, lost with the folded step, Rev15NightElf.)
+		// sethome, lost with the folded step, c15 review.)
 		if b.lines.iter().skip(1).any(|l| is_goal(split_comment(l).0) && !re!(r"^\s+(level|goto)\b").is_match(l)) {
 			return None;
 		}
@@ -9503,7 +9797,7 @@ fn stale_skip_notes(cx: &Ctx, lines: Vec<String>, taken: &FxHashSet<u32>) -> Vec
 }
 
 /// A section rule (`# ---- Menethil Harbor`) with no step under it, the next rule right after (blank
-/// lines between), goes: its steps went elsewhere in the route (RevA1-3 A11, three rules in a row in
+/// lines between), goes: its steps went elsewhere in the route (review A11, three rules in a row in
 /// Ashenvale). A guide's last rule stays.
 fn empty_sections(lines: Vec<String>) -> Vec<String> {
 	let rule = |l: &str| l.starts_with("# --");
@@ -9520,7 +9814,7 @@ fn empty_sections(lines: Vec<String>) -> Vec<String> {
 
 /// A step's tip that another tip of the step already says, word for word at its start ("Captain
 /// Stoutfist stands in Menethil Keep." beside "... Menethil Keep, a short walk from Karl Boran."), goes
-/// (RevA1-3 A11: two pieces of v1's steps met in one).
+/// (review A11: two pieces of v1's steps met in one).
 fn dup_tips(lines: Vec<String>) -> Vec<String> {
 	let tip_text = |l: &str| re!(r"^\s+tip\s+(.+?)\s*$").captures(l).map(|m| m[1].trim_end_matches('.').to_string());
 	let mut drop: FxHashSet<usize> = FxHashSet::default();
@@ -9599,7 +9893,7 @@ fn dup_goto_steps(lines: Vec<String>) -> Vec<String> {
 /// Solo fallbacks one after another at one camp, with only group players' steps (`when group`)
 /// between, are one step at the last one's place and the highest level: a player who skipped any of
 /// them grinds there once (Searing Gorge's five fallbacks at one Stranglethorn camp, one per group
-/// quest, c17 RevA 3). With more than one group quest it holds for whoever is under its level (the
+/// quest, c17 review, item 3). With more than one group quest it holds for whoever is under its level (the
 /// group player is there already); its tip names them all.
 fn merge_solo_fallbacks(lines: Vec<String>) -> Vec<String> {
 	let starts: Vec<usize> = (0..lines.len()).filter(|&i| crate::jsre::is_step(&lines[i])).collect();
@@ -9698,7 +9992,7 @@ fn merge_solo_fallbacks(lines: Vec<String>) -> Vec<String> {
 
 /// A step titled for an NPC none of its accepts and hand-ins is at, its first goal an accept or
 /// hand-in at another NPC, is named for that NPC: a piece of v1's step the route split off, Deputy
-/// Willem's accept in the step titled "Eagan Peltskinner" (RevHuman3 H7), Senator Mehr's and Frast's
+/// Willem's accept in the step titled "Eagan Peltskinner" (review H7), Senator Mehr's and Frast's
 /// in "Earthseer Farsen" (D5). (After the tips follow their NPCs: they find a split step's pieces by
 /// its title.)
 fn npc_titles(cx: &Ctx, lines: Vec<String>) -> Vec<String> {
@@ -10279,7 +10573,7 @@ mod tests {
 
 	#[test]
 	fn solo_fallbacks_in_a_row_at_one_camp_are_one_step_at_the_last_level() {
-		// c17 RevA 3, Searing Gorge: five fallbacks at one Stranglethorn camp, one per group quest, with
+		// c17 review, item 3, Searing Gorge: five fallbacks at one Stranglethorn camp, one per group quest, with
 		// only the group players' steps between.
 		let fb = |root: &str, title: &str, n: &str| {
 			v(&[
@@ -10321,15 +10615,97 @@ mod tests {
 		assert_eq!(merge_solo_fallbacks(one.clone()), one);
 	}
 
+	/// Every dungeon of the table, run here.
+	fn here_all() -> Vec<(String, RunAt)> {
+		GRIND_DUNGEONS.iter().map(|d| (dungeon_key(d.0), RunAt::Here)).collect()
+	}
+
 	#[test]
-	fn grind_dungeon_tip_names_up_to_two_dungeons_of_the_band_for_the_faction() {
-		assert_eq!(grind_dungeon_tip('H', 12.9), None);
-		assert_eq!(grind_dungeon_tip('H', 13.0).as_deref(), Some("Or, with a group, run the Ragefire Chasm dungeon instead."));
-		assert_eq!(grind_dungeon_tip('A', 13.0), None);
-		assert_eq!(grind_dungeon_tip('A', 21.4).as_deref(), Some("Or, with a group, run the Wailing Caverns dungeon or the Deadmines dungeon instead."));
-		assert_eq!(grind_dungeon_tip('H', 29.49).as_deref(), Some("Or, with a group, run the Blackfathom Deeps dungeon or the Scarlet Monastery dungeon (Graveyard) instead."));
-		assert_eq!(grind_dungeon_tip('H', 34.0).as_deref(), Some("Or, with a group, run the Scarlet Monastery dungeon (Library or Armory) instead."));
-		assert_eq!(grind_dungeon_tip('A', 59.5).as_deref(), Some("Or, with a group, run the Scholomance dungeon or the Stratholme dungeon instead."));
+	fn grind_dungeon_tip_names_up_to_two_dungeons_of_the_range_for_the_faction() {
+		let all = here_all();
+		assert_eq!(grind_dungeon_tip('H', 12.9, &all), None);
+		assert_eq!(grind_dungeon_tip('H', 13.0, &all).as_deref(), Some("Or, with a group, run the Ragefire Chasm dungeon or the Hall of Thanes dungeon instead."));
+		assert_eq!(grind_dungeon_tip('A', 21.4, &all).as_deref(), Some("Or, with a group, run the Wailing Caverns dungeon or the Deadmines dungeon instead."));
+		let sm = [(dungeon_key("Scarlet Monastery"), RunAt::Here)];
+		assert_eq!(grind_dungeon_tip('H', 38.0, &sm).as_deref(), Some("Or, with a group, run the Scarlet Monastery dungeon (Library or Armory) instead."));
+		assert_eq!(grind_dungeon_tip('A', 59.5, &all).as_deref(), Some("Or, with a group, run the Scholomance dungeon or the Stratholme dungeon instead."));
+	}
+
+	/// Fitz, 2026-11-13: a grind tip names a dungeon only when its run is near: in the guide or the one it
+	/// leads to, with the way in on the guide's continent, and its range (the Codex's: the client's Group
+	/// Finder) holds the level. A run still to come is named as coming up, never as a detour from the grind.
+	#[test]
+	fn grind_tips_name_only_dungeons_run_in_this_guide_or_the_next_on_its_continent() {
+		let here = |names: &[&str]| names.iter().map(|n| (dungeon_key(n), RunAt::Here)).collect::<Vec<_>>();
+		assert_eq!(grind_dungeon_tip('H', 29.49, &here(&["Blackfathom Deeps"])).as_deref(), Some("Or, with a group, run the Blackfathom Deeps dungeon instead."));
+		assert_eq!(grind_dungeon_tip('H', 29.49, &here(&[])), None, "no run near: no dungeon");
+		assert_eq!(grind_dungeon_tip('H', 32.5, &here(&["Razorfen Kraul"])).as_deref(), Some("Or, with a group, run the Razorfen Kraul dungeon instead."), "29-38 by the Group Finder");
+		assert_eq!(grind_dungeon_tip('A', 36.0, &here(&["City of Dalaran"])), None, "a run near but out of its range");
+		// Coming up: later in this guide, or in the next one, with the zone of its way in.
+		let later = [(dungeon_key("City of Dalaran"), RunAt::Later("Alterac Mountains".into()))];
+		assert_eq!(grind_dungeon_tip('A', 30.8, &later).as_deref(), Some("With a group, the City of Dalaran run later in this guide, in Alterac Mountains, makes up the difference."));
+		let next = [(dungeon_key("Uldaman"), RunAt::Next("Badlands".into()))];
+		assert_eq!(grind_dungeon_tip('A', 42.16, &next).as_deref(), Some("With a group, the Uldaman run in the next guide, in Badlands, makes up the difference."));
+		let both = [(dungeon_key("Stratholme"), RunAt::Here), (dungeon_key("Scholomance"), RunAt::Later("Western Plaguelands".into()))];
+		assert_eq!(
+			grind_dungeon_tip('A', 59.85, &both).as_deref(),
+			Some("Or, with a group, run the Stratholme dungeon instead. With a group, the Scholomance run later in this guide, in Western Plaguelands, makes up the difference.")
+		);
+		let w = World {
+			points: vec![Pt { c: 0, wx: 0.0, wy: 0.0, map: 1416 }, Pt { c: 0, wx: 0.0, wy: 0.0, map: 1424 }, Pt { c: 1, wx: 0.0, wy: 0.0, map: 1446 }],
+			zones: [(1416, "Alterac Mountains".to_string()), (1424, "Hillsbrad Foothills".to_string()), (1446, "Tanaris".to_string())].into_iter().collect(),
+			..World::default()
+		};
+		let runs = serde_json::json!({ "runs": [
+			{ "dungeon": "City of Dalaran", "faction": "Alliance", "run": { "guide": "forever/alliance/30-40/01-hillsbrad-foothills", "after": { "quest": 512, "goal": "turnin" }, "entrance": { "map": 1416 } } },
+			{ "dungeon": "Zul'Farrak", "faction": "Alliance", "run": { "guide": "forever/alliance/30-40/02-arathi", "entrance": { "map": 1446 } } },
+			{ "dungeon": "The Deadmines", "faction": "Horde", "run": { "guide": "forever/alliance/30-40/01-hillsbrad-foothills", "entrance": { "map": 1424 } } },
+		] });
+		let guides: BTreeMap<String, String> = [
+			("forever/alliance/30-40/00-wetlands.guide".to_string(), "zone Wetlands\nnext forever/alliance/30-40/01-hillsbrad-foothills\n".to_string()),
+			("forever/alliance/30-40/01-hillsbrad-foothills.guide".to_string(), "zone Hillsbrad Foothills\nnext forever/alliance/30-40/02-arathi\n".to_string()),
+		]
+		.into_iter()
+		.collect();
+		let chain: Vec<String> = guides.keys().cloned().collect();
+		let n = dungeons_near(&chain, &guides, Some(&runs), &w, 'A');
+		let dalaran = |next: bool| NearRun { key: "city of dalaran".into(), next, after: (!next).then(|| ("turnin".to_string(), 512)), zone: "Alterac Mountains".into(), cont: Some(0) };
+		let zf = NearRun { key: "zul'farrak".into(), next: true, after: None, zone: "Tanaris".into(), cont: Some(1) };
+		assert_eq!(n[0], (None, vec![dalaran(true)]), "the next guide's run; the header zone with no point has no continent");
+		assert_eq!(n[1], (Some(0), vec![dalaran(false), zf.clone()]), "its own run, with its anchor, and the next guide's; the Horde's Deadmines is not the Alliance's");
+		// The grind's continent keeps the runs on it: Zul'Farrak is across the sea from a grind in Hillsbrad.
+		assert_eq!(runs_at(&n[1].1, &[], 0, 1, Some(0)), [("city of dalaran".to_string(), RunAt::Here)]);
+		assert_eq!(runs_at(&n[1].1, &[], 0, 1, Some(1)), [("zul'farrak".to_string(), RunAt::Next("Tanaris".into()))]);
+		assert_eq!(runs_at(&n[1].1, &[], 0, 1, None).len(), 2, "a grind with no continent keeps both");
+	}
+
+	/// A run in the grind's own guide is still to come when its record's anchor is among the guide's events
+	/// after the grind; at or before it, the run is here.
+	#[test]
+	fn a_run_whose_anchor_comes_after_the_grind_is_named_later_in_this_guide() {
+		let ev = |t: &str, q: u32, f: usize| {
+			let mut o = serde_json::from_value::<Order>(serde_json::json!({ "t": t, "q": q })).unwrap();
+			o.key = Some((f, 0));
+			o
+		};
+		let order = [ev("accept", 1, 3), ev("turnin", 512, 3), ev("accept", 2, 3)];
+		let runs = [NearRun { key: "city of dalaran".into(), next: false, after: Some(("turnin".into(), 512)), zone: "Alterac Mountains".into(), cont: Some(0) }];
+		assert_eq!(runs_at(&runs, &order, 0, 3, Some(0)), [("city of dalaran".to_string(), RunAt::Later("Alterac Mountains".into()))]);
+		assert_eq!(runs_at(&runs, &order, 1, 3, Some(0)), [("city of dalaran".to_string(), RunAt::Here)], "at the anchor: here");
+		assert_eq!(runs_at(&runs, &order, 2, 3, Some(0)), [("city of dalaran".to_string(), RunAt::Here)], "behind it: here");
+		assert_eq!(runs_at(&runs, &order, 0, 4, Some(0)), [("city of dalaran".to_string(), RunAt::Here)], "the anchor in another guide's events: not later in this one");
+	}
+
+	/// Whether a run in the same guide comes after the grind: its record's anchor among the guide's events.
+	#[test]
+	fn a_run_anchor_is_its_quests_accept_turn_in_or_work() {
+		let o = |t: &str, q: u32| serde_json::from_value::<Order>(serde_json::json!({ "t": t, "q": q })).unwrap();
+		assert!(anchors(&o("accept", 92458), "accept", 92458));
+		assert!(!anchors(&o("turnin", 92458), "accept", 92458));
+		assert!(anchors(&o("turnin", 155), "turnin", 155));
+		assert!(anchors(&o("task", 852), "objective", 852));
+		assert!(anchors(&o("task", 992), "use", 992));
+		assert!(!anchors(&o("task", 991), "use", 992));
 	}
 
 	#[test]
@@ -10385,7 +10761,7 @@ mod tests {
 
 	#[test]
 	fn a_top_up_step_holding_the_routes_bind_is_not_folded_away() {
-		// Rev15NightElf (24): the Night Elves' Auberdine sethome was written into a `Level 12` step that
+		// c15 review (24): the Night Elves' Auberdine sethome was written into a `Level 12` step that
 		// then folded into the farm step before it, and the bind went with it.
 		let farm = v(&["step Crawlers", "  zone Darkshore", "  collect 1 quest 983", ""]);
 		let top = v(&[

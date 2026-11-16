@@ -15,7 +15,7 @@ zone Eastern Plaguelands
 # Entrance at Elders' Square).
 # The Service Entrance is at 41.5,17.7 on Forever's Eastern Plaguelands map:
 # objects.json places it at 47.9,23.8 on the Era map, which Forever redrew
-# (converted with both maps' frames in map-frames.json, as
+# (moved to Forever's map frame with both maps' frames in map-frames.json, as
 # data/codex/entrances.json notes). This guide used the Era position as
 # a live one until 0.2.4.
 

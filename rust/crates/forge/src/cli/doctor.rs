@@ -21,9 +21,6 @@ maps, the walking grid and the walks backend. Exits 1 when the build could not r
 /// The maps the leveling routes walk: Eastern Kingdoms, Kalimdor, Zephras Isle.
 const MAPS: [u32; 3] = [0, 1, 2991];
 
-/// The product Forge reads (the Forever client).
-const PRODUCT: &str = "wow_classic_beta";
-
 fn line(ok: bool, what: &str, text: &str) {
 	println!("{} {what:<22} {text}", if ok { "ok  " } else { "MISS" });
 }
@@ -82,7 +79,8 @@ pub fn main() -> ExitCode {
 	if let Some(w) = forge::game_running_warning() {
 		note("game closed", &w);
 	}
-	let mut client_dir: Option<PathBuf> = None;
+	// The game folder and the Forever product Forge reads in it.
+	let mut client_dir: Option<(PathBuf, String)> = None;
 	let found = forge_gamedata::find_install_how();
 	match &found {
 		Some((dir, how)) => {
@@ -94,19 +92,16 @@ pub fn main() -> ExitCode {
 			line(dir.join(".build.info").is_file(), "game folder", &format!("{} ({how})", dir.display()));
 			match forge_gamedata::casc::read_build_info(dir) {
 				Ok(rows) => {
+					let forever = forge_gamedata::casc::pick_forever(&rows).map(|r| r.product.clone());
 					for r in &rows {
-						let reads = if r.product == PRODUCT { "  <- Forge builds the grid from this one" } else { "" };
+						let reads = if forever.as_ref() == Some(&r.product) { "  <- Forge reads this one (the Forever client)" } else { "" };
 						println!("     {:<22} {} {}{}{reads}", "", r.product, r.version, if r.active { "" } else { " (inactive)" });
 					}
-					if !rows.iter().any(|r| r.product == PRODUCT) {
-						line(false, "Forever client", &format!("no {PRODUCT} build in this folder"));
-						fix("install World of Warcraft: Forever with the launcher, or pass --wow <the folder that holds it>");
-						ready = false;
-					} else {
-						match forge_gamedata::casc::Storage::open(dir, PRODUCT) {
+					if let Some(product) = forever {
+						match forge_gamedata::casc::Storage::open(dir, &product) {
 							Ok(s) => {
-								line(true, "Forever client", &format!("{PRODUCT} {} opens", s.version));
-								client_dir = Some(dir.clone());
+								line(true, "Forever client", &format!("{product} {} opens", s.version));
+								client_dir = Some((dir.clone(), product));
 							}
 							Err(e) => {
 								line(false, "Forever client", &e);
@@ -114,6 +109,11 @@ pub fn main() -> ExitCode {
 								ready = false;
 							}
 						}
+					} else {
+						let looked = forge_gamedata::casc::FOREVER_PRODUCTS.join(", then ");
+						line(false, "Forever client", &format!("no Forever build in this folder (looked for {looked})"));
+						fix("install World of Warcraft: Forever with the launcher (product wowf, folder _forever_), or pass --wow <the folder that holds it>");
+						ready = false;
 					}
 				}
 				Err(e) => {
@@ -186,9 +186,10 @@ pub fn main() -> ExitCode {
 		let grid = val("--grid").map(abs).or_else(|| std::env::var_os("POLESTAR_GRID").map(PathBuf::from)).unwrap_or_else(|| forge::grid_dir(None, r));
 		match forge::grid_build(&grid) {
 			Ok((_, b)) if saved.contains(&b) => line(true, "Forever tables", &format!("saved for the grid's build {b} ({})", forge_data::tables::saved_root(&sources).join(&b).display())),
-			Ok((p, b)) => {
+			Ok((_, b)) => {
 				line(false, "Forever tables", &format!("none saved for the grid's build {b} ({saved_text})"));
-				fix(&format!("forge build --forever-tables client with a Forever client at {b} installed ({p} or wowf), or --forever-tables wago with the wago.tools tables of {b} cached"));
+				let products = forge_gamedata::casc::FOREVER_PRODUCTS.join(" or ");
+				fix(&format!("forge build --forever-tables client with a Forever client at {b} installed ({products}), or --forever-tables wago with the wago.tools tables of {b} cached"));
 				ready = false;
 			}
 			Err(_) => note("Forever tables", &format!("{saved_text} (forge build reads the grid's build)")),
@@ -198,7 +199,7 @@ pub fn main() -> ExitCode {
 	// Is the install complete for the continents the grid is built for? (Needs the table
 	// definitions for Map.)
 	let mut incomplete = false;
-	if let (Some(dir), Some(r)) = (&client_dir, &data_root) {
+	if let (Some((dir, product)), Some(r)) = (&client_dir, &data_root) {
 		let defs = r.join("data/sources/wowdbdefs");
 		if defs.join("definitions").is_dir() {
 			let mut maps = forge::grid_continents(&r.join("data/forever"), None);
@@ -206,7 +207,7 @@ pub fn main() -> ExitCode {
 				maps = MAPS.to_vec();
 			}
 			let t = std::time::Instant::now();
-			match forge_gamedata::Client::open(dir, PRODUCT, &defs).and_then(|c| forge_gamedata::completeness::check(&c, Some(&maps))) {
+			match forge_gamedata::Client::open(dir, product, &defs).and_then(|c| forge_gamedata::completeness::check(&c, Some(&maps))) {
 				Ok(rep) if rep.complete() => {
 					line(true, "install complete", &format!("every file of the continents is in the archives ({} files, {:.1} s)", rep.files_checked, t.elapsed().as_secs_f64()))
 				}

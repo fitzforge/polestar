@@ -21,8 +21,8 @@ return {
 	["At 30 Skyborne shamans get their own {quest:96136}. {npc:259119} waits where the airship from Zephras Isle lands, in northern {zone:1412} beside {zone:1456}. Your level 30 air totems need the Air Totem Prate Cloudseer gives. If she has nothing for you, head up to {npc:5906} in {zone:1456} (next step): the trainers' {quest:96136} is open to Skyborne and gives the same totem."] = "30 级时，天裔萨满祭司会获得专属的 {quest:96136}。{npc:259119} 在泽风岛飞船的降落点等着，位于 {zone:1412} 北部、{zone:1456} 旁边。30 级的空气系图腾需要普拉特·白云给予的空气图腾。如果她不给任务，就上去找 {zone:1456} 的 {npc:5906}（下一步）：训练师提供的 {quest:96136} 也对天裔开放，奖励同一个图腾。",
 
 	-- Step 3: Xanis Flameweaver
-	-- {npc:5906} Xanis Flameweaver · {area:1640} Spirit Rise · {zone:1456} Thunder Bluff · {npc:5905} Prate Cloudseer · {zone:1441} Thousand Needles · {spell:10596} Nature Resistance · {npc:5892} Searn Firewarder · {quest:1531} Call of Air · {zone:1454} Orgrimmar
-	["At 30 {npc:5906}, a shaman trainer on {area:1640} in {zone:1456}, sends you to {npc:5905} in {zone:1441}. Your level 30 air totems (Grounding, {spell:10596}) need the Air Totem Prate gives. Already carry {npc:5892}'s {quest:1531} from {zone:1454}? It goes to {npc:5905} too: skip {npc:5906}."] = "30 级时，{zone:1456} 的 {area:1640} 上的萨满祭司训练师 {npc:5906} 会让你去 {zone:1441} 找 {npc:5905}。30 级的空气系图腾（根基图腾、{spell:10596}）需要普拉特给予的空气图腾。已经带着 {zone:1454} 的 {npc:5892} 给你的 {quest:1531}？它也是去找 {npc:5905}：跳过 {npc:5906} 即可。",
+	-- {npc:5906} Xanis Flameweaver · {area:1640} Spirit Rise · {zone:1456} Thunder Bluff · {npc:5905} Prate Cloudseer · {zone:1441} Thousand Needles · {spell:10596} Nature Resistance · {npc:5892} Searn Firewarder · {quest:1532} Call of Air · {zone:1454} Orgrimmar
+	["At 30 {npc:5906}, a shaman trainer on {area:1640} in {zone:1456}, sends you to {npc:5905} in {zone:1441}. Your level 30 air totems (Grounding, {spell:10596}) need the Air Totem Prate gives. Already carry {npc:5892}'s {quest:1532} from {zone:1454}? It goes to {npc:5905} too: skip {npc:5906}."] = "30 级时，{zone:1456} 的 {area:1640} 上的萨满祭司训练师 {npc:5906} 会让你去 {zone:1441} 找 {npc:5905}。30 级的空气系图腾（根基图腾、{spell:10596}）需要普拉特给予的空气图腾。已经带着 {zone:1454} 的 {npc:5892} 给你的 {quest:1532}？它也是去找 {npc:5905}：跳过 {npc:5906} 即可。",
 
 	-- Step 4: Prate Cloudseer
 	-- {area:484} Freewind Post · {npc:5905} Prate Cloudseer
@@ -86,6 +86,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 30 {npc:5892} in the {object:172957} sends you to {npc:5905} in {zone:1441}."] = "30级时，{object:172957}的{npc:5892}会让你去找{zone:1441}的{npc:5905}。",
 	-- ["At 30 {npc:5906}, a shaman trainer in {zone:1456}, sends you to {npc:5905} in {zone:1441}."] = "30级时，{zone:1456}的萨满祭司训练师{npc:5906}会让你去找{zone:1441}的{npc:5905}。",
+	-- ["At 30 {npc:5906}, a shaman trainer on {area:1640} in {zone:1456}, sends you to {npc:5905} in {zone:1441}. Your level 30 air totems (Grounding, {spell:10596}) need the Air Totem Prate gives. Already carry {npc:5892}'s {quest:1531} from {zone:1454}? It goes to {npc:5905} too: skip {npc:5906}."] = "30 级时，{zone:1456} 的 {area:1640} 上的萨满祭司训练师 {npc:5906} 会让你去 {zone:1441} 找 {npc:5905}。30 级的空气系图腾（根基图腾、{spell:10596}）需要普拉特给予的空气图腾。已经带着 {zone:1454} 的 {npc:5892} 给你的 {quest:1531}？它也是去找 {npc:5905}：跳过 {npc:5906} 即可。",
 	-- ["Fly to {area:484}. {npc:5905} hides in a small cave in the canyon wall north-east of the post. Skyborne: your own {quest:1531} (96136) ends with her too."] = "飞往{area:484}。{npc:5905}藏在营地东北峡谷崖壁上的一个小洞里。天裔：你自己的{quest:1531}（96136）也在她这里交还。",
 	-- ["The Lost Ones in the north of the {zone:1435} carry the Twisted Earth Totems."] = "{zone:1435}北部的失落者携带扭曲的大地图腾。",
 	-- ["The Maraudine centaurs of western {zone:1443} carry the Twisted Air Totems."] = "{zone:1443}西部的玛洛迪半人马携带扭曲的空气图腾。",

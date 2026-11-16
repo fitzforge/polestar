@@ -35,5 +35,8 @@ return {
 	["{item:18778}, 200g"] = "{item:18778}, 200g",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Any Alliance race can buy these horses, but riding one also takes Horse Riding, which only Humans get with {skill:762}. {npc:4732} teaches it to other races once they are Exalted with {faction:72} (the Stormwind Reputation guide shows the way). Until then, don't buy a horse for this character."] = "Jede Allianzrasse kann diese Pferde kaufen, aber um eines zu reiten, braucht man auch Pferdreiten, das nur Menschen mit {skill:762} bekommen. {npc:4732} lehrt es andere Rassen, sobald sie bei {faction:72} Ehrfürchtig sind (der Ruf-Guide für Sturmwind zeigt den Weg). Bis dahin kaufe für diesen Charakter kein Pferd.",
+	-- ["Horse {skill:762} for other races"] = "Pferde-{skill:762} für andere Rassen",
 	-- ["{npc:4732} and {npc:384}'s horse pen are at {area:88} in eastern {zone:1429}. At 60 {npc:4732} teaches Journeyman {skill:762} (1,000g per Blizzard's designers); Blizzard says learning riding grants a mount. The Forever client sells each swift horse for 200g at level 60."] = "Die Pferdekoppel von {npc:4732} und {npc:384} liegt beim {area:88} im Osten von {zone:1429}. Ab Stufe 60 lehrt {npc:4732} Geselle: {skill:762} (1.000g laut Blizzards Designern); laut Blizzard bekommst du beim Erlernen ein Reittier. Der Forever-Client verkauft jedes schnelle Pferd für 200g ab Stufe 60.",
+	-- ["{npc:4732}, Horse Riding"] = "{npc:4732}, Pferdreiten",
 }

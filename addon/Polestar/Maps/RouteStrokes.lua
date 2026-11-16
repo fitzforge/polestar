@@ -66,7 +66,10 @@ local DASH, DASH_GAP = 7, 5
 -- are passed over (a walking path's points can be a pixel or two apart).
 local LINE_MIN = 8
 local WALKED_ALPHA, TAIL, TAIL_STEP = 0.45, 120, 12
-local LINE_WIDTH, LINE_WIDTHS = 4, { 2, 8 }
+-- The line's thickness, in range (nav.lineWidth: up to 12 px for players who want it bold).
+local LINE_WIDTH, LINE_WIDTHS = 4, { 2, 12 }
+-- The dots' own size and spacing, in range (nav.dotSize, nav.dotSpacing; view.dot, view.spacing).
+local DOTS, SPACINGS, UNIT = { 2, 10 }, { 5, 24 }, { 0, 1 }
 -- The dots style's minimap dots flow toward the goal: the walk's dots are
 -- counted back from its end (so they keep their place as the player walks)
 -- and moved on by view.phase, in spacings (the painter turns it at the
@@ -89,6 +92,7 @@ Strokes.SHADOW, Strokes.CHEVRON_SPACING, Strokes.DASH, Strokes.DASH_GAP = SHADOW
 Strokes.WALKED_ALPHA, Strokes.TAIL, Strokes.LINE_WIDTH, Strokes.LINE_WIDTHS = WALKED_ALPHA, TAIL, LINE_WIDTH, LINE_WIDTHS
 Strokes.PLAYER_GAP = PLAYER_GAP
 Strokes.GUESS_ALPHA = GUESS_ALPHA
+Strokes.DOTS, Strokes.SPACINGS = DOTS, SPACINGS
 
 -- Strokes in drawing order, as parallel arrays 1..n, in the view's own units
 -- with x right and y up from its top left (TOPLEFT offsets). A redraw
@@ -175,32 +179,45 @@ local scale, width, height, dot, spacing, walked
 local fade
 -- The line style: on, the walk's thickness (px), chevrons and their colour.
 local lined, lineWidth, chevrons, chevronColor
+-- The view's look: how strongly the legs after the current one show, whether
+-- the walked stretch fades out behind the player, whether flights are dashed.
+local laterAlpha, tailOn, dashFlights = LATER_ALPHA, true, true
 -- The line's last piece drawn to its own end: that end and its direction,
 -- for the joint at the next piece (jointX nil: none to join).
 local jointX, jointY, jointDx, jointDy
 -- Stop marks as x, y and reach, flat; near holds those the segment in hand passes.
 local circles, circleCount, near = {}, 0, {}
 
+local function within(v, range, default)
+	v = tonumber(v) or default
+	return v < range[1] and range[1] or v > range[2] and range[2] or v
+end
+
 local function Begin(buffer, view, small)
 	out, scale, limit = buffer, view.scale, buffer.limit or LIMIT
 	out.n = 0
-	dot, spacing = small and SMALL_DOT or DOT, small and SMALL_SPACING or SPACING
+	-- The dots' size and spacing (view.dot, view.spacing, px); continent maps
+	-- show them smaller and closer in the same proportion as the defaults.
+	dot, spacing = within(view.dot, DOTS, DOT), within(view.spacing, SPACINGS, SPACING)
+	if small then dot, spacing = dot * SMALL_DOT / DOT, spacing * SMALL_SPACING / SPACING end
 	walked, fade, circleCount = 0, 1, 0
 	lined = view.style == "line"
-	local w = tonumber(view.lineWidth) or LINE_WIDTH
-	lineWidth = w < LINE_WIDTHS[1] and LINE_WIDTHS[1] or w > LINE_WIDTHS[2] and LINE_WIDTHS[2] or w
+	lineWidth = within(view.lineWidth, LINE_WIDTHS, LINE_WIDTH)
 	-- Continent maps show a whole route small, as their dots are.
 	if small then lineWidth = max(LINE_WIDTHS[1], lineWidth - 1) end
 	chevronColor = view.chevronColor
 	chevrons = lined and view.chevrons and chevronColor ~= nil or false
+	laterAlpha = within(view.laterAlpha, UNIT, LATER_ALPHA)
+	tailOn, dashFlights = view.tail ~= false, view.dash ~= false
 	jointX = nil
 end
 
 -- One stroke: its ends, how far its outline reaches past them, the core's and
 -- the outline's thickness (view units), alpha, colour, dot texture, soft outline.
+-- An unseen one (alpha 0: later legs hidden, view.laterAlpha 0) is left out.
 local function Put(x1, y1, x2, y2, ux, uy, core, outline, alpha, color, isDot, soft)
 	local n = out.n
-	if n >= limit then return end
+	if n >= limit or alpha <= 0 then return end
 	n = n + 1
 	out.n = n
 	out.x1[n], out.y1[n], out.x2[n], out.y2[n], out.ux[n], out.uy[n] = x1, y1, x2, y2, ux, uy
@@ -415,19 +432,20 @@ local function Crossing(ax, ay, bx, by, color, line)
 end
 
 local function bows(path)
-	return path.n == 2 and (path.kind == "boat" or path.kind == "zeppelin")
+	return path.n == 2 and (path.kind == "boat" or path.kind == "zeppelin" or path.kind == "airship")
 end
 
 -- How a path is drawn in the view's style; sets fade, its strength.
 local function modeOf(path)
 	local kind = path.kind
-	fade = path.later and LATER_ALPHA or 1
+	fade = path.later and laterAlpha or 1
 	if lined and path.guess then
 		fade = fade * GUESS_ALPHA
 		return "guess"
 	end
 	if kind == "walk" then return lined and "line" or "dots" end
-	if kind == "flight" and lined then return "dash" end
+	-- A flight in the line style: dashed, or (view.dash false) a line as the walk's, in its own colour.
+	if kind == "flight" and lined then return dashFlights and "dash" or "line" end
 	return "solid"
 end
 
@@ -469,7 +487,11 @@ end
 --            colors = { [kind] = { r, g, b } },
 --            from, fromIndex        the live start (see Strokes.Live): nil = from the first point
 --            style, lineWidth       "line": the line style, its walk lineWidth px thick; nil: dots
---            chevrons, chevronColor the line style's chevrons, in this colour }
+--            chevrons, chevronColor the line style's chevrons, in this colour
+--            dot, spacing           the dots' size and spacing in px (nil: DOT, SPACING)
+--            laterAlpha             the legs after the current one (nil: LATER_ALPHA)
+--            tail                   false: no fading walked stretch behind the player
+--            dash                   false: the line style's flights solid, as the walk }
 ---------------------------------------------------------------------------
 
 local vc, vLeft, vTop, vKx, vKy
@@ -508,7 +530,7 @@ function Strokes.Map(buffer, paths, view)
 			local px, py, pc
 			if p == 1 and view.from then
 				first, pc, px, py = view.fromIndex, view.fromC, position(view.fromC, view.fromX, view.fromY)
-				if mode == "line" and px then
+				if mode == "line" and px and tailOn then
 					Tail(path, first, px, py, mapPoint, width * scale, height * scale, Line, color)
 					fade, walked, jointX = strength, 0, nil
 				end
@@ -547,7 +569,8 @@ end
 --            width, height, scale, square,
 --            goalC, goalX, goalY, goalRadius   the guide pin (radius in units), or goalC nil
 --            colors, from, fromIndex           as the world map's
---            style, lineWidth                  as the world map's (no chevrons here) }
+--            style, lineWidth, dot, spacing,
+--            laterAlpha, tail, dash            as the world map's (no chevrons here) }
 ---------------------------------------------------------------------------
 
 local function ClipMinimap(x, y, dx, dy, inset, square)
@@ -661,7 +684,7 @@ function Strokes.Minimap(buffer, paths, view)
 				if p == 1 and view.from then
 					first, pc = view.fromIndex, view.fromC
 					if pc == c then px, py = Project(view.fromX, view.fromY, x, y, radius, cosine, sine) end
-					if mode == "line" and px then
+					if mode == "line" and px and tailOn then
 						Tail(path, first, px, py, minimapPoint, width / 2 * scale, height / 2 * scale, MinimapSegment, color)
 						fade, walked, jointX = strength, 0, nil
 					end

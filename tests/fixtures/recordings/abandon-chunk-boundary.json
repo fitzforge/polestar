@@ -1,0 +1,22 @@
+{
+	"schema": 2,
+	"session": "20261003T040000Z-abcdefgh1234-char000001",
+	"char": {"id": "char000001", "race": "Human", "class": "WARRIOR", "faction": "Alliance", "sex": 2, "level": 1},
+	"started": 1791000000,
+	"ended": 1791000306,
+	"chunks": [1, 2],
+	"maps": {"1429": {"type": 3, "parent": 1415, "c": 0, "left": 1100.0, "right": -4100.0, "top": 1800.0, "bottom": -1666.7}},
+	"events": [
+		{"t": 0.0, "e": "session", "lvl": 1},
+		{"t": 0.0, "e": "zone", "map": 1429, "x": 50.0, "y": 50.0, "zone": "Elwynn Forest", "subzone": "Northshire Valley"},
+		{"t": 0.0, "e": "accept", "q": 100, "map": 1429, "x": 50.0, "y": 50.0, "lvl": 1, "items": [], "choices": [], "itemCounts": [], "choiceCounts": []},
+		{"t": 298.9, "e": "progress", "q": 100, "oi": 1, "cur": 1, "max": 8, "map": 1429, "x": 50.0, "y": 50.0, "group": 0, "type": "monster", "text": "New target slain: 1/8"},
+		{"t": 300.0, "e": "abandon", "q": 100},
+		{"t": 300.0, "e": "session", "lvl": 1},
+		{"t": 300.0, "e": "kill", "npc": 1001, "npcLvl": 1, "cls": "normal", "map": 1429, "x": 50.0, "y": 50.0, "q": 100, "oi": 1, "group": 0},
+		{"t": 302.2, "e": "accept", "q": 100, "map": 1429, "x": 50.0, "y": 50.0, "lvl": 1, "items": [], "choices": [], "itemCounts": [], "choiceCounts": []},
+		{"t": 302.3, "e": "progress", "q": 100, "oi": 1, "cur": 1, "max": 8, "map": 1429, "x": 50.0, "y": 50.0, "group": 0, "type": "monster", "text": "New target slain: 1/8"},
+		{"t": 302.2, "e": "kill", "npc": 1002, "npcLvl": 1, "cls": "normal", "map": 1429, "x": 50.0, "y": 50.0, "q": 100, "oi": 1, "group": 0},
+		{"t": 305.6, "e": "turnin", "q": 100, "npc": 3, "map": 1429, "x": 50.0, "y": 50.0, "lvl": 1, "xpReward": 0, "money": 0, "group": 0}
+	]
+}

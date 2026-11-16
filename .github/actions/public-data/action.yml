@@ -109,3 +109,25 @@ runs:
           echo "::warning::$SIDE: no professions.json (see the step's log): profession lines do not resolve"
         fi
         ls data/forever
+
+    # The compile reads the data's own client build beside it (<root>/data/sources/wago/<build>:
+    # SpellName and SkillLineAbility for spell tokens, AreaTable for places, Map and
+    # UiMapAssignment for instances, Faction), and forge and the node tools stop without it
+    # (tools/lib/data/pinned.js). The workspace's sources are beside data/forever only when the
+    # checkout is the workspace; else those tables are copied beside it, where the jobs that
+    # restore the data restore them too.
+    - name: Client tables beside the data
+      shell: bash
+      working-directory: ${{ inputs.root || '.' }}
+      run: |
+        here=$(realpath -m data/sources)
+        there=$(realpath -m "$GITHUB_WORKSPACE/data/sources")
+        if [ "$here" = "$there" ]; then exit 0; fi
+        build=$(jq -r '[.sources[]? | select((.name // "") | startswith("World of Warcraft: Forever client tables")) | .revision // ""][0] // ""' data/forever/meta.json \
+          | grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' | head -n 1 || true)
+        if [ -z "$build" ]; then exit 0; fi
+        mkdir -p "data/sources/wago/$build"
+        for t in SpellName SkillLineAbility AreaTable Map UiMapAssignment Faction; do
+          if [ -f "$there/wago/$build/$t.csv" ]; then cp "$there/wago/$build/$t.csv" "data/sources/wago/$build/"; fi
+        done
+        ls "data/sources/wago/$build"

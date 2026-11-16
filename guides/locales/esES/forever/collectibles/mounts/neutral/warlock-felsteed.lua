@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Warlock Felsteed"] = "Corcel vil de brujo",
-	["Your own mount at 40, summoned anywhere: no 100g riding training needed."] = "",
+	["Your own mount at 40, summoned anywhere: no 100g riding training needed."] = "Tu propia montura a nivel 40, invocable en cualquier lugar: sin necesitar el entrenamiento de equitación de 100 o.",
 
 	-- Step 1: Summon Felsteed (Stormwind)
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6251} Strahad Farsan · {area:392} Ratchet
@@ -20,11 +20,11 @@ return {
 
 	-- Step 3: Summon Felsteed (Orgrimmar)
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow · {npc:6251} Strahad Farsan · {area:392} Ratchet
-	["At 40 {npc:3326}, in the {object:172960}, sends you to {npc:6251} in {area:392}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "",
+	["At 40 {npc:3326}, in the {object:172960}, sends you to {npc:6251} in {area:392}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "A nivel 40, {npc:3326}, en la {object:172960}, te envía con {npc:6251} en {area:392}. ¿No te ofrece misión? Termina antes la cadena del manáfago: los jugadores dicen que la montura viene después.",
 
 	-- Step 4: Summon Felsteed (Undercity)
 	-- {npc:4563} Kaal Soulreaper · {object:36082} Magic Quarter · {npc:6251} Strahad Farsan · {area:392} Ratchet · {zone:1420} Tirisfal Glades · {zone:1411} Durotar · {zone:1454} Orgrimmar
-	["At 40 {npc:4563}, in the {object:36082}, sends you to {npc:6251} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}; {area:392} is a short flight from {zone:1454}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "",
+	["At 40 {npc:4563}, in the {object:36082}, sends you to {npc:6251} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}; {area:392} is a short flight from {zone:1454}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "A nivel 40, {npc:4563}, en el {object:36082}, te envía con {npc:6251} en {area:392}. El zepelín de {zone:1420} vuela a {zone:1411}; {area:392} está a un vuelo corto de {zone:1454}. ¿No te ofrece misión? Termina antes la cadena del manáfago: los jugadores dicen que la montura viene después.",
 
 	-- Step 5: Strahad Farsan in Ratchet
 	-- {npc:6251} Strahad Farsan · {area:392} Ratchet
@@ -33,10 +33,7 @@ return {
 	["{area:392} is the goblin port on the {zone:1413} coast, east of the Crossroads; from the Alliance side take the boat from {area:35}. {npc:6251} stands by his small tower on the hill above the town, not down at the docks. Hand in, then take his own {quest:3631} and hand it straight back: that teaches you the mount. No fight, and the quests ask for nothing."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 40 {npc:3326} in the {object:172960} sends you to {npc:6251} in {area:392}."] = "A nivel 40, {npc:3326}, en la {object:172960}, te envía con {npc:6251} en {area:392}.",
-	-- ["At 40 {npc:4563} in the {object:36082} sends you to {npc:6251} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}."] = "A nivel 40, {npc:4563}, en el {object:36082}, te envía con {npc:6251} en {area:392}. El zepelín de {zone:1420} vuela a {zone:1411}.",
 	-- ["At 40 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:6251} in {area:392}."] = "A nivel 40, {npc:461}, en {object:2164}, en el {object:2101}, te envía con {npc:6251} en {area:392}.",
 	-- ["At 40 {npc:5172} in {zone:1455} sends you to {npc:6251} in {area:392}."] = "A nivel 40, {npc:5172}, en {zone:1455}, te envía con {npc:6251} en {area:392}.",
-	-- ["Your own mount at 40, summoned anywhere, with no gold spent on a riding horse."] = "Tu propia montura a nivel 40, invocable en cualquier lugar, sin gastar oro en un caballo.",
 	-- ["{area:392} is on the {zone:1413} coast east of the {area:380}; from the Alliance side, take the boat from {area:35}. {npc:6251}'s follow-up teaches {quest:3631}."] = "{area:392} está en la costa de {zone:1413}, al este de {area:380}; desde la Alianza, toma el barco en {area:35}. La continuación de {npc:6251} enseña {quest:3631}.",
 }

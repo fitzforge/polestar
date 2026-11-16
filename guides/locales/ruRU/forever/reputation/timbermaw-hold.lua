@@ -31,7 +31,7 @@ return {
 
 	-- Step 5: Felpaw Village
 	-- {npc:9462} Chieftain Bloodmaw
-	["The northern Deadwood (level 53-55) camp just south of the tunnel. They drop feathers about half the time: the best feather spot. {npc:9462} gives 15 until Exalted."] = "",
+	["The northern Deadwood (level 53-55) camp just south of the tunnel. They drop feathers about half the time: the best feather spot. {npc:9462} gives 15 until Exalted."] = "Северные фурболги из племени Мертвого Леса (уровень 53-55) стоят лагерем чуть южнее туннеля. Перья с них падают примерно в половине случаев: лучшее место для перьев. {npc:9462} дает по 15 вплоть до превознесения.",
 
 	-- Step 6: Back to Nafien
 	-- {npc:15395} Nafien
@@ -141,7 +141,6 @@ return {
 	-- ["Feathers to Honored"] = "Перья до уважения",
 	-- ["Go through {faction:576} to its {zone:1452} exit; {npc:11556} stands just outside. The quests and kills so far usually reach Unfriendly, and then the Timbermaw let you pass. If they still show red, kill more Deadwood by the tunnel first."] = "Пройдите через туннель ({faction:576}) к выходу в {zone:1452}; {npc:11556} стоит сразу снаружи. Задания и убийства к этому моменту обычно дают неприязнь, и тогда Древобрюхи пропускают вас. Если они все еще красные, сначала убейте больше фурболгов Мертвого Леса у туннеля.",
 	-- ["Keep turning in feathers and beads until Exalted."] = "Сдавайте перья и бусины до превознесения.",
-	-- ["The northern Deadwood (level 53-55) hold the camps just south of the tunnel. Keep their feathers too."] = "Северные фурболги из племени Мертвого Леса (уровень 53-55) занимают лагеря чуть южнее туннеля. Их перья тоже сохраняйте.",
 	-- ["The northern Deadwood camps by the tunnel are the densest feather spot (35% drop chance there). Hand feathers to {npc:15395} at the tunnel, or to {npc:11554} in the south."] = "Северные лагеря Мертвого Леса у туннеля — лучшее место для перьев (там шанс 35%). Сдавайте перья: {npc:15395} у туннеля или {npc:11554} на юге.",
 	-- ["{area:2244} sits on the eastern side of {zone:1452}. Keep every {item:21383} you loot: {npc:11556} takes them."] = "{area:2244} — на восточной стороне зоны {zone:1452}. Сохраняйте каждый добытый предмет {item:21383}: их принимает {npc:11556}.",
 	-- ["{faction:576} starts out Hostile, and its furbolgs in the tunnels attack until you reach Unfriendly. Every Deadwood and Winterfall furbolg you kill raises it, so the quests below pay twice. Forever's Legacy Diplomat perk increases reputation gains."] = "{faction:576}: репутация начинается с враждебности, и фурболги в туннелях нападают, пока вы не достигнете неприязни. Каждый убитый фурболг из племен Мертвого Леса и Зимней Спячки повышает ее, так что задания ниже окупаются дважды. Бонус наследия Forever «Дипломат» увеличивает получаемую репутацию.",

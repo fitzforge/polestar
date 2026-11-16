@@ -11,24 +11,24 @@ return {
 	["A new look for {spell:118}: it turns the target into a pig rather than a sheep."] = "Un nuevo aspecto para {spell:118}: convierte al objetivo en cerdo en vez de oveja.",
 
 	-- Step 1: Xylem's tower
-	["Xylem's tower"] = "",
+	["Xylem's tower"] = "La torre de Xylem",
 	-- {area:3137} Talrendis Point · {area:1237} Valormok · {npc:8395} Sanath Lim-yo · {npc:8379} Archmage Xylem · {zone:1447} Azshara · {area:1221} Ruins of Eldarath
-	["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below {npc:8379}'s tower, a short way east of {area:1237}: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. Dismount, and he teleports you up; a trail climbs to the Archmage at the top of the tower."] = "",
+	["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below {npc:8379}'s tower, a short way east of {area:1237}: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. Dismount, and he teleports you up; a trail climbs to the Archmage at the top of the tower."] = "Vuela a {area:3137} (Alianza) o {area:1237} (Horda). {npc:8395} acampa debajo de la torre de {npc:8379}, a poca distancia al este de {area:1237}: desde la bifurcación del camino principal de {zone:1447} en {area:1221}, ve derecho al norte hasta los acantilados. Bájate de la montura y te teletransporta arriba; un sendero sube hasta el archimago en lo alto de la torre.",
 
 	-- Step 2: Warlord Krellian
 	-- {npc:8408} Warlord Krellian · {spell:99} Demoralizing Roar · {area:1223} Temple of Zin-Malor · {area:1221} Ruins of Eldarath · {item:23250} Prismatic Shell
-	["{npc:8408} (level 55, not elite, Strike and {spell:99}) hides behind his Spitelash guards in the {area:1223}, the biggest building in the middle of the {area:1221}. He always drops the {item:23250} and is back 5 1/2 minutes after a kill. Leave any raid group first: a raid gets no credit, a party is fine."] = "",
+	["{npc:8408} (level 55, not elite, Strike and {spell:99}) hides behind his Spitelash guards in the {area:1223}, the biggest building in the middle of the {area:1221}. He always drops the {item:23250} and is back 5 1/2 minutes after a kill. Leave any raid group first: a raid gets no credit, a party is fine."] = "{npc:8408} (nivel 55, no élite, Golpe y {spell:99}) se esconde detrás de sus guardias Latigosaña en {area:1223}, el edificio más grande en el centro de {area:1221}. Siempre suelta {item:23250} y vuelve 5 minutos y medio después de morir. Sal antes de cualquier grupo de banda: una banda no recibe crédito, un grupo normal sí.",
 
 	-- Step 3: Archmage Xylem
 	-- {npc:8395} Sanath Lim-yo
-	["Back to {npc:8395} and up to the tower. Xylem hands the shell back with the next quest: keep it in your bags."] = "",
+	["Back to {npc:8395} and up to the tower. Xylem hands the shell back with the next quest: keep it in your bags."] = "De vuelta con {npc:8395} y sube a la torre. Xylem te devuelve la concha con la siguiente misión: guárdala en tus bolsas.",
 
 	-- Step 4: Polymorph Clones
 	-- plural, as words: Polymorph Clones = {npc:16479} Polymorph Clone
 	["Polymorph Clones"] = "Clones polimórficos",
 	-- {area:1221} Ruins of Eldarath · {spell:118} Polymorph · {spell:122} Frost Nova · {spell:1449} Arcane Explosion
 	-- plural, as words: Polymorph Clones = {npc:16479} Polymorph Clone
-	["Back to the {area:1221}, full of Spitelash naga. Cast your sheep {spell:118} (the turtle one does nothing) on a naga and wait a few seconds: it splits into two to six Polymorph Clones of about 150 health that run off fast. Stand next to the sheep and hit them the moment they appear with {spell:122} and {spell:1449}. Fifty clones are needed, so it takes a while; not in a raid group."] = "",
+	["Back to the {area:1221}, full of Spitelash naga. Cast your sheep {spell:118} (the turtle one does nothing) on a naga and wait a few seconds: it splits into two to six Polymorph Clones of about 150 health that run off fast. Stand next to the sheep and hit them the moment they appear with {spell:122} and {spell:1449}. Fifty clones are needed, so it takes a while; not in a raid group."] = "De vuelta a {area:1221}, lleno de nagas Latigosaña. Lanza tu {spell:118} de oveja (el de tortuga no hace nada) sobre un naga y espera unos segundos: se divide en dos a seis clones de polimorfia de unos 150 de salud que salen corriendo rápido. Quédate al lado de la oveja y pégales en cuanto aparezcan con {spell:122} y {spell:1449}. Hacen falta cincuenta clones, así que lleva un rato; no en un grupo de banda.",
 
 	-- Step 5: Fragmented Magic
 	-- {npc:8395} Sanath Lim-yo

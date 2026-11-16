@@ -7,8 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {quest:205} Troll Witchery
-	["For characters of 35 to 36, but several quests here are level 37-41: on purpose, for their experience. {quest:205}'s Skullsplitter trolls are 39-42, so pull them one at a time."] = "35~36레벨 캐릭터용이지만, 여기 퀘스트 몇 개는 37-41레벨입니다. 경험치를 위해 일부러 넣었습니다. {quest:205}의 백골가루부족 트롤은 39-42레벨이니 하나씩 끌어오세요.",
+	["For characters of 35 to 36, but several quests here are level 37-38: on purpose, for their experience. The water elementals are 36-37: pull them one at a time."] = "35~36레벨 캐릭터용이지만, 여기 퀘스트 몇 개는 37-38레벨입니다. 경험치를 위해 일부러 넣었습니다. 물의 정령은 36-37레벨이니 하나씩 끌어오세요.",
 
 	-- Step 1: Collin Mauren
 	-- {object:2164} Slaughtered Lamb
@@ -28,13 +27,16 @@ return {
 	-- {zone:1431} Duskwood
 	["From {zone:1431} take the road south; the camp sits in the hills west of the road."] = "",
 	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {area:35} Booty Bay
-	["{npc:770}: for {npc:773} in {area:35}"] = "{npc:770}: {area:35}의 {npc:773}에게",
+	["{npc:770}, if 30-40/04 didn't give it: for {npc:773} in {area:35}"] = "{npc:770}, 30-40/04에서 받지 않았다면: {area:35}의 {npc:773}에게",
 
 	-- Step 5: Nesingwary's Expedition
-	["South along the road: the hunters' tents stand just west of it."] = "",
-	-- {npc:718} Sir S. J. Erlgadin · {area:37} Lake Nazferiti · {area:101} Kurzen's Compound
-	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
-	["{npc:718}: the Shadowmaw Panthers prowl around {area:37}, after {area:101}"] = "{npc:718}: 어둠아귀 표범은 {area:101} 이후 {area:37} 주변을 어슬렁거립니다",
+	-- {npc:717} Ajeck Rouack
+	["South along the road: the hunters' tents stand just west of it. {npc:717} and Hemet gave you these on the first loop: take them now only if you didn't."] = "길을 따라 남쪽으로 가세요. 사냥꾼들의 천막은 길 바로 서쪽에 있습니다. {npc:717}와(과) 헤멧이 첫 번째 순회에서 이 퀘스트들을 주었습니다. 받지 않았을 때만 지금 수락하세요.",
+	-- {npc:717} Ajeck Rouack · {npc:729} Sin'Dall
+	["{npc:717}, if 30-40/04 didn't give it: {npc:729}, in the 40-50 Stranglethorn guide"] = "{npc:717}, 30-40/04에서 받지 않았다면: {npc:729}, 40-50 가시덤불 골짜기 가이드에서",
+	-- {npc:715} Hemet Nesingwary
+	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
+	["{npc:715}, if 30-40/04 didn't give it: the Lashtail Raptors, after the jungle ruins"] = "{npc:715}, 30-40/04에서 받지 않았다면: 채찍꼬리랩터, 밀림 폐허 다음에",
 
 	-- Step 6: Bookie Herod
 	-- {area:101} Kurzen's Compound
@@ -43,9 +45,11 @@ return {
 	["{object:287}, upstairs"] = "",
 
 	-- Step 7: Kurzen's Compound
-	-- {spell:7964} Smoke Bomb
+	-- {npc:218230} Wendel Mathers · {spell:7964} Smoke Bomb · {npc:813} Colonel Kurzen
 	-- plural, as words: Kurzen Commandos = {npc:938} Kurzen Commando
-	["Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave, and Herod's strongbox sits by the cave mouth. Pick up Green Hills pages as they drop.\nCareful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use {spell:7964}."] = "",
+	["{npc:218230}, a cook, is caged at the compound's western edge: take his quest now and keep it, his cage key and the fighter's uniform come on the 40-50 Stranglethorn guide, when the Subchiefs and Elites are your level. Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave, and Herod's strongbox sits by the cave mouth. Pick up Green Hills pages as they drop.\nCareful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use {spell:7964}. {npc:813}, an elite of 39-40, stands at the compound's north end: leave him be."] = "요리사 {npc:218230}은(는) 주둔지 서쪽 끝에 갇혀 있습니다. 지금 퀘스트를 받아 두고 보관하세요. 우리 열쇠와 투사의 제복은 부족장과 정예가 레벨에 맞을 때 40-50 가시덤불 골짜기 가이드에서 진행합니다. 머리사냥꾼은 주둔지 더 안쪽에 있고, 특전사는 주둔지 주변과 동굴 안에서 은신한 채 숨어 있으며, 헤로드의 금고는 동굴 입구 옆에 있습니다. 푸른 언덕 페이지가 떨어지면 주우세요.\n주의: 쿠르젠 특전사는 34-35레벨로 정예는 아니지만 은신한 채 나타나는 일이 많고, 죽기 직전에 {spell:7964}을(를) 사용합니다. 39-40레벨 정예인 {npc:813}은(는) 주둔지 북쪽 끝에 서 있으니 건드리지 마세요.",
+	-- {npc:218230} Wendel Mathers
+	["{npc:218230}, in his cage"] = "{npc:218230}, 우리 안",
 	-- {npc:941} Kurzen Headshrinker
 	["{npc:941}, below ground"] = "",
 	-- {object:288} Bookie Herod's Strongbox
@@ -53,12 +57,12 @@ return {
 
 	-- Step 8: Lake Nazferiti
 	-- {area:37} Lake Nazferiti
-	-- plural, as words: Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal · Shadowmaw Panthers = {npc:684} Shadowmaw Panther
-	["South from the compound to {area:37}: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals, and the Shadowmaw Panthers prowl stealthed in the jungle south and east of it."] = "주둔지에서 남쪽의 {area:37}(으)로 가세요. 호숫가 야영지의 투자개발회사 지질학자가 연마된 수정을 가지고 있으며, 어둠아귀 표범은 호수 남쪽과 동쪽 밀림에서 은신한 채 어슬렁거립니다.",
+	-- plural, as words: Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal · Venture Co. Agents = {npc:260429} Venture Co. Agent · Shadowmaw Panthers = {npc:684} Shadowmaw Panther
+	["South from the compound to {area:37}: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals. Careful: Venture Co. Agents (39) walk among them: take the Geologists on the camps' edges, one at a time. Shadowmaw Panthers (37-38) prowl stealthed in the jungle south and east of the lake: keep to the shore camps."] = "주둔지에서 남쪽의 {area:37}(으)로 가세요. 호숫가 야영지의 투자개발회사 지질학자가 연마된 수정을 가지고 있습니다. 주의: 투자개발회사 요원(39)이 그 사이를 돌아다니니 야영지 가장자리의 지질학자를 하나씩 잡으세요. 그림자퓨마(37-38)가 호수 남쪽과 동쪽 밀림에서 은신한 채 어슬렁거리니 호숫가 야영지에 머무르세요.",
 
 	-- Step 9: The jungle ruins
 	["The jungle ruins"] = "밀림의 폐허",
-	["West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west."] = "밀림을 가로질러 서쪽의 트롤 폐허로 가세요. 폐허마다 트롤 전설이 새겨진 석판이 하나씩 있습니다. 처음 두 개는 네싱워리 야영지 남서쪽 폐허에, 마지막 두 개는 북서쪽 언덕에 있습니다.",
+	["West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west.\nCareful: the Saltscale murlocs on the shore near the second tablet are elite (35-37): swim to the tablet from the water and keep clear of them."] = "밀림을 가로질러 서쪽의 트롤 폐허로 가세요. 폐허마다 트롤 전설이 새겨진 석판이 하나씩 있습니다. 처음 두 개는 네싱워리 야영지 남서쪽 폐허에, 마지막 두 개는 북서쪽 언덕에 있습니다.\n주의: 두 번째 석판 근처 해안의 소금비늘 멀록은 정예(35-37)입니다. 물 쪽에서 헤엄쳐 석판으로 가고 그들을 피하세요.",
 	-- {item:2006} The Second Troll Legend · {object:58} Gri'lek the Wanderer
 	["{item:2006}: {object:58}; underwater"] = "",
 
@@ -69,40 +73,51 @@ return {
 	-- Step 11: The Ruins of Zul'Kunda
 	-- {area:102} Ruins of Zul'Kunda
 	["The {area:102}"] = "{area:102}",
-	["North along the coast to the ruins on the hill: the last two tablets lie there. Pick up Green Hills pages as they drop."] = "해안을 따라 북쪽으로 언덕 위 폐허로 가세요. 마지막 두 석판이 그곳에 있습니다. 녹색 언덕 페이지가 나오면 주워 두세요.",
+	-- {npc:268992} Zimmix Sputterspark · {item:277957} Primitive Key
+	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment · Bloodscalp Berserkers = {npc:597} Bloodscalp Berserker
+	["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}, then lead him out of the ruins. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "해안을 따라 북쪽의 언덕 위 폐허로 가세요. 마지막 석판 두 개가 그곳에 있습니다. 고블린 {npc:268992}은(는) 세 번째 석판 옆에 갇혀 있습니다. 붉은머리부족 누구나 {item:277957}을(를) 떨어뜨릴 수 있으니, 그를 풀어 폐허 밖으로 데리고 나가세요. 도난당한 화물은 폐허 동쪽 끝에 있습니다. 푸른 언덕 페이지가 떨어지면 주우세요.\n주의: 붉은머리부족 광전사, 머리사냥꾼, 의술사(36-37)가 폐허 중심부를 지키니 하나씩 끌어오세요.",
+	-- {npc:268992} Zimmix Sputterspark
+	["{npc:268992}, in his cage beside the third tablet"] = "{npc:268992}, 세 번째 석판 옆 우리 안",
+	-- {item:277957} Primitive Key
+	["{item:277957}, from the Bloodscalp trolls"] = "{item:277957}, 피투성이부족 트롤에게서",
+	-- {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
+	["For {npc:4631} in {area:35}, at the end of this loop"] = "이 경로 끝에 {area:35}의 {npc:4631}에게",
 
-	-- Step 12: Rebel Camp
+	-- Step 12: The Lashtail raptors
+	["The Lashtail raptors"] = "채찍꼬리랩터",
+	-- {npc:729} Sin'Dall
+	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
+	["East from the ruins to the hilltop south-west of Nesingwary's camp: the Lashtail Raptors run in the jungle around it. Leave {npc:729}, the great tiger (37) on the hilltop, to the 40-50 Stranglethorn guide: you're about 35 here. Then on to the hunters' tents."] = "폐허에서 동쪽으로 네싱워리 야영지 남서쪽 언덕 꼭대기로 가세요. 채찍꼬리랩터가 그 주변 밀림을 뛰어다닙니다. 언덕 꼭대기의 거대한 호랑이 {npc:729}(37)은(는) 40-50 가시덤불 골짜기 가이드로 남겨 두세요. 지금은 약 35레벨입니다. 그다음 사냥꾼들의 천막으로 가세요.",
+
+	-- Step 13: Nesingwary's Expedition
+	-- {npc:715} Hemet Nesingwary
+	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
+	["{npc:715}: the Jungle Stalkers come in 40-50"] = "{npc:715}: 줄무늬정글랩터는 40-50에서 진행",
+
+	-- Step 14: Rebel Camp
 	-- {area:99} Rebel Camp
-	["East to the {area:99}, on the way back to Nesingwary's camp."] = "네싱워리 야영지로 돌아가는 길에 동쪽의 {area:99}에 들르세요.",
+	["North-east up the road to the {area:99}, then back south through the jungle."] = "길을 따라 북동쪽의 {area:99}(으)로 간 뒤, 밀림을 지나 다시 남쪽으로 내려오세요.",
 	-- {npc:733} Sergeant Yohwa
 	["{npc:733}: the Commandos and Headshrinkers fell in the compound"] = "",
+	-- plural, as words: Skullsplitter Witch Doctors = {npc:670} Skullsplitter Witch Doctor
+	["keep it: the Skullsplitter Witch Doctors (41-42) wait for the 40-50 Stranglethorn guide"] = "보관하세요: 백골가루부족 의술사(41-42)는 40-50 가시덤불 골짜기 가이드에서 처치합니다",
 
 	-- Step 15: Snapjaw Crocolisks
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks"] = "{npc:1152}",
+	-- {area:35} Booty Bay
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
-	["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to the Skullsplitter ruins."] = "",
+	["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to {area:35}."] = "{area:35}(으)로 남쪽으로 가는 길에, 밀림 한가운데 강가에서 무쇠턱 악어가 햇볕을 쬐고 있습니다.",
 
-	-- Step 16: Level 36
-	["Level 36"] = "",
-	-- {quest:205} Troll Witchery · {area:796} Scarlet Monastery · {area:1316} Razorfen Downs
-	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
-	["{quest:205}'s Skullsplitter trolls are 39-42. Below 36? Keep killing the Snapjaw Crocolisks along the river until level 36. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "",
-	-- {npc:1152} Snapjaw Crocolisk
-	["grind on {npc:1152}"] = "",
-
-	-- Step 17: Skullsplitter trolls
-	["Skullsplitter trolls"] = "백골가루부족 트롤",
-	-- {object:3202} Grom'gol
-	["The Skullsplitter trolls hold the ruins east of the road between Nesingwary and {object:3202}."] = "백골가루부족 트롤은 네싱워리와 {object:3202} 사이 길 동쪽의 폐허를 차지하고 있습니다.",
-
-	-- Step 18: Booty Bay
+	-- Step 16: Booty Bay
 	-- {npc:2495} Drizzlik
 	["{npc:2495}, inside"] = "",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, upstairs in the tavern"] = "{npc:2496}, 선술집 위층",
 	-- {zone:1416} Alterac Mountains
 	["For Archmage Ansirem in {zone:1416}"] = "{zone:1416}의 대마법사 앤자이럼 룬위버에게",
+	-- {npc:737} Kebok
+	["{npc:737}, upstairs"] = "",
 	-- {npc:773} Krazek
 	["{npc:773}, upstairs"] = "",
 	-- {npc:773} Krazek · {item:4278} Lesser Bloodstone Ore · {zone:1417} Arathi Highlands · {skill:186} Mining
@@ -111,7 +126,18 @@ return {
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
+	-- {npc:4631} Wharfmaster Lozgil
+	["{npc:4631}, on the docks"] = "{npc:4631}, 부두 위",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["East to the {area:99}, on the way back to Nesingwary's camp."] = "네싱워리 야영지로 돌아가는 길에 동쪽의 {area:99}에 들르세요.",
+	-- ["For characters of 35 to 36, but several quests here are level 37-41: on purpose, for their experience. {quest:205}'s Skullsplitter trolls are 39-42, so pull them one at a time."] = "35~36레벨 캐릭터용이지만, 여기 퀘스트 몇 개는 37-41레벨입니다. 경험치를 위해 일부러 넣었습니다. {quest:205}의 백골가루부족 트롤은 39-42레벨이니 하나씩 끌어오세요.",
 	-- ["Loop through the troll ruins of the north and centre: each holds one stone tablet of the troll legends. Shadowmaw Panthers prowl stealthed in the jungle around them; the Venture Co. camp on {area:37} carries the Tumbled Crystals."] = "북쪽과 중앙의 트롤 폐허를 한 바퀴 도세요. 폐허마다 트롤 전설이 새겨진 석판이 하나씩 있습니다. {npc:684}은(는) 그 주변 밀림에서 은신한 채 어슬렁거리고, {area:37}의 투자개발회사 야영지가 {item:4106}을(를) 가지고 있습니다.",
+	-- ["North along the coast to the ruins on the hill: the last two tablets lie there. Pick up Green Hills pages as they drop."] = "해안을 따라 북쪽으로 언덕 위 폐허로 가세요. 마지막 두 석판이 그곳에 있습니다. 녹색 언덕 페이지가 나오면 주워 두세요.",
+	-- ["Skullsplitter trolls"] = "백골가루부족 트롤",
+	-- ["South from the compound to {area:37}: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals, and the Shadowmaw Panthers prowl stealthed in the jungle south and east of it."] = "주둔지에서 남쪽의 {area:37}(으)로 가세요. 호숫가 야영지의 투자개발회사 지질학자가 연마된 수정을 가지고 있으며, 어둠아귀 표범은 호수 남쪽과 동쪽 밀림에서 은신한 채 어슬렁거립니다.",
+	-- ["The Skullsplitter trolls hold the ruins east of the road between Nesingwary and {object:3202}."] = "백골가루부족 트롤은 네싱워리와 {object:3202} 사이 길 동쪽의 폐허를 차지하고 있습니다.",
+	-- ["West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west."] = "밀림을 가로질러 서쪽의 트롤 폐허로 가세요. 폐허마다 트롤 전설이 새겨진 석판이 하나씩 있습니다. 처음 두 개는 네싱워리 야영지 남서쪽 폐허에, 마지막 두 개는 북서쪽 언덕에 있습니다.",
+	-- ["{npc:718}: the Shadowmaw Panthers prowl around {area:37}, after {area:101}"] = "{npc:718}: 어둠아귀 표범은 {area:101} 이후 {area:37} 주변을 어슬렁거립니다",
+	-- ["{npc:770}: for {npc:773} in {area:35}"] = "{npc:770}: {area:35}의 {npc:773}에게",
 }

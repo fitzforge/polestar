@@ -54,6 +54,10 @@ return {
 	["14 areas to discover here, levels 36-44. Flight paths: {area:16724} in the south-east (Alliance), {area:16743} in the middle (Horde)."] = "这里有 14 个区域可供探索，适合 36-44 级。飞行点：东南的 {area:16724}（联盟），中央的 {area:16743}（部落）。",
 	-- {zone:1418} Badlands · {area:345} Agmond's End · {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {area:2417} Blackrock Pass · {area:977} Steamwheedle Port · {zone:1446} Tanaris · {area:16727} Powderfuse Port · {area:17780} Krol'dok Stronghold
 	["From the south of the {zone:1418}, past {area:345}, a way leads down into the {zone:2548} by {area:16685}. (The {zone:2548} also open off northern Redridge through {area:2417}, and a ship runs from {area:977} in {zone:1446} to {area:16727}, the neutral goblin port on its coast.) {area:17780} is an ogre clan's outdoor dungeon."] = "从 {zone:1418} 南部经过 {area:345}，有一条路通往下方 {area:16685} 附近的 {zone:2548}。（也可以从赤脊山北部经 {area:2417} 进入 {zone:2548}，或从 {zone:1446} 的 {area:977} 坐船前往其沿海的中立地精港口 {area:16727}。）{area:17780} 是由食人魔氏族占据的露天地下城。",
+	-- {area:16724} Farholde Keep · {npc:257087} Gretchen Mayberry
+	["Flight path here: {area:16724} ({npc:257087})."] = "飞行路线：{area:16724}（{npc:257087}）。",
+	-- {area:16743} Rog'mar
+	["Flight path here: {area:16743} (Grakna)."] = "飞行路线：{area:16743}（Grakna）。",
 
 	-- Step 9: Swamp of Sorrows (1/2)
 	["11 areas to discover here, levels 36-43."] = "这里有11个区域待发现，36-43级。",

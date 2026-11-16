@@ -75,7 +75,7 @@ fn polestar_client_knows_a_newer_release_the_card_shows_10_seconds_after_login_a
 	assert_eq!(out[0], json!({ "early": false }), "not before DELAY");
 	assert_eq!(
 		out[1],
-		json!({ "head": "POLESTAR UPDATE", "title": "Polestar 0.3.7 is out", "line": "You're on 0.3.6.", "how": CLIENT_HOW,
+		json!({ "head": "Polestar update", "title": "Polestar 0.3.7 is out", "line": "You're on 0.3.6.", "how": CLIENT_HOW,
 			"act": "What's new", "later": "Got it" })
 	);
 	assert_eq!(out[2], json!({ "text": "Polestar 0.3.7 is out: you're on 0.3.6.", "link": "Update", "close": true }));
@@ -155,7 +155,7 @@ fn a_peers_newer_release_shows_the_card_dev_builds_pre_releases_and_made_up_vers
 	assert_eq!(out[3]["ok"], true);
 	assert_eq!(
 		out[3]["card"],
-		json!({ "head": "POLESTAR UPDATE", "title": "Polestar 0.3.7 is out", "line": "You're on 0.3.6.", "how": PLAIN_HOW,
+		json!({ "head": "Polestar update", "title": "Polestar 0.3.7 is out", "line": "You're on 0.3.6.", "how": PLAIN_HOW,
 			"act": "What's new", "later": "Got it" }),
 		"heard during the session: the card then, without the Client's line"
 	);

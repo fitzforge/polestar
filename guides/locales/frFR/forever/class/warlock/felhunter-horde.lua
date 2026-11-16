@@ -16,8 +16,8 @@ return {
 	["At 30 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:6251} in {area:392}."] = "Au niveau 30, {npc:5875}, dans la {object:172960} sous la {object:172982}, vous envoie voir {npc:6251} à {area:392}.",
 
 	-- Step 2: Seeking Strahad (Undercity)
-	-- {npc:5675} Carendin Halgar · {object:36082} Magic Quarter · {npc:6251} Strahad Farsan · {area:392} Ratchet · {zone:1420} Tirisfal Glades · {zone:1411} Durotar · {quest:2996} Seeking Strahad
-	["At 30 {npc:5675}, in the {object:36082}, sends you to {npc:6251} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}. Take only one {quest:2996}: if {npc:6251} offers nothing, drop the duplicate from your log."] = "Au niveau 30, {npc:5675}, dans le {object:36082}, vous envoie voir {npc:6251} à {area:392}. Le zeppelin de {zone:1420} vole vers {zone:1411}. Ne prenez qu'une seule quête {quest:2996} : si {npc:6251} ne propose rien, supprimez le doublon de votre journal.",
+	-- {npc:5675} Carendin Halgar · {object:36082} Magic Quarter · {npc:6251} Strahad Farsan · {area:392} Ratchet · {zone:1420} Tirisfal Glades · {zone:1411} Durotar · {quest:3001} Seeking Strahad
+	["At 30 {npc:5675}, in the {object:36082}, sends you to {npc:6251} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}. Take only one {quest:3001}: if {npc:6251} offers nothing, drop the duplicate from your log."] = "Au niveau 30, {npc:5675}, dans le {object:36082}, vous envoie voir {npc:6251} à {area:392}. Le zeppelin de {zone:1420} vole vers {zone:1411}. Ne prenez qu'une seule quête {quest:3001} : si {npc:6251} ne propose rien, supprimez le doublon de votre journal.",
 
 	-- Step 3: Strahad Farsan
 	-- {area:392} Ratchet · {zone:1454} Orgrimmar · {npc:6251} Strahad Farsan · {npc:6266} Menara Voidrender · {npc:6293} Jorah Annison · {zone:1458} Undercity
@@ -59,6 +59,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 30 {npc:5675}, in the {object:36082}, sends you to {npc:6251} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}."] = "Au niveau 30, {npc:5675}, dans le {object:36082}, vous envoie voir {npc:6251} à {area:392}. Le zeppelin de {zone:1420} va à {zone:1411}.",
+	-- ["At 30 {npc:5675}, in the {object:36082}, sends you to {npc:6251} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}. Take only one {quest:2996}: if {npc:6251} offers nothing, drop the duplicate from your log."] = "Au niveau 30, {npc:5675}, dans le {object:36082}, vous envoie voir {npc:6251} à {area:392}. Le zeppelin de {zone:1420} vole vers {zone:1411}. Ne prenez qu'une seule quête {quest:2996} : si {npc:6251} ne propose rien, supprimez le doublon de votre journal.",
 	-- ["Back to {npc:6251} in {area:392}. Use the {quest:1804} on the summoning circle beside him and defeat the felhunter to bind it."] = "Retournez voir {npc:6251} à {area:392}. Utilisez le {quest:1804} sur le cercle d'invocation à côté de lui et vainquez le chasseur corrompu pour le lier.",
 	-- ["Fly to {area:392}; {npc:6251} stands on the hill in town."] = "Volez jusqu'à {area:392} ; {npc:6251} se tient sur la colline en ville.",
 	-- ["The Dragonmaw Bonewarders and Shadowwarders hold the hills east of the road through the {zone:1437}: the rods drop from them."] = "Les Gardiens gueule-de-dragon et les Veilleurs des ombres gueule-de-dragon occupent les collines à l'est de la route des {zone:1437} : ils laissent tomber les bâtonnets.",

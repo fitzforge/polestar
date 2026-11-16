@@ -74,7 +74,8 @@ fn quests_in_turn_in_order_carry_the_character_over_a_level_the_client_s_xp_to_l
 
 #[test]
 fn a_quest_far_below_gives_its_share_at_the_level_reached_when_it_is_turned_in() {
-	// At 26 the level 17 quest is 9 below: 20%. The level 20 one is 6 below: 80%.
+	// At 26 the level 17 quest is 9 below: half, Forever's floor from 8 below (players' recordings,
+	// forge-sim's xp::SHARE test). The level 20 one is 6 below: 80%.
 	let s = run(
 		json!({ "level": 26, "xp": 0, "class": "MAGE", "faction": "Alliance" }),
 		json!([
@@ -84,7 +85,7 @@ fn a_quest_far_below_gives_its_share_at_the_level_reached_when_it_is_turned_in()
 		]),
 		&[],
 	);
-	assert_eq!(s["xp"], 200 + 800 + 1000);
+	assert_eq!(s["xp"], 500 + 800 + 1000);
 	assert_eq!(s["reduced"], 2);
 	assert_eq!(s["quests"], 3);
 	// The order counts: a level gained on the way reduces what comes after.
@@ -114,6 +115,37 @@ fn done_quests_another_class_s_and_those_with_no_xp_known_are_left_out_and_count
 	);
 	assert_eq!(s["xp"], 1000);
 	assert_eq!(json!([s["quests"], s["done"], s["other"], s["unknown"]]), json!([1, 1, 1, 1]));
+}
+
+// A quest the character may not take by class or race (Dungeons.QuestFor's verdict, which reads the Codex
+// masks the page greys it out by) is left out like another class's, not counted in the dungeon's XP.
+#[test]
+fn a_blocked_quest_is_left_out_like_another_class_s() {
+	let s = run(
+		json!({ "level": 20, "xp": 0, "class": "DRUID", "faction": "Horde" }),
+		json!([
+			{ "id": 1, "level": 20, "xp": 1000 },
+			{ "id": 2, "level": 20, "xp": 1000, "blocked": true }
+		]),
+		&[],
+	);
+	assert_eq!(s["xp"], 1000);
+	assert_eq!(json!([s["quests"], s["other"]]), json!([1, 1]));
+}
+
+#[test]
+fn quests_named_a_group_are_summed_per_group_with_the_highest_min_level() {
+	let s = run(
+		json!({ "level": 20, "xp": 0, "class": "DRUID", "faction": "Horde" }),
+		json!([
+			{ "id": 1, "level": 20, "xp": 1000, "group": "ready" },
+			{ "id": 2, "level": 22, "xp": 700, "group": "level", "minLevel": 21 },
+			{ "id": 3, "level": 23, "xp": 800, "group": "level", "minLevel": 22 },
+			{ "id": 4, "level": 20, "xp": null, "group": "ready" }
+		]),
+		&[],
+	);
+	assert_eq!(s["groups"], json!({ "ready": { "n": 1, "xp": 1000 }, "level": { "n": 2, "xp": 1500, "need": 22 } }));
 }
 
 #[test]

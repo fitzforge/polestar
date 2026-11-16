@@ -19,6 +19,8 @@
 -- (1-180: the main pages, the stance and form bars, the side bars, and the
 -- bar addons that use the game's action slots); macros, items and anything
 -- not a spell are never touched, nor a spell without a rank. Left alone:
+--   * a lower rank when a higher rank of the same spell is already on any
+--     action bar, including after learning a new rank
 --   * a spell the player keeps at its rank (Spells.Keep, the card's
 --     right-click): QoL.State().keptRanks[spell id]
 --   * a slot the player filled with a lower rank while knowing a higher one
@@ -275,12 +277,19 @@ end
 -- the number of slots.
 function Spells.OldRanks()
 	local book = Spells.BookBest()
-	local keptSlots, byId, list, n = state("keptSlots"), {}, {}, 0
+	local slots, top = {}, {}
 	for slot = 1, Spells.SLOTS do
 		local id = slotSpell(slot)
+		slots[slot] = id
+		local name, rank = id and spellName(id), id and Spells.RankOf(id)
+		if name and rank and rank > (top[name] or 0) then top[name] = rank end
+	end
+	local keptSlots, byId, list, n = state("keptSlots"), {}, {}, 0
+	for slot = 1, Spells.SLOTS do
+		local id = slots[slot]
 		if id and keptSlots[slot] ~= id and not Spells.Kept(id) then
 			local b, have, name = better(id, book)
-			if b then
+			if b and have >= (top[name] or 0) then
 				local e = byId[id]
 				if not e then
 					e = { id = id, bestId = b.id, name = name, have = have, best = b.rank, slots = {} }

@@ -141,12 +141,16 @@ function Maps.LayoutServicePins(projected, view)
 end
 
 local watched
+local function onView(_, what)
+	if what == "show" and Maps.ServiceMapShown then Maps.ServiceMapShown() end
+	if what == "hide" or what == "map" or what == "size" or what == "scale" then closeMenu() end
+end
 local function watchMap()
 	if watched or not WorldMapFrame or not ns.MapCanvas then return end
-	watched = ns.MapCanvas.Watch(WorldMapFrame, function(_, what)
-		if what == "show" and Maps.ServiceMapShown then Maps.ServiceMapShown() end
-		if what == "hide" or what == "map" or what == "size" or what == "scale" then closeMenu() end
-	end)
+	watched = ns.MapCanvas.Watch(WorldMapFrame, onView)
 end
-ns.OnLogin(watchMap)
+ns.OnLogin(function()
+	watchMap()
+	if ns.MapCanvas then ns.MapCanvas.OnAdd(function(map) ns.MapCanvas.Watch(map, onView) end) end
+end)
 ns.RegisterEvent("ADDON_LOADED", function(_, name) if name == "Blizzard_WorldMap" then watchMap() end end)

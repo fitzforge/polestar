@@ -53,6 +53,7 @@ step The Hunter's Charm (Horde)
 step Ogtinc
   zone Azshara
   tip Ogtinc lives on a raised spot on the cliffs at the north-east rim of the Ruins of Eldarath, west-central Azshara. Keep to the high ridges around the ruins: the pit below does not lead up to him. Alliance: fly to Talrendis Point; Horde: fly to Valormok, a short ride west of him.
+  level 51
   getfp "Talrendis Point" only Alliance
   getfp "Valormok" only Horde
   turnin 8151                         -- Ogtinc
@@ -60,23 +61,28 @@ step Ogtinc
 
 step Courser Antlers
   tip You need two Perfect Courser Antlers. Mosshoof Coursers (level 52-53, deer) graze all over Azshara and drop one about one kill in twelve, so expect two dozen kills. Good herds: north of the Thalassian Base Camp in the north, and the hills north-east and south-east of Valormok; the Lake Mennar area also has elite giants and dragonkin. They Enrage at 30% health. Coursers share spawn points with the Thunderhead hippogryphs: if none are around, kill the hippogryphs and coursers may spawn instead. Respawn is about five and a half minutes.
+  level 53
   collect 20017 x2 quest 8153.1       -- Perfect Courser Antler, from Mosshoof Coursers
 
 step Ogtinc
+  level 51
   turnin 8153                         -- Ogtinc
   accept 8231
 
 step Wavethrashing
   tip You need six Wavethrasher Scales. Wavethrashers (three-headed sea beasts) live along Azshara's coasts, mostly underwater: the Young Wavethrashers (level 51-52) of the north-east shore drop a scale about one kill in three, the Wavethrashers (52-53) of the east coast by the Tower of Eldara about as often (a few walk the beach there), the Great Wavethrashers (53-54) of the south-east shore about one in seven. Track Beasts does not show them; fight them where you can breathe, and bring water breathing if you can. Elite sharks swim the deeper water.
+  level 52
   collect 20087 x6 quest 8231.1       -- Wavethrasher Scales
 
 step Ogtinc
+  level 51
   turnin 8231                         -- Ogtinc
   accept 8232
 
 step Morphaz in the Sunken Temple
   zone Swamp of Sorrows
   tip Morphaz is an elite green drake (level 52) inside the Sunken Temple, a five-player dungeon: needs a group of five. The temple stands in the Pool of Tears in eastern Swamp of Sorrows: climb its outer steps, dive into the flooded hall and follow the stairs down to the entrance. Horde: fly to Stonard; Alliance: fly to Nethergarde Keep or Darkshire and ride on. He is not there when you arrive: first kill the six troll guardians on the platforms around the upper ring, which opens the way down to Jammal'an the Prophet in the Pit of Sacrifice. Jammal'an's death brings out two drakes, Weaver and Dreamscythe (pull them one at a time); when both are dead, Morphaz and Hazzas appear together and cannot be split. Clear the dragonkin around the pit first, because they call for help. Morphaz uses Acid Breath and Wing Flap. The tooth always drops. Warriors in the group may want the same run for the voodoo feathers of the balcony trolls.
+  level 51
   collect 20019 quest 8232.1 @69.0,54.0 -- Tooth of Morphaz, inside the Sunken Temple
 
 step The Green Drake

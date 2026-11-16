@@ -6,12 +6,15 @@
 -- client without the API) the night band stands in. Used by the route choice
 -- cards and the guide menu's details pane.
 --
---   ZoneArt.Create(parent, width, height[, ground]) -> art
+--   ZoneArt.Create(parent, width, height[, ground[, fade]]) -> art
 --     A width x height band (the caller anchors it). ground: the palette
---     colour the bottom fade runs into (default "panelAlt"). art.Over sits
---     above the painting for text and chips; art.psZoom overrides ZA.ZOOM,
---     art.psDesat ZA.DESAT; art.psTint ({ r, g, b }) is multiplied into
---     every tile (the welcome engraves a painting into its night sky).
+--     colour the bottom fade runs into (default "panelAlt"), or a function
+--     answering it on each repaint (a card whose ground the look paints its
+--     own way); fade: how much of the height it covers (default 0.62).
+--     art.Over sits above the painting for text and chips; art.psZoom
+--     overrides ZA.ZOOM, art.psDesat ZA.DESAT; art.psTint ({ r, g, b }) is
+--     multiplied into every tile (the welcome engraves a painting into its
+--     night sky).
 --     After a Paint, art.psCanvas = { left, top, width, height }: where the
 --     whole layer lies in the band (nil while the band stands in), so a
 --     caller can place map percent on the painting.
@@ -23,6 +26,11 @@
 --     neighbours never look cloned. painted is false when the band stands
 --     in; reveal: "full" (every overlay), "explored" (the client's explored
 --     overlays only: a map whose art this table was not built for) or nil.
+--   ZoneArt.Picture(art, pic) -> true
+--     a picture instead (pic = { file, l, r, t, b }: a crop square on
+--     screen, Dungeons.Art's loading screens) where no zone is known, so a
+--     dungeon card never falls back to the night band; the next Paint
+--     replaces it.
 --   ZoneArt.RegisterOverlays(build, arts)
 --     arts: { [uiMapArtID] = { tileWidth, tileHeight, { textureWidth,
 --     textureHeight, offsetX, offsetY, fileDataID, ... (row-major) }, ... } }
@@ -57,7 +65,7 @@ function ZA.RegisterOverlays(build, arts)
 	ZA.overlaysBuild = build
 end
 
-function ZA.Create(parent, width, height, ground)
+function ZA.Create(parent, width, height, ground, fadeShare)
 	local a = CreateFrame("Frame", nil, parent)
 	a:SetSize(width, height)
 	a.psW, a.psH = width, height
@@ -71,7 +79,7 @@ function ZA.Create(parent, width, height, ground)
 	a.Over = CreateFrame("Frame", nil, a)
 	a.Over:SetAllPoints(a)
 	a.Over:SetFrameLevel(a.Canvas:GetFrameLevel() + 1)
-	local fade = floor(height * FADE)
+	local fade = floor(height * (fadeShare or FADE))
 	a.Fade = a.Over:CreateTexture(nil, "BACKGROUND")
 	a.Fade:SetTexture(Theme.Media("white"))
 	a.Fade:SetPoint("BOTTOMLEFT", a, "BOTTOMLEFT", 0, 0)
@@ -86,7 +94,7 @@ function ZA.Create(parent, width, height, ground)
 	a.psFocusY = (TOP_SHADE + height - fade) / 2
 	ground = ground or "panelAlt"
 	W.Painter(a, function(self)
-		local r, g, b = Theme.Color(ground)
+		local r, g, b = Theme.Color(type(ground) == "function" and ground() or ground)
 		local sr, sg, sb = Theme.Color("shade")
 		if self.Fade.SetGradient and CreateColor then
 			self.Fade:SetGradient("VERTICAL", CreateColor(r, g, b, 1), CreateColor(r, g, b, 0))
@@ -242,6 +250,7 @@ function ZA.Paint(a, uiMapID, focusX, focusY, index)
 	local w, h = a.psW, a.psH
 	local info, textures = artLayer(uiMapID)
 	local tiles, shapes = a.Tiles, a.Shapes
+	if a.psPic then a.psPic:Hide() end
 	if not info then
 		for i = 1, #tiles do tiles[i]:Hide() end
 		for i = 1, #shapes do shapes[i]:Hide() end
@@ -303,4 +312,39 @@ function ZA.Paint(a, uiMapID, focusX, focusY, index)
 	end
 	for i = n + 1, #shapes do shapes[i]:Hide() end
 	return true, reveal
+end
+
+-- A picture in place of a zone painting (a dungeon's loading screen,
+-- Dungeons.Art, where no zone is known): pic = { file, l, r, t, b }, a crop
+-- that is square on screen. The band shows the picture's full width at the
+-- crop's scale, centred on the crop and kept inside its top and bottom, in
+-- the painting's shading. -> true
+function ZA.Picture(a, pic)
+	local w, h = a.psW, a.psH
+	for i = 1, #a.Tiles do a.Tiles[i]:Hide() end
+	for i = 1, #a.Shapes do a.Shapes[i]:Hide() end
+	a.Band:Hide()
+	a.psCanvas = nil
+	local t = a.psPic
+	if not t then
+		t = a.Canvas:CreateTexture(nil, "BACKGROUND")
+		t:SetAllPoints(a)
+		a.psPic = t
+	end
+	-- One texture-coordinate unit across is sw on screen, one down sh.
+	local sw, sh = 1 / (pic.r - pic.l), 1 / (pic.b - pic.t)
+	local dx = 1
+	local dy = dx * sw * h / w / sh
+	if dy > pic.b - pic.t then
+		dy = pic.b - pic.t
+		dx = dy * sh * w / h / sw
+	end
+	local cx, cy = (pic.l + pic.r) / 2, (pic.t + pic.b) / 2
+	local x0 = min(max(cx - dx / 2, 0), 1 - dx)
+	local y0 = min(max(cy - dy / 2, pic.t), pic.b - dy)
+	t:SetTexture(pic.file, nil, nil, "TRILINEAR")
+	t:SetTexCoord(x0, x0 + dx, y0, y0 + dy)
+	shadeTile(a, t)
+	t:Show()
+	return true
 end

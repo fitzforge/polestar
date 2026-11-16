@@ -13,28 +13,29 @@ return {
 
 	-- Step 1: Mathias and the Defias
 	-- {npc:332} Master Mathias Shaw · {object:2100} Old Town · {npc:7024} Agent Kearnen · {zone:1436} Westfall
-	["At 20 {npc:332}, upstairs in the SI:7 building in {object:2100}, sends you to {npc:7024} in {zone:1436}. This chain is how you learn Poisons on Forever, so do not skip it."] = "",
+	["At 20 {npc:332}, upstairs in the SI:7 building in {object:2100}, sends you to {npc:7024} in {zone:1436}. This chain is how you learn Poisons on Forever, so do not skip it."] = "На 20-м уровне {npc:332}, наверху в здании ШРУ ({object:2100}), отправляет вас к персонажу {npc:7024} ({zone:1436}). В Forever яды изучаются через эту цепочку, так что не пропускайте ее.",
 
 	-- Step 2: Agent Kearnen
 	-- {npc:7053} Klaven Mortwake · {zone:1436} Westfall · {zone:1431} Duskwood · {item:8046} Kearnen's Journal
 	["Kearnen hides stealthed against the west side of a big tree with two small trees in front of it, just north of {npc:7053}'s Defias tower in the far east of {zone:1436}, by the {zone:1431} border. Read {item:8046} for the tower's layout if you like."] = "",
 
-	-- Step 3: The Defias Tower Key
-	-- {item:7923} Defias Tower Key
-	["The {item:7923}"] = "",
-	-- {npc:7051} Malformed Defias Drone · {spell:921} Pick Pocket · {spell:2983} Sprint
-	-- plural, as words: Defias Drones = {npc:7050} Defias Drone
-	["Get the key first. The {npc:7051} (level 23, not elite) starts at the tower entrance and walks a loop around the outside; it is the spiky-haired one trailing yellow sparkles. Stealth up and {spell:921} it from behind: it always has the key. It hits hard: if stealth breaks, {spell:2983} away. Watch for the pair of Defias Drones that also patrol."] = "",
+	-- Step 3: Klaven's Tower, with a group
+	-- {quest:2359} Klaven's Tower
+	["{quest:2359}, with a group"] = "{quest:2359}, с группой",
+	-- {npc:7053} Klaven Mortwake · {npc:7051} Malformed Defias Drone · {spell:921} Pick Pocket · {object:123214} Duskwood Chest · {spell:9810} Touch of Zanzil
+	-- plural, as words: Defias Tower Patrollers = {npc:7052} Defias Tower Patroller
+	["{npc:7053} on the top floor is a level 26 elite: easier at 24 or with a friend. Get the key first: the {npc:7051} (level 23, the spiky-haired one trailing yellow sparkles) walks a loop around the tower; stealth up and {spell:921} it from behind. Then up the tower past the Defias Tower Patrollers (23) and Sentries (24) to the {object:123214} beside Klaven's desk (Lockpicking about 70-75). Opening it poisons you with the {spell:9810}, which stops your stealth for a while."] = "{npc:7053} на верхнем этаже – элита 26-го уровня: проще на 24-м или с другом. Сначала добудьте ключ: {npc:7051} (23-й уровень, тот, что с торчащими волосами и желтыми искрами) ходит по кругу вокруг башни; уйдите в незаметность и примените {spell:921} сзади. Затем поднимитесь по башне мимо патрульных башни из Братства Справедливости (23) и часовых (24) к объекту {object:123214} у стола Клейвена (Взлом замков около 70-75). Открыв его, вы получите яд {spell:9810}, который на время не дает уйти в незаметность.",
 	-- {spell:921} Pick Pocket · {npc:7051} Malformed Defias Drone · {item:7923} Defias Tower Key
 	["{spell:921} the {npc:7051} for the {item:7923}"] = "{spell:921}: {npc:7051} – добудьте {item:7923}",
-
-	-- Step 4: Klaven's journal
-	["Klaven's journal"] = "",
-	-- {npc:7053} Klaven Mortwake · {object:123214} Duskwood Chest · {area:97} Alther's Mill · {spell:9810} Touch of Zanzil
-	-- plural, as words: Defias Tower Patrollers = {npc:7052} Defias Tower Patroller
-	["Sneak up the tower. Defias Tower Patrollers (23) and Sentries (24) guard the floors; an Ambush with a dagger kills them outright if you would rather clear them. {npc:7053}, a level 26 elite, waits on the top floor: Sap him, or bring a friend. The {object:123214} beside his desk needs Lockpicking of about 70-75 (practise on the boxes at {area:97} in Redridge first). A trick: while the Sentries are away, jump from the chair to the lamp to the bookshelf above the chest, step out of stealth and open the chest from there. Opening it poisons you with the {spell:9810}, which stops your stealth for a while and lets the drone see you; that is why the key comes first. Then get out."] = "",
 	-- {item:7908} Klaven Mortwake's Journal · {object:123214} Duskwood Chest
-	["{item:7908}: the {object:123214}, top floor"] = "",
+	["{item:7908}: the {object:123214}, top floor"] = "{item:7908}: {object:123214}, верхний этаж",
+
+	-- Step 4: Klaven's Tower, solo
+	-- {quest:2359} Klaven's Tower
+	["{quest:2359}, solo"] = "{quest:2359}, в одиночку",
+	-- {npc:7051} Malformed Defias Drone · {spell:921} Pick Pocket · {spell:2983} Sprint · {npc:7053} Klaven Mortwake · {object:123214} Duskwood Chest · {area:97} Alther's Mill · {spell:9810} Touch of Zanzil
+	-- plural, as words: Defias Drones = {npc:7050} Defias Drone · Defias Tower Patrollers = {npc:7052} Defias Tower Patroller
+	["Get the key first. The {npc:7051} (level 23, not elite) starts at the tower entrance and walks a loop around the outside; it is the spiky-haired one trailing yellow sparkles. Stealth up and {spell:921} it from behind: it always has the key. It hits hard: if stealth breaks, {spell:2983} away. Watch for the pair of Defias Drones that also patrol. Then sneak up the tower. Defias Tower Patrollers (23) and Sentries (24) guard the floors; an Ambush with a dagger kills them outright if you would rather clear them. {npc:7053}, a level 26 elite, waits on the top floor: Sap him, or bring a friend. The {object:123214} beside his desk needs Lockpicking of about 70-75 (practise on the boxes at {area:97} in Redridge first). A trick: while the Sentries are away, jump from the chair to the lamp to the bookshelf above the chest, step out of stealth and open the chest from there. Opening it poisons you with the {spell:9810}, which stops your stealth for a while and lets the drone see you; that is why the key comes first. Then get out."] = "Сначала добудьте ключ. {npc:7051} (23-й уровень, не элита) начинает у входа в башню и ходит по кругу снаружи; это тот, что с торчащими волосами и желтыми искрами. Уйдите в незаметность и примените {spell:921} сзади: ключ у него всегда. Он больно бьет: если незаметность спадет, убегайте ({spell:2983}). Остерегайтесь пары мертвяков из Братства Справедливости, которые тоже патрулируют. Затем прокрадитесь вверх по башне. Этажи охраняют патрульные башни из Братства Справедливости (23) и часовые (24); Внезапный удар кинжалом убивает их сразу, если хотите их зачистить. {npc:7053}, элита 26-го уровня, ждет на верхнем этаже: оглушите его Ошеломлением или позовите друга. {object:123214} у его стола требует Взлома замков около 70-75 (сначала потренируйтесь на ящиках у места {area:97} в Красногорье). Хитрость: пока часовых нет рядом, прыгните со стула на лампу, затем на книжную полку над сундуком, выйдите из незаметности и откройте сундук оттуда. Открыв его, вы получите яд {spell:9810}, который на время не дает уйти в незаметность и позволяет мертвяку вас увидеть; поэтому ключ – первым делом. Затем уходите.",
 
 	-- Step 5: Master Mathias Shaw
 	-- {zone:1453} Stormwind · {item:7676} Thistle Tea · {spell:8681} Instant Poison · {item:2928} Dust of Decay · {item:3371} Empty Vial · {npc:1325} Jasper Fel · {npc:1326} Sloan McCoy · {object:2100} Old Town
@@ -49,7 +50,7 @@ return {
 
 	-- Step 7: The cure's ingredients
 	["The cure's ingredients"] = "Ингредиенты лекарства",
-	-- {zone:1453} Stormwind · {item:3421} Simple Wildflowers · {npc:1303} Felicia Gump · {object:2096} Trade District · {item:3372} Leaded Vial · {npc:1257} Keldric Boucher · {npc:1325} Jasper Fel · {item:4371} Bronze Tube · {item:8431} Spool of Light Chartreuse Silk Thread · {object:2177} The Finest Thread (no name in this language: may be words) · {item:6452} Anti-Venom · {skill:129} First Aid · {spell:526} Cure Poison · {spell:9810} Touch of Zanzil
+	-- {zone:1453} Stormwind · {item:3421} Simple Wildflowers · {npc:1303} Felicia Gump · {object:2096} Trade District · {item:3372} Leaded Vial · {npc:1257} Keldric Boucher · {npc:1325} Jasper Fel · {item:4371} Bronze Tube · {item:8431} Spool of Light Chartreuse Silk Thread · {object:2177} The Finest Thread · {item:6452} Anti-Venom · {skill:129} First Aid · {spell:526} Cure Poison · {spell:9810} Touch of Zanzil
 	["All four are in {zone:1453}. {item:3421}: Bernard or {npc:1303}'s flower shop by the {object:2096} canal. A {item:3372}: many general goods and alchemy vendors ({npc:1257}, {npc:1325} and others). A {item:4371}: the Auction House in the {object:2096}; the engineering suppliers keep only one and are nearly always sold out, and an engineer can make one. The {item:8431} lies on the floor beside the left end of the counter in {object:2177}, the tailor's shop on the canals; you can only pick it up with this quest. If you skip the cure, an {item:6452} ({skill:129}) or a druid's {spell:526} also clears the {spell:9810}."] = "",
 	-- {item:4371} Bronze Tube
 	["{item:4371}: the Auction House"] = "",
@@ -60,11 +61,9 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["/lay down"] = "/lay down",
-	-- ["At 20 {npc:332} at SI:7 in {object:2100} sends you to {npc:7024} in {zone:1436}."] = "На 20-м уровне {npc:332} (ШРУ, {object:2100}) отправляет вас к персонажу {npc:7024} ({zone:1436}).",
 	-- ["Everything is in {zone:1453}: the Gumps sell {item:3421}, the {item:8431} lies in the city, and the nearest vendors sell a {item:3372} and a {item:4371}."] = "Все есть в городе {zone:1453}: {item:3421} продают Гампы, {item:8431} лежит в городе, а {item:3372} и {item:4371} продают ближайшие торговцы.",
 	-- ["Forever teaches {spell:2842} through this chain, not the trainer; the {item:7676} recipe comes with it."] = "В Forever навыку «{spell:2842}» учит эта цепочка, а не учитель; вместе с ним вы получите рецепт: {item:7676}.",
 	-- ["Ride north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "Езжайте на север через Элвиннский лес: {zone:1453}. Мастер Матиас Шоу – в здании ШРУ ({object:2100}).",
-	-- ["{item:7908}, in the {object:123214}"] = "{item:7908}: {object:123214}",
 	-- ["{npc:7024} watches {npc:7053}'s tower from the hills in the far east of {zone:1436}, by the {zone:1431} border. The {npc:7051} (level 23) guarding the tower carries its key; Klaven's journal is in the chest at the top."] = "{npc:7024} следит за башней ({npc:7053}) с холмов на дальнем востоке зоны {zone:1436}, у границы зоны {zone:1431}. Ключ от башни у ее охранника – {npc:7051} (23-й уровень); дневник Клавена – в сундуке наверху.",
 	-- ["{npc:7207} works in the cellar of SI:7, the Barracks. Type /lay down beside him to be examined."] = "{npc:7207} работает в подвале здания ШРУ (казармы). Введите /lay down рядом с ним, чтобы он вас осмотрел.",
 	-- ["{spell:2842} (Alliance)"] = "{spell:2842} (Альянс)",

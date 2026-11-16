@@ -122,6 +122,31 @@ end
 
 local function questWidth() return mainWidth() - CARD_X * 2 end
 
+-- A page's plans, worked out once while nothing they read changes: the
+-- header's (the levels chip, the pick-up and hand-in plans) and the quests
+-- tab's (each quest's lines and layout). Every tab re-renders the page, and
+-- each plan walks every quest, its givers and the travel to them: worked out
+-- per render, a dungeon's tabs made about 2.5 MB of garbage. One page's at a
+-- time, for MEMO_SECONDS at most (the travel estimates move with the player),
+-- at the level it was worked out at, dropped at once by a quest, level, XP,
+-- bag, standing, names or look change.
+local memo = { at = -math.huge }
+local MEMO_SECONDS = 10
+local function playerLevel()
+	local C = ns.Compat
+	local info = C and C.GetPlayerInfo and C.GetPlayerInfo()
+	return info and info.level or 1
+end
+local function memoFor(key, f)
+	local now, w, level = GetTime(), mainWidth(), playerLevel()
+	if memo.key ~= key or memo.f ~= f or memo.w ~= w or memo.level ~= level or now - memo.at > MEMO_SECONDS then
+		memo.key, memo.f, memo.w, memo.level, memo.at = key, f, w, level, now
+		memo.header, memo.quests = nil, nil
+	end
+	return memo
+end
+local function forget() memo.key = nil end
+
 local function viewHeight()
 	local h = hub and hub:GetHeight() or 0
 	if h <= 0 then h = SH.height end
@@ -140,18 +165,7 @@ local function factionKey()
 	return f
 end
 
-local function playerLevel()
-	local C = ns.Compat
-	local info = C and C.GetPlayerInfo and C.GetPlayerInfo()
-	return info and info.level or 1
-end
-
-local function thousands(n)
-	local s = tostring(floor(n or 0))
-	local out = s:reverse():gsub("(%d%d%d)", "%1,"):reverse()
-	if out:sub(1, 1) == "," then out = out:sub(2) end
-	return out
-end
+local thousands = ns.Thousands
 
 local function money(copper)
 	local LK = UI.Lookup
@@ -276,12 +290,15 @@ local function bandLabel(key)
 	return key
 end
 
--- For your level: from the dungeon's recommended start to its top (Fitz,
--- 2026-11-08: the Ruins of Lordaeron, 15-22, is not for a level
--- 13; an overlap with a wide window let it in from 13).
+-- For your level: from the dungeon's floor to its top (Fitz, 2026-11-08: the
+-- Ruins of Lordaeron, 15-22, is not for a level 13; an overlap with a wide
+-- window let it in from 13). The floor is the level its run in the route
+-- starts at (Dungeons.List: its range's bottom or where players who killed a
+-- boss there entered, whichever is higher), so the hub never offers a
+-- dungeon the route would still hold back (Fitz, 2026-11-13).
 local function forYou(d, plevel)
 	if d.kind == "raid" or not d.minLevel then return false end
-	return plevel >= d.minLevel and plevel <= (d.maxLevel or d.minLevel)
+	return plevel >= (d.floor or d.minLevel) and plevel <= (d.maxLevel or d.minLevel)
 end
 
 -- The level the dungeon suits best (Dungeons.BestAt), nil without one.
@@ -312,12 +329,14 @@ local function questCount(d, f)
 end
 
 -- For your level under the filter: a dungeon whose quests are all the other
--- faction's is theirs, not yours; so is one whose way in lies inside their
--- capital (Dungeons.EnemyCapital: The Hall of Thanes is not a Horde dungeon).
+-- faction's is theirs, not yours; so is a city dungeon of theirs
+-- (Dungeons.EnemyCapital: The Hall of Thanes is not a Horde dungeon). Under
+-- All, never a city dungeon of the player's other faction.
 local function forYouAs(d, plevel, f)
 	if not forYou(d, plevel) then return false end
+	local side = f == "All" and SIDE[UI.PlayerFaction() or ""] or SIDE[f]
+	if D().EnemyCapital and D().EnemyCapital(d.key, side) then return false end
 	if f == "All" then return true end
-	if D().EnemyCapital and D().EnemyCapital(d.key, SIDE[f]) then return false end
 	local q = d.quests or {}
 	return (q[SIDE[f]] or 0) > 0 or ((q.A or 0) == 0 and (q.H or 0) == 0)
 end
@@ -1056,6 +1075,20 @@ local function hidePool(pool, from)
 	for i = from or 1, #pool do pool[i]:Hide() end
 end
 
+-- A dungeon's painting: its zone framed on the entrance, or the whole zone
+-- where only the zone is known (Forever's dungeons nobody has walked into
+-- yet), else its own loading screen (Dungeons.Art), so no dungeon shows the
+-- bare night band. -> "entrance" | "zone" | "picture" | nil
+local function paintDungeon(art, d, index)
+	local e = d.entrance
+	if ZoneArt.Paint(art, e and e.map or d.zone, e and e.x, e and e.y, index) then
+		return (e and e.map) and "entrance" or "zone"
+	end
+	local pic = D().Art and D().Art(d.key)
+	if pic and ZoneArt.Picture then return ZoneArt.Picture(art, pic) and "picture" end
+	return nil
+end
+
 -- Paint the cards in view (and one line past it); the rest wait.
 function DS.PaintVisible()
 	if not (home and home:IsShown()) then return end
@@ -1065,9 +1098,7 @@ function DS.PaintVisible()
 		local c = cards[i]
 		local key = c.psKey
 		if c.psPainted ~= key and c.psY < top + view + CARD_H and c.psY + CARD_H > top - CARD_H then
-			local d = c.psEntry
-			local e = d.entrance
-			c.psArt = ZoneArt.Paint(c.Art, e and e.map or d.zone, e and e.x, e and e.y, i)
+			c.psArt = paintDungeon(c.Art, c.psEntry, i)
 			c.psPainted = key
 			shown.painted = (shown.painted or 0) + 1
 		end
@@ -1136,7 +1167,8 @@ local function paintCard(c, d, f, plevel, key)
 	if lv then facts[#facts + 1] = lv end
 	local best = bestAtFact(d)
 	if best then facts[#facts + 1] = best end
-	if d.zoneName then facts[#facts + 1] = d.zoneName end
+	local zn = d.zoneName or (d.zone and mapName(d.zone))
+	if zn then facts[#facts + 1] = zn end
 	local n, a, h = questCount(d, f)
 	if f == "All" and a ~= h and a > 0 and h > 0 then
 		facts[#facts + 1] = format(L["%d Alliance, %d Horde quests"], a, h)
@@ -1272,8 +1304,8 @@ end
 local function pageHeader(d)
 	local art = pg.Art
 	local e = d.entrance
-	local painted = ZoneArt.Paint(art, e and e.map or d.zone, e and e.x, e and e.y, 1)
-	if painted and e and e.map then
+	local painted = paintDungeon(art, d, 1)
+	if painted == "entrance" then
 		placeOn(art.Entrance, art, e.x, e.y)
 		art.Entrance:Show()
 	else
@@ -1288,9 +1320,12 @@ local function pageHeader(d)
 	if lv then facts[#facts + 1] = format(L["Levels %s"], lv) end
 	local best = bestAtFact(d)
 	if best then facts[#facts + 1] = best end
-	local z = d.zoneName or (e and mapName(e.map))
+	local zm = (e and e.map) or d.zone
+	local z = d.zoneName or (zm and mapName(zm))
 	if z then facts[#facts + 1] = z end
-	if d.players then facts[#facts + 1] = format(L["%d players"], d.players) end
+	if d.players then
+		facts[#facts + 1] = (d.playersMax and d.playersMax > d.players) and format(L["%d-%d players"], d.players, d.playersMax) or format(L["%d players"], d.players)
+	end
 	if (d.bosses or 0) > 0 then facts[#facts + 1] = d.bosses == 1 and L["1 boss"] or format(L["%d bosses"], d.bosses) end
 	local sub = concat(facts, DOT)
 	W.ShellTitle(hub, d.name, sub)
@@ -1303,8 +1338,19 @@ local function pageHeader(d)
 		pg.Forever:Hide()
 	end
 	-- The levels chip: what the quests still to do are worth, after the
-	-- Forever chip; none at 60 or with no XP to count.
-	local xs = D().QuestXP and D().QuestXP(d.key)
+	-- Forever chip; none at 60 or with no XP to count. With the pick-up and
+	-- hand-in plans, worked out once per page (memo).
+	local Dg, LKm = D(), ns.Lookup
+	local m = memoFor(d.key, factionKey())
+	local hd = m.header
+	if not hd then
+		local guided = LKm and LKm.Guide
+		hd = { xs = Dg.QuestXP and Dg.QuestXP(d.key) or false,
+			plan = guided and Dg.PickupPlan and Dg.PickupPlan(d.key) or false,
+			hplan = guided and Dg.HandinPlan and Dg.HandinPlan(d.key) or false }
+		m.header = hd
+	end
+	local xs = hd.xs or nil
 	if UI.LevelTip.Set(pg.XP, xs, { head = L["If you finish the quests here"], need = L["You are level %d. Level %d is recommended for the quests here; from there:"] }) then
 		pg.XP:ClearAllPoints()
 		if d.forever then
@@ -1315,12 +1361,11 @@ local function pageHeader(d)
 	end
 	-- The actions, right to left: the primary first.
 	local go = e ~= nil and ns.Nav ~= nil
-	local Dg, LKm = D(), ns.Lookup
-	local plan = LKm and LKm.Guide and Dg.PickupPlan and Dg.PickupPlan(d.key) or nil
-	local hplan = LKm and LKm.Guide and Dg.HandinPlan and Dg.HandinPlan(d.key) or nil
+	local plan = hd.plan or nil
+	local hplan = hd.hplan or nil
 	local take = plan and #plan.take or 0
-	local hand = hplan and #hplan.hand or 0
-	local logged = hplan and hand + #hplan.unfinished + #hplan.inside + #hplan.unplaced or 0
+	local hand = hplan and #hplan.hand + #(hplan.errands or {}) or 0
+	local logged = hplan and #hplan.hand + #hplan.unfinished + #hplan.inside + #hplan.unplaced or 0
 	local lead = hand > 0 and "handin" or take > 0 and "pickup" or "go"
 	local side = SIDE[UI.PlayerFaction() or ""]
 	local none = plan ~= nil and take == 0 and #Dg.Quests(d.key, side) > 0 and lead == "go"
@@ -1787,17 +1832,25 @@ end
 
 local function renderQuests(key, f, plevel)
 	local side = SIDE[f]
-	local qs = D().Quests(key, side)
 	hidePool(blocks)
-	qpass.quests, qpass.key, qpass.plevel = qs, key, plevel
-	local plans, tops = {}, {}
-	local y = CARD_GAP
-	for i, q in ipairs(qs) do
-		local p = plan(q, key)
-		plans[i], tops[i] = p, y
-		y = y + p.h + CARD_GAP
+	-- Each quest's lines and layout, once per page (memo).
+	local m = memoFor(key, f)
+	local mq = m.quests
+	if not mq then
+		local qs = D().Quests(key, side)
+		local plans, tops = {}, {}
+		local y = CARD_GAP
+		for i, q in ipairs(qs) do
+			local p = plan(q, key)
+			plans[i], tops[i] = p, y
+			y = y + p.h + CARD_GAP
+		end
+		mq = { qs = qs, plans = plans, tops = tops, y = y }
+		m.quests = mq
 	end
-	qpass.plans, qpass.tops, qpass.painted = plans, tops, {}
+	local qs, y = mq.qs, mq.y
+	qpass.quests, qpass.key, qpass.plevel = qs, key, plevel
+	qpass.plans, qpass.tops, qpass.painted = mq.plans, mq.tops, {}
 	if #qs == 0 then
 		local other = 0
 		if side then other = #D().Quests(key, side == "A" and "H" or "A") end
@@ -1889,18 +1942,23 @@ local function renderMap(key, d, f)
 	local art = pg.MapArt
 	local e = d.entrance
 	local side = SIDE[f]
-	local painted = e and ZoneArt.Paint(art, e.map, e.x, e.y, 1)
+	local painted = paintDungeon(art, d, 1)
 	art:Show()
 	pg.MapNote:Show()
 	local n = 0
-	if painted then
+	if painted == "entrance" then
 		placeOn(art.Entrance, art, e.x, e.y)
 		art.Entrance:Show()
-		-- The quest givers on the entrance's zone, one marker per giver.
+	else
+		art.Entrance:Hide()
+	end
+	if painted == "entrance" or painted == "zone" then
+		-- The quest givers on the zone shown, one marker per giver.
+		local zm = (e and e.map) or d.zone
 		local byGiver, order = {}, {}
 		for _, q in ipairs(D().Quests(key, side)) do
 			local s = startOf(q, e)
-			if s and s.map == e.map and s.x and s.y and not s.inside then
+			if s and s.map == zm and s.x and s.y and not s.inside then
 				local id = (s.kind or "") .. tostring(s.id or s.name)
 				local gq = byGiver[id]
 				if not gq then
@@ -1918,22 +1976,22 @@ local function renderMap(key, d, f)
 			g.psName, g.psLines = gq.point.name, gq.lines
 			g:Show()
 		end
-	else
-		art.Entrance:Hide()
-		if not e then ZoneArt.Paint(art, nil, nil, nil, 1) end
 	end
 	hidePool(givers, n + 1)
+	local text
 	if e then
 		local z = mapName(e.map) or d.zoneName or ""
-		local text = format(L["The entrance, on %s (%.1f, %.1f)."], z, e.x or 0, e.y or 0)
-		if n > 0 then text = text .. " " .. (n == 1 and L["The quest giver nearby is marked; hover for their quests."] or format(L["The %d quest givers nearby are marked; hover for their quests."], n)) end
-		local warn = enemyWarning(d, f)
-		if warn then text = warn .. "\n" .. text end
-		pg.MapNote:SetText(text)
+		text = format(L["The entrance, on %s (%.1f, %.1f)."], z, e.x or 0, e.y or 0)
+	elseif painted == "zone" then
+		text = format(L["The entrance of this dungeon is not known yet; it lies in %s."], d.zoneName or mapName(d.zone) or "")
 	else
-		pg.MapNote:SetText(L["The entrance of this dungeon is not known yet."])
+		text = L["The entrance of this dungeon is not known yet."]
 	end
-	shown.map, shown.givers = e and "entrance" or "none", n
+	if n > 0 then text = text .. " " .. (n == 1 and L["The quest giver nearby is marked; hover for their quests."] or format(L["The %d quest givers nearby are marked; hover for their quests."], n)) end
+	local warn = e and enemyWarning(d, f)
+	if warn then text = warn .. "\n" .. text end
+	pg.MapNote:SetText(text)
+	shown.map, shown.givers = painted or "none", n
 	return 24 + MAP_H + 14 + pg.MapNote:GetStringHeight() + 24
 end
 
@@ -2230,7 +2288,7 @@ local function renderEmpty(reason)
 	home.Watermark:Show()
 	local text
 	if reason == "off" then
-		text = L["The Dungeons section is turned off. Turn it on under Options > Discovery > Dungeons."]
+		text = L["The Dungeons section is turned off. Turn it on under Options > Discovery > Lookup."]
 	else
 		local LK = UI.Lookup
 		text = REASON[reason] or (LK and LK.ReasonText and LK.ReasonText(reason)) or tostring(reason)
@@ -2438,19 +2496,29 @@ ns.On("SHOW_DUNGEON", function(key) DS.Show(key) end)
 -- The dungeon list carries names: a late names pack sorts and names it anew.
 local function listChanged()
 	listCache = nil
+	forget()
 	if root and root:IsVisible() then DS.Render() end
 end
 ns.On("CODEX_LOADED", listChanged)
 ns.On("NAMES_LOADED", listChanged)
 Theme.OnChanged(function() if root and root:IsVisible() then DS.Render() end end)
+-- Another font measures the quests' lines anew.
+W.OnFontChanged(forget)
 local function questsChanged()
+	forget()
 	if root and root:IsVisible() and page then DS.Render() end
 end
 for _, ev in ipairs({ "QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_TURNED_IN", "PLAYER_LEVEL_UP" }) do
 	ns.RegisterEvent(ev, questsChanged)
 end
+-- An objective done (a quest ready to hand in) or XP gained changes the
+-- plans; the page shows them with its next render.
+for _, ev in ipairs({ "QUEST_LOG_UPDATE", "PLAYER_XP_UPDATE" }) do
+	ns.RegisterEvent(ev, forget)
+end
 -- A key picked up or a standing reached changes the Attunement tab only.
 local function ownedChanged()
+	forget()
 	if tab == "attune" and root and root:IsVisible() and page then DS.Render() end
 end
 for _, ev in ipairs({ "BAG_UPDATE_DELAYED", "UPDATE_FACTION" }) do

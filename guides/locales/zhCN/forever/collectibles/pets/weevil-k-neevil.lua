@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: My Little Friends
-	-- {npc:217412} Amaryllis Webb · {zone:1435} Swamp of Sorrows · {zone:1417} Arathi Highlands · {zone:1443} Desolace
-	["{npc:217412}, a Forsaken bug collector, keeps her menagerie in western {zone:1435}. She hands you an Entomology Starter Kit: open it for the tools that catch the three bugs. The bugs are far apart (northern Stranglethorn, {zone:1417} and {zone:1443}), so do them while you pass. If you lose the kit, she sells another for 50s."] = "{npc:217412} 是一名被遗忘者昆虫收集者，她的虫舍位于 {zone:1435} 西部。她会给你一个昆虫学入门工具包：打开后取得捕捉三只虫子的工具。三只虫子相距很远（荆棘谷北部、{zone:1417} 和 {zone:1443}），因此经过时顺手完成即可。如果丢了工具包，她出售的补发包价格是 50 银币。",
+	-- {npc:217412} Amaryllis Webb · {zone:1435} Swamp of Sorrows · {item:213565} Entomology Starter Kit · {zone:1417} Arathi Highlands · {zone:1443} Desolace
+	["{npc:217412}, a Forsaken bug collector, keeps her menagerie in western {zone:1435}. She hands you an {item:213565}: open it for the tools that catch the three bugs. The bugs are far apart (northern Stranglethorn, {zone:1417} and {zone:1443}), so do them while you pass. If you lose the kit, she sells another for 50s."] = "{npc:217412} 是一名被遗忘者昆虫收集者，她的虫舍位于 {zone:1435} 西部。她会给你一个{item:213565}：打开后取得捕捉三只虫子的工具。三只虫子相距很远（荆棘谷北部、{zone:1417} 和 {zone:1443}），因此经过时顺手完成即可。如果丢了工具包，她出售的补发包价格是 50 银币。",
 
 	-- Step 2: Arbor Tarantula in Stranglethorn Vale
 	-- {npc:217588} Arbor Tarantula · {zone:1434} Stranglethorn Vale

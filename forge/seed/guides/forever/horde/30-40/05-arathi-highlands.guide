@@ -2,34 +2,52 @@
 guide forever/horde/30-40/05-arathi-highlands
 title Alterac Mountains & Arathi Highlands
 faction Horde
-levels 38-39
+levels 37-38
 zone Arathi Highlands
 next forever/horde/30-40/06-badlands
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Lord Aliden Perenolde (507), Taretha's Gift (508), Ward Restocking (92519),
-# WANTED: Baron Vardus (566).
+# Added here: Ward Restocking (92519), and from the 29-31 Hillsbrad guide (level tidy 2026-11-15):
+# Infiltration (533, 535), Prison Break In (544), Stone Tokens (556), Key to the City (93680), and
+# Hammerfall's chain (655, 672, 674, 675, 676, 677, Silky Sutures 97539).
+# Left out: Lord Aliden Perenolde (507, 508) and WANTED: Baron Vardus (566): Perenolde (41) and
+# Vardus (40) are two to three levels over players here (recorded at about 38), and the next
+# Tarren Mill landing (forever/horde/40-50/05-the-hinterlands, at about 47) is a long detour for
+# grey XP (its slice declined them). Foul Magics (671, 673): Tor'gan gives it in Hammerfall, and
+# its Syndicate hold Northfold Manor by Thoradin's Wall, behind you on this visit; the second part
+# is an elite group quest.
 
-# Alterac and the second Arathi visit at 38-39 (the 2026-11-07 re-order): Strahnbrad, the
-# Perenolde manor and the Dalaran ruins from Tarren Mill, then Arathi from west to east and
-# back south-west to the Thandol Span for the Badlands. The first Arathi visit (Hammerfall's
-# early chain, the Witherbark trolls) is in forever/horde/30-40/01-hillsbrad-foothills.
+# Alterac and the second Arathi visit at 38-39 (the 2026-11-07 re-order): Strahnbrad and the
+# Dalaran crater from Tarren Mill, then all of Hammerfall's quests in one visit, Arathi from west
+# to east and back south-west to the Thandol Span for the Badlands.
+#
+# Level tidy (2026-11-15, players' recorded levels): Tarren Mill's 33-36 quests and Hammerfall's
+# 32-36 chain used to come at 30-32 on the first Hillsbrad visit, two to five levels under them,
+# with recorded deaths at the Dalaran crater, around Valik and at the Witherbark village. They come
+# here now, where the route works Tarren Mill and Hammerfall anyway: Krusk's Infiltration opens
+# Gol'dir on the same visit, Voidglare's Prison Break In and Key to the City open Dalaran Patrols,
+# Bel'varil's Stone Tokens open Bracers of Binding, and Hammerfall's chains run straight on into
+# Call to Arms (678), Guile of the Raptor (701) and Ward Restocking (92519, which needs Silky
+# Sutures: #2411, #2378).
 #
 # Flow: Orgrimmar (where the previous guide ends) -> zeppelin to the Undercity (training) ->
-# fly to Tarren Mill -> Strahnbrad (Gol'dir) -> Tarren Mill -> the Perenolde manor -> the
-# Dalaran ruins -> Tarren Mill -> east into Arathi: the Syndicate at Northfold, the Shards of
-# Myzrael -> Hammerfall -> Drywhisker Gorge and the Iridescent Shards -> the eastern circle ->
-# Boulderfist Hall, the Fleshstalkers and Go'shek Farm -> Hammerfall -> the outer and western
-# circles -> the inner circle -> Faldir's Cove, from where the next guide crosses the Thandol
-# Span into the Wetlands.
+# fly to Tarren Mill (bind) -> first loop: Valik on the road north, west along the foothills to the
+# Dalaran crater, back to Tarren Mill for every hand-in -> second loop: north to Strahnbrad (Gol'dir),
+# west across Alterac to the Dalaran ruins, hearth back to Tarren Mill -> east into Arathi: the
+# Boulderfist camp, the Shards of Myzrael -> Hammerfall (flight path) -> Drywhisker Gorge and the
+# Iridescent Shards -> the eastern circle -> the Witherbark trolls, raptors and spiders ->
+# Hammerfall -> Boulderfist Hall, the Fleshstalkers and Go'shek Farm -> Hammerfall -> the outer
+# and western circles -> the inner circle -> Faldir's Cove, from where the next guide crosses the
+# Thandol Span into the Wetlands.
 #
 # Class training: the Undercity at the start for Warriors, Paladins, Rogues, Priests, Mages
 # and Warlocks (Hunters, Shamans and Druids trained on the way to Orgrimmar).
 #
-# Carried on: Trollbane (638) from Stranglethorn; Foul Magics (671) from the first Arathi
-# visit; Martek the Exiled (1106) and Sunken Treasure (669) for later on the route.
+# Carried on: Trollbane (638) from Stranglethorn; Thundering Hearts (97985) from Thousand Needles,
+# for Calder Gray on the Undercity stop; Martek the Exiled (1106) and Sunken Treasure (669) for
+# later on the route.
 
 # ---------------------------------------------------------------- The Undercity
 
@@ -43,6 +61,12 @@ step Undercity trainers
   tip Train while you are in the Undercity: the trainers stand in the War Quarter, the Rogues' Quarter and the Magic Quarter (Paladins: Garen Largo).
   train class
 
+step Calder Gray
+  zone Undercity
+  when onquest 97985
+  tip Calder Gray stands in the Apothecarium.
+  turnin 97985                        -- Calder Gray: Stormheart's heart from Thousand Needles
+
 step Fly to Tarren Mill
   zone Undercity
   goto 63.1,48.3 "Undercity flight master"
@@ -53,68 +77,92 @@ step Fly to Tarren Mill
 
 step Tarren Mill
   zone Hillsbrad Foothills
-  accept 503                          -- Krusk, inside the inn
-  accept 566                          -- The WANTED poster by the inn
+  tip Krusk, Magus Wordeen Voidglare and Keeper Bel'varil are inside the inn; Tallow stands outside it.
+  accept 533                          -- Krusk, inside
+  accept 544                          -- Magus Wordeen Voidglare, inside
+  accept 93680                        -- Magus Wordeen Voidglare: Key to the City, the Grimy Key is by the traitors
+  accept 556                          -- Keeper Bel'varil, inside
+  accept 676                          -- Tallow: for Drum Fel in Hammerfall, later in this guide
+  buy 3703 x1 npc 2388                -- Southshore Stout, for Henchman Valik
   sethome "Tarren Mill"
+
+step Henchman Valik
+  when onquest 533
+  when !complete 533
+  zone Alterac Mountains
+  tip Follow the road north out of Tarren Mill into the Alterac foothills: Valik waits by the Syndicate camp. He offers his errand only while you carry Krusk's Infiltration: hand him the stout at once, and his reward is the Syndicate Missive Krusk wants. A missive from the Syndicate here does the same: with one in your bags the guide passes Valik.
+  accept 535
+  turnin 535
+
+step Syndicate missives
+  zone Alterac Mountains
+  tip Only if Valik's missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one.
+  collect 3601 quest 533
 
 step Alterac Mountains
   zone Alterac Mountains
-  goto 61.8,43.0 "Alterac Mountains"
+  tip West along the foot of the hills, south of the road: a Kirin Tor Guard (55) walks that road from the north-east down into the traitors' camp.
+  goto 22.0,93.5 "South of the Dalaran crater's camp"
+
+step The Dalaran crater
+  zone Alterac Mountains
+  tip From the south, walk up into the camp below the violet dome of Dalaran. Ricter, Alina and Dermot (33-34) stand together in the camp, Kegan Darkmar (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-33) around them drop the Worn Stone Tokens: the ones on the camp's west side are furthest from the Guard's road.
+  tip Careful: a Kirin Tor Guard (55) patrols the road that comes down into the camp from the north-east and walks right up to the traitors; he attacks the Horde on sight and has killed many players here. Watch for him, let him walk back up the road, then pull the traitors. Many of the camp's guards stand in linked pairs and others patrol alone. Arcane Sentries (55, elite) and Kirin Tor Enforcers (55) stand around the violet dome itself: keep to the camp below the rim.
+  collect 3691 quest 544.1            -- Dermot
+  collect 3689 quest 544.2            -- Ricter
+  collect 3690 quest 544.3            -- Alina
+  collect 3688 quest 544.4            -- Kegan Darkmar
+  collect 279469 quest 93680.1 @16.4,89.3 map 1416 -- Grimy Key: an object to loot, by the traitors
+  collect 3714 quest 556 @17.7,83.6 map 1416 -- Worn Stone Tokens, from the Shield Guards and Theurgists on the camp's west side
+
+step Hillsbrad Foothills
+  zone Hillsbrad Foothills
+  goto 61.5,20.9 "Tarren Mill"
+
+step Tarren Mill
+  zone Hillsbrad Foothills
+  tip Back east along the foothills to Tarren Mill: everything from the first loop is handed in inside the inn.
+  turnin 533                          -- Krusk, inside
+  accept 503
+  turnin 556                          -- Keeper Bel'varil, inside
+  accept 557
+  turnin 544                          -- Magus Wordeen Voidglare, inside
+  turnin 93680                        -- Magus Wordeen Voidglare
+  accept 545
+
+step Alterac Mountains
+  zone Alterac Mountains
+  goto 60.0,43.7 "Gol'dir"
 
 step Gol'dir
   zone Alterac Mountains
-  tip Head north past Valik's camp to Strahnbrad, the Syndicate-held village (35-37). Jailor Borhuin carries the Rusted Iron Key; Gol'dir sits in a cage in the house on the north side.
+  tip Head north up the road past Valik's camp to Strahnbrad, the Syndicate-held village (35-37). Jailor Borhuin carries the Rusted Iron Key; Gol'dir sits in a cage in the house on the north side.
   tip Careful: Stealthed Syndicate spies roam Strahnbrad, and the buildings hold many Syndicate mobs, mages among them.
   collect 3704 quest 503.1            -- Inside
   complete 503 @60.6,43.8 map 1416    -- Find where Gol'dir is held, on the top floor
   turnin 503                          -- Gol'dir, on the top floor
   accept 506
-
-step Hillsbrad Foothills
-  zone Hillsbrad Foothills
-  goto 61.5,20.9 "Tarren Mill"
-
-step Tarren Mill
-  zone Hillsbrad Foothills
-  tip Krusk waits inside the inn at Tarren Mill, back south down the road.
-  turnin 506                          -- Krusk, inside
-  accept 507
-
-step Baron Vardus
-  zone Alterac Mountains
-  tip Baron Vardus (40) carries the head. He turns up in one spot at a time: the cellar of Strahnbrad's inn, or one of the Syndicate tent camps in the uplands north and north-west of the village, which lie on your way to the Perenolde manor. If you already met him while freeing Gol'dir, this step is done.
-  collect 3626 quest 566              -- Head of Baron Vardus
-
-step Alterac Mountains
-  zone Alterac Mountains
-  goto 39.3,14.6 "Perenolde manor"
-
-step Lord Aliden Perenolde
-  zone Alterac Mountains
-  tip Head north-west through the mountains to the Perenolde manor on the northern shore of Lordamere Lake. Lord Aliden Perenolde (41) waits in a room upstairs: he shields himself, puts you to sleep and heals below half health. Elysa stands beside him.
-  kill 2423 quest 507.1 @39.3,14.6 map 1416
-  turnin 507                          -- Elysa
-  accept 508
+  note Krusk will offer Lord Aliden Perenolde (41, in his manor far up Lordamere Lake) for this: leave it, he is over your level.
 
 step Old Dalaran Ruins: kill these as you meet them
   zone Alterac Mountains
-  tip South along the lake shore to the ruins around the Dalaran crater. The Dalaran Summoners lead Elemental Slaves; the bracers drop from the slaves.
+  tip From Strahnbrad follow the road south-west to Gallows' Corner and on west to the ruins north of the Dalaran crater, along the lake shore. The Dalaran Summoners lead Elemental Slaves; the bracers drop from the slaves. Careful: Arcane Sentries (55, elite) and Kirin Tor Guards (55) guard the dome itself and attack the Horde: work the ruins' outer edge and don't go up to the dome.
   kill 2359 quest 545.2 @22.4,58.6 map 1416
   collect 3715 quest 557.1 @21.6,61.9 map 1416
   kill 2358 quest 545.1 @22.0,57.9 map 1416
 
-step Hillsbrad Foothills
+step Back to Tarren Mill
   zone Hillsbrad Foothills
+  tip Hearth back to Tarren Mill (your hearthstone is bound there), or walk back south-east along the road out of Alterac.
   goto 61.5,20.9 "Tarren Mill"
 
 step Tarren Mill
   zone Hillsbrad Foothills
-  tip Head back east to Tarren Mill.
+  tip Hearth back to Tarren Mill: your hearthstone is bound there.
+  turnin 506                          -- Krusk, inside
   turnin 557                          -- Keeper Bel'varil, inside
   turnin 545                          -- Magus Wordeen Voidglare, inside
   note The magus offers a dungeon errand next: leave it.
-  turnin 508                          -- Krusk, inside the inn
-  turnin 566                          -- High Executor Darthalia
 
 # ---------------------------------------------------------------- Into Arathi
 
@@ -122,11 +170,11 @@ step Arathi Highlands
   zone Arathi Highlands
   goto 32.6,40.4 "Arathi Highlands"
 
-step Northfold Manor
+step Boulderfist camp
   zone Arathi Highlands
-  tip Head east out of Tarren Mill through Thoradin's Wall. The Syndicate hold the walled manor and its farm north of the road; their Highwaymen, Mercenaries and Pathstalkers carry the Bloodstone Amulets.
-  tip Careful: Highwaymen (level 30-31) can be in Sneak, so they may be hidden when you approach.
-  collect 4495 quest 671
+  tip Head east out of Tarren Mill through Thoradin's Wall and follow the road east. The Boulderfist Ogres and Enforcers (32-34) camp south of the road, south of Northfold Manor; the Enforcers stay in the cave there.
+  kill 2562 quest 676.1
+  kill 2564 quest 676.2               -- Below ground
 
 step The Shards of Myzrael
   zone Arathi Highlands
@@ -138,23 +186,23 @@ step The Shards of Myzrael
 
 step Hammerfall
   zone Arathi Highlands
+  tip The orc stronghold at the eastern end of the road. Urda, the wind rider master, stands by the gate.
+  tip Rutherford Twing offers the Defiler's Basic Care Package only once you are Friendly with the Defilers (Arathi Basin): skip it if he doesn't offer it.
+  accept 655                          -- Gor'mul, by the gate
+  getfp "Hammerfall"
+  turnin 8263 direct optional
   turnin 638                          -- Zengu
-  accept 678                          -- Drum Fel
-  turnin 671                          -- Tor'gan
-  accept 701
-  accept 92519                        -- Doctor Gregory Victor, at the south gate
+  turnin 676                          -- Drum Fel
+  accept 677
+  turnin 655                          -- Tor'gan
+  accept 672
+  accept 97539                        -- Doctor Gregory Victor, at the south gate. If Doctor Gregory Victor offers nothing, another player may be running his First Aid quest Triage: he can be busy for a few minutes. Wait, then talk to him again.
 
 step Stromgarde quests for a group
   when group 639
   zone Arathi Highlands
   tip Zengu's Sigil of Strom drops from the elite Syndicate (35-38) in Stromgarde's ruins, the west of the highlands. Great XP if you have a group for it: the route passes Stromgarde on its way to the inner circle.
   accept 639                          -- Zengu
-
-step Foul Magics with a group
-  when group 673
-  zone Arathi Highlands
-  tip Tor'gan's next Foul Magics is Marez Cowl, a level 40 elite warlock in Stromgarde's Syndicate quarter.
-  accept 673                          -- Tor'gan
 
 # ---------------------------------------------------------------- East of Hammerfall
 
@@ -177,6 +225,33 @@ step The Stone of East Binding
   collect 4484 quest 651              -- Cresting Key
 
 # ---------------------------------------------------------------- South of Hammerfall
+
+step Witherbark Village
+  zone Arathi Highlands
+  tip South of Hammerfall, the Witherbark trolls hold the village in the hills. Axe Throwers guard the outer huts; the Witch Doctors and Headhunters hold the heart of the village. Careful: All three troll types flee for help at 15% health, which can pull more trolls from the nearby camps.
+  kill 2556 quest 677.2
+  kill 2554 quest 677.1
+  kill 2555 quest 677.3
+
+step Highland raptors and Plains Creepers
+  zone Arathi Highlands
+  tip On the way back north, Highland Striders roam the hills all around Hammerfall and drop the eyes, and south of it the Plains Creepers (32-33) spin their webs in the grass; they carry the spidersilk.
+  collect 4512 quest 672
+  collect 278225 quest 97539 @69.5,50.5 map 1417 -- Surgical Spidersilk, from Plains Creepers
+
+step Hammerfall
+  zone Arathi Highlands
+  tip Back north to Hammerfall: the doctor stands at the south gate.
+  turnin 97539                        -- Doctor Gregory Victor, at the south gate. If he won't take the silk, another player may be running Triage: wait a few minutes and talk to him again.
+  accept 92519                        -- Doctor Gregory Victor, at the south gate
+  turnin 672                          -- Tor'gan
+  accept 674
+  turnin 674                          -- Gor'mul
+  accept 675
+  turnin 675                          -- Tor'gan
+  accept 701
+  turnin 677                          -- Drum Fel
+  accept 678
 
 step Boulderfist Hall
   zone Arathi Highlands
@@ -201,6 +276,10 @@ step Back to Hammerfall
   turnin 701                          -- Tor'gan
   accept 702
   turnin 678                          -- Drum Fel
+  turnin 702                          -- Gor'mul, by the gate
+  accept 847
+  turnin 847                          -- Tor'gan
+  vendor nearest
 
 step Boulderfist quests for a group
   when group 679
@@ -208,10 +287,6 @@ step Boulderfist quests for a group
   tip Drum Fel's next Call to Arms and Korin Fel's The Real Threat are the elite ogres (38-40) in Stromgarde's ogre quarter, on the same group trip as the Sigil.
   accept 679                          -- Drum Fel
   accept 680                          -- Korin Fel, beside him
-  turnin 702                          -- Gor'mul
-  accept 847
-  turnin 847                          -- Tor'gan
-  vendor nearest
 
 # ---------------------------------------------------------------- The circles
 
@@ -232,11 +307,10 @@ step The Stone of Inner Binding
   note The stone's next task needs Fozruk, a level 42 elite who roams west of Hammerfall: leave it.
 
 step Stromgarde
-  when onquest 639,673,679,680
+  when onquest 639,679,680
   zone Arathi Highlands
-  tip West of the inner circle, Stromgarde's ruins: the Syndicate hold the east half (the Sigil drops from their Conjurors, Prowlers and Magi; Marez Cowl is among them), the Boulderfist the west half by the Tower of Arathor (Or'Kalar waits in one of the roofless houses beside it).
+  tip West of the inner circle, Stromgarde's ruins: the Syndicate hold the east half (the Sigil drops from their Conjurors, Prowlers and Magi), the Boulderfist the west half by the Tower of Arathor (Or'Kalar waits in one of the roofless houses beside it).
   collect 4440 quest 639 @27.3,63.8 map 1417
-  collect 4510 quest 673 @29.6,63.6 map 1417
   kill 2570 quest 679.1 @20.0,67.4 map 1417
   kill 2571 quest 679.2 @19.0,67.8 map 1417
   collect 4551 quest 680 @19.5,67.2 map 1417
@@ -286,10 +360,9 @@ step Faldir's Cove
   note The next guide crosses the Thandol Span into the Wetlands and heads for the Badlands.
 
 step Back to Hammerfall
-  when onquest 639,673,679,680
+  when onquest 639,679,680
   zone Arathi Highlands
   tip Only if you ran Stromgarde with a group: back to Hammerfall for its hand-ins, then on to the Thandol Span.
   turnin 639                          -- Zengu
-  turnin 673                          -- Tor'gan
   turnin 679                          -- Drum Fel
   turnin 680                          -- Korin Fel
