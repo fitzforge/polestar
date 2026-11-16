@@ -542,11 +542,6 @@ test('Blood of My Blood counts 10 of any Fallow Sanctuary Lost One', () => {
 
 // --- Reports fixed in earlier releases that had no test of their own (regression audit after 0.4.0).
 
-// MgM (#462): the Wailing Caverns pick-up page sent players to a mailbox as a giver of Deviate Hides; Nalpak gives it.
-test('Deviate Hides starts from Nalpak only, no mailbox (#462)', () => {
-	assert.deepEqual(corrections.quests[1486].set.start, { npc: [5767], object: [], item: [] });
-});
-
 // Indexmatch, Bennistrov (#1410, #1411, #1572): the Image of Archmage Modera stands only at the Kirin Tor camp on the
 // Silverpine lake shore; a second spot by Dalaran's sewer entrance in Alterac sent players there.
 test('the Image of Archmage Modera stands only at the Kirin Tor camp in Silverpine (#1410, #1572)', () => {

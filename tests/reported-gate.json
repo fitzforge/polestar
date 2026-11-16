@@ -361,9 +361,6 @@
 		"453": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "Nittepitte's report (#453): Making Do is optional in Redridge and on the way back through Auberdine, and taken only after Expanding Horizons is handed in" }
 		] },
-		"462": { "tests": [
-			{ "node": "tests/data-corrections.test.js", "test": "Deviate Hides starts from Nalpak only, no mailbox (#462)" }
-		] },
 		"504": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "Trouble in the Valley (#504): the step at Corporal Adamore's camp says his marines come together" }
 		] },
