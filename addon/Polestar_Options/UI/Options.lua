@@ -3304,7 +3304,7 @@ local function profileMenu(button)
 	end
 	items[#items + 1] = { separator = true }
 	items[#items + 1] = { text = L["Manage profiles"], icon = "layers", onClick = function() O.Select("profiles") end }
-	W.ShowMenu(button, items, { point = "BOTTOMRIGHT", relPoint = "TOPRIGHT", y = 4 })
+	W.ShowMenu(button, items, { point = "BOTTOMRIGHT", relPoint = "TOPRIGHT", y = 4, current = true })
 end
 
 ---------------------------------------------------------------------------
