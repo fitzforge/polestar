@@ -15,6 +15,7 @@
 const { isDeepStrictEqual } = require('node:util');
 const { lexLine } = require('../dsl/lexer');
 const { parseGuide, MODS, MOD_WORDS, RANKS, QUALITIES, STANDINGS } = require('../dsl/parse');
+const { readStandingText } = require('../dsl/when');
 const { parseConditions } = require('../dsl/conditions');
 const { Diagnostics } = require('../dsl/diag');
 
@@ -23,7 +24,7 @@ const cap = (w) => w.charAt(0).toUpperCase() + w.slice(1);
 
 // Fields the parser derives from how a line is written; a caller may leave them out.
 const DERIVED = ['explicitCoords', 'npcExplicit', 'objectExplicit', 'itemExplicit', 'skillQuoted', 'factionQuoted'];
-const NUMERIC = ['quest', 'oi', 'npc', 'object', 'item', 'x', 'y', 'coordMap', 'r', 'count', 'minLevel', 'untilSkill', 'criteria', 'rewardXp', 'rewardMoney', 'level', 'frac', 'levelXp', 'grind', 'spell', 'factionId', 'standing', 'achievement', 'rank'];
+const NUMERIC = ['quest', 'oi', 'npc', 'object', 'item', 'x', 'y', 'coordMap', 'r', 'count', 'minLevel', 'untilSkill', 'criteria', 'rewardXp', 'rewardMoney', 'level', 'frac', 'levelXp', 'grind', 'spell', 'factionId', 'standing', 'achievement', 'rank', 'points'];
 const NUM_TEXT = /^-?\d+(?:\.\d+)?$/;
 
 // Verbs whose positional arguments include the key (written there unless `<key>Explicit`).
@@ -246,6 +247,7 @@ function positionalTokens(verb, f) {
 		case 'learn':
 		case 'craft':
 		case 'cast':
+		case 'buff':
 			id('spell');
 			name('spellName');
 			break;
@@ -254,10 +256,12 @@ function positionalTokens(verb, f) {
 				id('factionId');
 				name('factionName');
 			} else if (f.factionName !== undefined) {
-				const bare = f.factionQuoted ? null : bareWords(String(f.factionName), (toks) => toks.every((t) => !/^\d+$/.test(t.text) && !Object.hasOwn(STANDINGS, t.text.toLowerCase())));
+				const bare = f.factionQuoted ? null : bareWords(String(f.factionName), (toks) => toks.every((t) => readStandingText(t.text) === null));
 				out.push(bare === null ? quote(f.factionName) : bare);
 			}
-			if (f.standing !== undefined) out.push(cap(STANDING_NAMES[f.standing - 1] || String(f.standing)));
+			// Points inside the standing: `Revered+12000`.
+			if (f.standing !== undefined) out.push(`${cap(STANDING_NAMES[f.standing - 1] || String(f.standing))}${f.points !== undefined ? `+${f.points}` : ''}`);
+			else if (f.points !== undefined) throw new Error('points inside a standing (`points`) need the standing');
 			break;
 		case 'achieve':
 			id('achievement');
@@ -273,7 +277,7 @@ const NAME_SLOT = {
 	accept: ['quest', 'title'], turnin: ['quest', 'title'], complete: ['quest', 'title'], kill: ['npc', 'target'],
 	collect: ['item', 'itemName'], use: ['item', 'itemName'], buy: ['item', 'itemName'], talk: ['npc', 'npcName'],
 	interact: ['object', 'objName'], train: ['npc', 'npcName'], vendor: ['npc', 'npcName'], learn: ['spell', 'spellName'],
-	craft: ['spell', 'spellName'], achieve: ['achievement', 'achievementName'],
+	craft: ['spell', 'spellName'], buff: ['spell', 'spellName'], achieve: ['achievement', 'achievementName'],
 };
 
 function rewardText(word, items) {
@@ -310,6 +314,7 @@ function formatGoal(fields) {
 	if (f.rewardXp !== undefined) push('xp', `xp ${f.rewardXp}`);
 	if (f.rewardMoney !== undefined) push('money', `money ${moneyText(f.rewardMoney)}`);
 	if (f.direct && verb === 'turnin') push('direct', 'direct');
+	if (f.off) push('off', 'off');
 	if (f.group) push('group', f.group.size !== undefined ? `group ${f.group.size}` : 'group');
 	const label = f.text !== undefined && !XY_POSITIONAL.includes(verb) && !TEXT_POSITIONAL.has(verb) ? quote(f.text) : null;
 	if (f.optional) push('optional', 'optional');
@@ -407,6 +412,7 @@ const POSITIONAL = {
 		idf('factionId', 'Faction', false),
 		fld('factionName', 'text', 'Faction name', { required: false }),
 		fld('standing', 'enum', 'Standing', { required: true, values: STANDING_NAMES.map((s, i) => ({ value: i + 1, label: cap(s) })) }),
+		fld('points', 'int', 'Points into the standing', { required: false }),
 	],
 	achieve: [idf('achievement', 'Achievement', true), fld('achievementName', 'text', 'Achievement name', { required: false })],
 };
@@ -419,6 +425,7 @@ POSITIONAL.buy = POSITIONAL.collect;
 POSITIONAL.explore = POSITIONAL.goto;
 POSITIONAL.craft = POSITIONAL.learn;
 POSITIONAL.cast = POSITIONAL.learn;
+POSITIONAL.buff = POSITIONAL.learn;
 
 const MODIFIER_FIELDS = {
 	at: [xy({ mod: 'at' })],
@@ -441,13 +448,14 @@ const MODIFIER_FIELDS = {
 	xp: [fld('rewardXp', 'int', 'XP')],
 	money: [fld('rewardMoney', 'money', 'Money (copper)')],
 	direct: [fld('direct', 'bool', 'Handed in without an accept')],
+	off: [fld('off', 'bool', 'Gone (the aura no longer on the player)')],
 	group: [fld('group', 'group', 'Group')],
 	text: [fld('text', 'text', 'Label')],
 	optional: [fld('optional', 'bool', 'Optional')],
 	only: [fld('onlyText', 'text', 'Only for')],
 };
 // Modifier order of the schema = the order formatGoal writes them.
-const MOD_ORDER = ['at', 'map', 'r', 'frame', 'npc', 'object', 'item', 'quest', 'count', 'lvl', 'grind', 'until', 'criteria', 'nearest', 'anywhere', 'choose', 'reward', 'xp', 'money', 'direct', 'group', 'text', 'optional', 'only'];
+const MOD_ORDER = ['at', 'map', 'r', 'frame', 'npc', 'object', 'item', 'quest', 'count', 'lvl', 'grind', 'until', 'criteria', 'nearest', 'anywhere', 'choose', 'reward', 'xp', 'money', 'direct', 'off', 'group', 'text', 'optional', 'only'];
 
 function verbSchema() {
 	const verbs = {};

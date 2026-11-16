@@ -104,3 +104,23 @@ test('format 11: a guide with any of them, read by Polestar 0.4.1 and later', ()
 	assert.equal(formatFor([{ steps: [{ goals: [{ t: 'rep', faction: 72, standing: 6 }] }] }]), FORMAT, 'a plain `rep` goal is as old as format 3');
 	assert.equal(formatFor([{ steps: [{ goals: [{ t: 'accept', quest: 1 }] }], nextWhen: { 'a/b': [{ k: 'rep', faction: 72, standing: 6 }] } }]), 11);
 });
+
+test("the route planner's goal editor writes a `buff` goal, `off` and a `rep` goal's points", () => {
+	const { goalFields, formatGoal, verbSchema } = require('../tools/lib/planner/goalfmt');
+	const { parseGuide } = require('../tools/lib/dsl/parse');
+	const { Diagnostics } = require('../tools/lib/dsl/diag');
+	const written = (text) => formatGoal(goalFields(parseGuide(guideText(['step One', `  ${text}`]), 'x', new Diagnostics()).steps[0].goals[0]));
+	assert.equal(written('buff 1126 "Mark of the Wild" @47.6,35.1'), 'buff 1126 "Mark of the Wild" @47.6,35.1');
+	assert.equal(written('buff 15007 optional off'), 'buff 15007 off optional');
+	assert.equal(written('rep Stormwind Revered+12000'), 'rep Stormwind Revered+12000');
+	assert.equal(written('rep 72 "Stormwind" 6+500 optional'), 'rep 72 "Stormwind" Honored+500 optional');
+	assert.equal(formatGoal({ verb: 'rep', factionName: 'Stormwind', standing: 'Friendly', points: '2000' }), 'rep Stormwind Friendly+2000');
+	// A faction name with a word that reads as a standing is quoted, with points too.
+	assert.equal(formatGoal({ verb: 'rep', factionName: 'The Honored+1 Few', standing: 5 }), 'rep "The Honored+1 Few" Friendly');
+	assert.throws(() => formatGoal({ verb: 'rep', factionName: 'Stormwind', points: 500 }), /need the standing/);
+	const { verbs } = verbSchema();
+	assert.deepEqual(verbs.buff.positional.map((p) => p.key), ['spell', 'spellName']);
+	assert.ok(verbs.buff.modifiers.some((m) => m.key === 'off' && m.type === 'bool' && m.mod === 'off'));
+	assert.ok(verbs.rep.positional.some((p) => p.key === 'points' && !p.required));
+	assert.ok(!verbs.kill.modifiers.some((m) => m.key === 'off'));
+});
