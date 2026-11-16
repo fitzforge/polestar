@@ -1,5 +1,5 @@
 {
-	"_about": "Dungeons journal quests no rule in tools/lib/codex/journal.js can place (docs/ARCHITECTURE.md, Dungeons): a quest whose giver, ender and area lie outside its instance and whose objective no rule ties to it: an item made inside, or found inside on a mob or object the data has not placed there. One row per quest and instance: { quest, instance (Codex instance key), source (a URL, a web quest database citation, or a source cited the way forever-db/corrections cite one: { kind, ref }, players' recordings for one), note }. Loaded by loadJournalQuests; a row whose quest or instance the Codex lacks is a build warning.",
+	"_about": "Dungeons journal quests no rule in tools/lib/codex/journal.js can place (docs/ARCHITECTURE.md, Dungeons): a quest whose giver, ender and area lie outside its instance and whose objective no rule ties to it: an item made inside, or found inside on a mob or object the data has not placed there; or one picked up or handed in inside at someone the data has not placed. One row per quest and instance: { quest, instance (Codex instance key), inside (optional: [\"start\"], [\"finish\"] or both, where it is picked up or handed in inside the instance), source (a URL, a web quest database citation, or a source cited the way forever-db/corrections cite one: { kind, ref }, players' recordings for one), note }. Loaded by loadJournalQuests; a row whose quest or instance the Codex lacks is a build warning.",
 	"quests": [
 		{
 			"quest": 93404,
@@ -144,6 +144,98 @@
 			"instance": "sunken-temple",
 			"source": { "kind": "tdb", "ref": "creatures 5712, 5713, 5714, 5715, 5716 and 5717 (the Voodoo Feathers' only placed sources) each have one spawn, in map 109 (Sunken Temple)" },
 			"note": "Voodoo Feathers (Warrior; the Fallen Hero of the Horde, Swamp of Sorrows): six Voodoo Feathers from the troll champions inside the Sunken Temple; one player's recording shows all three ticking inside the temple."
+		},
+		{
+			"quest": 95262,
+			"instance": "alcaz-prison",
+			"inside": ["finish"],
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 3 people (3 established) took The Secret Prison from Sully McCleary (260271) on Alcaz Island and handed it in inside Alcaz Prison (map 2994), at a window the recordings name no NPC for" },
+			"note": "The Secret Prison (Alliance; Sully McCleary, Alcaz Island): handed in inside the prison."
+		},
+		{
+			"quest": 95263,
+			"instance": "alcaz-prison",
+			"inside": ["start"],
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 3 people (3 established) took Somber News inside Alcaz Prison (map 2994), at the window they handed The Secret Prison in at, and handed it in to Sully McCleary (260271)" },
+			"note": "Somber News (Alliance): picked up inside the prison, handed in to Sully McCleary on Alcaz Island."
+		},
+		{
+			"quest": 96381,
+			"instance": "alcaz-prison",
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 3 people (3 established) progressed A Bit of Wet Work's objectives inside Alcaz Prison (map 2994)" },
+			"note": "A Bit of Wet Work (Alliance; Sully McCleary, Alcaz Island): the Strashaz naga and Tidemistress Ca'zass are inside the prison."
+		},
+		{
+			"quest": 95309,
+			"instance": "alcaz-prison",
+			"inside": ["finish"],
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 4 people (4 established) took No Orc Left Behind from Sergeant Ulka (260383) on Alcaz Island and handed it in inside Alcaz Prison (map 2994)" },
+			"note": "No Orc Left Behind (Horde; Sergeant Ulka, Alcaz Island): find Commander Folkar inside the prison; handed in there."
+		},
+		{
+			"quest": 96332,
+			"instance": "alcaz-prison",
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 4 people (4 established) progressed A Little Payback's objectives inside Alcaz Prison (map 2994)" },
+			"note": "A Little Payback (Horde; Sergeant Ulka, Alcaz Island): the Strashaz naga and Tidemistress Ca'zass are inside the prison."
+		},
+		{
+			"quest": 96334,
+			"instance": "alcaz-prison",
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 4 people (4 established) collected Blood Red Bandanas inside Alcaz Prison (map 2994)" },
+			"note": "Blood Red Bandanas (Horde; Sergeant Ulka, Alcaz Island, to Eitrigg in Orgrimmar): the bandanas come from the human guards inside the prison."
+		},
+		{
+			"quest": 95454,
+			"instance": "alcaz-prison",
+			"inside": ["start", "finish"],
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 4 people (4 established) took The Honor of the Kor'kron inside Alcaz Prison (map 2994) right after handing in No Orc Left Behind there, and handed it in inside" },
+			"note": "The Honor of the Kor'kron (Horde): picked up and handed in inside the prison."
+		},
+		{
+			"quest": 96369,
+			"instance": "alcaz-prison",
+			"inside": ["start", "finish"],
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 4 people (4 established) took Bad News for Folkar inside Alcaz Prison (map 2994) where The Honor of the Kor'kron is handed in, and handed it in inside" },
+			"note": "Bad News for Folkar (Horde): picked up and handed in inside the prison."
+		},
+		{
+			"quest": 95483,
+			"instance": "alcaz-prison",
+			"inside": ["start"],
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 4 people (4 established) took Thrall Needs to Know inside Alcaz Prison (map 2994) right after handing in Bad News for Folkar, and handed it in to Thrall (4949) in Orgrimmar" },
+			"note": "Thrall Needs to Know (Horde): picked up inside the prison, handed in to Thrall in Orgrimmar."
+		},
+		{
+			"quest": 96335,
+			"instance": "alcaz-prison",
+			"inside": ["start", "finish"],
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 6 people (6 established, 3 Alliance and 3 Horde) took The Man in the Iron Chains inside Alcaz Prison (map 2994) and handed it in there once The Questioner (256236) dropped the key" },
+			"note": "The Man in the Iron Chains (both factions): the prisoner Mason Connery gives it and takes the key back, inside the prison."
+		},
+		{
+			"quest": 96337,
+			"instance": "alcaz-prison",
+			"inside": ["start"],
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 6 people (6 established, 3 Alliance and 3 Horde) took More Valuable Than Gold inside Alcaz Prison (map 2994) right after handing in The Man in the Iron Chains; 4 handed it in at Connery's Trunk (object 611086) in Westfall" },
+			"note": "More Valuable Than Gold (both factions): picked up inside the prison, handed in at Connery's Trunk in Westfall."
+		},
+		{
+			"quest": 96376,
+			"instance": "alcaz-prison",
+			"source": { "kind": "factoruide", "ref": "Factoruide row: State Secrets (96376) after More Valuable Than Gold (96337), given and taken back by Nazgrel (3230)" },
+			"note": "State Secrets (Horde; Nazgrel, Orgrimmar): a Document Box, after the prison's More Valuable Than Gold."
+		},
+		{
+			"quest": 96377,
+			"instance": "alcaz-prison",
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 1 person (established) handed State Secrets in to Renzik \"The Shiv\" (6946) after More Valuable Than Gold (96337)" },
+			"note": "State Secrets (Alliance; Renzik \"The Shiv\", Stormwind): a Document Box, after the prison's More Valuable Than Gold."
+		},
+		{
+			"quest": 95036,
+			"instance": "shadowfang-keep",
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 9 people (9 established) ticked A Moon-Kissed Blade's third line, the Enchanted Silver Ingot, inside Shadowfang Keep (map 33)" },
+			"note": "A Moon-Kissed Blade (Paladin, Horde): its Enchanted Silver Ingot is inside Shadowfang Keep, an object the data has not placed; its other parts are in the Deadmines and outside."
 		}
 	]
 }

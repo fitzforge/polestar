@@ -5719,6 +5719,190 @@
 		],
 		"note": "Ancient Gurubashi Idol (Horde, The Drowned City): Mazu'kon in Mulgore gives it and takes it back."
 	},
+	"96332": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 255995,
+					"count": 15,
+					"text": "Strashaz Soldier"
+				},
+				{
+					"type": "kill",
+					"id": 255373,
+					"count": 8,
+					"text": "Strashaz Enchantress"
+				},
+				{
+					"type": "item",
+					"id": 273883,
+					"count": 1,
+					"text": "Ca'zass's Head"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 4 people (4 established) ran A Little Payback (96332) from Sergeant Ulka (260383); the log lists 15 Strashaz Soldiers slain, 8 Strashaz Enchantresses slain and Ca'zass's Head; line 1 ticked on kills of npc 255995, line 2 on kills of npc 255373, line 3 when Tidemistress Ca'zass (255997) died, all inside Alcaz Prison (map 2994)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row (EG Link objectives): item 273883 x1"
+			}
+		],
+		"note": "A Little Payback (Horde, Alcaz Prison): 15 Strashaz Soldiers, 8 Strashaz Enchantresses and Tidemistress Ca'zass's head, inside the prison. The merged data had no objectives, so the Dungeons page tied the quest to no boss (#2560)."
+	},
+	"96335": {
+		"set": {
+			"minLevel": 48
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: min_level 48"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 6 people (6 established, 3 Alliance and 3 Horde) took The Man in the Iron Chains inside Alcaz Prison (map 2994), the youngest at level 49"
+			}
+		],
+		"note": "The Man in the Iron Chains (both factions, Alcaz Prison) asks level 48, as the prison's other quests do; the merged data had no minimum (#2560)."
+	},
+	"96337": {
+		"set": {
+			"minLevel": 48
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: min_level 48"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 6 people (6 established, 3 Alliance and 3 Horde) took More Valuable Than Gold inside Alcaz Prison (map 2994) right after handing in The Man in the Iron Chains, the youngest at level 49; 4 handed it in at Connery's Trunk (object 611086, Westfall 43.4,67.9)"
+			}
+		],
+		"note": "More Valuable Than Gold (both factions): taken inside Alcaz Prison once The Man in the Iron Chains is handed in, level 48 like the prison's other quests; the merged data had no minimum (#2560)."
+	},
+	"96376": {
+		"set": {
+			"pre": [
+				96337
+			]
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: pre_any 96337"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 1 person (Horde, established) opened Nazgrel's (3230) window with More Valuable Than Gold (96337) still in the log and was not offered State Secrets; the one Alliance hand-in of State Secrets (96377) came right after handing in 96337"
+			}
+		],
+		"note": "State Secrets (Horde; Nazgrel, Orgrimmar), a Document Box, comes after More Valuable Than Gold, which is taken inside Alcaz Prison. The merged data had no prerequisite (#2560)."
+	},
+	"96377": {
+		"set": {
+			"start": {
+				"npc": [
+					6946
+				],
+				"object": [],
+				"item": []
+			},
+			"pre": [
+				96337
+			]
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: start npc 6946, end npc 6946, pre_any 96337"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 1 person (Alliance, established) handed State Secrets in to Renzik \"The Shiv\" (6946, Stormwind 78.4,70.9) at his window, a few minutes after handing in More Valuable Than Gold (96337)"
+			}
+		],
+		"note": "State Secrets (Alliance) is given and taken back by Renzik \"The Shiv\" in Stormwind, after More Valuable Than Gold from Alcaz Prison; the merged data had its ender only and no prerequisite (#2560)."
+	},
+	"96381": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 255995,
+					"count": 15,
+					"text": "Strashaz Soldier"
+				},
+				{
+					"type": "kill",
+					"id": 255373,
+					"count": 8,
+					"text": "Strashaz Enchantress"
+				},
+				{
+					"type": "item",
+					"id": 273883,
+					"count": 1,
+					"text": "Ca'zass's Head"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 3 people (3 established) ran A Bit of Wet Work (96381) from Sully McCleary (260271), its lines ticking inside Alcaz Prison (map 2994) as A Little Payback's do"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row (EG Link objectives): item 273883 x1"
+			}
+		],
+		"note": "A Bit of Wet Work (Alliance, Alcaz Prison): the same 15 Strashaz Soldiers, 8 Strashaz Enchantresses and Tidemistress Ca'zass's head as the Horde's A Little Payback. The merged data had no objectives (#2560)."
+	},
+	"95483": {
+		"set": {
+			"pre": [
+				96369
+			]
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: pre_any 96369"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 4 people (4 established) took Thrall Needs to Know inside Alcaz Prison right after handing in Bad News for Folkar (96369) there"
+			}
+		],
+		"note": "Thrall Needs to Know (Horde) is offered inside Alcaz Prison once Bad News for Folkar is handed in; the merged data had no prerequisite (#2560)."
+	},
+	"97173": {
+		"set": {
+			"end": {
+				"npc": [
+					31439
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 1 person handed Blackmaw Magic (97173) in to Archmage Timear (31439), its giver, in Alterac Mountains"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: start npc 31439, end npc 31439"
+			}
+		],
+		"note": "Blackmaw Magic (Alliance, Blackmaw Hold) is handed back to Archmage Timear, who gives it; the merged data had no ender, so the Dungeons page said nothing about where it ends (#2560 sweep)."
+	},
 	"96821": {
 		"set": {
 			"objectives": [
