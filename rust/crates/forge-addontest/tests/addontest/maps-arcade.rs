@@ -1,9 +1,12 @@
 //! Freedoom Arcade on flights (addon/Polestar/Maps/Arcade.lua): the card under the flight timer, the game opened
 //! through FreedoomArcadeAPI or else the standalone addon's slash command (never toggled closed), the game put
-//! away 10 seconds before landing, and Polestar_Arcade, the copy in Polestar's download: loaded on demand, never
-//! beside the standalone addon, its commands left to whoever has them. Runs Core, Theme, Nav and Maps against
-//! stub_world.lua + stub_maps.lua (the small travel world: West Hold to Mid Camp, flown here in a set time).
+//! away 10 seconds before landing, on the landing itself and in a fight on the way, and Polestar_Arcade, the copy in
+//! Polestar's download: loaded on demand, never beside the standalone addon, its commands left to whoever has them.
+//! With the setting off nothing of it is made or loaded, and flights leave nothing behind. Runs Core, Theme, Nav and
+//! Maps against stub_world.lua + stub_maps.lua (the small travel world: West Hold to Mid Camp, flown here in a set
+//! time).
 
+use forge_addontest::run::addons_dir;
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::{json, Value};
 
@@ -73,10 +76,21 @@ local function chat()
 end
 "#;
 
+// Frames made by Maps/Arcade.lua itself (a CreateFrame called from that file), counted from before the addon loads.
+const COUNT_FRAMES: &str = r#"
+arcadeFrames = 0
+local createFrame = CreateFrame
+CreateFrame = function(...)
+	local info = debug.getinfo(2, "S")
+	if info and info.source:find("Maps/Arcade.lua", 1, true) then arcadeFrames = arcadeFrames + 1 end
+	return createFrame(...)
+end
+"#;
+
 fn run_with(script: &str, saved: Option<&str>) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua", "stub_maps.lua"],
-		before: "stub.maps.useWorld(); stub.maps.place(0, 800); stub.world.faction = \"Alliance\"".into(),
+		before: format!("stub.maps.useWorld(); stub.maps.place(0, 800); stub.world.faction = \"Alliance\"\n{COUNT_FRAMES}"),
 		addons: vec![Addon::files("Polestar", &FILES)],
 		saved: saved.map(|s| vec![("Polestar".into(), s.into())]).unwrap_or_default(),
 		login: true,
@@ -84,6 +98,8 @@ fn run_with(script: &str, saved: Option<&str>) -> Value {
 	})
 	.remove(0)
 }
+
+const OFF: &str = "PolestarDB = { schema = 1, settings = { maps = { flightArcade = false } } }";
 
 fn run(script: &str) -> Value {
 	run_with(script, None)
@@ -269,4 +285,247 @@ fn polestar_arcade_never_takes_commands_another_addon_registered() {
 		A.Open()
 		emit({ loaded = C_AddOns.IsAddOnLoaded("Polestar_Arcade"), kept = SlashCmdList.FREEDOOMARCADE == theirs, ours = SLASH_FREEDOOMARCADE1 or false })"#);
 	assert_eq!(out, json!({ "loaded": true, "kept": true, "ours": false }));
+}
+
+// The setting off: nothing of the Arcade is made at login or on a flight (no driver, no card), Polestar_Arcade stays
+// unloaded and nothing runs. On, nothing is made at login either: the first flight makes what it needs.
+#[test]
+fn with_the_setting_off_a_flight_makes_and_loads_nothing() {
+	let flight = r#"
+		present("Polestar_Arcade", { reason = "DEMAND_LOADED" })
+		local atLogin = arcadeFrames
+		takeoff(300)
+		stub.advance(60)
+		local inFlight = { frames = arcadeFrames, trip = A.Trip() ~= nil, card = stub.frame("PolestarArcadeOffer") ~= nil }
+		land()
+		emit({ atLogin = atLogin, inFlight = inFlight, after = arcadeFrames,
+			loaded = C_AddOns.IsAddOnLoaded("Polestar_Arcade"), engine = FreedoomArcade ~= nil, chat = chat() })"#;
+	let off = run_with(flight, Some(OFF));
+	assert_eq!(
+		off,
+		json!({ "atLogin": 0, "inFlight": { "frames": 0, "trip": false, "card": false }, "after": 0, "loaded": false, "engine": false, "chat": {} })
+	);
+	let on = run(flight);
+	assert_eq!(on["atLogin"], 0, "nothing made before the first flight");
+	assert_eq!(on["inFlight"]["trip"], true);
+	assert_eq!(on["inFlight"]["card"], true);
+	assert_eq!(on["loaded"], false, "the card alone loads nothing of the game");
+}
+
+// The setting off, the game opened on a flight anyway (the command, or Play with "Don't ask again"): Polestar still
+// puts it away before landing, since it opened it.
+#[test]
+fn the_game_opened_on_a_flight_with_the_setting_off_is_still_put_away() {
+	let out = run_with(
+		r#"
+		local f = standalone(true)
+		takeoff(300)
+		local before = A.Trip() ~= nil
+		Polestar.RunCommand("arcade")
+		local open = f:IsShown()
+		stub.advance(300 - 1 - 9)
+		local landing = f:IsShown()
+		land()
+		emit({ before = before, open = open, landing = landing, trip = A.Trip() ~= nil, calls = calls, chat = chat() })"#,
+		Some(OFF),
+	);
+	assert_eq!(
+		out,
+		json!({ "before": false, "open": true, "landing": false, "trip": false, "calls": ["Open", "Close:true"],
+			"chat": ["Polestar: Landed. Freedoom Arcade is saved and paused: type /doom to continue."] })
+	);
+}
+
+// A landing sooner than the timer said (or a game reopened in the last 10 seconds): the landing puts it away.
+#[test]
+fn the_landing_puts_away_a_game_still_open() {
+	let out = run(r#"
+		local f = standalone(true)
+		takeoff(300)
+		A.Play()
+		stub.advance(60)
+		local open = f:IsShown()
+		land()
+		emit({ open = open, after = f:IsShown(), card = card(), trip = A.Trip() ~= nil, calls = calls, chat = chat() })"#);
+	assert_eq!(
+		out,
+		json!({ "open": true, "after": false, "card": false, "trip": false, "calls": ["Open", "Close:true"],
+			"chat": ["Polestar: Landed. Freedoom Arcade is saved and paused: type /doom to continue."] })
+	);
+}
+
+// A fight on the way: the game is saved, paused and closed at once (keys back for the fight), one line says how to go
+// on; no card in the fight; the row comes back after it; the landing has nothing more to say.
+#[test]
+fn a_fight_on_the_way_puts_the_game_away() {
+	let out = run(r#"
+		local f = standalone(true)
+		takeoff(300)
+		A.Play()
+		stub.advance(5)
+		stub.inCombat = true
+		stub.fire("PLAYER_REGEN_DISABLED")
+		local fight = { open = f:IsShown(), card = card() }
+		stub.advance(2)
+		local during = card()
+		stub.inCombat = false
+		stub.fire("PLAYER_REGEN_ENABLED")
+		stub.advance(1)
+		local after = card()
+		land()
+		emit({ fight = fight, during = during, after = after, calls = calls, chat = chat() })"#);
+	assert_eq!(
+		out,
+		json!({ "fight": { "open": false, "card": false }, "during": false, "after": "row", "calls": ["Open", "Close:true"],
+			"chat": ["Polestar: Freedoom Arcade is saved and paused for the fight: type /doom to continue."] })
+	);
+}
+
+// A zone border crossed in the air leaves the game alone; a loading screen ends the flight and puts it away.
+#[test]
+fn a_loading_screen_ends_the_flight_and_puts_the_game_away_a_zone_border_does_not() {
+	let out = run(r#"
+		local f = standalone(true)
+		takeoff(300)
+		A.Play()
+		stub.advance(5)
+		stub.fire("ZONE_CHANGED_NEW_AREA")
+		stub.fire("ZONE_CHANGED")
+		stub.advance(2)
+		local border = f:IsShown()
+		stub.fire("PLAYER_LEAVING_WORLD")
+		stub.world.onTaxi = false
+		stub.fire("PLAYER_ENTERING_WORLD", false, false)
+		stub.advance(1)
+		emit({ border = border, after = f:IsShown(), flight = Polestar.Maps.GetFlight() ~= nil, trip = A.Trip() ~= nil, calls = calls, chat = chat() })"#);
+	assert_eq!(
+		out,
+		json!({ "border": true, "after": false, "flight": false, "trip": false, "calls": ["Open", "Close:true"],
+			"chat": ["Polestar: Landed. Freedoom Arcade is saved and paused: type /doom to continue."] })
+	);
+}
+
+// Flight after flight with the card, the game opened and put away: no frame and no memory left behind by any of them.
+#[test]
+fn flights_leave_nothing_behind() {
+	let out = run(r#"
+		local f = standalone(true)
+		local function flight()
+			takeoff(120)
+			A.Play()
+			stub.advance(120)
+			land()
+			for k in pairs(stub.messages) do stub.messages[k] = nil end
+			for k in pairs(notices) do notices[k] = nil end
+			for k in pairs(calls) do calls[k] = nil end
+		end
+		for _ = 1, 3 do flight() end
+		collectgarbage("collect"); collectgarbage("collect")
+		local frames, made, kb = #stub.frames, arcadeFrames, collectgarbage("count")
+		for _ = 1, 25 do flight() end
+		collectgarbage("collect"); collectgarbage("collect")
+		emit({ frames = #stub.frames - frames, made = arcadeFrames - made, kb = collectgarbage("count") - kb,
+			open = f:IsShown(), trip = A.Trip() ~= nil, card = card() })"#);
+	assert_eq!(out["frames"], 0, "{out}");
+	assert_eq!(out["made"], 0, "{out}");
+	assert!(out["kb"].as_f64().unwrap() < 24.0, "memory grew over 25 flights: {out}");
+	assert_eq!(out["open"], false);
+	assert_eq!(out["trip"], false);
+	assert_eq!(out["card"], false);
+}
+
+// No taint: neither Polestar's flight code nor the game it ships calls a protected function, a secure template or a
+// binding function (the game takes the keys with its own window's keyboard, which is the player's while it shows,
+// and is put away by hiding it); and Polestar_Arcade played through a flight with a fight leaves the game's frames and
+// tables alone.
+const PROTECTED: &[&str] = &[
+	r"Cast\w*",
+	r"Use(Action|Item\w*|Container\w*|InventoryItem|Toy\w*)",
+	r"(Target|Assist|Focus|Interact)Unit",
+	r"Target(Nearest|Last)\w*",
+	r"(Clear)?Target",
+	r"(Start)?Attack(Target)?",
+	r"Pet\w+",
+	r"SpellStopCasting",
+	r"SpellTarget\w*",
+	r"(JumpOrAscend|Ascend|Descend|SitStandOrDescend)St\w+",
+	r"(Move(Forward|Backward)|Strafe(Left|Right)|Turn(Left|Right)|CameraOrSelectOrMove|TurnOrAction|Pitch(Up|Down))St\w+",
+	r"Toggle(Run|AutoRun|PVP)",
+	r"RunMacro\w*",
+	r"(Pickup|Place)Action",
+	r"ChangeActionBarPage",
+	r"SetBinding\w*",
+	r"(Set|Clear)OverrideBinding\w*",
+	r"SetPropagateKeyboardInput",
+	r"RegisterStateDriver",
+	r"RegisterAttributeDriver",
+	r"SetAttribute",
+	r"Secure\w*",
+	r"securecall",
+	r"hooksecurefunc",
+	r"(Force)?Quit",
+	r"Logout",
+];
+
+#[test]
+fn neither_the_flight_code_nor_the_game_calls_a_protected_function() {
+	// A call or a method call (frame:SetAttribute(...)); a field of the game's own (D.Target) is its own.
+	let call = regex::Regex::new(&format!(r"(^|[^\w.])({})\s*\(", PROTECTED.join("|"))).unwrap();
+	let template = regex::Regex::new(r#""Secure\w*Template""#).unwrap();
+	let comment = regex::Regex::new(r"--.*$").unwrap();
+	let dir = addons_dir();
+	let mut files = vec![dir.join("Polestar/Maps/Arcade.lua")];
+	let mut src: Vec<_> = std::fs::read_dir(dir.join("Polestar_Arcade/src")).unwrap().map(|e| e.unwrap().path()).collect();
+	src.sort();
+	files.extend(src);
+	let mut found = vec![];
+	for file in &files {
+		let text = std::fs::read_to_string(file).unwrap();
+		for (i, line) in text.lines().enumerate() {
+			let code = comment.replace(line, "");
+			if call.is_match(&code) || template.is_match(&code) {
+				found.push(format!("{}:{}: {}", file.strip_prefix(&dir).unwrap().display(), i + 1, line.trim()));
+			}
+		}
+	}
+	assert!(found.is_empty(), "protected calls:\n{}", found.join("\n"));
+	let out = run(r#"
+		present("Polestar_Arcade", { reason = "DEMAND_LOADED" })
+		takeoff(300)
+		A.Play()
+		stub.advance(5)
+		stub.inCombat = true
+		stub.fire("PLAYER_REGEN_DISABLED")
+		stub.advance(1)
+		stub.inCombat = false
+		stub.fire("PLAYER_REGEN_ENABLED")
+		A.Play()
+		stub.advance(300)
+		land()
+		emit({ open = _G.Polestar_ArcadeFrame:IsShown(), underGameFrames = stub.underGameFrames, mapWrites = stub.mapWrites })"#);
+	assert_eq!(out, json!({ "open": false, "underGameFrames": {}, "mapWrites": {} }));
+}
+
+// Every Lua file the game loads (its TOC) opens with whose work it is and its licence, and the licence and credit
+// files those notices name are in the folder: a file added from upstream or rebuilt by the asset tools without the
+// notice fails here.
+#[test]
+fn every_file_of_the_game_names_its_authors_and_licence() {
+	let dir = addons_dir().join("Polestar_Arcade");
+	for f in ["LICENSE", "CREDITS.md", "FREEDOOM-COPYING.txt", "FREEDOOM-CREDITS.txt"] {
+		assert!(dir.join(f).is_file(), "{f} is missing from Polestar_Arcade");
+	}
+	let toc = std::fs::read_to_string(dir.join("Polestar_Arcade.toc")).unwrap();
+	let mut missing = vec![];
+	for line in toc.lines().map(str::trim).filter(|l| !l.is_empty() && !l.starts_with('#')) {
+		let path = dir.join(line.replace('\\', "/"));
+		let text = std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("{line}: {e}"));
+		let head: String = text.lines().take(4).collect::<Vec<_>>().join("\n");
+		let whose = head.contains("petllama") || head.contains("Contributors to the Freedoom project");
+		let licence = head.contains("GPL") || head.contains("BSD licence: see FREEDOOM-COPYING.txt");
+		if !(head.starts_with("-- ") && whose && licence) {
+			missing.push(line.to_string());
+		}
+	}
+	assert!(missing.is_empty(), "files without the notice: {missing:?}");
 }

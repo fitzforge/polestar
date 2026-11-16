@@ -18,12 +18,17 @@
 -- off); after it, a "Play Freedoom Arcade" row under the timer while the
 -- conditions hold. LANDING seconds before arrival with the window open: the
 -- banner says so (Nav.alerts.ShowNotice) and, through the API, the game is
--- saved, paused and closed so the keys are the character's again; on
--- landing a chat line says how to go on. /polestar arcade and the guide
--- window's menu open it any time.
+-- saved, paused and closed so the keys are the character's again. The
+-- landing itself (a loading screen ends a flight too) and a fight on the way
+-- do the same with the game still open; a chat line says how to go on.
+-- /polestar arcade and the guide window's menu open it any time.
 --
--- Cost: one hidden driver frame, shown only during a flight, ticking twice
--- a second; the card is built on the first offer.
+-- Cost: with the setting off nothing is made and nothing runs on a flight.
+-- On, a flight makes one hidden driver frame (the first flight only), shown
+-- for the flight, ticking twice a second, and listens for a fight while it
+-- lasts; the card is built on the first offer. Opening the game on a flight
+-- (the card's Play with "Don't ask again", the command) also starts the
+-- landing guard, the setting off or not.
 
 local ADDON, ns = ...
 local Maps = ns.Maps
@@ -118,8 +123,9 @@ local function loadBundled()
 	return true
 end
 
--- Opens the game (never closes it): true when it is open after.
-function Arcade.Open()
+-- Opens the game (never closes it): true when it is open after. Arcade.Open
+-- (the flight's part, below) wraps it.
+local function openGame()
 	local which = Arcade.Which()
 	if not which then
 		ns.Print(L["Freedoom Arcade can't open: its folder Polestar_Arcade is missing or turned off."])
@@ -316,8 +322,7 @@ function Arcade.Card() return card end
 ---------------------------------------------------------------------------
 
 local trip -- this flight: { asked, warned, closedByUs }
-local driver = CreateFrame("Frame")
-driver:Hide()
+local driver, acc
 
 local function enabled()
 	return ns.Get("maps.flightArcade") and Arcade.Available()
@@ -331,8 +336,25 @@ local function offerable(left)
 	return t ~= nil and t:IsShown() and not Arcade.IsOpen()
 end
 
+local stopTrip
+
+-- A fight on the way: the game is saved, paused and closed (the game's own
+-- pause on aggro may have done it already: then it has said so).
+local function onFight()
+	if not trip then return end
+	hide()
+	if Arcade.IsOpen() and Arcade.PutAway() then
+		ns.Print(L["Freedoom Arcade is saved and paused for the fight: type %s to continue."]:format(Arcade.ResumeCommand()))
+	end
+end
+
 function Arcade.Tick()
 	if not trip then return end
+	-- Off with nothing of ours to put away: the flight is none of our business.
+	if not ns.Get("maps.flightArcade") and not trip.closedByUs and not Arcade.IsOpen() then
+		stopTrip()
+		return
+	end
 	local _, left = Maps.GetFlight()
 	if left and left <= LANDING then
 		hide()
@@ -362,13 +384,36 @@ function Arcade.Tick()
 	end
 end
 
-local acc = 0
-driver:SetScript("OnUpdate", ns.Safe(function(_, dt)
-	acc = acc + dt
-	if acc < TICK then return end
-	acc = 0
-	Arcade.Tick()
-end))
+local function startTrip(asked)
+	trip = { asked = asked or false, warned = false, closedByUs = false }
+	if not driver then
+		driver = CreateFrame("Frame")
+		driver:SetScript("OnUpdate", ns.Safe(function(_, dt)
+			acc = acc + dt
+			if acc < TICK then return end
+			acc = 0
+			Arcade.Tick()
+		end))
+	end
+	acc = TICK
+	driver:Show()
+	ns.RegisterEvent("PLAYER_REGEN_DISABLED", onFight)
+end
+
+function stopTrip()
+	trip = nil
+	if driver then driver:Hide() end
+	ns.UnregisterEvent("PLAYER_REGEN_DISABLED", onFight)
+	hide()
+end
+
+-- Opens the game (never closes it): true when it is open after. Opened on a
+-- flight (whatever opened it), the landing guard runs for it.
+function Arcade.Open()
+	local ok = openGame()
+	if ok and not trip and Maps.GetFlight() then startTrip(true) end
+	return ok
+end
 
 function Arcade.Play()
 	hide()
@@ -387,23 +432,28 @@ function Arcade.NotNow()
 end
 
 ns.On("FLIGHT_STARTED", function()
-	trip = { asked = false, warned = false, closedByUs = false }
-	acc = TICK
-	driver:Show()
+	if ns.Get("maps.flightArcade") then startTrip(false) end
 end)
 
+-- Landed (or a loading screen ended the flight): a game still open is put
+-- away, whenever it was opened.
 ns.On("FLIGHT_ENDED", function()
-	local closedByUs = trip and trip.closedByUs
-	trip = nil
-	driver:Hide()
-	hide()
+	if not trip then return end
+	local closedByUs = trip.closedByUs
+	if Arcade.IsOpen() then closedByUs = Arcade.PutAway() or closedByUs end
+	stopTrip()
 	if closedByUs then
 		ns.Print(L["Landed. Freedoom Arcade is saved and paused: type %s to continue."]:format(Arcade.ResumeCommand()))
 	end
 end)
 
 ns.On("SETTING_CHANGED", function(path)
-	if trip and (path == "maps.flightArcade" or path == "maps" or path == "") then Arcade.Tick() end
+	if not (path == "maps.flightArcade" or path == "maps" or path == "") then return end
+	if trip then
+		Arcade.Tick()
+	elseif ns.Get("maps.flightArcade") and Maps.GetFlight() then
+		startTrip(false)
+	end
 end)
 
 -- For the tests: this flight's state.
