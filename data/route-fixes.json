@@ -5553,6 +5553,42 @@
 				],
 				"faction": "Alliance",
 				"why": "Alliance 12-30 (0.4.0 fix round): Elemental Bracers (1016) is done on 06-wetlands' Ashenvale trip, between the Foulweald and Krolg, at about 29.7. On 06-ashenvale's Mystral Lake stop at 23-24 the Befouled Water Elementals (23-25) and Tideress (27, non-elite, drops the bracers) were two to four over the player: 0.3.5+ players' recordings show 4 people killed by Tideress and 4 by the elementals there."
+			},
+			{
+				"a": [
+					"task",
+					207
+				],
+				"b": [
+					"task",
+					97329
+				],
+				"faction": "Alliance",
+				"why": "Alliance 30-40 fix round 1 (0.4.0): Zimmix Sputterspark's rescue, Kebok's Bloodscalp Ears (189) and the Stolen Shipments (97328) are worked in the ruins of Zul'Kunda on 04b at about 36, beside the third troll tablet, not on 04's Savage Coast at about 34: the ruins' core (Berserkers, Headhunters, Witch Doctors 36-37) was three over the player there (0.3.5+ players' recordings: 23 deaths by 10 people in the ruins at 33.8-35.2)."
+			},
+			{
+				"a": [
+					"turnin",
+					622
+				],
+				"b": [
+					"task",
+					97047
+				],
+				"faction": "Alliance",
+				"why": "Alliance 30-40 fix round 1 (0.4.0): The Cook in the Cage is taken at Wendel's cage on 04b and worked from 40-50/01's Rebel Camp stop at about 41: the cage key drops only from Kurzen's Subchiefs (35-36, three of them beside Colonel Kurzen, a 39-40 elite) and Elites (36-37), two over players on 04b at about 35. Returning to Port (97048) goes to Captain Aransas on 40-50/01's Booty Bay stop."
+			},
+			{
+				"a": [
+					"task",
+					188
+				],
+				"b": [
+					"turnin",
+					574
+				],
+				"faction": "Alliance",
+				"why": "Alliance 30-40/04b fix round 1 (0.4.0): Sin'Dall's hill lies about 180 yd from the first jungle-ruins tablet, so the loop goes Zul'Kunda, Sin'Dall and the Lashtails, Nesingwary's tents, then the Rebel Camp hand-ins and south to Booty Bay (about 2,240 yd) instead of Zul'Kunda, the Rebel Camp, back south-west to Sin'Dall and north to Nesingwary (about 2,700 yd)."
 			}
 		],
 		"notes": [
@@ -8068,6 +8104,11 @@
 				"q": 665,
 				"size": 2,
 				"why": "Alliance level tidy (0.4.0): Faldir's Cove at the end of 30-40/05-arathi-highlands, about 38 for players (recorded 25th percentile 38.3): Professor Phizzlethorpe's escort (665) is ambushed by two level 40 water elementals, and the Drowned Reef's Daggerspine naga (664: Raiders 38-39, Sorceresses 39-40) are where 11 of 18 recorded players died. The whole cove (663, 662, 664, 665, 666, 668, 669) is one group choice on that step; the route has no later Arathi visit."
+			},
+			{
+				"q": 651,
+				"size": 2,
+				"why": "Alliance 30-40 fix round 1 (0.4.0): Stones of Binding's Stone of East Binding is guarded by three Cresting Exiles (38-39) that attack together, two over players on 30-40/05 at about 37 (recorded 25th percentile 37.8), with no later Arathi visit: the quest (accept, the three keys, the hand-in) is a group choice."
 			}
 		]
 	},
@@ -10158,7 +10199,7 @@
 					"accept",
 					189
 				],
-				"reason": "Alliance level tidy (0.4.0), quest volume: Where's the Key? (35, 2,750 XP): Zimmix Sputterspark is caged in the Bloodscalp ruins on Stranglethorn's north-west coast, where 30-40/04's Savage Coast step already hunts Bloodscalp trolls for Kebok's ears at about 34 (the route walked past him); any Bloodscalp drops the key (players' recordings: 40 records of it). It makes up part of the experience the guide lost when Sin'Dall and the Lashtails moved to the second loop.",
+				"reason": "Alliance level tidy (0.4.0), quest volume: Where's the Key? (35, 2,750 XP): Zimmix Sputterspark is caged in the Bloodscalp ruins on Stranglethorn's north-west coast, where 30-40/04's Savage Coast step already hunts Bloodscalp trolls for Kebok's ears at about 34 (the route walked past him); any Bloodscalp drops the key (players' recordings: 40 records of it). It makes up part of the experience the guide lost when Sin'Dall and the Lashtails moved to the second loop. Fix round 1 (0.4.0): worked in the ruins on 04b's Zul'Kunda step at about 36 instead (the ruins' core is 36-37).",
 				"issue": "-"
 			},
 			{
@@ -10167,7 +10208,7 @@
 					"turnin",
 					97329
 				],
-				"reason": "Alliance level tidy (0.4.0), quest volume: Zimmix's Great Escape (35, 2,750 XP): lead Zimmix out of the ruins, then Wharfmaster Lozgil takes it on 30-40/04's second Booty Bay stop, with Kebok's ears.",
+				"reason": "Alliance level tidy (0.4.0), quest volume: Zimmix's Great Escape (35, 2,750 XP): lead Zimmix out of the ruins, then Wharfmaster Lozgil takes it on 30-40/04's second Booty Bay stop, with Kebok's ears. Fix round 1 (0.4.0): handed in on 04b's Booty Bay stop instead.",
 				"issue": "-"
 			},
 			{
@@ -10176,7 +10217,7 @@
 					"accept",
 					574
 				],
-				"reason": "Alliance level tidy (0.4.0): The Cook in the Cage (level 38, 2,850 XP) and Returning to Port (97048, 2,850 XP): Wendel Mathers is caged at the western edge of Kurzen's Compound, where 30-40/04b's Special Forces step works at about 36; the key drops from the compound's Elites and Subchiefs (35-37, one level over at most) and the uniform lies in its eastern part (players' recordings: about 50,8), and Captain Aransas is on the guide's Booty Bay stop. 150 players are recorded doing it.",
+				"reason": "Alliance level tidy (0.4.0): The Cook in the Cage (level 38, 2,850 XP) and Returning to Port (97048, 2,850 XP): Wendel Mathers is caged at the western edge of Kurzen's Compound, where 30-40/04b's Special Forces step works at about 36; the key drops from the compound's Elites and Subchiefs (35-37, one level over at most) and the uniform lies in its eastern part (players' recordings: about 50,8), and Captain Aransas is on the guide's Booty Bay stop. 150 players are recorded doing it. Fix round 1 (0.4.0): the accept stays at Wendel's cage on 04b; the key, uniform and hand-in are on 40-50/01's Rebel Camp stop at about 41 (the Subchiefs and Elites are 35-37, Colonel Kurzen 39-40 elite beside them).",
 				"issue": "-"
 			},
 			{
@@ -10185,7 +10226,7 @@
 					"turnin",
 					97047
 				],
-				"reason": "Alliance level tidy (0.4.0): Returning to Port follows The Cook in the Cage and is handed to Captain Aransas on 30-40/04b's Booty Bay stop.",
+				"reason": "Alliance level tidy (0.4.0): Returning to Port follows The Cook in the Cage and is handed to Captain Aransas on 30-40/04b's Booty Bay stop. Fix round 1 (0.4.0): on 40-50/01's Booty Bay stop instead.",
 				"issue": "-"
 			},
 			{
@@ -10194,7 +10235,7 @@
 					"accept",
 					194
 				],
-				"reason": "Alliance level tidy (0.4.0), quest volume: Anything of Value (35, 2,750 XP): the looted crate that starts it lies west of Nesingwary's camp, where 30-40/04 hunts the raptors (players' recordings: 31.5,12.8, 21 people, most on this guide at about 34.5), and the Stolen Shipments lie in the Bloodscalp ruins of Zul'Kunda, which the guide's Savage Coast step works for Kebok's ears and Zimmix; Wharfmaster Lozgil takes it with Zimmix's Great Escape on the second Booty Bay stop.",
+				"reason": "Alliance level tidy (0.4.0), quest volume: Anything of Value (35, 2,750 XP): the looted crate that starts it lies west of Nesingwary's camp, where 30-40/04 hunts the raptors (players' recordings: 31.5,12.8, 21 people, most on this guide at about 34.5), and the Stolen Shipments lie in the Bloodscalp ruins of Zul'Kunda, which the guide's Savage Coast step works for Kebok's ears and Zimmix; Wharfmaster Lozgil takes it with Zimmix's Great Escape on the second Booty Bay stop. Fix round 1 (0.4.0): the Stolen Shipments are taken in the ruins on 04b's Zul'Kunda step, handed to Lozgil on its Booty Bay stop.",
 				"issue": "-"
 			},
 			{
@@ -10222,6 +10263,26 @@
 					1258
 				],
 				"reason": "Level tidy 0.4.0 (Alliance 40-50): an at-level quest on a walk the route already makes, so the band levels by questing rather than by the written grinds. Active Ingredient (level 44, 3,750 XP): the Wyrmtail grows in the Wyrmbog east of Mudsprocket (players' recordings at 44-48,74-83), on the same Wyrmbog loop.",
+				"issue": "-"
+			},
+			{
+				"q": 93585,
+				"after": [
+					"turnin",
+					1396
+				],
+				"faction": "Alliance",
+				"reason": "Alliance 30-40 fix round 1 (0.4.0): This Light of Mine (level 34, 2,700 XP), Father Tuttle's escort to the Harborage on the route's own walk from Watcher Biggs to Magtoor; more quest experience in a band whose levels sat a little low (players' recordings: 6 of 10 people finished it).",
+				"issue": "-"
+			},
+			{
+				"q": 93464,
+				"after": [
+					"turnin",
+					1389
+				],
+				"faction": "Alliance",
+				"reason": "Alliance 30-40 fix round 1 (0.4.0): The Visiting Mage (level 38, 1,450 XP), from Magtoor at the Draenethyst hand-in to Azore Aldamort, whom 06b visits on its way to the Karnitol wreck: no extra walk. Its follow-up (93465) is far off the route and stays out.",
 				"issue": "-"
 			}
 		],

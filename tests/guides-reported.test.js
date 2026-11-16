@@ -13750,22 +13750,53 @@ test('Alliance level tidy 30-40: Lifting the Curse on 01\'s Menethil stop, Clean
 	assert.ok(at(list, 'turnin 293', is('turnin', 293)) > boat, 'Benedictus on the Stormwind stop at the end');
 });
 
-test('Alliance level tidy 30-40: The Cook in the Cage with Special Forces in Kurzen\'s Compound, Returning to Port at Booty Bay', { skip }, () => {
-	const list = goals('forever/alliance/30-40/04b-stranglethorn-vale.guide');
-	const take = at(list, 'accept 97047', is('accept', 97047));
-	const done = at(list, 'turnin 97047', is('turnin', 97047));
-	assert.ok(at(list, 'accept 574', is('accept', 574)) < take && take < at(list, 'kill 938', (g) => g.t === 'kill' && g.npc === 938), 'taken with Special Forces, before the compound work');
-	assert.ok(done < at(list, 'turnin 574', is('turnin', 574)), 'Wendel freed before Yohwa');
-	assert.ok(done < at(list, 'accept 97048', is('accept', 97048)) && at(list, 'turnin 97048', is('turnin', 97048)) > at(list, 'turnin 213', is('turnin', 213)), 'Captain Aransas on the Booty Bay stop');
+// Fix round 1 (0.4.0 Alliance audit): the Cook in the Cage's key drops only from Kurzen's Subchiefs (35-36, three beside
+// Colonel Kurzen, a 39-40 elite) and Elites (36-37), two over players on 04b at about 35: Wendel's quest is taken at his
+// cage there and worked on 40-50/01's Rebel Camp stop at about 41, Returning to Port handed to Captain Aransas on its
+// Booty Bay stop.
+test('Alliance 30-40/40-50: The Cook in the Cage taken on 04b, worked from 40-50/01\'s Rebel Camp, Returning to Port at Booty Bay', { skip }, () => {
+	const b = goals('forever/alliance/30-40/04b-stranglethorn-vale.guide');
+	const take = at(b, 'accept 97047', is('accept', 97047));
+	assert.ok(at(b, 'accept 574', is('accept', 574)) < take && take < at(b, 'kill 938', (g) => g.t === 'kill' && g.npc === 938), 'taken with Special Forces, at Wendel\'s cage');
+	assert.ok(!b.some(({ goal }) => goal.quest === 97047 && goal.t !== 'accept'), 'no key, uniform or hand-in on 04b');
+	const s = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const key = at(s, 'collect 216616', (g) => g.t === 'collect' && g.item === 216616);
+	assert.ok(at(s, 'turnin 622 (Rebel Camp)', is('turnin', 622)) < key, 'after the Rebel Camp hand-in');
+	const done = at(s, 'turnin 97047', is('turnin', 97047));
+	assert.ok(key < done && done < at(s, 'accept 97048', is('accept', 97048)) && at(s, 'accept 97048', is('accept', 97048)) < at(s, 'turnin 97048', is('turnin', 97048)), 'Wendel freed, then Captain Aransas on the Booty Bay stop');
 });
 
-test('Alliance level tidy 30-40: Anything of Value with Zimmix in the Bloodscalp ruins, handed to Wharfmaster Lozgil at Booty Bay', { skip }, () => {
-	const list = goals('forever/alliance/30-40/04-stranglethorn-vale.guide');
-	const take = at(list, 'accept 97328', is('accept', 97328));
-	const shipments = at(list, 'collect 277953', (g) => g.t === 'collect' && g.item === 277953);
-	assert.ok(take < shipments && list[shipments].s === list[at(list, 'collect 1519', (g) => g.t === 'collect' && g.item === 1519)].s, 'the shipments with Kebok\'s ears on the Savage Coast');
+// Fix round 1 (0.4.0 Alliance audit): the Bloodscalp ruins' core (Berserkers, Headhunters, Witch Doctors 36-37) was three
+// over players on 04's Savage Coast at about 34; Zimmix, Kebok's ears and the Stolen Shipments are worked in the ruins on
+// 04b's Zul'Kunda step at about 36, handed in on its Booty Bay stop. Kebok's quest and the crate are taken on 04.
+test('Alliance level tidy 30-40: Anything of Value, Zimmix and Kebok\'s ears in the Bloodscalp ruins on the second loop, handed in at Booty Bay', { skip }, () => {
+	const first = goals('forever/alliance/30-40/04-stranglethorn-vale.guide');
+	at(first, 'accept 97328', is('accept', 97328));
+	at(first, 'accept 189', is('accept', 189));
+	assert.ok(!first.some(({ goal }) => [97329, 97331].includes(goal.quest) || (goal.quest === 189 && goal.t !== 'accept') || (goal.quest === 97328 && goal.t !== 'accept')), 'no ruin work on the first loop');
+	const list = goals('forever/alliance/30-40/04b-stranglethorn-vale.guide');
+	const ruins = list[at(list, 'collect 2007 (third tablet)', (g) => g.t === 'collect' && g.item === 2007)].s;
+	for (const [what, pred] of [['accept 97329', is('accept', 97329)], ['collect 1519', (g) => g.t === 'collect' && g.item === 1519], ['collect 277953', (g) => g.t === 'collect' && g.item === 277953]]) assert.equal(list[at(list, what, pred)].s, ruins, `${what} on the Zul'Kunda step`);
 	const lozgil = at(list, 'turnin 97328', is('turnin', 97328));
-	assert.equal(list[lozgil].s, list[at(list, 'turnin 97331', is('turnin', 97331))].s, 'Lozgil takes both on the second Booty Bay stop');
+	assert.equal(list[lozgil].s, list[at(list, 'turnin 97331', is('turnin', 97331))].s, 'Lozgil takes both on the Booty Bay stop');
+	assert.equal(list[lozgil].s, list[at(list, 'turnin 189', is('turnin', 189))].s, 'Kebok on the same stop');
+});
+
+// Fix round 1 (0.4.0 Alliance audit): three Cresting Exiles (38-39) guard the Stone of East Binding and attack together,
+// two over players on 05 at about 37, with no later Arathi visit: Stones of Binding is a group choice.
+test('Alliance Arathi: Stones of Binding is a group choice (the East stone\'s Cresting Exiles are 38-39)', { skip }, () => {
+	for (const { step, goal } of goals(ARATHI).filter(({ goal }) => goal.quest === 651)) {
+		assert.ok((step.when || []).some((p) => p.k === 'group' && [p.q].flat().includes(651) && !p.neg), `${goal.t} 651 is under when group 651`);
+	}
+});
+
+// Fix round 1 (0.4.0 Alliance audit): the Buzzard Gizzard comes from the Starving Buzzards (35-37, 15%) north of
+// Hammertoe's Digsite; the Giant Buzzards (39-41) in the far west were where players went for it, three over them.
+test('Alliance Badlands: the Buzzard Gizzard points at the Starving Buzzards north of the digsite', { skip }, () => {
+	const list = goals('forever/alliance/30-40/06-badlands.guide').filter(({ goal }) => goal.t === 'collect' && goal.item === 7847);
+	assert.ok(list.length >= 1);
+	assert.ok(Math.hypot(list[0].goal.x - 57.5, list[0].goal.y - 28.6) < 1, `first gizzard point at the Starving Buzzards (${list[0].goal.x},${list[0].goal.y})`);
+	for (const { goal } of list) assert.ok(goal.x > 30, 'never the Giant Buzzards in the far west');
 });
 
 // 0.4.0 route audit (Refs #2025): 30-40/01 opened with a bare waypoint to Menethil's Deepwater Tavern, 100 yd from the

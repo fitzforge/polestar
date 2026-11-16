@@ -357,7 +357,7 @@
 			"id": "alliance-swamp-of-sorrows-noboru-roams",
 			"faction": "Alliance",
 			"at": { "quest": 1389, "goal": "objective", "objective": 1 },
-			"tip": "East along the road to the Fallow Sanctuary. The Draenethyst Crystals are the glowing blue crystals among the Lost Ones' tents: click them. Any Lost One counts for Karana, and the Lost One Fishermen on the sanctuary's west side carry Pelluk's Lucky Lure. Noboru the Cudgel walks a long path through the ruins: if you meet him, kill him, his cudgel starts a quest for Magtoor. Don't wait for him.",
+			"tip": "East along the road to the Fallow Sanctuary. The Draenethyst Crystals are the glowing blue crystals among the Lost Ones' tents: click them. Any Lost One counts for Karana, and the Lost One Fishermen on the sanctuary's west side carry Pelluk's Lucky Lure. Noboru the Cudgel walks a long path through the ruins; his cudgel starts a quest for Magtoor. Don't wait for him.",
 			"note": "Roaming-NPC sweep: the step waited on Noboru the Cudgel (5477), who walks a waypoint path through the ruins; his cudgel (6196) and Noboru the Cudgel (1392) are optional now (route-fixes deliberate.optional 1392), so the tip says not to wait for him. #2416 (Yunra, a level 37 Gnome Warlock on client 70938): the crystals are clicked from the blue crystal objects in the camps (the quest data's objective comes from the Draenethyst Crystals object), not dropped by the Lost Ones; Karana's (93429) and Pelluk's (93430) quests are worked on the same stop.",
 			"issue": 2416,
 			"source": [
@@ -6134,7 +6134,7 @@
 				"quest": 522,
 				"goal": "accept"
 			},
-			"tip": "A Shadowy Assassin lurks stealthed on the edge of Southshore, and few players find him. If you spot him, kill him and read the contract he carries: Magistrate Henry Maleb takes it. Don't wait for him: the rest of this step doesn't need him.",
+			"tip": "A Shadowy Assassin (37-38) lurks stealthed on the edge of Southshore, and few players find him. Careful: he is a level or two over you; fight him only at full health, or leave him. His contract goes to Magistrate Henry Maleb. Don't wait for him: the rest of this step doesn't need him.",
 			"note": "#1542: the Southshore step waited on the Shadowy Assassin (2434), the only source of Assassin's Contract (3668, starts 522); his kill, the contract and 522 are optional now (route-fixes deliberate.optional 522), so the tip says not to wait for him. Baron's Demise (523, Baron Vardus 40), which the contract leads to, is left out of the route since the 0.4.0 level tidy.",
 			"source": [
 				{
@@ -11763,6 +11763,104 @@
 				{
 					"kind": "recording",
 					"ref": "deaths to npc 314 Eliza on 04: 2 people at 25.6 and 27.3"
+				}
+			]
+		},
+		{
+			"id": "arathi-noboru-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1392,
+				"goal": "accept"
+			},
+			"tip": "Careful: Noboru is level 39, two over you here: fight him only with a friend or from level 38; otherwise let him pass.",
+			"note": "30-40/05 (fix round 1, 0.4.0): Noboru the Cudgel (39, non-elite, wanders) at about 37 for the player; the step no longer says to kill him on sight. 17 people killed him in players' recordings at a 25th percentile of 37.5.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "kills of npc 5477 Noboru the Cudgel: 17 people, p25 37.5"
+				}
+			]
+		},
+		{
+			"id": "arathi-stones-of-binding-group-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 651,
+				"goal": "accept"
+			},
+			"tip": "Stones of Binding is a group quest at this level: three Cresting Exiles (38-39) guard the Stone of East Binding and attack together. Grouping up is encouraged, look for people to do it with. Skip it if you are alone.",
+			"note": "30-40/05 (fix round 1, 0.4.0): the group choice's tip (route-fixes deliberate.group 651).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs Cresting Exile 38-39 at the Stone of East Binding"
+				}
+			]
+		},
+		{
+			"id": "zulkunda-second-loop-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97329,
+				"goal": "accept"
+			},
+			"tip": "Careful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time.",
+			"note": "30-40/04b (fix round 1, 0.4.0): Zimmix's rescue, Kebok's ears and the Stolen Shipments in the ruins of Zul'Kunda at about 36: the core's trolls are one over the player.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "0.3.5+ players' recordings: 23 deaths by 10 people in the ruins at 33.8-35.2 on the first loop"
+				}
+			]
+		},
+		{
+			"id": "stv-cook-in-the-cage-40-50-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97047,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Colonel Kurzen, an elite of 39-40, stands at the compound's north end beside three of the Subchiefs: take the key from the Subchiefs and Elites further south and leave him be.",
+			"note": "40-50/01 (fix round 1, 0.4.0): The Cook in the Cage is worked from the Rebel Camp stop at about 41; three of the ten Subchief spawns stand within 42 yd of Colonel Kurzen.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 978 Kurzen Subchief spawns, 813 Colonel Kurzen 49.94,3.95"
+				}
+			]
+		},
+		{
+			"id": "badlands-gizzard-starving-buzzards",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2500,
+				"goal": "objective",
+				"objective": 2
+			},
+			"note": "30-40/06 (fix round 1, 0.4.0): Buzzard Gizzard (7847) drops from Starving Buzzards 15% (35-37, six spawns 48.9-60.8,13.8-39.7 north of Hammertoe's Digsite), Buzzards 5% (37-39) and Giant Buzzards 20% (39-41, the far west). The digsite step's line points at the Starving Buzzards (57.5,28.6) and the Agmond's End line says the Buzzards drop it rarely: players went to the Giant Buzzards, two to three over them (22 people finished 2500 at a median of 41).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "items 7847 drops: npc 2829 15%, 2830 5%, 2831 20%; npcs 2829 spawns"
+				}
+			]
+		},
+		{
+			"id": "swamp-this-light-of-mine",
+			"faction": "Alliance",
+			"at": {
+				"quest": 93585,
+				"goal": "accept",
+				"guide": "forever/alliance/30-40/05-arathi-highlands"
+			},
+			"tip": "North-west of Watcher Biggs, Father Tuttle waits by the road: lead him north to the Harborage, on your way there. Stay close to him and clear what attacks him; if he falls, abandon the quest and go on.",
+			"note": "30-40/05 (fix round 1, 0.4.0): This Light of Mine (93585, level 34, 2,700 XP), Father Tuttle's escort to Magtoor, on the route's own walk from Watcher Biggs to the Harborage. Players' recordings: 10 people took it at about 37, 6 finished it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 93585: 10 people accepted at Father Tuttle (255597), 6 handed in to Magtoor (1776), 3 escort fails"
 				}
 			]
 		}

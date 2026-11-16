@@ -48,7 +48,7 @@ step Hammertoe's Digsite: kill these as you meet them
   collect 7846 quest 2500             -- Crag Coyote Fang
   collect 4616 quest 719              -- Ryedol's Lucky Pick
   collect 278403 quest 97617 @53.1,34.5 -- Explorers' League Mining Helmet, in the Shadowforge camp
-  collect 7847 quest 2500             -- Buzzard Gizzard
+  collect 7847 quest 2500 @57.5,28.6 map 1418 -- Buzzard Gizzard: the Starving Buzzards (35-37) circling the hills north of the digsite drop it most often; leave the Giant Buzzards (39-41) of the far west
 
 step The excavation crate
   tip Head north-east to the abandoned dig; the supply crate lies there among the Dustbelcher ogres.
@@ -80,7 +80,7 @@ step Agmond's End: kill these as you meet them
   tip The battered skeleton lies at the edge of the Stonevault trogg camp; Murdaloc, Agmond's killer, walks among the Bonesnappers.
   tip Careful: Dustbelcher Lords are level 44-45. They use Battle Shout and Demoralizing Shout, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of Kargath.
   collect 3404 quest 703              -- Buzzard Wing
-  collect 7847 quest 2500 @50.0,60.0 map 1418 -- Buzzard Gizzard, from the Buzzards east of Agmond's End
+  collect 7847 quest 2500 @50.0,60.0 map 1418 -- Buzzard Gizzard, if you still need one: the Buzzards east of Agmond's End drop it only rarely
   accept 739                          -- Battered Dwarven Skeleton
   note Murdaloc himself (42) walks among the Bonesnappers: leave him for the later Badlands guide at 43, and kill the Bonesnappers for this quest now.
   collect 5797 quest 1108             -- Indurium Flake

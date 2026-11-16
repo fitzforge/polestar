@@ -17,7 +17,10 @@ pitch For characters of 35 to 36, but several quests here are level 37-38: on pu
 # whoever didn't). Panther Mastery's Shadowmaw Panthers (192, 37-38) and Troll Witchery's Skullsplitter trolls (205, 39-42)
 # are three and four levels over players here: 40-50/01-stranglethorn-vale works both at about 41. Brother Nimetz gives
 # Troll Witchery here, when Kurzen's Mystery is handed in, and it is carried to that guide. Wendel Mathers'
-# Cook in the Cage (97047) is worked with Special Forces in Kurzen's Compound; Captain Aransas takes 97048 at Booty Bay.
+# Cook in the Cage (97047) is taken at his cage here and worked on 40-50/01's Rebel Camp stop at about 41: its key drops
+# only from the Subchiefs (35-36, three of them beside Colonel Kurzen, a 39-40 elite) and Elites (36-37), two over
+# players here (fix round 1, 0.4.0). Zimmix Sputterspark (97329, 97331), Kebok's ears (189) and the Stolen Shipments
+# (97328) from the first loop are worked in the ruins of Zul'Kunda here, beside the third tablet.
 
 step Collin Mauren
   when complete 1078
@@ -55,17 +58,13 @@ step Bookie Herod
   accept 328
 
 step Kurzen's Compound
-  tip Wendel Mathers, a cook, is caged at the compound's western edge. Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave, and Herod's strongbox sits by the cave mouth. The Kurzen Subchiefs (35-36) and Elites (36-37) carry the cage key: at 35 take it from the Subchiefs and pull the Elites one at a time. The fighter's uniform lies in the compound's eastern part. Pick up Green Hills pages as they drop.
+  tip Wendel Mathers, a cook, is caged at the compound's western edge: take his quest now and keep it, his cage key and the fighter's uniform come on the 40-50 Stranglethorn guide, when the Subchiefs and Elites are your level. Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave, and Herod's strongbox sits by the cave mouth. Pick up Green Hills pages as they drop.
   tip Careful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use Smoke Bomb. Colonel Kurzen, an elite of 39-40, stands at the compound's north end: leave him be.
   accept 97047 @44.3,7.9 map 1434     -- Wendel Mathers, in his cage
   kill 938 quest 574.1 @46.3,7.8 map 1434 -- Kurzen Commando
   kill 941 quest 574.2 @46.4,7.9 map 1434 -- Kurzen Headshrinker, below ground
-  collect 216616 quest 97047          -- Compound Cage Key, from the Subchiefs (or the Elites)
-  collect 216617 quest 97047 @50.0,8.0 map 1434 -- Kurzen Fighter's Uniform
   turnin 328                          -- Bookie Herod's Strongbox, below ground
   accept 329
-  turnin 97047 @44.3,7.9 map 1434     -- Wendel Mathers, back at his cage on the way out
-  accept 97048                        -- For Captain Aransas in Booty Bay, at the end of this loop
 
 step Lake Nazferiti
   zone Stranglethorn Vale
@@ -84,27 +83,23 @@ step Water Elementals
 
 step The Ruins of Zul'Kunda
   zone Stranglethorn Vale
-  tip North along the coast to the ruins on the hill: the last two tablets lie there. Pick up Green Hills pages as they drop.
+  tip North along the coast to the ruins on the hill: the last two tablets lie there. Zimmix Sputterspark, a goblin, is caged beside the third tablet: any Bloodscalp can drop his Primitive Key, then lead him out of the ruins. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.
+  tip Careful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time.
   collect 2007 quest 207.3            -- The Third Troll Legend: Fall of Gurubashi
+  accept 97329                        -- Zimmix Sputterspark, in his cage beside the third tablet
+  collect 1519 quest 189              -- Bloodscalp Ear
+  collect 277957 quest 97329          -- Primitive Key, from the Bloodscalp trolls
+  turnin 97329
+  accept 97331                        -- For Wharfmaster Lozgil in Booty Bay, at the end of this loop
+  collect 277953 quest 97328 @24.8,13.0 map 1434 -- Stolen Shipment
   collect 2008 quest 207.4            -- The Fourth Troll Legend: The Emperor's Tomb
   complete 339 optional               -- Chapter I
   complete 340 optional               -- Chapter II
   complete 341 optional               -- Chapter III
   complete 342 optional               -- Chapter IV
 
-step Rebel Camp
-  tip East to the Rebel Camp, on the way back to Nesingwary's camp.
-  turnin 329                          -- Lieutenant Doren
-  accept 330
-  turnin 330                          -- Corporal Sethman
-  accept 331
-  turnin 331                          -- Lieutenant Doren
-  turnin 574                          -- Sergeant Yohwa: the Commandos and Headshrinkers fell in the compound
-  turnin 207                          -- Brother Nimetz
-  accept 205                          -- keep it: the Skullsplitter Witch Doctors (41-42) wait for the 40-50 Stranglethorn guide
-
 step Sin'Dall and the Lashtail raptors
-  tip From the Rebel Camp, past Nesingwary's camp to the hilltop south-west of it: Sin'Dall, the great tiger (37), lairs there, and the Lashtail Raptors run in the jungle around it. Then back to the hunters' tents.
+  tip East from the ruins to the hilltop south-west of Nesingwary's camp: Sin'Dall, the great tiger (37), lairs there, and the Lashtail Raptors run in the jungle around it. Then on to the hunters' tents.
   kill 686 quest 195                  -- Lashtail Raptor
   collect 3879 quest 188              -- Paw of Sin'Dall
 
@@ -117,6 +112,17 @@ step Nesingwary's Expedition
   turnin 195                          -- Hemet Nesingwary
   accept 196                          -- Hemet Nesingwary: the Jungle Stalkers come in 40-50
   turnin 188                          -- Ajeck Rouack
+
+step Rebel Camp
+  tip North-east up the road to the Rebel Camp, then back south through the jungle.
+  turnin 329                          -- Lieutenant Doren
+  accept 330
+  turnin 330                          -- Corporal Sethman
+  accept 331
+  turnin 331                          -- Lieutenant Doren
+  turnin 574                          -- Sergeant Yohwa: the Commandos and Headshrinkers fell in the compound
+  turnin 207                          -- Brother Nimetz
+  accept 205                          -- keep it: the Skullsplitter Witch Doctors (41-42) wait for the 40-50 Stranglethorn guide
 
 # ---------------------------------------------------------------- South
 
@@ -132,8 +138,10 @@ step Booty Bay
   turnin 601                          -- Baron Revilgaz, upstairs in the tavern
   accept 602                          -- For Archmage Ansirem in Alterac Mountains
   turnin 213                          -- Kebok
+  turnin 189                          -- Kebok, upstairs
   turnin 210                          -- Krazek, upstairs
   accept 627 optional -- Krazek, upstairs: this optional quest needs four Lesser Bloodstone Ore. Mine Lesser Bloodstone Deposits in Arathi Highlands with Mining 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore.
   accept 600                          -- Crank Fizzlebub, inside
   accept 606                          -- "Sea Wolf" MacKinley, on the top floor
-  turnin 97048                        -- Captain Aransas
+  turnin 97331                        -- Wharfmaster Lozgil, on the docks
+  turnin 97328                        -- Wharfmaster Lozgil

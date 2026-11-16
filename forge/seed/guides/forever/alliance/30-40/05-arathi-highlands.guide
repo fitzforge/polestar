@@ -55,14 +55,21 @@ step Watcher Biggs
   turnin 1396
   accept 1421
 
+step Father Tuttle
+  tip North-west of Watcher Biggs, Father Tuttle waits by the road: lead him north to the Harborage, on your way there. Stay close to him and clear what attacks him; if he falls, abandon the quest and go on.
+  accept 93585                        -- Father Tuttle
+  complete 93585                      -- Escort him to the Harborage
+
 step The Harborage
   tip Follow the road north to the draenei of the Harborage. Karana and Pelluk stand beside Magtoor: their Lost Ones are the ones you meet in the Fallow Sanctuary anyway.
+  turnin 93585                        -- Magtoor: Father Tuttle's escort
   accept 1389                         -- Magtoor
   accept 93429                        -- Karana
   accept 93430                        -- Pelluk
 
 step Fallow Sanctuary
-  tip East along the road to the Fallow Sanctuary. The Draenethyst Crystals are the glowing blue crystals among the Lost Ones' tents: click them. Any Lost One counts for Karana, and the Lost One Fishermen on the sanctuary's west side carry Pelluk's Lucky Lure. Noboru the Cudgel walks a long path through the ruins: if you meet him, kill him, his cudgel starts a quest for Magtoor. Don't wait for him.
+  tip East along the road to the Fallow Sanctuary. The Draenethyst Crystals are the glowing blue crystals among the Lost Ones' tents: click them. Any Lost One counts for Karana, and the Lost One Fishermen on the sanctuary's west side carry Pelluk's Lucky Lure. Noboru the Cudgel walks a long path through the ruins; his cudgel starts a quest for Magtoor. Don't wait for him.
+  tip Careful: Noboru is level 39, two over you here: fight him only with a friend or from level 38; otherwise let him pass.
   collect 6196 "Noboru's Cudgel" optional -- from Noboru the Cudgel: he walks a path through the ruins
   accept 1392 optional
   collect 6071 quest 1389             -- Draenethyst Crystal, the blue crystals by the tents
@@ -83,6 +90,7 @@ step The Harborage
   tip West along the road from Galen's strongbox to the Harborage.
   turnin 1392                         -- Magtoor: Noboru's cudgel
   turnin 1389
+  accept 93464                        -- Magtoor: The Visiting Mage, for Azore Aldamort in Desolace, on the Desolace guide at the end of 30-40
   turnin 93429                        -- Karana
   turnin 93430                        -- Pelluk
 
@@ -148,7 +156,7 @@ step Southshore
   accept 505                          -- Magistrate Henry Maleb, inside, if 30-40/01 didn't take it: the Syndicate camp is on the way to Arathi
 
 step Shadowy Assassin
-  tip A Shadowy Assassin lurks stealthed on the edge of Southshore, and few players find him. If you spot him, kill him and read the contract he carries: Magistrate Henry Maleb takes it. Don't wait for him: the rest of this step doesn't need him.
+  tip A Shadowy Assassin (37-38) lurks stealthed on the edge of Southshore, and few players find him. Careful: he is a level or two over you; fight him only at full health, or leave him. His contract goes to Magistrate Henry Maleb. Don't wait for him: the rest of this step doesn't need him.
   sethome "Southshore"
   kill 2434 optional                  -- Shadowy Assassin, if you spot him
   collect 3668 "Assassin's Contract" optional
@@ -215,6 +223,10 @@ step Drywhisker Gorge: kill these as you meet them
 step Iridescent Shards
   tip The shards lie at the far end of Drywhisker Gorge.
   turnin 642                          -- Below ground
+
+step Iridescent Shards
+  when group 651
+  tip Stones of Binding is a group quest at this level: three Cresting Exiles (38-39) guard the Stone of East Binding and attack together. Grouping up is encouraged, look for people to do it with. Skip it if you are alone.
   accept 651
 
 step Witherbark Village
@@ -245,6 +257,7 @@ step Forsaken Courier
   collect 4482 quest 658              -- Sealed Folder
 
 step Circle of Outer Binding
+  when group 651
   collect 4485 quest 651.3            -- Thundering Key: Stone of Outer Binding
 
 step Quae and Kinelory
@@ -264,18 +277,20 @@ step Quae
   accept 661                          -- For Phin Odelic in Southshore
 
 step Stones of Binding
+  when group 651
   tip From Quae's camp, a short way north-east to the Stone of East Binding, by the shards' hill north of Go'Shek Farm. The Stone of Inner Binding, where the three keys go, stands west of Refuge Pointe.
   tip Careful: Each center stone is guarded by around three elementals near level 39 that attack together if you click the stone without clearing them: Burning Exiles at West, Thundering Exiles at Outer, Cresting Exiles at East.
   collect 4484 quest 651.2            -- Cresting Key: Stone of East Binding
 
 step Refuge Pointe
-  tip West along the road to Refuge Pointe, on the way to the Stone of West Binding.
+  tip West along the road to Refuge Pointe.
   turnin 681                          -- Captain Nials
   turnin 691                          -- Apprentice Kryten
-  accept 693                          -- Skuerto: Kor'gresh's cave, after the Stone of West Binding
+  accept 693                          -- Skuerto: Kor'gresh's cave, west past the Stone of West Binding
   vendor nearest
 
 step Circle of West Binding
+  when group 651
   collect 4483 quest 651.1            -- Burning Key: Stone of West Binding
   turnin 651                          -- Stone of Inner Binding
 
