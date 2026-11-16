@@ -11,7 +11,7 @@ const path = require('node:path');
 
 const xp = require('../tools/lib/game/xp');
 const { buildWorld } = require('../tools/lib/sim/world');
-const { compileRun, makeTables, K_ACCEPT, NEAR_CAND } = require('../tools/lib/sim/run');
+const { compileRun, makeTables, K_ACCEPT, K_TASK, K_GRIND, NEAR_CAND } = require('../tools/lib/sim/run');
 const { Travel } = require('../tools/lib/sim/travel');
 const { Evaluator, MAX_VISITS } = require('../tools/lib/sim/evaluate');
 const { PRIORS, effective, means, draws } = require('../tools/lib/sim/params');
@@ -342,18 +342,26 @@ test('a quest taken late does the objectives and follow-ups the tour already pas
 	assert.deepEqual(late, [], 'nothing left for a second pass');
 });
 
-test('a red quest is handed over at its minimum level: the danger gap holds its work, not an accept-only pick-up (regression: 385 min ground before The Apes of Un\'Goro, kept for the second Un\'Goro visit)', () => {
+// Deep Boar Bounty: level 9, minimum 1 (or `minLevel`), from the Testvale elder; its boars (level 9) in Farfield.
+function redQuestSetup(minLevel = 1) {
 	const data = syn.makeData();
-	// Deep Boar Bounty: level 9, minimum 1, from the Testvale elder; its boars (level 9) in Farfield.
-	data.quests[520] = { ...data.quests[505], id: 520, title: 'Deep Boar Bounty', level: 9, minLevel: 1, pre: [], start: { npc: [1], object: [], item: [] } };
+	data.quests[520] = { ...data.quests[505], id: 520, title: 'Deep Boar Bounty', level: 9, minLevel, pre: [], start: { npc: [1], object: [], item: [] } };
 	const w = buildWorld(data, { faction: 'Horde', bandWidth: 5, extraStarts: syn.START });
 	w.questXp = syn.questXpRows();
-	const { run, ev, p } = setup({ world: w, rules: false });
-	const q = run.qIndex.get(520);
+	const s = setup({ world: w, rules: false });
+	const q = s.run.qIndex.get(520);
 	const play = (events) => {
-		const s = compileSequence(run, events);
-		for (let i = 0; i < s.kind.length; i++) ev.step(s.kind[i], s.q[i], s.task[i], s.pt[i]);
+		const c = compileSequence(s.run, events);
+		for (let i = 0; i < c.kind.length; i++) {
+			if (c.kind[i] === K_GRIND) s.ev.grindTo(c.q[i], c.task[i]);
+			else s.ev.step(c.kind[i], c.q[i], c.task[i], c.pt[i]);
+		}
 	};
+	return { ...s, q, play };
+}
+
+test('a written route never waits for a level it does not hold for: a red quest is taken and worked where the route says, only its `level` steps grind (regression: 189 min ground before Carved Centaur Totems, 178 before The Apes of Un\'Goro)', () => {
+	const { run, ev, p, q, play } = redQuestSetup();
 	ev.reset();
 	ev.grindTo(3);
 	assert.ok(ev.level + p.dangerGap < run.qLevel[q], 'red at level 3');
@@ -361,10 +369,37 @@ test('a red quest is handed over at its minimum level: the danger gap holds its 
 	play([{ t: 'accept', q: 520 }]);
 	assert.equal(ev.active[q], 1, 'taken at level 3');
 	assert.equal(ev.grindSec, g0, 'no grinding for the pick-up');
-	assert.equal(ev.level, 3);
 	play([{ t: 'complete', q: 520 }]);
-	assert.ok(ev.grindSec > g0, 'its work grinds first');
-	assert.ok(ev.level + p.dangerGap >= run.qLevel[q], `its work on level: ${ev.level}`);
+	assert.equal(ev.grindSec, g0, 'no grinding for the work either');
+	assert.equal(ev.level, 3, 'worked at level 3, where the route put it');
+	play([{ t: 'level', level: 5 }, { t: 'turnin', q: 520 }]);
+	assert.ok(ev.grindSec > g0, 'the route\'s own level step grinds');
+	assert.equal(ev.done[q], 1, 'handed in');
+});
+
+test('a written route\'s accept under the quest\'s minimum level is refused and counted, not ground for', () => {
+	const { ev, q, play } = redQuestSetup(4);
+	ev.reset();
+	ev.grindTo(3);
+	const g0 = ev.grindSec;
+	play([{ t: 'accept', q: 520 }]);
+	assert.equal(ev.grindSec, g0, 'no grinding to the minimum level');
+	assert.equal(ev.active[q], 0, 'the game does not hand it over');
+	assert.equal(ev.result().acceptsUnderMinLevel, 1, 'counted as a guide bug');
+});
+
+test('the route search still holds a red quest\'s work to the danger gap (a package\'s second pass grinds first)', () => {
+	const { run, ev, p, q, play } = redQuestSetup();
+	ev.reset();
+	ev.grindTo(3);
+	play([{ t: 'accept', q: 520 }]);
+	let workLevel = 0;
+	ev.hook = (kind, x) => {
+		if (kind === K_TASK && x === q) workLevel = ev.level;
+	};
+	ev.runPackage(pkg(run, 'Farfield 6-10'));
+	ev.hook = null;
+	assert.ok(workLevel + p.dangerGap >= run.qLevel[q], `worked on level: ${workLevel}`);
 });
 
 test('trial moves undo exactly (journal)', () => {
