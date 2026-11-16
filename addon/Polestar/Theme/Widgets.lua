@@ -4036,8 +4036,10 @@ function W.ShellFooter(f, left, right)
 	end
 end
 
--- Re-run a button's paint (after toggling psPrimary).
+-- Re-run a button's paint (after toggling psPrimary): the skin's first (its
+-- primary ground: Hearth's game button, Lanterns' accent pill), then ours.
 function W.RepaintButton(b)
+	Theme.Repaint(b)
 	local fn = painters[b]
 	if fn then
 		if not b.psPrimary then W.Color(b.Label, b.psDanger and "danger" or (b.psGhost and "textDim" or "text")) end
