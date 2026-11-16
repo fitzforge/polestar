@@ -45,6 +45,7 @@ pub mod money;
 pub mod params;
 pub mod parse;
 pub mod places;
+pub mod play_rules;
 pub mod prereqs;
 pub mod project;
 pub mod races;

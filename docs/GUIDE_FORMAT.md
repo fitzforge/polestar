@@ -1302,6 +1302,43 @@ Errors:
   an item whose every located dropper is such an npc; `lint` also errors on a
   non-`optional` quest goal of a quest the cached simulator world (below) excludes
   as `elite`, unless the goal was already reported as elite
+- the play checks below (errors in our pack, warnings in any other)
+
+Play checks: patterns players reported again and again, each checked over
+every guide so the next one never ships. A step a check flags that is right
+as written is listed in `data/lint-allow.json` (beside the data folder) with
+the rule, the guide id, the quest or item, and the reason; an entry with no
+reason is an error, and one that covers no step any more is a warning:
+
+```json
+{ "allow": [{ "rule": "direct-gate", "guide": "forever/x/01-zone", "quest": 2741, "reason": "…" }] }
+```
+
+- `direct-gate`: a required `turnin <id> direct` whose quest takes items, in
+  a step with no `when has <item>` for each and no goal before it in the step
+  that gets the item. The quest never enters the log, so nothing tells the
+  route whether the player still carries the item; without it the giver
+  offers nothing and the step holds for good (An Apple Treat)
+- `talk-kill`: a `kill` on a quest-log line the data types as a talk
+  objective: write `talk <npc> quest Q.O`
+- `offer`: a required `accept` (or `turnin … direct`) the giver cannot offer
+  there: a prerequisite the chain never turns in (a step with `when turnedin
+  <prerequisite>` waits for it), a parent quest not in the log, a breadcrumb
+  still in the log. An `optional` accept, or one in a step with `when
+  available <quest>`, warns instead (the warnings below). An exclusive quest
+  taken earlier only warns: a guide writes both ways of a choice one after
+  the other, and Polestar passes the way not taken
+- `offer-level`: a required `accept` two levels or more above the level the
+  route plausibly reaches there (when XP data exists), in a step with no
+  `when level` predicate; one level short warns (Polestar holds the accept
+  until the player gets there, and the estimate leaves out the route's kills)
+- `item-skippable`: a required `use <item>`, or an `accept` of a quest only
+  an item starts, whose item every earlier goal that gets it (a `collect`,
+  `buy` or `craft` of it, an accept that hands it over, a turn-in that
+  rewards it) is `optional` or in a step with a `when` the goal's step does
+  not share; a source step with `when !has <item>` counts as sure, and so
+  does the accept of the `use` goal's own quest. Write `when has <item>` on
+  the step, or make a goal that gets the item required
 
 Warnings:
 - a `when` predicate naming a quest or item the data lacks, a zone not in
@@ -1311,12 +1348,16 @@ Warnings:
   character sees it
 - a goal in an `along` step that Polestar checks off only on the step the
   route is on (see "Along the way"): it never checks off there
-- an `accept` whose prerequisites (`pre`, any one suffices) are none of them turned in earlier in the chain
-- an `accept` above the level the route plausibly reaches (when XP data exists)
+- an `optional` `accept` (or one in a step that waits for it with `when
+  available`) whose prerequisites (`pre`, any one suffices) are none of them
+  turned in earlier in the chain; a required one is an `offer` error above
+- an `accept` the `offer-level` check leaves as a warning: above the level the
+  route plausibly reaches (when XP data exists) by less than two levels,
+  `optional`, or in a step with a `when level` predicate
 - an `accept` of a quest whose `excl` (exclusive) quest is accepted or turned in
   earlier in the chain: the game does not offer it while that quest is in the
   log or done
-- an `accept` of a quest while one of its breadcrumbs is in the log (accepted
+- an `optional` `accept` of a quest while one of its breadcrumbs is in the log (accepted
   earlier in the chain, not yet turned in or abandoned): the game does not
   offer it until the breadcrumb is handed in
 - a non-`optional` `accept` never turned in later in the guide or the guides
