@@ -496,11 +496,11 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/class-quests.rs", "test": "only_the_quest_data_makes_a_class_quest_never_a_line_s_only" }
 		] },
 		"820": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: Applejack reports (#820, #823, #2312): direct hand-ins after the Stonefield apples, with no early accept" },
+			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: Applejack reports (#820, #823, #2312, #2561): direct hand-ins after the Stonefield apples, with no early accept" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/quests.rs", "test": "the_applejack_still_s_apples_are_protected_from_the_guide_until_it_is_past_the_still_820" }
 		] },
 		"823": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: Applejack reports (#820, #823, #2312): direct hand-ins after the Stonefield apples, with no early accept" }
+			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: Applejack reports (#820, #823, #2312, #2561): direct hand-ins after the Stonefield apples, with no early accept" }
 		] },
 		"825": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "Zephras Isle: A Last Request's note and Skypriest Aanders count the objectives the game gives them (#825)" }
@@ -1241,7 +1241,7 @@
 			{ "node": "tests/guides-reported.test.js", "test": "#2311: a complete that leads its step has a place for the arrow" }
 		] },
 		"2312": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: Applejack reports (#820, #823, #2312): direct hand-ins after the Stonefield apples, with no early accept" },
+			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: Applejack reports (#820, #823, #2312, #2561): direct hand-ins after the Stonefield apples, with no early accept" },
 			{ "cargo": "forge", "target": "guide_direct_hand_ins", "file": "rust/crates/forge/tests/guide_direct_hand_ins.rs", "test": "applejack_corrections_remove_accepts_and_preserve_the_elwynn_route" }
 		] },
 		"2326": { "tests": [
