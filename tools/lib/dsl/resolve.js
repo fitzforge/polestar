@@ -2058,7 +2058,11 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			const bagHint = `the quest uses item ${id} without counting it: drop \`quest ${g.quest}${oi !== undefined ? `.${oi}` : ''}\` so the step counts it in the bags`;
 			const named = oi !== undefined && kind && id !== undefined ? data.questObjectives(g.quest)[oi - 1] : null;
 			const right = named ? find(id) : null;
-			const swapped = !!right && right !== oi;
+			// Two lines of a quest may share one target (report to the same officer
+			// before and after the patrol): `find` gives the first, but the line
+			// named is right whenever its own target is the goal's.
+			const namesOwn = !!named && sameKind(named.kind) && named.id === id;
+			const swapped = !!right && right !== oi && !namesOwn;
 			if (swapped || (named && sameKind(named.kind) && named.id != null && named.id !== id)) {
 				const own = right ? data.questObjectives(g.quest)[right - 1] : null;
 				(swapped ? err : warn)(
