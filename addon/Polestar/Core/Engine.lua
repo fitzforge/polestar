@@ -13643,7 +13643,7 @@ end)
 ---------------------------------------------------------------------------
 
 Own.PIN_STEP = 0 -- the step of a built pin goal: no guide step has index 0
-Own.PIN_VERBS = { kill = true, collect = true, interact = true, use = true }
+Own.PIN_VERBS = { kill = true, collect = true, interact = true, use = true, talk = true }
 Own.pinBuilt = {} -- quest -> { [quest-log line] = goal | false }
 
 -- Pin quest q (on: true or nil) or unpin it (on: false). True when done.
@@ -13729,6 +13729,10 @@ function Own.pinBuild(q, line, o)
 	if ob and ob.kind == "kill" then
 		at = Q.GetNpc(ob.id)
 		goal.npc, goal.target = ob.id, at and at.name
+	elseif ob and ob.kind == "talk" then
+		-- A story to hear or an item to show (The True Masters' Ragged John, #2543): Talk to.
+		at = Q.GetNpc(ob.id)
+		goal.t, goal.npc, goal.npcName = "talk", ob.id, at and at.name
 	elseif ob and ob.kind == "item" then
 		local item = Q.GetItem(ob.id)
 		goal.t, goal.item, goal.itemName = "collect", ob.id, item and item.name
@@ -13748,7 +13752,7 @@ function Own.pinBuild(q, line, o)
 			goal.t, goal.objName = "interact", goal.text
 		end
 	end
-	if goal.target or goal.itemName or goal.objName then goal.text = nil end
+	if goal.target or goal.npcName or goal.itemName or goal.objName then goal.text = nil end
 	if at and at.spawns and #at.spawns > 0 then
 		local here = Compat().GetPlayerMapPosition()
 		local count, best = {}, nil

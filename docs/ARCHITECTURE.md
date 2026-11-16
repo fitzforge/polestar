@@ -6199,12 +6199,14 @@ reference data's `pts` and `more`), with no cap on how many.
 Polestar.QuestDB.IsLoaded() / IsEnabled() / IsRunning() / IsWanted()
 Polestar.QuestDB.GetQuest(id)  -> { id, title, level, minLevel, races, classes, faction, start = { npc, object, item },
                                     finish = { npc, object }, pre (any-of), preAll, excl, zone, skill, holiday,
-                                    objectives = { { kind = "kill"|"item"|"object"|"event", id, count, map, x, y, f } } } | nil
+                                    objectives = { { kind = "kill"|"item"|"object"|"event"|"talk", id, count, map, x, y, f } } } | nil
 Polestar.QuestDB.GetNpc(id) / GetObject(id) -> { id, name, spawns = { { map, x, y, r (yd), f } } } | nil
 Polestar.QuestDB.GetItem(id)   -> { id, name, droppers = { { id, name, chance } }, objects = { ... }, vendors = { { id, name } } } | nil
 Polestar.QuestDB.GetItemDroppers(itemID) -> { { id, name, chance }, ... } | nil   -- best chance first
 Polestar.QuestDB.GetObjectiveMobs(questID, oi) -> { name, ... }, { { id, chance }, ... } | nil  -- kill target or item droppers;
                                     -- the second list runs beside the names (chance only for droppers)
+Polestar.QuestDB.ObjectivesForTalk(npcID) -> { objective, ... } | nil                -- the log's talk objectives on that NPC
+                                    (its tooltip's "Talk to" lines; kept out of ObjectivesForNpc, so no nameplate skull)
 Polestar.QuestDB.CheckAvailable(id, ctx, isDone, isOn, opts) -> ok, reason      -- opts: lowLevel, levelAbove, skillRank
 Polestar.QuestDB.EachAvailabilityRef(id, fn) -> needsSkill                       -- fn(q) per quest whose done/in-log state CheckAvailable reads
 Polestar.QuestDB.GetAvailableQuests() -> { questID, ... } ; IsAvailable(q) ; WhyUnavailable(q) -> reason | nil
