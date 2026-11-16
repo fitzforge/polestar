@@ -377,11 +377,6 @@ step Booty Bay
   accept 587                            -- Deeg, on the top floor: keep it for the Wild Shore at about 45
   vendor nearest
 
-step Kebok
-  when complete 209
-  tip Kebok, upstairs, takes the tusks now if you already have all eighteen.
-  turnin 209                            -- Kebok, upstairs
-
 step The Bloodsail ships
   when group 624
   tip The scroll, Cortello's Riddle, lies on the decks of the three ships off the Wild Shore, crewed by pirates of 42-45 who come in pairs, with captains of 45-48: take it with a group. Its chain runs on through the Swamp of Sorrows, Dustwallow Marsh and the Hinterlands.

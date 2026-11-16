@@ -257,8 +257,6 @@ step Witch Doctor Uzer'i
   accept 3127
 
 step Zorbin Fandazzle
-  turnin 7003
-  turnin 7721
   accept 7725
   accept 7726
 

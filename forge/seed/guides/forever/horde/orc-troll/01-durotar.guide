@@ -420,10 +420,6 @@ step Makrura and crawlers
 step Sen'jin Village
   turnin 818                          -- Master Vornal
 
-step Vel'rin Fang
-  when complete 817
-  turnin 817                          -- Vel'rin Fang
-
 # Kolkar Crag before the Echo Isles: Zalazane (10) and the Voodoo and Hexed
 # Trolls (8-9) are met at 9, not at 8 (level tidy 0.4.0).
 step Kolkar Crag

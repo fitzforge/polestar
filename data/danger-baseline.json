@@ -16034,6 +16034,308 @@
 			],
 			"reason": "the Shen'dralar Citizens, Scholars and Protectors (60) are the temple's neutral folk (the guide's tips say to leave them be); the heart drops from the Decrepit Pylon Protectors (42-43) by the road north. Players do it: 6 people, median level 43.94, where the model has 47.2.",
 			"evidence": "route level 47.2 (Horde level model on the integrated route, the Riverglades after Stranglethorn Vale); Shen'dralar Citizen 60-60 x2, Shen'dralar Scholar 60-60 x2, Shen'dralas Protector 60-60 x2; recordings (2026-11-15): done by 6 people (median 43.94), 0 people died there, 1 abandoned"
+		},
+		{
+			"key": "forever/horde/30-40/02-thousand-needles.guide|collect 1105.1|mixed",
+			"guide": "forever/horde/30-40/02-thousand-needles.guide",
+			"goal": "collect 1105.1",
+			"kind": "mixed",
+			"title": "Shimmering Flats: kill these as you meet them",
+			"level": 30.3,
+			"mobs": [
+				"Sparkleshell Snapper 34-35"
+			],
+			"reason": "warned at the step: its tip names the Sparkleshell Snappers (34-35) of the north-east and sends the shells to the Tortoises (30-31) of the western flats, where the goal points",
+			"evidence": "route level 30.3; Sparkleshell Snapper 34-35; recordings (2026-11-16): done by 68 (median 34.27), deaths 0, abandons 5"
+		},
+		{
+			"key": "forever/horde/30-40/02-thousand-needles.guide|collect 1176.1|mixed",
+			"guide": "forever/horde/30-40/02-thousand-needles.guide",
+			"goal": "collect 1176.1",
+			"kind": "mixed",
+			"title": "Shimmering Flats: kill these as you meet them",
+			"level": 30.3,
+			"mobs": [
+				"Salt Flats Vulture 32-34"
+			],
+			"reason": "warned at the step: its tip names the Salt Flats Scavengers and Vultures and their Execute; the bone drops from the vultures of the eastern flats at the range's low end",
+			"evidence": "route level 30.3; Salt Flats Vulture 32-34; recordings (2026-11-16): done by 68 (median 34.32), deaths 1, abandons 8"
+		},
+		{
+			"key": "forever/horde/30-40/02-thousand-needles.guide|collect 1104.1|mixed",
+			"guide": "forever/horde/30-40/02-thousand-needles.guide",
+			"goal": "collect 1104.1",
+			"kind": "mixed",
+			"title": "Shimmering Flats: kill these as you meet them",
+			"level": 30.3,
+			"mobs": [
+				"Scorpid Terror 33-34"
+			],
+			"reason": "warned at the step: its tip takes the venom from the Scorpid Reavers (31-32) of the north half and leaves the Scorpid Terrors (33-34) further south; the goal points at the western flats",
+			"evidence": "route level 30.3; Scorpid Terror 33-34; recordings (2026-11-16): done by 70 (median 34.17), deaths 0, abandons 4"
+		},
+		{
+			"key": "forever/horde/30-40/03-stranglethorn-vale.guide|kill 568.1|over",
+			"guide": "forever/horde/30-40/03-stranglethorn-vale.guide",
+			"goal": "kill 568.1",
+			"kind": "over",
+			"title": "Lashtail Raptors",
+			"level": 34.1,
+			"mobs": [
+				"Carnivorous Weed 36-38 x3"
+			],
+			"reason": "warned at the step: its tip names the Carnivorous Weeds (36-38) rooted south of the raptors; they are not targets and stand still, and the raptors are pulled away from them",
+			"evidence": "route level 34.1; Carnivorous Weed 36-38 x3; recordings (2026-11-16): done by 44 (median 36.07), deaths 3, abandons 2"
+		},
+		{
+			"key": "forever/horde/30-40/03-stranglethorn-vale.guide|collect 582.1|pack",
+			"guide": "forever/horde/30-40/03-stranglethorn-vale.guide",
+			"goal": "collect 582.1",
+			"kind": "pack",
+			"title": "Ruins of Zul'Kunda: kill these as you meet them",
+			"level": 35,
+			"mobs": [
+				"30 spawns 37+"
+			],
+			"reason": "warned at the step: its tips name the Bloodscalp Headhunters (36-37) and the Witch Doctors and say to pull from the village's edge; the necklaces drop from every Bloodscalp in the ruins, a range-top camp the route takes after the top-up to 35",
+			"evidence": "route level 35; 30 spawns 37+; recordings (2026-11-16): done by 34 (median 37.09), deaths 11, abandons 1"
+		},
+		{
+			"key": "forever/horde/30-40/04-dustwallow-marsh.guide|collect 93225.1|pack",
+			"guide": "forever/horde/30-40/04-dustwallow-marsh.guide",
+			"goal": "collect 93225.1",
+			"kind": "pack",
+			"title": "Valley of Spears",
+			"level": 37,
+			"mobs": [
+				"14 spawns 38+"
+			],
+			"reason": "one over the player: the Valley of Spears' centaurs are 37-39 at a route level of 37 (players there recorded at a 25th percentile of 38)",
+			"evidence": "route level 37; 14 spawns 38+; recordings (2026-11-16): done by 12 (median 38.81), deaths 1, abandons 1"
+		},
+		{
+			"key": "forever/horde/30-40/04-dustwallow-marsh.guide|collect 1366.1|pack",
+			"guide": "forever/horde/30-40/04-dustwallow-marsh.guide",
+			"goal": "collect 1366.1",
+			"kind": "pack",
+			"title": "Valley of Spears",
+			"level": 37,
+			"mobs": [
+				"8 spawns 38+"
+			],
+			"reason": "one over the player: the Valley of Spears' centaurs are 37-39 at a route level of 37 (players there recorded at a 25th percentile of 38)",
+			"evidence": "route level 37; 8 spawns 38+; recordings (2026-11-16): done by 16 (median 37.26), deaths 1, abandons 10"
+		},
+		{
+			"key": "forever/horde/30-40/04-dustwallow-marsh.guide|use 6134.1|elite",
+			"guide": "forever/horde/30-40/04-dustwallow-marsh.guide",
+			"goal": "use 6134.1",
+			"kind": "elite",
+			"title": "The Valley of Bones",
+			"level": 37.4,
+			"mobs": [
+				"Magram Necrokhan 45-45"
+			],
+			"reason": "not at the goal: the Magram Necrokhan (45) stands about 500 yd from the crate point the step sends you to",
+			"evidence": "route level 37.4; Magram Necrokhan 45-45; recordings (2026-11-16): done by 18 (median 39.75), deaths 8, abandons 2"
+		},
+		{
+			"key": "forever/horde/30-40/04-dustwallow-marsh.guide|collect 6134.1|elite",
+			"guide": "forever/horde/30-40/04-dustwallow-marsh.guide",
+			"goal": "collect 6134.1",
+			"kind": "elite",
+			"title": "The Valley of Bones",
+			"level": 37.4,
+			"mobs": [
+				"Magram Necrokhan 45-45"
+			],
+			"reason": "not at the goal: the Magram Necrokhan (45) stands about 500 yd from the crate point the step sends you to",
+			"evidence": "route level 37.4; Magram Necrokhan 45-45; recordings (2026-11-16): done by 18 (median 39.75), deaths 8, abandons 2"
+		},
+		{
+			"key": "forever/horde/30-40/05-arathi-highlands.guide|collect 556.1|over",
+			"guide": "forever/horde/30-40/05-arathi-highlands.guide",
+			"goal": "collect 556.1",
+			"kind": "over",
+			"title": "The Dalaran crater",
+			"level": 37.6,
+			"mobs": [
+				"Kirin Tor Enforcer 55-55 x5"
+			],
+			"reason": "warned at the step: its tip names the Kirin Tor Enforcers and Arcane Sentries (55) of the dome and keeps the player on the ruins' outer edge; the route comes in from the south, away from the guards' road",
+			"evidence": "route level 37.6; Kirin Tor Enforcer 55-55 x5; recordings (2026-11-16): done by 50 (median 31.78), deaths 0, abandons 8"
+		},
+		{
+			"key": "forever/horde/30-40/05-arathi-highlands.guide|collect 556.1|elite",
+			"guide": "forever/horde/30-40/05-arathi-highlands.guide",
+			"goal": "collect 556.1",
+			"kind": "elite",
+			"title": "The Dalaran crater",
+			"level": 37.6,
+			"mobs": [
+				"Arcane Sentry 55-55"
+			],
+			"reason": "warned at the step: its tip names the Arcane Sentries (55, elite) of the dome and keeps the player on the ruins' outer edge",
+			"evidence": "route level 37.6; Arcane Sentry 55-55; recordings (2026-11-16): done by 50 (median 31.78), deaths 0, abandons 8"
+		},
+		{
+			"key": "forever/horde/40-50/01-stranglethorn-vale.guide|collect 598.1|mixed",
+			"guide": "forever/horde/40-50/01-stranglethorn-vale.guide",
+			"goal": "collect 598.1",
+			"kind": "mixed",
+			"title": "Balia'mah Ruins: kill these as you meet them",
+			"level": 40.5,
+			"mobs": [
+				"Skullsplitter Spiritchaser 44-44",
+				"Skullsplitter Berserker 43-44",
+				"Skullsplitter Headhunter 43-44"
+			],
+			"reason": "the trophy skulls lie in the small Balia'mah ruins north of the Skullsplitter warriors' camp (39-40) the loop works; the Spiritchasers, Berserkers and Headhunters (43-44) stand in parts of the ruins and are walked around",
+			"evidence": "route level 40.5; Skullsplitter Spiritchaser 44-44, Skullsplitter Berserker 43-44, Skullsplitter Headhunter 43-44; recordings (2026-11-16): done by 6 (median 42.59), deaths 2, abandons 3"
+		},
+		{
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 96109.1|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
+			"goal": "collect 96109.1",
+			"kind": "elite",
+			"title": "The lions",
+			"level": 41.9,
+			"mobs": [
+				"Ombassa 41-41"
+			],
+			"reason": "warned at the step: its Careful tip names Ombassa (elite 41), where he walks, and says to pull the lions away from him",
+			"evidence": "route level 41.9; Ombassa 41-41; recordings (2026-11-16): done by 22 (median 40.68), deaths 1, abandons 0"
+		},
+		{
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 95424.1|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
+			"goal": "kill 95424.1",
+			"kind": "elite",
+			"title": "The Twilight ogres' camp",
+			"level": 43,
+			"mobs": [
+				"Scoutmaster Vargas 42-42 x2"
+			],
+			"reason": "warned at the step: its tip names Scoutmaster Vargas (elite 42) south of the ogres and says to keep north of his camp",
+			"evidence": "route level 43; Scoutmaster Vargas 42-42 x2; recordings (2026-11-16): done by 17 (median 42.81), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/40-50/02-feralas.guide|kill 586.3|elite",
+			"guide": "forever/horde/40-50/02-feralas.guide",
+			"goal": "kill 586.3",
+			"kind": "elite",
+			"title": "Zul'Mamwe",
+			"level": 44.1,
+			"mobs": [
+				"Mogh the Undying 44-44"
+			],
+			"reason": "warned at the step: its Careful tip names Mogh the Undying (elite 44), where he stands, and says to pull the Skullsplitters away from him",
+			"evidence": "route level 44.1; Mogh the Undying 44-44; recordings (2026-11-16): done by 5 (median 42.61), deaths 0, abandons 5"
+		},
+		{
+			"key": "forever/horde/50-60/04-azshara.guide|collect 91497.2|elite",
+			"guide": "forever/horde/50-60/04-azshara.guide",
+			"goal": "collect 91497.2",
+			"kind": "elite",
+			"title": "Seals of the Sin'dorei",
+			"level": 55.5,
+			"mobs": [
+				"Blackmaw Thrall 55-57"
+			],
+			"reason": "warned at the step: its tips send the player to Magister Hawkhelm on the east side of his walk and name the Blackmaw Thrall (elite 55-57) at the camp's western edge",
+			"evidence": "route level 55.5; Blackmaw Thrall 55-57; recordings (2026-11-16): done by 2 (median 52.76), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/50-60/05-eastern-plaguelands.guide|collect 5901.1|elite",
+			"guide": "forever/horde/50-60/05-eastern-plaguelands.guide",
+			"goal": "collect 5901.1",
+			"kind": "elite",
+			"title": "Terrordale: kill these as you meet them",
+			"level": 56.3,
+			"mobs": [
+				"Ziggurat Protector 58-58"
+			],
+			"reason": "warned at the step: its tip names the Ziggurat Protector (elite 58) and keeps the player off the ziggurat",
+			"evidence": "route level 56.3; Ziggurat Protector 58-58; recordings (2026-11-16): done by 2 (median 54.49), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/50-60/06-silithus.guide|kill 6004.4|elite",
+			"guide": "forever/horde/50-60/06-silithus.guide",
+			"goal": "kill 6004.4",
+			"kind": "elite",
+			"title": "Scarlet Crusade",
+			"level": 58.8,
+			"mobs": [
+				"Fallen Hero 58-59"
+			],
+			"reason": "warned at the step: its tip names the Fallen Heroes (elite 58-59) and says to leave them",
+			"evidence": "route level 58.8; Fallen Hero 58-59; recordings (2026-11-16): done by 2 (median 57.09), deaths 1, abandons 0"
+		},
+		{
+			"key": "forever/horde/50-60/06-silithus.guide|kill 6004.1|elite",
+			"guide": "forever/horde/50-60/06-silithus.guide",
+			"goal": "kill 6004.1",
+			"kind": "elite",
+			"title": "Scarlet Crusade",
+			"level": 58.8,
+			"mobs": [
+				"Fallen Hero 58-59"
+			],
+			"reason": "warned at the step: its tip names the Fallen Heroes (elite 58-59) and says to leave them",
+			"evidence": "route level 58.8; Fallen Hero 58-59; recordings (2026-11-16): done by 2 (median 52.98), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/50-60/07-felwood.guide|kill 8464.1|elite",
+			"guide": "forever/horde/50-60/07-felwood.guide",
+			"goal": "kill 8464.1",
+			"kind": "elite",
+			"title": "Winterfall Village",
+			"level": 60,
+			"mobs": [
+				"High Chief Winterfall 59-59",
+				"Xandivious 62-62"
+			],
+			"reason": "warned at the step: its tip names High Chief Winterfall (59) and Xandivious (62), who are not targets; the village is worked at 59.7",
+			"evidence": "route level 60; High Chief Winterfall 59-59, Xandivious 62-62; recordings (2026-11-16): done by 1 (median 55.47), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/orc/01-durotar.guide|kill 96821.1|elite",
+			"guide": "forever/horde/orc/01-durotar.guide",
+			"goal": "kill 96821.1",
+			"kind": "elite",
+			"title": "Sen'jin Village",
+			"level": 6,
+			"mobs": [
+				"Ukorsbane 8-8"
+			],
+			"reason": "warned at the step: its tip names Ukorsbane and says to pull the spiders away from him",
+			"evidence": "route level 6; Ukorsbane 8-8; recordings (2026-11-16): done by 52 (median 6.02), deaths 1, abandons 1"
+		},
+		{
+			"key": "forever/horde/skyborne/01-zephras-isle.guide|kill 92461.1|pack",
+			"guide": "forever/horde/skyborne/01-zephras-isle.guide",
+			"goal": "kill 92461.1",
+			"kind": "pack",
+			"title": "Thendal Grove: kill these as you meet them",
+			"level": 1.1,
+			"mobs": [
+				"6 spawns 3+"
+			],
+			"reason": "the starting grove's level 1-3 creatures around a level 1 player; recorded players finish it without trouble",
+			"evidence": "route level 1.1; 6 spawns 3+; recordings (2026-11-16): done by 52 (median 1.1), deaths 1, abandons 0"
+		},
+		{
+			"key": "forever/horde/troll/01-durotar.guide|kill 96821.1|elite",
+			"guide": "forever/horde/troll/01-durotar.guide",
+			"goal": "kill 96821.1",
+			"kind": "elite",
+			"title": "Sen'jin Village",
+			"level": 6,
+			"mobs": [
+				"Ukorsbane 8-8"
+			],
+			"reason": "warned at the step: its tip names Ukorsbane and says to pull the spiders away from him",
+			"evidence": "route level 6; Ukorsbane 8-8; recordings (2026-11-16): done by 52 (median 6.02), deaths 1, abandons 1"
 		}
 	]
 }

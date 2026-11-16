@@ -325,10 +325,6 @@ step Sen'jin Village
   tip Through Sen'jin on the way west to Kolkar Crag: Master Vornal takes the eyes and mucus now.
   turnin 818                          -- Master Vornal
 
-step Vel'rin Fang
-  when complete 817
-  turnin 817                          -- Vel'rin Fang
-
 step Kolkar Crag
   tip Kolkar Crag lies west of Sen'jin. The three attack plans sit on the ground among the centaur tents. Pal'juh is held at the crag as well.
   accept 99123 @46.3,78.7

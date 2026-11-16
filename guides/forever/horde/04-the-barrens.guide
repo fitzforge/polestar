@@ -86,6 +86,13 @@ step Fly to Thunder Bluff
   tip Fly to Thunder Bluff (without its flight path the arrow goes by Camp Taurajo and Mulgore): two of its elders give quests worked on this guide's and the next guide's walks, and Apothecary Zamah takes Lydon's toxin.
   fly "Thunder Bluff"
 
+step Apothecary Zamah
+  zone Thunder Bluff
+  when onquest 1067
+  tip Apothecary Zamah stands in the Pools of Vision, the caves under Spirit Rise, west of Tal.
+  turnin 1067                         -- Apothecary Zamah
+  accept 1086                         -- Apothecary Zamah: the Toxic Fogger goes on the Venture Co. Copter Pad at Windshear Crag, on this guide's Windshear trip
+
 step Thunder Bluff
   zone Thunder Bluff
   when !onquest 97538
@@ -93,13 +100,6 @@ step Thunder Bluff
   getfp "Thunder Bluff" npc 2995      -- Tal
   accept 97538                        -- Tah Winterhoof: the Mirkweed grows in Mirkfallon Lake, by Sun Rock
   accept 1195 optional                -- Zangen Stonehoof: the phial comes from Ashenvale, next guide
-
-step Apothecary Zamah
-  zone Thunder Bluff
-  when onquest 1067
-  tip Apothecary Zamah stands in the Pools of Vision, the caves under Spirit Rise, west of Tal.
-  turnin 1067                         -- Apothecary Zamah
-  accept 1086                         -- Apothecary Zamah: the Toxic Fogger goes on the Venture Co. Copter Pad at Windshear Crag, on this guide's Windshear trip
 
 step Fly to Camp Taurajo
   tip Fly to Camp Taurajo: Tal on Thunder Bluff's central rise, or the Crossroads' wind rider master if you start this guide there.
