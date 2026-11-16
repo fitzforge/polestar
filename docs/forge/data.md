@@ -250,6 +250,17 @@ sets is left to the correction. The Codex packs a talk as `s`, the quest databas
 Lookup and pinned quests say "Talk to". Talks the rule can't see (a known count, an NPC with no side in the
 data) are corrections with players' recordings behind them (#2543).
 
+Placeholder targets (#2614): Forever's quest data names some objectives by the invisible creature the server
+credits, with the game's internal names: a "[DNT] Kill Credit", a bare "Credit", the battlegrounds' "PvP Tower
+Credit Marker", Alterac Valley's "Trigger Ichman". After the talk rule, a kill or talk objective on such an NPC
+becomes an `event` in the quest log's own words ("Graveyard Assaulted"), placed at the NPC's spot when it has one
+(`forge-data/src/credit.rs`; the names in `forge-guide/src/placeholder.rs`). A placeholder text that carries a
+name gives way to it ("[DNT] Kill Credit: Twilight Thrall"); one that carries none needs a correction with the
+quest log's words, from players' recordings. Then the build fails while any placeholder name a player could read
+is left: a title, an objective's words, or the name of an NPC, object or item an objective, giver, ender or
+starting item points at, in every quest but the game's unused and test ones ("<UNUSED>", "<TEST> HEY MISTER
+WILSON!", "REUSE"), which Lookup's search leaves out, as it does NPCs and items with a placeholder name.
+
 ### What it writes
 
 Without `--kb`, `data/forever/` gets:

@@ -667,9 +667,11 @@ pub fn emit_pack(codex: &PackCodex, version: &str, build: &V, extra_files: &[(St
 				(if k.truthy() { k.to_js_string() } else { "item".into() }) == kind
 			})
 			.collect();
+		// Lookup never offers an item with one of the game's placeholder names ("Ahn'Qiraj Wand [PH]", #2614).
 		index.push((
 			kind,
 			ids.iter()
+				.filter(|id| !items.get(id).get("name").as_str().is_some_and(forge_guide::placeholder::banned))
 				.map(|id| {
 					let it = items.get(id);
 					((*id).clone(), it.get("name"), it.get("quality"), status_letter(&it).to_string())
@@ -687,7 +689,9 @@ pub fn emit_pack(codex: &PackCodex, version: &str, build: &V, extra_files: &[(St
 	let npc_ids = sorted_ids(npcs);
 	for (group, prefix, rare) in [("npc", "Npcs", false), ("rare", "Rares", true)] {
 		let ids: Vec<&String> = npc_ids.iter().filter(|id| npcs.get(id).get("rare").truthy() == rare).collect();
-		index.push((group, ids.iter().map(|id| ((*id).clone(), npcs.get(id).get("name"), V::Undef, String::new())).collect()));
+		// Lookup never offers an NPC with one of the game's placeholder names ("PvP Tower Credit Marker", #2614).
+		let searchable = ids.iter().filter(|id| !npcs.get(id).get("name").as_str().is_some_and(forge_guide::placeholder::banned));
+		index.push((group, searchable.map(|id| ((*id).clone(), npcs.get(id).get("name"), V::Undef, String::new())).collect()));
 		let mut entries: Vec<Entry> = Vec::new();
 		for id in &ids {
 			let n = npcs.get(id);
@@ -745,7 +749,10 @@ pub fn emit_pack(codex: &PackCodex, version: &str, build: &V, extra_files: &[(St
 			entries.push((id, r.get(name_field), rec, String::new()));
 		}
 		if SEARCH_KINDS.contains(&group) {
-			index.push((group, entries.iter().map(|(id, name, ..)| (id.clone(), name.clone(), V::Undef, String::new())).collect()));
+			// Lookup never offers a quest the game keeps unused or for tests ("<UNUSED>", "<TEST> HEY MISTER WILSON!",
+			// "REUSE", #2614), nor anything else with a placeholder name.
+			let hidden = |name: &V| name.as_str().is_some_and(|n| forge_guide::placeholder::banned(n) || (group == "quest" && forge_guide::placeholder::unused_quest(n)));
+			index.push((group, entries.iter().filter(|(_, name, ..)| !hidden(name)).map(|(id, name, ..)| (id.clone(), name.clone(), V::Undef, String::new())).collect()));
 		}
 		emit_group(group, &entries, prefix, &mut out, &mut order);
 	}
