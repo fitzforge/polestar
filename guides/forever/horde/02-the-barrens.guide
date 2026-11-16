@@ -301,8 +301,8 @@ step The Barrens: kill these as you meet them
 
 step Ratchet
   turnin 887                          -- Gazlowe, upstairs
-  turnin 97253                        -- Wrenix the Wretched
   accept 890                          -- Gazlowe
+  turnin 97253                        -- Wrenix the Wretched
   turnin 890                          -- Wharfmaster Dizzywig
   accept 892
   turnin 892                          -- Gazlowe

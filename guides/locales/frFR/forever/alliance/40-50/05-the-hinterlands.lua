@@ -39,10 +39,10 @@ return {
 	["Inside"] = "À l'intérieur",
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, inside"] = "{npc:5636}, à l'intérieur",
-	-- {npc:270263} Farseer Maret Firetend
-	["{npc:270263}, just east of the aviary"] = "{npc:270263}, juste à l'est de la volière",
 	-- {quest:2990} Thadius Grimshade · {area:1438} Nethergarde Keep
 	["for {quest:2990} at {area:1438}, later"] = "pour {quest:2990} au {area:1438}, plus tard",
+	-- {npc:270263} Farseer Maret Firetend
+	["{npc:270263}, just east of the aviary"] = "{npc:270263}, juste à l'est de la volière",
 
 	-- Step 7: Fly to Ironforge
 	-- {area:1537} Ironforge

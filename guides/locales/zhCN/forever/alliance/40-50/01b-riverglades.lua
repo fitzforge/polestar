@@ -120,9 +120,9 @@ return {
 	-- Step 25: The cathedral
 	["The cathedral"] = "大教堂",
 	-- {npc:262031} Sister Rowland · {area:16724} Farholde Keep · {npc:272437} Marla Bell · {npc:271742} Abbot Schuncke
-	["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031}看守着{area:16724}西南角的旧大教堂。蝙蝠栖息在教堂上层；{npc:272437}在教堂旁发放圣洁蜡烛；坟墓在礼拜堂墓地里。\n{npc:271742}是53级精英，站在大教堂内：他不会主动攻击你，千万别打他，把蝙蝠拉离他身边再打。",
+	["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} sells the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031}看守着{area:16724}西南角的旧大教堂。蝙蝠栖息在教堂上层；{npc:272437}在教堂旁出售圣洁蜡烛；坟墓在礼拜堂墓地里。\n{npc:271742}是53级精英，站在大教堂内：他不会主动攻击你，千万别打他，把蝙蝠拉离他身边再打。",
 	-- {item:17028} Holy Candle · {npc:272437} Marla Bell
-	["{item:17028}, from {npc:272437}"] = "{item:17028}，找{npc:272437}领取",
+	["{item:17028}, from {npc:272437}"] = "{item:17028}，从{npc:272437}处购买",
 	-- {item:269997} Bundle of Candles
 	["{item:269997}, on the graves"] = "{item:269997}，放在坟墓上",
 
@@ -547,4 +547,8 @@ return {
 	["Fly to {area:144}"] = "飞往{area:144}",
 	-- {zone:1418} Badlands · {zone:1432} Loch Modan · {area:144} Thelsamar
 	["The next guide starts in the {zone:1418}, south of {zone:1432}: fly to {area:144}."] = "下一个指南从{zone:1432}南边的{zone:1418}开始：飞往{area:144}。",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{item:17028}, from {npc:272437}"] = "{item:17028}，找{npc:272437}领取",
+	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031}看守着{area:16724}西南角的旧大教堂。蝙蝠栖息在教堂上层；{npc:272437}在教堂旁发放圣洁蜡烛；坟墓在礼拜堂墓地里。\n{npc:271742}是53级精英，站在大教堂内：他不会主动攻击你，千万别打他，把蝙蝠拉离他身边再打。",
 }

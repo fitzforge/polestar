@@ -120,7 +120,7 @@ return {
 	-- Step 25: The cathedral
 	["The cathedral"] = "Die Kathedrale",
 	-- {npc:262031} Sister Rowland · {area:16724} Farholde Keep · {npc:272437} Marla Bell · {npc:271742} Abbot Schuncke
-	["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031} hütet die alte Kathedrale in der Südwestecke von {area:16724}. Die Fledermäuse nisten im Obergeschoss; {npc:272437} verteilt daneben die heiligen Kerzen; die Gräber liegen auf dem Kapellenfriedhof.\n{npc:271742}, ein Elite der Stufe 53, steht in der Kathedrale: Er lässt dich in Ruhe, also greif ihn nie an und zieh die Fledermäuse von ihm weg.",
+	["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} sells the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031} hütet die alte Kathedrale in der Südwestecke von {area:16724}. Die Fledermäuse nisten im Obergeschoss; {npc:272437} verkauft daneben die heiligen Kerzen; die Gräber liegen auf dem Kapellenfriedhof.\n{npc:271742}, ein Elite der Stufe 53, steht in der Kathedrale: Er lässt dich in Ruhe, also greif ihn nie an und zieh die Fledermäuse von ihm weg.",
 	-- {item:17028} Holy Candle · {npc:272437} Marla Bell
 	["{item:17028}, from {npc:272437}"] = "{item:17028}, von {npc:272437}",
 	-- {item:269997} Bundle of Candles
@@ -547,4 +547,8 @@ return {
 	["Fly to {area:144}"] = "Flieg nach {area:144}",
 	-- {zone:1418} Badlands · {zone:1432} Loch Modan · {area:144} Thelsamar
 	["The next guide starts in the {zone:1418}, south of {zone:1432}: fly to {area:144}."] = "Der nächste Guide beginnt im {zone:1418}, südlich von {zone:1432}: Flieg nach {area:144}.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{item:17028}, from {npc:272437}"] = "{item:17028}, von {npc:272437}",
+	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031} hütet die alte Kathedrale in der Südwestecke von {area:16724}. Die Fledermäuse nisten im Obergeschoss; {npc:272437} verteilt daneben die heiligen Kerzen; die Gräber liegen auf dem Kapellenfriedhof.\n{npc:271742}, ein Elite der Stufe 53, steht in der Kathedrale: Er lässt dich in Ruhe, also greif ihn nie an und zieh die Fledermäuse von ihm weg.",
 }

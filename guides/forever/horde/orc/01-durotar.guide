@@ -144,8 +144,8 @@ step Back to the Den
   turnin 1516 only Shaman -- Canaga Earthcaller
   accept 1517 only Shaman
   turnin 794
-  turnin 804 only !Shaman           -- Gornek, inside
   accept 805
+  turnin 804 only !Shaman           -- Gornek, inside
   accept 96652                        -- the Lost Journal on the ground beside her
   train class
   turnin 6394

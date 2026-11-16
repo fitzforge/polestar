@@ -165,8 +165,8 @@ step Brackenwall Village
   turnin 1177                         -- Mudcrush Durtfeet
   turnin 1202                         -- Nazeer Bloodpike
   turnin 1239                         -- Nazeer Bloodpike
-  turnin 1273                         -- Krog
   accept 1240                         -- For Kin'weelay at Grom'gol, in forever/horde/40-50/01-stranglethorn-vale
+  turnin 1273                         -- Krog
 
 step Level 36
   when level<36
@@ -265,8 +265,8 @@ step Shadowprey Village
   zone Desolace
   tip South down the coast to Shadowprey: Taiga takes the box and sends you to Mannoroc Coven with it; Drulzegar takes the naga.
   turnin 5381                         -- Taiga Wisemane
-  turnin 6143                         -- Drulzegar Skraghook
   accept 5581
+  turnin 6143                         -- Drulzegar Skraghook
 
 step Portals of the Legion
   zone Desolace

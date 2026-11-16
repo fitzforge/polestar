@@ -167,13 +167,13 @@ step Farholde Keep
   sethome "Farholde Keep" npc 257595   -- Barracks Master Harlan, at the inn
 
 step The cathedral
-  tip Sister Rowland keeps the old cathedral at the south-west corner of Farholde Keep. The bats roost in its upper floor; Marla Bell hands out the holy candles beside it; the graves are in the chapel graveyard.
+  tip Sister Rowland keeps the old cathedral at the south-west corner of Farholde Keep. The bats roost in its upper floor; Marla Bell sells the holy candles beside it; the graves are in the chapel graveyard.
   tip Abbot Schuncke, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him.
   accept 95603                          -- Bats in the Belfry
   kill 262037 x5 quest 95603.1          -- Roosting Duskbat
   turnin 95603
   accept 95613                          -- Keeping the Light On
-  collect 17028 x5 quest 95613.1 @62.2,86.0  -- Holy Candle, from Marla Bell
+  buy 17028 x5 npc 272437 @62.2,86.0    -- Holy Candle, from Marla Bell
   turnin 95613
   accept 95615                          -- In Memoriam
   use 269997 quest 95615.1 @61.9,83.8   -- Bundle of Candles, on the graves

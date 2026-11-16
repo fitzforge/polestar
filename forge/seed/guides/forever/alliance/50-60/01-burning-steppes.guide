@@ -60,9 +60,9 @@ step Talrendis Point
   tip Back south-west to Talrendis Point.
   turnin 88807                        -- Commander Truesong
   turnin 88857
-  turnin 89001                        -- Berdun Cliffbrew
   accept 88809                        -- Commander Truesong: Preserving Eldarath, the relics drop from the naga of the top-up ahead
   accept 92345                        -- Commander Truesong: Beneath Nordrassil, for Mathrengyl Bearwalker in Darnassus, keep it
+  turnin 89001                        -- Berdun Cliffbrew
 
 step Shadowsong Shrine
   turnin 5535                         -- Loh'atu

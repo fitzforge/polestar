@@ -120,9 +120,9 @@ return {
 	-- Step 25: The cathedral
 	["The cathedral"] = "Собор",
 	-- {npc:262031} Sister Rowland · {area:16724} Farholde Keep · {npc:272437} Marla Bell · {npc:271742} Abbot Schuncke
-	["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031} присматривает за старым собором в юго-западном углу локации {area:16724}. Летучие мыши гнездятся на его верхнем этаже; {npc:272437} раздает святые свечи рядом с ним; могилы – на кладбище у часовни.\n{npc:271742}, элита 53-го уровня, стоит в соборе: он вас не тронет, поэтому никогда не атакуйте его и уводите летучих мышей подальше от него.",
+	["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} sells the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031} присматривает за старым собором в юго-западном углу локации {area:16724}. Летучие мыши гнездятся на его верхнем этаже; {npc:272437} продает святые свечи рядом с ним; могилы – на кладбище у часовни.\n{npc:271742}, элита 53-го уровня, стоит в соборе: он вас не тронет, поэтому никогда не атакуйте его и уводите летучих мышей подальше от него.",
 	-- {item:17028} Holy Candle · {npc:272437} Marla Bell
-	["{item:17028}, from {npc:272437}"] = "{item:17028} – у NPC {npc:272437}",
+	["{item:17028}, from {npc:272437}"] = "{item:17028}: у NPC {npc:272437}",
 	-- {item:269997} Bundle of Candles
 	["{item:269997}, on the graves"] = "{item:269997} – на могилах",
 
@@ -547,4 +547,8 @@ return {
 	["Fly to {area:144}"] = "Летите сюда: {area:144}",
 	-- {zone:1418} Badlands · {zone:1432} Loch Modan · {area:144} Thelsamar
 	["The next guide starts in the {zone:1418}, south of {zone:1432}: fly to {area:144}."] = "Следующий гайд начинается в зоне {zone:1418}, к югу от зоны {zone:1432}: летите в {area:144}.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{item:17028}, from {npc:272437}"] = "{item:17028} – у NPC {npc:272437}",
+	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031} присматривает за старым собором в юго-западном углу локации {area:16724}. Летучие мыши гнездятся на его верхнем этаже; {npc:272437} раздает святые свечи рядом с ним; могилы – на кладбище у часовни.\n{npc:271742}, элита 53-го уровня, стоит в соборе: он вас не тронет, поэтому никогда не атакуйте его и уводите летучих мышей подальше от него.",
 }

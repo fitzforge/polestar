@@ -186,7 +186,7 @@ return {
 
 	-- Step 33: Crystal Lake
 	-- plural, as words: Fishing Traps = {object:694772} Fishing Trap
-	["The Fishing Traps sit along the west shore of the lake."] = "{object:694772}分布在湖的西岸。",
+	["The Fishing Traps sit along the west shore of the lake."] = "捕鱼陷阱分布在湖的西岸。",
 
 	-- Step 34: Guard Roberts
 	-- {npc:12423} Guard Roberts · {area:18} Crystal Lake · {spell:613} Lesser Heal · {spell:1243} Power Word: Fortitude

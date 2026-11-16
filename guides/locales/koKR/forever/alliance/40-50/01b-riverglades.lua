@@ -120,9 +120,9 @@ return {
 	-- Step 25: The cathedral
 	["The cathedral"] = "대성당",
 	-- {npc:262031} Sister Rowland · {area:16724} Farholde Keep · {npc:272437} Marla Bell · {npc:271742} Abbot Schuncke
-	["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031}은(는) {area:16724} 남서쪽 구석의 옛 대성당을 지키고 있습니다. 박쥐는 대성당 위층에 둥지를 틀고 있고, 그 옆에서 {npc:272437}이(가) 신성한 양초를 나눠 주며, 무덤은 예배당 묘지에 있습니다.\n53레벨 정예인 {npc:271742}이(가) 대성당 안에 서 있습니다: 먼저 공격하지 않으니 절대 공격하지 말고, 박쥐는 그에게서 떨어진 곳으로 끌어내십시오.",
+	["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} sells the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031}은(는) {area:16724} 남서쪽 구석의 옛 대성당을 지키고 있습니다. 박쥐는 대성당 위층에 둥지를 틀고 있고, 그 옆에서 {npc:272437}이(가) 신성한 양초를 팔며, 무덤은 예배당 묘지에 있습니다.\n53레벨 정예인 {npc:271742}이(가) 대성당 안에 서 있습니다: 먼저 공격하지 않으니 절대 공격하지 말고, 박쥐는 그에게서 떨어진 곳으로 끌어내십시오.",
 	-- {item:17028} Holy Candle · {npc:272437} Marla Bell
-	["{item:17028}, from {npc:272437}"] = "{npc:272437}에게서 {item:17028}",
+	["{item:17028}, from {npc:272437}"] = "{item:17028}, {npc:272437}에게서",
 	-- {item:269997} Bundle of Candles
 	["{item:269997}, on the graves"] = "무덤 위의 {item:269997}",
 
@@ -547,4 +547,8 @@ return {
 	["Fly to {area:144}"] = "{area:144}(으)로 비행",
 	-- {zone:1418} Badlands · {zone:1432} Loch Modan · {area:144} Thelsamar
 	["The next guide starts in the {zone:1418}, south of {zone:1432}: fly to {area:144}."] = "다음 가이드는 {zone:1432} 남쪽의 {zone:1418}에서 시작합니다: {area:144}(으)로 날아가십시오.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{item:17028}, from {npc:272437}"] = "{npc:272437}에게서 {item:17028}",
+	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031}은(는) {area:16724} 남서쪽 구석의 옛 대성당을 지키고 있습니다. 박쥐는 대성당 위층에 둥지를 틀고 있고, 그 옆에서 {npc:272437}이(가) 신성한 양초를 나눠 주며, 무덤은 예배당 묘지에 있습니다.\n53레벨 정예인 {npc:271742}이(가) 대성당 안에 서 있습니다: 먼저 공격하지 않으니 절대 공격하지 말고, 박쥐는 그에게서 떨어진 곳으로 끌어내십시오.",
 }

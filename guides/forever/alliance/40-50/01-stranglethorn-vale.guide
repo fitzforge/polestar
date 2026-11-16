@@ -91,8 +91,8 @@ step Theramore
   turnin 1219                         -- Theramore Lieutenant
   accept 1220
   turnin 1252                         -- On the top floor
-  turnin 98233                        -- Guard Jameson
   accept 1259
+  turnin 98233                        -- Guard Jameson
   turnin 1259                         -- Adjutant Tesoran, on the top floor
   accept 1285
   turnin 1285                         -- Captain Garran Vimes
