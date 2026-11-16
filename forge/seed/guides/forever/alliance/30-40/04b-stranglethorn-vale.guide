@@ -2,10 +2,10 @@
 guide forever/alliance/30-40/04b-stranglethorn-vale
 title Stranglethorn Vale
 faction Alliance
-levels 35-36
+levels 35-37
 zone Stranglethorn Vale
 next forever/alliance/30-40/05-arathi-highlands
-pitch For characters of 35 to 36, but several quests here are level 37-38: on purpose, for their experience. Sin'Dall is 37 and the water elementals 36-37: pull them one at a time.
+pitch For characters of 35 to 37, but several quests here are level 37-38: on purpose, for their experience. Sin'Dall is 37 and the water elementals 36-37: pull them one at a time.
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never

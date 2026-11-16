@@ -2,10 +2,10 @@
 guide forever/alliance/40-50/07-un-goro-crater
 title Un'Goro Crater
 faction Alliance
-levels 49-51
+levels 49-50
 zone Un'Goro Crater
 next forever/alliance/50-60/01-burning-steppes
-pitch For characters of 49 to 51, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones, the hive and Shizzle's scales wait for the later Un'Goro visit at about 56.
+pitch For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones, the hive and Shizzle's scales wait for the later Un'Goro visit at about 56.
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never

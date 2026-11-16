@@ -2,7 +2,7 @@
 guide forever/alliance/40-50/01-stranglethorn-vale
 title Stranglethorn Vale, Dustwallow Marsh & Swamp of Sorrows
 faction Alliance
-levels 40-43
+levels 39-43
 zone Stranglethorn Vale
 next forever/alliance/40-50/01b-riverglades
 
@@ -71,7 +71,7 @@ step Darkmist Cavern
   collect 5884 quest 1206             -- Unpopped Darkmist Eye
 
 step Mudcrush Durtfeet
-  tip Ride south to the giant's hut in the middle of the marsh.
+  tip Head south to the giant's hut in the middle of the marsh.
   accept 1177
 
 step The Shady Rest Inn
@@ -79,7 +79,7 @@ step The Shady Rest Inn
   accept 1252 @29.8,48.2              -- Theramore Guard Badge
 
 step Corrosive Swamp Oozes
-  tip On the ride back east, the Corrosive Swamp Oozes (38-40) creep through the marsh south of the road, between the middle of the marsh and Theramore: one of them carries Jameson's training sword.
+  tip On the way back east, the Corrosive Swamp Oozes (38-40) creep through the marsh south of the road, between the middle of the marsh and Theramore: one of them carries Jameson's training sword.
   collect 280203 quest 98233 @49.3,55.7 map 1445 -- Jameson's Training Sword
 
 # ---------------------------------------------------------------- Theramore
@@ -130,7 +130,7 @@ step The Barrens
 step The Affray
   only Warrior
   zone The Barrens
-  tip On the ride north to Ratchet, Fray Island lies off the Merchant Coast south of the town: wade over the sand bar shallows. Klannoc Macleod sends four challengers and then Big Will (level 33) at you, one at a time.
+  tip On the way north to Ratchet, Fray Island lies off the Merchant Coast south of the town: wade over the sand bar shallows. Klannoc Macleod sends four challengers and then Big Will (level 33) at you, one at a time.
   turnin 1718                             -- Klannoc Macleod
   accept 1719
   complete 1719                           -- Defeat the challengers and Big Will
@@ -185,7 +185,7 @@ step Riding at 40
 step Boat to Booty Bay
   only Dwarf,Gnome,NightElf,Skyborne
   zone The Barrens
-  tip Ride north-west into the Barrens and up the coast to Ratchet: the boat to Booty Bay leaves from its dock, and Ratchet's gryphon master stands just above it.
+  tip Head north-west into the Barrens and up the coast to Ratchet: the boat to Booty Bay leaves from its dock, and Ratchet's gryphon master stands just above it.
   getfp "Ratchet"
   goto 63.4,38.5 "Boat to Booty Bay"
 
@@ -193,7 +193,7 @@ step Boat to Booty Bay
   only Human
   when level<40
   zone The Barrens
-  tip Ride north-west into the Barrens and up the coast to Ratchet: the boat to Booty Bay leaves from its dock, and Ratchet's gryphon master stands just above it.
+  tip Head north-west into the Barrens and up the coast to Ratchet: the boat to Booty Bay leaves from its dock, and Ratchet's gryphon master stands just above it.
   note Level 40 with 100 gold later on? Randal Hunter teaches riding at Eastvale Logging Camp in Elwynn Forest: Collectibles, Mounts · Level 40 has the trip.
   getfp "Ratchet"
   goto 63.4,38.5 "Boat to Booty Bay"
@@ -260,11 +260,11 @@ step Booty Bay
   turnin 576                          -- Dizzy One-Eye
 
 step Gorilla hills
-  tip Ride inland to the Mistvale gorilla hills. Elder Mistvale Gorillas drop the giblets.
+  tip Head inland to the Mistvale gorilla hills. Elder Mistvale Gorillas drop the giblets.
   collect 3919 quest 606              -- Mistvale Giblets
 
 step Booty Bay
-  tip Ride back down to town; Shaky stands at the tunnel mouth.
+  tip Head back down to town; Shaky stands at the tunnel mouth.
   turnin 606                          -- "Shaky" Phillipe
   accept 607
   accept 2872                         -- for Stoley in Tanaris: keep it; on the top floor
@@ -290,7 +290,7 @@ step Zul'Mamwe's Mystics and the Shadowmaw Panthers
 # ---------------------------------------------------------------- The far north
 
 step The north-west coast
-  tip Ride on north-west to the bay on the north-west coast. The Giant Clams lie on its floor and hold the pearls; Gazban swims among them and drops the Stone of the Tides.
+  tip Go on north-west to the bay on the north-west coast. The Giant Clams lie on its floor and hold the pearls; Gazban swims among them and drops the Stone of the Tides.
   collect 4611 quest 705              -- Blue Pearl; underwater
   collect 4034 quest 611              -- Stone of the Tides
 
@@ -312,7 +312,7 @@ step Arbor Tarantula
   collect 213566 "Arbor Tarantula Specimen" @43.1,16.7
 
 step Rebel Camp
-  tip Ride north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale.
+  tip Head north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale.
   turnin 622                          -- Corporal Kaleb
 
 step Brother Nimetz

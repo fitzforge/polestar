@@ -7140,20 +7140,20 @@
 			]
 		},
 		{
-			"id": "levels-alliance-ungoro-top-51",
+			"id": "levels-alliance-ungoro-top-50",
 			"faction": "Alliance",
 			"at": {
 				"goal": "levels",
 				"guide": "forever/alliance/40-50/07-un-goro-crater"
 			},
 			"levels": {
-				"top": 51
+				"top": 50
 			},
-			"note": "Un'Goro Crater (Alliance 40-50/07): with the Riverglades and Shen'dralas in the route the level model (rested experience, 28 race and class runs) brings players in at 49.9 and out at 51.6, after the top-up to 51 before Fire Plume Ridge: the header says 49-51. The 0.4.0 Alliance 40-60 headers are set to the levels the route plays each guide at, arrival to exit, not wider (02 45-45, 03 46-47, 04 47-48, 05 48-48, Burning Steppes 51-53, Winterspring 53-55, Western Plaguelands 55-57, Silithus 57-60; Felwood stays 52-53 for its 52.x top-ups); this record keeps the one top the route raises.",
+			"note": "Un'Goro Crater (Alliance 40-50/07): fix round 1 (0.4.0) splits Un'Goro (the pylons, bones, hive and Shizzle move to the Western Plaguelands guide's visit at about 57) and the level model (rested experience, 28 race and class runs) brings players in at 49.31 and out at 50.40: the header says 49-50. The 0.4.0 Alliance headers give each guide's arrival (rounded down) to exit (rounded): 01 Stranglethorn 39-43, 02 45-46, 03 45-47, 04 46-48, 05 47-48, Burning Steppes 50-53, Felwood 52-53, Winterspring 53-56, Western Plaguelands 55-58, Silithus 58-60 (57.83 rounded up, so Mount Hyjal's players, who come back at about 59.6, are handed on to it).",
 			"source": [
 				{
 					"kind": "recording",
-					"ref": "the level model on players' recordings, rested experience: Alliance 40-50/07 49.88 -> 51.56"
+					"ref": "the level model on players' recordings, rested experience: Alliance 40-50/07 49.31 -> 50.40"
 				}
 			]
 		},
@@ -11822,7 +11822,7 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "On the ride back east, the Corrosive Swamp Oozes (38-40) creep through the marsh south of the road, between the middle of the marsh and Theramore: one of them carries Jameson's training sword.",
+			"tip": "On the way back east, the Corrosive Swamp Oozes (38-40) creep through the marsh south of the road, between the middle of the marsh and Theramore: one of them carries Jameson's training sword.",
 			"note": "40-50/01 (fix round 1, 0.4.0): Sword in the Slime (98233, level 42, 3,450 XP) from Guard Jameson in Theramore; the sword drops from the Corrosive Swamp Oozes (38-40, 44-55,50-59) on the route's ride back east from the Shady Rest Inn. Players' recordings: 5 people took it at about 40, 3 handed it in.",
 			"source": [
 				{
