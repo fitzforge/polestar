@@ -2754,7 +2754,7 @@
 				"ref": "QuestieDB 1.1.2 Forever, npc 270513: npcFlags includes 0x20000000"
 			}
 		],
-		"note": "Spellweaver Thaldris serves as a transmogrifier, as his NPC title and the newer quest data's flag show. The pinned data lacks that flag, so the Codex would omit him from service markers and Nearby Services."
+		"note": "Spellweaver Thaldris serves as a transmogrifier, as his NPC title and the newer quest data's flag show. The pinned data lacks that flag, so he would be missing from service markers and Nearby Services."
 	},
 	"278863": {
 		"set": {
