@@ -383,7 +383,7 @@ return {
 
 	-- Step 74: Bolder'ok
 	-- {area:16726} Bolder'ok · {npc:259057} Dunston Willis
-	["North-west to {area:16726}, the ogres' town. Its ogres side with the Horde and attack you on sight, and Clugfist on his hill in the middle is an elite (level 50): keep to the town's north-eastern edge, where {npc:259057} hides."] = "Au nord-ouest jusqu'à {area:16726}, la ville des ogres. Ses ogres sont alliés à la Horde et vous attaquent à vue, et Clugfist, sur sa colline au centre, est un élite (niveau 50) : restez à la lisière nord-est de la ville, où se cache {npc:259057}.",
+	["North-west to {area:16726}, the ogres' town. Its ogres side with the Horde and attack you on sight, and Clugfist on his hill in the middle is an elite (level 50): keep to the town's north-eastern edge, where {npc:259057} hides."] = "Au nord-ouest jusqu'à {area:16726}, la ville des ogres. Ses ogres sont alliés à la Horde et vous attaquent à vue, et Poing-Serré, sur sa colline au centre, est un élite (niveau 50) : restez à la lisière nord-est de la ville, où se cache {npc:259057}.",
 
 	-- Step 75: Gronok's Key
 	-- {npc:263749} Gronok the Butcher · {npc:259057} Dunston Willis · {item:275043} Bloodmaster's Ring
