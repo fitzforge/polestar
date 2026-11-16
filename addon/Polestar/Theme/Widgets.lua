@@ -3369,11 +3369,18 @@ local function paintAction()
 end
 
 -- accept: true (the action), false (Cancel) or "alt" (the third choice).
+-- The choice runs while the dialog and the clicked button are still up, then
+-- the dialog closes (unless the choice opened another), as the game's own
+-- popups do (StaticPopup_OnClick): a call that needs the player's hardware
+-- event (ReloadUI, the settings window's "Reload UI") runs inside the click
+-- with its button shown. Closed first, that reload did nothing in the client.
 local function closeModal(accept)
 	local spec = modal.psSpec
-	modal:Hide()
 	local fn = spec and (accept == "alt" and spec.onAlt or accept == true and spec.onAccept or (not accept and spec.onCancel))
-	if fn then fn() end
+	local ok, err = true, nil
+	if fn then ok, err = pcall(fn) end
+	if modal.psSpec == spec then modal:Hide() end
+	if not ok then error(err, 0) end
 end
 
 local function buildModal()
