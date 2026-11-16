@@ -69,6 +69,7 @@ step Jadefire Glen
   level 52.74 grind 7109               -- grind on Jadefire Felsworn
 
 step Ruins of Constellas
+  tip Careful: Xavathras (54) stands at the back of the Ruins of Constellas, at about 32.2,67.1, with Shadowstalkers around him: clear them one at a time, then pull him alone at full health.
   kill 7110 quest 4421.2              -- Jadefire Shadowstalker
   kill 7106 quest 4421.3              -- Jadefire Rogue
   kill 9454 quest 4421.4              -- Xavathras

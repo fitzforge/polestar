@@ -220,6 +220,11 @@ step Royal Historian Archesonus
   accept 3702
   talk 8879 quest 3702.1
   turnin 3702
+
+step Royal Historian Archesonus
+  when group 3701
+  zone Ironforge
+  tip The Smoldering Ruins of Thaurissan is a group quest at this level: its relics stand among War Reavers and Firewalkers of 53-55, with Thauris Balgarr (57) close by, two to five over you, and the route has no later Burning Steppes visit. Grouping up is encouraged, look for people to do it with. Skip it if you are alone.
   accept 3701                         -- The relics are in the Burning Steppes: keep it
 
 step Fly to Aerie Peak
@@ -281,22 +286,13 @@ step Chillwind Camp
   turnin 5092                         -- Commander Ashlam Valorfist
   accept 5215
   turnin 5215                         -- High Priestess MacDonnell
-  accept 5216
+  accept 5216                         -- keep it: the Felstone Field cauldron waits for the Winterspring guide's Chillwind stop, at about 55
 
 step Janice Felstone
   tip Janice's ghost wanders by the farmhouse of Felstone Field, west of Dalson's Tears; her parcel lies inside.
   accept 5021                         -- Upstairs
   turnin 5021                         -- Janice's Parcel, inside
   accept 5022                         -- For Stormwind: keep it
-
-step Felstone Field cauldron
-  tip Cauldron Lord Bilemaw guards the cauldron in Felstone Field, west of Andorhal.
-  collect 13194 quest 5216.1          -- Felstone Field Cauldron Key
-  turnin 5216                         -- Scourge Cauldron
-  accept 5217
-
-step Chillwind Camp
-  turnin 5217                         -- High Priestess MacDonnell
 
 step Fly to Morgan's Vigil
   when taxi "Morgan's Vigil"
@@ -351,13 +347,17 @@ step Flame Crest
 
 step Ruins of Thaurissan: kill these as you meet them
   zone Burning Steppes
-  tip The relics are the carved stones scattered through the Ruins of Thaurissan around Flame Crest: click them until the information is recovered. Take the ones on the ruins' southern edge, nearest Flame Crest.
   tip Use the Draco-Incarcinatrix 900 on a Black Broodling on the slopes east of Flame Crest just before it dies, then loot the essence it leaves.
   tip Careful: a Malfunctioning Reaver (level 56, rare) walks the slopes by the broodlings, and the Black Dragonspawn and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull.
-  tip Careful: the ruins' War Reavers and Thaurissan Firewalkers are 53-55, and Thauris Balgarr (57) holds the Dark Iron camp south-west of Flame Crest: take the relics at the edge of the ruins, pull one at a time, and keep away from the camp.
-  interact 153556 quest 3701.1        -- Thaurissan Relic
   collect 12283 quest 4726.1
   use 12284 quest 4726.1 @81.0,28.0 map 1428
+
+step Ruins of Thaurissan
+  when group 3701
+  when onquest 3701
+  tip The relics are the carved stones scattered through the Ruins of Thaurissan around Flame Crest: click them until the information is recovered. Take the ones on the ruins' southern edge, nearest Flame Crest.
+  tip Careful: the ruins' War Reavers and Thaurissan Firewalkers are 53-55, and Thauris Balgarr (57) holds the Dark Iron camp south-west of Flame Crest: take the relics at the edge of the ruins, pull one at a time, and keep away from the camp.
+  interact 153556 quest 3701.1        -- Thaurissan Relic
 
 step Flame Crest
   turnin 4726                         -- Tinkee Steamboil
@@ -511,6 +511,7 @@ step Ironforge
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
 step Royal Historian Archesonus
+  when onquest 3701
   zone Ironforge
   tip Archesonus stands beside King Magni in the High Seat: the relics you read in the Steppes are his.
   turnin 3701

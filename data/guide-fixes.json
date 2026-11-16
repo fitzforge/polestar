@@ -11066,6 +11066,23 @@
 			]
 		},
 		{
+			"id": "felwood-xavathras-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4421,
+				"goal": "objective",
+				"objective": 4
+			},
+			"tip": "Careful: Xavathras (54) stands at the back of the Ruins of Constellas, at about 32.2,67.1, with Shadowstalkers around him: clear them one at a time, then pull him alone at full health.",
+			"note": "50-60/02 (fix round 2, 0.4.0): Xavathras (54) at about 52.6 for the player; The Corruption of the Jadefire (4421) opens Jadefire Run (4906), so it stays, with his level and place named.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npc 9454 Xavathras 54, Felwood 32.2,67.1; 7110 Jadefire Shadowstalker 51-52"
+				}
+			]
+		},
+		{
 			"id": "2253-galens-escape-careful",
 			"faction": "Alliance",
 			"at": {

@@ -8051,6 +8051,11 @@
 				"why": "Twisted Hatred (Teldrassil, level 12): Xethorr the Wicked is rank 1 at 12 in our creature data and players' recordings ('elite'), met at 9-11 on the walk to the Oracle Glade; recorded kills: 6 with no group, 3 grouped. A group of 2 is advised; the webwoods are soloable but the quest only completes with his moss."
 			},
 			{
+				"q": 3701,
+				"size": 2,
+				"why": "Alliance 50-60 fix round 2 (0.4.0): The Smoldering Ruins of Thaurissan's relics stand among the ruins' War Reavers and Thaurissan Firewalkers (53-55) with Thauris Balgarr (57) in range, two to five over players on the Burning Steppes guide at about 52, and the route has no later Burning Steppes visit: a group choice; the solo player skips it."
+			},
+			{
 				"q": 1173,
 				"size": 3,
 				"why": "Challenge Overlord Mok'Morokk is a fight with Overlord Mok'Morokk (level 45, rank 1 in Forever's creature data) the quest's event objective starts, so the world does not mark it elite; a rank-1 fight at 46-48 for a solo player, so a group of 3. Was optional (c15 review); now a group quest the route may take, with its solo fallback"
@@ -11008,6 +11013,12 @@
 				"faction": "Alliance",
 				"reason": "Alliance starts fix round 2 (0.4.0): Gnome Priests take Mims' own Confounding Flash (94817) in Ironforge instead; the two are exclusive. Maxan Anvol's letter needs level 10 on the Kharanos east stop, which the level model reaches at about 9.8.",
 				"issue": "-"
+			},
+			{
+				"q": 5601,
+				"faction": "Alliance",
+				"reason": "Alliance 50-60 fix round 2 (0.4.0): Sister Pamela (550 XP) is exclusive with Little Pamela (5142, 2,800 XP), which Marlene Redpath gives on 50-60/03's road from Chillwind Camp to Darrowshire; both go to the same ghost.",
+				"issue": "-"
 			}
 		],
 		"revert": [
@@ -13765,7 +13776,19 @@
 					5216
 				],
 				"faction": "Alliance",
-				"why": "Alliance 40-60 order (2026-11-08, #1228): Janice Felstone's farmhouse (38.4,54.1) is the far end of the ride north from Chillwind Camp, so her parcel comes first and the Felstone Field cauldron (Cauldron Lord Bilemaw) on the way back south to the camp."
+				"why": "Alliance 40-60 order (2026-11-08, #1228): Janice Felstone's farmhouse (38.4,54.1) is the far end of the ride north from Chillwind Camp, so her parcel comes first. Since fix round 2 (0.4.0) the Felstone Field cauldron itself (Cauldron Lord Bilemaw 53, Jabbering Ghouls 54) waits for the Winterspring guide's Chillwind stop at about 55.6: on 50-60/01 at about 51.6 they were two and three over the player."
+			},
+			{
+				"a": [
+					"accept",
+					5097
+				],
+				"b": [
+					"task",
+					5216
+				],
+				"faction": "Alliance",
+				"why": "Alliance 50-60 fix round 2 (0.4.0): the Felstone Field cauldron is done from 50-60/03's Chillwind stop at about 55.6 (Bilemaw 53, Jabbering Ghouls 54), a short ride north-west of the camp, and MacDonnell takes it before Dalson's Tears' cauldron quest; on 50-60/01 at about 51.6 they were two and three over the player."
 			},
 			{
 				"a": [

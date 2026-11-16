@@ -32,8 +32,7 @@ step Everlook's inn
 
 step Everlook
   getfp "Everlook"
-  accept 5601                         -- Jessica Redpath: keep it for Darrowshire; inside
-  accept 6028                         -- Gregor Greystone: keep both for the Plaguelands; inside
+  accept 6028                         -- Gregor Greystone: keep it for the Plaguelands; inside
   accept 6030
   turnin 4808                         -- Felnok Steelspring
   accept 4809
@@ -174,7 +173,21 @@ step Chillwind Camp
   turnin 6028                         -- Argent Officer Pureheart
   accept 5903                         -- Nathaniel Dumah: the termites come later, in Terrordale
   accept 5097                         -- Commander Ashlam Valorfist: the watchtowers are in Andorhal, keep it
+
+step Felstone Field cauldron
+  tip North-west out of the camp to Felstone Field, west of Andorhal: Cauldron Lord Bilemaw (53) guards the cauldron among the Jabbering Ghouls (54).
+  collect 13194 quest 5216.1          -- Felstone Field Cauldron Key
+  turnin 5216                         -- Scourge Cauldron
+  accept 5217
+
+step Chillwind Camp
+  tip Back to High Priestess MacDonnell at Chillwind Camp.
+  turnin 5217                         -- High Priestess MacDonnell
   accept 5219                         -- High Priestess MacDonnell: the cauldron is at Dalson's Tears, keep it
+
+step Marlene Redpath
+  tip On the road east out of Chillwind Camp, Marlene Redpath's farmhouse stands on Sorrow Hill: her Little Pamela goes to the same ghost in Darrowshire.
+  accept 5142                         -- Marlene Redpath: keep it for Darrowshire
 
 step Mulgris Deepriver
   tip Mulgris stands by the farm at the Writhing Haunt, on the road east to the Eastern Plaguelands.
@@ -193,7 +206,7 @@ step Eastern Plaguelands
 step Pamela Redpath
   zone Eastern Plaguelands
   tip Follow the southern road east into the Eastern Plaguelands; the ruins of Darrowshire lie south of it. Pamela's ghost plays by the ruined house at the south end.
-  turnin 5601
+  turnin 5142
   accept 5149
 
 step Pamela's doll
