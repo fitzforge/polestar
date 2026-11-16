@@ -310,6 +310,16 @@ for (const DUROTAR of DUROTARS) test(`${DUROTAR}: level tidy: a top-up to 7 befo
 	assert.ok(list[gate].goal.level >= 7 && list[gate].goal.grind === 3128, 'a top-up to 7 on the Kul Tiras Sailors');
 });
 
+// Hand-in sweep (2026-11-16, after Kerlonian's escort): Sparring Match (99108) was an accept and a hand-in at Krang
+// Stonehoof with the Novice Warriors only in the tip, so the window went straight to "Turn in". The kills are a goal.
+test(`${MULGORE}: Sparring Match counts the Novice Warriors between the accept and the hand-in`, { skip }, () => {
+	const list = goals(MULGORE);
+	const accept = at(list, 'accept 99108', is('accept', 99108));
+	const kills = at(list, 'kill 10721 (99108.1)', (g) => g.t === 'kill' && g.quest === 99108 && g.npc === 10721);
+	const turnin = at(list, 'turnin 99108', is('turnin', 99108));
+	assert.ok(accept < kills && kills < turnin, 'accept, the Novice Warriors, then the hand-in');
+});
+
 // --- Mulgore (level tidy 0.4.0): the Galak centaurs (8-10, Herak 11) and the Venture Co. Mine (8-10, Fizsprocket
 // 12) were worked at 9; they come after northern Mulgore and its Bloodhoof hand-ins, at about 11.
 test(`${MULGORE}: level tidy: the Galak centaurs and the Venture Co. Mine after the northern Mulgore hand-ins`, { skip }, () => {
