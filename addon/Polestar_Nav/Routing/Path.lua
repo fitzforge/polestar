@@ -207,12 +207,23 @@ end
 -- Dijkstra that stops once every node in targets (a set of nodes) is settled. On a map with arcs (format 5's one-way
 -- jumps and drops) a search steps along them; back (a search out of a goal, its tree walked to the goal) along them
 -- backwards.
--- tree.mark[node + 1] is 2 * gen while the node is open in the tree's search gen, 2 * gen + 1 once it is settled
--- (older searches' marks are smaller). Endpoint trees dropped from st.endTrees wait in pool for the next one: a tree
--- grows to its cluster's size once, then is reused (Idle empties the pool).
-local pool = {}
+-- tree.pm[node + 1] holds the node's parent and its mark in one number: stamp * SPAN + parent + 1, the stamp 2 * gen
+-- while the node is open in the tree's search gen, 2 * gen + 1 once it is settled (older searches' stamps are
+-- smaller); the source's parent is -1. Until 0.4.1 they were two tables (par, mark): a tree's tables are filled from
+-- the search's source outward, so nearly every key sits in the hash part, 40 bytes a key, and a city cluster's
+-- tree held four tables of up to 32,768 keys (5 MB); three now. Endpoint trees dropped from st.endTrees go to the
+-- pool while it holds fewer than POOL (one is enough for the next connection: a tree grows to its cluster's size
+-- once, then is reused); Idle empties it.
+local SPAN = 1048576 -- 2^20: above any node id + 1 (a cluster holds at most 65,536 nodes)
+local pool, POOL = {}, 1
 local function Tree()
-	return table.remove(pool) or { g = {}, par = {}, mark = {}, gen = 0, y = {} }
+	return table.remove(pool) or { g = {}, pm = {}, gen = 0, y = {} }
+end
+-- A tree given up (an endpoint tree st.endTrees no longer keeps) goes to the pool while it has room.
+local function Release(tree)
+	if tree and #pool < POOL then
+		pool[#pool + 1] = tree
+	end
 end
 -- Per kind byte (PathGrid's decoded clusters), a step's class multiplier (mult's; 1 without one) and its water factor
 -- (swim in water, else 1), built once a multiplier table and a swim factor.
@@ -263,10 +274,10 @@ local function search(st, k, swim, mult, source, tree, goal, targets, left, back
 	-- Per chunk the zone multiplier of a step into it; nil when the cluster has no dangerous chunk (every search
 	-- without danger).
 	local dz = mult and mult.danger and chunkDanger(st, k, mult.danger)
-	local g, par, mark, ys = tree.g, tree.par, tree.mark, mult and tree.y
+	local g, pm, ys = tree.g, tree.pm, mult and tree.y
 	tree.gen = tree.gen + 1
-	local open = 2 * tree.gen
-	local settled = open + 1
+	local open = 2 * tree.gen * SPAN -- pm at or above it: open in this search; at or above settled: settled
+	local settled = open + SPAN
 	tree.k = k
 	local gx, gy = 0, 0
 	if goal then
@@ -274,7 +285,7 @@ local function search(st, k, swim, mult, source, tree, goal, targets, left, back
 		gx, gy = floor(cell / C), cell % C
 	end
 	hn = 0
-	g[source + 1], par[source + 1], mark[source + 1] = 0, -1, open
+	g[source + 1], pm[source + 1] = 0, open
 	if ys then
 		ys[source + 1] = 0
 	end
@@ -317,11 +328,13 @@ local function search(st, k, swim, mult, source, tree, goal, targets, left, back
 		else
 			gv = gu + length * cs * WM[kb] * WS[kb]
 		end
-		local mk = mark[i]
+		local mk = pm[i]
 		if not mk or mk < open or gv < g[i] then
-			g[i], par[i] = gv, u
+			g[i] = gv
 			if not mk or mk < open then
-				mark[i] = open
+				pm[i] = open + u + 1
+			else
+				pm[i] = mk - mk % SPAN + u + 1
 			end
 			if ys then
 				ys[i] = yu + length * cs
@@ -344,8 +357,9 @@ local function search(st, k, swim, mult, source, tree, goal, targets, left, back
 	while hn > 0 do
 		u = pop()
 		local i = u + 1
-		if mark[i] ~= settled then
-			mark[i] = settled
+		local mk = pm[i]
+		if mk < settled then
+			pm[i] = mk + SPAN
 			tick()
 			if u == goal then
 				return true
@@ -472,8 +486,10 @@ local function search(st, k, swim, mult, source, tree, goal, targets, left, back
 	return goal == nil
 end
 
+-- Settled in the tree's last search (no later search has a larger stamp).
 local function reached(tree, node)
-	return tree.mark[node + 1] == 2 * tree.gen + 1
+	local v = tree.pm[node + 1]
+	return v ~= nil and v >= (2 * tree.gen + 1) * SPAN
 end
 
 -- The yards along a tree's path to node: its yards label on a map with classes, its cost on one without (format 1).
@@ -483,10 +499,10 @@ end
 
 -- Node path in a tree from node back to its source (node first).
 local function trace(tree, node, out)
-	local par = tree.par
+	local pm = tree.pm
 	while node >= 0 do
 		out[#out + 1] = node
-		node = par[node + 1]
+		node = pm[node + 1] % SPAN - 1
 	end
 	return out
 end
@@ -616,7 +632,8 @@ local function connect(st, swim, mult, k, node, back)
 			end
 			st.endNodes = st.endNodes - gone.size
 			if gone.tree then
-				pool[#pool + 1], gone.tree = gone.tree, nil
+				Release(gone.tree)
+				gone.tree = nil
 			end
 		end
 		if st.endCount >= (Path.endsMax or 256) then
@@ -2261,12 +2278,16 @@ ns.PathSearch = {
 	start = start,
 	options = options,
 	scratch = scratch,
-	-- saved: a finished search's scratch, kept for the next; nil once the router is idle (the endpoint trees' pool
-	-- goes too).
+	-- saved: a finished search's scratch, kept for the next; nil once the router is idle.
 	Spare = function(saved)
 		spare = saved
 		if not saved then
 			pool = {}
 		end
+	end,
+	-- The queue emptied (PathJobs.lua's rest): the endpoint trees' pool goes. It fills only while a run gives up more
+	-- endpoint trees than st.endTrees keeps (a batch, a start on several floors), and a tree is 2-4 MB.
+	Rest = function()
+		pool = {}
 	end,
 }
