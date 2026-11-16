@@ -52,7 +52,10 @@ const guide = {
 };
 
 test('the tables: what direct hand-ins and item-started accepts take, and the items only quests hand over', () => {
-	assert.deepEqual(personaTables(guide, data), { needs: { 100: { 900: 1 }, 101: { 901: 4 }, 102: { 902: 1 } }, gives: { 900: [101] }, carried: [900, 902] });
+	assert.deepEqual(personaTables(guide, data), { needs: { 100: { 900: 1 }, 101: { 901: 4 }, 102: { 902: 1 } }, gives: { 900: [101] }, rewards: { 101: [900] }, restock: {}, carried: [900, 902] });
+	// A step that leads to the item's source (the letter's dropper, npc 7) gives it back there.
+	const looted = { id: 't/l', steps: [step('Loot', [{ t: 'kill', npc: 7 }, { t: 'accept', quest: 102 }])] };
+	assert.deepEqual(personaTables(looted, data).restock, { 1: [902] });
 });
 
 test('skip plays every step that gets an item a later goal hands over, then an even sample of the rest', () => {

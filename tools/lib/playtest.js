@@ -680,6 +680,12 @@ async function personaPlaytest({ dir = OFFICIAL_DIR, manifest, personas, filter 
 	for (const g of guides) for (const to of g.nextChoices || (g.next ? [g.next] : [])) arriving.set(to, [...(arriving.get(to) || []), ...(g.races || [])]);
 	const stuckOf = (out) => (out ? outcome(out).stuck : { step: null, title: null, reason: 'the play ended without a result' });
 	const lua = (persona) => `PERSONA = ${luaValue(persona)}\n${SIMULATE}`;
+	// A quest the guides before took and worked, left only to hand in: in the log with each line of the data
+	// done (the plain play gives it none; a guide that works it again, as an updated one may, finds them done).
+	const carriedLua = (q) => {
+		const lines = data.questObjectives(q).map((o) => ({ required: o.count || 1, fulfilled: o.count || 1, type: o.kind === 'item' ? 'item' : o.kind === 'object' ? 'object' : o.kind === 'event' ? 'event' : 'monster' }));
+		return `w.onQuest(${q}, ${luaValue(lines)})`;
+	};
 	let played = 0;
 	try {
 		const jobs = [];
@@ -691,9 +697,9 @@ async function personaPlaytest({ dir = OFFICIAL_DIR, manifest, personas, filter 
 			const who = list.flatMap(({ race, faction }) => classesFor(data, g, race, faction, classes).map((cls) => ({ race, faction, cls })))[0];
 			if (!who) continue;
 			const pre = chainDone(guides, g, who);
-			const before = [pre.done.length ? `w.complete(${luaValue(pre.done)})` : '', ...pre.carried.map((q) => `w.onQuest(${q}, {})`), ...pre.open.map((q) => `w.onQuest(${q}, ${luaValue(objectivesIn(g, q))})`)].join('\n');
+			const before = [pre.done.length ? `w.complete(${luaValue(pre.done)})` : '', ...pre.carried.map(carriedLua), ...pre.open.map((q) => `w.onQuest(${q}, ${luaValue(objectivesIn(g, q))})`)].join('\n');
 			const tables = personaTables(g, data);
-			const base = { needs: tables.needs, gives: tables.gives };
+			const base = { needs: tables.needs, gives: tables.gives, rewards: tables.rewards, restock: tables.restock };
 			const record = (persona, variant, stuck) => {
 				const r = { guide: g.id, persona, variant, ...who, stuck };
 				results.push(r);
@@ -716,7 +722,7 @@ async function personaPlaytest({ dir = OFFICIAL_DIR, manifest, personas, filter 
 					const was = oldById.get(g.id);
 					if (personas.includes('update') && was && (g.category == null || g.category === 'Leveling') && shapeOf(was) !== shapeOf(g)) {
 						const oldPre = chainDone(old, was, who);
-						const oldBefore = [oldPre.done.length ? `w.complete(${luaValue(oldPre.done)})` : '', ...oldPre.carried.map((q) => `w.onQuest(${q}, {})`), ...oldPre.open.map((q) => `w.onQuest(${q}, ${luaValue(objectivesIn(was, q))})`)].join('\n');
+						const oldBefore = [oldPre.done.length ? `w.complete(${luaValue(oldPre.done)})` : '', ...oldPre.carried.map(carriedLua), ...oldPre.open.map((q) => `w.onQuest(${q}, ${luaValue(objectivesIn(was, q))})`)].join('\n');
 						for (const k of updatePoints(was, points)) {
 							plays.push(
 								playGuideIn(pool, oldSim, was, { ...who, before: oldBefore, script: `${SNAPSHOT_LUA}\n${lua({ snapshots: [k] })}` }).then(async (emitted) => {
@@ -813,7 +819,7 @@ local function blocked(q)
 	if w.completed[q] and not doneHere[q] then return true end
 	return P.needs ~= nil and P.needs[q] ~= nil and short(P.needs[q])
 end
-local function refused(t, r)
+local function withheld(t, r)
 	if not P then return false end
 	if (t == "turnin" and r.direct) or t == "accept" then
 		return P.needs ~= nil and short(P.needs[r.quest])
@@ -873,12 +879,24 @@ local function checkPick(i, g, r)
 	end
 	bad(("picked %s, which is not a candidate"):format(g.npc and ("npc " .. g.npc) or (tostring(g.map) .. " " .. tostring(g.x) .. "," .. tostring(g.y))))
 end
+-- PERSONA restock: a step that leads to a source of an item its own hand-in
+-- or accept takes gives it back there (the player kills, clicks or asks again).
+local function restocked(i, r)
+	local list = P and P.restock and P.restock[i]
+	local need = P and P.needs and r.quest and P.needs[r.quest]
+	if not (list and need) then return false end
+	for _, item in ipairs(list) do
+		local n = need[item]
+		if n and lack[item] and (w.items[item] or 0) < n then w.addItem(item, n - (w.items[item] or 0)) end
+	end
+	return not short(need)
+end
 -- PERSONA lose: the step where the bags got the item to lose; it goes once the
 -- route leaves that step (the loop below).
 local armed
 local function act(i, g, r)
 	local t, q = g.t, g.quest
-	if refused(t, r) then
+	if withheld(t, r) and not restocked(i, r) then
 		stub.advance(0.6)
 		return
 	end

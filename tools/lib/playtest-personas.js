@@ -122,7 +122,27 @@ function personaTables(g, data) {
 		const kept = got.filter((i) => carried.has(i));
 		if (kept.length) rewards[x.quest] = kept;
 	}
-	return { needs, gives, rewards, carried: [...carried].sort((a, b) => a - b) };
+	// The steps that lead to a source of an item their own hand-in or accept takes (a kill of a creature that
+	// drops it, a click on an object that holds it, a talk with, or a buy from, an NPC who sells or gives it, a
+	// collect of it or of its container): a player without it gets it there. Step number -> items.
+	const restock = {};
+	g.steps.forEach((s, k) => {
+		const want = new Set();
+		for (const x of s.goals) {
+			if (!x.quest || !needs[x.quest] || !((x.t === 'turnin' && x.direct) || x.t === 'accept')) continue;
+			for (const i of Object.keys(needs[x.quest])) want.add(Number(i));
+		}
+		const can = [...want].filter((i) => {
+			const it = data.item(i) || {};
+			const d = it.drops || {};
+			const npcs = new Set([...Object.keys(d.npc || {}).map(Number), ...(it.vendors || []).map(Number)]);
+			const objects = new Set(Object.keys(d.object || {}).map(Number));
+			const items = new Set([i, ...(it.containers || []).map(Number)]);
+			return s.goals.some((x) => (x.npc != null && npcs.has(Number(x.npc))) || (x.object != null && objects.has(Number(x.object))) || (x.item != null && x.t !== 'use' && items.has(Number(x.item))));
+		});
+		if (can.length) restock[k + 1] = can;
+	});
+	return { needs, gives, rewards, restock, carried: [...carried].sort((a, b) => a - b) };
 }
 
 // `n` of `list`, evenly spread, in order (all when it holds no more).
@@ -160,7 +180,7 @@ const questLabel = (data, id) => {
 // what must be played).
 function personaVariants(persona, g, data, sample = 8) {
 	const t = personaTables(g, data);
-	const base = { needs: t.needs, gives: t.gives, rewards: t.rewards };
+	const base = { needs: t.needs, gives: t.gives, rewards: t.rewards, restock: t.restock };
 	const goals = g.steps.map((s) => s.goals);
 	if (persona === 'skip') {
 		// The items a later goal hands over, and those the direct quests that hand them over take (the apples
