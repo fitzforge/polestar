@@ -10300,7 +10300,7 @@ do
 					note = "The little turtle {npc:5955} hides at the north end of the {quest:3362}: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive.",
 					goals = {
 						{ t = "accept", quest = 1560, title = "Tooga's Quest", npc = 5955, npcName = "Tooga", minLevel = 40, qlvl = 50, limit = 1800, map = 1446, x = 29.48, y = 60.51, f = "e", spotsPacked = "29.5,60.5,,15,1;30,65,,15,1;30,70,,15,1;31.8,74.2,9,15,1", escort = true },
-						{ t = "complete", quest = 1560, title = "Tooga's Quest", escort = true, objs = { { text = "Torta", count = 1 } } },
+						{ t = "complete", quest = 1560, title = "Tooga's Quest", escort = true, objs = { { text = "Lead Tooga to Torta", count = 1 } } },
 						{ t = "turnin", quest = 1560, title = "Tooga's Quest", npc = 6015, npcName = "Torta", map = 1446, x = 66.58, y = 25.67, z = 0.8, f = "e" },
 						{ t = "accept", quest = 97540, title = "Oasis", npc = 5955, npcName = "Tooga", qlvl = 50, map = 1446, x = 29.48, y = 60.51, f = "e", spotsPacked = "29.5,60.5,,15,1;30,65,,15,1;30,70,,15,1;31.8,74.2,9,15,1", note = "{npc:5955}, beside her: Oasis" },
 						{ t = "turnin", quest = 97540, title = "Oasis", npc = 5955, npcName = "Tooga", map = 1446, x = 29.48, y = 60.51, f = "e", spotsPacked = "29.5,60.5,,15,1;30,65,,15,1;30,70,,15,1;31.8,74.2,9,15,1" },
@@ -26370,7 +26370,7 @@ do
 					goals = {
 						{ t = "level", level = 55 },
 						{ t = "accept", quest = 3702, title = "The Smoldering Ruins of Thaurissan", npc = 8879, npcName = "Royal Historian Archesonus", minLevel = 50, qlvl = 54, map = 1455, x = 38.37, y = 55.31, z = 505.8, f = "e", note = "{quest:3701}, +10" },
-						{ t = "kill", quest = 3702, title = "The Smoldering Ruins of Thaurissan", target = "Royal Historian Archesonus", npc = 8879, oi = 1, text = "Hear {npc:8879} out", map = 1455, x = 38.37, y = 55.31, z = 505.8, f = "e" },
+						{ t = "talk", quest = 3702, title = "The Smoldering Ruins of Thaurissan", npc = 8879, npcName = "Royal Historian Archesonus", oi = 1, text = "Hear {npc:8879} out", map = 1455, x = 38.37, y = 55.31, z = 505.8, f = "e" },
 						{ t = "turnin", quest = 3702, title = "The Smoldering Ruins of Thaurissan", npc = 8879, npcName = "Royal Historian Archesonus", map = 1455, x = 38.37, y = 55.31, z = 505.8, f = "e" },
 						{ t = "accept", quest = 3701, title = "The Smoldering Ruins of Thaurissan", npc = 8879, npcName = "Royal Historian Archesonus", minLevel = 50, qlvl = 54, pre = { 3702 }, preTitles = { [3702] = "The Smoldering Ruins of Thaurissan" }, map = 1455, x = 38.37, y = 55.31, z = 505.8, f = "e", note = "{quest:3701}, +100" },
 					},
@@ -27129,7 +27129,7 @@ do
 					goals = {
 						{ t = "turnin", quest = 4184, title = "The True Masters", npc = 1748, npcName = "Highlord Bolvar Fordragon", map = 1453, x = 80.21, y = 38.35, z = 122.6 },
 						{ t = "accept", quest = 4185, title = "The True Masters", npc = 1748, npcName = "Highlord Bolvar Fordragon", minLevel = 48, qlvl = 54, pre = { 4184 }, preTitles = { [4184] = "The True Masters" }, map = 1453, x = 80.21, y = 38.35, z = 122.6 },
-						{ t = "kill", quest = 4185, title = "The True Masters", target = "Lady Katrana Prestor", npc = 1749, oi = 1, text = "Speak with {npc:1749}", map = 1453, x = 80.1, y = 38.17, z = 122.8 },
+						{ t = "talk", quest = 4185, title = "The True Masters", npc = 1749, npcName = "Lady Katrana Prestor", oi = 1, text = "Speak with {npc:1749}", map = 1453, x = 80.1, y = 38.17, z = 122.8 },
 						{ t = "turnin", quest = 4185, title = "The True Masters", npc = 1748, npcName = "Highlord Bolvar Fordragon", map = 1453, x = 80.21, y = 38.35, z = 122.6 },
 						{ t = "accept", quest = 4186, title = "The True Masters", npc = 1748, npcName = "Highlord Bolvar Fordragon", minLevel = 48, qlvl = 54, pre = { 4185 }, preTitles = { [4185] = "The True Masters" }, map = 1453, x = 80.21, y = 38.35, z = 122.6, note = "{quest:4184}, +100" },
 					},
