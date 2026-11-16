@@ -30,7 +30,7 @@ A card lists the spells your trainer has for you, what they cost and where to tr
 
 ## Routes for every race
 
-Every race starts in its own zone, Zephras Isle for the Skyborne included, then joins one route for its faction all the way to 60: whole towns in one visit, quests on the road picked up as you pass, training where you already are, and a solo way past every elite or group quest. Each route is played through, read step by step, and every problem players report is fixed for good.
+Every race starts in its own zone, Zephras Isle for the Skyborne included, then joins one route for its faction all the way to 60, through Forever's own Riverglades and Shen'dralas: whole towns in one visit, quests handed in where the route passes their giver, training where you already are, and a solo way past every elite or group quest, with a warning where much stronger mobs stand. Each route is walked through zone by zone, played through, and every problem players report is fixed for good.
 
 ![The guide menu on Leveling: the Alliance route from Elwynn Forest to Duskwood, the other starting zones, and Westfall's page with its steps, quests, zones and the next guide](https://raw.githubusercontent.com/fitzforge/polestar/next/docs/curseforge/media/leveling.jpg)
 
@@ -60,7 +60,7 @@ Search any item, mount, pet, recipe, quest, NPC or zone and see every place it c
 
 ## Dungeons
 
-Every dungeon's quests with who starts and ends them, their chains and rewards, the bosses and the entrance, and one button that guides you round to pick the quests up.
+Every dungeon's quests with who starts and ends them, their chains and rewards, the bosses and the entrance, the level range and group size the game's Group Finder gives, and one button that guides you round to pick the quests up. When the guide asks you to grind, it suggests a dungeon that fits you instead.
 
 ![The Deadmines in the dungeon journal: Red Silk Bandanas with its giver, its chain and its rewards](https://raw.githubusercontent.com/fitzforge/polestar/next/docs/curseforge/media/dungeons.jpg)
 
@@ -81,19 +81,23 @@ Quests the route will never hand in, and ones that no longer give XP, in one lis
 | Feature | What it does |
 |---|---|
 | **Quest helpers** | Loot that starts a quest glows on the quest item button until you take it, and timed quests count down at the top of the window. |
+| **Finished quests** | Handed in where the route passes their NPC; the rest are listed under Still to do, and the end of a guide says what carries on and what isn't part of your route. Nothing is abandoned unless you choose. |
+| **Target list** | The step's mobs with their portraits and what they drop; click one to target it and mark it. |
 | **Browse all steps** | Click the step number to see every step of the guide. |
 | **Hide it all** | One click on the minimap button hides everything Polestar shows; another brings it back. |
 | **Update notice** | At login, a card says when a newer Polestar is out and how to update. |
 | **Play together** | See where friends are on the guide and who still needs what, share a quest someone is missing, and offer your step with Sync to my guide. |
 | **Class quests** | Spells, pets, totems, forms and class mounts for every class, with a heads-up when one opens at your level. |
 | **Rares** | Every rare and treasure by zone, with an alert when one shows up. |
-| **Gear** | Upgrades marked on tooltips and quest rewards, from your own Pawn scale if you have one. |
-| **Bags and vendors** | Junk and keep marks, quest items kept from being sold, selling greys, repairing and restocking food and ammo. |
+| **Gear** | Upgrades marked on tooltips, quest rewards and bags, scored with Forever's ratings for your talents and spec; adjust the weights or use your own Pawn scale. |
+| **Bags and vendors** | Junk and keep marks, quest items kept from being sold, selling greys, repairing and restocking food and ammo, and a reminder to sell and repair before the guide leaves town. |
+| **Materials** | Crafting, Cooking and First Aid guides gather or buy their materials your way, with a shopping list beside the Auction House. |
 | **Quest automation** | Accept and hand in guide quests and pick the best reward. Each helper is a switch you can turn off. |
 | **Your pace** | XP per hour, time to level, and whether you will reach the guide's next level on time; Boosted Rest and your sleeping bag too. |
 | **Characters** | Every character on your account at a glance. |
 | **Keybinds** | Bind Polestar's buttons in the game's Quick Keybind Mode. |
-| **Your look** | Skins, colour schemes, your own accent or class colour, and EllesmereUI's look when it is installed. |
+| **Your look** | Polestar's looks, the game's own (WoW Forever, Blizzard, Classic) and nine skins that load only when you pick them, colour schemes, your own accent or class colour, and EllesmereUI's look when it is installed. |
+| **Settings** | A settings window with a live preview on every look page, a search that understands questions, profiles to switch and share, and Install to set up each new character. |
 | **Your language** | English, German, French, Spanish (Spain and Latin America), Brazilian Portuguese, Russian, Korean and Chinese (Simplified and Traditional), with every NPC, place, item and quest named as your game names it. |
 | **Polestar Client** | For Windows, macOS and Linux: finds WoW: Forever, installs and updates Polestar, and installs community guides in one click. |
 | **Polestar Recorder** | Optional. Notes kill pace, drops and flight times, never character, realm or account names, so the routes are built on Forever's real numbers. Sent only with your consent. |
@@ -101,7 +105,7 @@ Quests the route will never hand in, and ones that no longer give XP, in one lis
 ## Getting started
 
 1. **Install** with the CurseForge app or the [Polestar Client](https://polestar.guide/client), then restart the game completely.
-2. **Open the guide menu** with `/polestar guides` (a welcome opens on each new character too).
+2. **Open the guide menu** with `/polestar guides` (Install opens on each new character to set Polestar up).
 3. **Pick your start** and follow the arrow. Goals tick off by themselves as you play.
 
 Installing by hand: unzip into `World of Warcraft/_forever_/Interface/AddOns/` so the Polestar folders sit directly inside it, and restart the game. Delete the old Polestar folders before an update.

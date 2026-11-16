@@ -38,7 +38,7 @@ local LAYER_TURNIN = "quests.turnin"
 local LAYER_AVAILABLE = "quests.available"
 Q.LAYERS = { objectives = LAYER_OBJECTIVES, turnin = LAYER_TURNIN, available = LAYER_AVAILABLE }
 
-local KIND_KILL, KIND_ITEM, KIND_OBJECT, KIND_EVENT = 1, 2, 3, 4
+local KIND_KILL, KIND_ITEM, KIND_OBJECT, KIND_EVENT, KIND_TALK = 1, 2, 3, 4, 5
 
 -- Marker look: map mark and colour per kind, in the skin's medallion so it
 -- reads over any map art; size on the world map, mini on the minimap; rank
@@ -122,7 +122,10 @@ local pending = false
 
 -- Per-entity indexes over quests in the log: id -> { objective, ... }.
 -- objective = { q, kind, id, count, name, cur, max, done, entry }
-local index = { npc = {}, item = {}, object = {}, objectName = {}, finish = {} }
+-- `talk`: NPCs a quest wants talked to, kept apart from `npc` (the mobs) so a
+-- friendly NPC gets a "Talk to" tooltip line and never a nameplate skull.
+-- `finish`: the NPCs and objects that take a quest's hand-in (Q.TurnInsAt).
+local index = { npc = {}, talk = {}, item = {}, object = {}, objectName = {}, finish = {} }
 Q._index = index
 
 -- Markers: layer -> { [map] = { pin, ... } } and the flat list given to Pins.
@@ -141,7 +144,7 @@ Q.stats = stats
 -- else the database's English.
 local function entityName(kind, id)
 	local N = ns.Names
-	if kind == KIND_KILL then
+	if kind == KIND_KILL or kind == KIND_TALK then
 		local r = Q.NpcRecord(id)
 		return r and ((N and N.Npc(id)) or r[1])
 	elseif kind == KIND_ITEM then
@@ -424,6 +427,8 @@ local function rebuildIndex()
 			local o = e.objs[i]
 			if o.kind == KIND_KILL then
 				push(index.npc, o.id, o)
+			elseif o.kind == KIND_TALK then
+				push(index.talk, o.id, o)
 			elseif o.kind == KIND_OBJECT then
 				push(index.object, o.id, o)
 				if o.name then push(index.objectName, o.name, o) end
@@ -448,6 +453,8 @@ end
 
 -- Objectives (in the log) an NPC / item / object is for; nil when none.
 function Q.ObjectivesForNpc(id) return id and index.npc[id] or nil end
+-- Objectives (in the log) that are talks to NPC id; nil when none.
+function Q.ObjectivesForTalk(id) return id and index.talk[id] or nil end
 function Q.ObjectivesForItem(id) return id and index.item[id] or nil end
 function Q.ObjectivesForObject(id) return id and index.object[id] or nil end
 function Q.ObjectivesForObjectName(name) return name and index.objectName[name] or nil end

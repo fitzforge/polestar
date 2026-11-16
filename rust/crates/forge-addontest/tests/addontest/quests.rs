@@ -1912,3 +1912,96 @@ emit(answers)
 	assert_eq!(out[0], 0, "no record decoded");
 	assert_eq!(out[1], json!({ "started": [17], "closed14": [15], "closed15": [14], "after783": [7], "after33": [19], "after60": [19], "none": false }));
 }
+
+// #2535, #2539, #2543: a quest done by talking to a friendly NPC (The True Masters' Ragged John) is a talk objective
+// in the database, kind 5, in its own place so the lines after it keep the quest log's numbers. Hovering the NPC
+// says "Talk to", its nameplate gets no skull and the map no kill marker; the mobs of the quest's next line still do.
+#[test]
+fn a_talk_objective_keeps_its_line_says_talk_to_on_the_npc_and_puts_no_skull_on_it_2543() {
+	let data = data_with(|raw| {
+		let quests = raw.get_mut("quests.json").unwrap();
+		let mut q = quests["7"].clone();
+		q["id"] = json!(91);
+		q["title"] = json!("Hear Him Out");
+		q["pre"] = json!([]);
+		q["objectives"] = json!([
+			{ "type": "talk", "id": 197, "count": 1, "text": "Marshal McBride" },
+			{ "type": "kill", "id": 6, "count": 10, "text": "Kobold Vermin" }
+		]);
+		quests["91"] = q;
+	});
+	let db = build_db(data.path());
+	let out = run(
+		&db,
+		r#"
+Polestar.Set("qol.nameplateIcons", true)
+local q = Q.GetQuest(91)
+emit({ q.objectives[1].kind, q.objectives[1].id, q.objectives[2].kind, q.objectives[2].id })
+emit({ Q.GetObjectiveMobs(91, 1) == nil, (Q.GetObjectiveMobs(91, 2) or {})[1] })
+w.accept(91, { { text = "Marshal McBride's Story: 0/1", type = "monster", required = 1 }, { text = "Kobold Vermin slain: 0/10", type = "monster", required = 10 } })
+stub.advance(0.3)
+emit(sq.hoverUnit(197))
+emit({ Q.ObjectivesForNpc(197) == nil, Q.ObjectivesForTalk(197) ~= nil, Q.ObjectivesForNpc(6) ~= nil })
+sq.addPlate("nameplate1", 6)
+sq.addPlate("nameplate2", 197)
+emit(Q.NameplateIcons())
+local icons = {}
+for _, p in ipairs(layer("quests.objectives")) do icons[p.header] = p.icon end
+emit({ icons["Marshal McBride"] or false, icons["Kobold Vermin"] ~= nil })
+w.progress(91, 1, 1)
+stub.advance(0.3)
+emit(sq.hoverUnit(197))
+"#,
+		"w.titles[91] = \"Hear Him Out\"",
+	);
+	assert_eq!(out[0], json!(["talk", 197, "kill", 6]), "the talk keeps line 1, the kill stays line 2");
+	assert_eq!(out[1], json!([true, "Kobold Vermin"]), "a talk names no mob; line 2's mob is the kill's");
+	assert_eq!(out[2], json!(["?", "Hear Him Out: | Talk to Marshal McBride Not done"]));
+	assert_eq!(out[3], json!([true, true, true]), "the NPC is in the talk index, never the mob index");
+	assert_eq!(out[4], json!(["nameplate1"]), "the kobold's plate only, no skull over Marshal McBride");
+	assert_eq!(out[5], json!([false, true]), "no map marker on the NPC; the kobolds keep theirs");
+	assert_eq!(out[6], json!(["?", "Hear Him Out: | Talk to Marshal McBride Done"]));
+}
+
+// #2543: a pinned quest's talk line, built from the quest database (no guide step does it), says "Talk to" the NPC
+// and leads there; 0.4.0 built it as a kill of him.
+#[test]
+fn a_pinned_quest_s_talk_line_is_built_as_a_talk_to_its_npc_2543() {
+	let data = data_with(|raw| {
+		let quests = raw.get_mut("quests.json").unwrap();
+		let mut q = quests["7"].clone();
+		q["id"] = json!(91);
+		q["title"] = json!("Hear Him Out");
+		q["pre"] = json!([]);
+		q["objectives"] = json!([{ "type": "talk", "id": 197, "count": 1, "text": "Marshal McBride" }]);
+		quests["91"] = q;
+	});
+	let db = build_db(data.path());
+	let out = run(
+		&db,
+		r#"
+Polestar.RegisterPack({ addon = "Polestar_Test", id = "test", format = 1, title = "Test", author = "Test", version = "1", license = "MIT" })
+Polestar.RegisterGuide({ id = "test/talkpin", pack = "test", title = "Pin", minLevel = 1, maxLevel = 6,
+	steps = { { title = "Wait", goals = { { t = "goto", map = 1429, x = 40, y = 40 } } } } })
+local E = Polestar.Engine
+E.SetGuide("test/talkpin")
+stub.advance(0.3)
+w.accept(91, { { text = "Marshal McBride's Story: 0/1", type = "monster", required = 1 } })
+stub.advance(0.3)
+E.PinQuest(91)
+stub.advance(0.3)
+local got = {}
+for _, s in ipairs(E.GetAlong()) do
+	for _, g in ipairs(s.goals) do
+		if g.quest == 91 then got[#got + 1] = { t = g.t or g.kind or false, text = g.text, npc = g.npc or false, map = g.map or false } end
+	end
+end
+emit(got)
+"#,
+		"w.titles[91] = \"Hear Him Out\"",
+	);
+	let got = arr(&out[0]);
+	assert_eq!(got.len(), 1, "{}", out[0]);
+	assert!(got[0]["text"].as_str().is_some_and(|t| t.starts_with("Talk to Marshal McBride")), "{}", out[0]);
+	assert_eq!(got[0]["map"], 1429, "the arrow leads to him");
+}

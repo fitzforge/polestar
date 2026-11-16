@@ -47,7 +47,8 @@ ns.Import = Import
 local PACK = "imported"
 -- The caps tools/lib/pack/importstring.js applies (a test holds them equal):
 -- characters in a string, steps in its guide, bytes of the payload, bytes in
--- any one text or key of it, bytes in any names/written value (a token's
+-- any one text or key of it (a `written` value too: the author's own words
+-- for a note, as long as the note), bytes in any names value (a token's
 -- English game name, capped at a game-name length), goals per step and
 -- candidates per goal (limits from the largest our own compiler emits; large
 -- enough that our own guides are never refused, tight enough to prevent
@@ -257,7 +258,7 @@ local GUIDE = rec({
 	id = S, title = S, faction = S, races = LS, classes = LS, minLevel = N, maxLevel = N, factionLevels = rec({ Alliance = LEVELS, Horde = LEVELS }), category = S, folder = S, keywords = LS,
 	collects = LN, reward = list(rec({ item = N, itemName = S, quality = N, choice = B, spell = N, spellName = S, text = S })),
 	why = S, zone = N, zoneName = S, next = S, nextChoices = LS, nextWhen = { map = list(WHEN) }, pitch = S, pros = LS, cons = LS, author = S, version = N, group = B,
-	names = { map = SM }, written = { map = SM }, sections = list(rec({ skill = S, skillLine = N, from = N, to = N })),
+	names = { map = SM }, written = { map = S }, sections = list(rec({ skill = S, skillLine = N, from = N, to = N })),
 	fresh = rec({ from = S, share = N, xp = N, needs = LN }), steps = list(STEP),
 })
 local PAYLOAD = rec({ format = N, license = S, guide = GUIDE, frames = { idmap = rec({ c = N, left = N, right = N, top = N, bottom = N }) } })
@@ -284,8 +285,8 @@ local function finite(v) return type(v) == "number" and v == v and v ~= huge and
 local function build(v, spec, where)
 	-- `{ bool = true, rec = ... }`: true/false or that record (a collect's `gather`).
 	if type(v) == "boolean" and type(spec) == "table" and spec.bool then return v end
-	if type(v) == "string" and #v > LIMITS.text and (spec == S or spec == NS or spec == BS) then error({ field = where, long = true }, 0) end
-	if type(v) == "string" and #v > LIMITS.names and spec == SM then error({ field = where, long = true }, 0) end
+	if type(v) == "string" and #v > LIMITS.text and (spec == S or spec == NS or spec == BS) then error({ field = where, long = LIMITS.text }, 0) end
+	if type(v) == "string" and #v > LIMITS.names and spec == SM then error({ field = where, long = LIMITS.names }, 0) end
 	if spec == S or spec == SM then
 		if type(v) == "string" then return v end
 	elseif spec == N then
@@ -319,7 +320,7 @@ local function build(v, spec, where)
 		elseif spec.map then
 			for k, x in pairs(v) do
 				if type(k) ~= "string" or k == "" then error({ field = where }, 0) end
-				if #k > LIMITS.text then error({ field = where, long = true }, 0) end
+				if #k > LIMITS.text then error({ field = where, long = LIMITS.text }, 0) end
 				out[k] = build(x, spec.map, where .. "." .. k)
 			end
 			return out
@@ -611,7 +612,7 @@ local function fromTree(tree)
 	local ok, entry = pcall(build, tree, PAYLOAD, "")
 	if not ok then
 		if type(entry) == "table" and entry.long then
-			return nil, (L["This import string holds a text longer than Polestar reads (%s): %d characters at most."]):format(escape(entry.field), LIMITS.text)
+			return nil, (L["This import string holds a text longer than Polestar reads (%s): %d characters at most."]):format(escape(entry.field), entry.long)
 		end
 		if type(entry) == "table" and entry.field then
 			return nil, (L["This import string holds a field Polestar does not read (%s). It may need a newer Polestar."]):format(escape(entry.field))

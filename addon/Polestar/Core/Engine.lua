@@ -11065,6 +11065,10 @@ end
 --     Remains, #1540), unless a use goal of the quest names that item (the
 --     Giant Softshell Clam gives the clam Clam Bait's use goal opens); the
 --     items are the quest's, not each objective's;
+--   * not waiting on its own step: an earlier collect of that step, for no
+--     quest, of an item the goal's quest needs for its work (an item the
+--     step gets for its own later goal: Cozzle's Key before his footlocker,
+--     #2330) holds it back until that collect is done (Own.hereAfterOwn);
 --   * with mobs at most HERE_MOBS_ABOVE levels over the player (a spot's `lvl`,
 --     else the goal's), measured to such places only (Fitz: never send a solo
 --     player at mobs 2 or more levels above them; 1 is fine);
@@ -11094,7 +11098,9 @@ end
 -- guide's hand-in one step on, after a trip 530 yd north to Grull).
 -- And, the same way, a finished quest no step from the live one on hands
 -- in (left by an older route, a jump to another guide, or never on the
--- route), at its ender from the quest data (Own.hereStranded).
+-- route), at its ender from the quest data (Own.hereStranded); and a
+-- direct hand-in gated on carrying its items while they are in the bags,
+-- ahead or passed (Own.hereDirect).
 --
 -- The line (Own.hereTick, on the arrival poll every ARRIVAL_POLL seconds,
 -- allocation-free), measured from the player wherever the live step leads:
@@ -11892,6 +11898,27 @@ function Own.hereCarries(q)
 	return not uses
 end
 
+-- Whether goal g of step s (quest q's) waits on its own step (#2330): an
+-- earlier goal of the step collects, for no quest, an item q uses without
+-- asking for it (QuestDB.UsesOnly), and is not done: the step fetches it
+-- for this goal (Foreman Cozzle's key, which opens the footlocker holding
+-- Goblin Sponsorship's blueprints). Either signal alone holds nothing back:
+-- a drop collected on the way for another reason, or an item the quest
+-- names that the guide leaves to the player.
+function Own.hereAfterOwn(s, g, q)
+	local Q = ns.QuestDB
+	if not (Q and Q.IsLoaded()) then return false end
+	local goals = guide.steps[s].goals
+	for i = 1, g - 1 do
+		local other = goals[i]
+		if other.t == "collect" and other.quest == nil and other.item and Q.UsesOnly(q, other.item)
+			and goalApplies(other) and not goalDone(s, i, other) then
+			return true
+		end
+	end
+	return false
+end
+
 -- Whether goal g of later step s, one of Own.hereGoalsOn's for a quest in
 -- the log (an accept: one not taken), is a candidate, as what ("work",
 -- "turnin" or "take"), how many are left (see above), and for a hand-in or a
@@ -11933,6 +11960,7 @@ function Own.hereFits(s, g, goal, live, shown)
 	end
 	if t == "use" and goal.item and C.GetItemCount(goal.item) < 1 then return nil end
 	if t == "interact" and not Own.hereCarries(q) then return nil end
+	if Own.hereAfterOwn(s, g, q) then return nil end
 	if not Own.hereLevelOk(goal, Own.hereTop) then return nil end
 	local left = (max or goal.count or 1) - (cur or 0)
 	if left < 1 then return nil end
@@ -12007,6 +12035,83 @@ function Own.hereStranded(list, n, live)
 					npcs = false, seen = false, spot = false, d = false, pick = 0,
 					budget = Own.hereSeconds, xp = false, soon = false, visit = false, detour = 0, town = false, near = false, key = "t" .. q,
 					sub = later and L["Handed in later on the route"] or L["Not handed in on the route ahead"],
+					on = false, since = 0, yards = 0, serial = 0, view = false }
+			end
+		end
+	end
+	return n
+end
+
+-- Direct hand-ins whose items the player carries (#2561). A `turnin ...
+-- direct` never enters the log, so the quest-log checks of a later step's
+-- hand-in (Own.hereFits) and of the stranded ones never see it ready. One
+-- whose step is gated on carrying what it asks for (`when has`: An Apple
+-- Treat's Thunder Applejack, the Scourgestones, the Gorilla Fangs) is ready
+-- while every such item is in the bags: then it is a hand-in line like
+-- theirs, in a step ahead (the route reaches it: Own.hereSoonOf) or in one
+-- the route passed while the bags lacked them (its `when` stored as skipped,
+-- Own.latchWhen), so a hand-in the player qualifies for later is still
+-- offered at its giver on this map. Never the live step's, one handed in, a
+-- quest the player skipped, or one ahead the route skips.
+Own.hereDirects = setmetatable({}, { __mode = "k" }) -- guide -> { s1, g1, s2, g2, ... }
+
+-- Whether step's `when` holds a `has` (an item gate), and whether every one
+-- of them holds now (-> gated, carried).
+function Own.itemGate(step)
+	local gated = false
+	for _, p in ipairs(step.when or NONE) do
+		if p.k == "has" and not p.neg then
+			if not Own.predicateHolds(p) then return true, false end
+			gated = true
+		end
+	end
+	return gated, gated
+end
+
+-- Add the direct hand-ins above to candidates list[1..n]; -> the new n.
+-- nearTo: the last of the route's next AHEAD steps (Own.hereBuild).
+function Own.hereDirect(list, n, live, nearTo)
+	if not Own.hereTurnins then return n end
+	local idx = Own.hereDirects[guide]
+	if not idx then
+		idx = {}
+		for s, step in ipairs(guide.steps) do
+			if Own.itemGate(step) then
+				for g, goal in ipairs(step.goals) do
+					if goal.t == "turnin" and goal.direct and goal.quest and goal.map then
+						idx[#idx + 1] = s
+						idx[#idx + 1] = g
+					end
+				end
+			end
+		end
+		Own.hereDirects[guide] = idx
+	end
+	if #idx == 0 then return n end
+	local C, steps = Compat(), guide.steps
+	local map = C.GetPlayerMapPosition()
+	if not map then return n end
+	local have
+	for i = 1, #idx, 2 do
+		local s, g = idx[i], idx[i + 1]
+		local step = steps[s]
+		local goal = step.goals[g]
+		local q = goal.quest
+		local ahead = s > live
+		if s ~= live and goal.map == map and select(2, Own.itemGate(step)) and Guides.Matches(step.only, player)
+			and not (ahead and (not stepApplies(step) or isSkipped(s)))
+			and goalApplies(goal) and not C.IsQuestCompleted(q) and not goalDone(s, g, goal) and not Own.questSkipped(q) then
+			if not have then
+				have = {}
+				for j = 1, n do have[list[j].goal.quest or 0] = true end
+			end
+			if not have[q] then
+				have[q] = true
+				n = n + 1
+				list[n] = { s = s, g = g, goal = goal, kind = "turnin", left = 0, places = 1,
+					npcs = false, seen = false, spot = false, d = false, pick = 0,
+					budget = Own.hereSeconds, xp = false, soon = ahead and Own.hereSoonOf(s, goal, live) or false, visit = false,
+					detour = 0, town = false, near = not ahead or s <= nearTo, key = "t" .. q,
 					on = false, since = 0, yards = 0, serial = 0, view = false }
 			end
 		end
@@ -12134,6 +12239,8 @@ function Own.hereBuild()
 		n = Own.hereGroups(list, n)
 		-- Finished quests no step ahead hands in, at their ender on this map.
 		n = Own.hereStranded(list, n, live)
+		-- Direct hand-ins whose items are in the bags (#2561).
+		n = Own.hereDirect(list, n, live, nearTo)
 	end
 	Own.hereAllN = n
 	-- The poll measures them all, or the nearest HERE_MAX (picked at its next
@@ -13020,7 +13127,8 @@ end
 
 -- What changes the candidates: the quest log, a turn-in (it opens the
 -- quests after it: pick-ups), the level, the bags (the item a use or a
--- click needs: Own.hereCarries), the player's pins, ticks and skips, a new
+-- click needs, or a step fetches for its own later goal: Own.hereCarries,
+-- Own.hereAfterOwn), the player's pins, ticks and skips, a new
 -- zone (which also ends the zone stay: dismissed lines may come back), the
 -- settings.
 function Own.hereChanged() Own.hereDirty = true end
@@ -13757,7 +13865,7 @@ end)
 ---------------------------------------------------------------------------
 
 Own.PIN_STEP = 0 -- the step of a built pin goal: no guide step has index 0
-Own.PIN_VERBS = { kill = true, collect = true, interact = true, use = true }
+Own.PIN_VERBS = { kill = true, collect = true, interact = true, use = true, talk = true }
 Own.pinBuilt = {} -- quest -> { [quest-log line] = goal | false }
 
 -- Pin quest q (on: true or nil) or unpin it (on: false). True when done.
@@ -13843,6 +13951,10 @@ function Own.pinBuild(q, line, o)
 	if ob and ob.kind == "kill" then
 		at = Q.GetNpc(ob.id)
 		goal.npc, goal.target = ob.id, at and at.name
+	elseif ob and ob.kind == "talk" then
+		-- A story to hear or an item to show (The True Masters' Ragged John, #2543): Talk to.
+		at = Q.GetNpc(ob.id)
+		goal.t, goal.npc, goal.npcName = "talk", ob.id, at and at.name
 	elseif ob and ob.kind == "item" then
 		local item = Q.GetItem(ob.id)
 		goal.t, goal.item, goal.itemName = "collect", ob.id, item and item.name
@@ -13862,7 +13974,7 @@ function Own.pinBuild(q, line, o)
 			goal.t, goal.objName = "interact", goal.text
 		end
 	end
-	if goal.target or goal.itemName or goal.objName then goal.text = nil end
+	if goal.target or goal.npcName or goal.itemName or goal.objName then goal.text = nil end
 	if at and at.spawns and #at.spawns > 0 then
 		local here = Compat().GetPlayerMapPosition()
 		local count, best = {}, nil
@@ -15370,7 +15482,8 @@ end
 -- tab (#1408): the guide shows it to be handed in now, so Automation hands
 -- it in as it would the live step's, with the same rules (a group quest not
 -- answered for, a quest the group waits on or one the player left out is
--- not handed in). "take": a pick-up line up for questID whose NPC's window
+-- not handed in); a direct hand-in's line too (Own.hereDirect, #2561), from
+-- its giver's offers. "take": a pick-up line up for questID whose NPC's window
 -- is open, so auto-accept takes it however far on the route takes it.
 -- Other accepts ahead: Own.aheadWants.
 function Own.hereWants(questID, kind)
@@ -15403,7 +15516,7 @@ function Engine.WantsQuest(verb, questID, span)
 		end
 	end
 	useActive()
-	if not found and verb == "turnin" then found = Own.hereWants(questID, "turnin") end
+	if not found and (verb == "turnin" or verb == "direct") then found = Own.hereWants(questID, "turnin") end
 	if not found and verb == "accept" then found = Own.aheadWants(questID) or Own.hereWants(questID, "take") end
 	return found
 end

@@ -152,7 +152,8 @@ Q.F = {
 	SKILL = QUEST_SKILL, HOLIDAY = QUEST_HOLIDAY, PRE_ALL = QUEST_PRE_ALL, RACE_HIGH = QUEST_RACE_HIGH,
 	ITEMS = QUEST_ITEMS, LIMIT = QUEST_LIMIT,
 }
-Q.KIND = { "kill", "item", "object", "event" }
+-- Objective kinds by their packed number; 5: a talk to an NPC (a story to hear, an item to show).
+Q.KIND = { "kill", "item", "object", "event", "talk" }
 
 function Q.QuestRecord(id) return data.quests[id] end
 function Q.NpcRecord(id) return data.npcs[id] end
@@ -291,7 +292,7 @@ local FACTIONS = { "Alliance", "Horde" }
 --   pre = { ids } (any one completed unlocks it), preAll = { ids } (every one
 --   needed; breadcrumbs are in neither), excl = { ids }, zone, skill, holiday,
 --   limit (seconds a timed quest allows once taken, or nil),
---   objectives = { { kind = "kill"|"item"|"object"|"event", id, count, map, x, y, f }, ... } }
+--   objectives = { { kind = "kill"|"item"|"object"|"event"|"talk", id, count, map, x, y, f }, ... } }
 function Q.GetQuest(id)
 	local r = data.quests[id]
 	if not r then return nil end

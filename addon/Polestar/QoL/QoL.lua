@@ -235,17 +235,25 @@ function QoL.Open(goalView)
 	return s == "active" or s == "pending"
 end
 
--- Recompute fn once on the next frame after any number of calls.
+-- Recompute fn once on the next frame after any number of calls. The
+-- refresh runs from a timer of its own, with its errors caught and noted as
+-- ns.Safe does, but in the moment it finds (ns.Moment): the refreshes of one
+-- frame then share the step view the first of them builds (QoL.CurrentStep,
+-- Engine.GetStepView shared). Anything between them that changes what the
+-- view shows (a game event, a message, an Engine request, another timer of
+-- Polestar's) starts a new moment, and the next refresh builds a fresh one.
+-- A kill's burst asked for two views, one per refresh (#2555).
 function QoL.Coalesce(fn)
 	local scheduled = false
 	local function run()
 		scheduled = false
 		fn()
 	end
+	local function due() ns.SafeCall(run) end
 	return function()
 		if scheduled then return end
 		scheduled = true
-		if C_Timer and C_Timer.After then ns.After(0, run) else run() end
+		if C_Timer and C_Timer.After then C_Timer.After(0, due) else run() end
 	end
 end
 

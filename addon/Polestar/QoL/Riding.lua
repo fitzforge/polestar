@@ -202,6 +202,10 @@ local function startMoneyWatch(tier)
 	end
 end
 
+-- The banner shows the balance in whole gold and the prices are whole gold,
+-- so it reads differently only when the gold figure moves: copper looted or
+-- spent below a gold redraws nothing (each redraw lays the guide window out).
+local shownGold
 onMoney = function()
 	if not next(ridingMoneyWatch) then unregisterMoney(); return end
 	-- Prune stale entries (tier resolved or riding learned since last check).
@@ -211,6 +215,9 @@ onMoney = function()
 		end
 	end
 	if not next(ridingMoneyWatch) then unregisterMoney(); return end
+	local gold = floor((GetMoney and GetMoney() or 0) / 10000)
+	if gold == shownGold then return end
+	shownGold = gold
 	-- Let GuideFrame re-render the banner's affordability button.
 	ns.Fire("RIDING_MONEY")
 end
