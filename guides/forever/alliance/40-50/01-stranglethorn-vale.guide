@@ -517,9 +517,10 @@ step The sunken temple
   complete 1448 @70.2,45.2
 
 step Misty Reed Strand
-  tip The driftwood washes up along the eastern shore.
+  tip The Silt Crawlers (40-41) crowd the north end of the eastern shore, and the driftwood washes up along it from there.
+  tip Careful: the big Monstrous Crawlers (43-44) further south on the shore are over you: take the legs at the north end and pick up the driftwood without pulling them.
+  collect 5938 quest 1258 @80.0,8.0   -- Pristine Crawler Leg, from the Silt Crawlers
   collect 6146 quest 1398             -- Sundried Driftwood
-  collect 5938 quest 1258             -- Pristine Crawler Leg, from the Silt Crawlers on the same shore
 
 step Watcher Biggs
   turnin 1398

@@ -8874,6 +8874,20 @@ test('Alliance 40-60 order: the quests the route passes are taken (... and Bugs,
 	for (const q of [5097, 5219, 4984]) assert.ok(ws.some(({ goal }) => is('accept', q)(goal)), `${q} taken where the Winterspring guide passes its giver on the way to the Eastern Plaguelands`);
 });
 
+// ... and Bugs' crawler legs drop from the Silt Crawlers (40-41) and the Monstrous Crawlers (43-44) of the Swamp of
+// Sorrows' shore. With Stranglethorn's top-ups gone the level model plays this leg at about 40.7, and the unpinned goal
+// led the arrow to the Monstrous Crawlers' stretch (94.6,28.6): it now points at the Silt Crawlers' north end, and the
+// step's Careful line names the Monstrous Crawlers.
+test('Alliance 40-50: ... and Bugs\' crawler legs come from the Silt Crawlers at the shore\'s north end', { skip }, () => {
+	const guide = 'forever/alliance/40-50/01-stranglethorn-vale.guide';
+	const list = goals(guide);
+	const legs = list[at(list, 'collect 5938', (g) => g.t === 'collect' && g.quest === 1258)].goal;
+	assert.ok(legs.x < 86 && legs.y < 16, `the legs' point among the Silt Crawlers (${legs.x},${legs.y})`);
+	assert.match(stepTips(guide, /collect 5938 quest 1258/).join(' '), /Careful: .*Monstrous Crawlers \(43-44\)/);
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	assert.ok(fixes.some((f) => f.at && f.at.quest === 1258 && /Monstrous Crawlers/.test(f.tip || '')), 'a guide-fixes record carries the tip');
+});
+
 // GuardMoony's report (#1070): Hezrul Bloodmark walks the west shore of Lushwater Oasis (players' recordings see
 // him from 46,36 to 46,42), so the step's arrow at his spawn isn't always where he is. The step says he walks
 // that shore, and the guide-fixes record carries the same tip so a Forge round keeps it.

@@ -11929,6 +11929,27 @@
 			]
 		},
 		{
+			"id": "swamp-misty-reed-crawler-legs-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1258,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the big Monstrous Crawlers (43-44) further south on the shore are over you: take the legs at the north end and pick up the driftwood without pulling them.",
+			"note": "40-50/01 (fix round 3, 0.4.0): ... and Bugs' Pristine Crawler Legs drop from the Silt Crawlers (40-41) and the Monstrous Crawlers (43-44) of the Swamp of Sorrows' eastern shore; the level model plays this leg at about 40.7, and the goal had no point, so its arrow led to the Monstrous Crawlers' stretch (94.6,28.6). The goal now points at the Silt Crawlers' north end (80.0,8.0: 13 Silt Crawler spawns at 73-85,3-16, 17 north of y 24; the nearest Monstrous Crawler 7-8 map units away), and the tip names the Monstrous ones.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 922 Silt Crawler (40-41) and 1088 Monstrous Crawler (43-44) spawns on map 1435; item 5938 drops from both"
+				},
+				{
+					"kind": "recording",
+					"ref": "quest 1258: 5 Alliance people finished it (median level 45.8), 7 abandoned it"
+				}
+			]
+		},
+		{
 			"id": "badlands-ghak-at-the-thelsamar-landing",
 			"faction": "Alliance",
 			"at": {
