@@ -175,5 +175,6 @@ ns.Credits = {
 		{ name = "aronjanosch", ref = 954 },
 		{ name = "CDVolvik", ref = 1012 },
 		{ name = "IgorMagals", ref = 724 },
+		{ name = "Caliber", ref = 2344 },
 	},
 }

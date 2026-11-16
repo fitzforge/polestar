@@ -1405,6 +1405,10 @@ VERB_ICON.enter = VERB_ICON.goto
 VERB_ICON.cast = VERB_ICON.use
 VERB_ICON.auction = VERB_ICON.buy
 VERB_ICON.gather = VERB_ICON.collect
+-- While you're here's sell and repair reminders (Engine Own.hereVendor): the game's own signs for them, the
+-- merchant's coin bag and the repairer's anvil and hammer, drawn as our glyphs.
+VERB_ICON.sell = MEDIA .. "UI\\icon-sell"
+VERB_ICON.repair = MEDIA .. "UI\\icon-repair"
 VERB_ICON.wait = MEDIA .. "UI\\hourglass"
 
 function Theme.VerbIcon(t)
