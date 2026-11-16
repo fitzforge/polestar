@@ -10502,7 +10502,7 @@ do
 				},
 				{
 					title = "Vilebranch Soothsayers",
-					note = "The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend.\nCareful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar.",
+					note = "The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar.",
 					goals = {
 						{ t = "collect", quest = 86616, title = "Repurposed Totems", item = 279225, itemName = "Vilebranch Totem", count = 12, oi = 1, map = 1425, x = 45.3, y = 66.7, z = 128.9, f = "e", spotsPacked = "47.43,66.46,152.4,58,6;49.2,63.7,,40,2,1;53.2,39,119,40,2,1;66.2,44.5,119.6,40,2,1;71,48.5,117.9,40,3,1", lvl = 47, from = "Vilebranch Soothsayer", fromKind = "npc", fromId = 4467, fromNpcs = { { npc = 4467, npcName = "Vilebranch Soothsayer" } } },
 					},
