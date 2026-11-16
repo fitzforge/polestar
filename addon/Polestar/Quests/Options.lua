@@ -72,7 +72,7 @@ Q.OPTIONS = {
 			{ kind = "toggle", key = "qol.questTooltips", label = L["Quest tooltips"], disabled = dbOff, search = "tooltip, quest progress, mob quests",
 				help = L["Name the quests a mob, item or object is for, with your progress."] },
 			{ kind = "toggle", key = "qol.questBagMarks", label = L["Quest marks in bags"], disabled = dbOff,
-				help = L["Mark bag items a quest still needs. A red border suggests a leftover after all known quests for it are handed in. Hover it for the quest status."] },
+				help = L["Mark bag items a quest still needs, in your log or ahead in your guide, until you hand the quest in."] },
 			{ kind = "toggle", key = "qol.questSellWarning", label = L["Offer to buy back quest items"], disabled = dbOff,
 				help = L["If you sell an item a quest still needs, ask whether to buy it back from the vendor."] },
 			{ kind = "toggle", key = "qol.nameplateIcons", label = L["Nameplate icons"], disabled = dbOff, search = "nameplates, quest mobs, plates, progress",
