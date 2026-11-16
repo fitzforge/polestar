@@ -648,6 +648,37 @@ fn hovering_a_goal_explains_it_detail_quest_npc_location_and_what_clicks_do() {
 	assert!(has(&lines, "Right-click to tick it done"));
 }
 
+// Notes and text-only rows display their full text directly in the guide window and show no tooltip on hover (#2600).
+#[test]
+fn hovering_a_note_goal_shows_no_redundant_tooltip_2600() {
+	let out = run(r#"
+		table.insert(uistub.elwynn.steps, {
+			title = "Feed Pet",
+			goals = {
+				{ t = "note", text = "Feed Pet: open your spellbook, cast Feed Pet and choose food." },
+				{ t = "task", text = "Open your bags and equip the weapon." },
+			},
+		})
+		uistub.setGuide(uistub.elwynn, #uistub.elwynn.steps)
+		local r1, r2 = GF.rows[1], GF.rows[2]
+		GameTooltip:Hide()
+		GameTooltip.lines = {}
+		stub.RunScript(r1, "OnEnter")
+		local noteShown = GameTooltip:IsShown() and true or false
+		local noteLines = #GameTooltip.lines
+		GameTooltip:Hide()
+		GameTooltip.lines = {}
+		stub.RunScript(r2, "OnEnter")
+		local taskShown = GameTooltip:IsShown() and true or false
+		local taskLines = #GameTooltip.lines
+		emit({ noteShown = noteShown, noteLines = noteLines, taskShown = taskShown, taskLines = taskLines })"#)
+	.remove(0);
+	assert_eq!(out["noteShown"], false, "no tooltip shown for note rows: {out}");
+	assert_eq!(out["noteLines"], 0, "no tooltip lines for note rows: {out}");
+	assert_eq!(out["taskShown"], false, "no tooltip shown for task rows without extra lines: {out}");
+	assert_eq!(out["taskLines"], 0, "no tooltip lines for task rows: {out}");
+}
+
 // #1247: an accept's tooltip names the level its quest needs (red while the character is below it) and the
 // prerequisites not handed in yet (Engine.AcceptGate); with nothing to say, neither line.
 #[test]
