@@ -1566,3 +1566,71 @@ fn without_the_game_looks_part_polestar_s_own_look_stands_in_whole() {
 		json!({ "key": "polestar", "game": false, "kit": false, "pill": true, "knob": true, "hearth": "polestar" })
 	);
 }
+
+#[test]
+fn the_guide_window_s_text_takes_its_own_size_and_the_rest_of_polestar_s_text_the_general_one() {
+	let out = run(r#"
+		local guide = PolestarGuideFrame:CreateFontString()
+		T.Font(guide, "title")
+		local nested = CreateFrame("Frame", nil, CreateFrame("Frame", nil, PolestarGuideFrame)):CreateFontString()
+		T.Font(nested, "body")
+		local other = UIParent:CreateFontString()
+		T.Font(other, "title")
+		local _, base = other:GetFont()
+		local _, nestedBase = nested:GetFont()
+		Polestar.Set("ui.guideTextSize", 1.2)
+		local _, guideGrown = guide:GetFont()
+		local _, nestedGrown = nested:GetFont()
+		local _, otherKept = other:GetFont()
+		Polestar.Set("ui.textSize", 0.8)
+		local _, guideKept = guide:GetFont()
+		local _, otherShrunk = other:GetFont()
+		Polestar.Set("ui.guideTextSize", 3)
+		local _, guideCapped = guide:GetFont()
+		emit({ base = base, guideGrown = guideGrown / base, nestedGrown = nestedGrown / nestedBase, otherKept = otherKept / base,
+			guideKept = guideKept / base, otherShrunk = otherShrunk / base, guideCapped = guideCapped / base,
+			default = Polestar.GetDefault("ui.guideTextSize") })"#);
+	assert_eq!(out["default"], 1);
+	assert!((out["guideGrown"].as_f64().unwrap() - 1.2).abs() < 0.05, "the guide window's text grows with its own size: {}", out["guideGrown"]);
+	assert!((out["nestedGrown"].as_f64().unwrap() - 1.2).abs() < 0.05, "deeper in the window too: {}", out["nestedGrown"]);
+	assert_eq!(out["otherKept"], 1, "the rest of Polestar's text is left alone");
+	assert!((out["guideKept"].as_f64().unwrap() - 1.2).abs() < 0.05, "the general size leaves the guide window alone: {}", out["guideKept"]);
+	assert!((out["otherShrunk"].as_f64().unwrap() - 0.8).abs() < 0.05, "the general size still sizes the rest: {}", out["otherShrunk"]);
+	assert!((out["guideCapped"].as_f64().unwrap() - 1.4).abs() < 0.05, "at most 140%: {}", out["guideCapped"]);
+}
+
+#[test]
+fn settings_from_before_the_guide_text_size_keep_the_guide_window_s_text_at_the_general_size_once() {
+	let script = r#"emit({ guide = Polestar.Get("ui.guideTextSize"), general = Polestar.Get("ui.textSize"), v = PolestarDB.guideTextSizeV })"#;
+	let old = run_with(script, "PolestarDB = { schema = 1, settings = { ui = { textSize = 1.2 } } }");
+	assert_eq!(old["guide"], 1.2, "the size the guide window had before");
+	assert_eq!(old["general"], 1.2);
+	assert_eq!(old["v"], 1);
+	let reset = run_with(script, "PolestarDB = { schema = 1, guideTextSizeV = 1, settings = { ui = { textSize = 1.2 } } }");
+	assert_eq!(reset["guide"], 1, "once only: a guide size reset afterwards stays at the default");
+	let own = run_with(script, "PolestarDB = { schema = 1, settings = { ui = { textSize = 1.2, guideTextSize = 0.9 } } }");
+	assert_eq!(own["guide"], 0.9, "a guide size of the player's own stays");
+	let fresh = run_with(script, "");
+	assert_eq!(fresh["guide"], 1);
+	assert_eq!(fresh["v"], 1, "a fresh install is marked too, so a general size set later is not copied");
+}
+
+#[test]
+fn the_class_quest_card_in_the_guide_window_keeps_the_general_text_size() {
+	let out = run(r#"
+		-- The card as UI/ClassCard.lua draws it into the guide window (its parts.card, a frame of the window's).
+		local card = Polestar.UI.ClassCard.NewCard(Polestar.UI.GuideFrame.parts.card)
+		local inCard = card.Title
+		local guide = PolestarGuideFrame:CreateFontString()
+		T.Font(guide, "title")
+		local _, base = inCard:GetFont()
+		Polestar.Set("ui.guideTextSize", 1.4)
+		local _, cardGuide = inCard:GetFont()
+		local _, guideGuide = guide:GetFont()
+		Polestar.Set("ui.textSize", 0.8)
+		local _, cardGeneral = inCard:GetFont()
+		emit({ cardGuide = cardGuide / base, guideGuide = guideGuide / base, cardGeneral = cardGeneral / base })"#);
+	assert_eq!(out["cardGuide"], 1, "the guide size leaves the card alone");
+	assert!((out["guideGuide"].as_f64().unwrap() - 1.4).abs() < 0.05, "and sizes the window around it: {}", out["guideGuide"]);
+	assert!((out["cardGeneral"].as_f64().unwrap() - 0.8).abs() < 0.05, "the card follows the general size: {}", out["cardGeneral"]);
+}
