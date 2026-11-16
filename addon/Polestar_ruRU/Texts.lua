@@ -1036,7 +1036,7 @@ t.guides["forever/alliance/40-50/01-stranglethorn-vale"] = (function() return {
 		["{zone:1453} has no shaman trainer"] = "В городе {zone:1453} нет учителя шаманов",
 } end)()
 t.guides["forever/alliance/40-50/01b-riverglades"] = (function() return {
-		["About 90 quests in Forever's new zone, 42 to 45, from {area:16724}: the level for its port and Western Front."] = "Около 90 заданий в новой зоне Forever, уровни 42–45, начиная с крепости {area:16724}: уровень для ее порта и Западного фронта.",
+		["About 90 quests in Forever's new zone, from {area:16724}: the level for its port and Western Front."] = "Около 90 заданий в новой зоне Forever, начиная с крепости {area:16724}: уровень для ее порта и Западного фронта.",
 		["Back east along the road to {area:16744}."] = "Обратно на восток по дороге к месту {area:16744}.",
 		["Back east through the town to Elbrim's farm: the doll and the locket are in the burnt farmhouse beside it."] = "Возвращайтесь на восток через город к ферме Элбрима: кукла и медальон лежат в сгоревшем доме рядом с ней.",
 		["Back north along the shore: hand in the murlocs and the hide on the docks on your way to the crawlers."] = "Обратно на север вдоль берега: по пути к ползунам сдайте мурлоков и шкуру на причалах.",
@@ -4949,7 +4949,7 @@ t.guides["forever/horde/40-50/01-stranglethorn-vale"] = (function() return {
 		["{quest:95770}: west of {object:3202}, swim out over the {area:104} and dive to the cavern entrance in the reef; the quest completes as you find it. Leave the cavern for now: the jungle stalkers are south along the coast."] = "{quest:95770}: к западу от места {object:3202} плывите над местом {area:104} и нырните к входу в пещеру в рифе; задание выполнится, как только вы его найдете. Пока не заходите в пещеру: ящеры-ловчие – к югу вдоль побережья.",
 } end)()
 t.guides["forever/horde/40-50/01b-riverglades"] = (function() return {
-		["About 70 quests in Forever's new zone, 40 to 45, from the fort of {area:16743}."] = "Около 70 заданий в новой зоне Forever, 40–45, из крепости {area:16743}.",
+		["About 70 quests in Forever's new zone, from the fort of {area:16743}."] = "Около 70 заданий в новой зоне Forever, из крепости {area:16743}.",
 		["Across the {area:3} to {area:340}, the Horde fortress built into the cliffs at the zone's western edge: its flight master stands at the foot of the fortress."] = "Через {area:3} в {area:340} – крепость Орды, встроенную в скалы у западного края зоны: распорядитель полетов стоит у подножия крепости.",
 		["Back north along the shore: hand in the murlocs and the hide on the docks on your way to the crawlers."] = "Обратно на север вдоль берега: по пути к ползунам сдайте мурлоков и шкуру на причалах.",
 		["Back through the port"] = "Обратно через порт",

@@ -946,7 +946,7 @@ t.guides["forever/alliance/40-50/01-stranglethorn-vale"] = (function() return {
 		["{zone:1453} has no shaman trainer"] = "{zone:1453}에는 주술사 상급자가 없습니다",
 } end)()
 t.guides["forever/alliance/40-50/01b-riverglades"] = (function() return {
-		["About 90 quests in Forever's new zone, 42 to 45, from {area:16724}: the level for its port and Western Front."] = "Forever의 새 지역에서 약 90개 퀘스트, 42~45레벨, {area:16724}에서 시작: 항구와 서부 전선을 위한 레벨입니다.",
+		["About 90 quests in Forever's new zone, from {area:16724}: the level for its port and Western Front."] = "Forever의 새 지역에서 약 90개 퀘스트, {area:16724}에서 시작: 항구와 서부 전선을 위한 레벨입니다.",
 		["Back east along the road to {area:16744}."] = "길을 따라 동쪽 {area:16744}으로 돌아가세요.",
 		["Back east through the town to Elbrim's farm: the doll and the locket are in the burnt farmhouse beside it."] = "마을을 지나 다시 동쪽 엘브림의 농장으로 가십시오. 인형과 목걸이는 그 옆의 불탄 농가에 있습니다.",
 		["Back north along the shore: hand in the murlocs and the hide on the docks on your way to the crawlers."] = "해안을 따라 북쪽으로 돌아가십시오. 게들에게 가는 길에 부두에서 멀록 퀘스트와 가죽 퀘스트를 제출하십시오.",
@@ -4605,7 +4605,7 @@ t.guides["forever/horde/40-50/01-stranglethorn-vale"] = (function() return {
 		["{quest:95770}: west of {object:3202}, swim out over the {area:104} and dive to the cavern entrance in the reef; the quest completes as you find it. Leave the cavern for now: the jungle stalkers are south along the coast."] = "{quest:95770}: {object:3202} 서쪽으로 {area:104} 위를 헤엄쳐 나가 암초 속 동굴 입구로 잠수하세요. 입구를 찾으면 퀘스트가 완료됩니다. 동굴은 일단 그냥 두세요. 줄무늬정글랩터는 해안을 따라 남쪽에 있습니다.",
 } end)()
 t.guides["forever/horde/40-50/01b-riverglades"] = (function() return {
-		["About 70 quests in Forever's new zone, 40 to 45, from the fort of {area:16743}."] = "Forever의 새 지역에서 {area:16743} 요새를 거점으로 하는 약 70개의 퀘스트, 40~45레벨.",
+		["About 70 quests in Forever's new zone, from the fort of {area:16743}."] = "Forever의 새 지역에서 {area:16743} 요새를 거점으로 하는 약 70개의 퀘스트.",
 		["Across the {area:3} to {area:340}, the Horde fortress built into the cliffs at the zone's western edge: its flight master stands at the foot of the fortress."] = "{area:3}을(를) 가로질러 지역 서쪽 끝 절벽에 지어진 호드 요새 {area:340}(으)로 가세요. 비행 조련사는 요새 아래에 있습니다.",
 		["Back north along the shore: hand in the murlocs and the hide on the docks on your way to the crawlers."] = "해안을 따라 북쪽으로 돌아가십시오. 게들에게 가는 길에 부두에서 멀록 퀘스트와 가죽 퀘스트를 제출하십시오.",
 		["Back through the port"] = "항구를 거쳐 돌아가기",

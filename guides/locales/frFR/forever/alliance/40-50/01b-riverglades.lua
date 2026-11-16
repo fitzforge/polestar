@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {area:16724} Farholde Keep
-	["About 90 quests in Forever's new zone, 42 to 45, from {area:16724}: the level for its port and Western Front."] = "Environ 90 quêtes dans la nouvelle zone de Forever, du niveau 42 à 45, depuis {area:16724} : le niveau pour son port et le Front occidental.",
+	["About 90 quests in Forever's new zone, from {area:16724}: the level for its port and Western Front."] = "Environ 90 quêtes dans la nouvelle zone de Forever, depuis {area:16724} : le niveau pour son port et le Front occidental.",
 
 	-- Step 1: Ironforge flight master
 	-- {zone:1455} Ironforge

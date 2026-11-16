@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {area:16743} Rog'mar
-	["About 70 quests in Forever's new zone, 40 to 45, from the fort of {area:16743}."] = "Unas 70 misiones en la nueva zona de Forever, del 40 al 45, desde el fuerte de {area:16743}.",
+	["About 70 quests in Forever's new zone, from the fort of {area:16743}."] = "Unas 70 misiones en la nueva zona de Forever, desde el fuerte de {area:16743}.",
 
 	-- Step 1: Fly to Kargath
 	-- {area:340} Kargath

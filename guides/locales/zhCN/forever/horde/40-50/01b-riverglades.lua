@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {area:16743} Rog'mar
-	["About 70 quests in Forever's new zone, 40 to 45, from the fort of {area:16743}."] = "Forever新地区里约有70个任务，40到45级，从{area:16743}要塞开始。",
+	["About 70 quests in Forever's new zone, from the fort of {area:16743}."] = "Forever新地区里约有70个任务，从{area:16743}要塞开始。",
 
 	-- Step 1: Fly to Kargath
 	-- {area:340} Kargath

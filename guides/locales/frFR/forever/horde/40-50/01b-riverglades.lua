@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {area:16743} Rog'mar
-	["About 70 quests in Forever's new zone, 40 to 45, from the fort of {area:16743}."] = "Environ 70 quêtes dans la nouvelle zone de Forever, du niveau 40 à 45, depuis le fort de {area:16743}.",
+	["About 70 quests in Forever's new zone, from the fort of {area:16743}."] = "Environ 70 quêtes dans la nouvelle zone de Forever, depuis le fort de {area:16743}.",
 
 	-- Step 1: Fly to Kargath
 	-- {area:340} Kargath

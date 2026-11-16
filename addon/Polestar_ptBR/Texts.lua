@@ -1520,7 +1520,7 @@ t.guides["forever/alliance/40-50/01-stranglethorn-vale"] = (function() return {
 		["{zone:1453} has no shaman trainer"] = "{zone:1453} não tem instrutor de xamã",
 } end)()
 t.guides["forever/alliance/40-50/01b-riverglades"] = (function() return {
-		["About 90 quests in Forever's new zone, 42 to 45, from {area:16724}: the level for its port and Western Front."] = "Cerca de 90 missões na nova zona do Forever, do 42 ao 45, a partir de {area:16724}: o nível para o porto e a Frente Ocidental.",
+		["About 90 quests in Forever's new zone, from {area:16724}: the level for its port and Western Front."] = "Cerca de 90 missões na nova zona do Forever, a partir de {area:16724}: o nível para o porto e a Frente Ocidental.",
 		["Back east along the road to {area:16744}."] = "Volte para o leste pela estrada até {area:16744}.",
 		["Back east through the town to Elbrim's farm: the doll and the locket are in the burnt farmhouse beside it."] = "Volte para o leste pela cidade até a fazenda de Elbrim: a boneca e o medalhão estão na casa de fazenda queimada ao lado dela.",
 		["Back north along the shore: hand in the murlocs and the hide on the docks on your way to the crawlers."] = "Volte para o norte pela costa: entregue os murlocs e o couro nas docas a caminho dos rastejadores.",
@@ -7543,7 +7543,7 @@ t.guides["forever/horde/40-50/01-stranglethorn-vale"] = (function() return {
 		["{quest:95770}: west of {object:3202}, swim out over the {area:104} and dive to the cavern entrance in the reef; the quest completes as you find it. Leave the cavern for now: the jungle stalkers are south along the coast."] = "{quest:95770}: a oeste de {object:3202}, nade sobre {area:104} e mergulhe até a entrada da caverna no recife; a missão é concluída quando você a encontra. Deixe a caverna para depois: os espreitadores da selva estão ao sul, ao longo da costa.",
 } end)()
 t.guides["forever/horde/40-50/01b-riverglades"] = (function() return {
-		["About 70 quests in Forever's new zone, 40 to 45, from the fort of {area:16743}."] = "Cerca de 70 missões na nova zona do Forever, do 40 ao 45, a partir do forte de {area:16743}.",
+		["About 70 quests in Forever's new zone, from the fort of {area:16743}."] = "Cerca de 70 missões na nova zona do Forever, a partir do forte de {area:16743}.",
 		["Across the {area:3} to {area:340}, the Horde fortress built into the cliffs at the zone's western edge: its flight master stands at the foot of the fortress."] = "Atravesse {area:3} até {area:340}, a fortaleza da Horda construída nos penhascos na borda oeste da Zona: o Mestre de voo fica ao pé da fortaleza.",
 		["Back north along the shore: hand in the murlocs and the hide on the docks on your way to the crawlers."] = "Volte para o norte pela costa: entregue os murlocs e o couro nas docas a caminho dos rastejadores.",
 		["Back through the port"] = "De volta pelo porto",

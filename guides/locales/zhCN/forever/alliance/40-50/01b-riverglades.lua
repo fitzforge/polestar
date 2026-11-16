@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {area:16724} Farholde Keep
-	["About 90 quests in Forever's new zone, 42 to 45, from {area:16724}: the level for its port and Western Front."] = "Forever新地区的约90个任务，42到45级，从{area:16724}开始：适合其港口和西部前线的等级。",
+	["About 90 quests in Forever's new zone, from {area:16724}: the level for its port and Western Front."] = "Forever新地区的约90个任务，从{area:16724}开始：适合其港口和西部前线的等级。",
 
 	-- Step 1: Ironforge flight master
 	-- {zone:1455} Ironforge

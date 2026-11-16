@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {area:16743} Rog'mar
-	["About 70 quests in Forever's new zone, 40 to 45, from the fort of {area:16743}."] = "Forever의 새 지역에서 {area:16743} 요새를 거점으로 하는 약 70개의 퀘스트, 40~45레벨.",
+	["About 70 quests in Forever's new zone, from the fort of {area:16743}."] = "Forever의 새 지역에서 {area:16743} 요새를 거점으로 하는 약 70개의 퀘스트.",
 
 	-- Step 1: Fly to Kargath
 	-- {area:340} Kargath

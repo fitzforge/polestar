@@ -1520,7 +1520,7 @@ t.guides["forever/alliance/40-50/01-stranglethorn-vale"] = (function() return {
 		["{zone:1453} has no shaman trainer"] = "{zone:1453}没有萨满祭司训练师",
 } end)()
 t.guides["forever/alliance/40-50/01b-riverglades"] = (function() return {
-		["About 90 quests in Forever's new zone, 42 to 45, from {area:16724}: the level for its port and Western Front."] = "Forever新地区的约90个任务，42到45级，从{area:16724}开始：适合其港口和西部前线的等级。",
+		["About 90 quests in Forever's new zone, from {area:16724}: the level for its port and Western Front."] = "Forever新地区的约90个任务，从{area:16724}开始：适合其港口和西部前线的等级。",
 		["Back east along the road to {area:16744}."] = "沿路向东返回{area:16744}。",
 		["Back east through the town to Elbrim's farm: the doll and the locket are in the burnt farmhouse beside it."] = "穿过镇子向东回到埃尔布里姆的农场：玩偶和项链盒在旁边烧毁的农舍里。",
 		["Back north along the shore: hand in the murlocs and the hide on the docks on your way to the crawlers."] = "沿海岸往北返回：去找爬行者的路上，在码头交还鱼人任务和兽皮任务。",
@@ -7543,7 +7543,7 @@ t.guides["forever/horde/40-50/01-stranglethorn-vale"] = (function() return {
 		["{quest:95770}: west of {object:3202}, swim out over the {area:104} and dive to the cavern entrance in the reef; the quest completes as you find it. Leave the cavern for now: the jungle stalkers are south along the coast."] = "{quest:95770}：在{object:3202}西边，游到{area:104}上方，潜入礁石中的洞穴入口；找到入口时任务即完成。暂时不要进入洞穴：丛林捕猎者在沿海岸往南的地方。",
 } end)()
 t.guides["forever/horde/40-50/01b-riverglades"] = (function() return {
-		["About 70 quests in Forever's new zone, 40 to 45, from the fort of {area:16743}."] = "Forever新地区里约有70个任务，40到45级，从{area:16743}要塞开始。",
+		["About 70 quests in Forever's new zone, from the fort of {area:16743}."] = "Forever新地区里约有70个任务，从{area:16743}要塞开始。",
 		["Across the {area:3} to {area:340}, the Horde fortress built into the cliffs at the zone's western edge: its flight master stands at the foot of the fortress."] = "穿过{area:3}前往{area:340}，这座部落要塞建在该地区西缘的悬崖上：飞行管理员站在要塞脚下。",
 		["Back north along the shore: hand in the murlocs and the hide on the docks on your way to the crawlers."] = "沿海岸往北返回：去找爬行者的路上，在码头交还鱼人任务和兽皮任务。",
 		["Back through the port"] = "返回穿过港口",
