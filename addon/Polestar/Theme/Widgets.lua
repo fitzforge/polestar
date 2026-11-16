@@ -3472,7 +3472,7 @@ local function wordTyped()
 	local word = spec and spec.typeToConfirm
 	if not word then return true end
 	local typed = modal.Box.Word:GetText() or ""
-	return typed:gsub("^%s+", ""):gsub("%s+$", ""):upper() == tostring(word):upper()
+	return ns.Upper((typed:gsub("^%s+", ""):gsub("%s+$", ""))) == ns.Upper(word)
 end
 
 local function paintAction()
