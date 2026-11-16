@@ -8575,7 +8575,6 @@ do
 				{
 					title = "{npc:3428}",
 					note = "{npc:3428} stands beside the Crossroads flight master. {quest:1145} is offered from level 29; below it, the next guide's {zone:1454} stop takes it.",
-					when = { { k = "level", op = ">=", n = 29 } },
 					goals = {
 						{ t = "accept", quest = 1145, title = "The Swarm Grows", npc = 3428, npcName = "Korran", minLevel = 29, qlvl = 33, map = 1413, x = 51.07, y = 29.63, z = 99, f = "e", note = "{npc:3428}: for {npc:4485} in {zone:1454}" },
 					},

@@ -122,7 +122,6 @@ step Fly to the Crossroads
   zone The Barrens
 
 step Korran
-  when level>=29
   zone The Barrens
   tip Korran stands beside the Crossroads flight master. The Swarm Grows is offered from level 29; below it, the next guide's Orgrimmar stop takes it.
   accept 1145                         -- Korran: for Belgrom Rockmaul in Orgrimmar

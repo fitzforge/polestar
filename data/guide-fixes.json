@@ -12415,6 +12415,23 @@
 			]
 		},
 		{
+			"id": "korran-1145-hillsbrad-no-level-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 1145,
+				"goal": "accept",
+				"guide": "forever/horde/30-40/01-hillsbrad-foothills"
+			},
+			"tip": "Korran stands beside the Crossroads flight master. The Swarm Grows is offered from level 29; below it, the next guide's Orgrimmar stop takes it.",
+			"note": "Korran's step on the 30-40 Hillsbrad guide's Crossroads stop has no `when level>=29`: below 29 the engine's level wait already passes the accept with no task and no level line, and the level-up brings it back to Korran. The engine-level-wait addontest of a 28.7 Warrior at Korran (the silent pass, then back to Korran at 29) failed with the gate and passes without it.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 1145 minLevel 29 in Forever's quest data"
+				}
+			]
+		},
+		{
 			"id": "h-audit-040-r2-azurelode-level-30",
 			"faction": "Horde",
 			"at": {
