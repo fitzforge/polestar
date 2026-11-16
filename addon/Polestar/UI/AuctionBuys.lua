@@ -59,6 +59,7 @@ local WIDTH = 380
 local PAD = 24
 local HEAD_H = 56
 local ROW_H = 40
+local BODY_MAX = 320
 local ICON = 28
 local DOT = "  \194\183  "
 
@@ -85,6 +86,7 @@ function AU.Why(e)
 		return format(L["Needs %s to gather"], skill)
 	end
 	if e.why == "made" then return L["Crafted: nothing drops it"] end
+	if e.why == "market" then return L["Seen at the auction house"] end
 	return L["The guide sends you to the auction house for it"]
 end
 
@@ -116,7 +118,7 @@ function AU.CardModel(kind, list, town)
 	end
 	if n > AU.CARD_LINES then lines[#lines + 1] = format(L["+%d more"], n - AU.CARD_LINES) end
 	m.giver = concat(lines, "\n")
-	m.route = L["No vendor sells these, and farming them is slow or not possible."]
+	m.route = L["You can buy these instead of gathering them. See the list for estimates."]
 	m.spells = row
 	local function list_()
 		AU.Show()
@@ -307,8 +309,17 @@ local function build()
 		if N and N.Go and N.Go("auction") then F:Hide() end
 	end, { primary = true, height = 28 })
 
+	F.Total = W.Text(F, "label", "text")
+	F.Total:SetWidth(WIDTH - PAD * 2)
+	F.Total:SetJustifyH("LEFT")
+	F.Total:SetWordWrap(true)
+
+	F.Scroll = W.Scroll(F)
+	F.Body = F.Scroll.Child
+	F.Body:SetWidth(WIDTH - PAD * 2)
+
 	-- The running profession guide's materials to buy (Materials.BuyRows), under the quest items.
-	F.MatHead = W.Text(F, "caption", "textDim")
+	F.MatHead = W.Text(F.Body, "caption", "textDim")
 	F.MatHead:SetJustifyH("LEFT")
 	F.MatHead:SetWordWrap(false)
 
@@ -328,8 +339,7 @@ local function row(i, pool)
 	pool = pool or F.rows
 	local r = pool[i]
 	if r then return r end
-	r = CreateFrame("Frame", nil, F)
-	r:SetHeight(ROW_H)
+	r = CreateFrame("Frame", nil, F.Body)
 	-- The item: the game's tooltip, and a modified click as on a bag slot.
 	r.Item = CreateFrame("Button", nil, r)
 	r.Item:SetSize(ICON, ICON)
@@ -350,21 +360,35 @@ local function row(i, pool)
 	r.Why:SetPoint("TOPLEFT", r.Title, "BOTTOMLEFT", 0, -3)
 	r.Why:SetJustifyH("LEFT")
 	r.Why:SetWordWrap(false)
+	r.Price = W.Text(r, "note", "textDim")
+	r.Price:SetPoint("TOPLEFT", r.Why, "BOTTOMLEFT", 0, -3)
+	r.Price:SetJustifyH("LEFT")
+	r.Price:SetWordWrap(false)
 	pool[i] = r
 	return r
 end
 
 -- A row's texts run up to its Search button while the Auction House is open, else to its edge.
-local function fill(r, item, count, title, why, open)
+local function fill(r, item, count, title, why, open, price)
 	r.psItem, r.psCount, r.Item.psItem = item, count, item
 	r.Item.Icon:SetTexture(ns.Compat.ItemIcon(item) or 134400)
 	r.Title:SetText(title)
 	r.Why:SetText(why)
+	r.Price:SetText(price or "")
+	r.Price:SetShown(price ~= nil)
+	r:SetHeight(price and ROW_H + 18 or ROW_H)
 	r.Search:SetShown(open)
 	local right = open and r.Search or r
 	local point = open and "LEFT" or "RIGHT"
 	r.Title:SetPoint("RIGHT", right, point, open and -8 or 0, 0)
 	r.Why:SetPoint("RIGHT", right, point, open and -8 or 0, 0)
+	r.Price:SetPoint("RIGHT", right, point, open and -8 or 0, 0)
+end
+
+local function quoteText(price, info)
+	if info.short then return format(L["≈ %s (%d still unpriced)"], ns.MoneyText(price), info.short) end
+	if info.source == "auctionator" then return format(L["Auctionator estimate: %s"], ns.MoneyText(price)) end
+	return format(L["≈ %s"], ns.MoneyText(price))
 end
 
 -- What the running profession guide still buys (Materials.BuyRows), or none.
@@ -392,25 +416,43 @@ function AU.Layout()
 	elseif #list == 0 then
 		hint = L["Nothing to buy at the auction house: the quests ahead get what they need on the way."]
 	else
-		hint = L["The quests ahead in your guide and in your quest log need these. No vendor sells them, and farming them is slow or not possible: the auction house usually has them."]
+		hint = L["You can buy these quest items instead of gathering them. Cached prices and stock can change."]
 	end
 	if open and (#list + #mats) > 0 then hint = hint .. " " .. L["Search opens one in the Auction House with the count filled in; buying is your click."] end
 	F.Hint:SetText(hint)
-	local y = HEAD_H + 12 + F.Hint:GetStringHeight() + 12
+	local top = HEAD_H + 12 + F.Hint:GetStringHeight() + 12
+	local y, cost, quoted, incomplete = 0, 0, 0, 0
+	local M = ns.Materials
 	for i, e in ipairs(list) do
 		local r = row(i)
 		r:ClearAllPoints()
-		r:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, -y)
-		r:SetPoint("TOPRIGHT", F, "TOPRIGHT", -PAD, -y)
+		r:SetPoint("TOPLEFT", F.Body, "TOPLEFT", 0, -y)
+		r:SetPoint("TOPRIGHT", F.Body, "TOPRIGHT", -W.ScrollBarRoom(F.Scroll), -y)
 		local parts = { format(L["For %s"], questNames(e)), AU.Why(e) }
-		if e.have > 0 then parts[#parts + 1] = format(L["%d in your bags and bank"], e.have) end
-		-- Its price for that many, once a search showed it (the materials' prices: Materials.Price).
-		local M = ns.Materials
-		local price = M and M.Price and M.Price(e.item, e.need)
-		if price then parts[#parts + 1] = format(L["≈ %s"], ns.MoneyText(price)) end
-		fill(r, e.item, e.need, format(L["%d %s"], e.need, e.name), concat(parts, DOT), open)
+		if e.have > 0 then parts[#parts + 1] = format(L["%s held"], e.have) end
+		local price, info
+		if M and M.Price then price, info = M.Price(e.item, e.need) end
+		if price then cost, quoted = cost + price, quoted + 1 end
+		if not price or info.short then incomplete = incomplete + 1 end
+		fill(r, e.item, e.need, format(L["%d %s"], e.need, e.name), concat(parts, DOT), open,
+			price and quoteText(price, info) or L["No cached price"])
 		r:Show()
-		y = y + ROW_H + 6
+		y = y + r:GetHeight() + 6
+	end
+	F.Total:SetShown(#list > 0)
+	if #list > 0 then
+		local total
+		if quoted == 0 then
+			total = L["No cached prices for the remaining quest items."]
+		elseif incomplete > 0 then
+			total = format(L["Partial quest estimate: %s (%d items without a full quote)"], ns.MoneyText(cost), incomplete)
+		else
+			total = format(L["Estimated total for remaining quest items: %s"], ns.MoneyText(cost))
+		end
+		F.Total:ClearAllPoints()
+		F.Total:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, -top)
+		F.Total:SetText(total)
+		top = top + F.Total:GetStringHeight() + 12
 	end
 	for i = #list + 1, #F.rows do F.rows[i]:Hide() end
 	-- The profession guide's materials, under a heading naming the guide.
@@ -418,15 +460,15 @@ function AU.Layout()
 	if #mats > 0 then
 		if #list > 0 then y = y + 6 end
 		F.MatHead:ClearAllPoints()
-		F.MatHead:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, -y)
+		F.MatHead:SetPoint("TOPLEFT", F.Body, "TOPLEFT", 0, -y)
 		F.MatHead:SetText(format(L["MATERIALS FOR %s"], ns.Upper(mats[1].guideTitle)))
 		y = y + 20
 	end
 	for i, e in ipairs(mats) do
 		local r = row(i, F.mrows)
 		r:ClearAllPoints()
-		r:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, -y)
-		r:SetPoint("TOPRIGHT", F, "TOPRIGHT", -PAD, -y)
+		r:SetPoint("TOPLEFT", F.Body, "TOPLEFT", 0, -y)
+		r:SetPoint("TOPRIGHT", F.Body, "TOPRIGHT", -W.ScrollBarRoom(F.Scroll), -y)
 		local parts = { e.section }
 		if e.price then parts[#parts + 1] = format(L["≈ %s"], ns.MoneyText(e.price)) end
 		if e.have > 0 then parts[#parts + 1] = format(L["%s held"], e.have) end
@@ -435,6 +477,14 @@ function AU.Layout()
 		y = y + ROW_H + 6
 	end
 	for i = #mats + 1, #F.mrows do F.mrows[i]:Hide() end
+	local view = math.min(y, BODY_MAX)
+	F.Scroll:ClearAllPoints()
+	F.Scroll:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, -top)
+	F.Scroll:SetPoint("TOPRIGHT", F, "TOPRIGHT", -PAD, -top)
+	F.Scroll:SetHeight(math.max(1, view))
+	F.Scroll:SetShown(view > 0)
+	W.SetScrollContent(F.Scroll, y, view)
+	y = top + view
 	-- At the Auction House already, nothing to point the arrow at.
 	local go = (#list + #mats) > 0 and not open
 	F.Go:ClearAllPoints()
@@ -454,6 +504,21 @@ function AU.Hide()
 	if F then F:Hide() end
 end
 UI.ShowAuctionBuys = AU.Show
+
+-- The active collect row can offer the same shopping list as the guide card.
+function AU.CanBuyGoal(goal)
+	if not (goal.t == "collect" and goal.item and not goal.optional and not goal.unavailable
+		and (goal.status == "active" or goal.status == "pending") and on()) then return false end
+	for _, e in ipairs(AB().List("guide")) do
+		if goal.item == e.item then
+			if not goal.quest then return true end
+			for _, q in ipairs(e.quests) do
+				if q.id == goal.quest then return true end
+			end
+		end
+	end
+	return false
+end
 
 -- The guide window's menu: "Auction house buys (N)" while there are any.
 function AU.MenuItem()

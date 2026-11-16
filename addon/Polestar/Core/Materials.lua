@@ -478,6 +478,24 @@ function Materials.Price(item, count)
 	return nil
 end
 
+-- Auctionator updates its cached prices when scans or searches finish.
+local auctionatorWatched
+local function watchAuctionator()
+	if auctionatorWatched then return end
+	local api = Auctionator and Auctionator.API and Auctionator.API.v1
+	if not (api and api.RegisterForDBUpdate) then return end
+	auctionatorWatched = pcall(api.RegisterForDBUpdate, CALLER, function()
+		refresh()
+		ns.Fire("MATERIALS_PRICES")
+	end)
+	if auctionatorWatched then ns.Fire("MATERIALS_PRICES") end
+end
+
+ns.OnLogin(watchAuctionator)
+ns.RegisterEvent("ADDON_LOADED", function(_, name)
+	if name == "Auctionator" then ns.After(0, watchAuctionator) end
+end)
+
 -- Prices older than PRICE_DAYS are forgotten at login.
 ns.OnLogin(function()
 	local cutoff = Compat.Now() - PRICE_DAYS * 86400

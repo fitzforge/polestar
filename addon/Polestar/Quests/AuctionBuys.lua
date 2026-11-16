@@ -24,8 +24,8 @@
 --   2. Sold by no merchant: the guide has no `buy` goal for it (the route
 --      buys it there: QoL/Buy.lua, QoL/Restock.lua) and the quest database
 --      names no vendor for it, whoever's side or stock.
---   3. Not got on the way: the whole count takes LONG_FARM kills or loots or
---      more on average (count / drop chance), or nothing drops it. The chance
+--   3. Seen at auction (a cached price), or the whole count takes LONG_FARM
+--      kills or loots or more on average (count / drop chance), or nothing drops it. The chance
 --      is the best of the goal's own sources (`fromNpcs`, else `fromId`) in
 --      the quest database's drop table, which keeps an item's MAX_DROPPERS
 --      best droppers: a creature past them drops it at most at the last one's
@@ -34,7 +34,7 @@
 --      (herb and ore nodes only for a character with Herbalism or Mining:
 --      without the skill, an item only nodes give is listed); chests and
 --      crates below that chance do not count. A chance the data does not know
---      (0) leaves the item out. An item the quest database knows no source
+--      (0) requires a cached price. An item the quest database knows no source
 --      for is judged by the Codex (loaded for it, never in combat): listed
 --      when a profession makes it, or when the guide's goal for it stands at
 --      an auctioneer; left out otherwise (a container, a quest or a gift the
@@ -44,7 +44,7 @@
 --   AuctionBuys.List(scope) -> list, pending   scope "guide" (the running guide's quests) | "all"
 --       list: { { item, name, need, have, count, quests = { { id, title } }, why, kills, skill }, ... }
 --       in guide order, then log order; why "farm" (kills: the farm's kills or loots on average),
---       "gather" (skill: the gathering skill line the character lacks), "made" (a profession makes
+--       "market" (a cached price), "gather" (skill: the gathering skill line the character lacks), "made" (a profession makes
 --       it), "ah" (the guide's goal stands at an auctioneer). pending: an item still waits on the
 --       client or the Codex. AUCTION_BUYS_CHANGED(arrived) fires once a burst of changes is over;
 --       arrived: something a judgement waited for came (an item, the quest database, the Codex).
@@ -58,7 +58,7 @@ local Q = ns.QuestDB
 local AB = {}
 ns.AuctionBuys = AB
 
-local type, ipairs, pairs, tonumber, floor, sort = type, ipairs, pairs, tonumber, math.floor, table.sort
+local type, ipairs, tonumber, floor = type, ipairs, tonumber, math.floor
 
 ns.RegisterDefaults("qol", { auctionBuys = true })
 
@@ -203,15 +203,7 @@ local function sourceless(id, goal)
 	return false
 end
 
--- why, kills, skill | false | nil (not known yet). count: the whole count
--- the quests ask for; goal: the guide's goal for it (nil: a quest in the
--- log); buys: the items the guide buys from a merchant.
-function AB.Judge(id, count, goal, buys)
-	if type(id) ~= "number" or (buys and buys[id]) then return false end
-	local rec = itemRecord(id)
-	if not rec or hasVendor(rec) then return false end
-	local trade = tradeable(id)
-	if not trade then return trade end
+local function farmReason(id, count, goal, rec)
 	local n = rec[2] or 0
 	local oi = 3 + 2 * n
 	local no = rec[oi] or 0
@@ -254,6 +246,20 @@ function AB.Judge(id, count, goal, buys)
 	local kills = count / (chance / 100)
 	if kills < AB.LONG_FARM then return false end
 	return "farm", floor(kills + 0.5)
+end
+
+-- Why to consider buying, after checking the item's binding and vendor sources.
+function AB.Judge(id, count, goal, buys)
+	if type(id) ~= "number" or (buys and buys[id]) then return false end
+	local rec = itemRecord(id)
+	if not rec or hasVendor(rec) then return false end
+	local trade = tradeable(id)
+	if not trade then return trade end
+	local why, kills, skill = farmReason(id, count, goal, rec)
+	if why then return why, kills, skill end
+	local M = ns.Materials
+	if M and M.Price and M.Price(id, 1) then return "market" end
+	return why
 end
 
 ---------------------------------------------------------------------------
@@ -347,8 +353,7 @@ local function judge(scope)
 				if goal.t == "collect" and type(id) == "number" and not goal.optional and not goal.npc then
 					local q = goal.quest or questFor(objs, steps, s, id)
 					if q and (s >= live or Cp.IsOnQuest(q)) and open(q, id) and E.Applies(s, i) then
-						covered[q] = true
-						want(id, q, tonumber(goal.count) or objectiveCount(objs, q, id) or 1, goal)
+							want(id, q, tonumber(goal.count) or objectiveCount(objs, q, id) or 1, goal)
 					end
 				end
 			end
@@ -446,6 +451,7 @@ local function arrived()
 end
 
 for _, msg in ipairs({ "STEP_CHANGED", "GUIDE_CHANGED", "NAMES_LOADED" }) do ns.On(msg, changed) end
+ns.On("MATERIALS_PRICES", arrived)
 for _, msg in ipairs({ "QUESTDB_STARTED", "CODEX_LOADED" }) do ns.On(msg, arrived) end
 ns.On("MATERIALS_COUNTS", recount)
 ns.RegisterEvent("BAG_UPDATE_DELAYED", recount)

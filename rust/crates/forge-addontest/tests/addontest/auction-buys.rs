@@ -234,7 +234,7 @@ emit(card())
 		json!({
 			"kind": "auctionGuide", "head": "AUCTION HOUSE", "title": "Auction house buys for this guide",
 			"lines": "15 Silk Cloth for Caught!\n10 Iron Bar for Brutal Armor",
-			"route": "No vendor sells these, and farming them is slow or not possible.",
+			"route": "You can buy these instead of gathering them. See the list for estimates.",
 			"row": ["4306x15", "3575x10"], "act": "See the list", "more": false, "later": "Got it", "shown": true,
 		})
 	);
@@ -444,7 +444,7 @@ emit(card() and card().kind or false)
 		json!({
 			"kind": "auctionTown", "head": "AUCTION HOUSE", "title": "2 quest items to buy in Orgrimmar",
 			"lines": "20 Silk Cloth for Caught!, A Tailor's Request\n10 Iron Bar for Brutal Armor",
-			"route": "No vendor sells these, and farming them is slow or not possible.",
+			"route": "You can buy these instead of gathering them. See the list for estimates.",
 			"row": ["4306x20", "3575x10"], "act": "Show me the auctioneer", "more": "See the list", "later": false, "shown": true,
 		})
 	);
@@ -563,7 +563,7 @@ emit({ shown = F:IsShown(), title = F.Title:GetText(), rows = rows, go = F.Go:Is
 		out[1],
 		json!({
 			"shown": true, "title": "Auction house buys",
-			"rows": ["12 Silk Cloth | For Caught!  ·  About 152 kills to farm  ·  3 in your bags and bank", "10 Iron Bar | For Brutal Armor  ·  Crafted: nothing drops it"],
+			"rows": ["12 Silk Cloth | For Caught!  ·  About 152 kills to farm  ·  3 held", "10 Iron Bar | For Brutal Armor  ·  Crafted: nothing drops it"],
 			"go": true,
 		})
 	);
