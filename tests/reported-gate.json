@@ -1268,6 +1268,11 @@
 		] },
 		"2563": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "#2563: Wetlands (Alliance): Fall of Dun Modr is taken on its own step, only while A Grim Task is not handed in" }
+		] },
+		"2614": { "tests": [
+			{ "node": "tests/placeholder-names.test.js", "test": "#2614: no guide pack shows the game's placeholder names (\"[DNT] Kill Credit\", \"PvP Tower Credit Marker\", \"Trigger Ichman\")" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/placeholders.rs", "test": "a_goal_on_a_credit_target_reads_as_its_quest_log_line_never_kill_the_placeholder" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/placeholders.rs", "test": "lookups_quest_step_never_names_a_credit_target" }
 		] }
 	},
 	"seedDrift": {}
