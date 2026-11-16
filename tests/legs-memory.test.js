@@ -5,8 +5,10 @@
 // taken it, and the heap it grows while loading, under Lua 5.1 as the client
 // counts it (collectgarbage("count")), with Polestar and its guides loaded as
 // in game. A figure past its budget fails the test: lower a budget when the
-// legs shrink, never raise one to let a change pass; a bake that outgrows it
-// needs a leaner leg (forge-nav bake.rs), not a larger budget.
+// legs shrink. A budget may grow (Fitz, 0.4.0: memory budgets may grow) only
+// with its reason written next to it (what grew, the measured figure and the
+// date); a bake that grows without such a reason needs a leaner leg
+// (forge-nav bake.rs), not a larger budget.
 //
 // Every race part of our pack that has a Legs.lua is measured (none until the
 // maintainer compiles guides with their legs.json: the test then says so and
@@ -23,7 +25,8 @@ const { RACE_FILES, RACE_BY_FILE } = require('../tools/lib/game/races');
 // KiB (Lua 5.1, 64-bit). Peak raised from 1536 to 1670 (measured 1,619 + ~3%, 2026-10-31, c19p): the
 // routes now ship 1-60 for all ten starts, and Skyborne's part holds the legs of both factions. Raised to 1800
 // (measured 1,746 + ~3%, 2026-11-16) with 0.4.0's integrated routes: the Riverglades and Shen'dralas joined both
-// factions' routes, whose legs Skyborne's part carries; the other parts stay under 920.
+// factions' routes, whose legs Skyborne's part carries (more route, not a heavier leg); the other parts stay
+// under 920. Under Fitz's 0.4.0 OK that memory budgets may grow.
 const BUDGET = { resident: 1024, peak: 1800 };
 
 const parts = RACE_FILES.map((race) => ({ race, file: path.join(ADDONS, `Polestar_Guides_${race}`, 'Legs.lua') })).filter((p) => fs.existsSync(p.file));
