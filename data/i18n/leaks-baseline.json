@@ -39909,6 +39909,14 @@
 				],
 				"english": "Tomb Weed"
 			},
+			"object:694772": {
+				"reason": "no-source",
+				"scenes": [
+					"guide",
+					"guides"
+				],
+				"english": "Fishing Trap"
+			},
 			"object:694785": {
 				"reason": "no-source",
 				"scenes": [

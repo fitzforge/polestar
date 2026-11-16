@@ -118,7 +118,7 @@ function MA.CardModel(g, sections)
 			if row.toGet > 0 then
 				local t = totals[row.item]
 				if not t then
-					t = { item = row.item, name = row.name, n = 0, way = row.way, buy = row.buy }
+					t = { item = row.item, name = ns.Compat.GetItemName(row.item) or row.name, n = 0, way = row.way, buy = row.buy }
 					totals[row.item] = t
 					order[#order + 1] = t
 				end

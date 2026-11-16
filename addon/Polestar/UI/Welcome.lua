@@ -1744,7 +1744,8 @@ do
 	local function groupDemoTitle()
 		local E = ns.Engine
 		local list = E and E.GroupQuests and E.GroupQuests() or {}
-		return known(list[1] and list[1].title) or L["Group quest"]
+		local q = list[1]
+		return known(q and (ns.Names.Quest(q.quest) or q.title)) or L["Group quest"]
 	end
 
 	function buildGroupStage(p)
