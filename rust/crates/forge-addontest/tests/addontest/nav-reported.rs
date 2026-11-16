@@ -506,3 +506,26 @@ fn wetlands_the_walk_to_hervdana_saegrund_is_found_from_the_road_and_from_meneth
 	}
 	joined_both_ways(world(1437, 64.50, 74.90), hervdana, Some("Alliance"), "Hervdana Saegrund's ledge");
 }
+
+// #2316 (Fenn), Desolace, Horde: walking up to Gurda Wildmane at Ghost Walker Post from the road to the east, the arrow
+// led straight up the post's east face, which can't be climbed. Players' recordings come down that face and go up by
+// the slope on the north side. The face is a cut on the walking maps now (up across it is closed, down stays): the walk
+// from the road (60.0,60.5) to Gurda (56.29,59.68) goes round by the north side, and crosses the face's line (Desolace
+// 57.3 from 57.6 to 60.3) nowhere.
+#[test]
+fn desolace_the_walk_from_the_road_to_gurda_wildmane_goes_up_the_north_slope_not_the_east_face_2316() {
+	let road = world(1443, 60.0, 60.5);
+	let gurda = world(1443, 56.29, 59.68);
+	let (north, south) = (world(1443, 57.3, 57.6), world(1443, 57.3, 60.3));
+	let got = walk(road, gurda, Some("Horde"));
+	assert!(truthy(&got), "the engine finds a walk from the road to Gurda Wildmane");
+	let pts = points(&got);
+	for w in pts.windows(2) {
+		let (a, b) = (w[0], w[1]);
+		if (a.1 - north.y) * (b.1 - north.y) <= 0.0 && a.1 != b.1 {
+			let t = (north.y - a.1) / (b.1 - a.1);
+			let x = a.0 + (b.0 - a.0) * t;
+			assert!(x > north.x || x < south.x, "the walk crosses the east face's line at {x:.1} (the face runs {:.1} to {:.1})", north.x, south.x);
+		}
+	}
+}

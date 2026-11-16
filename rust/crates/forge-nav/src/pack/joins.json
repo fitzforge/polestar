@@ -2,7 +2,8 @@
 	"note": [
 		"Grid joins (forge nav pack --leffe, rust/crates/forge-nav/src/pack/joins.rs): pairs of places players walk between that Polestar's navigation grid joins and Leffe's navigation maps do not. The pack routes each pair on the grid both ways and puts the way into his maps where they lack it: floors, arcs, entrances and edges.",
 		"Points are world yards in the client's UnitPosition frame (x north, y west) and the height of the floor the place stands on (null: none given).",
-		"Add a pair only when players walk it in the game (recordings, an in-game check or a report) and the walking maps have no way or a long detour between its ends."
+		"Add a pair only when players walk it in the game (recordings, an in-game check or a report) and the walking maps have no way or a long detour between its ends.",
+		"Cuts (rust/crates/forge-nav/src/pack/cuts.rs): faces players cannot walk up that the walking maps walk up. Each is a line from a to b (world yards, x north, y west) and the band of heights z it holds for: every move of the maps across the line going up is taken out, the way down stays. Add one only when players' recordings or a report show the face can't be climbed."
 	],
 	"joins": [
 		{ "id": "silver-stream-mine", "map": 0, "a": [-4826, -2676.7, 341.2], "b": [-4943.2, -2993.9, 319.9], "issue": 1875, "why": "Silver Stream Mine: from Mountaineer Stormpike in through the mouth to the Miners' League crates; the walking maps joined the mine to the world nowhere (the mouth and the tunnels only to each other)" },
@@ -127,5 +128,8 @@
 		{ "id": "the-grinding-quarry-2", "map": 0, "a": [-6524.1, -1188.6, 309.3], "b": [-7392.6, -927.6, 169.8], "why": "The Grinding Quarry: forever/reputation/thorium-brotherhood step 10 (collect Dark Iron Residue): the walking maps had no way between the goal and its previous goal; Polestar's walking grid walks it in 1812 yd" },
 		{ "id": "timbermaw-hold-1", "map": 1, "a": [7098.8, -2136.1, 583], "b": [7025.6, -2135.5, 586.4], "why": "Timbermaw Hold: forever/reputation/timbermaw-hold step 15 (collect Runecloth): the walking maps had no way between the goal and its previous goal; Polestar's walking grid walks it in 124 yd" },
 		{ "id": "wetlands-hervdana-saegrund", "map": 0, "a": [-4212.3, -3056.9, 8], "b": [-4257, -3109, 28], "issue": 2331, "why": "Wetlands, Dun Algaz: Hervdana Saegrund's ledge (65.8, 76.5) and the road below it to the north; the walking maps joined her ledge to nothing, so every walk to her came back with no way (players walk up from the road: 57 of them in the recordings); Polestar's walking grid walks it in 111 yd" }
+	],
+	"cuts": [
+		{ "id": "desolace-ghost-walker-post-east-face", "map": 1, "a": [-1274.7, 1657.2], "b": [-1355.7, 1657.2], "z": [60, 115], "issue": 2316, "why": "Ghost Walker Post's east face (Desolace 57.3, 57.6 to 57.3, 60.3): the walking maps walked up it from the road to Gurda Wildmane, and players can't climb it; in the recordings they come down it, and going up they take the slope on the north side (57.7, 57.5 to 57.1, 56.9)" }
 	]
 }
