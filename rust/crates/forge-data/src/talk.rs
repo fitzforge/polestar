@@ -8,8 +8,10 @@
 //!   hostile and give in), no item or spell used on the NPC, no emote, and no escort or defence
 //!   (each worded as such, and each a different goal).
 //!
-//! Applied before the corrections, so a correction still has the last word on any quest
-//! (The True Masters' Ragged John, #2543; The Smoldering Ruins of Thaurissan's historian, #2535).
+//! Applied once every source has given its counts (after the knowledge base: a count it fills makes
+//! the objective a server-counted credit, as Coming to Terms' Frightened Paladin), and never to a
+//! quest whose objectives a correction sets: the correction has the last word (The True Masters'
+//! Ragged John, #2543; The Smoldering Ruins of Thaurissan's historian, #2535).
 
 use forge_guide::js::{Obj, V};
 
@@ -48,11 +50,15 @@ fn asks_other(text: &str) -> bool {
 	text.split(|c: char| !(c.is_ascii_alphabetic() || c == '\'')).any(|w| NOT_TALK.iter().any(|n| w.eq_ignore_ascii_case(n)))
 }
 
-/// Retypes every kill objective of `quests` that is a talk (see the module) as `talk`, count 1.
+/// Retypes every kill objective of `quests` that is a talk (see the module) as `talk`, count 1,
+/// except in the quests whose objectives `corrections` (the merged corrections) set.
 /// -> the quests changed.
-pub fn retype(quests: &Obj, npcs: &Obj) -> Vec<String> {
+pub fn retype(quests: &Obj, npcs: &Obj, corrections: &V) -> Vec<String> {
 	let mut changed = Vec::new();
 	for (id, q) in quests.entries() {
+		if corrections.get("quests").get(&id).get("set").has("objectives") {
+			continue;
+		}
 		let text = q.get("objectiveText");
 		if asks_other(text.as_str().unwrap_or("")) {
 			continue;
@@ -88,8 +94,16 @@ mod tests {
 	fn run(quests: &str, npcs: &str) -> (Vec<String>, String) {
 		let q = parse_json(quests).unwrap().as_obj().unwrap().clone();
 		let n = parse_json(npcs).unwrap().as_obj().unwrap().clone();
-		let changed = retype(&q, &n);
+		let changed = retype(&q, &n, &V::obj());
 		(changed, stringify(&V::Obj(q), None))
+	}
+
+	#[test]
+	fn a_quest_whose_objectives_a_correction_sets_is_left_to_it() {
+		let corrections = parse_json(r#"{"quests":{"4224":{"set":{"objectives":[{"type":"kill","id":9563,"count":1}]}}}}"#).unwrap();
+		let q = parse_json(r#"{"4224":{"races":0,"objectiveText":"Speak with Ragged John.","objectives":[{"type":"kill","id":9563,"count":null}]}}"#).unwrap().as_obj().unwrap().clone();
+		let n = parse_json(r#"{"9563":{"faction":"AH"}}"#).unwrap().as_obj().unwrap().clone();
+		assert!(retype(&q, &n, &corrections).is_empty());
 	}
 
 	#[test]

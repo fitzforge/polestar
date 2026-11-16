@@ -537,9 +537,6 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 			None => public,
 		}
 	};
-	// Talks the quest data lists as kills (talk.rs), before the corrections so they keep the last word.
-	let talks = crate::talk::retype(&norm.quests, &norm.npcs);
-	log(&format!("talk objectives: {} quest(s) whose kill objective is a talk to a friendly NPC", talks.len()));
 	// Applied with or without Forever's quest data: a correction for an absent record becomes the
 	// record when it can stand alone, else it is named in the warnings.
 	let applied = crate::corrections::apply(&corrections, &norm.quests, &norm.npcs, &norm.objects, &norm.items, true);
@@ -840,6 +837,11 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 		}
 		kb = Some(out);
 	}
+
+	// Talks the quest data lists as kills (talk.rs): once the knowledge base has given its counts, and
+	// never on a quest whose objectives a correction sets.
+	let talks = crate::talk::retype(&norm.quests, &norm.npcs, &corrections);
+	log(&format!("talk objectives: {} quest(s) whose kill objective is a talk to a friendly NPC", talks.len()));
 
 	// NPC records that are only a city's or a faction's name with no spawn and nothing referring to them (QuestieDB
 	// 1.0.14's "Orgrimmar" and "Stormwind"): checked after the knowledge base, which adds spawns and roles.
