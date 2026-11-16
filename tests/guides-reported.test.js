@@ -15208,3 +15208,19 @@ test('#1544: Alliance: My Little Friends\' specimens are collects, shown with th
 		assert.ok(!step.goals.some((g) => g.t === 'kill'), `${guide}: no kill on the specimen step`);
 	}
 });
+
+// Profession guides built on Forever's own recipe and trainer data. Conjure and Piggyslam (#190, #297): Minor Healing
+// Potion is a First Aid recipe on Forever, so Alchemy 1-75 is Elixir of Minor Defense. twisted (#1958): Thick Leather is
+// taught from 175; the guide crafted it from 155, and it is gathered or bought instead. Quiz (#1808): Enchant Boots -
+// Lesser Agility (160) is taught by the Expert trainers only, Kitta Firewind and Hgarth.
+test('#190, #297, #1958, #1808: profession guides craft and learn what Forever\'s trainers teach', { skip }, () => {
+	const alchemy = goals('forever/professions/alchemy.guide');
+	assert.ok(!alchemy.some(({ goal }) => goal.spell === 2330), 'no Minor Healing Potion in Alchemy');
+	const first = alchemy.find(({ goal }) => goal.t === 'craft' && goal.untilSkill);
+	assert.equal(first.goal.spell, 7183, 'Alchemy 1-75 is Elixir of Minor Defense');
+	const leather = goals('forever/professions/leatherworking.guide');
+	assert.ok(!leather.some(({ goal }) => goal.t === 'craft' && goal.item === 4304), 'Thick Leather is never crafted');
+	const enchanting = goals('forever/professions/enchanting.guide');
+	const { goal } = enchanting[at(enchanting, 'learn 13637', (g) => g.t === 'learn' && g.spell === 13637)];
+	assert.deepEqual(goal.candidates.map((c) => c.npc).sort((a, b) => a - b), [11072, 11074], 'Kitta Firewind and Hgarth only');
+});
