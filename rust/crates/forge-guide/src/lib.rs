@@ -50,6 +50,7 @@ pub mod project;
 pub mod races;
 pub mod recorded;
 pub mod resolve;
+pub mod revisit;
 pub mod solo;
 pub mod timed;
 pub mod toc;
