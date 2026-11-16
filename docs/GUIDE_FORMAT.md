@@ -1319,6 +1319,12 @@ reason is an error, and one that covers no step any more is a warning:
   that gets the item. The quest never enters the log, so nothing tells the
   route whether the player still carries the item; without it the giver
   offers nothing and the step holds for good (An Apple Treat)
+- `gate-consumed`: a step with `when has <item>` in which a goal takes the
+  item out of the bags (a direct hand-in of it, the accept of a quest it
+  starts) before other goals of the step: once the item is gone the step's
+  `when` no longer holds and Polestar drops the rest of the step on the
+  spot. Put that goal last, or the goals after it in a step of their own
+  (a `use` is left out: the data does not say which items are spent)
 - `talk-kill`: a `kill` on a quest-log line the data types as a talk
   objective: write `talk <npc> quest Q.O`
 - `handin-unworked`: a required, plain `turnin Q` while one of Q's kill,

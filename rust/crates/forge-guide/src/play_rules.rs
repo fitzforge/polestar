@@ -7,6 +7,9 @@
 //!   for each and no goal before it in the step that gets the item. The quest never enters the log, so nothing
 //!   tells the route whether the player still carries the item: without it the giver offers nothing and the
 //!   step holds (An Apple Treat, reported six times).
+//! - `gate-consumed`: a step with `when has <item>` in which a goal takes the item (a direct hand-in of it, the
+//!   accept of a quest it starts) before other goals of the step: once the item is gone the step's `when` fails and
+//!   Polestar drops the rest of the step on the spot.
 //! - `talk-kill`: a `kill` goal on a quest-log line the data types as a talk objective (`talk`): the player is
 //!   told to kill an NPC they are meant to speak to.
 //! - `item-skippable`: a required `use <item>`, or an `accept` of a quest an item starts, whose item every
@@ -166,13 +169,51 @@ pub fn check_direct_gates(g: &V, data: &Data, allow: &Allow, diag: &mut Diagnost
 							"`turnin {} direct` takes {list} from the bags, but the step has no `when has` for it: a player without it is held at a hand-in the giver never offers",
 							quest_name(data, &q)
 						),
-						&format!("give the step {gates} (the hand-in then waits for the item), or get the item earlier in the same step"),
+						&format!("put the hand-in last in a step with {gates} (the hand-in then waits for the item), or get the item earlier in the same step"),
 					);
 				}
 			}
 			if let Some(i) = got_item(&goal) {
 				got.insert(key(&i));
 			}
+		}
+	}
+}
+
+/// The items a goal surely takes out of the bags: a direct hand-in's items, the item that starts an accepted quest.
+/// (A `use` is left out: the data does not say which items are spent and which stay.)
+fn used_up(goal: &V, data: &Data) -> Vec<V> {
+	match t_of(goal).as_str() {
+		"turnin" if goal.get("direct").strict_eq(&V::Bool(true)) => hand_over_items(data, &goal.get("quest")),
+		"accept" => needs(goal, data).into_iter().collect(),
+		_ => Vec::new(),
+	}
+}
+
+/// gate-consumed (module docs): a step with `when has <item>` whose goal uses the item up before other goals of the
+/// step: once the item is gone the step's `when` fails, and Polestar drops the rest of the step on the spot.
+pub fn check_consumed_gates(g: &V, data: &Data, allow: &Allow, diag: &mut Diagnostics) {
+	for step in g.get("steps").items() {
+		let gated = has_gates(&step);
+		if gated.is_empty() {
+			continue;
+		}
+		let goals = step.get("goals").items();
+		for (k, goal) in goals.iter().enumerate() {
+			let Some(item) = used_up(goal, data).into_iter().find(|i| gated.contains(&key(i))) else { continue };
+			if !goals[k + 1..].iter().any(|x| t_of(x) != "note") {
+				continue;
+			}
+			report(
+				diag,
+				allow,
+				g,
+				goal.hidden("_line").num(),
+				"gate-consumed",
+				("item", &item),
+				format!("the step waits for {} (`when has`), and this goal uses it up before the step's other goals: once it is gone the step no longer applies and they drop", item_name(data, &item)),
+				"move this goal last in the step, or the goals after it to a step of their own",
+			);
 		}
 	}
 }

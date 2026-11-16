@@ -75,6 +75,23 @@ fn a_required_direct_hand_in_that_takes_items_needs_a_when_has_for_them() {
 }
 
 #[test]
+fn a_gated_step_that_hands_its_item_over_before_its_other_goals_drops_them() {
+	let d = play_data();
+	let text = guide_text(&["step De Vries", "  when has 2589", "  turnin 9600 direct", "  accept 783"]);
+	assert_eq!(
+		compile_with(&text, &d).erred("uses it up"),
+		[format!(
+			"test.guide:{}: the step waits for Linen Cloth (2589) (`when has`), and this goal uses it up before the step's other goals: once it is gone the step no longer applies and they drop",
+			line_of(&text, "  turnin 9600 direct")
+		)]
+	);
+	// Last in the step, or the rest in a step of its own: right. So is an item-started accept last.
+	assert!(run(&["step De Vries", "  when has 2589", "  accept 783", "  turnin 9600 direct"], &d).erred("uses it up").is_empty());
+	assert!(run(&["step De Vries", "  when has 2589", "  turnin 9600 direct", "step Then", "  accept 783"], &d).erred("uses it up").is_empty());
+	assert_eq!(run(&["step Read", "  when has 1210", "  accept 9602", "  accept 783"], &d).erred("uses it up").len(), 1);
+}
+
+#[test]
 fn a_kill_on_a_talk_line_is_an_error() {
 	let d = play_data();
 	let text = guide_text(&["step S", "  accept 9601", "  kill 197 quest 9601.1", "  kill 6 quest 9601.2", "  turnin 9601"]);

@@ -1238,6 +1238,7 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 		check_chosen_all_optional(g, diag);
 		check_dungeon_floors(g, data, diag);
 		crate::play_rules::check_direct_gates(g, data, &allow, diag);
+		crate::play_rules::check_consumed_gates(g, data, &allow, diag);
 		crate::play_rules::check_talk_kills(g, data, &allow, diag);
 		let before = ctx.ancestors(g);
 		crate::play_rules::check_skippable_items(g, &before, data, &allow, diag);
