@@ -2318,6 +2318,19 @@ test(`${ELWYNN}: Applejack reports (#820, #823, #2312, #2561): direct hand-ins a
 	for (const pred of [is('accept', 109), is('accept', 11)]) assert.ok(has(steps[rainer], pred), "Rainer's accepts stay on his step");
 });
 
+// #2561's sweep: Horde Silithus' Gadgetzan stop was The Super Egg-O-Matic's
+// hand-in alone (2741, at the Egg-O-Matic straight from the bags), for a
+// player still carrying the Hippogryph Egg from Azshara. A player loading the
+// guide without the egg stood on a hand-in the machine never offers. The step
+// shows only with the egg in the bags.
+test('forever/horde/50-60/06-silithus.guide: the Egg-O-Matic stop shows only with the Hippogryph Egg in the bags (#2561 sweep)', { skip }, () => {
+	const { steps } = compiled('forever/horde/50-60/06-silithus.guide');
+	const egg = steps.filter((st) => st.goals.some((g) => g.t === 'turnin' && g.quest === 2741));
+	assert.equal(egg.length, 1, 'one Egg-O-Matic hand-in');
+	assert.ok(egg[0].goals.find((g) => g.quest === 2741).direct, 'handed in without entering the quest log');
+	assert.ok((egg[0].when || []).some((p) => p.k === 'has' && !p.neg && p.item === 8564 && (p.n || 1) === 1), 'shown only with the Hippogryph Egg in the bags');
+});
+
 // Croaky (level 11 elite) killed players 4 times at levels 8-9 on the Downstream
 // step (players' recordings; 12 deaths in the archive by #977). His head stays an
 // optional extra (#221), collected only in the steps for players who group for it
