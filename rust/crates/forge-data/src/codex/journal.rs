@@ -597,10 +597,8 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 					add_s(&mut keys, &k.to_js_string());
 				}
 			}
-			// An item an NPC drops or an object holds inside one instance only, and nowhere outside: the
-			// Horn of Xelthos in Shadowfang Keep's Ornamented Chest, Jordan's Hammer there (the #2560 sweep).
 			if o.get("type").as_str() == Some("item") && !outside.contains(&oid) {
-				for k in item_links.get(&oid).into_iter().flatten().chain(item_object_instances.get(&oid).into_iter().flatten()) {
+				for k in item_links.get(&oid).into_iter().flatten() {
 					add_s(&mut keys, k);
 				}
 			}
@@ -1595,6 +1593,16 @@ mod tests {
 			assert!(load_journal_quests(&with(ok)).is_ok(), "{ok}");
 		}
 		for bad in ["[]", r#"["giver"]"#, "true", r#""start""#] {
+			assert!(load_journal_quests(&with(bad)).is_err(), "{bad}");
+		}
+	}
+
+	// The #2560 sweep: a row may take a quest off its page (`exclude: true`), never together with `inside`.
+	#[test]
+	fn a_rows_exclude_is_true_and_never_beside_inside() {
+		let with = |extra: &str| format!(r#"{{ "quests": [{{ "quest": 96609, "instance": "city-of-dalaran", "source": {{ "kind": "recording", "ref": "9 people" }}{extra}, "note": "n" }}] }}"#);
+		assert!(load_journal_quests(&with(r#", "exclude": true"#)).is_ok());
+		for bad in [r#", "exclude": false"#, r#", "exclude": 1"#, r#", "exclude": true, "inside": ["start"]"#] {
 			assert!(load_journal_quests(&with(bad)).is_err(), "{bad}");
 		}
 	}

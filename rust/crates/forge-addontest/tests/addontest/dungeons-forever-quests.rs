@@ -88,8 +88,11 @@ fn alcaz() -> (Value, Value) {
 		npc(260383, "Sergeant Ulka", json!("H"), Value::Null, Some((1445, 70.3, 18.9))),
 		npc(6946, "Renzik \"The Shiv\"", json!("A"), Value::Null, Some((1453, 78.4, 70.9))),
 		npc(260271, "Sully McCleary", json!("A"), Value::Null, Some((1445, 63.5, 42.3))),
+		npc(264770, "Mason Connery", Value::Null, Value::Null, None),
+		npc(264845, "Mason Connery", Value::Null, Value::Null, None),
 	] {
-		c["npcs"][n["id"].to_string()] = n;
+		let id = n["id"].to_string();
+		c["npcs"][id] = n;
 	}
 	c["objects"]["611086"] = json!({ "id": 611086, "name": "Connery's Trunk", "spawns": [{ "map": 1436, "x": 43.4, "y": 67.9, "f": "e" }] });
 	let item = |id: i64, name: &str, sources: Value| json!({ "id": id, "name": name, "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": sources });
@@ -119,7 +122,8 @@ fn alcaz() -> (Value, Value) {
 		quest(96381, "A Bit of Wet Work", json!(ALLIANCE), at("npc", 260271), at("npc", 260271), json!([]), json!([]), true),
 		quest(96377, "State Secrets", json!(ALLIANCE), none.clone(), at("npc", 6946), json!([]), item_obj(274041), true),
 	] {
-		c["quests"][q["id"].to_string()] = q;
+		let id = q["id"].to_string();
+		c["quests"][id] = q;
 	}
 	(c, i)
 }
@@ -203,6 +207,7 @@ local function block(id)
 end
 local function plain(s) return (s or ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "") end
 local function card(id)
+	DS.ShowQuest(id)
 	local b = block(id)
 	if not b then return false end
 	local chain = {{}}
@@ -229,18 +234,20 @@ fn alcaz_prison_lists_the_prison_story_picked_up_inside_and_state_secrets_after_
 	let (before, _) = journal(&c, &i, &[]);
 	assert_eq!(ids(&page(&before, "alcaz-prison")), vec![96332, 96335, 96381], "the boss rules alone: the key and Ca'zass's head");
 	let (j, warnings) = journal(&c, &i, &journal_rows());
-	assert!(warnings.iter().all(|w| !is_match(w, "journal-quests")), "{warnings:?}");
+	assert!(warnings.iter().all(|w| !is_match(w, "alcaz|9526[23]|95309|95454|95483|9633[257]|96334|96369|9637[67]|96381")), "{warnings:?}");
 	let p = page(&j, "alcaz-prison");
 	assert_eq!(ids(&p), vec![95262, 95263, 95309, 95454, 95483, 96332, 96334, 96335, 96337, 96369, 96376, 96377, 96381]);
 	let inside = json!({ "kind": null, "id": null, "name": null, "map": null, "x": null, "y": null, "f": null, "inside": true });
 	for (id, start, finish) in [(96335, true, true), (96337, true, false), (95454, true, true), (96369, true, true), (95483, true, false), (95263, true, false), (95262, false, true), (95309, false, true)] {
+	let connery = json!({ "kind": "npc", "id": 264770, "name": "Mason Connery", "map": null, "x": null, "y": null, "f": null, "inside": true });
 		let q = page_quest(&p, id);
 		assert_eq!(q["inside"], json!(start), "{id} picked up inside");
+		let at = if id == 96335 || id == 96337 { &connery } else { &inside };
 		if start {
-			assert_eq!(q["start"], inside, "{id}: picked up inside, at no one the data places");
+			assert_eq!(&q["start"], at, "{id}: picked up inside, from the prisoner or at no one the data places");
 		}
 		if finish {
-			assert_eq!(q["finish"], inside, "{id}: handed in inside");
+			assert_eq!(&q["finish"], at, "{id}: handed in inside");
 		}
 	}
 	assert_eq!((page_quest(&p, 96337)["finish"]["id"].clone(), page_quest(&p, 96337)["finish"]["inside"].clone()), (json!(611086), json!(false)), "Connery's Trunk, Westfall");
@@ -281,11 +288,11 @@ fn the_alcaz_prison_page_says_picked_up_inside_and_names_each_sides_state_secret
 		emit({ h = h, take = take, a = { somber = card(95263), renzik = card(96377), nazgrel = card(96376) } })"#,
 	);
 	let h = &out["h"];
-	for k in ["chains", "gold", "honor", "thrall"] {
+	for (k, at) in [("chains", "Mason Connery  \u{b7}  inside the dungeon"), ("gold", "Mason Connery  \u{b7}  inside the dungeon"), ("honor", "inside the dungeon"), ("thrall", "inside the dungeon")] {
 		assert!(is_match(h[k]["meta"].as_str().unwrap(), "Picked up inside the dungeon"), "{k}: {}", h[k]["meta"]);
-		assert_eq!(h[k]["start"], "inside the dungeon", "{k}");
+		assert_eq!(h[k]["start"], at, "{k}");
 	}
-	assert_eq!(h["chains"]["finish"], "inside the dungeon");
+	assert_eq!(h["chains"]["finish"], "Mason Connery  \u{b7}  inside the dungeon");
 	assert_eq!(h["gold"]["finish"], "Connery's Trunk  \u{b7}  Westfall");
 	assert_eq!(h["thrall"]["finish"], "Thrall  \u{b7}  Orgrimmar");
 	assert!(!is_match(h["secrets"]["meta"].as_str().unwrap(), "Picked up inside"), "{}", h["secrets"]["meta"]);
@@ -347,45 +354,69 @@ fn krol_dok_moulding_from_tunk_inside_is_on_krol_dok_strongholds_page_picked_up_
 	assert_eq!(out["take"], 0, "nothing to pick up before the run");
 }
 
-// The #2560 sweep, Shadowfang Keep and the Scarlet Monastery: an objective item an object holds inside one instance
-// only ties its quest to that dungeon, as a drop does: The Horn of Xelthos (the Ornamented Chest, Shadowfang Keep),
-// The Test of Righteousness (Jordan's Hammer there), The Eye of Bhossca (the Padlocked Reliquary, the Scarlet
-// Monastery); 11, 7 and 7 people progressed them inside. A Moon-Kissed Blade's Enchanted Silver Ingot lies in an
-// object the data has not placed: its cited row adds it. An item an object out in the world holds ties nothing.
+// The #2560 sweep, quests whose objective item lies in an object inside a dungeon: The Horn of Xelthos and The Test
+// of Righteousness (Shadowfang Keep), The Eye of Bhossca (the Scarlet Monastery), A Moon-Kissed Blade (Shadowfang
+// Keep; 11, 7, 7 and 9 people progressed them inside), Collection of Goods (Stratholme's supply crates) and Leggings
+// of Arcana (Scholomance's embalming fluid). No rule ties a quest through an object (a general one also picked up
+// retired quests), so the committed rows put them on their pages.
 #[test]
-fn objective_items_an_object_holds_inside_one_dungeon_tie_their_quests_to_it_and_a_row_adds_the_moon_kissed_blade() {
+fn the_rows_put_quests_whose_item_lies_in_an_object_inside_on_their_dungeons_pages() {
 	let f = fixture("dungeons.json");
 	let (mut c, mut i) = (f["codex"].clone(), f["inputs"].clone());
-	for (key, name, map) in [("shadowfang-keep", "Shadowfang Keep", 33), ("scarlet-monastery", "Scarlet Monastery", 189)] {
-		c["instances"][key] = json!({ "key": key, "name": name, "kind": "dungeon", "forever": false, "areaId": null, "map": map, "entrance": null, "levels": [20, 25, 30], "bosses": [] });
+	for (key, name, map) in [("shadowfang-keep", "Shadowfang Keep", 33), ("scarlet-monastery", "Scarlet Monastery", 189), ("stratholme", "Stratholme", 329), ("scholomance", "Scholomance", 289)] {
+		c["instances"][key] = json!({ "key": key, "name": name, "kind": "dungeon", "forever": false, "areaId": null, "map": map, "entrance": null, "levels": [20, 25, 60], "bosses": [] });
 		i["client"]["instanceMaps"].as_array_mut().unwrap().push(json!({ "id": map, "name": name, "raid": false, "players": 5, "area": null, "areas": [], "inner": [], "zones": [], "corpse": null }));
 	}
-	let object = |id: i64, name: &str, instances: Value| (id, json!({ "id": id, "name": name, "instances": instances }));
-	for (id, o) in [object(410528, "Ornamented Chest", json!([33])), object(91138, "Jordan's Hammer", json!([33])), object(412261, "Padlocked Reliquary", json!([189])), object(92420, "Jordan's Ore Shipment", Value::Null)] {
-		i["forever"]["objects"][id.to_string()] = o.clone();
-		c["objects"][id.to_string()] = json!({ "id": id, "name": o["name"], "spawns": [] });
-	}
-	let item = |id: i64, name: &str, object: Option<i64>| {
-		let sources = object.map_or(json!([]), |o| json!([{ "type": "object", "object": o, "chance": 100 }]));
-		json!({ "id": id, "name": name, "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": sources })
-	};
-	for (id, name, object) in [(210183, "Horn of Xelthos", Some(410528)), (6895, "Jordan's Smithing Hammer", Some(91138)), (210953, "Eye of Bhossca", Some(412261)), (6992, "Jordan's Ore Shipment", Some(92420)), (267361, "Enchanted Silver Ingot", None)] {
-		c["items"][id.to_string()] = item(id, name, object);
-	}
-	let one = |id: i64, title: &str, races: Value, item: i64| {
-		let mut q = quest(id, title, races, json!({ "npc": [1938] }), json!({ "npc": [1938] }), json!([]), json!([{ "type": "item", "id": item, "count": 1 }]), false);
+	let one = |id: i64, title: &str, races: Value| {
+		let mut q = quest(id, title, races, json!({ "npc": [1938] }), json!({ "npc": [1938] }), json!([]), json!([]), false);
 		q["level"] = json!(25);
 		q
 	};
-	c["quests"]["78261"] = one(78261, "The Horn of Xelthos", Value::Null, 210183);
-	c["quests"]["1654"] = one(1654, "The Test of Righteousness", json!(ALLIANCE), 6895);
-	c["quests"]["78676"] = one(78676, "The Eye of Bhossca", Value::Null, 210953);
-	c["quests"]["95036"] = one(95036, "A Moon-Kissed Blade", json!(HORDE), 267361);
-	c["quests"]["90100"] = one(90100, "Ore Out in the World", Value::Null, 6992);
+	for (id, title, races) in [
+		(78261, "The Horn of Xelthos", Value::Null),
+		(1654, "The Test of Righteousness", json!(ALLIANCE)),
+		(78676, "The Eye of Bhossca", Value::Null),
+		(95036, "A Moon-Kissed Blade", json!(HORDE)),
+		(7642, "Collection of Goods", json!(ALLIANCE)),
+		(5067, "Leggings of Arcana", Value::Null),
+	] {
+		c["quests"][id.to_string()] = one(id, title, races);
+	}
+	let (before, _) = journal(&c, &i, &[]);
+	for key in ["shadowfang-keep", "scarlet-monastery", "stratholme", "scholomance"] {
+		assert_eq!(ids(&page(&before, key)), Vec::<i64>::new(), "no rule places them ({key})");
+	}
 	let (j, _) = journal(&c, &i, &journal_rows());
 	assert_eq!(ids(&page(&j, "shadowfang-keep")), vec![1654, 78261, 95036]);
 	assert_eq!(ids(&page(&j, "scarlet-monastery")), vec![78676]);
-	for key in ["wailing-caverns", "deadmines"] {
-		assert!(page(&j, key)["quests"].as_array().unwrap().iter().all(|q| q["id"] != 90100), "the ore in the world ties nothing ({key})");
+	assert_eq!(ids(&page(&j, "stratholme")), vec![7642]);
+	assert_eq!(ids(&page(&j, "scholomance")), vec![5067]);
+}
+
+// The #2560 sweep, City of Dalaran: the client's AreaTable puts the city's area (16560) on the dungeon's map (2959)
+// beside the dungeon's own (16544), so the area rule put three Alliance city quests on the dungeon's page; players'
+// recordings show A Taste of Home taken in the city and done in Azshara, never inside. The committed rows' `exclude`
+// takes the three off; a dungeon quest filed under 16544 stays.
+#[test]
+fn city_of_dalaran_leaves_out_the_city_quests_its_map_shares() {
+	let f = fixture("dungeons.json");
+	let (mut c, mut i) = (f["codex"].clone(), f["inputs"].clone());
+	c["instances"]["city-of-dalaran"] = json!({
+		"key": "city-of-dalaran", "name": "City of Dalaran", "kind": "dungeon", "forever": true, "areaId": 16544, "map": 2959, "entrance": null,
+		"levels": [24, 28, 35], "bosses": [],
+	});
+	i["client"]["instanceMaps"]
+		.as_array_mut()
+		.unwrap()
+		.push(json!({ "id": 2959, "name": "City of Dalaran", "raid": false, "players": 5, "area": 16544, "areas": [16544, 16560], "inner": [16544, 16560], "zones": [], "corpse": null }));
+	c["npcs"]["29049"] = npc(29049, "Arille Azuregaze", json!("A"), Value::Null, Some((1416, 30.0, 40.0)));
+	for (id, title, area) in [(96609, "A Taste of Home", 16560), (96812, "Thicker Than Water", 16560), (96603, "Unstable Magic", 16560), (92456, "A Green Sample", 16544)] {
+		c["quests"][id.to_string()] = quest(id, title, json!(ALLIANCE), json!({ "npc": [29049] }), json!({ "npc": [29049] }), json!([]), json!([]), false);
+		i["forever"]["quests"][id.to_string()] = json!({ "area": area, "source": ["questie-forever"] });
 	}
+	let (before, _) = journal(&c, &i, &[]);
+	assert_eq!(ids(&page(&before, "city-of-dalaran")), vec![92456, 96603, 96609, 96812], "the area rule alone");
+	let (j, warnings) = journal(&c, &i, &journal_rows());
+	assert!(warnings.iter().all(|w| !is_match(w, "city-of-dalaran")), "{warnings:?}");
+	assert_eq!(ids(&page(&j, "city-of-dalaran")), vec![92456]);
 }

@@ -238,6 +238,36 @@
 			"note": "A Moon-Kissed Blade (Paladin, Horde): its Enchanted Silver Ingot is inside Shadowfang Keep, an object the data has not placed; its other parts are in the Deadmines and outside."
 		},
 		{
+			"quest": 78261,
+			"instance": "shadowfang-keep",
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 11 people (9 established, both factions) ticked The Horn of Xelthos's line inside Shadowfang Keep (map 33)" },
+			"note": "The Horn of Xelthos (both factions; the Dead Drop in Silverpine Forest): the horn is in the Ornamented Chest inside Shadowfang Keep, an object no rule ties a quest to."
+		},
+		{
+			"quest": 1654,
+			"instance": "shadowfang-keep",
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 7 people (6 established) ticked The Test of Righteousness's Jordan's Smithing Hammer line inside Shadowfang Keep (map 33)" },
+			"note": "The Test of Righteousness (Paladin, Alliance; Jordan Stilwell, Ironforge): Jordan's Smithing Hammer is inside Shadowfang Keep (its other parts: the Deadmines and outside)."
+		},
+		{
+			"quest": 78676,
+			"instance": "scarlet-monastery",
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 7 people (6 established, both factions) ticked The Eye of Bhossca's line inside the Scarlet Monastery (map 189)" },
+			"note": "The Eye of Bhossca (both factions; the Dead Drop in Silverpine Forest): the eye is in the Padlocked Reliquary inside the Scarlet Monastery."
+		},
+		{
+			"quest": 7642,
+			"instance": "stratholme",
+			"source": { "kind": "tdb", "ref": "gameobjects 176224 and 181085 (the Supply Crates holding Stratholme Holy Water, item 13180) spawn only in map 329 (Stratholme)" },
+			"note": "Collection of Goods (Alliance; Grimand Elmore, Stormwind): the Stratholme Holy Water comes from the supply crates inside Stratholme."
+		},
+		{
+			"quest": 5067,
+			"instance": "scholomance",
+			"source": { "kind": "tdb", "ref": "gameobject 175965 (Frostwhisper's Embalming Fluid, item 12736) spawns only in map 289 (Scholomance)" },
+			"note": "Leggings of Arcana (Malyfous's Catalogue, Everlook): Frostwhisper's Embalming Fluid is inside Scholomance."
+		},
+		{
 			"quest": 96609,
 			"instance": "city-of-dalaran",
 			"exclude": true,

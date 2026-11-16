@@ -7838,9 +7838,7 @@ pack as `Dungeons1.lua` (a summary table per dungeon for the list, and the page
 as Lua source compiled only when opened): the quests QuestieDB files under the
 instance's areas (the areas on the instance's map and the outdoor areas of its
 name, as the solo filter's instance classification reads them,
-`tools/lib/sim/solo.js`), whose objectives or starting item point into it
-(an objective item an NPC drops or an object holds inside one instance only:
-the Horn of Xelthos in Shadowfang Keep's Ornamented Chest),
+`tools/lib/sim/solo.js`), whose objectives or starting item point into it,
 that Forever's dungeon and raid quest lists place in it (`quests.json`'s
 `web.zone`, counted only when QuestieDB's Forever store has the quest,
 which keeps out `<UNUSED>`, `<NYI>` and retired quests), whose start item drops
