@@ -543,3 +543,23 @@ fn ironforge_and_stormwind_npcs_beside_their_cells_surfaces_are_walked_to_at_the
 	joined_both_ways(ironforge_fm, Pt { c: 0, x: -4876.6, y: -1149.2, z: Some(512.5) }, Some("Alliance"), "Nissa Firestone");
 	joined_both_ways(Pt { c: 0, x: -8835.8, y: 490.1, z: Some(109.7) }, Pt { c: 0, x: -9102.3, y: 834.7, z: Some(105.2) }, Some("Alliance"), "Connor Rivers");
 }
+
+// The city sweep's NPCs whose floor neither map joined to the city (0.4.1, #2028): grid joins from the flight master.
+// Ilsa Corbin, Stormwind's warriors' trainer in Old Town (109.5), Thatog in Orgrimmar's Valley of Strength (36.7) and
+// Jes'rimon on the Drag (54.8) are walked to at their height and back; Thom Filch, under Ironforge (399.1, the
+// Forever server's spawn), is walked to (our grid's way down to him has a drop it can't climb back, so the way out
+// is left for the in-game check).
+#[test]
+fn stormwind_orgrimmar_and_ironforge_npcs_on_floors_joined_from_the_flight_master_are_walked_to_at_their_height_2028() {
+	let stormwind_fm = Pt { c: 0, x: -8835.8, y: 490.1, z: Some(109.7) };
+	let orgrimmar_fm = Pt { c: 1, x: 1676.3, y: -4313.4, z: Some(61.7) };
+	joined_both_ways(stormwind_fm, Pt { c: 0, x: -8688.6, y: 325.8, z: Some(109.5) }, Some("Alliance"), "Ilsa Corbin");
+	joined_both_ways(orgrimmar_fm, Pt { c: 1, x: 1598.6, y: -4460.2, z: Some(36.7) }, Some("Horde"), "Thatog");
+	joined_both_ways(orgrimmar_fm, Pt { c: 1, x: 1955.1, y: -4459.4, z: Some(54.8) }, Some("Horde"), "Jes'rimon");
+	let thom = Pt { c: 0, x: -4803.7, y: -968.2, z: Some(399.1) };
+	let got = walk(Pt { c: 0, x: -4821.1, y: -1152.4, z: Some(502.3) }, thom, Some("Alliance"));
+	assert!(truthy(&got), "the engine finds a walk from Ironforge's flight master to Thom Filch");
+	let pts = points(&got);
+	let last = pts[pts.len() - 1];
+	assert!(last.2.is_some_and(|z| (z - 399.1).abs() < 5.0), "the walk to Thom Filch ends at his height, not {:?}", last.2);
+}
