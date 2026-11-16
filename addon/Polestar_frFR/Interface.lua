@@ -1708,6 +1708,7 @@ L["%s (%s XP)"] = "%s (%s XP)"
 L["They stay in your log, and the guide lists who takes each in."] = "Elles restent dans votre journal, et le guide indique à qui rendre chacune."
 L["Load it anyway? They stay in your log, and the guide lists who takes each in."] = "Le charger quand même ? Elles restent dans votre journal, et le guide indique à qui rendre chacune."
 L["This zone is new in Forever. Its guide is experimental and still a work in progress: thanks for trying it."] = "Cette zone est nouvelle dans Forever. Son guide est expérimental et encore en chantier : merci de l'essayer."
+L["This zone is new in Forever."] = "Cette zone est nouvelle dans Forever."
 
 -- UI/Lookup.lua
 L["Companion"] = "Mascotte"

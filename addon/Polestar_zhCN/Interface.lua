@@ -1707,6 +1707,7 @@ L["%s (%s XP)"] = "%s（%s 经验）"
 L["They stay in your log, and the guide lists who takes each in."] = "它们会留在日志中，指南会列出每个任务交给谁。"
 L["Load it anyway? They stay in your log, and the guide lists who takes each in."] = "仍要加载吗？它们会留在日志中，指南会列出每个任务交给谁。"
 L["This zone is new in Forever. Its guide is experimental and still a work in progress: thanks for trying it."] = "此地区为 Forever 新增。其指南为实验性，仍在完善中：感谢你的试用。"
+L["This zone is new in Forever."] = "此地区为 Forever 新增。"
 
 -- UI/Lookup.lua
 L["Companion"] = "小伙伴"

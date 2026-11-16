@@ -1707,6 +1707,7 @@ L["%s (%s XP)"] = "%s (%s опыта)"
 L["They stay in your log, and the guide lists who takes each in."] = "Они останутся в журнале, а гайд покажет, кому сдать каждое."
 L["Load it anyway? They stay in your log, and the guide lists who takes each in."] = "Всё равно загрузить? Они останутся в журнале, а гайд покажет, кому сдать каждое."
 L["This zone is new in Forever. Its guide is experimental and still a work in progress: thanks for trying it."] = "Эта зона появилась в Forever. Ее гайд экспериментальный и еще в работе: спасибо, что пробуете его."
+L["This zone is new in Forever."] = "Эта зона появилась в Forever."
 
 -- UI/Lookup.lua
 L["Companion"] = "Питомец"

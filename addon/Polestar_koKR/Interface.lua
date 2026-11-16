@@ -1707,6 +1707,7 @@ L["%s (%s XP)"] = "%s (경험치 %s)"
 L["They stay in your log, and the guide lists who takes each in."] = "퀘스트는 목록에 남으며, 가이드에서 각각 누구에게 제출하는지 알려 줍니다."
 L["Load it anyway? They stay in your log, and the guide lists who takes each in."] = "그래도 불러올까요? 퀘스트는 목록에 남으며, 가이드에서 각각 누구에게 제출하는지 알려 줍니다."
 L["This zone is new in Forever. Its guide is experimental and still a work in progress: thanks for trying it."] = "이 지역은 Forever에 새로 추가되었습니다. 가이드는 실험적이며 아직 작업 중입니다. 사용해 주셔서 감사합니다."
+L["This zone is new in Forever."] = "이 지역은 Forever에 새로 추가되었습니다."
 
 -- UI/Lookup.lua
 L["Companion"] = "애완동물"

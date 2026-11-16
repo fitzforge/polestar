@@ -753,6 +753,7 @@ L["%s (%s XP)"] = "%s (%s EP)"
 L["They stay in your log, and the guide lists who takes each in."] = "Sie bleiben in deinem Log, und der Guide nennt, bei wem du jede abgibst."
 L["Load it anyway? They stay in your log, and the guide lists who takes each in."] = "Trotzdem laden? Sie bleiben in deinem Log, und der Guide nennt, bei wem du jede abgibst."
 L["This zone is new in Forever. Its guide is experimental and still a work in progress: thanks for trying it."] = "Dieses Gebiet ist neu in Forever. Sein Guide ist experimentell und noch in Arbeit: Danke, dass du ihn ausprobierst."
+L["This zone is new in Forever."] = "Dieses Gebiet ist neu in Forever."
 
 -- UI/Report.lua
 L["skipped"] = "übersprungen"
