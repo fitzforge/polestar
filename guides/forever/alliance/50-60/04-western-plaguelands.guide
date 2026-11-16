@@ -631,6 +631,15 @@ step Torwa Pathfinder
   turnin 4291
   accept 4292
   accept 4289                         -- The pelts come from the gorillas on Ironstone Plateau
+  turnin 87494 optional               -- Microcrystal Contamination, if a ravasaur dropped the scale since the first visit
+  accept 87492
+
+step Damaged Blue Crystal
+  tip The Damaged Blue Crystal is a short ride west of Torwa's camp.
+  collect 280417 quest 87492          -- Damaged Blue Crystal
+
+step Torwa Pathfinder
+  turnin 87492
 
 step Torwa Pathfinder
   when complete 4289

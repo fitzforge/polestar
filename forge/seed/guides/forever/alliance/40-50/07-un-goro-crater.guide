@@ -5,7 +5,7 @@ faction Alliance
 levels 49-51
 zone Un'Goro Crater
 next forever/alliance/50-60/01-burning-steppes
-pitch For characters of 49 to 51, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52; the pylons, the bones, the hive and Shizzle's scales wait for the later Un'Goro visit at about 56.
+pitch For characters of 49 to 51, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones, the hive and Shizzle's scales wait for the later Un'Goro visit at about 56.
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -108,10 +108,14 @@ step Torwa Pathfinder
 step Fresh Threshadon Carcass
   tip The dead Threshadon lies by the water north of Torwa.
   tip Careful: Venomhide Ravasaurs (50-51) hunt along the water there: pull them one at a time before you loot the carcass.
+  tip Any ravasaur may drop a Crystal Infused Scale: right-click it, Torwa takes it.
   collect 11504 quest 4290            -- Piece of Threshadon Carcass
+  collect 280459 x1 optional          -- Crystal Infused Scale
+  accept 87494 optional
 
 step Torwa Pathfinder
   turnin 4290
+  turnin 87494 optional               -- Microcrystal Contamination, if a ravasaur dropped the scale
   accept 4291
   accept 4289                         -- The gorillas on Ironstone Plateau carry the pelts: keep it for the second Un'Goro visit, around 56
 

@@ -10447,6 +10447,24 @@
 				"issue": "-"
 			},
 			{
+				"q": 87494,
+				"after": [
+					"accept",
+					4290
+				],
+				"reason": "Alliance 40-60 fix round 1 (0.4.0): Microcrystal Contamination (5,650 XP) starts from a Crystal Infused Scale that any ravasaur may drop; the Un'Goro guide's Threshadon carcass step stands among Venomhide Ravasaurs and Torwa Pathfinder takes it right after (players' recordings: 10 people took it at 49-54 all over the crater and handed it to Torwa). Optional, as the scale is a chance drop; the Western Plaguelands guide's Torwa stop takes it from whoever finds the scale later.",
+				"issue": "-"
+			},
+			{
+				"q": 87492,
+				"after": [
+					"accept",
+					4292
+				],
+				"reason": "Alliance 50-60 fix round 1 (0.4.0): Uncanny Crystal (5,650 XP, minimum level 50) from Torwa Pathfinder; its Damaged Blue Crystal (66.3,75.2) is a short ride west of Torwa (players' recordings: 7 people, 10-15 minutes). The first Un'Goro visit meets Torwa at about 49.7, under its minimum level, so the Western Plaguelands guide's Torwa stop (about 57.4) takes it.",
+				"issue": "-"
+			},
+			{
 				"q": 99257,
 				"after": [
 					"turnin",

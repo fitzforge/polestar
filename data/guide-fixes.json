@@ -12086,6 +12086,39 @@
 					"ref": "Twilight Flamereaver 60; Hive'Ashi elites 59-60"
 				}
 			]
+		},
+		{
+			"id": "ungoro-microcrystal-scale-from-ravasaurs",
+			"faction": "Alliance",
+			"at": {
+				"quest": 87494,
+				"goal": "accept"
+			},
+			"tip": "Any ravasaur may drop a Crystal Infused Scale: right-click it, Torwa takes it.",
+			"note": "Un'Goro (fix round 1, 0.4.0): Microcrystal Contamination starts from the Crystal Infused Scale (280459), a chance drop from the crater's ravasaurs (6505-6508, 48-51); the first visit's Threshadon carcass step stands among Venomhide Ravasaurs, right before Torwa.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "item 280459 drops: Ravasaur 6505, Ravasaur Runner 6506, Ravasaur Hunter 6507, Venomhide Ravasaur 6508; quest 87494 ender Torwa Pathfinder 9619"
+				}
+			]
+		},
+		{
+			"id": "ungoro-uncanny-crystal-west-of-torwa",
+			"faction": "Alliance",
+			"at": {
+				"quest": 87492,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The Damaged Blue Crystal is a short ride west of Torwa's camp.",
+			"note": "Un'Goro (fix round 1, 0.4.0): Uncanny Crystal's object (672518) stands at 66.3,75.2, Torwa Pathfinder at 71.6,76.0; players' recordings tick the objective at 66.1-66.3,74.9-75.3 (7 people).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 87492 objective ticks at 66.1-66.3,74.9-75.3 (Un'Goro Crater), 7 people"
+				}
+			]
 		}
 	]
 }
