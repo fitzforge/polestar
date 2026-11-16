@@ -517,7 +517,7 @@ GitHub's rulesets for the repository, under Settings, Rules:
 | Branch | Rules |
 |---|---|
 | `next` | changes by pull request only, with `Tests` and `Base branch` passing; no force push, no deletion |
-| `release/**`, `hotfix/**` | changes by pull request only, with green CI |
+| `release/**`, `hotfix/**`, `feature/**` | changes by pull request only, with green CI; only admins create them |
 | `main` | only maintainers update it; no force push, no deletion |
 
 Repository admins bypass them, which the release steps rely on (cutting the
@@ -541,5 +541,6 @@ go to testers first. Build it as in [Steps](#steps) with the version
 - upload to CurseForge as release type Beta, which only players who opt in
   get.
 
-Fixes go to `next` and out as `-rc.2`. When a candidate brings no new bugs,
+Fixes for the candidate go to its release branch (and on into `next` when it
+is merged back) and out as `-rc.2`. When a candidate brings no new bugs,
 set the version to `0.3.0` and release it with the full steps.

@@ -2,9 +2,10 @@ name: PR base
 
 # Every pull request goes to `next`. `main` is never a base: it moves only
 # when a release is made. The maintainers' `release/<version>` (a release
-# being tested, cut from next) and `hotfix/<version>` (an urgent fix, cut
-# from the live release's tag) are bases too. See CONTRIBUTING.md,
-# "Branches", and docs/RELEASING.md.
+# being tested, cut from next), `hotfix/<version>` (an urgent fix, cut from
+# the live release's tag) and `feature/<name>` (a large feature not ready
+# for next yet) are bases too. See CONTRIBUTING.md, "Branches", and
+# docs/RELEASING.md.
 #
 # This runs on pull_request_target so it is a required check for forks too.
 # It never checks out or runs the pull request's code: the public-text job
@@ -42,7 +43,7 @@ jobs:
           exit 1
 
       - name: Not something else
-        if: github.event.pull_request.base.ref != 'main' && github.event.pull_request.base.ref != 'next' && !startsWith(github.event.pull_request.base.ref, 'release/') && !startsWith(github.event.pull_request.base.ref, 'hotfix/')
+        if: github.event.pull_request.base.ref != 'main' && github.event.pull_request.base.ref != 'next' && !startsWith(github.event.pull_request.base.ref, 'release/') && !startsWith(github.event.pull_request.base.ref, 'hotfix/') && !startsWith(github.event.pull_request.base.ref, 'feature/')
         run: |
           msg="Pull requests go to next. Change the base to next (CONTRIBUTING.md, \"Branches\")."
           echo "::error::$msg"
@@ -53,8 +54,8 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
           exit 1
 
-      - name: Next, a release branch or a hotfix branch
-        if: github.event.pull_request.base.ref == 'next' || startsWith(github.event.pull_request.base.ref, 'release/') || startsWith(github.event.pull_request.base.ref, 'hotfix/')
+      - name: Next, a release, hotfix or feature branch
+        if: github.event.pull_request.base.ref == 'next' || startsWith(github.event.pull_request.base.ref, 'release/') || startsWith(github.event.pull_request.base.ref, 'hotfix/') || startsWith(github.event.pull_request.base.ref, 'feature/')
         run: |
           {
             echo "## Base branch: $BASE"
