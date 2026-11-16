@@ -33,11 +33,11 @@ return {
 	["{npc:460} (Gnomes)"] = "{npc:460} (gnomos)",
 	-- {item:9577} Tainted Memorandum · {npc:658} Sten Stoutarm · {npc:460} Alamar Grimm · {area:77} Anvilmar
 	-- plural, as words: Feather Charms = {item:6753} Feather Charm
-	["Your first letter ({item:9577}, from {npc:658} after Dwarven Outfitters) points you to {npc:460}, the warlock trainer upstairs inside {area:77}. He asks for three Feather Charms."] = "Tu primera carta ({item:9577}, de {npc:658} después de Pertrechos enanos) te lleva con {npc:460}, el instructor de brujos en el piso de arriba dentro de {area:77}. Te pide tres Amuletos de plumas.",
+	["Your first letter ({item:9577}, from {npc:658} after Dwarven Outfitters) points you to {npc:460}, the warlock trainer upstairs inside {area:77}. He asks for three Feather Charms."] = "Tu primera carta ({item:9577}, de {npc:658} después de Pertrechos enanos) te lleva con {npc:460}, el instructor de brujos en el piso de arriba dentro de {area:77}. Te pide tres Talismanes de plumas.",
 
 	-- Step 5: Feather Charms
 	-- plural, as words: Feather Charms = {item:6753} Feather Charm
-	["Feather Charms"] = "Amuletos de plumas",
+	["Feather Charms"] = "Talismanes de plumas",
 	-- {area:77} Anvilmar · {area:132} Coldridge Valley
 	-- plural, as words: Frostmane Novices = {npc:946} Frostmane Novice
 	["The Frostmane Novices (level 3-4) sit at the back of the troll cave south of {area:77}, near Grek'nir the Cold by the icy pool: take the left tunnel past the entrance. Four kills in five drop a charm, but only two or three novices spawn, so you may wait out their three-minute respawn. They throw frostbolts from range; the Troll Whelps at the cave mouth jump anyone who passes. With the charms, your hearthstone takes you straight back: a new character's is set to {area:132}."] = "Los novicios Peloescarcha (nivel 3-4) están al fondo de la cueva trol al sur de {area:77}, cerca de Grek'nir el Frío, junto a la poza helada: toma el túnel de la izquierda pasando la entrada. Cuatro de cada cinco sueltan un amuleto, pero solo aparecen dos o tres novicios, así que puede que tengas que esperar sus tres minutos de reaparición. Lanzan descargas de escarcha a distancia; las crías de trol de la entrada saltan sobre quien pase. Con los amuletos, tu piedra de hogar te lleva directo de vuelta: la de un personaje nuevo está vinculada a {area:132}.",

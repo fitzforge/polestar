@@ -46,7 +46,7 @@ return {
 	["Helboars"] = "Jabinfernos",
 	-- {zone:1419} Blasted Lands · {area:1438} Nethergarde Keep · {spell:8349} Fire Nova
 	-- plural, as words: Helboars = {npc:5993} Helboar
-	["Seven Helboars (level 52-53, not elite) roam the north-west of the {zone:1419}, south-west of {area:1438}; some stand near the ogres on the mountainside by the road. They charge from 25 yards and cast {spell:8349}. They share spawn points with the Felbeasts and scorpids: if no boars are around, kill those and boars may appear instead. Back in 5 minutes."] = "Siete jabalíes infernales (nivel 52-53, no élite) recorren el noroeste de {zone:1419}, al suroeste de {area:1438}; algunos están cerca de los ogros en la ladera junto al camino. Cargan desde 25 m y lanzan {spell:8349}. Comparten puntos de aparición con las bestias viles y los escórpidos: si no hay jabalíes, mata a esos y pueden aparecer jabalíes en su lugar. Vuelven en 5 minutos.",
+	["Seven Helboars (level 52-53, not elite) roam the north-west of the {zone:1419}, south-west of {area:1438}; some stand near the ogres on the mountainside by the road. They charge from 25 yards and cast {spell:8349}. They share spawn points with the Felbeasts and scorpids: if no boars are around, kill those and boars may appear instead. Back in 5 minutes."] = "Siete jabinfernos (nivel 52-53, no élite) recorren el noroeste de {zone:1419}, al suroeste de {area:1438}; algunos están cerca de los ogros en la ladera junto al camino. Cargan desde 25 m y lanzan {spell:8349}. Comparten puntos de aparición con las bestias viles y los escórpidos: si no hay jabalíes, mata a esos y pueden aparecer jabalíes en su lugar. Vuelven en 5 minutos.",
 
 	-- Step 10: Shadowsworn camps
 	["Shadowsworn camps"] = "Campamentos Sombraída",

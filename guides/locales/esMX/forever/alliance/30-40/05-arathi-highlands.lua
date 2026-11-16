@@ -141,7 +141,7 @@ return {
 
 	-- Step 29: Northfold Manor
 	-- {area:320} Refuge Pointe
-	["The Syndicate hold the farm north-west of {area:320}.\nCareful: Syndicate Highwaymen are level 30-31 and can cast Sneak while out of combat, so they are often stealthed and hard to spot."] = "El Sindicato ocupa la granja al noroeste de {area:320}.\nCuidado: Los salteadores del Sindicato son de nivel 30-31 y pueden usar Sigilo fuera de combate, así que suelen estar ocultos y cuesta verlos.",
+	["The Syndicate hold the farm north-west of {area:320}.\nCareful: Syndicate Highwaymen are level 30-31 and can cast Sneak while out of combat, so they are often stealthed and hard to spot."] = "La Hermandad ocupa la granja al noroeste de {area:320}.\nCuidado: Los salteadores de la Hermandad son de nivel 30-31 y pueden usar Sigilo fuera de combate, así que suelen estar ocultos y cuesta verlos.",
 
 	-- Step 30: Hay Weevil
 	-- {quest:681} Northfold Manor · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit

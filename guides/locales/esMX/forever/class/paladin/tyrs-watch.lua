@@ -40,9 +40,9 @@ return {
 	-- {area:16881} Shadowvale
 	["The Vile Fin murlocs (level 9-11) lurk on the bluffs along the road east of the keep and in the camps around the lake to the south-west, on the way down to {area:16881}."] = "Los múrlocs Aleta Vil (nivel 9-11) acechan en los riscos a lo largo del camino al este del bastión y en los campamentos alrededor del lago al suroeste, de camino bajando a {area:16881}.",
 	-- plural, as words: Vile Fin Attackers = {npc:250283} Vile Fin Attacker
-	["Vile Fin Attackers x8"] = "Atacantes Aleta Vil x8",
+	["Vile Fin Attackers x8"] = "Atacantes Anca Vil x8",
 	-- plural, as words: Vile Fin Seers = {npc:250282} Vile Fin Seer
-	["Vile Fin Seers x8"] = "Videntes Aleta Vil x8",
+	["Vile Fin Seers x8"] = "Videntes Anca Vil x8",
 
 	-- Step 7: Touring the Grounds
 	-- {npc:246349} Breton Samuels · {npc:246389} Hilda the Breaker · {npc:246394} Ander Solliden · {npc:246393} Jorin Croge · {npc:246378} Danitha Morr
@@ -58,26 +58,26 @@ return {
 	-- {quest:91317} The Tarnished · {area:16881} Shadowvale · {area:16616} Whispering Forest · {npc:259431} Rudolph Gelhardt
 	["{quest:91317} (level 8-9) hold the ruined village of {area:16881} in the {area:16616}, south-west of the keep. Commander {npc:259431} (level 10) stands on the upper floor of a house, with Drudges below him: clear the ground floor first."] = "{quest:91317} (nivel 8-9) ocupan la aldea en ruinas de {area:16881}, en {area:16616}, al suroeste del bastión. El comandante {npc:259431} (nivel 10) está en el piso de arriba de una casa, con peones abajo: despeja primero la planta baja.",
 	-- plural, as words: Tarnished Drudges = {npc:259434} Tarnished Drudge
-	["Tarnished Drudges x8"] = "Peones Deslustrados x8",
+	["Tarnished Drudges x8"] = "Esclavos mancillados x8",
 	-- plural, as words: Tarnished Zealots = {npc:259433} Tarnished Zealot
-	["Tarnished Zealots x6"] = "Fanáticos Deslustrados x6",
+	["Tarnished Zealots x6"] = "Zelotes mancillados x6",
 
 	-- Step 10: The crypt under Shadowvale
 	-- {area:16881} Shadowvale
 	["The crypt under {area:16881}"] = "La cripta debajo de {area:16881}",
 	-- {item:246213} Sturdy Lumber · {npc:260396} Whispering Horror
 	-- plural, as words: Lumber Piles = {object:554626} Lumber Pile
-	["The cellar is under the village, not on the surface: the way down is inside a burned-out house, where the arrow points. Twelve Lumber Piles (stacked beams) lie in the cellar, each good for one {item:246213}. {npc:260396}, an elite (level 11-13), sits at the far end: leave it alone."] = "El sótano está debajo de la aldea, no en la superficie: la bajada está dentro de una casa quemada, donde señala la flecha. Doce pilas de madera (vigas apiladas) están en el sótano, cada una sirve para una {item:246213}. {npc:260396}, un élite (nivel 11-13), está al fondo: déjalo en paz.",
+	["The cellar is under the village, not on the surface: the way down is inside a burned-out house, where the arrow points. Twelve Lumber Piles (stacked beams) lie in the cellar, each good for one {item:246213}. {npc:260396}, an elite (level 11-13), sits at the far end: leave it alone."] = "El sótano está debajo de la aldea, no en la superficie: la bajada está dentro de una casa quemada, donde señala la flecha. Doce montones de madera (vigas apiladas) están en el sótano, cada una sirve para una {item:246213}. {npc:260396}, un élite (nivel 11-13), está al fondo: déjalo en paz.",
 	-- plural, as words: Lumber Piles = {object:554626} Lumber Pile
-	["Lumber Piles, in the cellar: the way down is here"] = "Pilas de madera, en el sótano: la bajada está aquí",
+	["Lumber Piles, in the cellar: the way down is here"] = "Montones de madera, en el sótano: la bajada está aquí",
 
 	-- Step 11: Hilda the Breaker's bones
 	-- {npc:246389} Hilda the Breaker
 	["{npc:246389}'s bones"] = "Los huesos de {npc:246389}",
 	-- plural, as words: Shadowvale Lurchers = {npc:260428} Shadowvale Lurcher · Faintly Glowing Bones = {item:286259} Faintly Glowing Bone
-	["The Shadowvale Lurchers and Mystics (level 8-10) in the crypt drop the Faintly Glowing Bones: about one in two from Lurchers, more from one kind of Mystic, less from the other."] = "Los tambaleantes y místicos de Valle Umbrío (nivel 8-10) de la cripta sueltan los Huesos con un leve brillo: más o menos uno de cada dos los tambaleantes, más un tipo de místico y menos el otro.",
+	["The Shadowvale Lurchers and Mystics (level 8-10) in the crypt drop the Faintly Glowing Bones: about one in two from Lurchers, more from one kind of Mystic, less from the other."] = "Los merodeadores y místicos vallesombra (nivel 8-10) de la cripta sueltan los Huesos con resplandor tenue: más o menos uno de cada dos los merodeadores, más un tipo de místico y menos el otro.",
 	-- plural, as words: Faintly Glowing Bones = {item:286259} Faintly Glowing Bone
-	["Faintly Glowing Bones x6"] = "Huesos con un leve brillo x6",
+	["Faintly Glowing Bones x6"] = "Huesos con resplandor tenue x6",
 
 	-- Step 12: Ephram Barbaro's crystal
 	-- {npc:259190} Ephram Barbaro
@@ -109,7 +109,7 @@ return {
 	-- Step 18: Linen Cloth
 	-- {npc:257648} Tanis Alderwood · {item:2589} Linen Cloth
 	-- plural, as words: Scarlet Zealots = {npc:1537} Scarlet Zealot
-	["{npc:257648} needs 10 {item:2589}. Humanoids drop it: the Scarlet Zealots and Friars of the glades about three kills in ten. The Undercity Auction House sells it too."] = "{npc:257648} necesita 10 {item:2589}. Los humanoides la sueltan: los fanáticos y frailes Escarlata de los claros más o menos tres de cada diez muertes. La casa de subastas de Entrañas también la vende.",
+	["{npc:257648} needs 10 {item:2589}. Humanoids drop it: the Scarlet Zealots and Friars of the glades about three kills in ten. The Undercity Auction House sells it too."] = "{npc:257648} necesita 10 {item:2589}. Los humanoides la sueltan: los zelotes y frailes Escarlata de los claros más o menos tres de cada diez muertes. La casa de subastas de Entrañas también la vende.",
 	-- {item:2589} Linen Cloth
 	["{item:2589} x10"] = "{item:2589} x10",
 
@@ -130,7 +130,7 @@ return {
 	["The Scarlet attack plans"] = "Los planes de ataque Escarlata",
 	-- {area:812} Venomweb Vale
 	-- plural, as words: Scarlet Zealots = {npc:1537} Scarlet Zealot
-	["The Scarlet Zealots (level 8-9), Friars (9-10) and Tarnished around {area:812} carry the attack plans. They run for help at low health and respawn in five minutes."] = "Los fanáticos (nivel 8-9) y frailes (9-10) Escarlata y los Deslustrados alrededor de {area:812} llevan los planes de ataque. Huyen a pedir ayuda con poca salud y reaparecen en cinco minutos.",
+	["The Scarlet Zealots (level 8-9), Friars (9-10) and Tarnished around {area:812} carry the attack plans. They run for help at low health and respawn in five minutes."] = "Los zelotes (nivel 8-9) y frailes (9-10) Escarlata y los mancillados alrededor de {area:812} llevan los planes de ataque. Huyen a pedir ayuda con poca salud y reaparecen en cinco minutos.",
 
 	-- Step 23: Redemption
 	-- {area:16602} Bandarion Keep · {npc:246378} Danitha Morr · {spell:7328} Redemption

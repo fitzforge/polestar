@@ -176,7 +176,7 @@ return {
 	-- {item:3713} Soothing Spices · {npc:2381} Micha Yance
 	["{item:3713}, from {npc:2381}"] = "{item:3713}, de {npc:2381}",
 	-- {npc:2276} Magistrate Henry Maleb
-	["{npc:2276}, inside: keep it, the Syndicate camp waits for the road north to Arathi (05-arathi-highlands)"] = "{npc:2276}, adentro: guárdala, el campamento del Sindicato espera al camino al norte hacia Arathi (05-arathi-highlands)",
+	["{npc:2276}, inside: keep it, the Syndicate camp waits for the road north to Arathi (05-arathi-highlands)"] = "{npc:2276}, adentro: guárdala, el campamento de la Hermandad espera al camino al norte hacia Arathi (05-arathi-highlands)",
 
 	-- Step 35: Bartolo Ginsetti
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {skill:165} Leatherworking · {item:2997} Bolt of Woolen Cloth · {skill:197} Tailoring

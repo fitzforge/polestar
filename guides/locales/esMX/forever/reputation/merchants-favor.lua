@@ -119,7 +119,7 @@ return {
 	-- {zone:1416} Alterac Mountains
 	["{zone:1416} writ customers"] = "Clientes de encargos en {zone:1416}",
 	-- {npc:257281} Sos'mol · {npc:257282} Alan Sneeks · {npc:6176} Bath'rah the Windwatcher · {area:272} Tarren Mill
-	["{npc:257281} and {npc:257282} are close together in the south-west of the mountains; Syndicate thugs roam around {npc:257282}. {npc:6176} stands on the eastern edge, above {area:272}. Customers show no quest mark: right-click them anyway."] = "{npc:257281} y {npc:257282} están cerca uno del otro en el suroeste de las montañas; hay matones del Sindicato alrededor de {npc:257282}. {npc:6176} está en el borde este, sobre {area:272}. Los clientes no muestran marca de misión: haz clic derecho en ellos igual.",
+	["{npc:257281} and {npc:257282} are close together in the south-west of the mountains; Syndicate thugs roam around {npc:257282}. {npc:6176} stands on the eastern edge, above {area:272}. Customers show no quest mark: right-click them anyway."] = "{npc:257281} y {npc:257282} están cerca uno del otro en el suroeste de las montañas; hay matones de la Hermandad alrededor de {npc:257282}. {npc:6176} está en el borde este, sobre {area:272}. Los clientes no muestran marca de misión: haz clic derecho en ellos igual.",
 	-- {item:3391} Elixir of Ogre Strength
 	["{item:3391}, 75 reputation"] = "{item:3391}, 75 de reputación",
 	["bring it: leatherworkers make it, or buy it at the Auction House"] = "tráelo: lo fabrican los peleteros, o cómpralo en la casa de subastas",

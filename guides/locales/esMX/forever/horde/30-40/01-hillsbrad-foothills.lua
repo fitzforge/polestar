@@ -217,9 +217,9 @@ return {
 	-- {npc:2215} High Executor Darthalia · {quest:539} Battle of Hillsbrad · {npc:2419} Deathguard Humbert · {area:290} Dun Garok
 	["{npc:2215}: her next {quest:539}, and {npc:2419}'s sword, are elite group quests at {area:290}: take them only with a group"] = "{npc:2215}: su siguiente {quest:539} y la espada de {npc:2419} son misiones de grupo élite en {area:290}: tómalas solo con un grupo",
 	-- {npc:2229} Krusk
-	["{npc:2229}, inside: Infiltration, worked on the 38-39 visit (its Syndicate are 32-35)"] = "{npc:2229}, adentro: Infiltration, se hace en la visita de 38-39 (su Sindicato es de 32-35)",
+	["{npc:2229}, inside: Infiltration, worked on the 38-39 visit (its Syndicate are 32-35)"] = "{npc:2229}, adentro: Infiltration, se hace en la visita de 38-39 (su Hermandad es de 32-35)",
 	-- {area:272} Tarren Mill
-	["Keep Infiltration in your log: its Syndicate (32-35) are over you now, and the 38-39 guide (Alterac and Arathi) works it on its first {area:272} loop."] = "Guarda Infiltration en tu registro: su Sindicato (32-35) está por encima de ti ahora, y la guía de 38-39 (Alterac y Arathi) la hace en su primera vuelta por {area:272}.",
+	["Keep Infiltration in your log: its Syndicate (32-35) are over you now, and the 38-39 guide (Alterac and Arathi) works it on its first {area:272} loop."] = "Guarda Infiltration en tu registro: su Hermandad (32-35) está por encima de ti ahora, y la guía de 38-39 (Alterac y Arathi) la hace en su primera vuelta por {area:272}.",
 
 	-- Step 43: Voidglare, Bel'varil and Tallow
 	-- {npc:2770} Tallow

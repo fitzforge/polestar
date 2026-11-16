@@ -174,9 +174,9 @@ return {
 
 	-- Step 29: A Donation of Silk
 	-- {area:287} Hillsbrad
-	["Silk: the Syndicate in {area:287} and Alterac drop it about one kill in three, or buy it."] = "Seda: el Sindicato en {area:287} y Alterac la suelta más o menos una de cada tres muertes, o cómprala.",
+	["Silk: the Syndicate in {area:287} and Alterac drop it about one kill in three, or buy it."] = "Seda: la Hermandad en {area:287} y Alterac la suelta más o menos una de cada tres muertes, o cómprala.",
 	-- {item:4306} Silk Cloth
-	["{item:4306}: the Syndicate"] = "{item:4306}: el Sindicato",
+	["{item:4306}: the Syndicate"] = "{item:4306}: la Hermandad",
 
 	-- Step 30: A Donation of Mageweave
 	-- {zone:1448} Felwood · {zone:1446} Tanaris

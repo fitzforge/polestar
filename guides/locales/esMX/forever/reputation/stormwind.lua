@@ -166,7 +166,7 @@ return {
 
 	-- Step 27: A Donation of Silk
 	-- {item:4306} Silk Cloth · {area:94} Raven Hill
-	["{item:4306} drops from humanoids level 23 to 40: Syndicate in Alterac and Arathi, the Defias of Duskwood's {area:94}, Stranglethorn's trolls."] = "{item:4306} lo sueltan los humanoides de nivel 23 a 40: el Sindicato en Alterac y Arathi, los Defias de {area:94} en el Bosque del Ocaso, los trols de Tuercespina.",
+	["{item:4306} drops from humanoids level 23 to 40: Syndicate in Alterac and Arathi, the Defias of Duskwood's {area:94}, Stranglethorn's trolls."] = "{item:4306} lo sueltan los humanoides de nivel 23 a 40: la Hermandad en Alterac y Arathi, los Defias de {area:94} en el Bosque del Ocaso, los trols de Tuercespina.",
 
 	-- Step 28: A Donation of Mageweave
 	-- {item:4338} Mageweave Cloth · {zone:1446} Tanaris · {zone:1444} Feralas · {zone:1418} Badlands

@@ -32,14 +32,14 @@ return {
 	["{npc:5667} (Undead)"] = "{npc:5667} (no-muertos)",
 	-- {item:9578} Tainted Scroll · {npc:1569} Shadow Priest Sarvis · {area:154} Deathknell · {npc:5667} Venya Marthand
 	-- plural, as words: Rattlecage Skulls = {item:6281} Rattlecage Skull
-	["Your first letter ({item:9578}, from {npc:1569} after The Mindless Ones) points you to Maximillion, the warlock trainer in {area:154}. {npc:5667} waits inside the building beside him and asks for three Rattlecage Skulls."] = "Tu primera carta ({item:9578}, de {npc:1569} después de Los descerebrados) te lleva con Maximillion, el instructor de brujos en {area:154}. {npc:5667} espera dentro del edificio a su lado y te pide tres Cráneos Jaularraída.",
+	["Your first letter ({item:9578}, from {npc:1569} after The Mindless Ones) points you to Maximillion, the warlock trainer in {area:154}. {npc:5667} waits inside the building beside him and asks for three Rattlecage Skulls."] = "Tu primera carta ({item:9578}, de {npc:1569} después de Los descerebrados) te lleva con Maximillion, el instructor de brujos en {area:154}. {npc:5667} espera dentro del edificio a su lado y te pide tres Calaveras armadóseas.",
 
 	-- Step 5: Rattlecage Skulls
 	-- plural, as words: Rattlecage Skulls = {item:6281} Rattlecage Skull
-	["Rattlecage Skulls"] = "Cráneos Jaularraída",
+	["Rattlecage Skulls"] = "Calaveras armadóseas",
 	-- {area:154} Deathknell
 	-- plural, as words: Rattlecage Skeletons = {npc:1890} Rattlecage Skeleton
-	["The Rattlecage Skeletons (level 2-3) stand around the old smithy buildings just north of {area:154}, often right against the walls. Four kills in five drop a skull, so plan on about five; twenty of them spawn there and each comes back after five minutes."] = "Los esqueletos Jaularraída (nivel 2-3) están alrededor de los viejos edificios de la herrería, justo al norte de {area:154}, muchas veces pegados a las paredes. Cuatro de cada cinco sueltan un cráneo, así que cuenta con unos cinco; aparecen veinte ahí y cada uno vuelve a los cinco minutos.",
+	["The Rattlecage Skeletons (level 2-3) stand around the old smithy buildings just north of {area:154}, often right against the walls. Four kills in five drop a skull, so plan on about five; twenty of them spawn there and each comes back after five minutes."] = "Los esqueletos armadóseos (nivel 2-3) están alrededor de los viejos edificios de la herrería, justo al norte de {area:154}, muchas veces pegados a las paredes. Cuatro de cada cinco sueltan un cráneo, así que cuenta con unos cinco; aparecen veinte ahí y cada uno vuelve a los cinco minutos.",
 
 	-- Step 6: Summon Imp
 	-- {npc:5667} Venya Marthand · {spell:688} Summon Imp

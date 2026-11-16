@@ -97,7 +97,7 @@ return {
 	-- Step 18: Velora Nitely
 	-- {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {npc:6411} Velora Nitely · {zone:1458} Undercity · {object:36078} Trade Quarter
 	-- plural, as words: Sturdy Dragonmaw Shinbones = {item:7134} Sturdy Dragonmaw Shinbone
-	["Take the zeppelin from {zone:1454} to {zone:1420}; {npc:6411} works in the {zone:1458}'s {object:36078}. She wants 8 Sturdy Dragonmaw Shinbones."] = "Toma el zepelín de {zone:1454} a {zone:1420}; {npc:6411} trabaja en {object:36078} de {zone:1458}. Quiere 8 Espinillas Faucedraco robustas.",
+	["Take the zeppelin from {zone:1454} to {zone:1420}; {npc:6411} works in the {zone:1458}'s {object:36078}. She wants 8 Sturdy Dragonmaw Shinbones."] = "Toma el zepelín de {zone:1454} a {zone:1420}; {npc:6411} trabaja en {object:36078} de {zone:1458}. Quiere 8 Tibias de Faucedraco robustas.",
 
 	-- Step 19: Dragonmaw Shinbones
 	-- {zone:1437} Wetlands · {area:321} Hammerfall · {area:881} Thandol Span · {area:150} Menethil Harbor · {quest:1846} Dragonmaw Shinbones · {npc:6411} Velora Nitely · {item:7131} Dragonmaw Shinbone · {spell:686} Shadow Bolt

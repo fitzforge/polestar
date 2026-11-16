@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Ravenholdt Reputation"] = "Reputación con Ravenholdt",
-	["The assassins' guild: Forever's new rogue quests, then Syndicate kills and Heavy Junkboxes to Exalted."] = "El gremio de asesinos: las nuevas misiones de pícaro de Forever, y luego muertes del Sindicato y cajas fuertes pesadas hasta Exaltado.",
+	["The assassins' guild: Forever's new rogue quests, then Syndicate kills and Heavy Junkboxes to Exalted."] = "El gremio de asesinos: las nuevas misiones de pícaro de Forever, y luego muertes de la Hermandad y cajas fuertes pesadas hasta Exaltado.",
 	-- {faction:349} Ravenholdt
 	["{faction:349} reputation (no vendor or reward in Forever's data)"] = "Reputación con {faction:349} (sin vendedor ni recompensa en los datos de Forever)",
 
@@ -27,11 +27,11 @@ return {
 
 	-- Step 3: Durnholde Keep: Lord Tomas
 	-- {npc:266216} Lord Tomas · {area:275} Durnholde Keep · {area:271} Southshore
-	["{npc:266216} is inside {area:275}, the Syndicate fortress east of {area:271}. Stealth past the guards in the courtyard."] = "{npc:266216} está dentro de {area:275}, la fortaleza del Sindicato al este de {area:271}. Pasa a los guardias del patio en sigilo.",
+	["{npc:266216} is inside {area:275}, the Syndicate fortress east of {area:271}. Stealth past the guards in the courtyard."] = "{npc:266216} está dentro de {area:275}, la fortaleza de la Hermandad al este de {area:271}. Pasa a los guardias del patio en sigilo.",
 
 	-- Step 4: Strahnbrad: Barton
 	-- {npc:266357} Barton · {area:280} Strahnbrad
-	["{npc:266357} hides in a house in {area:280}, among stealthed Syndicate. Pick his pocket for the report; Distract turns him around if you are under his level."] = "{npc:266357} se esconde en una casa de {area:280}, entre miembros del Sindicato en sigilo. Róbale el informe de los bolsillos; Distraer lo hace darse vuelta si estás por debajo de su nivel.",
+	["{npc:266357} hides in a house in {area:280}, among stealthed Syndicate. Pick his pocket for the report; Distract turns him around if you are under his level."] = "{npc:266357} se esconde en una casa de {area:280}, entre miembros de la Hermandad en sigilo. Róbale el informe de los bolsillos; Distraer lo hace darse vuelta si estás por debajo de su nivel.",
 	-- {item:275482} Barton's Scouting Report · {npc:266357} Barton
 	["{item:275482}: pickpocket {npc:266357}"] = "{item:275482}: roba del bolsillo a {npc:266357}",
 
@@ -39,7 +39,7 @@ return {
 	-- {area:313} Northfold Manor
 	["{area:313}: a uniform"] = "{area:313}: un uniforme",
 	-- {object:656157} Syndicate Footlocker (no name in this language: may be words) · {area:313} Northfold Manor · {quest:96783} A Way In · {item:275706} Syndicate Uniform
-	["The {object:656157} stands among the Syndicate camps of {area:313}, north of Stromgarde. Open it to finish {quest:96783} and take the {item:275706}."] = "El {object:656157} está entre los campamentos del Sindicato de {area:313}, al norte de Stromgarde. Ábrelo para completar {quest:96783} y toma el {item:275706}.",
+	["The {object:656157} stands among the Syndicate camps of {area:313}, north of Stromgarde. Open it to finish {quest:96783} and take the {item:275706}."] = "El {object:656157} está entre los campamentos de la Hermandad de {area:313}, al norte de Stromgarde. Ábrelo para completar {quest:96783} y toma el {item:275706}.",
 
 	-- Step 6: Stromgarde: Anastasia Miller
 	-- {npc:266847} Anastasia Miller
@@ -53,7 +53,7 @@ return {
 	-- {area:1057} Thoradin's Wall
 	["{area:1057}: the shipment"] = "{area:1057}: el cargamento",
 	-- {area:1057} Thoradin's Wall · {zone:1417} Arathi Highlands · {item:275882} Intercepted Shipment · {npc:13085} Myrokos Silentform
-	["The hand-off is at the southern end of {area:1057}, in the west of the {zone:1417}: two Syndicate guard the box. Kill them or lure them off, then take the {item:275882}. Keep the uniform: {npc:13085} wants it back."] = "La entrega es en el extremo sur de {area:1057}, en el oeste de {zone:1417}: dos del Sindicato vigilan la caja. Mátalos o atráelos lejos, y toma el {item:275882}. Guarda el uniforme: {npc:13085} lo quiere de vuelta.",
+	["The hand-off is at the southern end of {area:1057}, in the west of the {zone:1417}: two Syndicate guard the box. Kill them or lure them off, then take the {item:275882}. Keep the uniform: {npc:13085} wants it back."] = "La entrega es en el extremo sur de {area:1057}, en el oeste de {zone:1417}: dos de la Hermandad vigilan la caja. Mátalos o atráelos lejos, y toma el {item:275882}. Guarda el uniforme: {npc:13085} lo quiere de vuelta.",
 
 	-- Step 8: Back to Myrokos Silentform
 	-- {npc:13085} Myrokos Silentform
@@ -76,17 +76,17 @@ return {
 	["{quest:6701} to Friendly"] = "{quest:6701} hasta Amistoso",
 	-- {npc:6766} Ravenholdt Guard · {quest:6701} Syndicate Emblems
 	-- plural, as words: Syndicate Prowlers = {npc:2588} Syndicate Prowler
-	["Neutral to Friendly is 3,000 reputation; the quests above pay 700 of it. Any {npc:6766} on the path takes {quest:6701}, 100 reputation each, until you reach Friendly: 23 emblems after the quests. Pick the pockets of Syndicate humans; they never drop emblems when killed. The Arathi camps pay best: Syndicate Prowlers and Conjurors carry one about a quarter of the time. Kill what you have robbed so the next ones respawn fresh."] = "De Neutral a Amistoso son 3.000 de reputación; las misiones de arriba pagan 700. Cualquier {npc:6766} del camino acepta {quest:6701}, 100 de reputación cada una, hasta llegar a Amistoso: 23 emblemas después de las misiones. Roba los bolsillos de los humanos del Sindicato; nunca sueltan emblemas al morir. Los campamentos de Arathi rinden más: los merodeadores y conjuradores del Sindicato llevan uno más o menos una de cada cuatro veces. Mata a los que ya robaste para que los siguientes reaparezcan con bolsillos nuevos.",
+	["Neutral to Friendly is 3,000 reputation; the quests above pay 700 of it. Any {npc:6766} on the path takes {quest:6701}, 100 reputation each, until you reach Friendly: 23 emblems after the quests. Pick the pockets of Syndicate humans; they never drop emblems when killed. The Arathi camps pay best: Syndicate Prowlers and Conjurors carry one about a quarter of the time. Kill what you have robbed so the next ones respawn fresh."] = "De Neutral a Amistoso son 3.000 de reputación; las misiones de arriba pagan 700. Cualquier {npc:6766} del camino acepta {quest:6701}, 100 de reputación cada una, hasta llegar a Amistoso: 23 emblemas después de las misiones. Roba los bolsillos de los humanos de la Hermandad; nunca sueltan emblemas al morir. Los campamentos de Arathi rinden más: los merodeadores y conjuradores de la Hermandad llevan uno más o menos una de cada cuatro veces. Mata a los que ya robaste para que los siguientes reaparezcan con bolsillos nuevos.",
 	-- {item:17124} Syndicate Emblem
-	["{item:17124}: pickpocket Syndicate"] = "{item:17124}: roba bolsillos del Sindicato",
+	["{item:17124}: pickpocket Syndicate"] = "{item:17124}: roba bolsillos de la Hermandad",
 	-- {npc:6766} Ravenholdt Guard
 	["a {npc:6766}: 100 per emblem, handed in from his window"] = "un {npc:6766}: 100 por emblema, se entrega desde su ventana",
 
 	-- Step 11: Syndicate kills to the end of Honored
-	["Syndicate kills to the end of Honored"] = "Muertes del Sindicato hasta el final de Honorable",
+	["Syndicate kills to the end of Honored"] = "Muertes de la Hermandad hasta el final de Honorable",
 	-- {faction:349} Ravenholdt · {zone:1416} Alterac Mountains
 	-- plural, as words: Syndicate Assassins = {npc:2246} Syndicate Assassin
-	["Everyone, not only rogues: in Classic every Syndicate human gave {faction:349} 5 reputation up to the end of Honored (11,999 of 12,000) and not one point more, so 0 to there is 4,200 kills (3,600 after a rogue's quests and emblems). This step ticks at Honored; keep killing until the bar stops moving, then go on to the junkboxes. The highest Syndicate are in the north-west of the {zone:1416}, Syndicate Assassins and Enforcers (level 38-40), with Syndicate Sentries (36-37) nearer the middle. At 60 all Syndicate are grey, and in Classic grey kills gave about a fifth: farm them before 48 if you can. Legacy Diplomat adds up to 10%."] = "Para todos, no solo pícaros: en Classic cada humano del Sindicato daba 5 de reputación con {faction:349} hasta el final de Honorable (11.999 de 12.000) y ni un punto más, así que de 0 hasta ahí son 4.200 muertes (3.600 después de las misiones y emblemas de un pícaro). Este paso se marca en Honorable; sigue matando hasta que la barra deje de moverse, y luego pasa a las cajas fuertes. Los del Sindicato de más nivel están en el noroeste de {zone:1416}, asesinos y ejecutores del Sindicato (nivel 38-40), con centinelas del Sindicato (36-37) más hacia el centro. A 60 todo el Sindicato es gris, y en Classic las muertes grises daban más o menos un quinto: farméalos antes del 48 si puedes. Diplomático del Legado suma hasta un 10%.",
+	["Everyone, not only rogues: in Classic every Syndicate human gave {faction:349} 5 reputation up to the end of Honored (11,999 of 12,000) and not one point more, so 0 to there is 4,200 kills (3,600 after a rogue's quests and emblems). This step ticks at Honored; keep killing until the bar stops moving, then go on to the junkboxes. The highest Syndicate are in the north-west of the {zone:1416}, Syndicate Assassins and Enforcers (level 38-40), with Syndicate Sentries (36-37) nearer the middle. At 60 all Syndicate are grey, and in Classic grey kills gave about a fifth: farm them before 48 if you can. Legacy Diplomat adds up to 10%."] = "Para todos, no solo pícaros: en Classic cada humano de la Hermandad daba 5 de reputación con {faction:349} hasta el final de Honorable (11.999 de 12.000) y ni un punto más, así que de 0 hasta ahí son 4.200 muertes (3.600 después de las misiones y emblemas de un pícaro). Este paso se marca en Honorable; sigue matando hasta que la barra deje de moverse, y luego pasa a las cajas fuertes. Los de la Hermandad de más nivel están en el noroeste de {zone:1416}, asesinos y ejecutores de la Hermandad (nivel 38-40), con centinelas de la Hermandad (36-37) más hacia el centro. A 60 todo la Hermandad es gris, y en Classic las muertes grises daban más o menos un quinto: farméalos antes del 48 si puedes. Diplomático del Legado suma hasta un 10%.",
 	-- {npc:2246} Syndicate Assassin
 	["{npc:2246}, level 38-39"] = "{npc:2246}, nivel 38-39",
 	-- {npc:2247} Syndicate Enforcer

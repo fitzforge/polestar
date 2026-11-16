@@ -33,7 +33,7 @@ return {
 	["The red waterskin"] = "El odre rojo",
 	-- {area:71} Stonewatch Falls · {area:68} Lake Everstill · {zone:1455} Ironforge · {area:69} Lakeshire · {item:265747} Unfilled Red Waterskin · {npc:258203} Hervdana Saegrund
 	-- plural, as words: Murloc Nightcrawlers = {npc:544} Murloc Nightcrawler
-	["{area:71} pour out of {area:68} at the east end of Redridge (fly from {zone:1455} to {area:69}). Fill the {item:265747} at their foot, where the Murloc Nightcrawlers gather; pull the murlocs off the spot first. If the skin vanishes without counting, abandon the quest and take it again from {npc:258203} for a new one."] = "{area:71} caen desde {area:68}, en el extremo este de Montañas Crestagrana (vuela de {zone:1455} a {area:69}). Llena {item:265747} al pie, donde se juntan los reptadores nocturnos múrloc; aleja antes a los múrlocs del lugar. Si el odre desaparece sin contar, abandona la misión y vuelve a tomarla con {npc:258203} para uno nuevo.",
+	["{area:71} pour out of {area:68} at the east end of Redridge (fly from {zone:1455} to {area:69}). Fill the {item:265747} at their foot, where the Murloc Nightcrawlers gather; pull the murlocs off the spot first. If the skin vanishes without counting, abandon the quest and take it again from {npc:258203} for a new one."] = "{area:71} caen desde {area:68}, en el extremo este de Montañas Crestagrana (vuela de {zone:1455} a {area:69}). Llena {item:265747} al pie, donde se juntan los reptanoches múrloc; aleja antes a los múrlocs del lugar. Si el odre desaparece sin contar, abandona la misión y vuelve a tomarla con {npc:258203} para uno nuevo.",
 
 	-- Step 8: The blue waterskin
 	["The blue waterskin"] = "El odre azul",
