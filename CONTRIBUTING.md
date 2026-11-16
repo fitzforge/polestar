@@ -290,14 +290,27 @@ maintainer regenerates those after merging your PR.
 | Branch | Holds |
 |---|---|
 | `main` | The latest release, what players have. It moves only when a release is made. |
-| `next` | The next release (the repository's default branch). Every pull request goes here. |
+| `next` | The next release (the repository's default branch). Every pull request goes here, unless a development branch is open (below). |
+| `dev-<version>` | While one is open (now `dev-041`, for 0.4.1): the coming feature release, built up while patch releases are still made from `next`. |
 
-Every pull request goes to **`next`**: guide fixes, the addon, the tools,
-the data builds, translations, new guides and route refreshes. Never to
-`main`; the `Base branch` check fails those. `main` moves only when a
-release is made: it is fast-forwarded to `next` and tagged. A patch release
-is just a version bump (`x.y.Z`) from `next`, sooner than a feature release.
+Pull requests go to **`next`**: guide fixes, the addon, the tools, the data
+builds, translations, new guides and route refreshes. Never to `main`; the
+`Base branch` check fails those. `main` moves only when a release is made:
+it is fast-forwarded to `next` and tagged. A patch release is just a version
+bump (`x.y.Z`) from `next`, sooner than a feature release.
 docs/RELEASING.md has the release side.
+
+**While a development branch is open** (`dev-041` now), new features and
+guide-format changes go to it, and fixes to the released version go to
+`next`. The maintainers merge `next` into the development branch after every
+patch release, so it never falls behind; the development branch goes to
+`next` as a whole when its release is made. Both are on GitHub and take
+changes only through a pull request with green CI, so you can always base new
+work on what is there.
+
+**Once your pull request is merged, don't push to it again,** not even a
+rebase: GitHub shows it as merged because your exact commits are in the base
+branch. A fix or a follow-up is a new pull request.
 
 ## Using an AI agent
 
@@ -416,6 +429,11 @@ unexplained.
 Then the change is reviewed for correctness (tests, the game's limits,
 Options toggles off by default for anything that spends, equips or acts for
 the player) and merged into its base branch.
+
+**Changes asked in review happen on your pull request,** where you can see
+them: as review comments, or, for small fit-ups (a conflict, a format
+number, a test), as commits a maintainer pushes to your branch. Keep "Allow
+edits by maintainers" ticked. Your commits keep your name either way.
 
 **AI-assisted pull requests:** the model named in the "Model and tool" line
 sets how carefully the work is re-verified. Pull requests from smaller or

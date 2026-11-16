@@ -1,4 +1,4 @@
-<!-- Base branch: every pull request goes to next, never main. See CONTRIBUTING.md, "Branches". -->
+<!-- Base branch: next, or the open development branch (dev-041) for a new feature; never main. See CONTRIBUTING.md, "Branches". -->
 
 ## Issues
 
