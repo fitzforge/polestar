@@ -144,21 +144,14 @@ function completedTransports(events, chunks, original) {
 		} else {
 			const kind = e.e === 'land' ? 'taxi' : e.e === 'ride' && e.on === false ? 'ride' : null;
 			if (kind && starts[kind] !== null) {
-				ranges.push([starts[kind], i]);
+				ranges.push([starts[kind], i, kind]);
 				starts[kind] = null;
 			}
 		}
 	}
-	// Both kinds may be observed together. Ending one must not resume walking
-	// inside the other, while separate trips must retain the walking between them.
-	ranges.sort((a, b) => a[0] - b[0]);
-	const merged = [];
-	for (const range of ranges) {
-		const prev = merged[merged.length - 1];
-		if (prev && range[0] <= prev[1]) prev[1] = Math.max(prev[1], range[1]);
-		else merged.push(range);
-	}
-	return merged;
+	// Preserve the kind: a ride can include walking before its delayed end,
+	// while a taxi must exclude every sample even when the intervals overlap.
+	return ranges.sort((a, b) => a[0] - b[0]);
 }
 
 // One session -> ordered items: segments and guide completions. Completion
@@ -168,6 +161,7 @@ function sessionItems(s, xpModel, completed) {
 	const events = [...original].sort((a, b) => a.t - b.t);
 	const trips = completedTransports(events, s.chunks, original);
 	let tripIndex = 0;
+	const activeTrips = { taxi: null, ride: null };
 	const items = [];
 	let cur = null;
 	let combat = false;
@@ -259,23 +253,45 @@ function sessionItems(s, xpModel, completed) {
 		// above): the next outdoor sample may follow a different exit or a
 		// hearthstone. Keep event timing.
 		const entrance = e.e === 'enter';
-		while (tripIndex < trips.length && trips[tripIndex][1] < k) tripIndex++;
-		const trip = trips[tripIndex];
-		let recordPosition = true;
-		if (trip && k >= trip[0]) {
-			lastPos = null;
-			// Ride starts carry a cached origin, not the detection-time position.
-			// Only the final endpoint can anchor the walk after a completed trip.
-			recordPosition = k === trip[1];
+		while (tripIndex < trips.length && trips[tripIndex][0] <= k) {
+			const trip = trips[tripIndex++];
+			activeTrips[trip[2]] = trip;
 		}
-		if (recordPosition && !remotePoint && !dialogPosition && !entrance && typeof e.map === 'number' && num(e.x) !== null && num(e.y) !== null) {
+		for (const kind of ['taxi', 'ride']) {
+			if (activeTrips[kind] && activeTrips[kind][1] < k) activeTrips[kind] = null;
+		}
+		const { taxi, ride } = activeTrips;
+		const hasPosition = typeof e.map === 'number' && num(e.x) !== null && num(e.y) !== null;
+		const rideWalk = ride && k < ride[1] && !taxi && e.e === 'pos' && hasPosition && num(e.speed) > 0;
+		let recordPosition = true;
+		if (taxi) {
+			lastPos = null;
+			recordPosition = k === taxi[1] && (!ride || k === ride[1]);
+		} else if (ride) {
+			// Ride-off means five still ticks, so it can follow a long walk ashore.
+			// Its cached start and positions without own movement cannot anchor that walk.
+			const endpoint = k === ride[1];
+			// Step snapshots have no own speed; do not move a spanning leg into
+			// the newly active step just because its next breadcrumb arrives there.
+			if (k === ride[0] || endpoint || e.e === 'step' || (e.e === 'pos' && !rideWalk)) lastPos = null;
+			recordPosition = endpoint || rideWalk;
+		}
+		if (recordPosition && hasPosition && !remotePoint && !dialogPosition && !entrance) {
 			if (lastPos && lastPos.map === e.map && active) {
 				const [w, h] = mapSize(s.maps, e.map);
 				const d = Math.hypot(((e.x - lastPos.x) * w) / 100, ((e.y - lastPos.y) * h) / 100);
 				const dt = e.t - lastPos.t;
-				if (dt > 0 ? d / dt <= TELEPORT_SPEED : d < TELEPORT_SPEED) active.yards += d;
+				// Positive speed alone also occurs while walking aboard. Require a leg
+				// compatible with the recorded own speeds. The tolerance covers encoding
+				// rounding: 0.1 yd/s, 0.1 s and 0.01% coordinates.
+				let ownMovement = true;
+				if (rideWalk) {
+					const ownLimit = (Math.max(e.speed, lastPos.speed) + 0.05) * (dt + 0.1) + Math.hypot(w, h) / 10000;
+					ownMovement = lastPos.speed > 0 && dt > 0 && d <= ownLimit;
+				}
+				if (ownMovement && (dt > 0 ? d / dt <= TELEPORT_SPEED : d < TELEPORT_SPEED)) active.yards += d;
 			}
-			lastPos = { map: e.map, x: e.x, y: e.y, t: e.t };
+			lastPos = { map: e.map, x: e.x, y: e.y, t: e.t, speed: num(e.speed) };
 		}
 		// Include the last movement to completion, then stop attributing play
 		// to this guide. A background tab's completion leaves the active one open.
