@@ -140,16 +140,16 @@ forever/alliance/40-50/06-searing-gorge	step 22	0:-6680,-1194>-6509,-1192	detour
 forever/alliance/40-50/06-searing-gorge	step 36	0:-7025,-1786>-6680,-1197	detour 1.65x straight on grid, no named passage
 forever/alliance/40-50/06-searing-gorge	step 37	0:-6680,-1190>-6514,-1184	detour 2.27x straight on grid, no named passage
 forever/alliance/40-50/06-searing-gorge	step 41	0:-4595,-958>-4613,-929	detour 2.69x straight on leffe, no named passage
-forever/alliance/50-60/01-burning-steppes	step 14	1:3466,-5273>3499,-5635	detour 1.99x straight on leffe, no named passage
-forever/alliance/50-60/01-burning-steppes	step 16	1:3466,-5342>4027,-5407	detour 1.71x straight on leffe, no named passage
-forever/alliance/50-60/01-burning-steppes	step 22	1:3921,-5788>4604,-5987	detour 1.72x straight on leffe, no named passage
-forever/alliance/50-60/01-burning-steppes	step 71	0:-10884,-2935>-10947,-3369	detour 1.50x straight on leffe, no named passage
-forever/alliance/50-60/01-burning-steppes	step 79	0:-4648,-1132>-4861,-1017	detour 1.65x straight on leffe, no named passage
-forever/alliance/50-60/01-burning-steppes	step 83	1:6342,557>8707,989	no way on either map
-forever/alliance/50-60/01-burning-steppes	step 84	1:8707,989>8801,968	detour 1.86x straight on leffe, no named passage
-forever/alliance/50-60/01-burning-steppes	step 86	1:8801,968>10179,2564	no way on either map
-forever/alliance/50-60/01-burning-steppes	step 88	1:9634,2496>9948,2630	detour 1.57x straight on leffe, no named passage
-forever/alliance/50-60/01-burning-steppes	step 89	1:9948,2630>8701,993	no way on either map
+forever/alliance/50-60/01-burning-steppes	step 15	1:3466,-5273>3499,-5635	detour 1.99x straight on leffe, no named passage
+forever/alliance/50-60/01-burning-steppes	step 17	1:3466,-5342>4027,-5407	detour 1.71x straight on leffe, no named passage
+forever/alliance/50-60/01-burning-steppes	step 23	1:3921,-5788>4604,-5987	detour 1.72x straight on leffe, no named passage
+forever/alliance/50-60/01-burning-steppes	step 72	0:-10884,-2935>-10947,-3369	detour 1.50x straight on leffe, no named passage
+forever/alliance/50-60/01-burning-steppes	step 80	0:-4648,-1132>-4861,-1017	detour 1.65x straight on leffe, no named passage
+forever/alliance/50-60/01-burning-steppes	step 84	1:6342,557>8707,989	no way on either map
+forever/alliance/50-60/01-burning-steppes	step 85	1:8707,989>8801,968	detour 1.86x straight on leffe, no named passage
+forever/alliance/50-60/01-burning-steppes	step 87	1:8801,968>10180,2605	no way on either map
+forever/alliance/50-60/01-burning-steppes	step 90	1:9634,2496>9948,2630	detour 1.57x straight on leffe, no named passage
+forever/alliance/50-60/01-burning-steppes	step 91	1:9948,2630>8701,993	no way on either map
 forever/alliance/50-60/02-felwood	step 2	1:8645,841>3806,-1475	no way on either map
 forever/alliance/50-60/02-felwood	step 9	1:3724,-1025>3726,-889	detour 3.74x straight on grid, no named passage
 forever/alliance/50-60/02-felwood	step 11	1:4561,-212>4828,-340	detour 4.44x straight on leffe, no named passage

@@ -26,10 +26,10 @@
     "forever/alliance/40-50/05-the-hinterlands.guide": "d865e68c9961b31dd3d001f2f94c63facccc9df1272b00da1b4b9783bbe844eb",
     "forever/alliance/40-50/06-searing-gorge.guide": "5db5e1e0d90be81cdcb5f0ed15c79b83e00378816d97cad3ce9ac6eded07775e",
     "forever/alliance/40-50/07-un-goro-crater.guide": "4932929b270d9bb538bb4d4556eae051ffcff03d08ff43837e64a09f8b0051c9",
-    "forever/alliance/50-60/01-burning-steppes.guide": "2bd24136f9a298e891c42c36043581dce827fa3ed49eb6f5c620c02c82efcc72",
+    "forever/alliance/50-60/01-burning-steppes.guide": "5c8b23ccbb224bd0812b1f928ba7f27100b0457cc9e9ec8a74650d1ed93bbfb5",
     "forever/alliance/50-60/02-felwood.guide": "28e908f7f291bfacd15a17d0c3f3586bc6e5ed7846d4d3f504cc696f987aaf9e",
     "forever/alliance/50-60/03-winterspring.guide": "775fc5e07bf34839d199dedcffc9d21f8b527e3bcc5f55d2c2cd0dc7accf1858",
-    "forever/alliance/50-60/04-western-plaguelands.guide": "9d1d9f49b02e8a2355ded621cb4030a60a2966e6751d920d0bde0140f782d221",
+    "forever/alliance/50-60/04-western-plaguelands.guide": "172bae046e4c2d7955c4694650dd104977ab2e40876571b144384c0f95354f08",
     "forever/alliance/50-60/06-silithus.guide": "af1b4138357712d2842cc556f8b25e550dd7b99ac8f801738e9d9eb19ae769ff",
     "forever/alliance/dwarf/01-dun-morogh.guide": "cec0e54870fd03cb857e48c986cfa7104bdcb12ff51ed19b76ca2f6ec1bcf288",
     "forever/alliance/gnome/01-dun-morogh.guide": "527d1de36fd1e7a368c86f31de3cfb4bf5afd3a970e2769d4c7bb416ad9eca0f",
@@ -67,6 +67,6 @@
     "forever/horde/tauren/01-mulgore.guide": "4d5d1c076672fb524e589b7ed01914f0aa2f0297448fb4a0cac91c0ba35189fb",
     "forever/horde/troll/01-durotar.guide": "9296be1f07d3758e13ee43152dc9646231fc6748cdd4e6c587344fda5ed3df35",
     "forever/horde/undead/01-tirisfal-glades.guide": "3bc882acd3a54c131bd4e859a1cd6634a072eba112221897b19f10d8426f0b82",
-    "legs.json": "6af8c9e476bb4b7fb75a17ae12220fb1470f1c6fd2e68f6aae6104f718663eba"
+    "legs.json": "e86d89025261f7c2102d7c31e7322b44559bb0e32326955396db413a4d5f7917"
   }
 }
