@@ -14,7 +14,7 @@ return {
 
 	-- Step 3: Watcher Biggs
 	-- {npc:5476} Watcher Biggs · {npc:217412} Amaryllis Webb · {quest:93176} My Little Friends
-	["{npc:5476} guards the road junction in the west of the swamp. {npc:217412} stands a short way north of him.\n{npc:217412} may not be here on Forever: if {npc:217412} doesn't offer {quest:93176}, skip it."] = "",
+	["{npc:5476} guards the road junction in the west of the swamp. {npc:217412} stands a short way north of him.\n{npc:217412} may not be here on Forever: if {npc:217412} doesn't offer {quest:93176}, skip it."] = "{npc:5476} wacht an der Straßenkreuzung im Westen des Sumpfs. {npc:217412} steht ein kurzes Stück nördlich von ihm.\n{npc:217412} ist in Forever vielleicht nicht hier: Wenn {npc:217412} dir {quest:93176} nicht anbietet, überspring sie.",
 	-- {npc:217412} Amaryllis Webb · {zone:1443} Desolace
 	["{npc:217412}: three critters to catch in Arathi, {zone:1443} and Stranglethorn"] = "{npc:217412}: drei Kleintiere zum Fangen im Arathihochland, in {zone:1443} und im Schlingendorntal",
 
@@ -36,7 +36,7 @@ return {
 	-- Step 8: The Lost Caravan
 	-- {area:76} Fallow Sanctuary · {npc:5391} Galen Goodward
 	-- plural, as words: Lost Ones = {npc:254797} Lost One
-	["The wrecked caravan's chest lies at the north end of the {area:76}, beside {npc:5391}'s cage.\nCareful: The camp is full of Lost Ones around level 38. They stand in linked groups of 2-3, many are casters, and they respawn quickly."] = "",
+	["The wrecked caravan's chest lies at the north end of the {area:76}, beside {npc:5391}'s cage.\nCareful: The camp is full of Lost Ones around level 38. They stand in linked groups of 2-3, many are casters, and they respawn quickly."] = "Die Kiste des zertrümmerten Wagens liegt am Nordende von {area:76}, neben dem Käfig von {npc:5391}.\nVorsicht: Das Lager wimmelt von Verlorenen der Stufe um 38. Sie stehen in verbundenen Gruppen zu 2-3, viele sind Zauberer, und sie erscheinen schnell wieder.",
 
 	-- Step 9: Galen Goodward
 	-- {npc:5391} Galen Goodward
@@ -44,13 +44,13 @@ return {
 
 	-- Step 10: The Harborage
 	-- {npc:5391} Galen Goodward · {area:657} The Harborage
-	["West along the road from {npc:5391}'s strongbox to the {area:657}."] = "",
+	["West along the road from {npc:5391}'s strongbox to the {area:657}."] = "Westwärts die Straße entlang von der Geldkassette von {npc:5391} nach {area:657}.",
 	-- {npc:1776} Magtoor
-	["{npc:1776}: Noboru's cudgel"] = "",
+	["{npc:1776}: Noboru's cudgel"] = "{npc:1776}: Noborus Knüppel",
 
 	-- Step 11: Watcher Biggs
 	-- {npc:5476} Watcher Biggs
-	["South down the road to {npc:5476}, on the way west out of the swamp."] = "",
+	["South down the road to {npc:5476}, on the way west out of the swamp."] = "Südwärts die Straße hinunter zu {npc:5476}, auf dem Weg nach Westen aus dem Sumpf hinaus.",
 
 	-- Step 13: Fly to Stormwind
 	-- {zone:1453} Stormwind
@@ -66,7 +66,7 @@ return {
 	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6913} Heartswood Core · {quest:65602} What Is Love? · {item:190309} Wooden Figurine
 	["{npc:6122} waits in the {object:2164}'s cellar, in the {object:2101}. Use the {item:6913} at the summoning circle there and defeat the succubus it calls. If you took {quest:65602}, hand him the {item:190309} too, place it at the same circle and defeat the incubus."] = "{npc:6122} wartet im Keller von {object:2164} in {object:2101}. Benutze {item:6913} am Beschwörungskreis dort und besiege den herbeigerufenen Sukkubus. Wenn du {quest:65602} angenommen hast, gib ihm auch {item:190309}, stelle sie am selben Kreis ab und besiege den Inkubus.",
 	-- {npc:5677} Summoned Succubus
-	["{npc:5677}, at the summoning circle"] = "",
+	["{npc:5677}, at the summoning circle"] = "{npc:5677}, am Beschwörungskreis",
 	-- {quest:65602} What Is Love?
 	["{quest:65602}, if you took it"] = "{quest:65602}, falls du sie angenommen hast",
 	-- {npc:185335} Summoned Incubus
@@ -104,16 +104,16 @@ return {
 	-- {area:287} Hillsbrad · {area:1057} Thoradin's Wall · {area:320} Refuge Pointe
 	["Follow the road east out of {area:287} over {area:1057} to {area:320}."] = "Folge der Straße von {area:287} nach Osten über {area:1057} nach {area:320}.",
 	-- {npc:2700} Captain Nials · {npc:1075} Rhag Garmason
-	["{npc:2700}: {npc:1075}'s plea, from 01-hillsbrad-foothills"] = "",
+	["{npc:2700}: {npc:1075}'s plea, from 01-hillsbrad-foothills"] = "{npc:2700}: das Flehen von {npc:1075}, aus 01-hillsbrad-foothills",
 
 	-- Step 26: Northfold Manor
 	-- {area:320} Refuge Pointe
-	["The Syndicate hold the farm north-west of {area:320}.\nCareful: Syndicate Highwaymen are level 30-31 and can cast Sneak while out of combat, so they are often stealthed and hard to spot."] = "",
+	["The Syndicate hold the farm north-west of {area:320}.\nCareful: Syndicate Highwaymen are level 30-31 and can cast Sneak while out of combat, so they are often stealthed and hard to spot."] = "Das Syndikat hält die Farm nordwestlich von {area:320}.\nVorsicht: Wegelagerer des Syndikats sind Stufe 30-31 und können außerhalb des Kampfes Tarne wirken, also sind sie oft getarnt und schwer zu entdecken.",
 
 	-- Step 27: Hay Weevil
 	-- {quest:681} Northfold Manor · {npc:217412} Amaryllis Webb
 	-- plural, as words: Hay Weevils = {npc:217589} Hay Weevil
-	["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "",
+	["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "Heugabeuse krabbeln am Nordende der Farm von {quest:681} umher: Fange einen mit dem Werkzeug aus dem Insektenkunde-Starterset von {npc:217412}.",
 
 	-- Step 28: Shards of Myzrael
 	-- {quest:681} Northfold Manor · {area:333} Circle of East Binding · {area:314} Go'Shek Farm
@@ -127,7 +127,7 @@ return {
 	-- plural, as words: Lesser Bloodstone Deposits = {object:2653} Lesser Bloodstone Deposit
 	["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop the Motes of Myzrael, not Krazek's ore. Lesser Bloodstone Deposits need {skill:186} 75: mine four ore, buy them at the Auction House, or ask a miner friend. The ore goal is optional; continue with Myzrael if you cannot get it. Careful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "Die Kobolde der Trockenstoppel graben in der Schlucht östlich von {area:321} (Horde); umgeh den Ort im Norden. Sie lassen die Körner von Myzrael fallen, nicht Krazeks Erz. Geringe Blutsteinablagerungen brauchen {skill:186} 75: Bau vier Erz ab, kauf sie im Auktionshaus oder frag einen befreundeten Bergarbeiter. Das Erz-Ziel ist optional; mach mit Myzrael weiter, wenn du es nicht bekommst. Vorsicht: Jede Koboldart rennt bei wenig Gesundheit um Hilfe (Kobolde bei 30%, Feldvermesser und Buddler bei 15%), was weitere anlocken kann.",
 	-- {item:4435} Mote of Myzrael · {npc:2572} Drywhisker Kobold · {npc:2573} Drywhisker Surveyor · {npc:2574} Drywhisker Digger
-	["{item:4435} from {npc:2572}, {npc:2573} and {npc:2574}, by this stop"] = "",
+	["{item:4435} from {npc:2572}, {npc:2573} and {npc:2574}, by this stop"] = "{item:4435} von {npc:2572}, {npc:2573} und {npc:2574}, bei dieser Station",
 
 	-- Step 30: Iridescent Shards
 	-- {area:318} Drywhisker Gorge
@@ -137,7 +137,7 @@ return {
 	-- Step 31: Stones of Binding
 	-- {area:320} Refuge Pointe · {object:2702} Stone of Inner Binding
 	-- plural, as words: Burning Exiles = {npc:2760} Burning Exile · Thundering Exiles = {npc:2762} Thundering Exile · Cresting Exiles = {npc:2761} Cresting Exile
-	["Each key lies at one of the Highlands' standing-stone circles: east of the shards, near {area:320} and in the west. The {object:2702} stands west of {area:320}.\nCareful: Each center stone is guarded by around three elementals near level 39 that attack together if you click the stone without clearing them: Burning Exiles at West, Thundering Exiles at Outer, Cresting Exiles at East."] = "",
+	["Each key lies at one of the Highlands' standing-stone circles: east of the shards, near {area:320} and in the west. The {object:2702} stands west of {area:320}.\nCareful: Each center stone is guarded by around three elementals near level 39 that attack together if you click the stone without clearing them: Burning Exiles at West, Thundering Exiles at Outer, Cresting Exiles at East."] = "Jeder Schlüssel liegt an einem der Steinkreise der Hochebene: östlich der Splitter, nahe {area:320} und im Westen. Der {object:2702} steht westlich von {area:320}.\nVorsicht: Jeder Mittelsstein wird von etwa drei Elementaren der Stufe um 39 bewacht, die gemeinsam angreifen, wenn du den Stein anklickst, ohne sie weggeräumt zu haben: Brennende Verbannte im Westen, Donnernde Verbannte im Äußeren, Wallende Verbannte im Osten.",
 
 	-- Step 32: Witherbark Village
 	-- {object:2691} Stone of East Binding · {area:314} Go'Shek Farm · {area:317} Witherbark Village
@@ -161,7 +161,7 @@ return {
 	-- {npc:2713} Kinelory
 	["{npc:2713}'s errand"] = "Auftrag von {npc:2713}",
 	-- {npc:2713} Kinelory · {area:314} Go'Shek Farm
-	["Stay with {npc:2713} while she sneaks into {area:314} and back; Horde orcs jump you on the way.\nCareful: Orcs that drop to low health run away. {npc:2713} follows them and can pull more mobs, so kill or slow runners fast."] = "",
+	["Stay with {npc:2713} while she sneaks into {area:314} and back; Horde orcs jump you on the way.\nCareful: Orcs that drop to low health run away. {npc:2713} follows them and can pull more mobs, so kill or slow runners fast."] = "Bleib bei {npc:2713}, während sie sich nach {area:314} und zurück schleicht; Horde-Orks greifen dich unterwegs an.\nVorsicht: Orks mit wenig Leben rennen davon. {npc:2713} folgt ihnen und kann weitere Gegner ziehen, also töte oder verlangsame Läufer schnell.",
 
 	-- Step 38: Quae
 	-- {npc:2711} Phin Odelic · {area:271} Southshore
@@ -169,16 +169,16 @@ return {
 
 	-- Step 39: Refuge Pointe
 	-- {area:320} Refuge Pointe · {object:2689} Stone of West Binding
-	["West along the road to {area:320}, on the way to the {object:2689}."] = "",
+	["West along the road to {area:320}, on the way to the {object:2689}."] = "Westwärts die Straße entlang nach {area:320}, auf dem Weg zum {object:2689}.",
 	-- {npc:2789} Skuerto · {npc:2793} Kor'gresh Coldrage · {area:327} Faldir's Cove
-	["{npc:2789}: {npc:2793}'s cave comes after {area:327}"] = "",
+	["{npc:2789}: {npc:2793}'s cave comes after {area:327}"] = "{npc:2789}: Die Höhle von {npc:2793} kommt nach {area:327}",
 
 	-- Step 41: Faldir's Cove
-	["South along the west coast to the goblins' cove; Lolo keeps watch on the rocks above it."] = "",
+	["South along the west coast to the goblins' cove; Lolo keeps watch on the rocks above it."] = "Südwärts die Westküste entlang zur Kobold-Bucht; Lolo hält Wache auf den Felsen darüber.",
 
 	-- Step 42: Phizzlethorpe
 	["Phizzlethorpe"] = "Phizzlethorpe",
-	["Escort the professor up the hill to the cave above the cove and guard him while he works. Two level 40 water elementals ambush him there, and they are immune to frost. Hold them at the cave mouth, away from him: if the fight happens inside the cave, he joins in instead of working and more elementals keep coming."] = "",
+	["Escort the professor up the hill to the cave above the cove and guard him while he works. Two level 40 water elementals ambush him there, and they are immune to frost. Hold them at the cave mouth, away from him: if the fight happens inside the cave, he joins in instead of working and more elementals keep coming."] = "Eskortiere den Professor den Hügel hinauf zur Höhle über der Bucht und beschütze ihn, während er arbeitet. Zwei Wasserelementare der Stufe 40 fallen ihm dort in den Rücken, und sie sind gegen Frost immun. Halte sie am Höhleneingang, von ihm weg: Wenn der Kampf in der Höhle stattfindet, mischt er sich ein, statt zu arbeiten, und weitere Elementare kommen immer wieder.",
 
 	-- Step 44: The Drowned Reef: kill these as you meet them
 	-- {area:328} The Drowned Reef
@@ -205,13 +205,13 @@ return {
 
 	-- Step 46: Kor'gresh Coldrage
 	-- {area:327} Faldir's Cove · {npc:2793} Kor'gresh Coldrage
-	["East from {area:327} through the southern hills: {npc:2793}, an ogre mage, holds the cave at the southern end of the Witherbark valley."] = "",
+	["East from {area:327} through the southern hills: {npc:2793}, an ogre mage, holds the cave at the southern end of the Witherbark valley."] = "Ostwärts von {area:327} durch die südlichen Hügel: {npc:2793}, ein Ogerhexenmeister, hält die Höhle am Südende des Welkenrinden-Tals.",
 	-- {item:4525} Trelane's Wand of Invocation
 	["{item:4525}; below ground"] = "{item:4525}; unter der Erde",
 
 	-- Step 47: Foggy MacKreel
 	-- {npc:2793} Kor'gresh Coldrage · {area:880} Thandol Span · {npc:2696} Foggy MacKreel · {quest:647} MacKreel's Moonshine · {npc:2705} Brewmeister Bilger · {area:271} Southshore · {area:320} Refuge Pointe
-	["South-west from {npc:2793}'s cave to the {area:880}: {npc:2696} stands on a broken section of the bridge; jump down to him from its north end. {quest:647} must reach {npc:2705} in {area:271} within 15 minutes: go straight back to {area:320} and fly to {area:271}."] = "",
+	["South-west from {npc:2793}'s cave to the {area:880}: {npc:2696} stands on a broken section of the bridge; jump down to him from its north end. {quest:647} must reach {npc:2705} in {area:271} within 15 minutes: go straight back to {area:320} and fly to {area:271}."] = "Südwestwärts von der Höhle von {npc:2793} nach {area:880}: {npc:2696} steht auf einem zerstörten Abschnitt der Brücke; spring am Nordende zu ihm hinab. {quest:647} muss innerhalb von 15 Minuten {npc:2705} in {area:271} erreichen: Geh direkt zurück nach {area:320} und fliege nach {area:271}.",
 
 	-- Step 49: Fly to Southshore
 	-- {area:320} Refuge Pointe
@@ -219,7 +219,7 @@ return {
 
 	-- Step 50: Brewmeister Bilger
 	-- {area:271} Southshore
-	["Off the flight, straight to the {area:271} inn."] = "",
+	["Off the flight, straight to the {area:271} inn."] = "Nach dem Flug direkt ins Gasthaus in {area:271}.",
 	-- {npc:2705} Brewmeister Bilger
 	["{npc:2705}, below ground"] = "{npc:2705}, unter der Erde",
 
@@ -232,11 +232,11 @@ return {
 	["{area:281}: kill these as you meet them"] = "{area:281}: Töte diese, wenn du ihnen begegnest",
 	-- {area:280} Strahnbrad
 	-- plural, as words: Argus Shadow Mages = {npc:2318} Argus Shadow Mage · Crushridge Warmongers = {npc:2287} Crushridge Warmonger · Crushridge Maulers = {npc:2254} Crushridge Mauler · Crushridge Ogres = {npc:2252} Crushridge Ogre
-	["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins.\nCareful: Crushridge Warmongers call nearby allies within 15 yd once they fall below half health.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and carry the tomes too: pull one at a time, or group up."] = "",
+	["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins.\nCareful: Crushridge Warmongers call nearby allies within 15 yd once they fall below half health.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and carry the tomes too: pull one at a time, or group up."] = "Die Folianten liegen im verfallenen Bergfried westlich von {area:280}; Argus-Schattenmagier halten die Ruinen.\nVorsicht: Zermalmgrat-Kriegshezter rufen nahe Verbündete im Umkreis von 15 Metern, sobald sie unterhalb der halben Gesundheit fallen.\nDie Zermalmgrat-Raufbolde, -Magier, -Vollstrecker und -Kriegshezter (36-39) sind Elite; die Zermalmgrat-Oger und -Schläger (34-35) sind es nicht und tragen die Folianten ebenfalls: Zieh sie einzeln, oder such dir eine Gruppe.",
 	-- {item:3658} Recovered Tome
 	["{item:3658}: Crushridge ogres"] = "{item:3658}: Crushridge-Oger",
 	-- {item:3659} Worn Leather Book · {object:1760} Weathered Bookcase
-	["{item:3659}: the {object:1760}; inside"] = "",
+	["{item:3659}: the {object:1760}; inside"] = "{item:3659}: der {object:1760}; drinnen",
 
 	-- Step 54: Ruins of Alterac: kill these as you meet them
 	-- {npc:2417} Grel'borg the Miser
@@ -246,13 +246,13 @@ return {
 	-- {area:280} Strahnbrad
 	["{area:280}: kill these as you meet them"] = "{area:280}: Töte diese, wenn du ihnen begegnest",
 	-- {npc:2320} Nagaz
-	["Careful: Syndicate Spies and Assassins can be stealthed. Assassins also poison you.\nCareful: About three stealthed Syndicate mobs are inside {npc:2320}'s house. {npc:2320} does not join when they are pulled, and a ranged attack through the doorway brings him out by himself."] = "",
+	["Careful: Syndicate Spies and Assassins can be stealthed. Assassins also poison you.\nCareful: About three stealthed Syndicate mobs are inside {npc:2320}'s house. {npc:2320} does not join when they are pulled, and a ranged attack through the doorway brings him out by himself."] = "Vorsicht: Spione und Assassinen des Syndikats können getarnt sein. Assassinen vergiften dich außerdem.\nVorsicht: Etwa drei getarnte Mobs des Syndikats sind im Haus von {npc:2320}. {npc:2320} mischt sich nicht ein, wenn sie angegriffen werden, und ein Fernkampfangriff durch die Tür bringt ihn von selbst heraus.",
 
 	-- Step 56: Crushridge ogres
 	["Crushridge ogres"] = "Crushridge-Oger",
 	-- {area:280} Strahnbrad · {item:3706} Ensorcelled Parchment · {npc:2320} Nagaz · {quest:537} Dark Council
 	-- plural, as words: Crushridge Maulers = {npc:2254} Crushridge Mauler · Crushridge Ogres = {npc:2252} Crushridge Ogre
-	["The Crushridge ogres hold the hills north of {area:280}. Farther north, a worn wooden chest holds the {item:3706}; {npc:2320} of the {quest:537} stands right by it.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and drop the knucklebones too: pull one at a time, or group up."] = "",
+	["The Crushridge ogres hold the hills north of {area:280}. Farther north, a worn wooden chest holds the {item:3706}; {npc:2320} of the {quest:537} stands right by it.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and drop the knucklebones too: pull one at a time, or group up."] = "Die Zermalmgrat-Oger halten die Hügel nördlich von {area:280}. Weiter nördlich hält eine abgenutzte Holztruhe das {item:3706}; {npc:2320} von {quest:537} steht direkt daneben.\nDie Zermalmgrat-Raufbolde, -Magier, -Vollstrecker und -Kriegshezter (36-39) sind Elite; die Zermalmgrat-Oger und -Schläger (34-35) sind es nicht und lassen die Knöchelknochen ebenfalls fallen: Zieh sie einzeln, oder such dir eine Gruppe.",
 	["Inside"] = "Drinnen",
 
 	-- Step 58: Dalaran
@@ -265,17 +265,17 @@ return {
 	-- {npc:1440} Milton Sheaf · {zone:1453} Stormwind
 	["For {npc:1440} in {zone:1453}: keep it"] = "Für {npc:1440} in {zone:1453}: behalten",
 	-- {npc:2277} Loremaster Dibbs
-	["{npc:2277}: the parchment"] = "",
+	["{npc:2277}: the parchment"] = "{npc:2277}: das Pergament",
 
 	-- Step 61: Bartolo Ginsetti
 	-- {npc:2438} Bartolo Ginsetti · {npc:2381} Micha Yance · {item:2321} Fine Thread
-	["{npc:2438} stands between the flight master and the inn; {npc:2381} beside him sells {item:2321} if you have none."] = "",
+	["{npc:2438} stands between the flight master and the inn; {npc:2381} beside him sells {item:2321} if you have none."] = "{npc:2438} steht zwischen dem Flugmeister und dem Gasthaus; {npc:2381} neben ihm verkauft {item:2321}, wenn du keins hast.",
 	-- {item:2321} Fine Thread · {npc:2381} Micha Yance
 	["{item:2321}, from {npc:2381}"] = "{item:2321}, von {npc:2381}",
 
 	-- Step 64: Ironforge
 	-- {npc:1356} Prospector Stormpike · {object:32356} Hall of Explorers (no name in this language: may be words) · {npc:1344} Prospector Ironband · {zone:1432} Loch Modan
-	["{npc:1356}, {object:32356}: for {npc:1344} in {zone:1432}, next"] = "",
+	["{npc:1356}, {object:32356}: for {npc:1344} in {zone:1432}, next"] = "{npc:1356}, {object:32356}: für {npc:1344} in {zone:1432}, als Nächstes",
 
 	-- Step 65: To Thelsamar
 	-- {area:144} Thelsamar
