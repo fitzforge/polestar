@@ -73,6 +73,7 @@ step Fallow Sanctuary
   accept 1392 optional
   collect 6071 quest 1389             -- Draenethyst Crystal, the blue crystals by the tents
   collect 258530 quest 93430          -- Lucky Lure, from a Lost One Fisherman
+  kill 759 x10 quest 93429            -- Lost Ones: Hunters, Muckdwellers, Seers and Riftseekers all count
 
 step The Lost Caravan
   tip The wrecked caravan's chest lies at the north end of the Fallow Sanctuary, beside Galen Goodward's cage.

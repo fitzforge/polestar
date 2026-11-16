@@ -3995,6 +3995,35 @@
 		},
 		"note": "Making Our Move: after the three kill objectives the game reveals a fourth, reporting to Hyusaa Quickbreeze (a talk, which the data counted as a kill)."
 	},
+	"93429": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 759,
+					"count": 10,
+					"text": "Lost One",
+					"credit": [
+						759,
+						760,
+						761,
+						762
+					]
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16): 13 people ran Blood of My Blood; its one line, \"Lost One slain\" x10, ticked on a single kill of a Lost One Hunter (759, 44 times), Muckdweller (760, 35), Riftseeker (762, 4) or Seer (761, 2)"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: one kill objective, 10 of the Lost One credit (254797)"
+			}
+		],
+		"note": "Blood of My Blood (Karana, the Harborage): slay 10 Lost Ones in the Fallow Sanctuary. The data had no objective, so the guide's line for it could not count; any of the sanctuary's Lost Ones counts."
+	},
 	"93461": {
 		"set": {
 			"objectives": [
