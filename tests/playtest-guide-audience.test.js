@@ -87,7 +87,10 @@ for (const [root, tail, race] of [
 	const result = await quiet(() => cmd.run([...pack(`${tail}\nclass Warrior`, true, root), '--filter', '02-end', '--format', 'json']));
 	assert.equal(result.result, 1, result.out);
 	const report = JSON.parse(result.out);
-	assert.deepEqual(report.findings.filter((f) => f.rule === 'R5').map((f) => [f.race, f.cls]), [[race, 'WARRIOR']]);
+	// A tail with no faction of its own is also its own chain on the other side (0.4.0's per-side
+	// chains), so the same character can report it twice: the race and class sampled are what counts.
+	const sampled = [...new Set(report.findings.filter((f) => f.rule === 'R5').map((f) => JSON.stringify([f.race, f.cls])))].map((s) => JSON.parse(s));
+	assert.deepEqual(sampled, [[race, 'WARRIOR']]);
 });
 
 for (const explicit of [false, true]) test(`${explicit ? 'an explicit' : 'a named'} class is sampled within the later guide faction`, async () => {
