@@ -254,7 +254,7 @@ step Foreman Thazz'ril
 
 step Zureetha Fargaze
   turnin 794
-  turnin 804                          -- Gornek
+  turnin 804 only !Shaman           -- Gornek
   accept 805
   accept 96652                        -- the Lost Journal on the ground beside her
   train class

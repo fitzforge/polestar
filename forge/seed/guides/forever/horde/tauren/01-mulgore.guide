@@ -230,7 +230,7 @@ step Poison Water
   collect 4759 quest 748.2 @50.2,67.0 -- Plainstrider Talon
   collect 4806 quest 766.3 @50.2,67.0 -- Plainstrider Scale
   collect 4804 quest 766.1 @49.8,65.3
-  collect 4809 quest 771.2 @48.7,64.5
+  collect 4809 quest 771.2 @50.2,66.4
   collect 4808 quest 771.1                    -- Well Stone, 170 yd east
 
 step Bloodhoof Village
@@ -369,6 +369,7 @@ step Galak centaurs
 
 step The Venture Co. Mine
   tip The goblins work the mine in the hills north-east of the well. Supervisor Fizsprocket stands in the back of the mine; his Mulgore Expansion Plans start Fizsprocket's Notes, and the other pages lie inside the mine.
+  tip Careful: the goblins stand close together in the tunnels and Supervisor Fizsprocket is level 12: clear the way one pull at a time.
   goto 64.9,43.3 "The Venture Co. Mine"
   kill 2978 quest 764.1
   kill 2979 quest 764.2

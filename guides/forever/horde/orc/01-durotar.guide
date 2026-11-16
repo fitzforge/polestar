@@ -144,7 +144,7 @@ step Back to the Den
   turnin 1516 only Shaman -- Canaga Earthcaller
   accept 1517 only Shaman
   turnin 794
-  turnin 804                          -- Gornek, inside
+  turnin 804 only !Shaman           -- Gornek, inside
   accept 805
   accept 96652                        -- the Lost Journal on the ground beside her
   train class
@@ -352,6 +352,7 @@ step Level 9
 step Echo Isles: kill these as you meet them
   zone Durotar
   tip Head south through the isles. The Loa idols lie all over the southern isles; Voodoo and Hexed Trolls hold them and drop the Hexed Pendants. Zalazane and Minshina's cage are on the southernmost isle.
+  tip Careful: the trolls stand close together and the Voodoo Trolls cast from range: pull one at a time. Zalazane himself is level 10.
   collect 277135 quest 97225.1
   complete 96873 optional
   kill 3206 quest 826.2
@@ -384,6 +385,7 @@ step Razor Hill
 step Level 10
   when level<10
   tip Top up here to level 10: Conscript of the Horde, at Razor Hill, needs level 10.
+  tip The prickly pears for This Fruit Could Bite Back grow by these huts: pick them while you grind.
   goto 50.1,49.0 map 1411 "Razormane Quilboar"
   level 10 grind 3111               -- grind on Razormane Quilboar
 

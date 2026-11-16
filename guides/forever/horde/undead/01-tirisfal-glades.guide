@@ -554,6 +554,7 @@ step Balnir Farmstead: kill these as you meet them
 step Tirisfal Glades: kill these as you meet them
   zone Tirisfal Glades
   tip On the way back west, the Cult of the Damned holds the farm just south-east of Deathguard Linnea's camp. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too.
+  tip Careful: the cultists (10-12) stand close together and the Neophytes cast: pull one at a time from the edge of the farm.
   collect 275851 quest 96898.1 @68.2,64.6
   kill 275437 quest 96897.2 @68.2,64.6
   kill 267006 quest 96897.1 @68.2,64.6
