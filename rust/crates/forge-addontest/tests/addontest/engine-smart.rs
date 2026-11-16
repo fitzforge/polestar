@@ -217,8 +217,9 @@ fn suggest_prefers_the_current_zone_then_the_nearest_by_travel_race_chains_win_t
 	assert_eq!(home, "test/silverpine");
 }
 
+// Engine.OUTGROWN: most players run a little ahead of the route, so a guide is outgrown 3 levels past its top, not 2.
 #[test]
-fn guide_outleveled_fires_once_per_guide_when_the_level_passes_maxlevel_2() {
+fn guide_outleveled_fires_once_per_guide_three_levels_past_its_top_never_at_two() {
 	let out = run(
 		"stub.world.level = 5",
 		r#"
@@ -231,14 +232,16 @@ fn guide_outleveled_fires_once_per_guide_when_the_level_passes_maxlevel_2() {
 			Polestar.On("GUIDE_OUTLEVELED", function(id, s) fired[#fired + 1] = id .. ">" .. tostring(s) end)
 			local w = stub.world
 			w.setLevel(7); flush()
-			local at7 = #fired
 			w.setLevel(8); flush()
+			local at8 = #fired
 			w.setLevel(9); flush()
-			emit({ at7 = at7, fired = fired, guide = E.GetGuide().id })
+			local at9 = #fired
+			w.setLevel(10); flush()
+			emit({ at8 = at8, at9 = at9, fired = fired, guide = E.GetGuide().id, margin = E.OUTGROWN })
 		"#,
 		true,
 	);
-	assert_eq!(out, json!({ "at7": 0, "fired": ["test/low>test/mid"], "guide": "test/low" }));
+	assert_eq!(out, json!({ "at8": 0, "at9": 1, "fired": ["test/low>test/mid"], "guide": "test/low", "margin": 3 }));
 }
 
 const SKIP_GREY_ON: Option<&str> = Some("PolestarDB = { schema = 1, settings = { behavior = { skipGrey = true } } }");

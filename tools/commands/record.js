@@ -10,7 +10,7 @@ const { buildReport, formatReport } = require('../lib/recording/report');
 const { trailsOf } = require('../lib/recording/trail');
 const { resolvePack } = require('../lib/pack/locate');
 const { printDiagnostics } = require('../lib/cli');
-const { ROOT } = require('../lib/paths');
+const { ROOT, DATA } = require('../lib/paths');
 
 const DEFAULT_OUT = path.join(ROOT, 'data', 'recordings');
 const IMPORT_HINT = 'run "forge record import" (or "forge record pull")';
@@ -40,6 +40,8 @@ options:
   --out <dir|file>       draft: output .guide file or folder (default <pack>/drafts);
                          trail: output .json file
   --pack <dir>           draft: the pack the draft belongs to
+  --data <dir>           draft: optional travel.json for schema 2 place names
+                         (default data/forever); unresolved IDs become author comments
   --recordings <dir>     where sessions are read (default data/recordings)
   --force                draft: overwrite an existing draft
   --guide <text>         report: only guides whose id or title contains <text>
@@ -68,6 +70,7 @@ function parse(argv) {
 		else if (a === '--recordings') opts.recordings = value();
 		else if (a === '--force') opts.force = true;
 		else if (a === '--pack') opts.pack = value();
+		else if (a === '--data') opts.data = value();
 		else if (a === '--guide') opts.guide = value();
 		else if (a === '--top') {
 			opts.top = Number(value());
@@ -106,7 +109,9 @@ function doDraft(opts) {
 		console.error(`record draft: ${path.join(pack.dir, 'pack.json')} is invalid`);
 		return 1;
 	}
-	const { id, name, text } = draftGuide(session, { pack: pack.manifest.id });
+	const travelFile = path.join(path.resolve(opts.data || DATA), 'travel.json');
+	const travel = fs.existsSync(travelFile) ? JSON.parse(fs.readFileSync(travelFile, 'utf8')) : null;
+	const { id, name, text } = draftGuide(session, { pack: pack.manifest.id, travel });
 	let out = path.join(pack.dir, 'drafts', `${name}.guide`);
 	if (opts.out) out = opts.out.endsWith('.guide') ? path.resolve(opts.out) : path.join(path.resolve(opts.out), `${name}.guide`);
 	if (fs.existsSync(out) && !opts.force) {

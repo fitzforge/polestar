@@ -58,15 +58,15 @@ static TEXT: &[(&str, [&str; 9], [&str; 9])] = &[
 			"Polestar 實驗指南",
 		],
 		[
-			"Teil von Polestar: experimentelle Guides für die neuen Zonen von Forever (Alpha). Wird geladen, wenn du eine ihrer Zonen wählst, wo ein Guide sie anbietet, oder es unter Optionen, Community-Guides einschaltest.",
-			"Parte de Polestar: guías experimentales para las nuevas zonas de Forever (alfa). Se carga al elegir una de sus zonas cuando una guía la ofrece, o al activarlo en Opciones, Guías de la comunidad.",
-			"Parte de Polestar: guías experimentales para las nuevas zonas de Forever (alfa). Se carga al elegir una de sus zonas cuando una guía la ofrece, o al activarlo en Opciones, Guías de la comunidad.",
-			"Fait partie de Polestar : guides expérimentaux pour les nouvelles zones de Forever (alpha). Se charge quand vous choisissez l'une de ses zones là où un guide la propose, ou quand vous l'activez dans Options, Guides de la communauté.",
-			"Polestar의 일부: Forever 신규 지역용 실험 가이드(알파). 가이드가 제시한 지역 중 하나를 고르거나 설정 > 커뮤니티 가이드에서 켜면 불러옵니다.",
-			"Parte do Polestar: guias experimentais para as novas zonas do Forever (alfa). Carrega quando você escolhe uma das suas zonas onde um guia a oferece, ou quando o liga em Opções, Guias da comunidade.",
-			"Часть Polestar: экспериментальные гайды для новых зон Forever (альфа). Загружается, когда вы выбираете одну из этих зон там, где её предлагает гайд, или включаете его в разделе «Настройки», «Гайды сообщества».",
-			"Polestar 的组成部分：Forever 新区域的实验性指南（Alpha 版）。在指南提供的路线中选择其中一个区域，或在“选项”>“社区指南”中开启时加载。",
-			"Polestar 的一部分：Forever 新區域的實驗性指南（Alpha 版）。在指南提供的路線中選擇其中一個區域，或在「選項」>「社群指南」中開啟時載入。",
+			"Teil von Polestar: experimentelle Guides für die neuen Zonen von Forever (Alpha), gelistet mit den Guides von Polestar.",
+			"Parte de Polestar: guías experimentales para las nuevas zonas de Forever (alfa), junto a las guías de Polestar.",
+			"Parte de Polestar: guías experimentales para las nuevas zonas de Forever (alfa), junto a las guías de Polestar.",
+			"Fait partie de Polestar : guides expérimentaux pour les nouvelles zones de Forever (alpha), aux côtés des guides de Polestar.",
+			"Polestar의 일부: Forever 신규 지역용 실험 가이드(알파). Polestar 가이드와 함께 표시됩니다.",
+			"Parte do Polestar: guias experimentais para as novas zonas do Forever (alfa), junto aos guias do Polestar.",
+			"Часть Polestar: экспериментальные гайды для новых зон Forever (альфа), рядом с гайдами Polestar.",
+			"Polestar 的组成部分：Forever 新区域的实验性指南（Alpha 版），与 Polestar 的指南一同列出。",
+			"Polestar 的一部分：Forever 新區域的實驗性指南（Alpha 版），與 Polestar 的指南一同列出。",
 		],
 	),
 	(
@@ -460,14 +460,15 @@ pub fn retired_language_addons(locale: &str) -> [String; 2] {
 }
 
 /// The language folder's interface strings (`forge i18n sync` and the translators): never written or
-/// removed by `forge guide compile` or `forge data names`.
+/// removed by `forge guide compile`, `forge data names` or `forge data subzones`.
 pub const INTERFACE_FILE: &str = "Interface.lua";
 
-/// The language folder's files, in load order: every writer of the folder lists all three.
-pub const LANGUAGE_FILES: [&str; 3] = [INTERFACE_FILE, "Names.lua", "Texts.lua"];
+/// The language folder's files, in load order: every writer of the folder lists all four.
+pub const LANGUAGE_FILES: [&str; 4] = [INTERFACE_FILE, "Names.lua", "Subzones.lua", "Texts.lua"];
 
-/// <Polestar_<locale>>.toc, written whole and alike by `forge guide compile` (Texts.lua) and
-/// `forge data names` (Names.lua), so either may run first. `version`: the release's.
+/// <Polestar_<locale>>.toc, written whole and alike by `forge guide compile` (Texts.lua), `forge data
+/// names` (Names.lua) and `forge data subzones` (Subzones.lua), so any may run first. `version`: the
+/// release's.
 pub fn language_toc(locale: &str, iface: &str, version: &str) -> String {
 	let language = crate::locales::language(locale);
 	let name = language_addon(locale);
@@ -487,7 +488,7 @@ pub fn language_toc(locale: &str, iface: &str, version: &str) -> String {
 		"## X-Polestar-Texts: guides".into(),
 		format!("## X-Polestar-Locale: {locale}"),
 		"## X-License: GPL-3.0-only".into(),
-		format!("# {} (Texts.lua) and `forge data names` (Names.lua). Do not edit: rebuild with those commands.", crate::format::GENERATED_MARKER),
+		format!("# {} (Texts.lua), `forge data names` (Names.lua) and `forge data subzones` (Subzones.lua). Do not edit: rebuild with those commands.", crate::format::GENERATED_MARKER),
 		String::new(),
 	]);
 	lines.extend(LANGUAGE_FILES.map(String::from));

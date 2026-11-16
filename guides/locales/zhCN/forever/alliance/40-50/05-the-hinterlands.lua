@@ -11,105 +11,74 @@ return {
 	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer
 	["Ride south-east to the {area:355}, the stepped Vilebranch temple in the south of the {zone:1425}, and climb to the top. Qiaga and {npc:8636} (elite, 50) stand up there: touch the top and come straight back down.\nCareful: Elite trolls guard the top platform, including {npc:7996} and {npc:8636}, along with several Vilebranch Soothsayers. The soothsayers cast spells and are linked to the rest of the group."] = "向东南骑行前往{zone:1425}南部的阶梯状邪枝神殿{area:355}，爬到顶部。守护者奇尔加和 50 级精英{npc:8636}在那里；抵达顶部后立即下来。\n注意：顶层平台由精英巨魔守卫，包括{npc:7996}、{npc:8636}和多名邪枝占卜者。占卜者会施法，并与其他守卫联动。",
 
-	-- Step 2: Skulk Rock
+	-- Step 2: Vilebranch Soothsayers
+	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer
+	["Vilebranch Soothsayers"] = "邪枝占卜者",
+	-- {area:355} Altar of Zul · {npc:7996} Qiaga the Keeper · {npc:8636} Morta'gya the Keeper
+	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer
+	["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "邪枝占卜者（46-47）在{area:355}山脚周围游荡：他们的图腾交给先知玛雷特·火心。小心：{npc:7996}和{npc:8636}（50级，精英）站在祭坛东南侧：去祭坛西侧打占卜者，远离她们，别上祭坛。",
+
+	-- Step 3: Skulk Rock
 	-- {area:351} Skulk Rock · {zone:1425} The Hinterlands
 	-- plural, as words: Green Sludges = {npc:2655} Green Sludge · Jade Oozes = {npc:2656} Jade Ooze
 	["Ride north to {area:351} in the middle of the {zone:1425}. Green Sludges and Jade Oozes crawl all around it.\nCareful: Panthers move around the area in stealth."] = "向北骑行前往{zone:1425}中部的{area:351}，绿色淤泥怪和玉石软泥怪遍布周围。\n注意：附近有潜行的豹子活动。",
 
-	-- Step 3: Aerie Peak
+	-- Step 4: Wildkin feathers
+	["Wildkin feathers"] = "枭兽羽毛",
+	-- {npc:7916} Erelas Ambersky · {zone:1425} The Hinterlands · {area:348} Aerie Peak · {area:351} Skulk Rock
+	-- plural, as words: Wildkin Feathers = {item:10819} Wildkin Feather
+	["{npc:7916}'s Wildkin Feathers lie on the ground across the {zone:1425}, south and east of {area:348}, where the owlbeasts roam: pick them up as you ride between the altar and {area:351}."] = "{npc:7916}要的枭兽羽毛散落在{zone:1425}各处的地上，位于{area:348}的南边和东边，枭兽出没的地方：在祭坛和{area:351}之间骑行时顺手捡起。",
+
+	-- Step 5: Lost Gryphon Eggs
+	-- plural, as words: Lost Gryphon Eggs = {item:279229} Lost Gryphon Egg
+	["Lost Gryphon Eggs"] = "丢失的狮鹫蛋",
+	-- {area:348} Aerie Peak
+	["On the way back to {area:348}: the lost gryphon eggs lie in the hills just east of the aviary."] = "返回{area:348}途中：丢失的狮鹫蛋就在狮鹫栖木东边不远处的山丘里。",
+
+	-- Step 6: Aerie Peak
 	["Inside"] = "在里面",
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, inside"] = "{npc:5636}：在屋内",
 	-- {quest:2990} Thadius Grimshade · {area:1438} Nethergarde Keep
 	["for {quest:2990} at {area:1438}, later"] = "之后交给{area:1438}的{quest:2990}",
+	-- {npc:270263} Farseer Maret Firetend
+	["{npc:270263}, just east of the aviary"] = "{npc:270263}，在狮鹫栖木东边不远处",
 
-	-- Step 4: Fly to Ironforge
+	-- Step 7: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "飞往{area:1537}",
 	-- {area:348} Aerie Peak
 	["{area:348} flight master"] = "{area:348}的飞行管理员",
 
-	-- Step 5: Class trainer
+	-- Step 8: Class trainer
 	["Class trainer"] = "职业训练师",
 
-	-- Step 6: Tram to Stormwind
+	-- Step 9: Ironforge inn
+	-- {area:1537} Ironforge
+	["{area:1537} inn"] = "{area:1537}旅店",
+	-- {object:26486} Stonefire Tavern · {zone:1427} Searing Gorge · {area:144} Thelsamar
+	["Set your hearth at the {object:26486}: the {zone:1427} guide starts with the hearth back here and the gryphon to {area:144}."] = "在{object:26486}绑定炉石：{zone:1427}指南一开始就用炉石回到这里，再坐狮鹫去{area:144}。",
+
+	-- Step 10: Tram to Stormwind
 	-- {zone:1453} Stormwind
 	["Tram to {zone:1453}"] = "乘地铁前往{zone:1453}",
 
-	-- Step 8: Fly to Lakeshire
-	-- {area:69} Lakeshire
-	["Fly to {area:69}"] = "飞往{area:69}",
+	-- Step 12: Fly to Darkshire
+	-- {area:42} Darkshire
+	["Fly to {area:42}"] = "飞往{area:42}",
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "{zone:1453}飞行管理员",
 
-	-- Step 9: Morgan's Vigil flight master
-	-- {area:2418} Morgan's Vigil
-	["{area:2418} flight master"] = "{area:2418}的飞行管理员",
-
-	-- Step 10: Fly to Thelsamar
-	-- {area:144} Thelsamar
-	["Fly to {area:144}"] = "飞往{area:144}",
-
-	-- Step 11: Thelsamar
-	-- {zone:1427} Searing Gorge · {area:144} Thelsamar
-	["Set your hearth here: the {zone:1427} guide starts from {area:144}."] = "在这里绑定炉石：{zone:1427}指南从{area:144}开始。",
-
-	-- Step 12: Fly to Menethil Harbor
-	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "飞往{area:150}",
-	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "{area:144}的飞行管理员",
-
-	-- Step 15: Rut'theran Village
-	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
-	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907}在楼上，{npc:7916}的上方：从室内上楼，箭头无法区分楼层。",
-	-- {npc:7907} Daryn Lightwind · {zone:1446} Tanaris
-	["{npc:7907}'s next errand goes to {zone:1446}: skip it."] = "{npc:7907}的下一个差事要去{zone:1446}：跳过。",
-	-- {npc:7916} Erelas Ambersky · {zone:1428} Burning Steppes
-	["{npc:7916}: keep it, the feathers come at the end of the {zone:1428} guide"] = "{npc:7916}：先留着，羽毛在{zone:1428}指南结尾获得",
-	["the book on her table"] = "她桌上的书",
-
-	-- Step 17: Temple of the Moon
-	["Temple of the Moon"] = "月神殿",
-	-- {zone:1457} Darnassus
-	["Step through the portal into {zone:1457}. The Temple of the Moon is in the south of the city."] = "穿过传送门进入{zone:1457}。月神殿在城市南部。",
-	-- {npc:7740} Gracina Spiritmight
-	["{npc:7740}, beside her"] = "{npc:7740}，在她旁边",
-
-	-- Step 21: Cenarion Enclave
-	-- {npc:3516} Arch Druid Fandral Staghelm
-	["{npc:3516}, at the top of the tree"] = "{npc:3516}，在树顶",
-
-	-- Step 23: Cenarion Enclave
-	-- {zone:1449} Un'Goro Crater
-	["the soil comes from {zone:1449}, later"] = "土壤之后从{zone:1449}获得",
-
-	-- Step 24: Portal to Teldrassil
-	-- {zone:1438} Teldrassil
-	["Portal to {zone:1438}"] = "传送至{zone:1438}",
-
-	-- Step 25: Fly to Auberdine
-	-- {area:442} Auberdine
-	["Fly to {area:442}"] = "飞往{area:442}",
-	-- {area:702} Rut'theran Village
-	["{area:702} flight master"] = "{area:702}的飞行管理员",
-
-	-- Step 26: Boat to Stormwind Harbor
-	-- {area:17203} Stormwind Harbor
-	["Boat to {area:17203}"] = "乘船前往{area:17203}",
-
-	-- Step 27: Fly to Darkshire
-	-- {area:42} Darkshire
-	["Fly to {area:42}"] = "飞往{area:42}",
-
-	-- Step 30: The bloodmages
+	-- Step 15: The bloodmages
 	["The bloodmages"] = "血法师",
 	-- {zone:1419} Blasted Lands · {area:1438} Nethergarde Keep
 	["The bloodmages' camp is the first stop beside the road into the {zone:1419}, north-west of {area:1438}."] = "进入{zone:1419}后，第一个停靠点就是路旁的血法师营地，位于{area:1438}西北侧。",
+	-- {npc:7505} Bloodmage Drazial · {zone:1419} Blasted Lands
+	["{npc:7505}: keep the five, their beasts (48-53) wait for the level-52 {zone:1419} stop"] = "{npc:7505}：保留这五个任务，其中的野兽（48-53）留到52级去{zone:1419}时再做",
 
-	-- Step 31: Nethergarde Keep
+	-- Step 16: Nethergarde Keep
 	-- {item:6091} Crate of Power Stones · {area:42} Darkshire
-	["Ride on east along the road to the keep first: the {item:6091} expires an hour after {area:42}, and the bloodmages' beasts take longer than that."] = "先沿道路继续向东到城堡：{item:6091}在离开{area:42}一小时后失效，而血法师要的野兽需要更长时间。",
+	["Ride on east along the road to the keep first: the {item:6091} expires an hour after {area:42}."] = "先沿道路继续向东到城堡：{item:6091}在离开{area:42}一小时后失效。",
 	-- {quest:2990} Thadius Grimshade
 	["{quest:2990}, at the top of the keep"] = "{quest:2990}，在城堡顶层",
 	-- {npc:8022} Thadius Grimshade · {item:9471} Nekrum's Medallion · {area:978} Zul'Farrak
@@ -117,37 +86,81 @@ return {
 	-- {npc:5385} Watcher Mahar Ba
 	["{npc:5385}, upstairs"] = "{npc:5385}：在楼上",
 
-	-- Step 32: Blasted Lands: kill these as you meet them
-	-- {zone:1419} Blasted Lands
-	["{zone:1419}: kill these as you meet them"] = "{zone:1419}：沿途击杀以下目标",
-	-- {npc:5982} Black Slayer · {spell:5416} Venom Sting · {npc:8301} Clack the Reaver
-	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger · Ashmane Boars = {npc:5992} Ashmane Boar · Redstone Basilisks = {npc:5990} Redstone Basilisk
-	["Ride west: Starving Snickerfangs roam the dry hills just south of the bloodmages' camp; Scorpok Stingers (level 50) scuttle across the middle of the north. {npc:5982} vultures circle over all of it. Pull one at a time.\nAshmane Boars and Redstone Basilisks share the slopes south-west of the keep. Keep clear of the Helboars further south: they are level 52.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "向西骑行，饥饿的弯牙土狼在血法师营地南侧的干燥山丘活动，50 级的厚甲毒刺蝎在北部中央活动，{npc:5982}秃鹫在整片区域上空盘旋。逐个拉怪。\n灰鬃野猪和红石蜥蜴在城堡西南侧坡地活动。远离更南侧的 52 级地狱野猪。\n注意：厚甲毒刺蝎会使用{spell:5416}，{npc:8301}还会击倒。",
-
-	-- Step 33: The bloodmages
-	["The bloodmages' second tier pays for the same parts with a buff item and no experience: skip it."] = "血法师的第二阶段用增益物品而不是经验来交换同样的材料：跳过。",
-
-	-- Step 34: Fly to Booty Bay
+	-- Step 17: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "飞往{area:35}",
 	-- {area:1438} Nethergarde Keep
 	["{area:1438} flight master"] = "{area:1438}的飞行管理员",
 
-	-- Step 35: Booty Bay
+	-- Step 18: Booty Bay
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "“海狼”马克基雷，位于最顶层",
+	["\"Sea Wolf\" MacKinley, if the Stranglethorn guide didn't give it"] = "“海狼”马金雷，如果荆棘谷指南没给过这个任务",
+	-- {npc:2487} Fleet Master Seahorn
+	["{npc:2487}, top floor, if the Stranglethorn guide didn't give it"] = "{npc:2487}，顶楼，如果荆棘谷指南没给过这个任务",
+	-- {npc:2494} Privateer Bloads
+	["{npc:2494}, if the Stranglethorn guide didn't give it"] = "{npc:2494}，如果荆棘谷指南没给过这个任务",
+	-- {npc:2498} Crank Fizzlebub
+	["{npc:2498}, inside, if the Stranglethorn guide didn't give it"] = "{npc:2498}，在屋内，如果荆棘谷指南没给过这个任务",
+
+	-- Step 19: Wild Shore: kill these as you meet them
+	-- {area:43} Wild Shore
+	["{area:43}: kill these as you meet them"] = "{area:43}：沿途击杀以下目标",
+	-- {area:43} Wild Shore · {area:35} Booty Bay
+	["The charts and orders lie in the pirate camp on the {area:43}, just south of {area:35}; its Swashbucklers walk the shore. The Warlocks and Swashbucklers (41-43) are under you now."] = "海图和命令在{area:43}的海盗营地里，就在{area:35}南边；营地的海盗在海岸上巡逻。术士和海盗（41-43）现在比你等级低了。",
+
+	-- Step 20: Booty Bay
 	-- {npc:2487} Fleet Master Seahorn
 	["{npc:2487}, top floor"] = "{npc:2487}，顶楼",
 
-	-- Step 36: The Bloodsail captains
+	-- Step 21: The Bloodsail captains
 	["The Bloodsail captains"] = "血帆船长",
 	-- {area:35} Booty Bay · {npc:2550} Captain Stillwater · {npc:2548} Captain Keelhaul · {npc:2546} Fleet Master Firallon
 	["The three Bloodsail ships lie at anchor off the coast just south of {area:35}: {npc:2550} (45) and {npc:2548} (46) on the nearer decks, {npc:2546} (48) on the flagship, each with a crew of 42-45 pirates. Swim out, clear each deck from the edge and pull one at a time."] = "三艘血帆海盗船停泊在{area:35}正南方的近海：{npc:2550}（45级）和{npc:2548}（46级）在较近的两艘船上，{npc:2546}（48级）在旗舰上，每艘船都有42-45级的海盗船员。游过去，从甲板边缘开始清理，一次引一个。",
 
-	-- Step 38: Monogrammed Sash
+	-- Step 23: Naga Explorers
+	-- plural, as words: Naga Explorers = {npc:1907} Naga Explorer
+	["Naga Explorers"] = "纳迦探险者",
+	["Leave town by the tunnel and ride north along the coast past the Bloodsail camp: the naga comb the beaches beyond it and drop the reeds."] = "从隧道出镇，沿海岸向北骑过血帆营地：更远处的海滩上有纳迦游荡，它们会掉落芦苇。",
+
+	-- Step 24: Zanzil's village
+	["Zanzil's village"] = "赞吉尔的村子",
+	-- {npc:2537} Chucky "Ten Thumbs"
+	["Ride on north along the coast to Zanzil's village. Every Zanzil follower can drop the mixture; {npc:2537} walks the south of the camp."] = "沿海岸继续向北骑到赞吉尔的村子。所有赞吉尔的信徒都可能掉落混合物；{npc:2537}在营地南部游荡。",
+
+	-- Step 25: Maury "Club Foot" Wilkins and Jon-Jon the Crow
+	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
+	["{npc:2535} and {npc:2536}"] = "{npc:2535}和{npc:2536}",
+	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
+	["{npc:2535} and {npc:2536} stand together in the hills just north of Zanzil's village."] = "{npc:2535}和{npc:2536}一起站在赞吉尔村子北边不远处的山丘上。",
+
+	-- Step 26: Gorilla hills
+	["Gorilla hills"] = "猩猩山丘",
+	-- {area:35} Booty Bay · {npc:1449} Witch Doctor Unbagwa
+	-- plural, as words: Gorilla Fangs = {item:2799} Gorilla Fang · Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
+	["Ride back south-east to the Mistvale gorilla hills above {area:35}. {npc:1449} sits among the gorillas: take ten Gorilla Fangs from the Elder Mistvale Gorillas first."] = "向东南骑回{area:35}上方迷雾谷猩猩所在的山丘。{npc:1449}坐在猩猩群中：先从老迈的迷雾谷猩猩身上收集十颗猩猩牙。",
+
+	-- Step 27: Unbagwa's ritual
+	["Unbagwa's ritual"] = "安巴格瓦的仪式",
+	-- {npc:1514} Mokk the Savage
+	["Hand in the fangs and stay: three waves of gorillas come, {npc:1514} last.\nCareful: three waves of gorillas come one after another with little rest between, then {npc:1514}. Start at full health and mana, and stay near Unbagwa. Some classes find it hard alone: a friend makes it easy."] = "交还猩猩牙后留在原地：会来三波猩猩，最后是{npc:1514}。\n注意：三波猩猩接连出现，中间几乎没有喘息时间，之后是{npc:1514}。开始前回满生命值和法力值，并待在安巴格瓦附近。有些职业独自完成较难：找个朋友帮忙就轻松了。",
+	-- {npc:1449} Witch Doctor Unbagwa · {area:1742} Spirit Den
+	["{npc:1449}, inside {area:1742}"] = "{npc:1449}，位于{area:1742}内部",
+
+	-- Step 28: Booty Bay
+	["Ride back down to town."] = "骑回镇上。",
+	-- {npc:2616} Privateer Groy
+	["for {npc:2616} in Theramore: keep it, the Un'Goro guide lands there"] = "交给塞拉摩的{npc:2616}：保留它，安戈洛指南会在那里开始",
+	-- {npc:2498} Crank Fizzlebub · {zone:1441} Thousand Needles
+	["{npc:2498}'s next Zanzil errand starts in {zone:1441}: skip it."] = "{npc:2498}的下一个赞吉尔差事从{zone:1441}开始：跳过。",
+	-- {npc:2498} Crank Fizzlebub
+	["{npc:2498}, inside"] = "{npc:2498}：在屋内",
+	["MacKinley's next task sends you after elite ogres: skip it."] = "马克基雷的下一个任务要你对付精英食人魔：跳过。",
+
+	-- Step 29: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英敌人，建议寻找其他玩家组队完成。{quest:8552}需要 2 人小队。独自一人时可跳过，路线会安排刷怪补回经验。",
 
-	-- Step 42: Facing Negolash
+	-- Step 33: Facing Negolash
 	-- {npc:1494} Negolash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:1494}（52 级精英）需要 2 人小队。独自一人时可跳过，路线会安排刷怪补回经验。",
 
@@ -156,27 +169,49 @@ return {
 	-- ["Back to {area:144}"] = "返回{area:144}",
 	-- ["Back to {area:38}"] = "返回{area:38}",
 	-- ["Boars and basilisks"] = "野猪和蜥蜴",
+	-- ["Boat to {area:17203}"] = "乘船前往{area:17203}",
 	-- ["Fly from {area:144} to {area:150}, take the boat to {area:442} and fly to {area:702}."] = "从{area:144}飞往{area:150}，乘船前往{area:442}，再飞往{area:702}。",
 	-- ["Fly from {area:348} to {area:42}."] = "从{area:348}飞往{area:42}。",
+	-- ["Fly to {area:144}"] = "飞往{area:144}",
+	-- ["Fly to {area:150}"] = "飞往{area:150}",
+	-- ["Fly to {area:442}"] = "飞往{area:442}",
+	-- ["Fly to {area:69}"] = "飞往{area:69}",
 	-- ["Hearth to {area:144}. The {zone:1427} guide starts at {area:1446}: from here, ride south into the {zone:1418}, west past the Horde town of {area:340} and up the trail into the gorge."] = "用炉石返回{area:144}。{zone:1427}指南从{area:1446}开始：从这里向南骑进{zone:1418}，向西经过部落城镇{area:340}，沿小路上到峡谷。",
 	-- ["Hearth to {area:348}."] = "用炉石返回{area:348}。",
 	-- ["Hearthstone on cooldown? Ride back north-west."] = "炉石在冷却？向西北骑回去。",
 	-- ["Into {area:3}"] = "进入{area:3}",
 	-- ["Portal to {area:141}"] = "传送至{area:141}",
+	-- ["Portal to {zone:1438}"] = "传送至{zone:1438}",
 	-- ["Ride back east to {area:1438} and fly to {area:144}."] = "向东骑回{area:1438}，飞往{area:144}。",
 	-- ["Ride back north to Ironband's camp."] = "向北骑回铁环挖掘场的营地。",
 	-- ["Ride back west along the loch to {area:144}."] = "沿洛克湖向西骑行返回{area:144}。",
 	-- ["Ride east along the south shore of the loch to Ironband's camp."] = "沿湖南岸向东骑到铁环挖掘场的营地。",
 	-- ["Ride east through {zone:1430} into the {zone:1435} and south down the road into the {zone:1419}. The bloodmages' camp is the first stop beside the road."] = "向东骑过{zone:1430}进入{zone:1435}，再沿道路向南进入{zone:1419}。血法师营地是路旁的第一站。",
 	-- ["Ride north to {area:351} in the middle of the {zone:1425}. Green Sludges and Jade Oozes crawl all around it."] = "向北骑到{zone:1425}中部的{area:351}。{npc:2655}和{npc:2656}在周围爬行。",
+	-- ["Ride on east along the road to the keep first: the {item:6091} expires an hour after {area:42}, and the bloodmages' beasts take longer than that."] = "先沿道路继续向东到城堡：{item:6091}在离开{area:42}一小时后失效，而血法师要的野兽需要更长时间。",
 	-- ["Ride south through the pass into the {area:3}' northern edge: the Stonevault troggs dig outside {area:1517} there. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "向南穿过山口到{area:3}北缘：石窟穴居人在那里的{area:1517}外面挖掘。雕纹石罐和紫色蘑菇在它们的洞穴和隧道里，在地下城外面。",
 	-- ["Ride south-east to the {area:355}, the stepped Vilebranch temple in the south of the {zone:1425}, and climb to the top. Qiaga and {npc:8636} (elite, 50) stand up there: touch the top and come straight back down."] = "向东南骑到{area:355}，即{zone:1425}南部的邪枝阶梯神庙，爬到顶上。奇尔加和{npc:8636}（精英，50级）站在上面：摸到顶层就直接下来。",
 	-- ["Ride west: Starving Snickerfangs roam the dry hills just south of the bloodmages' camp; Scorpok Stingers (level 50) scuttle across the middle of the north. {npc:5982} vultures circle over all of it. Pull one at a time."] = "向西骑：{npc:5984}在血法师营地南边的干燥山丘上游荡；{npc:5988}（50级）在北部中间爬行。{npc:5982}秃鹫在整片区域上空盘旋。一次拉一只。",
+	-- ["Ride west: Starving Snickerfangs roam the dry hills just south of the bloodmages' camp; Scorpok Stingers (level 50) scuttle across the middle of the north. {npc:5982} vultures circle over all of it. Pull one at a time.\nAshmane Boars and Redstone Basilisks share the slopes south-west of the keep. Keep clear of the Helboars further south: they are level 52.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown.\nCareful: two elites roam here: {npc:221740} (50) in the middle of the zone around 44,34, and {npc:247015} (55) on the ridge around 39,32. When you see one, hunt somewhere else."] = "向西骑行，饥饿的弯牙土狼在血法师营地南侧的干燥山丘活动，50 级的厚甲毒刺蝎在北部中央活动，{npc:5982}秃鹫在整片区域上空盘旋。逐个拉怪。\n灰鬃野猪和红石蜥蜴在城堡西南侧坡地活动。远离更南侧的 52 级地狱野猪。\n注意：厚甲毒刺蝎会使用{spell:5416}，{npc:8301}还会击倒。\n注意：这里有两只精英在游荡：区域中部约44,34的{npc:221740}（50级），以及约39,32山脊上的{npc:247015}（55级）。看到其中一只，就换个地方打怪。",
 	-- ["Scorpoks and snickerfangs"] = "厚甲蝎和弯牙土狼",
+	-- ["Step through the portal into {zone:1457}. The Temple of the Moon is in the south of the city."] = "穿过传送门进入{zone:1457}。月神殿在城市南部。",
+	-- ["Temple of the Moon"] = "月神殿",
+	-- ["The bloodmages' second tier pays for the same parts with a buff item and no experience: skip it."] = "血法师的第二阶段用增益物品而不是经验来交换同样的材料：跳过。",
 	-- ["The druid trainers stand in the Enclave; {zone:1455} has none"] = "德鲁伊训练师站在塞纳里奥区；{zone:1455}没有",
 	-- ["The {area:1517} dig"] = "{area:1517}挖掘场",
+	-- ["the book on her table"] = "她桌上的书",
+	-- ["the soil comes from {zone:1449}, later"] = "土壤之后从{zone:1449}获得",
+	-- ["{area:144} flight master"] = "{area:144}的飞行管理员",
+	-- ["{area:2418} flight master"] = "{area:2418}的飞行管理员",
+	-- ["{area:702} flight master"] = "{area:702}的飞行管理员",
 	-- ["{item:8047}; below ground"] = "{item:8047}：在地下",
 	-- ["{npc:1470}, below ground"] = "{npc:1470}：在地下",
+	-- ["{npc:3516}, at the top of the tree"] = "{npc:3516}，在树顶",
+	-- ["{npc:7740}, beside her"] = "{npc:7740}，在她旁边",
 	-- ["{npc:7744}: the last guide binds here, so this usually ticks at once"] = "{npc:7744}：上一份指南在这里绑定炉石，所以这一步通常会立即完成",
+	-- ["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907}在楼上，{npc:7916}的上方：从室内上楼，箭头无法区分楼层。",
+	-- ["{npc:7907}'s next errand goes to {zone:1446}: skip it."] = "{npc:7907}的下一个差事要去{zone:1446}：跳过。",
+	-- ["{npc:7916}: keep it, the feathers come at the end of the {zone:1428} guide"] = "{npc:7916}：先留着，羽毛在{zone:1428}指南结尾获得",
 	-- ["{object:2743}; below ground"] = "{object:2743}：在地下",
+	-- ["{zone:1419}: kill these as you meet them"] = "{zone:1419}：沿途击杀以下目标",
 }

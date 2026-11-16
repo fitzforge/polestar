@@ -49,7 +49,7 @@ check("scheme umbra", Theme.RegisterScheme("umbra", {
 local SUBJECTS = {
 	success = "#86cf9f", warning = "#e6b86b", danger = "#e08484", quest = "#e8cf8a", npc = "#9fc3e8", item = "#c3b3e6",
 	place = "#e2ad8d", object = "#d2c7b2", level = "#eef0f4", skill = "#a8d089", spell = "#8ed0dc", faction = "#e3a6c6",
-	area = "#dcbda4", achievement = "#e6a872", dungeon = "#ab98e6", rare = "#e6916f",
+	area = "#dcbda4", achievement = "#e6a872", dungeon = "#ab98e6", experimental = "#c99be6", rare = "#e6916f",
 }
 local FLAT = { accent = ACCENT, haze = "#00000000", glow = ACCENT }
 for k, v in pairs(SUBJECTS) do FLAT[k] = v end

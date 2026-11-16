@@ -26,8 +26,10 @@ return {
 	["Equip {item:18646}, then find {npc:14494}, a ghost on the hillside in the north-west of the {zone:1423}, west of {area:2279}'s gate (if she does not show, take the Eye off and put it back on). {quest:7621} is only talk; {quest:7622} starts the moment you accept it, so prepare first: full mana, Major Mana Potions, Demonic or Dark Runes, mana food or {item:13931}, and a stack of {item:8956} or {item:13180} for the skeletons."] = "",
 
 	-- Step 3: The Balance of Light and Shadow
-	-- {object:179694} Death Post (no name in this language: may be words) · {npc:14494} Eris Havenfire · {spell:552} Abolish Disease · {spell:139} Renew · {spell:2061} Flash Heal · {spell:15237} Holy Nova
+	-- {object:179694} Death Post · {npc:14494} Eris Havenfire · {spell:552} Abolish Disease · {spell:139} Renew · {spell:2061} Flash Heal · {spell:15237} Holy Nova
 	["Save 50 peasants before 15 die (the {object:179694} by the path counts the dead). They walk from the cave towards {npc:14494} in waves, catch diseases and draw skeletons and skeleton archers. Cure the purple-glowing diseases first ({spell:552}), keep {spell:139} on the hurt ones, {spell:2061} the nearly dead, and kill skeletons as they spawn: one {spell:15237} of rank 3 or more kills them, oil takes two ticks while they hit you. Shield yourself at the start of each wave; friendly nameplates make the hurt peasants easy to pick out. Friends may buff you before you accept and may heal or cure peasants, but they must not heal or buff you, attack a skeleton or bring a pet once it starts, or a demon appears and kills everyone. Fail, and {npc:14494} is gone for a while (players report anything from 15 minutes to two hours); talk to her again when she is back."] = "",
+	-- {npc:14494} Eris Havenfire
+	["beside {npc:14494}, where the peasants walk to"] = "在{npc:14494}旁邊，也就是農民走去的地方",
 
 	-- Step 5: The Eye of Shadow
 	-- {item:18665} The Eye of Shadow · {npc:12397} Lord Kazzak · {zone:1419} Blasted Lands
@@ -38,12 +40,11 @@ return {
 	-- {item:18659} Splinter of Nordrassil · {item:18646} The Eye of Divinity · {item:18665} The Eye of Shadow · {item:18608} Benediction
 	["With the {item:18659}, {item:18646} and {item:18665} in your bags, use the splinter wherever you are: it becomes {item:18608}. Use {item:18608} to turn it into Anathema, the shadow staff, and back (a 30-minute cooldown)."] = "",
 	-- {item:18659} Splinter of Nordrassil · {item:18608} Benediction
-	["Use the {item:18659} with both Eyes in your bags: {item:18608}"] = "",
+	["Use the {item:18659} with both Eyes in your bags: {item:18608}"] = "兩顆眼睛都在背包裡時使用{item:18659}：{item:18608}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Equip {item:18646} to see {npc:14494}, a ghost on the mountainside in the north-west of the {zone:1423}. Come with full mana, Major Mana Potions and {item:8956}: if you fail, the event takes about two hours to return."] = "裝備{item:18646}才能看見{npc:14494}，她是{zone:1423}西北部山坡上的一個鬼魂。帶著滿法力、極效法力藥水和{item:8956}前往：如果失敗，事件大約要兩小時才會重新出現。",
 	-- ["Save 50 peasants before 15 die. Kill the skeletons that attack them, cure their diseases (the purple ones first) and heal the wounded with {spell:139}. Friends may buff you beforehand but must stay out of the fight, or a demon appears and kills everyone."] = "在15個農民死亡之前救出50個。擊殺攻擊他們的骷髏，治癒他們的疾病（先治紫色的），並用{spell:139}治療傷者。朋友可以事先為你施加增益，但必須遠離戰鬥，否則會出現一個惡魔殺死所有人。",
-	-- ["With both Eyes in your bags: {item:18608}"] = "兩顆眼睛都在背包裡時：{item:18608}",
 	-- ["You need {item:18646} first: it comes from the {object:179703} after {npc:12018} in {area:2717}. {item:18665} drops from elite demons ({npc:12397}, a world boss, always; Doomguard Commanders and Manahounds rarely); it binds when equipped, so buying one works too."] = "你需要先取得{item:18646}：它來自{area:2717}擊敗{npc:12018}後的{object:179703}。{item:18665}由精英惡魔掉落（世界首領{npc:12397}必定掉落；{npc:12396}和法力犬極少掉落）；它是裝備後綁定，所以也可以用買的。",
 	-- ["{npc:14494}'s splinter and the two Eyes make {item:18608}, the epic priest staff that turns into Anathema."] = "{npc:14494}的碎片和兩顆眼睛可以製成{item:18608}，這把史詩牧師法杖可以轉變成咒逐。",
 }

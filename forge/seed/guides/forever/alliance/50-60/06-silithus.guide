@@ -4,16 +4,27 @@ title Silithus, Felwood, Winterspring & the Plaguelands
 faction Alliance
 levels 58-60
 zone Silithus
+pitch Silithus, Felwood, Winterspring and the Plaguelands.
+pro Takes you all the way to 60
+pro Stays on the main route
+pro Moonglade flight path on the way
+con Lots of flying between zones
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Toxic Horrors (5086), Of Lost Honor (5845).
+# Added here: Toxic Horrors (5086), Of Lost Honor (5845: only after Of Forgotten Memories, 5781, whose Mercutio is a
+# group choice, so a solo player never gets it and its steps hide themselves).
 # Left out: Taking Back Silithus (8275).
 
-step To Ratchet
+# ---------------------------------------------------------------- Ratchet
+
+step Ratchet
   zone The Barrens
-  goto 62.0,39.4 "Ratchet"
+  tip Fly from Marshal's Refuge to Ratchet.
+  fly "Ratchet"
+  turnin 4502                         -- Liv Rizzlefix, inside
+  collect 10556 quest 3444.1 @62.5,38.5 map 1413 -- Stone Circle
 
 step Fly to Talrendis Point
   zone The Barrens
@@ -23,7 +34,7 @@ step Fly to Talrendis Point
 
 step Felwood
   zone Felwood
-  goto 51.2,82.1 "Felwood"
+  goto 51.2,82.1 "The Emerald Sanctuary"
 
 step The Emerald Sanctuary
   zone Felwood
@@ -64,6 +75,7 @@ step The Emerald Sanctuary
 
 step Irontree Woods
   tip Follow the road north to Irontree Woods. The Irontree Stompers carry the heart; finish the claws on the Angerclaw Grizzlies and Felpaw Ravagers of the north.
+  tip Careful: Ancient Irontree Walkers, level 59 elites, stand among the treants in the middle of Irontree Woods: take the Stompers on the north side (about 48,21).
   collect 11172 quest 4084.1
   collect 11173 quest 4084.2          -- Irontree Stompers
 
@@ -95,13 +107,67 @@ step The Emerald Sanctuary
   turnin 5242                         -- Greta Mosshoof
   turnin 5385                         -- Jessir Moonbow
 
+step Forest Song
+  when onquest 4261
+  zone Ashenvale
+  tip Ride south out of Felwood toward Talrendis Point: Kayneth Stillwind's camp at Forest Song is just over the Ashenvale border, on the way.
+  turnin 4261                         -- Kayneth Stillwind
+
 step Azshara
   zone Azshara
-  goto 11.9,77.5 "Azshara"
+  goto 11.9,77.5 "Talrendis Point"
 
 step Fly to Gadgetzan
+  when !onquest 4512
+  when zone "Azshara"
+  zone Azshara
+  tip Laris Geardawdle's jars went to Ironforge on the Winterspring guide's Ironforge stop: fly straight to Gadgetzan.
+  goto 11.9,77.5 "Talrendis Point flight master"
+  fly "Gadgetzan"
+  zone Tanaris
+
+step Fly to Auberdine
+  when onquest 4512
   zone Azshara
   goto 11.9,77.5 "Talrendis Point flight master"
+  fly "Auberdine"
+  zone Darkshore
+
+step Boat to Menethil Harbor
+  when onquest 4512
+  zone Darkshore
+  goto 32.4,43.8 "Boat to Menethil Harbor"
+
+step Fly to Ironforge
+  when onquest 4512
+  zone Wetlands
+  goto 9.5,59.7 "Menethil Harbor flight master"
+  fly "Ironforge"
+  zone Ironforge
+
+step Laris Geardawdle
+  when onquest 4512
+  zone Ironforge
+  turnin 4512                         -- Laris Geardawdle
+  accept 4513                         -- Its jars are filled on the Un'Goro visit
+
+step Fly to Menethil Harbor
+  when onquest 4513
+  when zone "Ironforge"
+  zone Ironforge
+  goto 55.9,47.9 "Ironforge flight master"
+  fly "Menethil Harbor"
+  zone Wetlands
+
+step Boat to Theramore
+  when zone "Wetlands"
+  zone Wetlands
+  goto 5.13,63.61 "Boat to Theramore"
+
+step Fly to Gadgetzan
+  when zone "Dustwallow Marsh"
+  zone Dustwallow Marsh
+  goto 67.5,51.2 "Theramore flight master"
   fly "Gadgetzan"
   zone Tanaris
 
@@ -124,7 +190,7 @@ step Broken Pillar
 
 step Un'Goro Crater
   zone Un'Goro Crater
-  goto 43.8,81.4 "Un'Goro Crater"
+  goto 43.8,81.4 "The Slithering Scar"
 
 step The Slithering Scar
   zone Un'Goro Crater
@@ -134,9 +200,9 @@ step The Slithering Scar
 
 step Fire Plume Ridge
   tip Climb Fire Plume Ridge in the middle of the crater and use the Skeleton Key Mold by the lava lake at the top, with two Thorium Bars in your bags. Fill Laris's Empty Pure Sample Jars on the Primal Oozes in the pools around the ridge.
-  collect 11954 quest 4513.1          -- Use the jars on slain oozes
   use 14644 quest 5801.1 @48.9,47.0 map 1449
   collect 14645 quest 5801.1 @48.9,47.0 -- Unfinished Skeleton Key
+  collect 11954 quest 4513.1          -- Use the jars on slain oozes
 
 step Marshal's Refuge
   tip Ride north to Marshal's Refuge. Use Umi's Mechanical Yeti beside Quixxil.
@@ -152,15 +218,33 @@ step Fly to Cenarion Hold
   zone Silithus
 
 step Cenarion Hold
+  zone Silithus
+  tip Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
+  accept 8278                         -- Beetix Ficklespragg, upstairs
+  accept 8281                         -- Windcaller Proudhorn
+  accept 8318                         -- Bor Wildmane: his Twilight texts come from the dig after the next stop here
+  accept 8304                         -- Commander Mar'alith: Bronzebeard's Encampment comes later, on the way south
+  accept 9415                         -- Rifleman Torrig, at the Alliance tents: for Marshal Bluewall at Hive'Zora
+  accept 8284                         -- Geologist Larksbane: the tablet fragments come from the Twilight dig
+
+step Silithus: kill these as you meet them
+  zone Silithus
+  tip From the hold, west into the sands: Dredge Crushers dig there; Stonelash Pincers, Flayers and Rock Stalkers hunt the same sands.
+  collect 20374 quest 8278.2          -- Stonelash Pincer Stinger
+  kill 11741 quest 8281.1             -- Dredge Crusher walks around here: look inside the circle on the map
+  collect 20377 quest 8278.3          -- Rock Stalker Fang
+  collect 20375 quest 8278.1          -- Stonelash Flayer Stinger
+
+step Cenarion Hold
   tip Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 8281
   turnin 8278
   accept 8282                         -- Noggle Ficklespragg, upstairs beside Beetix
-  accept 8304                         -- Commander Mar'alith
 
 step Hive'Ashi: kill these as you meet them
   zone Silithus
   tip The Twilight's Hammer dig fills the north-west corner: tablet fragments lie on the ground and the Dust Stormers and Desert Rumblers carry them too. Every cultist can drop an Encrypted Twilight Text: keep twenty, ten for Bor Wildmane and ten for Hermit Ortell later.
+  tip Careful: take the texts from the Twilight Avengers and Geolords; leave the Twilight Flamereavers (60) and stay out of the hive's mouth, where the Hive'Ashi elites (59-60) wait.
   collect 20404 quest 8318.1          -- Twilight's Hammer cultists
   collect 20378 quest 8284.1          -- Twilight Tablet Fragments
   collect 20404 x20 optional          -- Ten more for True Believers
@@ -196,15 +280,18 @@ step Bronzebeard's Encampment
   talk 15170 quest 8304.2
 
 step The Twilight Post
+  tip Careful: the Twilight Keepers are level 60, a level or two over you: clear the cultists around each one first and fight the keeper at full health.
   tip Twilight Keeper Exeter holds the cultists' camp in the far south-west.
   collect 20395 quest 8279.2          -- Twilight Keeper Exeter
 
 step Twilight Keeper Mayna
   tip Ride north along the west side to Mayna's small camp.
+  tip Careful: Mayna is level 60: clear her camp first and fight her at full health.
   collect 20394 quest 8279.1
 
 step Twilight Keeper Havunth
   tip Havunth's camp sits just west of Cenarion Hold.
+  tip Careful: Havunth is level 60: clear his camp first and fight him at full health.
   collect 20396 quest 8279.3
 
 step Hermit Ortell
@@ -221,7 +308,7 @@ step Cenarion Hold
   turnin 8304                         -- Commander Mar'alith
   turnin 8287                         -- Commander Mar'alith
 
-# ---------------------------------------------------------------- Gadgetzan, Forest Song
+# ---------------------------------------------------------------- Gadgetzan
 
 step Gadgetzan
   zone Tanaris
@@ -230,18 +317,11 @@ step Gadgetzan
   turnin 4507                         -- Alchemist Pestlezugg, inside
   accept 4508                         -- Gracina Spiritmight in Darnassus: keep it
 
-step Forest Song
-  when onquest 4261
-  zone Ashenvale
-  tip Fly to Talrendis Point in Azshara and ride west along the road to Forest Song, just over the Ashenvale border.
-  fly "Talrendis Point"
-  turnin 4261                         -- Kayneth Stillwind
-
 # ---------------------------------------------------------------- Winterspring
 
 step Fly to Everlook
-  zone Azshara
-  goto 11.9,77.5 "Talrendis Point flight master"
+  zone Tanaris
+  goto 51.0,29.3 "Gadgetzan flight master"
   fly "Everlook"
 
 step Everlook
@@ -252,6 +332,14 @@ step Everlook
 step Everlook
   zone Winterspring
   accept 6604                         -- Harlo Wigglesworth
+
+step Winterfall Village
+  when onquest 8464
+  zone Winterspring
+  tip Salfa's Winterfall Activity waited for this visit: the furbolg village lies just east of Everlook, with Shaman (56-57), Den Watchers (55-56) and Ursa (57-58). Kill the Shaman first, they heal. High Chief Winterfall in the cave at the back is elite: stay out.
+  kill 7439 quest 8464.1              -- Winterfall Shaman
+  kill 7440 quest 8464.2              -- Winterfall Den Watcher
+  kill 7438 quest 8464.3              -- Winterfall Ursa
 
 step Starfall Village
   zone Winterspring
@@ -302,16 +390,13 @@ step Starfall Village
 step Donova Snowden
   turnin 4842
 
-step Dire Maul (optional)
-  tip Running Dire Maul in Feralas instead of grinding gets you there faster in a group. Skip this step to grind solo.
-  note Dire Maul fits levels 55 to 60; alone, the Terrordale grind at the end of this guide gets you to 60.
-
 step Felwood
   zone Felwood
-  goto 50.0,26.9 "Felwood"
+  goto 50.6,22.4 "The Toxic Horrors"
 
 step Toxic Horrors
-  collect 12822 quest 5086.1 @49.8,27.4 map 1448
+  tip Careful: Ancient Irontree Walkers, level 59 elites, stand among the Toxic Horrors: work the Horrors at the camp's north-east tip (about 50.6,22.4), one at a time, and look for a walker before each pull.
+  collect 12822 quest 5086.1 @50.6,22.4 map 1448
 
 step Kernda
   when onquest 8471
@@ -331,7 +416,7 @@ step Meilosh
 
 step Winterspring
   zone Winterspring
-  goto 31.3,45.2 "Winterspring"
+  goto 31.3,45.2 "Donova Snowden"
 
 step Donova Snowden
   turnin 5086
@@ -339,17 +424,17 @@ step Donova Snowden
 
 step Salfa
   turnin 8464
-  accept 8469
 
 step Winterspring: kill these as you meet them
   zone Winterspring
   tip The western Winterfall furbolgs drop the beads.
   tip Careful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with Feign Death, and they then gather by the lake so you can take the next quest.
-  collect 21383 quest 8469.1
+  collect 21383 x5
   collect 12829 quest 5087.1 @27.9,34.5 map 1452
 
 step Salfa
-  turnin 8469
+  when has 21383 x5
+  turnin 8469 direct
 
 step Donova Snowden
   when onquest 5087
@@ -357,7 +442,7 @@ step Donova Snowden
 
 step Moonglade
   zone Moonglade
-  goto 44.9,35.6 "Moonglade"
+  goto 44.9,35.6 "Umber"
 
 # ---------------------------------------------------------------- Moonglade
 
@@ -373,12 +458,11 @@ step Rabine Saturna
   turnin 6845
 
 step Umber
-  accept 1185                         -- Umber walks around Nighthaven: look inside the circle on the map
-  turnin 1185
+  turnin 1185 direct
 
-step Nighthaven
+step Sindrayl
   zone Moonglade
-  tip Learn the flight path in Nighthaven.
+  tip Sindrayl, Moonglade's flight master, stands south of the lake, outside Nighthaven: learn the flight path from him. The flight master in Nighthaven itself flies only Druids, from her gossip, and has no flight path to learn.
   getfp "Moonglade"
 
 # ---------------------------------------------------------------- Teldrassil and Darnassus
@@ -437,19 +521,32 @@ step Fly to Stormwind
 
 # ---------------------------------------------------------------- Stormwind and Ironforge
 
+step Stormwind City
+  zone Stormwind City
+  turnin 5022                         -- Royal Factor Bathrilor
+  accept 5048
+  turnin 5048                         -- Ol' Emma, who walks the canals
+  accept 5050                         -- For Janice Felstone: keep it
+
+step Stormwind Keep
+  accept 6182                         -- Highlord Bolvar Fordragon
+  turnin 6182                         -- Master Mathias Shaw, in SI:7
+  accept 6183
+  turnin 6183
+  accept 6184                         -- Flint Shadowmore at Chillwind Camp: keep it
+
 step Stormwind
   zone Stormwind City
   tip Clavicus takes sixty Silk, sixty Mageweave and sixty Runecloth: hand in what you carry (or buy at the Auction House), skip the rest.
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid
-  collect 4306 x60 quest 7793.1 optional @61.2,71.3 map 1453 live -- Silk Cloth, from your bags
-  collect 4338 x60 quest 7794.1 optional @61.2,71.3 map 1453 live -- Mageweave Cloth, from your bags
-  turnin 7793 optional                -- Clavicus Knavingham, in the Trade District
-  turnin 7794 optional
-  collect 2592 x60 quest 7791.1 optional @61.2,71.3 map 1453 live -- Wool Cloth, from your bags
-  turnin 7791 optional
-  accept 7795 optional
-  collect 14047 x60 quest 7795.1 optional @61.2,71.3 map 1453 live -- Runecloth, from your bags
-  turnin 7795 optional
+  collect 4306 x60 optional @61.2,71.3 map 1453 live -- Silk Cloth, from your bags
+  collect 4338 x60 optional @61.2,71.3 map 1453 live -- Mageweave Cloth, from your bags
+  turnin 7793 direct optional -- Clavicus Knavingham, in the Trade District
+  turnin 7794 direct optional
+  collect 2592 x60 optional @61.2,71.3 map 1453 live -- Wool Cloth, from your bags
+  turnin 7791 direct optional
+  collect 14047 x60 optional @61.2,71.3 map 1453 live -- Runecloth, from your bags
+  turnin 7795 direct optional
 
 step Tram to Ironforge
   zone Stormwind City
@@ -459,24 +556,23 @@ step Ironforge
   zone Ironforge
   tip Take the Deeprun Tram to Ironforge. Bubulo Acerbus and Mistina Steelshield each take sixty Wool, sixty Silk and sixty Mageweave, then sixty Runecloth: hand in what you carry (or buy at the Auction House), skip the rest.
   turnin 4513                         -- Laris Geardawdle
-  collect 2592 x60 quest 7807.1 optional @24.2,74.7 map 1455 -- Wool Cloth, from your bags
-  collect 4306 x60 quest 7808.1 optional @24.2,74.7 map 1455 -- Silk Cloth, from your bags
-  collect 4338 x60 quest 7809.1 optional @24.2,74.7 map 1455 -- Mageweave Cloth, from your bags
-  turnin 7807 optional                -- Bubulo Acerbus
-  turnin 7808 optional
-  turnin 7809 optional
-  accept 7811 optional
-  collect 14047 x60 quest 7811.1 optional @24.2,74.7 map 1455 -- Runecloth, from your bags
-  turnin 7811 optional
-  collect 2592 x60 quest 7802.1 optional @24.2,74.7 map 1455 -- Wool Cloth, from your bags
-  collect 4306 x60 quest 7803.1 optional @24.2,74.7 map 1455 -- Silk Cloth, from your bags
-  collect 4338 x60 quest 7804.1 optional @24.2,74.7 map 1455 -- Mageweave Cloth, from your bags
-  turnin 7802 optional                -- Mistina Steelshield
-  turnin 7803 optional
-  turnin 7804 optional
-  accept 7805 optional
-  collect 14047 x60 quest 7805.1 optional @24.2,74.7 map 1455 -- Runecloth, from your bags
-  turnin 7805 optional
+  accept 7261                         -- Lieutenant Rotimer
+  collect 2592 x60 optional @24.2,74.7 map 1455 -- Wool Cloth, from your bags
+  collect 4306 x60 optional @24.2,74.7 map 1455 -- Silk Cloth, from your bags
+  collect 4338 x60 optional @24.2,74.7 map 1455 -- Mageweave Cloth, from your bags
+  turnin 7807 direct optional -- Bubulo Acerbus
+  turnin 7808 direct optional
+  turnin 7809 direct optional
+  collect 14047 x60 optional @24.2,74.7 map 1455 -- Runecloth, from your bags
+  turnin 7811 direct optional
+  collect 2592 x60 optional @24.2,74.7 map 1455 -- Wool Cloth, from your bags
+  collect 4306 x60 optional @24.2,74.7 map 1455 -- Silk Cloth, from your bags
+  collect 4338 x60 optional @24.2,74.7 map 1455 -- Mageweave Cloth, from your bags
+  turnin 7802 direct optional -- Mistina Steelshield
+  turnin 7803 direct optional
+  turnin 7804 direct optional
+  collect 14047 x60 optional @24.2,74.7 map 1455 -- Runecloth, from your bags
+  turnin 7805 direct optional
   train class only Shaman             -- Stormwind has no shaman trainer
 
 # ---------------------------------------------------------------- To the Plaguelands
@@ -488,7 +584,7 @@ step Fly to Southshore
 
 step Alterac Mountains
   zone Alterac Mountains
-  goto 39.5,81.2 "Alterac Mountains"
+  goto 39.5,81.2 "Lieutenant Haggerdin"
 
 step Lieutenant Haggerdin
   zone Alterac Mountains
@@ -496,7 +592,7 @@ step Lieutenant Haggerdin
 
 step Western Plaguelands
   zone Western Plaguelands
-  goto 42.7,83.8 "Western Plaguelands"
+  goto 42.7,83.8 "Chillwind Camp"
 
 # ---------------------------------------------------------------- Western Plaguelands
 
@@ -508,11 +604,11 @@ step Chillwind Camp
   accept 6185                         -- Flint Shadowmore: the agents' remains lie at the Marris Stead in the Eastern Plaguelands
   turnin 5903                         -- Nathaniel Dumah
   accept 5904
+  accept 5225                         -- High Priestess MacDonnell: Gahrron's Withering's cauldron, on this loop
 
 step Andorhal
   tip Chromie waits in the ruined inn on the west side of Andorhal, the ruined city north of the camp. Araj the Summoner guards his phylactery in the middle of the town.
   collect 14610 quest 5803.1 optional -- Araj is elite: grouping up is advised.
-  turnin 5941                         -- Chromie, upstairs
 
 step Felstone Field
   tip Janice's ghost wanders by the farmhouse of Felstone Field, west of Andorhal. The Jabbering Ghouls in the field carry the other half of the charm: combine the two halves.
@@ -527,6 +623,43 @@ step Northridge Lumber Camp
   turnin 5904                         -- Termite Barrel
   accept 6389
 
+step Kirsta Deepshadow
+  tip Kirsta hides at the Northridge lumber camp's edge.
+  accept 6023
+
+step Radley and Durgen
+  when onquest 6023
+  tip Huntsman Radley walks the Northridge camp east of Kirsta Deepshadow; Cavalier Durgen guards the tower at Hearthglen's southern approach.
+  tip Careful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight.
+  kill 11613 quest 6023.1             -- Huntsman Radley
+  kill 11611 quest 6023.2             -- Cavalier Durgen
+
+step Kirsta Deepshadow
+  when onquest 6023
+  tip Kirsta hides at the lumber camp's edge.
+  turnin 6023
+  accept 6025
+
+step Hearthglen overlook
+  when onquest 6025
+  tip Climb the hill west of Hearthglen to look down on the town.
+  tip Careful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby.
+  goto 45.8,18.3
+  complete 6025 @45.8,18.3
+
+step Kirsta Deepshadow
+  when onquest 6025
+  turnin 6025
+
+step Gahrron's Withering
+  when onquest 5225,5168
+  zone Western Plaguelands
+  tip Ride south-east to Gahrron's Withering: Cauldron Lord Soulwrath guards the cauldron, and Redpath's Shield lies east of the barn.
+  collect 13196 quest 5225.1          -- Gahrron's Withering Cauldron Key
+  turnin 5225                         -- Scourge Cauldron
+  accept 5226                         -- For High Priestess MacDonnell at Chillwind Camp, at the end of this guide
+  collect 12955 quest 5168.2          -- Redpath's Shield
+
 step Tirion Fordring (optional)
   zone Eastern Plaguelands
   tip Tirion lives in a small hut on the border river, north-east of the lumber camp. Hand in Of Forgotten Memories if you finished it.
@@ -536,10 +669,32 @@ step Tirion Fordring (optional)
 step Eastern Plaguelands
   zone Eastern Plaguelands
   when onquest 5845
-  goto 71.3,34.0 "Eastern Plaguelands"
+  goto 71.3,34.0 "The lake for Of Lost Honor"
 
 step Of Lost Honor
   collect 14625 quest 5845.1 @62.5,26.8 map 1423 live -- Underwater
+
+step Light's Hope Chapel
+  zone Eastern Plaguelands
+  tip Ride south-east from the lake to the chapel.
+  turnin 5181                         -- Carlin Redpath
+  turnin 5168
+  accept 5206
+  accept 5281                         -- Caretaker Alen, by the graves south of the chapel: Egan is in Terrordale, keep it
+
+step Scourge Champions
+  tip Scourge Champions (59) roam the Noxious Glade, north of Light's Hope Chapel. Pass Carlin's Mystic Crystal over each one you kill: the skulls that resonate are the ones he wants. Pull them one at a time.
+  kill 8529 optional                  -- Scourge Champion
+  collect 13155 quest 5206.1 @81.5,44.0 -- Resonating Skull, from the Scourge Champions
+
+step Light's Hope Chapel
+  turnin 5206                         -- Carlin Redpath
+  accept 5941                         -- Chromie in Andorhal: keep it
+
+step Infiltrator Hameya
+  tip Ride north to the Plaguewood's north-eastern edge.
+  tip Careful: The trolls along the path to Zul'Mashar are level 57-59. They run away at low health and call for help, so they often bring adds with them.
+  collect 15767 quest 6024.1          -- Hameya's Key
 
 step Tirion Fordring
   zone Eastern Plaguelands
@@ -551,6 +706,11 @@ step Egan
   tip Cross the river east of Tirion's hut into Terrordale: Egan stands by Augustus' ruined hut.
   turnin 5281
 
+step Level 59.85
+  zone Eastern Plaguelands
+  tip The Terrordale Spirits haunt the woods around Egan. Top up here to level 59.85 while you stand in Terrordale: the hand-ins still to come (the Undercroft, Caer Darrow, Chromie and Chillwind Camp) take you to level 60. Or, with a group, run the Scholomance dungeon or the Stratholme dungeon instead.
+  level 59.85 grind 14564 -- grind on Terrordale Spirit at Terrordale, Eastern Plaguelands
+
 step The Marris Stead
   zone Eastern Plaguelands
   tip Ride south to the Marris Stead, the farm north-west of Darrowshire. The three agents' remains are bone outlines on the ground: one by the road south of the farm, one on the hill east of the house, one on the mound in front of it. Coming close enough to see the Blightcaller in front of the house completes the scouting.
@@ -560,25 +720,26 @@ step The Marris Stead
   collect 16001 quest 6185.2          -- SI:7 Insignia (Fredo)
   complete 6185
 
+step The Undercroft
+  zone Eastern Plaguelands
+  tip Ride south-west to the Undercroft. The mound of dirt lies inside. Mercutio Filthgorger is elite: grouping up is advised.
+  tip Careful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot.
+  turnin 6024                         -- Mound of Dirt
+
 step Artist Renfray
   when onquest 5846
   zone Western Plaguelands
-  goto 65.8,75.4 "Western Plaguelands"
+  goto 65.8,75.4 "Artist Renfray"
   turnin 5846                         -- Inside
 
-step Scholomance (optional)
-  zone Eastern Plaguelands
-  tip Running Scholomance (Caer Darrow, south-east Western Plaguelands) or Stratholme instead of grinding gets you there faster in a group. Skip this step to grind solo.
-  note Scholomance fits levels 58 to 60; The Key to Scholomance is handed in at Chillwind Camp below.
-
-step Level 59.93
-  zone Eastern Plaguelands
-  tip Cross the river east of Tirion into Terrordale. The Terrordale Spirits haunt the woods there. Top up here to level 59.93 before the hand-ins at Chillwind Camp: they take you to level 60. Or, with a group, run the Scholomance dungeon or the Stratholme dungeon instead.
-  level 59.93 grind 14564 -- grind on Terrordale Spirit at Terrordale, Eastern Plaguelands
+step Chromie
+  zone Western Plaguelands
+  tip Chromie waits upstairs in the ruined inn on the west side of Andorhal, on the way back to Chillwind Camp.
+  turnin 5941                         -- Chromie, upstairs
 
 step Western Plaguelands
   zone Western Plaguelands
-  goto 43.4,84.8 "Western Plaguelands"
+  goto 43.4,84.8 "Chillwind Camp"
 
 step Chillwind Camp
   zone Western Plaguelands
@@ -587,5 +748,6 @@ step Chillwind Camp
   turnin 6185                         -- Flint Shadowmore
   note Flint's next task goes to Stormwind: you are level 60 now, skip it.
   turnin 5803 optional                -- Alchemist Arbington
-  accept 5505 optional
-  turnin 5505 optional
+  turnin 5505 direct optional
+  turnin 5226                         -- High Priestess MacDonnell
+  turnin 5237 direct -- Commander Ashlam Valorfist

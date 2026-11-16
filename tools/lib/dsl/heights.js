@@ -23,7 +23,9 @@
 // A use or interact bound to a quest objective (`quest Q.O`, no npc or object
 // of its own) stands for the objective's object, or its creature (kill, talk):
 // the Rod of Helcular used at the Flame of Azel, in the Foothill Caverns under
-// Darrow Hill (#1782).
+// Darrow Hill (#1782); for an item objective, the objects that item comes out
+// of: the Filled Etched Phial used on the Ancient Brazier whose Cloven Hoof is
+// the objective, deep in Splithoof Hold (#2126).
 // A goto leading to a goal with a height takes it (gotoHeights).
 // A collect or a level … grind: its sources' nearest spawn (sourceEntities).
 // Never: any other goto and explore (a place, not an entity), any other use
@@ -69,15 +71,27 @@ function spawnHeight(data, kind, id, point) {
 	return best ? best.z : undefined;
 }
 
-// The object or creature a use or interact goal bound to a quest objective is
-// done at: { kind, id } or null.
-function objectiveEntity(data, goal) {
-	if ((goal.t !== 'use' && goal.t !== 'interact') || goal.candidates || goal.x === undefined || goal.y === undefined || goal.map === undefined) return null;
-	if (goal.npc !== undefined || goal.object !== undefined || goal.quest === undefined || !Number.isInteger(goal.oi) || goal.oi < 1) return null;
+// The objects or creature a use or interact goal bound to a quest objective
+// is done at: [{ kind, id }], [] for none. An item objective's are the objects
+// the item comes out of (items.json `drops.object`); the goal gets a height
+// only from one of their spawns within HEIGHT_YARDS of its point.
+function objectiveEntities(data, goal) {
+	if ((goal.t !== 'use' && goal.t !== 'interact') || goal.candidates || goal.x === undefined || goal.y === undefined || goal.map === undefined) return [];
+	if (goal.npc !== undefined || goal.object !== undefined || goal.quest === undefined || !Number.isInteger(goal.oi) || goal.oi < 1) return [];
 	const q = data.quest(goal.quest);
 	const o = q && (q.objectives || [])[goal.oi - 1];
-	const kind = o && ({ object: 'object', kill: 'npc', talk: 'npc' })[o.type];
-	return kind && o.id !== undefined ? { kind, id: o.id } : null;
+	if (!o || o.id === undefined || o.id === null) return [];
+	if (o.type === 'item') {
+		const item = data.item(o.id);
+		const from = (item && item.drops && item.drops.object) || {};
+		return Object.keys(from)
+			.map(Number)
+			.filter((id) => Number.isInteger(id) && id > 0)
+			.sort((a, b) => a - b)
+			.map((id) => ({ kind: 'object', id }));
+	}
+	const kind = ({ object: 'object', kill: 'npc', talk: 'npc' })[o.type];
+	return kind ? [{ kind, id: o.id }] : [];
 }
 
 // What a goal without an NPC or object of its own is done at: a collect's
@@ -97,8 +111,10 @@ function sourceEntities(goal) {
 }
 
 function entities(data, goal) {
-	const e = heightEntity(goal) || objectiveEntity(data, goal);
-	return e ? [e] : sourceEntities(goal);
+	const e = heightEntity(goal);
+	if (e) return [e];
+	const done = objectiveEntities(data, goal);
+	return done.length ? done : sourceEntities(goal);
 }
 
 // The height at point of the nearest spawn of any of list within HEIGHT_YARDS.

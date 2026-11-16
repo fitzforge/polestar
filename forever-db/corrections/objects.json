@@ -173,6 +173,24 @@
 		],
 		"note": "The Altar of Hakkar stands inside the Sunken Temple (instance map 109)."
 	},
+	"175124": {
+		"set": {
+			"instances": [
+				229
+			]
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db gameobject: 271 Rookery Egg spawns, every one on map 229 (Blackrock Spire)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB: the object has no spawn outside an instance; Egg Freezing (4734) says to use the Eggscilloscope Prototype on an egg in the Rookery"
+			}
+		],
+		"note": "The Rookery Eggs of Egg Freezing and Egg Collection (Tinkee Steamboil, Flame Crest) lie inside Upper Blackrock Spire's Rookery (instance map 229). With no place and no instance the pick-up guides could not tell, and Scholomance's guide sent players through Upper Blackrock Spire for the key chain's eggs."
+	},
 	"148838": {
 		"set": {
 			"instances": [
@@ -666,5 +684,282 @@
 			}
 		],
 		"note": "The Filled Containment Coffers (object 103574) that Investigate the Alchemist Shop (1960) asks for stand in the Undercity at 53.4-54.1,70.9-75.2. The merged data had the object with no place, so the Undercity mage quest's collect step had nowhere to point. Stormwind's coffers for Investigate the Blue Recluse (1920) are not added: two people looted them, too few for a correction."
+	},
+	"2912": {
+		"addSpawns": {
+			"1412": {
+				"f": "l",
+				"pts": [
+					[
+						35.91,
+						71.95
+					],
+					[
+						36.57,
+						61.3
+					],
+					[
+						36.71,
+						49.37
+					],
+					[
+						36.88,
+						43.86
+					],
+					[
+						39.39,
+						26.53
+					],
+					[
+						41.31,
+						57.85
+					],
+					[
+						41.41,
+						66.62
+					],
+					[
+						42.69,
+						71.76
+					],
+					[
+						43.17,
+						51.62
+					],
+					[
+						45.67,
+						45.18
+					],
+					[
+						46.43,
+						26.44
+					],
+					[
+						47.28,
+						34.81
+					],
+					[
+						47.68,
+						66.97
+					],
+					[
+						48.15,
+						60.07
+					],
+					[
+						48.87,
+						22.41
+					],
+					[
+						49.68,
+						72.53
+					],
+					[
+						51.05,
+						39.21
+					],
+					[
+						51.28,
+						53.44
+					],
+					[
+						53.76,
+						65.12
+					],
+					[
+						54.49,
+						43.53
+					],
+					[
+						54.72,
+						71.59
+					],
+					[
+						59.02,
+						60
+					],
+					[
+						60.45,
+						72.18
+					],
+					[
+						64.27,
+						66.02
+					],
+					[
+						44.84,
+						56.74
+					],
+					[
+						46.89,
+						70.11
+					],
+					[
+						44.43,
+						71.76
+					],
+					[
+						48.89,
+						68.61
+					],
+					[
+						50.35,
+						64.18
+					],
+					[
+						50.18,
+						66.25
+					],
+					[
+						44.3,
+						54.14
+					]
+				],
+				"more": [
+					[
+						35.55,
+						68.3
+					],
+					[
+						38.21,
+						70.24
+					],
+					[
+						38.95,
+						48.67
+					],
+					[
+						39.42,
+						63.03
+					],
+					[
+						39.42,
+						72.79
+					],
+					[
+						39.44,
+						66.39
+					],
+					[
+						41.94,
+						24.12
+					],
+					[
+						42.18,
+						60.22
+					],
+					[
+						43.55,
+						56.3
+					],
+					[
+						44.49,
+						63.08
+					],
+					[
+						45.65,
+						72.53
+					],
+					[
+						46.11,
+						51.24
+					],
+					[
+						46.52,
+						39.13
+					],
+					[
+						49.05,
+						68.68
+					],
+					[
+						50.41,
+						52.71
+					],
+					[
+						51.69,
+						61.58
+					],
+					[
+						53.87,
+						57.09
+					],
+					[
+						54.02,
+						55.68
+					],
+					[
+						54.23,
+						38.59
+					],
+					[
+						54.37,
+						74.17
+					],
+					[
+						55.19,
+						67.27
+					],
+					[
+						55.51,
+						61.91
+					],
+					[
+						56.41,
+						58.49
+					],
+					[
+						56.91,
+						69.18
+					],
+					[
+						60.45,
+						66.92
+					],
+					[
+						60.69,
+						61.35
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings on builds 70790 and 70938: Rite of Vision (771) objective 2, the Ambercorn, ticked for 21 people (16 counted) on the plains south of Bloodhoof; the seven points after the first 24 are their pickup spots (Forever's map frame, as recorded), 4-5 people each at the first four, 2 at the last three; each is within 0.2 map units of a spawn the merged data lists past its first 24"
+			}
+		],
+		"note": "Ambercorn (object 2912), the acorns Rite of Vision (771) asks for, is picked by players at seven places on the plains south of Bloodhoof Village in Mulgore. The merged data has them among its Mulgore spawns, but not among the 24 it shows first, which lie elsewhere. The record keeps every merged spawn on the map (a correction's map replaces the merged one) and puts the seven recorded spots, in Forever's map frame like the merged ones, with the first, so the guide's point on the plains (#15, #282) and the compiled pickup area sit by the acorns (#289); the merged copies of those seven spots are left out of the rest."
+	},
+	"661518": {
+		"set": {
+			"name": "Stolen Shipment"
+		},
+		"addSpawns": {
+			"1434": {
+				"f": "e",
+				"pts": [
+					[
+						24.25,
+						12.24
+					],
+					[
+						24.94,
+						9.59
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings on builds 70862 and 70938: Anything of Value (97328), 8 Stolen Shipments, collected by 44 people (40 counted) in the Ruins of Zul'Kunda, Stranglethorn Vale, in two clusters: 38 people around 24.25,12.24 and 30 around 24.94,9.59"
+			},
+			{
+				"kind": "questie",
+				"ref": "items.json 277953 Stolen Shipment: dropped by object 661518, which the merged data has no entry for"
+			}
+		],
+		"note": "The Stolen Shipments (object 661518) that Anything of Value (97328) asks for lie in the Ruins of Zul'Kunda; the merged data had the item's object with no entry, so no step or While-here line could point at it. The two places are where players pick them."
 	}
 }

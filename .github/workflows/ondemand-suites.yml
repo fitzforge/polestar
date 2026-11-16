@@ -146,12 +146,14 @@ jobs:
           forge: ${{ github.workspace }}/code/rust/target/quick/forge
           root: code
 
-      # Without data: public there is no data/forever, as in CI (the entry holds only the binary).
+      # Without data: public there is no data/forever and no client tables beside it, as in CI (the
+      # entry holds only the binary).
       - uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: |
             code/rust/target/quick/forge
             code/data/forever
+            code/data/sources/wago
           key: ondemand-suites-${{ github.run_id }}-${{ github.run_attempt }}
 
   node:
@@ -185,6 +187,7 @@ jobs:
           path: |
             code/rust/target/quick/forge
             code/data/forever
+            code/data/sources/wago
           key: ondemand-suites-${{ github.run_id }}-${{ github.run_attempt }}
           fail-on-cache-miss: true
 
@@ -246,6 +249,7 @@ jobs:
           path: |
             code/rust/target/quick/forge
             code/data/forever
+            code/data/sources/wago
           key: ondemand-suites-${{ github.run_id }}-${{ github.run_attempt }}
           fail-on-cache-miss: true
 
@@ -312,6 +316,7 @@ jobs:
           path: |
             code/rust/target/quick/forge
             code/data/forever
+            code/data/sources/wago
           key: ondemand-suites-${{ github.run_id }}-${{ github.run_attempt }}
           fail-on-cache-miss: true
 
@@ -370,6 +375,7 @@ jobs:
           path: |
             code/rust/target/quick/forge
             code/data/forever
+            code/data/sources/wago
           key: ondemand-suites-${{ github.run_id }}-${{ github.run_attempt }}
           fail-on-cache-miss: true
 

@@ -15,10 +15,12 @@
 //!
 //! - `drops`/`objects`: per NPC or object, each item its loot windows held, with the number of
 //!   people who saw it (`voters`), a `chance` ([`crate::recordings::drop_chance`]: percent, the
-//!   median of each person's own share of kills or loot windows) only on trusted evidence
-//!   (`minVoters` people, or a vouched one, each with at least [`MIN_WINDOWS`] kills, or loot
-//!   windows for an object, of that source), and `trusted` when `minVoters` people saw it, a vouched
-//!   one did, or a trusted chance backs it. NPC loot from a gathering skill (skinning, herbs, ore) is
+//!   median of each person's own share of their loot windows of that source; a quest drop counts
+//!   only the windows its objective was open for, [`crate::recordings::QuestLoot`]) only on trusted
+//!   evidence (`minVoters` people, or a vouched one, each with at least [`MIN_WINDOWS`] of those
+//!   windows), and `trusted` when `minVoters` people saw it, a vouched one did, or a trusted chance
+//!   backs it. The Recorder's kills are no samples: they include deaths the player only saw. NPC
+//!   loot from a gathering skill (skinning, herbs, ore) is
 //!   left out.
 //! - `vendors`: per NPC, each item its merchant window listed, with `voters` and `trusted`.
 //! - `rewards`: per quest, the reward items and choices its quest frames showed
@@ -26,6 +28,10 @@
 //!   ranks over an accept per person, vouched evidence ranks first, and the first recorded breaks a
 //!   tie), with `voters` and `trusted` (`minVoters` people agree on it, or a vouched one recorded
 //!   it).
+//! - `dungeons`: per instance map, the people whose first run there killed a boss (entries less
+//!   than 4 hours apart are one run) and the 25th and 90th percentile of their level when that run
+//!   entered (with the XP bar's share). The journal reads the 25th for a dungeon's floor, the level
+//!   the guides' dungeon steps start at, and both for the check on the Group Finder's range.
 //!
 //! The merge (`codex::merge`) adds a recorded fact under the provenance `recordings`, by one rule: it
 //! changes what the Codex says only when it is `trusted`; otherwise it only confirms another input
@@ -40,17 +46,27 @@ use indexmap::{IndexMap, IndexSet};
 use rustc_hash::FxHashMap;
 
 use crate::learn::{read_verdicts, session_files, Verdicts};
-use crate::recordings::{drop_chance, drop_samples, establish_heads, observe_reward, read_config, reward_ballot, trusted, vouched, Head, MIN_KILLS};
+use crate::recordings::{drop_chance, establish_heads, observe_reward, read_config, reward_ballot, trusted, vouched, Head, QuestLoot};
 
 /// The snapshot's file in data/codex.
 pub const FILE: &str = "recorded.json";
-/// Kills (or loot windows, for an object) a person needs of a source before their share counts
-/// toward a trusted drop chance.
-pub const MIN_WINDOWS: usize = MIN_KILLS as usize;
+/// Loot windows a person needs of a source before their share counts toward a trusted drop chance.
+pub const MIN_WINDOWS: usize = crate::recordings::MIN_WINDOWS as usize;
 
 fn pos_int(v: &V) -> Option<i64> {
 	let n = v.as_num()?;
 	(n.is_finite() && n > 0.0 && n.fract() == 0.0).then_some(n as i64)
+}
+
+/// Seconds between two entries of one instance that still make one run (a death's walk back, a
+/// disconnect), as the audit's recordings index splits them.
+const RUN_GAP: f64 = 4.0 * 3600.0;
+
+/// The value at share `p` of sorted `xs`, linear between neighbours (numpy's default).
+fn quantile(xs: &[f64], p: f64) -> f64 {
+	let k = (xs.len() - 1) as f64 * p;
+	let (lo, hi) = (k.floor() as usize, k.ceil() as usize);
+	xs[lo] + (xs[hi] - xs[lo]) * (k - lo as f64)
 }
 
 #[derive(Default)]
@@ -66,10 +82,12 @@ struct Loot {
 struct Gather {
 	/// The people whose sessions count, by name ([`crate::recordings::trusted`] reads names).
 	people: IndexSet<String>,
-	kills: BTreeMap<i64, IndexMap<usize, f64>>,
+	quest_loot: QuestLoot,
 	loot: [BTreeMap<i64, Loot>; 2],
 	vendors: BTreeMap<i64, BTreeMap<i64, BTreeSet<usize>>>,
 	rewards: BTreeMap<i64, IndexMap<String, (u8, V)>>,
+	/// instance map -> person -> (start, level) of their first run that killed a boss.
+	dungeons: BTreeMap<i64, IndexMap<usize, (f64, f64)>>,
 	counted: usize,
 }
 
@@ -94,19 +112,50 @@ impl Gather {
 			Some(i) => i,
 			None => self.people.insert_full(person.to_string()).0,
 		};
-		let schema2 = rec.get("schema").as_num() == Some(2.0);
+		// The level with the XP bar's share, as the session goes (the recordings index's reading), and
+		// the instance run the player is in: its map, its first entry's time and level.
+		let started = rec.get("started").as_num().filter(|t| t.is_finite()).unwrap_or(0.0);
+		let (mut lvl, mut xp, mut xp_max) = (0.0f64, 0.0f64, 0.0f64);
+		let mut run: Option<(i64, f64, f64)> = None;
 		for ev in rec.get("events").items() {
-			match ev.get("e").as_str() {
-				Some("slain") => {
-					if let Some(npc) = pos_int(&ev.get("npc")).filter(|_| !ev.get("denied").truthy()) {
-						*self.kills.entry(npc).or_default().entry(p).or_insert(0.0) += 1.0;
+			let e = ev.get("e");
+			let e = e.as_str();
+			if matches!(e, Some("session" | "step" | "turnin" | "accept" | "level")) {
+				if let Some(l) = ev.get("lvl").as_num().filter(|l| *l > 0.0) {
+					if e == Some("level") {
+						xp = 0.0;
+					}
+					lvl = l;
+				}
+			}
+			if matches!(e, Some("xp" | "step")) {
+				if let Some(m) = ev.get("xpMax").as_num().filter(|m| *m > 0.0) {
+					xp = ev.get("xp").as_num().unwrap_or(0.0);
+					xp_max = m;
+				}
+			}
+			let at = started + ev.get("t").as_num().unwrap_or(0.0);
+			match e {
+				Some("enter") => {
+					if let Some(inst) = pos_int(&ev.get("inst")).filter(|_| lvl > 0.0) {
+						if !run.is_some_and(|(i, t0, _)| i == inst && at - t0 < RUN_GAP) {
+							run = Some((inst, at, lvl + if xp_max > 0.0 { (xp / xp_max).clamp(0.0, 0.999) } else { 0.0 }));
+						}
 					}
 				}
-				Some("kill") if schema2 => {
-					if let Some(npc) = pos_int(&ev.get("npc")).filter(|_| !ev.get("denied").truthy()) {
-						*self.kills.entry(npc).or_default().entry(p).or_insert(0.0) += 1.0;
+				Some("encounter") if ev.get("ok").truthy() => {
+					if let (Some(inst), Some((i, t0, level))) = (pos_int(&ev.get("inst")), run) {
+						if inst == i {
+							let e = self.dungeons.entry(inst).or_default().entry(p).or_insert((t0, level));
+							if t0 < e.0 {
+								*e = (t0, level);
+							}
+						}
 					}
 				}
+				_ => {}
+			}
+			match e {
 				Some("drop") => {
 					let (k, id) = match (pos_int(&ev.get("npc")), pos_int(&ev.get("object"))) {
 						(Some(n), _) if !ev.get("gather").truthy() => (0, n),
@@ -116,7 +165,8 @@ impl Gather {
 					};
 					let l = self.loot[k].entry(id).or_default();
 					*l.windows.entry(p).or_insert(0.0) += 1.0;
-					let seen: BTreeSet<i64> = ev.get("items").items().iter().filter_map(|i| pos_int(&i.get("item"))).collect();
+					let seen: IndexSet<i64> = ev.get("items").items().iter().filter_map(|i| pos_int(&i.get("item"))).collect();
+					self.quest_loot.window(k, id, p, &ev, &seen);
 					for item in seen {
 						*l.items.entry(item).or_default().entry(p).or_insert(0.0) += 1.0;
 					}
@@ -145,8 +195,9 @@ impl Gather {
 	}
 
 	/// The snapshot.
-	fn finish(self, read: &Read) -> V {
+	fn finish(mut self, read: &Read) -> V {
 		let min_voters = read.min_voters;
+		let samples = std::mem::take(&mut self.quest_loot).finish();
 		let name = |p: &usize| self.people[*p].clone();
 		let out = Obj::new();
 		let meta = Obj::new();
@@ -162,10 +213,10 @@ impl Gather {
 		for (k, kind) in [(0, "drops"), (1, "objects")] {
 			let o = Obj::new();
 			for (id, l) in &self.loot[k] {
-				let of_by = drop_samples(k == 0, Some(&l.windows), self.kills.get(id));
 				let its = Obj::new();
 				for (item, by) in &l.items {
-					let chance = drop_chance(&of_by, by, min_voters, name).filter(|dc| dc.trusted).map(|dc| dc.chance);
+					let (of_by, n_by) = samples.of(k, *id, *item, &l.windows, by);
+					let chance = drop_chance(of_by, n_by, min_voters, name).filter(|dc| dc.trusted).map(|dc| dc.chance);
 					let e = Obj::new();
 					e.set("voters", by.len());
 					e.set("chance", chance.map_or(V::Null, V::Num));
@@ -207,6 +258,18 @@ impl Gather {
 			rw.set(&q.to_string(), V::Obj(e));
 		}
 		out.set("rewards", V::Obj(rw));
+		let dg = Obj::new();
+		for (inst, by) in &self.dungeons {
+			let mut levels: Vec<f64> = by.values().map(|&(_, l)| l).collect();
+			levels.sort_by(|a, b| a.total_cmp(b));
+			let round = |x: f64| (x * 100.0).round() / 100.0;
+			let e = Obj::new();
+			e.set("people", levels.len());
+			e.set("p25", round(quantile(&levels, 0.25)));
+			e.set("p90", round(quantile(&levels, 0.90)));
+			dg.set(&inst.to_string(), V::Obj(e));
+		}
+		out.set("dungeons", V::Obj(dg));
 		V::Obj(out)
 	}
 }
@@ -344,19 +407,28 @@ pub fn source_meta(rec: &V) -> Option<V> {
 	}
 	let m = rec.get("meta");
 	let o = Obj::new();
-	o.set("name", "Polestar Recorder sessions (data/codex/recorded.json): loot, merchant and quest reward windows");
+	let dungeons = rec.get("dungeons").len();
 	o.set(
-		"version",
-		V::str(&format!(
-			"{} sessions of {} counted players; {} NPCs, {} objects, {} vendors, {} quests",
-			m.get("counted").to_js_string(),
-			m.get("voters").to_js_string(),
-			rec.get("drops").len(),
-			rec.get("objects").len(),
-			rec.get("vendors").len(),
-			rec.get("rewards").len()
-		)),
+		"name",
+		if dungeons > 0 {
+			"Polestar Recorder sessions (data/codex/recorded.json): loot, merchant and quest reward windows, and dungeon entry levels"
+		} else {
+			"Polestar Recorder sessions (data/codex/recorded.json): loot, merchant and quest reward windows"
+		},
 	);
+	let mut version = format!(
+		"{} sessions of {} counted players; {} NPCs, {} objects, {} vendors, {} quests",
+		m.get("counted").to_js_string(),
+		m.get("voters").to_js_string(),
+		rec.get("drops").len(),
+		rec.get("objects").len(),
+		rec.get("vendors").len(),
+		rec.get("rewards").len()
+	);
+	if dungeons > 0 {
+		version.push_str(&format!(", {dungeons} dungeons"));
+	}
+	o.set("version", V::str(&version));
 	o.set("licence", "Polestar's own recordings: CC BY 4.0; facts only, no player data");
 	Some(V::Obj(o))
 }
@@ -388,14 +460,12 @@ mod tests {
 		Recording { file: format!("{who}.json"), rec, counts }
 	}
 
+	/// `kills` kills of `npc`, each looted, `drops` of the loot windows holding `item`.
 	fn kills_and_drops(npc: i64, kills: usize, drops: usize, item: i64) -> String {
 		(0..kills)
 			.flat_map(|i| {
-				let mut v = vec![format!(r#"{{"e":"kill","npc":{npc},"cls":"normal"}}"#)];
-				if i < drops {
-					v.push(format!(r#"{{"e":"drop","npc":{npc},"items":[{{"item":{item},"count":1}},{{"item":2589,"count":1}}]}}"#));
-				}
-				v
+				let items = if i < drops { format!(r#"{{"item":{item},"count":1}},{{"item":2589,"count":1}}"#) } else { String::new() };
+				[format!(r#"{{"e":"kill","npc":{npc},"cls":"normal"}}"#), format!(r#"{{"e":"drop","npc":{npc},"items":[{items}]}}"#)]
 			})
 			.collect::<Vec<_>>()
 			.join(",")
@@ -441,10 +511,10 @@ mod tests {
 		];
 		let snap = snapshot(&Recordings { list, min_voters: 3 });
 		let s = |v: &V| stringify(v, None);
-		// Three players with ten kills/windows each: 20%, 30%, 40%.
+		// Three players with ten windows or more each: 20%, 30%, 40%.
 		assert_eq!(s(&snap.get("drops").get("100").get("items").get("5")), r#"{"voters":3,"chance":30,"trusted":true}"#);
-		assert_eq!(s(&snap.get("drops").get("100").get("windows")), "25");
-		// One player with three kills: the row, no chance.
+		assert_eq!(s(&snap.get("drops").get("100").get("windows")), "40");
+		// One player with three windows: the row, no chance.
 		assert_eq!(s(&snap.get("drops").get("101").get("items").get("7")), r#"{"voters":1,"chance":null,"trusted":false}"#);
 		assert!(snap.get("drops").get("200").is_undef(), "skinning is no drop");
 		assert_eq!(s(&snap.get("objects").get("3000").get("items")), r#"{"2770":{"voters":1,"chance":null,"trusted":false}}"#);
@@ -472,10 +542,10 @@ mod tests {
 				"aaaaaaaaaaaaaaaa",
 				true,
 				&[
-					// 20 kills (plus one denied kill that does not count), 2 drops -> 10%.
+					// 20 looted kills (and a denied kill: no loot window, no sample), 2 drops -> 10%.
 					kills_and_drops(1501, 20, 2, 2933),
 					r#"{"e":"kill","npc":1501,"cls":"normal","denied":true}"#.into(),
-					// 10 kills of 1502 with no drops -> 0% share.
+					// 10 looted kills of 1502 with no drops -> 0% share.
 					kills_and_drops(1502, 10, 0, 2933),
 					obj_drops(3000, 10, 1, 2770),
 					// Quest 7: turn-in (weight 2) beats accept (weight 1), and a later accept does not overwrite it.
@@ -564,6 +634,73 @@ mod tests {
 			assert_eq!(cr.get("trusted").truthy(), expected_trusted, "quest {q} trusted");
 			let tag = if expected_trusted { "recorder:rewards" } else { "recorder-gap:rewards" };
 			assert!(quests.get(q).get("source").items().iter().any(|x| x.as_str() == Some(tag)), "quest {q} source tag {tag}");
+		}
+	}
+
+	// The Recorder's `kill` also names deaths the player only saw (a creature they targeted, or one the client
+	// flags for their quest, killed by someone else; a group member's kill), so a share of kills undercounts a
+	// drop several fold (Kobold Miner: 1,341 kills recorded beside 530 loot windows). A chance is a share of
+	// the player's own loot windows; an item that falls only for a quest that wants it (Large Candle, for Kobold
+	// Candles) counts only the windows opened while its objective was open, and a window whose objective tick
+	// went to another item (fast loot took the candle before the window was read) still held it.
+	#[test]
+	fn a_drop_chance_is_a_share_of_own_loot_windows_and_a_quest_drop_counts_only_while_its_objective_is_open() {
+		let drop = |npc: i64, items: &str, wanted: &str| format!(r#"{{"e":"drop","npc":{npc},"items":[{items}],"wanted":[{wanted}]}}"#);
+		let kill = |npc: i64| format!(r#"{{"e":"kill","npc":{npc},"cls":"normal"}}"#);
+		let candles = r#"{"q":60,"oi":1}"#;
+		let player = || {
+			let mut v = Vec::new();
+			// Coyotes: 20 own loot windows, 9 with Coyote Meat; 40 more deaths seen.
+			for i in 0..20 {
+				v.push(kill(834));
+				v.push(drop(834, if i < 9 { r#"{"item":2673,"count":1}"# } else { "" }, ""));
+			}
+			v.extend((0..40).map(|_| kill(834)));
+			// Kobold Miners on Kobold Candles: 10 windows, 5 holding a candle (its tick), 1 where fast loot took it
+			// (the tick went to the Gold Dust), 4 with only copper's; Gold Dust's own ticks name its objective.
+			for i in 0..10 {
+				v.push(kill(40));
+				let items = match i {
+					0..=4 => r#"{"item":772,"count":1,"q":60,"oi":1}"#.to_string(),
+					5 => r#"{"item":773,"count":1,"q":60,"oi":1}"#.to_string(),
+					6..=8 => r#"{"item":773,"count":1,"q":47,"oi":1}"#.to_string(),
+					_ => String::new(),
+				};
+				v.push(drop(40, &items, &format!(r#"{candles},{{"q":47,"oi":1}}"#)));
+			}
+			// The quest done: 20 more windows and 30 more deaths, no candle.
+			for _ in 0..20 {
+				v.push(kill(40));
+				v.push(drop(40, "", ""));
+			}
+			v.extend((0..30).map(|_| kill(40)));
+			v.join(",")
+		};
+		let list = vec![session("aaaaaaaaaaaaaaaa", true, &player()), session("bbbbbbbbbbbbbbbb", true, &player()), session("cccccccccccccccc", true, &player())];
+		let recs = Recordings { list, min_voters: 3 };
+		let snap = snapshot(&recs);
+
+		let obj = |j: &str| match parse_json(j).unwrap() {
+			V::Obj(o) => o,
+			_ => unreachable!(),
+		};
+		let npcs = obj(r#"{"40":{"id":40,"name":"Kobold Miner","spawns":{}},"834":{"id":834,"name":"Coyote","spawns":{}}}"#);
+		let items = obj(r#"{
+			"772":{"id":772,"name":"Large Candle","drops":{"npc":{"40":66},"object":{}},"vendors":[]},
+			"773":{"id":773,"name":"Gold Dust","drops":{"npc":{"40":50},"object":{}},"vendors":[]},
+			"2673":{"id":2673,"name":"Coyote Meat","drops":{"npc":{"834":54},"object":{}},"vendors":[]}
+		}"#);
+		let (quests, objects, zones, factions, instances) = (obj("{}"), obj("{}"), obj("{}"), obj("{}"), obj("{}"));
+		let db = Db { quests: &quests, npcs: &npcs, objects: &objects, items: &items, zones: &zones, factions: &factions, instances: &instances };
+		apply_recordings(&db, &recs.list, &V::obj(), recs.min_voters, DEFAULTS, &|_| false, false);
+
+		// Coyote Meat: 9 of 20 own windows. Large Candle: 6 of the 10 windows Kobold Candles was open for. Gold
+		// Dust: 4 of the 10 windows its objective was open for (the fast-looted candle's window held it too).
+		for (npc, item, expected) in [("834", "2673", 45.0), ("40", "772", 60.0), ("40", "773", 40.0)] {
+			let data_chance = items.get(item).get("drops").get("npc").get(npc).as_num();
+			let codex_chance = snap.get("drops").get(npc).get("items").get(item).get("chance").as_num();
+			assert_eq!(codex_chance, Some(expected), "Codex: item {item} from npc {npc}");
+			assert_eq!(data_chance, codex_chance, "data build: item {item} from npc {npc}");
 		}
 	}
 

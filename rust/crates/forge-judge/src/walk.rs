@@ -105,6 +105,15 @@ impl LevelModel for DumpLevels {
 	}
 }
 
+/// The branch a character takes where a guide offers a pair of steps: a group quest's own step (`when
+/// group Q`) and its solo fallback (`when !group Q`), a dungeon's run (`when dungeon D`) and the way around
+/// it (`when !dungeon D`). The default is a player alone: no group quests, no dungeons.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub struct Branches {
+	pub groups: bool,
+	pub dungeons: bool,
+}
+
 /// The character a walk is for: faction name, race file ("Orc", "Scourge"), class file ("WARRIOR") or any.
 #[derive(Clone, Debug)]
 pub struct Ctx {
@@ -114,6 +123,9 @@ pub struct Ctx {
 	/// `along` steps as the addon plays them (default): their goals are done on the walk the route
 	/// already takes (see [`along_on_the_way`]); false: walked to at the along step, as walk.js does.
 	pub along_on_the_way: bool,
+	/// The branch the walk takes at a group quest or a dungeon ([`branch_holds`]); None: both, every step
+	/// (guidetext's list of a guide's goals).
+	pub branches: Option<Branches>,
 }
 
 impl Ctx {
@@ -123,8 +135,25 @@ impl Ctx {
 		let key = if key == "scourge" { "undead".to_string() } else { key };
 		let r = RACES.iter().find(|r| r.key == key).ok_or_else(|| format!("judge: unknown race {race}"))?;
 		let cls = cls.map(|c| CLASSES.iter().find(|x| x.key == c.to_lowercase()).map_or_else(|| c.to_uppercase(), |x| x.file.to_string()));
-		Ok(Ctx { faction: faction.to_string(), race: r.file.to_string(), cls, along_on_the_way: true })
+		Ok(Ctx { faction: faction.to_string(), race: r.file.to_string(), cls, along_on_the_way: true, branches: Some(Branches::default()) })
 	}
+}
+
+/// A step's `when` holds for the branch the character takes ([`Ctx::branches`]): its `group` and `dungeon`
+/// predicates, negated or not. Every other predicate is the player's state at that point (a level, a
+/// quest in the log), which the walk does not judge: such a step is walked. Before this, the walk took
+/// both steps of each pair: a solo fallback's grind on top of the group quest it stands in for (0.4.0
+/// round, about 0.9 h on a written Alliance chain).
+pub fn branch_holds(when: &V, ctx: &Ctx) -> bool {
+	let Some(b) = ctx.branches else { return true };
+	when.items().iter().all(|p| {
+		let takes = match p.get("k").as_str() {
+			Some("group") => b.groups,
+			Some("dungeon") => b.dungeons,
+			_ => return true,
+		};
+		takes != p.get("neg").truthy()
+	})
 }
 
 fn strs(v: &V) -> Vec<String> {
@@ -418,7 +447,7 @@ pub fn chain_goals(guides: &[V], file_of: &dyn Fn(&V) -> String, chain: &[String
 		let g = guides.iter().find(|g| id_of(g) == *gid).ok_or_else(|| format!("judge: chain names guide {gid}, not compiled"))?;
 		let file = file_of(g);
 		for step in g.get("steps").items() {
-			if !only_holds(&step.get("only"), ctx) {
+			if !only_holds(&step.get("only"), ctx) || !branch_holds(&step.get("when"), ctx) {
 				continue;
 			}
 			let step_line = opt_u32(&step.hidden("_line"));
@@ -570,6 +599,8 @@ mod native {
 		pub examples: usize,
 		/// `along` steps as the addon plays them (Ctx::along_on_the_way).
 		pub along_on_the_way: bool,
+		/// The branch taken at group quests and dungeons (Ctx::branches): by default a player alone.
+		pub branches: Branches,
 	}
 
 	impl JudgeOpts {
@@ -587,6 +618,7 @@ mod native {
 				radius: 500.0,
 				examples: EXAMPLES,
 				along_on_the_way: true,
+				branches: Branches::default(),
 			}
 		}
 	}
@@ -671,6 +703,7 @@ mod native {
 		let faction = Faction::parse(&o.faction).ok_or_else(|| format!("judge: unknown faction {}", o.faction))?;
 		let mut ctx = Ctx::new(faction.name(), &o.race, o.cls.as_deref())?;
 		ctx.along_on_the_way = o.along_on_the_way;
+		ctx.branches = Some(o.branches);
 		let single = o.guides.is_file();
 		let data = forge_guide::data::load_data(&o.data_dir)?;
 		let guides = if single {
@@ -729,5 +762,72 @@ mod level_tests {
 		assert_eq!(level_of(&goal(19.0, None, None)), Some(19.0));
 		let x = level_of(&goal(12.0, None, Some(2500.0))).unwrap();
 		assert!((x - (12.0 + 2500.0 / forge_sim::xp::LEVEL_XP[12])).abs() < 1e-9, "{x}");
+	}
+}
+
+#[cfg(test)]
+mod branch_tests {
+	use super::*;
+
+	/// A guide with a group quest's step and its solo fallback (a grind), and a dungeon's run and the way
+	/// around it, between two plain steps.
+	fn guide() -> V {
+		let pred = |k: &str, neg: bool| {
+			let p = V::obj();
+			p.set("k", k);
+			if neg {
+				p.set("neg", true);
+			}
+			p
+		};
+		let goal = |t: &str, q: Option<f64>| {
+			let g = V::obj();
+			g.set("t", t);
+			if let Some(q) = q {
+				g.set("quest", q);
+			} else {
+				g.set("level", 12.0);
+			}
+			g
+		};
+		let step = |when: Vec<V>, goals: Vec<V>| {
+			let s = V::obj();
+			if !when.is_empty() {
+				s.set("when", V::from(when));
+			}
+			s.set("goals", V::from(goals));
+			s
+		};
+		let g = V::obj();
+		g.set("id", "t/a");
+		g.set(
+			"steps",
+			V::from(vec![
+				step(vec![], vec![goal("accept", Some(10.0))]),
+				step(vec![pred("group", false)], vec![goal("accept", Some(11.0)), goal("turnin", Some(11.0))]),
+				step(vec![pred("group", true), pred("level", false)], vec![goal("level", None)]),
+				step(vec![pred("dungeon", false)], vec![goal("accept", Some(12.0))]),
+				step(vec![pred("dungeon", true)], vec![goal("accept", Some(13.0))]),
+				step(vec![], vec![goal("turnin", Some(10.0))]),
+			]),
+		);
+		g
+	}
+
+	fn walked(branches: Option<Branches>) -> Vec<String> {
+		let mut ctx = Ctx::new("Horde", "Orc", None).unwrap();
+		ctx.branches = branches;
+		let proj = Projector::new(&forge_core::MapFrames::default());
+		let (goals, _) = chain_goals(&[guide()], &|_| String::new(), &["t/a".to_string()], &ctx, &proj, true).unwrap();
+		goals.iter().map(|g| format!("{} {}", g.t, g.q.map_or(String::new(), |q| q.to_string()))).collect()
+	}
+
+	#[test]
+	fn the_walk_takes_one_branch_of_a_group_quest_or_a_dungeon() {
+		// 0.4.0 round: the walk did a group quest's step and also grinds on its solo fallback.
+		assert_eq!(walked(Some(Branches::default())), ["accept 10", "level ", "accept 13", "turnin 10"], "alone: the fallback and the way around");
+		assert_eq!(walked(Some(Branches { groups: true, dungeons: true })), ["accept 10", "accept 11", "turnin 11", "accept 12", "turnin 10"], "with a group, the dungeon run");
+		assert_eq!(walked(None).len(), 7, "guidetext's list: every step");
+		assert_eq!(Ctx::new("Horde", "Orc", None).unwrap().branches, Some(Branches::default()), "a walk is a player alone by default");
 	}
 }

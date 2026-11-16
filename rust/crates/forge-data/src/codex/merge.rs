@@ -427,7 +427,7 @@ fn finalize_sources(cands: &[&Cand], npc_level: &dyn Fn(&V) -> Option<(f64, f64)
 	kept
 }
 
-fn objective_of(o: &V, escort: bool, tame: bool) -> V {
+fn objective_of(o: &V, escort: bool, tame: bool, use_item: Option<f64>) -> V {
 	let out = Obj::new();
 	out.set("type", o.get("type"));
 	let nn = |v: V| if v.is_nullish() { V::Null } else { v };
@@ -436,6 +436,10 @@ fn objective_of(o: &V, escort: bool, tame: bool) -> V {
 	out.set("text", nn(o.get("text")));
 	if tame && o.get("type").as_str() == Some("kill") {
 		out.set("tame", true);
+	} else if o.get("type").as_str() == Some("kill") {
+		if let Some(item) = use_item {
+			out.set("useItem", item);
+		}
 	}
 	let fin = |v: V| matches!(v, V::Num(n) if n.is_finite());
 	if o.get("type").as_str() == Some("event") && !escort && int(&o.get("map")).is_some_and(|m| m != 0.0) && fin(o.get("x")) && fin(o.get("y")) {
@@ -455,6 +459,56 @@ fn tames_with_rod(q: &V) -> bool {
 	let lower = t.to_ascii_lowercase();
 	// /\bTaming Rod to tame\b/i
 	has_word(&lower, "taming rod to tame")
+}
+
+/// A positive whole number, as build.js `positiveInt`.
+fn whole_id(v: &V) -> Option<f64> {
+	int(v).filter(|n| *n > 0.0 && n.fract() == 0.0)
+}
+
+/// `mechanics.json` ({ quests }) or the quests map already. A missing file is null.
+fn mechanics_entry(mechanics: &V, quest_id: f64) -> V {
+	let quests = mechanics.get("quests");
+	if quests.as_obj().is_some() {
+		quests.get(&key(quest_id))
+	} else {
+		mechanics.get(&key(quest_id))
+	}
+}
+
+fn drives_use_on_mob(e: &V) -> bool {
+	e.get("kinds").items().iter().any(|k| k.get("kind").as_str() == Some("use-item-on-mob") && matches!(k.get("confidence").as_str(), Some("high" | "medium")))
+}
+
+/// The item a kill is really a use of (forge-writer objectives.rs `use_item`): a high or medium
+/// `use-item-on-mob`, then its params item for this NPC (no `npcs` list means every NPC), else a
+/// `readSteps` use-item on that NPC. No item: the kill stays a kill. A tame is not this (#2468).
+fn use_item_on(mechanics: &V, quest_id: f64, npc: Option<f64>) -> Option<f64> {
+	let npc = npc.filter(|n| *n > 0.0 && n.fract() == 0.0)?;
+	let e = mechanics_entry(mechanics, quest_id);
+	if !e.truthy() || !drives_use_on_mob(&e) {
+		return None;
+	}
+	for p in e.get("params").items() {
+		if p.get("kind").as_str() != Some("use-item-on-mob") {
+			continue;
+		}
+		let Some(item) = whole_id(&p.get("item")) else { continue };
+		let npcs = p.get("npcs");
+		let on = npcs.as_arr().is_none() || npcs.items().iter().any(|n| int(n) == Some(npc));
+		if on {
+			return Some(item);
+		}
+	}
+	for s in e.get("readSteps").items() {
+		let target = s.get("target");
+		if s.get("action").as_str() == Some("use-item") && target.get("type").as_str() == Some("npc") && int(&target.get("id")) == Some(npc) {
+			if let Some(item) = whole_id(&s.get("item").get("id")) {
+				return Some(item);
+			}
+		}
+	}
+	None
 }
 
 pub struct Merged {
@@ -1892,6 +1946,15 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		}
 	}
 	let objects = Obj::new();
+	// An object only inside an instance (data/forever's `instances`: map ids) is that instance's: the pick-up
+	// guides leave out a prerequisite that uses one (Upper Blackrock Spire's Rookery Eggs, Egg Freezing).
+	let mut key_of_map: FxHashMap<u64, String> = FxHashMap::default();
+	for (k, inst) in instances.entries() {
+		let m = inst.get("map");
+		if !m.is_nullish() {
+			key_of_map.insert(m.num().to_bits(), k.to_string());
+		}
+	}
 	for (id, o) in oentries(&fv.objects) {
 		let roles = o.get("roles").items();
 		let treasure = roles.iter().any(|r| r.as_str() == Some("chest"));
@@ -1908,6 +1971,9 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		r.set("name", name);
 		r.set("treasure", treasure);
 		r.set("spawns", spawns_v(&spawns_of(&o.get("spawns"), zones_in, frames_in, mailbox)));
+		if let Some(k) = o.get("instances").items().iter().find_map(|m| key_of_map.get(&m.num().to_bits())) {
+			r.set("instance", k.as_str());
+		}
 		if mailbox {
 			r.set("mailbox", true);
 			let f = o.get("faction");
@@ -2027,14 +2093,29 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			o.set("end", V::Obj(end));
 			let escort = forge_guide::escort::is_escort(&q);
 			let tame = tames_with_rod(&q);
-			let objectives: Vec<V> =
-				q.get("objectives").items().iter().filter(|o| matches!(o.get("type").as_str(), Some("kill" | "item" | "object" | "event" | "talk"))).map(|o| objective_of(o, escort, tame)).collect();
-			if learned.truthy() && !corrected.has("objectives") {
+			let objectives: Vec<V> = q
+				.get("objectives")
+				.items()
+				.iter()
+				.filter(|o| matches!(o.get("type").as_str(), Some("kill" | "item" | "object" | "event" | "talk")))
+				.map(|o| {
+					let use_item = if !tame && o.get("type").as_str() == Some("kill") { use_item_on(&inputs.mechanics, idf, int(&o.get("id"))) } else { None };
+					objective_of(o, escort, tame, use_item)
+				})
+				.collect();
+			if learned.truthy() {
 				// A recorded spot places an objective our data doesn't; a trusted one replaces our data's point.
+				// A correction that sets the objectives decides their kinds and ids; only one that places a
+				// line itself keeps that line from the recorded spot (Riverglades' kill credits, set by a
+				// correction with no place, were left with none: Krol'dok Stronghold's prerequisites).
+				let fixed = corrected.get("objectives");
 				let kept: Vec<usize> =
 					q.get("objectives").items().iter().enumerate().filter(|(_, o)| matches!(o.get("type").as_str(), Some("kill" | "item" | "object" | "event" | "talk"))).map(|(i, _)| i).collect();
 				for (i, (map, x, y, provisional)) in crate::learn::objective_spots(&q, &learned, true) {
 					let Some(o) = kept.iter().position(|k| *k == i).map(|p| &objectives[p]) else { continue };
+					if !fixed.at(i).get("map").is_nullish() {
+						continue;
+					}
 					if provisional && !o.get("map").is_nullish() {
 						continue;
 					}
@@ -2246,7 +2327,7 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			ref_npcs.insert(n.num().to_bits());
 		}
 		for o in q.get("objectives").items() {
-			if o.get("type").as_str() == Some("kill") && o.get("id").truthy() {
+			if matches!(o.get("type").as_str(), Some("kill" | "talk")) && o.get("id").truthy() {
 				ref_npcs.insert(o.get("id").num().to_bits());
 			}
 		}
@@ -2328,6 +2409,71 @@ impl OrObj for V {
 #[cfg(test)]
 mod tests {
 	use super::*;
+	use crate::codex::Forever;
+	use forge_guide::js::parse_json;
+
+	fn inputs(quests: &str, mechanics: &str) -> Inputs {
+		Inputs {
+			forever: Forever {
+				items: V::obj(),
+				npcs: V::obj(),
+				objects: V::obj(),
+				quests: parse_json(quests).unwrap(),
+				zones: V::obj(),
+				factions: V::obj(),
+				professions: V::obj(),
+				trainers: V::obj(),
+				map_frames: V::obj(),
+				meta: V::obj(),
+				instances: V::Null,
+				spawnz: V::Null,
+				dungeons: V::Null,
+			},
+			atlasloot: None,
+			rarescanner: None,
+			local_extras: false,
+			recorded: V::obj(),
+			learned: Default::default(),
+			client: None,
+			web: None,
+			curated: Vec::new(),
+			curated_gates: V::Null,
+			curated_vendors: V::Null,
+			entrances: Vec::new(),
+			entrance_table: V::Null,
+			levels_table: V::obj(),
+			rep_table: V::obj(),
+			attunement_table: V::Null,
+			journal_quests: Vec::new(),
+			store_xp: Default::default(),
+			mechanics: parse_json(mechanics).unwrap(),
+			warnings: Vec::new(),
+		}
+	}
+
+	#[test]
+	fn a_kill_done_with_an_item_keeps_use_item_and_a_tame_or_a_plain_kill_does_not() {
+		let quests = r#"{
+			"88001": { "id": 88001, "title": "Stab", "objectives": [{ "type": "kill", "id": 6498, "count": 1, "text": "Devilsaur" }] },
+			"88002": { "id": 88002, "title": "Plain", "objectives": [{ "type": "kill", "id": 1, "count": 1 }] },
+			"88003": { "id": 88003, "title": "Tame", "objectiveText": "Use the Taming Rod to tame a bear", "objectives": [{ "type": "kill", "id": 1, "count": 1 }] },
+			"88004": { "id": 88004, "title": "Named only", "objectives": [{ "type": "kill", "id": 2, "count": 1 }] }
+		}"#;
+		let mechanics = r#"{ "quests": {
+			"88001": { "kinds": [{ "kind": "use-item-on-mob", "confidence": "high" }], "params": [{ "kind": "use-item-on-mob", "item": 22432, "npcs": [6498] }] },
+			"88002": { "kinds": [{ "kind": "use-item-on-mob", "confidence": "high" }], "params": [{ "kind": "use-item-on-mob", "item": 9, "npcs": [99] }] },
+			"88003": { "kinds": [{ "kind": "use-item-on-mob", "confidence": "high" }], "params": [{ "kind": "use-item-on-mob", "item": 9, "npcs": [1] }] },
+			"88004": { "kinds": [{ "kind": "use-item-on-mob", "confidence": "high" }], "params": [] }
+		} }"#;
+		let codex = merge_codex(&inputs(quests, mechanics));
+		let obj = |id: &str| codex.quests.get(id).get("objectives").at(0);
+		assert_eq!(obj("88001").get("useItem").num(), 22432.0);
+		assert!(obj("88001").get("tame").is_nullish());
+		assert!(obj("88002").get("useItem").is_nullish(), "the item is for a different npc");
+		assert!(obj("88003").get("tame").truthy());
+		assert!(obj("88003").get("useItem").is_nullish(), "a tame stays a tame");
+		assert!(obj("88004").get("useItem").is_nullish(), "the kind names no item");
+	}
 
 	#[test]
 	fn words_and_standings() {

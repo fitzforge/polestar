@@ -721,6 +721,8 @@ fn pack_guides(o: &Opts) -> Result<Pack, Fail> {
 	}
 	let mut diag = forge_guide::diag::Diagnostics::new();
 	let data = load_project_data(&data_dir, &mut diag)?;
+	// Data read from a client build: the texts tokenise only with that build's tables beside it.
+	forge_guide::tokens::check_pinned_tables(&data)?;
 	let project = compile_project(&dir, &manifest, &data, diag, false, None);
 	let errors = project.diag.errors().len();
 	if errors > 0 {

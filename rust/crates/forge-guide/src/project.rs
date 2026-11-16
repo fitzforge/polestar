@@ -79,6 +79,7 @@ pub fn compile_sources(sources: &[Source], data: &Data, diag: &mut Diagnostics, 
 	lap.at("parse+resolve");
 	let Some(ctx) = &opts.context else {
 		crate::validate::validate_guides(&guides, data, diag);
+		crate::fresh::fresh_guides(&guides, data);
 		lap.at("validate");
 		let tokens = localise(&guides, data, diag);
 		lap.at("tokens");
@@ -95,6 +96,7 @@ pub fn compile_sources(sources: &[Source], data: &Data, diag: &mut Diagnostics, 
 		}
 	}
 	crate::validate::validate_pack_frames(&guides, data, &ours, ctx.data, diag);
+	crate::fresh::fresh_guides(&guides, data);
 	let tokens = localise(&guides, data, diag);
 	Compiled { guides, tokens }
 }
@@ -132,16 +134,28 @@ pub fn lint_sources(sources: &[Source], data: &Data, excluded: &V) -> Vec<crate:
 /// `sources` compiled, or their errors as `the pack has errors:` and the first five, one
 /// `<file>:<line> <message>` a line.
 pub fn compile_checked(sources: &[Source], data: &Data, opts: &CompileOpts) -> Result<Compiled, String> {
+	compile_checked_all(sources, data, opts).map_err(|errors| pack_refusal(&errors))
+}
+
+/// The pack check with every error it finds: `sources` compiled, or all their errors, one
+/// `<file>:<line> <message>` each, in the order [`compile_checked`] names its first five.
+pub fn compile_checked_all(sources: &[Source], data: &Data, opts: &CompileOpts) -> Result<Compiled, Vec<String>> {
 	let mut diag = Diagnostics::new();
 	let compiled = compile_sources(sources, data, &mut diag, opts);
 	if diag.has_errors() {
-		let first: Vec<String> = diag.errors().iter().take(5).map(|d| format!("{}:{} {}", d.file.as_deref().unwrap_or(""), d.line, d.message)).collect();
-		return Err(format!("the pack has errors:\n{}", first.join("\n")));
+		return Err(diag.errors().iter().map(|d| format!("{}:{} {}", d.file.as_deref().unwrap_or(""), d.line, d.message)).collect());
 	}
 	Ok(compiled)
 }
 
-/// localise: gives each guide `_localised` (its prose with name tokens); -> tokens.js's stats.
+/// The pack check's refusal of a pack with `errors`: `the pack has errors:` and the first five.
+pub fn pack_refusal(errors: &[String]) -> String {
+	format!("the pack has errors:\n{}", errors.iter().take(5).cloned().collect::<Vec<_>>().join("\n"))
+}
+
+/// localise: gives each guide `_localised` (its prose with name tokens); a token its author wrote that the data does
+/// not know is an error, a step title's object of the step's own goals before a lower-case word a warning; ->
+/// tokens.js's stats.
 pub fn localise(guides: &[V], data: &Data, diag: &mut Diagnostics) -> V {
 	let r = crate::tokens::tokenise_guides(guides, data);
 	let loc = r.get("guides");
@@ -155,6 +169,9 @@ pub fn localise(guides: &[V], data: &Data, diag: &mut Diagnostics) -> V {
 			p.get("message").to_js_string(),
 			Some("write a name token as {kind:id}, kind one of npc object item quest zone area spell faction skill, with an id the data has".into()),
 		);
+	}
+	for t in r.get("titleObjects").items() {
+		diag.warn(&t.get("guide").hidden("_ast").get("file").to_js_string(), t.get("line").num(), t.get("message").to_js_string(), Some(t.get("hint").to_js_string()));
 	}
 	r.get("stats")
 }
@@ -339,9 +356,30 @@ pub fn extra_of(id: &str) -> Option<&'static str> {
 }
 
 /// The keys of an experimental index entry ([`experimental_index`]), in the order Guides.lua writes them.
-pub const INDEX_KEYS: [&str; 22] = [
-	"id", "pack", "title", "faction", "races", "classes", "minLevel", "maxLevel", "topLevel", "zone", "zoneName", "pitch", "pros", "cons", "questIds", "joins", "start", "focus", "viaMap", "via",
-	"names", "written",
+pub const INDEX_KEYS: [&str; 23] = [
+	"id",
+	"pack",
+	"title",
+	"faction",
+	"races",
+	"classes",
+	"minLevel",
+	"maxLevel",
+	"factionLevels",
+	"topLevel",
+	"zone",
+	"zoneName",
+	"pitch",
+	"pros",
+	"cons",
+	"questIds",
+	"joins",
+	"start",
+	"focus",
+	"viaMap",
+	"via",
+	"names",
+	"written",
 ];
 
 /// A guide's `next` ids: its route choice's options, else its one `next`.
@@ -410,6 +448,41 @@ pub fn experimental_index(ours: &[V], extras: &[V], data: &Data, diag: &mut Diag
 	offered.iter().map(|id| index_entry(by_id[id], &by_id, data)).collect()
 }
 
+/// Every experimental guide a player starts with (one no guide of its pack leads to) is offered by a route choice
+/// of ours for every faction it is for (its `faction`, else both): a zone is never left without its way in for one
+/// side. A faction none of `ours` is for (a partial checkout, a fixture) is not asked about. An error on the
+/// experimental guide, naming the side that lacks the offer.
+pub fn experimental_offered_everywhere(ours: &[V], extras: &[V], diag: &mut Diagnostics) {
+	let led: rustc_hash::FxHashSet<String> = extras.iter().flat_map(next_list).collect();
+	for e in extras {
+		let id = e.get("id").to_js_string();
+		if led.contains(&id) {
+			continue;
+		}
+		let ef = e.get("faction");
+		for side in ["Alliance", "Horde"] {
+			if ef.truthy() && ef.as_str() != Some(side) {
+				continue;
+			}
+			let of_side = |g: &&V| g.get("faction").as_str() == Some(side);
+			if !ours.iter().any(|g| of_side(&g)) {
+				continue;
+			}
+			// The default line never counts: an experimental guide is only ever chosen.
+			if ours.iter().filter(of_side).any(|g| next_list(g).iter().skip(1).any(|t| *t == id)) {
+				continue;
+			}
+			let file = e.hidden("_ast").get("file").to_js_string();
+			diag.error(
+				&file,
+				1.0,
+				format!("experimental guide \"{id}\" is for the {side} but no {side} guide of ours offers it: its zone has no way in for them"),
+				Some(format!("add `next {id}` after the first `next` line of the {side} guide whose end it fits (the level players have there)")),
+			);
+		}
+	}
+}
+
 /// A point of a goal for the index: { map, x, y, f }.
 fn index_point(goal: &V) -> V {
 	let p = Obj::new();
@@ -459,7 +532,7 @@ fn index_entry(g: &V, extras: &rustc_hash::FxHashMap<String, &V>, data: &Data) -
 	let loc = g.hidden("_localised");
 	let text = if loc.truthy() { loc } else { g.clone() };
 	let out = Obj::new();
-	for k in ["id", "pack", "title", "faction", "races", "classes", "minLevel", "maxLevel"] {
+	for k in ["id", "pack", "title", "faction", "races", "classes", "minLevel", "maxLevel", "factionLevels"] {
 		let v = text.get(k);
 		if !v.is_nullish() {
 			out.set(k, v);
@@ -852,9 +925,14 @@ mod native {
 	/// The pack check ([`compile_checked`]) on every guide of a folder, as `playtest --honest` and the
 	/// report compile a whole pack.
 	pub fn check_tree(dir: &Path, data: &Data) -> Result<(), String> {
+		check_tree_all(dir, data).map_err(|errors| pack_refusal(&errors))
+	}
+
+	/// [`check_tree`] with every error the pack check finds ([`compile_checked_all`]).
+	pub fn check_tree_all(dir: &Path, data: &Data) -> Result<(), Vec<String>> {
 		let shown = shown(dir);
 		let sources: Vec<Source> = read_sources(dir, &find_guide_files(dir, false)).into_iter().map(|s| Source { file: format!("{shown}/{}", s.source), ..s }).collect();
-		compile_checked(&sources, data, &CompileOpts { pack: None, author: None, context: None, pack_dir: None }).map(|_| ())
+		compile_checked_all(&sources, data, &CompileOpts { pack: None, author: None, context: None, pack_dir: None }).map(|_| ())
 	}
 
 	/// loadProjectData: a missing folder or core file is a warning.
@@ -1126,9 +1204,9 @@ mod native {
 			}
 			std::fs::write(&file, content(c)).map_err(|e| io(e, &file))?;
 		}
-		// Our pack's texts share the language folder with the game's names (`forge data names`) and the
-		// interface strings: only the texts' own files are written or removed there, and the folder goes
-		// once it holds neither.
+		// Our pack's texts share the language folder with the game's names (`forge data names`, `forge data
+		// subzones`) and the interface strings: only the texts' own files are written or removed there, and
+		// the folder goes once it holds none of the others.
 		let shared = base == OWN_FOLDER;
 		for folder in texts.iter().chain(parts.iter()).chain(factions.iter()) {
 			let dir = parent.join(folder);
@@ -1137,7 +1215,7 @@ mod native {
 				None if language => {
 					if refusal(folder).is_none() {
 						let _ = std::fs::remove_file(dir.join("Texts.lua"));
-						if entries(&dir).is_some_and(|l| !l.iter().any(|e| e.file_name() == "Names.lua" || e.file_name() == crate::toc::INTERFACE_FILE)) {
+						if entries(&dir).is_some_and(|l| !l.iter().any(|e| crate::toc::LANGUAGE_FILES.iter().any(|f| e.file_name() == *f))) {
 							let _ = std::fs::remove_dir_all(&dir);
 						}
 					}
@@ -1208,9 +1286,17 @@ mod native {
 		let force = opts.force;
 		let mut project = compile_project(pack_dir, manifest, data, data_warnings, opts.include_drafts, opts.context);
 		project.diag.list.extend(extra);
-		// Read only when a `next` line of ours names an extra pack's guide.
-		let offering = manifest.get("id").as_str() == Some("guides") && project.guides.iter().any(|g| next_list(g).iter().any(|t| extra_of(t).is_some()));
-		let offers = if offering { experimental_index(&project.guides, &read_extras(root, data), data, &mut project.diag) } else { Vec::new() };
+		// The extra packs' guides beside ours (read_extras, in the folder that holds our guides' folder: the
+		// checkout's experimental/ for its guides/; none beside a fixture's or a writer's tree compiled with
+		// --guides): the experimental index, read only when a `next` line of ours names one, and the check that
+		// each zone is offered to every side it is for.
+		let ours = manifest.get("id").as_str() == Some("guides");
+		let extras = if ours { pack_dir.parent().map(|beside| read_extras(beside, data)).unwrap_or_default() } else { Vec::new() };
+		let offering = ours && project.guides.iter().any(|g| next_list(g).iter().any(|t| extra_of(t).is_some()));
+		let offers = if offering { experimental_index(&project.guides, &extras, data, &mut project.diag) } else { Vec::new() };
+		if ours {
+			experimental_offered_everywhere(&project.guides, &extras, &mut project.diag);
+		}
 		let license = read_license(pack_dir, manifest, &mut project.diag);
 		let mut translations = V::obj();
 		if !project.diag.has_errors() || force {

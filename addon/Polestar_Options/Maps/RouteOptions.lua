@@ -47,9 +47,10 @@ local function uncoloured()
 end
 local function ownWalk() return type(ns.Get("nav.walkColor")) == "table" end
 
--- The minimap size setting of the style chosen.
+-- The minimap size setting of the style drawn (the dots for sparkles under
+-- Reduce motion: RouteLines draws them at the dots' size).
 local function sizeKey()
-	return "nav." .. (R.SIZE_KEYS[style()] or R.SIZE_KEYS.dots)
+	return "nav." .. (R.SIZE_KEYS[R.Style()] or R.SIZE_KEYS.dots)
 end
 
 -- A colour row for a way of travel: its own colour, or the default shown;
@@ -198,6 +199,13 @@ local function paint(f)
 		R.ClearSparkles(f.mm)
 	end
 	f:SetScript("OnUpdate", sparkling and f:IsVisible() and tick or nil)
+	-- The minimap's click target jumps to the size row of the style drawn.
+	local hot, key = f.minimapHot, sizeKey()
+	if hot and hot.psKey ~= key then
+		f.hotButtons[hot.psKey] = nil
+		hot.psKey = key
+		f.hotButtons[key] = hot
+	end
 end
 
 -- A glyph texture in a theme colour.
@@ -369,14 +377,16 @@ local function buildPreview(view)
 		f.hot[i] = region
 		f.hotButtons[spot.key] = f:Hot(region, spot.key)
 	end
-	f.hotButtons["nav.minimapRouteSize"] = f:Hot(h.Minimap, "nav.minimapRouteSize")
+	f.minimapHot = f:Hot(h.Minimap, sizeKey())
+	f.hotButtons[sizeKey()] = f.minimapHot
 	-- The pointer on a setting's row lights the parts it changes.
 	local walkLeg, flightLeg, boatLeg = f.hot[1], f.hot[2], f.hot[3]
 	local map, mm, legendItems = h.Map, h.Minimap, f.Legend
 	local both = { map, mm }
 	for key, parts in pairs({
 		["nav.routeLines"] = both, ["nav.lineStyle"] = both, ["nav.worldRouteAlpha"] = { map }, ["nav.worldRoute"] = { map },
-		["nav.minimapRouteAlpha"] = { mm }, ["nav.minimapRoute"] = { mm }, ["nav.minimapRouteSize"] = { mm },
+		["nav.minimapRouteAlpha"] = { mm }, ["nav.minimapRoute"] = { mm }, ["nav.minimapLineSize"] = { mm }, ["nav.minimapDotsSize"] = { mm },
+		["nav.minimapSparkleSize"] = { mm },
 		["nav.drawIn"] = { walkLeg, flightLeg, boatLeg }, ["nav.laterAlpha"] = { boatLeg }, ["nav.lineOutline"] = { walkLeg, flightLeg },
 		["nav.walkColor"] = { walkLeg, mm }, ["nav.dotColor"] = { walkLeg, flightLeg, boatLeg }, ["nav.lineWidth"] = { walkLeg, flightLeg },
 		["nav.walkedFade"] = { walkLeg }, ["nav.routeChevrons"] = { walkLeg, flightLeg }, ["nav.flightDash"] = { flightLeg },
@@ -448,6 +458,17 @@ local function drawn(s) return function() return R.Style() == s end end
 
 local function minimapOff() return off() or ns.Get("nav.minimapRoute") == false end
 
+-- The minimap size: each style its own (RouteLines.SIZE_KEYS), a row each,
+-- shown while that style is drawn, so the one on screen is the size the
+-- minimap draws with and Reset, Undo and a profile treat each as the setting
+-- it is.
+local function minimapSize(s)
+	return { kind = "slider", key = "nav." .. R.SIZE_KEYS[s], label = L["Minimap size"], min = 0.5, max = 1.5, step = 0.05, format = percent,
+		needs = drawn(s), disabled = minimapOff,
+		help = L["The route's line, dots or sparkles on the minimap, each style its own size; the world map keeps its own."],
+		search = "bigger, smaller, size, scale, thickness, minimap line, huge, tiny" }
+end
+
 register(L["Route lines"], {
 	{ kind = "cards", key = "nav.lineStyle", label = L["Style"], wide = true, disabled = off,
 		help = L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."],
@@ -471,10 +492,7 @@ register(L["Route lines"], {
 				help = L["The route line (or the trail) on the minimap. Off keeps the guide pin there."],
 				search = "minimap route, minimap line, hide on minimap, radar" },
 		} },
-	{ kind = "slider", key = "nav.minimapRouteSize", label = L["Minimap size"], min = 0.5, max = 1.5, step = 0.05, format = percent,
-		get = function() return ns.Get(sizeKey()) end, set = function(v) ns.Set(sizeKey(), v) end, disabled = minimapOff,
-		help = L["The route's line, dots or sparkles on the minimap, each style its own size; the world map keeps its own."],
-		search = "bigger, smaller, size, scale, thickness, minimap line, huge, tiny" },
+	minimapSize("line"), minimapSize("dots"), minimapSize("sparkle"),
 	{ kind = "toggle", key = "nav.drawIn", label = L["Draw-in"], new = NEW,
 		disabled = function() return off() or ns.Get("ui.reduceMotion") end,
 		help = L["A new goal's route grows from you to the goal over a moment. Never with Reduce motion on."],

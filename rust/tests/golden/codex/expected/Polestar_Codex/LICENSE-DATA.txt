@@ -41,6 +41,11 @@ Curated attunement goals (data/codex/attunements.json): the web quest database (
 Version: 15 attunements
 Licence: Facts only (quest and item ids), each entry with its sources
 
+Curated dungeon levels (data/codex/levels.json): in-game checks
+---------------------------------------------------------------
+Version: 2 dungeons
+Licence: Facts only (levels), each row with its source
+
 Curated Dungeons journal quests (data/codex/journal-quests.json): the web quest database (Forever pages), Polestar Recorder sessions
 ------------------------------------------------------------------------------------------------------------------------------------
 Version: 1 quests

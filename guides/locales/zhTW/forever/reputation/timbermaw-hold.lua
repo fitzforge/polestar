@@ -31,7 +31,7 @@ return {
 
 	-- Step 5: Felpaw Village
 	-- {npc:9462} Chieftain Bloodmaw
-	["The northern Deadwood (level 53-55) camp just south of the tunnel. They drop feathers about half the time: the best feather spot. {npc:9462} gives 15 until Exalted."] = "",
+	["The northern Deadwood (level 53-55) camp just south of the tunnel. They drop feathers about half the time: the best feather spot. {npc:9462} gives 15 until Exalted."] = "北方的死木熊怪（53-55級）在隧道南邊不遠處紮營。牠們大約有一半機率掉落羽毛：這是刷羽毛的最佳地點。{npc:9462}在崇拜之前每次給15點。",
 
 	-- Step 6: Back to Nafien
 	-- {npc:15395} Nafien
@@ -141,7 +141,6 @@ return {
 	-- ["Feathers to Honored"] = "羽毛到尊敬",
 	-- ["Go through {faction:576} to its {zone:1452} exit; {npc:11556} stands just outside. The quests and kills so far usually reach Unfriendly, and then the Timbermaw let you pass. If they still show red, kill more Deadwood by the tunnel first."] = "穿過{faction:576}，到達通往{zone:1452}的出口；{npc:11556}就站在外面。到目前為止的任務和擊殺通常能達到冷淡，木喉熊怪就會讓你通過。如果牠們仍顯示紅色，先在隧道附近多殺些死木熊怪。",
 	-- ["Keep turning in feathers and beads until Exalted."] = "持續繳交羽毛和念珠直到崇拜。",
-	-- ["The northern Deadwood (level 53-55) hold the camps just south of the tunnel. Keep their feathers too."] = "北方的死木熊怪（53-55級）佔據隧道南邊不遠的營地。牠們的羽毛也要留著。",
 	-- ["The northern Deadwood camps by the tunnel are the densest feather spot (35% drop chance there). Hand feathers to {npc:15395} at the tunnel, or to {npc:11554} in the south."] = "隧道旁的北方死木營地是羽毛最密集的地點（那裡掉落率35%）。把羽毛交給隧道口的{npc:15395}，或南邊的{npc:11554}。",
 	-- ["{area:2244} sits on the eastern side of {zone:1452}. Keep every {item:21383} you loot: {npc:11556} takes them."] = "{area:2244}位於{zone:1452}東側。留著你拾取的每一個{item:21383}：{npc:11556}會收。",
 	-- ["{faction:576} starts out Hostile, and its furbolgs in the tunnels attack until you reach Unfriendly. Every Deadwood and Winterfall furbolg you kill raises it, so the quests below pay twice. Forever's Legacy Diplomat perk increases reputation gains."] = "{faction:576}初始為敵對，在你達到冷淡之前，隧道裡的熊怪會攻擊你。擊殺的每一隻死木和冬泉熊怪都會提升聲望，所以下面的任務有雙重收益。Forever的傳承外交官天賦可提高聲望獲取。",

@@ -292,7 +292,7 @@ fn set_v(s: &Set) -> V {
 	];
 	if !s.areas.is_empty() {
 		let area = |a: &Area| {
-			obj(vec![
+			let mut pairs = vec![
 				("id", a.id.as_str().into()),
 				("name", a.name.as_str().into()),
 				("map", a.map.into()),
@@ -301,7 +301,12 @@ fn set_v(s: &Set) -> V {
 				("bottom", a.bottom.into()),
 				("left", a.left.into()),
 				("right", a.right.into()),
-			])
+			];
+			if let Some((lo, hi)) = a.z {
+				pairs.push(("zmin", lo.into()));
+				pairs.push(("zmax", hi.into()));
+			}
+			obj(pairs)
 		};
 		pairs.push(("areas", s.areas.iter().map(area).collect::<Vec<V>>().into()));
 	}
@@ -478,6 +483,23 @@ struct Emit<'a> {
 	live: &'a Live,
 }
 
+/// A taxi node's row of TravelData.lua: id, continent, wx, wy, uiMapID, x, y, faction mask, name; then the class
+/// alone that flies from it (or nil), "l" for x, y on a live frame (or nil), and a class node's flight master's npc.
+fn taxi_row(n: &Node) -> V {
+	let mut row: Vec<V> = vec![n.id.into(), n.c.into(), n.wx.into(), n.wy.into(), n.map.into(), n.x.into(), n.y.into(), n.faction.into(), n.name.as_str().into()];
+	let class_npc = n.class.and(n.npc.as_ref().map(|(id, _)| *id));
+	if n.class.is_some() || n.f == "l" {
+		row.push(n.class.map(V::from).unwrap_or(V::Null));
+	}
+	if n.f == "l" || class_npc.is_some() {
+		row.push(if n.f == "l" { "l".into() } else { V::Null });
+	}
+	if let Some(npc) = class_npc {
+		row.push(npc.into());
+	}
+	V::from(row)
+}
+
 fn emit_lua(t: &Emit) -> Result<String, String> {
 	let mut lines: Vec<String> = Vec::new();
 	lines.push(header("travel build", "the client tables, CMaNGOS classic-db, data/forever and data/recordings"));
@@ -504,17 +526,12 @@ fn emit_lua(t: &Emit) -> Result<String, String> {
 	if t.nodes.iter().any(|n| n.f == "l") {
 		lines.push("\t-- (then \"l\", after the class or nil: x, y on the live frame of a map Forever added, which has no Era frame)".into());
 	}
+	if t.nodes.iter().any(|n| n.class.is_some() && n.npc.is_some()) {
+		lines.push("\t-- (a class's node then its flight master's npc id, after \"l\" or nil: Nearby leaves them to that class)".into());
+	}
 	lines.push("\ttaxi = {".into());
 	for n in t.nodes {
-		let mut row: Vec<V> = vec![n.id.into(), n.c.into(), n.wx.into(), n.wy.into(), n.map.into(), n.x.into(), n.y.into(), n.faction.into(), n.name.as_str().into()];
-		if n.class.is_some() || n.f == "l" {
-			row.push(n.class.map(V::from).unwrap_or(V::Null));
-		}
-		if n.f == "l" {
-			row.push("l".into());
-		}
-		let v = V::from(row);
-		lines.push(format!("\t\t{},", lua_val(&v)?));
+		lines.push(format!("\t\t{},", lua_val(&taxi_row(n))?));
 	}
 	lines.push("\t},".into());
 	lines.push("\t-- one-way flights: from, to, yards flown".into());
@@ -951,4 +968,37 @@ pub fn build(o: &Options) -> Result<Output, String> {
 		None => Vec::new(),
 	};
 	Ok(Output { travel_json: format!("{}\n", stringify(&travel, Some("\t"))), travel_lua, flight_lua, travel_addon, warnings, summary, local_counts })
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+
+	fn node(id: f64, name: &str, faction: i32, npc: f64, class: Option<&'static str>, f: &'static str) -> Node {
+		Node {
+			id,
+			name: name.into(),
+			short: name.split(',').next().unwrap().into(),
+			c: 1.0,
+			wx: 7793.6,
+			wy: -2403.5,
+			map: 1450,
+			x: 44.28,
+			y: 45.34,
+			f,
+			faction,
+			npc: Some((npc, "Someone".into())),
+			class,
+		}
+	}
+
+	// Nighthaven's Druid flight masters (TaxiNodes 62, 63) name their npc, so Nearby can leave Silva Fil'naveth and
+	// Bunthen Plainswind to Druids; every other row stays as it was.
+	#[test]
+	fn a_class_s_taxi_row_carries_its_flight_master_s_npc_other_rows_are_unchanged() {
+		let row = |n: &Node| lua_val(&taxi_row(n)).unwrap();
+		assert_eq!(row(&node(62.0, "Nighthaven, Moonglade", 1, 11800.0, Some("DRUID"), "e")), r#"{62,1,7793.6,-2403.5,1450,44.28,45.34,1,"Nighthaven, Moonglade","DRUID",nil,11800}"#);
+		assert_eq!(row(&node(49.0, "Moonglade", 1, 10897.0, None, "e")), r#"{49,1,7793.6,-2403.5,1450,44.28,45.34,1,"Moonglade"}"#);
+		assert_eq!(row(&node(90.0, "Rog'mar, Riverglades", 2, 5.0, None, "l")), r#"{90,1,7793.6,-2403.5,1450,44.28,45.34,2,"Rog'mar, Riverglades",nil,"l"}"#);
+	}
 }

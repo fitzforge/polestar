@@ -37,6 +37,8 @@ return {
 		Polestar.Engine.SetGuide("test/questing")
 		-- The client's secure state driver (the objective clicks' holder hides in combat by it).
 		RegisterStateDriver = RegisterStateDriver or function() end
+		-- The client has it from the start: the objective clicks look again now that it is here.
+		Polestar.UI.NameTargets.Refresh()
 		stub.advance(0.5)
 	end,
 	probes = {

@@ -170,8 +170,8 @@ test('beside ours: a row with its credits, its own picker entry, credits in the 
 		UI.ShowPicker()
 		local P = UI.Picker
 		P.SetCategory("pack:acceptance-good")
-		local picker = { nav = nav(), title = PolestarPicker.Title:GetText(), entries = titles(P.Entries("All", "", "pack:acceptance-good")),
-			leveling = titles(P.Entries("All", "", "Leveling")) }
+		local picker = { nav = nav(), title = PolestarPicker.Title:GetText(), entries = titles(P.Entries("", "pack:acceptance-good")),
+			leveling = titles(P.Entries("", "Leveling")) }
 		P.Select("acceptance-good/example")
 		local credits = shownText(P.details.Credits)
 		P.Select(${luaStr(WESTFALL)})
@@ -313,7 +313,8 @@ test('Install greets a new character on a profile that saw the beta notice, walk
 			seen = PolestarDB.welcomeSeen, char = PolestarCharDB.welcomeSeen, old = PolestarDB.betaNoticeSeen or false,
 			reopened = PolestarWelcome:IsShown(), title = select(4, Wel.Page()) })`, { saved });
 	assert.equal(out.first, true);
-	assert.deepEqual(out.pages, ['Hello, Testchar', 'Questing', 'Targeting', 'Groups and dungeons', 'Your route', 'Your look', out.guide], 'the last page names the suggested guide');
+	// Groups: group quests only while dungeons in the route are held back (Core/Init.lua's ns.dungeonRoute).
+	assert.deepEqual(out.pages, ['Hello, Testchar', 'Questing', 'Targeting', 'Groups', 'Your route', 'Your look', out.guide], 'the last page names the suggested guide');
 	assert.equal(out.next, false, 'the last page has Finish and the guide buttons, not Next');
 	assert.equal(out.closed, true);
 	assert.equal(out.seen, 1);

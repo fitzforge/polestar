@@ -1,9 +1,10 @@
 -- env: world stub_quests.lua stub_questlog.lua
 -- questdb: fixture
 -- The Questing page's quest database settings (Quests/Options.lua; QuestDB.lua, Tooltips.lua, SellWarning.lua,
--- Tracker.lua's nameplates, QuestLevels.lua, Timed.lua) on the fixture database, as quests.rs, quests-levels.rs and
--- quests-timed.rs play them: Kobold Camp Cleanup and Kobold Candles in the log, a Kobold Vermin's nameplate and
--- tooltip, a merchant buying the candles, the quest log's titles and a timed delivery on its guide.
+-- Tracker.lua's nameplates, QuestLevels.lua, Timed.lua, UI/AuctionBuys.lua's list) on the fixture database, as
+-- quests.rs, quests-levels.rs and quests-timed.rs play them: Kobold Camp Cleanup and Kobold Candles in the log, a
+-- Kobold Vermin's nameplate and tooltip, a merchant buying the candles, the quest log's titles and a timed delivery
+-- on its guide.
 local w, sq, ql, Q
 local function said(pattern) local n = 0 for _, m in ipairs(stub.messages) do if m:find(pattern) then n = n + 1 end end return n end
 -- Jump the clock by s seconds (the last second played, so the ticker runs; quests-timed.rs).
@@ -106,6 +107,14 @@ return {
 			w.abandon(3364)
 			stub.advance(1.1)
 			return n
+		end,
+		-- The auction house list opened (UI/AuctionBuys.lua): the line under its title, what the quests need from
+		-- an auction house (nothing: a vendor sells the candles) or that the buys are off.
+		["qol.auctionBuys"] = function()
+			Polestar.UI.ShowAuctionBuys()
+			local text = PolestarAuctionBuys.Hint:GetText()
+			PolestarAuctionBuys:Hide()
+			return text
 		end,
 	},
 }

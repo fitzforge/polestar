@@ -107,7 +107,10 @@ return {
 		["nav.worldRoute"] = function() return worldPin() ~= nil end,
 		["nav.minimapRouteAlpha"] = function() local m = R.GetMinimapFrame(); return m and r3(m.opacity) or false end,
 		["nav.minimapRoute"] = function() local m = R.GetMinimapFrame(); return { m ~= nil and m:IsShown(), R.GetStrokes("minimap").n > 0 } end,
-		["nav.minimapRouteSize"] = function() return r3(R.MinimapSize()) end,
+		-- Each style's own minimap size, its row shown while that style is drawn.
+		["nav.minimapLineSize"] = { with = { ["nav.lineStyle"] = "line" }, probe = function() return r3(R.MinimapSize()) end },
+		["nav.minimapDotsSize"] = { with = { ["nav.lineStyle"] = "dots" }, probe = function() return r3(R.MinimapSize()) end },
+		["nav.minimapSparkleSize"] = sparkling(function() return r3(R.MinimapSize()) end),
 		-- A new goal: drawn in over a moment (the minimap's strokes a share of them at first), or whole at once.
 		["nav.drawIn"] = function()
 			local tram = geom.legs[5].pts
@@ -154,7 +157,10 @@ return {
 		["nav.sparkleMax"] = { value = 10, with = { ["nav.lineStyle"] = "sparkle", ["nav.sparkleFlow"] = 0, ["nav.sparkleDensity"] = 10 }, probe = sparkles },
 		["nav.sparkleLater"] = sparkling(sparkles),
 		-- Flowing: how far the first sparkle moves while the clock runs half a second.
-		["nav.sparkleFlow"] = { with = { ["nav.lineStyle"] = "sparkle" }, probe = function()
+		-- Its reads hold the sparkles' clock at two fixed times, so where the first sparkle stands then (and which one is
+		-- first) follows every redraw before: no reads over a profile switch beside the runner's three (once), and none
+		-- in a fresh session to compare with this one's (reload; nav-route-sparkle.rs holds the flow itself).
+		["nav.sparkleFlow"] = { once = true, reload = false, with = { ["nav.lineStyle"] = "sparkle" }, probe = function()
 			local real = GetTime
 			GetTime = function() return 7000 end
 			stub.advance(0.1)

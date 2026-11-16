@@ -80,7 +80,7 @@ return {
 
 	-- Step 14: Coleman Farthing
 	-- {npc:1500} Coleman Farthing · {area:2119} Gallows' End Tavern · {area:159} Brill
-	["{npc:1500} is in the {area:2119}, the inn on {area:159}'s east side."] = "",
+	["{npc:1500} is in the {area:2119}, the inn on {area:159}'s east side."] = "{npc:1500} – здесь: {area:2119}, таверна в восточной части места {area:159}.",
 
 	-- Step 15: The Agamand Family Crypt
 	-- {area:158} Agamand Family Crypt
@@ -96,6 +96,5 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["The four Agamand Weapon Racks stand among the buildings of {area:157}, north of {area:159}. The mills' undead attack on sight."] = "Четыре оружейные стойки Агамонда стоят среди построек места {area:157}, к северу от {area:159}. Нежить мельниц нападает сразу.",
 	-- ["{npc:1496} stands in {area:159}. {npc:6390} waits in the mausoleum on the hill just north of town: open the gate and fight him."] = "{npc:1496} стоит здесь: {area:159}. {npc:6390} ждет в склепе на холме чуть севернее городка: откройте ворота и сразитесь с ним.",
-	-- ["{npc:1500} is in the inn, the {area:2119}, in {area:159}."] = "{npc:1500} — в таверне ({area:2119}), {area:159}.",
 	-- ["{spell:71} and a one-hand weapon of your choice at 10."] = "{spell:71} и одноручное оружие на выбор на 10-м уровне.",
 }

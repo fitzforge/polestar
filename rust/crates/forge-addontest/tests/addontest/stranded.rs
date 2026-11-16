@@ -138,8 +138,8 @@ fn outlevelled_the_engine_suggests_the_next_guide_while_the_guides_between_hand_
 		local c = P.LeftBehind("test/c")
 		r.leftC, r.leftB = {}, P.LeftBehind("test/b").n
 		for i, q in ipairs(c.quests) do r.leftC[i] = q.quest end
-		-- Level 12: test/a (max 10) is outlevelled; the level-best guide is test/c, but test/b still hands in 44.
-		w.setLevel(12); flush(); flush()
+		-- Level 13: test/a (max 10) is outlevelled; the level-best guide is test/c, but test/b still hands in 44.
+		w.setLevel(13); flush(); flush()
 		r.fired = fired
 		emit(r)
 	"#);
@@ -160,7 +160,7 @@ fn the_guide_menu_s_load_over_a_leveling_guide_asks_once_while_the_route_still_h
 		emit(r)
 	"#);
 	assert_eq!(out["which"], "POLESTAR_LEAVE_HANDINS", "{out}");
-	assert!(is_match(text(&out["text"]), r"^2 finished quests in your log are handed in on the route before C \(\d+ XP\)\. Load it anyway\?"), "{out}");
+	assert!(is_match(text(&out["text"]), r"^2 finished quests in your log are handed in on the route before C \(\d{1,3}(,\d{3})* XP\)\. Load it anyway\?"), "{out}");
 	assert_eq!(out["stayed"], "test/a", "{out}");
 	assert_eq!(out["loaded"], "test/c", "{out}");
 }
@@ -181,7 +181,10 @@ fn with_the_gamepad_interface_the_guide_menu_s_load_says_in_chat_what_it_leaves_
 	assert_eq!(out["gamepad"], true, "{out}");
 	assert_eq!(out["popups"], 0, "{out}");
 	assert_eq!(out["loaded"], "test/c", "{out}");
-	assert!(is_match(text(&out["chat"]), r"2 finished quests in your log are handed in on the route before C \(\d+ XP\)\. They stay in your log, and the guide lists who takes each in\.$"), "{out}");
+	assert!(
+		is_match(text(&out["chat"]), r"2 finished quests in your log are handed in on the route before C \(\d{1,3}(,\d{3})* XP\)\. They stay in your log, and the guide lists who takes each in\.$"),
+		"{out}"
+	);
 }
 
 // The guide window's "Still to do" list: one row for the finished quests no open route hands in (40 here; 41 and 44
@@ -206,13 +209,75 @@ fn the_guide_window_lists_the_finished_quests_no_route_hands_in_in_one_row_that_
 	assert_eq!(out["room"], json!([true, "Finished quests you're still carrying", "A Fishy Peril"]), "{out}");
 }
 
-// Outlevelled at 12, the banner says what the jump to the suggested guide (test/b) leaves behind: 41, handed in
+// A kill that ticks an objective (#2555): the client's burst (the quest log three times, the objective, XP, loot)
+// is one evaluation, one step update and one tab update, and the row above is drawn again from the route plan as
+// it stands: the plan is not rebuilt, so no walk over every registered guide (Guides.List from RoutePlan). A quest
+// finished in the burst still joins the row. A tab opened in the background (other guides open) builds it afresh.
+#[test]
+fn a_kill_burst_repaints_the_carried_row_without_rebuilding_the_route_plan() {
+	let out = run(r#"
+		local GF, G = Polestar.UI.GuideFrame, Polestar.Guides
+		GF.Render(); flush()
+		local count = { plan = 0, STEP_UPDATED = 0, STEP_CHANGED = 0, TABS_CHANGED = 0 }
+		local list = G.List
+		G.List = function(...)
+			if debug.getinfo(2, "S").source:find("RoutePlan.lua", 1, true) then count.plan = count.plan + 1 end
+			return list(...)
+		end
+		for _, msg in ipairs({ "STEP_UPDATED", "STEP_CHANGED", "TABS_CHANGED" }) do
+			Polestar.On(msg, function() count[msg] = count[msg] + 1 end)
+		end
+		local function kill(finish)
+			stub.fire("PLAYER_REGEN_DISABLED")
+			stub.advance(1)
+			stub.fire("CHAT_MSG_COMBAT_XP_GAIN", "Young Wolf dies, you gain 120 experience.")
+			w.setXP((w.xp or 0) + 120)
+			local o = w.log[33].objectives[1]
+			w.progress(33, 1, o.numFulfilled + 1)
+			if finish then w.finish(42) end
+			stub.fire("QUEST_LOG_UPDATE")
+			stub.fire("PLAYER_REGEN_ENABLED")
+			stub.fire("LOOT_READY", true)
+			stub.fire("LOOT_CLOSED")
+			stub.fire("BAG_UPDATE", 0)
+			stub.fire("BAG_UPDATE_DELAYED")
+			stub.fire("QUEST_LOG_UPDATE")
+			flush(); flush()
+		end
+		local function row()
+			for _, x in ipairs(GF.alongRows) do
+				if x:IsShown() and x.psCarried then return plain(x.Text:GetText()) end
+			end
+		end
+		local r = { kills = {} }
+		for k = 1, 3 do
+			for key in pairs(count) do count[key] = 0 end
+			kill(k == 3)
+			r.kills[k] = { count.plan, count.STEP_UPDATED, count.STEP_CHANGED, count.TABS_CHANGED, row() }
+		end
+		count.plan = 0
+		E.OpenTab("test/c", false); flush()
+		local carried = #Polestar.RoutePlan.Carried()
+		r.tab = { E.GetGuide().id, E.TabIds()["test/c"] == true, count.plan > 0, carried }
+		G.List = list
+		emit(r)
+	"#);
+	let kills = out["kills"].as_array().unwrap();
+	for k in &kills[..2] {
+		assert_eq!(k, &json!([0, 1, 0, 1, "1 finished quest to hand in elsewhere (800 XP)"]), "{out}");
+	}
+	assert_eq!(kills[2].as_array().unwrap()[..4], json!([0, 1, 0, 1]).as_array().unwrap()[..], "{out}");
+	assert!(is_match(text(&kills[2][4]), r"^2 finished quests to hand in elsewhere \(\d{1,3}(,\d{3})* XP\)$"), "{out}");
+	assert_eq!(out["tab"], json!(["test/a", true, true, 2]), "{out}");
+}
+
+// Outlevelled at 13, the banner says what the jump to the suggested guide (test/b) leaves behind: 41, handed in
 // later in test/a. Its first click asks; the second jumps.
 #[test]
 fn outlevelled_the_banner_says_the_finished_quests_left_here_and_its_jump_asks_once() {
 	let out = run(r#"
 		local GF = Polestar.UI.GuideFrame
-		w.setLevel(12); flush(); flush()
+		w.setLevel(13); flush(); flush()
 		GF.Render(); flush()
 		local B = GF.parts.banner
 		local function banner() return { plain(B.Text:GetText()), plain(B.Jump.Label:GetText()) } end
@@ -223,10 +288,10 @@ fn outlevelled_the_banner_says_the_finished_quests_left_here_and_its_jump_asks_o
 		r.jumped = E.GetGuide().id
 		emit(r)
 	"#);
-	assert_eq!(out["first"], json!(["You have outlevelled this guide.\n1 finished quest here first (1000 XP)", "Jump to B"]), "{out}");
+	assert_eq!(out["first"], json!(["You have outlevelled this guide.\n1 finished quest here first (1,000 XP)", "Jump to B"]), "{out}");
 	assert_eq!(
 		out["asked"],
-		json!([["You have outlevelled this guide.\n1 finished quest here first (1000 XP)\nJump anyway? They stay in your log, and the guide lists who takes each in.", "Jump anyway"], "test/a"]),
+		json!([["You have outlevelled this guide.\n1 finished quest here first (1,000 XP)\nJump anyway? They stay in your log, and the guide lists who takes each in.", "Jump anyway"], "test/a"]),
 		"{out}"
 	);
 	assert_eq!(out["jumped"], "test/b", "{out}");

@@ -5,6 +5,7 @@
 	<Script file="PawnStats.lua"/>
 	<Script file="Pawn.lua"/>
 	<Script file="Adjust.lua"/>
+	<Script file="FLB.lua"/>
 	<Script file="Gear.lua"/>
 	<Script file="Tooltip.lua"/>
 	<Script file="Bags.lua"/>

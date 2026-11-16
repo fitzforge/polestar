@@ -1,4 +1,5 @@
 [
+  "forever/alliance/50-60/05-silithus",
   "forever/alliance/dwarf-gnome/01-dun-morogh",
   "forever/horde/30-40/01-desolace",
   "forever/horde/30-40/02-stranglethorn-vale",
@@ -6,5 +7,8 @@
   "forever/horde/orc-troll/01-durotar",
   "forever/horde/orc-troll/02-the-barrens",
   "forever/horde/orc/02-the-barrens",
-  "forever/horde/troll/02-the-barrens"
+  "forever/horde/troll/02-the-barrens",
+  "polestar-experimental/riverglades-alliance-1",
+  "polestar-experimental/riverglades-horde-1",
+  "polestar-experimental/shendralas"
 ]

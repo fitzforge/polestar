@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: The Hinterlands (1/2)
 	-- {zone:1425} The Hinterlands · {zone:1424} Hillsbrad Foothills · {zone:1415} Eastern Kingdoms
-	["Starts in the {zone:1425}, north-east of {zone:1424}. The last area of this guide completes the {zone:1415} map. 14 areas to discover here, levels 41-49."] = "",
+	["Starts in the {zone:1425}, north-east of {zone:1424}. The last area of this guide completes the {zone:1415} map. 14 areas to discover here, levels 41-49."] = "從{zone:1424}東北方的{zone:1425}開始。本指南的最後一個區域會完成{zone:1415}地圖。這裡有14個區域要發現，等級41-49。",
 	["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "用一個角色探索整個世界地圖是Forever的傳承挑戰（1點全帳號傳承點數）。",
 	-- {area:348} Aerie Peak · {area:271} Southshore · {zone:1424} Hillsbrad Foothills · {zone:1425} The Hinterlands
 	["Fly to {area:348} if you have it; otherwise fly to {area:271} and walk north-east from {zone:1424} into the {zone:1425}."] = "如果你有{area:348}的飛行路線就飛過去；否則飛往{area:271}，從{zone:1424}向東北步行進入{zone:1425}。",
@@ -43,7 +43,7 @@ return {
 	-- Step 4: Burning Steppes (1/2)
 	["10 areas to discover here, levels 50-59."] = "這裡有10個區域要發現，等級50-59。",
 	-- {area:254} Blackrock Mountain · {zone:1427} Searing Gorge · {zone:1428} Burning Steppes · {area:2418} Morgan's Vigil
-	["Cross {area:254} from the south of the {zone:1427} into the {zone:1428}: stay on the chain path inside, past the dungeon entrances. {area:2418} (Alliance) is in the east."] = "",
+	["Cross {area:254} from the south of the {zone:1427} into the {zone:1428}: stay on the chain path inside, past the dungeon entrances. {area:2418} (Alliance) is in the east."] = "從{zone:1427}南部穿過{area:254}進入{zone:1428}：在山內沿著鎖鏈小路走，經過地城入口。{area:2418}（聯盟）在東部。",
 	-- {area:2418} Morgan's Vigil · {npc:2299} Borgus Stoutarm
 	["Flight path here: {area:2418} ({npc:2299})."] = "這裡的飛行路線：{area:2418}（{npc:2299}）。",
 	-- {area:251} Flame Crest
@@ -57,7 +57,7 @@ return {
 	["high-level undead around the tower: discover it from the road"] = "塔周圍有高等級亡靈：從道路上發現它",
 
 	-- Step 7: Blasted Lands (1/2)
-	["9 areas to discover here, levels 46-63."] = "",
+	["9 areas to discover here, levels 46-63."] = "這裡有9個區域要發現，等級46-63。",
 	-- {zone:1430} Deadwind Pass · {zone:1435} Swamp of Sorrows · {zone:1419} Blasted Lands · {area:1438} Nethergarde Keep
 	["Ride east out of {zone:1430} into the {zone:1435} and take the road south into the {zone:1419}; {area:1438} (Alliance) stands just inside."] = "",
 	-- {area:1438} Nethergarde Keep · {npc:8609} Alexandra Constantine
@@ -67,9 +67,9 @@ return {
 	-- Step 9: Western Plaguelands (1/2)
 	["13 areas to discover here, levels 46-57."] = "這裡有13個區域要發現，等級46-57。",
 	-- {area:3197} Chillwind Camp · {area:271} Southshore · {zone:1416} Alterac Mountains · {zone:1422} Western Plaguelands
-	["Fly to {area:3197} if you have it; otherwise fly to {area:271} and ride north through the {zone:1416} to {area:3197} in southern {zone:1422}."] = "",
+	["Fly to {area:3197} if you have it; otherwise fly to {area:271} and ride north through the {zone:1416} to {area:3197} in southern {zone:1422}."] = "如果有{area:3197}的飛行路線就飛過去；否則飛往{area:271}，向北騎過{zone:1416}，前往{zone:1422}南部的{area:3197}。",
 	-- {area:272} Tarren Mill · {zone:1416} Alterac Mountains · {zone:1422} Western Plaguelands · {zone:1420} Tirisfal Glades · {area:813} The Bulwark
-	["Fly to {area:272} and ride north through the {zone:1416} into southern {zone:1422}, or go east from {zone:1420} past {area:813}."] = "",
+	["Fly to {area:272} and ride north through the {zone:1416} into southern {zone:1422}, or go east from {zone:1420} past {area:813}."] = "飛往{area:272}，向北騎過{zone:1416}進入{zone:1422}南部，或從{zone:1420}向東經過{area:813}。",
 	-- {area:3197} Chillwind Camp · {npc:12596} Bibilfaz Featherwhistle
 	["Flight path here: {area:3197} ({npc:12596})."] = "這裡的飛行路線：{area:3197}（{npc:12596}）。",
 
@@ -83,12 +83,7 @@ return {
 	["Flight path here: {area:2268} (Georgia)."] = "這裡的飛行路線：{area:2268}（喬吉亞）。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["14 areas to discover here, levels 41-49."] = "這裡有14個區域要發現，等級41-49。",
 	-- ["Continue west into {zone:1431}, north to {zone:1433} and take the pass north out of Redridge into the {zone:1428}; {area:2418} (Alliance) is near the top."] = "繼續向西進入{zone:1431}，向北前往{zone:1433}，再從赤脊山北邊的山口進入{zone:1428}；{area:2418}（聯盟）在頂端附近。",
-	-- ["Cross {area:254} from the western {zone:1428} into the {zone:1427}: stay on the chain path inside, past the dungeon entrances."] = "從{zone:1428}西部穿過{area:254}進入{zone:1427}：在山內沿著鎖鏈小路走，經過地城入口。",
 	-- ["Go back north through the {zone:1435} and west into {zone:1430}."] = "向北穿過{zone:1435}回去，再向西進入{zone:1430}。",
-	-- ["Starts where the 30-45 guide ends, in the {zone:1435}. The last area of this guide completes the {zone:1415} map. 9 areas to discover here, levels 46-63."] = "從30-45級指南結束的{zone:1435}開始。本指南的最後一個區域會完成{zone:1415}地圖。這裡有9個區域要發現，等級46-63。",
 	-- ["The {zone:1419} are south of the {zone:1435}; the road arrives at {area:1438} (Alliance)."] = "{zone:1419}位於{zone:1435}南邊；道路通往{area:1438}（聯盟）。",
-	-- ["Walk back to {zone:1424} and north through the {zone:1416} to {area:3197} in southern {zone:1422}."] = "走回{zone:1424}，向北穿過{zone:1416}前往{zone:1422}南部的{area:3197}。",
-	-- ["Walk back to {zone:1424} and north through the {zone:1416}, or from {zone:1420} east past {area:813}, into {zone:1422}."] = "走回{zone:1424}，向北穿過{zone:1416}，或從{zone:1420}向東經過{area:813}，進入{zone:1422}。",
 }

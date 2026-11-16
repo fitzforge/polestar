@@ -12,8 +12,9 @@
 --   Alts.IsCurrent(entry), Alts.MaxLevel(), Alts.Enabled()
 --
 -- When it writes: in the world, at login (after five seconds), on level-ups,
--- XP, zone, money, skill and tab changes (coalesced into one write every ten
--- seconds), on resting changes at once, and at once when the player asks to
+-- XP, zone, money, skill and tab changes and new bank and mail counts
+-- (coalesced into one write every ten seconds), on resting changes at once,
+-- and at once when the player asks to
 -- leave (PLAYER_CAMPING, PLAYER_QUITING). While the player is resting (an inn
 -- or city) those frequent events write at once too, so an instant logout there
 -- leaves the entry current. Logout() and Quit() are protected and not hooked.
@@ -27,8 +28,10 @@
 -- An entry: name, realm, class (file token), race, faction, level, xp, xpMax,
 -- rested (XP, absent when none), resting (in an inn or city), zone, bind,
 -- money (copper), profs { [skillLine] = rank }, tabs { { id, title, step,
--- count, complete } } with active (the tab index), seen (server time), key. Values
--- that equal nothing are left out.
+-- count, complete } } with active (the tab index), mats { [itemID] = count }
+-- (the profession guides' materials held in the bags, bank and mail:
+-- Core/Materials.lua), seen (server time), key. Values that equal nothing
+-- are left out.
 
 local ADDON, ns = ...
 local Compat = ns.Compat
@@ -206,6 +209,9 @@ function Alts.Write(silent, touch)
 			local profs = professions()
 			if profs then e.profs = profs end
 		end
+		-- What the other characters' material counts read (Materials.Have).
+		local M = ns.Materials
+		if M and M.OwnCounts then e.mats = M.OwnCounts() end
 		local tabs, active = tabList()
 		if tabs then e.tabs, e.active = tabs, active end
 	end
@@ -341,7 +347,7 @@ end
 
 local EVENTS = { "PLAYER_LEVEL_UP", "PLAYER_XP_UPDATE", "ZONE_CHANGED_NEW_AREA", "PLAYER_MONEY", "SKILL_LINES_CHANGED" }
 local REQUESTS = { "PLAYER_CAMPING", "PLAYER_QUITING" } -- the player asked to leave: still in the world
-local started, tabsHandle = false, nil
+local started, tabsHandle, matsHandle = false, nil, nil
 
 -- Listening only while alts.enabled is on.
 local function start()
@@ -349,6 +355,7 @@ local function start()
 	started = true
 	for _, ev in ipairs(EVENTS) do ns.RegisterEvent(ev, later) end
 	tabsHandle = ns.On("TABS_CHANGED", later)
+	matsHandle = ns.On("MATERIALS_COUNTS", later)
 	ns.RegisterEvent("PLAYER_UPDATE_RESTING", now) -- an inn entered and left within seconds still counts
 	for _, ev in ipairs(REQUESTS) do ns.RegisterEvent(ev, now) end -- an event this client lacks is skipped
 	ns.RegisterEvent("PLAYER_LEAVING_WORLD", leaving)
@@ -361,6 +368,7 @@ local function stop()
 	gen, pending = gen + 1, false
 	for _, ev in ipairs(EVENTS) do ns.UnregisterEvent(ev, later) end
 	ns.Off(tabsHandle)
+	ns.Off(matsHandle)
 	ns.UnregisterEvent("PLAYER_UPDATE_RESTING", now)
 	for _, ev in ipairs(REQUESTS) do ns.UnregisterEvent(ev, now) end
 	ns.UnregisterEvent("PLAYER_LEAVING_WORLD", leaving)

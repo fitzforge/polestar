@@ -88,47 +88,51 @@ step Learn Blacksmithing
   train Blacksmithing Apprentice
   skill Blacksmithing 1
 
+step Blacksmithing 1-75: Auction House
+  tip What 1-75 takes that the Auction House sells: 286 Rough Stone. The counts drop by what your bags, bank and mail hold.
+  auction 2835 x286
+
 step Rough Stone (Elwynn Forest)
   only Human
   zone Elwynn Forest
-  tip 286 Rough Stone for Rough Sharpening Stone and Rough Grinding Stone (116 of them for 75-150: pick them all now): Mining: Copper Vein (skill 1); or the Auction House. The densest cluster of Copper Vein in Elwynn Forest is marked.
-  collect 2835 x286 @45.6,72.6 era
+  tip 286 Rough Stone for Rough Sharpening Stone and Rough Grinding Stone (116 of them for 75-150: pick them all now): Mining: Copper Vein (skill 1). The densest cluster of Copper Vein in Elwynn Forest is marked.
+  collect 2835 x286 @45.6,72.6 era gather Mining 1
 
 step Rough Stone (Dun Morogh)
   only Dwarf,Gnome
   zone Dun Morogh
-  tip 286 Rough Stone for Rough Sharpening Stone and Rough Grinding Stone (116 of them for 75-150: pick them all now): Mining: Copper Vein (skill 1); or the Auction House. The densest cluster of Copper Vein in Dun Morogh is marked.
-  collect 2835 x286 @70.4,55.1 era
+  tip 286 Rough Stone for Rough Sharpening Stone and Rough Grinding Stone (116 of them for 75-150: pick them all now): Mining: Copper Vein (skill 1). The densest cluster of Copper Vein in Dun Morogh is marked.
+  collect 2835 x286 @70.4,55.1 era gather Mining 1
 
 step Rough Stone (Darkshore)
   only NightElf
   zone Darkshore
-  tip 286 Rough Stone for Rough Sharpening Stone and Rough Grinding Stone (116 of them for 75-150: pick them all now): Mining: Copper Vein (skill 1); or the Auction House. The densest cluster of Copper Vein in Darkshore is marked.
-  collect 2835 x286 @39.1,81.5 era
+  tip 286 Rough Stone for Rough Sharpening Stone and Rough Grinding Stone (116 of them for 75-150: pick them all now): Mining: Copper Vein (skill 1). The densest cluster of Copper Vein in Darkshore is marked.
+  collect 2835 x286 @39.1,81.5 era gather Mining 1
 
 step Rough Stone (Zephras Isle)
   only Skyborne
   zone Zephras Isle
-  tip 286 Rough Stone for Rough Sharpening Stone and Rough Grinding Stone (116 of them for 75-150: pick them all now): Mining: Copper Vein (skill 1); or the Auction House. The densest cluster of Copper Vein in Zephras Isle is marked.
-  collect 2835 x286 @40.2,28 live
+  tip 286 Rough Stone for Rough Sharpening Stone and Rough Grinding Stone (116 of them for 75-150: pick them all now): Mining: Copper Vein (skill 1). The densest cluster of Copper Vein in Zephras Isle is marked.
+  collect 2835 x286 @40.2,28 live gather Mining 1
 
 step Rough Stone (Durotar)
   only Orc,Troll
   zone Durotar
-  tip 286 Rough Stone for Rough Sharpening Stone and Rough Grinding Stone (116 of them for 75-150: pick them all now): Mining: Copper Vein (skill 1); or the Auction House. The densest cluster of Copper Vein in Durotar is marked.
-  collect 2835 x286 @49.5,35.9 era
+  tip 286 Rough Stone for Rough Sharpening Stone and Rough Grinding Stone (116 of them for 75-150: pick them all now): Mining: Copper Vein (skill 1). The densest cluster of Copper Vein in Durotar is marked.
+  collect 2835 x286 @49.5,35.9 era gather Mining 1
 
 step Rough Stone (Mulgore)
   only Tauren
   zone Mulgore
-  tip 286 Rough Stone for Rough Sharpening Stone and Rough Grinding Stone (116 of them for 75-150: pick them all now): Mining: Copper Vein (skill 1); or the Auction House. The densest cluster of Copper Vein in Mulgore is marked.
-  collect 2835 x286 @56.4,44.1 live
+  tip 286 Rough Stone for Rough Sharpening Stone and Rough Grinding Stone (116 of them for 75-150: pick them all now): Mining: Copper Vein (skill 1). The densest cluster of Copper Vein in Mulgore is marked.
+  collect 2835 x286 @56.4,44.1 live gather Mining 1
 
 step Rough Stone (Tirisfal Glades)
   only Undead
   zone Tirisfal Glades
-  tip 286 Rough Stone for Rough Sharpening Stone and Rough Grinding Stone (116 of them for 75-150: pick them all now): Mining: Copper Vein (skill 1); or the Auction House. The densest cluster of Copper Vein in Tirisfal Glades is marked.
-  collect 2835 x286 @50.7,34.3 era
+  tip 286 Rough Stone for Rough Sharpening Stone and Rough Grinding Stone (116 of them for 75-150: pick them all now): Mining: Copper Vein (skill 1). The densest cluster of Copper Vein in Tirisfal Glades is marked.
+  collect 2835 x286 @50.7,34.3 era gather Mining 1
 
 step Rough Sharpening Stone to 35
   zone Azeroth
@@ -159,67 +163,82 @@ step Blacksmithing 75-150: vendor goods
   tip Buy the whole bracket's share in one go: Blacksmith Hammer (a tool: one, kept in your bags, 18c); about 18c in all. The arrow picks the nearest seller of your faction (Stormwind City: Billibub Cogspinner, Edna Mullby and Kaita Deepforge; Orgrimmar: Felika, Shimra and Sovik).
   buy 5956 nearest -- a tool, keep it in your bags
 
+step Blacksmithing 75-150: Auction House
+  tip What 75-150 takes that the Auction House sells: 256 Coarse Stone, 28 Heavy Stone, 210 Copper Bar and 320 Bronze Bar. The counts drop by what your bags, bank and mail hold.
+  auction 2836 x256
+  auction 2838 x28
+  auction 2840 x210
+  auction 2841 x320
+
 step Coarse Stone (Westfall)
   only Human,Skyborne,Alliance
   zone Westfall
-  tip 256 Coarse Stone for Patterned Bronze Bracers: Mining: Tin Vein (skill 65); or the Auction House. The densest cluster of Tin Vein in Westfall is marked.
-  collect 2836 x256 @26.2,64.5 era
+  tip 256 Coarse Stone for Patterned Bronze Bracers: Mining: Tin Vein (skill 65). The densest cluster of Tin Vein in Westfall is marked.
+  collect 2836 x256 @26.2,64.5 era gather Mining 65
 
 step Coarse Stone (Loch Modan)
   only Dwarf,Gnome
   zone Loch Modan
-  tip 256 Coarse Stone for Patterned Bronze Bracers: Mining: Tin Vein (skill 65); or the Auction House. The densest cluster of Tin Vein in Loch Modan is marked.
-  collect 2836 x256 @23.1,24.5 era
+  tip 256 Coarse Stone for Patterned Bronze Bracers: Mining: Tin Vein (skill 65). The densest cluster of Tin Vein in Loch Modan is marked.
+  collect 2836 x256 @23.1,24.5 era gather Mining 65
 
 step Coarse Stone (Darkshore)
   only NightElf
   zone Darkshore
-  tip 256 Coarse Stone for Patterned Bronze Bracers: Mining: Tin Vein (skill 65); or the Auction House. The densest cluster of Tin Vein in Darkshore is marked.
-  collect 2836 x256 @59.3,19.6 era
+  tip 256 Coarse Stone for Patterned Bronze Bracers: Mining: Tin Vein (skill 65). The densest cluster of Tin Vein in Darkshore is marked.
+  collect 2836 x256 @59.3,19.6 era gather Mining 65
 
 step Coarse Stone (The Barrens)
   only Orc,Troll,Tauren,Skyborne,Horde
   zone The Barrens
-  tip 256 Coarse Stone for Patterned Bronze Bracers: Mining: Tin Vein (skill 65); or the Auction House. The densest cluster of Tin Vein in The Barrens is marked.
-  collect 2836 x256 @40.6,45.7 era
+  tip 256 Coarse Stone for Patterned Bronze Bracers: Mining: Tin Vein (skill 65). The densest cluster of Tin Vein in The Barrens is marked.
+  collect 2836 x256 @40.6,45.7 era gather Mining 65
 
 step Coarse Stone (Silverpine Forest)
   only Undead
   zone Silverpine Forest
-  tip 256 Coarse Stone for Patterned Bronze Bracers: Mining: Tin Vein (skill 65); or the Auction House. The densest cluster of Tin Vein in Silverpine Forest is marked.
-  collect 2836 x256 @41.6,27.4 era
+  tip 256 Coarse Stone for Patterned Bronze Bracers: Mining: Tin Vein (skill 65). The densest cluster of Tin Vein in Silverpine Forest is marked.
+  collect 2836 x256 @41.6,27.4 era gather Mining 65
 
 step Heavy Stone (Arathi Highlands)
   only Human,Dwarf,Gnome,Skyborne,Alliance
   zone Arathi Highlands
-  tip 28 Heavy Stone for Heavy Sharpening Stone: Mining: Iron Deposit (skill 125); or the Auction House. The densest cluster of Iron Deposit in Arathi Highlands is marked.
-  collect 2838 x28 @15.8,63.2 era
+  tip 28 Heavy Stone for Heavy Sharpening Stone: Mining: Iron Deposit (skill 125). The densest cluster of Iron Deposit in Arathi Highlands is marked.
+  collect 2838 x28 @15.8,63.2 era gather Mining 125
 
 step Heavy Stone (Ashenvale)
   only NightElf
   zone Ashenvale
-  tip 28 Heavy Stone for Heavy Sharpening Stone: Mining: Iron Deposit (skill 125); or the Auction House. The densest cluster of Iron Deposit in Ashenvale is marked.
-  collect 2838 x28 @70.7,53.5 era
+  tip 28 Heavy Stone for Heavy Sharpening Stone: Mining: Iron Deposit (skill 125). The densest cluster of Iron Deposit in Ashenvale is marked.
+  collect 2838 x28 @70.7,53.5 era gather Mining 125
 
 step Heavy Stone (The Barrens)
   only Orc,Troll,Tauren,Skyborne,Horde
   zone The Barrens
-  tip 28 Heavy Stone for Heavy Sharpening Stone: Mining: Iron Deposit (skill 125); or the Auction House. The densest cluster of Iron Deposit in The Barrens is marked.
-  collect 2838 x28 @45.2,94.5 era
+  tip 28 Heavy Stone for Heavy Sharpening Stone: Mining: Iron Deposit (skill 125). The densest cluster of Iron Deposit in The Barrens is marked.
+  collect 2838 x28 @45.2,94.5 era gather Mining 125
 
 step Heavy Stone (Arathi Highlands)
   only Undead
   zone Arathi Highlands
-  tip 28 Heavy Stone for Heavy Sharpening Stone: Mining: Iron Deposit (skill 125); or the Auction House. The densest cluster of Iron Deposit in Arathi Highlands is marked.
-  collect 2838 x28 @15.8,63.2 era
+  tip 28 Heavy Stone for Heavy Sharpening Stone: Mining: Iron Deposit (skill 125). The densest cluster of Iron Deposit in Arathi Highlands is marked.
+  collect 2838 x28 @15.8,63.2 era gather Mining 125
+
+step Copper Bar
+  zone Azeroth
+  tip 210 Copper Bar for Runed Copper Belt: Mining: smelt Copper Ore.
+  collect 2840 x210 anywhere gather Mining 1
+
+step Bronze Bar
+  tip 320 Bronze Bar for Patterned Bronze Bracers: Mining: smelt Copper Bar and Tin Bar.
+  collect 2841 x320 anywhere gather Mining 65
 
 step Rough Grinding Stone to 83
-  zone Azeroth
   tip Rough Grinding Stone is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 Rough Stone. Two Rough Stone a craft. Grinding stones are parts for later plans; the extras sell to vendors.
   craft 3320 until 83
 
 step Runed Copper Belt to 100
-  tip Runed Copper Belt is orange at 83 (yellow 85, green 105, grey 125): about 21 crafts to 100. Each takes 10 Copper Bar. Forever teaches Runed Copper Belt from 45; it stays orange to 85. Ten Copper Bars a craft: smelt your Copper Ore. Needs an anvil nearby. Blacksmith Hammer is a tool: keep it in your bags. Copper Bar (210 for 75-150): Mining: smelt Copper Ore; or the Auction House.
+  tip Runed Copper Belt is orange at 83 (yellow 85, green 105, grey 125): about 21 crafts to 100. Each takes 10 Copper Bar. Forever teaches Runed Copper Belt from 45; it stays orange to 85. Ten Copper Bars a craft: smelt your Copper Ore. Needs an anvil nearby. Blacksmith Hammer is a tool: keep it in your bags.
   craft 2666 until 100
 
 step Blacksmithing recipes at 100
@@ -235,7 +254,7 @@ step Blacksmithing recipes at 113
   learn 2672
 
 step Patterned Bronze Bracers to 150
-  tip Patterned Bronze Bracers is orange at 113 (yellow 125, green 140, grey 155): about 64 crafts to 150. Each takes 5 Bronze Bar and 2 Coarse Grinding Stone. Make the 128 Coarse Grinding Stone first. Each bracer takes two Coarse Grinding Stones (Coarse Stone from Tin Veins): make them first; they give points too. Needs an anvil nearby. Bronze Bar (320 for 75-150): Mining: smelt Copper Bar and Tin Bar; or the Auction House. Blacksmithing 150 is a Legacy System milestone.
+  tip Patterned Bronze Bracers is orange at 113 (yellow 125, green 140, grey 155): about 64 crafts to 150. Each takes 5 Bronze Bar and 2 Coarse Grinding Stone. Make the 128 Coarse Grinding Stone first. Each bracer takes two Coarse Grinding Stones (Coarse Stone from Tin Veins): make them first; they give points too. Needs an anvil nearby. Blacksmithing 150 is a Legacy System milestone.
   craft 3326 x128
   craft 2672 until 150
   skill Blacksmithing 150
@@ -255,33 +274,54 @@ step Blacksmithing 150-225: vendor goods
   buy 2605 x28 nearest
   buy 3857 x195 nearest optional
 
+step Blacksmithing 150-225: Auction House
+  tip What 150-225 takes that the Auction House sells: 234 Heavy Stone, 168 Iron Bar, 195 Steel Bar, 320 Mithril Bar and 30 Solid Stone. The counts drop by what your bags, bank and mail hold.
+  auction 2838 x234
+  auction 3575 x168
+  auction 3859 x195
+  auction 3860 x320
+  auction 7912 x30
+
 step Heavy Stone (Alliance)
   only Alliance
   zone Arathi Highlands
-  tip 234 Heavy Stone for Golden Scale Bracers: Mining: Iron Deposit (skill 125) in Arathi Highlands (30-40), Stranglethorn Vale (30-45) and Desolace (30-40); or the Auction House. The densest cluster of Iron Deposit in Arathi Highlands is marked.
-  collect 2838 x234 @15.8,63.2 era
+  tip 234 Heavy Stone for Golden Scale Bracers: Mining: Iron Deposit (skill 125) in Arathi Highlands (30-40), Stranglethorn Vale (30-45) and Desolace (30-40). The densest cluster of Iron Deposit in Arathi Highlands is marked.
+  collect 2838 x234 @15.8,63.2 era gather Mining 125
 
 step Heavy Stone (Horde)
   only Horde
   zone Thousand Needles
-  tip 234 Heavy Stone for Golden Scale Bracers: Mining: Iron Deposit (skill 125) in Thousand Needles (25-35), Arathi Highlands (30-40) and Stranglethorn Vale (30-45); or the Auction House. The densest cluster of Iron Deposit in Thousand Needles is marked.
-  collect 2838 x234 @8.9,34.3 era
+  tip 234 Heavy Stone for Golden Scale Bracers: Mining: Iron Deposit (skill 125) in Thousand Needles (25-35), Arathi Highlands (30-40) and Stranglethorn Vale (30-45). The densest cluster of Iron Deposit in Thousand Needles is marked.
+  collect 2838 x234 @8.9,34.3 era gather Mining 125
+
+step Iron Bar
+  zone Azeroth
+  tip 168 Iron Bar for Green Iron Bracers: Mining: smelt Iron Ore.
+  collect 3575 x168 anywhere gather Mining 125
+
+step Steel Bar
+  tip 195 Steel Bar for Golden Scale Bracers: Mining: smelt Iron Bar and Coal.
+  collect 3859 x195 anywhere gather Mining 165
+
+step Mithril Bar
+  tip 320 Mithril Bar for Heavy Mithril Breastplate: Mining: smelt Mithril Ore.
+  collect 3860 x320 anywhere gather Mining 175
 
 step Solid Stone (Alliance)
   only Alliance
   zone Stranglethorn Vale
-  tip 30 Solid Stone for Solid Sharpening Stone: Mining: Mithril Deposit (skill 175) in Stranglethorn Vale (30-45), The Hinterlands (40-50) and Feralas (40-50); or the Auction House. The densest cluster of Mithril Deposit in Stranglethorn Vale is marked.
-  collect 7912 x30 @29.4,60.1 era
+  tip 30 Solid Stone for Solid Sharpening Stone: Mining: Mithril Deposit (skill 175) in Stranglethorn Vale (30-45), The Hinterlands (40-50) and Feralas (40-50). The densest cluster of Mithril Deposit in Stranglethorn Vale is marked.
+  collect 7912 x30 @29.4,60.1 era gather Mining 175
 
 step Solid Stone (Horde)
   only Horde
   zone Desolace
-  tip 30 Solid Stone for Solid Sharpening Stone: Mining: Mithril Deposit (skill 175) in Desolace (30-40), The Hinterlands (40-50) and Feralas (40-50); or the Auction House. The densest cluster of Mithril Deposit in Desolace is marked.
-  collect 7912 x30 @31.5,59.4 era
+  tip 30 Solid Stone for Solid Sharpening Stone: Mining: Mithril Deposit (skill 175) in Desolace (30-40), The Hinterlands (40-50) and Feralas (40-50). The densest cluster of Mithril Deposit in Desolace is marked.
+  collect 7912 x30 @31.5,59.4 era gather Mining 175
 
 step Green Iron Bracers to 175
   zone Azeroth
-  tip Green Iron Bracers is orange at 150 (yellow 165, green 177, grey 190): about 28 crafts to 175. Each takes 6 Iron Bar and 1 Green Dye. Six Iron Bars and a Green Dye a craft; Green Dye comes from tailoring, leatherworking and trade supplies vendors. Orange to 165 on Forever, so a point every craft for the first fifteen. Needs an anvil nearby. Iron Bar (168 for 150-225): Mining: smelt Iron Ore; or the Auction House.
+  tip Green Iron Bracers is orange at 150 (yellow 165, green 177, grey 190): about 28 crafts to 175. Each takes 6 Iron Bar and 1 Green Dye. Six Iron Bars and a Green Dye a craft; Green Dye comes from tailoring, leatherworking and trade supplies vendors. Orange to 165 on Forever, so a point every craft for the first fifteen. Needs an anvil nearby.
   craft 3501 until 175
 
 step Blacksmithing recipes at 175
@@ -297,7 +337,7 @@ step Blacksmithing recipes at 185
   learn 7223
 
 step Golden Scale Bracers to 205
-  tip Golden Scale Bracers is yellow at 185 (yellow 185, green 197, grey 210): about 39 crafts to 205. Each takes 5 Steel Bar and 2 Heavy Grinding Stone. Make the 78 Heavy Grinding Stone first. Steel Bars are smelted from an Iron Bar and a Coal (Mining 165; Coal from trade and blacksmithing suppliers), so each bracer is five of each. Each bracer takes two Heavy Grinding Stones: make them first. Specialisation (optional): at 200 and character level 40, Grumnus Steelshaper (Ironforge) or Okothos Ironrager (Orgrimmar) starts The Art of the Armorsmith: 4 Ornate Mithril Helms, 2 Ornate Mithril Boots and an Ornate Mithril Breastplate, whose plans come from a Mithril Order quest chain. Ironus Coldsteel (Ironforge) or Borgosh Corebender (Orgrimmar) starts The Way of the Weaponsmith: 4 Moonsteel Broadswords, 4 Massive Iron Axes, 2 Heavy Mithril Axes and 2 Big Black Maces; on Forever the Moonsteel Broadsword plans (Zarena Cromwind, Booty Bay) and Massive Iron Axe plans bind when picked up, so buy and use them yourself. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby. Steel Bar (195 for 150-225): Mining: smelt Iron Bar and Coal; or the Auction House.
+  tip Golden Scale Bracers is yellow at 185 (yellow 185, green 197, grey 210): about 39 crafts to 205. Each takes 5 Steel Bar and 2 Heavy Grinding Stone. Make the 78 Heavy Grinding Stone first. Steel Bars are smelted from an Iron Bar and a Coal (Mining 165; Coal from trade and blacksmithing suppliers), so each bracer is five of each. Each bracer takes two Heavy Grinding Stones: make them first. Specialisation (optional): at 200 and character level 40, Grumnus Steelshaper (Ironforge) or Okothos Ironrager (Orgrimmar) starts The Art of the Armorsmith: 4 Ornate Mithril Helms, 2 Ornate Mithril Boots and an Ornate Mithril Breastplate, whose plans come from a Mithril Order quest chain. Ironus Coldsteel (Ironforge) or Borgosh Corebender (Orgrimmar) starts The Way of the Weaponsmith: 4 Moonsteel Broadswords, 4 Massive Iron Axes, 2 Heavy Mithril Axes and 2 Big Black Maces; on Forever the Moonsteel Broadsword plans (Zarena Cromwind, Booty Bay) and Massive Iron Axe plans bind when picked up, so buy and use them yourself. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby.
   craft 3337 x78
   craft 7223 until 205
 
@@ -308,7 +348,7 @@ step Blacksmithing recipes at 205
   train Blacksmithing Artisan optional
 
 step Heavy Mithril Breastplate to 225
-  tip Heavy Mithril Breastplate is orange at 205 (yellow 225, green 235, grey 245): about 20 crafts to 225, a point every craft. Each takes 16 Mithril Bar. Sixteen Mithril Bars a craft and nothing else; orange to 225 on Forever, so a point every craft to the Artisan cap. Needs an anvil nearby. Mithril Bar (320 for 150-225): Mining: smelt Mithril Ore; or the Auction House. Blacksmithing 225 is a Legacy System milestone.
+  tip Heavy Mithril Breastplate is orange at 205 (yellow 225, green 235, grey 245): about 20 crafts to 225, a point every craft. Each takes 16 Mithril Bar. Sixteen Mithril Bars a craft and nothing else; orange to 225 on Forever, so a point every craft to the Artisan cap. Needs an anvil nearby. Blacksmithing 225 is a Legacy System milestone.
   craft 9959 until 225
   skill Blacksmithing 225
 
@@ -333,70 +373,110 @@ step Plans: Huge Thorium Battleaxe
   tip Plans: Huge Thorium Battleaxe teaches Huge Thorium Battleaxe (Blacksmithing 255) for 2g. Sold by Magnus Frostwake (Western Plaguelands).
   buy 12823 nearest
 
+step Blacksmithing 225-300: Auction House
+  tip What 225-300 takes that the Auction House sells: 44 Shadowgem, 596 Mithril Bar, 142 Thick Leather, 19 Aquamarine, 19 Star Ruby, 44 Solid Stone, 11 Black Pearl, 206 Rugged Leather, 2026 Thorium Bar, 801 Dense Stone and 10 Large Opal. The counts drop by what your bags, bank and mail hold.
+  auction 1210 x44
+  auction 3860 x596
+  auction 4304 x142
+  auction 7909 x19
+  auction 7910 x19
+  auction 7912 x44
+  auction 7971 x11
+  auction 8170 x206
+  auction 12359 x2026
+  auction 12365 x801
+  auction 12799 x10
+
+step Shadowgem
+  tip 44 Shadowgem for Big Black Mace: Shadowgem turns up in about one Copper Vein, Tin Vein or Silver Vein in 100: keep the ones you find while mining.
+  collect 1210 x44 anywhere gather Mining 1
+
+step Mithril Bar
+  tip 596 Mithril Bar for Heavy Mithril Boots and Big Black Mace: Mining: smelt Mithril Ore.
+  collect 3860 x596 anywhere gather Mining 175
+
 step Thick Leather (Alliance)
   only Alliance
   zone Badlands
-  tip 142 Thick Leather for Heavy Mithril Boots and Big Black Mace: Skinning: beasts of level 38-50; or the Auction House. Skin Elder Crag Coyote, Rabid Crag Coyote, Ridge Huntress and Ridge Stalker Patriarch here (level 38-50); the Skinning guide routes this.
-  collect 4304 x142 @35,64.3 era
+  tip 142 Thick Leather for Heavy Mithril Boots and Big Black Mace: Skinning: beasts of level 38-50. Skin Elder Crag Coyote, Rabid Crag Coyote, Ridge Huntress and Ridge Stalker Patriarch here (level 38-50); the Skinning guide routes this.
+  collect 4304 x142 @35,64.3 era gather Skinning 190
 
 step Thick Leather (Horde)
   only Horde
   zone Feralas
-  tip 142 Thick Leather for Heavy Mithril Boots and Big Black Mace: Skinning: beasts of level 38-50; or the Auction House. Skin Feral Scar Yeti, Frayfeather Hippogryph, Frayfeather Stagwing, Grizzled Ironfur Bear, Groddoc Ape, Groddoc Thunderer, Ironfur Bear, Ironfur Patriarch, Longtooth Howler, Longtooth Runner and Rage Scar Yeti here (level 38-50); the Skinning guide routes this.
-  collect 4304 x142 @54.9,60.8 era
+  tip 142 Thick Leather for Heavy Mithril Boots and Big Black Mace: Skinning: beasts of level 38-50. Skin Feral Scar Yeti, Frayfeather Hippogryph, Frayfeather Stagwing, Grizzled Ironfur Bear, Groddoc Ape, Groddoc Thunderer, Ironfur Bear, Ironfur Patriarch, Longtooth Howler, Longtooth Runner and Rage Scar Yeti here (level 38-50); the Skinning guide routes this.
+  collect 4304 x142 @54.9,60.8 era gather Skinning 190
+
+step Aquamarine
+  zone Azeroth
+  tip 19 Aquamarine for Imperial Plate Boots: Aquamarine turns up in about one Truesilver Deposit or Ooze Covered Truesilver Deposit in 500: keep the ones you find while mining.
+  collect 7909 x19 anywhere gather Mining 125
+
+step Star Ruby
+  tip 19 Star Ruby for Imperial Plate Boots: Star Ruby turns up in about one Truesilver Deposit or Ooze Covered Truesilver Deposit in 143: keep the ones you find while mining.
+  collect 7910 x19 anywhere gather Mining 175
 
 step Solid Stone (Alliance)
   only Alliance
   zone The Hinterlands
-  tip 44 Solid Stone for Big Black Mace: Mining: Mithril Deposit (skill 175) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55); or the Auction House. The densest cluster of Mithril Deposit in The Hinterlands is marked.
-  collect 7912 x44 @20.8,58.8 era
+  tip 44 Solid Stone for Big Black Mace: Mining: Mithril Deposit (skill 175) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55). The densest cluster of Mithril Deposit in The Hinterlands is marked.
+  collect 7912 x44 @20.8,58.8 era gather Mining 175
 
 step Solid Stone (Horde)
   only Horde
   zone Desolace
-  tip 44 Solid Stone for Big Black Mace: Mining: Mithril Deposit (skill 175) in Desolace (30-40), The Hinterlands (40-50) and Feralas (40-50); or the Auction House. The densest cluster of Mithril Deposit in Desolace is marked.
-  collect 7912 x44 @31.5,59.4 era
+  tip 44 Solid Stone for Big Black Mace: Mining: Mithril Deposit (skill 175) in Desolace (30-40), The Hinterlands (40-50) and Feralas (40-50). The densest cluster of Mithril Deposit in Desolace is marked.
+  collect 7912 x44 @31.5,59.4 era gather Mining 175
 
 step Rugged Leather (Alliance)
   only Alliance
   zone Eastern Plaguelands
-  tip 206 Rugged Leather for Ornate Thorium Handaxe and Huge Thorium Battleaxe: Skinning: beasts of level 48-60; or the Auction House. Skin Frenzied Plaguehound, Plaguehound and Plaguehound Runt here (level 48-60); the Skinning guide routes this.
-  collect 8170 x206 @56,46.8 live
+  tip 206 Rugged Leather for Ornate Thorium Handaxe and Huge Thorium Battleaxe: Skinning: beasts of level 48-60. Skin Frenzied Plaguehound, Plaguehound and Plaguehound Runt here (level 48-60); the Skinning guide routes this.
+  collect 8170 x206 @56,46.8 live gather Skinning 240
 
 step Rugged Leather (Horde)
   only Horde
   zone Azshara
-  tip 206 Rugged Leather for Ornate Thorium Handaxe and Huge Thorium Battleaxe: Skinning: beasts of level 48-60; or the Auction House. Skin Coralshell Tortoise, Mosshoof Stag, Thunderhead Consort, Thunderhead Patriarch, Thunderhead Skystormer and Thunderhead Stagwing here (level 48-60); the Skinning guide routes this.
-  collect 8170 x206 @58.8,21.5 era
+  tip 206 Rugged Leather for Ornate Thorium Handaxe and Huge Thorium Battleaxe: Skinning: beasts of level 48-60. Skin Coralshell Tortoise, Mosshoof Stag, Thunderhead Consort, Thunderhead Patriarch, Thunderhead Skystormer and Thunderhead Stagwing here (level 48-60); the Skinning guide routes this.
+  collect 8170 x206 @58.8,21.5 era gather Skinning 240
+
+step Thorium Bar
+  zone Azeroth
+  tip 2026 Thorium Bar for Ornate Thorium Handaxe, Huge Thorium Battleaxe and Imperial Plate Boots: Mining: smelt Thorium Ore.
+  collect 12359 x2026 anywhere gather Mining 250
 
 step Dense Stone (Alliance)
   only Alliance
   zone Blasted Lands
-  tip 801 Dense Stone for Dense Weightstone, Ornate Thorium Handaxe and Huge Thorium Battleaxe: Mining: Small Thorium Vein (skill 245) in Blasted Lands (45-55), Felwood (48-55) and Winterspring (55-60); or the Auction House. The densest cluster of Small Thorium Vein in Blasted Lands is marked.
-  collect 12365 x801 @43.5,30.8 era
+  tip 801 Dense Stone for Dense Weightstone, Ornate Thorium Handaxe and Huge Thorium Battleaxe: Mining: Small Thorium Vein (skill 245) in Blasted Lands (45-55), Felwood (48-55) and Winterspring (55-60). The densest cluster of Small Thorium Vein in Blasted Lands is marked.
+  collect 12365 x801 @43.5,30.8 era gather Mining 245
 
 step Dense Stone (Horde)
   only Horde
   zone Felwood
-  tip 801 Dense Stone for Dense Weightstone, Ornate Thorium Handaxe and Huge Thorium Battleaxe: Mining: Small Thorium Vein (skill 245) in Felwood (48-55), Silithus (55-60) and Winterspring (55-60); or the Auction House. The densest cluster of Small Thorium Vein in Felwood is marked.
-  collect 12365 x801 @34.7,61.8 era
+  tip 801 Dense Stone for Dense Weightstone, Ornate Thorium Handaxe and Huge Thorium Battleaxe: Mining: Small Thorium Vein (skill 245) in Felwood (48-55), Silithus (55-60) and Winterspring (55-60). The densest cluster of Small Thorium Vein in Felwood is marked.
+  collect 12365 x801 @34.7,61.8 era gather Mining 245
+
+step Large Opal
+  zone Azeroth
+  tip 10 Large Opal for Ornate Thorium Handaxe: Large Opal turns up in about one Rich Thorium Vein, Ooze Covered Rich Thorium Vein or Hakkari Thorium Vein in 143: keep the ones you find while mining.
+  collect 12799 x10 anywhere gather Mining 245
 
 step Dense Weightstone to 235
-  zone Azeroth
   tip Dense Weightstone is orange at 225 (yellow 230, green 232, grey 235): about 17 crafts to 235. Each takes 1 Dense Stone. One Dense Stone a craft (Thorium veins): cheap points at the start of Artisan.
   craft 16640 until 235
 
 step Heavy Mithril Boots to 247
-  tip Heavy Mithril Boots is yellow at 235 (yellow 230, green 240, grey 250): about 30 crafts to 247. Each takes 14 Mithril Bar and 4 Thick Leather. Mithril Bars from Mithril Deposits; Thick Leather from skinners or the Auction House. Needs an anvil nearby. Mithril Bar (596 for 225-300): Mining: smelt Mithril Ore; or the Auction House.
+  tip Heavy Mithril Boots is yellow at 235 (yellow 230, green 240, grey 250): about 30 crafts to 247. Each takes 14 Mithril Bar and 4 Thick Leather. Mithril Bars from Mithril Deposits; Thick Leather from skinners or the Auction House. Needs an anvil nearby.
   craft 9968 until 247
 
 step Big Black Mace to 250
-  tip Big Black Mace is green at 247 (yellow 230, green 242, grey 255): about 11 crafts to 250. Each takes 16 Mithril Bar, 1 Black Pearl, 4 Shadowgem, 1 Solid Grinding Stone and 2 Thick Leather. Make the 11 Solid Grinding Stone first. Only about 11 crafts to bridge 247-250, but each wants four Shadowgems (about one Tin Vein in a hundred) and a Black Pearl: buy those at the Auction House unless your bags already hold them. Needs an anvil nearby. Shadowgem (44 for 225-300): Shadowgem turns up in about one Copper Vein, Tin Vein or Silver Vein in 100: buy it at the Auction House, or keep the ones you find while mining. Black Pearl (11 for 225-300): Black Pearl is a rare drop (no mob gives it one time in 50): buy it at the Auction House, or keep the ones you find.
+  tip Big Black Mace is green at 247 (yellow 230, green 242, grey 255): about 11 crafts to 250. Each takes 16 Mithril Bar, 1 Black Pearl, 4 Shadowgem, 1 Solid Grinding Stone and 2 Thick Leather. Make the 11 Solid Grinding Stone first. Only about 11 crafts to bridge 247-250, but each wants four Shadowgems (about one Tin Vein in a hundred) and a Black Pearl: buy those at the Auction House unless your bags already hold them. Needs an anvil nearby. Black Pearl (11 for 225-300): Black Pearl is a rare drop (no mob gives it one time in 50): buy it at the Auction House, or keep the ones you find.
   craft 9920 x11
   craft 10001 until 250
 
 step Ornate Thorium Handaxe to 255
-  tip Ornate Thorium Handaxe is orange at 250 (yellow 275, green 287, grey 300): about 5 crafts to 255, a point every craft. Each takes 20 Thorium Bar, 2 Large Opal, 2 Dense Grinding Stone and 4 Rugged Leather. Make the 10 Dense Grinding Stone first. Large Opal turns up in about one Thorium vein in 130: buy the ten at the Auction House. Five crafts only, until the battleaxe plans can be used at 255. Needs an anvil nearby. Thorium Bar (2026 for 225-300): Mining: smelt Thorium Ore; or the Auction House. Large Opal (10 for 225-300): Large Opal turns up in about one Rich Thorium Vein, Ooze Covered Rich Thorium Vein or Hakkari Thorium Vein in 143: buy it at the Auction House, or keep the ones you find while mining.
+  tip Ornate Thorium Handaxe is orange at 250 (yellow 275, green 287, grey 300): about 5 crafts to 255, a point every craft. Each takes 20 Thorium Bar, 2 Large Opal, 2 Dense Grinding Stone and 4 Rugged Leather. Make the 10 Dense Grinding Stone first. Large Opal turns up in about one Thorium vein in 130: buy the ten at the Auction House. Five crafts only, until the battleaxe plans can be used at 255. Needs an anvil nearby.
   learn 16969 -- from the recipe in your bags
   craft 16639 x10
   craft 16969 until 255
@@ -418,7 +498,7 @@ step Plans: Imperial Plate Boots
 
 step Imperial Plate Boots to 300
   zone Azeroth
-  tip Imperial Plate Boots is orange at 285 (yellow 290, green 300, grey 310): about 19 crafts to 300. Each takes 34 Thorium Bar, 1 Star Ruby and 1 Aquamarine. About 34 Thorium Bars a craft against the battleaxe's 40 and its grinding stones, orange to 290. Below character level 50 Derotain has no quest for you: keep making Huge Thorium Battleaxes to 300 instead (yellow to 292, grey at 305: about twice the Thorium Bars). Needs an anvil nearby. Aquamarine (19 for 225-300): Aquamarine turns up in about one Truesilver Deposit or Ooze Covered Truesilver Deposit in 500: buy it at the Auction House, or keep the ones you find while mining. Star Ruby (19 for 225-300): Star Ruby turns up in about one Truesilver Deposit or Ooze Covered Truesilver Deposit in 143: buy it at the Auction House, or keep the ones you find while mining. Blacksmithing 300 is a Legacy System milestone.
+  tip Imperial Plate Boots is orange at 285 (yellow 290, green 300, grey 310): about 19 crafts to 300. Each takes 34 Thorium Bar, 1 Star Ruby and 1 Aquamarine. About 34 Thorium Bars a craft against the battleaxe's 40 and its grinding stones, orange to 290. Below character level 50 Derotain has no quest for you: keep making Huge Thorium Battleaxes to 300 instead (yellow to 292, grey at 305: about twice the Thorium Bars). Needs an anvil nearby. Blacksmithing 300 is a Legacy System milestone.
   learn 16657 -- from the recipe in your bags
   craft 16657 until 300
   skill Blacksmithing 300

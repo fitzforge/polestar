@@ -146,9 +146,15 @@ step Solliden Farmstead
   accept 8                            -- Calvin Montague
   accept 365                          -- Deathguard Simmer
 
+step Level 6
+  when level<6
+  tip Top up here to level 6 before the pumpkins: the Tirisfal Farmers and Scarlet Warriors in the fields are 6-7. The Decrepit Darkhounds (5-6) roam the hills just east of the farm.
+  goto 40.0,54.0 map 1420 "Decrepit Darkhound"
+  level 6 grind 1547               -- grind on Decrepit Darkhound
+
 step Tirisfal Pumpkins
   tip The pumpkins grow in the Scarlet-held fields just north-west of the farmhouse.
-  tip Careful: Farmers stand close to the pumpkins, so you can pull more than one at once. Scarlet mobs are found around the edges of the farm and a bit to the northwest.
+  tip Careful: Farmers stand close to the pumpkins, so you can pull more than one at once. Scarlet mobs are found around the edges of the farm and a bit to the northwest. Farmer Solliden (8, rare) walks the field.
   collect 2846 quest 365.1
 
 step Gordo
@@ -190,30 +196,37 @@ step Eleanor Shackleton
 
 step Camping 101: First Aid
   when skill "First Aid" 1
+  tip Nurse Neela takes it once your First Aid skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97955                        -- Eleanor: for Nurse Neela
 
 step Camping 101: Enchanting
   when skill Enchanting 1
+  tip Vance Undergloom takes it once your Enchanting skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97953                        -- Eleanor: for Vance Undergloom
 
 step Camping 101: Herbalism
   when skill Herbalism 1
+  tip Faruza takes it once your Herbalism skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97957                        -- Eleanor: for Faruza
 
 step Camping 101: Alchemy
   when skill Alchemy 1
+  tip Carolai Anise takes it once your Alchemy skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97951                        -- Eleanor: for Carolai Anise
 
 step Camping 101: Skinning
   when skill Skinning 1
+  tip Rand Rhobart takes it once your Skinning skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97960                        -- Eleanor: for Rand Rhobart
 
 step Camping 101: Leatherworking
   when skill Leatherworking 1
+  tip Shelene Rhobart takes it once your Leatherworking skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97958                        -- Eleanor: for Shelene Rhobart
 
 step Camping 101: Tailoring
   when skill Tailoring 1
+  tip Bowen Brisboise takes it once your Tailoring skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97961                        -- Eleanor: for Bowen Brisboise
 
 step Camping 101: Mining
@@ -238,16 +251,17 @@ step Brill
   accept 427
   accept 99134
   accept 99141
-  accept 398                          -- The Wanted poster by the inn
   accept 358                          -- Magistrate Sevren, in the town hall
 
 step Faruza
   when onquest 97957
+  when complete 97957
   complete 97957 @59.79,52.12 map 1420
   turnin 97957                        -- Faruza, beside Johaan: Camping 101: Herbalism
 
 step Carolai Anise
   when onquest 97951
+  when complete 97951
   complete 97951 @59.43,52.19 map 1420
   turnin 97951                        -- Carolai Anise, beside Johaan: Camping 101: Alchemy
 
@@ -277,11 +291,13 @@ step Gallows' End Tavern
 
 step Nurse Neela
   when onquest 97955
+  when complete 97955
   complete 97955 @61.82,52.83 map 1420
   turnin 97955                        -- Nurse Neela, by the bar: Camping 101: First Aid
 
 step Vance Undergloom
   when onquest 97953
+  when complete 97953
   complete 97953 @61.77,51.56 map 1420
   turnin 97953                        -- Vance Undergloom: Camping 101: Enchanting
 
@@ -300,11 +316,13 @@ step Deathguard Linnea's camp
 
 step Rand Rhobart
   when onquest 97960
+  when complete 97960
   complete 97960 @65.58,60.03 map 1420
   turnin 97960                        -- Rand Rhobart, beside Shelene: Camping 101: Skinning
 
 step Shelene Rhobart
   when onquest 97958
+  when complete 97958
   complete 97958 @65.43,60.12 map 1420
   turnin 97958                        -- Shelene Rhobart: Camping 101: Leatherworking
 
@@ -318,11 +336,12 @@ step Cold Hearth Manor: kill these as you meet them
   zone Tirisfal Glades
   tip Rotting Dead and Ravaged Corpses shamble through the fields just west of Brill; Decrepit Darkhounds roam there and on west along the road toward Gordo. Johaan wants their blood, Shelene their hides.
   collect 2855 quest 404.1
-  collect 2858 quest 367.1
-  collect 278243 quest 97558.2
+  collect 2858 quest 367.1 @51.1,50.5
+  collect 278243 quest 97558.2 @51.1,50.5
 
 step Bowen Brisboise
   when onquest 97961
+  when complete 97961
   complete 97961 @52.59,55.52 map 1420
   turnin 97961                        -- Bowen Brisboise, by the road west of Brill: Camping 101: Tailoring
 
@@ -378,20 +397,18 @@ step Deathguard Kel
 
 step Tirisfal Glades: kill these as you meet them
   zone Tirisfal Glades
-  tip Greater Duskbats fly over the fields around Brill and along the road north: Gretchen wants their pelts, Shelene their wings.
+  tip Greater Duskbats (6-7) fly over the fields around Brill and along the road north: Gretchen wants their pelts, Shelene their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.
   tip The Doom Weed grows in the graveyard fields just north of Brill, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.
-  tip The Rot Hide Mongrels hold the hills further north. Maggot Eye (level 11) stands in their camp on the hill south of the shore: clear the gnolls around him first.
-  tip Careful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone.
-  tip The Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for Shelene.
-  collect 2876 quest 375.1
-  collect 278242 quest 97558.1
+  tip The Rot Hide Mongrels hold the hills further north, around Garren's Haunt. Leave Maggot Eye (level 11) in his hut for now: the guide comes back for him at the end.
+  tip The Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for Shelene. Straight north of Brill the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by.
+  collect 2876 quest 375.1 @60.5,43.1
+  collect 278242 quest 97558.1 @60.5,43.1
   collect 13702 quest 5482.1
   kill 1941 quest 358.1
   collect 2834 quest 358.3
   kill 1675 quest 358.2               -- Rot Hide Mongrel walks around Garren's Haunt: look inside the circle on the map
-  collect 3635 quest 398.1            -- Maggot Eye's Paw; inside
-  collect 2859 quest 368.1
-  collect 278244 quest 97558.3
+  collect 2859 quest 368.1 @60.8,28.4
+  collect 278244 quest 97558.3 @60.8,28.4
 
 step Brill
   tip Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
@@ -400,7 +417,6 @@ step Brill
   turnin 368                          -- Apothecary Johaan, inside
   accept 369
   accept 91282 only Paladin           -- Shari Stilwell, the Paladin trainer: A Second Home, to Bandarion Keep
-  turnin 398                          -- Executor Zygand
   turnin 358                          -- Magistrate Sevren, inside
   accept 359
   buy 2320 npc 2118                   -- Coarse Thread from Abigail Shiel, for Gretchen
@@ -470,6 +486,7 @@ step Carendin Halgar
   only Warlock
   zone Undercity
   tip Walk south from Brill to the Ruins of Lordaeron and down into the Undercity. Carendin Halgar stands in the Magic Quarter. The Scarlet camp is just west of the ruins.
+  getfp "Undercity"                  -- Michael Garrett, the bat handler, on the way down from the Ruins
   turnin 1478                         -- Carendin Halgar: he offers Creature of the Void only once this is handed in
   accept 1473                         -- Carendin Halgar
 
@@ -477,6 +494,7 @@ step Anastasia Hartwell
   only Mage
   zone Undercity
   tip Walk south from Brill to the Ruins of Lordaeron and down into the Undercity. Anastasia Hartwell stands in the Magic Quarter. The Scarlet camp is just west of the ruins.
+  getfp "Undercity"                  -- Michael Garrett, the bat handler, on the way down from the Ruins
   turnin 1881                         -- Anastasia Hartwell
   accept 1882
 
@@ -513,16 +531,9 @@ step Hadric Harlson
   accept 96897
   accept 96898
 
-step Tirisfal Glades: kill these as you meet them
-  zone Tirisfal Glades
-  tip Follow the road south-east past Deathguard Linnea's camp: the Cult of the Damned holds the farm just south-east of it. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too.
-  collect 275851 quest 96898.1 @68.2,64.6
-  kill 275437 quest 96897.2 @68.2,64.6
-  kill 267006 quest 96897.1 @68.2,64.6
-
 step Balnir Farmstead: kill these as you meet them
   zone Tirisfal Glades
-  tip Follow the road east. Bleeding Horrors and Wandering Spirits haunt the graves on the east side of the farmstead, where the Tomb Weed grows: Linnea wants eight of each.
+  tip Follow the road east past the cult's farm. Bleeding Horrors and Wandering Spirits haunt the graves on the east side of the farmstead, where the Tomb Weed grows: Linnea wants eight of each.
   tip The Scarlet Friars camp just north-east of the graves; Captain Vachon stands among them.
   tip The spiders lurk in the woods at the far east end of the glades.
   kill 1529 quest 356.1
@@ -532,6 +543,16 @@ step Balnir Farmstead: kill these as you meet them
   kill 1538 quest 371.2
   kill 1664 quest 371.1
   collect 2872 quest 369.1
+
+# The cult's farm (Dark Neophytes and Enforcers 10-12, quests 12) comes on the way back west from the
+# Balnir Farmstead, with its experience, not on the way out (level tidy 0.4.0).
+step Tirisfal Glades: kill these as you meet them
+  zone Tirisfal Glades
+  tip On the way back west, the Cult of the Damned holds the farm just south-east of Deathguard Linnea's camp. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too.
+  tip Careful: the cultists (10-12) stand close together and the Neophytes cast: pull one at a time from the edge of the farm.
+  collect 275851 quest 96898.1 @68.2,64.6
+  kill 275437 quest 96897.2 @68.2,64.6
+  kill 267006 quest 96897.1 @68.2,64.6
 
 step Deathguard Linnea's camp
   turnin 96897                        -- Hadric Harlson
@@ -545,14 +566,22 @@ step Brill
   accept 492
   accept 445                          -- Apothecary Johaan: for Renferrel at the Sepulcher
   turnin 371                          -- Executor Zygand
+  accept 398                          -- The Wanted poster beside Zygand
   train class
   turnin 492                          -- The Captured Mountaineer, in the inn's cellar
   turnin 99142                        -- Junior Apothecary Holland walks around Brill: look inside the circle on the map
 
+# Maggot Eye (11) waits for this last Brill stop, at about 11.5: on the 7-8 north loop he was 3-4
+# levels up (level tidy 0.4.0). Garren's Haunt is a short way north on the walk west to Leonid.
+step Maggot Eye
+  tip North to Garren's Haunt, the Rot Hide camp on the hill south of the shore. Maggot Eye (level 11) stands in the hut: clear the gnolls around him first.
+  tip Careful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone.
+  collect 3635 quest 398.1            -- Maggot Eye's Paw; inside
+
 # ---------------------------------------------------------------- Leonid, then on to the Barrens
 
 step Leonid Barthalomew the Revered
-  tip Follow the road west past Agamand Mills to the Whispering Forest. Leonid stands just north of Hilda's camp.
+  tip West from Garren's Haunt past Agamand Mills to the Whispering Forest. Leonid stands just north of Hilda's camp.
   turnin 96899
   accept 96896
   turnin 96896                        -- Listen to Leonid and Danitha Morr, then talk to him again
@@ -617,6 +646,7 @@ step The Undercity
   only Warlock,Priest,Mage
   zone Undercity
   tip The Undercity is under the Ruins of Lordaeron, beside the zeppelin towers. Carendin Halgar is in the Magic Quarter: use the Runes of Summoning on the summoning circle beside him and defeat the voidwalker. Aelthalyste is in the War Quarter. Anastasia Hartwell is in the Magic Quarter too.
+  getfp "Undercity" only Priest      -- Michael Garrett, the bat handler, on the way down from the Ruins
   turnin 1473 only Warlock            -- Carendin Halgar
   accept 1471 only Warlock
   use 6284 @86.6,27.1 only Warlock    -- Runes of Summoning
@@ -634,4 +664,5 @@ step Back to Tirisfal Glades
 step Brill
   zone Tirisfal Glades
   turnin 95314                        -- Carolai Anise, inside
+  turnin 398                          -- Executor Zygand, in front of the inn
   note The next guide walks south from Brill into Silverpine Forest.

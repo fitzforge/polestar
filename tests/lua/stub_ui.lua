@@ -533,6 +533,12 @@ function Engine.TrainingAdvice()
 	end
 	return { steps = steps, title = title, trainer = uistub.plannerTrainer }
 end
+-- The real rule (Core/Engine.lua Engine.EnemyCityDungeon: a city dungeon is its
+-- faction's only), which the Dungeons window and the dungeon heads-up read.
+function Engine.EnemyCityDungeon(id, side)
+	local E = uistub.realEngine
+	return E and E.EnemyCityDungeon and E.EnemyCityDungeon(id, side) or false
+end
 function Engine.Prev() record("Prev"); if guide and current and current > 1 then move(current - 1) end end
 function Engine.Goto(i) record("Goto", i); if guide and guide.steps[i] then move(i) end end
 -- Any goal but a note ticks done and back.
@@ -721,6 +727,12 @@ function Guides.SuggestSource() return "guides" end
 function Guides.GuideMatches(g, player) return uistub.realGuides.GuideMatches(g, player) end
 function Guides.Matches(only, player) return uistub.realGuides.Matches(only, player) end
 function Guides.OtherStart(g, player) return uistub.realGuides.OtherStart(g, player) end
+function Guides.OtherFaction(g, player) return uistub.realGuides.OtherFaction(g, player) end
+-- A guide's levels for the player's side (uistub.player.faction): the real registry's rule.
+function Guides.Levels(g, faction) return uistub.realGuides.Levels(g, faction or uistub.player.faction) end
+-- Experimental guides and guides in Forever's new zones (the Forever mark): the real registry's rules.
+function Guides.IsExperimental(g) return uistub.realGuides.IsExperimental(g) end
+function Guides.InForeverZone(g) return uistub.realGuides.InForeverZone(g) end
 
 local Nav = {}
 function Nav.SetTarget(map, x, y, label, f, stop, z)
@@ -818,6 +830,7 @@ function uistub.install(opts)
 	if opts.noTabs then
 		for _, k in ipairs({ "GetTabs", "OpenTab", "CloseTab", "SelectTab", "MoveTab", "GetGuideState" }) do Engine[k] = nil end
 	end
+	if Polestar.Engine ~= Engine then uistub.realEngine = Polestar.Engine end
 	Polestar.Engine = Engine
 	-- The real registry stays reachable for pages that show its records
 	-- (the Community guides page): Polestar.Guides = uistub.realGuides.

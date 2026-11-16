@@ -27,6 +27,40 @@ const skip = needs('quests.json') || (!hasLua && 'no Lua 5.1');
 
 const lines = (out) => out.split('\n').filter(Boolean);
 
+test('invalid explicit worker counts fail before loading reference data', async () => {
+	for (const workers of [-1, 0, 1.5, Infinity, NaN]) {
+		await assert.rejects(playtest({ workers }), /worker count must be a positive integer/, String(workers));
+	}
+});
+
+test('invalid POLESTAR_PLAY_WORKERS fails the command instead of silently skipping plays', { skip: !hasLua && 'no Lua 5.1' }, () => {
+	for (const value of ['-1', '0', '1.5', 'Infinity', 'NaN', 'nope', '', ' ']) {
+		const r = polestar(['playtest', '--pack', path.join(PACKS, 'plays')], { env: { POLESTAR_PLAY_WORKERS: value } });
+		assert.equal(r.status, 1, `${JSON.stringify(value)}: ${r.stdout}\n${r.stderr}`);
+		assert.match(r.stderr, /worker count must be a positive integer/, value);
+	}
+});
+
+test('valid worker settings reach the data checks; an explicit count wins and honest play needs no workers', async () => {
+	const saved = process.env.POLESTAR_PLAY_WORKERS;
+	const dataDir = tmpdir();
+	const check = async (options = {}) => assert.equal((await playtest({ dataDir, ...options })).dataMissing, true);
+	try {
+		delete process.env.POLESTAR_PLAY_WORKERS;
+		await check();
+		for (const value of ['1', '2']) {
+			process.env.POLESTAR_PLAY_WORKERS = value;
+			await check();
+		}
+		process.env.POLESTAR_PLAY_WORKERS = '-1';
+		await check({ workers: 1 });
+		await check({ honest: true });
+	} finally {
+		if (saved === undefined) delete process.env.POLESTAR_PLAY_WORKERS;
+		else process.env.POLESTAR_PLAY_WORKERS = saved;
+	}
+});
+
 test('a guide starts with the prerequisites its accepts need that the guides chaining into it turn in for the character done, those they leave for it only to hand in in the log, and those it works in the log with their objectives open', () => {
 	const step = (goals, only) => ({ only, goals });
 	const a = { id: 'a', next: 'b', steps: [step([{ t: 'turnin', quest: 7003 }, { t: 'turnin', quest: 7638, only: { races: ['Human'] } }, { t: 'turnin', quest: 1 }, { t: 'accept', quest: 739 }, { t: 'accept', quest: 2 }, { t: 'accept', quest: 6127 }])] };

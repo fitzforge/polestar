@@ -7,7 +7,7 @@ levels 31-38
 zone The Barrens
 keywords In Search of Menara Voidrender, Components for the Enchanted Gold Bloodrobe, Fine Gold Thread, The Completed Robe, Menara Voidrender, Xizk Goodstitch, Robes of Arcana, Gold Bar, Vial of Hatefury Blood, Lesser Infernal Stone, Smoldering Coal, Burning Exile, Sargeron, Mannoroc Coven, Circle of West Binding, Warlock, class armor
 reward item 6900
-why A rare cloth robe for your 30s from Menara Voidrender; its last parts wait for levels 35 and 37.
+why A rare cloth robe for your 30s from Menara Voidrender; its last parts wait for levels 37 and 39.
 
 # The Enchanted Gold Bloodrobe: In Search of Menara Voidrender (4736 Briarthorn,
 # Ironforge; 4737 Zevrost, Orgrimmar; 4738 Demisette Cloyce, Stormwind; 4739
@@ -22,9 +22,9 @@ why A rare cloth robe for your 30s from Menara Voidrender; its last parts wait f
 # Exiles (38-39) 30%. None is elite.
 # Level holds (#1667: an Orc Warlock at 31 was sent to the Burning Exiles and
 # couldn't solo them): the chain opens at 31, but a step waits until its mobs'
-# top level is at most 2 above you: the Lesser Infernal Stone at 35, the
-# Smoldering Coal at 37 (the quest itself is level 37). The vials (31-32) don't
-# wait, so the Desolace satyrs are their own step.
+# top level is at most 2 above you: the Lesser Infernal Stone at 39, the
+# Smoldering Coal at 39 (the quest itself is level 37). The vials (31-32) are
+# easy, but the satyrs' step waits for 37, so the Desolace satyrs are their own step.
 # Robes of Arcana and the Gold Bar have no place to fetch them: tailors make
 # the robe (the pattern is a rare drop; the quest notes name the Dark Strand
 # Voidcallers at the Tower of Althalaxx), miners smelt the bar (it also turns
@@ -75,6 +75,7 @@ step Robes of Arcana and a Gold Bar
 step Menara Voidrender
   zone The Barrens
   tip Menara Voidrender stands by Strahad Farsan's tower on the hill above Ratchet, behind the engineers' hut. She takes the robe, then sends the gold bar to Xizk Goodstitch in Booty Bay.
+  level 33
   turnin 4738 only Human              -- Menara Voidrender
   turnin 4736 only Gnome              -- Menara Voidrender
   turnin 4737 only Orc,Troll          -- Menara Voidrender
@@ -92,41 +93,46 @@ step Xizk Goodstitch
 step Back to Menara
   zone The Barrens
   tip You need no thread yet: Menara wants demon parts from Desolace next.
+  level 36
   turnin 4782                         -- Menara Voidrender
   accept 4783
 
 step Hatefury satyrs
   zone Desolace
   tip The Hatefury satyrs (level 31-32) hold Sargeron in the far north-east of Desolace, past Nijel's Point: two kills in five give a vial, so plan on about 25.
+  level 37
   collect 6989 x10 quest 4783.1       -- Vials of Hatefury Blood
 
 step Mannoroc Coven
   zone Desolace
-  tip The Lesser Infernals (36-37) and Demon Portal Guardians (38) of Mannoroc Coven, in the south of Desolace, drop the stone half the time. The guide waits for level 35 first: at 31 they are too strong to solo. They resist fire, so use Shadow Bolt and Corruption.
-  level 35
+  tip The Lesser Infernals (36-37) and Demon Portal Guardians (38) of Mannoroc Coven, in the south of Desolace, drop the stone half the time. The guide waits for level 39 first: at 31 they are too strong to solo. They resist fire, so use Shadow Bolt and Corruption.
+  level 39
   collect 6990 quest 4783.2           -- Lesser Infernal Stone
 
 step Menara again
   zone The Barrens
+  level 36
   turnin 4783                         -- Menara Voidrender
   accept 4784
 
 step Fine Gold Thread
   zone Stranglethorn Vale
   tip Back to Xizk in Booty Bay: he offers Fine Gold Thread as a quest you hand straight back to him. He may show no quest marker; talk to him anyway.
+  level 36
   turnin 4785 direct                  -- Xizk Goodstitch: Fine Gold Thread, handed straight back
   collect 12293 quest 4784.1          -- Fine Gold Thread
 
 step Smoldering Coal
   zone Arathi Highlands
-  tip The Burning Exiles (level 38-39), fire elementals at the Circle of West Binding in western Arathi Highlands, drop the coal about one time in three. The guide waits for level 37 first: below it they hit too hard to solo. They resist fire: Shadow Bolt and Corruption. The Cresting Charms from the Cresting Exiles near Hammerfall finish one off once you have hurt it. Make a Soul Shard with Drain Soul on the way.
-  level 37
+  tip The Burning Exiles (level 38-39), fire elementals at the Circle of West Binding in western Arathi Highlands, drop the coal about one time in three. The guide waits for level 39 first: below it they hit too hard to solo. They resist fire: Shadow Bolt and Corruption. The Cresting Charms from the Cresting Exiles near Hammerfall finish one off once you have hurt it. Make a Soul Shard with Drain Soul on the way.
+  level 39
   collect 6991 x2 quest 4784.2        -- Smoldering Coal
   collect 6265 quest 4784.3 @24.9,30.5 -- Soul Shard: Drain Soul on an Exile as it dies
 
 step The Completed Robe
   zone The Barrens
   tip Back to Menara with the thread, the coals and a Soul Shard. Then wait beside her while she works the robe (do not attack her: the quest log calls it a kill), and speak to her again.
+  level 38
   turnin 4784                         -- Menara Voidrender
   accept 4786
   complete 4786 @62.5,35.4            -- Wait beside Menara while she finishes the robe

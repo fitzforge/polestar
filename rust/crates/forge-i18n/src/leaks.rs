@@ -190,7 +190,6 @@ leaks.try("picker", function()
 		leaks.try("picker category " .. c, function() P.SetCategory(c); stub.advance(0.2); leaks.hover() end)
 	end
 	for _, v in ipairs({{ "list", "cards", "map", "grid" }}) do leaks.try("picker view " .. v, function() P.SetView(v); stub.advance(0.2); leaks.hover() end) end
-	for _, f in ipairs({{ "Horde", "Alliance" }}) do leaks.try("picker faction " .. f, function() Polestar.Set("ui.pickerFaction", f); UI.ShowPicker(); stub.advance(0.2); leaks.hover() end) end
 	for _, q in ipairs({{ "westfall", "hogger", "linen", "deadmines", "saber", "zzzz" }}) do leaks.try("picker search " .. q, function() leaks.typed(q); P.SetQuery(q); stub.advance(0.3); leaks.hover() end) end
 	for _, id in ipairs({}) do leaks.try("picker select " .. id, function() P.SetQuery(""); P.Select(id); stub.advance(0.2); leaks.hover() end) end
 end)"#,
@@ -445,6 +444,9 @@ end)"#
 			stubs: vec!["stub_recorder.lua"],
 			addons: vec!["Polestar_Recorder"],
 			recorder: true,
+			// An install id is 12 random letters and digits (Recorder.lua, randomId), as in the other
+			// scenes; the stub's readable one would show as an English word in /psrec status.
+			before: "PolestarRecorderDB.install = \"k3j9x0q2m7ab\"".into(),
 			script: r#"
 leaks.try("recorder", function()
 	for _, c in ipairs({ "", "help", "status", "on", "off", "new", "list", "note test", "mark", "finds", "progress", "route", "clear", "bogus" }) do
@@ -770,8 +772,8 @@ pub fn run_scene(root: &Path, locale: &str, scene: &Scene, allow: &Allow, all: b
 		addons: addons.iter().map(|a| Addon::dir(a, root.join("addon").join(a))).collect(),
 		saved: scene.saved.clone(),
 		login: false,
-		// Both factions' guides, as before the faction parts (Polestar loads the other side's when asked).
-		script: format!("leaks.hookPolestar()\nleaks.scene(\"login\")\nstub.login()\nif Polestar.Guides and Polestar.Guides.LoadFaction then Polestar.Guides.LoadFaction(\"All\") end\nstub.advance(1)\n{}\nleaks.dump()", scene.script),
+		// Both factions' guides, as before the faction parts (Polestar loads the other side's only for an old saved tab).
+		script: format!("leaks.hookPolestar()\nleaks.scene(\"login\")\nstub.login()\nif Polestar and Polestar.Data and Polestar.Data.Pack then for _, f in ipairs({{ \"Alliance\", \"Horde\" }}) do Polestar.Data.Pack(\"Polestar_Guides_\" .. f) end Polestar.Fire(\"GUIDES_REGISTERED\") end\nstub.advance(1)\n{}\nleaks.dump()", scene.script),
 	};
 	let out = run_addon_output(&opts)?;
 	for line in out.stdout.split('\n') {
@@ -797,6 +799,16 @@ pub struct DataNames {
 const DATA_FILES: [(&str, &str); 6] =
 	[("npc", "npcs.json"), ("object", "objects.json"), ("item", "items.json"), ("quest", "quests.json"), ("encounter", "codex/instances.json"), ("instance", "codex/instances.json")];
 
+/// A quest's objective text (what `Names.Get("objective", quest)` is asked, for the dungeon quests whose
+/// objective is an event no name covers). Missed, the Dungeons page shows the quest's event objectives in
+/// English: those lines, one a line, are the key's English. Only for missed names (not in [`DATA_FILES`]:
+/// no other text is classified by them).
+const OBJECTIVE_FILE: (&str, &str) = ("objective", "quests.json");
+
+fn data_file(kind: &str) -> Option<&'static (&'static str, &'static str)> {
+	DATA_FILES.iter().chain(std::iter::once(&OBJECTIVE_FILE)).find(|(k, _)| *k == kind)
+}
+
 fn has_three_latin(s: &str) -> bool {
 	static RE: LazyLock<Regex> = LazyLock::new(|| Regex::new("[A-Za-z]{3}").unwrap());
 	RE.is_match(s)
@@ -812,7 +824,7 @@ impl DataNames {
 		if let Some(t) = self.tables.get(kind) {
 			return t.clone();
 		}
-		let file = DATA_FILES.iter().find(|(k, _)| *k == kind).map(|(_, f)| self.dir.join(f)).unwrap();
+		let file = data_file(kind).map(|(_, f)| self.dir.join(f)).unwrap();
 		let doc = std::fs::read_to_string(&file).ok().and_then(|t| parse_json(&t).ok()).unwrap_or_else(V::obj);
 		let names = Obj::new();
 		if kind == "encounter" {
@@ -829,6 +841,20 @@ impl DataNames {
 			for inst in doc.values() {
 				if inst.get("map").truthy() && inst.get("name").truthy() {
 					names.set(&inst.get("map").to_js_string(), inst.get("name"));
+				}
+			}
+		} else if kind == "objective" {
+			// The event objectives' lines (no id: what Dungeons.ObjectiveText falls back to).
+			for (id, q) in doc.entries() {
+				let lines: Vec<String> = q
+					.get("objectives")
+					.items()
+					.iter()
+					.filter(|o| (o.get("type").as_str() == Some("event") || !o.get("id").truthy()) && o.get("text").truthy())
+					.map(|o| o.get("text").to_js_string())
+					.collect();
+				if !lines.is_empty() {
+					names.set_str(id, lines.join("\n"));
 				}
 			}
 		} else {
@@ -849,7 +875,7 @@ impl DataNames {
 		let mut out: Vec<(String, String)> = Vec::new();
 		for k in keys {
 			let Some((kind, id)) = k.split_once(':') else { continue };
-			let Some((kind, _)) = DATA_FILES.iter().find(|(x, _)| *x == kind) else { continue };
+			let Some((kind, _)) = data_file(kind) else { continue };
 			let name = self.table(kind).get(id.split(':').next().unwrap_or(id));
 			if let Some(n) = name.as_str().filter(|n| has_three_latin(n)) {
 				match out.iter_mut().find(|(x, _)| x == k) {
@@ -1042,8 +1068,12 @@ pub fn check_run(locale: &str, scene: &str, dump: &V, allow: &Allow, opts: &Chec
 			}
 		}
 		for (key, en) in &english {
-			if !held.iter().any(|(k, _)| k == key) && plain.contains(en.as_str()) {
-				held.push((key.clone(), en.clone()));
+			if held.iter().any(|(k, _)| k == key) {
+				continue;
+			}
+			// An objective's English is several lines (OBJECTIVE_FILE): each one the text holds.
+			for line in en.split('\n').filter(|l| !l.is_empty() && plain.contains(l)) {
+				held.push((key.clone(), line.to_string()));
 			}
 		}
 		held.sort_by_key(|(_, en)| std::cmp::Reverse(len16(en)));
@@ -1086,7 +1116,14 @@ pub fn check_run(locale: &str, scene: &str, dump: &V, allow: &Allow, opts: &Chec
 		let takes = !untranslated && (left.is_empty() || kept_text);
 		let name_english = Obj::new();
 		for (k, en) in &names {
-			name_english.set(k, en.as_str());
+			let lines = english.iter().find(|(x, e)| x == k && e.contains('\n')).map(|(_, e)| e.as_str());
+			name_english.set(k, lines.unwrap_or(en.as_str()));
+		}
+		let mut name_keys: Vec<&str> = Vec::new();
+		for (k, _) in &names {
+			if !name_keys.contains(&k.as_str()) {
+				name_keys.push(k);
+			}
 		}
 		let l = Obj::new();
 		l.set("text", squash(&c.get("text").to_js_string()));
@@ -1095,7 +1132,7 @@ pub fn check_run(locale: &str, scene: &str, dump: &V, allow: &Allow, opts: &Chec
 		l.set("site", V::from(list(&c.get("site"))));
 		l.set("scenes", V::from(list(&c.get("scenes"))));
 		l.set("source", source);
-		l.set("names", V::from(if takes { names.iter().map(|(k, _)| V::from(k.as_str())).collect::<Vec<_>>() } else { Vec::new() }));
+		l.set("names", V::from(if takes { name_keys.iter().map(|k| V::from(*k)).collect::<Vec<_>>() } else { Vec::new() }));
 		l.set("nameEnglish", name_english);
 		l.set("textKey", if kept_text { V::from(text_key) } else { V::Null });
 		leaks.push(l);

@@ -38,6 +38,8 @@ return {
 	-- Step 6: Linen Cloth
 	-- {item:2589} Linen Cloth · {area:149} Silver Stream Mine · {object:2096} Trade District
 	["Any humanoid drops {item:2589}, and the Tunnel Rats in the {area:149} drop it while you gather the gems; the Auction House in the {object:2096} sells it. You hand in ten."] = "所有人形生物均有几率掉落{item:2589}，收集宝石时，{area:149}的坑道鼠也会掉落；{object:2096}的拍卖行可以买到。需要交付十个。",
+	-- {item:2589} Linen Cloth
+	["{item:2589}: humanoids, or the Auction House"] = "{item:2589}：人形生物，或拍卖行",
 
 	-- Step 7: The Silver Stream Mine
 	-- {area:149} Silver Stream Mine

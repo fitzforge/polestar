@@ -2,9 +2,10 @@
 guide forever/alliance/30-40/05-arathi-highlands
 title Arathi Highlands, Alterac Mountains & Swamp of Sorrows
 faction Alliance
-levels 36-38
+levels 35-37
 zone Arathi Highlands
 next forever/alliance/30-40/06-badlands
+pitch For characters of 35 to 37. Faldir's Cove, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone.
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -12,8 +13,15 @@ next forever/alliance/30-40/06-badlands
 # Added here: The Perenolde Tiara (543); Plea to the Alliance (634) handed in at Refuge Pointe; MacKreel's Moonshine (647),
 # moved from 01-hillsbrad-foothills for its 15-minute limit: taken after Kor'gresh, handed in straight off the Refuge Pointe flight (#1319).
 # My Little Friends (93176) is optional (#1314): nobody has been recorded taking it, and Amaryllis Webb was never seen.
-# Assassin's Contract (522) and Baron's Demise (523) are optional (#1542): the contract drops only from the Shadowy
-# Assassin, a single stealthed mob on Southshore's edge that few players find, so the Southshore step never waits for him.
+# Assassin's Contract (522) is optional (#1542): the contract drops only from the Shadowy Assassin, a single stealthed mob on
+# Southshore's edge that few players find, so the Southshore step never waits for him.
+# Level tidy (0.4.0): the Syndicate camp (Syndicate Assassins 505 and its documents 510, 511) is worked here at about 37, on the
+# way from Southshore to Arathi, instead of at 31-32 in 01-hillsbrad-foothills (Syndicate Thieves 33-34, Wizards 34-35);
+# Magistrate Maleb's quest is taken on 01's Southshore stop and carried here (this Southshore stop takes it if 01 didn't).
+# Noble Deaths (512) and Letter to Stormpike (514) follow on this guide's Southshore and Ironforge stops. The Stone of
+# East Binding's key is taken after Kinelory's errand, at about 38. Left out at 38: Dark Council (537, Nagaz 40, who
+# also guards the Ensorcelled Parchment, 551) and Baron's Demise (523, Baron Vardus 40). Faldir's Cove (662-669) is a
+# group choice: its naga are 38-40 and two level 40 water elementals ambush Phizzlethorpe's escort.
 # Since the 0.3.7 audit: Refuge Pointe's hand-ins come on the walk from Go'Shek Farm to the Stone of West Binding, and the
 # Swamp of Sorrows ends Harborage, then Watcher Biggs, on the road out.
 # Left out: A Meal Served Cold (212): its 30-minute limit can't last from Stormwind to the Cold Eye Basilisks in Stranglethorn and back.
@@ -47,15 +55,25 @@ step Watcher Biggs
   turnin 1396
   accept 1421
 
+step Father Tuttle
+  tip North-west of Watcher Biggs, Father Tuttle (level 34) waits by the road: lead him north to the Harborage, on your way there. Stay close to him and clear what attacks him; if he falls, abandon the quest and go on.
+  accept 93585                        -- Father Tuttle
+
 step The Harborage
-  tip Follow the road north to the draenei of the Harborage.
+  tip Follow the road north to the draenei of the Harborage. Karana and Pelluk stand beside Magtoor: their Lost Ones are the ones you meet in the Fallow Sanctuary anyway.
+  turnin 93585                        -- Magtoor: Father Tuttle's escort
   accept 1389                         -- Magtoor
+  accept 93429                        -- Karana
+  accept 93430                        -- Pelluk
 
 step Fallow Sanctuary
-  tip East along the road to the Fallow Sanctuary. The Lost One mobs drop the crystals. Noboru the Cudgel walks a long path through the ruins: if you meet him, kill him, his cudgel starts a quest for Magtoor. Don't wait for him.
+  tip East along the road to the Fallow Sanctuary. The Draenethyst Crystals are the glowing blue crystals among the Lost Ones' tents: click them. Any Lost One counts for Karana, and the Lost One Fishermen on the sanctuary's west side carry Pelluk's Lucky Lure. Noboru the Cudgel walks a long path through the ruins; his cudgel starts a quest for Magtoor. Don't wait for him.
+  tip Careful: Noboru is level 39, two over you here: fight him only with a friend or from level 38; otherwise let him pass.
   collect 6196 "Noboru's Cudgel" optional -- from Noboru the Cudgel: he walks a path through the ruins
   accept 1392 optional
-  collect 6071 quest 1389             -- Draenethyst Crystal
+  collect 6071 quest 1389             -- Draenethyst Crystal, the blue crystals by the tents
+  collect 258530 quest 93430          -- Lucky Lure, from a Lost One Fisherman
+  kill 759 x10 quest 93429            -- Lost Ones: Hunters, Muckdwellers, Seers and Riftseekers all count
 
 step The Lost Caravan
   tip The wrecked caravan's chest lies at the north end of the Fallow Sanctuary, beside Galen Goodward's cage.
@@ -63,7 +81,7 @@ step The Lost Caravan
   collect 6170 quest 1421             -- Wizards' Reagents
 
 step Galen Goodward
-  tip Galen is caged at the north end of the sanctuary. Free him and keep him alive on the walk out; his strongbox waits by the road afterwards.
+  tip Galen is caged at the north end of the sanctuary. Free him and keep him alive on the walk out; his strongbox waits by the road afterwards. Careful: on the walk out the camp's Lost One Riftseekers (37-38) and their pets, with the Lost Ones around them, turn on Galen: clear the cage and the start of his path first, stay beside him and pull every attacker onto yourself. Many players lose him the first time; if he dies, abandon the quest and take it again at his cage.
   accept 1393
   complete 1393
   turnin 1393                         -- Galen's Strongbox
@@ -72,6 +90,9 @@ step The Harborage
   tip West along the road from Galen's strongbox to the Harborage.
   turnin 1392                         -- Magtoor: Noboru's cudgel
   turnin 1389
+  accept 93464                        -- Magtoor: The Visiting Mage, for Azore Aldamort in Desolace, on the Desolace guide at the end of 30-40
+  turnin 93429                        -- Karana
+  turnin 93430                        -- Pelluk
 
 step Watcher Biggs
   tip South down the road to Watcher Biggs, on the way west out of the swamp.
@@ -132,22 +153,33 @@ step Fly to Southshore
 step Southshore
   zone Hillsbrad Foothills
   accept 500                          -- Marshal Redpath
+  accept 505                          -- Magistrate Henry Maleb, inside, if 30-40/01 didn't take it: the Syndicate camp is on the way to Arathi
 
 step Shadowy Assassin
-  tip A Shadowy Assassin lurks stealthed on the edge of Southshore, and few players find him. If you spot him, kill him and read the contract he carries: Magistrate Henry Maleb takes it. Don't wait for him: the rest of this step doesn't need him.
+  tip A Shadowy Assassin (37-38) lurks stealthed on the edge of Southshore, and few players find him. Careful: he is a level or two over you; fight him only at full health, or leave him. His contract goes to Magistrate Henry Maleb. Don't wait for him: the rest of this step doesn't need him.
   sethome "Southshore"
   kill 2434 optional                  -- Shadowy Assassin, if you spot him
   collect 3668 "Assassin's Contract" optional
   accept 522 optional
   turnin 522                          -- Magistrate Henry Maleb, inside
-  accept 523 optional
-  turnin 525                          -- Magistrate Henry Maleb
-  accept 537
 
 step Southshore
   zone Hillsbrad Foothills
   turnin 538 optional -- Loremaster Dibbs
   accept 540 optional
+
+step Alterac Mountains
+  zone Alterac Mountains
+  goto 58.3,68.0 "Syndicate camp"
+
+step Syndicate camp
+  zone Alterac Mountains
+  tip North out of Southshore to the Syndicate camp on the Alterac border, west of Tarren Mill (Horde): its Footpads and Thieves are the Syndicate Maleb wants, and the documents lie in the camp. Then back to the road and east to Arathi.
+  tip Careful: a few Syndicate Wizards (34-35) stand among the tents and cast from range: pull them one at a time.
+  kill 2240 quest 505.1               -- Syndicate Footpad
+  kill 2241 quest 505.2               -- Syndicate Thief
+  accept 510 object 1738              -- Syndicate Documents
+  accept 511 object 1738
 
 step Arathi Highlands
   zone Arathi Highlands
@@ -157,7 +189,7 @@ step Arathi Highlands
 
 step Refuge Pointe
   zone Arathi Highlands
-  tip Follow the road east out of Hillsbrad over Thoradin's Wall to Refuge Pointe.
+  tip From the Syndicate camp, follow the road east over Thoradin's Wall to Refuge Pointe.
   getfp "Refuge Pointe"
   turnin 634                          -- Captain Nials: Rhag Garmason's plea, from 01-hillsbrad-foothills
   accept 681
@@ -191,15 +223,14 @@ step Drywhisker Gorge: kill these as you meet them
 step Iridescent Shards
   tip The shards lie at the far end of Drywhisker Gorge.
   turnin 642                          -- Below ground
+
+step Iridescent Shards
+  when group 651
+  tip Stones of Binding is a group quest at this level: three Cresting Exiles (38-39) guard the Stone of East Binding and attack together. Grouping up is encouraged, look for people to do it with. Skip it if you are alone.
   accept 651
 
-step Stones of Binding
-  tip Each key lies at one of the Highlands' standing-stone circles: east of the shards, near Refuge Pointe and in the west. The Stone of Inner Binding stands west of Refuge Pointe.
-  tip Careful: Each center stone is guarded by around three elementals near level 39 that attack together if you click the stone without clearing them: Burning Exiles at West, Thundering Exiles at Outer, Cresting Exiles at East.
-  collect 4484 quest 651.2            -- Cresting Key: Stone of East Binding
-
 step Witherbark Village
-  tip South from the Stone of East Binding, past Go'Shek Farm, to Witherbark Village in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk.
+  tip South from Drywhisker Gorge, past Go'Shek Farm, to Witherbark Village in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk.
   collect 4503 quest 691.1            -- Witherbark Tusk
   collect 4522 quest 691.2            -- Witherbark Medicine Pouch
   collect 5040 quest 691.3            -- Shadow Hunter Knife; below ground
@@ -226,6 +257,7 @@ step Forsaken Courier
   collect 4482 quest 658              -- Sealed Folder
 
 step Circle of Outer Binding
+  when group 651
   collect 4485 quest 651.3            -- Thundering Key: Stone of Outer Binding
 
 step Quae and Kinelory
@@ -244,20 +276,29 @@ step Quae
   turnin 660
   accept 661                          -- For Phin Odelic in Southshore
 
+step Stones of Binding
+  when group 651
+  tip From Quae's camp, a short way north-east to the Stone of East Binding, by the shards' hill north of Go'Shek Farm. The Stone of Inner Binding, where the three keys go, stands west of Refuge Pointe.
+  tip Careful: Each center stone is guarded by around three elementals near level 39 that attack together if you click the stone without clearing them: Burning Exiles at West, Thundering Exiles at Outer, Cresting Exiles at East.
+  collect 4484 quest 651.2            -- Cresting Key: Stone of East Binding
+
 step Refuge Pointe
-  tip West along the road to Refuge Pointe, on the way to the Stone of West Binding.
+  tip West along the road to Refuge Pointe.
   turnin 681                          -- Captain Nials
   turnin 691                          -- Apprentice Kryten
-  accept 693                          -- Skuerto: Kor'gresh's cave comes after Faldir's Cove
+  accept 693                          -- Skuerto: Kor'gresh's cave, west past the Stone of West Binding
   vendor nearest
 
 step Circle of West Binding
+  when group 651
   collect 4483 quest 651.1            -- Burning Key: Stone of West Binding
   turnin 651                          -- Stone of Inner Binding
 
-# ---------------------------------------------------------------- Faldir's Cove
+# ---------------------------------------------------------------- Faldir's Cove (group)
 
 step Faldir's Cove
+  when group 665
+  tip A group stop: two level 40 water elementals ambush Professor Phizzlethorpe's escort, and the Daggerspine naga in the reef are 38-40, with Sorceresses among them. Grouping up is encouraged, look for people to do it with. Skip it if you are alone.
   tip South along the west coast to the goblins' cove; Lolo keeps watch on the rocks above it.
   accept 663                          -- Lolo the Lookout
   turnin 663                          -- Shakes O'Breen
@@ -266,16 +307,19 @@ step Faldir's Cove
   accept 665                          -- Professor Phizzlethorpe
 
 step Phizzlethorpe
+  when group 665
   tip Escort the professor to the beach north of the cove and guard him while he works; naga attack in waves.
   tip Careful: The ambush is two level 40 water elementals, and they are immune to frost. If the fight happens inside the cave, the professor joins in instead of working and further elementals keep appearing; holding the elementals at the cave entrance, away from him, lets him finish with only the first two to deal with.
   goto 33.9,80.6
   complete 665
 
 step Doctor Draxlegauge
+  when group 665
   turnin 665
   accept 666
 
 step The Drowned Reef: kill these as you meet them
+  when group 665
   zone Arathi Highlands
   tip The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay.
   kill 2595 quest 664.1               -- Daggerspine Raider, underwater
@@ -287,6 +331,7 @@ step The Drowned Reef: kill these as you meet them
   collect 4488 quest 662.3            -- Spirit of Silverpine Charts; underwater
 
 step Faldir's Cove
+  when group 665
   turnin 662                          -- First Mate Nilzlix
   turnin 664                          -- Captain Steelgut
   turnin 666                          -- Doctor Draxlegauge
@@ -295,7 +340,8 @@ step Faldir's Cove
   accept 669                          -- For Fleet Master Seahorn in Booty Bay: keep it
 
 step Kor'gresh Coldrage
-  tip East from Faldir's Cove through the southern hills: Kor'gresh, an ogre mage, holds the cave at the southern end of the Witherbark valley.
+  tip South-east through the hills: Kor'gresh, an ogre mage, holds the cave at the southern end of the Witherbark valley.
+  tip Careful: Kor'gresh is level 39, a caster, one or two over you here: clear the cave mouth first, then pull him alone at full health.
   collect 4525 quest 693              -- Trelane's Wand of Invocation; below ground
 
 step Foggy MacKreel
@@ -314,8 +360,13 @@ step Fly to Southshore
 
 step Brewmeister Bilger
   zone Hillsbrad Foothills
-  tip Off the flight, straight to the Southshore inn.
+  tip Off the flight, straight to the Southshore inn. Then Magistrate Henry Maleb and Loremaster Dibbs, in the town hall, take the Syndicate camp's quests and send you north to Strahnbrad.
   turnin 647                          -- Brewmeister Bilger, below ground
+  turnin 505                          -- Magistrate Henry Maleb, inside
+  turnin 510
+  accept 512                          -- Magistrate Henry Maleb: the signet rings are in Strahnbrad
+  turnin 511                          -- Loremaster Dibbs
+  accept 514                          -- For Prospector Stormpike in Ironforge, at the end of this guide
 
 step Alterac Mountains
   zone Alterac Mountains
@@ -325,7 +376,7 @@ step Alterac Mountains
 
 step Gavin's Naze
   zone Alterac Mountains
-  tip Follow the road north out of Southshore into the mountains. Mountain lions roam the slopes; the Syndicate in Strahnbrad wear the signet rings. Baron Vardus (40) turns up in one spot at a time: the cellar of Strahnbrad's inn, or one of the Syndicate tent camps in the uplands north and north-west of the village.
+  tip Follow the road north out of Southshore into the mountains. Mountain lions roam the slopes; the Syndicate in Strahnbrad wear the signet rings.
   kill 2407 quest 564.2 @44.2,76.7 map 1416 -- Hulking Mountain Lion
   kill 2406 quest 564.1 @32.1,82.8 map 1416 -- Mountain Lion
 
@@ -346,18 +397,13 @@ step Ruins of Alterac: kill these as you meet them
 step Strahnbrad: kill these as you meet them
   zone Alterac Mountains
   tip Careful: Syndicate Spies and Assassins can be stealthed. Assassins also poison you.
-  tip Careful: About three stealthed Syndicate mobs are inside Nagaz's house. Nagaz does not join when they are pulled, and a ranged attack through the doorway brings him out by himself.
+  tip Careful: Baron Vardus (40) turns up in one spot at a time: the cellar of Strahnbrad's inn, or one of the Syndicate tent camps north of the village. Leave him be.
   collect 3505 quest 512              -- Alterac Signet Ring
-  kill 2318 quest 537.1               -- Argus Shadow Mage
-  collect 3626 quest 523              -- Head of Baron Vardus
 
 step Crushridge ogres
-  tip The Crushridge ogres hold the hills north of Strahnbrad. Farther north, a worn wooden chest holds the Ensorcelled Parchment; Nagaz of the Dark Council stands right by it.
+  tip The Crushridge ogres hold the hills north of Strahnbrad. Careful: Nagaz (40) stands far to the north-west by a worn wooden chest, with Syndicate guards: stay with the ogres.
   tip The Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and drop the knucklebones too: pull one at a time, or group up.
   collect 2843 quest 500              -- Dirty Knucklebones
-  collect 3706 "Ensorcelled Parchment" -- Inside
-  accept 551
-  collect 3672 quest 537.2            -- Head of Nagaz
 
 step Silverpine Forest
   zone Silverpine Forest
@@ -379,15 +425,11 @@ step Hillsbrad Foothills
 
 step Southshore
   zone Hillsbrad Foothills
-  turnin 537                          -- Magistrate Henry Maleb, inside
-  turnin 512
-  turnin 523
+  turnin 512                          -- Magistrate Henry Maleb, inside
   turnin 500                          -- Marshal Redpath
   turnin 661                          -- Phin Odelic
   turnin 540 optional -- Loremaster Dibbs
   accept 542 optional -- For Milton Sheaf in Stormwind: keep it
-  turnin 551                          -- Loremaster Dibbs: the parchment
-  accept 554
   turnin 564                          -- Darren Malvew
 
 step Bartolo Ginsetti
@@ -404,21 +446,25 @@ step Ironforge
 
 step Ironforge
   zone Ironforge
-  when onquest 554
-  turnin 554                          -- Prospector Stormpike, Hall of Explorers
-
-step Ironforge
-  zone Ironforge
-  accept 707                          -- Prospector Stormpike, Hall of Explorers: for Prospector Ironband in Loch Modan, next
+  turnin 514                          -- Prospector Stormpike, Hall of Explorers
+  accept 707                          -- Prospector Stormpike: for Prospector Ironband in Loch Modan, next
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
-step Loch Modan
+step Fly to Thelsamar
+  when taxi "Thelsamar"
+  zone Ironforge
+  goto 55.9,47.9 "Ironforge flight master"
+  fly "Thelsamar"
   zone Loch Modan
+
+step Loch Modan
+  when !taxi "Thelsamar"
+  zone Loch Modan
+  tip From Ironforge take the tunnel east through Dun Morogh into Loch Modan and follow the road to Thelsamar.
   goto 37.1,49.4 "Loch Modan"
 
 step Thelsamar
   zone Loch Modan
-  tip From Ironforge take the tunnel east through Dun Morogh into Loch Modan and follow the road to Thelsamar.
   getfp "Thelsamar"
   sethome "Stoutlager Inn"
   accept 2500                         -- Ghak Healtouch, below ground

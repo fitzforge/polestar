@@ -11,8 +11,6 @@ return {
 	["Follow the road west past {area:460} (Horde) and south-west through the {area:465} into {zone:1443}; {area:608} stands at the top of the pass."] = "沿著道路向西經過{area:460}（部落），再向西南穿過{area:465}進入{zone:1443}；{area:608}位於山口頂端。",
 	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
 	["{npc:5638}: the wreck's chest lies below {npc:11863}'s tower, on the way to {area:599}"] = "{npc:5638}：沉船的箱子在{npc:11863}的塔下方，位於前往{area:599}的路上",
-	-- {npc:5396} Captain Pentigast · {npc:5752} Corporal Melkins
-	["{npc:5396}, beside {npc:5752}"] = "{npc:5396}，在{npc:5752}旁邊",
 
 	-- Step 2: Malem chest
 	["Malem chest"] = "瑪雷姆的箱子",
@@ -27,6 +25,10 @@ return {
 	-- Step 5: Nijel's Point
 	-- {npc:5642} Vahlarriel Demonslayer · {area:599} Thunder Axe Fortress
 	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "",
+	-- {npc:5752} Corporal Melkins
+	["{npc:5752}: the Kolkar are at the end of this guide"] = "{npc:5752}：科卡爾半人馬在本指南的最後",
+	-- {npc:5396} Captain Pentigast · {npc:5752} Corporal Melkins
+	["{npc:5396}, beside {npc:5752}"] = "{npc:5396}，在{npc:5752}旁邊",
 
 	-- Step 6: Azore Aldamort
 	-- {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
@@ -37,6 +39,8 @@ return {
 	["The wrecked ship lies just south-west of {npc:11863}'s tower; its chest sits beside {object:177787}."] = "沉船就在{npc:11863}的塔西南方不遠處；它的箱子在{object:177787}旁邊。",
 	-- {npc:5638} Kreldig Ungor
 	["For {npc:5638}, at the end of this guide"] = "給{npc:5638}的，在本指南結尾",
+	-- {object:177787} Rackmore's Log · {zone:1443} Desolace
+	["{object:177787}, beside the chest: keep it, its keys and chest come on {zone:1443}'s south loop at the end of 30-40"] = "{object:177787}，在箱子旁邊：先留著，它的鑰匙和箱子在30-40結尾的{zone:1443}南線上",
 
 	-- Step 8: Dalinda Malem
 	-- {npc:5644} Dalinda Malem · {area:608} Nijel's Point
@@ -47,7 +51,7 @@ return {
 	-- {npc:5643} Tyranis Malem
 	["{npc:5643} and the Seer"] = "{npc:5643}與先知",
 	-- {npc:5643} Tyranis Malem · {npc:13019} Burning Blade Seer · {npc:5642} Vahlarriel Demonslayer
-	["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building. {npc:5642} wants four of each kind of cultist on the way."] = "",
+	["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building. {npc:5642} wants four of each kind of cultist on the way."] = "她的哥哥{npc:5643}（36級）和燃刃氏族教徒（30-33級）一起在要塞裡走動：單獨把他拉出來。{npc:13019}把權杖放在要塞的主建築裡。{npc:5642}要你在途中每種教徒各殺四個。",
 	-- {item:6767} Tyranis' Pendant
 	["{item:6767}; inside"] = "",
 	-- {quest:5741} Sceptre of Light
@@ -85,7 +89,7 @@ return {
 
 	-- Step 16: Fly to Auberdine
 	-- {area:442} Auberdine
-	["Fly to {area:442}"] = "",
+	["Fly to {area:442}"] = "飛往{area:442}",
 	-- {area:608} Nijel's Point
 	["{area:608} flight master"] = "",
 
@@ -98,7 +102,6 @@ return {
 	-- ["From {area:415} head south-west to the {area:1276}, a tunnel through the mountains into Stonetalon."] = "從{area:415}向西南前往{area:1276}，這是一條穿過山脈通往石爪山脈的隧道。",
 	-- ["From {area:415} ride north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then back past {area:415} to the {area:1276}."] = "從{area:415}向西北騎進山丘：{quest:1738}是前往{area:413}道路北邊一棵發光的樹。如果你接了{quest:65602}，{item:190309}在{area:413}北邊樹林中的一間房子裡（26.6,22.0）。然後經過{area:415}回到{area:1276}。",
 	-- ["From {zone:1455}'s {npc:1573}"] = "來自{zone:1455}的{npc:1573}",
-	-- ["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building."] = "她的哥哥{npc:5643}（36級）和燃刃氏族教徒（30-33級）一起在要塞裡走動：單獨把他拉出來。{npc:13019}把權杖放在要塞的主建築裡。",
 	-- ["Scorpashi venom"] = "荒土蠍毒液",
 	-- ["Take the boat to {area:442} from Menethil's docks."] = "在米奈希爾的碼頭搭船前往{area:442}。",
 	-- ["Take the boat to {area:442} from Menethil's docks. {npc:3649} stands in {area:442}, north of the flight master."] = "在米奈希爾的碼頭搭船前往{area:442}。{npc:3649}站在{area:442}飛行管理員的北邊。",

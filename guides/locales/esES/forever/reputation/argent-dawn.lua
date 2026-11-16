@@ -19,8 +19,8 @@ return {
 	["{npc:10840} stands in {area:3197}, in the south of the {zone:1422}. {object:2160} starts at Neutral 200 for everyone. Wear the Commission trinket while you fight the Scourge: Scourgestones only drop while you wear it. {npc:11039} at {area:2268} gives the same Commission; you can only take one."] = "",
 
 	-- Step 2: Argent Dawn Commission (Horde)
-	-- {quest:5401} Argent Dawn Commission
-	["{quest:5401} (Horde)"] = "{quest:5401} (Horda)",
+	-- {quest:5405} Argent Dawn Commission
+	["{quest:5405} (Horde)"] = "{quest:5405} (Horda)",
 	-- {npc:10839} Argent Officer Garush · {area:152} Bulwark · {zone:1420} Tirisfal Glades · {zone:1422} Western Plaguelands · {object:2160} The Argent Dawn · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel
 	["{npc:10839} stands at the {area:152}, on the road from {zone:1420} into the {zone:1422}. {object:2160} starts at Neutral 200 for everyone. Wear the Commission trinket while you fight the Scourge: Scourgestones only drop while you wear it. {npc:11039} at {area:2268} gives the same Commission; you can only take one."] = "",
 
@@ -90,7 +90,7 @@ return {
 	-- plural, as words: Dark Adepts = {npc:8546} Dark Adept · Shadowmages = {npc:8550} Shadowmage · Dread Weavers = {npc:8528} Dread Weaver · Scourge Champions = {npc:8529} Scourge Champion · Enriched Manna Biscuits = {item:13724} Enriched Manna Biscuit
 	["Normal Scourge outside the dungeons stop giving reputation halfway through Friendly (3,000 of 6,000); {npc:10826}, {npc:10821} and {npc:10825} stop at the end of Friendly. After that only Araj, the {area:2057} and {area:2279} mobs, the cauldron deliveries and Scourgestones count. Now turn in the stones you saved: {npc:11039} at {area:2268} takes all three kinds, and so do the officers at {area:3197} and the {area:152}. Every turn-in pays 25 and an {item:12844}: keep 35 tokens for the mantles at Revered and Exalted. {quest:5509} are worth twice as much per stone: the Dark Adepts, Shadowmages, Dread Weavers and Scourge Champions (level 58-60) at {area:2272}, just north of {area:2268}, drop them about a third of the time or more, next to the turn-in. The named Scourge below drop a {item:12843} half the time or more ({npc:1850} two times in three, Araj and {npc:10821} half the time) and give 15 a kill, Araj until Exalted; {npc:1850} gives no reputation, only the stone. Friendly opens the Enriched Manna Biscuits (60 silver) at the quartermasters."] = "",
 	-- {item:12843} Corruptor's Scourgestone
-	["{item:12843}: the named Scourge below, and dungeon bosses"] = "",
+	["{item:12843}: the named Scourge below, and dungeon bosses"] = "{item:12843}: la Plaga con nombre de abajo y los jefes de mazmorra",
 	-- {area:2272} Northdale
 	-- plural, as words: Dark Adepts = {npc:8546} Dark Adept · Shadowmages = {npc:8550} Shadowmage
 	["Dark Adepts and Shadowmages at {area:2272}"] = "",
@@ -123,9 +123,9 @@ return {
 	["{item:19442} ({skill:129}), 10 gold"] = "",
 
 	-- Step 11: Mantles of the Dawn
-	-- {npc:11536} Quartermaster Miranda Breechlock · {quest:5504} Mantles of the Dawn · {faction:529} Argent Dawn · {item:18173} Shadow Mantle of the Dawn · {item:13810} Blessed Sunfruit
+	-- {npc:11536} Quartermaster Miranda Breechlock · {quest:5513} Mantles of the Dawn · {faction:529} Argent Dawn · {item:18173} Shadow Mantle of the Dawn · {item:13810} Blessed Sunfruit
 	-- plural, as words: Argent Dawn Valor Tokens = {item:12844} Argent Dawn Valor Token
-	["At Revered, {npc:11536} takes 10 Argent Dawn Valor Tokens for {quest:5504} (100 reputation). After it, any {faction:529} quartermaster sells the five shoulder enchants for 10 gold each: Flame, Frost, Arcane, Nature and {item:18173}, +5 to that resistance. Revered also opens the {item:13810} and its juice (60 silver) and the Revered recipes."] = "",
+	["At Revered, {npc:11536} takes 10 Argent Dawn Valor Tokens for {quest:5513} (100 reputation). After it, any {faction:529} quartermaster sells the five shoulder enchants for 10 gold each: Flame, Frost, Arcane, Nature and {item:18173}, +5 to that resistance. Revered also opens the {item:13810} and its juice (60 silver) and the Revered recipes."] = "",
 	-- plural, as words: Argent Dawn Valor Tokens = {item:12844} Argent Dawn Valor Token
 	["Argent Dawn Valor Tokens, from the stone turn-ins"] = "",
 	-- {item:18170} Frost Mantle of the Dawn
@@ -152,7 +152,6 @@ return {
 	["Argent Dawn Valor Tokens"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Corruptor's Scourgestones and dungeons to Revered"] = "Piedras de la Plaga de un corruptor y mazmorras hasta Reverenciado",
 	-- ["Dark Adepts and Shadowmages (level 58-60) drop Invader's Scourgestones here, along with Minion's stones and {item:14047}. Hand Invader's in 10 at a time and Minion's 20 at a time to {npc:11039} at {area:2268}. In Classic both stop giving reputation at Honored."] = "Los Adeptos oscuros y los magos oscuros (nivel 58-60) sueltan aquí Piedras de la Plaga de un invasor, junto con piedras de esbirro y {item:14047}. Entrega las de invasor de 10 en 10 y las de esbirro de 20 en 20 a {npc:11039} en {area:2268}. En Classic ambas dejan de dar reputación en Honorable.",
 	-- ["From Honored on, Corruptor's Scourgestones (one per turn-in) and Scourge kills in {area:2279} and {area:2057} carry the reputation. Corruptor's stones drop from the Scourge bosses there ({npc:1853}, {npc:10433}, Vectus) and from {npc:1852} and Putridius in {zone:1422}. Many dungeon runs pay off faster than any open-world farm."] = "Desde Honorable, la reputación viene de las Piedras de la Plaga de un corruptor (una por entrega) y de matar a la Plaga en {area:2279} y {area:2057}. Las piedras de corruptor caen de los jefes de la Plaga de allí ({npc:1853}, {npc:10433}, Vectus) y de {npc:1852} y Putridus en {zone:1422}. Muchas incursiones en mazmorras rinden más rápido que cualquier farmeo en el mundo abierto.",
 	-- ["Ghouls and skeletons all over {zone:1422} drop Minion's Scourgestones about half the time; this cluster is dense. Hand them in 20 at a time to any Argent Officer (Pureheart at {area:3197}, Garush at {area:152}, {npc:11039} at {area:2268}). Each turn-in also pays an {item:12844} for the Argent quartermasters."] = "Necrófagos y esqueletos por todas {zone:1422} sueltan Piedras de la Plaga de esbirro aproximadamente la mitad de las veces; esta zona está muy poblada. Entrégalas de 20 en 20 a cualquier oficial Argenta (Purocorazón en {area:3197}, Garush en {area:152}, {npc:11039} en {area:2268}). Cada entrega también da una {item:12844} para los intendentes Argenta.",
@@ -163,4 +162,5 @@ return {
 	-- ["{faction:529} to Exalted"] = "{faction:529} hasta Exaltado",
 	-- ["{object:2160} starts out Neutral. Take the Commission from {npc:10839} at {area:152} and wear it: in Classic, Scourgestones only drop while the {quest:5401} trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains."] = "{object:2160} empieza en Neutral. Acepta la Comisión de {npc:10839} en {area:152} y llévala puesta: en Classic, las Piedras de la Plaga solo caen mientras llevas equipado el abalorio de {quest:5401}. La ventaja de Legado Diplomático de Forever aumenta la reputación obtenida.",
 	-- ["{object:2160} starts out Neutral. Take the Commission from {npc:10840} at {area:3197} and wear it: in Classic, Scourgestones only drop while the {quest:5401} trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains."] = "{object:2160} empieza en Neutral. Acepta la Comisión de {npc:10840} en {area:3197} y llévala puesta: en Classic, las Piedras de la Plaga solo caen mientras llevas equipado el abalorio de {quest:5401}. La ventaja de Legado Diplomático de Forever aumenta la reputación obtenida.",
+	-- ["{quest:5401} (Horde)"] = "{quest:5401} (Horda)",
 }

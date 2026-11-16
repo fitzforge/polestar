@@ -55,10 +55,10 @@ pub fn readme(version: &str, names: &[String]) -> String {
 		lines.extend(
 			[
 				"   Polestar_Experimental holds experimental guides for Forever's new",
-				"   zones (alpha). Nothing of them loads until you want them, and there",
-				"   is nothing to install or switch on: where a guide offers one of",
-				"   these zones as a route choice, choosing it loads them. Options >",
-				"   Community guides switches them on by hand.",
+				"   zones (alpha). They are on for everyone: the guide menu lists them",
+				"   under Leveling with our own guides, and a route choice offers their",
+				"   zones where they fit. Options > Guide > Show experimental guides",
+				"   takes them out of the guide menu.",
 			]
 			.iter()
 			.map(|s| s.to_string()),
@@ -170,15 +170,15 @@ mod tests {
 		assert!(!text.replace("\r\n", "").contains('\n'), "CRLF line endings throughout");
 	}
 
-	// What the players read about the experimental guides: nothing to install or switch on, a route choice that
-	// offers one of their zones loads them when chosen; only when the folder ships.
+	// What the players read about the experimental guides: on for everyone, listed under Leveling, offered by a
+	// route choice where they fit, and the setting that hides them; only when the folder ships.
 	#[test]
-	fn the_readme_says_the_experimental_guides_need_no_install_or_setting_only_when_they_ship() {
+	fn the_readme_says_the_experimental_guides_are_on_and_where_to_hide_them_only_when_they_ship() {
 		let with: Vec<String> = ["Polestar", "Polestar_Guides", "Polestar_Experimental", "Polestar_Codex"].iter().map(|s| s.to_string()).collect();
 		let text = readme("0.3.8", &with);
 		assert!(text.contains("\r\n     Polestar_Experimental\r\n"));
 		assert!(text.contains(
-			"\r\n   Polestar_Experimental holds experimental guides for Forever's new\r\n   zones (alpha). Nothing of them loads until you want them, and there\r\n   is nothing to install or switch on: where a guide offers one of\r\n   these zones as a route choice, choosing it loads them. Options >\r\n   Community guides switches them on by hand.\r\n2. Quit"
+			"\r\n   Polestar_Experimental holds experimental guides for Forever's new\r\n   zones (alpha). They are on for everyone: the guide menu lists them\r\n   under Leveling with our own guides, and a route choice offers their\r\n   zones where they fit. Options > Guide > Show experimental guides\r\n   takes them out of the guide menu.\r\n2. Quit"
 		));
 		let without = readme("0.3.8", &with[..2]);
 		assert!(!without.contains("Polestar_Experimental"));

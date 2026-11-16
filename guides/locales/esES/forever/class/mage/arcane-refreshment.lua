@@ -18,7 +18,7 @@ return {
 	-- Step 2: Hydrospawn
 	["Hydrospawn"] = "Hidromilecio",
 	-- {area:1758} Riptide
-	["Hydrospawn, a level 57 elite water elemental, lives in the Warpwood Quarter (Dire Maul East): chase the imp Pusillin until he turns to fight, clear the satyr room, then take the spiral ramp down to the pool. A group of five. Frost does nothing to him, so frost mages switch to fire or arcane. {area:1758} hits everyone within 10 yards, so ranged stand back; at a quarter health he calls Hydrolings. The essence always drops; he does not come back until the instance resets."] = "",
+	["Hydrospawn, a level 57 elite water elemental, lives in the Warpwood Quarter (Dire Maul East): chase the imp Pusillin until he turns to fight, clear the satyr room, then take the spiral ramp down to the pool. A group of five. Frost does nothing to him, so frost mages switch to fire or arcane. {area:1758} hits everyone within 10 yards, so ranged stand back; at a quarter health he calls Hydrolings. The essence always drops; he does not come back until the instance resets."] = "Hidromilecio, un elemental de agua élite de nivel 57, vive en el Barrio Alabeo (La Masacre Este): persigue al diablillo Pusillin hasta que se gire a luchar, limpia la sala de los sátiros y baja por la rampa en espiral hasta el estanque. Un grupo de cinco. La escarcha no le hace nada, así que los magos de escarcha cambian a fuego o arcano. {area:1758} golpea a todos a menos de 10 metros, así que los de distancia se quedan atrás; con un cuarto de salud llama a Hidrolinos. La esencia cae siempre; no vuelve hasta que se reinicia la instancia.",
 	-- {item:18299} Hydrospawn Essence
 	["{item:18299}: Hydrospawn"] = "{item:18299}: Hidromilecio",
 

@@ -27,12 +27,12 @@ return {
 	-- plural, as words: Ashenvale Outrunners = {npc:12856} Ashenvale Outrunner
 	["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers Ashenvale Outrunners: leave it for the next {zone:1440} visit, at 26."] = "{area:431}은(는) 길을 따라 북쪽으로 조금만 가면 있습니다. 남쪽에서 들어오면 비행 조련사와 {area:428}의 {npc:12696} 사냥 게시판이 먼저 나오고, 그다음 상인들이 있습니다. 벌목기지의 {npc:12867}이(가) '잿빛골짜기 정찰꾼'을 주지만, 다음 {zone:1440} 방문 때인 26레벨로 미루세요.",
 	-- {npc:12696} Senani Thunderheart · {zone:1440} Ashenvale
-	["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 26."] = "",
+	["{npc:12696}'s hunt targets Ursangous and Shadumbra are for the next {zone:1440} visit, at 26; Sharptalon (31) only from level 30."] = "{npc:12696}의 사냥 대상인 우르산고우스와 샤둠브라는 26레벨에 다음으로 {zone:1440}에 올 때 처리합니다. 뾰족발톱(31)은 30레벨부터 처리하세요.",
 
 	-- Step 5: Va'xug Firefure
 	-- {npc:267214} Va'xug Firefure · {area:415} Astranaar
 	-- plural, as words: Shadowhorn Stags = {npc:3817} Shadowhorn Stag · Ashenvale Bears = {npc:3809} Ashenvale Bear
-	["On the way west, {npc:267214} is stuck in a ravine south of the main road, south-east of {area:415}. Shadowhorn Stags and Ashenvale Bears roam the woods all around it."] = "",
+	["On the way west, {npc:267214} is stuck in a ravine south of the main road, south-east of {area:415}. Shadowhorn Stags and Ashenvale Bears roam the woods all around it."] = "서쪽으로 가는 길에, {npc:267214}이(가) {area:415} 남동쪽, 큰길 남쪽의 협곡에 갇혀 있습니다. 검은뿔순록과 잿빛골짜기곰이 주변 숲을 돌아다닙니다.",
 
 	-- Step 6: A Void Path
 	-- {npc:267214} Va'xug Firefure · {npc:271181} Eye of Kilrogg
@@ -41,10 +41,8 @@ return {
 	["{npc:271181}, on the road"] = "길 위의 {npc:271181}",
 
 	-- Step 7: Zoram'gar Outpost
-	-- {zone:1440} Ashenvale · {area:415} Astranaar · {area:2897} Zoram'gar Outpost · {area:414} Zoram Strand · {npc:12719} Marukai · {npc:12721} Mitsuwa · {npc:12757} Karang Amakkar · {npc:12863} Warsong Runner
-	["Head west along the main road across {zone:1440}, past {area:415} (Alliance: keep to the road), to the coast. {area:2897} is on the {area:414} in the north-west: {npc:12719}, {npc:12721} and {npc:12757} stand around it, the {npc:12863} beside the flight master. Its other quests are for the next visit, at 26."] = "",
-	-- {npc:12721} Mitsuwa
-	["{npc:12721}: the troll charms are in Thistlefur Hold, east of the outpost"] = "",
+	-- {zone:1440} Ashenvale · {area:415} Astranaar · {area:2897} Zoram'gar Outpost · {area:414} Zoram Strand · {npc:12719} Marukai · {npc:12717} Muglash · {npc:12863} Warsong Runner
+	["Head west along the main road across {zone:1440}, past {area:415} (Alliance: keep to the road), to the coast. {area:2897} is on the {area:414} in the north-west: {npc:12719} and {npc:12717} stand around it, the {npc:12863} beside the flight master. Its other quests, Thistlefur's among them, are for the next visit, at 26."] = "큰길을 따라 서쪽으로 {zone:1440}을(를) 가로질러 {area:415}(얼라이언스: 길에서 벗어나지 마세요)을(를) 지나 해안까지 가세요. {area:2897}은(는) 북서쪽 {area:414}에 있습니다. {npc:12719}와(과) {npc:12717}이(가) 그 주변에, {npc:12863}이(가) 비행 조련사 옆에 서 있습니다. 엉겅퀴털 퀘스트를 비롯한 그곳의 다른 퀘스트는 26레벨에 다음으로 올 때 처리합니다.",
 	-- {npc:12717} Muglash
 	["{npc:12717}: take it last, his escort starts at once"] = "",
 
@@ -58,87 +56,122 @@ return {
 	["Every Wrathtail naga along the strand north of the outpost drops heads."] = "전초기지 북쪽 해안을 따라 있는 성난지느러미일족 나가는 모두 머리를 떨어뜨립니다.",
 
 	-- Step 10: Zoram'gar Outpost
-	["Back to the outpost before heading east to Thistlefur."] = "",
+	["Back to the outpost."] = "전초기지로 돌아가세요.",
 
-	-- Step 11: Thistlefur Village
-	["East of Zoram'gar, the Thistlefur furbolgs fill the village and the hills around their hold.\nCareful: A Shaman at 15% health or lower runs off to find help, which can pull extra furbolgs."] = "",
+	-- Step 11: Fly to Thunder Bluff
+	-- {area:1638} Thunder Bluff
+	["Fly to {area:1638}"] = "",
+	-- {quest:1063} The Elder Crone · {area:1638} Thunder Bluff · {area:2897} Zoram'gar Outpost · {npc:4046} Magatha Grimtotem · {npc:3419} Apothecary Zamah · {npc:2216} Apothecary Lydon · {area:272} Tarren Mill · {zone:1454} Orgrimmar
+	["{quest:1063} first: fly to {area:1638} from the {area:2897} flight master. {npc:4046} and {npc:3419} send you to {npc:2216} in {area:272}, the next guide's base, and {area:1638}'s flight path takes you on to {zone:1454}."] = "먼저 {quest:1063}: {area:2897}의 비행 조련사에게서 {area:1638}(으)로 비행하세요. {npc:4046}와(과) {npc:3419}이(가) 다음 가이드의 거점인 {area:272}의 {npc:2216}에게 보내며, {area:1638}의 비행 경로로 {zone:1454}까지 이어서 갈 수 있습니다.",
+	-- {area:2897} Zoram'gar Outpost
+	["{area:2897} flight master"] = "",
 
-	-- Step 12: Thistlefur Hold
-	["Thistlefur Hold"] = "엉겅퀴일족 소굴",
-	-- {npc:12818} Ruul Snowhoof · {area:428} Night Run · {npc:3987} Dal Bloodclaw
-	-- plural, as words: Troll Chests = {object:178144} Troll Chest
-	["Inside the hold, Troll Chests lie along the tunnels. {npc:12818} is held deep inside: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "",
-	["Below ground"] = "지하",
-	-- {npc:12818} Ruul Snowhoof
-	["{npc:12818}, below ground"] = "",
+	-- Step 12: Fly to Camp Taurajo
+	-- {area:378} Camp Taurajo
+	["Fly to {area:378}"] = "{area:378}(으)로 비행",
+	-- {quest:1063} The Elder Crone · {area:378} Camp Taurajo · {area:2897} Zoram'gar Outpost · {zone:1456} Thunder Bluff · {npc:4046} Magatha Grimtotem · {npc:3419} Apothecary Zamah · {npc:2216} Apothecary Lydon · {area:272} Tarren Mill · {zone:1454} Orgrimmar
+	["{quest:1063} first: fly to {area:378} from the {area:2897} flight master and walk on to {zone:1456}. {npc:4046} and {npc:3419} send you to {npc:2216} in {area:272}, the next guide's base, and {zone:1456}'s flight path takes you on to {zone:1454}."] = "먼저 {quest:1063}: {area:2897}의 비행 조련사에게서 {area:378}(으)로 비행한 뒤 {zone:1456}까지 걸어가세요. {npc:4046}와(과) {npc:3419}이(가) 다음 가이드의 거점인 {area:272}의 {npc:2216}에게 보내며, {zone:1456}의 비행 경로로 {zone:1454}까지 이어서 갈 수 있습니다.",
 
-	-- Step 13: Zoram'gar Outpost
-	-- {npc:12757} Karang Amakkar · {zone:1440} Ashenvale
-	["Back west to Zoram'gar. {npc:12757} offers King of the Foulweald now; leave it for the next {zone:1440} visit at 26, when the walk east passes the Foulweald."] = "",
+	-- Step 13: To Thunder Bluff
+	-- {zone:1456} Thunder Bluff
+	["To {zone:1456}"] = "{zone:1456}(으)로",
+	-- {area:378} Camp Taurajo · {zone:1412} Mulgore · {area:222} Bloodhoof Village · {zone:1456} Thunder Bluff
+	["From {area:378} follow the road west through the gate into {zone:1412}, then north past {area:222} to {zone:1456}; a lift at the foot of the bluffs takes you up."] = "{area:378}에서 길을 따라 서쪽 관문을 지나 {zone:1412}(으)로 들어간 뒤, 북쪽으로 {area:222}을(를) 지나 {zone:1456}(으)로 가세요. 절벽 아래의 승강기를 타면 위로 올라갑니다.",
+	-- {zone:1456} Thunder Bluff
+	["{zone:1456}'s central rise"] = "{zone:1456}의 중앙 언덕",
 
-	-- Step 14: Splintertree Post
-	-- {area:431} Splintertree Post · {npc:12837} Yama Snowhoof
-	["Fly to {area:431}: {npc:12837} waits in the inn for news of Ruul."] = "",
-	-- {npc:12837} Yama Snowhoof
-	["{npc:12837}, inside the inn"] = "",
+	-- Step 14: Thunder Bluff
+	-- {npc:2995} Tal · {npc:4046} Magatha Grimtotem · {area:1639} Elder Rise · {npc:3419} Apothecary Zamah · {area:2197} Pools of Vision · {area:1640} Spirit Rise
+	["{npc:2995}, the wind rider master, stands on the central rise: take his flight path if you don't have it. {npc:4046} stands on {area:1639} to the east; {npc:3419} in the {area:2197}, the caves under {area:1640} to the west."] = "와이번 조련사 {npc:2995}은(는) 중앙 언덕에 있습니다. 비행 경로가 없다면 얻으세요. {npc:4046}은(는) 동쪽 {area:1639}에, {npc:3419}은(는) 서쪽 {area:1640} 아래 동굴인 {area:2197}에 있습니다.",
+	-- {npc:3419} Apothecary Zamah · {npc:2216} Apothecary Lydon · {area:272} Tarren Mill
+	["{npc:3419}: her note is for {npc:2216} in {area:272}, next guide"] = "{npc:3419}: 그녀의 쪽지는 다음 가이드에서 {area:272}의 {npc:2216}에게",
 
 	-- Step 15: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "{area:1637}(으)로 날아가기",
-	-- {area:431} Splintertree Post · {area:1637} Orgrimmar
-	["Out of the inn to the {area:431} flight master and fly to {area:1637}."] = "여관에서 나와 {area:431}의 비행 조련사에게 가서 {area:1637}(으)로 날아가세요.",
-	-- {area:431} Splintertree Post
-	["{area:431} flight master"] = "",
+	-- {npc:2995} Tal · {area:1637} Orgrimmar
+	["Back up to {npc:2995} on the central rise and fly to {area:1637}."] = "중앙 언덕의 {npc:2995}에게 다시 올라가 {area:1637}(으)로 비행하세요.",
 
-	-- Step 16: Druid trainer
-	["Druid trainer"] = "",
+	-- Step 16: Fly to Orgrimmar
+	-- {area:1637} Orgrimmar · {area:2897} Zoram'gar Outpost
+	["Fly to {area:1637} from the {area:2897} flight master."] = "{area:2897}의 비행 조련사에게서 {area:1637}(으)로 비행하세요.",
+
+	-- Step 17: Druid trainer
+	["Druid trainer"] = "드루이드 상급자",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
 	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "",
 
-	-- Step 18: The Binding
+	-- Step 19: The Binding
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {item:6626} Dogran's Pendant
 	["{npc:5875} stands in the {object:172960}. Use {item:6626} on the summoning circle there and defeat the succubus to bind her."] = "{npc:5875}은(는) {object:172960}에 있습니다. 그곳 소환진에서 {item:6626}을(를) 사용하고 서큐버스를 쓰러뜨려 속박하십시오.",
 
-	-- Step 19: Shenthul
+	-- Step 20: Shenthul
 	-- {quest:2478} Mission: Possible But Not Probable · {npc:3401} Shenthul · {object:172960} Cleft of Shadow
 	["If you did {quest:2478} with a group, {npc:3401} in the {object:172960} takes it now."] = "",
 	-- {npc:2391} Serge Hinott · {area:272} Tarren Mill
 	["{npc:2391} in {area:272} teaches Poisons: keep it"] = "{area:272}의 {npc:2391}이(가) 독 조제를 가르칩니다: 보관하세요",
 
-	-- Step 20: Zeppelin to Undercity
+	-- Step 21: Zeppelin to Undercity
 	-- {zone:1458} Undercity
-	["Zeppelin to {zone:1458}"] = "",
+	["Zeppelin to {zone:1458}"] = "{zone:1458}행 비행선",
 
-	-- Step 21: Brill
+	-- Step 22: Brill
 	-- {npc:246152} Shari Stilwell · {area:159} Brill
 	["{npc:246152} trains Paladins in {area:159}, a short walk north up the road from the zeppelin towers. Come back down the same road for Silverpine."] = "{npc:246152}은(는) 비행선 탑에서 길을 따라 북쪽으로 조금 걸어가면 나오는 {area:159}에서 성기사를 훈련시킵니다. 은빛소나무 숲으로 가려면 같은 길로 다시 내려오세요.",
 
-	-- Step 22: Strange Lockbox
-	-- {area:240} Dead Field · {object:177790} Strange Lockbox · {item:15882} Half Pendant of Aquatic Endurance · {area:228} Sepulcher
-	["From the zeppelin towers, run south into Silverpine and west past the {area:240} to the coast: the {object:177790} lies at the bottom of very deep water there, beside an air fissure where you can breathe. Watch your breath on the way down. It holds the {item:15882} for Trial of the Sea Lion. Then on to the {area:228}."] = "",
-	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox
-	["{item:15882}, from the {object:177790}"] = "",
+	-- Step 23: Morbin Lightbane
+	-- {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {object:36126} Royal Quarter · {npc:266484} Morbin Lightbane · {npc:10181} Lady Sylvanas Windrunner
+	["For your {area:153} run: the zeppelin lands beside the ruins. Walk into the {zone:1458} through them and down to the {object:36126}: {npc:266484} stands there, near {npc:10181}."] = "{area:153} 공략용: 비행선은 폐허 옆에 내립니다. 폐허를 지나 {zone:1458}(으)로 걸어 들어가 {object:36126}까지 내려가십시오. {npc:266484}은(는) 그곳 {npc:10181} 근처에 서 있습니다.",
 
-	-- Step 23: Sepulcher
-	-- {area:228} Sepulcher · {object:177790} Strange Lockbox · {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel
-	["Down the road through Silverpine to the {area:228}: from the zeppelin towers, south through Tirisfal; from the {object:177790}, south-east from the coast to the road. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "길을 따라 은빛소나무 숲을 지나 {area:228}(으)로 가세요. 비행선 탑에서 출발한다면 티리스팔을 지나 남쪽으로, {object:177790}에서 출발한다면 해안에서 남동쪽으로 길까지 가세요. {npc:2121}와(과) {npc:1937}은(는) 지하 묘지 입구 옆에 서 있습니다.",
+	-- Step 24: Ruins of Lordaeron
+	-- {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {item:268580} Intact Limbs · {npc:266484} Morbin Lightbane · {npc:250660} The Baron · {item:280438} Abominable Head · {npc:2055} Master Apothecary Faranell · {npc:256102} Crest of Lordaeron · {npc:7825} Oran Snakewrithe
+	["The {area:153} is a dungeon for a group of five, about levels 15 to 22, in the ruined city above the {zone:1458}: its portal is in the ruins you walked through.\nInside: every undead can drop {item:268580} for {npc:266484}, so clear as you go. {npc:250660} can drop an {item:280438}, which starts a quest for {npc:2055}, and a {npc:256102} found inside starts one for {npc:7825}: both are in the {zone:1458}, on this route's next stop there."] = "{area:153}은(는) {zone:1458} 위 폐허가 된 도시에 있는 약 15~22레벨 5인 파티용 던전입니다. 차원문은 지나온 폐허 안에 있습니다.\n내부: 모든 언데드가 {npc:266484}에게 줄 {item:268580}을(를) 떨어뜨릴 수 있으니 처치하며 나아가십시오. {npc:250660}은(는) {npc:2055}에게 가는 퀘스트를 시작하는 {item:280438}을(를) 떨어뜨릴 수 있고, 내부에서 찾은 {npc:256102}은(는) {npc:7825}에게 가는 퀘스트를 시작합니다. 둘 다 {zone:1458}에 있으며, 이 경로가 다음에 그곳에 들를 때 처리합니다.",
+	-- {quest:92421} Light's Justice · {item:268580} Intact Limbs
+	["{quest:92421}: the {item:268580}, inside"] = "{quest:92421}: {item:268580}, 내부",
+
+	-- Step 25: The Sepulcher
+	-- {zone:1421} Silverpine Forest · {area:228} The Sepulcher
+	["Out of the ruins, take the road south through Tirisfal into {zone:1421} and on to the {area:228}."] = "폐허에서 나와 길을 따라 남쪽으로 티리스팔을 지나 {zone:1421}에 들어간 뒤 {area:228}까지 가십시오.",
+
+	-- Step 26: Strange Lockbox
+	-- {area:240} Dead Field · {object:177844} Strange Lockbox · {item:15882} Half Pendant of Aquatic Endurance · {area:228} The Sepulcher
+	["From the zeppelin towers, run south into Silverpine and west past the {area:240} to the coast: the {object:177844} lies at the bottom of very deep water there, beside an air fissure where you can breathe. Watch your breath on the way down. It holds the {item:15882} for Trial of the Sea Lion. Then on to the {area:228}."] = "",
+	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177844} Strange Lockbox
+	["{item:15882}, from the {object:177844}"] = "{item:15882}: {object:177844}에서",
+
+	-- Step 27: The Sepulcher
+	-- {area:228} The Sepulcher · {object:177844} Strange Lockbox · {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel
+	["Down the road through Silverpine to the {area:228}: from the zeppelin towers, south through Tirisfal; from the {object:177844}, south-east from the coast to the road. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "길을 따라 은빛소나무 숲을 지나 {area:228}(으)로 가세요. 비행선 탑에서 출발한다면 티리스팔을 지나 남쪽으로, {object:177844}에서 출발한다면 해안에서 남동쪽으로 길까지 가세요. {npc:2121}와(과) {npc:1937}은(는) 지하 묘지 입구 옆에 서 있습니다.",
 	-- {npc:1937} Apothecary Renferrel · {area:272} Tarren Mill
 	["{npc:1937}: Lydon in {area:272}, next guide"] = "",
 	-- {npc:2121} Shadow Priest Allister · {quest:516} Beren's Peril · {area:233} Ambermill
 	["{npc:2121}: {quest:516}, south-east of {area:233}"] = "",
+	-- {npc:2121} Shadow Priest Allister · {area:233} Ambermill
+	["{npc:2121}: {area:233}'s pendants, on the same roads"] = "{npc:2121}: {area:233}의 펜던트, 같은 길에서",
 
-	-- Step 24: Deathguard Podrig
+	-- Step 28: Deathguard Podrig
 	-- {npc:6389} Deathguard Podrig · {item:16210} Gordon's Crate · {zone:1458} Undercity
 	["{npc:6389} stands just west of the crypt entrance: hand him {item:16210} from the {zone:1458}."] = "{npc:6389}은(는) 지하 묘지 입구 바로 서쪽에 서 있습니다. {zone:1458}에서 가져온 {item:16210}을(를) 그에게 건네주세요.",
 
-	-- Step 25: Silverpine Forest: kill these as you meet them
+	-- Step 29: High Executor Hadrec
+	-- {area:236} Shadowfang Keep · {area:287} Hillsbrad · {npc:1952} High Executor Hadrec
+	["For your {area:236} run, at the end of the {area:287} guide: {npc:1952} stands below ground in the crypt."] = "{area:236} 공략용({area:287} 가이드 마지막): {npc:1952}은(는) 지하 묘지 안 지하에 서 있습니다.",
+	-- {npc:1952} High Executor Hadrec
+	["{npc:1952}, below ground"] = "{npc:1952}, 지하",
+
+	-- Step 30: Silverpine Forest: kill these as you meet them
 	-- {zone:1421} Silverpine Forest
 	["{zone:1421}: kill these as you meet them"] = "",
 	-- {area:233} Ambermill · {quest:516} Beren's Peril
-	-- plural, as words: Dalaran Watchers = {npc:1888} Dalaran Watcher · Ravenclaw Drudgers = {npc:1974} Ravenclaw Drudger
-	["South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around {area:233}, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "",
+	-- plural, as words: Dalaran Watchers = {npc:1888} Dalaran Watcher · Ravenclaw Drudgers = {npc:1974} Ravenclaw Drudger · High Order Mages = {npc:254294} High Order Mage
+	["South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around {area:233}, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest. Careful: High Order Mages (30) walk the same roads among the Watchers and Wizards: leave them."] = "",
+	["Below ground"] = "지하",
 
-	-- Step 26: Beren's Peril
+	-- Step 31: Ambermill
+	-- {area:233} Ambermill · {npc:2540} Dalaran Serpent · {npc:2120} Archmage Ataeric
+	["On the roads around {area:233}, step into the town's outskirts: Protectors guard them and Mages the town; both drop pendants. Careful: each Mage (15) fights with a {npc:2540} (15) beside it: pull one Mage at a time from the outskirts. Stay out of the middle, where {npc:2120} (22) stands."] = "{area:233} 주변 길에서 마을 외곽으로 들어가세요. 외곽은 수호병이, 마을은 마법사가 지키며 둘 다 펜던트를 떨어뜨립니다. 주의: 마법사(15)는 각각 {npc:2540}(15)과(와) 함께 싸우니, 외곽에서 마법사를 하나씩 끌어오세요. {npc:2120}(22)이(가) 있는 마을 한가운데는 피하세요.",
+
+	-- Step 32: Beren's Peril
 	-- {quest:516} Beren's Peril · {npc:1973} Ravenclaw Guardian · {item:271343} Note Scrap · {object:645153} Offering Stone
 	["The Ravenclaw undead haunt the ruins of {quest:516}, east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}.\nAn elite spirit (20) often stands beside the {object:645153}: pull the Ravenclaws away from the stone before you fight them."] = "",
 	-- {item:271343} Note Scrap · {npc:1973} Ravenclaw Guardian
@@ -147,21 +180,21 @@ return {
 	["the {object:645153} offers {quest:95883} once the {item:271343} is in; below ground"] = "",
 	-- {item:271350} Tortured Soul
 	-- plural, as words: Tortured Souls = {item:271350} Tortured Soul
-	["{item:271350}, from the Tortured Souls among the ruins; below ground"] = "",
+	["{item:271350}, from the Tortured Souls among the ruins; below ground"] = "폐허의 괴로워하는 영혼에게서 얻는 {item:271350}, 지하",
 
-	-- Step 27: The Offering of Blood
+	-- Step 33: The Offering of Blood
 	-- {item:210713} Tortured Soul · {object:645153} Offering Stone · {quest:95883} The Tortured Soul
-	["The quest hands you a {item:210713}: use it beside the {object:645153} to offer your blood, then kill the elite spirit that answers.\n{quest:95883} is elite: grouping up is advised."] = "",
+	["The quest hands you a {item:210713}: use it beside the {object:645153} to offer your blood, then kill the elite spirit that answers.\n{quest:95883} is elite: grouping up is advised."] = "퀘스트에서 {item:210713}을(를) 줍니다. {object:645153} 옆에서 사용해 피를 바친 뒤, 응답하는 정예 영혼을 처치하세요.\n{quest:95883}은(는) 정예 퀘스트입니다. 파티를 권장합니다.",
 	-- {item:210713} Tortured Soul · {object:645153} Offering Stone
 	["{item:210713}, beside the {object:645153}: summons the elite spirit"] = "",
 
-	-- Step 28: Into Hillsbrad
+	-- Step 34: Into Hillsbrad
 	-- {area:287} Hillsbrad
 	["Into {area:287}"] = "",
 	-- {area:285} Southpoint Tower
 	["The road east to {area:285}"] = "",
 
-	-- Step 29: Southpoint Tower
+	-- Step 35: Southpoint Tower
 	-- {area:287} Hillsbrad · {npc:2214} Deathstalker Lesh · {area:285} Southpoint Tower
 	["Back on the road south. Where it turns east into {area:287}, {npc:2214} waits at {area:285}."] = "다시 길을 따라 남쪽으로 가세요. 길이 동쪽 {area:287}(으)로 꺾이는 곳의 {area:285}에서 {npc:2214}이(가) 기다립니다.",
 	-- {npc:2214} Deathstalker Lesh · {area:272} Tarren Mill
@@ -177,30 +210,29 @@ return {
 	-- ["From the {area:380} follow the road north. {npc:8582} stands on the watch tower of the {area:1703} where the road enters {zone:1440}. Open the {item:16783} he gives you."] = "{area:380}에서 길을 따라 북쪽으로 가세요. {npc:8582}은(는) 길이 {zone:1440}(으)로 들어가는 {area:1703}의 감시탑 위에 서 있습니다. 그가 주는 {item:16783}을(를) 열어 보세요.",
 	-- ["Gaea Dirt Mounds"] = "가이아 흙더미",
 	-- ["Gaea Seeds"] = "가이아 씨앗",
+	-- ["Head west along the main road across {zone:1440}, past {area:415} (Alliance: keep to the road), to the coast. {area:2897} is on the {area:414} in the north-west: {npc:12719}, {npc:12721} and {npc:12757} stand around it, the {npc:12863} beside the flight master. Its other quests are for the next visit, at 26."] = "큰길을 따라 서쪽으로 {zone:1440}을(를) 가로질러 {area:415}(얼라이언스: 길에서 벗어나지 마세요)을(를) 지나 해안까지 가세요. {area:2897}은(는) 북서쪽 {area:414}에 있습니다. {npc:12719}, {npc:12721}, {npc:12757}이(가) 그 주변에, {npc:12863}이(가) 비행 조련사 옆에 서 있습니다. 그곳의 다른 퀘스트는 26레벨에 다음으로 올 때 처리합니다.",
 	-- ["If you already know the {area:272} flight path, fly there and skip to {area:272}. Otherwise fly from the {zone:1458} to the {area:228} and ride south down the road past Pyrewood. The Ravenclaw undead haunt the ruins of {area:231} east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}."] = "이미 {area:272} 비행 경로를 안다면 그곳으로 날아가 {area:272} 단계로 건너뛰세요. 아니라면 {zone:1458}에서 {area:228}(으)로 날아가 길을 따라 남쪽으로 장작나무 마을을 지나가세요. 까마귀발톱 언데드는 숲 남동쪽, 길 동쪽의 {area:231} 폐허를 떠돕니다. {npc:1973}이(가) {object:645153}(으)로 이어지는 {item:271343}을(를) 떨어뜨립니다.",
 	-- ["Keep north on the road. The {npc:12862} waits at the Warsong lumber camp, south of Splintertree."] = "길을 따라 계속 북쪽으로 가세요. {npc:12862}은(는) 토막나무 주둔지 남쪽의 전쟁노래부족 벌목기지에서 기다립니다.",
-	-- ["On the ride west, {npc:267214} is stuck in a ravine south of the main road, south-east of {area:415}. Shadowhorn Stags and Ashenvale Bears roam the woods all around it."] = "서쪽으로 가는 길에, {npc:267214}이(가) {area:415} 남동쪽, 큰길 남쪽의 협곡에 갇혀 있습니다. 검은뿔순록과 잿빛골짜기곰이 주변 숲을 돌아다닙니다.",
+	-- ["Out of the inn to the {area:431} flight master and fly to {area:1637}."] = "여관에서 나와 {area:431}의 비행 조련사에게 가서 {area:1637}(으)로 날아가세요.",
 	-- ["Ride back down the {area:1076} to {area:2539}."] = "{area:1076}을(를) 따라 {area:2539}(으)로 돌아가세요.",
 	-- ["Ride east to the {area:380} and fly to {zone:1454}. Take the zeppelin from the towers outside {zone:1454} to {zone:1420}; the {area:1497} lies below the {area:153}. The bat handler is in the {object:36078}."] = "동쪽의 {area:380}(으)로 가서 {zone:1454}(으)로 날아가세요. {zone:1454} 밖의 탑에서 {zone:1420}행 비행선을 타세요. {area:1497}은(는) {area:153} 아래에 있습니다. 박쥐 조련사는 {object:36078}에 있습니다.",
 	-- ["Ride south to the {area:380}, then west along the road out of the {zone:1413} into Stonetalon. The troll village of {area:2539} sits at the entrance of the canyon."] = "남쪽의 {area:380}(으)로 간 뒤, 길을 따라 서쪽으로 {zone:1413}을(를) 벗어나 돌발톱 산맥으로 들어가세요. 트롤 마을 {area:2539}은(는) 협곡 입구에 있습니다.",
-	-- ["Ride west along the main road across {zone:1440}, past {area:415} (Alliance: keep to the road), to the coast. {area:2897} is on the {area:414} in the north-west. Its other quests are for the next visit, at 27."] = "큰길을 따라 서쪽으로 {zone:1440}을(를) 가로질러 {area:415}(얼라이언스: 길에서 벗어나지 마세요)을(를) 지나 해안까지 가세요. {area:2897}은(는) 북서쪽 {area:414}에 있습니다. 그곳의 다른 퀘스트는 27레벨에 다음으로 올 때 처리합니다.",
 	-- ["South-west of Sun Rock lies the burned {area:465}. Plant the Gaea Seeds in the dirt mounds on the valley floor; the fire elementals drop {item:16312}. Bloodfury Harpies and Ambushers nest on the north side, Slayers and Roguefeathers to the south."] = "해바위 야영지 남서쪽에 불타 버린 {area:465}이(가) 있습니다. 골짜기 바닥의 흙더미에 가이아 씨앗을 심으세요. 불의 정령은 {item:16312}을(를) 떨어뜨립니다. 혈폭풍하피와 복병은 북쪽에, 암살자와 약탈자는 남쪽에 둥지를 틀고 있습니다.",
 	-- ["Speak with {npc:10181}, in the {object:36126}: {quest:93739}"] = "{object:36126}의 {npc:10181}와(과) 대화하세요: {quest:93739}",
 	-- ["Sputtervalve in {area:392}: the next guide passes there"] = "{area:392}의 스퍼터밸브: 다음 가이드에서 그곳을 지납니다",
 	-- ["The Gaea Seeds lie in the grass around the southern shore of {area:464}, north of Sun Rock."] = "가이아 씨앗은 해바위 야영지 북쪽, {area:464} 남쪽 기슭 주변의 풀밭에 있습니다.",
 	-- ["The road climbs north as the {area:1076}. {quest:1483} has a hut where the road forks east to {area:461}."] = "길은 {area:1076}(이)라는 이름으로 북쪽으로 올라갑니다. {quest:1483}의 오두막은 길이 동쪽 {area:461}(으)로 갈라지는 곳에 있습니다.",
 	-- ["The {npc:12864} patrols the road east of {area:428} toward the {area:430}."] = "{npc:12864}은(는) {area:428} 동쪽에서 {area:430} 쪽으로 길을 순찰합니다.",
+	-- ["Thistlefur Hold"] = "엉겅퀴일족 소굴",
 	-- ["To the {area:1497}"] = "{area:1497}(으)로",
-	-- ["Use the {npc:212753} at the {object:645153} for a willing sacrifice and kill the {npc:212753} that answers. {quest:95883} is elite: grouping up is advised."] = "{object:645153}에서 {npc:212753}을(를) 사용해 자발적인 제물로 바치고, 응답하는 {npc:212753}을(를) 처치하세요. {quest:95883}은(는) 정예 퀘스트입니다. 파티를 권장합니다.",
 	-- ["{area:431} is just north up the road."] = "{area:431}은(는) 길을 따라 바로 북쪽에 있습니다.",
-	-- ["{item:271350}, from the Tortured Souls among the ruins"] = "폐허의 괴로워하는 영혼에게서 얻는 {item:271350}",
 	-- ["{item:277936}, from any Bloodfury harpy"] = "혈폭풍하피 누구에게서나 얻는 {item:277936}",
 	-- ["{npc:11860}: Glittering Sunstones from the Bloodfury harpies"] = "{npc:11860}: 혈폭풍하피에게서 얻는 {item:277936}",
 	-- ["{npc:11860}: Grish is at the {area:1718}, in the next guide"] = "{npc:11860}: 그리쉬는 다음 가이드에서 {area:1718}에 있습니다",
 	-- ["{npc:11861}, beside {npc:11862}"] = "{npc:11862} 옆의 {npc:11861}",
 	-- ["{npc:11862}, up on the ledge"] = "바위 턱 위의 {npc:11862}",
 	-- ["{npc:12696} stands at {area:428}, the Warsong camp just north-east of Splintertree, beside the hunt board."] = "{npc:12696}은(는) 토막나무 주둔지 바로 북동쪽의 전쟁노래부족 야영지인 {area:428}에서 사냥 게시판 옆에 서 있습니다.",
-	-- ["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 27."] = "{npc:12696}의 사냥 대상(우르산고우스, 샤둠브라, 뾰족발톱)은 27레벨에 다음으로 {zone:1440}에 올 때 처리합니다.",
+	-- ["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 26."] = "{npc:12696}의 사냥 대상(우르산고우스, 샤둠브라, 뾰족발톱)은 26레벨에 다음으로 {zone:1440}에 올 때 처리합니다.",
 	-- ["{npc:12736} at Zoram'gar, at 27"] = "27레벨에 조람가르의 {npc:12736}",
 	-- ["{npc:12867} stands at the lumber camp. The night elf Outrunners stalk the woods south-east of it; they stealth, so watch for them."] = "{npc:12867}은(는) 벌목기지에 서 있습니다. 나이트 엘프 정찰병은 그 남동쪽 숲에 숨어 있습니다. 은신하므로 주의하세요.",
 	-- ["{npc:4198}'s next quest, Ordanus, is on the Alliance side of {zone:1440}. Skip it."] = "{npc:4198}의 다음 퀘스트인 오르다누스는 {zone:1440}의 얼라이언스 지역에 있습니다. 건너뛰세요.",

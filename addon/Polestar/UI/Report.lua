@@ -254,6 +254,10 @@ local function arrowLine()
 	return cut(line)
 end
 
+-- Where the player is, and the height of the floor Polestar takes them to stand on (Nav/Walk.lua Walk.Floor: the
+-- client gives no height on Forever; the floor Walk follows while the arrow walks), "z 16": a walk searched from
+-- another floor than the player's goes round (#2215: beside an NPC on his upper floor, the route out of the building
+-- and back up).
 local function playerLine()
 	local C = ns.Compat
 	local zone, sub
@@ -261,7 +265,13 @@ local function playerLine()
 	local place = tostring(zone or "?") .. ((sub and sub ~= "") and (", " .. sub) or "")
 	local map, x, y
 	if C and C.GetPlayerMapPosition then map, x, y = C.GetPlayerMapPosition() end
-	return cut((L["Where: %s"]):format(place) .. SEP .. (where(map, x, y) or L["no position"]))
+	local line = (L["Where: %s"]):format(place) .. SEP .. (where(map, x, y) or L["no position"])
+	local W = ns.Nav and ns.Nav.walk
+	local pc, px, py
+	if W and W.Floor and C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
+	local z = pc and W.Floor(pc, px, py)
+	if type(z) == "number" then line = line .. SEP .. ("z %d"):format(floor(z + 0.5)) end
+	return cut(line)
 end
 
 -- How the arrow is set to route, so a pathing report says which router and
@@ -284,6 +294,26 @@ local function routesLine()
 	return cut((L["Routes: %s"]):format(table.concat(parts, SEP)))
 end
 
+-- The travel plan from the current leg on (Nav.GetRoute): each leg's caption
+-- and time, "(maybe)" on a flight to a flight master the character may not
+-- have (#1795: the first flight map there settles it); no line without a plan
+-- (the arrow leads straight). The words stay English like Routes; after
+-- Routes, so Arrow, Where and Routes keep their places for the bug bot.
+-- Longer than the other lines (LINE_MAX): a plan of several legs reads whole.
+local function travelLine()
+	local N = ns.Nav
+	local legs, ci
+	if N and N.GetRoute then legs, ci = N.GetRoute() end
+	if not legs then return nil end
+	local parts = {}
+	for i = ci or 1, #legs do
+		local leg = legs[i]
+		local s = floor((leg.seconds or 0) + 0.5)
+		parts[#parts + 1] = ("%s %d:%02d%s"):format(plain(leg.label or leg.kind or "?"), floor(s / 60), s % 60, leg.maybe and " (maybe)" or "")
+	end
+	return cut((L["Travel: %s"]):format(table.concat(parts, SEP)), 300)
+end
+
 -- The "While you're here" line (Engine.WhileHereState): the lines shown
 -- (each: what, quest, step, distance; "; " between them) or "none", the
 -- radius, a hand-in's seconds out of the way and how many candidates there
@@ -295,7 +325,9 @@ local function whileHereLine()
 	local st = E and E.WhileHereState and E.WhileHereState()
 	if not st then return nil end
 	local function step(s)
-		if type(s) == "number" and s < 1 then return "flight path" end -- the Engine's FLY_STEP: a "Learn the flight path" line
+		-- The Engine's VENDOR_STEP (a sell or repair reminder), GATHER_STEP (a gathering spot line) and FLY_STEP (a
+		-- "Learn the flight path" line).
+		if type(s) == "number" and s < 1 then return s == -4 and "sell or repair" or s == -3 and "gathering spot" or "flight path" end
 		return ("step %s (guide %d)"):format(tostring((E.StepNumber(s))), s)
 	end
 	if not st.on then return cut((L["While here: %s"]):format("off")) end
@@ -831,6 +863,7 @@ function R.Details()
 	add(d, "arrow", arrowLine())
 	add(d, "where", playerLine())
 	add(d, "routes", routesLine())
+	add(d, "travel", travelLine())
 	add(d, "whilehere", whileHereLine())
 	add(d, "packs", packsLine())
 	add(d, "install", installLine())
@@ -898,9 +931,9 @@ end
 -- after it first, then the ones before it), the looks line, the settings
 -- list (its last line first), the Packs line, the quest log, the errors but
 -- the newest; then, so even the longest description fits, the planned and
--- hidden lines, While here, Install, Routes, the Settings line and the
--- newest error. Never the versions, the character, the guide and the step,
--- the current goal, Arrow, Where or the Errors header: the lines the
+-- hidden lines, While here, Travel, Install, Routes, the Settings line and
+-- the newest error. Never the versions, the character, the guide and the
+-- step, the current goal, Arrow, Where or the Errors header: the lines the
 -- Discord bot finds the rest by and a fix starts from.
 local function cutOrder(details)
 	local kinds, order = details.kinds, {}
@@ -928,6 +961,7 @@ local function cutOrder(details)
 	all("error", 1, -2)
 	all("planned", -1, 1, -1)
 	all("whilehere")
+	all("travel")
 	all("install")
 	all("routes")
 	all("settings")
@@ -1147,10 +1181,10 @@ local function sizeDesc()
 	F.DescMeasure:SetText(((e:GetText() or ""):gsub("\n$", "\n ")))
 	local textH = F.DescMeasure:GetStringHeight()
 	local view = min(max(textH, DESC_LINES * LINE_H), DESC_LINES_MAX * LINE_H) + 16
-	local content = max(view, floor(textH + 16 + 0.5))
+	local content = max(view - 16, floor(textH + 0.5))
 	F.DescWell:SetHeight(view)
 	e:SetHeight(content)
-	W.SetScrollContent(F.DescScroll, content, view)
+	W.SetScrollContent(F.DescScroll, content, view - 16)
 end
 
 local function layout()
@@ -1312,9 +1346,7 @@ local function buildMark()
 	M:SetClampedToScreen(true)
 	M:EnableMouse(true)
 	M:SetMovable(true)
-	M:RegisterForDrag("LeftButton")
-	M:SetScript("OnDragStart", M.StartMoving)
-	M:SetScript("OnDragStop", M.StopMovingOrSizing)
+	ns.DragWindow(M, M)
 	M:SetWidth(MARK_W)
 	M:SetPoint("TOP", UIParent, "TOP", 0, -120)
 	M:Hide()
@@ -1356,7 +1388,10 @@ local function textArea()
 	Theme.Skin(well, "editbox")
 	F.DescWell = well
 	local sf = W.Scroll(well)
-	sf:SetAllPoints(well)
+	-- Vertical text insets can make a multiline edit box relayout every
+	-- frame and lose its caret (#1905). Keep that padding outside the box.
+	sf:SetPoint("TOPLEFT", well, "TOPLEFT", 0, -8)
+	sf:SetPoint("BOTTOMRIGHT", well, "BOTTOMRIGHT", 0, 8)
 	F.DescScroll = sf
 	-- The box is the view's scroll child, as the report box (W.ScrollChild);
 	-- a click anywhere on the well puts the cursor in it.
@@ -1369,8 +1404,10 @@ local function textArea()
 	Theme.Font(e, "label")
 	W.Color(e, "text")
 	e:SetWidth(BOX_W)
-	e:SetHeight(DESC_LINES * LINE_H + 16)
-	e:SetTextInsets(10, 10, 8, 8)
+	e:SetHeight(DESC_LINES * LINE_H)
+	e:SetTextInsets(10, 10, 0, 0)
+	e:EnableMouseWheel(true)
+	e:SetScript("OnMouseWheel", function(_, delta) sf:GetScript("OnMouseWheel")(sf, delta) end)
 	-- The text in the box's font at its inner width: what the well's height
 	-- is measured on. Hidden, never alpha 0 (F.Measure, #1753).
 	F.DescMeasure = W.Text(F, "label", "text")
@@ -1380,7 +1417,7 @@ local function textArea()
 	F.DescMeasure:SetNonSpaceWrap(true)
 	F.DescMeasure:Hide()
 	e.Placeholder = W.Text(e, "label", "textMuted")
-	e.Placeholder:SetPoint("TOPLEFT", e, "TOPLEFT", 10, -8)
+	e.Placeholder:SetPoint("TOPLEFT", e, "TOPLEFT", 10, 0)
 	e.Placeholder:SetWidth(BOX_W - 20)
 	e.Placeholder:SetJustifyH("LEFT")
 	e.Placeholder:SetWordWrap(true)
@@ -1390,9 +1427,21 @@ local function textArea()
 	e:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
 	-- The line being typed stays in view: y is the cursor's offset down
 	-- from the box's top, h its height.
-	e:SetScript("OnCursorChanged", function(_, _, y, _, h)
-		local view, at = well:GetHeight(), sf:GetVerticalScroll()
-		local top, bottom = -(y or 0), -(y or 0) + (h or LINE_H) + 8
+	local cursorX, cursorY, cursorH, cursorText
+	e:SetScript("OnCursorChanged", function(self, x, y, _, h)
+		-- Layout can repeat this event without moving the cursor. Following
+		-- those notifications would undo the player's wheel or thumb scroll.
+		-- An edit can keep the same coordinates, with its text notification
+		-- before or after this one: compare the text here as well.
+		local text = self:GetText()
+		if x == cursorX and y == cursorY and h == cursorH and text == cursorText then return end
+		local changed = text ~= cursorText
+		cursorX, cursorY, cursorH, cursorText = x, y, h, text
+		-- A cursor event can arrive before OnTextChanged sizes a new line.
+		-- Cache first so a repeated notification during resizing is ignored.
+		if changed then sizeDesc() end
+		local view, at = sf.psView or sf:GetHeight(), sf:GetVerticalScroll()
+		local top, bottom = -(y or 0), -(y or 0) + (h or LINE_H)
 		if top < at then
 			W.ScrollTo(sf, top)
 		elseif bottom > at + view then
@@ -1423,10 +1472,7 @@ local function build()
 	head:SetPoint("TOPLEFT", F, "TOPLEFT", 1, -1)
 	head:SetPoint("TOPRIGHT", F, "TOPRIGHT", -1, -1)
 	head:SetHeight(HEAD_H)
-	head:EnableMouse(true)
-	head:RegisterForDrag("LeftButton")
-	head:SetScript("OnDragStart", function() F:StartMoving() end)
-	head:SetScript("OnDragStop", function() F:StopMovingOrSizing() end)
+	ns.DragWindow(head, F)
 	F.Band = Theme.Band(head, "BACKGROUND", -5)
 	F.Band:SetAllPoints(head)
 	F.Band:SetTexCoord(Theme.BandCoords(WIDTH - 2, HEAD_H))

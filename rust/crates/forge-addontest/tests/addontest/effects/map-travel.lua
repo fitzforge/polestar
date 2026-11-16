@@ -95,6 +95,10 @@ return {
 			Each = function(kind, fn) for id, o in pairs(objects) do fn(id, o.name) end end,
 			Object = function(id) return objects[id] end,
 		}
+		-- In as the game has them before the maps draw: the Codex's arrival (CODEX_LOADED) and the flight paths known
+		-- (the taxi map's events in the game) redraw the services and the travel pins.
+		Polestar.Fire("CODEX_LOADED")
+		Polestar.Maps.RefreshTravelPins()
 	end,
 	probes = {
 		["maps.taxiPins"] = function() return drawn("maps.taxi") end,

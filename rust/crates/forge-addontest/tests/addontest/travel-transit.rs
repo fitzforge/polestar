@@ -34,12 +34,14 @@ local function leg(kind)
 end
 "#;
 
+// The character has opened a flight map on both of the travel world's continents (flags.taxiSeen): a flight master
+// Polestar doesn't know there is one it lacks (#1795's flights to ones it may have are in travel.rs).
 fn run(script: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_nav.lua"],
 		addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Nav/Nav.xml"])],
 		login: true,
-		script: format!("{PRELUDE}\nnav.faction = \"Alliance\"\nnav.useTravelWorld()\n{script}"),
+		script: format!("{PRELUDE}\nnav.faction = \"Alliance\"\nPolestar.CharState().flags.taxiSeen = {{ [0] = true, [1] = true }}\nnav.useTravelWorld()\n{script}"),
 		..Default::default()
 	})
 	.remove(0)
@@ -71,6 +73,107 @@ fn a_ride_waits_as_the_timetable_says_from_when_the_player_reaches_the_dock_the_
 	assert_eq!(out["seen"], json!(["boat", "boat-test", true, "b"]), "asked for the time the player gets to the pier, boarding at b");
 	assert_eq!(out["fields"], json!(["boat-test", "b"]));
 	assert_eq!(out["label"], "Take the boat to Testshire Docks\nNext boat in 1:20 (b)");
+}
+
+// A Shaman's Astral Recall (Nav/Transit.lua's teleports with `bind`: it lands where the Hearthstone does) is a second
+// Hearthstone (players asked for it on Discord, 2026-11-13). On a 12-minute haul to beside the inn: with the Hearthstone
+// on cooldown, "Cast Astral Recall" by the Hearthstone's rules (its own cooldown and cast, the 2 minutes it must save);
+// with both ready, the one whose full cooldown the client says is shorter is spent (Astral Recall's 15 minutes against
+// the stone's hour; the stone when the client says Astral Recall's is longer, or tells none); both cooling down long,
+// the boat; without the spell, the Hearthstone as before.
+#[test]
+fn astral_recall_is_a_second_hearthstone_cast_while_the_stone_waits_and_the_shorter_cooldown_is_spent_when_both_are_ready() {
+	let out = run(r#"
+		local r = {}
+		local recall = { spell = 556, name = "Astral Recall", cast = 10, ready = 0, bind = true, length = 900 }
+		local shaman = false
+		Polestar.Transit = { Now = function() return 0 end, Teleports = function() return shaman and { recall } or {} end }
+		GetItemSpell = function(id) if id == 6948 then return "Hearthstone", 8690 end end
+		GetSpellBaseCooldown = function(id) if id == 8690 then return 3600000, 0 end end
+		nav.items[6948] = 1
+		nav.bind = "Testshire Inn"
+		nav.useTravelWorld(nil, 400)
+		nav.place(0, 0, 1)
+		stub.advance(10)
+		target(-520, -690, "Innkeeper quest")
+		r.none = route()
+		shaman = true
+		nav.hearthCooldown = { GetTime(), 3600 }
+		target(-520, -690, "Innkeeper quest")
+		r.stoneWaits = route()
+		r.spell = leg("teleport") and leg("teleport").spell or false
+		nav.hearthCooldown = nil
+		target(-520, -690, "Innkeeper quest")
+		r.both = route()
+		recall.length = 7200
+		target(-520, -690, "Innkeeper quest")
+		r.longer = route()
+		recall.length = nil
+		target(-520, -690, "Innkeeper quest")
+		r.untold = route()
+		recall.length, recall.ready = 900, 3000
+		nav.hearthCooldown = { GetTime(), 3600 }
+		target(-520, -690, "Innkeeper quest")
+		r.bothWait = route()
+		nav.items[6948] = nil
+		recall.ready = 0
+		target(-520, -690, "Innkeeper quest")
+		r.noStone = route()
+		emit(r)"#);
+	let hearth = json!(["hearth|Hearth to Testshire Inn: saves 10 min", "walk|Innkeeper quest"]);
+	let recall = json!(["teleport|Cast Astral Recall: saves 10 min", "walk|Innkeeper quest"]);
+	assert_eq!(out["none"], hearth, "no Astral Recall: the Hearthstone as before");
+	assert_eq!(out["stoneWaits"], recall, "the Hearthstone on cooldown: Astral Recall");
+	assert_eq!(out["spell"], 556, "the travel button casts it");
+	assert_eq!(out["both"], recall, "both ready: Astral Recall's shorter cooldown is spent");
+	assert_eq!(out["longer"], hearth, "the client says Astral Recall's is longer: the Hearthstone");
+	assert_eq!(out["untold"], hearth, "the client tells no length: the Hearthstone");
+	assert_eq!(out["bothWait"], json!(["walk|Walk to the boat", "boat|Take the boat to Testshire Docks", "walk|Innkeeper quest"]), "both cooling down long: the boat");
+	assert_eq!(out["noStone"], recall, "no Hearthstone in the bags: Astral Recall takes the player to the bind point all the same");
+}
+
+// Astral Recall is a Shaman's spell and never shows for another class: the planner takes it only from Nav/Transit.lua's
+// Teleports, which lists a spell only when the client's spell book has it (Compat.IsSpellKnown), never from the class.
+// With the real Transit and the travel data's Astral Recall, on the 12-minute haul to beside the inn with the Hearthstone
+// cooling down for an hour: a Warrior, the stub saying nothing about the spell (no spell book call at all), and a Shaman
+// who has not learned it yet (the spell book answers, not for Astral Recall), with the stone in the bags or not, take the
+// boat, never "Cast Astral Recall"; once the spell book has it, it is cast, so the spell book is what keeps it from the
+// others.
+#[test]
+fn astral_recall_is_never_planned_for_another_class_or_a_shaman_who_has_not_learned_it_only_once_the_spell_book_has_it() {
+	let out = run(r#"
+		local r = {}
+		local X = Polestar.Transit
+		local function state()
+			target(-520, -690, "Innkeeper quest")
+			local listed = {}
+			for _, t in ipairs(X.Teleports(X.Now())) do listed[#listed + 1] = t.name end
+			return { route(), table.concat(listed, ",") }
+		end
+		nav.items[6948] = 1
+		nav.bind = "Testshire Inn"
+		nav.useTravelWorld(nil, 400)
+		nav.place(0, 0, 1)
+		stub.advance(10)
+		nav.hearthCooldown = { GetTime(), 3600 }
+		Polestar.Compat.IsSpellKnown = nil
+		r.warrior = state()
+		nav.items[6948] = nil
+		r.warriorNoStone = state()
+		local book = {}
+		Polestar.Compat.IsSpellKnown = function(id) return book[id] == true end
+		r.shamanNoStone = state()
+		nav.items[6948] = 1
+		r.shaman = state()
+		book[556] = true
+		r.learned = state()
+		emit(r)"#);
+	let boat = json!([["walk|Walk to the boat", "boat|Take the boat to Testshire Docks", "walk|Innkeeper quest"], ""]);
+	assert_eq!(out["warrior"], boat, "a Warrior, the stub saying nothing about the spell: the boat, nothing listed");
+	assert_eq!(out["warriorNoStone"], boat, "no Hearthstone in the bags either: still the boat");
+	assert_eq!(out["shamanNoStone"], boat, "a Shaman who has not learned it, no Hearthstone in the bags: the boat");
+	assert_eq!(out["shaman"], boat, "a Shaman who has not learned it, the Hearthstone cooling down: the boat");
+	assert_eq!(out["learned"], json!([["teleport|Cast Astral Recall: saves 10 min", "walk|Innkeeper quest"], "Astral Recall"]), "learned: cast");
 }
 
 #[test]
@@ -521,45 +624,11 @@ fn t_2_3_no_flight_leg_lands_at_or_passes_through_an_unknown_flight_master_the_k
 		r.stops = stopsOf()
 		emit(r)"#);
 	// Middle Post unknown: never flown to or through (North -> Middle -> South); walked to,
-	// learnt there and flown from (#1174).
-	assert_eq!(out["unknownMiddle"], json!(["walk|Walk to the flight master", "fly|Fly to South Post", "walk|South"]));
+	// learnt there and flown from (#1174), the flight leg saying so.
+	assert_eq!(out["unknownMiddle"], json!(["walk|Walk to the flight master", "fly|Learn the flight path at Middle Post, then fly to South Post", "walk|South"]));
 	assert_eq!(out["unknownStops"], json!([2, 3]), "Middle Post unknown: no flight through it");
 	assert_eq!(out["known"], json!(["walk|Walk to the flight master", "fly|Fly to South Post", "walk|South"]));
 	assert_eq!(out["stops"], json!([1, 2, 3]));
-}
-
-// A flight path learnt while Polestar was not running: the world map's flight points (C_TaxiMap.GetTaxiNodesForMap,
-// isUndiscovered) make it known on the next loading screen, with no flight map opened (#1308: from Ironforge the
-// arrow walked to the Wetlands until the flight map there showed Menethil Harbor). A client that reads no node as
-// undiscovered, or gives no such field, is not trusted.
-#[test]
-fn a_flight_path_learnt_without_polestar_counts_from_the_world_map_on_a_loading_screen() {
-	let out = run(r#"
-		local r = {}
-		local nodes
-		C_TaxiMap.GetTaxiNodesForMap = function(mapID)
-			if mapID ~= 9000 then return {} end
-			return nodes
-		end
-		local function reload(list)
-			known()
-			nodes = list
-			stub.fire("PLAYER_ENTERING_WORLD")
-			target(0, -780, "Kobolds")
-			return route()
-		end
-		nav.place(0, 600)
-		r.none = reload({})
-		r.world = reload({ { nodeID = 1, isUndiscovered = false }, { nodeID = 2, isUndiscovered = false }, { nodeID = 3, isUndiscovered = true } })
-		r.saved = { Polestar.CharState().flags.taxi[1] == true, Polestar.CharState().flags.taxi[2] == true, Polestar.CharState().flags.taxi[3] == true }
-		r.allKnown = reload({ { nodeID = 1, isUndiscovered = false }, { nodeID = 2, isUndiscovered = false } })
-		r.noField = reload({ { nodeID = 1 }, { nodeID = 2 }, { nodeID = 3 } })
-		emit(r)"#);
-	assert_eq!(out["none"], json!(["walk|Kobolds"]), "East Hold unknown: walked");
-	assert_eq!(out["world"], json!(["walk|Walk to the flight master", "fly|Fly to East Hold", "walk|Kobolds"]));
-	assert_eq!(out["saved"], json!([true, true, false]), "only the discovered nodes, saved");
-	assert_eq!(out["allKnown"], json!(["walk|Kobolds"]), "no node read as undiscovered: not trusted");
-	assert_eq!(out["noField"], json!(["walk|Kobolds"]));
 }
 
 #[test]

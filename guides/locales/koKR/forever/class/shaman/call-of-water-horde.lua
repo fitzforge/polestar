@@ -14,11 +14,11 @@ return {
 
 	-- Step 1: Searn Firewarder
 	-- {npc:5892} Searn Firewarder · {object:172957} Valley of Wisdom · {npc:5901} Islen Waterseer · {zone:1413} Barrens · {area:362} Razor Hill
-	["At 20 {npc:5892} in the {object:172957} sends you to {npc:5901} in the {zone:1413}. (Swart in {area:362} gives the same letter: carry either.)"] = "",
+	["At 20 {npc:5892} in the {object:172957} sends you to {npc:5901} in the {zone:1413}. (Swart in {area:362} gives the same letter: carry either.)"] = "20레벨에 {object:172957}의 {npc:5892}이(가) {zone:1413}의 {npc:5901}에게 보냅니다. ({area:362}의 스와트도 같은 편지를 줍니다. 어느 쪽이든 가져가십시오.)",
 
 	-- Step 2: Xanis Flameweaver
 	-- {npc:5906} Xanis Flameweaver · {area:1640} Spirit Rise · {zone:1456} Thunder Bluff · {npc:5901} Islen Waterseer · {zone:1413} Barrens · {npc:3066} Narm Skychaser · {area:222} Bloodhoof Village
-	["At 20 {npc:5906}, a shaman trainer on {area:1640} in {zone:1456}, sends you to {npc:5901} in the {zone:1413}. ({npc:3066} in {area:222} gives the same letter: carry either.)"] = "",
+	["At 20 {npc:5906}, a shaman trainer on {area:1640} in {zone:1456}, sends you to {npc:5901} in the {zone:1413}. ({npc:3066} in {area:222} gives the same letter: carry either.)"] = "20레벨에 {zone:1456} {area:1640}의 주술사 상급자 {npc:5906}이(가) {zone:1413}의 {npc:5901}에게 보냅니다. ({area:222}의 {npc:3066}도 같은 편지를 줍니다. 어느 쪽이든 가져가십시오.)",
 
 	-- Step 3: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
@@ -107,8 +107,6 @@ return {
 	["{npc:5901}: {spell:5394} and your {item:5177}"] = "{npc:5901}: {spell:5394} 및 {item:5177}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 20 {npc:5892} in the {object:172957} sends you to {npc:5901} in the {zone:1413}."] = "20레벨에 {object:172957}의 {npc:5892}이(가) {zone:1413}의 {npc:5901}에게 보냅니다.",
-	-- ["At 20 {npc:5906}, a shaman trainer in {zone:1456}, sends you to {npc:5901} in the {zone:1413}."] = "20레벨에 {zone:1456}의 주술사 상급자 {npc:5906}이(가) {zone:1413}의 {npc:5901}에게 보냅니다.",
 	-- ["Fill the {item:7766} at the quilboar watering hole"] = "가시멧돼지 물웅덩이에서 {item:7766} 채우기",
 	-- ["Fill the {item:7767} at the fountain"] = "샘에서 {item:7767} 채우기",
 	-- ["Fill the {item:7768} at the {object:107045}"] = "{object:107045}에서 {item:7768} 채우기",

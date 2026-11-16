@@ -12,12 +12,12 @@ return {
 
 	-- Step 1: The Strange Orb
 	-- {object:409289} Strange Orb (no name in this language: may be words)
-	["The {object:409289}"] = "",
+	["The {object:409289}"] = "{object:409289}",
 	-- {area:444} Tower of Althalaxx · {zone:1439} Darkshore · {spell:686} Shadow Bolt · {object:409289} Strange Orb (no name in this language: may be words) · {item:209748} Althalaxx Orb · {object:409311} Spear of Mannoroth (no name in this language: may be words)
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic · Dark Strand Voidcallers = {npc:2337} Dark Strand Voidcaller
 	["Climb to the top of the {area:444} in northern {zone:1439}. The Dark Strand Fanatics around it are easy (level 16-17), but four Dark Strand Voidcallers (level 28-29) stand in the tower on the way to the orb: each calls a voidwalker and casts {spell:686} from range. At 22-25 bring a friend or two, pull them one at a time and step behind a wall so they have to come to you. Loot the {object:409289} at the top: it gives you the {item:209748}; right-click it to start the quest. Keep the orb in your bags until the {object:409311}: three later quests need it."] = "",
 	-- {object:409289} Strange Orb (no name in this language: may be words) · {area:444} Tower of Althalaxx · {item:209748} Althalaxx Orb
-	["{object:409289} atop the {area:444}: right-click the {item:209748} it gives"] = "",
+	["{object:409289} atop the {area:444}: right-click the {item:209748} it gives"] = "{object:409289} en lo alto de la {area:444}: haz clic derecho en el {item:209748} que da",
 
 	-- Step 2: Delgren the Purifier
 	-- {npc:3663} Delgren the Purifier · {area:413} Maestra's Post · {zone:1440} Ashenvale · {zone:1439} Darkshore · {zone:1453} Stormwind
@@ -25,7 +25,7 @@ return {
 
 	-- Step 3: Katherine the Pure
 	-- {npc:5492} Katherine the Pure
-	["{npc:5492} stands in the Cathedral of Light; she sends you to a warlock for a second opinion."] = "",
+	["{npc:5492} stands in the Cathedral of Light; she sends you to a warlock for a second opinion."] = "{npc:5492} está en la Catedral de la Luz; te envía con un brujo para una segunda opinión.",
 
 	-- Step 4: Ursula Deline
 	-- {npc:5495} Ursula Deline · {object:2101} Mage Quarter · {object:2164} Slaughtered Lamb · {item:209778} Summoner's Salt
@@ -56,7 +56,7 @@ return {
 
 	-- Step 9: Return to Delgren
 	-- {npc:3663} Delgren the Purifier · {area:413} Maestra's Post · {zone:1440} Ashenvale
-	["Back to {npc:3663} at {area:413} in western {zone:1440}, across the whole zone."] = "",
+	["Back to {npc:3663} at {area:413} in western {zone:1440}, across the whole zone."] = "Vuelve con {npc:3663}, en {area:413}, en el oeste de {zone:1440}, cruzando toda la zona.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A rare cloak at 30 from the old {spell:407778} story; for now only Alliance paladins can finish it."] = "Una capa rara a nivel 30 de la antigua historia de {spell:407778}; por ahora solo los paladines de la Alianza pueden terminarla.",
@@ -64,11 +64,7 @@ return {
 	-- ["Blackrock Summoners, Champions and Trackers camp in the north-west of Redridge; they drop the {item:209778}."] = "Los invocadores, campeones y rastreadores Roca Negra acampan en el noroeste de las Montañas Crestagrana; sueltan la {item:209778}.",
 	-- ["Climb to the top of the {area:444} in northern {zone:1439}. Loot the Strange Orb up there: it gives you the Althalaxx Orb, which starts the quest."] = "Sube a lo alto de la {area:444}, en el norte de {zone:1439}. Despoja el orbe extraño de arriba: te da el orbe de Althalaxx, que inicia la misión.",
 	-- ["Katherine sends you to the warlocks in the {object:2101}; {npc:5495} speaks for them."] = "Katherine te envía a los brujos de {object:2101}; {npc:5495} habla por ellos.",
-	-- ["Strange Orb atop the {area:444}: right-click the Althalaxx Orb it gives"] = "Orbe extraño en lo alto de la {area:444}: haz clic derecho en el orbe de Althalaxx que da",
-	-- ["The Strange Orb"] = "El orbe extraño",
 	-- ["The {object:409311} stands at the east end of {area:435}. Shatter the orb on it; the {object:409315} appears beside it."] = "{object:409311} está en el extremo este de {area:435}. Rompe el orbe que hay en ella; {object:409315} aparece a su lado.",
 	-- ["The {object:409311} stands at the east end of {area:435}. {spell:11170} the orb on it; the {object:409315} appears beside it."] = "{object:409311} está en el extremo este de {area:435}. Lanza {spell:11170} sobre el orbe que hay en ella; {object:409315} aparece a su lado.",
 	-- ["{area:435} is in south-east {zone:1440}. The Mannoroc Lashers, Searing Infernals, Felguards and Legion Hounds in it drop the Motes of Mannoroth."] = "{area:435} está en el sureste de {zone:1440}. Los Mannoroc Latiguez, infernales abrasadores, guardias malditos y canes de la Legión de allí sueltan las motas de Mannoroth.",
-	-- ["{npc:3663} stands at {area:413} in western {zone:1440}."] = "{npc:3663} está en {area:413}, en el oeste de {zone:1440}.",
-	-- ["{npc:5492} is in the Cathedral of Light."] = "{npc:5492} está en la Catedral de la Luz.",
 }

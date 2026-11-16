@@ -12,7 +12,7 @@
 //                                                comment lines and a `git commit -v` diff left out
 //   node tools/public-text.js --pre-push         what a push publishes (tools/hooks/pre-push; the refs on stdin
 //                                                as git gives them): each branch or tag name and the message
-//                                                of every commit the remote does not have yet
+//                                                of every commit not on origin yet
 //   node tools/public-text.js --pr [--commits FILE]
 //                                                a pull request: PR_TITLE, PR_BODY and PR_BRANCH from the
 //                                                environment, and each commit message in FILE (JSON lines
@@ -36,9 +36,11 @@ function git(args) {
 
 // What a push publishes, from the pre-push hook's stdin (a line per ref:
 // "<local ref> <local sha> <remote ref> <remote sha>"): each branch or tag
-// name, and the message of each commit the remote does not have yet (all
-// those no remote-tracking ref has, for a new branch or a remote tip this
-// clone never fetched). A deletion publishes nothing.
+// name, and the message of each commit that is not public yet: none of
+// origin's remote-tracking refs (refs/remotes/origin/*) has it, nor the
+// remote ref's current tip. A rebase or merge that brings in commits already
+// on origin (a contributor's, another branch's) doesn't check them again: a
+// pushed message can't be reworded anyway. A deletion publishes nothing.
 function pushTexts(input) {
 	const texts = [];
 	for (const line of input.split('\n')) {
@@ -47,7 +49,7 @@ function pushTexts(input) {
 		const name = remoteRef.replace(/^refs\/(heads|tags)\//, '');
 		texts.push({ what: remoteRef.startsWith('refs/tags/') ? 'Tag name' : 'Branch name', text: name });
 		const known = remoteSha && !ZERO.test(remoteSha) && spawnSync('git', ['cat-file', '-e', `${remoteSha}^{commit}`]).status === 0;
-		const range = known ? [`${remoteSha}..${localSha}`] : [localSha, '--not', '--remotes'];
+		const range = [localSha, '--not', '--remotes=origin', ...(known ? [remoteSha] : [])];
 		for (const rec of git(['log', '--format=%H%x00%B%x01', ...range]).split('\x01')) {
 			const [sha, message] = rec.replace(/^\n/, '').split('\0');
 			if (sha) texts.push({ what: `Commit ${sha.slice(0, 12)} message`, text: message });

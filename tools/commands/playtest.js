@@ -61,6 +61,7 @@ options:
   --format text|json    json: one document with the counts and every finding
   --kb <file>           the knowledge base for R5 (default
                         data/local/kb/forever-kb.sqlite when present)
+                        an explicitly named file must exist
   --filter <text>       play only the guides whose file or id contains it
   --class <c>           play only this class (e.g. Warrior), in every guide
   --group do|skip       the answer at every group quest (when group): skip

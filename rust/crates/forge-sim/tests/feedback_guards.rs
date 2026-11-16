@@ -318,24 +318,46 @@ fn kill_work_waits_for_mobs_within_three_levels() {
 #[test]
 fn a_quest_with_no_fight_is_taken_without_grinding_up_to_it() {
 	// G6: The Green Hills of Stranglethorn (pages put together, no kill of its own) taken at 33 for
-	// its level 40: no grind to quest level - 5 (dangerGap) first; a kill quest still grinds.
+	// its level 40: no grind to quest level - 5 (dangerGap) first. A kill quest is handed over at once
+	// too, as the game gives a quest at its minimum level (the 0.4.0 audit); its kills grind first.
 	let o = common::orc();
 	let m = o.model(&[]);
 	let run = &m.run;
-	let fights = |q: usize| (run.q_task0[q]..run.q_task1[q]).any(|t| (run.task_w0[t as usize]..run.task_w1[t as usize]).any(|w| matches!(run.w_kind[w as usize], W_KILL | forge_sim::run::W_ESCORT)));
+	let kill_task =
+		|q: usize| (run.q_task0[q]..run.q_task1[q]).find(|&t| (run.task_w0[t as usize]..run.task_w1[t as usize]).any(|w| matches!(run.w_kind[w as usize], W_KILL | forge_sim::run::W_ESCORT)));
 	let pick = |f: bool| {
-		(0..run.n_quests()).find(|&q| run.q_level[q] >= 10 && run.q_pre[q].is_empty() && run.q_all[q].is_empty() && run.q_min_level[q] <= run.q_level[q] - 7 && fights(q) == f).expect("a quest")
+		(0..run.n_quests())
+			.find(|&q| {
+				run.q_level[q] >= 10
+					&& run.q_pre[q].is_empty()
+					&& run.q_all[q].is_empty()
+					&& run.q_min_level[q] <= run.q_level[q] - 7
+					&& run.q_accept[q] < 0
+					&& run.q_task1[q] > run.q_task0[q]
+					&& kill_task(q).is_some() == f
+			})
+			.expect("a quest")
 	};
-	// Grind seconds at the accept, taken seven levels under (the accept window's edge).
-	let grind = |q: usize| -> f64 {
-		let steps = [Step::grind((run.q_level[q] - 7) as u32, 0), Step { kind: K_ACCEPT, q: q as u32, task: run.q_accept[q], pt: run.q_giver[q] }];
+	// Grind seconds at the accept, taken seven levels under (the accept window's edge), and at its first
+	// task after it (a kill quest's kills).
+	let grind = |q: usize| -> (f64, f64) {
+		let t = kill_task(q).unwrap_or(run.q_task0[q]);
+		let steps = [
+			Step::grind((run.q_level[q] - 7) as u32, 0),
+			Step { kind: K_ACCEPT, q: q as u32, task: run.q_accept[q], pt: run.q_giver[q] },
+			Step { kind: K_TASK, q: q as u32, task: t as i32, pt: run.task_pt[t as usize] },
+		];
 		let mut ev = m.evaluator(&o.walks);
 		ev.reset();
 		ev.step_in(&steps, 0);
 		let g0 = ev.s.grind_sec;
 		assert!(ev.step_in(&steps, 1), "taken");
-		ev.s.grind_sec - g0
+		let g1 = ev.s.grind_sec;
+		ev.step_in(&steps, 2);
+		(g1 - g0, ev.s.grind_sec - g1)
 	};
-	assert_eq!(grind(pick(false)), 0.0, "no fight: taken at once");
-	assert!(grind(pick(true)) > 0.0, "a kill quest: grinds to its level - 5 first");
+	assert_eq!(grind(pick(false)), (0.0, 0.0), "no fight: taken and done at once");
+	let (accept, work) = grind(pick(true));
+	assert_eq!(accept, 0.0, "a kill quest: handed over at once");
+	assert!(work > 0.0, "its kills: grinds to its level - 5 first");
 }

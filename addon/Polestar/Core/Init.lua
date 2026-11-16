@@ -20,6 +20,18 @@ ns.stage = "Beta"
 -- its own page while this is true. The owner turns it off once they have
 -- been.
 ns.routesBeta = true
+-- Dungeons in the leveling routes (`when dungeon` steps, the
+-- behavior.dungeons setting "Dungeons in my route", the per-character answers
+-- in CharState().dungeons): built, held back for a later release. While
+-- false, the engine reads every dungeon as Skip whatever the saved answers
+-- say (Engine's Own.dungeonAnswer: the solo route, step for step), the saved
+-- answers stay as they are, and nothing offers the choice: no Options or
+-- Discovery row, no Install question, no guide window banner (each asks
+-- Engine.DungeonRouteOn, or Engine.GuideDungeons, which then lists none).
+-- The Dungeons hub (its pages, Pick up and Hand in guides, For your level)
+-- is not part of it. Read at call time: a test turns it on with
+-- `Polestar.dungeonRoute = true` before login.
+ns.dungeonRoute = false
 
 -- The pack docs online: the TOC's X-Website (the public repository, added at
 -- publication) plus the path of docs/PACKS.md. nil without that field.
@@ -66,16 +78,88 @@ function ns.Quoted(name)
 	return ns.LC("quote marks", "\226\128\156%s\226\128\157"):format(name)
 end
 
--- An amount of copper as the guide window writes it: "1g 50s", "7s", "25c"
--- (parts that are zero left out; "0c" for none).
+-- Numbers as the client writes them in its language: thousands with its own
+-- separator ("34,000", "34.000", "34 000"), decimals with its decimal mark
+-- ("48.8", "48,8"). The client says them: BreakUpLargeNumbers (Forever's
+-- client has it) and LARGE_NUMBER_SEPERATOR / DECIMAL_SEPERATOR (Blizzard's
+-- spelling); a client without them gets its language's own (NUMBER_FORMS:
+-- thousands, decimal mark), English's elsewhere.
+local NUMBER_FORMS = {
+	deDE = { ".", "," }, esES = { ".", "," }, ptBR = { ".", "," }, itIT = { ".", "," },
+	frFR = { "\194\160", "," }, ruRU = { "\194\160", "," },
+}
+local function numberForm()
+	local f = NUMBER_FORMS[GetLocale and GetLocale() or "enUS"]
+	local large = type(LARGE_NUMBER_SEPERATOR) == "string" and LARGE_NUMBER_SEPERATOR or (f and f[1]) or ","
+	local mark = type(DECIMAL_SEPERATOR) == "string" and DECIMAL_SEPERATOR or (f and f[2]) or "."
+	return large, mark
+end
+
+-- n rounded to a whole number, its thousands separated: "34,000".
+function ns.Thousands(n)
+	n = math.floor((tonumber(n) or 0) + 0.5)
+	if type(BreakUpLargeNumbers) == "function" then
+		local ok, s = pcall(BreakUpLargeNumbers, n)
+		if ok and s ~= nil then return tostring(s) end
+	end
+	local sep = numberForm():reverse()
+	local digits = tostring(math.abs(n)):reverse():gsub("(%d%d%d)", function(d) return d .. sep end):reverse()
+	if digits:sub(1, #sep) == sep:reverse() then digits = digits:sub(#sep + 1) end
+	return (n < 0 and "-" or "") .. digits
+end
+
+-- x with `places` decimals (1 by default) and the client's decimal mark: "48.8".
+function ns.Decimal(x, places)
+	local s = string.format("%." .. (places or 1) .. "f", tonumber(x) or 0)
+	local _, mark = numberForm()
+	if mark == "." then return s end
+	return (s:gsub("%.", function() return mark end))
+end
+
+-- The coins' symbols, gold, silver, copper: the client's own
+-- (GOLD_AMOUNT_SYMBOL...; German "G", "S", "K"), else Polestar's translated "g s c".
+local function coin(client, own) return type(client) == "string" and client ~= "" and client or own end
+function ns.CoinSymbols()
+	return coin(GOLD_AMOUNT_SYMBOL, L["g"]), coin(SILVER_AMOUNT_SYMBOL, L["s"]), coin(COPPER_AMOUNT_SYMBOL, L["c"])
+end
+
+-- An amount of copper as the guide window writes it: "1g 50s", "7s", "25c",
+-- "214,748g 36s 47c" (parts that are zero left out; "0c" for none), in the
+-- coins' symbols (ns.CoinSymbols), the gold in thousands.
 function ns.MoneyText(copper)
 	copper = math.floor(copper or 0)
 	local g, s, c = math.floor(copper / 10000), math.floor(copper / 100) % 100, copper % 100
+	local G, S, C = ns.CoinSymbols()
 	local parts = {}
-	if g > 0 then parts[#parts + 1] = g .. "g" end
-	if s > 0 then parts[#parts + 1] = s .. "s" end
-	if c > 0 then parts[#parts + 1] = c .. "c" end
-	return #parts > 0 and table.concat(parts, " ") or "0c"
+	if g > 0 then parts[#parts + 1] = ns.Thousands(g) .. G end
+	if s > 0 then parts[#parts + 1] = s .. S end
+	if c > 0 or #parts == 0 then parts[#parts + 1] = c .. C end
+	return table.concat(parts, " ")
+end
+
+-- s in capitals as the client's languages write them. Lua's upper() knows
+-- ASCII alone ("Jäger" -> "JäGER", "Охотник" stays as it is): the small
+-- letters of Latin-1, Latin Extended-A and Cyrillic, two bytes in UTF-8, are
+-- raised here too (ß and the rest keep their form).
+local function upperChar(a, b)
+	local cp = (a:byte() % 32) * 64 + (b:byte() % 64)
+	local up = cp
+	if (cp >= 0xE0 and cp <= 0xFE and cp ~= 0xF7) or (cp >= 0x430 and cp <= 0x44F) then
+		up = cp - 0x20
+	elseif cp == 0xFF then
+		up = 0x178
+	elseif cp >= 0x450 and cp <= 0x45F then
+		up = cp - 0x50
+	elseif (cp >= 0x100 and cp <= 0x137) or (cp >= 0x14A and cp <= 0x177) then
+		if cp % 2 == 1 then up = cp - 1 end
+	elseif (cp >= 0x139 and cp <= 0x148) or (cp >= 0x179 and cp <= 0x17E) then
+		if cp % 2 == 0 then up = cp - 1 end
+	end
+	if up == cp then return a .. b end
+	return string.char(0xC0 + math.floor(up / 64), 0x80 + up % 64)
+end
+function ns.Upper(s)
+	return (tostring(s or ""):upper():gsub("([\192-\223])([\128-\191])", upperChar))
 end
 
 -- The interface's translations made with AI (tools/lib/i18n/locales.js,
@@ -134,10 +218,10 @@ function ns.FormatDistance(yards, opts)
 	if ns.Get("nav.distanceUnit") == "metres" then
 		local m = yards * YARD_METRES
 		local n = math.floor(m / round + 0.5) * round
-		if n >= 1000 then return L["%.1f km"]:format(m / 1000) end
+		if n >= 1000 then return L["%s km"]:format(ns.Decimal(m / 1000, 1)) end
 		return L["%d m"]:format(n)
 	end
-	if opts and opts.compact and yards >= 1000 then return L["%.1fk yd"]:format(yards / 1000) end
+	if opts and opts.compact and yards >= 1000 then return L["%sk yd"]:format(ns.Decimal(yards / 1000, 1)) end
 	return L["%d yd"]:format(math.floor(yards / round + 0.5) * round)
 end
 
@@ -714,7 +798,15 @@ local function keysOf(path)
 	return keys
 end
 
+-- (A path of one or two keys, nearly every setting read, skips the loop.)
 local function lookup(root, keys)
+	local k1, k2 = keys[1], keys[2]
+	if k1 ~= nil and keys[3] == nil and type(root) == "table" then
+		local node = root[k1]
+		if k2 == nil then return node end
+		if type(node) ~= "table" then return nil end
+		return node[k2]
+	end
 	local node = root
 	for i = 1, #keys do
 		if type(node) ~= "table" then return nil end
@@ -728,15 +820,20 @@ end
 -- saved one if there is one, so still holding it at ADDON_LOADED means a
 -- fresh install.
 local madeDB
+-- The table DB()'s checks last passed: only the saved variables replace PolestarDB, and its settings are only ever
+-- set to a table (a profile switched to or copied in).
+local checkedDB
 
 local function DB()
 	local db = PolestarDB
+	if db ~= nil and db == checkedDB then return db end
 	if type(db) ~= "table" then
 		db = { schema = 1 }
 		PolestarDB = db
 		madeDB = db
 	end
 	if type(db.settings) ~= "table" then db.settings = {} end
+	checkedDB = db
 	return db
 end
 ns.DB = DB
@@ -769,6 +866,25 @@ function ns.GetStored(path)
 	return lookup(DB().settings, keysOf(path))
 end
 
+---------------------------------------------------------------------------
+-- Live changes. A control the player drags (a slider's thumb, the colour
+-- picker's wheel) writes each value it passes through ns.Live(write): the
+-- setting is stored and SETTING_CHANGED fires as for any change, but while
+-- ns.SettingLive() reads true a listener may do only what shows the value
+-- (a repaint) and leave the rest (layouts, marks, redraws) for the settle.
+-- ns.SettleLive(), which the control calls when the drag ends, fires
+-- SETTING_CHANGED once more, as a plain change, for each setting written
+-- live since, so every listener ends where one plain change leaves it. A
+-- drag that never says it ended (the colour picker's wheel) settles by
+-- itself SETTLE seconds after its last value.
+---------------------------------------------------------------------------
+
+local SETTLE = 0.25
+local liveDepth, liveAt, settleQueued = 0, 0, false
+local livePaths, liveOrder = {}, {}
+-- Settings written together (ns.Batch): the paths written, in order.
+local batched = { depth = 0, paths = {}, seen = {} }
+
 function ns.Set(path, value)
 	local keys = keysOf(path)
 	local node = DB().settings
@@ -779,13 +895,217 @@ function ns.Set(path, value)
 	end
 	if value == lookup(defaults, keys) then value = nil end
 	node[keys[#keys]] = value
+	if liveDepth > 0 then
+		if not livePaths[path] then
+			livePaths[path] = true
+			liveOrder[#liveOrder + 1] = path
+		end
+	elseif livePaths[path] then
+		-- Written plainly after live writes (the colour picker's Cancel): this
+		-- change's own message announces the value, so its settle has nothing
+		-- left to tell (no second full refresh for the same value).
+		livePaths[path] = nil
+		for i = #liveOrder, 1, -1 do
+			if liveOrder[i] == path then table.remove(liveOrder, i) end
+		end
+	end
+	if batched.depth > 0 then
+		if not batched.seen[path] then
+			batched.seen[path] = true
+			batched.paths[#batched.paths + 1] = path
+		end
+		return
+	end
 	ns.Fire("SETTING_CHANGED", path, ns.Get(path))
+end
+
+-- fn(...) writing many settings at once (a page or a section put back to its
+-- defaults, their undo, a preset): each is written as fn sets it, and the
+-- listeners are told once at the end: the one setting's path when only one
+-- was written, else "" (every setting may have changed, as when a profile
+-- is switched), so the look, the window's rows and its preview are worked
+-- out again once, not once per setting.
+function ns.Batch(fn, ...)
+	batched.depth = batched.depth + 1
+	local ok, err = pcall(fn, ...)
+	batched.depth = batched.depth - 1
+	if batched.depth == 0 and #batched.paths > 0 then
+		local list = batched.paths
+		batched.paths, batched.seen = {}, {}
+		if #list == 1 then
+			ns.Fire("SETTING_CHANGED", list[1], ns.Get(list[1]))
+		else
+			ns.Fire("SETTING_CHANGED", "", nil)
+		end
+	end
+	if not ok then error(err, 0) end
+end
+
+function ns.SettingLive() return liveDepth > 0 end
+
+function ns.SettleLive()
+	if #liveOrder == 0 then return end
+	local list = liveOrder
+	livePaths, liveOrder = {}, {}
+	for i = 1, #list do ns.Fire("SETTING_CHANGED", list[i], ns.Get(list[i])) end
+end
+
+local function settleIdle()
+	settleQueued = false
+	if #liveOrder == 0 then return end
+	local wait = liveAt + SETTLE - GetTime()
+	if wait > 0.01 then
+		settleQueued = true
+		ns.After(wait, settleIdle)
+	else
+		ns.SettleLive()
+	end
+end
+
+-- fn(...) with what it sets written live.
+function ns.Live(fn, ...)
+	liveDepth = liveDepth + 1
+	local ok, err = pcall(fn, ...)
+	liveDepth = liveDepth - 1
+	liveAt = GetTime()
+	if #liveOrder > 0 and not settleQueued then
+		settleQueued = true
+		ns.After(SETTLE, settleIdle)
+	end
+	if not ok then error(err, 0) end
 end
 
 -- The arrow, the action buttons and the timers: with ui.lockHud on, a drag
 -- moves them only while Shift is held, so a stray drag does nothing.
 function ns.DragLocked()
 	return ns.Get("ui.lockHud") and not ns.Compat.IsShiftKeyDown() and true or false
+end
+
+-- ns.DragWindow(handle, frame, opts): the left button held on `handle` moves
+-- `frame` with the pointer from the first pixel it travels, as the hand
+-- moves it: no drag threshold to cross first (the client's drag start, then
+-- StartMoving, left the window still for a few pixels and then made it leap
+-- to catch up; on a scaled frame StartMoving also dropped it off the
+-- pointer), and a press that does not move it leaves it exactly where it
+-- was (no anchor rewritten, nothing re-snapped). While it moves, the window
+-- hangs by its top-left corner off UIParent's bottom-left, moved by exactly
+-- the pointer's travel, kept on screen while it is clamped there; the
+-- frame's scale and the UI scale are both counted, so the window keeps its
+-- place under the pointer at any scale. The move runs on a driver frame of
+-- its own, so the window's and the handle's OnUpdate scripts stay theirs.
+-- Every Polestar window and the HUD's frames (the arrow, the floating
+-- button, the timers, the rare alert; the action buttons through
+-- ns.StartDrag) move this way. opts: locked() (true: the press does
+-- nothing; the guide window's lock, ns.DragLocked), onStart(frame) (at the
+-- first pixel it moves), onStop(frame) (after a move that changed it: save
+-- the spot, re-record an Anim anchor). A handle with a click of its own
+-- skips it after a move (ns.DragMoved).
+local dragging -- the move under way: { frame, handle, opts, x0, y0 (the pointer, physical px), left, top, moved }
+local dragDriver = CreateFrame("Frame")
+dragDriver:Hide()
+
+local function dragTo(d)
+	local f = d.frame
+	local s = f:GetEffectiveScale()
+	if not s or s <= 0 then return end
+	local cx, cy = GetCursorPosition()
+	local dx, dy = (cx - d.x0) / s, (cy - d.y0) / s
+	if not d.moved and dx == 0 and dy == 0 then return end
+	if not d.moved then
+		d.moved = true
+		d.handle.psDragMoved = true
+		if d.opts.onStart then d.opts.onStart(f) end
+	end
+	local left, top = d.left + dx, d.top + dy
+	if f.IsClampedToScreen and f:IsClampedToScreen() then
+		local us = UIParent:GetEffectiveScale()
+		local sw, sh = UIParent:GetWidth() * us / s, UIParent:GetHeight() * us / s
+		local w, h = f:GetWidth(), f:GetHeight()
+		left = math.min(math.max(left, 0), math.max(0, sw - w))
+		top = math.max(math.min(top, sh), math.min(sh, h))
+	end
+	f:ClearAllPoints()
+	f:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", left, top)
+end
+
+local function dragEnd()
+	local d = dragging
+	if not d then return end
+	dragging = nil
+	dragDriver:Hide()
+	if d.moved and d.opts.onStop then d.opts.onStop(d.frame) end
+end
+
+dragDriver:SetScript("OnUpdate", function()
+	local d = dragging
+	if not d then return end
+	dragTo(d)
+	-- A release the handle did not hear (the pointer let go over another window).
+	if IsMouseButtonDown and not IsMouseButtonDown("LeftButton") then dragEnd() end
+end)
+
+-- ns.StartDrag(handle, frame, opts, x0, y0): `frame` follows the pointer from
+-- (x0, y0) (physical px, default where it is now) until the release, as
+-- ns.DragWindow moves it. For a handle whose press the client must see
+-- first (a secure button starts it on its drag start, the press's own spot
+-- given, so the frame catches up at once and then follows exactly).
+-- -> true once the move is under way
+function ns.StartDrag(handle, frame, opts, x0, y0)
+	if dragging then return false end
+	if frame.IsMovable and not frame:IsMovable() then return false end
+	local left, top = frame:GetLeft(), frame:GetTop()
+	if not (left and top) then return false end
+	if not (x0 and y0) then x0, y0 = GetCursorPosition() end
+	handle.psDragMoved = nil
+	dragging = { frame = frame, handle = handle, opts = opts or {}, x0 = x0, y0 = y0, left = left, top = top, moved = false }
+	dragDriver:Show()
+	return true
+end
+
+-- ns.StopDrag(): the move under way ends where the pointer is (onStop after a move).
+function ns.StopDrag()
+	if not dragging then return end
+	dragTo(dragging)
+	dragEnd()
+end
+
+-- ns.DragMoved(handle): whether the last press on `handle` moved its window,
+-- so its click (on the release) is not taken as one.
+function ns.DragMoved(handle)
+	return handle.psDragMoved == true
+end
+
+-- ns.PointOffsets(frame, point) -> x, y: the offsets that pin `frame`'s
+-- `point` to the same point of UIParent where it stands now, in the frame's
+-- own units (its scale counted), for a spot saved as { point, x, y }.
+function ns.PointOffsets(frame, point)
+	local k = UIParent:GetEffectiveScale() / frame:GetEffectiveScale()
+	local uw, uh = UIParent:GetWidth() * k, UIParent:GetHeight() * k
+	local function along(size, low, high)
+		if point:find(low) then return 0 elseif point:find(high) then return size end
+		return size / 2
+	end
+	local x = frame:GetLeft() + along(frame:GetWidth(), "LEFT", "RIGHT") - along(uw, "LEFT", "RIGHT")
+	local y = frame:GetBottom() + along(frame:GetHeight(), "BOTTOM", "TOP") - along(uh, "BOTTOM", "TOP")
+	return x, y
+end
+
+function ns.DragWindow(handle, frame, opts)
+	opts = opts or {}
+	handle:EnableMouse(true)
+	handle:SetScript("OnMouseDown", function(self, button)
+		if button ~= "LeftButton" or dragging then return end
+		self.psDragMoved = nil
+		if opts.locked and opts.locked() then return end
+		ns.StartDrag(self, frame, opts)
+	end)
+	handle:SetScript("OnMouseUp", function(_, button)
+		if button ~= "LeftButton" or not dragging or dragging.handle ~= handle then return end
+		ns.StopDrag()
+	end)
+	handle:HookScript("OnHide", function()
+		if dragging and dragging.handle == handle then dragEnd() end
+	end)
 end
 
 -- The guide window's on/off (ui.shown): the action buttons, the party panel
@@ -891,8 +1211,13 @@ function ns.ResetSettings(section)
 	ns.Fire("SETTING_CHANGED", section or "", nil)
 end
 
+-- The table the checks below last passed: only the saved variables replace PolestarCharDB (a reload, a new
+-- character) and nothing else sets the fields they make, so one table needs them once (it is asked for on every goal
+-- a step change reads).
+local checkedChar
 function ns.CharState()
 	local s = PolestarCharDB
+	if s ~= nil and s == checkedChar then return s end
 	if type(s) ~= "table" then
 		s = {}
 		PolestarCharDB = s
@@ -914,6 +1239,11 @@ function ns.CharState()
 	if type(s.guideEnds) ~= "table" or s.guideEndsV ~= 2 then
 		s.guideEnds, s.guideEndsV = {}, 2
 	end
+	-- Guide id -> true: the guides the player finished, every step done (Engine.lua, the completion in
+	-- evaluateLoaded), kept over a reload or relog for the guide list's check (Engine.GetGuideState); a
+	-- reset forgets it, and so does a pack update that changes the guide's steps (checkShape).
+	if type(s.guideDone) ~= "table" then s.guideDone = {} end
+	checkedChar = s
 	return s
 end
 

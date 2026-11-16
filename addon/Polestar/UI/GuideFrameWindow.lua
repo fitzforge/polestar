@@ -241,13 +241,8 @@ ns.UI.GuideFrame.Part(function(GF)
 
 	local savePosition = GF.SavePosition
 
-	local function dragStart()
-		if ns.Get("ui.locked") then return end
-		F:StartMoving()
-	end
-
+	-- After a move (ns.DragWindow, which the bars and the foot carry): the spot kept.
 	local function dragStop()
-		F:StopMovingOrSizing()
 		savePosition()
 		-- The class quest card on the window flips below it when there is no room above.
 		if UI.ClassToast and UI.ClassToast.Place then UI.ClassToast.Place(false) end
@@ -299,14 +294,28 @@ ns.UI.GuideFrame.Part(function(GF)
 			applyAll()
 			GF.Render()
 		end)
+		-- A live change (a slider dragged) of the window's own ground: that alone,
+		-- the restyle and its layout when the change settles. The theme's live
+		-- repaint paints the ground's every-window opacity and colours itself.
+		local LIVE = { ["guideWindow.bgOpacity"] = true, ["guideWindow.bgColor"] = true }
 		ns.On("SETTING_CHANGED", function(path)
 			if not F then return end
+			if ns.SettingLive() then
+				if LIVE[path] then return GF.ApplyGround() end
+				if Theme.LivePaints(path) then return end
+			end
 			local fn = APPLY[path]
 			if fn then
 				fn()
 			elseif path == "" or path == "ui" then
+				-- Every setting at once (a profile switch, Reset all): what each
+				-- one's own change does above, the step's tip as the profile starts
+				-- it and the card read afresh included.
 				applyAll()
+				GF.SetTipOpen(ns.Get("ui.notesOpen") and true or false)
+				resetModel()
 				if path == "" then GF.ApplyLook() end
+				GF.Render()
 			elseif path == "guideWindow" then
 				GF.ApplyLook()
 			elseif type(path) == "string" and path:sub(1, 12) == "guideWindow." then
@@ -403,7 +412,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	end
 
 	GF.ApplyAll = applyAll
-	GF.DragStart, GF.DragStop, GF.ResizeStart, GF.ResizeStop = dragStart, dragStop, resizeStart, resizeStop
+	GF.DragStop, GF.ResizeStart, GF.ResizeStop = dragStop, resizeStart, resizeStop
 
 	-- In a fight now (PLAYER_REGEN_*).
 	function GF.InCombat() return inCombat end

@@ -13,22 +13,25 @@
 --   Dungeons.Load() -> ok, reason   -- "off" (dungeons.enabled false), Data.Pack's reasons
 --                                     ("missing", "disabled", "combat", ...), "nodata" (pack built without Dungeons)
 --   Dungeons.IsEnabled() ; Dungeons.Meta()
---   Dungeons.List() -> { { key, name, kind, forever, minLevel, maxLevel, players, map, zone, zoneName,
---       entrance = { map, x, y, f } | nil, quests = { A = n, H = n }, bosses = n,
+--   Dungeons.List() -> { { key, name, kind, forever, minLevel, maxLevel, floor, players, playersMax,
+--       map, zone, zoneName, entrance = { map, x, y, f } | nil, quests = { A = n, H = n }, bosses = n,
 --       attune = { A = n, H = n } } }   -- level order, no page decoded
---       (name and zoneName in the client's language when it has them; map: the instance's Map id)
---   Dungeons.Get(key) -> { key, name, kind, forever, minLevel, maxLevel, players, map, zone, zoneName, entrance } | nil
+--       (name and zoneName in the client's language when it has them; map: the instance's Map id;
+--       floor: the level its run in the route starts at, the Codex's (its range's bottom or players'
+--       recorded entries, whichever is higher), minLevel without one; playersMax: the largest wing's
+--       group size where the wings differ, Upper Blackrock Spire's 10)
+--   Dungeons.Get(key) -> { key, name, kind, forever, minLevel, maxLevel, floor, players, playersMax, map, zone, zoneName, entrance } | nil
 --   Dungeons.ForMap(mapID) -> key | nil   -- the dungeon or raid whose instance map that is (Compat.GetInstanceMapID)
 --   Dungeons.Entrance(key) -> map, x, y, f | nil
---   Dungeons.BestAt(key) -> level | nil   -- the level it suits best, inside its range: one under the
---       median level of its encounter bosses, else of all its bosses, else of its quests, else the
---       range's midpoint (the first that falls inside the range); nil without a level range
+--   Dungeons.BestAt(key) -> level | nil   -- the level it suits best, inside its range from its floor up:
+--       one under the median level of its encounter bosses, else of all its bosses, else of its quests,
+--       else the range's midpoint (the first that falls inside); nil without a level range
 --   Dungeons.EnemyEntrance(key[, side]) -> text | nil   -- side "A" | "H" (nil: this character's): the
 --       way in lies in the other faction's land (Ruins of Lordaeron outside the Undercity, The Hall of
 --       Thanes in Ironforge, Ragefire Chasm, the Stockade): "Entrance in Horde territory (...)"
---   Dungeons.EnemyCapital(key, side) -> true | nil   -- side "A" | "H": the way in lies inside the
---       other faction's capital (The Hall of Thanes, Ragefire Chasm, the Stockade), so the hub's
---       "For your level" leaves it out under that side's filter
+--   Dungeons.EnemyCapital(key, side) -> true | nil   -- side "A" | "H": a city dungeon of the other
+--       faction (Engine.EnemyCityDungeon: The Hall of Thanes, the Stockade, Ragefire Chasm, the Ruins
+--       of Lordaeron), never that side's: the hub's "For your level" leaves it out
 --   Dungeons.Quests(key, faction) -> { quest, ... }   -- faction "A" | "H" | nil (all); level order
 --   Dungeons.Quest(key, id) -> quest | nil           -- page and chain quests
 --       quest = { id, title, level, minLevel, faction, classes, inside, shareable,
@@ -246,16 +249,14 @@ local function entranceOf(s)
 end
 
 -- Instances whose way in lies in one faction's land (Fitz, 2026-11-07): the
--- other faction can do them, but has to get through that land. side: whose
--- land it is; text: what the other faction is told; capital: the way in is
--- inside that faction's capital, not merely its land (Fitz, 2026-11-08: The
--- Hall of Thanes is no Horde dungeon "for your level"; the Ruins of
--- Lordaeron, outside the Undercity, can be reached).
+-- other faction has to get through that land. side: whose land it is; text:
+-- what the other faction is told. The city dungeons among them are that
+-- faction's only (Engine.EnemyCityDungeon, Fitz, 2026-11-14).
 local TERRITORY = {
 	["ruins-of-lordaeron"] = { side = "H", text = L["Entrance in Horde territory (outside the Undercity)"] },
-	["the-hall-of-thanes"] = { side = "A", capital = true, text = L["Entrance in Alliance territory (in Ironforge)"] },
-	["ragefire-chasm"] = { side = "H", capital = true, text = L["Entrance in Horde territory (in Orgrimmar)"] },
-	["stormwind-stockade"] = { side = "A", capital = true, text = L["Entrance in Alliance territory (in Stormwind)"] },
+	["the-hall-of-thanes"] = { side = "A", text = L["Entrance in Alliance territory (in Ironforge)"] },
+	["ragefire-chasm"] = { side = "H", text = L["Entrance in Horde territory (in Orgrimmar)"] },
+	["stormwind-stockade"] = { side = "A", text = L["Entrance in Alliance territory (in Stormwind)"] },
 }
 
 -- The warning for side `side` ("A" | "H"; nil: this character's) when the
@@ -272,8 +273,8 @@ function Dungeons.EnemyEntrance(key, side)
 end
 
 function Dungeons.EnemyCapital(key, side)
-	local t = key and TERRITORY[key]
-	if t and t.capital and (side == "A" or side == "H") and side ~= t.side then return true end
+	local E = ns.Engine
+	if key and (side == "A" or side == "H") and E and E.EnemyCityDungeon and E.EnemyCityDungeon(key, side) then return true end
 	return nil
 end
 
@@ -284,7 +285,8 @@ local function summary(key, s)
 	if localised and s.zone then zoneName = ns.Compat.MapName(s.zone) or zoneName end
 	return {
 		key = key, name = (localised and s.map and N.Instance(s.map)) or s.name or key, kind = s.kind or "dungeon", forever = s.forever and true or false,
-		minLevel = s.minLevel, maxLevel = s.maxLevel, players = s.players, map = s.map, zone = s.zone, zoneName = zoneName,
+		minLevel = s.minLevel, maxLevel = s.maxLevel, floor = s.floor or s.minLevel, players = s.players, playersMax = s.playersMax,
+		map = s.map, zone = s.zone, zoneName = zoneName,
 		entrance = entranceOf(s),
 		quests = { A = s.quests and s.quests.A or 0, H = s.quests and s.quests.H or 0 }, bosses = s.bosses or 0,
 		attune = { A = s.attune and s.attune.A or 0, H = s.attune and s.attune.H or 0 },
@@ -347,6 +349,8 @@ end
 local function deriveBestAt(key, s)
 	local lo, hi = s.minLevel, s.maxLevel or s.minLevel
 	if type(lo) ~= "number" then return nil end
+	-- From the floor up (the level its run in the route starts at): a dungeon never suits best below it.
+	if type(s.floor) == "number" then lo = math.max(lo, math.ceil(s.floor)) end
 	if hi <= lo then return lo end
 	local p = pageFacts(key)
 	local encounters, bosses, quests = {}, {}, {}

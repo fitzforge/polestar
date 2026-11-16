@@ -68,13 +68,6 @@ return {
 		uistub.openTabs(TABS, 1)
 		F = PolestarGuideFrame
 		P = GF.parts
-		-- The client's line spacing of a string, which the stub lacks: the tip's wrapped lines take it.
-		local M = stub.Methods
-		if not rawget(M, "SetSpacing") then
-			M.SetSpacing = function(self, s) self.spacing = s end
-			M.GetSpacing = function(self) return self.spacing or 0 end
-			P.tip.Text:SetSpacing(3)
-		end
 	end,
 	settle = 0.3,
 	probes = {

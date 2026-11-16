@@ -87,3 +87,13 @@ test("the journal-quests table: Rituals of Power is on the Scarlet Monastery's p
 	assert.equal(row.instance, 'scarlet-monastery');
 	assert.equal(row.source.kind, 'tdb', "the world database's spawn of the book");
 });
+
+// #2204: Agamaggan's Blood (Kog'thug the Brave at Bristleback Retreat) asks for the Virulent Blood of Agamaggan, which
+// its text says is found inside Razorfen Downs; the quest data places no mob or object that holds it, so no rule put the
+// quest on the dungeon's page and its pick-up guide never offered it.
+test("the journal-quests table: Agamaggan's Blood is on Razorfen Downs' page (#2204)", () => {
+	const row = loadJournalQuests().find((r) => r.quest === 93604);
+	assert.ok(row, "a row for Agamaggan's Blood");
+	assert.equal(row.instance, 'razorfen-downs');
+	assert.equal(row.source.kind, 'questie', "QuestieDB's quest text names the dungeon");
+});

@@ -114,19 +114,25 @@ function threadUrl(guild, thread, message) {
 	return `https://discord.com/channels/${guild}/${thread}` + (message ? `/${message}` : '');
 }
 
-// A post's title as an issue title. A player who pasted the report into the
-// title box gets their words alone: no bold lead-in, nothing from the code
-// block on, their first line only, cut at 80 characters (never inside one).
+// A post's title as an issue title: the whole title, a link in it kept as
+// text (a Markdown link as "its text (its address)", Discord's <address>
+// without the brackets). A player who pasted the report into the title box
+// gets their words alone: no bold lead-in, nothing from the code block on,
+// their first line only. Discord's titles stop at 100 characters; GitHub's at
+// 256, the only cut (never inside a character).
+const MAX_TITLE = 256;
 function issueTitle(name) {
 	const words = String(name || '')
 		.replace(/```[\s\S]*$/, '')
 		.replace(/^\s*\*\*[^*\n]{1,60}[:：]\*\*\s*/, '')
 		.trim()
 		.split('\n')[0]
+		.replace(/\[([^\]\n]+)\]\(<?(https?:\/\/[^\s)>]+)>?\)/g, '$1 ($2)')
+		.replace(/<(https?:\/\/[^\s>]+)>/g, '$1')
 		.replace(/\s+/g, ' ')
 		.trim();
 	const t = Array.from(words || 'Bug report from Discord');
-	return t.length > 80 ? t.slice(0, 77).join('').trimEnd() + '...' : t.join('');
+	return t.length > MAX_TITLE ? t.slice(0, MAX_TITLE - 3).join('').trimEnd() + '...' : t.join('');
 }
 
 // The report's text is the player's, so a label is made from it only when it

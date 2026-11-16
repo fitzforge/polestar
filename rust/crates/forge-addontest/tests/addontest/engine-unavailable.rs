@@ -796,7 +796,8 @@ fn a_dungeon_run_is_not_moved_on_to_past_an_accept_waiting_for_a_level_the_guide
 		"#
 		)
 	};
-	let run_chosen = run("w.level = 24", RUN, &script("E.ChooseDungeon(389, true)"));
+	// Dungeons in the route are held back while Core/Init.lua's switch is off: turned on for the run chosen.
+	let run_chosen = run("w.level = 24", RUN, &script("Polestar.dungeonRoute = true; E.ChooseDungeon(389, true)"));
 	assert_eq!(run_chosen, json!([2, ["skipped:level:Requires level 25"]]), "the run chosen: the guide waits at Thork, saying why");
 	let solo = run("w.level = 24", RUN, &script(""));
 	assert_eq!(solo, json!([4, ["na:nil:nil"]]), "no run: on to the raptors");

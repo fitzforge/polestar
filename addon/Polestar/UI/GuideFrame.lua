@@ -684,7 +684,12 @@ GF.Part(function(GF)
 			W.HideTooltip(b)
 		end)
 		r.Share:Hide()
+		-- At the player's size (guideWindow.checkSize) from the first, the skin's
+		-- art drawn to it, as the look pass does: a row made after the last look
+		-- pass (rows come as a step needs them) has no other.
+		r.Check:SetSize(CHECK, CHECK)
 		placeCheck(r)
+		Theme.Repaint(r.Check)
 		-- "Other": the next-nearest trainer, vendor, inn or farm spot; for a goal
 		-- with spawn areas, the next spot. The arrow follows the goal there: the
 		-- Engine aims at it, and a point picked by hand gives way.
@@ -1156,23 +1161,40 @@ GF.Part(function(GF)
 
 		-- Summary lines: a person of the step other than the focus, the persons
 		-- done ("before") or the focus's finished goals ("done"); a click opens
-		-- or closes the goals it stands for in place.
+		-- or closes the goals it stands for in place. The dungeon line under a
+		-- grind (psDungeon, UI.DungeonToast.GrindLine) opens that dungeon's page.
 		local function lineClick(self)
 			local key = self.psKey
+			W.HideTooltip(self)
+			if self.psDungeon then
+				UI.DungeonToast.GrindOpen(self.psDungeon.key)
+				return
+			end
 			if key == "done" then
 				model.doneOpen = not model.doneOpen
 			else
 				model.open[key] = (not model.open[key]) or nil
 			end
-			W.HideTooltip(self)
 			GF.Refill()
 		end
 
 		local function lineEnter(self)
-			local tips, list = {}, self.psGoals
-			for i = 1, list and min(#list, 12) or 0 do tips[#tips + 1] = UI.GoalLine(list[i]) end
-			local open = (self.psKey == "done" and model.doneOpen) or (self.psKey ~= "done" and model.open[self.psKey])
-			tips[#tips + 1] = { open and L["Click to fold them away"] or L["Click to list them"], Theme.Accent() }
+			local tips = {}
+			local d = self.psDungeon
+			if d then
+				local where = {}
+				local range = UI.LevelRange(d.minLevel, d.maxLevel)
+				if range then where[#where + 1] = string.format(L["Levels %s"], range) end
+				if d.zoneName then where[#where + 1] = d.zoneName end
+				if #where > 0 then tips[1] = table.concat(where, "  \194\183  ") end
+				if d.enemy then tips[#tips + 1] = { d.enemy, Theme.TipColor("warning") } end
+				tips[#tips + 1] = { d.take > 0 and L["Click to see its quests in Dungeons"] or L["Click to open it in Dungeons"], Theme.Accent() }
+			else
+				local list = self.psGoals
+				for i = 1, list and min(#list, 12) or 0 do tips[#tips + 1] = UI.GoalLine(list[i]) end
+				local open = (self.psKey == "done" and model.doneOpen) or (self.psKey ~= "done" and model.open[self.psKey])
+				tips[#tips + 1] = { open and L["Click to fold them away"] or L["Click to list them"], Theme.Accent() }
+			end
 			W.Tooltip(self, tooltipAnchor(), self.psTitle or "", tips)
 			GF.HoverIn()
 			barWake()
@@ -1550,11 +1572,35 @@ GF.Part(function(GF)
 		if E.SetGuide then E.SetGuide(back.id) end
 	end
 
+	-- The end card's lines under its text, for the leveling guide `id` that
+	-- ended (Guide complete): "10 quests in your log carry on to later guides"
+	-- (Engine.CarriedQuests) and "2 quests aren't part of your route"
+	-- (RoutePlan.OffRoute), each only with a count, each opening its list
+	-- (UI.ShowQuestRoom "later" / "offroute"). Read when the card is painted,
+	-- never on a frame tick.
+	function GF.EndQuestLines(id)
+		local E, P = Engine(), ns.RoutePlan
+		local carried = E and E.CarriedQuests and #E.CarriedQuests(id) or 0
+		local off = P and P.OffRoute and P.OffRoute(id)
+		local stray = off and #off or 0
+		local function line(link, n, text, mode)
+			if n == 0 then return end
+			W.SetLinkText(link, text)
+			link.psAction = function() UI.ShowQuestRoom(mode, id) end
+			link:Show()
+		end
+		line(empty.Carried, carried, carried == 1 and L["1 quest in your log carries on to a later guide"]
+			or L["%d quests in your log carry on to later guides"]:format(carried), "later")
+		line(empty.Stray, stray, stray == 1 and L["1 quest isn't part of your route"] or L["%d quests aren't part of your route"]:format(stray), "offroute")
+	end
+
 	local function setEmpty(kind)
 		state = kind
 		local E, G = Engine(), ns.Guides
 		empty.Primary:Hide()
 		empty.Secondary:Hide()
+		empty.Carried:Hide()
+		empty.Stray:Hide()
 		local glyph, color = "emblem", "accent"
 		if kind == "noguides" and UI.Packs and UI.Packs.OursSwitchedOff() then
 			-- Our own guides switched off on the Community guides page: one
@@ -1716,6 +1762,8 @@ GF.Part(function(GF)
 				empty.Primary.psAction = function() UI.ShowPicker() end
 				empty.Primary:Show()
 			end
+			-- A leveling guide's end: the quests left in the log, said.
+			if guide and not (back or afterRun) then GF.EndQuestLines(guide.id) end
 		end
 		empty.Glyph:SetTexture(Theme.Media(glyph))
 		W.Color(empty.Glyph, color)
@@ -1754,10 +1802,11 @@ GF.Part(function(GF)
 				nav.Title:SetText(guide.title or guide.id)
 			end
 			nav.psMeta = UI.GuideMeta(guide)
+			nav.psExperimental = ns.Guides.IsExperimental and ns.Guides.IsExperimental(guide) or nil
 		else
 			nav.Steps.Count:SetText("")
 			nav.Title:SetText(L["Polestar"])
-			nav.psMeta = nil
+			nav.psMeta, nav.psExperimental = nil, nil
 		end
 		W.SetIconState(nav.Prev, false, guide ~= nil)
 		W.SetIconState(nav.Next, false, guide ~= nil and index ~= nil)
@@ -1896,7 +1945,7 @@ GF.Part(function(GF)
 			r.psPlace, r.psCarried = nil, true
 			r.Icon:SetTexture(Theme.VerbIcon("turnin"))
 			local text = #carried == 1 and L["1 finished quest to hand in elsewhere"] or string.format(L["%d finished quests to hand in elsewhere"], #carried)
-			r.Text:SetText(xp > 0 and string.format(L["%s (%d XP)"], text, xp) or text)
+			r.Text:SetText(xp > 0 and string.format(L["%s (%s XP)"], text, ns.Thousands(xp)) or text)
 			r:Show()
 		end
 		local list, byKey = {}, {}
@@ -2095,15 +2144,16 @@ GF.Part(function(GF)
 		return table.concat(kinds, ", ")
 	end
 
-	-- Paint a summary line: `icon` a verb glyph or "check"; `list` the goals
-	-- its tooltip names; `open` whether its goals are listed under it.
+	-- Paint a summary line: `icon` a verb glyph, "check" or "icon-dungeon"; `list`
+	-- the goals its tooltip names; `open` whether its goals are listed under
+	-- it. The dungeon line (key "dungeon") is a link: its chevron points on.
 	local function paintLine(l, key, icon, iconColor, text, list, title, open)
-		l.psKey, l.psGoals, l.psTitle = key, list, title
-		l.Icon:SetTexture(icon == "check" and Theme.Media("check") or Theme.VerbIcon(icon))
+		l.psKey, l.psGoals, l.psTitle, l.psDungeon = key, list, title, nil
+		l.Icon:SetTexture((icon == "check" or icon == "icon-dungeon") and Theme.Media(icon) or Theme.VerbIcon(icon))
 		W.Color(l.Icon, iconColor)
 		l.Text:SetText(text)
 		if l ~= fold.glow then W.Color(l.Text, "textDim") end
-		l.Chevron:SetTexture(Theme.Media(open and "chevron-up" or "chevron-down"))
+		l.Chevron:SetTexture(Theme.Media(key == "dungeon" and "chevron-right" or open and "chevron-up" or "chevron-down"))
 		l.psK = nil
 		l:SetAlpha(1)
 		l:Show()
@@ -2214,6 +2264,17 @@ GF.Part(function(GF)
 			area.items[area.n], l.psAt = l, area.n
 			return l
 		end
+		-- Under an open goal that grinds to a level, on the live window's current
+		-- step: a dungeon at the character's level, one line that opens its
+		-- page (UI.DungeonToast.GrindLine, worked out once per step and level).
+		local function addDungeon(goal)
+			if goal.t ~= "level" or not GF.live then return end
+			local DT = UI.DungeonToast
+			local d = DT and DT.GrindLine and DT.GrindLine(guide, view, goal)
+			if not d then return end
+			local l = addLine("dungeon", "icon-dungeon", "dungeon", d.text, nil, d.name, false)
+			l.psDungeon = d
+		end
 		-- A group's rows as painted (shownGoals), the class card's accept left out.
 		local function goalsOf(grp)
 			local list = shownGoals(view, grp)
@@ -2241,6 +2302,7 @@ GF.Part(function(GF)
 			-- on their rows and stepped back while open.
 			for _, goal in ipairs(cardGoals(view, groups, focus)) do
 				addRow(goal, rowWho(goal, groups, focus), focus ~= nil and goal.group ~= focus)
+				addDungeon(goal)
 			end
 		else
 			-- The focus person's other groups on the same visit (Thundris
@@ -2373,6 +2435,7 @@ GF.Part(function(GF)
 				local k = kept[i]
 				if k == true then
 					addRow(goal, nil, false)
+					addDungeon(goal)
 				elseif k then
 					addRow(goal, nil, false, k)
 				elseif model.doneOpen then
@@ -2479,7 +2542,9 @@ GF.Part(function(GF)
 	local function render()
 		if not F or not ns.IsLoggedIn() then return end
 		local E, G = Engine(), ns.Guides
-		strip.psHasTabs = GF.TabsOf(E) ~= nil
+		local tl = GF.TabsOf(E)
+		strip.psHasTabs = tl ~= nil
+		strip.psTabN = tl and #tl or 0
 		local guide = E and E.GetGuide and E.GetGuide()
 		local list = G and G.List and G.List()
 		if not guide then
@@ -2635,10 +2700,7 @@ GF.Part(function(GF)
 
 	local function draggable(frame)
 		if not GF.live then return frame end
-		frame:EnableMouse(true)
-		frame:RegisterForDrag("LeftButton")
-		frame:SetScript("OnDragStart", GF.DragStart)
-		frame:SetScript("OnDragStop", GF.DragStop)
+		ns.DragWindow(frame, F, { locked = function() return ns.Get("ui.locked") end, onStop = function() GF.DragStop() end })
 		return hoverable(frame)
 	end
 
@@ -2816,6 +2878,7 @@ GF.Part(function(GF)
 			local lines = {}
 			if view and view.title and view.title ~= "" then lines[#lines + 1] = view.title end
 			if nav.psMeta and nav.psMeta ~= "" then lines[#lines + 1] = nav.psMeta end
+			if nav.psExperimental then lines[#lines + 1] = { L["Experimental"], Theme.Color("experimental") } end
 			W.Tooltip(self, tooltipAnchor(), nav.Title:GetText() or "", lines)
 			GF.HoverIn()
 		end)
@@ -3004,10 +3067,12 @@ GF.Part(function(GF)
 		xp.Icon:SetPoint("LEFT", xp, "LEFT", PAD, -1)
 		xp.Text = T(xp, "small", "textDim")
 		xp.Text:SetPoint("LEFT", xp.Icon, "RIGHT", 7, 0)
-		-- (A narrow window cuts the line with "..."; the hover shows all of it.)
+		-- A line longer than the row takes a second one, the row growing by it
+		-- (GF.XPHeight); past two it cuts with "...", and the hover shows all of it.
 		xp.Text:SetPoint("RIGHT", xp, "RIGHT", -PAD, 0)
 		xp.Text:SetJustifyH("LEFT")
-		xp.Text:SetWordWrap(false)
+		xp.Text:SetWordWrap(true)
+		xp.Text:SetMaxLines(2)
 		-- Boosted Rest and the sleeping bag (QoL/Rest.lua) on a short line of
 		-- their own under it, so the pace text never pushes them out of sight.
 		xp.Rest = T(xp, "small", "textDim")
@@ -3117,6 +3182,14 @@ GF.Part(function(GF)
 		local function act(b) if b.psAction then b.psAction() end end
 		empty.Primary = W.Button(empty, "", act, { primary = true, width = 168 })
 		empty.Secondary = W.Button(empty, "", act, { width = 168 })
+		-- A finished leveling guide's quests left in the log (GF.EndQuestLines):
+		-- links in the accent under the text, each opening its list.
+		empty.Carried = W.Link(empty, "", act, { role = "note" })
+		empty.Carried.psTip = L["A later guide of your route hands these in: keep them. Click to see each with its guide."]
+		empty.Carried:Hide()
+		empty.Stray = W.Link(empty, "", act, { role = "note" })
+		empty.Stray.psTip = L["No guide of your route takes, works or hands these in. Click to see them and keep or abandon each."]
+		empty.Stray:Hide()
 
 		-- The guide's progress with its percent, at the bottom.
 		foot = CreateFrame("Frame", nil, F)
@@ -3204,7 +3277,9 @@ GF.Part(function(GF)
 				return entries
 			end)
 		end
-		Theme.OnChanged(function() if ns.IsLoggedIn() then GF.Render() end end)
+		-- Drawn anew after a full refresh; a live repaint (a slider dragged)
+		-- recolours its parts where they stand (W.Color).
+		Theme.OnChanged(function() if ns.IsLoggedIn() then GF.Render() end end, true)
 	end
 
 	---------------------------------------------------------------------------
@@ -3308,6 +3383,11 @@ GF.Part(function(GF)
 		ns.On("STEP_CHANGED", whenReady(GF.Render))
 		ns.On("STEP_UPDATED", whenReady(GF.Update))
 		ns.On("PARTY_PROGRESS", whenReady(GF.Update))
+		-- A finished guide's card counts the quests in the log (GF.EndQuestLines):
+		-- one taken, handed in or abandoned paints it afresh. Only on that card.
+		ns.RegisterEvent("QUEST_LOG_UPDATE", function()
+			if state == "complete" and F and F:IsShown() and ns.IsLoggedIn() then GF.Render() end
+		end)
 		ns.On("GUIDES_REGISTERED", whenReady(GF.Render))
 		ns.On("PACKS_CHANGED", whenReady(GF.Render))
 		ns.On("GUIDE_COMPLETED", whenReady(GF.Render))
@@ -3320,10 +3400,13 @@ GF.Part(function(GF)
 
 		-- The tabs changed (a step moved on, a tab opened or closed): their titles
 		-- and progress are redrawn. The window is laid out again only when the
-		-- strip itself comes or goes; a step change already laid it out (Render).
+		-- strip itself comes or goes (compact mode shows it from two tabs); a
+		-- step change already laid it out (Render).
 		ns.On("TABS_CHANGED", whenReady(function()
-			local has = GF.TabsOf(Engine()) ~= nil
-			if has ~= strip.psHasTabs then
+			local tl = GF.TabsOf(Engine())
+			local has, was = tl ~= nil, GF.StripShown()
+			strip.psTabN = tl and #tl or 0
+			if has ~= strip.psHasTabs or was ~= GF.StripShown() then
 				strip.psHasTabs = has
 				GF.Layout()
 			elseif GF.StripShown() then

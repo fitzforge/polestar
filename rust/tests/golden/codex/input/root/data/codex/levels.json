@@ -1,0 +1,17 @@
+{
+	"about": "Named exceptions to a dungeon's range and floor in the Codex (rust/crates/forge-data/src/codex/journal.rs, levels_of). By the rule a dungeon's range is the client's Group Finder's (GroupFinderActivity: MinLevel to MaxLevelSuggestion, never under the client's own minimum) and its floor, the level the guides' dungeon steps and the hub's \"For your level\" start at, is that bottom or players' recorded 25th percentile entry level (data/codex/recorded.json, dungeons; 5 people with a boss kill or more), whichever is higher. A row here overrides a top (max) or a floor (floor), cited the way forever-db/corrections cites a fact (source: { kind, ref }) with a note saying why. Keep it to the exceptions the maintainer approved: journal.rs's tests list them.",
+	"levels": [
+		{
+			"key": "the-hall-of-thanes",
+			"max": 18,
+			"source": { "kind": "in-game-check", "ref": "Fitz, 2026-11-13: the game shows The Hall of Thanes as levels 13-18" },
+			"note": "The client's Group Finder suggests it up to level 20; players' recordings agree with 18 (42 people with a boss kill, 90th percentile entry level 17.8)."
+		},
+		{
+			"key": "kroldok-stronghold",
+			"floor": 43,
+			"source": { "kind": "in-game-check", "ref": "Fitz, 2026-11-13: floor 43 for Krol'dok Stronghold only" },
+			"note": "By the rule its floor is players' 25th percentile entry level, 43.5 (9 people with a boss kill). Its only slot in the guides, the end of the Riverglades guides' part 4, sits right at that level, where about half the players stand under it; 43 is inside its 40-47 and it is run with a full party of five."
+		}
+	]
+}

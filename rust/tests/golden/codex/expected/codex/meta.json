@@ -22,7 +22,7 @@
 	},
 	"localExtras": false,
 	"pack": {
-		"bytes": 449932,
+		"bytes": 450584,
 		"files": 19,
 		"loadMs": null,
 		"memoryKB": null,
@@ -64,6 +64,11 @@
 			"licence": "Facts only (quest and item ids), each entry with its sources",
 			"name": "Curated attunement goals (data/codex/attunements.json): the web quest database (Forever pages), warcraft.wiki.gg",
 			"version": "15 attunements"
+		},
+		{
+			"licence": "Facts only (levels), each row with its source",
+			"name": "Curated dungeon levels (data/codex/levels.json): in-game checks",
+			"version": "2 dungeons"
 		},
 		{
 			"licence": "Facts only (quest ids and instances), each row with its source",

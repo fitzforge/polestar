@@ -17,7 +17,7 @@ return {
 	["{npc:3649}: for {npc:1646} in {zone:1453}"] = "{npc:3649}：給{zone:1453}的{npc:1646}",
 	["The WANTED poster outside the inn"] = "旅店外的通緝海報",
 	-- {npc:3666} Wizbang Cranktoggle
-	["{npc:3666}, upstairs in the inn"] = "",
+	["{npc:3666}, upstairs in the inn"] = "{npc:3666}，在旅店樓上",
 	-- {npc:10219} Gwennyth Bly'Leggonde · {zone:1438} Teldrassil
 	["{npc:10219} (Night Elves have it from {zone:1438})"] = "",
 	-- {npc:10216} Gubber Blump
@@ -45,7 +45,7 @@ return {
 	-- Step 6: The skeletal turtle
 	["The skeletal turtle"] = "海龜骨骸",
 	-- {item:12289} Sea Turtle Remains
-	["{item:12289}, on the beach west of the docks; underwater"] = "",
+	["{item:12289}, on the beach west of the docks; underwater"] = "{item:12289}，在碼頭西邊的海灘上；在水下",
 
 	-- Step 7: Plagued bears
 	["Plagued bears"] = "染病的熊",
@@ -96,7 +96,7 @@ return {
 
 	-- Step 15: A Lesson to Learn
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
-	["Fly from {area:442} to {area:702} and take the portal up to {npc:4217} in the {area:1658}."] = "從{area:442}飛往{area:702}，搭傳送門上到{area:1658}找{npc:4217}。",
+	["Night Elves fly from {area:442} to {area:702}; Skyborne take the boat from the {area:442} dock and learn the Rut'theran flight path. Then take the portal up to {npc:4217} in the {area:1658}."] = "暗夜精靈從{area:442}飛往{area:702}；天裔精靈從{area:442}碼頭搭船，並學會魯瑟蘭村的飛行路線。接著搭傳送門上到{area:1658}找{npc:4217}。",
 
 	-- Step 18: Moonglade
 	-- {spell:18960} Teleport: Moonglade
@@ -105,7 +105,7 @@ return {
 	-- Step 19: Trial of the Lake
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:656} Lake Elune'ara · {area:2362} Shrine of Remulos · {npc:11799} Tajarri · {quest:29} Trial of the Lake · {area:442} Auberdine
 	-- plural, as words: Shrine Baubles = {item:15877} Shrine Bauble
-	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. {quest:29} runs on a timer: no teleport or Hearthstone until {npc:11799} has it. Then fly back to {area:442} from {area:2361}."] = "",
+	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. {quest:29} runs on a timer: no teleport or Hearthstone until {npc:11799} has it. Then fly back to {area:442} from {area:2361}."] = "{npc:11802}站在{area:2361}他建築的樓上：從裡面走上去，箭頭無法分辨樓層。神殿靈珠在{area:2361}下方{area:656}湖底的容器裡：拿一個到西北方的{area:2362}，在那裡使用並與{npc:11799}交談。{quest:29}有時間限制：在交給{npc:11799}之前，不要傳送或使用爐石。然後從{area:2361}飛回{area:442}。",
 	-- {quest:6122} The Principal Source · {area:445} Cliffspring Falls
 	["{quest:6122}: fill the sampler at {area:445}"] = "{quest:6122}：在{area:445}裝滿採樣器",
 	-- {item:15877} Shrine Bauble · {object:177785} Bauble Container
@@ -152,7 +152,7 @@ return {
 	["The bay wrecks"] = "海灣沉船",
 	-- {area:442} Auberdine
 	-- plural, as words: Reef Crawlers = {npc:2235} Reef Crawler · Encrusted Tide Crawlers = {npc:2233} Encrusted Tide Crawler
-	["Two wrecks lie on the sea floor in the bay north of {area:442}; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore.\nCareful: The murlocs inside the wrecks are close together and fast. They often swim through the hull walls and holes, so you will usually pull extra murlocs."] = "",
+	["Two wrecks lie on the sea floor in the bay north of {area:442}; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore.\nCareful: The murlocs inside the wrecks are close together and fast. They often swim through the hull walls and holes, so you will usually pull extra murlocs."] = "兩艘沉船在{area:442}北邊的海灣海底；每艘都有一個鎖箱。暗礁蟹和硬殼潮行蟹散布在這片海岸。\n小心：沉船裡的魚人彼此靠得很近，而且速度很快。牠們常常穿過船殼的牆壁和破洞游過來，所以通常會多拉到幾隻魚人。",
 	-- {item:12191} Silver Dawning's Lockbox
 	["{item:12191}; underwater"] = "",
 	-- {item:12192} Mist Veil's Lockbox
@@ -190,8 +190,8 @@ return {
 	-- {area:456} Cliffspring River · {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell · {item:12355} Talisman of Corruption
 	["The furbolg camp south of the {area:456} keeps its Nut, Fruit and Grain Stores by the bonfires. With a sample of each and the {item:12347} in your bags (the {item:12346} is filled at the {object:174795}), use the bowl by the bonfire closest to the river: it summons Xabraxxis, the satyr corruptor, and the {item:12355} lies in his Demon Bag."] = "",
 	["By the bonfire closest to the river: summons Xabraxxis"] = "",
-	-- {item:12355} Talisman of Corruption · {object:177624} Xabraxxis' Demon Bag
-	["{item:12355}, in {object:177624}"] = "{item:12355}，在{object:177624}裡",
+	-- {item:12347} Filled Cleansing Bowl
+	["After using the {item:12347}, kill Xabraxxis, then click his Demon Bag on the ground to collect the talisman. If Xabraxxis despawns before you get it, retake the quest for a new bowl."] = "使用{item:12347}後，擊殺薩巴克希斯，然後點擊他掉在地上的惡魔之袋取得護符。如果你拿到之前薩巴克希斯就消失了，重新接取任務以取得新的碗。",
 
 	-- Step 34: The cave and the Den Mother
 	["Careful: If you attack one cub, the other cubs and often the mother join the fight, so expect to take on several at the same time."] = "",
@@ -207,7 +207,6 @@ return {
 	-- ["Back to {npc:11802}"] = "返回{npc:11802}",
 	-- ["Back to {npc:11802} in {area:2361}, then fly to {area:702} (by way of {area:442})."] = "回到{area:2361}找{npc:11802}，然後飛往{area:702}（途經{area:442}）。",
 	-- ["Boat to {zone:1453}"] = "搭船前往{zone:1453}",
-	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. Then fly back to {area:442} from {area:2361}."] = "施放{spell:18960}。{npc:11802}在{area:2361}。神殿靈珠在{area:2361}下方{area:656}湖底的容器裡：拿一個到西北方的{area:2362}，在那裡使用並與{npc:11799}交談。然後從{area:2361}飛回{area:442}。",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; learn the flight path there if you do not have it."] = "施放{spell:18960}。{npc:11802}在{area:2361}；如果還沒有那裡的飛行路線就學一下。",
 	-- ["Escort her out of the glaive; Therysil takes the turn-in in {zone:1440}"] = "護送她離開月刃；瑟瑞希爾在{zone:1440}接受繳交",
 	-- ["Fine Moonstalker Pelts"] = "優質月夜猛虎毛皮",
@@ -243,9 +242,8 @@ return {
 	-- ["The {object:12666}"] = "{object:12666}",
 	-- ["Thresher Eyes"] = "蛇頸龍的眼球",
 	-- ["Tide Crawlers scuttle along the shore below the village; {quest:983} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {quest:4723} lies on the shore just south of the village."] = "潮行蟹在村子下方的海岸爬行；{quest:983}站在碼頭南邊不遠的海灘上。黑海岸蛇頸龍在淺水中游動。{quest:4723}在村子南邊不遠的岸上。",
-	-- ["Two wrecks lie on the sea floor in the bay north of {area:442}; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore."] = "兩艘沉船在{area:442}北邊的海灣海底；每艘都有一個鎖箱。暗礁蟹和硬殼潮行蟹散布在這片海岸。",
 	-- ["{area:450} lies on the coast south of {npc:10323}'s beach. Protect the prospector while he searches for the fossil."] = "{area:450}位於{npc:10323}海灘南邊的海岸。在勘察員尋找化石時保護他。",
-	-- ["{item:12289}, on the beach west of the docks"] = "{item:12289}，在碼頭西邊的海灘上",
+	-- ["{item:12355}, in {object:177624}"] = "{item:12355}，在{object:177624}裡",
 	-- ["{item:15851} and {item:2449}"] = "{item:15851}與{item:2449}",
 	-- ["{item:15883}: the {object:177790} under the water off the north coast, west of the ruins"] = "{item:15883}：廢墟西邊、北海岸外水下的{object:177790}",
 	-- ["{item:15883}: the {object:177792} under the water off the north coast, west of the ruins"] = "{item:15883}：廢墟西邊、北海岸外水下的{object:177792}",
@@ -259,7 +257,6 @@ return {
 	-- ["{npc:12298}: use the {item:15826} on them; they roam all of {zone:1439}"] = "{npc:12298}：對牠們使用{item:15826}；牠們遍布整個{zone:1439}",
 	-- ["{npc:3616}, at the Grove"] = "{npc:3616}，在古樹之林",
 	-- ["{npc:3661} hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in {zone:1440}."] = "{npc:3661}躲在塔底的暗灘狂熱者之間。把他的信留給{zone:1440}的淨化者德爾葛蘭。",
-	-- ["{npc:3666}, by the inn"] = "{npc:3666}，在旅店旁",
 	-- ["{npc:3692} hides in the hills east of the {area:449}. Help him back to the road; he fights on his way out."] = "{npc:3692}躲在{area:449}東邊的丘陵中。幫他回到道路上；他會一路戰鬥出去。",
 	-- ["{npc:3694}: for {npc:3691} in {area:415}, on the later {zone:1440} leg"] = "{npc:3694}：之後{zone:1440}路段時給{area:415}的{npc:3691}",
 	-- ["{npc:6667} hides on the little island off the ruins. The key pieces drop from Giant Foreststriders (top), Greymist murlocs (middle) and Raging Reef Crawlers (bottom)."] = "{npc:6667}躲在廢墟外的小島上。鑰匙碎片由兇猛的森林陸行鳥（上段）、灰霧魚人（中段）和狂暴暗礁蟹（下段）掉落。",

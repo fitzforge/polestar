@@ -9,23 +9,31 @@ first one with a name for an id winning.
 
 World of Warcraft client tables, via wago.tools
 -----------------------------------------------
-Build: 1.60.1.70425, World of Warcraft: Forever (wow_classic_beta)
+Build: 1.60.1.70450, World of Warcraft: Forever (wow_classic_beta)
 Build: 1.15.9.70003, Classic Era (wow_classic_era), for the items Forever's table lacks
-Table: https://wago.tools/db2/DungeonEncounter/csv?build=1.60.1.70425&locale=zhCN
-Table: https://wago.tools/db2/Faction/csv?build=1.60.1.70425&locale=zhCN
+Table: https://wago.tools/db2/DungeonEncounter/csv?build=1.60.1.70450&locale=zhCN
+Table: https://wago.tools/db2/Faction/csv?build=1.60.1.70450&locale=zhCN
 Table: https://wago.tools/db2/ItemSparse/csv?build=1.15.9.70003&locale=zhCN
-Table: https://wago.tools/db2/ItemSparse/csv?build=1.60.1.70425&locale=zhCN
-Table: https://wago.tools/db2/Map/csv?build=1.60.1.70425&locale=zhCN
-Table: https://wago.tools/db2/TaxiNodes/csv?build=1.60.1.70425&locale=zhCN
+Table: https://wago.tools/db2/ItemSparse/csv?build=1.60.1.70450&locale=zhCN
+Table: https://wago.tools/db2/Map/csv?build=1.60.1.70450&locale=zhCN
+Table: https://wago.tools/db2/TaxiNodes/csv?build=1.60.1.70450&locale=zhCN
 The client's own strings: names only.
-Names taken: 21163 items, 30 instances, 342 encounters, 73 factions, 61 flight points.
+Names taken: 23102 items, 30 instances, 342 encounters, 73 factions, 67 flight points.
+
+Names the World of Warcraft: Forever client showed players
+----------------------------------------------------------
+File: data/i18n/names-observed/zhCN.json in the Polestar repository
+The server's own names, read from the client's cache and from the names it
+gave units in play, collected by players and reviewed in the repository
+(#1448).
+Names taken: 179 quests, 144 NPCs, 18 objects.
 
 The web quest database, World of Warcraft: Forever pages
 --------------------------------------------------------
 Pages: the Chinese (simplified) list pages and tooltips
 Read: 2026-10-16 to 2026-10-16
 Public web pages; the game's names only (facts), credited in THIRD_PARTY.md.
-Names taken: 4508 quests, 8624 NPCs, 954 objects, 487 items, 1 quest objective.
+Names taken: 309 quests, 542 NPCs, 68 objects, 486 items, 1 quest objective.
 
 DingDB, the game database of Ding! by Yendi (@moust4ki)
 -------------------------------------------------------
@@ -35,7 +43,7 @@ File: Ding/DB/CREDITS.md (sha256 d32ce3d857766e88d0afd94d39eb0d4e3317ccc5538a467
 File: Ding/DB/Locales/zhCN.lua (sha256 c159cf9b6e2f4aa644fde6afc801168faf44273a4358ff7859ef3be5f9139646)
 License: GPL-3.0 (Copyright Yendi), used in Polestar with his permission
 (THIRD_PARTY.md in the Polestar repository).
-Names taken: 62 quests, 4 NPCs, 54 objects, 11 items.
+Names taken: 4248 quests, 8016 NPCs, 876 objects, 11 items.
 DingDB's base data is generated from Questie and QuestieDB: see CREDITS.md
 beside this file.
 
@@ -45,7 +53,7 @@ URL: https://github.com/shagu/pfQuest
 Revision: 104f35678ca39ab1fb78b655f815cc7016f5e0c8
 Files: db/zhCN/{quests,units,objects,items}.lua
 License: MIT
-Names taken: 11 quests, 1 NPC, 111 objects, 67 items, 27 quest objectives (the ones the sources above lack).
+Names taken: 17 quests, 82 NPCs, 257 objects, 65 items, 27 quest objectives (the ones the sources above lack).
 
 MIT License
 

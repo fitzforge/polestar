@@ -241,6 +241,15 @@ The build goes in layers. A later layer wins over an earlier one:
 Spawn points are thinned to at most 24 per NPC or object per map (`--cap N`), spread evenly over
 the area they cover.
 
+Talk objectives: QuestieDB lists a quest done by talking to an NPC (a story to hear, advice to ask, an item to
+show) as a creature objective, like a kill, and the Classic server's database gives it no count. Once every
+source has given its counts (after the knowledge base with `--kb`), a kill objective whose count no source
+knows, whose NPC is friendly to every side that can take the quest, and whose quest text asks for no fight,
+use, emote or escort becomes `talk` (count 1) (`forge-data/src/talk.rs`); a quest whose objectives a correction
+sets is left to the correction. The Codex packs a talk as `s`, the quest database as kind 5, and the guides,
+Lookup and pinned quests say "Talk to". Talks the rule can't see (a known count, an NPC with no side in the
+data) are corrections with players' recordings behind them (#2543).
+
 ### What it writes
 
 Without `--kb`, `data/forever/` gets:
@@ -321,13 +330,14 @@ first.
 | `forge data extracts --out DIR` | the server-fact extracts, rebuilt from the pinned database dump in `data/sources` | for checking the cached extracts |
 | `forge data itemdb` | `addon/Polestar_ItemDB/Items.lua` and its TOC (size budget 1 MiB) | the Classic Era item tables (ItemSparse, Item, ItemEffect, SpellEffect) |
 | `forge data names [<locale>...]` | `Names.lua`, `LICENSE-DATA.txt`, `CREDITS.md` and the TOC in the language folders `addon/Polestar_<locale>` (committed; our guides' `Texts.lua` there is left alone): the data's names in each client language; `--offline`, `--no-questie`, `--no-tables`, `--build`, `--sources`, `--observed`, `--ding`, `--pfquest`, `--guides`, `--questdb`, `--codex`, `--travel`, `--chokepoints`, `--out`, `--json` (`polestar i18n names` retired) | the client's tables (wago.tools, cached), the names the client showed players (`data/i18n/names-observed/<locale>.json`, [TRANSLATING.md](../TRANSLATING.md#game-names)), the cached web quest database names, DingDB (pinned), pfQuest; the ids of the compiled guides, `addon/Polestar_QuestDB`, `data/forever/codex`, the travel data and the chokepoints |
+| `forge data subzones [<locale>...]` | `Subzones.lua` and the TOC in the language folders `addon/Polestar_<locale>` (committed): the subzone name the client in each language shows on each area of the walking maps, for the rows not named as in English, which the arrow reads to tell a city's floors apart; `--offline`, `--sources`, `--data`, `--nav`, `--out`. Run it after `forge nav pack` | the walking maps' areas (`addon/Polestar_Nav/Nav/Nav<map>.lua`'s `areaNames`) and the Forever client's WMOAreaTable and AreaTable in English and each language (wago.tools, cached) at the client build the data is built from (`forge_data::subzones::BUILD`; data/forever naming another stops it) |
 | `forge data questdb` | `addon/Polestar_QuestDB` (local; in the release zip when built): each kind's records as LuaChunks strings, decoded when read; `--radius YD`, `--droppers N`, `--json` | `data/forever` (quests, npcs, objects, items, map-frames) |
 | `forge data talents build` | `addon/Polestar/Talents/Builds.lua`; `check` fails when it is out of date or a plan breaks a rule | the plans in `talents/forever/*.json` and the Forever client's trait tables at a pinned build |
 | `forge data maps build` | `addon/Polestar/Maps/ZoneLevels.lua` | `data/forever` (npcs, zones, map frames) |
 | `forge data maps overlays` | `addon/Polestar/UI/ZoneArtOverlays.lua` | the Forever client's map-art tables at a pinned build |
 | `forge data newquests` | `addon/Polestar/Quests/NewQuestIds.lua` (the "New in Forever" mark's ids; `--check` fails when it is out of date) | `data/forever/quests.json` and the QuestV2 tables of a pinned Classic Era and Forever build: a quest neither pfQuest nor the Era client holds is new |
 
-`itemdb`, `talents`, `maps overlays` and `newquests` fetch a missing table into `data/sources` unless `--offline`;
+`itemdb`, `subzones`, `talents`, `maps overlays` and `newquests` fetch a missing table into `data/sources` unless `--offline`;
 `codex`, `professions` and `travel` read the cache only: `forge data sources --only builders` fills it.
 
 Codex and gear are addon side products. They are not route inputs.
@@ -612,9 +622,9 @@ Every travel-only step of the walk gets each condition (a string, or a list of t
 7836", "!complete 7824"]`) after its `only` and `when` lines; one it already has is not repeated. A
 record may set `at` and `when` both.
 
-**A guide's top level (`levels`).** Hillsbrad & Arathi (Horde 30-40/01) said 29-32, and the guide
-window calls a guide outgrown at its top + 2, but players leave it at 33 (players' recordings, four
-people) and half its quests are 32-33:
+**A guide's top level (`levels`).** Hillsbrad & Arathi (Horde 30-40/01) said 29-32, but players leave
+it at 33 (players' recordings, four people) and half its quests are 32-33, so its top is where they
+leave (the guide window calls a guide outgrown at its top + 3):
 
 ```json
 { "id": "levels-horde-hillsbrad-arathi-top-33", "at": { "goal": "levels", "guide": "forever/horde/30-40/01-hillsbrad-foothills" },

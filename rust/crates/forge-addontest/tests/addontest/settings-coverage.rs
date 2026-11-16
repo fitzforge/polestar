@@ -7,8 +7,9 @@
 //! Polestar works with installed, a skin with variants and a layout, a guide with group quests, guides with steps for
 //! every dungeon in the route, and Shortest Path Forever, so no control waits on something missing. A few live in the
 //! window's own chrome (the Menu scale in its header): those are checked there. A later release's control whose
-//! setting this build does not register yet (its row placed ahead of it on purpose) is pending, not lost, until this
-//! build is that release (pending_lua).
+//! setting this build does not register yet (its row placed ahead of it on purpose), or whose row this build holds
+//! back (its `needs` says no: "Dungeons in my route", 0.4.1's, while Core/Init.lua's dungeon route switch is off), is
+//! pending, not lost, until this build is that release (pending_lua).
 
 use forge_addontest::run::{addons_dir, lua_value};
 use forge_addontest::{emitted, Addon, RunAddon};
@@ -30,7 +31,8 @@ if T.RegisterSkin then
 end
 local E = Polestar.Engine
 if E then E.GroupQuests = function() return { { id = 1, title = "Coverage" } } end end
--- Guides with steps for every dungeon a leveling guide can run (Dungeons.ROUTE).
+-- Guides with steps for every dungeon a leveling guide can run (Dungeons.ROUTE): their rows wait for dungeons in the
+-- route, held back as this build ships them (Core/Init.lua's switch).
 if E then
 	E.GuideDungeons = function()
 		local t = {}
@@ -212,8 +214,8 @@ pub(crate) fn due_and_ahead() -> (Vec<Value>, Vec<Value>) {
 
 // A later release's control (its release in settings-controls.json after this build's) whose setting this build does
 // not register: its row stands in the window ahead of that setting on purpose, so it is pending, neither lost nor
-// owing an effect check, until this build is that release. Its setting: its key's default; for a control without a
-// key, what its `needs` asks for. -> Lua defining pending(c) for this build; the effect checks' coverage uses it too.
+// owing an effect check, until this build is that release. Its setting: its key's default; and what its `needs` asks
+// for (a row this build holds back). -> Lua defining pending(c) for this build; the effect checks' coverage uses it too.
 pub(crate) fn pending_lua() -> String {
 	let (_, ahead) = due_and_ahead();
 	format!(
@@ -225,7 +227,7 @@ function pending(c)
 	if type(label) == "function" then label = label() end
 	local id = c.key or (c.kind == "binding" and ("action:" .. tostring(c.action))) or ("label:" .. tostring(label))
 	if not later[id] then return false end
-	if c.key then return Polestar.GetDefault(c.key) == nil end
+	if c.key and Polestar.GetDefault(c.key) == nil then return true end
 	return c.needs ~= nil and not c.needs()
 end
 "#,

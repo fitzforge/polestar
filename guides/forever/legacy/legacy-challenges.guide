@@ -156,6 +156,7 @@ step Adventure: Saving the Best for Last (Alliance)
   zone Ironforge
   tip Deliana then offers your class's Saving the Best for Last, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them.
   turnin 8997                 -- Deliana, Ironforge: Back to the Beginning
+  level 58
   accept 8999 only Druid optional
   collect 16720 quest 8999.1 only Druid optional  -- Wildheart Cowl
   collect 16706 quest 8999.2 only Druid optional  -- Wildheart Vest
@@ -194,6 +195,7 @@ step Adventure: Saving the Best for Last (Horde)
   zone Orgrimmar
   tip Mokvar then offers your class's Saving the Best for Last, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them.
   turnin 8998                 -- Mokvar, Orgrimmar: Back to the Beginning
+  level 58
   accept 9007 only Druid optional
   collect 16720 quest 9007.1 only Druid optional  -- Wildheart Cowl
   collect 16706 quest 9007.2 only Druid optional  -- Wildheart Vest
@@ -231,6 +233,8 @@ step Adventure: Saving the Best for Last (Horde)
 
 step Dungeons: level 15-25
   tip The final boss of every level 15-25 dungeon earns one point together. Ragefire Chasm and Forever's Hall of Thanes (in Ironforge) count as one: either final boss does. Tick each boss off when you kill it, and check the in-game Legacy panel for the list.
+  tip Alliance: the Ruins of Lordaeron's entrance is in the ruins beside the Undercity, among Horde guards: go with a group. Ragefire Chasm is inside Orgrimmar: the Hall of Thanes counts for it. Horde: the Hall of Thanes is inside Ironforge: Ragefire Chasm counts for it.
+  level 15
   kill 11519 optional         -- Ragefire Chasm: Bazzalan (or Hall of Thanes)
   kill 261319 optional        -- Hall of Thanes: Durgen Dirgehammer (or Ragefire Chasm)
   kill 256035                 -- Ruins of Lordaeron (Forever's, Tirisfal Glades): Viktor the Vile
@@ -241,6 +245,7 @@ step Dungeons: level 15-25
 
 step Dungeons: level 26-45
   tip The final boss of every level 26-45 dungeon earns one point together. The Drowned City and Krol'dok Stronghold (in the Riverglades) are new in Forever and not in our data: tick them off yourself.
+  level 26
   kill 246020                 -- City of Dalaran (Forever's, Alterac Mountains): Shade of the Archmage
   kill 4829                   -- Blackfathom Deeps
   kill 7800                   -- Gnomeregan
@@ -254,6 +259,7 @@ step Dungeons: level 26-45
 
 step Dungeons: level 46-60
   tip The final boss of every level 46-60 dungeon earns one point together. Alcaz Prison, Blackmaw Hold and the Shaper's Terrace are new in Forever and not in our data: tick them off yourself.
+  level 46
   kill 7358                   -- Razorfen Downs
   kill 2748                   -- Uldaman
   kill 7267                   -- Zul'Farrak

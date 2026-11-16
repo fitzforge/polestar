@@ -310,7 +310,7 @@ fn complete_builds(sources: &Path, p: &Product, kinds: &[(&str, &str, &str)], lo
 }
 
 /// The rows of `table` of `build` in `locale` (None: English): the cached CSV, else fetched and cached.
-fn cached_table(sources: &Path, build: &str, table: &str, locale: Option<&str>, http: Option<&Http>, log: &dyn Fn(&str)) -> Result<crate::jsv::Rows, String> {
+pub(crate) fn cached_table(sources: &Path, build: &str, table: &str, locale: Option<&str>, http: Option<&Http>, log: &dyn Fn(&str)) -> Result<crate::jsv::Rows, String> {
 	if let Some(l) = locale {
 		let b = l.as_bytes();
 		if !(b.len() == 4 && b[..2].iter().all(u8::is_ascii_lowercase) && b[2..].iter().all(u8::is_ascii_uppercase)) {

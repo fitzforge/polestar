@@ -35,26 +35,33 @@
 --   P.Key(name) -> key | nil, P.SetKey(name, key | nil) -> true | nil, why
 --                                   a key (or gamepad button) that switches to the profile
 --                                   (PolestarDB.profileKeys, the account's; out of combat)
---   P.Export(name?, opts) -> string, count | nil, why   -- opts.areas = { look, guiding, positions } (all when nil); opts.look: the look alone
+--   P.CATEGORIES                    -- { { id, label, help }, ... }: the parts a string carries one by one
+--   P.Export(name?, opts) -> string, count | nil, why   -- opts.categories = { id = true, ... } (all when nil)
 --   P.Import(text) -> preview | nil, why   -- nothing changes yet
---   P.Apply(preview, name, areas?)  -> true | nil, why: into the profile in use (name = P.Active()) or as a new one
+--   P.Changes(preview, pick?)       -> { { path, category, label, theirs, reset }, ... }: what an Apply into the profile in use changes
+--   P.Apply(preview, name, pick?)   -> true, undo | nil, why: into the profile in use (name = P.Active()) or as a new one
+--   P.Undo(undo)                    -> true | nil, why: an Apply taken back
 --   P.RegisterPosition(path, shape) -- a position setting a string may carry (shape "xy" | "pxy" | "ppxy" | "anchor")
 --   ns.RegisterMigration(id, fn(settings))
--- The string functions (Export, Import, Apply, Portable, FreeName, Pack,
--- AreaOf, Same) are the settings' addon's (Polestar_Options/Core/
--- ProfileStrings.lua): the first call loads it.
+-- The string functions (Export, Import, Changes, Apply, Undo, Portable,
+-- FreeName, Pack, CategoryOf, LabelOf, ValueText, Same) are the settings'
+-- addon's (Polestar_Options/Core/ProfileStrings.lua): the first call loads
+-- it, and P.CATEGORIES is there once it has.
 --
 -- A profile string is data, never code:
 --   !PSS1!<Adler-32 of the JSON, 8 hex digits>!<base64 of zlib of the JSON>
---   { "format": 1, "name": "Raid", "scope": "look" (the look alone), "areas": ["look", ...],
---     "screen": { w, h, scale }, "migrations": [ids], "settings": { "ui.scale": 0.9 } }
+--   { "format": 1, "name": "Raid", "categories": ["skin", ...], "screen": { w, h, scale },
+--     "migrations": [ids], "settings": { "ui.scale": 0.9 } }
 -- (the envelope of guide import strings, Core/Import.lua, whose JSON reader
--- and checksum it reuses). Read back, each setting must have a registered
--- default and a value of its type (a colour {r, g, b[, a]} in 0-1, a
--- position of its registered shape; a slider's range, a dropdown's choices
--- when a control on the Options pages says so); anything else is dropped
--- and named. Messages: PROFILES_CHANGED (the list, the profile in use or
--- this character's choice changed).
+-- and checksum it reuses). "categories" names the parts it holds, so a
+-- setting it leaves out of one is at its default there (strings from before
+-- 0.4.0 have "areas" instead, which a reader passes over: such a string
+-- holds the categories its settings are in). Read back, each setting must
+-- have a registered default and a value of its type (a colour {r, g, b[, a]}
+-- in 0-1, a position of its registered shape; a slider's range, a
+-- dropdown's choices when a control on the Options pages says so); anything
+-- else is dropped and named. Messages: PROFILES_CHANGED (the list, the
+-- profile in use or this character's choice changed).
 
 local ADDON, ns = ...
 local L = ns.L
@@ -584,7 +591,7 @@ function P.RegisterPosition(path, shape)
 	return true
 end
 
-for _, name in ipairs({ "Same", "AreaOf", "Pack", "Portable", "Export", "Import", "FreeName", "Apply" }) do
+for _, name in ipairs({ "Same", "CategoryOf", "LabelOf", "ValueText", "Pack", "Portable", "Export", "Import", "Changes", "FreeName", "Apply", "Undo" }) do
 	local stub
 	stub = function(...)
 		local UI, ok, why = ns.UI, false, "unavailable"

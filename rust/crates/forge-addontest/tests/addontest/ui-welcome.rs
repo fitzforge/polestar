@@ -527,9 +527,11 @@ fn right_clicking_the_quest_automation_switch_puts_accepting_and_turning_in_back
 	assert_eq!(out["again"], json!([true, true, true]), "from the defaults, right-click leaves them as they are");
 }
 
+// Dungeons in the route turned on (held back as they ship: Core/Init.lua's switch; the held_back_* test below).
 #[test]
 fn the_groups_page_shows_once_the_guides_have_dungeons_or_group_quests_and_writes_each_choice() {
 	let out = run(r#"
+		Polestar.dungeonRoute = true
 		Wel.Show()
 		local without = titles()
 		PolestarWelcome:Hide()
@@ -572,22 +574,52 @@ fn the_groups_page_shows_once_the_guides_have_dungeons_or_group_quests_and_write
 	assert_eq!(out["pages"][2], "Groups and dungeons", "after Questing");
 }
 
-// Targeting (with QoL): the target button, a preview of its face and plate, who it targets as its child, its mark
-// and ping; a line says the step key targets the same without it and Move frames moves it. Each switch writes
-// its setting; with the button off, who it targets waits on it.
+// Held back (Core/Init.lua's switch off, as it ships): guides with dungeons in their route and Run them saved, yet
+// the page is Groups, about group quests only: no dungeon question, no word of dungeons; the saved answer stays.
+#[test]
+fn held_back_the_groups_page_asks_about_group_quests_only_and_names_no_dungeon() {
+	let out = run(r#"
+		Polestar.RegisterDefaults("behavior", { dungeons = "skip" })
+		Polestar.Set("behavior.dungeons", "run")
+		uistub.guideDungeons = { [1581] = true }
+		uistub.groupQuests = { { quest = 101, title = "Elite" } }
+		Wel.Show("groups")
+		local F = PolestarWelcome
+		local texts = {}
+		local function walk(f)
+			for _, r in ipairs({ f:GetRegions() }) do
+				if r.GetText and r:IsVisible() and r:GetText() then texts[#texts + 1] = r:GetText() end
+			end
+			for _, c in ipairs({ f:GetChildren() }) do walk(c) end
+		end
+		walk(F)
+		local dungeonWords = {}
+		for _, t in ipairs(texts) do if t:lower():find("dungeon") then dungeonWords[#dungeonWords + 1] = t end end
+		emit({ title = title(), dungeons = cards(F.Dungeons).shown, quests = cards(F.GroupQuests).shown, words = table.concat(dungeonWords, " | "),
+			route = Polestar.Get("behavior.dungeons") })"#);
+	assert_eq!(out, json!({ "title": "Groups", "dungeons": false, "quests": true, "words": "", "route": "run" }));
+}
+
+// Targeting (with QoL): the target button and its list, a preview, the single button (Simple target button) and who
+// it targets as its children, its mark and ping; a line says the step key targets the same without it and Move
+// frames moves it. Each switch writes its setting; with the button off, its children wait on it, and who it targets
+// waits on the single button too (#1704: the list goes with the target button, no setting of its own).
 #[test]
 fn the_targeting_page_offers_the_target_button_who_it_targets_its_mark_and_ping_and_says_what_the_step_key_and_move_frames_do() {
 	let out = run(r#"
 		Wel.Show()
 		local without = titles()
 		PolestarWelcome:Hide()
-		Polestar.RegisterDefaults("qol", { targetButton = true, targetPlate = true, markTarget = true, pingTarget = false })
+		Polestar.RegisterDefaults("qol", { targetButton = true, targetSimple = false, targetPlate = true, markTarget = true, pingTarget = false })
 		Wel.Show("targeting")
 		local F = PolestarWelcome
 		local body = F.pages.targeting.Body
 		local function on(row) return row:IsShown() and row.checked or false end
 		local start = { title = title(), button = on(F.TargetButton), plate = on(F.TargetPlate), mark = on(F.MarkTarget),
-			ping = on(F.PingTarget), note = body.StepKey:GetText(), stage = body.Stage:IsShown() }
+			ping = on(F.PingTarget), note = body.StepKey:GetText(), stage = body.Stage:IsShown(), simple = on(F.TargetSimple),
+			plateEnabled = F.TargetPlate:IsEnabled() }
+		F.TargetSimple:Click()
+		local simple = { Polestar.Get("qol.targetSimple"), F.TargetPlate:IsEnabled() }
 		F.TargetPlate:Click()
 		local plate = Polestar.Get("qol.targetPlate")
 		F.TargetPlate:Click("RightButton")
@@ -599,15 +631,16 @@ fn the_targeting_page_offers_the_target_button_who_it_targets_its_mark_and_ping_
 		F.MarkTarget:Click()
 		F.PingTarget:Click()
 		Wel.Show()
-		emit({ without = without, start = start, plate = plate, off = off, plateWhileOff = plateWhileOff,
+		emit({ without = without, start = start, simple = simple, plate = plate, off = off, plateWhileOff = plateWhileOff,
 			after = { Polestar.Get("qol.markTarget"), Polestar.Get("qol.pingTarget"), Polestar.Get("qol.targetButton") }, pages = titles() })"#);
 	assert!(!out["without"].as_array().unwrap().contains(&json!("Targeting")), "no QoL, no page: {}", out["without"]);
 	assert_eq!(
 		out["start"],
-		json!({ "title": "Targeting", "button": true, "plate": true, "mark": true, "ping": false, "stage": true,
-			"note": "The step key targets the same names without the button. Move frames, in Settings, moves the button." }),
+		json!({ "title": "Targeting", "button": true, "plate": true, "mark": true, "ping": false, "stage": true, "simple": false, "plateEnabled": false,
+			"note": "No button? The key \"Use the step button\" (Key Bindings, Polestar) targets the same names. Move frames, in Settings, moves the button." }),
 		"their defaults, the preview and the line on the step key and Move frames"
 	);
+	assert_eq!(out["simple"], json!([true, true]), "Simple target button writes qol.targetSimple, and who it targets is the single button's");
 	assert_eq!(out["plate"], false, "who it targets writes qol.targetPlate");
 	assert_eq!(out["off"], false, "the button's switch writes qol.targetButton");
 	assert_eq!(out["plateWhileOff"], true, "with the button off, who it targets waits on it");
@@ -682,13 +715,13 @@ fn the_route_page_map_is_the_websites_demo_each_style_its_own_walk_a_switch_leav
 			return n
 		end
 		local first = { place = plain(m.Place:GetText()), trail = drawn(m.TrailCore),
-			ghost = shown(m.GhostLines), road = shown(m.RoadLines), note = plain(m.Note:GetText()) }
+			ghost = shown(m.GhostLines), note = plain(m.Note:GetText()) }
 		local seen = {}
 		for _, s in ipairs({ "fastest", "roads", "balanced" }) do
 			local before = Polestar.Get("nav.routeStyle") or "balanced"
 			PolestarWelcome.Styles[s == "fastest" and 1 or s == "balanced" and 2 or 3]:Click()
 			local just = { running = Polestar.Anim.IsRunning(m, "value"), share = m.psShare, ghost = m.psGhost,
-				ghostLines = shown(m.GhostLines), roadAlpha = m.Road:GetAlpha() }
+				ghostLines = shown(m.GhostLines) }
 			stub.advance(0.2)
 			local mid = { share = m.psShare, trail = shown(m.TrailCore) }
 			stub.advance(2)
@@ -698,13 +731,32 @@ fn the_route_page_map_is_the_websites_demo_each_style_its_own_walk_a_switch_leav
 		Polestar.Set("ui.reduceMotion", true)
 		Polestar.Set("nav.routeStyle", "roads")
 		local reduced = { running = Polestar.Anim.IsRunning(m, "value"), share = m.psShare, trail = drawn(m.TrailCore),
-			ghost = m.psGhost, ghostAlpha = m.Ghost:GetAlpha(), roadAlpha = m.Road:GetAlpha() }
-		emit({ first = first, seen = seen, reduced = reduced })"#);
+			ghost = m.psGhost, ghostAlpha = m.Ghost:GetAlpha() }
+		-- The route line's look: Dots draws the walk as marks, no line.
+		Polestar.Set("nav.lineStyle", "dots")
+		local dots = { marks = shown(m.TrailMarks), lines = shown(m.TrailCore) }
+		emit({ first = first, seen = seen, reduced = reduced, dots = dots })"#);
 	assert_eq!(out["first"]["place"], "Elwynn Forest", "the site's zone, whatever the character's");
 	assert_eq!(out["first"]["note"], "Go to Westfall \u{b7} 1519 yd", "where the walk goes, and Balanced's yards");
 	assert_eq!(out["first"]["trail"], out["seen"]["balanced"]["trail"], "a fresh account sees Balanced's walk");
 	assert_eq!(out["first"]["ghost"], 0, "no ghost before a switch");
-	assert!(out["first"]["road"].as_u64().unwrap() > 0, "the dotted road under the trail");
+	// The client leaves a line region under 8px undrawn, so a walk of short segments showed as fragments.
+	for s in ["fastest", "balanced", "roads"] {
+		let pts: Vec<(f64, f64)> = out["seen"][s]["trail"]
+			.as_array()
+			.unwrap()
+			.iter()
+			.map(|p| {
+				let (x, y) = p.as_str().unwrap().split_once(',').unwrap();
+				(x.parse().unwrap(), y.parse().unwrap())
+			})
+			.collect();
+		assert!(pts.len() > 2, "{s}: the walk drawn whole");
+		for w in pts.windows(2) {
+			let d = ((w[1].0 - w[0].0).powi(2) + (w[1].1 - w[0].1).powi(2)).sqrt();
+			assert!(d >= 7.9, "{s}: no segment the client would leave undrawn: {d:.1} px between {:?} and {:?}", w[0], w[1]);
+		}
+	}
 	let trails: Vec<&Value> = ["fastest", "balanced", "roads"].iter().map(|s| &out["seen"][s]["trail"]).collect();
 	assert_eq!(trails.iter().map(|p| p.to_string()).collect::<HashSet<_>>().len(), 3, "each style its own walk");
 	for (s, p) in ["fastest", "balanced", "roads"].iter().zip(&trails) {
@@ -716,7 +768,6 @@ fn the_route_page_map_is_the_websites_demo_each_style_its_own_walk_a_switch_leav
 		assert_eq!(o["just"]["share"], 0.0, "{s}: from the start");
 		assert_eq!(o["just"]["ghost"], o["before"], "{s}: the last style's walk is the ghost");
 		assert!(o["just"]["ghostLines"].as_u64().unwrap() > 0, "{s}: drawn dashed");
-		assert_eq!(o["just"]["roadAlpha"], 0.0, "{s}: the new road fades in");
 		let mid = o["mid"]["share"].as_f64().unwrap();
 		assert!(mid > 0.0 && mid < 1.0, "{s}: part of the trail on the way: {o}");
 		assert_eq!(o["after"], 1.0, "{s}: whole once replayed");
@@ -729,7 +780,8 @@ fn the_route_page_map_is_the_websites_demo_each_style_its_own_walk_a_switch_leav
 	assert_eq!(out["reduced"]["trail"], out["seen"]["roads"]["trail"], "and it is Roads' walk");
 	assert_eq!(out["reduced"]["ghost"], "balanced", "the last style left as the ghost");
 	assert_eq!(out["reduced"]["ghostAlpha"], 0.55, "at once faint");
-	assert_eq!(out["reduced"]["roadAlpha"], 1.0, "the road at once");
+	assert_eq!(out["dots"]["lines"], 0, "Dots: no line");
+	assert!(out["dots"]["marks"].as_u64().unwrap() > 10, "Dots: the walk as marks: {}", out["dots"]);
 }
 
 // The route line's look on the route page (with the route lines: Maps/RouteLines.lua, stood in for here by its
@@ -805,6 +857,8 @@ fn the_look_page_lists_the_looks_beside_a_preview_loads_them_only_once_shown_and
 		stub.RunScript(find("Blizzard"), "OnEnter")
 		local hover = { preview = p.PreviewName:GetText(), line = p.PreviewLine:GetText() ~= "", skin = Polestar.Get("ui.skin") }
 		stub.RunScript(find("Blizzard"), "OnLeave")
+		-- A moment later (the gap to the next card is crossed without the preview flashing back).
+		stub.advance(0.2)
 		local left = p.PreviewName:GetText()
 		find("Blizzard"):Click()
 		local now = { skin = Polestar.Get("ui.skin"), live = Polestar.Theme.SkinId(), picked = find("Blizzard").psSelected,

@@ -42,6 +42,10 @@ fn data_texts() -> rustc_hash::FxHashMap<String, String> {
 	for id in 510..535 {
 		quests.insert(id.to_string(), quest(id, &format!("Errand {id}"), None, None, serde_json::json!([])));
 	}
+	// (Plain errands enough to fill Forever's 40-quest log and one more: R9.)
+	for id in 600..641 {
+		quests.insert(id.to_string(), quest(id, &format!("Errand {id}"), None, None, serde_json::json!([])));
+	}
 	let npcs = serde_json::json!({
 		"1": { "id": 1, "name": "Elder Testa", "level": 10, "faction": "AH", "spawns": { "99101": { "f": "e", "pts": [[50, 50]] } } },
 		"10": { "id": 10, "name": "Burrow Rat", "level": 2, "faction": null, "spawns": { "99101": { "f": "e", "pts": [[20, 20], [21, 21]] } } },
@@ -207,16 +211,18 @@ fn r8_one_level_gate_per_grind() {
 }
 
 #[test]
-fn r9_log_at_most_twenty() {
-	let accepts: String = (510..531).map(|q| format!("  accept {q}\n")).collect();
-	let turnins: String = (510..531).map(|q| format!("  turnin {q}\n")).collect();
-	let body = format!("step Elder Testa\n{accepts}step Elder Testa\n{turnins}");
-	let r9 = rules_of(&play(&body, &[persona("Orc", "WARRIOR")], false), "R9");
+fn r9_log_at_most_forty() {
+	let accepts = |n: u32| -> String { (600..600 + n).map(|q| format!("  accept {q}\n")).collect() };
+	let turnins: String = (600..641).map(|q| format!("  turnin {q}\n")).collect();
+	let r9 = rules_of(&play(&format!("step Elder Testa\n{}step Elder Testa\n{turnins}", accepts(41)), &[persona("Orc", "WARRIOR")], false), "R9");
 	assert_eq!(r9.len(), 1, "{r9:#?}");
-	assert!(r9[0].reason.contains("holds 21"), "{}", r9[0].reason);
-	let twenty: String = (510..530).map(|q| format!("  accept {q}\n")).collect();
-	let body = format!("step Elder Testa\n{twenty}step Elder Testa\n{turnins}");
-	assert!(rules_of(&play(&body, &[persona("Orc", "WARRIOR")], false), "R9").is_empty());
+	assert!(r9[0].reason.contains("holds 41"), "{}", r9[0].reason);
+	assert!(r9[0].reason.contains("at most 40"), "{}", r9[0].reason);
+	// Forever's log holds 40: a guide holding 21 to 40 at once is within it.
+	for n in [21, 40] {
+		let body = format!("step Elder Testa\n{}step Elder Testa\n{turnins}", accepts(n));
+		assert!(rules_of(&play(&body, &[persona("Orc", "WARRIOR")], false), "R9").is_empty(), "{n} quests");
+	}
 }
 
 #[test]

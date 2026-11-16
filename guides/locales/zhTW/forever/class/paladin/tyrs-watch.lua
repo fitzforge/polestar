@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {spell:7328} Redemption
-	["Tyr's Watch and {spell:7328} (Forsaken)"] = "",
+	["Tyr's Watch and {spell:7328} (Forsaken)"] = "Tyr's Watch與{spell:7328}（被遺忘者）",
 	-- {spell:7328} Redemption
 	["{spell:7328} to raise fallen allies, plus a weapon and a shield for a new Forsaken paladin."] = "用{spell:7328}復活倒下的盟友，另外還有給新的被遺忘者聖騎士的一把武器和一面盾牌。",
 
@@ -38,11 +38,11 @@ return {
 
 	-- Step 6: Murlocs at the Gates
 	-- {area:16881} Shadowvale
-	["The Vile Fin murlocs (level 9-11) lurk on the bluffs along the road east of the keep and in the camps around the lake to the south-west, on the way down to {area:16881}."] = "",
+	["The Vile Fin murlocs (level 9-11) lurk on the bluffs along the road east of the keep and in the camps around the lake to the south-west, on the way down to {area:16881}."] = "邪鰭魚人（9-11級）潛伏在要塞東邊道路沿線的崖頂上，以及西南邊湖泊周圍的營地中，就在往下前往{area:16881}的路上。",
 	-- plural, as words: Vile Fin Attackers = {npc:250283} Vile Fin Attacker
-	["Vile Fin Attackers x8"] = "",
+	["Vile Fin Attackers x8"] = "邪鰭攻擊者 x8",
 	-- plural, as words: Vile Fin Seers = {npc:250282} Vile Fin Seer
-	["Vile Fin Seers x8"] = "",
+	["Vile Fin Seers x8"] = "邪鰭先知 x8",
 
 	-- Step 7: Touring the Grounds
 	-- {npc:246349} Breton Samuels · {npc:246389} Hilda the Breaker · {npc:246394} Ander Solliden · {npc:246393} Jorin Croge · {npc:246378} Danitha Morr
@@ -52,15 +52,15 @@ return {
 
 	-- Step 8: Danitha Morr
 	-- {npc:246378} Danitha Morr · {npc:246393} Jorin Croge · {quest:91317} The Tarnished
-	["{npc:246378} leads the order from inside the keep; {npc:246393} stands beside it. {quest:91317} need level 9."] = "",
+	["{npc:246378} leads the order from inside the keep; {npc:246393} stands beside it. {quest:91317} need level 9."] = "{npc:246378}在要塞內領導騎士團；{npc:246393}站在要塞旁。{quest:91317}需要9級。",
 
 	-- Step 9: Shadowvale
 	-- {quest:91317} The Tarnished · {area:16881} Shadowvale · {area:16616} Whispering Forest · {npc:259431} Rudolph Gelhardt
 	["{quest:91317} (level 8-9) hold the ruined village of {area:16881} in the {area:16616}, south-west of the keep. Commander {npc:259431} (level 10) stands on the upper floor of a house, with Drudges below him: clear the ground floor first."] = "",
 	-- plural, as words: Tarnished Drudges = {npc:259434} Tarnished Drudge
-	["Tarnished Drudges x8"] = "",
+	["Tarnished Drudges x8"] = "晦暗苦工 x8",
 	-- plural, as words: Tarnished Zealots = {npc:259433} Tarnished Zealot
-	["Tarnished Zealots x6"] = "",
+	["Tarnished Zealots x6"] = "晦暗狂熱者 x6",
 
 	-- Step 10: The crypt under Shadowvale
 	-- {area:16881} Shadowvale
@@ -100,7 +100,7 @@ return {
 
 	-- Step 16: A Lesson in Divinity
 	-- {npc:246378} Danitha Morr · {item:2589} Linen Cloth · {zone:1458} Undercity
-	["{npc:246378} offers the first Lesson in Divinity at level 12. Bring 10 {item:2589} if you have it: the {zone:1458} asks for it next."] = "",
+	["{npc:246378} offers the first Lesson in Divinity at level 12. Bring 10 {item:2589} if you have it: the {zone:1458} asks for it next."] = "{npc:246378}在12級時提供第一個神性的教誨。如果你有10份{item:2589}就帶上：{zone:1458}接下來會要。",
 
 	-- Step 17: The Undercity
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter · {npc:257648} Tanis Alderwood · {object:36078} Trade Quarter
@@ -109,7 +109,7 @@ return {
 	-- Step 18: Linen Cloth
 	-- {npc:257648} Tanis Alderwood · {item:2589} Linen Cloth
 	-- plural, as words: Scarlet Zealots = {npc:1537} Scarlet Zealot
-	["{npc:257648} needs 10 {item:2589}. Humanoids drop it: the Scarlet Zealots and Friars of the glades about three kills in ten. The Undercity Auction House sells it too."] = "",
+	["{npc:257648} needs 10 {item:2589}. Humanoids drop it: the Scarlet Zealots and Friars of the glades about three kills in ten. The Undercity Auction House sells it too."] = "{npc:257648}需要10份{item:2589}。人型生物會掉落：林地裡的血色狂熱者和血色苦行修士大約每殺十隻掉三份。幽暗城的拍賣場也有販售。",
 	-- {item:2589} Linen Cloth
 	["{item:2589} x10"] = "",
 
@@ -117,7 +117,7 @@ return {
 	-- {item:6866} Symbol of Life
 	["The {item:6866}"] = "{item:6866}",
 	-- {area:16602} Bandarion Keep · {npc:246378} Danitha Morr · {item:6866} Symbol of Life · {npc:257655} Deathguard Billmuth
-	["Back to {area:16602}. {npc:246378} gives you the {item:6866}; {npc:257655} waits downstairs in the keep. If you lose the symbol, {npc:246378} gives you another."] = "",
+	["Back to {area:16602}. {npc:246378} gives you the {item:6866}; {npc:257655} waits downstairs in the keep. If you lose the symbol, {npc:246378} gives you another."] = "回到{area:16602}。{npc:246378}會給你{item:6866}；{npc:257655}在要塞樓下等候。如果你弄丟了聖印，{npc:246378}會再給你一個。",
 	-- {npc:257655} Deathguard Billmuth
 	["{npc:257655}, downstairs"] = "",
 
@@ -134,26 +134,15 @@ return {
 
 	-- Step 23: Redemption
 	-- {area:16602} Bandarion Keep · {npc:246378} Danitha Morr · {spell:7328} Redemption
-	["Back to {area:16602}, across the whole glades: Billmuth downstairs takes the plans, then {npc:246378}, back upstairs in the keep, teaches you {spell:7328}."] = "",
+	["Back to {area:16602}, across the whole glades: Billmuth downstairs takes the plans, then {npc:246378}, back upstairs in the keep, teaches you {spell:7328}."] = "穿過整個林地回到{area:16602}：樓下的比爾穆收下計畫，然後回到要塞樓上的{npc:246378}會教你{spell:7328}。",
 	-- {npc:246378} Danitha Morr · {spell:7328} Redemption
 	["{npc:246378}, back upstairs: {spell:7328}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Back to {area:16602}. {npc:246378} gives you the {item:6866}; {npc:257655} waits downstairs in the keep."] = "回到{area:16602}。{npc:246378}會給你{item:6866}；{npc:257655}在要塞樓下等候。",
-	-- ["Back to {area:16602}: Billmuth takes the plans, {npc:246378} teaches you {spell:7328}."] = "回到{area:16602}：比爾穆收下計畫，{npc:246378}教你{spell:7328}。",
-	-- ["Tarnished Drudges"] = "晦暗苦工",
-	-- ["Tarnished Zealots"] = "晦暗狂熱者",
 	-- ["The Scarlet Crusaders camped around {area:812} carry the attack plans."] = "在{area:812}周圍紮營的{npc:239036}身上帶著攻擊計畫。",
-	-- ["The Vile Fin murlocs lurk on the bluffs along the road east of the keep and in the camps around the lake to the west."] = "邪鰭魚人潛伏在要塞東邊道路沿線的崖頂上，以及西邊湖泊周圍的營地中。",
-	-- ["Tyr's Watch and {spell:7328}"] = "Tyr's Watch與{spell:7328}",
-	-- ["Vile Fin Attackers"] = "邪鰭攻擊者",
-	-- ["Vile Fin Seers"] = "邪鰭先知",
 	-- ["{area:16602} stands on the bluffs north-west of the {area:156}. {npc:246349} waits at the gate."] = "{area:16602}位於{area:156}西北方的崖頂上。{npc:246349}在大門等候。",
 	-- ["{area:812} is at the far east end of the glades. Use the {item:6866} on {npc:257663}, then speak to him. If you lose the symbol, {npc:246378} gives you another."] = "{area:812}位於林地的最東端。對{npc:257663}使用{item:6866}，然後與他交談。如果你弄丟了符記，{npc:246378}會再給你一個。",
 	-- ["{npc:246152}, who trains Paladins in {area:159}, sends you to the order's keep on the west coast."] = "在{area:159}訓練聖騎士的{npc:246152}會派你前往西海岸的騎士團要塞。",
-	-- ["{npc:246378} leads the order from inside the keep; {npc:246393} stands beside it."] = "{npc:246378}在要塞內領導騎士團；{npc:246393}站在要塞旁。",
-	-- ["{npc:246378} offers the first Lesson in Divinity at level 12."] = "{npc:246378}在12級時提供第一個神性的教誨。",
-	-- ["{npc:257648} needs 10 {item:2589}. Scarlet Zealots and Scarlet Friars drop it about three times in ten; bring it along if you already carry some."] = "{npc:257648}需要10份{item:2589}。血色狂熱者和血色苦行修士大約每十次掉落三次；如果你身上已有，就一起帶來。",
 	-- ["{object:181686}, in the root cellar"] = "{object:181686}，在地窖裡",
 	-- ["{object:554626}, in the root cellar"] = "{object:554626}，在地窖裡",
 	-- ["{quest:91317} hold the ruined village of {area:16881} in the {area:16616}, south-west of the keep. The {item:246213} is piled in the root cellar of one of its houses; Commander {npc:259431} walks among his Tarnished."] = "{quest:91317}佔據要塞西南方{area:16616}中的廢棄村莊{area:16881}。{item:246213}堆放在其中一間房子的地窖裡；{npc:259431}在他的晦暗者之間走動。",

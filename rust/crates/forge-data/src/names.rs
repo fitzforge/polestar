@@ -17,7 +17,8 @@
 //!   4. DingDB (pinned), whose base data comes from QuestieDB, so --no-questie leaves it out.
 //!   5. pfQuest's db/<locale>, for the names DingDB lacks.
 //!
-//! Only the ids Polestar's data names are kept: the compiled guides (addon/Polestar_Guides/Guides.lua),
+//! Only the ids Polestar's data names are kept: the compiled guides (addon/Polestar_Guides/Guides.lua, its
+//! faction parts and Polestar Experimental's addon/Polestar_Experimental/Guides.lua),
 //! the quest database (addon/Polestar_QuestDB), the Codex's data (data/forever/codex), the travel data's
 //! flight points (addon/Polestar/Nav/TravelData.lua) and the lifts' objects (Polestar_Nav's
 //! Chokepoints.lua).
@@ -82,7 +83,8 @@ local function walk(t)
   add(from, t.fromId)
   add(from, t.fromAlsoId)
 end
-Polestar = { RegisterGuide = function(g) if type(g) == "table" then walk(g) end return true end, RetireGuides = function() end }
+Polestar = { RegisterGuide = function(g) if type(g) == "table" then walk(g) end return true end, RetireGuides = function() end,
+  RegisterExperimental = function(list) if type(list) == "table" then walk(list) end end }
 "#;
 
 /// The quest database's ids: the "\n<id>\t" lines of each kind's LuaChunks text (Q.AddChunk).
@@ -139,12 +141,17 @@ pub fn used_ids(guides: &Path, questdb: &Path, codex: &Path) -> Result<UsedIds, 
 	if c_files.iter().any(|f| !f.exists()) {
 		return Err(format!("the Codex data is not built (no {}): run forge data codex, or pass --codex <data/forever/codex folder>", c_files[0].display()));
 	}
-	// Polestar's own pack keeps each faction's guides in a part beside it (Polestar_Guides_Alliance, _Horde).
+	// Polestar's own pack keeps each faction's guides in a part beside it (Polestar_Guides_Alliance, _Horde), and
+	// Polestar Experimental's guides (the route choices' new zones) in their own folder beside it.
 	let parts: Vec<PathBuf> = match (guides.parent(), guides.file_name()) {
 		(Some(dir), Some(file)) => {
 			let folder = dir.file_name().map(|f| f.to_string_lossy().into_owned()).unwrap_or_default();
 			let up = dir.parent().unwrap_or(Path::new("."));
-			forge_guide::project::FACTION_PARTS.iter().map(|f| up.join(forge_guide::project::part_addon(&folder, f)).join(file)).filter(|p| p.exists()).collect()
+			let mut parts: Vec<PathBuf> = forge_guide::project::FACTION_PARTS.iter().map(|f| up.join(forge_guide::project::part_addon(&folder, f)).join(file)).collect();
+			if folder == "Polestar_Guides" {
+				parts.push(up.join("Polestar_Experimental").join(file));
+			}
+			parts.into_iter().filter(|p| p.exists()).collect()
 		}
 		_ => Vec::new(),
 	};
@@ -316,6 +323,19 @@ fn usable(s: &str) -> bool {
 	!s.is_empty() && !PLACEHOLDER.is_match(s)
 }
 
+/// Whether a name fits the script of its language: a Korean, Chinese or Russian name with Latin letters and
+/// none of the language's own is another language's (the web data once named a koKR NPC in Portuguese,
+/// "Cavalo de Guerra Descarnado Ocre"), and the English shows instead. A name of no letters fits any.
+fn fits_script(locale: &str, s: &str) -> bool {
+	let own: fn(char) -> bool = match locale {
+		"koKR" => |c| matches!(c, '\u{AC00}'..='\u{D7A3}' | '\u{1100}'..='\u{11FF}' | '\u{3130}'..='\u{318F}'),
+		"zhCN" | "zhTW" => |c| matches!(c, '\u{4E00}'..='\u{9FFF}' | '\u{3400}'..='\u{4DBF}' | '\u{F900}'..='\u{FAFF}'),
+		"ruRU" => |c| matches!(c, '\u{0400}'..='\u{04FF}'),
+		_ => return true,
+	};
+	s.chars().any(own) || !s.chars().any(|c| c.is_ascii_alphabetic() || matches!(c, '\u{00C0}'..='\u{024F}'))
+}
+
 /// English names to tell a translation from a string left in English, per pack kind.
 pub type English = [HashMap<i64, HashSet<String>>; 9];
 
@@ -360,7 +380,8 @@ pub struct Inputs<'a> {
 
 /// Per id the first source with a name that is no English name wins, so any real translation beats a
 /// string some source left in English; an id whose names are all English gets none (the English shows
-/// anyway). A name with a placeholder marker is none.
+/// anyway). A name with a placeholder marker is none, and so is one in another script ([`fits_script`]):
+/// an id whose other names are English is still one named as in English, and one with no other name has none.
 pub fn build_names(locales: &[&str], i: &Inputs) -> BTreeMap<String, Built> {
 	let mut out = BTreeMap::new();
 	let en = i.pf.get("enUS");
@@ -405,13 +426,13 @@ pub fn build_names(locales: &[&str], i: &Inputs) -> BTreeMap<String, Built> {
 					]
 				};
 				let named: Vec<(usize, String)> = candidates.into_iter().map(|(s, v)| (s, v.map(|v| text(v)).unwrap_or_default())).filter(|(_, v)| usable(v)).collect();
-				match named.iter().find(|(_, v)| !english.contains(v)) {
+				match named.iter().find(|(_, v)| !english.contains(v) && fits_script(locale, v)) {
 					Some((s, v)) => {
 						b.names[k].insert(id, v.clone());
 						b.from[k][*s] += 1;
 					}
 					None => {
-						if !named.is_empty() {
+						if named.iter().any(|(_, v)| english.contains(v)) {
 							b.english[k].insert(id);
 						}
 					}
@@ -639,10 +660,10 @@ pub struct Written {
 }
 
 /// Writes each language with names into its language folder addons_dir/Polestar_<locale>, leaving our
-/// guides' Texts.lua and the interface strings (Interface.lua) there alone: the names' files the folder
-/// no longer gets are removed, and those of a language left without any (the folder too once it holds
-/// neither). The retired
-/// Polestar_Names_<locale> folder (before 0.3.0) is removed.
+/// guides' Texts.lua, the interface strings (Interface.lua) and the walking maps' subzone names
+/// (Subzones.lua, `forge data subzones`) there alone: the names' files the folder no longer gets are
+/// removed, and those of a language left without any (the folder too once it holds none of those). The
+/// retired Polestar_Names_<locale> folder (before 0.3.0) is removed.
 pub fn write_names_addons(out: &BTreeMap<String, Built>, addons_dir: &Path, meta: &Meta, s: &Sources) -> Result<Vec<Written>, String> {
 	let mut written = Vec::new();
 	fn io(p: &Path) -> impl Fn(std::io::Error) -> String + '_ {
@@ -662,7 +683,7 @@ pub fn write_names_addons(out: &BTreeMap<String, Built>, addons_dir: &Path, meta
 			}
 		}
 		if files.is_empty() {
-			if dir.is_dir() && !dir.join("Texts.lua").exists() && !dir.join(forge_guide::toc::INTERFACE_FILE).exists() {
+			if dir.is_dir() && !forge_guide::toc::LANGUAGE_FILES.iter().any(|f| dir.join(f).exists()) {
 				std::fs::remove_dir_all(&dir).map_err(io(&dir))?;
 			}
 			continue;

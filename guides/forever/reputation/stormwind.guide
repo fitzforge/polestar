@@ -294,6 +294,7 @@ step The Stockade: two quests
 step Inside the Stockade
   when done sw-stockade
   tip Kill the prisoners, convicts and insurgents in the cells; the Red Wool Bandanas drop from the Defias inside. Bazil Thredd waits in the far end.
+  level 24
   kill 1706 x10 quest 387.1 @52.4,70.0 live -- Defias Prisoner
   kill 1711 x8 quest 387.2 @52.4,70.0 live -- Defias Convict
   kill 1715 x8 quest 387.3 @52.4,70.0 live -- Defias Insurgent
@@ -340,6 +341,7 @@ step Chillwind Camp: Clear the Way
 
 step Andorhal and Felstone Field
   tip Mark the four watchtowers around Andorhal, north of the camp, with the Beacon Torch at each door. Cauldron Lord Bilemaw guards the cauldron at Felstone Field, west of Andorhal; his key opens it. Janice Felstone's ghost wanders by the Felstone farmhouse, and her parcel lies inside: it goes to Stormwind for 150 more.
+  level 52
   kill 10902 quest 5097.1 "Mark Andorhal Tower One with the Beacon Torch"
   kill 10903 quest 5097.2 "Mark Andorhal Tower Two with the Beacon Torch"
   kill 10904 quest 5097.3 "Mark Andorhal Tower Three with the Beacon Torch"
@@ -358,6 +360,7 @@ step Chillwind Camp: Dalson's Tears
 
 step Dalson's Tears
   tip Cauldron Lord Malvinious guards the cauldron at Dalson's Tears, north-east of Felstone Field.
+  level 54
   collect 13195 quest 5219.1          -- Dalson's Tears Cauldron Key
   turnin 5219                         -- the Scourge Cauldron
   accept 5220                         -- Return to Chillwind Camp, +50
@@ -368,6 +371,7 @@ step Chillwind Camp: the Writhing Haunt
 
 step The Writhing Haunt
   tip Cauldron Lord Razarch guards the cauldron at the Writhing Haunt, the farm east of Dalson's Tears.
+  level 55
   collect 13197 quest 5222.1          -- Writhing Haunt Cauldron Key
   turnin 5222                         -- the Scourge Cauldron
   accept 5223                         -- Return to Chillwind Camp, +50
@@ -378,6 +382,7 @@ step Chillwind Camp: Gahrron's Withering
 
 step Gahrron's Withering
   tip Cauldron Lord Soulwrath guards the cauldron at Gahrron's Withering, in the east of the zone.
+  level 57
   collect 13196 quest 5225.1          -- Gahrron's Withering Cauldron Key
   turnin 5225                         -- the Scourge Cauldron
   accept 5226                         -- Return to Chillwind Camp, +50
@@ -396,6 +401,7 @@ step Stormwind: Janice's parcel
 step Morgan's Vigil: Dragonkin Menace
   zone Burning Steppes
   tip Helendis Riverhorn at Morgan's Vigil, in the south-east of the Burning Steppes, starts The True Masters: a chain to Lakeshire and Stormwind Keep, 175 Stormwind and 175 Darnassus reputation (level 54). The Black Broodlings and the Black Drake live on the slopes north of the Vigil; the Black Dragonspawn and Black Wyrmkin west of it, in the middle of the zone.
+  level 53
   accept 4182                         -- Dragonkin Menace, +100 Darnassus
   kill 7047 x15 quest 4182.1          -- Black Broodling
   kill 7040 x10 quest 4182.2          -- Black Dragonspawn
@@ -415,7 +421,7 @@ step Stormwind Keep
   tip Highlord Bolvar Fordragon holds court in Stormwind Keep with Lady Katrana Prestor at his side: speak with her for the second of his quests.
   turnin 4184                         -- Highlord Bolvar Fordragon
   accept 4185
-  kill 1749 quest 4185.1 "Speak with Lady Katrana Prestor"
+  talk 1749 quest 4185.1 "Speak with Lady Katrana Prestor"
   turnin 4185
   accept 4186                         -- The True Masters, +100
 

@@ -296,35 +296,65 @@ fn the_theme_page_lays_its_settings_out_by_element_in_full_rows_short_labels_too
 
 // The preview is Theme v2, a band of the three surfaces the theme styles, drawn by their own code: the guide window
 // (a copy the window's own code draws, never the live window, cut under its goals), the heads-up card and the
-// rare alert (Rares' own card), side by side, feet on one line, a label under each, no loose buttons (the accent
-// lights the cards' own); a change repaints them live; real size where the band holds the three, else all three
-// smaller alike, never one left out, the hint line saying so.
+// rare alert (Rares' own card), on one framed stage across the band: each centred on the row's middle line, the
+// spaces between them even, a caption under each on one line inside the stage, no loose buttons (the accent lights
+// the cards' own); a change repaints them live; real size where the band holds the three, else the window on a row of
+// its own over the two cards, never overlapping, never one left out, and no "Shown at N% to fit" line.
 #[test]
-fn the_preview_paints_from_the_theme_and_follows_a_change_live() {
+fn the_preview_paints_from_the_theme_on_one_stage_and_follows_a_change_live() {
 	let out = run_with_rares(
 		r#"
 		local f = Polestar.UI.ThemePreview(UIParent)
 		local h = f:Layout(1600)
 		local hots = 0
 		for _ in pairs(rawget(f, "Hots") or {}) do hots = hots + 1 end
-		-- Each one's foot, in band units.
-		local function foot(fr, k)
-			local _, _, _, _, y = fr:GetPoint(1)
-			local g = k or fr:GetScale()
-			return math.floor(-y * g + fr:GetHeight() * g + 0.5)
+		-- A part's box in band units: left, top, right, bottom (the guide window's without the room its box keeps a side).
+		local function box(fr, side)
+			local _, _, _, x, y = fr:GetPoint(1)
+			local g = fr:GetScale()
+			local l, t = x * g, -y * g
+			local s = (side or 0) * g
+			return { l + s, t, l + fr:GetWidth() * g - s, t + fr:GetHeight() * g }
 		end
+		local function layout()
+			local boxes = { box(f.Scene, 16), box(f.Heads), box(f.Toast) }
+			local caps = {}
+			for i, p in ipairs(f.Parts) do
+				local _, _, _, _, y = p.label:GetPoint(1)
+				caps[i] = math.floor(-y + 0.5)
+			end
+			local _, _, _, sx, sy = f.Stage:GetPoint(1)
+			local stage = { sx, -sy, sx + f.Stage:GetWidth(), -sy + f.Stage:GetHeight() }
+			local inside, overlap = true, false
+			for i, b in ipairs(boxes) do
+				if b[1] < stage[1] - 0.5 or b[3] > stage[3] + 0.5 or b[2] < stage[2] - 0.5 or b[4] > stage[4] + 0.5 then inside = false end
+				for j = i + 1, #boxes do
+					local c = boxes[j]
+					if b[1] < c[3] - 0.5 and c[1] < b[3] - 0.5 and b[2] < c[4] - 0.5 and c[2] < b[4] - 0.5 then overlap = true end
+				end
+			end
+			return boxes, caps, inside, overlap
+		end
+		local boxes, caps, inside, overlap = layout()
+		local mids, gaps = {}, {}
+		for i, b in ipairs(boxes) do mids[i] = math.floor((b[2] + b[4]) / 2 + 0.5) end
+		for i = 2, #boxes do gaps[i - 1] = math.floor(boxes[i][1] - boxes[i - 1][3] + 0.5) end
 		local labels = {}
 		for i, p in ipairs(f.Parts) do labels[i] = p.label:GetText() end
 		local out = { toast = f.Toast ~= nil and f.Toast:IsShown(), heads = f.Heads ~= nil and f.Heads:IsShown(),
 			guide = f.Guide ~= nil and f.Guide ~= PolestarGuideFrame, buttons = rawget(f, "Buttons") == nil, hots = hots,
-			fit = f.psFit, hint = f.Hint:IsShown(), labels = labels,
-			feet = { foot(f.Scene), foot(f.Heads), foot(f.Toast) }, arrow = rawget(f, "Arrow") == nil, tall = h < 400 }
+			fit = f.psFit, hint = f.Hint:IsShown(), labels = labels, stage = f.Stage:IsShown(), inside = inside, overlap = overlap,
+			rows = f.psRows, mids = mids, gaps = gaps, caps = caps, arrow = rawget(f, "Arrow") == nil, tall = h < 400 }
 		Polestar.Set("ui.colors.item", { 0.6, 1, 0.6 })
 		Polestar.Set("ui.fontOutline", "outline")
 		out.item = f.Scene.Copy.rows[2].Text:GetText()
 		out.titleFlags = select(3, f.StepTitle:GetFont())
 		f:Layout(420)
-		out.narrow = { f.Toast:IsShown(), f.Heads:IsShown(), f.Guide:IsShown(), f.psFit < 1, f.Hint:GetText():find("to fit", 1, true) ~= nil }
+		local nb, nc, ni, no = layout()
+		local under = true
+		for i, b in ipairs(nb) do if nc[i] < b[4] - 0.5 then under = false end end
+		out.narrow = { f.Toast:IsShown(), f.Heads:IsShown(), f.Guide:IsShown(), f.psRows >= 2, ni, no, f.Hint:IsShown() and f.Hint:GetText():find("to fit", 1, true) ~= nil,
+			nb[1][4] <= nb[2][2] + 0.5, under }
 		emit(out)"#,
 	);
 	assert_eq!(out["toast"], true);
@@ -336,12 +366,77 @@ fn the_preview_paints_from_the_theme_and_follows_a_change_live() {
 	assert_eq!(out["fit"], 1, "a band wide enough: real size");
 	assert_eq!(out["hint"], false);
 	assert_eq!(out["labels"], json!(["Guide window", "Heads-up card", "Rare alert"]));
-	let feet = out["feet"].as_array().unwrap();
-	assert!(feet.iter().all(|f| (f.as_f64().unwrap() - feet[0].as_f64().unwrap()).abs() <= 1.0), "feet on one line: {feet:?}");
+	assert_eq!(
+		(out["stage"].clone(), out["inside"].clone(), out["overlap"].clone(), out["rows"].clone()),
+		(json!(true), json!(true), json!(false), json!(1)),
+		"one row on the stage, inside it, apart"
+	);
+	let near = |v: &Value| {
+		let a = v.as_array().unwrap();
+		a.iter().all(|x| (n(x) - n(&a[0])).abs() <= 1.0)
+	};
+	assert!(near(&out["mids"]), "centred on one line: {}", out["mids"]);
+	assert!(near(&out["gaps"]), "even spaces: {}", out["gaps"]);
+	assert!(n(&out["gaps"][0]) >= 32.0, "never closer than 32: {}", out["gaps"]);
+	assert!(near(&out["caps"]), "the captions on one line: {}", out["caps"]);
 	assert_eq!(out["tall"], true);
 	assert!(out["item"].as_str().unwrap().contains("|cff99ff99"), "the goal names the item in its own colour: {}", out["item"]);
 	assert_eq!(out["titleFlags"], "OUTLINE");
-	assert_eq!(out["narrow"], json!([true, true, true, true, true]), "a narrow band shows all three smaller and says so");
+	assert_eq!(
+		out["narrow"],
+		json!([true, true, true, true, true, false, false, true, true]),
+		"a narrow band: the window on a row of its own over the cards, all on the stage, apart, captions under them, no fit line"
+	);
+}
+
+// The font lists (Font, Heading font) draw each name in its own face, once: the row's own label hidden, not at alpha
+// 0, which in the client is its colour's alpha that the row's next paint put back (Open Sans and Fira Sans stood
+// doubled behind their faces). The same in the box that shows the choice, also after a theme repaint.
+#[test]
+fn a_font_list_shows_each_name_once_in_its_own_face_in_the_list_and_in_the_box() {
+	let out = run(r#"
+		local O = Polestar.UI.Options
+		Polestar.UI.ShowOptions("theme")
+		O.Select("theme", "Text")
+		local function shown(fs)
+			return fs:IsShown() and (fs:GetText() or "") ~= "" and (fs:GetAlpha() or 1) > 0 and select(4, fs:GetTextColor()) > 0
+		end
+		local function labels(frame)
+			local n, faces = 0, {}
+			for _, r in ipairs({ frame:GetRegions() }) do
+				if r:GetObjectType() == "FontString" and shown(r) then
+					n = n + 1
+					faces[#faces + 1] = (r:GetFont()):match("[^\\]+$")
+				end
+			end
+			return { n = n, face = faces[1] or false }
+		end
+		local out = {}
+		for _, key in ipairs({ "ui.font", "ui.headingFont" }) do
+			local row = O.Controls("theme", "Text")[key]
+			Polestar.Set(key, "opensans")
+			Polestar.Theme.Refresh()
+			local list = {}
+			row.Button:Click()
+			for _, r in ipairs(PolestarMenu.rows) do
+				if r:IsShown() then list[#list + 1] = labels(r) end
+			end
+			Polestar.Widgets.HideMenu()
+			out[key] = { list = list, box = labels(row.Button) }
+		end
+		emit(out)"#);
+	for key in ["ui.font", "ui.headingFont"] {
+		let list = out[key]["list"].as_array().unwrap();
+		assert!(list.len() >= 5, "{key}: the faces listed: {}", out[key]);
+		for item in list {
+			assert_eq!(item["n"], 1, "{key}: one name a row: {}", out[key]);
+		}
+		let face = |v: &Value, prefix: &str| v.as_str().unwrap_or("").starts_with(prefix);
+		assert!(list.iter().any(|i| face(&i["face"], "OpenSans")), "{key}: Open Sans in its own face: {}", out[key]);
+		assert!(list.iter().any(|i| face(&i["face"], "FiraSans")), "{key}: Fira Sans in its own face: {}", out[key]);
+		assert_eq!(out[key]["box"]["n"], 1, "{key}: the box shows the choice once: {}", out[key]);
+		assert!(face(&out[key]["box"]["face"], "OpenSans"), "{key}: in its own face: {}", out[key]);
+	}
 }
 
 // The game looks frame a big window with a title (WoW Forever's and Blizzard's bar, Classic's header plate

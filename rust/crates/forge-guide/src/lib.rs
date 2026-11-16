@@ -25,6 +25,7 @@ pub mod emit;
 pub mod escort;
 pub mod farmspots;
 pub mod format;
+pub mod fresh;
 pub mod gathering;
 pub mod group;
 pub mod guidecheck;

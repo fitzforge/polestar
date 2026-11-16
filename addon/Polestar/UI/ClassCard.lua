@@ -453,7 +453,7 @@ local function build()
 		TS.Attach("classcard", F, { titles = { F.Title }, bodies = { F.Head, F.Learn, F.Trip, F.Only, F.Accept.Text }, inline = true,
 			relayout = function()
 				if shown then paint(shown.class) end
-				if F:IsShown() and F.psCompact ~= nil then F.Only:SetShown(not (F.psCompact or F.psSlim) and look("note", true) ~= false) end
+				if F:IsShown() and F.psCompact ~= nil then F.Only:SetShown(not (F.psCompact or F.psSlim or F.psOther) and look("note", true) ~= false) end
 				local G2 = GF()
 				if G2 and G2.Layout and G2.frame and G2.frame:IsShown() then G2.Layout() end
 			end })
@@ -522,8 +522,11 @@ function CC.Fill(guide, index, view)
 	local reward = e and e[3] and e[3] > 0 and d.rewards[e[3]] or nil
 	local hex = paint(p.class)
 	local className = UI.ClassName(p.class)
-	local level = goal.minLevel or goal.qlvl
-	F.Head:SetText(level and format(L["%s · LEVEL %d"], className:upper(), level) or className:upper())
+	-- The quest's own level, else the level it opens at when above 1: a
+	-- quest any level may take read "LEVEL 1" (The Horn of Xelthos, 23).
+	local q, m = tonumber(goal.qlvl), tonumber(goal.minLevel)
+	local level = (q and q > 0 and q) or (m and m > 1 and m) or nil
+	F.Head:SetText(level and format(L["%s · LEVEL %d"], ns.Upper(className), level) or ns.Upper(className))
 	F.Title:SetText((gv and gv.subject) or goal.title or "")
 	local learn = CC.RewardLine(reward, hex)
 	F.Learn:SetText(learn or "")
@@ -550,7 +553,9 @@ function CC.Fill(guide, index, view)
 	for _, part in ipairs({ F.Ring, F.Disc, F.Icon, F.Head, F.Title }) do part:SetShown(not slim) end
 	if slim then F.Learn:Hide(); F.Badge:Hide() end
 	F.Trip:SetShown(not (F.psCompact or slim))
-	F.Only:SetShown(not (F.psCompact or slim) and look("note", true) ~= false)
+	-- Not in another faction's guide (#2462): its banner says Polestar won't guide it, so no "just follow the guide".
+	F.psOther = ns.Guides.OtherFaction ~= nil and ns.Guides.OtherFaction(guide, p) ~= nil
+	F.Only:SetShown(not (F.psCompact or slim or F.psOther) and look("note", true) ~= false)
 	F.Accept:SetShown(fold ~= nil)
 	if fold then
 		local line
@@ -654,10 +659,15 @@ function CC.Layout(width, c)
 		badgeW = badgeW + 8
 	end
 	local tw = max(40, w - x - 10)
-	F.Head:SetWidth(max(30, tw - badgeW))
+	-- The class line beside the badge; one longer than the room there (a
+	-- long translation: "Друид · УРОВЕНЬ 20" beside "НОВАЯ ФОРМА") goes under
+	-- the badge in the text's full width instead of being cut.
+	local under = badgeW > 0 and W.TextWidth(F.Head) > tw - badgeW
+	F.Head:SetWidth(under and tw or max(30, tw - badgeW))
 	F.Title:SetWidth(tw)
 	F.Learn:SetWidth(tw)
 	local y = F.psCompact and 8 or 12
+	if under then y = 10 + 20 + 6 end
 	F.Head:ClearAllPoints()
 	F.Head:SetPoint("TOPLEFT", F, "TOPLEFT", x, -y)
 	y = y + F.Head:GetStringHeight() + 4

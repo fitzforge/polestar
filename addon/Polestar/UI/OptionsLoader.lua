@@ -4,9 +4,11 @@
 -- is in memory until the player first opens the settings. This file is what
 -- stays resident:
 --
---   UI.ShowOptions(section)   opens the window, loading Polestar_Options the
---                             first time (Polestar_Options/UI/Options.lua then
---                             puts the real UI.ShowOptions in its place)
+--   UI.ShowOptions(section, ask)   opens the window (with a question
+--                             `ask` in its search box: /polestar ask), loading
+--                             Polestar_Options the first time
+--                             (Polestar_Options/UI/Options.lua then puts the
+--                             real UI.ShowOptions in its place)
 --   UI.ShowSetting(key)       opens it on that setting's row, scrolled to and
 --                             lit (What's New's notes)
 --   UI.LoadOptions() -> true when the window's addon is loaded (loads it now
@@ -37,27 +39,27 @@ function UI.LoadOptions()
 end
 
 -- A request made in combat: the section to open when it ends (false: none),
--- and the setting to go to there.
-local waiting, waitingKey = false, nil
+-- the question asked with it and the setting to go to there.
+local waiting, waitingAsk, waitingKey = false, nil, nil
 local afterCombat
 
 function afterCombat()
 	ns.UnregisterEvent("PLAYER_REGEN_ENABLED", afterCombat)
-	local section, key = waiting, waitingKey
-	waiting, waitingKey = false, nil
-	UI.ShowOptions(section ~= true and section or nil)
+	local section, ask, key = waiting, waitingAsk, waitingKey
+	waiting, waitingAsk, waitingKey = false, nil, nil
+	UI.ShowOptions(section ~= true and section or nil, ask)
 	if key and UI.Options and UI.Options.JumpTo then UI.Options.JumpTo(key) end
 end
 
-stub = function(section)
+stub = function(section, ask)
 	local ok, why = UI.LoadOptions()
-	if ok and UI.ShowOptions ~= stub then return UI.ShowOptions(section) end
+	if ok and UI.ShowOptions ~= stub then return UI.ShowOptions(section, ask) end
 	if why == "combat" then
 		if not waiting then
 			ns.Print(L["Polestar's settings open when combat ends."])
 			ns.RegisterEvent("PLAYER_REGEN_ENABLED", afterCombat)
 		end
-		waiting = section or true
+		waiting, waitingAsk = section or true, ask
 		return
 	end
 	ns.Print(string.format(L["Polestar's settings could not be loaded (%s): is the Polestar_Options folder installed and enabled?"], tostring(why or "error")))

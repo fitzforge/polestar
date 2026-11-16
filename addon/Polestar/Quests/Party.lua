@@ -1230,7 +1230,8 @@ function Party.RequestSync()
 	end
 	local now = GetTime()
 	if sync.askedAt and now - sync.askedAt < SYNC_GAP then
-		ns.Print(L["You asked a moment ago: wait %d seconds."]:format(math.ceil(SYNC_GAP - (now - sync.askedAt))))
+		local wait = math.ceil(SYNC_GAP - (now - sync.askedAt))
+		ns.Print(wait == 1 and L["You asked a moment ago: wait 1 second."] or L["You asked a moment ago: wait %d seconds."]:format(wait))
 		return false
 	end
 	if send({ text }) ~= 1 then

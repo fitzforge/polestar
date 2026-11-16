@@ -1,4 +1,4 @@
-//! The world builder (port of tools/lib/sim/world.js buildWorld, BUILDER_VERSION 31). Every
+//! The world builder (port of tools/lib/sim/world.js buildWorld, BUILDER_VERSION 32). Every
 //! step keeps the JS order of iteration and of floating-point operations, so the world equals
 //! the JS world bit for bit (docs/forge/internals.md, "How a port was checked"). Comments name the JS they port; the
 //! reasons behind each rule are documented in world.js.
@@ -21,7 +21,7 @@ use serde_json::{json, Value};
 use std::collections::BTreeMap;
 use std::rc::Rc;
 
-pub const BUILDER_VERSION: u32 = 31;
+pub const BUILDER_VERSION: u32 = 32;
 const RIDE_PAIR_YD: f64 = 60.0;
 const CITY_LIFT_FLOOR: [(&str, &str); 5] =
 	[("lift-thunder-bluff-north", "top"), ("lift-thunder-bluff-west", "top"), ("lift-undercity-east", "bottom"), ("lift-undercity-south", "bottom"), ("lift-undercity-west", "bottom")];
@@ -1009,8 +1009,8 @@ pub fn build_world(d: &GameData, opts: &BuildOptions, floors: &dyn Floors) -> Re
 	for l in arr(taxi_doc.and_then(|t| t.get("legs"))) {
 		if let (Some(a), Some(bb)) = (taxi_node(&js_str(l.get("from"))), taxi_node(&js_str(l.get("to")))) {
 			// The path's length (yards): the sim prices the flight at its taxi speed. (Not `cost`, the
-			// TaxiPath's price in copper, which v1 read as seconds: Orgrimmar to Thunder Bluff 50 s,
-			// Everlook to Orgrimmar 1020 s.)
+			// TaxiPath's price in copper, which the JS builder read as seconds before version 32: Orgrimmar to
+			// Thunder Bluff 50 s, Everlook to Orgrimmar 1020 s.)
 			taxi.push((a, bb, l.get("yards").cloned().unwrap_or(Value::Null)));
 		}
 	}

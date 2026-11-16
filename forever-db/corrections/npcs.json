@@ -564,6 +564,16 @@
 		},
 		"note": "Shinyfinder Narf is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
 	},
+	"250034": {
+		"set": {
+			"rank": 2
+		},
+		"source": {
+			"kind": "client",
+			"ref": "creaturecache.wdb (1.60.1.70888): rank 2 (rare), as the knowledge base of the data build of 2026-11-13 recorded it (kb:client.cache:rank)"
+		},
+		"note": "Tunnelweb Matriarch is a rare on Forever: the server's creature answer the 70888 client cached said so. The 70938 client's cache no longer holds the creature and no other source gives a rank, so the 0.4.0 data had dropped her from the Codex's rares."
+	},
 	"250483": {
 		"set": {
 			"rank": 1
@@ -1095,6 +1105,132 @@
 			}
 		],
 		"note": "Private Rocknot (Rocknot's Ale) stands inside Blackrock Depths, in the Grim Guzzler."
+	},
+	"12676": {
+		"set": {
+			"spawns": {
+				"1440": {
+					"f": "e",
+					"pts": [
+						[
+							74.98,
+							70.06
+						],
+						[
+							76.8,
+							67.3
+						],
+						[
+							72.5,
+							70.6
+						],
+						[
+							71.7,
+							69.8
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20032787 (Sharptalon) walks waypoint path 800327870: Ashenvale 71.7,69.8 to 76.8,67.3 through his spawn at 74.98,70.06"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-16: 70 people killed Sharptalon from 71,67 to 78,65 (the most at 74,70, 73,70 and 72,70)"
+			}
+		],
+		"note": "Sharptalon walks a path through the hills south of Splintertree Post from 71.7,69.8 up to 76.8,67.3; the data had his spawn alone (sweep for #2507)."
+	},
+	"12677": {
+		"set": {
+			"spawns": {
+				"1440": {
+					"f": "e",
+					"pts": [
+						[
+							54.4,
+							54.9
+						],
+						[
+							57.5,
+							56.05
+						],
+						[
+							59.3,
+							54
+						],
+						[
+							60.4,
+							52.2
+						],
+						[
+							61.4,
+							49.8
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20032807 (Shadumbra) walks waypoint path 800328070: Ashenvale 54.4,54.9 to 59.4,54.0 through her spawn at 57.5,56.05"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-16: 55 people killed Shadumbra from 53,54 to 62,50 (the most at 58,55, 59,54, 60,52 and 61,49)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2507"
+			}
+		],
+		"note": "Shadumbra walks a long path through Raynewood Retreat, from the road at 54,55 past her spawn up to 61,50; the data had her spawn alone, so the kill step for Shadumbra's Head pointed only at the western end of her path (#2507)."
+	},
+	"12678": {
+		"set": {
+			"spawns": {
+				"1440": {
+					"f": "e",
+					"pts": [
+						[
+							39.76,
+							65.21
+						],
+						[
+							43,
+							63.1
+						],
+						[
+							40.7,
+							66.4
+						],
+						[
+							42,
+							68.7
+						],
+						[
+							43.7,
+							68.8
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20032808 (Ursangous) walks waypoint path 800328080: Ashenvale 39.7,63.1 to 43.7,68.8 through his spawn at 39.76,65.21"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-16: 69 people killed Ursangous from 38,62 to 43,69 (the most at 40,66, 41,66 and 39,65)"
+			}
+		],
+		"note": "Ursangous walks a loop south-east of Astranaar from 39.7,63.1 down to 43.7,68.8; the data had his spawn alone (sweep for #2507)."
 	},
 	"12944": {
 		"set": {
@@ -2601,5 +2737,87 @@
 			}
 		],
 		"note": "Genn Fairweather is a stable master (the title under the name reads \"Stablemaster and Riding Trainer\"), but the merged data had no stable master role for this Forever NPC, so Nearby's stable master search passed over it and named one on another continent (#2010). It keeps its repair, trainer and vendor roles."
+	},
+	"278863": {
+		"set": {
+			"spawns": {}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-12: no sighting of npc 278863 and no death to it, while 337 people on foot logged other creatures within 40 yd of its points (danger gate census)"
+			},
+			{
+				"kind": "tdb",
+				"ref": "Forever world DB of 2026-10-14: no creature_template 278863"
+			}
+		],
+		"note": "Infernal (npc 278863, a level 30 elite) is nowhere players go: the quest data puts it at 133 points in Durotar, Elwynn Forest, Teldrassil, Thunder Bluff, Mulgore, Stormwind City and Zephras Isle, and no player has met it or died to it there. Those points made the danger gate flag the starting zones' quests, and would mark For Honor and An Enticing Offer \"Elite: group advised\" (#1575)."
+	},
+	"5858": {
+		"set": {
+			"name": "Searing Lava Spider"
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-13: Fiery Menace! (7724) reads \"Searing Lava Spider slain\" in the quest log, and each of its 40 recorded ticks came with a kill of npc 5858 credited to it (3 people)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2199: the reporter, at 10 of 20 on Fiery Menace!, found the spiders it counts named Searing Lava Spider"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 5858: name \"Searing Lava Spider\", from the game client's creature cache"
+			}
+		],
+		"note": "NPC 5858, the level 47-49 spiders of western Searing Gorge that Fiery Menace! counts, is the Searing Lava Spider in Forever; the merged data still had its Classic name, Greater Lava Spider, so the guides and the quest's step named a spider the game does not show (#2199)."
+	},
+	"8479": {
+		"set": {
+			"name": "Velarok Windblade"
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-13: Divine Retribution (3441), taken from and handed in to npc 8479, reads \"Velarok Story\" in the quest log (3 people)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 8479: name \"Velarok Windblade\", from the game client's creature cache"
+			}
+		],
+		"note": "NPC 8479 at the Cauldron's rim in Searing Gorge, who gives Divine Retribution, The Flawless Flame, Forging the Shaft and The Torch of Retribution, is Velarok Windblade in Forever; the merged data still had his Classic name, Kalaran Windblade, which the guides showed on his goals under steps and tips that already say Velarok (#2199 sweep: names of quest NPCs the game shows otherwise)."
+	},
+	"9026": {
+		"set": {
+			"spawns": {
+				"1427": {
+					"f": "e",
+					"pts": [
+						[
+							25.4,
+							80.1
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-15: 2 people killed Overmaster Pyron in Searing Gorge's Grinding Quarry, at 25,77 and 27,83 (build 70938); none elsewhere"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db creature 4593: Overmaster Pyron on map 0 at -7291.9,-890.6, Searing Gorge 25.4,80.1"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2464"
+			}
+		],
+		"note": "Overmaster Pyron (Incendius!'s first step, Blackrock Depths' pick-up guide) stands in the Grinding Quarry in Searing Gorge, by the way into Blackrock Mountain. The merged data had him only on the Eastern Kingdoms continent map, at a point outside Searing Gorge, so the kill step pointed nowhere near him (#2464). His one spawn replaces it."
 	}
 }

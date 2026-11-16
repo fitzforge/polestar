@@ -77,6 +77,7 @@ step Cenarion Aid: Ur'kyo
 step Ogtinc
   zone Azshara
   tip Ogtinc, a furbolg, lives on the clifftop north-east of the Ruins of Eldarath. Alliance: fly to Talrendis Point; Horde: fly to Valormok. Ride east and leave the road at the fork before the ruins, then follow the northern cliff edge east to him: the naga ruins and the beach below are walled in by cliffs with no way up.
+  level 51
   getfp "Talrendis Point" only Alliance
   getfp "Valormok" only Horde
   turnin 8254                                 -- Ogtinc
@@ -84,23 +85,28 @@ step Ogtinc
 
 step Of Coursers We Know
   tip Mosshoof Coursers (level 52-53, not elite) graze all over Azshara, thickest north-east of Ogtinc and south of the mountains; about one in three drops a Healthy Courser Gland, so plan on a dozen kills for four. They enrage at 30% health: finish them fast. Killing them costs no Cenarion Circle reputation. Keep any Ichor of Undeath you loot.
+  level 53
   collect 20027 x4 quest 8255.1               -- Healthy Courser Gland
 
 step Ogtinc
+  level 51
   turnin 8255                                 -- Ogtinc
   accept 8256
 
 step The Ichor of Undeath
   tip Carrying an Ichor of Undeath already? It counts at once. Otherwise any undead may drop one, rarely: the Lingering Highborne (level 48) in the Ruins of Eldarath below Ogtinc's cliff drop it about one kill in ten, the highborne ghosts on Azshara's border with Ashenvale (level 45-46) a little less, the Anguished and Suffering Highborne in Winterspring (54-55) about one in eight. The Auction House is usually quicker.
+  level 52
   collect 7972 quest 8256.1                   -- Ichor of Undeath
 
 step Ogtinc
+  level 51
   turnin 8256                                 -- Ogtinc
   accept 8257
 
 step Morphaz in the Sunken Temple
   zone Swamp of Sorrows
   tip Morphaz is a level 52 elite green dragon inside the Sunken Temple, a five-player dungeon: bring a group of five (a level 60 group clears it with ease). Horde: fly to Stonard; Alliance: fly to Nethergarde Keep in the Blasted Lands and ride north. The temple stands in the middle of the Pool of Tears: climb the steps on its south side, swim down through the flooded hall and take the stairs to the portal. Inside, Morphaz only appears late: kill the six troll minibosses on the upper balconies, then Jammal'an the Prophet below them; that wakes the drakes Weaver and Dreamscythe in the Pit of Sacrifice, and killing both brings Morphaz and Hazzas. The pair patrols together and cannot be split: pull them into a hallway and have the tank face them away from the group (breath and a knockback). Loot him in a party, not a raid group: the blood always drops.
+  level 51
   collect 20025 quest 8257.1 @69.0,54.0 group 5 -- Blood of Morphaz: the Sunken Temple entrance
 
 step Greta Mosshoof

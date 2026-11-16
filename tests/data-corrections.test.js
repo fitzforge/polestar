@@ -269,10 +269,41 @@ test('Dalaran Patrols waits for both Prison Break In and Key to the City, Shrewd
 	assert.deepEqual(blocks(97287), { all: [], any: [96984] }, 'Magus Wordeen Voidglare: Shrewd Negotiations');
 });
 
+// Ataxia (#2337): Nerlokh offers Khan Jehn only once his Valley of Bones chain is done, ending with Checking Things Out
+// (93122), whose quest data names Khan Jehn as its next quest; the data had no prerequisite, so the quest read as open
+// from the first visit to him (0.3.7.2's centaur reputation guide sent players to take it there).
+test('Khan Jehn waits for Checking Things Out, the end of Nerlokh\'s chain (#2337)', () => {
+	const blocks = (id) => blockingPrereqs({ id, start: { npc: [253177] }, ...corrections.quests[id].set });
+	assert.deepEqual(blocks(93128), { all: [93122], any: [] }, 'Nerlokh: Khan Jehn');
+	assert.equal(corrections.quests[93128].set.races, null, 'still open to every race');
+});
+
+// Sable (#2507): Shadumbra walks a long path through Raynewood Retreat, and the kill step pointed only at her spawn at
+// its western end (57.5,56.05). Her points follow the path players kill her on, from the road to its north-east end;
+// the two other Ashenvale hunt targets walk paths too (Forever's world database, players' recordings).
+test('Shadumbra has her whole path through Raynewood Retreat, not one spot at its western end (#2507)', () => {
+	const pts = corrections.npcs[12677]?.set?.spawns?.[1440]?.pts || [];
+	assert.ok(pts.some(([x, y]) => x === 57.5 && y === 56.05), 'her spawn stays one of them');
+	assert.ok(pts.some(([x, y]) => x > 61 && y < 50.5), 'the north-east end, where the report found her');
+	assert.ok(pts.length >= 4, `points along the path: ${JSON.stringify(pts)}`);
+	for (const [id, name] of [[12678, 'Ursangous'], [12676, 'Sharptalon']]) {
+		assert.ok((corrections.npcs[id]?.set?.spawns?.[1440]?.pts || []).length >= 4, `${name}: points along his path`);
+	}
+});
+
 test('Daniel Stitchsong stands at the reported Three Corners spot in live coordinates (#1966)', () => {
 	assert.deepEqual(corrections.npcs[256734]?.addSpawns, {
 		1433: { f: 'l', pts: [[9.96, 72.71]] },
 	}, 'replace the old Redridge point rather than keeping it as another destination');
+});
+
+// rockzors (#1235), JonnyDisco (#1250): Image of Archmage Modera offers Heart of Disruption only once the level 30 lead-in
+// is handed in to her: An Alarming Request (92432) for the Alliance, Blood in the Streets (92434) for the Horde. The data
+// had the lead-ins as optional, so the City of Dalaran pick-up guide sent level 28 characters to Silverpine for nothing.
+test('Heart of Disruption waits for An Alarming Request (Alliance) and Blood in the Streets (Horde) (#1235, #1250)', () => {
+	const blocks = (id) => blockingPrereqs({ id, start: { npc: [269127] }, ...corrections.quests[id].set });
+	assert.deepEqual(blocks(92458), { all: [], any: [92432] }, 'Alliance: after An Alarming Request');
+	assert.deepEqual(blocks(96984), { all: [], any: [92434] }, 'Horde: after Blood in the Streets');
 });
 
 test('class quests the data left open are locked to their class, and Magma or Lava? is open to everyone (class-quest card)', () => {
@@ -477,4 +508,34 @@ test('every stable master by title has the stable master role (#2010)', () => {
 		assert.ok(corrections.npcs[id] && corrections.npcs[id].set.roles.includes('stablemaster'), `npc ${id}`);
 	}
 	assert.deepEqual(corrections.npcs[265756].set.roles, ['repair', 'stablemaster', 'trainer', 'vendor'], 'Genn Fairweather keeps his other roles');
+});
+
+// #2199: Fiery Menace! counts npc 5858, which the game calls the Searing Lava Spider ("Searing Lava Spider slain" in the
+// quest log, each tick a kill of 5858); the merged data kept its Classic name, Greater Lava Spider, so the step named a
+// spider no one sees. Sweep (the names of quest NPCs where the client's own name differs from the data's): Velarok
+// Windblade (8479), whose Divine Retribution reads "Velarok Story", was still Kalaran Windblade on his goals.
+test('the Searing Lava Spider and Velarok Windblade have the names the game shows (#2199)', () => {
+	assert.equal(corrections.npcs[5858].set.name, 'Searing Lava Spider');
+	assert.equal(corrections.npcs[8479].set.name, 'Velarok Windblade');
+	assert.ok(!corrections.npcs[5857], 'npc 5857 keeps its own name');
+});
+
+// #1575 (danger gate census): QuestieDB places Infernal 278863, a level 30 elite, at 133 points in the starting zones
+// and capitals. No player has met it or died to it there, while 337 people's recordings logged other creatures within
+// 40 yd of those points; the danger gate flagged the starting zones' quests, and the compiler's "Elite: group advised"
+// (an object's work among hostile elites) would mark For Honor and An Enticing Offer. It stands nowhere.
+test('Infernal 278863 stands nowhere players go: no spawns (#1575)', () => {
+	assert.deepEqual(corrections.npcs[278863].set, { spawns: {} });
+});
+
+// Blood of My Blood (93429, Karana at the Harborage) had no objective in the data, so the Fallow Sanctuary step's kill
+// line could not count. Players' recordings tick its one line ("Lost One slain" x10) on a kill of any of the
+// sanctuary's Lost One Hunters, Muckdwellers, Seers and Riftseekers.
+test('Blood of My Blood counts 10 of any Fallow Sanctuary Lost One', () => {
+	const [o, ...rest] = corrections.quests[93429].set.objectives;
+	assert.deepEqual(rest, []);
+	assert.equal(o.type, 'kill');
+	assert.equal(o.count, 10);
+	assert.deepEqual(o.credit, [759, 760, 761, 762]);
+	assert.ok(o.credit.includes(o.id), 'the kill names one of the credited Lost Ones');
 });

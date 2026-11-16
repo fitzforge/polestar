@@ -25,12 +25,14 @@ and maintainers who release. Paths are from the repository root.
 | [SECURITY.md](../SECURITY.md) | everyone | How to report a security problem privately, and what counts as one |
 | [docs/TRANSLATING.md](TRANSLATING.md) | translators, contributors | The languages and their status, the locale file and how to fill it, formats, the glossary, the `i18n` commands, adding or reviewing a language |
 | [docs/ARCHITECTURE.md](ARCHITECTURE.md) | contributors | The contract between the addon's modules, the compiled guide data, the toolchain and the tests |
+| [docs/gear-weights.md](gear-weights.md) | players, contributors | Gear advice's stat weights: Polestar's own (the level bands, the weights worked out from the game's formulas, Mental Dexterity), what it takes from Forever Leveling BiS when that is installed, and every spec's weights at levels 10 to 60 |
 | [addon/README.md](../addon/README.md) | contributors | Which addon is which, the modules in load order with each file and its public table, where a hub screen lives, the generated files inside `addon/` |
 | [tools/README.md](../tools/README.md) | contributors, maintainers | The commands by group, the `tools/lib` folders, every generated file with its command and inputs, how to tell it is stale, the rebuild order after a data change |
 | [tests/README.md](../tests/README.md) | contributors | The test layers, the fake client, the helpers, how to run one test, what needs local data |
 | [docs/CI.md](CI.md) | contributors, maintainers | The on-demand GitHub runs for a batch of work (suites, guide compile and playtests, gates): starting one, the public reference data they build, what stays local |
 | [docs/SUITE.md](SUITE.md) | contributors | The modules and their scope, which other addons and sites Polestar reads, the data layer, the in-game packs |
 | [docs/FORGE.md](FORGE.md) | contributors, maintainers | Polestar Forge, the Rust pipeline that makes the routes: install, `forge build`, finding the game, the data pack, Leffe's navigation maps, the report, why a quest is in or out, overrides, troubleshooting; details in [docs/forge/](forge): [data](forge/data.md), [nav](forge/nav.md), [model](forge/model.md), [routes](forge/routes.md), [writer](forge/writer.md), [judge](forge/judge.md), [learn](forge/learn.md), [i18n](forge/i18n.md), [release](forge/release.md), [internals](forge/internals.md) |
+| [docs/ROUTE-FEEL.md](ROUTE-FEEL.md) | contributors, maintainers | How a leveling route feels to play: the flow audit (`node tools/flow-audit.js`) and what it counts per start and class (walking back and forth, quests picked up on the way, quests carried between guides, dungeon trips), the ways to play it measures (dungeons, route choices), and the route-feel gate that holds a release to the shipped guides |
 | [docs/RECORDING.md](RECORDING.md) | players, contributors, maintainers | The recording program's contract and public privacy statement: what the Recorder collects, field by field (explorer mode in Forever's new zones included), what is never collected, how Polestar Client and the server handle it, deletion |
 | [docs/legacy/SIMULATION-js.md](legacy/SIMULATION-js.md) | contributors | The earlier JavaScript route simulator, which made the routes up to 0.2.x; only `sim compare` remains (`node tools/polestar.js sim compare`). [docs/SIMULATION.md](SIMULATION.md) points from the old name to Forge |
 | [docs/DESIGN.md](DESIGN.md) | contributors | The design system: who the windows are for and what they must do, then colour, type, layout and component tokens |
@@ -46,8 +48,12 @@ preview`); `docs/assets/` holds the README's art and screenshots.
 
 Data flows from the game client and local sources into reference data, from
 there into the data addons and the compiled guides, and from `addon/` into
-the game. The Recorder sends play back into the reference data; Forge turns
-reference data into the leveling routes and writes them into the guides.
+the game. The Recorder sends play back into the reference data. Forge turned
+reference data into the leveling routes and wrote them into the guides; since
+0.4.0 the routes are tuned by hand, each edit with its record so a later build
+keeps it, and a Forge build only advises on them, while Forge still builds the
+data, the walks, the walking legs, the level model and the checks (README,
+["How the routes are made"](../README.md#how-the-routes-are-made)).
 
 ```mermaid
 flowchart LR
@@ -75,13 +81,14 @@ generated file, whether it is committed, and the order to rebuild in.
 
 ## Glossary
 
-- **Hub**: Polestar's main window: a rail of sections (Guides, Lookup, Dungeons, Rares) with Options at its foot (`UI/Picker.lua`).
+- **Hub**: Polestar's main window: a rail of sections (Guides, Lookup, Dungeons, Talents, Rares, Characters) with Import and Options at its foot (`UI/Picker.lua`).
 - **Guide menu**: the hub's Guides section, where a player picks a guide.
 - **Guide window**: the small window that shows the current step and its goals while playing (`UI/GuideFrame.lua` and the `UI/GuideFrame*.lua` files beside it).
 - **Guide**: one route, written as a `.guide` file and compiled to Lua; its id reads like `forever/alliance/human/01-elwynn-forest`.
 - **Step**: one stop in a guide: a title, optional conditions and tip, and at least one goal.
 - **Goal**: one thing to do in a step, as a verb and its arguments (`accept 783`, `kill`, `goto`, `turnin`...).
-- **Pack**: an addon of guides for Polestar, built by the compiler from a folder with a `pack.json` (the folder is a pack too); Polestar's own is `Polestar_Guides` (pack id `guides`). **Community addon**: every other pack, a separate addon made and supported by its author, listed under Community guides ([GUIDE_PACKS.md](GUIDE_PACKS.md)).
+- **Pack**: an addon of guides for Polestar, built by the compiler from a folder with a `pack.json` (the folder is a pack too); Polestar's own is `Polestar_Guides` (pack id `guides`), with its per-faction and per-race parts loaded on demand (`Polestar_Guides_Alliance`, `Polestar_Guides_Human`, ...). **Community addon**: every other pack, a separate addon made and supported by its author, listed under Community guides ([GUIDE_PACKS.md](GUIDE_PACKS.md)).
+- **Polestar Experimental**: Polestar's own second pack (`Polestar_Experimental`, pack id `polestar-experimental`, sources in `experimental/`): guides for Forever's new zones still in testing, for now Mount Hyjal (Alliance, 57-60). Listed with Polestar's guides with an Experimental chip, never suggested or put in a route for you; Options > Guide > Show experimental guides takes them out of the guide menu.
 - **Reference data**: the game facts in `data/forever/*.json` (quests, NPCs, objects, items, zones, map frames and more) that the compiler and the data builds read; built locally by `forge data build`.
 - **Data addon**: a companion addon that carries data, not code, mostly loaded on demand: `Polestar_QuestDB`, `Polestar_ItemDB`, `Polestar_Codex`, `Polestar_Travel`.
 - **Codex**: Lookup's database of items, mounts, pets, recipes, NPCs, rares, quests, zones, dungeons and treasures, with where each comes from (`forge data codex`, the `Polestar_Codex` addon).
@@ -89,6 +96,7 @@ generated file, whether it is committed, and the order to rebuild in.
 - **ItemDB**: item stats for the gear advice (`forge data itemdb` and `forge data gear`, the `Polestar_ItemDB` addon).
 - **Recorder**: the optional `Polestar_Recorder` addon that records play (off on its own; on while Polestar Client shares, which it does by default; [RECORDING.md](RECORDING.md)); `forge record import` (this PC) and `forge record pull` (the recording server) turn its chunks into `data/recordings`.
 - **Playground**: the real addon running in a browser against a simulated world (`node tools/polestar.js play`).
-- **Forge**: the Rust pipeline that makes the leveling routes from the installed game and the guides (each race's start zone, then one shared route per faction), writes the leveling guides and plays them through the route check (`forge build`, [FORGE.md](FORGE.md)).
+- **Forge**: the Rust pipeline behind the data, the walks and walking legs, the level model, the checks, the guide compiler and the releases. It made the leveling routes from the installed game (each race's start zone, then one shared route per faction) and plays them through the route check (`forge build`, [FORGE.md](FORGE.md)); since 0.4.0 the shipped routes are tuned by hand and a build only advises on them.
+- **Look**, **skin**: how every Polestar window, the arrow and the map pins are drawn (Settings > Look > Theme): Polestar's own looks (Polestar, Halo, Hearth), the game's looks (WoW Forever, Blizzard, Classic; they and Hearth load from `Polestar_Looks`) and skin addons (`Polestar_Skin_*`, nine ship with Polestar), each loaded when picked; other addons add skins through the Skin API ([SKINS-API.md](SKINS-API.md)).
 - **Simulator**: the earlier JavaScript route model that made the routes up to 0.2.x, kept for `sim compare`, `lint`'s solo filter and the planner's clock ([legacy/SIMULATION-js.md](legacy/SIMULATION-js.md)); Forge's model is [forge/model.md](forge/model.md).
 - **Playtest**: playing a pack's guides to the end in the real addon, once per class they branch on (`node tools/polestar.js playtest`).

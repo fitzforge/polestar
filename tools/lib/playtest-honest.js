@@ -38,10 +38,11 @@
 // A broken line is reported, then played as the stub world would (the quest
 // taken, the item given), so one cause gives one finding, not a cascade.
 // Chains are played whole: each guide with no guide leading into it and
-// every guide its `next` (the first option) leads to, carrying the state.
+// every guide its `next` (the first option for the persona's side) leads to,
+// carrying the state.
 //
 //   const { honestPlay } = require('./playtest-honest');
-//   const findings = honestPlay(guides, data, { race: 'Orc', faction: 'Horde', cls: 'WARRIOR' }, { kb });
+//   const findings = honestPlay(guides, data, (root) => [{ race: 'Orc', faction: 'Horde', cls: 'WARRIOR' }], { kb });
 //   // [{ rule, severity: 'fail'|'warn', guide, file, line, step, title, reason, repair }]
 
 const fs = require('node:fs');
@@ -76,6 +77,25 @@ const KB_FILE = path.join(__dirname, '..', '..', 'data', 'local', 'kb', 'forever
 // The flight paths each race knows from character creation (the server
 // core's start nodes): its capital's, and for Night Elves Auberdine too.
 const START_NODES = { Human: [2], Orc: [23], Dwarf: [6], NightElf: [26, 27], Scourge: [11], Undead: [11], Tauren: [22], Gnome: [6], Troll: [23] };
+
+// The taxi nodes (travel.json) by id, and the node of a getfp, fly or `when taxi` line: its `node`, else by name
+// among the ones the faction can use (1 Alliance, 2 Horde, else both). World and the prerequisite-order check
+// (route/prereq-order.js) share them.
+function taxiNodes(data) {
+	return new Map(((data.travel && data.travel.taxi && data.travel.taxi.nodes) || []).map((n) => [n.id, n]));
+}
+function taxiUsable(n, faction) {
+	const side = faction === 'Alliance' ? 1 : faction === 'Horde' ? 2 : 0;
+	return !side || (n.faction !== 1 && n.faction !== 2) || n.faction === side;
+}
+function taxiNode(nodes, faction, x) {
+	if (x.node != null && nodes.has(x.node)) return nodes.get(x.node);
+	const name = String(x.location || '').toLowerCase();
+	for (const n of nodes.values()) {
+		if (taxiUsable(n, faction) && (String(n.short).toLowerCase() === name || String(n.name).toLowerCase() === name)) return n;
+	}
+	return null;
+}
 
 // The knowledge base's required steps per quest, { quest: [{ n, action, target, item, fact }] },
 // from `file` (default data/local/kb/forever-kb.sqlite); null when it is not there.
@@ -131,7 +151,7 @@ class World {
 		this.travelled = null; // the kind of the last travel line since pos: 'zone' | 'world'
 		this.worked = []; // every executed goal, for the knowledge base's steps
 		this.findings = [];
-		this.nodes = new Map(((data.travel && data.travel.taxi && data.travel.taxi.nodes) || []).map((n) => [n.id, n]));
+		this.nodes = taxiNodes(data);
 		this.needing = new Map(); // item -> quests whose objectives ask for it
 		for (const q of Object.values(data.quests)) {
 			for (const o of q.objectives || []) {
@@ -143,20 +163,14 @@ class World {
 		this._names = null;
 	}
 
-	// Whether the character's faction can use taxi node n (1 Alliance, 2 Horde, else both).
+	// Whether the character's faction can use taxi node n.
 	usable(n) {
-		const side = this.persona.faction === 'Alliance' ? 1 : this.persona.faction === 'Horde' ? 2 : 0;
-		return !side || (n.faction !== 1 && n.faction !== 2) || n.faction === side;
+		return taxiUsable(n, this.persona.faction);
 	}
 
-	// The taxi node of a getfp or fly line: its `node`, else by name among the usable ones.
+	// The taxi node of a getfp or fly line.
 	node(x) {
-		if (x.node != null && this.nodes.has(x.node)) return this.nodes.get(x.node);
-		const name = String(x.location || '').toLowerCase();
-		for (const n of this.nodes.values()) {
-			if (this.usable(n) && (String(n.short).toLowerCase() === name || String(n.name).toLowerCase() === name)) return n;
-		}
-		return null;
+		return taxiNode(this.nodes, this.persona.faction, x);
 	}
 
 	// NPC ids by lower-case name (for step titles).
@@ -297,6 +311,10 @@ function whenHolds(w, when) {
 				ok = w.known.has(n ? n.id : p.name);
 				break;
 			}
+			case 'zone': // the zone of the last place a line put the player at; before any, the step plays either way
+				if (!w.pos || !p.name || typeof w.zoneName !== 'function') ok = !p.neg;
+				else ok = String(w.zoneName(w.pos.map)).toLowerCase() === String(p.name).toLowerCase();
+				break;
 			default: ok = true;
 		}
 		if (p.neg && p.k !== 'level') ok = !ok;
@@ -482,6 +500,8 @@ function playGoal(w, g, x, gi, find, explicitNpc, along = false) {
 			w.level = Math.max(w.level, Math.floor(x.level || 0));
 			return;
 		case 'buy':
+		case 'auction':
+			// `auction`: bought at the Auction House, a bag count as `buy` is.
 			w.give(x.item, x.count || 1);
 			return;
 		case 'accept':
@@ -721,15 +741,23 @@ function collect(w, x, gi, find, p) {
 // Chains through `next`: the main route, the first option offered without a
 // `when` (a catch-up guide behind `when level<N` is its own chain), else the
 // first. Each guide no other leads into, then each guide its next leads to,
-// once; a cycle's guides start their own.
-function chains(guides) {
-	const byId = new Map(guides.map((g) => [g.id, g]));
+// once; a cycle's guides start their own. With `faction`, the chains of that
+// side only: its guides and those of both sides, and an option to the other
+// side's guide is skipped the way the engine skips it (Guides.GuideMatches), so
+// a guide both sides play, listing the Horde option first, leads an Alliance
+// chain to the Alliance guide.
+function chains(guides, faction = null) {
+	const side = (g) => !faction || !g.faction || String(g.faction).toLowerCase() === faction.toLowerCase();
+	const ours = guides.filter(side);
+	const byId = new Map(ours.map((g) => [g.id, g]));
+	const theirs = new Set(guides.filter((g) => !side(g)).map((g) => g.id));
+	const optionsOf = (g) => (g.nextChoices && g.nextChoices.length ? g.nextChoices : g.next ? [g.next] : []).filter((id) => !theirs.has(id));
 	const nextOf = (g) => {
-		const opts = g.nextChoices && g.nextChoices.length ? g.nextChoices : g.next ? [g.next] : [];
+		const opts = optionsOf(g);
 		return opts.find((id) => !(g.nextWhen && g.nextWhen[id])) || opts[0] || null;
 	};
 	// Roots: guides no option of another leads to (a catch-up guide is not one).
-	const into = new Set(guides.flatMap((g) => (g.nextChoices && g.nextChoices.length ? g.nextChoices : g.next ? [g.next] : [])).filter((id) => byId.has(id)));
+	const into = new Set(ours.flatMap(optionsOf).filter((id) => byId.has(id)));
 	const seen = new Set();
 	const out = [];
 	const walk = (g) => {
@@ -741,8 +769,8 @@ function chains(guides) {
 		}
 		if (chain.length) out.push(chain);
 	};
-	for (const g of guides) if (!into.has(g.id)) walk(g);
-	for (const g of guides) walk(g);
+	for (const g of ours) if (!into.has(g.id)) walk(g);
+	for (const g of ours) walk(g);
 	return out;
 }
 
@@ -776,19 +804,23 @@ function startRouteNodes(starts, data, persona, root, groups, chosen, memo) {
 	return memo.get(key);
 }
 
-// Play every chain holding a guide of `play` (ids) as each of its personas
+// Play every chain holding a guide of `play` (ids) as each of its personas,
+// each side's chains (chains(guides, side)) as that side's personas only
 // -> findings of those guides, by file and line.
 function honestPlay(guides, data, personas, { kb = null, play = null, groups = 'skip', chosen = null } = {}) {
 	const report = play ? new Set(play) : null;
 	const out = [];
-	const all = chains(guides);
-	const starts = all.filter((c) => minLevel(c[0]) <= 1 && c[0].races && c[0].races.length);
 	const memo = new Map();
-	for (const chain of all) {
-		if (report && !chain.some((g) => report.has(g.id))) continue;
-		for (const persona of personas(chain[0])) {
-			const known = startRouteNodes(starts, data, persona, chain[0], groups, chosen, memo);
-			for (const f of playChain(chain, data, persona, { kb, report, groups, chosen, known })) out.push({ ...f, race: persona.race, cls: persona.cls });
+	for (const side of ['Alliance', 'Horde']) {
+		const all = chains(guides, side);
+		const starts = all.filter((c) => minLevel(c[0]) <= 1 && c[0].races && c[0].races.length);
+		for (const chain of all) {
+			if (report && !chain.some((g) => report.has(g.id))) continue;
+			for (const persona of personas(chain[0])) {
+				if (persona.faction !== side) continue;
+				const known = startRouteNodes(starts, data, persona, chain[0], groups, chosen, memo);
+				for (const f of playChain(chain, data, persona, { kb, report, groups, chosen, known })) out.push({ ...f, race: persona.race, cls: persona.cls });
+			}
 		}
 	}
 	return out.sort((a, b) => (a.file < b.file ? -1 : a.file > b.file ? 1 : a.line - b.line));
@@ -799,4 +831,4 @@ function findingLines(f) {
 	return [`${f.rule} ${f.severity} ${f.file}:${f.line} (${f.race} ${f.cls ? f.cls[0] + f.cls.slice(1).toLowerCase() : ''}) step ${f.step}${f.title ? ` "${f.title}"` : ''}: ${f.reason}`, `  repair: ${f.repair}`];
 }
 
-module.exports = { honestPlay, playChain, chains, goalLines, whenHolds, fits, loadKb, findingLines, KB_FILE };
+module.exports = { honestPlay, playChain, chains, goalLines, whenHolds, fits, loadKb, findingLines, KB_FILE, START_NODES, taxiNodes, taxiNode };

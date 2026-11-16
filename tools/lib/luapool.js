@@ -11,6 +11,8 @@
 //
 // A Lua error rejects with "Lua failed (...)" as runAddon throws. Files the
 // programs load must not change while the pool lives (the chunk cache).
+// close() lets running programs finish, rejects queued or new work, and
+// retires the workers once their current program finishes.
 
 const { spawn } = require('node:child_process');
 const fs = require('node:fs');
@@ -38,8 +40,12 @@ class Worker {
 		});
 		this.proc.on('exit', (code) => {
 			this.dead = true;
-			if (this.job) this.job.reject(new Error(`Lua pool worker exited (${code}):\n${this.err}\n${this.buf}`));
+			if (this.job) {
+				fs.rmSync(this.job.file, { force: true });
+				this.job.reject(new Error(`Lua pool worker exited (${code}):\n${this.err}\n${this.buf}`));
+			}
 			this.job = null;
+			this.onFree();
 		});
 	}
 
@@ -75,13 +81,16 @@ class Worker {
 
 class LuaPool {
 	constructor({ size = Math.max(1, Math.min(8, os.cpus().length - 1)) } = {}) {
+		if (!Number.isSafeInteger(size) || size < 1) throw new RangeError('Lua worker count must be a positive integer');
 		this.size = size;
 		this.workers = [];
 		this.queue = [];
 		this.seq = 0;
+		this.closed = false;
 	}
 
 	runAddon(opts = {}) {
+		if (this.closed) return Promise.reject(new Error('Lua pool is closed'));
 		const file = path.join(os.tmpdir(), `polestar-pool-${process.pid}-${++this.seq}-${Math.random().toString(36).slice(2)}.lua`);
 		fs.writeFileSync(file, buildProgram(opts));
 		return new Promise((resolve, reject) => {
@@ -91,13 +100,17 @@ class LuaPool {
 	}
 
 	pump() {
+		if (this.closed) return;
 		while (this.queue.length) {
 			let w = this.workers.find((x) => !x.job && !x.dead);
 			if (!w) {
 				this.workers = this.workers.filter((x) => !x.dead);
 				if (this.workers.length >= this.size) return;
 				w = new Worker();
-				w.onFree = () => this.pump();
+				w.onFree = () => {
+					// A worker retired by close must not start replacement work.
+					if (this.workers.includes(w)) this.pump();
+				};
 				this.workers.push(w);
 			}
 			w.run(this.queue.shift());
@@ -105,6 +118,12 @@ class LuaPool {
 	}
 
 	close() {
+		if (this.closed) return;
+		this.closed = true;
+		for (const job of this.queue.splice(0)) {
+			fs.rmSync(job.file, { force: true });
+			job.reject(new Error('Lua pool is closed'));
+		}
 		for (const w of this.workers) if (!w.dead) w.proc.stdin.end();
 		this.workers = [];
 	}

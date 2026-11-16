@@ -7,6 +7,7 @@ local Plan = {}
 ns.RoutePlan = Plan
 local plans = {} -- guide -> its route (build), until Plan.Invalidate
 local others -- the other tabs' routes and the open dungeons' quests (elsewhere), until Plan.Invalidate
+local uses = {} -- guide id -> its chain's quests (chainQuests; false: it can't say), until Plan.Invalidate
 
 local function nextGuide(g, player)
 	local G = ns.Guides
@@ -26,6 +27,7 @@ local function nextGuide(g, player)
 		-- once taken: chosen, and its guide in (Engine, Own.offerTaken).
 		if G.ExperimentalOffer(g, id) then
 			if id == remembered and target and not cond then return id, false end
+		elseif not target and G.OtherSidePart(g, id) then -- the other faction's guide (Guides.OtherSidePart): not this route
 		elseif not target then
 			unloaded = true
 			if id == remembered and not cond then return id, false end
@@ -45,26 +47,31 @@ local function nextGuide(g, player)
 	return nil, #options > 1
 end
 
-local function build(active)
-	local G, player = ns.Guides, ns.Compat.GetPlayerInfo() or {}
-	local route, seen, before = {}, {}, {}
-	local first = active
-	-- Include unambiguous predecessors to identify an already-passed hand-in.
-	-- Unrelated open tabs and unchosen branches do not count as this route.
+-- The first guide of g's chain: its unambiguous predecessors walked back.
+-- Unrelated open tabs and unchosen branches do not count as this route.
+local function firstOf(g, player)
+	local G, first, before = ns.Guides, g, {}
 	while first and not before[first.id] do
 		before[first.id] = true
 		local predecessor, ambiguous
 		for _, h in ipairs(G.List()) do
-			local g = G.Get(h.id)
-			if g and g.id ~= first.id and G.GuideMatches(g, player) and nextGuide(g, player) == first.id then
+			local p = G.Get(h.id)
+			if p and p.id ~= first.id and G.GuideMatches(p, player) and nextGuide(p, player) == first.id then
 				if predecessor then ambiguous = true; break end
-				predecessor = g
+				predecessor = p
 			end
 		end
 		if ambiguous or not predecessor or before[predecessor.id] then break end
 		first = predecessor
 	end
-	local current, pending, missing = first, false, false
+	return first
+end
+
+local function build(active)
+	local G, player = ns.Guides, ns.Compat.GetPlayerInfo() or {}
+	local route, seen = {}, {}
+	-- Include unambiguous predecessors to identify an already-passed hand-in.
+	local current, pending, missing = firstOf(active, player), false, false
 	while current and not seen[current.id] do
 		seen[current.id] = #route + 1
 		route[#route + 1] = current
@@ -105,7 +112,7 @@ local function planOf(g)
 	return p
 end
 
-function Plan.Invalidate() plans, others = {}, nil end
+function Plan.Invalidate() plans, others, uses = {}, nil, {} end
 
 local function copy(entry, status)
 	local out = {}
@@ -427,6 +434,131 @@ function Plan.Ender(q)
 	return { npc = e.npc, object = e.object, name = e.name, map = s.map, x = s.x, y = s.y, f = s.f, zone = ns.Compat.MapName(s.map) }
 end
 
-for _, event in ipairs({ "GUIDES_REGISTERED", "PACKS_CHANGED", "GUIDE_CHANGED", "ROUTE_CHOSEN", "TABS_CHANGED", "CODEX_LOADED" }) do
+---------------------------------------------------------------------------
+-- Quests outside the route: in the log, and no guide of the route takes,
+-- works or hands them in (Plan.OffRoute: the guide window's end card and
+-- the guide-end window, which list them for the player to keep or abandon).
+-- Nothing here abandons anything.
+---------------------------------------------------------------------------
+
+-- A step of a dungeon the character skips (`when dungeon`, Engine.DungeonAnswer
+-- false): its quests are not the route's. One still to ask about is.
+local function dungeonSkipped(step, E)
+	for _, p in ipairs(step.when or {}) do
+		if p.k == "dungeon" and not p.neg and E and E.DungeonAnswer and E.DungeonAnswer(p.map) == false then return true end
+	end
+	return false
+end
+
+local function addQuests(set, list)
+	if type(list) == "number" then set[list] = true
+	elseif type(list) == "table" then
+		for _, q in ipairs(list) do set[q] = true end
+	end
+end
+
+-- Every quest guide g's chain uses for this character (quest -> true): its
+-- unambiguous predecessors (firstOf), g, and each guide after it, every
+-- option of a route choice not made yet. A quest counts when one of their
+-- steps for the character, but those of a dungeon they skip, takes it, works
+-- it or hands it in, names it in a `when`, or needs it before an accept
+-- (`pre`, `preAll`, `crumbs`). nil when it can't say: a guide of the chain
+-- not loaded.
+local function chainQuests(g)
+	local set = uses[g.id]
+	if set ~= nil then return set or nil end
+	local G, E, player = ns.Guides, ns.Engine, ns.Compat.GetPlayerInfo() or {}
+	set = {}
+	local queue, seen, i = { firstOf(g, player) }, {}, 1
+	while queue[i] do
+		local cur = queue[i]
+		i = i + 1
+		if not seen[cur.id] then
+			seen[cur.id] = true
+			for _, step in ipairs(cur.steps or {}) do
+				if G.Matches(step.only, player) and not dungeonSkipped(step, E) then
+					for _, p in ipairs(step.when or {}) do addQuests(set, p.q) end
+					for _, goal in ipairs(step.goals or {}) do
+						if goal.quest and G.Matches(goal.only, player) then
+							set[goal.quest] = true
+							addQuests(set, goal.pre)
+							addQuests(set, goal.preAll)
+							addQuests(set, goal.crumbs)
+						end
+					end
+				end
+			end
+			local id, pending, unloaded = nextGuide(cur, player)
+			if unloaded or (id and not G.Get(id)) then
+				uses[g.id] = false
+				return nil
+			end
+			if id then
+				queue[#queue + 1] = G.Get(id)
+			elseif pending then
+				for _, option in ipairs(cur.nextChoices or {}) do
+					local t = G.Get(option)
+					if t and G.GuideMatches(t, player) then queue[#queue + 1] = t end
+				end
+			end
+		end
+	end
+	uses[g.id] = set
+	return set
+end
+
+-- The quests in the log that no guide of the route uses (chainQuests of
+-- guide `id`, else the active tab's guide), nor any other open tab's chain
+-- or a dungeon open in a tab: { { quest, title, ready }, ... } in log order
+-- (ready: finished, to hand in). Picked up off the route; the player keeps
+-- or abandons them. nil when it can't say (no guide, a guide of a chain not
+-- loaded). Only when the end card or the guide-end window shows.
+function Plan.OffRoute(id)
+	local E, C, G = ns.Engine, ns.Compat, ns.Guides
+	local active = (id and G.Get(id)) or (E and E.GetGuide and E.GetGuide())
+	if not active then return nil end
+	local sets = { chainQuests(active) }
+	if not sets[1] then return nil end
+	for _, t in ipairs(E.TabLiveSteps and E.TabLiveSteps() or {}) do
+		if t.guide and t.guide.id ~= active.id then
+			local set = chainQuests(t.guide)
+			if not set then return nil end
+			sets[#sets + 1] = set
+		end
+	end
+	local dungeons, out = elsewhere(active).dungeons, {}
+	for _, q in ipairs(C.GetLogQuests() or {}) do
+		local used = dungeons[q] ~= nil
+		for _, set in ipairs(sets) do
+			if used then break end
+			used = set[q] == true
+		end
+		if not used then out[#out + 1] = { quest = q, title = C.GetQuestTitle(q), ready = C.IsQuestReadyForTurnIn(q) or false } end
+	end
+	return out
+end
+
+for _, event in ipairs({ "GUIDES_REGISTERED", "PACKS_CHANGED", "GUIDE_CHANGED", "ROUTE_CHOSEN", "CODEX_LOADED", "DUNGEON_ANSWERED" }) do
 	ns.On(event, Plan.Invalidate)
 end
+-- TABS_CHANGED comes after every step update of a tab (each goal ticked: a
+-- kill that counts), not only when a tab opens, closes or takes another
+-- guide. The tabs' live steps (elsewhere) follow each one; the routes
+-- (build) and chain quests only the guides in the tabs, so they are kept
+-- while the same guides are open: rebuilding them walks every registered
+-- guide (firstOf), which made each kill stutter (#2555).
+local tabGuides = {}
+ns.On("TABS_CHANGED", function(list)
+	local G, now = ns.Guides, {}
+	for i, t in ipairs(type(list) == "table" and list or {}) do now[i] = G.Get(t.guideId) or false end
+	local same = #now == #tabGuides
+	for i = 1, #now do
+		if now[i] ~= tabGuides[i] then same = false; break end
+	end
+	tabGuides = now
+	if same then others = nil else Plan.Invalidate() end
+end)
+-- "Dungeons in my route" (behavior.dungeons; a profile switch changes every setting).
+ns.On("SETTING_CHANGED", function(path)
+	if path == "behavior.dungeons" or path == "behavior" or path == nil or path == "" then Plan.Invalidate() end
+end)

@@ -401,6 +401,7 @@ fn run() -> Result<(), Fail> {
 		"itemdb" => return itemdb(args.collect()),
 		"questdb" => return questdb(args.collect()),
 		"names" => return names(args.collect()),
+		"subzones" => return subzones(args.collect()),
 		"talents" => return talents(args.collect()),
 		"maps" => return maps(args.collect()),
 		"newquests" => return newquests(args.collect()),
@@ -945,6 +946,45 @@ fn names(args: Vec<String>) -> Result<(), Fail> {
 	Ok(())
 }
 
+pub(super) const SUBZONES_USAGE: &str = "usage: forge data subzones [<locale>...] [options]
+
+Writes Subzones.lua in the language folders addon/Polestar_<locale> (every language, or those named;
+beside Names.lua, the TOC shared with `forge guide compile` and `forge data names`): the subzone name
+the client shows on each area of the walking maps (Polestar_Nav's areaNames: WMOAreaTable rows, the
+row's own name, else its AreaTable row's), in that language, for the rows not named as in English. The
+arrow tells a city's floors apart by the client's subzone. From the Forever client's WMOAreaTable and
+AreaTable in English and each language (wago.tools, &locale=, cached under data/sources/wago) at the
+client build the data is built from (forge_data::subzones::BUILD): data that names another build stops
+it. Run it after `forge nav pack`.
+
+  --root DIR           the Polestar checkout (default: the one above the current folder)
+  --offline            no downloads: the cached tables only
+  --sources DIR        the client-table cache (default data/sources)
+  --data DIR           the data whose client build the tables must be (default data/forever)
+  --nav DIR            the walking maps' metadata (default addon/Polestar_Nav/Nav)
+  --out DIR            where the addon folders go (default addon/)";
+
+fn subzones(args: Vec<String>) -> Result<(), Fail> {
+	let (kv, fl, pos) = opts(args, &["--root", "--sources", "--data", "--nav", "--out"], &["--offline"])?;
+	let get = |k: &str| kv.iter().rev().find(|(a, _)| a == k).map(|(_, v)| abs(v.clone()));
+	let root = root_of(&kv)?;
+	let mut o = forge_data::subzones::Options::new(&root);
+	if !pos.is_empty() {
+		o.locales = pos;
+	}
+	o.offline = fl.iter().any(|f| f == "--offline");
+	for (flag, slot) in [("--sources", &mut o.sources), ("--data", &mut o.data), ("--nav", &mut o.nav), ("--out", &mut o.out)] {
+		if let Some(p) = get(flag) {
+			*slot = p;
+		}
+	}
+	let r = forge_data::subzones::run(&o, &|m: &str| println!("{m}"))?;
+	for l in r.lines() {
+		println!("{l}");
+	}
+	Ok(())
+}
+
 pub(super) const TALENTS_USAGE: &str = "usage: forge data talents build|check [options]
 
 Resolves the talent plans in talents/forever/*.json (one file per class, one pick per level, by
@@ -1114,6 +1154,7 @@ pub(super) fn sub_usage(sub: &str) -> Option<&'static str> {
 		"itemdb" => ITEMDB_USAGE,
 		"questdb" => QUESTDB_USAGE,
 		"names" => NAMES_USAGE,
+		"subzones" => SUBZONES_USAGE,
 		"talents" => TALENTS_USAGE,
 		"maps" => MAPS_USAGE,
 		"newquests" => NEWQUESTS_USAGE,

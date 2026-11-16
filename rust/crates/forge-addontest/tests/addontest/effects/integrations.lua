@@ -40,11 +40,12 @@ local function fakeQuestie()
 		line.label:SetHeight(12); line.label:SetText("Ready quest"); line.label:SetWidth(250); line:SetHeight(line.label:GetHeight() + 4)
 	end }
 	QuestieLoader = { ImportModule = function(_, name) if name == "TrackerLinePool" then return pool else return tracker end end }
-	-- It hooks Questie's rows only while on: on for the hook, then back to the default.
+	-- It hooks Questie's rows only while on: on for the hook, then back to what it was.
+	local was = Polestar.GetStored("routePlan.questie")
 	Polestar.Set("routePlan.questie", true)
 	assert(Polestar.QuestieTurnIns.Connect())
 	tracker:Update()
-	Polestar.Set("routePlan.questie", nil)
+	Polestar.Set("routePlan.questie", was)
 end
 return {
 	setup = function()
@@ -106,11 +107,13 @@ return {
 			end,
 			cleanup = function() TomTom = nil end,
 		},
-		-- The guide's target handed to Shortest Path Forever: Polestar's arrow steps aside.
-		["nav.spfHandoff"] = function()
+		-- The guide's target handed to Shortest Path Forever: Polestar's arrow steps aside. Its API is faked here after
+		-- the login (setup), which a reload with the hand-off on cannot have before it (nav-handoff.rs plays the
+		-- reloads with its API there from the start).
+		["nav.spfHandoff"] = { reload = false, probe = function()
 			stub.advance(0.3)
 			return { handed = N.HandedOff(), journey = spf.owner or false, arrow = N.arrow.frame and N.arrow.frame:IsShown() or false }
-		end,
+		end },
 		["routePlan.questie"] = function() return row.label:GetText() end,
 	},
 }

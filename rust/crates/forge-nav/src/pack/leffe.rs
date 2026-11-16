@@ -21,6 +21,7 @@
 use super::cells::{CellGrid, ZQ};
 use super::drops;
 use super::encode::{encode_areas, encode_heights, run_length, Maps, COST_MAX, YARDS_MAX};
+use super::joins::{Geo, JoinStats, JoinWay};
 use super::reach::{self, Place};
 use super::spawns;
 use super::{b32, enc, js_round, zigzag, B64, NONE};
@@ -131,21 +132,21 @@ fn our_area(cg: &CellGrid, gx: i64, gy: i64, z: f64) -> u32 {
 	}
 }
 
-/// One cluster's fields.
+/// One cluster's fields (pack/joins.rs edits the clusters a join crosses).
 #[derive(Default)]
-struct Out {
-	grid: Option<String>,
-	height: Option<String>,
-	floor: Option<String>,
-	class: Option<String>,
-	area: Option<String>,
-	arc: Option<String>,
-	graph: Option<String>,
-	spawn: Option<String>,
-	areas: BTreeSet<u32>,
-	stats: LeffeStats,
-	max_degree: usize,
-	clamped: usize,
+pub(super) struct Out {
+	pub(super) grid: Option<String>,
+	pub(super) height: Option<String>,
+	pub(super) floor: Option<String>,
+	pub(super) class: Option<String>,
+	pub(super) area: Option<String>,
+	pub(super) arc: Option<String>,
+	pub(super) graph: Option<String>,
+	pub(super) spawn: Option<String>,
+	pub(super) areas: BTreeSet<u32>,
+	pub(super) stats: LeffeStats,
+	pub(super) max_degree: usize,
+	pub(super) clamped: usize,
 }
 
 /// His grid field with the steps past the walkable slope closed (flag 1: +x, 2: +y), and how many; a base cell in
@@ -355,7 +356,8 @@ fn floor_columns(s: &str, cc: usize, dead: &[bool], gone: &[bool]) -> Result<Str
 	if p != b.len() {
 		return Err(format!("leffe: floor field has {} symbols past its records", b.len() - p));
 	}
-	b32(m as u64, &mut out);
+	// the links kept (a link out of ground no walk reaches went with it)
+	b32(links.len() as u64, &mut out);
 	let mut prev = 0i64;
 	for &(u, _, _) in &links {
 		b32(zigzag(u as i64 - prev), &mut out);
@@ -767,9 +769,11 @@ fn geometry(meta: &Meta, k: u32, c: &Cluster, node: usize) -> [f64; 3] {
 }
 
 /// Map `map` of Leffe's Nav folder `dir` as the in-game fields (maps format 5), with `cg` (our grid's cells, the same
-/// frame and cells) for the areas, and `extras`: our grid's ledge drops as one-way arcs, and, given the fixed places,
-/// only the ground a walk from one of this map's reaches. -> the fields, the area rows they use, and the counts.
-pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid, extras: &Extras) -> Result<(Maps, BTreeSet<u32>, LeffeStats), String> {
+/// frame and cells) for the areas, `extras`: our grid's ledge drops as one-way arcs, and, given the fixed places,
+/// only the ground a walk from one of this map's reaches (the ends of the map's grid joins with a height among
+/// them), and our grid's ways of the map's joins put in (pack/joins.rs). -> the fields, the area rows they use, and
+/// the counts.
+pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid, extras: &Extras, ways: &[JoinWay], log: &(dyn Fn(&str) + Sync)) -> Result<(Maps, BTreeSet<u32>, LeffeStats, JoinStats), String> {
 	let src = NavDir::open(dir)?;
 	let text_meta = src.meta(map)?.ok_or_else(|| format!("leffe: {} has no map {map}", dir.display()))?;
 	let mut meta = pack::parse_meta(&text_meta, map)?;
@@ -822,7 +826,10 @@ pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid, extras: &Extras) -> Resul
 					Ok(walks(meta, k, &c, &g, &has, &rows, &index, &ledges))
 				})
 				.collect::<Result<_, String>>()?;
-			let mine: Vec<&Place> = all.iter().filter(|p| p.map == map).collect();
+			// Each way of a grid join starts and ends where players stand (on our grid's surface): the ground a join
+			// leads to, a cave his maps cut off from its mouth, is reached through it and kept.
+			let ends: Vec<Place> = ways.iter().flat_map(|w| [w.cells.first(), w.cells.last()]).flatten().map(|c| Place { map, x: c.x, y: c.y, z: c.z }).collect();
+			let mine: Vec<&Place> = all.iter().filter(|p| p.map == map).chain(&ends).collect();
 			let starts: Vec<(usize, usize)> = mine.iter().filter_map(|p| reach::stand(&locals, &index, &frame, p)).collect();
 			placed = (mine.len(), mine.len() - starts.len());
 			if starts.is_empty() && !mine.is_empty() {
@@ -836,7 +843,7 @@ pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid, extras: &Extras) -> Resul
 		}
 	};
 	let spawned: Option<FxHashMap<u32, Vec<Place>>> = extras.spawns.map(|s| spawns::by_cluster(s, map, &frame));
-	let outs: Vec<(u32, Out)> = keys
+	let mut outs: Vec<(u32, Out)> = keys
 		.par_iter()
 		.map(|&k| -> Result<(u32, Out), String> {
 			let mut read = |f: &str, k: u32| read_field(src, meta, f, k);
@@ -857,6 +864,8 @@ pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid, extras: &Extras) -> Resul
 			Ok((k, cluster(meta, k, &c, &g, &fields, cg, &has, &rows, re.as_ref(), &ledges, sp)?))
 		})
 		.collect::<Result<_, String>>()?;
+	let geo = Geo { c: meta.c as usize, cs: meta.cs, zstep: meta.zstep, x0: meta.x0, y0: meta.y0, ny: meta.ny, swim: meta.swim };
+	let (joined, join_areas) = super::joins::apply(&geo, &mut outs, ways, cg, log)?;
 	let mut maps = Maps {
 		class: Some(BTreeMap::new()),
 		zone: Some(BTreeMap::new()),
@@ -865,7 +874,7 @@ pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid, extras: &Extras) -> Resul
 		spawn: extras.spawns.map(|_| BTreeMap::new()),
 		..Default::default()
 	};
-	let mut used = BTreeSet::new();
+	let mut used = join_areas;
 	let mut st = LeffeStats::default();
 	let mut comps = BTreeSet::new();
 	for (k, o) in outs {
@@ -930,7 +939,7 @@ pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid, extras: &Extras) -> Resul
 	if maps.area.as_ref().unwrap().is_empty() {
 		return Err(format!("leffe: map {map}: no surface matched an area of ours (is the grid the same client build?)"));
 	}
-	Ok((maps, used, st))
+	Ok((maps, used, st, joined))
 }
 
 #[cfg(test)]
@@ -959,5 +968,32 @@ mod tests {
 			assert_eq!(values(&rec), want, "edge {e}: offset, entrance, the three costs, the none profile's yards");
 		}
 		assert_eq!(clamped, 0);
+	}
+
+	/// With --ground reached, a floor no walk reaches goes, and so do the explicit links out of it: the floor field
+	/// counts the links it keeps. It wrote the count it read, so a reader took the next symbols for more links (the
+	/// router's floorColumns reads the field the same way as pack/ingame.rs).
+	#[test]
+	fn a_dropped_floors_link_goes_and_the_floor_field_counts_the_links_kept() {
+		const CC: usize = 8;
+		let e = |v: usize, w: u32| enc(v as f64, w).unwrap();
+		// his rows: one cell (local cell 9) with two floors (nodes 64 and 65, heights 10 and 20), a link +x from each
+		let mut his = e(1, 3) + &e(9, 3) + &e(2, 1);
+		for z in [10, 20] {
+			his += &(e(1, 1) + &e(z + 2048, 2) + &e(0, 2));
+		}
+		his += &e(2, 3);
+		for u in [64, 65] {
+			his += &(e(u, 3) + &e(0, 1) + &e(0, 1));
+		}
+		let mut dead = vec![false; CC * CC + 2];
+		dead[CC * CC + 1] = true;
+		let field = floor_columns(&his, CC, &dead, &[false; CC * CC]).unwrap();
+		let val = vec![1u8; CC * CC];
+		let grid = run_length(&val.iter().map(|v| v * 16).collect::<Vec<u8>>());
+		let height = encode_heights(&val, &[0; CC * CC], CC).unwrap();
+		let c = crate::pack::ingame::Cluster::decode(CC, TILE / 128.0, 2.0, &grid, &height, Some(&field), None, None, None).unwrap();
+		assert_eq!(c.t(), CC * CC + 1, "the floor at height 10 stays");
+		assert_eq!(c.links, vec![(64, 0, 0)], "its link stays, the dropped floor's goes");
 	}
 }

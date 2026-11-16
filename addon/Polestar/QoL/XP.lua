@@ -329,21 +329,25 @@ end
 
 -- "12.3k" for large numbers.
 local function short(n)
-	if n >= 10000 then return format("%.1fk", n / 1000) end
+	if n >= 10000 then return ns.Decimal(n / 1000, 1) .. "k" end
 	return format("%d", floor(n + 0.5))
 end
 XP.Short = short
+
+-- "1 kill", "12 kills"; "1 quest", "3 quests".
+local function kills(n) return n == 1 and L["1 kill"] or format(L["%d kills"], n) end
+local function quests(n) return n == 1 and L["1 quest"] or format(L["%d quests"], n) end
 
 -- One line for chat or a compact footer.
 function XP.Summary(st)
 	st = st or XP.GetStats()
 	if st.maxed then return format(L["Level %d"], st.level) end
-	local parts = { format(L["Level %d %.1f%%"], st.level, st.percent) }
+	local parts = { format(L["Level %d %s%%"], st.level, ns.Decimal(st.percent, 1)) }
 	if st.rate > 0 then
 		parts[#parts + 1] = format(L["%s XP/h"], short(st.rate))
 		parts[#parts + 1] = format(L["%s to level"], QoL.Duration(st.timeToLevel))
 	end
-	if st.killsToLevel then parts[#parts + 1] = format(L["%d kills"], st.killsToLevel) end
+	if st.killsToLevel then parts[#parts + 1] = kills(st.killsToLevel) end
 	if st.rested > 0 then parts[#parts + 1] = format(L["rested %s"], short(st.rested)) end
 	return table.concat(parts, " · ")
 end
@@ -355,13 +359,13 @@ ns.RegisterCommand("xp", function()
 		return
 	end
 	ns.Print(XP.Summary(st))
-	ns.Print(format(L["Session: %s XP in %s (%s XP/h), %d kills, %d quests"], short(st.sessionXP),
-		QoL.Duration(st.sessionSeconds), short(st.sessionRate), st.sessionKills, st.sessionQuests))
+	ns.Print(format(L["Session: %s XP in %s (%s XP/h), %s, %s"], short(st.sessionXP),
+		QoL.Duration(st.sessionSeconds), short(st.sessionRate), kills(st.sessionKills), quests(st.sessionQuests)))
 	local shown = 0
 	for lvl = st.level - 1, 1, -1 do
 		local sp = st.splits[lvl]
 		if sp then
-			ns.Print(format(L["Level %d: %s, %d kills, %d quests%s"], lvl, QoL.Duration(sp.seconds), sp.kills, sp.quests,
+			ns.Print(format(L["Level %d: %s, %s, %s%s"], lvl, QoL.Duration(sp.seconds), kills(sp.kills), quests(sp.quests),
 				sp.partial and L[" (partial)"] or ""))
 			shown = shown + 1
 			if shown >= 5 then break end

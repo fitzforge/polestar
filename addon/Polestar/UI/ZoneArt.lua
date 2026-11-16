@@ -26,6 +26,11 @@
 --     neighbours never look cloned. painted is false when the band stands
 --     in; reveal: "full" (every overlay), "explored" (the client's explored
 --     overlays only: a map whose art this table was not built for) or nil.
+--   ZoneArt.Picture(art, pic) -> true
+--     a picture instead (pic = { file, l, r, t, b }: a crop square on
+--     screen, Dungeons.Art's loading screens) where no zone is known, so a
+--     dungeon card never falls back to the night band; the next Paint
+--     replaces it.
 --   ZoneArt.RegisterOverlays(build, arts)
 --     arts: { [uiMapArtID] = { tileWidth, tileHeight, { textureWidth,
 --     textureHeight, offsetX, offsetY, fileDataID, ... (row-major) }, ... } }
@@ -245,6 +250,7 @@ function ZA.Paint(a, uiMapID, focusX, focusY, index)
 	local w, h = a.psW, a.psH
 	local info, textures = artLayer(uiMapID)
 	local tiles, shapes = a.Tiles, a.Shapes
+	if a.psPic then a.psPic:Hide() end
 	if not info then
 		for i = 1, #tiles do tiles[i]:Hide() end
 		for i = 1, #shapes do shapes[i]:Hide() end
@@ -306,4 +312,39 @@ function ZA.Paint(a, uiMapID, focusX, focusY, index)
 	end
 	for i = n + 1, #shapes do shapes[i]:Hide() end
 	return true, reveal
+end
+
+-- A picture in place of a zone painting (a dungeon's loading screen,
+-- Dungeons.Art, where no zone is known): pic = { file, l, r, t, b }, a crop
+-- that is square on screen. The band shows the picture's full width at the
+-- crop's scale, centred on the crop and kept inside its top and bottom, in
+-- the painting's shading. -> true
+function ZA.Picture(a, pic)
+	local w, h = a.psW, a.psH
+	for i = 1, #a.Tiles do a.Tiles[i]:Hide() end
+	for i = 1, #a.Shapes do a.Shapes[i]:Hide() end
+	a.Band:Hide()
+	a.psCanvas = nil
+	local t = a.psPic
+	if not t then
+		t = a.Canvas:CreateTexture(nil, "BACKGROUND")
+		t:SetAllPoints(a)
+		a.psPic = t
+	end
+	-- One texture-coordinate unit across is sw on screen, one down sh.
+	local sw, sh = 1 / (pic.r - pic.l), 1 / (pic.b - pic.t)
+	local dx = 1
+	local dy = dx * sw * h / w / sh
+	if dy > pic.b - pic.t then
+		dy = pic.b - pic.t
+		dx = dy * sh * w / h / sw
+	end
+	local cx, cy = (pic.l + pic.r) / 2, (pic.t + pic.b) / 2
+	local x0 = min(max(cx - dx / 2, 0), 1 - dx)
+	local y0 = min(max(cy - dy / 2, pic.t), pic.b - dy)
+	t:SetTexture(pic.file, nil, nil, "TRILINEAR")
+	t:SetTexCoord(x0, x0 + dx, y0, y0 + dy)
+	shadeTile(a, t)
+	t:Show()
+	return true
 end

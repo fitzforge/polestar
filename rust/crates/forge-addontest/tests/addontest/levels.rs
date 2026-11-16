@@ -74,7 +74,8 @@ fn quests_in_turn_in_order_carry_the_character_over_a_level_the_client_s_xp_to_l
 
 #[test]
 fn a_quest_far_below_gives_its_share_at_the_level_reached_when_it_is_turned_in() {
-	// At 26 the level 17 quest is 9 below: 20%. The level 20 one is 6 below: 80%.
+	// At 26 the level 17 quest is 9 below: half, Forever's floor from 8 below (players' recordings,
+	// forge-sim's xp::SHARE test). The level 20 one is 6 below: 80%.
 	let s = run(
 		json!({ "level": 26, "xp": 0, "class": "MAGE", "faction": "Alliance" }),
 		json!([
@@ -84,7 +85,7 @@ fn a_quest_far_below_gives_its_share_at_the_level_reached_when_it_is_turned_in()
 		]),
 		&[],
 	);
-	assert_eq!(s["xp"], 200 + 800 + 1000);
+	assert_eq!(s["xp"], 500 + 800 + 1000);
 	assert_eq!(s["reduced"], 2);
 	assert_eq!(s["quests"], 3);
 	// The order counts: a level gained on the way reduces what comes after.

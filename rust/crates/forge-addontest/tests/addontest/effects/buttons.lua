@@ -51,7 +51,16 @@ return {
 		["buttons.rareSize"] = function() return rare:GetWidth() end,
 		["buttons.bagSize"] = function() return bag:GetWidth() end,
 		["qol.itemButton"] = function() return item:IsShown() and true or false end,
-		["qol.targetButton"] = function() return target:IsShown() and true or false end,
+		-- The target button, or beside its list the Polestar mark in its slot.
+		["qol.targetButton"] = function() return (target:IsShown() or B.anchor:IsShown()) and true or false end,
+		-- The single button instead of the list.
+		["qol.targetSimple"] = function() return { target:IsShown() and true or false, B.anchor:IsShown() and true or false } end,
+		-- How many rows the list shows: the step's two mobs, or one.
+		["qol.targetRows"] = { value = 1, probe = function()
+			local n = 0
+			for _, r in ipairs(B.rows) do if r:IsShown() then n = n + 1 end end
+			return n
+		end },
 		["qol.rareButton"] = function() return rare:IsShown() and true or false end,
 		-- The icon's inset from the button's edge.
 		["buttons.padding"] = function() return pt(item.Icon) end,

@@ -198,6 +198,28 @@ fn an_item_whose_only_sources_are_two_mobs_names_both_at_any_chance() {
 	assert!(last_goal(&data, &["  collect 95125 x2"]).get("from").is_none(), "one chance known, one not: the 20% bar holds");
 }
 
+// #2275 (thmastin, Dwarf Shaman 12, Call of Fire in Loch Modan): the step read "Kill Razormane Water Seeker or
+// Razormane Thornweaver for Fire Tar", the Barrens' droppers at 75%, though the goal stood among Loch Modan's Tunnel
+// Rat Geomancers, the item's droppers there (the data has no chance for them). The goal is placed on the step's map
+// when a source spawns there, so its names come from the sources there; with none there, as before.
+#[test]
+fn a_collect_names_its_sources_on_the_step_s_map_not_better_droppers_elsewhere_2275() {
+	let t = core_with(|t| {
+		let npcs = t.get_mut("npcs").unwrap();
+		npcs["95070"] = json!({ "id": 95070, "name": "Razormane Water Seeker", "level": 10, "faction": null, "spawns": { "1411": { "f": "e", "pts": camp(50.0, 50.0) } } });
+		npcs["95071"] = json!({ "id": 95071, "name": "Razormane Thornweaver", "level": 10, "faction": null, "spawns": { "1411": { "f": "e", "pts": camp(52.0, 51.0) } } });
+		npcs["95072"] = json!({ "id": 95072, "name": "Tunnel Rat Geomancer", "level": 12, "faction": null, "spawns": { "1429": { "f": "e", "pts": camp(60.0, 60.0) } } });
+		let items = t.get_mut("items").unwrap();
+		items["95130"] = item(95130, "Fire Tar", json!({ "95070": 75, "95071": 75, "95072": null }));
+		items["95131"] = item(95131, "Razormane Charm", json!({ "95070": 75, "95071": 75 }));
+	});
+	let data = data_from(&t, Value::Null, Value::Null);
+	let tar = last_goal(&data, &["  collect 95130"]);
+	assert_eq!(json!([tar["from"], tar["fromId"], tar["fromAlso"], tar["map"]]), json!(["Tunnel Rat Geomancer", 95072, null, 1429]), "the step's own map's dropper: {tar}");
+	let charm = last_goal(&data, &["  collect 95131"]);
+	assert_eq!(json!([charm["from"], charm["fromAlso"]]), json!(["Razormane Water Seeker", "Razormane Thornweaver"]), "none on the step's map: {charm}");
+}
+
 fn camp(x: f64, y: f64) -> Value {
 	json!([[x, y], [x + 0.3, y + 0.2], [x - 0.2, y + 0.3]])
 }
@@ -623,4 +645,39 @@ fn a_use_of_the_item_a_quest_hands_over_and_a_kill_of_its_objective_name_every_c
 	assert_eq!(ids(3), json!([95911, 95912, 95913]), "a use bound to the objective");
 	assert_eq!(ids(4), Value::Null, "a kill with no credit list names its own target only");
 	assert_eq!(ids(5), Value::Null, "a use of an item no such quest hands over");
+}
+
+// #2238 (Fyurie, Feralas, Zapped Giants): Zorbin's Ultra-Shrinker shrinks the coast's giants, and the quest counts
+// only the residue the shrunken ones drop, so the target button named the zapped giants alone, never the giants to
+// use the shrinker on. A `use` goal names the creatures the quest mechanics say its item works on
+// (mechanics.json's `use-item-on-mob` params): its quest's own, or, with no quest, every quest's for the item.
+#[test]
+fn a_use_goal_names_the_creatures_the_quest_mechanics_say_its_item_works_on_2238() {
+	let dir = data_dir_with("item-targets", &data_dir(), |raw| {
+		raw.get_mut("quests.json").unwrap()["95930"] = json!({ "id": 95930, "title": "Shrunken Rams", "level": 5, "minLevel": 1, "races": null, "classes": null,
+			"start": { "npc": [95934], "object": [], "item": [] }, "end": { "npc": [95934], "object": [] }, "pre": [], "excl": [], "next": null,
+			"objectives": [{ "type": "item", "id": 95941, "count": 15, "text": "Ram Dust" }],
+			"objectiveText": "", "zone": 1429, "xp": 250, "source": ["fixture"] });
+		raw.get_mut("items.json").unwrap()["95940"] = json!({ "id": 95940, "name": "Ram Shrinker", "drops": { "npc": {}, "object": {} }, "vendors": [] });
+		raw.get_mut("items.json").unwrap()["95941"] = json!({ "id": 95941, "name": "Ram Dust", "drops": { "npc": { "95933": 100 }, "object": {} }, "vendors": [] });
+		for (id, name, faction) in [(95931, "Old Ram", Value::Null), (95932, "Cliff Ram", Value::Null), (95933, "Shrunken Ram", Value::Null), (95934, "Ram Herder", json!("AH"))] {
+			raw.get_mut("npcs.json").unwrap()[id.to_string()] = json!({ "id": id, "name": name, "level": 5, "faction": faction, "spawns": { "1429": { "f": "e", "pts": [[55, 55]] } } });
+		}
+		raw.insert(
+			"mechanics.json".into(),
+			json!({ "schema": 1, "sources": [], "quests": {
+			"95930": { "kinds": [{ "kind": "use-item-on-mob", "confidence": "high" }],
+				"params": [{ "kind": "use-item-on-mob", "item": 95940, "npcs": [95931, 95932], "dead": false, "source": "server" }] } } }),
+		);
+	});
+	let lines = ["step One", "  accept 95930", "  use 95940 quest 95930.1 @55,55", "  use 95940 @55,55", "  use 1210 @55,55"];
+	let r = compile_with(&guide_text(&lines), &forge_guide::data::load_data(&dir).unwrap());
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let steps = r.steps();
+	let g = &steps[0]["goals"];
+	let ids = |i: usize| json!(g[i]["fromNpcs"].as_array().map(|l| l.iter().map(|n| n["npc"].clone()).collect::<Vec<_>>()));
+	assert_eq!(ids(1), json!([95931, 95932]), "bound to the quest: the creatures its mechanics name for the item: {}", g[1]);
+	assert_eq!(g[1]["fromNpcs"][1], json!({ "npc": 95932, "npcName": "Cliff Ram" }));
+	assert_eq!(ids(2), json!([95931, 95932]), "no quest: every quest's for the item");
+	assert_eq!(ids(3), Value::Null, "an item no quest's mechanics name creatures for");
 }

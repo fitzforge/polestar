@@ -17,7 +17,7 @@ return {
 	["{npc:3649}: for {npc:1646} in {zone:1453}"] = "{npc:3649}: para {npc:1646} en {zone:1453}",
 	["The WANTED poster outside the inn"] = "El cartel de SE BUSCA a la puerta de la posada",
 	-- {npc:3666} Wizbang Cranktoggle
-	["{npc:3666}, upstairs in the inn"] = "",
+	["{npc:3666}, upstairs in the inn"] = "{npc:3666}, en el piso de arriba de la posada",
 	-- {npc:10219} Gwennyth Bly'Leggonde · {zone:1438} Teldrassil
 	["{npc:10219} (Night Elves have it from {zone:1438})"] = "",
 	-- {npc:10216} Gubber Blump
@@ -45,7 +45,7 @@ return {
 	-- Step 6: The skeletal turtle
 	["The skeletal turtle"] = "La tortuga esquelética",
 	-- {item:12289} Sea Turtle Remains
-	["{item:12289}, on the beach west of the docks; underwater"] = "",
+	["{item:12289}, on the beach west of the docks; underwater"] = "{item:12289}, en la playa al oeste de los muelles; bajo el agua",
 
 	-- Step 7: Plagued bears
 	["Plagued bears"] = "Osos apestados",
@@ -96,7 +96,7 @@ return {
 
 	-- Step 15: A Lesson to Learn
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
-	["Fly from {area:442} to {area:702} and take the portal up to {npc:4217} in the {area:1658}."] = "Vuela de {area:442} a {area:702} y toma el portal para subir hasta {npc:4217} en el {area:1658}.",
+	["Night Elves fly from {area:442} to {area:702}; Skyborne take the boat from the {area:442} dock and learn the Rut'theran flight path. Then take the portal up to {npc:4217} in the {area:1658}."] = "Los elfos de la noche vuelan de {area:442} a {area:702}; los cielonatos toman el barco en el muelle de {area:442} y descubren la ruta de vuelo de Rut'theran. Después, toma el portal para subir hasta {npc:4217} en el {area:1658}.",
 
 	-- Step 18: Moonglade
 	-- {spell:18960} Teleport: Moonglade
@@ -105,7 +105,7 @@ return {
 	-- Step 19: Trial of the Lake
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:656} Lake Elune'ara · {area:2362} Shrine of Remulos · {npc:11799} Tajarri · {quest:29} Trial of the Lake · {area:442} Auberdine
 	-- plural, as words: Shrine Baubles = {item:15877} Shrine Bauble
-	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. {quest:29} runs on a timer: no teleport or Hearthstone until {npc:11799} has it. Then fly back to {area:442} from {area:2361}."] = "",
+	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. {quest:29} runs on a timer: no teleport or Hearthstone until {npc:11799} has it. Then fly back to {area:442} from {area:2361}."] = "{npc:11802} está en el piso de arriba de su edificio, en {area:2361}: sube por dentro, la flecha no distingue los pisos. Los adornos de altar están en los contenedores del fondo del {area:656}, bajo {area:2361}: lleva uno al {area:2362}, al noroeste, úsalo allí y habla con {npc:11799}. {quest:29} tiene un temporizador: no uses teletransporte ni piedra de hogar hasta que {npc:11799} la tenga. Después vuela de vuelta a {area:442} desde {area:2361}.",
 	-- {quest:6122} The Principal Source · {area:445} Cliffspring Falls
 	["{quest:6122}: fill the sampler at {area:445}"] = "{quest:6122}: llena el muestreador en {area:445}",
 	-- {item:15877} Shrine Bauble · {object:177785} Bauble Container
@@ -152,7 +152,7 @@ return {
 	["The bay wrecks"] = "Los pecios de la bahía",
 	-- {area:442} Auberdine
 	-- plural, as words: Reef Crawlers = {npc:2235} Reef Crawler · Encrusted Tide Crawlers = {npc:2233} Encrusted Tide Crawler
-	["Two wrecks lie on the sea floor in the bay north of {area:442}; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore.\nCareful: The murlocs inside the wrecks are close together and fast. They often swim through the hull walls and holes, so you will usually pull extra murlocs."] = "",
+	["Two wrecks lie on the sea floor in the bay north of {area:442}; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore.\nCareful: The murlocs inside the wrecks are close together and fast. They often swim through the hull walls and holes, so you will usually pull extra murlocs."] = "Hay dos pecios en el fondo de la bahía al norte de {area:442}; cada uno guarda una caja fuerte. Correarrecifes y Corremareas escamados recorren esta orilla.\nCuidado: los múrlocs de dentro de los pecios están muy juntos y son rápidos. A menudo atraviesan nadando las paredes y agujeros del casco, así que normalmente atraerás múrlocs de más.",
 	-- {item:12191} Silver Dawning's Lockbox
 	["{item:12191}; underwater"] = "",
 	-- {item:12192} Mist Veil's Lockbox
@@ -190,8 +190,8 @@ return {
 	-- {area:456} Cliffspring River · {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell · {item:12355} Talisman of Corruption
 	["The furbolg camp south of the {area:456} keeps its Nut, Fruit and Grain Stores by the bonfires. With a sample of each and the {item:12347} in your bags (the {item:12346} is filled at the {object:174795}), use the bowl by the bonfire closest to the river: it summons Xabraxxis, the satyr corruptor, and the {item:12355} lies in his Demon Bag."] = "",
 	["By the bonfire closest to the river: summons Xabraxxis"] = "",
-	-- {item:12355} Talisman of Corruption · {object:177624} Xabraxxis' Demon Bag
-	["{item:12355}, in {object:177624}"] = "{item:12355}, en {object:177624}",
+	-- {item:12347} Filled Cleansing Bowl
+	["After using the {item:12347}, kill Xabraxxis, then click his Demon Bag on the ground to collect the talisman. If Xabraxxis despawns before you get it, retake the quest for a new bowl."] = "Tras usar {item:12347}, mata a Xabraxxis y luego haz clic en su Bolsa de demonio en el suelo para recoger el talismán. Si Xabraxxis desaparece antes de que lo consigas, vuelve a aceptar la misión para obtener un cuenco nuevo.",
 
 	-- Step 34: The cave and the Den Mother
 	["Careful: If you attack one cub, the other cubs and often the mother join the fight, so expect to take on several at the same time."] = "",
@@ -207,7 +207,6 @@ return {
 	-- ["Back to {npc:11802}"] = "De vuelta con {npc:11802}",
 	-- ["Back to {npc:11802} in {area:2361}, then fly to {area:702} (by way of {area:442})."] = "Vuelve con {npc:11802} en {area:2361} y luego vuela a {area:702} (pasando por {area:442}).",
 	-- ["Boat to {zone:1453}"] = "Barco a {zone:1453}",
-	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. Then fly back to {area:442} from {area:2361}."] = "Lanza {spell:18960}. {npc:11802} está en {area:2361}. Los adornos de altar ({item:15877}) están en los contenedores del fondo del {area:656}, bajo {area:2361}: lleva uno al {area:2362}, al noroeste, úsalo allí y habla con {npc:11799}. Después vuela de vuelta a {area:442} desde {area:2361}.",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; learn the flight path there if you do not have it."] = "Lanza {spell:18960}. {npc:11802} está en {area:2361}; aprende allí la ruta de vuelo si no la tienes.",
 	-- ["Escort her out of the glaive; Therysil takes the turn-in in {zone:1440}"] = "Escóltala fuera de la guja; la misión se entrega a Therysil en {zone:1440}",
 	-- ["Fine Moonstalker Pelts"] = "Pelambres de Acechalunas refinados",
@@ -245,9 +244,8 @@ return {
 	-- ["Thresher Eyes"] = "Ojos de trillador",
 	-- ["Tide Crawlers scuttle along the shore below the village; {quest:983} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {quest:4723} lies on the shore just south of the village."] = "Los corremareas corretean por la orilla bajo el pueblo; {quest:983} está en la playa, justo al sur de los muelles. Los trilladores de la Costa Oscura ({npc:2185}) nadan en las aguas poco profundas. La {quest:4723} yace en la orilla, justo al sur del pueblo.",
 	-- ["Tide Crawlers scuttle along the shore below the village; {quest:983} stands on the beach just south of the docks. {zone:1439} Threshers swim in the shallows. The {quest:4723} lies on the shore just south of the village."] = "Los Corremareas corretean por la orilla bajo el pueblo; {quest:983} está en la playa, justo al sur de los muelles. Los Trilladores de la {zone:1439} nadan en las aguas poco profundas. La {quest:4723} yace en la orilla, justo al sur del pueblo.",
-	-- ["Two wrecks lie on the sea floor in the bay north of {area:442}; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore."] = "Hay dos pecios en el fondo de la bahía al norte de {area:442}; cada uno guarda una caja fuerte. Correarrecifes y Corremareas escamados recorren esta orilla.",
 	-- ["{area:450} lies on the coast south of {npc:10323}'s beach. Protect the prospector while he searches for the fossil."] = "{area:450} está en la costa al sur de la playa de {npc:10323}. Protege al prospector mientras busca el fósil.",
-	-- ["{item:12289}, on the beach west of the docks"] = "{item:12289}, en la playa al oeste de los muelles",
+	-- ["{item:12355}, in {object:177624}"] = "{item:12355}, en {object:177624}",
 	-- ["{item:15851} and {item:2449}"] = "{item:15851} y {item:2449}",
 	-- ["{item:15883}: the {object:177790} under the water off the north coast, west of the ruins"] = "{item:15883}: la {object:177790} bajo el agua frente a la costa norte, al oeste de las ruinas",
 	-- ["{item:15883}: the {object:177792} under the water off the north coast, west of the ruins"] = "{item:15883}: {object:177792} bajo el agua frente a la costa norte, al oeste de las ruinas",
@@ -261,7 +259,6 @@ return {
 	-- ["{npc:12298}: use the {item:15826} on them; they roam all of {zone:1439}"] = "{npc:12298}: usa el {item:15826} con ellos; deambulan por toda {zone:1439}",
 	-- ["{npc:3616}, at the Grove"] = "{npc:3616}, en el Páramo",
 	-- ["{npc:3661} hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in {zone:1440}."] = "{npc:3661} se esconde al pie de la torre entre los Fanáticos de la Facción Oscura. Guarda su carta para Delgren el Purificador en {zone:1440}.",
-	-- ["{npc:3666}, by the inn"] = "{npc:3666}, junto a la posada",
 	-- ["{npc:3692} hides in the hills east of the {area:449}. Help him back to the road; he fights on his way out."] = "{npc:3692} se esconde en las colinas al este de {area:449}. Ayúdale a volver al camino; pelea mientras sale.",
 	-- ["{npc:3694}: for {npc:3691} in {area:415}, on the later {zone:1440} leg"] = "{npc:3694}: para {npc:3691} en {area:415}, en el tramo posterior de {zone:1440}",
 	-- ["{npc:4217}: Cat Form"] = "{npc:4217}: Forma felina",

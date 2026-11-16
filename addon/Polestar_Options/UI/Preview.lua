@@ -11,10 +11,11 @@
 -- centred on the element on the window's plain ground, the band only as tall
 -- as it: BAND_PAD over and under, [the picker], the element, [its states'
 -- labels], [one hint line]. No chrome.
---   f:Content(width) -> w, h, place(left, top, k)[, labels]  the page's: the
---                  element's natural size, what puts it at (left, top) at
---                  scale k, and its labels ({ fontstring, x } at their
---                  centres, in its units)
+--   f:Content(width[, tall]) -> w, h, place(left, top, k)[, labels]  the
+--                  page's: the element's natural size (tall: the height the
+--                  band may give it, nil without a limit), what puts it at
+--                  (left, top) at scale k, and its labels ({ fontstring, x }
+--                  at their centres, in its units)
 --   f:Label(text)  a state's label (a 12px Label in textMuted, centred)
 --   opts.picker    { choices, get, set }: a centred dropdown over the element
 --                  (a tab that sets several elements: the one shown)
@@ -22,9 +23,11 @@
 --   opts.watch     setting path prefixes ("nav.", "toasts.rare."; "" every
 --                  setting): a change of one lays the band out again at once
 --                  while it shows, on its next show else; a theme change too
+--   opts.fitNote   false: no fit line (below)
 --   An element too wide or too tall for the band is placed at the k that
 --   fits, every part alike, never over 1; its hint line says so ("Shown at
---   86% to fit"), else it is the hotspots' one-time hint, else there is none.
+--   86% to fit", unless opts.fitNote is false), else it is the hotspots'
+--   one-time hint, else there is none.
 --   P.MapHero(f[, scene, mapLabel])  a sharp 1:1 crop of a zone's world map
 --                  (P.SharpArt, P.InnerShade) and the game's minimap, side
 --                  by side; P.HERO_SCENE the map pins' scene (Elwynn) in the
@@ -133,11 +136,27 @@ end
 
 -- A hotspot's or a light's outline: on under the cursor, or lit while the
 -- pointer is on its setting's row (P.Focus), with a soft wash of the accent
--- (none on a light of a part outside the band: f:LightEdge).
+-- (none on a light of a part outside the band: f:LightEdge). Painted only
+-- when its state, the accent or its scale moved; a light (no click target
+-- of its own) keeps its paint and is hidden while out: a hover across rows
+-- lights and puts out dozens of parts at the cost of a show or a hide each.
 local function hotspotEdge(b, on)
+	local lit = rawget(b, "psLit") and true or false
+	local light = rawget(b, "psLight")
+	if light and not lit then
+		if b:IsShown() then b:Hide() end
+		return
+	end
 	local r, g, bb = Theme.Accent()
-	local lit = rawget(b, "psLit")
-	Theme.Border(b, r, g, bb, (on or lit) and 1 or 0)
+	local shown = (on or lit) and true or false
+	local scale = b:GetEffectiveScale()
+	if light then b:Show() end
+	if rawget(b, "psEdgeShown") == shown and b.psEdgeLit == lit and b.psEdgeScale == scale
+		and b.psEdgeR == r and b.psEdgeG == g and b.psEdgeB == bb then
+		return
+	end
+	b.psEdgeShown, b.psEdgeLit, b.psEdgeScale, b.psEdgeR, b.psEdgeG, b.psEdgeB = shown, lit, scale, r, g, bb
+	Theme.Border(b, r, g, bb, shown and 1 or 0)
 	if rawget(b, "psEdgeOnly") then return end
 	local wash = rawget(b, "Wash")
 	if lit and not wash then
@@ -173,6 +192,19 @@ local function controlFor(key)
 	return O and O.ControlByKey and O.ControlByKey(key)
 end
 
+-- A hotspot under the pointer: its outline and its setting's name (one
+-- lines table for every hotspot: a hover allocates nothing).
+local HOT_LINES = { L["Click to find its settings."] }
+local function hotspotEnter(self)
+	hotspotEdge(self, true)
+	local c = controlFor(self.psKey)
+	if c then W.Tooltip(self, "ANCHOR_TOP", UI.Options.LabelOf(c), HOT_LINES) end
+end
+local function hotspotLeave(self)
+	hotspotEdge(self, false)
+	W.HideTooltip(self)
+end
+
 function P.Hotspot(frame, region, key)
 	local b = CreateFrame("Button", nil, frame)
 	b:SetAllPoints(region)
@@ -186,16 +218,8 @@ function P.Hotspot(frame, region, key)
 	end
 	spots[#spots + 1] = b
 	hotspotEdge(b, false)
-	b:SetScript("OnEnter", function(self)
-		hotspotEdge(self, true)
-		local c = controlFor(self.psKey)
-		local O = UI.Options
-		if c then W.Tooltip(self, "ANCHOR_TOP", O.LabelOf(c), { L["Click to find its settings."] }) end
-	end)
-	b:SetScript("OnLeave", function(self)
-		hotspotEdge(self, false)
-		W.HideTooltip(self)
-	end)
+	b:SetScript("OnEnter", hotspotEnter)
+	b:SetScript("OnLeave", hotspotLeave)
 	b:SetScript("OnClick", function(self)
 		if not hintDismissed() then
 			ns.DB().optionsPreviewHint = true
@@ -251,7 +275,7 @@ local function lightFrame(rec)
 	-- Over the preview's parts; over a window part's children (its rows).
 	l:SetFrameLevel(parent:GetFrameLevel() + (parent == owner and 18 or 60))
 	l:EnableMouse(false)
-	l.psKey, l.psEdgeOnly = rec.psKey, (rec.psEdgeOnly or parent ~= owner) or nil
+	l.psKey, l.psEdgeOnly, l.psLight = rec.psKey, (rec.psEdgeOnly or parent ~= owner) or nil, true
 	return l
 end
 
@@ -292,15 +316,23 @@ function P.LightEach(f, key, fn, ring)
 	return rec
 end
 
--- Shown, and not faded out (a part a crop left out has its alpha at 0).
+-- Shown, and not faded out (a part a crop left out has its alpha at 0). The
+-- frames above it are looked at once a lighting (P.LightUp moves `lighting`
+-- on): the window's accent parts share most of their parents. The memo is
+-- never wiped, only stamped (a wiped table refilled churns its nodes).
+local memo = { lighting = 0, at = {}, opaque = {} }
+local function opaque(f)
+	if memo.at[f] == memo.lighting then return memo.opaque[f] end
+	local p = f.GetParent and f:GetParent()
+	local v = not (f.GetAlpha and f:GetAlpha() <= 0.001) and (p == nil or opaque(p))
+	memo.at[f], memo.opaque[f] = memo.lighting, v
+	return v
+end
 local function showing(region)
 	if region.IsVisible and not region:IsVisible() then return false end
-	local f = region
-	while f do
-		if f.GetAlpha and f:GetAlpha() <= 0.001 then return false end
-		f = f.GetParent and f:GetParent()
-	end
-	return true
+	if region.GetAlpha and region:GetAlpha() <= 0.001 then return false end
+	local p = region.GetParent and region:GetParent()
+	return p == nil or opaque(p)
 end
 
 -- The frame that shows a hotspot or a light (a light's made now if need be).
@@ -317,23 +349,26 @@ end
 -- Lights setting `key`'s parts on the preview `owner` holds (its host, or the
 -- band itself), and puts out the ones lit before; nil puts them all out. A
 -- light whose part is not showing (a surface a narrow page leaves out, a
--- tab's underline while another tab is open) stays dark. -> how many it lit
+-- tab's underline while another tab is open) stays dark. A part lit for both
+-- stays lit; the two lists are kept and reused (a hover allocates nothing).
+-- -> how many it lit
+local NONE = {}
 function P.LightUp(owner, key)
 	if not owner then return 0 end
-	for _, l in ipairs(rawget(owner, "psLitList") or {}) do
-		l.psLit = nil
-		hotspotEdge(l, false)
-	end
-	owner.psLitList = nil
+	local old = rawget(owner, "psLitList") or NONE
+	local lit = rawget(owner, "psLitSpare")
+	if not lit or lit == old then lit = {} end
+	for i = #lit, 1, -1 do lit[i] = nil end
+	local stamp = (rawget(owner, "psLitStamp") or 0) + 1
+	owner.psLitStamp = stamp
 	local list = key and rawget(owner, "psByKey") and owner.psByKey[key]
-	if not list then return 0 end
-	local lit = {}
-	for _, b in ipairs(list) do
+	memo.lighting = memo.lighting + 1
+	for _, b in ipairs(list or NONE) do
 		local each = rawget(b, "psEach")
 		if each then
 			local ok, parts = pcall(each)
 			if not ok then report(parts) end
-			for _, region in ipairs(ok and type(parts) == "table" and parts or {}) do
+			for _, region in ipairs(ok and type(parts) == "table" and parts or NONE) do
 				if showing(region) then
 					local l = b.psMade[region]
 					if not l then
@@ -347,11 +382,18 @@ function P.LightUp(owner, key)
 			lit[#lit + 1] = shownBy(b, true)
 		end
 	end
+	for _, l in ipairs(lit) do l.psLitStamp = stamp end
+	for _, l in ipairs(old) do
+		if l.psLitStamp ~= stamp then
+			l.psLit = nil
+			hotspotEdge(l, false)
+		end
+	end
 	for _, l in ipairs(lit) do
 		l.psLit = true
 		hotspotEdge(l, false)
 	end
-	owner.psLitList = lit
+	owner.psLitList, owner.psLitSpare = lit, old ~= NONE and old or nil
 	return #lit
 end
 
@@ -368,7 +410,7 @@ local BAND_PAD, PICKER_W, PICKER_H, PICKER_GAP = 20, 220, 28, 14
 local LINE_GAP, LINE_H, STATE_GAP, BAND_SIDE = 10, 15, 40, 24
 local PLAY_GAP, PLAY_UNDER, PLAY_H = 16, 8, 22
 P.BAND_PAD, P.PICKER_H, P.PICKER_GAP, P.LINE_GAP, P.LINE_H, P.STATE_GAP = BAND_PAD, PICKER_H, PICKER_GAP, LINE_GAP, LINE_H, STATE_GAP
-P.PLAY_UNDER, P.PLAY_H = PLAY_UNDER, PLAY_H
+P.PLAY_UNDER, P.PLAY_H, P.BAND_SIDE = PLAY_UNDER, PLAY_H, BAND_SIDE
 
 local bands = setmetatable({}, { __mode = "k" })
 
@@ -480,6 +522,9 @@ function P.Band(parent, opts)
 		f.Play:SetFrameLevel(f:GetFrameLevel() + 30)
 	end
 	f.psWatch = opts.watch
+	-- opts.fitNote = false: no "Shown at N% to fit" line (a page that frames
+	-- its element and scales it whole says nothing of it).
+	f.psFitNote = opts.fitNote ~= false
 	function f:Hot(region, key) return P.Hot(self, region, key) end
 	function f:Light(key, ...) return P.Light(self, key, ...) end
 	function f:LightEdge(key, ...) return P.LightEdge(self, key, ...) end
@@ -495,9 +540,12 @@ function P.Band(parent, opts)
 	f:SetScript("OnShow", function(self)
 		if self.psDirty and self.psWidth then self:Layout(self.psWidth, self.psRoom) end
 	end)
+	-- A theme change lays the band out again; a live one (a slider dragged)
+	-- repaints its parts' colours where they stand and leaves the layout to
+	-- the full refresh the change settles with.
 	W.Painter(f.Ground, function()
 		if f:IsVisible() and f.psWidth then f:Layout(f.psWidth, f.psRoom) else f.psDirty = true end
-	end)
+	end, true)
 
 	function f:Layout(width, room)
 		self.psDirty = nil
@@ -507,7 +555,10 @@ function P.Band(parent, opts)
 		if pick then pick.Label:SetText(pickerLabel(self)) end
 		local w, h, place, labels
 		if type(self.Content) == "function" then
-			local ok, a, b, c, d = pcall(self.Content, self, width)
+			-- The height it may take, less the band's pads (and the picker):
+			-- a page may arrange its element by it (nil: no limit).
+			local tall = room and (room - 2 * BAND_PAD - (pick and (PICKER_H + PICKER_GAP) or 0)) or nil
+			local ok, a, b, c, d = pcall(self.Content, self, width, tall)
 			if ok then w, h, place, labels = a, b, c, d else report(a) end
 		end
 		local y = BAND_PAD
@@ -556,7 +607,7 @@ function P.Band(parent, opts)
 				end
 				y = y + LINE_GAP + LINE_H
 			end
-			if k < 1 then
+			if k < 1 and self.psFitNote then
 				hint = string.format(L["Shown at %d%% to fit"], floor(k * 100 + 0.5))
 			else
 				local host = hostOf(self)
@@ -584,12 +635,35 @@ end
 -- Whether frame f is a band (P.Band made it).
 function P.IsBand(f) return f ~= nil and bands[f] == true end
 
--- The settings a band lays itself out again on (its opts.watch).
+-- A live change (a slider dragged) of the guide window's own ground or of
+-- its opacity: the window copy on a band (its scene) takes it alone.
+local LIVE_SCENE = {
+	["guideWindow.bgOpacity"] = "ground", ["guideWindow.bgColor"] = "ground", ["ui.opacity"] = "alpha",
+}
+
+-- The settings a band lays itself out again on (its opts.watch). A theme
+-- setting's change has laid it out already (Theme.Refresh: its ground's
+-- painter), and a live one of a palette setting repainted its parts where
+-- they stand (Theme.LivePaints): neither lays it out again here.
 ns.On("SETTING_CHANGED", function(path)
+	local live = ns.SettingLive()
+	if type(path) == "string" and path ~= "" then
+		if live and Theme.LivePaints(path) then return end
+		if not live and Theme.IsLook(path) then return end
+	end
+	local scene = live and LIVE_SCENE[path]
 	for f in pairs(bands) do
 		local watch = f.psWatch
 		if watch and prefixMatch(watch, path) then
-			if f:IsVisible() and f.psWidth then f:Layout(f.psWidth, f.psRoom) else f.psDirty = true end
+			local copy = scene and rawget(f, "Scene") and f.Scene.Copy
+			if copy and f:IsVisible() then
+				if scene == "ground" then copy.ApplyGround() else copy.ApplyAlpha(false) end
+				f.psDirty = true
+			elseif f:IsVisible() and f.psWidth then
+				f:Layout(f.psWidth, f.psRoom)
+			else
+				f.psDirty = true
+			end
 		end
 	end
 end)
@@ -854,7 +928,10 @@ end
 -- most MAX of the body (`room`): a band as tall as its element and its
 -- parts, the element fitted to that room; a registered page's frame laid out
 -- for the width, shown whole at the scale that fits past it, its line under.
-function P.Place(win, view, t, width, room)
+-- fresh: after a setting's change, a band on screen that has laid itself out
+-- for this width and room since (its watch, the theme's refresh) is placed
+-- as it stands, not laid out once more.
+function P.Place(win, view, t, width, room, fresh)
 	if not (t and t.preview) or view.empty then
 		W.ShellPreview(win, nil)
 		return
@@ -869,7 +946,12 @@ function P.Place(win, view, t, width, room)
 	f:SetScale(1)
 	if bands[f] then
 		host.Line:Hide()
-		local ok, h = pcall(f.Layout, f, width, maxH)
+		local ok, h
+		if fresh and f:IsVisible() and not f.psDirty and f.psWidth == width and f.psRoom == maxH and f.psHeight then
+			ok, h = true, f.psHeight
+		else
+			ok, h = pcall(f.Layout, f, width, maxH)
+		end
 		if not ok then
 			report(h)
 			h = 0

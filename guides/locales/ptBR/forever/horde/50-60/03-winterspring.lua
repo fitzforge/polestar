@@ -26,7 +26,7 @@ return {
 	["{area:2246}: kill these as you meet them"] = "{area:2246}: vá matando estes pelo caminho",
 	-- {item:14047} Runecloth
 	-- plural, as words: Ragged Owlbeasts = {npc:7450} Ragged Owlbeast
-	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh."] = "Desbravadores, Vigias do Covil e Totêmicos dividem os acampamentos furbolg em volta das fontes termais; Ferujas Maltrapilhas vagam pelas encostas entre eles. Mate os Totêmicos primeiro. Guarde todo {item:14047} que saquear para Meilosh.",
+	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "Desbravadores, Vigias do Covil e Totêmicos dividem os acampamentos furbolg em volta das fontes termais; Ferujas Maltrapilhas vagam pelas encostas entre eles. Mate os Totêmicos primeiro. Guarde todo {item:14047} que saquear para Meilosh.\nCuidado: os Vigias do Covil chegam ao nível 56: puxe um de cada vez e fique longe dos totens dos acampamentos.",
 	-- {item:12771} Empty Firewater Flask
 	["{item:12771}: about one Winterfall furbolg in ten carries one; keep killing them until it drops"] = "{item:12771}: cerca de um furbolg Invernoso em dez carrega um; continue matando-os até cair",
 	-- {quest:8471} Winterfall Ritual Totem
@@ -41,7 +41,7 @@ return {
 	["Raging Owlbeasts"] = "Ferujas Furiosas",
 	-- {area:2251} Lake Kel'Theril · {area:2246} Frostfire Hot Springs · {area:2255} Everlook
 	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast
-	["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}."] = "Ferujas Furiosas vagam pelas colinas ao norte de {area:2251}, junto à estrada entre {area:2246} e {area:2255}.",
+	["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time."] = "Ferujas Furiosas vagam pelas colinas ao norte de {area:2251}, junto à estrada entre {area:2246} e {area:2255}. Cuidado: as maiores são de nível 56: puxe uma de cada vez.",
 
 	-- Step 8: Everlook
 	-- {area:2255} Everlook
@@ -53,81 +53,67 @@ return {
 	-- Step 9: Ice Thistle yetis
 	["Ice Thistle yetis"] = "Yetis Cardo de Gelo",
 	-- {area:2255} Everlook
-	["The yeti hills start just south-east of {area:2255}. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in."] = "As colinas dos yetis começam logo a sudeste de {area:2255}. Todo yeti deixa cair pelo; só Matriarcas e Patriarcas deixam cair chifres, então deixe-os para depois da entrega.",
+	-- plural, as words: Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti
+	["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit."] = "As colinas dos yetis começam logo a sudeste de {area:2255}. Todo yeti deixa cair pelo: cace os Yetis Cardo de Gelo (55-56) e deixe as Matriarcas e os Patriarcas (56-58), cujos chifres ficam para uma visita posterior.",
 
-	-- Step 11: Level 55.04
-	["Level 55.04"] = "Nível 55.04",
-	-- {area:2255} Everlook · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
-	["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "Complete aqui até o nível 55.04 antes das entregas em {area:2255}: elas levam você ao nível 56. Ou, em grupo, faça a masmorra {area:1584} ou a masmorra {area:1583} (Inferior).",
-	-- {npc:7460} Ice Thistle Patriarch
-	["grind on {npc:7460}"] = "mate {npc:7460} até subir",
-
-	-- Step 12: Pristine Yeti Horns
-	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
-	["Pristine Yeti Horns"] = "Chifres Impolutos de Yeti",
-	["Matriarchs and Patriarchs hit hard: pull them one at a time."] = "Matriarcas e Patriarcas batem forte: puxe um de cada vez.",
-	["Below ground"] = "No subterrâneo",
-
-	-- Step 13: Chillwind chimaeras
+	-- Step 10: Chillwind chimaeras
 	["Chillwind chimaeras"] = "Quimeras Ventogelante",
 	-- {area:2255} Everlook · {area:2245} Mazthoril
 	["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite."] = "As quimeras vagam pelos campos de neve ao sul e a oeste de {area:2255}. Fique longe da caverna de {area:2245}: seus dracônicos azuis são elite.",
 
-	-- Step 14: Umi Rumplesnicker
-	-- {area:976} Gadgetzan
-	["Umi's third prank targets goblins in {area:976} and Un'Goro: keep it for later."] = "A terceira pegadinha de Umi tem como alvo goblins em {area:976} e na Cratera Un'Goro: guarde-a para depois.",
+	-- Step 11: Everlook
+	-- {zone:1423} Eastern Plaguelands · {area:2255} Everlook
+	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
+	["Umi: keep it, the Pristine Yeti Horns come on the {zone:1423} guide's {area:2255} stop at about 57"] = "Umi: mantenha a missão; os Chifres Impolutos de Yeti ficam para a parada em {area:2255} do Guia de {zone:1423}, por volta do nível 57",
+	["The Matriarchs and Patriarchs that carry Umi's horns are 56-58: leave them for that later stop."] = "As Matriarcas e os Patriarcas que carregam os chifres de Umi são de nível 56-58: deixe-os para essa parada posterior.",
 
-	-- Step 15: Winterfall Village
-	-- {area:2255} Everlook · {npc:10738} High Chief Winterfall
-	["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} in the cave at the back is elite: stay out."] = "A aldeia furbolg ocupa o vale a nordeste de {area:2255}. Mate os Xamãs primeiro; eles curam. {npc:10738}, na caverna ao fundo, é elite: não entre.",
-
-	-- Step 16: Fly to Camp Mojache
+	-- Step 12: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "Voe para {area:1099}",
 	-- {area:2255} Everlook
 	["{area:2255} flight master"] = "Mestre de voo de {area:2255}",
 
-	-- Step 18: Evoroot
+	-- Step 14: Evoroot
 	-- {item:11242} Evoroot · {npc:7775} Gregan Brewspewer · {area:1114} Ruins of Ravenwind
 	["The {item:11242} grows inside a ruined building north of {npc:7775}'s camp, east of the harpies' {area:1114}: climb in through the broken part of its wall."] = "O {item:11242} cresce dentro de uma construção em ruínas ao norte do acampamento de {npc:7775}, a leste de {area:1114} das harpias: entre pela parte quebrada da parede.",
 
-	-- Step 19: The Videre Elixir
+	-- Step 15: The Videre Elixir
 	-- {npc:7775} Gregan Brewspewer · {area:976} Gadgetzan
 	["Back south to {npc:7775}. Keep the elixir and don't drink it yet: it kills you, and that is how you meet Gaeriyan by {area:976} later."] = "Volte para o sul até {npc:7775}. Guarde o elixir e não o beba ainda: ele mata você, e é assim que você encontra Gaeriyan perto de {area:976} mais tarde.",
 	-- {item:11243} Videre Elixir · {npc:7775} Gregan Brewspewer
 	["{item:11243}, {npc:7775}'s reward"] = "{item:11243}, a recompensa de {npc:7775}",
 
-	-- Step 21: Fly to Thunder Bluff
+	-- Step 17: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "Voe para {area:1638}",
 	-- {area:2408} Shadowprey Village
 	["{area:2408} flight master"] = "Mestre de voo da {area:2408}",
 
-	-- Step 22: Bluff Runner Windstrider
+	-- Step 18: Bluff Runner Windstrider
 	-- {npc:10881} Bluff Runner Windstrider · {npc:14728} Rumstag Proudstrider · {area:1641} Hunter Rise
 	["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "{npc:10881} e {npc:14728} ficam em {area:1641}. Cada doação de Rumstag leva sessenta unidades de Lã, Seda ou Magitrama da sua bolsa: entregue o que tiver, ignore o resto.",
 
-	-- Step 23: Elder Rise
+	-- Step 19: Elder Rise
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} on {area:1639}; {npc:246344}"] = "{npc:3033} em {area:1639}; {npc:246344}",
 	-- {quest:1123} Rabine Saturna · {zone:1450} Moonglade
 	["{quest:1123} waits in {zone:1450}: keep it for later."] = "{quest:1123} espera em {zone:1450}: guarde-a para depois.",
 
-	-- Step 24: Bashana Runetotem
+	-- Step 20: Bashana Runetotem
 	-- {npc:9087} Bashana Runetotem · {item:11040} Morrowgrain · {quest:3761} Un'Goro Soil · {quest:3782} Morrowgrain Research · {item:11020} Evergreen Pouch
 	["{npc:9087} buys {item:11040} grown from your {quest:3761}. {quest:3782} wants ten, and the {item:11020} gives one try every ten minutes: take it only if you already have the grain."] = "{npc:9087} compra o {item:11040} cultivado a partir do seu {quest:3761}. {quest:3782} pede dez, e o {item:11020} dá uma tentativa a cada dez minutos: pegue só se você já tiver o grão.",
 
-	-- Step 25: Fly to Orgrimmar
+	-- Step 21: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Voe para {area:1637}",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "Mestre de voo de {zone:1456}",
 
-	-- Step 26: Vehena
+	-- Step 22: Vehena
 	-- {object:172961} Valley of Spirits (no name in this language: may be words)
 	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "Em {object:172961}. Cada doação leva sessenta unidades de Lã, Seda ou Magitrama da sua bolsa: entregue o que tiver, ignore o resto.",
 
-	-- Step 27: Rashona Straglash
+	-- Step 23: Rashona Straglash
 	-- {object:172958} Valley of Honor (no name in this language: may be words)
 	["In the {object:172958}."] = "Em {object:172958}.",
 	-- {item:14047} Runecloth
@@ -137,6 +123,7 @@ return {
 	-- ["Any Winterfall furbolg can carry the beads; the camps just south of {npc:11556} are the closest."] = "Qualquer furbolg Invernoso pode carregar as contas; os acampamentos logo ao sul de {npc:11556} são os mais próximos.",
 	-- ["Back at {area:1099}."] = "De volta a {area:1099}.",
 	-- ["Back to {area:2255}"] = "De volta a {area:2255}",
+	-- ["Below ground"] = "No subterrâneo",
 	-- ["Chillwind chimaeras"] = "Quimeras Ventogelante",
 	-- ["From Krakle in Un'Goro"] = "De Gualter, na Cratera Un'Goro",
 	-- ["Frostfire Winterfall camp"] = "Acampamento Invernoso das fontes termais",
@@ -145,11 +132,20 @@ return {
 	-- ["Grind to 55"] = "Mate monstros até o nível 55",
 	-- ["He stands on {area:1641}. Each donation wants cloth from your bags; hand them in when you have it, later in the route."] = "Ele fica em {area:1641}. Cada doação pede tecido das suas bolsas; entregue quando tiver, mais adiante na rota.",
 	-- ["In the {object:172961}."] = "Em {object:172961}.",
+	-- ["Level 55.04"] = "Nível 55.04",
+	-- ["Matriarchs and Patriarchs hit hard: pull them one at a time."] = "Matriarcas e Patriarcas batem forte: puxe um de cada vez.",
 	-- ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh."] = "Desbravadores, Vigias do Covil e Totêmicos dividem os acampamentos furbolg em volta das fontes termais; Ferujas Maltrapilhas vagam pelas encostas entre eles. Mate os Totêmicos primeiro. Guarde todo {item:14047} que saquear para Meilosh.",
+	-- ["Pristine Yeti Horns"] = "Chifres Impolutos de Yeti",
+	-- ["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}."] = "Ferujas Furiosas vagam pelas colinas ao norte de {area:2251}, junto à estrada entre {area:2246} e {area:2255}.",
 	-- ["Ride back west to {area:2246}."] = "Volte para oeste até {area:2246}.",
 	-- ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "Vá para leste e depois desça para o sul por {area:2249}. Os Gigantes Friomalho de lá são elite de nível 59: fique no meio e não pare. A estranha fonte está na entrada de {area:2256}, no extremo sul.",
 	-- ["Ride west along the road past {area:2251}; Raging Owlbeasts roam the hills north of it."] = "Siga a estrada para oeste passando por {area:2251}; Ferujas Furiosas vagam pelas colinas ao norte dele.",
+	-- ["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} in the cave at the back is elite: stay out."] = "A aldeia furbolg ocupa o vale a nordeste de {area:2255}. Mate os Xamãs primeiro; eles curam. {npc:10738}, na caverna ao fundo, é elite: não entre.",
+	-- ["The yeti hills start just south-east of {area:2255}. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in."] = "As colinas dos yetis começam logo a sudeste de {area:2255}. Todo yeti deixa cair pelo; só Matriarcas e Patriarcas deixam cair chifres, então deixe-os para depois da entrega.",
+	-- ["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. The Ice Thistle Yetis (55-56) are the lowest here; the Matriarchs and Patriarchs (56-58) hit harder. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "Complete aqui até o nível 55.04 antes das entregas em {area:2255}: elas levam você ao nível 56. Os Yetis Cardo de Gelo (55-56) são os de nível mais baixo aqui; as Matriarcas e os Patriarcas (56-58) batem mais forte. Ou, em grupo, faça a masmorra {area:1584} ou a masmorra {area:1583} (Inferior).",
+	-- ["Umi's third prank targets goblins in {area:976} and Un'Goro: keep it for later."] = "A terceira pegadinha de Umi tem como alvo goblins em {area:976} e na Cratera Un'Goro: guarde-a para depois.",
 	-- ["grind on {npc:7440} at {area:2244}, {zone:1452}"] = "mate {npc:7440} em {area:2244}, {zone:1452}",
+	-- ["grind on {npc:7458}"] = "mate {npc:7458} até subir",
 	-- ["{item:12771}, a rare drop from the Winterfall furbolgs"] = "{item:12771}, saque raro dos furbolgs Invernosos",
 	-- ["{npc:10307}, beside him"] = "{npc:10307}, ao lado dele",
 	-- ["{npc:11118}: the last guide binds here, so this usually ticks at once"] = "{npc:11118}: o guia anterior vincula você aqui, então isto costuma ser marcado na hora",

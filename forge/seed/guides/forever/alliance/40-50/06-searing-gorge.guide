@@ -1,6 +1,6 @@
 # Searing Gorge from Thorium Point, Alliance 47 to 49 (consensus visit 55).
 # Flow: Thelsamar -> the Badlands -> Thorium Point (flight path, hub) -> Zamael and Velarok -> the Cauldron
-# (golems and elementals, then the Dark Iron dwarves) -> the Greater Lava Spiders in the south-west -> Velarok
+# (golems and elementals, then the Dark Iron dwarves) -> the Searing Lava Spiders in the south-west -> Velarok
 # -> the Slag Pit -> Thorium Point -> the Grimesilt Dig Site -> Dorius' escort to Dustfire Valley -> hearth to
 # Thelsamar.
 # Order changes against the simulator, same quest set:
@@ -43,7 +43,8 @@ step Thorium Point
   accept 7722                         -- Master Smith Burninate
 
 step Zamael Lunthistle
-  tip The night elf stands alone west of Thorium Point. Hear his story.
+  when group 3377
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Zamael Lunthistle stands inside the Twilight camp at Firewatch Ridge, west of Thorium Point, among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites), with Highlord Mastrogonde (level 51, rare elite) beside him: Prayer to Elune needs a group of 4. Skip it if you are alone.
   accept 3377
   turnin 3377
 
@@ -75,9 +76,9 @@ step Dark Iron dwarves
   collect 11818 x1 optional           -- Grimesilt Outhouse Key
   accept 4451 optional
 
-step Greater Lava Spiders
+step Searing Lava Spiders
   tip The spiders roam the plateaus and lava pools in the south-west of the gorge.
-  kill 5858 quest 7724                -- Greater Lava Spider
+  kill 5858 quest 7724                -- Searing Lava Spider
 
 step Velarok Windblade
   turnin 3443

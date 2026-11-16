@@ -116,7 +116,7 @@ fn a_pasted_string_shows_its_preview_before_anything_is_saved_import_saves_it_li
 		for _, b in ipairs(PolestarPicker.navButtons) do
 			if b:IsShown() then nav[#nav + 1] = (b.psHeading and "# " or "") .. b.Label:GetText() end
 		end
-		emit({ credits = (P.Credits(g)), nav = nav, entries = #P.Entries("All", "", "pack:imported") })
+		emit({ credits = (P.Credits(g)), nav = nav, entries = #P.Entries("", "pack:imported") })
 	"##
 	.replace("$S", &str_(&string())));
 	let (before, unsaved, after, menu) = (&out[0], &out[1], &out[2], &out[3]);

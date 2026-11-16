@@ -176,10 +176,15 @@ end
 -- As in the client, a texture's (or a line's) alpha and its vertex colour's
 -- alpha are one value: SetAlpha sets the alpha SetVertexColor gave it
 -- (#1684, the transparent window's 20 % shades drawn solid after
--- SetAlpha(1)). tools/preview/render.js reads it that way.
+-- SetAlpha(1)). tools/preview/render.js reads it that way. A string's alpha
+-- and its text colour's are one value both ways: SetTextColor puts its alpha
+-- back on the string (a string hidden by SetAlpha(0) shows again on its next
+-- paint, #1753; the font list's doubled names).
 function Methods.SetAlpha(self, a)
 	if (self.kind == "Texture" or self.kind == "Line") and self.vertexColor then
 		self.vertexColor[4] = a
+	elseif self.kind == "FontString" and self.textColor then
+		self.textColor[4] = a
 	end
 	self.alpha = a
 end
@@ -254,7 +259,15 @@ function Methods.IsMouseOver() return false end
 function Methods.Click(self, button) RunScript(self, "OnClick", button or "LeftButton", false) end
 
 -- Text
+-- As in the client, a string refuses text before it has a font (SetFont,
+-- SetFontObject or a template it inherits): "Font not set". Only while
+-- stub.strictFonts is on (the stub's GetFont otherwise answers the game's
+-- font for a string without one, and code reading it may skip SetFont);
+-- then GetFont answers nil there, as the client does.
 function Methods.SetText(self, t)
+	if stub.strictFonts and self.kind == "FontString" and t ~= nil and t ~= "" and not (self.font or self.fontObject or self.psTemplate) then
+		error("FontString:SetText(): Font not set", 2)
+	end
 	self.text = t == nil and nil or tostring(t)
 	self.highlight = nil
 end
@@ -262,6 +275,7 @@ function Methods.GetText(self) return self.text end
 function Methods.SetFormattedText(self, fmt, ...) self.text = string.format(fmt, ...) end
 function Methods.SetFont(self, path, size, flags) self.font = { path, size, flags }; return true end
 function Methods.GetFont(self)
+	if stub.strictFonts and self.kind == "FontString" and not (self.font or self.fontObject or self.psTemplate) then return nil end
 	local f = self.font or { "Fonts\\FRIZQT__.TTF", 12, "" }
 	return f[1], f[2], f[3]
 end
@@ -270,6 +284,9 @@ function Methods.SetFontObject(self, obj)
 	if type(obj) == "table" and obj.font then self.font = { obj.font[1], obj.font[2], obj.font[3] } end
 end
 function Methods.GetFontObject(self) return self.fontObject end
+-- A font string's line spacing (between its wrapped lines).
+function Methods.SetSpacing(self, s) self.spacing = s end
+function Methods.GetSpacing(self) return self.spacing or 0 end
 -- A font object's face, colours, shadow and justification, copied from
 -- another (by object or name), not linked to it.
 function Methods.CopyFontObject(self, other)
@@ -283,7 +300,10 @@ function Methods.CopyFontObject(self, other)
 	end
 	for _, key in ipairs({ "font", "textColor", "shadowColor", "shadowOffset", "justifyH", "justifyV", "spacing" }) do self[key] = copy(other[key]) end
 end
-function Methods.SetTextColor(self, r, g, b, a) self.textColor = { r, g, b, a or 1 } end
+function Methods.SetTextColor(self, r, g, b, a)
+	self.textColor = { r, g, b, a or 1 }
+	if self.kind == "FontString" then self.alpha = a or 1 end
+end
 function Methods.GetTextColor(self)
 	local c = self.textColor or { 1, 1, 1, 1 }
 	return c[1], c[2], c[3], c[4]
@@ -372,7 +392,7 @@ end
 function Methods.CreateFontString(self, name, layer, inherits)
 	local fs = NewObject("FontString", name, self)
 	fs.layer = layer or "ARTWORK"
-	if type(inherits) == "table" then fs:SetFontObject(inherits) end
+	if type(inherits) == "table" then fs:SetFontObject(inherits) elseif inherits ~= nil then fs.psTemplate = inherits end
 	table.insert(stub.strings, fs)
 	return fs
 end
@@ -1219,14 +1239,17 @@ function C_AddOns.GetAddOnMetadata(name, field)
 end
 function C_AddOns.GetNumAddOns() return #stub.addons end
 -- -> name, title, notes, loadable, reason, security, updateAvailable. An
--- addon that loads on demand gives reason "DEMAND_LOADED" before LoadAddOn and
--- reads as loadable, as the client gives it (none once loaded).
+-- addon that loads on demand, not loaded yet, reads as not loadable with
+-- reason "DEMAND_LOADED" ("DEP_DEMAND_LOADED": one it depends on loads on
+-- demand), as the client gives it: Blizzard_AddOnList draws such an addon as
+-- loadable for that reason alone and shows ADDON_DEMAND_LOADED as its status.
+-- None and loadable once loaded.
 function C_AddOns.GetAddOnInfo(key)
 	local a = addonEntry(key)
 	if not a then return nil, nil, nil, false, "MISSING", nil, false end
 	local reason = a.reason
-	if reason == "DEMAND_LOADED" and stub.addonsLoaded[a.name] then reason = nil end
-	return a.name, a.title or a.name, a.notes, reason == nil or reason == "DEMAND_LOADED", reason, "INSECURE", false
+	if (reason == "DEMAND_LOADED" or reason == "DEP_DEMAND_LOADED") and stub.addonsLoaded[a.name] then reason = nil end
+	return a.name, a.title or a.name, a.notes, reason == nil, reason, "INSECURE", false
 end
 -- ## LoadOnDemand: 1 (an entry with demand = true, or reason "DEMAND_LOADED").
 function C_AddOns.IsAddOnLoadOnDemand(name)
@@ -1248,6 +1271,20 @@ function C_AddOns.EnableAddOn(name)
 end
 IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 GetAddOnMetadata = C_AddOns.GetAddOnMetadata
+-- The client's count of an addon's memory (KiB), read when UpdateAddOnMemoryUsage
+-- runs: stub.addonMemory[name] when set (a number, or a function giving one),
+-- else for Polestar the whole Lua heap (the tests load it alone, as the memory
+-- tests count it) and 0 for any other.
+stub.addonMemory = {}
+local memoryRead = {}
+function UpdateAddOnMemoryUsage()
+	for name in pairs(stub.addonsLoaded) do
+		local v = stub.addonMemory[name]
+		if type(v) == "function" then v = v() end
+		memoryRead[name] = v or (name == "Polestar" and collectgarbage("count")) or 0
+	end
+end
+function GetAddOnMemoryUsage(name) return memoryRead[name] or 0 end
 
 ---------------------------------------------------------------------------
 -- A fake EllesmereUI, matching its SKINNING_API.md (apiVersion 3)

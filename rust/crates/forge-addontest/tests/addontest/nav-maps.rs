@@ -124,6 +124,27 @@ fn the_walking_maps_pack_json_names_the_grid_the_cells_the_format_and_every_file
 	assert!(meta.lines().any(|l| l == "\tcells = 128,"));
 }
 
+// #2244: each language folder names the walking maps' areas as its client names the subzone there (Subzones.lua,
+// `forge data subzones`), only rows the maps carry: a re-pack that drops rows without that rebuild shows here.
+#[test]
+fn the_language_folders_name_only_areas_the_walking_maps_carry() {
+	let area = Regex::new(r#"^\t\t\[(\d+)\] = ""#).unwrap();
+	let mut ids = std::collections::BTreeSet::new();
+	for map in [0, 1, 2991] {
+		let text = read(&nav().join(format!("Nav/Nav{map}.lua")));
+		let block = &text[text.find("\tareaNames = {").unwrap()..];
+		let block = &block[..block.find("\n\t},").unwrap()];
+		ids.extend(block.lines().filter_map(|l| area.captures(l)).map(|c| c[1].parse::<i64>().unwrap()));
+	}
+	for l in forge_guide::locales::LOCALE_CODES {
+		let text = read(&addons_dir().join(forge_guide::toc::language_addon(l)).join("Subzones.lua"));
+		let named: Vec<i64> = text.lines().filter_map(|line| line.split_once('\t')).map(|(id, _)| id.parse().unwrap()).collect();
+		assert!(named.len() > 500, "{l}: {} rows named", named.len());
+		let stale: Vec<&i64> = named.iter().filter(|id| !ids.contains(id)).collect();
+		assert!(stale.is_empty(), "{l}: rows the walking maps no longer carry (run forge data subzones): {stale:?}");
+	}
+}
+
 #[test]
 fn security_l12_the_license_names_cillian_berragans_copyright_and_every_file_that_says_it_adapts_his_code() {
 	let license = read(&root().join("LICENSE"));

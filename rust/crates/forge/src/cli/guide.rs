@@ -491,7 +491,10 @@ fn run() -> i32 {
 			}
 			return 1;
 		}
-		let load = |dir: &Path, diag: &mut Diagnostics| load_project_data(dir, diag).map_err(|e| eprintln!("forge guide {cmd}: {e}"));
+		// Data read from a client build compiles only with that build's tables beside it
+		// (tokens::check_pinned_tables): without them the texts would tokenise otherwise.
+		let load =
+			|dir: &Path, diag: &mut Diagnostics| load_project_data(dir, diag).and_then(|d| forge_guide::tokens::check_pinned_tables(&d).map(|()| d)).map_err(|e| eprintln!("forge guide {cmd}: {e}"));
 		let Ok(data) = load(&data_dir, &mut data_diag) else { return 1 };
 		let context_data = match &context_data_dir {
 			Some(c) if !same_path(c, &data_dir) => match load(c, &mut data_diag) {

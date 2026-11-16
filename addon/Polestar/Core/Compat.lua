@@ -206,6 +206,17 @@ function Compat.GetPlayerUnitPosition()
 	return x, y, type(z) == "number" and z ~= 0 and z or nil, instance
 end
 
+-- The player's run speed in yd/s (GetUnitSpeed's second value), or nil while
+-- the client keeps it secret or does not say: the travel planner's arithmetic
+-- on a secret speed was blocked and logged as Polestar's taint (#2533).
+function Compat.GetRunSpeed()
+	if not GetUnitSpeed then return nil end
+	local ok, _, run = pcall(GetUnitSpeed, "player")
+	if not ok then return nil end
+	run = readable(run)
+	return type(run) == "number" and run or nil
+end
+
 -- A spell's cooldown as GetTime start and duration; 0, 0 when it is ready
 -- or the client keeps it secret.
 function Compat.GetSpellCooldown(spellID)
@@ -220,6 +231,27 @@ function Compat.GetSpellCooldown(spellID)
 	start, duration = readable(start), readable(duration)
 	if type(start) ~= "number" or type(duration) ~= "number" then return 0, 0 end
 	return start, duration
+end
+
+-- A spell's full cooldown in seconds as the client tells it (its base
+-- cooldown, cooling down now or not), or nil when it tells none.
+function Compat.GetSpellBaseCooldown(spellID)
+	local fn = GetSpellBaseCooldown
+	if not fn then return nil end
+	local ok, ms = pcall(fn, spellID)
+	ms = ok and readable(ms) or nil
+	if type(ms) == "number" and ms > 0 then return ms / 1000 end
+	return nil
+end
+
+-- An item's full cooldown in seconds: its use spell's
+-- (Compat.GetSpellBaseCooldown), or nil.
+function Compat.GetItemBaseCooldown(itemID)
+	local fn = (C_Item and C_Item.GetItemSpell) or GetItemSpell
+	if not fn then return nil end
+	local ok, _, spellID = pcall(fn, itemID)
+	if ok and type(spellID) == "number" then return Compat.GetSpellBaseCooldown(spellID) end
+	return nil
 end
 
 -- An item's cooldown, as Compat.GetSpellCooldown.
@@ -300,6 +332,39 @@ function Compat.AddOnPresent(name)
 	if A.IsAddOnLoaded and A.IsAddOnLoaded(name) then return true end
 	if not (A.DoesAddOnExist and A.GetAddOnInfo) or not A.DoesAddOnExist(name) then return false end
 	return select(4, A.GetAddOnInfo(name)) and true or false
+end
+
+-- The trait configs that can hold the player's talents, most trusted first:
+-- the active spec group's combat config, the one Forever's talent frame
+-- shows (Blizzard_PlayerSpells Camelot, ClassTalentsFrameMixin:SetTab), then
+-- C_ClassTalents.GetActiveConfigID, which that frame only starts from and
+-- falls back past when it is nil (ClassTalentsFrameMixin:RefreshConfigID).
+-- -> { configID, ... } (distinct; empty while the client has none), the
+-- active spec group, that group's config, the active config (each nil when
+-- the client gives none)
+function Compat.TalentConfigs()
+	local out, group, groupConfig, activeConfig = {}, nil, nil, nil
+	local S = C_SpecializationInfo
+	if S and S.GetActiveSpecGroup and S.GetCombatConfigIDForSpecGroup then
+		local ok, g = pcall(S.GetActiveSpecGroup)
+		g = ok and readable(g) or nil
+		if type(g) == "number" then
+			group = g
+			local ok2, c = pcall(S.GetCombatConfigIDForSpecGroup, g)
+			c = ok2 and readable(c) or nil
+			if type(c) == "number" then groupConfig, out[1] = c, c end
+		end
+	end
+	local CT = C_ClassTalents
+	if CT and CT.GetActiveConfigID then
+		local ok, c = pcall(CT.GetActiveConfigID)
+		c = ok and readable(c) or nil
+		if type(c) == "number" then
+			activeConfig = c
+			if c ~= groupConfig then out[#out + 1] = c end
+		end
+	end
+	return out, group, groupConfig, activeConfig
 end
 
 ---------------------------------------------------------------------------
@@ -710,6 +775,27 @@ function Compat.ItemLink(itemID)
 	return nil
 end
 
+-- An item's class and subclass (C_Item.GetItemInfoInstant: the client knows
+-- them without the item being cached), or nil when it does not know the item.
+function Compat.ItemKind(itemID)
+	local fn = type(itemID) == "number" and C_Item and C_Item.GetItemInfoInstant
+	if not fn then return nil end
+	local ok, id, _, _, _, _, classID, subclassID = pcall(fn, itemID)
+	if not (ok and id) then return nil end
+	return classID, subclassID
+end
+
+-- How an item binds (C_Item.GetItemInfo's bindType: 0 not at all, 1 when
+-- picked up, 2 when equipped, 3 when used, 4 as a quest item), or nil while
+-- the item is not cached (RequestItem asks for it).
+function Compat.ItemBinding(itemID)
+	local fn = type(itemID) == "number" and ((C_Item and C_Item.GetItemInfo) or GetItemInfo)
+	if not fn then return nil end
+	local ok, name, _, _, _, _, _, _, _, _, _, _, _, _, bind = pcall(fn, itemID)
+	if not (ok and name) then return nil end
+	return tonumber(bind) or 0
+end
+
 -- true when the item is in the client's cache; otherwise asks the server for
 -- it (GET_ITEM_INFO_RECEIVED fires with the item ID when it arrives) and
 -- returns false.
@@ -761,6 +847,26 @@ function Compat.RequestSpell(spellID)
 	end
 	if C_Spell.RequestLoadSpellData then pcall(C_Spell.RequestLoadSpellData, spellID) end
 	return false
+end
+
+-- Whether the client has a creature in its cache, which PlayerModel's
+-- SetCreature draws from (an uncached one draws nothing): true when the
+-- tooltip of its unit link names it; false otherwise, and asking for that
+-- tooltip has the client ask the server (no event follows the answer: ask
+-- again later). nil when the client cannot tell (no C_TooltipInfo). Kept
+-- for the session once true.
+local creaturesCached = {}
+function Compat.CreatureCached(npcID)
+	if type(npcID) ~= "number" then return false end
+	if creaturesCached[npcID] then return true end
+	local get = C_TooltipInfo and C_TooltipInfo.GetHyperlink
+	if not get then return nil end
+	local ok, data = pcall(get, ("unit:Creature-0-0-0-0-%d-0000000000"):format(npcID))
+	local line = ok and type(data) == "table" and type(data.lines) == "table" and data.lines[1]
+	local text = type(line) == "table" and line.leftText
+	if type(text) ~= "string" or text == "" or isSecret(text) or text == UNKNOWNOBJECT or text == RETRIEVING_DATA then return false end
+	creaturesCached[npcID] = true
+	return true
 end
 
 ---------------------------------------------------------------------------
@@ -868,27 +974,31 @@ function Compat.GetContinentMap(uiMapID)
 	return result or nil
 end
 
-function Compat.GetPlayerMapPosition()
+-- A unit's position on its best map (map, x and y in 0-100); nil where the
+-- client does not say or keeps the map or the position secret (#2533: the
+-- percent was worked out on a secret value, which the client blocks and logs
+-- as Polestar's taint).
+local function mapPosition(unit)
 	if not (C_Map and C_Map.GetBestMapForUnit and C_Map.GetPlayerMapPosition) then return nil end
-	local map = C_Map.GetBestMapForUnit("player")
+	local map = readable(C_Map.GetBestMapForUnit(unit))
 	if not map then return nil end
-	local pos = C_Map.GetPlayerMapPosition(map, "player")
+	local pos = C_Map.GetPlayerMapPosition(map, unit)
+	if isSecret(pos) then return nil end
 	local x, y = xyOf(pos)
-	if not x or not y or (x == 0 and y == 0) then return nil end
+	x, y = readable(x), readable(y)
+	if type(x) ~= "number" or type(y) ~= "number" or (x == 0 and y == 0) then return nil end
 	return map, x * 100, y * 100
+end
+
+function Compat.GetPlayerMapPosition()
+	return mapPosition("player")
 end
 
 -- Where a party unit stands on its best map, as GetPlayerMapPosition gives
 -- it (map, x and y in 0-100); nil where the client does not say (an
 -- instance, a member out of the world, a client without party positions).
 function Compat.GetUnitMapPosition(unit)
-	if not (C_Map and C_Map.GetBestMapForUnit and C_Map.GetPlayerMapPosition) then return nil end
-	local map = C_Map.GetBestMapForUnit(unit)
-	if not map then return nil end
-	local pos = C_Map.GetPlayerMapPosition(map, unit)
-	local x, y = xyOf(pos)
-	if not x or not y or (x == 0 and y == 0) then return nil end
-	return map, x * 100, y * 100
+	return mapPosition(unit)
 end
 
 -- The zone (Enum.UIMapType.Zone = 3) a unit is in: its best map, climbed

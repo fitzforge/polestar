@@ -42,6 +42,10 @@ local win
 local pages, pageList = {}, {} -- name -> page; ordered list
 local current, currentTab
 local query = ""
+-- The settings' indexes (one table: this file keeps Lua 5.1's spare locals):
+-- spec, the specs by key and the sections holding each (Index.get; nil after
+-- a registration); search, the words of every control (collect's).
+local Index = { search = { version = 0 } }
 local seq = 0
 -- The window out of the way without closing (O.Fold, O.Peek, Shift + the
 -- wheel; below): state = while it is folded to its header, { h, hidden =
@@ -78,30 +82,33 @@ local function keyOf(name) return (name:lower():gsub("[^%w]+", "")) end
 
 -- Pages that close the list whatever registers after them: the author's
 -- Recorder, then About.
-local TAIL = { [L["Recorder"]] = 1, [L["About"]] = 2 }
+local pageOf
+do
+	local TAIL = { [L["Recorder"]] = 1, [L["About"]] = 2 }
 
--- key: the page's stable key (`/polestar options <key>`, O.Select), the
--- spec's own or else made from the name. Built-in pages give theirs, so a
--- translated title does not move them.
-local function pageOf(name, icon, order, builtin, key)
-	local p = pages[name]
-	if not p then
-		seq = seq + 1
-		p = { name = name, key = keyOf(key or name), icon = icon or "gear", order = order or 100, builtin = builtin, seq = seq, tabs = {} }
-		pages[name] = p
-		pageList[#pageList + 1] = p
-		-- By order (built-in pages first on a tie), Recorder and About last.
-		table.sort(pageList, function(a, b)
-			local ta, tb = TAIL[a.name] or 0, TAIL[b.name] or 0
-			if ta ~= tb then return ta < tb end
-			if a.order ~= b.order then return a.order < b.order end
-			if (a.builtin and true or false) ~= (b.builtin and true or false) then return a.builtin and true or false end
-			return a.seq < b.seq
-		end)
-	else
-		if icon and not p.builtin then p.icon = icon end
+	-- key: the page's stable key (`/polestar options <key>`, O.Select), the
+	-- spec's own or else made from the name. Built-in pages give theirs, so a
+	-- translated title does not move them.
+	function pageOf(name, icon, order, builtin, key)
+		local p = pages[name]
+		if not p then
+			seq = seq + 1
+			p = { name = name, key = keyOf(key or name), icon = icon or "gear", order = order or 100, builtin = builtin, seq = seq, tabs = {} }
+			pages[name] = p
+			pageList[#pageList + 1] = p
+			-- By order (built-in pages first on a tie), Recorder and About last.
+			table.sort(pageList, function(a, b)
+				local ta, tb = TAIL[a.name] or 0, TAIL[b.name] or 0
+				if ta ~= tb then return ta < tb end
+				if a.order ~= b.order then return a.order < b.order end
+				if (a.builtin and true or false) ~= (b.builtin and true or false) then return a.builtin and true or false end
+				return a.seq < b.seq
+			end)
+		else
+			if icon and not p.builtin then p.icon = icon end
+		end
+		return p
 	end
-	return p
 end
 
 local function tabOf(p, name)
@@ -132,12 +139,15 @@ local function dropViews(p)
 end
 
 local function add(spec, builtin)
+	Index.spec = nil
 	local p = pageOf(spec.page, spec.icon, spec.order, builtin, spec.key)
+	p.psNewList = nil
 	if spec.subtitle then p.subtitle = spec.subtitle end
 	if spec.custom then p.custom = spec.custom end
 	if spec.dot then p.dot = spec.dot end
 	if spec.empty then p.empty = spec.empty end
 	if spec.group then p.group = spec.group end
+	if spec.general then p.general = true end
 	local tab = tabOf(p, spec.tab)
 	-- The page's lead tab (Essentials): first, whatever registered before it.
 	if spec.lead and not tab.lead then
@@ -151,6 +161,7 @@ local function add(spec, builtin)
 	-- preview, pinned over its rows (W.ShellPreview).
 	if spec.preview then tab.preview = spec.preview end
 	local s = sectionOf(tab, spec.section)
+	s.psOff = nil
 	-- jump = { tab, section }: a More link in the section's header that opens
 	-- that tab of the page and lights that section (Essentials).
 	if spec.jump then s.jump = spec.jump end
@@ -303,6 +314,26 @@ local BUILTIN = {
 			help = L["Also a friendly flight master near you whose flight path you haven't learned yet. Learning it ticks the guide's later step for it too."],
 			search = "flight path, flight master, taxi, learn, discover, getfp",
 			disabled = function() return not ns.Get("behavior.whileHere") end },
+		-- 0.4.0's gathering spots (Engine Own.hereGather, Core/Gather.lua): off by default.
+		{ kind = "toggle", key = "behavior.whileHereGather", label = L["Gathering spots"], new = "0.4.0",
+			help = L["Also a spot near you where a herb, ore vein or fishing pool you can gather can spawn: one may be up there, or gathered already. With Find Herbs or Find Minerals on, the line says so; it says one is up when the Interact Key picks it."],
+			search = "herbs, herbalism, ore, mining, fishing pools, nodes, gathering, farm, spots, tracking, find herbs, find minerals, interact key",
+			disabled = function() return not ns.Get("behavior.whileHere") end },
+		-- 0.4.0's sell and repair reminders (Engine Own.hereVendor, #2344): on by default.
+		{ kind = "toggle", key = "behavior.whileHereVendors", label = L["Sell and repair reminders"], new = "0.4.0",
+			help = L["When the guide is about to head out of town with your bags nearly full or your gear worn, a merchant or repairer on the way, once per visit. Click it to point the arrow there."],
+			search = "sell, repair, vendor, merchant, repairer, durability, broken gear, bags full, bag space, free slots, junk, before heading out",
+			disabled = function() return not ns.Get("behavior.whileHere") end },
+		{ kind = "slider", key = "behavior.whileHereSellSlots", label = L["Sell: fewer free bag slots than"], min = 0, max = 16, step = 1, new = "0.4.0",
+			format = function(v) return string.format(v == 1 and L["%d slot"] or L["%d slots"], math.floor(v + 0.5)) end,
+			help = L["Reminds you to sell when fewer bag slots are free than this, or than the items the next steps collect. 0 counts those items alone."],
+			search = "sell, free slots, bag space, bags full, threshold",
+			child = true, disabled = function() return not (ns.Get("behavior.whileHere") and ns.Get("behavior.whileHereVendors")) end },
+		{ kind = "slider", key = "behavior.whileHereRepairPercent", label = L["Repair: gear worn below"], min = 0, max = 90, step = 5, new = "0.4.0",
+			format = function(v) return v < 1 and L["Off"] or ("%d%%"):format(v) end,
+			help = L["Reminds you to repair when a piece of your gear is below this share of its durability. 0: never."],
+			search = "repair, durability, broken, worn, gear, threshold",
+			child = true, disabled = function() return not (ns.Get("behavior.whileHere") and ns.Get("behavior.whileHereVendors")) end },
 		{ kind = "toggle", key = "behavior.whileHereSound", label = L["Sound for a new suggestion"],
 			help = L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."],
 			search = "chime, sound, audio, ding, alert",
@@ -385,8 +416,8 @@ local BUILTIN = {
 	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Routes"], controls = {
 		H({ kind = "toggle", key = "nav.travel", label = L["Plan travel routes"], help = L["Flights, boats and your hearthstone when they are faster. Off: the arrow points straight at the goal."],
 			search = "flight, taxi, flight path, boat, zeppelin, hearth, hearthstone, route planning, fastest way, fps, frame rate, performance, lag, stutter, cpu, slow" }),
-		H({ kind = "toggle", key = "nav.teleports", label = L["Class teleports"], help = L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."],
-			search = "teleport, portal, mage, druid, moonglade",
+		H({ kind = "toggle", key = "nav.teleports", label = L["Class teleports"], help = L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."],
+			search = "teleport, portal, mage, druid, moonglade, shaman, astral recall",
 			child = true, disabled = function() return not ns.Get("nav.travel") end }),
 		H({ kind = "toggle", key = "nav.routeLines", label = L["Route lines"], help = L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."],
 			search = "path line, route on map, sparkles, dots",
@@ -441,11 +472,12 @@ local BUILTIN = {
 			needs = function() local E = ns.Engine; return E and E.GroupQuests and #E.GroupQuests() > 0 end },
 		-- Dungeons in the route (`when dungeon`, Own.dungeonAnswer): the answer for every dungeon a
 		-- character has not answered one by one (Discovery > Dungeons, the guide window's question).
+		-- Not shown while dungeons in the route are held back (ns.dungeonRoute: GuideDungeons lists none).
 		{ kind = "dropdown", key = "behavior.dungeons", label = L["Dungeons in my route"], new = "0.4.0",
 			help = L["Leveling guides can take you through the dungeons on your way, for a group of five: they pick up the quests on stops they make anyway, send you to the door at the right level and hand the quests in after. Skip them: the solo route. Ask me: the guide asks at each dungeon. Discovery, Dungeons changes one."],
 			choices = { { value = "skip", label = L["Skip them"] }, { value = "ask", label = L["Ask me"] }, { value = "run", label = L["Run them"] } },
 			search = "dungeon, dungeons, instance, group, run, deadmines, wailing caverns, zul'farrak, blackrock depths",
-			needs = function() local E = ns.Engine; return E and E.GuideDungeons and next(E.GuideDungeons()) ~= nil end },
+			needs = function() local E = ns.Engine; return ns.dungeonRoute and E and E.GuideDungeons and next(E.GuideDungeons()) ~= nil end },
 	} },
 	{ page = GUIDE, tab = L["Automation"], section = L["Guides"], controls = {
 		{ kind = "toggle", key = "behavior.autoSelectGuide", label = L["Pick a guide for me"], help = L["Opens the suggested guide when no tab is open."], search = "auto guide, choose guide, suggested guide" },
@@ -453,6 +485,11 @@ local BUILTIN = {
 			choices = { { value = "ask", label = L["Ask me"] }, { value = "continue", label = L["Continue automatically"] } } },
 		{ kind = "dropdown", key = "behavior.routeChoice", label = L["Where to level next"], help = L["Where a guide offers more than one zone to continue in (/polestar path)."],
 			choices = { { value = "ask", label = L["Let me choose"] }, { value = "recommended", label = L["Take the recommended zone"] } } },
+		-- Polestar's experimental guides (Polestar_Experimental; Core/Guides.lua, Guides.OWN_EXTRA): on until switched off.
+		-- Mount Hyjal is the one left there: the Riverglades and Shen'dralas are in the leveling route since 0.4.0.
+		{ kind = "toggle", key = "behavior.experimentalGuides", label = L["Show experimental guides"], new = "0.4.0",
+			help = L["Polestar's guides for Forever's new zones, still being tested: listed in the guide menu under Leveling with an Experimental chip. They are never picked for you; a route choice offers their zone where it fits either way."],
+			search = "experimental, alpha, new zones, mount hyjal, polestar experimental" },
 		-- `die` steps (Core/Engine.lua, Own.deathskips): the player's choice, never in Hardcore.
 		{ kind = "toggle", key = "behavior.deathskips", label = L["Use deathskips"], search = "death skip, die on purpose, corpse run, spirit healer",
 			help = L["Where dying on purpose and taking the Spirit Healer's resurrection gets you there sooner, the guide shows a step for it. It costs durability and, from level 11, resurrection sickness. Always off on Hardcore characters."],
@@ -471,6 +508,23 @@ local BUILTIN = {
 			end,
 			onClick = function() if ns.Engine and ns.Engine.ResetProgress then ns.Engine.ResetProgress() end end,
 			needs = function() return ns.Engine and ns.Engine.ResetProgress end },
+	} },
+	-- Gather, buy or mix (Core/Materials.lua, UI/Materials.lua): a profession guide's materials. Each guide's own
+	-- answer is the player's, per character (its card, the guide window's menu, the Materials window, which the
+	-- last row opens); this is the way of a guide never answered.
+	{ page = GUIDE, tab = L["Professions"], section = L["Materials"], controls = {
+		{ kind = "dropdown", key = "professions.materials", label = L["Materials in profession guides"], new = "0.4.0",
+			help = L["How a profession guide gets a material it can gather or buy, until you answer for that guide. Ask me: a card asks when the guide opens and Mix applies meanwhile. Mix gathers what your level and professions allow and buys the rest at the Auction House. Vendor goods stay vendor steps."],
+			search = "materials, reagents, gather, farm, buy, auction house, mix, crafting, professions, tailoring, shopping",
+			choices = { { value = "ask", label = L["Ask me"] }, { value = "mix", label = L["Mix"] }, { value = "gather", label = L["Gather"] }, { value = "buy", label = L["Buy"] } } },
+		{ kind = "toggle", key = "professions.altMaterials", label = L["Count my other characters' materials"], new = "0.4.0",
+			help = L["What your other characters of this realm and side hold counts toward what is still to get. Their counts show under a material either way; mail them over yourself."],
+			search = "alts, other characters, bank, mail, materials, reagents, count" },
+		{ kind = "button", button = L["Show"], label = L["Materials window"], new = "0.4.0",
+			help = L["Show how the profession guide gets its materials"],
+			search = "materials window, shopping list, reagents, gather, buy, mix, prices, /polestar materials",
+			onClick = function() ns.UI.Materials.Show() end,
+			needs = function() return ns.UI and ns.UI.Materials end },
 	} },
 
 	-- Everything Polestar draws on the world map and the minimap, in one
@@ -668,8 +722,10 @@ end
 -- Install (UI/Welcome.lua) as a control, so the search finds it ("install",
 -- "setup", "wizard", "first run"): at home on About, whose Install tile is its
 -- widget there (view.cache), the one a search result's jump lights.
+-- Held back (ns.dungeonRoute), Install's groups page has no dungeon question, so neither text names dungeons.
 local INSTALL = { kind = "button", icon = "palette", button = L["Install"], label = L["Set Polestar up again"],
-	help = L["Install's pages: questing, groups and dungeons, your route and your look, a page at a time. Each choice works at once."],
+	help = ns.dungeonRoute and L["Install's pages: questing, groups and dungeons, your route and your look, a page at a time. Each choice works at once."]
+		or L["Install's pages: questing, groups, your route and your look, a page at a time. Each choice works at once."],
 	search = "install, setup, set up, wizard, first run, first time, welcome, getting started, start again, onboarding",
 	onClick = function() ns.Fire("SHOW_WELCOME") end }
 
@@ -758,7 +814,8 @@ local function buildAbout(view)
 	-- Install (UI/Welcome.lua) and what's new, first under the hero: the
 	-- setup a new character gets, again whenever the player wants it.
 	local install = W.ActionTile(view, "palette", L["Install"],
-		L["Set Polestar up again, a page at a time: questing, groups and dungeons, your route, your look. Each choice works at once."],
+		ns.dungeonRoute and L["Set Polestar up again, a page at a time: questing, groups and dungeons, your route, your look. Each choice works at once."]
+			or L["Set Polestar up again, a page at a time: questing, groups, your route, your look. Each choice works at once."],
 		function() ns.Fire("SHOW_WELCOME") end)
 	view.Install = install
 	view.cache = { [INSTALL] = install }
@@ -770,7 +827,8 @@ local function buildAbout(view)
 		.. L["Quest and map data includes pfQuest by shagu (MIT License)."] .. "\n"
 		.. L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom by the Freedoom project (BSD License), from the Polestar_Arcade folder."] .. "\n"
 		.. L["Discord and its logo are trademarks of Discord Inc.; the logo marks the link to the Polestar Discord."] .. "\n"
-		.. L["With EllesmereUI installed, Polestar can follow its accent, font and panel colour through its public skinning API."])
+		.. L["With EllesmereUI installed, Polestar can follow its accent, font and panel colour through its public skinning API."] .. "\n"
+		.. L["Gear scores from Forever Leveling BiS by Timearc when it is installed, through its public API."])
 	local maintH = W.SectionHeader(view)
 	W.SetSection(maintH, L["Maintenance"])
 	-- The profile in use is what goes back: the dialog says whose it is, and
@@ -869,6 +927,8 @@ local ALIASES = {
 	lookup = { "discovery", L["Lookup"] }, dungeons = { "discovery", L["Dungeons"] }, rares = { "discovery", L["Rares"] },
 	characters = { "discovery", L["Lookup"] }, alts = { "discovery", L["Lookup"] },
 	appearance = { "theme" }, look = { "theme" }, qol = { "qualityoflife" },
+	-- The target list's Polestar mark (QoL/Buttons.lua): Questing > Buttons, where Targeting is.
+	targeting = { "questing", L["Buttons"] },
 }
 
 ---------------------------------------------------------------------------
@@ -888,39 +948,42 @@ local ALIASES = {
 
 -- What a reference never takes from its home: where it stands, its own
 -- state (ps* fields), the home's cog, Move and New mark.
-local REF_OWN = { page = true, tab = true, section = true, more = true, move = true, new = true, child = true }
+local homeOf
+do
+	local REF_OWN = { page = true, tab = true, section = true, more = true, move = true, new = true, child = true }
 
--- -> the home of reference c, or nil (c is no reference, or has no home yet)
-local function homeOf(c)
-	local home = rawget(c, "psHome")
-	if home or not rawget(c, "ref") then return home end
-	local same, other
-	local function look(x, onPage)
-		if same then return end
-		if x ~= c and not rawget(x, "ref") and x.key == c.key then
-			if onPage then same = x elseif not other then other = x end
+	-- -> the home of reference c, or nil (c is no reference, or has no home yet)
+	function homeOf(c)
+		local home = rawget(c, "psHome")
+		if home or not rawget(c, "ref") then return home end
+		local same, other
+		local function look(x, onPage)
+			if same then return end
+			if x ~= c and not rawget(x, "ref") and x.key == c.key then
+				if onPage then same = x elseif not other then other = x end
+			end
+			for _, e in ipairs(rawget(x, "extras") or {}) do look(e, onPage) end
+			local m = rawget(x, "more")
+			for _, y in ipairs(type(m) == "table" and m or {}) do look(y, onPage) end
 		end
-		for _, e in ipairs(rawget(x, "extras") or {}) do look(e, onPage) end
-		local m = rawget(x, "more")
-		for _, y in ipairs(type(m) == "table" and m or {}) do look(y, onPage) end
-	end
-	for _, p in ipairs(pageList) do
-		local onPage = p == rawget(c, "page")
-		for _, t in ipairs(p.tabs) do
-			for _, s in ipairs(t.sections) do
-				if s.toggle then look(s.toggle, onPage) end
-				for _, x in ipairs(s.controls) do look(x, onPage) end
+		for _, p in ipairs(pageList) do
+			local onPage = p == rawget(c, "page")
+			for _, t in ipairs(p.tabs) do
+				for _, s in ipairs(t.sections) do
+					if s.toggle then look(s.toggle, onPage) end
+					for _, x in ipairs(s.controls) do look(x, onPage) end
+				end
 			end
 		end
+		home = same or other
+		if not home then return nil end
+		rawset(c, "psHome", home)
+		setmetatable(c, { __index = function(_, k)
+			if REF_OWN[k] or (type(k) == "string" and k:sub(1, 2) == "ps") then return nil end
+			return home[k]
+		end })
+		return home
 	end
-	home = same or other
-	if not home then return nil end
-	rawset(c, "psHome", home)
-	setmetatable(c, { __index = function(_, k)
-		if REF_OWN[k] or (type(k) == "string" and k:sub(1, 2) == "ps") then return nil end
-		return home[k]
-	end })
-	return home
 end
 O.HomeOf = homeOf
 
@@ -956,7 +1019,7 @@ local function choicesOf(c)
 	if type(list) == "function" then list = list() end
 	for i, ch in ipairs(list or {}) do
 		out[i] = { value = ch.value, text = ch.text or ch.label or tostring(ch.value), font = ch.font, draw = ch.draw,
-			disabled = ch.disabled, note = ch.note, tip = ch.tip, preview = ch.preview }
+			disabled = ch.disabled, note = ch.note, tip = ch.tip, preview = ch.preview, group = ch.group }
 	end
 	return out
 end
@@ -981,7 +1044,7 @@ local function makeControl(parent, c)
 		w = W.Dropdown(parent, labelOf(c), c.key, choices, c.help, nil, opts)
 	elseif c.kind == "cards" then
 		local choices = type(c.choices) == "function" and function() return choicesOf(c) end or choicesOf(c)
-		w = W.Cards(parent, labelOf(c), c.key, choices, c.help, { get = getset and getset.get, set = getset and getset.set, art = c.art })
+		w = W.Cards(parent, labelOf(c), c.key, choices, c.help, { get = getset and getset.get, set = getset and getset.set, art = c.art, grid = c.grid })
 	elseif c.kind == "color" then
 		w = W.Swatch(parent, labelOf(c), c.key, c.help, { shown = c.shown, source = c.source, linked = c.linked, alpha = c.alpha })
 	elseif c.kind == "button" then
@@ -1025,17 +1088,34 @@ end)
 -- first opened.
 ---------------------------------------------------------------------------
 
--- Is version a newer than b ("0.3.10" > "0.3.7"; nil is oldest)?
+-- Is version a newer than b ("0.3.10" > "0.3.7"; nil is oldest)? Each pair
+-- is worked out once (the sidebar asks for every setting on each change).
+local newerOf = {} -- a -> b -> boolean
 local function newer(a, b)
 	if type(a) ~= "string" then return false end
 	if type(b) ~= "string" then return true end
+	local row = newerOf[a]
+	if not row then
+		row = {}
+		newerOf[a] = row
+	end
+	local known = row[b]
+	if known ~= nil then return known end
 	local ia, ib = a:gmatch("%d+"), b:gmatch("%d+")
 	while true do
 		local x, y = ia(), ib()
-		if not x and not y then return false end
+		if not x and not y then
+			known = false
+			break
+		end
 		x, y = tonumber(x) or 0, tonumber(y) or 0
-		if x ~= y then return x > y end
+		if x ~= y then
+			known = x > y
+			break
+		end
 	end
+	row[b] = known
+	return known
 end
 O.Newer = newer
 
@@ -1120,15 +1200,87 @@ local function homeSettings(s)
 	return out
 end
 
+-- Whether setting spec x is off its default: one with a value of its own
+-- stored (a value at its default is never stored: the rest read theirs).
+local function offDefault(x)
+	return x.key ~= nil and x.kind ~= "button" and x.kind ~= "binding" and ns.GetStored(x.key) ~= nil and W.Modified(x.key)
+end
+
 -- The settings of a list that are off their default. -> count
 local function modifiedCount(controls)
 	local n = 0
 	for _, c in ipairs(controls) do
-		if c.key and c.kind ~= "button" and c.kind ~= "binding" and W.Modified(c.key) then n = n + 1 end
+		if offDefault(c) then n = n + 1 end
 	end
 	return n
 end
 O.ModifiedCount = modifiedCount
+
+-- Whether c's extras or what its cog holds, each while available, hold a
+-- setting off its default (the stored value asked first, availability last).
+local function heldOff(c)
+	local ex = c.extras
+	if ex then
+		for _, e in ipairs(ex) do
+			if offDefault(e) and available(e) then return true end
+		end
+	end
+	local more = c.more
+	if more then
+		for _, m in ipairs(more) do
+			if (offDefault(m) and available(m)) or heldOff(m) then return true end
+		end
+	end
+	return false
+end
+
+-- Whether c or anything it holds, available or not, is off its default.
+local function anyOff(c)
+	if offDefault(c) then return true end
+	local ex = c.extras
+	if ex then
+		for _, e in ipairs(ex) do
+			if offDefault(e) then return true end
+		end
+	end
+	local more = c.more
+	if more then
+		for _, m in ipairs(more) do
+			if anyOff(m) then return true end
+		end
+	end
+	return false
+end
+
+-- Whether a section holds a setting off its default, as
+-- modifiedCount(sectionSettings(s)) > 0 says, without making the lists. Only
+-- its controls holding a setting off its default can (anyOff), so those are
+-- kept per section (s.psOff), worked out again when one of the section's
+-- settings changes (O.SettingMoved) or every setting may have.
+local function sectionModified(s)
+	local off = s.psOff
+	if not off then
+		local toggle = s.toggle and offDefault(s.toggle) or false
+		for _, c in ipairs(s.controls) do
+			if anyOff(c) then
+				off = off or { toggle = toggle }
+				off[#off + 1] = c
+			end
+		end
+		-- (Most sections hold nothing off: one shared empty list for them.)
+		if not off then
+			Index.noneOff = Index.noneOff or { toggle = false }
+			off = toggle and { toggle = true } or Index.noneOff
+		end
+		s.psOff = off
+	end
+	if off.toggle and available(s.toggle) then return true end
+	for i = 1, #off do
+		local c = off[i]
+		if (offDefault(c) or heldOff(c)) and available(c) then return true end
+	end
+	return false
+end
 
 -- The footer's Undo for what a reset changed (filled in further down).
 local Undo = {}
@@ -1156,13 +1308,15 @@ end
 -- too, through its set(nil)); the footer offers to undo it.
 function O.ResetSection(controls)
 	local held = Undo.holdings(controls)
-	for _, c in ipairs(controls) do
-		if c.key and c.kind ~= "button" and c.kind ~= "binding" then
-			ns.Set(c.key, nil)
-		elseif (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown" or c.kind == "cards") and not c.key and c.set then
-			c.set(nil)
+	ns.Batch(function()
+		for _, c in ipairs(controls) do
+			if c.key and c.kind ~= "button" and c.kind ~= "binding" then
+				if ns.GetStored(c.key) ~= nil then ns.Set(c.key, nil) end
+			elseif (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown" or c.kind == "cards") and not c.key and c.set then
+				c.set(nil)
+			end
 		end
-	end
+	end)
 	local view = O.view
 	if view and view.cache then
 		for _, c in ipairs(controls) do
@@ -1263,8 +1417,42 @@ local function inlineRefresh(self)
 end
 
 -- Tell the preview on screen which setting the pointer is on: its frame's
--- optional f:Focus(key) (a preview that scrolls to the part it draws).
-function O.PreviewFocus(key) UI.Preview.Focus(O.view, key) end
+-- optional f:Focus(key) (a preview that scrolls to the part it draws). Off a
+-- row (nil) the lights go out FOCUS_GRACE later, unless the pointer lands on
+-- another row first: crossing the gap between two rows, columns or sections
+-- hands the lights over without them blinking out. One timer at a time, no
+-- closure per hover.
+do
+	local FOCUS_GRACE = 0.15
+	local offAt, offView, waiting
+	local function lightsOut()
+		waiting = nil
+		if not offAt then return end
+		local left = offAt - GetTime()
+		if left > 0.001 then
+			waiting = true
+			C_Timer.After(left, lightsOut)
+			return
+		end
+		local view = offView
+		offAt, offView = nil, nil
+		UI.Preview.Focus(view, nil)
+	end
+	function O.PreviewFocus(key)
+		if key == nil then
+			offAt, offView = GetTime() + FOCUS_GRACE, O.view
+			if not waiting then
+				waiting = true
+				C_Timer.After(FOCUS_GRACE, lightsOut)
+			end
+			return
+		end
+		-- A row of another tab: the one left goes dark now.
+		if offView and offView ~= O.view then UI.Preview.Focus(offView, nil) end
+		offAt, offView = nil, nil
+		UI.Preview.Focus(O.view, key)
+	end
+end
 
 -- A ghost Move for a row or a section's header whose setting places a frame
 -- (`move`, the frame's mover key in UI/Movers.lua): O.MoveFrame. Off while
@@ -1557,9 +1745,14 @@ local function markSections(view)
 	for c, cog in pairs(view.cogs or {}) do
 		-- A cog pointed out (its first-use cue) keeps its dot while it pulses.
 		if cog:IsVisible() and not rawget(cog, "psPulsing") then
-			local list = {}
-			for _, m in ipairs(c.more) do eachSetting(m, function(x) list[#list + 1] = x end) end
-			W.SetCogDot(cog, modifiedCount(list) > 0)
+			local off = false
+			for _, m in ipairs(c.more) do
+				if anyOff(m) then
+					off = true
+					break
+				end
+			end
+			W.SetCogDot(cog, off)
 		end
 	end
 end
@@ -1741,24 +1934,86 @@ end
 -- (UI.Preview); here, what it asks of the window.
 ---------------------------------------------------------------------------
 
--- The setting `key`'s control spec: on the page and tab on screen first,
--- then the page, then anywhere; a reference to a control on another tab
--- (c.ref) leads to that control itself. -> spec | nil
-function O.ControlByKey(key)
-	local best, rank
+-- The specs by key, built once (in page order) and again after a
+-- registration (add drops it): byKey[key] = { c, page, tab, ... } of every
+-- control holding the key (not a reference); home[key] = its home control
+-- (O.AllControls' first); sections[key] = the sections holding it.
+function Index.get()
+	if Index.spec then return Index.spec end
+	local byKey, home, sections = {}, {}, {}
 	for _, p in ipairs(pageList) do
 		for _, t in ipairs(p.tabs) do
 			for _, s in ipairs(t.sections) do
 				for _, c in ipairs(allSettings(s)) do
-					if c.key == key and available(c) and not rawget(c, "ref") then
-						local r = (p == current and t == currentTab) and 1 or (p == current and 2 or 3)
-						if not rank or r < rank then best, rank = c, r end
+					local key = c.key
+					if key ~= nil then
+						local of = sections[key]
+						if not of then
+							of = {}
+							sections[key] = of
+						end
+						if of[#of] ~= s then of[#of + 1] = s end
 					end
+					if key ~= nil and not rawget(c, "ref") then
+						local list = byKey[key]
+						if not list then
+							list = {}
+							byKey[key] = list
+						end
+						list[#list + 1] = c
+						list[#list + 1] = p
+						list[#list + 1] = t
+					end
+				end
+				for _, c in ipairs(homeSettings(s)) do
+					if c.key ~= nil and home[c.key] == nil then home[c.key] = c end
 				end
 			end
 		end
 	end
+	Index.spec = { byKey = byKey, home = home, sections = sections }
+	return Index.spec
+end
+
+-- A setting changed (live or not; "" or a section's name: every setting may
+-- have): the sections holding it work out again which of their controls are
+-- off their defaults (sectionModified).
+function O.SettingMoved(path)
+	local of = type(path) == "string" and path:find(".", 1, true) and Index.get().sections[path]
+	if of then
+		for i = 1, #of do of[i].psOff = nil end
+		return
+	end
+	for _, p in ipairs(pageList) do
+		for _, t in ipairs(p.tabs) do
+			for _, s in ipairs(t.sections) do s.psOff = nil end
+		end
+	end
+end
+ns.On("SETTING_CHANGED", O.SettingMoved)
+
+-- The setting `key`'s control spec: on the page and tab on screen first,
+-- then the page, then anywhere; a reference to a control on another tab
+-- (c.ref) leads to that control itself. -> spec | nil
+-- Asked on every hover of a preview's part: through the index.
+function O.ControlByKey(key)
+	local list = key ~= nil and Index.get().byKey[key]
+	if not list then return nil end
+	local best, rank
+	for i = 1, #list, 3 do
+		local c, p, t = list[i], list[i + 1], list[i + 2]
+		if available(c) then
+			local r = (p == current and t == currentTab) and 1 or (p == current and 2 or 3)
+			if not rank or r < rank then best, rank = c, r end
+		end
+	end
 	return best
+end
+
+-- The home control of setting `key` (its row on a deep tab, references
+-- aside, available or not). -> spec | nil
+function O.HomeControl(key)
+	return key ~= nil and Index.get().home[key] or nil
 end
 O.LabelOf = labelOf
 
@@ -1766,17 +2021,19 @@ O.LabelOf = labelOf
 function O.PreviewHotspot(frame, region, key) return UI.Preview.Hotspot(frame, region, key) end
 
 -- Lay the shown tab's preview out across the main column and pin it.
-local function placePreview(view, t)
+-- fresh: a setting's change, after which a band shown has laid itself out
+-- already (its watch, the theme's refresh): placed as it stands.
+local function placePreview(view, t, fresh)
 	local width = win.psMainW or (win.BodyWidth + SH.pad * 2)
 	local room = win:GetHeight() - SH.header - SH.tabs - SH.footer
-	UI.Preview.Place(win, view, t, width, room)
+	UI.Preview.Place(win, view, t, width, room, fresh)
 end
 
 -- The first open's one line under the header: how the rows work (hover,
 -- right-click), until its close button dismisses it for good
 -- (PolestarDB.optionsIntro). -> the room it takes at the view's top
-local INTRO_H = 28
 local function introRoom(view)
+	local INTRO_H = 28
 	if ns.DB().optionsIntro then
 		if rawget(view, "Intro") then view.Intro:Hide() end
 		return 0
@@ -1865,8 +2122,9 @@ end
 -- the whole word, its start, a typo off (one letter for 4-7 letters, two for
 -- 8 or more) or inside it (4 bytes for ASCII: "lag" is not in "flag"; a
 -- query word still holding non-ASCII text after folding, such as one Chinese
--- character, has no floor); filler words ("the", "turn", "off") only add to a
--- match. The label counts most, then the search terms and key, then the
+-- character, has no floor); filler words ("the", "turn", "off", and the
+-- words of a question: "how do I", "where is") only add to a match; a word
+-- matching nothing tries its English stem, then its synonyms. The label counts most, then the search terms and key, then the
 -- section, tab and page, then the help; typos and inside-a-word matches least.
 -- A query starting with a page's name looks on that page for the rest
 -- (scopeOf). The dropdown asks O.Matches and O.MatchSpans (further down).
@@ -1901,10 +2159,20 @@ end
 local SPELLING = { color = "colour", colors = "colours", gray = "grey", meter = "metre", meters = "metres",
 	center = "centre", behavior = "behaviour", favorite = "favourite", coords = "coordinates" }
 
--- Words a question carries ("how do I turn off the tracker"): they add to a
--- control's score when one of its words is the same, and are not required.
+-- Words a question or a request carries ("how do I turn off the tracker?",
+-- "where is the arrow size", "why does it close quest windows", "can you
+-- show me ..."): they add to a control's score when one of its words is the
+-- same, and are not required. English always (players type it on every
+-- client), and the client's own language's question words (QUESTION, below).
+-- A contraction's pieces ("don't": don, t) are filler too.
 local FILLER = {}
-for w in ("a an the of to in on at and or for my me i is it how do can turn off enable disable toggle set setting settings option options where want"):gmatch("%S+") do FILLER[w] = true end
+for w in ([[a an the of to in on at and or for my me i is it how do can turn off enable disable toggle set setting settings
+	option options where want show does did are am be was what why when which who make get change find stop go there way you your
+	we us please would could should will need just this that its from anymore s t m d ll re ve don doesn didn won isn aren
+	cant dont doesnt wont isnt im ive]]):gmatch("%S+") do FILLER[w] = true end
+-- Those asking to switch something on or off: a toggle comes before a
+-- slider or a choice that matches as well (scoreOf, WEIGHT.SWITCH).
+for w in ("off enable disable toggle stop show"):gmatch("%S+") do FILLER[w] = "switch" end
 
 -- Hint words a player types for a kind of change, and the words settings
 -- use for it: a query word that matches nothing of a control's own tries
@@ -1919,7 +2187,7 @@ local SYNONYMS = {
 	"pin pins marker markers icon icons numbered mark marks medallion blip blips",
 	"border borders edge edges frame outline",
 	"background backing ground bg backdrop",
-	"sound sounds audio chime ding noise",
+	"sound sounds audio chime ding noise mute muted quiet silence silent",
 	"hide hidden show shown visible visibility",
 	"animation animations motion animated effects",
 	"arrow pointer compass dart",
@@ -1939,10 +2207,59 @@ for _, group in ipairs(SYNONYMS) do
 		SYN[w] = list
 	end
 end
--- Phrases read as one hint word.
-local PHRASES = { { "see%W*through", "seethrough" }, { "step%W*numbers?", "numbered" } }
--- A synonym's match counts this share of the word's own.
-local SYN_SHARE = 0.6
+-- Phrases read as one hint word. First the punctuation a question carries
+-- outside ASCII (¿ ¡ « » quotes, dashes, the ellipsis, CJK ？！，。、：；
+-- and brackets) as spaces, so "¿cómo" is "como" and "箭头？" is "箭头".
+local PHRASES = { { "\194[\161\171\183\187\191]", " " }, { "\226\128[\147\148\152\153\156\157\158\166]", " " },
+	{ "\227\128[\129\130]", " " }, { "\239\188[\129\136\137\140\154\155\159]", " " },
+	{ "see%W*through", "seethrough" }, { "step%W*numbers?", "numbered" },
+	{ "%f[%w]get%W+rid%W+of%f[%W]", "hide" }, { "%f[%w]show%W+me%f[%W]", "me" }, { "%f[%w]turn%W*in(s?)%f[%W]", "turnin%1" } }
+-- The question and request words of each client language Polestar is
+-- translated into, folded as the matcher folds (lower case, Latin accents
+-- off: "où" is "ou", "können" "konnen"), filler on that client. Chinese
+-- writes no spaces: its question words (`split`) are taken out of the query
+-- before it is cut into words, the longest first, so "箭头在哪里" asks for
+-- "箭头". docs/ARCHITECTURE.md, "Settings search", lists them.
+do
+	local spanish = [[como donde por porque que cual cuales cuando puedo puede puedes se yo me mi mis el la los las lo un una
+		unos unas de del al es esta estan hay hago hace hacer quiero quisiera cambiar poner encontrar activar desactivar y o en con para]]
+	local QUESTION = {
+		deDE = [[wie wo warum wieso weshalb was welche welcher welches wann kann kannst konnen konnte ich mich mir mein meine meinen
+			meinem meiner man ist sind gibt es der die das den dem des ein eine einen einem einer zu um mal bitte will mochte soll
+			muss andern einstellen finden finde machen mache schalte schalten aus an ab ausschalten abschalten einschalten
+			aktivieren deaktivieren und oder im in am auf fur von]],
+		frFR = [[comment ou pourquoi quand quel quelle quels quelles que qu quoi est ce c je j me m moi mon ma mes on peut peux
+			puis pouvoir il y t faire fait changer modifier regler trouver mettre veux voudrais faut le la les l un une des du de d
+			au aux en pour sur dans et activer desactiver]],
+		esES = spanish, esMX = spanish,
+		ptBR = [[como onde por porque que qual quais quando posso pode eu me meu minha meus minhas o os as um uma de do da dos
+			das no na nos nas e esta fica faco faz fazer quero mudar alterar trocar achar encontrar ativar desativar ligar
+			desligar em com para]],
+		ruRU = [[как где почему зачем что чтобы какой какая какие когда я мне меня мой моя моё мои можно могу ли это сделать
+			изменить поменять найти хочу включить выключить отключить настроить и в на у с к по для а]],
+		koKR = [[어떻게 어디 어디에 어디서 어디에서 어디있나요 왜 무엇 뭐 무슨 언제 내 나 제 저 수 있나요 있어요 있습니까
+			있을까요 하나요 해요 하려면 하는 방법 좀]],
+		zhCN = { split = [[在哪里 在哪儿 为什么 能不能 怎么样 怎么办 怎么 怎样 如何 哪里 哪儿 在哪 为啥 什么 我的 可以 能否 请问
+			一下 吗 呢 我 把]] },
+		zhTW = { split = [[在哪裡 在哪兒 為什麼 能不能 怎麼樣 怎麼辦 怎麼 怎樣 如何 哪裡 哪兒 在哪 為啥 什麼 我的 可以 能否 請問
+			一下 嗎 呢 我 把]] },
+	}
+	local own = QUESTION[GetLocale and GetLocale() or "enUS"]
+	if type(own) == "string" then
+		for w in own:gmatch("%S+") do FILLER[w] = true end
+	elseif own then
+		for w in own.split:gmatch("%S+") do PHRASES[#PHRASES + 1] = { w, " " } end
+	end
+end
+-- On and off words read as the toggle's own word, at the word's own weight:
+-- "hide the arrow" asks for Show arrow, off.
+local OPPOSITE = { hide = "show shown", hidden = "shown show", hiding = "show shown", unhide = "show shown" }
+-- A synonym's match counts SYN of the word's own, a filler word's (scoreOf)
+-- FILLER; a control whose label's words were all asked about (the label is
+-- the answer, not a longer one holding the words) COVER more. A toggle, asked
+-- to switch something on or off, SWITCH more. One table to keep the main
+-- chunk's locals in budget.
+local WEIGHT = { SYN = 0.6, FILLER = 0.1, COVER = 50, SWITCH = 30 }
 
 local LABEL, KEY, TERMS, PLACE, HELP = 1, 2, 3, 4, 5
 -- By field, the score of a match inside a word, a typo off, the word's start, the whole word.
@@ -1963,14 +2280,18 @@ local function englishOf(s)
 	return s and english[s]
 end
 
+-- Neighbours are joined within a comma's part ("tiny text, bigger" joins no
+-- "textbigger").
 local function addWords(words, fields, text, field, join)
 	if type(text) ~= "string" or text == "" then return end
-	local prev
-	for word in fold(text):gmatch("[%w\128-\255]+") do
-		local w = SPELLING[word] or word
-		words[#words + 1], fields[#fields + 1] = w, field
-		if join and prev then words[#words + 1], fields[#fields + 1] = prev .. w, field end
-		prev = w
+	for part in fold(text):gmatch("[^,]+") do
+		local prev
+		for word in part:gmatch("[%w\128-\255]+") do
+			local w = SPELLING[word] or word
+			words[#words + 1], fields[#fields + 1] = w, field
+			if join and prev then words[#words + 1], fields[#fields + 1] = prev .. w, field end
+			prev = w
+		end
 	end
 end
 
@@ -1980,9 +2301,25 @@ local function searchTokens(c)
 	local label = labelOf(c) or ""
 	local s = c.psFind
 	if s and s.label == label then return s end
-	s = { label = label, words = {}, fields = {} }
+	s = { label = label, words = {}, fields = {}, covers = {} }
 	local w, f = s.words, s.fields
 	addWords(w, f, label, LABEL, true)
+	-- What names it whole (scoreOf's WEIGHT.COVER): its label's words, its English
+	-- label's and each of its search terms' of two words or more (one word is
+	-- a hint, not a name), filler aside.
+	local function cover(text, least)
+		local list = {}
+		for word in fold(text):gmatch("[%w\128-\255]+") do
+			word = SPELLING[word] or word
+			if not FILLER[word] then list[#list + 1] = word end
+		end
+		if #list >= least then s.covers[#s.covers + 1] = list end
+	end
+	cover(label, 1)
+	if englishOf(label) then cover(englishOf(label), 1) end
+	if type(c.search) == "string" then
+		for term in c.search:gmatch("[^,]+") do cover(term, 2) end
+	end
 	addWords(w, f, c.search, TERMS, true)
 	if type(c.key) == "string" then addWords(w, f, (c.key:match("[^.]+$"):gsub("(%l)(%u)", "%1 %2")), KEY, true) end
 	addWords(w, f, englishOf(label), TERMS, true)
@@ -1991,34 +2328,38 @@ local function searchTokens(c)
 	addWords(w, f, c.page and c.page.name, PLACE, true)
 	addWords(w, f, c.help, HELP, false)
 	c.psFind = s
+	Index.search.dirty = true
 	return s
 end
 
 -- Optimal string alignment distance (a swap of two neighbours is one edit)
 -- between the bytes qb[1..lq] and the word t; cap + 1 once it is over cap.
-local DIST_ROWS = { {}, {}, {}, {} } -- three rows and the word's bytes, reused
-local function distance(qb, lq, t, cap)
-	local lt = #t
-	if lt - lq > cap or lq - lt > cap then return cap + 1 end
-	local r0, r1, r2, tb = DIST_ROWS[1], DIST_ROWS[2], DIST_ROWS[3], DIST_ROWS[4]
-	for j = 1, lt do tb[j] = byte(t, j) end
-	for j = 0, lt do r1[j] = j end
-	for i = 1, lq do
-		local a, low = qb[i], i
-		r2[0] = i
-		for j = 1, lt do
-			local b = tb[j]
-			local v = r1[j - 1] + (a == b and 0 or 1)
-			if r1[j] + 1 < v then v = r1[j] + 1 end
-			if r2[j - 1] + 1 < v then v = r2[j - 1] + 1 end
-			if i > 1 and j > 1 and a == tb[j - 1] and qb[i - 1] == b and r0[j - 2] + 1 < v then v = r0[j - 2] + 1 end
-			r2[j] = v
-			if v < low then low = v end
+local distance
+do
+	local DIST_ROWS = { {}, {}, {}, {} } -- three rows and the word's bytes, reused
+	function distance(qb, lq, t, cap)
+		local lt = #t
+		if lt - lq > cap or lq - lt > cap then return cap + 1 end
+		local r0, r1, r2, tb = DIST_ROWS[1], DIST_ROWS[2], DIST_ROWS[3], DIST_ROWS[4]
+		for j = 1, lt do tb[j] = byte(t, j) end
+		for j = 0, lt do r1[j] = j end
+		for i = 1, lq do
+			local a, low = qb[i], i
+			r2[0] = i
+			for j = 1, lt do
+				local b = tb[j]
+				local v = r1[j - 1] + (a == b and 0 or 1)
+				if r1[j] + 1 < v then v = r1[j] + 1 end
+				if r2[j - 1] + 1 < v then v = r2[j - 1] + 1 end
+				if i > 1 and j > 1 and a == tb[j - 1] and qb[i - 1] == b and r0[j - 2] + 1 < v then v = r0[j - 2] + 1 end
+				r2[j] = v
+				if v < low then low = v end
+			end
+			if low > cap then return cap + 1 end
+			r0, r1, r2 = r1, r2, r0
 		end
-		if low > cap then return cap + 1 end
-		r0, r1, r2 = r1, r2, r0
+		return r1[lt]
 	end
-	return r1[lt]
 end
 
 -- A query word and what it made of each word met so far (kinds), kept
@@ -2055,12 +2396,18 @@ local function kindOf(m, t)
 	return k
 end
 
-local qwords, qfiller, qpairs, qsyn, seen = {}, {}, {}, {}, {}
+local qwords, qfiller, qpairs, qsyn, qstem, seen = {}, {}, {}, {}, {}, {}
+-- A word's other forms, then its synonyms (formSays).
+local qforms = { qstem, qsyn }
 
 -- The query's words into qwords (memos) and qfiller, each word joined to
--- the one before into qpairs, a hint word's synonyms into qsyn. -> count
+-- the one before into qpairs, a hint word's synonyms into qsyn, its other
+-- forms into qstem: the word its English ending comes off ("accepting"
+-- accept, "stopping" stop, "sounds" sound, "closed" clos) and its OPPOSITE.
+-- -> count
 local function parseQuery(q)
 	local n, needed, prev = 0, 0, nil
+	qwords.onoff = false
 	local text = fold(q or "")
 	for _, ph in ipairs(PHRASES) do text = text:gsub(ph[1], ph[2]) end
 	for word in text:gmatch("[%w\128-\255]+") do
@@ -2068,7 +2415,19 @@ local function parseQuery(q)
 		n = n + 1
 		qwords[n], qfiller[n] = wordMemo(w), FILLER[w] or false
 		qpairs[n] = prev and wordMemo(prev .. w) or false
-		local syn = SYN[w]
+		local stem = #w >= 5 and not find(w, "[\128-\255]") and (w:match("^(.+)ing$") or w:match("^(.+)ed$")) or nil
+		if stem then
+			local base, last = stem:match("^(.+)(%a)%2$")
+			if base then stem = base .. last end
+		elseif #w >= 5 and not find(w, "[\128-\255]") then
+			stem = w:match("^(.+[^s])s$")
+		end
+		if stem and #stem < 3 then stem = nil end
+		local forms = {}
+		if stem then forms[1] = wordMemo(stem) end
+		for o in (OPPOSITE[w] or ""):gmatch("%S+") do forms[#forms + 1] = wordMemo(o) end
+		qstem[n] = forms[1] and forms or false
+		local syn = SYN[w] or (stem and (SYN[stem] or SYN[stem .. "e"]))
 		if syn then
 			local list = {}
 			for i, o in ipairs(syn) do list[i] = wordMemo(o) end
@@ -2077,6 +2436,7 @@ local function parseQuery(q)
 			qsyn[n] = false
 		end
 		if not FILLER[w] then needed = needed + 1 end
+		if FILLER[w] == "switch" or OPPOSITE[w] then qwords.onoff = true end
 		prev = w
 	end
 	if needed == 0 then
@@ -2085,16 +2445,16 @@ local function parseQuery(q)
 	return n
 end
 
--- A word's best match through its synonyms: a whole word or a word's start
--- of the control's own (its help aside), at SYN_SHARE of the score.
-local function synonymScore(list, tw, tf)
+-- A word's best match through its synonyms (or its stem): a whole word or a
+-- word's start of the control's own (its help aside), at `share` of the score.
+local function synonymScore(list, tw, tf, share)
 	local best = 0
 	for _, sm in ipairs(list) do
 		for j = 1, #tw do
 			if tf[j] ~= HELP then
 				local k = kindOf(sm, tw[j])
 				if k >= 3 then
-					local v = floor(SCORE[tf[j]][k] * SYN_SHARE)
+					local v = floor(SCORE[tf[j]][k] * share)
 					if v > best then best = v end
 				end
 			end
@@ -2103,11 +2463,27 @@ local function synonymScore(list, tw, tf)
 	return best
 end
 
--- A control's score for the query, 0 when a word it needs matches nothing.
+-- Does query word i say word t through its other forms or synonyms (whole
+-- or its start)?
+local function formSays(i, t)
+	for _, list in ipairs(qforms) do
+		local forms = list[i]
+		if forms then
+			for _, sm in ipairs(forms) do
+				if kindOf(sm, t) >= 3 then return true end
+			end
+		end
+	end
+	return false
+end
+
+-- A control's score for the query, 0 when a word it needs matches nothing;
+-- what its words alone make of it (no WEIGHT.COVER or WEIGHT.SWITCH: the page scope's
+-- fair match); and the part of the score its filler words gave (they only break ties).
 local function scoreOf(c, nw)
 	local s = searchTokens(c)
 	local tw, tf = s.words, s.fields
-	local total = 0
+	local total, bonus, fill = 0, qwords.onoff and c.kind == "toggle" and WEIGHT.SWITCH or 0, 0
 	for i = 1, nw do
 		local m, filler, best, phrase = qwords[i], qfiller[i], 0, 0
 		local pair = qpairs[i]
@@ -2122,22 +2498,58 @@ local function scoreOf(c, nw)
 				if pk > phrase then phrase = pk end
 			end
 		end
-		if best == 0 and not filler and qsyn[i] then best = synonymScore(qsyn[i], tw, tf) end
+		-- Its other forms whole beat the word's own typo ("sounds": sound, not a typo of it).
+		if not filler and qstem[i] then
+			local v = synonymScore(qstem[i], tw, tf, 1)
+			if v > best then best = v end
+		end
+		if best == 0 and not filler and qsyn[i] then best = synonymScore(qsyn[i], tw, tf, WEIGHT.SYN) end
 		if best == 0 and not filler then return 0 end
+		-- A filler word's match, and a pair with one in it, count WEIGHT.FILLER:
+		-- they tell two settings apart, never outrank the words asked about
+		-- ("the" in "Hide the arrow with the guide").
+		if filler then best = floor(best * WEIGHT.FILLER) end
+		if filler or (i > 1 and qfiller[i - 1]) then phrase = floor(phrase * WEIGHT.FILLER) end
 		total = total + best + phrase
+		if filler then fill = fill + best end
+		if filler or (i > 1 and qfiller[i - 1]) then fill = fill + phrase end
 	end
-	return total
+	-- Named whole: each word of its label, or of one of its search terms,
+	-- one a query word asks for (whole or its start, or through the word's
+	-- other forms or synonyms; a typo is too loose: "slow" is not "Glow").
+	for _, cover in ipairs(s.covers) do
+		local all = true
+		for _, cw in ipairs(cover) do
+			local said = false
+			for i = 1, nw do
+				if not qfiller[i] and (kindOf(qwords[i], cw) >= 3 or formSays(i, cw)) then
+					said = true
+					break
+				end
+			end
+			if not said then
+				all = false
+				break
+			end
+		end
+		if all then return total + bonus + WEIGHT.COVER, total, fill end
+	end
+	return total + bonus, total, fill
 end
 
--- The best match first; one its section's on/off stops after an equal one
--- that works.
+-- The best match of the words asked about first (psCore: the score less its
+-- filler words' part, and half a point for a setting of a page for all of
+-- Polestar that a module's of the same label ties: collect), then the filler
+-- words; one its section's on/off stops after an equal one that works.
 local function byScore(a, b)
+	if a.psCore ~= b.psCore then return a.psCore > b.psCore end
 	if a.psScore ~= b.psScore then return a.psScore > b.psScore end
 	if a.psStopped ~= b.psStopped then return not a.psStopped end
 	return a.psOrder < b.psOrder
 end
 
 local function byBest(a, b)
+	if a.core ~= b.core then return a.core > b.core end
 	if a.best ~= b.best then return a.best > b.best end
 	if a.off ~= b.off then return not a.off end
 	return a.order < b.order
@@ -2195,12 +2607,111 @@ local function suggest(nw)
 	return out
 end
 
+-- The controls a query word may match at all, from an index of every
+-- control's words (built once per set of pages: add drops it, a label that
+-- changed builds it again): those with a word it matches (kindOf > 0) or one
+-- of its other forms or synonyms names whole (>= 3). A control without such
+-- a word scores 0 for a word it needs (scoreOf), so it is not scored at all.
+-- Each word's set is kept on its memo, across keystrokes. Index.prepare(nw)
+-- for a parsed query; Index.scoreHeld(c, c, nw) then puts the best of c and
+-- what it holds (its extras, what its cog holds, each while available) into
+-- Index.found (no closure or list per control).
+do
+	local S = Index.search
+	local function wordIndex()
+		if S.words and not S.dirty and S.built == Index.spec then return S.words end
+		local words, last = {}, {}
+		for _, p in ipairs(pageList) do
+			for _, t in ipairs(p.tabs) do
+				for _, s in ipairs(t.sections) do
+					for _, c in ipairs(allSettings(s)) do
+						for _, w in ipairs(searchTokens(c).words) do
+							if last[w] ~= c then
+								last[w] = c
+								local list = words[w]
+								if not list then
+									list = {}
+									words[w] = list
+								end
+								list[#list + 1] = c
+							end
+						end
+					end
+				end
+			end
+		end
+		S.words, S.dirty = words, false
+		S.built = Index.get()
+		S.version = S.version + 1
+		return words
+	end
+	local function candidatesOf(i)
+		local m = qwords[i]
+		local words = wordIndex()
+		if m.cands and m.candsVersion == S.version then return m.cands end
+		local set = {}
+		for t, list in pairs(words) do
+			local hit = kindOf(m, t) > 0
+			if not hit then
+				for _, forms in ipairs(qforms) do
+					local said = forms[i]
+					if said then
+						for _, sm in ipairs(said) do
+							if kindOf(sm, t) >= 3 then hit = true break end
+						end
+					end
+					if hit then break end
+				end
+			end
+			if hit then
+				for k = 1, #list do set[list[k]] = true end
+			end
+		end
+		m.cands, m.candsVersion = set, S.version
+		return set
+	end
+
+	local found, cands = {}, {}
+	Index.found = found
+	function Index.prepare(nw)
+		for i = 1, #cands do cands[i] = nil end
+		for i = 1, nw do cands[i] = not qfiller[i] and candidatesOf(i) or false end
+	end
+	local function matchable(x, nw)
+		for i = 1, nw do
+			local cs = cands[i]
+			if cs and not cs[x] then return false end
+		end
+		return true
+	end
+	local function scoreHeld(x, c, nw)
+		if matchable(x, nw) and (x == c or available(x)) then
+			local v, w, f = scoreOf(x, nw)
+			if v > found.score then found.score, found.words, found.via, found.fill = v, w or 0, x, f or 0 end
+		end
+		if x.extras then
+			for _, e in ipairs(x.extras) do
+				if matchable(e, nw) and available(e) then
+					local v, w, f = scoreOf(e, nw)
+					if v > found.score then found.score, found.words, found.via, found.fill = v, w or 0, e, f or 0 end
+				end
+			end
+		end
+		if x.more then
+			for _, m in ipairs(x.more) do scoreHeld(m, c, nw) end
+		end
+	end
+	Index.scoreHeld = scoreHeld
+end
+
 -- Every control the parsed query matches, grouped by page, tab and section
 -- (only: one page's), each control once (a setting shown on two pages, under
 -- the first), the best first in its group. -> groups (unsorted), count
 local function collect(nw, only)
 	local groups, count = {}, 0
 	for k in pairs(seen) do seen[k] = nil end
+	Index.prepare(nw)
+	local found = Index.found
 	local order = 0
 	for _, p in ipairs(pageList) do if not only or p == only then
 		for _, t in ipairs(p.tabs) do
@@ -2208,46 +2719,58 @@ local function collect(nw, only)
 				-- The section's toggle is a result of its own; a control is
 				-- found by its words and by those of its extras and cog. A
 				-- reference (Essentials) is found at its home.
-				local list, best
-				local cands = {}
-				if s.toggle and not rawget(s.toggle, "ref") then cands[1] = s.toggle end
-				for _, c in ipairs(s.controls) do
-					if not rawget(c, "ref") then cands[#cands + 1] = c end
-				end
-				for _, c in ipairs(cands) do
-					order = order + 1
-					if available(c) and not (c.key and seen[c.key]) then
-						local score = 0
-						eachSetting(c, function(x)
-							if x == c or available(x) then
-								local v = scoreOf(x, nw)
-								if v > score then score = v end
+				local list, best, fair
+				local n = #s.controls
+				for ci = (s.toggle and 0 or 1), n do
+					local c = ci == 0 and s.toggle or s.controls[ci]
+					if not rawget(c, "ref") then
+						order = order + 1
+						if available(c) and not (c.key and seen[c.key]) then
+							found.score, found.words, found.via, found.fill = 0, 0, nil, 0
+							Index.scoreHeld(c, c, nw)
+							local score, words, via, fill = found.score, found.words, found.via, found.fill
+							found.via = nil
+							if score > 0 then
+								if c.key then seen[c.key] = true end
+								-- psVia: an extra or a cog's setting that matched better than the row's own.
+								c.psScore, c.psOrder, c.psVia = score, order, via ~= c and via or nil
+								c.psCore = score - fill
+								-- Stopped by its section's on/off: after the ones that work.
+								c.psStopped = s.toggle ~= c and sectionOff(s)
+								list = list or {}
+								list[#list + 1] = c
+								if not best or score > best then best = score end
+								if not fair or words > fair then fair = words end
 							end
-						end)
-						if score > 0 then
-							if c.key then seen[c.key] = true end
-							c.psScore, c.psOrder = score, order
-							-- Stopped by its section's on/off: after the ones that work.
-							c.psStopped = s.toggle ~= c and sectionOff(s)
-							list = list or {}
-							list[#list + 1] = c
-							if not best or score > best then best = score end
 						end
 					end
 				end
 				if list then
-					table.sort(list, byScore)
 					-- Where they live: page, tab, section.
 					local title = p.name
 					if t.name ~= "" then title = title .. "  \194\183  " .. t.name end
 					if s.name ~= "" and s.name ~= t.name then title = title .. "  \194\183  " .. s.name end
-					groups[#groups + 1] = { title = title, controls = list, best = best, order = #groups + 1, section = s,
-						off = list[1].psStopped and true or false }
+					groups[#groups + 1] = { title = title, controls = list, best = best, general = p.general == true, fair = fair, order = #groups + 1, section = s }
 					count = count + #list
 				end
 			end end
 		end
 	end end
+	-- A setting of a page for all of Polestar (`general`: Theme's Text size) whose label a module's setting found
+	-- too wears (a toast's Text size) comes before it when the words asked about match both alike: half a point.
+	local shared = {}
+	for _, g in ipairs(groups) do
+		if not g.general then for _, c in ipairs(g.controls) do shared[c.psFind and c.psFind.label or ""] = true end end
+	end
+	for _, g in ipairs(groups) do
+		local core
+		for _, c in ipairs(g.controls) do
+			if g.general and shared[c.psFind and c.psFind.label or ""] then c.psCore = c.psCore + 0.5 end
+			if not core or c.psCore > core then core = c.psCore end
+		end
+		table.sort(g.controls, byScore)
+		g.core, g.off = core, g.controls[1].psStopped and true or false
+	end
 	return groups, count
 end
 
@@ -2310,11 +2833,6 @@ local function scopeOf(nw)
 	return page, table.concat(rest, " ")
 end
 
--- A page's own results stand when its best one is a fair match: on average
--- each word whole in the setting's place, or its start in the setting's own
--- words. A word found only in a help text, or a typo, looks everywhere.
-local SCOPE_FLOOR = 50
-
 -- -> { { title = "Page · Tab", controls = { ... } }, ... }, count, suggestions, page
 -- Each control once (a setting shown on two pages, under the first), the
 -- best first in its group, the group with the best match first. A query
@@ -2322,6 +2840,11 @@ local SCOPE_FLOOR = 50
 -- result) for the rest of its words, everywhere when nothing there matches
 -- them fairly. With no match, suggestions: up to three labels near the query.
 function O.Search(q)
+	-- A page's own results stand when its best one is a fair match by its
+	-- words alone (no WEIGHT.COVER or WEIGHT.SWITCH): on average each word
+	-- whole in the setting's place, or its start in the setting's own words.
+	-- A word found only in a help text, or a typo, looks everywhere.
+	local SCOPE_FLOOR = 50
 	local nw = parseQuery(q)
 	if nw == 0 then return {}, 0 end
 	local page, rest = scopeOf(nw)
@@ -2332,7 +2855,9 @@ function O.Search(q)
 		local groups, count = collect(rw, page)
 		if count > 0 then
 			table.sort(groups, byBest)
-			if groups[1].best >= SCOPE_FLOOR * max(1, needed) then return groups, count, nil, page end
+			local fair = 0
+			for _, g in ipairs(groups) do fair = max(fair, g.fair) end
+			if fair >= SCOPE_FLOOR * max(1, needed) then return groups, count, nil, page end
 		end
 		nw = parseQuery(q)
 	end
@@ -2360,7 +2885,7 @@ end
 
 -- Where in `text` the query's words match, by the matcher's own test (a word
 -- whole, its start, a typo off or inside it; two of its words run together;
--- a hint word's synonym when the word itself matches nothing), filler words
+-- its stem or a hint word's synonym when the word itself matches nothing), filler words
 -- aside: byte ranges of `text`, { { from, to }, ... } in order. The search's
 -- dropdown lights them in a label (UI/SearchDropdown.lua).
 function O.MatchSpans(text, q)
@@ -2403,14 +2928,9 @@ function O.MatchSpans(text, q)
 		end
 	end
 	for i = 1, nw do
-		if not hit[i] and not qfiller[i] and qsyn[i] then
+		if not hit[i] and not qfiller[i] and (qstem[i] or qsyn[i]) then
 			for _, wd in ipairs(words) do
-				for _, sm in ipairs(qsyn[i]) do
-					if kindOf(sm, wd.f) >= 3 then
-						marks[#marks + 1] = { wd.s, wd.e }
-						break
-					end
-				end
+				if formSays(i, wd.f) then marks[#marks + 1] = { wd.s, wd.e } end
 			end
 		end
 	end
@@ -2583,16 +3103,39 @@ local function navState()
 	return db.optionsNav
 end
 
--- The page's settings new since the player last opened it. -> count
+-- The page's settings new since the player last opened it, its sections'
+-- toggles, its controls, their extras and what their cogs hold (references
+-- aside), each while available. -> count
+-- Only those marked new in some release can count, so they are listed once
+-- per page (p.psNewList; a registration drops it).
+function Index.newList(p)
+	local list = p.psNewList
+	if list then return list end
+	list = {}
+	local function put(x)
+		if not rawget(x, "ref") and x.new then list[#list + 1] = x end
+	end
+	local function walk(c)
+		put(c)
+		for _, e in ipairs(c.extras or {}) do put(e) end
+		for _, m in ipairs(c.more or {}) do walk(m) end
+	end
+	for _, t in ipairs(p.tabs) do
+		for _, s in ipairs(t.sections) do
+			if s.toggle then put(s.toggle) end
+			for _, c in ipairs(s.controls) do
+				if not rawget(c, "ref") then walk(c) end
+			end
+		end
+	end
+	p.psNewList = list
+	return list
+end
 local function pageNew(p)
 	local seenNow = seenTable()[p.key]
 	local n = 0
-	for _, t in ipairs(p.tabs) do
-		for _, s in ipairs(t.sections) do
-			for _, c in ipairs(homeSettings(s)) do
-				if c.new and newer(c.new, seenNow) and available(c) then n = n + 1 end
-			end
-		end
+	for _, x in ipairs(Index.newList(p)) do
+		if newer(x.new, seenNow) and available(x) then n = n + 1 end
 	end
 	return n
 end
@@ -2618,7 +3161,7 @@ end
 local function pageChanged(p)
 	for _, t in ipairs(p.tabs) do
 		for _, s in ipairs(t.sections) do
-			if modifiedCount(sectionSettings(s)) > 0 then return true end
+			if sectionModified(s) then return true end
 		end
 	end
 	return false
@@ -2690,16 +3233,36 @@ local function hideViews()
 	if searchView then searchView:Hide() end
 end
 
+-- The settings Reset page puts back: every one a control of the page writes,
+-- its row on screen or not. A row a mode hides keeps its setting all the
+-- same (the trail dots while route lines are on; Dungeons in my route while
+-- no guide has a dungeon), and the page is all at its defaults after, as its
+-- dialog says. A reference counts once it has its home; a key with no
+-- default (its module not loaded) holds nothing to put back.
 local function pageKeys(p)
 	local keys = {}
 	for _, t in ipairs(p.tabs) do
 		for _, s in ipairs(t.sections) do
 			for _, c in ipairs(allSettings(s)) do
-				if c.key and available(c) then keys[#keys + 1] = c.key end
+				if c.key and not (rawget(c, "ref") and not homeOf(c)) and ns.GetDefault(c.key) ~= nil then keys[#keys + 1] = c.key end
 			end
 		end
 	end
 	return keys
+end
+
+-- Does the page show a setting now (the footer offers Reset page)? A page
+-- whose rows all wait on something missing (Integrations with none of its
+-- addons installed) has nothing to reset in sight.
+local function pageShowsSetting(p)
+	for _, t in ipairs(p.tabs) do
+		for _, s in ipairs(t.sections) do
+			for _, c in ipairs(allSettings(s)) do
+				if c.key and available(c) then return true end
+			end
+		end
+	end
+	return false
 end
 
 -- The profiles (ns.Profiles, UI/Profiles.lua): their names and the one in use.
@@ -2851,13 +3414,19 @@ function O.Undo()
 	Undo.list = nil
 	Undo.seq = Undo.seq + 1
 	Undo.hide()
+	-- State that is no setting first: a preset's cards write the settings they
+	-- name (none matched: the first preset's), so each setting put back after
+	-- them, as it was stored, has the last word.
 	local function put()
 		for _, u in ipairs(list) do
-			if u.set then u.set(u.value) else ns.Set(u.path, u.value) end
+			if u.set then u.set(u.value) end
+		end
+		for _, u in ipairs(list) do
+			if not u.set then ns.Set(u.path, u.value) end
 		end
 	end
-	local I = ns.ThemeInternal
-	if I and I.batch then I.batch(put) else put() end
+	-- One batch: the look and the window worked out again once (ns.Batch).
+	ns.Batch(put)
 	-- State that is no setting repaints itself.
 	local view = O.view
 	for _, w in pairs(view and view.cache or {}) do
@@ -2869,7 +3438,7 @@ end
 local footerProfile
 local function renderFooter(p)
 	local left = {}
-	if p and #pageKeys(p) > 0 then
+	if p and pageShowsSetting(p) then
 		left[#left + 1] = { label = L["Reset page"], opts = { icon = "reset", ghost = true }, onClick = function()
 			W.Modal({ title = L["Reset this page?"], icon = "reset", danger = true, action = L["Reset page"],
 				text = string.format(L["Every setting on %s goes back to its default."], p.name),
@@ -2897,23 +3466,34 @@ local function renderFooter(p)
 end
 
 function O.ResetPage(p)
-	local held = {}
-	for _, key in ipairs(pageKeys(p)) do
-		local was = ns.GetStored(key)
-		if was ~= nil then held[#held + 1] = { path = key, value = was } end
-		ns.Set(key, nil)
-	end
-	-- Toggles, sliders, dropdowns and cards of state that is no setting go back to their default too.
+	-- What the page holds, for Undo, before anything changes: a setting's reset
+	-- can move state that is no setting (the guide window shown again resumes
+	-- a pause).
+	local held, state = {}, {}
 	for _, t in ipairs(p.tabs) do
 		for _, s in ipairs(t.sections) do
 			for _, c in ipairs(allSettings(s)) do
 				if (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown" or c.kind == "cards") and not c.key and c.set and available(c) then
+					state[#state + 1] = c
 					if c.get then held[#held + 1] = { get = c.get, set = c.set, value = c.get() } end
-					c.set(nil)
 				end
 			end
 		end
 	end
+	-- One batch: the look, the rows and the preview worked out again once at
+	-- its end (ns.Batch), not once per setting; a setting at its default
+	-- already is left alone.
+	ns.Batch(function()
+		for _, key in ipairs(pageKeys(p)) do
+			local was = ns.GetStored(key)
+			if was ~= nil then
+				held[#held + 1] = { path = key, value = was }
+				ns.Set(key, nil)
+			end
+		end
+		-- Toggles, sliders, dropdowns and cards of state that is no setting go back to their default too.
+		for _, c in ipairs(state) do c.set(nil) end
+	end)
 	for _, v in pairs(p.views or {}) do
 		for _, w in pairs(v.cache or {}) do
 			if w.psControl and not w.psControl.key and w.Refresh then w:Refresh() end
@@ -2934,52 +3514,55 @@ end
 -- short upright hairline after it, the other tabs moved along to make room.
 -- Run after every W.ShellTabs, which lays the row out afresh (the game's
 -- tab looks keep their label's anchor: the shift made here comes off first).
-local LEAD = { STAR = 11, GAP = 4, RULE = 17 }
-local function markLead(list, active)
-	local first = win.tabButtons and win.tabButtons[1]
-	if not first then return end
-	local grow = LEAD.STAR + LEAD.GAP
-	local lp, lrel, lrp, lx, ly = first.Label:GetPoint(1)
-	lx = lx or 0
-	if first.psLeadX and math.abs(lx - first.psLeadX) < 0.01 then lx = lx - grow / 2 end
-	first.psLeadX = nil
-	local lead = first:IsShown() and list[1] and list[1].lead and #list > 1 and true or false
-	local star, rule = rawget(first, "psStar"), rawget(win, "psLeadRule")
-	if star then star:SetShown(lead) end
-	if rule then rule:SetShown(lead) end
-	if lp then
-		first.Label:ClearAllPoints()
-		first.Label:SetPoint(lp, lrel or first, lrp or lp, lead and lx + grow / 2 or lx, ly or 0)
-	end
-	if not lead then return end
-	first.psLeadX = lx + grow / 2
-	if not star then
-		star = W.Tex(first, "ARTWORK", "star", "textMuted")
-		star:SetSize(LEAD.STAR, LEAD.STAR)
-		first.psStar = star
-	end
-	W.Color(star, list[1] == active and "accent" or "textMuted")
-	star:ClearAllPoints()
-	star:SetPoint("RIGHT", first.Label, "LEFT", -LEAD.GAP, 0)
-	star:Show()
-	first:SetWidth(first:GetWidth() + grow)
-	if not rule then
-		rule = W.Divider(win.TabRow, true)
-		win.psLeadRule = rule
-	end
-	-- 8 either side of the hairline.
-	local _, _, _, fx = first:GetPoint(1)
-	rule:ClearAllPoints()
-	rule:SetSize(1, 16)
-	rule:SetPoint("LEFT", win.TabRow, "BOTTOMLEFT", (fx or 0) + first:GetWidth() + 8, SH.tabs / 2)
-	rule:Show()
-	local shift = grow + LEAD.RULE
-	for i = 2, #win.tabButtons do
-		local t = win.tabButtons[i]
-		if t:IsShown() then
-			local p, rel, rp, x, y = t:GetPoint(1)
-			t:ClearAllPoints()
-			t:SetPoint(p, rel, rp, (x or 0) + shift, y or 0)
+local markLead
+do
+	local LEAD = { STAR = 11, GAP = 4, RULE = 17 }
+	function markLead(list, active)
+		local first = win.tabButtons and win.tabButtons[1]
+		if not first then return end
+		local grow = LEAD.STAR + LEAD.GAP
+		local lp, lrel, lrp, lx, ly = first.Label:GetPoint(1)
+		lx = lx or 0
+		if first.psLeadX and math.abs(lx - first.psLeadX) < 0.01 then lx = lx - grow / 2 end
+		first.psLeadX = nil
+		local lead = first:IsShown() and list[1] and list[1].lead and #list > 1 and true or false
+		local star, rule = rawget(first, "psStar"), rawget(win, "psLeadRule")
+		if star then star:SetShown(lead) end
+		if rule then rule:SetShown(lead) end
+		if lp then
+			first.Label:ClearAllPoints()
+			first.Label:SetPoint(lp, lrel or first, lrp or lp, lead and lx + grow / 2 or lx, ly or 0)
+		end
+		if not lead then return end
+		first.psLeadX = lx + grow / 2
+		if not star then
+			star = W.Tex(first, "ARTWORK", "star", "textMuted")
+			star:SetSize(LEAD.STAR, LEAD.STAR)
+			first.psStar = star
+		end
+		W.Color(star, list[1] == active and "accent" or "textMuted")
+		star:ClearAllPoints()
+		star:SetPoint("RIGHT", first.Label, "LEFT", -LEAD.GAP, 0)
+		star:Show()
+		first:SetWidth(first:GetWidth() + grow)
+		if not rule then
+			rule = W.Divider(win.TabRow, true)
+			win.psLeadRule = rule
+		end
+		-- 8 either side of the hairline.
+		local _, _, _, fx = first:GetPoint(1)
+		rule:ClearAllPoints()
+		rule:SetSize(1, 16)
+		rule:SetPoint("LEFT", win.TabRow, "BOTTOMLEFT", (fx or 0) + first:GetWidth() + 8, SH.tabs / 2)
+		rule:Show()
+		local shift = grow + LEAD.RULE
+		for i = 2, #win.tabButtons do
+			local t = win.tabButtons[i]
+			if t:IsShown() then
+				local p, rel, rp, x, y = t:GetPoint(1)
+				t:ClearAllPoints()
+				t:SetPoint(p, rel, rp, (x or 0) + shift, y or 0)
+			end
 		end
 	end
 end
@@ -3418,16 +4001,25 @@ function O.Matches(q, n)
 	end
 	table.sort(flat, function(a, b)
 		local x, y = a.c, b.c
+		if x.psCore ~= y.psCore then return x.psCore > y.psCore end
 		if x.psScore ~= y.psScore then return x.psScore > y.psScore end
 		if x.psStopped ~= y.psStopped then return not x.psStopped end
 		if a.g ~= b.g then return a.g < b.g end
 		return a.i < b.i
 	end)
-	for i = 1, min(#flat, n - #out.places) do
-		local c = flat[i].c
-		local where = c.page and c.page.name or ""
-		if c.tab and c.tab ~= "" then where = where .. "  \194\183  " .. c.tab end
-		out.settings[i] = { control = c, text = labelOf(c) or "", where = where }
+	-- Each the setting that matched (an extra or a cog's on its row, when it
+	-- matched better: "the arrow's colour" is Arrow colour, on the Size row),
+	-- once.
+	local listed = {}
+	for _, f in ipairs(flat) do
+		if #out.settings >= n - #out.places then break end
+		local c = f.c.psVia or f.c
+		if not (c.key and listed[c.key]) then
+			if c.key then listed[c.key] = true end
+			local where = c.page and c.page.name or ""
+			if c.tab and c.tab ~= "" then where = where .. "  \194\183  " .. c.tab end
+			out.settings[#out.settings + 1] = { control = c, text = labelOf(c) or "", where = where }
+		end
 	end
 	return out
 end
@@ -3550,7 +4142,7 @@ local function refreshMarks()
 		W.ShellNav(win, items, query == "" and current and current.key or nil, navSelect)
 	end
 	if query == "" and O.view and O.view:IsShown() and O.view.psTab and O.view.psTab.preview then
-		placePreview(O.view, O.view.psTab)
+		placePreview(O.view, O.view.psTab, true)
 	end
 	local _, active = profileNames()
 	if active ~= footerProfile then renderFooter(query == "" and current or nil) end
@@ -3561,7 +4153,9 @@ end
 -- dragged by its header (or sidebar), kept on the screen.
 local function build()
 	win = W.Shell("PolestarOptions", {
-		title = GUIDE, tagline = L["Settings"], scalePath = "ui.menuScale", searchPlaceholder = L["Search settings"],
+		-- The box takes a question as well as a word: the longest wording that fits shows.
+		title = GUIDE, tagline = L["Settings"], scalePath = "ui.menuScale",
+		searchPlaceholder = { L["Ask or search: how do I hide the arrow?"], L["Ask or search settings"], L["Search settings"] },
 		headerSearch = true,
 		-- Typing opens the dropdown under the box; the page stays until a row
 		-- is picked, or Enter or See all opens the results page. An emptied
@@ -3676,6 +4270,9 @@ local function build()
 	end)
 	-- After the shell's own scale handler: the size follows the scale's room.
 	ns.On("SETTING_CHANGED", function(path)
+		-- A live change (a slider dragged) settles with a plain one: the marks, the
+		-- sections' shown() and the window's size wait for it.
+		if ns.SettingLive() then return end
 		if path == "ui.optionsSize" or path == "ui.menuScale" or path == "" or path == "ui" then
 			if applySize() then relayout() end
 		end
@@ -3720,12 +4317,25 @@ local function build()
 	end
 end
 
--- Open the settings window (the hub, open or not, stays where it is).
-function UI.ShowOptions(section)
+-- Open the settings window (the hub, open or not, stays where it is), with
+-- a question asked (`ask`, /polestar ask) in its search box.
+function UI.ShowOptions(section, ask)
 	if not win then build() end
 	applySize()
 	win:Show()
 	O.Select(section or (current and current.key) or pageList[1].key)
+	if ask then O.Ask(ask) end
+end
+
+-- A question asked from chat: its words in the header's box, which takes
+-- the keyboard, and the dropdown open on what they find, as if typed (no
+-- words: the box ready to type in).
+function O.Ask(q)
+	if not win then return end
+	q = tostring(q or ""):match("^%s*(.-)%s*$")
+	setBoxText(q)
+	win.Search:SetFocus()
+	if q ~= "" then O.Dropdown.Show(q) end
 end
 
 -- A new font measures every label, value and description anew: the

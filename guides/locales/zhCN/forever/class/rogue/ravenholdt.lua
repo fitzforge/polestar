@@ -36,8 +36,8 @@ return {
 	["{npc:6766}: one emblem each time, 100 reputation"] = "{npc:6766}：每次一枚徽记，100点声望",
 
 	-- Step 5: What's the Big Idea?
-	-- {npc:13085} Myrokos Silentform · {area:280} Strahnbrad · {zone:1416} Alterac Mountains · {spell:921} Pick Pocket
-	["In your mid 30s {npc:13085} has two more jobs; take both. Barton leads a Syndicate scouting party at {area:280}, in the east of the {zone:1416}, inside one of the houses with stealthed Syndicate around him. Pick his pocket for the report and do not kill him: he does not drop it. If you are lower than him he sees through stealth; Master of Deception helps, or Distract him, Vanish and come in from behind. {spell:921} can miss several times in a row."] = "35级左右时，{npc:13085} 还有两项任务，都接下。巴顿 带领一支辛迪加侦察队，位于 {zone:1416} 东部的 {area:280}，在其中一栋房屋内，周围有潜行的辛迪加成员。对他使用偷窃取得报告，不要杀他：他不会掉落报告。如果你等级比他低，他能识破潜行；欺诈高手天赋有帮助，也可以先扰乱他，再消失并绕到背后接近。{spell:921} 可能连续几次未命中。",
+	-- {npc:13085} Myrokos Silentform · {npc:266357} Barton · {area:280} Strahnbrad · {zone:1416} Alterac Mountains · {spell:921} Pick Pocket
+	["In your mid 30s {npc:13085} has two more jobs; take both. {npc:266357} leads a Syndicate scouting party at {area:280}, in the east of the {zone:1416}, inside one of the houses with stealthed Syndicate around him. Pick his pocket for the report and do not kill him: he does not drop it. If you are lower than him he sees through stealth; Master of Deception helps, or Distract him, Vanish and come in from behind. {spell:921} can miss several times in a row."] = "35级左右时，{npc:13085} 还有两项任务，都接下。{npc:266357} 带领一支辛迪加侦察队，位于 {zone:1416} 东部的 {area:280}，在其中一栋房屋内，周围有潜行的辛迪加成员。对他使用偷窃取得报告，不要杀他：他不会掉落报告。如果你等级比他低，他能识破潜行；欺诈高手天赋有帮助，也可以先扰乱他，再消失并绕到背后接近。{spell:921} 可能连续几次未命中。",
 	-- {item:275482} Barton's Scouting Report
 	["Pick Pocket Barton for {item:275482}"] = "对巴顿使用搜索，获得{item:275482}",
 

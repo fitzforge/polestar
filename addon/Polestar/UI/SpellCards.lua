@@ -37,16 +37,11 @@ local function CT() return UI.ClassToast end
 local function Q() return ns.QoL end
 
 -- Coins as the game writes them (GetMoneyString: zero units left out), else
--- "64s", "1g 5c".
+-- "64s", "1g 5c" in the client's coin symbols (ns.MoneyText).
 function SC.Money(c)
 	c = math.floor(c or 0)
 	if GetMoneyString then return GetMoneyString(c) end
-	local g, s, k = math.floor(c / 10000), math.floor(c / 100) % 100, c % 100
-	local parts = {}
-	if g > 0 then parts[#parts + 1] = g .. "g" end
-	if s > 0 then parts[#parts + 1] = s .. "s" end
-	if k > 0 or #parts == 0 then parts[#parts + 1] = k .. "c" end
-	return concat(parts, " ")
+	return ns.MoneyText(c)
 end
 local money = SC.Money
 
@@ -70,7 +65,7 @@ function SC.LevelModel(n)
 	local count = #n.spells
 	local m = { kind = "levelUp", class = p.class, quiet = true, hideAfter = SC.HIDE_AFTER, icon = Theme.Media("icon-train") }
 	local class = UI.ClassName and p.class and UI.ClassName(p.class) or ""
-	m.head = format(L["LEVEL %d · %s"], n.level, class:upper())
+	m.head = format(L["LEVEL %d · %s"], n.level, ns.Upper(class))
 	-- The house look's facts line under the title (UI/ClassToast.lua).
 	m.facts = format(L["Level %d · %s"], n.level, class)
 	m.title = count == 1 and L["1 new spell to train"] or format(L["%d new spells to train"], count)

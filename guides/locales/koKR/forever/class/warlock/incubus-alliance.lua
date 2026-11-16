@@ -18,7 +18,7 @@ return {
 
 	-- Step 2: Devourer of Souls
 	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6244} Takar the Seer · {zone:1413} Barrens · {area:150} Menethil Harbor · {zone:1445} Dustwallow Marsh · {area:35} Booty Bay · {area:392} Ratchet
-	["At 20 {npc:6122}, in the cellar of the {object:2164} in the {object:2101}, sends you to {npc:6244} in the {zone:1413}: a long trip for the Alliance. Take the boat from {area:150} to Theramore and head west through {zone:1445}, or the boat from {area:35} to {area:392}."] = "",
+	["At 20 {npc:6122}, in the cellar of the {object:2164} in the {object:2101}, sends you to {npc:6244} in the {zone:1413}: a long trip for the Alliance. Take the boat from {area:150} to Theramore and head west through {zone:1445}, or the boat from {area:35} to {area:392}."] = "20레벨에 {object:2101} {object:2164} 지하실의 {npc:6122}이(가) {zone:1413}의 {npc:6244}에게 보냅니다. 얼라이언스에게는 먼 여정입니다. {area:150}에서 배를 타고 테라모어로 가서 {zone:1445}을(를) 지나 서쪽으로 가거나, {area:35}에서 배를 타고 {area:392}(으)로 가십시오.",
 
 	-- Step 3: Takar the Seer
 	-- {npc:6244} Takar the Seer · {area:378} Camp Taurajo · {npc:6247} Doan Karhan · {item:6898} Orb of Soran'ruk
@@ -58,7 +58,6 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A second seducer demon, the male sayaad, and a soul shard bag to carry your shards."] = "두 번째 유혹 악마인 남성 사야드, 그리고 영혼의 조각을 담을 영혼의 조각 가방.",
-	-- ["At 20 {npc:6122}, in the cellar of the {object:2164} in the {object:2101}, sends you to {npc:6244} in the {zone:1413}."] = "20레벨에 {object:2101} {object:2164} 지하실의 {npc:6122}이(가) {zone:1413}의 {npc:6244}에게 보냅니다.",
 	-- ["Back to {npc:6122} in the {object:2164}. Place the figurine at the summoning circle in the crypt below him and defeat the incubus it calls."] = "{object:2164}의 {npc:6122}에게 돌아가십시오. 그 아래 지하 묘지의 소환진에 조각상을 놓고, 불러낸 인큐버스를 처치하십시오.",
 	-- ["From {area:415} take the road west to {area:413}: the figurine lies in a house among the trees north of the post."] = "{area:415}에서 서쪽 길을 따라 {area:413}(으)로 가십시오: 조각상은 초소 북쪽 나무 사이 집 안에 있습니다.",
 	-- ["Incubus (Alliance)"] = "인큐버스 (얼라이언스)",

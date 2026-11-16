@@ -245,6 +245,59 @@ fn check_chosen_all_optional(g: &V, diag: &mut Diagnostics) {
 	}
 }
 
+/// The lowest level a step applies at by its `when level>=`/`when level>` predicates (a point inside a
+/// level counts: `level>=30.9`), 1 without one.
+pub fn lowest_level(step: &V) -> f64 {
+	let mut lo = 1.0f64;
+	for p in step.get("when").items() {
+		if p.get("k").as_str() != Some("level") {
+			continue;
+		}
+		let (n, frac) = (p.get("n").num(), p.get("frac"));
+		let at = match (p.get("op").as_str(), frac.is_num()) {
+			(Some(">=" | ">"), true) => n + frac.num(),
+			(Some(">="), false) => n,
+			(Some(">"), false) => n + 1.0,
+			_ => continue,
+		};
+		lo = lo.max(at);
+	}
+	lo
+}
+
+/// A dungeon's run (a `when dungeon "<Name>"` step, not negated, with an `enter` goal) that applies under the
+/// dungeon's floor (Fitz, 2026-11-13: never a dungeon too low): its `when level>=` gate, none meaning any
+/// level, is under the floor the Codex gives it (`Data::dungeon_floors`: the client's Group Finder minimum,
+/// its fixed minimum or where players who killed a boss there entered, whichever is highest). Below the gate
+/// the run is passed and the route keeps the solo path, so the gate is what keeps a player too low out. Its
+/// pick-ups and hand-ins aren't checked: a pick-up's gate is the floor less the levels the route plans before
+/// the run. No Codex, no check. A warning for 0.4.0: the leveling route's runs get their gates with the dungeon
+/// layers in 0.4.1, and the check goes back to a house rule (an error in Polestar's own guides) with them.
+fn check_dungeon_floors(g: &V, data: &Data, diag: &mut Diagnostics) {
+	if !data.dungeon_floors.truthy() {
+		return;
+	}
+	for step in g.get("steps").items() {
+		let Some(p) = step.get("when").items().into_iter().find(|p| p.get("k").as_str() == Some("dungeon") && !p.get("neg").truthy()) else { continue };
+		let Some(enter) = step.get("goals").items().into_iter().find(|goal| t_of(goal) == "enter") else { continue };
+		let row = data.dungeon_floors.get(&p.get("map").to_js_string());
+		if p.get("map").is_undef() || !row.get("floor").is_num() {
+			continue;
+		}
+		let (floor, gate) = (row.get("floor").num(), lowest_level(&step));
+		if gate + 1e-9 < floor {
+			let from = if gate > 1.0 { format!("from level {}", crate::js::num_str(gate)) } else { "at any level".to_string() };
+			let msg = format!(
+				"this {} run applies {from}, under the dungeon's floor of {} (the Codex: the Group Finder's minimum or where players who killed a boss there entered): gate it `when level>={}`",
+				ts(&row.get("name")).trim_start_matches("The "),
+				crate::js::num_str(floor),
+				crate::js::num_str(floor)
+			);
+			diag.warn(&ast_file(g), line(&enter), msg, None);
+		}
+	}
+}
+
 /// The quests of g the player takes only by choosing a group quest.
 fn group_quests_of(g: &V) -> FxHashSet<Key> {
 	let mut only: FxHashMap<Key, bool> = FxHashMap::default();
@@ -960,7 +1013,9 @@ impl Ctx<'_> {
 	}
 
 	// Characters for whom every route from the start of guide h turns quest q in (None: every character,
-	// for a loop back into a guide being walked).
+	// for a loop back into a guide being walked). A character's routes go on only through the guides after h it
+	// can follow (a guide for both factions handing each one on to its own next guide); one that can follow none
+	// stops at h's end.
 	fn covered(&self, h: &V, q: &V, visiting: &mut FxHashSet<Key>) -> Option<Rc<CharSet>> {
 		let k = format!("{}|{}", ts(&h.get("id")), ts(q));
 		if let Some(c) = self.covered_memo.borrow().get(&k) {
@@ -972,18 +1027,24 @@ impl Ctx<'_> {
 		}
 		visiting.insert(hid.clone());
 		let next = self.successors(h);
-		let mut after: Option<Rc<CharSet>> = if next.is_empty() { Some(Rc::new(CharSet::default())) } else { None };
+		let mut after: Option<CharSet> = if next.is_empty() { Some(CharSet::default()) } else { None };
+		let mut missed = CharSet::default();
 		for s in &next {
 			if let Some(c) = self.covered(s, q, visiting) {
-				after = Some(match after {
-					Some(a) => Rc::new(a.iter().filter(|k| c.contains(*k)).cloned().collect()),
-					None => c,
-				});
+				let a = after.get_or_insert_with(CharSet::default);
+				for f in self.followers(s).iter() {
+					if c.contains(f) {
+						a.insert(f.clone());
+					} else {
+						missed.insert(f.clone());
+					}
+				}
 			}
 		}
+		let after = after.map(|a| minus(&a, &missed));
 		visiting.remove(&hid);
 		let out = after.map(|after| {
-			let mut out: CharSet = (*after).clone();
+			let mut out: CharSet = after;
 			for t in self.quest_goals(h).iter() {
 				if closes(&t.goal) && t.goal.get("quest").strict_eq(q) {
 					out.extend(t.chars.iter().cloned());
@@ -1174,6 +1235,7 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 		check_bare_completes(g, data, diag);
 		check_bare_uses(g, diag);
 		check_chosen_all_optional(g, diag);
+		check_dungeon_floors(g, data, diag);
 		ctx.mark_carried(g);
 		let mut accepted: FxHashSet<Key> = FxHashSet::default();
 		let mut turned_in: FxHashSet<Key> = FxHashSet::default();
@@ -1447,43 +1509,40 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 			}
 			let name = quest_name(data, &aq, &a.goal.get("title"));
 			let some = |left: usize| if left < a.chars.len() { " for some of the characters it applies to" } else { "" };
+			// Each guide after this one, with the characters still holding the quest who follow it there and miss
+			// its turn-in on every route from it. A character's routes are the guides it can follow (a guide for
+			// both factions hands each to its own next guide): one that can follow none stops here.
 			struct Route {
 				s: V,
 				left: CharSet,
 			}
-			let routes: Vec<Route> = ctx
-				.successors(g)
-				.into_iter()
+			let next = ctx.successors(g);
+			let routes: Vec<Route> = next
+				.iter()
 				.map(|s| {
-					let c = ctx.covered(&s, &aq, &mut FxHashSet::default());
-					let left = match c {
-						Some(c) => minus(&open, &c),
+					let follow = ctx.followers(s);
+					let left = match ctx.covered(s, &aq, &mut FxHashSet::default()) {
+						Some(c) => open.iter().filter(|k| follow.contains(*k) && !c.contains(*k)).cloned().collect(),
 						None => CharSet::default(),
 					};
-					Route { s, left }
+					Route { s: s.clone(), left }
 				})
 				.collect();
-			// A next guide whose race, class or faction leaves out every character still holding the quest.
-			let outside = |r: &Route| !meets(&r.left, &characters(&[guide_layer(&r.s)], &V::Undef));
-			let why = |r: &Route, it: &str| if outside(r) { format!(" ({it} is for {} only, so its turn-ins do not count)", who_label(&r.s)) } else { String::new() };
+			// Characters still holding the quest whom no next guide takes (its race, class or faction).
+			let stranded: CharSet = if next.is_empty() { CharSet::default() } else { open.iter().filter(|k| !next.iter().any(|s| ctx.followers(s).contains(*k))).cloned().collect() };
 			let hint = |excluded: bool| {
 				format!(
 					"turn it in later in this guide{}, or make the accept `optional` when the player may leave it",
 					if excluded { ", or pick a `next` guide these characters can follow" } else { " or in a guide after it" }
 				)
 			};
-			let failing: Vec<&Route> = routes.iter().filter(|r| !r.left.is_empty()).collect();
-			if routes.is_empty() || failing.len() == routes.len() {
-				let left: CharSet = if !routes.is_empty() { failing.iter().flat_map(|r| r.left.iter().cloned()).collect() } else { open.clone() };
-				let reasons: Vec<String> = failing
-					.iter()
-					.filter(|r| outside(r))
-					.map(|r| {
-						let w = why(r, &format!("\"{}\"", ts(&r.s.get("id"))));
-						w[2..w.len() - 1].to_string()
-					})
-					.collect();
-				let because = if reasons.is_empty() { String::new() } else { format!(" ({})", reasons.join("; ")) };
+			// Every next guide leaves the stranded characters out: each says for whom it is.
+			let reasons: Vec<String> = next.iter().filter(|_| !stranded.is_empty()).map(|s| format!("\"{}\" is for {} only, so its turn-ins do not count", ts(&s.get("id")), who_label(s))).collect();
+			let because = if reasons.is_empty() { String::new() } else { format!(" ({})", reasons.join("; ")) };
+			let taken: Vec<&Route> = routes.iter().filter(|r| meets(&open, &ctx.followers(&r.s))).collect();
+			let failing: Vec<&Route> = taken.iter().copied().filter(|r| !r.left.is_empty()).collect();
+			if next.is_empty() || failing.len() == taken.len() {
+				let left: CharSet = if next.is_empty() { open.clone() } else { failing.iter().flat_map(|r| r.left.iter().cloned()).chain(stranded.iter().cloned()).collect() };
 				diag.warn(
 					&file,
 					line(&a.goal),
@@ -1493,12 +1552,10 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 				continue;
 			}
 			for r in failing {
-				diag.warn(
-					&file,
-					line(&a.goal),
-					format!("quest {name} is accepted but never turned in on the route through \"{}\"{}{}", ts(&r.s.get("id")), some(r.left.len()), why(r, "it")),
-					Some(hint(outside(r))),
-				);
+				diag.warn(&file, line(&a.goal), format!("quest {name} is accepted but never turned in on the route through \"{}\"{}", ts(&r.s.get("id")), some(r.left.len())), Some(hint(false)));
+			}
+			if !stranded.is_empty() {
+				diag.warn(&file, line(&a.goal), format!("quest {name} is accepted but never turned in later in this guide or a guide after it{}{because}", some(stranded.len())), Some(hint(true)));
 			}
 		}
 

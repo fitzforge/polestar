@@ -6,8 +6,13 @@
 // at 18 on the shipped Barrens guide, Wailing Caverns ahead. The game's UI scale is UIParent's: everything under
 // it is drawn at that scale, as in the client.
 //
+// Dungeons in the route are held back while ns.dungeonRoute (Core/Init.lua) is false: these surfaces turn it on
+// first (ON). The held shots leave it off with the same engine answers and saved choices, so they show what a
+// player of the held-back build sees: no banner, no row.
+//
 // Shots: <skin>-<scale>-<surface> (studio dungeon-route/polestar-064-ask ...), scale 064, 100 or 150; surface
-// ask, soon, nogroup, kept, automation, discovery. The skins and their loading are the skins scenario's.
+// ask, soon, nogroup, kept, automation, discovery, and held-guide, held-automation, held-discovery (switch off). The
+// skins and their loading are the skins scenario's.
 
 const skins = require('./skins');
 
@@ -45,6 +50,14 @@ E.DungeonRun = function() return { map = 43, name = "Wailing Caverns" } end`,
 	kept: `Polestar.UI.GuideFrame.notices.dungeonKept = { map = 43, titles = { "Deviate Hides", "Smart Drinks", "Serpentbloom" } }`,
 };
 
+// Dungeons in the route turned on (Core/Init.lua's switch), before the settings' addon loads and lists its rows.
+const ON = 'Polestar.dungeonRoute = true';
+
+// Every banner's engine answer at once and a saved Run them: with the switch off, the window shows none of them.
+const HELD = `${Object.values(BANNER).join('\n')}
+Polestar.Set("behavior.dungeons", "run")
+Polestar.UI.GuideFrame.Layout()`;
+
 // The settings window alone, on a page and tab; a few dungeons answered one by one.
 const SETTINGS = (page, tab) => `if PolestarNavArrow then PolestarNavArrow:Hide() end
 if PolestarGuideFrame then PolestarGuideFrame:Hide() end
@@ -58,12 +71,15 @@ ${tab ? `Polestar.UI.Options.Select(${luaStr(page)}, ${luaStr(tab)})` : ''}
 stub.advance(1)`;
 
 const SURFACES = {
-	ask: { capture: ['PolestarGuideFrame'], lua: `${BANNER.ask}\nPolestar.UI.GuideFrame.Layout()` },
-	soon: { capture: ['PolestarGuideFrame'], lua: `${BANNER.soon}\nPolestar.UI.GuideFrame.Layout()` },
-	nogroup: { capture: ['PolestarGuideFrame'], lua: `${BANNER.nogroup}\nPolestar.UI.GuideFrame.Layout()` },
-	kept: { capture: ['PolestarGuideFrame'], lua: `${BANNER.kept}\nPolestar.UI.GuideFrame.Layout()` },
-	automation: { capture: ['PolestarOptions'], lua: SETTINGS('guide', 'Automation') },
-	discovery: { capture: ['PolestarOptions'], lua: SETTINGS('dungeons') },
+	ask: { capture: ['PolestarGuideFrame'], lua: `${ON}\n${BANNER.ask}\nPolestar.UI.GuideFrame.Layout()` },
+	soon: { capture: ['PolestarGuideFrame'], lua: `${ON}\n${BANNER.soon}\nPolestar.UI.GuideFrame.Layout()` },
+	nogroup: { capture: ['PolestarGuideFrame'], lua: `${ON}\n${BANNER.nogroup}\nPolestar.UI.GuideFrame.Layout()` },
+	kept: { capture: ['PolestarGuideFrame'], lua: `${ON}\n${BANNER.kept}\nPolestar.UI.GuideFrame.Layout()` },
+	automation: { capture: ['PolestarOptions'], lua: `${ON}\n${SETTINGS('guide', 'Automation')}` },
+	discovery: { capture: ['PolestarOptions'], lua: `${ON}\n${SETTINGS('dungeons')}` },
+	'held-guide': { capture: ['PolestarGuideFrame'], lua: HELD },
+	'held-automation': { capture: ['PolestarOptions'], lua: SETTINGS('guide', 'Automation') },
+	'held-discovery': { capture: ['PolestarOptions'], lua: SETTINGS('dungeons') },
 };
 
 const shots = {};

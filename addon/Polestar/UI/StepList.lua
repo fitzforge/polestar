@@ -148,7 +148,7 @@ local function row(i)
 	r.Tab:SetWordWrap(false)
 	r.Tab:SetMaxLines(1)
 	r.Live = T(r, "caption", "accent")
-	r.Live:SetText(string.upper(L["Live"]))
+	r.Live:SetText(ns.Upper(L["Live"]))
 	r.Live:Hide()
 	r.G = {} -- the goal lines, made as a step needs them
 	-- A skill range's heading, over the card (outside it).

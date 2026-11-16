@@ -35,9 +35,8 @@ return {
 	-- {item:13322} Unpainted Mechanostrider
 	["{item:13322}, 20g"] = "{item:13322}, 20골드",
 	-- {spell:10907} Mechanostrider Piloting
-	["In Classic only Dwarves and Gnomes could ride mechanostriders; in Forever every Alliance race can learn {spell:10907}."] = "",
+	["In Classic only Dwarves and Gnomes could ride mechanostriders; in Forever every Alliance race can learn {spell:10907}."] = "클래식에서는 드워프와 노움만 기계타조를 탈 수 있었지만, Forever에서는 모든 얼라이언스 종족이 {spell:10907}을(를) 배울 수 있습니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Era let only Dwarves and Gnomes ride mechanostriders; the Forever client allows every Alliance race."] = "클래식 시절에는 드워프와 노움만 기계타조를 탈 수 있었지만, Forever 클라이언트에서는 모든 얼라이언스 종족이 탈 수 있습니다.",
 	-- ["{area:189} is just east of {area:131}; {npc:7954} stands beside {npc:7955}'s mechanostriders. At 40 {npc:7954} teaches {skill:762} (100g per Blizzard's designers), and learning it gives you a mount. The Forever client lets every Alliance race ride these."] = "{area:189}은(는) {area:131} 바로 동쪽에 있습니다. {npc:7954}은(는) {npc:7955}의 기계타조 옆에 서 있습니다. 40레벨에 {npc:7954}이(가) {skill:762}을(를) 가르쳐 주며(블리자드 개발진에 따르면 100골드), 배우면 탈것을 하나 받습니다. Forever 클라이언트에서는 모든 얼라이언스 종족이 이 탈것을 탈 수 있습니다.",
 }

@@ -58,6 +58,7 @@ step Jennea Cannon
 
 step The Blue Recluse
   tip The Blue Recluse is the tavern in the Mage Quarter. Read the Cantation of Manifestation inside to make the invisible Rift Spawns (level 16-17) show: in the basement it brings out one, on the balcony or in the kitchen two, in the main room or by the door three, so read it downstairs. They hit hard and break out of Frost Nova fast. Beat one down: it does not die but sits stunned with a spiral over its head; use the Chest of Containment Coffers on it while it is stunned, then click the Filled Containment Coffer it leaves on the floor (clicking before it appears wastes a charge). You need three, and the cantation works only once every 5 minutes (logging out does not reset it), so plan on three rounds.
+  level 16
   use 7308 optional @51.3,93.3 live           -- Cantation of Manifestation
   kill 6492 optional                          -- Rift Spawn, down to the stun
   use 7247 optional @51.3,93.3 live           -- Chest of Containment Coffers, on the stunned Rift Spawn
@@ -69,7 +70,7 @@ step Back to Jennea Cannon
 
 step Linen Cloth
   tip Any humanoid drops Linen Cloth, and the Tunnel Rats in the Silver Stream Mine drop it while you gather the gems; the Auction House in the Trade District sells it. You hand in ten.
-  collect 2589 x10 quest 1921.1               -- Linen Cloth
+  collect 2589 x10 quest 1921.1 @61.2,71.3 map 1453 live -- Linen Cloth: humanoids, or the Auction House
 
 step The Silver Stream Mine
   zone Loch Modan

@@ -12,6 +12,15 @@ ns.UI.GuideFrame.Part(function(GF)
 		F, strip = p.F, p.strip
 		TAB_H, TAB_MAX_W = m.TAB_H, m.TAB_MAX_W
 	end)
+	local compact = GF.Compact
+
+	-- Compact mode keeps the strip, slim, while two guides or more are open
+	-- (GF.StripShown): each tab its glyph, its title and its close, New tab at
+	-- the strip's right; one guide open, the navigator names it and no strip
+	-- shows.
+	local SLIM_H = 18
+	local slim = compact
+	function GF.StripH() return slim() and min(SLIM_H, TAB_H) or TAB_H end
 
 	---------------------------------------------------------------------------
 	-- Tab strip
@@ -54,9 +63,13 @@ ns.UI.GuideFrame.Part(function(GF)
 	local TAB_RANGE_GAP = 4
 	local TAB_CLOSE_PAD = 20
 	-- The close button at rest: faint, so players find it; in full under the
-	-- pointer (a skin's guideTabCloseRest).
-	local TAB_CLOSE_REST = 0.35
-	local function closeRest() return Theme.Metric("guideTabCloseRest", TAB_CLOSE_REST) end
+	-- pointer (a skin's guideTabCloseRest). The slim strip's smaller glyph
+	-- rests stronger, so it still reads as a close.
+	local TAB_CLOSE_REST, SLIM_CLOSE_REST = 0.35, 0.55
+	local function closeRest()
+		local rest = Theme.Metric("guideTabCloseRest", TAB_CLOSE_REST)
+		return slim() and max(SLIM_CLOSE_REST, rest) or rest
+	end
 	GF.TabCloseRest = closeRest
 	local function layoutTab(b)
 		-- A skin whose tab outline stands in from the tab's sides (WoW Forever's,
@@ -127,6 +140,8 @@ ns.UI.GuideFrame.Part(function(GF)
 			self.Close:SetAlpha(1)
 			local lines = {}
 			if self.psMeta and self.psMeta ~= "" then lines[#lines + 1] = self.psMeta end
+			-- One of Polestar's experimental guides: in the chip's purple.
+			if self.psExperimental then lines[#lines + 1] = { L["Experimental"], Theme.Color("experimental") } end
 			local t = (tabsOf(Engine(), true) or {})[self.psIndex]
 			local total = t and (t.total or t.stepCount)
 			if t and t.done and total and total > 0 then lines[#lines + 1] = string.format(L["%d of %d steps done"], t.done, total) end
@@ -153,7 +168,12 @@ ns.UI.GuideFrame.Part(function(GF)
 		local tabs, active = tabsOf(Engine())
 		local n = tabs and #tabs or 0
 		strip.psCount = n
-		local avail = F:GetWidth() - 2 - 30
+		-- The room left of New tab (strip.Add): after the last tab, or the
+		-- slim strip's right end.
+		local thin = slim()
+		local tabH = GF.StripH()
+		local addW = thin and tabH or 24
+		local avail = F:GetWidth() - 2 - addW - (thin and 4 or 6)
 		-- The active tab gets the room to read its title; the rest share the remainder.
 		local share = n > 0 and floor(avail / n) or 0
 		local activeW, otherW = share, share
@@ -174,11 +194,13 @@ ns.UI.GuideFrame.Part(function(GF)
 			-- (a copy's sample tab, which no registry holds).
 			local guide = G and G.Get and G.Get(t.guideId) or (t.minLevel and t) or nil
 			b.psMeta = guide and UI.GuideMeta(guide) or nil
+			b.psExperimental = G and G.IsExperimental and G.IsExperimental(guide) or nil
 			b.Label:SetText(b.psTitle)
 			b.Label:SetWidth(0) -- unbound, to measure the whole title
 			b.psTitleW = floor(b.Label:GetStringWidth() + 1)
-			local lv = guide and UI.LevelRange(guide.minLevel, guide.maxLevel)
-			b.psRange = lv and ("(" .. lv .. ")") or nil
+			local lv = guide and UI.GuideLevels(guide)
+			b.psRange = (lv and not thin) and ("(" .. lv .. ")") or nil
+			b:SetHeight(tabH)
 			b.Range:SetText(b.psRange or "")
 			b.Icon:SetTexture(Theme.Media(CATEGORY_ICON[t.category] or "icon-level"))
 			W.Color(b.Label, b.psActive and "text" or "textMuted")
@@ -188,11 +210,11 @@ ns.UI.GuideFrame.Part(function(GF)
 			b.Bar:SetShown(b.psActive)
 			GF.PaintTab(b)
 			local w = b.psActive and activeW or otherW
-			-- A lone tab in the house look takes the room its title and range need,
-			-- up to the strip (Theme.House "loneTab"), never "The Barre…" beside an
-			-- empty strip.
-			if n == 1 and Theme.House("loneTab") then
-				local need = TAB_TEXT_X + b.psTitleW + (b.psRange and floor(b.Range:GetStringWidth() + 1) + TAB_RANGE_GAP or 0) + TAB_CLOSE_PAD
+			-- A lone tab takes the room its title and range need, up to the strip,
+			-- in every look: never "The Barre…" beside an empty strip.
+			if n == 1 then
+				local need = TAB_TEXT_X + b.psTitleW + (b.psRange and floor(b.Range:GetStringWidth() + 1) + TAB_RANGE_GAP or 0)
+					+ Theme.Metric("guideTabClosePad", TAB_CLOSE_PAD) + Theme.Metric("guideTabInset", 0)
 				w = min(avail, max(w, need))
 			end
 			b:SetWidth(w)
@@ -204,10 +226,37 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 		for i = n + 1, #tabButtons do tabButtons[i]:Hide() end
 		strip.Add:ClearAllPoints()
-		strip.Add:SetPoint("LEFT", strip, "BOTTOMLEFT", x + 2, TAB_H / 2)
+		strip.Add:SetSize(addW, addW)
+		if thin then
+			strip.Add:SetPoint("RIGHT", strip, "BOTTOMRIGHT", -3, tabH / 2)
+		else
+			strip.Add:SetPoint("LEFT", strip, "BOTTOMLEFT", x + 2, tabH / 2)
+		end
 		local full = n >= 6
 		W.SetIconState(strip.Add, false, not full)
 		strip.Add.psTip = full and L["Six tabs is the limit"] or L["Open a guide in a new tab"]
+	end
+
+	-- The open tabs as menu entries: each guide with its levels, the one in
+	-- view checked; a click switches to it. Then New tab and Reopen closed tab.
+	function GF.TabListItems()
+		local E = Engine()
+		local tabs, active = tabsOf(E)
+		local items, G = {}, ns.Guides
+		for i, t in ipairs(tabs or {}) do
+			local guide = G and G.Get and G.Get(t.guideId) or (t.minLevel and t) or nil
+			local lv = guide and UI.GuideLevels(guide)
+			local text = (t.title or t.guideId) .. (lv and ("  |c" .. Theme.Hex("textMuted") .. "(" .. lv .. ")|r") or "")
+			items[#items + 1] = { text = text, icon = CATEGORY_ICON[t.category] or "icon-level", checked = i == active,
+				onClick = function() if E.SelectTab and i ~= active then E.SelectTab(i) end end }
+		end
+		items[#items + 1] = { separator = true }
+		local n = tabs and #tabs or 0
+		items[#items + 1] = { text = L["Open in new tab"], icon = "plus", disabled = not (E and E.OpenTab) or n >= (E.MAX_TABS or 6),
+			onClick = function() UI.ShowPicker({ newTab = true }) end }
+		local reopen = GF.ReopenItem and GF.ReopenItem()
+		if reopen then items[#items + 1] = reopen end
+		return items
 	end
 
 	function GF.TabsOf(E) return tabsOf(E) end

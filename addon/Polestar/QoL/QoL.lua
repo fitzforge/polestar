@@ -42,6 +42,8 @@ local defaults = {
 	targetButton = true,     -- target macro button
 	targetPlate = true,      -- ... its icon shows the action, its name in the target's colour, the next names as small icons
 	targetAnnounce = false,  -- ... a chat line when its names change
+	targetRows = 5,          -- how many names the target list shows (1-8)
+	targetSimple = false,    -- the target button alone, cycling, without its list of names
 	guideNameTarget = false, -- opt in: extend navigation clicks to targeting, with shared marking settings
 	rareButton = true,       -- target button for a rare the addon spotted
 	hearthButton = true,     -- Hearthstone button while a hearth goal is active
@@ -232,17 +234,25 @@ function QoL.Open(goalView)
 	return s == "active" or s == "pending"
 end
 
--- Recompute fn once on the next frame after any number of calls.
+-- Recompute fn once on the next frame after any number of calls. The
+-- refresh runs from a timer of its own, with its errors caught and noted as
+-- ns.Safe does, but in the moment it finds (ns.Moment): the refreshes of one
+-- frame then share the step view the first of them builds (QoL.CurrentStep,
+-- Engine.GetStepView shared). Anything between them that changes what the
+-- view shows (a game event, a message, an Engine request, another timer of
+-- Polestar's) starts a new moment, and the next refresh builds a fresh one.
+-- A kill's burst asked for two views, one per refresh (#2555).
 function QoL.Coalesce(fn)
 	local scheduled = false
 	local function run()
 		scheduled = false
 		fn()
 	end
+	local function due() ns.SafeCall(run) end
 	return function()
 		if scheduled then return end
 		scheduled = true
-		if C_Timer and C_Timer.After then ns.After(0, run) else run() end
+		if C_Timer and C_Timer.After then C_Timer.After(0, due) else run() end
 	end
 end
 
@@ -475,13 +485,15 @@ function Client.Money()
 	return GetMoney and GetMoney() or 0
 end
 
--- "1g 23s 45c", zero parts left out.
+-- "1g 23s 45c", "5s 0c", "25c": from the largest coin on, in the coins'
+-- symbols (ns.CoinSymbols), the gold in thousands.
 function QoL.Money(copper)
 	copper = floor(copper or 0)
 	local g, s, c = floor(copper / 10000), floor(copper / 100) % 100, copper % 100
-	if g > 0 then return format("%dg %ds %dc", g, s, c) end
-	if s > 0 then return format("%ds %dc", s, c) end
-	return format("%dc", c)
+	local G, S, C = ns.CoinSymbols()
+	if g > 0 then return format("%s%s %d%s %d%s", ns.Thousands(g), G, s, S, c, C) end
+	if s > 0 then return format("%d%s %d%s", s, S, c, C) end
+	return format("%d%s", c, C)
 end
 
 -- "1h 05m", "12m", "40s"

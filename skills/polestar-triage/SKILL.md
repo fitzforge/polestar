@@ -138,6 +138,23 @@ Suggest the labels with the draft; a maintainer sets them:
 
 ## 6. Only then, fix
 
+**Claim it first.** The moment you decide to fix a confirmed bug, before
+writing any code, open a draft pull request into `next` that says
+`Fixes #N`. An empty commit is enough:
+
+```sh
+git switch -c fix-<N> origin/next
+git commit --allow-empty -s -m "Claim: <the issue's title> (#N)"
+git push -u origin fix-<N>
+gh pr create --draft --base next --title "<the fix, in plain words> (#N)" --body "Fixes #N
+
+<one line: the fix you plan>"
+```
+
+The issue then shows that someone is on it (label `has-pr`), so nobody else
+starts the same fix. A verdict written down but not claimed looks free to
+everyone else. If you stop, close the draft so the issue is free again.
+
 A confirmed bug in a guide goes on to the polestar-guide-fix skill
 (`skills/polestar-guide-fix/SKILL.md`). With a confirmed verdict, name where
 the fix belongs, so it is made once and every build keeps it: a quest fact,

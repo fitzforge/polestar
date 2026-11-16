@@ -18,5 +18,6 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["The Forever client lists it at 200g and level 60, and asks for no riding rank."] = "Der Forever-Client listet ihn für 200g ab Stufe 60 und verlangt keinen Reitrang.",
+	-- ["Winterspring Frostsaber"] = "Winterquell-Frostsäbler",
 	-- ["{npc:10618} at {area:2241} in northern {zone:1452} offers the repeatable Frostsaber Provisions, Winterfall Intrusion and Rampaging Giants (level 58); they are the whole road to Exalted, so expect weeks of turn-ins."] = "{npc:10618} am {area:2241} im Norden von {zone:1452} bietet die wiederholbaren Quests Frostsäblerverpflegung, Eindringlinge der Winterfelle und Tobende Riesen (Stufe 58) an; sie sind der ganze Weg zu Ehrfürchtig, also rechne mit Wochen an Abgaben.",
 }

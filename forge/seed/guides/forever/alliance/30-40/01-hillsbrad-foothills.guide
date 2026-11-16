@@ -16,10 +16,11 @@ next forever/alliance/30-40/03-ashenvale
 # Dragonmaw (98291) and Stopping the Cycle (98297), which the route does not take.
 # Spark of Freedom (87491) is a group quest (#1313): its escort starts at the far west of Dun Modr's elite Dark Iron ruins.
 # MacKreel's Moonshine (647) is taken in 05-arathi-highlands: its 15-minute limit does not last the walk to Menethil and the boat (#1319).
-
-step To Deepwater Tavern
-  zone Wetlands
-  goto 10.7,61.0 "Deepwater Tavern"
+# Level tidy (0.4.0): Lifting the Curse (290), The Eye of Paleth (292) and Cleansing the Eye (293) are taken on the
+# Menethil stop at about 31 (Captain Halyndor is 30) instead of at 28 in 06-wetlands; 293 goes to Archbishop Benedictus on
+# this guide's Stormwind stop. The Syndicate camp (Syndicate Assassins 505, 510, 511) is worked in 05-arathi-highlands at
+# about 37: its Thieves are 33-34 and its Wizards 34-35, two and three levels over players here. Magistrate Maleb's quest is
+# taken on this Southshore stop, where the route already passes him, and carried to that trip.
 
 step Angerfang Encampment
   when onquest 465,474
@@ -154,15 +155,31 @@ step Howin Kindfeather
   tip Back east along the road to the Green Belt: Howin Kindfeather camps among the Fenrunners, just west of Rethiel. Then west again to Menethil for the boat.
   turnin 98230                        -- Howin Kindfeather
 
+step Menethil Harbor
+  zone Wetlands
+  tip James Halloran stands by the docks; First Mate Fitzsimmons sits in the Deepwater Tavern, south of the keep.
+  turnin 98072                        -- James Halloran
+  accept 290                          -- First Mate Fitzsimmons
+
+step Captain Halyndor
+  zone Wetlands
+  tip North along the coast from Menethil to the wreck of the Intrepid: Captain Halyndor (30) is aboard, and the locked strongbox sits in the wreck. Careful: Nightveiled Rotheap, a level 31-32 elite, roams the Wetlands: give it a wide berth.
+  collect 2629 quest 290 @15.4,23.6   -- Intrepid Strongbox Key, from Captain Halyndor
+  turnin 290                          -- Intrepid's Locked Strongbox
+  accept 292
+
+step Glorin Steelbrow
+  zone Wetlands
+  tip Back south to Menethil: Glorin Steelbrow stands in the Deepwater Tavern.
+  turnin 292
+  accept 293                          -- For Archbishop Benedictus in Stormwind, at the end of this guide
+
 step Level 30.8
   when !group 474
   when level<30.8
   tip Skipped Defeat Nek'rosh and short of 30.8? Kill the Bluegill murlocs on the coast south of Menethil until level 30.8. Or, with a group, run the Gnomeregan dungeon or the Scarlet Monastery dungeon (Graveyard) instead.
   goto 12.3,64.9 map 1437 "Bluegill Raider"
   level 30.8 grind 1418                -- grind on Bluegill Raider
-
-step Menethil Harbor
-  turnin 98072                        -- James Halloran
 
 step Boat to Southshore
   zone Wetlands
@@ -184,7 +201,7 @@ step Southshore
   accept 564                          -- Darren Malvew: the lions come later
   getfp "Southshore" npc 2432         -- Darla Harris
   buy 3713 x1 npc 2381                -- Soothing Spices, from Micha Yance
-  accept 505                          -- Magistrate Henry Maleb, inside
+  accept 505                          -- Magistrate Henry Maleb, inside: keep it, the Syndicate camp waits for the road north to Arathi (05-arathi-highlands)
   accept 92432 "An Alarming Request" npc 247264 lvl 30 -- Emissary Jacques
 
 step Bartolo Ginsetti
@@ -232,32 +249,20 @@ step Southshore
 step Southshore
   zone Hillsbrad Foothills
   tip Captain McManus stands north-west of the flight master, on the way north to the yeti cave.
-  tip Hillsbrad's Hoard: Captain McManus hands you a Sealed Company Request for the Hillsbrad council, in the farms west of Southshore; you deliver it after the Syndicate camp.
+  tip Hillsbrad's Hoard: Captain McManus hands you a Sealed Company Request for the Hillsbrad council, in the farms west of Southshore.
   accept 98059 optional               -- Captain McManus
 
 step Yeti cave
   when onquest 565
   zone Hillsbrad Foothills
-  tip The yetis live in the cave in the hills north of Southshore, on the way north to the Syndicate camp.
+  tip The yetis live in the cave in the hills north of Southshore.
   tip Stay in the Foothill Caverns: the cave further north has Mountain and Giant Yetis (32-34) in pairs and The Abominable Greench, a level 36 elite.
   collect 3720 quest 565.4 @44.5,29.4 -- Yeti Fur
-
-step Alterac Mountains
-  zone Alterac Mountains
-  goto 58.3,68.0 "Alterac Mountains"
-
-step Syndicate camp
-  zone Alterac Mountains
-  tip The Syndicate camp sits on the Alterac border in northern Hillsbrad, west of Tarren Mill (Horde); the documents lie in the camp, and its Footpads and Thieves are the Syndicate Maleb wants.
-  kill 2240 quest 505.1               -- Syndicate Footpad
-  kill 2241 quest 505.2               -- Syndicate Thief
-  accept 510 object 1738              -- Syndicate Documents
-  accept 511 object 1738
 
 step Hillsbrad Fields
   when onquest 98059
   zone Hillsbrad Foothills
-  tip South-west from the Syndicate camp to the Hillsbrad Fields farms.
+  tip West from Southshore to the Hillsbrad Fields farms.
   goto 32.5,39.5 "Hillsbrad Fields"
 
 step Hillsbrad council
@@ -275,11 +280,6 @@ step Snapjaws
 
 step Southshore
   buy 3713 x1 npc 2381                -- Soothing Spices, from Micha Yance
-  turnin 511                          -- Loremaster Dibbs
-  accept 514
-  turnin 510                          -- Inside
-  accept 512
-  turnin 505                          -- Magistrate Henry Maleb
   turnin 555                          -- Chef Jessen, upstairs
   turnin 98059 optional               -- Captain McManus
 
@@ -294,8 +294,6 @@ step Fly to Ironforge
 step Hall of Explorers
   zone Ironforge
   tip Prospector Stormpike, Historian Karnik and Roetten Stonehammer stand in the Hall of Explorers, north-east of the flight master.
-  turnin 514                          -- Prospector Stormpike, Hall of Explorers
-  accept 525
   accept 1453                         -- Roetten Stonehammer
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock -- Level 30 and 32 spells
 
@@ -344,14 +342,16 @@ step Stormwind Keep
 step Cathedral of Light
   turnin 269                          -- Bishop Farthing
   accept 270
+  turnin 293                          -- Archbishop Benedictus
 
 step Elling Trias
   turnin 1247
   accept 1248
 
 step Mage Quarter
-  tip Archmage Malin is in the Slaughtered Lamb; Connor Rivers south of the Mage Quarter.
+  tip Archmage Malin and Collin Mauren are in the Slaughtered Lamb; Connor Rivers south of the Mage Quarter.
   accept 690                          -- Archmage Malin
+  accept 1078                         -- Collin Mauren: the Saltstone Basilisks at the Mirage Raceway drop the scales, in the next guide
   accept 1301                         -- Connor Rivers
 
 step Druid training

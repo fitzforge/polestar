@@ -88,7 +88,7 @@ fn the_fixture_packs_match_the_expected_files() {
 	}
 	let toc = &got["Polestar_frFR/Polestar_frFR.toc"];
 	assert_eq!(*toc, forge_guide::toc::language_toc("frFR", &toc_line(toc, "Interface"), &toc_line(toc, "Version")), "the language folder's TOC, as `forge guide compile` writes it");
-	for line in ["## LoadOnDemand: 1", "## Dependencies: Polestar", "## Group: Polestar", "Interface.lua", "Names.lua", "Texts.lua"] {
+	for line in ["## LoadOnDemand: 1", "## Dependencies: Polestar", "## Group: Polestar", "Interface.lua", "Names.lua", "Subzones.lua", "Texts.lua"] {
 		assert!(toc.lines().any(|l| l == line), "{line}");
 	}
 	let lic = &got["Polestar_frFR/LICENSE-DATA.txt"];
@@ -112,6 +112,23 @@ fn the_ids_kept_are_the_ones_the_guides_the_quest_database_and_the_codex_name() 
 	assert_eq!(u.counts[0], ("guides", [4, 4, 1, 3]));
 	let e = names::used_ids(&f.join("Guides.lua"), &f.join("nowhere"), &f.join("codex")).err().unwrap();
 	assert!(e.contains("forge data questdb") && e.contains("--questdb"), "{e}");
+}
+
+// Polestar's own pack carries the experimental index (Polestar.RegisterExperimental) since 0.4.0, and Polestar
+// Experimental's guides sit in their own folder beside it: the index loads, and those guides' ids are kept too.
+#[test]
+fn the_experimental_index_loads_and_polestar_experimental_s_guides_count() {
+	let f = fix();
+	let tmp = scratch("names-experimental");
+	for d in ["Polestar_Guides", "Polestar_Experimental"] {
+		std::fs::create_dir_all(tmp.join(d)).unwrap();
+	}
+	let ours = std::fs::read_to_string(f.join("Guides.lua")).unwrap();
+	std::fs::write(tmp.join("Polestar_Guides/Guides.lua"), format!("{ours}\nPolestar.RegisterExperimental({{ {{ id = \"polestar-experimental/x\", faction = \"Horde\" }} }})\n")).unwrap();
+	std::fs::write(tmp.join("Polestar_Experimental/Guides.lua"), "Polestar.RegisterGuide({ id = \"x\", steps = { { goals = { { t = \"accept\", quest = 93407, npc = 243815 } } } } })\n").unwrap();
+	let u = names::used_ids(&tmp.join("Polestar_Guides/Guides.lua"), &f.join("questdb"), &f.join("codex")).unwrap();
+	assert!(u.ids[0].contains(&93407) && u.ids[1].contains(&243815), "the experimental guide's quest and NPC: {:?} {:?}", u.ids[0], u.ids[1]);
+	assert_eq!(u.counts[0], ("guides", [5, 5, 1, 3]));
 }
 
 fn fixture_built(ding: bool) -> BTreeMap<String, names::Built> {
@@ -336,6 +353,37 @@ fn per_id_the_client_tables_win_then_the_web_names_dingdb_and_pfquest() {
 	);
 	assert_eq!(b.from[1], [0, 0, 1, 1, 1]);
 	assert_eq!(b.from[3], [1, 0, 1, 0, 0]);
+}
+
+/// A Korean, Chinese or Russian name in Latin letters with none of its language's own is another
+/// language's: the koKR web data named NPC 276793 "Cavalo de Guerra Descarnado Ocre" (Portuguese), and
+/// that went into the Korean names pack. It is no name, so the next source's (or the English) shows; a
+/// name of the language's own script, one of digits alone, and any name for a Latin-script language stay.
+/// An id another source names as in English is still one named as in English (the leaks baseline's
+/// `same-as-english`); one with no other name has none (`no-source`).
+#[test]
+fn a_name_in_another_script_is_no_name_for_a_korean_chinese_or_russian_client() {
+	let ids: IdSets = [set(&[]), set(&[276793, 2, 3, 4]), set(&[]), set(&[]), None, None, None, None, None];
+	let web = |n: Names| WebNames { names: [m(&[]), n, m(&[]), m(&[])], ..Default::default() };
+	let web: BTreeMap<String, WebNames> = [
+		("koKR".to_string(), web(m(&[(276793, "Cavalo de Guerra Descarnado Ocre"), (2, "해골 군마"), (3, "XT-9 정찰기"), (4, "4711")]))),
+		("zhCN".to_string(), web(m(&[(276793, "Cavalo de Guerra Descarnado Ocre"), (2, "赭色骷髅战马")]))),
+		("ruRU".to_string(), web(m(&[(276793, "Cavalo de Guerra Descarnado Ocre"), (2, "Охристый скелет")]))),
+		("ptBR".to_string(), web(m(&[(276793, "Cavalo de Guerra Descarnado Ocre")]))),
+	]
+	.into();
+	let ding: BTreeMap<String, [Names; 4]> =
+		[("koKR".to_string(), [m(&[]), m(&[(276793, "황토색 해골 전투마")]), m(&[]), m(&[])]), ("ruRU".to_string(), [m(&[]), m(&[(276793, "Ochre Skeletal Warhorse")]), m(&[]), m(&[])])].into();
+	let pf: BTreeMap<String, PfNames> = [("enUS".to_string(), PfNames::default())].into();
+	let mut english = English::default();
+	add_english(&mut english, "npc", 276793, "Ochre Skeletal Warhorse");
+	let out = build_names(&["koKR", "zhCN", "ruRU", "ptBR"], &Inputs { ids: &ids, ding: Some(&ding), pf: &pf, wago: None, observed: None, web: Some(&web), english: &english });
+	assert_eq!(pairs(&out["koKR"].names[1]), [(2, "해골 군마"), (3, "XT-9 정찰기"), (4, "4711"), (276793, "황토색 해골 전투마")], "DingDB's Korean, after the web's Portuguese");
+	assert_eq!(pairs(&out["zhCN"].names[1]), [(2, "赭色骷髅战马")]);
+	assert_eq!(pairs(&out["ruRU"].names[1]), [(2, "Охристый скелет")]);
+	assert_eq!(pairs(&out["ptBR"].names[1]), [(276793, "Cavalo de Guerra Descarnado Ocre")]);
+	assert_eq!(out["ruRU"].english[1].iter().copied().collect::<Vec<_>>(), [276793], "DingDB names it as in English");
+	assert!(out["zhCN"].english[1].is_empty(), "a name in another script is no English one");
 }
 
 fn observed(locale: &str, records: serde_json::Value) -> serde_json::Value {

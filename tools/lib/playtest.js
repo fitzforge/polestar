@@ -302,10 +302,11 @@ function classPersonas(data, guide, personas) {
 	return added;
 }
 
-// The guide id of a .guide text (its `guide` line) and its `next` ids.
+// The guide id of a .guide text (its `guide` line) and its `next` ids: every `next` line (a guide both
+// factions play names each side's next guide on its own line), each without its `when` predicate.
 function headerLinks(text) {
 	const id = (text.match(/^guide\s+(\S+)/m) || [])[1];
-	const next = ((text.match(/^next\s+(.+)$/m) || [])[1] || '').split(/[\s,]+/).filter(Boolean);
+	const next = [...text.matchAll(/^next\s+(.+)$/gm)].flatMap((m) => m[1].split(/\s+when\s/)[0].split(/[\s,]+/)).filter(Boolean);
 	return { id, next };
 }
 
@@ -479,7 +480,12 @@ function chainDone(guides, g, persona, groups = 'skip', chosen = dungeonPicker(n
 	const done = new Set();
 	const carried = new Set();
 	const open = new Set();
+	// A guide no other leads into whose step waits on a quest another guide hands in (`when turnedin`: The Eye of
+	// Bhossca, a class guide of its own, after The Horn of Xelthos's 78307) is played as by a character who did that
+	// guide: the quest is done.
+	const elsewhere = (q) => !into.has(g.id) && !handIn.has(q) && guides.some((o) => o.id !== g.id && o.steps.some((s) => s.goals.some((x) => x.t === 'turnin' && x.quest === q)));
 	for (const s of g.steps) {
+		for (const p of s.when || []) if (p.k === 'turnedin' && !p.neg) for (const q of [].concat(p.q)) if (turned.has(q) || elsewhere(q)) done.add(q);
 		for (const x of s.goals) {
 			if (x.t !== 'accept') continue;
 			for (const p of [...(x.pre || []), ...(x.preAll || [])]) {
@@ -530,6 +536,8 @@ function playData(dir, diag) {
 // plays the steps behind `when skill` they open (on its own it takes no
 // optional goal, so it never learns a profession).
 async function playtest({ dir, manifest, official = false, filter = null, classes = null, groups = 'skip', dungeons = null, dataDir = DATA, data = null, contextDir = OFFICIAL_DIR, contextDataDir = DATA, onResult = null, workers = null, honest = false, kb = undefined, learn = null }) {
+	// Validate before loading data. The pool starts processes only when a play is queued.
+	const pool = honest ? null : new LuaPool({ size: workers ?? (process.env.POLESTAR_PLAY_WORKERS === undefined ? undefined : Number(process.env.POLESTAR_PLAY_WORKERS)) });
 	const dataDiag = new Diagnostics();
 	data = data || playData(dataDir, dataDiag);
 	const contextData = official ? null : contextDataDir && path.resolve(contextDataDir) !== path.resolve(dataDir) ? playData(contextDataDir, dataDiag) : data;
@@ -575,7 +583,6 @@ async function playtest({ dir, manifest, official = false, filter = null, classe
 	const chained = packs.flatMap((p) => p.guides);
 	const dungeonMaps = dungeonMapsOf(chained, chosen);
 	const sim = simPacks(packs, data);
-	const pool = new LuaPool({ size: workers || Number(process.env.POLESTAR_PLAY_WORKERS) || undefined });
 	const pending = [];
 	let shown = 0;
 	const flush = () => {
@@ -633,6 +640,10 @@ async function playtest({ dir, manifest, official = false, filter = null, classe
 // base file (default data/local/kb/forever-kb.sqlite when present; null: none).
 // -> { results: [], findings, diag, played, honest: true }
 function honestRun({ guides, packs, play, data, classes, groups, chosen, kb, diag }) {
+	if (kb != null && !fs.existsSync(kb)) {
+		diag.error(kb, 0, 'knowledge base not found');
+		return { results: [], findings: [], diag, played: 0, honest: true };
+	}
 	const all = packs.flatMap((p) => p.guides);
 	const wanted = guides.filter((g) => play.has(g._ast && g._ast.source));
 	const arriving = new Map();
@@ -736,7 +747,8 @@ local function act(i, g, r)
 		end
 	elseif q and (t == "kill" or t == "collect" or t == "use" or t == "interact" or t == "talk") then
 		if w.log[q] then w.finish(q) end
-	elseif (t == "collect" or t == "buy") and g.item then
+	-- An auction goal: bought at the Auction House, a bag count as a buy is.
+	elseif (t == "collect" or t == "buy" or t == "auction") and g.item then
 		w.addItem(g.item, (g.progress and g.progress.max) or 1)
 	elseif t == "goto" then
 		w.moveTo(g.map, g.x, g.y)

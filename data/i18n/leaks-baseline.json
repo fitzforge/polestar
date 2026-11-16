@@ -4,7 +4,7 @@
 		"A new English text fails; so does an entry whose scenes all ran in its locale, with the Codex and quest database built, without it showing (fixed: remove it). `forge i18n leaks --update-baseline` adds what the run found and drops the stale entries; it never takes English from the code or an untranslated string or guide text."
 	],
 	"reasons": {
-		"no-source": "no source of `i18n names` (the client tables, the web names cache, DingDB, pfQuest) names it in this language: mostly Forever's own NPCs, objects and items; the client shows its own name once the player has seen it (Names.Learn)",
+		"no-source": "no source of `i18n names` (the client tables, the web names cache, DingDB, pfQuest) names it in this language: mostly Forever's own NPCs, objects and items; the client shows its own name once the player has seen it (Names.Learn). \"objective:<quest>\": a dungeon quest's objective text no source has, whose event objectives the Dungeons page shows in the quest data's English (the only kind of text taken here: the event has no name of its own to look up)",
 		"same-as-english": "every source names it in this language as in English (a Latin-script client keeps the name): the English is the client's name, and the names addon does not store it",
 		"kept-english": "a translation writes these words as the English does: mostly the names of Forever-only places and items no client names otherwise; a translator can still translate them"
 	},
@@ -37162,6 +37162,13 @@
 				],
 				"english": "Rotting Dwarf Corpse"
 			},
+			"npc:239822": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Commander Truesong"
+			},
 			"npc:246016": {
 				"reason": "no-source",
 				"scenes": [
@@ -37283,6 +37290,20 @@
 				],
 				"english": "[DNT] Kill Credit: Place Explosives"
 			},
+			"npc:253527": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Kog'thug the Brave"
+			},
+			"npc:254674": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Woodwyrd"
+			},
 			"npc:255391": {
 				"reason": "no-source",
 				"scenes": [
@@ -37304,6 +37325,13 @@
 				],
 				"english": "Tidemistress Ca'zass"
 			},
+			"npc:256102": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Crest of Lordaeron"
+			},
 			"npc:256236": {
 				"reason": "no-source",
 				"scenes": [
@@ -37318,6 +37346,20 @@
 					"rares"
 				],
 				"english": "Reginald Holmsby"
+			},
+			"npc:256795": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Twilight Fanatic"
+			},
+			"npc:256797": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Twilight Corrupter"
 			},
 			"npc:256830": {
 				"reason": "no-source",
@@ -37350,6 +37392,13 @@
 				],
 				"english": "Mad Marrius"
 			},
+			"npc:258023": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Sergeant Riftan"
+			},
 			"npc:258032": {
 				"reason": "no-source",
 				"scenes": [
@@ -37357,6 +37406,13 @@
 					"rares"
 				],
 				"english": "Twilight Forgemaster"
+			},
+			"npc:258652": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Twilight Thrall"
 			},
 			"npc:258905": {
 				"reason": "no-source",
@@ -37586,12 +37642,26 @@
 				],
 				"english": "Sergeant Danneth"
 			},
+			"npc:268423": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Zalfan Moonshadow"
+			},
 			"npc:271181": {
 				"reason": "no-source",
 				"scenes": [
 					"guides"
 				],
 				"english": "Eye of Kilrogg"
+			},
+			"npc:271293": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "[DNT] Kill Credit: Twilight Thrall"
 			},
 			"npc:271336": {
 				"reason": "no-source",
@@ -37613,6 +37683,13 @@
 					"dungeons"
 				],
 				"english": "Vitrix"
+			},
+			"npc:272737": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "[DNT] Kill Credit"
 			},
 			"npc:277182": {
 				"reason": "same-as-english",
@@ -37713,6 +37790,13 @@
 				],
 				"english": "Molsen Farm Water Well"
 			},
+			"object:614679": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Crest of Lordaeron"
+			},
 			"object:616860": {
 				"reason": "no-source",
 				"scenes": [
@@ -37741,6 +37825,13 @@
 					"guides"
 				],
 				"english": "Fishing Trap"
+			},
+			"objective:93404": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Woodwyrd extinguished"
 			},
 			"text:1500 Merchant's Favor": {
 				"reason": "kept-english",
@@ -38349,6 +38440,13 @@
 				],
 				"english": "Tyrant of the Hive"
 			},
+			"npc:227853": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Pix Xizzix"
+			},
 			"npc:228619": {
 				"reason": "no-source",
 				"scenes": [
@@ -38362,6 +38460,13 @@
 					"dungeons"
 				],
 				"english": "Rotting Dwarf Corpse"
+			},
+			"npc:239822": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Commander Truesong"
 			},
 			"npc:243046": {
 				"reason": "no-source",
@@ -38691,6 +38796,13 @@
 				],
 				"english": "[DNT] Kill Credit: Place Explosives"
 			},
+			"npc:253527": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Kog'thug the Brave"
+			},
 			"npc:253576": {
 				"reason": "no-source",
 				"scenes": [
@@ -38711,6 +38823,20 @@
 					"guides"
 				],
 				"english": "Vayn Moongaze"
+			},
+			"npc:254674": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Woodwyrd"
+			},
+			"npc:255183": {
+				"reason": "no-source",
+				"scenes": [
+					"picker"
+				],
+				"english": "Jezerelle the Swaying"
 			},
 			"npc:255391": {
 				"reason": "no-source",
@@ -38832,6 +38958,27 @@
 				],
 				"english": "Huey Sunnydale"
 			},
+			"npc:256795": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Twilight Fanatic"
+			},
+			"npc:256797": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Twilight Corrupter"
+			},
+			"npc:256799": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Twilight Champion"
+			},
 			"npc:256830": {
 				"reason": "no-source",
 				"scenes": [
@@ -38877,6 +39024,13 @@
 					"guides"
 				],
 				"english": "Teo Hammerstorm"
+			},
+			"npc:257558": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Demar Brant"
 			},
 			"npc:257591": {
 				"reason": "no-source",
@@ -38934,6 +39088,13 @@
 					"guides"
 				],
 				"english": "Hervdana Saegrund"
+			},
+			"npc:258652": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Twilight Thrall"
 			},
 			"npc:258905": {
 				"reason": "no-source",
@@ -39311,6 +39472,20 @@
 				],
 				"english": "Va'xug Firefure"
 			},
+			"npc:268423": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Zalfan Moonshadow"
+			},
+			"npc:268425": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Ranath Nightstride"
+			},
 			"npc:268592": {
 				"reason": "no-source",
 				"scenes": [
@@ -39398,6 +39573,13 @@
 				],
 				"english": "Eye of Kilrogg"
 			},
+			"npc:271293": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "[DNT] Kill Credit: Twilight Thrall"
+			},
 			"npc:271322": {
 				"reason": "no-source",
 				"scenes": [
@@ -39481,6 +39663,13 @@
 					"dungeons"
 				],
 				"english": "Vitrix"
+			},
+			"npc:272737": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "[DNT] Kill Credit"
 			},
 			"npc:273017": {
 				"reason": "no-source",
@@ -39797,12 +39986,12 @@
 				],
 				"english": "Mining Tools"
 			},
-			"object:562131": {
+			"object:563442": {
 				"reason": "no-source",
 				"scenes": [
 					"guide"
 				],
-				"english": "Applejack Still"
+				"english": "Kobold Tracks"
 			},
 			"object:578937": {
 				"reason": "no-source",
@@ -39909,6 +40098,14 @@
 				],
 				"english": "Tomb Weed"
 			},
+			"object:694772": {
+				"reason": "no-source",
+				"scenes": [
+					"guide",
+					"guides"
+				],
+				"english": "Fishing Trap"
+			},
 			"object:694785": {
 				"reason": "no-source",
 				"scenes": [
@@ -39938,6 +40135,13 @@
 					"guides"
 				],
 				"english": "Windstone Formation"
+			},
+			"objective:93404": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Woodwyrd extinguished"
 			},
 			"text:1,500 Merchant's Favor": {
 				"reason": "kept-english",

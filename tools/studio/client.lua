@@ -113,12 +113,12 @@ C_Item = C_Item or {}
 C_Item.GetItemInfo = function(id)
 	local i = I(id)
 	if not i then return nil end
-	return i.name, link(i), i.quality, i.level, i.minLevel, "", "", 1, "", i.icon, i.sell, i.classID, 0
+	return i.name, link(i), i.quality, i.level, i.minLevel, "", "", 1, "", i.icon, i.sell, i.classID, i.subclassID or 0, i.bonding or 0
 end
 GetItemInfo = C_Item.GetItemInfo
 C_Item.GetItemInfoInstant = function(id)
 	local i = I(id)
-	if i then return i.id, "", "", "", i.icon, i.classID, 0 end
+	if i then return i.id, "", "", "", i.icon, i.classID, i.subclassID or 0 end
 end
 GetItemInfoInstant = C_Item.GetItemInfoInstant
 C_Item.GetItemIconByID = function(id) local i = I(id); return i and i.icon end
