@@ -213,6 +213,31 @@ emit({ total = P.total, moved = P.frame:GetParent() == nextBar, shown = P.frame:
 	assert.deepEqual(moved, { total: 250, moved: true, shown: true });
 });
 
+test('Hide All suppresses the projection and quest tooltip lines until Polestar is shown', () => {
+	const [hidden, barTip, tickTip, restored] = run(String.raw`
+Polestar.SetHidden(true)
+assert(not f:IsShown(), "Hide All must hide the overlay immediately")
+stub.RunScript(f, "OnSizeChanged")
+q.ready[14] = false
+stub.fire("QUEST_LOG_UPDATE"); stub.runTimers()
+emit({ overlay = f:IsShown(), marker = f.Rested:IsVisible(), native = bar:IsShown() })
+stub.RunScript(bar, "OnEnter")
+emit(GameTooltip.lines)
+stub.RunScript(bar.ExhaustionTick, "OnEnter")
+emit(GameTooltip.lines)
+Polestar.SetHidden(false); stub.runTimers()
+stub.RunScript(bar, "OnEnter")
+emit({ total = P.total, shown = f:IsShown(), marker = f.Rested:IsVisible(), lines = GameTooltip.lines })
+`);
+	assert.deepEqual(hidden, { overlay: false, marker: false, native: true });
+	assert.deepEqual(barTip, ['Experience: 500 / 1000', 'Rested XP: 200']);
+	assert.deepEqual(tickTip, barTip);
+	assert.equal(restored.total, 250);
+	assert.equal(restored.shown, true);
+	assert.equal(restored.marker, true);
+	assert.ok(restored.lines.some((line) => line.includes('Pending quest XP')));
+});
+
 test('registers only one quest XP toggle in Trackers & map / Experience', () => {
 	const [settings] = run(String.raw`
 dofile("addon/Polestar_Options/QoL/Options.lua")
