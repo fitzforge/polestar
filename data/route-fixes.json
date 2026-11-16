@@ -10493,61 +10493,51 @@
 			},
 			{
 				"q": 5639,
-				"faction": "Alliance",
 				"reason": "Alliance starts fix round 2 (0.4.0): Dwarf Priests take High Priest Rohan's own Desperate Prayer (5639, minimum level 10) and hand it straight back on the Ironforge Mystic Ward stop, which the level model reaches at about 13.6, in place of Maxan Anvol's letter (5637), which made them wait in Kharanos for level 10 (about 17 minutes in the level model) for a letter that only sends them to Rohan.",
 				"issue": "-"
 			},
 			{
 				"q": 94817,
-				"faction": "Alliance",
 				"reason": "Alliance starts fix round 2 (0.4.0): Gnome Priests take High Priestess Mims' own Confounding Flash (94817, minimum level 10) and hand it straight back on the Ironforge Mystic Ward stop, which the level model reaches at about 13.6, in place of Maxan Anvol's letter (94824), which made them wait in Kharanos for level 10 (about 17 minutes in the level model). A player's recording shows Mims' own quest taken and handed in at 13.",
 				"issue": "-"
 			},
 			{
 				"q": 95737,
-				"faction": "Alliance",
 				"reason": "Alliance 12-30 fix round 2 (0.4.0): Seeking Caitlin (1,250 XP, talk only, minimum level 24) is taken from Llana beside Astranaar's flight master on 06-wetlands' last Ashenvale stop (about 29.3) and handed to Caitlin Grassman beside Menethil's inn on the way from the boat to the flight master: no walk added. Players' recordings: 28 accepts, 26 hand-ins.",
 				"issue": "-"
 			},
 			{
 				"q": 97530,
-				"faction": "Alliance",
 				"reason": "Alliance 40-50 fix round 2 (0.4.0): Dunemaul Dues (4,200 XP, level 47) is taken from Security Chief Bilgewhizzle on 40-50/04's first Steamwheedle Port stop, its bangle drops from every Dunemaul ogre of the compound's south end, where the guide already grinds, and it goes back to him from Torta, about 60 yd away, after Tooga's escort. Players' recordings: 7 accepts, 6 hand-ins at 46.3-47.8.",
 				"issue": "-"
 			},
 			{
 				"q": 88809,
-				"faction": "Alliance",
 				"reason": "Alliance 50-60 fix round 2 (0.4.0): Preserving Eldarath (5,100 XP) is taken from Commander Truesong on 50-60/01's Talrendis hand-in; its Eldarath Relics drop from the Spitelash naga (48-51) of the top-up before Kim'jael, Lord Sarthiss (52) stands in their ruins, and it goes back to Truesong after Ravencrest, right before the hearth. Level model: with the four below, about 80 minutes less on the route and 2 hours less grinding.",
 				"issue": "-"
 			},
 			{
 				"q": 86746,
-				"faction": "Alliance",
 				"reason": "Alliance 50-60 fix round 2 (0.4.0): The Legashi Threat (5,250 XP): Ekkal stands on the ride north from Eldarath to Kim'jael, his satyrs, rogues and hellcallers (51-53) are the Legashi in Kim'jael's camp, which 50-60/01 works anyway, and he takes them on the ride back south. Players' recordings: completed by 2 Horde characters at 52-53.",
 				"issue": "-"
 			},
 			{
 				"q": 92345,
-				"faction": "Alliance",
 				"reason": "Alliance 50-60 fix round 2 (0.4.0): Beneath Nordrassil (550 XP, talk only) is taken from Commander Truesong on 50-60/01's Talrendis hand-in and handed to Mathrengyl Bearwalker in the Cenarion Enclave, where the same guide hands Un'Goro Soil to Jenal. Players' recordings: 3 accepts, 2 hand-ins in Darnassus.",
 				"issue": "-"
 			},
 			{
 				"q": 96797,
-				"faction": "Alliance",
 				"reason": "Alliance 50-60 fix round 2 (0.4.0): The Orphan (4,100 XP, talk only): Orphan Matron Aria stands by Dalaran's walls, off 50-60/01's ride from Southshore north to Chillwind Camp, and Lieutenant Connar takes it inside Nethergarde Keep, where the same guide's flight lands. Players' recordings: 6 Alliance hand-ins.",
 				"issue": "-"
 			},
 			{
 				"q": 87295,
-				"faction": "Alliance",
 				"reason": "Alliance 50-60 fix round 2 (0.4.0): Deflective Surface (5,100 XP): Bernie Heisten stands in Nethergarde Keep, where 50-60/01 lands; the Redstone Basilisk Scales drop from the basilisks the guide already kills for the bloodmages, and he takes them on the way back, before the hearth.",
 				"issue": "-"
 			},
 			{
 				"q": 5142,
-				"faction": "Alliance",
 				"reason": "Alliance 50-60 fix round 2 (0.4.0): Little Pamela (2,800 XP) from Marlene Redpath on Sorrow Hill, on 50-60/03's road from Chillwind Camp east to the Eastern Plaguelands, in place of Sister Pamela (550 XP, exclusive with it, Jessica Redpath in Everlook): both go to Pamela in Darrowshire. Players' recordings: Marlene gave it to an Alliance player at 53.4.",
 				"issue": "-"
 			}
