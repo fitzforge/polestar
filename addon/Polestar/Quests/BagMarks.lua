@@ -150,11 +150,11 @@ local function needed(link)
 	return id and Q.IsItemNeeded(id) or false
 end
 
--- Baganator and BagSmith: a corner widget, top-right, placed by the addon.
+-- Baganator and BagSmith place the quest icon and leftover border as corner widgets.
 local WIDGET = "polestar_quest_needed"
 local RED_WIDGET = "polestar_quest_leftover"
+local widgetBorders = setmetatable({}, { __mode = "k" })
 local registeredBags = {}
-local bagBorders = setmetatable({}, { __mode = "k" })
 
 local function cornerAPI(name)
 	local B = _G[name]
@@ -180,12 +180,10 @@ local function registerBag(name)
 	API.RegisterCornerWidget(ns.L["Polestar quest leftovers"], RED_WIDGET, function(_, details)
 		return isOn() and type(details) == "table" and Q.IsObsoleteQuestItem(details.itemID) or false
 	end, function(button)
-		-- Made with no parent, then put on the button: a CreateFrame under a game
-		-- frame taints it (the gamepad interface's hook, tests/lua/wow_stub.lua).
 		local frame = CreateFrame("Frame")
 		frame:SetParent(button)
 		frame:SetSize(1, 1)
-		borderFor(button, bagBorders, frame)
+		borderFor(button, widgetBorders, frame)
 		return frame
 	end, { corner = "top_left", priority = 1 }, nil, options)
 	return true
@@ -299,7 +297,8 @@ function Q.RedrawBagMarks()
 	end
 	for name in pairs(registeredBags) do
 		local API = cornerAPI(name)
-		if API and API.RequestItemButtonsRefresh and (not API.IsCornerWidgetActive or API.IsCornerWidgetActive(WIDGET) or API.IsCornerWidgetActive(RED_WIDGET)) then
+		if API and API.RequestItemButtonsRefresh and (not API.IsCornerWidgetActive or API.IsCornerWidgetActive(WIDGET)
+			or API.IsCornerWidgetActive(RED_WIDGET)) then
 			local B = _G[name]
 			local reasons = name == "Baganator" and B.Constants and B.Constants.RefreshReason
 			if name == "BagSmith" then
