@@ -208,6 +208,12 @@ L["Repair before heading out: gear at %d%%"] = "출발 전에 수리: 장비 내
 L["The guide heads out of town next and your gear is worn: repair it here before it breaks."] = "가이드가 곧 마을을 떠나는데 장비가 많이 닳았습니다. 부서지기 전에 여기서 수리하세요."
 L["Sell before heading out: %s"] = "출발 전에 판매: %s"
 L["The guide heads out of town next and your bags are nearly full: sell what you don't need here."] = "가이드가 곧 마을을 떠나는데 가방이 거의 가득 찼습니다. 필요 없는 아이템을 여기서 판매하세요."
+-- L["Put in the bank"] = ""
+-- L["Take off"] = ""
+-- L["Equip"] = ""
+-- L["Reach %d points into %s with"] = ""
+-- L["Lose"] = ""
+-- L["Gain"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "보상을 선택해 제출을 마치십시오."
@@ -609,6 +615,11 @@ L["The size of every quest marker on the world map and the minimap."] = "지도�
 L["Timed quest alerts"] = "시간 제한 퀘스트 알림"
 L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] = "시간 제한 퀘스트가 5분 남았을 때, 1분 남았을 때, 그리고 실패했을 때 대화창 메시지와 소리로 알립니다. 가이드 창에는 남은 시간이 항상 표시됩니다."
 L["Party chat"] = "파티 채팅"
+-- L["On a mob that drops a quest item you still need, or an object it comes out of, show how often."] = ""
+-- L["Quest givers and turn-ins"] = ""
+-- L["On an NPC, name the quests it has for you now and the finished quests you can hand in to it."] = ""
+-- L["Replace the game's quest lines"] = ""
+-- L["On mobs and objects, leave out the game's own lines for the quests these tooltips name, so each quest shows once. In a group the game's lines stay: they show your party's progress."] = ""
 
 -- Quests/Party.lua
 L["%s done"] = "%s 완료"
@@ -1133,6 +1144,8 @@ L["Lists the quest items you can buy at an auction house instead of farming them
 L["Lists the current step's mobs, or the NPCs it sends you to when it has no mob, with their portraits and what they drop; click a name to target that one. Its key binding targets the first one close by."] = "현재 단계의 몹을, 몹이 없으면 단계가 안내하는 NPC를 초상화와 드롭 아이템과 함께 보여 줍니다. 이름을 클릭하면 그 대상을 지정합니다. 단축키는 가까이 있는 첫 번째 대상을 지정합니다."
 L["Names in the target list"] = "대상 목록의 이름 수"
 L["How many of the step's mobs the target list shows, in guide order."] = "대상 목록에 단계의 몹을 가이드 순서대로 몇 개까지 보여 줄지 정합니다."
+-- L["Completed quest XP"] = ""
+-- L["Shows XP from completed quests you can turn in on the game's XP bar and in its tooltip."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "얼라이언스 전용"
@@ -2382,7 +2395,6 @@ L["Glyphs only"] = "문양만"
 L["Use deathskips"] = "죽음 이동 사용"
 L["Where dying on purpose and taking the Spirit Healer's resurrection gets you there sooner, the guide shows a step for it. It costs durability and, from level 11, resurrection sickness. Always off on Hardcore characters."] = "일부러 죽어서 영혼의 치유사에게 부활하는 편이 더 빠른 곳에서는 가이드가 그 단계를 표시합니다. 내구도가 줄고, 레벨 11부터는 부활 후유증이 생깁니다. 하드코어 캐릭터에서는 항상 꺼져 있습니다."
 L["Text size"] = "글자 크기"
-L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "창 크기와 별도로 Polestar 글자의 크기입니다. 바로 바뀝니다. 오른쪽 클릭하면 초기화."
 L["Numbered pins for the steps ahead"] = "앞 단계 번호 핀"
 L["A small pin with its step number where each of the next steps takes you, fainter the further ahead. As many as Up next shows, else five."] = "다음 단계들이 안내하는 곳마다 단계 번호가 적힌 작은 핀을 표시하며, 멀수록 흐려집니다. 다음 목록에 표시되는 수만큼, 없으면 다섯 개."
 L["When a leveling guide ends"] = "레벨업 가이드가 끝나면"
@@ -3463,6 +3475,8 @@ L["%s not found nearby."] = "근처에서 찾을 수 없음: %s"
 
 -- Quests/BagMarks.lua
 L["Polestar quest items"] = "Polestar 퀘스트 아이템"
+-- L["Polestar quest leftovers"] = ""
+-- L["Related quests completed (likely safe to delete)"] = ""
 
 -- Quests/DeleteWarning.lua
 L["Needed for:"] = "필요한 퀘스트:"
@@ -4119,6 +4133,7 @@ L["Shadow strength"] = "그림자 진하기"
 L["More looks"] = "추가 스킨"
 L["Game looks"] = "게임 스킨"
 L["Polestar looks"] = "Polestar 스킨"
+-- L["The size of Polestar's text, apart from the window scale. The guide window has its own, on its page. Changes at once. Right-click to reset."] = ""
 
 -- UI/Looks/GuideWindow.lua
 L["Marshal Dughan"] = "치안대장 더그한"
@@ -4212,6 +4227,7 @@ L["Fargodeep Mine"] = "개미굴 광산"
 L["Lion's Pride Inn"] = "사자무리 여관"
 L["Stonefield Farm"] = "스톤필드 농장"
 L["Jasperlode Mine"] = "석영 광산"
+-- L["The size of the guide window's text, apart from its scale and the rest of Polestar's text (Theme > Text). The class quest card keeps that general size. Changes at once. Right-click to reset."] = ""
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "알림 줄"
@@ -4644,6 +4660,16 @@ L["Not moved"] = "이동 안 함"
 L["From the look"] = "모양에 따름"
 L["Nothing to apply: the parts ticked are the same as yours."] = "적용할 것이 없습니다: 선택한 항목이 내 설정과 같습니다."
 
+-- QoL/QuestXP.lua
+-- L["+1 level"] = ""
+-- L["Current XP"] = ""
+-- L["Rested XP"] = ""
+-- L["Completed quests"] = ""
+-- L["Pending quest XP"] = ""
+-- L["After turn-ins: at least +1 level"] = ""
+-- L["XP after turn-ins"] = ""
+-- L["XP remaining after turn-ins"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever가 안내 중입니다. Polestar의 화살표를 사용하려면 \"설치 시 Shortest Path Forever로 가이드\"(옵션, 연동)를 끄세요."
@@ -4841,3 +4867,4 @@ L["Nothing to apply: the parts ticked are the same as yours."] = "적용할 것�
 -- L["Try %s"] = "%s 시도"
 -- L["Most of its quests are new in Forever."] = "대부분의 퀘스트가 Forever 신규입니다."
 -- L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "더 빠르면 아는 순간이동 주문(마법사의 도시 순간이동, 드루이드의 달의 숲)으로 경로를 시작합니다. 도시 순간이동에는 가방에 순간이동의 룬이 필요합니다."
+-- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "창 크기와 별도로 Polestar 글자의 크기입니다. 바로 바뀝니다. 오른쪽 클릭하면 초기화."
