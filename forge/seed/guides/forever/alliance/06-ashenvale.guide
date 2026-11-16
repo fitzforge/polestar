@@ -142,21 +142,13 @@ step Webwinder Path
   accept 1072
   accept 1075
 
-# ---------------------------------------------------------------- Back north: Mystral Lake and the east
+# ---------------------------------------------------------------- Back north and the east
 
 step The Ruins of Stardust
   zone Ashenvale
   tip Back north through the Talondeep Path: west of Mystral Lake, the stardust bushes grow among the ruins.
   goto 33.3,67.7 "The Ruins of Stardust"
   collect 5494 quest 1034 @33.3,67.7      -- Handful of Stardust
-
-step Mystral Lake
-  zone Ashenvale
-  tip Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake. Befouled Water Elementals wade in the lake. Careful: Tideress, a level 27 water elemental, walks the lake among them; she drops the bracers too, but the small elementals are the safer kills at this level.
-  accept 1016                             -- Sentinel Velene Starstrike
-  collect 12220 x5 optional           -- Underwater
-  collect 5455 quest 1016 @49.6,71.3      -- Kill the elementals for 5 Intact Elemental Bracers, then use the Divining Scroll
-  turnin 1016
 
 step Shael'dryn
   tip Follow the road east to the Howling Vale; Shael'dryn stands by the moonwell.

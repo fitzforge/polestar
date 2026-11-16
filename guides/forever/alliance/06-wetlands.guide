@@ -28,6 +28,8 @@ next forever/alliance/07-thousand-needles
 # the river west of Einar (data/places.json 610-wetlands-fen-creepers), not across the zone.
 # Lifting the Curse (290), The Eye of Paleth (292) and Cleansing the Eye (293) are on 30-40/01's
 # Menethil stop at about 31: Captain Halyndor (30) is 2 levels over a player here (level tidy 0.4.0).
+# Elemental Bracers (1016) is done on the Krolg leg here at about 29.7: at 23-24 on 06-ashenvale's Mystral Lake stop the
+# Befouled Water Elementals (23-25) and Tideress (27) were two to four over the player (fix round 1, 0.4.0).
 # Hand-cut 2026-11-07 (the Alliance 21-24 level hole) from the old 25-29 06-ashenvale and the
 # Wetlands visit of 07-thousand-needles: the Wetlands are one visit at 27-29, after Duskwood.
 # Since 2026-11-07 Ashenvale's 27-32 quests follow on the same trip (the order their quest
@@ -221,7 +223,7 @@ step Whelgar's Excavation Site
 step Whelgar's Excavation Site: kill these as you meet them
   zone Wetlands
   tip The relics lie in the dig itself. Sarltooth, a big Razormaw, prowls the raptor valley just west of it.
-  tip Goaz Warders (elite, 32) stand among the relics and the Loose Soil: pull them away one at a time, or work around them.
+  tip Goaz Warders (elite, 32) stand among the relics and the Loose Soil: work around them; don't pull them.
   collect 2658 quest 299                  -- Ados Fragment
   collect 2659 quest 299                  -- Modr Fragment
   collect 2660 quest 299                  -- Golm Fragment
@@ -520,6 +522,14 @@ step The Foulweald
   kill 3750 quest 1025                    -- Foulweald Totemic
   kill 3743 quest 1025                    -- Foulweald Warrior
 
+step Mystral Lake
+  zone Ashenvale
+  tip Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake, just north of the road to Krolg. Befouled Water Elementals wade in the lake; Tideress, a level 27 water elemental, walks among them and drops the bracers too.
+  accept 1016                             -- Sentinel Velene Starstrike
+  collect 12220 x5 optional           -- Underwater
+  collect 5455 quest 1016 @49.6,71.3      -- Kill the elementals for 5 Intact Elemental Bracers, then use the Divining Scroll
+  turnin 1016
+
 step Krolg
   tip Krolg, a furbolg untouched by the corruption, sits south of the road below Mystral Lake. Use Dartol's Rod of Transformation near him first: he only speaks to you in furbolg form.
   turnin 1030
@@ -546,6 +556,14 @@ step Illiyana
   when complete 1031
   tip Illiyana stands beside Melyria.
   turnin 1031                         -- Illiyana: the Branch of Cenarius
+
+step Group quests you took alone
+  when !group 1031
+  when !group 1012
+  when onquest 1031,1012
+  tip Not grouped? The Branch of Cenarius (Geltharis, 32) and Insane Druids (the Dor'Danil Barrow Den) are fights for a group at this level: abandon them, the route doesn't come back for them.
+  abandon 1031 optional
+  abandon 1012 optional
 
 step Delgren the Purifier
   zone Ashenvale

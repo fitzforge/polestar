@@ -4637,7 +4637,7 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Goaz Warders (elite, 32) stand among the relics and the Loose Soil: pull them away one at a time, or work around them.",
+			"tip": "Goaz Warders (elite, 32) stand among the relics and the Loose Soil: work around them; don't pull them.",
 			"note": "Uncovering the Past (299): the Ancient Relics and the Loose Soil at Whelgar's Excavation Site (Wetlands 32-36,42-52) lie among the 21 Goaz Warders Forever added (33-37,46-53), elite at level 32, while the guide starts at 27; the step only mentioned them for the optional Titanic Keystone.",
 			"source": [
 				{
@@ -10345,7 +10345,7 @@
 				"quest": 1016,
 				"goal": "accept"
 			},
-			"tip": "Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake. Befouled Water Elementals wade in the lake. Careful: Tideress, a level 27 water elemental, walks the lake among them; she drops the bracers too, but the small elementals are the safer kills at this level.",
+			"tip": "Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake, just north of the road to Krolg. Befouled Water Elementals wade in the lake; Tideress, a level 27 water elemental, walks among them and drops the bracers too.",
 			"note": "Alliance 20-30 audit (0.4.0, #2025): Elemental Bracers (1016, quest level 24) is worked at about 23-24 on 06-ashenvale's Mystral Lake stop. Tideress (npc 12759, level 27) walks the lake among the Befouled Water Elementals (npc 3917, level 23) and drops the Intact Elemental Bracer as they do (items.json 12220: npcs 3917 and 12759), so players attack her. Players' recordings (addon 0.3.5 and later): Tideress killed 4 people (5 deaths) there and the Befouled Water Elementals 5 (6 deaths), at about 23.3. The step's tip named neither; the tip keeps the step's old tip, the sentence added.",
 			"source": [
 				{
@@ -11635,6 +11635,134 @@
 				{
 					"kind": "recording",
 					"ref": "npc 251968 seen hostile by 10 Alliance Skyborne and 1 Night Elf; quest 92640: 25 of 25 Alliance completions talked to Ayessa Dawnsinger and Elaadrin Evengale"
+				}
+			]
+		},
+		{
+			"id": "1811-selarin-after-escort-darkshore-return",
+			"faction": "Alliance",
+			"at": {
+				"quest": 990,
+				"goal": "accept",
+				"guide": "forever/alliance/03-darkshore-return"
+			},
+			"follows": {
+				"quest": 994,
+				"goal": "turnin"
+			},
+			"note": "03-darkshore-return's Druid Auberdine stop, where Druids hand Volcor's escort (994) to Terenthis on this guide: Selarin's offer right after the hand-in, as on 06-ashenvale and 06-wetlands (1811-selarin-after-escort-ashenvale). Without it a Druid who missed her on the first stop never got her second offer: 06-ashenvale's Terenthis step is then all done for them and passes at once.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "3 players on 0.3.4 who handed in the escort took 990 from Selarin 0.6-2.9 minutes later"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1811: she arrived after an escort hand-in and left about 5 minutes later"
+				}
+			],
+			"issue": 1811
+		},
+		{
+			"id": "1811-selarin-after-escort-darkshore-return-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 990,
+				"goal": "accept",
+				"guide": "forever/alliance/03-darkshore-return"
+			},
+			"tip": "No Trek to Ashenvale yet? Give it a minute after the hand-in: Sentinel Selarin comes to Terenthis's side shortly after Volcor's escort is handed in. Changing layer can also find her.",
+			"note": "The tip of the Druid Auberdine step with Selarin's second offer (1811-selarin-after-escort-darkshore-return).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "player check 2026-11-16: no Selarin on her spot; after a layer change she was there"
+				}
+			],
+			"issue": 2469
+		},
+		{
+			"id": "duskwood-return-hearth-darkshire",
+			"faction": "Alliance",
+			"at": {
+				"quest": 160,
+				"goal": "turnin",
+				"guide": "forever/alliance/07-thousand-needles"
+			},
+			"tip": "Hearth back to Darkshire (bound at the start of this guide): Sven's camp is at the far west of Duskwood.",
+			"note": "07 (Duskwood return): the guide binds at Darkshire on its first stop and then walked from Sven's camp, at the far west of the zone, back to Darkshire (about 1,750 yd in the flow audit on every race and class run); the hearth is ready there.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 07 reversals: Sven's Camp to Darkshire 1,746 yd on 28/28 runs"
+				}
+			]
+		},
+		{
+			"id": "duskwood-return-gutspill-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 222,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Gutspill, a level 32 abomination, walks these woods: let it pass.",
+			"note": "07 (Duskwood return): Gutspill (32) walks the woods of the Vile Fangs and Tainted Ones at about 30 for the player; 2 people died to him on this guide in players' recordings (0.3.5+).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "deaths to npc 6170 Gutspill on 07: 2 people at 29.2 and 30.1"
+				}
+			]
+		},
+		{
+			"id": "duskwood-return-weathered-grave-wording",
+			"faction": "Alliance",
+			"at": {
+				"quest": 225,
+				"goal": "accept"
+			},
+			"tip": "The grave stands among the skeletons at the cemetery's north-west corner, on the way to Sven. Its quest and the next are talk-only, to Sirra Von'Indi and Commander Althea in Darkshire: level 35 quests, but no fight.",
+			"note": "07 (Duskwood return): the tip said 'from level 28'; players are about 30 here in the level model.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "level model: 30.2 at the step"
+				}
+			]
+		},
+		{
+			"id": "duskwood-return-zzarc-vul-cave",
+			"faction": "Alliance",
+			"at": {
+				"quest": 181,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Head south-west from Darkshire to the ogre mound. Abercrombie's Crate sits in the camp at its entrance; Splinter Fist ogres guard it. Zzarc' Vul is inside the ogre mound's cave: go in by the cave mouth on the mound's west side.",
+			"note": "07 (Duskwood return): Zzarc' Vul is below ground in the Vul'Gol cave; the arrow walks in by the cave's floor height since #1945, and the tip now says where the mouth is (derschroeb's report: the mouth at 34.1,76.05).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2476: the cave mouth at Duskwood 34.10,76.05; 'way back outside works'"
+				}
+			],
+			"issue": 2476
+		},
+		{
+			"id": "redridge-raven-hill-eliza-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 101,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Eliza, a level 31 elite, rises from her grave at the cemetery's north end: keep away from it.",
+			"note": "04 (Duskwood and Redridge): Eliza (31 elite) stands at the north end of the Raven Hill Cemetery (28.8,30.9); 2 people died to her on this guide in players' recordings (0.3.5+). A route-around tip, the bar's remedy for an elite on the way.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "deaths to npc 314 Eliza on 04: 2 people at 25.6 and 27.3"
 				}
 			]
 		}

@@ -3957,10 +3957,8 @@ test(`${DARKSHORE_RETURN}: scalatrava's report (#1352): the Twilight Tome's ques
 // to target and the bracers were not counted. The bracer goal is optional:
 // the Divined Scroll holds the step.
 
-const ASHENVALE_ALLIANCE = 'forever/alliance/06-ashenvale.guide';
-
 test(`Tazul's report: Elemental Bracers counts the five bracers before the Divined Scroll`, { skip }, () => {
-	const list = goals(ASHENVALE_ALLIANCE);
+	const list = goals(WETLANDS); // 0.4.0 fix round: Elemental Bracers moved from 06-ashenvale to the Krolg leg here
 	const bracers = at(list, 'collect 12220', (g) => g.t === 'collect' && g.item === 12220);
 	const scroll = at(list, 'collect 5455', (g) => g.t === 'collect' && g.item === 5455 && g.quest === 1016);
 	assert.equal(list[bracers].goal.count, 5);
@@ -4950,8 +4948,8 @@ test(`${ASHENVALE}: The Sleeper Has Awakened gives the Horn of Awakening on acce
 
 // Thin-data audit (#1317): Elemental Bracers' Divined Scroll is made where the elementals are; the goal pointed at the
 // lake's west edge, ~70 yd from every recorded tick (7 people, middle at 49.6,71.3).
-test(`${ASHENVALE}: thin-data audit: Elemental Bracers points where players make the Divined Scroll (#1317)`, { skip }, () => {
-	const list = goals(ASHENVALE);
+test(`${WETLANDS}: thin-data audit: Elemental Bracers points where players make the Divined Scroll (#1317)`, { skip }, () => {
+	const list = goals(WETLANDS);
 	const { goal } = list[at(list, 'collect 5455 (1016)', (g) => g.t === 'collect' && g.quest === 1016)];
 	assert.equal(goal.map, 1440, 'Ashenvale');
 	assert.ok(Math.hypot(goal.x - 49.6, goal.y - 71.3) < 1, `among the elementals (${goal.x},${goal.y})`);
@@ -13529,9 +13527,12 @@ test(`${DARKSHORE_RETURN}: Trial of the Sea Lion and Aquatic Form on the Cat For
 });
 
 // Alliance 20-30 audit (0.4.0, #2025): at Mystral Lake, Tideress (27) killed 4 people and the Befouled Water
-// Elementals 5 at about 23 (players' recordings): the step warns of her.
-test(`${ASHENVALE}: the Mystral Lake step warns of Tideress (Alliance 20-30 audit)`, { skip }, () => {
-	const list = goals(ASHENVALE);
+// Elementals 5 at about 23 (players' recordings). Fix round 1: the quest moved to 06-wetlands' Krolg leg at about 29.7,
+// where Tideress is two under the player; the step still names her, and 06-ashenvale has no Mystral Lake step.
+test(`${WETLANDS}: Elemental Bracers is done at about 29 on the Krolg leg, and the step names Tideress`, { skip }, () => {
+	assert.ok(!goals(ASHENVALE).some(({ goal }) => goal.quest === 1016), `${ASHENVALE} no longer works Elemental Bracers at 23-24`);
+	const list = goals(WETLANDS);
+	assert.ok(at(list, 'turnin 1016', is('turnin', 1016)) < at(list, 'turnin 1030 (Krolg)', is('turnin', 1030)), 'on the way to Krolg');
 	const { step } = list[at(list, 'Elemental Bracers (1016)', is('accept', 1016))];
 	assert.match([step.tip, step.note].flat().filter(Boolean).join(' '), /Tideress, a level 27 water elemental/);
 });

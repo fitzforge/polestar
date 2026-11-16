@@ -5541,6 +5541,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Teldrassil (0.4.0 audit): a group that did Twisted Hatred hands it to Tallonkai on the next Dolanaar stop, upstairs in the same inn, instead of walking past him and coming back after Lake Al'Ameth and Ursal."
+			},
+			{
+				"a": [
+					"task",
+					1025
+				],
+				"b": [
+					"accept",
+					1016
+				],
+				"faction": "Alliance",
+				"why": "Alliance 12-30 (0.4.0 fix round): Elemental Bracers (1016) is done on 06-wetlands' Ashenvale trip, between the Foulweald and Krolg, at about 29.7. On 06-ashenvale's Mystral Lake stop at 23-24 the Befouled Water Elementals (23-25) and Tideress (27, non-elite, drops the bracers) were two to four over the player: 0.3.5+ players' recordings show 4 people killed by Tideress and 4 by the elementals there."
 			}
 		],
 		"notes": [
@@ -5549,7 +5561,8 @@
 			"Forever follow-ups only after the quests before them: the turnin -> accept pairs above (the #51/#112/#128/#143/#148/#225 sweep), and every prerequisite the data has (the evaluator does not take a quest before them).",
 			"First-visit flight paths (2026-11-10, Fitz in game at Ratchet): a getfp goes in the first step that stands within about 60 yd of its flight master, not a later visit. Ratchet: Bragok stands 16 yd from Sputtervalve (accept 894) on the first Ratchet stop (horde/02-the-barrens), learned there instead of on the fly step after the beach. Camp Taurajo: Omusa Thunderhorn stands 54 yd from Kirge Sternhorn (accept 854), where Tauren pass at the end of tauren/01-mulgore, learned there instead of at 02-the-barrens' Camp Taurajo stop. Sweep of every leveling chain (all races, both factions; first route goal within 40 and 100 yd of each flight master vs its first getfp): these two only; no flight master passed with no getfp. The route writer's first-visit rule (60 yd, docs/forge/writer.md) writes both on every build.",
 			"Item-started quests' hand-ins hold (0.3.8): Sharptalon's Claw (2), Ursangous's Paw (23) and Shadumbra's Head (24) at Senani Thunderheart (horde/07-ashenvale), The Admiral's Orders (830) at Gar'Thok (orc and troll 01-durotar), Burning Shadows (832) at Neeru Fireblade (horde/03-silverpine-forest, the Neeru step now `when onquest 829,832`) and Attack on Camp Narache (781) at Chief Hawkwind (tauren/01-mulgore) were optional hand-ins beside other work at the same NPC, and the addon never holds an optional goal, so players who had the quest walked past its NPC and carried it finished. The hand-ins are plain goals (hidden for anyone who never took the quest). The guide writer marks such a hand-in optional ('optional at its NPC'); a writer rule that keeps an item-started quest's hand-in required is needed before the next route build, or that build marks them optional again.",
-			"Durotar (Orc, Troll), 0.4.0 start audit: no \"Mage trainer\" step on the Razor Hill training stop at about 11 sending Mages back to Mai'ah in the Valley of Trials (Razor Hill has no mage trainer, the stop's away-trainer line in forge-writer's training pass). Mages train with Un'Thuwa at Sen'jin on the way through at 8-10 and in Orgrimmar on the next guide's arrival at about 12; players' recordings (0.3.5+) show no Mage making the trip. Hand edit, pinned by tests/guides-reported.test.js; a later writer round turns this into the training pass's rule."
+			"Durotar (Orc, Troll), 0.4.0 start audit: no \"Mage trainer\" step on the Razor Hill training stop at about 11 sending Mages back to Mai'ah in the Valley of Trials (Razor Hill has no mage trainer, the stop's away-trainer line in forge-writer's training pass). Mages train with Un'Thuwa at Sen'jin on the way through at 8-10 and in Orgrimmar on the next guide's arrival at about 12; players' recordings (0.3.5+) show no Mage making the trip. Hand edit, pinned by tests/guides-reported.test.js; a later writer round turns this into the training pass's rule.",
+			"06-wetlands (0.4.0 fix round): a solo player who took the optional group quests The Branch of Cenarius (1031, Geltharis 32) or Insane Druids (1012, the Dor'Danil Barrow Den) gets a step after Illiyana to abandon them (`when !group`, `when onquest 1031,1012`): the route has no step to finish them alone. Training lines on 04 and 05 say 'Your new spells' instead of spell levels the player has passed. Hand edits."
 		],
 		"never": [
 			{

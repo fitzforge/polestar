@@ -229,7 +229,7 @@ step Elwynn Forest
 
 step Class trainer
   only Warrior,Paladin,Hunter,Priest,Mage,Warlock,Druid
-  train class only Warrior,Paladin,Hunter,Priest,Mage,Warlock,Druid -- Level 22 and 24 spells
+  train class only Warrior,Paladin,Hunter,Priest,Mage,Warlock,Druid -- Your new spells
 
 step Gazin Tenorm
   only Human,Paladin
