@@ -15328,6 +15328,101 @@ test('Alliance 40-50 reports: Jarl\'s spices bought before the hand-in (#1917), 
 	assert.match(tip, /Scarabs/, 'warns of the Scarabs');
 });
 
+// --- Reports fixed in earlier releases that had no test of their own (regression audit after 0.4.0). Each case
+// checks the fix where the 0.4.0 guides hold it.
+
+// haggisbytes (#1084): Rezlak offers Stormy Potential only once Winds in the Desert is handed in; the 0.3.1 guide asked
+// for both at once.
+test('#1084: Durotar: Stormy Potential is taken after Winds in the Desert is handed in, on both Durotar starts', { skip }, () => {
+	for (const guide of DUROTARS) {
+		const list = goals(guide);
+		assert.ok(at(list, `${guide}: turnin 834`, is('turnin', 834)) < at(list, `${guide}: accept 97282`, is('accept', 97282)), `${guide}: Winds in the Desert first`);
+	}
+});
+
+// Zack (#2394): Water Pouch Bounty asks for 5 Wastewander Water Pouches; the guide asked for 10, so the step never ticked.
+test('#2394: Horde Feralas & Tanaris: Water Pouch Bounty counts the quest\'s 5 pouches', { skip }, () => {
+	const list = goals('forever/horde/40-50/02-feralas.guide');
+	const pouches = list.filter(({ goal }) => goal.t === 'collect' && goal.quest === 1707 && goal.item === 8483);
+	assert.ok(pouches.length, 'the pouches are collected');
+	for (const { goal } of pouches) assert.equal(goal.count, 5, 'five pouches');
+});
+
+// Quests their givers do not offer on Forever stay out of every guide: Vimes's Report (#1926: Captain Garran Vimes
+// never offers it) and Awaiting Word (#2148: Watcher Dodds never offers it, though the map showed it).
+test('#1926, #2148: Vimes\'s Report and Awaiting Word, which their givers do not offer on Forever, are in no guide', { skip }, () => {
+	const out = { 1288: '#1926', 1289: '#1926', 236: '#2148' };
+	const found = [];
+	for (const guide of allGuides()) {
+		for (const { goal } of goals(guide)) if (goal.quest in out && goal.t === 'accept') found.push(`${guide}: accept ${goal.quest} (${out[goal.quest]})`);
+	}
+	assert.deepEqual(found, []);
+});
+
+// HaruSoul (#2459): the Great Lift step pointed at the lift's top landing, so after riding down the arrow kept sending
+// the player back up. The step is the two NPCs at the top; the next step goes on to Freewind Post's lift.
+test('#2459: Horde Ashenvale & Thousand Needles: the Great Lift step has no goto at the lift, the next step leads on', { skip }, () => {
+	const list = goals(ASHENVALE_HORDE);
+	const top = list.filter(({ step }) => step.title === 'The Great Lift');
+	assert.deepEqual(top.map(({ goal }) => `${goal.t} ${goal.quest}`), ['turnin 5881', 'accept 4542'], 'Grish and Brave Moonhorn only');
+	const next = list.find(({ s }) => s === top[0].s + 1);
+	assert.ok(next && next.goal.t === 'goto' && /Freewind Post/.test(next.goal.text || ''), 'then on to Freewind Post');
+});
+
+// Phokopi (#2458): The Hunt Completed is handed in without an accept, only after the hunts it asks for; the guide asked
+// for it with a hunt missing. Its hand-in is direct and waits for Sharptalon's Claw.
+test('#2458: Horde Ashenvale: The Hunt Completed is a direct hand-in that waits for Sharptalon\'s Claw', { skip }, () => {
+	const list = goals(ASHENVALE_HORDE);
+	const { step, goal } = list[at(list, 'turnin 247', is('turnin', 247))];
+	assert.ok(goal.direct, 'a direct hand-in');
+	assert.ok((step.when || []).some((p) => p.k === 'turnedin' && !p.neg && [p.q].flat().includes(2)), 'waits for 2 handed in');
+	assert.ok(!list.some(({ goal: g }) => is('accept', 247)(g)), 'no accept');
+});
+
+// Fyurie (#2490, #2491): Chasing A-Me 01 and Alien Ecology were on the Alliance's first Un'Goro visit at about 50, among
+// mobs up to 53. Both are taken on the Western Plaguelands guide's Un'Goro visit at about 57.
+test('#2490, #2491: Alliance: A-Me 01 and Alien Ecology wait for the later Un\'Goro visit', { skip }, () => {
+	const first = goals(UN_GORO_ALLIANCE);
+	for (const q of [4243, 3883]) assert.ok(!first.some(({ goal }) => is('accept', q)(goal)), `no accept ${q} on the first visit`);
+	const wpl = goals('forever/alliance/50-60/04-western-plaguelands.guide');
+	for (const q of [4243, 3883]) assert.ok(at(wpl, `accept ${q}`, is('accept', q)) < at(wpl, `turnin ${q}`, is('turnin', q)), `${q} taken and handed in on the later visit`);
+});
+
+// Erik (#1483): the Human Warlock's trip to Stormwind read only "Go to Stormwind"; it names where it leads.
+test('#1483: Elwynn Forest: the Warlock\'s Stormwind walk names Gakin the Darkbinder', { skip }, () => {
+	const list = goals(ELWYNN);
+	const walk = list.find(({ goal }) => goal.t === 'goto' && goal.map === 1453 && /Gakin/.test(goal.text || ''));
+	assert.ok(walk, 'a goto named for Gakin');
+	assert.ok(at(list, 'turnin 1685', is('turnin', 1685)) > list.indexOf(walk), 'then the hand-in to him');
+});
+
+// Fyurie (#1544): My Little Friends' critters are caught with the Entomology Starter Kit, not killed: each is a collect
+// of its specimen, shown only with the quest in the log.
+test('#1544: Alliance: My Little Friends\' specimens are collects, shown with the quest in the log', { skip }, () => {
+	for (const [guide, item] of [[ARATHI, 213568], ['forever/alliance/40-50/01-stranglethorn-vale.guide', 213566]]) {
+		const list = goals(guide);
+		const { step } = list[at(list, `${guide}: collect ${item}`, (g) => g.t === 'collect' && g.item === item)];
+		assert.ok((step.when || []).some((p) => p.k === 'onquest' && !p.neg && [p.q].flat().includes(93176)), `${guide}: when onquest 93176`);
+		assert.ok(!step.goals.some((g) => g.t === 'kill'), `${guide}: no kill on the specimen step`);
+	}
+});
+
+// Profession guides built on Forever's own recipe and trainer data. Conjure and Piggyslam (#190, #297): Minor Healing
+// Potion is a First Aid recipe on Forever, so Alchemy 1-75 is Elixir of Minor Defense. twisted (#1958): Thick Leather is
+// taught from 175; the guide crafted it from 155, and it is gathered or bought instead. Quiz (#1808): Enchant Boots -
+// Lesser Agility (160) is taught by the Expert trainers only, Kitta Firewind and Hgarth.
+test('#190, #297, #1958, #1808: profession guides craft and learn what Forever\'s trainers teach', { skip }, () => {
+	const alchemy = goals('forever/professions/alchemy.guide');
+	assert.ok(!alchemy.some(({ goal }) => goal.spell === 2330), 'no Minor Healing Potion in Alchemy');
+	const first = alchemy.find(({ goal }) => goal.t === 'craft' && goal.untilSkill);
+	assert.equal(first.goal.spell, 7183, 'Alchemy 1-75 is Elixir of Minor Defense');
+	const leather = goals('forever/professions/leatherworking.guide');
+	assert.ok(!leather.some(({ goal }) => goal.t === 'craft' && goal.item === 4304), 'Thick Leather is never crafted');
+	const enchanting = goals('forever/professions/enchanting.guide');
+	const { goal } = enchanting[at(enchanting, 'learn 13637', (g) => g.t === 'learn' && g.spell === 13637)];
+	assert.deepEqual(goal.candidates.map((c) => c.npc).sort((a, b) => a - b), [11072, 11074], 'Kitta Firewind and Hgarth only');
+});
+
 // #2563 (Kiber_Mazai, 0.4.0): Harlo Barnaby stops offering Fall of Dun Modr (472) once A Grim Task (304) is handed
 // in, and no prerequisite, exclusive group or breadcrumb in the quest data says so. The accept shared the Menethil
 // Harbor step, which then waited on a quest nobody could take. It is a step of its own, shown only while A Grim Task
