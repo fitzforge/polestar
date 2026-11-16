@@ -34,7 +34,7 @@ pub struct Summary {
 	/// First and last record (epoch seconds).
 	pub first: Option<f64>,
 	pub last: Option<f64>,
-	/// Seconds covered by the chunks (sum per character of last - first record of each chunk).
+	/// Seconds covered by the chunks (sum of each chunk's latest minus earliest record time).
 	pub seconds: f64,
 	pub characters: Vec<CharacterSummary>,
 }
@@ -100,8 +100,10 @@ pub fn summarize_with_maps(chunks: &[Chunk], maps: &BTreeMap<u32, String>) -> Su
 		s.skipped_unknown += c.skipped_unknown as u64;
 		let ch = chars.entry(c.char_id.clone()).or_insert_with(|| CharacterSummary { char_id: c.char_id.clone(), ..Default::default() });
 		ch.chunks += 1;
-		if let (Some(a), Some(b)) = (c.records.first(), c.records.last()) {
-			s.seconds += b.t - a.t;
+		if let Some(first) = c.records.first() {
+			// Kills can be appended later with their original death time.
+			let (start, end) = c.records.iter().fold((first.t, first.t), |(start, end), r| (start.min(r.t), end.max(r.t)));
+			s.seconds += end - start;
 		}
 		for r in &c.records {
 			s.records += 1;
@@ -185,6 +187,48 @@ pub fn summarize_with_maps(chunks: &[Chunk], maps: &BTreeMap<u32, String>) -> Su
 mod tests {
 	use super::*;
 	use crate::record::decode_chunk;
+
+	const SESSION: &str = "session\t0\tabcdefghij\tScourge\tWARRIOR\tHorde\t2\t5\tenUS\t62345\t11508\t3\t\t2.0.0\t\t\n";
+
+	fn chunk(seq: u64, epoch: i64, body: &str) -> Chunk {
+		decode_chunk(&format!("chunk\t0\t{seq}\t{epoch}\tabcdefghij\n{body}")).unwrap()
+	}
+
+	#[test]
+	fn duration_keeps_the_latest_time_when_a_kill_is_appended_late() {
+		let pos = "pos\t310\t1420\t1000\t1000\t0\t70\n";
+		let kill = "kill\t290\t1501\t2\tn\t1420\t1000\t1000\t40\t\t0\t\n";
+		let chronological = chunk(1, 1_700_000_000, &format!("{SESSION}{kill}{pos}"));
+		// Finds.lua waits three seconds before appending a kill with its death time.
+		let delayed = chunk(1, 1_700_000_000, &format!("{SESSION}{pos}{kill}"));
+		let expected = summarize(&[chronological]);
+		assert_eq!(expected.seconds, 31.0);
+		assert_eq!(summarize(&[delayed]), expected);
+	}
+
+	#[test]
+	fn duration_sums_chunks_without_counting_the_gap_between_them() {
+		let first = chunk(1, 1_700_000_000, &format!("{SESSION}pos\t310\t1420\t1000\t1000\t0\t70\nkill\t290\t1501\t2\tn\t\t\t\t40\t\t0\t\n"));
+		let second = chunk(2, 1_700_003_600, &format!("{SESSION}pos\t150\t1420\t1000\t1000\t0\t70\nkill\t130\t1501\t2\tn\t\t\t\t40\t\t0\t\n"));
+		let s = summarize(&[second, first]);
+		assert_eq!(s.seconds, 46.0);
+		assert_eq!((s.first, s.last), (Some(1_700_000_000.0), Some(1_700_003_615.0)));
+		assert_eq!((s.chunks, s.records, s.kills), (2, 6, 2));
+	}
+
+	#[test]
+	fn empty_and_single_record_chunks_add_no_duration() {
+		assert_eq!(summarize(&[]), Summary::default());
+		let empty = chunk(1, 1_700_000_000, "");
+		let s = summarize(std::slice::from_ref(&empty));
+		assert_eq!((s.seconds, s.first, s.last), (0.0, None, None));
+
+		let single = chunk(2, 1_700_003_600, SESSION);
+		let s = summarize(&[empty, single]);
+		assert_eq!(s.seconds, 0.0);
+		assert_eq!((s.first, s.last), (Some(1_700_003_600.0), Some(1_700_003_600.0)));
+		assert_eq!((s.chunks, s.records), (2, 1));
+	}
 
 	#[test]
 	fn counts_and_distance() {
