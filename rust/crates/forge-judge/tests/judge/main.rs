@@ -3,6 +3,7 @@
 mod along;
 mod cases_parity;
 mod common;
+mod dump_levels;
 mod engine_parity;
 mod engine_rilua;
 mod frame_default;
