@@ -8513,7 +8513,7 @@ do
 			title = "{zone:1424}",
 			faction = "Horde",
 			minLevel = 29,
-			maxLevel = 30,
+			maxLevel = 31,
 			category = "Leveling",
 			zone = 1424,
 			zoneName = "Hillsbrad Foothills",

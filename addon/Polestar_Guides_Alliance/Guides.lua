@@ -6630,7 +6630,7 @@ do
 			title = "{zone:1417}, {zone:1416} & {zone:1435}",
 			faction = "Alliance",
 			minLevel = 35,
-			maxLevel = 38,
+			maxLevel = 37,
 			category = "Leveling",
 			zone = 1417,
 			zoneName = "Arathi Highlands",
