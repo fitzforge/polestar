@@ -541,7 +541,6 @@ t.guides["forever/alliance/30-40/04b-stranglethorn-vale"] = (function() return {
 		["The jungle ruins"] = "Las ruinas de la selva",
 		["The {area:102}"] = "Las {area:102}",
 		["{npc:2496}, upstairs in the tavern"] = "{npc:2496}, en el piso de arriba de la taberna",
-		["{npc:770}: for {npc:773} in {area:35}"] = "{npc:770}: para {npc:773}, en {area:35}",
 		["{npc:773}, upstairs: this optional quest needs four {item:4278}. Mine Lesser Bloodstone Deposits in {zone:1417} with {skill:186} 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore."] = "{npc:773}, en el piso de arriba: esta misión opcional pide cuatro {item:4278}. Extrae de Depósitos de Petrosangre inferior en {zone:1417} con {skill:186} 75, o compra el mineral en la casa de subastas o pídeselo a un amigo minero. Los kóbolds no lo sueltan; salta esta misión si no puedes conseguir el mineral.",
 } end)()
 t.guides["forever/alliance/30-40/05-arathi-highlands"] = (function() return {
@@ -675,7 +674,6 @@ t.guides["forever/alliance/40-50/01-stranglethorn-vale"] = (function() return {
 		["The Mirefin murlocs crowd the north coast past {area:497}."] = "Los múrlocs Ancalodo abarrotan la costa norte pasada la {area:497}.",
 		["The burned inn stands on the road west, toward the {zone:1413}; the guard's badge lies in the ashes."] = "La posada quemada está en el camino del oeste, hacia {zone:1413}; la insignia del guardia está entre las cenizas.",
 		["The deserters camp south of the road, west of {npc:4503}'s hut."] = "Los desertores acampan al sur del camino, al oeste de la cabaña de {npc:4503}.",
-		["The driftwood washes up along the eastern shore."] = "La madera a la deriva llega a la orilla oriental.",
 		["The north-west coast"] = "La costa noroeste",
 		["The scroll lies in the marsh north of Biggs. The Swampwalkers north of it can drop Khadgar's essays."] = "El pergamino está en el pantano al norte de Biggs. Los Caminalodos al norte de él pueden soltar los ensayos de Khadgar.",
 		["The sunken temple"] = "El Templo Sumergido",

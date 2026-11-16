@@ -140,9 +140,9 @@ forever/alliance/40-50/06-searing-gorge	step 22	0:-6680,-1194>-6509,-1192	detour
 forever/alliance/40-50/06-searing-gorge	step 36	0:-7025,-1786>-6680,-1197	detour 1.65x straight on grid, no named passage
 forever/alliance/40-50/06-searing-gorge	step 37	0:-6680,-1190>-6514,-1184	detour 2.27x straight on grid, no named passage
 forever/alliance/40-50/06-searing-gorge	step 41	0:-4595,-958>-4613,-929	detour 2.69x straight on leffe, no named passage
-forever/alliance/50-60/01-burning-steppes	step 15	1:3466,-5273>3499,-5635	detour 1.99x straight on leffe, no named passage
-forever/alliance/50-60/01-burning-steppes	step 17	1:3466,-5342>4027,-5407	detour 1.71x straight on leffe, no named passage
-forever/alliance/50-60/01-burning-steppes	step 23	1:3921,-5788>4604,-5987	detour 1.72x straight on leffe, no named passage
+forever/alliance/50-60/01-burning-steppes	step 14	1:3466,-5273>3499,-5635	detour 1.99x straight on leffe, no named passage
+forever/alliance/50-60/01-burning-steppes	step 16	1:3466,-5342>4027,-5407	detour 1.71x straight on leffe, no named passage
+forever/alliance/50-60/01-burning-steppes	step 22	1:3921,-5788>4604,-5987	detour 1.72x straight on leffe, no named passage
 forever/alliance/50-60/01-burning-steppes	step 72	0:-10884,-2935>-10947,-3369	detour 1.50x straight on leffe, no named passage
 forever/alliance/50-60/01-burning-steppes	step 80	0:-4648,-1132>-4861,-1017	detour 1.65x straight on leffe, no named passage
 forever/alliance/50-60/01-burning-steppes	step 84	1:6342,557>8707,989	no way on either map
@@ -254,7 +254,7 @@ forever/alliance/nightelf/02-darkshore	step 18	1:6749,49>6435,363	detour 1.56x s
 forever/alliance/skyborne/01-zephras-isle	step 2	2991:4037,1815>4023,1827	detour 1.83x straight on leffe, no named passage
 forever/alliance/skyborne/01-zephras-isle	step 3	2991:4017,1812>4064,1797	detour 2.96x straight on grid, no named passage
 forever/alliance/skyborne/01-zephras-isle	step 4	2991:4063,1802>4085,1892	detour 2.02x straight on grid, no named passage
-forever/alliance/skyborne/01-zephras-isle	step 33	2991:3346,1801>3348,1823	detour 2.15x straight on grid, no named passage
+forever/alliance/skyborne/01-zephras-isle	step 33	2991:3346,1801>3348,1823	detour 2.37x straight on leffe, no named passage
 forever/alliance/skyborne/01-zephras-isle	step 42	2991:3289,1758>3284,1731	detour 1.55x straight on leffe, no named passage
 forever/alliance/skyborne/01-zephras-isle	step 50	2991:3281,1715>3095,1606	detour 1.56x straight on leffe, no named passage
 forever/alliance/skyborne/01-zephras-isle	step 52	2991:2580,1952>2739,2003	detour 1.65x straight on leffe, no named passage

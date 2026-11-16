@@ -542,7 +542,6 @@ t.guides["forever/alliance/30-40/04b-stranglethorn-vale"] = (function() return {
 		["The jungle ruins"] = "밀림의 폐허",
 		["The {area:102}"] = "{area:102}",
 		["{npc:2496}, upstairs in the tavern"] = "{npc:2496}, 선술집 위층",
-		["{npc:770}: for {npc:773} in {area:35}"] = "{npc:770}: {area:35}의 {npc:773}에게",
 		["{npc:773}, upstairs: this optional quest needs four {item:4278}. Mine Lesser Bloodstone Deposits in {zone:1417} with {skill:186} 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore."] = "{npc:773}은(는) 위층에 있습니다. 이 선택 퀘스트에는 {item:4278} 4개가 필요합니다. {zone:1417}에서 {skill:186} 75로 저급 혈석 광맥을 캐거나, 경매장에서 광석을 사거나, 채광하는 친구에게 부탁하세요. 코볼트는 이 광석을 떨어뜨리지 않습니다. 광석을 구할 수 없으면 이 퀘스트는 건너뛰세요.",
 } end)()
 t.guides["forever/alliance/30-40/05-arathi-highlands"] = (function() return {
@@ -676,7 +675,6 @@ t.guides["forever/alliance/40-50/01-stranglethorn-vale"] = (function() return {
 		["The Mirefin murlocs crowd the north coast past {area:497}."] = "진흙아가미멀록은 {area:497} 너머 북쪽 해안에 모여 있습니다.",
 		["The burned inn stands on the road west, toward the {zone:1413}; the guard's badge lies in the ashes."] = "불탄 여관은 서쪽 길, {zone:1413} 방향에 있습니다. 경비병의 휘장은 잿더미 속에 있습니다.",
 		["The deserters camp south of the road, west of {npc:4503}'s hut."] = "탈영병들은 {npc:4503}의 오두막 서쪽, 길 남쪽에 진을 치고 있습니다.",
-		["The driftwood washes up along the eastern shore."] = "유목은 동쪽 해안을 따라 떠밀려 옵니다.",
 		["The north-west coast"] = "북서쪽 해안",
 		["The scroll lies in the marsh north of Biggs. The Swampwalkers north of it can drop Khadgar's essays."] = "두루마리는 빅스 북쪽 습지에 있습니다. 그 북쪽의 늪괴물이 카드가의 평론을 떨어뜨릴 수 있습니다.",
 		["The sunken temple"] = "가라앉은 사원",

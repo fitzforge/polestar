@@ -621,7 +621,6 @@ t.guides["forever/alliance/30-40/04b-stranglethorn-vale"] = (function() return {
 		["The jungle ruins"] = "Руины в джунглях",
 		["The {area:102}"] = "{area:102}",
 		["{npc:2496}, upstairs in the tavern"] = "{npc:2496} – наверху в таверне",
-		["{npc:770}: for {npc:773} in {area:35}"] = "{npc:770}: для NPC {npc:773} ({area:35})",
 		["{npc:773}, upstairs: this optional quest needs four {item:4278}. Mine Lesser Bloodstone Deposits in {zone:1417} with {skill:186} 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore."] = "{npc:773} – наверху: для этого необязательного задания нужно четыре шт. {item:4278}. Добывайте руду из малых месторождений кровавого камня в зоне {zone:1417} с навыком {skill:186} 75, купите ее на аукционе или попросите друга-шахтера. Кобольды ее не роняют; пропустите задание, если не можете достать руду.",
 		["{zone:1453} flight master"] = "Распорядитель полетов: {zone:1453}",
 } end)()
@@ -759,7 +758,6 @@ t.guides["forever/alliance/40-50/01-stranglethorn-vale"] = (function() return {
 		["The Mirefin murlocs crowd the north coast past {area:497}."] = "Мурлоки из племени Болотного Плавника толпятся на северном побережье за усадьбой ({area:497}).",
 		["The burned inn stands on the road west, toward the {zone:1413}; the guard's badge lies in the ashes."] = "Сгоревшая таверна стоит у дороги на запад, в сторону зоны {zone:1413}; значок стражника лежит в пепле.",
 		["The deserters camp south of the road, west of {npc:4503}'s hut."] = "Дезертиры стоят лагерем к югу от дороги, к западу от хижины {npc:4503}.",
-		["The driftwood washes up along the eastern shore."] = "Плавник выносит на восточный берег.",
 		["The north-west coast"] = "Северо-западное побережье",
 		["The scroll lies in the marsh north of Biggs. The Swampwalkers north of it can drop Khadgar's essays."] = "Свиток лежит на болоте к северу от Биггса. С тинобродов к северу от него могут выпасть рассуждения Кадгара.",
 		["The sunken temple"] = "Затонувший храм",

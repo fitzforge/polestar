@@ -541,7 +541,6 @@ t.guides["forever/alliance/30-40/04b-stranglethorn-vale"] = (function() return {
 		["The jungle ruins"] = "叢林廢墟",
 		["The {area:102}"] = "{area:102}",
 		["{npc:2496}, upstairs in the tavern"] = "{npc:2496}，在酒館樓上",
-		["{npc:770}: for {npc:773} in {area:35}"] = "{npc:770}：給{area:35}的{npc:773}",
 		["{npc:773}, upstairs: this optional quest needs four {item:4278}. Mine Lesser Bloodstone Deposits in {zone:1417} with {skill:186} 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore."] = "{npc:773}在樓上：這個可選任務需要四塊{item:4278}。在{zone:1417}用{skill:186} 75開採次級血石礦脈，或在拍賣場購買礦石，或請會採礦的朋友幫忙。狗頭人不會掉落它；拿不到礦石就跳過這個任務。",
 } end)()
 t.guides["forever/alliance/30-40/05-arathi-highlands"] = (function() return {
@@ -674,7 +673,6 @@ t.guides["forever/alliance/40-50/01-stranglethorn-vale"] = (function() return {
 		["The Mirefin murlocs crowd the north coast past {area:497}."] = "黑鰭魚人聚集在{area:497}以北的海岸。",
 		["The burned inn stands on the road west, toward the {zone:1413}; the guard's badge lies in the ashes."] = "燒毀的旅店位於西邊通往{zone:1413}的道路上；衛兵的徽章就在灰燼中。",
 		["The deserters camp south of the road, west of {npc:4503}'s hut."] = "逃兵在道路南邊、{npc:4503}小屋西邊紮營。",
-		["The driftwood washes up along the eastern shore."] = "浮木沖上東岸。",
 		["The north-west coast"] = "西北海岸",
 		["The scroll lies in the marsh north of Biggs. The Swampwalkers north of it can drop Khadgar's essays."] = "卷軸在比格斯北邊的沼澤裡。它北邊的沼澤漫步者可能會掉落卡德加的空間收斂研究筆記。",
 		["The sunken temple"] = "沉沒的神廟",
