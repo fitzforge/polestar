@@ -81,7 +81,7 @@ step The Shady Rest Inn
   accept 1252 @29.8,48.2              -- Theramore Guard Badge
 
 step Corrosive Swamp Oozes
-  tip On the way back east, the Corrosive Swamp Oozes (38-40) creep through the marsh south of the road, between the middle of the marsh and Theramore: one of them carries Jameson's training sword.
+  tip On the way back east, the Corrosive Swamp Oozes (38-40) creep through the marsh south of the road, between the middle of the marsh and Theramore: one of them carries Jameson's training sword. Careful: Elder Daggermaws (48-49) lurk in the water among them, and the larger Bubbling Swamp Oozes (39-40) are elite: leave both alone.
   collect 280203 quest 98233 @49.3,55.7 map 1445 -- Jameson's Training Sword
 
 # ---------------------------------------------------------------- Theramore

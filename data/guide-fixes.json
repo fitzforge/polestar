@@ -11919,8 +11919,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "On the way back east, the Corrosive Swamp Oozes (38-40) creep through the marsh south of the road, between the middle of the marsh and Theramore: one of them carries Jameson's training sword.",
-			"note": "40-50/01 (fix round 1, 0.4.0): Sword in the Slime (98233, level 42, 3,450 XP) from Guard Jameson in Theramore; the sword drops from the Corrosive Swamp Oozes (38-40, 44-55,50-59) on the route's ride back east from the Shady Rest Inn. Players' recordings: 5 people took it at about 40, 3 handed it in.",
+			"tip": "On the way back east, the Corrosive Swamp Oozes (38-40) creep through the marsh south of the road, between the middle of the marsh and Theramore: one of them carries Jameson's training sword. Careful: Elder Daggermaws (48-49) lurk in the water among them, and the larger Bubbling Swamp Oozes (39-40) are elite: leave both alone.",
+			"note": "40-50/01 (fix round 1, 0.4.0): Sword in the Slime (98233, level 42, 3,450 XP) from Guard Jameson in Theramore; the sword drops from the Corrosive Swamp Oozes (38-40, 44-55,50-59) on the route's ride back east from the Shady Rest Inn. Players' recordings: 5 people took it at about 40, 3 handed it in. Fix round 2: the tip names the Elder Daggermaws (48-49, five spawns within 3 map units of the oozes' point) and the elite Bubbling Swamp Oozes (39-40) around them.",
 			"source": [
 				{
 					"kind": "recording",

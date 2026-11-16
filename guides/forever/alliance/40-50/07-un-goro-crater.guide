@@ -157,16 +157,16 @@ step Fire Plume Ridge and the eastern jungle
   tip Careful: the Living Blazes (54-55) walk the top of Fire Plume Ridge, and the Bloodpetal Flayers and Trappers (51-53) hold the jungle's south: take your crystals from the ridge's foot and your petals in the north.
   tip Shizzle's scales: the Fledgling Pterrordax (48-50) glide over the north-east of the jungle and the Young Diemetradons (49-50) graze beside them. There are only ten of those: the bigger Diemetradons (51-52) further south-west are a level or two over you, so stay north-east.
   collect 11316 quest 4141 @56.6,35.0 -- Bloodpetal, from the Lashers and Threshers
-  collect 11018 quest 3764 @55.6,28.7 -- Un'Goro Soil, from the dirt piles
+  collect 11018 quest 3764 @56.6,35.0 -- Un'Goro Soil, from the Threshers and the dirt piles
   collect 11831 quest 4503 @57.7,35.3 -- Webbed Pterrordax Scale, Fledgling Pterrordax
-  collect 11830 quest 4503 @58.1,33.9 -- Webbed Diemetradon Scale, Young Diemetradon
+  collect 11830 quest 4503 @57.7,35.3 -- Webbed Diemetradon Scale, Young Diemetradon
 
 step Lakkari Tar Pits
-  tip The Tar Beasts (50-51) wallow at the pits' edge; the Tar Lords (53-54) further in: take the crystals around the edge.
-  collect 11184 quest 4284 @54.1,18.1 -- Blue Power Crystal
-  collect 11185 quest 4284 @54.1,18.1 -- Green Power Crystal
-  collect 11186 quest 4284 @54.1,18.1 -- Red Power Crystal
-  collect 11188 quest 4284 @54.1,18.1 -- Yellow Power Crystal
+  tip Crystal clusters stand all over the crater. The pits' Tar Lords (53-54) and the oozes around them (50-54) are over you: take the clusters on the jungle's north-eastern edge, among the Lashers and young beasts (48-50).
+  collect 11184 quest 4284 @72.2,21.1 -- Blue Power Crystal
+  collect 11185 quest 4284 @72.2,21.1 -- Green Power Crystal
+  collect 11186 quest 4284 @72.2,21.1 -- Red Power Crystal
+  collect 11188 quest 4284 @72.2,21.1 -- Yellow Power Crystal
 
 step Marshal's Refuge
   turnin 4284                         -- J.D. Collie, below ground
