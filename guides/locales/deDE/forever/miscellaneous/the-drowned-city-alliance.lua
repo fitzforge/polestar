@@ -37,7 +37,7 @@ return {
 	["{item:2005}, in the {area:123} north-east of the reef."] = "",
 
 	-- Step 9: Skullsplitter trolls
-	["Skullsplitter trolls"] = "",
+	["Skullsplitter trolls"] = "Skullsplitter-Trolle",
 	["The Skullsplitter mystics (level 39 to 40) and witch doctors (41 to 42) in the middle of Stranglethorn drop the fetishes."] = "",
 
 	-- Step 11: Loremaster Dibbs
