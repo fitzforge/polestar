@@ -26,7 +26,7 @@ fn our_files(nexts: &[&str]) -> Vec<(String, String)> {
 	let head: Vec<&str> = head.iter().map(String::as_str).collect();
 	vec![
 		("main.guide".into(), ours("t-main", "10-20", &head, &["step One", "  accept 783", "step Two", "  turnin 783"])),
-		("default.guide".into(), ours("t-default", "10-20", &["next forever/alliance/t-after", "pitch The usual route."], &["step One", "  accept 7", "step Two", "  turnin 7"])),
+		("default.guide".into(), ours("t-default", "10-20", &["next forever/alliance/t-after", "pitch The usual route."], &["step One", "  accept 5261", "step Two", "  turnin 5261"])),
 		("after.guide".into(), ours("t-after", "20-30", &[], &["step One", "  accept 33"])),
 	]
 }

@@ -26,6 +26,9 @@ fn play_data() -> Data {
 		"9602": q(9602, json!({ "start": { "npc": [], "object": [], "item": [1210] } })),
 		"9603": q(9603, json!({ "minLevel": 9, "level": 10, "xp": 100 })),
 		"9604": q(9604, json!({ "sourceItem": 159 })),
+		"9605": q(9605, json!({ "end": { "npc": [197], "object": [] }, "objectives": [{ "type": "event", "text": "Escort Kerlonian" }] })),
+		"9606": q(9606, json!({ "end": { "npc": [197], "object": [] }, "objectives": [{ "type": "talk", "id": 197, "text": "Speak with Marshal McBride" }] })),
+		"9607": q(9607, json!({ "end": { "npc": [197], "object": [] }, "objectives": [{ "type": "event", "text": "Find the stone", "map": 1429, "x": 50.0, "y": 50.0 }] })),
 	});
 	for (k, x) in add.as_object().unwrap() {
 		t.get_mut("quests").unwrap()[k] = x.clone();
@@ -88,6 +91,32 @@ fn a_kill_on_a_talk_line_is_an_error() {
 }
 
 #[test]
+fn a_hand_in_with_no_goal_working_its_objectives_is_an_error() {
+	let d = play_data();
+	let bare = guide_text(&["step Kerlonian", "  accept 9605", "step Back", "  turnin 9605"]);
+	assert_eq!(
+		compile_with(&bare, &d).erred("no earlier goal works"),
+		[format!(
+			"test.guide:{}: quest 9605 (Quest 9605) is turned in, but no earlier goal works its objective 9605.1 = event Escort Kerlonian: the guide window goes from the accept straight to the hand-in",
+			line_of(&bare, "  turnin 9605")
+		)]
+	);
+	let unworked = |lines: &[&str]| run(lines, &d).erred("no earlier goal works");
+	// `complete`, a step waiting for it, or optional: right.
+	assert!(unworked(&["step Kerlonian", "  accept 9605", "  complete 9605 @40,40", "step Back", "  turnin 9605"]).is_empty());
+	assert!(unworked(&["step Kerlonian", "  accept 9605", "step Back", "  when complete 9605", "  turnin 9605"]).is_empty());
+	assert!(unworked(&["step Kerlonian", "  accept 9605", "step Back", "  turnin 9605 optional"]).is_empty());
+	// Work before the accept does not count; an objective that is the ender, or an event at the hand-in, needs none.
+	assert_eq!(unworked(&["step Early", "  complete 9605 @40,40", "step Kerlonian", "  accept 9605", "step Back", "  turnin 9605"]).len(), 1);
+	assert!(unworked(&["step S", "  accept 9606", "  turnin 9606"]).is_empty());
+	assert!(unworked(&["step S", "  accept 9607", "  turnin 9607 @50.0,50.0"]).is_empty());
+	assert_eq!(unworked(&["step S", "  accept 9607", "  turnin 9607 @20.0,20.0"]).len(), 1);
+	// A kill objective worked by its npc, bound or not.
+	assert!(unworked(&["step S", "  accept 7", "  kill 6 quest 7.1", "  turnin 7"]).is_empty());
+	assert!(unworked(&["step S", "  accept 7", "  kill 6", "  turnin 7"]).is_empty());
+}
+
+#[test]
 fn an_item_only_skippable_goals_get_holds_the_goal_that_needs_it() {
 	let d = play_data();
 	let held = |lines: &[&str]| run(lines, &d).erred("in the bags");
@@ -119,17 +148,17 @@ fn an_item_only_skippable_goals_get_holds_the_goal_that_needs_it() {
 
 #[test]
 fn a_required_accept_the_giver_cannot_offer_is_an_error_an_optional_or_waiting_one_a_warning() {
-	// 7 needs 783 turned in first.
+	// 9200 needs 9201 turned in first.
 	let needs = |lines: &[&str]| compile(&guide_text(lines));
-	assert_eq!(needs(&["step S", "  accept 7"]).erred("turned in first").len(), 1);
-	let opt = needs(&["step S", "  accept 7 optional"]);
+	assert_eq!(needs(&["step S", "  accept 9200"]).erred("turned in first").len(), 1);
+	let opt = needs(&["step S", "  accept 9200 optional"]);
 	assert!(opt.erred("turned in first").is_empty());
 	assert_eq!(opt.warned("turned in first").len(), 1);
-	let waits = needs(&["step S", "  when available 7", "  accept 7"]);
+	let waits = needs(&["step S", "  when available 9200", "  accept 9200"]);
 	assert!(waits.erred("turned in first").is_empty());
-	assert!(needs(&["step S", "  accept 783", "  turnin 783", "  accept 7"]).erred("turned in first").is_empty());
+	assert!(needs(&["step S", "  accept 9201", "  turnin 9201", "  accept 9200"]).erred("turned in first").is_empty());
 	// A step that waits for the prerequisite holds no gap.
-	assert!(needs(&["step S", "  when turnedin 783", "  accept 7"]).erred("turned in first").is_empty());
+	assert!(needs(&["step S", "  when turnedin 9201", "  accept 9200"]).erred("turned in first").is_empty());
 	// Below the quest's level where the route plausibly is; a step waiting for the level only warns.
 	let d = play_data();
 	assert_eq!(run(&["step S", "  accept 9603"], &d).erred("needs level 9").len(), 1);
@@ -166,8 +195,8 @@ fn the_allow_list_is_read_from_beside_the_data_folder() {
 	for e in std::fs::read_dir(data_dir()).unwrap().flatten() {
 		std::fs::copy(e.path(), data.join(e.file_name())).unwrap();
 	}
-	std::fs::write(dir.join("lint-allow.json"), r#"{ "allow": [{ "rule": "offer", "guide": "t/main", "quest": 7, "reason": "r" }] }"#).unwrap();
+	std::fs::write(dir.join("lint-allow.json"), r#"{ "allow": [{ "rule": "offer", "guide": "t/main", "quest": 9200, "reason": "r" }] }"#).unwrap();
 	let d = forge_guide::data::load_data(&data).unwrap();
 	assert_eq!(d.lint_allow.items().len(), 1);
-	assert!(compile_with(&guide_text(&["step S", "  accept 7"]), &d).erred("turned in first").is_empty());
+	assert!(compile_with(&guide_text(&["step S", "  accept 9200"]), &d).erred("turned in first").is_empty());
 }

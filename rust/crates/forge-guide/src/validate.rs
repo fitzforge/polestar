@@ -569,7 +569,7 @@ const GOTO_REDUNDANT_YARDS: f64 = 200.0;
 const TRAVEL_VERBS: &[&str] = &["fly", "hearth"];
 
 /// World position in yards of a compiled point on `map`, or None when the map has no bounds.
-fn world_point(data: &Data, map: &V, x: &V, y: &V, f: &V) -> Option<(f64, f64)> {
+pub(crate) fn world_point(data: &Data, map: &V, x: &V, y: &V, f: &V) -> Option<(f64, f64)> {
 	let era = data.map_frames.get("era");
 	let live = data.map_frames.get("forever");
 	let mk = ts(map);
@@ -1239,7 +1239,9 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 		check_dungeon_floors(g, data, diag);
 		crate::play_rules::check_direct_gates(g, data, &allow, diag);
 		crate::play_rules::check_talk_kills(g, data, &allow, diag);
-		crate::play_rules::check_skippable_items(g, &ctx.ancestors(g), data, &allow, diag);
+		let before = ctx.ancestors(g);
+		crate::play_rules::check_skippable_items(g, &before, data, &allow, diag);
+		crate::play_rules::check_unworked_turnins(g, &before, data, &allow, diag);
 		ctx.mark_carried(g);
 		let mut accepted: FxHashSet<Key> = FxHashSet::default();
 		let mut turned_in: FxHashSet<Key> = FxHashSet::default();
@@ -1247,6 +1249,9 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 		let mut learned: FxHashSet<Key> = FxHashSet::default();
 		// Quests abandoned on the path and not taken again since (a breadcrumb abandoned holds nothing back).
 		let mut abandoned: FxHashSet<Key> = FxHashSet::default();
+		// Quests this guide accepted and has not yet handed in or abandoned here: in the log, whatever another
+		// route into it did with them before (a parent quest taken again here holds its child).
+		let mut in_log: FxHashSet<Key> = FxHashSet::default();
 		// Quests accepted or turned in earlier on the path -> their character sets.
 		let mut taken: FxHashMap<Key, Vec<Rc<CharSet>>> = FxHashMap::default();
 		fn take(taken: &mut FxHashMap<Key, Vec<Rc<CharSet>>>, t: &QuestGoal) {
@@ -1299,6 +1304,7 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 			let q = if !quest.is_undef() { data.quest(&quest) } else { V::Null };
 			if t == "abandon" {
 				abandoned.insert(qk.clone());
+				in_log.remove(&qk);
 			}
 			let layers = [gl.clone(), step.hidden("_only"), goal.hidden("_only")];
 			if leveling && !goal.get("optional").truthy() && !party_work(&step, &goal, &chosen) {
@@ -1386,7 +1392,7 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 							let pq = p.get("q");
 							!p.get("neg").truthy() && p.get("k").as_str() == Some("onquest") && if pq.is_arr() { pq.items().iter().any(|x| key(x) == pk) } else { key(&pq) == pk }
 						});
-						if !on_parent && turned_in.contains(&pk) {
+						if !on_parent && !in_log.contains(&pk) && turned_in.contains(&pk) {
 							offer(diag, format!("quest {} is offered only while {} is in the log, but the chain hands that quest in earlier", ts(&quest), name(&parent)));
 						} else if !on_parent && !accepted.contains(&pk) {
 							offer(diag, format!("quest {} is offered only while {} is in the log, but the chain never takes that quest before it", ts(&quest), name(&parent)));
@@ -1441,6 +1447,7 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 					}
 					accepted.insert(qk.clone());
 					abandoned.remove(&qk);
+					in_log.insert(qk.clone());
 				}
 				if let Some(&i) = own.get(&key(&goal)) {
 					take(&mut taken, &qg[i]);
@@ -1483,6 +1490,7 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 				}
 				if t == "turnin" {
 					turned_in.insert(qk.clone());
+					in_log.remove(&qk);
 					if let Some(&i) = own.get(&key(&goal)) {
 						take(&mut taken, &qg[i]);
 					}

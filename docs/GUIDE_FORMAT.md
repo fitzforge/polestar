@@ -1321,6 +1321,17 @@ reason is an error, and one that covers no step any more is a warning:
   offers nothing and the step holds for good (An Apple Treat)
 - `talk-kill`: a `kill` on a quest-log line the data types as a talk
   objective: write `talk <npc> quest Q.O`
+- `handin-unworked`: a required, plain `turnin Q` while one of Q's kill,
+  talk, object or event objectives has no goal working it since Q's accept
+  (for a quest the guide never accepts: anywhere before the hand-in, here or
+  in a guide chaining in): no `complete Q`, no goal bound to Q (`quest Q` or
+  `quest Q.O`), no unbound `kill`/`talk` of the objective's npc or `interact`
+  of its object. The guide window would go from the accept straight to the
+  hand-in (an escort the player never started). Right as written: a step
+  that waits for the work (`when complete Q`, `when has` an item of Q's), an
+  objective that is the ender itself (talk to, or click, whoever takes the
+  quest in), and an event objective whose spot in the data is within 30
+  yards of the hand-in
 - `offer`: a required `accept` (or `turnin … direct`) the giver cannot offer
   there: a prerequisite the chain never turns in (a step with `when turnedin
   <prerequisite>` waits for it), a parent quest not in the log, a breadcrumb

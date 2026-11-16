@@ -22,7 +22,7 @@ const BODY: [&str; 4] = ["step One", "  accept 783", "step Two", "  turnin 783"]
 
 /// The main guide with `head`, and guides b, c, d to go on to (each with a pitch).
 fn chain(head: &[&str]) -> Vec<(String, String)> {
-	let other = |id: &str| guide(id, &[&format!("pitch Level in {id}.")], &["step One", "  accept 7", "step Two", "  turnin 7"]);
+	let other = |id: &str| guide(id, &[&format!("pitch Level in {id}.")], &["step One", "  accept 5261", "step Two", "  turnin 5261"]);
 	vec![("main.guide".into(), guide("main", head, &BODY)), ("b.guide".into(), other("b")), ("c.guide".into(), other("c")), ("d.guide".into(), other("d"))]
 }
 
@@ -94,12 +94,12 @@ fn the_comma_form_and_several_plain_next_lines_compile_alike_with_no_next_when()
 
 #[test]
 fn the_resolver_keeps_each_options_predicate_for_the_engine_and_lists_the_options_even_when_there_is_one() {
-	let r = compile_chain(&chain(&["next t/b when zone \"Elwynn Forest\"", "next t/c when available 7", "next t/d"]));
+	let r = compile_chain(&chain(&["next t/b when zone \"Elwynn Forest\"", "next t/c when available 9200", "next t/d"]));
 	assert!(r.errors.is_empty(), "{}", r.text);
 	let m = main_of(&r);
 	assert_eq!(m["next"], "t/b");
 	assert_eq!(m["nextChoices"], json!(["t/b", "t/c", "t/d"]));
-	assert_eq!(m["nextWhen"], json!({ "t/b": [{ "k": "zone", "name": "Elwynn Forest", "area": 12 }], "t/c": [{ "k": "available", "q": 7, "minLevel": 1, "pre": [783] }] }));
+	assert_eq!(m["nextWhen"], json!({ "t/b": [{ "k": "zone", "name": "Elwynn Forest", "area": 12 }], "t/c": [{ "k": "available", "q": 9200, "minLevel": 3, "pre": [9201] }] }));
 	let lone = main_of(&compile_chain(&chain(&["next t/b when level<8"])));
 	assert_eq!(lone["next"], "t/b");
 	assert_eq!(lone["nextChoices"], json!(["t/b"]));
@@ -120,7 +120,7 @@ fn the_checks_on_next_point_at_the_line_naming_the_guide_one_option_is_no_route_
 	// A pitch is asked of a route choice's options only when there are two or more.
 	let pitchless = |head: &[&str]| {
 		let mut s = chain(head);
-		s[1].1 = guide("b", &[], &["step One", "  accept 7", "step Two", "  turnin 7"]);
+		s[1].1 = guide("b", &[], &["step One", "  accept 5261", "step Two", "  turnin 5261"]);
 		compile_chain(&s).warned("has no `pitch`").len()
 	};
 	assert_eq!(pitchless(&["next t/b when level<8"]), 0);

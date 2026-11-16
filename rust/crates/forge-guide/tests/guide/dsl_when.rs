@@ -80,7 +80,7 @@ fn the_resolver_keeps_the_predicates_for_the_engine_available_with_what_an_accep
 		"  accept 783",
 		"step Two",
 		"  when onquest 783,7",
-		"  when available 7",
+		"  when available 9200",
 		"  when !has 159 x2",
 		"  when zone \"Elwynn Forest\"",
 		"  when level<=5",
@@ -93,7 +93,7 @@ fn the_resolver_keeps_the_predicates_for_the_engine_available_with_what_an_accep
 		steps[1]["when"],
 		json!([
 			{ "k": "onquest", "q": [783, 7] },
-			{ "k": "available", "q": 7, "minLevel": 1, "pre": [783] },
+			{ "k": "available", "q": 9200, "minLevel": 3, "pre": [9201] },
 			{ "k": "has", "neg": true, "item": 159, "n": 2 },
 			{ "k": "zone", "name": "Elwynn Forest", "area": 12 },
 			{ "k": "level", "op": "<=", "n": 5 },

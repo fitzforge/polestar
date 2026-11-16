@@ -163,10 +163,10 @@ fn direct_turnin_needs_no_accept_and_is_checked_for_availability_and_prerequisit
 		only(&compile(&guide_text(&["step S", "  turnin 9100 direct"])).errors, "not available"),
 		["test.guide:8: quest 9100 (Orcish Errand) is not available to any race this step applies to"]
 	);
-	// 7 needs 783 turned in first, and the chain never turns it in.
+	// 9200 needs 9201 turned in first, and the chain never turns it in.
 	assert_eq!(
-		only(&compile(&guide_text(&["step S", "  turnin 7 direct"])).errors, "turned in first"),
-		["test.guide:8: quest 7 needs 783 (A Threat Within) turned in first, but the chain never turns it in"]
+		only(&compile(&guide_text(&["step S", "  turnin 9200 direct"])).errors, "turned in first"),
+		["test.guide:8: quest 9200 needs 9201 (The First Step) turned in first, but the chain never turns it in"]
 	);
 }
 
@@ -380,6 +380,11 @@ fn lint_says_when_the_chain_does_not_hold_a_child_quest_s_parent_in_the_log() {
 	let rn = compile_with(&none, &data);
 	assert!(rn.steps()[0]["goals"].as_array().unwrap().iter().all(|g| g.get("parent").is_none()), "{:?}", rn.steps());
 	assert!(parent_warnings(&none).is_empty());
+	// Another route into the guide handed the parent in; this guide takes it again before the child: held.
+	let first = text("t/one", &["step A", "  accept 9341", "  turnin 9341"], &["next t/two"]);
+	let again = text("t/two", &["step A", "  accept 9341", "step B", "  accept 9340", "  turnin 9341"], &[]);
+	let r = compile_files(&[("1.guide", &first), ("2.guide", &again)], &data, None);
+	assert!(only(&r.errors, "is offered only while").is_empty(), "{}", r.text);
 }
 
 #[test]
@@ -839,14 +844,16 @@ fn a_talk_with_quest_naming_another_npcs_line_is_an_error_that_says_which_index_
 
 #[test]
 fn a_kill_with_quest_on_a_talk_objective_of_the_same_npc_compiles_and_takes_its_index() {
-	let src = guide_text(&["step S", "  accept 9710", "  kill 823 quest 9710", "  kill 197 quest 9710.1", "  turnin 9710"]);
+	let src = guide_text(&["step S", "  accept 9710", "  kill 823 quest 9710", "  kill 197 quest 9710.1", "  talk 295 quest 9710.3", "  turnin 9710"]);
 	let r = compile_with(&src, &talk_data());
-	assert!(r.errors.is_empty(), "{}", r.text);
+	// It compiles; in our pack the play check `talk-kill` calls each a talk (lint_play.rs).
+	assert!(r.errors.iter().all(|e| e.contains("meant to speak to")), "{}", r.text);
+	assert_eq!(r.errors.len(), 2, "{}", r.text);
 	assert!(only(&r.warnings, r"objective\(s\) in data|, not this npc|no objective for this").is_empty(), "{}", r.text);
 	let g = talk_goals(&r);
 	assert_eq!(
 		g.iter().map(|g| (g["t"].clone(), g["npc"].clone(), g["quest"].clone(), g["oi"].clone())).collect::<Vec<_>>(),
-		vec![(json!("kill"), json!(823), json!(9710), json!(2)), (json!("kill"), json!(197), json!(9710), json!(1)),]
+		vec![(json!("kill"), json!(823), json!(9710), json!(2)), (json!("kill"), json!(197), json!(9710), json!(1)), (json!("talk"), json!(295), json!(9710), json!(3))]
 	);
 }
 

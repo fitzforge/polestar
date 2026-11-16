@@ -129,9 +129,7 @@
     "type": "kill"
    }
   ],
-  "pre": [
-   783
-  ],
+  "pre": [],
   "races": null,
   "source": [
    "fixture"

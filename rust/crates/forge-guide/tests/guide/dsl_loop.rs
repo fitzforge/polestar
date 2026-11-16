@@ -71,7 +71,7 @@ fn a_goal_placed_with_x_y_keeps_its_point_and_its_own_spawn_areas() {
 fn a_loop_target_the_data_has_no_spawns_for_is_placed_by_the_loop_without_the_no_coordinates_warning() {
 	let has = |r: &Compiled| r.warnings.iter().any(|w| w.contains("`kill` has no coordinates"));
 	assert!(has(&compiled(&["step Ghost", "  kill \"Wandering Ghost\""])), "the warning without a loop");
-	let r = compiled(&["step Ghost", "  loop", "  goto 47.6,35.1", "  goto 52.3,26.8", "  kill \"Wandering Ghost\""]);
+	let r = compiled(&["step Ghost", "  loop", "  goto 47.6,35.1", "  goto 52.3,26.8", "  kill \"Wandering Ghost\"", "  kill 6 x10 quest 7.1"]);
 	assert!(r.errors.is_empty(), "{}", r.text);
 	assert!(!has(&r), "{}", r.text);
 	let ghost = &goals(&r)[0];

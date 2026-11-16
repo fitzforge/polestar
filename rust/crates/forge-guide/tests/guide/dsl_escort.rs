@@ -35,7 +35,7 @@ fn an_event_objective_that_says_nothing_of_an_escort_a_kill_quest_and_a_goal_wit
 
 #[test]
 fn a_quests_json_escort_wins_over_the_quests_words_both_ways() {
-	assert_eq!(escorts(&["step S", "  accept 9702", "  complete 9702", "  accept 9703", "  turnin 9703"]), [json!(true), json!(true), Value::Null, Value::Null]);
+	assert_eq!(escorts(&["step S", "  accept 9702", "  complete 9702", "  accept 9703", "  complete 9703", "  turnin 9703"]), [json!(true), json!(true), Value::Null, Value::Null, Value::Null]);
 }
 
 #[test]

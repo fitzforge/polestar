@@ -127,11 +127,11 @@ fn a_collect_names_the_sources_its_point_and_spawn_areas_belong_to_the_points_ow
 #[test]
 fn a_collect_whose_item_nothing_drops_names_the_npc_who_hands_it_over() {
 	// Dillinger's Report: no droppers, a quest item, Brother Danil its "vendor": he hands it over.
-	let handed = goals_of(&["step One", "  accept 99141", "  collect 286200 quest 99141.1 @48,42"]).0[1].clone();
+	let handed = goals_of(&["step One", "  when level>=4", "  accept 99141", "  collect 286200 quest 99141.1 @48,42"]).0[1].clone();
 	assert_eq!(handed["fromNpcs"], json!([{ "npc": 152, "npcName": "Brother Danil" }]));
 	assert!(handed.get("npc").is_none(), "a hand-over NPC is named, never placed");
 	// `npc <id>` names one outright; nothing else is then named.
-	let named = goals_of(&["step One", "  accept 99141", "  collect 286200 quest 99141.1 npc 295 @48,42"]).0[1].clone();
+	let named = goals_of(&["step One", "  when level>=4", "  accept 99141", "  collect 286200 quest 99141.1 npc 295 @48,42"]).0[1].clone();
 	assert_eq!(named["npc"], 295);
 	assert_eq!(named["npcName"], "Innkeeper Farley");
 	assert!(named.get("fromNpcs").is_none(), "the named NPC stands alone");
@@ -350,7 +350,7 @@ fn a_quest_collect_leads_to_the_droppers_near_the_quests_level_not_to_ones_3_or_
 		}
 	});
 	let data = data_from(&t, Value::Null, Value::Null);
-	let seed = last_goal(&data, &["  accept 95300", "  collect 95116 quest 95300"]);
+	let seed = last_goal(&data, &["  when level>=4", "  accept 95300", "  collect 95116 quest 95300"]);
 	assert!(near(&seed, 70.0, 70.0), "{seed}");
 	assert!(spot_list(&seed).iter().all(|s| near(s, 70.0, 70.0)), "{seed}");
 	assert_eq!(seed["fromNpcs"], json!([{ "npc": 95061, "npcName": "Grove Sapling" }]));
@@ -360,7 +360,7 @@ fn a_quest_collect_leads_to_the_droppers_near_the_quests_level_not_to_ones_3_or_
 	assert!(near(&loose, 30.0, 30.0), "{loose}");
 	assert_eq!(loose["from"], "Grove Elder");
 	// An Elder that crowds nobody out stays a source: 40% and 37% are both likely.
-	let bark = last_goal(&data, &["  accept 95301", "  collect 95117 quest 95301"]);
+	let bark = last_goal(&data, &["  when level>=4", "  accept 95301", "  collect 95117 quest 95301"]);
 	let mut ids: Vec<u64> = bark["fromNpcs"].as_array().unwrap().iter().map(|n| n["npc"].as_u64().unwrap()).collect();
 	ids.sort();
 	assert_eq!(ids, [95060, 95061]);

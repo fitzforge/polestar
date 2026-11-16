@@ -13,9 +13,15 @@
 //!   earlier goal that gets it (a `collect`, `buy` or `craft` of it, an accept that hands it over, a turn-in
 //!   that rewards it) is `optional` or in a step with a `when` the goal's step does not share: a player who
 //!   passed those goes on without it, and the goal holds.
+//! - `handin-unworked`: a required, plain `turnin Q` (not in a step with `when complete Q` or `when has` an item
+//!   of Q's) while one of Q's kill, talk, object or event objectives has no goal working it since Q's accept (or,
+//!   for a quest this guide never accepts, anywhere before it in the guide or a guide chaining in): no `complete
+//!   Q`, no goal bound to Q (`quest Q` or `quest Q.O`), no unbound goal at the objective's npc or object. The
+//!   guide window goes from the accept straight to the hand-in (Kerlonian's escort, The Sleeper Has Awakened).
+//!   An objective that is the ender itself (talk to, or click, whoever takes the quest in) needs no goal.
 //! - `offer` and `offer-level` (validate.rs): an `accept` (or direct turn-in) the giver cannot offer there: a
-//!   prerequisite, parent or breadcrumb the chain leaves open, an exclusive quest taken earlier; or a level
-//!   below the quest's minimum at the level the route plausibly reaches.
+//!   prerequisite, parent or breadcrumb the chain leaves open; or a level well below the quest's minimum at the
+//!   level the route plausibly reaches.
 
 use std::cell::RefCell;
 
@@ -342,6 +348,115 @@ pub fn check_skippable_items(g: &V, before: &[V], data: &Data, allow: &Allow, di
 				}
 			}
 			note(&mut sources, &step, &goal);
+		}
+	}
+}
+
+/// Goal kinds that work a quest's objectives.
+const WORK: &[&str] = &["complete", "kill", "collect", "use", "interact", "talk", "explore", "cast"];
+
+/// An event objective this close to the hand-in (yards) happens there: the find is at the ender.
+const EVENT_AT_ENDER_YARDS: f64 = 30.0;
+
+/// Whether `goal` works objective `o` (quest_objectives' entry) of quest `q`: `complete Q`, a goal bound to Q (no
+/// line, or this line), or an unbound goal at the objective's npc or object.
+fn works(goal: &V, q: &V, o: &V) -> bool {
+	let t = t_of(goal);
+	if !WORK.contains(&t.as_str()) {
+		return false;
+	}
+	let gq = goal.get("quest");
+	if !gq.is_undef() {
+		return key(&gq) == key(q) && (t == "complete" || goal.get("oi").is_undef() || goal.get("oi").num() == o.get("index").num());
+	}
+	let id = o.get("id");
+	match o.get("kind").as_str() {
+		Some("kill" | "talk") => matches!(t.as_str(), "kill" | "talk") && !goal.get("npc").is_undef() && key(&goal.get("npc")) == key(&id),
+		Some("object") => t == "interact" && !goal.get("object").is_undef() && key(&goal.get("object")) == key(&id),
+		_ => false,
+	}
+}
+
+/// handin-unworked (module docs). `before`: the guides chaining into g.
+pub fn check_unworked_turnins(g: &V, before: &[V], data: &Data, allow: &Allow, diag: &mut Diagnostics) {
+	let earlier: Vec<(V, V)> = before.iter().flat_map(|a| a.get("steps").items().into_iter().flat_map(|s| s.get("goals").items().into_iter().map(move |x| (s.clone(), x)))).collect();
+	let list: Vec<(V, V)> = g.get("steps").items().into_iter().flat_map(|s| s.get("goals").items().into_iter().map(move |x| (s.clone(), x))).collect();
+	for (t, (step, goal)) in list.iter().enumerate() {
+		if t_of(goal) != "turnin" || goal.get("direct").truthy() || goal.get("optional").truthy() {
+			continue;
+		}
+		let q = goal.get("quest");
+		let qd = data.quest(&q);
+		if !qd.truthy() {
+			continue;
+		}
+		let ender = qd.get("end");
+		let (end_npc, end_obj) = (ender.get("npc").items(), ender.get("object").items());
+		let objectives = data.quest_objectives(&q);
+		let raw = qd.get("objectives").items();
+		let items: FxHashSet<Key> = objectives.iter().filter(|o| o.get("kind").as_str() == Some("item") && !o.get("id").is_nullish()).map(|o| key(&o.get("id"))).collect();
+		// The step waits for the work: `when complete Q`, or `when has` one of Q's items.
+		let guarded = step.get("when").items().iter().any(|p| {
+			!p.get("neg").truthy()
+				&& match p.get("k").as_str() {
+					Some("complete") => {
+						let pq = p.get("q");
+						if pq.is_arr() {
+							pq.items().iter().any(|x| key(x) == key(&q))
+						} else {
+							key(&pq) == key(&q)
+						}
+					}
+					Some("has") => items.contains(&key(&p.get("item"))),
+					_ => false,
+				}
+		});
+		if guarded {
+			continue;
+		}
+		let here = crate::validate::world_point(data, &goal.get("map"), &goal.get("x"), &goal.get("y"), &goal.get("f"));
+		// The goals that count: since Q's last accept in this guide (with along steps before it), else everything
+		// before the turn-in here and in the guides chaining in.
+		let accept = list[..t].iter().rposition(|(_, x)| t_of(x) == "accept" && key(&x.get("quest")) == key(&q));
+		let span: Vec<&(V, V)> = match accept {
+			Some(a) => list[a + 1..t].iter().chain(list[..a].iter().filter(|(s, _)| s.get("along").truthy())).collect(),
+			None => list[..t].iter().chain(earlier.iter()).collect(),
+		};
+		let open: Vec<String> = objectives
+			.iter()
+			.filter(|o| matches!(o.get("kind").as_str(), Some("kill" | "talk" | "object" | "event")))
+			.filter(|o| {
+				let id = o.get("id");
+				let at_ender = match o.get("kind").as_str() {
+					Some("kill" | "talk") => !id.is_nullish() && end_npc.iter().any(|n| key(n) == key(&id)),
+					Some("object") => !id.is_nullish() && end_obj.iter().any(|n| key(n) == key(&id)),
+					// An event whose spot (the objective's map/x/y in the data) is at the hand-in.
+					_ => {
+						let r = raw.get(o.get("index").num() as usize - 1).cloned().unwrap_or_default();
+						let spot = if r.get("map").is_undef() { None } else { crate::validate::world_point(data, &r.get("map"), &r.get("x"), &r.get("y"), &r.get("f")) };
+						matches!((spot, here), (Some(a), Some(b)) if ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt() <= EVENT_AT_ENDER_YARDS)
+					}
+				};
+				!at_ender && !span.iter().any(|(_, x)| works(x, &q, o))
+			})
+			.map(|o| crate::data::objective_label(&q, o))
+			.collect();
+		if !open.is_empty() {
+			report(
+				diag,
+				allow,
+				g,
+				goal.hidden("_line").num(),
+				"handin-unworked",
+				("quest", &q),
+				format!("quest {} is turned in, but no earlier goal works its objective {}: the guide window goes from the accept straight to the hand-in", quest_name(data, &q), open.join(", ")),
+				&format!(
+					"add `complete {}` after the accept (it lists the objective and leads to its place), or the objective's own goal (`kill <npc> quest {}.<n>`, `interact <object> quest {}.<n>`)",
+					ts(&q),
+					ts(&q),
+					ts(&q)
+				),
+			);
 		}
 	}
 }
