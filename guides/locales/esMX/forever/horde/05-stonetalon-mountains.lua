@@ -27,12 +27,12 @@ return {
 	-- plural, as words: Ashenvale Outrunners = {npc:12856} Ashenvale Outrunner
 	["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers Ashenvale Outrunners: leave it for the next {zone:1440} visit, at 26."] = "{area:431} está justo al norte, subiendo por el camino. Entrando desde el sur, primero están el maestro de vuelo y el tablón de caza de {npc:12696} en {area:428}, y luego los mercaderes. {npc:12867}, en el aserradero, ofrece “Avanzada de Vallefresno”: déjala para la próxima visita a {zone:1440}, a nivel 26.",
 	-- {npc:12696} Senani Thunderheart · {zone:1440} Ashenvale
-	["{npc:12696}'s hunt targets Ursangous and Shadumbra are for the next {zone:1440} visit, at 26; Sharptalon (31) only from level 30."] = "Las presas de caza de {npc:12696}, Ursangous y Shadumbra, son para la próxima visita a {zone:1440}, a nivel 26; Garrafilada (31), solo a partir del nivel 30.",
+	["{npc:12696}'s hunt targets Ursangous and Shadumbra are for the next {zone:1440} visit, at 26; Sharptalon (31) only from level 30."] = "Las presas de caza de {npc:12696}, Ursangous y Shadumbra, son para la próxima visita a {zone:1440}, a nivel 26; Garfafilada (31), solo a partir del nivel 30.",
 
 	-- Step 5: Va'xug Firefure
 	-- {npc:267214} Va'xug Firefure · {area:415} Astranaar
 	-- plural, as words: Shadowhorn Stags = {npc:3817} Shadowhorn Stag · Ashenvale Bears = {npc:3809} Ashenvale Bear
-	["On the way west, {npc:267214} is stuck in a ravine south of the main road, south-east of {area:415}. Shadowhorn Stags and Ashenvale Bears roam the woods all around it."] = "De camino al oeste, {npc:267214} está atrapado en un barranco al sur del camino principal, al sureste de {area:415}. Los ciervos cuernosombra y los osos de Vallefresno recorren el bosque a su alrededor.",
+	["On the way west, {npc:267214} is stuck in a ravine south of the main road, south-east of {area:415}. Shadowhorn Stags and Ashenvale Bears roam the woods all around it."] = "De camino al oeste, {npc:267214} está atrapado en un barranco al sur del camino principal, al sureste de {area:415}. Los venados Necraste y los osos de Vallefresno recorren el bosque a su alrededor.",
 
 	-- Step 6: A Void Path
 	-- {npc:267214} Va'xug Firefure · {npc:271181} Eye of Kilrogg
@@ -164,7 +164,7 @@ return {
 	["{zone:1421}: kill these as you meet them"] = "{zone:1421}: mata a estos según te los encuentres",
 	-- {area:233} Ambermill · {quest:516} Beren's Peril
 	-- plural, as words: Dalaran Watchers = {npc:1888} Dalaran Watcher · Ravenclaw Drudgers = {npc:1974} Ravenclaw Drudger · High Order Mages = {npc:254294} High Order Mage
-	["South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around {area:233}, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest. Careful: High Order Mages (30) walk the same roads among the Watchers and Wizards: leave them."] = "Al sur por el camino pasando Piroleña: los vigías y magos de Dalaran patrullan los caminos alrededor de {area:233}, y al suroeste del pueblo los braceros y guardianes Garracuervo rondan las ruinas de {quest:516} en el sureste del bosque. Cuidado: los magos de la Alta Orden (30) recorren los mismos caminos entre los vigías y magos: déjalos en paz.",
+	["South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around {area:233}, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest. Careful: High Order Mages (30) walk the same roads among the Watchers and Wizards: leave them."] = "Al sur por el camino pasando Piroleña: los vigías y magos de Dalaran patrullan los caminos alrededor de {area:233}, y al suroeste del pueblo los esclavos y guardianes Corvozarpa rondan las ruinas de {quest:516} en el sureste del bosque. Cuidado: los magos de la Alta Orden (30) recorren los mismos caminos entre los vigías y magos: déjalos en paz.",
 	["Below ground"] = "Bajo tierra",
 
 	-- Step 31: Ambermill

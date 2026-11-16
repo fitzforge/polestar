@@ -36,7 +36,7 @@ return {
 	-- Step 4: Ornery Galestrider
 	-- {spell:2641} Dismiss Pet · {area:16626} Gustberry Lowlands · {area:16638} Valanaar
 	-- plural, as words: Ornery Galestriders = {npc:251707} Ornery Galestrider
-	["Dismiss the crawler first (right-click the pet portrait, {spell:2641}). Ornery Galestriders graze in the {area:16626}, the fields a short walk west and south-west of {area:16638}."] = "Primero despide al reptador (clic derecho en el retrato de la mascota, {spell:2641}). Los Galestriders malhumorados pastan en {area:16626}, los campos a poca distancia al oeste y suroeste de {area:16638}.",
+	["Dismiss the crawler first (right-click the pet portrait, {spell:2641}). Ornery Galestriders graze in the {area:16626}, the fields a short walk west and south-west of {area:16638}."] = "Primero despide al reptador (clic derecho en el retrato de la mascota, {spell:2641}). Los Zancavientos malhumorados pastan en {area:16626}, los campos a poca distancia al oeste y suroeste de {area:16638}.",
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living galestrider"] = "Usa {item:15908} sobre un Galestrider vivo",
 	-- {npc:251707} Ornery Galestrider
@@ -78,7 +78,7 @@ return {
 	-- Step 9: Ice Claw Bear
 	-- {area:131} Kharanos · {area:77} Anvilmar · {spell:3130} Ice Claw
 	-- plural, as words: Ice Claw Bears = {npc:1196} Ice Claw Bear
-	["Dismiss the leopard. Ice Claw Bears (level 7-8) roam the hills around {area:131}, many south-east of it and more north-west toward {area:77}; their {spell:3130} hits hard, so start at full health."] = "Despide al leopardo. Los osos Garrahelada (nivel 7-8) recorren las colinas alrededor de {area:131}, muchos al sureste y más al noroeste hacia {area:77}; su {spell:3130} pega fuerte, así que empieza con la salud al máximo.",
+	["Dismiss the leopard. Ice Claw Bears (level 7-8) roam the hills around {area:131}, many south-east of it and more north-west toward {area:77}; their {spell:3130} hits hard, so start at full health."] = "Despide al leopardo. Los osos zarpahelada (nivel 7-8) recorren las colinas alrededor de {area:131}, muchos al sureste y más al noroeste hacia {area:77}; su {spell:3130} pega fuerte, así que empieza con la salud al máximo.",
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living bear"] = "Usa {item:15908} sobre un oso vivo",
 
@@ -99,7 +99,7 @@ return {
 	-- Step 12: Webwood Lurker
 	-- {area:186} Dolanaar · {item:15908} Taming Rod · {spell:1265843} Web · {npc:3601} Dazalar
 	-- plural, as words: Webwood Lurkers = {npc:1998} Webwood Lurker
-	["Webwood Lurkers (level 5-6) creep through the woods just north-east, south-west and east of {area:186}. How the rod works: target a living beast, use the {item:15908} and stand still for the whole channel while it hits you; moving, attacking it or anyone else's help breaks it and costs one of the rod's few charges (out of charges: destroy the rod, abandon the quest, take it again). Their {spell:1265843} roots you but does not break the channel if you keep still. Keep each rod: it goes back to {npc:3601}."] = "Los acechadores Bosque de Telarañas (nivel 5-6) se arrastran por el bosque justo al noreste, suroeste y este de {area:186}. Cómo funciona la vara: selecciona a una bestia viva, usa {item:15908} y quédate quieto durante toda la canalización mientras te pega; moverte, atacarla o la ayuda de cualquier otro la rompe y gasta una de las pocas cargas de la vara (sin cargas: destruye la vara, abandona la misión y vuelve a tomarla). Su {spell:1265843} te enraíza, pero no rompe la canalización si te quedas quieto. Guarda cada vara: vuelve a {npc:3601}.",
+	["Webwood Lurkers (level 5-6) creep through the woods just north-east, south-west and east of {area:186}. How the rod works: target a living beast, use the {item:15908} and stand still for the whole channel while it hits you; moving, attacking it or anyone else's help breaks it and costs one of the rod's few charges (out of charges: destroy the rod, abandon the quest, take it again). Their {spell:1265843} roots you but does not break the channel if you keep still. Keep each rod: it goes back to {npc:3601}."] = "Los rondadores Tejemadera (nivel 5-6) se arrastran por el bosque justo al noreste, suroeste y este de {area:186}. Cómo funciona la vara: selecciona a una bestia viva, usa {item:15908} y quédate quieto durante toda la canalización mientras te pega; moverte, atacarla o la ayuda de cualquier otro la rompe y gasta una de las pocas cargas de la vara (sin cargas: destruye la vara, abandona la misión y vuelve a tomarla). Su {spell:1265843} te enraíza, pero no rompe la canalización si te quedas quieto. Guarda cada vara: vuelve a {npc:3601}.",
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living spider"] = "Usa {item:15908} sobre una araña viva",
 
@@ -113,7 +113,7 @@ return {
 	-- Step 14: Strigid Screecher
 	-- {area:186} Dolanaar
 	-- plural, as words: Strigid Screechers = {npc:1996} Strigid Screecher
-	["Dismiss the cat. Strigid Screechers (level 7-8), owls, perch in the woods south, south-west and west of {area:186}."] = "Despide al felino. Los chilladores estrígidos (nivel 7-8), búhos, se posan en el bosque al sur, suroeste y oeste de {area:186}.",
+	["Dismiss the cat. Strigid Screechers (level 7-8), owls, perch in the woods south, south-west and west of {area:186}."] = "Despide al felino. Los estridadores estrígidos (nivel 7-8), búhos, se posan en el bosque al sur, suroeste y oeste de {area:186}.",
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living owl"] = "Usa {item:15908} sobre un búho vivo",
 
@@ -127,7 +127,7 @@ return {
 	-- {npc:251507} Josephine Carson · {area:87} Goldshire
 	["{npc:251507} in {area:87}"] = "{npc:251507} en {area:87}",
 	-- {npc:251507} Josephine Carson · {area:87} Goldshire · {npc:258930} Isaac Chan · {zone:2521} Zephras Isle
-	["At 10 go to {npc:251507}, the hunter trainer who stands with the other trainers by the Lion's Pride Inn in {area:87}; {npc:258930}, the pet trainer, is beside her. Skyborne: this is for one who left {zone:2521} without taming; it teaches the same."] = "A nivel 10 ve con {npc:251507}, la instructora de cazadores que está con los demás instructores junto a la Posada Orgullo de León en {area:87}; {npc:258930}, el instructor de mascotas, está a su lado. Skyborne: esto es para quien salió de {zone:2521} sin domar; enseña lo mismo.",
+	["At 10 go to {npc:251507}, the hunter trainer who stands with the other trainers by the Lion's Pride Inn in {area:87}; {npc:258930}, the pet trainer, is beside her. Skyborne: this is for one who left {zone:2521} without taming; it teaches the same."] = "A nivel 10 ve con {npc:251507}, la instructora de cazadores que está con los demás instructores junto a la Posada Orgullo de León en {area:87}; {npc:258930}, el instructor de mascotas, está a su lado. Cielonatos: esto es para quien salió de {zone:2521} sin domar; enseña lo mismo.",
 	-- {npc:251507} Josephine Carson · {item:15908} Taming Rod
 	["{npc:251507}: the first {item:15908}"] = "{npc:251507}: la primera {item:15908}",
 
@@ -162,13 +162,13 @@ return {
 	["Tame a beast of your level to keep"] = "Doma una bestia de tu nivel para quedártela",
 	-- {area:87} Goldshire · {zone:1436} Westfall
 	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk
-	["Near {area:87} there are no cats: Prowlers (wolves, level 9-10) roam eastern Elwynn, Longsnouts (boars, 10-11) its far south-west by the {zone:1436} border; at 12-13, Young Goretusks (boars) graze the fields of northern {zone:1436}."] = "Cerca de {area:87} no hay felinos: los merodeadores (lobos, nivel 9-10) recorren el este de Elwynn, los hocicudos (jabalíes, 10-11) su extremo suroeste junto a la frontera con {zone:1436}; a nivel 12-13, los colmisangres jóvenes (jabalíes) pastan en los campos del norte de {zone:1436}.",
+	["Near {area:87} there are no cats: Prowlers (wolves, level 9-10) roam eastern Elwynn, Longsnouts (boars, 10-11) its far south-west by the {zone:1436} border; at 12-13, Young Goretusks (boars) graze the fields of northern {zone:1436}."] = "Cerca de {area:87} no hay felinos: los merodeadores (lobos, nivel 9-10) recorren el este de Elwynn, los morrolargos (jabalíes, 10-11) su extremo suroeste junto a la frontera con {zone:1436}; a nivel 12-13, los dentosangres jóvenes (jabalíes) pastan en los campos del norte de {zone:1436}.",
 	-- {area:131} Kharanos · {zone:1426} Dun Morogh · {zone:1432} Loch Modan
 	-- plural, as words: Snow Leopards = {npc:1201} Snow Leopard · Scarred Crag Boars = {npc:1689} Scarred Crag Boar · Mountain Boars = {npc:1190} Mountain Boar
-	["Near {area:131}: Snow Leopards (cats, level 7-8) prowl all over {zone:1426}, Scarred Crag Boars (9-10) its east toward {zone:1432}; at 10-11, Mountain Boars roam western {zone:1432}."] = "Cerca de {area:131}: los leopardos de las nieves (felinos, nivel 7-8) merodean por todo {zone:1426}, los jabalíes de risco marcados (9-10) por su este hacia {zone:1432}; a nivel 10-11, los jabalíes de montaña recorren el oeste de {zone:1432}.",
+	["Near {area:131}: Snow Leopards (cats, level 7-8) prowl all over {zone:1426}, Scarred Crag Boars (9-10) its east toward {zone:1432}; at 10-11, Mountain Boars roam western {zone:1432}."] = "Cerca de {area:131}: los leopardos de las nieves (felinos, nivel 7-8) merodean por todo {zone:1426}, los jabalíes del risco cicatríceos (9-10) por su este hacia {zone:1432}; a nivel 10-11, los jabalíes de montaña recorren el oeste de {zone:1432}.",
 	-- {area:186} Dolanaar · {zone:1438} Teldrassil
 	-- plural, as words: Elder Nightsabers = {npc:2033} Elder Nightsaber · Feral Nightsabers = {npc:2034} Feral Nightsaber
-	["Near {area:186}: Elder Nightsabers (cats, level 8-9) and Feral Nightsabers (cats, 10-11) prowl the woods of north-western {zone:1438}."] = "Cerca de {area:186}: los sables de la noche ancianos (felinos, nivel 8-9) y los sables de la noche salvajes (felinos, 10-11) merodean por el bosque del noroeste de {zone:1438}.",
+	["Near {area:186}: Elder Nightsabers (cats, level 8-9) and Feral Nightsabers (cats, 10-11) prowl the woods of north-western {zone:1438}."] = "Cerca de {area:186}: los sables de la noche mayores (felinos, nivel 8-9) y los sables de la noche salvajes (felinos, 10-11) merodean por el bosque del noroeste de {zone:1438}.",
 	-- {area:16638} Valanaar · {area:16626} Gustberry Lowlands · {zone:2521} Zephras Isle
 	-- plural, as words: Vuldren Alphas = {npc:250874} Vuldren Alpha · Shriekling Matriarchs = {npc:253283} Shriekling Matriarch · Shadowgale Urseras = {npc:250927} Shadowgale Ursera
 	["Near {area:16638}: Vuldren Alphas (level 10), the beast of your last practice tame, hunt the {area:16626}; Shriekling Matriarchs (raptors, level 9) nest just west of {area:16638}; Shadowgale Urseras (bears, 10-11) roam the north of {zone:2521}."] = "Cerca de {area:16638}: los alfas Vuldren (nivel 10), la bestia de tu última doma de práctica, cazan en {area:16626}; las matriarcas chillonas (raptores, nivel 9) anidan justo al oeste de {area:16638}; los Ursera Sombraventisca (osos, 10-11) recorren el norte de {zone:2521}.",

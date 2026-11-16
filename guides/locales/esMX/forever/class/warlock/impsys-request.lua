@@ -43,7 +43,7 @@ return {
 	["{item:20613} and Bloodvenom"] = "{item:20613} y veneno de sangre",
 	-- {area:1767} Irontree Woods · {zone:1448} Felwood · {area:1998} Talonbranch Glade · {item:20613} Rotting Wood · {npc:7149} Withered Protector · {npc:14470} Impsy
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
-	["The Irontree treants (level 52) of {area:1767}, in northern {zone:1448} west of {area:1998}, drop {item:20613} one time in four; the big {npc:7149} (55) often drops three at once but hits hard and dazes. The Tainted Oozes (51) around {npc:14470} and along the Bloodvenom drop the essence one time in five."] = "Los antárboles Bosque de Hierro (nivel 52) de {area:1767}, en el norte de {zone:1448} al oeste de {area:1998}, sueltan {item:20613} una vez de cada cuatro; el gran {npc:7149} (55) suele soltar tres de una vez, pero pega fuerte y aturde. Los mocos contaminados (51) alrededor de {npc:14470} y a lo largo del Sangrevenenosa sueltan la esencia una vez de cada cinco.",
+	["The Irontree treants (level 52) of {area:1767}, in northern {zone:1448} west of {area:1998}, drop {item:20613} one time in four; the big {npc:7149} (55) often drops three at once but hits hard and dazes. The Tainted Oozes (51) around {npc:14470} and along the Bloodvenom drop the essence one time in five."] = "Los antárboles Bosque de Hierro (nivel 52) de {area:1767}, en el norte de {zone:1448} al oeste de {area:1998}, sueltan {item:20613} una vez de cada cuatro; el gran {npc:7149} (55) suele soltar tres de una vez, pero pega fuerte y aturde. Los mocos corruptos (51) alrededor de {npc:14470} y a lo largo del Sangrevenenosa sueltan la esencia una vez de cada cinco.",
 
 	-- Step 9: Impsy again
 	-- {npc:14470} Impsy

@@ -59,7 +59,7 @@ return {
 	-- Step 10: Galen Goodward
 	-- {npc:5391} Galen Goodward
 	-- plural, as words: Lost One Riftseekers = {npc:762} Lost One Riftseeker · Lost Ones = {npc:254797} Lost One
-	["{npc:5391} is caged at the north end of the sanctuary. Free him and keep him alive on the walk out; his strongbox waits by the road afterwards. Careful: on the walk out the camp's Lost One Riftseekers (37-38) and their pets, with the Lost Ones around them, turn on {npc:5391}: clear the cage and the start of his path first, stay beside him and pull every attacker onto yourself. Many players lose him the first time; if he dies, abandon the quest and take it again at his cage."] = "{npc:5391} está enjaulado en el extremo norte del santuario. Libéralo y mantenlo con vida durante la salida; después, su caja fuerte espera junto al camino. Cuidado: durante la salida, los buscagrietas de los Perdidos (37-38) del campamento y sus mascotas, con los Perdidos que los rodean, atacan a {npc:5391}: despeja antes la jaula y el inicio de su camino, quédate a su lado y atrae a todos los atacantes hacia ti. Muchos jugadores lo pierden la primera vez; si muere, abandona la misión y vuelve a tomarla en su jaula.",
+	["{npc:5391} is caged at the north end of the sanctuary. Free him and keep him alive on the walk out; his strongbox waits by the road afterwards. Careful: on the walk out the camp's Lost One Riftseekers (37-38) and their pets, with the Lost Ones around them, turn on {npc:5391}: clear the cage and the start of his path first, stay beside him and pull every attacker onto yourself. Many players lose him the first time; if he dies, abandon the quest and take it again at his cage."] = "{npc:5391} está enjaulado en el extremo norte del santuario. Libéralo y mantenlo con vida durante la salida; después, su caja fuerte espera junto al camino. Cuidado: durante la salida, los buscafallas Perdidos (37-38) del campamento y sus mascotas, con los Perdidos que los rodean, atacan a {npc:5391}: despeja antes la jaula y el inicio de su camino, quédate a su lado y atrae a todos los atacantes hacia ti. Muchos jugadores lo pierden la primera vez; si muere, abandona la misión y vuelve a tomarla en su jaula.",
 
 	-- Step 11: Harborage
 	-- {npc:5391} Galen Goodward · {area:657} Harborage
@@ -141,7 +141,7 @@ return {
 
 	-- Step 29: Northfold Manor
 	-- {area:320} Refuge Pointe
-	["The Syndicate hold the farm north-west of {area:320}.\nCareful: Syndicate Highwaymen are level 30-31 and can cast Sneak while out of combat, so they are often stealthed and hard to spot."] = "El Sindicato ocupa la granja al noroeste de {area:320}.\nCuidado: Los salteadores del Sindicato son de nivel 30-31 y pueden usar Sigilo fuera de combate, así que suelen estar ocultos y cuesta verlos.",
+	["The Syndicate hold the farm north-west of {area:320}.\nCareful: Syndicate Highwaymen are level 30-31 and can cast Sneak while out of combat, so they are often stealthed and hard to spot."] = "La Hermandad ocupa la granja al noroeste de {area:320}.\nCuidado: Los salteadores de la Hermandad son de nivel 30-31 y pueden usar Sigilo fuera de combate, así que suelen estar ocultos y cuesta verlos.",
 
 	-- Step 30: Hay Weevil
 	-- {quest:681} Northfold Manor · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
@@ -275,11 +275,11 @@ return {
 	["{area:281}: kill these as you meet them"] = "{area:281}: mata a estos según te los encuentres",
 	-- {area:280} Strahnbrad
 	-- plural, as words: Argus Shadow Mages = {npc:2318} Argus Shadow Mage · Crushridge Warmongers = {npc:2287} Crushridge Warmonger · Crushridge Maulers = {npc:2254} Crushridge Mauler · Crushridge Ogres = {npc:2252} Crushridge Ogre
-	["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins.\nCareful: Crushridge Warmongers call nearby allies within 15 yd once they fall below half health.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and carry the tomes too: pull one at a time, or group up."] = "Los tomos están en el castillo en ruinas al oeste de {area:280}; los magos oscuros Argus ocupan las ruinas.\nCuidado: Los belicistas Aplastacresta piden ayuda a los aliados a menos de 15 m cuando bajan de la mitad de su salud.\nLos machacadores, magos, déspotas y belicistas Aplastacresta (36-39) son élite; los ogros y brutos Aplastacresta (34-35) no, y también llevan los tomos: atráelos de a uno, o agrúpate.",
+	["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins.\nCareful: Crushridge Warmongers call nearby allies within 15 yd once they fall below half health.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and carry the tomes too: pull one at a time, or group up."] = "Los tomos están en el castillo en ruinas al oeste de {area:280}; los magos oscuros Artus ocupan las ruinas.\nCuidado: Los belicistas Aplastacresta piden ayuda a los aliados a menos de 15 m cuando bajan de la mitad de su salud.\nLos machacadores, magos, déspotas y belicistas Aplastacresta (36-39) son élite; los ogros y brutos Aplastacresta (34-35) no, y también llevan los tomos: atráelos de a uno, o agrúpate.",
 	-- {item:3658} Recovered Tome
 	["{item:3658}: Crushridge ogres"] = "{item:3658}: ogros Aplastacresta",
 	-- {item:3659} Worn Leather Book · {object:1760} Weathered Bookcase · {quest:540} Preserving Knowledge
-	["{item:3659}: the {object:1760}, beside Muckrake (40, elite): get it with a group, or abandon {quest:540}; inside"] = "{item:3659}: {object:1760}, junto a Muckrake (40, élite): consíguelo con un grupo o abandona {quest:540}; adentro",
+	["{item:3659}: the {object:1760}, beside Muckrake (40, elite): get it with a group, or abandon {quest:540}; inside"] = "{item:3659}: {object:1760}, junto a Rastrazo (40, élite): consíguelo con un grupo o abandona {quest:540}; adentro",
 
 	-- Step 58: Ruins of Alterac: kill these as you meet them
 	-- {npc:2417} Grel'borg the Miser

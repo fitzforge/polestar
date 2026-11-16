@@ -24,7 +24,7 @@ return {
 	["Zapped giants"] = "Gigantes encogidos",
 	-- {item:18904} Zorbin's Ultra-Shrinker · {npc:5357} Land Walker · {npc:5358} Cliff Giant · {npc:5361} Wave Strider · {item:18956} Miniaturization Residue
 	-- plural, as words: Land Walkers = {npc:5357} Land Walker · Cliff Giants = {npc:5358} Cliff Giant
-	["Use {item:18904} on a living giant ({npc:5357}, {npc:5358}, or a Shore, Deep or {npc:5361}, level 47-50) and it shrinks into a zapped version; kill that for its {item:18956}, one every time. The Land Walkers and Cliff Giants in the north-west hills are the thickest; the striders walk the coast and the shallows. The shrinker lasts two hours: if it runs out, abandon the quest and take it again."] = "Usa {item:18904} en un gigante vivo ({npc:5357}, {npc:5358}, o un zancudo de la costa, de las profundidades o {npc:5361}, nivel 47-50) y se encoge en una versión electrocutada; mátala por su {item:18956}, uno siempre. Los caminantes de la tierra y gigantes de los riscos de las colinas del noroeste son los más abundantes; los zancudos caminan por la costa y las aguas bajas. El encogedor dura dos horas: si se acaba, abandona la misión y vuelve a tomarla.",
+	["Use {item:18904} on a living giant ({npc:5357}, {npc:5358}, or a Shore, Deep or {npc:5361}, level 47-50) and it shrinks into a zapped version; kill that for its {item:18956}, one every time. The Land Walkers and Cliff Giants in the north-west hills are the thickest; the striders walk the coast and the shallows. The shrinker lasts two hours: if it runs out, abandon the quest and take it again."] = "Usa {item:18904} en un gigante vivo ({npc:5357}, {npc:5358}, o un zancudo de la costa, de las profundidades o {npc:5361}, nivel 47-50) y se encoge en una versión electrocutada; mátala por su {item:18956}, uno siempre. Los caminatierras y gigantes del risco de las colinas del noroeste son los más abundantes; los zancudos caminan por la costa y las aguas bajas. El encogedor dura dos horas: si se acaba, abandona la misión y vuelve a tomarla.",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	["{item:18904}, on a living giant"] = "{item:18904}, en un gigante vivo",
 	-- {item:18956} Miniaturization Residue
@@ -32,13 +32,13 @@ return {
 
 	-- Step 3: Sea Elementals and Sea Sprays
 	-- plural, as words: Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray
-	["Sea Elementals and Sea Sprays"] = "Elementales marinos y espumas marinas",
+	["Sea Elementals and Sea Sprays"] = "Elementales marinos y rocíos del mar",
 	-- {area:1108} Forgotten Coast · {item:18958} Water Elemental Core
 	-- plural, as words: Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray
-	["The Sea Elementals and Sea Sprays (level 47-49) drift along the {area:1108} and in the shallows below the giants: about half drop a {item:18958}."] = "Los elementales marinos y espumas marinas (nivel 47-49) flotan a lo largo de {area:1108} y en las aguas bajas debajo de los gigantes: más o menos la mitad suelta un {item:18958}.",
+	["The Sea Elementals and Sea Sprays (level 47-49) drift along the {area:1108} and in the shallows below the giants: about half drop a {item:18958}."] = "Los elementales marinos y rocíos del mar (nivel 47-49) flotan a lo largo de {area:1108} y en las aguas bajas debajo de los gigantes: más o menos la mitad suelta un {item:18958}.",
 	-- {item:18958} Water Elemental Core
 	-- plural, as words: Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray
-	["{item:18958}: Sea Elementals and Sea Sprays"] = "{item:18958}: elementales marinos y espumas marinas",
+	["{item:18958}: Sea Elementals and Sea Sprays"] = "{item:18958}: elementales marinos y rocíos del mar",
 
 	-- Step 4: Back to Zorbin Fandazzle
 	-- {npc:14637} Zorbin Fandazzle
@@ -59,12 +59,12 @@ return {
 	["{npc:10267}, a goblin at {area:251} in the north of the {zone:1428}, has a chain that pays every town 150 and {faction:577} 150 more. Use her {item:12284} on a broodling, kill it while the device holds it, and pick up the {quest:4726} it leaves. The device takes only Black and Scalding Broodlings, not the Flamescale Broodlings of the west: Scalding Broodlings (level 53-54) roam just west and east of {area:251}, Black Broodlings (51-52) the north-east corner of the zone, the thickest group. They are few and spread out: the path passes both and ends among the Black Broodlings."] = "{npc:10267}, una goblin en {area:251}, en el norte de {zone:1428}, tiene una cadena que paga 150 a cada pueblo y 150 más con {faction:577}. Usa su {item:12284} en una cría, mátala mientras el aparato la retiene y recoge la {quest:4726} que deja. El aparato solo sirve con crías negras y abrasadoras, no con las crías Escamafuego del oeste: las crías abrasadoras (nivel 53-54) recorren justo al oeste y al este de {area:251}, las crías negras (51-52) la esquina noreste de la zona, el grupo más abundante. Son pocas y están dispersas: el camino pasa por ambas y termina entre las crías negras.",
 	-- {area:251} Flame Crest
 	-- plural, as words: Scalding Broodlings = {npc:7048} Scalding Broodling
-	["Scalding Broodlings west of {area:251}"] = "Crías abrasadoras al oeste de {area:251}",
+	["Scalding Broodlings west of {area:251}"] = "Estirpes hirvientes al oeste de {area:251}",
 	-- {area:251} Flame Crest
 	-- plural, as words: Scalding Broodlings = {npc:7048} Scalding Broodling
-	["Scalding Broodlings east of {area:251}"] = "Crías abrasadoras al este de {area:251}",
+	["Scalding Broodlings east of {area:251}"] = "Estirpes hirvientes al este de {area:251}",
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
-	["Black Broodlings in the north-east"] = "Crías negras en el noreste",
+	["Black Broodlings in the north-east"] = "Estirpes negras en el noreste",
 	-- {item:12284} Draco-Incarcinatrix 900 · {npc:7048} Scalding Broodling
 	["{item:12284}, on a Black or {npc:7048}"] = "{item:12284}, en una cría negra o {npc:7048}",
 	-- {quest:4726} Broodling Essence
@@ -74,10 +74,10 @@ return {
 	-- Step 7: Everlook: Felnok Steelspring
 	-- {quest:4808} Felnok Steelspring · {faction:577} Everlook
 	-- plural, as words: Chillwind Chimaeras = {npc:7448} Chillwind Chimaera
-	["{quest:4808} is in {faction:577}. The Chillwind Chimaeras (level 55-57) south-west of {faction:577} drop the horns one time in five."] = "{quest:4808} está en {faction:577}. Las quimeras Viento Helado (nivel 55-57) al suroeste de {faction:577} sueltan los cuernos una vez de cada cinco.",
+	["{quest:4808} is in {faction:577}. The Chillwind Chimaeras (level 55-57) south-west of {faction:577} drop the horns one time in five."] = "{quest:4808} está en {faction:577}. Las quimeras Viento Gélido (nivel 55-57) al suroeste de {faction:577} sueltan los cuernos una vez de cada cinco.",
 	-- {item:12444} Uncracked Chillwind Horn
 	-- plural, as words: Chillwind Chimaeras = {npc:7448} Chillwind Chimaera
-	["{item:12444}: Chillwind Chimaeras"] = "{item:12444}: quimeras Viento Helado",
+	["{item:12444}: Chillwind Chimaeras"] = "{item:12444}: quimeras Viento Gélido",
 
 	-- Step 8: Back to Tinkee Steamboil
 	-- {npc:10267} Tinkee Steamboil

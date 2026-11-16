@@ -41,7 +41,7 @@ return {
 	-- Step 9: Pestilent Scar
 	-- {npc:10411} Eye of Naxxramas
 	-- plural, as words: Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
-	["Careful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "Cuidado: {npc:10411} se vuelve invisible fuera de combate y llama a Gárgolas Alarroca en cuanto empieza una pelea. Solo existen 3 y reaparecen cada 15 min.",
+	["Careful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "Cuidado: {npc:10411} se vuelve invisible fuera de combate y llama a Gárgolas Ventorroca en cuanto empieza una pelea. Solo existen 3 y reaparecen cada 15 min.",
 
 	-- Step 10: Back to Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
@@ -149,7 +149,7 @@ return {
 	-- plural, as words: Unseen Servants = {npc:8538} Unseen Servant · Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["Ride south to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "Cabalga hacia el sur hasta {area:2264}, por el camino. {item:15447} se echa a perder en diez minutos: mata rápido a la Plaga del pueblo y muele las siete piezas con el {item:15454} de inmediato.\nCuidado: los Sirvientes ocultos piden ayuda en un radio de 25 m cuando bajan al 40% de salud. Fuera de combate también se vuelven invisibles con {spell:10228}. Si piden ayuda dentro del pueblo, muchos enemigos pueden unirse a la pelea. Luchar en las afueras reduce ese riesgo.\nCon {quest:5211} en tu registro (de {npc:11063} al inicio de esta guía), la Plaga alrededor del pueblo deja Espíritus de Villa Darrow: habla con cada uno para liberarlo. Libéralos antes de empezar con {item:15447}.",
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
-	["Free Darrowshire Spirits: talk to them"] = "Libera a los Espíritus de Darrowshire: habla con ellos",
+	["Free Darrowshire Spirits: talk to them"] = "Libera a los Espíritus de Villa Darrow: habla con ellos",
 
 	-- Step 29: Nathanos Blightcaller
 	-- {area:2260} Marris Stead

@@ -190,7 +190,7 @@ return {
 	["{quest:940}: kill these as you meet them"] = "{quest:940}: mata a estos según te los encuentres",
 	-- {area:186} Dolanaar · {area:260} Starbreeze Village
 	-- plural, as words: Strigid Owls = {npc:1995} Strigid Owl · Webwood Lurkers = {npc:1998} Webwood Lurker
-	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of {area:260}."] = "Los sables de la noche, búhos estrígidos y acechadores Tejemadera recorren todo alrededor de {area:186} y a lo largo del camino al este; los acechadores también sueltan las patas de araña de la receta. El pozo de la luna está en el borde oeste de {area:260}.",
+	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of {area:260}."] = "Los sables de la noche, lechuzas estrígidas y rondadores Tejemadera recorren todo alrededor de {area:186} y a lo largo del camino al este; los rondadores también sueltan las patas de araña de la receta. El pozo de la luna está en el borde oeste de {area:260}.",
 	["Nightsabers"] = "Sables de la noche",
 	-- plural, as words: Webwood Lurkers = {npc:1998} Webwood Lurker
 	["Webwood Lurkers"] = "Rondadores Tejemadera",
@@ -210,7 +210,7 @@ return {
 	-- Step 32: Lake Al'Ameth
 	-- {npc:2150} Zenn Foulhoof · {npc:2080} Denalan · {quest:919} Timberling Sprouts
 	-- plural, as words: Lasher Sproutlings = {npc:275703} Lasher Sproutling
-	["South-west of Starbreeze, south of {npc:2150}. {npc:2080} tends his saplings on the shore; Lasher Sproutlings and Timberlings wander around him, and the {quest:919} grow among them."] = "Al suroeste de Brisa Estelar, al sur de {npc:2150}. {npc:2080} cuida sus retoños en la orilla; los brotes de azotador y los arbolitos deambulan a su alrededor, y {quest:919} crecen entre ellos.",
+	["South-west of Starbreeze, south of {npc:2150}. {npc:2080} tends his saplings on the shore; Lasher Sproutlings and Timberlings wander around him, and the {quest:919} grow among them."] = "Al suroeste de Brisa Estelar, al sur de {npc:2150}. {npc:2080} cuida sus retoños en la orilla; los brotes de azotador y los brezomaderas deambulan a su alrededor, y {quest:919} crecen entre ellos.",
 	-- {npc:2080} Denalan · {quest:922} Rellian Greenspyre · {zone:1457} Darnassus
 	["{npc:2080}: {quest:922} in {zone:1457} takes it"] = "{npc:2080}: {quest:922} en {zone:1457} la recibe",
 
@@ -303,7 +303,7 @@ return {
 	-- Step 49: Seek Redemption!
 	-- {area:186} Dolanaar · {npc:2150} Zenn Foulhoof · {npc:7234} Ferocitas the Dream Eater
 	-- plural, as words: Fel Cones = {object:1673} Fel Cone
-	["Fel Cones lie under the trees all around {area:186} and {npc:2150}: pick them up on the road east and hand them to {npc:2150} on the way to {npc:7234}."] = "Las piñas viles están bajo los árboles por todo {area:186} y alrededor de {npc:2150}: recógelas por el camino al este y dáselas a {npc:2150} de camino a {npc:7234}.",
+	["Fel Cones lie under the trees all around {area:186} and {npc:2150}: pick them up on the road east and hand them to {npc:2150} on the way to {npc:7234}."] = "Las bellotas viles están bajo los árboles por todo {area:186} y alrededor de {npc:2150}: recógelas por el camino al este y dáselas a {npc:2150} de camino a {npc:7234}.",
 
 	-- Step 50: Ferocitas the Dream Eater
 	-- {npc:7234} Ferocitas the Dream Eater · {area:260} Starbreeze Village · {item:8049} Gnarlpine Necklace
@@ -319,14 +319,14 @@ return {
 	-- Step 52: Tallonkai Swiftroot
 	-- {npc:3567} Tallonkai Swiftroot · {quest:932} Twisted Hatred · {npc:272116} Xethorr the Wicked · {area:264} Oracle Glade
 	-- plural, as words: Befouled Webwoods = {npc:272096} Befouled Webwood
-	["{npc:3567}: {quest:932}'s Befouled Webwoods and the elite {npc:272116}'s moss, on the walk to the {area:264}"] = "{npc:3567}: las Tejemadera corrompidas de {quest:932} y el musgo del élite {npc:272116}, de camino a {area:264}",
+	["{npc:3567}: {quest:932}'s Befouled Webwoods and the elite {npc:272116}'s moss, on the walk to the {area:264}"] = "{npc:3567}: las Tejemadera contaminadas de {quest:932} y el musgo del élite {npc:272116}, de camino a {area:264}",
 
 	-- Step 53: Befouled Webwoods
 	-- plural, as words: Befouled Webwoods = {npc:272096} Befouled Webwood
-	["Befouled Webwoods"] = "Tejemadera corrompidas",
+	["Befouled Webwoods"] = "Tejemadera contaminadas",
 	-- {area:264} Oracle Glade · {npc:272116} Xethorr the Wicked · {item:281023} Mature Fel Moss
 	-- plural, as words: Befouled Webwoods = {npc:272096} Befouled Webwood
-	["North-west of Dolanaar, on the way to the {area:264}, Befouled Webwoods creep through the woods; {npc:272116} prowls at their east edge and carries the {item:281023}.\n{npc:272116} is elite (level 12): grouping up is advised. Clear the webwoods around him first and pull him on his own."] = "Al noroeste de Dolanaar, de camino a {area:264}, las Tejemadera corrompidas se arrastran por el bosque; {npc:272116} merodea por su borde este y lleva {item:281023}.\n{npc:272116} es élite (nivel 12): se recomienda ir en grupo. Primero limpia las Tejemadera a su alrededor y atráelo solo.",
+	["North-west of Dolanaar, on the way to the {area:264}, Befouled Webwoods creep through the woods; {npc:272116} prowls at their east edge and carries the {item:281023}.\n{npc:272116} is elite (level 12): grouping up is advised. Clear the webwoods around him first and pull him on his own."] = "Al noroeste de Dolanaar, de camino a {area:264}, las Tejemadera contaminadas se arrastran por el bosque; {npc:272116} merodea por su borde este y lleva {item:281023}.\n{npc:272116} es élite (nivel 12): se recomienda ir en grupo. Primero limpia las Tejemadera a su alrededor y atráelo solo.",
 
 	-- Step 54: The Wellspring River
 	-- {area:265} Wellspring River

@@ -40,7 +40,7 @@ return {
 	-- Step 5: The Path of the Righteous
 	-- {quest:8301} The Path of the Righteous · {area:3425} Cenarion Hold · {area:2743} Hive'Zora · {area:2744} Hive'Regal
 	-- plural, as words: Silithid Carapace Fragments = {item:20384} Silithid Carapace Fragment · Hive'Ashi Workers = {npc:11721} Hive'Ashi Worker
-	["{quest:8301} wants 200 Silithid Carapace Fragments. Every hive silithid drops one to three on most kills: the Hive'Ashi Workers, Stingers, Swarmers and Defenders north and north-west of {area:3425}, and those of {area:2743} in the west and {area:2744} in the south. Almost all of them are elites of level 57 to 60: one at a time solo, faster in a group."] = "{quest:8301} pide 200 fragmentos de caparazón silítido. Cada silítido de colmena suelta de uno a tres en la mayoría de las muertes: las obreras, aguijoneros, enjambradores y defensores de Colmen'Ashi al norte y noroeste de {area:3425}, y los de {area:2743} en el oeste y {area:2744} en el sur. Casi todos son élites de nivel 57 a 60: de a uno solo, más rápido en grupo.",
+	["{quest:8301} wants 200 Silithid Carapace Fragments. Every hive silithid drops one to three on most kills: the Hive'Ashi Workers, Stingers, Swarmers and Defenders north and north-west of {area:3425}, and those of {area:2743} in the west and {area:2744} in the south. Almost all of them are elites of level 57 to 60: one at a time solo, faster in a group."] = "{quest:8301} pide 200 trozos de caparazón de silítido. Cada silítido de colmena suelta de uno a tres en la mayoría de las muertes: las obreras, aguijoneros, enjambradores y defensores de Colmen'Ashi al norte y noroeste de {area:3425}, y los de {area:2743} en el oeste y {area:2744} en el sur. Casi todos son élites de nivel 57 a 60: de a uno solo, más rápido en grupo.",
 
 	-- Step 6: Hated to Neutral
 	["Hated to Neutral"] = "De Odiado a Neutral",
@@ -249,7 +249,7 @@ return {
 	-- Step 40: Revered to Exalted
 	["Revered to Exalted"] = "De Reverenciado a Exaltado",
 	-- {npc:15727} C'Thun · {quest:8801} C'Thun's Legacy · {npc:15379} Caelestrasz
-	["Revered to Exalted is 21,000: 21 artifacts or 42 insignias, with {npc:15727}'s 2,500 a week. {npc:15727}'s eye starts {quest:8801} for {npc:15379} (200, and 200 Cenarion Circle). At Exalted Anachronos gives the last ring: The Protector of Kalimdor, The Qiraji Conqueror or The Grand Invoker."] = "De Reverenciado a Exaltado son 21.000: 21 artefactos o 42 insignias, con los 2.500 de {npc:15727} por semana. El ojo de {npc:15727} inicia {quest:8801} para {npc:15379} (200, y 200 con el Círculo Cenarion). En Exaltado, Anachronos da el último anillo: el Protector de Kalimdor, el Conquistador qiraji o el Gran Invocador.",
+	["Revered to Exalted is 21,000: 21 artifacts or 42 insignias, with {npc:15727}'s 2,500 a week. {npc:15727}'s eye starts {quest:8801} for {npc:15379} (200, and 200 Cenarion Circle). At Exalted Anachronos gives the last ring: The Protector of Kalimdor, The Qiraji Conqueror or The Grand Invoker."] = "De Reverenciado a Exaltado son 21.000: 21 artefactos o 42 insignias, con los 2.500 de {npc:15727} por semana. El ojo de {npc:15727} inicia {quest:8801} para {npc:15379} (200, y 200 con el Círculo Cenarion). En Exaltado, Anacronos da el último anillo: el Protector de Kalimdor, el Conquistador qiraji o el Gran Invocador.",
 
 	-- Step 41: The Exalted ring
 	["The Exalted ring"] = "El anillo de Exaltado",

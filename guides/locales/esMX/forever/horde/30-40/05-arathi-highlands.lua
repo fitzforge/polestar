@@ -132,7 +132,7 @@ return {
 	-- Step 21: Stromgarde quests for a group
 	["Stromgarde quests for a group"] = "Misiones de Stromgarde en grupo",
 	-- {npc:2703} Zengu · {quest:639} Sigil of Strom
-	["{npc:2703}'s {quest:639} drops from the elite Syndicate (35-38) in Stromgarde's ruins, the west of the highlands. Great XP if you have a group for it: the route passes Stromgarde on its way to the inner circle."] = "{quest:639} de {npc:2703} lo suelta el Sindicato élite (35-38) de las ruinas de Stromgarde, en el oeste de las tierras altas. Da mucha XP si tienes grupo para hacerla: la ruta pasa por Stromgarde de camino al círculo interior.",
+	["{npc:2703}'s {quest:639} drops from the elite Syndicate (35-38) in Stromgarde's ruins, the west of the highlands. Great XP if you have a group for it: the route passes Stromgarde on its way to the inner circle."] = "{quest:639} de {npc:2703} lo suelta la Hermandad élite (35-38) de las ruinas de Stromgarde, en el oeste de las tierras altas. Da mucha XP si tienes grupo para hacerla: la ruta pasa por Stromgarde de camino al círculo interior.",
 
 	-- Step 22: Drywhisker Gorge
 	["North-east of Hammerfall the Drywhisker kobolds mine the gorge; the Kobolds at the mouth and the Diggers and Surveyors deeper in all drop the Motes of Myzrael.\nCareful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "Al noreste de Sentencia, los kóbolds Mostacho Seco excavan en el cañón; los kóbolds de la entrada y los cavadores y peritos de más adentro sueltan las Motas de Myzrael.\nCuidado: Todos los tipos de kóbold huyen en busca de ayuda cuando tienen poca salud (los kóbolds al 30%, los peritos y los cavadores al 15%), lo que puede atraer a más.",
@@ -153,13 +153,13 @@ return {
 
 	-- Step 26: Highland raptors and Plains Creepers
 	-- plural, as words: Plains Creepers = {npc:2563} Plains Creeper
-	["Highland raptors and Plains Creepers"] = "Raptores de las tierras altas y reptadores de llanura",
+	["Highland raptors and Plains Creepers"] = "Raptores de las tierras altas y trepadores de las llanuras",
 	-- {area:321} Hammerfall
 	-- plural, as words: Highland Striders = {npc:2559} Highland Strider · Plains Creepers = {npc:2563} Plains Creeper
-	["On the way back north, Highland Striders roam the hills all around {area:321} and drop the eyes, and south of it the Plains Creepers (32-33) spin their webs in the grass; they carry the spidersilk."] = "De regreso al norte, los zancudos de las Tierras Altas recorren las colinas alrededor de {area:321} y sueltan los ojos, y al sur los reptadores de llanura (32-33) tejen sus telarañas en la hierba; ellos llevan la seda de araña.",
+	["On the way back north, Highland Striders roam the hills all around {area:321} and drop the eyes, and south of it the Plains Creepers (32-33) spin their webs in the grass; they carry the spidersilk."] = "De regreso al norte, los zancudos de las Tierras Altas recorren las colinas alrededor de {area:321} y sueltan los ojos, y al sur los trepadores de las llanuras (32-33) tejen sus telarañas en la hierba; ellos llevan la seda de araña.",
 	-- {item:278225} Surgical Spidersilk
 	-- plural, as words: Plains Creepers = {npc:2563} Plains Creeper
-	["{item:278225}, from Plains Creepers"] = "{item:278225}, de los reptadores de llanura",
+	["{item:278225}, from Plains Creepers"] = "{item:278225}, de los trepadores de las llanuras",
 
 	-- Step 27: Hammerfall
 	-- {area:321} Hammerfall
@@ -217,7 +217,7 @@ return {
 	-- Step 36: Stromgarde
 	["Stromgarde"] = "Stromgarde",
 	-- {area:325} Tower of Arathor · {npc:2773} Or'Kalar
-	["West of the inner circle, Stromgarde's ruins: the Syndicate hold the east half (the Sigil drops from their Conjurors, Prowlers and Magi), the Boulderfist the west half by the {area:325} ({npc:2773} waits in one of the roofless houses beside it)."] = "Al oeste del círculo interior, las ruinas de Stromgarde: el Sindicato ocupa la mitad este (el Sigilo lo sueltan sus conjuradores, merodeadores y magos), y los Puño de Roca la mitad oeste, junto a {area:325} ({npc:2773} espera en una de las casas sin techo a su lado).",
+	["West of the inner circle, Stromgarde's ruins: the Syndicate hold the east half (the Sigil drops from their Conjurors, Prowlers and Magi), the Boulderfist the west half by the {area:325} ({npc:2773} waits in one of the roofless houses beside it)."] = "Al oeste del círculo interior, las ruinas de Stromgarde: la Hermandad ocupa la mitad este (el Sigilo lo sueltan sus conjuradores, merodeadores y magos), y los Puño de Roca la mitad oeste, junto a {area:325} ({npc:2773} espera en una de las casas sin techo a su lado).",
 
 	-- Step 37: Faldir's Cove
 	-- {npc:2766} Lolo the Lookout

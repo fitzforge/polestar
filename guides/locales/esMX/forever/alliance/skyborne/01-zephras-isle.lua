@@ -311,7 +311,7 @@ return {
 	["{area:16626}: kill these as you meet them"] = "{area:16626}: mata a estos según te los encuentres",
 	-- {quest:92683} Flutterfly Dust · {npc:250929} Malfunctioning Cyclone Construct
 	-- plural, as words: Ripe Stormapples = {item:253591} Ripe Stormapple · Hungry Bandits = {npc:252802} Hungry Bandit · Ornery Galestriders = {npc:251707} Ornery Galestrider
-	["Ripe Stormapples and Hungry Bandits are in the orchard by the farm, {quest:92683} in the fields north-east of it, Ornery Galestriders all around. The {npc:250929} stands in the field north-east of the farm."] = "Las Tormanzanas maduras y los Hungry Bandits están en el huerto junto a la granja, {quest:92683} en los campos al noreste, y Ornery Galestriders por todas partes. {npc:250929} está en el campo al noreste de la granja.",
+	["Ripe Stormapples and Hungry Bandits are in the orchard by the farm, {quest:92683} in the fields north-east of it, Ornery Galestriders all around. The {npc:250929} stands in the field north-east of the farm."] = "Las Tormanzanas maduras y los bandidos hambrientos están en el huerto junto a la granja, {quest:92683} en los campos al noreste, y Zancavientos malhumorados por todas partes. {npc:250929} está en el campo al noreste de la granja.",
 
 	-- Step 67: Aamelia Windfield again
 	-- {npc:252800} Aamelia Windfield
@@ -343,7 +343,7 @@ return {
 	-- Step 72: Taming the Beast
 	-- {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod · {npc:254411} Quel'dora Quickgale · {spell:5149} Beast Training
 	-- plural, as words: Ornery Galestriders = {npc:251707} Ornery Galestrider · Vuldren Alphas = {npc:250874} Vuldren Alpha
-	["{npc:252389} takes back the first {item:15908} and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. {npc:254411}, beside her, teaches {spell:5149}."] = "{npc:252389} recupera la primera {item:15908} y te da dos más, de a una: los Galestriders malhumorados y los alfas Vuldren recorren los campos justo al norte de ella. Doma a cada uno con su vara y devuélvele la vara. {npc:254411}, a su lado, enseña {spell:5149}.",
+	["{npc:252389} takes back the first {item:15908} and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. {npc:254411}, beside her, teaches {spell:5149}."] = "{npc:252389} recupera la primera {item:15908} y te da dos más, de a una: los Zancavientos malhumorados y los alfas Vuldren recorren los campos justo al norte de ella. Doma a cada uno con su vara y devuélvele la vara. {npc:254411}, a su lado, enseña {spell:5149}.",
 	-- {item:15908} Taming Rod
 	["Tame it with the {item:15908}"] = "Domestícalo con la {item:15908}",
 	-- {npc:251707} Ornery Galestrider
@@ -353,9 +353,9 @@ return {
 
 	-- Step 73: The Windstone Formations
 	-- plural, as words: Windstone Formations = {object:697118} Windstone Formation
-	["The Windstone Formations"] = "Las Windstone Formations",
+	["The Windstone Formations"] = "Las formaciones de piedras de viento",
 	-- plural, as words: Windstone Formations = {object:697118} Windstone Formation
-	["The Windstone Formations stand on the rise west of Fillion's camp."] = "Las Windstone Formations están en la loma al oeste del campamento de Fillion.",
+	["The Windstone Formations stand on the rise west of Fillion's camp."] = "Las formaciones de piedras de viento están en la loma al oeste del campamento de Fillion.",
 	-- {item:262668} Wind-Infused Bough
 	["{item:262668}: by the formations"] = "{item:262668}: junto a las formaciones",
 
@@ -476,7 +476,7 @@ return {
 
 	-- Step 101: Elaadrin Evengale
 	-- {npc:252475} Elaadrin Evengale · {area:279} Dalaran · {area:16638} Valanaar · {npc:259084} Denaaris Stargale
-	["{npc:252475} sends you on to {area:279}. Take the skycutter from the dock tower just south of {area:16638}: it lands by the Kirin Tor camp west of {area:279}, beside {npc:259084} and the Skyborne Portal."] = "{npc:252475} te manda a {area:279}. Toma el surcacielos desde la torre del muelle justo al sur de {area:16638}: aterriza junto al campamento del Kirin Tor al oeste de {area:279}, al lado de {npc:259084} y el portal de los Celestes.",
+	["{npc:252475} sends you on to {area:279}. Take the skycutter from the dock tower just south of {area:16638}: it lands by the Kirin Tor camp west of {area:279}, beside {npc:259084} and the Skyborne Portal."] = "{npc:252475} te manda a {area:279}. Toma el surcacielos desde la torre del muelle justo al sur de {area:16638}: aterriza junto al campamento del Kirin Tor al oeste de {area:279}, al lado de {npc:259084} y el portal Cielonato.",
 	-- {npc:252475} Elaadrin Evengale · {npc:259084} Denaaris Stargale
 	["{npc:252475}: {npc:259084} waits by the Skyborne portal"] = "{npc:252475}: {npc:259084} espera junto al portal Cielonato",
 
@@ -486,7 +486,7 @@ return {
 
 	-- Step 103: Denaaris Stargale
 	-- {npc:259084} Denaaris Stargale · {area:279} Dalaran · {zone:1453} Stormwind
-	["{npc:259084} stands beside the Skyborne Portal, where the skycutter lands by the Kirin Tor camp west of {area:279}. The portal takes you to {zone:1453}."] = "{npc:259084} está junto al portal de los Celestes, donde aterriza el surcacielos, junto al campamento del Kirin Tor al oeste de {area:279}. El portal te lleva a {zone:1453}.",
+	["{npc:259084} stands beside the Skyborne Portal, where the skycutter lands by the Kirin Tor camp west of {area:279}. The portal takes you to {zone:1453}."] = "{npc:259084} está junto al portal Cielonato, donde aterriza el surcacielos, junto al campamento del Kirin Tor al oeste de {area:279}. El portal te lleva a {zone:1453}.",
 	-- {npc:259084} Denaaris Stargale
 	["{npc:259084}, inside"] = "{npc:259084}, adentro",
 	-- {npc:270459} Alfina Nightgaze · {npc:259084} Denaaris Stargale · {npc:5504} Sheldras Moontree · {zone:1453} Stormwind

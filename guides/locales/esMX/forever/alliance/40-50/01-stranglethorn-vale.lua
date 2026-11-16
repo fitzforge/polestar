@@ -44,7 +44,7 @@ return {
 
 	-- Step 6: Darkmist Cavern
 	-- plural, as words: Darkmist Lurkers = {npc:4377} Darkmist Lurker
-	["The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes.\nCareful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them."] = "Las arañas Niebla Negra anidan alrededor de la cueva del noroeste del pantano; todas las arañas sueltan ojos.\nCuidado: Los acechadores Niebla Negra se mueven en sigilo y usan veneno en combate. Las arañas están muy juntas, así que es común atraer de más; atraer objetivos sueltos desde el borde exterior lo reduce.",
+	["The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes.\nCareful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them."] = "Las arañas Niebla Negra anidan alrededor de la cueva del noroeste del pantano; todas las arañas sueltan ojos.\nCuidado: Los rondadores Niebla Negra se mueven en sigilo y usan veneno en combate. Las arañas están muy juntas, así que es común atraer de más; atraer objetivos sueltos desde el borde exterior lo reduce.",
 
 	-- Step 7: Mudcrush Durtfeet
 	["Head south to the giant's hut in the middle of the marsh."] = "Ve al sur hasta la choza del gigante en medio del pantano.",
@@ -116,9 +116,9 @@ return {
 
 	-- Step 22: Riding at 40
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar · {area:279} Dalaran
-	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. Skyborne learn it from {npc:265756}, the stablemaster and riding trainer at the {area:17684} in {area:16638} on Zephras Isle, who also sells the Galestriders: the skyboat to the isle leaves the north side of {area:279} about every five minutes. Collectibles, Mounts · Level 40 lists the Galestriders."] = "A nivel 40 y con 100 de oro puedes aprender a montar, y aprenderlo te da una montura. Los Celestes lo aprenden con {npc:265756}, el maestro de establos e instructor de equitación de {area:17684} en {area:16638}, en la isla Zephras, que también vende los zancavientos: el barco celeste a la isla sale del lado norte de {area:279} más o menos cada cinco minutos. Coleccionables, Monturas · Nivel 40 muestra los zancavientos.",
+	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. Skyborne learn it from {npc:265756}, the stablemaster and riding trainer at the {area:17684} in {area:16638} on Zephras Isle, who also sells the Galestriders: the skyboat to the isle leaves the north side of {area:279} about every five minutes. Collectibles, Mounts · Level 40 lists the Galestriders."] = "A nivel 40 y con 100 de oro puedes aprender a montar, y aprenderlo te da una montura. Los Cielonatos lo aprenden con {npc:265756}, el maestro de establos e instructor de equitación de {area:17684} en {area:16638}, en la isla Zephras, que también vende los zancavientos: el barco celeste a la isla sale del lado norte de {area:279} más o menos cada cinco minutos. Coleccionables, Monturas · Nivel 40 muestra los zancavientos.",
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
-	["Riding and Galestriders: {npc:265756}, at the {area:17684} in {area:16638} on Zephras Isle."] = "Montar y Galestriders: {npc:265756}, en {area:17684}, en {area:16638}, en la Isla Zephras.",
+	["Riding and Galestriders: {npc:265756}, at the {area:17684} in {area:16638} on Zephras Isle."] = "Montar y Zancavientos: {npc:265756}, en {area:17684}, en {area:16638}, en la Isla Zephras.",
 	-- {area:279} Dalaran
 	["Skyboat to Zephras Isle: the north side of {area:279}, about every five minutes."] = "Barco celeste a la isla Zephras: el lado norte de {area:279}, más o menos cada cinco minutos.",
 
@@ -172,7 +172,7 @@ return {
 	-- Step 30: Bloodsail pirates: kill these as you meet them
 	["Bloodsail pirates: kill these as you meet them"] = "Piratas Velasangre: mata a estos según te los encuentres",
 	-- {npc:2493} Dizzy One-Eye · {area:43} Wild Shore
-	["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit."] = "Todos los Velasangre sueltan rapé y uno de ellos lleva el ojo de {npc:2493}: consíguelos de los asaltantes y magos (39-41) del campamento Velasangre de la playa, justo al norte del pueblo, donde encontraste la carta. Deja el campamento de {area:43}, al sur del pueblo (brujos y espadachines 41-43), para la visita de nivel 48.",
+	["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit."] = "Todos los Velasangre sueltan pizcas de tabaco y uno de ellos lleva el ojo de {npc:2493}: consíguelos de los asaltantes y magos (39-41) del campamento Velasangre de la playa, justo al norte del pueblo, donde encontraste la carta. Deja el campamento de {area:43}, al sur del pueblo (brujos y espadachines 41-43), para la visita de nivel 48.",
 
 	-- Step 31: Booty Bay
 	-- {npc:2486} Fin Fizracket · {npc:1514} Mokk the Savage · {area:35} Booty Bay

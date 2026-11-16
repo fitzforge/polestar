@@ -13,13 +13,13 @@ return {
 
 	-- Step 1: Sagorne Creststrider
 	-- {npc:13417} Sagorne Creststrider · {object:172957} Valley of Wisdom
-	["At 58 {npc:13417}, the shaman trainer in the {object:172957}, asks for two rare diamonds; every Horde shaman goes to him. Skyborne: Forever's quest page lists this quest for Orcs, Tauren and Trolls only: ask before you buy the diamonds."] = "A nivel 58, {npc:13417}, el instructor de chamanes en {object:172957}, te pide dos diamantes raros; todos los chamanes de la Horda van con él. Skyborne: la página de la misión en Forever la lista solo para orcos, taurens y trols: pregunta antes de comprar los diamantes.",
+	["At 58 {npc:13417}, the shaman trainer in the {object:172957}, asks for two rare diamonds; every Horde shaman goes to him. Skyborne: Forever's quest page lists this quest for Orcs, Tauren and Trolls only: ask before you buy the diamonds."] = "A nivel 58, {npc:13417}, el instructor de chamanes en {object:172957}, te pide dos diamantes raros; todos los chamanes de la Horda van con él. Cielonatos: la página de la misión en Forever la lista solo para orcos, taurens y trols: pregunta antes de comprar los diamantes.",
 
 	-- Step 2: Two diamonds
 	["Two diamonds"] = "Dos diamantes",
 	-- {item:12800} Azerothian Diamond · {area:2418} Morgan's Vigil · {zone:1428} Burning Steppes · {item:18335} Pristine Black Diamond
 	-- plural, as words: Small Thorium Veins = {object:324} Small Thorium Vein
-	["Both diamonds are rare: the auction house is the quick way. Miners find the {item:12800} in about one Thorium vein in a hundred (the Small Thorium Veins north of {area:2418} in the {zone:1428} respawn every five minutes). The {item:18335} drops from high-level elites at about one in a hundred, best from the rare elite Revanchion (about one in nine)."] = "Los dos diamantes son raros: la casa de subastas es la vía rápida. Los mineros encuentran {item:12800} más o menos en una de cada cien vetas de torio (las vetas de torio pequeñas al norte de {area:2418}, en {zone:1428}, reaparecen cada cinco minutos). {item:18335} lo sueltan élites de nivel alto más o menos uno de cada cien, mejor el élite raro Revanchion (más o menos uno de cada nueve).",
+	["Both diamonds are rare: the auction house is the quick way. Miners find the {item:12800} in about one Thorium vein in a hundred (the Small Thorium Veins north of {area:2418} in the {zone:1428} respawn every five minutes). The {item:18335} drops from high-level elites at about one in a hundred, best from the rare elite Revanchion (about one in nine)."] = "Los dos diamantes son raros: la casa de subastas es la vía rápida. Los mineros encuentran {item:12800} más o menos en una de cada cien vetas de torio (los filones pequeños de torio al norte de {area:2418}, en {zone:1428}, reaparecen cada cinco minutos). {item:18335} lo sueltan élites de nivel alto más o menos uno de cada cien, mejor el élite raro Revanchion (más o menos uno de cada nueve).",
 
 	-- Step 3: Sagorne Creststrider
 	-- {quest:8258} The Darkreaver Menace

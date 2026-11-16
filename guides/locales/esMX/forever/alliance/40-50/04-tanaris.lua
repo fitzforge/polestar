@@ -32,7 +32,7 @@ return {
 
 	-- Step 5: Gadgetzan
 	-- {area:978} Zul'Farrak · {quest:2864} Tran'rek · {npc:7407} Chief Engineer Bilgewhizzle · {quest:2768} Divino-matic Rod
-	["For your {area:978} run, later in this guide: {quest:2864} wants scarab shells, {npc:7407}, by the water tower, his {quest:2768} back, and Trenton Lighthammer Troll Temper from the Sandfury trolls."] = "Para tu recorrido por {area:978}, más adelante en esta guía: {quest:2864} quiere caparazones de escarabajo, {npc:7407}, junto a la torre de agua, quiere de vuelta su {quest:2768}, y Trenton Lighthammer, temple de trol de los trols Furiarena.",
+	["For your {area:978} run, later in this guide: {quest:2864} wants scarab shells, {npc:7407}, by the water tower, his {quest:2768} back, and Trenton Lighthammer Troll Temper from the Sandfury trolls."] = "Para tu recorrido por {area:978}, más adelante en esta guía: {quest:2864} quiere caparazones de escarabajo, {npc:7407}, junto a la torre de agua, quiere de vuelta su {quest:2768}, y Trenton Mazaligera, temple de trol de los trols Furiarena.",
 
 	-- Step 6: Steamwheedle Port
 	["Ride east across the dunes to the goblin harbour on the north-east coast."] = "Cabalga al este por las dunas hasta el puerto goblin de la costa noreste.",

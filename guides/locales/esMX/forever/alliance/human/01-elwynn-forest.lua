@@ -340,7 +340,7 @@ return {
 	-- {area:88} Eastvale Logging Camp
 	["The {area:88}"] = "{area:88}",
 	-- {area:86} Stone Cairn Lake
-	["The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it.\nCareful: Elmpaw, a level 12 elite gnoll, walks the woods and hills from the logging camp north to {area:86} and the gnoll camps: keep clear of him when you see him coming."] = "El campamento está al noreste del puente. Los fardos de madera están alrededor del campamento y en el bosque al norte.\nCuidado: Elmpaw, un gnoll élite de nivel 12, recorre el bosque y las colinas desde el campamento maderero al norte hasta {area:86} y los campamentos gnoll: aléjate de él cuando lo veas venir.",
+	["The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it.\nCareful: Elmpaw, a level 12 elite gnoll, walks the woods and hills from the logging camp north to {area:86} and the gnoll camps: keep clear of him when you see him coming."] = "El campamento está al noreste del puente. Los fardos de madera están alrededor del campamento y en el bosque al norte.\nCuidado: Patolmo, un gnoll élite de nivel 12, recorre el bosque y las colinas desde el campamento maderero al norte hasta {area:86} y los campamentos gnoll: aléjate de él cuando lo veas venir.",
 	-- {npc:278} Sara Timberlain
 	["{npc:278}, inside"] = "{npc:278}, adentro",
 
@@ -368,7 +368,7 @@ return {
 	["{area:54}: kill these as you meet them"] = "{area:54}: mata a estos según te los encuentres",
 	-- {item:247816} Mining Tools · {npc:471} Mother Fang · {npc:248474} Geosculptor Yip
 	-- plural, as words: Kobold Geomancers = {npc:476} Kobold Geomancer · Mine Spiders = {npc:43} Mine Spider
-	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels.\nCareful: {npc:471} (7-10), the Mine Spiders (7-9) and {npc:248474} (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend."] = "La mina está al suroeste de los campamentos gnoll. {item:247816} están cerca de la entrada; los Geománticos kóbold ocupan los túneles.\nCuidado: {npc:471} (7-10), las Arañas de mina (7-9) y {npc:248474} (7) son élites en lo profundo de la mina: atrae a los kóbolds de uno en uno cerca de la entrada y retírate si viene un élite; son más fáciles con un amigo.",
+	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels.\nCareful: {npc:471} (7-10), the Mine Spiders (7-9) and {npc:248474} (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend."] = "La mina está al suroeste de los campamentos gnoll. {item:247816} están cerca de la entrada; los Geománticos kóbold ocupan los túneles.\nCuidado: {npc:471} (7-10), las Arañas mineras (7-9) y {npc:248474} (7) son élites en lo profundo de la mina: atrae a los kóbolds de uno en uno cerca de la entrada y retírate si viene un élite; son más fáciles con un amigo.",
 	["Walk into the mine"] = "Entra en la mina",
 	-- {npc:476} Kobold Geomancer · {area:54} Jasperlode Mine
 	["{npc:476} walks around {area:54}: look inside the circle on the map"] = "{npc:476} recorre {area:54}: busca dentro del círculo del mapa",
@@ -462,7 +462,7 @@ return {
 	-- Step 89: The Stonefield Farm
 	-- {npc:894} Homer Stonefield · {quest:91736} Applejack Still
 	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
-	["{npc:894} sells the Shiny Red Apples for the {quest:91736}. Apples looted from kobolds and crates count too: the purchase ticks itself once you have four."] = "{npc:894} vende las manzanas rojas brillantes para {quest:91736}. Las manzanas saqueadas de kóbolds y cajas también cuentan: la compra se marca sola cuando tienes cuatro.",
+	["{npc:894} sells the Shiny Red Apples for the {quest:91736}. Apples looted from kobolds and crates count too: the purchase ticks itself once you have four."] = "{npc:894} vende las manzanas rojas lustrosas para {quest:91736}. Las manzanas saqueadas de kóbolds y cajas también cuentan: la compra se marca sola cuando tienes cuatro.",
 	-- {npc:894} Homer Stonefield · {quest:91736} Applejack Still
 	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
 	["Shiny Red Apples, from {npc:894}, for the {quest:91736}"] = "Manzanas rojas lustrosas, de {npc:894}, para {quest:91736}",
@@ -472,7 +472,7 @@ return {
 	["The {quest:91736}"] = "{quest:91736}",
 	-- {quest:91736} Applejack Still · {area:120} Westbrook Garrison · {item:247824} Thunder Applejack · {npc:955} Sergeant De Vries
 	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
-	["The {quest:91736} stands north of the {area:120}. Click it with four Shiny Red Apples in your bags: it takes them and gives you a {item:247824} on the spot (the quest never shows in your quest log). Keep the Applejack for {npc:955}: don't drink it."] = "{quest:91736} está al norte de {area:120}. Haz clic en él con cuatro manzanas rojas brillantes en tus bolsas: se las queda y te da un {item:247824} en el acto (la misión nunca aparece en tu registro). Guarda el licor de manzana para {npc:955}: no te lo bebas.",
+	["The {quest:91736} stands north of the {area:120}. Click it with four Shiny Red Apples in your bags: it takes them and gives you a {item:247824} on the spot (the quest never shows in your quest log). Keep the Applejack for {npc:955}: don't drink it."] = "{quest:91736} está al norte de {area:120}. Haz clic en él con cuatro manzanas rojas lustrosas en tus bolsas: se las queda y te da un {item:247824} en el acto (la misión nunca aparece en tu registro). Guarda el licor de manzana para {npc:955}: no te lo bebas.",
 	-- {item:247824} Thunder Applejack
 	["{item:247824}, from the still"] = "{item:247824}, del alambique",
 

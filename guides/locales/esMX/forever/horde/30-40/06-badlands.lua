@@ -56,7 +56,7 @@ return {
 	-- Step 10: Stonevault troggs
 	["Stonevault troggs"] = "Troggs Grutacanto",
 	-- {area:1877} Valley of Fangs · {area:345} Agmond's End · {npc:2817} Rigglefuzz
-	["The Stonevault troggs dig around the cave mouths south of the {area:1877}, on the way north from {area:345}; the Bonesnappers and Shamans drop the flakes. The Buzzards for {npc:2817}'s wings circle the hills between the {area:1877} and {area:345}."] = "Los troggs Grutacanto excavan alrededor de las bocas de las cuevas al sur de {area:1877}, de camino al norte desde {area:345}; los Cascahuesos y los chamanes sueltan las escamas. Los buitres para las alas de {npc:2817} vuelan en círculos sobre las colinas entre {area:1877} y {area:345}.",
+	["The Stonevault troggs dig around the cave mouths south of the {area:1877}, on the way north from {area:345}; the Bonesnappers and Shamans drop the flakes. The Buzzards for {npc:2817}'s wings circle the hills between the {area:1877} and {area:345}."] = "Los troggs Grutacanto excavan alrededor de las bocas de las cuevas al sur de {area:1877}, de camino al norte desde {area:345}; los Cascahuesos y los chamanes sueltan las escamas. Las águilas ratoneras para las alas de {npc:2817} vuelan en círculos sobre las colinas entre {area:1877} y {area:345}.",
 
 	-- Step 11: Valley of Fangs
 	-- {area:1517} Uldaman · {area:1877} Valley of Fangs · {npc:2817} Rigglefuzz · {npc:4618} Martek the Exiled

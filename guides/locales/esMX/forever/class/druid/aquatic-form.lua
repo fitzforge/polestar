@@ -11,7 +11,7 @@ return {
 
 	-- Step 1: Cenarion Enclave
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {spell:18960} Teleport: Moonglade · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village
-	["{npc:4217} stands upstairs in the druids' building of the {area:1658}. Skyborne: cast {spell:18960} and take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed), then the portal up."] = "{npc:4217} está en el piso de arriba del edificio de los druidas de {area:1658}. Skyborne: lanza {spell:18960} y toma el vuelo de {npc:11800} desde el centro de {area:2361} (lleva a los druidas a {area:702}, no hace falta ruta de vuelo), luego el portal hacia arriba.",
+	["{npc:4217} stands upstairs in the druids' building of the {area:1658}. Skyborne: cast {spell:18960} and take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed), then the portal up."] = "{npc:4217} está en el piso de arriba del edificio de los druidas de {area:1658}. Cielonatos: lanza {spell:18960} y toma el vuelo de {npc:11800} desde el centro de {area:2361} (lleva a los druidas a {area:702}, no hace falta ruta de vuelo), luego el portal hacia arriba.",
 
 	-- Step 3: Trial of the Lake
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {quest:29} Trial of the Lake · {npc:11799} Tajarri · {area:656} Lake Elune'ara · {area:2361} Nighthaven · {object:177524} Bubbly Fissure · {item:15877} Shrine Bauble · {area:2362} Shrine of Remulos

@@ -58,7 +58,7 @@ return {
 
 	-- Step 14: Searing Lava Spiders
 	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
-	["Searing Lava Spiders"] = "Arañas de lava superiores",
+	["Searing Lava Spiders"] = "Arañas de lava abrasadoras",
 	-- {npc:8436} Zamael Lunthistle · {npc:8479} Velarok Windblade
 	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "Las arañas recorren las mesetas y pozas de lava al sur de {npc:8436}, de camino a {npc:8479}.",
 
@@ -114,10 +114,10 @@ return {
 
 	-- Step 32: Sentry Braziers
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
-	["Sentry Braziers"] = "Braseros centinela",
+	["Sentry Braziers"] = "Blandones de avizor",
 	-- {object:149047} Torch of Retribution
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
-	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east."] = "Lleva la {object:149047} al sur por el borde de La Caldera y enciende los cuatro braseros centinela, del suroeste al sureste.",
+	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east."] = "Lleva la {object:149047} al sur por el borde de La Caldera y enciende los cuatro blandones de avizor, del suroeste al sureste.",
 
 	-- Step 33: Level 48.98
 	["Level 48.98"] = "Nivel 48.98",

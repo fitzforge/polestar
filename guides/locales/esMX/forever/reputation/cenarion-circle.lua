@@ -78,7 +78,7 @@ return {
 	["Around {area:3425}"] = "Alrededor de {area:3425}",
 	-- {object:180503} Sandy Cookbook
 	-- plural, as words: Stonelash Scorpids = {npc:11735} Stonelash Scorpid · Sand Skitterers = {npc:11738} Sand Skitterer · Dredge Strikers = {npc:11740} Dredge Striker
-	["Stonelash Scorpids and Sand Skitterers roam the sands around the Hold; Dredge Strikers dig north-east of it. The {object:180503} lies in the cultist camp south-west of the Hold."] = "Los escórpidos Latigopiedra y los correteadores de arena recorren las arenas alrededor del Fuerte; los golpeadores Draga cavan al noreste. El {object:180503} está en el campamento de sectarios al suroeste del Fuerte.",
+	["Stonelash Scorpids and Sand Skitterers roam the sands around the Hold; Dredge Strikers dig north-east of it. The {object:180503} lies in the cultist camp south-west of the Hold."] = "Los escórpidos Latipiedra y los arácnidos de arena recorren las arenas alrededor del Fuerte; los asediadores deslizantes cavan al noreste. El {object:180503} está en el campamento de sectarios al suroeste del Fuerte.",
 
 	-- Step 10: Back at the Hold
 	["Back at the Hold"] = "De vuelta en el Fuerte",
@@ -87,9 +87,9 @@ return {
 
 	-- Step 11: Stonelash and Dredge Crushers
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher
-	["Stonelash and Dredge Crushers"] = "Latigopiedra y aplastadores Draga",
+	["Stonelash and Dredge Crushers"] = "Latipiedra y trituradores deslizantes",
 	-- plural, as words: Stonelash Flayers = {npc:11737} Stonelash Flayer · Rock Stalkers = {npc:11739} Rock Stalker · Dredge Crushers = {npc:11741} Dredge Crusher
-	["Stonelash Flayers, Pincers and Rock Stalkers live south and south-west of the Hold; their stingers and fangs drop about one time in ten. Dredge Crushers dig south and west of the Hold."] = "Los desolladores, pinzas Latigopiedra y acechadores de roca viven al sur y al suroeste del Fuerte; sus aguijones y colmillos caen más o menos una de cada diez veces. Los aplastadores Draga cavan al sur y al oeste del Fuerte.",
+	["Stonelash Flayers, Pincers and Rock Stalkers live south and south-west of the Hold; their stingers and fangs drop about one time in ten. Dredge Crushers dig south and west of the Hold."] = "Los despellejadores, pinzas Latipiedra y acecharrocas viven al sur y al suroeste del Fuerte; sus aguijones y colmillos caen más o menos una de cada diez veces. Los trituradores deslizantes cavan al sur y al oeste del Fuerte.",
 	-- {item:20452} Smoked Desert Dumplings · {object:180503} Sandy Cookbook
 	["{item:20452}, from the {object:180503}"] = "{item:20452}, del {object:180503}",
 	-- {item:20452} Smoked Desert Dumplings · {item:20424} Sandworm Meat · {item:3713} Soothing Spices
@@ -229,7 +229,7 @@ return {
 	["Signets and scepters to Exalted"] = "Sellos y cetros hasta Exaltado",
 	-- {quest:8363} Abyssal Signets · {npc:15282} Aurel Goldleaf · {item:20515} Abyssal Scepter · {quest:9248} A Humble Offering · {quest:8343} Goldleaf's Discovery · {quest:8341} Lords of the Council · {object:180466} Greater Wind Stone · {item:22252} Satchel of Cenarius · {item:22660} Gaea's Embrace · {item:22756} Sylvan Vest · {npc:15176} Vargus
 	-- plural, as words: Large Brilliant Shards = {item:14344} Large Brilliant Shard
-	["Revered to Exalted is 21,000 reputation: 210 text turn-ins (2,100 texts), or less with the rest. From Honored, Bor takes 3 {quest:8363} for 100 (each Duke also gives 25, to Exalted), and {npc:15282} takes one {item:20515} for {quest:9248} (200, once). From Revered, {quest:8343} leads to {quest:8341}: 3 signets and 5 Large Brilliant Shards buy the Ring of Lordship, and set, medallion and ring open the {object:180466} for an Abyssal Lord: a level 63 boss for a raid of about 20, 50 reputation, and an {item:20515}. Bor pays 200 for the first scepter and 150 for each 3 after. Revered opens Mishta's {item:22252} (5g), {item:22660} (9g) and {item:22756} (5g); Exalted is the standing for Champion's Battlegear at {npc:15176}."] = "De Reverenciado a Exaltado son 21.000 de reputación: 210 entregas de textos (2.100 textos), o menos con lo demás. Desde Honorable, Bor acepta 3 {quest:8363} por 100 (cada duque también da 25, hasta Exaltado), y {npc:15282} acepta un {item:20515} para {quest:9248} (200, una vez). Desde Reverenciado, {quest:8343} lleva a {quest:8341}: 3 sellos y 5 fragmentos brillantes grandes compran el Anillo de señorío, y conjunto, medallón y anillo abren la {object:180466} para un señor abisal: un jefe de nivel 63 para una banda de unos 20, 50 de reputación y un {item:20515}. Bor paga 200 por el primer cetro y 150 por cada 3 después. Reverenciado abre la {item:22252} (5g), la {item:22660} (9g) y los {item:22756} (5g) de Mishta; Exaltado es la reputación para el Equipo de batalla de campeón con {npc:15176}.",
+	["Revered to Exalted is 21,000 reputation: 210 text turn-ins (2,100 texts), or less with the rest. From Honored, Bor takes 3 {quest:8363} for 100 (each Duke also gives 25, to Exalted), and {npc:15282} takes one {item:20515} for {quest:9248} (200, once). From Revered, {quest:8343} leads to {quest:8341}: 3 signets and 5 Large Brilliant Shards buy the Ring of Lordship, and set, medallion and ring open the {object:180466} for an Abyssal Lord: a level 63 boss for a raid of about 20, 50 reputation, and an {item:20515}. Bor pays 200 for the first scepter and 150 for each 3 after. Revered opens Mishta's {item:22252} (5g), {item:22660} (9g) and {item:22756} (5g); Exalted is the standing for Champion's Battlegear at {npc:15176}."] = "De Reverenciado a Exaltado son 21.000 de reputación: 210 entregas de textos (2.100 textos), o menos con lo demás. Desde Honorable, Bor acepta 3 {quest:8363} por 100 (cada duque también da 25, hasta Exaltado), y {npc:15282} acepta un {item:20515} para {quest:9248} (200, una vez). Desde Reverenciado, {quest:8343} lleva a {quest:8341}: 3 sellos y 5 fragmentos luminosos grandes compran el Anillo de señorío, y conjunto, medallón y anillo abren la {object:180466} para un señor abisal: un jefe de nivel 63 para una banda de unos 20, 50 de reputación y un {item:20515}. Bor paga 200 por el primer cetro y 150 por cada 3 después. Reverenciado abre la {item:22252} (5g), la {item:22660} (9g) y los {item:22756} (5g) de Mishta; Exaltado es la reputación para el Equipo de batalla de campeón con {npc:15176}.",
 	["10 texts: 100"] = "10 textos: 100",
 	-- {quest:8363} Abyssal Signets
 	["3 {quest:8363}: 100, Honored"] = "3 {quest:8363}: 100, Honorable",
@@ -238,7 +238,7 @@ return {
 	-- {npc:15270} Huum Wildmane
 	["{npc:15270}, Revered"] = "{npc:15270}, Reverenciado",
 	-- plural, as words: Large Brilliant Shards = {item:14344} Large Brilliant Shard
-	["3 signets and 5 Large Brilliant Shards: the Ring of Lordship"] = "3 sellos y 5 fragmentos brillantes grandes: el Anillo de señorío",
+	["3 signets and 5 Large Brilliant Shards: the Ring of Lordship"] = "3 sellos y 5 fragmentos luminosos grandes: el Anillo de señorío",
 	-- {quest:8364} Abyssal Scepters
 	["3 {quest:8364}: 150, Revered"] = "3 {quest:8364}: 150, Reverenciado",
 

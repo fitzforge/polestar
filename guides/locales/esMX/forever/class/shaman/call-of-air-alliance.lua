@@ -33,7 +33,7 @@ return {
 	["Twisted Fire Totems"] = "Tótems de fuego retorcidos",
 	-- {area:338} Angor Fortress · {zone:1418} Badlands · {npc:3560} Healing Ward
 	-- plural, as words: Twisted Fire Totems = {item:274044} Twisted Fire Totem · Fire Nova Totems = {npc:5879} Fire Nova Totem
-	["Five Twisted Fire Totems. The Stonevault troggs (Skullthumpers, Bonesnappers and Shamans, level 37-41) south of {area:338} in the {zone:1418} carry them; the Shamans drop Fire Nova Totems and a {npc:3560}, the Bonesnappers run for help when hurt. Respawn about five minutes."] = "Cinco Tótems de fuego retorcidos. Los troggs Cámara de Piedra (machacacráneos, rompehuesos y chamanes, nivel 37-41) al sur de {area:338}, en {zone:1418}, los llevan; los chamanes ponen Tótems de nova de fuego y un {npc:3560}, y los rompehuesos huyen a pedir ayuda cuando están heridos. Reaparecen en unos cinco minutos.",
+	["Five Twisted Fire Totems. The Stonevault troggs (Skullthumpers, Bonesnappers and Shamans, level 37-41) south of {area:338} in the {zone:1418} carry them; the Shamans drop Fire Nova Totems and a {npc:3560}, the Bonesnappers run for help when hurt. Respawn about five minutes."] = "Cinco Tótems de fuego retorcidos. Los troggs Cámara de Piedra (aplastacráneos, cascahuesos y chamanes, nivel 37-41) al sur de {area:338}, en {zone:1418}, los llevan; los chamanes ponen Tótems de nova de fuego y un {npc:3560}, y los cascahuesos huyen a pedir ayuda cuando están heridos. Reaparecen en unos cinco minutos.",
 
 	-- Step 6: Twisted Earth Totems
 	-- plural, as words: Twisted Earth Totems = {item:274045} Twisted Earth Totem

@@ -58,7 +58,7 @@ return {
 	-- {npc:6909} Sethir the Ancient · {area:264} Oracle Glade · {spell:2983} Sprint
 	["{npc:6909} (level 12 satyr) lives out on a great branch north of the {area:264}: go through the V-shaped gap in the wall north of the glade and out along the branch. Pick his pocket for the journal; killing him does not give it, and a fight brings out three Minions of Sethir. He walks between the main branch and a side branch: wait stealthed at the far end of the main branch and pick him from behind when he comes back. Then {spell:2983} away. He is back 8 1/2 minutes after a death."] = "{npc:6909} (sátiro de nivel 12) vive en una gran rama al norte de {area:264}: pasa por el hueco en forma de V en el muro al norte del claro y sal por la rama. Róbale el diario; matarlo no te lo da, y una pelea saca a tres esbirros de Sethir. Camina entre la rama principal y una rama lateral: espera en sigilo en el extremo de la rama principal y róbale por la espalda cuando vuelva. Luego aléjate con {spell:2983}. Vuelve 8 minutos y medio después de morir.",
 	-- {item:7737} Sethir's Journal
-	["Pick Pocket Sethir the Ancient for {item:7737}"] = "Roba a Sethir el Anciano para {item:7737}",
+	["Pick Pocket Sethir the Ancient for {item:7737}"] = "Roba a Sethir el Ancestro para {item:7737}",
 
 	-- Step 12: Back to Syurna
 	-- {npc:4163} Syurna

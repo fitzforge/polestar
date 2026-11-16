@@ -66,7 +66,7 @@ return {
 	["{item:4480}, from Thundering Exiles"] = "{item:4480}, de los exiliados atronadores",
 	-- {item:4481} Cresting Charm
 	-- plural, as words: Cresting Exiles = {npc:2761} Cresting Exile
-	["{item:4481}, from Cresting Exiles"] = "{item:4481}, de los exiliados de cresta",
+	["{item:4481}, from Cresting Exiles"] = "{item:4481}, de los éxilus coronadores",
 
 	-- Step 12: Essence of the Exile
 	-- {object:89931} Bath'rah's Cauldron · {quest:1712} Cyclonian · {quest:1714} Essence of the Exile

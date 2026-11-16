@@ -105,9 +105,9 @@ return {
 
 	-- Step 16: Elder Stranglethorn Tigers
 	-- plural, as words: Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger
-	["Elder Stranglethorn Tigers"] = "Tigres de Tuercespina ancianos",
+	["Elder Stranglethorn Tigers"] = "Tigres de Tuercespina mayores",
 	-- plural, as words: Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger
-	["The Elder Stranglethorn Tigers (34-35) roam the hills south-west of the camp. Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly."] = "Los Tigres de Tuercespina ancianos (34-35) recorren las colinas al suroeste del campamento. Cuidado: Los campamentos trols están cerca de la zona de los tigres, y los trols pueden unirse a la pelea si atraes sin cuidado.",
+	["The Elder Stranglethorn Tigers (34-35) roam the hills south-west of the camp. Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly."] = "Los Tigres de Tuercespina mayores (34-35) recorren las colinas al suroeste del campamento. Cuidado: Los campamentos trols están cerca de la zona de los tigres, y los trols pueden unirse a la pelea si atraes sin cuidado.",
 
 	-- Step 17: Nesingwary's camp
 	["Back north to the camp."] = "Regresa al norte, al campamento.",
@@ -117,7 +117,7 @@ return {
 	-- Step 18: Thoroughly Scavenged Supplies
 	-- {object:661516} Thoroughly Scavenged Supplies (no name in this language: may be words) · {quest:97328} Anything of Value · {area:102} Ruins of Zul'Kunda
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment
-	["On the walk west from Nesingwary's camp, a pile of {object:661516} lies by the path: it starts {quest:97328}, whose Stolen Shipments lie in the {area:102} on the coast ahead."] = "Caminando al oeste desde el campamento de Nesingwary, hay un montón de Suministros saqueados a fondo junto al camino: inicia {quest:97328}, cuyos envíos robados están en {area:102}, en la costa más adelante.",
+	["On the walk west from Nesingwary's camp, a pile of {object:661516} lies by the path: it starts {quest:97328}, whose Stolen Shipments lie in the {area:102} on the coast ahead."] = "Caminando al oeste desde el campamento de Nesingwary, hay un montón de {object:661516} junto al camino: inicia {quest:97328}, cuyos envíos robados están en {area:102}, en la costa más adelante.",
 
 	-- Step 19: The Savage Coast: kill these as you meet them
 	-- {area:301} The Savage Coast

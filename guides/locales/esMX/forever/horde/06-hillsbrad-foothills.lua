@@ -179,7 +179,7 @@ return {
 	["{npc:3024}: {quest:97538}, the Mirkweed in {area:464} by Sun Rock"] = "{npc:3024}: {quest:97538}, la hierba Mirk en {area:464}, junto a Roca del Sol",
 	-- {npc:4721} Zangen Stonehoof · {quest:1195} The Sacred Flame · {zone:1440} Ashenvale
 	-- plural, as words: Laughing Sisters = {npc:4054} Laughing Sister
-	["{npc:4721}: {quest:1195}, the phial from {zone:1440}'s Laughing Sisters"] = "{npc:4721}: {quest:1195}, el frasco de las Hermanas Risueñas de {zone:1440}",
+	["{npc:4721}: {quest:1195}, the phial from {zone:1440}'s Laughing Sisters"] = "{npc:4721}: {quest:1195}, el frasco de las Hermanas sonrientes de {zone:1440}",
 
 	-- Step 30: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar

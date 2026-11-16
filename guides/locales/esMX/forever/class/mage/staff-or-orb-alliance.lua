@@ -9,7 +9,7 @@ return {
 	-- Guide
 	-- {item:9514} Arcane Staff
 	["Ley or {item:9514} or Orb (Alliance)"] = "Ley, {item:9514} u Orbe (Alianza)",
-	["A staff or an off-hand orb at 10 from your home town's mage trainer; Skyborne add a wand."] = "Un bastón o un orbe de mano izquierda a nivel 10, del instructor de magos de tu ciudad de origen; los Skyborne suman una varita.",
+	["A staff or an off-hand orb at 10 from your home town's mage trainer; Skyborne add a wand."] = "Un bastón o un orbe de mano izquierda a nivel 10, del instructor de magos de tu ciudad de origen; los Cielonatos suman una varita.",
 
 	-- Step 1: Anathamaas Aetherwind (Valanaar)
 	-- {npc:252373} Anathamaas Aetherwind · {area:16638} Valanaar · {npc:256507} Belann Windwood
@@ -17,7 +17,7 @@ return {
 
 	-- Step 2: The Windstone Formations
 	-- plural, as words: Windstone Formations = {object:697118} Windstone Formation
-	["The Windstone Formations"] = "Las Windstone Formations",
+	["The Windstone Formations"] = "Las formaciones de piedras de viento",
 	-- {area:16636} Falaath Village
 	-- plural, as words: Windstone Formations = {object:697118} Windstone Formation
 	["The bough lies on the ground among the Windstone Formations, the wind shrine on the rise west of Fillion's camp, south of {area:16636}. It does not sparkle, so look at the ground by the stones; there are two spots for it."] = "La rama está en el suelo entre las Formaciones de piedra de viento, el santuario del viento en la elevación al oeste del campamento de Fillion, al sur de {area:16636}. No brilla, así que mira el suelo junto a las piedras; hay dos lugares posibles.",
@@ -38,7 +38,7 @@ return {
 
 	-- Step 6: Jennea Cannon
 	-- {zone:1453} Stormwind · {object:2101} Mage Quarter · {npc:5497} Jennea Cannon · {item:7207} Jennea's Flask · {quest:1861} Mirror Lake
-	["Follow the road north into {zone:1453} and west to the {object:2101}. {npc:5497} stands at the top of the Wizard's Sanctum, the tall violet tower: climb the spiral ramp and step into the portal near the top, which puts you beside her. She hands you {item:7207}. Skyborne mages take {quest:1861} from her when they first reach {zone:1453}, at about 15."] = "Sigue el camino al norte hasta {zone:1453} y al oeste hasta {object:2101}. {npc:5497} está en lo alto del Santuario del Mago, la alta torre violeta: sube por la rampa en espiral y entra al portal cerca de la cima, que te deja a su lado. Te da {item:7207}. Los magos Skyborne toman {quest:1861} con ella cuando llegan por primera vez a {zone:1453}, alrededor del nivel 15.",
+	["Follow the road north into {zone:1453} and west to the {object:2101}. {npc:5497} stands at the top of the Wizard's Sanctum, the tall violet tower: climb the spiral ramp and step into the portal near the top, which puts you beside her. She hands you {item:7207}. Skyborne mages take {quest:1861} from her when they first reach {zone:1453}, at about 15."] = "Sigue el camino al norte hasta {zone:1453} y al oeste hasta {object:2101}. {npc:5497} está en lo alto del Santuario del Mago, la alta torre violeta: sube por la rampa en espiral y entra al portal cerca de la cima, que te deja a su lado. Te da {item:7207}. Los magos Cielonatos toman {quest:1861} con ella cuando llegan por primera vez a {zone:1453}, alrededor del nivel 15.",
 
 	-- Step 7: The Mirror Lake waterfall
 	-- {quest:1861} Mirror Lake
@@ -62,7 +62,7 @@ return {
 	-- Step 10: Bink's Toolbox
 	-- {area:133} Gnomeregan
 	-- plural, as words: Leper Gnomes = {npc:1211} Leper Gnome
-	["Head west along the road to {area:133}. Just north of its entrance stand two huts; the toolbox is in the taller, eastern one, the hut with the lift: a small grey box on the ground floor, half under the table beside the lift. Leper Gnomes (level 8) guard the huts: pull them singly. There is only one toolbox and it takes 15 minutes to come back after someone opens it, so wait nearby if it is gone."] = "Ve al oeste por el camino hasta {area:133}. Justo al norte de su entrada hay dos chozas; la caja de herramientas está en la más alta, la del este, la choza con el elevador: una cajita gris en la planta baja, medio debajo de la mesa junto al elevador. Los gnomos leprosos (nivel 8) custodian las chozas: atráelos de a uno. Solo hay una caja de herramientas y tarda 15 minutos en volver después de que alguien la abre, así que espera cerca si no está.",
+	["Head west along the road to {area:133}. Just north of its entrance stand two huts; the toolbox is in the taller, eastern one, the hut with the lift: a small grey box on the ground floor, half under the table beside the lift. Leper Gnomes (level 8) guard the huts: pull them singly. There is only one toolbox and it takes 15 minutes to come back after someone opens it, so wait nearby if it is gone."] = "Ve al oeste por el camino hasta {area:133}. Justo al norte de su entrada hay dos chozas; la caja de herramientas está en la más alta, la del este, la choza con el elevador: una cajita gris en la planta baja, medio debajo de la mesa junto al elevador. Los gnomos parias (nivel 8) custodian las chozas: atráelos de a uno. Solo hay una caja de herramientas y tarda 15 minutos en volver después de que alguien la abre, así que espera cerca si no está.",
 
 	-- Step 11: Back to Bink
 	-- {npc:5144} Bink
@@ -75,5 +75,5 @@ return {
 	["{npc:256507}'s wand (optional)"] = "La varita de {npc:256507} (opcional)",
 	-- {npc:256507} Belann Windwood · {area:16638} Valanaar · {zone:2521} Zephras Isle · {npc:252373} Anathamaas Aetherwind · {item:262668} Wind-Infused Bough · {area:16636} Falaath Village · {item:263430} Windbough Wand
 	-- plural, as words: Windstone Formations = {object:697118} Windstone Formation
-	["{npc:256507}'s quest is open to Human and Gnome mages too, if you ever visit {area:16638} on {zone:2521}, the Skyborne home: {npc:252373}, the town's mage trainer, sends you to {npc:256507} next door, who wants a {item:262668} from the ground by the Windstone Formations south of {area:16636}, for the {item:263430}. It does not shut out the staff or the orb."] = "La misión de {npc:256507} también está disponible para magos humanos y gnomos, si alguna vez visitas {area:16638} en {zone:2521}, el hogar de los Skyborne: {npc:252373}, el instructor de magos del pueblo, te manda con {npc:256507}, al lado, que quiere una {item:262668} del suelo junto a las Formaciones de piedra de viento al sur de {area:16636}, a cambio de {item:263430}. No bloquea el bastón ni el orbe.",
+	["{npc:256507}'s quest is open to Human and Gnome mages too, if you ever visit {area:16638} on {zone:2521}, the Skyborne home: {npc:252373}, the town's mage trainer, sends you to {npc:256507} next door, who wants a {item:262668} from the ground by the Windstone Formations south of {area:16636}, for the {item:263430}. It does not shut out the staff or the orb."] = "La misión de {npc:256507} también está disponible para magos humanos y gnomos, si alguna vez visitas {area:16638} en {zone:2521}, el hogar de los Cielonatos: {npc:252373}, el instructor de magos del pueblo, te manda con {npc:256507}, al lado, que quiere una {item:262668} del suelo junto a las Formaciones de piedra de viento al sur de {area:16636}, a cambio de {item:263430}. No bloquea el bastón ni el orbe.",
 }

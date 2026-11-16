@@ -133,7 +133,7 @@ return {
 	-- Step 25: Un'Goro Crater: kill these as you meet them
 	-- {spell:8137} Silithid Pox · {spell:14120} Tunneler Acid
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
-	["Careful: Gorishi Workers may call for help within 25 yd when below 45% health; silithids cast {spell:8137} and Tunnelers and the Hive Guard use {spell:14120}."] = "Cuidado: Los obreros Gorishi pueden pedir ayuda en 25 m cuando bajan del 45 % de salud; los silítidos lanzan {spell:8137} y los tuneladores y la guardia de la colmena usan {spell:14120}.",
+	["Careful: Gorishi Workers may call for help within 25 yd when below 45% health; silithids cast {spell:8137} and Tunnelers and the Hive Guard use {spell:14120}."] = "Cuidado: Los trabajadores Gorishi pueden pedir ayuda en 25 m cuando bajan del 45 % de salud; los silítidos lanzan {spell:8137} y los tuneladores y la guardia de la colmena usan {spell:14120}.",
 
 	-- Step 26: Eastern Pylon
 	["Eastern Pylon"] = "Torre de cristal del Este",

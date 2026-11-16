@@ -107,10 +107,10 @@ return {
 	-- Step 25: Blackfathom Deeps
 	-- {area:2797} Blackfathom Deeps · {npc:4787} Argent Guard Thaelrid · {zone:1457} Darnassus
 	-- plural, as words: Corrupted Brain Stems = {item:5952} Corrupted Brain Stem
-	["{area:2797} is a dungeon for a group of five, about levels 22 to 30, and a full run takes about an hour. The way in is the sunken ruins at the north end of the strand: go down the stairs into the pit, swim through the tunnels under the wall, past the blue crystals, to the portal.\nInside: the naga and the satyrs drop the Corrupted Brain Stems for Gershala. {npc:4787}, by a campfire in an underwater side room off Ghamoo-ra's room, has a quest for {zone:1457}, which this route leaves to the Dungeons page."] = "{area:2797} es una mazmorra para un grupo de cinco, de nivel 22 a 30 más o menos, y un recorrido completo dura cerca de una hora. La entrada son las ruinas hundidas en el extremo norte de la playa: baja por la escalera al pozo, nada por los túneles bajo el muro, pasando los cristales azules, hasta el portal.\nAdentro: los nagas y los sátiros sueltan los tallos cerebrales corrompidos para Gershala. {npc:4787}, junto a una fogata en una sala lateral sumergida al lado de la sala de Ghamoo-ra, tiene una misión para {zone:1457}, que esta ruta deja a la página Calabozos.",
+	["{area:2797} is a dungeon for a group of five, about levels 22 to 30, and a full run takes about an hour. The way in is the sunken ruins at the north end of the strand: go down the stairs into the pit, swim through the tunnels under the wall, past the blue crystals, to the portal.\nInside: the naga and the satyrs drop the Corrupted Brain Stems for Gershala. {npc:4787}, by a campfire in an underwater side room off Ghamoo-ra's room, has a quest for {zone:1457}, which this route leaves to the Dungeons page."] = "{area:2797} es una mazmorra para un grupo de cinco, de nivel 22 a 30 más o menos, y un recorrido completo dura cerca de una hora. La entrada son las ruinas hundidas en el extremo norte de la playa: baja por la escalera al pozo, nada por los túneles bajo el muro, pasando los cristales azules, hasta el portal.\nAdentro: los nagas y los sátiros sueltan los bulbos raquídeos corruptos para Gershala. {npc:4787}, junto a una fogata en una sala lateral sumergida al lado de la sala de Ghamoo-ra, tiene una misión para {zone:1457}, que esta ruta deja a la página Calabozos.",
 	-- {quest:1275} Researching the Corruption
 	-- plural, as words: Corrupted Brain Stems = {item:5952} Corrupted Brain Stem
-	["{quest:1275}: Corrupted Brain Stems"] = "{quest:1275}: tallos cerebrales corrompidos",
+	["{quest:1275}: Corrupted Brain Stems"] = "{quest:1275}: bulbos raquídeos corruptos",
 
 	-- Step 27: Maestra's Post
 	-- {npc:3663} Delgren the Purifier · {zone:1440} Ashenvale
@@ -195,7 +195,7 @@ return {
 	-- Step 41: Thelgen Rock
 	-- {area:1021} Thelgen Rock
 	-- plural, as words: Cave Stalkers = {npc:4040} Cave Stalker · Leech Stalkers = {npc:1111} Leech Stalker · Highland Lurkers = {npc:260804} Highland Lurker
-	["Cave Stalkers and Leech Stalkers fill {area:1021}, the cave south-east of the excavation site. Careful: Highland Lurkers and Horrors, level 28 elites, walk the same cave among them: pull the stalkers one at a time and keep clear of the elites."] = "Los Acechadores de cuevas y los Acechadores sanguijuela llenan {area:1021}, la cueva al sureste de la excavación. Cuidado: los Acechadores y Horrores de las Tierras Altas, élites de nivel 28, recorren la misma cueva entre ellos: atrae a los acechadores de uno en uno y mantente lejos de los élites.",
+	["Cave Stalkers and Leech Stalkers fill {area:1021}, the cave south-east of the excavation site. Careful: Highland Lurkers and Horrors, level 28 elites, walk the same cave among them: pull the stalkers one at a time and keep clear of the elites."] = "Los Acechadores de cuevas y los Acechadores sanguijuela llenan {area:1021}, la cueva al sureste de la excavación. Cuidado: los Rondadores y Horrores de las Tierras Altas, élites de nivel 28, recorren la misma cueva entre ellos: atrae a los acechadores de uno en uno y mantente lejos de los élites.",
 
 	-- Step 42: The Mosshide gnolls
 	["The Mosshide gnolls"] = "Los gnolls Pellejomusgo",
@@ -206,12 +206,12 @@ return {
 	-- Step 43: Rethiel the Greenwarden
 	-- {area:309} Ironbeard's Tomb · {npc:1244} Rethiel the Greenwarden · {zone:1437} Wetlands
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner
-	["Its flint comes from the Mosshide Fenrunners on the way to {area:309}; {npc:1244} takes it on your next {zone:1437} visit"] = "Su pedernal sale de los correpantanos Pellejomusgo de camino a {area:309}; {npc:1244} lo recibe en tu próxima visita a {zone:1437}",
+	["Its flint comes from the Mosshide Fenrunners on the way to {area:309}; {npc:1244} takes it on your next {zone:1437} visit"] = "Su pedernal sale de los correcubiles Pellejomusgo de camino a {area:309}; {npc:1244} lo recibe en tu próxima visita a {zone:1437}",
 
 	-- Step 44: Ironbeard's Tomb
 	-- {npc:1244} Rethiel the Greenwarden · {area:309} Ironbeard's Tomb · {area:205} Dun Modr · {npc:2111} Sida
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner · Monstrous Oozes = {npc:1033} Monstrous Ooze
-	["North-west from {npc:1244}: Mosshide Fenrunners and Mistweavers roam the riverbanks on the way, and almost every one drops flint. Black, Crimson and Monstrous Oozes fill {area:309}, just west of the road to {area:205} and north of Einar's camp. Any ooze there may hold {npc:2111}'s bag."] = "Al noroeste desde {npc:1244}: los correpantanos y tejebrumas Pellejomusgo recorren las orillas del río por el camino, y casi todos sueltan pedernal. Los lodos negros, carmesí y monstruosos llenan {area:309}, justo al oeste del camino a {area:205} y al norte del campamento de Einar. Cualquier lodo de ahí puede tener la bolsa de {npc:2111}.",
+	["North-west from {npc:1244}: Mosshide Fenrunners and Mistweavers roam the riverbanks on the way, and almost every one drops flint. Black, Crimson and Monstrous Oozes fill {area:309}, just west of the road to {area:205} and north of Einar's camp. Any ooze there may hold {npc:2111}'s bag."] = "Al noroeste desde {npc:1244}: los correcubiles y tejebrumas Pellejomusgo recorren las orillas del río por el camino, y casi todos sueltan pedernal. Los mocos negros, carmesí y monstruosos llenan {area:309}, justo al oeste del camino a {area:205} y al norte del campamento de Einar. Cualquier lodo de ahí puede tener la bolsa de {npc:2111}.",
 	-- {item:2611} Crude Flint
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner
 	["{item:2611}: Mosshide Fenrunners and Mistweavers"] = "{item:2611}: correpantanos y tejebrumas Pellejomusgo",

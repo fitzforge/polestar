@@ -165,7 +165,7 @@ return {
 	["{area:1108}: kill these as you meet them"] = "{area:1108}: mata a estos según te los encuentres",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	-- plural, as words: Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray · Land Walkers = {npc:5357} Land Walker · Cliff Giants = {npc:5358} Cliff Giant
-	["The Sea Elementals and Sea Sprays wash along the shore around the dock.\nThe Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "Los elementales marinos y las espumas marinas recorren la orilla alrededor del muelle.\nLos caminantes terrestres y los gigantes del acantilado recorren las colinas al norte del muelle. Primero dale a cada uno con {item:18904}: reducidos, ya no son élite. Cada gigante reducido suelta residuo; usa también la Vasija Muisek sobre su cuerpo.",
+	["The Sea Elementals and Sea Sprays wash along the shore around the dock.\nThe Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "Los elementales marinos y las rocíos del mar recorren la orilla alrededor del muelle.\nLos caminatierras y los gigantes del risco recorren las colinas al norte del muelle. Primero dale a cada uno con {item:18904}: reducidos, ya no son élite. Cada gigante reducido suelta residuo; usa también la Vasija Muisek sobre su cuerpo.",
 
 	-- Step 47: Northspring harpies
 	["Northspring harpies"] = "Arpías Nortearroyo",

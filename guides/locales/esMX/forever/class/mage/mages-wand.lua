@@ -40,7 +40,7 @@ return {
 	-- Step 7: Jade
 	-- {npc:6546} Tabetha · {item:1529} Jade · {area:271} Southshore
 	-- plural, as words: Torn Fin Coastrunners = {npc:2375} Torn Fin Coastrunner
-	["{npc:6546} also wants one {item:1529}, a green gem. Miners sometimes find one in ore veins; the Auction House sells it; the Torn Fin Coastrunners on the coast south-west of {area:271} drop one about every fifth kill. Do not sell it to a vendor by mistake."] = "{npc:6546} también quiere un {item:1529}, una gema verde. Los mineros a veces encuentran uno en las vetas; la casa de subastas lo vende; los corredores de costa Aleta Rasgada de la costa al suroeste de {area:271} sueltan uno más o menos cada cinco muertes. No lo vendas a un vendedor por error.",
+	["{npc:6546} also wants one {item:1529}, a green gem. Miners sometimes find one in ore veins; the Auction House sells it; the Torn Fin Coastrunners on the coast south-west of {area:271} drop one about every fifth kill. Do not sell it to a vendor by mistake."] = "{npc:6546} también quiere un {item:1529}, una gema verde. Los mineros a veces encuentran uno en las vetas; la casa de subastas lo vende; los correcostas Rompeanca de la costa al suroeste de {area:271} sueltan uno más o menos cada cinco muertes. No lo vendas a un vendedor por error.",
 
 	-- Step 8: Rituals of Power
 	-- {area:796} Scarlet Monastery · {zone:1420} Tirisfal Glades · {npc:6487} Arcanist Doan · {item:5535} Compendium of the Fallen

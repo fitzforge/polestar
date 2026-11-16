@@ -30,7 +30,7 @@ return {
 	-- {npc:2991} Greatmother Hawkwind
 	["{npc:2991} and the plains"] = "{npc:2991} y las llanuras",
 	-- {npc:2991} Greatmother Hawkwind
-	["{npc:2991}'s tent is south-east of the camp; the water pitcher stands at the well beside it. Plainstriders graze all around."] = "La tienda de {npc:2991} está al sureste del campamento; la jarra de agua está en el pozo a su lado. Los zancudos pastan por todas partes.",
+	["{npc:2991}'s tent is south-east of the camp; the water pitcher stands at the well beside it. Plainstriders graze all around."] = "La tienda de {npc:2991} está al sureste del campamento; la jarra de agua está en el pozo a su lado. Los zancudos de llanura pastan por todas partes.",
 
 	-- Step 4: Camp Narache: hand in
 	-- {area:221} Camp Narache
@@ -80,7 +80,7 @@ return {
 	["The mine, the centaurs and the plains"] = "La mina, los centauros y las llanuras",
 	-- {quest:765} Supervisor Fizsprocket · {item:281031} Mulgore Expansion Plans · {quest:98424} Fizsprocket's Notes · {zone:1412} Mulgore
 	-- plural, as words: Swoops = {npc:2970} Swoop
-	["Back to the mine for the workers, supervisors and {quest:765} in the back: his {item:281031} start {quest:98424}, and its other pages lie inside the mine. The Galak centaurs and Herak camp east of the village. Swoops fly all over {zone:1412}; the Windfury harpies roost south-east of the village; the Palemane gnolls camp west of it."] = "De vuelta a la mina por los obreros, los supervisores y {quest:765}, al fondo: sus {item:281031} inician {quest:98424}, y sus otras páginas están dentro de la mina. Los centauros Galak y Herak acampan al este de la aldea. Los vencejos vuelan por todo {zone:1412}; las arpías Furia del Viento anidan al sureste de la aldea; los gnolls Crin Pálida acampan al oeste.",
+	["Back to the mine for the workers, supervisors and {quest:765} in the back: his {item:281031} start {quest:98424}, and its other pages lie inside the mine. The Galak centaurs and Herak camp east of the village. Swoops fly all over {zone:1412}; the Windfury harpies roost south-east of the village; the Palemane gnolls camp west of it."] = "De vuelta a la mina por los obreros, los supervisores y {quest:765}, al fondo: sus {item:281031} inician {quest:98424}, y sus otras páginas están dentro de la mina. Los centauros Galak y Herak acampan al este de la aldea. Los aguilones vuelan por todo {zone:1412}; las arpías Furia del Viento anidan al sureste de la aldea; los gnolls Crin Pálida acampan al oeste.",
 	-- {item:281031} Mulgore Expansion Plans · {quest:765} Supervisor Fizsprocket
 	["{item:281031}, from {quest:765}"] = "{item:281031}, de {quest:765}",
 	-- {item:281035} Shredder Operation Instructions
@@ -137,9 +137,9 @@ return {
 
 	-- Step 24: A Donation of Silk
 	-- {area:287} Hillsbrad
-	["Silk: the Syndicate in {area:287} and Alterac drop it about one kill in three, or buy it."] = "Seda: el Sindicato en {area:287} y Alterac la suelta más o menos una de cada tres muertes, o cómprala.",
+	["Silk: the Syndicate in {area:287} and Alterac drop it about one kill in three, or buy it."] = "Seda: la Hermandad en {area:287} y Alterac la suelta más o menos una de cada tres muertes, o cómprala.",
 	-- {item:4306} Silk Cloth
-	["{item:4306}: the Syndicate"] = "{item:4306}: el Sindicato",
+	["{item:4306}: the Syndicate"] = "{item:4306}: la Hermandad",
 
 	-- Step 25: A Donation of Mageweave
 	-- {zone:1448} Felwood · {zone:1446} Tanaris
@@ -187,7 +187,7 @@ return {
 
 	-- Step 32: Un'Goro Crater: Un'Goro Soil
 	-- {quest:3761} Un'Goro Soil · {item:11040} Morrowgrain
-	["Nearly every beast, plant and silithid in the crater drops {quest:3761}, about one kill in three (the Bloodpetals and the Gorishi wasps about one in two), and the dirt mounds give it too. Take far more than 20: every casing uses 2, about 18 for each {item:11040} hand-in."] = "Casi todas las bestias, plantas y silítidos del cráter sueltan {quest:3761}, más o menos una de cada tres muertes (los Pétalo de Sangre y las avispas Gorishi más o menos una de cada dos), y los montículos de tierra también la dan. Junta mucho más de 20: cada vaina usa 2, unas 18 por cada entrega de {item:11040}.",
+	["Nearly every beast, plant and silithid in the crater drops {quest:3761}, about one kill in three (the Bloodpetals and the Gorishi wasps about one in two), and the dirt mounds give it too. Take far more than 20: every casing uses 2, about 18 for each {item:11040} hand-in."] = "Casi todas las bestias, plantas y silítidos del cráter sueltan {quest:3761}, más o menos una de cada tres muertes (los Sangrepétalo y las avispas Gorishi más o menos una de cada dos), y los montículos de tierra también la dan. Junta mucho más de 20: cada vaina usa 2, unas 18 por cada entrega de {item:11040}.",
 
 	-- Step 33: Thunder Bluff: Morrowgrain Research
 	-- {npc:9076} Ghede · {npc:9087} Bashana Runetotem · {item:11020} Evergreen Pouch · {quest:3761} Un'Goro Soil · {item:11024} Evergreen Herb Casing · {item:11040} Morrowgrain
@@ -219,7 +219,7 @@ return {
 	-- {quest:7825} Additional Runecloth
 	["{quest:7825} to Revered"] = "{quest:7825} hasta Reverenciado",
 	-- {item:14047} Runecloth · {item:11040} Morrowgrain · {area:1584} Blackrock Depths · {area:340} Kargath · {npc:9017} Lord Incendius
-	["Honored to Revered is 12,000: 240 hand-ins, 4,800 {item:14047}, fewer if you also hand in {item:11040}. {area:1584} pays too: Disharmony of Flame and Disharmony of Fire from Thunderheart at {area:340} ({npc:9017}, 150 in full)."] = "De Honorable a Reverenciado son 12.000: 240 entregas, 4.800 {item:14047}, menos si también entregas {item:11040}. {area:1584} también paga: Discordia de la llama y Discordia del fuego de Corazón de Trueno en {area:340} ({npc:9017}, 150 completos).",
+	["Honored to Revered is 12,000: 240 hand-ins, 4,800 {item:14047}, fewer if you also hand in {item:11040}. {area:1584} pays too: Disharmony of Flame and Disharmony of Fire from Thunderheart at {area:340} ({npc:9017}, 150 in full)."] = "De Honorable a Reverenciado son 12.000: 240 entregas, 4.800 {item:14047}, menos si también entregas {item:11040}. {area:1584} también paga: Discordia de la llama y Discordia del fuego de Corazón Atronador en {area:340} ({npc:9017}, 150 completos).",
 	-- {item:11040} Morrowgrain
 	["{item:11040}, if you grow it"] = "{item:11040}, si lo cultivas",
 

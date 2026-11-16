@@ -56,7 +56,7 @@ return {
 	-- Step 8: Ritual Salve
 	-- {area:358} Brambleblade Ravine · {spell:403} Lightning Bolt
 	-- plural, as words: Bristleback Shamans = {npc:2953} Bristleback Shaman
-	["The Bristleback Shamans (level 3-4) stand among the quilboar huts of {area:358}, east of the camp, and throw the odd {spell:403}. Four kills in five drop a salve; they respawn in about four minutes."] = "Los chamanes Lomopelo (nivel 3-4) están entre las chozas de jabaespines de {area:358}, al este del campamento, y lanzan algún {spell:403}. Cuatro de cada cinco sueltan un ungüento; reaparecen en unos cuatro minutos.",
+	["The Bristleback Shamans (level 3-4) stand among the quilboar huts of {area:358}, east of the camp, and throw the odd {spell:403}. Four kills in five drop a salve; they respawn in about four minutes."] = "Los chamanes Erizapúas (nivel 3-4) están entre las chozas de jabaespines de {area:358}, al este del campamento, y lanzan algún {spell:403}. Cuatro de cada cinco sueltan un ungüento; reaparecen en unos cuatro minutos.",
 
 	-- Step 9: Seer Ravenfeather
 	-- {area:221} Camp Narache · {quest:1462} Earth Sapta

@@ -129,7 +129,7 @@ return {
 	-- Step 24: The Cult of the Damned
 	-- {npc:267009} Hadric Harlson
 	-- plural, as words: Dark Neophytes = {npc:267006} Dark Neophyte · Dark Enforcers = {npc:275437} Dark Enforcer · Necrotic Crystal Fragments = {item:275851} Necrotic Crystal Fragment
-	["The cultists camp a short walk south-east of {npc:267009}. Dark Neophytes and Dark Enforcers drop the Necrotic Crystal Fragments; more fragments, black crystals, lie on the ground among the tents."] = "Los sectarios acampan a poca distancia al sureste de {npc:267009}. Los neófitos oscuros y los ejecutores oscuros sueltan los Fragmentos de cristal necrótico; hay más fragmentos, cristales negros, en el suelo entre las tiendas.",
+	["The cultists camp a short walk south-east of {npc:267009}. Dark Neophytes and Dark Enforcers drop the Necrotic Crystal Fragments; more fragments, black crystals, lie on the ground among the tents."] = "Los sectarios acampan a poca distancia al sureste de {npc:267009}. Los neófitos oscuros y los déspotas oscuros sueltan los Trozos de cristal necrótico; hay más fragmentos, cristales negros, en el suelo entre las tiendas.",
 
 	-- Step 27: The Sepulcher
 	-- {area:228} The Sepulcher · {npc:2226} Karos Razok
@@ -278,7 +278,7 @@ return {
 
 	-- Step 57: Ragefire Chasm
 	-- {area:2437} Ragefire Chasm · {object:172960} Cleft of Shadow · {npc:3216} Neeru Fireblade · {npc:11520} Taragaman the Hungerer · {npc:11518} Jergosh the Invoker · {npc:4949} Thrall
-	["{area:2437} is a dungeon for a group of five, about levels 13 to 18, and a full run takes 30 to 45 minutes. Its portal is in the {object:172960}, beside {npc:3216}.\nInside: past Oggleflint and his troggs, {npc:11520} waits in the lava cave and drops his heart. {npc:11518} and Bazzalan, further in, are for {npc:4949}'s Hidden Enemies, which this route leaves out."] = "{area:2437} es una mazmorra para un grupo de cinco, de nivel 13 a 18 más o menos, y un recorrido completo dura de 30 a 45 minutos. Su portal está en {object:172960}, junto a {npc:3216}.\nAdentro: pasando a Oggleflint y sus troggs, {npc:11520} espera en la cueva de lava y suelta su corazón. {npc:11518} y Bazzalan, más adentro, son para “Hidden Enemies” de {npc:4949}, que esta ruta deja fuera.",
+	["{area:2437} is a dungeon for a group of five, about levels 13 to 18, and a full run takes 30 to 45 minutes. Its portal is in the {object:172960}, beside {npc:3216}.\nInside: past Oggleflint and his troggs, {npc:11520} waits in the lava cave and drops his heart. {npc:11518} and Bazzalan, further in, are for {npc:4949}'s Hidden Enemies, which this route leaves out."] = "{area:2437} es una mazmorra para un grupo de cinco, de nivel 13 a 18 más o menos, y un recorrido completo dura de 30 a 45 minutos. Su portal está en {object:172960}, junto a {npc:3216}.\nAdentro: pasando a Ogglesílex y sus troggs, {npc:11520} espera en la cueva de lava y suelta su corazón. {npc:11518} y Bazzalan, más adentro, son para “Hidden Enemies” de {npc:4949}, que esta ruta deja fuera.",
 
 	-- Step 58: Neeru Fireblade
 	-- {npc:3216} Neeru Fireblade

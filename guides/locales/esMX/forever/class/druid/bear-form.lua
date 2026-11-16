@@ -59,7 +59,7 @@ return {
 
 	-- Step 13: The Moonkin Stone
 	-- {object:177525} Moonkin Stone · {zone:1413} Barrens · {area:378} Camp Taurajo · {zone:1412} Mulgore · {item:15710} Cenarion Lunardust · {npc:12144} Lunaclaw Spirit
-	["The {object:177525} stands in the {zone:1413} just south-west of {area:378}, by the road out of {zone:1412}. Level 20 Thunderheads roam close by: clear the way first. Use the {item:15710} by the stone: Lunaclaw (level 12-13) appears for three minutes. Kill her, then speak to the {npc:12144} that appears and ask for the strength of her body and heart: the talk is the credit. Die in the fight? Lunaclaw stays by the stone: run back and finish her."] = "{object:177525} está en {zone:1413}, justo al suroeste de {area:378}, junto al camino que sale de {zone:1412}. Cabezatruenos de nivel 20 rondan cerca: despeja el camino antes. Usa {item:15710} junto a la piedra: Garraluna (nivel 12-13) aparece durante tres minutos. Mátala, luego habla con el {npc:12144} que aparece y pídele la fuerza de su cuerpo y su corazón: la charla es el crédito. ¿Mueres en la pelea? Garraluna se queda junto a la piedra: vuelve corriendo y remátala.",
+	["The {object:177525} stands in the {zone:1413} just south-west of {area:378}, by the road out of {zone:1412}. Level 20 Thunderheads roam close by: clear the way first. Use the {item:15710} by the stone: Lunaclaw (level 12-13) appears for three minutes. Kill her, then speak to the {npc:12144} that appears and ask for the strength of her body and heart: the talk is the credit. Die in the fight? Lunaclaw stays by the stone: run back and finish her."] = "{object:177525} está en {zone:1413}, justo al suroeste de {area:378}, junto al camino que sale de {zone:1412}. Tronatestas de nivel 20 rondan cerca: despeja el camino antes. Usa {item:15710} junto a la piedra: Garraluna (nivel 12-13) aparece durante tres minutos. Mátala, luego habla con el {npc:12144} que aparece y pídele la fuerza de su cuerpo y su corazón: la charla es el crédito. ¿Mueres en la pelea? Garraluna se queda junto a la piedra: vuelve corriendo y remátala.",
 
 	-- Step 14: Body and Heart
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise
@@ -107,7 +107,7 @@ return {
 
 	-- Step 23: Sheldras Moontree
 	-- {zone:1453} Stormwind · {npc:5504} Sheldras Moontree · {spell:18960} Teleport: Moonglade
-	["The Skyborne Portal takes you to {zone:1453}. {npc:5504} is the city's druid trainer (the arrow points at him); he teaches you {spell:18960} with the next quest (it stays in your spellbook, Balance tab)."] = "El portal Skyborne te lleva a {zone:1453}. {npc:5504} es el instructor de druidas de la ciudad (la flecha lo señala); te enseña {spell:18960} con la siguiente misión (queda en tu libro de hechizos, pestaña Equilibrio).",
+	["The Skyborne Portal takes you to {zone:1453}. {npc:5504} is the city's druid trainer (the arrow points at him); he teaches you {spell:18960} with the next quest (it stays in your spellbook, Balance tab)."] = "El portal Cielonato te lleva a {zone:1453}. {npc:5504} es el instructor de druidas de la ciudad (la flecha lo señala); te enseña {spell:18960} con la siguiente misión (queda en tu libro de hechizos, pestaña Equilibrio).",
 
 	-- Step 24: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:493} Moonglade · {npc:12740} Faustron · {npc:10897} Sindrayl

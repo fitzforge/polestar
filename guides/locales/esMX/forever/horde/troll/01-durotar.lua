@@ -111,7 +111,7 @@ return {
 
 	-- Step 22: Sen'jin Village
 	-- {area:367} Sen'jin Village · {area:362} Razor Hill
-	["Follow the road east out of the valley to {area:367} on the coast.\nCareful: Ukorsbane (8) is elite and walks among the Ridgeshade spiders in the camp south of {area:362}: pull the spiders away from him."] = "Sigue el camino al este fuera del valle hasta {area:367}, en la costa.\nCuidado: Ukorsbane (8) es élite y anda entre las arañas Sombracresta en el campamento al sur de {area:362}: atrae a las arañas lejos de él.",
+	["Follow the road east out of the valley to {area:367} on the coast.\nCareful: Ukorsbane (8) is elite and walks among the Ridgeshade spiders in the camp south of {area:362}: pull the spiders away from him."] = "Sigue el camino al este fuera del valle hasta {area:367}, en la costa.\nCuidado: Ukorterror (8) es élite y anda entre las arañas Sombracresta en el campamento al sur de {area:362}: atrae a las arañas lejos de él.",
 	-- {npc:266881} Pa'zula
 	-- plural, as words: Hexed Pendants = {item:275724} Hexed Pendant
 	["{npc:266881}: enchanters only, the residue is disenchanted from Hexed Pendants"] = "{npc:266881}: solo encantadores; el residuo se obtiene desencantando Colgantes embrujados ({item:275724})",
@@ -287,7 +287,7 @@ return {
 	-- Step 63: Drygulch Ravine
 	-- {area:370} Drygulch Ravine · {npc:3293} Rezlak · {item:277661} Dull Storm Orb · {area:371} Dustwind Cave · {item:6652} Reagent Pouch
 	-- plural, as words: Burning Blade Cultists = {npc:3199} Burning Blade Cultist
-	["Savages and Storm Witches nest in {area:370}, east of {npc:3293}. A Storm Witch drops the {item:277661}. Shamans: the Burning Blade Cultists by {area:371}, at the ravine's south end, drop the {item:6652}."] = "Los salvajes y las brujas de la tormenta anidan en {area:370}, al este de {npc:3293}. Una bruja de la tormenta suelta {item:277661}. Chamanes: los sectarios del Filo Ardiente junto a {area:371}, en el extremo sur del barranco, sueltan {item:6652}.",
+	["Savages and Storm Witches nest in {area:370}, east of {npc:3293}. A Storm Witch drops the {item:277661}. Shamans: the Burning Blade Cultists by {area:371}, at the ravine's south end, drop the {item:6652}."] = "Los salvajes y las brujas de la tormenta anidan en {area:370}, al este de {npc:3293}. Una bruja de la tormenta suelta {item:277661}. Chamanes: los cultores del Filo Ardiente junto a {area:371}, en el extremo sur del barranco, sueltan {item:6652}.",
 
 	-- Step 64: Deathskip to Northern Durotar
 	["Deathskip to Northern Durotar"] = "Muere para volver rápido al norte de Durotar",
@@ -339,7 +339,7 @@ return {
 	["Spitelash naga"] = "Nagas Látigo de Ira",
 	-- {area:370} Drygulch Ravine · {npc:275657} Heglan Shadeeye · {npc:3107} Surf Crawler
 	-- plural, as words: Spitelash Scouts = {npc:275662} Spitelash Scout
-	["North-east to the beach below {area:370}, north of {npc:275657}: Spitelash Scouts and Attendants hold it. Hunters: tame a {npc:3107} on the beach."] = "Al noreste, hasta la playa debajo de {area:370}, al norte de {npc:275657}: la ocupan exploradores y asistentes Latigosaña. Cazadores: domen un {npc:3107} en la playa.",
+	["North-east to the beach below {area:370}, north of {npc:275657}: Spitelash Scouts and Attendants hold it. Hunters: tame a {npc:3107} on the beach."] = "Al noreste, hasta la playa debajo de {area:370}, al norte de {npc:275657}: la ocupan exploradores y asistentes Látigo de Ira. Cazadores: domen un {npc:3107} en la playa.",
 
 	-- Step 78: Margoz
 	-- {quest:828} Margoz · {quest:827} Skull Rock
