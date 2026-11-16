@@ -12761,6 +12761,14 @@ test('route-fixes leaves Vimes\'s Report out on the Alliance side (#1984)', () =
 	assert.ok(overrides.skip.some((r) => r.q === 1288 && r.faction === 'Alliance'), 'route-fixes leaves 1288 out on the Alliance side');
 });
 
+// #2493 (the same report as #1984, 0.3.7.2): the guides themselves still waited on the accept at Theramore; no Alliance
+// guide asks for Vimes's Report (20 people in players' recordings handed in The Deserters, none was offered 1288).
+test('no Alliance guide waits on Vimes\'s Report (#1984, #2493)', { skip }, () => {
+	for (const g of allGuides().filter((f) => f.startsWith('forever/alliance/'))) {
+		assert.ok(!goals(g).some(({ goal }) => goal.quest === 1288), `${g}: no Vimes's Report`);
+	}
+});
+
 // #1985: Dustwallow Marsh's venom-sac step named only the Darkfang Venomspitters; every Darkfang spider drops the
 // Acidic Venom Sacs for The Black Shield (1322), the Giant Darkfang Spiders too (drop data, players' recordings).
 test('guide-fixes says every Darkfang spider drops the Acidic Venom Sacs (#1985)', () => {

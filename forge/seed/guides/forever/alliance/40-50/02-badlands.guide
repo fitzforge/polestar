@@ -192,8 +192,6 @@ step Boat to Theramore
 step Theramore
   zone Dustwallow Marsh
   turnin 1287                         -- Captain Garran Vimes, on the top floor
-  accept 1288
-  turnin 1288                         -- Lady Jaina Proudmoore, on the top floor
   turnin 1258                         -- Morgan Stern, inside
 
 step Cortello's Riddle

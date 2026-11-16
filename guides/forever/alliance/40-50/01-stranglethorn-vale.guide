@@ -145,8 +145,6 @@ step Foothold Citadel
   when level>=40
   tip The boat leaves from Theramore: report to Captain Garran Vimes on the top floor of Foothold Citadel on the way to the docks.
   turnin 1287                         -- Captain Garran Vimes, on the top floor
-  accept 1288
-  turnin 1288                         -- Lady Jaina Proudmoore, on the top floor
 
 step Boat to Menethil Harbor
   only Human
