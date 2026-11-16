@@ -269,6 +269,9 @@ fn prereq_data() -> Data {
 			"9361": q(9361, json!({ "excl": [9360] })),
 			"9370": q(9370, json!({ "excl": [9371] })),
 			"9371": q(9371, json!({})),
+			"9380": q(9380, json!({ "parent": 9351 })),
+			"9390": q(9390, json!({ "parent": 9391, "excl": [9391] })),
+			"9391": q(9391, json!({})),
 		}),
 		Value::Null,
 		Value::Null,
@@ -306,6 +309,25 @@ fn an_accept_compiles_closed_by_the_quest_its_breadcrumb_leads_to_and_its_exclus
 	assert_eq!(json!([g[3]["closedBy"], g[3]["preTitles"]]), json!([[9330], { "9330": "Quest 9330" }]));
 }
 
+// A quest something closes for good carries where it is handed in and its XP, for the missable-quest line: silent
+// for a breadcrumb to the NPC offering the closing quest, or for one worth no XP. Other accepts carry neither.
+#[test]
+fn an_accept_something_closes_for_good_carries_its_hand_in_npcs_and_xp() {
+	let data = data_plus(
+		json!({
+			"9400": q(9400, json!({ "breadcrumbFor": 9401, "xp": 830, "end": { "npc": [2094], "object": [] } })),
+			"9401": q(9401, json!({})),
+			"9402": q(9402, json!({ "xp": 500 })),
+		}),
+		Value::Null,
+		Value::Null,
+	);
+	let r = compile_with(&guide_text(&["step S", "  accept 9400", "  accept 9402"]), &data);
+	let g = r.steps()[0]["goals"].as_array().unwrap().clone();
+	assert_eq!(json!([g[0]["closedBy"], g[0]["endNpcs"], g[0]["xp"]]), json!([[9401], [2094], 830]));
+	assert!(g[1].get("endNpcs").is_none() && g[1].get("xp").is_none(), "{}", g[1]);
+}
+
 // #1661: a child quest (9340, `parent` 9341, like Valik under Infiltration) is offered only while its parent is in
 // the log: the accept carries the parent, titled for the reason text, and no prerequisite.
 #[test]
@@ -314,6 +336,50 @@ fn an_accept_of_a_child_quest_compiles_its_parent_titled_for_the_reason_text() {
 	let g = r.steps()[0]["goals"].as_array().unwrap().clone();
 	assert_eq!(json!([g[1]["parent"], g[1]["preTitles"], g[1].get("pre")]), json!([9341, { "9341": "Quest 9341" }, null]));
 	assert!(g[0].get("parent").is_none() && g[2].get("parent").is_none());
+}
+
+// A `turnin ... direct` carries what its giver waits on, as an accept does (the engine lets it go when the guide's
+// accept of that quest was skipped): Stranglethorn Fever (349) under Fin Fizracket's (348) is 9340 under 9341; 9310
+// needs both 9311 and 9312. Not the rest of an accept's gate (closedBy, preTitles), and a plain turn-in gets none.
+#[test]
+fn a_direct_turnin_compiles_its_givers_wait_as_an_accept_does() {
+	let r = compile_with(&guide_text(&["step S", "  accept 9341", "  turnin 9340 direct", "  turnin 9310 direct", "  accept 9300", "  turnin 9300"]), &prereq_data());
+	let g = r.steps()[0]["goals"].as_array().unwrap().clone();
+	assert_eq!(json!([g[1]["parent"], g[1].get("pre"), g[1].get("preTitles")]), json!([9341, null, null]), "{}", g[1]);
+	assert_eq!(json!([g[2]["preAll"], g[2].get("parent")]), json!([[9311, 9312], null]), "{}", g[2]);
+	assert!(g[4].get("parent").is_none() && g[4].get("pre").is_none() && g[4].get("preAll").is_none(), "{}", g[4]);
+}
+
+// The Valik rule: a child quest (9340, `parent` 9341, like Valik 535 and Infiltration 533) is offered only while its
+// parent is in the log. Lint warns when the chain does not hold the parent there: never taken before it, or handed in
+// before it; a step that applies only with the parent in the log (`when onquest`) holds it. A parent nobody can start
+// (9380's 9351) or one exclusive with the quest (9390's 9391) is none: no `parent` compiled, no warning.
+#[test]
+fn lint_says_when_the_chain_does_not_hold_a_child_quest_s_parent_in_the_log() {
+	let data = prereq_data();
+	let parent_warnings = |src: &str| only(&compile_with(src, &data).warnings, "is offered only while");
+	let held = guide_text(&["step A", "  accept 9341", "step B", "  accept 9340"]);
+	let r = compile_with(&held, &data);
+	let g = &r.steps()[1]["goals"][0];
+	assert_eq!(json!([g["parent"], g["preTitles"]]), json!([9341, { "9341": "Quest 9341" }]), "{g}");
+	assert!(g.get("pre").is_none(), "the parent is no quest to turn in first: {g}");
+	assert!(parent_warnings(&held).is_empty());
+	let gated = guide_text(&["step B", "  when onquest 9341", "  accept 9340"]);
+	assert!(parent_warnings(&gated).is_empty());
+	let never = guide_text(&["step B", "  accept 9340"]);
+	assert_eq!(
+		parent_warnings(&never),
+		vec![format!("test.guide:{}: quest 9340 is offered only while 9341 (Quest 9341) is in the log, but the chain never takes that quest before it", line_of(&never, "  accept 9340"))]
+	);
+	let handed = guide_text(&["step A", "  accept 9341", "  turnin 9341", "step B", "  accept 9340"]);
+	assert_eq!(
+		parent_warnings(&handed),
+		vec![format!("test.guide:{}: quest 9340 is offered only while 9341 (Quest 9341) is in the log, but the chain hands that quest in earlier", line_of(&handed, "  accept 9340"))]
+	);
+	let none = guide_text(&["step S", "  accept 9380", "  accept 9390"]);
+	let rn = compile_with(&none, &data);
+	assert!(rn.steps()[0]["goals"].as_array().unwrap().iter().all(|g| g.get("parent").is_none()), "{:?}", rn.steps());
+	assert!(parent_warnings(&none).is_empty());
 }
 
 #[test]
@@ -429,6 +495,35 @@ fn an_accept_closed_by_an_exclusive_quest_taken_earlier_in_the_chain_warns() {
 	assert!(only(&compile_with(&split, &data).warnings, "not offered").is_empty());
 }
 
+/// Players' recordings: the game holds a breadcrumb's target back while the breadcrumb is in the log (The
+/// Forgotten Pools 870 refused to 12 people while The Barrens Oases 886 was in their log, offered to 30 who never
+/// had it). An accept with one of its breadcrumbs taken earlier and not handed in warns; handed in, abandoned or
+/// never taken, it stays quiet.
+#[test]
+fn an_accept_while_its_breadcrumb_is_in_the_log_warns() {
+	let data = prereq_data();
+	let msg = |b: u32| {
+		format!("quest 9300 (Quest 9300) is not offered while its breadcrumb {b} (Quest {b}) is in the log, and the chain takes that breadcrumb earlier without handing it in: hand it in first")
+	};
+	let held = guide_text(&["step S", "  accept 9301", "  accept 9300", "  turnin 9301"]);
+	assert_eq!(only(&compile_with(&held, &data).warnings, "while its breadcrumb"), vec![format!("test.guide:{}: {}", line_of(&held, "  accept 9300"), msg(9301))]);
+	// By the breadcrumb's own link too (only 9302's `breadcrumbFor` names 9300), across guides chained with `next`.
+	let first = text("t/one", &["step S", "  accept 9302"], &["next t/two"]);
+	let second = text("t/two", &["step S", "  accept 9300", "  turnin 9302"], &[]);
+	assert_eq!(
+		only(&compile_files(&[("1.guide", &first), ("2.guide", &second)], &data, None).warnings, "while its breadcrumb"),
+		vec![format!("2.guide:{}: {}", line_of(&second, "  accept 9300"), msg(9302))]
+	);
+	// Handed in, abandoned or never taken: quiet.
+	for body in [&["step S", "  accept 9301", "  turnin 9301", "  accept 9300"][..], &["step S", "  accept 9301", "  abandon 9301", "  accept 9300"], &["step S", "  accept 9300"]] {
+		assert!(only(&compile_with(&guide_text(body), &data).warnings, "while its breadcrumb").is_empty(), "{body:?}");
+	}
+	// The engine reads the breadcrumbs off the accept (`crumbs`, by either link), titled for the reason text.
+	let g = compile_with(&guide_text(&["step S", "  accept 9300", "  accept 9310"]), &data).steps()[0]["goals"].as_array().unwrap().clone();
+	assert_eq!(json!([g[0]["crumbs"], g[0]["preTitles"]]), json!([[9301, 9302], { "9301": "Quest 9301", "9302": "Quest 9302" }]));
+	assert!(g[1].get("crumbs").is_none(), "a quest no breadcrumb leads to has none");
+}
+
 #[test]
 fn an_accept_that_is_never_turned_in_later_on_the_route_warns_per_route_choice() {
 	let start = text("t/one", &["step S", "  accept 33", "  accept 7", "  accept 783 optional"], &["next t/two, t/three"]);
@@ -475,17 +570,37 @@ fn a_next_guide_whose_races_leave_out_the_characters_says_why_its_turnins_do_not
 	assert_eq!(w[0].line as usize, line_of(&one, "  accept 7"));
 	assert_eq!(w[0].message, "quest 7 (Kobold Camp Cleanup) is accepted but never turned in later in this guide or a guide after it for some of the characters it applies to (\"t/two\" is for Dwarf only, so its turn-ins do not count)");
 	assert_eq!(w[0].hint.as_deref(), Some("turn it in later in this guide, or pick a `next` guide these characters can follow, or make the accept `optional` when the player may leave it"));
-	// Per route: the route through a Dwarf guide says so; a plain miss does not.
+	// A route choice: each character goes on only through the options it can follow, so a Dwarf-only option's
+	// turn-in counts for the Dwarves and leaves no one else out while another option takes them.
 	let choice = text("t/one", &["step S", "  accept 7"], &["race Human, Dwarf", "next t/two, t/three"]);
 	let split = compile_map(&[
 		("1.guide", &choice),
 		("2.guide", &text("t/two", &["step S", "  turnin 7"], &["race Dwarf", "pitch Two"])),
 		("3.guide", &text("t/three", &["step S", "  turnin 7"], &["pitch Three"])),
 	]);
+	assert_eq!(only(&split.warnings, "never turned in"), Vec::<String>::new());
+	// One `next` per kind of character (a guide for both factions handing each to its own next guide, as
+	// Shen'dralas does): each route counts for its own characters, and a miss on one names only that route.
+	let each = text("t/one", &["step S", "  accept 7"], &["race Human, Dwarf", "next t/two", "next t/three"]);
+	let human = text("t/two", &["step S", "  turnin 7"], &["race Human", "pitch Two"]);
+	let fine = compile_map(&[("1.guide", &each), ("2.guide", &human), ("3.guide", &text("t/three", &["step S", "  turnin 7"], &["race Dwarf", "pitch Three"]))]);
+	assert_eq!(only(&fine.warnings, "never turned in"), Vec::<String>::new());
+	let missed = compile_map(&[("1.guide", &each), ("2.guide", &human), ("3.guide", &text("t/three", &["step S", "  level 2"], &["race Dwarf", "pitch Three"]))]);
 	assert_eq!(
-		only(&split.warnings, "never turned in"),
-		vec![format!("1.guide:{}: quest 7 (Kobold Camp Cleanup) is accepted but never turned in on the route through \"t/two\" for some of the characters it applies to (it is for Dwarf only, so its turn-ins do not count)", line_of(&choice, "  accept 7"))]
+		only(&missed.warnings, "never turned in"),
+		vec![format!(
+			"1.guide:{}: quest 7 (Kobold Camp Cleanup) is accepted but never turned in on the route through \"t/three\" for some of the characters it applies to",
+			line_of(&each, "  accept 7")
+		)]
 	);
+	// Deeper on the route too: a guide for both kinds in between hands each to its own.
+	let deep = compile_map(&[
+		("1.guide", &text("t/one", &["step S", "  accept 7"], &["race Human, Dwarf", "next t/mid"])),
+		("2.guide", &text("t/mid", &["step S", "  level 2"], &["race Human, Dwarf", "next t/two", "next t/three"])),
+		("3.guide", &human),
+		("4.guide", &text("t/three", &["step S", "  turnin 7"], &["race Dwarf", "pitch Three"])),
+	]);
+	assert_eq!(only(&deep.warnings, "never turned in"), Vec::<String>::new());
 	let lone = compile(&guide_text(&["step S", "  accept 7"]));
 	assert_eq!(
 		diags(lone.diag.warnings(), "never turned in")[0].hint.as_deref(),
@@ -937,6 +1052,25 @@ fn elite_work_behind_when_group_a_group_step_and_the_quests_accepted_only_in_one
 	assert_eq!(check(&["step A", "  when !group 7", "  accept 7", "  kill 95003 quest 7"]), [2, 3]);
 	// Accepted outside a group step too: still solo work.
 	assert_eq!(check(&["step A", "  when group 7", "  accept 7", "", "step B", "  accept 7", "  kill 95003 quest 7"]), [5, 6]);
+}
+
+#[test]
+fn elite_work_behind_when_dungeon_and_hand_ins_behind_when_complete_or_onquest_are_not_solo_leveling() {
+	let ex = excluded("Alliance", json!([{ "id": 7, "title": "Kobold Camp Cleanup", "reason": "elite kill objective npc 95003", "category": "elite" }]));
+	let check = |lines: &[&str]| {
+		let src = guide_text(lines);
+		let mut r = compile_with(&src, &elite_data());
+		forge_guide::validate::validate_solo_policy(&r.guides, &ex, &mut r.diag);
+		let first = line_of(&src, lines[0]) as i64;
+		r.diag.sorted().iter().filter(|d| d.message.contains("elite")).map(|d| d.line as i64 - first).collect::<Vec<_>>()
+	};
+	// A dungeon run (`when dungeon`) is the group way, like `when group`: its accepts, its elite work and
+	// that quest's goals elsewhere are a party's; `when !dungeon` is the solo way.
+	assert_eq!(check(&["step A", "  when dungeon \"The Deadmines\"", "  accept 7", "  kill 95003", "", "step B", "  kill 95003 quest 7", "  turnin 7"]), Vec::<i64>::new());
+	assert_eq!(check(&["step A", "  when !dungeon \"The Deadmines\"", "  accept 7", "  kill 95003"]), [2, 3]);
+	// A hand-in only while the quest is carried ("hand it in if you have it") asks no solo work.
+	assert_eq!(check(&["step A", "  when complete 7", "  turnin 7", "", "step B", "  when onquest 33,7", "  turnin 7"]), Vec::<i64>::new());
+	assert_eq!(check(&["step A", "  when !onquest 7", "  turnin 7"]), [2]);
 }
 
 #[test]

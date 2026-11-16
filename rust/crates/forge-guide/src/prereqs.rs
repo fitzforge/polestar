@@ -1,6 +1,7 @@
 //! Port of tools/lib/data/prereqs.js.
 //! The prerequisites that actually block a quest, from a quests.json record (breadcrumbs, exclusive
-//! quests, the parent and unstartable quests never block), and the quests that close a quest for good.
+//! quests, the parent and unstartable quests never block as quests to turn in; the parent comes back as
+//! `parent`, the quest that must be in the log), and the quests that close a quest for good.
 
 use crate::js::{is_integer, str_to_num, V};
 use crate::obj;
@@ -19,7 +20,9 @@ fn startable(q: &V) -> bool {
 }
 
 /// `blockingPrereqs(quest, questOf)`: quest = the quests.json record; quest_of(id) -> another record or
-/// Null. -> { all: [ids], any: [ids] }.
+/// Null. -> { all: [ids], any: [ids], parent?: id }: `parent` is the quest's `parent` (Valik 535 is offered
+/// only with Infiltration 533 in the log), unless it is the quest itself, exclusive with it, or nobody can
+/// start it.
 pub fn blocking_prereqs(quest: &V, quest_of: &dyn Fn(&V) -> V) -> V {
 	if !quest.truthy() {
 		return obj! { "all" => V::arr(), "any" => V::arr() }.into();
@@ -53,6 +56,14 @@ pub fn blocking_prereqs(quest: &V, quest_of: &dyn Fn(&V) -> V) -> V {
 	let any_group = if has_split { ids(&quest.get("preAny")) } else { ids(&quest.get("pre")) };
 	let any: Vec<f64> = if any_group.iter().any(|p| is_crumb(*p)) { Vec::new() } else { any_group.into_iter().filter(|p| blocks(*p)).collect() };
 	let to_v = |v: Vec<f64>| -> V { v.into_iter().map(V::Num).collect::<Vec<V>>().into() };
+	let parent = quest.get("parent").num();
+	let in_log = is_integer(parent) && parent > 0.0 && parent != id && !ids(&quest.get("excl")).contains(&parent) && {
+		let pq = quest_of(&V::Num(parent));
+		!pq.truthy() || (!ids(&pq.get("excl")).contains(&id) && startable(&pq))
+	};
+	if in_log {
+		return obj! { "all" => to_v(all), "any" => to_v(any), "parent" => V::Num(parent) }.into();
+	}
 	obj! { "all" => to_v(all), "any" => to_v(any) }.into()
 }
 
@@ -84,6 +95,49 @@ fn leads_to(quests: &V, id: f64) -> Vec<f64> {
 		}
 		out
 	})
+}
+
+thread_local! {
+	// The quests object (kept alive so its address stays unique) and its index target id -> [ids of the
+	// quests whose `breadcrumbFor` is it].
+	static CRUMBS_FOR: RefCell<Vec<(V, Vec<(f64, Vec<f64>)>)>> = const { RefCell::new(Vec::new()) };
+}
+
+/// The breadcrumbs leading to quest `id`, by either link: its own `breadcrumbs` and every quest whose
+/// `breadcrumbFor` is it. A breadcrumb never blocks as a prerequisite, but while it is in the log the game
+/// holds its target back until it is handed in or abandoned (forge-world's CrumbIndex has the evidence).
+pub fn crumbs_of(id: &V, quests: &V) -> Vec<f64> {
+	let id = id.num();
+	let rev = CRUMBS_FOR.with(|cell| {
+		let mut cache = cell.borrow_mut();
+		if let Some((_, index)) = cache.iter().find(|(q, _)| q.strict_eq(quests)) {
+			return index.iter().find(|(t, _)| *t == id).map(|(_, l)| l.clone()).unwrap_or_default();
+		}
+		let mut index: Vec<(f64, Vec<f64>)> = Vec::new();
+		for (cid, c) in quests.entries() {
+			let t = if c.truthy() { c.get("breadcrumbFor").num() } else { f64::NAN };
+			if is_integer(t) && t > 0.0 {
+				match index.iter_mut().find(|(k, _)| *k == t) {
+					Some(e) => e.1.push(str_to_num(&cid)),
+					None => index.push((t, vec![str_to_num(&cid)])),
+				}
+			}
+		}
+		let out = index.iter().find(|(t, _)| *t == id).map(|(_, l)| l.clone()).unwrap_or_default();
+		if quests.is_object() {
+			cache.push((quests.clone(), index));
+		}
+		out
+	});
+	let quest = quests.get(&crate::js::num_str(id));
+	let mut out: Vec<f64> = Vec::new();
+	for c in ids(&quest.get("breadcrumbs")).into_iter().chain(rev) {
+		if is_integer(c) && c > 0.0 && c != id && !out.contains(&c) {
+			out.push(c);
+		}
+	}
+	out.sort_by(f64::total_cmp);
+	out
 }
 
 /// `closedByOf(id, quests)`: quests = id -> record (quests.json). -> [ids], without the quest itself.

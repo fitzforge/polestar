@@ -27,7 +27,7 @@ return {
 	-- {quest:5401} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:2268} Light's Hope Chapel
 	["The Scourge drop no Scourgestones unless you wear an {quest:5401}. {npc:10840} gives you one through her quest, {quest:5401}, which you hand in straight away (if you already have one from {area:2268}, wear that). Equip it in a trinket slot: it shows as a buff that never runs out. Keep it on until you have 20 stones."] = "除非佩戴{quest:5401}，否则天灾怪物不会掉落天灾石。{npc:10840}会通过她的“{quest:5401}”任务给你一个，该任务可立即交还（如果你已经从{area:2268}拿到一个，就戴那个）。将它装备到饰品栏：会显示为一个永不消失的增益效果。收集满20块石头前一直戴着。",
 	-- {quest:5401} Argent Dawn Commission
-	["the {quest:5401} trinket: equip it"] = "",
+	["the {quest:5401} trinket: equip it"] = "{quest:5401}饰品：装备上",
 
 	-- Step 5: Minion's Scourgestones
 	-- plural, as words: Minion's Scourgestones = {item:12840} Minion's Scourgestone

@@ -16,12 +16,12 @@ use crate::obj;
 use crate::re;
 use crate::xp::level_point;
 
-pub const KINDS: [&str; 17] =
-	["level", "money", "onquest", "complete", "turnedin", "available", "has", "upgrade", "zone", "subzone", "bound", "dungeon", "done", "skill", "cooldown", "group", "knows"];
+pub const KINDS: [&str; 18] =
+	["level", "money", "onquest", "complete", "turnedin", "available", "has", "upgrade", "zone", "subzone", "bound", "dungeon", "done", "skill", "cooldown", "group", "knows", "taxi"];
 const QUEST_ONE: [&str; 4] = ["complete", "turnedin", "available", "group"];
 /// The predicates that name a place.
 pub const PLACE: [&str; 3] = ["zone", "subzone", "bound"];
-const USAGE: &str = "predicates: level<N, level>=N, money>=1s, [!]onquest <quest>, [!]complete <quest>, [!]turnedin <quest>, [!]available <quest>, [!]has <item> [xN], [!]upgrade <item>, [!]zone \"<Name>\", [!]subzone \"<Name>\", [!]bound \"<Location>\", [!]dungeon \"<Name>\", [!]done <label>, [!]skill <Profession> <N>, [!]cooldown item <item>, [!]cooldown spell <spell>, [!]group <quest>, [!]knows <spell>";
+const USAGE: &str = "predicates: level<N, level>=N, money>=1s, [!]onquest <quest>, [!]complete <quest>, [!]turnedin <quest>, [!]available <quest>, [!]has <item> [xN], [!]upgrade <item>, [!]zone \"<Name>\", [!]subzone \"<Name>\", [!]bound \"<Location>\", [!]dungeon \"<Name>\", [!]done <label>, [!]skill <Profession> <N>, [!]cooldown item <item>, [!]cooldown spell <spell>, [!]group <quest>, [!]knows <spell>, [!]taxi \"<Flight point>\"";
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct WhenError {
@@ -213,9 +213,14 @@ pub fn parse_when(rest: &str) -> Result<V, WhenError> {
 		value.set("spell", str_to_num(args));
 		return Ok(V::Obj(value));
 	}
-	// zone, subzone, bound, dungeon
+	// zone, subzone, bound, dungeon, taxi
 	let Some(name) = name_of(args).filter(|n| !n.is_empty()) else {
-		return fail(format!("`{kind}` needs a name: {kind} \"<{}>\"", if kind == "bound" { "Location" } else { "Name" }));
+		let what = match kind.as_str() {
+			"bound" => "Location",
+			"taxi" => "Flight point",
+			_ => "Name",
+		};
+		return fail(format!("`{kind}` needs a name: {kind} \"<{what}>\""));
 	};
 	value.set("name", name.as_str());
 	Ok(V::Obj(value))

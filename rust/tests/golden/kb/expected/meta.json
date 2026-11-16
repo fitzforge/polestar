@@ -82,7 +82,7 @@
 		{
 			"name": "EG Link output: World of Warcraft: Forever",
 			"url": "https://github.com/JIVESCORP/eg-link-output-wowf",
-			"revision": "d98f94821b69cccf81b03a542df3755b60055217",
+			"revision": "164bd1e2d89579ada4ee5e2de7e5fd4db684a9f1",
 			"license": "CC BY 4.0; facts used: quest levels, XP, objectives and counts, next quests, givers and enders, races, quest-tied drop rates",
 			"copyright": "EG Link output: World of Warcraft: Forever (https://github.com/JIVESCORP/eg-link-output-wowf), data from Efficient Games (https://efficient.games), licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/); reduced to quest facts for Polestar."
 		},
@@ -132,8 +132,7 @@
 			"changes": 321,
 			"byClass": {
 				"quests.xp": {
-					"eg": 178,
-					"eg.observed": 1
+					"eg": 179
 				},
 				"quests.objective count": {
 					"eg": 23,
@@ -215,7 +214,7 @@
 		1453
 	],
 	"files": {
-		"quests.json": 115383,
+		"quests.json": 115374,
 		"npcs.json": 119667,
 		"objects.json": 240559,
 		"items.json": 59047,

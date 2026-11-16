@@ -9,12 +9,22 @@ next forever/horde/50-60/02-felwood
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Pawn Captures Queen (4507), Yuka Screwspigot (4324).
+# Added here: Yuka Screwspigot (4324).
 # Moved out (0.3.6 flow pass): the Eastern Plaguelands and Darrowshire (Augustus, Terrordale, Light's Hope Chapel,
-# Pamela's doll, Zaeldarr, Marlene and Chromie): their ground is level 54-57 and this guide ends about 52.4. Terrordale
-# (6164, A Plague Upon Thee's termites) is done from Tirion's house in 50-60/02; Darrowshire, Light's Hope Chapel and the
+# Pamela's doll, Zaeldarr, Marlene and Chromie): their ground is level 54-57 and this guide ends about 52.8. Terrordale
+# (6164, A Plague Upon Thee's termites) is done on 50-60/05's Egan stop; Darrowshire, Light's Hope Chapel and the
 # Marlene/Chromie chain open 50-60/05 at about 56.
 # Left out for the level (their targets or ground over level + 2 here, and no later visit that fits): Invader's Scourgestones (5509).
+# 0.4.0 level tidy (mobs 2+ over the player done where they fit): Beware of Pterrordax's Frenzied Pterrordax (4501.2,
+# 51-54) are killed on the pylon loop at about 52, its Pterrordax (50-52) on the first loop; Pawn Captures Queen (4507)
+# is taken on 50-60/05's Gadgetzan stop and worked on 50-60/06's Un'Goro loop; A Plague Upon Thee (5901) is taken at
+# the Bulwark on 50-60/04 and worked on 50-60/05's Terrordale stop. Super Sticky (4504) stays on the first loop: its tar drops from the Tar
+# Beasts (50-51) and Creepers (51-52) too. The Rise of the Machines (4061, War Reavers 53-55) is left out (no later
+# Burning Steppes visit). A short top-up to 51 on Larion's Threshers (only below 51) opens the crater, in place of the
+# three small grinds it had; the Trappers and Gorishi (52-53) get Careful tips. Krom'Grul (3822, level 54 alone in his
+# caves) is offered from level 53, with no top-up for it. Bungle in the Jungle (4496) needs March of the Silithid from
+# 40-50/06 (level 50); without it, 50-60/04-06 take both later. The Jediga deliveries moved to 50-60/04 (Andron Gant
+# there).
 
 step Un'Goro Crater
   zone Un'Goro Crater
@@ -47,18 +57,16 @@ step Un'Goro Crater
 # - Dropped: The Mighty U'cha (4301): U'cha lives in the north-east cave and
 #   Torwa in the south-east corner, so it costs two extra crossings of the
 #   crater for 5,650 XP.
-# - Grind: level 52 at the Lakkari Tar Pits before leaving the crater, so
-#   The Rise of the Machines (4061, Kargath) can be taken on arrival.
-# - Super Sticky (4504) and Bungle in the Jungle (4496) are turned in when the
-#   hearth lands in Gadgetzan instead of on a later Tanaris visit.
+# - Grind: the top-up to 51 opens the crater (see the note at the top).
+# - Bungle in the Jungle (4496) is turned in when the hearth lands in Gadgetzan
+#   instead of on a later Tanaris visit.
 # - The Kargath bind is dropped (replaced unused); the Light's Hope Chapel
 #   bind is made on arrival there, not in the Badlands.
 # - The Undercity and Bulwark stops of the previous guide's export (visits
-#   56, 60, 61) are made here, on the way to the Plaguelands: Andron Gant
-#   (3542/3564), A Call to Arms (5094), Seeping Corruption (3568), Scarlet
-#   Diversions (5096), Argent Dawn Commission (5405), the Bulwark's
-#   Scourgestones (5407, 5408) and A Plague Upon Thee (5901). A Call to Arms
-#   is handed in on the spot.
+#   56, 60, 61) are made here, on the way to the Plaguelands: A Call to Arms
+#   (5094), Seeping Corruption (3568), Scarlet Diversions (5096), Argent Dawn
+#   Commission (5405) and the Bulwark's Scourgestones (5407, 5408). A Call to
+#   Arms is handed in on the spot.
 # - The Plaguelands beyond the Scarlet camp wait for the later guides (see
 #   the note at the top).
 # - Dropped: The Rise of the Machines part 2 (4062: a detour to Lotwil for
@@ -72,16 +80,23 @@ step Un'Goro Crater
 # - Back at Marshal's Refuge, Shizzle at the entrance first; in the
 #   Undercity, Harbinger Balthazad beside the bat master first.
 #
+# Blackrock Depths (`when dungeon "Blackrock Depths"`, dungeons in the route): for a character who runs it,
+# Kargath's WANTED poster gives KILL ON SIGHT: Dark Iron Dwarves (4081) on the first Kargath stop, at about 52.5; the
+# run follows on the way through Blackrock Mountain to the Burning Steppes (the portal is down the walkways from
+# the bridge the route crosses), and Warlord Goretooth takes it on the last Kargath stop (`when complete`). Left
+# out: its follow-up poster (4082, offered once 4081 is handed in), Thunderheart's quests (3906 first: Overmaster
+# Pyron, outside the dungeon; 3907, 3981, 7201 after it), Lost Thunderbrew Recipe (4134: after Vivian Lagrave,
+# 4133, not taken), The Heart of the Mountain and Ribbly Screwspigot (4123, 4136: Maxwort Uberglint and Yuka
+# Screwspigot at Flame Crest, after the mountain), The Rise of the Machines (4063: after 4062, dropped above) and
+# the quests that start inside.
+#
 # Left open for later guides: The New Springs (980) and It's a Secret to
 # Everybody (3908, Donova Snowden), Marvon's Workshop (4147), Felnok
-# Steelspring (4808, Everlook), Scarlet Diversions
-# (5096), A Plague Upon Thee (5901), Andron's Payment to Jediga (3564),
-# Seeping Corruption (3568), Bone-Bladed Weapons (4300) and Un'Goro Soil
-# (3761).
+# Steelspring (4808, Everlook), Scarlet Diversions (5096), Seeping
+# Corruption (3568), Bone-Bladed Weapons (4300) and Un'Goro Soil (3761).
 #
 # Left out (not in the route): Dadanga is Hungry! (5150) and the pylon buffs
-# (4381-4386, no experience), Chasing A-Me 01 parts 2-3 (Engineering) and Pawn
-# Captures Queen (4507, elite boss).
+# (4381-4386, no experience), Chasing A-Me 01 parts 2-3 (Engineering).
 #
 # Checked and not added: The Mighty U'cha (4301) is still out (see above).
 # Linken's Adventure (3961) needs Aquementas (4005), the end of Linken's
@@ -95,30 +110,35 @@ step Un'Goro Crater
 step Into Un'Goro Crater
   tip From the Broken Pillar ride west to the long ramp that winds down into Un'Goro Crater, then follow the crater's north wall to Marshal's Refuge, a camp in the cliff caves. Everyone here is neutral.
   getfp "Marshal's Refuge"
-  accept 4501                         -- the wooden sign beside Spraggle Frock, by the flight master: the pterrordax are on this guide's ground
   accept 4284                         -- J.D. Collie, at the back of the cave; below ground
   accept 3882                         -- Spark Nilminer
   accept 3883                         -- Hol'anyee Marshal
   accept 3881                         -- Williden Marshal
   accept 4145                         -- Larion
+  accept 4501                         -- the wooden sign beside Spraggle Frock, by the flight master: the Frenzied Pterrordax (51-54) come on the pylon loop
 
 step Out of the refuge
   accept 4503                         -- Shizzle, at the refuge entrance
   accept 4243                         -- Karna Remtravel, just outside
-  note From here on pick up every Power Crystal (blue, green, red, yellow) and every Un'Goro Soil pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg.
+  note From here on pick up every Power Crystal (blue, green, red, yellow) and every Un'Goro Soil pile you pass: 20 for Hamuul, and 5 more for Pestlezugg if you carry Bungle in the Jungle.
 
 step Lakkari Tar Pits
-  tip The tar pits lie just south of the refuge. Tar Beasts, Lurkers and Creepers drop the Super Sticky Tar.
+  tip The tar pits lie just south of the refuge. Tar Beasts, Lurkers and Creepers drop the Super Sticky Tar. Careful: the Lurkers reach 54 and the Tar Lords stand among them: take the Tar Beasts (50-51) and Creepers (51-52).
   collect 11834 quest 4504
+
+step Level 51
+  when level<51
+  tip Top up here to level 51 before the crater's loop: its Pterrordax and Bloodpetal Flayers are up to level 52. The Bloodpetal Threshers (49-50) on the slopes south-east of the refuge are under your level, and Larion wants five of them. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
+  goto 61.1,27.6 map 1449 "Bloodpetal Thresher"
   kill 6511 quest 4145.4
+  level 51 grind 6511                  -- grind on Bloodpetal Thresher
 
 # ---------------------------------------------------------------- Loop 1: south and south-east
 
 step Pterrordax
-  tip Pterrordax fly over the east of the crater, from the slopes below the refuge southward; their webbed scales are for Shizzle.
+  tip Pterrordax (50-52) fly over the east of the crater, from the slopes below the refuge southward; their webbed scales are for Shizzle, and Spraggle's sign wants ten of them. Leave the Frenzied Pterrordax over the west for the pylon loop.
   collect 11831 quest 4503.2
   kill 9166 quest 4501.1
-  level 51.11 grind 9166               -- grind on Pterrordax
 
 step Power Crystals and soil
   tip The crystal clusters stand all over the crater, many around Fire Plume Ridge. Take a few extra of each colour for the pylons.
@@ -131,12 +151,11 @@ step Power Crystals and soil
 step Lakkari Tar Pits: kill these as you meet them
   zone Un'Goro Crater
   tip Ride south-west to Fire Plume Ridge, the volcano in the middle of the crater. Bloodpetal Flayers grow around its foot.
-  tip South of the hot springs, Stegodons graze and Dinosaur Bones drop from them or lie on the ground; Diemetradons nearby carry the scales Shizzle wants. Ravasaurs hunt in packs in the south-west: their claws are for Jes'rimon, and now and then one carries a Mangled Journal (a rare drop: take its quest only if you get one). Avoid Gruff, a level 57 Stegodon.
-  tip Ride south-west along the western cliffs. Frenzied Pterrordax fly over the west side, and Bloodpetal Trappers grow in the same jungle.
+  tip South of the hot springs, Dinosaur Bones lie on the ground among the Stegodons and drop from the Diemetradons nearby, which also carry the scales Shizzle wants. Careful: the Stegodons are elites (52-53): pick the bones up around them, don't pull them; the Elder Diemetradons are 53-55, take the smaller ones. Ravasaurs hunt in packs in the south-west: their claws are for Jes'rimon, and now and then one carries a Mangled Journal (a rare drop: take its quest only if you get one). Avoid Gruff, a level 57 Stegodon.
+  tip Ride south-west along the western cliffs. Bloodpetal Trappers grow in the jungle there. Careful: the biggest Trappers are 53: pull them one at a time.
   kill 6510 quest 4145.3
   collect 11114 quest 3882
   collect 11830 quest 4503.1
-  kill 9167 quest 4501.2
   kill 6512 quest 4145.2
 
 step Research Equipment
@@ -144,9 +163,9 @@ step Research Equipment
   collect 11112 quest 3881.2 @38.5,66.1
 
 step The Slithering Scar
-  tip Careful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd.
+  when onquest 4496
+  tip Careful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd. The Hive Guards (54) and the Queen stand inside the hive: work the Workers and Wasps outside it.
   collect 11837 quest 4496.1
-  level 51.26 grind 6551               -- grind on Gorishi Wasp
 
 step The Slithering Scar
   use 11132 quest 3883.1 @48.7,85.3 map 1449
@@ -155,17 +174,27 @@ step The Slithering Scar
 step Stegodons and ravasaurs
   collect 11116 optional              -- A Mangled Journal, a rare drop
   accept 3884 optional                -- Use the Mangled Journal to start it
+  collect 280459 optional             -- Crystal Infused Scale, a rare drop from the ravasaurs and Diemetradons
+  accept 87494 item 280459 optional   -- Use the scale to start Microcrystal Contamination, for Torwa
 
 step Torwa Pathfinder
   tip Torwa camps in the south-east corner of the crater.
   accept 4290
+  accept 87492                        -- Torwa: Uncanny Crystal, a short ride west of his camp
+  accept 4289                         -- Torwa: The Apes of Un'Goro, the gorillas of the north-east plateau on the pylon loop
+
+step Torwa Pathfinder
+  when onquest 87494
+  turnin 87494                        -- Torwa: Microcrystal Contamination, if the scale dropped
 
 step Fresh Threshadon Carcass
-  tip North of Torwa, a dead Threshadon lies by the water.
+  tip North of Torwa, a dead Threshadon lies by the water. The Damaged Blue Crystal lies on the ground a short ride west of Torwa's camp.
   collect 11504 quest 4290
+  collect 280417 quest 87492 @66.3,75.2
 
 step Torwa Pathfinder
   turnin 4290
+  turnin 87492
   accept 4291
 
 step Lar'korwi Mates
@@ -189,7 +218,6 @@ step Torwa Pathfinder
 step Lashers and Threshers
   tip Ride north along the east side. Bloodpetal Lashers and Threshers fill the jungle.
   kill 6511 quest 4145.4
-  level 51.38 grind 6511               -- grind on Bloodpetal Thresher
 
 step Un'Goro Crater: kill these as you meet them
   zone Un'Goro Crater
@@ -201,7 +229,6 @@ step Un'Goro Crater: kill these as you meet them
 
 step Marshal's Refuge
   turnin 4503                         -- Shizzle, at the entrance
-  turnin 4501                         -- Spraggle Frock, beside the flight master
   turnin 4145                         -- Larion
   accept 4147
   turnin 3845                         -- Linken
@@ -224,8 +251,11 @@ step Northern Pylon
   interact 164955 quest 4285.1
 
 step Gorillas
-  tip The gorillas live on the north-east plateau. Stay out of the deepest cave: U'cha lives there.
+  tip The gorillas live on the north-east plateau: Torwa wants two pelts of each kind, and the Thunderers (52-53) are the biggest. Stay out of the deepest cave: U'cha lives there.
   turnin 4243                         -- A-Me 01, the robot on the plateau; below ground
+  collect 11478 quest 4289.1          -- Un'Goro Gorilla Pelt
+  collect 11479 quest 4289.2          -- Un'Goro Stomper Pelt
+  collect 11480 quest 4289.3          -- Un'Goro Thunderer Pelt
   note A-Me 01 then wants a Mithril Casing, an Engineering item. Skip it unless you have one.
 
 step Un'Goro Crater: kill these as you meet them
@@ -241,17 +271,29 @@ step Eastern Pylon
 
 step The Marshlands
   tip Careful: There are many ravasaurs roaming the area, so you can easily pull several at the same time.
-  tip Below level 52, keep hunting the ravasaurs here after the eighth claw: The Rise of the Machines at Kargath needs level 52, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
   collect 11477 quest 4300
-  level 52 grind 6505                 -- grind on Ravasaur
+
+step Torwa Pathfinder
+  tip Torwa's camp is in the south-east corner, a short ride from the Marshlands.
+  turnin 4289
+
+step Torwa Pathfinder
+  when onquest 87494
+  turnin 87494                        -- Torwa: Microcrystal Contamination, if the scale dropped
 
 step Western Pylon
   tip Cross the south of the crater to the pylon on the western cliffs.
   goto 23.9,59.2 "Western Crystal Pylon"
   interact 164956 quest 4288.1
 
+step Frenzied Pterrordax: kill these as you meet them
+  zone Un'Goro Crater
+  tip The Frenzied Pterrordax fly over the western cliffs around the pylon. Careful: the biggest are 54: pull them one at a time.
+  kill 9167 quest 4501.2
+
 step J.D. Collie
-  tip Ride north back to Marshal's Refuge.
+  tip Ride north back to Marshal's Refuge: J.D. Collie below ground, Spraggle Frock beside the flight master.
+  turnin 4501                         -- Spraggle Frock, beside the flight master
   turnin 4285                         -- Below ground
   turnin 4287
   turnin 4288
@@ -266,9 +308,15 @@ step To Gadgetzan
 
 step Gadgetzan
   zone Tanaris
+  tip The hearth lands in Gadgetzan: Andi Lynn takes the Dunemaul Compound and Tran'rek Thistleshrub Valley, both done on the way into the crater.
+  turnin 5863                         -- Andi Lynn
+  turnin 3362                         -- Tran'rek
   turnin 4504                         -- Tran'rek
+
+step Gadgetzan
+  when onquest 4496
+  zone Tanaris
   turnin 4496                         -- Alchemist Pestlezugg, inside
-  accept 4507
 
 step Orgrimmar
   only Hunter,Shaman
@@ -299,12 +347,26 @@ step Kargath
   zone Badlands
   tip Kargath is built into the cliffs on the Badlands' west edge.
   accept 3821                         -- Thal'trak Proudtusk
-  accept 4061                         -- Hierophant Theodora Mulvadania
+
+step The WANTED poster
+  when dungeon "Blackrock Depths"
+  zone Badlands
+  tip For your Blackrock Depths run, next, on the way through Blackrock Mountain: the WANTED poster in Kargath wants the Anvilrage dwarves inside thinned out.
+  accept 4081 object 164867           -- WANTED
 
 step Into the Searing Gorge
   zone Searing Gorge
   tip Take the pass out of Kargath's west side into the Searing Gorge, then ride south across the gorge to the long bridge into Blackrock Mountain. Inside, follow the chain walkways down and leave through the southern exit; stay off the paths to the dungeon portals.
   goto 34.8,83.0 "Bridge into Blackrock Mountain"
+
+step Blackrock Depths
+  when dungeon "Blackrock Depths"
+  when onquest 4081
+  zone Searing Gorge
+  tip Blackrock Depths is a dungeon for a group of five from about level 48, the biggest in the mountain: its Anvilrage dwarves are this quest's, and you need not go further in than they are. Its portal is deep inside the mountain, down the chain walkways from the bridge.
+  tip Inside: the Anvilrage Guardsmen, Wardens and Footmen. Then back out of the portal and on through the mountain's southern exit to the Burning Steppes.
+  enter "Blackrock Depths" @34.8,85.3
+  complete 4081 @34.8,85.3            -- KILL ON SIGHT: Dark Iron Dwarves: the Anvilrage dwarves, inside
 
 # ---------------------------------------------------------------- Burning Steppes
 
@@ -319,17 +381,22 @@ step Flame Crest
 step Sha'ni Proudtusk
   tip Follow the cliffs south to Dreadmaul Rock, the Firegut ogres' hill. Sha'ni Proudtusk's remains lie at its foot.
   turnin 3821
+
+step Sha'ni Proudtusk
+  when level>=53
+  tip Only from level 53: her next errand is Krom'Grul (54), who walks the caves of Dreadmaul Rock among ogres of 50-53.
   accept 3822
 
 step Krom'Grul
+  when onquest 3822
   tip Krom'Grul walks the caves and mine tunnels of Dreadmaul Rock; if he isn't home, clear the ogres around the entrances until he comes back.
   collect 11058 quest 3822            -- Below ground
 
 step Ruins of Thaurissan: kill these as you meet them
   zone Burning Steppes
-  tip Ride west to the dig site. War Reaver golems (53) stomp around it and drop the shards often; the Tablet of the Seven stands in its middle among the Thaurissan dwarves. Copy it.
+  tip Ride west to the dig site. The Tablet of the Seven stands in its middle among the Thaurissan dwarves. Copy it.
   tip Black Broodlings nest in the hills just east of Flame Crest. Use Tinkee's Draco-Incarcinatrix 900 on a broodling when it is almost dead to capture its essence.
-  collect 11266 quest 4061
+  tip Careful: a Black Dragonspawn and a Black Drake, elites of 50-53, wander the same hills: pull the broodlings away from them, or bring a group.
   collect 12283 quest 4726 @81.0,28.0
   use 12284 quest 4726.1 @81.0,28.0 map 1428
   collect 11470 quest 4296 @54.1,40.8
@@ -344,22 +411,22 @@ step Flame Crest
 step Kargath
   zone Badlands
   fly "Kargath"
-  turnin 3822                         -- Thal'trak Proudtusk
-  turnin 4061                         -- Hierophant Theodora Mulvadania
-  note Theodora's next errand goes to Lotwil east of town and then into Blackrock Depths: skip it.
 
-step Fly to Tarren Mill
+step Thal'trak Proudtusk
+  when onquest 3822
   zone Badlands
-  goto 4.1,44.9 "Kargath flight master"
-  fly "Tarren Mill"
-  zone Hillsbrad Foothills
+  turnin 3822                         -- Thal'trak Proudtusk
 
-step Apothecary Lydon
-  turnin 2933                         -- Inside
+step Warlord Goretooth
+  when dungeon "Blackrock Depths"
+  when complete 4081
+  zone Badlands
+  tip The Anvilrage dwarves of your Blackrock Depths run: Warlord Goretooth, in Kargath.
+  turnin 4081                         -- Warlord Goretooth
 
 step Fly to Undercity
-  zone Hillsbrad Foothills
-  goto 60.2,18.8 "Tarren Mill flight master"
+  zone Badlands
+  goto 4.1,44.9 "Kargath flight master"
   fly "Undercity"
   zone Undercity
 # ---------------------------------------------------------------- Undercity
@@ -381,8 +448,6 @@ step Undercity
   accept 3568                         -- Chemist Cuely, the Apothecarium: the vials fill in Azshara later
   turnin 864                          -- Apothecary Zinge, near Cuely in the Apothecarium
   train class only Warrior,Paladin,Rogue,Priest,Mage,Warlock
-  turnin 3542                         -- Andron Gant, the Rogues' Quarter
-  accept 3564
 
 step Tirisfal Glades
   zone Tirisfal Glades
@@ -391,7 +456,6 @@ step Tirisfal Glades
 step The Bulwark
   zone Tirisfal Glades
   tip Leave the Undercity and ride east along the road through Tirisfal Glades to the Bulwark, the Forsaken fort on the border.
-  accept 5901                         -- Mickey Levine
   note Take a Box of Incendiaries from the crate next to Derrington for Scarlet Diversions, done on the way back. Equip the Argent Dawn Commission: Scourgestones only drop while you wear it.
   turnin 5094                         -- High Executor Derrington
   accept 5096
@@ -400,7 +464,7 @@ step The Bulwark
 
 step Scarlet forward camp
   zone Western Plaguelands
-  tip From the Bulwark, follow the road east into the Western Plaguelands. The Scarlet Crusade's tents stand just past Felstone Farm, between Felstone Field and Dalson's Tears. Torch the command tent with the Box of Incendiaries and plant the Scourge banner.
+  tip From the Bulwark, follow the road east into the Western Plaguelands. The Scarlet Crusade's tents stand just past Felstone Farm, between Felstone Field and Dalson's Tears. Torch the command tent with the Box of Incendiaries and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be.
   goto 40.7,52.0
   interact 176088
   complete 5096
@@ -410,4 +474,4 @@ step Janice Felstone
   accept 5021                         -- Upstairs
   turnin 5021                         -- Janice's Parcel, beside the house; inside
   accept 5023
-  note Keep the parcel: Royal Overseer Bauhaus is in the Undercity. Keep A Plague Upon Thee: its termite mounds are in Terrordale, on the next guide's ride to Tirion. The next guide starts with Mulgris Deepriver by the Writhing Haunt, south-east of here.
+  note Keep the parcel: Royal Overseer Bauhaus is in the Undercity. The next guide starts with Mulgris Deepriver by the Writhing Haunt, south-east of here.

@@ -65,7 +65,10 @@ function plain(v) {
 // inside) and 9601 (raid area) are instance quests; 9602 has the dungeon's
 // area but is done outside (a breadcrumb). Marshal McBride gives and takes
 // back every one. Area 7001 is the Hollow Deeps, 7002 Molten Core; uiMap
-// 9900 is drawn on the Hollow Deeps.
+// 9900 is drawn on the Hollow Deeps. Object 95200 (Kobold Journal) spawns
+// beside the Elite Kobold and once far off, 95201 (Kobold Ledger) there and
+// twice far off; item 95102 comes only from the journal; quest 9604 asks for
+// all three (#1778).
 function groupData() {
 	const base = fixtureData();
 	const npcs = {
@@ -78,6 +81,12 @@ function groupData() {
 		...base.items,
 		95100: { id: 95100, name: 'Elite Tusk', drops: { npc: { 95003: 60 }, object: {} }, vendors: [] },
 		95101: { id: 95101, name: 'Kobold Tusk', drops: { npc: { 95003: 60, 95002: 10 }, object: {} }, vendors: [] },
+		95102: { id: 95102, name: 'Kobold Notes', drops: { npc: {}, object: { 95200: 100 } }, vendors: [] },
+	};
+	const objects = {
+		...base.objects,
+		95200: { id: 95200, name: 'Kobold Journal', spawns: { 1429: { f: 'e', pts: [[62.5, 62.5]], more: [[20, 80]] } } },
+		95201: { id: 95201, name: 'Kobold Ledger', spawns: { 1429: { f: 'e', pts: [[62.5, 62.5], [20, 80], [25, 85]] } } },
 	};
 	const quest = (id, title, area, objectives) => ({ ...base.quests[7], id, title, area, pre: [], objectives });
 	const boss = (id, name) => [{ type: 'kill', id, count: 1, text: `${name} slain` }];
@@ -87,12 +96,23 @@ function groupData() {
 		9601: quest(9601, 'The Fire Lord', 7002, boss(95041, 'Fire Lord')),
 		9602: quest(9602, 'Rumours of the Hollow', 7001, [{ type: 'kill', id: 6, count: 2, text: 'Kobold Vermin slain' }]),
 		9603: quest(9603, 'Hollow Relics', 7001, boss(95040, 'Hollow Lord')),
+		9604: {
+			...base.quests[7],
+			id: 9604,
+			title: 'Kobold Records',
+			pre: [],
+			objectives: [
+				{ type: 'object', id: 95200, count: 1, text: 'Kobold Journal read' },
+				{ type: 'object', id: 95201, count: 1, text: 'Kobold Ledger read' },
+				{ type: 'item', id: 95102, count: 1, text: 'Kobold Notes' },
+			],
+		},
 	};
 	const instances = {
 		areas: { 7001: { kind: 'dungeon', name: 'Hollow Deeps' }, 7002: { kind: 'raid', name: 'Molten Core' } },
 		maps: { 9900: { kind: 'dungeon', name: 'Hollow Deeps' } },
 	};
-	return new Data({ quests, npcs, objects: base.objects, items, zones: base.zones, 'map-frames': base.mapFrames, meta: base.meta, instances }, { dir: base.dir });
+	return new Data({ quests, npcs, objects, items, zones: base.zones, 'map-frames': base.mapFrames, meta: base.meta, instances }, { dir: base.dir });
 }
 
 // The fixture data plus escort quests (docs/GUIDE_FORMAT.md, "Escort

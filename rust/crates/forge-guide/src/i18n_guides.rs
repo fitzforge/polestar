@@ -161,14 +161,10 @@ pub fn text_problems(english: &str, translation: &str, plurals: &[String], unnam
 /// The commented translations a file's retired block holds: { english: translation }.
 pub fn retired_entries(text: &str) -> V {
 	static RE: LazyLock<Regex> = LazyLock::new(|| Regex::new(r#"(?m)^\s*-- \[("(?:[^"\\]|\\.)*")\] = ("(?:[^"\\]|\\.)*"),\s*$"#).unwrap());
-	static DEC: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"\\([0-9]{1,3})").unwrap());
 	let out = Obj::new();
 	let Some(at) = text.find(RETIRED) else { return V::Obj(out) };
-	let unq = |s: &str| -> Result<V, String> {
-		let s = DEC.replace_all(s, |c: &regex::Captures| format!("\\u{:04x}", c[1].parse::<u32>().unwrap()));
-		let s = s.replace("\\'", "'");
-		crate::js::parse_json(&s)
-	};
+	// Decode Lua escapes once: a literal backslash must not start a second escape.
+	let unq = |s: &str| crate::i18n_files::unescape_lua_text(&s[1..s.len() - 1], "retired entry", 1).map(V::from);
 	let mut pos = at;
 	while let Some(m) = RE.captures_at(text, pos) {
 		let whole = m.get(0).unwrap();

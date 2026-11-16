@@ -208,6 +208,8 @@ fn walks(a: &[String]) {
 		},
 		log: &log,
 		extra: &[],
+		// The hybrid's passes one after the other (less memory): POLESTAR_WALKS_SERIAL=1, as forge build's --walks-serial.
+		serial: std::env::var("POLESTAR_WALKS_SERIAL").is_ok_and(|v| v == "1"),
 	})
 	.unwrap_or_else(|e| die(&e));
 	let f = sim.join(format!("walks-{faction}.bin"));

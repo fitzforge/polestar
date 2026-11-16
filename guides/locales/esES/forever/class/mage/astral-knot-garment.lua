@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["A robe or a blouse for Alliance mages in their late 20s."] = "",
+	["A robe or a blouse for Alliance mages in their late 20s."] = "Una toga o una blusa para magos de la Alianza de nivel 27-29 aprox.",
 
 	-- Step 1: Bink (Ironforge)
 	-- {npc:5144} Bink · {zone:1455} Ironforge · {object:32362} Mystic Ward (no name in this language: may be words) · {area:2257} Deeprun Tram · {object:171524} Tinker Town · {zone:1453} Stormwind
@@ -15,13 +15,13 @@ return {
 
 	-- Step 2: Jennea Cannon (Stormwind)
 	-- {npc:5497} Jennea Cannon · {object:2101} Mage Quarter
-	["{npc:5497} stands at the top of the Wizard's Sanctum, the violet tower of the {object:2101}; the portal near the top of the spiral ramp takes you to her."] = "",
+	["{npc:5497} stands at the top of the Wizard's Sanctum, the violet tower of the {object:2101}; the portal near the top of the spiral ramp takes you to her."] = "{npc:5497} está en lo alto del Sagrario del Mago, la torre violeta de {object:2101}; el portal cerca de lo alto de la rampa en espiral te lleva hasta ella.",
 
 	-- Step 3: High Sorcerer Andromath (Skyborne)
-	-- {npc:5694} High Sorcerer Andromath
-	["{npc:5694} (Skyborne)"] = "",
-	-- {zone:1453} Stormwind · {object:2101} Mage Quarter · {npc:5694} High Sorcerer Andromath · {npc:5497} Jennea Cannon
-	["You do not need a letter: at 26 climb the Wizard's Sanctum, the violet tower of {zone:1453}'s {object:2101}. {npc:5694} waits on the spiral walkway, just past the door of the portal room near the top, and has the quest for you. ({npc:5497} may also offer you {npc:5694}, the pointer quest; it is only a pointer and you can skip it.)"] = "",
+	-- {quest:1939} High Sorcerer Andromath
+	["{quest:1939} (Skyborne)"] = "",
+	-- {zone:1453} Stormwind · {object:2101} Mage Quarter · {quest:1939} High Sorcerer Andromath · {npc:5497} Jennea Cannon
+	["You do not need a letter: at 26 climb the Wizard's Sanctum, the violet tower of {zone:1453}'s {object:2101}. {quest:1939} waits on the spiral walkway, just past the door of the portal room near the top, and has the quest for you. ({npc:5497} may also offer you {quest:1939}, the pointer quest; it is only a pointer and you can skip it.)"] = "",
 
 	-- Step 4: High Sorcerer Andromath
 	-- {quest:1939} High Sorcerer Andromath
@@ -48,10 +48,8 @@ return {
 	["{npc:1309} works at {object:23296} in the {object:2101}. The robe gives intellect, stamina and spirit; the blouse more intellect and stamina but no spirit."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["A robe or a blouse for Human and Gnome mages in their late 20s."] = "Una toga o una blusa para magos humanos y gnomos de nivel 27-29 aprox.",
 	-- ["Carrion Recluses lurk in the woods of western {zone:1431} and each one drops the silk. The Black Widow Hatchlings further east drop it now and then."] = "Los Ermitaños carroñeros acechan en los bosques del oeste de {zone:1431} y todos sueltan la seda. Las Viudas negras reproductoras, más al este, la sueltan de vez en cuando.",
 	-- ["Ride east through {zone:1429} into Redridge. The fallen mage's tower of Ilgalar stands in the east of the zone; the treatise is in his library."] = "Cabalga hacia el este por {zone:1429} hasta las Montañas Crestagrana. La torre de Ilgalar, el mago caído, está en el este de la zona; el tratado está en su biblioteca.",
 	-- ["{npc:1309} works at {object:23296} in the {object:2101}."] = "{npc:1309} trabaja en {object:23296}, en el {object:2101}.",
-	-- ["{npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}."] = "{npc:5497} está en la torre del {object:2101}.",
 	-- ["{quest:1939} is in the Wizard's Sanctum too."] = "{quest:1939} también está en esa torre.",
 }

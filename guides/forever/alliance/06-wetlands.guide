@@ -9,7 +9,11 @@ next forever/alliance/07-thousand-needles
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Velinde Starsong (1037), Daily Delivery (469: Einar Stonegrip by Howin to James Halloran). Left out: Crimson Crate Delivery (98240), which James Halloran offers only after Crocs of the Sky (98072, handed in at the end of 30-40/01's Wetlands loop).
+# Added here: Daily Delivery (469: Einar Stonegrip by Howin to James Halloran). Left out: Crimson Crate Delivery (98240), which James Halloran offers only after Crocs of the Sky (98072, handed in at the end of 30-40/01's Wetlands loop), and Velinde Starsong (1037: taken at 29, handed in to Thyn'tel Bladeweaver in Darnassus only at 41-48, for half its XP by then, about 305; the 40-50 Darnassus steps hand in a copy players still carry).
+# Hand-ins for quests carried from an older route (0.3.4's Darkshore before the 0.3.5 re-order, or a
+# guide left early): Therylune's Escape (945), Trek to Ashenvale (990), The Tower of Althalaxx (967) and
+# Expanding Horizons (97914) on the stops this guide already makes at their enders, each only while
+# carried (`when onquest`), as Thundris Windweaver's below.
 # Also left out: This Land Was Their Land (98230), which Captain Stoutfist offers only after Defeat Nek'rosh (474) is handed in (#1299): it is on the group branch of 30-40/01-hillsbrad-foothills.
 # Bloom of the Heavens (98208, 98209: 1750 + 1200 XP) from Sylessa Duskwhisper by Menethil's docks: Nord'el lies on the
 # shore just south of the town, and the follow-up goes to Thundris Windweaver in Auberdine on this guide's boat trip.
@@ -22,14 +26,43 @@ next forever/alliance/07-thousand-needles
 # Trying Times (98246) is taken with Razormaw Needling (98245) at Howin: the same raptors, on the
 # Wetlands loop of 30-40/01-hillsbrad-foothills. Blisters on the Land's Fen Creepers are hunted along
 # the river west of Einar (data/places.json 610-wetlands-fen-creepers), not across the zone.
-# The Eye of Paleth (292) goes to Glorin Steelbrow on the Menethil stop before the boat, not on a walk
-# of its own between the two wreck trips.
+# Lifting the Curse (290), The Eye of Paleth (292) and Cleansing the Eye (293) are on 30-40/01's
+# Menethil stop at about 31: Captain Halyndor (30) is 2 levels over a player here (level tidy 0.4.0).
+# Elemental Bracers (1016) is done on the Krolg leg here at about 29.7: at 23-24 on 06-ashenvale's Mystral Lake stop the
+# Befouled Water Elementals (23-25) and Tideress (27) were two to four over the player (fix round 1, 0.4.0).
 # Hand-cut 2026-11-07 (the Alliance 21-24 level hole) from the old 25-29 06-ashenvale and the
 # Wetlands visit of 07-thousand-needles: the Wetlands are one visit at 27-29, after Duskwood.
 # Since 2026-11-07 Ashenvale's 27-32 quests follow on the same trip (the order their quest
 # levels fit: Wetlands 27-29, then Ashenvale 28-30), by boat from Menethil to
 # Auberdine; they were in 30-40/03, at 33-34. Then back by boat to Menethil, Pilot Longbeard in
 # Ironforge (28) and The Missing Diplomat in Stormwind (28), on to the Duskwood return.
+#
+# The Stockade (`when dungeon "The Stockade"`, dungeons in the route): for a character who chose it,
+# the run is on this guide's Stormwind stop, at about 29: Warden Thelwater (Quell the Uprising; The
+# Stockade Riots when Bazil Thredd is carried from Baros Alexston after the Deadmines) is picked up and
+# handed in at the gate on the same stop; Councilman Millstipe's Crime and Punishment comes from
+# 04-redridge-mountains' Darkshire stop and goes back on 07-thousand-needles' (`when complete`). Left out:
+# The Color of Blood (388: Nikova Raskol in Old Town, a second Old Town visit after the run: an avoidable
+# hub revisit in the flow audit, over the travel budget), What Comes Around... (386:
+# Guard Berton in Lakeshire, not passed after the run) and The Fury Runs Deep (378: Motley Garmason's chain
+# at Dun Modr).
+#
+# Blackfathom Deeps (run in 06-ashenvale): Gershala Nightwhisper takes Researching the Corruption (1275) on
+# the Auberdine stop, beside Terenthis (`when complete`).
+#
+# Excavation Site: Wetlands (`when dungeon "Excavation Site: Wetlands"`, dungeons in the route): for a
+# character who chose it, James Halloran's Highland Hides (98815, after Young Crocolisk Skins, 484) is taken
+# on the first Menethil stop and Rethiel the Greenwarden's Horrors in the Highland (95646, after Blisters on
+# the Land, 275) when 275 is handed in, at about 28.3; the run follows on the road back west (the entrance,
+# 48.0,56.5, is where players' recordings go in), and Prospector Whelgar's dig, west of it on the way, takes the
+# Titan Relic's Lost Relic Carry (95810, from the Relic Guardian inside) and gives Prehistoric Prism (98824)
+# for High Explorer Magellas on this guide's Ironforge stop. Halloran takes the hides at the docks before
+# the boat; Rethiel takes the root core on the Wetlands loop of 30-40/01-hillsbrad-foothills (`when
+# complete`). Left out: Lost in the Thicket Things and Heartwoven (95647, 95809: Caitlin Grassman, level 31,
+# 3+ levels over on the first Menethil stop), Songblade Search and Fallen in the Fen (95772, 95795: Dorin
+# Songblade in Redridge, off the route). Seeking Caitlin (95737, talk only) is taken from Llana by Astranaar's
+# flight master on the first Ashenvale stop (about 28.5; minimum level 24), carried through Ashenvale and handed to
+# Caitlin by Menethil's inn.
 
 # ---------------------------------------------------------------- Night Elf and Skyborne Druids: Moonglade and Darnassus
 
@@ -133,6 +166,13 @@ step Menethil Harbor
   accept 98208                            -- Sylessa Duskwhisper, beside James Halloran by the docks
   accept 472                              -- Harlo Barnaby, by the north gate: Longbraid the Grim takes it on 30-40/01-hillsbrad-foothills' Dun Modr stop
 
+step James Halloran
+  when dungeon "Excavation Site: Wetlands"
+  when turnedin 484
+  zone Wetlands
+  tip For your Excavation Site: Wetlands run, later in this guide: James Halloran, by the docks, wants hides from the raptors inside.
+  accept 98815                        -- James Halloran
+
 step Nord'el
   zone Wetlands
   tip Nord'el lies on the shore just south of Menethil Harbor, a short walk past the town's south end. Then follow the coast north out of town to the hovels.
@@ -151,7 +191,7 @@ step The Lost Fleet: kill these as you meet them
   zone Wetlands
   tip Follow the coast north to the wrecked ship. Cursed Sailors walk the beach, Cursed Marines the deck; First Mate Snellig stands on the beach by the bow. Giant Wetlands Crocolisks lurk on the coast just north of it.
   tip Careful: Fen Creepers hide in stealth where the river splits close to the ghost ship, and they can join a fight.
-  kill 1158 quest 289                     -- Cursed Marine
+  kill 1158 quest 289                     -- Cursed Marine; careful: Nightveiled Rotheap, a level 31 elite, roams this coast
   kill 1157 quest 289                     -- Cursed Sailor
   collect 3619 quest 289                  -- Snellig's Snuffbox: First Mate Snellig
   collect 3348 quest 471                  -- Giant Crocolisk Skin
@@ -167,14 +207,7 @@ step Menethil Harbor
   turnin 98189 npc 2104                   -- Captain Stoutfist, on the top floor
   accept 98190 npc 2104                   -- For Bolvar Fordragon in Stormwind Keep: keep it
   turnin 289                              -- First Mate Fitzsimmons, in the inn
-  accept 290
   vendor nearest
-
-step Captain Halyndor
-  tip The captain walks the deck of the wrecked ship; his strongbox sits in the hold.
-  collect 2629 quest 290                  -- Intrepid Strongbox Key
-  turnin 290                              -- Intrepid's Locked Strongbox
-  accept 292
 
 # ---------------------------------------------------------------- East Wetlands
 
@@ -192,7 +225,7 @@ step Whelgar's Excavation Site
 step Whelgar's Excavation Site: kill these as you meet them
   zone Wetlands
   tip The relics lie in the dig itself. Sarltooth, a big Razormaw, prowls the raptor valley just west of it.
-  tip Goaz Warders (elite, 32) stand among the relics and the Loose Soil: pull them away one at a time, or work around them.
+  tip Goaz Warders (elite, 32) stand among the relics and the Loose Soil: work around them; don't pull them.
   collect 2658 quest 299                  -- Ados Fragment
   collect 2659 quest 299                  -- Modr Fragment
   collect 2660 quest 299                  -- Golm Fragment
@@ -258,14 +291,52 @@ step Rethiel the Greenwarden
   turnin 275
   accept 98283 optional               -- Carnage, an elite raptor, on the Wetlands loop of 30-40/01-hillsbrad-foothills
 
+step Rethiel the Greenwarden
+  when dungeon "Excavation Site: Wetlands"
+  zone Wetlands
+  tip For your Excavation Site: Wetlands run, on the way back west: Rethiel wants the root core of a Highland Horror inside.
+  accept 95646                        -- Rethiel the Greenwarden
+
+step Excavation Site: Wetlands
+  when dungeon "Excavation Site: Wetlands"
+  when onquest 98815,95646
+  zone Wetlands
+  tip Excavation Site: Wetlands is a dungeon for a group of five at about level 28 to 31. Its entrance lies just south of the road west, east of Whelgar's dig.
+  tip Inside: the Thicket raptors and Shadetooth drop the hides for Halloran, a Highland Horror the root core for Rethiel. Saltspine, Shadetooth and the Relic Guardian are the bosses; the Relic Guardian drops a Titan Relic, which starts a quest for Prospector Whelgar.
+  enter "Excavation Site: Wetlands" @48.0,56.5 live
+  complete 98815 @48.0,56.5 live      -- Highland Hides: the hides, inside
+  complete 95646 @48.0,56.5 live      -- Horrors in the Highland: the root core, inside
+
+step Prospector Whelgar
+  when dungeon "Excavation Site: Wetlands"
+  when onquest 95810
+  zone Wetlands
+  tip The Titan Relic from your Excavation Site: Wetlands run: Prospector Whelgar is below ground in his dig, west of the entrance on the way back west.
+  turnin 95810                        -- Prospector Whelgar, below ground
+  accept 98824                        -- Prospector Whelgar: for High Explorer Magellas in Ironforge, at the end of this guide
+
 step Captain Stoutfist
-  tip Hearth back to Menethil Harbor if you bound at the Deepwater Tavern, or walk west along the road: Captain Stoutfist stands on the top floor of Menethil Keep, Glorin Steelbrow in the Deepwater Tavern south of it, James Halloran by the docks on the way to the boat.
+  tip Hearth back to Menethil Harbor if you bound at the Deepwater Tavern, or walk west along the road: Captain Stoutfist stands on the top floor of Menethil Keep, James Halloran by the docks on the way to the boat.
   turnin 464                              -- On the top floor
   turnin 98221
   accept 465                              -- For the Dragonmaw catapult, on the Wetlands loop of 30-40/01-hillsbrad-foothills
-  turnin 292                              -- Glorin Steelbrow, in the Deepwater Tavern
-  accept 293                              -- For Archbishop Benedictus in Stormwind, at the end of this guide
   turnin 469                              -- James Halloran, by the docks, on the way to the boat
+
+# Fresh-start pace (0.4.0, first made for 0.3.7): a character loading this guide without 06-ashenvale's Wetlands and
+# Ashenvale quests (the catch-up hides 23 of this guide's quests) left it a level lower than the route player. Every
+# route player is past 28 here, so only that character tops up, by Menethil, before Ashenvale's 28-32 quests.
+step Level 28
+  when level<28
+  tip Still below level 28? That happens when you start this guide here without the Wetlands and Ashenvale quests of the guides before it: top up on the Bluegill Raiders along the coast just south of Menethil before the boat, so Ashenvale's level 28-32 quests aren't too hard.
+  goto 8.6,69.0 map 1437 "Bluegill Raider"
+  level 28 grind 1418                  -- grind on Bluegill Raider
+
+step James Halloran
+  when dungeon "Excavation Site: Wetlands"
+  when complete 98815
+  zone Wetlands
+  tip Your Excavation Site hides: James Halloran, by the docks.
+  turnin 98815                        -- James Halloran
 
 # ---------------------------------------------------------------- Ashenvale
 
@@ -288,8 +359,16 @@ step Thundris Windweaver
 
 step Auberdine
   zone Darkshore
-  tip Terenthis stands by the flight master.
+  tip Terenthis stands by the flight master. No Trek to Ashenvale yet? Give it a minute after the hand-in: Sentinel Selarin comes to Terenthis's side shortly after Volcor's escort is handed in. Changing layer can also find her.
   turnin 994                              -- Terenthis: Volcor's escort from the end of Darkshore
+  accept 990 optional                     -- Sentinel Selarin, once she comes: Trek to Ashenvale, for Raene Wolfrunner in Astranaar
+
+step Gershala Nightwhisper
+  when dungeon "Blackfathom Deeps"
+  when complete 1275
+  zone Darkshore
+  tip Your Blackfathom Deeps brain stems: Gershala Nightwhisper stands a short walk west of Terenthis.
+  turnin 1275                         -- Gershala Nightwhisper
 
 step Fly to Astranaar
   zone Darkshore
@@ -300,17 +379,29 @@ step Fly to Astranaar
 # ---------------------------------------------------------------- Astranaar and the western posts
 
 step Shindrell Swiftfire
-  tip Shindrell Swiftfire stands by Astranaar's flight master.
+  tip Shindrell Swiftfire and Llana stand by Astranaar's flight master.
   accept 4581                         -- For Kayneth Stillwind at Forest Song
+  accept 95737                        -- Llana: Seeking Caitlin, for Caitlin Grassman in Menethil Harbor
 
 step Astranaar
-  sethome "Astranaar"
   accept 1035                         -- Pelturas Whitemoon, inside
+
+step Raene Wolfrunner
+  zone Ashenvale
+  when onquest 990
+  tip Raene Wolfrunner stands in the inn, beside the innkeeper.
+  turnin 990                          -- Raene Wolfrunner: Trek to Ashenvale, if you still carry it from Darkshore
 
 step Melyria and Illiyana
   tip The two stand together at the western end of the road, south-west of Astranaar.
   accept 1021                         -- Illiyana
   accept 1022                         -- Sentinel Melyria Frostshadow
+
+step Therysil
+  zone Ashenvale
+  when onquest 945
+  tip Therysil stands at the Shrine of Aessina, a short walk from Melyria and Illiyana.
+  turnin 945                          -- Therysil: Therylune's Escape, if you still carry it from Darkshore
 
 step Shael'dryn
   tip Follow the road east to the Howling Vale; Shael'dryn stands by the moonwell.
@@ -330,10 +421,12 @@ step Shael'dryn
 step Anilia
   tip Follow the road east to the satyr camps of Xavian; Anilia hides at their edge.
   turnin 1021
-  accept 1031
+  accept 1031 optional                -- Anilia: The Branch of Cenarius, from Geltharis (level 32): a fight for a group at this level
 
 step Geltharis
-  tip Geltharis leads the Xavian satyrs; he carries the branch.
+  when group 1031
+  when onquest 1031
+  tip Geltharis leads the Xavian satyrs; he carries the branch. He is level 32, above you here, among level 29-30 satyrs: grouping up is advised.
   collect 5461 quest 1031             -- Branch of Cenarius
 
 step Forest Song
@@ -373,10 +466,12 @@ step Kayneth Stillwind
 # Players' recordings: the barrow's mouth near 75.95,75.45, south of the Forsaken camp; the
 # walking maps lead over the hill above the druids instead (#1336).
 step The Dor'Danil Barrow Den's entrance
+  when group 1012
   when onquest 1012
   goto 75.95,75.45 live "The Dor'Danil Barrow Den"
 
 step Insane druids
+  when group 1012
   when onquest 1012
   tip The three druids are inside The Dor'Danil Barrow Den, apart from each other: go in at its mouth, south of the Forsaken camp, not over the hill above them. Taneel Darkwood is in the eastern halls, Uthil Mooncall deepest down at the north-east end and Mavoris Cloudsbreak at the western end.
   tip Careful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight.
@@ -385,6 +480,7 @@ step Insane druids
   kill 3942 quest 1012.3              -- Mavoris Cloudsbreak, inside The Dor'Danil Barrow Den
 
 step Forest Song
+  when group 1012
   when onquest 1012
   turnin 1012                         -- Kayneth Stillwind
 
@@ -415,10 +511,27 @@ step Astranaar
   tip Raene Wolfrunner and Maliynn are in the inn; Pelturas Whitemoon is inside the building just south of it.
   turnin 1029                         -- Raene Wolfrunner
   accept 1030
+  accept 1025                         -- Raene Wolfrunner: An Aggressive Defense, the Foulweald on the way to Krolg
+  accept 1054                         -- Raene Wolfrunner: Culling the Threat, Dal Bloodclaw on the way back from Maestra's Post
   turnin 98027                        -- Maliynn, in the inn
   turnin 1035                         -- Pelturas Whitemoon, inside the building south of the inn
 
 # ---------------------------------------------------------------- Krolg
+
+step The Foulweald
+  tip On the way south-east to Krolg: the Foulweald furbolgs live in the woods south of the road, south-east of Astranaar. The Den Watcher and the Ursas guard the den.
+  kill 3746 quest 1025                    -- Foulweald Den Watcher
+  kill 3749 quest 1025                    -- Foulweald Ursa
+  kill 3750 quest 1025                    -- Foulweald Totemic
+  kill 3743 quest 1025                    -- Foulweald Warrior
+
+step Mystral Lake
+  zone Ashenvale
+  tip Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake, just north of the road to Krolg. Befouled Water Elementals wade in the lake; Tideress, a level 27 water elemental, walks among them and drops the bracers too.
+  accept 1016                             -- Sentinel Velene Starstrike
+  collect 12220 x5 optional           -- Underwater
+  collect 5455 quest 1016 @49.6,71.3      -- Kill the elementals for 5 Intact Elemental Bracers, then use the Divining Scroll
+  turnin 1016
 
 step Krolg
   tip Krolg, a furbolg untouched by the corruption, sits south of the road below Mystral Lake. Use Dartol's Rod of Transformation near him first: he only speaks to you in furbolg form.
@@ -441,16 +554,43 @@ step Krolg
 step Melyria and Illiyana
   tip West from Krolg along the southern hills to the Shrine of Aessina: Melyria and Illiyana stand together by it.
   turnin 1022                         -- Sentinel Melyria Frostshadow
-  accept 1037
-  turnin 1031                         -- Illiyana
+
+step Illiyana
+  when complete 1031
+  tip Illiyana stands beside Melyria.
+  turnin 1031                         -- Illiyana: the Branch of Cenarius
+
+step The Branch of Cenarius, taken alone
+  when !group 1031
+  when onquest 1031
+  tip Not grouped? The Branch of Cenarius (Geltharis, 32) is a fight for a group at this level: abandon it, the route doesn't come back for it.
+  abandon 1031 optional
+
+step Insane Druids, taken alone
+  when !group 1012
+  when onquest 1012
+  tip Not grouped? Insane Druids (the Dor'Danil Barrow Den) is a fight for a group at this level: abandon it, the route doesn't come back for it.
+  abandon 1012 optional
+
+step Delgren the Purifier
+  zone Ashenvale
+  when onquest 967
+  turnin 967                          -- Delgren the Purifier: The Tower of Althalaxx, if you still carry it from Darkshore
 
 step Delgren the Purifier
   tip North to Maestra's Post.
   turnin 1140
 
+step Dal Bloodclaw
+  tip From Maestra's Post, east to the Thistlefur camp north of Astranaar: Dal Bloodclaw leads the furbolgs there. Then south to Astranaar.
+  tip Careful: The furbolgs near him usually join in when he is pulled. Killing the ones along his path first lets you fight him alone.
+  collect 5544 quest 1054                 -- Dal Bloodclaw's Skull
+
 step Astranaar
-  tip South-east along the road to Astranaar: Raene Wolfrunner in the inn, the flight master at the west end.
+  tip South from Dal Bloodclaw's camp to Astranaar: Raene Wolfrunner in the inn, the flight master at the west end.
   turnin 1046                         -- Raene Wolfrunner
+  turnin 1025                         -- Raene Wolfrunner
+  turnin 1054                         -- Raene Wolfrunner
 
 step Fly to Auberdine
   zone Ashenvale
@@ -463,6 +603,11 @@ step Fly to Auberdine
 step Boat to Menethil Harbor
   zone Darkshore
   goto 32.4,43.8 "Boat to Menethil Harbor"
+
+step Caitlin Grassman
+  zone Wetlands
+  tip Off the boat, Caitlin Grassman stands beside Menethil's inn, on the way to the flight master.
+  turnin 95737                            -- Caitlin Grassman
 
 # ---------------------------------------------------------------- Ironforge
 
@@ -479,6 +624,13 @@ step Ironforge
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   vendor nearest
 
+step High Explorer Magellas
+  when dungeon "Excavation Site: Wetlands"
+  when onquest 98824
+  zone Ironforge
+  tip Prehistoric Prism: High Explorer Magellas stands in the Hall of Explorers, north-east of the Great Forge.
+  turnin 98824                        -- High Explorer Magellas
+
 step Ironforge priests
   only Dwarf,Gnome,Priest
   tip High Priest Rohan and High Priestess Mims are in the Hall of Mysteries, in the Mystic Ward.
@@ -489,13 +641,18 @@ step Tram to Stormwind
   zone Ironforge
   goto 78.0,51.4 "Tram to Stormwind"
 
+step Baros Alexston
+  zone Stormwind City
+  when onquest 97914
+  tip Baros Alexston stands in the Cathedral Square.
+  turnin 97914                            -- Baros Alexston: Expanding Horizons, Thundris Windweaver's letter, if you still carry it
+
 # ---------------------------------------------------------------- Stormwind
 
 step Cathedral of Light
   zone Stormwind City
   tip Take the Deeprun Tram from Tinker Town to Stormwind's Dwarven District, then walk to the Cathedral Square.
   accept 1274                             -- Thomas, in the Cathedral of Light
-  turnin 293                              -- Archbishop Benedictus
 
 step Stormwind Keep
   turnin 1274                             -- Bishop DeLavey
@@ -508,6 +665,47 @@ step Lord Grayson Shadowbreaker
   tip Back to the Cathedral of Light: Lord Grayson Shadowbreaker stands inside.
   turnin 98191 npc 928                    -- Lord Grayson Shadowbreaker
   accept 98219 npc 928                    -- For Lieutenant Farren Orinelle in Southshore: keep it
+
+step Warden Thelwater
+  when dungeon "The Stockade"
+  zone Stormwind City
+  tip For your Stockade run: Warden Thelwater keeps the Stockade's gate, south of the Cathedral Square.
+  accept 387                              -- Warden Thelwater
+
+step Warden Thelwater
+  when dungeon "The Stockade"
+  when onquest 389
+  zone Stormwind City
+  turnin 389                              -- Warden Thelwater: Bazil Thredd, from Baros Alexston
+
+step Warden Thelwater
+  when dungeon "The Stockade"
+  when turnedin 389
+  zone Stormwind City
+  accept 391                              -- Warden Thelwater: The Stockade Riots
+
+step The Stockade
+  when dungeon "The Stockade"
+  when onquest 387,377,391
+  zone Stormwind City
+  tip The Stockade is a dungeon for a group of five, about levels 23 to 29, and a run takes under an hour. Its gate is Warden Thelwater's, south of the Cathedral Square.
+  tip Inside: the Defias prisoners, convicts and insurgents for Thelwater, Dextren Ward's hand for Millstipe, and Bazil Thredd at the far end.
+  enter "The Stockade" @52.4,70.0
+  complete 387                            -- Quell the Uprising
+  complete 377                            -- Crime and Punishment: Dextren Ward
+  complete 391                            -- The Stockade Riots: Bazil Thredd
+
+step Warden Thelwater
+  when dungeon "The Stockade"
+  when complete 387
+  zone Stormwind City
+  turnin 387                              -- Warden Thelwater, at the gate
+
+step Warden Thelwater
+  when dungeon "The Stockade"
+  when complete 391
+  zone Stormwind City
+  turnin 391                              -- Warden Thelwater, at the gate
 
 step Jorgen and Elling Trias
   turnin 1241                             -- Jorgen

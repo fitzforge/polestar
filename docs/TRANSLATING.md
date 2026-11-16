@@ -180,8 +180,8 @@ screen on a client in another language, so a new feature cannot add English
 unnoticed. It runs the addon on the client stub (`tests/lua`) in each
 language with the shipped translations, names addon and guide texts, and has
 the client answer in "its language": every name the client itself gives
-(quest titles, item, zone, map, area, spell, faction, class and race names,
-the player's name) comes back as a placeholder holding no word. Scenes then
+(quest titles, item, zone, map, area, spell, faction, class, race and key
+names, the player's name) comes back as a placeholder holding no word. Scenes then
 drive the windows: the guide window step by step with every tooltip, all
 guides (both with every step shown, whatever class, race or faction it is
 for), the welcome, the picker, Options, Lookup, Dungeons, Rares, talents,
@@ -229,7 +229,9 @@ text repeats it. Each finding names its source:
 fixed in Polestar yet, each with a reason and the scenes it shows in: names
 as `"kind:id"` (`no-source`: no source of `forge data names` has it, mostly
 Forever's own NPCs, objects and items, which the client shows once the
-player has seen them; `same-as-english`: every source names it as in
+player has seen them, and `objective:<quest>`, a dungeon quest's objective
+text no source has for its event objective, which the Dungeons page then shows
+as the quest data's English objective lines; `same-as-english`: every source names it as in
 English, which `forge data names` records in `data/local/names-same-as-english.json`
 for the baseline), and texts as `"text:<the text>"` whose English a
 translation keeps (`kept-english`). A text whose only English is such is no
@@ -263,13 +265,16 @@ them (quest titles, item names) and from Polestar's names of its
 language (`Names.lua` in the language folder `Polestar_<locale>`), loaded only on that client. A name no
 source has stays English. The client is the truth: a name it shows in play
 (an NPC targeted, moused over or talked to, a quest-giving object opened) is
-kept, per language, and shown from then on. docs/ARCHITECTURE.md, "Names",
-has the details.
+kept, per language, and shown from then on. The subzone names the arrow
+tells a city's floors apart by (the Undercity's quarters) are the client's
+own too (`Subzones.lua` in the language folder, `forge data subzones`).
+docs/ARCHITECTURE.md, "Names", has the details.
 
 - `forge data names [<locale>...]` rebuilds the addons. Per
   id the first source with a name wins: the client's own tables in that
-  language (wago.tools), Forever's quest data in that language (what
-  is cached under `data/sources/web/names`), DingDB (cloned into
+  language (wago.tools), the names the client showed players
+  (`data/i18n/names-observed/<locale>.json`, below), Forever's quest data in that
+  language (what is cached under `data/sources/web/names`), DingDB (cloned into
   `data/sources/ding` at the commit pinned in
   `rust/crates/forge-data/src/names_sources.rs`,
   every file checked against its sha256) and pfQuest's `db/<locale>` (the
@@ -277,7 +282,8 @@ has the details.
   quest database (`forge data questdb`, or `--questdb <dir>`), the Codex's data
   (`forge data codex`, or `--codex <dir>`) and the travel data name. A name equal
   to the English one is not stored (a later source's translation wins), nor
-  is one marking unused content (`[PH]`, `(DNT)`...). The client tables
+  is one marking unused content (`[PH]`, `(DNT)`...), nor a Korean, Chinese
+  or Russian one written in Latin letters alone (another language's). The client tables
   come from the newest build that has them all in English and every
   language; without one the build stops (`--no-tables` leaves them out on
   purpose). The web names are read from the cache in
@@ -288,6 +294,17 @@ has the details.
 - A wrong name is fixed at its source: in the client (it changes there), in
   DingDB (tell Yendi, then move the pin to his new commit and rebuild) or,
   for one only pfQuest has, in pfQuest.
+- Names the client shows players that no table holds (its cache of what the
+  server sent it, or the names Polestar learned in play) go in
+  `data/i18n/names-observed/<locale>.json`: one record per name, `token`
+  (`quest:`, `npc:`, `object:` or `item:` and the id), `name` as the client
+  showed it, `source` (`client-wdb` or `client-learning`), `build` (the client
+  build, or `null` when it was not recorded), `sha256` of the file it was read
+  from (optional, as provenance) and `ref`, the issue or pull request it came
+  with. Only names read from the client itself, never a website's or another
+  addon's translation. They come right after the client's tables, before
+  every other source: the server's name is the true one. The forge-data
+  names tests check the file.
 - To move the pin, read what changed in Ding's `Ding/DB/`, then set the
   commit, version and sha256s of `ding_pin` in
   `rust/crates/forge-data/src/names_sources.rs`; a file
@@ -374,6 +391,16 @@ writes.
 - `forge i18n guides stats` sizes the work: the texts that
   need words, with their words and characters, in all and per guide folder,
   and how many names the compiler made tokens.
+
+The three commands compile the pack on the reference data. When that data was
+read from a Forever client build (its `meta.json` names it), they need that
+build's client tables in the sources beside it (`data/sources/wago/<build>`:
+SpellName and SkillLineAbility when the data has the build's spell names, and
+AreaTable), and stop when they are missing: with another build's tables, or
+none, spell names would stay words and places would lose their area, and every
+good translation of those texts would read as stale. `forge guide compile` and
+`lint` stop the same way, and so does every node tool or test that loads the
+data (`tools/lib/data/pinned.js`).
 
 ## Adding a language
 

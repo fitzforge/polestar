@@ -18,8 +18,8 @@ return {
 	["one {item:20558}: play a game"] = "",
 
 	-- Step 2: Alliance Brigadier General
-	-- {npc:15351} Alliance Brigadier General · {quest:8372} Fight for Warsong Gulch · {area:3319} Silverwing Grove · {npc:14733} Sentinel Farsong · {zone:1453} Stormwind · {zone:1455} Ironforge · {zone:1457} Darnassus · {area:320} Refuge Pointe · {zone:1417} Arathi Highlands · {zone:1459} Alterac Valley · {zone:1460} Warsong Gulch
-	["The {npc:15351} pays 100 reputation for 3 Warsong Gulch Marks of Honor the first time, then 50 for every 3 more ({quest:8372}). One stands right here at {area:3319} beside {npc:14733}; others in {zone:1453}, {zone:1455} and {zone:1457}, at {area:320} in the {zone:1417} and at both gates of {zone:1459}. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:1460} marks: hand in or spend them before you reach that."] = "",
+	-- {npc:15351} Alliance Brigadier General · {quest:8402} Fight for Warsong Gulch · {area:3319} Silverwing Grove · {npc:14733} Sentinel Farsong · {zone:1453} Stormwind · {zone:1455} Ironforge · {zone:1457} Darnassus · {area:320} Refuge Pointe · {zone:1417} Arathi Highlands · {zone:1459} Alterac Valley · {zone:1460} Warsong Gulch
+	["The {npc:15351} pays 100 reputation for 3 Warsong Gulch Marks of Honor the first time, then 50 for every 3 more ({quest:8402}). One stands right here at {area:3319} beside {npc:14733}; others in {zone:1453}, {zone:1455} and {zone:1457}, at {area:320} in the {zone:1417} and at both gates of {zone:1459}. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:1460} marks: hand in or spend them before you reach that."] = "{npc:15351} дает 100 репутации за 3 почетных знака Ущелья Песни Войны в первый раз, затем по 50 за каждые следующие 3 ({quest:8402}). Один стоит прямо здесь ({area:3319}) рядом с NPC {npc:14733}; другие – {zone:1453}, {zone:1455} и {zone:1457}, {area:320} ({zone:1417}) и у обоих входов в {zone:1459}. PvP-снаряжение Forever стоит не только чести, но и почетных знаков: решите, что хотите, прежде чем сдавать их. Знаков ({zone:1460}) можно носить не больше 30: сдайте или потратьте их раньше.",
 	["three Warsong Gulch Marks of Honor"] = "",
 
 	-- Step 3: Silverwing Sentinels to Friendly
@@ -51,8 +51,8 @@ return {
 	-- Step 6: Silverwing Sentinels to Exalted
 	-- {faction:890} Silverwing Sentinels
 	["{faction:890} to Exalted"] = "{faction:890} до уровня «Превознесение»",
-	-- {item:19546} Sentinel's Blade · {item:19554} Protector's Sword · {item:19562} Outrunner's Bow · {item:19570} Lorekeeper's Staff
-	["Revered to Exalted is 21000 reputation, about 136 wins: half of the whole climb. Revered opens the weapons for levels 18 to 58: {item:19546} (dagger), {item:19554}, {item:19562} and {item:19570} (91s to 35g61s). Forever's quartermaster also sells level-25 versions of the four weapons, Resilient helms for level 20 (2g50s) and the Trainee's Sentinel Nightsaber mount (level 25, 10g) with no standing listed."] = "",
+	-- {item:19546} Sentinel's Blade · {item:19554} Protector's Sword · {item:19562} Outrunner's Bow · {item:19570} Lorekeeper's Staff · {item:211498} Trainee's Sentinel Nightsaber
+	["Revered to Exalted is 21000 reputation, about 136 wins: half of the whole climb. Revered opens the weapons for levels 18 to 58: {item:19546} (dagger), {item:19554}, {item:19562} and {item:19570} (91s to 35g61s). Forever's quartermaster also sells level-25 versions of the four weapons, Resilient helms for level 20 (2g50s) and the {item:211498} mount (level 25, 10g) with no standing listed."] = "",
 	-- {npc:14753} Illiyana Moonblaze
 	["{npc:14753}: Revered rewards"] = "",
 
@@ -67,8 +67,8 @@ return {
 	["{zone:1460} is a 10 against 10 capture-the-flag battle, from level 10. Queue at any battlemaster in the capitals or from the battleground screen; the Horde gate is here at {area:1599}. In Classic every flag your team captures pays everyone 35 reputation (45 on the {zone:1460} holiday weekend), and a game pays 3 Warsong Gulch Marks of Honor for a win, 1 for a loss. {npc:14781} pays 200 reputation for one mark, once per character: the best mark you will ever turn in. Forever's Legacy Diplomat perk adds up to 10% to every number in this guide."] = "",
 
 	-- Step 9: Horde Warbringer
-	-- {npc:15350} Horde Warbringer · {quest:8368} Battle of Warsong Gulch · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {zone:1458} Undercity · {area:321} Hammerfall · {zone:1417} Arathi Highlands · {zone:1459} Alterac Valley · {zone:1416} Alterac Mountains · {zone:1460} Warsong Gulch
-	["The {npc:15350} pays 100 reputation for 3 Warsong Gulch Marks of Honor the first time, then 50 for every 3 more ({quest:8368}). One stands right here at Mor'shan; others in {zone:1454}, {zone:1456} (and on the plain below it) and the {zone:1458}, at {area:321} in the {zone:1417} and at the {zone:1459} gate in the {zone:1416}. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:1460} marks: hand in or spend them before you reach that."] = "",
+	-- {npc:15350} Horde Warbringer · {quest:8429} Battle of Warsong Gulch · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {zone:1458} Undercity · {area:321} Hammerfall · {zone:1417} Arathi Highlands · {zone:1459} Alterac Valley · {zone:1416} Alterac Mountains · {zone:1460} Warsong Gulch
+	["The {npc:15350} pays 100 reputation for 3 Warsong Gulch Marks of Honor the first time, then 50 for every 3 more ({quest:8429}). One stands right here at Mor'shan; others in {zone:1454}, {zone:1456} (and on the plain below it) and the {zone:1458}, at {area:321} in the {zone:1417} and at the {zone:1459} gate in the {zone:1416}. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:1460} marks: hand in or spend them before you reach that."] = "{npc:15350} дает 100 репутации за 3 почетных знака Ущелья Песни Войны в первый раз, затем по 50 за каждые следующие 3 ({quest:8429}). Один стоит прямо здесь, в Мор'шане; другие – {zone:1454}, {zone:1456} (и на равнине под ним) и {zone:1458}, {area:321} ({zone:1417}) и у входа в {zone:1459} ({zone:1416}). PvP-снаряжение Forever стоит не только чести, но и почетных знаков: решите, что хотите, прежде чем сдавать их. Знаков ({zone:1460}) можно носить не больше 30: сдайте или потратьте их раньше.",
 
 	-- Step 10: Warsong Outriders to Friendly
 	-- {faction:889} Warsong Outriders
@@ -99,8 +99,8 @@ return {
 	-- Step 13: Warsong Outriders to Exalted
 	-- {faction:889} Warsong Outriders
 	["{faction:889} to Exalted"] = "{faction:889} до уровня «Превознесение»",
-	-- {item:19542} Scout's Blade · {item:19550} Legionnaire's Sword · {item:19558} Outrider's Bow · {item:19566} Advisor's Gnarled Staff
-	["Revered to Exalted is 21000 reputation, about 136 wins: half of the whole climb. Revered opens the weapons for levels 18 to 58: {item:19542} (dagger), {item:19550}, {item:19558} and {item:19566} (91s to 35g9s). Forever's quartermaster also sells level-25 versions of the four weapons, Resilient helms for level 20 (2g50s) and the Trainee's Outrider Wolf mount (level 25, 10g) with no standing listed."] = "",
+	-- {item:19542} Scout's Blade · {item:19550} Legionnaire's Sword · {item:19558} Outrider's Bow · {item:19566} Advisor's Gnarled Staff · {item:211499} Trainee's Outrider Wolf
+	["Revered to Exalted is 21000 reputation, about 136 wins: half of the whole climb. Revered opens the weapons for levels 18 to 58: {item:19542} (dagger), {item:19550}, {item:19558} and {item:19566} (91s to 35g9s). Forever's quartermaster also sells level-25 versions of the four weapons, Resilient helms for level 20 (2g50s) and the {item:211499} mount (level 25, 10g) with no standing listed."] = "",
 	-- {npc:14754} Kelm Hargunth
 	["{npc:14754}: Revered rewards"] = "",
 

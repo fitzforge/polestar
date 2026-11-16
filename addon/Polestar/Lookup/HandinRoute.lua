@@ -51,7 +51,7 @@ function Route.Refine(stops, from, keep, done)
 			local t = costs[index[a]][index[b]]
 			if type(t) == "number" then return t end
 			return ns.DirectTravelCost(a, b) or 1e9
-		end, work)
+		end, { pause = work })
 		local unknown, previous = {}, 0
 		for _, i in ipairs(order) do
 			if costs[previous][i] == false then unknown[i] = true end

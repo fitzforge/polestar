@@ -11,12 +11,13 @@ return {
 	["Starts now at 22 at the {area:444}; its mobs are 28-30, so go nearer 30 or with a friend. Alliance only for now."] = "",
 
 	-- Step 1: The Strange Orb
-	["The Strange Orb"] = "Странная сфера",
-	-- {area:444} Tower of Althalaxx · {zone:1439} Darkshore · {spell:686} Shadow Bolt · {object:409311} Spear of Mannoroth
+	-- {object:409289} Strange Orb (no name in this language: may be words)
+	["The {object:409289}"] = "{object:409289}",
+	-- {area:444} Tower of Althalaxx · {zone:1439} Darkshore · {spell:686} Shadow Bolt · {object:409289} Strange Orb (no name in this language: may be words) · {item:209748} Althalaxx Orb · {object:409311} Spear of Mannoroth
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic · Dark Strand Voidcallers = {npc:2337} Dark Strand Voidcaller
-	["Climb to the top of the {area:444} in northern {zone:1439}. The Dark Strand Fanatics around it are easy (level 16-17), but four Dark Strand Voidcallers (level 28-29) stand in the tower on the way to the orb: each calls a voidwalker and casts {spell:686} from range. At 22-25 bring a friend or two, pull them one at a time and step behind a wall so they have to come to you. Loot the Strange Orb at the top: it gives you the Althalaxx Orb; right-click it to start the quest. Keep the orb in your bags until the {object:409311}: three later quests need it."] = "",
-	-- {area:444} Tower of Althalaxx
-	["Strange Orb atop the {area:444}: right-click the Althalaxx Orb it gives"] = "Странная сфера на вершине башни ({area:444}): щелкните правой кнопкой по Сфере Алталакса, которую она дает",
+	["Climb to the top of the {area:444} in northern {zone:1439}. The Dark Strand Fanatics around it are easy (level 16-17), but four Dark Strand Voidcallers (level 28-29) stand in the tower on the way to the orb: each calls a voidwalker and casts {spell:686} from range. At 22-25 bring a friend or two, pull them one at a time and step behind a wall so they have to come to you. Loot the {object:409289} at the top: it gives you the {item:209748}; right-click it to start the quest. Keep the orb in your bags until the {object:409311}: three later quests need it."] = "",
+	-- {object:409289} Strange Orb (no name in this language: may be words) · {area:444} Tower of Althalaxx · {item:209748} Althalaxx Orb
+	["{object:409289} atop the {area:444}: right-click the {item:209748} it gives"] = "{object:409289} на вершине башни ({area:444}): щелкните правой кнопкой по предмету {item:209748}, который она дает",
 
 	-- Step 2: Delgren the Purifier
 	-- {npc:3663} Delgren the Purifier · {area:413} Maestra's Post · {zone:1440} Ashenvale · {zone:1439} Darkshore · {zone:1453} Stormwind
@@ -24,7 +25,7 @@ return {
 
 	-- Step 3: Katherine the Pure
 	-- {npc:5492} Katherine the Pure
-	["{npc:5492} stands in the Cathedral of Light; she sends you to a warlock for a second opinion."] = "",
+	["{npc:5492} stands in the Cathedral of Light; she sends you to a warlock for a second opinion."] = "{npc:5492} стоит в Соборе Света; она отправит вас к чернокнижнику за вторым мнением.",
 
 	-- Step 4: Ursula Deline
 	-- {npc:5495} Ursula Deline · {object:2101} Mage Quarter · {object:2164} Slaughtered Lamb · {item:209778} Summoner's Salt
@@ -48,14 +49,14 @@ return {
 	-- Step 8: The Spear of Mannoroth
 	-- {object:409311} Spear of Mannoroth
 	["The {object:409311}"] = "{object:409311}",
-	-- {object:409311} Spear of Mannoroth · {area:435} Demon Fall Canyon · {object:409315} Shattered Orb
-	["The {object:409311} stands at the east end of {area:435}. Hand in the motes at the spear with the Althalaxx Orb in your bags: the orb shatters, and the {object:409315} beside it starts the last quest."] = "",
+	-- {object:409311} Spear of Mannoroth · {area:435} Demon Fall Canyon · {item:209748} Althalaxx Orb · {object:409315} Shattered Orb
+	["The {object:409311} stands at the east end of {area:435}. Hand in the motes at the spear with the {item:209748} in your bags: the orb shatters, and the {object:409315} beside it starts the last quest."] = "",
 	-- {object:409315} Shattered Orb
 	["from the {object:409315}"] = "из объекта {object:409315}",
 
 	-- Step 9: Return to Delgren
 	-- {npc:3663} Delgren the Purifier · {area:413} Maestra's Post · {zone:1440} Ashenvale
-	["Back to {npc:3663} at {area:413} in western {zone:1440}, across the whole zone."] = "",
+	["Back to {npc:3663} at {area:413} in western {zone:1440}, across the whole zone."] = "Назад к NPC {npc:3663}: {area:413}, запад зоны {zone:1440}, через всю зону.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A rare cloak at 30 from the old {spell:407778} story; for now only Alliance paladins can finish it."] = "Редкий плащ на 30-м уровне из старой истории о заклинании «{spell:407778}»; пока завершить ее могут только паладины Альянса.",
@@ -63,11 +64,7 @@ return {
 	-- ["Blackrock Summoners, Champions and Trackers camp in the north-west of Redridge; they drop the {item:209778}."] = "Призыватели, воители и следопыты из клана Черной Горы стоят лагерем на северо-западе Красногорья; с них падает {item:209778}.",
 	-- ["Climb to the top of the {area:444} in northern {zone:1439}. Loot the Strange Orb up there: it gives you the Althalaxx Orb, which starts the quest."] = "Поднимитесь на вершину башни ({area:444}) на севере зоны {zone:1439}. Обыщите там странную сферу: она дает Сферу Алталакса, с которой начинается задание.",
 	-- ["Katherine sends you to the warlocks in the {object:2101}; {npc:5495} speaks for them."] = "Катерина отправляет вас к чернокнижникам ({object:2101}); от их имени говорит {npc:5495}.",
-	-- ["Strange Orb atop the {area:444}: right-click the Althalaxx Orb it gives"] = "Странная сфера на вершине башни ({area:444}): щелкните правой кнопкой по Сфере Алталакса, которую она дает",
-	-- ["The Strange Orb"] = "Странная сфера",
 	-- ["The {object:409311} stands at the east end of {area:435}. Shatter the orb on it; the {object:409315} appears beside it."] = "{object:409311} стоит в восточном конце каньона ({area:435}). Разбейте сферу на нем; рядом появится {object:409315}.",
 	-- ["The {object:409311} stands at the east end of {area:435}. {spell:11170} the orb on it; the {object:409315} appears beside it."] = "{object:409311} стоит в восточном конце каньона ({area:435}). Примените на сферу на нем: {spell:11170}; рядом появится {object:409315}.",
 	-- ["{area:435} is in south-east {zone:1440}. The Mannoroc Lashers, Searing Infernals, Felguards and Legion Hounds in it drop the Motes of Mannoroth."] = "{area:435} – на юго-востоке зоны {zone:1440}. С бичевательниц Маннорока, опаляющих инферналов, стражей Скверны и гончих Легиона там падают частицы Маннорота.",
-	-- ["{npc:3663} stands at {area:413} in western {zone:1440}."] = "{npc:3663} стоит здесь: {area:413}, запад зоны {zone:1440}.",
-	-- ["{npc:5492} is in the Cathedral of Light."] = "{npc:5492} – в Соборе Света.",
 }

@@ -9,7 +9,6 @@ next forever/alliance/04-redridge-mountains
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Retrieval for Mauren (1078).
 # Left out: Daily Delivery (469).
 # Givers passed at Menethil and left for the 27-29 Wetlands visit (06-wetlands), by design: Reclaiming
 # Goods and Apprentice's Duties (281, 471): their work is the hovels and north-coast loop that visit
@@ -22,6 +21,16 @@ next forever/alliance/04-redridge-mountains
 # Stonetalon (19-22) first, then the east loop and Ilkrud and the Zoram Strand (24-25).
 # Group quest: Gerenzo's Orders (1090, `when group 1090`, #1370): Piznik's five-minute defence in the Windshear
 # Mine (quest level 22) was lost solo at 23 and 25 in players' recordings; grouped players finished it from 23.
+# Blackfathom Deeps (`when dungeon "Blackfathom Deeps"`, dungeons in the route): for a character who chose it
+# and took Gershala Nightwhisper's Researching the Corruption (1275) in Auberdine (forever/alliance/
+# 03-darkshore-return), the run follows Ruuzel at the north end of the Zoram Strand, at about 24: the way
+# in is the sunken ruins' pit east of him. Gershala takes the brain stems on the Auberdine stop of
+# forever/alliance/06-wetlands (`when complete`), beside Terenthis: here, on the way to the boat, a stop
+# by her walks past Terenthis with Escape Through Force ready, which the route hands in there. Left
+# out: Knowledge in the Deeps (971: Gerrig Bonegrip in Ironforge, on the stop after the run; level 23,
+# 3+ levels over on the Ironforge stop of 03-loch-modan), In Search of Thaelrid, Twilight Falls and
+# Blackfathom Villainy (1198, 1199, 1200: Darnassus, off the route; Thaelrid stands inside), the Warlock's
+# Orb of Soran'ruk (1740, class guide).
 
 # ---------------------------------------------------------------- Darkshore
 
@@ -68,7 +77,6 @@ step Astranaar
   sethome "Astranaar"
   accept 991                              -- Raene Wolfrunner, in the inn
   turnin 990                              -- Raene Wolfrunner: Trek to Ashenvale, from Auberdine
-  accept 1054
   turnin 1020                             -- Pelturas Whitemoon, inside
   accept 1033
 
@@ -92,7 +100,6 @@ step Elune's Tear
 step Astranaar
   turnin 1023                             -- Raene Wolfrunner
   accept 1024
-  accept 1025
   turnin 1033                             -- Pelturas Whitemoon, inside
   accept 1034
   vendor nearest
@@ -145,7 +152,7 @@ step Webwinder Path
   accept 1072
   accept 1075
 
-# ---------------------------------------------------------------- Back north: Mystral Lake and the east
+# ---------------------------------------------------------------- Back north and the east
 
 step The Ruins of Stardust
   zone Ashenvale
@@ -153,44 +160,12 @@ step The Ruins of Stardust
   goto 33.3,67.7 "The Ruins of Stardust"
   collect 5494 quest 1034 @33.3,67.7      -- Handful of Stardust
 
-step Alonso
-  only Warrior
-  goto 42.4,70 "Alonso"
-  accept 78132 optional                   -- Alonso may not offer these to every class; if he doesn't, carry on.; walks around The Talondeep Path: the map marks where to look
-  turnin 78132
-  accept 78133 optional
-  turnin 78133
-  accept 78134 optional
-  turnin 78134
-
-step Mystral Lake
-  zone Ashenvale
-  tip Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake; Alonso camps on its west shore. Befouled Water Elementals wade in the lake between them.
-  accept 1016                             -- Sentinel Velene Starstrike
-  collect 12220 x5 optional           -- Underwater
-  collect 5455 quest 1016 @49.6,71.3      -- Kill the elementals for 5 Intact Elemental Bracers, then use the Divining Scroll
-  turnin 1016
-
-step The Foulweald
-  tip The Foulweald furbolgs live in the woods south of the road, south-east of Astranaar. The Den Watcher and the Ursas guard the den.
-  kill 3746 quest 1025                    -- Foulweald Den Watcher
-  kill 3749 quest 1025                    -- Foulweald Ursa
-  kill 3750 quest 1025                    -- Foulweald Totemic
-  kill 3743 quest 1025                    -- Foulweald Warrior
-
 step Shael'dryn
   tip Follow the road east to the Howling Vale; Shael'dryn stands by the moonwell.
   turnin 1024
 
-step Dal Bloodclaw
-  tip Dal Bloodclaw (25) leads the Thistlefur furbolgs at the camp north of Astranaar. Clear his guards first, one at a time.
-  tip Careful: The furbolgs near him usually join in when he is pulled. Killing the ones along his path first lets you fight him alone.
-  collect 5544 quest 1054                 -- Dal Bloodclaw's Skull
-
 step Astranaar
-  tip South from Dal Bloodclaw's camp, Astranaar is on the way west: Raene Wolfrunner in the inn, Pelturas Whitemoon inside the building beyond it.
-  turnin 1025                             -- Raene Wolfrunner
-  turnin 1054                             -- Raene Wolfrunner
+  tip Back west along the road from Shael'dryn, Astranaar is on the way to Ilkrud: Pelturas Whitemoon is inside the building beyond the inn.
   turnin 1034                             -- Pelturas Whitemoon, inside
   vendor nearest
 
@@ -215,6 +190,15 @@ step Ruuzel
   tip Ruuzel walks the northern tip of the Zoram Strand with Wrathtail guards.
   collect 5445 quest 1009                 -- Ring of Zoram
 
+step Blackfathom Deeps
+  when dungeon "Blackfathom Deeps"
+  when onquest 1275
+  zone Ashenvale
+  tip Blackfathom Deeps is a dungeon for a group of five, about levels 22 to 30, and a full run takes about an hour. The way in is the sunken ruins at the north end of the strand: go down the stairs into the pit, swim through the tunnels under the wall, past the blue crystals, to the portal.
+  tip Inside: the naga and the satyrs drop the Corrupted Brain Stems for Gershala. Argent Guard Thaelrid, by a campfire in an underwater side room off Ghamoo-ra's room, has a quest for Darnassus, which this route leaves to the Dungeons page.
+  enter "Blackfathom Deeps" @14.5,14.2
+  collect 5952 x8 quest 1275.1        -- Researching the Corruption: Corrupted Brain Stems
+
 step Talen
   turnin 1009
 
@@ -233,6 +217,12 @@ step Fly to Auberdine
   goto 34.5,48.0 "Astranaar flight master"
   fly "Auberdine"
   zone Darkshore
+
+step Terenthis
+  zone Darkshore
+  tip Terenthis stands by the flight master, at the east end of the main street. No Trek to Ashenvale yet? Give it a minute after the hand-in: Sentinel Selarin comes to Terenthis's side shortly after Volcor's escort is handed in. Changing layer can also find her. Then back west to the dock.
+  turnin 994                              -- Terenthis: Volcor's escort from the end of Darkshore
+  accept 990 optional                     -- Sentinel Selarin, once she comes: Trek to Ashenvale, for Raene Wolfrunner in Astranaar on your next Ashenvale visit
 
 step Boat to Menethil Harbor
   zone Darkshore
@@ -257,7 +247,7 @@ step Menethil Harbor
   accept 305                              -- Tarrel Rockweaver, by the north gate
 
 step Spoils of War
-  tip Timber and iron piles lie around the keep and along the harbor's walls.
+  tip Timber and iron piles lie around the keep and along the harbor's walls. Careful: Nightveiled Rotheap, a level 31 elite, roams the Wetlands' shores and roads: if it comes by, give it room.
   collect 279821 quest 98197              -- Khaz Modan Timber
   collect 279822 quest 98197              -- Khaz Modan Iron
 
@@ -283,7 +273,7 @@ step Whelgar's Excavation Site
 step The raptor hills
   tip Mottled Raptors and Screechers roam the hills west of the excavation site.
   tip Careful: Once a Mottled Screecher drops to 30% health, it calls for help from creatures within 20 yd. Mottled Screechers frequently come in packs of three, and raptors summoned by their calls for help may also join the fight.
-  kill 1021 quest 294                     -- Mottled Screecher
+  kill 1021 quest 294                     -- Mottled Screecher; careful: Nightveiled Rotheap, a level 31 elite, roams these hills
   kill 1020 quest 294                     -- Mottled Raptor
 
 step Ormer Ironbraid
@@ -296,7 +286,7 @@ step The Green Belt
   accept 276
 
 step Thelgen Rock
-  tip Cave Stalkers and Leech Stalkers fill Thelgen Rock, the cave south-east of the excavation site.
+  tip Cave Stalkers and Leech Stalkers fill Thelgen Rock, the cave south-east of the excavation site. Careful: Highland Lurkers and Horrors, level 28 elites, walk the same cave among them: pull the stalkers one at a time and keep clear of the elites.
   collect 280319 quest 98282              -- Unruptured Stalker Gland
 
 step The Mosshide gnolls
@@ -372,6 +362,12 @@ step Tram to Stormwind
 
 # ---------------------------------------------------------------- Stormwind
 
+step Sprite Jumpsprocket
+  when onquest 92748
+  zone Stormwind City
+  tip Still carrying Explosive Consultation (you used your Hearthstone at the end of Loch Modan)? The tram comes in at the Dwarven District, where Sprite Jumpsprocket stands.
+  turnin 92748                                -- Sprite Jumpsprocket, Dwarven District
+
 step Baros Alexston
   zone Stormwind City
   when onquest 97914
@@ -395,7 +391,6 @@ step Master Mathias Shaw
   accept 2360                             -- Master Mathias Shaw: Agent Kearnen in Westfall takes it, at the end of Duskwood's second loop
 
 step Collin Mauren
-  accept 1078
   tip The Slaughtered Lamb is in the Mage Quarter. Warlocks: Gakin the Darkbinder is in its cellar.
   turnin 1075                             -- Collin Mauren
   level 20 only Warlock

@@ -40,19 +40,31 @@
 //              w world minLevel,maxLevel
 //   npc      level;levelMax;faction;flags(r e b);instance;roles;loot;<spawns>...[;t<subName>]
 //            spawns = map,f,x,y,x,y...   (one group per map); loot = item,item,...
-//   object   treasure(1|empty);loot;<spawns>...[;m<faction>]
-//            t/m tails contain no commas, so older spawn readers skip them.
+//   object   treasure(1|empty);loot;<spawns>...[;m<faction>][;i<instance>]
+//            t/m/i tails contain no commas, so older spawn readers skip them.
 //            m marks a mailbox; faction is A/H/AH, or empty when unknown/hostile.
+//            i: the instance key it lies in (Upper Blackrock Spire's Rookery Eggs), last.
 //   quest    level;minLevel;faction;races;classes;zone;startNpc;startObject;startItem;
-//            endNpc;endObject;pre;rewards;choices;preAny;<objective>...[;<rep>][;<xp>]
+//            endNpc;endObject;pre;rewards;choices;preAny;<objective>...[;<rep>][;<xp>][;<skill>][;<parent>]
 //            objective = <k|i|o|e><id>,<count>,<text>[;p<map>,<x>,<y>,<f>]
 //              p: where the objective before it is done, for an event (its
 //                 area trigger); an older reader skips it (no objective kind is p)
 //            [;t]: the kill objective before it is a beast to tame (Taming the
 //                 Beast), not to kill; an older reader skips it too
+//            [;a<item>]: the kill objective before it is done by using that item on
+//                 the NPC (useItem, #2468); an older reader skips it (no objective kind is a)
+//            [;w<side><rank>,<lvl>]...: hostile elites at the objective before it (an
+//                 object to use, an item only objects give), for side A or H (rank 1
+//                 elite, 2 rare elite, 3 boss; lvl their highest level); an older
+//                 reader skips it (no objective kind is w)
 //            rep = r<faction>,<standing>: the standing its rewards need (an older
 //                  reader skips it: no objective kind is r)
 //            xp = x<xp>: its full XP reward (an older reader skips it too)
+//            skill = l<line>,<rank>: the profession it needs, the rank empty when
+//                  the data names none (#1913; not s, the talk objective: an older
+//                  reader skips l)
+//            parent = u<quest>: a child quest's parent, which must be in the log
+//                  for its giver to offer it (an older reader skips u too)
 //   instance kind;forever(1|empty);areaId;map;entrance(map,x,y,f[,a][,Amap,Ax,Ay]);levels;<boss>...
 //            a: approximate (the client's corpse point, not the way in)
 //            boss = name,ref,item,item...   ref = <npc> | o<object> (a chest boss), then
@@ -233,7 +245,8 @@ function encodeNpc(rec) {
 }
 
 function encodeObject(rec) {
-	return [rec.treasure ? '1' : '', list(rec.loot), ...encodeSpawns(rec.spawns), ...(rec.mailbox ? ['m' + (rec.faction || '')] : [])].join(';');
+	return [rec.treasure ? '1' : '', list(rec.loot), ...encodeSpawns(rec.spawns), ...(rec.mailbox ? ['m' + (rec.faction || '')] : []),
+		...(rec.instance ? ['i' + esc(rec.instance)] : [])].join(';');
 }
 
 function encodeQuest(rec) {
@@ -261,12 +274,16 @@ function encodeQuest(rec) {
 		if (!t) throw new Error(`codex pack: quest ${rec.id}: unknown objective type "${o.type}"`);
 		const field = `${t}${num(o.id)},${num(o.count)},${esc(o.text)}`;
 		const tame = o.tame ? ['t'] : [];
-		if (o.map === null || o.map === undefined || o.x === null || o.x === undefined || o.y === null || o.y === undefined) return [field, ...tame];
-		return [field, `p${num(o.map)},${coord(o.x)},${coord(o.y)},${o.f || ''}`, ...tame];
+		const use = o.useItem ? [`a${num(o.useItem)}`] : [];
+		const elites = ['A', 'H'].filter((s) => o.elites && o.elites[s]).map((s) => `w${s}${num(o.elites[s].rank)},${num(o.elites[s].lvl)}`);
+		if (o.map === null || o.map === undefined || o.x === null || o.x === undefined || o.y === null || o.y === undefined) return [field, ...tame, ...use, ...elites];
+		return [field, `p${num(o.map)},${coord(o.x)},${coord(o.y)},${o.f || ''}`, ...tame, ...use, ...elites];
 	});
 	const rep = rec.repFaction && rec.repStanding ? [`r${num(rec.repFaction)},${num(rec.repStanding)}`] : [];
 	const xp = rec.xp > 0 ? [`x${num(rec.xp)}`] : [];
-	return [...head, ...objectives, ...rep, ...xp].join(';');
+	const skill = rec.skill > 0 ? [`l${num(rec.skill)},${num(rec.skillLevel)}`] : [];
+	const parent = rec.parent > 0 ? [`u${num(rec.parent)}`] : [];
+	return [...head, ...objectives, ...rep, ...xp, ...skill, ...parent].join(';');
 }
 
 function encodeInstance(rec) {

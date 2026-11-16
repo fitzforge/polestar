@@ -20,7 +20,9 @@
 //! With [`HonestOpts::legacy`] the output is the JS's row for row (persona duplicates, the R3 cloth warning,
 //! R5's missed buy lines). Without it: findings deduplicated across personas and chains, every start's chain
 //! played through the shared guides, the "unflagged quest item" R3 warning demoted to info, `buy` lines
-//! covering the knowledge base's buy steps, and the rules R6-R10 ([`rules`]):
+//! covering the knowledge base's buy steps, R3 taking the objective items of a quest the chain hands in
+//! `direct` as obtainable with no quest in the log, a `direct` hand-in giving its reward items, and the
+//! rules R6-R10 ([`rules`]):
 //!
 //! - R6 race/class/faction gating from the data: the quest's masks exclude the persona and no `only` gates
 //!   the line (fail); an `only` on a quest the data opens to everyone (warn).
@@ -65,8 +67,9 @@ pub const RIDE_WALK_YD: f64 = 2000.0;
 /// A plain goto into another zone farther than this is a walk across zones, not a way into the next
 /// (estimate: two zones' breadth).
 pub const WALK_FAR_YD: f64 = 4000.0;
-/// The quest log's size (R9).
-pub const LOG_MAX: usize = 20;
+/// The quest log's size (R9): Forever's quest log holds 40, the addon's `Compat.GetLogCap` when the
+/// client does not say (its MAXIMUM_NUM_QUESTS_LOG_CAN_ACCEPT); players' recordings hold 40 at once.
+pub const LOG_MAX: usize = 40;
 /// The knowledge base's step kinds a turn-in needs a line for.
 pub const KB_ACTIONS: [&str; 6] = ["use-item", "combine", "summon", "escort", "buy", "collect-object"];
 
@@ -523,6 +526,9 @@ fn play_chain_in(ctx: &world::Ctx, chain: &[&V], persona: &Persona, kb: Option<&
 fn play_chain_with(ctx: &world::Ctx, chain: &[&V], persona: &Persona, kb: Option<&Kb>, report: Option<&FxHashSet<String>>, opts: &HonestOpts, trace: &mut Option<Vec<TraceRow>>) -> Vec<Finding> {
 	let mut w = world::World::new(ctx, persona.clone(), kb, opts);
 	w.trace = trace.take();
+	if !opts.legacy {
+		w.direct = play::direct_turnins(chain, persona);
+	}
 	for g in chain {
 		let reporting = report.is_none_or(|r| r.contains(&guide_id(g)));
 		play::play_guide(&mut w, g, reporting);

@@ -126,6 +126,34 @@ fn open_work_of_every_later_step_for_quests_in_the_log_qualifies_whatever_is_lef
 	);
 }
 
+// Fitz's level rule: never send a solo player at mobs 2 or more levels above them; 1 above is fine. A line's mobs (a
+// spot's `lvl`, else the goal's) may be at most HERE_MOBS_ABOVE (1) over the player, so a quest carried for later is
+// not offered back at a camp 2 over as the route passes it. The quest's own level may be 2 over (HERE_ABOVE): a
+// level-7 quest whose mobs are 6 is a fine line at 5, and so is the pick-up of a level-7 quest. Level 5 here: step 7's
+// ogres (quest 51), step 3's candles in two spawn areas, step 5's accept of 106.
+#[test]
+fn a_carried_quests_camp_two_levels_up_is_not_offered_one_level_up_is_whatever_the_quests_own_level() {
+	let spots = "spots = { { x = 52.0, y = 35.1, r = 15, n = 3 }, { x = 53.0, y = 36.0, r = 10, n = 2 } }";
+	let row = |edits: &[(&str, &str)]| {
+		let guide = edits.iter().fold(GUIDE.replace("ESCORT", ""), |g, (from, to)| g.replace(from, to));
+		let out = run_guide(&guide, "test/here", "emit(cands())");
+		out[0].as_str().unwrap().split(' ').map(str::to_owned).collect::<Vec<_>>()
+	};
+	let has = |rows: &[String], step: &str| rows.iter().any(|r| r.starts_with(step));
+	let ogres = |lvl: &str| row(&[("oi = 1, lvl = 9,", &format!("oi = 1, {lvl}"))]);
+	assert!(!has(&ogres("lvl = 7,"), "7:"), "ogres 2 over: no line: {:?}", ogres("lvl = 7,"));
+	assert!(has(&ogres("lvl = 6,"), "7:1:work:1"), "ogres 1 over: the line: {:?}", ogres("lvl = 6,"));
+	assert!(has(&ogres("qlvl = 7, lvl = 6,"), "7:1:work:1"), "a quest 2 over, its ogres 1 over: the line: {:?}", ogres("qlvl = 7, lvl = 6,"));
+	// A spot's own level counts for that spot: both spawn areas 2 over, none; one of them 1 over, the line.
+	let candles = |a: &str, b: &str| row(&[(spots, &format!("spots = {{ {{ x = 52.0, y = 35.1, r = 15, n = 3, lvl = {a} }}, {{ x = 53.0, y = 36.0, r = 10, n = 2, lvl = {b} }} }}"))]);
+	assert!(!has(&candles("7", "7"), "3:"), "both candle spots 2 over: no line: {:?}", candles("7", "7"));
+	assert!(has(&candles("7", "6"), "3:1:work:2"), "one candle spot 1 over: the line: {:?}", candles("7", "6"));
+	// The pick-up of a quest 2 over stays a line (the quest's level alone makes no camp dangerous); 3 over does not.
+	let accept = |qlvl: &str| row(&[("qlvl = 9, map = 1429, x = 47.5, y = 35.5", &format!("qlvl = {qlvl}, map = 1429, x = 47.5, y = 35.5"))]);
+	assert!(has(&accept("7"), "5:1:take"), "a pick-up 2 over: the line: {:?}", accept("7"));
+	assert!(!has(&accept("8"), "5:"), "a pick-up 3 over: no line: {:?}", accept("8"));
+}
+
 // A guide that leaves Elwynn and comes back: 1 (live) the wolves far off at 60,60 · 2 candles as you go (an along
 // step, not listed yet) · 3 to Westfall · 4 a murloc for 50 in Westfall at the same map coordinates as the player
 // stands in Elwynn · 5 hearth · 6 the vermin, back in Elwynn · 7 accept 106 · 8 bandits for 88 (not in the log) ·
@@ -298,10 +326,10 @@ fn shown_rows_keep_their_places_until_one_is_30_yards_nearer() {
 	assert_eq!(out, vec![json!("2:1:10 3:1:30"), json!("2:1:30 3:1:10"), json!("3:1:0 2:1:40")]);
 }
 
-// Fitz, 0.3.5 preview: an Undead Warlock, level 13, on The Barrens guide's Razormane camp step (15), Fungal Spores
+// Fitz, 0.3.5 preview: an Undead Warlock, level 13, on The Barrens guide's Razormane camp step (16), Fungal Spores
 // (848) in the log at 0/1, chasing plainstriders and raptors for the slow beak and head drops (background goals)
 // out to the Stagnant Oasis, the arrow 946 yd off on the camp. The spores' Laden Mushrooms grow there, yet no line
-// came: the spores' step (39, after the flight back from Ratchet and the trips to Durotar for other classes) lay
+// came: the spores' step (27, after the flight back from Ratchet; 39 before the 0.4.0 route audit) lay
 // past where the scan stopped at the flight. The Zhevra (845) are a candidate too; no runner spawns within reach of
 // the oasis, and at a runner camp they show. The guide as shipped (guides/forever/horde/02-the-barrens.guide,
 // compiled with data/forever; skipped with a note without it).
@@ -353,8 +381,8 @@ stub.login()
 stub.fire("QUEST_LOG_UPDATE")
 {HELPERS}
 E.SetGuide("forever/horde/02-the-barrens"); flush()
--- The Crossroads step's flight path (step 12) is the only thing between: skip it as he had it.
-for _ = 1, 3 do if E.GetLiveStep() < 15 then E.Skip(); flush() end end
+-- The Crossroads step's flight path (step 13) is the only thing between: skip it as he had it.
+for _ = 1, 3 do if E.GetLiveStep() < 16 then E.Skip(); flush() end end
 w.moveTo(1413, 55.08, 41.61); stub.advance(0.6); stub.advance(0.6)
 local v, x = E.GetWhileHere(), E.GetWaypoint()
 local c, px, py = Polestar.Compat.GetPlayerWorldPosition()
@@ -365,7 +393,7 @@ local function report()
 end
 emit({{ live = E.GetLiveStep(), arrow = x.stepIndex, arrowYards = wc == c and math.floor(((wx - px) ^ 2 + (wy - py) ^ 2) ^ 0.5) or false,
 	step = v and v.step or false, index = v and v.index or false, text = v and v.hereText or false, yards = v and v.yards or false,
-	zhevra = cands():find("18:1:work", 1, true) ~= nil, report = report() }})
+	zhevra = cands():find("19:1:work", 1, true) ~= nil, report = report() }})
 -- At the oasis' north edge both show at once: the hooves first (the route's next steps), then the spores.
 w.moveTo(1413, 55.0, 40.5); stub.advance(0.6); stub.advance(0.6)
 emit(lines())
@@ -381,11 +409,11 @@ local function rowOf(step)
 	return nil
 end
 local before = chimes()
-E.DismissWhileHere(rowOf(39)); flush()
-local gone = rowOf(39) == nil
+E.DismissWhileHere(rowOf(27)); flush()
+local gone = rowOf(27) == nil
 w.moveTo(1413, 55.0, 38.7); stub.advance(0.6); stub.advance(121)
 w.moveTo(1413, 55.0, 40.5); stub.advance(0.6); stub.advance(0.6)
-emit({{ gone = gone, back = rowOf(39) ~= nil, chimed = chimes() > before }})
+emit({{ gone = gone, back = rowOf(27) ~= nil, chimed = chimes() > before }})
 -- Fitz on 0.3.5 at 60 yd: among four Zhevra Runners just north of the oasis, no line. Their camp there is an
 -- alternative spot (54.5,38, 59 yd across) 33 yd off; the nearest of the guide's picked spots is 94 yd off.
 Polestar.Set("behavior.whileHereRadius", 60); flush()
@@ -401,11 +429,11 @@ emit({{ here(), report() }})
 -- 393 yd: the row measured to a zone-wide area's edge. Now the row, the reach and the arrow use the spot's centre.
 Polestar.Set("behavior.whileHereRadius", 180); flush()
 local function zhevra()
-	for i, v in ipairs(E.GetWhileHereList()) do if v.step == 18 then return i, v end end
+	for i, v in ipairs(E.GetWhileHereList()) do if v.step == 19 then return i, v end end
 	return nil
 end
 local function nearest()
-	local goal = E.AlongGoal(18, 1)
+	local goal = E.AlongGoal(19, 1)
 	local c, px, py = Polestar.Compat.GetPlayerWorldPosition()
 	local best
 	for _, s in ipairs(goal.spots) do
@@ -433,21 +461,24 @@ emit({{ nearest = math.floor(nearest()), row = row, after = after and after.yard
 		loads.join("\n")
 	);
 	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], before, addons: vec![Addon::name("Polestar")], script, ..Default::default() });
-	assert_eq!(out[0]["live"], 15, "the Razormane camp step is live");
-	assert_eq!(out[0]["arrow"], 15, "the arrow stays on the live step");
+	assert_eq!(out[0]["live"], 16, "the Razormane camp step is live");
+	assert_eq!(out[0]["arrow"], 16, "the arrow stays on the live step");
 	assert!(out[0]["arrowYards"].as_f64().unwrap() > 500.0, "the camp is far off: {}", out[0]);
-	assert_eq!(out[0]["step"], 39, "the spores' step, The Barrens: kill these as you meet them: {}", out[0]);
+	assert_eq!(out[0]["step"], 27, "the spores' step, The Barrens: kill these as you meet them: {}", out[0]);
 	assert_eq!(out[0]["text"], "Collect Fungal Spores from Laden Mushroom, 1 more", "{}", out[0]);
-	assert_eq!(out[0]["yards"], 55, "to the centre of the mushrooms' spawn spot at the oasis: {}", out[0]);
+	// 70 yd since the 7,940-session recordings (65 on the first 0.4.0 data, 55 before): players' learned spot for the
+	// spores at the oasis moved from 55.41,42.44 (16 people) to 55.44,42.47 (18), the row still measuring to a spot's
+	// centre.
+	assert_eq!(out[0]["yards"], 70, "to the centre of the mushrooms' spawn spot at the oasis: {}", out[0]);
 	assert_eq!(out[0]["zhevra"], true, "the zhevra are a candidate too; the spores, found in fewer places, come first: {}", out[0]);
 	let shown = out[0]["report"].as_str().unwrap();
-	assert!(shown.starts_with("While here: Collect Fungal Spores from Laden Mushroom, 1 more · quest 848 · step ") && shown.contains("(guide 39) · 55 yd"), "{shown}");
+	assert!(shown.starts_with("While here: Collect Fungal Spores from Laden Mushroom, 1 more · quest 848 · step ") && shown.contains("(guide 27) · 70 yd"), "{shown}");
 	assert!(shown.contains(" · radius 180 yd · "), "{shown}");
 	let both = out[1].as_str().unwrap();
-	assert!(both.starts_with("18:1:") && both.split(' ').nth(1).is_some_and(|z| z.starts_with("39:3:")), "hooves (the route's next steps) then spores (later in the guide) at the oasis edge: {both}");
+	assert!(both.starts_with("19:1:") && both.split(' ').nth(1).is_some_and(|z| z.starts_with("27:3:")), "hooves (the route's next steps) then spores (later in the guide) at the oasis edge: {both}");
 	assert_eq!(out[2], json!({ "gone": true, "back": true, "chimed": true }), "dismissed, 120 yd off, back at the same pool after two minutes: {}", out[2]);
-	assert_eq!(out[3], json!("18:1 Collect Zhevra Hooves, 4 more 35"), "Fitz among the runners north of the oasis, their camp's centre 33 yd off");
-	assert_eq!(out[4], json!("18:1 Collect Zhevra Hooves, 4 more 0"), "at a runner camp the zhevra show");
+	assert_eq!(out[3], json!("19:1 Collect Zhevra Hooves, 4 more 35"), "Fitz among the runners north of the oasis, their camp's centre 33 yd off");
+	assert_eq!(out[4], json!("19:1 Collect Zhevra Hooves, 4 more 0"), "at a runner camp the zhevra show");
 	assert_eq!(out[5][0], json!("none"), "ready to hand in: no line");
 	let none = out[5][1].as_str().unwrap();
 	assert!(none.starts_with("While here: none · radius 60 yd · ") && none.contains("nearest quest 845, step ") && none.ends_with("out of radius"), "{none}");
@@ -455,7 +486,7 @@ emit({{ nearest = math.floor(nearest()), row = row, after = after and after.yard
 	assert!(camp["nearest"].as_f64().unwrap() > 180.0, "no Zhevra spot within 180 yd of the camp: {camp}");
 	assert_eq!(camp["shown"], false, "so no hooves row at the camp: {camp}");
 	let road = &out[7];
-	assert_eq!(road["step"], 18, "the arrow leads to the hooves: {road}");
+	assert_eq!(road["step"], 19, "the arrow leads to the hooves: {road}");
 	let (row, after, arrow) = (road["row"].as_f64().unwrap(), road["after"].as_f64().unwrap(), road["arrow"].as_f64().unwrap());
 	assert!((row - arrow).abs() <= 5.0 && (after - arrow).abs() <= 5.0, "the row and the arrow say the same yards: {road}");
 }
@@ -751,6 +782,48 @@ fn a_hand_in_waits_for_the_route_by_its_walk_not_by_its_steps() {
 	assert_eq!(town, vec![json!([true, "none"])], "the route stays by him for three steps");
 }
 
+// The Dynamic Questing audits (0.3.7): after a hand-in ahead of the route, its follow-up at the same NPC is taken
+// there, however far on the route takes it (players take it within 2 minutes 77% of the time; without it the route
+// sends them back). Dughan's step (8) hands in A Fishy Peril (40) and takes its follow-up (41), seven steps after the
+// live one, past the 5 steps the route's "next steps" cover. With auto-accept off, While-here offers "Take" at him once
+// 40 is handed in; with it on, the window the game opens after the hand-in is accepted.
+fn follow_up_guide() -> String {
+	turnins(20.0, &[ELSEWHERE; 6], "").replace(
+		r#"{ t = "turnin", quest = 7,"#,
+		r#"{ t = "accept", quest = 41, title = "The Fishy Peril II", npc = 240, npcName = "Marshal Dughan", map = 1429, x = 42.0, y = 35.1, pre = { 40 } }, { t = "turnin", quest = 7,"#,
+	)
+}
+
+#[test]
+fn the_follow_up_of_an_early_hand_in_is_offered_however_far_on_the_route_takes_it() {
+	let off = run_turnins(
+		&follow_up_guide(),
+		r#"
+		Polestar.Set("behavior.autoAccept", false); flush()
+		at(42.0, 35.3)
+		w.turnIn(40); flush(); at(42.0, 35.3)
+		local v = E.GetWhileHere()
+		emit({ cands(), v and (v.step .. ":" .. v.index .. " " .. v.hereText) or "none" })
+	"#,
+	);
+	assert_eq!(off[0][0], "8:2:take:0", "{off:?}");
+	assert!(off[0][1].as_str().unwrap_or("").starts_with("8:2 Take “The Fishy Peril II” from Marshal Dughan"), "{off:?}");
+	let on = run_turnins(
+		&follow_up_guide(),
+		r#"
+		at(42.0, 35.3)
+		w.calls = {}
+		w.turnIn(40); w.questDetail(240, 41); flush()
+		local calls = {}
+		for i, x in ipairs(w.calls) do calls[i] = tostring(x[1]) .. " " .. tostring(x[2]) end
+		emit({ table.concat(calls, ", "), E.GetLiveStep(), E.GoalDone(8, 2) })
+	"#,
+	);
+	assert!(on[0][0].as_str().unwrap().contains("AcceptQuest 41"), "{on:?}");
+	assert_eq!(on[0][1], 1, "the live step stays: {on:?}");
+	assert_eq!(on[0][2], true, "Dughan's accept reads done: {on:?}");
+}
+
 // Fitz on 0.3.6 (build f5fbd242a), his /polestar report: a level 3 Tauren Warrior on Mulgore's Grull Hawkwind step
 // (hand in The Hunt Continues, 750; the arrow 411 yd north at 44.47,77.50), standing at 42.79,87.19 on Red Cloud Mesa,
 // 121 yd from Seer Graytongue (2982, 42.54,90.13), with Rites of the Earthmother (755), 750 and 1656 ready: "While
@@ -876,9 +949,9 @@ emit({{ seer = seer, camp = camp, report = report, calls = table.concat(calls, "
 }
 
 // The Barrens as shipped: an Orc Warrior at 14, in from Far Watch Post on the road west, 60 yd past Thun'grim Firegaze
-// (5878) with his breadcrumb (1502, "Thun'grim Firegaze") ready, while the guide's step 3 sends him 449 yd on to the
-// Crossroads and step 4 brings him back east. The whole visit shows, and the quest named after its NPC is not said
-// twice ("… to them"). At his window 1502 is handed in and Forged Steel (1503) taken ahead; step 4 reads done.
+// (5878) with his breadcrumb (1502, "Thun'grim Firegaze") ready, while the guide's step 4 sends him 449 yd on to the
+// Crossroads and step 5 brings him back east. The whole visit shows, and the quest named after its NPC is not said
+// twice ("… to them"). At his window 1502 is handed in and Forged Steel (1503) taken ahead; step 5 reads done.
 #[test]
 fn barrens_thungrim_firegaze_a_quest_named_after_its_npc_is_handed_in_to_them() {
 	use forge_addontest::dsl::{compile_with, our_manifest, write_test_pack};
@@ -922,8 +995,8 @@ w.moveTo(1413, 56.64, 30.42); stub.advance(0.6); stub.advance(0.6)
 local rows = {{}}
 for _, v in ipairs(E.GetWhileHereList()) do rows[#rows + 1] = v.step .. ":" .. v.index .. " " .. v.hereText end
 local live = E.GetLiveStep()
--- The guide window's row for step 4's hand-in: the quest, no "at Thun'grim Firegaze" after it.
-local g4 = E.GetStepView(4).goals[1]
+-- The guide window's row for step 5's hand-in: the quest, no "at Thun'grim Firegaze" after it.
+local g4 = E.GetStepView(5).goals[1]
 local row4 = {{ verb = g4.verb, subject = g4.subject, detail = g4.detail or false }}
 w.moveTo(1413, 57.2, 30.35); stub.advance(0.6); stub.advance(0.6)
 w.calls = {{}}
@@ -931,16 +1004,16 @@ w.questProgress(5878, 1502); flush()
 w.questDetail(5878, 1503); flush()
 local calls = {{}}
 for _, x in ipairs(w.calls) do if x[1] == "AcceptQuest" or x[1] == "GetQuestReward" then calls[#calls + 1] = x[1] .. " " .. tostring(x[2]) end end
-emit({{ live = live, rows = rows, row4 = row4, calls = table.concat(calls, ", "), after = E.GetLiveStep(), done = {{ E.GoalDone(4, 1), E.GoalDone(4, 2) }} }})
+emit({{ live = live, rows = rows, row4 = row4, calls = table.concat(calls, ", "), after = E.GetLiveStep(), done = {{ E.GoalDone(5, 1), E.GoalDone(5, 2) }} }})
 "#,
 		loads.join("\n")
 	);
 	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], before, addons: vec![Addon::name("Polestar")], script, ..Default::default() }).remove(0);
-	assert_eq!(out["live"], 3, "the Crossroads step is live: {out}");
-	let visit = "4:1 Hand in “Thun'grim Firegaze” to them, then take “Forged Steel”: saves a trip back";
+	assert_eq!(out["live"], 4, "the Crossroads step is live: {out}");
+	let visit = "5:1 Hand in “Thun'grim Firegaze” to them, then take “Forged Steel”: saves a trip back";
 	assert!(out["rows"].as_array().unwrap().iter().any(|r| r == visit), "{out}");
 	assert_eq!(out["calls"], "GetQuestReward 1502, AcceptQuest 1503", "{out}");
-	assert_eq!(out["after"], 3, "{out}");
+	assert_eq!(out["after"], 4, "{out}");
 	assert_eq!(out["done"], json!([true, true]), "{out}");
 	assert_eq!(out["row4"], json!({ "verb": "Turn in", "subject": "Thun'grim Firegaze", "detail": false }), "{out}");
 }
@@ -1159,7 +1232,7 @@ local after = { rows = rows(), live = E.GetLiveStep(), crossDone = E.GoalDone(cr
 -- 872's objectives at the Razormane camp's western half, the crates (the live step) further east.
 go(56.8, 24.6)
 local camp = rows()
--- The crates found: the route goes to Thork for their hand-in (17), and on past it once handed in.
+-- The crates found: the route goes to Thork for their hand-in (18), and on past it once handed in.
 w.progress(5041, 1, 1); flush(); stub.advance(0.6)
 local atCross = E.GetLiveStep()
 w.turnIn(5041); flush(); stub.advance(0.6)
@@ -1173,15 +1246,15 @@ fn barrens_walking_up_to_thork_the_disruption_ends_is_a_pick_up_line_with_auto_a
 		let Some(out) = thork("871", "", &THORK_TAKE.replace("AUTO", if auto { "true" } else { "false" })) else { return };
 		let take = format!("{}:", out["cross"]);
 		let is_take = |l: &Value| l.as_str().is_some_and(|l| l.starts_with(&take) && l.contains("Take “The Disruption Ends” from Thork: saves a trip back"));
-		assert_eq!(out["live"], 15, "the Razormane camp step is live: {out}");
+		assert_eq!(out["live"], 16, "the Razormane camp step is live: {out}");
 		assert!(!list(&out["far"]).iter().any(is_take), "450 yd east: no pick-up: {out}");
 		assert!(list(&out["near"]).iter().any(is_take), "at Thork, auto-accept {auto}: the pick-up line: {out}");
 		assert_eq!(out["arrow"], format!("{}:{}", out["cross"], 5), "a click points the arrow at Thork's accept: {out}");
 		let after = &out["after"];
 		assert_eq!(after["on872"], true, "taken: {out}");
 		assert!(!list(&after["rows"]).iter().any(is_take), "the line goes once it is taken: {out}");
-		assert_eq!(after["live"], 15, "the live step stays: {out}");
-		assert_eq!(after["crossDone"], true, "step 17's accept reads done: {out}");
+		assert_eq!(after["live"], 16, "the live step stays: {out}");
+		assert_eq!(after["crossDone"], true, "step 18's accept reads done: {out}");
 		assert_eq!(after["handinDone"], false, "the hand-in stays where the guide has it: {out}");
 		assert!(out["handin"].as_u64().unwrap() > out["cross"].as_u64().unwrap() + 5, "{out}");
 		assert!(list(&out["camp"]).iter().any(|l| l.as_str().is_some_and(|l| l.contains("Razormane Geomancer") || l.contains("Razormane Defender"))), "872's kills come up at the camp: {out}");
@@ -1227,6 +1300,84 @@ emit({ cross = cross[1], rows = rows() })
 		let take = format!("{}:", out["cross"]);
 		assert!(!list(&out["rows"]).iter().any(|l| l.as_str().is_some_and(|l| l.starts_with(&take) && l.contains("The Disruption Ends"))), "{why}: no pick-up: {out}");
 	}
+}
+
+// #1705: the Tattered Spellbook offers Old Habits only while Nek'rosh's Gambit (465) or Defeat Nek'rosh (474) is in
+// the log, and the guide's step for it says so (`when onquest 465,474`, before the catapult that takes 465). While
+// you're here and auto-accept read that step: with 465 in the log the book is a pick-up on the way; with 465 handed
+// in and 474 never taken (a solo player), it is neither offered nor taken. Only the book's row is read: the catapult
+// stands in reach of the book too, and what its own steps offer there is theirs.
+#[test]
+fn old_habits_is_offered_only_while_its_steps_gate_holds() {
+	let guide = r#"
+Polestar.RegisterGuide({
+	id = "test/here", pack = "test", title = "Angerfang Encampment", minLevel = 1, maxLevel = 40,
+	steps = {
+		{ title = "To Deepwater Tavern", goals = { { t = "goto", map = 1429, x = 10.7, y = 61 } } },
+		{ title = "Tattered Spellbook", when = { { k = "onquest", q = { 465, 474 } } }, goals = { { t = "accept", quest = 98223, object = 671518, title = "Old Habits", map = 1429, x = 53.48, y = 54.53 } } },
+		{ title = "Catapult", goals = { { t = "turnin", quest = 465, title = "Nek'rosh's Gambit", object = 630696, map = 1429, x = 47.5, y = 47 } } },
+		{ title = "Defeat Nek'rosh", goals = { { t = "accept", quest = 474, title = "Defeat Nek'rosh", object = 630696, pre = { 465 }, map = 1429, x = 47.5, y = 47 } } },
+		{ title = "Chieftain Nek'rosh", goals = { { t = "collect", quest = 474, oi = 1, item = 3625, itemName = "Nek'rosh's Head", count = 1, map = 1429, x = 53.5, y = 54.7 } } },
+	},
+})
+"#;
+	let out = run_guide_with(
+		guide,
+		"test/here",
+		r#"
+w.accept(465, {})
+w.setLevel(31)
+Polestar.Set("behavior.whileHereRadius", 180)
+flush()
+"#,
+		r#"
+at(53.48, 54.53)
+w.units.npc = "GameObject-0-1-0-1-671518-000001"
+local function book() return (" " .. cands() .. " "):find(" 2:1:take:", 1, true) ~= nil end
+emit({ step = E.GetLiveStep(), book = book(), wants = E.WantsQuest("accept", 98223) })
+w.turnIn(465); flush()
+emit({ step = E.GetLiveStep(), book = book(), wants = E.WantsQuest("accept", 98223) })
+"#,
+	);
+	assert_eq!(out[0], json!({ "step": 1, "book": true, "wants": true }), "465 in the log: the book is a pick-up on the way");
+	// Handed in at the catapult, 465's step is done and the guide follows on to Defeat Nek'rosh (step 4).
+	assert_eq!(out[1], json!({ "step": 4, "book": false, "wants": false }), "465 handed in, 474 never taken: the book is neither offered nor taken");
+}
+
+#[test]
+fn early_pickups_respect_active_parents_and_the_footlockers_hand_in_order() {
+	let guide = r#"
+Polestar.RegisterGuide({
+	id = "test/here", pack = "test", title = "Pickup prerequisites", minLevel = 1, maxLevel = 40,
+	steps = {
+		{ title = "Live", goals = { { t = "kill", quest = 7, oi = 1, target = "Kobold Vermin", npc = 6, count = 10, map = 1429, x = 60, y = 60 } } },
+		{ title = "Krusk", goals = { { t = "accept", quest = 533, title = "Infiltration", npc = 2229, map = 1429, x = 70, y = 70 } } },
+		{ title = "Valik", goals = { { t = "accept", quest = 535, title = "Valik", parent = 533, npc = 2333, map = 1429, x = 47.5, y = 45 } } },
+		{ title = "Syndicate Footlocker", goals = {
+			{ t = "turnin", quest = 96783, title = "A Way In", object = 656157, map = 1429, x = 47.5, y = 45 },
+			{ t = "accept", quest = 96784, title = "Master of Disguise", object = 656157, map = 1429, x = 47.5, y = 45 },
+		} },
+		{ title = "Shards of Myzrael", goals = {
+			{ t = "turnin", quest = 635, title = "Crystal in the Mountains", object = 138492, map = 1429, x = 47.5, y = 45, optional = true },
+			{ t = "accept", quest = 642, title = "The Princess Trapped", object = 138492, map = 1429, x = 47.5, y = 45 },
+		} },
+		{ title = "Back to Krusk", goals = { { t = "turnin", quest = 533, title = "Infiltration", npc = 2229, map = 1429, x = 70, y = 70 } } },
+	},
+})
+"#;
+	let out = run_guide(
+		guide,
+		"test/here",
+		r#"
+at(47.5, 45)
+emit(cands())
+w.accept(533, { 1 }); w.accept(96783, {}); flush()
+emit(cands())
+w.turnIn(533); w.turnIn(96783); flush()
+emit(cands())
+"#,
+	);
+	assert_eq!(out, vec![json!("2:1:take:0 5:2:take:0"), json!("3:1:take:0 4:1:turnin:0 5:2:take:0"), json!("4:2:take:0 5:2:take:0"),]);
 }
 
 // No zone stops While you're here (Fitz, 0.3.6): a guide whose live step is in Elwynn shows a pick-up of its
@@ -1319,15 +1470,26 @@ fn never_in_an_instance_on_a_taxi_while_hearthing_or_during_a_timed_or_escort_qu
 		stub.advance(0.6); emit(here())
 		GetQuestTimers = nil
 		stub.advance(0.6); emit(here())
+		-- Dead or a ghost (Fitz, 0.3.7.1: hand-ins at the Crossroads offered to a ghost by its graveyard): nothing,
+		-- and the line is back on being revived.
+		function UnitIsDeadOrGhost(unit) return unit == "player" end
+		stub.advance(0.6); emit(here())
+		UnitIsDeadOrGhost = nil
+		stub.advance(0.6); emit(here())
 	"#);
 	let v = "2:1 Kill Kobold Vermin, 2 more 50";
-	assert_eq!(out, vec![json!(v), json!("none"), json!(v), json!("none"), json!("none"), json!("none"), json!(v)]);
+	assert_eq!(out, vec![json!(v), json!("none"), json!(v), json!("none"), json!("none"), json!("none"), json!(v), json!("none"), json!(v)]);
 	// The live step escorts someone: nothing for the whole step.
 	let escort = run_edit(r#"at(47.6, 37.6); emit(here())"#, "ESCORT", ", escort = true");
 	assert_eq!(escort, vec![json!("none")]);
+	// Barrens, Ignition then The Escape (Fitz, 0.3.7.1): the live step's escort is only taken at its end, after
+	// other work; until it is taken, lines show as usual (the Nugget Slugs' tool buckets beside Lugwizzle).
+	let not_taken =
+		run_edit(r#"at(47.6, 37.6); emit(here())"#, "ESCORT", r#" }, { t = "accept", quest = 99, title = "The Escape", npc = 5, npcName = "Shredder", map = 1429, x = 60, y = 60, escort = true"#);
+	assert_eq!(not_taken, vec![json!(v)]);
 }
 
-// T1327: Forever's client may have no GetQuestTimers, only the quest log's time allowed. A quest of the log with a
+// Forever's client may have no GetQuestTimers, only the quest log's time allowed. A quest of the log with a
 // running timer (Compat.QuestTimerRunning) offers no detour to another quest's work; one whose time ran out
 // (failed), or none timed, changes nothing.
 #[test]
@@ -1336,11 +1498,14 @@ fn a_timer_the_quest_log_reports_without_the_old_timer_list_offers_no_detour_eit
 		GetQuestTimers = nil
 		at(47.6, 37.6); emit(here())
 		C_QuestLog.GetTimeAllowed = function(q) if q == 33 then return 900, 600 end return 0 end
+		stub.fire("QUEST_LOG_UPDATE")
 		stub.advance(0.6); emit(here())
-		C_QuestLog.IsFailed = function() return true end
+		C_QuestLog.IsFailed = function(q) return q == 33 end -- only the timed quest's time ran out
+		stub.fire("QUEST_LOG_UPDATE")
 		stub.advance(0.6); emit(here())
 		C_QuestLog.IsFailed = nil
 		C_QuestLog.GetTimeAllowed = function() return 0 end
+		stub.fire("QUEST_LOG_UPDATE")
 		stub.advance(0.6); emit(here())
 	"#);
 	let v = "2:1 Kill Kobold Vermin, 2 more 50";
@@ -1357,9 +1522,11 @@ fn a_running_timer_keeps_its_own_quests_lines_and_parks_the_rest_until_it_stops(
 		GetQuestTimers = nil
 		at(47.6, 37.6); emit(lines())                   -- rows 10, 20, 30 yd; row 5 (quest 305) at 50 waits
 		TIMER
+		stub.fire("QUEST_LOG_UPDATE")
 		stub.advance(0.6); emit(lines())                -- 305's clock: its line alone
 		GetQuestTimers, GetQuestIndexForTimer = nil, nil
 		C_QuestLog.GetTimeAllowed = function() return 0 end
+		stub.fire("QUEST_LOG_UPDATE")
 		stub.advance(0.6); emit(lines())
 	"#;
 	let log = r#"C_QuestLog.GetTimeAllowed = function(q) if q == 305 then return 600, 10 end return 0 end"#;
@@ -1597,7 +1764,8 @@ fn the_step_key_targets_a_line_s_mobs_after_the_live_step_s_own_1316() {
 			HELPERS,
 			"stub.login()",
 			r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#,
-			r#"Polestar.Set("behavior.whileHereRadius", 60); stub.advance(0.6)"#,
+			// The macro lines without Mark target's (on by default) icon line.
+			r#"Polestar.Set("behavior.whileHereRadius", 60); Polestar.Set("qol.markTarget", false); stub.advance(0.6)"#,
 			r#"
 			local function key() return PolestarStepButton:GetAttribute("macrotext") or "nil" end
 			emit({ Polestar.GetDefault("behavior.whileHereStepKey"), lines(), key() })
@@ -1692,7 +1860,9 @@ fn dismissing_an_objective_several_steps_hold_hides_every_copy() {
 // learns it; a click leads the arrow there. Not one of the other faction (Horde Camp), of another class (a Druid
 // grove for this Warrior), already known, or out of reach (Neutral Post, 1,200 yd off). Learning it ("New flight path
 // discovered") ends the line and ticks the guide's later getfp goal for it while the live step stays; the setting
-// turns the lines off. Nav as the addon loads it, its taxi nodes the test's.
+// turns the lines off. Nav as the addon loads it, its taxi nodes the test's (Stormwind's, far off, is where the #1795
+// test opens a flight map). The character has opened a flight map on this continent before (SEEN), unless a test
+// says otherwise (#1795).
 const FLY_GUIDE: &str = r#"
 Polestar.RegisterGuide({ id = "test/fly", pack = "test", title = "Fly", minLevel = 1, maxLevel = 10, steps = {
 	{ title = "Wolves", goals = { { t = "kill", target = "Young Wolf", npc = 299, count = 8, quest = 33, oi = 1, map = 1429, x = 60, y = 60 } } },
@@ -1707,6 +1877,7 @@ Polestar.Nav.RegisterTravelData({ build = "test", taxi = {
 	{ 3, 0, -320, 30, 1429, 49, 41, 2, "Horde Camp, Elwynn Forest" },
 	{ 4, 0, -1100, 900, 1429, 20, 80, 3, "Neutral Post, Elwynn Forest" },
 	{ 5, 0, -300, 60, 1429, 48, 40, 3, "Grove, Elwynn Forest", "DRUID" },
+	{ 6, 0, 300, -1200, 1429, 90, 10, 1, "Stormwind, Elwynn Forest" },
 } }, true)
 Polestar.Set("behavior.whileHereRadius", 60)
 -- The travel data's points are on the game's frame ("e"): this world's Elwynn is that frame too.
@@ -1722,12 +1893,20 @@ function fly()
 end
 "#;
 
+// Saved character data: a flight map opened on Elwynn's continent before (SEEN), or none ever (UNSEEN).
+const SEEN: &str = r#"PolestarCharDB = { schema = 1, guide = "test/fly", flags = { taxiSeen = { [0] = true } } }"#;
+const UNSEEN: &str = r#"PolestarCharDB = { schema = 1, guide = "test/fly" }"#;
+
 fn run_fly(script: &str) -> Vec<Value> {
+	run_fly_as(SEEN, script)
+}
+
+fn run_fly_as(saved: &str, script: &str) -> Vec<Value> {
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: WORLD.into(),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml"])],
-		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/fly" }"#.into())],
+		saved: vec![("Polestar".into(), saved.into())],
 		script: [TEST_PACK, TEST_SOURCE, FLY_GUIDE, HELPERS, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, FLY_NODES, script].join("\n"),
 		..Default::default()
 	})
@@ -1780,11 +1959,86 @@ fn a_known_flight_path_never_shows_nor_one_in_a_fight() {
 	assert_eq!(out, vec![json!("none"), json!([[1, -2, 2, "getfp", "Learn the flight path at Goldshire", "Step 2"]]), json!("none")]);
 }
 
+// #1795: Polestar knows a flight path only from a flight map (on Forever the world map's flight points mark none
+// undiscovered), so one learnt before Polestar ran is unknown to it until a flight map opens on that continent. Until
+// then no line asks for one there: at Goldshire's flight master, no flight map opened yet, nothing. Stormwind's flight
+// map, without Goldshire on it, shows the character lacks Goldshire's: the line comes. Once a flight map lists
+// Goldshire, it goes and the guide's getfp step for it is done.
+#[test]
+fn no_flight_path_line_on_a_continent_until_a_flight_map_opens_there_1795() {
+	let out = run_fly_as(
+		UNSEEN,
+		r#"
+		at(49.6, 40.6)                                  -- 17 yd from Goldshire's flight master
+		emit(fly())
+		w.taxi(352, "Stormwind, Elwynn Forest"); flush()
+		w.close(); flush(); at(49.6, 40.6)
+		emit({ rows = fly(), seen = Polestar.Nav.GetTaxiSeen()[0] == true })
+		w.taxi(352, "Stormwind, Elwynn Forest", { "Goldshire, Elwynn Forest" }); flush()
+		w.close(); flush(); at(49.6, 40.6)
+		emit({ rows = fly(), done = E.GoalDone(2, 1) })
+	"#,
+	);
+	assert_eq!(out[0], json!("none"), "no flight map opened on this continent yet: Goldshire's may be known");
+	assert_eq!(out[1], json!({ "rows": [[1, -2, 2, "getfp", "Learn the flight path at Goldshire", "Step 2"]], "seen": true }));
+	assert_eq!(out[2], json!({ "rows": "none", "done": true }), "listed on the flight map: known, the getfp step done");
+}
+
+// #2003: on the step that learns a flight path itself, its flight master is the route's goal, no "Learn the flight
+// path" line beside it; another one in reach still is.
+#[test]
+fn t_2003_the_live_step_s_own_flight_path_is_no_while_you_re_here_line() {
+	let out = run_fly(
+		r#"
+		Polestar.RegisterGuide({ id = "test/flynow", pack = "test", title = "Fly now", minLevel = 1, maxLevel = 10, steps = {
+			{ title = "Goldshire flight path", goals = { { t = "getfp", location = "Goldshire", node = 2, npc = 352, npcName = "Dungar Longdrink", map = 1429, x = 50, y = 40 } } },
+			{ title = "Wolves", goals = { { t = "kill", target = "Young Wolf", npc = 299, count = 8, quest = 33, oi = 1, map = 1429, x = 60, y = 60 } } },
+		} })
+		E.SetGuide("test/flynow"); flush()
+		at(49.6, 40.6)                                  -- 17 yd from Goldshire's flight master
+		emit({ E.GetLiveStep(), fly() })
+		at(20.4, 80.4)                                  -- the Neutral Post: still a line
+		emit(fly())
+	"#,
+	);
+	assert_eq!(out[0], json!([1, "none"]), "the step's own flight path");
+	assert_eq!(out[1], json!([[1, -2, 4, "getfp", "Learn the flight path at Neutral Post", "Flight path"]]));
+}
+
+// #2079 (DexeeXI, a Skyborne Druid in Moonglade): While you're here asked a Druid to learn the flight path at
+// Nighthaven, where Bunthen Plainswind flies Druids to Thunder Bluff from his gossip: a class's own flight master has
+// no flight path to learn, so the line never went. A Druid beside the Druids' grove sees no line for it;
+// Goldshire's, 49 yd off, still shows. The character has opened a flight map on this continent before (SEEN): before
+// that no flight path line shows at all, as a flight master not known may be one learnt before Polestar ran (#1795).
+#[test]
+fn t_2079_a_class_s_own_flight_master_is_never_a_flight_path_to_learn_even_for_that_class() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}w.class, w.className, w.classID = \"DRUID\", \"Druid\", 11\n"),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml"])],
+		saved: vec![("Polestar".into(), SEEN.into())],
+		script: [
+			TEST_PACK,
+			TEST_SOURCE,
+			FLY_GUIDE,
+			HELPERS,
+			"stub.login()",
+			r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#,
+			FLY_NODES,
+			"at(48.4, 40.4) -- 14 yd from the Druids' grove\nemit(fly())",
+		]
+		.join("\n"),
+		..Default::default()
+	});
+	assert_eq!(out, vec![json!([[1, -2, 2, "getfp", "Learn the flight path at Goldshire", "Step 2"]])], "Goldshire's, never the grove's");
+}
+
 // Fitz-style, on the addon's own travel data (Nav/TravelData.lua): a Dwarf walking through Thelsamar on Loch Modan's
 // way in, its flight path not learned, sees "Learn the flight path at Thelsamar", the guide's later getfp step under
 // it; a Tauren passing Sun Rock Retreat in Stonetalon sees Sun Rock's; neither sees the other side's. The maps'
-// frames are the game's (data/forever/map-frames.json).
-fn run_real_fly(race: &str, faction: &str, map: u32, x: f64, y: f64, node: u32, place: &str) -> Vec<Value> {
+// frames are the game's (data/forever/map-frames.json). `seen`: the character has opened a flight map on both
+// continents before (#1795).
+fn run_real_fly(race: &str, faction: &str, map: u32, x: f64, y: f64, node: u32, place: &str, seen: bool) -> Vec<Value> {
 	let before = format!(
 		r#"{WORLD}
 w.addMap(1432, {{ name = "Loch Modan", c = 0, left = -1993.75, right = -4752.083, top = -4487.5, bottom = -6327.083 }})
@@ -1799,11 +2053,12 @@ w.moveTo({map}, {x}, {y})
 	{{ title = "{place}", goals = {{ {{ t = "getfp", location = "{place}", node = {node}, map = {map}, x = {x}, y = {y} }} }} }},
 }} }})"#
 	);
+	let flags = if seen { ", flags = { taxiSeen = { [0] = true, [1] = true } }" } else { "" };
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before,
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml"])],
-		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/real" }"#.into())],
+		saved: vec![("Polestar".into(), format!(r#"PolestarCharDB = {{ schema = 1, guide = "test/real"{flags} }}"#))],
 		script: [
 			TEST_PACK,
 			TEST_SOURCE,
@@ -1825,12 +2080,14 @@ emit(#out > 0 and out or "none")"#
 
 #[test]
 fn a_dwarf_through_thelsamar_and_a_tauren_past_sun_rock_retreat_are_told_to_learn_the_flight_path() {
-	let dwarf = run_real_fly("Dwarf", "Alliance", 1432, 33.94, 50.79, 8, "Thelsamar");
+	let dwarf = run_real_fly("Dwarf", "Alliance", 1432, 33.94, 50.79, 8, "Thelsamar", true);
 	assert_eq!(dwarf, vec![json!(["Learn the flight path at Thelsamar | Step 2"])]);
-	let tauren = run_real_fly("Tauren", "Horde", 1442, 45.16, 59.89, 29, "Sun Rock Retreat");
+	let tauren = run_real_fly("Tauren", "Horde", 1442, 45.16, 59.89, 29, "Sun Rock Retreat", true);
 	assert_eq!(tauren, vec![json!(["Learn the flight path at Sun Rock Retreat | Step 2"])]);
-	let dwarf_at_sun_rock = run_real_fly("Dwarf", "Alliance", 1442, 45.16, 59.89, 29, "Sun Rock Retreat");
+	let dwarf_at_sun_rock = run_real_fly("Dwarf", "Alliance", 1442, 45.16, 59.89, 29, "Sun Rock Retreat", true);
 	assert_eq!(dwarf_at_sun_rock, vec![json!("none")], "the Horde's flight master");
+	let dwarf_unseen = run_real_fly("Dwarf", "Alliance", 1432, 33.94, 50.79, 8, "Thelsamar", false);
+	assert_eq!(dwarf_unseen, vec![json!("none")], "no flight map opened in the Eastern Kingdoms yet (#1795)");
 }
 
 // #1540: a click an item must be carried for (Marla's Grave takes Samuel's Remains, from the farm) is no line

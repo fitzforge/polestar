@@ -15,7 +15,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 
-const EG = 'd98f94821b69';
+const EG = '164bd1e2d895';
 const EG_BUILDS = ['1.60.1.70374', '1.60.1.70425', '1.60.1.70450']; // the three newest
 const [src, out] = process.argv.slice(2);
 if (!src || !out) throw new Error('usage: slice.js <data/sources> <out input dir>');

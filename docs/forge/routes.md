@@ -289,8 +289,10 @@ it stays equal to v1's model.
   collects it (Benedict's Key from Lieutenant Benedict, before The Admiral's Orders).
 - **Escorts.** An escort is walked from its giver. Between its accept and its escort task, only talks
   within 40 yd of the giver may come.
-- **Timed quests.** While a timed quest runs, every leg is walked (no hearth, flight or boat). A kept
-  edit never adds a late hand-in.
+- **Timed quests.** While a timed quest with work to do runs, every leg is walked (no hearth, flight or
+  boat); a delivery (a limit and no tasks, Apothecary Zamah) travels as any quest does. A hand-in is
+  late past 60% of the limit (`TIMED_SHARE`, room for real play over the model's times). A kept edit
+  never adds a late hand-in.
 - **Bag items.** An item dropped by more than 20 kinds of mob (cloth for donations) is taken from the
   bags: no trip, no work.
 - **Quest log.** See [model.md](model.md#quest-log).
@@ -1044,7 +1046,9 @@ maps, the grid) changes the search key.
 
 The written check fails fast: the writer checks every tree it writes as the pack (the report's
 check, `the pack has errors:`) and refuses one with an error, so a bad line stops the routes stage
-at its first write, with the searches kept, not the report after the guides and legs.
+at its first write, with the searches kept, not the report after the guides and legs. The error
+names every start the writer refused, with five of each one's errors; all of a start's errors are
+in `<out>/.forge/flow/<start>.pack-errors.txt`, beside its tree.
 
 A resumed or reused route is the same route an uninterrupted run makes, file for file but the
 search's wall time: the members rebuilt from a checkpoint play on exactly as they would have, and

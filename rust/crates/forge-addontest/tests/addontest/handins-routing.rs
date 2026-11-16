@@ -186,12 +186,16 @@ Polestar.Nav = { EstimateTravelCooperative = function(from, to)
 	return 200
 end }
 local plan = Polestar.Dungeons.PlanStops
-Polestar.Dungeons.PlanStops = function(stops, from, finish, travel, pause)
-	return plan(stops, from, finish, travel, pause and function()
+Polestar.Dungeons.PlanStops = function(stops, from, finish, travel, opts)
+	if not (opts and opts.pause) then return plan(stops, from, finish, travel, opts) end
+	local wrapped, pause = {}, opts.pause
+	for k,v in pairs(opts) do wrapped[k] = v end
+	wrapped.pause = function()
 		pauses = pauses + 1
 		pauseFrames[GetTime()] = true
 		pause()
-	end)
+	end
+	return plan(stops, from, finish, travel, wrapped)
 end
 local id = H.Start()
 for _=1,400 do if estimates >= 9 then break end; stub.advance(0.05) end

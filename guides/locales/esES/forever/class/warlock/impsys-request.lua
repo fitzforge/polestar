@@ -12,19 +12,19 @@ return {
 
 	-- Step 1: An Imp's Request (Stormwind)
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:14470} Impsy · {zone:1448} Felwood · {item:14256} Felcloth
-	["At 50 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:14470} in {zone:1448} with a piece of {item:14256}."] = "",
+	["At 50 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:14470} in {zone:1448} with a piece of {item:14256}."] = "A nivel 50 {npc:461}, en {object:2164}, en {object:2101}, te envía con {npc:14470} en {zone:1448} con un trozo de {item:14256}.",
 
 	-- Step 2: An Imp's Request (Ironforge)
 	-- {npc:5172} Briarthorn · {zone:1455} Ironforge · {npc:14470} Impsy · {zone:1448} Felwood · {item:14256} Felcloth
-	["At 50 {npc:5172} in {zone:1455} sends you to {npc:14470} in {zone:1448} with a piece of {item:14256}."] = "",
+	["At 50 {npc:5172} in {zone:1455} sends you to {npc:14470} in {zone:1448} with a piece of {item:14256}."] = "A nivel 50 {npc:5172}, en {zone:1455}, te envía con {npc:14470} en {zone:1448} con un trozo de {item:14256}.",
 
 	-- Step 3: An Imp's Request (Orgrimmar)
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow · {npc:14470} Impsy · {zone:1448} Felwood · {item:14256} Felcloth
-	["At 50 {npc:3326} in the {object:172960} sends you to {npc:14470} in {zone:1448} with a piece of {item:14256}."] = "",
+	["At 50 {npc:3326} in the {object:172960} sends you to {npc:14470} in {zone:1448} with a piece of {item:14256}."] = "A nivel 50 {npc:3326}, en {object:172960}, te envía con {npc:14470} en {zone:1448} con un trozo de {item:14256}.",
 
 	-- Step 4: An Imp's Request (Undercity)
 	-- {npc:4563} Kaal Soulreaper · {object:36082} Magic Quarter · {npc:14470} Impsy · {zone:1448} Felwood · {item:14256} Felcloth
-	["At 50 {npc:4563} in the {object:36082} sends you to {npc:14470} in {zone:1448} with a piece of {item:14256}."] = "",
+	["At 50 {npc:4563} in the {object:36082} sends you to {npc:14470} in {zone:1448} with a piece of {item:14256}."] = "A nivel 50 {npc:4563}, en {object:36082}, te envía con {npc:14470} en {zone:1448} con un trozo de {item:14256}.",
 
 	-- Step 5: Felcloth
 	-- {item:14256} Felcloth · {zone:1448} Felwood · {quest:8419} An Imp's Request · {npc:14470} Impsy · {quest:8420} Hot and Itchy
@@ -69,10 +69,6 @@ return {
 	["Choose the {item:20536} (staff), the {item:20534} (off-hand) or the {item:20530}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 50 {npc:3326} in the {object:172960} sends you to {npc:14470} in {zone:1448}."] = "A nivel 50 {npc:3326}, en {object:172960}, te envía con {npc:14470} en {zone:1448}.",
-	-- ["At 50 {npc:4563} in the {object:36082} sends you to {npc:14470} in {zone:1448}."] = "A nivel 50 {npc:4563}, en {object:36082}, te envía con {npc:14470} en {zone:1448}.",
-	-- ["At 50 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:14470} in {zone:1448}."] = "A nivel 50 {npc:461}, en {object:2164}, en {object:2101}, te envía con {npc:14470} en {zone:1448}.",
-	-- ["At 50 {npc:5172} in {zone:1455} sends you to {npc:14470} in {zone:1448}."] = "A nivel 50 {npc:5172}, en {zone:1455}, te envía con {npc:14470} en {zone:1448}.",
 	-- ["The Irontree treants in northern {zone:1448} drop the {item:20613}; the Tainted Oozes around {area:1763} the {item:20614}."] = "Los ents Troncoferro del norte de {zone:1448} sueltan {item:20613}; los Mocos corruptos de alrededor de {area:1763}, {item:20614}.",
 	-- ["The six troll guardians of the {area:1417}, a level 50 dungeon, each drop a Voodoo Feather: bring a group of five. The temple stands in the middle of the {area:74}; swim down into it to reach the entrance."] = "Los seis guardianes trols del {area:1417}, una mazmorra de nivel 50, sueltan cada uno una pluma vudú: lleva un grupo de cinco. El templo está en medio de {area:74}; bucea hasta él para llegar a la entrada.",
 	-- ["{npc:14470} waits beside {npc:14469} in central {zone:1448}, just east of {area:1763}. This chain is {npc:14470}'s own and is not part of the Dreadsteed chain; Niby and {npc:14470} also give the {item:18762} chain here."] = "{npc:14470} espera junto a {npc:14469} en el centro de {zone:1448}, justo al este de {area:1763}. Esta cadena es propia de {npc:14470} y no forma parte de la del Corcel nefasto; Niby y {npc:14470} también dan aquí la cadena de {item:18762}.",

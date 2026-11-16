@@ -10,7 +10,7 @@ return {
 	-- {area:279} Dalaran
 	["Skyboat from {area:279}"] = "Небесный корабль: {area:279}",
 	-- {zone:2521} Zephras Isle · {area:279} Dalaran · {zone:1456} Thunder Bluff
-	["{zone:2521} is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the north side of {area:279} about every five minutes (another flies from north of {zone:1456}; either faction may take either)."] = "",
+	["{zone:2521} is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the north side of {area:279} about every five minutes (another flies from north of {zone:1456}; either faction may take either)."] = "{zone:2521} – стартовый остров небеснорожденных; по сообщениям с беты, посетить его может любой. Небесный корабль отправляется с северной стороны места {area:279} примерно каждые пять минут (другой летает с севера от города {zone:1456}; любая фракция может сесть на любой).",
 	-- {zone:2521} Zephras Isle
 	["Skyboat to {zone:2521}"] = "Небесный корабль. Цель: {zone:2521}",
 
@@ -18,7 +18,7 @@ return {
 	-- {zone:1456} Thunder Bluff
 	["Skyboat from {zone:1456}"] = "Небесный корабль: {zone:1456}",
 	-- {zone:2521} Zephras Isle · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff · {area:279} Dalaran
-	["{zone:2521} is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes (another flies from {area:279}; either faction may take either)."] = "",
+	["{zone:2521} is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes (another flies from {area:279}; either faction may take either)."] = "{zone:2521} – стартовый остров небеснорожденных; по сообщениям с беты, посетить его может любой. Небесный корабль отправляется с утесов к югу от места {area:17045}, к северу от города {zone:1456}, примерно каждые пять минут (другой летает отсюда: {area:279}; любая фракция может сесть на любой).",
 
 	-- Step 3: Sing to the frogs
 	["Sing to the frogs"] = "Спойте лягушкам",
@@ -27,6 +27,4 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Target one of the frogs here and type /sing; a {item:268109} appears. Interact with it to get the pet."] = "Выберите целью одну из лягушек здесь и введите /sing; появится {item:268109}. Взаимодействуйте с ней, чтобы получить питомца.",
-	-- ["{zone:2521} is the Skyborne starting island; anyone may visit. A skyboat leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes (another flies from {area:279}; either faction may take either). Skip this if you are already on the island."] = "{zone:2521} – стартовый остров небеснорожденных; посетить его может любой. Небесный корабль отправляется с утесов к югу от места {area:17045}, к северу от города {zone:1456}, примерно каждые пять минут (другой летает отсюда: {area:279}; любая фракция может сесть на любой). Пропустите шаг, если вы уже на острове.",
-	-- ["{zone:2521} is the Skyborne starting island; anyone may visit. A skyboat leaves the north side of {area:279} about every five minutes (another flies from north of {zone:1456}; either faction may take either). Skip this if you are already on the island."] = "{zone:2521} – стартовый остров небеснорожденных; посетить его может любой. Небесный корабль отправляется с северной стороны места {area:279} примерно каждые пять минут (другой летает с севера от города {zone:1456}; любая фракция может сесть на любой). Пропустите шаг, если вы уже на острове.",
 }

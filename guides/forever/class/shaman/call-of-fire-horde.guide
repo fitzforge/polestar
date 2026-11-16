@@ -99,6 +99,7 @@ step Telf Joolam
   only Orc,Troll,Tauren
   zone Durotar
   tip Back east over the bridge, then south along the Durotar bank of the river to where the mountains meet the water. The trail up starts at the foot of the mountain beside a small dark stone carved with symbols, near the quilboar camp; it is narrow, and a slip costs fall damage. Telf Joolam keeps the shrine at the top.
+  level 11
   turnin 1524                                 -- Telf Joolam
   accept 1525
 
@@ -106,17 +107,20 @@ step Fire Tar
   only Orc,Troll,Tauren
   zone The Barrens
   tip The Razormane casters north-east of the Crossroads drop the Fire Tar three times in four: Water Seekers and Thornweavers (level 10-11), Geomancers (level 12-13, they throw Fireballs and run for help when hurt) and Mystics (level 13-14, they heal themselves at low health). Pull them one at a time.
+  level 12
   collect 5026 quest 1525.1                   -- Fire Tar
 
 step Reagent Pouch
   only Orc,Troll,Tauren
   zone Durotar
   tip The Burning Blade Cultists (level 10-11, they call imps and cast Immolate) live deep in Dustwind Cave north of Razor Hill: climb the ramp just north-east of town and stay on the high ground above the ravines. The orcs at the cave mouth are not cultists; the cultists are further in, off to the left. Three kills in four drop a pouch. Skull Rock by Orgrimmar is the wrong cave.
+  level 11
   collect 6652 quest 1525.2                   -- Reagent Pouch
 
 step Telf Joolam
   only Orc,Troll,Tauren
   tip Back up the trail to Telf. He makes the Fire Sapta from the tar and the pouch and hands it to you with the torch: keep both.
+  level 12
   turnin 1525                                 -- Telf Joolam
   accept 1526
 
@@ -130,12 +134,14 @@ step Lost the Fire Sapta?
 step The Minor Manifestation of Fire
   only Orc,Troll,Tauren
   tip Drink the Fire Sapta beside the Shaman Shrine, the big grey stone just below the summit, then climb to the plateau. Of the fire elementals there only the one in the middle can be attacked: it is level 12, immune to fire and grows stronger the longer the fight lasts, so open at once with Rockbiter Weapon and Earth Shock and leave the others alone. Its Glowing Ember drops every time.
+  level 13
   use 6636 quest 1526.1 @38.1,58.5            -- Fire Sapta, beside the Shaman Shrine
   collect 6655 quest 1526.1                   -- Glowing Ember: Minor Manifestation of Fire
 
 step The Brazier of the Dormant Flame
   only Orc,Troll,Tauren
   tip Click the Brazier of the Dormant Flame on the plateau with the torch in your bags to place the ember, then click it a second time: the next quest does not open by itself. It gives you the lit Torch of Eternal Flame.
+  level 11
   turnin 1526                                 -- Brazier of the Dormant Flame
   accept 1527
 
@@ -158,6 +164,7 @@ step Sessaria Skystride
 step Olariaan Swiftburn
   only Skyborne
   tip The Shrine of Flames hides on the island's outer rim south-west of Valanaar, just south-east of Windfield Orchard: Olariaan Swiftburn keeps it.
+  level 13
   turnin 97243                                -- Olariaan Swiftburn
   accept 97244
 
@@ -169,6 +176,7 @@ step Skypriest Faladiel
 step Olariaan Swiftburn
   only Skyborne
   tip Back to Olariaan at the Shrine of Flames.
+  level 13
   turnin 97244                                -- Olariaan Swiftburn
   accept 97245
 

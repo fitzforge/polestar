@@ -85,54 +85,63 @@ step Learn Engineering
   skill Engineering 1
 
 step Engineering 1-75: vendor goods
-  tip Buy the whole bracket's share in one go: 18 Weak Flux (18s) and Blacksmith Hammer (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction (Stormwind City: Billibub Cogspinner, Brooke Stonebraid and Edna Mullby; Orgrimmar: Felika, Gorina and Shimra).
+  tip Buy the whole bracket's share in one go: 18 Weak Flux (18s) and Blacksmith Hammer (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction (Stormwind City: Billibub Cogspinner, Brooke Stonebraid and Edna Mullby).
   buy 2880 x18 nearest
   buy 5956 nearest -- a tool, keep it in your bags
+
+step Engineering 1-75: Auction House
+  tip What 1-75 takes that the Auction House sells: 46 Rough Stone and 75 Copper Bar. The counts drop by what your bags, bank and mail hold.
+  auction 2835 x46
+  auction 2840 x75
 
 step Rough Stone (Elwynn Forest)
   only Human
   zone Elwynn Forest
-  tip 46 Rough Stone for Rough Blasting Powder: Mining: Copper Vein (skill 1); or the Auction House. The densest cluster of Copper Vein in Elwynn Forest is marked.
-  collect 2835 x46 @45.6,72.6 era
+  tip 46 Rough Stone for Rough Blasting Powder: Mining: Copper Vein (skill 1). The densest cluster of Copper Vein in Elwynn Forest is marked.
+  collect 2835 x46 @45.6,72.6 era gather Mining 1
 
 step Rough Stone (Dun Morogh)
   only Dwarf,Gnome
   zone Dun Morogh
-  tip 46 Rough Stone for Rough Blasting Powder: Mining: Copper Vein (skill 1); or the Auction House. The densest cluster of Copper Vein in Dun Morogh is marked.
-  collect 2835 x46 @70.4,55.1 era
+  tip 46 Rough Stone for Rough Blasting Powder: Mining: Copper Vein (skill 1). The densest cluster of Copper Vein in Dun Morogh is marked.
+  collect 2835 x46 @70.4,55.1 era gather Mining 1
 
 step Rough Stone (Darkshore)
   only NightElf
   zone Darkshore
-  tip 46 Rough Stone for Rough Blasting Powder: Mining: Copper Vein (skill 1); or the Auction House. The densest cluster of Copper Vein in Darkshore is marked.
-  collect 2835 x46 @39.1,81.5 era
+  tip 46 Rough Stone for Rough Blasting Powder: Mining: Copper Vein (skill 1). The densest cluster of Copper Vein in Darkshore is marked.
+  collect 2835 x46 @39.1,81.5 era gather Mining 1
 
 step Rough Stone (Zephras Isle)
   only Skyborne
   zone Zephras Isle
-  tip 46 Rough Stone for Rough Blasting Powder: Mining: Copper Vein (skill 1); or the Auction House. The densest cluster of Copper Vein in Zephras Isle is marked.
-  collect 2835 x46 @40.2,28 live
+  tip 46 Rough Stone for Rough Blasting Powder: Mining: Copper Vein (skill 1). The densest cluster of Copper Vein in Zephras Isle is marked.
+  collect 2835 x46 @40.2,28 live gather Mining 1
 
 step Rough Stone (Durotar)
   only Orc,Troll
   zone Durotar
-  tip 46 Rough Stone for Rough Blasting Powder: Mining: Copper Vein (skill 1); or the Auction House. The densest cluster of Copper Vein in Durotar is marked.
-  collect 2835 x46 @49.5,35.9 era
+  tip 46 Rough Stone for Rough Blasting Powder: Mining: Copper Vein (skill 1). The densest cluster of Copper Vein in Durotar is marked.
+  collect 2835 x46 @49.5,35.9 era gather Mining 1
 
 step Rough Stone (Mulgore)
   only Tauren
   zone Mulgore
-  tip 46 Rough Stone for Rough Blasting Powder: Mining: Copper Vein (skill 1); or the Auction House. The densest cluster of Copper Vein in Mulgore is marked.
-  collect 2835 x46 @56.4,44.1 live
+  tip 46 Rough Stone for Rough Blasting Powder: Mining: Copper Vein (skill 1). The densest cluster of Copper Vein in Mulgore is marked.
+  collect 2835 x46 @56.4,44.1 live gather Mining 1
 
 step Rough Stone (Tirisfal Glades)
   only Undead
   zone Tirisfal Glades
-  tip 46 Rough Stone for Rough Blasting Powder: Mining: Copper Vein (skill 1); or the Auction House. The densest cluster of Copper Vein in Tirisfal Glades is marked.
-  collect 2835 x46 @50.7,34.3 era
+  tip 46 Rough Stone for Rough Blasting Powder: Mining: Copper Vein (skill 1). The densest cluster of Copper Vein in Tirisfal Glades is marked.
+  collect 2835 x46 @50.7,34.3 era gather Mining 1
+
+step Copper Bar
+  zone Azeroth
+  tip 75 Copper Bar for Handful of Copper Bolts, Arclight Spanner and Copper Tube: Mining: smelt Copper Ore.
+  collect 2840 x75 anywhere gather Mining 1
 
 step Rough Blasting Powder to 35
-  zone Azeroth
   tip Rough Blasting Powder is orange at 1 (yellow 20, green 30, grey 40): about 46 crafts to 35. Each takes 1 Rough Stone. One Rough Stone a craft; Rough Stone comes with the Copper Ore from Copper Veins.
   craft 3918 until 35
 
@@ -142,7 +151,7 @@ step Engineering recipes at 35
   learn 1230656
 
 step Handful of Copper Bolts to 57
-  tip Handful of Copper Bolts is orange at 35 (yellow 45, green 52, grey 60): about 33 crafts to 57. Each takes 1 Copper Bar. One Copper Bar a craft. Keep the bolts: Practice Locks and later gadgets take them. Needs an anvil nearby. Blacksmith Hammer is a tool: keep it in your bags. Copper Bar (75 for 1-75): Mining: smelt Copper Ore; or the Auction House.
+  tip Handful of Copper Bolts is orange at 35 (yellow 45, green 52, grey 60): about 33 crafts to 57. Each takes 1 Copper Bar. One Copper Bar a craft. Keep the bolts: Practice Locks and later gadgets take them. Needs an anvil nearby. Blacksmith Hammer is a tool: keep it in your bags.
   craft 3922 until 57
 
 step Engineering recipes at 57
@@ -160,73 +169,93 @@ step Copper Tube to 75
 section Engineering 75-150
 
 step Journeyman Engineering
-  tip Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs Engineering 50 and character level 10, so you can take it on any visit from 50. Not every Engineering trainer teaches it: Alliance Finbus Geargrind (Duskwood), Lilliam Sparkspindle (Stormwind City) and Trixie Quikswitch (Ironforge); Horde Franklin Lloyd (Undercity) and Nogg (Orgrimmar). The arrow picks the nearest of your faction. Learn now: Coarse Blasting Powder (from 75, 2s 50c) and Crafted Heavy Shot (from 75, 2s 50c). 75-150 takes about 5s of recipes and 45s of vendor goods, plus 15 Coarse Stone, 27 Heavy Stone, 72 Copper Bar, 61 Bronze Bar and 2 Silver Bar to gather or buy.
+  tip Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs Engineering 50 and character level 10, so you can take it on any visit from 50. Not every Engineering trainer teaches it: Alliance Finbus Geargrind (Duskwood), Lilliam Sparkspindle (Stormwind City) and Trixie Quikswitch (Ironforge); Horde Franklin Lloyd (Undercity). The arrow picks the nearest of your faction. Learn now: Coarse Blasting Powder (from 75, 2s 50c) and Crafted Heavy Shot (from 75, 2s 50c). 75-150 takes about 5s of recipes and 45s of vendor goods, plus 15 Coarse Stone, 27 Heavy Stone, 72 Copper Bar, 61 Bronze Bar and 2 Silver Bar to gather or buy.
   level 10
   train Engineering Journeyman
   learn 3929
   learn 3930
 
 step Engineering 75-150: vendor goods
-  tip Buy the whole bracket's share in one go: 45 Weak Flux (45s); about 45s in all. The arrow picks the nearest seller of your faction (Stormwind City: Billibub Cogspinner, Brooke Stonebraid and Edna Mullby; Orgrimmar: Felika, Gorina and Shimra).
+  tip Buy the whole bracket's share in one go: 45 Weak Flux (45s); about 45s in all. The arrow picks the nearest seller of your faction (Stormwind City: Billibub Cogspinner, Brooke Stonebraid and Edna Mullby).
   buy 2880 x45 nearest
+
+step Engineering 75-150: Auction House
+  tip What 75-150 takes that the Auction House sells: 15 Coarse Stone, 27 Heavy Stone, 72 Copper Bar, 61 Bronze Bar and 2 Silver Bar. The counts drop by what your bags, bank and mail hold.
+  auction 2836 x15
+  auction 2838 x27
+  auction 2840 x72
+  auction 2841 x61
+  auction 2842 x2
 
 step Coarse Stone (Westfall)
   only Human,Skyborne,Alliance
   zone Westfall
-  tip 15 Coarse Stone for Crafted Heavy Shot: Mining: Tin Vein (skill 65); or the Auction House. The densest cluster of Tin Vein in Westfall is marked.
-  collect 2836 x15 @26.2,64.5 era
+  tip 15 Coarse Stone for Crafted Heavy Shot: Mining: Tin Vein (skill 65). The densest cluster of Tin Vein in Westfall is marked.
+  collect 2836 x15 @26.2,64.5 era gather Mining 65
 
 step Coarse Stone (Loch Modan)
   only Dwarf,Gnome
   zone Loch Modan
-  tip 15 Coarse Stone for Crafted Heavy Shot: Mining: Tin Vein (skill 65); or the Auction House. The densest cluster of Tin Vein in Loch Modan is marked.
-  collect 2836 x15 @23.1,24.5 era
+  tip 15 Coarse Stone for Crafted Heavy Shot: Mining: Tin Vein (skill 65). The densest cluster of Tin Vein in Loch Modan is marked.
+  collect 2836 x15 @23.1,24.5 era gather Mining 65
 
 step Coarse Stone (Darkshore)
   only NightElf
   zone Darkshore
-  tip 15 Coarse Stone for Crafted Heavy Shot: Mining: Tin Vein (skill 65); or the Auction House. The densest cluster of Tin Vein in Darkshore is marked.
-  collect 2836 x15 @59.3,19.6 era
+  tip 15 Coarse Stone for Crafted Heavy Shot: Mining: Tin Vein (skill 65). The densest cluster of Tin Vein in Darkshore is marked.
+  collect 2836 x15 @59.3,19.6 era gather Mining 65
 
 step Coarse Stone (The Barrens)
   only Orc,Troll,Tauren,Skyborne,Horde
   zone The Barrens
-  tip 15 Coarse Stone for Crafted Heavy Shot: Mining: Tin Vein (skill 65); or the Auction House. The densest cluster of Tin Vein in The Barrens is marked.
-  collect 2836 x15 @40.6,45.7 era
+  tip 15 Coarse Stone for Crafted Heavy Shot: Mining: Tin Vein (skill 65). The densest cluster of Tin Vein in The Barrens is marked.
+  collect 2836 x15 @40.6,45.7 era gather Mining 65
 
 step Coarse Stone (Silverpine Forest)
   only Undead
   zone Silverpine Forest
-  tip 15 Coarse Stone for Crafted Heavy Shot: Mining: Tin Vein (skill 65); or the Auction House. The densest cluster of Tin Vein in Silverpine Forest is marked.
-  collect 2836 x15 @41.6,27.4 era
+  tip 15 Coarse Stone for Crafted Heavy Shot: Mining: Tin Vein (skill 65). The densest cluster of Tin Vein in Silverpine Forest is marked.
+  collect 2836 x15 @41.6,27.4 era gather Mining 65
 
 step Heavy Stone (Arathi Highlands)
   only Human,Dwarf,Gnome,Skyborne,Alliance
   zone Arathi Highlands
-  tip 27 Heavy Stone for Heavy Blasting Powder: Mining: Iron Deposit (skill 125); or the Auction House. The densest cluster of Iron Deposit in Arathi Highlands is marked.
-  collect 2838 x27 @15.8,63.2 era
+  tip 27 Heavy Stone for Heavy Blasting Powder: Mining: Iron Deposit (skill 125). The densest cluster of Iron Deposit in Arathi Highlands is marked.
+  collect 2838 x27 @15.8,63.2 era gather Mining 125
 
 step Heavy Stone (Ashenvale)
   only NightElf
   zone Ashenvale
-  tip 27 Heavy Stone for Heavy Blasting Powder: Mining: Iron Deposit (skill 125); or the Auction House. The densest cluster of Iron Deposit in Ashenvale is marked.
-  collect 2838 x27 @70.7,53.5 era
+  tip 27 Heavy Stone for Heavy Blasting Powder: Mining: Iron Deposit (skill 125). The densest cluster of Iron Deposit in Ashenvale is marked.
+  collect 2838 x27 @70.7,53.5 era gather Mining 125
 
 step Heavy Stone (The Barrens)
   only Orc,Troll,Tauren,Skyborne,Horde
   zone The Barrens
-  tip 27 Heavy Stone for Heavy Blasting Powder: Mining: Iron Deposit (skill 125); or the Auction House. The densest cluster of Iron Deposit in The Barrens is marked.
-  collect 2838 x27 @45.2,94.5 era
+  tip 27 Heavy Stone for Heavy Blasting Powder: Mining: Iron Deposit (skill 125). The densest cluster of Iron Deposit in The Barrens is marked.
+  collect 2838 x27 @45.2,94.5 era gather Mining 125
 
 step Heavy Stone (Arathi Highlands)
   only Undead
   zone Arathi Highlands
-  tip 27 Heavy Stone for Heavy Blasting Powder: Mining: Iron Deposit (skill 125); or the Auction House. The densest cluster of Iron Deposit in Arathi Highlands is marked.
-  collect 2838 x27 @15.8,63.2 era
+  tip 27 Heavy Stone for Heavy Blasting Powder: Mining: Iron Deposit (skill 125). The densest cluster of Iron Deposit in Arathi Highlands is marked.
+  collect 2838 x27 @15.8,63.2 era gather Mining 125
+
+step Copper Bar
+  zone Azeroth
+  tip 72 Copper Bar for Crafted Heavy Shot, Copper Tube and Practice Lock: Mining: smelt Copper Ore.
+  collect 2840 x72 anywhere gather Mining 1
+
+step Bronze Bar
+  tip 61 Bronze Bar for Practice Lock and Big Bronze Bomb: Mining: smelt Copper Bar and Tin Bar.
+  collect 2841 x61 anywhere gather Mining 65
+
+step Silver Bar
+  tip 2 Silver Bar for Big Bronze Bomb: Mining: smelt Silver Ore.
+  collect 2842 x2 anywhere gather Mining 75
 
 step Crafted Heavy Shot to 94
-  zone Azeroth
-  tip Crafted Heavy Shot is orange at 75 (yellow 85, green 90, grey 95): about 15 crafts to 94. Each takes 1 Coarse Blasting Powder and 1 Copper Bar and makes 200. Make the 15 Coarse Blasting Powder first: it gives points too while not grey. The Coarse Blasting Powder in each gives its own point while it is not grey: two chances a craft. Sell the shot to hunters or a vendor. Copper Bar (72 for 75-150): Mining: smelt Copper Ore; or the Auction House.
+  tip Crafted Heavy Shot is orange at 75 (yellow 85, green 90, grey 95): about 15 crafts to 94. Each takes 1 Coarse Blasting Powder and 1 Copper Bar and makes 200. Make the 15 Coarse Blasting Powder first: it gives points too while not grey. The Coarse Blasting Powder in each gives its own point while it is not grey: two chances a craft. Sell the shot to hunters or a vendor.
   craft 3929 x15
   craft 3930 until 94
 
@@ -239,7 +268,7 @@ step Engineering recipes at 100
   learn 8334
 
 step Practice Lock to 125
-  tip Practice Lock is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 Bronze Bar, 2 Handful of Copper Bolts and 1 Weak Flux. Make the 29 Handful of Copper Bolts first. Use the 33 Handful of Copper Bolts you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby. Bronze Bar (61 for 75-150): Mining: smelt Copper Bar and Tin Bar; or the Auction House.
+  tip Practice Lock is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 Bronze Bar, 2 Handful of Copper Bolts and 1 Weak Flux. Make the 29 Handful of Copper Bolts first. Use the 33 Handful of Copper Bolts you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby.
   craft 3922 x29
   craft 8334 until 125
 
@@ -257,7 +286,7 @@ step Engineering recipes at 140
   learn 3950
 
 step Big Bronze Bomb to 150
-  tip Big Bronze Bomb is yellow at 140 (yellow 140, green 165, grey 190): about 10 crafts to 150. Each takes 2 Heavy Blasting Powder, 3 Bronze Bar and 1 Silver Contact and makes 3. Make the 10 Silver Contact (2 crafts) first. Use the 20 Heavy Blasting Powder you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data. Needs an anvil nearby. Silver Bar (2 for 75-150): Mining: smelt Silver Ore; or the Auction House. Engineering 150 is a Legacy System milestone.
+  tip Big Bronze Bomb is yellow at 140 (yellow 140, green 165, grey 190): about 10 crafts to 150. Each takes 2 Heavy Blasting Powder, 3 Bronze Bar and 1 Silver Contact and makes 3. Make the 10 Silver Contact (2 crafts) first. Use the 20 Heavy Blasting Powder you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data. Needs an anvil nearby. Engineering 150 is a Legacy System milestone.
   craft 3973 x2
   craft 3950 until 150
   skill Engineering 150
@@ -273,65 +302,94 @@ step Expert Engineering
   learn 3953
 
 step Engineering 150-225: vendor goods
-  tip Buy the whole bracket's share in one go: 31 Nightcrawlers (31s); about 31s in all. The arrow picks the nearest seller of your faction (Stormwind City: Catherine Leland and Edna Mullby; Orgrimmar: Felika, Shankys and Shimra).
+  tip Buy the whole bracket's share in one go: 31 Nightcrawlers (31s); about 31s in all. The arrow picks the nearest seller of your faction (Stormwind City: Catherine Leland and Edna Mullby).
   buy 6530 x31 nearest
+
+step Engineering 150-225: Auction House
+  tip What 150-225 takes that the Auction House sells: 19 Medium Leather, 19 Wool Cloth, 31 Coarse Stone, 74 Heavy Stone, 100 Bronze Bar, 6 Silver Bar, 81 Iron Bar, 19 Mithril Bar and 62 Solid Stone. The counts drop by what your bags, bank and mail hold.
+  auction 2319 x19
+  auction 2592 x19
+  auction 2836 x31
+  auction 2838 x74
+  auction 2841 x100
+  auction 2842 x6
+  auction 3575 x81
+  auction 3860 x19
+  auction 7912 x62
 
 step Medium Leather (Alliance)
   only Alliance
   zone Hillsbrad Foothills
-  tip 19 Medium Leather for Bronze Framework: Skinning: beasts of level 18-30; or the Auction House. Skin Cave Yeti, Elder Gray Bear, Feral Mountain Lion, Gray Bear, Snapjaw, Starving Mountain Lion and Vicious Gray Bear here (level 18-30); the Skinning guide routes this.
-  collect 2319 x19 @45.4,34.9 era
+  tip 19 Medium Leather for Bronze Framework: Skinning: beasts of level 18-30. Skin Cave Yeti, Elder Gray Bear, Feral Mountain Lion, Gray Bear, Snapjaw, Starving Mountain Lion and Vicious Gray Bear here (level 18-30); the Skinning guide routes this.
+  collect 2319 x19 @45.4,34.9 era gather Skinning 80
 
 step Medium Leather (Horde)
   only Horde
   zone Ashenvale
-  tip 19 Medium Leather for Bronze Framework: Skinning: beasts of level 18-30; or the Auction House. Skin Ashenvale Bear, Elder Ashenvale Bear, Elder Shadowhorn Stag, Ghostpaw Runner, Giant Ashenvale Bear and Shadowhorn Stag here (level 18-30); the Skinning guide routes this.
-  collect 2319 x19 @68.7,50.2 era
+  tip 19 Medium Leather for Bronze Framework: Skinning: beasts of level 18-30. Skin Ashenvale Bear, Elder Ashenvale Bear, Elder Shadowhorn Stag, Ghostpaw Runner, Giant Ashenvale Bear and Shadowhorn Stag here (level 18-30); the Skinning guide routes this.
+  collect 2319 x19 @68.7,50.2 era gather Skinning 80
 
 step Wool Cloth
   zone Azeroth
-  tip 19 Wool Cloth for Bronze Framework: humanoids of level 15-30 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House.
-  collect 2592 x19 anywhere
+  tip 19 Wool Cloth for Bronze Framework: humanoids of level 15-30 drop it. Keep what you loot as you level, or take it from your bank.
+  collect 2592 x19 anywhere gather levels 15-30
 
 step Coarse Stone (Alliance)
   only Alliance
   zone Loch Modan
-  tip 31 Coarse Stone for Aquadynamic Fish Attractor: Mining: Tin Vein (skill 65) in Loch Modan (10-20), Ashenvale (18-30) and Hillsbrad Foothills (20-30); or the Auction House. The densest cluster of Tin Vein in Loch Modan is marked.
-  collect 2836 x31 @23.1,24.5 era
+  tip 31 Coarse Stone for Aquadynamic Fish Attractor: Mining: Tin Vein (skill 65) in Loch Modan (10-20), Ashenvale (18-30) and Hillsbrad Foothills (20-30). The densest cluster of Tin Vein in Loch Modan is marked.
+  collect 2836 x31 @23.1,24.5 era gather Mining 65
 
 step Coarse Stone (Horde)
   only Horde
   zone Ashenvale
-  tip 31 Coarse Stone for Aquadynamic Fish Attractor: Mining: Tin Vein (skill 65) in The Barrens (10-25), Ashenvale (18-30) and Hillsbrad Foothills (20-30); or the Auction House. The densest cluster of Tin Vein in Ashenvale is marked.
-  collect 2836 x31 @88.7,86.1 era
+  tip 31 Coarse Stone for Aquadynamic Fish Attractor: Mining: Tin Vein (skill 65) in The Barrens (10-25), Ashenvale (18-30) and Hillsbrad Foothills (20-30). The densest cluster of Tin Vein in Ashenvale is marked.
+  collect 2836 x31 @88.7,86.1 era gather Mining 65
 
 step Heavy Stone (Alliance)
   only Alliance
   zone Arathi Highlands
-  tip 74 Heavy Stone for Big Iron Bomb: Mining: Iron Deposit (skill 125) in Arathi Highlands (30-40), Stranglethorn Vale (30-45) and Desolace (30-40); or the Auction House. The densest cluster of Iron Deposit in Arathi Highlands is marked.
-  collect 2838 x74 @15.8,63.2 era
+  tip 74 Heavy Stone for Big Iron Bomb: Mining: Iron Deposit (skill 125) in Arathi Highlands (30-40), Stranglethorn Vale (30-45) and Desolace (30-40). The densest cluster of Iron Deposit in Arathi Highlands is marked.
+  collect 2838 x74 @15.8,63.2 era gather Mining 125
 
 step Heavy Stone (Horde)
   only Horde
   zone Thousand Needles
-  tip 74 Heavy Stone for Big Iron Bomb: Mining: Iron Deposit (skill 125) in Thousand Needles (25-35), Arathi Highlands (30-40) and Stranglethorn Vale (30-45); or the Auction House. The densest cluster of Iron Deposit in Thousand Needles is marked.
-  collect 2838 x74 @8.9,34.3 era
+  tip 74 Heavy Stone for Big Iron Bomb: Mining: Iron Deposit (skill 125) in Thousand Needles (25-35), Arathi Highlands (30-40) and Stranglethorn Vale (30-45). The densest cluster of Iron Deposit in Thousand Needles is marked.
+  collect 2838 x74 @8.9,34.3 era gather Mining 125
+
+step Bronze Bar
+  zone Azeroth
+  tip 100 Bronze Bar for Aquadynamic Fish Attractor and Bronze Framework: Mining: smelt Copper Bar and Tin Bar.
+  collect 2841 x100 anywhere gather Mining 65
+
+step Silver Bar
+  tip 6 Silver Bar for Big Iron Bomb: Mining: smelt Silver Ore.
+  collect 2842 x6 anywhere gather Mining 75
+
+step Iron Bar
+  tip 81 Iron Bar for Big Iron Bomb: Mining: smelt Iron Ore.
+  collect 3575 x81 anywhere gather Mining 125
+
+step Mithril Bar
+  tip 19 Mithril Bar for Hi-Impact Mithril Slugs: Mining: smelt Mithril Ore.
+  collect 3860 x19 anywhere gather Mining 175
 
 step Solid Stone (Alliance)
   only Alliance
   zone Stranglethorn Vale
-  tip 62 Solid Stone for Solid Blasting Powder: Mining: Mithril Deposit (skill 175) in Stranglethorn Vale (30-45), The Hinterlands (40-50) and Feralas (40-50); or the Auction House. The densest cluster of Mithril Deposit in Stranglethorn Vale is marked.
-  collect 7912 x62 @29.4,60.1 era
+  tip 62 Solid Stone for Solid Blasting Powder: Mining: Mithril Deposit (skill 175) in Stranglethorn Vale (30-45), The Hinterlands (40-50) and Feralas (40-50). The densest cluster of Mithril Deposit in Stranglethorn Vale is marked.
+  collect 7912 x62 @29.4,60.1 era gather Mining 175
 
 step Solid Stone (Horde)
   only Horde
   zone Desolace
-  tip 62 Solid Stone for Solid Blasting Powder: Mining: Mithril Deposit (skill 175) in Desolace (30-40), The Hinterlands (40-50) and Feralas (40-50); or the Auction House. The densest cluster of Mithril Deposit in Desolace is marked.
-  collect 7912 x62 @31.5,59.4 era
+  tip 62 Solid Stone for Solid Blasting Powder: Mining: Mithril Deposit (skill 175) in Desolace (30-40), The Hinterlands (40-50) and Feralas (40-50). The densest cluster of Mithril Deposit in Desolace is marked.
+  collect 7912 x62 @31.5,59.4 era gather Mining 175
 
 step Aquadynamic Fish Attractor to 166
   zone Azeroth
-  tip Aquadynamic Fish Attractor is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 Bronze Bar, 1 Nightcrawlers and 1 Coarse Blasting Powder and makes 3. Make the 31 Coarse Blasting Powder first. Nightcrawlers come from trade and fishing suppliers; the attractors sell to fishermen. Bronze Bar (100 for 150-225): Mining: smelt Copper Bar and Tin Bar; or the Auction House.
+  tip Aquadynamic Fish Attractor is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 Bronze Bar, 1 Nightcrawlers and 1 Coarse Blasting Powder and makes 3. Make the 31 Coarse Blasting Powder first. Nightcrawlers come from trade and fishing suppliers; the attractors sell to fishermen.
   craft 3929 x31
   craft 9271 until 166
 
@@ -352,7 +410,7 @@ step Engineering recipes at 191
   learn 3967
 
 step Big Iron Bomb to 210
-  tip Big Iron Bomb is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 Iron Bar, 3 Heavy Blasting Powder and 1 Silver Contact and makes 2. Make the 74 Heavy Blasting Powder and 30 Silver Contact (6 crafts) first. Use the 7 Heavy Blasting Powder you made earlier; the counts above leave them out. A Silver Bar makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the Heavy Blasting Powder comes from Heavy Stone. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, Springspindle Fizzlegear (Ironforge), Lilliam Sparkspindle (Stormwind), Graham Van Talen (Undercity) or Tinkerwiz (Ratchet) sends you to Gnomish Engineering (Tinkmaster Overspark, Ironforge, or Oglethorpe Obnoticus, Booty Bay: 6 Mithril Tubes, an Accurate Scope and 2 Advanced Target Dummies) or Goblin Engineering (Nixx Sprocketspring, Gadgetzan: 20 Big Iron Bombs, 20 Solid Dynamite and 5 Explosive Sheep). The Accurate Scope schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby. Silver Bar (6 for 150-225): Mining: smelt Silver Ore; or the Auction House. Iron Bar (81 for 150-225): Mining: smelt Iron Ore; or the Auction House.
+  tip Big Iron Bomb is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 Iron Bar, 3 Heavy Blasting Powder and 1 Silver Contact and makes 2. Make the 74 Heavy Blasting Powder and 30 Silver Contact (6 crafts) first. Use the 7 Heavy Blasting Powder you made earlier; the counts above leave them out. A Silver Bar makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the Heavy Blasting Powder comes from Heavy Stone. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, Springspindle Fizzlegear (Ironforge), Lilliam Sparkspindle (Stormwind), Graham Van Talen (Undercity) or Tinkerwiz (Ratchet) sends you to Gnomish Engineering (Tinkmaster Overspark, Ironforge, or Oglethorpe Obnoticus, Booty Bay: 6 Mithril Tubes, an Accurate Scope and 2 Advanced Target Dummies) or Goblin Engineering (Nixx Sprocketspring, Gadgetzan: 20 Big Iron Bombs, 20 Solid Dynamite and 5 Explosive Sheep). The Accurate Scope schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby.
   craft 3945 x74
   craft 3973 x6
   craft 3967 until 210
@@ -362,7 +420,7 @@ step Engineering recipes at 210
   learn 12596
 
 step Hi-Impact Mithril Slugs to 225
-  tip Hi-Impact Mithril Slugs is yellow at 210 (yellow 210, green 230, grey 250): about 19 crafts to 225. Each takes 1 Mithril Bar and 1 Solid Blasting Powder and makes 200. Use the 19 Solid Blasting Powder you made earlier; the counts above leave them out. One Mithril Bar and one Solid Blasting Powder a craft; hunters buy the slugs. Needs an anvil nearby. Mithril Bar (19 for 150-225): Mining: smelt Mithril Ore; or the Auction House. Engineering 225 is a Legacy System milestone.
+  tip Hi-Impact Mithril Slugs is yellow at 210 (yellow 210, green 230, grey 250): about 19 crafts to 225. Each takes 1 Mithril Bar and 1 Solid Blasting Powder and makes 200. Use the 19 Solid Blasting Powder you made earlier; the counts above leave them out. One Mithril Bar and one Solid Blasting Powder a craft; hunters buy the slugs. Needs an anvil nearby. Engineering 225 is a Legacy System milestone.
   craft 12596 until 225
   skill Engineering 225
 
@@ -382,25 +440,40 @@ step Schematic: Thorium Tube
   tip Schematic: Thorium Tube teaches Thorium Tube (Engineering 275) for 1g 60s. Sold by Kor'gar (Riverglades) and Xizzer Fizzbolt (Winterspring), limited stock.
   buy 16047 nearest
 
+step Engineering 225-300: Auction House
+  tip What 225-300 takes that the Auction House sells: 118 Mithril Bar, 212 Solid Stone, 156 Thorium Bar and 24 Runecloth. The counts drop by what your bags, bank and mail hold.
+  auction 3860 x118
+  auction 7912 x212
+  auction 12359 x156
+  auction 14047 x24
+
+step Mithril Bar
+  tip 118 Mithril Bar for Hi-Impact Mithril Slugs and Mithril Gyro-Shot: Mining: smelt Mithril Ore.
+  collect 3860 x118 anywhere gather Mining 175
+
 step Solid Stone (Alliance)
   only Alliance
   zone The Hinterlands
-  tip 212 Solid Stone for Hi-Impact Mithril Slugs and Mithril Gyro-Shot: Mining: Mithril Deposit (skill 175) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55); or the Auction House. The densest cluster of Mithril Deposit in The Hinterlands is marked.
-  collect 7912 x212 @20.8,58.8 era
+  tip 212 Solid Stone for Hi-Impact Mithril Slugs and Mithril Gyro-Shot: Mining: Mithril Deposit (skill 175) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55). The densest cluster of Mithril Deposit in The Hinterlands is marked.
+  collect 7912 x212 @20.8,58.8 era gather Mining 175
 
 step Solid Stone (Horde)
   only Horde
   zone Desolace
-  tip 212 Solid Stone for Hi-Impact Mithril Slugs and Mithril Gyro-Shot: Mining: Mithril Deposit (skill 175) in Desolace (30-40), The Hinterlands (40-50) and Feralas (40-50); or the Auction House. The densest cluster of Mithril Deposit in Desolace is marked.
-  collect 7912 x212 @31.5,59.4 era
+  tip 212 Solid Stone for Hi-Impact Mithril Slugs and Mithril Gyro-Shot: Mining: Mithril Deposit (skill 175) in Desolace (30-40), The Hinterlands (40-50) and Feralas (40-50). The densest cluster of Mithril Deposit in Desolace is marked.
+  collect 7912 x212 @31.5,59.4 era gather Mining 175
+
+step Thorium Bar
+  zone Azeroth
+  tip 156 Thorium Bar for Thorium Widget and Thorium Tube: Mining: smelt Thorium Ore.
+  collect 12359 x156 anywhere gather Mining 250
 
 step Runecloth
-  zone Azeroth
-  tip 24 Runecloth for Thorium Widget: humanoids of level 45-60 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House.
-  collect 14047 x24 anywhere
+  tip 24 Runecloth for Thorium Widget: humanoids of level 45-60 drop it. Keep what you loot as you level, or take it from your bank.
+  collect 14047 x24 anywhere gather levels 45-60
 
 step Hi-Impact Mithril Slugs to 245
-  tip Hi-Impact Mithril Slugs is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 Mithril Bar and 1 Solid Blasting Powder and makes 200. Make the 50 Solid Blasting Powder first. Use the 12 Solid Blasting Powder you made earlier; the counts above leave them out. One Mithril Bar and one Solid Blasting Powder a craft; hunters buy the slugs. Needs an anvil nearby. Mithril Bar (118 for 225-300): Mining: smelt Mithril Ore; or the Auction House.
+  tip Hi-Impact Mithril Slugs is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 Mithril Bar and 1 Solid Blasting Powder and makes 200. Make the 50 Solid Blasting Powder first. Use the 12 Solid Blasting Powder you made earlier; the counts above leave them out. One Mithril Bar and one Solid Blasting Powder a craft; hunters buy the slugs. Needs an anvil nearby.
   craft 12585 x50
   craft 12596 until 245
 
@@ -414,7 +487,7 @@ step Mithril Gyro-Shot to 265
   craft 12621 until 265
 
 step Thorium Widget to 287
-  tip Thorium Widget is orange at 265 (yellow 280, green 290, grey 300): about 24 crafts to 287. Each takes 3 Thorium Bar and 1 Runecloth. Three Thorium Bars and a Runecloth a craft; the widgets are parts for the later Thorium gadgets. Needs an anvil nearby. Thorium Bar (156 for 225-300): Mining: smelt Thorium Ore; or the Auction House.
+  tip Thorium Widget is orange at 265 (yellow 280, green 290, grey 300): about 24 crafts to 287. Each takes 3 Thorium Bar and 1 Runecloth. Three Thorium Bars and a Runecloth a craft; the widgets are parts for the later Thorium gadgets. Needs an anvil nearby.
   learn 19791 -- from the recipe in your bags
   craft 19791 until 287
 

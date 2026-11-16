@@ -12,15 +12,15 @@ return {
 	-- Step 1: Learn to ride
 	["Learn to ride"] = "Aprende a montar",
 	-- {npc:3690} Kar Stormsinger · {npc:3685} Harb Clawhoof · {area:222} Bloodhoof Village · {zone:1412} Mulgore · {skill:762} Riding · {faction:81} Thunder Bluff
-	["{npc:3690} and {npc:3685}'s kodos are in {area:222}, {zone:1412}. At 40 {npc:3690} teaches {skill:762} to Tauren for 100g (10% less at Honored with {faction:81}), and it comes with a kodo. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "",
+	["{npc:3690} and {npc:3685}'s kodos are in {area:222}, {zone:1412}. At 40 {npc:3690} teaches {skill:762} to Tauren for 100g (10% less at Honored with {faction:81}), and it comes with a kodo. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "Los kodos de {npc:3690} y {npc:3685} están en {area:222}, {zone:1412}. A nivel 40 {npc:3690} enseña {skill:762} a los tauren por 100 de oro (10% menos en Honorable con {faction:81}), y viene con un kodo. Las demás razas aprenden {skill:762}, con su propia primera montura, con el instructor de equitación de su raza.",
 	-- {npc:3690} Kar Stormsinger
 	["{npc:3690}, riding trainer"] = "{npc:3690}, instructor de equitación",
 
 	-- Step 2: Kodo Riding for other races
 	-- {spell:18995} Kodo Riding
-	["{spell:18995} for other races"] = "",
+	["{spell:18995} for other races"] = "{spell:18995} para otras razas",
 	-- {spell:18995} Kodo Riding · {skill:762} Riding · {npc:3690} Kar Stormsinger · {faction:81} Thunder Bluff
-	["Any Horde race can buy these kodos, but riding one also takes {spell:18995}, which only Tauren get with {skill:762}. {npc:3690} teaches it to other races once they are Exalted with {faction:81} (the Thunder Bluff Reputation guide shows the way). Until then, don't buy a kodo for this character."] = "",
+	["Any Horde race can buy these kodos, but riding one also takes {spell:18995}, which only Tauren get with {skill:762}. {npc:3690} teaches it to other races once they are Exalted with {faction:81} (the Thunder Bluff Reputation guide shows the way). Until then, don't buy a kodo for this character."] = "Cualquier raza de la Horda puede comprar estos kodos, pero para montar uno también hace falta {spell:18995}, que solo los tauren reciben con {skill:762}. {npc:3690} se la enseña a las demás razas una vez que están en Exaltado con {faction:81} (la guía de reputación de Cima del Trueno muestra el camino). Hasta entonces, no le compres un kodo a este personaje.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Elige un color",
@@ -30,9 +30,9 @@ return {
 	["{item:15277}, 20g"] = "{item:15277}, 20g",
 	-- {item:15290} Brown Kodo
 	["{item:15290}, 20g"] = "{item:15290}, 20g",
-	["new in Forever, 20g; beta players found it here"] = "",
+	["new in Forever, 20g; beta players found it here"] = "nuevo en Forever, 20 de oro; los jugadores de la beta lo encontraron aquí",
 	-- {item:277960} Lavender Kodo
-	["{item:277960} is a new Forever kodo (level 40, 20g in the client) whose source is not known yet."] = "",
+	["{item:277960} is a new Forever kodo (level 40, 20g in the client) whose source is not known yet."] = "{item:277960} es un kodo nuevo de Forever (nivel 40, 20 de oro en el cliente) cuyo origen todavía no se conoce.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["{item:275993} and {item:277960} are new Forever kodos (level 40, 20g in the client) whose source is not known yet."] = "{item:275993} y {item:277960} son kodos nuevos de Forever (nivel 40, 20g en el cliente) cuyo origen aún no se conoce.",

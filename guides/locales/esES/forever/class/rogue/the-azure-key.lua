@@ -7,14 +7,14 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Ravenholdt reputation and experience at 50; Classic's item choice may be gone on Forever."] = "",
+	["Ravenholdt reputation and experience at 50; Classic's item choice may be gone on Forever."] = "Reputación con Ravenholdt y experiencia a nivel 50; puede que Forever haya eliminado la elección de objeto de Classic.",
 	["Ravenholdt reputation"] = "Reputación con Ravenholdt",
 
 	-- Step 1: A Simple Request (Alliance)
 	-- {quest:8233} A Simple Request
 	["{quest:8233} (Alliance)"] = "{quest:8233} (Alianza)",
 	-- {npc:918} Osborne the Night Man · {zone:1453} Stormwind · {object:2100} Old Town · {zone:1457} Darnassus · {npc:5165} Hulfdan Blackbeard · {zone:1455} Ironforge
-	["At 50 {npc:918} in {zone:1453}'s {object:2100} has it; so do Syurna in {zone:1457} and {npc:5165} in {zone:1455}."] = "",
+	["At 50 {npc:918} in {zone:1453}'s {object:2100} has it; so do Syurna in {zone:1457} and {npc:5165} in {zone:1455}."] = "A nivel 50, la tiene {npc:918} en {object:2100} de {zone:1453}; también Syurna en {zone:1457}, y {npc:5165} en {zone:1455}.",
 
 	-- Step 2: A Simple Request (Horde)
 	-- {quest:8233} A Simple Request
@@ -58,9 +58,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Alliance fly to {area:3137}, Horde to {area:1237}. The Timbermaw Shamans in {zone:1447}'s northern hills drop the bag, about one in thirty."] = "La Alianza vuela a {area:3137}; la Horda, a {area:1237}. Los chamanes Fauces de Madera de las colinas del norte de {zone:1447} sueltan la bolsa, más o menos uno de cada treinta.",
-	-- ["At 50 {npc:918} in {zone:1453}'s {object:2100} has it; so do Syurna in {zone:1457} and {npc:5165} and Fenthwick in {zone:1455}."] = "A nivel 50, la tiene {npc:918} en {object:2100} de {zone:1453}; también Syurna en {zone:1457}, y {npc:5165} y Fenthwick en {zone:1455}.",
 	-- ["Morphaz, a green drake, is an elite boss deep in the {area:1417}, a level 50 dungeon: bring a group of five. The temple stands in the {area:74}; swim down to the entrance. Horde: fly to {area:75}; Alliance: fly to {area:1438} and ride on."] = "Morphaz, un draco verde, es un jefe de élite en lo más hondo del {area:1417}, una mazmorra de nivel 50: lleva un grupo de cinco. El templo está en {area:74}; bucea hasta la entrada. Horda: vuela a {area:75}. Alianza: vuela a {area:1438} y sigue cabalgando.",
-	-- ["Ravenholdt reputation and experience at 50; Forever removed the Classic item choice."] = "Reputación con Ravenholdt y experiencia a nivel 50; Forever eliminó la elección de objeto de Classic.",
 	-- ["The Forest Oozes of southern {zone:1447} drop the fragments."] = "Los mocos del bosque del sur de {zone:1447} sueltan los fragmentos.",
 	-- ["{area:3486} hides in the hills east of {area:272}, up a path into the {zone:1416}. Horde fly to {area:272}, Alliance to {area:271}."] = "La {area:3486} se oculta en las colinas al este de {area:272}, subiendo por un sendero hacia {zone:1416}. La Horda vuela a {area:272}; la Alianza, a {area:271}.",
 	-- ["{npc:6768}: no item choices in Forever"] = "{npc:6768}: sin elección de objeto en Forever",

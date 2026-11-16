@@ -10,7 +10,7 @@ return {
 	-- {area:279} Dalaran
 	["Skyboat from {area:279}"] = "Barco celeste desde {area:279}",
 	-- {zone:2521} Zephras Isle · {area:279} Dalaran · {zone:1456} Thunder Bluff
-	["{zone:2521} is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the north side of {area:279} about every five minutes (another flies from north of {zone:1456}; either faction may take either)."] = "",
+	["{zone:2521} is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the north side of {area:279} about every five minutes (another flies from north of {zone:1456}; either faction may take either)."] = "{zone:2521} es la isla inicial de los Cielonato; según informes de la beta, cualquiera puede visitarla. Un barco celeste sale del lado norte de {area:279} más o menos cada cinco minutos (otro vuela desde el norte de {zone:1456}; cualquier facción puede tomar cualquiera de los dos).",
 	-- {zone:2521} Zephras Isle
 	["Skyboat to {zone:2521}"] = "Barco celeste a {zone:2521}",
 
@@ -18,12 +18,12 @@ return {
 	-- {zone:1456} Thunder Bluff
 	["Skyboat from {zone:1456}"] = "Barco celeste desde {zone:1456}",
 	-- {zone:2521} Zephras Isle · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff · {area:279} Dalaran
-	["{zone:2521} is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes (another flies from {area:279}; either faction may take either)."] = "",
+	["{zone:2521} is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes (another flies from {area:279}; either faction may take either)."] = "{zone:2521} es la isla inicial de los Cielonato; según informes de la beta, cualquiera puede visitarla. Un barco celeste sale de los acantilados al sur de {area:17045}, al norte de {zone:1456}, más o menos cada cinco minutos (otro vuela desde {area:279}; cualquier facción puede tomar cualquiera de los dos).",
 
 	-- Step 3: Sing to the frogs
 	["Sing to the frogs"] = "Cántales a las ranas",
 	-- {area:16635} Thendal Village · {item:268109} Musical Gustjumper
-	["From {area:16635} follow the road south, then cut across the field to the top of the waterfall: five frogs sit together on a rock there, by a log. Mobs patrol nearby, so a level 1 character should watch its back. Stand by the rock, target a frog and type /sing. The frogs sing back, the group disappears and one frog hops onto the log beside you: click it to take the {item:268109}, then use it to learn the pet. The item is not bound until you use it, so a friend on the island can sing again and trade you one."] = "",
+	["From {area:16635} follow the road south, then cut across the field to the top of the waterfall: five frogs sit together on a rock there, by a log. Mobs patrol nearby, so a level 1 character should watch its back. Stand by the rock, target a frog and type /sing. The frogs sing back, the group disappears and one frog hops onto the log beside you: click it to take the {item:268109}, then use it to learn the pet. The item is not bound until you use it, so a friend on the island can sing again and trade you one."] = "Desde {area:16635} sigue el camino al sur y luego cruza el campo hasta lo alto de la cascada: cinco ranas están juntas en una roca, junto a un tronco. Hay enemigos patrullando cerca, así que un personaje de nivel 1 debe cuidarse la espalda. Párate junto a la roca, selecciona una rana y escribe /sing. Las ranas te cantan, el grupo desaparece y una rana salta al tronco a tu lado: haz clic en ella para tomar el {item:268109}, y luego úsalo para aprender la mascota. El objeto no se liga hasta que lo usas, así que un amigo en la isla puede volver a cantar y pasarte uno.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Target one of the frogs here and type /sing; a {item:268109} appears. Interact with it to get the pet."] = "Selecciona una de las ranas de aquí y escribe /sing; aparece {item:268109}. Interactúa con él para obtener la mascota.",

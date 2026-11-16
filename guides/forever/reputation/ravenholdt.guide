@@ -54,6 +54,7 @@ step Strahnbrad: Barton
   only Rogue
   zone Alterac Mountains
   tip Barton hides in a house in Strahnbrad, among stealthed Syndicate. Pick his pocket for the report; Distract turns him around if you are under his level.
+  level 35
   collect 275482 quest 96781.1 @62.6,46.9 -- Barton's Scouting Report: pickpocket Barton
 
 step Northfold Manor: a uniform
@@ -104,6 +105,7 @@ step Syndicate Emblems to Friendly
 
 step Syndicate kills to the end of Honored
   tip Everyone, not only rogues: in Classic every Syndicate human gave Ravenholdt 5 reputation up to the end of Honored (11,999 of 12,000) and not one point more, so 0 to there is 4,200 kills (3,600 after a rogue's quests and emblems). This step ticks at Honored; keep killing until the bar stops moving, then go on to the junkboxes. The highest Syndicate are in the north-west of the Alterac Mountains, Syndicate Assassins and Enforcers (level 38-40), with Syndicate Sentries (36-37) nearer the middle. At 60 all Syndicate are grey, and in Classic grey kills gave about a fifth: farm them before 48 if you can. Legacy Diplomat adds up to 10%.
+  level 39
   goto 38.3,15.4 "Syndicate Assassins and Enforcers"
   goto 47.4,17.5 "Syndicate Sentries"
   loop
@@ -116,7 +118,7 @@ step A Simple Request, rogues 50+
   only Rogue
   when level>=50
   tip At level 50 your class trainer has another letter for you, and Lord Jorach Ravenholdt a short chain: 360 reputation in all. The Sealed Azure Bag drops from Timbermaw Shamans in northern Azshara (about 1 in 27, or pick their pockets); the Encoded Fragments from Forest Oozes in Azshara (4 in 5). The Azure Key comes from Morphaz, an elite drake deep in the Temple of Atal'Hakkar: a five-player dungeon, group up.
-  level 50
+  level 52
   zone Stormwind City
   accept 8233 npc 918 only Alliance   -- Osborne the Night Man, Stormwind
   zone Orgrimmar

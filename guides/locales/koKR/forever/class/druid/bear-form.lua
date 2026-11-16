@@ -52,8 +52,8 @@ return {
 	["{npc:3033} stands in the druids' hut on {area:1639}, over the rope bridges east of the lifts. He teaches you {spell:18960} with the quest (it stays in your spellbook, Balance tab)."] = "",
 
 	-- Step 11: Moonglade
-	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {quest:5930} Great Bear Spirit · {area:2361} Nighthaven · {quest:5922} Moonglade · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
-	["Cast {spell:18960}: it lands you beside the building where {npc:11802} stands upstairs. The {quest:5930} sits in the woods to the north-west. Speak to it and go through all of its words (what it represents, the strength of the body, the strength of the heart, then ask for its blessing): the talk is the objective, there is no fight. It blends into the ground, has no quest mark and gives off a faint blue-grey glow by a group of three trees: from {area:2361} go west along the foot of the northern mountains, through the gap between the trees and the hills. If {npc:11802} is missing when you return, step outside and cast {spell:18960} again. Learn the {quest:5922} flight path (Faustron, south-west of the lake); {npc:11798} in {area:2361} flies druids to {area:1638}."] = "",
+	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {quest:5930} Great Bear Spirit · {area:2361} Nighthaven · {quest:5922} Moonglade · {npc:12740} Faustron · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
+	["Cast {spell:18960}: it lands you beside the building where {npc:11802} stands upstairs. The {quest:5930} sits in the woods to the north-west. Speak to it and go through all of its words (what it represents, the strength of the body, the strength of the heart, then ask for its blessing): the talk is the objective, there is no fight. It blends into the ground, has no quest mark and gives off a faint blue-grey glow by a group of three trees: from {area:2361} go west along the foot of the northern mountains, through the gap between the trees and the hills. If {npc:11802} is missing when you return, step outside and cast {spell:18960} again. Learn the {quest:5922} flight path ({npc:12740}, south-west of the lake); {npc:11798} in {area:2361} flies druids to {area:1638}."] = "{spell:18960}을(를) 시전하세요. {npc:11802}이(가) 위층에 서 있는 건물 옆에 도착합니다. {quest:5930}은(는) 북서쪽 숲에 있습니다. 말을 걸어 모든 대화를 진행하세요(무엇을 상징하는지, 육체의 힘, 마음의 힘, 그리고 축복 요청). 대화가 임무이며 전투는 없습니다. 땅에 섞여 보이고 퀘스트 표시가 없으며, 나무 세 그루 옆에서 희미한 청회색 빛을 냅니다. {area:2361}에서 북쪽 산기슭을 따라 서쪽으로, 나무와 언덕 사이 틈을 지나가세요. 돌아왔을 때 {npc:11802}이(가) 없으면 밖으로 나가 {spell:18960}을(를) 다시 시전하세요. {quest:5922} 비행 경로를 배우세요(호수 남서쪽의 {npc:12740}). {area:2361}의 {npc:11798}은(는) 드루이드를 {area:1638}(으)로 태워 줍니다.",
 	-- {quest:5930} Great Bear Spirit
 	["Speak with the {quest:5930}"] = "{quest:5930}와(과) 대화하세요",
 
@@ -110,8 +110,8 @@ return {
 	["The Skyborne Portal takes you to {zone:1453}. {npc:5504} is the city's druid trainer (the arrow points at him); he teaches you {spell:18960} with the next quest (it stays in your spellbook, Balance tab)."] = "",
 
 	-- Step 24: Dendrite Starblaze
-	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:493} Moonglade · {npc:10897} Sindrayl
-	["Cast {spell:18960}: it lands you beside the building where {npc:11802} stands upstairs, in {area:2361}. Learn the {area:493} flight path while you are here (Faustron for the Horde, south-west of the lake; {npc:10897} for the Alliance, south of it)."] = "",
+	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:493} Moonglade · {npc:12740} Faustron · {npc:10897} Sindrayl
+	["Cast {spell:18960}: it lands you beside the building where {npc:11802} stands upstairs, in {area:2361}. Learn the {area:493} flight path while you are here ({npc:12740} for the Horde, south-west of the lake; {npc:10897} for the Alliance, south of it)."] = "{spell:18960}을(를) 시전하세요. {area:2361}에서 {npc:11802}이(가) 위층에 서 있는 건물 옆에 도착합니다. 여기 온 김에 {area:493} 비행 경로를 배우세요(호드는 호수 남서쪽의 {npc:12740}, 얼라이언스는 호수 남쪽의 {npc:10897}).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}. Learn the {area:493} flight path while you are here."] = "{spell:18960}을(를) 시전하세요. {npc:11802}은(는) {area:2361}에 있습니다. 여기 있는 동안 {area:493} 비행 경로를 배우세요.",

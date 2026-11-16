@@ -9,7 +9,7 @@ return {
 	-- Guide
 	["Poisons (Horde)"] = "",
 	-- {item:7676} Thistle Tea
-	["Forever teaches Poisons through this chain, not the trainer; the {item:7676} recipe comes with it."] = "",
+	["Forever teaches Poisons through this chain, not the trainer; the {item:7676} recipe comes with it."] = "Forever enseña Venenos con esta cadena, no el instructor; la receta de {item:7676} viene con ella.",
 
 	-- Step 1: Lockpicking practice
 	["Lockpicking practice"] = "",
@@ -32,19 +32,21 @@ return {
 	-- {item:8051} Flare Gun
 	["{item:8051}, twice, at Fizzule"] = "",
 
-	-- Step 4: Silixiz's Tower Key
-	-- {item:8066} Fizzule's Whistle · {npc:7287} Foreman Silixiz · {spell:921} Pick Pocket
-	["Keep {item:8066} in your bags and use it on him every time you come near, or he turns hostile. {npc:7287} (level 22) walks by the tower: hug the wall, stealth up behind him and {spell:921} the key. Killing him does not give it; if his pockets are empty, kill him and wait 4 1/2 minutes for him to come back."] = "",
+	-- Step 4: The Venture Co. tower, with a group
+	["The Venture Co. tower, with a group"] = "La torre de Ventura y Cía., en grupo",
+	-- {npc:7288} Grand Foreman Puzik Gallywix · {item:8066} Fizzule's Whistle · {npc:7287} Foreman Silixiz · {object:129127} Gallywix's Lockbox · {spell:9810} Touch of Zanzil · {npc:2391} Serge Hinott
+	-- plural, as words: Mutated Venture Co. Drones = {npc:7310} Mutated Venture Co. Drone
+	["{npc:7288} on the top floor is a level 23 elite: easier at 23 or with a friend. Keep {item:8066} in your bags and use it on him every time you come near, or he turns hostile. First Pick Pocket Silixiz's Tower Key from {npc:7287} (level 22), who walks by the tower: stealth up behind him (killing him does not give it). Then clear the tower floor by floor (everything comes back after 4 1/2 minutes): Mutated Venture Co. Drones (25) on the ground floor, Patrollers on the second, Lookouts on the open third, Gallywix on top, back 10 minutes after a kill. Pick {object:129127} beside him for the cache: it poisons you with the {spell:9810}, which weakens your stealth and agility until {npc:2391} cures it."] = "{npc:7288}, en el piso superior, es un élite de nivel 23: más fácil a nivel 23 o con un amigo. Lleva el {item:8066} en las bolsas y úsalo sobre él cada vez que te acerques, o se volverá hostil. Primero roba la llave de la torre de Silixiz a {npc:7287} (nivel 22), que pasea junto a la torre: entra en sigilo tras él (matarlo no la da). Luego limpia la torre piso a piso (todo reaparece a los 4 1/2 minutos): zánganos mutados de Ventura y Cía. (25) en la planta baja, patrulleros en el segundo, vigías en el tercero, abierto, y Gallywix arriba, que reaparece 10 minutos después de matarlo. Fuerza el {object:129127} junto a él para obtener el alijo: te envenena con {spell:9810}, que debilita tu sigilo y agilidad hasta que {npc:2391} te cure.",
 	-- {item:8072} Silixiz's Tower Key
 	["Pick Pocket Foreman Silixiz for {item:8072}"] = "",
-
-	-- Step 5: The Venture Co. tower
-	["The Venture Co. tower"] = "",
-	-- {spell:1943} Rupture · {spell:2098} Eviscerate · {npc:7288} Grand Foreman Puzik Gallywix · {spell:1776} Gouge · {spell:5277} Evasion · {item:7676} Thistle Tea · {object:129127} Gallywix's Lockbox · {spell:9810} Touch of Zanzil · {npc:2391} Serge Hinott
-	-- plural, as words: Mutated Venture Co. Drones = {npc:7310} Mutated Venture Co. Drone
-	["Inside, floor by floor (everything comes back after 4 1/2 minutes): the Mutated Venture Co. Drones (level 25) on the ground floor die to one Ambush with a dagger; the Patrollers on the second floor take half their health from a one-point {spell:1943}; the Lookouts on the open third floor from a one-point {spell:2098}. {npc:7288} waits on the top floor: a level 23 elite, back 10 minutes after a kill. Open with Ambush (about half his health), then {spell:1776}, {spell:5277}, a healing potion and {item:7676}; a friend makes it easy. One head per kill. Then pick {object:129127} beside him for the cache: it poisons you with the {spell:9810}, which weakens your stealth and agility until {npc:2391} cures it."] = "",
 	-- {item:8074} Gallywix's Head · {npc:7288} Grand Foreman Puzik Gallywix
 	["{item:8074}: {npc:7288} (elite)"] = "{item:8074}: {npc:7288} (élite)",
+
+	-- Step 5: The Venture Co. tower, solo
+	["The Venture Co. tower, solo"] = "La torre de Ventura y Cía., en solitario",
+	-- {item:8066} Fizzule's Whistle · {npc:7287} Foreman Silixiz · {spell:921} Pick Pocket · {spell:1943} Rupture · {spell:2098} Eviscerate · {npc:7288} Grand Foreman Puzik Gallywix · {spell:1776} Gouge · {spell:5277} Evasion · {item:7676} Thistle Tea · {object:129127} Gallywix's Lockbox · {spell:9810} Touch of Zanzil · {npc:2391} Serge Hinott
+	-- plural, as words: Mutated Venture Co. Drones = {npc:7310} Mutated Venture Co. Drone
+	["Keep {item:8066} in your bags and use it on him every time you come near, or he turns hostile. {npc:7287} (level 22) walks by the tower: hug the wall, stealth up behind him and {spell:921} the key. Killing him does not give it; if his pockets are empty, kill him and wait 4 1/2 minutes for him to come back. Inside, floor by floor (everything comes back after 4 1/2 minutes): the Mutated Venture Co. Drones (level 25) on the ground floor die to one Ambush with a dagger; the Patrollers on the second floor take half their health from a one-point {spell:1943}; the Lookouts on the open third floor from a one-point {spell:2098}. {npc:7288} waits on the top floor: a level 23 elite, back 10 minutes after a kill. Open with Ambush (about half his health), then {spell:1776}, {spell:5277}, a healing potion and {item:7676}; a friend makes it easy. One head per kill. Then pick {object:129127} beside him for the cache: it poisons you with the {spell:9810}, which weakens your stealth and agility until {npc:2391} cures it."] = "Lleva el {item:8066} en las bolsas y úsalo sobre él cada vez que te acerques, o se volverá hostil. {npc:7287} (nivel 22) pasea junto a la torre: pégate a la pared, entra en sigilo tras él y usa {spell:921} para robarle la llave. Matarlo no la da; si no lleva nada en los bolsillos, mátalo y espera 4 1/2 minutos a que reaparezca. Dentro, piso a piso (todo reaparece a los 4 1/2 minutos): los zánganos mutados de Ventura y Cía. (nivel 25) de la planta baja mueren de una Emboscada con daga; los patrulleros del segundo piso pierden la mitad de su salud con una {spell:1943} de un punto; los vigías del tercero, abierto, con un {spell:2098} de un punto. {npc:7288} espera en el piso superior: un élite de nivel 23 que reaparece 10 minutos después de matarlo. Abre con Emboscada (la mitad de su salud, aprox.) y luego {spell:1776}, {spell:5277}, una poción de sanación y {item:7676}; con un amigo es fácil. Una cabeza por muerte. Después fuerza el {object:129127} junto a él para obtener el alijo: te envenena con {spell:9810}, que debilita tu sigilo y agilidad hasta que {npc:2391} te cure.",
 
 	-- Step 6: Back to Shenthul
 	-- {npc:3401} Shenthul
@@ -66,7 +68,6 @@ return {
 	-- ["At 20 {npc:3401} stands in the {object:172960}, the canyon under the {object:172982}. Target him and type /salute."] = "A nivel 20 {npc:3401} está en {object:172960}, el cañón bajo {object:172982}. Selecciónalo y escribe /salute.",
 	-- ["Fly back to {zone:1454}."] = "Vuelve volando a {zone:1454}.",
 	-- ["Fly to the {area:380} and ride north to the Venture Co. tower north of the {area:382}. In sight of the tower, fire the {item:8051} twice, then /salute {npc:7233} before he attacks you."] = "Vuela a {area:380} y cabalga al norte hasta la torre de Ventura y Cía. al norte de {area:382}. A la vista de la torre, dispara la {item:8051} dos veces y luego haz /salute a {npc:7233} antes de que te ataque.",
-	-- ["Forever teaches {spell:2842} through this chain, not the trainer; the {item:7676} recipe comes with it."] = "Forever enseña {spell:2842} con esta cadena, no el instructor; la receta de {item:7676} viene con ella.",
 	-- ["Stay stealthed. {npc:7287} carries the tower key; Gallywix (elite) and his lockbox are at the top of the tower. Kill two each of the drones, patrollers and lookouts around it."] = "Permanece en sigilo. {npc:7287} lleva la llave de la torre; Gallywix (élite) y su caja fuerte están en lo alto de la torre. Mata a dos de cada: zánganos, patrulleros y vigías de los alrededores.",
 	-- ["Take the zeppelin from {zone:1454} to the {zone:1458} and ride south through {zone:1421} to {area:272} in {area:287}. {npc:2391} stands in {area:272}; wait beside him while he brews the cure."] = "Toma el zepelín de {zone:1454} a {zone:1458} y cabalga al sur por {zone:1421} hasta {area:272}, en {area:287}. {npc:2391} está en {area:272}; espera a su lado mientras prepara la cura.",
 	-- ["{item:8051}, twice, in sight of the tower"] = "{item:8051}, dos veces, a la vista de la torre",

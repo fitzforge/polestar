@@ -15,7 +15,7 @@ return {
 
 	-- Step 1: Sagorne Creststrider
 	-- {npc:13417} Sagorne Creststrider · {object:172957} Valley of Wisdom · {npc:6176} Bath'rah the Windwatcher
-	["At 50 {npc:13417}, the shaman trainer in the {object:172957}, asks for the four elements for {npc:6176}."] = "",
+	["At 50 {npc:13417}, the shaman trainer in the {object:172957}, asks for the four elements for {npc:6176}."] = "На 50-м уровне {npc:13417}, учитель шаманов ({object:172957}), просит добыть четыре стихии для NPC {npc:6176}.",
 
 	-- Step 2: Beram Skychaser
 	-- {npc:3032} Beram Skychaser · {area:1640} Spirit Rise · {zone:1456} Thunder Bluff · {npc:6176} Bath'rah the Windwatcher · {quest:8410} Elemental Mastery · {quest:8412} Spirit Totem · {quest:8411} Mastering the Elements
@@ -40,7 +40,7 @@ return {
 
 	-- Step 4: Bath'rah the Windwatcher
 	-- {npc:6176} Bath'rah the Windwatcher · {zone:1416} Alterac Mountains · {area:272} Tarren Mill
-	["{npc:6176} camps in the ruins of the east of {zone:1416}: from {area:272} follow the river east of town north into the hills."] = "",
+	["{npc:6176} camps in the ruins of the east of {zone:1416}: from {area:272} follow the river east of town north into the hills."] = "{npc:6176} стоит лагерем в руинах на востоке зоны {zone:1416}: от места {area:272} идите вдоль реки к востоку от городка на север, в холмы.",
 
 	-- Step 5: Spider eye and bear claw
 	["Spider eye and bear claw"] = "Паучий глаз и медвежий коготь",
@@ -66,7 +66,6 @@ return {
 	["{npc:6176}: the old item choice may be gone, count on the experience"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 50 {npc:13417}, the shaman trainer in the {object:172957}, sends you to {npc:6176}."] = "На 50-м уровне {npc:13417}, учитель шаманов ({object:172957}), отправит вас сюда: {npc:6176}.",
 	-- ["At 50 {npc:3032}, a shaman trainer in {zone:1456}, sends you to {npc:6176}."] = "На 50-м уровне {npc:3032}, учитель шаманов ({zone:1456}), отправит вас сюда: {npc:6176}.",
 	-- ["Experience and gold at 50, ending in the {area:1417}; Forever removed the Classic item choice."] = "Опыт и золото на 50-м уровне, финал – здесь: {area:1417}; в Forever убран выбор предметов из Classic.",
 	-- ["In the {zone:1422}, the Venom Mist Lurkers drop the {item:20610} and the Diseased Black Bears the {item:20611} (about one kill in five each)."] = "В зоне {zone:1422} {item:20610} падает с воронковых пауков Ядовитого Тумана, а {item:20611} – с больных черных медведей (примерно в одном случае из пяти).",
@@ -74,5 +73,4 @@ return {
 	-- ["One each of {item:7069}, Fire, Earth and Water. The Exiles of {zone:1417} drop them, one element each, about one kill in ten: Thundering (air), Burning (fire), Rumbling (earth) and Cresting (water). Or buy them at the auction house."] = "По одному: {item:7069}, огонь, земля и вода. Они падают с изгнанников в зоне {zone:1417}, с каждого своя стихия, примерно в одном случае из десяти: грохочущие изгнанники (воздух), пылающие изгои (огонь), шумные изгнанники (земля) и морские изгои (вода). Или купите на аукционе.",
 	-- ["The {area:1417} ({area:1477}) lies under the {area:74}; the arrow points at its entrance. Gasher or {npc:5716} drop the {item:20606}, Hukku or Mijan the Blue, Zolo or Loro the Green: all six are elite trolls inside. Bring a group."] = "{area:1417} ({area:1477}) находится под местом {area:74}; стрелка указывает на вход. {item:20606} падает с Ранокола или NPC {npc:5716}, синий – с Хукку или Миджана, зеленый – с Золо или Лоро: все шестеро – элитные тролли внутри. Соберите группу.",
 	-- ["{item:7070}: Cresting Exiles"] = "{item:7070}: морские изгои",
-	-- ["{npc:6176} camps in the east of {zone:1416}, north-east of {area:272}."] = "{npc:6176} стоит лагерем на востоке зоны {zone:1416}, к северо-востоку от места {area:272}.",
 }

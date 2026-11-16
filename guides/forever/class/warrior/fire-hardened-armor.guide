@@ -29,8 +29,10 @@ why Starts now at 20 with a shield; a hauberk at 28, then a coif, leggings and g
 # warrior can talk to Mathiel directly), so any Alliance warrior can earn all
 # three pieces; Skyborne get no breadcrumb and are sent to Grimand here.
 # Sources: quests.json, npcs.json, objects.json and items.json for the chain,
-# objectives and places (the Rethban Caverns point is the quest's own
-# objective position); the knowledge base's drop table (Scorched Spider Fang
+# objectives and places (the Rethban Caverns: the mouth where players'
+# recordings walk in, 15.0,27.3, and the first fork where their Enter the
+# Rethban Caverns ticks, 14.2,25.3, both live frame, #2311; the quest's own
+# objective position is 14.05,24.71); the knowledge base's drop table (Scorched Spider Fang
 # 100%, Charred Horn and Galvanized Horn 80%, Burning Blood and Burning Rock
 # 80%, the shells and coral 100% per object); quest-notes for the gauntlet's
 # 1-hour timer and drink, the gnolls, the few chimaeras, Roogug and the way
@@ -46,11 +48,17 @@ why Starts now at 20 with a shield; a hauberk at 28, then a coif, leggings and g
 # runs from Redridge to Stonetalon, the Wetlands and the capitals.
 # Fire Hardened Mail and the pieces after it (level 28-30) are near or above
 # the beta's level cap: that part is written from the data, not from play.
-# Level holds (the #1667 rule: a goal waits until its mobs' top level is at
-# most 2 above you): the chimaeras (Matriarch 28) and Roogug (28 elite) wait
-# for 26, Gutspill (32) for 30, in his own step after the worgen (26-31, open
-# from 26 by then). Players' recordings: the horns and Roogug at 30, the
-# Burning Blood and the rock at 31.
+# Level holds (Fitz's rule, 0.4.0: a step's mobs, camp and quest level at most
+# 1 above you, none above you where the spot is dangerous; Kapu's report of
+# Roogug at 21): every step that works a quest waits on its own `level`, so
+# skipping a waiting step never runs on into the next one. The Gauntlet (22)
+# waits for 21; Fire Hardened Mail (28) is taken from Furen at 27, not at 20,
+# in its own step after the shield; its fangs (beside the Highland elites),
+# chimaeras (Matriarch 28) and Roogug (28 elite, group of five) wait for 28,
+# the Burning Blood worgen (26-31) for 28, Gutspill (32) for 32, the coral
+# (Iron Coral, 29) for 28, the shells (30, the wyverns 28-31) for 30.
+# Players' recordings: the horns and Roogug at 30, the Burning Blood and the
+# rock at 31.
 
 step Yorus Barleybrew (Stormwind)
   only Human,Skyborne
@@ -75,37 +83,46 @@ step Yorus Barleybrew (Darnassus)
 
 step Yorus Barleybrew
   zone Redridge Mountains
-  tip Yorus Barleybrew sits in the inn at Lakeshire. His test is timed: before you take it, clear the Redridge gnolls on the path to the Rethban Caverns in the hills north-west of Lakeshire, including the two on the rock by the cave mouth (climb it from its right side).
+  tip Yorus Barleybrew sits in the inn at Lakeshire. His test is timed, and it is a level 22 quest, so the guide waits for level 21 before you take it: before that, clear the Redridge gnolls on the path to the Rethban Caverns in the hills north-west of Lakeshire, including the two on the rock by the cave mouth (climb it from its right side).
   turnin 1698                                 -- Yorus Barleybrew
+  level 21
   accept 1699
 
 step The Rethban Gauntlet
   tip You have one hour, and Yorus's Barleybrew Scalder leaves you drunk for 8-10 minutes. Run north-west into the Rethban Caverns, keeping close to the cliff wall to miss most gnoll packs, and go in as far as the first fork; then come back to Yorus (from the ridge you can jump down into Lakeshire). Dying and releasing your spirit fails the quest: abandon it and Yorus gives it again.
-  complete 1699                               -- Enter the Rethban Caverns and come back
+  goto 15.0,27.3 map 1433 "The Rethban Caverns" live
+  complete 1699 @14.2,25.3 map 1433 live      -- Enter the Rethban Caverns and come back; below ground, at the first fork
   turnin 1699
   accept 1702
 
 step The Shieldsmith
   zone Stormwind City
-  tip Furen Longbeard works in the Dwarven District of Stormwind. He takes the Cask of Scalder (lost it? abandon the quest and Yorus gives a new one) and gives you Furen's Favor, a shield; Fire Hardened Mail is a level 28 quest, with Furen's Instructions listing what it needs.
+  tip Furen Longbeard works in the Dwarven District of Stormwind. He takes the Cask of Scalder (lost it? abandon the quest and Yorus gives a new one) and gives you Furen's Favor, a shield.
   turnin 1702 reward 6970                     -- Furen Longbeard
-  accept 1701
+
+step Fire Hardened Mail
+  zone Stormwind City
+  tip Furen's next task, Fire Hardened Mail, is a level 28 quest: its chimaeras and Roogug are level 28, so the guide waits for level 27 before you take it. Come back to Furen in the Dwarven District then; Furen's Instructions list what it needs.
+  level 27
+  accept 1701                                 -- Furen Longbeard
 
 step Scorched Spider Fangs
   zone Wetlands
-  tip You need 50 fangs. The Leech Stalkers and Cave Stalkers (level 21-22) crawl in the middle of the Wetlands, north of Dun Algaz; every one drops a fang. They poison; back in 5 minutes.
+  tip You need 50 fangs. The Leech Stalkers and Cave Stalkers (level 21-22) crawl in the middle of the Wetlands, north of Dun Algaz; every one drops a fang, but the Highland Horrors and Lurkers (elites, 28-29) roam the same ground, so the guide waits for level 28. The spiders poison; back in 5 minutes.
+  level 28
   collect 6838 x50 quest 1701.1               -- Scorched Spider Fang
 
 step Charred and Galvanized Horns
   zone Stonetalon Mountains
-  tip The chimaeras live south-west of Sun Rock Retreat in the Charred Vale; the guide waits for level 26 first. You need 12 Charred Horns from the Fledgling (level 25-27) and Young Chimaeras (23-25), four kills in five, and the Galvanized Horn from the Chimaera Matriarch (28, the big one), also four in five. Only three Fledglings, two Young and one Matriarch live there, each back in 5 minutes, so expect to wait. Fledglings and the Matriarch spit Corrosive Poison, the Young cast Lightning Bolt. Alliance: fly to Stonetalon Peak and head south.
-  level 26
+  tip The chimaeras live south-west of Sun Rock Retreat in the Charred Vale; the guide waits for level 28 first. You need 12 Charred Horns from the Fledgling (level 25-27) and Young Chimaeras (23-25), four kills in five, and the Galvanized Horn from the Chimaera Matriarch (28, the big one), also four in five. Only three Fledglings, two Young and one Matriarch live there, each back in 5 minutes, so expect to wait. Fledglings and the Matriarch spit Corrosive Poison, the Young cast Lightning Bolt. Alliance: fly to Stonetalon Peak and head south.
+  level 28
   collect 6839 x12 quest 1701.2               -- Charred Horn, from the young chimaeras
   collect 6840 quest 1701.3                   -- Galvanized Horn, from the Chimaera Matriarch
 
 step Roogug in Razorfen Kraul
   zone The Barrens
-  tip Roogug is an elite quilboar (level 28) inside Razorfen Kraul, the dungeon at the south end of the Barrens; a five-player dungeon: needs a group of five, and his guards come with him. Inside take the left path at the first fork, cross the root bridge, go past the big empty cauldron: he is in a dead end on the right, with about ten elites on the way. He casts Lightning Bolt and calls Earth Rumblers. The vial always drops.
+  tip Roogug is an elite quilboar (level 28) inside Razorfen Kraul, the dungeon at the south end of the Barrens; a five-player dungeon: needs a group of five, and his guards come with him. The guide waits for level 28 first. Inside take the left path at the first fork, cross the root bridge, go past the big empty cauldron: he is in a dead end on the right, with about ten elites on the way. He casts Lightning Bolt and calls Earth Rumblers. The vial always drops.
+  level 28
   collect 6841 quest 1701.4 @42.9,90.2 live group 5 -- Vial of Phlogiston, from Roogug
 
 step Furen's Armor
@@ -124,19 +141,21 @@ step Grimand Elmore
   only Human,Skyborne
   tip Grimand Elmore keeps the weapon shop in the north-west of the Dwarven District, a short walk from Furen. He wants 20 Burning Blood and the Burning Rock.
   turnin 1700 only Human                      -- Grimand Elmore
+  level 27
   accept 1705
 
 step Burning Blood
   only Human,Skyborne
   zone Duskwood
-  tip The Nightbane worgen of Duskwood (Dark Runners, Vile Fangs, Shadow Weavers, Worgen and Tainted Ones, level 26-31) south and west of Darkshire drop the Burning Blood four kills in five. The Tainted Ones poison and howl; Vile Fangs cause Infected Wound.
+  tip The Nightbane worgen of Duskwood (Dark Runners, Vile Fangs, Shadow Weavers, Worgen and Tainted Ones, level 26-31) south and west of Darkshire drop the Burning Blood four kills in five; the guide waits for level 28 first. The Tainted Ones poison and howl; Vile Fangs cause Infected Wound.
+  level 28
   collect 6844 x20 quest 1705.1               -- Burning Blood, from the Nightbane worgen
 
 step Gutspill
   only Human,Skyborne
   zone Duskwood
-  tip Gutspill (level 32, not elite) carries the Burning Rock, four kills in five; the guide waits for level 30 first. He walks between the inside and the mouth of the Roland's Doom mine south-east of Darkshire, so wait at the entrance and pull him outside. He poisons and howls.
-  level 30
+  tip Gutspill (level 32, not elite) carries the Burning Rock, four kills in five; the guide waits for level 32 first. He walks between the inside and the mouth of the Roland's Doom mine south-east of Darkshire, so wait at the entrance and pull him outside. He poisons and howls.
+  level 32
   collect 6845 quest 1705.2                   -- Burning Rock, from Gutspill
 
 step Grimand's Armor
@@ -153,12 +172,14 @@ step Mathiel
   zone Darnassus
   tip Mathiel works on the south side of the Warrior's Terrace in Darnassus. He wants 20 Sunscorched Shells.
   turnin 1703                                 -- Mathiel
+  level 29
   accept 1710
 
 step Sunscorched Shells
   only NightElf
   zone Thousand Needles
-  tip The shells lie on the ground under the wyvern nests at Highperch in western Thousand Needles, deeper into the gorge. Only nine exist and each returns 3 minutes after you pick it, so you will wait; some shell-like things there cannot be looted. Highperch Wyverns (level 28-31) guard them and sometimes come several at once.
+  tip The shells lie on the ground under the wyvern nests at Highperch in western Thousand Needles, deeper into the gorge. Only nine exist and each returns 3 minutes after you pick it, so you will wait; some shell-like things there cannot be looted. Highperch Wyverns (level 28-31) guard them and sometimes come several at once: the guide waits for level 30 first.
+  level 30
   collect 6849 x20 quest 1710.1               -- Sunscorched Shell
 
 step Mathiel's Armor
@@ -175,12 +196,14 @@ step Klockmort Spannerspan
   zone Ironforge
   tip Ride the Deeprun Tram from Stormwind to Ironforge. Klockmort Spannerspan, a gnome smith, works in Tinker Town near the engineering trainers. He wants 20 Searing Coral.
   turnin 1704                                 -- Klockmort Spannerspan
+  level 28
   accept 1708
 
 step Iron Coral
   only Dwarf,Gnome
   zone Wetlands
   tip The Iron Coral grows on the sea floor just south of Menethil Harbor, by the murloc huts and a wrecked boat: eight there and two south-east of the harbor, each back in 3 minutes, so you will wait for respawns to reach 20. The murlocs can net you underwater: watch your breath, and a Draught of Water Breathing removes the risk.
+  level 28
   collect 6848 x20 quest 1708.1               -- Searing Coral, from Iron Coral
 
 step Klockmort's Creation

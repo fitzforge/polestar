@@ -1,0 +1,19 @@
+-- The Characters setting on the Discovery options page's Lookup tab, beside
+-- the Dungeon Journal's (docs/ARCHITECTURE.md, "Options registry"). alts.enabled switches the
+-- module off: nothing is saved about the characters you play, and the
+-- Characters page says so. Characters saved earlier are still listed until you forget them.
+-- Part of the settings' addon: nothing of it is in memory before the settings open.
+
+local ns = Polestar
+local L = ns.L
+
+if not (ns.Alts and ns.RegisterOptions) then return end
+
+local ok, err = ns.RegisterOptions({
+	page = L["Discovery"], tab = L["Lookup"], section = L["Dungeons and characters"],
+	controls = {
+		{ kind = "toggle", key = "alts.enabled", label = L["Characters"], search = "alts, alt characters, other characters, toons, roster",
+			help = L["Keep a note of each character you play, for the Characters page (/pole alts)."] },
+	},
+})
+if not ok and geterrorhandler then geterrorhandler()(err) end

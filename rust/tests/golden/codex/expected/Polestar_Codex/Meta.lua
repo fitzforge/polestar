@@ -63,7 +63,7 @@ C.Register("meta", {
 		},
 		{
 			licence = "Facts only (coordinates), each entry with its source",
-			name = "Curated instance entrances (data/codex/entrances.json): QuestieDB Forever dungeon table, warcraft.wiki.gg, the web quest database (Forever pages)",
+			name = "Curated instance entrances (data/codex/entrances.json): QuestieDB Forever dungeon table, warcraft.wiki.gg, the web quest database (Forever pages), Polestar Recorder sessions",
 			version = "30 entrances",
 		},
 		{
@@ -77,8 +77,13 @@ C.Register("meta", {
 			version = "15 attunements",
 		},
 		{
+			licence = "Facts only (levels), each row with its source",
+			name = "Curated dungeon levels (data/codex/levels.json): in-game checks",
+			version = "2 dungeons",
+		},
+		{
 			licence = "Facts only (quest ids and instances), each row with its source",
-			name = "Curated Dungeons journal quests (data/codex/journal-quests.json): the web quest database (Forever pages)",
+			name = "Curated Dungeons journal quests (data/codex/journal-quests.json): the web quest database (Forever pages), Polestar Recorder sessions",
 			version = "1 quests",
 		},
 		{

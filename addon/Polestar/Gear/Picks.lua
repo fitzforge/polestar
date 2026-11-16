@@ -5,8 +5,10 @@
 --   Gear.QuestPick(questID) -> pick | nil
 --       pick = { quest, choices = RankChoices list, pick (index), upgrade (bool),
 --                entry (the picked choice) }; nil when the quest offers no gear
---       choice this character can use. Cached per quest until gear advice
---       changes (GEAR_UPDATED: spec, level, equipment, item data).
+--       choice this character can use, and nil, true while a choice's answer
+--       waits on loading item data (Gear.RankChoices' pending; not cached
+--       then). Cached per quest until gear advice changes (GEAR_UPDATED:
+--       spec, level, equipment, item data).
 --   Gear.ChoiceOf(itemID) -> { quest, isPick, pick } | nil
 --       The quest that offers this item as a reward choice, and whether it is
 --       the pick there. Cached per item the same way.
@@ -33,7 +35,8 @@ function Gear.QuestPick(questID)
 	if q and #q.choices > 0 and Gear.GetWeights() then
 		local links = {}
 		for i, id in ipairs(q.choices) do links[i] = linkOf(id) end
-		local list, pick = Gear.RankChoices(links)
+		local list, pick, _, pending = Gear.RankChoices(links)
+		if pending then return nil, true end
 		if pick then
 			res = { quest = questID, choices = list, pick = pick, upgrade = list[pick].upgrade, entry = list[pick] }
 		end
@@ -54,7 +57,8 @@ function Gear.ChoiceOf(itemID)
 			local q = D.Quest(s.quest)
 			for _, c in ipairs(q and q.choices or {}) do
 				if c == itemID then
-					local pick = Gear.QuestPick(s.quest)
+					local pick, pending = Gear.QuestPick(s.quest)
+					if pending then return nil end -- told once its item data loads
 					res = { quest = q, isPick = pick and pick.entry.id == itemID or false, pick = pick }
 					break
 				end

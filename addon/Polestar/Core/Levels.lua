@@ -6,7 +6,9 @@
 --
 --   Levels.Run(entries[, p[, start]]) -> summary
 --     entries, in route order:
---       { kind = "quest" (or nil), id, level, xp (full reward | nil: not known), classes = { CLASS } | nil }
+--       { kind = "quest" (or nil), id, level, xp (full reward | nil: not known), classes = { CLASS } | nil,
+--         blocked = true | nil (this character may not take it, by class or race: left out like another class's),
+--         group = name | nil, minLevel }   -- group: what the quest's XP is summed under (summary.groups)
 --       { kind = "kill", n (kills), mob (level), elite }
 --       { kind = "kill" } with no n: a kill or loot goal that could not be estimated
 --     p: { level, xp, xpMax, class, faction } (default: this character)
@@ -18,7 +20,8 @@
 --       killsUnknown (goals not estimated), xp (questXP + killXP), maxed
 --       (level 60: none counts), below (the start level | nil), now = { level,
 --       xp, need } (the character), from (where the sums start: now, or the
---       start level), to = { level, xp, need }, levels (the gain, fractional) }
+--       start level), to = { level, xp, need }, levels (the gain, fractional),
+--       groups = { [group] = { n, xp, need (highest minLevel) } } | nil (only when entries name a group) }
 --   Levels.ForGuide(id[, p[, from[, to]]]) -> summary | nil   -- a guide for this character
 --       (its race, class and faction: the steps' and goals' `only`), from its
 --       minLevel when below it: each turn-in once, its XP from the Codex; each
@@ -51,7 +54,7 @@
 --   Levels.QuestLevel(qid[, g]) -> level | nil  -- guide g's own (an accept's
 --       qlvl), else the Codex's while loaded, else the client's
 --   Levels.Player() -> p ; Levels.LEVEL_XP[L] -> XP from L to L + 1 ; Levels.MAX_LEVEL
---   Levels.Share(playerLevel, questLevel) -> 1, 0.8, 0.6, 0.4, 0.2 or 0.1
+--   Levels.Share(playerLevel, questLevel) -> 1, 0.8, 0.6 or 0.5
 --   Levels.MobXP(playerLevel, mobLevel, elite) -> XP for one kill
 --
 -- The rules are the tools' (tools/lib/game/xp.js; tests/levels.test.js keeps
@@ -80,12 +83,13 @@ local MAX_LEVEL = 60
 Levels.LEVEL_XP, Levels.MAX_LEVEL = LEVEL_XP, MAX_LEVEL
 
 -- Share of a quest's reward by player level - quest level: full up to 5
--- levels above it, then 80/60/40/20%, and 10% from 10 above.
-local SHARE = { 0.8, 0.6, 0.4, 0.2 }
+-- levels above it, 80% at 6, 60% at 7, and half from 8 above on (what
+-- Forever pays, from players' recordings).
+local SHARE = { 0.8, 0.6 }
 local function share(plevel, qlevel)
 	local d = plevel - (qlevel or plevel)
 	if d <= 5 then return 1 end
-	if d >= 10 then return 0.1 end
+	if d >= 8 then return 0.5 end
 	return SHARE[d - 5]
 end
 Levels.Share = share
@@ -177,7 +181,7 @@ function Levels.Run(entries, p, start)
 			end
 		elseif C and C.IsQuestCompleted and e.id and C.IsQuestCompleted(e.id) then
 			s.done = s.done + 1
-		elseif not hasClass(e.classes, p.class) then
+		elseif e.blocked or not hasClass(e.classes, p.class) then
 			s.other = s.other + 1
 		else
 			local full = e.xp
@@ -188,6 +192,16 @@ function Levels.Run(entries, p, start)
 				local one = floor(full * part + 0.5)
 				if part < 1 then s.reduced = s.reduced + 1 end
 				s.quests, s.questXP = s.quests + 1, s.questXP + one
+				if e.group then
+					s.groups = s.groups or {}
+					local g = s.groups[e.group]
+					if not g then
+						g = { n = 0, xp = 0 }
+						s.groups[e.group] = g
+					end
+					g.n, g.xp = g.n + 1, g.xp + one
+					if e.minLevel and (not g.need or e.minLevel > g.need) then g.need = e.minLevel end
+				end
 				gain(one)
 			end
 		end
@@ -314,7 +328,8 @@ function Levels.ForGuide(id, p, from, to)
 	local who = table.concat({ tostring(g), tostring(p.class), tostring(p.race), tostring(p.faction) }, "|")
 	local key = table.concat({ who, tostring(from), tostring(to), tostring(p.level) }, "|")
 	local cached = spans[key]
-	if cached then return Levels.Run(cached, p, not from and g.minLevel or nil) end
+	local start = not from and G.Levels(g, p.faction) or nil
+	if cached then return Levels.Run(cached, p, start) end
 	local C = ns.Compat
 	local fits = G.Matches
 	local function applies(only)
@@ -351,7 +366,7 @@ function Levels.ForGuide(id, p, from, to)
 	end
 	if spanCount >= SPAN_MAX then spans, spanCount = {}, 0 end
 	spans[key], spanCount = entries, spanCount + 1
-	return Levels.Run(entries, p, not from and g.minLevel or nil)
+	return Levels.Run(entries, p, start)
 end
 
 -- A quest 3 or more levels above the character: the quest log's orange and
@@ -520,8 +535,9 @@ function Levels.Pace(p)
 	if not (n and step and step >= live) then
 		-- No `level` goal ahead: a leveling guide's end, where the next one
 		-- starts (its `levels` top).
-		if (g.category or "Leveling") ~= "Leveling" or type(g.maxLevel) ~= "number" then return nil end
-		kind, n, frac, step = "end", g.maxLevel, nil, lastStep(E, g, live)
+		local top = G and G.Levels and select(2, G.Levels(g, p.faction)) or g.maxLevel
+		if (g.category or "Leveling") ~= "Leveling" or type(top) ~= "number" then return nil end
+		kind, n, frac, step = "end", top, nil, lastStep(E, g, live)
 		if not step then return nil end
 	end
 	local target = n + (frac or 0)

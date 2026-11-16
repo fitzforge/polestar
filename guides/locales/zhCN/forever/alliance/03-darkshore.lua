@@ -19,7 +19,7 @@ return {
 	-- {npc:3666} Wizbang Cranktoggle
 	["{npc:3666}, upstairs in the inn"] = "{npc:3666}，在旅店楼上",
 	-- {npc:10219} Gwennyth Bly'Leggonde · {zone:1438} Teldrassil
-	["{npc:10219} (Night Elves have it from {zone:1438})"] = "",
+	["{npc:10219} (Night Elves have it from {zone:1438})"] = "{npc:10219}（暗夜精灵已在{zone:1438}接取）",
 	-- {npc:10216} Gubber Blump
 	["{npc:10216}, on the pier"] = "{npc:10216}，在码头上",
 
@@ -40,7 +40,7 @@ return {
 	-- Step 5: Auberdine
 	-- {quest:3524} Washed Ashore
 	-- plural, as words: Beached Sea Turtles = {quest:4722} Beached Sea Turtle
-	["{quest:3524}: the Beached Sea Turtles up the coast offer their quests only once it is handed in"] = "",
+	["{quest:3524}: the Beached Sea Turtles up the coast offer their quests only once it is handed in"] = "交还{quest:3524}后，沿海岸往前的搁浅的海龟才会提供任务",
 
 	-- Step 6: The skeletal turtle
 	["The skeletal turtle"] = "骷髅海龟",
@@ -96,7 +96,7 @@ return {
 
 	-- Step 15: A Lesson to Learn
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
-	["Night Elves fly from {area:442} to {area:702}; Skyborne take the boat from the {area:442} dock and learn the Rut'theran flight path. Then take the portal up to {npc:4217} in the {area:1658}."] = "暗夜精灵从{area:442}飞往{area:702}；天裔乘{area:442}码头的船前往，并学习鲁瑟兰村的飞行路线。然后乘传送门上去找{area:1658}的{npc:4217}。",
+	["Night Elves fly from {area:442} to {area:702}; Skyborne take the boat from the {area:442} dock and learn the Rut'theran flight path. Then take the portal up to {npc:4217} in the {area:1658}."] = "暗夜精灵从{area:442}飞往{area:702}；天裔从{area:442}码头乘船，并学会鲁瑟兰村的飞行路线。然后乘传送门上去找{area:1658}的{npc:4217}。",
 
 	-- Step 18: Moonglade
 	-- {spell:18960} Teleport: Moonglade
@@ -190,8 +190,8 @@ return {
 	-- {area:456} Cliffspring River · {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell · {item:12355} Talisman of Corruption
 	["The furbolg camp south of the {area:456} keeps its Nut, Fruit and Grain Stores by the bonfires. With a sample of each and the {item:12347} in your bags (the {item:12346} is filled at the {object:174795}), use the bowl by the bonfire closest to the river: it summons Xabraxxis, the satyr corruptor, and the {item:12355} lies in his Demon Bag."] = "{area:456}南边的熊怪营地里，坚果、水果和谷物储存在篝火旁。各取一份样本，并备好{item:12347}（在{object:174795}装满{item:12346}），然后在离河流最近的篝火旁使用净化碗，召出腐化熊怪的萨特萨巴克希斯。{item:12355}在他的恶魔之包里。",
 	["By the bonfire closest to the river: summons Xabraxxis"] = "在离河流最近的篝火旁使用，召出萨巴克希斯",
-	-- {item:12355} Talisman of Corruption · {object:177624} Xabraxxis' Demon Bag
-	["{item:12355}, in {object:177624}"] = "{item:12355}，在{object:177624}里",
+	-- {item:12347} Filled Cleansing Bowl
+	["After using the {item:12347}, kill Xabraxxis, then click his Demon Bag on the ground to collect the talisman. If Xabraxxis despawns before you get it, retake the quest for a new bowl."] = "使用{item:12347}后，杀死萨巴克希斯，然后点击地上他的恶魔之包拾取护符。如果在你拿到之前萨巴克希斯消失了，就重新接取任务以获得新的碗。",
 
 	-- Step 34: The cave and the Den Mother
 	["Careful: If you attack one cub, the other cubs and often the mother join the fight, so expect to take on several at the same time."] = "注意：攻击一只幼崽时，其他幼崽以及母兽往往也会参战，要做好同时应付多个敌人的准备。",
@@ -214,7 +214,6 @@ return {
 	-- ["East of Buzzbox 323, {npc:3661} hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in {zone:1440}."] = "传声盒323号东边，{npc:3661}躲在塔脚下的暗滩狂热者中间。留着他的信，交给{zone:1440}的净化者德尔格伦。",
 	-- ["Escort her out of the glaive; Therysil takes the turn-in in {zone:1440}"] = "护送她离开主宰之剑；在{zone:1440}交给瑟瑞希尔",
 	-- ["Fine Moonstalker Pelts"] = "{item:5386}",
-	-- ["Fly from {area:442} to {area:702} and take the portal up to {npc:4217} in the {area:1658}."] = "从{area:442}飞往{area:702}，乘传送门上去找{area:1658}的{npc:4217}。",
 	-- ["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore."] = "沿海岸向东北到{area:443}。{quest:951}散落在废墟中；雷鳞侍从、雷鳞巫师和雷鳞战士占据着那里，雷鳞兽王在岸边巡逻。",
 	-- ["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them."] = "沿海岸向东北到{area:443}。{quest:951}散落在废墟中；{npc:2181}、雷鳞巫师和雷鳞战士占据着那里。",
 	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}."] = "沿海岸向南经过{area:447}：一只{quest:4728}躺在古树之林西边的岸上，另一只在更南边的{area:450}附近。",
@@ -252,6 +251,7 @@ return {
 	-- ["Two wrecks lie on the sea floor in the bay north of {area:442}; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore."] = "{area:442}北边海湾的海底有两艘沉船，各有一个保险箱。{npc:2235}和{npc:2233}遍布这段海岸。",
 	-- ["{area:450} lies on the coast south of {npc:10323}'s beach. Protect the prospector while he searches for the fossil."] = "{area:450}在{npc:10323}海滩南边的海岸上。勘察员搜寻化石时保护他。",
 	-- ["{item:12289}, on the beach west of the docks"] = "{item:12289}，在码头西边的海滩上",
+	-- ["{item:12355}, in {object:177624}"] = "{item:12355}，在{object:177624}里",
 	-- ["{item:15851} and {item:2449}"] = "{item:15851}和{item:2449}",
 	-- ["{item:15883}: the {object:177790} under the water off the north coast, west of the ruins"] = "{item:15883}：在废墟西边、北部海岸外水下的{object:177790}",
 	-- ["{item:15883}: the {object:177792} under the water off the north coast, west of the ruins"] = "{item:15883}：在废墟西边、北部海岸外水下的{object:177792}",

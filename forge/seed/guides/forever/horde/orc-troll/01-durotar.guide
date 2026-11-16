@@ -15,7 +15,7 @@ next forever/horde/orc-troll/02-the-barrens
 #
 # Flow: Valley of Trials -> Sen'jin Village (report) -> Razor Hill (bind) ->
 # Tiragarde Keep -> Razor Hill -> the wreckage and the coast -> Sen'jin
-# Village -> Echo Isles and the south-east shore -> Kolkar Crag -> Razor Hill
+# Village -> Kolkar Crag -> Echo Isles and the south-east shore -> Razor Hill
 # -> Razormane Grounds -> Rezlak, Drygulch Ravine, Thunder Ridge and Fizzle
 # Darkstorm -> Razor Hill -> Heglan's shore, the naga coast, Margoz and Skull
 # Rock -> Razor Hill -> west over the Southfury River to Far Watch Post and the
@@ -182,26 +182,20 @@ step Hana'zua
 # the Den hand-ins). Lazy Peons (5441) needs level 3: it is taken on the Den
 # return after the loop, not with Galgar's quest on the first visit (at 2.6 a
 # level-2 player was held at Foreman Thazz'ril, c19r).
-step Sarkoth
-  tip Sarkoth, a large scorpid, prowls the slope south of Hana'zua among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way.
-  collect 4905 quest 790.1
+step Scorpids and cactus apples
+  tip The Scorpid Workers roam the slope south of Hana'zua; pick the Cactus Apples by the cactuses on the way.
   collect 4862 quest 789.1
   collect 11583 quest 4402.1
-
-step Hana'zua
-  turnin 790
-  accept 804
-  goto 42.4,68.6 "The Den"
-
-step Back to the Den
-  turnin 804                          -- Gornek
-  turnin 789                          -- Gornek
-  turnin 4402                         -- Galgar
 
 step North end of the valley
   tip The Vile Familiars swarm the slope below the Burning Blade Coven, the cave on the valley's north side.
   kill 3101 quest 792.1 only !Warlock
   collect 6487 quest 1485.1 only Warlock
+
+step Galgar
+  tip Galgar stands just outside the Den's entrance.
+  turnin 789                          -- Gornek
+  turnin 4402                         -- Galgar
 
 step Back at the Den
   turnin 792 only !Warlock            -- Zureetha Fargaze
@@ -219,9 +213,21 @@ step Foreman Thazz'ril
   turnin 5441
   accept 6394
 
+# Sarkoth (4) waits for the first Den return: players met him at 2.6 on the scorpid slope, two levels under
+# him; with the familiars and the Den hand-ins they are 3 or more (level tidy 0.4.0). His slope west of the
+# Den and Hana'zua lie on the way north to the Burning Blade Coven.
+step Sarkoth
+  tip Sarkoth, a large scorpid (level 4), prowls the slope just west of the Den, below Hana'zua, on the way north to the Burning Blade Coven.
+  collect 4905 quest 790.1
+
+step Hana'zua
+  turnin 790
+  accept 804
+
 step Canaga Earthcaller
   only Shaman
-  tip Canaga stands just outside the Den.
+  tip Back to the Den: Gornek takes Sarkoth's claw and Canaga Earthcaller, just outside, has Call of Earth now that you are level 4.
+  turnin 804                          -- Gornek
   accept 1516                         -- Canaga Earthcaller
 
 # The Burning Blade Coven's mouth: players report it near 45,56, keep right
@@ -247,10 +253,11 @@ step Foreman Thazz'ril
   turnin 6394
 
 step Zureetha Fargaze
+  turnin 804 only !Shaman           -- Gornek
+  train class
   turnin 794
   accept 805
   accept 96652                        -- the Lost Journal on the ground beside her
-  train class
 
 step Call of Earth
   only Shaman
@@ -280,12 +287,51 @@ step Ridgeshade spiders
   kill 266849 quest 96821.2
 
 step Brakk's campfire
-  tip Brakk camps just south of Razor Hill. Sit by his campfire (/sit) until the Boosted Rest buff appears.
+  tip Brakk camps just south of Razor Hill. Sit by his campfire (/sit) until the Boosted Rest buff appears. With a profession learned, Brakk also offers its Camping 101, which its trainer takes: in Razor Hill or in Orgrimmar at the start of the next guide.
   turnin 96652                        -- Brakk
   accept 96604
   complete 96604 @52.1,47.4
   turnin 96604
   accept 96655
+
+step Camping 101: Mining
+  when skill Mining 1
+  tip Krunn takes it once your Mining skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97907                        -- Brakk: for Krunn
+
+step Camping 101: Engineering
+  when skill Engineering 1
+  tip Mukdrak takes it once your Engineering skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97902                        -- Brakk: for Mukdrak
+
+step Camping 101: First Aid
+  when skill "First Aid" 1
+  tip Rawrk takes it once your First Aid skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97903                        -- Brakk: for Rawrk
+
+step Camping 101: Skinning
+  when skill Skinning 1
+  accept 97908                        -- Brakk: for Thuwd
+
+step Camping 101: Leatherworking
+  when skill Leatherworking 1
+  accept 97906                        -- Brakk: for Karolek
+
+step Camping 101: Tailoring
+  when skill Tailoring 1
+  accept 96102                        -- Brakk: for Snang
+
+step Camping 101: Herbalism
+  when skill Herbalism 1
+  accept 97905                        -- Brakk: for Jandi
+
+step Camping 101: Enchanting
+  when skill Enchanting 1
+  accept 97901                        -- Brakk: for Jhag
+
+step Camping 101: Alchemy
+  when skill Alchemy 1
+  accept 97899                        -- Brakk: for Whuut
 
 step Razor Hill
   accept 96822                        -- Turroc, on the east side of town
@@ -294,27 +340,50 @@ step Razor Hill
   train Cooking npc 3191              -- Cook Torka: Camping 101 asks you to learn it
   complete 96655 @51.1,42.5
   turnin 96655
-  accept 96825
   turnin 2161                         -- Innkeeper Grosk
   sethome "Razor Hill"
   accept 791                          -- Furl Scornbrow, in the watchtower
 
-step Prickly pears
-  tip The prickly pears grow among the quilboar huts just west of town.
-  collect 275718 quest 96825.1
+step Krunn
+  when onquest 97907
+  when complete 97907
+  complete 97907 @51.81,40.88 map 1411
+  turnin 97907                        -- Krunn: Camping 101: Mining
+
+step Mukdrak
+  when onquest 97902
+  when complete 97902
+  complete 97902 @52.18,40.8 map 1411
+  turnin 97902                        -- Mukdrak: Camping 101: Engineering
+
+step Rawrk
+  when onquest 97903
+  when complete 97903
+  complete 97903 @54.17,41.93 map 1411
+  turnin 97903                        -- Rawrk: Camping 101: First Aid
 
 step Cook Torka
-  turnin 96825
   accept 815
 
 step Tiragarde Keep
-  tip The keep stands on the coast south-east of Razor Hill. The raiders' axe, bow and shield lie on its outskirts. Sailors and marines drop the Canvas Scraps. Lieutenant Benedict waits at the top of the keep; his key opens the chest beside him, which holds the Aged Envelope.
+  tip The keep stands on the coast south-east of Razor Hill. The raiders' axe, bow and shield lie on its outskirts. Sailors and marines drop the Canvas Scraps.
   collect 275716 quest 96822.2 @57.4,56.4
   collect 275713 quest 96822.1 @59.4,56.4
   collect 275717 quest 96822.3 @56.6,53.0
   kill 3128 quest 784.1
   kill 3129 quest 784.2
   collect 4870 quest 791.1
+
+# Lieutenant Benedict (8) waits for 7: players reached him at 6.6-7.1, and the deaths at the keep
+# were at 6.8-7.7 (level tidy 0.4.0). The sailors around the keep are 5-6.
+step Level 7
+  when level<7
+  tip Top up here to level 7 before Lieutenant Benedict (8) and the marines at the top of the keep.
+  goto 56.6,55.5 map 1411 "Kul Tiras Sailor"
+  level 7 grind 3128               -- grind on Kul Tiras Sailor
+
+step Lieutenant Benedict
+  tip Lieutenant Benedict waits at the top of the keep; his key opens the chest beside him, which holds the Aged Envelope.
   kill 3192 quest 784.3
   collect 4881 @59.3,57.6
   accept 830
@@ -348,34 +417,11 @@ step Makrura and crawlers
   collect 4887 quest 818.1
   collect 4888 quest 818.2
 
-step Bloodtalon Matriarch
-  tip Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.
-  collect 277128 quest 97223.1
-
-step Echo Isles
-  tip Head south through the isles. The Loa idols lie all over the southern isles; Voodoo and Hexed Trolls hold them and drop the Hexed Pendants. Zalazane and Minshina's cage are on the southernmost isle.
-  collect 277135 quest 97225.1
-  kill 3206 quest 826.2
-  kill 3207 quest 826.1
-  complete 96873 optional
-  collect 4866 quest 826.3
-  collect 4864 quest 808.1 @67.4,87.8
-
-step South-east shore
-  tip Wade back west to the shore south of Sen'jin. Durotar Tigers roam it and the Taillasher eggs sit in nests along the beach.
-  collect 4892 quest 817.1
-  collect 4890 quest 815.1
-
 step Sen'jin Village
-  turnin 96873 optional               -- Pa'zula
-  turnin 817                          -- Vel'rin Fang
   turnin 818                          -- Master Vornal
-  turnin 97225                        -- Master Gadrin
-  turnin 826
-  turnin 808
-  turnin 97223                        -- Xar'Ti
-  train class only Mage               -- Un'Thuwa, the mage trainer in Sen'jin
 
+# Kolkar Crag before the Echo Isles: Zalazane (10) and the Voodoo and Hexed
+# Trolls (8-9) are met at 9, not at 8 (level tidy 0.4.0).
 step Kolkar Crag
   tip Kolkar Crag lies west of Sen'jin. The three attack plans sit on the ground among the centaur tents. Pal'juh is held at the crag as well.
   interact 3189 quest 786.1 @49.8,81.3
@@ -389,12 +435,46 @@ step Sen'jin Village
   turnin 786                          -- Lar Prowltusk
   turnin 99123                        -- Master Vornal
 
+step Bloodtalon Matriarch
+  tip Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.
+  collect 277128 quest 97223.1
+
+step South-east shore
+  tip Durotar Tigers roam the isle as well as the shore south of Sen'jin, and the Taillasher eggs sit in nests on the isles and along the beach.
+  collect 4892 quest 817.1
+  collect 4890 quest 815.1
+
+step Level 9
+  when level<9
+  tip Top up here to level 9 before the southern isles: the Voodoo and Hexed Trolls there are 8-9 and Zalazane is 10.
+  goto 65.5,83.0 map 1411 "Durotar Tiger"
+  level 9 grind 3121               -- grind on Durotar Tiger
+
+step Echo Isles
+  tip Head south through the isles. The Loa idols lie all over the southern isles; Voodoo and Hexed Trolls hold them and drop the Hexed Pendants. Zalazane and Minshina's cage are on the southernmost isle.
+  collect 277135 quest 97225.1
+  kill 3206 quest 826.2
+  kill 3207 quest 826.1
+  complete 96873 optional
+  collect 4866 quest 826.3
+  collect 4864 quest 808.1 @67.4,87.8
+
+step Sen'jin Village
+  turnin 96873 optional               -- Pa'zula
+  turnin 817                          -- Vel'rin Fang
+  turnin 97225                        -- Master Gadrin
+  turnin 826
+  turnin 808
+  turnin 97223                        -- Xar'Ti
+  train class only Mage               -- Un'Thuwa, the mage trainer in Sen'jin
+
 # ---------------------------------------------------------------- Razor Hill and the north
 
 step Razor Hill
   tip Follow the road north to Razor Hill.
   turnin 825                          -- Gar'Thok
   turnin 815                          -- Cook Torka
+  accept 96825                        -- Cook Torka
   turnin 823                          -- Orgnil Soulscar
   accept 806
   accept 99048
@@ -448,7 +528,8 @@ step Telf Joolam
   accept 1525
 
 step Razormane Grounds
-  tip Quilboars and scouts hold the huts west of town; dustrunners and battleguards hold the camps farther west.
+  tip Quilboars and scouts hold the huts west of town, where the prickly pears grow; dustrunners and battleguards hold the camps farther west.
+  collect 275718 quest 96825.1
   kill 3111 quest 837.1
   kill 3112 quest 837.2
   kill 3113 quest 837.3
@@ -489,6 +570,12 @@ step Misha Tor'kren
   collect 4891 quest 816.1
   turnin 816
 
+step Level 11
+  when level<11
+  tip Top up here to level 11 before Fizzle Darkstorm (12) and his imp: the Thunder Lizards (9-10) graze on the ridge just west of Misha's hut.
+  goto 39.6,29.2 map 1411 "Thunder Lizard"
+  level 11 grind 3130               -- grind on Thunder Lizard
+
 step Fizzle Darkstorm
   tip Fizzle holds the Burning Blade camp on Thunder Ridge, north-west of Razor Hill. Hunters: tame a Dire Mottled Boar with the Taming Rod on the way.
   kill 3099 quest 6062.1 "Tame Dire Mottled Boar" only Hunter -- Tame it with the Taming Rod
@@ -498,6 +585,7 @@ step Razor Hill
   turnin 806                          -- Orgnil Soulscar
   accept 828
   turnin 837                          -- Gar'Thok
+  turnin 96825                        -- Cook Torka
   turnin 6062 only Hunter             -- Thotar
   accept 6083 only Hunter
 
@@ -530,8 +618,8 @@ step Skull Rock's mouth
 step Skull Rock
   tip Burning Blade cultists hold the caves of Skull Rock; any of them drops a Searing Collar. Gazz'uz, a level 14 warlock, stands deep inside and drops the Eye of Burning Shadow.
   collect 4871 quest 827.1
-  collect 4903 "Eye of Burning Shadow"
-  accept 832
+  collect 4903 "Eye of Burning Shadow" optional
+  accept 832 optional
 
 step Tablet of Verga
   only Warlock
@@ -542,6 +630,7 @@ step The Binding
   only Warlock
   zone Orgrimmar
   tip Back to Gan'rul in the Cleft of Shadow. Use the Glyphs of Summoning on the summoning circle there and defeat the voidwalker to bind it.
+  tip Careful: the voidwalker you summon hits hard and it is the fight Warlocks die to most in Orgrimmar: start at full health and mana, send your imp in, keep Corruption and Immolate on it, and use a healthstone if you have one.
   turnin 1501                         -- Gan'rul Bloodeye
   accept 1504
   use 7464 @49.3,50.0                 -- Glyphs of Summoning
@@ -571,13 +660,13 @@ step Razor Hill
 
 step Razor Hill
   when group 99052
-  accept 99052 optional               -- Orgnil Soulscar: Aggor the Young, an elite sea giant
+  accept 99052                        -- Orgnil Soulscar: Aggor the Young, an elite sea giant
 
 step Aggor the Young
   when group 99052
   tip Aggor the Young, a young sea giant, walks Durotar's north coast, north of the naga beach. Aggor the Young is elite: grouping up is advised.
-  collect 286009 quest 99052.1 optional -- Aggor's Belt
-  turnin 99052 optional               -- Orgnil Soulscar, back in Razor Hill
+  collect 286009 quest 99052.1        -- Aggor's Belt
+  turnin 99052                        -- Orgnil Soulscar, back in Razor Hill
 
 step Armored Scorpid
   only Hunter

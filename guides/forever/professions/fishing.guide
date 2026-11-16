@@ -31,6 +31,9 @@ zone Ironforge
 # + 95 (25 starting areas, 75 their neighbours, 150, 225 Stranglethorn, 300
 # Feralas); Forever's notes say fishing is unchanged. In-game check: catches
 # from 150 to 160, and fish lost at skill 1 in a starting area.
+# ASSUMED: which fish bite in each band's water (Classic's fishing loot by zone
+# level: lakes and rivers, the coast); the cooking recipes, their prices and
+# their sellers are the data's.
 
 # ---------------------------------------------------------------- Apprentice
 section Fishing 1-50
@@ -45,56 +48,57 @@ step Learn Fishing
 step Fishing: Elwynn Forest (1-50)
   only Human
   zone Elwynn Forest
-  tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap.
+  tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: Recipe: Brilliant Smallfish for the Raw Brilliant Smallfish of lakes and rivers (Cooking 1, 40c: Tharynn Bouden (Elwynn Forest) or Catherine Leland (Stormwind City)); Recipe: Slitherskin Mackerel for the Raw Slitherskin Mackerel of the coast (Cooking 1, 40c: Kriggon Talsone (Westfall) or Tansy Puddlefizz (Ironforge)).
   goto 47.6,62.3 "Crystal Lake" r 25
   skill Fishing 50
 
 step Fishing: Dun Morogh (1-50)
   only Dwarf,Gnome
   zone Dun Morogh
-  tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap.
+  tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: Recipe: Brilliant Smallfish for the Raw Brilliant Smallfish of lakes and rivers (Cooking 1, 40c: Gretta Ganter (Dun Morogh) or Khara Deepwater (Loch Modan)); Recipe: Slitherskin Mackerel for the Raw Slitherskin Mackerel of the coast (Cooking 1, 40c: Tansy Puddlefizz (Ironforge) or Kriggon Talsone (Westfall)).
   goto 35.5,40.2 "Iceflow Lake" r 25
   skill Fishing 50
 
 step Fishing: Teldrassil (1-50)
   only NightElf
   zone Teldrassil
-  tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap.
+  tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: Recipe: Brilliant Smallfish for the Raw Brilliant Smallfish of lakes and rivers (Cooking 1, 40c: Nyoma (Teldrassil)); Recipe: Slitherskin Mackerel for the Raw Slitherskin Mackerel of the coast (Cooking 1, 40c: Nessa Shadowsong (Teldrassil)).
   goto 55.9,93.5 "Rut'theran Village" r 25
+  buy 6326 x1 npc 10118 optional
   skill Fishing 50
 
 step Fishing: Zephras Isle (1-50)
   only Skyborne,Alliance
   zone Zephras Isle
-  tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients.
+  tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients. To cook what you catch: Recipe: Brilliant Smallfish for the Raw Brilliant Smallfish of lakes and rivers (Cooking 1, 40c: Nyalah Brightfire (Zephras Isle)); Recipe: Slitherskin Mackerel for the Raw Slitherskin Mackerel of the coast (Cooking 1, 40c: Nyalah Brightfire (Zephras Isle)).
   goto 63.3,75.7 live "Valanaar shore" r 25
   skill Fishing 50
 
 step Fishing: Durotar (1-50)
   only Orc,Troll
   zone Durotar
-  tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap.
+  tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: Recipe: Brilliant Smallfish for the Raw Brilliant Smallfish of lakes and rivers (Cooking 1, 40c: Harn Longcast (Mulgore) or Sewa Mistrunner (Thunder Bluff)); Recipe: Slitherskin Mackerel for the Raw Slitherskin Mackerel of the coast (Cooking 1, 40c: Zansoa (Durotar)).
   goto 53.3,81.6 "Sen'jin coast" r 25
   skill Fishing 50
 
 step Fishing: Mulgore (1-50)
   only Tauren
   zone Mulgore
-  tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap.
+  tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: Recipe: Brilliant Smallfish for the Raw Brilliant Smallfish of lakes and rivers (Cooking 1, 40c: Harn Longcast (Mulgore) or Sewa Mistrunner (Thunder Bluff)); Recipe: Slitherskin Mackerel for the Raw Slitherskin Mackerel of the coast (Cooking 1, 40c: Zansoa (Durotar)).
   goto 44.5,60.7 "Stonebull Lake" r 25
   skill Fishing 50
 
 step Fishing: Tirisfal Glades (1-50)
   only Undead
   zone Tirisfal Glades
-  tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap.
+  tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: Recipe: Brilliant Smallfish for the Raw Brilliant Smallfish of lakes and rivers (Cooking 1, 40c: Martine Tramblay (Tirisfal Glades) or Lizbeth Cromwell (Undercity)); Recipe: Slitherskin Mackerel for the Raw Slitherskin Mackerel of the coast (Cooking 1, 40c: Martine Tramblay (Tirisfal Glades)).
   goto 67.2,51.0 "Brightwater Lake" r 25
   skill Fishing 50
 
 step Fishing: Zephras Isle (1-50)
   only Skyborne,Horde
   zone Zephras Isle
-  tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients.
+  tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients. To cook what you catch: Recipe: Brilliant Smallfish for the Raw Brilliant Smallfish of lakes and rivers (Cooking 1, 40c: Nyalah Brightfire (Zephras Isle)); Recipe: Slitherskin Mackerel for the Raw Slitherskin Mackerel of the coast (Cooking 1, 40c: Nyalah Brightfire (Zephras Isle)).
   goto 63.3,75.7 live "Valanaar shore" r 25
   skill Fishing 50
 
@@ -110,35 +114,36 @@ step Journeyman Fishing
 step Fishing: Westfall (50-125)
   only Human,Skyborne,Alliance
   zone Westfall
-  tip Fish the pools and open water here until skill 125, about 120 catches: from 75 a catch raises the skill less often (about one in two by 100, one in three by 125). Pools (floating wreckage, schools of fish) also give extra loot. Nightcrawlers (+50 from skill 50, 1s each) are twice as strong as a Shiny Bauble. The Strong Fishing Pole (+5 from skill 10, 9s 1c) is in limited stock at fishing vendors: buy it when you see it. Fish get away here below skill 75; a lure on the pole adds to your skill for ten minutes and closes the gap.
+  tip Fish the pools and open water here until skill 125, about 120 catches: from 75 a catch raises the skill less often (about one in two by 100, one in three by 125). Pools (floating wreckage, schools of fish) also give extra loot. Nightcrawlers (+50 from skill 50, 1s each) are twice as strong as a Shiny Bauble. The Strong Fishing Pole (+5 from skill 10, 9s 1c) is in limited stock at fishing vendors: buy it when you see it. Fish get away here below skill 75; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: Recipe: Longjaw Mud Snapper for the Raw Longjaw Mud Snapper of lakes and rivers (Cooking 50, 4s: Tharynn Bouden (Elwynn Forest) or Tansy Puddlefizz (Ironforge)); Recipe: Rainbow Fin Albacore for the Raw Rainbow Fin Albacore of the coast (Cooking 50, 4s: Catherine Leland (Stormwind City) or Kriggon Talsone (Westfall)). Oily Blackmouth from the schools here is no food: alchemists make Blackmouth Oil from it (Alchemy 80); keep it to sell or trade.
   goto 34.6,18.5 "Westfall coast" r 25
   skill Fishing 125
 
 step Fishing: Loch Modan (50-125)
   only Dwarf,Gnome
   zone Loch Modan
-  tip Fish the pools and open water here until skill 125, about 120 catches: from 75 a catch raises the skill less often (about one in two by 100, one in three by 125). Pools (floating wreckage, schools of fish) also give extra loot. Nightcrawlers (+50 from skill 50, 1s each) are twice as strong as a Shiny Bauble. The Strong Fishing Pole (+5 from skill 10, 9s 1c) is in limited stock at fishing vendors: buy it when you see it. Fish get away here below skill 75; a lure on the pole adds to your skill for ten minutes and closes the gap.
+  tip Fish the pools and open water here until skill 125, about 120 catches: from 75 a catch raises the skill less often (about one in two by 100, one in three by 125). Pools (floating wreckage, schools of fish) also give extra loot. Nightcrawlers (+50 from skill 50, 1s each) are twice as strong as a Shiny Bauble. The Strong Fishing Pole (+5 from skill 10, 9s 1c) is in limited stock at fishing vendors: buy it when you see it. Fish get away here below skill 75; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: Recipe: Longjaw Mud Snapper for the Raw Longjaw Mud Snapper of lakes and rivers (Cooking 50, 4s: Khara Deepwater (Loch Modan) or Tansy Puddlefizz (Ironforge)); Recipe: Rainbow Fin Albacore for the Raw Rainbow Fin Albacore of the coast (Cooking 50, 4s: Stuart Fleming (Wetlands) or Gritta Chumwater (Riverglades)).
   goto 41.6,37.8 "The Loch" r 25
+  buy 6328 x1 npc 1684 optional
   skill Fishing 125
 
 step Fishing: Darkshore (50-125)
   only NightElf
   zone Darkshore
-  tip Fish the pools and open water here until skill 125, about 120 catches: from 75 a catch raises the skill less often (about one in two by 100, one in three by 125). Pools (floating wreckage, schools of fish) also give extra loot. Nightcrawlers (+50 from skill 50, 1s each) are twice as strong as a Shiny Bauble. The Strong Fishing Pole (+5 from skill 10, 9s 1c) is in limited stock at fishing vendors: buy it when you see it. Fish get away here below skill 75; a lure on the pole adds to your skill for ten minutes and closes the gap.
+  tip Fish the pools and open water here until skill 125, about 120 catches: from 75 a catch raises the skill less often (about one in two by 100, one in three by 125). Pools (floating wreckage, schools of fish) also give extra loot. Nightcrawlers (+50 from skill 50, 1s each) are twice as strong as a Shiny Bauble. The Strong Fishing Pole (+5 from skill 10, 9s 1c) is in limited stock at fishing vendors: buy it when you see it. Fish get away here below skill 75; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: Recipe: Longjaw Mud Snapper for the Raw Longjaw Mud Snapper of lakes and rivers (Cooking 50, 4s: Nyoma (Teldrassil)); Recipe: Rainbow Fin Albacore for the Raw Rainbow Fin Albacore of the coast (Cooking 50, 4s: Heldan Galesong (Darkshore) or Nessa Shadowsong (Teldrassil)). Darkshore Grouper bites only here: eat it as it is. Gubber Blump (Darkshore) takes 6 for The Family and the Fishing Pole, which gives the Blump Family Fishing Pole. Oily Blackmouth from the schools here is no food: alchemists make Blackmouth Oil from it (Alchemy 80); keep it to sell or trade.
   goto 34.6,42.9 "Darkshore coast" r 25
   skill Fishing 125
 
 step Fishing: The Barrens (50-125)
   only Orc,Troll,Tauren,Skyborne,Horde
   zone The Barrens
-  tip Fish the pools and open water here until skill 125, about 120 catches: from 75 a catch raises the skill less often (about one in two by 100, one in three by 125). Pools (floating wreckage, schools of fish) also give extra loot. Nightcrawlers (+50 from skill 50, 1s each) are twice as strong as a Shiny Bauble. The Strong Fishing Pole (+5 from skill 10, 9s 1c) is in limited stock at fishing vendors: buy it when you see it. Fish get away here below skill 75; a lure on the pole adds to your skill for ten minutes and closes the gap.
+  tip Fish the pools and open water here until skill 125, about 120 catches: from 75 a catch raises the skill less often (about one in two by 100, one in three by 125). Pools (floating wreckage, schools of fish) also give extra loot. Nightcrawlers (+50 from skill 50, 1s each) are twice as strong as a Shiny Bauble. The Strong Fishing Pole (+5 from skill 10, 9s 1c) is in limited stock at fishing vendors: buy it when you see it. Fish get away here below skill 75; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: Recipe: Longjaw Mud Snapper for the Raw Longjaw Mud Snapper of lakes and rivers (Cooking 50, 4s: Harn Longcast (Mulgore) or Naal Mistrunner (Thunder Bluff)); Recipe: Rainbow Fin Albacore for the Raw Rainbow Fin Albacore of the coast (Cooking 50, 4s: Zansoa (Durotar) or Shankys (Orgrimmar)). Oily Blackmouth from the schools here is no food: alchemists make Blackmouth Oil from it (Alchemy 80); keep it to sell or trade.
   goto 46.3,37.9 "Barrens oasis" r 25
   skill Fishing 125
 
 step Fishing: Silverpine Forest (50-125)
   only Undead
   zone Silverpine Forest
-  tip Fish the pools and open water here until skill 125, about 120 catches: from 75 a catch raises the skill less often (about one in two by 100, one in three by 125). Pools (floating wreckage, schools of fish) also give extra loot. Nightcrawlers (+50 from skill 50, 1s each) are twice as strong as a Shiny Bauble. The Strong Fishing Pole (+5 from skill 10, 9s 1c) is in limited stock at fishing vendors: buy it when you see it. Fish get away here below skill 75; a lure on the pole adds to your skill for ten minutes and closes the gap.
+  tip Fish the pools and open water here until skill 125, about 120 catches: from 75 a catch raises the skill less often (about one in two by 100, one in three by 125). Pools (floating wreckage, schools of fish) also give extra loot. Nightcrawlers (+50 from skill 50, 1s each) are twice as strong as a Shiny Bauble. The Strong Fishing Pole (+5 from skill 10, 9s 1c) is in limited stock at fishing vendors: buy it when you see it. Fish get away here below skill 75; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: Recipe: Longjaw Mud Snapper for the Raw Longjaw Mud Snapper of lakes and rivers (Cooking 50, 4s: Killian Sanatha (Silverpine Forest) or Lizbeth Cromwell (Undercity)); Recipe: Rainbow Fin Albacore for the Raw Rainbow Fin Albacore of the coast (Cooking 50, 4s: Ronald Burch (Undercity) or Killian Sanatha (Silverpine Forest)). Oily Blackmouth from the schools here is no food: alchemists make Blackmouth Oil from it (Alchemy 80); keep it to sell or trade.
   goto 59.6,34.6 "Lordamere Lake" r 25
   skill Fishing 125
 
@@ -155,28 +160,28 @@ step Expert Fishing
 step Fishing: Wetlands (125-225)
   only Human,Dwarf,Gnome,Skyborne,Alliance
   zone Wetlands
-  tip Fish the pools here until skill 225, about 500 catches: one in three raises the skill at 125, one in seven by 225, so this is the long stretch. Forever's second camping item, the Fishing Rack (from skill 140), is a blueprint that drops from Gelihast in Blackfathom Deeps. Fish get away here below skill 150; a lure on the pole adds to your skill for ten minutes and closes the gap.
+  tip Fish the pools here until skill 225, about 500 catches: one in three raises the skill at 125, one in seven by 225, so this is the long stretch. Forever's second camping item, the Fishing Rack (from skill 140), is a blueprint that drops from Gelihast in Blackfathom Deeps. Fish get away here below skill 150; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: Recipe: Bristle Whisker Catfish for the Raw Bristle Whisker Catfish of lakes and rivers (Cooking 100, 12s: Lindea Rabonne (Hillsbrad Foothills) or Catherine Leland (Stormwind City)); Recipe: Rockscale Cod for the Raw Rockscale Cod of the coast (Cooking 175, 22s: Stuart Fleming (Wetlands) or Tansy Puddlefizz (Ironforge)). Oily Blackmouth from the schools here is no food: alchemists make Blackmouth Oil from it (Alchemy 80); keep it to sell or trade.
   goto 10.8,63.1 "Wetlands coast" r 25
   skill Fishing 225
 
 step Fishing: Ashenvale (125-225)
   only NightElf
   zone Ashenvale
-  tip Fish the pools here until skill 225, about 500 catches: one in three raises the skill at 125, one in seven by 225, so this is the long stretch. Forever's second camping item, the Fishing Rack (from skill 140), is a blueprint that drops from Gelihast in Blackfathom Deeps. Fish get away here below skill 150; a lure on the pole adds to your skill for ten minutes and closes the gap.
+  tip Fish the pools here until skill 225, about 500 catches: one in three raises the skill at 125, one in seven by 225, so this is the long stretch. Forever's second camping item, the Fishing Rack (from skill 140), is a blueprint that drops from Gelihast in Blackfathom Deeps. Fish get away here below skill 150; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: Recipe: Rockscale Cod for the Raw Rockscale Cod of the coast (Cooking 175, 22s: Heldan Galesong (Darkshore)).
   goto 35.8,53.7 "Ashenvale waters" r 25
   skill Fishing 225
 
 step Fishing: Stonetalon Mountains (125-225)
   only Orc,Troll,Tauren,Skyborne,Horde
   zone Stonetalon Mountains
-  tip Fish the pools here until skill 225, about 500 catches: one in three raises the skill at 125, one in seven by 225, so this is the long stretch. Forever's second camping item, the Fishing Rack (from skill 140), is a blueprint that drops from Gelihast in Blackfathom Deeps. Fish get away here below skill 150; a lure on the pole adds to your skill for ten minutes and closes the gap.
+  tip Fish the pools here until skill 225, about 500 catches: one in three raises the skill at 125, one in seven by 225, so this is the long stretch. Forever's second camping item, the Fishing Rack (from skill 140), is a blueprint that drops from Gelihast in Blackfathom Deeps. Fish get away here below skill 150; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: Recipe: Bristle Whisker Catfish for the Raw Bristle Whisker Catfish of lakes and rivers (Cooking 100, 12s: Sewa Mistrunner (Thunder Bluff) or Naal Mistrunner (Thunder Bluff)); Recipe: Rockscale Cod for the Raw Rockscale Cod of the coast (Cooking 175, 22s: Wik'Tar (Ashenvale) or Wulan (Desolace)).
   goto 47.4,40.0 "Mirkfallon Lake" r 25
   skill Fishing 225
 
 step Fishing: Hillsbrad Foothills (125-225)
   only Undead
   zone Hillsbrad Foothills
-  tip Fish the pools here until skill 225, about 500 catches: one in three raises the skill at 125, one in seven by 225, so this is the long stretch. Forever's second camping item, the Fishing Rack (from skill 140), is a blueprint that drops from Gelihast in Blackfathom Deeps. Fish get away here below skill 150; a lure on the pole adds to your skill for ten minutes and closes the gap.
+  tip Fish the pools here until skill 225, about 500 catches: one in three raises the skill at 125, one in seven by 225, so this is the long stretch. Forever's second camping item, the Fishing Rack (from skill 140), is a blueprint that drops from Gelihast in Blackfathom Deeps. Fish get away here below skill 150; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: Recipe: Bristle Whisker Catfish for the Raw Bristle Whisker Catfish of lakes and rivers (Cooking 100, 12s: Derak Nightfall (Hillsbrad Foothills) or Ronald Burch (Undercity)); Recipe: Rockscale Cod for the Raw Rockscale Cod of the coast (Cooking 175, 22s: Lizbeth Cromwell (Undercity)). Oily Blackmouth from the schools here is no food: alchemists make Blackmouth Oil from it (Alchemy 80); keep it to sell or trade.
   goto 60.8,32.1 "Hillsbrad coast" r 25
   skill Fishing 225
 

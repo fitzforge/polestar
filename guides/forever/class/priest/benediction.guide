@@ -71,7 +71,7 @@ step Eris Havenfire
 
 step The Balance of Light and Shadow
   tip Save 50 peasants before 15 die (the Death Post by the path counts the dead). They walk from the cave towards Eris in waves, catch diseases and draw skeletons and skeleton archers. Cure the purple-glowing diseases first (Abolish Disease), keep Renew on the hurt ones, Flash Heal the nearly dead, and kill skeletons as they spawn: one Holy Nova of rank 3 or more kills them, oil takes two ticks while they hit you. Shield yourself at the start of each wave; friendly nameplates make the hurt peasants easy to pick out. Friends may buff you before you accept and may heal or cure peasants, but they must not heal or buff you, attack a skeleton or bring a pet once it starts, or a demon appears and kills everyone. Fail, and Eris is gone for a while (players report anything from 15 minutes to two hours); talk to her again when she is back.
-  complete 7622
+  complete 7622 @17.42,12.24 map 1423 live    -- beside Eris Havenfire, where the peasants walk to
 
 step Benediction
   turnin 7622 reward 18659                    -- Eris Havenfire: Splinter of Nordrassil

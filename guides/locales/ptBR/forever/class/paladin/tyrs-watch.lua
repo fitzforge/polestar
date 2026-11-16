@@ -123,7 +123,7 @@ return {
 
 	-- Step 21: Deathguard Falgan
 	-- {area:812} Venomweb Vale · {item:6866} Symbol of Life
-	-- plural, as words: Scarlet Crusaders = {npc:239036} Scarlet Crusader
+	-- plural, as words: Scarlet Crusaders = {npc:238286} Scarlet Crusader
 	["{area:812} is at the far east end of the glades, a long walk. Falgan lies dead among the Scarlet Crusaders there: target his body and use the {item:6866}, then talk to him at once, as he does not stay alive long. If he is already up (another player), just talk to him; if he died again, raise him again."] = "{area:812} fica no extremo leste das clareiras, uma longa caminhada. Falgan jaz morto entre a Cruzada Escarlate ali: selecione o corpo dele e use o {item:6866}, depois fale com ele na hora, pois ele não fica vivo por muito tempo. Se ele já estiver de pé (outro jogador), é só falar com ele; se morreu de novo, ressuscite-o de novo.",
 
 	-- Step 22: The Scarlet attack plans

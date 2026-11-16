@@ -22,14 +22,14 @@ return {
 	-- {npc:3401} Shenthul · {quest:2379} Zando'zan
 	["{npc:3401} and {quest:2379}"] = "{npc:3401} и {quest:2379}",
 	-- {zone:1458} Undercity · {zone:1411} Durotar · {npc:3401} Shenthul · {quest:2379} Zando'zan · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {spell:1804} Pick Lock
-	["Undead take the zeppelin from the towers outside the {zone:1458} to {zone:1411}. {npc:3401} and {quest:2379} stand in the {object:172960}, the canyon under the {object:172982}. Train {spell:1804} from {npc:3401} (or any rogue trainer) now if you lack it: this job is a lockpicking test."] = "",
+	["Undead take the zeppelin from the towers outside the {zone:1458} to {zone:1411}. {npc:3401} and {quest:2379} stand in the {object:172960}, the canyon under the {object:172982}. Train {spell:1804} from {npc:3401} (or any rogue trainer) now if you lack it: this job is a lockpicking test."] = "Нежить летит на дирижабле от башен за пределами города ({zone:1458}) сюда: {zone:1411}. {npc:3401} и {quest:2379} стоят здесь: {object:172960} – ущелье под местом {object:172982}. Если у вас еще нет навыка {spell:1804}, изучите его сейчас у NPC {npc:3401} (или любого учителя разбойников): это задание – проверка взлома замков.",
 
 	-- Step 4: Wrenix the Wretched
 	-- {area:392} Ratchet · {zone:1413} Barrens · {npc:7161} Wrenix the Wretched · {item:7970} E.C.A.C. · {item:5060} Thieves' Tools · {spell:1804} Pick Lock
 	["Fly or walk to {area:392} on the {zone:1413} coast. {npc:7161} stands in a small shed near the bank, up the hill to the left before the docks. His Gizmotronic Apparatus beside him hands out what the job needs: take an {item:7970} and {item:5060} ({spell:1804} does not work without the tools in your bags)."] = "",
 
 	-- Step 5: Southsea Treasure
-	-- {area:392} Ratchet · {object:123462} The Jewel of the Southsea (no name in this language: may be words) · {npc:7168} Polly · {item:7970} E.C.A.C. · {item:7968} Southsea Treasure
+	-- {area:392} Ratchet · {object:123462} The Jewel of the Southsea · {npc:7168} Polly · {item:7970} E.C.A.C. · {item:7968} Southsea Treasure
 	["Follow the coast south from {area:392} to the first beached pirate ship, the Tide Razor, and climb aboard up its bow. On the middle deck the Buccaneer's Strongboxes come back fast: pick them until your Lockpicking is about 30 (a few are trapped with a frost nova or turn you into a rat; picking still works as a rat). Keep picking while they still give skill: the poisons job at 20 ends at a lockbox that needs about 75, and these boxes are the closest practice. Then go down to the bottom hold and pick the lock of {object:123462}: it is empty, but opening it calls a giant level 50 {npc:7168} into the next room. Stay stealthed, put the {item:7970} on your action bar, target {npc:7168} and use it: the parrot shrinks to level 18. Kill it for the {item:7968}."] = "",
 	-- {item:7968} Southsea Treasure · {npc:7168} Polly · {item:7970} E.C.A.C.
 	["{item:7968}: {npc:7168}, after the {item:7970}"] = "",
@@ -61,5 +61,4 @@ return {
 	-- ["South along the coast from {area:392}, at the Southsea pirates' camp. If an unusually hostile parrot attacks you, use the {item:7970} on it (the quest's own advice)."] = "К югу вдоль побережья от места {area:392}, в лагере пиратов Южных морей. Если на вас нападет необычно враждебный попугай, используйте на нем {item:7970} (совет из самого задания).",
 	-- ["Take the zeppelin from {zone:1454} to the {zone:1458} and ride south into Silverpine. {quest:1998} stands north-east of the {area:228}."] = "Летите на дирижабле: {zone:1454} → {zone:1458}, затем езжайте на юг, в Серебряный бор. {quest:1998} стоит к северо-востоку от места {area:228}.",
 	-- ["The Kirin Tor keep their reports at {area:233}, in south-east Silverpine: pick the lock on the {object:103815}."] = "Кирин-Тор хранит свои донесения здесь: {area:233}, юго-восток Серебряного бора. Взломайте замок: {object:103815}.",
-	-- ["Undead take the zeppelin from the towers outside the {zone:1458} to {zone:1411}. {npc:3401} and {quest:2379} stand in the {object:172960}, the canyon under the {object:172982}."] = "Нежить летит на дирижабле от башен за пределами города ({zone:1458}) сюда: {zone:1411}. {npc:3401} и {quest:2379} стоят здесь: {object:172960} – ущелье под местом {object:172982}.",
 }

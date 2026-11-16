@@ -27,7 +27,8 @@
     "5010": { "id": 5010, "name": "Seamstress Lyra", "level": 30, "levelMax": null, "faction": "A", "rare": false, "elite": false, "boss": false, "instance": null, "roles": ["trainer", "trainer:197"], "spawns": [{ "map": 9001, "x": 49, "y": 49, "f": "e" }] },
     "5011": { "id": 5011, "name": "Gnash the Unseen", "level": 21, "levelMax": null, "faction": null, "rare": true, "elite": false, "boss": false, "instance": null, "roles": [], "spawns": [{ "map": 9001, "x": 70, "y": 30, "f": "e" }] },
     "5012": { "id": 5012, "name": "Kobold Digger", "level": 19, "levelMax": 20, "faction": null, "rare": false, "elite": false, "boss": false, "instance": null, "roles": [], "spawns": [{ "map": 9001, "x": 62, "y": 40, "f": "e" }] },
-    "5013": { "id": 5013, "name": "Lord Ashcroft", "level": 22, "levelMax": null, "faction": null, "rare": false, "elite": true, "boss": true, "instance": "ashen_crypt", "roles": [], "spawns": [] }
+    "5013": { "id": 5013, "name": "Lord Ashcroft", "level": 22, "levelMax": null, "faction": null, "rare": false, "elite": true, "boss": true, "instance": "ashen_crypt", "roles": [], "spawns": [] },
+    "5020": { "id": 5020, "name": "Fizzle Gearspin", "level": 55, "levelMax": null, "faction": null, "rare": false, "elite": false, "boss": false, "instance": null, "roles": ["banker"], "spawns": [{ "map": 9001, "x": 55, "y": 55, "f": "e" }] }
   },
   "objects": {
     "6001": { "id": 6001, "name": "Weathered Chest", "treasure": true, "spawns": [{ "map": 9001, "x": 55, "y": 58, "f": "e" }] },

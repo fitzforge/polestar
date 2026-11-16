@@ -8,22 +8,31 @@
 -- (Dungeons.PickUp), so the leveling guide keeps its own; "Open in
 -- Dungeons" opens the dungeon's page in the hub's Dungeons section
 -- (Dungeons.Open); "Later" and the close button dismiss it; "Turn these off"
--- sets dungeons.headsUp off (also under Options > Discovery > Dungeons).
+-- sets dungeons.headsUp off (also under Options > Discovery > Lookup).
 -- The dungeon counts as told once the card is on screen or dismissed: a
--- card waiting for a hidden guide window shows when the window does.
+-- card waiting for a hidden guide window shows when the window does. One
+-- dismissed with Later below the dungeon's best-at level (a card the command
+-- showed, or one told at the range's start before cards waited for best-at)
+-- comes back once at best-at, then is told for good.
 --
 -- When it shows (DT.Candidates): a dungeon, not a raid, the character's level
--- in its range, with quests for the character's faction, not told before
--- (CharState().dungeonToastSeen, once per dungeon per character), whose
+-- at or past the level it suits best (Dungeons.BestAt; the Dungeons window
+-- still picks its quests up from the range's start) and inside its range,
+-- with quests for the character's faction, not a city dungeon of the other
+-- faction (Dungeons.EnemyCapital), not told before
+-- (CharState().dungeonToastSeen: key -> true, told for good, or "later",
+-- back once at best-at), whose
 -- pickup plan by the offer rule (Dungeons.PickupPlan(key, true): a quest is
 -- offered from one level below its quest level, Fitz 2026-11-10, not 3-5
 -- levels early as the game allows) has a quest to take now and either none
--- left for later levels or at least MIN_OPEN to take. Its "Pick up the
+-- left for later levels or at least MIN_OPEN to take, and whose quests to
+-- take now are worth MIN_WORTH of a level or more to the character
+-- (Levels.Run; not judged when one's XP is unknown). Its "Pick up the
 -- quests" opens the guide by the same rule; the dungeon's page still picks
 -- up everything the game gives. At a level-up, after
 -- DELAY seconds so the class quest heads-up goes first; at login, only for a
--- dungeon that came due (its range began and its first quest's offer level
--- was reached) within LOGIN_LEVELS levels, after the class
+-- dungeon that came due (its best-at level and its first quest's offer level
+-- were reached) within LOGIN_LEVELS levels, after the class
 -- quest heads-up and the class guide banner; after a quest of a dungeon's
 -- page is handed in (a prerequisite: its follow-ups there may open), only for
 -- that dungeon, after DELAY seconds so the completed flag has caught up.
@@ -39,17 +48,22 @@
 --   UI.DungeonToast.Check(level, mode, questId)  show the first candidate
 --   UI.DungeonToast.Show(candidate), .Model(candidate), .PickUp(key, all), .SeePage(key)
 --   /polestar dungeontoast [dungeon]         show it again
+--
+-- Under the same settings, the guide window's dungeon line under a step that
+-- grinds to a level ("Or run Wailing Caverns (17–24) with a group: 4 quests
+-- to pick up first."): DT.GrindPick, DT.GrindLine, further down.
 
 local ADDON, ns = ...
 local UI, Theme = ns.UI, ns.Theme
 local L = ns.L
-local format, ipairs, sort, type = string.format, ipairs, table.sort, type
+local format, ipairs, pairs, sort, type = string.format, ipairs, pairs, table.sort, type
 
 local DT = {}
 UI.DungeonToast = DT
 
-local LOGIN_LEVELS = 2 -- on login, dungeons whose range began within this many levels
+local LOGIN_LEVELS = 2 -- on login, dungeons that came due within this many levels
 local MIN_OPEN = 3 -- with quests still to open at later levels, this many open now
+local MIN_WORTH = 0.1 -- the quests to take now are worth at least this share of a level
 local DELAY = 1.5 -- after a level-up, so the class quest heads-up has the card first
 local SIDE = { Alliance = "A", Horde = "H" }
 
@@ -60,6 +74,20 @@ local function seen()
 	local st = ns.CharState()
 	st.dungeonToastSeen = st.dungeonToastSeen or {}
 	return st.dungeonToastSeen
+end
+
+-- Dungeons told before cards waited for best-at (at the range's start) and
+-- whose best-at the character hasn't reached: back once at best-at, as after
+-- Later. Once per character, with the dungeons' levels known.
+local function upgradeSeen(level)
+	local st = ns.CharState()
+	if st.dungeonToastBestAt then return end
+	st.dungeonToastBestAt = true
+	local Dg = D()
+	for key, v in pairs(st.dungeonToastSeen or {}) do
+		local best = v == true and Dg.BestAt(key)
+		if best and level < best then st.dungeonToastSeen[key] = "later" end
+	end
 end
 
 -- The character (Levels.Player: Compat.GetPlayerInfo), or an empty table.
@@ -82,10 +110,10 @@ local function on()
 end
 
 -- At login, before any plan is made: whether dungeon d can have come due
--- within LOGIN_LEVELS levels (its range began, or one of its page quests'
--- offer level was reached, that recently).
-local function recent(d, level)
-	if level - d.minLevel <= LOGIN_LEVELS then return true end
+-- within LOGIN_LEVELS levels (its best-at level `best` reached, or one of its
+-- page quests' offer level past that, that recently).
+local function recent(d, level, best)
+	if level - best <= LOGIN_LEVELS then return true end
 	local Dg = D()
 	for _, q in ipairs(Dg.Quests(d.key)) do
 		local at = Dg.OfferLevel(q)
@@ -94,34 +122,55 @@ local function recent(d, level)
 	return false
 end
 
+-- Whether plan's quests to take now are worth less than MIN_WORTH of a level
+-- to the character at `level` (Levels.Run, as the card's badge sums the
+-- page's quests); never when one's XP is unknown.
+local function tooLittle(plan, p, level)
+	if p.level ~= level then p = { level = level, xp = 0, class = p.class, race = p.race, faction = p.faction } end
+	local quests = {}
+	for i, t in ipairs(plan.take) do
+		local q = t.quest or {}
+		quests[i] = { id = q.id, level = q.level, xp = q.rewards and q.rewards.xp, classes = q.classes }
+	end
+	local s = ns.Levels.Run(quests, p)
+	return s.unknown == 0 and (s.levels or 0) < MIN_WORTH
+end
+
 -- The dungeons to tell this character about at `level` (the character's when
 -- nil), the one that came due last first ("any": told ones too, for the
 -- command; "turnin": only dungeons whose page has questId): { key, name,
--- zoneName, minLevel, maxLevel, take, level, due }. due: the level it came
--- due at (its range's start, or its first offered quest's offer level).
+-- zoneName, minLevel, maxLevel, best, take, level, due }. due: the level it
+-- came due at (its best-at level, or its first offered quest's offer level).
 function DT.Candidates(level, mode, questId)
 	local Dg = D()
-	if not (on() and Dg.List and Dg.PickupPlan and Dg.Quests) then return {} end
+	if not (on() and Dg.List and Dg.PickupPlan and Dg.Quests and Dg.BestAt) then return {} end
 	local p = player()
 	level = level or p.level
 	local side = SIDE[p.faction or ""]
 	if type(level) ~= "number" or not side then return {} end
+	local list = Dg.List()
+	if #list > 0 then upgradeSeen(level) end
 	local told, out = seen(), {}
-	for _, d in ipairs(Dg.List()) do
-		local min, max = d.minLevel, d.maxLevel
-		if d.kind == "dungeon" and (mode == "any" or not told[d.key]) and min and level >= min and (not max or level <= max)
-			and (d.quests[side] or 0) > 0 and (mode ~= "turnin" or onPage(d.key, questId)) and (mode ~= "login" or recent(d, level)) then
+	for _, d in ipairs(list) do
+		-- From the dungeon's floor (Dungeons.List), as the hub's "For your level": never the card for a
+		-- dungeon the route would still hold back (Fitz, 2026-11-13), nor for a city dungeon of the other
+		-- faction (Dungeons.EnemyCapital: the Ruins of Lordaeron has Alliance quests, but it is the Undercity's).
+		local min, max, from = d.minLevel, d.maxLevel, d.floor or d.minLevel
+		local best = d.kind == "dungeon" and (mode == "any" or told[d.key] ~= true) and from and level >= from and (not max or level <= max)
+			and (d.quests[side] or 0) > 0 and not (Dg.EnemyCapital and Dg.EnemyCapital(d.key, side))
+			and (mode ~= "turnin" or onPage(d.key, questId)) and math.max(Dg.BestAt(d.key) or from, from)
+		if best and level >= best and (mode ~= "login" or recent(d, level, best)) then
 			local plan = Dg.PickupPlan(d.key, true)
 			local take = plan and #plan.take or 0
-			if take > 0 and (plan.later == 0 or take >= MIN_OPEN) then
+			if take > 0 and (plan.later == 0 or take >= MIN_OPEN) and not tooLittle(plan, p, level) then
 				local due
 				for _, t in ipairs(plan.take) do
 					local at = Dg.OfferLevel(t.quest, t.rec)
 					if not due or at < due then due = at end
 				end
-				due = math.max(min, due or min)
+				due = math.max(best, due or best)
 				if mode ~= "login" or level - due <= LOGIN_LEVELS then
-					out[#out + 1] = { key = d.key, name = d.name, zoneName = d.zoneName, minLevel = min, maxLevel = max, take = take, level = level,
+					out[#out + 1] = { key = d.key, name = d.name, zoneName = d.zoneName, minLevel = min, maxLevel = max, best = best, take = take, level = level,
 						due = due, pickLabel = Dg.PickupLabel and Dg.PickupLabel(plan) or nil }
 				end
 			end
@@ -140,6 +189,7 @@ function DT.Model(c)
 	local Dg = D()
 	local m = { dungeon = c.key, art = Dg.Art and Dg.Art(c.key), icon = Theme.Media("icon-dungeon"), iconColor = "dungeon", titleColor = "text" }
 	m.head = format(L["LEVEL %d · DUNGEON"], c.level)
+	m.facts = format(L["Level %d · Dungeon"], c.level)
 	m.title = format(L["%s is open to you"], c.name)
 	local quests = c.take == 1 and L["1 quest to pick up"] or format(L["%d quests to pick up"], c.take)
 	local range = UI.LevelRange and UI.LevelRange(c.minLevel, c.maxLevel)
@@ -155,11 +205,14 @@ function DT.Model(c)
 	-- What its quests are worth, as on the dungeon's page (Dungeons.QuestXP).
 	local LT = UI.LevelTip
 	local xs = Dg.QuestXP and Dg.QuestXP(c.key)
-	if xs and not xs.maxed and (xs.levels or 0) > 0 and LT and LT.Text then m.badge = LT.Text(xs.levels):upper() end
+	if xs and not xs.maxed and (xs.levels or 0) > 0 and LT and LT.Text then m.badge = ns.Upper(LT.Text(xs.levels)) end
 	local pick = { label = c.pickLabel or L["Pick up the quests"], run = function() return DT.PickUp(c.key, c.all) end }
 	local page = { label = L["Open in Dungeons"], run = function() return DT.SeePage(c.key) end }
 	if enemy then m.act, m.more = page, pick else m.act, m.more = pick, page end
 	m.off = { label = L["Turn these off"], run = DT.TurnOff }
+	-- Later below the dungeon's best-at level: back once at best-at.
+	local best = c.best or (Dg.BestAt and Dg.BestAt(c.key))
+	m.later = { label = L["Later"], run = function(shown) if best and c.level < best then shown.backAtBest = true end end }
 	return m
 end
 
@@ -192,9 +245,9 @@ function DT.Show(c)
 end
 
 -- A dungeon card dismissed (Later, the close button, one of its buttons)
--- counts as told.
+-- counts as told; with Later below best-at, only until best-at ("later").
 ns.On("HEADS_UP_HIDDEN", function(m)
-	if type(m) == "table" and m.dungeon then seen()[m.dungeon] = true end
+	if type(m) == "table" and m.dungeon then seen()[m.dungeon] = m.backAtBest and "later" or true end
 end)
 
 -- "Open in Dungeons": the dungeon's page in the hub, where its quests,
@@ -228,7 +281,7 @@ end
 
 function DT.TurnOff()
 	ns.Set("dungeons.headsUp", false)
-	ns.Print(L["Dungeon heads-ups are off. Turn them back on under Options > Discovery > Dungeons."])
+	ns.Print(L["Dungeon heads-ups are off. Turn them back on under Options > Discovery > Lookup."])
 end
 
 -- The checks that have to wait (combat, another heads-up on the card), in
@@ -272,6 +325,200 @@ local function retry()
 		end
 	end)
 end
+
+---------------------------------------------------------------------------
+-- The dungeon line under a grind step
+---------------------------------------------------------------------------
+
+-- A step that grinds to a level (a `level N` goal in a leveling guide, a
+-- `when level<N` top-up included) gets one line under that goal naming a
+-- dungeon to run instead, with its quests when it has some to take now
+-- (Fitz, 0.4.0: "maybe do a dungeon WITH DUNGEON QUESTS, people are usually
+-- happy to do it"): "Or run Wailing Caverns (17–24) with a group: 4 quests
+-- to pick up first.", else "... with a group for a faster climb."; a click
+-- opens the dungeon's page in the hub on its Quests tab (Dungeons.Open). A
+-- suggestion only: the route, the arrow and the step stay as they are.
+--
+-- Which dungeon (DT.GrindPick): one that fits the character's level now, as
+-- the hub's For your level has it (UI/Dungeons.lua: from its floor to its
+-- top, a dungeon not a raid, never a city dungeon of the other faction, not
+-- one whose quests are all the other faction's), and not "Tough at your
+-- level" (TOUGH or more under its best-at level); none whose attunement or
+-- key each player needs (`need` "each") this character lacks. Of those: one
+-- with quests to pick up now first (Dungeons.PickupPlan, the heads-up's
+-- offer rule), then the one the step's tip already names (the guide's own
+-- "or run Blackfathom Deeps"), then the one whose nearest quest giver (or
+-- starting drop) is closest to the grind, then one whose entrance is on the
+-- grind's continent, then one whose way in is not through the other
+-- faction's land, then the closest to its best-at level. None: no line.
+--
+-- When: the guide window's current step, the goal still open (not covered by
+-- finished quests), not a class's own step; under the heads-up's settings
+-- (dungeons.enabled, dungeons.headsUp: "Turn these off" stops the line too).
+-- Never loads the Codex (its 7 MB at every grind step would cost every
+-- character): until something loads it, no line, then the window fills again.
+-- Worked out once per guide, step, goal, level and faction (DT.GrindLine),
+-- not at each repaint of the card.
+--
+--   UI.DungeonToast.GrindPick(level, side, spot, note) -> pick | nil
+--       spot = { map, x, y, f } | nil: the grind's place; note: the step's tip
+--       pick = { key, name, minLevel, maxLevel, zoneName, take, enemy, text }
+--   UI.DungeonToast.GrindLine(guide, view, goal) -> pick | nil   (cached)
+--   UI.DungeonToast.GrindOpen(key)                              the dungeon's page, Quests
+
+local TOUGH = 4 -- UI/Dungeons.lua: "Tough at your level" this many under best-at
+
+-- Whether this character lacks an attunement or key every player of the
+-- dungeon needs (Dungeons.Attunements; one a single player opens the door
+-- with, need "one", stays a group's business).
+local function locked(Dg, d, side)
+	if (d.attune and d.attune[side] or 0) == 0 or not (Dg.Attunements and Dg.AttunementState) then return false end
+	for _, a in ipairs(Dg.Attunements(d.key, side)) do
+		if a.need ~= "one" then
+			local st = Dg.AttunementState(a)
+			if not (st and st.done) then return true end
+		end
+	end
+	return false
+end
+
+local function continent(map)
+	local C = ns.Compat
+	return type(map) == "number" and C.GetContinentMap and C.GetContinentMap(map) or nil
+end
+
+-- A point's world position (Compat.MapToWorld) -> c, x, y | nil
+local function world(p)
+	if type(p) ~= "table" or not (p.map and p.x and p.y) then return nil end
+	local C = ns.Compat
+	if not C.MapToWorld then return nil end
+	return C.MapToWorld(p.map, p.x, p.y, p.f)
+end
+
+-- Yards from the grind (c, x, y) to the nearest giver of plan's quests to
+-- take; nil when none is on the grind's continent or a place is unknown.
+local function nearestGiver(plan, c, x, y)
+	if not c then return nil end
+	local best
+	for _, t in ipairs(plan.take) do
+		local gc, gx, gy = world(t.giver)
+		if gc == c then
+			local d = math.sqrt((gx - x) ^ 2 + (gy - y) ^ 2)
+			if not best or d < best then best = d end
+		end
+	end
+	return best
+end
+
+function DT.GrindPick(level, side, spot, note)
+	local Dg = D()
+	if type(level) ~= "number" or not side or not (on() and codexLoaded() and Dg.List and Dg.BestAt) then return nil end
+	local here = continent(spot and spot.map)
+	local wc, wx, wy = world(spot)
+	local list = {}
+	for _, d in ipairs(Dg.List()) do
+		local from, top = d.floor or d.minLevel, d.maxLevel or d.minLevel
+		local q = d.quests
+		if d.kind == "dungeon" and from and level >= from and level <= top
+			and ((q[side] or 0) > 0 or ((q.A or 0) == 0 and (q.H or 0) == 0))
+			and not (Dg.EnemyCapital and Dg.EnemyCapital(d.key, side)) then
+			local best = math.max(Dg.BestAt(d.key) or from, from)
+			if level > best - TOUGH and not locked(Dg, d, side) then
+				local plan = (q[side] or 0) > 0 and Dg.PickupPlan and Dg.PickupPlan(d.key, true) or nil
+				d.take = plan and plan.take and #plan.take or 0
+				d.near = d.take > 0 and nearestGiver(plan, wc, wx, wy) or math.huge
+				local there = d.entrance and continent(d.entrance.map)
+				d.enemy = Dg.EnemyEntrance and Dg.EnemyEntrance(d.key, side) or nil
+				d.rank = (d.take > 0 and 0 or 8) + (type(note) == "string" and note:find(d.name, 1, true) and 0 or 4)
+				d.after = ((here and there and here ~= there) and 2 or 0) + (d.enemy and 1 or 0)
+				d.gap = math.abs(best - level)
+				list[#list + 1] = d
+			end
+		end
+	end
+	if #list == 0 then return nil end
+	sort(list, function(a, b)
+		if a.rank ~= b.rank then return a.rank < b.rank end
+		if a.near ~= b.near then return a.near < b.near end
+		if a.after ~= b.after then return a.after < b.after end
+		if a.gap ~= b.gap then return a.gap < b.gap end
+		return a.key < b.key
+	end)
+	local pick = list[1]
+	local range = UI.LevelRange(pick.minLevel, pick.maxLevel)
+	local text
+	if pick.take == 1 then
+		text = format(L["Or run %s (%s) with a group: 1 quest to pick up first."], pick.name, range)
+	elseif pick.take > 1 then
+		text = format(L["Or run %s (%s) with a group: %d quests to pick up first."], pick.name, range, pick.take)
+	else
+		text = format(L["Or run %s (%s) with a group for a faster climb."], pick.name, range)
+	end
+	return { key = pick.key, name = pick.name, minLevel = pick.minLevel, maxLevel = pick.maxLevel, zoneName = pick.zoneName, take = pick.take, enemy = pick.enemy, text = text }
+end
+
+-- The last answer, and what it was worked out for; grindGen moves when the
+-- Codex or the names pack loads.
+local grind = {}
+local grindGen, grindSeen = 0, 0
+
+local function classOnly(t)
+	return type(t) == "table" and type(t.only) == "table" and t.only.classes ~= nil
+end
+
+function DT.GrindLine(guide, view, goal)
+	if goal.t ~= "level" or view.status ~= "current" or goal.handInFirst then return nil end
+	local st = goal.status
+	if st == "done" or st == "skipped" or st == "na" then return nil end
+	if not (type(guide) == "table" and guide.category == "Leveling") then return nil end
+	local step = guide.steps and guide.steps[view.index]
+	if classOnly(step) or classOnly(step and step.goals and step.goals[goal.index]) then return nil end
+	-- The key costs nothing to read (no table): a level-up moves grindGen too.
+	local now = UnitLevel and UnitLevel("player") or nil
+	local live = on() and codexLoaded()
+	local c = grind
+	if c.guide == guide and c.step == view.index and c.goal == goal.index and c.now == now and c.live == live and c.gen == grindGen then
+		return c.pick
+	end
+	c.guide, c.step, c.goal, c.now, c.live, c.gen = guide, view.index, goal.index, now, live, grindGen
+	c.pick = nil
+	if live then
+		local p = player()
+		-- The grind's place: the goal's (a `grind <npc>` one has its mob's), else the character's.
+		local spot = goal.map and goal.x and goal.y and goal or nil
+		if not spot and ns.Compat.GetPlayerMapPosition then
+			local map, x, y = ns.Compat.GetPlayerMapPosition()
+			spot = map and { map = map, x = x, y = y } or nil
+		end
+		c.pick = DT.GrindPick(math.max(p.level or 1, grindSeen), SIDE[p.faction or ""], spot, view.note)
+	end
+	return c.pick
+end
+
+function DT.GrindOpen(key)
+	local Dg = D()
+	return Dg and Dg.Open and Dg.Open(key) or false
+end
+
+-- The Codex arriving (or the names pack, which renames the dungeons), a
+-- level-up or the settings: worked out again, and the card filled again
+-- when it shows the grind step last asked about (no other card can gain or
+-- lose the line). grindSeen: the level-up's level (UnitLevel can lag the event).
+local function grindAgain()
+	grindGen = grindGen + 1
+	local GF, E = UI.GuideFrame, ns.Engine
+	if not (grind.guide and GF and GF.Refill and GF.ShownStep and E and E.GetGuide) then return end
+	if GF.ShownStep() == grind.step and E.GetGuide() == grind.guide then GF.Refill() end
+end
+ns.On("CODEX_LOADED", grindAgain)
+ns.On("NAMES_LOADED", grindAgain)
+ns.RegisterEvent("PLAYER_LEVEL_UP", function(_, level)
+	grindSeen = math.max(grindSeen, tonumber(level) or 0)
+	grindAgain()
+end)
+ns.On("SETTING_CHANGED", function(path)
+	if path == "dungeons.headsUp" or path == "dungeons.enabled" or path == "" then grindAgain() end
+end)
 
 ---------------------------------------------------------------------------
 -- Events and the command

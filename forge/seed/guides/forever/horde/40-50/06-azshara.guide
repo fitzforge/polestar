@@ -10,42 +10,40 @@ next forever/horde/50-60/01-un-goro-crater
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: The Monogrammed Sash (8552), Message in a Bottle (594), The Mind's Eye (591), The Bloodsail Buccaneers (608).
-# Left out: Assisting Arch Druid Runetotem (3784).
+# The Super Egg-O-Matic (2741, taken and handed in at the Egg-O-Matic in Gadgetzan): the egg from the nests south of the Frayfeather
+# hippogryphs and the hand-in at Gadgetzan, at 50 with its full 4,200 XP (it was taken at about 56.5 in 50-60/05 with a
+# Feralas ride for about a fifth of that).
+# Added here: Assisting Arch Druid Runetotem (3762), from Innkeeper Pala on the Thunder Bluff stop, handed to Hamuul
+# before Un'Goro Soil (3761). Left out: the Undercity copy (3784).
+# Level tidy (0.4.0): Vengeance on the Northspring (3063), taken in 40-50/03 where its harpies (48-50) are 2 over the
+# player, is done on this Feralas loop, after Zorbin's second round of giants. The Dunemaul Compound (5863, Gor'marok
+# 49), taken in 40-50/04, is done at the Broken Pillar on the way to Un'Goro, and Thistleshrub Valley (3362, Rootshapers
+# 49-50, taken in 40-50/04 too) just west of it; both are handed in on 50-60/01's Gadgetzan stop. Kim'jael (3601, 5534), Stealing Knowledge (3517) and Betrayed
+# (3505) move to 50-60/04 (Spitelash and blood elves 51-55 at about 50), taken there in Valormok, the next visit and
+# the one that works them. Betrayed starts at Ag'tor Bloodfist (#2390), so Belgrom's letter (3504) is left out.
+# Left out: A Meeting with the Master (3381): Sanath Lim-yo's teleport to Xylem's tower is free on Forever (#2460).
 
 step Swamp of Sorrows
   zone Swamp of Sorrows
   goto 46.1,54.7 "Swamp of Sorrows"
 
-step Fly to Grom'gol
+step Fly to Booty Bay
   zone Swamp of Sorrows
   goto 46.1,54.7 "Stonard flight master"
-  fly "Grom'gol"
+  fly "Booty Bay"
   zone Stranglethorn Vale
 
 # ---------------------------------------------------------------- Stranglethorn Vale
 
-step To Grom'gol
-  zone Stranglethorn Vale
-  tip The flight from Stonard lands at Grom'gol Base Camp.
-  goto 32.2,27.7 "Grom'gol Base Camp"
-
-step Grom'gol Base Camp
-  turnin 2932                         -- Nimboya
-
-step Fly to Booty Bay
-  zone Stranglethorn Vale
-  goto 32.5,29.3 "Grom'gol flight master"
-  fly "Booty Bay"
-
 step Booty Bay
-  tip Continue south to Booty Bay. Oglethorpe Obnoticus has his workshop on the upper ring of the bay.
+  tip The flight from Stonard lands on Booty Bay's upper deck. Oglethorpe Obnoticus has his workshop on the upper ring of the bay.
   turnin 2767 optional                -- Oglethorpe Obnoticus, inside
   turnin 836 optional
   turnin 648 optional
   accept 3721 optional                -- Only once all three robots are home
   turnin 3721 optional
   turnin 580                          -- Whiskey Slim, in the inn
-  turnin 2874                         -- "Sea Wolf" MacKinley, on the top floor
+  turnin 2874                         -- "Sea Wolf" MacKinley, on the top floor: Stoley's shipment from Tanaris
   accept 608                          -- Fleet Master Seahorn, on the balcony of the same building
 
 step The Bloodsail ships
@@ -85,6 +83,10 @@ step Fly to Grom'gol
   goto 26.8,77.0 "Booty Bay flight master"
   fly "Grom'gol"
 
+step Grom'gol Base Camp
+  tip The flight lands at Grom'gol Base Camp; Nimboya stands by the Bubbling Cauldron.
+  turnin 2932                         -- Nimboya
+
 step Back to Grom'gol
   when group 591
   accept 591
@@ -113,6 +115,18 @@ step Zeppelin to Orgrimmar
   zone Stranglethorn Vale
   goto 31.4,29.9 "Zeppelin to Orgrimmar"
 
+step Zilzibin Drumlore
+  zone Orgrimmar
+  when onquest 32
+  tip On the way through Orgrimmar to the flight master, step into the Drag: Zilzibin takes the insect report from Tanaris.
+  turnin 32                             -- Zilzibin Drumlore, the Drag
+
+step Dran Droffers
+  zone Orgrimmar
+  when onquest 81
+  tip The Droffers' shop is a few steps further into the Drag.
+  turnin 81                             -- Dran Droffers, the Drag
+
 # ---------------------------------------------------------------- To Azshara
 
 step Azshara
@@ -134,12 +148,6 @@ step Haldarr Encampment: kill these as you meet them
   kill 6126 quest 5536.2
   kill 6125 quest 5536.1
 
-step Level 50
-  when level<50
-  tip Top up here to level 50: March of the Silithid, from Zilzibin in Orgrimmar at the end of Azshara, needs it. Or, with a group, run the Maraudon dungeon or the Sunken Temple dungeon instead.
-  goto 20.1,62.0 map 1447 "Haldarr Satyr"
-  level 50 grind 6125               -- grind on Haldarr Satyr
-
 step Loh'atu
   tip Back to Loh'atu at the shrine; stay west of the Talrendis Point guards.
   turnin 5535
@@ -149,70 +157,7 @@ step Loh'atu
 
 step Valormok
   tip Follow the road north to Valormok, the Horde camp.
-  accept 3381 optional                -- Sanath Lim-yo, at the east edge of the camp: no experience, only a teleport to Azshara Tower
-
-step Valormok
   getfp "Valormok"
-  accept 3517                         -- Jediga
-
-step Undamaged Hippogryph Feathers
-  tip The Thunderhead Hippogryphs fly over the hills just south of Valormok.
-  collect 10450 quest 3381 optional
-
-step Sanath Lim-yo
-  when complete 3381
-  turnin 3381
-
-# ---------------------------------------------------------------- Kim'jael
-
-step Kim'jael
-  tip Ride north-east to the goblin's camp on the cliffs above the Bay of Storms.
-  accept 3601
-
-step Thalassian Base Camp
-  tip The blood elves' camp lies just south of Kim'jael. His four pieces of equipment lie in the crates around the camp.
-  collect 10717 quest 3601
-  collect 10715 quest 3601
-  collect 10718 quest 3601
-  collect 10722 quest 3601
-
-step Kim'jael
-  turnin 3601
-  accept 5534
-
-# ---------------------------------------------------------------- Ruins of Eldarath
-
-step Ruins of Eldarath: kill these as you meet them
-  zone Azshara
-  tip Ride south-west to the ruins. The four tablets lie among the ruins, guarded by Spitelash naga; any Siren or Myrmidon can carry Kim'jael's rune.
-  collect 13815 quest 5534
-  collect 10540 quest 3517
-  collect 10538 quest 3517
-  collect 10541 quest 3517
-  collect 10539 quest 3517
-
-step Kim'jael
-  tip Back north-east to Kim'jael.
-  turnin 5534
-
-# ---------------------------------------------------------------- Valormok and Xylem
-
-step Jediga
-  tip Ride west back to Valormok.
-  turnin 3517
-  accept 3518
-  accept 3541
-  accept 3542
-  accept 3561
-  note Keep the deliveries for Magatha, Jes'rimon and Andron Gant: you pass Thunder Bluff, Orgrimmar and the Undercity later.
-
-step Archmage Xylem
-  tip Xylem's tower stands on the cliff just north of Valormok; the path winds up its north side.
-  turnin 3561                         -- Upstairs
-  accept 3565
-
-step Jediga
-  turnin 3565
 
 step Fly to Orgrimmar
   zone Azshara
@@ -224,21 +169,21 @@ step Fly to Orgrimmar
 
 step Orgrimmar
   zone Orgrimmar
-  turnin 32                           -- Zilzibin Drumlore, Valley of Spirits
-  accept 4494
-  turnin 3541                         -- Jes'rimon, the Cleft of Shadow
-  accept 3563
+  turnin 32                           -- Zilzibin Drumlore, the Drag: if you still carry it
   accept 4300
   turnin 81                           -- Dran Droffers, the Drag
+
+step Zilzibin Drumlore
+  when level>=50
+  zone Orgrimmar
+  tip March of the Silithid needs level 50: Zilzibin, in the Drag, gives it from then on. Under 50, the Azshara guide at 55 offers it again.
+  accept 4494
 
 # ---------------------------------------------------------------- Orgrimmar
 
 step Orgrimmar
   zone Orgrimmar
-  turnin 2976
-  accept 3504                         -- Belgrom Rockmaul, Valley of Honor
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
-  note Keep Jes'rimon's payment and Ag'tor's Betrayed: they go back to Valormok on a later visit.
 
 step Paladin trainer
   only Paladin
@@ -254,6 +199,8 @@ step Fly to Thunder Bluff
 step Thunder Bluff
   zone Thunder Bluff
   tip Fly to Thunder Bluff; it is on the way to Camp Mojache. No flight path there yet? Fly to Camp Taurajo and ride west through Mulgore. Hamuul and Magatha are on the Elder Rise; Druids and Paladins train here (Turak Runetotem, Alodan the Hopeful).
+  accept 3762                           -- Innkeeper Pala, at the inn: for Hamuul
+  turnin 3762                           -- Arch Druid Hamuul Runetotem, on the Elder Rise
   accept 3761
 
 step Class trainer
@@ -262,10 +209,8 @@ step Class trainer
 
 step Thunder Bluff
   zone Thunder Bluff
-  turnin 3518                         -- Magatha Grimtotem
-  accept 3562
   train class only Druid,Paladin
-  note Un'Goro Soil is gathered in the next guide; Magatha's payment goes back to Jediga later.
+  note Un'Goro Soil is gathered in the next guide.
 
 step Fly to Camp Mojache
   zone Thunder Bluff
@@ -284,6 +229,11 @@ step Frayfeather Hippogryphs
   tip The hippogryphs nest on the hills south-west of the camp. Kill one, then use the Muisek Vessel on its body.
   collect 9595 quest 3124
   use 9619 quest 3124.1 @58.0,62.8 map 1444
+
+step Hippogryph nests
+  when onquest 2741
+  tip The hippogryph nests are on the hills to the south, around the Ruins of Isildien; each holds an egg for the Egg-O-Matic.
+  collect 8564 quest 2741 @58.0,76.3 map 1444
 
 step Witch Doctor Uzer'i
   turnin 3124
@@ -329,10 +279,18 @@ step Zorbin Fandazzle
   turnin 7725
   turnin 7726
 
+step Northspring harpies
+  tip The Northspring harpies nest on the ridges in the far north-west, past the giants' hills. The Windcallers heal, so kill them first and pull one at a time.
+  kill 5362 quest 3063.1
+  kill 5363 quest 3063.2
+  kill 5364 quest 3063.3
+  kill 5366 quest 3063.4
+
 step Back to Camp Mojache
   turnin 3127                         -- Witch Doctor Uzer'i
   accept 3129
   turnin 3129
+  turnin 3063                         -- Talo Thornhoof
 
 step Fly to Gadgetzan
   zone Feralas
@@ -343,20 +301,42 @@ step Fly to Gadgetzan
 # ---------------------------------------------------------------- Gadgetzan
 
 step Gadgetzan
+  when onquest 4494
   zone Tanaris
   turnin 4494                         -- Alchemist Pestlezugg, inside
-  accept 4496
+
+step Alchemist Pestlezugg
+  zone Tanaris
+  when available 4496
+  accept 4496                         -- Alchemist Pestlezugg, inside
+
+step Gadgetzan
+  zone Tanaris
   turnin 2641                         -- Sprinkle
   accept 2661
   accept 4504                         -- Tran'rek, beside the wind rider master
+  turnin 2741                         -- The Egg-O-Matic, in the middle of town
   sethome "Gadgetzan"
   turnin 2661                         -- Marin Noggenfogger
   accept 2662
   turnin 2662
-  note Tran'rek's tar and Pestlezugg's samples come from Un'Goro Crater.
+  note Pestlezugg's samples come from Un'Goro Crater.
 
 step Marvon Rivetseeker
   tip Ride south along the road to the Broken Pillar; Marvon Rivetseeker camps beside it. From here the road west leads down into Un'Goro Crater, where the next guide starts.
   turnin 3380                         -- Marvon Rivetseeker
   accept 3444
   note Keep The Stone Circle: Marvon's chest is opened on a later visit.
+
+step The Dunemaul Compound
+  zone Tanaris
+  tip South of the Broken Pillar the Dunemaul ogres hold their compound, with Gor'marok the Ravager at its eastern end: Andi Lynn's quest, carried from your first Tanaris visit.
+  kill 5474 quest 5863.1
+  kill 5472 quest 5863.2
+  kill 12046 quest 5863.3 @41.5,57.8  -- Below ground
+
+step Thistleshrub Valley
+  zone Tanaris
+  tip West from the compound, on the way to Un'Goro's ramp: Thistleshrub Valley's Gnarled Thistleshrubs and Rootshapers (48-50) are Tran'rek's, carried from your first Tanaris visit. They wander a lot: pull them one at a time. Tran'rek takes them on the next guide's Gadgetzan stop, with Andi Lynn's.
+  kill 5490 quest 3362.1 @29.65,66.4
+  kill 5485 quest 3362.2 @29.69,66.35

@@ -14,7 +14,7 @@ return {
 
 	-- Step 1: Eldrun Stormbreaker
 	-- {npc:258098} Eldrun Stormbreaker · {zone:1455} Ironforge · {npc:259023} Veyric Thunderhame · {zone:1417} Arathi Highlands · {spell:10596} Nature Resistance · {item:5178} Air Totem
-	["At 30 {npc:258098}, the shaman trainer in {zone:1455}, sends you to {npc:259023} in {zone:1417}. Your level 30 air totems (Grounding, {spell:10596}) need the {item:5178} he gives."] = "",
+	["At 30 {npc:258098}, the shaman trainer in {zone:1455}, sends you to {npc:259023} in {zone:1417}. Your level 30 air totems (Grounding, {spell:10596}) need the {item:5178} he gives."] = "На 30-м уровне {npc:258098}, учитель шаманов ({zone:1455}), отправляет вас к персонажу {npc:259023} ({zone:1417}). Для ваших тотемов воздуха 30-го уровня («Тотем заземления», {spell:10596}) нужен {item:5178}, который он дает.",
 
 	-- Step 2: Veyric Thunderhame
 	-- {npc:259023} Veyric Thunderhame · {area:321} Hammerfall · {area:320} Refuge Pointe
@@ -24,7 +24,7 @@ return {
 
 	-- Step 3: Charlga Razorflank
 	-- {area:1717} Razorfen Kraul · {zone:1413} Barrens · {npc:4421} Charlga Razorflank · {spell:8292} Chain Bolt · {spell:139} Renew · {item:274463} Tattered Note
-	["{area:1717} is a five-player dungeon at the southern edge of the {zone:1413} (the arrow points at its entrance); {npc:4421} (level 33 elite) is its last boss. She casts {spell:8292}, {spell:139} on her allies and Purity; the {item:274463} drops only from her."] = "",
+	["{area:1717} is a five-player dungeon at the southern edge of the {zone:1413} (the arrow points at its entrance); {npc:4421} (level 33 elite) is its last boss. She casts {spell:8292}, {spell:139} on her allies and Purity; the {item:274463} drops only from her."] = "{area:1717} – подземелье для пяти игроков на южном краю зоны {zone:1413} (стрелка указывает на вход); {npc:4421} (элитный противник 33-го уровня) – его последний босс. Она применяет {spell:8292}, {spell:139} на союзников и «Чистоту»; {item:274463} падает только с нее.",
 	-- {item:274463} Tattered Note · {npc:4421} Charlga Razorflank
 	["{item:274463}, from {npc:4421}"] = "{item:274463}: с персонажа {npc:4421}",
 
@@ -70,12 +70,10 @@ return {
 	["{npc:6176}: the {item:280696} and your weapon"] = "{npc:6176}: {item:280696} и ваше оружие",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 30 {npc:258098}, the shaman trainer in {zone:1455}, sends you to {npc:259023} in {zone:1417}."] = "На 30-м уровне {npc:258098}, учитель шаманов ({zone:1455}), отправляет вас к персонажу {npc:259023} ({zone:1417}).",
 	-- ["The Lost Ones in the north of the {zone:1435} carry the Twisted Earth Totems."] = "Изуродованные тотемы земли носят Заблудшие на севере зоны {zone:1435}.",
 	-- ["The Maraudine centaurs of western {zone:1443} carry the Twisted Air Totems."] = "Изуродованные тотемы воздуха носят кентавры Мародин на западе зоны {zone:1443}.",
 	-- ["The Mirefin murlocs of northern {zone:1445} carry the Twisted Water Totems."] = "Изуродованные тотемы воды носят мурлоки из племени Болотного Плавника на севере зоны {zone:1445}.",
 	-- ["The Stonevault troggs in the south of the {zone:1418} carry the Twisted Fire Totems."] = "Изуродованные тотемы огня носят трогги из племени Каменного Свода на юге зоны {zone:1418}.",
-	-- ["{area:1717} is a dungeon at the southern edge of the {zone:1413} (the arrow points at its entrance); {npc:4421} is its last boss. Bring a group."] = "{area:1717} – подземелье на южном краю зоны {zone:1413} (стрелка указывает на вход); {npc:4421} – его последний босс. Возьмите группу.",
 	-- ["{npc:259023} camps in the northern hills of {zone:1417}."] = "{npc:259023} стоит лагерем в северных холмах зоны {zone:1417}.",
 	-- ["{npc:259023} hands you the {item:268582}: place them at the steam pools of {zone:1441} and defeat the {npc:216474} they call. {quest:96135} is an elite quest: grouping up is advised."] = "{npc:259023} дает вам {item:268582}: установите их у паровых озер ({zone:1441}) и победите того, кого они призовут: {npc:216474}. {quest:96135} – элитное задание: лучше собрать группу.",
 	-- ["{npc:6176} camps in the east of {zone:1416}, north-east of {area:272}."] = "{npc:6176} стоит лагерем на востоке зоны {zone:1416}, к северо-востоку от места {area:272}.",

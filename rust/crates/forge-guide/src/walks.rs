@@ -38,6 +38,21 @@ pub fn npc_walk(data: &Data, goal: &V) -> Option<(V, f64, f64, f64)> {
 	best.map(|b| b.1).filter(|w| w.3 >= WALK_YARDS)
 }
 
+/// Whether a spawn of npc `id` within HEIGHT_YARDS of one of `points` (world yards on continent `c`) walks
+/// WALK_YARDS or more (moves.json): a creature met anywhere on its walk, not at its point (resolve.rs,
+/// exact_points).
+pub fn walks_near(data: &Data, id: &V, c: &V, points: &[(f64, f64)]) -> bool {
+	if !data.moves.truthy() {
+		return false;
+	}
+	data.moves
+		.get("npc")
+		.get(&id.to_js_string())
+		.items()
+		.iter()
+		.any(|e| e.at(0).strict_eq(c) && e.at(5).num() >= WALK_YARDS && points.iter().any(|&(wx, wy)| hypot(e.at(1).num() - wx, e.at(2).num() - wy) <= HEIGHT_YARDS))
+}
+
 /// A walker's goal with no spawn areas of its own: its walk as the one spot { x, y, r, n } (map
 /// percent in the goal's map and frame, the radius in yards).
 pub fn walk_spot(data: &Data, goal: &V) -> Option<V> {

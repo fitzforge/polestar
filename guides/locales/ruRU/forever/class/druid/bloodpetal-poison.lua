@@ -11,7 +11,7 @@ return {
 
 	-- Step 1: Loganaar
 	-- {spell:18960} Teleport: Moonglade · {npc:12042} Loganaar · {area:2361} Nighthaven · {npc:3033} Turak Runetotem · {npc:4217} Mathrengyl Bearwalker · {zone:1453} Stormwind
-	["Cast {spell:18960}. {npc:12042} stands in {area:2361}; your class trainer ({npc:3033}, {npc:4217} or Theridran in {zone:1453}) offers the same quest."] = "",
+	["Cast {spell:18960}. {npc:12042} stands in {area:2361}; your class trainer ({npc:3033}, {npc:4217} or Theridran in {zone:1453}) offers the same quest."] = "Примените {spell:18960}. {npc:12042} стоит здесь: {area:2361}; ваш учитель класса ({npc:3033}, {npc:4217} или Теридран в городе {zone:1453}) дает то же задание.",
 
 	-- Step 2: Torwa Pathfinder
 	-- {area:976} Gadgetzan · {zone:1449} Un'Goro Crater · {npc:9619} Torwa Pathfinder
@@ -47,7 +47,6 @@ return {
 	["{npc:9619}: the old item choice may be gone, count on the experience"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Cast {spell:18960}. {npc:12042} stands in {area:2361}; your class trainer offers the same quest."] = "Примените {spell:18960}. {npc:12042} стоит здесь: {area:2361}; ваш учитель класса дает то же задание.",
 	-- ["Experience in Un'Goro at 50 and two healing potions; Forever removed the Classic item choice."] = "Опыт в Кратере Ун'Горо на 50-м уровне и два лечебных зелья; в Forever убрали выбор предмета из Classic.",
 	-- ["The Gorishi wasps, workers and reavers of the hive in the south of the crater drop the stings; the Bloodpetal Sprouts that give the {item:22434} grow all over the crater's western half."] = "Осы, рабочие и разорители из улья Гориши на юге кратера оставляют жала; побеги кровоцвета, дающие {item:22434}, растут по всей западной половине кратера.",
 	-- ["Use the {item:22432} on a {npc:6498}. Devilsaurs are elite (level 54-55) and roam the crater: grouping up is advised."] = "Используйте {item:22432} на цели {npc:6498}. Девизавры — элитные (уровень 54-55) и бродят по кратеру: лучше собрать группу.",

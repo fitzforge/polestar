@@ -64,7 +64,7 @@ return {
 
 	-- Step 10: Hands of the Enemy
 	-- {npc:12118} Lucifron · {npc:12259} Gehennas · {npc:12264} Shazzrah · {npc:12098} Sulfuron Harbinger · {area:2717} Molten Core
-	["{npc:12118}, {npc:12259}, {npc:12264} and {npc:12098} are {area:2717} bosses: each drops his hand for the quest."] = "",
+	["{npc:12118}, {npc:12259}, {npc:12264} and {npc:12098} are {area:2717} bosses: each drops his hand for the quest."] = "{npc:12118}, {npc:12259}, {npc:12264} и {npc:12098} – боссы рейда {area:2717}: с каждого падает его рука для задания.",
 	-- {item:17332} Hand of Shazzrah
 	["{item:17332}: raid of 40"] = "",
 
@@ -98,7 +98,6 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Both elementals roam north-western {zone:1451}; the Rumblers cluster a little further north."] = "Оба вида элементалей бродят на северо-западе зоны {zone:1451}; грохотуны держатся чуть севернее.",
-	-- ["Bring the Hands of Lucifron, Gehennas, Shazzrah and Sulfuron from the {area:2717}."] = "Принесите из рейда ({area:2717}) руки Люцифрона, Гееннаса, Шаззраха и Сульфурона.",
 	-- ["Dust Stormers and Desert Rumblers"] = "Пылевихри ({npc:11744}) и пустынные грохотуны ({npc:11746})",
 	-- ["Keep clearing the {area:2717} until Exalted."] = "Зачищайте {area:2717} до превознесения.",
 	-- ["Kill a {npc:11668}, a {npc:11658}, an {npc:11673} and a {npc:12101} in the {area:2717}. Every {area:2717} elemental and boss also counts toward the Waterlords."] = "Убейте по одному: {npc:11668}, {npc:11658}, {npc:11673} и {npc:12101} ({area:2717}). Каждый элементаль и босс ({area:2717}) также дает репутацию у Повелителей Вод.",

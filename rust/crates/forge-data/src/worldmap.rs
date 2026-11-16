@@ -61,12 +61,14 @@ pub fn zone_levels(data: &Path) -> Result<(usize, String), String> {
 		"if not (M and M.RegisterZoneLevels) then return end".into(),
 		String::new(),
 		"M.RegisterZoneLevels({".into(),
-		"\t-- [uiMapID] = { minLevel, maxLevel, labelX, labelY } (label point in zone map percent)".into(),
+		"\t-- [uiMapID] = { minLevel, maxLevel, labelX, labelY[, dangerFloor] } (label point in zone map percent; the".into(),
+		"\t-- danger floor, where a low pocket pulls minLevel under the ground walks cross: forge-world DANGER_FLOORS)".into(),
 	];
 	let opt = |x: Option<f64>| x.map(num_str).unwrap_or_else(|| "null".into());
 	for (id, z) in &levels {
 		let name = zones[id].name.as_deref().unwrap_or("").replace('\n', " ");
-		l.push(format!("\t[{id}] = {{ {}, {}, {}, {} }}, -- {name}", opt(z.min), opt(z.max), num_str(z.x), num_str(z.y)));
+		let floor = z.danger.map(|d| format!(", {}", num_str(d))).unwrap_or_default();
+		l.push(format!("\t[{id}] = {{ {}, {}, {}, {}{floor} }}, -- {name}", opt(z.min), opt(z.max), num_str(z.x), num_str(z.y)));
 	}
 	l.push("})".into());
 	l.push(String::new());

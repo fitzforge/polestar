@@ -34,7 +34,7 @@ fn hiding_the_guide_hides_the_quest_item_hearthstone_target_rare_and_bag_buttons
 		Polestar.QoL.Space = { Low = function() return true end, Junk = function() return { id = 900 } end, Armed = function() return false end, Free = function() return 1 end }
 		local function shown()
 			stub.runTimers()
-			emit({ PolestarQuestItemButton:IsShown(), PolestarHearthButton:IsShown(), PolestarTargetButton:IsShown(), PolestarRareButton:IsShown(), PolestarBagButton:IsShown() })
+			emit({ PolestarQuestItemButton:IsShown(), PolestarHearthButton:IsShown(), PolestarTargetAnchor:IsShown(), PolestarTargetRow1:IsShown(), PolestarRareButton:IsShown(), PolestarBagButton:IsShown() })
 		end
 		Polestar.Fire("BAG_SPACE")
 		shown()
@@ -45,7 +45,8 @@ fn hiding_the_guide_hides_the_quest_item_hearthstone_target_rare_and_bag_buttons
 			.into(),
 		..Default::default()
 	});
-	let all = |v: bool| json!(vec![v; 5]);
+	// The target list (the default): its Polestar mark and first row stand for the target button.
+	let all = |v: bool| json!(vec![v; 6]);
 	assert_eq!(out, vec![all(true), all(false), all(true)]);
 }
 

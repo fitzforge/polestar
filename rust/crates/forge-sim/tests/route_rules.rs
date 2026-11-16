@@ -48,7 +48,7 @@ fn a_quest_is_inserted_with_the_quests_it_opens() {
 	assert_eq!(runs(&p, &after)[0].noops, runs(&p, &seed)[0].noops, "every chain step does something");
 }
 
-/// RevNightElf3 (c13 Teldrassil): a lead-in's hand-in comes before its follow-up's accept, also where
+/// c13 review, Teldrassil: a lead-in's hand-in comes before its follow-up's accept, also where
 /// no prerequisite says so (a breadcrumb): the hub loop keeps them in that order. (The golden slice's
 /// lead-ins are all prerequisites too: one made a breadcrumb here.)
 #[test]
@@ -71,7 +71,7 @@ fn a_lead_in_is_handed_in_before_its_follow_up_is_taken() {
 	assert!(loop_keep(&prob, &tin, &acc), "the lead-in's hand-in stays ahead of the follow-up's accept");
 }
 
-/// RevNightElf3 (c13 Shadowglen, route event 28): a training put between two field tasks away from
+/// c13 review, Shadowglen, route event 28: a training put between two field tasks away from
 /// its town splits the field work; it goes to the hub, before or after the stretch.
 #[test]
 fn a_training_inside_a_field_stretch_goes_to_the_hub() {
@@ -686,7 +686,7 @@ fn a_zone_s_low_quests_go_earlier_as_their_own_visit() {
 	assert_eq!(back.unwrap().len(), bad.len());
 }
 
-/// A breadcrumb is handed in before its follow-up is taken at the same NPC (RevA2: 2872/2873 and
+/// A breadcrumb is handed in before its follow-up is taken at the same NPC (review: 2872/2873 and
 /// 3763/3764 were taken the other way round; taking the follow-up first closes the breadcrumb).
 #[test]
 fn a_breadcrumb_is_handed_in_before_its_follow_up_is_taken() {
@@ -715,9 +715,57 @@ fn a_breadcrumb_is_handed_in_before_its_follow_up_is_taken() {
 	}
 }
 
+/// Players' recordings: the game holds a breadcrumb's target back while the breadcrumb is in the log
+/// (The Forgotten Pools 870 was offered to 30 people who never had The Barrens Oases 886 and refused
+/// to 12 while 886 was in their log). The evaluator takes the target only once the breadcrumb is
+/// handed in, or when it was never taken; the order the search keeps (chain_breaks) agrees.
+#[test]
+fn a_breadcrumb_in_the_log_holds_its_target_back_until_it_is_handed_in() {
+	use forge_core::Faction;
+	use forge_sim::profile::Profile;
+	let o = common::orc();
+	let base = forge_sim::Params::effective(common::params_doc().as_ref(), None, &[]);
+	let model = |crumbs: Option<Vec<(u32, u32)>>| {
+		forge_sim::route::model_for(&o.world, "Orc", &Profile { crumbs: crumbs.map(std::sync::Arc::new), ..Profile::average(Faction::Horde) }, &base, &o.walks).unwrap().0
+	};
+	let plain = model(None);
+	// The slice data has no breadcrumb links, so two of its quests stand in for a pair as the game data would give
+	// it: a breadcrumb with no work of its own (handed in as soon as it is taken) and a quest of the same level
+	// band, each open with nothing before it.
+	let r0 = &plain.run;
+	let free = |q: usize| r0.q_pre[q].is_empty() && r0.q_all[q].is_empty() && r0.q_parent[q] < 0 && r0.q_excl[q].is_empty();
+	let errand = |q: usize| free(q) && r0.q_task0[q] == r0.q_task1[q] && r0.q_accept[q] < 0 && r0.q_level[q] >= 5;
+	let b0 = (0..r0.n_quests()).find(|&q| errand(q)).expect("a quest with no work of its own, open with nothing before it");
+	let f0 = (0..r0.n_quests()).find(|&q| q != b0 && free(q) && r0.q_accept[q] < 0 && (r0.q_level[q] - r0.q_level[b0]).abs() <= 3).expect("another open quest");
+	let (bid, fid) = (r0.q_id[b0], r0.q_id[f0]);
+	let at = |k: u8, q: u32, pt: u32| Step { kind: k, q, task: -1, pt };
+	let play = |m: &forge_sim::Model| {
+		let r = &m.run;
+		let (b, f) = (r.q(bid).unwrap(), r.q(fid).unwrap());
+		let mut ev = m.evaluator(&o.walks);
+		assert!(ev.step(Step::grind(r.q_level[b as usize].max(r.q_level[f as usize]).max(r.q_min_level[f as usize]) as u32 + 1, 0)));
+		let open = ev.prereq_ok(f as usize);
+		assert!(ev.step(at(K_ACCEPT, b, r.q_giver[b as usize])), "the breadcrumb is taken");
+		let in_log = ev.prereq_ok(f as usize);
+		assert!(ev.step(at(K_TURNIN, b, r.q_ender[b as usize])), "the breadcrumb is handed in");
+		(open, in_log, ev.prereq_ok(f as usize))
+	};
+	// Fail before: with no breadcrumb links the follow-up opens while the breadcrumb is in the log.
+	assert_eq!(play(&plain), (true, true, true));
+	let m = model(Some(vec![(bid, fid)]));
+	let r = &m.run;
+	let (b, f) = (r.q(bid).unwrap(), r.q(fid).unwrap());
+	assert_eq!(r.crumbs(f as usize), &[b]);
+	assert_eq!(play(&m), (true, false, true), "open, held back while the breadcrumb is in the log, open once it is handed in");
+	// A follow-up taken between the breadcrumb's accept and its hand-in is a chain break.
+	let steps = vec![at(K_ACCEPT, b, r.q_giver[b as usize]), at(K_ACCEPT, f, r.q_giver[f as usize]), at(K_TURNIN, b, r.q_ender[b as usize])];
+	assert_eq!(forge_sim::order::chain_breaks(r, &steps, &[]), vec![(b, f)]);
+	assert!(forge_sim::order::chain_breaks(r, &[steps[0], steps[2], steps[1]], &[]).is_empty());
+}
+
 /// An accept taken under its minimum level (the model lets it through gateGap levels early and
 /// grinds there silently; the game refuses it) gets a written level step right before it, however
-/// short the grind (RevH2: 4971 at 52.75, minimum 53).
+/// short the grind (review: 4971 at 52.75, minimum 53).
 #[test]
 fn an_accept_under_its_minimum_level_gets_a_written_gate() {
 	use forge_sim::search::passby::grind_topups;
@@ -820,7 +868,7 @@ fn a_long_grind_is_split_after_the_hand_ins_that_wait() {
 	panic!("no stay with camps and a waiting hand-in split");
 }
 
-/// A gate checkpoint moves to just before the first accept it gates (RevA2: Feralas' level-45 grind
+/// A gate checkpoint moves to just before the first accept it gates (review: Feralas' level-45 grind
 /// before Shay's escort and the Feathermoon hand-ins).
 #[test]
 fn a_gate_waits_until_just_before_the_accept_it_gates() {
@@ -1053,7 +1101,7 @@ fn a_hearth_line_met_by_the_bound_inn_goes_to_the_walk_back_it_replaces() {
 
 #[test]
 fn a_training_town_s_flight_master_is_learned_at_a_stop_there() {
-	// c15 Horde (Rev15H2 B7): the Thunder Bluff training on the Elder Rise, 316 yd from the flight
+	// c15 Horde (c15 review B7): the Thunder Bluff training on the Elder Rise, 316 yd from the flight
 	// master, never learned it (only a point within NEAR_HUB did), so every later Thunder Bluff leg
 	// rode through Mulgore. Here: a town of the Orc slice moved to 300 yd from its nearest flight
 	// master: a training stop there learns it, the walk there and back priced.
@@ -1090,7 +1138,7 @@ fn a_training_town_s_flight_master_is_learned_at_a_stop_there() {
 
 #[test]
 fn a_together_task_s_every_kill_work_goes_to_its_camp_by_the_pair() {
-	// c15 Undead (Rev15Undead): together 99144 then 97558.2 (the Vile Fin skins by the Crusader's
+	// c15 Undead (c15 review): together 99144 then 97558.2 (the Vile Fin skins by the Crusader's
 	// Outpost) moved only the skins' first kill work; its other murlocs stayed on the north shore by
 	// Garren's Haunt, 256 s off, and the camp revisit pulled Maggot Eye there. Every kill work with
 	// camps to choose from goes to its camp nearest the pair.
@@ -1130,8 +1178,8 @@ fn a_together_task_s_every_kill_work_goes_to_its_camp_by_the_pair() {
 
 #[test]
 fn a_flight_master_a_network_leg_walks_through_is_learned_there() {
-	// Rev15DwarfGnome B2: the tram's arrival walks past Stormwind's flight master (its node on the
-	// network path), learned nothing; Rev15H2 B11: the flight to Freewind walks on through
+	// c15 review B2: the tram's arrival walks past Stormwind's flight master (its node on the
+	// network path), learned nothing; c15 review B11: the flight to Freewind walks on through
 	// Gadgetzan's to Steamwheedle Port, learned only at the next stop there. Here: v1's Orc order;
 	// after each network leg, every flight master node it stood at (departure, the walks between
 	// nodes, the rides' ends, arrival) is known. (The Orc slice's legs only pass masters already

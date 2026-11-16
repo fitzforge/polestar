@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {zone:1447} Azshara · {area:1417} Sunken Temple
-	["Experience at 50 through {zone:1447} and the {area:1417}; Classic's item choice may be gone on Forever."] = "",
+	["Experience at 50 through {zone:1447} and the {area:1417}; Classic's item choice may be gone on Forever."] = "50級時透過{zone:1447}和{area:1417}取得經驗值；經典版的物品選擇在Forever中可能已經沒有了。",
 	["Experience"] = "經驗值",
 
 	-- Step 1: The Hunter's Charm (Alliance)
@@ -53,7 +53,6 @@ return {
 	["In Classic Ogtinc let you choose the {item:19991}, the {item:19992} or the {item:20083} here. Forever's change notes say the choice is gone, though its quest page still lists three unnamed rewards: look at the reward window before you hand in."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Experience at 50 through {zone:1447} and the {area:1417}; Forever removed the Classic item choice."] = "50級時透過{zone:1447}和{area:1417}取得經驗值；Forever移除了經典版的物品選擇。",
 	-- ["Morphaz is an elite dragon boss inside the {area:1417}, a five-player dungeon: bring a group. The temple stands in the middle of the {area:74}; swim down into it to reach the entrance. Horde: fly to {area:75}; Alliance: fly to {area:42} or {area:1438} and ride on."] = "摩弗拉斯是{area:1417}（五人地城）內的精英龍類首領：找小隊一起去。神廟位於{area:74}中央；游下去即可到達入口。部落：飛往{area:75}；聯盟：飛往{area:42}或{area:1438}再騎過去。",
 	-- ["Mosshoof Coursers graze all over {zone:1447}; one in a dozen or so drops a pair of Perfect Courser Antlers."] = "苔蹄快步者遍布{zone:1447}吃草；大約每十幾隻會掉落一對完美的鹿角。",
 	-- ["Wavethrashers crawl along {zone:1447}'s coasts: Young Wavethrashers on the north-east shore and Wavethrashers on the east coast drop the scales about twice as often as the Great Wavethrashers of the south shore."] = "碎浪多頭怪沿著{zone:1447}的海岸爬行：東北岸的幼年碎浪多頭怪和東岸的碎浪多頭怪掉落鱗片的機率，約為南岸大型碎浪多頭怪的兩倍。",
