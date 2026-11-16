@@ -1747,6 +1747,18 @@ test('forever/horde/30-40: Centaur Bounty is taken on the second Desolace visit,
 	assert.ok(acc < at(list, 'the centaur ears', (g) => g.t === 'collect' && g.quest === 1366), 'before the valley');
 });
 
+// Hand-in sweep (2026-11-16, after Kerlonian's escort): The Vile Reef step reached the Drowned City's entrance with a
+// goto, done on arrival whether the quest's find counted or not, ~40 yards from the find's point. The step waits for
+// Locating the Lost City (95770) itself, at the same point.
+test("forever/horde/40-50/01-stranglethorn-vale.guide: The Vile Reef waits for Locating the Lost City's find, not only the arrival", { skip }, () => {
+	const list = goals('forever/horde/40-50/01-stranglethorn-vale.guide');
+	const work = at(list, 'complete 95770', is('complete', 95770));
+	assert.ok(work < at(list, 'turnin 95770', is('turnin', 95770)), 'before the hand-in at Kin\'weelay');
+	const { goal, step } = list[work];
+	assert.equal(step.title, 'The Vile Reef');
+	assert.ok(goal.map === 1434 && Math.hypot(goal.x - 21.8, goal.y - 27.6) < 0.2, `at the entrance (${goal.map} ${goal.x},${goal.y})`);
+});
+
 // Horde 30-40/40-50 audit (0.4.0): The Green Hills of Stranglethorn's chapters (338-342) were accepted at Nesingwary's
 // camp at 35 and turned in only on the next Stranglethorn visit at 40, five quest log slots for a 1% drop; the pages
 // drop without the quests, so the chapters are accepted and turned in together on that visit. Goblin Sponsorship
