@@ -301,10 +301,7 @@ fn with_the_setting_off_a_flight_makes_and_loads_nothing() {
 		emit({ atLogin = atLogin, inFlight = inFlight, after = arcadeFrames,
 			loaded = C_AddOns.IsAddOnLoaded("Polestar_Arcade"), engine = FreedoomArcade ~= nil, chat = chat() })"#;
 	let off = run_with(flight, Some(OFF));
-	assert_eq!(
-		off,
-		json!({ "atLogin": 0, "inFlight": { "frames": 0, "trip": false, "card": false }, "after": 0, "loaded": false, "engine": false, "chat": {} })
-	);
+	assert_eq!(off, json!({ "atLogin": 0, "inFlight": { "frames": 0, "trip": false, "card": false }, "after": 0, "loaded": false, "engine": false, "chat": {} }));
 	let on = run(flight);
 	assert_eq!(on["atLogin"], 0, "nothing made before the first flight");
 	assert_eq!(on["inFlight"]["trip"], true);

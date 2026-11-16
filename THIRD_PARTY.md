@@ -150,7 +150,9 @@ Polestar's own code and guides are GPL-3.0 (see LICENSE). What a release
   its own folder beside Polestar, loaded on demand: petllama's code under
   GPL-2.0-or-later with his permission, id's linuxdoom-1.10 as id released
   it under the GNU GPL, its `LICENSE` and `CREDITS.md`; Freedoom's three
-  levels and their art under BSD-3-Clause with `FREEDOOM-COPYING.txt`.
+  levels and their art under BSD-3-Clause with `FREEDOOM-COPYING.txt` and
+  the Freedoom project's list of contributors, `FREEDOOM-CREDITS.txt`. Each
+  of its Lua files opens with a notice naming its authors and licence.
   Polestar's GPL-3.0-only code talks to it only through `LoadAddOn` and its
   `FreedoomArcadeAPI` table; none of it is in Polestar's files.
 
