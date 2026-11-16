@@ -1784,18 +1784,12 @@ local function recordTaxiMap()
 	return added
 end
 
+-- The player's run speed for the plan's walks (Compat.GetRunSpeed: never a
+-- secret value, #2533); the usual run speed while the client does not say.
 local function runSpeed()
 	local fn = ns.Compat and ns.Compat.GetRunSpeed
-	local ok, s
-	if fn then
-		ok, s = pcall(fn)
-	elseif GetUnitSpeed then
-		ok, s = pcall(function()
-			local _, run = GetUnitSpeed("player")
-			if type(run) ~= "number" then return nil end
-			return run + 0
-		end)
-	end
+	local ok, s = false, nil
+	if fn then ok, s = pcall(fn) end
 	if not ok or type(s) ~= "number" or s < MIN_SPEED then return RUN_SPEED end
 	if s > MAX_SPEED then return MAX_SPEED end
 	return s

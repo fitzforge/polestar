@@ -433,6 +433,7 @@ step Winterspring: kill these as you meet them
   collect 12829 quest 5087.1 @27.9,34.5 map 1452
 
 step Salfa
+  when has 21383 x5
   turnin 8469 direct
 
 step Donova Snowden

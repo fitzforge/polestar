@@ -160,6 +160,7 @@ step Evoroot
   collect 11242 @44.5,10.2 map 1444
 
 step The Videre Elixir
+  when has 11242
   tip Back south to Gregan. Keep the elixir and don't drink it yet: it kills you, and that is how you meet Gaeriyan by Gadgetzan later.
   turnin 4041 direct -- Gregan Brewspewer
   collect 11243 quest 3909.1            -- Videre Elixir, Gregan's reward
@@ -198,6 +199,9 @@ step Bashana Runetotem
   complete 3786 optional
   turnin 3786
   collect 11040 x10 optional
+
+step Bashana Runetotem
+  when has 11040 x10
   turnin 3804 direct
 
 step Fly to Orgrimmar
