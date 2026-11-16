@@ -1194,7 +1194,8 @@ end
 function Theme.KitIconButton(b)
 	local kit = Theme.Kit()
 	local framed = rawget(b, "psFramed")
-	local isClose = rawget(b, "psIconName") == "close"
+	-- A menu bar's glyph (W.ShowMenu's bar: "Hide window") is no window's close.
+	local isClose = rawget(b, "psIconName") == "close" and not rawget(b, "psBarIcon")
 	for _, key in ipairs({ "plate", "plateLit", "closeN", "closeD", "closeL" }) do hideKey(b, key) end
 	if not kit or not (framed or isClose) then
 		if b.Icon then veil(b.Icon, false) end

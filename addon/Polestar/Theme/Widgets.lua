@@ -2295,6 +2295,9 @@ function Bar.button(bar, i)
 		W.HideMenu()
 		if e.onClick then e.onClick(e) end
 	end, 15)
+	-- A bar glyph, whatever it shows: "Hide window"'s ✕ keeps the bar's 15
+	-- in the game's looks too, never their red close art (Theme.KitIconButton).
+	b.psBarIcon = true
 	-- The lit toggle's plate: the accent's wash behind its glyph.
 	b.Lit = b:CreateTexture(nil, "BACKGROUND")
 	b.Lit:SetTexture(WHITE)
