@@ -85,6 +85,8 @@ w.onQuest(97894, {  })"#;
 }
 
 // The skip-ahead sweep (horde/40-50/03-feralas|Orc|WARRIOR|route|44.82): coming from forever/horde/40-50/02-feralas.
+// Since the 0.4.0 Horde route the guide opens with Orgrimmar's hand-ins (Belgrom's 2976 among them, still in this
+// player's log), before the zeppelin: the placement keeps that first stop.
 #[test]
 fn skip_ahead_feralas_keeps_its_first_travel_step() {
 	let before = r#"local w = stub.world
@@ -110,7 +112,7 @@ w.onQuest(4881, {  })
 w.onQuest(7734, { { required = 10, fulfilled = 0 } })"#;
 	for reload in [false, true] {
 		let out = place("Horde", "forever/horde/40-50/03-feralas", before, reload);
-		assert_eq!(out["live"], "Zeppelin to Undercity", "reload {reload}: {out}");
+		assert_eq!(out["live"], "Orgrimmar", "reload {reload}: {out}");
 	}
 }
 

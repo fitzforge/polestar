@@ -2,16 +2,18 @@
 //! talk, so the step says "Hand in" with a line that the quest never goes in the log, where a plain turn-in says
 //! "Turn in"; and a direct hand-in whose giver waits on a quest the guide accepts earlier (its `parent`, or
 //! `pre`/`preAll`, compiled onto the goal as for an accept) lets go when the player skipped that accept, as an
-//! ordinary turn-in of a skipped quest does. On the shipped Horde Stranglethorn Vale guide (40-50/01, compiled
-//! from guides/ with data/forever; skipped with a note without it): Witch Doctor Unbagwa offers Stranglethorn
-//! Fever (349) only to one carrying Fin Fizracket's (348, taken at Booty Bay).
+//! ordinary turn-in of a skipped quest does. On the shipped Horde Feralas guide (40-50/02, whose Grom'gol stop
+//! holds Unbagwa since 0.4.0; compiled from guides/ with the Stranglethorn Vale and Riverglades guides before it and
+//! data/forever; skipped with a note without it): Witch Doctor Unbagwa offers Stranglethorn Fever (349) only to one
+//! carrying Fin Fizracket's (348, taken at Booty Bay on 40-50/01).
 
 use forge_addontest::dsl::{compile_with, our_manifest, write_test_pack};
 use forge_addontest::run::root;
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::{json, Value};
 
-const GUIDE: &str = "forever/horde/40-50/01-stranglethorn-vale.guide";
+const GUIDES: [&str; 3] =
+	["forever/horde/40-50/01-stranglethorn-vale.guide", "forever/horde/40-50/01b-riverglades.guide", "forever/horde/40-50/02-feralas.guide"];
 
 const SCRIPT: &str = r#"
 ${loads}
@@ -19,7 +21,7 @@ stub.login()
 stub.fire("QUEST_LOG_UPDATE")
 local E, w = Polestar.Engine, stub.world
 w.setZone("Stranglethorn Vale", "Grom'gol Base Camp")
-E.SetGuide("forever/horde/40-50/01-stranglethorn-vale")
+E.SetGuide("forever/horde/40-50/02-feralas")
 stub.advance(3)
 local g = E.GetGuide()
 local function stepOf(title)
@@ -61,9 +63,10 @@ fn run(log: &str) -> Option<Value> {
 		return None;
 	}
 	let data = forge_guide::data::load_data(&data_dir).expect("data/forever");
-	let text = std::fs::read_to_string(root().join("guides").join(GUIDE)).unwrap();
-	let file = format!("guides/{GUIDE}");
-	let compiled = compile_with(&[(file.as_str(), text.as_str())], &data, None);
+	let files: Vec<(String, String)> =
+		GUIDES.iter().map(|g| (format!("guides/{g}"), std::fs::read_to_string(root().join("guides").join(g)).unwrap())).collect();
+	let refs: Vec<(&str, &str)> = files.iter().map(|(f, t)| (f.as_str(), t.as_str())).collect();
+	let compiled = compile_with(&refs, &data, None);
 	let pack = write_test_pack(&compiled.guides, &data, &our_manifest());
 	let lines: Vec<String> = pack.scripts.iter().map(|f| format!("assert(loadfile({}))(\"Polestar_Guides\", ns)", serde_json::to_string(f).unwrap())).collect();
 	let loads = format!("do local ns = {{}}\n{}\nend", lines.join("\n"));

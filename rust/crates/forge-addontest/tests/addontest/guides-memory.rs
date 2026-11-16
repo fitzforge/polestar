@@ -73,8 +73,11 @@ fn pack_files(name: &str) -> String {
 /// / 23,415 and 15,054 / 32,649 / 22,489. The same 183 / 173 guides; the 0.4.0 data brings more spots (+14%),
 /// heights, notes and points per goal, and 4% more steps. Fitz OK'd size growth for 0.4.0 (2026-11-15): budgets
 /// are those plus ~1%.
+/// 0.4.0 integrated routes (2026-11-16: both factions' reworked 1-60, the Riverglades and Shen'dralas in both
+/// routes, release data of the same day): Alliance resident 18,483, peak 39,627, read 26,303; Horde resident 17,058,
+/// peak 36,334, read 25,088 (two more guides per faction and ~7% more tips). Under the same 0.4.0 OK: those plus ~1%.
 const BUDGET: [(&str, &str, [(&str, f64); 3]); 2] =
-	[("Alliance", "Human", [("resident", 18050.0), ("peak", 38580.0), ("read", 25350.0)]), ("Horde", "Orc", [("resident", 16190.0), ("peak", 34940.0), ("read", 24230.0)])];
+	[("Alliance", "Human", [("resident", 18670.0), ("peak", 40020.0), ("read", 26570.0)]), ("Horde", "Orc", [("resident", 17230.0), ("peak", 36700.0), ("read", 25340.0)])];
 
 #[test]
 fn the_guide_pack_stays_within_its_memory_budget_for_each_faction_693() {

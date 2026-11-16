@@ -59,8 +59,9 @@ for (const h of guides.values()) {
 	for (const id of h.next) offered.add(id);
 }
 
+// Since 0.4.0 the Riverglades and Shen'dralas are in both factions' routes: Mount Hyjal's card is the one left.
 test('route choices exist to check', () => {
-	assert.ok(points >= 5, `only ${points} route choices found`);
+	assert.ok(points >= 1, `only ${points} route choices found`);
 });
 
 test('every route choice card has one short sentence, 3 short pros and 1 short con', () => {

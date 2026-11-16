@@ -945,7 +945,8 @@ local function ready()
 	return false
 end
 local r = { first = CQ.Heads(G.Get(id), Polestar.Compat.GetPlayerInfo()).firstLevel }
-for _, n in ipairs({ 30, 33, 34 }) do stub.world.level = n; r["at" .. n] = ready() end
+-- Each level reached as in game (PLAYER_LEVEL_UP): the engine reads the player's level then, not on every call.
+for _, n in ipairs({ 30, 33, 34 }) do stub.world.setLevel(n); stub.advance(2); r["at" .. n] = ready() end
 emit(r)"#
 			.into(),
 	});

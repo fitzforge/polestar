@@ -678,7 +678,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "terrain_beside_a_target_measured_from_far_away_the_player_s_walk_is_straight_never_the_far_measure_less_the_yards_moved_1053" }
 		] },
 		"1089": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Trek to Ashenvale (#1089): the step that takes it from Sentinel Selarin says she respawns if she is not there" }
+			{ "node": "tests/guides-reported.test.js", "test": "Trek to Ashenvale (#1089, #1811): Sentinel Selarin comes and goes; her quest never holds a step and is offered again after the escort" }
 		] },
 		"1224": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "${guide}: #1224: the troll whelps are worked in the Coldridge field step with Felix's parts, before Grelin" }
@@ -774,7 +774,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "with_six_tabs_open_a_dungeon_guide_never_takes_the_active_tab_a_hand_in_still_takes_the_finished_pick_up_s_tab" }
 		] },
 		"1333": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ASHENVALE_HORDE}: Maazias's report: The Tear of the Moons is done on the road from Camp Taurajo to the Great Lift, not in the Barrens 24-26 (#1333)" },
+			{ "node": "tests/guides-reported.test.js", "test": "${ASHENVALE_HORDE}: Maazias's report: The Tear of the Moons is not sent at players two levels under it (#1333)" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/levels.rs", "test": "a_delivery_s_level_gives_no_hint_a_quest_with_work_elsewhere_still_does_1333" }
 		] },
 		"1334": { "tests": [
@@ -945,8 +945,8 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-flights.rs", "test": "a_flight_to_a_known_landing_the_zone_text_names_otherwise_is_done_on_landing_1530" }
 		] },
 		"1575": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Tincho on Discord (#1575): the Flame of Uzel step warns about the higher yetis and Frostmaw at the flame" },
-			{ "node": "tests/guides-reported.test.js", "test": "Danger at the spot (#1575, #1695): the Syndicate missives fallback warns that the Syndicate are above you" },
+			{ "node": "tests/guides-reported.test.js", "test": "Tincho on Discord (#1575), Maazias (#1925): Helcular's flames and grave are not on the Horde route" },
+			{ "node": "tests/guides-reported.test.js", "test": "Danger at the spot (#1575, #1695): the Syndicate missives fallback comes when the Syndicate are under you" },
 			{ "node": "tests/guides-reported.test.js", "test": "Danger at the spot (#1575): the steps players died at among elites say so, in every leveling guide holding the goal" },
 			{ "node": "tests/guides-reported.test.js", "test": "Danger at the spot (#1575): goals an item several mobs drop point at the ones at the route's level, not a camp 4+ levels over (#1695's pattern)" }
 		] },
@@ -1078,7 +1078,7 @@
 		"1695": { "tests": [
 			{ "node": "tests/danger-gate.test.js", "test": "a collect whose tour reaches droppers 4+ over while ones at your level drop it too is flagged mixed (#1695)" },
 			{ "node": "tests/guides-reported.test.js", "test": "Kolbi on Discord (#1695): Helcular's Rod is farmed on the Foothill Caverns' 30-32 yetis, never toured into the 32-34 cave" },
-			{ "node": "tests/guides-reported.test.js", "test": "Danger at the spot (#1575, #1695): the Syndicate missives fallback warns that the Syndicate are above you" },
+			{ "node": "tests/guides-reported.test.js", "test": "Danger at the spot (#1575, #1695): the Syndicate missives fallback comes when the Syndicate are under you" },
 			{ "node": "tests/guides-reported.test.js", "test": "Danger at the spot (#1575): goals an item several mobs drop point at the ones at the route's level, not a camp 4+ levels over (#1695's pattern)" }
 		] },
 		"1697": { "tests": [
@@ -1201,7 +1201,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_waiting_quest_s_line_is_plain_text_marked_accent_never_a_colour_code_the_window_prints_1993" }
 		] },
 		"1999": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Bennistrov's report (#1999): Feralas never sends you to the Rage Scar yetis below 45" }
+			{ "node": "tests/guides-reported.test.js", "test": "Bennistrov's report (#1999): Feralas never sends you to the Rage Scar yetis" }
 		] },
 		"2014": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "Henrig Lonebrow's Journal lies where players loot it now, its old spot gone (#2014)" }

@@ -21,8 +21,10 @@ const { runAddon, ADDONS } = require('./helpers/lua');
 const { RACE_FILES, RACE_BY_FILE } = require('../tools/lib/game/races');
 
 // KiB (Lua 5.1, 64-bit). Peak raised from 1536 to 1670 (measured 1,619 + ~3%, 2026-10-31, c19p): the
-// routes now ship 1-60 for all ten starts, and Skyborne's part holds the legs of both factions.
-const BUDGET = { resident: 1024, peak: 1670 };
+// routes now ship 1-60 for all ten starts, and Skyborne's part holds the legs of both factions. Raised to 1800
+// (measured 1,746 + ~3%, 2026-11-16) with 0.4.0's integrated routes: the Riverglades and Shen'dralas joined both
+// factions' routes, whose legs Skyborne's part carries; the other parts stay under 920.
+const BUDGET = { resident: 1024, peak: 1800 };
 
 const parts = RACE_FILES.map((race) => ({ race, file: path.join(ADDONS, `Polestar_Guides_${race}`, 'Legs.lua') })).filter((p) => fs.existsSync(p.file));
 
