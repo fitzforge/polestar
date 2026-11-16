@@ -252,8 +252,8 @@ step Thrall
   turnin 95350                        -- Thrall, inside Grommash Hold
   accept 98024                        -- Thrall: keep it, Thork at the Crossroads in the Barrens guide
   accept 93739 optional               -- Thrall: Exploring the Horde, a tour of the Horde's leaders
-  kill 3230 quest 93739.1 "Talk to Nazgrel" optional -- Speak with Nazgrel, in Grommash Hold
-  kill 10540 quest 93739.2 "Talk to Vol'jin" optional -- Speak with Vol'jin, in Grommash Hold
+  talk 3230 quest 93739.1 "Talk to Nazgrel" optional -- Speak with Nazgrel, in Grommash Hold
+  talk 10540 quest 93739.2 "Talk to Vol'jin" optional -- Speak with Vol'jin, in Grommash Hold
 
 step Nazgrel
   zone Orgrimmar
@@ -477,7 +477,7 @@ step Lady Sylvanas Windrunner
   only Skyborne
   zone Undercity
   tip Lady Sylvanas Windrunner holds court in the Royal Quarter.
-  kill 10181 quest 93739.4 "Talk to Lady Sylvanas Windrunner" only Skyborne optional -- Speak with Lady Sylvanas Windrunner, in the Royal Quarter: Exploring the Horde
+  talk 10181 quest 93739.4 "Talk to Lady Sylvanas Windrunner" only Skyborne optional -- Speak with Lady Sylvanas Windrunner, in the Royal Quarter: Exploring the Horde
 
 step Zeppelin to Orgrimmar
   zone Tirisfal Glades
