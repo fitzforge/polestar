@@ -11426,11 +11426,15 @@ test(`${TELDRASSIL}: Twisted Hatred's webwoods on the way to the Oracle Glade fo
 // --- Alliance 50-60 quest volume, 0.3.6 audit #11 (2026-11-09): XP before Winterspring's last top-up. Every
 // grind of 50-60/01-03 tops up to a level the next work needs, so only XP handed in before the 55.05 top-up
 // shortens it; these hand-ins come on stops the route already makes, before it. #2460 (g4dz1n4): A Meeting with
-// the Master is gone on Forever (Sanath's gossip teleports for free), so the route no longer takes it.
+// the Master is gone on Forever (Sanath's gossip teleports for free), so the route no longer takes it. Fix round 3
+// (0.4.0): the hold that replaced it, on the Thunderhead Hippogryphs (46-48) around Sanath's camp, is gone too;
+// Azshara's one top-up is on the Spitelash Myrmidons (50-51), at the player's level, with the dungeon line.
 test('Alliance 50-53: no Meeting with the Master (#2460), the relics and the soil handed in on the way to Felwood', { skip }, () => {
 	const bs = goals('forever/alliance/50-60/01-burning-steppes.guide');
 	assert.ok(!bs.some(({ goal }) => goal.quest === 3381), 'A Meeting with the Master is not in the guide');
-	assert.ok(bs.some(({ goal }) => goal.t === 'level' && goal.grind === 6375), 'the Thunderhead Hippogryph top-up at Sanath\'s camp stays');
+	assert.ok(!bs.some(({ goal }) => goal.t === 'level' && goal.grind === 6375), 'no top-up on the Thunderhead Hippogryphs');
+	const naga = bs.filter(({ goal }) => goal.t === 'level' && goal.grind === 6196);
+	assert.ok(naga.length && naga[0].step.title === 'Level 51.3 on the way north', 'the Azshara top-up is on the Spitelash Myrmidons');
 	const relics = at(bs, 'turnin 3701', is('turnin', 3701));
 	assert.ok(at(bs, 'relic work', (g) => g.quest === 3701 && g.t !== 'accept' && g.t !== 'turnin') < relics, 'the relics are read first');
 	assert.ok(at(bs, 'turnin 3501', is('turnin', 3501)) < relics, 'after the Steppes and the Blasted Lands, on the Ironforge stop');

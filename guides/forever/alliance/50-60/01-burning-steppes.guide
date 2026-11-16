@@ -83,11 +83,6 @@ step Ogtinc
 
 step Sanath Lim-yo
   zone Azshara
-  tip Top up here, if you need to, on the Thunderhead hippogryphs around Sanath Lim-yo's camp.
-  level 50.56 grind 6375               -- grind on Thunderhead Hippogryph
-
-step Sanath Lim-yo
-  zone Azshara
   only Mage
   tip Get off your mount before you talk to Sanath: he teleports you up to Archmage Xylem's tower on the cliff above his camp.
   turnin 8250                         -- Sanath Lim-yo
