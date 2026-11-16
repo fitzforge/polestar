@@ -1588,7 +1588,8 @@ mod tests {
 	// #2560: a row may say the quest is picked up and/or handed in inside the instance; nothing else.
 	#[test]
 	fn a_rows_inside_lists_start_and_or_finish_2560() {
-		let with = |inside: &str| format!(r#"{{ "quests": [{{ "quest": 96335, "instance": "alcaz-prison", "source": {{ "kind": "recording", "ref": "6 people" }}, "inside": {inside}, "note": "n" }}] }}"#);
+		let with =
+			|inside: &str| format!(r#"{{ "quests": [{{ "quest": 96335, "instance": "alcaz-prison", "source": {{ "kind": "recording", "ref": "6 people" }}, "inside": {inside}, "note": "n" }}] }}"#);
 		for ok in [r#"["start"]"#, r#"["finish"]"#, r#"["start", "finish"]"#] {
 			assert!(load_journal_quests(&with(ok)).is_ok(), "{ok}");
 		}

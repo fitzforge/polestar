@@ -77,7 +77,10 @@ fn alcaz() -> (Value, Value) {
 		"levels": [48, 53, 55],
 		"bosses": [{ "name": "Tidemistress Ca'zass", "npc": 255997, "items": [] }, { "name": "The Questioner", "npc": 256236, "items": [] }],
 	});
-	i["client"]["instanceMaps"].as_array_mut().unwrap().push(json!({ "id": 2994, "name": "Alcaz Prison", "raid": false, "players": 5, "area": null, "areas": [16620], "inner": [16620], "zones": [], "corpse": null }));
+	i["client"]["instanceMaps"]
+		.as_array_mut()
+		.unwrap()
+		.push(json!({ "id": 2994, "name": "Alcaz Prison", "raid": false, "players": 5, "area": null, "areas": [16620], "inner": [16620], "zones": [], "corpse": null }));
 	let inside = json!("alcaz-prison");
 	for n in [
 		npc(255997, "Tidemistress Ca'zass", Value::Null, inside.clone(), None),
@@ -150,7 +153,8 @@ fn journal(c: &Value, i: &Value, rows: &[V]) -> (V, Vec<String>) {
 		})
 		.collect();
 	let fv = &i["forever"];
-	let codex = Codex { instances: v(&c["instances"]), quests: v(&c["quests"]), npcs: v(&c["npcs"]), items: v(&c["items"]), objects: v(&c["objects"]), factions: v(&c["factions"]), zones: v(&c["zones"]) };
+	let codex =
+		Codex { instances: v(&c["instances"]), quests: v(&c["quests"]), npcs: v(&c["npcs"]), items: v(&c["items"]), objects: v(&c["objects"]), factions: v(&c["factions"]), zones: v(&c["zones"]) };
 	build_journal(
 		&JournalInputs {
 			maps: &maps,
@@ -238,8 +242,10 @@ fn alcaz_prison_lists_the_prison_story_picked_up_inside_and_state_secrets_after_
 	let p = page(&j, "alcaz-prison");
 	assert_eq!(ids(&p), vec![95262, 95263, 95309, 95454, 95483, 96332, 96334, 96335, 96337, 96369, 96376, 96377, 96381]);
 	let inside = json!({ "kind": null, "id": null, "name": null, "map": null, "x": null, "y": null, "f": null, "inside": true });
-	for (id, start, finish) in [(96335, true, true), (96337, true, false), (95454, true, true), (96369, true, true), (95483, true, false), (95263, true, false), (95262, false, true), (95309, false, true)] {
 	let connery = json!({ "kind": "npc", "id": 264770, "name": "Mason Connery", "map": null, "x": null, "y": null, "f": null, "inside": true });
+	for (id, start, finish) in
+		[(96335, true, true), (96337, true, false), (95454, true, true), (96369, true, true), (95483, true, false), (95263, true, false), (95262, false, true), (95309, false, true)]
+	{
 		let q = page_quest(&p, id);
 		assert_eq!(q["inside"], json!(start), "{id} picked up inside");
 		let at = if id == 96335 || id == 96337 { &connery } else { &inside };
@@ -321,7 +327,10 @@ fn krol_dok_moulding_from_tunk_inside_is_on_krol_dok_strongholds_page_picked_up_
 		"key": "kroldok-stronghold", "name": "Krol'dok Stronghold", "kind": "dungeon", "forever": true, "areaId": null, "map": 3039, "entrance": null,
 		"levels": [40, 43, 47], "bosses": [],
 	});
-	i["client"]["instanceMaps"].as_array_mut().unwrap().push(json!({ "id": 3039, "name": "Krol'dok Stronghold", "raid": false, "players": 5, "area": null, "areas": [], "inner": [], "zones": [], "corpse": null }));
+	i["client"]["instanceMaps"]
+		.as_array_mut()
+		.unwrap()
+		.push(json!({ "id": 3039, "name": "Krol'dok Stronghold", "raid": false, "players": 5, "area": null, "areas": [], "inner": [], "zones": [], "corpse": null }));
 	c["npcs"]["259256"] = npc(259256, "Tunk", Value::Null, json!("kroldok-stronghold"), None);
 	c["npcs"]["256657"] = npc(256657, "Kreza Darkthorn", json!("H"), Value::Null, Some((2548, 59.1, 65.7)));
 	c["npcs"]["259250"] = npc(259250, "Alphonse Dumas", json!("A"), Value::Null, Some((2548, 30.0, 40.0)));

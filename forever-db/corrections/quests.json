@@ -6146,7 +6146,22 @@
 	},
 	"96335": {
 		"set": {
-			"minLevel": 48
+			"minLevel": 48,
+			"start": {
+				"npc": [
+					264770,
+					264845
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					264770,
+					264845
+				],
+				"object": []
+			}
 		},
 		"source": [
 			{
@@ -6155,14 +6170,26 @@
 			},
 			{
 				"kind": "recording",
-				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 6 people (6 established, 3 Alliance and 3 Horde) took The Man in the Iron Chains inside Alcaz Prison (map 2994), the youngest at level 49"
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 6 people (6 established, 3 Alliance and 3 Horde) took The Man in the Iron Chains inside Alcaz Prison (map 2994), the youngest at level 49, and handed it in at the same window that then offered More Valuable Than Gold, whose objective names its giver: \"Use the note provided by Mason Connery\""
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.1 Forever: two NPCs named Mason Connery, 264770 and 264845, and no other"
 			}
 		],
-		"note": "The Man in the Iron Chains (both factions, Alcaz Prison) asks level 48, as the prison's other quests do; the merged data had no minimum (#2560)."
+		"note": "The Man in the Iron Chains (both factions, Alcaz Prison): the chained prisoner Mason Connery gives it and takes the key, inside the prison; level 48 as the prison's other quests. The recordings name no NPC id for windows inside, so both of the data's Mason Connerys are listed. The merged data had no giver, ender or minimum (#2560)."
 	},
 	"96337": {
 		"set": {
-			"minLevel": 48
+			"minLevel": 48,
+			"start": {
+				"npc": [
+					264770,
+					264845
+				],
+				"object": [],
+				"item": []
+			}
 		},
 		"source": [
 			{
@@ -6171,10 +6198,14 @@
 			},
 			{
 				"kind": "recording",
-				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 6 people (6 established, 3 Alliance and 3 Horde) took More Valuable Than Gold inside Alcaz Prison (map 2994) right after handing in The Man in the Iron Chains, the youngest at level 49; 4 handed it in at Connery's Trunk (object 611086, Westfall 43.4,67.9)"
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 6 people (6 established, 3 Alliance and 3 Horde) took More Valuable Than Gold inside Alcaz Prison (map 2994) at the window they handed The Man in the Iron Chains in at, the youngest at level 49; its objective: \"Use the note provided by Mason Connery\"; 4 handed it in at Connery's Trunk (object 611086, Westfall 43.4,67.9)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.1 Forever: two NPCs named Mason Connery, 264770 and 264845, and no other"
 			}
 		],
-		"note": "More Valuable Than Gold (both factions): taken inside Alcaz Prison once The Man in the Iron Chains is handed in, level 48 like the prison's other quests; the merged data had no minimum (#2560)."
+		"note": "More Valuable Than Gold (both factions): Mason Connery gives it inside Alcaz Prison once The Man in the Iron Chains is handed in (both of the data's Mason Connerys are listed: the recordings name no NPC id inside); level 48. With a giver it holds State Secrets back until it is done. The merged data had no giver and no minimum (#2560)."
 	},
 	"96376": {
 		"set": {
