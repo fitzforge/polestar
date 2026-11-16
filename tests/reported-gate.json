@@ -1194,6 +1194,9 @@
 		"1956": { "tests": [
 			{ "node": "tests/profession-trainers.test.js", "test": "Pyzx's report (#1956): recipes only the Artisan trainers teach are learned from them, not the Expert trainers" }
 		] },
+		"1985": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "Dustwallow Marsh (Horde): the venom-sac goal says every Darkfang spider drops them, in the guide and its record (#1985)" }
+		] },
 		"1992": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "Archmage Tervosh and Lady Jaina stand in Theramore's tower; the Missing Diplomat spots are no spawns of theirs (#1992)" }
 		] },

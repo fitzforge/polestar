@@ -13256,11 +13256,15 @@ test('no Alliance guide waits on Vimes\'s Report (#1984, #2493)', { skip }, () =
 });
 
 // #1985: Dustwallow Marsh's venom-sac step named only the Darkfang Venomspitters; every Darkfang spider drops the
-// Acidic Venom Sacs for The Black Shield (1322), the Giant Darkfang Spiders too (drop data, players' recordings).
-test('guide-fixes says every Darkfang spider drops the Acidic Venom Sacs (#1985)', () => {
+// Acidic Venom Sacs for The Black Shield (1322), the Giant Darkfang Spiders too (drop data, players' recordings). The
+// record alone never reached the guide (0.4.0 was not rebuilt from it): the guide's goal line carries the note.
+test('Dustwallow Marsh (Horde): the venom-sac goal says every Darkfang spider drops them, in the guide and its record (#1985)', { skip }, () => {
 	const { fixes } = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8'));
 	const r = fixes.find((f) => f.at && f.at.quest === 1322 && f.at.goal === 'objective' && f.at.objective === 1);
 	assert.ok(r && /Giant Darkfang Spiders/.test(r.goalNote) && /Lurkers/.test(r.goalNote), 'a goal note on 1322.1 naming every Darkfang kind');
+	const list = goals('forever/horde/30-40/04-dustwallow-marsh.guide');
+	const { goal } = list[at(list, 'collect 5959 quest 1322', (g) => g.t === 'collect' && g.item === 5959 && g.quest === 1322)];
+	for (const kind of ['Lurkers', 'Spiders', 'Venomspitters', 'Giant Darkfang Spiders']) assert.match(goal.note || '', new RegExp(kind), `the guide's goal names the ${kind}`);
 });
 
 // Dungeons in the route (0.3.8): a dungeon a character chose is injected into the one route as steps, every
