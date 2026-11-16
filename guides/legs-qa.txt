@@ -266,11 +266,11 @@ forever/horde/02-the-barrens	step 42	1:7991,-2681>8020,-2679	detour 1.96x straig
 forever/horde/02-the-barrens	step 53	1:-2027,-3258>-1739,-3721	detour 1.52x straight on leffe, no named passage
 forever/horde/02-the-barrens	step 63	1:790,-1345>788,-1815	detour 1.71x straight on leffe, no named passage
 forever/horde/02-the-barrens	step 64	1:788,-1815>839,-1635	detour 2.07x straight on grid, no named passage
-forever/horde/02-the-barrens	step 86	1:1771,-4284>1452,-4180	detour 1.54x straight on leffe, no named passage
-forever/horde/02-the-barrens	step 94	1:8020,-2679>7991,-2681	detour 1.96x straight on leffe, no named passage
-forever/horde/02-the-barrens	step 95	1:7991,-2681>8020,-2679	detour 1.96x straight on leffe, no named passage
-forever/horde/02-the-barrens	step 98	1:7361,-2395>8020,-2679	detour 1.51x straight on leffe, no named passage
-forever/horde/02-the-barrens	step 129	1:-2402,-1904>-2548,-1889	detour 1.63x straight on leffe, no named passage
+forever/horde/02-the-barrens	step 87	1:1771,-4284>1452,-4180	detour 1.54x straight on leffe, no named passage
+forever/horde/02-the-barrens	step 95	1:8020,-2679>7991,-2681	detour 1.96x straight on leffe, no named passage
+forever/horde/02-the-barrens	step 96	1:7991,-2681>8020,-2679	detour 1.96x straight on leffe, no named passage
+forever/horde/02-the-barrens	step 99	1:7361,-2395>8020,-2679	detour 1.51x straight on leffe, no named passage
+forever/horde/02-the-barrens	step 130	1:-2402,-1904>-2548,-1889	detour 1.63x straight on leffe, no named passage
 forever/horde/03-silverpine-forest	step 2	1:1599,-4461>1775,-4483	detour 2.39x straight on grid, no named passage
 forever/horde/03-silverpine-forest	step 3	1:1775,-4483>1801,-4374	detour 4.48x straight on leffe, no named passage
 forever/horde/03-silverpine-forest	step 4	1:1801,-4374>1955,-4467	detour 1.61x straight on leffe, no named passage

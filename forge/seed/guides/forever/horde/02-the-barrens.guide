@@ -2,7 +2,7 @@
 guide forever/horde/02-the-barrens
 title The Barrens
 faction Horde
-levels 14-21
+levels 14-22
 zone The Barrens
 next forever/horde/05-stonetalon-mountains
 
@@ -657,6 +657,14 @@ step Agama'gor
   collect 5075 x1 quest 5052
   collect 5099 optional               -- Hoof of Lakota'mani
   accept 883 optional
+
+step Level 20
+  only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+  when level<20
+  zone The Barrens
+  tip Orgrimmar's level 20 class quests come right after the Crossroads, and they are offered only from 20. Still short of 20? The Bristleback Geomancers (19-20) hold Agama'gor around you: kill them until level 20. Or, with a group, run the Wailing Caverns dungeon instead.
+  goto 41.6,45.8 map 1413 "Bristleback Geomancers"
+  level 20 grind 3263                 -- grind on Bristleback Geomancer
 
 step The Crossroads
   zone The Barrens

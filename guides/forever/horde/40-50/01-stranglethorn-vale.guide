@@ -194,7 +194,6 @@ step Booty Bay
   turnin 597                            -- First Mate Crazz
   accept 599
   turnin 599                            -- Fleet Master Seahorn
-  accept 348                            -- Fin Fizracket
 
 # ---------------------------------------------------------------- North through the jungle
 
@@ -366,6 +365,7 @@ step Booty Bay
   turnin 606                            -- "Shaky" Phillipe
   accept 607
   accept 580                            -- Whiskey Slim, in the inn: his bottles wash up on the Hinterlands coast, around level 48
+  accept 348                            -- Fin Fizracket: Stranglethorn Fever (offered from 40), Unbagwa's part on the Feralas guide's Grom'gol stop
   turnin 600                          -- Inside
   accept 209                            -- Kebok, upstairs: the tusks come from the Skullsplitters, later on this loop
   turnin 607                            -- "Sea Wolf" MacKinley, on the top floor

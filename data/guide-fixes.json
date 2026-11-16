@@ -11327,6 +11327,23 @@
 					"ref": "npc 7125 Jaedenar Hound 50-51"
 				}
 			]
+		},
+		{
+			"id": "h-audit-040-r2-barrens-level-20-before-orgrimmar",
+			"faction": "Horde",
+			"at": {
+				"quest": 877,
+				"goal": "turnin"
+			},
+			"level": 20,
+			"only": "Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock",
+			"note": "Horde 0.4.0 audit, round 2: the Barrens guide's Orgrimmar stop takes the level 20 class quests (Sorek's 1823, Searn's 1528, Shenthul's 2460, Gan'rul's 1507, the Priest's 5646), each offered from level 20; the level model reaches it at 19.6-19.8 on some branches, where the trainer refuses them. A top-up to 20 on the Bristleback Geomancers (19-20) at Agama'gor, the stop before the Crossroads, holds those classes back; Wailing Caverns is the group choice. Recorded players were past 20 there (25th percentile 21.0 at Lost in Battle's hand-in, 23 people).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quests 1823, 1528, 2460, 1507 and 5646 minLevel 20 in Forever's quest data; npc 3263 Bristleback Geomancer 19-20"
+				}
+			]
 		}
 	]
 }

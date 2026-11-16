@@ -6,6 +6,18 @@
 			{
 				"a": [
 					"turnin",
+					606
+				],
+				"b": [
+					"accept",
+					348
+				],
+				"faction": "Horde",
+				"why": "Horde 0.4.0 audit, round 2: Stranglethorn Fever (348) is offered from level 40; 40-50/01 reaches Fin Fizracket on the Booty Bay stop back from the Bloodsail cove at about 39.9 (level model), where he refuses it. It is taken on the guide's second Booty Bay stop with Shaky Phillipe (606), at about 41, still before the Feralas guide's Grom'gol stop that works it; Mistvale's gorilla fangs are gathered into the bags before it."
+			},
+			{
+				"a": [
+					"turnin",
 					32
 				],
 				"b": [

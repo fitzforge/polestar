@@ -9167,9 +9167,10 @@ test('Horde 40-60 accept levels: quests are taken where the route reaches their 
 	const g = (n) => goals(`forever/horde/${n}.guide`);
 	const step = (list, t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
 	const stv = g('40-50/01-stranglethorn-vale');
-	// #2102 (0.4.0 audit): the Wild Shore pass moved after the Cape coast; Stranglethorn Fever is taken on the Booty Bay
-	// stop back from the Bloodsail cove, still before Mistvale's gorillas.
-	assert.equal(step(stv, 'accept', 348), step(stv, 'turnin', 599), 'Stranglethorn Fever on the Booty Bay stop back from the cove');
+	// #2102 (0.4.0 audit): the Wild Shore pass moved after the Cape coast. Horde 0.4.0 audit (round 2): Stranglethorn
+	// Fever is offered from level 40 and the route reaches the cove's Booty Bay stop at 39.9 (level model), so it is
+	// taken on the second Booty Bay stop with Shaky Phillipe; Mistvale's gorilla fangs are kept in the bags before it.
+	assert.equal(step(stv, 'accept', 348), step(stv, 'turnin', 606), 'Stranglethorn Fever on the second Booty Bay stop');
 	// Since the 0.4.0 audit Tran'rek and Kebok's tusks are on 40-50/02's Booty Bay call (Stranglethorn after the
 	// Riverglades), and Speaking with Gan'zulah (level 46) is taken at the cauldron there, right before its
 	// Skullsplitters, so no top-up to 41 at Zul'Kunda.
