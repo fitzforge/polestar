@@ -11885,8 +11885,8 @@
 				"goal": "accept",
 				"guide": "forever/alliance/30-40/05-arathi-highlands"
 			},
-			"tip": "North-west of Watcher Biggs, Father Tuttle waits by the road: lead him north to the Harborage, on your way there. Stay close to him and clear what attacks him; if he falls, abandon the quest and go on.",
-			"note": "30-40/05 (fix round 1, 0.4.0): This Light of Mine (93585, level 34, 2,700 XP), Father Tuttle's escort to Magtoor, on the route's own walk from Watcher Biggs to the Harborage. Players' recordings: 10 people took it at about 37, 6 finished it.",
+			"tip": "North-west of Watcher Biggs, Father Tuttle (level 34) waits by the road: lead him north to the Harborage, on your way there. Stay close to him and clear what attacks him; if he falls, abandon the quest and go on.",
+			"note": "30-40/05 (fix round 1, 0.4.0; his level named in fix round 3): This Light of Mine (93585, level 34, 2,700 XP), Father Tuttle's escort to Magtoor, on the route's own walk from Watcher Biggs to the Harborage. Players' recordings: 10 people took it at about 37, 6 finished it.",
 			"source": [
 				{
 					"kind": "recording",

@@ -45,7 +45,7 @@ step Rebel Camp
   tip From Duskwood take the road south; the camp sits in the hills west of the road.
   accept 207                          -- Brother Nimetz
   accept 574                          -- Sergeant Yohwa
-  accept 210                          -- Corporal Kaleb: for Krazek in Booty Bay
+  accept 210                          -- Corporal Kaleb, if 30-40/04 didn't give it: for Krazek in Booty Bay
 
 step Nesingwary's Expedition
   tip South along the road: the hunters' tents stand just west of it. Ajeck and Hemet gave you these on the first loop: take them now only if you didn't.

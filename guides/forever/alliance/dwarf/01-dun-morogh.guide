@@ -631,10 +631,10 @@ step Back to Bruegs Kindleborn
 
 step Golnir Bouldertoe
   zone Ironforge
-  tip The gryphons land in the Great Forge: Golnir Bouldertoe works at its north end, and Gryth Thurden keeps the gryphons where you landed.
+  tip Golnir Bouldertoe works at the Great Forge's north end, and Gryth Thurden keeps the gryphons in the Great Forge, where the flight from Thelsamar lands.
   turnin 6391                                 -- Golnir Bouldertoe, in the Great Forge
   accept 6388
-  turnin 6388                                 -- Gryth Thurden, the gryphon master where you landed
+  turnin 6388                                 -- Gryth Thurden, the gryphon master in the Great Forge
   getfp "Ironforge"
 
 # ---------------------------------------------------------------- Ironforge: one round of the city

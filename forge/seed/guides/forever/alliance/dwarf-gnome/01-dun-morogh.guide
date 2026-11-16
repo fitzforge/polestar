@@ -658,7 +658,7 @@ step Golnir Bouldertoe
   zone Ironforge
   turnin 6391                                 -- Golnir Bouldertoe, in the Great Forge
   accept 6388
-  turnin 6388                                 -- Gryth Thurden, the gryphon master where you landed
+  turnin 6388                                 -- Gryth Thurden, the gryphon master in the Great Forge
 
 step Muiredon Battleforge
   only Paladin
