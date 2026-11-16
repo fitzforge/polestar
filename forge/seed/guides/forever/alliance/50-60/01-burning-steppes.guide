@@ -427,6 +427,10 @@ step Fallen Hero of the Horde
   talk 7572 quest 2801.1 @34.3,66.1
   turnin 2801
 
+step Back to the Blasted Lands
+  zone Blasted Lands
+  goto 50.6,14.2 "Bloodmages' camp"
+
 step Blasted Lands: kill these as you meet them
   zone Blasted Lands
   tip Ride back south into the Blasted Lands for the bloodmages' beasts: Starving Snickerfangs roam the dry hills south of the bloodmages' camp, Scorpok Stingers scuttle across the middle of the north and Black Slayer vultures circle over all of it. Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep.
