@@ -513,7 +513,7 @@
 		"source": [
 			{
 				"kind": "recording",
-				"ref": "players' recordings: The Ancient Egg's (4787) objective is done at The Hinterlands 57.48,86.69 (map 1425), 5 people on builds 70888 and 70938 (data/recorded/quests.json, trusted); 6 people loot item 12402 from this object (data/codex/recorded.json)"
+				"ref": "players' recordings: The Ancient Egg's (4787) objective is done at The Hinterlands 57.48,86.69 (map 1425), 5 people on builds 70888 and 70938; 6 people loot item 12402 from this object"
 			},
 			{
 				"kind": "in-game-check",
