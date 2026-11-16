@@ -78,7 +78,11 @@ pub const LIMITS: Limits = Limits {
 /// LIMITS.names bytes, every other text or key (a `written` value, the
 /// author's words for a whole note, included) LIMITS.text.
 fn cap_at(where_: &str) -> usize {
-	if where_.starts_with("guide.names.") { LIMITS.names } else { LIMITS.text }
+	if where_.starts_with("guide.names.") {
+		LIMITS.names
+	} else {
+		LIMITS.text
+	}
 }
 
 /// The first text or key in v longer than its cap, as the addon names it
