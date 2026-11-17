@@ -992,8 +992,10 @@ local function act(i, g, r)
 		if entry then
 			-- Lines the data has that no goal of the play worked hold the hand-in;
 			-- the rest (item lines the bags may hold, lines of carried quests,
-			-- the ender's own) are done here, as before.
-			local work, open = taken[q] and workLines(q) or {}, {}
+			-- the ender's own) are done here, as before. A persona's play works
+			-- them too: what the quest log shows the player can always do (the
+			-- perfect follower's play is the one that checks the guide works them).
+			local work, open = taken[q] and not P and workLines(q) or {}, {}
 			for oi, o in ipairs(entry.objectives) do
 				if not o.finished then
 					local l = work[oi]
