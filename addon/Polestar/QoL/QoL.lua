@@ -67,6 +67,7 @@ local defaults = {
 	itemMarksClick = true,   -- ... Ctrl+Alt-click cycles the marks (off: only the keys mark)
 	bagSpace = true,         -- free bag slots: the junk button and the bags-full banner
 	bagsLow = 2,             -- ... at this many free slots or fewer
+	spareBag = false,        -- ... offer to put a bag from the bags in an empty bag slot first, on a press (QoL/Space.lua, #2369)
 	rewardHighlight = true,
 	rewardAutoPick = false,
 	rewardEquip = false,     -- wear what a turn-in gives when it is an upgrade

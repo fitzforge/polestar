@@ -127,6 +127,7 @@ fn bag_button_equips_a_spare_bag_on_one_press_before_offering_any_delete() {
 		BAGS,
 		r#"
 		local S, b = QoL.Space, QoL.Buttons.bag
+		set("spareBag", true)
 		q.items[20] = { name = "Small Bag", quality = 1, price = 25, classID = 1, subclassID = 0, bagSize = 10 }
 		q.items[21] = { name = "Felcloth Bag", quality = 2, price = 900, classID = 1, subclassID = 1, bagSize = 20 }
 		q.items[22] = { name = "Light Quiver", quality = 1, price = 1, classID = 11, subclassID = 2, bagSize = 8 }
@@ -169,6 +170,29 @@ fn bag_button_equips_a_spare_bag_on_one_press_before_offering_any_delete() {
 	assert_eq!(out[3], "busy", "never with something on the cursor");
 	assert_eq!(out[4], json!({ "worn": 20, "deleted": 0, "said": true, "free": 11, "shown": false }), "one press, nothing deleted");
 	assert_eq!(out[5], json!({ "spare": false, "junk": 2, "shown": true }), "every bag slot taken: back to the junk");
+}
+
+// #2369: with qol.spareBag off (the default) a spare bag changes nothing: the button offers the junk, a press arms
+// it, and nothing goes into a bag slot.
+#[test]
+fn bag_button_leaves_a_spare_bag_alone_while_equip_a_spare_bag_is_off() {
+	let out = run(&[
+		BAGS,
+		r#"
+		local S, b = QoL.Space, QoL.Buttons.bag
+		q.items[20] = { name = "Small Bag", quality = 1, price = 25, classID = 1, subclassID = 0, bagSize = 10 }
+		fill(1)
+		q.addItem(0, 16, 20, 1)
+		bagsChanged()
+		emit({ spare = S.Spare() ~= nil, junk = S.Junk().id, label = b.Label:GetText() })
+		q.click(b)
+		stub.advance(0.1)
+		emit({ put = #calls("PutItemInBag"), armed = S.Armed() and true or false, label = b.Label:GetText(), bag = q.bags[0].slots[16].itemID })
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "spare": false, "junk": 2, "label": "" }), "off: the junk, as before");
+	assert_eq!(out[1], json!({ "put": 0, "armed": true, "label": "Press again to delete", "bag": 20 }), "a press arms the junk; the bag stays");
 }
 
 // #1557: the bag button deleted Noboru's Cudgel, a grey item that begins a quest, and the quest went with it. A

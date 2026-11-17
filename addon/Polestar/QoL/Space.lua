@@ -12,10 +12,10 @@
 --     has not loaded yet goes last).
 --   * while the live step has an open collect goal, the guide window's
 --     banner says so and offers the same delete (Space.Banner).
---   * a spare bag comes first (#2369): when a bag that takes any item sits
---     in the bags while a bag slot is empty, the button and the banner offer
---     to equip it instead, on one press (nothing is lost), and offer a delete
---     only once there is no bag to equip.
+--   * a spare bag comes first (qol.spareBag, off by default; #2369): when a
+--     bag that takes any item sits in the bags while a bag slot is empty, the
+--     button and the banner offer to equip it instead, on one press (nothing
+--     is lost), and offer a delete only once there is no bag to equip.
 -- Deleting takes two presses of the button, its binding or the banner's
 -- link: the first arms that item for ARM seconds, the second deletes it
 -- once the slot is read again and still holds it (an item moved or swapped
@@ -152,7 +152,7 @@ end
 -- Reads the bags again; fires BAG_SPACE when something shown changed.
 function Space.Refresh()
 	free, total = Space.Count()
-	spare = Space.Low() and Space.SpareBag() or nil
+	spare = Space.Low() and QoL.On("spareBag") and Space.SpareBag() or nil
 	junk = Space.Low() and Space.Cheapest() or nil
 	if not Space.Low() then dismissed = false end
 	local s = signature()
@@ -247,7 +247,7 @@ ns.OnLogin(Space.Refresh)
 ns.RegisterEvent("BAG_UPDATE_DELAYED", refreshSoon)
 ns.On("ITEM_MARKS", refreshSoon)
 ns.On("SETTING_CHANGED", function(path)
-	if path == "" or path == "qol" or path == "qol.bagSpace" or path == "qol.bagsLow" then refreshSoon() end
+	if path == "" or path == "qol" or path == "qol.bagSpace" or path == "qol.bagsLow" or path == "qol.spareBag" then refreshSoon() end
 end)
 
 -- /polestar bags: the free slots and the cheapest junk, in chat.
@@ -255,7 +255,7 @@ if ns.RegisterCommand then
 	ns.RegisterCommand("bags", function()
 		local f, t = Space.Count()
 		ns.Print(format(L["Free slots: %d of %d"], f, t))
-		local b = Space.SpareBag()
+		local b = QoL.On("spareBag") and Space.SpareBag()
 		if b then ns.Print(format(L["Spare bag: %s"], b.link or (L["Item"] .. " " .. b.id))) end
 		local j = Space.Cheapest()
 		if j then

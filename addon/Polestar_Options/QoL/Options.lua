@@ -318,6 +318,9 @@ register(QOL, L["Vendors"], L["Bags"], {
 	{ kind = "slider", key = "qol.bagsLow", label = L["Nearly full at"], min = 0, max = 10, step = 1, disabled = function() return not QoL.On("bagSpace") end,
 		format = function(v) return string.format(v == 1 and L["%d slot"] or L["%d slots"], math.floor(v + 0.5)) end,
 		help = L["How many free slots or fewer count as nearly full."] },
+	{ kind = "toggle", key = "qol.spareBag", label = L["Equip a spare bag first"], child = true, disabled = function() return not QoL.On("bagSpace") end,
+		help = L["When your bags are nearly full and a bag sits in them while a bag slot is empty, the bag button and the guide window offer to put it on before any junk. Nothing happens until you press."],
+		search = "bags, equip bag, spare bag, empty bag slot, free slots" },
 	{ kind = "toggle", key = "qol.itemMarks", label = L["Junk and keep marks"],
 		help = L["Ctrl+Alt-click an item in your bags to mark it as junk, again to keep it, and again to clear it. Junk is sold with the grey items; a kept item is never sold or deleted."]
 			.. " " .. L["Or bind keys for it in Key Bindings, Polestar: Mark as junk and Mark to keep mark the item under the cursor, and take that mark off again."],
