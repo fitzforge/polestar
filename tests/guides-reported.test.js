@@ -16248,8 +16248,9 @@ for (const [guide, quest, pet, needs] of [
 // #2612 (JeromeM, 0.4.0, Westfall): "Find the Lost Guards" sent the hand-in to Guard Thomas, who only gives it; the
 // half-eaten body takes it. The build had added the giver to the quest's enders from the in-game dialog captures,
 // on eight quests handed in at an object (players' recordings: none of their hand-ins in an NPC's window). Each
-// is corrected to its object alone, and every guide's hand-in of them goes to the object.
-const OBJECT_ENDERS = { 37: 55, 67: 3643, 944: 10076, 983: 17182, 4812: 175524, 91860: 566037, 94467: 61934, 94502: 619896 };
+// is corrected to its object alone, and every guide's hand-in of them goes to the object. Find the Gems (2201) had
+// Talvash del Kissel beside his Scrying Bowl as an ender the same way, from QuestieDB (#2546 sweep).
+const OBJECT_ENDERS = { 37: 55, 67: 3643, 944: 10076, 983: 17182, 2201: 112877, 4812: 175524, 91860: 566037, 94467: 61934, 94502: 619896 };
 test('#2612: quests handed in at an object are never handed in to their giver', { skip }, () => {
 	const corrections = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'forever-db', 'corrections', 'quests.json'), 'utf8'));
 	for (const [quest, object] of Object.entries(OBJECT_ENDERS)) {
