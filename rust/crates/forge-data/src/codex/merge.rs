@@ -2573,6 +2573,7 @@ mod tests {
 		let npcs: Vec<String> =
 			ids.iter().map(|n| format!(r#""{n}": {{ "id": {n}, "name": "Seller {n}", "roles": ["vendor"], "spawns": {{ "1455": {{ "f": "e", "pts": [[{n}, 50]] }} }} }}"#)).collect();
 		i.forever.npcs = parse_json(&format!("{{ {} }}", npcs.join(", "))).unwrap();
+		i.forever.zones = parse_json(r#"{ "1455": { "id": 1455, "name": "Ironforge" } }"#).unwrap();
 		i.forever.items = parse_json(&format!(
 			r#"{{ "2604": {{ "id": 2604, "name": "Red Dye", "vendors": [{}], "drops": {{ "npc": {{}}, "object": {{}} }} }} }}"#,
 			ids.iter().map(u32::to_string).collect::<Vec<_>>().join(", ")
