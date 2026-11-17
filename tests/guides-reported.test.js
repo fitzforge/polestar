@@ -16311,6 +16311,16 @@ test('#2604: Stranglethorn (Alliance): Skullsplitter Tusks are looked for in the
 	for (const s of goal.spots || []) assert.ok(s.alt || s.x > 35, `no spot the arrow picks far from the ruins: ${s.x},${s.y}`);
 });
 
+// #2712 (stabaho, 0.4.0.1, Horde Riverglades): Stick 'Em's spears go on the Freshwater Crocolisks in the river; the
+// goal pointed at 51.9,57.1 on the farmland south of it, where no recorded player impaled one. It points at the
+// river now (recordings: 10 people at 51.75,51.97).
+test('#2712: Riverglades (Horde): Stick \'Em points at the crocolisks in the river', { skip }, () => {
+	const list = goals('forever/horde/40-50/01b-riverglades.guide');
+	const { goal } = list[at(list, 'use 271639', (g) => g.t === 'use' && g.quest === 95955)];
+	assert.equal(goal.map, 2548);
+	assert.ok(Math.hypot(goal.x - 51.75, goal.y - 51.97) < 0.5, `on the river: ${goal.x},${goal.y}`);
+});
+
 // #2691 (Requis, 0.4.0.1, Engineering): Schematic: Thorium Tube led to one of eight points the data gave Kor'gar
 // around Powderfuse Port; 35 people opened his goods, all at 77.6-77.7,50.9-51.0. The correction gives him that one
 // spot; the guide's vendor point follows it once the data is built with it.
