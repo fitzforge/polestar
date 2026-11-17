@@ -447,6 +447,11 @@ fn encode_quest(rec: &V) -> Result<String, String> {
 	if rec.get("parent").num() > 0.0 {
 		parts.push(format!("u{}", num(&rec.get("parent"))?));
 	}
+	// How it is done beyond its objectives, our public words (merge.rs `public_how`, #2714): h<text>. An older
+	// reader skips it (no objective kind is h).
+	if rec.get("how").truthy() {
+		parts.push(format!("h{}", esc(&rec.get("how"))));
+	}
 	Ok(parts.join(";"))
 }
 

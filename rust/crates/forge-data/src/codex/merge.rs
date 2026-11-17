@@ -488,6 +488,21 @@ fn mechanics_entry(mechanics: &V, quest_id: f64) -> V {
 	}
 }
 
+/// How a quest is done beyond its objectives, in our own public words (#2714: Powering the Pylons' mana, gathered
+/// with the Mana Sieve before the pylons take it): data/mechanics-public.json's steps' facts, in step order, one
+/// text. None without a public entry or facts.
+fn public_how(public: &V, quest_id: f64) -> Option<String> {
+	let mut steps: Vec<(f64, String)> = mechanics_entry(public, quest_id)
+		.get("steps")
+		.items()
+		.iter()
+		.filter_map(|s| s.get("fact").as_str().map(|f| (s.get("n").num(), f.trim().to_string())))
+		.filter(|(_, f)| !f.is_empty())
+		.collect();
+	steps.sort_by(|a, b| ord(a.0 - b.0));
+	(!steps.is_empty()).then(|| steps.into_iter().map(|(_, f)| f).collect::<Vec<_>>().join(" "))
+}
+
 fn drives_use_on_mob(e: &V) -> bool {
 	e.get("kinds").items().iter().any(|k| k.get("kind").as_str() == Some("use-item-on-mob") && matches!(k.get("confidence").as_str(), Some("high" | "medium")))
 }
@@ -2187,6 +2202,10 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			if !pre.get("parent").is_undef() {
 				o.set("parent", pre.get("parent"));
 			}
+			// How it is done beyond its objectives, our public words (#2714), for Lookup's quest steps.
+			if let Some(how) = public_how(&inputs.mechanics_public, idf) {
+				o.set("how", how);
+			}
 			if int(&q.get("xp")).is_some_and(|x| x > 0.0) {
 				o.set("xp", int(&q.get("xp")).unwrap());
 			}
@@ -2490,6 +2509,7 @@ mod tests {
 			journal_quests: Vec::new(),
 			store_xp: Default::default(),
 			mechanics: parse_json(mechanics).unwrap(),
+			mechanics_public: V::Null,
 			warnings: Vec::new(),
 		}
 	}
@@ -2555,6 +2575,27 @@ mod tests {
 		let codex = merge_codex(&i);
 		let sold_by: Vec<f64> = codex.items.get("2604").get("sources").items().iter().filter(|s| s.get("type").as_str() == Some("vendor")).map(|s| s.get("npc").num()).collect();
 		assert_eq!(sold_by.len(), 14, "every seller, not the first ten by id: {sold_by:?}");
+	}
+
+	// #2714: Powering the Pylons' pylons take mana gathered with the Mana Sieve first, which no objective says. The
+	// quest's `how` is our public mechanics' facts in step order; the merged mechanics.json's (private layers'
+	// text) never is.
+	#[test]
+	fn a_quest_keeps_how_it_is_done_from_the_public_mechanics_only_2714() {
+		let quests = r#"{
+			"96018": { "id": 96018, "title": "Powering the Pylons", "objectives": [{ "type": "event", "count": 1, "text": "Western pylon repaired" }] },
+			"88010": { "id": 88010, "title": "Private only", "objectives": [{ "type": "event", "count": 1, "text": "Done" }] }
+		}"#;
+		let private = r#"{ "quests": { "88010": { "steps": [{ "n": 1, "fact": "From a page's comments." }] } } }"#;
+		let mut i = inputs(quests, private);
+		i.mechanics_public = parse_json(r#"{ "quests": { "96018": { "steps": [
+			{ "n": 2, "fact": "Then use Repair and Recharge Pylon at each pylon." },
+			{ "n": 1, "fact": "Gather mana with the Mana Sieve first." }
+		] } } }"#)
+		.unwrap();
+		let codex = merge_codex(&i);
+		assert_eq!(codex.quests.get("96018").get("how").as_str(), Some("Gather mana with the Mana Sieve first. Then use Repair and Recharge Pylon at each pylon."));
+		assert!(codex.quests.get("88010").get("how").is_nullish(), "private text never ships");
 	}
 
 	#[test]

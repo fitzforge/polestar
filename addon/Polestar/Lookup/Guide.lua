@@ -758,10 +758,14 @@ local function questStep(q, from, isTarget, opts)
 	end
 	goals[#goals + 1] = endGoal("turnin", q, finish)
 	local step = { title = q.title, goals = goals }
-	if #order > 0 or #talks > 0 or #made > 0 or #summons > 0 then
+	-- How the quest is done beyond its objectives (the Codex's `how`, our
+	-- public words: Powering the Pylons' mana from the rifts, #2714), first.
+	local how = type(q.how) == "string" and q.how ~= "" and q.how or nil
+	if how or #order > 0 or #talks > 0 or #made > 0 or #summons > 0 then
 		local lines = {}
-		for i, inst in ipairs(order) do
-			lines[i] = format(L["%s: inside %s."], concat(within[inst], ", "), inst)
+		if how then lines[1] = how end
+		for _, inst in ipairs(order) do
+			lines[#lines + 1] = format(L["%s: inside %s."], concat(within[inst], ", "), inst)
 		end
 		for _, line in ipairs(summons) do lines[#lines + 1] = line end
 		-- A talk objective ticks only once the NPC's dialogue is gone through

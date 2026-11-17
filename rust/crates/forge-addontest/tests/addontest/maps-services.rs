@@ -719,6 +719,7 @@ fn a_fresh_install_leaves_the_codex_unloaded_until_the_layer_is_on_and_the_world
 		store_xp: Default::default(),
 		journal_quests: Vec::new(),
 		mechanics: V::Null,
+		mechanics_public: V::Null,
 		warnings: Vec::new(),
 	};
 	let m = merge_codex(&inputs);

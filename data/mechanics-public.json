@@ -418,6 +418,38 @@
 				}
 			],
 			"note": "Facing Negolash (8554): Negolash (1494) is called up by Enticing Negolash (619), a quest started and ended at the Ruined Lifeboat (object 2289) that takes 10 Barbecued Buzzard Wings (4457) and 5 Junglevine Wine (4595). Source: the game's data (619's start and end at object 2289, its two item objectives; 8554's text asks for the food in the lifeboat); players' in-game recordings to 2026-11-17: 619 handed in by 1 person, Negolash seen by 5 people only at 30-32,72-82 and killed by 2 there; and Soggy's report (#2711)."
+		},
+		"96018": {
+			"kinds": [
+				{
+					"kind": "multi-step-in-one-objective",
+					"confidence": "medium"
+				}
+			],
+			"steps": [
+				{
+					"n": 1,
+					"action": "use-item",
+					"target": {
+						"type": "npc",
+						"id": 264149
+					},
+					"item": 255662,
+					"fact": "With the Mana Sieve in your bags, gather mana before you go to the pylons: the Sieve takes it from the Unstable Mana Rifts, the floating sparks along the road north. Each pylon needs its share of it.",
+					"confidence": "high"
+				},
+				{
+					"n": 2,
+					"action": "kill",
+					"target": {
+						"type": "npc",
+						"id": 252711
+					},
+					"fact": "At each pylon, kill a Decrepit Pylon Protector beside it, then use Repair and Recharge Pylon on the pylon.",
+					"confidence": "medium"
+				}
+			],
+			"note": "Powering the Pylons (96018): the pylons are repaired with mana gathered with the Mana Sieve (255662) first; its objectives list only the Sieve and the two pylons. Source: the quest's own text (\"use it to collect Ancient Mana Crystals. Once you have acquired enough mana, empower the pylons\"); players' in-game recordings to 2026-11-17: the Unstable Mana Rifts (264149) seen by 54 people in Shen'dralas, and the pylons' lines ticking on a cast of spell 1289727 (30 people took the quest); Unholy's report (#2714), who counted four Coalesced Mana Crystals (255667) for each pylon."
 		}
 	}
 }
