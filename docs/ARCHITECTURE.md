@@ -1315,6 +1315,10 @@ Polestar.Hooks.QuestRows(owner, fn(tooltip, kind, id, name, row, rowType, data) 
 Polestar.Hooks.ItemClick(owner, fn(link, itemID))                -- modified clicks on chat links, bag and loot items
 Polestar.Hooks.AddLine(tooltip, left, right?, r, g, b, rr, rg, rb)
 
+Polestar.BagSlots.Painter(owner, fn(button, view, itemID, link))  -- view "client" or "ellesmere"; one painter per owner, in registration order through SafeCall
+Polestar.BagSlots.Widget(owner, id, label, show, make, corner, bagsmithCorner)  -- show(details) -> bool, make(button) -> region; Baganator and BagSmith, registered once each
+Polestar.BagSlots.Redraw(owner)  -- that owner's shown client slots and active corner widgets; EllesmereUI's shown slots with every painter
+
 Polestar.Search.Query(text, opts) -> results, counts, more   -- opts = { kinds, limit = 60, perKind, offset, subtitles = false }
    -- result = { kind, id, title, subtitle, quality, score, status, curated }; exact > prefix > word prefix > substring
 Polestar.Search.Subtitle(result) ; Search.KINDS ; Search.Status() -> codexLoaded, reason
@@ -6787,8 +6791,8 @@ Polestar.Gear.Bags.IsUpgrade(link) -> bool   -- what an arrow shows: Gear.IsUpgr
 Polestar.Gear.Bags.Redraw()                  -- repaint the shown bags; GEAR_UPDATED schedules it, at most every 0.2 s
 ```
 
-- **The client's bags.** Each container frame's `UpdateItems` (Mainline
-  `ContainerFrame.lua`, which Forever loads) is post-hooked on the frame
+- **The client's bags.** Core/BagSlots.lua post-hooks each container frame's `UpdateItems` (Mainline
+  `ContainerFrame.lua`, which Forever loads) on the frame
   itself: `ContainerFrameContainer.ContainerFrames` and
   `ContainerFrameCombinedBags`. The mixin's functions are copied onto each
   frame as it is made, so a hook on `ContainerFrameMixin` would miss them.
@@ -6801,15 +6805,15 @@ Polestar.Gear.Bags.Redraw()                  -- repaint the shown bags; GEAR_UPD
   repainted by the client's own update as it opens.
 - **Baganator.** A corner widget (`Baganator.API.RegisterCornerWidget`, id
   `polestar_upgrade`, top-left at priority 1, the way Baganator shows Pawn's
-  arrow), registered as Bags.lua loads or on Baganator's `ADDON_LOADED`. New
+  arrow), registered through Core/BagSlots.lua as Bags.lua loads or on Baganator's `ADDON_LOADED`. New
   verdicts ask it for an item-widget refresh (`RequestItemButtonsRefresh`).
   Baganator also shows other characters' bags; the arrow there is this
   character's verdict, as the tooltip line is.
 - **BagSmith.** The same corner widgets use `BagSmith.API.RegisterCornerWidget`
   with `{ listRows = true }`, so upgrade arrows, quest marks, step-item glows
   and keep locks appear in Icons and List views. BagSmith supplies an icon-sized
-  slot for list rows and owns placement and visibility. Each module registers
-  on load or `ADDON_LOADED` and requests a refresh when its state changes.
+  slot for list rows and owns placement and visibility. Core/BagSlots.lua registers
+  each module's widgets on load or `ADDON_LOADED` and requests a refresh when its state changes.
   Players arrange the marks in Settings > Item Icons > Icon Corners; only
   the first applicable mark in each corner is shown. The step-item glow
   defaults to bottom-left, leaving the protected bottom-right stack count
@@ -7714,8 +7718,12 @@ Polestar.QoL.KeptToSell() -> { { item, link }, ... }          -- kept items in t
   the guide: step N needs it" in the accent colour, and "Don't sell: the
   guide needs it at step N" in the warning colour while a merchant is open;
   in the bags (QoL/BagGlow.lua, under `qol.bagGlow`) a kept item a merchant
-  would buy gets a small lock in its top-left corner (Baganator: a top-left
-  corner widget), unless it is the glowing step item.
+  would buy gets a small lock in its bottom-left corner (Baganator and
+  BagSmith: a bottom-left corner widget), unless it is the glowing step item.
+  EllesmereUI Bags shows the step item's full-slot glow on its text overlay
+  and the keep lock in the top-right corner, moved just left of the quest
+  icon on a slot that shows one (`QuestDB.BagMarkShown`). Both follow
+  `qol.bagGlow`; client and EllesmereUI glows stop pulsing with `ui.reduceMotion` on.
 - **Warned:** opening a merchant with kept items that sell in the bags
   prints them in chat first ("Keep <items>: later steps of the guide need
   them.").

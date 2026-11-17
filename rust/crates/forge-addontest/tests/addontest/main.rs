@@ -14,6 +14,8 @@ mod automation_close_skipped;
 mod automation_profession_quests;
 #[path = "automation-spoken.rs"]
 mod automation_spoken;
+#[path = "bag-slots.rs"]
+mod bag_slots;
 mod bagsmith;
 #[path = "class-quests.rs"]
 mod class_quests;
