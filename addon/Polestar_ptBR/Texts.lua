@@ -5927,7 +5927,6 @@ t.guides["forever/collectibles/pets/mechanical-chicken"] = (function() return {
 		["Rescue OOX-09/HL"] = "Resgate OOX-09/HL",
 		["Rescue OOX-17/TN"] = "Resgate OOX-17/TN",
 		["Rescue OOX-22/FE"] = "Resgate OOX-22/FE",
-		["Right-click the beacon. OOX-22/FE sits in a cave near {area:1105}, among yetis and apes. Its escort runs west along the road to the dock on the {area:1108} with three ambushes: three yetis, then three gorillas, then four or five gnolls with a caster. Bring a friend if you are under 47. The robot keeps walking unless it is hit, so stay close; if it will not move, another player has it: wait for it to come back. Its turn-in is in {area:35}; keep the quest for later."] = "Clique com o botão direito no sinalizador. OOX-22/FE fica numa caverna perto de {area:1105}, entre yetis e macacos. A escolta dele corre para oeste pela estrada até a doca de {area:1108}, com três emboscadas: três yetis, depois três gorilas, depois quatro ou cinco gnolls com um conjurador. Leve um amigo se estiver abaixo do 47. O robô continua andando a menos que seja atingido, então fique perto; se ele não se mexer, outro jogador está com ele: espere ele voltar. A entrega dele fica em {area:35}; guarde a missão para depois.",
 		["{item:8623} in {zone:1446}"] = "{item:8623} em {zone:1446}",
 		["{item:8704} in the {zone:1425}"] = "{item:8704} em {zone:1425}",
 		["{item:8705} in {zone:1444}"] = "{item:8705} em {zone:1444}",
