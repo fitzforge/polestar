@@ -16,6 +16,10 @@ w.addMap(1420, { name = "Tirisfal Glades", c = 0, left = 3033.333, right = -1485
 w.addMap(1454, { name = "Orgrimmar", c = 1, left = -3680.601, right = -5083.206, top = 2273.877, bottom = 1338.461 })
 w.addMap(1440, { name = "Ashenvale", c = 1, left = 1700, right = -4066.667, top = 4672.917, bottom = 829.167 })
 w.addMap(1448, { name = "Felwood", c = 1, left = 1641.667, right = -4108.333, top = 7133.333, bottom = 3300 })
+w.addMap(1416, { name = "Alterac Mountains", c = 0, left = 783.333, right = -2016.667, top = 1500, bottom = -366.667 })
+w.addMap(1424, { name = "Hillsbrad Foothills", c = 0, left = 1066.667, right = -2133.333, top = 400, bottom = -1733.333 })
+w.addMap(1455, { name = "Ironforge", c = 0, left = -713.591, right = -1504.216, top = -4569.241, bottom = -5096.846 })
+w.addMap(1453, { name = "Stormwind City", c = 0, left = 1380.971, right = 36.701, top = -8278.851, bottom = -9175.205 })
 w.race, w.raceName, w.faction, w.class, w.className, w.level = "Skyborne", "Skyborne", "Horde", "ROGUE", "Rogue", 30
 w.money = 50000
 "#;
@@ -362,4 +366,108 @@ fn t_1596_a_skipped_step_empties_the_stop_only_with_nothing_else_there_and_passe
 			"nothingElse": { "before": 2, "after": 5, "tah": "done", "tear": "upcoming" },
 		})
 	);
+}
+
+// Alterac's second loop in 0.4.0.1's forever/horde/30-40/05-arathi-highlands: the walk north to Strahnbrad for
+// Gol'dir, then the Dalaran crater's kills with no travel step between, then back to Tarren Mill. A character who
+// never took Gol'dir (its Infiltration skipped) walked to Strahnbrad for nothing on the way to the crater (#2154: on
+// 0.3.7.2 the same shape sent Zack to Tarren Mill and back for Baron Vardus). Work more than Own.STOP_REACH yards
+// from the walk's end is a stop of its own: the walk passes and the crater leads.
+const ALTERAC: &str = r#"
+Polestar.RegisterGuide({ id = "test/al", pack = "test", title = "Alterac Mountains & Arathi Highlands", minLevel = 1, maxLevel = 60, steps = {
+	{ title = "Alterac Mountains", goals = { { t = "goto", map = 1416, x = 60.0, y = 43.7, text = "Gol'dir" } } },
+	{ title = "Gol'dir", goals = {
+		{ t = "turnin", quest = 503, title = "Gol'dir", npc = 2316, map = 1416, x = 60.0, y = 43.7 },
+		{ t = "accept", quest = 506, title = "Blackmoore's Legacy", npc = 2316, map = 1416, x = 60.0, y = 43.7, pre = { 503 } },
+	} },
+	{ title = "Old Dalaran Ruins: kill these as you meet them", goals = {
+		{ t = "kill", target = "Dalaran Summoner", npc = 2358, count = 6, quest = 545, oi = 1, map = 1416, x = 22.0, y = 57.9 },
+	} },
+	{ title = "Back to Tarren Mill", goals = { { t = "goto", map = 1424, x = 61.5, y = 20.9, text = "Tarren Mill" } } },
+	{ title = "Tarren Mill", goals = { { t = "turnin", quest = 545, title = "Dalaran Patrols", npc = 2276, map = 1424, x = 62.0, y = 20.0 } } },
+} })
+"#;
+
+fn alterac(setup: &str) -> Value {
+	run(
+		ALTERAC,
+		&format!(
+			r#"
+			stub.world.moveTo(1424, 61.0, 22.0); stub.world.setZone("Hillsbrad Foothills", "Tarren Mill")
+			stub.world.onQuest(545, {{ {{ required = 6, fulfilled = 0 }} }})
+			{setup}
+			stub.fire("QUEST_LOG_UPDATE")
+			E.SetGuide("test/al"); flush()
+			local wp = E.GetWaypoint()
+			emit({{ E.GetStepIndex(), wp and wp.map or false, wp and wp.kind or false }})
+			"#
+		),
+	)
+}
+
+#[test]
+fn t_2154_without_goldir_the_walk_to_strahnbrad_passes_and_the_crater_leads() {
+	assert_eq!(alterac(""), json!([3, 1416, "kill"]), "Zack: straight to the crater, not up to Strahnbrad first");
+}
+
+#[test]
+fn t_2154_with_goldir_to_do_the_walk_to_strahnbrad_holds() {
+	let out = alterac("stub.world.onQuest(503, { { required = 1, fulfilled = 1 } })");
+	assert_eq!(out, json!([1, 1416, "goto"]));
+}
+
+// Not every empty stop before far work lets a walk pass (the full guides' end-early play caught both): 0.4.0.1's
+// Alliance Ashenvale ends in Ironforge with "Tram to Stormwind", a walk to the tram, then Stormwind's hand-ins; and
+// a stop made only of steps whose `when` fails (Sprite Jumpsprocket while Rig Wars isn't held) is no stop the walk
+// was for. A walk to a crossing's end is the way on whatever comes after it.
+const TRAM: &str = r#"
+Polestar.RegisterGuide({ id = "test/tram", pack = "test", title = "Ironforge", minLevel = 1, maxLevel = 60, steps = {
+	{ title = "Tram to Stormwind", goals = { { t = "goto", map = 1455, x = 78.0, y = 51.4, text = "Tram to Stormwind" } } },
+	{ title = "Sprite Jumpsprocket", when = { { k = "onquest", q = { 92748 } } }, goals = {
+		{ t = "turnin", quest = 92748, title = "Rig Wars", npc = 1, map = 1455, x = 70.0, y = 50.0 },
+	} },
+	-- Empty for the character: the hand-in of a quest not taken (handed in, it would place them past the step).
+	{ title = "Nothing here", goals = { { t = "turnin", quest = 9999, title = "Not Taken", npc = 2, map = 1455, x = 77.0, y = 51.0 } } },
+	{ title = "Collin Mauren", goals = { { t = "turnin", quest = 1075, title = "A Scroll from Mauren", npc = 3, map = 1453, x = 60.0, y = 60.0 } } },
+} })
+-- The same without the done stop: only Sprite's step, whose `when` fails, between the walk and Stormwind.
+Polestar.RegisterGuide({ id = "test/tram2", pack = "test", title = "Ironforge", minLevel = 1, maxLevel = 60, steps = {
+	{ title = "Tram to Stormwind", goals = { { t = "goto", map = 1455, x = 78.0, y = 51.4, text = "Tram to Stormwind" } } },
+	{ title = "Sprite Jumpsprocket", when = { { k = "onquest", q = { 92748 } } }, goals = {
+		{ t = "turnin", quest = 92748, title = "Rig Wars", npc = 1, map = 1455, x = 70.0, y = 50.0 },
+	} },
+	{ title = "Collin Mauren", goals = { { t = "turnin", quest = 1075, title = "A Scroll from Mauren", npc = 3, map = 1453, x = 60.0, y = 60.0 } } },
+} })
+-- Nav/Travel.lua's Deeprun Tram: the Stormwind end, the Ironforge end.
+TRAMS = { { a = { c = 0, wx = -8346.5, wy = 514 }, b = { c = 0, wx = -4840.3, wy = -1330.5 } } }
+"#;
+
+fn tram(id: &str, setup: &str) -> Value {
+	run(
+		TRAM,
+		&format!(
+			r#"
+			stub.world.moveTo(1455, 30.0, 50.0); stub.world.setZone("Ironforge", "The Great Forge")
+			stub.world.onQuest(1075, {{ {{ required = 1, fulfilled = 1 }} }})
+			{setup}
+			stub.fire("QUEST_LOG_UPDATE")
+			E.SetGuide("{id}"); flush()
+			local wp = E.GetWaypoint()
+			emit({{ E.GetStepIndex(), wp and wp.map or false, wp and wp.kind or false }})
+			"#
+		),
+	)
+}
+
+#[test]
+fn t_2154_a_walk_to_a_crossing_or_past_steps_that_dont_apply_holds() {
+	let out = json!({
+		// An empty stop, but the walk ends at the tram.
+		"tram": tram("test/tram", "Polestar.Nav.GetTravelData = function() return { transports = TRAMS } end"),
+		// No crossing data, and the only stop is a step whose `when` fails: no stop the walk was for.
+		"whenFails": tram("test/tram2", ""),
+		// Control: no crossing data and an empty stop: the walk passes, Collin Mauren leads.
+		"control": tram("test/tram", ""),
+	});
+	assert_eq!(out, json!({ "tram": [1, 1455, "goto"], "whenFails": [1, 1455, "goto"], "control": [4, 1453, "turnin"] }));
 }

@@ -5,8 +5,9 @@
 --   Lookup.CuratedGuide(kind, id) -> guideId | nil
 --       a registered guide whose `collects` holds the item (kind "spell": the
 --       spell's item, else a guide with the spell's name among its
---       `keywords`, as the class mount guides have); one that fits the
---       character first
+--       `keywords`, as the class mount guides have; kind "quest": a guide
+--       with the quest's title as one of its `keywords`, as the class quest
+--       guides list their quests); one that fits the character first
 --   Lookup.BuildGuide(kind, id, ranked) -> def | nil, reason
 --       ranked: a row of Lookup.Sources(kind, id), its index, or nil (best)
 --   Lookup.Guide(kind, id, index) -> guideId | nil, reason
@@ -128,8 +129,20 @@ local function keywordMatch(list, name)
 	return false
 end
 
+-- A keyword that is the name itself, case aside: quest titles are short and
+-- often part of other names, so a quest matches whole keywords only.
+local function keywordIs(list, name)
+	if type(list) ~= "table" or type(name) ~= "string" or name == "" then return false end
+	local want = lower(name)
+	for i = 1, #list do
+		local k = list[i]
+		if type(k) == "string" and lower(k) == want then return true end
+	end
+	return false
+end
+
 function Lookup.CuratedGuide(kind, id)
-	local itemId, spellName
+	local itemId, spellName, questTitle
 	if ITEM_KINDS[kind] then
 		itemId = tonumber(id)
 	elseif kind == "spell" then
@@ -137,6 +150,14 @@ function Lookup.CuratedGuide(kind, id)
 		local spell = C and C.Spell(id)
 		if not spell then return nil end
 		itemId, spellName = spell.item, spell.name
+	elseif kind == "quest" then
+		-- A quest a class guide walks through (The Test of Righteousness in
+		-- Verigan's Fist): that guide, not one built from the quest's data,
+		-- which knows nothing of the chain's other quests (#2606). Keywords
+		-- are English, so the title is the pack's English in every language.
+		local C = Codex()
+		questTitle = C and C.EnglishName and C.EnglishName("quest", id)
+		if not questTitle then return nil end
 	else
 		return nil
 	end
@@ -149,7 +170,8 @@ function Lookup.CuratedGuide(kind, id)
 	for _, pack in ipairs(from) do
 		for _, h in ipairs(list) do
 			if h.pack == pack and type(h.id) == "string" and h.id:sub(1, #PREFIX) ~= PREFIX
-				and ((itemId and holds(h.collects, itemId)) or (spellName and keywordMatch(h.keywords, spellName)))
+				and ((itemId and holds(h.collects, itemId)) or (spellName and keywordMatch(h.keywords, spellName))
+					or (questTitle and keywordIs(h.keywords, questTitle)))
 				and ns.Guides.GuideMatches(h, player) then
 				return h.id
 			end

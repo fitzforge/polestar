@@ -445,7 +445,7 @@ step The Eastvale Logging Camp
 
 step A half-eaten body
   tip It lies by the river north-west of the logging camp.
-  turnin 37
+  turnin 37 object 55                     -- A half-eaten body
   accept 45
 
 step Stone Cairn Lake
