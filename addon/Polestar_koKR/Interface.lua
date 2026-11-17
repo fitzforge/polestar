@@ -216,6 +216,9 @@ L["Grey for you: pays %d%% XP (Skip grey quests)"] = "회색 퀘스트: 경험�
 -- L["Reach %d points into %s with"] = ""
 -- L["Lose"] = ""
 -- L["Gain"] = ""
+L["Journeyman %s"] = "숙련 %s"
+L["Expert %s"] = "전문 %s"
+L["Artisan %s"] = "대가 %s"
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "보상을 선택해 제출을 마치십시오."
@@ -618,9 +621,9 @@ L["Timed quest alerts"] = "시간 제한 퀘스트 알림"
 L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] = "시간 제한 퀘스트가 5분 남았을 때, 1분 남았을 때, 그리고 실패했을 때 대화창 메시지와 소리로 알립니다. 가이드 창에는 남은 시간이 항상 표시됩니다."
 L["Party chat"] = "파티 채팅"
 -- L["On a mob that drops a quest item you still need, or an object it comes out of, show how often."] = ""
--- L["Quest givers and turn-ins"] = ""
+L["Quest givers and turn-ins"] = "퀘스트 제공자와 제출"
 -- L["On an NPC, name the quests it has for you now and the finished quests you can hand in to it."] = ""
--- L["Replace the game's quest lines"] = ""
+L["Replace the game's quest lines"] = "게임의 퀘스트 줄 대체"
 -- L["On mobs and objects, leave out the game's own lines for the quests these tooltips name, so each quest shows once. In a group the game's lines stay: they show your party's progress."] = ""
 
 -- Quests/Party.lua
@@ -1146,7 +1149,7 @@ L["Lists the quest items you can buy at an auction house instead of farming them
 L["Lists the current step's mobs, or the NPCs it sends you to when it has no mob, with their portraits and what they drop; click a name to target that one. Its key binding targets the first one close by."] = "현재 단계의 몹을, 몹이 없으면 단계가 안내하는 NPC를 초상화와 드롭 아이템과 함께 보여 줍니다. 이름을 클릭하면 그 대상을 지정합니다. 단축키는 가까이 있는 첫 번째 대상을 지정합니다."
 L["Names in the target list"] = "대상 목록의 이름 수"
 L["How many of the step's mobs the target list shows, in guide order."] = "대상 목록에 단계의 몹을 가이드 순서대로 몇 개까지 보여 줄지 정합니다."
--- L["Completed quest XP"] = ""
+L["Completed quest XP"] = "완료한 퀘스트 경험치"
 -- L["Shows XP from completed quests you can turn in on the game's XP bar and in its tooltip."] = ""
 
 -- Lookup/Sources.lua
@@ -1202,6 +1205,8 @@ L["Enter"] = "입장"
 L["Choose this reward:"] = "이 보상 선택:"
 L["Lookup"] = "찾아보기"
 L["%s: click through what they say until the quest's line is done."] = "%s: 퀘스트 목표가 완료될 때까지 대화를 끝까지 넘기십시오."
+L["%s: use %s to call it up."] = "%s: 불러내려면 %s 사용"
+L["Use %s to learn it."] = "배우려면 %s 사용"
 
 -- Lookup/Spotter.lua
 L["From"] = "출처"
@@ -4500,6 +4505,9 @@ L["%s isn't in your quest log."] = "%s 퀘스트가 퀘스트 목록에 없습�
 L["That quest isn't in your quest log."] = "그 퀘스트는 퀘스트 목록에 없습니다."
 L["The quest log opens when combat ends."] = "퀘스트 목록은 전투가 끝나면 열립니다."
 L["Show in quest log"] = "퀘스트 목록에서 보기"
+L["Link in chat"] = "대화창에 링크"
+L["Middle-click: show in quest log. Shift-click: link in chat."] = "가운데 클릭: 퀘스트 목록에서 보기. Shift-클릭: 대화창에 링크."
+L["Shift-click: link in chat."] = "Shift-클릭: 대화창에 링크."
 
 -- Dungeons/Mark.lua
 L["Needed for %s in %s"] = "%s 퀘스트에 필요 (%s)"

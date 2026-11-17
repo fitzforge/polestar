@@ -162,6 +162,7 @@ return {
 
 	-- Step 34: Southshore
 	-- {npc:2711} Phin Odelic · {npc:2430} Chef Jessen · {npc:2382} Darren Malvew · {npc:2381} Micha Yance · {npc:2438} Bartolo Ginsetti · {npc:2366} Barkeep Kelly · {quest:98463} Talk of the Town
+	-- was: ["Off the boat, walk up the pier into town: {npc:2711} and Lieutenant Farren stand by the inn, {npc:2705} below it and {npc:2430} upstairs, {npc:2382} east of it; the flight master is at the north end, {npc:2381} and {npc:2438} between her and the inn, Maleb in the town hall at the west side."] = "Сойдя с корабля, поднимитесь по пирсу в город: {npc:2711} и лейтенант Фаррен стоят у таверны, {npc:2705} – под ней, {npc:2430} – наверху, {npc:2382} – к востоку от нее; распорядитель полетов – в северной части, {npc:2381} и {npc:2438} – между ней и таверной, Малеб – в ратуше на западной стороне."
 	["Off the boat, walk up the pier into town: {npc:2711} and Lieutenant Farren stand by the inn, {npc:2430} upstairs, {npc:2382} east of it; the flight master is at the north end, {npc:2381} and {npc:2438} between her and the inn, Maleb in the town hall at the west side.\n{npc:2366} may not offer {quest:98463} on Forever: if she doesn't, skip it."] = "",
 	-- {npc:2711} Phin Odelic
 	["{npc:2711}: his trail leads to Arathi"] = "{npc:2711}: его след ведет в Арати",
