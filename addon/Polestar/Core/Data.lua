@@ -7,7 +7,11 @@
 --     again). Any other failure is final for the session; reason is
 --     LoadAddOn's second return in lower case ("missing", "disabled",
 --     "interface_version", "dep_missing", ...), "unavailable" without the
---     API, "error" when the load itself raised.
+--     API, "error" when the load itself raised. A part every release needs
+--     (REQUIRED below) found switched off in the AddOns list is switched
+--     back on for this character and loaded, with a line in chat saying so:
+--     an update can leave a new part off (#2594: Polestar_Options and
+--     Polestar_Looks on GeForce NOW), and Polestar is not whole without it.
 --   Data.Info(name) -> { loaded, reason, memoryKB }
 --     memoryKB from UpdateAddOnMemoryUsage/GetAddOnMemoryUsage (nil when the
 --     client hides it).
@@ -39,6 +43,9 @@ local type, pcall, tostring = type, pcall, tostring
 local lower = string.lower
 
 local state = {} -- name -> { loaded = bool, reason = string|nil }
+
+-- The parts every release needs beside Polestar (see COMPANIONS below).
+local REQUIRED = { Polestar_Guides = true, Polestar_Codex = true, Polestar_Options = true, Polestar_Looks = true }
 
 local readable = ns.Compat.Readable
 
@@ -84,6 +91,17 @@ function Data.Pack(name)
 	end
 	reason = readable(reason)
 	reason = type(reason) == "string" and reason ~= "" and lower(reason) or "unknown"
+	if reason == "disabled" and REQUIRED[name] and C_AddOns.EnableAddOn then
+		local player = UnitName and readable((UnitName("player"))) or nil
+		if pcall(C_AddOns.EnableAddOn, name, player) then
+			local again, done = pcall(load, name)
+			if again and readable(done) then
+				state[name] = { loaded = true }
+				ns.Print(string.format(ns.L["%s was switched off in the AddOns list: Polestar switched it back on, as it needs it."], name))
+				return true
+			end
+		end
+	end
 	state[name] = { loaded = false, reason = reason }
 	return false, reason
 end
@@ -113,7 +131,7 @@ end
 -- install may not build the packs), but when present they must be the same
 -- version.
 local COMPANIONS = { "Polestar_Guides", "Polestar_Codex", "Polestar_Options", "Polestar_Looks", "Polestar_Nav", "Polestar_SkinAPI", "Polestar_QuestDB", "Polestar_ItemDB" }
-local REQUIRED = { Polestar_Guides = true, Polestar_Codex = true, Polestar_Options = true, Polestar_Looks = true }
+-- REQUIRED (above): the first four.
 
 local function installed(name)
 	local A = C_AddOns

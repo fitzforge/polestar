@@ -2311,14 +2311,20 @@ do
 	local LOOKS, BASES = "Polestar_Looks", { hearth = true, forever = true, blizzard = true, classic = true }
 	local tried = false
 	-- Loads the part when `base` is one of its looks (once: a part that is
-	-- missing or disabled leaves the house look standing). -> whether it is in
+	-- missing leaves the house look standing; one switched off in the AddOns
+	-- list is switched back on, Data.Pack, #2594). -> whether it is in
 	function loadLooks(base)
 		if Theme.KITS then return true end
 		if not BASES[base] or tried then return false end
 		tried = true
-		local A = C_AddOns
-		local load = A and A.LoadAddOn or LoadAddOn
-		if load then pcall(load, LOOKS) end
+		if ns.Data and ns.Data.Pack then
+			local _, why = ns.Data.Pack(LOOKS)
+			if why == "combat" then tried = false end -- again on a paint out of combat
+		else
+			local A = C_AddOns
+			local load = A and A.LoadAddOn or LoadAddOn
+			if load then pcall(load, LOOKS) end
+		end
 		return Theme.KITS ~= nil
 	end
 	Theme.LoadLooks = loadLooks

@@ -404,6 +404,34 @@ emit({ Polestar.Data.Pack("Broken") })
 	assert_eq!(out[1], json!([false, "error"]));
 }
 
+// #2594 (truszko1, 0.4.0 on GeForce NOW): after the update Polestar_Options and Polestar_Looks were switched off in the
+// AddOns list, so the settings window could not open. A part every release needs, found switched off, is switched back
+// on for this character and loaded, and chat says so; an optional one (the walking maps) is left as the player set it.
+#[test]
+fn data_pack_switches_a_required_part_back_on_and_loads_it_2594() {
+	let out = run(
+		r#"
+local on = {}
+local enable = C_AddOns.EnableAddOn
+C_AddOns.EnableAddOn = function(name, character) on[name] = character or true; return enable(name) end
+C_AddOns.LoadAddOn = function(name)
+	if on[name] then return true end
+	return false, "DISABLED"
+end
+emit({ Polestar.Data.Pack("Polestar_Options") })
+emit({ Polestar.Data.Pack("Polestar_Nav") })
+local said = {}
+for _, m in ipairs(stub.messages) do if m:find("switched it back on", 1, true) then said[#said + 1] = m end end
+emit({ enabled = stub.enabledAddOns, said = #said, named = said[1] and said[1]:find("Polestar_Options", 1, true) ~= nil or false })
+"#,
+		"",
+		None,
+	);
+	assert_eq!(out[0], json!([true]));
+	assert_eq!(out[1], json!([false, "disabled"]), "an optional part stays as the player set it");
+	assert_eq!(out[2], json!({ "enabled": ["Polestar_Options"], "said": 1, "named": true }));
+}
+
 // A player who copies only some of the release zip's folders, or an old one over a new one, is told at login.
 // The stub's default TOC version is "0.1.0-test" for every addon, Polestar included.
 fn login_with(addons: &[(&str, Option<&str>)]) -> Value {

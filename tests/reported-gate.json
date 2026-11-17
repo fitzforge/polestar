@@ -1372,6 +1372,9 @@
 		] },
 		"2563": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "#2563: Wetlands (Alliance): Fall of Dun Modr is taken on its own step, only while A Grim Task is not handed in" }
+		] },
+		"2594": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/codex.rs", "test": "data_pack_switches_a_required_part_back_on_and_loads_it_2594" }
 		] }
 	},
 	"seedDrift": {
