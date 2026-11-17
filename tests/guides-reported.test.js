@@ -191,6 +191,9 @@ test("Tyr's Watch: Tanis Alderwood's goals carry his Undercity floor's height, f
 });
 
 test('Horde objective follow-ups: camp discovery, Silithyst delivery and cooking point at their actual objective', { skip }, () => {
+	// Betrayed (3505): the camp, where the Kaldorei Tome of Summoning takes the hand-in. The game counts only
+	// the two kill lines (players' recordings, #2585), so the data may have no event line for it.
+	const camp = { f: 'e', x: 59.53, y: 31.47 };
 	for (const [file, quest, map, npc] of [
 		['forever/horde/50-60/04-azshara.guide', 3505, 1447, null],
 		['forever/horde/50-60/06-silithus.guide', 9422, 1451, 18199],
@@ -198,7 +201,7 @@ test('Horde objective follow-ups: camp discovery, Silithyst delivery and cooking
 	]) {
 		const { goal } = goals(file).find(({ goal }) => goal.t === 'complete' && goal.quest === quest);
 		assert.equal(goal.map, map, `${quest}: the unfinished objective has an arrow on its map`);
-		const event = npc ? null : data.quests[quest].objectives.find((o) => o.type === 'event');
+		const event = npc ? null : data.quests[quest].objectives.find((o) => o.type === 'event') || camp;
 		const spawn = npc ? data.npcs[npc].spawns[map] : null;
 		assert.equal(goal.f || 'l', spawn ? spawn.f : event.f, `${quest}: keep the source coordinate frame`);
 		assert.equal(goal.x, spawn ? spawn.pts[0][0] : event.x);
@@ -3198,10 +3201,12 @@ test('side guides: no step sends a character to an NPC of the other faction (#24
 // purpose: raid and level 61+ bosses (past what a hold can wait for), the Legacy checklist's dungeon bands (held at each
 // band's first level), one dropper among many (any thunder lizard drops the horn, any Shardtooth the meat), the Barrens'
 // Echeyakee (the data's 60 is a summon's range), Chol'aruk (an optional group kill in a solo hub) and the Timbermaw
-// feather and bead farms (any Deadwood or Winterfall furbolg).
+// feather and bead farms (any Deadwood or Winterfall furbolg). Warned instead of held: the Gelkis valley's Undead
+// Ravagers, 37 to 45 in Shen'dralas (players' recordings), whose step waits for 39 and says how high they go.
 test('side guides: every fighting step waits on its own level for mobs at most 1 above it (Fitz\'s rule, #2462)', { skip }, () => {
 	const top = (id) => data.npcs[id] && (data.npcs[id].levelMax || data.npcs[id].level);
 	const LEFT = new Set(['legacy/legacy-challenges', 'reputation/orgrimmar 3475', 'reputation/orgrimmar 5832', 'reputation/orgrimmar 267307', 'reputation/wintersaber-trainers 7446', 'reputation/timbermaw-hold 7442']);
+	const WARNED = new Set(['reputation/centaur-clans 11561']);
 	const wrong = [];
 	for (const G of allGuides().filter((g) => /^forever\/(reputation|collectibles|exploration|miscellaneous|legacy)\//.test(g))) {
 		const id = G.replace(/^forever\//, '').replace(/\.guide$/, '');
@@ -3216,7 +3221,9 @@ test('side guides: every fighting step waits on its own level for mobs at most 1
 				const n = mob && data.npcs[mob];
 				if (!n || n.faction || LEFT.has(`${id} ${mob}`) || top(mob) >= 61 || own >= 60) continue;
 				const allow = goal.group ? 2 : 1;
-				if (top(mob) > own + allow) wrong.push(`${G}, ${step.title}: ${goal.t} ${goal.item || goal.npc}, ${n.name} up to ${top(mob)}, the step waits for ${own}`);
+				if (top(mob) <= own + allow) continue;
+				if (WARNED.has(`${id} ${mob}`)) assert.ok(JSON.stringify([step.note, step.tip, step.tips]).includes(`up to level ${top(mob)}`), `${G}, ${step.title}: a tip warns of ${n.name} up to level ${top(mob)}`);
+				else wrong.push(`${G}, ${step.title}: ${goal.t} ${goal.item || goal.npc}, ${n.name} up to ${top(mob)}, the step waits for ${own}`);
 			}
 		}
 	}

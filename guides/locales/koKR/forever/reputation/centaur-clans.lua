@@ -94,7 +94,7 @@ return {
 	["Gelkis: the valley's mouth"] = "겔키스일족: 골짜기 입구",
 	-- {quest:92846} Outcast Necromancers · {npc:253177} Nerlokh · {npc:253136} Orgrul
 	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager
-	["From the quest data: the Undead Ravagers and the {quest:92846} fill the valley from {npc:253177} north-east to {npc:253136}'s post at its northern mouth; players have met them all along it. {npc:253136}'s Magram are hostile to a friend of the Gelkis. Corpsefeeders, elite and level 45, walk the valley and attack anyone."] = "퀘스트 데이터 기준: 언데드 약탈자와 {quest:92846}이(가) {npc:253177}에서 북동쪽으로 북쪽 입구의 {npc:253136} 초소까지 골짜기를 가득 메우고 있으며, 플레이어들은 그 길 내내 그들을 만났습니다. {npc:253136}의 마그람일족은 겔키스일족의 동맹에게 적대적입니다. 45레벨 정예 시체먹이가 골짜기를 돌아다니며 누구든 공격합니다.",
+	["From the quest data: the Undead Ravagers and the {quest:92846} fill the valley from {npc:253177} north-east to {npc:253136}'s post at its northern mouth; players have met them all along it. {npc:253136}'s Magram are hostile to a friend of the Gelkis. Corpsefeeders, elite and level 45, walk the valley and attack anyone.\nCareful: Undead Ravagers up to level 45 can roam the valley: watch for them."] = "퀘스트 데이터 기준: 언데드 약탈자와 {quest:92846}이(가) {npc:253177}에서 북동쪽으로 북쪽 입구의 {npc:253136} 초소까지 골짜기를 가득 메우고 있으며, 플레이어들은 그 길 내내 그들을 만났습니다. {npc:253136}의 마그람일족은 겔키스일족의 동맹에게 적대적입니다. 45레벨 정예 시체먹이가 골짜기를 돌아다니며 누구든 공격합니다.\n주의: 최대 45레벨의 언데드 약탈자가 계곡을 돌아다닐 수 있습니다. 조심하세요.",
 
 	-- Step 13: Gelkis: Facing the Truth
 	-- {quest:93041} Facing the Truth
@@ -316,4 +316,6 @@ return {
 	["The totem recipes"] = "",
 	-- {quest:93224} Carved Centaur Totems · {item:273613} Enchant Bracer - Lesser Agility · {item:250941} Greater Frenzy Potion · {item:250538} Hard Gold Gauntlet · {item:250606} Iron Morningstar · {item:252462} Mystic Thick Armor Kit · {item:253973} Silk Reagent Bag · {item:10011} Stormcloth Gloves · {item:274490} Centaur Hoofwarmers · {item:269900} Centaur Banner Deployment Device · {item:269902} Hoof-Shaped Foot Pedal
 	["Both quartermasters sell the same 12 recipes for {quest:93224}, no standing needed: {item:273613} and - Lesser Healing Power; Greater Spellblasting and {item:250941}; {item:250538} and {item:250606} plans; {item:252462}, {item:253973}, {item:10011} and {item:274490} patterns; the {item:269900} and {item:269902} schematics. Keep the totems you need for them before you hand the rest in."] = "두 병참장교 모두 같은 제조법 12개를 {quest:93224}(으)로 팔며, 평판 조건이 없습니다: {item:273613}와(과) 손목보호구 마법부여 - 하급 치유력, 상급 주문 작렬 물약과 {item:250941}, {item:250538}와(과) {item:250606} 설계도, {item:252462}, {item:253973}, {item:10011}, {item:274490} 도안, {item:269900}와(과) {item:269902} 설계도. 나머지를 제출하기 전에 이 제조법에 필요한 토템은 남겨 두세요.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
 }

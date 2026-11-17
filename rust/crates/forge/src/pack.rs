@@ -156,7 +156,9 @@ pub fn public_params(bytes: &[u8]) -> Result<Vec<u8>, String> {
 /// (`mech_private`, the site's groups and ForeverDB, dropped): two or more keep the row, one keeps
 /// it at medium, none leaves a driving one as a marker (status withheld). steps: high confidence
 /// from a public source quoting none of the site's text. verify_in_game: the fields in conflict
-/// only. sources: the public ones.
+/// only. sources: the public ones. A `correction` (fact, mechanic or step) is packed only when the
+/// KB's `correction_origin` says the public corrections set it, never the maintainer's private
+/// overlay; a KB without that table packs no correction at all.
 pub fn public_kb(from: &Path, to: &Path, public: &[String], mech_public: &[String], mech_private: &[String]) -> Result<(), String> {
 	let e = |x: rusqlite::Error| format!("{}: {x}", to.display());
 	let _ = std::fs::remove_file(to);
@@ -172,6 +174,17 @@ pub fn public_kb(from: &Path, to: &Path, public: &[String], mech_public: &[Strin
 		tx.execute(&sql, []).map_err(e)?;
 	}
 	let is_public = |s: &str| public.iter().any(|p| p == s);
+	// The KB labels the public corrections and the private overlay alike `correction`.
+	let has_origin: bool = src.query_row("select count(*) from sqlite_master where type = 'table' and name = 'correction_origin'", [], |r| r.get::<_, i64>(0)).map_err(e)? > 0;
+	let mut public_corr: std::collections::HashSet<(String, i64, String)> = std::collections::HashSet::new();
+	if has_origin {
+		let mut st = src.prepare("select kind, id, field from correction_origin where origin = 'public'").map_err(e)?;
+		let rows = st.query_map([], |r| Ok((r.get::<_, String>(0)?, r.get::<_, i64>(1)?, r.get::<_, String>(2)?))).map_err(e)?;
+		for r in rows {
+			public_corr.insert(r.map_err(e)?);
+		}
+	}
+	let public_mech = |quest: i64| public_corr.contains(&("mechanic".to_string(), quest, "*".to_string()));
 	// facts
 	{
 		let mut st = src.prepare("select kind, id, field, value, source, confidence, agree, total from facts").map_err(e)?;
@@ -184,7 +197,8 @@ pub fn public_kb(from: &Path, to: &Path, public: &[String], mech_public: &[Strin
 			let conf: String = r.get::<_, Option<String>>(5).map_err(e)?.unwrap_or_default();
 			let (agree, total): (Option<i64>, Option<i64>) = (r.get(6).map_err(e)?, r.get(7).map_err(e)?);
 			let sure = conf == "high" || agree.unwrap_or(0) >= 2;
-			if sure && is_public(&source) {
+			let shareable = is_public(&source) && (source != "correction" || public_corr.contains(&(kind.clone(), id, field.clone())));
+			if sure && shareable {
 				ins.execute(rusqlite::params![kind, id, field, value, source, conf, agree, total]).map_err(e)?;
 			} else if kind == "quest" && (conf == "low" || conf == "medium") {
 				ins.execute(rusqlite::params![kind, id, field, "", "kb", conf, agree, total]).map_err(e)?;
@@ -206,8 +220,9 @@ pub fn public_kb(from: &Path, to: &Path, public: &[String], mech_public: &[Strin
 			// The KB's rule (kb.rs): high needs two agreeing groups. Without the site's groups:
 			// two or more public ones keep the row; one keeps its status at medium; none leaves
 			// only a marker of a driving mechanic (status withheld, low).
-			let private = srcs.iter().any(|s| mech_private.contains(s));
-			let kept: Vec<&String> = srcs.iter().filter(|s| mech_public.contains(s)).collect();
+			let private_corr = srcs.iter().any(|s| s == "correction") && !public_mech(quest);
+			let private = private_corr || srcs.iter().any(|s| mech_private.contains(s));
+			let kept: Vec<&String> = srcs.iter().filter(|s| mech_public.contains(s) && !(private_corr && *s == "correction")).collect();
 			let srcs_json = serde_json::to_string(&kept).unwrap();
 			match kept.len() {
 				0 if drives == Some(1) => {
@@ -240,8 +255,13 @@ pub fn public_kb(from: &Path, to: &Path, public: &[String], mech_public: &[Strin
 		let picked = step_cols.iter().map(|c| if c == "evidence" { "null".to_string() } else { format!("\"{c}\"") }).collect::<Vec<_>>().join(", ");
 		let srcs = STEP_SOURCES.iter().map(|x| format!("'{x}'")).collect::<Vec<_>>().join(", ");
 		let ev = SITE_EVIDENCE.iter().map(|x| format!("'{x}'")).collect::<Vec<_>>().join(", ");
+		let corr = if has_origin {
+			"(source != 'correction' or quest in (select id from src.correction_origin where kind = 'mechanic' and field = '*' and origin = 'public'))"
+		} else {
+			"source != 'correction'"
+		};
 		tx.execute(
-            &format!("insert into steps ({cols}) select {picked} from src.steps where confidence = 'high' and source in ({srcs}) and not exists (select 1 from json_each(coalesce(src.steps.evidence, '[]')) where value in ({ev}))"),
+            &format!("insert into steps ({cols}) select {picked} from src.steps where confidence = 'high' and source in ({srcs}) and {corr} and not exists (select 1 from json_each(coalesce(src.steps.evidence, '[]')) where value in ({ev}))"),
             [],
         )
         .map_err(e)?;

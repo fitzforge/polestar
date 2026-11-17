@@ -94,7 +94,7 @@ return {
 	["Gelkis: the valley's mouth"] = "吉爾吉斯：山谷入口",
 	-- {quest:92846} Outcast Necromancers · {npc:253177} Nerlokh · {npc:253136} Orgrul
 	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager
-	["From the quest data: the Undead Ravagers and the {quest:92846} fill the valley from {npc:253177} north-east to {npc:253136}'s post at its northern mouth; players have met them all along it. {npc:253136}'s Magram are hostile to a friend of the Gelkis. Corpsefeeders, elite and level 45, walk the valley and attack anyone."] = "依任務資料：不死掠奪者和{quest:92846}遍布山谷，從{npc:253177}一直往東北到山谷北側入口{npc:253136}的崗哨；玩家在整條路上都遇到過他們。{npc:253136}的瑪格拉姆對吉爾吉斯的朋友有敵意。45級精英食屍者在山谷中走動，會攻擊任何人。",
+	["From the quest data: the Undead Ravagers and the {quest:92846} fill the valley from {npc:253177} north-east to {npc:253136}'s post at its northern mouth; players have met them all along it. {npc:253136}'s Magram are hostile to a friend of the Gelkis. Corpsefeeders, elite and level 45, walk the valley and attack anyone.\nCareful: Undead Ravagers up to level 45 can roam the valley: watch for them."] = "依任務資料：不死掠奪者和{quest:92846}遍布山谷，從{npc:253177}一直往東北到山谷北側入口{npc:253136}的崗哨；玩家在整條路上都遇到過他們。{npc:253136}的瑪格拉姆對吉爾吉斯的朋友有敵意。45級精英食屍者在山谷中走動，會攻擊任何人。\n小心：最高45級的不死掠奪者可能在山谷中遊蕩，請留意。",
 
 	-- Step 13: Gelkis: Facing the Truth
 	-- {quest:93041} Facing the Truth
@@ -316,4 +316,6 @@ return {
 	["The totem recipes"] = "圖騰配方",
 	-- {quest:93224} Carved Centaur Totems · {item:273613} Enchant Bracer - Lesser Agility · {item:250941} Greater Frenzy Potion · {item:250538} Hard Gold Gauntlet · {item:250606} Iron Morningstar · {item:252462} Mystic Thick Armor Kit · {item:253973} Silk Reagent Bag · {item:10011} Stormcloth Gloves · {item:274490} Centaur Hoofwarmers · {item:269900} Centaur Banner Deployment Device · {item:269902} Hoof-Shaped Foot Pedal
 	["Both quartermasters sell the same 12 recipes for {quest:93224}, no standing needed: {item:273613} and - Lesser Healing Power; Greater Spellblasting and {item:250941}; {item:250538} and {item:250606} plans; {item:252462}, {item:253973}, {item:10011} and {item:274490} patterns; the {item:269900} and {item:269902} schematics. Keep the totems you need for them before you hand the rest in."] = "兩名軍需官都出售相同的12種配方，用{quest:93224}兌換，不需要聲望：{item:273613}和附魔護腕 - 次級治療能量；強效法爆藥水和{item:250941}；{item:250538}和{item:250606}設計圖；{item:252462}、{item:253973}、{item:10011}和{item:274490}圖樣；以及{item:269900}和{item:269902}結構圖。交出其餘圖騰之前，先留下兌換所需的份量。",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
 }
