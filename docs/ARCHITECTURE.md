@@ -7967,7 +7967,8 @@ Hold: area 1216 under Azshara; The Shaper's Terrace: 16985 under Un'Goro
 Crater), null when it names none (Alcaz Prison); and the page's `attunement`
 list (below). A quest Forever hands in at one talk, never in the log
 (`quests.json` `direct`: Pozzik's Indurium Ore), carries `direct` (#2241). No
-loot tables. The page also carries the instance's Map id
+loot: each boss's known item ids from release-safe drop facts, leaving out the
+common world-drop pool and quest items. The page also carries the instance's Map id
 (`map`): the list shows the dungeon's name in the client's language
 (`Names.Instance`) and its zone's (`C_Map`); attunement notes are our prose,
 read through `L[note]` (`forge i18n keys` lists them from

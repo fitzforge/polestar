@@ -10,7 +10,7 @@ use forge_guide::js::{str_to_num, Obj, V};
 use regex::Regex;
 use rustc_hash::{FxHashMap, FxHashSet};
 
-use super::client::InstanceFacts;
+use super::client::{ClientFacts, ClientItem, InstanceFacts};
 use super::util::{by_num, key, kstr, math_round, norm, norm_s, num0, oentries, ord, round1, slug};
 
 const MIN_LOOT: f64 = 1.0;
@@ -196,7 +196,7 @@ pub struct Ctx<'a> {
 	pub recorded: &'a V,
 	pub entrance_table: &'a V,
 	pub curated: &'a [GuideGoto],
-	pub quality: &'a dyn Fn(f64) -> Option<f64>,
+	pub client: &'a ClientFacts,
 	pub web: Option<&'a V>,
 }
 
@@ -209,6 +209,22 @@ pub struct Built {
 
 /// (item, chance|null, common)
 type LootRow = (f64, Option<f64>, bool);
+
+fn journal_item(client: Option<&ClientItem>, item: &V) -> bool {
+	if item.get("questItem").truthy() {
+		return false;
+	}
+	match client.and_then(|c| c.class_id) {
+		Some(1.0 | 9.0) => true, // Bags and recipes.
+		Some(2.0 | 4.0) => client.is_some_and(|c| c.inventory_type != Some(0.0) && c.quality.is_none_or(|q| q >= 1.0)),
+		Some(15.0) => client.is_some_and(|c| c.subclass_id == Some(5.0) || (c.subclass_id == Some(2.0) && c.learn.is_some())), // Mounts and pets.
+		None => {
+			let name = item.get("name");
+			matches!(name.as_str().and_then(|s| s.split_once(": ")).map(|(kind, _)| kind), Some("Recipe" | "Pattern" | "Plans" | "Schematic" | "Formula" | "Design" | "Technique"))
+		}
+		_ => false,
+	}
+}
 
 fn chance_of(d: &V) -> f64 {
 	math_round((d.get("count").num() / d.get("outof").num()) * 10000.0) / 100.0
@@ -249,24 +265,40 @@ pub fn build_instances(facts: &InstanceFacts, ctx: &Ctx) -> Built {
 	let spawnless_names: Vec<String> = by_name_order.iter().filter(|k| by_name[*k].iter().any(|&id| spawnless(&npc_of(id)))).cloned().collect();
 	let mut wh_common: FxHashSet<(String, String)> = FxHashSet::default();
 	let wh_npc_entries = oentries(&wh_npc);
-	for (npc, w) in &wh_npc_entries {
-		for d in w.get("drops").items() {
-			if d.get("common").truthy() {
-				wh_common.insert((npc.to_string(), kstr(&d.get("item"))));
+	let wh_object_entries = oentries(&wh_object);
+	for (kind, entries) in [("n", &wh_npc_entries), ("o", &wh_object_entries)] {
+		for (source, w) in entries {
+			for d in w.get("drops").items() {
+				if d.get("common").truthy() {
+					wh_common.insert((format!("{kind}{source}"), kstr(&d.get("item"))));
+				}
 			}
 		}
 	}
+	let quality = |id: f64| ctx.client.items.get(&(id as i64)).and_then(|c| c.quality).unwrap_or(0.0);
+	let mut journal_loot_of: FxHashMap<String, Vec<LootRow>> = FxHashMap::default();
+	let mut add_journal = |source: String, item: f64, it: &V, chance: Option<f64>| {
+		let id = item as i64;
+		let client_item = ctx.client.items.get(&id).filter(|c| c.class_id.is_some()).or_else(|| ctx.client.item_only.get(&id));
+		if item > 0.0 && item.is_finite() && item.fract() == 0.0 && journal_item(client_item, it) {
+			journal_loot_of.entry(source).or_default().push((item, chance, false));
+		}
+	};
 	let mut loot_of: FxHashMap<String, Vec<LootRow>> = FxHashMap::default();
 	let item_entries = oentries(items_in);
 	for (id, it) in &item_entries {
 		for (npc, chance) in oentries(&it.get("drops").get("npc")) {
 			let c = if matches!(chance, V::Null) { None } else { Some(chance.num()) };
+			let source = format!("n{npc}");
+			let common = wh_common.contains(&(source.clone(), id.to_string()));
+			if !common && c.is_none_or(|c| c > 0.0) {
+				add_journal(source, str_to_num(id), it, c);
+			}
 			if let Some(c) = c {
 				if !(c >= MIN_LOOT) {
 					continue;
 				}
 			}
-			let common = wh_common.contains(&(npc.to_string(), id.to_string()));
 			loot_of.entry(npc.to_string()).or_default().push((str_to_num(id), c, common));
 		}
 	}
@@ -274,8 +306,12 @@ pub fn build_instances(facts: &InstanceFacts, ctx: &Ctx) -> Built {
 		for d in w.get("drops").items() {
 			let c = chance_of(&d);
 			let common = d.get("common").truthy();
+			let item = d.get("item").num();
+			if !common && d.get("count").num() > 0.0 && c.is_finite() {
+				add_journal(format!("n{npc}"), item, &items_in.get(&key(item)), Some(c));
+			}
 			if !common || c >= MIN_LOOT {
-				loot_of.entry(npc.to_string()).or_default().push((d.get("item").num(), Some(c), common));
+				loot_of.entry(npc.to_string()).or_default().push((item, Some(c), common));
 			}
 		}
 	}
@@ -344,6 +380,10 @@ pub fn build_instances(facts: &InstanceFacts, ctx: &Ctx) -> Built {
 		for (obj, chance) in oentries(&it.get("drops").get("object")) {
 			yielders.entry(id.to_string()).or_default().insert(obj_key(&obj));
 			let c = if matches!(chance, V::Null) { None } else { Some(chance.num()) };
+			let source = format!("o{obj}");
+			if c.is_none_or(|c| c > 0.0) && !wh_common.contains(&(source.clone(), id.to_string())) {
+				add_journal(source, str_to_num(id), it, c);
+			}
 			if c.is_none_or(|c| c >= MIN_LOOT) {
 				obj_loot_of.entry(obj.to_string()).or_default().push((str_to_num(id), c, false));
 			}
@@ -356,14 +396,19 @@ pub fn build_instances(facts: &InstanceFacts, ctx: &Ctx) -> Built {
 			}
 		}
 	}
-	for (obj, w) in oentries(&wh_object) {
+	for (obj, w) in &wh_object_entries {
 		for d in w.get("drops").items() {
-			if !d.get("common").truthy() {
-				yielders.entry(kstr(&d.get("item"))).or_default().insert(obj_key(&obj));
-			}
 			let c = chance_of(&d);
+			let item = d.get("item").num();
+			let common = d.get("common").truthy();
+			if !common {
+				yielders.entry(kstr(&d.get("item"))).or_default().insert(obj_key(obj));
+				if d.get("count").num() > 0.0 && c.is_finite() {
+					add_journal(format!("o{obj}"), item, &items_in.get(&key(item)), Some(c));
+				}
+			}
 			if c >= MIN_LOOT {
-				obj_loot_of.entry(obj.to_string()).or_default().push((d.get("item").num(), Some(c), d.get("common").truthy()));
+				obj_loot_of.entry(obj.to_string()).or_default().push((item, Some(c), common));
 			}
 		}
 	}
@@ -591,9 +636,9 @@ pub fn build_instances(facts: &InstanceFacts, ctx: &Ctx) -> Built {
 			let wc = wc.as_str().unwrap_or("");
 			let rare = rank == 2.0 || rank == 4.0 || (w.truthy() && (wc == "rare" || wc == "rareelite"));
 			let ranked = rare || rank == 3.0 || (w.truthy() && (wc == "boss" || w.get("boss").truthy()));
-			let own = loot_of.get(&key(nid)).is_some_and(|rows| {
-				rows.iter().any(|&(item, c, _)| c.is_some_and(|c| c >= OWN_LOOT) && (ctx.quality)(item).unwrap_or(0.0) >= 2.0 && droppers.get(&key(item)).is_some_and(|s| s.len() == 1))
-			});
+			let own = loot_of
+				.get(&key(nid))
+				.is_some_and(|rows| rows.iter().any(|&(item, c, _)| c.is_some_and(|c| c >= OWN_LOOT) && quality(item) >= 2.0 && droppers.get(&key(item)).is_some_and(|s| s.len() == 1)));
 			if !ranked && !own {
 				continue;
 			}
@@ -633,7 +678,7 @@ pub fn build_instances(facts: &InstanceFacts, ctx: &Ctx) -> Built {
 				continue;
 			}
 			let rows = obj_loot_of.get(&key(id)).cloned().unwrap_or_default();
-			let own = rows.iter().any(|&(item, c, _)| c.is_none_or(|c| c >= OWN_LOOT) && (ctx.quality)(item).unwrap_or(0.0) >= 2.0 && yielders.get(&key(item)).is_some_and(|s| s.len() == 1));
+			let own = rows.iter().any(|&(item, c, _)| c.is_none_or(|c| c >= OWN_LOOT) && quality(item) >= 2.0 && yielders.get(&key(item)).is_some_and(|s| s.len() == 1));
 			let distinct: FxHashSet<u64> = rows.iter().map(|r| r.0.to_bits()).collect();
 			if !own || distinct.len() < 2 {
 				continue;
@@ -665,6 +710,7 @@ pub fn build_instances(facts: &InstanceFacts, ctx: &Ctx) -> Built {
 		inst.set("map", m.id);
 		inst.set("entrance", entrance);
 		inst.set("levels", levels);
+		let boss_sources: FxHashSet<_> = bosses.iter().flat_map(|b| b.npcs.iter().map(|&id| format!("n{}", key(id))).chain(b.object.map(|id| obj_key(&key(id))))).collect();
 		let bv: Vec<V> = bosses
 			.iter()
 			.map(|b| {
@@ -672,6 +718,23 @@ pub fn build_instances(facts: &InstanceFacts, ctx: &Ctx) -> Built {
 				o.set("name", b.name.as_str());
 				o.set("npc", b.npcs.first().map(|&x| V::Num(x)).unwrap_or(V::Null));
 				o.set("items", super::util::nums(&b.items));
+				let npc_keys: Vec<_> = b.npcs.iter().map(|&id| format!("n{}", key(id))).collect();
+				let chest = b.object.map(|o| obj_key(&key(o)));
+				let chest_ids = objects_inside.iter().filter(|&&id| chest.as_ref().is_some_and(|c| *c == obj_key(&key(id))));
+				let rows: Vec<_> = npc_keys
+					.iter()
+					.cloned()
+					.chain(chest_ids.map(|&id| format!("o{}", key(id))))
+					.filter_map(|k| journal_loot_of.get(&k))
+					.flatten()
+					.copied()
+					// shortcut: a shared drop looks unique if no release source lists another dropper or marks it common.
+					.filter(|&(item, _, _)| yielders.get(&key(item)).is_some_and(|s| s.is_subset(&boss_sources)))
+					.collect();
+				let loot = boss_items(&rows);
+				if !loot.is_empty() {
+					o.set("loot", super::util::nums(&loot));
+				}
 				if let Some(ob) = b.object.filter(|x| *x != 0.0) {
 					o.set("object", ob);
 				}

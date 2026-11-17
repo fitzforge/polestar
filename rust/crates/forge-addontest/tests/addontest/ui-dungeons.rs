@@ -955,6 +955,34 @@ fn bosses_kill_order_level_and_the_quests_each_serves_a_quest_line_opens_the_que
 }
 
 #[test]
+fn boss_drops_expand_one_boss_at_a_time_and_reuse_item_tiles() {
+	let out = run(r#"
+		local bosses = Polestar.Dungeons.Bosses("wailing-caverns")
+		bosses[1].loot = { 5187, 2041 }
+		bosses[3].loot = { 5180 }
+		Polestar.Dungeons.Open("wailing-caverns")
+		DS.SetTab("bosses")
+		local empty = DS.bossRows[2].NoLoot:IsShown()
+		DS.bossRows[1].Loot:Click()
+		local first = { DS.Shown().lootBoss, shownTexts(DS.bossLootTiles, "Name"), DS.bossLootTiles[1].psID }
+		DS.bossRows[3].Loot:Click()
+		local second = { DS.Shown().lootBoss, shownTexts(DS.bossLootTiles, "Name"), DS.bossLootTiles[1].psID, #DS.bossLootTiles }
+		DS.SetTab("map")
+		local hidden = not DS.bossLootTiles[1]:GetParent():IsShown()
+		emit({ empty = empty, first = first, second = second, hidden = hidden })"#);
+	let out = &out[0];
+	assert_eq!(out["empty"], true);
+	assert_eq!(out["first"][0], 1);
+	assert_eq!(out["first"][1], json!(["Rhahk'Zor's Hammer", "Tunic of Westfall"]));
+	assert_eq!(out["first"][2], 5187);
+	assert_eq!(out["second"][0], 3);
+	assert_eq!(out["second"][1], json!(["Necklace of Calisea"]));
+	assert_eq!(out["second"][2], 5180);
+	assert_eq!(out["second"][3], 2, "the shared tile pool is reused");
+	assert_eq!(out["hidden"], true);
+}
+
+#[test]
 fn map_the_entrance_on_its_zone_with_the_quest_givers_there() {
 	let out = run(r#"
 		-- The Barrens' painting: one art layer of 4x3 tiles.

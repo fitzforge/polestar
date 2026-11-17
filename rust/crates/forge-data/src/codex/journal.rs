@@ -1119,6 +1119,15 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 					o.set("level", nn(b.get("level")));
 					let n = jnorm(&b.get("name"));
 					o.set("encounter", encounter_of.iter().find(|x| x.0 == n).map(|x| x.1.clone()).unwrap_or(V::Null));
+					let source = inst
+						.get("bosses")
+						.items()
+						.into_iter()
+						.find(|x| b.get("npc").truthy() && x.get("npc").strict_eq(&b.get("npc")))
+						.or_else(|| inst.get("bosses").items().into_iter().find(|x| jnorm(&x.get("name")) == n));
+					if let Some(source) = source {
+						o.set("loot", source.get("loot"));
+					}
 					V::Obj(o)
 				})
 				.collect(),
@@ -1138,6 +1147,7 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 					o.set("encounter", nn(b.get("encounter")));
 					let items = b.get("items");
 					o.set("items", if items.truthy() { items } else { V::arr() });
+					o.set("loot", b.get("loot"));
 					o.set("level", if n.truthy() { or_null(n.get("level")) } else { V::Null });
 					V::Obj(o)
 				})
@@ -1199,6 +1209,10 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 				page.set("npc", npc.clone());
 				page.set("level", level);
 				page.set("quests", V::from(tied));
+				let loot = b.get("loot");
+				if !loot.is_empty() {
+					page.set("loot", loot);
+				}
 				if object.truthy() {
 					page.set("object", object.clone());
 				}
