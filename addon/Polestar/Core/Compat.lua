@@ -713,11 +713,56 @@ function Compat.GetQuestLevel(questID)
 	return type(level) == "number" and level > 0 and level or nil
 end
 
+-- The count of each item in one container (bag id), read through
+-- C_Container; an empty table where the client has no such container or API.
+local function containerCounts(bag, into)
+	local C = C_Container
+	if not (C and C.GetContainerNumSlots and (C.GetContainerItemID or C.GetContainerItemInfo)) then return into end
+	local ok, slots = pcall(C.GetContainerNumSlots, bag)
+	if not ok or type(slots) ~= "number" then return into end
+	for slot = 1, slots do
+		local info = C.GetContainerItemInfo and C.GetContainerItemInfo(bag, slot)
+		local id = type(info) == "table" and info.itemID or (C.GetContainerItemID and C.GetContainerItemID(bag, slot))
+		if type(id) == "number" then
+			local n = type(info) == "table" and tonumber(info.stackCount) or 1
+			into[id] = (into[id] or 0) + n
+		end
+	end
+	return into
+end
+
+-- The keyring's items (KEYRING_CONTAINER, bag -2): quest keys go there on
+-- their own when looted (the Durnholde jailors' keys, #2512). Read once per
+-- moment (ns.Moment, as GetQuestObjectives).
+local KEYRING = KEYRING_CONTAINER or -2
+local keyring, keyringAt, keyringMoment, bagScratch = {}, nil, nil, {}
+local function keyringCounts()
+	local now, moment = GetTime and GetTime(), ns.Moment and ns.Moment()
+	if now == nil or moment == nil or now ~= keyringAt or moment ~= keyringMoment then
+		for id in pairs(keyring) do keyring[id] = nil end
+		containerCounts(KEYRING, keyring)
+		keyringAt, keyringMoment = now, moment
+	end
+	return keyring
+end
+
 -- includeBank: the bank's too (a key left there still counts as owned).
+-- An item on the keyring counts as in the bags: clients differ on whether
+-- GetItemCount counts the keyring, so when the keyring holds the item, the
+-- bags' own slots are read too and the keyring's count is added only when
+-- GetItemCount left it out (never counted twice).
 function Compat.GetItemCount(itemID, includeBank)
 	local fn = (C_Item and C_Item.GetItemCount) or GetItemCount
 	if not fn then return 0 end
-	return fn(itemID, includeBank and true or nil) or 0
+	local n = fn(itemID, includeBank and true or nil) or 0
+	local keys = keyringCounts()[itemID]
+	if not keys then return n end
+	local bags = bagScratch
+	for id in pairs(bags) do bags[id] = nil end
+	for bag = 0, NUM_BAG_SLOTS or 4 do containerCounts(bag, bags) end
+	local inBags = includeBank and (fn(itemID) or 0) or n
+	if inBags >= (bags[itemID] or 0) + keys then return n end
+	return n + keys
 end
 
 -- Whether an item does something when used (it has a spell): Tharnariun's

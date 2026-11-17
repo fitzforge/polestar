@@ -256,9 +256,11 @@ step High Executor Darthalia
 step Durnholde Keep
   when !turnedin 498
   zone Hillsbrad Foothills
-  tip South-east of Tarren Mill. Drull and Tog'thar are chained in the keep's courtyard buildings: Jailor Eston carries the Dull Iron Key and Jailor Marlgen the Burnished Gold Key, both in the keep. Kill them, then open both locks.
-  interact 1721 quest 498.1           -- Drull's ball and chain
+  tip South-east of Tarren Mill. Drull and Tog'thar are chained in the keep's courtyard buildings, and each lock needs its key: Jailor Eston carries the Dull Iron Key for Drull's, Jailor Marlgen the Burnished Gold Key for Tog'thar's, both in the keep. Kill them first, then open both locks.
+  collect 3467                        -- Dull Iron Key, from Jailor Eston
+  collect 3499                        -- Burnished Gold Key, from Jailor Marlgen
   interact 1722 quest 498.2           -- Tog'thar's ball and chain
+  interact 1721 quest 498.1           -- Drull's ball and chain
 
 step Krusk
   when !turnedin 498

@@ -10177,18 +10177,19 @@ test('Alliance Badlands: Lotwil\'s bracers, Lucien\'s crafted bracers and Murdal
 	assert.doesNotMatch(text, /The skeleton's next task, Murdaloc/);
 });
 
-// Final route review for 0.3.5 (Alliance Stranglethorn 33-35): after Booty Bay the route flies to Sentinel
-// Hill and walks south out of Westfall to the Crystal Spine Basilisks in Stranglethorn's north-west, but
-// the step's tip still said to walk back north to a mine in the middle of the jungle.
-test('Alliance Stranglethorn: the basilisk step after the Sentinel Hill flight says the way leads south from Westfall', { skip }, () => {
+// Final route review for 0.3.5 (Alliance Stranglethorn 33-35): the basilisk step's tip must say the way the route
+// really takes there; it said to walk back north to a mine in the middle of the jungle. Since #2419 (0.4.1) the
+// loop starts at Booty Bay and reaches the basilisks west of Nesingwary's camp, with no flight to Sentinel Hill.
+test('Alliance Stranglethorn: the basilisk step\'s tip gives the way from Nesingwary\'s camp', { skip }, () => {
 	const guide = 'forever/alliance/30-40/04-stranglethorn-vale.guide';
 	const list = goals(guide);
-	const fly = at(list, 'fly Sentinel Hill', (g) => g.t === 'fly' && /Sentinel Hill/.test(g.location || ''));
+	const nesingwary = at(list, 'turnin 194', is('turnin', 194));
 	const shards = at(list, 'collect 3918 quest 605', (g) => g.t === 'collect' && g.quest === 605);
-	assert.ok(fly < shards, 'the flight to Sentinel Hill comes before the basilisks');
+	assert.ok(nesingwary < shards, 'the basilisks come after the Nesingwary hand-ins');
+	assert.ok(!list.some(({ goal }) => goal.t === 'fly' && /Sentinel Hill/.test(goal.location || '')), 'no flight to Sentinel Hill');
 	const [tip] = stepTips(guide, /collect 3918 quest 605\b/);
-	assert.doesNotMatch(tip, /back north|middle of the jungle/);
-	assert.match(tip, /Sentinel Hill/);
+	assert.doesNotMatch(tip, /back north|middle of the jungle|Sentinel Hill/);
+	assert.match(tip, /Nesingwary's camp/);
 });
 
 // Final route review for 0.3.5 (Alliance 30-32): the route flies into Ironforge and hands in at the Hall of
@@ -11359,7 +11360,7 @@ test('Alliance 30-40 audit: Stranglethorn\'s first loop hands in what it walks p
 	for (const [t, q] of [['turnin', 200], ['accept', 328]]) assert.equal(list[at(list, `${t} ${q}`, is(t, q))].s, kurzen, `${t} ${q} on the Kurzen stop`);
 	const kaleb = list[at(list, 'accept 210', is('accept', 210))];
 	assert.equal(kaleb.goal.npc, 770, 'from Corporal Kaleb');
-	assert.ok(at(list, 'turnin 210', is('turnin', 210)) < at(list, 'fly Sentinel Hill', (g) => g.t === 'fly' && /Sentinel Hill/.test(g.location || '')), 'handed to Krazek on the first Booty Bay stop');
+	assert.ok(at(list, 'turnin 210', is('turnin', 210)) < at(list, 'fly Stormwind', (g) => g.t === 'fly' && /Stormwind/.test(g.location || '')), 'handed to Krazek on this loop, before the flight out');
 	const grinds = list.filter(({ goal }) => goal.t === 'level').map(({ goal }) => goal.level);
 	// Level tidy (0.4.0): one short top-up to 33 on the Kurzen Jungle Fighters (32-33), before the elder tigers (34-35):
 	// recorded players there are at 34.3 (25th percentile), a level over the model, which the frozen level rule credits.
@@ -15967,12 +15968,12 @@ test('#2311: a complete that leads its step has a place for the arrow', { skip }
 // Point, the guide sent the player back to it, and Desolace's first step then sent them back to Nijel's Point. The
 // goto now stands in the pass, and like #2082's boat back to Auberdine the step drops once the player is in the next
 // guide's zone. The same pattern, a guide's last step a lone goto into another zone with no such gate: Desolace's
-// boat to Stormwind Harbor and Ashenvale's boat to Menethil Harbor (Alliance 30-40).
+// boat to Stormwind Harbor and Ashenvale's boat (Alliance 30-40; to Booty Bay since #2419).
 test('#2327: a leveling guide that ends on the way into another zone drops that step once you are there', { skip }, () => {
 	for (const [guide, zone] of [
 		['forever/alliance/30-40/04-stranglethorn-vale.guide', 'Desolace'],
 		['forever/alliance/30-40/02-desolace.guide', 'Stormwind City'],
-		['forever/alliance/30-40/03-ashenvale.guide', 'Wetlands'],
+		['forever/alliance/30-40/03-ashenvale.guide', 'Stranglethorn Vale'],
 		['forever/alliance/03-loch-modan.guide', 'Darkshore'],
 	]) {
 		const steps = compiled(guide).steps;
@@ -16364,6 +16365,51 @@ test('#2691: Engineering: Kor\'gar is looked for where he sells, at Powderfuse P
 	assert.deepEqual([korgar.map, korgar.x, korgar.y], [2548, 77.6, 50.95]);
 });
 
+// #2419 (Onrevax, 0.3.7.2, Alliance Stranglethorn 30-40): from Nesingwary's camp the guide walked the length of the
+// jungle to Booty Bay for its quests and flight point, flew to Sentinel Hill and walked back in to do them in the
+// north. 30-40/03 ends in Theramore: it goes on to Ratchet, and the Stranglethorn guide starts at Booty Bay off the
+// boat, takes its quests and the inn bind, walks north once, and hearths back.
+test('#2419: Stranglethorn (Alliance): the first loop starts at Booty Bay, never walks down the jungle and back', { skip }, () => {
+	const ashenvale = goals('forever/alliance/30-40/03-ashenvale.guide');
+	const last = ashenvale.at(-1);
+	assert.ok(ashenvale.some(({ goal }) => goal.t === 'getfp' && goal.node === 80), 'Ratchet\'s flight point on the way');
+	assert.equal(last.goal.t, 'goto');
+	assert.ok(last.goal.map === 1413 && Math.abs(last.goal.x - 63.4) < 1 && Math.abs(last.goal.y - 38.5) < 1, `the guide ends at Ratchet's dock: ${last.goal.map} ${last.goal.x},${last.goal.y}`);
+	const list = goals('forever/alliance/30-40/04-stranglethorn-vale.guide');
+	const bind = at(list, 'the Booty Bay bind', (g) => g.t === 'sethome');
+	assert.ok(bind < at(list, 'accept 583', is('accept', 583)), 'Booty Bay first');
+	for (const q of [575, 605, 198, 201, 578]) assert.ok(at(list, `accept ${q}`, is('accept', q)) < at(list, 'accept 583', is('accept', 583)), `${q} from Booty Bay first`);
+	const nodes = list.filter(({ goal }) => goal.t === 'fly').map(({ goal }) => goal.node);
+	assert.ok(!nodes.includes(4) && !nodes.includes(12), `no flight to Sentinel Hill or Darkshire: ${nodes}`);
+	assert.equal(list.filter(({ goal }) => goal.t === 'getfp' || goal.t === 'sethome').length, 2, 'one Booty Bay stop with the bind');
+	// What Booty Bay sends north is done on the first visits there, not on a trip back.
+	assert.ok(at(list, 'complete 201', is('complete', 201)) < at(list, 'accept 185', is('accept', 185)), 'Investigate the Camp on the first Nesingwary stop');
+	assert.ok(at(list, 'turnin 198', is('turnin', 198)) < at(list, 'Kurzen kills', (g) => g.t === 'kill' && g.quest === 203), 'Thorsen\'s supplies on the first Rebel Camp stop');
+});
+
+// #2587 (swork1, 0.4.0, Alliance Wetlands): the Dun Modr stop offered Spark of Freedom to a group but not Motley's The
+// Dark Iron War or Ashlan's Bring Back a Bang, group quests among the same elite Dark Irons. They are asked the same way:
+// only a player who chooses the group way gets them, the solo route never does.
+test('#2587: Wetlands (Alliance): The Dark Iron War and Bring Back a Bang are group choices on the Dun Modr stop', { skip }, () => {
+	const list = goals('forever/alliance/30-40/01-hillsbrad-foothills.guide');
+	const group = (q) => ({ step }) => (step.when || []).some((p) => p.k === 'group' && p.q === q && !p.neg);
+	for (const q of [303, 88756]) {
+		const work = list.filter(({ goal }) => goal.quest === q && goal.t !== 'turnin');
+		assert.ok(work.length >= 2, `${q}: accept and work in the guide`);
+		for (const e of work) assert.ok(group(q)(e), `${q}: every accept and objective in a \`when group ${q}\` step (${e.goal.t})`);
+		const handIn = list[at(list, `turnin ${q}`, is('turnin', q))];
+		assert.ok((handIn.step.when || []).some((p) => p.k === 'complete'), `${q}: handed in by whoever completed it`);
+	}
+	const camp = list[at(list, 'turnin 472', is('turnin', 472))].s;
+	const span = at(list, 'turnin 631', is('turnin', 631));
+	for (const q of [303, 88756]) {
+		const { goal, s } = list[at(list, `accept ${q}`, is('accept', q))];
+		assert.ok(s > camp && goal.npc, `${q}: taken from its giver in the camp after the Dun Modr stop`);
+		assert.ok(at(list, `accept ${q}`, is('accept', q)) < span, `${q}: before the Thandol Span`);
+	}
+	assert.ok(at(list, 'collect the explosives', (g) => g.t === 'collect' && g.quest === 88756) < span, 'Direforge Hill before the Thandol Span');
+});
+
 // #2684 (Gilfy, 0.4.0.1, Alliance Hinterlands): Repurposed Totems' step said only to kill the Vilebranch Soothsayers,
 // but Vilebranch Totems also lie on the ground among them (players' recordings: 30 totems from the ground object for 4
 // people, 12 from the Soothsayers for 5). The step's tip says so.
@@ -16384,4 +16430,26 @@ test('#2673: Hillsbrad (Horde): the guide ends at Orgrimmar\'s wind rider master
 	assert.ok(Math.hypot(goal.x - 45.12, goal.y - 63.89) <= 0.5, `at the wind rider master: ${goal.x},${goal.y}`);
 	const next = compiled('forever/horde/04-the-barrens.guide').steps[0].goals;
 	assert.ok(next.some((g) => g.t === 'fly'), 'the next guide opens with a flight');
+});
+
+// Acen (#2512, Tauren Hunter 30, 0.3.7.2): the Durnholde Keep step went straight to the two locked balls and chains,
+// and each needs its jailor's key (players' recordings: Jailor Eston's loot held the Dull Iron Key for 37 people,
+// Jailor Marlgen's the Burnished Gold Key for 40). The keys are goals of their own before the locks, on the same
+// step, Tog'thar's lock beside the jailors first and Drull's on the way back west. The keys sit on the keyring:
+// Compat.GetItemCount counts it (forge-addontest compat.rs).
+test("forever/horde/30-40/01-hillsbrad-foothills.guide: Acen's report (#2512): the jailors' keys before their locks", { skip }, () => {
+	const list = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	const key = (item, npc) => {
+		const i = at(list, `collect ${item}`, (g) => g.t === 'collect' && g.item === item);
+		assert.equal(list[i].goal.fromId, npc, `collect ${item} leads to its jailor ${npc}`);
+		return i;
+	};
+	const lock = (object) => at(list, `interact ${object}`, (g) => g.t === 'interact' && g.object === object && g.quest === 498);
+	const dull = key(3467, 2427);
+	const gold = key(3499, 2428);
+	const drull = lock(1721);
+	const togthar = lock(1722);
+	assert.ok(dull < drull && gold < togthar, 'each key before its lock');
+	assert.ok(togthar < drull, "Tog'thar's lock beside the jailors first, Drull's on the way back");
+	assert.ok([dull, gold, drull, togthar].every((i) => list[i].s === list[drull].s), 'one step');
 });

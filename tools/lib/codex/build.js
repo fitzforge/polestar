@@ -245,6 +245,7 @@ function sortKeysDeep(v) {
 //   creates: { item: [spellId] } (SpellEffect 24, create item; no profession's spell) }
 function clientFacts(tables, build = null) {
 	const items = {};
+	const itemOnly = {};
 	for (const r of tables.ItemSparse || []) {
 		const id = int(r.ID);
 		if (!id) continue;
@@ -266,8 +267,9 @@ function clientFacts(tables, build = null) {
 		};
 	}
 	for (const r of tables.Item || []) {
-		const it = items[int(r.ID)];
-		if (!it) continue;
+		const id = int(r.ID);
+		if (!id) continue;
+		const it = items[id] || (itemOnly[id] = {});
 		it.classId = int(r.ClassID);
 		it.subclassId = int(r.SubclassID);
 		it.inventoryType = int(r.InventoryType);
@@ -279,7 +281,7 @@ function clientFacts(tables, build = null) {
 	for (const r of tables.ItemEffect || []) if (r.ParentItemID) links.push({ item: int(r.ParentItemID), effect: r });
 	links.sort((a, b) => a.item - b.item || int(a.effect && a.effect.ID) - int(b.effect && b.effect.ID));
 	for (const { item, effect } of links) {
-		const it = items[item];
+		const it = items[item] || itemOnly[item];
 		if (!it || !effect) continue;
 		const spell = int(effect.SpellID);
 		if (!spell) continue;
@@ -339,7 +341,7 @@ function clientFacts(tables, build = null) {
 	// Mount.Flags 0x40: hidden from the mount journal until known (retired mounts).
 	const mountHidden = new Set((tables.Mount || []).filter((r) => (int(r.Flags) || 0) & 0x40).map((r) => int(r.SourceSpellID)).filter(Boolean));
 	const petSpells = new Set([...(tables.BattlePetSpecies || []).map((r) => int(r.SummonSpellID)).filter(Boolean), ...summonsPet]);
-	return { build, items, spellNames, mountAura, teaches, mountSpells, mountHidden, petSpells, skillLines, skillAbility, mountSkill: [...new Set(mountSkill)].sort(byId), companionSkill: [...new Set(companionSkill)].sort(byId), spellClass, creates };
+	return { build, items, itemOnly, spellNames, mountAura, teaches, mountSpells, mountHidden, petSpells, skillLines, skillAbility, mountSkill: [...new Set(mountSkill)].sort(byId), companionSkill: [...new Set(companionSkill)].sort(byId), spellClass, creates };
 }
 
 // ---------------------------------------------------------------------------
@@ -788,7 +790,7 @@ function mergeCodex(inputs) {
 			recorded: fv.instances || {},
 			entranceTable: inputs.entranceTable || {},
 			curated: inputs.entrances || [],
-			quality: (id) => (cl.items[id] ? cl.items[id].quality : null),
+			client: cl,
 			web: wh,
 		});
 		Object.assign(instances, built.instances);

@@ -812,7 +812,7 @@
 			{ "node": "tests/guides-caves.test.js", "test": "Bennistrov (#1336): Insane Druids' arrow led over the hill above The Dor'Danil Barrow Den" }
 		] },
 		"1338": { "tests": [
-			{ "node": "tests/guides-floors.test.js", "test": "every guide's goal at an NPC upstairs in ${b.name} comes after a goto at its door (#1338)" },
+			{ "node": "tests/guides-floors.test.js", "test": "every guide's goal in ${b.name} comes after a goto at its way in (${b.issue})" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "a_way_in_reaches_past_goals_at_the_target_s_own_spot_1338_the_optional_turn_in_before_the_accept" }
 		] },
 		"1339": { "tests": [
@@ -1458,6 +1458,22 @@
 		] },
 		"2686": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_follow_up_handed_in_at_one_talk_is_never_taken_its_items_come_first_then_the_hand_in_2686_bloodpetal_sprouts" }
+		] },
+		"2509": { "tests": [
+			{ "node": "tests/guides-floors.test.js", "test": "every guide's goal in ${b.name} comes after a goto at its way in (${b.issue})" }
+		] },
+		"2203": { "tests": [
+			{ "node": "tests/guides-floors.test.js", "test": "every guide's goal in ${b.name} comes after a goto at its way in (${b.issue})" }
+		] },
+		"2512": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "forever/horde/30-40/01-hillsbrad-foothills.guide: Acen's report (#2512): the jailors' keys before their locks" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/compat.rs", "test": "getitemcount_counts_a_key_on_the_keyring_once_whether_the_client_counts_the_keyring_or_not" }
+		] },
+		"2672": { "tests": [
+			{ "node": "tests/data-corrections.test.js", "test": "quest givers who walk a path have points along it, not one spot (#2519, #2672, #1237)" }
+		] },
+		"2433": { "tests": [
+			{ "node": "tests/travel-chains.test.js", "test": "a Druid with Teleport: Moonglade goes from Stormwind to Darnassus by Moonglade, not the boat (#2433, #2463)" }
 		] }
 	},
 	"seedDrift": {

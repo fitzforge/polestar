@@ -21,7 +21,6 @@ return {
 	-- {npc:10219} Gwennyth Bly'Leggonde · {zone:1438} Teldrassil
 	["{npc:10219} (Night Elves have it from {zone:1438})"] = "{npc:10219}（夜精靈從{zone:1438}那裡就能接到）",
 	-- {npc:10216} Gubber Blump
-	-- was: ["{npc:10216}, on the pier: only with {skill:356}"] = "{npc:10216}，在碼頭上：只有在學會{skill:356}時"
 	["{npc:10216}, on the pier"] = "{npc:10216}，在碼頭上",
 
 	-- Step 3: Gubber Blump
