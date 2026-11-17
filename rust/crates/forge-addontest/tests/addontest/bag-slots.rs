@@ -190,7 +190,7 @@ fn baganator_assigns_four_distinct_widget_corners() {
 		BAGANATOR_CORNERS,
 		r#"
 -- The leftover's full-slot border is excluded: quest-class items never get the upgrade arrow.
-local ids = { "polestar_upgrade", "polestar_quest_needed", "polestar_step_item", "polestar_kept_item" }
+local ids = { "polestar_upgrade", "polestar_quest_needed", "polestar_step_item", "polestar_keep_lock" }
 local corners, seen = {}, {}
 for _, id in ipairs(ids) do
  local corner = bagCorners[id]

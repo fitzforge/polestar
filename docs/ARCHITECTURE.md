@@ -1297,7 +1297,7 @@ arrow, pins) works in world coordinates and converts back to live map percent
 with `Compat.WorldToMap`. Coordinates without `f` are live-frame (recorded in
 Forever) and use `C_Map.GetWorldPosFromMapPos` directly.
 
-### Core services: Data, Hooks, Search, BagSlots
+### Core services: Data, Hooks, Search
 
 Shared by every module (summarised in `docs/SUITE.md`, "Runtime services");
 each file's header lists its full API.

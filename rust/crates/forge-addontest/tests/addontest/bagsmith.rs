@@ -54,7 +54,7 @@ emit(result)
 			("polestar_quest_needed", "top_right", 16.0),
 			("polestar_quest_leftover", "top_left", 60.8),
 			("polestar_step_item", "bottom_left", 19.2),
-			("polestar_kept_item", "bottom_left", 14.0),
+			("polestar_keep_lock", "bottom_left", 14.0),
 		] {
 			assert_eq!(out[1][id]["list"], true);
 			assert_eq!(out[1][id]["corner"], corner);
@@ -103,7 +103,7 @@ fn bagsmith_verdicts_follow_settings_items_and_refresh_events() {
 		API,
 		r#"
 local G, Q, QoL = Polestar.Gear, Polestar.QuestDB, Polestar.QoL
-assert(widgets.polestar_upgrade and widgets.polestar_quest_needed and widgets.polestar_step_item and widgets.polestar_kept_item)
+assert(widgets.polestar_upgrade and widgets.polestar_quest_needed and widgets.polestar_step_item and widgets.polestar_keep_lock)
 G.IsUpgrade = function(link) return link == "item:9002" end
 G.FillsEmptySlot = function() return false end
 Q.IsRunning = function() return true end
@@ -117,8 +117,8 @@ local function verdict(id, details) return widgets[id].update(nil, details) end
 emit({verdict("polestar_upgrade", {itemLink = "item:9002"}), verdict("polestar_upgrade", {itemLink = "item:9004"}),
  verdict("polestar_quest_needed", {itemLink = "item:9002"}), verdict("polestar_quest_needed", {}),
  verdict("polestar_quest_leftover", {itemID = 9004}), verdict("polestar_quest_leftover", {itemID = 9002}),
- verdict("polestar_step_item", {itemID = 9002}), verdict("polestar_kept_item", {itemID = 9003}),
- verdict("polestar_kept_item", {itemID = 9002})})
+ verdict("polestar_step_item", {itemID = 9002}), verdict("polestar_keep_lock", {itemID = 9003}),
+ verdict("polestar_keep_lock", {itemID = 9002})})
 for _, w in pairs(widgets) do assert(w.update(nil, nil) == false); assert(w.update(nil, {}) == false) end
 refreshes = 0
 Polestar.Fire("GEAR_UPDATED"); stub.advance(0.3)
@@ -132,13 +132,13 @@ Polestar.Fire("STEP_CHANGED"); stub.advance(0.3)
 assert(refreshes > 0)
 assert(not verdict("polestar_step_item", {itemID = 9002}))
 assert(verdict("polestar_step_item", {itemID = 9003}))
-assert(not verdict("polestar_kept_item", {itemID = 9003}))
+assert(not verdict("polestar_keep_lock", {itemID = 9003}))
 Polestar.Set("gear.bagArrows", false)
 Polestar.Set("qol.questBagMarks", false)
 Polestar.Set("qol.bagGlow", false)
 stub.advance(0.3)
 emit({verdict("polestar_upgrade", {itemLink = "item:9002"}), verdict("polestar_quest_needed", {itemLink = "item:9002"}),
- verdict("polestar_quest_leftover", {itemID = 9004}), verdict("polestar_step_item", {itemID = 9002}), verdict("polestar_kept_item", {itemID = 9003})})
+ verdict("polestar_quest_leftover", {itemID = 9004}), verdict("polestar_step_item", {itemID = 9002}), verdict("polestar_keep_lock", {itemID = 9003})})
 hidden = true; refreshes = 0
 G.Bags.Redraw(); Q.RedrawBagMarks(); QoL.BagGlow.Redraw()
 emit(refreshes)

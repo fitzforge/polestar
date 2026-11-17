@@ -45,7 +45,10 @@ local LAYER = 2 -- OVERLAY sublevel: under the upgrade arrow (3) and the search 
 local WIDGET = "polestar_step_item" -- bag addon corner widget id
 local LOCK = "Interface\\PetBattles\\PetBattle-LockIcon"
 local LOCK_SIZE = 14
-local KEEP_WIDGET = "polestar_kept_item" -- bag addon corner widget id of the lock
+-- Bag addon corner widget id of the lock. A new id (it was polestar_kept_item):
+-- Baganator and BagSmith place a widget at its default corner only once per
+-- id, so players who had the old one get the lock bottom-left too (#2704).
+local KEEP_WIDGET = "polestar_keep_lock"
 
 local function paint(t)
 	local T = ns.Theme

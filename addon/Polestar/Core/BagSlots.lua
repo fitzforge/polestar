@@ -1,6 +1,6 @@
 -- Polestar.BagSlots: the one owner of bag slot hooks and addon registration,
 -- so modules paint their marks instead of each hooking the same bags.
--- Contract: docs/ARCHITECTURE.md, "Core services: Data, Hooks, Search, BagSlots".
+-- Contract: docs/ARCHITECTURE.md, "Core services: Data, Hooks, Search".
 --
 --   BagSlots.Painter(owner, fn(button, view, itemID, link))
 --       view "client" (anchor on the button) or "ellesmere" (anchor on
