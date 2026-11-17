@@ -7204,18 +7204,53 @@ ground (`buttons.backing`, `backingColor`), the edge through `paintBorder`
 wash, the opacity (`buttons.idleAlpha`, `alpha`), then the skin's
 `actionButton` hook with kinds `targetRow` (parts `ground`, `icon` the
 portrait, `highlight`, `label` the name, `count`, `note`, `crosshair`, `wash`,
-`flash`) and `targetMark` (`ground`, `icon`, `highlight`, `label`). A row
+`flash`, and a tile's `bar` and `badge`) and `targetMark` (`ground`, `icon`,
+`highlight`, `label`). A row
 with one close keeps a green edge (at least 2 px, the border's thickness when
 thicker) with the border off too. The settings' previews (the Buttons page's
 set, Install's Targeting page) draw the list with the same code on plain
 frames: `Buttons.NewListFaces(parent, n)` and
 `Buttons.PaintListFaces(faces, targetFace, entries[, side])`, never a secure
 template.
+The list's look is `qol.targetListStyle` (`TL.STYLES`): `full` (the rows
+above), `slim` (150 by 20, an 18 px face, name and count, the item line only
+in the tooltip), `names` (slim with no face: `noFace` hides the face,
+crosshair and model; the green wash and edge still mark one close), and two
+portrait looks, `column` and `strip` (32 px tiles, stacked or side by side;
+`ListRect` and `PlaceList` lay a strip out across, so in a column layout it
+does not push the rare button down). A tile shows the face alone with how many
+are left (`leftText`: none once done or for a goal of one) on a badge, a bar
+along its foot in its kind's colour (green while close), the green wash and
+flash over the face, and a finished goal's face and crosshair greyed, with no
+green while its mob is close (`TL.tileDone`; the model is dimmed by a dark
+texture, as a `PlayerModel` cannot be desaturated). The count, bar, badge,
+dimming and a tile's wash and flash sit on `r.Over`, a plain child frame two
+levels above the row, since the model (a child frame) draws above the row's
+own regions. A tile's name and full count are in its tooltip; with
+`qol.targetCloseName` (on by default) the close one's name stands beside a
+column's tile, away from the button, or under a strip's (over it when the
+strip stands over a row of buttons with `buttons.listUp`, from `r.psUp`; not
+for a finished goal, which needs no finding). A row's size is secure, so
+`PlaceList` stamps the style on each row with its size (`r.psStyle`,
+`r.psSide`, `r.psUp`) and `TL.layout` lays out the regions for that stamped
+style, not the setting: a style changed in a fight waits for its end as a
+whole, while counts and the close name, plain regions, keep following.
+`qol.targetPortraits` chooses the faces in every style but `names`: `model`
+(default: the creature's model once the client has it, `paintModel`) or
+`flat`, which never draws a model: the game's flat portrait
+(`SetPortraitTexture`) of a unit of that name once one is close (the target or
+a nameplate), drawn once per name onto a texture of its own (`r.Flat`) and
+kept while the row names it (`r.flatOf`), through switches to 3D or names
+only; before that the verb's glyph (`Buttons.TargetLook`, `r.face == "icon"`)
+with no crosshair behind it, in the kind's colour or green while close. A
+change of either setting, or of a whole profile, repaints the faces
+(`TL.paintFacesSoon`).
 Names, macros and visibility change only with the button's own secure apply,
 so in combat the rows keep the last list until `PLAYER_REGEN_ENABLED`.
 `Buttons.TargetInfo` gives each name's creature id, the collect item and its
 drop chance (`QuestDB.GetObjectiveMobs`'s second value, `GetItemDroppers`);
-the row shows the item, its tooltip the chance too. A row's count ("3/8") is
+a full row shows the item, its tooltip (in every style) the chance too. A
+row's count ("3/8") is
 its first goal's `progress` of kind `count`; it is plain text, repainted on
 every refresh outside the signature, so it follows kills and loot in combat.
 The face is plain textures and a `PlayerModel`, so it changes in combat: the
