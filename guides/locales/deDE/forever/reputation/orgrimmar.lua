@@ -101,7 +101,7 @@ return {
 	["{quest:827}: the {item:14544}"] = "{quest:827}: das {item:14544}",
 	-- {quest:827} Skull Rock · {faction:76} Orgrimmar
 	-- plural, as words: Burning Blade Fanatics = {npc:3197} Burning Blade Fanatic
-	["{quest:827} is the cave just east of {faction:76}. Burning Blade Fanatics and Apprentices inside drop the insignia about one kill in five."] = "{quest:827} ist die Höhle gleich östlich von {faction:76}. Die Fanatiker und Lehrlinge der Brennenden Klinge darin lassen das Abzeichen bei etwa jedem fünften Kill fallen.",
+	["{quest:827} is the cave just east of {faction:76}. Burning Blade Fanatics and Apprentices inside drop the insignia about one kill in five."] = "{quest:827} ist die Höhle gleich östlich von {faction:76}. Die Burning Blade Fanatics und Apprentices darin lassen das Abzeichen bei etwa jedem fünften Kill fallen.",
 
 	-- Step 15: Orgrimmar: Thrall and Neeru Fireblade
 	-- {faction:76} Orgrimmar · {npc:4949} Thrall · {npc:3216} Neeru Fireblade
@@ -166,7 +166,7 @@ return {
 	-- {area:369} Thunder Ridge · {area:410} Razorwind Canyon
 	["{area:369} and {area:410}"] = "{area:369} und {area:410}",
 	-- {npc:3203} Fizzle Darkstorm · {area:369} Thunder Ridge · {faction:76} Orgrimmar · {area:410} Razorwind Canyon · {area:362} Razor Hill · {item:4891} Kron's Amulet
-	["{npc:3203} keeps a Burning Blade camp in {area:369}, south of {faction:76}, among the thunder lizards. The supply sacks lie in {area:410}, north of {area:362}. {item:4891} drops from the crocolisks along the river to the west, about one in ten."] = "{npc:3203} hat ein Lager der Brennenden Klinge in {area:369}, südlich von {faction:76}, zwischen den Donnerechsen. Die Vorratssäcke liegen in {area:410}, nördlich von {area:362}. {item:4891} lassen die Krokilisken am Fluss im Westen fallen, etwa jeder zehnte.",
+	["{npc:3203} keeps a Burning Blade camp in {area:369}, south of {faction:76}, among the thunder lizards. The supply sacks lie in {area:410}, north of {area:362}. {item:4891} drops from the crocolisks along the river to the west, about one in ten."] = "{npc:3203} hat ein Lager der Burning Blade in {area:369}, südlich von {faction:76}, zwischen den Donnerechsen. Die Vorratssäcke liegen in {area:410}, nördlich von {area:362}. {item:4891} lassen die Krokilisken am Fluss im Westen fallen, etwa jeder zehnte.",
 
 	-- Step 26: Rezlak and Misha
 	-- {npc:3293} Rezlak

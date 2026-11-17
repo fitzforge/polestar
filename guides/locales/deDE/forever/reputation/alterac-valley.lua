@@ -158,9 +158,9 @@ return {
 
 	-- Step 23: Earned Reverence
 	-- {npc:13219} Jekyll Flandring · {item:19099} Glacial Blade · {item:19101} Whiteout Staff · {npc:14751} Frostwolf Battle Standard · {zone:1459} Alterac Valley · {zone:1461} Arathi Basin · {zone:1460} Warsong Gulch
-	["Revered: insignia rank 4, 150 reputation. Revered to Exalted is 21000 reputation, half the climb. Revered opens the weapons at {npc:13219}: {item:19099}, {item:19101} and Frostbite (31g53s to 39g71s), and the {npc:14751} (5g). At 51 and up For Great Honor (3 marks each from {zone:1459}, {zone:1461} and {zone:1460}) pays 200 the first time and 150 after, plus reputation for the other two battlegrounds."] = "Respektvoll: Abzeichen Rang 4, 150 Ruf. Von Respektvoll bis Ehrfürchtig sind es 21000 Ruf, die Hälfte des Weges. Respektvoll schaltet die Waffen bei {npc:13219} frei: {item:19099}, {item:19101} und Frostbite (31g53s bis 39g71s), und das {npc:14751} (5g). Ab Stufe 51 zahlt Große Ehre (je 3 Abzeichen von {zone:1459}, {zone:1461} und {zone:1460}) beim ersten Mal 200 und danach 150, dazu Ruf für die beiden anderen Schlachtfelder.",
+	["Revered: insignia rank 4, 150 reputation. Revered to Exalted is 21000 reputation, half the climb. Revered opens the weapons at {npc:13219}: {item:19099}, {item:19101} and Frostbite (31g53s to 39g71s), and the {npc:14751} (5g). At 51 and up For Great Honor (3 marks each from {zone:1459}, {zone:1461} and {zone:1460}) pays 200 the first time and 150 after, plus reputation for the other two battlegrounds."] = "Respektvoll: Abzeichen Rang 4, 150 Ruf. Von Respektvoll bis Ehrfürchtig sind es 21000 Ruf, die Hälfte des Weges. Respektvoll schaltet die Waffen bei {npc:13219} frei: {item:19099}, {item:19101} und Frostbite (31g53s bis 39g71s), und das {npc:14751} (5g). Ab Stufe 51 zahlt For Great Honor (je 3 Abzeichen von {zone:1459}, {zone:1461} und {zone:1460}) beim ersten Mal 200 und danach 150, dazu Ruf für die beiden anderen Schlachtfelder.",
 	-- {npc:15350} Horde Warbringer
-	["{npc:15350}: For Great Honor"] = "{npc:15350}: Große Ehre",
+	["{npc:15350}: For Great Honor"] = "{npc:15350}: For Great Honor",
 	-- {npc:13219} Jekyll Flandring
 	["{npc:13219}: Revered rewards"] = "{npc:13219}: Belohnungen für Respektvoll",
 

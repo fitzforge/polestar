@@ -69,11 +69,11 @@ return {
 
 	-- Step 13: Charred Wolf Meat: ingredients
 	-- {npc:250874} Vuldren Alpha
-	["Vuldren, {npc:250874} in Zephras Isle, or wherever the arrow points"] = "Vuldren, {npc:250874} auf Zephyrinsel, oder wohin der Pfeil zeigt",
+	["Vuldren, {npc:250874} in Zephras Isle, or wherever the arrow points"] = "Vuldren, {npc:250874} auf Zephras Isle, oder wohin der Pfeil zeigt",
 
 	-- Step 14: Charred Wolf Meat (1-50)
 	-- {spell:2538} Charred Wolf Meat · {object:29784} Basic Campfire · {item:2672} Stringy Wolf Meat
-	["{spell:2538} is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own {object:29784}. The Vuldren of Zephras Isle drop {item:2672}."] = "{spell:2538} ist ab 1 orange (gelb bei 45, grün bei 65, grau bei 85): etwa 50 Herstellungen bis 50. Koch an jedem Feuer: einem Stadtfeuer oder deinem eigenen {object:29784}. Die Vuldren auf Zephyrinsel lassen {item:2672} fallen.",
+	["{spell:2538} is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own {object:29784}. The Vuldren of Zephras Isle drop {item:2672}."] = "{spell:2538} ist ab 1 orange (gelb bei 45, grün bei 65, grau bei 85): etwa 50 Herstellungen bis 50. Koch an jedem Feuer: einem Stadtfeuer oder deinem eigenen {object:29784}. Die Vuldren auf Zephras Isle lassen {item:2672} fallen.",
 
 	-- Step 16: Roasted Boar Meat: ingredients
 	-- {npc:3099} Dire Mottled Boar · {zone:1411} Durotar

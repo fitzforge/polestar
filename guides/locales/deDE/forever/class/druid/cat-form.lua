@@ -27,7 +27,7 @@ return {
 	-- {npc:11802} Dendrite Starblaze
 	["Back to {npc:11802}"] = "Zurück zu {npc:11802}",
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village
-	["Cast {spell:18960} to land by {npc:11802} in {area:2361} (nobody on Zephras Isle takes the Skyborne quest), then take {npc:11800}'s flight to {area:702}: she stands in the middle of {area:2361} and flies druids there, no flight path needed. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Wirke {spell:18960}, um bei {npc:11802} in {area:2361} zu landen (niemand auf Zephyrinsel nimmt die Himmelsgeborenen-Quest an), und nimm dann den Flug von {npc:11800} nach {area:702}: Sie steht in der Mitte von {area:2361} und fliegt Druiden dorthin, keine Flugroute nötig. {npc:11802} steht oben in seinem Gebäude: Geh drinnen nach oben, der Pfeil kann die Stockwerke nicht unterscheiden.",
+	["Cast {spell:18960} to land by {npc:11802} in {area:2361} (nobody on Zephras Isle takes the Skyborne quest), then take {npc:11800}'s flight to {area:702}: she stands in the middle of {area:2361} and flies druids there, no flight path needed. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Wirke {spell:18960}, um bei {npc:11802} in {area:2361} zu landen (niemand auf Zephras Isle nimmt die Himmelsgeborenen-Quest an), und nimm dann den Flug von {npc:11800} nach {area:702}: Sie steht in der Mitte von {area:2361} und fliegt Druiden dorthin, keine Flugroute nötig. {npc:11802} steht oben in seinem Gebäude: Geh drinnen nach oben, der Pfeil kann die Stockwerke nicht unterscheiden.",
 
 	-- Step 6: Cenarion Enclave
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {spell:768} Cat Form
@@ -49,7 +49,7 @@ return {
 
 	-- Step 11: Back to Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
-	["Cast {spell:18960} to land by {npc:11802} in {area:2361} (nobody on Zephras Isle takes the Skyborne quest), then take {npc:11798}'s flight to {area:1638}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Wirke {spell:18960}, um bei {npc:11802} in {area:2361} zu landen (niemand auf Zephyrinsel nimmt die Himmelsgeborenen-Quest an), und nimm dann den Flug von {npc:11798} nach {area:1638}. {npc:11802} steht oben in seinem Gebäude: Geh drinnen nach oben, der Pfeil kann die Stockwerke nicht unterscheiden.",
+	["Cast {spell:18960} to land by {npc:11802} in {area:2361} (nobody on Zephras Isle takes the Skyborne quest), then take {npc:11798}'s flight to {area:1638}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Wirke {spell:18960}, um bei {npc:11802} in {area:2361} zu landen (niemand auf Zephras Isle nimmt die Himmelsgeborenen-Quest an), und nimm dann den Flug von {npc:11798} nach {area:1638}. {npc:11802} steht oben in seinem Gebäude: Geh drinnen nach oben, der Pfeil kann die Stockwerke nicht unterscheiden.",
 
 	-- Step 12: To Thunder Bluff
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:768} Cat Form

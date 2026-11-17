@@ -101,7 +101,7 @@ return {
 
 	-- Step 21: Jintha'Alor
 	-- {area:354} Jintha'Alor · {npc:14757} Elder Torntusk
-	["Huntsman Malkhor's skull lies on a pile below the Vilebranch ruins, his bones on a pile at the foot of {area:354}. The Vessels of Tainted Blood sit on the lower terraces, and {npc:14757} is held at the top. The trolls inside are elite: stay with your group and keep to the paths."] = "Huntsman Malkhors Schädel liegt auf einem Haufen unterhalb der Ruinen der Vilebranch, seine Knochen auf einem Haufen am Fuß von {area:354}. Die Gefäße des Besudelten Blutes stehen auf den unteren Terrassen, und {npc:14757} wird oben festgehalten. Die Trolle darin sind Elite: Bleib bei deiner Gruppe und halte dich an die Pfade.",
+	["Huntsman Malkhor's skull lies on a pile below the Vilebranch ruins, his bones on a pile at the foot of {area:354}. The Vessels of Tainted Blood sit on the lower terraces, and {npc:14757} is held at the top. The trolls inside are elite: stay with your group and keep to the paths."] = "Huntsman Malkhors Schädel liegt auf einem Haufen unterhalb der Ruinen der Vilebranch, seine Knochen auf einem Haufen am Fuß von {area:354}. Die Vessels of Tainted Blood stehen auf den unteren Terrassen, und {npc:14757} wird oben festgehalten. Die Trolle darin sind Elite: Bleib bei deiner Gruppe und halte dich an die Pfade.",
 	-- {npc:14757} Elder Torntusk · {area:354} Jintha'Alor
 	["{npc:14757}, at the top of {area:354}"] = "{npc:14757}, oben in {area:354}",
 	-- {area:355} The Altar of Zul

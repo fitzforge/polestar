@@ -19,7 +19,7 @@ return {
 
 	-- Step 2: Lorekeeper Lydros
 	-- {npc:14368} Lorekeeper Lydros · {item:18249} Crescent Key · {item:18513} A Dull and Flat Elven Blade · {item:18489} Unfired Ancient Blade
-	["{npc:14368} stands in the Athenaeum, the library at the far end of Dire Maul West, past the Court of the Highborne and the Prison of Immol'thar. The West door needs the {item:18249}, which Pusillin drops in Dire Maul East (he runs; chase him), or a rogue to pick it. Clearing to the library needs your group of five. He takes the book, hands you {item:18513} to give straight back, then the {item:18489}. Keep that blade: lose it, and you must abandon the quest and take it again."] = "{npc:14368} steht im Athenaeum, der Bibliothek am äußersten Ende von Düsterbruch-West, hinter dem Court of the Highborne und dem Prison of Immol'thar. Die Tür nach Westen braucht {item:18249}, den Pusillin in Düsterbruch-Ost fallen lässt (er rennt weg; jag ihn), oder einen Schurken zum Knacken. Um bis zur Bibliothek zu räumen, brauchst du deine Gruppe aus fünf. Er nimmt das Buch, gibt dir {item:18513}, das du ihm direkt zurückgibst, dann {item:18489}. Behalte diese Klinge: Verlierst du sie, musst du die Quest abbrechen und erneut annehmen.",
+	["{npc:14368} stands in the Athenaeum, the library at the far end of Dire Maul West, past the Court of the Highborne and the Prison of Immol'thar. The West door needs the {item:18249}, which Pusillin drops in Dire Maul East (he runs; chase him), or a rogue to pick it. Clearing to the library needs your group of five. He takes the book, hands you {item:18513} to give straight back, then the {item:18489}. Keep that blade: lose it, and you must abandon the quest and take it again."] = "{npc:14368} steht im Athenaeum, der Bibliothek am äußersten Ende von Dire Maul West, hinter dem Court of the Highborne und dem Prison of Immol'thar. Die Tür nach Westen braucht {item:18249}, den Pusillin in Dire Maul Ost fallen lässt (er rennt weg; jag ihn), oder einen Schurken zum Knacken. Um bis zur Bibliothek zu räumen, brauchst du deine Gruppe aus fünf. Er nimmt das Buch, gibt dir {item:18513}, das du ihm direkt zurückgibst, dann {item:18489}. Behalte diese Klinge: Verlierst du sie, musst du die Quest abbrechen und erneut annehmen.",
 	-- {npc:14368} Lorekeeper Lydros
 	["{npc:14368}, in the Athenaeum"] = "{npc:14368}, im Athenaeum",
 	-- {npc:14368} Lorekeeper Lydros
@@ -44,5 +44,5 @@ return {
 
 	-- Step 5: The Forging of Quel'Serrar
 	-- {npc:14368} Lorekeeper Lydros · {item:18249} Crescent Key
-	["Back to {npc:14368} in the Athenaeum of Dire Maul West: through the West door with the {item:18249} again, and a group to reach the library."] = "Zurück zu {npc:14368} im Athenaeum von Düsterbruch-West: wieder durch die Tür nach Westen mit {item:18249} und mit einer Gruppe, um die Bibliothek zu erreichen.",
+	["Back to {npc:14368} in the Athenaeum of Dire Maul West: through the West door with the {item:18249} again, and a group to reach the library."] = "Zurück zu {npc:14368} im Athenaeum von Dire Maul West: wieder durch die Tür nach Westen mit {item:18249} und mit einer Gruppe, um die Bibliothek zu erreichen.",
 }

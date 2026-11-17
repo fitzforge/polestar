@@ -105,13 +105,13 @@ return {
 	-- Step 18: Riding at 40
 	["Riding at 40"] = "Reiten mit 40",
 	-- {npc:4752} Kildar · {object:172958} Valley of Honor · {npc:3362} Ogunaro Wolfrunner · {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff
-	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. {npc:4752} teaches Orcs in the {object:172958}, by {npc:3362}'s kennel. Skyborne learn it from {npc:265756} at the {area:17684} in {area:16638} on Zephras Isle, with a Galestrider: the skyboat to the isle leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes. Your race's other mounts are 20 gold each: Collectibles, Mounts · Level 40 has a guide for each."] = "Reiten erfordert Stufe 40 und kostet 100 Gold; wenn du es lernst, bekommst du ein Reittier. {npc:4752} unterrichtet Orcs im {object:172958}, beim Zwinger von {npc:3362}. Himmelsgeborene lernen es bei {npc:265756} in {area:17684} in {area:16638} auf Zephyrinsel, mit einem Galestrider: Das Himmelsboot zur Insel legt an den Klippen südlich von {area:17045}, nördlich von {zone:1456}, ungefähr alle fünf Minuten ab. Die anderen Reittiere deiner Rasse kosten je 20 Gold: Sammelobjekte, Reittiere · Stufe 40 hat für jedes einen Guide.",
+	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. {npc:4752} teaches Orcs in the {object:172958}, by {npc:3362}'s kennel. Skyborne learn it from {npc:265756} at the {area:17684} in {area:16638} on Zephras Isle, with a Galestrider: the skyboat to the isle leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes. Your race's other mounts are 20 gold each: Collectibles, Mounts · Level 40 has a guide for each."] = "Reiten erfordert Stufe 40 und kostet 100 Gold; wenn du es lernst, bekommst du ein Reittier. {npc:4752} unterrichtet Orcs im {object:172958}, beim Zwinger von {npc:3362}. Himmelsgeborene lernen es bei {npc:265756} in {area:17684} in {area:16638} auf Zephras Isle, mit einem Galestrider: Das Himmelsboot zur Insel legt an den Klippen südlich von {area:17045}, nördlich von {zone:1456}, ungefähr alle fünf Minuten ab. Die anderen Reittiere deiner Rasse kosten je 20 Gold: Sammelobjekte, Reittiere · Stufe 40 hat für jedes einen Guide.",
 	-- {npc:4752} Kildar
 	["{npc:4752}, riding trainer"] = "{npc:4752}, Reitlehrer",
 	-- {npc:3362} Ogunaro Wolfrunner · {npc:4752} Kildar
 	["Wolves: {npc:3362}, beside {npc:4752}."] = "Wölfe: {npc:3362}, neben {npc:4752}.",
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
-	["Riding and Galestriders: {npc:265756}, at the {area:17684} in {area:16638} on Zephras Isle."] = "Reiten und Galestrider: {npc:265756}, in den {area:17684} in {area:16638} auf Zephyrinsel.",
+	["Riding and Galestriders: {npc:265756}, at the {area:17684} in {area:16638} on Zephras Isle."] = "Reiten und Galestrider: {npc:265756}, in den {area:17684} in {area:16638} auf Zephras Isle.",
 
 	-- Step 20: Riding at 40
 	-- {npc:7953} Xar'Ti · {area:367} Sen'jin Village · {zone:1454} Orgrimmar · {zone:1411} Durotar

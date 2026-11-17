@@ -433,7 +433,7 @@ return {
 	["{area:1898} cultists"] = "Kultisten in {area:1898}",
 	-- {area:1898} Dustwind Gulch · {zone:1454} Orgrimmar · {item:6652} Reagent Pouch · {item:5026} Fire Tar
 	-- plural, as words: Burning Blade Cultists = {npc:3199} Burning Blade Cultist
-	["Burning Blade Cultists hold {area:1898}, east of the road north to {zone:1454}; they drop the {item:6652}. The {item:5026} comes from the Razormane on the next guide's first visit to their camp."] = "Kultisten der Brennenden Klinge halten {area:1898}, östlich der Straße nach Norden nach {zone:1454}; sie lassen {item:6652} fallen. {item:5026} bekommst du von den Klingenmähnen beim ersten Besuch ihres Lagers im nächsten Guide.",
+	["Burning Blade Cultists hold {area:1898}, east of the road north to {zone:1454}; they drop the {item:6652}. The {item:5026} comes from the Razormane on the next guide's first visit to their camp."] = "Kultisten der Burning Blade halten {area:1898}, östlich der Straße nach Norden nach {zone:1454}; sie lassen {item:6652} fallen. {item:5026} bekommst du von den Klingenmähnen beim ersten Besuch ihres Lagers im nächsten Guide.",
 
 	-- Step 97: To Orgrimmar
 	-- {zone:1454} Orgrimmar

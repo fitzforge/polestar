@@ -135,7 +135,7 @@ return {
 	-- {area:369} Thunder Ridge · {area:410} Razorwind Canyon
 	["{area:369} and {area:410}"] = "{area:369} und {area:410}",
 	-- {npc:3203} Fizzle Darkstorm · {area:369} Thunder Ridge · {zone:1454} Orgrimmar · {area:410} Razorwind Canyon · {area:362} Razor Hill · {item:4891} Kron's Amulet
-	["{npc:3203} keeps a Burning Blade camp in {area:369}, south of {zone:1454}, among the thunder lizards. The supply sacks lie in {area:410}, north of {area:362}. {item:4891} drops from the crocolisks along the river to the west, about one in ten."] = "{npc:3203} hat ein Lager der Brennenden Klinge in {area:369}, südlich von {zone:1454}, zwischen den Donnerechsen. Die Vorratssäcke liegen in {area:410}, nördlich von {area:362}. {item:4891} lassen die Krokilisken am Fluss im Westen fallen, etwa jeder zehnte.",
+	["{npc:3203} keeps a Burning Blade camp in {area:369}, south of {zone:1454}, among the thunder lizards. The supply sacks lie in {area:410}, north of {area:362}. {item:4891} drops from the crocolisks along the river to the west, about one in ten."] = "{npc:3203} hat ein Lager der Burning Blade in {area:369}, südlich von {zone:1454}, zwischen den Donnerechsen. Die Vorratssäcke liegen in {area:410}, nördlich von {area:362}. {item:4891} lassen die Krokilisken am Fluss im Westen fallen, etwa jeder zehnte.",
 
 	-- Step 21: Rezlak and Misha
 	-- {npc:3293} Rezlak

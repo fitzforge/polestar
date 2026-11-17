@@ -116,11 +116,11 @@ return {
 
 	-- Step 22: Riding at 40
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar · {area:279} Dalaran
-	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. Skyborne learn it from {npc:265756}, the stablemaster and riding trainer at the {area:17684} in {area:16638} on Zephras Isle, who also sells the Galestriders: the skyboat to the isle leaves the north side of {area:279} about every five minutes. Collectibles, Mounts · Level 40 lists the Galestriders."] = "Auf Stufe 40 kannst du mit 100 Gold das Reiten lernen, und beim Lernen bekommst du ein Reittier. Himmelsgeborene lernen es bei {npc:265756}, dem Stallmeister und Reitlehrer in den {area:17684} in {area:16638} auf Zephyrinsel, der auch die Galestrider verkauft: Das Himmelsboot zur Insel legt etwa alle fünf Minuten an der Nordseite von {area:279} ab. Sammlungen, Reittiere · Stufe 40 listet die Galestrider auf.",
+	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. Skyborne learn it from {npc:265756}, the stablemaster and riding trainer at the {area:17684} in {area:16638} on Zephras Isle, who also sells the Galestriders: the skyboat to the isle leaves the north side of {area:279} about every five minutes. Collectibles, Mounts · Level 40 lists the Galestriders."] = "Auf Stufe 40 kannst du mit 100 Gold das Reiten lernen, und beim Lernen bekommst du ein Reittier. Himmelsgeborene lernen es bei {npc:265756}, dem Stallmeister und Reitlehrer in den {area:17684} in {area:16638} auf Zephras Isle, der auch die Galestrider verkauft: Das Himmelsboot zur Insel legt etwa alle fünf Minuten an der Nordseite von {area:279} ab. Sammlungen, Reittiere · Stufe 40 listet die Galestrider auf.",
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
-	["Riding and Galestriders: {npc:265756}, at the {area:17684} in {area:16638} on Zephras Isle."] = "Reiten und Galestrider: {npc:265756}, in den {area:17684} in {area:16638} auf Zephyrinsel.",
+	["Riding and Galestriders: {npc:265756}, at the {area:17684} in {area:16638} on Zephras Isle."] = "Reiten und Galestrider: {npc:265756}, in den {area:17684} in {area:16638} auf Zephras Isle.",
 	-- {area:279} Dalaran
-	["Skyboat to Zephras Isle: the north side of {area:279}, about every five minutes."] = "Himmelsboot nach Zephyrinsel: die Nordseite von {area:279}, etwa alle fünf Minuten.",
+	["Skyboat to Zephras Isle: the north side of {area:279}, about every five minutes."] = "Himmelsboot nach Zephras Isle: die Nordseite von {area:279}, etwa alle fünf Minuten.",
 
 	-- Step 23: Boat to Booty Bay
 	-- {area:35} Booty Bay
