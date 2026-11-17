@@ -26,11 +26,14 @@ const path = require('node:path');
 
 const DEFAULT_RACE = { Horde: 'Orc', Alliance: 'Human' };
 
-// The tree's SIMULATE with the trace added: each visited step and each goal
-// acted on, emitted after SIMULATE's own result. The anchors are SIMULATE's
-// own lines since 0.3.x; a tree without them can't be traced.
+// The tree's SIMULATE with the trace added: each goal acted on, emitted after
+// SIMULATE's own result. With quests to skip, they are skipped (the window's
+// "Skip this quest", Engine.SkipQuest) before the play, and the simulated
+// player leaves the goals that then read "skipped" alone, as a player who
+// skipped them does (SIMULATE's open goal: the first not done, not na). The
+// anchors are SIMULATE's own lines since 0.3.x; a tree without them can't be traced.
 const ACT = 'local function act(i, g, r)\n';
-const VIEW = 'local view = E.GetStepView(i)\n';
+const OPEN = 'g.status ~= "done" and g.status ~= "na"';
 const TRACE_PRELUDE = `
 FLOW = {}
 local function FLOW_ACT(i, g, r)
@@ -41,9 +44,15 @@ end
 `;
 
 function traced(simulate, skipQuests) {
-	if (!simulate.includes(ACT) || !simulate.includes(VIEW)) throw new Error("this tree's playtest SIMULATE has no act()/GetStepView anchors: flow-diff can't trace it");
-	const skip = skipQuests.length ? `for _, q in ipairs({ ${skipQuests.join(', ')} }) do Polestar.Engine.SkipQuest(q) end\nstub.advance(0.6)\n` : '';
-	return TRACE_PRELUDE + skip + simulate.replace(ACT, `${ACT}\tFLOW_ACT(i, g, r)\n`) + '\nemit(FLOW)\n';
+	if (!simulate.includes(ACT)) throw new Error("this tree's playtest SIMULATE has no act() anchor: flow-diff can't trace it");
+	let sim = simulate.replace(ACT, `${ACT}\tFLOW_ACT(i, g, r)\n`);
+	let skip = '';
+	if (skipQuests.length) {
+		if (sim.split(OPEN).length !== 2) throw new Error("this tree's playtest SIMULATE has no single open-goal test: flow-diff can't skip quests in it");
+		sim = sim.replace(OPEN, `${OPEN} and g.status ~= "skipped"`);
+		skip = `for _, q in ipairs({ ${skipQuests.join(', ')} }) do Polestar.Engine.SkipQuest(q) end\nstub.advance(0.6)\n`;
+	}
+	return TRACE_PRELUDE + skip + sim + '\nemit(FLOW)\n';
 }
 
 const sha = (...parts) => {

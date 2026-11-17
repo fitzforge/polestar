@@ -149,12 +149,15 @@ test('travel: walking at 7 yd/s, a baked leg when it runs from where the player 
 });
 
 test('the play traces SIMULATE through its own act() and skips quests first', () => {
-	const sim = 'local function act(i, g, r)\n\tlocal t = g.t\nend\nwhile true do\n\tlocal view = E.GetStepView(i)\nend\n';
+	const sim = 'local function act(i, g, r)\n\tlocal t = g.t\nend\nfor _, g in ipairs(view.goals) do\n\tif g.status ~= "done" and g.status ~= "na" and not g.optional then open = g; break end\nend\n';
+	assert.doesNotMatch(traced(sim, []), /SkipQuest|"skipped"/);
 	const out = traced(sim, [533]);
 	assert.match(out, /local function act\(i, g, r\)\n\tFLOW_ACT\(i, g, r\)/);
 	assert.match(out, /Polestar\.Engine\.SkipQuest\(q\)/);
+	assert.match(out, /g\.status ~= "na" and g\.status ~= "skipped" and not g\.optional/, 'a skipped goal is left alone');
 	assert.match(out, /emit\(FLOW\)\n$/);
 	assert.throws(() => traced('emit({})', []), /can't trace/);
+	assert.throws(() => traced('local function act(i, g, r)\nend\n', [533]), /can't skip/);
 });
 
 test('branches: each start race down its guides\' default `next`, experimental choices left out', () => {
