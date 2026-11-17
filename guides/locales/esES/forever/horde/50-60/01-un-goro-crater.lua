@@ -286,7 +286,7 @@ return {
 	-- Step 60: Janice Felstone
 	-- {npc:10778} Janice Felstone
 	["Back a few steps west to Felstone Farm, the first farm along the road; {npc:10778} waits in the house."] = "Retrocede unos pasos hacia el oeste hasta la Granja Piedra Vil, la primera granja del camino; {npc:10778} espera en la casa.",
-	["Upstairs"] = "",
+	["Upstairs"] = "Piso de arriba",
 	-- {object:175894} Janice's Parcel
 	["{object:175894}, beside the house; inside"] = "",
 	-- {npc:10781} Royal Overseer Bauhaus · {zone:1458} Undercity · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt

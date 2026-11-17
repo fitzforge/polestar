@@ -383,7 +383,7 @@ return {
 	-- Step 80: Desperate Times
 	-- {npc:252475} Elaadrin Evengale · {npc:251968} Ayessa Dawnsinger
 	["Valennia asks you to hear out both leaders: {npc:252475} of the Alliance and {npc:251968} of the Horde. {npc:251968}'s name shows red to you, but she talks to you all the same, and the quest needs both."] = "Valennia te pide que escuches a ambos líderes: {npc:252475} de la Alianza y {npc:251968} de la Horda. El nombre de {npc:251968} aparece en rojo, pero habla contigo igualmente, y la misión necesita a ambos.",
-	["Upstairs"] = "",
+	["Upstairs"] = "Piso de arriba",
 
 	-- Step 82: Paladin trainer
 	-- {npc:5148} Beldruk Doombrow · {zone:1455} Ironforge · {area:16638} Valanaar

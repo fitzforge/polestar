@@ -463,7 +463,7 @@ return {
 
 	-- Step 99: The Stormrage Barrow Dens
 	-- {area:2363} Stormrage Barrow Dens
-	["The {area:2363}"] = "",
+	["The {area:2363}"] = "El {area:2363}",
 	-- {npc:11957} Great Cat Spirit · {npc:272054} Avatar of Saeyleenan · {item:280680} Relic of the Silent Shadow
 	-- plural, as words: Territorial Terrans = {npc:230558} Territorial Terran
 	["Tauren: the {npc:11957} waits on the southern hill above the bridge. Skyborne: the {npc:272054} stands south of the twin bridges. Then the dens east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the {item:280680} lies at the foot of the white cat statue. Careful: the spirits are Territorial Terrans (level 60) that kill whoever they see: stay off their paths, and click the statue again before the stealth runs out."] = "Tauren: {npc:11957} espera en la colina sur, sobre el puente. Cielonato: {npc:272054} está al sur de los puentes gemelos. Después, las guaridas al este del lago: sal de tu forma, pulsa la estatua de la entrada para tener cinco minutos de sigilo, evita a los espíritus del interior y coge una reliquia de cada; {item:280680} está al pie de la estatua del gato blanco. Cuidado: los espíritus son Terranos territoriales (nivel 60) que matan a quien ven: no te cruces en sus rutas y pulsa la estatua otra vez antes de que se acabe el sigilo.",
@@ -487,7 +487,7 @@ return {
 	-- plural, as words: Theramore Marines = {npc:3385} Theramore Marine
 	["South along the beach past the pirate camp to {area:385}, on the coast. The Theramore Marines and Preservers (15-16) drop the medals; {npc:3393} (20) and the two cannoneers (19) stand in the keep and on its walls.\nCareful: Each named target is linked to a healer and guards, and Fairmount has three extra marines with her. Killing the healer first makes the fight easier."] = "Ve al sur por la playa, más allá del campamento pirata, hasta {area:385}, en la costa. Los Marinos y Protectores de Theramore (15-16) sueltan las medallas; {npc:3393} (20) y los dos artilleros (19) están en el bastión y en sus murallas.\nCuidado: cada objetivo con nombre está vinculado a un sanador y a guardias, y Justamonta tiene tres marinos más con ella. Matar primero al sanador facilita el combate.",
 	["On the top floor"] = "",
-	["Upstairs"] = "",
+	["Upstairs"] = "Piso de arriba",
 
 	-- Step 106: Free From the Hold
 	-- {npc:3465} Gilthares Firebough · {area:392} Ratchet

@@ -154,7 +154,7 @@ return {
 	["Seahorn's next errand goes back to Arathi: skip it."] = "El siguiente encargo de Cuernomarino te lleva de vuelta a las Tierras Altas de Arathi: omítelo.",
 	-- {npc:2542} Catelyn the Blade
 	["{npc:2542}, upstairs"] = "",
-	["Upstairs"] = "",
+	["Upstairs"] = "Piso de arriba",
 
 	-- Step 28: Bloodsail camp
 	["Bloodsail camp"] = "Campamento Velasangre",

@@ -20,7 +20,7 @@ return {
 	-- Step 4: Marlene Redpath
 	-- {npc:10927} Marlene Redpath · {npc:10936} Joseph Redpath
 	["{npc:10927}'s farmhouse stands on the hill east of the camp; {npc:10936}'s monument is just north of it."] = "La granja de {npc:10927} está en la colina al este del campamento; el monumento de {npc:10936} está justo al norte.",
-	["Upstairs"] = "",
+	["Upstairs"] = "Piso de arriba",
 	-- {item:12894} Joseph's Wedding Ring
 	["{item:12894}, at the monument"] = "{item:12894}, en el monumento",
 
@@ -502,7 +502,7 @@ return {
 	["West across the south of the crater: Dinosaur Bones lie on the ground in the south-west, among the stegodons: those are elite, pick the bones up around them and take the rest from the Diemetradons. The expedition's {item:11112} lies in the south-west jungle."] = "Al oeste cruzando el sur del cráter: hay huesos de dinosaurio en el suelo del suroeste, entre los estegodontes: son élite, así que recoge los huesos a su alrededor y consigue el resto de los diemetradones. El {item:11112} de la expedición está en la jungla del suroeste.",
 
 	-- Step 123: Western Pylon
-	["Western Pylon"] = "",
+	["Western Pylon"] = "Pilón del oeste",
 	["The pylon stands on the western cliffs."] = "La torre está en los acantilados del oeste.",
 
 	-- Step 124: Ringo
