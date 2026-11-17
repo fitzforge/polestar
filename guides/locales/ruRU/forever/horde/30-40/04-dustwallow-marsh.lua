@@ -109,7 +109,7 @@ return {
 
 	-- Step 21: Fly to Ratchet
 	-- {area:392} Ratchet
-	["Fly to {area:392}"] = "",
+	["Fly to {area:392}"] = "Летите сюда: {area:392}",
 	-- {area:496} Brackenwall Village
 	["{area:496} flight master"] = "",
 
@@ -203,7 +203,7 @@ return {
 
 	-- Step 40: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Fly to {area:1637}"] = "",
+	["Fly to {area:1637}"] = "Летите сюда: {area:1637}",
 	-- {area:2408} Shadowprey Village
 	["{area:2408} flight master"] = "Распорядитель полетов: {area:2408}",
 

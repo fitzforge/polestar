@@ -69,7 +69,7 @@ return {
 
 	-- Step 13: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
-	["Fly to {area:1638}"] = "",
+	["Fly to {area:1638}"] = "Летите сюда: {area:1638}",
 	-- {quest:1063} The Elder Crone · {area:1638} Thunder Bluff · {area:2897} Zoram'gar Outpost · {npc:4046} Magatha Grimtotem · {npc:3419} Apothecary Zamah · {npc:2216} Apothecary Lydon · {area:272} Tarren Mill · {zone:1454} Orgrimmar
 	["{quest:1063} first: fly to {area:1638} from the {area:2897} flight master. {npc:4046} and {npc:3419} send you to {npc:2216} in {area:272}, the next guide's base, and {area:1638}'s flight path takes you on to {zone:1454}."] = "Сначала {quest:1063}: летите в {area:1638} от распорядителя полетов ({area:2897}). {npc:4046} и {npc:3419} отправят вас к NPC {npc:2216} ({area:272}, база следующего гайда), а маршрут полета из {area:1638} доставит вас дальше в {zone:1454}.",
 	-- {area:2897} Zoram'gar Outpost
@@ -97,7 +97,7 @@ return {
 
 	-- Step 17: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Fly to {area:1637}"] = "",
+	["Fly to {area:1637}"] = "Летите сюда: {area:1637}",
 	-- {npc:2995} Tal · {area:1637} Orgrimmar
 	["Back up to {npc:2995} on the central rise and fly to {area:1637}."] = "Поднимитесь обратно к NPC {npc:2995} на центральном возвышении и летите в {area:1637}.",
 

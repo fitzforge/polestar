@@ -144,7 +144,7 @@ return {
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {npc:4752} Kildar · {object:172958} Valley of Honor · {npc:3362} Ogunaro Wolfrunner · {zone:1444} Feralas
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454}: {npc:4752} teaches Orcs in the {object:172958}, by {npc:3362}'s kennel (wolves 20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "Верховая езда требует 40-го уровня и стоит 100 золотых; изучив ее, вы получите транспорт, а без него {zone:2548} после Тернистой долины – долгий путь пешком. Сядьте на дирижабль у башни ({object:3202}) до места {zone:1454}: {npc:4752} обучает орков здесь: {object:172958}, у псарни ({npc:3362}; волки по 20 золотых). Затем дирижаблем обратно сюда: {object:3202}. Не хватает золота? Пропустите этот шаг: гайд по зоне {zone:1444} снова проходит через {zone:1454} примерно на 45-м.",
 	-- {npc:4752} Kildar
-	["{npc:4752}, riding trainer"] = "",
+	["{npc:4752}, riding trainer"] = "{npc:4752}, учитель верховой езды",
 
 	-- Step 32: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {zone:1411} Durotar · {area:367} Sen'jin Village · {npc:7953} Xar'Ti · {zone:1444} Feralas
@@ -156,7 +156,7 @@ return {
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {area:222} Bloodhoof Village · {npc:3690} Kar Stormsinger · {npc:3685} Harb Clawhoof · {zone:1444} Feralas
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454}, fly to {zone:1456} and ride down to {area:222}: {npc:3690} teaches Tauren there, with {npc:3685}'s kodos (20 gold each). Then fly back to {zone:1454} for the {object:3202} zeppelin. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1456} again at about 45."] = "Верховая езда требует 40-го уровня и стоит 100 золотых; изучив ее, вы получите транспорт, а без него {zone:2548} после Тернистой долины – долгий путь пешком. Сядьте на дирижабль у башни ({object:3202}) до места {zone:1454}, летите сюда: {zone:1456} и спуститесь к месту {area:222}: {npc:3690} обучает там тауренов, кодо у NPC {npc:3685} (по 20 золотых). Затем летите обратно сюда: {zone:1454}, к дирижаблю до места {object:3202}. Не хватает золота? Пропустите этот шаг: гайд по зоне {zone:1444} снова проходит через {zone:1456} примерно на 45-м.",
 	-- {npc:3690} Kar Stormsinger
-	["{npc:3690}, riding trainer"] = "",
+	["{npc:3690}, riding trainer"] = "{npc:3690} – учитель верховой езды",
 
 	-- Step 34: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {zone:2521} Zephras Isle · {area:17045} Skywatcher Plateau · {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar · {zone:1444} Feralas

@@ -109,7 +109,7 @@ return {
 
 	-- Step 21: Fly to Ratchet
 	-- {area:392} Ratchet
-	["Fly to {area:392}"] = "",
+	["Fly to {area:392}"] = "{area:392}(으)로 날아가기",
 	-- {area:496} Brackenwall Village
 	["{area:496} flight master"] = "",
 

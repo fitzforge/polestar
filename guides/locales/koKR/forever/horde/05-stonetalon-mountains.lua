@@ -69,7 +69,7 @@ return {
 
 	-- Step 13: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
-	["Fly to {area:1638}"] = "",
+	["Fly to {area:1638}"] = "{area:1638}(으)로 날아가기",
 	-- {quest:1063} The Elder Crone · {area:1638} Thunder Bluff · {area:2897} Zoram'gar Outpost · {npc:4046} Magatha Grimtotem · {npc:3419} Apothecary Zamah · {npc:2216} Apothecary Lydon · {area:272} Tarren Mill · {zone:1454} Orgrimmar
 	["{quest:1063} first: fly to {area:1638} from the {area:2897} flight master. {npc:4046} and {npc:3419} send you to {npc:2216} in {area:272}, the next guide's base, and {area:1638}'s flight path takes you on to {zone:1454}."] = "먼저 {quest:1063}: {area:2897}의 비행 조련사에게서 {area:1638}(으)로 비행하세요. {npc:4046}와(과) {npc:3419}이(가) 다음 가이드의 거점인 {area:272}의 {npc:2216}에게 보내며, {area:1638}의 비행 경로로 {zone:1454}까지 이어서 갈 수 있습니다.",
 	-- {area:2897} Zoram'gar Outpost

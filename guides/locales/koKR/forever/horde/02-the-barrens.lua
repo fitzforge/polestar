@@ -239,7 +239,7 @@ return {
 
 	-- Step 46: Fly to Ratchet
 	-- {area:392} Ratchet
-	["Fly to {area:392}"] = "",
+	["Fly to {area:392}"] = "{area:392}(으)로 날아가기",
 	-- {zone:1456} Thunder Bluff · {area:392} Ratchet
 	["Fly from {zone:1456} straight on to {area:392}."] = "{zone:1456}에서 곧장 {area:392}(으)로 비행하십시오.",
 

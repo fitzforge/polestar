@@ -255,7 +255,7 @@ return {
 	["Mark {npc:10902} with the {item:12815}"] = "Marca la {npc:10902} con la {item:12815}",
 
 	-- Step 62: Chromie
-	["Upstairs"] = "",
+	["Upstairs"] = "Piso de arriba",
 
 	-- Step 63: Counting Out Time
 	-- {npc:10667} Chromie

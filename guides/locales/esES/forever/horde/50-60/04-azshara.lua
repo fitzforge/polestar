@@ -143,7 +143,7 @@ return {
 	-- Step 26: Archmage Xylem
 	-- {area:1237} Valormok · {npc:8395} Sanath Lim-yo
 	["Xylem's tower stands on the cliff just north of {area:1237}: {npc:8395}, in {area:1237}, teleports you up for free (talk to him); otherwise the path winds up its north side."] = "La torre de Xylem está en el acantilado justo al norte de {area:1237}: {npc:8395}, en {area:1237}, te teletransporta arriba gratis (habla con él); si no, el camino sube serpenteando por su lado norte.",
-	["Upstairs"] = "",
+	["Upstairs"] = "Piso de arriba",
 
 	-- Step 28: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
