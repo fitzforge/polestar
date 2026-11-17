@@ -2598,6 +2598,30 @@ do
 						{ value = "playstation", name = L["PlayStation (shapes)"] },
 					}
 				end })
+			-- The guide window's layout: Polestar's own, or one a layout addon
+			-- brings (Theme.LayoutPresets; it loads when picked). Shown only
+			-- with one installed.
+			F.LayoutPick = optionGroup(p, { title = L["Guide window layout"],
+				note = L["How the guide window lays out the step. More in Settings, Guide window, Presets."],
+				get = function() return Theme.LayoutId and Theme.LayoutId() or "" end,
+				set = function(v)
+					if not Theme.SetLayout then return end
+					local ok = pcall(Theme.SetLayout, v ~= "" and v or nil)
+					local lp = ok and v ~= "" and F.LayoutPick.psStage and F.LayoutPick.psStage[v]
+					if lp and ns.Print then ns.Print(string.format(L["%s: /reload after picking it."], lp)) end
+				end,
+				choices = function()
+					local list = Theme.LayoutPresets and Theme.LayoutPresets() or {}
+					if #list == 0 then return {} end
+					local out = { { value = "", name = L["Polestar"], desc = L["The step card, Up next under it."] } }
+					F.LayoutPick.psStage = {}
+					for _, lp in ipairs(list) do
+						local stage = lp.stage == "beta" and L["Beta"] or lp.stage == "alpha" and L["Alpha"] or nil
+						if stage then F.LayoutPick.psStage[lp.id] = lp.label end
+						out[#out + 1] = { value = lp.id, name = stage and string.format("%s (%s)", lp.label, stage) or lp.label, desc = known(lp.help) }
+					end
+					return out
+				end })
 			p.Keep = keepLine(p)
 		end,
 		layout = function(P)
@@ -2655,6 +2679,7 @@ do
 			for k = i + 1, #F.Skins do F.Skins[k]:Hide() end
 			-- Room for the grid before the looks load, so the height does not wait for them.
 			y = max(y, top + LOOK_RESERVE * (LOOK_H + LOOK_GAP) + 2 * 18 + 12)
+			y = layGroup(F.LayoutPick, y + 6, true) + 14
 			local pad = gamepadShown()
 			y = layGroup(F.Glyphs, pad and y + 18 or y, pad) + 14
 			place(p.Keep, 0, y)

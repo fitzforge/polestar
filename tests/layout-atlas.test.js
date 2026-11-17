@@ -1205,3 +1205,34 @@ emit({ stage = stage or false })`,
 	}).emitted;
 	assert.deepEqual(out, { stage: 'beta' });
 });
+
+// The install's look page offers the guide window's layout when a layout
+// addon is installed: Polestar's own, then Atlas tagged Beta; picking it
+// puts it on.
+test('the install offers Atlas as the guide window layout, tagged Beta', () => {
+	const toc = require('node:fs').readFileSync(path.join(ADDONS, 'Polestar_Layout_Atlas', 'Polestar_Layout_Atlas.toc'), 'utf8');
+	const fields = [...toc.matchAll(/^## (X-[\w-]+):\s*(.*?)\s*$/gm)].map((m) => `[${JSON.stringify(m[1])}] = ${JSON.stringify(m[2])}`);
+	const [out] = runAddon({
+		stubs: ['stub_world.lua'],
+		addons: ['Polestar', 'Polestar_Layout_Atlas'],
+		login: true,
+		script: `
+stub.addons = { { name = "Polestar", loaded = true }, { name = "Polestar_Layout_Atlas", loaded = true } }
+stub.addonMeta["Polestar_Layout_Atlas"] = { ${fields.join(', ')} }
+local UI = Polestar.UI
+UI.Welcome.Show("look")
+stub.advance(0.5)
+local F = UI.Welcome.frame
+local names, atlas = {}, nil
+for _, c in ipairs(F.LayoutPick and F.LayoutPick.cards or {}) do
+	if c:IsShown() then
+		names[#names + 1] = c.Name:GetText()
+		if c.psValue == "atlas" then atlas = c end
+	end
+end
+if atlas then atlas:GetScript("OnClick")(atlas, "LeftButton") end
+emit({ names = names, layout = Polestar.Theme.LayoutId() or false })`,
+	}).emitted;
+	assert.deepEqual(out.names, ['Polestar', 'Atlas (Beta)'], JSON.stringify(out));
+	assert.equal(out.layout, 'atlas');
+});
