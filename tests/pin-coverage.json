@@ -513,6 +513,10 @@
 			"title": "Wrong step: Kral von Razorfen: Quests annehmen, step 1",
 			"why": "PINNED (sibling): fixed with #2014 (pinned)"
 		},
+		"1881": {
+			"title": "Bug: Quest not available",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
+		},
 		"1892": {
 			"title": "Bug: Hybrid gear scoring loses the healing component of combined spell power when the Forever ItemDB override is missing",
 			"why": "PINNED (linked): rust/crates/forge-addontest/tests/addontest/gear.rs: fn combined_client_spell_power_scores_damage_and_healing_but_damage_on; rust/crates/forge-addontest/tests/addontest/gear.rs: fn combined_client_spell_power_supplies_healing_before_itemdb_fills_mi"
@@ -576,6 +580,10 @@
 		"2030": {
 			"title": "Settings search: a dropdown of results that also finds pages and sections",
 			"why": "HOLDS (feature): feature shipped in 0.4.0"
+		},
+		"2031": {
+			"title": "Settings window and unlock mode: the small things that make them easier",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
 		},
 		"2033": {
 			"title": "Auction house shopping list: what to buy before a guide, and a reminder in town",
@@ -661,9 +669,17 @@
 			"title": "hearth and astral recall",
 			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 61/62"
 		},
+		"2223": {
+			"title": "lvling guide to lv 30 step 7",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
+		},
 		"2256": {
 			"title": "Bug: Howin Kindfeather is showing a quest available on the map/minimap. The quest ...",
 			"why": "HOLDS (data): shipped QuestDB: 98291 preAll {98245,98246} (Trying Times)"
+		},
+		"2263": {
+			"title": "UI issue when grow upwards option is enabled and bar at bottom option is enabled",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
 		},
 		"2266": {
 			"title": "Bug: doctor gregory victor does not offer a quest for me",
@@ -693,9 +709,25 @@
 			"title": "Asks to hand in quest when dead",
 			"why": "CANT-TELL (code): While you're here quiet while dead (0.4.0); no test located"
 		},
+		"2339": {
+			"title": "The Zul'Farrak dungeon quest guide never offered the Witch Doctor's head quest",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
+		},
+		"2346": {
+			"title": "Covert Extraction doesn't point to needed collection items",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
+		},
 		"2353": {
 			"title": "Quest level too high",
 			"why": "HOLDS (guide): Speaking with Gan'zulah (586) moved to horde/40-50/02-feralas:35"
+		},
+		"2368": {
+			"title": "Feature: make it so you can move to steps all the way to the top of screen",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
+		},
+		"2370": {
+			"title": "Locating the Lost City doesn't direction to the dungeon entrance",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
 		},
 		"2376": {
 			"title": "Wrong step: Alterac Mountains & Arathi Highlands, step 5",
@@ -704,6 +736,10 @@
 		"2378": {
 			"title": "Quest not here",
 			"why": "PINNED (linked): tests/guides-reported.test.js: test('Danger at the spot (#1575, #1695): the Syndicate missives fallba; tests/guides-reported.test.js: test('Tincho on Discord (#1575), Maazias (#1925): Helcular\\'s flames a; tests/guides-reported.test.js: test('forever/horde/30-40/01-hillsbrad-foothills.guide: from th"
+		},
+		"2383": {
+			"title": "Feature: Dungeon Quest Guide for Krol´Dok",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
 		},
 		"2389": {
 			"title": "Last unending torment chain incorrect location",
@@ -716,6 +752,10 @@
 		"2411": {
 			"title": "Réapprivisionnement de l'infirmerie",
 			"why": "PINNED (linked): tests/guides-reported.test.js: test('Danger at the spot (#1575, #1695): the Syndicate missives fallba; tests/guides-reported.test.js: test('Tincho on Discord (#1575), Maazias (#1925): Helcular\\'s flames a; tests/guides-reported.test.js: test('forever/horde/30-40/01-hillsbrad-foothills.guide: from th"
+		},
+		"2420": {
+			"title": "Wrong step: When pointing out to Dalaran Dungeon Entrance the system freaks out and sends you on the right side of the map",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
 		},
 		"2437": {
 			"title": "Open the Maw quest sending you to pick up when no quest is available",
@@ -741,6 +781,10 @@
 			"title": "Trek to Ashenvale",
 			"why": "PINNED (linked): tests/guides-reported.test.js: test(`${WETLANDS}: Elemental Bracers is done at about 29 on the Krolg ; tests/guides-reported.test.js: test(`${WETLANDS}: thin-data audit: Elemental Bracers points where pla"
 		},
+		"2481": {
+			"title": "Upgrade spells notification:",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
+		},
 		"2490": {
 			"title": "Chasing A-Me 01 - Bit difficult for its place in the guide(?",
 			"why": "HOLDS (guide): Alliance (reporter level 50): Chasing A-Me 01 (4243) moved to the later Un'Goro visit in 50-60/04-western-plaguelands (levels 55-58), line 584. Horde takes it in 50-60/01-un-goro-crater:122 (levels 51-53); not part of the report"
@@ -760,6 +804,22 @@
 		"2510": {
 			"title": "zum'rah's head görevini aldırmıyor. skywatcher platosunda camp gev'rek de",
 			"why": "HOLDS (codex): shipped Codex (Polestar_Codex/Dungeons1.lua): Zum'rah's Head 96775 on the zulfarrak page, start Mazu'kon (264074) map 1412 32.5,20.7"
+		},
+		"2560": {
+			"title": "investigate prison dungeon new in forever has the right quests",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
+		},
+		"2577": {
+			"title": "Bug: Ruins of Lordaeron guide is incomplete, it leaves the remaining steps for Une...",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
+		},
+		"2591": {
+			"title": "Love this Addon so far.",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
+		},
+		"2639": {
+			"title": "Wrong location",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
 		}
 	},
 	"records": {
