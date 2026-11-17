@@ -132,6 +132,8 @@ mod engine_l10n;
 mod engine_left_out;
 #[path = "engine-level.rs"]
 mod engine_level;
+#[path = "engine-level-hold.rs"]
+mod engine_level_hold;
 #[path = "engine-level-pick.rs"]
 mod engine_level_pick;
 #[path = "engine-level-wait.rs"]
