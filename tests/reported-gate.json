@@ -1396,6 +1396,9 @@
 		] },
 		"2589": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/ui-look-toasts.rs", "test": "the_essentials_tracker_band_keeps_its_height_when_the_pointer_picks_a_shorter_one_2589" }
+		] },
+		"2582": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "an_ender_who_stands_only_inside_a_dungeon_is_its_entrance_2582" }
 		] }
 	},
 	"seedDrift": {
