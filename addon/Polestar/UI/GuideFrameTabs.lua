@@ -82,9 +82,12 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- range tells same-named guides apart, so it keeps its width and the title
 	-- truncates, clear of the close button at the right (TAB_CLOSE_PAD; a skin's
 	-- guideTabClosePad).
-	-- Too narrow for even the range, the tab is its glyph alone.
+	-- Too narrow for the range and a few letters of the title, the range
+	-- gives way: a range with no name tells nothing. With no room at all,
+	-- the tab is its glyph alone.
 	local TAB_TEXT_X = 27 -- the label's left edge: the glyph's inset, width and gap
 	local TAB_RANGE_GAP = 4
+	local TAB_TITLE_MIN = 36 -- a few letters and the ellipsis
 	local TAB_CLOSE_PAD = 20
 	-- The close button at rest: faint, so players find it; in full under the
 	-- pointer (a skin's guideTabCloseRest). The slim strip's smaller glyph
@@ -100,8 +103,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		-- metric guideTabInset) keeps the close button and the text inside it.
 		local room = b:GetWidth() - TAB_TEXT_X - Theme.Metric("guideTabClosePad", TAB_CLOSE_PAD) - Theme.Metric("guideTabInset", 0)
 		local rangeW = b.psRange and (floor(b.Range:GetStringWidth() + 1) + TAB_RANGE_GAP) or 0
-		local fits = rangeW <= room
-		local titleW = fits and min(b.psTitleW, room - rangeW) or 0
+		local fits = rangeW + min(b.psTitleW, TAB_TITLE_MIN) <= room
+		local titleW = max(0, min(b.psTitleW, room - (fits and rangeW or 0)))
 		b.Label:SetShown(titleW >= 1)
 		if titleW >= 1 then b.Label:SetWidth(titleW) end
 		b.Range:SetShown(b.psRange and fits or false)
