@@ -70,9 +70,10 @@ const SOURCE_FIELDS = {
 	world: ['minLevel', 'maxLevel'],
 };
 
-// Per item: the strongest drops/objects/vendors are kept; an item many
-// creatures drop also gets one `world` source with their level range.
-const CAP = { drop: 10, object: 6, vendor: 10, container: 6 };
+// Per item: the strongest drops/objects are kept, every vendor (Lookup ranks
+// sellers by travel, #2719); an item many creatures drop also gets one
+// `world` source with their level range.
+const CAP = { drop: 10, object: 6, container: 6 };
 const WORLD_DROP_NPCS = 12;
 // Spawns: clusters per map, maps per entity. A map seen at `few` points or
 // more drops its stray clusters: `stray` points or fewer, where the biggest

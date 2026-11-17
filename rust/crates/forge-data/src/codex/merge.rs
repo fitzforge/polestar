@@ -83,11 +83,13 @@ fn source_fields(ty: &str) -> &'static [&'static str] {
 	}
 }
 
+/// The most sources of a type an item keeps. Vendors have none: Lookup ranks an item's sellers by the
+/// player's travel to each, so cutting them by id left whole cities out (Red Dye kept ten sellers, none in
+/// Ironforge, and an Ironforge player was sent to Loch Modan, #2719).
 fn cap(ty: &str) -> Option<usize> {
 	match ty {
 		"drop" => Some(10),
 		"object" => Some(6),
-		"vendor" => Some(10),
 		"container" => Some(6),
 		_ => None,
 	}
@@ -2539,6 +2541,20 @@ mod tests {
 		assert!(obj("88005").get("summonOn").is_nullish() && obj("88006").get("summonOn").is_nullish());
 		assert!(obj("88005").get("summonItem").is_nullish(), "a kind that does not drive");
 		assert!(obj("88006").get("summonItem").is_nullish(), "the item calls up another NPC");
+	}
+
+	// #2719: Red Dye has 101 sellers in the data; the Codex kept the ten lowest ids (none in Ironforge) and Lookup
+	// sent an Ironforge player to Loch Modan. Every seller is kept now.
+	#[test]
+	fn an_item_keeps_every_vendor_that_sells_it_2719() {
+		let mut i = inputs("{}", "{}");
+		let ids: Vec<u32> = (1..=14).collect();
+		let npcs: Vec<String> = ids.iter().map(|n| format!(r#""{n}": {{ "id": {n}, "name": "Seller {n}", "roles": ["vendor"], "spawns": {{ "1455": {{ "f": "e", "pts": [[{n}, 50]] }} }} }}"#)).collect();
+		i.forever.npcs = parse_json(&format!("{{ {} }}", npcs.join(", "))).unwrap();
+		i.forever.items = parse_json(&format!(r#"{{ "2604": {{ "id": 2604, "name": "Red Dye", "vendors": [{}], "drops": {{ "npc": {{}}, "object": {{}} }} }} }}"#, ids.iter().map(u32::to_string).collect::<Vec<_>>().join(", "))).unwrap();
+		let codex = merge_codex(&i);
+		let sold_by: Vec<f64> = codex.items.get("2604").get("sources").items().iter().filter(|s| s.get("type").as_str() == Some("vendor")).map(|s| s.get("npc").num()).collect();
+		assert_eq!(sold_by.len(), 14, "every seller, not the first ten by id: {sold_by:?}");
 	}
 
 	#[test]
