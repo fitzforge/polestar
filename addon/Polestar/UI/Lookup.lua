@@ -764,6 +764,8 @@ local function chainRow(i)
 	r.State = W.Text(r, "small", "textDim")
 	r.State:SetPoint("TOPLEFT", r, "TOPLEFT", 30, -23)
 	r:SetScript("OnClick", chainRowClick)
+	r:SetScript("OnEnter", W.SimpleTip)
+	r:SetScript("OnLeave", W.HideTip)
 	d.ChainRows[i] = r
 	return r
 end
@@ -783,8 +785,12 @@ local function chainStateText(e)
 	return t
 end
 
--- "Step 6 of 11", or "All 11 done".
+-- "Step 6 of 11", "All 11 done", or "Finished, 2 skipped" when only skipped
+-- quests are left.
 local function chainStepText(chain)
+	if chain.done and (chain.skippedCount or 0) > 0 then
+		return format(L["Finished, %d skipped"], chain.skippedCount)
+	end
 	if chain.done then return format(L["All %d done"], chain.total) end
 	return format(L["Step %d of %d"], chain.step, chain.total)
 end
@@ -826,7 +832,7 @@ local function factsFor(s, entity, list, chain)
 		end
 		local new = ns.NewQuests and ns.NewQuests.TooltipText(s.id)
 		add(L["Origin"], new, "accent")
-		if chain then add(L["Chain"], chainStepText(chain), chain.done and "success" or nil) end
+		if chain then add(L["Chain"], chainStepText(chain), chain.done and (chain.skippedCount or 0) == 0 and "success" or nil) end
 	elseif k == "instance" then
 		add(L["Type"], e.kind == "raid" and L["Raid"] or L["Dungeon"])
 		local lv = type(e.levels) == "table" and UI.LevelRange(e.levels[2] or e.levels[1], e.levels[3])
@@ -1200,7 +1206,6 @@ local function renderDetails(loaded, reason)
 				r.Label:SetWidth(cw - 30 - 10)
 				r.State:SetWidth(cw - 30 - 10)
 				r.psQuest = not here and e.id or nil
-				r.psTipTitle = e.title
 				r.psTip = not here and L["Click to open its page."] or nil
 				r:SetWidth(cw)
 				r:ClearAllPoints()
