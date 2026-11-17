@@ -8,11 +8,11 @@
 return {
 	-- Step 1: Wintersaber Trainers
 	-- {npc:10618} Rivern Frostwind · {area:2241} Frostsaber Rock · {zone:1452} Winterspring · {faction:589} Wintersaber Trainers
-	["{npc:10618} stands on top of {area:2241} in the far north of {zone:1452}. Only the Alliance can earn the {faction:589}' favour, from level 58: three repeatable quests worth 50 each, about 840 turn-ins from Neutral to Exalted. Frostsaber Provisions is open from the start, Winterfall Intrusion from halfway through Neutral and Rampaging Giants from Honored. The Wintersaber Trainers Reputation guide takes you through it."] = "",
+	["{npc:10618} stands on top of {area:2241} in the far north of {zone:1452}. Only the Alliance can earn the {faction:589}' favour, from level 58: three repeatable quests worth 50 each, about 840 turn-ins from Neutral to Exalted. Frostsaber Provisions is open from the start, Winterfall Intrusion from halfway through Neutral and Rampaging Giants from Honored. The Wintersaber Trainers Reputation guide takes you through it."] = "{npc:10618}站在{zone:1452}最北端的{area:2241}頂上。只有聯盟能獲得{faction:589}的好感，從58級開始：三個可重複任務，每個50點聲望，從中立到崇拜大約要交840次。霜刃豹補給從一開始就能做，冬泉入侵從中立過半開始，狂暴巨人從尊敬開始。冬刃豹訓練師聲望攻略會帶你走完。",
 
 	-- Step 2: Reins of the Winterspring Frostsaber
 	-- {faction:589} Wintersaber Trainers
-	["The Forever client lists it at 200g and level 60. It runs at full speed yet needs no riding training at all, only Honored with the {faction:589}, so you can skip the 1,000g Journeyman Riding if this is your fast mount."] = "",
+	["The Forever client lists it at 200g and level 60. It runs at full speed yet needs no riding training at all, only Honored with the {faction:589}, so you can skip the 1,000g Journeyman Riding if this is your fast mount."] = "Forever客戶端把它標為200金、60級。它以全速奔跑，卻完全不需要騎術訓練，只要對{faction:589}達到尊敬，所以如果這就是你的快速坐騎，你可以省下1000金的初級騎術。",
 	-- {npc:10618} Rivern Frostwind
 	["{npc:10618}, 200g"] = "{npc:10618}，200金",
 

@@ -31,7 +31,7 @@ const RANK_UNKNOWN: f64 = 7.0;
 const TYPE_ORDER: [&str; 10] = ["vendor", "quest", "gift", "craft", "rep", "pvp", "drop", "object", "container", "world"];
 const WORLD_DROP_NPCS: usize = 12;
 const LOOT_CAP: usize = 150;
-const SERVICE_ROLES: [&str; 16] = [
+const SERVICE_ROLES: [&str; 17] = [
 	"vendor",
 	"repair",
 	"innkeeper",
@@ -41,6 +41,7 @@ const SERVICE_ROLES: [&str; 16] = [
 	"battlemaster",
 	"spirithealer",
 	"stablemaster",
+	"transmogrifier",
 	"trainer",
 	"weapon",
 	"sells:food",
@@ -2184,6 +2185,11 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			// A child quest's parent, which must be in the log for its giver to offer it (Valik 535, Infiltration 533).
 			if !pre.get("parent").is_undef() {
 				o.set("parent", pre.get("parent"));
+			}
+			// One Forever hands in at one talk, never in the log (quests.json `direct`: Bloodpetal Sprouts, #2686), so
+			// the hand-in guides never take it as an accept.
+			if q.get("direct").truthy() {
+				o.set("direct", true);
 			}
 			if int(&q.get("xp")).is_some_and(|x| x > 0.0) {
 				o.set("xp", int(&q.get("xp")).unwrap());

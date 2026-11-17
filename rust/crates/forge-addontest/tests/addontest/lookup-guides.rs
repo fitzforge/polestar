@@ -510,3 +510,38 @@ emit({ t = g.t, closedBy = g.closedBy or false, status = v.status, text = v.unav
 	assert_eq!(open["text"], json!(false), "{open}");
 	assert_ne!(open["status"], json!("skipped"), "{open}");
 }
+
+// #2677 (Prodigy, Orc Hunter 30, 0.4.0.1: Lookup's guide for Ursangous's Paw, which starts from the paw Ursangous
+// drops): its one step said "Accept Ursangous's Paw" with no place and no arrow, and "it isn't where it's marked".
+// A quest started from an item the character has neither in the bags nor as the quest gets a collect goal for the
+// item first, at its source's nearest spawn and naming it; holding the item, the step starts at the accept.
+#[test]
+fn a_quest_started_from_an_item_goes_where_the_item_drops_first_2677() {
+	let mut c = ctx();
+	c.codex["npcs"]["5020"] = json!({ "id": 5020, "name": "Old Clawfoot", "level": 20, "levelMax": 20, "faction": null, "rare": false, "elite": false, "boss": false, "instance": null, "roles": [],
+		"spawns": [{ "map": c.home, "x": 70, "y": 30, "f": "e" }] });
+	c.codex["items"]["8030"] = json!({ "id": 8030, "name": "Clawfoot's Paw", "quality": 1, "kind": "item", "spell": null, "reqLevel": null,
+		"sources": [{ "type": "drop", "npc": 5020, "chance": 100, "from": ["questie"] }] });
+	c.codex["quests"]["7040"] = json!({ "id": 7040, "title": "Clawfoot's Paw", "level": 18, "minLevel": 15, "faction": "A", "races": null, "classes": null,
+		"start": { "npc": [], "object": [], "item": [8030] }, "end": { "npc": [5009], "object": [] },
+		"objectives": [], "pre": [], "preAny": [], "zone": c.home, "rewards": [], "choices": [] });
+	c.pack = write_codex_pack(&c.codex, &CodexOpts::default());
+	let first = |setup: &str| {
+		emitted(&RunAddon {
+			stubs: vec!["stub_world.lua"],
+			before: world(&c, &format!("w.level = 20\nw.moveTo({}, 50, 50)\n{setup}", c.home)),
+			addons: vec!["Polestar".into()],
+			script: r#"
+stub.login()
+local id = Polestar.Lookup.Guide("quest", 7040)
+local verbs, g = {}, Polestar.Guides.Get(id).steps[1].goals
+for i, x in ipairs(g) do verbs[i] = x.t end
+emit({ goals = table.concat(verbs, " "), item = g[1].item or false, x = g[1].x or false, y = g[1].y or false, from = g[1].from or false })"#
+				.into(),
+			..Default::default()
+		})
+		.remove(0)
+	};
+	assert_eq!(first(""), json!({ "goals": "collect accept turnin", "item": 8030, "x": 70, "y": 30, "from": "Old Clawfoot" }), "where the paw drops, first");
+	assert_eq!(first("w.items[8030] = 1")["goals"], "accept turnin", "with the paw in the bags the step starts at the accept");
+}

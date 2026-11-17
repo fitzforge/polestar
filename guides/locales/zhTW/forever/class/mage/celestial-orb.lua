@@ -26,13 +26,13 @@ return {
 	-- Step 4: The Infernal Orb
 	-- {area:602} Mannoroc Coven · {zone:1443} Desolace · {area:2408} Shadowprey Village · {item:7291} Infernal Orb · {spell:686} Shadow Bolt · {zone:1412} Mulgore · {zone:1456} Thunder Bluff
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner · Nether Maidens = {npc:4679} Nether Maiden
-	["The Burning Blade Summoners (level 38-39, not elite) work the {area:602} in southern {zone:1443}, east of {area:2408}, and every one carries an {item:7291}. They cast {spell:686} from 40 yards, keep an imp at their side and run for help at low health; Nether Maidens patrol the pillared ruin beside them, so pull with care. Horde mages: one more summoner stands alone in western {zone:1412}, south-west of {zone:1456}."] = "",
+	["The Burning Blade Summoners (level 38-39, not elite) work the {area:602} in southern {zone:1443}, east of {area:2408}, and every one carries an {item:7291}. They cast {spell:686} from 40 yards, keep an imp at their side and run for help at low health; Nether Maidens patrol the pillared ruin beside them, so pull with care. Horde mages: one more summoner stands alone in western {zone:1412}, south-west of {zone:1456}."] = "火刃召喚師（38-39級，非精英）在{zone:1443}南部、{area:2408}以東的{area:602}活動，每個都帶著一個{item:7291}。他們會從40碼外施放{spell:686}，身邊帶一隻小鬼，血量低時跑去求援；虛空女妖在他們旁邊的柱廊廢墟巡邏，拉怪要小心。部落法師：還有一名召喚師獨自站在{zone:1412}西部、{zone:1456}西南。",
 
 	-- Step 5: The Exorcism
 	-- {npc:6546} Tabetha · {quest:1955} The Exorcism · {npc:6549} Demon of the Orb
 	["Back at {npc:6546}'s. Hand in the orb now; {quest:1955} waits for level 40. Kill the critters around the cottage first: they join the fight. Accepting {quest:1955} starts a 3 minute timer, and {npc:6546} calls the {npc:6549} out in her garden: a level 40 elite that resists many spells, roots and slows. Grouping up is encouraged: a mage of 40 may need help or potions, at about 45 it is soloable. You can pull it from range from the dock. The timer keeps running after it dies, so hand the quest in straight away. If time runs out, abandon the quest and take it again; she calls the demon again."] = "回到{npc:6546}那裡。現在先繳交寶珠；{quest:1955}要等到40級。先清掉小屋周圍的小動物，牠們也會加入戰鬥。接受{quest:1955}即開始三分鐘倒數，{npc:6546}會在花園召喚出{npc:6549}。牠是40級精英，對許多法術、定身和緩速有較強抗性。建議組隊，40級法師可能需要幫手或藥水，約45級時可單人完成。可以從碼頭遠程拉怪。擊殺後倒數仍會繼續，務必立刻繳交任務。若時間用完，放棄任務後重新接受，她會再次召喚惡魔。",
 	-- {npc:6549} Demon of the Orb
-	["{npc:6549} (elite, 40)"] = "",
+	["{npc:6549} (elite, 40)"] = "{npc:6549}（精英，40級）",
 
 	-- Step 6: Power in Uldaman
 	-- {area:1517} Uldaman · {zone:1418} Badlands · {area:1898} Dustwind Gulch · {npc:7023} Obsidian Sentinel · {npc:7209} Obsidian Shard
@@ -40,13 +40,13 @@ return {
 
 	-- Step 7: Mana Surges
 	-- {npc:6546} Tabetha · {quest:1957} Mana Surges · {spell:403} Lightning Bolt
-	["Back to {npc:6546}. Accepting {quest:1957} opens a rift beside her cottage and starts a 10 minute timer: twelve {quest:1957} (level 40, Shock and {spell:403}) come out about four at a time. Attacking one does not pull the rest. Standing at the edge of the field draws them all; the tree south-west of it is out of their reach but in your spell range. Kill twelve and hand in before the timer runs out."] = "",
+	["Back to {npc:6546}. Accepting {quest:1957} opens a rift beside her cottage and starts a 10 minute timer: twelve {quest:1957} (level 40, Shock and {spell:403}) come out about four at a time. Attacking one does not pull the rest. Standing at the edge of the field draws them all; the tree south-west of it is out of their reach but in your spell range. Kill twelve and hand in before the timer runs out."] = "回到{npc:6546}。接受{quest:1957}會在她小屋旁開啟一道裂隙，並啟動10分鐘計時：十二個{quest:1957}（40級，會震盪和{spell:403}）約每次出來四個。攻擊一個不會引到其餘的。站在場地邊緣會把它們全引過來；場地西南的那棵樹它們夠不到，但在你的法術射程內。殺滿十二個，在計時結束前交任務。",
 	-- {quest:1958} Celestial Power · {item:7515} Celestial Orb · {item:9517} Celestial Stave
-	["{quest:1958}: the {item:7515} (off-hand) or the {item:9517}"] = "",
+	["{quest:1958}: the {item:7515} (off-hand) or the {item:9517}"] = "{quest:1958}：{item:7515}（副手）或{item:9517}",
 
 	-- Step 8: Tabetha's Task (optional)
 	-- {quest:2861} Tabetha's Task
-	["{quest:2861} (optional)"] = "",
+	["{quest:2861} (optional)"] = "{quest:2861}（可選）",
 	-- {npc:6546} Tabetha · {npc:5497} Jennea Cannon · {npc:4568} Anastasia Hartwell · {npc:5885} Deino · {quest:2861} Tabetha's Task · {quest:2846} Tiara of the Deep · {npc:7795} Hydromancer Velratha · {area:978} Zul'Farrak · {zone:1446} Tanaris · {item:9527} Spellshifter Rod · {item:9531} Gemshale Pauldrons
 	["At 40 the mage trainers who send you to {npc:6546} ({npc:5497}, Bink, {npc:4568}, {npc:5885}) also have {quest:2861}, a quest any class can do. {npc:6546} then wants the {quest:2846} from {npc:7795}, a level 46 elite naga in {area:978}, the troll dungeon in north-western {zone:1446}: a group of five, level 44-54. The reward window shows the {item:9527} and the {item:9531}."] = "40級時，指引你去找{npc:6546}的法師訓練師（{npc:5497}、彬克、{npc:4568}、{npc:5885}）也會提供任何職業都能完成的{quest:2861}。接著{npc:6546}需要{area:978}的46級精英納迦{npc:7795}身上的{quest:2846}；那是{zone:1446}西北部的食人妖地城，需要五人小隊，44-54級。獎勵視窗會顯示{item:9527}和{item:9531}。",
 

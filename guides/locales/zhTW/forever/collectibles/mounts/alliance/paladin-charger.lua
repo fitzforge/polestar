@@ -17,32 +17,32 @@ return {
 	-- Step 2: Lord Grayson Shadowbreaker
 	-- {spell:23214} Summon Charger · {area:2279} Stratholme · {area:2057} Scholomance · {item:14047} Runecloth · {item:8836} Arthas' Tears · {npc:6171} Duthorian Rall
 	-- plural, as words: Arcanite Bars = {item:12360} Arcanite Bar
-	["The {spell:23214} chain is long: {area:2279}, Dire Maul West and {area:2057} with a group, 350 gold in donations, and materials worth several hundred more (6 Arcanite Bars, 40 {item:14047}, 10 {item:8836}, two diamonds). Start saving early. Lord Grayson stands in the Cathedral of Light, {npc:6171} nearby."] = "",
+	["The {spell:23214} chain is long: {area:2279}, Dire Maul West and {area:2057} with a group, 350 gold in donations, and materials worth several hundred more (6 Arcanite Bars, 40 {item:14047}, 10 {item:8836}, two diamonds). Start saving early. Lord Grayson stands in the Cathedral of Light, {npc:6171} nearby."] = "{spell:23214}的任務鏈很長：要組隊去{area:2279}、厄運之槌西區和{area:2057}，捐款350金幣，材料還值好幾百金（6塊奧金錠、40個{item:14047}、10個{item:8836}、兩顆鑽石）。儘早開始攢錢。格雷森領主站在光明大教堂裡，{npc:6171}就在旁邊。",
 	-- {npc:6171} Duthorian Rall
 	["{npc:6171}, Cathedral of Light"] = "{npc:6171}，光明大教堂",
 
 	-- Step 3: High Priest Rohan
 	-- {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries · {zone:1455} Ironforge · {object:32362} Mystic Ward
-	["{npc:11406}, the priest trainer, walks about the {object:32386} in {zone:1455}'s {object:32362}. He gives you his censer for a donation of 150 gold, taken at the hand-in. Keep the censer."] = "",
+	["{npc:11406}, the priest trainer, walks about the {object:32386} in {zone:1455}'s {object:32362}. He gives you his censer for a donation of 150 gold, taken at the hand-in. Keep the censer."] = "{npc:11406}，牧師訓練師，在{zone:1455}的{object:32362}中的{object:32386}一帶走動。只要你捐150金幣（交任務時收取），他就會把香爐給你。把香爐留著。",
 	-- {npc:11406} High Priest Rohan
 	["{npc:11406}: 150 gold"] = "{npc:11406}：150金幣",
 
 	-- Step 4: Back to Lord Grayson
 	["Back to Lord Grayson"] = "回到格雷森公爵那裡",
 	-- {item:18752} Exorcism Censer · {area:2627} Terrordale
-	["Lord Grayson blesses the censer into the {item:18752} for {area:2627}."] = "",
+	["Lord Grayson blesses the censer into the {item:18752} for {area:2627}."] = "格雷森領主把香爐祝福成{item:18752}，用於{area:2627}。",
 
 	-- Step 5: Exorcising Terrordale
 	-- {area:2627} Terrordale · {zone:1423} Eastern Plaguelands · {area:2279} Stratholme · {object:179747} Terrordale Haunting Spirit · {item:18752} Exorcism Censer · {spell:7713} Wailing Dead · {spell:2878} Turn Undead
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit
-	["{area:2627} lies in the far north-west of the {zone:1423}, west of the {area:2279} gates. Stand inside a green glowing patch on the ground (a {object:179747}; some are inside the ruined houses) and use the {item:18752}: up to three Terrordale Spirits (level 59-60) rise and attack. Their {spell:7713} lowers all your stats by 30%: fight them one at a time and use {spell:2878}. The patches come back quickly; several paladins can work side by side."] = "",
+	["{area:2627} lies in the far north-west of the {zone:1423}, west of the {area:2279} gates. Stand inside a green glowing patch on the ground (a {object:179747}; some are inside the ruined houses) and use the {item:18752}: up to three Terrordale Spirits (level 59-60) rise and attack. Their {spell:7713} lowers all your stats by 30%: fight them one at a time and use {spell:2878}. The patches come back quickly; several paladins can work side by side."] = "{area:2627}位於{zone:1423}最西北，{area:2279}大門以西。站在地上綠色發光的斑塊裡（是一個{object:179747}；有些在廢墟房屋內），使用{item:18752}：最多三個恐懼谷幽靈（59-60級）會升起攻擊。它們的{spell:7713}會把你所有屬性降低30%：一次只打一個，並使用{spell:2878}。斑塊恢復很快；幾名聖騎士可以並肩作業。",
 	-- {item:18752} Exorcism Censer
-	["{item:18752}, inside a green patch"] = "",
+	["{item:18752}, inside a green patch"] = "{item:18752}，在綠色斑塊內",
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit
 	["Terrordale Spirits x25"] = "恐懼谷的靈魂 x25",
 
 	-- Step 6: Lord Grayson Shadowbreaker
-	["Lord Grayson takes the censer back."] = "",
+	["Lord Grayson takes the censer back."] = "格雷森領主收回了香爐。",
 
 	-- Step 7: Grimand Elmore
 	-- {npc:1416} Grimand Elmore · {zone:1453} Stormwind · {object:28027} Dwarven District · {item:18753} Arcanite Barding
@@ -52,30 +52,30 @@ return {
 	-- {npc:1416} Grimand Elmore
 	["{npc:1416}'s materials"] = "{npc:1416}的材料",
 	-- {item:14047} Runecloth · {area:2255} Everlook · {area:2577} Dire Maul · {item:8836} Arthas' Tears · {skill:182} Herbalism · {area:3197} Chillwind Camp · {item:12360} Arcanite Bar · {item:12359} Thorium Bar · {item:12363} Arcane Crystal
-	["{item:14047} drops from humanoids of level 50 and up ({area:2255}'s Bruisers, the Scarlet Crusade in the Plaguelands, the {area:2577} ogres). {item:8836} is a Plaguelands herb ({skill:182} 220), common around {area:3197}. An {item:12360} is an alchemist's transmute from a {item:12359} and an {item:12363}, once every two days per alchemist: ask a guild alchemist early, or buy the bars. The Auction House sells all three."] = "",
+	["{item:14047} drops from humanoids of level 50 and up ({area:2255}'s Bruisers, the Scarlet Crusade in the Plaguelands, the {area:2577} ogres). {item:8836} is a Plaguelands herb ({skill:182} 220), common around {area:3197}. An {item:12360} is an alchemist's transmute from a {item:12359} and an {item:12363}, once every two days per alchemist: ask a guild alchemist early, or buy the bars. The Auction House sells all three."] = "{item:14047}由50級以上人形生物掉落（{area:2255}的打手、瘟疫之地的血色十字軍、{area:2577}的食人魔）。{item:8836}是瘟疫之地的草藥（{skill:182} 220），在{area:3197}一帶常見。一個{item:12360}是鍊金師用{item:12359}和{item:12363}轉化來的，每位鍊金師每兩天一次：早點找公會鍊金師，或者直接買錠。這三樣拍賣行都有賣。",
 	-- {item:14047} Runecloth
-	["{item:14047} x40"] = "",
+	["{item:14047} x40"] = "{item:14047}×40",
 	-- {item:8836} Arthas' Tears
-	["{item:8836} x10"] = "",
+	["{item:8836} x10"] = "{item:8836}×10",
 	-- plural, as words: Arcanite Bars = {item:12360} Arcanite Bar
 	["Arcanite Bars x6: an alchemist, or the Trade District Auction House"] = "奧金錠 x6：鍊金術師，或貿易區的拍賣場",
 
 	-- Step 9: Stratholme Holy Water
 	-- {area:2279} Stratholme · {zone:1423} Eastern Plaguelands
 	-- plural, as words: Stratholme Supply Crates = {object:181085} Stratholme Supply Crate
-	["{area:2279} is a dungeon for a group of five at 58-60, at the north end of the {zone:1423}. Stratholme Supply Crates along the streets of both halves hold the Holy Water, one to three each; they come back after three minutes. Some crates let out a swarm of plagued rats or maggots: be ready. The main gate (the Scarlet half) needs no key."] = "",
+	["{area:2279} is a dungeon for a group of five at 58-60, at the north end of the {zone:1423}. Stratholme Supply Crates along the streets of both halves hold the Holy Water, one to three each; they come back after three minutes. Some crates let out a swarm of plagued rats or maggots: be ready. The main gate (the Scarlet half) needs no key."] = "{area:2279}是供58-60級五人小隊進入的地城，位於{zone:1423}北端。兩半城區街道旁的斯坦索姆補給箱裡裝著聖水，每個一到三份；三分鐘後恢復。有些箱子會放出一群瘟疫鼠或蛆蟲：做好準備。正門（血色區那一半）不需要鑰匙。",
 	-- plural, as words: Stratholme Supply Crates = {object:181085} Stratholme Supply Crate
 	-- was: ["Supply Crates, inside"] = "補給箱，在裡面"
-	["Stratholme Supply Crates, inside"] = "",
+	["Stratholme Supply Crates, inside"] = "斯坦索姆補給箱，室內",
 
 	-- Step 10: Grimand Elmore
 	-- {npc:1416} Grimand Elmore · {item:18753} Arcanite Barding
-	["Bring the materials and 150 gold, taken at the hand-in. {npc:1416} walks to his forge and hands you the {item:18753}."] = "",
+	["Bring the materials and 150 gold, taken at the hand-in. {npc:1416} walks to his forge and hands you the {item:18753}."] = "帶上材料，外加150金幣，交任務時收取。{npc:1416}會走到他的鍛造爐旁，把{item:18753}交給你。",
 	-- {npc:1416} Grimand Elmore
 	["{npc:1416}: 150 gold"] = "{npc:1416}：150金幣",
 
 	-- Step 11: Lord Grayson Shadowbreaker
-	["Lord Grayson keeps the barding for now: you get it back with the next quest."] = "",
+	["Lord Grayson keeps the barding for now: you get it back with the next quest."] = "格雷森領主暫時保留馬鎧：下一個任務會還給你。",
 	-- {npc:928} Lord Grayson Shadowbreaker · {item:18753} Arcanite Barding
 	["{npc:928}: the {item:18753}"] = "{npc:928}：{item:18753}",
 
@@ -96,26 +96,26 @@ return {
 	-- Step 14: Dire Maul: Tendris Warpwood
 	-- {area:2577} Dire Maul · {zone:1444} Feralas · {item:18249} Crescent Key · {npc:11489} Tendris Warpwood · {npc:11459} Ironbark Protector · {quest:7643} Ancient Equine Spirit · {item:18753} Arcanite Barding
 	["{area:2577} lies in central {zone:1444}. From the gate at the foot of the ruins, walk up through the outer courtyards to the West wing's door at their north end; it needs a {item:18249} (from Pusillin in Dire Maul East) or a rogue's lockpicking. {npc:11489} (level 60 elite) stands at the far end of the West wing's first courtyard. Once attacked he calls every {npc:11459} still alive in the courtyard: kill them first. His death frees the {quest:7643}: talk to it to give it the horse feed and the {item:18753}, and it blesses the barding. A group of five at 60."] = "",
-	["Dire Maul West's door"] = "",
+	["Dire Maul West's door"] = "厄運之槌西區的門",
 	-- {npc:11489} Tendris Warpwood
 	["{npc:11489}, inside the West wing"] = "{npc:11489}，在西區裡",
 
 	-- Step 16: Two diamonds
 	["Two diamonds"] = "兩顆鑽石",
 	-- {item:12800} Azerothian Diamond · {item:18335} Pristine Black Diamond · {npc:14695} Lord Blackwood
-	["An {item:12800} comes from Thorium veins and obsidian, about one vein in a hundred; a {item:18335} drops rarely from elites of level 59 and up (Revanchion and {npc:14695} about one kill in nine and one in a hundred). The Auction House is the usual source of both."] = "",
+	["An {item:12800} comes from Thorium veins and obsidian, about one vein in a hundred; a {item:18335} drops rarely from elites of level 59 and up (Revanchion and {npc:14695} about one kill in nine and one in a hundred). The Auction House is the usual source of both."] = "一個{item:12800}來自瑟銀礦脈和黑曜石，大約每一百個礦脈出一個；{item:18335}由59級以上精英稀有掉落（雷萬奇恩和{npc:14695}大約九次擊殺出一次、每一百次出一次）。兩者通常都在拍賣行買。",
 
 	-- Step 17: Lord Grayson Shadowbreaker
 	-- {item:18804} Lord Grayson's Satchel · {item:18746} Divination Scryer · {item:18792} Blessed Arcanite Barding
-	["Lord Grayson hands you {item:18804}: open it for the {item:18746} and the {item:18792}. Keep both."] = "",
+	["Lord Grayson hands you {item:18804}: open it for the {item:18746} and the {item:18792}. Keep both."] = "格雷森領主交給你{item:18804}：開啟它，取出{item:18746}和{item:18792}。兩樣都留著。",
 	-- {item:18792} Blessed Arcanite Barding
-	["{item:18792}, from the satchel"] = "",
+	["{item:18792}, from the satchel"] = "{item:18792}，來自揹包",
 
 	-- Step 18: The Great Ossuary
 	-- {area:2057} Scholomance · {area:2298} Caer Darrow · {zone:1422} Western Plaguelands · {item:13704} Skeleton Key · {object:179746} The Great Ossuary (no name in this language: may be words) · {item:18746} Divination Scryer · {spell:1105} Seal of Wisdom · {npc:14516} Death Knight Darkreaver · {item:18749} Charger's Lost Soul · {item:18792} Blessed Arcanite Barding · {npc:14568} Darkreaver's Fallen Charger
 	["{area:2057} lies under {area:2298}, the island town in the south-east of the {zone:1422}; the door needs the {item:13704} (The Key to {area:2057}). Clear the {object:179746}, Rattlegore's room in the basement, then use the {item:18746} at its centre. Four waves of spirits come, each ending with an Aspect: players judge them with {spell:1105}, Justice, Righteousness and then Light, which stuns them. {npc:14516} (level 62 elite) comes after the last; he mind-controls players. Loot the {item:18749}, use it inside the Ossuary to redeem it, and give it and the {item:18792} to {npc:14568}. If the group wipes, the gates lock and the scryer is gone: abandon the quest and take it again from Lord Grayson for a new satchel. A group of five at 60. Again Into the {object:179746}, after the mount, lets you fight him again."] = "",
 	-- {item:18749} Charger's Lost Soul · {object:179746} The Great Ossuary (no name in this language: may be words)
-	["{item:18749}, inside the {object:179746}"] = "",
+	["{item:18749}, inside the {object:179746}"] = "{item:18749}，{object:179746}內",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["An {item:12800} comes from Thorium veins, a {item:18335} from the elites of the {zone:1422}, both rarely: the Auction House is the usual source."] = "{item:12800}來自瑟銀礦脈，{item:18335}來自{zone:1422}的精英怪，兩者都很稀有：通常從拍賣場取得。",

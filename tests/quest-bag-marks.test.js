@@ -13,7 +13,7 @@ test('obsolete quest item marks require every known quest to be turned in and no
 				IsQuestFlaggedCompleted = function(id) return state.done[id] == true end,
 				IsRepeatableQuest = function(id) return state.repeatable[id] == true end,
 			}`,
-		addons: [{ name: 'Polestar', files: ['Core/Init.lua', 'Core/LuaChunks.lua', 'Quests/QuestDB.lua', 'Quests/BagMarks.lua'] }],
+		addons: [{ name: 'Polestar', files: ['Core/Init.lua', 'Core/LuaChunks.lua', 'Core/BagSlots.lua', 'Quests/QuestDB.lua', 'Quests/BagMarks.lua'] }],
 		script: `
 		local Q, q = Polestar.QuestDB, state
 		dofile(${JSON.stringify(fixture.replace(/\\/g, '/'))})
