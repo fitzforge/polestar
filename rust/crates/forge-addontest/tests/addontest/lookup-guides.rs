@@ -511,6 +511,122 @@ emit({ t = g.t, closedBy = g.closedBy or false, status = v.status, text = v.unav
 	assert_ne!(open["status"], json!("skipped"), "{open}");
 }
 
+// #2554: a quest's chain, from the real Codex pack. 9501 -> 9502 -> 9503 -> 9504, then two follow-ups (9505, 9506)
+// and a Horde one (9507) that is not this character's. 9502 is done without 9501 (Forever lets some chains skip a
+// step), 9503 is in the log and 9504 needs level 25: the chain marks 9501 skipped, counts the step from 9503 (the
+// first quest neither done nor skipped), keeps the done and in-log states, says why 9504 waits, and lists the two
+// Alliance follow-ups as branches. A quest with no prerequisite or follow-up has no chain. The quest tooltip's line
+// says "Chain: 3 of 4", only with Lookup on and once the Codex is loaded (a hover never loads it), and follows the
+// quests turned in.
+#[test]
+fn chain_progress_walks_back_through_prerequisites_and_forward_through_one_follow_up_marking_skipped_quests_2554() {
+	let mut c = ctx();
+	let quest = |id: i64, title: &str, faction: &str, min: i64, pre: Vec<i64>| {
+		json!({ "id": id, "title": title, "level": min + 2, "minLevel": min, "faction": faction, "races": null, "classes": null,
+			"start": { "npc": [5008], "object": [], "item": [] }, "end": { "npc": [5008], "object": [] },
+			"objectives": [], "pre": pre, "preAny": [], "zone": c.home, "rewards": [], "choices": [] })
+	};
+	let add = [
+		quest(9501, "Chain One", "A", 15, vec![]),
+		quest(9502, "Chain Two", "A", 15, vec![9501]),
+		quest(9503, "Chain Three", "A", 15, vec![9502]),
+		quest(9504, "Chain Four", "A", 25, vec![9503]),
+		quest(9505, "Branch East", "A", 25, vec![9504]),
+		quest(9506, "Branch West", "A", 25, vec![9504]),
+		quest(9507, "Branch Horde", "H", 25, vec![9504]),
+	];
+	for q in add {
+		let id = q["id"].to_string();
+		c.codex["quests"][id] = q;
+	}
+	c.pack = write_codex_pack(&c.codex, &CodexOpts::default());
+	let tail = format!("w.level = 20\nw.moveTo({}, 50, 50)\nw.complete({{ 9502 }})\n", c.home) + r#"w.onQuest(9503, {}, "Chain Three")"#;
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: world(&c, &tail),
+		addons: vec!["Polestar".into()],
+		script: r#"
+stub.login()
+local LK = Polestar.Lookup
+local cold = { tip = LK.ChainTooltipText(9503) or false, loaded = Polestar.Codex.IsLoaded() }
+local ch = LK.ChainProgress(9503)
+local quests = {}
+for i, e in ipairs(ch.quests) do quests[i] = { e.id, e.state, e.why or false, e.skipped or false } end
+local branches = {}
+for i, b in ipairs(ch.branches or {}) do branches[i] = b.id end
+table.sort(branches)
+local tip = LK.ChainTooltipText(9503)
+Polestar.Set("lookup.enabled", false)
+local offTip = LK.ChainTooltipText(9503) or false
+Polestar.Set("lookup.enabled", true)
+for _, id in ipairs({ 9501, 9503, 9504 }) do stub.world.turnIn(id) end
+stub.advance(0.3)
+emit({ quests = quests, step = ch.step, total = ch.total, done = ch.done, branches = branches,
+	fromFirst = #LK.ChainProgress(9501).quests, alone = LK.ChainProgress(7010) or false,
+	cold = cold, tip = tip, offTip = offTip, allDone = LK.ChainTooltipText(9503), aloneTip = LK.ChainTooltipText(7010) or false })"#
+			.into(),
+		..Default::default()
+	});
+	let out = &out[0];
+	assert_eq!(
+		out["quests"],
+		json!([[9501, "open", false, true], [9502, "done", false, false], [9503, "log", false, false], [9504, "later", "Requires level 25", false],]),
+		"9501 was skipped: not done, though 9502 that needs it is"
+	);
+	assert_eq!(json!({ "step": out["step"], "total": out["total"], "done": out["done"] }), json!({ "step": 3, "total": 4, "done": false }), "the step is 9503: the skipped 9501 is not one to do");
+	assert_eq!(out["branches"], json!([9505, 9506]), "the Horde follow-up is not this character's");
+	assert_eq!(out["fromFirst"], 4, "the same line from its first quest");
+	assert_eq!(out["alone"], false, "a quest standing alone has no chain");
+	assert_eq!(out["cold"], json!({ "tip": false, "loaded": false }), "a tooltip never loads the Codex");
+	assert_eq!(out["tip"], "Chain: 3 of 4");
+	assert_eq!(out["offTip"], false, "no chain line with Lookup turned off");
+	assert_eq!(out["allDone"], "Chain: all 4 done", "turned in: the line follows");
+	assert_eq!(out["aloneTip"], false);
+}
+
+// A quest that needs two (`pre` 9511 and 9512): with 9512 done and 9511 not, 9511 is still needed, so it is not
+// skipped and the step is 9511. Once 9513 is turned in without 9511, 9511 is skipped, nothing is left to do, and the
+// line says the chain is finished with one skipped, not "all 3 done".
+#[test]
+fn a_quest_still_needed_by_a_later_one_is_not_skipped_and_a_chain_left_with_only_skipped_quests_says_so_2554() {
+	let mut c = ctx();
+	let quest = |id: i64, title: &str, pre: Vec<i64>| {
+		json!({ "id": id, "title": title, "level": 17, "minLevel": 15, "faction": "A", "races": null, "classes": null,
+			"start": { "npc": [5008], "object": [], "item": [] }, "end": { "npc": [5008], "object": [] },
+			"objectives": [], "pre": pre, "preAny": [], "zone": c.home, "rewards": [], "choices": [] })
+	};
+	for q in [quest(9511, "Needed One", vec![]), quest(9512, "Needed Two", vec![]), quest(9513, "Needs Both", vec![9511, 9512])] {
+		let id = q["id"].to_string();
+		c.codex["quests"][id] = q;
+	}
+	c.pack = write_codex_pack(&c.codex, &CodexOpts::default());
+	let tail = format!("w.level = 20\nw.moveTo({}, 50, 50)\nw.complete({{ 9512 }})\n", c.home);
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: world(&c, &tail),
+		addons: vec!["Polestar".into()],
+		script: r#"
+stub.login()
+local LK = Polestar.Lookup
+local function line()
+	local ch = LK.ChainProgress(9513)
+	local quests = {}
+	for i, e in ipairs(ch.quests) do quests[i] = { e.id, e.state, e.skipped or false } end
+	return { quests = quests, step = ch.step, done = ch.done, skipped = ch.skippedCount }
+end
+local before = line()
+stub.world.turnIn(9513)
+stub.advance(0.3)
+emit({ before = before, after = line(), tip = LK.ChainTooltipText(9513) })"#
+			.into(),
+		..Default::default()
+	});
+	let out = &out[0];
+	assert_eq!(out["before"], json!({ "quests": [[9511, "open", false], [9512, "done", false], [9513, "later", false]], "step": 1, "done": false, "skipped": 0 }), "9513 still needs 9511");
+	assert_eq!(out["after"], json!({ "quests": [[9511, "open", true], [9512, "done", false], [9513, "done", false]], "step": 3, "done": true, "skipped": 1 }), "9513 done without 9511");
+	assert_eq!(out["tip"], "Chain: finished, 1 skipped");
+}
+
 // #2677 (Prodigy, Orc Hunter 30, 0.4.0.1: Lookup's guide for Ursangous's Paw, which starts from the paw Ursangous
 // drops): its one step said "Accept Ursangous's Paw" with no place and no arrow, and "it isn't where it's marked".
 // A quest started from an item the character has neither in the bags nor as the quest gets a collect goal for the
