@@ -3268,17 +3268,20 @@ end
 -- 118 times in 4 minutes; from Stonetalon Mountains into the Barrens, the walk to the crossing at its 274 s estimate
 -- against the Barrens' own walk through a pass, 351 s along its path but 60 s by its straight line). The same way is
 -- taken fresh as before, and near the walk's end (a crossing just walked through) the fresh plan as before.
--- A live walk whose path the walking engine has not answered yet (planned a moment ago, its search under way) is
--- priced as the fresh plan prices it, by its straight line x WALK_DETOUR (0.4.1's border sweep: from the Riverglades
--- 250 yd from a Redridge goal, the player walked the zone line, each zone change planned again before the last plan's
--- walk was searched, and the route went from the crossing's way (86 s) to the walk straight there (63 s) and back
--- every second, 224 times in 4 minutes).
-local keep = { SAVES = 20, OFF = 25, AHEAD = 50, NEAR = 100, MAX = 4, ways = {} }
+-- A live walk whose path the walking engine has not answered yet (planned a moment ago, its search under way) and
+-- that a fresh plan took over less than keep.HOLD seconds ago is priced as the fresh plan prices it, by its straight
+-- line x WALK_DETOUR (0.4.1's border sweep: from the Riverglades 250 yd from a Redridge goal, the player walked the
+-- zone line, each zone change planned again before the last plan's walk was searched, and the route went from the
+-- crossing's way (86 s) to the walk straight there (63 s) and back every second, 224 times in 4 minutes). A first plan
+-- not searched yet still gives way to a fresh one, as before (outside Stormwind's gate, the walk in through it was
+-- planned first and the walk straight to the goal a second later; holding the first, the player arrived 29 s later).
+local keep = { SAVES = 20, OFF = 25, AHEAD = 50, NEAR = 100, MAX = 4, HOLD = 10, ways = {} }
 keepLive = function(old, i, progress, fresh, target, pc, px, py)
 	local cur = old and old[i]
 	if not (cur and cur.kind == "walk" and not cur.crossing and legsFor == target) then return false end
 	if not (fresh and fresh[1]) then return true end
 	if sameWay(fresh, 1, old, i) then return false end
+	if keep.target ~= target then keep.target, keep.ways, keep.switched = target, {}, nil end
 	local W, P = Nav.walk, cur.parent
 	local g = P or cur.to
 	local gc, gx, gy = P and P.c or g.c, P and P.wx or g.wx, P and P.wy or g.wy
@@ -3286,6 +3289,10 @@ keepLive = function(old, i, progress, fresh, target, pc, px, py)
 	if W and W.Progress then _, off = W.Progress(gc, gx, gy) end
 	local along
 	if off == nil and W and W.Searches and W.Searches(pc) and gc == pc then
+		if not (keep.switched and GetTime() - keep.switched < keep.HOLD) then
+			keep.switched = GetTime()
+			return false
+		end
 		along = yards(pc, px, py, gc, gx, gy) * WALK_DETOUR - (cur.tail or 0)
 	else
 		if not (off and off <= keep.OFF) then return false end
@@ -3295,7 +3302,6 @@ keepLive = function(old, i, progress, fresh, target, pc, px, py)
 	if not (along and along >= keep.AHEAD) then return false end
 	local left = along / RUN_SPEED + (cur.rest or 0)
 	local cost = fresh[1].seconds + (fresh[1].rest or 0)
-	if keep.target ~= target then keep.target, keep.ways = target, {} end
 	local ways = keep.ways
 	for _, w in ipairs(ways) do
 		if w.seconds > cost and w.c == pc and yards(pc, px, py, w.c, w.x, w.y) <= keep.NEAR and sameWay(fresh, 1, w.legs, w.i) then cost = w.seconds end
@@ -3303,6 +3309,7 @@ keepLive = function(old, i, progress, fresh, target, pc, px, py)
 	if cost > left - keep.SAVES then return true end
 	if #ways >= keep.MAX then table.remove(ways, 1) end
 	ways[#ways + 1] = { legs = old, i = i, seconds = left, c = pc, x = px, y = py }
+	keep.switched = GetTime()
 	return false
 end
 
