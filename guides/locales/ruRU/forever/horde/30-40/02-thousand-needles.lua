@@ -20,7 +20,7 @@ return {
 
 	-- Step 3: Orgrimmar trainers
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} trainers"] = "",
+	["{zone:1454} trainers"] = "Учителя: {zone:1454}",
 	["Train while you are in the city."] = "",
 
 	-- Step 4: Searn Firewarder
@@ -40,16 +40,16 @@ return {
 	-- {npc:3428} Korran
 	["{npc:3428} stands beside the Crossroads flight master."] = "",
 	-- {npc:3428} Korran · {npc:4485} Belgrom Rockmaul · {zone:1454} Orgrimmar
-	["{npc:3428}: for {npc:4485} in {zone:1454}"] = "",
+	["{npc:3428}: for {npc:4485} in {zone:1454}"] = "{npc:3428}: для персонажа {npc:4485} ({zone:1454})",
 
 	-- Step 7: Back to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Back to {area:1637}"] = "",
+	["Back to {area:1637}"] = "Назад: {area:1637}",
 	["Crossroads flight master"] = "Распорядитель полетов на Перекрестке",
 
 	-- Step 8: Belgrom Rockmaul
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor
-	["{npc:4485} stands in the {object:172958}."] = "",
+	["{npc:4485} stands in the {object:172958}."] = "{npc:4485} стоит здесь: {object:172958}.",
 	-- {npc:4483} Moktar Krin · {area:439} Shimmering Flats
 	["for {npc:4483} in the {area:439}, later in this guide"] = "для NPC {npc:4483} ({area:439}), позже в этом гайде",
 
@@ -67,11 +67,11 @@ return {
 	-- {area:484} Freewind Post
 	["Fly to {area:484}"] = "Летите сюда: {area:484}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Распорядитель полетов: {zone:1456}",
 
 	-- Step 13: Fly to Freewind Post
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Распорядитель полетов: {area:392}",
 
 	-- Step 15: Prate Cloudseer
 	-- {npc:5905} Prate Cloudseer
@@ -101,7 +101,7 @@ return {
 
 	-- Step 19: The Screeching Canyon: kill these as you meet them
 	-- {area:483} The Screeching Canyon
-	["{area:483}: kill these as you meet them"] = "",
+	["{area:483}: kill these as you meet them"] = "{area:483}: убивайте их по пути",
 	-- {area:2097} Darkcloud Pinnacle · {area:487} Roguefeather Den · {npc:4877} Jandia · {quest:98069} Stolen Freewind Supplies · {npc:4490} Grenka Bloodscreech · {npc:2986} Dorn Plainstalker
 	["West of Freewind Post, below {area:2097}, the harpies of {area:487} (28-30). The Screeching Harpies, Roguefeathers and Windcallers there are {npc:4877}'s; her {quest:98069} lie on the ground along the foot of the cliff and in the cave up on top. {npc:4490} (31) walks among them: thin out the harpies around her before you pull her, for {npc:2986}'s claw."] = "К западу от Поста Вольного Ветра, под местом {area:2097}, – гарпии ({area:487}, 28-30). Визгливые гарпии, гарпии Злоперья и призывательницы ветра там нужны для задания NPC {npc:4877}; ее {quest:98069} лежат на земле у подножия утеса и в пещере наверху. {npc:4490} (31) ходит среди них: проредите гарпий вокруг нее, прежде чем нападать, – коготь нужен NPC {npc:2986}.",
 	-- {quest:98069} Stolen Freewind Supplies
@@ -137,7 +137,7 @@ return {
 
 	-- Step 25: Shimmering Flats: kill these as you meet them
 	-- {area:439} Shimmering Flats
-	["{area:439}: kill these as you meet them"] = "",
+	["{area:439}: kill these as you meet them"] = "{area:439}: убивайте их по пути",
 	-- plural, as words: Saltstone Basilisks = {npc:4147} Saltstone Basilisk · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Scorpid Terrors = {npc:4139} Scorpid Terror
 	["North-east of the raceway onto the flats. The Saltstone Basilisks (30-31) sun themselves north-west of it, and the Sparkleshell Tortoises (30-31) wander among them on the western flats; the Salt Flats Scavengers and Vultures circle the eastern flats. Every vulture drops a bone, about one tortoise in three a shell.\nCareful: Scavengers and Vultures use Execute when your health is low. The Sparkleshell Snappers (34-35) crowd round a half-buried ship in the north-east and are over you here: the Tortoises of the western flats drop the shells just as often, so stay with them. Take the venom from the Reavers (31-32) of the north half and leave the Scorpid Terrors (33-34) further south."] = "К северо-востоку от гоночной трассы, на равнину. Просоленные василиски (30-31) греются к северо-западу от нее, а блестопанцирные черепахи (30-31) бродят среди них на западе равнины; солончаковые падальщики и стервятники кружат на востоке. С каждого стервятника падает кость, примерно с каждой третьей черепахи – панцирь.\nОсторожно: падальщики и стервятники применяют «Казнь», когда у вас мало здоровья. Блестопанцирные крепкохваты (34-35) толпятся у полузарытого корабля на северо-востоке и здесь выше вас по уровню: черепахи на западе роняют панцири так же часто, оставайтесь с ними. Яд берите с разорителей (31-32) в северной половине, а скорпидов-убийц (33-34) южнее не трогайте.",
 	-- {item:5795} Hardened Tortoise Shell
@@ -196,13 +196,13 @@ return {
 	-- {npc:10537} Cliffwatcher Longhorn
 	["{npc:10537} stands in the middle of the post, on the way to the flight master."] = "",
 	-- {npc:10537} Cliffwatcher Longhorn · {npc:11259} Nataka Longhorn · {zone:1443} Desolace
-	["{npc:10537}: for {npc:11259} in {zone:1443}, next"] = "",
+	["{npc:10537}: for {npc:11259} in {zone:1443}, next"] = "{npc:10537}: для NPC {npc:11259} ({zone:1443}), далее",
 
 	-- Step 36: Fly to Sun Rock Retreat
 	-- {area:460} Sun Rock Retreat
 	["Fly to {area:460}"] = "Летите сюда: {area:460}",
 	-- {area:484} Freewind Post
-	["{area:484} flight master"] = "",
+	["{area:484} flight master"] = "Распорядитель полетов: {area:484}",
 
 	-- Step 38: Scrabblescrew's Camp
 	-- {zone:1443} Desolace · {npc:11596} Smeed Scrabblescrew
