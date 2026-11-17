@@ -499,23 +499,6 @@
 			]
 		},
 		{
-			"id": "646-azshara-rimtori-camp",
-			"quest": 3505,
-			"objective": 3,
-			"at": {
-				"map": 1447,
-				"x": 59.53,
-				"y": 31.47,
-				"frame": "era"
-			},
-			"note": "Betrayed: the arrow leads to Magus Rimtori's camp, the quest's discovery objective, once both kill objectives are credited.",
-			"source": {
-				"kind": "questie",
-				"ref": "quests.json 3505 objective 3 (the camp's event point)"
-			},
-			"pr": 646
-		},
-		{
 			"id": "646-silithus-silithyst-delivery",
 			"quest": 9422,
 			"objective": 1,

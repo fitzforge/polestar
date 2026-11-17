@@ -308,7 +308,7 @@ step Magram: Corrupting Tears
   turnin 92846                        -- Orgrul: 500
   accept 92847
   collect 254841 quest 92847.1        -- Petrified Bark: the valley's accursed trees
-  collect 254840 quest 92847.2 npc 5398 -- Imbued Tears: Warug
+  collect 254840 npc 5398             -- Imbued Tears: Warug
 
 step Magram: Proof of Concept
   zone Shen'dralas

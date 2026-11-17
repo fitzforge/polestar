@@ -1916,7 +1916,11 @@ fn merge_objectives(q: &V, slots: &IndexMap<i64, Slot>, min: usize, settled: boo
 		}
 		let idx = match idx {
 			None => {
-				if (had && !tr) || settled {
+				// A line credited to no creature or object (a hidden credit the server counts as a kill:
+				// "Find the hottest area of Fire Plume Ridge") is never added beside the objectives a
+				// quest has: it repeats one of them in the game's words (#2585, Finding the Source 974).
+				let untargeted = id.is_none() && kind.as_deref().is_some_and(|k| k != "event");
+				if (had && (!tr || untargeted)) || settled {
 					continue;
 				}
 				let o = Obj::new();
@@ -3025,6 +3029,21 @@ mod tests {
 		t.apply(&recs);
 		assert_eq!(t.npcs.get("1568").get("spawns").get("1420").get("f").as_str(), Some("q"), "one player's spawn, however many installs");
 		assert_eq!(t.items.get("2589").get("drops").get("npc").get("1501").as_num(), Some(5.0), "one player's drop chance, however many installs");
+	}
+
+	#[test]
+	fn a_line_credited_to_nothing_is_never_added_beside_a_quests_objectives() {
+		// Finding the Source 974 (#2585): its "Find the hottest area" line ticks on a hidden credit with
+		// no creature; three players' line joined the hot spot object as a kill nobody can target, and
+		// the route model dropped the quest and its chain. A quest without objectives still takes it.
+		let line = vec![r#"{"t":3,"e":"progress","q":364,"oi":1,"text":"Find the hottest area: 1/1","type":"monster"}"#.to_string()];
+		let t = Tables::new(QUESTS, NPCS, "{}");
+		t.apply(&from(&[A, B, C], &line));
+		assert_eq!(t.quest("364").get("objectives").len(), 2, "the two zombie lines only");
+		let gap = vec![r#"{"t":3,"e":"progress","q":365,"oi":1,"text":"Find the hottest area: 1/1","type":"monster"}"#.to_string()];
+		let t = Tables::new(QUESTS, NPCS, "{}");
+		t.apply(&from(&[A, B, C], &gap));
+		assert_eq!(t.quest("365").get("objectives").len(), 1);
 	}
 
 	#[test]
