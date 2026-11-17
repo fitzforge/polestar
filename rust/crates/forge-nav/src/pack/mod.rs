@@ -15,6 +15,7 @@
 
 pub mod cells;
 pub mod chokepoints;
+pub mod cuts;
 pub mod drops;
 pub mod encode;
 pub mod fixture;
@@ -413,6 +414,14 @@ pub fn pack_nav(i: &PackIn) -> Result<Pack, String> {
 				if !ways.is_empty() {
 					lj["joins"] =
 						json!({ "ways": j.ways, "refused": j.refused, "falls": j.falls, "floors": j.floors, "arcs": j.arcs, "entrances": j.entrances, "edges": j.edges, "components": j.merged });
+				}
+				let k = &j.cuts;
+				if k.cuts > 0 {
+					log(&format!(
+						"cuts {c}: {} cuts, {} moves up taken out, {} arcs down put back, {} entrance edges dearer, {} gone, in {} clusters",
+						k.cuts, k.moves, k.arcs, k.dearer, k.gone, k.clusters
+					));
+					lj["cuts"] = json!({ "cuts": k.cuts, "moves": k.moves, "arcs": k.arcs, "dearer": k.dearer, "gone": k.gone });
 				}
 				if i.places.is_some() {
 					log(&format!(
