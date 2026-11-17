@@ -343,6 +343,15 @@ test('Heart of Disruption waits for An Alarming Request (Alliance) and Blood in 
 	assert.deepEqual(blocks(96984), { all: [], any: [92434] }, 'Horde: after Blood in the Streets');
 });
 
+// Kaxe (#2774): Aza'bek, who sells the Soothing Spices for "Swamp Eye" Jarl, stands still at the Crossroads (one TDB
+// spawn, no path), and 56 people opened the vendor window there. The merged data had five points over about 220 yd, and the
+// Horde Dustwallow Marsh guide's `buy 3713 nearest` pointed at one of them, 64 yd from the vendor.
+test('Aza\'bek has one Crossroads spot, not five points across the hill (#2774)', () => {
+	assert.deepEqual(corrections.npcs[248198]?.set?.spawns, {
+		1413: { f: 'e', pts: [[49.74, 29.35]] },
+	});
+});
+
 test('class quests the data left open are locked to their class, and Magma or Lava? is open to everyone (class-quest card)', () => {
 	const classes = (id) => corrections.quests[id] && corrections.quests[id].set.classes;
 	assert.deepEqual([78261, 78307].map(classes), [8, 8], 'The Horn of Xelthos: Rogue');

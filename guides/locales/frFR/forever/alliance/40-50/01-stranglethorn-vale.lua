@@ -257,7 +257,8 @@ return {
 	-- {item:216616} Compound Cage Key
 	["{item:216616}, from the Subchiefs (or the Elites)"] = "{item:216616}, sur les Lieutenants (ou les Élites)",
 	-- {item:216617} Kurzen Fighter's Uniform
-	["{item:216617}, in the supply crate"] = "{item:216617}, dans la caisse de ravitaillement",
+	-- was: ["{item:216617}, in the supply crate"] = "{item:216617}, dans la caisse de ravitaillement"
+	["{item:216617}, in the supply crate deep in the cave"] = "",
 	-- {npc:218230} Wendel Mathers
 	["{npc:218230}, back at his cage on the way out"] = "{npc:218230}, de retour à sa cage en sortant",
 	-- {npc:218229} Captain Aransas · {area:35} Booty Bay
@@ -490,6 +491,7 @@ return {
 	-- ["{area:108} flight master"] = "Maître de vol de {area:108}",
 	-- ["{area:144} flight master"] = "Maître de vol de {area:144}",
 	-- ["{area:43}: kill these as you meet them"] = "{area:43} : tuez-les au passage",
+	-- ["{item:216617}, in the supply crate"] = "{item:216617}, dans la caisse de ravitaillement",
 	-- ["{item:3713}, for \"Swamp Eye\" Jarl"] = "{item:3713}, pour Jarl \"Oeil-des-marais\"",
 	-- ["{item:3919} on the way"] = "{item:3919} en chemin",
 	-- ["{item:5938}, from the Silt Crawlers on the same shore"] = "{item:5938}, sur les Silt Crawlers de la même rive",

@@ -219,9 +219,16 @@ L["Grey for you: pays %d%% XP (Skip grey quests)"] = "Cinza para você: dá %d%%
 L["Journeyman %s"] = "%s de Artesão"
 L["Expert %s"] = "%s de Especialista"
 L["Artisan %s"] = "%s de Artífice"
+-- L["Not offered by %s: you can take %s without it"] = ""
+-- L["Your Hearthstone is bound to %s, not %s: ride to the inn"] = ""
+-- L["No Hearthstone in your bags: ride to the inn"] = ""
+-- L["Hearthstone ready in %s: ride to the inn, or wait for it"] = ""
+-- L["Ride to %s"] = ""
+-- L["Ride to the flight master"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Escolha uma recompensa para concluir a entrega."
+-- L["%s is an escort: it starts as soon as it is taken. Accept it yourself when your group is ready."] = ""
 
 -- Core/Commands.lua
 L["Toggle guide window"] = "Alternar janela do guia"
@@ -445,6 +452,17 @@ L["Detour around %s"] = "Contornando %s"
 L["Walk to the airship dock"] = "Vá até a plataforma da aeronave"
 L["Take the airship to %s"] = "Pegue a aeronave para %s"
 L["Learn the flight path at %s, then fly to %s"] = "Aprender a rota de voo em %s e depois voar para %s"
+-- L["Ride to the boat"] = ""
+-- L["Ride to the zeppelin tower"] = ""
+-- L["Ride to the airship dock"] = ""
+-- L["Ride to the Deeprun Tram"] = ""
+-- L["Ride to the portal"] = ""
+-- L["Ride to the %s cave mouth"] = ""
+-- L["Ride to the %s entrance"] = ""
+-- L["Ride to the cave mouth in %s"] = ""
+-- L["Ride to the entrance in %s"] = ""
+-- L["Ride to the cave mouth"] = ""
+-- L["Ride to the entrance"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -523,6 +541,7 @@ L["Arrows"] = "Flechas"
 L["Bullets"] = "Balas"
 L["Bows & guns"] = "Arcos e armas de fogo"
 L["Mailbox"] = "Caixa de correio"
+-- L["Transmogrifier"] = ""
 
 -- Nav/Prompts.lua
 L["Right-click to skip this leg."] = "Clique direito para pular este trecho."
@@ -769,6 +788,7 @@ L["Best pick"] = "Melhor escolha"
 L["Item"] = "Item"
 L["Reward pick"] = "Recompensa escolhida"
 L["weapon skill not trained"] = "perícia com arma não treinada"
+-- L["Your ranged damage uses this weapon's stats, not its damage"] = ""
 
 -- Gear/Options.lua
 L["Automatic (talents)"] = "Automático (talentos)"
@@ -928,6 +948,9 @@ L["Left-click to fold the list to one row."] = "Botão esquerdo para recolher a 
 L["Right-click for its settings. Shift-drag to move."] = "Botão direito para as opções dela. Shift + arrastar para mover."
 L["Right-click for its settings. Drag to move."] = "Botão direito para as opções dela. Arraste para mover."
 L["Targets the first name in the list that is close. Click a name to target that one."] = "Seleciona o primeiro nome da lista que estiver perto. Clique num nome para selecionar esse."
+-- L["Dragging the Polestar mark in combat places the buttons after the fight."] = ""
+-- L["Press to equip"] = ""
+-- L["Press to equip it."] = ""
 
 -- QoL/XP.lua
 L["Level %d"] = "Nível %d"
@@ -1151,6 +1174,21 @@ L["Names in the target list"] = "Nomes na lista de alvos"
 L["How many of the step's mobs the target list shows, in guide order."] = "Quantas criaturas da etapa a lista de alvos mostra, na ordem do guia."
 L["Completed quest XP"] = "Experiência de missões concluídas"
 -- L["Shows XP from completed quests you can turn in on the game's XP bar and in its tooltip."] = ""
+-- L["Target list style"] = ""
+-- L["Full rows show each name, what it drops and the goal's count. Slim rows are shorter, with a small face, the name and the count; names only leaves the face out. Portraits show the faces alone, in a column or a row, each with how many are left; hover one for its name."] = ""
+-- L["Full"] = ""
+-- L["Slim"] = ""
+-- L["Names only"] = ""
+-- L["Portraits in a column"] = ""
+-- L["Portraits in a row"] = ""
+-- L["Portraits"] = ""
+-- L["3D draws each creature's model. 2D shows the game's flat portrait once you have seen that one (your target, or its nameplate up), and an icon for what you do with it until then."] = ""
+-- L["3D models"] = ""
+-- L["2D portraits"] = ""
+-- L["Name the one that's close"] = ""
+-- L["With portraits, the name of the one close enough to target shows beside its face in a column, under it in a row (above it when the list goes up over the buttons)."] = ""
+-- L["Equip a spare bag first"] = ""
+-- L["When your bags are nearly full and a bag sits in them while a bag slot is empty, the bag button and the guide window offer to put it on before any junk. Nothing happens until you press."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Só Aliança"
@@ -1207,6 +1245,10 @@ L["Lookup"] = "Consulta"
 L["%s: click through what they say until the quest's line is done."] = "%s: clique por todo o diálogo até o objetivo da missão ficar concluído."
 L["%s: use %s to call it up."] = "%s: use %s para invocá-lo."
 L["Use %s to learn it."] = "Use %s para aprender."
+-- L["After an earlier quest"] = ""
+-- L["Chain: finished, %d skipped"] = ""
+-- L["Chain: all %d done"] = ""
+-- L["Chain: %d of %d"] = ""
 
 -- Lookup/Spotter.lua
 L["From"] = "De"
@@ -1289,6 +1331,7 @@ L["Opens the inner doors of Dire Maul's North and West wings."] = "Abre as porta
 L["Opens Gnomeregan's back door, the Workshop entrance."] = "Abre a porta dos fundos de Gnomeregan, a entrada da Oficina."
 L["Opens the doors of the Armory and the Cathedral."] = "Abre as portas do Arsenal e da Catedral."
 L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "Abre o portão do caminho da Horda para a Cidade de Dalaran; uma chave o abre para o grupo. A Aliança entra pelo cano de esgoto em Cantrips & Crows."
+-- L["Rings the gong by the sacred pool in Zul'Farrak to call Gahz'rilla; one mallet does it for the group. Qiaga the Keeper (elite) on top of the Altar of Zul in the Hinterlands drops the Sacred Mallet: use it at the altar at the very top of Jintha'Alor and it becomes the Mallet of Zul'Farrak. Both places are full of elites."] = ""
 
 -- UI/UI.lua
 L["Map %d"] = "Mapa %d"
@@ -1835,6 +1878,14 @@ L["Opens Lookup with this search."] = "Abre a Consulta com esta busca."
 L["No guide to this mount yet: the sources above say where it comes from and what it takes. Guide on one leads you there."] = "Ainda não há guia para esta montaria: as fontes acima dizem de onde ela vem e o que exige. O botão Guia de uma delas leva você até lá."
 L["Origin"] = "Origem"
 L["Builds a guide to %s, the quickest of these to reach, and opens it in a new tab."] = "Cria um guia até %s, a mais rápida de alcançar entre estas, e o abre numa nova aba."
+-- L["In your quest log"] = ""
+-- L["You can take it now"] = ""
+-- L["Not yet"] = ""
+-- L["Skipped"] = ""
+-- L["Finished, %d skipped"] = ""
+-- L["All %d done"] = ""
+-- L["Click to open its page."] = ""
+-- L["Then any of: %s"] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Pronta para entregar"
@@ -1962,6 +2013,8 @@ L["best at %d"] = "melhor no nível %d"
 L["Tough at your level"] = "Difícil no seu nível"
 L["The Dungeons section is turned off. Turn it on under Options > Discovery > Lookup."] = "A seção Masmorras está desativada. Ative-a em Opções > Descoberta > Consulta."
 L["%d-%d players"] = "%d-%d jogadores"
+-- L["No boss drops known"] = ""
+-- L["Drops (%d)"] = ""
 
 -- UI/RouteChoice.lua
 L["Right here"] = "Bem aqui"
@@ -2190,6 +2243,7 @@ L["Read more:"] = "Saiba mais:"
 L["Read more: docs/GUIDE_PACKS.md in Polestar's source"] = "Saiba mais: docs/GUIDE_PACKS.md no código do Polestar"
 L["Turn on and reload"] = "Ativar e recarregar"
 L["Polestar Guides is turned off in the AddOns list, so Polestar has no guides to show. Turn it on for all your characters and reload?"] = "Polestar Guides está desativado na lista de AddOns, então o Polestar não tem guias para mostrar. Ativar para todos os seus personagens e recarregar?"
+-- L["Part of Polestar is turned off in the AddOns list (%s), so its settings cannot open. Turn it on for all your characters and reload?"] = ""
 
 -- UI/Options.lua
 L["Recorder"] = "Gravador"
@@ -2552,6 +2606,8 @@ L["Sell: fewer free bag slots than"] = "Vender: menos espaços livres nas bolsas
 L["Reminds you to sell when fewer bag slots are free than this, or than the items the next steps collect. 0 counts those items alone."] = "Lembra você de vender quando houver menos espaços livres nas bolsas que este valor, ou que os itens coletados nas próximas etapas. 0 considera apenas esses itens."
 L["Repair: gear worn below"] = "Reparar: equipamento desgastado abaixo de"
 L["Reminds you to repair when a piece of your gear is below this share of its durability. 0: never."] = "Lembra você de reparar quando uma peça do seu equipamento estiver abaixo desta porcentagem de durabilidade. 0: nunca."
+L["play Freedoom Arcade by petllama"] = "jogar Freedoom Arcade, de petllama"
+L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom by the Freedoom project (BSD License), from the Polestar_Arcade folder."] = "Freedoom Arcade, de petllama (GPL-2.0 ou posterior), roda três níveis de Freedoom, do projeto Freedoom (licença BSD), a partir da pasta Polestar_Arcade."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Aviso do raide"
@@ -3253,6 +3309,7 @@ L["Marks friendly service NPCs and mailboxes on zone and city maps using Polesta
 L["Shows the enabled NPC service categories on the minimap as well."] = "Mostra também no minimapa as categorias de serviços de PNJ ativadas."
 L["Shows trainers for your character's class."] = "Mostra os instrutores da classe do seu personagem."
 L["Shows this service category on the map."] = "Mostra esta categoria de serviço no mapa."
+-- L["Transmogrifiers"] = ""
 
 -- UI/GearScales.lua
 L["Strength"] = "Força"
@@ -3399,6 +3456,8 @@ L["Deleted %s."] = "%s apagado."
 L["Free slots: %d of %d"] = "Espaços livres: %d de %d"
 L["Cheapest junk: %s (%s)"] = "Lixo mais barato: %s (%s)"
 L["Free bag slots and the cheapest junk"] = "Espaços livres nas bolsas e o lixo mais barato"
+-- L["Equipped %s."] = ""
+-- L["Spare bag: %s"] = ""
 
 -- QoL/Restock.lua
 L["Restock"] = "Reabastecer"
@@ -4479,6 +4538,8 @@ L["Rares, travel & zones"] = "Raros, viagem e zonas"
 L["Zones and coordinates"] = "Zonas e coordenadas"
 L["Trackers & map"] = "Rastreadores e mapa"
 L["Minimap and coordinates"] = "Minimapa e coordenadas"
+L["Offer Freedoom Arcade on flights"] = "Oferecer Freedoom Arcade nos voos"
+L["On a flight with a minute or more to go, Polestar asks if you want to play Freedoom Arcade by petllama while you wait: three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade opens it any time."] = "Em um voo com um minuto ou mais pela frente, o Polestar pergunta se você quer jogar Freedoom Arcade, de petllama, enquanto espera: três níveis de Freedoom, ou o jogo completo se o addon Freedoom Arcade estiver instalado. 10 segundos antes do pouso, o jogo é salvo, pausado e fechado. /polestar arcade o abre a qualquer momento."
 
 -- Dungeons/Options.lua
 L["Dungeons and characters"] = "Masmorras e personagens"
@@ -4548,6 +4609,7 @@ L["Jump anyway? They stay in your log, and the guide lists who takes each in."] 
 L["Jump anyway"] = "Ir mesmo assim"
 L["Open any flight master's map once on this continent so Polestar knows your flight paths."] = "Abra uma vez o mapa de qualquer mestre de voo deste continente para que o Polestar conheça suas rotas de voo."
 L["This guide is for %s characters. Polestar won't guide you through it."] = "Este guia é para personagens da %s. O Polestar não vai guiar você por ele."
+-- L["Equip it"] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "Aperte %s para retomar, ou abra a janela do guia."
@@ -4687,6 +4749,21 @@ L["Moved"] = "Movido"
 L["Not moved"] = "Não movido"
 L["From the look"] = "Do visual"
 L["Nothing to apply: the parts ticked are the same as yours."] = "Nada para aplicar: as partes marcadas são iguais às suas."
+
+-- Maps/Arcade.lua
+L["Freedoom Arcade can't open: its folder Polestar_Arcade is missing or turned off."] = "O Freedoom Arcade não pode abrir: a pasta Polestar_Arcade está faltando ou desativada."
+L["Freedoom Arcade opens after the fight."] = "O Freedoom Arcade abre depois do combate."
+L["Play Freedoom Arcade"] = "Jogar Freedoom Arcade"
+L["Freedoom Arcade by petllama"] = "Freedoom Arcade, de petllama"
+L["3 levels of Freedoom Phase 1. Esc: menu, P: pause, F6/F9: save/load."] = "3 níveis de Freedoom Phase 1. Esc: menu, P: pausa, F6/F9: salvar/carregar."
+L["a game: Play"] = "Jogar"
+L["Do you want to play Doom while waiting?"] = "Quer jogar Doom enquanto espera?"
+L["Don't ask again"] = "Não perguntar de novo"
+L["Freedoom Arcade is saved and paused for the fight: type %s to continue."] = "O Freedoom Arcade foi salvo e pausado por causa do combate: digite %s para continuar."
+L["Landing in 10 seconds"] = "Pouso em 10 segundos"
+L["Freedoom Arcade is saved and paused."] = "O Freedoom Arcade foi salvo e pausado."
+L["Close Freedoom Arcade to get your keys back."] = "Feche o Freedoom Arcade para ter suas teclas de volta."
+L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Pousou. O Freedoom Arcade foi salvo e pausado: digite %s para continuar."
 
 -- QoL/QuestXP.lua
 -- L["+1 level"] = ""

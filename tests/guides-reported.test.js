@@ -15695,7 +15695,8 @@ test(`${TELDRASSIL}: The Red Crystal is taken on the first Auberdine stop, with 
 	assert.ok(take.step.goals.some(is('accept', 98025)) && take.step.goals.some(is('turnin', 6342)), 'the first stop: Laird and the WANTED poster');
 	assert.ok(at(list, 'accept 4811', is('accept', 4811)) < at(list, 'accept 954', is('accept', 954)), 'before the second stop');
 	const ne = goals(NE_DARKSHORE).filter(nightElf);
-	assert.ok(at(ne, 'accept 4811', is('accept', 4811)) < at(ne, 'crystal', (g) => g.quest === 4811 && g.t === 'interact'), 'Night Elf Darkshore keeps the accept before the crystal');
+	// Since the 0.4.1 data the game lists one objective (the event at the crystal), led to by `complete 4811 @`.
+	assert.ok(at(ne, 'accept 4811', is('accept', 4811)) < at(ne, 'crystal', (g) => g.quest === 4811 && g.t === 'complete'), 'Night Elf Darkshore keeps the accept before the crystal');
 });
 
 // Level tidy (0.4.0): For Love Eternal's (963) Anaya Dawnrunner is level 16, and Night Elf Darkshore reaches

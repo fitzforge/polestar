@@ -128,13 +128,36 @@ fn choose_entrance(name: &str, recorded: &V, table: &V, guides: &[GuideGoto], co
 	e
 }
 
-/// instances.js `chooseEntrancePoint`.
+/// The capitals' world maps (Stormwind, Ironforge, Darnassus, Orgrimmar, Thunder Bluff, the Undercity).
+const CAPITAL_MAPS: [f64; 6] = [1453.0, 1455.0, 1457.0, 1454.0, 1456.0, 1458.0];
+
+/// A point on a continent's map (a frame wider or taller than any zone's) as a point on the zone map it lies in.
+fn continent_to_zone(frames: &V, map: f64, x: f64, y: f64, prefer: &[f64]) -> Option<(f64, f64, f64)> {
+	let f = frames.get(&map.to_string());
+	let (left, right, top, bottom) = (f.get("left").num(), f.get("right").num(), f.get("top").num(), f.get("bottom").num());
+	let (w, h) = (left - right, top - bottom);
+	if !(w > 0.0 && h > 0.0) || (w <= ZONE_MAX && h <= ZONE_MAX) {
+		return None;
+	}
+	zone_point(frames, f.get("c").num(), top - y / 100.0 * h, left - x / 100.0 * w, prefer)
+}
+
+/// instances.js `chooseEntrancePoint`. A recorded way in that one person alone was seen to take from a capital is no
+/// way in: the Dungeon Finder or a summon moves a player into the dungeon from wherever they stand (Blackmaw Hold,
+/// on Mount Hyjal, came out "in Darnassus" from one such entry). The capitals' own dungeons have many people each.
+/// A way in recorded on a continent's map (the game has no zone map in the caves before the Deadmines, Gnomeregan and
+/// Maraudon) is placed on the zone map it lies in, the dungeon's own zones first.
 fn choose_entrance_point(name: &str, recorded: &V, table: &V, guides: &[GuideGoto], corpse: Option<&super::client::Corpse>, zones: &V, frames: &V, prefer: &[f64]) -> V {
-	let mut rec = recorded.items();
+	let mut rec: Vec<V> = recorded.items().into_iter().filter(|r| num0(&r.get("n")) >= 2.0 || !CAPITAL_MAPS.contains(&r.get("map").num())).collect();
 	rec.sort_by(|a, b| ord(num0(&b.get("n")) - num0(&a.get("n"))));
 	if let Some(r) = rec.first() {
 		if r.get("map").truthy() {
-			return entrance_v(r.get("map").num(), round1(r.get("x").num()), round1(r.get("y").num()), r.get("f").as_str() == Some("e"), false);
+			let era = r.get("f").as_str() == Some("e");
+			let (map, x, y) = (r.get("map").num(), r.get("x").num(), r.get("y").num());
+			if let Some((zm, zx, zy)) = continent_to_zone(frames, map, x, y, prefer) {
+				return entrance_v(zm, zx, zy, era, false);
+			}
+			return entrance_v(map, round1(x), round1(y), era, false);
 		}
 	}
 	if table.truthy() && table.get("map").truthy() {
@@ -799,6 +822,39 @@ mod tests {
 		assert_eq!(rec.get("A").get("x").num(), 14.7, "and keeps the Alliance way in");
 		let one = parse_json(r#"{ "key": "deadmines", "map": 1436, "x": 42.5, "y": 71.7 }"#).unwrap();
 		assert!(!choose_entrance("Deadmines", &none, &one, &[], None, &none, &none, &[]).get("A").truthy(), "one way in: no A");
+	}
+
+	#[test]
+	fn one_person_seen_entering_from_a_capital_is_no_way_in_a_capital_s_own_dungeon_keeps_its_door() {
+		let none = V::Null;
+		// Blackmaw Hold (Mount Hyjal): its only recorded entry was from Darnassus (a Dungeon Finder or summon move).
+		let blackmaw = parse_json(r#"[{ "map": 1457, "x": 38.77, "y": 50.06, "n": 1 }]"#).unwrap();
+		assert!(!choose_entrance("Blackmaw Hold", &blackmaw, &none, &[], None, &none, &none, &[]).truthy(), "no way in from one capital entry");
+		// Ragefire Chasm: many people walked in from Orgrimmar.
+		let rfc = parse_json(r#"[{ "map": 1454, "x": 52.3, "y": 49.6, "n": 40 }, { "map": 1411, "x": 50.0, "y": 50.0, "n": 1 }]"#).unwrap();
+		assert_eq!(choose_entrance("Ragefire Chasm", &rfc, &none, &[], None, &none, &none, &[]).get("map").num(), 1454.0);
+		// A single entry outside the capitals still places a dungeon no other source does.
+		let field = parse_json(r#"[{ "map": 1440, "x": 14.1, "y": 13.9, "n": 1 }]"#).unwrap();
+		assert_eq!(choose_entrance("Blackfathom Deeps", &field, &none, &[], None, &none, &none, &[]).get("map").num(), 1440.0);
+	}
+
+	#[test]
+	fn a_way_in_recorded_on_the_continent_map_is_placed_on_its_zone_map() {
+		let none = V::Null;
+		let frames = parse_json(
+			r#"{ "1415": { "c": 0, "left": 16000, "right": -19199.9, "top": 7466.6, "bottom": -16000 },
+			     "1429": { "c": 0, "left": 1535.417, "right": -1935.417, "top": -7939.583, "bottom": -10254.167 },
+			     "1436": { "c": 0, "left": 3016.667, "right": -483.333, "top": -9400, "bottom": -11733.333 } }"#,
+		)
+		.unwrap();
+		// The Deadmines: the cave in Moonbrook has no zone map, so the game gave the Eastern Kingdoms' map.
+		let rec = parse_json(r#"[{ "map": 1415, "x": 41.05, "y": 79.11, "n": 168 }, { "map": 1436, "x": 44.27, "y": 64.37, "n": 1 }]"#).unwrap();
+		let e = choose_entrance("Deadmines", &rec, &none, &[], None, &none, &frames, &[1436.0]);
+		assert_eq!(e.get("map").num(), 1436.0, "Westfall, not the continent");
+		assert!((e.get("x").num() - 41.9).abs() < 0.2 && (e.get("y").num() - 72.8).abs() < 0.2, "{},{}", e.get("x").num(), e.get("y").num());
+		// A zone map's own point stays as it was.
+		let zone = parse_json(r#"[{ "map": 1436, "x": 42.47, "y": 71.71, "n": 3 }]"#).unwrap();
+		assert_eq!(choose_entrance("Deadmines", &zone, &none, &[], None, &none, &frames, &[1436.0]).get("x").num(), 42.5);
 	}
 
 	#[test]

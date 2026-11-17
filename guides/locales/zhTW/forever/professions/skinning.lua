@@ -17,7 +17,7 @@ return {
 	["Beasts 1-9: {zone:1429} (1-50)"] = "野獸 1-9：{zone:1429}（1-50）",
 	-- {npc:1922} Gray Forest Wolf · {npc:525} Mangy Wolf · {npc:524} Rockhide Boar · {npc:113} Stonetusk Boar · {npc:69} Timber Wolf · {npc:822} Young Forest Bear · {npc:299} Young Wolf · {skill:393} Skinning · {npc:6306} Helene Peltskinner
 	-- plural, as words: Rough Wolf Pelts = {item:247877} Rough Wolf Pelt
-	["Kill and skin {npc:1922} (7), {npc:525} (5), Prowler (9), {npc:524} (7), {npc:113} (5), {npc:69} (2), {npc:822} (8), {npc:299} (1) along the loop until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. A quest here needs {skill:393}: Rough Wolf Pelts (level 8, {npc:6306}). Zone level 1-10. Expect about 60 beasts for these 49 points."] = "沿路線擊殺並剝皮：{npc:1922}（7）、{npc:525}（5）、覓食的灰狼（9）、{npc:524}（7）、{npc:113}（5）、{npc:69}（2）、{npc:822}（8）、{npc:299}（1），直到{skill:393}達到50；每具屍體先拾取再剝皮，並剝取你技能允許的最高等級野獸。L級野獸在20級以下需要技能(L-10)x10，20級以上需要Lx5。這裡有個任務需要{skill:393}：「堅韌狼皮」（8級，{npc:6306}）。地區等級1-10。這49點預計要剝約60隻野獸。",
+	["Kill and skin {npc:1922} (7), {npc:525} (4), Prowler (9), {npc:524} (7), {npc:113} (5), {npc:69} (2), {npc:822} (8), {npc:299} (1) along the loop until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. A quest here needs {skill:393}: Rough Wolf Pelts (level 8, {npc:6306}). Zone level 1-10. Expect about 60 beasts for these 49 points."] = "沿路線擊殺並剝皮：{npc:1922}（7）、{npc:525}（4）、覓食的灰狼（9）、{npc:524}（7）、{npc:113}（5）、{npc:69}（2）、{npc:822}（8）、{npc:299}（1），直到{skill:393}達到50；每具屍體先拾取再剝皮，並剝取你技能允許的最高等級野獸。L級野獸在20級以下需要技能(L-10)x10，20級以上需要Lx5。這裡有個任務需要{skill:393}：「堅韌狼皮」（8級，{npc:6306}）。地區等級1-10。這49點預計要剝約60隻野獸。",
 	-- {npc:822} Young Forest Bear
 	["{npc:822}, Prowler"] = "{npc:822}、徘徊者",
 	-- {npc:822} Young Forest Bear
@@ -27,7 +27,7 @@ return {
 	-- {zone:1426} Dun Morogh
 	["Beasts 1-9: {zone:1426} (1-50)"] = "野獸 1-9：{zone:1426}（1-50）",
 	-- {npc:1125} Crag Boar · {npc:1127} Elder Crag Boar · {npc:1196} Ice Claw Bear · {npc:1199} Juvenile Snow Leopard · {npc:1126} Large Crag Boar · {npc:704} Ragged Timber Wolf · {npc:705} Ragged Young Wolf · {npc:1689} Scarred Crag Boar · {npc:708} Small Crag Boar · {npc:1201} Snow Leopard · {npc:1138} Snow Tracker Wolf · {npc:1131} Winter Wolf · {npc:1128} Young Black Bear · {skill:393} Skinning
-	["Kill and skin {npc:1125} (5), {npc:1127} (7), {npc:1196} (7), {npc:1199} (5), {npc:1126} (6), {npc:704} (2), {npc:705} (1), {npc:1689} (9), {npc:708} (3), {npc:1201} (7), {npc:1138} (6), {npc:1131} (7), {npc:1128} (5) along the loop until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 1-10. Expect about 60 beasts for these 49 points."] = "沿路線擊殺並剝皮：{npc:1125}（5）、{npc:1127}（7）、{npc:1196}（7）、{npc:1199}（5）、{npc:1126}（6）、{npc:704}（2）、{npc:705}（1）、{npc:1689}（9）、{npc:708}（3）、{npc:1201}（7）、{npc:1138}（6）、{npc:1131}（7）、{npc:1128}（5），直到{skill:393}達到 50；拾取每具屍體後再剝皮，並剝取你技能允許的最高等級野獸。L 級野獸在 20 級以下需要技能 (L-10)x10，20 級以上需要 Lx5。區域等級 1-10。這49點預計需要約60隻野獸。",
+	["Kill and skin {npc:1125} (5), {npc:1127} (6), {npc:1196} (7), {npc:1199} (5), {npc:1126} (6), {npc:704} (2), {npc:705} (1), {npc:1689} (9), {npc:708} (3), {npc:1201} (7), {npc:1138} (6), {npc:1131} (7), {npc:1128} (5) along the loop until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 1-10. Expect about 60 beasts for these 49 points."] = "沿路線擊殺並剝皮：{npc:1125}（5）、{npc:1127}（6）、{npc:1196}（7）、{npc:1199}（5）、{npc:1126}（6）、{npc:704}（2）、{npc:705}（1）、{npc:1689}（9）、{npc:708}（3）、{npc:1201}（7）、{npc:1138}（6）、{npc:1131}（7）、{npc:1128}（5），直到{skill:393}達到 50；拾取每具屍體後再剝皮，並剝取你技能允許的最高等級野獸。L 級野獸在 20 級以下需要技能 (L-10)x10，20 級以上需要 Lx5。區域等級 1-10。這49點預計需要約60隻野獸。",
 
 	-- Step 4: Beasts 1-8: Teldrassil (1-50)
 	-- {zone:1438} Teldrassil
@@ -44,10 +44,11 @@ return {
 	-- {npc:251291} Hippogryph Youth
 	["{npc:251291}, Prideclaw"] = "{npc:251291}、群爪",
 	["Prideclaw, Galestrider"] = "傲爪獸、風行者",
-	["Prideclaw, Vuldren"] = "傲爪獸、鷲龍",
-	["Cloudrunner, Galestrider"] = "雲行者、疾風行者",
 	-- {npc:250928} Highlands Ursera
 	["Prideclaw, {npc:250928}"] = "群爪、{npc:250928}",
+	["Galestrider, Cloudrunner"] = "逐風者、雲行者",
+	["Prideclaw, Vuldren"] = "傲爪獸、鷲龍",
+	["Galestrider, Prideclaw"] = "逐風者、傲爪獸",
 
 	-- Step 6: Beasts 1-9: Durotar (1-50)
 	-- {zone:1411} Durotar
@@ -81,11 +82,11 @@ return {
 	-- {skill:393} Skinning · {spell:1229517} Camp Chair · {item:2318} Light Leather · {item:4470} Simple Wood
 	["Journeyman {skill:393} raises the cap to 150; it needs skill 50 and no character level, and costs 5s: train it as soon as you reach 50. The arrow picks the nearest {skill:393} trainer of your faction. {spell:1229517}, Forever's camping item for {skill:393}, is taught from skill 20 (1s, or free from Camping 101: {skill:393}): three {item:2318} and two {item:4470} each, it gives points until 25; placed beside a campfire it gives everyone at the camp a buff for an hour."] = "",
 
-	-- Step 10: Beasts 10-16: Westfall (50-100)
+	-- Step 10: Beasts 10-15: Westfall (50-100)
 	-- {zone:1436} Westfall
-	["Beasts 10-16: {zone:1436} (50-100)"] = "野獸 10-16：{zone:1436}（50-100）",
+	["Beasts 10-15: {zone:1436} (50-100)"] = "野獸 10-15：{zone:1436}（50-100）",
 	-- {npc:833} Coyote Packleader · {npc:454} Young Goretusk · {npc:547} Great Goretusk · {skill:393} Skinning
-	["Kill and skin Coyote (10), {npc:833} (11), {npc:454} (12), Goretusk (14), {npc:547} (16, needs 60) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 130 beasts for these 50 points."] = "沿路線擊殺並剝皮：山狗（10）、{npc:833}（11）、{npc:454}（12）、血牙野豬（14）、{npc:547}（16，需要 60），直到{skill:393}達到 100；拾取每具屍體後再剝皮，並剝取你技能允許的最高等級野獸。L 級野獸在 20 級以下需要技能 (L-10)x10，20 級以上需要 Lx5。區域等級 10-20。這50點預計需要約130隻野獸。",
+	["Kill and skin Coyote (10), {npc:833} (11), {npc:454} (12), Goretusk (14), {npc:547} (15) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 120 beasts for these 50 points."] = "沿路線擊殺並剝皮：山狗（10）、{npc:833}（11）、{npc:454}（12）、血牙野豬（14）、{npc:547}（15），直到{skill:393}達到 100；拾取每具屍體後再剝皮，並剝取你技能允許的最高等級野獸。L 級野獸在 20 級以下需要技能 (L-10)x10，20 級以上需要 Lx5。區域等級 10-20。這50點預計需要約120隻野獸。",
 	-- {npc:547} Great Goretusk
 	["Goretusk, {npc:547}"] = "血牙野豬、{npc:547}",
 	-- {npc:454} Young Goretusk
@@ -104,11 +105,11 @@ return {
 	-- {npc:1190} Mountain Boar · {npc:1186} Elder Black Bear · {npc:1188} Grizzled Black Bear · {npc:1693} Loch Crocolisk · {npc:1191} Mangy Mountain Boar · {npc:1189} Black Bear Patriarch · {npc:1192} Elder Mountain Boar · {skill:393} Skinning
 	["Kill and skin {npc:1190} (10), {npc:1186} (11), {npc:1188} (13), {npc:1693} (14), {npc:1191} (14), {npc:1189} (16, needs 60), {npc:1192} (16, needs 60) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 100 beasts for these 50 points."] = "沿路線擊殺並剝皮：{npc:1190}（10）、{npc:1186}（11）、{npc:1188}（13）、{npc:1693}（14）、{npc:1191}（14）、{npc:1189}（16，需要 60）、{npc:1192}（16，需要 60），直到{skill:393}達到 100；拾取每具屍體後再剝皮，並剝取你技能允許的最高等級野獸。L 級野獸在 20 級以下需要技能 (L-10)x10，20 級以上需要 Lx5。區域等級 10-20。這50點預計需要約100隻野獸。",
 
-	-- Step 12: Beasts 11-19: Darkshore (50-100)
+	-- Step 12: Beasts 10-19: Darkshore (50-100)
 	-- {zone:1439} Darkshore
-	["Beasts 11-19: {zone:1439} (50-100)"] = "野獸 11-19：{zone:1439}（50-100）",
-	-- {npc:2163} Thistle Bear · {npc:2164} Rabid Thistle Bear · {npc:2165} Grizzled Thistle Bear · {npc:2070} Moonstalker Runt · {npc:2237} Moonstalker Sire · {npc:3823} Ghostpaw Runner · {npc:2071} Moonstalker Matriarch · {skill:393} Skinning
-	["Kill and skin {npc:2163} (11), {npc:2164} (13), Moonstalker (14), {npc:2165} (16, needs 60), {npc:2070} (16, needs 60), {npc:2237} (17, needs 70), {npc:3823} (19, needs 90), {npc:2071} (19, needs 90) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 100 beasts for these 50 points."] = "沿路線擊殺並剝皮：{npc:2163}（11）、{npc:2164}（13）、月夜猛虎（14）、{npc:2165}（16，需要60）、{npc:2070}（16，需要60）、{npc:2237}（17，需要70）、{npc:3823}（19，需要90）、{npc:2071}（19，需要90），直到{skill:393}達到100；每具屍體先拾取再剝皮，並剝取你技能允許的最高等級野獸。L級野獸在20級以下需要技能(L-10)x10，20級以上需要Lx5。地區等級10-20。這50點預計要剝約100隻野獸。",
+	["Beasts 10-19: {zone:1439} (50-100)"] = "野獸 10-19：{zone:1439}（50-100）",
+	-- {npc:2070} Moonstalker Runt · {npc:2163} Thistle Bear · {npc:2164} Rabid Thistle Bear · {npc:2165} Grizzled Thistle Bear · {npc:2237} Moonstalker Sire · {npc:3823} Ghostpaw Runner · {npc:2071} Moonstalker Matriarch · {skill:393} Skinning
+	["Kill and skin {npc:2070} (10), {npc:2163} (11), {npc:2164} (13), Moonstalker (14), {npc:2165} (16, needs 60), {npc:2237} (17, needs 70), {npc:3823} (19, needs 90), {npc:2071} (19, needs 90) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 130 beasts for these 50 points."] = "沿路線擊殺並剝皮：{npc:2070}（10）、{npc:2163}（11）、{npc:2164}（13）、月夜猛虎（14）、{npc:2165}（16，需要60）、{npc:2237}（17，需要70）、{npc:3823}（19，需要90）、{npc:2071}（19，需要90），直到{skill:393}達到100；每具屍體先拾取再剝皮，並剝取你技能允許的最高等級野獸。L級野獸在20級以下需要技能(L-10)x10，20級以上需要Lx5。地區等級10-20。這50點預計要剝約130隻野獸。",
 	-- {npc:2164} Rabid Thistle Bear
 	["{npc:2164}, Moonstalker"] = "{npc:2164}、月夜猛虎",
 	-- {npc:2165} Grizzled Thistle Bear
@@ -140,11 +141,11 @@ return {
 	-- {npc:213} Starving Dire Wolf · {npc:565} Rabid Dire Wolf · {skill:393} Skinning
 	["Kill and skin {npc:213} (19), {npc:565} (20) along the loop until {skill:393} 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 30 beasts for these 25 points."] = "沿路線擊殺並剝皮：{npc:213}（19）、{npc:565}（20），直到{skill:393}達到 125；拾取每具屍體後再剝皮，並剝取你技能允許的最高等級野獸。L 級野獸在 20 級以下需要技能 (L-10)x10，20 級以上需要 Lx5。區域等級 18-30。這25點預計需要約30隻野獸。",
 
-	-- Step 16: Beasts 19-22: Ashenvale (100-125)
+	-- Step 16: Beasts 19-21: Ashenvale (100-125)
 	-- {zone:1440} Ashenvale
-	["Beasts 19-22: {zone:1440} (100-125)"] = "野獸19-22級：{zone:1440}（100-125）",
+	["Beasts 19-21: {zone:1440} (100-125)"] = "野獸19-21級：{zone:1440}（100-125）",
 	-- {npc:3823} Ghostpaw Runner · {npc:3809} Ashenvale Bear · {npc:3817} Shadowhorn Stag · {skill:393} Skinning
-	["Kill and skin {npc:3823} (19), {npc:3809} (21, needs 105), {npc:3817} (22, needs 110) along the loop until {skill:393} 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 30 beasts for these 25 points."] = "沿路線擊殺並剝皮：{npc:3823}（19）、{npc:3809}（21，需要 105）、{npc:3817}（22，需要 110），直到{skill:393}達到 125；拾取每具屍體後再剝皮，並剝取你技能允許的最高等級野獸。L 級野獸在 20 級以下需要技能 (L-10)x10，20 級以上需要 Lx5。區域等級 18-30。這25點預計需要約30隻野獸。",
+	["Kill and skin {npc:3823} (19), {npc:3809} (21, needs 105), {npc:3817} (21, needs 105) along the loop until {skill:393} 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 30 beasts for these 25 points."] = "沿路線擊殺並剝皮：{npc:3823}（19）、{npc:3809}（21，需要 105）、{npc:3817}（21，需要 105），直到{skill:393}達到 125；拾取每具屍體後再剝皮，並剝取你技能允許的最高等級野獸。L 級野獸在 20 級以下需要技能 (L-10)x10，20 級以上需要 Lx5。區域等級 18-30。這25點預計需要約30隻野獸。",
 
 	-- Step 18: Beasts 21-23: Hillsbrad Foothills (100-125)
 	-- {zone:1424} Hillsbrad Foothills
@@ -170,7 +171,7 @@ return {
 	-- {zone:1440} Ashenvale
 	["Beasts 19-29: {zone:1440} (125-150)"] = "野獸19-29級：{zone:1440}（125-150）",
 	-- {npc:3823} Ghostpaw Runner · {npc:3809} Ashenvale Bear · {npc:3817} Shadowhorn Stag · {npc:3810} Elder Ashenvale Bear · {npc:3818} Elder Shadowhorn Stag · {npc:3811} Giant Ashenvale Bear · {skill:393} Skinning
-	["Kill and skin {npc:3823} (19), {npc:3809} (21), {npc:3817} (22), {npc:3810} (25), {npc:3818} (26, needs 130), {npc:3811} (29, needs 145) along the loop until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 40 beasts for these 25 points."] = "",
+	["Kill and skin {npc:3823} (19), {npc:3809} (21), {npc:3817} (21), {npc:3810} (25), {npc:3818} (26, needs 130), {npc:3811} (29, needs 145) along the loop until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 40 beasts for these 25 points."] = "",
 
 	-- Step 24: Beasts 21-33: Alterac Mountains (150-175)
 	-- {zone:1416} Alterac Mountains
@@ -236,22 +237,31 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:393} trainer of your faction teaches Apprentice {skill:393} (character level 5); the arrow picks the nearest. Buy a {item:7005} from a trade goods or general vendor: keep it in your bags, you cannot skin without it."] = "你陣營的任何{skill:393}訓練師都會教授初級{skill:393}（角色等級 5）；箭頭會指向最近的一位。向商業物品或雜貨商人購買{item:7005}：放在背包裡，沒有它就無法剝皮。",
 	-- ["Battleboar, {npc:2961}"] = "鬥豬、{npc:2961}",
+	-- ["Beasts 10-16: {zone:1436} (50-100)"] = "野獸 10-16：{zone:1436}（50-100）",
+	-- ["Beasts 11-19: {zone:1439} (50-100)"] = "野獸 11-19：{zone:1439}（50-100）",
+	-- ["Beasts 19-22: {zone:1440} (100-125)"] = "野獸19-22級：{zone:1440}（100-125）",
 	-- ["Beasts 21-23: {zone:1442} (100-125)"] = "野獸 21-23：{zone:1442}（100-125）",
 	-- ["Beasts 21-27: {zone:1442} (125-150)"] = "野獸 21-27：{zone:1442}（125-150）",
 	-- ["Beasts 21-29: {zone:1437} (125-150)"] = "野獸 21-29：{zone:1437}（125-150）",
 	-- ["Beasts 30-34: {zone:1434} (150-175)"] = "野獸 30-34：{zone:1434}（150-175）",
 	-- ["Beasts 35-42: {zone:1418} (200-225)"] = "野獸 35-42：{zone:1418}（200-225）",
 	-- ["Beasts 48-54: {zone:1449} (275-300)"] = "野獸 48-54：{zone:1449}（275-300）",
+	-- ["Cloudrunner, Galestrider"] = "雲行者、疾風行者",
 	-- ["Duskbat"] = "夜行蝙蝠",
 	-- ["Duskbat, {npc:1513}"] = "夜行蝙蝠、{npc:1513}",
 	-- ["Galestrider, Cloudrunner"] = "逐風者、雲行者",
 	-- ["Journeyman {skill:393} raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest {skill:393} trainer of your faction."] = "中級{skill:393}將上限提高至 150；需要技能 50 且角色等級 10。箭頭會指向你陣營最近的{skill:393}訓練師。",
+	-- ["Kill and skin Coyote (10), {npc:833} (11), {npc:454} (12), Goretusk (14), {npc:547} (16, needs 60) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 130 beasts for these 50 points."] = "沿路線擊殺並剝皮：山狗（10）、{npc:833}（11）、{npc:454}（12）、血牙野豬（14）、{npc:547}（16，需要 60），直到{skill:393}達到 100；拾取每具屍體後再剝皮，並剝取你技能允許的最高等級野獸。L 級野獸在 20 級以下需要技能 (L-10)x10，20 級以上需要 Lx5。區域等級 10-20。這50點預計需要約130隻野獸。",
+	-- ["Kill and skin {npc:1125} (5), {npc:1127} (7), {npc:1196} (7), {npc:1199} (5), {npc:1126} (6), {npc:704} (2), {npc:705} (1), {npc:1689} (9), {npc:708} (3), {npc:1201} (7), {npc:1138} (6), {npc:1131} (7), {npc:1128} (5) along the loop until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 1-10. Expect about 60 beasts for these 49 points."] = "沿路線擊殺並剝皮：{npc:1125}（5）、{npc:1127}（7）、{npc:1196}（7）、{npc:1199}（5）、{npc:1126}（6）、{npc:704}（2）、{npc:705}（1）、{npc:1689}（9）、{npc:708}（3）、{npc:1201}（7）、{npc:1138}（6）、{npc:1131}（7）、{npc:1128}（5），直到{skill:393}達到 50；拾取每具屍體後再剝皮，並剝取你技能允許的最高等級野獸。L 級野獸在 20 級以下需要技能 (L-10)x10，20 級以上需要 Lx5。區域等級 1-10。這49點預計需要約60隻野獸。",
 	-- ["Kill and skin {npc:1150} (30), {npc:683} (30), {npc:855} (30), {npc:681} (30), {npc:688} (31, needs 155), {npc:1108} (32, needs 160), Panther (32, needs 160), {npc:682} (32, needs 160), {npc:685} (33, needs 165), {npc:689} (34, needs 170), {npc:1085} (34, needs 170) along the loop until {skill:393} 175; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 30-45."] = "沿路線擊殺並剝皮：{npc:1150}（30）、{npc:683}（30）、{npc:855}（30）、{npc:681}（30）、{npc:688}（31，需要 155）、{npc:1108}（32，需要 160）、黑豹（32，需要 160）、{npc:682}（32，需要 160）、{npc:685}（33，需要 165）、{npc:689}（34，需要 170）、{npc:1085}（34，需要 170），直到{skill:393}達到 175；剝取你技能允許的最高等級野獸。L 級野獸在 20 級以下需要技能 (L-10)x10，20 級以上需要 Lx5。區域等級 30-45。",
 	-- ["Kill and skin {npc:1417} (21), {npc:1020} (22), {npc:1015} (23), {npc:1400} (23), {npc:1016} (24), {npc:1021} (24), {npc:2089} (25), {npc:1022} (25), {npc:1023} (26, needs 130), {npc:1018} (27, needs 135), {npc:1019} (29, needs 145) along the loop until {skill:393} 150; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 20-30."] = "沿路線擊殺並剝皮：{npc:1417}（21）、{npc:1020}（22）、{npc:1015}（23）、{npc:1400}（23）、{npc:1016}（24）、{npc:1021}（24）、{npc:2089}（25）、{npc:1022}（25）、{npc:1023}（26，需要 130）、{npc:1018}（27，需要 135）、{npc:1019}（29，需要 145），直到{skill:393}達到 150；剝取你技能允許的最高等級野獸。L 級野獸在 20 級以下需要技能 (L-10)x10，20 級以上需要 Lx5。區域等級 20-30。",
+	-- ["Kill and skin {npc:1922} (7), {npc:525} (5), Prowler (9), {npc:524} (7), {npc:113} (5), {npc:69} (2), {npc:822} (8), {npc:299} (1) along the loop until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. A quest here needs {skill:393}: Rough Wolf Pelts (level 8, {npc:6306}). Zone level 1-10. Expect about 60 beasts for these 49 points."] = "沿路線擊殺並剝皮：{npc:1922}（7）、{npc:525}（5）、覓食的灰狼（9）、{npc:524}（7）、{npc:113}（5）、{npc:69}（2）、{npc:822}（8）、{npc:299}（1），直到{skill:393}達到50；每具屍體先拾取再剝皮，並剝取你技能允許的最高等級野獸。L級野獸在20級以下需要技能(L-10)x10，20級以上需要Lx5。這裡有個任務需要{skill:393}：「堅韌狼皮」（8級，{npc:6306}）。地區等級1-10。這49點預計要剝約60隻野獸。",
 	-- ["Kill and skin {npc:1922} (7), {npc:525} (5), Prowler (9), {npc:524} (7), {npc:113} (5), {npc:69} (2), {npc:822} (8), {npc:299} (1) along the loop until {skill:393} 50; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 1-10."] = "沿路線擊殺並剝皮：{npc:1922}（7）、{npc:525}（5）、覓食的灰狼（9）、{npc:524}（7）、{npc:113}（5）、{npc:69}（2）、{npc:822}（8）、{npc:299}（1），直到{skill:393}達到 50；剝取你技能允許的最高等級野獸。L 級野獸在 20 級以下需要技能 (L-10)x10，20 級以上需要 Lx5。區域等級 1-10。",
+	-- ["Kill and skin {npc:2163} (11), {npc:2164} (13), Moonstalker (14), {npc:2165} (16, needs 60), {npc:2070} (16, needs 60), {npc:2237} (17, needs 70), {npc:3823} (19, needs 90), {npc:2071} (19, needs 90) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 100 beasts for these 50 points."] = "沿路線擊殺並剝皮：{npc:2163}（11）、{npc:2164}（13）、月夜猛虎（14）、{npc:2165}（16，需要60）、{npc:2070}（16，需要60）、{npc:2237}（17，需要70）、{npc:3823}（19，需要90）、{npc:2071}（19，需要90），直到{skill:393}達到100；每具屍體先拾取再剝皮，並剝取你技能允許的最高等級野獸。L級野獸在20級以下需要技能(L-10)x10，20級以上需要Lx5。地區等級10-20。這50點預計要剝約100隻野獸。",
 	-- ["Kill and skin {npc:2163} (11), {npc:2164} (13), Moonstalker (14), {npc:2165} (16, needs 60), {npc:2070} (16, needs 60), {npc:2237} (17, needs 70), {npc:3823} (19, needs 90), {npc:2071} (19, needs 90) along the loop until {skill:393} 100; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20."] = "沿路線擊殺並剝皮：{npc:2163}（11）、{npc:2164}（13）、月夜猛虎（14）、{npc:2165}（16，需要 60）、{npc:2070}（16，需要 60）、{npc:2237}（17，需要 70）、{npc:3823}（19，需要 90）、{npc:2071}（19，需要 90），直到{skill:393}達到 100；剝取你技能允許的最高等級野獸。L 級野獸在 20 級以下需要技能 (L-10)x10，20 級以上需要 Lx5。區域等級 10-20。",
 	-- ["Kill and skin {npc:2727} (35), {npc:2731} (36), {npc:2728} (37), {npc:2729} (38), {npc:2732} (38), {npc:2734} (40), {npc:2730} (42, needs 210) along the loop until {skill:393} 225; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 35-45."] = "沿路線擊殺並剝皮：{npc:2727}（35）、{npc:2731}（36）、{npc:2728}（37）、{npc:2729}（38）、{npc:2732}（38）、{npc:2734}（40）、{npc:2730}（42，需要 210），直到{skill:393}達到 225；剝取你技能允許的最高等級野獸。L 級野獸在 20 級以下需要技能 (L-10)x10，20 級以上需要 Lx5。區域等級 35-45。",
 	-- ["Kill and skin {npc:2927} (42), {npc:2924} (43), {npc:2928} (44), {npc:2929} (46, needs 230), {npc:2926} (47, needs 235), {npc:2505} (49, needs 245) along the loop until {skill:393} 250; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 40-50."] = "沿路線擊殺並剝皮：{npc:2927}（42）、{npc:2924}（43）、{npc:2928}（44）、{npc:2929}（46，需要 230）、{npc:2926}（47，需要 235）、{npc:2505}（49，需要 245），直到{skill:393}達到 250；剝取你技能允許的最高等級野獸。L 級野獸在 20 級以下需要技能 (L-10)x10，20 級以上需要 Lx5。區域等級 40-50。",
+	-- ["Kill and skin {npc:3823} (19), {npc:3809} (21, needs 105), {npc:3817} (22, needs 110) along the loop until {skill:393} 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 30 beasts for these 25 points."] = "沿路線擊殺並剝皮：{npc:3823}（19）、{npc:3809}（21，需要 105）、{npc:3817}（22，需要 110），直到{skill:393}達到 125；拾取每具屍體後再剝皮，並剝取你技能允許的最高等級野獸。L 級野獸在 20 級以下需要技能 (L-10)x10，20 級以上需要 Lx5。區域等級 18-30。這25點預計需要約30隻野獸。",
 	-- ["Kill and skin {npc:4012} (21), {npc:4044} (23), {npc:4067} (23), {npc:4031} (25), {npc:4042} (25), {npc:4041} (27, needs 135) along the loop until {skill:393} 150; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 15-27."] = "沿路線擊殺並剝皮：{npc:4012}（21）、{npc:4044}（23）、{npc:4067}（23）、{npc:4031}（25）、{npc:4042}（25）、{npc:4041}（27，需要 135），直到{skill:393}達到 150；剝取你技能允許的最高等級野獸。L 級野獸在 20 級以下需要技能 (L-10)x10，20 級以上需要 Lx5。區域等級 15-27。",
 	-- ["Kill and skin {npc:9165} (48), Ravasaur (48), {npc:6507} (49), {npc:6506} (49), {npc:9162} (49), Pterrordax (50), {npc:6514} (50), {npc:6508} (50), Diemetradon (51), {npc:9167} (51), {npc:6513} (51), {npc:6516} (52), {npc:9164} (53), {npc:11735} (54) along the loop until {skill:393} 300; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 48-55."] = "沿路線擊殺並剝皮：{npc:9165}（48）、暴掠龍（48）、{npc:6507}（49）、{npc:6506}（49）、{npc:9162}（49）、翼手龍（50）、{npc:6514}（50）、{npc:6508}（50）、雙帆龍（51）、{npc:9167}（51）、{npc:6513}（51）、{npc:6516}（52）、{npc:9164}（53）、{npc:11735}（54），直到{skill:393}達到 300；剝取你技能允許的最高等級野獸。L 級野獸在 20 級以下需要技能 (L-10)x10，20 級以上需要 Lx5。區域等級 48-55。",
 	-- ["Moonstalker, {npc:2165}"] = "月夜猛虎、{npc:2165}",

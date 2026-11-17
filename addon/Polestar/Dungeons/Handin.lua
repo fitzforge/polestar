@@ -688,3 +688,30 @@ if ns.Lookup and ns.Lookup.RegisterPlanner then
 		return Dungeons.HandinGuide(key)
 	end)
 end
+
+-- A saved pick-up tab is rebuilt at /reload or login (Lookup/Guide.lua, whose
+-- restore runs first); once every quest is taken there is nothing to pick up,
+-- so it builds nothing and the tab, with its end card's Hand in the quests,
+-- was dropped (#2765: the guide went back to the leveling route after the
+-- run). The hand-in guide takes its tab instead, as Dungeons.HandIn does, before
+-- the Engine reopens the saved tabs at login. With nothing to hand in either,
+-- the tab stays out as before.
+ns.OnInit(function()
+	local s = ns.CharState()
+	local tabs = type(s.tabs) == "table" and s.tabs or nil
+	local Lk = LK()
+	if not (tabs and Lk and Lk.GuideId and Lk.BuildGuide) then return end
+	local open = {}
+	for _, gid in pairs(tabs) do open[gid] = true end
+	for i, gid in pairs(tabs) do
+		local key = type(gid) == "string" and gid:match("^lookup/pickup/(.+)$")
+		local hid = key and Lk.GuideId(KIND, key)
+		if hid and not open[hid] and not ns.Guides.Get(gid) and Dungeons.IsEnabled() then
+			local def = Lk.BuildGuide(KIND, key)
+			if def and def.id == hid and ns.RegisterGuide(def) then
+				tabs[i], open[hid] = hid, true
+				if s.guide == gid then s.guide = hid end
+			end
+		end
+	end
+end)

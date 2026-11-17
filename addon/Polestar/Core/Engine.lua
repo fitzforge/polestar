@@ -1570,7 +1570,7 @@ end
 -- it yet, and the guide has none of its work (#1998: Young Crocolisk Skins,
 -- 484, taken on an earlier guide and left unfinished, held Apprentice's
 -- Duties' accept at James Halloran, who stands on the Wetlands route).
-function Own.coming(p, depth)
+function Own.comingNow(p, depth)
 	local state = ns.CharState()
 	local skipped, manual = state.skipped[guide.id], state.manual[guide.id]
 	local l = layoutOf(guide)
@@ -1606,6 +1606,27 @@ function Own.coming(p, depth)
 		end
 	end
 	return others and Own.notMine(p)
+end
+
+-- Own.comingNow, worked out once per quest and depth while a pass that reads
+-- the same state throughout (Own.levelHold) keeps Own.comingSeen. Without it a
+-- guide with prerequisite chains (a Lookup pick-up guide: Krol'dok Stronghold's
+-- 30 steps) followed every chain again from each accept: ~2,900 calls and
+-- 20-25 ms per evaluation, in the frame of each kill.
+function Own.coming(p, depth)
+	local seen = Own.comingSeen
+	if not seen then return Own.comingNow(p, depth) end
+	local byDepth = seen[depth or 0]
+	if not byDepth then
+		byDepth = {}
+		seen[depth or 0] = byDepth
+	end
+	local v = byDepth[p]
+	if v == nil then
+		v = Own.comingNow(p, depth) and true or false
+		byDepth[p] = v
+	end
+	return v
 end
 
 -- Whether held quest p has objectives the client lists, one of them not
@@ -4595,7 +4616,7 @@ end
 -- (computeCurrent): a dungeon's or an attunement's quest the level-up brings
 -- back. A leveling guide finishes past it, as past an accept its giver
 -- refused: its end is its last step (Own.noteEnd), not a pickup for later.
-function Own.levelHold()
+function Own.levelHoldNow()
 	local steps, sk = guide.steps, skippedFor(guide.id)
 	for s = 1, #steps do
 		if stepApplies(steps[s]) and not (sk and sk[s]) then
@@ -4608,6 +4629,17 @@ function Own.levelHold()
 		end
 	end
 	return nil
+end
+
+-- Nothing the pass reads changes during it, so each quest's Own.coming is
+-- worked out once (Own.comingSeen); an error still ends the pass's memo.
+function Own.levelHold()
+	if Own.comingSeen then return Own.levelHoldNow() end
+	Own.comingSeen = {}
+	local ok, hold = pcall(Own.levelHoldNow)
+	Own.comingSeen = nil
+	if not ok then error(hold, 0) end
+	return hold
 end
 
 -- A step of a dungeon run in a leveling guide (`when dungeon`, not negated).
