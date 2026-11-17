@@ -415,7 +415,7 @@ return {
 	["{npc:1960} waits at the {area:808}, north of the South Gate; the dwarven corpse lies up the pass to the west of him."] = "",
 
 	-- Step 83: The tunnel post
-	["The tunnel post"] = "",
+	["The tunnel post"] = "터널 초소",
 	-- {zone:1432} Loch Modan · {npc:1089} Mountaineer Cobbleflint · {npc:1092} Captain Rugelfuss
 	["East through the South Gate tunnel into {zone:1432}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "",
 
@@ -467,7 +467,7 @@ return {
 
 	-- Step 89: Back to the Algaz Station
 	-- {area:925} Algaz Station
-	["Back to the {area:925}"] = "",
+	["Back to the {area:925}"] = "{area:925}(으)로 돌아가기",
 
 	-- Step 90: Thelsamar
 	-- {area:144} Thelsamar · {npc:1340} Mountaineer Kadrell

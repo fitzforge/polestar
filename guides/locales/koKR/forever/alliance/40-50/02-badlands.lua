@@ -54,7 +54,7 @@ return {
 
 	-- Step 12: Into Loch Modan
 	-- {zone:1432} Loch Modan
-	["Into {zone:1432}"] = "",
+	["Into {zone:1432}"] = "{zone:1432}(으)로 이동",
 
 	-- Step 13: Ironband's Excavation Site
 	-- {zone:1432} Loch Modan
