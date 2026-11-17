@@ -18,7 +18,7 @@ return {
 
 	-- Step 3: Gadgetzan
 	-- {npc:7876} Tran'rek · {area:979} Sandsorrow Watch
-	["The flight lands beside {npc:7876}. Take the town's quests before riding west to {area:979}."] = "",
+	["The flight lands beside {npc:7876}. Take the town's quests before riding west to {area:979}."] = "飛行點落在{npc:7876}旁。向西騎去{area:979}之前，先接下鎮上的任務。",
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "{npc:7876}，在雙足飛龍管理員旁邊",
 	-- {npc:11758} Andi Lynn · {area:1938} Broken Pillar
@@ -47,7 +47,7 @@ return {
 
 	-- Step 9: Senior Surveyor Fizzledowser
 	-- {area:976} Gadgetzan · {npc:7771} Marvon Rivetseeker
-	["Back east to Fizzledowser on the west side of {area:976}; {npc:7771} is south from there."] = "",
+	["Back east to Fizzledowser on the west side of {area:976}; {npc:7771} is south from there."] = "向東回到{area:976}西側的菲茲爾多瑟；{npc:7771}再往南。",
 
 	-- Step 10: Tran'rek
 	-- {area:978} Zul'Farrak · {npc:7876} Tran'rek
@@ -78,7 +78,7 @@ return {
 
 	-- Step 16: Thistleshrub Valley: kill these as you meet them
 	-- {quest:3362} Thistleshrub Valley
-	["{quest:3362}: kill these as you meet them"] = "",
+	["{quest:3362}: kill these as you meet them"] = "{quest:3362}：遇到就殺",
 	-- {zone:1446} Tanaris · {quest:2864} Tran'rek · {area:1938} Broken Pillar
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
 	["West of the compound the cactus creatures fill the valley; only the Dew Collectors (47-48) carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave {quest:2864}'s Gnarled Thistleshrubs and Rootshapers for the {area:1938} ride into Un'Goro at about 51."] = "營地西邊的山谷滿是仙人掌生物；只有灌木露水收集者（47-48級）帶著露水腺體。{zone:1446}的大部分怪物都可能掉落OOX-17/TN定位器，但很稀有：看到就保留。\n小心：這一帶其他的灌木怪是48-50級，而且到處遊蕩，很容易多拉到怪：打山谷邊緣的露水收集者，{quest:2864}要的長瘤的灌木獸和塑根者留到約51級經由{area:1938}前往安戈洛時再處理。",
@@ -93,7 +93,7 @@ return {
 
 	-- Step 19: Slake That Thirst
 	-- {spell:686} Shadow Bolt
-	["Careful: Shadow Mages (level 42-43) call a Voidwalker while out of combat and attack with Immolate and {spell:686}. Thieves can Disarm you, Rogues move around in Sneak, and Assassins use Execute once you are at 20% health or less."] = "",
+	["Careful: Shadow Mages (level 42-43) call a Voidwalker while out of combat and attack with Immolate and {spell:686}. Thieves can Disarm you, Rogues move around in Sneak, and Assassins use Execute once you are at 20% health or less."] = "注意：暗影法師（42-43級）在脫戰時召喚虛空行者，並用獻祭和{spell:686}攻擊。竊賊能繳械你，盜賊會潛行移動，刺客在你血量20%或以下時使用斬殺。",
 
 	-- Step 20: Gadgetzan
 	-- {quest:654} Tanaris Field Sampling
@@ -105,13 +105,13 @@ return {
 	-- {item:8526} Violet Tragan · {zone:1425} Hinterlands
 	["the {item:8526} grows in the {zone:1425}, around level 48"] = "{item:8526}生長在{zone:1425}，大約48級",
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}，在屋裡",
 	-- {npc:11758} Andi Lynn · {area:983} Dunemaul Compound · {area:1938} Broken Pillar
 	["{npc:11758}'s {area:983} stays in your log for the {area:1938} at about 52."] = "{npc:11758}的{area:983}留在任務日誌裡，約52級去{area:1938}時再處理。",
 
 	-- Step 23: Scrimshank's gear
 	["Scrimshank's gear"] = "謝申克的設備",
-	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "",
+	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "再往南，初級勘測員斯克林克的裝備躺在森提帕巢穴的入口。\n注意：一隻蟲子守著裝備。隧道裡有很多蟲子巡邏，有些是50級，所以戰鬥常會拉到額外的增援。",
 	["Below ground"] = "地下",
 
 	-- Step 24: OOX-17/TN
@@ -128,17 +128,17 @@ return {
 
 	-- Step 26: Gadgetzan
 	-- {npc:5204} Apothecary Zinge · {zone:1458} Undercity
-	["for {npc:5204} in the {zone:1458}, around level 52"] = "",
+	["for {npc:5204} in the {zone:1458}, around level 52"] = "給{zone:1458}的{npc:5204}，大約52級",
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["for {npc:7010} in {zone:1454}, around level 50"] = "交給{zone:1454}的{npc:7010}，大約50級",
 
 	-- Step 27: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
-	["Boat to {area:16727}"] = "",
+	["Boat to {area:16727}"] = "坐船去{area:16727}",
 
 	-- Step 28: Into Searing Gorge
 	-- {zone:1427} Searing Gorge
-	["Into {zone:1427}"] = "",
+	["Into {zone:1427}"] = "進入{zone:1427}",
 
 	-- Step 29: Searing Gorge
 	-- {area:247} Grimesilt Dig Site
@@ -159,7 +159,7 @@ return {
 
 	-- Step 33: The Cauldron's slavers and golems
 	-- {area:246} The Cauldron
-	["{area:246}'s slavers and golems"] = "",
+	["{area:246}'s slavers and golems"] = "{area:246}的奴隸主和魔像",
 	-- {area:1446} Thorium Point · {npc:8479} Velarok Windblade
 	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Heavy War Golems = {npc:5854} Heavy War Golem
 	["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below {npc:8479}. Careful: the biggest golems are 49: pull them one at a time."] = "從{area:1446}往南騎進大熔爐：黑鐵監工和奴隸販子在小路上驅趕奴隸，重型作戰魔像在{npc:8479}下方的地面巡邏。小心：最大的魔像是49級：一次拉一隻。",
@@ -170,7 +170,7 @@ return {
 
 	-- Step 37: Searing Gorge: kill these as you meet them
 	-- {zone:1427} Searing Gorge
-	["{zone:1427}: kill these as you meet them"] = "",
+	["{zone:1427}: kill these as you meet them"] = "{zone:1427}：沿途擊殺以下目標",
 	-- {npc:8479} Velarok Windblade · {item:11818} Grimesilt Outhouse Key · {area:1443} The Slag Pit
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Blazing Elementals = {npc:5850} Blazing Elemental · Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Searing Lava Spiders = {npc:5858} Searing Lava Spider · Incendosaurs = {npc:9318} Incendosaur · Dark Iron Slavers = {npc:5844} Dark Iron Slaver
 	["Heavy War Golems patrol the Cauldron below {npc:8479} and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Searing Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee. The biggest Incendosaurs and Lava Spiders are 49: pull them one at a time."] = "重型作戰魔像在{npc:8479}下方的大熔爐巡邏，會掉落油；在牠們之間飄移的熔岩元素和熾熱元素會掉落核心。黑鐵監工和奴隸販子在小路上驅趕奴隸；奴隸販子可能掉落{item:11818}：保留它。\n巨型熔岩蜘蛛在峽谷西南部的高地和熔岩池遊蕩。\n{area:1443}在大熔爐北部。燻火龍在其熔岩池中游動：把牠們拉到岸邊。秘密計畫在礦坑上層的岩架上。\n小心：黑鐵奴隸販子（45-46級）被拉時會呼叫15碼內的同伴，會從最遠15碼施放捕網，近戰時使用撕裂。最大的燻火龍和熔岩蜘蛛是49級：一次拉一隻。",

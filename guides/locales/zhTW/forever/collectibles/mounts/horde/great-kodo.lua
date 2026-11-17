@@ -13,15 +13,15 @@ return {
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "中級{skill:762}",
 	-- {npc:3690} Kar Stormsinger · {npc:3685} Harb Clawhoof · {area:222} Bloodhoof Village · {zone:1412} Mulgore · {skill:762} Riding · {faction:81} Thunder Bluff
-	["{npc:3690} and {npc:3685}'s kodos are in {area:222}, {zone:1412}. At 60 {npc:3690} teaches Journeyman {skill:762} to Tauren for 1,000g (10% less at Honored with {faction:81}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each great kodo costs 200g here."] = "",
+	["{npc:3690} and {npc:3685}'s kodos are in {area:222}, {zone:1412}. At 60 {npc:3690} teaches Journeyman {skill:762} to Tauren for 1,000g (10% less at Honored with {faction:81}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each great kodo costs 200g here."] = "{npc:3690}和{npc:3685}的科多獸都在{zone:1412}的{area:222}。60級時，{npc:3690}以1,000金教牛頭人中級{skill:762}（與{faction:81}達到尊敬時便宜10%）；暴雪說它會附帶一匹坐騎。其他種族在自己種族的騎術訓練師處學習。這裡每匹大型科多獸售價200金。",
 	-- {npc:3690} Kar Stormsinger
 	["{npc:3690}, riding trainer"] = "騎術訓練師{npc:3690}",
 
 	-- Step 2: Kodo Riding for other races
 	-- {spell:18995} Kodo Riding
-	["{spell:18995} for other races"] = "",
+	["{spell:18995} for other races"] = "其他種族所需的{spell:18995}",
 	-- {spell:18995} Kodo Riding · {skill:762} Riding · {npc:3690} Kar Stormsinger · {faction:81} Thunder Bluff
-	["Any Horde race can buy these kodos, but riding one also takes {spell:18995}, which only Tauren get with {skill:762}. {npc:3690} teaches it to other races once they are Exalted with {faction:81} (the Thunder Bluff Reputation guide shows the way). Until then, don't buy a kodo for this character."] = "",
+	["Any Horde race can buy these kodos, but riding one also takes {spell:18995}, which only Tauren get with {skill:762}. {npc:3690} teaches it to other races once they are Exalted with {faction:81} (the Thunder Bluff Reputation guide shows the way). Until then, don't buy a kodo for this character."] = "任何部落種族都能買這些科多獸，但騎乘還需要{spell:18995}，只有牛頭人隨{skill:762}獲得。其他種族在與{faction:81}達到崇拜後，{npc:3690}才會教（雷霆崖聲望指南裡有說明）。在此之前，不要給這個角色買科多獸。",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "挑選顏色",

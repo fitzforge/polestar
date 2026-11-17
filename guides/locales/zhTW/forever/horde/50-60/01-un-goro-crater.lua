@@ -36,7 +36,7 @@ return {
 	-- plural, as words: Bloodpetal Flayers = {npc:6510} Bloodpetal Flayer · Bloodpetal Threshers = {npc:6511} Bloodpetal Thresher
 	["Top up here to level 51 before the crater's loop: its {npc:9166} and Bloodpetal Flayers are up to level 52. The Bloodpetal Threshers (49-50) on the slopes south-east of the refuge are under your level, and {npc:9118} wants five of them. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "在進行環形山路線前，先在這裡升到51級：那裡的{npc:9166}和血瓣花撕掠者最高52級。避難營東南方山坡上的血瓣花痛擊者（49-50）比你等級低，而{npc:9118}要五隻。或者，有小隊的話，改打{area:1417}或{area:2100}地城。",
 	-- {npc:6511} Bloodpetal Thresher
-	["grind on {npc:6511}"] = "",
+	["grind on {npc:6511}"] = "刷{npc:6511}",
 
 	-- Step 6: Pterrordax
 	-- {npc:9166} Pterrordax · {npc:9998} Shizzle · {npc:9997} Spraggle Frock · {npc:9167} Frenzied Pterrordax
@@ -50,7 +50,7 @@ return {
 
 	-- Step 8: Lakkari Tar Pits: kill these as you meet them
 	-- {area:538} Lakkari Tar Pits
-	["{area:538}: kill these as you meet them"] = "",
+	["{area:538}: kill these as you meet them"] = "{area:538}：遇到這些就殺",
 	-- {area:537} Fire Plume Ridge · {npc:9998} Shizzle · {npc:8659} Jes'rimon
 	-- plural, as words: Bloodpetal Flayers = {npc:6510} Bloodpetal Flayer · Dinosaur Bones = {item:11114} Dinosaur Bone · Elder Diemetradons = {npc:9164} Elder Diemetradon · Bloodpetal Trappers = {npc:6512} Bloodpetal Trapper
 	["Ride south-west to {area:537}, the volcano in the middle of the crater. Bloodpetal Flayers grow around its foot.\nSouth of the hot springs, Dinosaur Bones lie on the ground among the Stegodons and drop from the Diemetradons nearby, which also carry the scales {npc:9998} wants. Careful: the Stegodons are elites (52-53): pick the bones up around them, don't pull them; the Elder Diemetradons are 53-55, take the smaller ones. Ravasaurs hunt in packs in the south-west: their claws are for {npc:8659}, and now and then one carries a Mangled Journal (a rare drop: take its quest only if you get one). Avoid Gruff, a level 57 Stegodon.\nRide south-west along the western cliffs. Bloodpetal Trappers grow in the jungle there. Careful: the biggest Trappers are 53: pull them one at a time."] = "向西南騎往環形山中央的火山{area:537}。血瓣花撕掠者生長在它的山腳周圍。\n在溫泉南邊，恐龍骨頭散落在劍龍之間的地上，附近的雙帆龍也會掉落，牠們還帶著{npc:9998}要的鱗片。小心：劍龍是精英（52-53）：在牠們周圍撿骨頭，別拉到牠們；老雙帆龍是53-55級，打小隻的。暴掠龍在西南方成群狩獵：牠們的爪子交給{npc:8659}，偶爾還會帶著被撕破的日記（稀有掉落：只有拿到時才接它的任務）。避開格魯夫，一頭57級的劍龍。\n沿著西面懸崖向西南騎。血瓣花捕獸者生長在那裡的叢林中。小心：最大的血瓣花捕獸者是53級：一次拉一隻。",
@@ -106,14 +106,14 @@ return {
 
 	-- Step 21: Un'Goro Crater: kill these as you meet them
 	-- {zone:1449} Un'Goro Crater
-	["{zone:1449}: kill these as you meet them"] = "",
+	["{zone:1449}: kill these as you meet them"] = "{zone:1449}：沿途擊殺以下目標",
 	["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "探險隊的箱子在東部叢林中一處廢棄的營地裡。",
 
 	-- Step 22: Marshal's Refuge
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the entrance"] = "{npc:9998}，在入口",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, below ground"] = "",
+	["{npc:9117}, below ground"] = "{npc:9117}，地下",
 	-- {npc:9118} Larion · {quest:4147} Marvon's Workshop · {npc:8737} Linken
 	["Keep {npc:9118}'s {quest:4147} and {npc:8737}'s letter for later guides."] = "保留{npc:9118}的{quest:4147}和{npc:8737}的信，留給之後的指南。",
 
@@ -133,7 +133,7 @@ return {
 	-- Step 25: Un'Goro Crater: kill these as you meet them
 	-- {spell:8137} Silithid Pox · {spell:14120} Tunneler Acid
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
-	["Careful: Gorishi Workers may call for help within 25 yd when below 45% health; silithids cast {spell:8137} and Tunnelers and the Hive Guard use {spell:14120}."] = "",
+	["Careful: Gorishi Workers may call for help within 25 yd when below 45% health; silithids cast {spell:8137} and Tunnelers and the Hive Guard use {spell:14120}."] = "小心：戈裡希工蜂在生命低於45%時，可能會向25碼內的同伴呼救；異種蟲會施放{spell:8137}，掘地者和蜂巢守衛會使用{spell:14120}。",
 
 	-- Step 26: Eastern Pylon
 	["Eastern Pylon"] = "東部水晶塔",
@@ -160,12 +160,12 @@ return {
 	-- {area:541} Marshal's Refuge · {npc:9117} J.D. Collie · {npc:9997} Spraggle Frock
 	["Ride north back to {area:541}: {npc:9117} below ground, {npc:9997} beside the flight master."] = "往北騎回{area:541}：{npc:9117}在地下，{npc:9997}在飛行管理員旁邊。",
 	-- {npc:9997} Spraggle Frock
-	["{npc:9997}, beside the flight master"] = "",
+	["{npc:9997}, beside the flight master"] = "{npc:9997}，在飛行管理員旁",
 	["Below ground"] = "地下",
 
 	-- Step 33: To Gadgetzan
 	-- {area:976} Gadgetzan
-	["To {area:976}"] = "",
+	["To {area:976}"] = "前往{area:976}",
 
 	-- Step 34: Gadgetzan
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn · {area:983} Dunemaul Compound
@@ -173,7 +173,7 @@ return {
 
 	-- Step 35: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}，在室內",
 
 	-- Step 36: Orgrimmar
 	-- {area:1637} Orgrimmar · {area:16727} Powderfuse Port · {zone:1458} Undercity
@@ -181,19 +181,19 @@ return {
 
 	-- Step 37: Back to Gadgetzan
 	-- {area:976} Gadgetzan
-	["Back to {area:976}"] = "",
+	["Back to {area:976}"] = "回到{area:976}",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "{zone:1454}的飛行管理員",
 
 	-- Step 38: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
-	["Boat to {area:16727}"] = "",
+	["Boat to {area:16727}"] = "乘船到{area:16727}",
 	-- {npc:9706} Yorba Screwspigot · {quest:4324} Yuka Screwspigot · {area:251} Flame Crest
-	["{npc:9706}, by the dock: for {quest:4324} at {area:251}, later in this guide"] = "",
+	["{npc:9706}, by the dock: for {quest:4324} at {area:251}, later in this guide"] = "{npc:9706}，在碼頭旁：用於{area:251}的{quest:4324}，本指南後段",
 
 	-- Step 39: Badlands
 	-- {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {zone:1418} Badlands
-	["Leave {zone:2548} on foot to the north-west, north of {area:16685}, into the {zone:1418}."] = "",
+	["Leave {zone:2548} on foot to the north-west, north of {area:16685}, into the {zone:1418}."] = "從 {area:16685} 北面步行向西北離開 {zone:2548}，進入 {zone:1418}。",
 
 	-- Step 40: Kargath
 	-- {area:340} Kargath · {zone:1418} Badlands
@@ -237,7 +237,7 @@ return {
 
 	-- Step 48: Ruins of Thaurissan: kill these as you meet them
 	-- {area:250} Ruins of Thaurissan
-	["{area:250}: kill these as you meet them"] = "",
+	["{area:250}: kill these as you meet them"] = "{area:250}：遇到這些就殺",
 	-- {quest:4296} Tablet of the Seven · {area:251} Flame Crest · {npc:10267} Tinkee Steamboil · {item:12284} Draco-Incarcinatrix 900 · {npc:7040} Black Dragonspawn · {npc:7044} Black Drake
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
 	["Ride west to the dig site. The {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence.\nCareful: a {npc:7040} and a {npc:7044}, elites of 50-53, wander the same hills: pull the broodlings away from them, or bring a group."] = "向西騎往挖掘場。{quest:4296}立在挖掘場中央的索瑞森矮人之間。抄錄它。\n黑色小龍在{area:251}東邊不遠的丘陵築巢。在小龍快死時對牠使用{npc:10267}的{item:12284}，捕捉牠的精華。\n注意：一隻{npc:7040}和一隻{npc:7044}（50-53級精英）在同一片丘陵遊蕩：把小龍拉離牠們，或找小隊來。",
@@ -254,7 +254,7 @@ return {
 
 	-- Step 53: Fly to Undercity
 	-- {area:1497} Undercity
-	["Fly to {area:1497}"] = "",
+	["Fly to {area:1497}"] = "飛往{area:1497}",
 	-- {area:340} Kargath
 	["{area:340} flight master"] = "{area:340}飛行管理員",
 
@@ -270,7 +270,7 @@ return {
 	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
 	["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "{npc:8390}，皇家藥劑師協會：瓶子稍後在{zone:1447}裝滿",
 	-- {npc:5204} Apothecary Zinge
-	["{npc:5204}, near Cuely in the Apothecarium"] = "",
+	["{npc:5204}, near Cuely in the Apothecarium"] = "{npc:5204}，在藥劑區的庫利旁",
 
 	-- Step 58: The Bulwark
 	-- {zone:1458} Undercity · {zone:1420} Tirisfal Glades · {area:152} The Bulwark
@@ -288,7 +288,7 @@ return {
 	["Back a few steps west to Felstone Farm, the first farm along the road; {npc:10778} waits in the house."] = "往西回走幾步到費爾斯通農場，也就是沿路的第一座農場；{npc:10778}在屋裡等候。",
 	["Upstairs"] = "樓上",
 	-- {object:175894} Janice's Parcel
-	["{object:175894}, beside the house; inside"] = "",
+	["{object:175894}, beside the house; inside"] = "{object:175894}，在小屋旁；室內",
 	-- {npc:10781} Royal Overseer Bauhaus · {zone:1458} Undercity · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
 	["Keep the parcel: {npc:10781} is in the {zone:1458}. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "保留包裹：{npc:10781}在{zone:1458}。下一份指南從這裡東南方{area:202}旁的{npc:10739}開始。",
 
