@@ -129,7 +129,7 @@ function O.ApplyPreset(list, value)
 			-- A layout still in beta or alpha may not take over every part of
 			-- the window until the interface reloads.
 			if p.tag and ns.Print then
-				ns.Print(string.format(L["%s is in testing: if the window looks wrong, type /reload once."], tostring(p.label)))
+				ns.Print(string.format(L["%s: /reload after picking it."], tostring(p.label)))
 			end
 		else
 			local id = layoutInUse() or ns.Get("ui.layout")
@@ -260,8 +260,8 @@ if ns.Theme and ns.Theme.OnChanged then ns.Theme.OnChanged(redrawShown) end
 
 -- A layout's stage (Theme.LayoutPresets' stage): the tag on its card.
 local STAGES = {
-	alpha = { tag = L["Alpha"], tip = L["Alpha: early and still changing; parts may not work yet. After picking it, type /reload once."] },
-	beta = { tag = L["Beta"], tip = L["Beta: still being finished; tell us what looks wrong. After picking it, type /reload once."] },
+	alpha = { tag = L["Alpha"], tip = L["Alpha: /reload after picking it."] },
+	beta = { tag = L["Beta"], tip = L["Beta: /reload after picking it."] },
 }
 
 -- The row's presets: its own, then (opts.layouts) a card per installed
@@ -274,9 +274,15 @@ local function presetsOf(opts)
 	for i, p in ipairs(opts.presets) do list[i] = p end
 	for _, lp in ipairs(T.LayoutPresets()) do
 		local stage = STAGES[lp.stage]
+		-- Who to tell: the layout addon's author (its TOC's Author).
+		local author = stage and C_AddOns and C_AddOns.GetAddOnMetadata and C_AddOns.GetAddOnMetadata(lp.addon, "Author")
+		local tip = stage and stage.tip
+		if tip and type(author) == "string" and author ~= "" then
+			tip = tip .. " " .. string.format(L["Any issues: @%s in a bug report or on Discord."], author:lower())
+		end
 		list[#list + 1] = { value = "layout:" .. lp.id, label = lp.label, help = lp.help, set = lp.set, layout = lp.id,
 			loaded = lp.loaded, addon = lp.addon, draw = opts.layouts.draw, note = not lp.loaded and L["Not loaded"] or nil,
-			tag = stage and stage.tag, tagTip = stage and stage.tip }
+			tag = stage and stage.tag, tagTip = tip }
 	end
 	return list
 end
