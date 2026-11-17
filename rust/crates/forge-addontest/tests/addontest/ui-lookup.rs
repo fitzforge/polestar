@@ -86,6 +86,24 @@ fn guide_lookup_button_opens_lookup_with_search_focus_without_changing_the_guide
 	assert_eq!(out["sameStep"], true);
 }
 
+// #2769 (Liquidor): a search, another section, then Lookup again. The hub empties its box on the way, and the sidebar
+// drew before Lookup took up the empty search: its kinds still counted the old results under an empty box.
+#[test]
+fn a_search_left_for_another_section_is_gone_from_lookup_s_sidebar_when_it_shows_again() {
+	let out = run(r#"
+		Polestar.Lookup.Show("saber")
+		local searched = { navs = navKeys(), all = nav("all").Count:IsShown() }
+		Polestar.UI.Picker.ShowSection("Guides")
+		Polestar.UI.Picker.ShowSection("Lookup")
+		emit({ searched = searched, query = LK.Query(), box = Polestar.UI.Picker.search:GetText(), navs = navKeys(),
+			all = nav("all").Count:IsShown() })"#);
+	assert_eq!(out["searched"]["all"], true, "while searching, Everything counts the results");
+	assert_eq!(out["query"], "");
+	assert_eq!(out["box"], "");
+	assert_eq!(out["all"], false, "an empty box: no result count on Everything");
+	assert_ne!(out["navs"], out["searched"]["navs"], "the kinds are no longer the old search's");
+}
+
 #[test]
 fn show_lookup_opens_the_hub_at_lookup_on_the_query_results_grouped_by_kind_the_first_selected() {
 	let out = run(r#"

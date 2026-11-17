@@ -9603,7 +9603,7 @@ do
 			{ npc = 3482, npcName = "Tari'qa", map = 1413, x = 51.68, y = 30.04, z = 95.8, f = "e", faction = "H" },
 			{ npc = 3400, npcName = "Xen'to", map = 1454, x = 57.57, y = 52.9, z = 45.5, f = "e", faction = "H" },
 			{ npc = 5817, npcName = "Shimra", map = 1454, x = 47.91, y = 80.35, z = 18.9, f = "e", faction = "H" },
-			{ npc = 248198, npcName = "Aza'bek", map = 1413, x = 49.26, y = 28.66, f = "e", faction = "H" },
+			{ npc = 248198, npcName = "Aza'bek", map = 1413, x = 49.74, y = 29.35, f = "e", faction = "H" },
 			{ npc = 8307, npcName = "Tarban Hearthgrain", map = 1413, x = 55.16, y = 32.08, z = 91.8, f = "e", faction = "H" },
 			{ npc = 3027, npcName = "Naal Mistrunner", map = 1456, x = 50.99, y = 52.45, z = 166.1, f = "e", faction = "H" },
 			{ npc = 8363, npcName = "Shadi Mistrunner", map = 1456, x = 40.64, y = 64, z = 129.8, f = "e", faction = "H" },
