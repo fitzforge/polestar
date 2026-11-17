@@ -16310,3 +16310,19 @@ test('#2604: Stranglethorn (Alliance): Skullsplitter Tusks are looked for in the
 	assert.ok(goal.x >= 42 && goal.x <= 49 && goal.y >= 30 && goal.y <= 42, `the trolls' camp: ${goal.x},${goal.y}`);
 	for (const s of goal.spots || []) assert.ok(s.alt || s.x > 35, `no spot the arrow picks far from the ruins: ${s.x},${s.y}`);
 });
+
+// #2691 (Requis, 0.4.0.1, Engineering): Schematic: Thorium Tube led to one of eight points the data gave Kor'gar
+// around Powderfuse Port; 35 people opened his goods, all at 77.6-77.7,50.9-51.0. The correction gives him that one
+// spot; the guide's vendor point follows it once the data is built with it.
+test('#2691: Engineering: Kor\'gar is looked for where he sells, at Powderfuse Port 77.6,50.95', { skip }, () => {
+	const fix = ((loadCorrections().npcs[260565] || {}).set || {}).spawns;
+	assert.deepEqual(fix && fix[2548], { f: 'l', pts: [[77.6, 50.95]] }, 'the correction places him');
+	const base = loadData(DATA);
+	const ref = Object.assign(Object.create(Object.getPrototypeOf(base)), base, { npcs: { ...base.npcs, 260565: { ...base.npcs[260565], spawns: fix } } });
+	const file = path.join(OFFICIAL_DIR, 'forever/professions/engineering.guide');
+	const { guides } = compileSources([{ file, text: fs.readFileSync(file, 'utf8') }], ref);
+	const buy = guides[0].steps.flatMap((s) => s.goals).find((g) => g.t === 'buy' && g.item === 16047);
+	const korgar = (buy && buy.candidates || []).find((c) => c.npc === 260565);
+	assert.ok(korgar, 'Kor\'gar sells it');
+	assert.deepEqual([korgar.map, korgar.x, korgar.y], [2548, 77.6, 50.95]);
+});

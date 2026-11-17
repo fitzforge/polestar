@@ -1408,6 +1408,9 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/placeholders.rs", "test": "a_goal_on_a_credit_target_reads_as_its_quest_log_line_never_kill_the_placeholder" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/placeholders.rs", "test": "lookups_quest_step_never_names_a_credit_target" }
 		] },
+		"2691": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2691: Engineering: Kor'gar is looked for where he sells, at Powderfuse Port 77.6,50.95" }
+		] },
 		"2715": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-guide-end.rs", "test": "a_last_step_at_the_hub_the_guide_starts_from_with_its_flight_path_known_is_no_end_ahead_2715" }
 		] },
