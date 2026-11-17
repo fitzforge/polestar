@@ -1474,6 +1474,28 @@
 		] },
 		"2433": { "tests": [
 			{ "node": "tests/travel-chains.test.js", "test": "a Druid with Teleport: Moonglade goes from Stormwind to Darnassus by Moonglade, not the boat (#2433, #2463)" }
+		] },
+		"2163": { "uncheckable": "the reporter found the arrow going round the ridge on 0.4.0 and closed it fixed (the 0.4.0 walking maps); no change in 0.4.1 to pin" },
+		"2559": { "tests": [
+			{ "cargo": "forge-data", "target": "lib", "file": "rust/crates/forge-data/src/kb.rs", "test": "portal_trainers_are_no_class_trainers_and_an_earlier_builds_entry_goes_2559" }
+		] },
+		"2602": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-smart.rs", "test": "a_class_trainer_the_character_has_outgrown_comes_after_every_other_beside_the_player_or_not_2477" }
+		] },
+		"2607": { "uncheckable": "the reporter found it fixed on 0.4.0.1 (Orgrimmar's walks on the 0.4.0 maps) and it was closed; no change in 0.4.1 to pin" },
+		"2611": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-sections.rs", "test": "resetting_guide_progress_clears_section_demand_memo_2611" }
+		] },
+		"2696": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/qol-target-list.rs", "test": "target_list_style_slim_rows_are_shorter_with_a_small_face_the_name_and_count" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/qol-target-list.rs", "test": "target_list_style_column_tiles_show_the_face_and_how_many_are_left" }
+		] },
+		"2704": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/bag-slots.rs", "test": "client_arrow_quest_icon_and_keep_lock_have_distinct_corners" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/bag-slots.rs", "test": "ellesmere_step_glow_and_keep_lock_follow_the_setting_and_theme" }
+		] },
+		"2746": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_page_quest_that_asks_for_a_profession_the_character_has_not_learned_is_not_picked_up" }
 		] }
 	},
 	"seedDrift": {

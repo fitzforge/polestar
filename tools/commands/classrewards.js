@@ -402,9 +402,12 @@ function buildClassRewards({ quests, tdb, table, guides, npcs = {}, objects = {}
 			.filter((w) => w && w.name)
 			.map((w) => {
 				const spawns = w.spawns || {};
-				const maps = Object.keys(spawns).filter((k) => spawns[k].f === 'e' && (spawns[k].pts || []).length).map(Number);
+				// Where the giver stands decides which races it is offered to: a spawn the recordings placed on the
+				// client's live frame (f 'l') is on that map too. The card's point stays an Era one, as before.
+				const placed = Object.keys(spawns).filter((k) => (spawns[k].pts || []).length).map(Number);
+				const maps = placed.filter((m) => spawns[String(m)].f === 'e');
 				const at = maps.includes(Number(v.zone)) ? Number(v.zone) : maps[0];
-				const g = { name: w.name, faction: w.faction, maps };
+				const g = { name: w.name, faction: w.faction, maps: placed };
 				if (at) {
 					g.map = at;
 					[g.x, g.y] = spawns[String(at)].pts[0];

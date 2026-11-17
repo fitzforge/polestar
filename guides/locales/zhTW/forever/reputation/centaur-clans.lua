@@ -316,6 +316,4 @@ return {
 	["The totem recipes"] = "圖騰配方",
 	-- {quest:93224} Carved Centaur Totems · {item:273613} Enchant Bracer - Lesser Agility · {item:250941} Greater Frenzy Potion · {item:250538} Hard Gold Gauntlet · {item:250606} Iron Morningstar · {item:252462} Mystic Thick Armor Kit · {item:253973} Silk Reagent Bag · {item:10011} Stormcloth Gloves · {item:274490} Centaur Hoofwarmers · {item:269900} Centaur Banner Deployment Device · {item:269902} Hoof-Shaped Foot Pedal
 	["Both quartermasters sell the same 12 recipes for {quest:93224}, no standing needed: {item:273613} and - Lesser Healing Power; Greater Spellblasting and {item:250941}; {item:250538} and {item:250606} plans; {item:252462}, {item:253973}, {item:10011} and {item:274490} patterns; the {item:269900} and {item:269902} schematics. Keep the totems you need for them before you hand the rest in."] = "兩名軍需官都出售相同的12種配方，用{quest:93224}兌換，不需要聲望：{item:273613}和附魔護腕 - 次級治療能量；強效法爆藥水和{item:250941}；{item:250538}和{item:250606}設計圖；{item:252462}、{item:253973}、{item:10011}和{item:274490}圖樣；以及{item:269900}和{item:269902}結構圖。交出其餘圖騰之前，先留下兌換所需的份量。",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
 }

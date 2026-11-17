@@ -257,7 +257,8 @@ return {
 	-- {item:216616} Compound Cage Key
 	["{item:216616}, from the Subchiefs (or the Elites)"] = "{item:216616}, von den Stabschefs (oder den Elitesoldaten)",
 	-- {item:216617} Kurzen Fighter's Uniform
-	["{item:216617}, in the supply crate"] = "{item:216617}, in der Vorratskiste",
+	-- was: ["{item:216617}, in the supply crate"] = "{item:216617}, in der Vorratskiste"
+	["{item:216617}, in the supply crate deep in the cave"] = "",
 	-- {npc:218230} Wendel Mathers
 	["{npc:218230}, back at his cage on the way out"] = "{npc:218230}, auf dem Rückweg wieder an seinem Käfig",
 	-- {npc:218229} Captain Aransas · {area:35} Booty Bay
@@ -477,6 +478,7 @@ return {
 	-- ["grind on {npc:690}"] = "Grinde an {npc:690}",
 	-- ["grind on {npc:766}"] = "Grinde an {npc:766}",
 	-- ["{area:43}: kill these as you meet them"] = "{area:43}: Töte diese, sobald sie dir begegnen",
+	-- ["{item:216617}, in the supply crate"] = "{item:216617}, in der Vorratskiste",
 	-- ["{item:3713}, for \"Swamp Eye\" Jarl"] = "{item:3713}, für Sumpfauge Jarl",
 	-- ["{item:5938}, from the Silt Crawlers on the same shore"] = "{item:5938}, von den Silt Crawlers am selben Ufer",
 	-- ["{npc:1356}: for {npc:1344} in {zone:1432}, keep it"] = "{npc:1356}: für {npc:1344} in {zone:1432}, behalte es",

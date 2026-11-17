@@ -49,21 +49,21 @@ step Fishing: Elwynn Forest (1-50)
   only Human
   zone Elwynn Forest
   tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: Recipe: Brilliant Smallfish for the Raw Brilliant Smallfish of lakes and rivers (Cooking 1, 40c: Tharynn Bouden (Elwynn Forest) or Catherine Leland (Stormwind City)); Recipe: Slitherskin Mackerel for the Raw Slitherskin Mackerel of the coast (Cooking 1, 40c: Kriggon Talsone (Westfall) or Tansy Puddlefizz (Ironforge)).
-  goto 47.6,62.3 "Crystal Lake" r 25
+  goto 47.4,62.2 "Crystal Lake" r 25
   skill Fishing 50
 
 step Fishing: Dun Morogh (1-50)
   only Dwarf,Gnome
   zone Dun Morogh
   tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: Recipe: Brilliant Smallfish for the Raw Brilliant Smallfish of lakes and rivers (Cooking 1, 40c: Gretta Ganter (Dun Morogh) or Khara Deepwater (Loch Modan)); Recipe: Slitherskin Mackerel for the Raw Slitherskin Mackerel of the coast (Cooking 1, 40c: Tansy Puddlefizz (Ironforge) or Kriggon Talsone (Westfall)).
-  goto 35.5,40.2 "Iceflow Lake" r 25
+  goto 35.4,40.1 "Iceflow Lake" r 25
   skill Fishing 50
 
 step Fishing: Teldrassil (1-50)
   only NightElf
   zone Teldrassil
   tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: Recipe: Brilliant Smallfish for the Raw Brilliant Smallfish of lakes and rivers (Cooking 1, 40c: Nyoma (Teldrassil)); Recipe: Slitherskin Mackerel for the Raw Slitherskin Mackerel of the coast (Cooking 1, 40c: Nessa Shadowsong (Teldrassil)).
-  goto 55.9,93.5 "Rut'theran Village" r 25
+  goto 55.8,93.5 "Rut'theran Village" r 25
   buy 6326 x1 npc 10118 optional
   skill Fishing 50
 
@@ -71,35 +71,35 @@ step Fishing: Zephras Isle (1-50)
   only Skyborne,Alliance
   zone Zephras Isle
   tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients. To cook what you catch: Recipe: Brilliant Smallfish for the Raw Brilliant Smallfish of lakes and rivers (Cooking 1, 40c: Nyalah Brightfire (Zephras Isle)); Recipe: Slitherskin Mackerel for the Raw Slitherskin Mackerel of the coast (Cooking 1, 40c: Nyalah Brightfire (Zephras Isle)).
-  goto 63.3,75.7 live "Valanaar shore" r 25
+  goto 63.2,75.8 live "Valanaar shore" r 25
   skill Fishing 50
 
 step Fishing: Durotar (1-50)
   only Orc,Troll
   zone Durotar
   tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: Recipe: Brilliant Smallfish for the Raw Brilliant Smallfish of lakes and rivers (Cooking 1, 40c: Harn Longcast (Mulgore) or Sewa Mistrunner (Thunder Bluff)); Recipe: Slitherskin Mackerel for the Raw Slitherskin Mackerel of the coast (Cooking 1, 40c: Zansoa (Durotar)).
-  goto 53.3,81.6 "Sen'jin coast" r 25
+  goto 53.2,81.5 "Sen'jin coast" r 25
   skill Fishing 50
 
 step Fishing: Mulgore (1-50)
   only Tauren
   zone Mulgore
   tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: Recipe: Brilliant Smallfish for the Raw Brilliant Smallfish of lakes and rivers (Cooking 1, 40c: Harn Longcast (Mulgore) or Sewa Mistrunner (Thunder Bluff)); Recipe: Slitherskin Mackerel for the Raw Slitherskin Mackerel of the coast (Cooking 1, 40c: Zansoa (Durotar)).
-  goto 44.5,60.7 "Stonebull Lake" r 25
+  goto 44.4,60.6 "Stonebull Lake" r 25
   skill Fishing 50
 
 step Fishing: Tirisfal Glades (1-50)
   only Undead
   zone Tirisfal Glades
   tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: Recipe: Brilliant Smallfish for the Raw Brilliant Smallfish of lakes and rivers (Cooking 1, 40c: Martine Tramblay (Tirisfal Glades) or Lizbeth Cromwell (Undercity)); Recipe: Slitherskin Mackerel for the Raw Slitherskin Mackerel of the coast (Cooking 1, 40c: Martine Tramblay (Tirisfal Glades)).
-  goto 67.2,51.0 "Brightwater Lake" r 25
+  goto 67.1,50.9 "Brightwater Lake" r 25
   skill Fishing 50
 
 step Fishing: Zephras Isle (1-50)
   only Skyborne,Horde
   zone Zephras Isle
   tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients. To cook what you catch: Recipe: Brilliant Smallfish for the Raw Brilliant Smallfish of lakes and rivers (Cooking 1, 40c: Nyalah Brightfire (Zephras Isle)); Recipe: Slitherskin Mackerel for the Raw Slitherskin Mackerel of the coast (Cooking 1, 40c: Nyalah Brightfire (Zephras Isle)).
-  goto 63.3,75.7 live "Valanaar shore" r 25
+  goto 63.2,75.8 live "Valanaar shore" r 25
   skill Fishing 50
 
 # ---------------------------------------------------------------- Fishing 50-125

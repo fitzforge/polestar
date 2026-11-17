@@ -165,7 +165,7 @@ return {
 	["South-west of Rog'mar the river runs between the farms: impale the Freshwater Crocolisks with {npc:263190}'s spears. The Alliance trains its scouts and priests at a camp on the far bank. {npc:257079}, the Alliance elite, rides the road just east of the camp: pull the scouts and priests away from it.\nCareful: {npc:263380}, an elite (level 42), hunts along this river: if he comes your way, back off and let him pass."] = "К юго-западу от Рог'мара река течет между фермами: пронзайте пресноводных кроколисков копьями ({npc:263190}). Альянс обучает разведчиков и жрецов в лагере на дальнем берегу. {npc:257079}, элита Альянса, разъезжает по дороге чуть восточнее лагеря: выманивайте разведчиков и жрецов подальше от него.\nОсторожно: {npc:263380}, элита (42-й уровень), охотится вдоль этой реки: если он идет к вам, отойдите и пропустите его.",
 	-- {npc:263190} Tan'jani
 	-- plural, as words: Freshwater Crocolisks = {npc:259046} Freshwater Crocolisk
-	["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "Копья ({npc:263190}) – на пресноводных кроколисков",
+	["{npc:263190}'s spears, on the Freshwater Crocolisks in the river"] = "",
 
 	-- Step 39: Tran'gul
 	-- {npc:256710} Tran'gul · {npc:256418} Krom'rosh · {area:16743} Rog'mar · {area:16723} Sunnyglade
@@ -434,4 +434,7 @@ return {
 	-- Step 94: Kargath
 	-- {area:3} Badlands · {area:340} Kargath
 	["Across the {area:3} to {area:340}, the Horde fortress built into the cliffs at the zone's western edge: its flight master stands at the foot of the fortress."] = "Через {area:3} в {area:340} – крепость Орды, встроенную в скалы у западного края зоны: распорядитель полетов стоит у подножия крепости.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "Копья ({npc:263190}) – на пресноводных кроколисков",
 }

@@ -3213,5 +3213,35 @@
 			}
 		],
 		"note": "Bart Tidewater walks a path of about 233 yd around Menethil Harbor and the data had one spot on it, so the map marker and the arrow pointed at that spot while players met him anywhere along the path (sweep for #2519)."
+	},
+	"248198": {
+		"set": {
+			"spawns": {
+				"1413": {
+					"f": "e",
+					"pts": [
+						[
+							49.74,
+							29.35
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 21200553 (Aza'bek): one spawn at -370.6,-2417.9 on map 1 (The Barrens 49.74,29.35), MovementType 0, no waypoint path"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-16: 56 people opened Aza'bek's vendor window, all 56 within 20 yd of 49.74,29.35 (most often at 49.7,29.3 and 49.8,29.4), none within 20 yd of 49.26,28.66"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2774 (Kaxe, 0.4.0.1): stood at Aza'bek at 49.72,29.31; the arrow pointed 64 yd away at 49.26,28.66"
+			}
+		],
+		"note": "Aza'bek, the Crossroads cook who sells Soothing Spices, stands still at 49.74,29.35. The merged data had five points for Aza'bek, from 48.26,28.32 to 50.43,29.2, and `buy 3713 nearest` (Horde Dustwallow Marsh) sent players to 49.26,28.66, 64 yd away (#2774)."
 	}
 }
