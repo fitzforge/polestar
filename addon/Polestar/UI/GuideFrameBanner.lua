@@ -237,7 +237,7 @@ ns.UI.GuideFrame.Part(function(GF)
 
 	-- What has been done on step i so far, as one string (GF.Scrub compares it).
 	function GF.ScrubMark(E, i)
-		local v = E.GetStepView(i)
+		local v = E.GetStepView(i, true)
 		if not v then return "" end
 		local parts = { tostring(v.status) }
 		for g, goal in ipairs(v.goals or {}) do
