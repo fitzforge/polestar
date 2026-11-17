@@ -164,6 +164,7 @@ end
 if Slots then
 	Slots.Painter("quest-marks", paintBagSlot)
 	Slots.Widget("quest-marks", WIDGET, ns.L["Polestar quest items"], showNeeded, makeNeeded, "top_right")
+	-- The leftover's full-slot border shares top-left with the upgrade arrow: a quest-class item is never a gear upgrade.
 	Slots.Widget("quest-marks", RED_WIDGET, ns.L["Polestar quest leftovers"], showLeftover, makeLeftover, "top_left")
 end
 

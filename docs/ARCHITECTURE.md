@@ -7668,8 +7668,11 @@ Polestar.QoL.KeptToSell() -> { { item, link }, ... }          -- kept items in t
   the guide: step N needs it" in the accent colour, and "Don't sell: the
   guide needs it at step N" in the warning colour while a merchant is open;
   in the bags (QoL/BagGlow.lua, under `qol.bagGlow`) a kept item a merchant
-  would buy gets a small lock in its top-left corner (Baganator: a top-left
-  corner widget), unless it is the glowing step item.
+  would buy gets a small lock in its bottom-left corner (Baganator and
+  BagSmith: a bottom-left corner widget), unless it is the glowing step item.
+  EllesmereUI Bags shows the step item's full-slot glow on its text overlay
+  and the keep lock just left of the top-right quest icon. Both follow
+  `qol.bagGlow`; client and EllesmereUI glows stop pulsing with `ui.reduceMotion` on.
 - **Warned:** opening a merchant with kept items that sell in the bags
   prints them in chat first ("Keep <items>: later steps of the guide need
   them.").

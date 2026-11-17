@@ -3,20 +3,24 @@
 -- item) or a quest item it collects (an open `collect` goal with a quest), so
 -- the player finds it at a glance (qol.bagGlow, on by default). A slot
 -- holding an item a later step keeps (QoL.Kept, QoL/Keep.lua) that a
--- merchant would buy gets a small lock in its top-left corner instead.
+-- merchant would buy gets a small lock instead, bottom-left in the client's
+-- bags, Baganator and BagSmith; left of the quest icon in EllesmereUI Bags.
 --
 --   BagGlow.Items(view, raw) -> { [itemID] = true }   -- what glows for a step
 --   BagGlow.Redraw()                                  -- repaint the shown bags now
 --
--- Three bag views, as Gear/Bags.lua's upgrade arrows:
+-- Four bag views, as Gear/Bags.lua's upgrade arrows:
 --   * The client's bags: Core/BagSlots.lua owns the hooks and addon
 --     registration; the glow is the action button border texture on the
 --     item button (OVERLAY sublevel 2, under the upgrade arrow and the search
---     overlay), in the theme's accent colour, pulsing. Glows and locks are
+--     overlay), in the theme's accent colour, pulsing unless ui.reduceMotion
+--     is on. Glows and locks are
 --     kept here by button; nothing is written into the button's table.
---   * Baganator and BagSmith: corner widgets, the lock top-left. The glow
+--   * Baganator and BagSmith: corner widgets, the lock bottom-left. The glow
 --     is bottom-right in Baganator, bottom-left in BagSmith to leave its
 --     protected stack count visible.
+--   * EllesmereUI Bags: the full-slot glow is centred on _textOverlay or the
+--     button; the lock is top-right, offset (-17, -1), left of the quest icon.
 --
 -- The step (STEP_CHANGED and friends), the bags (BAG_UPDATE_DELAYED) and the
 -- quest log repaint the shown bags on the next frame.
@@ -85,15 +89,20 @@ end
 local glows = setmetatable({}, { __mode = "k" }) -- item button -> glow texture
 local widgets = setmetatable({}, { __mode = "k" }) -- glow textures made for bag addons
 local locks = setmetatable({}, { __mode = "k" }) -- item button -> lock texture
+local eGlows = setmetatable({}, { __mode = "k" }) -- EllesmereUI item button -> glow texture
+local eLocks = setmetatable({}, { __mode = "k" }) -- EllesmereUI item button -> lock texture
 
-local function lockFor(button)
-	local t = locks[button]
+local function lockFor(button, view)
+	local cache = view == "ellesmere" and eLocks or locks
+	local t = cache[button]
 	if t then return t end
-	t = button:CreateTexture(nil, "OVERLAY", nil, LAYER)
+	local host = view == "ellesmere" and (button._textOverlay or button) or button
+	local point = view == "ellesmere" and "TOPRIGHT" or "BOTTOMLEFT"
+	t = host:CreateTexture(nil, "OVERLAY", nil, LAYER)
 	t:SetSize(LOCK_SIZE, LOCK_SIZE)
-	t:SetPoint("TOPLEFT", button, "TOPLEFT", 1, -1)
+	t:SetPoint(point, host, point, view == "ellesmere" and -17 or 1, view == "ellesmere" and -1 or 1)
 	t:SetTexture(LOCK)
-	locks[button] = t
+	cache[button] = t
 	return t
 end
 
@@ -108,25 +117,34 @@ local function pulse(t)
 	t.pulse = ag
 end
 
-local function glowFor(button)
-	local t = glows[button]
+local function glowFor(button, view)
+	local cache = view == "ellesmere" and eGlows or glows
+	local t = cache[button]
 	if t then return t end
-	t = button:CreateTexture(nil, "OVERLAY", nil, LAYER)
+	local host = view == "ellesmere" and (button._textOverlay or button) or button
+	t = host:CreateTexture(nil, "OVERLAY", nil, LAYER)
 	local w, h = 37, 37
 	if button.GetSize then w, h = button:GetSize() end
 	t:SetSize((w or 37) * SCALE, (h or 37) * SCALE)
-	t:SetPoint("CENTER", button, "CENTER", 0, 0)
+	t:SetPoint("CENTER", host, "CENTER", 0, 0)
 	t:SetTexture(TEXTURE)
 	if t.SetBlendMode then t:SetBlendMode("ADD") end
 	paint(t)
 	pulse(t)
-	glows[button] = t
+	cache[button] = t
 	return t
 end
 
 local function show(t)
 	t:Show()
-	if t.pulse and not t.pulse:IsPlaying() then t.pulse:Play() end
+	if not t.pulse then return end
+	if ns.Get("ui.reduceMotion") then
+		t.pulse:Stop()
+		-- A stopped alpha animation can leave the texture part-way through its bounce.
+		if t.SetAlpha then t:SetAlpha(1) end
+		return
+	end
+	if not t.pulse:IsPlaying() then t.pulse:Play() end
 end
 
 local function hide(t)
@@ -140,17 +158,18 @@ local function glowing()
 end
 
 local function paintBagSlot(button, view, itemID, link)
-	if view == "ellesmere" then return end
+	local glowCache = view == "ellesmere" and eGlows or glows
+	local lockCache = view == "ellesmere" and eLocks or locks
 	local id = glowing() and itemID
 	if id and wanted(id) then
-		show(glowFor(button))
-	elseif glows[button] then
-		hide(glows[button])
+		show(glowFor(button, view))
+	elseif glowCache[button] then
+		hide(glowCache[button])
 	end
 	if id and locked(id) then
-		lockFor(button):Show()
-	elseif locks[button] then
-		locks[button]:Hide()
+		lockFor(button, view):Show()
+	elseif lockCache[button] then
+		lockCache[button]:Hide()
 	end
 end
 
@@ -186,8 +205,9 @@ end
 
 if Slots then
 	Slots.Painter("step-glow", paintBagSlot)
+	-- BagSmith shares bottom-left: locked excludes wanted, so glow and lock never compete.
 	Slots.Widget("step-glow", WIDGET, L["Polestar: step item"], showStepItem, makeStepItem, "bottom_right", "bottom_left")
-	Slots.Widget("step-glow", KEEP_WIDGET, L["Polestar: kept for the guide"], showKeptItem, makeKeptItem, "top_left")
+	Slots.Widget("step-glow", KEEP_WIDGET, L["Polestar: kept for the guide"], showKeptItem, makeKeptItem, "bottom_left")
 end
 
 ---------------------------------------------------------------------------
@@ -231,12 +251,14 @@ local function reset()
 end
 ns.On("SETTING_CHANGED", function(path)
 	if path == "qol.bagGlow" or path == "qol" or path == "" then reset() end
+	if path == "ui.reduceMotion" or path == "ui" then BagGlow.Redraw() end
 end)
 ns.On("POLESTAR_HIDDEN", reset)
 
 if ns.Theme and ns.Theme.OnChanged then
 	ns.Theme.OnChanged(function()
 		for _, t in pairs(glows) do paint(t) end
+		for _, t in pairs(eGlows) do paint(t) end
 		for t in pairs(widgets) do paint(t) end
 	end)
 end

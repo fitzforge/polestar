@@ -54,7 +54,7 @@ emit(result)
 			("polestar_quest_needed", "top_right", 16.0),
 			("polestar_quest_leftover", "top_left", 60.8),
 			("polestar_step_item", "bottom_left", 19.2),
-			("polestar_kept_item", "top_left", 14.0),
+			("polestar_kept_item", "bottom_left", 14.0),
 		] {
 			assert_eq!(out[1][id]["list"], true);
 			assert_eq!(out[1][id]["corner"], corner);
