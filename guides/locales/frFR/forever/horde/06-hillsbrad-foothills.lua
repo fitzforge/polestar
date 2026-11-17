@@ -187,7 +187,7 @@ return {
 
 	-- Step 31: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "Le centre d'{zone:1454}",
+	["{zone:1454} flight master"] = "",
 
 	-- Step 32: Orgrimmar
 	["Train before you fly on: the next guide flies from here."] = "Entraînez-vous avant de reprendre un vol : le guide suivant part d'ici en vol.",
@@ -231,6 +231,7 @@ return {
 	-- ["Talk to {npc:10181}"] = "Parlez à {npc:10181}",
 	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often."] = "Les Paysans d'Hillsbrad travaillent les champs au sud des fermes. Tous les humains de {area:287} lâchent des crânes ; les Paysans le plus souvent.",
 	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping."] = "Les Paysans travaillent dans les champs au sud des fermes. Tous les humains de {area:287} lâchent des crânes ; les Paysans le plus souvent.\nAttention : un paysan qui fuit et atteint l'hôtel de ville peut ramener de nombreux renforts, dont des fantassins de {area:287} ; les effets de ralentissement, d'immobilisation ou similaires l'empêchent de s'échapper.",
+	-- ["The middle of {zone:1454}"] = "Le centre d'{zone:1454}",
 	-- ["The northern peak"] = "Le pic septentrional",
 	-- ["The northern peak rises south-east of {area:272}, on the way down towards Durnholde."] = "Le pic septentrional se dresse au sud-est de {area:272}, sur le chemin qui descend vers Fort-de-Durn.",
 	-- ["The smithy"] = "La forge",

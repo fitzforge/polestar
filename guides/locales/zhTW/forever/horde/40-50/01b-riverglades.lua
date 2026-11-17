@@ -165,7 +165,7 @@ return {
 	["South-west of Rog'mar the river runs between the farms: impale the Freshwater Crocolisks with {npc:263190}'s spears. The Alliance trains its scouts and priests at a camp on the far bank. {npc:257079}, the Alliance elite, rides the road just east of the camp: pull the scouts and priests away from it.\nCareful: {npc:263380}, an elite (level 42), hunts along this river: if he comes your way, back off and let him pass."] = "在羅格瑪西南方，河流從農田之間流過：用{npc:263190}的長矛刺穿淡水鱷魚。聯盟在對岸的營地訓練斥候和牧師。聯盟精英{npc:257079}騎馬巡邏營地東邊不遠的道路：把斥候和牧師拉離那裡再打。\n小心：精英{npc:263380}（42級）沿著這條河狩獵：如果他朝你過來，先退開讓他過去。",
 	-- {npc:263190} Tan'jani
 	-- plural, as words: Freshwater Crocolisks = {npc:259046} Freshwater Crocolisk
-	["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "{npc:263190}的長矛，用在淡水鱷魚身上",
+	["{npc:263190}'s spears, on the Freshwater Crocolisks in the river"] = "",
 
 	-- Step 39: Tran'gul
 	-- {npc:256710} Tran'gul · {npc:256418} Krom'rosh · {area:16743} Rog'mar · {area:16723} Sunnyglade
@@ -434,4 +434,7 @@ return {
 	-- Step 94: Kargath
 	-- {area:3} Badlands · {area:340} Kargath
 	["Across the {area:3} to {area:340}, the Horde fortress built into the cliffs at the zone's western edge: its flight master stands at the foot of the fortress."] = "穿越{area:3}前往{area:340}，這座部落堡壘建在地區西緣的峭壁中：飛行管理員就站在堡壘腳下。",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "{npc:263190}的長矛，用在淡水鱷魚身上",
 }

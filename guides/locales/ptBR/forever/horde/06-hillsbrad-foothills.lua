@@ -187,7 +187,7 @@ return {
 
 	-- Step 31: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "O centro de {zone:1454}",
+	["{zone:1454} flight master"] = "",
 
 	-- Step 32: Orgrimmar
 	["Train before you fly on: the next guide flies from here."] = "Treine antes de seguir voo: o próximo guia voa daqui.",
@@ -222,6 +222,7 @@ return {
 	-- ["Take the zeppelin from the towers outside the {zone:1458} to {zone:1454} and train before you fly on."] = "Pegue o zepelim nas torres fora de {zone:1458} até {zone:1454} e treine antes de seguir voando.",
 	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often."] = "Os Camponeses trabalham nos campos ao sul das casas de fazenda. Todo humano de {area:287} derruba caveiras; os Camponeses derrubam com mais frequência.",
 	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping."] = "Os Camponeses trabalham nos campos ao sul das casas da fazenda. Todo humano de {area:287} deixa cair crânios; os Camponeses são os que mais deixam.\nCuidado: um camponês fugido que chega à prefeitura pode voltar com um monte de reforço, incluindo soldados de {area:287}; lentidão, enraizar e efeitos parecidos impedem a fuga.",
+	-- ["The middle of {zone:1454}"] = "O centro de {zone:1454}",
 	-- ["The northern peak"] = "O pico norte",
 	-- ["The northern peak rises south-east of {area:272}, on the way down towards Durnholde."] = "O pico norte fica a sudeste de {area:272}, no caminho para o Forte do Desterro.",
 	-- ["The smithy"] = "A ferraria",
