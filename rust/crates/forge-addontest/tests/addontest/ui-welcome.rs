@@ -648,6 +648,25 @@ fn the_targeting_page_offers_the_target_button_who_it_targets_its_mark_and_ping_
 	assert_eq!(out["pages"][2], "Targeting", "after Questing");
 }
 
+// #2592: W.Bind paints a control at once (control:Refresh()), so the Targeting page's preview has its Refresh before
+// it is bound to the three settings it shows. The stub's frames answer any missing method with a no-op, so the page
+// opens either way here: the test watches each bind for a control with no Refresh of its own.
+#[test]
+fn the_targeting_page_gives_its_preview_a_refresh_before_binding_it_to_its_settings_2592() {
+	let out = run(r#"
+		Polestar.RegisterDefaults("qol", { targetButton = true, targetSimple = false, targetPlate = true, markTarget = true, pingTarget = false })
+		local W = Polestar.Widgets
+		local bind, unpainted = W.Bind, {}
+		W.Bind = function(control, path, ...)
+			if rawget(control, "Refresh") == nil then unpainted[#unpainted + 1] = tostring(path) end
+			return bind(control, path, ...)
+		end
+		Wel.Show("targeting")
+		W.Bind = bind
+		emit({ title = title(), unpainted = table.concat(unpainted, ", ") })"#);
+	assert_eq!(out, json!({ "title": "Targeting", "unpainted": "" }), "every bound control can paint itself");
+}
+
 #[test]
 fn the_route_page_three_styles_with_what_each_does_balanced_picked_on_a_fresh_account_a_click_sets_nav_routestyle_right_click_puts_balanced_back_options_moves_the_pick() {
 	let out = run(r#"
