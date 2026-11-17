@@ -1079,7 +1079,6 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 	if al.is_none() && !fv.dungeons.truthy() {
 		if let Some(facts) = cl.and_then(|c| c.instances.as_ref()) {
 			let cl = cl.unwrap();
-			let quality = |id: f64| cl.items.get(&(id as i64)).and_then(|c| c.quality);
 			let built = build_instances(
 				facts,
 				&Ctx {
@@ -1091,7 +1090,7 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 					recorded: &fv.instances,
 					entrance_table: &inputs.entrance_table,
 					curated: &inputs.entrances,
-					quality: &quality,
+					client: cl,
 					web: wh,
 				},
 			);

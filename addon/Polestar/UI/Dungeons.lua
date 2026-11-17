@@ -1,7 +1,7 @@
 -- The Dungeons section of the hub: a quest journal per dungeon and raid, laid
 -- out the way DungeonJournal lays its pages out (every quest with where it
 -- starts and ends, its objective, chain and rewards; the bosses with the
--- quests tied to them; the entrance), in Polestar's world. No loot tables.
+-- quests tied to them and their known drops; the entrance), in Polestar's world.
 -- Data: Polestar.Dungeons (Dungeons/Dungeons.lua) over the Codex pack, loaded
 -- on first show; one dungeon page decoded at a time.
 --
@@ -47,7 +47,7 @@
 --   note, the item with whether it is owned, "Guide me through it" (a guide
 --   built by Dungeons.Attune, in a new tab) and one row per step with its
 --   state glyph (Dungeons.AttunementState); a click sets the arrow there.
---   Bosses: kill order, name, level and the quests each one serves; a chest
+--   Bosses: kill order, name, known drops and the quests each one serves; a chest
 --   boss says Chest, the bosses after the encounters say Rare, Event or
 --   Optional.
 --   Map: the entrance on its zone's painting, with the quest givers there.
@@ -93,9 +93,11 @@ local SIDE = { Alliance = "A", Horde = "H" }
 local band -- the sidebar's key; nil until the first render picks one
 local page -- the dungeon shown, nil on Home
 local tab = "quests"
+local lootBoss, lootPage, lootBlock
 local filter = ""
 local root, hub, home, pg, segs
 local cards, heads, blocks, bossRows, ties, givers = {}, {}, {}, {}, {}, {}
+local bossLootTiles = {}
 local atts, attSteps = {}, {} -- the Attunement tab: one head per attunement, one row per step
 local listCache
 local shown = {} -- what the last render put up, for tests and the preview
@@ -749,6 +751,8 @@ local function bossRow(i)
 	r.Name:SetPoint("LEFT", r, "TOPLEFT", PAD, -24)
 	r.Level = W.Text(r, "small", "textMuted")
 	r.Level:SetPoint("LEFT", r.Name, "RIGHT", 10, 0)
+	r.Loot = W.Button(r, "", function(self) DS.SetBossLoot(self.psBoss) end, { ghost = true, icon = "chevron-right", height = 24 })
+	r.NoLoot = label(r, L["No boss drops known"])
 	r.Rule = W.Divider(r)
 	r.Rule:SetPoint("BOTTOMLEFT", r, "BOTTOMLEFT", PAD, 0)
 	r.Rule:SetPoint("BOTTOMRIGHT", r, "BOTTOMRIGHT", -PAD, 0)
@@ -1888,11 +1892,28 @@ local function bossFacts(boss)
 	return concat(t, DOT)
 end
 
+local function lootArea()
+	if lootBlock then return lootBlock end
+	lootBlock = CreateFrame("Frame", nil, pg.Body)
+	lootBlock.Tiles = bossLootTiles
+	lootBlock.Label = label(lootBlock, L["Drops"])
+	lootBlock.Label:SetPoint("TOPLEFT", lootBlock, "TOPLEFT", PAD, -8)
+	return lootBlock
+end
+
 local function renderBosses(key, f, plevel)
+	if lootPage ~= key then lootPage, lootBoss = key, nil end
+	if lootBlock then lootBlock:Hide() end
 	local side = SIDE[f]
 	local MW = mainWidth()
 	local y, nt = 0, 0
 	local bosses = D().Bosses(key)
+	-- A Codex pack built before boss drops (#2718) has no `loot` at all: say
+	-- "no drops known" only on a page whose pack carries them.
+	local anyLoot = false
+	for _, b in ipairs(bosses) do
+		if b.loot and #b.loot > 0 then anyLoot = true; break end
+	end
 	for i, boss in ipairs(bosses) do
 		local r = bossRow(i)
 		r:ClearAllPoints()
@@ -1928,6 +1949,47 @@ local function renderBosses(key, f, plevel)
 			end
 		end
 		if n > 0 then h = h + 10 end
+		local loot = boss.loot or {}
+		r.Loot:ClearAllPoints()
+		r.Loot:SetPoint("TOPLEFT", r, "TOPLEFT", PAD, -h)
+		r.Loot.psBoss = i
+		r.NoLoot:ClearAllPoints()
+		r.NoLoot:SetPoint("TOPLEFT", r, "TOPLEFT", PAD, -(h + 4))
+		if #loot > 0 then
+			local open = lootBoss == i
+			W.SetButtonText(r.Loot, format(L["Drops (%d)"], #loot))
+			W.SetIcon(r.Loot, open and "chevron-down" or "chevron-right")
+			r.Loot.psTip = open and L["Collapse"] or L["Expand"]
+			r.Loot:Show()
+			r.NoLoot:Hide()
+			h = h + 32
+			if open then
+				local area = lootArea()
+				area:ClearAllPoints()
+				area:SetPoint("TOPLEFT", pg.Body, "TOPLEFT", 0, -(y + h))
+				area:SetWidth(MW)
+				local items = {}
+				local C = ns.Codex
+				for _, id in ipairs(loot) do
+					local item = C and C.Item(id)
+					items[#items + 1] = { id = id, name = (item and item.name) or ns.Compat.GetItemName(id), quality = item and item.quality }
+				end
+				placeTiles(area, 0, items, false, 0)
+				hidePool(bossLootTiles, #items + 1)
+				local height = tilesHeight(#items) + 12
+				area:SetHeight(height)
+				area:Show()
+				h = h + height
+			end
+		else
+			r.Loot:Hide()
+			if anyLoot then
+				r.NoLoot:Show()
+				h = h + 28
+			else
+				r.NoLoot:Hide()
+			end
+		end
 		r:SetHeight(h)
 		r:Show()
 		y = y + h
@@ -1937,7 +1999,7 @@ local function renderBosses(key, f, plevel)
 	if #bosses == 0 then
 		y = emptyPage(L["No bosses known yet"], L["The sources Polestar reads list no bosses for this dungeon."], 28)
 	end
-	shown.bosses, shown.ties = #bosses, nt
+	shown.bosses, shown.ties, shown.lootBoss = #bosses, nt, lootBoss
 	return y + 16
 end
 
@@ -2246,7 +2308,11 @@ local function renderPage(key, plevel)
 		hidePool(blocks)
 		qpass.key = nil
 	end
-	if tab ~= "bosses" then hidePool(bossRows); hidePool(ties) end
+	if tab ~= "bosses" then
+		hidePool(bossRows)
+		hidePool(ties)
+		if lootBlock then lootBlock:Hide() end
+	end
 	if tab ~= "attune" then hidePool(atts); hidePool(attSteps) end
 	if tab ~= "map" then
 		pg.MapArt:Hide()
@@ -2334,6 +2400,14 @@ local function refresh()
 	end
 end
 
+function DS.SetBossLoot(i)
+	if not (page and tab == "bosses") then return end
+	local boss = D().Bosses(page)[i]
+	if not (boss and boss.loot and #boss.loot > 0) then return end
+	if lootBoss == i then lootBoss = nil else lootBoss = i end
+	refresh()
+end
+
 function DS.Nav()
 	local Dg = D()
 	if not (Dg and Dg.IsEnabled() and Dg.Load()) then return {}, nil end
@@ -2368,6 +2442,7 @@ end
 function DS.Open(key)
 	page = key
 	tab = "quests"
+	lootBoss = nil
 	if pg then W.ScrollTo(pg.Scroll, 0) end
 	refresh()
 end
@@ -2491,7 +2566,7 @@ end
 function DS.Page() return page end
 function DS.Tab() return tab end
 function DS.Shown() return shown end
-DS.cards, DS.blocks, DS.bossRows, DS.ties, DS.givers = cards, blocks, bossRows, ties, givers
+DS.cards, DS.blocks, DS.bossRows, DS.ties, DS.givers, DS.bossLootTiles = cards, blocks, bossRows, ties, givers, bossLootTiles
 DS.atts, DS.attSteps = atts, attSteps
 function DS.Frames() return root, home, pg, segs end
 
