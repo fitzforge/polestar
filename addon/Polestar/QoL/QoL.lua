@@ -235,6 +235,67 @@ function QoL.Open(goalView)
 	return s == "active" or s == "pending"
 end
 
+-- One quest as a refresh reads it, appended to `into` from n: in the log or
+-- not, ready or failed, and each objective's counts and state. -> the new n
+local function readQuest(C, into, n, q)
+	into[n + 1] = q
+	into[n + 2] = (C.IsOnQuest(q) and 1 or 0) + (C.IsQuestReadyForTurnIn(q) and 2 or 0) + (C.IsQuestFailed(q) and 4 or 0)
+	n = n + 2
+	local objs = C.GetQuestObjectives(q)
+	if objs then
+		for k = 1, #objs do
+			local o = objs[k]
+			into[n + 1], into[n + 2], into[n + 3] = o.numFulfilled, o.numRequired, o.finished and 1 or 0
+			n = n + 3
+		end
+	end
+	into[n + 1] = -1 -- the quest's end
+	return n + 1
+end
+
+-- What the step's refreshes read of the quest log, in `into` (wiped first):
+-- how many quests it holds, and each quest of the current step's goals and of
+-- the While-here line (QoL/Buttons.lua ChooseQuestItem's and TargetNames'
+-- quests, QoL/BagGlow.lua's). -> its length; nil when the Engine or the log
+-- can't say.
+local function readStepLog(into)
+	local E, C, QL = ns.Engine, ns.Compat, C_QuestLog
+	if not (E and E.GetGuide and E.GetStepIndex and QL and QL.GetNumQuestLogEntries) then return nil end
+	local n = 1
+	into[1] = QL.GetNumQuestLogEntries() or 0
+	local guide, i = E.GetGuide(), E.GetStepIndex()
+	local step = guide and i and guide.steps and guide.steps[i]
+	local goals = step and step.goals
+	for g = 1, goals and #goals or 0 do
+		local q = goals[g].quest
+		if type(q) == "number" then n = readQuest(C, into, n, q) end
+	end
+	local here = E.GetWhileHere and E.GetWhileHere()
+	if here and type(here.quest) == "number" then n = readQuest(C, into, n, here.quest) end
+	for k = #into, n + 1, -1 do into[k] = nil end
+	return n
+end
+
+-- That read and its version: one more each time a read differs from the one
+-- before. Read once per moment (ns.Moment), whatever the number of readers.
+local logNow, logWas, logVersion, logMoment = {}, {}, 0, nil
+local function logVersionNow()
+	local moment = ns.Moment()
+	if moment == logMoment then return logVersion end
+	logMoment = moment
+	logNow, logWas = logWas, logNow
+	local n = readStepLog(logNow)
+	local same = n ~= nil and n == #logWas
+	for k = 1, same and n or 0 do
+		if logNow[k] ~= logWas[k] then
+			same = false
+			break
+		end
+	end
+	if not same then logVersion = logVersion + 1 end
+	return logVersion
+end
+
 -- Recompute fn once on the next frame after any number of calls. The
 -- refresh runs from a timer of its own, with its errors caught and noted as
 -- ns.Safe does, but in the moment it finds (ns.Moment): the refreshes of one
@@ -243,17 +304,39 @@ end
 -- view shows (a game event, a message, an Engine request, another timer of
 -- Polestar's) starts a new moment, and the next refresh builds a fresh one.
 -- A kill's burst asked for two views, one per refresh (#2555).
+-- -> soon(), and onLog() for QUEST_LOG_UPDATE: the client sends it for much
+-- that leaves the log as it was (several per kill, some per loot, fifty in a
+-- burst), and a refresh that reads the step's view costs about half a
+-- millisecond. A refresh that onLog asks for reads the step's part of the log
+-- as it runs (readStepLog: one read per moment, whatever the number of
+-- refreshes, and the step's view reads the same lines then), and a run asked
+-- for only by onLog skips fn when that part is as at its last run. The step
+-- itself changing comes through QoL.OnStep and soon() as before, the bags
+-- through BAG_UPDATE_DELAYED.
 function QoL.Coalesce(fn)
-	local scheduled = false
+	local scheduled, other, logged, seen = false, false, false, nil
 	local function run()
 		scheduled = false
+		if logged then
+			local v = logVersionNow()
+			if not other and v == seen then return end
+			seen = v
+		end
+		other = false
 		fn()
 	end
 	local function due() ns.SafeCall(run) end
-	return function()
+	local function schedule()
 		if scheduled then return end
 		scheduled = true
 		if C_Timer and C_Timer.After then C_Timer.After(0, due) else run() end
+	end
+	return function()
+		other = true
+		schedule()
+	end, function()
+		logged = true
+		schedule()
 	end
 end
 
