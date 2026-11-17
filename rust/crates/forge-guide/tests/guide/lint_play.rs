@@ -18,6 +18,7 @@ fn q(id: u32, extra: Value) -> Value {
 
 /// 9600: handed in on the spot for a Linen Cloth (2589), as An Apple Treat for its Thunder Applejack. 9601: talk to
 /// Marshal McBride (197), then kill Kobold Vermin (6). 9602: started by a Shadowgem (1210). 9603: needs level 9.
+/// 9608: started by a Shadowgem that is also its objective (handed in at the end, as the Partially Digested Collar).
 fn play_data() -> Data {
 	let mut t: Map<String, Value> = tables();
 	let add = json!({
@@ -29,6 +30,7 @@ fn play_data() -> Data {
 		"9605": q(9605, json!({ "end": { "npc": [197], "object": [] }, "objectives": [{ "type": "event", "text": "Escort Kerlonian" }] })),
 		"9606": q(9606, json!({ "end": { "npc": [197], "object": [] }, "objectives": [{ "type": "talk", "id": 197, "text": "Speak with Marshal McBride" }] })),
 		"9607": q(9607, json!({ "end": { "npc": [197], "object": [] }, "objectives": [{ "type": "event", "text": "Find the stone", "map": 1429, "x": 50.0, "y": 50.0 }] })),
+		"9608": q(9608, json!({ "start": { "npc": [], "object": [], "item": [1210] }, "objectives": [{ "type": "item", "id": 1210, "count": 1, "text": "Shadowgem" }] })),
 	});
 	for (k, x) in add.as_object().unwrap() {
 		t.get_mut("quests").unwrap()[k] = x.clone();
@@ -109,6 +111,8 @@ fn a_gated_step_that_hands_its_item_over_before_its_other_goals_drops_them() {
 	assert!(run(&["step De Vries", "  when has 2589", "  accept 783", "  turnin 9600 direct"], &d).erred("uses it up").is_empty());
 	assert!(run(&["step De Vries", "  when has 2589", "  turnin 9600 direct", "step Then", "  accept 783"], &d).erred("uses it up").is_empty());
 	assert_eq!(run(&["step Read", "  when has 1210", "  accept 9602", "  accept 783"], &d).erred("uses it up").len(), 1);
+	// The quest it starts counts the item as an objective: it stays in the bags until the hand-in.
+	assert!(run(&["step Read", "  when has 1210", "  accept 9608", "  turnin 9608"], &d).erred("uses it up").is_empty());
 	// What the hand-in itself hands over loses nothing: an item the world gives no other way (Gladius); a vendor's
 	// water is a goal of its own and drops.
 	assert!(run(&["step De Vries", "  when has 2589", "  turnin 9600 direct", "  collect 2488 x1"], &d).erred("uses it up").is_empty());

@@ -10,8 +10,8 @@
 //!   tells the route whether the player still carries the item: without it the giver offers nothing and the
 //!   step holds (An Apple Treat, reported six times).
 //! - `gate-consumed`: a step with `when has <item>` in which a goal takes the item (a direct hand-in of it, the
-//!   accept of a quest it starts) before other goals of the step: once the item is gone the step's `when` fails and
-//!   Polestar drops the rest of the step on the spot.
+//!   accept of a quest it starts, unless the quest counts the item as an objective) before other goals of the
+//!   step: once the item is gone the step's `when` fails and Polestar drops the rest of the step on the spot.
 //! - `talk-kill`: a `kill` goal on a quest-log line the data types as a talk objective (`talk`): the player is
 //!   told to kill an NPC they are meant to speak to.
 //! - `item-skippable`: a required `use <item>`, or an `accept` of a quest an item starts, whose item every
@@ -185,12 +185,17 @@ pub fn check_direct_gates(g: &V, data: &Data, allow: &Allow, diag: &mut Diagnost
 	}
 }
 
-/// The items a goal surely takes out of the bags: a direct hand-in's items, the item that starts an accepted quest.
-/// (A `use` is left out: the data does not say which items are spent and which stay.)
+/// The items a goal surely takes out of the bags: a direct hand-in's items, the item that starts an accepted quest
+/// unless the quest counts that item as an objective (it stays in the bags until the hand-in: Partially Digested
+/// Collar, 93568, in players' recordings). (A `use` is left out: the data does not say which items are spent and
+/// which stay.)
 fn used_up(goal: &V, data: &Data) -> Vec<V> {
 	match t_of(goal).as_str() {
 		"turnin" if goal.get("direct").strict_eq(&V::Bool(true)) => hand_over_items(data, &goal.get("quest")),
-		"accept" => needs(goal, data).into_iter().collect(),
+		"accept" => {
+			let objectives = data.quest(&goal.get("quest")).get("objectives").items();
+			needs(goal, data).into_iter().filter(|i| !objectives.iter().any(|o| o.get("type").as_str() == Some("item") && key(&o.get("id")) == key(i))).collect()
+		}
 		_ => Vec::new(),
 	}
 }
