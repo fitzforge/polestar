@@ -234,12 +234,13 @@ function Nav.RegisterTravelData(d, replace)
 			ab = t.ab, ba = t.ba, waitA = t.waitA, waitB = t.waitB,
 		}
 	end
-	-- Walk-in portals, one way a -> b: { id, name, faction, a = end, b = end, seconds }.
+	-- Walk-in portals, one way a -> b: { id, name, faction, a = end, b = end, seconds, item }; `item`: one the
+	-- player must carry for the portal to take them (the Goblin Transponder for the Transpolyporter, #2156).
 	for _, t in ipairs(d.portals or {}) do
 		local a, b = t.a, t.b
 		if type(a) == "table" and type(b) == "table" then
 			portals[#portals + 1] = {
-				id = t.id, kind = "portal", name = t.name, area = t.area, faction = t.faction or 3, seconds = t.seconds or 5,
+				id = t.id, kind = "portal", name = t.name, area = t.area, faction = t.faction or 3, seconds = t.seconds or 5, item = t.item,
 				a = withBoard(point(a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8] or "e", a[9]), a[10]),
 				b = withBoard(point(b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8] or "e", b[9]), b[10]),
 			}
@@ -388,7 +389,7 @@ end
 --     (a, b: the ends, at the ship's stop; end.board = { name, c, wx, wy, map, z }: where a ship
 --     lying off its pier is boarded, the dock the planner walks to; else end.z: the floor the
 --     walk to it ends on, when TravelData knows it)
---   portals = { { id, kind = "portal", name, faction, a, b, seconds }, ... }
+--   portals = { { id, kind = "portal", name, faction, a, b, seconds, item }, ... }
 function Nav.GetTravelData()
 	return { taxi = taxiList, taxiById = taxi, flights = flights, transports = transports, inns = inns, portals = portals, build = Travel.build }
 end
@@ -429,6 +430,8 @@ end
 --         are to each other walk straight to the partner),
 --       teleports = { { spell, name, to = point, cast, ready, bind, length }, ... } or nil
 --         (`bind`: lands at `hearth`, weighed as the Hearthstone is),
+--       items = { [itemID] = true } or nil: the items portals ask for that the player carries (a portal
+--         with an `item` not in it is left out),
 --       departure = function(transport, side, after) -> wait, ride (seconds, from
 --         `after` seconds into the trip) or nil: the transports' average waits,
 --       walkOnly = true: walking only (a ghost), noFlights = true: no flights (Travel.AtField),
@@ -790,7 +793,7 @@ local function planBody(p, S)
 	end
 	-- Walk-in portals: a ride one way, from a to b.
 	for _, t in ipairs(walkOnly and {} or portals) do
-		if allowed(t.faction, faction) and not (skip and skip.transports[t]) then
+		if allowed(t.faction, faction) and not (t.item and not (p.items and p.items[t.item])) and not (skip and skip.transports[t]) then
 			local va = add(DOCK, t.a.c, t.a.wx, t.a.wy, t, t.a.map, t.a)
 			local vb = add(DOCK, t.b.c, t.b.wx, t.b.wy, t, t.b.map, t.b)
 			rideTo[va], rideCost[va] = vb, t.seconds
@@ -2048,6 +2051,21 @@ local function departureFn()
 	end
 end
 
+-- The items portals ask for that this character carries ({ [itemID] = true }), or nil: the Goblin Transponder
+-- opens the Transpolyporter from Booty Bay to Gnomeregan's Train Depot and back (#2156).
+function Travel.PortalItems()
+	local C = ns.Compat
+	if not (C and C.GetItemCount) then return nil end
+	local out
+	for _, t in ipairs(portals) do
+		if t.item and (C.GetItemCount(t.item) or 0) > 0 then
+			out = out or {}
+			out[t.item] = true
+		end
+	end
+	return out
+end
+
 -- Class teleports this character can cast now or soon (Nav/Transit.lua), or nil.
 local function teleportList()
 	local X = ns.Transit
@@ -2233,6 +2251,7 @@ local function plan(target, held)
 		nearWalk = reach,
 		nearProbe = probe,
 		teleports = teleports,
+		items = Travel.PortalItems(),
 		noFlights = field or nil,
 		departure = departureFn(),
 		walkOnly = ghost or questTimed == "escort",
@@ -2405,6 +2424,7 @@ function Nav.EstimateTravel(from, to, budgeted, noHearth)
 		noStone = wait == nil or nil,
 		noHearth = noHearth or nil,
 		teleports = teleports,
+		items = Travel.PortalItems(),
 		departure = departureFn(),
 		walkOnly = ghost or timed == "escort",
 		-- The same way the plan takes (its walks through zones far above dearer).

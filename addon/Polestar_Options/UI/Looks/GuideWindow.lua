@@ -122,6 +122,7 @@ do
 		GetProgress = function() return 11, 29 end,
 		GetAlong = function() return {} end,
 		GetWhileHereList = function() return {} end,
+		LeftOutHere = function() return {} end,
 		StepHint = function() return nil end,
 		Pace = function() return PACE end,
 		-- The XP tracker's numbers while it is on, as the live window gets them.
@@ -304,7 +305,7 @@ function UI.GuideWindowScene(band)
 			["guideWindow.combatAlpha"] = window, ["ui.instance"] = window, ["guideWindow.hideTaxi"] = window, ["ui.growUp"] = window,
 			["ui.barsBottom"] = { P.strip, nav }, ["guideWindow.stepAnim"] = moving, ["guideWindow.animSpeed"] = moving,
 			-- A goal done shuts into the done line.
-			["guideWindow.foldAnim"] = { G.lines[1] or person },
+			["guideWindow.foldAnim"] = { G.lines[1] or person }, ["guideWindow.leftOut"] = { G.lines[1] or person },
 			["guideWindow.tabs"] = { P.strip }, ["guideWindow.tabHeight"] = { P.strip }, ["guideWindow.navHeight"] = { nav },
 			["guideWindow.barTextSize"] = bars, ["guideWindow.stepCount"] = { nav.Steps }, ["guideWindow.guideTitle"] = { nav.Title },
 			["guideWindow.skipButton"] = { nav.Skip }, ["guideWindow.reportButton"] = { nav.Report },
@@ -573,6 +574,9 @@ local SPECS = {
 					help = L["Its own colour; unset, the accent."],
 					search = "accent bar colour, marker colour, highlight colour", shown = accentNow, source = accentSource },
 			} },
+		{ kind = "toggle", key = "guideWindow.leftOut", label = L["What it leaves out"], new = "0.4.1",
+			help = L["A dim line where the guide passes over quests: open it to see each one and why, with a way to bring it back. Grind steps say what else is worth doing, and a line offers to clean up quests that aren't part of your route."],
+			search = "left out, skipped quests, hidden quests, missing quests, why, grind, clean up, explain" },
 	} },
 	{ page = PAGE, tab = L["Parts"], section = L["Below the goals"], controls = {
 		{ kind = "slider", key = "guideWindow.noteSize", label = L["Tip size"], min = 0.7, max = 1.8, step = 0.05, format = percent, new = NEW,

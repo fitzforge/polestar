@@ -145,12 +145,6 @@ step The Great Outdoors
   turnin 96608
   accept 96629
 
-step Camping 101: Blacksmithing
-  when skill Blacksmithing 1
-  when !knows 1230171
-  tip Tognus Flintfire takes it once your Blacksmithing skill is 20: gather or craft until then, the guide carries on meanwhile.
-  accept 96044                                -- Eric Brighthammer: for Tognus Flintfire, in the cellar west of the distillery
-
 step Camping 101: First Aid
   when skill "First Aid" 1
   when !knows 1230117
@@ -185,6 +179,12 @@ step Kharanos
   turnin 5626 only Priest                     -- Maxan Anvol, upstairs
   accept 5625 only Priest                     -- Maxan Anvol: heal Mountaineer Dolf south of Kharanos
   train class                                 -- Last: some classes' trainers stand outside
+
+step Camping 101: Blacksmithing
+  when skill Blacksmithing 1
+  when !knows 1230171
+  tip Tognus Flintfire takes it once your Blacksmithing skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 96044                                -- Eric Brighthammer: for Tognus Flintfire, in the cellar west of the distillery
 
 step Thamner Pol
   when onquest 96047
