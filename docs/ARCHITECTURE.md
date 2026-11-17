@@ -2040,7 +2040,9 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   changed them (`Own.hereDirty`: a step change of the active tab, another
   guide, the quest log, the level, a new zone, the `behavior.whileHere*`
   settings): the open kill, collect, interact and use goals with a place on
-  the player's continent, whatever zone map it is on, in every step of the
+  the player's continent, and the placed `complete` goals (no escort) of
+  quests the guide gives none of those (#2484: /sit by Eleanor's campfire for
+  The Great Outdoors, read as "Complete <quest>: <the goal's note>"), whatever zone map it is on, in every step of the
   loaded guide after the live step (a trip away and back, a flight or a hearth
   in between change nothing; never another tab's guide or the next guide; Fitz,
   0.3.6: no zone of the guide stops it), each for a quest in the log and not ready, for
