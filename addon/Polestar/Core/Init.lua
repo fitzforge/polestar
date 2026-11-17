@@ -1062,10 +1062,11 @@ function ns.StartDrag(handle, frame, opts, x0, y0)
 	return true
 end
 
--- ns.StopDrag(): the move under way ends where the pointer is (onStop after a move).
-function ns.StopDrag()
+-- ns.StopDrag(keepPosition): end the move at the pointer, or keep the last
+-- position if the frame can no longer move (onStop after a move).
+function ns.StopDrag(keepPosition)
 	if not dragging then return end
-	dragTo(dragging)
+	if not keepPosition then dragTo(dragging) end
 	dragEnd()
 end
 

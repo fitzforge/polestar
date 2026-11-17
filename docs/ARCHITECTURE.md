@@ -7285,7 +7285,10 @@ combat. A row's model takes the id the list holds for its name (the arrow's
 goal's, when two goals share the name). The button joins only with
 `qol.targetSimple`. The rows do not join: their clicks are not bindings. A
 drag on the mark or a row moves the set (`holder`), never the bag button's own
-spot.
+spot. In a fight only the mark drags, and it drags a plain outline of the
+set's clamp box (`holder.psDragInsets`), since the secure buttons anchored to
+the holder make it protected; the release saves `buttonPos`, and `placeNow`
+runs through `QoL.Secure` once the fight ends.
 
 ### Quest reward marks — QoL, reads Gear
 
