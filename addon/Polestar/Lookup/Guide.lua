@@ -758,10 +758,14 @@ local function questStep(q, from, isTarget, opts)
 	end
 	goals[#goals + 1] = endGoal("turnin", q, finish)
 	local step = { title = q.title, goals = goals }
-	if #order > 0 or #talks > 0 or #made > 0 or #summons > 0 then
+	-- How the quest is done beyond its objectives (the Codex's `how`, our
+	-- public words: Powering the Pylons' mana from the rifts, #2714), first.
+	local how = type(q.how) == "string" and q.how ~= "" and q.how or nil
+	if how or #order > 0 or #talks > 0 or #made > 0 or #summons > 0 then
 		local lines = {}
-		for i, inst in ipairs(order) do
-			lines[i] = format(L["%s: inside %s."], concat(within[inst], ", "), inst)
+		if how then lines[1] = how end
+		for _, inst in ipairs(order) do
+			lines[#lines + 1] = format(L["%s: inside %s."], concat(within[inst], ", "), inst)
 		end
 		for _, line in ipairs(summons) do lines[#lines + 1] = line end
 		-- A talk objective ticks only once the NPC's dialogue is gone through
@@ -775,7 +779,22 @@ local function questStep(q, from, isTarget, opts)
 	return step
 end
 
--- Steps for a quest and its unfinished prerequisites. -> steps | nil, reason
+-- The item quest q starts from, for a character who has neither it nor the
+-- quest: a collect goal at the nearest spawn of its best source (itemSpot,
+-- itemFrom), so the guide goes where it drops before the accept from it. #2677
+-- (Ursangous's Paw, from Ursangous in Ashenvale): the step said only "Accept
+-- Ursangous's Paw", with no place and no arrow. nil when nothing places it.
+local function startItemGoal(q, from)
+	local K = ns.Compat
+	local item = q.start and q.start.item and q.start.item[1]
+	if not item or K.IsOnQuest(q.id) or (K.GetItemCount(item, true) or 0) > 0 then return nil end
+	local s, _, spawns, dropper = itemSpot(item, from)
+	if not s then return nil end
+	return spawnSpots(at(itemFrom({ t = "collect", item = item, itemName = itemName(item), count = 1, group = eliteGroup(dropper) }, item), s), spawns)
+end
+
+-- Steps for a quest and its unfinished prerequisites; a quest started from an
+-- item gets that item first (startItemGoal). -> steps | nil, reason
 local function questSteps(questId, player, from)
 	local C = Codex()
 	if not C.Quest(questId) then return nil, "unknown" end
@@ -784,11 +803,205 @@ local function questSteps(questId, player, from)
 	for i, q in ipairs(chain) do
 		local step, err = questStep(q, from, q.id == questId)
 		if not step then return nil, err end
+		local first = step.goals[1]
+		local get = first and first.t == "accept" and first.item and startItemGoal(q, from)
+		if get then table.insert(step.goals, 1, get) end
 		steps[#steps + 1] = step
 	end
 	return steps
 end
 Lookup.QuestChain = questChain
+
+-- Who a quest is for decides whether it is on this character's line at all;
+-- a level or a profession only makes it wait.
+local NOT_FOR = { faction = true, race = true, class = true }
+local CHAIN_MAX = 60
+
+-- Whether every prerequisite is done: all of `pre`, one of `preAny`.
+local function prereqsDone(q)
+	local K = ns.Compat
+	for _, id in ipairs(q.pre or {}) do
+		if not K.IsQuestCompleted(id) then return false end
+	end
+	local any = q.preAny or {}
+	if #any == 0 then return true end
+	for _, id in ipairs(any) do
+		if K.IsQuestCompleted(id) then return true end
+	end
+	return false
+end
+
+-- A quest's chain for this character (#2554): the main line through it, back
+-- through its prerequisites (all of `pre`; of `preAny`, the one done, else the
+-- one questChain would pick) and forward through its follow-ups while there is
+-- one for this character. Unlike questChain, done quests stay in it.
+--   -> { quests = { { id, title, state, why, skipped } }, step, total, done,
+--        branches = { { id, title } } | nil } | nil when the quest stands alone.
+-- state: "done", "log" (in the quest log), "open" (can be taken now) or
+-- "later" (why: what it waits for). skipped: not done or in the log, though a
+-- later quest in the line that needs it (its `pre`, or the `preAny` pick in
+-- the line) is done, in the log or skipped itself.
+-- step: the first quest neither done nor skipped; done: there is none left
+-- (step is then total); skippedCount: how many quests are skipped.
+-- The walk is the costly part (Codex.FollowUps reads every quest the first
+-- time it is asked about one), so its answer is kept per quest until a quest
+-- is turned in or taken, a level is gained, or the Codex loads: what decides
+-- the walk (a done preAny, a level gate, who a quest is for) moves only then.
+local chainLines = {}
+function Lookup.ResetChains() chainLines = {} end
+
+-- -> order { quest record, ... }, branches { { id, title } } | nil,
+--    needs { [quest id] = { id of a quest in the line it needs, ... } }
+local function chainLine(questId, player)
+	local C, K = Codex(), ns.Compat
+	local order, seen, needs = {}, {}, {}
+	local function forMe(q)
+		local why = Lookup.QuestBlock(q, player)
+		return not NOT_FOR[why]
+	end
+	local function back(qid)
+		if seen[qid] or #order >= CHAIN_MAX then return end
+		local q = C.Quest(qid)
+		if not q then return end
+		seen[qid] = true
+		local need = {}
+		for _, pid in ipairs(q.pre or {}) do
+			back(pid)
+			need[#need + 1] = pid
+		end
+		local any = q.preAny or {}
+		if #any > 0 then
+			local pick
+			for _, pid in ipairs(any) do
+				if K.IsQuestCompleted(pid) then pick = pid; break end
+			end
+			if not pick then
+				local later
+				for _, pid in ipairs(any) do
+					local pq = C.Quest(pid)
+					local why = pq and Lookup.QuestBlock(pq, player)
+					if pq and not why then pick = pid; break end
+					if why == "level" and not later then later = pid end
+				end
+				pick = pick or later
+			end
+			if pick then
+				back(pick)
+				need[#need + 1] = pick
+			end
+		end
+		needs[qid] = need
+		order[#order + 1] = q
+	end
+	back(questId)
+	local branches
+	local cur = questId
+	while #order < CHAIN_MAX do
+		local next = {}
+		for _, f in ipairs(C.FollowUps and C.FollowUps(cur) or {}) do
+			if f.id and not seen[f.id] and forMe(f) then next[#next + 1] = f end
+		end
+		if #next ~= 1 then
+			if #next > 1 then
+				branches = {}
+				for i, f in ipairs(next) do branches[i] = { id = f.id, title = f.title } end
+			end
+			break
+		end
+		local f = next[1]
+		local need = { cur }
+		for _, pid in ipairs(f.pre or {}) do
+			if pid ~= cur and seen[pid] then need[#need + 1] = pid end
+		end
+		seen[f.id] = true
+		needs[f.id] = need
+		order[#order + 1] = f
+		cur = f.id
+	end
+	return order, branches, needs
+end
+
+function Lookup.ChainProgress(questId, player)
+	local C, K = Codex(), ns.Compat
+	if not (C and C.Quest and C.Quest(questId)) then return nil end
+	player = player or Lookup.PlayerInfo()
+	local line = chainLines[questId]
+	if not line then
+		local order, branches, needs = chainLine(questId, player)
+		line = { order = order, branches = branches, needs = needs }
+		chainLines[questId] = line
+	end
+	local order, branches, needs = line.order, line.branches, line.needs
+	if #order < 2 and not branches then return nil end
+	local quests, at = {}, {}
+	for i, q in ipairs(order) do
+		local e = { id = q.id, title = q.title }
+		at[q.id] = e
+		if K.IsQuestCompleted(q.id) then
+			e.state = "done"
+		elseif K.IsOnQuest and K.IsOnQuest(q.id) then
+			e.state = "log"
+		else
+			local why, text = Lookup.QuestBlock(q, player)
+			if why then
+				e.state, e.why = "later", text
+			elseif not prereqsDone(q) then
+				e.state, e.why = "later", L["After an earlier quest"]
+			else
+				e.state = "open"
+			end
+		end
+		quests[i] = e
+	end
+	-- A quest needs only quests before it in the line, so one pass from the
+	-- end carries a skip back through every quest it passed over.
+	for i = #quests, 1, -1 do
+		local e = quests[i]
+		if e.state == "done" or e.state == "log" or e.skipped then
+			for _, pid in ipairs(needs[e.id] or {}) do
+				local p = at[pid]
+				if p and (p.state == "open" or p.state == "later") then p.skipped = true end
+			end
+		end
+	end
+	local step, skippedCount = nil, 0
+	for i, e in ipairs(quests) do
+		if e.skipped then
+			skippedCount = skippedCount + 1
+		elseif e.state ~= "done" and not step then
+			step = i
+		end
+	end
+	return {
+		quests = quests, step = step or #quests, total = #quests, done = step == nil,
+		skippedCount = skippedCount, branches = branches,
+	}
+end
+
+-- The quest tooltip's line (#2554): "Chain: 6 of 11", "Chain: all 11 done",
+-- "Chain: finished, 2 skipped" (nothing left but skipped quests), nil for a
+-- quest standing alone. Only with Lookup on and the Codex loaded: a hover
+-- never loads it, and Dungeons can load it with Lookup off.
+function Lookup.ChainTooltipText(questId)
+	if not (questId and enabled()) then return nil end
+	local C = Codex()
+	if not (C and C.IsLoaded and C.IsLoaded()) then return nil end
+	local ch = Lookup.ChainProgress(questId)
+	if not ch then return nil end
+	if ch.done and ch.skippedCount > 0 then
+		return format(L["Chain: finished, %d skipped"], ch.skippedCount)
+	end
+	if ch.done then return format(L["Chain: all %d done"], ch.total) end
+	return format(L["Chain: %d of %d"], ch.step, ch.total)
+end
+
+if ns.RegisterEvent then
+	for _, event in ipairs({ "QUEST_TURNED_IN", "QUEST_ACCEPTED", "PLAYER_LEVEL_UP" }) do
+		ns.RegisterEvent(event, Lookup.ResetChains)
+	end
+end
+if ns.On then ns.On("CODEX_LOADED", Lookup.ResetChains) end
+
 Lookup.QuestStep = function(q, from, opts) return questStep(q, from, false, opts) end
 
 -- A loot source can require a quest in the log OR already done (#1923).

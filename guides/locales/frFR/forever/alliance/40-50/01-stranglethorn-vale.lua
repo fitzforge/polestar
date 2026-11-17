@@ -257,7 +257,8 @@ return {
 	-- {item:216616} Compound Cage Key
 	["{item:216616}, from the Subchiefs (or the Elites)"] = "{item:216616}, sur les Lieutenants (ou les Élites)",
 	-- {item:216617} Kurzen Fighter's Uniform
-	["{item:216617}, in the supply crate"] = "{item:216617}, dans la caisse de ravitaillement",
+	-- was: ["{item:216617}, in the supply crate"] = "{item:216617}, dans la caisse de ravitaillement"
+	["{item:216617}, in the supply crate deep in the cave"] = "",
 	-- {npc:218230} Wendel Mathers
 	["{npc:218230}, back at his cage on the way out"] = "{npc:218230}, de retour à sa cage en sortant",
 	-- {npc:218229} Captain Aransas · {area:35} Booty Bay
@@ -274,7 +275,7 @@ return {
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do.\nFollow the road north-east to the Venture Co. camp at the {area:310}; the miners, surveyors and foremen drop the crystals.\nCareful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp."] = "Les trolls Fendcrâne tiennent les ruines juste à l'est de la mine ; n'importe lequel peut lâcher des défenses, leurs panthères en lâchent toujours.\nSuivez la route vers le nord-est jusqu'au camp de la KapitalRisk à la {area:310} ; les mineurs, les géomètres et les contremaîtres lâchent les cristaux.\nAttention : des Panthères Ombregueule camouflées et des Tigresses de Strangleronce rôdent autour du camp.",
 	-- {item:1524} Skullsplitter Tusk
-	["{item:1524}, from the trolls of the ruins"] = "",
+	["{item:1524}, from the trolls of the ruins"] = "{item:1524}, des trolls des ruines",
 
 	-- Step 49: Raptor Mastery
 	-- {npc:730} Tethis
@@ -490,6 +491,7 @@ return {
 	-- ["{area:108} flight master"] = "Maître de vol de {area:108}",
 	-- ["{area:144} flight master"] = "Maître de vol de {area:144}",
 	-- ["{area:43}: kill these as you meet them"] = "{area:43} : tuez-les au passage",
+	-- ["{item:216617}, in the supply crate"] = "{item:216617}, dans la caisse de ravitaillement",
 	-- ["{item:3713}, for \"Swamp Eye\" Jarl"] = "{item:3713}, pour Jarl \"Oeil-des-marais\"",
 	-- ["{item:3919} on the way"] = "{item:3919} en chemin",
 	-- ["{item:5938}, from the Silt Crawlers on the same shore"] = "{item:5938}, sur les Silt Crawlers de la même rive",

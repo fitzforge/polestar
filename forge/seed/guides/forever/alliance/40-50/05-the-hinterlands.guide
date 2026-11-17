@@ -26,7 +26,7 @@ step The Altar of Zul
   complete 2989 @49.0,68.7
 
 step Vilebranch Soothsayers
-  tip The Vilebranch Soothsayers (46-47) walk the ground around the foot of the Altar of Zul: their totems are for Maret Firetend. Careful: Qiaga the Keeper and Morta'gya the Keeper (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar.
+  tip The Vilebranch Soothsayers (46-47) walk the ground around the foot of the Altar of Zul: their totems are for Maret Firetend, and more Vilebranch Totems lie on the ground among them: pick those up too. Careful: Qiaga the Keeper and Morta'gya the Keeper (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar.
   collect 279225 quest 86616 @45.3,66.7 map 1425 -- Vilebranch Totem
 
 step Skulk Rock
@@ -205,6 +205,13 @@ step Sprogger
 step Sprogger
   when group 8554
   accept 8554
+
+step Negolash's bait
+  when group 8554
+  tip Negolash comes only for his food: hand in Enticing Negolash at Captain Smotts' ruined lifeboat on the shore south-east of Booty Bay, with 10 Barbecued Buzzard Wings and 5 Junglevine Wine, and he comes to the boat. Nixxrax Fillamug, the food and drink vendor at the inn, sells the wine. The wings are a cook's dish: if you don't cook, bring them from the Auction House.
+  buy 4595 x5 npc 2832                 -- Junglevine Wine, Nixxrax Fillamug
+  auction 4457 x10                     -- Barbecued Buzzard Wing: in your bags already if you cook
+  turnin 619 direct                    -- Ruined Lifeboat: the food goes in, Negolash comes
 
 step Facing Negolash
   when group 8554

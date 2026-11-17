@@ -714,6 +714,7 @@ fn inputs(s: Synth) -> Inputs {
 		store_xp: Default::default(),
 		journal_quests: Vec::new(),
 		mechanics: V::Null,
+		mechanics_public: V::Null,
 		warnings: Vec::new(),
 	}
 }

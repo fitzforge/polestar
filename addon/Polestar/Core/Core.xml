@@ -6,6 +6,7 @@
 	<Script file="Credits.lua"/>
 	<Script file="Names.lua"/>
 	<Script file="Hooks.lua"/>
+	<Script file="BagSlots.lua"/>
 	<Script file="GuideTexts.lua"/>
 	<Script file="Locale.lua"/>
 	<Script file="Profiles.lua"/>

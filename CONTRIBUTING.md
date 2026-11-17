@@ -112,6 +112,14 @@ steps keep two of you from fixing the same thing without knowing:
    pull request that fixes the pattern and lists every issue it closes.
 6. **A claim that went quiet** (no commit or reply for a week) is free:
    say on the issue that you are taking it over, and go ahead.
+7. **A new guide is a community guide.** Polestar's own guide list holds the
+   guides the maintainer plans and keeps. A guide you wrote yourself (a new
+   route, a dungeon walkthrough, a collection) is published as your own
+   community guide on [polestar.guide](https://polestar.guide/community),
+   where it stays yours to update and is credited to you
+   (README, "Writing a community addon"). A pull request that adds a new
+   guide to `guides/` is merged only when the maintainer asked for that guide
+   in an issue first. Fixes to existing guides are always welcome here.
 
 An issue filed from the Discord #bugs forum tells its reporter in their
 thread when the first pull request for it opens, so link only what you are
@@ -203,6 +211,17 @@ below.
   `--filter` plays only the guides whose file or id contains its text;
   `--class Warrior` narrows it to one class. You don't need the full test
   suite; CI runs it on your pull request.
+- A pull request that moves a quest (to a later step, into another guide,
+  into a new step) shows its flow diff:
+  `node tools/polestar.js flow-diff --base origin/next --guides <guide> --md flow.md`
+  plays the route before and after your change and lists, per guide that
+  plays differently, the zones in order, any new trip back into a zone the
+  route had left, steps that send the player far for one quest (or to a
+  place with nothing to do), quests carried for more guides, the walking
+  and flying time, and where each moved quest went. Paste the table into the
+  pull request. It fails on a new revisit or trip unless
+  `data/flow-diff-allow.json` names it with a reason
+  ([docs/ROUTE-FEEL.md](docs/ROUTE-FEEL.md#flow-diff-what-one-change-does-to-the-route)).
 
 Both need the reference data (below). If you cannot build it, send the fix
 anyway: describe what you changed and why, say that you could not run the

@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Into Badlands
 	-- {zone:1418} Badlands
-	["Into {zone:1418}"] = "",
+	["Into {zone:1418}"] = "進入{zone:1418}",
 
 	-- Step 2: Dorgaron
 	-- {npc:269577} Dorgaron · {area:346} Hammertoe's Digsite · {area:345} Agmond's End
@@ -23,7 +23,7 @@ return {
 
 	-- Step 5: Hammertoe's Digsite: kill these as you meet them
 	-- {area:346} Hammertoe's Digsite
-	["{area:346}: kill these as you meet them"] = "",
+	["{area:346}: kill these as you meet them"] = "{area:346}：遇到就殺",
 	-- {npc:269577} Dorgaron
 	-- plural, as words: Crag Coyotes = {npc:2727} Crag Coyote
 	["The Shadowforge dwarves camp just north of the digsite; the crumpled map and {npc:269577}'s mining helmet lie among their tents. Tunnelers and Darkweavers carry Ryedol's pick and {npc:269577}'s artifacts. Crag Coyotes roam the slopes around it."] = "暗爐矮人在挖掘場北邊紮營；揉皺的地圖和{npc:269577}的採礦盔帽在他們的帳篷之間。暗爐隧道工和暗爐巫師身上帶著雷杜爾的鋤頭和{npc:269577}的文物。峭壁山狗在周圍的山坡上遊蕩。",
@@ -51,14 +51,14 @@ return {
 
 	-- Step 10: Agmond's End: kill these as you meet them
 	-- {area:345} Agmond's End
-	["{area:345}: kill these as you meet them"] = "",
+	["{area:345}: kill these as you meet them"] = "{area:345}：遇到就殺",
 	-- {quest:739} Murdaloc · {spell:5242} Battle Shout · {spell:1160} Demoralizing Shout · {area:340} Kargath
 	-- plural, as words: Dustbelcher Maulers = {npc:2717} Dustbelcher Mauler · Stonevault Bonesnappers = {npc:2893} Stonevault Bonesnapper · Dustbelcher Lords = {npc:2719} Dustbelcher Lord
 	["Buzzards circle the plain to the east. Careful: the Dustbelcher Maulers, Shamans and Wyrmhunters (40-43) camp far to the south-west: leave them.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: the Stonevault Bonesnappers are 39-40 and the Shamans 40-41, a level or two over you here: pull them from the camp's edge, one at a time.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "禿鷲在東邊的平原上盤旋。小心：火煙虐待者、薩滿和獵龍者（40-43級）在遠處西南方紮營：別去惹牠們。\n破損的骷髏在石窟穴居人營地的邊緣；殺害阿格蒙德的{quest:739}在斷骨者之間走動。\n小心：石窟斷骨者是39-40級，薩滿是40-41級，比你高一兩級：從營地邊緣一次拉一隻。\n小心：火煙領主是44-45級。牠們會使用{spell:5242}和{spell:1160}，血量低於50%時會向15碼內的同伴求援。其中七隻站在{area:340}南方約750碼處。",
 	-- {item:7847} Buzzard Gizzard · {area:345} Agmond's End
 	["{item:7847}, if you still need one: the Buzzards east of {area:345} drop it only rarely"] = "{item:7847}，如果你還需要：{area:345}東邊的禿鷲很少掉落",
 	-- {quest:739} Murdaloc · {zone:1418} Badlands
-	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {zone:1418} guide at 43, and kill the Bonesnappers for this quest now."] = "",
+	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {zone:1418} guide at 43, and kill the Bonesnappers for this quest now."] = "{quest:739}本人（42級）在Bonesnappers之間走動：留到43級、後面的{zone:1418}指南再打他，現在先殺Bonesnappers完成此任務。",
 	-- {item:278402} Unstudied Artifact
 	["{item:278402}, from the Shadowforge diggers and the Bonesnappers"] = "{item:278402}，由暗爐挖掘者和斷骨者掉落",
 
@@ -87,7 +87,7 @@ return {
 	-- plural, as words: Obsidian Golems = {npc:4872} Obsidian Golem · Shadowforge Diggers = {npc:4846} Shadowforge Digger
 	["Head north to {area:1517}'s entrance, in the north of the {zone:1418}: the chest lies just inside the cave mouth. {npc:2932} and the Obsidian Golems (38) stand beside it and Shadowforge Diggers (35-36) work the tunnel, all elite: keep your group together."] = "向北前往{zone:1418}北部的{area:1517}入口：箱子就在洞口內。{npc:2932}和黑曜石魔像（38級）站在旁邊，暗爐挖掘者（35-36級）在隧道裡工作，全都是精英：讓隊伍待在一起。",
 	-- {item:4631} Tablet of Ryun'eh
-	["{item:4631}; below ground"] = "",
+	["{item:4631}; below ground"] = "{item:4631}；地下",
 
 	-- Step 16: Valley of Fangs
 	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {area:1517} Uldaman · {area:345} Agmond's End
@@ -118,8 +118,7 @@ return {
 
 	-- Step 22: Thelsamar
 	-- {npc:1470} Ghak Healtouch
-	-- was: ["{npc:1470}, in the inn"] = "{npc:1470}，在旅店裡"
-	["{npc:1470}, in the inn; below ground"] = "",
+	["{npc:1470}, in the inn; below ground"] = "{npc:1470}，在旅店裡；地下",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "{area:596}裡有{npc:217590}在爬行：用{npc:217412}的昆蟲學入門工具包裡的工具抓一隻。",

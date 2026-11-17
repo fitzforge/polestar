@@ -29,12 +29,12 @@ return {
 	-- {skill:356} Fishing · {skill:185} Cooking · {item:6325} Recipe: Brilliant Smallfish · {item:6291} Raw Brilliant Smallfish · {npc:257006} Nyalah Brightfire · {zone:2521} Zephras Isle · {item:6326} Recipe: Slitherskin Mackerel · {item:6303} Raw Slitherskin Mackerel
 	["Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast {skill:356} from your spellbook, click the bobber when it splashes. Keep the fish: they are your first {skill:185} ingredients. To cook what you catch: {item:6325} for the {item:6291} of lakes and rivers ({skill:185} 1, 40c: {npc:257006} ({zone:2521})); {item:6326} for the {item:6303} of the coast ({skill:185} 1, 40c: {npc:257006} ({zone:2521}))."] = "在這裡釣魚直到技能50，約需釣50次：75以下每釣到一次都會提升技能。從法術書施放{skill:356}，浮標濺起水花時點擊它。留著釣到的魚：牠們是你最早的{skill:185}材料。烹飪你釣到的魚：湖泊和河流的{item:6291}用{item:6325}（{skill:185} 1，40銅：{zone:2521}的{npc:257006}）；海岸的{item:6303}用{item:6326}（{skill:185} 1，40銅：{zone:2521}的{npc:257006}）。",
 	-- {area:16638} Valanaar
-	["{area:16638} shore"] = "",
+	["{area:16638} shore"] = "{area:16638}岸邊",
 
 	-- Step 6: Fishing: Durotar (1-50)
 	-- {skill:356} Fishing · {skill:185} Cooking · {item:6325} Recipe: Brilliant Smallfish · {item:6291} Raw Brilliant Smallfish · {npc:5940} Harn Longcast · {zone:1412} Mulgore · {npc:3029} Sewa Mistrunner · {zone:1456} Thunder Bluff · {item:6326} Recipe: Slitherskin Mackerel · {item:6303} Raw Slitherskin Mackerel · {npc:5942} Zansoa · {zone:1411} Durotar
 	["Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast {skill:356} from your spellbook, click the bobber when it splashes. Keep the fish: they are your first {skill:185} ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: {item:6325} for the {item:6291} of lakes and rivers ({skill:185} 1, 40c: {npc:5940} ({zone:1412}) or {npc:3029} ({zone:1456})); {item:6326} for the {item:6303} of the coast ({skill:185} 1, 40c: {npc:5942} ({zone:1411}))."] = "在這裡釣魚直到技能50，約需釣50次：75以下每釣到一次都會提升技能。從法術書施放{skill:356}，浮標濺起水花時點擊它。留著釣到的魚：牠們是你最早的{skill:185}材料。技能低於25時，這裡的魚會脫鉤跑掉；在魚竿上裝魚餌可在十分鐘內提高技能，補上差距。烹飪你釣到的魚：湖泊和河流的{item:6291}用{item:6325}（{skill:185} 1，40銅：{zone:1412}的{npc:5940}或{zone:1456}的{npc:3029}）；海岸的{item:6303}用{item:6326}（{skill:185} 1，40銅：{zone:1411}的{npc:5942}）。",
-	["Sen'jin coast"] = "",
+	["Sen'jin coast"] = "森金海岸",
 
 	-- Step 8: Fishing: Tirisfal Glades (1-50)
 	-- {skill:356} Fishing · {skill:185} Cooking · {item:6325} Recipe: Brilliant Smallfish · {item:6291} Raw Brilliant Smallfish · {npc:3550} Martine Tramblay · {zone:1420} Tirisfal Glades · {npc:4574} Lizbeth Cromwell · {zone:1458} Undercity · {item:6326} Recipe: Slitherskin Mackerel · {item:6303} Raw Slitherskin Mackerel
@@ -116,19 +116,19 @@ return {
 
 	-- Step 24: Sar'theris Striker
 	-- {zone:1443} Desolace · {area:598} Sar'theris Strand · {area:2408} Shadowprey Village · {item:16968} Sar'theris Striker
-	["Fish along the coast of {zone:1443} ({area:598} in the north-west, or the shore west of {area:2408}) until you catch a {item:16968}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "",
+	["Fish along the coast of {zone:1443} ({area:598} in the north-west, or the shore west of {area:2408}) until you catch a {item:16968}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "在{zone:1443}海岸（西北的{area:598}，或{area:2408}以西的岸邊）釣魚，直到釣上{item:16968}：那裡約每五竿出一竿，別處不會咬鉤。技能225時這裡不會跑魚。",
 
 	-- Step 26: Feralas Ahi
 	-- {area:2521} Verdantis River · {zone:1444} Feralas · {area:2577} Dire Maul · {item:16967} Feralas Ahi · {item:6532} Bright Baubles
-	["Fish along the {area:2521} in {zone:1444} (south-east of {area:2577}) until you catch a {item:16967}: about one catch in five there brings it up, and it bites nowhere else. This water loses fish below skill 300: at 225 most get away, so put {item:6532} (+75) on the pole first."] = "",
+	["Fish along the {area:2521} in {zone:1444} (south-east of {area:2577}) until you catch a {item:16967}: about one catch in five there brings it up, and it bites nowhere else. This water loses fish below skill 300: at 225 most get away, so put {item:6532} (+75) on the pole first."] = "在{zone:1444}的{area:2521}（{area:2577}東南）釣魚，直到釣上{item:16967}：那裡約每五竿出一竿，別處不會咬鉤。這片水域在技能300以下會跑魚：225時大部分會跑掉，所以先給魚竿裝上{item:6532}（+75）。",
 
 	-- Step 27: Savage Coast Blue Sailfin
 	-- {zone:1434} Stranglethorn Vale · {area:301} Savage Coast · {item:16969} Savage Coast Blue Sailfin
-	["Fish along {zone:1434}'s {area:301} (the west shore) until you catch a {item:16969}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "",
+	["Fish along {zone:1434}'s {area:301} (the west shore) until you catch a {item:16969}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "在{zone:1434}的{area:301}（西岸）釣魚，直到釣上{item:16969}：那裡約每五竿出一竿，別處不會咬鉤。技能225時這裡不會跑魚。",
 
 	-- Step 29: Misty Reed Mahi Mahi
 	-- {area:300} Misty Reed Strand · {zone:1435} Swamp of Sorrows · {item:16970} Misty Reed Mahi Mahi
-	["Fish along the {area:300} (the east shore of {zone:1435}) until you catch a {item:16970}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "",
+	["Fish along the {area:300} (the east shore of {zone:1435}) until you catch a {item:16970}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "在{area:300}（{zone:1435}東岸）釣魚，直到釣上{item:16970}：那裡約每五竿出一竿，別處不會咬鉤。技能225時這裡不會跑魚。",
 
 	-- Step 30: Nat Pagle
 	-- {skill:356} Fishing
@@ -136,7 +136,7 @@ return {
 
 	-- Step 31: Fishing: Stranglethorn Vale (225-300)
 	-- {item:6533} Aquadynamic Fish Attractor · {item:6532} Bright Baubles
-	["Fish the pools along the coast here (eels, snappers, wreckage) until skill 300, about 650 catches (one in seven raises the skill at 225, one in ten by 300). Harder water levels no faster: a catch counts the same anywhere. From skill 225 this water loses no fish, so no lure is needed. The {item:6533} (+100 from skill 100, 2s 50c) and {item:6532} are for harder water and rare fish, not for skill."] = "",
+	["Fish the pools along the coast here (eels, snappers, wreckage) until skill 300, about 650 catches (one in seven raises the skill at 225, one in ten by 300). Harder water levels no faster: a catch counts the same anywhere. From skill 225 this water loses no fish, so no lure is needed. The {item:6533} (+100 from skill 100, 2s 50c) and {item:6532} are for harder water and rare fish, not for skill."] = "在此沿岸的魚群（鰻魚、鯛魚、殘骸）中釣魚，直到技能300，約650竿（225時約七竿漲一點，300時約十竿一點）。更高階的水域並不會更快：任何地方一竿的收益都一樣。技能225起這片水域不會跑魚，所以不需要魚餌。{item:6533}（技能100起可用，+100，2銀50銅）和{item:6532}是用於更高階水域和稀有魚的，不是用來練技能的。",
 	-- {area:35} Booty Bay
 	["{area:35} coast"] = "{area:35}海岸",
 

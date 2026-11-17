@@ -22,6 +22,8 @@
 //!   corrections.total                   our corrections applied (meta.json counts.corrections)
 //!   training.spells                     class training rows (training.json spells)
 //!   riding.trainers / riding.vendors    riding trainers and mount vendors (training.json riding)
+//!   recordings.counted                  players' recording sessions that count (meta.json counts);
+//!                                       only a fall stops the build (a release build without them)
 
 use std::path::{Path, PathBuf};
 
@@ -43,11 +45,16 @@ pub enum Limit {
 	Rel(f64),
 	/// Change of a share (0..1), or of a count that must not move.
 	Abs(f64),
+	/// Relative fall of a count that only grows (a rise is fine).
+	Drop(f64),
 }
 
 /// What a shift may be before it stops the build, per field (the first matching prefix; a leading
 /// "." matches the end).
-pub const LIMITS: [(&str, Limit); 14] = [
+pub const LIMITS: [(&str, Limit); 15] = [
+	// The players' recordings the build counted: a release build that lost the archive (no
+	// `--recordings`, or an empty folder) stops here instead of shipping data without them.
+	("recordings.", Limit::Drop(0.5)),
 	("sources.", Limit::Rel(0.01)),
 	("tokens.", Limit::Rel(0.05)),
 	("compile.errors", Limit::Abs(0.0)),
@@ -255,6 +262,9 @@ pub fn compute(data: &Path, sources: Option<&Path>, guides: Option<&Path>, names
 	if !counts.get("corrections").is_nullish() {
 		f.insert("corrections.total".into(), counts.get("corrections").num());
 	}
+	if !counts.get("recordingsCounted").is_nullish() {
+		f.insert("recordings.counted".into(), counts.get("recordingsCounted").num());
+	}
 	let xp_kb = counts.get("knowledgeBase").get("byClass").get("quests.xp");
 	if xp_kb.truthy() {
 		f.insert("kb.xpChanges".into(), xp_kb.values().iter().fold(0.0, |a, b| a + b.num()));
@@ -380,11 +390,12 @@ pub fn compare(good: Option<&Stats>, now: &Stats) -> Comparison {
 				let abs = n - w;
 				change = Some(match limit {
 					Limit::Abs(_) => abs,
-					Limit::Rel(_) => rel,
+					Limit::Rel(_) | Limit::Drop(_) => rel,
 				});
 				bad = match limit {
 					Limit::Rel(l) => rel.abs() > l,
 					Limit::Abs(l) => abs.abs() > l,
+					Limit::Drop(l) => rel < -l,
 				};
 			}
 		}
@@ -421,10 +432,11 @@ pub fn format_report(cmp: &Comparison, all: bool) -> String {
 	let lim = |l: Limit| match l {
 		Limit::Rel(r) => format!("±{}%", js_to_fixed(r * 100.0, 0)),
 		Limit::Abs(a) => format!("±{}", num_str(a)),
+		Limit::Drop(r) => format!("-{}%", js_to_fixed(r * 100.0, 0)),
 	};
 	let chg = |r: &Row| match (r.change, r.limit) {
 		(None, _) => r.why.to_string(),
-		(Some(c), Limit::Rel(_)) => format!("{}{}%", if c >= 0.0 { "+" } else { "" }, js_to_fixed(c * 100.0, 1)),
+		(Some(c), Limit::Rel(_) | Limit::Drop(_)) => format!("{}{}%", if c >= 0.0 { "+" } else { "" }, js_to_fixed(c * 100.0, 1)),
 		(Some(c), Limit::Abs(_)) => format!("{}{}", if c >= 0.0 { "+" } else { "" }, js_to_fixed(c, 4)),
 	};
 	let mut rows: Vec<&Row> = cmp.rows.iter().filter(|r| all || r.bad || r.change.is_some_and(|c| c != 0.0)).collect();
@@ -601,6 +613,33 @@ mod tests {
 		assert!(!compare(Some(&s), &with("quests.xp.sum", 1010.0)).ok, "XP up 1%");
 		assert!(compare(Some(&s), &with("quests.xp.sum", 1004.0)).ok, "XP within 0.5%");
 		assert!(!compare(Some(&s), &with("riding.vendors", 0.0)).ok, "a mount vendor gone");
+		std::fs::remove_dir_all(&d).unwrap();
+	}
+
+	#[test]
+	fn a_build_that_lost_the_recordings_stops() {
+		// #2585: a release build that read no recordings (no --recordings, or an empty folder)
+		// stops instead of shipping data without them; a growing archive never stops it.
+		let d = std::env::temp_dir().join(format!("forge-stats-recordings-{}", std::process::id()));
+		std::fs::create_dir_all(&d).unwrap();
+		let w = |n: &str, t: &str| std::fs::write(d.join(n), t).unwrap();
+		for f in ["quests.json", "npcs.json", "objects.json", "items.json", "zones.json"] {
+			w(f, "{}");
+		}
+		w("meta.json", r#"{"builtAt":"x","counts":{"recordingsCounted":7000}}"#);
+		let good = compute(&d, None, None, None).unwrap();
+		assert_eq!(good.fields["recordings.counted"], 7000.0);
+		let with = |v: f64| {
+			let mut t = Stats { built_at: V::Undef, fields: good.fields.clone() };
+			t.fields.insert("recordings.counted".into(), v);
+			t
+		};
+		let none = compare(Some(&good), &with(0.0));
+		assert!(!none.ok, "no recordings");
+		assert!(format_report(&none, false).starts_with("SHIFT  recordings.counted"), "{}", format_report(&none, false));
+		assert!(!compare(Some(&good), &with(3000.0)).ok, "more than half gone");
+		assert!(compare(Some(&good), &with(9000.0)).ok, "the archive grew");
+		assert!(compare(Some(&with(0.0)), &good).ok, "the first build with them");
 		std::fs::remove_dir_all(&d).unwrap();
 	}
 

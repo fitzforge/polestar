@@ -7,8 +7,10 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { instanceFacts, buildInstances } = require('../tools/lib/codex/instances');
-const { mergeCodex } = require('../tools/lib/codex/build');
+const { clientFacts, mergeCodex } = require('../tools/lib/codex/build');
+const { buildJournal, emitJournal } = require('../tools/lib/codex/journal');
 const { compareCodex } = require('../tools/lib/codex/parity');
+const dungeonsFixture = require('./fixtures/codex/dungeons.json');
 
 const TABLES = {
 	Map: [{ ID: '249', MapName_lang: "Onyxia's Lair", InstanceType: '2', MaxPlayers: '40', AreaTableID: '2159', CorpseMapID: '-1', Corpse_0: '0', Corpse_1: '0' }],
@@ -40,6 +42,58 @@ test("buildInstances: a boss's own Forever drop table (any rate) before the worl
 		[17966, 17962, 4411, 17682, 13007],
 		'own table by chance (a 0.5% schematic too), then world books and blues; a pool item under 1% is no boss loot',
 	);
+});
+
+test('the release journal emits encounter loot before the Lookup cap and skips world drops, quest items and materials', () => {
+	const drop = (item, count, common = false) => ({ item, count, outof: 1000, common });
+	const add = (id, name, npc, object = {}) => ({ id, name, drops: { npc, object } });
+	const facts = instanceFacts({ ...TABLES, DungeonEncounter: [
+		{ ...TABLES.DungeonEncounter[0], Name_lang: 'Onyxia and Guardian' },
+		{ ...TABLES.DungeonEncounter[0], ID: '2', Name_lang: 'The Secrets', OrderIndex: '1' },
+	] }, [{ ID: '249' }]);
+	const { instances } = buildInstances(facts, {
+		npcs: { 10184: { name: 'Onyxia' }, 10185: { name: 'Guardian' } },
+		objects: { 80: { name: 'Chest of The Secrets', instances: [249] }, 81: { name: 'Chest of The Secrets', instances: [249] } },
+		items: {
+			700: add(700, 'Helm from both', { 10184: 8, 10185: 2 }),
+			701: add(701, 'Weapon', { 10185: 0.2 }),
+			702: add(702, 'World gear', { 10184: 2 }),
+			703: add(703, 'Shared gear', { 10184: 12, 42: 0.01 }),
+			704: { ...add(704, 'Recipe: Quest item', { 10184: 90 }), questItem: true },
+			705: add(705, 'Trade material', { 10184: 80 }),
+			706: add(706, 'Schematic: Example', { 10184: null }),
+			707: add(707, 'Chest ring', {}, { 80: 10, 81: 20 }),
+			708: add(708, 'Chest cloak', {}, { 81: 2 }),
+			709: add(709, 'Common chest drop', {}, { 80: 50 }),
+			711: add(711, 'Signature white hammer', { 10184: 20 }),
+		},
+		client: { ...clientFacts({ Item: [{ ID: '710', ClassID: '4', InventoryType: '9' }] }), items: {
+			700: { classId: 4, quality: 3 }, 701: { classId: 2, quality: 2 }, 702: { classId: 2, quality: 3 }, 703: { classId: 2, quality: 3 },
+			705: { classId: 7, quality: 3 }, 707: { classId: 4, quality: 3 }, 708: { classId: 4, quality: 3 }, 709: { classId: 4, quality: 3 },
+			711: { classId: 2, quality: 1, inventoryType: 17 },
+		} },
+		web: {
+			npc: { 10184: { drops: [drop(702, 20, true), ...Array.from({ length: 30 }, (_, i) => drop(800 + i, 100))] }, 10185: { drops: [drop(710, 15)] } },
+			object: { 80: { drops: [drop(709, 500, true), drop(710, 15)] } },
+		},
+	});
+	const raw = instances['onyxias-lair'].bosses;
+	assert.equal(raw[0].items.length, 30);
+	assert.ok(!raw[0].items.includes(700));
+	assert.deepEqual(raw[1].items, [709, 707, 710]);
+	const journal = buildJournal({}, { instances });
+	assert.deepEqual(journal.dungeons['onyxias-lair'].bosses.map((b) => [b.name, b.loot]), [
+		['Onyxia and Guardian', [711, 700, 710, 701, 706]], ['The Secrets', [707, 708, 710]],
+	]);
+	assert.match(emitJournal(journal)[0].text, /loot\s*=\s*\{\s*711,\s*700,\s*710,\s*701,\s*706/);
+});
+
+test('a curated dungeon boss keeps its generated loot', () => {
+	const { inputs, codex } = structuredClone(dungeonsFixture);
+	codex.instances['wailing-caverns'].bosses[0].loot = [6480, 918];
+	const page = buildJournal(inputs, codex).dungeons['wailing-caverns'];
+	assert.deepEqual(page.bosses[0].loot, [6480, 918]);
+	assert.equal(page.bosses[0].name, 'Lady Anacondra');
 });
 
 // A rare with 160 shared drops and one of its own at an unknown rate; an item

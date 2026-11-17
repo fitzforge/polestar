@@ -294,6 +294,58 @@ fn player_info_zone_text_bind_location_taxi_and_items_come_from_the_client() {
 	);
 }
 
+/// Acen (#2512): the Durnholde jailors' keys go onto the keyring (bag -2) when looted. Whether the client's
+/// GetItemCount counts the keyring or not, a key there counts once as in the bags; one in a bag stays counted once.
+const KEYRING: &str = r#"
+	slots = { [-2] = {}, [0] = {} }
+	C_Container = {
+		GetContainerNumSlots = function(bag) return slots[bag] and 4 or 0 end,
+		GetContainerItemInfo = function(bag, slot)
+			local id = slots[bag] and slots[bag][slot]
+			if id then return { itemID = id, stackCount = 1 } end
+		end,
+	}
+	countsKeyring = false
+	C_Item.GetItemCount = function(id, includeBank)
+		local n = 0
+		for bag, list in pairs(slots) do
+			if bag >= 0 or countsKeyring then for _, v in pairs(list) do if v == id then n = n + 1 end end end
+		end
+		return n + (includeBank and w.bank[id] or 0)
+	end
+	GetItemCount = C_Item.GetItemCount
+"#;
+
+#[test]
+fn getitemcount_counts_a_key_on_the_keyring_once_whether_the_client_counts_the_keyring_or_not() {
+	let out = run_with(
+		r#"
+		local function counts()
+			Polestar.NewMoment()
+			return { C.GetItemCount(3467), C.GetItemCount(3499), C.GetItemCount(3467, true), C.GetItemCount(159) }
+		end
+		slots[-2][1] = 3467                -- the Dull Iron Key on the keyring
+		slots[0][2] = 3499                 -- the Burnished Gold Key in the backpack
+		w.bank[3467] = 1                   -- and a second Dull Iron Key in the bank
+		local without = counts()
+		countsKeyring = true
+		local with = counts()
+		slots[-2][1] = nil
+		local gone = counts()
+		emit({ without = without, with = with, gone = gone })
+	"#,
+		KEYRING,
+	);
+	assert_eq!(
+		out,
+		json!({
+			"without": [1, 1, 2, 0],
+			"with": [1, 1, 2, 0],
+			"gone": [0, 1, 1, 0],
+		})
+	);
+}
+
 #[test]
 fn getareaname_gives_an_area_s_name_in_the_client_s_language_from_c_map_getareainfo_nil_for_no_id_an_unknown_area_or_no_api() {
 	let out = run(r#"
@@ -455,6 +507,32 @@ fn a_secret_run_speed_or_map_position_reads_as_unknown_and_is_never_worked_on_25
 	assert_eq!(out["x"], true, "a secret coordinate is no position");
 	assert_eq!(out["map"], true, "a secret map is no position");
 	assert_eq!(out["vector"], true, "a secret position vector is never indexed");
+}
+
+// #2595: in the client a secret string throws when it is compared, even with "", so each tooltip and map name
+// reader asks issecretvalue before it checks the text against anything. A Lua 5.1 string can't throw on ==, so the
+// test watches the order instead: given an empty text, every reader still asks whether it is secret first.
+#[test]
+fn the_tooltip_and_map_name_readers_ask_whether_a_text_is_secret_before_comparing_it_2595() {
+	let out = run(r#"
+		local asked
+		function issecretvalue(v) if v == "" then asked = true end return false end
+		C_TooltipInfo = {
+			GetHyperlink = function() return { lines = { { leftText = "" } } } end,
+			GetItemByID = function() return { lines = { { leftText = "", leftColor = { r = 1, g = 1, b = 1 } } } } end,
+		}
+		C_Item = C_Item or {}
+		C_Item.GetItemNameByID = function() return "" end
+		C.GetMapName = function() return "" end
+		local function asks(read) asked = false; read(); return asked end
+		emit({
+			creature = asks(function() return C.CreatureCached(12345) end),
+			color = asks(function() return C.ItemTipColor(6462) end),
+			name = asks(function() return C.GetItemName(6462) end),
+			map = asks(function() return C.MapName(1429) end),
+		})
+	"#);
+	assert_eq!(out, json!({ "creature": true, "color": true, "name": true, "map": true }), "issecretvalue is asked first");
 }
 
 #[test]

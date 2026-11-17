@@ -1967,6 +1967,84 @@ pub fn overlay(public: &V, private: &V) -> V {
 	out
 }
 
+/// Where one corrected field's value comes from (the knowledge base's `correction_origin` table).
+/// The KB labels every corrected field `correction`, whether the public corrections or the
+/// maintainer's private overlay set it; the public tier (the data pack's KB, `forge data publish`)
+/// keeps only the public ones.
+#[derive(Clone, Debug, PartialEq)]
+pub struct Origin {
+	/// The KB kind: quest, npc, object, item, or mechanic (a quest's mechanics fixes, `field` `*`).
+	pub kind: &'static str,
+	pub id: i64,
+	/// The KB's field name (min_level, prereqs, npc_level, subname, spawns, ...).
+	pub field: String,
+	/// The private overlay sets it (its value, or part of it, comes from there).
+	pub private: bool,
+	/// The public entry's `source` kinds (empty for a private one).
+	pub kinds: Vec<String>,
+}
+
+/// The KB's field for a correction key of `section`.
+fn kb_field(section: &str, key: &str) -> String {
+	match (section, key) {
+		(_, "addSpawns") => "spawns",
+		("quests", "minLevel") => "min_level",
+		("quests", "pre" | "preAny" | "preAll") => "prereqs",
+		("npcs", "level") => "npc_level",
+		("npcs", "subName") => "subname",
+		_ => key,
+	}
+	.to_string()
+}
+
+/// A section's entries, a mechanics section's nested `quests` flattened in.
+fn section_entries(c: &V, section: &str) -> Vec<(String, V)> {
+	let ids = c.get(section);
+	let mut out: Vec<(String, V)> = ids.entries().into_iter().filter(|(k, _)| !k.starts_with('_') && !(section == "mechanics" && &**k == "quests")).map(|(k, v)| (k.to_string(), v)).collect();
+	if section == "mechanics" {
+		out.extend(ids.get("quests").entries().into_iter().map(|(k, v)| (k.to_string(), v)));
+	}
+	out
+}
+
+/// The fields an entry corrects, as KB field names.
+fn entry_fields(section: &str, e: &V) -> Vec<String> {
+	if section == "mechanics" {
+		return vec!["*".into()];
+	}
+	let mut f: Vec<String> = e.get("set").keys().iter().map(|k| kb_field(section, k)).collect();
+	if e.get("addSpawns").truthy() {
+		f.push("spawns".into());
+	}
+	f.dedup();
+	f
+}
+
+/// The origin of every corrected field: `public` is the repository's corrections, `private` the
+/// maintainer's overlay (`V::Null` when there is none). A field both set is private: the overlay
+/// goes over the public value.
+pub fn origins(public: &V, private: &V) -> Vec<Origin> {
+	let mut out: indexmap::IndexMap<(&'static str, i64, String), Origin> = indexmap::IndexMap::new();
+	for (section, kind) in [("quests", "quest"), ("npcs", "npc"), ("objects", "object"), ("items", "item"), ("mechanics", "mechanic")] {
+		for (c, private) in [(public, false), (private, true)] {
+			for (id, e) in section_entries(c, section) {
+				let Ok(n) = id.parse::<i64>() else { continue };
+				let src = e.get("source");
+				let kinds: Vec<String> = if private {
+					Vec::new()
+				} else {
+					let list = if src.is_arr() { src.items() } else { vec![src] };
+					list.iter().filter_map(|s| s.get("kind").as_str().map(str::to_string)).collect()
+				};
+				for field in entry_fields(section, &e) {
+					out.insert((kind, n, field.clone()), Origin { kind, id: n, field, private, kinds: kinds.clone() });
+				}
+			}
+		}
+	}
+	out.into_values().collect()
+}
+
 #[cfg(test)]
 mod tests {
 	use super::*;
@@ -2474,5 +2552,32 @@ mod tests {
 		assert_eq!(m.get("603").get("params").items()[0].get("sec").num(), 5.0);
 		assert_eq!(m.get("1064").get("note").as_str(), Some("flat"));
 		assert!(m.get("quests").is_undef(), "the nesting key is not an id");
+	}
+
+	#[test]
+	fn origins_tell_the_private_overlay_from_the_public_corrections() {
+		let public = parse_json(
+			r##"{ "quests": { "10": { "set": { "minLevel": 5, "end": { "npc": [] } }, "source": [{ "kind": "recording", "ref": "#1" }, { "kind": "page", "ref": "x" }] } },
+			"npcs": { "20": { "set": { "level": 30 }, "addSpawns": { "1": {} }, "source": { "kind": "tdb", "ref": "y" } } },
+			"mechanics": { "114": { "params": [], "source": { "kind": "in-game-check", "ref": "#613" } } } }"##,
+		)
+		.unwrap();
+		let private =
+			parse_json(r#"{ "quests": { "10": { "set": { "end": { "object": [5] } } }, "11": { "set": { "pre": [9] } } }, "mechanics": { "quests": { "603": { "params": [] } } } }"#).unwrap();
+		let got: Vec<(&str, i64, String, bool, Vec<String>)> = origins(&public, &private).into_iter().map(|o| (o.kind, o.id, o.field, o.private, o.kinds)).collect();
+		let k = |v: &[&str]| v.iter().map(|s| s.to_string()).collect::<Vec<_>>();
+		assert_eq!(
+			got,
+			vec![
+				("quest", 10, "min_level".into(), false, k(&["recording", "page"])),
+				("quest", 10, "end".into(), true, vec![]),
+				("quest", 11, "prereqs".into(), true, vec![]),
+				("npc", 20, "npc_level".into(), false, k(&["tdb"])),
+				("npc", 20, "spawns".into(), false, k(&["tdb"])),
+				("mechanic", 114, "*".into(), false, k(&["in-game-check"])),
+				("mechanic", 603, "*".into(), true, vec![]),
+			]
+		);
+		assert!(origins(&public, &V::Null).iter().all(|o| !o.private));
 	}
 }

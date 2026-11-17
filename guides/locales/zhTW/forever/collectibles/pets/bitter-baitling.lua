@@ -11,21 +11,21 @@ return {
 	["The {item:276275} costs one {item:274026}, the prize for winning the Stranglethorn Fishing Extravaganza. The contest runs on Sundays from 2 to 4 pm server time: be on the {area:35} docks by {npc:15077} when it starts. {quest:8193} is not a quest you take: {npc:15077} takes the fish straight from his window when you bring them. Bring your best {skill:356} skill and lures so no fish gets away, a mount and empty bags, and bind your hearthstone in {area:35}."] = "{item:276275}需要一枚{item:274026}兌換，那是贏得荊棘谷釣魚大賽的獎勵。比賽時間為伺服器時間每週日下午2點到4點：比賽開始時待在{area:35}碼頭的{npc:15077}旁邊。{quest:8193}不是要接取的任務：你帶魚來時，{npc:15077}會直接從他的視窗收下。盡量提高{skill:356}技能並帶上魚餌，免得魚跑掉；帶上坐騎、清空背包，並把爐石綁定在{area:35}。",
 
 	-- Step 2: Schools of Tastyfish
-	["Schools of Tastyfish"] = "",
+	["Schools of Tastyfish"] = "美味魚群",
 	-- {item:19807} Speckled Tastyfish · {area:35} Booty Bay
-	["While the contest runs, schools of {item:19807} appear along the Stranglethorn coast, none inside {area:35}. Fish 40 {item:19807} from them; each school lasts only a few casts, so ride on to the next as soon as one is gone. The arrow takes you up the west coast north of {area:35}; more schools lie further north and just south of {area:35}."] = "",
+	["While the contest runs, schools of {item:19807} appear along the Stranglethorn coast, none inside {area:35}. Fish 40 {item:19807} from them; each school lasts only a few casts, so ride on to the next as soon as one is gone. The arrow takes you up the west coast north of {area:35}; more schools lie further north and just south of {area:35}."] = "比賽期間，荊棘谷海岸會出現{item:19807}魚群，{area:35}內沒有。從魚群裡釣40條{item:19807}；每個魚群只能釣幾竿，所以一個消失就立刻騎馬去下一個。箭頭會帶你沿{area:35}以北的西海岸向北；更北處和{area:35}正南方還有更多魚群。",
 
 	-- Step 3: Back to Riggle Bassbait
 	-- {npc:15077} Riggle Bassbait
-	["Back to {npc:15077}"] = "",
+	["Back to {npc:15077}"] = "回到{npc:15077}",
 	-- {npc:15077} Riggle Bassbait · {npc:15078} Jang
-	["Hurry back and hand the 40 Tastyfish to {npc:15077}: the first players to do so win, and the winners get the coin with their prize. If you are too late to win, {npc:15078} still pays a little gold for every 5 Tastyfish."] = "",
+	["Hurry back and hand the 40 Tastyfish to {npc:15077}: the first players to do so win, and the winners get the coin with their prize. If you are too late to win, {npc:15078} still pays a little gold for every 5 Tastyfish."] = "趕快回去，把40條美味魚交給{npc:15077}：最先交到的玩家獲勝，獲勝者會在獎品中得到那枚硬幣。如果你來不及獲勝，{npc:15078}仍會按每5條美味魚付一點金幣。",
 	-- {npc:15077} Riggle Bassbait
-	["The winner's coin, from {npc:15077}"] = "",
+	["The winner's coin, from {npc:15077}"] = "獲勝者的硬幣，來自{npc:15077}",
 
 	-- Step 4: Jang
 	-- {npc:15078} Jang · {npc:15077} Riggle Bassbait · {area:35} Booty Bay · {item:276275} Bitter Baitling
-	["{npc:15078}, {npc:15077}'s apprentice, stands beside him on the {area:35} docks and trades the {item:276275} for the coin."] = "",
+	["{npc:15078}, {npc:15077}'s apprentice, stands beside him on the {area:35} docks and trades the {item:276275} for the coin."] = "{npc:15078}是{npc:15077}的學徒，站在他旁邊{area:35}的碼頭上，用硬幣兌換{item:276275}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["The {item:276275} is a fishing reward: {npc:15078} trades it for one {item:274026}, a reward of the fishing contest {npc:15078} runs in {area:35}. The coin's exact source is not published yet."] = "{item:276275}是釣魚獎勵：{npc:15078}會用它交換一枚{item:274026}，那是{npc:15078}在{area:35}舉辦的釣魚比賽的獎勵。這枚硬幣的確切來源尚未公布。",
