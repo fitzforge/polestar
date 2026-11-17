@@ -13475,11 +13475,15 @@ test('no Alliance guide waits on Vimes\'s Report (#1984, #2493)', { skip }, () =
 });
 
 // #1985: Dustwallow Marsh's venom-sac step named only the Darkfang Venomspitters; every Darkfang spider drops the
-// Acidic Venom Sacs for The Black Shield (1322), the Giant Darkfang Spiders too (drop data, players' recordings).
-test('guide-fixes says every Darkfang spider drops the Acidic Venom Sacs (#1985)', () => {
+// Acidic Venom Sacs for The Black Shield (1322), the Giant Darkfang Spiders too (drop data, players' recordings). The
+// record alone never reached the guide (0.4.0 was not rebuilt from it): the guide's goal line carries the note.
+test('Dustwallow Marsh (Horde): the venom-sac goal says every Darkfang spider drops them, in the guide and its record (#1985)', { skip }, () => {
 	const { fixes } = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8'));
 	const r = fixes.find((f) => f.at && f.at.quest === 1322 && f.at.goal === 'objective' && f.at.objective === 1);
 	assert.ok(r && /Giant Darkfang Spiders/.test(r.goalNote) && /Lurkers/.test(r.goalNote), 'a goal note on 1322.1 naming every Darkfang kind');
+	const list = goals('forever/horde/30-40/04-dustwallow-marsh.guide');
+	const { goal } = list[at(list, 'collect 5959 quest 1322', (g) => g.t === 'collect' && g.item === 5959 && g.quest === 1322)];
+	for (const kind of ['Lurkers', 'Spiders', 'Venomspitters', 'Giant Darkfang Spiders']) assert.match(goal.note || '', new RegExp(kind), `the guide's goal names the ${kind}`);
 });
 
 // Dungeons in the route (0.3.8): a dungeon a character chose is injected into the one route as steps, every
@@ -15468,6 +15472,38 @@ test('#2563: Wetlands (Alliance): Fall of Dun Modr is taken on its own step, onl
 	}
 	const hills = goals('forever/alliance/30-40/01-hillsbrad-foothills.guide');
 	assert.ok(at(hills, 'turnin 472', is('turnin', 472)) >= 0, 'Longbraid still takes it on the Dun Modr stop');
+});
+
+// --- Bare `complete`s away from the giver (#703): with no place of its own, a
+// `complete` leads the arrow to the quest's giver (#303). For these quests the
+// work is somewhere else: Coriella Calmbreeze north-west of Shen'dar Village,
+// Frankal and Rutgar at Bronzebeard's Encampment while the giver is in
+// Cenarion Hold, the Aged Kodos in the Kodo Graveyard. Each objective is its
+// own goal with a place, before the turn-in, or the `complete` has a place
+// (Ayessa Dawnsinger, as Elaadrin in the Horde guide: the data has her for
+// the other faction only, so a `kill` of her reads as an elite to fight).
+// (Restored after 0.4.0: the case was lost while the place records, data/places.json's 703-*, still hold.)
+const AWAY_FROM_THE_GIVER = [
+	[ZEPHRAS_ALLIANCE, 93461], // Welcome to Shen'dar Village
+	[ZEPHRAS_ALLIANCE, 92849], // The Missing Scholar
+	[ZEPHRAS_ALLIANCE, 92640], // Desperate Times
+	['forever/alliance/50-60/06-silithus.guide', 8304], // Dearest Natalia
+	['forever/alliance/30-40/02-desolace.guide', 5561], // Kodo Roundup
+	[MULGORE, 833], // A Sacred Burial
+];
+
+test('#703: quests whose objectives are away from the giver lead to each objective', { skip }, () => {
+	data = data || loadData(DATA);
+	for (const [guide, quest] of AWAY_FROM_THE_GIVER) {
+		const list = goals(guide);
+		const take = at(list, `${guide}: accept ${quest}`, is('accept', quest));
+		const give = at(list, `${guide}: turnin ${quest}`, is('turnin', quest));
+		const between = list.slice(take + 1, give).filter(({ goal }) => goal.quest === quest);
+		assert.deepEqual(between.filter((x) => !located(x)).map(({ goal }) => goal.t), [], `${guide}: every goal of ${quest} has a place for the arrow`);
+		const objectives = data.quest(quest).objectives.map((_, i) => i + 1);
+		const placedComplete = between.some(({ goal }) => goal.t === 'complete');
+		assert.deepEqual(placedComplete ? [] : objectives.filter((oi) => !between.some(({ goal }) => goal.oi === oi)), [], `${guide}: every objective of ${quest} has its goal before the turn-in`);
+	}
 });
 
 // Item-started quests whose item comes from an earlier step (the "lost item" persona sweep, 0.4.1): a player who
