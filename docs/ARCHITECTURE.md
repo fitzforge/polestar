@@ -7868,7 +7868,15 @@ Felvine; The Drowned City's quests for items the data places on no mob or
 object inside, from players' recordings of their objectives inside; Rituals
 of Power's book, an object only in the Scarlet Monastery), each row cited by
 a URL, Forever's quest data, or a source the way the corrections cite one
-(`{ kind, ref }`). Each quest has giver and ender and their positions, its objective
+(`{ kind, ref }`). A row's `inside` (`start`, `finish` or both) says the quest
+is picked up or handed in inside at someone the data has not placed (Alcaz
+Prison's prisoner and Kor'kron, whom players' recordings meet only as a window
+inside): the page's giver or ender is then an unnamed point inside, which the
+card names "inside the dungeon", and a start inside makes the quest one
+picked up inside. A row's `exclude: true` takes off the page a quest a rule
+put there wrongly (A Taste of Home and two more Dalaran city quests, filed
+under the city's area, which the client puts on the City of Dalaran
+dungeon's map). Each quest has giver and ender and their positions, its objective
 facts (`objectives`: kind, NPC, item or object id, count and the English
 name; the escorts' and events' text), composed at run time into our own
 objective line in the client's language (`Dungeons.ObjectiveText`:

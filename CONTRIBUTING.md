@@ -293,6 +293,7 @@ maintainer regenerates those after merging your PR.
 | `next` | Everything for coming releases (the repository's default branch). **Every pull request goes here.** |
 | `release/<version>` | A feature release being tested, cut from `next` when it freezes (for example `release/0.4.1`). Only fixes for that release go in. |
 | `hotfix/<version>` | An urgent fix to what players have, cut from the latest release's tag (for example `hotfix/0.4.0.2` from `v0.4.0.1`). |
+| `feature/<name>` | A large feature not ready for `next` yet, built up by the maintainers over several pull requests (now `feature/dungeons-in-route`). It goes to `next` as a whole when it's ready. |
 
 Pull requests go to **`next`**: guide fixes, the addon, the tools, the data
 builds, translations, new guides, new features and route refreshes. Never to
