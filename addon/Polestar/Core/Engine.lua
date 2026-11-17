@@ -10406,14 +10406,21 @@ end
 -- Taurajo's Tear of the Moons, not Thunder Bluff's empty rise). Steps for
 -- other classes and races, and notes alone, are no stop: a walk followed only
 -- by those holds as written (it is the way on), as does a walk with no travel
--- step after its stop (the guide's end). With the planner leading
+-- step after its stop (the guide's end). Work written with no travel step
+-- before it, more than Own.STOP_REACH yards from the walk's end on the same
+-- continent, is a stop of its own (Own.stopFar): when the stop before it
+-- had a step for the character, all done, the walk passes (#2154: Alterac's
+-- walk to Strahnbrad for Gol'dir held for a character who had no Gol'dir to
+-- do, since the Dalaran crater's kills came next). Steps whose `when` fails
+-- are no such stop, and a walk to a boat's, zeppelin's or tram's end is the
+-- way on whatever comes after it. With the planner leading
 -- (Own.plannerFlies: the next leg may be a boat or a zeppelin), once the
 -- quest log can be read (work would read done before).
 function Own.stopEmpty(s)
 	if not (logReady and guide and Own.plannerFlies()) then return false end
 	local steps = guide.steps
 	if Own.writtenTravel(steps[s]) ~= "walk" or Own.transitKind(s) ~= "walk" then return false end
-	local stop = false
+	local stop, real, last = false, false, s
 	for n = s + 1, #steps do
 		local step = steps[n]
 		if not Own.hiddenStep(step) then
@@ -10424,6 +10431,7 @@ function Own.stopEmpty(s)
 					-- A walk right after: one run, judged by the stop after it. A
 					-- flight right after is Own.flightOn's.
 					if kind == "fly" then return false end
+					last = n
 				end
 			else
 				local work = false
@@ -10436,8 +10444,9 @@ function Own.stopEmpty(s)
 				if work then
 					if stepApplies(step) and not isSkipped(n)
 						and (Own.groupPending(step) or Own.dungeonPending(step) or not Own.goalsDone(n) or Own.optionalOpen(n)) then
-						return false
+						return real and Own.stopFar(last, n)
 					end
+					if stepApplies(step) and not isSkipped(n) then real = true end
 					stop = true
 				end
 			end
@@ -10445,6 +10454,8 @@ function Own.stopEmpty(s)
 	end
 	return false
 end
+
+Own.STOP_REACH = 300 -- yards from a walk's end its stop's work may lie
 
 -- Walk step s's last goto for the character: continent, world x, world y; or nil.
 function Own.walkEnd(s)
@@ -10458,6 +10469,36 @@ function Own.walkEnd(s)
 		end
 	end
 	return nil
+end
+
+-- Step n's open work lies on walk step s's continent, more than
+-- Own.STOP_REACH yards from the walk's end, and that end is no crossing's
+-- (Own.atDock); false when either place is unknown.
+function Own.stopFar(s, n)
+	local c, x, y = Own.walkEnd(s)
+	local wc, wx, wy = Own.stepContinent(n)
+	if not (c and x and y and wc == c and wx and wy) or Own.atDock(c, x, y) then return false end
+	return (wx - x) ^ 2 + (wy - y) ^ 2 > Own.STOP_REACH * Own.STOP_REACH
+end
+
+-- A crossing's end (a boat's, zeppelin's or tram's, or a portal's mouth:
+-- Nav/Travel.lua's data) lies within Own.DOCK_REACH yards of world point
+-- (c, x, y). (Tanaris's "Portal to Darnassus" leads to Darnassus's work.)
+function Own.nearEnd(e, c, x, y, reach)
+	return e and e.c == c and e.wx and e.wy and (e.wx - x) ^ 2 + (e.wy - y) ^ 2 <= reach
+end
+function Own.atDock(c, x, y)
+	local nav = ns.Nav
+	local d = nav and nav.GetTravelData and nav.GetTravelData()
+	if not d then return false end
+	local reach, near = Own.DOCK_REACH * Own.DOCK_REACH, Own.nearEnd
+	for _, t in ipairs(d.transports or NONE) do
+		if near(t.a, c, x, y, reach) or near(t.b, c, x, y, reach) then return true end
+	end
+	for _, t in ipairs(d.portals or NONE) do
+		if near(t.a, c, x, y, reach) then return true end
+	end
+	return false
 end
 
 -- The place of step n's first open goal with one (a flight's: its flight
