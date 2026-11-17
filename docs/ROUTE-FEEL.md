@@ -222,12 +222,12 @@ start's default route, guide after guide):
 | Count | Definition |
 |---|---|
 | Zone visits | The zones of the goals the player acts on, in order, consecutive repeats merged |
-| Revisits | A visit to a zone the branch had been in and left before, in this guide or an earlier one; keyed by the guide, the zone and the guide it was left in, so a revisit the base already made is not new |
-| One-quest trips | A visited step whose work is one quest and lies more than `--trip-yd` yards (default 300) or a zone from the work of the steps before and after it, with no flight, hearth or boat between |
-| Empty walks | A walk to a place no work follows within `--trip-yd` that adds more than `--trip-yd` to the way from the work before to the work after (a stop with nothing for the player, #2154); counted with the trips |
+| Revisits | A visit to a zone the branch had been in and left before, in this guide or an earlier one; new when a guide goes back into a zone more often than the base did on that branch |
+| One-quest trips | A visited step whose work is one quest and lies more than `--trip-yd` yards (default 300) or a zone from the work of the steps before and after it, with no flight, hearth or boat between; new when the base had no such trip for that quest, in any guide |
+| Empty walks | A walk to a place no work follows within `--trip-yd` that adds more than `--trip-yd` to the way from the work before to the work after (a stop with nothing for the player, #2154); counted with the trips, by zone and step title |
 | Carried | Per quest, the guides from its accept to its hand-in on the branch; the largest span over the branches is compared |
 | Travel | Minutes walking (7 yd/s: the baked leg into a step when it runs from where the player stands to the goal and both trees have the guide's legs fresh, else the straight line) and flying (taxi distance x 1.25 at 30 yd/s, plus 30 s), as the flow audit prices them |
-| Moved quests | An accept or hand-in written in another step (its guide, its title and which of the steps with that title) |
+| Moved quests | An accept or hand-in written in another step: the steps of each guide are matched base to head in order (same title, same quests), so a step put in before it moves nothing, while a pick-up moved to a later visit of a town of the same name does |
 
 It prints a short markdown table for the pull request body, with lists of the
 new and gone revisits and trips, the quests carried longer and the moved

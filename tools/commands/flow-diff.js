@@ -9,7 +9,7 @@ const path = require('node:path');
 const { parseArgs } = require('../lib/cli');
 const { ROOT, DATA, SOURCES } = require('../lib/paths');
 const { Proj } = require('../lib/flow/data');
-const { measure, compare, renderMd } = require('../lib/flowdiff/analyse');
+const { measure, compare, narrow, renderMd } = require('../lib/flowdiff/analyse');
 
 const usage = `usage: node tools/polestar.js flow-diff --base <ref> [--head <ref>] [options]
 
@@ -193,7 +193,7 @@ async function run(argv) {
 		const ctx = { ...context(data, tripYd), legs };
 		const allow = readAllow(path.resolve(opts.allow || path.join(head.dir, 'data', 'flow-diff-allow.json')));
 		const diff = compare(measure(a, ctx), measure(b, ctx), { allow });
-		if (playOpts.guides.length) diff.guides = diff.guides.filter((g) => playOpts.guides.some((f) => g.guide.includes(f)));
+		if (playOpts.guides.length) narrow(diff, (id) => playOpts.guides.some((f) => id.includes(f)));
 		const names = { base: `${opts.base} (${base.sha.slice(0, 10)})`, head: opts.head ? `${opts.head} (${head.sha.slice(0, 10)})` : 'the working tree' };
 		const md = renderMd(diff, names);
 		if (opts.out) fs.writeFileSync(opts.out, `${JSON.stringify({ ...names, tripYd, skipQuests: playOpts.skipQuests, cls: playOpts.cls, ...diff }, null, 1)}\n`);

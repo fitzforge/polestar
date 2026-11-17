@@ -208,22 +208,50 @@ function measure(dump, ctx) {
 	return { plays, branches, guides: dump.guides };
 }
 
-// quest -> verb -> [place] in the written guides: "guide#title#n" (the n-th step of that title).
+// quest -> verb -> [{ guide, step, title }]: where the written guides accept and hand in each quest.
 function placesOf(guides) {
 	const out = new Map();
 	for (const [gid, g] of Object.entries(guides)) {
-		const seen = new Map();
 		g.steps.forEach((st, i) => {
-			const n = (seen.get(st.title) || 0) + 1;
-			seen.set(st.title, n);
 			for (const x of st.goals) {
 				if ((x.t !== 'accept' && x.t !== 'turnin') || x.q == null) continue;
 				if (!out.has(x.q)) out.set(x.q, { accept: [], turnin: [] });
 				const list = out.get(x.q)[x.t];
-				const key = `${gid}#${st.title}#${n}`;
-				if (!list.some((p) => p.key === key)) list.push({ key, guide: gid, step: i + 1, title: st.title });
+				if (!list.some((p) => p.guide === gid && p.step === i + 1)) list.push({ guide: gid, step: i + 1, title: st.title });
 			}
 		});
+	}
+	return out;
+}
+
+// A guide's base steps matched with its head steps, in order: the heaviest
+// common subsequence where a pair weighs 1 for the same title and 1 for an
+// accept or hand-in of the same quest. An inserted or removed step leaves
+// the others matched, so a quest that stays in its step reads as staying.
+// -> Map(base step -> head step), 1-based.
+function align(a, b) {
+	const quests = (st) => new Set(st.goals.filter((x) => (x.t === 'accept' || x.t === 'turnin') && x.q != null).map((x) => `${x.t}:${x.q}`));
+	const qa = a.steps.map(quests);
+	const qb = b.steps.map(quests);
+	const w = (i, j) => (a.steps[i].title === b.steps[j].title ? 1 : 0) + ([...qa[i]].some((k) => qb[j].has(k)) ? 1 : 0);
+	const n = a.steps.length;
+	const m = b.steps.length;
+	const dp = Array.from({ length: n + 1 }, () => new Float64Array(m + 1));
+	for (let i = n - 1; i >= 0; i--) {
+		for (let j = m - 1; j >= 0; j--) {
+			const here = w(i, j);
+			dp[i][j] = Math.max(dp[i + 1][j], dp[i][j + 1], here ? here + dp[i + 1][j + 1] : 0);
+		}
+	}
+	const out = new Map();
+	for (let i = 0, j = 0; i < n && j < m; ) {
+		const here = w(i, j);
+		if (here && dp[i][j] === here + dp[i + 1][j + 1]) {
+			out.set(i + 1, j + 1);
+			i++;
+			j++;
+		} else if (dp[i][j] === dp[i + 1][j]) i++;
+		else j++;
 	}
 	return out;
 }
@@ -238,9 +266,11 @@ const countBy = (items, keyOf) => {
 	return m;
 };
 
-const revisitKey = (r) => `${r.guide}|${r.zone}|${r.left}`;
-// A one-quest trip by its guide and quest, an empty walk by its guide and step title.
-const tripKey = (t) => (t.kind === 'empty' ? `${t.guide}|empty|${t.title}` : `${t.guide}|${t.quest}`);
+// A revisit by the guide it happens in and the zone; a one-quest trip by its
+// quest, wherever it sits (a trip moved into another guide is not new); an
+// empty walk by its zone and step title.
+const revisitKey = (r) => `${r.guide}|${r.zone}`;
+const tripKey = (t) => (t.kind === 'empty' ? `empty|${t.zone}|${t.title}` : `quest|${t.quest}`);
 
 // The row of `data/flow-diff-allow.json` (`allow`) that accepts a new revisit or trip.
 function allowed(allow, kind, item) {
@@ -250,30 +280,42 @@ function allowed(allow, kind, item) {
 
 // What changed from base to head.
 function compare(base, head, { allow = [] } = {}) {
-	// Revisits: per branch, the count of each (guide, zone, guide left) that grew.
+	// Revisits: per branch, a guide going back into a zone more often than the
+	// base did; the ones listed are those the base has no match for (same zone
+	// left, same way in), the last ones first.
 	const newRev = new Map();
 	const goneRev = new Map();
+	const extra = (more, fewer) => {
+		const left = [...fewer];
+		const unmatched = more.filter((r) => {
+			const i = left.findIndex((x) => x.from === r.from && x.left === r.left);
+			if (i < 0) return true;
+			left.splice(i, 1);
+			return false;
+		});
+		return (unmatched.length ? unmatched : more).slice(-(more.length - fewer.length));
+	};
+	const note = (into, k, r, label) => {
+		const key = `${k}|${r.s}|${r.from}`;
+		const row = into.get(key) || { ...r, branches: [] };
+		row.branches.push(label);
+		into.set(key, row);
+	};
 	const baseBr = new Map(base.branches.map((b) => [b.label, b]));
 	for (const hb of head.branches) {
 		const bb = baseBr.get(hb.label) || { revisits: [] };
 		const hc = countBy(hb.revisits, revisitKey);
 		const bc = countBy(bb.revisits, revisitKey);
 		for (const [k, list] of hc) {
-			if (list.length > (bc.get(k) || []).length) {
-				const r = newRev.get(k) || { ...list[0], branches: [] };
-				r.branches.push(hb.label);
-				newRev.set(k, r);
-			}
+			const was = bc.get(k) || [];
+			if (list.length > was.length) for (const r of extra(list, was)) note(newRev, k, r, hb.label);
 		}
 		for (const [k, list] of bc) {
-			if (list.length > (hc.get(k) || []).length) {
-				const r = goneRev.get(k) || { ...list[0], branches: [] };
-				r.branches.push(hb.label);
-				goneRev.set(k, r);
-			}
+			const now = hc.get(k) || [];
+			if (list.length > now.length) for (const r of extra(list, now)) note(goneRev, k, r, hb.label);
 		}
 	}
-	// One-quest trips by guide and quest, over every play.
+	// Trips over every play: a one-quest trip by its quest, an empty walk by its zone and title.
 	const trips = (m) => new Map(Object.values(m.plays).flatMap((p) => p.trips.map((t) => [tripKey(t), t])));
 	const bt = trips(base);
 	const ht = trips(head);
@@ -298,21 +340,30 @@ function compare(base, head, { allow = [] } = {}) {
 		const b = bs.get(q);
 		if (b && h.spanN > b.spanN) carried.push({ quest: q, branch: h.branch, base: { from: b.from, to: b.to, span: b.span }, head: { from: h.from, to: h.to, span: h.span } });
 	}
-	// Moved accepts and hand-ins.
+	// Moved accepts and hand-ins: a place in the base whose step the head's
+	// same guide doesn't match (align) with a step holding the same goal.
 	const bp = placesOf(base.guides);
 	const hp = placesOf(head.guides);
+	const aligned = new Map();
+	const stepIn = (gid, step) => {
+		if (!base.guides[gid] || !head.guides[gid]) return null;
+		if (!aligned.has(gid)) aligned.set(gid, align(base.guides[gid], head.guides[gid]));
+		return aligned.get(gid).get(step) ?? null;
+	};
 	const moved = [];
 	for (const q of new Set([...bp.keys(), ...hp.keys()])) {
 		for (const verb of ['accept', 'turnin']) {
 			const a = (bp.get(q) || { [verb]: [] })[verb];
 			const b = (hp.get(q) || { [verb]: [] })[verb];
-			const ak = new Set(a.map((p) => p.key));
-			const bk = new Set(b.map((p) => p.key));
-			const from = a.filter((p) => !bk.has(p.key));
-			const to = b.filter((p) => !ak.has(p.key));
+			const kept = (pa, pb) => pa.guide === pb.guide && stepIn(pa.guide, pa.step) === pb.step;
+			const from = a.filter((pa) => !b.some((pb) => kept(pa, pb)));
+			const to = b.filter((pb) => !a.some((pa) => kept(pa, pb)));
 			if (from.length || to.length) moved.push({ quest: q, verb, from, to });
 		}
 	}
+	// Quests moved into another guide first, then those moved inside one.
+	const across = (m) => m.to.some((p) => !m.from.some((f) => f.guide === p.guide)) || m.from.some((p) => !m.to.some((t) => t.guide === p.guide));
+	moved.sort((x, y) => Number(across(y)) - Number(across(x)));
 	// Per guide: the guides whose written steps or play changed.
 	const guides = [];
 	const ids = new Set([...Object.keys(base.plays), ...Object.keys(head.plays)]);
@@ -342,6 +393,22 @@ function compare(base, head, { allow = [] } = {}) {
 	for (const t of newTrips) t.allowed = allowed(allow, 'trip', t)?.reason || null;
 	const blocking = revisits.added.filter((r) => !r.allowed).length + newTrips.filter((t) => !t.allowed).length;
 	return { guides, revisits, trips: { added: newTrips, gone: goneTrips }, carried, moved, blocking };
+}
+
+// Keep only what concerns the guides `keep(id)` holds (--guides): their rows,
+// revisits and trips, the carried quests picked up or handed in there and
+// the quests moved from or to them; `blocking` counts what is left.
+function narrow(diff, keep) {
+	const any = (...ids) => ids.some((id) => id && keep(id));
+	diff.guides = diff.guides.filter((g) => keep(g.guide));
+	for (const k of ['added', 'gone']) {
+		diff.revisits[k] = diff.revisits[k].filter((r) => keep(r.guide));
+		diff.trips[k] = diff.trips[k].filter((t) => keep(t.guide));
+	}
+	diff.carried = diff.carried.filter((c) => any(c.base.from, c.base.to, c.head.from, c.head.to));
+	diff.moved = diff.moved.filter((m) => any(...m.from.map((p) => p.guide), ...m.to.map((p) => p.guide)));
+	diff.blocking = diff.revisits.added.filter((r) => !r.allowed).length + diff.trips.added.filter((t) => !t.allowed).length;
+	return diff;
 }
 
 const short = (gid) => String(gid || '').replace(/^forever\//, '');
@@ -381,4 +448,4 @@ function renderMd(diff, { base = 'base', head = 'head', limit = 25 } = {}) {
 	return out.join('\n');
 }
 
-module.exports = { measure, compare, renderMd, travel, stopsOf, tripsOf, visitsOf, placed };
+module.exports = { measure, compare, narrow, renderMd, travel, stopsOf, tripsOf, visitsOf, placed };

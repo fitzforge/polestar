@@ -6,7 +6,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { Proj } = require('../tools/lib/flow/data');
-const { measure, compare, renderMd, tripsOf, stopsOf, placed, travel } = require('../tools/lib/flowdiff/analyse');
+const { measure, compare, narrow, renderMd, tripsOf, stopsOf, placed, travel } = require('../tools/lib/flowdiff/analyse');
 const { traced, branchesOf } = require('../tools/lib/flowdiff/play');
 
 // Two zones side by side on one continent, 10 yd per map percent: map 1 "West" from x 0 to 1,000 yd, map 2 "East"
@@ -113,8 +113,30 @@ test('an accept written in another step is a moved quest: old place -> new place
 	const b = steps(3);
 	b[2].goals = [{ t: 'accept', q: 9 }];
 	const diff = compare(measure(dump([], [], { guideA: a }), ctx), measure(dump([], [], { guideB: b }), ctx));
-	assert.deepEqual(diff.moved, [{ quest: 9, verb: 'accept', from: [{ key: 'x/a#Step 1#1', guide: 'x/a', step: 1, title: 'Step 1' }], to: [{ key: 'x/b#Step 3#1', guide: 'x/b', step: 3, title: 'Step 3' }] }]);
+	assert.deepEqual(diff.moved, [{ quest: 9, verb: 'accept', from: [{ guide: 'x/a', step: 1, title: 'Step 1' }], to: [{ guide: 'x/b', step: 3, title: 'Step 3' }] }]);
 	assert.match(renderMd(diff), /accept 9: x\/a step 1 "Step 1" -> x\/b step 3 "Step 3"/);
+});
+
+test('a step put in before a quest does not move it; a later visit to a town of the same name does', () => {
+	const town = (q) => ({ title: 'Tarren Mill', goals: q ? [{ t: 'accept', q }] : [] });
+	const field = { title: 'Field', goals: [{ t: 'turnin', q: 7 }] };
+	const base = [town(1), field, town(2), field, town(null)];
+	const inserted = [town(null), town(1), field, town(2), field, town(null)];
+	const later = [town(1), field, town(null), field, town(2)];
+	const moved = (b) => compare(measure(dump([], [], { guideA: base }), ctx), measure(dump([], [], { guideA: b }), ctx)).moved.filter((m) => m.from.length || m.to.length);
+	assert.deepEqual(moved(inserted), []);
+	assert.deepEqual(moved(later), [{ quest: 2, verb: 'accept', from: [{ guide: 'x/a', step: 3, title: 'Tarren Mill' }], to: [{ guide: 'x/a', step: 5, title: 'Tarren Mill' }] }]);
+});
+
+test('--guides keeps only what concerns the named guides, and what blocks is counted again', () => {
+	const base = dump(westThenEast, [act(1, 'accept', 2, 2, 20, 20), act(2, 'turnin', 2, 2, 22, 20)]);
+	const head = dump([...westThenEast, act(5, 'turnin', 8, 1, 50, 50)], [act(1, 'accept', 2, 2, 20, 20), act(2, 'kill', 2, 1, 50, 50), act(3, 'turnin', 2, 2, 22, 20)]);
+	const diff = compare(measure(base, ctx), measure(head, ctx));
+	assert.ok(diff.revisits.added.some((r) => r.guide === 'x/a') && diff.revisits.added.some((r) => r.guide === 'x/b'));
+	narrow(diff, (id) => id.includes('x/a'));
+	assert.deepEqual(diff.guides.map((g) => g.guide), ['x/a']);
+	assert.ok(diff.revisits.added.every((r) => r.guide === 'x/a'));
+	assert.equal(diff.blocking, diff.revisits.added.length + diff.trips.added.length);
 });
 
 test('travel: walking at 7 yd/s, a baked leg when it runs from where the player stands, flights at 30 yd/s', () => {
