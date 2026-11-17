@@ -93,15 +93,15 @@ return {
 	-- {npc:185335} Summoned Incubus
 	["{npc:185335}, at the same circle"] = "{npc:185335}, sur le même cercle",
 	-- {npc:6122} Gakin the Darkbinder
-	["{npc:6122} binds the incubus to you"] = "{npc:6122} vous lie l'incube",
+	["{npc:6122} binds the incubus to you"] = "{npc:6122} lie l'incube à vous",
 
 	-- Step 17: Stormwind
 	-- {npc:12336} Brother Crowley
-	["{npc:12336}, Cathedral of Light"] = "{npc:12336}, Cathedral of Light",
+	["{npc:12336}, Cathedral of Light"] = "{npc:12336}, Cathédrale de la Lumière",
 
 	-- Step 19: Stormwind
 	-- {npc:1440} Milton Sheaf
-	["{npc:1440}, the Royal Library in the keep"] = "{npc:1440}, la Royal Library du donjon",
+	["{npc:1440}, the Royal Library in the keep"] = "{npc:1440}, la Bibliothèque royale du donjon",
 
 	-- Step 20: Tram to Ironforge
 	-- {zone:1455} Ironforge

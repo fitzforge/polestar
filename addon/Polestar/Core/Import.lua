@@ -228,7 +228,7 @@ local ONLY = rec({ classes = LS, races = LS, factions = LS })
 local REWARD_ITEM = rec({ item = N, itemName = S, quality = N })
 local GOAL = rec({
 	t = S, class = B, zone = N, spell = N, spellName = S, faction = N, factionName = S, standing = N, achievement = N, achievementName = S, criteria = N,
-	quest = N, title = S, target = S, npc = N, npcName = S, object = N, objName = S, item = N, itemName = S, count = N, oi = N, skill = S, skillLine = N,
+	quest = N, title = S, target = S, logLine = B, npc = N, npcName = S, object = N, objName = S, item = N, itemName = S, count = N, oi = N, skill = S, skillLine = N,
 	-- A collect's `gather` (format 10): true, or what its gather way takes.
 	gather = { bool = true, rec = { skill = S, skillLine = N, rank = N, min = N, max = N } },
 	rank = NS, rankMax = N, level = N, frac = N, grind = N, money = N, untilSkill = N, yellow = N, grey = N,
@@ -243,11 +243,12 @@ local GOAL = rec({
 		lvl = rec({ min = N, max = N }), rate = N, spawns = N })),
 	rewards = rec({ choices = list(REWARD_ITEM), items = list(REWARD_ITEM), xp = N, money = N }),
 	group = rec({ kind = S, rank = N, name = S, size = N, map = N, lvl = N }),
-	direct = B, escort = B, gossip = N, seconds = N,
+	direct = B, escort = B, gossip = N, seconds = N, either = B, off = B, points = N, upto = N,
 	objs = list(rec({ text = S, count = N })), startItem = N, startItemName = S, carriedTo = S,
 })
 -- A step's `when` predicates and a `next` option's (format 4; Guides.Validate checks each kind's keys).
-local WHEN = rec({ k = S, neg = B, op = S, n = N, frac = N, q = NL, item = N, spell = N, name = S, label = S, area = N, node = N, map = N, skillLine = N, minLevel = N, pre = LN, preAll = LN, closedBy = LN, parent = N })
+local WHEN = rec({ k = S, neg = B, op = S, n = N, frac = N, q = NL, item = N, spell = N, name = S, label = S, area = N, node = N, map = N, skillLine = N, minLevel = N, pre = LN, preAll = LN, closedBy = LN, parent = N,
+	faction = N, standing = N, points = N })
 -- A step's picture: read so a string carries the guide as its addon does, but
 -- an imported guide has no addon folder holding the file, so it shows none.
 local IMAGE = rec({ file = S, w = N, h = N })

@@ -208,12 +208,24 @@ end
 -- Journey/JourneyInput.lua) whichever addon hears the click first: one click planned in both, and once its journey
 -- ended Polestar's arrow stayed on the clicked spot instead of going back to the guide. So with it installed, `fn`
 -- (Polestar's plan) waits a frame and is dropped when the click started a journey there (Nav/Handoff.lua
--- ClickTaken); with its journeys off it plans nothing, and Polestar's plan goes ahead. -> true when it waits.
+-- ClickTaken); with its journeys off it plans nothing, and Polestar's plan goes ahead. A click it took is watched for
+-- CLICK_WATCH seconds: when its search finds no way there, it keeps the journey on its map but guides nothing
+-- (Handoff.ClickUnguided), and Polestar's plan goes ahead then (#2028, 0.4.0.1: the journey drawn, Polestar's arrow
+-- still on the guide's objective); a journey the player clears there, or one it guides, plans nothing. -> true when
+-- it waits.
+local CLICK_WATCH, CLICK_EVERY = 20, 0.5
 local function leftToShortestPath(fn)
 	local H = Nav.handoff
 	if not (H and H.Available and H.Available()) then return false end
 	ns.After(0, function()
-		if not H.ClickTaken() then fn() end
+		if not H.ClickTaken() then return fn() end
+		local waited = 0
+		local function watch()
+			if H.ClickUnguided() then return fn() end
+			waited = waited + CLICK_EVERY
+			if waited < CLICK_WATCH then ns.After(CLICK_EVERY, watch) end
+		end
+		ns.After(CLICK_EVERY, watch)
 	end)
 	return true
 end

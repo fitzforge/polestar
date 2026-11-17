@@ -26,4 +26,5 @@ return {
 	["Reputation · Cities"] = "声望 · 主城",
 	["Reputation · Raids and dungeons"] = "声望 · 团队与地下城",
 	["Reputation · World"] = "声望 · 世界",
+	["The Drowned City"] = "",
 }

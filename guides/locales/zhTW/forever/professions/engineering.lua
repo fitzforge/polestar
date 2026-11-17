@@ -17,6 +17,7 @@ return {
 	["{skill:202} 1-75: vendor goods"] = "{skill:202} 1-75：商人貨物",
 	-- {item:2880} Weak Flux · {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:5514} Brooke Stonebraid · {npc:1286} Edna Mullby
 	["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "",
+	-- was: ["{item:5956}: a tool, keep it in your bags"] = "{item:5956}：工具，請留在背包中"
 	["a tool, keep it in your bags"] = "一件工具，放在包裡",
 
 	-- Step 3: Engineering 1-75: Auction House

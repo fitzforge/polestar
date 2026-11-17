@@ -89,7 +89,15 @@ step Northshire: back at the abbey
   turnin 18
   accept 6
   accept 3903
+
+step Northshire: the Nibbled-On Book
+  when done sw-northshire
+  when has 247834
+  tip Right-click the Nibbled-On Book a kobold dropped: it starts its quest.
   accept 91741 item 247834
+
+step Northshire: Brother Paxton's books
+  when done sw-northshire
   turnin 91741
   accept 92124
   turnin 92124
@@ -247,7 +255,7 @@ step Eastvale
 step Eastvale: the work
   when done sw-eastvale
   tip The murlocs along the river south of the bridge drop the fins; Prowlers and Young Forest Bears roam the woods; the Defias around the Brackwell farm and the Tower of Azora carry the bandanas; the enchanting supplies lie in their camps north of the tower; the Kobold Geomancers dig at Jasperlode Mine; the tools and the river finds lie along the river north of the logging camp.
-  turnin 37
+  turnin 37 object 55                     -- A half-eaten body
   accept 45
   turnin 45
   accept 71

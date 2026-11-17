@@ -1709,14 +1709,25 @@ local function smooth(st, P, profile, style, danger)
 end
 
 -- With no search queued (PathJobs.lua's rest): drop the strings of clusters whose decode never finished and trim the
--- decoded graph to its resting ceiling. Decoded grids, the decoder's scratch and the endpoint trees stay for the next
--- search (within Path.cacheKB, ENDTREES), until Idle.
+-- decoded graph to its resting ceiling. Decoded grids and the decoder's scratch stay for the next search (within
+-- Path.cacheKB), until Idle; of the endpoint trees, the newest Path.restTrees (a walk asked again from where the last
+-- one started or ended reads them), the older ones' costs staying in st.ends. While a search runs st.endTrees keeps
+-- up to Path.lua's ENDTREES; at rest, each tree a city's cluster can make 2-3 MB.
+Path.restTrees = 2
 local function Rest()
 	for _, st in pairs(states) do
 		if st.D.packed then
 			st.D.grid, st.D.height, st.D.floor = {}, {}, {}
 			if st.classed then
 				st.D.class = {}
+			end
+		end
+		local kept = st.endTrees
+		if kept and #kept > Path.restTrees then
+			for _ = 1, #kept - Path.restTrees do
+				local gone = table.remove(kept, 1)
+				st.endNodes = (st.endNodes or 0) - (gone.size or 0)
+				gone.tree = nil
 			end
 		end
 	end

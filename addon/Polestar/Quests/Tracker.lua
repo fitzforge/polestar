@@ -124,7 +124,8 @@ local pending = false
 -- objective = { q, kind, id, count, name, cur, max, done, entry }
 -- `talk`: NPCs a quest wants talked to, kept apart from `npc` (the mobs) so a
 -- friendly NPC gets a "Talk to" tooltip line and never a nameplate skull.
-local index = { npc = {}, talk = {}, item = {}, object = {}, objectName = {} }
+-- `finish`: the NPCs and objects that take a quest's hand-in (Q.TurnInsAt).
+local index = { npc = {}, talk = {}, item = {}, object = {}, objectName = {}, finish = {} }
 Q._index = index
 
 -- Markers: layer -> { [map] = { pin, ... } } and the flat list given to Pins.
@@ -416,6 +417,12 @@ local function rebuildIndex()
 		for k in pairs(t) do t[k] = nil end
 	end
 	for _, e in pairs(entries) do
+		-- The NPCs the quest is handed in to (their tooltips' "Turn in" line).
+		if e.rec then
+			for _, ref in Each(e.rec[F.FINISH]) do
+				if ref > 0 then push(index.finish, ref, e) end
+			end
+		end
 		for i = 1, #e.objs do
 			local o = e.objs[i]
 			if o.kind == KIND_KILL then
@@ -1112,6 +1119,28 @@ function Q.GetAvailableQuests()
 end
 
 function Q.IsAvailable(q) return available[q] == true end
+
+-- The entries of the log's quests NPC id takes (ready or not); nil when none.
+function Q.TurnInsAt(id) return id and index.finish[id] or nil end
+
+-- The quests NPC id starts that this character can take now, ascending, or
+-- nil. Checked on the ask (an NPC starts a handful), so it needs no scan and
+-- works with the available-quest markers off; the same filters apply (grey
+-- quests, the level window).
+function Q.AvailableFrom(id)
+	local starts = running and id and Q.StartedByNpc(id)
+	if not starts then return nil end
+	Q.RefreshCheckOptions()
+	local out
+	for i = 1, #starts do
+		local q = starts[i]
+		if Q.CheckAvailable(q, ctx, isDone, isOn, checkOpts) then
+			out = out or {}
+			out[#out + 1] = q
+		end
+	end
+	return out
+end
 
 -- Why a quest is or is not available to this character right now.
 function Q.WhyUnavailable(q)

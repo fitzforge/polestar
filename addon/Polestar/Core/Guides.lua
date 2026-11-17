@@ -183,6 +183,8 @@ local REQUIRED = {
 	complete = { quest = isNum, title = isStr },
 	abandon = { quest = isNum, title = isStr },
 	destroy = { item = isNum, itemName = isStr },
+	deposit = { item = isNum, itemName = isStr },
+	equip = { item = isNum, itemName = isStr },
 	kill = { target = isStr },
 	collect = { item = isNum, itemName = isStr },
 	["goto"] = { map = isNum, x = isNum, y = isNum },
@@ -207,6 +209,7 @@ local REQUIRED = {
 	skill = { skill = isStr, level = isNum },
 	learn = { spell = isNum, spellName = isStr },
 	cast = { spell = isNum, spellName = isStr },
+	buff = { spell = isNum, spellName = isStr },
 	craft = { spell = isNum, spellName = isStr },
 	rep = { faction = isNum, factionName = isStr, standing = isNum },
 	explore = { map = isNum, x = isNum, y = isNum },
@@ -231,7 +234,7 @@ end
 -- chunk stays well inside Lua 5.1's cap on locals.
 local KEYS = {
 	only = { "classes", "races", "factions" },
-	goalNumbers = { "skillLine", "untilSkill", "yellow", "grey", "criteria", "level", "profLine", "profRank", "lvl", "grind", "limit", "xp" },
+	goalNumbers = { "skillLine", "untilSkill", "yellow", "grey", "criteria", "level", "profLine", "profRank", "lvl", "grind", "limit", "xp", "upto" },
 	goalRanks = { "rank", "qlvl" },
 	rewardLists = { "items", "choices" },
 	guideMaps = { "names", "written" },
@@ -298,6 +301,18 @@ local function checkWhen(list)
 		elseif k == "taxi" then
 			-- A flight point by name, with its taxi node when the compiler knew it (format 10).
 			if not (isStr(p.name) and (p.node == nil or isNum(p.node))) then return false end
+		elseif k == "buff" then
+			-- An aura's spell id (format 11).
+			if not isNum(p.spell) then return false end
+		elseif k == "rep" then
+			-- A faction id, a standing (1 Hated .. 8 Exalted) and points inside it (format 11).
+			if not (isNum(p.faction) and isNum(p.standing) and p.standing >= 1 and p.standing <= 8) then return false end
+			if p.points ~= nil and not (isNum(p.points) and p.points >= 1) then return false end
+		elseif k == "equipped" then
+			-- An item id (format 11).
+			if not isNum(p.item) then return false end
+		elseif k == "indoors" then
+			-- Nothing more (format 11).
 		elseif not (WHEN_PLACE[k] and isStr(p.name)) then
 			return false
 		end
@@ -500,6 +515,11 @@ local function checkGoal(goal)
 	end
 	if goal.text ~= nil and type(goal.text) ~= "string" then return "bad text" end
 	if goal.t == "rep" and (goal.standing < 1 or goal.standing > 8) then return "standing outside 1-8" end
+	-- `either` (format 11): one of its step's set.
+	if goal.either ~= nil and goal.either ~= true then return "bad either" end
+	-- Points inside a `rep` goal's standing, and a `buff` or `equip` goal's `off` (format 11).
+	if goal.points ~= nil and not (goal.t == "rep" and isNum(goal.points) and goal.points >= 1) then return "bad points" end
+	if goal.off ~= nil and not ((goal.t == "buff" or goal.t == "equip") and goal.off == true) then return "bad off" end
 	if goal.t == "level" and goal.frac ~= nil and not isFrac(goal.frac) then return "bad frac" end
 	for _, key in ipairs(KEYS.goalNumbers) do
 		if goal[key] ~= nil and not isNum(goal[key]) then return "bad " .. key end
@@ -731,7 +751,7 @@ Guides.Validate = validate
 ---------------------------------------------------------------------------
 
 -- Every format Polestar has shipped (docs/PACK_FORMAT.md, "Versioning").
-Guides.FORMATS = { [1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [6] = true, [7] = true, [8] = true, [9] = true, [10] = true }
+Guides.FORMATS = { [1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [6] = true, [7] = true, [8] = true, [9] = true, [10] = true, [11] = true }
 -- Pack ids only Polestar's own packs may give (forge-guide's RESERVED_IDS and
 -- format.js's have the same): a pack registering one is refused, unless it
 -- comes from the addon the id belongs to (RESERVED_ADDON: ours,

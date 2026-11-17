@@ -609,6 +609,37 @@ fn b_where_the_straight_line_is_blocked_thelsamar_to_the_stonewrought_dam_the_ar
 	assert!(d <= len + 0.5 && d > len - second - 0.5, "the yards shown ({d:.1}) are the detour's ({len:.1})");
 }
 
+// #1422 (sesgoe): from the Great Forge in Ironforge (47.58,52.97), the arrow to Afadra Dunwall (Ironforge 33.20,47.90,
+// the Hall of Thanes' pick-up guide) pointed straight across the city, 117 yd. The walking maps walk to her spot (her
+// spawn's floor, 464.8) through the halls, about 175 yd: the arrow aims along that walk, not straight at her.
+#[test]
+fn issue_1422_from_the_great_forge_the_arrow_to_afadra_dunwall_follows_the_walk_through_the_halls() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		local _, sx, sy = C.MapToWorld(1455, 47.58, 52.97, "e")
+		place(1455, sx, sy)
+		local f = guide(1455, 33.2, 47.9, "Afadra Dunwall")
+		for _ = 1, 10 do stub.advance(0.1); aim() end
+		local a = aim()
+		local _, tx, ty = N.GetTargetWorld()
+		local pts = f and f.points or {}
+		-- How far the aim turns from the straight line to her: the cosine between the two bearings.
+		local ax, ay, bx, by = (a.x or sx) - sx, (a.y or sy) - sy, tx - sx, ty - sy
+		local la, lb = sqrt(ax * ax + ay * ay), sqrt(bx * bx + by * by)
+		emit({ map = f and f.map or false, n = #pts, length = length(pts), straight = lb, state = a.state,
+			cos = la > 0 and (ax * bx + ay * by) / (la * lb) or 1, offPath = #pts > 1 and offPath(pts, a.x or sx, a.y or sy) or -1,
+			endGap = #pts > 0 and dist(pts[#pts].x, pts[#pts].y, tx, ty) or -1 })"#,
+		true,
+	);
+	let (len, straight) = (f(&out["length"]), f(&out["straight"]));
+	assert_eq!(out["map"], 0, "the walking engine searched the walk");
+	assert!(len > straight * 1.2, "a walk through the halls ({len:.0} yd), not the straight line ({straight:.0} yd)");
+	assert!(f(&out["endGap"]) < 10.0, "the walk ends at her spot");
+	assert!(f(&out["offPath"]) < 2.0, "the arrow aims at a point on the walk ({} yd off it)", out["offPath"]);
+	assert!(f(&out["cos"]) < 0.87, "the walk's first stretch leads away from the straight line to her (cos {})", out["cos"]);
+}
+
 // #1650 (Rheuz): from the Suspicious Barrel at the Stonewrought Dam's east end, the walk back west to Chief Engineer
 // Hinderweir VII (Loch Modan, Era 46.05,13.61, his height 310.3). A few yards north-east of the barrel the maps have
 // no surface at the dam's level (the slope's foot), and the nearest surface without a height is the ridge above,
@@ -1726,6 +1757,34 @@ fn lifts_from_the_undercitys_lower_floor_to_brill_the_walk_goes_to_the_south_lif
 	let down = back.iter().position(|s| s == "lift|Ride the elevator down");
 	assert!(down.is_some_and(|d| d > 0 && back[d - 1] == "walk|Walk to the lift"), "in by the same way, down the south lift: {}", back.join(", "));
 	assert_eq!(back.last().map(String::as_str), Some("walk|The canal"));
+}
+
+// #2516 (Trak, 0.4.0 triage): at the Ruins of Lordaeron's portal (Tirisfal 63.2,67.5, live), where the client reports
+// the Undercity's map, the route went to the Undervator, down into the city, along to the south lift and up it, out
+// along the fixed way and back to the portal: 1.1k yd for a few. The near walk (#1543) was off because the south
+// lift's chain joins the Undercity and Tirisfal; with the player's floor 70 yd above the chain's bottom landing, the
+// walk goes straight there. From the city's floor the way out stays the lift (the test above).
+#[test]
+fn ruins_of_lordaeron_at_the_portal_on_the_undercitys_map_the_route_walks_to_it_never_down_the_undervator_2516() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.setLevel(20)
+		w.faction = "Horde"
+		place(1458, 1797, 180, 71) -- a few yards from the portal, on the corridor's floor
+		N.SetTarget(1420, 63.2, 67.5, "Ruins of Lordaeron", "l")
+		for _ = 1, 600 do
+			aim()
+			stub.advance(0.05)
+		end
+		local legs, ci = N.GetRoute()
+		local route = {}
+		for i = ci or 1, #(legs or {}) do route[#route + 1] = legs[i].kind .. "|" .. legs[i].label end
+		emit({ map = C_Map.GetBestMapForUnit("player"), route = route })"#,
+		true,
+	);
+	assert_eq!(out["map"], serde_json::json!(1458), "the client reports the Undercity's map there");
+	assert_eq!(strs(&out["route"]), ["walk|Ruins of Lordaeron"], "one walk to the portal");
 }
 
 // Fitz's spot (2026-10-23): the Trade Quarter's centre, 12 yd on the map from the crossing's end in the entrance hall
@@ -3010,6 +3069,43 @@ fn t_1834_with_tomtom_s_arrow_tomtom_is_handed_booty_bays_flight_master_for_the_
 	assert!(dl < 0.3, "in Grom'gol it is the target: {landed}");
 }
 
+/// #2156 (Joogz, Orc Shaman 34) / #2377 (DJ, Tauren Hunter 34): Horde players bound for Gnomeregan were flown to
+/// Hammerfall and walked through Dun Morogh, though Scooty's Transpolyporter in Booty Bay puts a player carrying the
+/// Goblin Transponder (9173, from Gnomer-gooooone!) on the Train Depot's pad by Gnomeregan's back door. A Troll at
+/// Scooty (Stranglethorn 27.60,77.44), Booty Bay, Grom'gol, Hammerfall and Orgrimmar known, guided to Gnomeregan's
+/// door (Dun Morogh 24.3,39.8): `transponder` puts the item in the bags. The route's legs, "kind|label".
+fn gnomeregan_from_booty_bay(transponder: bool) -> Vec<String> {
+	let script = format!(
+		r#"
+		w.faction = "Horde"
+		w.race, w.raceName = "Troll", "Troll"
+		w.setLevel(34)
+		Polestar.CharState().flags.taxi = {{ [17] = true, [18] = true, [20] = true, [23] = true }}
+		Polestar.CharState().flags.taxiSeen = {{ [0] = true, [1] = true }}
+		{}
+		local _, bx, by = C.MapToWorld(1434, 27.60, 77.44)
+		place(1434, bx, by, nil)
+		N.SetTarget(1426, 24.3, 39.8, "Enter Gnomeregan")
+		for _ = 1, 400 do stub.advance(0.05); aim() end
+		local legs, ci = N.GetRoute()
+		local route = {{}}
+		for i = ci or 1, legs and #legs or 0 do route[#route + 1] = legs[i].kind .. "|" .. legs[i].label end
+		emit({{ route = route }})"#,
+		if transponder { "w.addItem(9173, 1)" } else { "" }
+	);
+	strs(&run(&script, true)["route"])
+}
+
+#[test]
+fn issue_2156_with_the_goblin_transponder_the_way_to_gnomeregan_from_booty_bay_is_scootys_transpolyporter() {
+	skip_unless_ready!();
+	let route = gnomeregan_from_booty_bay(true);
+	assert!(route.iter().any(|l| l == "portal|Take the portal to Gnomeregan"), "the Transpolyporter: {}", route.join(", "));
+	assert!(!route.iter().any(|l| l.starts_with("fly|")), "no flight to Hammerfall: {}", route.join(", "));
+	let without = gnomeregan_from_booty_bay(false);
+	assert!(!without.iter().any(|l| l.starts_with("portal|")), "no Goblin Transponder, no Transpolyporter: {}", without.join(", "));
+}
+
 /// #1242 (joshvette001) / #1829 (derschroeb): on the way to the Deeprun Tram in Stormwind, the arrow led up into the
 /// Keep's Royal Gallery. The tram's Stormwind end lies down its building in the Dwarven District, past the door
 /// (66.47,34.03 on the game's map), under the gallery; the walking grid let the walk from the street south of the door
@@ -3100,6 +3196,60 @@ fn darkcloud_pinnacle_from_the_great_lifts_top_the_route_to_lakota_windsong_walk
 		assert!(l.last().is_some_and(|x| x == "walk|Lakota Windsong"), "{k}: on to her ({l:?})");
 		assert!(!l.iter().any(|x| x.ends_with("|carbonite-the-barrens--thousand-needles")), "{k}: never the crossing back down ({l:?})");
 	}
+}
+
+// Two reports from 0.3.7.2 on Darkcloud Pinnacle (Thousand Needles), Horde at level 30. #2391: on the pinnacle, the
+// route to the Document Chest up on its mesas went down the lift to the ground under them. #2292: from the Great
+// Lift's top, the route to the Grimtotem camps by Arnak Grimtotem went into the Barrens and back again. Since 0.4.0's
+// walking maps (the pinnacle's paths and bridges joined) the route walks on across the mesas: never a lift, never the
+// crossing back into the Barrens, and the arrow's own walk to the chest stays up on the pinnacle.
+#[test]
+fn darkcloud_pinnacle_the_routes_to_the_document_chest_and_the_grimtotem_camps_keep_to_the_mesas_never_down_a_lift_2391_2292() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.setLevel(30)
+		w.faction = "Horde"
+		local function plan(map, x, y, z, tx, ty, label)
+			N.SetTarget(nil)
+			w.moveTo(map, x, y)
+			w.z = z
+			for _ = 1, 10 do aim(); stub.advance(0.05) end
+			for i = #finds, 1, -1 do finds[i] = nil end
+			N.SetTarget(1441, tx, ty, label, "e")
+			for _ = 1, 300 do aim(); stub.advance(0.05) end
+			local out, L, ci = {}, N.GetRoute()
+			for i = ci or 1, #(L or {}) do
+				local l = L[i]
+				out[#out + 1] = l.kind .. "|" .. tostring(l.label) .. (l.crossing and ("|" .. l.crossing) or "")
+			end
+			-- The lowest point of the arrow's own walks (searched from where the player stands).
+			local low
+			for _, rec in ipairs(finds) do
+				for _, pt in ipairs(rec.points or {}) do
+					if pt.z and (not low or pt.z < low) then low = pt.z end
+				end
+			end
+			return { legs = out, low = low or false }
+		end
+		emit({
+			chest = plan(1441, 38.11, 26.87, 83, 39.34, 41.53, "Document Chest"),
+			camps = plan(1413, 44.77, 90.53, 90, 35.0, 31.5, "Grimtotem camps"),
+			mesa = plan(1441, 38.11, 26.87, 83, 35.0, 31.5, "Grimtotem camps"),
+		})"#,
+		true,
+	);
+	for (k, label) in [("chest", "walk|Document Chest"), ("camps", "walk|Grimtotem camps"), ("mesa", "walk|Grimtotem camps")] {
+		let l = strs(&out[k]["legs"]);
+		assert!(l.last().is_some_and(|x| x == label), "{k}: the route ends with the walk there ({l:?})");
+		assert!(!l.iter().any(|x| x.starts_with("lift|")), "{k}: never a lift ({l:?})");
+		assert!(!l.iter().any(|x| x.starts_with("walk|Walk to The Barrens")), "{k}: never back into the Barrens ({l:?})");
+	}
+	// From the lift's top the crossing into Thousand Needles once; on the pinnacle, none.
+	let crossing = |k: &str| strs(&out[k]["legs"]).iter().filter(|x| x.ends_with("|carbonite-the-barrens--thousand-needles")).count();
+	assert!(crossing("camps") <= 1, "from the lift's top: across once");
+	assert_eq!((crossing("chest"), crossing("mesa")), (0, 0), "on the pinnacle: no crossing");
+	assert!(f(&out["chest"]["low"]) > 70.0, "the arrow's walk to the chest stays on the pinnacle (lowest {})", out["chest"]["low"]);
 }
 
 // #1543's near walk where the walking engine finds it long or none (the 0.3.7 border sweep's worst pairs): the route
@@ -3543,4 +3693,150 @@ fn t_2470_from_the_windbreak_graveyard_the_walk_to_a_corpse_in_the_screeching_ca
 	assert!(f(&out["corpse"]["d"]) < 15.0, "it ends at the corpse: {out}");
 	// 0.4.0's maps: about 1,720 yd across the canyons; a walk round through Tanaris is several times that.
 	assert!(f(&out["corpse"]["yards"]) < 2200.0, "it stays in Thousand Needles: {out}");
+}
+
+// 0.4.1's border sweep (#2048): an Alliance player at level 24 in the Riverglades, 250 yd north of a Redridge goal
+// (Redridge 46.1,37.3, the Alliance Redridge guide's goal 292), follows the arrow along the zone line. Each zone change
+// planned again before the walking engine had searched the last plan's walk, and an unsearched live walk was never
+// kept, so the route went from the crossing's way (86 s) to the walk straight there (63 s) and back every second, 224
+// times in 4 minutes, and the player never got there. The live walk is priced by its estimate until its path is in:
+// the walk straight there stays, and the player arrives.
+#[test]
+fn following_the_arrow_from_the_riverglades_along_the_zone_line_to_a_redridge_goal_never_flips_and_arrives_2048() {
+	skip_unless_ready!();
+	let out = run(
+		&[
+			FOLLOW_ARROW,
+			r#"
+		w.faction = "Alliance"
+		w.race, w.raceName = "Human", "Human"
+		w.setLevel(24)
+		Polestar.CharState().flags.taxiSeen = { [0] = true, [1] = true }
+		local x, y = -8865.1, -2682
+		local z = ground(0, x, y, nil) or 0
+		place(N.danger.ZoneAt(0, x, y), x, y, z)
+		stub.advance(1)
+		N.Sample()
+		N.SetTarget(1433, 46.1, 37.3, "Goal", "l")
+		emit(follow(0, x, y, z, 240))"#,
+		]
+		.concat(),
+		true,
+	);
+	assert!(f(&out["flips"]) <= 1.0, "the route goes back and forth {} times: {out}", out["flips"]);
+	assert!(out["arrived"].as_f64().is_some(), "following the arrow gets the player to the goal: {out}");
+}
+
+// The border sweep (#1543, #2048; a measuring tool, not a check: `--ignored`). NAV_SWEEP_GOALS names a JSON file of
+// guide goals, each { id, faction, level, c, gx, gy, tmap, tx, ty, tf, tz, cand = [[x, y] x 8] } (the 8 points 250 yd
+// round the goal); NAV_SWEEP_OUT where the results go (JSON); NAV_SWEEP_THREADS how many runs at once (default 4),
+// NAV_SWEEP_LIMIT the most starts (default all). A goal's start is its first candidate in another zone than the goal
+// (Nav.danger.ZoneAt, the walking maps' zone field) standing on the walking maps' ground; from there the player
+// follows the arrow as FOLLOW_ARROW does, walking only (flight maps seen on both continents, none listing a flight
+// path), for up to 240 s. Each result: { id, arrived, stalled, left, flips, keys }.
+#[test]
+#[ignore]
+fn border_sweep() {
+	skip_unless_ready!();
+	let (Ok(goals), Ok(out_file)) = (std::env::var("NAV_SWEEP_GOALS"), std::env::var("NAV_SWEEP_OUT")) else {
+		eprintln!("skipped: NAV_SWEEP_GOALS and NAV_SWEEP_OUT name the goals and the results");
+		return;
+	};
+	let threads: usize = std::env::var("NAV_SWEEP_THREADS").ok().and_then(|v| v.parse().ok()).unwrap_or(4);
+	let limit: usize = std::env::var("NAV_SWEEP_LIMIT").ok().and_then(|v| v.parse().ok()).unwrap_or(usize::MAX);
+	let goals: Value = serde_json::from_str(&std::fs::read_to_string(&goals).unwrap()).unwrap();
+	let tmp = TempDir::new("polestar-border-sweep-");
+	let lua_file = |name: &str, v: &Value| {
+		let p = tmp.path().join(name);
+		std::fs::write(&p, format!("return {}", forge_addontest::run::lua_value(v))).unwrap();
+		p.to_string_lossy().to_string()
+	};
+	// The starts, in one run.
+	let gfile = lua_file("goals.lua", &goals);
+	let picked = run(
+		&format!(
+			r#"
+		local G = stub.navNs.PathGrid
+		local function ground(c, x, y, h)
+			local st = G.State(c)
+			local k, lc
+			if st then k, lc = G.locate(st, x, y) end
+			if not k then return nil end
+			local n = G.snap(st, k, lc, x, y, h)
+			return n and G.zOf(G.grid(st, k), n) or nil
+		end
+		-- Both continents' parts loaded (the client loads a part where the player stands).
+		C_AddOns.LoadAddOn("Polestar_Nav_EK")
+		C_AddOns.LoadAddOn("Polestar_Nav_Kalimdor")
+		stub.advance(1)
+		local out, seen = {{}}, {{ goals = 0, zoned = 0 }}
+		for _, g in ipairs(dofile({gfile})) do
+			local gz = N.danger.ZoneAt(g.c, g.gx, g.gy)
+			seen.goals = seen.goals + 1
+			if gz then seen.zoned = seen.zoned + 1 end
+			for k, p in ipairs(gz and g.cand or {{}}) do
+				local z = N.danger.ZoneAt(g.c, p[1], p[2])
+				local h = z and z ~= gz and ground(g.c, p[1], p[2], nil)
+				if h then
+					out[#out + 1] = {{ id = (g.id .. " /" .. k), faction = g.faction, level = g.level, c = g.c, x = p[1], y = p[2], z = h,
+						zone = z, goalZone = gz, tmap = g.tmap, tx = g.tx, ty = g.ty, tf = g.tf, tz = g.tz }}
+					break
+				end
+			end
+		end
+		emit({{ starts = out, seen = seen }})"#,
+			gfile = lua_string(&gfile)
+		),
+		true,
+	);
+	eprintln!("border sweep: goals {}", picked["seen"]);
+	let mut starts: Vec<Value> = picked["starts"].as_array().cloned().unwrap_or_default();
+	starts.truncate(limit);
+	eprintln!("border sweep: {} starts", starts.len());
+	let chunks: Vec<Vec<Value>> = starts.chunks(20).map(|c| c.to_vec()).collect();
+	let next = std::sync::atomic::AtomicUsize::new(0);
+	let results = std::sync::Mutex::new(Vec::<Value>::new());
+	std::thread::scope(|s| {
+		for _ in 0..threads {
+			s.spawn(|| loop {
+				let i = next.fetch_add(1, std::sync::atomic::Ordering::SeqCst);
+				let Some(chunk) = chunks.get(i) else { break };
+				let sfile = lua_file(&format!("chunk{i}.lua"), &Value::Array(chunk.clone()));
+				let out = run(
+					&[
+						FOLLOW_ARROW,
+						&format!(
+							r#"
+		local out = {{}}
+		for _, s in ipairs(dofile({sfile})) do
+			N.ClearTarget()
+			w.faction = s.faction
+			if s.faction == "Horde" then w.race, w.raceName = "Orc", "Orc" else w.race, w.raceName = "Human", "Human" end
+			w.setLevel(s.level)
+			Polestar.CharState().flags.taxiSeen = {{ [0] = true, [1] = true }}
+			place(s.zone, s.x, s.y, s.z)
+			stub.advance(1)
+			N.Sample()
+			N.SetTarget(s.tmap, s.tx, s.ty, "Goal", s.tf, nil, s.tz)
+			local r = follow(s.c, s.x, s.y, s.z, 240)
+			r.id = s.id
+			out[#out + 1] = r
+		end
+		emit(out)"#,
+							sfile = lua_string(&sfile)
+						),
+					]
+					.concat(),
+					true,
+				);
+				results.lock().unwrap().extend(out.as_array().cloned().unwrap_or_default());
+			});
+		}
+	});
+	let results = results.into_inner().unwrap();
+	std::fs::write(&out_file, serde_json::to_string(&results).unwrap()).unwrap();
+	let arrived = results.iter().filter(|r| r["arrived"].as_f64().is_some()).count();
+	let stalled = results.iter().filter(|r| r["stalled"].as_f64().is_some()).count();
+	let flips: f64 = results.iter().map(|r| r["flips"].as_f64().unwrap_or(0.0)).sum();
+	eprintln!("border sweep: {} starts, {arrived} arrived, {stalled} stalled, {flips} flips -> {out_file}", results.len());
 }

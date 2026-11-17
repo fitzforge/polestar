@@ -401,8 +401,41 @@ function Compat.IsQuestFailed(questID)
 	return QL.IsFailed(questID) and true or false
 end
 
+-- The game's internal placeholder names (#2614; forge-guide's placeholder.rs,
+-- the same list): "[DNT] Kill Credit", a bare "Credit", "PvP Tower Credit
+-- Marker", Alterac Valley's "Trigger Ichman", "<UNUSED>". A player never reads
+-- one: the data and the compiler give such objectives their own words, and a
+-- quest-log line the game words with one reads as a line with no name yet.
+local PLACEHOLDER_TAGS = { "[DNT]", "(DNT)", "[PH]", "(DND)", "<UNUSED>", "<TEST>", "Credit Marker", "Kill Credit" }
+function Compat.Placeholder(name)
+	if type(name) ~= "string" then return false end
+	local s = name:match("^%s*(.-)%s*$")
+	if s == "Credit" or s:sub(1, 8) == "Trigger " or s:sub(1, 8) == "DND FLAG" then return true end
+	for i = 1, #PLACEHOLDER_TAGS do
+		if s:find(PLACEHOLDER_TAGS[i], 1, true) then return true end
+	end
+	return false
+end
+
+-- A quest's lines, read once per moment (ns.Moment, Core/Init.lua: the same
+-- number in the same frame means nothing Polestar knows of has changed, so
+-- neither has the log): a step's view, an evaluation or the arrival poll asks
+-- for the same quest once per goal on its line. The lines are read-only for
+-- every caller (one table per quest per moment, no longer one per call).
+local objMemo, objAt, objMoment = {}, nil, nil
 function Compat.GetQuestObjectives(questID)
 	if not (C_QuestLog and C_QuestLog.GetQuestObjectives) then return nil end
+	local now, moment = GetTime and GetTime(), ns.Moment and ns.Moment()
+	local memo = now ~= nil and moment ~= nil and questID ~= nil
+	if memo then
+		if now ~= objAt or moment ~= objMoment then
+			for q in pairs(objMemo) do objMemo[q] = nil end
+			objAt, objMoment = now, moment
+		end
+		local hit = objMemo[questID]
+		if hit ~= nil then return hit or nil end
+		objMemo[questID] = false
+	end
 	local raw = C_QuestLog.GetQuestObjectives(questID)
 	if type(raw) ~= "table" or #raw == 0 then return nil end
 	local out = {}
@@ -419,8 +452,11 @@ function Compat.GetQuestObjectives(questID)
 			-- #1952) counts past its 1 while unfinished; finished is the truth.
 			cur = req - 1
 		end
-		out[i] = { text = o.text or "", type = o.type or "", finished = finished, numFulfilled = cur, numRequired = req }
+		local text = o.text or ""
+		if Compat.Placeholder(Compat.ObjectiveLabel(text)) then text = "" end
+		out[i] = { text = text, type = o.type or "", finished = finished, numFulfilled = cur, numRequired = req }
 	end
+	if memo then objMemo[questID] = out end
 	return out
 end
 
@@ -1105,6 +1141,8 @@ local SKILL_LINES = {
 }
 Compat.SKILL_LINES = SKILL_LINES
 
+local AURA_FILTERS = { "HELPFUL", "HARMFUL" }
+
 function Compat.Supports(feature)
 	if feature == "skill" then
 		return (C_SkillInfo and (C_SkillInfo.GetSkillLineInfoByID or C_SkillInfo.GetSkillLineInfo)
@@ -1118,8 +1156,42 @@ function Compat.Supports(feature)
 		return (C_MapExplorationInfo and C_MapExplorationInfo.GetExploredAreaIDsAtPosition) and true or false
 	elseif feature == "achievement" then
 		return GetAchievementInfo and true or false
+	elseif feature == "aura" then
+		return ((C_UnitAuras and C_UnitAuras.GetPlayerAuraBySpellID) or UnitAura) and true or false
+	elseif feature == "equipment" then
+		return ((C_Item and C_Item.IsEquippedItem) or IsEquippedItem) and true or false
 	end
 	return false
+end
+
+-- Whether the player has the aura of that spell (a buff or a debuff), by spell id;
+-- nil when the client will not say (the call is refused: QoL/Rest.lua reads its aura the same way).
+function Compat.PlayerHasAura(spellID)
+	if not spellID then return false end
+	if C_UnitAuras and C_UnitAuras.GetPlayerAuraBySpellID then
+		local ok, aura = pcall(C_UnitAuras.GetPlayerAuraBySpellID, spellID)
+		if not ok then return nil end
+		return type(aura) == "table"
+	end
+	if UnitAura then
+		for _, filter in ipairs(AURA_FILTERS) do
+			for i = 1, 255 do
+				local name, _, _, _, _, _, _, _, _, id = UnitAura("player", i, filter)
+				if not name then break end
+				if id == spellID then return true end
+			end
+		end
+	end
+	return false
+end
+
+-- Whether the player wears the item; nil when the client cannot say.
+function Compat.IsItemEquipped(itemID)
+	local fn = (C_Item and C_Item.IsEquippedItem) or IsEquippedItem
+	if not (fn and itemID) then return nil end
+	local ok, worn = pcall(fn, itemID)
+	if not ok then return nil end
+	return worn and true or false
 end
 
 local function learnedRank(info)

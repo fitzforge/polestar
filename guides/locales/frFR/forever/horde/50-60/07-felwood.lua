@@ -125,7 +125,7 @@ return {
 	["Level 59.9"] = "Niveau 59.9",
 	-- {zone:1452} Winterspring · {area:2249} Frostwhisper Gorge · {area:1769} Timbermaw Hold · {area:2057} Scholomance · {area:2279} Stratholme
 	-- plural, as words: Rabid Shardtooths = {npc:7446} Rabid Shardtooth
-	["Top up here to level 59.9 before the hand-ins at {zone:1452}: they take you to level 60. The Rabid Shardtooths (59) of {area:2249}, just north of the strange source, give far more experience than the furbolgs by {area:1769}. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "Complétez ici jusqu'au niveau 59.9 avant de rendre les quêtes à {zone:1452} : elles vous amènent au niveau 60. Les Rabid Shardtooths (59) des {area:2249}, juste au nord de l'étrange source, donnent bien plus d'expérience que les furbolgs près de {area:1769}. Ou, en groupe, faites plutôt le donjon {area:2057} ou le donjon {area:2279}.",
+	["Top up here to level 59.9 before the hand-ins at {zone:1452}: they take you to level 60. The Rabid Shardtooths (59) of {area:2249}, just north of the strange source, give far more experience than the furbolgs by {area:1769}. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "Gagnez de l'expérience ici jusqu'au niveau 59.9 avant de rendre les quêtes à {zone:1452} : elles vous amènent au niveau 60. Les Crocs acérés enragés (59) des {area:2249}, juste au nord de l'étrange source, donnent bien plus d'expérience que les furbolgs près de {area:1769}. Ou, en groupe, faites plutôt le donjon {area:2057} ou le donjon {area:2279}.",
 	-- {npc:7446} Rabid Shardtooth
 	["grind on {npc:7446}"] = "tuez en boucle : {npc:7446}",
 

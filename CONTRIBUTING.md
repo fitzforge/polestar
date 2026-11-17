@@ -235,7 +235,8 @@ shipped guides with his maps after merging
 ## Checks
 
 Run only the checks for what you changed. CI runs the full suite on every
-pull request and tells you if anything else broke.
+pull request that changes more than documentation and tells you if anything
+else broke ([docs/CI.md](docs/CI.md#lanes), "Lanes").
 
 | What you changed | What you run |
 |---|---|
@@ -266,7 +267,8 @@ maintainer regenerates those after merging your PR.
   tools fit together; [docs/README.md](docs/README.md) maps every document.
 - Behaviour changes come with tests that show the behaviour. Run the tests
   for what you changed (see [Checks](#checks) above); CI runs the full suite
-  on every PR and tells you if anything else broke.
+  on every PR that changes code, data or guides and tells you if anything
+  else broke.
 - For UI changes, `node tools/polestar.js preview` renders the guide window,
   menu and options to `docs/preview/*.svg`. Run it to review your change
   visually; CI runs it on every PR to verify the renderer still works.
@@ -290,14 +292,27 @@ maintainer regenerates those after merging your PR.
 | Branch | Holds |
 |---|---|
 | `main` | The latest release, what players have. It moves only when a release is made. |
-| `next` | The next release (the repository's default branch). Every pull request goes here. |
+| `next` | Everything for coming releases (the repository's default branch). **Every pull request goes here.** |
+| `release/<version>` | A feature release being tested, cut from `next` when it freezes (for example `release/0.4.1`). Only fixes for that release go in. |
+| `hotfix/<version>` | An urgent fix to what players have, cut from the latest release's tag (for example `hotfix/0.4.0.2` from `v0.4.0.1`). |
+| `feature/<name>` | A large feature not ready for `next` yet, built up by the maintainers over several pull requests (now `feature/dungeons-in-route`). It goes to `next` as a whole when it's ready. |
 
-Every pull request goes to **`next`**: guide fixes, the addon, the tools,
-the data builds, translations, new guides and route refreshes. Never to
-`main`; the `Base branch` check fails those. `main` moves only when a
-release is made: it is fast-forwarded to `next` and tagged. A patch release
-is just a version bump (`x.y.Z`) from `next`, sooner than a feature release.
+Pull requests go to **`next`**: guide fixes, the addon, the tools, the data
+builds, translations, new guides, new features and route refreshes. Never to
+`main`; the `Base branch` check fails those. `next` keeps taking pull requests
+while a release is tested: the freeze happens on its `release/` branch, not on
+`next`.
+
+The `release/` and `hotfix/` branches are the maintainers'. A fix found while
+a release is tested goes to its `release/` branch, and an urgent fix for
+players goes to a `hotfix/` branch; a maintainer asks you on your pull request
+when that applies. When a release or a hotfix ships, `main` moves to it, it is
+tagged, and the branch is merged back into `next`, so nothing is lost.
 docs/RELEASING.md has the release side.
+
+**Once your pull request is merged, don't push to it again,** not even a
+rebase: GitHub shows it as merged because your exact commits are in the base
+branch. A fix or a follow-up is a new pull request.
 
 ## Using an AI agent
 
@@ -416,6 +431,11 @@ unexplained.
 Then the change is reviewed for correctness (tests, the game's limits,
 Options toggles off by default for anything that spends, equips or acts for
 the player) and merged into its base branch.
+
+**Changes asked in review happen on your pull request,** where you can see
+them: as review comments, or, for small fit-ups (a conflict, a format
+number, a test), as commits a maintainer pushes to your branch. Keep "Allow
+edits by maintainers" ticked. Your commits keep your name either way.
 
 **AI-assisted pull requests:** the model named in the "Model and tool" line
 sets how carefully the work is re-verified. Pull requests from smaller or

@@ -183,6 +183,32 @@
 		],
 		"note": "Kegan Darkmar (npc 2414), one of the four Dalaran traitors who carry Prison Break In's (544) pieces (the Bloodstone Oval), stands with the others in the Dalaran camp at Alterac Mountains 16.8,89.4 (map 1416; Hillsbrad Foothills 23.6,26.7). Our data had the Classic spot 17.8,83.2, about 100 yd north, where the guides and the City of Dalaran pick-up guide sent players (#1633). The reporter's right spot was 16.90,89.20."
 	},
+	"2449": {
+		"set": {
+			"spawns": {
+				"1424": {
+					"f": "e",
+					"pts": [
+						[
+							30.6,
+							40.5
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded contributors left out): 72 people killed Citizen Wilkes, 395 kills, all in Hillsbrad Fields between 29-31,38-43, the west side of the town"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2650 (Sable, 0.4.0): Wilkes was not at the guide's spot; /polestar where 1424 @30.65,40.49 where he was found"
+			}
+		],
+		"note": "Citizen Wilkes (Dangerous!, 567) walks the west side of Hillsbrad Fields' town. The data had his Classic spawn at 32.62,39.79, the start of a path through the east of the town (the Forever TDB's waypoints run 32.5-36.4, 35.8-40.0), where players never met him: the arrow led to an empty spot (#2650)."
+	},
 	"2543": {
 		"set": {
 			"spawns": {
@@ -572,7 +598,7 @@
 			"kind": "client",
 			"ref": "creaturecache.wdb (1.60.1.70888): rank 2 (rare), as the knowledge base of the data build of 2026-11-13 recorded it (kb:client.cache:rank)"
 		},
-		"note": "Tunnelweb Matriarch is a rare on Forever: the server's creature answer the 70888 client cached said so. The 70938 client's cache no longer holds the creature and no other source gives a rank, so the 0.4.0 data had dropped her from the Codex's rares."
+		"note": "Tunnelweb Matriarch is a rare on Forever: the server's creature answer the 70888 client cached said so. The 70938 client's cache no longer holds the creature and no other source gives a rank, so the 0.4.0 data had dropped her from Lookup's rares."
 	},
 	"250483": {
 		"set": {
@@ -1069,6 +1095,20 @@
 			}
 		],
 		"note": "The Ghostly Attendant, An Ancient Grudge's giver and ender, stands inside the Hall of Thanes (instance map 3065, Forever's)."
+	},
+	"259256": {
+		"set": {
+			"instances": [
+				3039
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 27 people (23 established) killed Tunk inside Krol'dok Stronghold (instance map 3039), none anywhere else; 15 people looted the Horde's Krol'dok Moulding (item 267137) and 12 the Alliance's (267138) from him"
+			}
+		],
+		"note": "Tunk, the Blacksmith whose Krol'dok Moulding starts Krol'dok Moulding (94973 Horde, 94980 Alliance), stands inside Krol'dok Stronghold, so the Dungeons page lists both quests as picked up inside (#2560 sweep)."
 	},
 	"9500": {
 		"set": {

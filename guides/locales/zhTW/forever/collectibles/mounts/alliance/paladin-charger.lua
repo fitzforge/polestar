@@ -65,6 +65,7 @@ return {
 	-- plural, as words: Stratholme Supply Crates = {object:181085} Stratholme Supply Crate
 	["{area:2279} is a dungeon for a group of five at 58-60, at the north end of the {zone:1423}. Stratholme Supply Crates along the streets of both halves hold the Holy Water, one to three each; they come back after three minutes. Some crates let out a swarm of plagued rats or maggots: be ready. The main gate (the Scarlet half) needs no key."] = "{area:2279}是供58-60級五人小隊進入的地城，位於{zone:1423}北端。兩半城區街道旁的斯坦索姆補給箱裡裝著聖水，每個一到三份；三分鐘後恢復。有些箱子會放出一群瘟疫鼠或蛆蟲：做好準備。正門（血色區那一半）不需要鑰匙。",
 	-- plural, as words: Stratholme Supply Crates = {object:181085} Stratholme Supply Crate
+	-- was: ["Supply Crates, inside"] = "補給箱，在裡面"
 	["Stratholme Supply Crates, inside"] = "斯坦索姆補給箱，室內",
 
 	-- Step 10: Grimand Elmore

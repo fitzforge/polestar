@@ -258,11 +258,13 @@ pub fn apply(c: &V, quests: &Obj, npcs: &Obj, objects: &Obj, items: &Obj, sim: b
 		}
 		let drops_left = ["npc", "object"].iter().any(|kind| ci.get("removeDrops").get(kind).items().iter().any(|x| !it.get("drops").get(kind).get(&x.to_js_string()).is_undef()));
 		let drops_new = ["npc", "object"].iter().any(|kind| ci.get("addDrops").get(kind).items().iter().any(|x| it.get("drops").get(kind).get(&x.to_js_string()).is_undef()));
+		let requires_new = ci.get("dropRequires").entries().iter().any(|(kind, requires)| !same_fields(&it.get("dropRequires").get(kind), requires));
 		let vendors_left = ci.get("removeVendors").items().iter().any(|r| it.get("vendors").items().iter().any(|v| r.strict_eq(v)));
-		if drops_left || drops_new || vendors_left {
+		if drops_left || drops_new || requires_new || vendors_left {
 			entry(&mut a, "items", &id, "applied", String::new());
 		} else {
-			entry(&mut a, "items", &id, "redundant", "no source it removes is in the merged data, and every one it adds is".into());
+			let detail = if ci.has("dropRequires") { "the sources and loot requirements already match" } else { "no source it removes is in the merged data, and every one it adds is" };
+			entry(&mut a, "items", &id, "redundant", detail.into());
 		}
 		for kind in ["npc", "object"] {
 			for x in ci.get("removeDrops").get(kind).items() {
@@ -287,6 +289,18 @@ pub fn apply(c: &V, quests: &Obj, npcs: &Obj, objects: &Obj, items: &Obj, sim: b
 				if table.get(&key).is_undef() {
 					table.set(&key, V::Null);
 				}
+			}
+		}
+		for (kind, requires) in ci.get("dropRequires").entries() {
+			if it.get("dropRequires").as_obj().is_none() {
+				it.set("dropRequires", Obj::new());
+			}
+			let table = it.get("dropRequires");
+			if table.get(&kind).as_obj().is_none() {
+				table.set(&kind, Obj::new());
+			}
+			for (source, quests) in requires.entries() {
+				table.get(&kind).set(&source, owned(&quests));
 			}
 		}
 		// sim-v2: no rated dropper left, no scale either.
@@ -417,6 +431,13 @@ pub fn reassert(c: &V, quests: &Obj, npcs: &Obj, objects: &Obj, items: &Obj, sim
 		for r in ci.get("removeVendors").items() {
 			if it.get("vendors").items().iter().any(|v| r.strict_eq(v)) {
 				out.push(format!("items {id}: vendor {}", r.to_js_string()));
+			}
+		}
+		for (kind, requires) in ci.get("dropRequires").entries() {
+			for (source, quests) in requires.entries() {
+				if differs(&it.get("dropRequires").get(&kind).get(&source), &quests) {
+					out.push(format!("items {id}: drop requirements from {kind} {source}"));
+				}
 			}
 		}
 	}
@@ -965,7 +986,7 @@ fn check_corrections(ck: &mut Ck, c: &V) {
 	}
 	for (id, e) in ck.section_ids("items", &c.get("items")) {
 		let at = format!("items.{id}");
-		ck.keys(&at, &e, &["removeDrops", "addDrops", "removeVendors", "source", "note"]);
+		ck.keys(&at, &e, &["removeDrops", "addDrops", "dropRequires", "removeVendors", "source", "note"]);
 		ck.note(&at, &e);
 		ck.source(&at, &e);
 		if ck.exists("items", &id) == Some(false) {
@@ -985,6 +1006,31 @@ fn check_corrections(ck: &mut Ck, c: &V) {
 		}
 		if e.has("removeVendors") {
 			ck.ids(&format!("{at}.removeVendors"), "npcs", &e.get("removeVendors"));
+		}
+		if e.has("dropRequires") {
+			let requires = e.get("dropRequires");
+			ck.keys(&format!("{at}.dropRequires"), &requires, &["npc", "object"]);
+			for (kind, table) in [("npc", "npcs"), ("object", "objects")] {
+				let a = format!("{at}.dropRequires.{kind}");
+				for (source, quests) in ck.section_ids(&a, &requires.get(kind)) {
+					let a = format!("{a}.{source}");
+					let source_id = V::Num(source.parse().unwrap());
+					ck.refers(&a, table, &source_id);
+					let added = e.get("addDrops").get(kind).items().iter().any(|v| v.strict_eq(&source_id));
+					let removed = e.get("removeDrops").get(kind).items().iter().any(|v| v.strict_eq(&source_id));
+					let absent = ck.data.is_some_and(|d| d.items.get(&id).get("drops").get(kind).get(&source).is_undef());
+					if removed || (absent && !added) {
+						ck.err(&a, format!("{kind} {source} must be a drop source of item {id} (or be added by addDrops)"));
+					}
+					ck.ids(&a, "quests", &quests);
+					let ids = quests.items();
+					for (n, q) in ids.iter().enumerate() {
+						if ids[..n].iter().any(|v| v.strict_eq(q)) {
+							ck.err(format!("{a}[{n}]"), "quest is listed twice");
+						}
+					}
+				}
+			}
 		}
 	}
 }
@@ -1165,7 +1211,7 @@ fn check_deliberate(ck: &mut Ck, d: &V) {
 }
 
 fn check_overrides(ck: &mut Ck, o: &V) {
-	ck.keys("", o, &["about", "_about", "include", "skip", "revert", "pairs"]);
+	ck.keys("", o, &["about", "_about", "include", "skip", "revert", "pairs", "leftout"]);
 	let step = |ck: &mut Ck, a: &str, s: &V, task: bool| {
 		let ok = s.is_arr() && (s.len() == 2 || (task && s.len() == 3)) && matches!(s.items()[0].as_str(), Some("accept" | "task" | "turnin"));
 		if !ok {
@@ -1249,6 +1295,28 @@ fn check_overrides(ck: &mut Ck, o: &V) {
 		if !(f.is_undef() || matches!(f.as_str(), Some("Alliance" | "Horde"))) {
 			ck.err(format!("{a}.faction"), format!("{} is not Alliance or Horde", show(&f)));
 		}
+	}
+	// Second-visit accepts left out on purpose (forge guide lint, forge-guide revisit.rs): {q, guide, reason, issue}.
+	let leftout = o.get("leftout");
+	if !leftout.is_undef() && !leftout.is_arr() {
+		ck.err("leftout", "must be a list");
+	}
+	let mut named: Vec<(String, String)> = Vec::new();
+	for (i, e) in leftout.items().iter().enumerate() {
+		let a = format!("leftout[{i}]");
+		ck.keys(&a, e, &["q", "guide", "reason", "issue"]);
+		ck.refers(&format!("{a}.q"), "quests", &e.get("q"));
+		if !has_text(&e.get("guide")) {
+			ck.err(format!("{a}.guide"), "guide is required: the id of the guide whose accept stays out");
+		}
+		if !has_text(&e.get("reason")) {
+			ck.err(format!("{a}.reason"), "reason is required: why the guide does not bring the prerequisite back");
+		}
+		let k = (e.get("guide").to_js_string(), num_str(e.get("q").num()));
+		if named.contains(&k) {
+			ck.warn(&a, format!("quest {} in \"{}\" is already in leftout", k.1, k.0));
+		}
+		named.push(k);
 	}
 }
 
@@ -1980,6 +2048,29 @@ mod tests {
 	}
 
 	#[test]
+	fn drop_requirements_apply_reassert_and_validate_per_source() {
+		let c = parse_json(r#"{ "items": { "40": { "dropRequires": { "npc": { "20": [10, 11] } }, "source": { "kind": "in-game-check", "ref": "issue #1923" }, "note": "held or done" } } }"#).unwrap();
+		let mut t = tables();
+		t.items = parse_json(r#"{ "40": { "id": 40, "drops": { "npc": { "20": 33 }, "object": { "30": 50 } }, "dropRequires": { "object": { "30": [11] } } } }"#).unwrap();
+		let i = t.items.as_obj().unwrap();
+		let apply_to = || apply(&c, t.quests.as_obj().unwrap(), t.npcs.as_obj().unwrap(), t.objects.as_obj().unwrap(), i, false);
+		assert_eq!(apply_to().entries[0].state, "applied");
+		assert_eq!(i.get("40").get("dropRequires").get("npc").get("20").items().iter().map(V::num).collect::<Vec<_>>(), vec![10.0, 11.0]);
+		assert_eq!(i.get("40").get("dropRequires").get("object").get("30").at(0).num(), 11.0, "other sources keep their requirements");
+		assert_eq!(apply_to().entries[0].state, "redundant");
+		i.get("40").get("dropRequires").get("npc").as_obj().unwrap().delete("20");
+		assert_eq!(reassert(&c, t.quests.as_obj().unwrap(), t.npcs.as_obj().unwrap(), t.objects.as_obj().unwrap(), i, false), vec!["items 40: drop requirements from npc 20"]);
+		assert_eq!(i.get("40").get("dropRequires").get("npc").get("20").items().len(), 2);
+		let check_one = |raw: &str| check(&CheckInputs { corrections: Some(("c", raw)), mechanics: None, route_fixes: None, places: None, guide_fixes: None, data: Some(&t) });
+		let good = forge_guide::js::stringify(&c, None);
+		assert!(check_one(&good).is_empty(), "valid source requirement");
+		for bad in [r#"{"npc":{"20":[10,10]}}"#, r#"{"npc":{"20":[0]}}"#, r#"{"npc":{"20":[99]}}"#, r#"{"npc":{"20":10}}"#, r#"{"npc":{"30":[10]}}"#, r#"{"vendor":{"20":[10]}}"#] {
+			let raw = format!(r#"{{"items":{{"40":{{"dropRequires":{bad},"source":{{"kind":"in-game-check","ref":"issue #1923"}},"note":"held or done"}}}}}}"#);
+			assert!(check_one(&raw).iter().any(|f| f.severity == "error" && f.at.contains("dropRequires")), "{bad}");
+		}
+	}
+
+	#[test]
 	fn a_removed_quest_leaves_the_data_and_the_links_to_it_go() {
 		// #948: Horns of Nez'ra (2358) is not in the game on Forever; Alther's Mill (2282) named it as
 		// its follow-up.
@@ -2321,6 +2412,20 @@ mod tests {
 		let has = |s: &str| f.iter().any(|x| x.contains(s));
 		assert!(has("warning m quests.10.kinds[0].kind: teleport is not a kind"), "{f:#?}");
 		assert!(has("error m quests.10.steps[0].fact"), "{f:#?}");
+	}
+
+	#[test]
+	fn a_leftout_record_names_the_quest_the_guide_and_why() {
+		let o = r##"{ "overrides": { "leftout": [{ "q": 10, "guide": "forever/horde/x", "reason": "slow", "issue": "#2635" }, { "q": 5, "reason": "" },
+			{ "q": 10, "guide": "forever/horde/x", "reason": "again" }, { "q": 10, "guide": "forever/horde/y", "reason": "r", "why": "x" }] } }"##;
+		let f = findings(None, None, Some(o));
+		let has = |s: &str| f.iter().any(|x| x.contains(s));
+		assert!(!has("leftout[0]"), "a full record is fine: {f:#?}");
+		assert!(has("overrides.leftout[1].q: no quest 5 in the data"), "{f:#?}");
+		assert!(has("overrides.leftout[1].guide: guide is required"), "{f:#?}");
+		assert!(has("overrides.leftout[1].reason: reason is required"), "{f:#?}");
+		assert!(has("warning o overrides.leftout[2]: quest 10 in \"forever/horde/x\" is already in leftout"), "{f:#?}");
+		assert!(has("overrides.leftout[3]"), "an unknown key: {f:#?}");
 	}
 
 	#[test]

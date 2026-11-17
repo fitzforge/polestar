@@ -275,6 +275,6 @@ fn cost_a_tooltip_show_stays_under_1_ms_cold_and_cached_per_item_spec_and_level(
 	let cold = t["cold"].as_f64().unwrap();
 	let warm = t["warm"].as_f64().unwrap();
 	println!("tooltip show: {cold:.4} ms cold, {warm:.4} ms cached");
-	assert!(cold < 1.0, "cold {cold} ms");
-	assert!(warm < 1.0, "cached {warm} ms");
+	forge_addontest::assert_timing!(cold < 1.0, "cold {cold} ms");
+	forge_addontest::assert_timing!(warm < 1.0, "cached {warm} ms");
 }

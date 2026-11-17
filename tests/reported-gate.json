@@ -308,7 +308,9 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/codex.rs", "test": "mergecodex_a_guard_recorded_on_a_city_map_and_on_the_zone_that_holds_it_is_placed_in_the_city_382" }
 		] },
 		"385": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Bashidian Twotao's report (#385): a quest drop from droppers of several level bands leads to the low ones' camp, not over the whole zone" }
+			{ "node": "tests/guides-reported.test.js", "test": "Bashidian Twotao's report (#385): a quest drop from droppers of several level bands leads to the low ones' camp, not over the whole zone" },
+			{ "seed": "Bashidian Twotao's report (#385): a quest drop from droppers of several level bands leads to the low ones' camp, not over the whole zone" },
+			{ "cargo": "forge-guide", "target": "guide", "file": "rust/crates/forge-guide/tests/guide/recorded_areas.rs", "test": "an_author_s_point_in_a_camp_near_a_spawn_a_well_backed_spot_holds_stays_the_place_385" }
 		] },
 		"390": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/qol.rs", "test": "death_resurrection_sickness_is_forever_s_ten_minutes_from_level_11_or_what_the_game_last_gave_at_that_level_390" }
@@ -320,6 +322,9 @@
 		"392": { "tests": [
 			{ "node": "tests/guides-caves.test.js", "test": "Onrevax (#392): the Whispering Elixir bottles are in the basement under Shadowvale's ruined house" },
 			{ "seed": "Onrevax (#392): the Whispering Elixir bottles are in the basement" }
+		] },
+		"394": { "tests": [
+			{ "node": "tests/data-corrections.test.js", "test": "corrections give dungeon quests their Forever XP over the Classic QuestXP (#394)" }
 		] },
 		"395": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "Phear's report (#395): on Zephras Isle, The Wounds of Betrayal and Standing Our Ground lead to each objective, in both guides" },
@@ -360,6 +365,9 @@
 		] },
 		"453": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "Nittepitte's report (#453): Making Do is optional in Redridge and on the way back through Auberdine, and taken only after Expanding Horizons is handed in" }
+		] },
+		"462": { "tests": [
+			{ "node": "tests/data-corrections.test.js", "test": "MgM's report: the corrections leave Nalpak and Verna Furlbrow as the only givers, not the mailboxes (#462)" }
 		] },
 		"504": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "Trouble in the Valley (#504): the step at Corporal Adamore's camp says his marines come together" }
@@ -461,6 +469,9 @@
 		"688": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/gamepad.rs", "test": "with_the_gamepad_interface_a_quest_button_binds_in_the_interface_s_own_binding_context_and_the_other_bindings_stay" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/qol.rs", "test": "secure_buttons_key_label_names_the_key_that_runs_it_in_play_from_the_gamepad_module" }
+		] },
+		"703": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#703: quests whose objectives are away from the giver lead to each objective" }
 		] },
 		"776": { "tests": [
 			{ "cargo": "polestar-recording", "target": "lib", "file": "rust/crates/polestar-recording/src/install.rs", "test": "a_picked_install_is_the_same_folder_as_the_found_one" },
@@ -678,6 +689,11 @@
 		"1026": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_quest_the_codex_gives_no_side_whose_follow_up_is_the_alliance_s_is_never_in_a_horde_pick_up_1026_in_search_of_thaelrid" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_quest_the_codex_gives_no_side_takes_the_quest_database_s_the_horde_never_picks_up_an_alliance_quest_from_a_giver_of_no_faction_1026" }
+		] },
+		"1031": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/profiles.rs", "test": "export_then_import_round_trips_exactly_with_and_without_the_client_s_encoder" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/profiles.rs", "test": "an_apply_s_undo_puts_the_profile_back_or_takes_the_new_profile_away" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/profiles.rs", "test": "a_malformed_or_hostile_string_is_refused_and_changes_nothing" }
 		] },
 		"1053": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "a_turn_in_set_in_the_barrens_walked_to_from_thunder_bluffs_flight_master_arrives_beside_hamuul_runetotem_never_back_to_the_lift_1053" },
@@ -1240,6 +1256,9 @@
 		"1958": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "#190, #297, #1958, #1808: profession guides craft and learn what Forever's trainers teach" }
 		] },
+		"1985": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "Dustwallow Marsh (Horde): the venom-sac goal says every Darkfang spider drops them, in the guide and its record (#1985)" }
+		] },
 		"1992": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "Archmage Tervosh and Lady Jaina stand in Theramore's tower; the Missing Diplomat spots are no spawns of theirs (#1992)" }
 		] },
@@ -1353,7 +1372,50 @@
 		] },
 		"2563": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "#2563: Wetlands (Alliance): Fall of Dun Modr is taken on its own step, only while A Grim Task is not handed in" }
+		] },
+		"2612": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2612: quests handed in at an object are never handed in to their giver" }
+		] },
+		"2575": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2575: Riverglades (Alliance): the Loose Soil goal says to loot the Farmers' Mementos from the Twilight Raiders first" }
+		] },
+		"2615": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2615: Thousand Needles (Horde): Test of Faith's leap points at the end of the planks" }
+		] },
+		"2650": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2650: Hillsbrad (Horde): Citizen Wilkes is looked for on the west side of the town" }
+		] },
+		"2604": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2604: Stranglethorn (Alliance): Skullsplitter Tusks are looked for in the trolls' camp at Zul'Mamwe" }
+		] },
+		"2606": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/lookup.rs", "test": "a_quest_lookup_opens_the_class_guide_that_lists_it_2606" }
+		] },
+		"2588": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-arrow-look.rs", "test": "the_backing_plate_is_as_wide_as_the_widest_line_it_backs_2588" }
+		] },
+		"2589": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/ui-look-toasts.rs", "test": "the_essentials_tracker_band_keeps_its_height_when_the_pointer_picks_a_shorter_one_2589" }
+		] },
+		"2582": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "an_ender_who_stands_only_inside_a_dungeon_is_its_entrance_2582" }
+		] },
+		"2619": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-sections.rs", "test": "a_profession_guide_starts_at_the_player_s_skill_asks_only_for_what_is_still_needed_and_keeps_a_missing_rank" }
+		] },
+		"2614": { "tests": [
+			{ "node": "tests/placeholder-names.test.js", "test": "#2614: no guide pack shows the game's placeholder names (\"[DNT] Kill Credit\", \"PvP Tower Credit Marker\", \"Trigger Ichman\")" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/placeholders.rs", "test": "a_goal_on_a_credit_target_reads_as_its_quest_log_line_never_kill_the_placeholder" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/placeholders.rs", "test": "lookups_quest_step_never_names_a_credit_target" }
 		] }
 	},
-	"seedDrift": {}
+	"seedDrift": {
+		"forever/alliance/dwarf/01-dun-morogh.guide: Tom's report: the arrow reaches the Grizzled Den (Frosthowl) through its mouth at 42.57,54.68": "The guides-reported case for the Grizzled Den's mouth (tests/guides-reported.test.js CAVES, the 0.4.0 level tidy) now takes Frosthowl's fish on the shipments' one visit through the same mouth; the seed still asserts the earlier second visit from Brewnall.",
+		"forever/alliance/dwarf/01-dun-morogh.guide: thmastin's report: Grik'nir comes after Anvilmar, and the journal and Nori's mug are handed in on one camp visit": "The guides-reported case of the same name follows the 0.4.0 Dun Morogh order of each start's own guide and passes; the seed still asserts the shared dwarf-gnome guide's order.",
+		"forever/alliance/dwarf/01-dun-morogh.guide: thmastin's report: Sten's quests and the class letter are taken before Balir, then Anvilmar is entered once": "The guides-reported case of the same name reads the class letters per class in the per-race guides and passes; the seed still looks for the shared guide's letter accept.",
+		"forever/alliance/dwarf/01-dun-morogh.guide: thmastin's report: Kharanos is done outside first (Eric before Tharek), then the distillery, training last": "The guides-reported case of the same name follows the 0.4.0 Kharanos stop and passes; the seed still asserts the shared guide's bind step.",
+		"forever/alliance/dwarf/01-dun-morogh.guide: thmastin's report: The Reports is taken from Senir with Frostmane Hold and handed to the senator on the way to the tram": "The guides-reported case of the same name follows the 0.4.0 way to the tram and passes; the seed still looks for the shared guide's Deeprun Tram step.",
+		"forever/alliance/dwarf/01-dun-morogh.guide: thmastin's report: kills on the way are counted on the way and finished after": "The guides-reported case of the same name follows the 0.4.0 steps for Rime's Wrath and Treacherous Cold and passes; the seed still asserts the shared guide's step.",
+		"Phear's report: a kill or collect leads to the camp that holds its mobs, not a stray one or two far from it": "The guides-reported case of the same name lists the Minion's Scourgestones in the guides that take them since 0.4.0 (Eastern Plaguelands for the Horde) and passes; the seed still looks for them in the Alliance Winterspring guide."
+	}
 }
