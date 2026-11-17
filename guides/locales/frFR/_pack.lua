@@ -26,5 +26,5 @@ return {
 	["Reputation · Cities"] = "Réputation · Villes",
 	["Reputation · Raids and dungeons"] = "Réputation · Raids et donjons",
 	["Reputation · World"] = "Réputation · Monde",
-	["The Drowned City"] = "",
+	["The Drowned City"] = "La Cité Submergée",
 }
