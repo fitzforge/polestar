@@ -3161,6 +3161,60 @@ fn darkcloud_pinnacle_from_the_great_lifts_top_the_route_to_lakota_windsong_walk
 	}
 }
 
+// Two reports from 0.3.7.2 on Darkcloud Pinnacle (Thousand Needles), Horde at level 30. #2391: on the pinnacle, the
+// route to the Document Chest up on its mesas went down the lift to the ground under them. #2292: from the Great
+// Lift's top, the route to the Grimtotem camps by Arnak Grimtotem went into the Barrens and back again. Since 0.4.0's
+// walking maps (the pinnacle's paths and bridges joined) the route walks on across the mesas: never a lift, never the
+// crossing back into the Barrens, and the arrow's own walk to the chest stays up on the pinnacle.
+#[test]
+fn darkcloud_pinnacle_the_routes_to_the_document_chest_and_the_grimtotem_camps_keep_to_the_mesas_never_down_a_lift_2391_2292() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.setLevel(30)
+		w.faction = "Horde"
+		local function plan(map, x, y, z, tx, ty, label)
+			N.SetTarget(nil)
+			w.moveTo(map, x, y)
+			w.z = z
+			for _ = 1, 10 do aim(); stub.advance(0.05) end
+			for i = #finds, 1, -1 do finds[i] = nil end
+			N.SetTarget(1441, tx, ty, label, "e")
+			for _ = 1, 300 do aim(); stub.advance(0.05) end
+			local out, L, ci = {}, N.GetRoute()
+			for i = ci or 1, #(L or {}) do
+				local l = L[i]
+				out[#out + 1] = l.kind .. "|" .. tostring(l.label) .. (l.crossing and ("|" .. l.crossing) or "")
+			end
+			-- The lowest point of the arrow's own walks (searched from where the player stands).
+			local low
+			for _, rec in ipairs(finds) do
+				for _, pt in ipairs(rec.points or {}) do
+					if pt.z and (not low or pt.z < low) then low = pt.z end
+				end
+			end
+			return { legs = out, low = low or false }
+		end
+		emit({
+			chest = plan(1441, 38.11, 26.87, 83, 39.34, 41.53, "Document Chest"),
+			camps = plan(1413, 44.77, 90.53, 90, 35.0, 31.5, "Grimtotem camps"),
+			mesa = plan(1441, 38.11, 26.87, 83, 35.0, 31.5, "Grimtotem camps"),
+		})"#,
+		true,
+	);
+	for (k, label) in [("chest", "walk|Document Chest"), ("camps", "walk|Grimtotem camps"), ("mesa", "walk|Grimtotem camps")] {
+		let l = strs(&out[k]["legs"]);
+		assert!(l.last().is_some_and(|x| x == label), "{k}: the route ends with the walk there ({l:?})");
+		assert!(!l.iter().any(|x| x.starts_with("lift|")), "{k}: never a lift ({l:?})");
+		assert!(!l.iter().any(|x| x.starts_with("walk|Walk to The Barrens")), "{k}: never back into the Barrens ({l:?})");
+	}
+	// From the lift's top the crossing into Thousand Needles once; on the pinnacle, none.
+	let crossing = |k: &str| strs(&out[k]["legs"]).iter().filter(|x| x.ends_with("|carbonite-the-barrens--thousand-needles")).count();
+	assert!(crossing("camps") <= 1, "from the lift's top: across once");
+	assert_eq!((crossing("chest"), crossing("mesa")), (0, 0), "on the pinnacle: no crossing");
+	assert!(f(&out["chest"]["low"]) > 70.0, "the arrow's walk to the chest stays on the pinnacle (lowest {})", out["chest"]["low"]);
+}
+
 // #1543's near walk where the walking engine finds it long or none (the 0.3.7 border sweep's worst pairs): the route
 // keeps the crossing's way, as before #1543. A Horde player at level 30 on Alterac's ridge, 395 yd above a goal in the
 // Undercity (no walk joins them: the unchecked near walk flipped the arrow 127 times between itself and the crossing),
