@@ -18,7 +18,7 @@
 // facts = { maps: instanceMapsOf rows (journal.js), encounters: { mapId: [ { id, name, order } ] },
 //   recMin: { mapId: level }, entry: { mapId: level }, era: Set(mapId)|null, lfgNames: [normalised names] }
 // Instance = { key, name, kind, forever, areaId, map, entrance, levels: [entry, min, max], bosses: [ Boss ] }
-// Boss = { name, npc|null, items, object?, role?, encounter? }: object a chest's object id
+// Boss = { name, npc|null, items, loot?, object?, role?, encounter? }: object a chest's object id
 //   (a chest boss: npc null, unless an encounter has both); role
 //   'rare' | 'event' | 'optional' on the bosses after the encounters (none on
 //   an encounter's); encounter the DungeonEncounter id of an encounter's boss
@@ -77,6 +77,8 @@
 //                droppers), and its Forever drops: its own table at any rate,
 //                the world-drop pool (`commondrop`) at MIN_LOOT% or more. Its
 //                own table first, then that pool, each best chance first.
+//                The journal's loot keeps gear, recipes and collectibles from
+//                sources that belong to the encounter, including rare drops.
 
 const fs = require('node:fs');
 const path = require('node:path');
@@ -91,6 +93,17 @@ const BOSS_LOOT_CAP = 30;
 const ORIGINAL_MAPS = 1000;
 const MAX_LEVEL = 60;
 const SKIP_MAP = /^(?:<unused>|Test Dungeon|CashTest)|\bTest\b/i;
+
+function journalItem(client, item) {
+	if (item?.questItem) return false;
+	switch (client?.classId) {
+		case 1: case 9: return true; // Bags and recipes.
+		case 2: case 4: return client.inventoryType !== 0 && (client.quality == null || client.quality >= 1);
+		case 15: return client.subclassId === 5 || (client.subclassId === 2 && client.learn != null); // Mounts and pets.
+		case undefined: case null: return /^(?:Recipe|Pattern|Plans|Schematic|Formula|Design|Technique): /.test(item?.name || '');
+		default: return false;
+	}
+}
 
 const num = (v) => {
 	const n = Number(v);
@@ -267,15 +280,30 @@ function buildInstances(facts, ctx = {}) {
 	const spawnlessNames = Object.keys(byName).filter((k) => byName[k].some((id) => spawnless(npcsIn[id])));
 	// Forever's `commondrop` rows of an NPC: the world-drop pool it shares
 	// (books, world blues, gems), not its own loot table.
-	const whCommon = new Set(); // `${npc}|${item}`
-	for (const [npc, w] of Object.entries((ctx.web && ctx.web.npc) || {})) for (const d of w.drops || []) if (d.common) whCommon.add(`${npc}|${d.item}`);
+	const whNpc = (ctx.web && ctx.web.npc) || {};
+	const whObject = (ctx.web && ctx.web.object) || {};
+	const whCommon = new Set(); // `${kind}${source}|${item}`
+	for (const [kind, table] of [['n', whNpc], ['o', whObject]]) {
+		for (const [source, w] of Object.entries(table)) for (const d of w.drops || []) if (d.common) whCommon.add(`${kind}${source}|${d.item}`);
+	}
+	const quality = (id) => ctx.client?.items?.[id]?.quality;
+	const journalLootOf = {};
+	const addJournal = (source, id, chance) => {
+		const item = ctx.client?.items?.[id];
+		const client = item?.classId != null ? item : ctx.client?.itemOnly?.[id];
+		if (Number.isInteger(id) && id > 0 && journalItem(client, itemsIn[id])) {
+			(journalLootOf[source] = journalLootOf[source] || []).push([id, chance, false]);
+		}
+	};
 	const lootOf = {}; // npc -> [[item, chance, common]]
 	for (const [id, it] of Object.entries(itemsIn)) {
 		for (const [npc, chance] of Object.entries((it.drops && it.drops.npc) || {})) {
 			// null: a known dropper at an unknown rate (pfQuest reference loot, QuestieDB).
 			const c = chance === null ? null : Number(chance);
+			const common = whCommon.has(`n${npc}|${id}`);
+			if (!common && (c === null || c > 0)) addJournal(`n${npc}`, Number(id), c);
 			if (c !== null && !(c >= MIN_LOOT)) continue;
-			(lootOf[npc] = lootOf[npc] || []).push([Number(id), c, whCommon.has(`${npc}|${id}`)]);
+			(lootOf[npc] = lootOf[npc] || []).push([Number(id), c, common]);
 		}
 	}
 
@@ -283,16 +311,17 @@ function buildInstances(facts, ctx = {}) {
 	// table at any rate (a boss's recipes and rare pieces drop well under 1%:
 	// Thermaplugg's schematics, Dextren Ward's plans), the world-drop pool at
 	// MIN_LOOT% or more.
-	for (const [npc, w] of Object.entries((ctx.web && ctx.web.npc) || {})) {
+	for (const [npc, w] of Object.entries(whNpc)) {
 		for (const d of w.drops || []) {
 			const c = Math.round((d.count / d.outof) * 10000) / 100;
+			if (!d.common && d.count > 0 && Number.isFinite(c)) addJournal(`n${npc}`, d.item, c);
 			if (!d.common || c >= MIN_LOOT) (lootOf[npc] = lootOf[npc] || []).push([d.item, c, d.common]);
 		}
 	}
 	// item -> npcs dropping it (any rate): an item one NPC alone drops is its own loot.
 	const droppers = {};
 	for (const [id, it] of Object.entries(itemsIn)) for (const npc of Object.keys((it.drops && it.drops.npc) || {})) (droppers[id] = droppers[id] || new Set()).add(Number(npc));
-	for (const [npc, w] of Object.entries((ctx.web && ctx.web.npc) || {})) for (const d of w.drops || []) if (!d.common) (droppers[d.item] = droppers[d.item] || new Set()).add(Number(npc));
+	for (const [npc, w] of Object.entries(whNpc)) for (const d of w.drops || []) if (!d.common) (droppers[d.item] = droppers[d.item] || new Set()).add(Number(npc));
 	// A boss's items from its [item, chance, common] rows: the best chance per
 	// item; its own table first (items no row puts in Forever's world-drop
 	// pool, so Onyxia's Sacks of Gems are not crowded out by world blues), then
@@ -312,10 +341,7 @@ function buildInstances(facts, ctx = {}) {
 			.slice(0, BOSS_LOOT_CAP)
 			.map(([id]) => id);
 	};
-	const quality = ctx.quality || (() => null);
 	const objectsIn = ctx.objects || {};
-	const whNpc = (ctx.web && ctx.web.npc) || {};
-	const whObject = (ctx.web && ctx.web.object) || {};
 	// Objects: [item, chance] rows (items.json, Forever's data), and who else yields
 	// an item (npcs by id, objects by name: one chest has several ids).
 	const objLootOf = {};
@@ -326,14 +352,18 @@ function buildInstances(facts, ctx = {}) {
 		for (const [obj, chance] of Object.entries((it.drops && it.drops.object) || {})) {
 			(yielders[id] = yielders[id] || new Set()).add(objKey(obj));
 			const c = chance === null ? null : Number(chance);
+			if ((c === null || c > 0) && !whCommon.has(`o${obj}|${id}`)) addJournal(`o${obj}`, Number(id), c);
 			if (c === null || c >= MIN_LOOT) (objLootOf[obj] = objLootOf[obj] || []).push([Number(id), c]);
 		}
 	}
 	for (const [npc, w] of Object.entries(whNpc)) for (const d of w.drops || []) if (!d.common) (yielders[d.item] = yielders[d.item] || new Set()).add(`n${npc}`);
 	for (const [obj, w] of Object.entries(whObject)) {
 		for (const d of w.drops || []) {
-			if (!d.common) (yielders[d.item] = yielders[d.item] || new Set()).add(objKey(obj));
 			const c = Math.round((d.count / d.outof) * 10000) / 100;
+			if (!d.common) {
+				(yielders[d.item] = yielders[d.item] || new Set()).add(objKey(obj));
+				if (d.count > 0 && Number.isFinite(c)) addJournal(`o${obj}`, d.item, c);
+			}
 			if (c >= MIN_LOOT) (objLootOf[obj] = objLootOf[obj] || []).push([d.item, c, !!d.common]);
 		}
 	}
@@ -464,6 +494,7 @@ function buildInstances(facts, ctx = {}) {
 			frames: ctx.frames || {},
 			prefer: Object.values(zonesIn).filter((z) => z.areaId && (m.zones || []).includes(z.areaId)).map((z) => z.id),
 		});
+		const bossSources = new Set(bosses.flatMap((b) => [...b.npcs.map((id) => `n${id}`), ...(b.object ? [objKey(b.object)] : [])]));
 		instances[key] = {
 			key,
 			name: m.name,
@@ -473,8 +504,14 @@ function buildInstances(facts, ctx = {}) {
 			map: m.id,
 			entrance,
 			levels,
-			// The old shape { name, npc, items }, plus object (a chest boss), role and encounter (its DungeonEncounter id) when set.
-			bosses: bosses.map(({ name, npc, object, items, role, encounter }) => ({ name, npc, items, ...(object ? { object } : {}), ...(role ? { role } : {}), ...(encounter ? { encounter } : {}) })),
+			bosses: bosses.map(({ name, npc, npcs, object, items, role, encounter }) => {
+				const npcKeys = npcs.map((id) => `n${id}`);
+				const chest = object && objKey(object);
+				const chestIds = chest ? objectsInside.filter((id) => objKey(id) === chest) : [];
+				const rows = [...npcKeys, ...chestIds.map((id) => `o${id}`)].flatMap((k) => journalLootOf[k] || []);
+				const loot = bossItems(rows.filter(([item]) => [...yielders[item]].every((k) => bossSources.has(k))));
+				return { name, npc, items, ...(loot.length ? { loot } : {}), ...(object ? { object } : {}), ...(role ? { role } : {}), ...(encounter ? { encounter } : {}) };
+			}),
 		};
 	}
 	// Every NPC placed in an instance (bosses first).

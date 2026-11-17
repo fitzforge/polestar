@@ -107,12 +107,13 @@ end
 -- Hearth, Polestar_Looks, load on demand but are part of every release); the
 -- walking routes (Polestar_Nav), the Skin API's checks (Polestar_SkinAPI:
 -- only another addon's skin needs them, and says so when they are missing),
+-- Freedoom Arcade (Polestar_Arcade: without it there is no game to offer),
 -- quest and item packs and the language folder of the client's language
 -- (Names.PackName(), none in English) are optional (the arrow falls back to
 -- straight lines, the interface, names and guide texts to English; a source
 -- install may not build the packs), but when present they must be the same
 -- version.
-local COMPANIONS = { "Polestar_Guides", "Polestar_Codex", "Polestar_Options", "Polestar_Looks", "Polestar_Nav", "Polestar_SkinAPI", "Polestar_QuestDB", "Polestar_ItemDB" }
+local COMPANIONS = { "Polestar_Guides", "Polestar_Codex", "Polestar_Options", "Polestar_Looks", "Polestar_Nav", "Polestar_SkinAPI", "Polestar_Arcade", "Polestar_QuestDB", "Polestar_ItemDB" }
 local REQUIRED = { Polestar_Guides = true, Polestar_Codex = true, Polestar_Options = true, Polestar_Looks = true }
 
 local function installed(name)

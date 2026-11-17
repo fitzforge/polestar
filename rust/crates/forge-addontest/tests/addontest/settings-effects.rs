@@ -52,6 +52,7 @@ const GROUPS: &[Group] = &[
 	Group { name: "theme", src: include_str!("effects/theme.lua") },
 	Group { name: "guidewindow", src: include_str!("effects/guidewindow.lua") },
 	Group { name: "integrations", src: include_str!("effects/integrations.lua") },
+	Group { name: "integrations_arcade", src: include_str!("effects/integrations-arcade.lua") },
 	Group { name: "discovery", src: include_str!("effects/discovery.lua") },
 	Group { name: "discovery_lookup", src: include_str!("effects/discovery-lookup.lua") },
 	Group { name: "discovery_dungeons", src: include_str!("effects/discovery-dungeons.lua") },
@@ -574,6 +575,11 @@ fn guidewindow() {
 #[test]
 fn integrations() {
 	check("integrations");
+}
+
+#[test]
+fn integrations_arcade() {
+	check("integrations_arcade");
 }
 
 #[test]

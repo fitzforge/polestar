@@ -74,3 +74,34 @@ fn the_step_s_use_item_glows_in_the_bags_the_next_step_s_quest_item_takes_over_o
 	assert_eq!(out[1], json!([5]), "the fang the step collects");
 	assert!(is_empty(&out[2]), "nothing glows");
 }
+
+// The client sends QUEST_LOG_UPDATE for much that leaves the log as it was (several per kill, some per loot). The
+// bag glow and the quest buttons each read the step's view on it (about half a millisecond each, #2537): now only
+// when what they read of the log (the step's quests, the While-here line's, how many quests the log holds) changed.
+// A count of the step's quest that moves still refreshes them on the next frame; so does an accept.
+#[test]
+fn a_quest_log_update_that_changes_nothing_the_step_reads_refreshes_no_step_item() {
+	let out = run(r#"
+		w.onQuest(882, { { required = 3 } }); w.onQuest(999, { { required = 5 } })
+		stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)
+		local n = 0
+		local current = Polestar.QoL.CurrentStep
+		Polestar.QoL.CurrentStep = function(...) n = n + 1; return current(...) end
+		-- Each phase from rest (the Engine's evaluation of the phase before and its STEP_UPDATED behind it), counted
+		-- over the frame after it.
+		local function after(fn) stub.advance(0.6); n = 0; fn(); stub.advance(0.05); return n end
+		emit({
+			quiet = after(function() for _ = 1, 3 do stub.fire("QUEST_LOG_UPDATE") end end),
+			elsewhere = after(function() w.progress(999, 1, 2) end),
+			counted = after(function() w.progress(882, 1, 1) end),
+			again = after(function() stub.fire("QUEST_LOG_UPDATE") end),
+			accepted = after(function() w.onQuest(1000, { { required = 1 } }); stub.fire("QUEST_LOG_UPDATE") end),
+		})
+	"#);
+	let out = &out[0];
+	assert_eq!(out["quiet"], 0, "three updates that change nothing: no refresh");
+	assert_eq!(out["elsewhere"], 0, "a quest the step doesn't name: no refresh");
+	assert!(out["counted"].as_i64().unwrap() >= 1, "the step's count moved: refreshed next frame ({})", out["counted"]);
+	assert_eq!(out["again"], 0, "the same count once more: no refresh");
+	assert!(out["accepted"].as_i64().unwrap() >= 1, "a quest more in the log: refreshed ({})", out["accepted"]);
+}

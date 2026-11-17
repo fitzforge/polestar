@@ -9,9 +9,9 @@ return {
 	-- Step 1: Bloodsail pirates
 	["Bloodsail pirates"] = "血帆海盜",
 	-- {area:43} Wild Shore · {area:35} Booty Bay
-	["Every Bloodsail pirate on the Stranglethorn coast (level 39-45) can drop it, but only about once in 5,000 kills; the Swabbies on the ships off the southern tip, about once in 2,500. That is a grind of many hours, so most players kill pirates while doing something else there, or buy the cage on the Auction House. The waypoint is the Swashbucklers' and Warlocks' camp on the {area:43}, south of {area:35}. Every pirate kill also lowers your Bloodsail Buccaneers standing."] = "",
+	["Every Bloodsail pirate on the Stranglethorn coast (level 39-45) can drop it, but only about once in 5,000 kills; the Swabbies on the ships off the southern tip, about once in 2,500. That is a grind of many hours, so most players kill pirates while doing something else there, or buy the cage on the Auction House. The waypoint is the Swashbucklers' and Warlocks' camp on the {area:43}, south of {area:35}. Every pirate kill also lowers your Bloodsail Buccaneers standing."] = "荊棘谷海岸的每個血帆海盜（39到45級）都可能掉落，但約每5,000次擊殺才掉一次；南端外海船上的血帆水手約每2,500次。這是要刷很多小時的苦活，所以大多數玩家會在那邊做別的事時順手殺海盜，或者直接在拍賣行買籠子。路徑點設在{area:43}的血帆狂徒和術士營地，位於{area:35}以南。每殺一個海盜還會降低你的血帆海盜團聲望。",
 	-- {area:43} Wild Shore
-	["Bloodsail camp, the {area:43}"] = "",
+	["Bloodsail camp, the {area:43}"] = "血帆營地，{area:43}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Bloodsail camps"] = "血帆營地",

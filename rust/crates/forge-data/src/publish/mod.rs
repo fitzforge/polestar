@@ -164,6 +164,9 @@ pub fn public_build_options(root: &Path, sources: &Path, questie: bool, empty_co
 	o.sources = sources.to_path_buf();
 	o.web_xp = false;
 	o.web_zones = false;
+	// No corrections here, and no objective text ships in the public tables (#2614's words come from
+	// corrections): the placeholder check is the full build's.
+	o.placeholder_guard = false;
 	o.corrections = empty_corrections.to_path_buf();
 	o.questie = if questie { crate::questie::detect_questie() } else { None };
 	let defs = o.sources.join("wowdbdefs");
@@ -261,6 +264,15 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Summary, String> {
 			log(&format!("CMaNGOS classic-db sqlite: {}", p.display()));
 			inputs::load_cm_db(p, &mut cmv)?;
 			have_cm = true;
+		}
+		// The maintainer's full release (with the KB) never goes out without CMaNGOS's loot: 2,995
+		// item_source rows left a 2026.11.2 candidate when its build tree lacked cm.db (#2585). A
+		// build without a KB (CI, contributors), or one that passes no path, notes it only.
+		None if o.kb.is_file() && o.cmangos.is_some() => {
+			return Err(format!(
+				"the CMaNGOS classic-db sqlite {} is missing: its loot rows (item sources and chances) would leave the release; pass --cmangos <cm.db>",
+				o.cmangos.as_ref().unwrap().display()
+			))
 		}
 		None => notes.push("no CMaNGOS classic-db sqlite: no loot chances, object or item names from it".into()),
 	}

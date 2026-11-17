@@ -208,9 +208,27 @@ L["Repair before heading out: gear at %d%%"] = "出發前修理：裝備耐久�
 L["The guide heads out of town next and your gear is worn: repair it here before it breaks."] = "指南接下來將離開城鎮，而你的裝備已磨損：請在損壞前於此修理。"
 L["Sell before heading out: %s"] = "出發前販賣：%s"
 L["The guide heads out of town next and your bags are nearly full: sell what you don't need here."] = "指南接下來將離開城鎮，而你的背包快滿了：請在此賣掉不需要的物品。"
+L["Pays %d%% XP at your level and is out of the way (Skip grey quests)"] = "在你的等級只給 %d%% 經驗，且不順路（跳過灰色任務）"
+L["Grey for you: pays %d%% XP (Skip grey quests)"] = "對你是灰色：只給 %d%% 經驗（跳過灰色任務）"
+-- L["Put in the bank"] = ""
+-- L["Take off"] = ""
+-- L["Equip"] = ""
+-- L["Reach %d points into %s with"] = ""
+-- L["Lose"] = ""
+-- L["Gain"] = ""
+L["Journeyman %s"] = "中級%s"
+L["Expert %s"] = "高級%s"
+L["Artisan %s"] = "專家級%s"
+-- L["Not offered by %s: you can take %s without it"] = ""
+-- L["Your Hearthstone is bound to %s, not %s: ride to the inn"] = ""
+-- L["No Hearthstone in your bags: ride to the inn"] = ""
+-- L["Hearthstone ready in %s: ride to the inn, or wait for it"] = ""
+-- L["Ride to %s"] = ""
+-- L["Ride to the flight master"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "選擇一項獎勵以完成繳交。"
+-- L["%s is an escort: it starts as soon as it is taken. Accept it yourself when your group is ready."] = ""
 
 -- Core/Commands.lua
 L["Toggle guide window"] = "切換指南視窗"
@@ -434,6 +452,17 @@ L["Detour around %s"] = "繞開%s"
 L["Walk to the airship dock"] = "走到飛艇碼頭"
 L["Take the airship to %s"] = "搭飛艇前往 %s"
 L["Learn the flight path at %s, then fly to %s"] = "在%s學習飛行路線，然後飛往 %s"
+-- L["Ride to the boat"] = ""
+-- L["Ride to the zeppelin tower"] = ""
+-- L["Ride to the airship dock"] = ""
+-- L["Ride to the Deeprun Tram"] = ""
+-- L["Ride to the portal"] = ""
+-- L["Ride to the %s cave mouth"] = ""
+-- L["Ride to the %s entrance"] = ""
+-- L["Ride to the cave mouth in %s"] = ""
+-- L["Ride to the entrance in %s"] = ""
+-- L["Ride to the cave mouth"] = ""
+-- L["Ride to the entrance"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -512,6 +541,7 @@ L["Arrows"] = "箭"
 L["Bullets"] = "子彈"
 L["Bows & guns"] = "弓與槍"
 L["Mailbox"] = "郵箱"
+-- L["Transmogrifier"] = ""
 
 -- Nav/Prompts.lua
 L["Right-click to skip this leg."] = "右鍵點擊以跳過這一段。"
@@ -609,6 +639,11 @@ L["The size of every quest marker on the world map and the minimap."] = "世界�
 L["Timed quest alerts"] = "限時任務提醒"
 L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] = "限時任務剩下 5 分鐘時、剩下 1 分鐘時以及失敗時，在聊天框顯示一行提示並播放音效。指南視窗一律顯示剩餘時間。"
 L["Party chat"] = "隊伍聊天"
+-- L["On a mob that drops a quest item you still need, or an object it comes out of, show how often."] = ""
+L["Quest givers and turn-ins"] = "任務發布者與繳交"
+-- L["On an NPC, name the quests it has for you now and the finished quests you can hand in to it."] = ""
+L["Replace the game's quest lines"] = "取代遊戲的任務行"
+-- L["On mobs and objects, leave out the game's own lines for the quests these tooltips name, so each quest shows once. In a group the game's lines stay: they show your party's progress."] = ""
 
 -- Quests/Party.lua
 L["%s done"] = "%s 已完成"
@@ -753,6 +788,7 @@ L["Best pick"] = "最佳選擇"
 L["Item"] = "物品"
 L["Reward pick"] = "獎勵選擇"
 L["weapon skill not trained"] = "未學習武器技能"
+-- L["Your ranged damage uses this weapon's stats, not its damage"] = ""
 
 -- Gear/Options.lua
 L["Automatic (talents)"] = "自動（天賦）"
@@ -912,6 +948,9 @@ L["Left-click to fold the list to one row."] = "左鍵點擊將清單摺疊為�
 L["Right-click for its settings. Shift-drag to move."] = "右鍵點擊開啟設定。Shift-拖曳以移動。"
 L["Right-click for its settings. Drag to move."] = "右鍵點擊開啟設定。拖曳以移動。"
 L["Targets the first name in the list that is close. Click a name to target that one."] = "選取清單中附近的第一個名字。點擊名字即可選取該目標。"
+-- L["Dragging the Polestar mark in combat places the buttons after the fight."] = ""
+-- L["Press to equip"] = ""
+-- L["Press to equip it."] = ""
 
 -- QoL/XP.lua
 L["Level %d"] = "等級 %d"
@@ -1133,6 +1172,23 @@ L["Lists the quest items you can buy at an auction house instead of farming them
 L["Lists the current step's mobs, or the NPCs it sends you to when it has no mob, with their portraits and what they drop; click a name to target that one. Its key binding targets the first one close by."] = "列出目前步驟的怪物；沒有怪物時列出步驟指引你前往的 NPC，並顯示頭像與掉落物品。點擊名字即可選取該目標。其按鍵會選取附近的第一個。"
 L["Names in the target list"] = "目標清單中的名字數"
 L["How many of the step's mobs the target list shows, in guide order."] = "目標清單依指南順序顯示的步驟怪物數量。"
+L["Completed quest XP"] = "已完成任務的經驗"
+-- L["Shows XP from completed quests you can turn in on the game's XP bar and in its tooltip."] = ""
+-- L["Target list style"] = ""
+-- L["Full rows show each name, what it drops and the goal's count. Slim rows are shorter, with a small face, the name and the count; names only leaves the face out. Portraits show the faces alone, in a column or a row, each with how many are left; hover one for its name."] = ""
+-- L["Full"] = ""
+-- L["Slim"] = ""
+-- L["Names only"] = ""
+-- L["Portraits in a column"] = ""
+-- L["Portraits in a row"] = ""
+-- L["Portraits"] = ""
+-- L["3D draws each creature's model. 2D shows the game's flat portrait once you have seen that one (your target, or its nameplate up), and an icon for what you do with it until then."] = ""
+-- L["3D models"] = ""
+-- L["2D portraits"] = ""
+-- L["Name the one that's close"] = ""
+-- L["With portraits, the name of the one close enough to target shows beside its face in a column, under it in a row (above it when the list goes up over the buttons)."] = ""
+-- L["Equip a spare bag first"] = ""
+-- L["When your bags are nearly full and a bag sits in them while a bag slot is empty, the bag button and the guide window offer to put it on before any junk. Nothing happens until you press."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "僅限聯盟"
@@ -1187,6 +1243,12 @@ L["Enter"] = "進入"
 L["Choose this reward:"] = "選擇此獎勵："
 L["Lookup"] = "查詢"
 L["%s: click through what they say until the quest's line is done."] = "%s：逐頁點完對話，直到該任務目標完成。"
+L["%s: use %s to call it up."] = "%s：使用%s將其召喚出來。"
+L["Use %s to learn it."] = "使用%s來學習。"
+-- L["After an earlier quest"] = ""
+-- L["Chain: finished, %d skipped"] = ""
+-- L["Chain: all %d done"] = ""
+-- L["Chain: %d of %d"] = ""
 
 -- Lookup/Spotter.lua
 L["From"] = "來自"
@@ -1269,6 +1331,7 @@ L["Opens the inner doors of Dire Maul's North and West wings."] = "打開厄運�
 L["Opens Gnomeregan's back door, the Workshop entrance."] = "打開諾姆瑞根的後門，即工作坊入口。"
 L["Opens the doors of the Armory and the Cathedral."] = "打開軍械庫和大教堂的門。"
 L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "開啟部落進入達拉然城的大門；一把鑰匙即可為整個隊伍開門。聯盟則從「咒語與烏鴉」的下水道管線進入。"
+-- L["Rings the gong by the sacred pool in Zul'Farrak to call Gahz'rilla; one mallet does it for the group. Qiaga the Keeper (elite) on top of the Altar of Zul in the Hinterlands drops the Sacred Mallet: use it at the altar at the very top of Jintha'Alor and it becomes the Mallet of Zul'Farrak. Both places are full of elites."] = ""
 
 -- UI/UI.lua
 L["Map %d"] = "地圖 %d"
@@ -1600,6 +1663,16 @@ L["A later guide of your route hands these in: keep them. Click to see each with
 L["No guide of your route takes, works or hands these in. Click to see them and keep or abandon each."] = "路線中沒有任何指南會接取、完成或繳交這些任務。點擊查看，並逐一保留或放棄。"
 L["Click to see its quests in Dungeons"] = "點擊在地城中查看其任務"
 L["Click to open it in Dungeons"] = "點擊在地城中開啟"
+L["Click for a guide to it, through what it needs first"] = "點擊取得前往它的指南，包括需要先完成的任務"
+L["Brings back the quests it leaves out. Options, Automation turns it on again."] = "恢復被略過的任務。可在選項的自動化中重新開啟。"
+L["Click to see them, each with an Abandon button"] = "點擊查看，每個任務都有放棄按鈕"
+L["Too far below the next quests: the guide has you grind to the level they need. Or do what's around you first."] = "離下一批任務的等級太遠：指南讓你打怪升到它們需要的等級。或者先做附近的任務。"
+L["Click to see its step"] = "點擊查看它的步驟"
+L["You're %d: the quests after this are level %s"] = "你是 %d 級：之後的任務是 %s 級"
+L["Worth doing near here: %s"] = "附近值得做的：%s"
+L["%d left out here"] = "此處略過 %d 個"
+L["Left out here"] = "此處略過"
+L["Turn off Skip grey quests"] = "關閉跳過灰色任務"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "前往 %s 的升降梯"
@@ -1805,6 +1878,14 @@ L["Opens Lookup with this search."] = "以此搜尋開啟查詢。"
 L["No guide to this mount yet: the sources above say where it comes from and what it takes. Guide on one leads you there."] = "這個坐騎還沒有指南：上方的來源說明了它從哪裡取得以及需要什麼。指引其中一個來源即可帶你前往。"
 L["Origin"] = "來源"
 L["Builds a guide to %s, the quickest of these to reach, and opens it in a new tab."] = "建立前往 %s（其中最快能抵達的）的指南，並在新分頁開啟。"
+-- L["In your quest log"] = ""
+-- L["You can take it now"] = ""
+-- L["Not yet"] = ""
+-- L["Skipped"] = ""
+-- L["Finished, %d skipped"] = ""
+-- L["All %d done"] = ""
+-- L["Click to open its page."] = ""
+-- L["Then any of: %s"] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "可繳交"
@@ -1932,6 +2013,8 @@ L["best at %d"] = "最適合 %d 級"
 L["Tough at your level"] = "以你的等級較難"
 L["The Dungeons section is turned off. Turn it on under Options > Discovery > Lookup."] = "「地城」區塊已關閉。可在「選項」>「探索」>「查詢」中開啟。"
 L["%d-%d players"] = "%d-%d 名玩家"
+-- L["No boss drops known"] = ""
+-- L["Drops (%d)"] = ""
 
 -- UI/RouteChoice.lua
 L["Right here"] = "就在這裡"
@@ -2062,6 +2145,7 @@ L["For a party levelling together: every one is in the route."] = "適合一起�
 L["Point at a look to see it here; click it to wear it."] = "將滑鼠指向一個皮膚即可在此預覽；點擊即可套用。"
 L["Built in"] = "內建"
 L["Concept looks"] = "概念皮膚"
+L["Leaves out grey quests, and quests behind you that pay less than full XP when going back for them costs more time than they give. A quest still paying full XP stays, and so does one a later quest needs. The guide window says what it left out."] = "略過灰色任務，以及身後經驗不滿額、且回頭去做花的時間比所得更多的任務。仍給滿額經驗的任務會保留，後續任務需要的任務也會保留。指南視窗會說明略過了什麼。"
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "已為你選取：用 Ctrl+C（Mac 為 Cmd+C）複製，然後按 Escape。"
@@ -2121,6 +2205,8 @@ L["Install: %s"] = "安裝：%s"
 L["While here: %s"] = "順道完成：%s"
 L["Travel: %s"] = "旅行：%s"
 L["The report lists the settings you changed and your profile's name: no character names, chat, account or realm."] = "回報會列出你變更過的設定和設定檔名稱：不含角色名稱、聊天、帳號或伺服器。"
+L["Left out here: %d more"] = "此處略過：還有 %d 個"
+L["Left out here: %s"] = "此處略過：%s"
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "已在插件清單中關閉"
@@ -2157,6 +2243,7 @@ L["Read more:"] = "閱讀更多："
 L["Read more: docs/GUIDE_PACKS.md in Polestar's source"] = "閱讀更多：Polestar 原始碼中的 docs/GUIDE_PACKS.md"
 L["Turn on and reload"] = "開啟並重新載入"
 L["Polestar Guides is turned off in the AddOns list, so Polestar has no guides to show. Turn it on for all your characters and reload?"] = "Polestar 指南在插件清單中已關閉，因此 Polestar 沒有可顯示的指南。要為你的所有角色開啟它並重新載入嗎？"
+-- L["Part of Polestar is turned off in the AddOns list (%s), so its settings cannot open. Turn it on for all your characters and reload?"] = ""
 
 -- UI/Options.lua
 L["Recorder"] = "記錄器"
@@ -2221,7 +2308,6 @@ L["Never picks between rewards. Hold Shift to skip."] = "絕不替你選擇獎�
 L["Warn about missable quests"] = "警告可能錯過的任務"
 L["Before you take a quest that closes another for good, says which in chat and leaves the accept to you."] = "在你接受會永久關閉另一個任務的任務前，於聊天中說明是哪一個，並由你決定是否接受。"
 L["Skip grey quests"] = "跳過灰色任務"
-L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."] = "略過灰色任務及其繳交，除非之後的任務需要先完成它們。"
 L["Pick a guide for me"] = "替我選擇指南"
 L["Where to level next"] = "接下來去哪裡升級"
 L["Where a guide offers more than one zone to continue in (/polestar path)."] = "當指南提供多個可繼續的地區時（/polestar path）。"
@@ -2382,7 +2468,6 @@ L["Glyphs only"] = "僅符號"
 L["Use deathskips"] = "使用死亡跑點"
 L["Where dying on purpose and taking the Spirit Healer's resurrection gets you there sooner, the guide shows a step for it. It costs durability and, from level 11, resurrection sickness. Always off on Hardcore characters."] = "當故意死亡並接受靈魂醫者復活能更快抵達時，指南會顯示對應步驟。這會損耗耐久度，且從 11 級起會有復活虛弱。專家模式角色一律關閉。"
 L["Text size"] = "文字大小"
-L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "Polestar 文字的大小，與視窗縮放分開。立即生效。右鍵點擊重置。"
 L["Numbered pins for the steps ahead"] = "後續步驟的編號標記"
 L["A small pin with its step number where each of the next steps takes you, fainter the further ahead. As many as Up next shows, else five."] = "在接下來每個步驟會帶你前往的地點顯示一個附步驟編號的小標記，越後面越淡。數量與「接下來」顯示的相同，否則為五個。"
 L["When a leveling guide ends"] = "升級指南結束時"
@@ -2521,6 +2606,8 @@ L["Sell: fewer free bag slots than"] = "販賣：背包空位少於"
 L["Reminds you to sell when fewer bag slots are free than this, or than the items the next steps collect. 0 counts those items alone."] = "當背包空位少於此數值，或少於接下來步驟要收集的物品數時，提醒你販賣。設為 0 則只計算這些物品。"
 L["Repair: gear worn below"] = "修理：裝備耐久度低於"
 L["Reminds you to repair when a piece of your gear is below this share of its durability. 0: never."] = "當任一件裝備的耐久度低於此比例時，提醒你修理。0：永不提醒。"
+L["play Freedoom Arcade by petllama"] = "玩 petllama 的 Freedoom Arcade"
+L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom by the Freedoom project (BSD License), from the Polestar_Arcade folder."] = "petllama 的 Freedoom Arcade（GPL-2.0 或更新版本）從 Polestar_Arcade 資料夾執行 Freedoom 專案的三個 Freedoom 關卡（BSD 授權）。"
 
 -- Rares/Rares.lua
 L["Raid warning"] = "團隊警告"
@@ -3222,6 +3309,7 @@ L["Marks friendly service NPCs and mailboxes on zone and city maps using Polesta
 L["Shows the enabled NPC service categories on the minimap as well."] = "同時在小地圖上顯示已啟用的 NPC 服務類別。"
 L["Shows trainers for your character's class."] = "顯示你角色職業的訓練師。"
 L["Shows this service category on the map."] = "在地圖上顯示此服務類別。"
+-- L["Transmogrifiers"] = ""
 
 -- UI/GearScales.lua
 L["Strength"] = "力量"
@@ -3368,6 +3456,8 @@ L["Deleted %s."] = "已刪除 %s。"
 L["Free slots: %d of %d"] = "空格：%d / %d"
 L["Cheapest junk: %s (%s)"] = "最便宜的垃圾：%s（%s）"
 L["Free bag slots and the cheapest junk"] = "背包空格與最便宜的垃圾"
+-- L["Equipped %s."] = ""
+-- L["Spare bag: %s"] = ""
 
 -- QoL/Restock.lua
 L["Restock"] = "補貨"
@@ -3463,6 +3553,8 @@ L["%s not found nearby."] = "附近找不到 %s。"
 
 -- Quests/BagMarks.lua
 L["Polestar quest items"] = "Polestar 任務物品"
+-- L["Polestar quest leftovers"] = ""
+-- L["Related quests completed (likely safe to delete)"] = ""
 
 -- Quests/DeleteWarning.lua
 L["Needed for:"] = "所需任務："
@@ -3923,6 +4015,8 @@ L["Button set"] = "按鈕組"
 L["Scale of the quest item, Hearthstone, target and rare buttons. Drag one to move them all. Sizes and layout change once a fight ends."] = "任務物品、爐石、目標與稀有按鈕的縮放。拖曳其中一個即可移動全部。大小與排列在戰鬥結束後變更。"
 L["Direction"] = "方向"
 L["How the set lines up from the quest item button: a column (Hearthstone above, target below) or a row either way. In a row, names read best above or below."] = "按鈕組從任務物品按鈕開始的排列方式：直欄（爐石在上、目標在下）或任一方向的橫列。橫列時，名字放在上方或下方最容易閱讀。"
+L["Target list upward"] = "目標清單向上"
+L["The target list's names go up from the target button instead of down, for buttons near the bottom of the screen."] = "目標清單的名字從目標按鈕向上排列而非向下，適合放在畫面底部的按鈕。"
 L["Column"] = "直欄"
 L["Row"] = "橫列"
 L["Row, reversed"] = "橫列（反向）"
@@ -4119,6 +4213,7 @@ L["Shadow strength"] = "陰影強度"
 L["More looks"] = "更多皮膚"
 L["Game looks"] = "遊戲皮膚"
 L["Polestar looks"] = "Polestar 皮膚"
+-- L["The size of Polestar's text, apart from the window scale. The guide window has its own, on its page. Changes at once. Right-click to reset."] = ""
 
 -- UI/Looks/GuideWindow.lua
 L["Marshal Dughan"] = "治安官杜漢"
@@ -4164,6 +4259,8 @@ L["The guide's progress at the bottom of the window."] = "視窗底部的指南�
 L["Progress colour"] = "進度顏色"
 L["Percent"] = "百分比"
 L["The percent beside the progress bar."] = "進度條旁的百分比。"
+L["Pace line"] = "進度預估行"
+L["The line above the progress bar: on pace for a level by a step, or how far behind the route you are."] = "進度條上方的一行：依目前進度會在哪一步達到哪一級，或你落後路線多少。"
 L["The next person or step slides up into place as it fades in. Off: it is simply there."] = "下一個人物或步驟會在淡入時向上滑入定位。關閉：直接出現。"
 L["A goal you finish shuts like a drawer into the done line. Off: it fades and goes."] = "完成的目標會像抽屜一樣收進已完成行。關閉：淡出並消失。"
 L["The guide window's frame, bars, step card, tips and progress bar."] = "指南視窗的框架、列、步驟卡片、提示與進度條。"
@@ -4212,6 +4309,9 @@ L["Fargodeep Mine"] = "法戈第礦坑"
 L["Lion's Pride Inn"] = "獅王之傲旅店"
 L["Stonefield Farm"] = "斯通菲爾德農場"
 L["Jasperlode Mine"] = "玉石礦坑"
+L["What it leaves out"] = "略過的內容"
+L["A dim line where the guide passes over quests: open it to see each one and why, with a way to bring it back. Grind steps say what else is worth doing, and a line offers to clean up quests that aren't part of your route."] = "在指南略過任務的地方顯示一行淡色文字：展開可看到每個任務及原因，並可恢復。打怪升級的步驟會說明還有什麼值得做，另有一行提示清理不在路線中的任務。"
+-- L["The size of the guide window's text, apart from its scale and the rest of Polestar's text (Theme > Text). The class quest card keeps that general size. Changes at once. Right-click to reset."] = ""
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "警示列"
@@ -4438,6 +4538,8 @@ L["Rares, travel & zones"] = "稀有、旅行與地區"
 L["Zones and coordinates"] = "地區與座標"
 L["Trackers & map"] = "追蹤器與地圖"
 L["Minimap and coordinates"] = "小地圖與座標"
+L["Offer Freedoom Arcade on flights"] = "飛行時提供 Freedoom Arcade"
+L["On a flight with a minute or more to go, Polestar asks if you want to play Freedoom Arcade by petllama while you wait: three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade opens it any time."] = "飛行剩餘一分鐘或更久時，Polestar 會詢問你是否想在等待時玩 petllama 的 Freedoom Arcade：Freedoom 的三個關卡，若已安裝 Freedoom Arcade 插件則是完整遊戲。降落前 10 秒，遊戲會存檔、暫停並關閉。隨時可用 /polestar arcade 開啟。"
 
 -- Dungeons/Options.lua
 L["Dungeons and characters"] = "地城與角色"
@@ -4464,6 +4566,9 @@ L["%s isn't in your quest log."] = "%s不在你的任務日誌中。"
 L["That quest isn't in your quest log."] = "該任務不在你的任務日誌中。"
 L["The quest log opens when combat ends."] = "脫離戰鬥後會開啟任務日誌。"
 L["Show in quest log"] = "在任務日誌中顯示"
+L["Link in chat"] = "發送連結到聊天"
+L["Middle-click: show in quest log. Shift-click: link in chat."] = "中鍵點擊：在任務日誌中顯示。Shift-點擊：發送連結到聊天。"
+L["Shift-click: link in chat."] = "Shift-點擊：發送連結到聊天。"
 
 -- Dungeons/Mark.lua
 L["Needed for %s in %s"] = "%s所需（位於%s）"
@@ -4504,6 +4609,7 @@ L["Jump anyway? They stay in your log, and the guide lists who takes each in."] 
 L["Jump anyway"] = "仍要跳轉"
 L["Open any flight master's map once on this continent so Polestar knows your flight paths."] = "在這片大陸上開啟任一位飛行管理員的地圖一次，Polestar 就能知道你的飛行路線。"
 L["This guide is for %s characters. Polestar won't guide you through it."] = "此指南適用於%s角色。Polestar 不會引導你完成它。"
+-- L["Equip it"] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "按 %s 恢復，或打開指南視窗。"
@@ -4643,6 +4749,31 @@ L["Moved"] = "已移動"
 L["Not moved"] = "未移動"
 L["From the look"] = "跟隨外觀"
 L["Nothing to apply: the parts ticked are the same as yours."] = "無可套用：勾選的部分與你的設定相同。"
+
+-- Maps/Arcade.lua
+L["Freedoom Arcade can't open: its folder Polestar_Arcade is missing or turned off."] = "無法開啟 Freedoom Arcade：它的資料夾 Polestar_Arcade 遺失或已停用。"
+L["Freedoom Arcade opens after the fight."] = "戰鬥結束後再開啟 Freedoom Arcade。"
+L["Play Freedoom Arcade"] = "玩 Freedoom Arcade"
+L["Freedoom Arcade by petllama"] = "Freedoom Arcade，作者 petllama"
+L["3 levels of Freedoom Phase 1. Esc: menu, P: pause, F6/F9: save/load."] = "Freedoom Phase 1 的 3 個關卡。Esc：選單，P：暫停，F6/F9：存檔/讀檔。"
+L["a game: Play"] = "開始遊戲"
+L["Do you want to play Doom while waiting?"] = "等待時想玩 Doom 嗎？"
+L["Don't ask again"] = "不再詢問"
+L["Freedoom Arcade is saved and paused for the fight: type %s to continue."] = "因進入戰鬥，Freedoom Arcade 已存檔並暫停：輸入 %s 繼續。"
+L["Landing in 10 seconds"] = "10 秒後降落"
+L["Freedoom Arcade is saved and paused."] = "Freedoom Arcade 已存檔並暫停。"
+L["Close Freedoom Arcade to get your keys back."] = "關閉 Freedoom Arcade 以恢復按鍵操作。"
+L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "已降落。Freedoom Arcade 已存檔並暫停：輸入 %s 繼續。"
+
+-- QoL/QuestXP.lua
+-- L["+1 level"] = ""
+-- L["Current XP"] = ""
+-- L["Rested XP"] = ""
+-- L["Completed quests"] = ""
+-- L["Pending quest XP"] = ""
+-- L["After turn-ins: at least +1 level"] = ""
+-- L["XP after turn-ins"] = ""
+-- L["XP remaining after turn-ins"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在導引。關閉「已安裝時以 Shortest Path Forever 導引」（「選項」>「箭頭與路線」）即可使用 Polestar 的箭頭。"
@@ -4841,3 +4972,5 @@ L["Nothing to apply: the parts ticked are the same as yours."] = "無可套用�
 -- L["Try %s"] = "嘗試 %s"
 -- L["Most of its quests are new in Forever."] = "其中大部分任務是 Forever 新增的。"
 -- L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "在較快時，路線可能以你會的傳送法術開始（法師的主城傳送、德魯伊的月光林地）。主城傳送需要背包中有傳送符文。"
+-- L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."] = "略過灰色任務及其繳交，除非之後的任務需要先完成它們。"
+-- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "Polestar 文字的大小，與視窗縮放分開。立即生效。右鍵點擊重置。"

@@ -325,6 +325,7 @@ fn the_codex_takes_recorded_prerequisites_and_objective_spots() {
 		store_xp: Default::default(),
 		journal_quests: Vec::new(),
 		mechanics: V::Null,
+		mechanics_public: V::Null,
 		warnings: Vec::new(),
 	};
 	let without = merge_codex(&inputs(Snapshot::default())).quests.get("900");

@@ -278,6 +278,28 @@ pub fn drop_summoned_vendors(summoned: &FxHashSet<i64>, npcs: &Obj, items: &Obj)
 	changed
 }
 
+/// Creatures a client spell summons that no source places (no spawn on any map), taken before the
+/// recordings are applied: what players recorded of them (a shaman's totem they killed, a boss's guards,
+/// a player's repair bot) is where someone summoned them, not where they stand. Ascending.
+pub fn unplaced_summoned(summoned: &FxHashSet<i64>, npcs: &Obj) -> Vec<i64> {
+	let mut ids: Vec<i64> = summoned.iter().copied().filter(|id| npcs.get(&id.to_string()).get("spawns").as_obj().is_none_or(Obj::is_empty)).collect();
+	ids.sort_unstable();
+	ids
+}
+
+/// Takes back the spawns recordings gave [`unplaced_summoned`]'s creatures. -> the ids cleared.
+pub fn drop_recorded_summoned_spawns(ids: &[i64], npcs: &Obj) -> Vec<i64> {
+	let mut cleared = Vec::new();
+	for &id in ids {
+		let n = npcs.get(&id.to_string());
+		if n.get("spawns").as_obj().is_some_and(|s| !s.is_empty()) {
+			n.set("spawns", Obj::new());
+			cleared.push(id);
+		}
+	}
+	cleared
+}
+
 // ---------------------------------------------------------------- place-name NPCs
 
 /// NPC records that are only a place's or a faction's name: no spawn, no service role, no quest starts, ends or
@@ -349,6 +371,28 @@ mod tests {
 		assert_eq!(stringify(&npcs.get("66").get("roles"), None), r#"["repair","vendor"]"#);
 		assert_eq!(stringify(&items.get("2880").get("vendors"), None), "[66]");
 		assert_eq!(stringify(&items.get("2901").get("vendors"), None), "[66]");
+	}
+
+	#[test]
+	fn recordings_give_no_spawns_to_a_summoned_creature_no_source_places() {
+		// Searing Totem III (3903) and Eliza's Guard (1871) are summoned and placed by no source: the points players
+		// recorded where they killed them go. Stormwind City Guard (68) is summoned too but placed, so recordings
+		// still refine its spawns; Anathemus (2754) is no summon and keeps every recorded point.
+		let npcs = parse_json(r#"{"3903":{"id":3903,"name":"Searing Totem III","spawns":{}},"1871":{"id":1871,"name":"Eliza's Guard"},"68":{"id":68,"name":"Stormwind City Guard","spawns":{"1429":{"f":"l","pts":[[42,65],[43,66]]}}},"2754":{"id":2754,"name":"Anathemus","spawns":{"1418":{"f":"l","pts":[[30,20]]}}}}"#).unwrap();
+		let npcs = npcs.as_obj().unwrap();
+		let summoned: FxHashSet<i64> = [3903, 1871, 68].into_iter().collect();
+		let ids = unplaced_summoned(&summoned, npcs);
+		assert_eq!(ids, vec![1871, 3903]);
+		// What the recordings then fill in.
+		npcs.get("3903").set("spawns", parse_json(r#"{"1434":{"f":"l","pts":[[48,7.6]]}}"#).unwrap());
+		npcs.get("1871").set("spawns", parse_json(r#"{"1431":{"f":"l","pts":[[29,31]]}}"#).unwrap());
+		npcs.get("68").set("spawns", parse_json(r#"{"1429":{"f":"l","pts":[[42,65],[43,66],[44,67]]}}"#).unwrap());
+		npcs.get("2754").set("spawns", parse_json(r#"{"1418":{"f":"l","pts":[[30,20],[35,25]]}}"#).unwrap());
+		assert_eq!(drop_recorded_summoned_spawns(&ids, npcs), vec![1871, 3903]);
+		assert_eq!(stringify(&npcs.get("3903").get("spawns"), None), "{}");
+		assert_eq!(stringify(&npcs.get("1871").get("spawns"), None), "{}");
+		assert_eq!(stringify(&npcs.get("68").get("spawns"), None), r#"{"1429":{"f":"l","pts":[[42,65],[43,66],[44,67]]}}"#);
+		assert_eq!(stringify(&npcs.get("2754").get("spawns"), None), r#"{"1418":{"f":"l","pts":[[30,20],[35,25]]}}"#);
 	}
 
 	#[test]

@@ -59,6 +59,7 @@ local NPCS = {
 	{ "Smith", { "vendor", "repair" } }, { "Grocer", { "vendor" } }, { "Banker", { "banker" } }, { "Auctioneer", { "auctioneer" } },
 	{ "Battlemaster", { "battlemaster" } }, { "Spirit Healer", { "spirithealer" } }, { "Stable Master", { "stablemaster" } },
 	{ "Warrior Trainer", { "trainer", "class:WARRIOR" } }, { "Alchemy Trainer", { "trainer", "trainer:171" } }, { "Weapon Master", { "trainer", "weapon" } },
+	{ "Transmogrifier", { "transmogrifier" } },
 }
 return {
 	setup = function()
@@ -116,6 +117,7 @@ return {
 		["maps.serviceFilters.battlemaster"] = service("battlemaster"),
 		["maps.serviceFilters.spirithealer"] = service("spirithealer"),
 		["maps.serviceFilters.stablemaster"] = service("stablemaster"),
+		["maps.serviceFilters.transmogrifier"] = service("transmogrifier"),
 		["maps.serviceFilters.trainer"] = service("trainer"),
 		["maps.serviceFilters.vendor"] = service("vendor"),
 		["maps.reveal"] = revealed,

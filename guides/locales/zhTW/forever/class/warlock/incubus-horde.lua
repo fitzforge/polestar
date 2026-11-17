@@ -7,18 +7,18 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Succubus and Incubus (Horde)"] = "",
-	["At 20: the succubus and Forever's incubus, its male twin, each with a soul pouch for your shards."] = "",
+	["Succubus and Incubus (Horde)"] = "魅魔和夜魔（部落）",
+	["At 20: the succubus and Forever's incubus, its male twin, each with a soul pouch for your shards."] = "20級：魅魔和Forever服的夜魔（魅魔的男性孿生版本），各附贈一個裝靈魂碎片的靈魂袋。",
 
 	-- Step 1: Devourer of Souls (Orgrimmar)
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {npc:5909} Cazul · {npc:5675} Carendin Halgar · {zone:1458} Undercity · {quest:1507} Devourer of Souls · {zone:1454} Orgrimmar
 	["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1507} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "20級時，{object:172982}下方{object:172960}的{npc:5875}會派你去找幾步之遙的{npc:5909}。有兩位訓練師提供這些惡魔的任務，這裡的{npc:5875}和{zone:1458}的{npc:5675}，你只能接其中一個；本指南依照你接的{quest:1507}。{npc:5909}會提供{zone:1454}的兩條路線：兩條都接。",
-	["the succubus"] = "",
-	["the incubus"] = "",
+	["the succubus"] = "魅魔",
+	["the incubus"] = "男魅魔",
 
 	-- Step 2: Zankaja
 	-- {npc:5910} Zankaja · {object:172982} Valley of Strength
-	["{npc:5910} lives in a hut up on the cliffs on the west side of the city, above the {object:172982}: climb the wind rider tower, cross the bridge at its top to the west and turn right off it. She sends you to the Crossroads."] = "",
+	["{npc:5910} lives in a hut up on the cliffs on the west side of the city, above the {object:172982}: climb the wind rider tower, cross the bridge at its top to the west and turn right off it. She sends you to the Crossroads."] = "{npc:5910}住在城西懸崖上的一座小屋裡，就在{object:172982}上方：爬上雙足飛龍塔，在塔頂過橋向西，下橋後右轉。她讓你去十字路口。",
 
 	-- Step 3: Magar
 	-- {npc:3363} Magar · {object:173018} Magar's Cloth Goods · {object:172960} Cleft of Shadow · {zone:1440} Ashenvale
@@ -26,23 +26,23 @@ return {
 
 	-- Step 4: Gazrog
 	-- {npc:3464} Gazrog · {npc:4197} Ken'zigla · {area:2539} Malaka'jin · {zone:1442} Stonetalon Mountains
-	["{npc:3464} waits in front of the inn at the Crossroads. He sends you on to {npc:4197} at {area:2539}, in {zone:1442}."] = "",
+	["{npc:3464} waits in front of the inn at the Crossroads. He sends you on to {npc:4197} at {area:2539}, in {zone:1442}."] = "{npc:3464}在十字路口的旅店門前等你。他讓你去{zone:1442}的{area:2539}找{npc:4197}。",
 
 	-- Step 5: Ken'zigla
 	-- {zone:1442} Stonetalon Mountains · {area:2539} Malaka'jin · {npc:4197} Ken'zigla · {npc:5911} Grunt Logmar
-	["Take the road west from the Crossroads into {zone:1442} and, just past the border, the faint trail up to the left (south): {area:2539} cannot be reached from the main road. {npc:4197} hands you her draught for {npc:5911}."] = "",
+	["Take the road west from the Crossroads into {zone:1442} and, just past the border, the faint trail up to the left (south): {area:2539} cannot be reached from the main road. {npc:4197} hands you her draught for {npc:5911}."] = "從十字路口沿大路向西進入{zone:1442}，剛過邊界就走左邊（南邊）那條模糊的上山小徑：{area:2539}無法從主路到達。{npc:4197}把她調製的藥劑交給你帶給{npc:5911}。",
 
 	-- Step 6: Grunt Dogran
 	-- {npc:5911} Grunt Logmar · {area:378} Camp Taurajo · {npc:5875} Gan'rul Bloodeye
-	["{npc:5911} stands at {area:378}, south down the road from the Crossroads. He sends you north to the quilboar camp where Dogran is held: the camp with two huts side by side, north-west of a decoy camp whose huts stand apart. A rare level 22 elite quilboar sometimes guards the huts: send your voidwalker in, sacrifice it if you must, and talk to Dogran. He gives you a pendant for {npc:5875}. Keep it."] = "",
+	["{npc:5911} stands at {area:378}, south down the road from the Crossroads. He sends you north to the quilboar camp where Dogran is held: the camp with two huts side by side, north-west of a decoy camp whose huts stand apart. A rare level 22 elite quilboar sometimes guards the huts: send your voidwalker in, sacrifice it if you must, and talk to Dogran. He gives you a pendant for {npc:5875}. Keep it."] = "{npc:5911}站在{area:378}，從十字路口沿路向南。他讓你向北去關押多格蘭的野豬人營地：認準兩座小屋並排的那座營地，它西北方還有一座小屋分開的誘餌營地。偶爾有一隻稀有的22級精英野豬人守著小屋：讓虛空行者先上，必要時犧牲它，然後與多格蘭交談。他給你一個交給{npc:5875}的墜飾。收好它。",
 
 	-- Step 7: The Binding: succubus (Orgrimmar)
 	-- {quest:1513} The Binding · {zone:1454} Orgrimmar
-	["{quest:1513}: succubus ({zone:1454})"] = "",
+	["{quest:1513}: succubus ({zone:1454})"] = "{quest:1513}：魅魔（{zone:1454}）",
 	-- {npc:5875} Gan'rul Bloodeye · {item:6626} Dogran's Pendant · {object:172960} Cleft of Shadow · {npc:3216} Neeru Fireblade
-	["Back to {npc:5875} with the pendant. He hands you {item:6626}: take it across the {object:172960} to {npc:3216}'s tent, stand on the purple circle and use it. Summon your voidwalker first and let it tank: the succubus (level 20, not elite) charms and lashes; keep your damage over time on her. If she wins, use the pendant again. Keep the pendant: {npc:5875} takes it back."] = "",
+	["Back to {npc:5875} with the pendant. He hands you {item:6626}: take it across the {object:172960} to {npc:3216}'s tent, stand on the purple circle and use it. Summon your voidwalker first and let it tank: the succubus (level 20, not elite) charms and lashes; keep your damage over time on her. If she wins, use the pendant again. Keep the pendant: {npc:5875} takes it back."] = "帶著墜飾回到{npc:5875}處。他把{item:6626}交給你：拿著它穿過{object:172960}到{npc:3216}的帳篷，站上紫色法陣並使用。先召喚你的虛空行者讓它抗住：魅魔（20級，非精英）會魅惑還會鞭打；持續給她掛持續傷害法術。如果她贏了，再用一次墜飾。留著墜飾：{npc:5875}會收回。",
 	-- {item:6626} Dogran's Pendant
-	["{item:6626}, on the circle in Neeru's tent"] = "",
+	["{item:6626}, on the circle in Neeru's tent"] = "{item:6626}，在尼魯帳篷裡的法陣上",
 
 	-- Step 8: Fallen Sky Lake
 	-- {area:422} Fallen Sky Lake · {zone:1440} Ashenvale · {area:431} Splintertree Post · {item:190232} Withered Scarf · {npc:3931} Shadethicket Oracle
@@ -51,20 +51,20 @@ return {
 
 	-- Step 9: The Binding: incubus (Orgrimmar)
 	-- {quest:65604} The Binding · {zone:1454} Orgrimmar
-	["{quest:65604}: incubus ({zone:1454})"] = "",
+	["{quest:65604}: incubus ({zone:1454})"] = "{quest:65604}：男魅魔（{zone:1454}）",
 	-- {npc:5875} Gan'rul Bloodeye · {item:190232} Withered Scarf
-	["Back to {npc:5875} with the scarf, then use the {item:190232} on the same circle in Neeru's tent and defeat the incubus it calls (level 20, not elite) with your voidwalker tanking. Keep the scarf: {npc:5875} takes it back."] = "",
+	["Back to {npc:5875} with the scarf, then use the {item:190232} on the same circle in Neeru's tent and defeat the incubus it calls (level 20, not elite) with your voidwalker tanking. Keep the scarf: {npc:5875} takes it back."] = "帶著圍巾回到{npc:5875}處，然後在尼魯帳篷裡的同一個法陣上使用{item:190232}，讓你的虛空行者抗住，擊敗它召喚出的男魅魔（20級，非精英）。留著圍巾：{npc:5875}會收回。",
 	-- {npc:185335} Summoned Incubus
-	["{npc:185335}, at the circle in Neeru's tent"] = "",
+	["{npc:185335}, at the circle in Neeru's tent"] = "{npc:185335}，在尼魯帳篷裡的法陣處",
 
 	-- Step 10: Devourer of Souls (Undercity)
 	-- {object:1661} The Undercity · {npc:5675} Carendin Halgar · {quest:1472} Devourer of Souls · {npc:5875} Gan'rul Bloodeye · {object:36082} Magic Quarter · {npc:5693} Godrick Farsan
 	["{object:1661}'s version, for warlocks who took {npc:5675}'s {quest:1472} instead of {npc:5875}'s. At 20 {npc:5675}, in the {object:36082}, sends you to {npc:5693} close by. {npc:5693} shows you an image of each quarry and offers both branches: take both."] = "{object:1661}的版本，給接了{npc:5675}而非{npc:5875}的{quest:1472}的術士。20級時，{object:36082}的{npc:5675}會派你去找附近的{npc:5693}。{npc:5693}會讓你看到每個目標的影像，並提供兩條路線：兩條都接。",
 
 	-- Step 11: Silverpine hearts
-	["Silverpine hearts"] = "",
+	["Silverpine hearts"] = "銀松心臟",
 	-- {npc:185333} Avelina Lilly · {area:279} Dalaran · {area:233} Ambermill · {npc:5682} Dalin Forgewright · {area:230} Greymane Wall
-	["{npc:185333} (level 22) works as a tailor for the {area:279} wizards at {area:233}, in eastern Silverpine: the wizards around her are hostile. {npc:5682} (level 20, not elite) patrols near the {area:230} in the far south. Both are Alliance-friendly humans: attacking them can flag you for PvP. Each drops her or his heart."] = "",
+	["{npc:185333} (level 22) works as a tailor for the {area:279} wizards at {area:233}, in eastern Silverpine: the wizards around her are hostile. {npc:5682} (level 20, not elite) patrols near the {area:230} in the far south. Both are Alliance-friendly humans: attacking them can flag you for PvP. Each drops her or his heart."] = "{npc:185333}（22級）在銀松森林東部的{area:233}給{area:279}的法師們當裁縫：她周圍的法師是敵對的。{npc:5682}（20級，非精英）在最南邊{area:230}附近巡邏。兩人都是親聯盟的人類：攻擊他們會開啟你的PvP狀態。各掉她或他的心臟。",
 
 	-- Step 12: Corma Villard
 	["Corma Villard"] = "柯瑪·維拉德",
@@ -73,23 +73,23 @@ return {
 
 	-- Step 13: The Binding: succubus (Undercity)
 	-- {quest:1474} The Binding · {zone:1458} Undercity
-	["{quest:1474}: succubus ({zone:1458})"] = "",
+	["{quest:1474}: succubus ({zone:1458})"] = "{quest:1474}：魅魔（{zone:1458}）",
 	-- {npc:5675} Carendin Halgar · {item:6286} Pure Hearts
 	["Back to {npc:5675} with Dalin's and Corma's hearts. He hands you the {item:6286}: go down to the summoning circle below him, stand on it and use them. Summon your voidwalker first and keep the fight on the circle, or the guards may kill her and the kill does not count. If she wins, use the hearts again; keep them, {npc:5675} takes them back."] = "",
 	-- {item:6286} Pure Hearts · {npc:5675} Carendin Halgar
-	["{item:6286}, on the circle below {npc:5675}"] = "",
+	["{item:6286}, on the circle below {npc:5675}"] = "{item:6286}，在{npc:5675}下方的法陣上",
 
 	-- Step 14: Isaac Pearson
 	-- {npc:185334} Isaac Pearson · {area:392} Ratchet · {zone:1413} Barrens · {zone:1411} Durotar · {zone:1454} Orgrimmar
-	["{npc:185334} (level 22) works in {area:392}, on the {zone:1413} coast, at one of two spots in town: take the zeppelin to {zone:1411} and head south, or fly from {zone:1454}. He is an Alliance-friendly human: attacking him can flag you for PvP."] = "",
+	["{npc:185334} (level 22) works in {area:392}, on the {zone:1413} coast, at one of two spots in town: take the zeppelin to {zone:1411} and head south, or fly from {zone:1454}. He is an Alliance-friendly human: attacking him can flag you for PvP."] = "{npc:185334}（22級）在{zone:1413}海岸的{area:392}幹活，出沒於鎮上的兩個地點之一：乘飛艇到{zone:1411}再向南走，或從{zone:1454}飛過去。他是親聯盟的人類：攻擊他會開啟你的PvP狀態。",
 
 	-- Step 15: The Binding: incubus (Undercity)
 	-- {quest:65597} The Binding · {zone:1458} Undercity
-	["{quest:65597}: incubus ({zone:1458})"] = "",
+	["{quest:65597}: incubus ({zone:1458})"] = "{quest:65597}：男魅魔（{zone:1458}）",
 	-- {npc:5675} Carendin Halgar · {item:190181} Lovers' Hearts
-	["Back to {npc:5675} with the lovers' hearts, then place the {item:190181} on the same circle and defeat the incubus they call (level 20, not elite; it can charm you). Keep the hearts: {npc:5675} takes them back."] = "",
+	["Back to {npc:5675} with the lovers' hearts, then place the {item:190181} on the same circle and defeat the incubus they call (level 20, not elite; it can charm you). Keep the hearts: {npc:5675} takes them back."] = "帶著戀人的心臟回到{npc:5675}處，然後把{item:190181}放到同一個法陣上，擊敗它們召喚出的男魅魔（20級，非精英；會魅惑你）。留著心臟：{npc:5675}會收回。",
 	-- {npc:185335} Summoned Incubus · {npc:5675} Carendin Halgar
-	["{npc:185335}, at the circle below {npc:5675}"] = "",
+	["{npc:185335}, at the circle below {npc:5675}"] = "{npc:185335}，在{npc:5675}下方的法陣處",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A second seducer demon, the male sayaad, and a soul shard bag to carry your shards."] = "第二種誘惑型惡魔，也就是男性的魅魔，還有一個用來裝靈魂碎片的靈魂碎片包。",

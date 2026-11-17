@@ -31,6 +31,13 @@ step Gadgetzan
   sethome "Gadgetzan" npc 7733          -- Innkeeper Fizzgrimble
   accept 2605                           -- Marin Noggenfogger
 
+step Senior Surveyor Fizzledowser
+  when !onquest 992
+  when !turnedin 992
+  zone Tanaris
+  tip You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.
+  accept 992                            -- Senior Surveyor Fizzledowser
+
 step Gadgetzan
   when dungeon "Zul'Farrak"
   zone Tanaris

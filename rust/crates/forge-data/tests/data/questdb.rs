@@ -207,20 +207,23 @@ fn caps_limit_drop_sources() {
 }
 
 // The data lists two of the game's test creatures, "TEST WOLF (ALPHA FIRST)" and "(ALPHA SECOND)", which no spawn puts
-// in the world, among Tough Wolf Meat's droppers: the target list showed them as Elwynn Forest's wolves.
+// in the world, among Tough Wolf Meat's droppers: the target list showed them as Elwynn Forest's wolves. A "[DNT]"
+// creature is no source either (#2614: two listed among the Fractured Elemental Shard's droppers).
 #[test]
 fn a_test_creature_is_no_drop_source() {
 	let dir = data_with("test-creatures", |raw| {
 		let npcs = raw.get_mut("npcs.json").unwrap().as_object_mut().unwrap();
 		npcs.insert("1979".into(), json!({ "id": 1979, "name": "TEST WOLF (ALPHA FIRST)", "level": 2, "spawns": {} }));
 		npcs.insert("1980".into(), json!({ "id": 1980, "name": "Test Wolf (Alpha Second)", "level": 2, "spawns": {} }));
+		npcs.insert("1981".into(), json!({ "id": 1981, "name": "[DNT]", "level": 2, "spawns": {} }));
 		let drops = raw.get_mut("items.json").unwrap()["750"]["drops"]["npc"].as_object_mut().unwrap();
 		drops.insert("1979".into(), json!(90));
 		drops.insert("1980".into(), json!(85));
+		drops.insert("1981".into(), json!(95));
 	});
 	let out = build(&dir, &root(), &Options::default()).unwrap();
 	assert_eq!(out.db.items[&750], vals(json!(["Tough Wolf Meat", 1, 299, 80, 0])), "the wolves the world has, alone");
-	assert!(!out.db.npcs.contains_key(&1979) && !out.db.npcs.contains_key(&1980), "no test creature pulled in");
+	assert!(!out.db.npcs.contains_key(&1979) && !out.db.npcs.contains_key(&1980) && !out.db.npcs.contains_key(&1981), "no test creature pulled in");
 }
 
 #[test]

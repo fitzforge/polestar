@@ -195,6 +195,37 @@ end
 -- below, which take a dial. Construction only: no scripts, no state.
 ---------------------------------------------------------------------------
 
+-- The plate behind the text (nav.arrowBacking) covers the frame's text side
+-- and, when a line runs wider than the frame (the label wraps at
+-- nav.arrowLabelWidth, 300 by default, on a frame 200 wide), that line too
+-- with a margin (#2588). Refitted whenever a text it backs changes.
+local PLATE_PAD = 6
+local function fitPlate(d)
+	local plate = d.backing
+	if not plate:IsShown() then return end
+	local half = 0
+	for _, fs in ipairs(d.plateTexts) do
+		if fs:IsShown() then
+			local w = fs:GetStringWidth() or 0
+			local cap = fs:GetWidth() or 0
+			if cap > 0 and w > cap then w = cap end -- a wrapped label is as wide as its set width
+			half = max(half, w / 2 + PLATE_PAD)
+		end
+	end
+	local out = max(0, half - (d.frame:GetWidth() or 0) / 2)
+	-- The distance is set every frame: anchor again only on a change.
+	if out == d.plateOut and d.plateAbove == d.plateAboveSet then return end
+	d.plateOut, d.plateAboveSet = out, d.plateAbove
+	plate:ClearAllPoints()
+	if d.plateAbove then
+		plate:SetPoint("TOPLEFT", d.frame, "TOPLEFT", -out, 0)
+		plate:SetPoint("BOTTOMRIGHT", d.frame, "BOTTOMRIGHT", out, DIAL + 4)
+	else
+		plate:SetPoint("TOPLEFT", d.frame, "TOPLEFT", -out, -DIAL - 4)
+		plate:SetPoint("BOTTOMRIGHT", d.frame, "BOTTOMRIGHT", out, 0)
+	end
+end
+
 local UI_DIR = "Interface\\AddOns\\" .. ADDON .. "\\Media\\UI\\"
 
 local function buildDial(parent)
@@ -325,6 +356,10 @@ local function buildDial(parent)
 	backing:SetColorTexture(1, 1, 1, 1)
 	backing:Hide()
 	d.backing = backing
+	d.plateTexts = { distText, timerText, labelText, etaText }
+	for _, fs in ipairs(d.plateTexts) do
+		hooksecurefunc(fs, "SetText", function() fitPlate(d) end)
+	end
 	return d
 end
 
@@ -585,20 +620,14 @@ local function dialLayout(d, lk, showDist)
 		prev, gap = label, 4
 	end
 	eta:SetPoint(edge, prev, away, 0, sign * gap)
-	-- The plate covers the text's side of the frame.
+	-- The plate covers the text's side of the frame, and any line wider (fitPlate).
 	local plate = d.backing
 	plate:SetShown(lk.backing)
 	if lk.backing then
 		local r, g, b = Nav.RGB("shade")
 		plate:SetVertexColor(r, g, b, lk.backingAlpha)
-		plate:ClearAllPoints()
-		if lk.above then
-			plate:SetPoint("TOPLEFT", d.frame, "TOPLEFT", 0, 0)
-			plate:SetPoint("BOTTOMRIGHT", d.frame, "BOTTOMRIGHT", 0, DIAL + 4)
-		else
-			plate:SetPoint("TOPLEFT", d.frame, "TOPLEFT", 0, -DIAL - 4)
-			plate:SetPoint("BOTTOMRIGHT", d.frame, "BOTTOMRIGHT", 0, 0)
-		end
+		d.plateAbove = lk.above
+		fitPlate(d)
 	end
 end
 

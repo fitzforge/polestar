@@ -39,6 +39,7 @@ step Back to Thendal Village
 
 step Rorian's errands
   tip Jump off the top of the watchtower and use Walk on Air to float down to Rorian, west of the tower.
+  complete 92474 @43.7,24.1
   accept 92598                        -- Ventaari Brightwish
   turnin 92461                        -- Rorian the Dayseeker
   turnin 92474

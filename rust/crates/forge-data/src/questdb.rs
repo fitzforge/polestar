@@ -222,15 +222,16 @@ pub fn quest_faction(q: &V, npcs: &V) -> Val {
 	Val::Num(side as f64)
 }
 
-/// A creature the game keeps for its own tests or as a placeholder ("TEST WOLF (ALPHA FIRST)", "[PH]"): no drop
-/// source to show, though the data lists it (Tough Wolf Meat's two test wolves, which no spawn puts in the world, read
-/// in the target list's rows for Elwynn Forest's wolves).
+/// A creature the game keeps for its own tests or as a placeholder ("TEST WOLF (ALPHA FIRST)", "[PH]", "[DNT]",
+/// #2614): no drop source to show, though the data lists it (Tough Wolf Meat's two test wolves, which no spawn puts
+/// in the world, read in the target list's rows for Elwynn Forest's wolves; two "[DNT]" creatures listed as
+/// droppers of the Fractured Elemental Shard).
 fn test_creature(npcs: &V, id: f64) -> bool {
 	thread_local! {
 		static RE: regex::Regex = regex::Regex::new(r"(?i)^(QA)?test\b|\[PH\]|\bunused\b|\bdeprecated\b|\bDEBUG\b").unwrap();
 	}
 	let name = npcs.get(&num_str(id)).get("name");
-	name.truthy() && RE.with(|r| r.is_match(&name.to_js_string()))
+	name.as_str().is_some_and(|n| RE.with(|r| r.is_match(n)) || forge_guide::placeholder::banned(n))
 }
 
 /// Sorted top-N sources from { "<id>": chance } (ties by id), the ones `keep` takes.

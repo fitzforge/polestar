@@ -200,8 +200,14 @@ forge data check --help
 | Forever's quest data | the addon in your Forever client's AddOns folder (found automatically; `--questie DIR` to point at it, `--no-questie` to leave it out) | quest givers, objectives, XP and more for Forever |
 | An open quest database | `data/sources` (`--pfquest DIR`) | the base layer: quests, NPCs, objects, items for Classic; read through a built-in Lua 5.1 |
 | Cached facts | `data/sources` | spawn heights and objective counts from an open Classic server database, web quest XP |
-| Recordings | `data/recordings/*.json` (`--recordings DIR`) | our own in-game recordings |
+| Recordings | `data/recordings/*.json` (`--recordings DIR`: a release build passes the maintainer's recordings archive) | our own in-game recordings, read one session at a time |
 | Corrections | `forever-db/corrections/` (`--corrections PATH`) | our own fixes, see [Corrections](#corrections) |
+
+The shipped guides follow the full build, the one with the recordings archive. Recordings give a
+quest the game's own objective lines (their order, their counts, talks instead of kills), so a
+guide's objective indices (`quest 4182.3`) can differ from what a build without the archive (a
+contributor's, or the public one) has: `forge guide lint` on such a build may report an index the
+full build has right. Check a reported index against the full build before changing it.
 
 Each source's name, version and licence is recorded in `data/forever/meta.json` under `sources`.
 For the full credits and licences, see [rust/NOTICE.md](../../rust/NOTICE.md) and
@@ -249,6 +255,19 @@ use, emote or escort becomes `talk` (count 1) (`forge-data/src/talk.rs`); a ques
 sets is left to the correction. The Codex packs a talk as `s`, the quest database as kind 5, and the guides,
 Lookup and pinned quests say "Talk to". Talks the rule can't see (a known count, an NPC with no side in the
 data) are corrections with players' recordings behind them (#2543).
+
+Placeholder targets (#2614): Forever's quest data names some objectives by the invisible creature the server
+credits, with the game's internal names: a "[DNT] Kill Credit", a bare "Credit", the battlegrounds' "PvP Tower
+Credit Marker", Alterac Valley's "Trigger Ichman". After the talk rule, a kill or talk objective on such an NPC
+becomes an `event` in the quest log's own words ("Graveyard Assaulted"), placed at the NPC's spot when it has one
+(`forge-data/src/credit.rs`; the names in `forge-guide/src/placeholder.rs`). A placeholder text that carries a
+name gives way to it ("[DNT] Kill Credit: Twilight Thrall"); one that carries none needs a correction with the
+quest log's words, from players' recordings or the game's quest objectives. The battlegrounds' quests, Lunar
+Fireworks and The Challenge have such records too: the public build has no source for the quest log's words and
+would otherwise read only the markers' names. Then the build fails while any placeholder name a player could read
+is left: a title, an objective's words, or the name of an NPC, object or item an objective, giver, ender or
+starting item points at, in every quest but the game's unused and test ones ("<UNUSED>", "<TEST> HEY MISTER
+WILSON!", "REUSE"), which Lookup's search leaves out, as it does NPCs and items with a placeholder name.
 
 ### What it writes
 
@@ -380,8 +399,16 @@ single-file form, and a checkout without the folder still has its
 |---|---|---|
 | `quests` | quest ID | `set`: replace fields (races, classes, prerequisites, objectives, `sourceItem`: the item the quest hands over when taken, …); `escort`: `true` or `false` when the quest's own text gets it wrong; `direct`: `true` or `false` for a quest handed in on the spot from its giver's window, never in the log (the knowledge base sets `true` from the Forever TDB's quest type 0; the writer then writes only `turnin <id> direct`, #1699); `remove: true`, alone: the quest is not in the game, so it leaves the data and every other quest's link to it (`pre`, `preAny`, `preAll`, `excl`, `next`, breadcrumbs, `children`, `parent`) goes |
 | `npcs`, `objects` | NPC or object ID | `set`: replace fields (an elite or rare `rank`; an NPC's `roles`, such as `["flightmaster"]` for a flight master the merged data has without its role, so `forge data travel` matches it to its flight point; an object's `lock: { item }`, the key that opens it); `addSpawns`: `{ "<uiMapID>": { f, pts } }` adds a map's spawn points, or replaces that map's points |
-| `items` | item ID | `removeDrops`: `{ npc: [ids], object: [ids] }`; `removeVendors`: `[ids]` (drop wrong sources the merge kept); `addDrops`: `{ npc: [ids], object: [ids] }` (droppers every source missed, such as recorded loot; added with no rate, a listed one keeps its rate) |
+| `items` | item ID | `removeDrops`: `{ npc: [ids], object: [ids] }`; `removeVendors`: `[ids]` (drop wrong sources the merge kept); `addDrops`: `{ npc: [ids], object: [ids] }` (droppers every source missed, such as recorded loot; added with no rate, a listed one keeps its rate); `dropRequires`: `{ npc: { "<id>": [quest ids] }, object: { "<id>": [quest ids] } }` (source-specific loot requirements; each quest must be held or completed) |
 | `mechanics` | quest ID | `params`: `[{ kind, … }]` adds or replaces a mechanic (for example `delayed-offer` with `after`, `npc`, `sec`); `steps`: `{ "<n>": { set } }` changes step `n` |
+
+`dropRequires` changes only the named NPC or object's loot, preserving other sources. Its quest
+IDs are all required, but each can be in the log or already turned in; accepting a quest is enough.
+The source must already drop the item (or be added by `addDrops`), and IDs must be positive,
+unique and present in the data. An empty list clears that source's requirement; absent metadata
+changes nothing. The built item's `dropRequires` becomes `requiresQuests` on each affected
+Codex drop/object source. Packing appends the escaped list after provenance, leaving old source
+fields intact; old packs have no condition and older readers ignore the optional tail.
 
 In `addSpawns`, `pts` are `[x, y]` map percentages and `f` names the map frame they are in (`e` for the
 Classic frame, `l` for Forever's). Every entry has a `source`, the evidence for what it sets (`{ kind,
@@ -720,9 +747,9 @@ Most contributors do not have our `data/sources` and `data/local` folders. The *
 the public part, so `forge build` works without them. The code is `rust/crates/forge/src/pack.rs` and
 `fetch.rs`. The list of what goes in is `rust/crates/forge/src/pack-spec.json`.
 
-**No public data pack has been published yet.** Once it is, `forge data fetch` downloads it from
-the `data-pack` release of the Polestar repository. Until then, `forge data fetch` says so; build
-from your own game client instead (`forge build --wow <path>`).
+`forge data fetch` downloads the public pack from the
+[`data-pack` release](https://github.com/fitzforge/polestar/releases/tag/data-pack) of the Polestar
+repository.
 
 ### What is in it
 
@@ -843,6 +870,11 @@ If anything matches, it writes nothing and lists each hit
 guard. The only exemption is the corrections' section files (`textScanExempt`): they are already public. The guard is
 tested in `rust/crates/forge/tests/pack.rs`.
 
+**Corrections in the pack's KB.** The KB labels every corrected field `correction`, whether
+`forever-db/corrections` or the maintainer's private overlay set it; its `correction_origin` table
+(never packed) says which. The pack keeps a corrected fact, mechanic or step only when the public
+corrections made it, and none from a KB without that table.
+
 To add a file to the pack, add it to a source in `pack-spec.json` with its title, credit, licence and
 URL. A file that is not under a source with a licence does not go in.
 
@@ -873,7 +905,10 @@ forge data publish --check forever-db                           # the guard
 
 - With the KB (`--kb`, default `data/local/kb/forever-kb.sqlite`) the values come from the KB under
   the independent-source rule; without one, from public data builds alone, with corrections applied
-  only when their `source.kind` names an independent check. There a quest's races or classes that
+  only when their `source.kind` names an independent check. With the KB the same holds for
+  corrections: a public correction (the KB's `correction_origin`) whose `source.kind` names an
+  independent check stands on its own; a value or a mechanics fix the private overlay sets never
+  does. Without the KB a quest's races or classes that
   no source states (a quest only a correction adds, without them) are left out, never published as
   0, every race or class.
 - A re-run replaces only the generated files, and the same inputs give the same bytes: the version

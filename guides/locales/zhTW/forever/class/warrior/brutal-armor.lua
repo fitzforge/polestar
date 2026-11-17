@@ -23,7 +23,7 @@ return {
 
 	-- Step 4: Ruga Ragetotem
 	-- {area:378} Camp Taurajo · {npc:6394} Ruga Ragetotem
-	["Fly to {area:378}. {npc:6394} stands in the hut with the leatherworking and tailoring trainers."] = "",
+	["Fly to {area:378}. {npc:6394} stands in the hut with the leatherworking and tailoring trainers."] = "飛到{area:378}。{npc:6394}和制皮、裁縫訓練師一起待在那間小屋裡。",
 
 	-- Step 5: Trial at the Field of Giants
 	-- {item:7119} Twitching Antenna · {area:390} Field of Giants · {area:378} Camp Taurajo · {item:7120} Ruga's Bulwark
@@ -39,7 +39,7 @@ return {
 	-- Step 7: Windshear Mine
 	-- {area:2160} Windshear Mine · {area:461} Windshear Crag · {area:460} Sun Rock Retreat · {spell:116} Frostbolt
 	-- plural, as words: Smoky Iron Ingots = {item:7126} Smoky Iron Ingot
-	["You need 15 Smoky Iron Ingots. The {area:2160} lies at the east end of {area:461}, east of {area:460}; every Windshear kobold (level 19-23) drops an ingot four kills in five. Stonecutters, Geomancers and Overlords run for help when low; Geomancers cast {spell:116}."] = "",
+	["You need 15 Smoky Iron Ingots. The {area:2160} lies at the east end of {area:461}, east of {area:460}; every Windshear kobold (level 19-23) drops an ingot four kills in five. Stonecutters, Geomancers and Overlords run for help when low; Geomancers cast {spell:116}."] = "你需要15塊煙燻鐵錠。{area:2160}位於{area:461}的東端、{area:460}以東；每隻風剪狗頭人（19-23級）五次擊殺有四次掉落一塊鐵錠。切石者、地卜師和霸主在血量低時會跑去求援；地卜師會施放{spell:116}。",
 	-- {item:7126} Smoky Iron Ingot
 	["{item:7126}, from the Windshear kobolds"] = "{item:7126}，來自風剪狗頭人",
 
@@ -82,15 +82,15 @@ return {
 	-- Step 13: Satyr Hooves
 	-- {area:430} Satyrnaar · {area:431} Splintertree Post · {area:429} Xavian · {spell:6925} Gift of the Xavian
 	-- plural, as words: Fireballs = {spell:133} Fireball
-	["The satyrs of {area:430}, north-east of {area:431} ({area:429}, level 28-30), and the Felmusk satyrs north-west of the post (25-27) drop a hoof four kills in five. A {area:429} satyr at 15% health may cast {spell:6925} and heal to full: finish it fast or stun it. Hellcallers throw Fireballs from 40 yards; Felmusk satyrs reek in melee and run for help at 15%."] = "",
+	["The satyrs of {area:430}, north-east of {area:431} ({area:429}, level 28-30), and the Felmusk satyrs north-west of the post (25-27) drop a hoof four kills in five. A {area:429} satyr at 15% health may cast {spell:6925} and heal to full: finish it fast or stun it. Hellcallers throw Fireballs from 40 yards; Felmusk satyrs reek in melee and run for help at 15%."] = "{area:431}東北{area:430}的薩特（{area:429}，28-30級）以及哨站西北的邪麝薩特（25-27級）五次擊殺有四次掉落蹄子。{area:429}的薩特血量到15%時可能施放{spell:6925}並回滿血：快速解決或擊暈它。地獄召喚者會從40碼外扔火球；邪麝薩特近戰很臭，血量到15%會跑去求援。",
 
 	-- Step 15: Orm Stonehoof
 	-- {npc:6410} Orm Stonehoof · {zone:1456} Thunder Bluff
-	["{npc:6410} works on {zone:1456}'s lowest level, close to the blacksmith."] = "",
+	["{npc:6410} works on {zone:1456}'s lowest level, close to the blacksmith."] = "{npc:6410}在{zone:1456}的最下層工作，靠近鐵匠。",
 
 	-- Step 16: Chimaeric Horn
 	-- {npc:6167} Chimaera Matriarch · {area:465} Charred Vale · {zone:1443} Desolace · {item:6840} Galvanized Horn · {spell:3396} Corrosive Poison
-	["The {npc:6167} (level 28, not elite, larger than the young ones around her) roams the south edge of the {area:465} in south-west Stonetalon, near the road to {zone:1443}. She is the only one: she returns 5 minutes after dying and drops the {item:6840} four kills in five. She spits {spell:3396} from 30 yards."] = "",
+	["The {npc:6167} (level 28, not elite, larger than the young ones around her) roams the south edge of the {area:465} in south-west Stonetalon, near the road to {zone:1443}. She is the only one: she returns 5 minutes after dying and drops the {item:6840} four kills in five. She spits {spell:3396} from 30 yards."] = "{npc:6167}（28級，非精英，比周圍的小傢伙大）在石爪山西南部{area:465}的南緣遊蕩，靠近通往{zone:1443}的路。只有這一隻：死亡後5分鐘重新出現，五次擊殺有四次掉落{item:6840}。她會從30碼外噴吐{spell:3396}。",
 	-- {item:6840} Galvanized Horn · {npc:6167} Chimaera Matriarch
 	["{item:6840}, from the {npc:6167}"] = "{item:6840}，來自{npc:6167}",
 
@@ -102,7 +102,7 @@ return {
 	-- Step 19: Dragonmaw Shinbones
 	-- {zone:1437} Wetlands · {area:321} Hammerfall · {area:881} Thandol Span · {area:150} Menethil Harbor · {quest:1846} Dragonmaw Shinbones · {npc:6411} Velora Nitely · {item:7131} Dragonmaw Shinbone · {spell:686} Shadow Bolt
 	["The Dragonmaw orcs (level 26-30) camp in the middle of the {zone:1437}; from {area:321} in Arathi head south over the {area:881} ({area:150} is Alliance). With {quest:1846} from {npc:6411} in your log, every Raider, Swamprunner, Centurion, Shadowwarder and Bonewarder drops a {item:7131} (without the quest they drop none): right-click it to test it, and about one in four comes out sturdy, the rest break, so expect 30 or more kills for 8. You can test while moving or fighting. The orcs run for help at 15%; Raiders net you, Centurions shield-bash, Shadowwarders cast {spell:686}, Bonewarders raise skeletons."] = "龍喉獸人（26-30級）在{zone:1437}中部紮營；從阿拉希的{area:321}向南越過{area:881}（{area:150}屬於聯盟）。任務記錄中有{npc:6411}給的{quest:1846}時，每個龍喉襲擊者、龍喉沼澤行者、龍喉百夫長、龍喉暗影守衛和龍喉白骨守衛都會掉落一根{item:7131}（沒有任務則不會掉落）：右鍵點擊來檢驗，大約四根中有一根是結實的，其餘會碎掉，所以要湊齊8根預計得殺30隻以上。移動或戰鬥中也能檢驗。這些獸人在15%生命值時會逃跑求援；襲擊者會用網困住你，百夫長會盾擊，暗影守衛會施放{spell:686}，白骨守衛會召喚骷髏。",
-	["from the Dragonmaw orcs: right-click to test it"] = "",
+	["from the Dragonmaw orcs: right-click to test it"] = "來自龍喉獸人：右鍵點選檢驗",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly to {area:378}. South of the camp the Silithid Mounds dot the {area:390}: the silithid there carry the Twitching Antennae."] = "飛往{area:378}。營地南邊的{area:390}散布著異種蠍土丘：那裡的異種蠍帶著顫抖的觸角。",

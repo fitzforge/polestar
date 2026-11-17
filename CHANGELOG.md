@@ -1,5 +1,694 @@
 # Changelog
 
+## 0.4.1 (2026-11-17)
+
+### For players
+
+- Unskipping a hand-in step for a quest you haven't finished no longer makes
+  it the current step at 0/1: it comes back once the quest is ready to hand in
+  (The Sacred Flame at Zangen Stonehoof in Thunder Bluff; thanks WoneX).
+- The Barrens (Horde): Vrang Wildgore's Bruised Pride and Lion Hides and
+  Vrang's Game are done on the first trip to the Dry Hills, with the harpies,
+  instead of a second trip back for them; Serena Bloodfeather and Walton's
+  quests stay on the later visit.
+- The arrow takes Scooty's transporter in Booty Bay to Gnomeregan (and back)
+  when you carry the Goblin Transponder from Gnomer-gooooone!, instead of
+  flying to Hammerfall and walking through Dun Morogh (thanks Joogz and DJ).
+- Paladin class quests (Moonsilver Blade and Wolfsbane, Verigan's Fist): for
+  the Corrupted Kor Gem the arrow now leads to the north end of the Zoram
+  Strand, where you swim into the flooded ruins, instead of up onto the ridge
+  over Blackfathom Deeps (#2203, thanks Mîku).
+- Freedoom Arcade by petllama comes with Polestar: on a flight with a minute
+  or more to go, a small card under the flight timer asks "Do you want to play
+  Doom while waiting?". Play opens three levels of Freedoom in a window in
+  your Polestar look, loaded only then. 10 seconds before you land (and on
+  the landing, or if a fight starts) the game is saved, paused and closed so
+  your keys steer again, and /doom carries on where you were. With
+  petllama's own Freedoom Arcade addon installed, Polestar opens that one,
+  all 36 levels. /polestar arcade and the guide window's menu open it any
+  time. Integrations > Freedoom Arcade turns the offer off: then nothing of
+  it is made or loaded on a flight (thanks petllama, #2228).
+- Lookup and the dungeon pick-up guides: a quest target that an item calls
+  up, such as the Screecher Spirit for Zul'Farrak's Screecher Spirits, now
+  reads as using the item and then speaking to the spirit, not as a kill
+  (thanks Stompsville).
+- While you're here no longer offers a goal its own step needs an item for
+  first, such as a footlocker that opens with a key the step takes from its
+  owner, or a summon that needs its bait: the line waits until the item is
+  in your bags (thanks HumiD).
+- Zul'Farrak's dungeon page and its pick-up guide now say how to get the
+  Mallet of Zul'Farrak, which calls Gahz'rilla: Qiaga the Keeper in the
+  Hinterlands drops the Sacred Mallet, and using it at the altar on top of
+  Jintha'Alor makes the mallet (thanks Stompsville).
+- Bag space: a new option, Equip a spare bag first (Quality of Life >
+  Vendors > Bags, off by default). With it on, when your bags are nearly
+  full and a bag sits in them while a bag slot is empty, the bag button and
+  the guide window offer to equip that bag first, on one press, and offer to
+  delete junk only once there is no bag to equip (#2369, thanks wesosdqueso
+  and moose25).
+- Guide window: Parts > Below the goals > "Pace line" hides the "On pace for
+  level N by step M" line and keeps the progress bar and the XP an hour; on by
+  default (#2371, #2379, thanks Sweebs90 and saulsilver9).
+- Gear scores count one school's spell damage, as an "of Holy Wrath" suffix
+  gives it: +20 Holy Spell Damage on a Retribution Paladin's shoulders no
+  longer scores as if it were not there (#2373, thanks Goldum).
+- Group quests: "Skip it" on a group quest's banner can be undone from the
+  banner for a few seconds, as a skipped quest or step can, and the guide asks
+  again (#2404, thanks rlyshw).
+- Stranglethorn Vale (Alliance, 30-40): the first visit starts at Booty Bay,
+  by the boat from Ratchet after Theramore, takes Booty Bay's quests and the
+  inn bind first and walks north once, instead of walking the length of the
+  jungle down and back (thanks Onrevax).
+- Dungeon pick-up guides: when a giver doesn't offer a lead-in quest, such as
+  Anastasia Hartwell's Tabetha's Task for Zul'Farrak, the guide moves on to
+  the quest it leads to instead of waiting for it, and says so (thanks Zack).
+- Training stops and the training reminder no longer send you to a starting
+  area's class trainer once you have outgrown it: those trainers teach up to
+  level 6, so a trainer that still has spells for you comes first: a level
+  14 shaman in Ironforge is no longer sent back to Coldridge Valley (#2477,
+  #2602, thanks Metalcalfe, Blacksheepevox and ESp3cter).
+- While you're here now shows quest work that has a place but no mob or item
+  to count, such as sitting by Eleanor Shackleton's campfire for The Great
+  Outdoors in Tirisfal, when you carry the quest and stand there ahead of the
+  guide (thanks Claude1131).
+- Lookup: a craft whose recipe comes from a recipe item (most cooking and
+  many other recipes) now sends you to that recipe's vendor, drop or quest
+  first, then has you use it, instead of to the profession trainer, who
+  doesn't teach it (thanks kaigltv).
+- Tirisfal Glades: the arrow to the Captured Scarlet Zealot now leads to the
+  cellar stairs inside the Gallows' End Tavern first, instead of out of the
+  inn and back in (#2509, thanks ItsSaulx).
+- Hillsbrad Foothills (Horde 30-40): The Rescue now has you take the keys from
+  Jailor Eston and Jailor Marlgen before the two locks, and a key on your
+  keyring counts as carried (#2512, thanks Acen).
+- Nikova Raskol in Stormwind's Old Town, Deathguard Bartholomew in Brill and
+  four more quest NPCs who walk a path are now marked along their whole path,
+  not at one spot on it (#2519, #2672, #1237, thanks Logan).
+- Guide window, compact window and While you're here: middle-click a quest's
+  line to open it in the quest log, shift-click it to link the quest in
+  chat. Left and right clicks do what they did; with a gamepad, the line's
+  menu has "Link in chat" (thanks Icewit).
+- Auction house buys: a quest in your log that the guide only takes as
+  optional (Jarl Needs a Blade, for a player who already carries a Moonsteel
+  Broadsword) no longer puts its item on the auction house list (#2553,
+  thanks devanpy).
+- Lookup: a quest in a chain shows where you are in it, "Step 6 of 11", and
+  lists the whole chain under the quest: each quest done, in your quest log,
+  open to take now, or what it waits for, with the ones you skipped marked
+  and the follow-ups it branches into. A click on a quest opens its page. The
+  guide window's quest tooltips say it too, "Chain: 6 of 11", or "Chain:
+  finished, 2 skipped" when only skipped quests are left (#2554, thanks
+  moose25, #2700).
+- Class training: the capitals' portal trainers (Larimaine Purdue in
+  Stormwind and the others in each capital) no longer count as mage
+  trainers. "Learn new spells" used to send a level 15 mage to one of them,
+  and they only teach a city's Teleport and Portal (thanks Mollen101, and
+  ESp3cter for the first fix, #2627).
+- Horde Eastern Plaguelands: the Gaeriyan step shows only with Meet at the
+  Grave in your log, so a player who never got a Videre Elixir is no longer
+  held in Tanaris.
+- Timbermaw Hold reputation: the Deadwood and Winterfall Ritual Totems'
+  hand-ins to Kernda are steps of their own, so taking the totem's quest no
+  longer skips its hand-in.
+- Riverglades (Alliance): the Loose Soil goal of What We Lost now says that
+  each grave takes one of the Farmers' Mementos the Twilight Raiders drop, so
+  you loot five before you go to the graves (thanks rockzors).
+- Lookup and pick-up guides: Screecher Spirits' "use Yeh'kinya's Bramble"
+  line now targets the Vale Screechers the bramble is used on and leads to
+  them, instead of the Screecher Spirit that only appears afterwards
+  (thanks Zack).
+- A finished quest handed in to someone inside a dungeon, such as Songblade
+  Search to Daewyn Songblade in the Excavation Site: Wetlands, now says who
+  and where in the guide's off-route list ("Daewyn Songblade, Excavation
+  Site: Wetlands") instead of "not known", and its hand-in guide leads to the
+  dungeon's entrance (thanks ttik3r).
+- Guide steps for Black Drakes and Wyrmkin (Stormwind and Darnassus
+  reputation) and Imbued Tears (centaur clans) track the quest log's lines in
+  the order the game shows them; Betrayed's arrow no longer waits for a camp
+  the quest no longer asks for (#2585).
+- Each update's quest data now takes in what players' recordings have shown
+  since the last one (who gives and takes each quest, drops, where objectives
+  are done, quest XP), not only the fixes made by hand (#2585).
+- Catching Wind, Alther's Mill and the centaur reputation quests no longer
+  show objective lines the game doesn't count (#2585).
+- Beat Bartleby, Sparring Match and the other quests where the NPC fights
+  you stay kill goals with the new quest data (#2535).
+- Mathrengyl Bearwalker's goals keep the way in through the druids' door in
+  the Cenarion Enclave (#1338).
+- Centaur clans, Gelkis valley: a tip warns that Undead Ravagers up to level
+  45 roam the valley.
+- Wetlands (Alliance, 30-40): with a group, the Dun Modr stop also offers The
+  Dark Iron War and Bring Back a Bang beside Spark of Freedom; on your own the
+  guide still leaves them out (thanks swork1).
+- Arrow: with Backing on, the dark plate now reaches as wide as the longest
+  line of text under the arrow, so a long goal no longer runs past it
+  (thanks Logan).
+- Settings, Trackers: pointing at the Flight timer's rows no longer makes the
+  preview flick between the Flight timer and the Journey; the preview keeps
+  its height, so the rows stay under the pointer (thanks Logan).
+- Buttons: "Target list upward" lets the target button's list of names grow up
+  from the button instead of down, for buttons near the bottom of the screen;
+  off by default (#2590, thanks Fyurie).
+- The install wizard's Targeting page no longer stops with a Lua error
+  (#2592, thanks Jeor and ESp3cter).
+- Fixed a Lua error from tooltip text the game keeps secret during combat
+  (#2595, thanks kelter-antunes and ESp3cter).
+- Guide window: a note or a plain text row no longer shows a tooltip that
+  only repeats its text, and long tooltip titles wrap instead of stretching
+  across the screen (#2600, thanks Ramirez and ESp3cter).
+- Stranglethorn Vale (Alliance): Skullsplitter Tusks are looked for in the
+  trolls' camp in the ruins of Zul'Mamwe, not at a lone panther or up north at
+  Zul'Kunda, where only two named trolls drop them (thanks Amerigo).
+- Lookup: looking up a quest that a class guide walks through, such as The
+  Test of Righteousness in the paladins' Verigan's Fist, opens that guide
+  instead of building one from the quest alone, which sent you to Bailor
+  Stonehand before his ore was fetched from the Mo'grosh camp (thanks
+  Sayvil972).
+- Profession guides: the materials a step asks you to collect are counted
+  again when you change zone, reset the guide or change how you get them,
+  instead of keeping an old count (#2611, thanks thmastin and ESp3cter).
+- Quests handed in at an object, not a person, now send you to that object:
+  Find the Lost Guards goes to the half-eaten body by the river, not back to
+  Guard Thomas, and A Grim Fate (the Lumina Windsinger paladin chain) to the
+  Charred Remains, not Deathguard Baldren. The quest data had an NPC as an
+  ender too on nine such quests; all nine are corrected (thanks JeromeM).
+- Quests no longer show the game's internal placeholder names. No Soldier
+  Left Behind reads "Farholde Scouts rescued", not "Kill [DNT] Kill Credit",
+  and the same goes for Break Their Chains, Sickening Lights, A Small Favor,
+  Drive Them Back and Rise Up! in the Riverglades, Eyes of the Sentinels in
+  Darnassus, Destruction in Deadmines, and the Alterac Valley and Arathi
+  Basin quests ("Graveyard Assaulted", not "Kill PvP Graveyard Credit
+  Marker"). Rise Up! is a talk to the Ogre Miners and A Small Favor a kill of
+  the Twilight Thrall. Lookup's search leaves out the game's unused and test
+  quests ("<UNUSED>", "<TEST> HEY MISTER WILSON!") (#2614).
+- Thousand Needles (Horde): Test of Faith's arrow now leads to the end of the
+  wooden planks on the cliff where the quest puts you, and the tip says to
+  step off there; it used to point back at Dorn Plainstalker, and a jump from
+  anywhere else is fatal (thanks xstevan).
+- Profession guides: a trainer step for a new rank says which one ("Learn
+  Journeyman Enchanting"), where it read "Learn Enchanting" as if you had
+  not learnt the profession yet (thanks mayzap).
+- Heads-up card: it no longer opens under the target list or the quest
+  buttons. When they stand where the card would go above (or below) the guide
+  window, the card takes the other side, or the window's side, and moves again
+  when the buttons are moved or the list grows (#2629, thanks Drasi).
+- Hillsbrad Foothills (Horde): Citizen Wilkes, for Dangerous!, is looked for
+  on the west side of Hillsbrad Fields' town, where players find him, not at
+  an empty spot east of it (thanks Sable).
+- Hillsbrad Foothills 22-25 (Horde): the guide ends at Orgrimmar's wind rider
+  master, where the next guide flies on, instead of a walk to the middle of
+  the city and back (thanks Monono).
+- Lookup: a quest that starts from an item, such as Ursangous's Paw, sends
+  you to where the item drops first, instead of a step with no place and no
+  arrow (thanks Prodigy).
+- The Barrens (Horde): at Camp Taurajo, with Ishamuhale still in your quest
+  log, the guide no longer shows it handed in and sends you on to Enraged
+  Thunder Lizards, which Jorn Skyseer only offers after it. Carrying Melor
+  Sends Word made Ishamuhale look done, because the quest data listed it as
+  coming after Ishamuhale; it doesn't, and a quest still in your log never
+  counts as handed in now, in any guide (thanks roethlar and Fibrasek).
+- After an update moved a quest's work behind you (it shows as "Still to do"),
+  a step that hands that quest in no longer points the arrow at the hand-in
+  while the quest isn't finished: the arrow leads to the work first. 0.4.0's
+  Ashenvale & Thousand Needles sent players who carried Between a Rock and a
+  Thistlefur or Troll Charm to Zoram'gar with nothing to hand in (thanks
+  FRoStY and kelter-antunes).
+- The Hinterlands (Alliance): Repurposed Totems' step says the Vilebranch
+  Totems also lie on the ground among the Soothsayers, besides dropping from
+  them (thanks Gilfy).
+- Dungeon hand-in guides: a follow-up that is handed in at one talk and never
+  enters the quest log, such as Bloodpetal Sprouts for Muigin after Sunken
+  Temple's Haze of Evil, is no longer shown as a quest to accept. With its
+  items in your bags it is handed in; without them the guide takes you to
+  where they are first (the sprouts grow in Un'Goro Crater) (thanks Fyurie).
+- Engineering: Schematic: Thorium Tube leads to Kor'gar where he stands at
+  Powderfuse Port, not to an empty spot nearby (thanks Requis).
+- "Lookup is off: searching guides only" stays in Lookup: going from
+  Lookup to the guide list left it over the list's tabs (thanks Caliber).
+- Stranglethorn Vale (Alliance 40-50): The Cook in the Cage's supply crate
+  is reached through the cave of Kurzen's Compound, not over the hill above
+  it (thanks Xaden Ryan).
+- A quest's tooltip lists every follow-up on a line of its own: with three
+  or more after "Leads to", the later ones were drawn over each other
+  (thanks troders).
+- In a group, Polestar no longer accepts an escort quest for you: the
+  escort starts the moment it is taken, so you take it yourself once the
+  group is ready. Alone it is taken as before (thanks DexeeXI).
+- The Hinterlands & Blasted Lands (Alliance): Facing Negolash gets his
+  food first, 10 Barbecued Buzzard Wings and 5 Junglevine Wine, and hands
+  it in at the lifeboat that calls him up (thanks Soggy).
+- Riverglades (Horde): Stick 'Em points at the crocolisks in the river,
+  not at the farm south of it (thanks stabaho).
+- A dungeon's pick-up guide says how a quest is done when its objectives
+  don't: Powering the Pylons (Razorfen Downs) now says to gather mana with
+  the Mana Sieve before the pylons (thanks Unholy).
+- Riverglades (Horde): landing at Kargath with its flight path known no
+  longer says you have reached the end of the guide at its second step. A
+  flight path you already know never ends a guide early (thanks Yeeshak).
+- Lookup knows every vendor that sells an item: it kept ten per item, so
+  for Red Dye in Ironforge it named a vendor in Loch Modan though four sell
+  it in the city (thanks Nickdead).
+- Dustwallow Marsh (Horde): the Soothing Spices arrow leads to Aza'bek where
+  the vendor stands at the Crossroads, not to a spot 64 yards away (thanks
+  Kaxe).
+- The arrow's walk no longer settles on a slightly longer way when its goal's
+  spot sits a few yards off the walking maps: the search's estimate of the way
+  left now allows for how far the goal is moved onto them (#2723, thanks to
+  undersailor for finding it in the code).
+- Argent Dawn: The Archivist's Stratholme step now has you burn the Scarlet
+  Archive as well as kill Archivist Galford, before the hand-in.
+- Walking along a zone border toward a goal just across it, the arrow no
+  longer turns back and forth between the crossing and the walk straight
+  there every second: the route it chose stays until a fresh one saves time
+  (#2048).
+- Bags: the keep lock moves to the bottom-left corner so it no longer sits
+  under the upgrade arrow, in Baganator and BagSmith too; the step's item
+  glows and kept items show their lock in EllesmereUI Bags; the glow stops
+  pulsing with Reduce motion on (thanks anarchylimes, #2705).
+- Bear Form: hand in Heeding the Call letters from Denatharion, Theridran,
+  Innkeeper Pala or Innkeeper Gryshka at the correct druid trainer before
+  Moonglade (thanks shacklef00rd, #2313).
+- Resuming Bear Form skips Cenarion Enclave approaches after taking Moonglade
+  or Body and Heart, while keeping the first visit for a carried trainer
+  letter. Skyborne skip the ports after handing in Strength and Mercy (thanks
+  shacklef00rd, #2307).
+- Start zones: Camping 101: Blacksmithing in Dun Morogh now comes after
+  Supplies to Tannok is handed in, and Camping 101: Tailoring in Durotar after
+  A Peon's Burden and Camping 101: Cooking. Their campfires only offer these
+  quests after those hand-ins. Until now the guide passed them before then,
+  so blacksmiths and tailors never got the quest.
+- Cat Form: Night Elves and Alliance Skyborne resuming the guide no longer
+  return to the Cenarion Enclave entrance after taking the opening quest or
+  finishing the final hand-in. The entrance stays on the route for visits
+  they still need to make (thanks shacklef00rd, #2295).
+- The arrow walks you to Ilsa Corbin in Stormwind's Old Town, Thatog in
+  Orgrimmar's Valley of Strength, Jes'rimon on the Drag and Thom Filch under
+  Ironforge on their own floors, instead of pointing at the ground under
+  them (#2028).
+- In Ironforge and Stormwind the arrow walks you to NPCs who stand beside a
+  bar or a counter, such as Gwenna Firebrew in the Stonefire Tavern, Nissa
+  Firestone in the Great Forge and Connor Rivers in the Mage Quarter,
+  instead of pointing at the roof or the ground under the city (#2028).
+- The step list in compact mode shows many steps again: opening it grows
+  the compact window up to its height limit, and closing it brings the
+  window back to its size. The normal window keeps its height while you
+  browse (thanks to a player on Discord).
+- Lookup and dungeon pickup guides take The Essence of Aku'Mai before
+  farming the Damp Note, unless it is already in your quest log or
+  completed. Quest-card links respect the same requirement (thanks esauri for
+  the report and shacklef00rd for the fix, #2171).
+- German: the last guide texts, The Drowned City and twelve more guides
+  (thanks bumblei3, #2731).
+- At Ghost Walker Post in Desolace the arrow no longer leads you up the
+  east face to Gurda Wildmane, which can't be climbed: it takes the slope
+  on the north side (#2316, reported by Fenn).
+- Direct quest hand-ins wait until their minimum level. Leveling routes pass
+  them until you level up; other guides wait when nothing else is left to do
+  (thanks shacklef00rd, #2320).
+- Aquatic Form and Cure Poison stop sending Alliance Druids back to the
+  Cenarion Enclave entrance after its quest visit is already finished.
+  Unfinished visits still lead through the entrance to reach Mathrengyl
+  upstairs (thanks shacklef00rd, #2301).
+- Dungeons: each boss on the Bosses tab lists its known drops behind a
+  chevron, with the game's tooltip on each item (thanks RikyZ90, #2718).
+- A dungeon's pick-up guide no longer disappears after a /reload or a new
+  login once every quest is taken: its tab comes back as the guide to hand
+  the dungeon's quests in, so after the run you are led to the turn-ins
+  instead of back to the leveling route (#2765).
+- Dungeons forgets a search once you leave it for another section: coming
+  back shows the level bands again with an empty search box, and For your
+  level, All dungeons and the bands can be clicked (#2773, reported by
+  Liquidor).
+- A walk to a stop that holds nothing for you now passes when the next work is
+  somewhere else, even with no travel step in between: in Alterac, a character
+  without Gol'dir to free goes straight to the Dalaran crater instead of up to
+  Strahnbrad first. (#2154, thanks Zack)
+- Feralas: with Feathermoon's flight path known, flying in no longer leaves
+  the "Boat to Feathermoon Stronghold" step open and sends you back over the
+  water to the dock. A walk to a boat passes once you stand on the boat's far
+  side with the next work there too, as Menethil Harbor's boat to Southshore
+  does. (#1983, thanks Visur)
+- Dungeons: Alcaz Prison's page lists the whole prison story for both
+  factions. The quests you pick up and hand in inside (The Man in the Iron
+  Chains, More Valuable Than Gold, The Honor of the Kor'kron, Thrall Needs to
+  Know and the rest) say so, and State Secrets shows at Nazgrel or Renzik
+  "The Shiv" once More Valuable Than Gold is done (#2560). The same check
+  over every dungeon adds Krol'dok Moulding to Krol'dok Stronghold; The Horn
+  of Xelthos, The Test of Righteousness and A Moon-Kissed Blade to Shadowfang
+  Keep; The Eye of Bhossca to the Scarlet Monastery; Collection of Goods to
+  Stratholme; Leggings of Arcana to Scholomance; and takes three Dalaran city
+  quests off the City of Dalaran's page.
+- French: the last guide texts, The Drowned City and twelve more guides, and
+  the City of Dalaran called by its French name (thanks bumblei3, #2735).
+- Translate remaining English names with known French equivalents in leveling,
+  class, profession and reputation guides, clarify French Arathi wording,
+  and use Cabestan in the French class-mount reminder (thanks KrysFly,
+  #2538).
+- The guide window's menu opens at its top again, with Choose guide in view.
+  With Compact mode or Transparent ticked and a long menu, it opened scrolled
+  down to them, hiding Choose guide above (#2647, thanks Alaira).
+- The guide window has its own Text size now, on its page in the settings
+  (Guide window > Window, beside Scale), so you can make the guide's text
+  bigger or smaller without changing the rest of Polestar's. The Text size
+  under Theme > Text sizes everything else, the class quest card included.
+  Your guide window keeps the size it had (thanks tbasten, #1777).
+- The guide no longer sends you to hand in a quest whose work it never
+  asked for. Kerlonian Evershade's step in Darkshore now waits for his escort
+  and points to his bag on the road south before it sends you on to Liladris
+  Moonriver at Maestra's Post; the same goes for Lumina Windsinger's escort
+  in the Paladin's Lumina Windsinger guide. The Kobold Tracks for Shhh! We're
+  Hunting Kobolds in Elwynn Forest, the Novice Warriors for Sparring Match in
+  Mulgore and the Eye of Kilrogg for A Void Path in Ashenvale are listed as
+  goals before their hand-ins too.
+- The Guides window's sidebar no longer keeps an old search's counts when
+  you switch sections: Lookup's kinds count what the empty search box shows
+  as soon as you come back (#2769, reported by Liquidor).
+- A Hunter's melee weapon says, under Polestar's score on a quest reward
+  choice or while its weapon skill is low, that a Hunter's ranged damage uses
+  its stats, not its damage (thanks Colored McLovin).
+- An import string whose guide has a long note that names someone in the
+  author's own words imports again (notes like that stopped at about 128
+  characters), and a string with a text that really is too long now names
+  the limit that applies to it.
+- Quests started from an item you picked up earlier now show only while you
+  carry the item, so a skipped, lost or sold item no longer holds the guide
+  where nothing can start the quest: the three OOX distress beacons in the
+  Mechanical Chicken guide and the Nibbled-On Book in the Stormwind reputation
+  guide.
+- Companion pet guides (Mechanical Chicken, Smolderweb Carrier, Worg Carrier,
+  Spectral Bear Cub) no longer wait for a pet you already earned: the hand-in
+  step shows only while its quest is still to hand in.
+- The guide window says what it leaves out: where it passes over quests, a
+  dim "N left out here" line opens to each quest and why (it needs another
+  quest first, it waits for your level, it pays too little for the walk, a
+  quest you took closes it), with Guide me to a missing start quest and Turn
+  off Skip grey quests. The step browser marks the same on each step, grind
+  steps say which level the next quests are and what is still worth doing
+  nearby, a line offers to clean up when 3 or more quests in your log aren't
+  part of your route, and the bug report carries the reasons. Options, Guide
+  window, Step card turns it off.
+- A guide made from Lookup or Dungeons has its Lookup category in the
+  Guides window's sidebar too, not only a heading under All guides (#2779,
+  reported by Liquidor).
+- Fewer small hitches while you kill, loot and walk across zones (#2537,
+  thanks fekz). A quest log update that changes nothing in your current step
+  no longer refreshes the bag glow and the quest buttons. An XP gain redraws
+  the guide window's XP line once instead of twice. Crossing into a subzone or
+  a building on the way no longer redraws the whole route when the way stays
+  the same.
+- Polestar_Nav holds less memory after a walk: about 12 MB less on the
+  Eastern Kingdoms while it rests between searches, and its search trees
+  are smaller (#2531).
+- No more stutter on every kill while a "pick up the quests" guide (or another
+  guide with long quest chains, such as a class or dungeon guide) is open:
+  Krol'dok Stronghold's spent 20-25 ms each time the quest log changed (thanks
+  peterweber).
+- Quest items left in your bags after every known quest that uses them is
+  handed in get a red border, in the game's bags, Baganator, BagSmith and
+  EllesmereUI. Active, repeatable, and upcoming guide quests are excluded from
+  the red border. Hover a red item to see why it was marked (thanks RikyZ90,
+  #2528).
+- Polestar makes much less garbage while you stand, walk and loot: it reads a
+  quest's objectives from the game once per update instead of once per guide
+  line that counts them, so the game's memory cleanup runs less often.
+- Quest tooltips can say how often a mob drops the quest item you still
+  need: "Kobold Candles: Large Candle 3/8  40%" on the Kobold Vermin, and
+  the same on a chest or plant the item comes out of. Turn it on under
+  Options > Questing > Quests > Quest log and tooltips > "Drop chance"; off
+  by default (thanks lichuu, #2233).
+- Quest tooltips can name an NPC's own quests: the quests it has for you now
+  ("Starts a quest: Kobold Camp Cleanup") and the finished quests you can
+  hand in to it ("A Threat Within: Turn in"). Turn it on under Options >
+  Questing > Quests > Quest log and tooltips > "Quest givers and turn-ins";
+  off by default (thanks lichuu, #2233).
+- Quest tooltips can show each quest once. The game names a mob's or
+  object's quests itself, so with Polestar's quest lines every objective read
+  twice. With Options > Questing > Quests > Quest log and tooltips > "Replace
+  the game's quest lines" on, the game's own lines for the quests Polestar
+  names are left out. The lines of other quests stay, and all of them in a
+  group, where they show your party's progress. Off by default (thanks
+  lichuu, #2233).
+- The game's XP bar shows the XP your finished quests give when you hand
+  them in, as a muted green fill after your XP, and its tooltip adds it up:
+  how many quests, how much XP and where it leaves you, or that it takes you
+  up at least a level. Turn it off under Options > Quality of Life >
+  Trackers & map > Experience > "Completed quest XP" (thanks RikyZ90, #2269).
+- A search in Rares or Dungeons updates the sidebar's counts to the matches,
+  as Guides and Lookup do, and a level band picked while searching Dungeons
+  narrows the results to it (#2776, reported by Liquidor).
+- Recording summaries keep the full recorded time when a delayed kill is
+  written after a newer record, instead of shortening the chunk's duration
+  (thanks shacklef00rd, #2192).
+- Recording summaries exclude boat and flight travel when both trip boundaries
+  are recorded, including trips spanning consecutive recording chunks. Missing
+  chunks no longer create a distance jump between the surviving positions
+  (thanks shacklef00rd, #2205).
+- Once you have the riding skill, the arrow, waymarker and journey say "Ride
+  to ..." where they said "Walk to ...": to a zone, the flight master, a boat,
+  zeppelin tower, airship dock, the Deeprun Tram, a portal, an inn, a cave
+  mouth or an entrance. The walk to a lift still says walk, and so does a
+  ghost. Learning riding shows it from the next time the route is planned
+  (thanks Davidbergkvist).
+- At the Ruins of Lordaeron's entrance, the journey walks you the few yards to
+  the portal instead of sending you down the Undervator into the Undercity and
+  back up the south lift (#2516).
+- When the route comes back to a zone and its quests there need one you
+  missed on the earlier visit (you started Polestar in between, or skipped
+  that guide), the guide now brings that quest back first, shown only if you
+  don't have it: Test of Faith in Thousand Needles, Welcome to the Jungle in
+  Stranglethorn, Scarlet Diversions at the Bulwark, Gadgetzan Water Survey in
+  Tanaris and The Wildlife Suffers Too in the Western Plaguelands for the
+  Horde; Washed Ashore in Darkshore, Worgen in the Woods in Duskwood, Scaring
+  Shaky in Booty Bay, The Thirsty Goblin in Gadgetzan and The Wildlife Suffers
+  Too for the Alliance. Characters who did the earlier visit see no change.
+- When an update leaves Polestar Settings or Polestar Looks switched off in
+  the AddOns list, Polestar now asks at login to turn them back on and
+  reload, and asks again when you open Options, instead of only printing a
+  chat line (#2594).
+- Shamans looking up an Earth, Fire, Water or Air Totem now open the existing
+  class guide for their faction. Water Totem uses the authored waterskin
+  directions, including where to fill the red and blue waterskins, instead
+  of a generated quest guide (thanks Logan for the report, #2331, and
+  shacklef00rd, #2429).
+- With Shortest Path Forever installed, a spot you Shift- or Alt-click on the
+  world map that it finds no way to is now guided by Polestar's arrow, instead
+  of the arrow staying on the guide's objective with nothing leading to the
+  spot (#2028).
+- Skip grey quests now goes by the XP Forever pays: a quest still paying full
+  XP (up to 5 levels below you) is never left out once you are past a guide,
+  and one paying less is left out only when going back for it costs more
+  time than it gives. A grey quest that still pays full XP stays too. The
+  setting's help says what it does. (thanks animagic, Donkeyman, Zack,
+  aVikingTrex and TheLombaxLegend)
+- Pressing the target button or the step key again while you have one of its
+  mobs targeted now moves on to the next mob with that name, so you can get
+  past one someone else has tagged. Clicking a row of the target list or a
+  name in the guide does the same (thanks to a player on Discord).
+- The target button and the step key give a fallback enemy its enemy icon
+  instead of the NPC's star, and a fallback NPC its own icon. Cycling icons
+  follow the target actually found (thanks swork1, and shacklef00rd, #2176).
+- In a fight, drag the Polestar mark beside the target list to pick a new
+  spot for the buttons: an outline shows where, and they move there when the
+  fight ends (thanks cameronmoten, #2581).
+- The target list can be smaller: Settings > Questing > Buttons > Targeting >
+  Target list style. Slim rows show a small portrait, the name and the count
+  (the item it drops is in the tooltip); names only shows the rows without any
+  face; portraits show the faces alone, in a column or side by side, each with
+  how many are left on it, a coloured bar for its kind that turns green while
+  it is close, and a finished one greyed out (even with its mob close). Hover
+  a portrait for its name; the one that is close shows its name beside its
+  portrait (under it in a row), unless you turn off Name the one that's close.
+  (thanks petllama)
+- The target list's faces can be 2D instead of 3D models: Settings > Questing
+  > Buttons > Targeting > Portraits. 2D shows the game's flat portrait of a
+  mob or NPC once you have seen it (your target, or its nameplate up), and
+  until then an icon for what you do with it: kill, loot, talk, accept or turn
+  in. (thanks petllama)
+- Two new guides under Miscellaneous, The Drowned City (Horde) and The Drowned
+  City (Alliance), take every quest of the dungeon in one go: the lead-ins
+  (from Kin'weelay at Grom'gol, or from the Rebel Camp to Loremaster Dibbs in
+  Southshore), Krazek's quests in Booty Bay and the idol quest (Mazu'kon in
+  Mulgore, Archmage Timear in Dalaran), one run through the dungeon boss by
+  boss, with its four tablets and the barrier, then every hand-in (thanks
+  creazy231, #2453).
+- Expanded Traditional Chinese guide translations, thanks to the
+  Polestar Chinese community.
+- Transmogrifiers appear in Nearby Services and the opt-in service POI layer
+  on the world map and minimap.
+- The travel arrow no longer calls Grenka Bloodscreech's mesa in western
+  Thousand Needles "Un'Goro Crater": a goal stays in its own zone when the
+  walking maps name a zone whose map doesn't reach that far. (#1918, #2208,
+  thanks mtbhuskies and Joogz)
+- The arrow walks you to Hervdana Saegrund in the Wetlands (the Water
+  Totem's Call of Water) up from the Dun Algaz road, instead of pointing
+  straight over the mountain: her ledge is joined to the road on the walking
+  maps (#2331, reported by Logan).
+- Smaller hitches when a quest objective ticks or the step changes (#2537):
+  the "While you're here" suggestions are worked out a frame later instead
+  of in the same frame as the guide's own update.
+
+### For guide authors
+
+- `forge guide lint` and `compile` fail on any of the game's placeholder names
+  ("[DNT] Kill Credit", "Credit", "PvP Tower Credit Marker", "Trigger
+  Ichman", "<UNUSED>", `[PH]`, `(DND)`) in a name or text a guide shows, and
+  `forge data build` fails on any left in the quest data a player can read.
+  A `kill` or `talk` on such a target is read by its quest-log line and named
+  by its objective's words, not the placeholder (#2614).
+- A `buff <spell> ["Name"]` goal is done while that aura is on the character
+  and kept once its step had it; `buff … off` waits until it is gone. `when
+  buff <spell>` and `when !buff <spell>` make a step depend on an aura: ask
+  for the blessing only while it is not on. Pack format 11, Polestar 0.4.1.
+  (thanks DomGrieco, #2501)
+- Two goals: `deposit <item> [xN]` (put an item in the bank: done once the
+  bags hold none, or the bank holds N) and `equip <item>` (wear it; `off`
+  to take it off). And two conditions: `when equipped <item>` and `when
+  indoors`. Polestar only looks and counts: the player moves and equips.
+  Pack format 11, Polestar 0.4.1. (thanks DomGrieco, #2502)
+- `either` after two or more goals of a step makes them alternatives: the
+  step is done when any one of them is (one of two quests a giver offers,
+  any one of several items, the boat or the tunnel). A quest taken as one of
+  such a set holds its later steps only for the players who took it, and
+  quests that close each other no longer draw a lint warning as one set.
+  Pack format 11, Polestar 0.4.1. (thanks DomGrieco, #2500)
+- `loop` now places a `skill` goal on the step's `goto` points too, so a
+  gathering round is searched point by point as a kill or collect is. In a
+  step with no kill, collect, interact or skill goal it places the `accept`,
+  `turnin` and `talk` goals instead: the arrow leads along the points until
+  the player meets a quest giver who walks. (thanks DomGrieco, #2499)
+- A quest whose log lists the same target on two lines (a talk to the same
+  NPC before and after a patrol) now takes `quest Q.3` for the later line:
+  the compiler no longer says the line belongs to the first. (thanks
+  DomGrieco, #2498)
+- `when rep <Faction> <Standing>` makes a step, a `skipto` or a `next` option
+  depend on a standing, and `<Standing>+<points>` (`Revered+12000`) asks for
+  points inside it, on the predicate and on the `rep` goal, which counts
+  toward them. Pack format 11, Polestar 0.4.1. (thanks DomGrieco, #2501)
+- `upto <N>` after a goal with `quest Q.O` ends the goal at N of the
+  objective's count, so an objective worked in several places can have a
+  step for each (`kill 6 quest 7.1 upto 4` at the first camp, the rest at
+  the second). Pack format 11, Polestar 0.4.1. (thanks DomGrieco, #2503)
+- Honest playtests and Forge judge respect the named hearth binding in
+  step conditions. After setting home, `when bound` and `when !bound` no
+  longer take or skip a step regardless of the place it names (thanks
+  shacklef00rd, #2209).
+- `forge guide lint` checks the kinds of step players kept getting stuck on,
+  as errors in Polestar's guides (warnings in other packs and in `compile`):
+  a required hand-in taken straight from the bags with no `when has` for its
+  item, a gated step that hands its item over before its other goals, a
+  `kill` on a talk objective, a hand-in no earlier goal works, an accept the
+  giver cannot offer there or that sits two levels above the route, and a
+  `use` whose item only optional or skippable steps get. A step that is right
+  as written goes in `data/lint-allow.json` with its reason (GUIDE_FORMAT.md,
+  "Validation").
+
+### For contributors
+
+- The open quest database and the data pack keep only our public corrections:
+  a value backed only by sources we don't publish never goes in, and a public
+  correction checked in game or in recordings now counts on its own. A release
+  data build reads the recordings archive one session at a time and stops when
+  it counted far fewer recordings than the last good build (#2585).
+- A pull request that changes only documentation runs the documentation
+  checks (wording, names, SVGs) in about a minute and a half instead of the
+  whole suite; the required `Tests` check still reports on it. A change to a
+  document the Rust tests read (docs/API.md, docs/GUIDE_FORMAT.md,
+  docs/PACK_FORMAT.md, docs/PACKS.md, README.md, THIRD_PARTY.md) now runs
+  them (docs/CI.md, "Lanes").
+- The Rust and Lua check ("Format, lints, tests") reports on every pull
+  request, so `next` can require it: a pull request that touches nothing it
+  reads passes it in seconds instead of not starting it (docs/CI.md,
+  "Lanes").
+- Pull request checks no longer fail on a timing budget. On GitHub's shared
+  runners the tests that time the settings window, the recorder, tooltips and
+  route plans only warn when a figure is over budget; everything else they
+  check still fails. The release gate enforces the budgets on a quiet machine
+  (`rust/scripts/timing-budgets.sh`, docs/RELEASING.md step 3).
+- `node tools/polestar.js flow-diff --base <ref>` plays the leveling route
+  before and after a change, each tree through its own engine, and shows
+  what the change does to the route's flow: the zones each guide walks, new
+  trips back into a zone the route had left, steps that send the player far
+  for one quest or to a place with nothing to do, quests carried for more
+  guides, walking and flying time, and where each moved quest went. A pull
+  request that moves a quest pastes its table; a new revisit or trip needs a
+  reason in `data/flow-diff-allow.json` (docs/ROUTE-FEEL.md, "Flow diff").
+- A pull request that changes a guide now commits the recompiled guides and
+  their translation files (`forge i18n guides sync`, then `forge guide
+  compile`) with the change, so `next` never waits for a recompile after a
+  merge (CONTRIBUTING.md, "Fixing a guide").
+- Translators: when a guide text's English changes, `forge i18n guides sync`
+  writes its old translation as a `-- was:` comment right above the new,
+  empty line, matching the texts with their names read as words, so a
+  sentence that differs by one name starts from the old translation instead
+  of from nothing (thanks soulrocha for the idea and the measurements, #1315).
+- Honest playtest checks classes named in later guides of a chain, so a
+  class-specific quest error cannot pass unnoticed merely because the first
+  guide has no work for that class. It samples races named in later guide
+  headers, skips each guide for incompatible characters, and fails when no
+  character can play any selected guide (thanks shacklef00rd, #2172, and
+  PRDesrochers).
+- `playtest --honest` and `forge judge` fail when the selected characters
+  cannot play any of the selected guides, instead of reporting success
+  without playing (thanks shacklef00rd, #2166).
+- `forge judge` applies faction and race filters consistently for lowercase
+  names and race aliases, so valid inputs do not silently skip honest play
+  (thanks shacklef00rd, #2174).
+- Fewer merge conflicts when you bring a branch up to date: the interface
+  translations merge line by line, `forge guide rehash` recomputes
+  `guides/GENERATED.json` and `forge/seed/SEED.json` from the files, and
+  CONTRIBUTING.md, "Merge conflicts", says how to settle each shared file.
+- `broad.js run --spf <checkout>` runs the broad walk sample on Shortest Path
+  Forever's own router and walking maps from a local checkout, measured the
+  same way, and `compare` lists the walks it finds that Polestar's do not. The
+  table splits steep stretches into climbs (up over 50 degrees for 4+ yards)
+  and ledge drops.
+- `polestar playtest --persona` plays the guides as imperfect players: one
+  who skips a step, loses a quest item, did a quest before the guide offers
+  it, updates mid-guide from the last release, or starts the route at a
+  guide with nothing from the guides before it. A play is stuck when the
+  guide holds the player on a step they can never finish. With the pin
+  coverage guard (`tools/pin-coverage.js`: every fixed issue has a test,
+  every route and guide record still matches a guide) it is a release step.
+- Tests pin the Searing Gorge fix for Prayer to Elune (#2300): a player who
+  answers "Skip it" at the group question is never sent into Zamael's elite
+  camp, even carrying the quest, and one who groups is led there (thanks
+  shacklef00rd for the tests, #2305, and Edet for the report).
+- Forge's setup guide, doctor and data-fetch help point to the published
+  public data pack. A missing default index reports a 404 with recovery
+  options (thanks shacklef00rd, #2286).
+- `record report` no longer joins the last outdoor sample to a distant exit
+  after an instance stay (a hearthstone, a ghost run, another way out):
+  walking resumes from the first fresh outdoor sample (thanks shacklef00rd
+  and PRDesrochers, #2296).
+- Recording reports keep the walk ashore before a boat ride's delayed stop
+  record: own-speed samples inside the ride count as walking when their legs
+  fit the recorded speed, while flights still exclude every sample (thanks
+  shacklef00rd and PRDesrochers, #2289).
+- forge release pack leaves Freedoom Arcade's own build, test and publish
+  scripts, its CurseForge page images and the standalone addon's nested TOC
+  out of the release zip (NOT_SHIPPED in forge-release); its game files,
+  licences, credits and README still ship.
+
+### Forge
+
+- Recordings in the data build: a quest's XP is what players' quest logs show
+  (a turn-in can pay a player's own bonus on top), a recorded title with the
+  game's text tokens (`$C`) never replaces the title, and a quest's giver that
+  an in-game capture names as an ender joins its enders only when players
+  handed the quest in in that NPC's window (#2585, #2612).
+- Recordings give no spawns to a creature the game's spells summon when no
+  source places it (a shaman's totem, a boss's guards, a repair bot): where
+  players met it is where someone summoned it (#2585).
+- `forge judge --levels FILE --to N` now stops the walk at the requested
+  level, just as the simulator does, instead of reporting every recorded
+  goal and including later travel in its findings (thanks shacklef00rd,
+  #2177).
+- `forge guide lint` flags an accept in Polestar's leveling guides whose
+  prerequisite only an earlier guide's visit to the same zone brings, unless
+  the guide brings the prerequisite back itself before it (steps
+  `when !turnedin`) or data/route-fixes.json records why it stays out
+  (`overrides.leftout`, checked by `forge data check-corrections`).
+
 ## 0.4.0.1 (2026-11-16)
 
 ### For players

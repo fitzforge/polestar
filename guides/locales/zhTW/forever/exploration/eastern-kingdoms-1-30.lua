@@ -35,7 +35,7 @@ return {
 	-- Step 8: Westfall (1/2)
 	["14 areas to discover here, levels 9-18."] = "此處有14個區域待發現，等級9-18。",
 	-- {area:144} Thelsamar · {zone:1453} Stormwind City · {zone:1455} Ironforge · {area:2257} Deeprun Tram · {zone:1429} Elwynn Forest · {area:120} Westbrook Garrison · {zone:1436} Westfall
-	["Fly from {area:144} to {zone:1453} if you have its flight path; otherwise ride back to {zone:1455} and take the {area:2257}. Walk west out of {zone:1429} past the {area:120} into {zone:1436}."] = "",
+	["Fly from {area:144} to {zone:1453} if you have its flight path; otherwise ride back to {zone:1455} and take the {area:2257}. Walk west out of {zone:1429} past the {area:120} into {zone:1436}."] = "若已開通飛行點，從{area:144}飛往{zone:1453}；否則騎回{zone:1455}，乘{area:2257}。從{zone:1429}向西步行，經過{area:120}進入{zone:1436}。",
 	-- {area:108} Sentinel Hill
 	["Flight path here: {area:108} (Thor)."] = "此處的飛行路線：{area:108}（索爾）。",
 
@@ -49,7 +49,7 @@ return {
 	-- Step 12: Duskwood (1/2)
 	["13 areas to discover here, levels 10-30."] = "此處有13個區域待發現，等級10-30。",
 	-- {area:1002} Three Corners · {zone:1431} Duskwood · {area:42} Darkshire
-	["From {area:1002} take the road south into {zone:1431}; {area:42} is east along its main road. Most of Duskwood is level 24-30: come with Redridge behind you."] = "",
+	["From {area:1002} take the road south into {zone:1431}; {area:42} is east along its main road. Most of Duskwood is level 24-30: come with Redridge behind you."] = "從{area:1002}沿路向南進入{zone:1431}；{area:42}就在主路東側。暮色森林大部分是24到30級：先做完赤脊山再來。",
 	-- {area:42} Darkshire · {npc:2409} Felicia Maline
 	["Flight path here: {area:42} ({npc:2409})."] = "此處的飛行路線：{area:42}（{npc:2409}）。",
 
@@ -65,7 +65,7 @@ return {
 	-- Step 16: Hillsbrad Foothills (1/2)
 	["12 areas to discover here, levels 20-31."] = "此處有12個區域待發現，等級20-31。",
 	-- {area:150} Menethil Harbor · {area:271} Southshore
-	["Take the boat from {area:150} to {area:271}."] = "",
+	["Take the boat from {area:150} to {area:271}."] = "從{area:150}乘船到{area:271}。",
 	-- {area:271} Southshore · {npc:2432} Darla Harris
 	["Flight path here: {area:271} ({npc:2432})."] = "此處的飛行路線：{area:271}（{npc:2432}）。",
 	-- {area:272} Tarren Mill

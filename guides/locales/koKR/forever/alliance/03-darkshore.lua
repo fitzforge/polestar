@@ -21,6 +21,7 @@ return {
 	-- {npc:10219} Gwennyth Bly'Leggonde · {zone:1438} Teldrassil
 	["{npc:10219} (Night Elves have it from {zone:1438})"] = "",
 	-- {npc:10216} Gubber Blump
+	-- was: ["{npc:10216}, on the pier: only with {skill:356}"] = "{npc:10216}, 부두 위: {skill:356} 기술이 있을 때만"
 	["{npc:10216}, on the pier"] = "",
 
 	-- Step 3: Gubber Blump

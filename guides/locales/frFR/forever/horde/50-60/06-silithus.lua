@@ -30,7 +30,7 @@ return {
 	["Back to Southwind and climb the tower. Stirring the hive at the top brings out Hive'Ashi Ambushers; one carries the {item:17346}."] = "Retournez à Sudevent et montez dans la tour. Remuer la ruche au sommet fait sortir des Embusquées de la Ruche'Ashi ({npc:13301}) ; l'une porte {item:17346}.",
 
 	-- Step 6: The Spirits of Southwind
-	["The Spirits of Southwind"] = "The Spirits of Southwind",
+	["The Spirits of Southwind"] = "Les esprits de Sudevent",
 	["Inside"] = "À l'intérieur",
 
 	-- Step 7: Level 57
@@ -126,7 +126,7 @@ return {
 	-- {npc:15190} Noggle Ficklespragg
 	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15190} se tient à l'étage de son bâtiment : montez par l'intérieur, la flèche ne distingue pas les étages.",
 	-- {area:2744} Hive'Regal
-	["Mar'alith's next errand, Into the Maw of Madness, leads into {area:2744} among elites. Skip it."] = "La mission suivante de Mar'alith, Into the Maw of Madness, mène dans la {area:2744}, parmi des élites. Passez-la.",
+	["Mar'alith's next errand, Into the Maw of Madness, leads into {area:2744} among elites. Skip it."] = "La mission suivante de Mar'alith, L'antre de la folie, mène dans la {area:2744}, parmi des élites. Passez-la.",
 
 	-- Step 26: Layo Starstrike
 	-- {area:3077} Valor's Rest · {zone:1451} Silithus
@@ -359,17 +359,20 @@ return {
 	["from the cauldron, for {npc:11055} at the {area:152}"] = "au chaudron, pour {npc:11055} à {area:152}",
 
 	-- Step 100: Mulgris Deepriver
-	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {area:201} Gahrron's Withering
+	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "Vous avez manqué ceci lors du passage précédent de l'itinéraire ici : cela passe d'abord maintenant. C'est rapide et cela ouvre les quêtes qui suivent.",
+
+	-- Step 103: Mulgris Deepriver
+	-- {npc:10739} Mulgris Deepriver · {area:202} The Writhing Haunt · {area:201} Gahrron's Withering
 	["{npc:10739} camps by the {area:202}, beside the cauldron; his bears roam the hills north and east of it, on the way to {area:201}."] = "{npc:10739} campe près du {area:202}, à côté du chaudron ; ses ours parcourent les collines au nord et à l'est, sur le chemin de {area:201}.",
 
-	-- Step 101: Diseased Grizzlies
+	-- Step 104: Diseased Grizzlies
 	["Diseased Grizzlies"] = "Grizzlys malades",
 
-	-- Step 104: Target: Gahrron's Withering
-	-- {area:202} Writhing Haunt · {area:201} Gahrron's Withering · {npc:11078} Cauldron Lord Soulwrath
+	-- Step 107: Target: Gahrron's Withering
+	-- {area:202} The Writhing Haunt · {area:201} Gahrron's Withering · {npc:11078} Cauldron Lord Soulwrath
 	["Back east past the {area:202} to {area:201}, the farm under the eastern hills: {npc:11078} guards its cauldron. Kill him for the key, then use the cauldron."] = "Retournez vers l'est au-delà du {area:202} jusqu'à {area:201}, la ferme au pied des collines de l'est : {npc:11078} garde son chaudron. Tuez-le pour la clé, puis utilisez le chaudron.",
 
-	-- Step 105: The Bulwark
+	-- Step 108: The Bulwark
 	-- {area:152} The Bulwark
 	["West to the {area:152} one last time."] = "Vers l'ouest jusqu'à {area:152}, une dernière fois.",
 

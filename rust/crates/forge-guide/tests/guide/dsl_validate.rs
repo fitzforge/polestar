@@ -380,6 +380,11 @@ fn lint_says_when_the_chain_does_not_hold_a_child_quest_s_parent_in_the_log() {
 	let rn = compile_with(&none, &data);
 	assert!(rn.steps()[0]["goals"].as_array().unwrap().iter().all(|g| g.get("parent").is_none()), "{:?}", rn.steps());
 	assert!(parent_warnings(&none).is_empty());
+	// Another route into the guide handed the parent in; this guide takes it again before the child: held.
+	let first = text("t/one", &["step A", "  accept 9341", "  turnin 9341"], &["next t/two"]);
+	let again = text("t/two", &["step A", "  accept 9341", "step B", "  accept 9340", "  turnin 9341"], &[]);
+	let r = compile_files(&[("1.guide", &first), ("2.guide", &again)], &data, None);
+	assert!(only(&r.warnings, "is offered only while").is_empty(), "{}", r.text);
 }
 
 #[test]
@@ -777,13 +782,15 @@ fn a_collect_bound_to_a_quest_line_that_is_not_an_item_warns_for_an_item_the_que
 }
 
 /// A quest whose lines are talks the client reveals one at a time (#859), and one whose talk is a legacy
-/// `kill` credit on a friendly npc.
+/// `kill` credit on a friendly npc. 9712 lists Marshal McBride twice: its first and its last line are both a
+/// talk to him.
 fn talk_data() -> Data {
 	let talk = |id: u32, text: &str| json!({ "type": "talk", "id": id, "count": 1, "text": text });
 	data_plus(
 		json!({
 			"9710": like7(json!({ "id": 9710, "title": "Desperate Times", "pre": [], "objectives": [talk(197, "Marshal McBride"), talk(823, "Deputy Willem"), talk(295, "Innkeeper Farley")] })),
 			"9711": like7(json!({ "id": 9711, "title": "A Word", "pre": [], "objectives": [{ "type": "kill", "id": 152, "count": 1, "text": "Brother Danil" }] })),
+			"9712": like7(json!({ "id": 9712, "title": "Patrol Report", "pre": [], "objectives": [talk(197, "Marshal McBride"), talk(823, "Deputy Willem"), talk(197, "Marshal McBride")] })),
 		}),
 		Value::Null,
 		Value::Null,
@@ -821,6 +828,24 @@ fn a_talk_with_quest_compiles_to_a_quest_objective_goal_and_quest_q_takes_the_in
 			(json!("talk"), json!(152), json!("Brother Danil"), json!(9711), json!("A Word"), json!(1), None),
 		]
 	);
+}
+
+#[test]
+fn two_lines_of_a_quest_with_one_npc_each_take_their_own_index_and_quest_q_the_first() {
+	let src = guide_text(&["step S", "  accept 9712", "  talk 197 quest 9712.1", "  talk 823 quest 9712.2", "  talk 197 quest 9712.3", "  talk 197 quest 9712", "  turnin 9712"]);
+	let r = compile_with(&src, &talk_data());
+	assert!(r.errors.is_empty(), "{}", r.text);
+	assert!(only(&r.warnings, r"objective\(s\) in data|, not this npc|no objective for this").is_empty(), "{}", r.text);
+	assert_eq!(
+		talk_goals(&r).iter().map(|g| (g["npc"].clone(), g["oi"].clone())).collect::<Vec<_>>(),
+		vec![(json!(197), json!(1)), (json!(823), json!(2)), (json!(197), json!(3)), (json!(197), json!(1))]
+	);
+	// Another npc on one of the shared lines is still a swapped index.
+	let wrong = guide_text(&["step S", "  accept 9712", "  talk 823 quest 9712.3", "  turnin 9712"]);
+	let w = compile_with(&wrong, &talk_data());
+	let d = diags(w.diag.errors(), r"9712\.3 is");
+	assert_eq!(d.len(), 1, "{}", w.text);
+	assert_eq!(d[0].message, "quest 9712.3 is talk Marshal McBride x1, not this npc; Deputy Willem is 9712.2");
 }
 
 #[test]

@@ -206,8 +206,9 @@ fn a_trainer_close_by_line_but_far_by_the_route_planner_a_mountain_between_loses
 		run(Some(&on_guide("test/route", 10)), pre, "stub.advance(0.5); emit({ npc = DUE[1].npc })")["npc"].clone()
 	};
 	assert_eq!(pick(false), 3063);
-	// Harutt Thunderhorn, the next Mulgore trainer.
-	assert_eq!(pick(true), 3059);
+	// Torm Ragetotem in Thunder Bluff: Harutt Thunderhorn, the next by Mulgore's line, is Camp Narache's, whose
+	// training stops at 6 (#2477), and this character is 12.
+	assert_eq!(pick(true), 3041);
 }
 
 #[test]

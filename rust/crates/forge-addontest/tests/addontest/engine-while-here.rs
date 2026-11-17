@@ -938,7 +938,12 @@ emit({{ seer = seer, camp = camp, report = report, calls = table.concat(calls, "
 	assert_eq!(cougars["done"], json!([true, true, true]), "her step is done: no trip back: {cougars}");
 	let short = run(6, 120, false);
 	assert_eq!(short["report"]["here"], "none", "a two-minute Grace: no visit, the bare hand-in out of the way: {short}");
-	assert_eq!(short["report"]["why"], "out of the way (37 s, over 20 s)", "{short}");
+	// The seconds follow the Seer's and the camp's spawns in the data (37 s on the 0.4.0.1 data, 36 s on the 0.4.1
+	// build, whose Seer Graytongue stands 0.05 further west): the reason and the 20 s limit are what this pins.
+	let why = short["report"]["why"].as_str().unwrap_or_default();
+	let num = why.strip_prefix("out of the way (").and_then(|r| r.strip_suffix(" s, over 20 s)"));
+	let secs: u32 = num.and_then(|n| n.parse().ok()).unwrap_or_else(|| panic!("out of the way, over the 20 s limit: {short}"));
+	assert!((30..=45).contains(&secs), "about 37 s out of the way: {short}");
 	let calls = short["calls"].as_str().unwrap();
 	assert!(!calls.contains("AcceptQuest 95805") && calls.contains("AcceptQuest 757"), "Grace not taken ahead, Rite of Strength is: {calls}");
 	// #1618 (MattMer, Protect Kaya): an escort is never taken ahead, like a timed quest whose walk does not fit: it
@@ -2219,4 +2224,65 @@ fn a_chest_s_loot_whose_quest_needs_a_key_the_bags_lack_is_no_line_until_the_key
 		..Default::default()
 	});
 	assert_eq!(out, vec![json!("3:2:work:1"), json!("2:2:work:1 3:2:work:1")], "the blueprints wait for the key; the Tricksters never wait");
+}
+
+// An objective that ticks (#2537): the evaluation's frame holds the evaluation and what it announces; the While-here
+// candidates are worked out the frame after it (Own.hereLater), never later, and the arrival poll then measures them.
+#[test]
+fn the_candidates_are_worked_out_the_frame_after_the_evaluation() {
+	let out = run(r#"
+		local evaluatedAt
+		local real = Polestar.Compat.GetPlayerInfo
+		Polestar.Compat.GetPlayerInfo = function() evaluatedAt = evaluatedAt or stub.now; return real() end
+		local before = cands()
+		w.progress(7, 1, 9)
+		local seenAt
+		for _ = 1, 30 do
+			stub.advance(1 / 60)
+			if not seenAt and cands() ~= before then seenAt = stub.now end
+		end
+		stub.advance(0.6)
+		emit({ before = before, after = cands(), frames = seenAt and evaluatedAt and math.floor((seenAt - evaluatedAt) * 60 + 0.5) or false })
+	"#);
+	let r = &out[0];
+	assert_ne!(r["before"], r["after"], "{r}");
+	assert_eq!(r["frames"], 1, "one frame after the evaluation: {r}");
+	assert!(r["after"].as_str().unwrap().contains("2:1:work:1"), "the vermin: 1 more: {r}");
+}
+
+// #2484 (Claude1131, 0.3.7.2): The Great Outdoors taken ahead of the guide, the player stood at Eleanor's campfire,
+// and While you're here offered nothing for it: its only work is a placed `complete` (/sit by the fire until Boosted
+// Rest), and rows came only from kill, collect, interact and use goals. A placed `complete` of a quest in the log is a
+// row now, read with the goal's note, unless the guide gives the quest a work goal of its own (step 2's vermin:
+// those are its rows) or it is an escort's.
+#[test]
+fn a_placed_complete_of_a_quest_in_the_log_is_a_row_with_its_note_unless_the_quest_has_work_goals_2484() {
+	let guide = r#"
+stub.world.onQuest(61, { 1, 1 }, "The Great Outdoors"); stub.world.onQuest(62, { 1 }, "The Escort")
+Polestar.RegisterGuide({
+	id = "test/fire", pack = "test", title = "Fire", minLevel = 1, maxLevel = 10,
+	steps = {
+		{ title = "Wolves", goals = { { t = "kill", target = "Young Wolf", npc = 299, count = 8, quest = 33, oi = 1, map = 1429, x = 60, y = 60 } } },
+		{ title = "Vermin", goals = { { t = "kill", target = "Kobold Vermin", npc = 6, count = 10, quest = 7, oi = 1, map = 1429, x = 47.6, y = 46.0 } } },
+		{ title = "Eleanor", goals = {
+			{ t = "complete", quest = 61, title = "The Great Outdoors", map = 1429, x = 47.6, y = 45.2, note = "/sit by her campfire until you get Boosted Rest" },
+			{ t = "complete", quest = 7, title = "Kobold Camp Cleanup", map = 1429, x = 47.6, y = 45.2 },
+			{ t = "complete", quest = 62, title = "The Escort", map = 1429, x = 47.6, y = 45.2, escort = true },
+		} },
+	},
+})
+"#;
+	let out = run_guide(
+		guide,
+		"test/fire",
+		r#"
+		at(47.6, 45.1)
+		emit({ cands(), here() })
+		w.progress(61, 1, 1); w.progress(61, 2, 1); flush(); at(47.6, 45.1)
+		emit(cands())
+	"#,
+	);
+	assert_eq!(out[0][0], "2:1:work:2 3:1:work:2", "the vermin and the campfire; neither 7's complete nor the escort");
+	assert_eq!(out[0][1], "3:1 Complete “The Great Outdoors”: /sit by her campfire until you get Boosted Rest 0");
+	assert_eq!(out[1], "2:1:work:2", "done: no row");
 }

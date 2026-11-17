@@ -569,7 +569,7 @@ const GOTO_REDUNDANT_YARDS: f64 = 200.0;
 const TRAVEL_VERBS: &[&str] = &["fly", "hearth"];
 
 /// World position in yards of a compiled point on `map`, or None when the map has no bounds.
-fn world_point(data: &Data, map: &V, x: &V, y: &V, f: &V) -> Option<(f64, f64)> {
+pub(crate) fn world_point(data: &Data, map: &V, x: &V, y: &V, f: &V) -> Option<(f64, f64)> {
 	let era = data.map_frames.get("era");
 	let live = data.map_frames.get("forever");
 	let mk = ts(map);
@@ -868,6 +868,41 @@ fn check_bare_uses(g: &V, diag: &mut Diagnostics) {
 				format!("`use {item}` has no quest, but the next line collects for quest {q}: the use holds its step until ticked"),
 				Some(format!("bind it: `use {item} quest {q}.{oi}`")),
 			);
+		}
+	}
+}
+
+/// Names and texts of a compiled goal the guide window can show, and the lists' names.
+const SHOWN_FIELDS: [&str; 10] = ["title", "target", "npcName", "objName", "itemName", "from", "fromAlso", "startItemName", "text", "note"];
+const SHOWN_LISTS: [(&str, &str); 4] = [("objs", "text"), ("fromNpcs", "npcName"), ("candidates", "npcName"), ("reagents", "itemName")];
+
+/// One of the game's placeholder names ("[DNT] Kill Credit", "PvP Tower Credit Marker", "Trigger Ichman",
+/// "<UNUSED>", crate::placeholder) in anything a compiled goal shows (#2614). An error: give the objective its
+/// text in forever-db/corrections/quests.json, or the NPC, object or item its name.
+fn check_placeholders(g: &V, diag: &mut Diagnostics) {
+	for step in g.get("steps").items() {
+		for goal in step.get("goals").items() {
+			let mut hits: Vec<(String, String)> = Vec::new();
+			for f in SHOWN_FIELDS {
+				if let Some(s) = goal.get(f).as_str().filter(|s| crate::placeholder::banned(s)) {
+					hits.push((f.to_string(), s.to_string()));
+				}
+			}
+			for (list, f) in SHOWN_LISTS {
+				for e in goal.get(list).items() {
+					if let Some(s) = e.get(f).as_str().filter(|s| crate::placeholder::banned(s)) {
+						hits.push((format!("{list}.{f}"), s.to_string()));
+					}
+				}
+			}
+			for (field, s) in hits {
+				diag.error(
+					&ast_file(g),
+					line(&goal),
+					format!("`{}` shows the game's placeholder name \"{s}\" ({field})", t_of(&goal)),
+					Some("give the quest objective its text in forever-db/corrections/quests.json, or the NPC, object or item its name (corrections/npcs.json, objects.json)".into()),
+				);
+			}
 		}
 	}
 }
@@ -1215,6 +1250,7 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 		}
 	}
 
+	let allow = crate::play_rules::Allow::new(data);
 	let ctx = Ctx {
 		data,
 		by_id,
@@ -1234,8 +1270,15 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 		check_turnin_items(g, &ctx.ancestors(g), data, diag);
 		check_bare_completes(g, data, diag);
 		check_bare_uses(g, diag);
+		check_placeholders(g, diag);
 		check_chosen_all_optional(g, diag);
 		check_dungeon_floors(g, data, diag);
+		crate::play_rules::check_direct_gates(g, data, &allow, diag);
+		crate::play_rules::check_consumed_gates(g, data, &allow, diag);
+		crate::play_rules::check_talk_kills(g, data, &allow, diag);
+		let before = ctx.ancestors(g);
+		crate::play_rules::check_skippable_items(g, &before, data, &allow, diag);
+		crate::play_rules::check_unworked_turnins(g, &before, data, &allow, diag);
 		ctx.mark_carried(g);
 		let mut accepted: FxHashSet<Key> = FxHashSet::default();
 		let mut turned_in: FxHashSet<Key> = FxHashSet::default();
@@ -1243,6 +1286,9 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 		let mut learned: FxHashSet<Key> = FxHashSet::default();
 		// Quests abandoned on the path and not taken again since (a breadcrumb abandoned holds nothing back).
 		let mut abandoned: FxHashSet<Key> = FxHashSet::default();
+		// Quests this guide accepted and has not yet handed in or abandoned here: in the log, whatever another
+		// route into it did with them before (a parent quest taken again here holds its child).
+		let mut in_log: FxHashSet<Key> = FxHashSet::default();
 		// Quests accepted or turned in earlier on the path -> their character sets.
 		let mut taken: FxHashMap<Key, Vec<Rc<CharSet>>> = FxHashMap::default();
 		fn take(taken: &mut FxHashMap<Key, Vec<Rc<CharSet>>>, t: &QuestGoal) {
@@ -1295,6 +1341,7 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 			let q = if !quest.is_undef() { data.quest(&quest) } else { V::Null };
 			if t == "abandon" {
 				abandoned.insert(qk.clone());
+				in_log.remove(&qk);
 			}
 			let layers = [gl.clone(), step.hidden("_only"), goal.hidden("_only")];
 			if leveling && !goal.get("optional").truthy() && !party_work(&step, &goal, &chosen) {
@@ -1337,15 +1384,40 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 							ts(p)
 						}
 					};
-					for p in all.iter().filter(|p| !turned_in.contains(&key(p)) && takeable(p)) {
-						diag.warn(&file, ln, format!("quest {} needs {} turned in first, but the chain never turns it in", ts(&quest), name(p)), None);
+					// A required accept the giver cannot offer is a play check (play_rules `offer`: an error in a lint); an optional one, or
+					// one in a step that waits for the quest (`when available`), stays a warning. A prerequisite the step
+					// waits for (`when turnedin`) is no gap.
+					let when = step.get("when").items();
+					let waits = when.iter().any(|p| !p.get("neg").truthy() && p.get("k").as_str() == Some("available"));
+					let gated_on = |p: &V| {
+						when.iter().any(|w| {
+							!w.get("neg").truthy() && w.get("k").as_str() == Some("turnedin") && {
+								let wq = w.get("q");
+								if wq.is_arr() {
+									wq.items().iter().any(|x| key(x) == key(p))
+								} else {
+									key(&wq) == key(p)
+								}
+							}
+						})
+					};
+					let required = !goal.get("optional").truthy() && !waits;
+					let offer = |diag: &mut Diagnostics, msg: String| {
+						if required {
+							crate::play_rules::report(diag, &allow, g, ln, "offer", ("quest", &quest), msg, None);
+						} else {
+							diag.warn(&file, ln, msg, None);
+						}
+					};
+					for p in all.iter().filter(|p| !turned_in.contains(&key(p)) && !gated_on(p) && takeable(p)) {
+						offer(diag, format!("quest {} needs {} turned in first, but the chain never turns it in", ts(&quest), name(p)));
 					}
-					if !any.is_empty() && !any.iter().any(|p| turned_in.contains(&key(p))) {
+					if !any.is_empty() && !any.iter().any(|p| turned_in.contains(&key(p)) || gated_on(p)) {
 						let open: Vec<String> = any.iter().filter(|p| takeable(p)).map(name).collect();
 						if open.len() == 1 {
-							diag.warn(&file, ln, format!("quest {} needs {} turned in first, but the chain never turns it in", ts(&quest), open[0]), None);
+							offer(diag, format!("quest {} needs {} turned in first, but the chain never turns it in", ts(&quest), open[0]));
 						} else if open.len() > 1 {
-							diag.warn(&file, ln, format!("quest {} needs one of {} turned in first, but the chain turns in none of them", ts(&quest), open.join(", ")), None);
+							offer(diag, format!("quest {} needs one of {} turned in first, but the chain turns in none of them", ts(&quest), open.join(", ")));
 						}
 					}
 					// A child quest is offered only while its parent is in the log (Valik 535 with Infiltration 533):
@@ -1357,15 +1429,27 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 							let pq = p.get("q");
 							!p.get("neg").truthy() && p.get("k").as_str() == Some("onquest") && if pq.is_arr() { pq.items().iter().any(|x| key(x) == pk) } else { key(&pq) == pk }
 						});
-						if !on_parent && turned_in.contains(&pk) {
-							diag.warn(&file, ln, format!("quest {} is offered only while {} is in the log, but the chain hands that quest in earlier", ts(&quest), name(&parent)), None);
+						if !on_parent && !in_log.contains(&pk) && turned_in.contains(&pk) {
+							offer(diag, format!("quest {} is offered only while {} is in the log, but the chain hands that quest in earlier", ts(&quest), name(&parent)));
 						} else if !on_parent && !accepted.contains(&pk) {
-							diag.warn(&file, ln, format!("quest {} is offered only while {} is in the log, but the chain never takes that quest before it", ts(&quest), name(&parent)), None);
+							offer(diag, format!("quest {} is offered only while {} is in the log, but the chain never takes that quest before it", ts(&quest), name(&parent)));
 						}
 					}
-					// Exclusive quests: the game does not offer this one while one of them is in the log or done.
+					// Exclusive quests: the game does not offer this one while one of them is in the log or done. A
+					// warning: a guide writes both ways of a choice one after the other, and the Engine passes the way
+					// not taken (its `closedBy`).
 					let mine = &qg[own[&key(&goal)]];
+					// The accepts of an `either` set are alternatives, of which the player takes one: an exclusive
+					// quest among them closes nothing.
+					let alternatives: Vec<V> = if goal.get("either").truthy() {
+						step.get("goals").items().iter().filter(|o| !o.strict_eq(&goal) && o.get("either").truthy() && t_of(o) == "accept").map(|o| o.get("quest")).collect()
+					} else {
+						Vec::new()
+					};
 					for e in q.get("excl").items() {
+						if alternatives.iter().any(|a| a.strict_eq(&e)) {
+							continue;
+						}
 						if taken.get(&key(&e)).is_some_and(|l| l.iter().any(|chars| meets(chars, &mine.chars))) {
 							diag.warn(
 								&file,
@@ -1383,15 +1467,13 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 					for c in crate::prereqs::crumbs_of(&quest, &data.quests) {
 						let ck = key(&V::Num(c));
 						if !turned_in.contains(&ck) && !abandoned.contains(&ck) && taken.get(&ck).is_some_and(|l| l.iter().any(|chars| meets(chars, &mine.chars))) {
-							diag.warn(
-								&file,
-								ln,
+							offer(
+								diag,
 								format!(
 									"quest {} is not offered while its breadcrumb {} is in the log, and the chain takes that breadcrumb earlier without handing it in: hand it in first",
 									quest_name(data, &quest, &goal.get("title")),
 									quest_name(data, &V::Num(c), &V::Undef)
 								),
-								None,
 							);
 						}
 					}
@@ -1412,6 +1494,7 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 					}
 					accepted.insert(qk.clone());
 					abandoned.remove(&qk);
+					in_log.insert(qk.clone());
 				}
 				if let Some(&i) = own.get(&key(&goal)) {
 					take(&mut taken, &qg[i]);
@@ -1454,6 +1537,7 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 				}
 				if t == "turnin" {
 					turned_in.insert(qk.clone());
+					in_log.remove(&qk);
 					if let Some(&i) = own.get(&key(&goal)) {
 						take(&mut taken, &qg[i]);
 					}
@@ -1566,7 +1650,7 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 			let mut visiting = FxHashSet::default();
 			visiting.insert(key(&g.get("id")));
 			let entry = ctx.entry_xp(g, &mut visiting);
-			let mut on_goal = |_step: &V, goal: &V, xp: f64| {
+			let mut on_goal = |step: &V, goal: &V, xp: f64| {
 				let reach = level_at(xp);
 				levels.insert(key(goal), reach);
 				let min_level = goal.get("minLevel").num();
@@ -1574,12 +1658,16 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 					return;
 				}
 				if min_level > reach {
-					diag.warn(
-						&file,
-						line(goal),
-						format!("quest {} needs level {}, but the route plausibly reaches only level {} here", ts(&goal.get("quest")), ts(&goal.get("minLevel")), crate::js::num_str(reach)),
-						None,
-					);
+					let msg = format!("quest {} needs level {}, but the route plausibly reaches only level {} here", ts(&goal.get("quest")), ts(&goal.get("minLevel")), crate::js::num_str(reach));
+					// A play check (`offer-level`) two levels or more short, for a required accept in a step that does not wait for the
+					// level (`when level>=N`): the Engine holds an accept a level short until the player gets there,
+					// as one does on the way, while the estimate leaves out the route's kills. Else a warning.
+					let waits = step.get("when").items().iter().any(|p| p.get("k").as_str() == Some("level"));
+					if !goal.get("optional").truthy() && !waits && min_level >= reach.floor() + 2.0 {
+						crate::play_rules::report(diag, &allow, g, line(goal), "offer-level", ("quest", &goal.get("quest")), msg, None);
+					} else {
+						diag.warn(&file, line(goal), msg, None);
+					}
 				}
 			};
 			ctx.walk_xp(g, entry, Some(&mut on_goal));
@@ -1596,6 +1684,7 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 			&meets,
 		);
 	}
+	allow.finish(&order, diag);
 }
 
 const SOLO_GOALS: &[&str] = &["accept", "turnin", "complete", "kill", "collect", "interact", "use", "talk"];

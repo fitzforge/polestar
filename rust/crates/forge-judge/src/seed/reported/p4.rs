@@ -12,7 +12,7 @@ use regex::Regex;
 
 use crate::seed::{at, everyone, for_class, is, located, Check, Ctx, Row, SeedTest};
 
-const DUROTAR: &str = "forever/horde/orc-troll/01-durotar.guide";
+const DUROTAR: &str = "forever/horde/orc/01-durotar.guide";
 const TELDRASSIL: &str = "forever/alliance/nightelf/01-teldrassil.guide";
 const ELWYNN: &str = "forever/alliance/human/01-elwynn-forest.guide";
 const ASHENVALE: &str = "forever/alliance/06-ashenvale.guide";
@@ -484,8 +484,11 @@ fn zephras_tower(ctx: &Ctx, c: &mut Check) {
 		c.eq(falling.abs_diff(harmony), 1, &format!("{guide}: Harmony in Balance and Falling With Style are handed in one after the other"));
 		c.eq(list[falling].s, list[harmony].s, &format!("{guide}: on the same step"));
 		c.ok(list[falling].goal.get("npc").strict_eq(&list[harmony].goal.get("npc")), &format!("{guide}: to the same NPC, Rorian"));
-		let completes: Vec<usize> = list.iter().filter(|r| num_is(&r.goal, "quest", 92474.0) && str_is(&r.goal, "t", "complete")).map(|r| r.s).collect();
-		c.eq(completes, vec![], &format!("{guide}: no complete goal for a quest with no objectives"));
+		let Some(cast) = at(c, &list, &format!("{guide}: complete 92474"), is("complete", 92474)) else { return };
+		c.ok(cast < harmony, &format!("{guide}: Walk on Air before Rorian's hand-ins"));
+		let goal = &list[cast].goal;
+		let (x, y) = (goal.get("x").as_num().unwrap_or(f64::NAN), goal.get("y").as_num().unwrap_or(f64::NAN));
+		c.ok((x - 43.7).hypot(y - 24.1) < 1.0, &format!("{guide}: on the tower's top ({},{})", goal.get("x").to_js_string(), goal.get("y").to_js_string()));
 	}
 }
 

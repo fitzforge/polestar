@@ -94,7 +94,7 @@ return {
 	["Gelkis: the valley's mouth"] = "Гелкис: вход в долину",
 	-- {quest:92846} Outcast Necromancers · {npc:253177} Nerlokh · {npc:253136} Orgrul
 	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager
-	["From the quest data: the Undead Ravagers and the {quest:92846} fill the valley from {npc:253177} north-east to {npc:253136}'s post at its northern mouth; players have met them all along it. {npc:253136}'s Magram are hostile to a friend of the Gelkis. Corpsefeeders, elite and level 45, walk the valley and attack anyone."] = "По данным заданий: опустошители-отрекшиеся и {quest:92846} заполняют долину от NPC {npc:253177} на северо-восток до поста NPC {npc:253136} у ее северного входа; игроки встречали их по всему пути. Маграм NPC {npc:253136} враждебны к друзьям Гелкис. Трупоеды, элитные, 45-го уровня, ходят по долине и нападают на всех.",
+	["From the quest data: the Undead Ravagers and the {quest:92846} fill the valley from {npc:253177} north-east to {npc:253136}'s post at its northern mouth; players have met them all along it. {npc:253136}'s Magram are hostile to a friend of the Gelkis. Corpsefeeders, elite and level 45, walk the valley and attack anyone.\nCareful: Undead Ravagers up to level 45 can roam the valley: watch for them."] = "По данным заданий: опустошители-отрекшиеся и {quest:92846} заполняют долину от NPC {npc:253177} на северо-восток до поста NPC {npc:253136} у ее северного входа; игроки встречали их по всему пути. Маграм NPC {npc:253136} враждебны к друзьям Гелкис. Трупоеды, элитные, 45-го уровня, ходят по долине и нападают на всех.\nОсторожно: опустошители-отрекшиеся до 45-го уровня могут бродить по долине: следите за ними.",
 
 	-- Step 13: Gelkis: Facing the Truth
 	-- {quest:93041} Facing the Truth

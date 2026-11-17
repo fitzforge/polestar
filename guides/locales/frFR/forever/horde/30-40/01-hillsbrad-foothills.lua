@@ -48,7 +48,7 @@ return {
 	-- {npc:4949} Thrall · {object:172957} Valley of Wisdom
 	["{npc:4949} waits in Grommash Hold, in the {object:172957}."] = "{npc:4949} attend dans le fort Grommash, dans la {object:172957}.",
 	-- {npc:4949} Thrall
-	["{npc:4949}, Grommash Hold, if you carry it"] = "{npc:4949}, Grommash Hold, si vous l'avez",
+	["{npc:4949}, Grommash Hold, if you carry it"] = "{npc:4949}, fort Grommash, si vous l'avez",
 
 	-- Step 10: Train
 	["Train"] = "Entraînement",
@@ -124,10 +124,14 @@ return {
 
 	-- Step 26: Durnholde Keep
 	-- {npc:2238} Tog'thar · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key
-	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks."] = "Au sud-est de Moulin-de-Tarren. Drull et {npc:2238} sont enchaînés dans les bâtiments de la cour du donjon : {npc:2427} porte la {item:3467} et {npc:2428} la {item:3499}, tous deux dans le donjon. Tuez-les, puis ouvrez les deux serrures.",
-	["Drull's ball and chain"] = "Boulet et chaîne de Drull",
+	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings, and each lock needs its key: {npc:2427} carries the {item:3467} for Drull's, {npc:2428} the {item:3499} for {npc:2238}'s, both in the keep. Kill them first, then open both locks."] = "",
+	-- {item:3467} Dull Iron Key · {npc:2427} Jailor Eston
+	["{item:3467}, from {npc:2427}"] = "",
+	-- {item:3499} Burnished Gold Key · {npc:2428} Jailor Marlgen
+	["{item:3499}, from {npc:2428}"] = "",
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "Boulet et chaîne de {npc:2238}",
+	["Drull's ball and chain"] = "Boulet et chaîne de Drull",
 
 	-- Step 27: Krusk
 	-- {area:272} Tarren Mill
@@ -153,8 +157,10 @@ return {
 	-- Step 31: The smithy
 	["The smithy"] = "La forge",
 	-- {area:287} Hillsbrad · {npc:2404} Blacksmith Verringtan · {object:1736} Shipment of Iron · {npc:2449} Citizen Wilkes · {npc:2451} Farmer Kalaba
-	["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks by the smithy; {npc:2451} works the field south-east of the town."] = "À l'ouest à travers les contreforts jusqu'au village d'{area:287} : la forge se trouve en son centre. {npc:2404} et ses apprentis travaillent à la forge ; le {object:1736} est empilé à côté. Le {npc:2449} se promène près de la forge ; {npc:2451} travaille le champ au sud-est du village.",
+	["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the west side of the town; {npc:2451} works the field south-east of the town."] = "Vers l'ouest, à travers les contreforts, jusqu'à la ville de {area:287} : la forge se trouve en son milieu. {npc:2404} et ses apprentis travaillent à la forge ; le {object:1736} est empilé à côté. {npc:2449} parcourt le côté ouest de la ville ; {npc:2451} travaille le champ au sud-est de la ville.",
 	["Inside"] = "À l'intérieur",
+	-- {npc:2449} Citizen Wilkes
+	["{npc:2449}, on the west side of the town"] = "{npc:2449}, du côté ouest de la ville",
 
 	-- Step 32: Tarren Mill
 	-- {npc:2055} Master Apothecary Faranell · {zone:1458} Undercity
@@ -181,12 +187,12 @@ return {
 
 	-- Step 36: Melisara
 	-- {npc:2278} Melisara · {area:272} Tarren Mill · {npc:2410} Magus Wordeen Voidglare
-	["For your City of Dalaran run, later in this guide: {npc:2278} stands in {area:272}, a short walk east of {npc:2410}."] = "Pour votre expédition dans City of Dalaran, plus loin dans ce guide : {npc:2278} se tient à {area:272}, à quelques pas à l'est de {npc:2410}.",
+	["For your City of Dalaran run, later in this guide: {npc:2278} stands in {area:272}, a short walk east of {npc:2410}."] = "Pour votre expédition dans Cité de Dalaran, plus loin dans ce guide : {npc:2278} se tient à {area:272}, à quelques pas à l'est de {npc:2410}.",
 
 	-- Step 37: City of Dalaran
-	["City of Dalaran"] = "City of Dalaran",
+	["City of Dalaran"] = "Cité de Dalaran",
 	-- {item:277507} Dalaran Sewer Key · {npc:247126} Atrexis the Grave Knight · {npc:2278} Melisara · {npc:268743} Rexxie Copperclutch
-	["The City of Dalaran is a dungeon for a group of five, about levels 28 to 33, under the violet dome. Without the {item:277507}, go in through the sewer pipe north-west of the crater: the arrow leads there.\nInside: {npc:247126} is {npc:2278}'s. {npc:268743}, in the sewer, gives Opportunistic Education and takes it back there."] = "City of Dalaran est un donjon pour un groupe de cinq, vers les niveaux 28 à 33, sous le dôme violet. Sans la {item:277507}, entrez par la canalisation d'égout au nord-ouest du cratère : la flèche y mène.\nÀ l'intérieur : {npc:247126} est pour {npc:2278}. {npc:268743}, dans les égouts, donne Opportunistic Education et la reprend là-bas.",
+	["The City of Dalaran is a dungeon for a group of five, about levels 28 to 33, under the violet dome. Without the {item:277507}, go in through the sewer pipe north-west of the crater: the arrow leads there.\nInside: {npc:247126} is {npc:2278}'s. {npc:268743}, in the sewer, gives Opportunistic Education and takes it back there."] = "Cité de Dalaran est un donjon pour un groupe de cinq, vers les niveaux 28 à 33, sous le dôme violet. Sans la {item:277507}, entrez par la canalisation d'égout au nord-ouest du cratère : la flèche y mène.\nÀ l'intérieur : {npc:247126} est pour {npc:2278}. {npc:268743}, dans les égouts, donne Opportunistic Education et la reprend là-bas.",
 	-- {quest:96986} The Grave Knight · {npc:247126} Atrexis the Grave Knight
 	["{quest:96986}: {npc:247126}, inside"] = "{quest:96986} : {npc:247126}, à l'intérieur",
 
@@ -200,7 +206,7 @@ return {
 	["Level 30"] = "Niveau 30",
 	-- {npc:2410} Magus Wordeen Voidglare · {area:272} Tarren Mill · {zone:1454} Orgrimmar · {area:288} Azurelode Mine · {zone:1437} Wetlands
 	-- plural, as words: Torn Fin Muckdwellers = {npc:2374} Torn Fin Muckdweller
-	["{npc:2410}'s quests on the next {area:272} stop and Alliance Relations in {zone:1454}, the next guide's first stop, are offered from level 30. Short of 30? The Torn Fin Muckdwellers and Coastrunners (28-30) crowd the coast south of the {area:288}, a short walk: kill them until level 30. Their Oracles (30-31) cast from the shore further east. Or, with a group, run the Excavation Site dungeon (in the {zone:1437}) instead."] = "Les quêtes de {npc:2410} lors de la prochaine étape à {area:272} et Alliance Relations à {zone:1454}, première étape du guide suivant, sont proposées à partir du niveau 30. Pas encore 30 ? Les Marche-boue et Cours-la-côte Aileron déchiré (28-30) peuplent la côte au sud de la {area:288}, à quelques pas : tuez-les jusqu'au niveau 30. Leurs Oracles (30-31) lancent des sorts depuis le rivage plus à l'est. Ou, en groupe, faites plutôt le donjon Excavation Site (dans les {zone:1437}).",
+	["{npc:2410}'s quests on the next {area:272} stop and Alliance Relations in {zone:1454}, the next guide's first stop, are offered from level 30. Short of 30? The Torn Fin Muckdwellers and Coastrunners (28-30) crowd the coast south of the {area:288}, a short walk: kill them until level 30. Their Oracles (30-31) cast from the shore further east. Or, with a group, run the Excavation Site dungeon (in the {zone:1437}) instead."] = "Les quêtes de {npc:2410} lors de la prochaine étape à {area:272} et Les relations de l'Alliance à {zone:1454}, première étape du guide suivant, sont proposées à partir du niveau 30. Pas encore 30 ? Les Marche-boue et Cours-la-côte Aileron déchiré (28-30) peuplent la côte au sud de la {area:288}, à quelques pas : tuez-les jusqu'au niveau 30. Leurs Oracles (30-31) lancent des sorts depuis le rivage plus à l'est. Ou, en groupe, faites plutôt le donjon Excavation Site (dans les {zone:1437}).",
 	["Torn Fin murlocs"] = "Murlocs Aileron déchiré",
 	-- {npc:2375} Torn Fin Coastrunner
 	["grind on {npc:2375}"] = "tuez en boucle : {npc:2375}",
@@ -239,7 +245,7 @@ return {
 
 	-- Step 44: Melisara
 	-- {quest:96986} The Grave Knight · {npc:2278} Melisara · {npc:2410} Magus Wordeen Voidglare
-	["{quest:96986} from your City of Dalaran run: {npc:2278}, a short walk east of {npc:2410}."] = "{quest:96986} de votre expédition dans City of Dalaran : {npc:2278}, à quelques pas à l'est de {npc:2410}.",
+	["{quest:96986} from your City of Dalaran run: {npc:2278}, a short walk east of {npc:2410}."] = "{quest:96986} de votre expédition dans Cité de Dalaran : {npc:2278}, à quelques pas à l'est de {npc:2410}.",
 
 	-- Step 45: Battle of Hillsbrad with a group
 	-- {quest:539} Battle of Hillsbrad
@@ -317,6 +323,7 @@ return {
 	-- ["Place the {object:1729} on the {object:1728} beside the inn; upstairs"] = "Placez le {object:1729} sur la {object:1728} à côté de l'auberge ; à l'étage",
 	-- ["Shindigger keg"] = "Tonneau de Shindigger",
 	-- ["South of Hammerfall, the Witherbark trolls hold the village in the hills. Axe Throwers guard the outer huts; the Witch Doctors and Headhunters hold the heart of the village. Careful: All three troll types flee for help at 15% health, which can pull more trolls from the nearby camps."] = "Au sud de Trépas-d'Orgrim, les trolls Fanécorce tiennent le village dans les collines. Des Lanceurs de haches gardent les huttes extérieures ; les Sorciers-docteurs et les Chasseurs de têtes tiennent le cœur du village. Attention : les trois types de trolls fuient chercher de l'aide à 15 % de vie, ce qui peut attirer d'autres trolls des camps voisins.",
+	-- ["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks."] = "Au sud-est de Moulin-de-Tarren. Drull et {npc:2238} sont enchaînés dans les bâtiments de la cour du donjon : {npc:2427} porte la {item:3467} et {npc:2428} la {item:3499}, tous deux dans le donjon. Tuez-les, puis ouvrez les deux serrures.",
 	-- ["South-west, the Cave and Ferocious Yetis (30-32) fill the {area:277} in the hills west of {area:272}; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but at 29-30 they hit hard and come in pairs."] = "Au sud-ouest, les Yétis des grottes et les Yétis féroces (30-32) remplissent {area:277}, dans les collines à l'ouest de {area:272} ; environ un sur seize porte le bâtonnet. Restez dans ces cavernes : les Yétis des montagnes et les Yétis géants (32-34) de la grotte plus au nord le portent aussi, mais au niveau 29-30 ils frappent fort et viennent par deux.",
 	-- ["Syndicate missives"] = "Missives du Syndicat",
 	-- ["The Daggerspine naga line the shore south-east of the town."] = "Les nagas Daguéchine bordent le rivage au sud-est de la ville.",
@@ -331,6 +338,7 @@ return {
 	-- ["The {area:279} crater's eastern rim"] = "Le bord est du cratère de {area:279}",
 	-- ["Torn Fin beach"] = "Plage des Aileron déchiré",
 	-- ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it."] = "À l'ouest à travers les contreforts jusqu'au village d'{area:287} : la forge se trouve en son centre. {npc:2404} et ses apprentis travaillent à la forge ; la {object:1736} est empilée à côté.",
+	-- ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks by the smithy; {npc:2451} works the field south-east of the town."] = "À l'ouest à travers les contreforts jusqu'au village d'{area:287} : la forge se trouve en son centre. {npc:2404} et ses apprentis travaillent à la forge ; le {object:1736} est empilé à côté. Le {npc:2449} se promène près de la forge ; {npc:2451} travaille le champ au sud-est du village.",
 	-- ["With a {item:3388} in your bags, {npc:2055} offers {quest:513} in the Apothecarium; {npc:2216} takes the elixir in {area:272}."] = "Avec un {item:3388} dans vos sacs, {npc:2055} propose {quest:513} dans l'Apothicarium ; {npc:2216} prend l'élixir à {area:272}.",
 	-- ["grind on {npc:2248}"] = "tuez en boucle : {npc:2248}",
 	-- ["grind on {npc:2562}"] = "tuez en boucle : {npc:2562}",
