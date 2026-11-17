@@ -648,35 +648,30 @@ fn hovering_a_goal_explains_it_detail_quest_npc_location_and_what_clicks_do() {
 	assert!(has(&lines, "Right-click to tick it done"));
 }
 
-// Notes and text-only rows display their full text directly in the guide window and show no tooltip on hover (#2600).
+// #2600: a note already shows its whole text in the guide window, so hovering it shows no tooltip that would only
+// repeat it (any row with nothing to add gets none); a note with something to add (its detail) keeps one.
 #[test]
 fn hovering_a_note_goal_shows_no_redundant_tooltip_2600() {
 	let out = run(r#"
-		table.insert(uistub.elwynn.steps, {
+		local g = uistub.guides[uistub.elwynn]
+		table.insert(g.steps, {
 			title = "Feed Pet",
 			goals = {
-				{ t = "note", text = "Feed Pet: open your spellbook, cast Feed Pet and choose food." },
-				{ t = "task", text = "Open your bags and equip the weapon." },
+				{ t = "note", subject = "Feed Pet", subjectKind = "text", text = "Feed Pet: open your spellbook, cast Feed Pet and choose food.", status = "active" },
+				{ t = "note", subject = "Stable", subjectKind = "text", text = "Stable your pet.", detail = "at the stable master", status = "active" },
 			},
 		})
-		uistub.setGuide(uistub.elwynn, #uistub.elwynn.steps)
-		local r1, r2 = GF.rows[1], GF.rows[2]
-		GameTooltip:Hide()
-		GameTooltip.lines = {}
-		stub.RunScript(r1, "OnEnter")
-		local noteShown = GameTooltip:IsShown() and true or false
-		local noteLines = #GameTooltip.lines
-		GameTooltip:Hide()
-		GameTooltip.lines = {}
-		stub.RunScript(r2, "OnEnter")
-		local taskShown = GameTooltip:IsShown() and true or false
-		local taskLines = #GameTooltip.lines
-		emit({ noteShown = noteShown, noteLines = noteLines, taskShown = taskShown, taskLines = taskLines })"#)
+		uistub.setGuide(uistub.elwynn, #g.steps)
+		local function hover(subject)
+			GameTooltip:Hide()
+			GameTooltip.lines = {}
+			stub.RunScript(rowFor(subject), "OnEnter")
+			return { shown = GameTooltip:IsShown() and true or false, lines = #GameTooltip.lines }
+		end
+		emit({ note = hover("Feed Pet"), detail = hover("Stable") })"#)
 	.remove(0);
-	assert_eq!(out["noteShown"], false, "no tooltip shown for note rows: {out}");
-	assert_eq!(out["noteLines"], 0, "no tooltip lines for note rows: {out}");
-	assert_eq!(out["taskShown"], false, "no tooltip shown for task rows without extra lines: {out}");
-	assert_eq!(out["taskLines"], 0, "no tooltip lines for task rows: {out}");
+	assert_eq!(out["note"], json!({ "shown": false, "lines": 0 }), "no tooltip on a note row: {out}");
+	assert_eq!(out["detail"]["shown"], true, "a note with a detail keeps its tooltip: {out}");
 }
 
 // #1247: an accept's tooltip names the level its quest needs (red while the character is below it) and the
