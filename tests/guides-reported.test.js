@@ -16310,3 +16310,12 @@ test('#2604: Stranglethorn (Alliance): Skullsplitter Tusks are looked for in the
 	assert.ok(goal.x >= 42 && goal.x <= 49 && goal.y >= 30 && goal.y <= 42, `the trolls' camp: ${goal.x},${goal.y}`);
 	for (const s of goal.spots || []) assert.ok(s.alt || s.x > 35, `no spot the arrow picks far from the ruins: ${s.x},${s.y}`);
 });
+
+// #2684 (Gilfy, 0.4.0.1, Alliance Hinterlands): Repurposed Totems' step said only to kill the Vilebranch Soothsayers,
+// but Vilebranch Totems also lie on the ground among them (players' recordings: 30 totems from the ground object for 4
+// people, 12 from the Soothsayers for 5). The step's tip says so.
+test('#2684: Hinterlands (Alliance): Repurposed Totems says the totems also lie on the ground', { skip }, () => {
+	const list = goals('forever/alliance/40-50/05-the-hinterlands.guide');
+	const { step } = list[at(list, 'collect 279225', (g) => g.t === 'collect' && g.quest === 86616)];
+	assert.match(step.note || '', /Totems lie on the ground/, step.note);
+});
