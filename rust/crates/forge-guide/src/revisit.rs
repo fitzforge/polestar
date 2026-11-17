@@ -170,10 +170,8 @@ fn of_guide(g: &V, by_id: &FxHashMap<String, &V>, preds: &FxHashMap<String, Vec<
 						out.push(SecondVisit { guide: id_of(g), file: file.clone(), line: goal.hidden("_line").num(), quest: q, title: goal.get("title").to_js_string(), map, needs });
 					}
 				}
-				Some("turnin") => {
-					if accepted.contains(&q) || goal.get("direct").truthy() {
-						brought.insert(q);
-					}
+				Some("turnin") if accepted.contains(&q) || goal.get("direct").truthy() => {
+					brought.insert(q);
 				}
 				_ => {}
 			}
