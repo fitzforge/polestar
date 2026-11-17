@@ -15545,3 +15545,28 @@ for (const [guide, quest, pet, needs] of [
 		for (const q of needs) assert.ok(when.some((p) => p.k === 'turnedin' && !p.neg && [].concat(p.q).includes(q)), `and only once ${q} is`);
 	});
 }
+
+// #2612 (JeromeM, 0.4.0, Westfall): "Find the Lost Guards" sent the hand-in to Guard Thomas, who only gives it; the
+// half-eaten body takes it. The build had added the giver to the quest's enders from the in-game dialog captures,
+// on eight quests handed in at an object (players' recordings: none of their hand-ins in an NPC's window). Each
+// is corrected to its object alone, and every guide's hand-in of them goes to the object.
+const OBJECT_ENDERS = { 37: 55, 67: 3643, 944: 10076, 983: 17182, 4812: 175524, 91860: 566037, 94467: 61934, 94502: 619896 };
+test('#2612: quests handed in at an object are never handed in to their giver', { skip }, () => {
+	const corrections = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'forever-db', 'corrections', 'quests.json'), 'utf8'));
+	for (const [quest, object] of Object.entries(OBJECT_ENDERS)) {
+		assert.deepEqual(corrections[quest].set.end, { npc: [], object: [object] }, `${quest}: ended by object ${object} alone`);
+	}
+	let seen = 0;
+	for (const guide of allGuides()) {
+		const text = fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8');
+		if (!Object.keys(OBJECT_ENDERS).some((q) => new RegExp(`^\\s+turnin ${q}\\b`, 'm').test(text))) continue;
+		for (const { goal } of goals(guide)) {
+			const object = goal.t === 'turnin' && OBJECT_ENDERS[goal.quest];
+			if (!object) continue;
+			seen++;
+			assert.equal(goal.npc, undefined, `${guide}: turnin ${goal.quest} goes to no NPC`);
+			assert.equal(goal.object, object, `${guide}: turnin ${goal.quest} at object ${object}`);
+		}
+	}
+	assert.ok(seen >= 10, `the guides' hand-ins of these quests were checked (${seen})`);
+});

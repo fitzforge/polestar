@@ -19,6 +19,60 @@
 		},
 		"note": "Trial of the Lake (Druid Aquatic Form, Alliance) is open to Night Elf and Skyborne Druids. The merged data had Night Elf only, while Trial of the Sea Lion (272) before it already allows Skyborne, so Skyborne druids stopped halfway."
 	},
+	"37": {
+		"set": {
+			"end": {
+				"npc": [],
+				"object": [
+					55
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded contributors left out): 54 people handed Find the Lost Guards in, none of them in an NPC's window; 18 people took it from Guard Thomas (261)"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "quest 37 ender: object 55"
+			},
+			{
+				"kind": "questie",
+				"ref": "quest 37 finishedBy: object 55"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2612 (JeromeM, 0.4.0): the guide sent the hand-in to Guard Thomas; the half-eaten body takes it"
+			}
+		],
+		"note": "Find the Lost Guards (37) is handed in at a half-eaten body (object 55); Guard Thomas (261) only gives it. The build added Guard Thomas to its enders from the in-game dialog captures, which name him for the hand-in too, and a step's hand-in then went to the giver: Westfall's Elwynn stop and the Human Elwynn Forest guide sent players back to Guard Thomas (#2612). The ender is the object alone (the same pattern on all eight quests the build gave an extra ender this way, #2612)."
+	},
+	"67": {
+		"set": {
+			"end": {
+				"npc": [],
+				"object": [
+					3643
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded contributors left out): 33 people handed The Legend of Stalvan in, none of them in an NPC's window; 38 people took it from Clerk Daltry (267)"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "quest 67 ender: object 3643"
+			},
+			{
+				"kind": "questie",
+				"ref": "quest 67 finishedBy: object 3643"
+			}
+		],
+		"note": "The Legend of Stalvan (67) is handed in at the Old Footlocker (object 3643); Clerk Daltry (267) only gives it. The build added Clerk Daltry to its enders from the in-game dialog captures, which name him for the hand-in too, and a step's hand-in then went to the giver. The ender is the object alone (the same pattern on all eight quests the build gave an extra ender this way, #2612)."
+	},
 	"90": {
 		"set": {
 			"objectives": [
@@ -436,6 +490,31 @@
 		},
 		"note": "Teldrassil (from the Oracle Tree Bark to Fandral) rewards 440 XP on Forever; the merged data had 220, the Classic value. Players' game caches give 440, as The Enchanted Glade (937) at the same level has. Issue #647."
 	},
+	"944": {
+		"set": {
+			"end": {
+				"npc": [],
+				"object": [
+					10076
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded contributors left out): 37 people handed The Master's Glaive in, none of them in an NPC's window; 22 people took it from Onu (3616)"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "quest 944 ender: object 10076"
+			},
+			{
+				"kind": "questie",
+				"ref": "quest 944 finishedBy: object 10076"
+			}
+		],
+		"note": "The Master's Glaive (944) is handed in at the Scrying Bowl (object 10076); Onu (3616) only gives it. The build added Onu to its enders from the in-game dialog captures, which name him for the hand-in too, and a step's hand-in then went to the giver. The ender is the object alone (the same pattern on all eight quests the build gave an extra ender this way, #2612)."
+	},
 	"959": {
 		"set": {
 			"xp": 2650
@@ -467,6 +546,31 @@
 			}
 		],
 		"note": "Serpentbloom (Wailing Caverns) rewards 3,300 XP on Forever; the merged data had 1,350, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
+	},
+	"983": {
+		"set": {
+			"end": {
+				"npc": [],
+				"object": [
+					17182
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded contributors left out): 72 people handed Buzzbox 827 in, none of them in an NPC's window; 36 people took it from Wizbang Cranktoggle (3666)"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "quest 983 ender: object 17182"
+			},
+			{
+				"kind": "questie",
+				"ref": "quest 983 finishedBy: object 17182"
+			}
+		],
+		"note": "Buzzbox 827 (983) is handed in at Buzzbox 827 (object 17182); Wizbang Cranktoggle (3666) only gives it. The build added Wizbang Cranktoggle to its enders from the in-game dialog captures, which name him for the hand-in too, and a step's hand-in then went to the giver. The ender is the object alone (the same pattern on all eight quests the build gave an extra ender this way, #2612)."
 	},
 	"990": {
 		"set": {
@@ -1771,6 +1875,31 @@
 			"ref": "Factoruide row sources: questie"
 		},
 		"note": "Seal of Ascension: starts with Scarshield Infiltrator (npc 10299) and ends with Scarshield Infiltrator (npc 10299); as its giver the merged data also listed Vaelan (npc 10296); as its ender the merged data also listed Vaelan (npc 10296)."
+	},
+	"4812": {
+		"set": {
+			"end": {
+				"npc": [],
+				"object": [
+					175524
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded contributors left out): 61 people handed As Water Cascades in, none of them in an NPC's window; 35 people took it from Sentinel Glynda Nal'Shea (2930)"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "quest 4812 ender: object 175524"
+			},
+			{
+				"kind": "questie",
+				"ref": "quest 4812 finishedBy: object 175524"
+			}
+		],
+		"note": "As Water Cascades (4812) is handed in at the Mysterious Red Crystal (object 175524); Sentinel Glynda Nal'Shea (2930) only gives it. The build added Sentinel Glynda Nal'Shea to its enders from the in-game dialog captures, which name him for the hand-in too, and a step's hand-in then went to the giver. The ender is the object alone (the same pattern on all eight quests the build gave an extra ender this way, #2612)."
 	},
 	"4866": {
 		"set": {
@@ -3500,7 +3629,13 @@
 			],
 			"preAny": [
 				91859
-			]
+			],
+			"end": {
+				"npc": [],
+				"object": [
+					566037
+				]
+			}
 		},
 		"source": [
 			{
@@ -3510,9 +3645,17 @@
 			{
 				"kind": "factoruide",
 				"ref": "pre_any 91859"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded contributors left out): 14 people handed A Grim Fate in, none of them in an NPC's window; 9 people took it from Deathguard Baldren (259611)"
+			},
+			{
+				"kind": "questie",
+				"ref": "quest 91860 finishedBy: object 566037"
 			}
 		],
-		"note": "The Lumina Windsinger chain (Undead Paladins): Deathguard Baldren's A Grim Fate (91860) follows A Curious Pair (91859), handed in to him. The merged data had no prerequisite."
+		"note": "The Lumina Windsinger chain (Undead Paladins): Deathguard Baldren's A Grim Fate (91860) follows A Curious Pair (91859), handed in to him. The merged data had no prerequisite. A Grim Fate is handed in at the Charred Remains (object 566037); Deathguard Baldren only gives it. The build added him to its enders from the in-game dialog captures, which name him for the hand-in too, and the Lumina Windsinger paladin guide sent players back to him for it. The ender is the object alone (the same pattern on all eight quests the build gave an extra ender this way, #2612)."
 	},
 	"91861": {
 		"set": {
@@ -4687,6 +4830,27 @@
 			}
 		],
 		"note": "Call of Fire (Dun Morogh, Dwarf Shaman) lists Fire Tar first, then the Reagent Pouch. The merged data had the two the other way round, so `quest 94466.1` named the pouch. Races: it keeps the Alliance race mask: Forever's server sets the Alliance races on 94449, 94467 and 94468 and no race limit on 94466 (players' caches), and QuestieDB had the Alliance up to 1.0.13. QuestieDB 1.0.14 narrowed the chain to Dwarf. Who can take it does not change: Dwarves are the only Alliance race that can be a Shaman."
+	},
+	"94502": {
+		"set": {
+			"end": {
+				"npc": [],
+				"object": [
+					619896
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded contributors left out): 15 people handed Call of Water in, none of them in an NPC's window; 7 people took it from Norric Lochthane (258043)"
+			},
+			{
+				"kind": "questie",
+				"ref": "quest 94502 finishedBy: object 619896"
+			}
+		],
+		"note": "Call of Water (94502) is handed in at the Forgotten Shrine (object 619896); Norric Lochthane (258043) only gives it. The build added Norric Lochthane to its enders from the in-game dialog captures, which name him for the hand-in too, and a step's hand-in then went to the giver. The ender is the object alone (the same pattern on all eight quests the build gave an extra ender this way, #2612)."
 	},
 	"95034": {
 		"set": {
@@ -10031,7 +10195,13 @@
 	},
 	"94467": {
 		"set": {
-			"races": 4294967373
+			"races": 4294967373,
+			"end": {
+				"npc": [],
+				"object": [
+					61934
+				]
+			}
 		},
 		"source": [
 			{
@@ -10041,9 +10211,17 @@
 			{
 				"kind": "questie",
 				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_ALLIANCE in 1.0.10 to 1.0.13, DWARF in 1.0.14"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded contributors left out): 12 people handed Call of Fire (94467) in, none of them in an NPC's window; 5 people took it from Braldir Ashmantle (257808)"
+			},
+			{
+				"kind": "questie",
+				"ref": "quest 94467 finishedBy: object 61934"
 			}
 		],
-		"note": "Call of Fire (the Alliance Shaman fire totem chain) keeps the Alliance race mask: Forever's server sets the Alliance races on 94449, 94467 and 94468 and no race limit on 94466 (players' caches), and QuestieDB had the Alliance up to 1.0.13. QuestieDB 1.0.14 narrowed the chain to Dwarf. Who can take it does not change: Dwarves are the only Alliance race that can be a Shaman."
+		"note": "Call of Fire (the Alliance Shaman fire totem chain) keeps the Alliance race mask: Forever's server sets the Alliance races on 94449, 94467 and 94468 and no race limit on 94466 (players' caches), and QuestieDB had the Alliance up to 1.0.13. QuestieDB 1.0.14 narrowed the chain to Dwarf. Who can take it does not change: Dwarves are the only Alliance race that can be a Shaman. Call of Fire (94467) is handed in at the Brazier of the Dormant Flame (object 61934); Braldir Ashmantle only gives it. The build added him to its enders from the in-game dialog captures, which name him for the hand-in too; the ender is the object alone (#2612)."
 	},
 	"94468": {
 		"set": {

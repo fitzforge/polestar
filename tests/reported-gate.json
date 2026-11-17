@@ -1372,6 +1372,9 @@
 		] },
 		"2563": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "#2563: Wetlands (Alliance): Fall of Dun Modr is taken on its own step, only while A Grim Task is not handed in" }
+		] },
+		"2612": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2612: quests handed in at an object are never handed in to their giver" }
 		] }
 	},
 	"seedDrift": {
