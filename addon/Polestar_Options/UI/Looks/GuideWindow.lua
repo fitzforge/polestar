@@ -638,6 +638,7 @@ local SPECS = {
 				local info = id and T.LayoutInfo and T.LayoutInfo(id)
 				return not (info and info.defaults and info.defaults["guideWindow.journeyStyle"])
 			end,
+			offWhy = L["Polestar's layout draws the Journey under the step. Pick a layout with more Journey styles, such as Atlas, in Presets."],
 			help = L["Where the travel route shows while you travel: under the step, in a card under the window, folded to the leg you are on, as nodes on the timeline, or as chips in the window's foot."],
 			search = "journey, travel, route, legs, flight, boat, folded, chips, timeline, under the window",
 			choices = {

@@ -1017,7 +1017,7 @@ local function choicesOf(c)
 	if type(list) == "function" then list = list() end
 	for i, ch in ipairs(list or {}) do
 		out[i] = { value = ch.value, text = ch.text or ch.label or tostring(ch.value), font = ch.font, draw = ch.draw,
-			disabled = ch.disabled, note = ch.note, tip = ch.tip, preview = ch.preview, group = ch.group }
+			disabled = ch.disabled, note = ch.note, tag = ch.tag, tagTip = ch.tagTip, tip = ch.tip, preview = ch.preview, group = ch.group }
 	end
 	return out
 end
@@ -1363,6 +1363,11 @@ end
 -- Why a setting is off, for its tooltip: its section's toggle, or the
 -- on/off it depends on (the parent a child follows, the row an extra is on).
 local function whyOff(c)
+	-- A row that says why its own test turns it off (c.offWhy).
+	if c.offWhy and c.disabled then
+		local ok, off = pcall(c.disabled)
+		if ok and off then return type(c.offWhy) == "function" and c.offWhy() or c.offWhy end
+	end
 	local s = c.psSection
 	if s and s.toggle ~= c and sectionOff(s) then return string.format(L["Turn on %s first."], labelOf(s.toggle) or "") end
 	local parent = c.psParent or c.psOwner
