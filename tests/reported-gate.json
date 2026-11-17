@@ -1390,6 +1390,9 @@
 		] },
 		"2606": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/lookup.rs", "test": "a_quest_lookup_opens_the_class_guide_that_lists_it_2606" }
+		] },
+		"2588": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-arrow-look.rs", "test": "the_backing_plate_is_as_wide_as_the_widest_line_it_backs_2588" }
 		] }
 	},
 	"seedDrift": {
