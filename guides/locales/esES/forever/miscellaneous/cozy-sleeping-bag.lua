@@ -48,8 +48,8 @@ return {
 
 	-- Step 7: Stonetalon Mountains
 	-- {area:460} Sun Rock Retreat · {zone:1442} Stonetalon Mountains · {object:424005} Pocket Litter
-	["The next hideout is a small camp in the hills north-west of {area:460}, in the middle of the {zone:1442}. Leave the road where a path climbs west into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "",
-	["Path into the hills"] = "",
+	["The next hideout is a small camp in the hills north-west of {area:460}, in the middle of the {zone:1442}. Leave the road where a path climbs west into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "El siguiente escondite es un campamento pequeño en las colinas al noroeste de {area:460}, en el centro de {zone:1442}. Deja el camino donde un sendero sube al oeste hacia las colinas y síguelo hasta el campamento; el {object:424005} está sobre una caja junto a su tienda.",
+	["Path into the hills"] = "Sendero hacia las colinas",
 
 	-- Step 8: A hundred paces north
 	["A hundred paces north"] = "",

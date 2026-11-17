@@ -129,8 +129,8 @@ return {
 	["{area:442}: the seal, the {npc:6788} and the pelts"] = "",
 	-- {item:5338} Ancient Moonstone Seal · {quest:956} Bashal'Aran · {npc:6788} Den Mother · {zone:1439} Darkshore
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	["The {item:5338} drops from the satyrs of {quest:956}; destroy the seal at the flame there. The {npc:6788} lairs north-east of {quest:956}; the Moonstalker Sires and Matriarchs roam the south of {zone:1439}."] = "",
-	["the seal at the ancient flame"] = "",
+	["The {item:5338} drops from the satyrs of {quest:956}; destroy the seal at the flame there. The {npc:6788} lairs north-east of {quest:956}; the Moonstalker Sires and Matriarchs roam the south of {zone:1439}."] = "El {item:5338} lo sueltan los sátiros de {quest:956}; destruye el sello en la llama de ahí. La {npc:6788} tiene su guarida al noreste de {quest:956}; los sementales y matriarcas acechalunas recorren el sur de {zone:1439}.",
+	["the seal at the ancient flame"] = "el sello en la llama antigua",
 
 	-- Step 20: A Donation of Silk
 	-- {item:4306} Silk Cloth · {zone:1440} Ashenvale

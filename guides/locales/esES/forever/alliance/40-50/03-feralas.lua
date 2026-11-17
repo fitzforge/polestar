@@ -87,7 +87,7 @@ return {
 	-- Step 16: Fly to Thalanaar
 	-- {area:489} Thalanaar
 	["Fly to {area:489}"] = "",
-	["Feathermoon flight master"] = "",
+	["Feathermoon flight master"] = "Maestro de vuelo de Plumaluna",
 
 	-- Step 17: Back to the coast
 	["Back to the coast"] = "De vuelta a la costa",

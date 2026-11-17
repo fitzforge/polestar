@@ -7,14 +7,14 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Succubus and Incubus (Horde)"] = "",
-	["At 20: the succubus and Forever's incubus, its male twin, each with a soul pouch for your shards."] = "",
+	["Succubus and Incubus (Horde)"] = "Súcubo e íncubo (Horda)",
+	["At 20: the succubus and Forever's incubus, its male twin, each with a soul pouch for your shards."] = "A nivel 20: la súcubo y el íncubo de Forever, su gemelo masculino, cada uno con una bolsa de almas para tus fragmentos.",
 
 	-- Step 1: Devourer of Souls (Orgrimmar)
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {npc:5909} Cazul · {npc:5675} Carendin Halgar · {zone:1458} Undercity · {quest:1507} Devourer of Souls · {zone:1454} Orgrimmar
 	["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1507} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "A nivel 20, {npc:5875}, en el {object:172960} bajo el {object:172982}, te envía con {npc:5909}, a pocos pasos. Dos instructores inician estos demonios, {npc:5875} aquí y {npc:5675} en {zone:1458}, y solo puedes aceptar uno; esta guía sigue la {quest:1507} que hayas aceptado. {npc:5909} ofrece las dos ramas de {zone:1454}: acepta ambas.",
-	["the succubus"] = "",
-	["the incubus"] = "",
+	["the succubus"] = "la súcubo",
+	["the incubus"] = "el íncubo",
 
 	-- Step 2: Zankaja
 	-- {npc:5910} Zankaja · {object:172982} Valley of Strength

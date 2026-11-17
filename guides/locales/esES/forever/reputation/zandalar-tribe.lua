@@ -9,8 +9,8 @@ return {
 	-- Guide
 	["Zandalar Tribe Reputation"] = "",
 	-- {area:19} Zul'Gurub
-	["Shoulder and head enchants, a class necklace upgraded at every standing, and {area:19}'s set pieces."] = "",
-	["Your class's necklace at Friendly, upgraded at Honored, Revered and Exalted"] = "",
+	["Shoulder and head enchants, a class necklace upgraded at every standing, and {area:19}'s set pieces."] = "Encantamientos de hombros y cabeza, un collar de clase que se mejora en cada nivel de reputación y las piezas de conjunto de {area:19}.",
+	["Your class's necklace at Friendly, upgraded at Honored, Revered and Exalted"] = "El collar de tu clase en Amistoso, mejorado en Honorable, Reverenciado y Exaltado",
 	-- {npc:15042} Zanza the Restless
 	["{npc:15042}'s head and leg enchants, from Friendly"] = "",
 
@@ -129,8 +129,8 @@ return {
 	-- {npc:14905} Falthir the Sightless · {item:19619} Maelstrom's Tendril
 	["{npc:14905}: {item:19619}, Revered"] = "",
 	-- {npc:15070} Vinchaxa
-	["{npc:15070}: 3 coins, 25 and a token"] = "",
-	["25 and a token"] = "",
+	["{npc:15070}: 3 coins, 25 and a token"] = "{npc:15070}: 3 monedas, 25 y una ficha",
+	["25 and a token"] = "25 y una ficha",
 	-- {quest:8243} Zanza's Potent Potables
 	["{quest:8243}: one token"] = "",
 

@@ -45,8 +45,8 @@ return {
 	-- Step 6: Cultists until the top of Friendly, texts saved
 	["Cultists until the top of Friendly, texts saved"] = "",
 	-- {npc:11880} Twilight Avenger · {item:20404} Encrypted Twilight Text · {area:2742} Hive'Ashi · {npc:15308} Twilight Prophet · {npc:15306} Bor Wildmane
-	["Neutral to Honored is 9,000 reputation (7,000 for druids). Every {npc:11880}, Geolord, Stonecaller, Master and Overlord gives 1 reputation until 5,999 of 6,000 Friendly, one point short of Honored; there they stop. Save every {item:20404} and leave the quests of the next steps for later: each kill below that point is a free point on top of its text, and the texts and quests pay the same at any standing. A text drops about every third kill, so 30 kills make 30 reputation and 10 texts (100 reputation later). Four camps: south-west of the Hold (39,44), the far west (26,34), the far south-west (19,84) and the north-east below {area:2742} (66,18: Overlords, and Flamereavers that count until the top of Honored). The {npc:15308} (87% text) walks between 18,31 and 23,69. Texts sell on the auction house if you would rather buy. At 5,999 Friendly the last point into Honored comes from a Flamereaver, Twilight Keeper or Marauder, or from your first 10 texts at {npc:15306}."] = "",
-	["Kills alone to the top of Friendly is 8,999 kills (6,999 for druids), but the texts they drop (about 3,000) are worth 30,000 more: most of the way to Exalted."] = "",
+	["Neutral to Honored is 9,000 reputation (7,000 for druids). Every {npc:11880}, Geolord, Stonecaller, Master and Overlord gives 1 reputation until 5,999 of 6,000 Friendly, one point short of Honored; there they stop. Save every {item:20404} and leave the quests of the next steps for later: each kill below that point is a free point on top of its text, and the texts and quests pay the same at any standing. A text drops about every third kill, so 30 kills make 30 reputation and 10 texts (100 reputation later). Four camps: south-west of the Hold (39,44), the far west (26,34), the far south-west (19,84) and the north-east below {area:2742} (66,18: Overlords, and Flamereavers that count until the top of Honored). The {npc:15308} (87% text) walks between 18,31 and 23,69. Texts sell on the auction house if you would rather buy. At 5,999 Friendly the last point into Honored comes from a Flamereaver, Twilight Keeper or Marauder, or from your first 10 texts at {npc:15306}."] = "De Neutral a Honorable son 9.000 de reputación (7.000 para los druidas). Cada {npc:11880}, geoseñor, clamapiedras, maestro y señor supremo da 1 de reputación hasta 5.999 de 6.000 en Amistoso, a un punto de Honorable; ahí dejan de contar. Guarda cada {item:20404} y deja las misiones de los pasos siguientes para después: cada muerte por debajo de ese punto es un punto gratis además de su texto, y los textos y las misiones pagan lo mismo con cualquier reputación. Un texto cae más o menos una de cada tres muertes, así que 30 muertes dan 30 de reputación y 10 textos (100 de reputación después). Cuatro campamentos: al suroeste del Fuerte (39,44), el extremo oeste (26,34), el extremo suroeste (19,84) y el noreste bajo {area:2742} (66,18: señores supremos, y segadores de llamas que cuentan hasta el tope de Honorable). El {npc:15308} (87% de texto) camina entre 18,31 y 23,69. Los textos se venden en la casa de subastas si prefieres comprar. En 5.999 de Amistoso, el último punto hasta Honorable sale de un segador de llamas, guardián crepuscular o merodeador, o de tus primeros 10 textos con {npc:15306}.",
+	["Kills alone to the top of Friendly is 8,999 kills (6,999 for druids), but the texts they drop (about 3,000) are worth 30,000 more: most of the way to Exalted."] = "Solo con muertes hasta el tope de Amistoso son 8.999 muertes (6.999 para los druidas), pero los textos que sueltan (unos 3.000) valen 30.000 más: la mayor parte del camino a Exaltado.",
 	-- {item:20732} Formula: Enchant Cloak - Greater Fire Resistance · {item:22251} Cenarion Herb Bag · {item:22758} Sylvan Shoulders
 	["Friendly (3,000) opens Kania's {item:20732} (10g), Mishta's {item:22251} (2g) and {item:22758} (5g), and Forever's new Friendly gloves patterns (7g 50s)."] = "",
 	-- {item:20404} Encrypted Twilight Text
@@ -116,8 +116,8 @@ return {
 	["{npc:15194} hides in the hills of eastern {zone:1451}. He also decodes {quest:8319} for a chance at a scroll of beckoning, but {quest:8349} pays the reputation: keep the texts for Bor."] = "",
 
 	-- Step 16: The three Twilight Keepers
-	["The three Twilight Keepers"] = "",
-	["Each Keeper is a level 60, not elite, alone at a camp edge, and always drops its chapter: Mayna in the far west camp, Havunth in the camp south-west of the Hold, Exeter in the far south-west camp beside the Twilight Lord."] = "",
+	["The three Twilight Keepers"] = "Los tres guardianes crepusculares",
+	["Each Keeper is a level 60, not elite, alone at a camp edge, and always drops its chapter: Mayna in the far west camp, Havunth in the camp south-west of the Hold, Exeter in the far south-west camp beside the Twilight Lord."] = "Cada guardián es de nivel 60, no élite, está solo en el borde de un campamento y siempre suelta su capítulo: Mayna en el campamento del extremo oeste, Havunth en el campamento al suroeste del Fuerte, Exeter en el campamento del extremo suroeste, junto al Señor Crepuscular.",
 
 	-- Step 17: Back to Ortell
 	["Back to Ortell"] = "",
@@ -136,7 +136,7 @@ return {
 	["Back to {area:3425} with news"] = "",
 	-- {npc:15190} Noggle Ficklespragg
 	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
-	["Natalia, elite: group up"] = "",
+	["Natalia, elite: group up"] = "Natalia, élite: agrúpate",
 
 	-- Step 20: Rubbings and brains
 	["Rubbings and brains"] = "",
@@ -150,13 +150,13 @@ return {
 	-- Step 21: Mistress Natalia
 	["Mistress Natalia"] = "",
 	-- {area:2744} Hive'Regal · {zone:1451} Silithus
-	["Optional: Natalia waits deep in {area:2744}, the hive in the south of {zone:1451}. She is a level 62 elite who mind-controls, fears and heals herself below half health: bring a group of 3 to 5 and interrupt her heals."] = "",
-	["Mistress Natalia: group of 3 to 5"] = "",
+	["Optional: Natalia waits deep in {area:2744}, the hive in the south of {zone:1451}. She is a level 62 elite who mind-controls, fears and heals herself below half health: bring a group of 3 to 5 and interrupt her heals."] = "Opcional: Natalia espera en lo hondo de {area:2744}, la colmena del sur de {zone:1451}. Es una élite de nivel 62 que controla mentes, aterroriza y se cura por debajo de la mitad de su salud: lleva un grupo de 3 a 5 e interrumpe sus curaciones.",
+	["Mistress Natalia: group of 3 to 5"] = "Señora Natalia: grupo de 3 a 5",
 
 	-- Step 22: The Calling
 	-- {quest:8314} Unraveling the Mystery · {quest:8315} The Calling · {npc:15183} Geologist Larksbane · {area:3257} Bones of Grakkarond · {npc:14862} Emissary Roman'khan
-	["{quest:8314} leads to {quest:8315}: {npc:15183} sends you to the {area:3257} to summon {npc:14862}, a level 63 boss for a raid of about 20. Take it only with a raid."] = "",
-	["raid of 20"] = "",
+	["{quest:8314} leads to {quest:8315}: {npc:15183} sends you to the {area:3257} to summon {npc:14862}, a level 63 boss for a raid of about 20. Take it only with a raid."] = "{quest:8314} lleva a {quest:8315}: {npc:15183} te manda a {area:3257} para invocar a {npc:14862}, un jefe de nivel 63 para una banda de unos 20. Tómala solo con una banda.",
+	["raid of 20"] = "banda de 20",
 	-- {item:20465} Crystal Unlocking Mechanism · {npc:14862} Emissary Roman'khan
 	["{item:20465}, {npc:14862}: raid of 20"] = "",
 
@@ -201,16 +201,16 @@ return {
 	["{quest:8507}, level 60"] = "",
 	-- {npc:15540} Windcaller Kaldon · {area:3425} Cenarion Hold · {quest:8507} Field Duty · {npc:15440} Captain Blackanvil · {area:2743} Hive'Zora · {npc:15612} Krug Skullsplit · {area:2744} Hive'Regal · {item:20809} Tactical Assignment · {item:7936} Ornate Mithril Boots · {npc:15542} Twilight Marauder · {quest:9338} Allegiance to Cenarion Circle
 	-- plural, as words: Heavy Runecloth Bandages = {item:14530} Heavy Runecloth Bandage
-	["{npc:15540} stands by the moonwell of {area:3425}. {quest:8507} (25 reputation, repeatable) sends you with unsigned papers to your side's captain: {npc:15440}'s Ironforge Brigade outside {area:2743} (Alliance) or {npc:15612}'s Orgrimmar Legion outside {area:2744} (Horde). Use the papers first, then talk to the captain: a level 60 elite silithid attacks; keep the captain alive and he signs. Kaldon then lets you pick a Combat, Logistics or {item:20809}, each holding a random briefing worth 50 reputation and a badge: 30 hive silithid kills (elites), goods such as 30 Heavy Runecloth Bandages or 3 {item:7936}, or one Templar, {npc:15542} or scout report. One badge of each kind buys {quest:9338} at Kaldon: 200 reputation, repeatable. A full round is about 375 reputation."] = "",
-	["Allegiance: one Combat, Logistics and Tactical badge, 200"] = "",
+	["{npc:15540} stands by the moonwell of {area:3425}. {quest:8507} (25 reputation, repeatable) sends you with unsigned papers to your side's captain: {npc:15440}'s Ironforge Brigade outside {area:2743} (Alliance) or {npc:15612}'s Orgrimmar Legion outside {area:2744} (Horde). Use the papers first, then talk to the captain: a level 60 elite silithid attacks; keep the captain alive and he signs. Kaldon then lets you pick a Combat, Logistics or {item:20809}, each holding a random briefing worth 50 reputation and a badge: 30 hive silithid kills (elites), goods such as 30 Heavy Runecloth Bandages or 3 {item:7936}, or one Templar, {npc:15542} or scout report. One badge of each kind buys {quest:9338} at Kaldon: 200 reputation, repeatable. A full round is about 375 reputation."] = "{npc:15540} está junto al pozo de la luna de {area:3425}. {quest:8507} (25 de reputación, repetible) te manda con papeles sin firmar al capitán de tu bando: la Brigada de Forjaz de {npc:15440} fuera de {area:2743} (Alianza) o la Legión de Orgrimmar de {npc:15612} fuera de {area:2744} (Horda). Usa primero los papeles, luego habla con el capitán: ataca un silítido élite de nivel 60; mantén con vida al capitán y él firma. Luego Kaldon te deja elegir un informe de combate, de logística o un {item:20809}, cada uno con una orden al azar que vale 50 de reputación y una insignia: 30 muertes de silítidos de colmena (élites), bienes como 30 vendas de paño rúnico gruesas o 3 {item:7936}, o un templario, {npc:15542} o un informe de exploración. Una insignia de cada tipo compra {quest:9338} con Kaldon: 200 de reputación, repetible. Una ronda completa son unos 375 de reputación.",
+	["Allegiance: one Combat, Logistics and Tactical badge, 200"] = "Lealtad: una insignia de combate, una de logística y una táctica, 200",
 	-- {quest:8800} Cenarion Battlegear · {npc:15176} Vargus
 	["{quest:8800}: {npc:15176}'s badge gear"] = "",
 
 	-- Step 31: Silithyst
 	["Silithyst"] = "",
 	-- {quest:9419} Scouring the Desert · {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora · {npc:17079} General Kirika · {area:2744} Hive'Regal
-	["Optional, 100 reputation once: {quest:9419}. Your side's camp sits by a hive: {npc:17080}'s by {area:2743} (Alliance), {npc:17079}'s by {area:2744} (Horde). Silithyst rises from glowing geysers around the desert: walk through one, carry the Silithyst to your camp's Silithyst Extractor, then talk to the camp's leader. It is a world PvP objective: players of the other side can take it from you."] = "",
-	["deliver Silithyst at the extractor"] = "",
+	["Optional, 100 reputation once: {quest:9419}. Your side's camp sits by a hive: {npc:17080}'s by {area:2743} (Alliance), {npc:17079}'s by {area:2744} (Horde). Silithyst rises from glowing geysers around the desert: walk through one, carry the Silithyst to your camp's Silithyst Extractor, then talk to the camp's leader. It is a world PvP objective: players of the other side can take it from you."] = "Opcional, 100 de reputación una vez: {quest:9419}. El campamento de tu bando está junto a una colmena: el de {npc:17080} junto a {area:2743} (Alianza), el de {npc:17079} junto a {area:2744} (Horda). La silitista surge de los géiseres brillantes del desierto: pasa por uno, lleva la silitista al extractor de silitista de tu campamento y luego habla con el líder del campamento. Es un objetivo de JcJ en el mundo: los jugadores del otro bando pueden quitártela.",
+	["deliver Silithyst at the extractor"] = "entrega la silitista en el extractor",
 
 	-- Step 32: Templars and the Abyssal Council
 	["Templars and the Abyssal Council"] = "",
@@ -229,8 +229,8 @@ return {
 	["Signets and scepters to Exalted"] = "",
 	-- {quest:8363} Abyssal Signets · {npc:15282} Aurel Goldleaf · {item:20515} Abyssal Scepter · {quest:9248} A Humble Offering · {quest:8343} Goldleaf's Discovery · {quest:8341} Lords of the Council · {object:180466} Greater Wind Stone · {item:22252} Satchel of Cenarius · {item:22660} Gaea's Embrace · {item:22756} Sylvan Vest · {npc:15176} Vargus
 	-- plural, as words: Large Brilliant Shards = {item:14344} Large Brilliant Shard
-	["Revered to Exalted is 21,000 reputation: 210 text turn-ins (2,100 texts), or less with the rest. From Honored, Bor takes 3 {quest:8363} for 100 (each Duke also gives 25, to Exalted), and {npc:15282} takes one {item:20515} for {quest:9248} (200, once). From Revered, {quest:8343} leads to {quest:8341}: 3 signets and 5 Large Brilliant Shards buy the Ring of Lordship, and set, medallion and ring open the {object:180466} for an Abyssal Lord: a level 63 boss for a raid of about 20, 50 reputation, and an {item:20515}. Bor pays 200 for the first scepter and 150 for each 3 after. Revered opens Mishta's {item:22252} (5g), {item:22660} (9g) and {item:22756} (5g); Exalted is the standing for Champion's Battlegear at {npc:15176}."] = "",
-	["10 texts: 100"] = "",
+	["Revered to Exalted is 21,000 reputation: 210 text turn-ins (2,100 texts), or less with the rest. From Honored, Bor takes 3 {quest:8363} for 100 (each Duke also gives 25, to Exalted), and {npc:15282} takes one {item:20515} for {quest:9248} (200, once). From Revered, {quest:8343} leads to {quest:8341}: 3 signets and 5 Large Brilliant Shards buy the Ring of Lordship, and set, medallion and ring open the {object:180466} for an Abyssal Lord: a level 63 boss for a raid of about 20, 50 reputation, and an {item:20515}. Bor pays 200 for the first scepter and 150 for each 3 after. Revered opens Mishta's {item:22252} (5g), {item:22660} (9g) and {item:22756} (5g); Exalted is the standing for Champion's Battlegear at {npc:15176}."] = "De Reverenciado a Exaltado son 21.000 de reputación: 210 entregas de textos (2.100 textos), o menos con lo demás. Desde Honorable, Bor acepta 3 {quest:8363} por 100 (cada duque también da 25, hasta Exaltado), y {npc:15282} acepta un {item:20515} para {quest:9248} (200, una vez). Desde Reverenciado, {quest:8343} lleva a {quest:8341}: 3 sellos y 5 fragmentos brillantes grandes compran el Anillo de señorío, y conjunto, medallón y anillo abren la {object:180466} para un señor abisal: un jefe de nivel 63 para una banda de unos 20, 50 de reputación y un {item:20515}. Bor paga 200 por el primer cetro y 150 por cada 3 después. Reverenciado abre la {item:22252} (5g), la {item:22660} (9g) y los {item:22756} (5g) de Mishta; Exaltado es la reputación para el Equipo de batalla de campeón con {npc:15176}.",
+	["10 texts: 100"] = "10 textos: 100",
 	-- {quest:8363} Abyssal Signets
 	["3 {quest:8363}: 100, Honored"] = "",
 	-- {item:20515} Abyssal Scepter

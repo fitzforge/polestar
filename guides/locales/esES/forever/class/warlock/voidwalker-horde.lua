@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Voidwalker (Horde)"] = "",
-	["Your tank demon at 10: the voidwalker, after a stolen book and a fight at a summoning circle."] = "",
+	["Voidwalker (Horde)"] = "Abisario (Horda)",
+	["Your tank demon at 10: the voidwalker, after a stolen book and a fight at a summoning circle."] = "Tu demonio tanque a nivel 10: el abisario, después de un libro robado y una pelea en un círculo de invocación.",
 
 	-- Step 1: Gan'rul's Summons (Orcs and Trolls)
 	-- {quest:1506} Gan'rul's Summons

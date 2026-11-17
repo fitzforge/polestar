@@ -481,8 +481,8 @@ return {
 	-- Step 84: Shadowvale
 	-- {area:16881} Shadowvale · {area:16616} Whispering Forest
 	-- plural, as words: Shadowvale Lurchers = {npc:260428} Shadowvale Lurcher
-	["{area:16881} is the hollow at the west edge of the glades, south-west of the {area:16616}. Go down into the big basement under the ruined house (only a floor and a few pillars left, not the two-storey house): the bottles lie on its floor among the Shadowvale Lurchers and Mystics."] = "",
-	["the basement under the ruined house"] = "",
+	["{area:16881} is the hollow at the west edge of the glades, south-west of the {area:16616}. Go down into the big basement under the ruined house (only a floor and a few pillars left, not the two-storey house): the bottles lie on its floor among the Shadowvale Lurchers and Mystics."] = "{area:16881} es la hondonada en el borde oeste de los claros, al suroeste de {area:16616}. Baja al gran sótano debajo de la casa en ruinas (solo queda un piso y unos pilares, no la casa de dos plantas): las botellas están en el suelo entre los tambaleantes y místicos de Valle Umbrío.",
+	["the basement under the ruined house"] = "el sótano debajo de la casa en ruinas",
 	-- {item:286269} Glowing Crystal Fragment
 	["the {item:286269}, at the basement's south end"] = "",
 	-- plural, as words: Shadowvale Lurchers = {npc:260428} Shadowvale Lurcher

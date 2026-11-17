@@ -150,8 +150,8 @@ return {
 	["{npc:272}, in the Scarlet Raven Tavern"] = "",
 	-- {npc:272} Chef Grual · {zone:1431} Duskwood
 	-- plural, as words: Gooey Spider Legs = {item:2251} Gooey Spider Leg
-	["{npc:272}: six Gooey Spider Legs, which {zone:1431}'s spiders drop even without the quest"] = "",
-	["Already carrying six? Hand them in now"] = "",
+	["{npc:272}: six Gooey Spider Legs, which {zone:1431}'s spiders drop even without the quest"] = "{npc:272}: seis patas de araña pegajosas, que las arañas de {zone:1431} sueltan aunque no tengas la misión",
+	["Already carrying six? Hand them in now"] = "¿Ya tienes seis? Entrégalas ahora",
 	-- {npc:288} Jitters · {quest:163} Raven Hill · {zone:1431} Duskwood
 	["For {npc:288}, at {quest:163} on the next {zone:1431} loop"] = "",
 	-- {npc:663} Calor
@@ -195,9 +195,9 @@ return {
 
 	-- Step 32: Lakeshire
 	-- {npc:342} Martie Jainrose
-	["Back east through town from {npc:342}'s garden: two Wanted posters hang on the town hall doorway."] = "",
-	["The Wanted poster on the town hall doorway"] = "",
-	["The Wanted poster beside it"] = "",
+	["Back east through town from {npc:342}'s garden: two Wanted posters hang on the town hall doorway."] = "De vuelta al este por el pueblo desde el huerto de {npc:342}: hay dos carteles de SE BUSCA en la entrada del ayuntamiento.",
+	["The Wanted poster on the town hall doorway"] = "El cartel de SE BUSCA en la entrada del ayuntamiento",
+	["The Wanted poster beside it"] = "El cartel de SE BUSCA de al lado",
 
 	-- Step 33: Alther's Mill
 	-- {quest:98386} Alther's Mill

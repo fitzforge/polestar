@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Ravenholdt Reputation"] = "",
-	["The assassins' guild: Forever's new rogue quests, then Syndicate kills and Heavy Junkboxes to Exalted."] = "",
+	["Ravenholdt Reputation"] = "Reputación con Ravenholdt",
+	["The assassins' guild: Forever's new rogue quests, then Syndicate kills and Heavy Junkboxes to Exalted."] = "El gremio de asesinos: las nuevas misiones de pícaro de Forever, y luego muertes del Sindicato y cajas fuertes pesadas hasta Exaltado.",
 	-- {faction:349} Ravenholdt
 	["{faction:349} reputation (no vendor or reward in Forever's data)"] = "",
 
@@ -16,8 +16,8 @@ return {
 	-- {item:17126} Elegant Letter · {area:275} Durnholde Keep · {npc:6707} Fahrad
 	["Rogues from level 24: ask your class trainer in a capital \"May I have it, please?\" for the {item:17126}, and read it. The path up to the manor starts in the hills north of {area:275}. In the tunnel on the way lies a chest: do not open it (an elite guard jumps out), just walk past it to earn the Rite of Cunning. {npc:6707} waits on the manor's balcony."] = "",
 	-- {item:17126} Elegant Letter
-	["{item:17126}, from your class trainer"] = "",
-	["walk past the trapped chest in the tunnel"] = "",
+	["{item:17126}, from your class trainer"] = "{item:17126}, del instructor de tu clase",
+	["walk past the trapped chest in the tunnel"] = "pasa de largo junto al cofre trampa del túnel",
 	-- {npc:6707} Fahrad
 	["{npc:6707}: 100 reputation"] = "",
 

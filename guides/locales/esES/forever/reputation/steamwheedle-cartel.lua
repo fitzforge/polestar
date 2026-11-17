@@ -9,8 +9,8 @@ return {
 	-- Guide
 	["Steamwheedle Cartel Reputation"] = "",
 	-- {npc:14637} Zorbin Fandazzle · {npc:14338} Knot Thimblejack
-	["Every goblin town at once: {npc:14637}'s zapped giants and {npc:14338}'s shackles, then five new quartermasters and their hats."] = "",
-	["Forever's goblin quartermasters: gear for levels 20 to 50 at Friendly and Honored"] = "",
+	["Every goblin town at once: {npc:14637}'s zapped giants and {npc:14338}'s shackles, then five new quartermasters and their hats."] = "Todos los pueblos goblin a la vez: los gigantes electrocutados de {npc:14637} y los grilletes de {npc:14338}, y luego cinco intendentes nuevos y sus sombreros.",
+	["Forever's goblin quartermasters: gear for levels 20 to 50 at Friendly and Honored"] = "Los intendentes goblin de Forever: equipo para los niveles 20 a 50 en Amistoso y Honorable",
 
 	-- Step 1: Zorbin Fandazzle
 	-- {faction:470} Ratchet · {faction:21} Booty Bay · {faction:369} Gadgetzan · {faction:577} Everlook · {faction:2827} Powderfuse · {zone:2548} Riverglades · {npc:14637} Zorbin Fandazzle · {npc:4624} Booty Bay Bruiser · {zone:1444} Feralas
@@ -68,8 +68,8 @@ return {
 	-- {item:12284} Draco-Incarcinatrix 900 · {npc:7048} Scalding Broodling
 	["{item:12284}, on a Black or {npc:7048}"] = "",
 	-- {quest:4726} Broodling Essence
-	["{quest:4726}, left by the broodlings"] = "",
-	["100 to every town"] = "",
+	["{quest:4726}, left by the broodlings"] = "{quest:4726}, que dejan las crías",
+	["100 to every town"] = "100 con cada pueblo",
 
 	-- Step 7: Everlook: Felnok Steelspring
 	-- {quest:4808} Felnok Steelspring · {faction:577} Everlook
@@ -102,8 +102,8 @@ return {
 	-- {npc:14637} Zorbin Fandazzle · {npc:10267} Tinkee Steamboil · {faction:470} Ratchet · {zone:1413} Barrens · {npc:3446} Mebok Mizzyrix · {faction:21} Booty Bay · {zone:1418} Badlands · {area:327} Faldir's Cove · {faction:369} Gadgetzan · {zone:1446} Tanaris · {item:8548} Divino-matic Rod · {faction:577} Everlook · {zone:1452} Winterspring · {npc:9298} Donova Snowden · {zone:1411} Durotar · {zone:1455} Ironforge
 	["Neutral 500 to Friendly is 2,500 with each town. The quests above pay every town up to 700 ({npc:14637}'s two 300, {npc:10267}'s 150, the first Free Knot 150 and the first Ogre Suit 100); {npc:14637}'s repeatables do the rest, 25 to every town each: 10 residue (ten giants) or 6 cores (about twelve elementals). The towns' own quests count too, each giving the other towns half: {faction:470}'s in the {zone:1413} (levels 10-25, about 4,300: the Samophlange chain 625, {npc:3446}'s errands, the Wizzlecrank and Gilthares escorts 150 each), {faction:21}'s in Stranglethorn, Arathi and the {zone:1418} (30-50, about 6,500: the three OOX robot rescues 250 each, An OOX of Your Own 200, Stranglethorn Fever 200, Facing Negolash 200, the Sunken Treasure chain at {area:327}), {faction:369}'s in {zone:1446} (43-55, about 3,000: the {item:8548} 200, Wastewander Justice 100 each, the WANTED posters) and {faction:577}'s in {zone:1452} (52-60, about 1,450: {npc:9298}'s Winterfall chain, Umi's yeti quests). Forever adds a few low ones: A Simmering Storm and Stormy Potential in {zone:1411} and WANTED: Bruuz ({faction:470} 100 each), Important Heirlooms in {zone:1455} ({faction:369} 100). Forever pays them in full at any level. Kills help while they are not grey, 5 each: Southsea pirates in the {zone:1413} for {faction:470} and in {zone:1446} for {faction:369} and Stranglethorn's Venture Co. camps for {faction:21}, up to the end of Honored; Wastewander bandits for {faction:369} and Bloodsail pirates for {faction:21} only up to the end of Neutral. Friendly opens each quartermaster's first gear."] = "",
 	-- {quest:7725} Again With the Zapped Giants
-	["{quest:7725}: 10 residue"] = "",
-	["25 to every town"] = "",
+	["{quest:7725}: 10 residue"] = "{quest:7725}: 10 residuos",
+	["25 to every town"] = "25 a cada pueblo",
 	-- {quest:7726} Refuel for the Zapping
 	["{quest:7726}: 6 cores"] = "",
 

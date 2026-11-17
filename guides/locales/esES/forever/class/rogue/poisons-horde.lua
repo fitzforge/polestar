@@ -14,9 +14,9 @@ return {
 	-- Step 1: Lockpicking practice
 	["Lockpicking practice"] = "",
 	-- {object:129127} Gallywix's Lockbox · {spell:1804} Pick Lock · {npc:3401} Shenthul · {object:172960} Cleft of Shadow · {item:5060} Thieves' Tools · {area:392} Ratchet
-	["{object:129127} at the end of the tower job needs Lockpicking of about 70-75. Train {spell:1804} from Gest or {npc:3401} in the {object:172960} if you lack it, carry {item:5060}, and pick the Buccaneer's Strongboxes on the middle deck of the Tide Razor, the beached pirate ship south of {area:392}: they come back fast. Your cap rises 5 per level."] = "",
-	["Tide Razor"] = "",
-	["Lockpicking about 75: pick the Buccaneer's Strongboxes on the Tide Razor"] = "",
+	["{object:129127} at the end of the tower job needs Lockpicking of about 70-75. Train {spell:1804} from Gest or {npc:3401} in the {object:172960} if you lack it, carry {item:5060}, and pick the Buccaneer's Strongboxes on the middle deck of the Tide Razor, the beached pirate ship south of {area:392}: they come back fast. Your cap rises 5 per level."] = "{object:129127}, al final del trabajo de la torre, necesita unos 70-75 de Forzar cerraduras. Entrena {spell:1804} con Gest o {npc:3401} en {object:172960} si no la tienes, lleva {item:5060} y fuerza las cajas fuertes de bucanero de la cubierta del medio del Navaja de la Marea, el barco pirata varado al sur de {area:392}: vuelven rápido. Tu tope sube 5 por nivel.",
+	["Tide Razor"] = "Navaja de la Marea",
+	["Lockpicking about 75: pick the Buccaneer's Strongboxes on the Tide Razor"] = "Forzar cerraduras a unos 75: fuerza las cajas fuertes de bucanero del Navaja de la Marea",
 
 	-- Step 2: The Shattered Salute
 	-- {npc:3401} Shenthul · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength

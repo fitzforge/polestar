@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Priest Robes at 5 (Alliance)"] = "",
-	["A free uncommon robe at 5: heal and fortify a wounded guard near your first town."] = "",
+	["Priest Robes at 5 (Alliance)"] = "Túnicas de sacerdote a nivel 5 (Alianza)",
+	["A free uncommon robe at 5: heal and fortify a wounded guard near your first town."] = "Una túnica poco común gratis a nivel 5: cura y fortalece a un guardia herido cerca de tu primer pueblo.",
 
 	-- Step 1: In Favor of the Light
 	-- {npc:375} Priestess Anetta · {area:24} Northshire Abbey · {npc:377} Priestess Josetta · {area:87} Goldshire · {spell:613} Lesser Heal

@@ -47,7 +47,7 @@ return {
 	["Bring the {item:6656} back to {npc:5887} outside the Den. Keep the {item:5175} she gives you in your bags for good: every earth totem needs it."] = "",
 	-- {npc:5887} Canaga Earthcaller · {spell:8071} Stoneskin Totem · {item:5175} Earth Totem
 	["{npc:5887}: {spell:8071} and your {item:5175}"] = "",
-	["the level 4 shaman spells"] = "",
+	["the level 4 shaman spells"] = "los hechizos de chamán de nivel 4",
 
 	-- Step 7: Seer Ravenfeather
 	-- {npc:5888} Seer Ravenfeather · {area:221} Camp Narache

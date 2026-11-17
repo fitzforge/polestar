@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Teleports and Portals (Horde)"] = "",
-	["Your city teleports at 20 and 30 and the group portals at 40 and 50, from each city's portal trainer."] = "",
+	["Teleports and Portals (Horde)"] = "Teletransportes y portales (Horda)",
+	["Your city teleports at 20 and 30 and the group portals at 40 and 50, from each city's portal trainer."] = "Los teletransportes a tus ciudades a nivel 20 y 30, y los portales de grupo a nivel 40 y 50, del instructor de portales de cada ciudad.",
 
 	-- Step 1: Teleport: Orgrimmar
 	-- {object:173161} Darkbriar Lodge · {zone:1454} Orgrimmar · {object:172961} Valley of Spirits · {npc:5958} Thuul · {spell:3567} Teleport: Orgrimmar · {item:17031} Rune of Teleportation

@@ -153,7 +153,7 @@ return {
 	["{npc:2498}, inside: keep it, Zanzil's village (43-44) waits for the level-48 {area:35} stop"] = "{npc:2498}, dentro: guárdala, el poblado de Zanzil (43-44) espera a la parada de nivel 48 en {area:35}",
 	["Seahorn's next errand goes back to Arathi: skip it."] = "El siguiente encargo de Cuernomarino te lleva de vuelta a las Tierras Altas de Arathi: omítelo.",
 	-- {npc:2542} Catelyn the Blade
-	["{npc:2542}, upstairs"] = "",
+	["{npc:2542}, upstairs"] = "{npc:2542}, arriba",
 	["Upstairs"] = "",
 
 	-- Step 28: Bloodsail camp

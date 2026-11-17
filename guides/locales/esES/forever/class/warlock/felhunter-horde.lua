@@ -48,8 +48,8 @@ return {
 	-- Step 8: Rods of Channeling
 	["Rods of Channeling"] = "Varas de Mediación",
 	-- {area:1036} Angerfang Encampment · {zone:1437} Wetlands · {area:881} Thandol Span · {zone:1417} Arathi Highlands
-	["The Dragonmaw hold {area:1036} in the hills east of the road through the {zone:1437}, south of the {area:881} you cross from {zone:1417}. Only the casters drop the rods, four kills in five: the Bonewarders (level 27, with skeleton pets) and Shadowwarders (28). A steep path north of the central spirit healer leads up into the camp past most of the warriors."] = "",
-	["Rods of Channeling, from the Dragonmaw casters"] = "",
+	["The Dragonmaw hold {area:1036} in the hills east of the road through the {zone:1437}, south of the {area:881} you cross from {zone:1417}. Only the casters drop the rods, four kills in five: the Bonewarders (level 27, with skeleton pets) and Shadowwarders (28). A steep path north of the central spirit healer leads up into the camp past most of the warriors."] = "Los Faucedraco ocupan {area:1036} en las colinas al este del camino que cruza {zone:1437}, al sur de {area:881}, que cruzas desde {zone:1417}. Solo los lanzadores de hechizos sueltan las varas, cuatro de cada cinco veces: los guardahuesos (nivel 27, con mascotas esqueleto) y los guardasombras (28). Un sendero empinado al norte del ángel de la resurrección central sube al campamento evitando a la mayoría de los guerreros.",
+	["Rods of Channeling, from the Dragonmaw casters"] = "Varas de canalización, de los lanzadores de hechizos Faucedraco",
 
 	-- Step 9: The Binding
 	-- {npc:6251} Strahad Farsan · {area:392} Ratchet · {quest:1804} Tome of the Cabal · {quest:1795} The Binding

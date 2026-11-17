@@ -90,8 +90,8 @@ return {
 	-- plural, as words: Incendosaur Scales = {item:18944} Incendosaur Scale · Iron Bars = {item:3575} Iron Bar · Incendosaurs = {npc:9318} Incendosaur
 	["Neutral to Friendly is 3,000 reputation. Burninate takes Restoring Fiery Flux Supplies only while you are Neutral: 25 reputation for 2 Incendosaur Scales, 1 Coal and either 4 Iron Bars, 4 {item:3356} or 10 {item:4234}. These are level 60 quests, so they always pay in full. After the 700 from the {area:1446} quests that is 92 turn-ins: 184 scales (about 60 Incendosaurs), 92 Coal (Burninate sells it at 5 silver: 4g 60s) and 368 Iron Bars, 368 {item:3356} or 920 {item:4234}. If those quests paid you only 140 at 60, it is 115 turn-ins: 230 scales, 115 Coal (5g 75s) and 460 bars or {item:3356} or 1,150 {item:4234}. Miners smelt the bars from {item:2772}, herbalists pick {item:3356}, skinners get {item:4234} from beasts of level 28 to 40; all three sell on the Auction House. Pick whichever is cheapest for you, or mix them. Blacksmiths who did the Imperial Plate quests need 46 fewer turn-ins."] = "",
 	-- {item:18944} Incendosaur Scale
-	["{item:18944}, 2 per turn-in"] = "",
-	["Coal, 1 per turn-in"] = "",
+	["{item:18944}, 2 per turn-in"] = "{item:18944}, 2 por entrega",
+	["Coal, 1 per turn-in"] = "Carbón, 1 por entrega",
 	-- plural, as words: Iron Bars = {item:3575} Iron Bar
 	["via Iron: 4 Iron Bars"] = "",
 	-- {item:3356} Kingsblood

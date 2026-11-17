@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Brood of Nozdormu Reputation"] = "",
-	["The Bronze Dragonflight's ring, upgraded at every standing; a long climb from Hated, mostly in raids."] = "",
+	["Brood of Nozdormu Reputation"] = "Reputación con la Prole de Nozdormu",
+	["The Bronze Dragonflight's ring, upgraded at every standing; a long climb from Hated, mostly in raids."] = "El anillo del Vuelo Bronce, mejorado en cada nivel de reputación; una subida larga desde Odiado, sobre todo en bandas.",
 	-- {item:21175} The Scepter of the Shifting Sands
 	["{item:21175} quest chain"] = "",
 
@@ -59,13 +59,13 @@ return {
 	-- {object:180633} Crystalline Tear
 	["The {object:180633}"] = "",
 	-- {object:180633} Crystalline Tear · {area:3428} Ahn'Qiraj · {zone:1451} Silithus
-	["The {object:180633} is a small red crystal on the ground just outside the gates of {area:3428}, in the far south-west of {zone:1451}. Click it, then stay and watch the vision of the War of the Shifting Sands to its end. If it is cut short, abandon the quest and click the Tear again."] = "",
-	["Watch the vision"] = "",
+	["The {object:180633} is a small red crystal on the ground just outside the gates of {area:3428}, in the far south-west of {zone:1451}. Click it, then stay and watch the vision of the War of the Shifting Sands to its end. If it is cut short, abandon the quest and click the Tear again."] = "La {object:180633} es un cristal rojo pequeño en el suelo, justo fuera de las puertas de {area:3428}, en el extremo suroeste de {zone:1451}. Haz clic en ella y quédate a ver la visión de la Guerra de las Arenas Movedizas hasta el final. Si se corta, abandona la misión y vuelve a hacer clic en la Lágrima.",
+	["Watch the vision"] = "Mira la visión",
 
 	-- Step 10: The Charge of the Dragonflights
 	-- {npc:15192} Anachronos · {item:21200} Signet Ring of the Bronze Dragonflight · {quest:8555} The Charge of the Dragonflights
-	["{npc:15192} now offers the {item:21200} in three kinds: the Path of the Protector (tanks), of the Conqueror (melee fighters) or of the Invoker (casters). Take one: the other two close. Each standing from Friendly to Exalted brings an upgrade of the same ring, 100 reputation each. {quest:8555} sends you after the three shards of the Scepter of the Shifting Sands."] = "",
-	["Pick one: The Path of the Protector, the Conqueror or the Invoker, 100"] = "",
+	["{npc:15192} now offers the {item:21200} in three kinds: the Path of the Protector (tanks), of the Conqueror (melee fighters) or of the Invoker (casters). Take one: the other two close. Each standing from Friendly to Exalted brings an upgrade of the same ring, 100 reputation each. {quest:8555} sends you after the three shards of the Scepter of the Shifting Sands."] = "{npc:15192} ahora ofrece el {item:21200} en tres versiones: la Senda del Protector (tanques), del Conquistador (cuerpo a cuerpo) o del Invocador (lanzadores de hechizos). Elige una: las otras dos se cierran. Cada nivel de reputación desde Amistoso hasta Exaltado trae una mejora del mismo anillo, 100 de reputación cada una. {quest:8555} te manda tras los tres fragmentos del Cetro de las Arenas Movedizas.",
+	["Pick one: The Path of the Protector, the Conqueror or the Invoker, 100"] = "Elige una: la Senda del Protector, del Conquistador o del Invocador, 100",
 
 	-- Step 11: The red shard: Vaelastrasz
 	["The red shard: Vaelastrasz"] = "",
@@ -159,13 +159,13 @@ return {
 
 	-- Step 26: Keeper Remulos
 	-- {quest:8735} The Nightmare's Corruption · {npc:235289} Dragons of Nightmare · {zone:1440} Ashenvale · {zone:1444} Feralas · {zone:1425} Hinterlands · {npc:15625} Twilight Corrupter · {zone:1431} Duskwood
-	["{quest:8735} wants a fragment from each of the four {npc:235289} portals: elite dragonkin at the {zone:1440}, {zone:1444} and {zone:1425} portals (5% each) and the {npc:15625} in {zone:1431}. Raid content."] = "",
-	["10 (and 100 Cenarion Circle)"] = "",
+	["{quest:8735} wants a fragment from each of the four {npc:235289} portals: elite dragonkin at the {zone:1440}, {zone:1444} and {zone:1425} portals (5% each) and the {npc:15625} in {zone:1431}. Raid content."] = "{quest:8735} pide un fragmento de cada uno de los cuatro portales de {npc:235289}: dracónidos élite en los portales de {zone:1440}, {zone:1444} y {zone:1425} (5% cada uno) y {npc:15625} en {zone:1431}. Contenido de banda.",
+	["10 (and 100 Cenarion Circle)"] = "10 (y 100 con el Círculo Cenarion)",
 
 	-- Step 27: The Ashenvale portal
 	-- {zone:1440} Ashenvale
-	["The {zone:1440} portal"] = "",
-	["The four dream portals sit in groves guarded by elite dragonkin of level 60 to 62 that respawn every 30 minutes; each drops the portal's fragment one time in twenty. Raid content."] = "",
+	["The {zone:1440} portal"] = "El portal de {zone:1440}",
+	["The four dream portals sit in groves guarded by elite dragonkin of level 60 to 62 that respawn every 30 minutes; each drops the portal's fragment one time in twenty. Raid content."] = "Los cuatro portales del sueño están en arboledas vigiladas por dragonantes élite de nivel 60 a 62 que reaparecen cada 30 minutos; cada uno suelta el fragmento del portal una vez de cada veinte. Contenido de banda.",
 
 	-- Step 28: The Duskwood portal
 	-- {zone:1431} Duskwood
@@ -183,10 +183,10 @@ return {
 
 	-- Step 31: The Nightmare Manifests
 	-- {npc:11832} Keeper Remulos · {area:2361} Nighthaven
-	["A raid event: follow {npc:11832} toward {area:2361} and keep him alive against Eranikus and his nightmare adds until Tyrande arrives and redeems Eranikus. Do not kill Eranikus."] = "",
-	["100 (and 100 Cenarion Circle)"] = "",
-	["The Redemption of Eranikus: raid"] = "",
-	["200 (and 200 Cenarion Circle)"] = "",
+	["A raid event: follow {npc:11832} toward {area:2361} and keep him alive against Eranikus and his nightmare adds until Tyrande arrives and redeems Eranikus. Do not kill Eranikus."] = "Un evento de banda: sigue a {npc:11832} hacia {area:2361} y mantenlo con vida contra Eranikus y sus esbirros de pesadilla hasta que llegue Tyrande y redima a Eranikus. No mates a Eranikus.",
+	["100 (and 100 Cenarion Circle)"] = "100 (y 100 con el Círculo Cenarion)",
+	["The Redemption of Eranikus: raid"] = "La redención de Eranikus: banda",
+	["200 (and 200 Cenarion Circle)"] = "200 (y 200 con el Círculo Cenarion)",
 
 	-- Step 32: The Scepter of the Shifting Sands
 	-- {npc:15192} Anachronos · {object:180717} Scarab Gong · {area:3428} Ahn'Qiraj

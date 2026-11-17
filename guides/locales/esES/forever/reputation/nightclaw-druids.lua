@@ -49,8 +49,8 @@ return {
 
 	-- Step 7: Elegael Thornpaw's next tasks
 	-- {npc:257944} Elegael Thornpaw
-	["{npc:257944}'s next tasks"] = "",
-	["500 reputation"] = "",
+	["{npc:257944}'s next tasks"] = "Las siguientes tareas de {npc:257944}",
+	["500 reputation"] = "500 de reputación",
 
 	-- Step 8: The Nightfang Den and Commander Haalien
 	-- {npc:253622} Commander Haalien
@@ -62,8 +62,8 @@ return {
 
 	-- Step 9: Elegael Thornpaw, the den's fate
 	-- {npc:257944} Elegael Thornpaw
-	["{npc:257944}, the den's fate"] = "",
-	["1000 reputation"] = "",
+	["{npc:257944}, the den's fate"] = "{npc:257944}, el destino de la guarida",
+	["1000 reputation"] = "1000 de reputación",
 
 	-- Step 10: Ears at the Shrine of Akir
 	-- {area:16629} Shrine of Akir
@@ -85,8 +85,8 @@ return {
 	-- Step 13: Friendly to Honored
 	["Friendly to Honored"] = "",
 	-- {npc:254151} Vayn Moongaze
-	["The storyline and {npc:254151}'s first quest leave you at Friendly with 2100 to spare. Honored is 3900 more: four turn-ins of five ears up to level 18, twenty from level 22. Friendly opens 32 of {npc:254151}'s patterns, in two colours, Cloudy and Azure: Blacksmithing Skyforged Wristguards and Chain (skill 50, 9s 50c), Gauntlets and Greaves (55, 11s); Leatherworking Gustwoven and Windraveled bracers and belts (50) and gloves and boots (55); Tailoring Stormsewn Cuffs and Cord (50), Handwraps and Shoes (55). They bind when you buy them, so buy them on the crafter."] = "",
-	["five ears per turn-in"] = "",
+	["The storyline and {npc:254151}'s first quest leave you at Friendly with 2100 to spare. Honored is 3900 more: four turn-ins of five ears up to level 18, twenty from level 22. Friendly opens 32 of {npc:254151}'s patterns, in two colours, Cloudy and Azure: Blacksmithing Skyforged Wristguards and Chain (skill 50, 9s 50c), Gauntlets and Greaves (55, 11s); Leatherworking Gustwoven and Windraveled bracers and belts (50) and gloves and boots (55); Tailoring Stormsewn Cuffs and Cord (50), Handwraps and Shoes (55). They bind when you buy them, so buy them on the crafter."] = "La historia y la primera misión de {npc:254151} te dejan en Amistoso con 2100 de sobra. Honorable son 3900 más: cuatro entregas de cinco orejas hasta el nivel 18, veinte desde el nivel 22. Amistoso abre 32 de los patrones de {npc:254151}, en dos colores, Nublado y Celeste: Herrería, brazaletes y cota forjados del cielo (habilidad 50, 9s 50c), guanteletes y grebas (55, 11s); Peletería, brazales y cinturones tejidos de ráfaga y deshilachados de viento (50) y guantes y botas (55); Sastrería, puños y cordón cosidos de tormenta (50), vendas de mano y zapatos (55). Se ligan al comprarlos, así que cómpralos con el artesano.",
+	["five ears per turn-in"] = "cinco orejas por entrega",
 	-- {quest:93459} More Al'Aketh Ears · {npc:254151} Vayn Moongaze
 	["{quest:93459}: 1000 reputation, handed in from {npc:254151}'s window"] = "{quest:93459}: 1000 de reputación, se entrega desde la ventana de {npc:254151}",
 	-- {npc:254151} Vayn Moongaze
@@ -94,7 +94,7 @@ return {
 
 	-- Step 14: Honored to Revered
 	["Honored to Revered"] = "",
-	["Honored opens the chest and leg patterns (skill 60, 12s 50c): Skyforged chainmail and legguards, Gustwoven harness and trousers, Windraveled jerkin and pants, Stormsewn vest and leggings. Revered is 12000 more: 12 turn-ins (60 ears, about 160 cultist kills at the Shrine) up to level 18, 60 turn-ins (300 ears) from level 22."] = "",
+	["Honored opens the chest and leg patterns (skill 60, 12s 50c): Skyforged chainmail and legguards, Gustwoven harness and trousers, Windraveled jerkin and pants, Stormsewn vest and leggings. Revered is 12000 more: 12 turn-ins (60 ears, about 160 cultist kills at the Shrine) up to level 18, 60 turn-ins (300 ears) from level 22."] = "Honorable abre los patrones de pecho y piernas (habilidad 60, 12s 50c): cota y musleras forjadas del cielo, arnés y calzas tejidos de ráfaga, jubón y pantalones deshilachados de viento, chaleco y leotardos cosidos de tormenta. Reverenciado son 12000 más: 12 entregas (60 orejas, unas 160 muertes de sectarios en el santuario) hasta el nivel 18, 60 entregas (300 orejas) desde el nivel 22.",
 
 	-- Step 15: Revered to Exalted
 	["Revered to Exalted"] = "",

@@ -148,7 +148,7 @@ return {
 	-- Step 31: Stringy Vulture Meat as you go
 	-- {item:729} Stringy Vulture Meat
 	["{item:729} as you go"] = "",
-	["Fleshrippers circle the fields along this loop: kill the ones you pass for the stew's meat."] = "",
+	["Fleshrippers circle the fields along this loop: kill the ones you pass for the stew's meat."] = "Los desgarradores sobrevuelan los campos de este circuito: mata los que encuentres para la carne del guiso.",
 	-- {item:729} Stringy Vulture Meat
 	["{item:729}: Fleshrippers"] = "{item:729}: Desgarradores",
 

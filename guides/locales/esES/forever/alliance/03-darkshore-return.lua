@@ -116,7 +116,7 @@ return {
 	["{npc:3692} hides in the hills east of the {area:449}. Help him back to the road; he fights on his way out. {npc:3693} takes the escort in {area:442} on the next visit there."] = "",
 	-- {npc:3692} Volcor · {area:455} Blackwood Den
 	["{npc:3692}, inside {area:455}"] = "",
-	["His walk ends at the road, where Grimclaw waits"] = "",
+	["His walk ends at the road, where Grimclaw waits"] = "Su caminata termina en el camino, donde espera Garrasucia",
 	-- {npc:12298} Sickly Deer · {item:15826} Curative Animal Salve · {zone:1439} Darkshore
 	["{npc:12298}: use the {item:15826} on them; they roam all of {zone:1439}"] = "{npc:12298}: usa el {item:15826} con ellos; deambulan por toda {zone:1439}",
 	-- {npc:12298} Sickly Deer

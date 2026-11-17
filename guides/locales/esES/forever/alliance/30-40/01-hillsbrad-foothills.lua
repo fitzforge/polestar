@@ -92,7 +92,7 @@ return {
 	["North along the road from {area:205} towards the {area:880}: Ebenezer Rustlocke's corpse lies under the span. Rustlocke's parchment goes back to {npc:1075}.\nTwo elite Dark Iron Saboteurs stand by the corpse inside the span: pull them one at a time, or loot the corpse and run out."] = "",
 	-- {object:2652} Ebenezer Rustlocke's Corpse
 	["{object:2652}, inside"] = "",
-	["the same corpse"] = "",
+	["the same corpse"] = "el mismo cadáver",
 
 	-- Step 20: Rhag Garmason
 	-- {area:205} Dun Modr · {npc:1075} Rhag Garmason · {object:147516} Dark Iron

@@ -57,8 +57,8 @@ return {
 	["Back to {npc:264265}"] = "",
 
 	-- Step 10: City of Dalaran runs to Friendly
-	["City of Dalaran runs to Friendly"] = "",
-	["The quests leave a non-Skyborne at about 320 of the 3,000 Friendly needs. The rest comes from kills in the City of Dalaran dungeon: run it until Friendly. How much each kill pays is not in the game's data; the bosses pay the most. At 60 you clear it alone."] = "",
+	["City of Dalaran runs to Friendly"] = "Pasadas por la Ciudad de Dalaran hasta Amistoso",
+	["The quests leave a non-Skyborne at about 320 of the 3,000 Friendly needs. The rest comes from kills in the City of Dalaran dungeon: run it until Friendly. How much each kill pays is not in the game's data; the bosses pay the most. At 60 you clear it alone."] = "Las misiones dejan a quien no es Cielonato en unos 320 de los 3.000 que pide Amistoso. El resto sale de las muertes en la mazmorra Ciudad de Dalaran: repítela hasta Amistoso. Cuánto paga cada muerte no está en los datos del juego; los jefes son los que más pagan. A 60 la despejas solo.",
 
 	-- Step 11: Archmage Alvareaux: the Azure recipes
 	-- {npc:32287} Archmage Alvareaux
@@ -67,8 +67,8 @@ return {
 	["{npc:32287} sells the Azure helm and shoulder recipes at Friendly, 10g each (skill 175). He stands upstairs in the building with the {faction:2740} banners in {area:279}. Buy the ones for your profession."] = "",
 
 	-- Step 12: City of Dalaran runs to Exalted
-	["City of Dalaran runs to Exalted"] = "",
-	["Nothing is sold at Honored or Revered in the game's data. Friendly to Exalted is 39,000 reputation, all from City of Dalaran kills. In Classic most dungeon kills stop paying at Honored or Revered; whether these do is not known yet."] = "",
+	["City of Dalaran runs to Exalted"] = "Pasadas por la Ciudad de Dalaran hasta Exaltado",
+	["Nothing is sold at Honored or Revered in the game's data. Friendly to Exalted is 39,000 reputation, all from City of Dalaran kills. In Classic most dungeon kills stop paying at Honored or Revered; whether these do is not known yet."] = "En los datos del juego no se vende nada en Honorable ni en Reverenciado. De Amistoso a Exaltado son 39.000 de reputación, todo de muertes en la Ciudad de Dalaran. En Classic la mayoría de las muertes de mazmorra dejan de pagar en Honorable o Reverenciado; todavía no se sabe si estas también.",
 
 	-- Step 13: The Kirin Tor Tabard
 	-- {item:285327} Kirin Tor Tabard

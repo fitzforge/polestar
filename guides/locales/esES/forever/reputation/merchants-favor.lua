@@ -9,8 +9,8 @@ return {
 	-- Guide
 	["Supply Factions Reputation"] = "",
 	-- {npc:10636} Pack Kodo
-	["Forever's trade camps: their best recipes, the Minimule and the {npc:10636} need standing, not only Merchant's Favor."] = "",
-	["Profession recipes at Friendly and Honored"] = "",
+	["Forever's trade camps: their best recipes, the Minimule and the {npc:10636} need standing, not only Merchant's Favor."] = "Los campamentos comerciales de Forever: sus mejores recetas, la Minimula y el {npc:10636} requieren reputación, no solo Favor del mercader.",
+	["Profession recipes at Friendly and Honored"] = "Recetas de profesión en Amistoso y Honorable",
 
 	-- Step 1: Your first Waylaid Crate or writ
 	-- {item:248549} Waylaid Crate
@@ -32,9 +32,9 @@ return {
 	["The {faction:2587} camp stands just outside the west gate of the Crossroads. The label pays 2000 reputation once (and, by beta reports, 50 Merchant's Favor): two thirds of the way to Friendly. Filled crates go to {npc:256386} too, but they pay only Merchant's Favor and silver, never reputation."] = "",
 
 	-- Step 4: Gather your writs
-	["Gather your writs"] = "",
-	["Craftsman's Writs are the camp's reputation: 75 for a Journeyman writ, 125 for an Expert, 200 for an Artisan. Each asks for one crafted item, the one its title names. Make it or buy it on the Auction House; you need not know the profession. Each writ can be done once a day, and any number of different ones. Take the quest only of writs whose item you have or will buy on the way (right-click the writ), keep the writ in your bags, then tick this: the next steps lead to each customer you hold a writ for."] = "",
-	["Take the quests of the writs you can fill"] = "",
+	["Gather your writs"] = "Junta tus encargos",
+	["Craftsman's Writs are the camp's reputation: 75 for a Journeyman writ, 125 for an Expert, 200 for an Artisan. Each asks for one crafted item, the one its title names. Make it or buy it on the Auction House; you need not know the profession. Each writ can be done once a day, and any number of different ones. Take the quest only of writs whose item you have or will buy on the way (right-click the writ), keep the writ in your bags, then tick this: the next steps lead to each customer you hold a writ for."] = "Los encargos de artesano son la reputación del campamento: 75 por un encargo de Oficial, 125 por uno de Experto, 200 por uno de Artesano. Cada uno pide un objeto fabricado, el que nombra su título. Fabrícalo o cómpralo en la casa de subastas; no necesitas conocer la profesión. Cada encargo se puede hacer una vez al día, y todos los distintos que quieras. Toma la misión solo de los encargos cuyo objeto tengas o vayas a comprar por el camino (clic derecho en el encargo), guarda el encargo en tus bolsas, y luego marca esto: los pasos siguientes te llevan a cada cliente para el que tengas un encargo.",
+	["Take the quests of the writs you can fill"] = "Toma las misiones de los encargos que puedas cumplir",
 
 	-- Step 5: Duskwood writ customers
 	-- {zone:1431} Duskwood
@@ -106,8 +106,8 @@ return {
 	-- {npc:261932} Gorgrash · {npc:3536} Kris Legace · {npc:261928} Webbed Mudsnout Gnoll · {area:271} Southshore
 	["{npc:261932} and {npc:3536} are in the east of the foothills; the {npc:261928} hangs in a spider cocoon about 500 yards south-east of {area:271}. Customers show no quest mark: right-click them anyway."] = "",
 	-- {item:3491} Heavy Bronze Mace
-	["{item:3491}, 75 reputation"] = "",
-	["bring it: craft it or buy it at the Auction House"] = "",
+	["{item:3491}, 75 reputation"] = "{item:3491}, 75 de reputación",
+	["bring it: craft it or buy it at the Auction House"] = "tráelo: fabrícalo o cómpralo en la casa de subastas",
 	-- {item:6712} Practice Lock
 	["{item:6712}, 75 reputation"] = "",
 	-- {item:7358} Pilferer's Gloves
@@ -121,8 +121,8 @@ return {
 	-- {npc:257281} Sos'mol · {npc:257282} Alan Sneeks · {npc:6176} Bath'rah the Windwatcher · {area:272} Tarren Mill
 	["{npc:257281} and {npc:257282} are close together in the south-west of the mountains; Syndicate thugs roam around {npc:257282}. {npc:6176} stands on the eastern edge, above {area:272}. Customers show no quest mark: right-click them anyway."] = "",
 	-- {item:3391} Elixir of Ogre Strength
-	["{item:3391}, 75 reputation"] = "",
-	["bring it: leatherworkers make it, or buy it at the Auction House"] = "",
+	["{item:3391}, 75 reputation"] = "{item:3391}, 75 de reputación",
+	["bring it: leatherworkers make it, or buy it at the Auction House"] = "tráelo: lo fabrican los peleteros, o cómpralo en la casa de subastas",
 	-- {item:18662} Heavy Leather Ball
 	["{item:18662}, 75 reputation"] = "",
 	-- {item:5540} Pearl-handled Dagger

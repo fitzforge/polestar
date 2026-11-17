@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Imp (Horde)"] = "",
-	["Your first demon at level 1-4: the imp, with a starter blade or staff for Orcs and Trolls."] = "",
+	["Imp (Horde)"] = "Diablillo (Horda)",
+	["Your first demon at level 1-4: the imp, with a starter blade or staff for Orcs and Trolls."] = "Tu primer demonio, a nivel 1-4: el diablillo, con una hoja o bastón inicial para orcos y trols.",
 
 	-- Step 1: Ruzan (Orcs and Trolls)
 	-- {npc:5765} Ruzan

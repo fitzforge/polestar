@@ -8,8 +8,8 @@
 return {
 	-- Guide
 	-- plural, as words: Library Books = {object:386691} Library Book
-	["Library Books"] = "",
-	["Lost books and scrolls all over the world: each pays experience at the library, and 10, 20 and 25 of them earn a necklace, a ring and an off-hand."] = "",
+	["Library Books"] = "Libros de biblioteca",
+	["Lost books and scrolls all over the world: each pays experience at the library, and 10, 20 and 25 of them earn a necklace, a ring and an off-hand."] = "Libros y pergaminos perdidos por todo el mundo: cada uno da experiencia en la biblioteca, y 10, 20 y 25 de ellos dan un collar, un anillo y un objeto de mano izquierda.",
 
 	-- Step 1: Elwynn Forest
 	-- {area:91} Tower of Azora · {area:87} Goldshire
@@ -17,8 +17,8 @@ return {
 
 	-- Step 2: Westfall
 	-- {area:20} Moonbrook · {area:108} Sentinel Hill
-	["Two books: one in a house at {area:20}, one at {area:108} (Alliance only)."] = "",
-	["Rumi of Gnomeregan"] = "",
+	["Two books: one in a house at {area:20}, one at {area:108} (Alliance only)."] = "Dos libros: uno en una casa de {area:20}, otro en {area:108} (solo Alianza).",
+	["Rumi of Gnomeregan"] = "Rumi de Gnomeregan",
 
 	-- Step 3: Duskwood
 	-- {area:2098} Dawning Wood Catacombs · {zone:1431} Duskwood

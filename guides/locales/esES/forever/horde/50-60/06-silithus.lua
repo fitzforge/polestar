@@ -30,7 +30,7 @@ return {
 	["Back to Southwind and climb the tower. Stirring the hive at the top brings out Hive'Ashi Ambushers; one carries the {item:17346}."] = "Vuelve a Viento del Sur y sube a la torre. Al remover la colmena de la cima salen Emboscadores Colmen'Ashi; uno lleva el {item:17346}.",
 
 	-- Step 6: The Spirits of Southwind
-	["The Spirits of Southwind"] = "",
+	["The Spirits of Southwind"] = "Los espíritus de Viento Sur",
 	["Inside"] = "",
 
 	-- Step 7: Level 57

@@ -7,19 +7,19 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Darkspear Islands Reputation"] = "",
-	["Forever's new battleground: its gear comes for every bracket from 30, and Exalted gives a Legacy Point."] = "",
-	["Master of Darkspear Islands: a Legacy Point at Exalted"] = "",
+	["Darkspear Islands Reputation"] = "Reputación de las islas Lanza Negra",
+	["Forever's new battleground: its gear comes for every bracket from 30, and Exalted gives a Legacy Point."] = "El nuevo campo de batalla de Forever: su equipo llega para cada tramo desde el 30, y Exaltado da un punto de Legado.",
+	["Master of Darkspear Islands: a Legacy Point at Exalted"] = "Maestro de las islas Lanza Negra: un punto de Legado en Exaltado",
 
 	-- Step 1: Merchant Coast
 	-- {zone:2524} Darkspear Islands · {zone:1445} Dustwallow Marsh · {area:391} Merchant Coast · {area:392} Ratchet · {npc:275276} Nizook Boof
-	["The {zone:2524} lie off the coast of {zone:1445}: 15 against 15, from level 30. Hold the four capture points to gain points, faster the more you hold, and carry the flag from the middle to a base your team holds for more; the first team to 2000 points wins. The sea kills: cross on the bridges. Queue at any battlemaster or step through the portal here at the {area:391}, north of {area:392}. {npc:275276} pays 200 reputation for your first win. Forever's Legacy Diplomat perk adds up to 10% to every number in this guide."] = "",
-	["after a win"] = "",
+	["The {zone:2524} lie off the coast of {zone:1445}: 15 against 15, from level 30. Hold the four capture points to gain points, faster the more you hold, and carry the flag from the middle to a base your team holds for more; the first team to 2000 points wins. The sea kills: cross on the bridges. Queue at any battlemaster or step through the portal here at the {area:391}, north of {area:392}. {npc:275276} pays 200 reputation for your first win. Forever's Legacy Diplomat perk adds up to 10% to every number in this guide."] = "{zone:2524} están frente a la costa de {zone:1445}: 15 contra 15, desde el nivel 30. Mantén los cuatro puntos de captura para ganar puntos, más rápido cuantos más tengas, y lleva la bandera del centro a una base de tu equipo para sumar más; el primer equipo en llegar a 2000 puntos gana. El mar mata: cruza por los puentes. Haz cola con cualquier maestro de batalla o cruza el portal aquí, en {area:391}, al norte de {area:392}. {npc:275276} paga 200 de reputación por tu primera victoria. La ventaja Diplomático del Legado de Forever suma hasta un 10% a cada número de esta guía.",
+	["after a win"] = "después de una victoria",
 
 	-- Step 4: Horde Warbringer
 	-- {npc:15350} Horde Warbringer · {quest:98887} Conflict at Darkspear Islands · {area:391} Merchant Coast · {zone:1413} Barrens · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {zone:1458} Undercity · {area:321} Hammerfall · {zone:1459} Alterac Valley · {zone:2524} Darkspear Islands
-	["The {npc:15350} pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time ({quest:98887}), then 100 for every 3 more. One stands here at the {area:391}, beside the portal; others at Mor'shan in the north of the {zone:1413}, in {zone:1454}, {zone:1456} and the {zone:1458}, at {area:321} and by the {zone:1459} gate. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:2524} marks: hand in or spend them before you reach that."] = "",
-	["Darkspear Islands Marks of Honor: play games"] = "",
+	["The {npc:15350} pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time ({quest:98887}), then 100 for every 3 more. One stands here at the {area:391}, beside the portal; others at Mor'shan in the north of the {zone:1413}, in {zone:1454}, {zone:1456} and the {zone:1458}, at {area:321} and by the {zone:1459} gate. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:2524} marks: hand in or spend them before you reach that."] = "El {npc:15350} paga 150 de reputación por 3 marcas de honor de las islas Lanza Negra la primera vez ({quest:98887}), y luego 100 por cada 3 más. Uno está aquí en {area:391}, junto al portal; otros en Mor'shan, en el norte de {zone:1413}, en {zone:1454}, {zone:1456} y {zone:1458}, en {area:321} y junto a la puerta de {zone:1459}. El equipo JcJ de Forever también cuesta marcas de honor además de honor: decide qué quieres antes de entregarlas. Puedes llevar como máximo 30 marcas de {zone:2524}: entrégalas o gástalas antes de llegar a ese tope.",
+	["Darkspear Islands Marks of Honor: play games"] = "Marcas de honor de las islas Lanza Negra: juega partidas",
 
 	-- Step 5: Horde Warbringer
 	-- {npc:15350} Horde Warbringer · {quest:98889} Conflict at Darkspear Islands · {area:391} Merchant Coast · {zone:1413} Barrens · {zone:1454} Orgrimmar · {zone:2524} Darkspear Islands

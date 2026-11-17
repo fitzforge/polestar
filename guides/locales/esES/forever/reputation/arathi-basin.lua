@@ -8,8 +8,8 @@
 return {
 	-- Guide
 	["Arathi Basin Reputation"] = "Reputación: Cuenca de Arathi",
-	["Every 200 resources your team gathers pays it; Exalted gives a Legacy Point, epic shoulders and the tabard."] = "",
-	["Master of Arathi Basin: a Legacy Point at Exalted"] = "",
+	["Every 200 resources your team gathers pays it; Exalted gives a Legacy Point, epic shoulders and the tabard."] = "Cada 200 recursos que junta tu equipo la suben; Exaltado da un Punto de legado, hombreras épicas y el tabardo.",
+	["Master of Arathi Basin: a Legacy Point at Exalted"] = "Maestro de la Cuenca de Arathi: un Punto de legado en Exaltado",
 
 	-- Step 1: Refuge Pointe
 	-- {zone:1461} Arathi Basin
@@ -23,20 +23,20 @@ return {
 
 	-- Step 2: Arathi Basin
 	-- {npc:14984} Sergeant Maclear · {zone:1461} Arathi Basin
-	["Assaulting a base means clicking its banner until it turns: you need not hold it. Four marks in all: one for {npc:14984}, three for the Brigadier General. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:1461} marks: hand in or spend them before you reach that."] = "",
-	["Assault the Mine banner"] = "",
+	["Assaulting a base means clicking its banner until it turns: you need not hold it. Four marks in all: one for {npc:14984}, three for the Brigadier General. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:1461} marks: hand in or spend them before you reach that."] = "Asaltar una base significa hacer clic en su estandarte hasta que cambie: no hace falta mantenerla. Cuatro marcas en total: una para {npc:14984}, tres para el general de brigada. El equipo JcJ de Forever también cuesta Marcas de Honor además de honor: decide qué quieres antes de entregarlas. Puedes llevar como máximo 30 marcas de {zone:1461}: entrégalas o gástalas antes de llegar a eso.",
+	["Assault the Mine banner"] = "Asalta el estandarte de la Mina",
 	-- {area:3422} Lumber Mill
-	["Assault the {area:3422} banner"] = "",
-	["Assault the Blacksmith banner"] = "",
-	["Assault the Farm banner"] = "",
+	["Assault the {area:3422} banner"] = "Asalta el estandarte de {area:3422}",
+	["Assault the Blacksmith banner"] = "Asalta el estandarte de la Herrería",
+	["Assault the Farm banner"] = "Asalta el estandarte de la Granja",
 	-- {item:20559} Arathi Basin Mark of Honor
-	["one {item:20559}"] = "",
-	["three more marks"] = "",
+	["one {item:20559}"] = "una {item:20559}",
+	["three more marks"] = "tres marcas más",
 
 	-- Step 3: Back to Refuge Pointe
 	-- {area:320} Refuge Pointe
 	["Back to {area:320}"] = "",
-	["hand in the three marks first"] = "",
+	["hand in the three marks first"] = "entrega primero las tres marcas",
 
 	-- Step 4: League of Arathor to Friendly
 	["League of Arathor to Friendly"] = "Liga de Arathor a Amistoso",
@@ -47,8 +47,8 @@ return {
 
 	-- Step 5: Control Four Bases
 	-- {npc:14983} Field Marshal Oslight · {quest:8115} Control Five Bases
-	["At level 60 and Friendly, {npc:14983} asks your team to hold four bases at the same time: 200 reputation, once. It opens {quest:8115} for Exalted."] = "",
-	["four bases held at once"] = "",
+	["At level 60 and Friendly, {npc:14983} asks your team to hold four bases at the same time: 200 reputation, once. It opens {quest:8115} for Exalted."] = "A nivel 60 y en Amistoso, {npc:14983} le pide a tu equipo mantener cuatro bases al mismo tiempo: 200 de reputación, una vez. Abre {quest:8115} para Exaltado.",
+	["four bases held at once"] = "cuatro bases mantenidas a la vez",
 
 	-- Step 6: League of Arathor to Honored
 	["League of Arathor to Honored"] = "Liga de Arathor a Honorable",
@@ -79,8 +79,8 @@ return {
 
 	-- Step 10: Control Five Bases
 	-- {npc:14983} Field Marshal Oslight · {item:20132} Arathor Battle Tabard
-	["At Exalted, {npc:14983} asks your team to hold all five bases at the same time. It pays 200 reputation and the {item:20132}, the only way to get it."] = "",
-	["all five bases held at once"] = "",
+	["At Exalted, {npc:14983} asks your team to hold all five bases at the same time. It pays 200 reputation and the {item:20132}, the only way to get it."] = "En Exaltado, {npc:14983} le pide a tu equipo mantener las cinco bases al mismo tiempo. Paga 200 de reputación y el {item:20132}, la única forma de conseguirlo.",
+	["all five bases held at once"] = "las cinco bases mantenidas a la vez",
 
 	-- Step 11: Hammerfall
 	-- {npc:15021} Deathmaster Dwire
@@ -92,8 +92,8 @@ return {
 
 	-- Step 12: Arathi Basin
 	-- {npc:15022} Deathstalker Mortis · {zone:1461} Arathi Basin
-	["Assaulting a base means clicking its banner until it turns: you need not hold it. Four marks in all: one for {npc:15022}, three for the Warbringer. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:1461} marks: hand in or spend them before you reach that."] = "",
-	["Assault the Stables banner"] = "",
+	["Assaulting a base means clicking its banner until it turns: you need not hold it. Four marks in all: one for {npc:15022}, three for the Warbringer. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:1461} marks: hand in or spend them before you reach that."] = "Asaltar una base significa hacer clic en su estandarte hasta que cambie: no hace falta mantenerla. Cuatro marcas en total: una para {npc:15022}, tres para el Belisario. El equipo JcJ de Forever también cuesta Marcas de Honor además de honor: decide qué quieres antes de entregarlas. Puedes llevar como máximo 30 marcas de {zone:1461}: entrégalas o gástalas antes de llegar a eso.",
+	["Assault the Stables banner"] = "Asalta el estandarte de los Establos",
 
 	-- Step 13: Back to Hammerfall
 	-- {area:321} Hammerfall

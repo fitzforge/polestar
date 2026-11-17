@@ -147,7 +147,7 @@ return {
 
 	-- Step 29: Mulgris Deepriver
 	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {zone:1423} Eastern Plaguelands
-	["{npc:10739} stands by the farm at the {area:202}, on the road east to the {zone:1423}."] = "",
+	["{npc:10739} stands by the farm at the {area:202}, on the road east to the {zone:1423}."] = "{npc:10739} está junto a la granja de {area:202}, en el camino al este hacia {zone:1423}.",
 	["Inside"] = "",
 
 	-- Step 30: Into Eastern Plaguelands

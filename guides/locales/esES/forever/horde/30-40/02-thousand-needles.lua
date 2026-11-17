@@ -21,7 +21,7 @@ return {
 	-- Step 3: Orgrimmar trainers
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} trainers"] = "",
-	["Train while you are in the city."] = "",
+	["Train while you are in the city."] = "Entrena mientras estás en la ciudad.",
 
 	-- Step 4: Searn Firewarder
 	-- {npc:5892} Searn Firewarder · {object:172957} Valley of Wisdom

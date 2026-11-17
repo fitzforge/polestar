@@ -105,8 +105,8 @@ return {
 	-- plural, as words: Kurzen Elites = {npc:939} Kurzen Elite
 	["The Kurzen rebels hold the camp east of the {area:99}; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents. {quest:200}'s records lie in a hut on the compound's west side. Careful: Kurzen Elites and Witch Doctors (36) hold the compound's eastern half, by the cave: stay on its west side."] = "Los rebeldes de Kurzen ocupan el campamento al este del {area:99}; recorre su borde exterior, donde están los Jíbaros y los Auxiliadores, y saquea las cajas de suministros junto a las tiendas. Los registros de {quest:200} están en una choza del lado oeste del campamento. Cuidado: los Élites y Médicos brujos Kurzen (36) ocupan la mitad este del campamento, junto a la cueva: quédate en su lado oeste.",
 	-- {object:287} Bookie Herod's Records
-	["{object:287}, in the hut"] = "",
-	["The strongbox is deeper in, by the cave: on the northern loop (04b)"] = "",
+	["{object:287}, in the hut"] = "{object:287}, en la choza",
+	["The strongbox is deeper in, by the cave: on the northern loop (04b)"] = "La caja fuerte está más adentro, junto a la cueva: en el circuito del norte (04b)",
 	-- {item:2634} Venom Fern Extract · {object:263} Kurzen Supplies
 	["{item:2634}, from a {object:263} crate"] = "{item:2634}, de una caja de {object:263}",
 
@@ -121,7 +121,7 @@ return {
 	-- Step 18: Stranglethorn Vale: kill these as you meet them
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434}: kill these as you meet them"] = "",
-	["Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "",
+	["Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "Cuidado: Hay campamentos de trols cerca de la zona de los tigres, y los trols pueden sumarse a la pelea si atraes sin cuidado.\nCuidado: El nido de raptores tiene raptores jóvenes que se suman a la pelea cuando atacas a los adultos.",
 
 	-- Step 19: Nesingwary's Expedition
 	-- {npc:716} Barnil Stonepot · {item:2755} Green Hills of Stranglethorn

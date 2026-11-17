@@ -80,8 +80,8 @@ return {
 	["Northshire: the books end in {area:87}"] = "",
 	-- {npc:240} Marshal Dughan · {area:87} Goldshire · {area:57} Fargodeep Mine
 	-- plural, as words: Lost Books = {item:248001} Lost Book
-	["{npc:240} stands in front of the Lion's Pride Inn in {area:87}. The Lost Books drop from the kobolds of {area:57} south of {area:87}; the picture book and the two rare books from the named kobolds there."] = "",
-	["Arcane Explainer"] = "",
+	["{npc:240} stands in front of the Lion's Pride Inn in {area:87}. The Lost Books drop from the kobolds of {area:57} south of {area:87}; the picture book and the two rare books from the named kobolds there."] = "{npc:240} está frente a la Posada Orgullo de León, en {area:87}. Los libros perdidos los sueltan los kóbolds de {area:57}, al sur de {area:87}; el libro de dibujos y los dos libros raros, los kóbolds con nombre de ahí.",
+	["Arcane Explainer"] = "Explicador arcano",
 	-- {npc:951} Brother Paxton
 	["{npc:951}, back at the abbey"] = "",
 
@@ -152,8 +152,8 @@ return {
 
 	-- Step 25: Eastvale: Defias Rogue Wizards
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["Eastvale: Defias Rogue Wizards"] = "",
-	["opens with Thomas' report"] = "",
+	["Eastvale: Defias Rogue Wizards"] = "Vallefresno del Este: magos renegados Defias",
+	["opens with Thomas' report"] = "se abre con el informe de Thomas",
 	-- {item:780} Torn Murloc Fin
 	["{item:780}, from the murlocs south of the bridge"] = "",
 

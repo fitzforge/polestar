@@ -8,8 +8,8 @@
 return {
 	-- Guide
 	["Alterac Valley Reputation"] = "Reputación: Valle de Alterac",
-	["One-time quests worth 2,000 and big wins make it the quickest of the four; Exalted gives a Legacy Point."] = "",
-	["Master of Alterac Valley: a Legacy Point at Exalted"] = "",
+	["One-time quests worth 2,000 and big wins make it the quickest of the four; Exalted gives a Legacy Point."] = "Misiones únicas que suman 2.000 y victorias grandes lo hacen el más rápido de los cuatro; Exaltado da un Punto de legado.",
+	["Master of Alterac Valley: a Legacy Point at Exalted"] = "Maestro del Valle de Alterac: un Punto de legado en Exaltado",
 
 	-- Step 1: Lieutenant Rotimer
 	-- {zone:1459} Alterac Valley · {zone:1455} Ironforge · {npc:13843} Lieutenant Rotimer · {object:32372} Great Forge (no name in this language: may be words)
@@ -21,9 +21,9 @@ return {
 	-- {quest:7162} Proving Grounds · {item:17849} Stormpike Banner · {area:3058} Icewing Cavern
 	["{quest:7162}: the {item:17849} in {area:3058}, 100"] = "",
 	-- {npc:13777} Sergeant Durgen Stormpike
-	["{npc:13777}: assault a graveyard, 100"] = "",
-	["destroy a tower or bunker banner, 100"] = "",
-	["capture a mine, 100"] = "",
+	["{npc:13777}: assault a graveyard, 100"] = "{npc:13777}: asalta un cementerio, 100",
+	["destroy a tower or bunker banner, 100"] = "destruye el estandarte de una torre o búnker, 100",
+	["capture a mine, 100"] = "captura una mina, 100",
 
 	-- Step 3: Dun Baldar
 	-- {area:2959} Dun Baldar
@@ -36,9 +36,9 @@ return {
 	-- Step 5: The battle
 	["The battle"] = "",
 	-- {npc:11946} Drek'Thar · {quest:7223} Armor Scraps · {area:3301} Snowfall Graveyard · {area:2963} Coldtooth Mine · {npc:13154} Commander Louis Philips · {area:2962} Tower Point · {npc:13597} Frostwolf Explosives Expert · {area:2961} Frostwolf Village · {quest:7301} Fallen Sky Lords · {npc:11947} Captain Galvangar
-	["Most of this happens on the way to {npc:11946}. Loot {quest:7223} from Horde players and guards you kill. Assault the {area:3301} or any Horde graveyard, burn a Horde tower (click its banner), and take {area:2963}. {npc:13154} stands at {area:2962}; the {npc:13597} at {area:2961}. {quest:7301} asks you to find where the three wing commanders landed. In Classic every tower, graveyard or mine paid 12 reputation, {npc:11947} 125 and {npc:11946} about 300."] = "",
-	["assault a graveyard"] = "",
-	["Iceblood Tower banner"] = "",
+	["Most of this happens on the way to {npc:11946}. Loot {quest:7223} from Horde players and guards you kill. Assault the {area:3301} or any Horde graveyard, burn a Horde tower (click its banner), and take {area:2963}. {npc:13154} stands at {area:2962}; the {npc:13597} at {area:2961}. {quest:7301} asks you to find where the three wing commanders landed. In Classic every tower, graveyard or mine paid 12 reputation, {npc:11947} 125 and {npc:11946} about 300."] = "Casi todo esto pasa de camino a {npc:11946}. Saquea {quest:7223} de los jugadores y guardias de la Horda que mates. Asalta {area:3301} o cualquier cementerio de la Horda, quema una torre de la Horda (clic en su estandarte) y toma {area:2963}. {npc:13154} está en {area:2962}; el {npc:13597} en {area:2961}. {quest:7301} te pide encontrar dónde aterrizaron los tres comandantes de vuelo. En Classic cada torre, cementerio o mina pagaba 12 de reputación, {npc:11947} 125 y {npc:11946} unos 300.",
+	["assault a graveyard"] = "asalta un cementerio",
+	["Iceblood Tower banner"] = "estandarte de la Torre Sangrehielo",
 	-- {npc:13437} Wing Commander Ichman
 	["{npc:13437}'s spot"] = "",
 	-- {npc:13439} Wing Commander Vipore
@@ -53,8 +53,8 @@ return {
 	-- Step 7: Back at the gate
 	["Back at the gate"] = "",
 	-- {npc:15351} Alliance Brigadier General · {npc:13841} Lieutenant Haggerdin · {quest:8375} Remember Alterac Valley! · {zone:1459} Alterac Valley
-	["Your first Alterac Valley Marks of Honor go to the {npc:15351} beside {npc:13841}: 150 the first time ({quest:8375}), then 100 for every 3 more. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:1459} marks: hand in or spend them before you reach that."] = "",
-	["Alterac Valley Marks of Honor: play games"] = "",
+	["Your first Alterac Valley Marks of Honor go to the {npc:15351} beside {npc:13841}: 150 the first time ({quest:8375}), then 100 for every 3 more. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:1459} marks: hand in or spend them before you reach that."] = "Tus primeras Marcas de Honor del Valle de Alterac van al {npc:15351} junto a {npc:13841}: 150 la primera vez ({quest:8375}), y luego 100 por cada 3 más. El equipo JcJ de Forever también cuesta Marcas de Honor además de honor: decide qué quieres antes de entregarlas. Puedes llevar como máximo 30 marcas de {zone:1459}: entrégalas o gástalas antes de llegar a eso.",
+	["Alterac Valley Marks of Honor: play games"] = "Marcas de Honor del Valle de Alterac: juega partidas",
 
 	-- Step 8: Stormpike Guard to Friendly
 	-- {faction:730} Stormpike Guard
@@ -103,8 +103,8 @@ return {
 	-- {quest:7161} Proving Grounds · {item:17850} Frostwolf Banner · {area:3337} Wildpaw Cavern
 	["{quest:7161}: the {item:17850} in {area:3337}, 100"] = "",
 	-- {npc:13776} Corporal Teeka Bloodsnarl
-	["{npc:13776}: assault a graveyard, 100"] = "",
-	["capture a tower or bunker, 100"] = "",
+	["{npc:13776}: assault a graveyard, 100"] = "{npc:13776}: asalta un cementerio, 100",
+	["capture a tower or bunker, 100"] = "captura una torre o búnker, 100",
 
 	-- Step 15: Frostwolf Village
 	-- {area:2961} Frostwolf Village

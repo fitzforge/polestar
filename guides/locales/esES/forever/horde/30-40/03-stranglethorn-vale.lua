@@ -29,7 +29,7 @@ return {
 	-- Step 5: Orgrimmar trainers
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} trainers"] = "",
-	["Train while you are in the city."] = "",
+	["Train while you are in the city."] = "Entrena mientras estás en la ciudad.",
 
 	-- Step 6: Fly to Ratchet
 	-- {area:392} Ratchet

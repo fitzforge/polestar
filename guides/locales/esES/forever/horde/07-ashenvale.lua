@@ -159,8 +159,8 @@ return {
 
 	-- Step 41: Skywatcher Plateau
 	-- {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore
-	["The Earthen Ring camp and its three quests stand up on {area:17045}, north of {zone:1456}. Fly to {zone:1456} if you know its flight path and take a lift down, else fly to {area:378} and walk north through {zone:1412}; the arrow then leads round to the plateau's north end and up onto it."] = "",
-	["North of Thunder Bluff"] = "",
+	["The Earthen Ring camp and its three quests stand up on {area:17045}, north of {zone:1456}. Fly to {zone:1456} if you know its flight path and take a lift down, else fly to {area:378} and walk north through {zone:1412}; the arrow then leads round to the plateau's north end and up onto it."] = "El campamento del Anillo de la Tierra y sus tres misiones están arriba, en {area:17045}, al norte de {zone:1456}. Vuela a {zone:1456} si conoces su ruta de vuelo y baja por un elevador; si no, vuela a {area:378} y camina al norte por {zone:1412}; luego la flecha te lleva por el extremo norte de la meseta y te sube a ella.",
+	["North of Thunder Bluff"] = "Al norte de Cima del Trueno",
 
 	-- Step 43: The Earthen Ring
 	["The Earthen Ring"] = "El Anillo de la Tierra",

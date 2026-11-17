@@ -257,8 +257,8 @@ return {
 	-- {npc:8396} Sentinel Dalia Sunblade
 	["{npc:8396}, beside her"] = "",
 	-- {item:279378} Lunar Pendant
-	["{item:279378}: the bank, on the way out"] = "",
-	["the city gate"] = "",
+	["{item:279378}: the bank, on the way out"] = "{item:279378}: el banco, a la salida",
+	["the city gate"] = "la puerta de la ciudad",
 
 	-- Step 42: Ban'ethil Barrow Den's entrance
 	-- {area:262} Ban'ethil Barrow Den

@@ -8,8 +8,8 @@
 return {
 	-- Guide
 	["Warsong Gulch Reputation"] = "Reputación: Garganta Grito de Guerra",
-	["Flag captures and Marks of Honor raise it; Exalted gives a Legacy Point and epic bracers and legs."] = "",
-	["Master of Warsong Gulch: a Legacy Point at Exalted"] = "",
+	["Flag captures and Marks of Honor raise it; Exalted gives a Legacy Point and epic bracers and legs."] = "Las capturas de bandera y las Marcas de Honor la suben; Exaltado da un Punto de legado y brazales y piernas épicos.",
+	["Master of Warsong Gulch: a Legacy Point at Exalted"] = "Maestro de la Garganta Grito de Guerra: un Punto de legado en Exaltado",
 
 	-- Step 1: Sentinel Farsong
 	-- {zone:1460} Warsong Gulch · {npc:14733} Sentinel Farsong

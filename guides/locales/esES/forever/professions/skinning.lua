@@ -43,11 +43,11 @@ return {
 	["Kill and skin Cloudrunner (6), Galestrider (5), {npc:250928} (7), {npc:251284} (6), {npc:251291} (6), {npc:250873} (1), {npc:251707} (8), Prideclaw (5), {npc:250926} (3), {npc:256092} (10), {npc:253282} (8), {npc:250937} (4), Vuldren (6), {npc:250874} (10), {npc:254588} (8) along the loop until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 1-15. Expect about 60 beasts for these 49 points."] = "",
 	-- {npc:251291} Hippogryph Youth
 	["{npc:251291}, Prideclaw"] = "{npc:251291}, Garramanada",
-	["Prideclaw, Galestrider"] = "",
+	["Prideclaw, Galestrider"] = "Leozarpa, Zancavientos",
 	-- {npc:250928} Highlands Ursera
 	["Prideclaw, {npc:250928}"] = "Prideclaw, {npc:250928}",
 	["Galestrider, Cloudrunner"] = "Zancavendavales, Correnubes",
-	["Prideclaw, Vuldren"] = "",
+	["Prideclaw, Vuldren"] = "Leozarpa, Vuldren",
 	["Galestrider, Prideclaw"] = "",
 
 	-- Step 6: Beasts 1-9: Durotar (1-50)
@@ -177,8 +177,8 @@ return {
 	-- {zone:1416} Alterac Mountains
 	["Beasts 21-33: {zone:1416} (150-175)"] = "",
 	-- {npc:2351} Gray Bear · {npc:2356} Elder Gray Bear · {npc:2248} Cave Yeti · {npc:2249} Ferocious Yeti · {npc:2406} Mountain Lion · {npc:2250} Mountain Yeti · {npc:2251} Giant Yeti · {npc:2407} Hulking Mountain Lion · {skill:393} Skinning
-	["Kill and skin {npc:2351} (21), {npc:2356} (25), Snapjaw (29), {npc:2248} (30), {npc:2249} (31, needs 155), {npc:2406} (32, needs 160), {npc:2250} (32, needs 160), {npc:2251} (33, needs 165), {npc:2407} (33, needs 165) along the loop until {skill:393} 175; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 30-40. Expect about 40 beasts for these 25 points."] = "",
-	["Snapjaw"] = "",
+	["Kill and skin {npc:2351} (21), {npc:2356} (25), Snapjaw (29), {npc:2248} (30), {npc:2249} (31, needs 155), {npc:2406} (32, needs 160), {npc:2250} (32, needs 160), {npc:2251} (33, needs 165), {npc:2407} (33, needs 165) along the loop until {skill:393} 175; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 30-40. Expect about 40 beasts for these 25 points."] = "Mata y despelleja: {npc:2351} (21), {npc:2356} (25), Quijaforte (29), {npc:2248} (30), {npc:2249} (31, requiere 155), {npc:2406} (32, requiere 160), {npc:2250} (32, requiere 160), {npc:2251} (33, requiere 165), {npc:2407} (33, requiere 165) a lo largo del circuito hasta {skill:393} 175; saquea cada cadáver, luego despelléjalo, y despelleja las bestias del nivel más alto que permita tu habilidad. Una bestia de nivel L requiere habilidad (L-10)x10 hasta el nivel 20 y Lx5 por encima. Nivel de la zona: 30-40. Cuenta con unas 40 bestias para estos 25 puntos.",
+	["Snapjaw"] = "Quijaforte",
 	-- {npc:2251} Giant Yeti
 	["Snapjaw, {npc:2251}"] = "",
 	-- {npc:2407} Hulking Mountain Lion

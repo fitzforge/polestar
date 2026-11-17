@@ -76,8 +76,8 @@ return {
 
 	-- Step 17: Finish the Plainstrider Beaks
 	-- plural, as words: Plainstrider Beaks = {item:5087} Plainstrider Beak
-	["Finish the Plainstrider Beaks"] = "",
-	["Still short of seven? Plainstriders are thickest on the plains north of the Crossroads, along the road north."] = "",
+	["Finish the Plainstrider Beaks"] = "Termina los picos de zancudo",
+	["Still short of seven? Plainstriders are thickest on the plains north of the Crossroads, along the road north."] = "¿Aún te faltan para siete? Los zancudos de llanura abundan más en las llanuras al norte del Cruce, a lo largo del camino hacia el norte.",
 
 	-- Step 19: The Zhevra
 	-- {area:392} Ratchet

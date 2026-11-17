@@ -30,8 +30,8 @@ return {
 	["Windfury Cones"] = "",
 	-- {area:819} Windfury Ridge · {zone:1456} Thunder Bluff · {item:206176} Mortar and Pestle
 	-- plural, as words: Windfury Cones = {item:206170} Windfury Cone
-	["Windfury Cones lie on the ground under the harpies' nest trees on {area:819}, north-west of {zone:1456}; the harpies do not drop them. The Windfury Sorceresses (level 9-10) and Matriarchs (10-11) there stand close together: pick the cones from the edges. Once you have eight, use the {item:206176} to grind them."] = "",
-	["the mortar takes all eight"] = "",
+	["Windfury Cones lie on the ground under the harpies' nest trees on {area:819}, north-west of {zone:1456}; the harpies do not drop them. The Windfury Sorceresses (level 9-10) and Matriarchs (10-11) there stand close together: pick the cones from the edges. Once you have eight, use the {item:206176} to grind them."] = "Las piñas Furia del Viento están en el suelo debajo de los árboles con nidos de arpías en {area:819}, al noroeste de {zone:1456}; las arpías no las sueltan. Las hechiceras (nivel 9-10) y matriarcas (10-11) Furia del Viento de ahí están muy juntas: recoge las piñas de los bordes. Cuando tengas ocho, usa el {item:206176} para molerlas.",
+	["the mortar takes all eight"] = "el mortero usa las ocho",
 	-- {item:206175} Pine Salve
 	["grind the eight cones into the {item:206175}"] = "",
 

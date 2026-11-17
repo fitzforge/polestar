@@ -9,8 +9,8 @@ return {
 	-- Guide
 	["Argent Dawn Reputation"] = "Reputación: Alba Argenta",
 	-- {area:2057} Scholomance · {area:2279} Stratholme
-	["Scourgestones, {area:2057} and {area:2279}: the shoulder resistance enchants and a dozen recipes."] = "",
-	["Recipes for Tailors, Leatherworkers, Blacksmiths, Enchanters and Alchemists from Honored and Revered"] = "",
+	["Scourgestones, {area:2057} and {area:2279}: the shoulder resistance enchants and a dozen recipes."] = "Piedras de la Plaga, {area:2057} y {area:2279}: los encantamientos de resistencia de hombros y una docena de recetas.",
+	["Recipes for Tailors, Leatherworkers, Blacksmiths, Enchanters and Alchemists from Honored and Revered"] = "Recetas para sastres, peleteros, herreros, encantadores y alquimistas desde Honorable y Reverenciado",
 
 	-- Step 1: Argent Dawn Commission (Alliance)
 	-- {quest:5401} Argent Dawn Commission

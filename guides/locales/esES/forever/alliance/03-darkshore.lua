@@ -189,8 +189,8 @@ return {
 	-- Step 33: The northern Blackwood camp
 	["The northern Blackwood camp"] = "",
 	-- {area:456} Cliffspring River · {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell · {item:12355} Talisman of Corruption
-	["The furbolg camp south of the {area:456} keeps its Nut, Fruit and Grain Stores by the bonfires. With a sample of each and the {item:12347} in your bags (the {item:12346} is filled at the {object:174795}), use the bowl by the bonfire closest to the river: it summons Xabraxxis, the satyr corruptor, and the {item:12355} lies in his Demon Bag."] = "",
-	["By the bonfire closest to the river: summons Xabraxxis"] = "",
+	["The furbolg camp south of the {area:456} keeps its Nut, Fruit and Grain Stores by the bonfires. With a sample of each and the {item:12347} in your bags (the {item:12346} is filled at the {object:174795}), use the bowl by the bonfire closest to the river: it summons Xabraxxis, the satyr corruptor, and the {item:12355} lies in his Demon Bag."] = "El campamento de fúrbolgs al sur de {area:456} guarda sus reservas de nueces, frutas y grano junto a las hogueras. Con una muestra de cada una y {item:12347} en tus bolsas ({item:12346} se llena en {object:174795}), usa el cuenco junto a la hoguera más cercana al río: invoca a Xabraxxis, el corruptor sátiro, y {item:12355} está en su bolsa demoníaca.",
+	["By the bonfire closest to the river: summons Xabraxxis"] = "Junto a la hoguera más cercana al río: invoca a Xabraxxis",
 	-- {item:12347} Filled Cleansing Bowl
 	["After using the {item:12347}, kill Xabraxxis, then click his Demon Bag on the ground to collect the talisman. If Xabraxxis despawns before you get it, retake the quest for a new bowl."] = "Tras usar {item:12347}, mata a Xabraxxis y luego haz clic en su Bolsa de demonio en el suelo para recoger el talismán. Si Xabraxxis desaparece antes de que lo consigas, vuelve a aceptar la misión para obtener un cuenco nuevo.",
 

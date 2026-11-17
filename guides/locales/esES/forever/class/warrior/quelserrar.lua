@@ -31,8 +31,8 @@ return {
 	-- {npc:10184} Onyxia · {area:2159} Onyxia's Lair · {area:511} Wyrmbog · {zone:1445} Dustwallow Marsh · {item:18489} Unfired Ancient Blade · {object:179562} Ancient Heated Blade · {item:18488} Heated Ancient Blade
 	["{npc:10184} is the 40-player raid boss of {area:2159}, a cave in the {area:511} of southern {zone:1445}; she returns once a week. Tell the raid first. Late in the fight (around 10-15% health, when she has landed again) use the {item:18489} to plant it in the path of her fire breath, usually by the main tank's feet. When her breath has heated it, click the {object:179562} to take the {item:18488}: from then you have 20 minutes. Her breath can kill you while you plant or pick up the blade; if you die and nobody brings you back before she dies, wait for next week. Planted in the wrong place? Abandon the quest, take it again from Lydros for a new blade."] = "",
 	-- {item:18489} Unfired Ancient Blade
-	["{item:18489}: plant it in her breath"] = "",
-	["click the heated blade on the ground"] = "",
+	["{item:18489}: plant it in her breath"] = "{item:18489}: clávala en su aliento",
+	["click the heated blade on the ground"] = "haz clic en la hoja caliente en el suelo",
 
 	-- Step 4: Onyxia's corpse
 	-- {npc:10184} Onyxia

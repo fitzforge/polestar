@@ -8,8 +8,8 @@
 return {
 	-- Guide
 	["Timbermaw Hold Reputation"] = "Reputación: Bastión de los Fauces de Madera",
-	["Safe passage through the tunnels, agility enchants and furbolg recipes; the trinket at Exalted."] = "",
-	["Recipes for Leatherworkers, Tailors, Enchanters and Alchemists from Friendly to Revered"] = "",
+	["Safe passage through the tunnels, agility enchants and furbolg recipes; the trinket at Exalted."] = "Paso seguro por los túneles, encantamientos de agilidad y recetas fúrbolg; el abalorio en Exaltado.",
+	["Recipes for Leatherworkers, Tailors, Enchanters and Alchemists from Friendly to Revered"] = "Recetas para peleteros, sastres, encantadores y alquimistas de Amistoso a Reverenciado",
 
 	-- Step 1: Grazle
 	-- {faction:576} Timbermaw Hold · {npc:11554} Grazle · {npc:15395} Nafien · {npc:11556} Salfa · {zone:1448} Felwood · {area:2479} Emerald Sanctuary
@@ -89,7 +89,7 @@ return {
 
 	-- Step 15: Neutral to Friendly
 	["Neutral to Friendly"] = "",
-	["Neutral to Friendly is 3,000: 600 kills. Keep all feathers and beads."] = "",
+	["Neutral to Friendly is 3,000: 600 kills. Keep all feathers and beads."] = "De Neutral a Amistoso son 3.000: 600 muertes. Guarda todas las plumas y cuentas.",
 
 	-- Step 16: Meilosh
 	-- {npc:11557} Meilosh · {zone:1448} Felwood · {item:13484} Recipe: Transmute Earth to Water · {item:22392} Formula: Enchant 2H Weapon - Agility · {item:20253} Pattern: Warbear Harness · {item:15065} Warbear Woolies · {quest:6031} Runecloth · {item:14342} Mooncloth · {item:15802} Mooncloth Boots
@@ -112,7 +112,7 @@ return {
 
 	-- Step 20: Honored to Revered
 	["Honored to Revered"] = "",
-	["Honored to Revered is 12,000: 2,400 kills, the last ones that count. Kills stop at 11,999 of 12,000 Honored and never tip you into Revered: when they stop, hand in one set of 5 feathers or beads to cross over. Saving every feather and bead pays off now: about 4,800 kills from the start to the end of Honored leave you with about 2,100 feathers and beads, and that is all of Revered to Exalted. Turning them in early would cost you about 2,400 more kills."] = "",
+	["Honored to Revered is 12,000: 2,400 kills, the last ones that count. Kills stop at 11,999 of 12,000 Honored and never tip you into Revered: when they stop, hand in one set of 5 feathers or beads to cross over. Saving every feather and bead pays off now: about 4,800 kills from the start to the end of Honored leave you with about 2,100 feathers and beads, and that is all of Revered to Exalted. Turning them in early would cost you about 2,400 more kills."] = "De Honorable a Reverenciado son 12.000: 2.400 muertes, las últimas que cuentan. Las muertes dejan de contar en 11.999 de 12.000 en Honorable y nunca te hacen pasar a Reverenciado: cuando dejen de contar, entrega un juego de 5 plumas o cuentas para pasar. Guardar cada pluma y cuenta rinde ahora: unas 4.800 muertes desde el inicio hasta el final de Honorable te dejan con unas 2.100 plumas y cuentas, y eso es todo lo de Reverenciado a Exaltado. Entregarlas antes te costaría unas 2.400 muertes más.",
 	-- {item:19445} Formula: Enchant Weapon - Agility · {skill:333} Enchanting
 	["{item:19445} ({skill:333}), 3 gold"] = "",
 	-- {quest:8467} Feathers for Nafien

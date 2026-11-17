@@ -162,8 +162,8 @@ return {
 
 	-- Step 32: Elwynn Forest
 	-- {zone:1453} Stormwind · {area:87} Goldshire
-	["From the tram, leave {zone:1453} by the main gate and follow the road through {area:87} and east through Elwynn to Redridge."] = "",
-	["The road east to Redridge"] = "",
+	["From the tram, leave {zone:1453} by the main gate and follow the road through {area:87} and east through Elwynn to Redridge."] = "Desde el tranvía, sal de {zone:1453} por la puerta principal y sigue el camino por {area:87} y al este por Elwynn hasta Crestagrana.",
+	["The road east to Redridge"] = "El camino al este hacia Crestagrana",
 
 	-- Step 33: Henze Faulk
 	-- {area:86} Stone Cairn Lake · {npc:6172} Henze Faulk · {item:6866} Symbol of Life · {item:6846} Defias Script
@@ -394,7 +394,7 @@ return {
 
 	-- Step 71: Gazin Tenorm
 	-- {npc:6173} Gazin Tenorm · {npc:6171} Duthorian Rall · {object:2098} Cathedral Square
-	["{npc:6173} and {npc:6171} are in the Cathedral of Light, on {object:2098}, on the way to the harbour."] = "",
+	["{npc:6173} and {npc:6171} are in the Cathedral of Light, on {object:2098}, on the way to the harbour."] = "{npc:6173} y {npc:6171} están en la Catedral de la Luz, en {object:2098}, de camino al puerto.",
 	["Cathedral of Light"] = "",
 	-- {npc:6171} Duthorian Rall
 	["{npc:6171}: Redemption"] = "{npc:6171}: Redención",
