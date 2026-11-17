@@ -16491,3 +16491,51 @@ test("forever/horde/30-40/01-hillsbrad-foothills.guide: Acen's report (#2512): t
 	assert.ok(togthar < drull, "Tog'thar's lock beside the jailors first, Drull's on the way back");
 	assert.ok([dull, gold, drull, togthar].every((i) => list[i].s === list[drull].s), 'one step');
 });
+
+// #2792 (Petsq, 0.4.0.1, Horde Stranglethorn 40-50): a player who reached the guide with Panther Mastery (192)
+// still open got its hand-in at Nesingwary's camp and no step for the Shadowmaw Panthers; Raptor Mastery (195),
+// handed in at the same stop, had the same gap. Each now has a step, only while the quest is in the log, before
+// its hand-in.
+test('#2792: Stranglethorn (Horde 40-50): Panther and Raptor Mastery left open get their mobs before the hand-in', { skip }, () => {
+	const list = goals(H40('01-stranglethorn-vale'));
+	for (const [quest, npc] of [[192, 684], [195, 686]]) {
+		const kill = at(list, `kill ${npc} quest ${quest}`, (g) => g.t === 'kill' && g.quest === quest && g.npc === npc);
+		const turnin = at(list, `turnin ${quest}`, is('turnin', quest));
+		assert.ok(kill < turnin, `${quest}: the mobs before the hand-in`);
+		const when = list[kill].step.when || [];
+		assert.ok(when.some((p) => p.k === 'onquest' && (p.q || []).includes(quest)), `${quest}: only while it is in the log`);
+	}
+});
+
+// #2801 (Gindry, 0.4.0.1, Alliance Desolace): Karnitol's Satchel drops from the Slitherblade Tidehunters and Sea
+// Witches (recordings: every recorded loot came with one of their kills), not from the sea floor the tip named,
+// and 11 of 28 people who took The Karnitol Shipwreck gave it up. The tip says where it drops, and the satchel and
+// its hand-in never hold the route.
+test('#2801: Desolace (Alliance): Karnitol\'s Satchel drops from the naga and never holds the route', { skip }, () => {
+	const list = goals('forever/alliance/30-40/06b-desolace.guide');
+	const satchel = list[at(list, 'collect 6245', (g) => g.t === 'collect' && g.quest === 1456)];
+	assert.equal(satchel.goal.optional, true, 'the satchel is optional');
+	assert.equal(list[at(list, 'turnin 1456', is('turnin', 1456))].goal.optional, true, 'so is its hand-in');
+	const tip = [satchel.step.note, satchel.step.tip].flat().filter(Boolean).join(' ');
+	assert.match(tip, /Tidehunters and Sea Witches/);
+	assert.doesNotMatch(tip, /sea floor/);
+});
+
+// #2825 (Thyndare, 0.4.0.1, Horde Riverglades): Jom-jom's spawn data holds his escort's walk, and the accept led to
+// the walk's point nearest the player, not to the cave where he waits (22 of 22 recorded accepts at 73.3-74.0,
+// 24.6-24.9). The sweep of escort givers found Melizza Brimbuzzle (Desolace) and Tooga (Tanaris) sent to their
+// escorts' ends the same way.
+test('#2825: escort givers are looked for where they wait, not along their escort', { skip }, () => {
+	const cases = [
+		[H40('01b-riverglades'), 94556, 73.4, 24.7],
+		['forever/alliance/30-40/06b-desolace.guide', 6132, 33.9, 53.5],
+		['forever/horde/30-40/04-dustwallow-marsh.guide', 6132, 33.9, 53.5],
+		['forever/alliance/40-50/04-tanaris.guide', 1560, 30.2, 70.7],
+		[H40('04-tanaris'), 1560, 30.2, 70.7],
+	];
+	for (const [guide, quest, x, y] of cases) {
+		const list = goals(guide);
+		const { goal } = list[at(list, `accept ${quest}`, is('accept', quest))];
+		assert.deepEqual([goal.x, goal.y], [x, y], `${guide}: accept ${quest}`);
+	}
+});

@@ -511,6 +511,45 @@
 				}
 			],
 			"note": "Powering the Pylons (96018): the pylons are repaired with mana gathered with the Mana Sieve (255662) first; its objectives list only the Sieve and the two pylons. Source: the quest's own text (\"use it to collect Ancient Mana Crystals. Once you have acquired enough mana, empower the pylons\"); players' in-game recordings to 2026-11-17: the Unstable Mana Rifts (264149) seen by 54 people in Shen'dralas, and the pylons' lines ticking on a cast of spell 1289727 (30 people took the quest); Unholy's report (#2714), who counted four Coalesced Mana Crystals (255667) for each pylon."
+		},
+		"96082": {
+			"kinds": [
+				{
+					"kind": "use-item-on-mob",
+					"confidence": "high"
+				}
+			],
+			"params": [
+				{
+					"kind": "use-item-on-mob",
+					"item": 272126,
+					"npcs": [
+						263614
+					]
+				}
+			],
+			"steps": [
+				{
+					"n": 1,
+					"action": "use-item",
+					"target": {
+						"type": "npc",
+						"id": 263614
+					},
+					"item": {
+						"id": 272126
+					},
+					"fact": "Use the Makeshift Bandages Brother Lowley gives you on the Wounded Soldiers beside him; each one bandaged counts. Don't kill them.",
+					"place": {
+						"map": 2548,
+						"x": 65.5,
+						"y": 79.3,
+						"f": "l"
+					},
+					"confidence": "high"
+				}
+			],
+			"note": "Doctor's Orderly (96082) is done by using the Makeshift Bandages (272126, given with the quest) on the Wounded Soldiers (263614) at Farholde Keep; the game stores the objective as a kill credit, so a step built from it said \"Kill Wounded Soldier\" (#2831). Source: players' in-game recordings to 2026-11-17: 31 people, every one of their 88 ticks right after a cast of Apply Bandage (spell 1290242) on a Wounded Soldier; the client's item tables give that spell as the bandages' use."
 		}
 	}
 }
