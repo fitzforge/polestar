@@ -12,10 +12,16 @@
 				"frame": "era"
 			},
 			"note": "Cam (cameronmoten) reports seeing only 1-2 Young Panthers near the original arrow and 12+ across the river. These are his firsthand field observations, not spawn-database counts. Start across the river from Nesingwary's camp, where the Young Panthers gather; keep the existing quest order.",
-			"source": {
-				"kind": "in-game-check",
-				"ref": "Cam (cameronmoten), firsthand Stranglethorn Vale field report: 1-2 Young Panthers near the original arrow, 12+ across the river. Report issue pending."
-			}
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2706 (cameronmoten, Stranglethorn Vale): 1-2 Young Panthers near the old arrow, 12+ across the river"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-17: Young Panther (683) kills on map 1434 gather at 39-45, 9-15 (about 920 kills; 81 contributors at 39-42, 9-12); the old arrows' lone spawns (36.1,7.2 and 35.0,14.2) lie where about a tenth of that is killed"
+				}
+			]
 		},
 		{
 			"id": "stranglethorn-tigers-with-young-panthers",
@@ -29,10 +35,16 @@
 				"frame": "era"
 			},
 			"note": "On the Horde route, point the second Tiger Mastery hunt at the tiger group east of camp. Keep the existing combined hunt with Panther Mastery 191 and the geologists, and the earlier Panther Mastery 190 hand-in.",
-			"source": {
-				"kind": "in-game-check",
-				"ref": "Player report from Stranglethorn Vale: regular Stranglethorn Tigers are beside the Young Panthers. NPC 682 reference spawns on map 1434 cluster east of the river around 45,15."
-			}
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2706 (cameronmoten, Stranglethorn Vale): regular Stranglethorn Tigers beside the Young Panthers, east of the camp"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-17: Stranglethorn Tiger (682) kills on map 1434 form two groups of about the same size, west of the camp (27-33, 6-18, about 620 kills) and east of it (42-48, 9-21, about 600 kills; 47 contributors at 45-48, 15-18); the east group lies on the way to the geologists by Lake Nazferiti"
+				}
+			]
 		},
 		{
 			"id": "621-westfall-oats-on-the-sack",
