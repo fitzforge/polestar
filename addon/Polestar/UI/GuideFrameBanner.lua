@@ -21,7 +21,8 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- moving on from a finished leveling guide (for SKIPPED_SECONDS); the group
 	-- quest the live step waits on
 	-- (`when group`: Skip it, the default, or Do it with a group; it cannot be
-	-- dismissed); the dungeon it waits on ("Dungeons in my route": Ask me; Run
+	-- dismissed; after Skip it, its undo for SKIPPED_SECONDS); the dungeon it
+	-- waits on ("Dungeons in my route": Ask me; Run
 	-- it or Skip it, never dismissed), and after "No group? Skip it" the
 	-- dungeon's quests kept in the log; the step the player just skipped, with
 	-- its undo; why the guide just moved past a quest (while that step's guide
@@ -44,7 +45,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	---------------------------------------------------------------------------
 
 	local SKIPPED_SECONDS = 20 -- how long the "Skipped …" notices stay
-	local notices = { closedTab = nil, questSkip = nil, stepSkip = nil, skipped = nil, away = nil, outlevel = nil, train = nil, riding = nil, classQuest = nil, dungeonKept = nil, soonSeen = nil, freshSeen = {}, taxiMap = nil }
+	local notices = { closedTab = nil, questSkip = nil, groupSkip = nil, stepSkip = nil, skipped = nil, away = nil, outlevel = nil, train = nil, riding = nil, classQuest = nil, dungeonKept = nil, soonSeen = nil, freshSeen = {}, taxiMap = nil }
 	GF.notices = notices
 
 	-- The step on screen when it is not the live step: { guideId, index, live,
@@ -146,6 +147,9 @@ ns.UI.GuideFrame.Part(function(GF)
 		local ct = notices.closedTab
 		if ct and not (E and E.TabIds and E.TabIds()[ct.guideId]) then return "closedTab", ct end
 		if notices.questSkip then return "questSkip", notices.questSkip end
+		-- A group quest just skipped at its banner, while that answer stands.
+		local gs = notices.groupSkip
+		if gs and ns.CharState().groupQuests[gs.quest] == "skip" then return "groupSkip", gs end
 		-- "Continue automatically" moved on from a finished leveling guide.
 		local c = notices.continued
 		if c and g ~= nil and g.id == c.to then return "continued", c end
@@ -330,6 +334,19 @@ ns.UI.GuideFrame.Part(function(GF)
 		end)
 	end
 
+	-- "Skip it" at a group quest's banner (#2404): the banner offers the undo
+	-- for SKIPPED_SECONDS, as a skipped quest or step does.
+	local function groupSkipped(quest, title)
+		local notice = { quest = quest, title = title }
+		notices.groupSkip = notice
+		ns.After(SKIPPED_SECONDS, function()
+			if notices.groupSkip == notice then
+				notices.groupSkip = nil
+				if F and ns.IsLoggedIn() then GF.Layout() end
+			end
+		end)
+	end
+
 	local function trainerPlace(t)
 		local zone = t.map and UI.MapName(t.map) or nil
 		if t.npcName and zone then return t.npcName .. ", " .. zone end
@@ -426,9 +443,11 @@ ns.UI.GuideFrame.Part(function(GF)
 			banner.Text:SetText(string.format(L["Closed %s"], n.title))
 			placeLink(banner.Jump, L["Reopen"], 0, -4)
 			banner.Close:Show()
-		elseif kind == "questSkip" then
+		elseif kind == "questSkip" or kind == "groupSkip" then
 			banner.Icon:SetTexture(Theme.Media("skip"))
-			banner.Text:SetText(string.format(L["Skipped %s"], ns.Quoted(n.title) or L["the quest"]) .. "  \194\183  " .. L["and the quests that follow from it"])
+			local text = string.format(L["Skipped %s"], ns.Quoted(n.title) or L["the quest"])
+			if kind == "questSkip" then text = text .. "  \194\183  " .. L["and the quests that follow from it"] end
+			banner.Text:SetText(text)
 			placeLink(banner.Jump, L["Undo"], 0, -4)
 			banner.Close:Show()
 		elseif kind == "lost" then
@@ -670,7 +689,14 @@ ns.UI.GuideFrame.Part(function(GF)
 		elseif kind == "log" then
 			if UI.ShowQuestRoom then UI.ShowQuestRoom() end
 		elseif kind == "group" then
-			if E and E.AnswerGroup then E.AnswerGroup(n.quest, "skip") end
+			if E and E.AnswerGroup then
+				E.AnswerGroup(n.quest, "skip")
+				if GF.live then groupSkipped(n.quest, n.title) end
+			end
+		elseif kind == "groupSkip" then
+			-- Unanswered again: the step asks once more.
+			notices.groupSkip = nil
+			if E and E.AnswerGroup then E.AnswerGroup(n.quest, nil) end
 		elseif kind == "dungeon" then
 			if E and E.ChooseDungeon then E.ChooseDungeon(n.map, true) end
 		elseif kind == "dungeonRun" then
