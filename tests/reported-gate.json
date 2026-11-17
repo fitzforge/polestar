@@ -1410,6 +1410,9 @@
 		] },
 		"2715": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-guide-end.rs", "test": "a_last_step_at_the_hub_the_guide_starts_from_with_its_flight_path_known_is_no_end_ahead_2715" }
+		] },
+		"2698": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/ui-quest-unlocks.rs", "test": "more_than_four_follow_ups_list_four_then_how_many_more" }
 		] }
 	},
 	"seedDrift": {

@@ -354,6 +354,9 @@ end
 -- lines: strings, or { left = , right = } pairs, or { text, r, g, b }. The
 -- strings and left halves are in the dim text as it reads on the tooltip's
 -- dark ground (Theme.TipColor: a light look's ink lifted toward its paper).
+-- An empty left half is drawn as a space: the game gives a double line with
+-- no left text no height, so the next one is drawn over it ("Leads to" with
+-- several follow-ups, #2698).
 function W.Tooltip(owner, anchor, title, lines)
 	if not GameTooltip then return end
 	GameTooltip:SetOwner(owner, anchor or "ANCHOR_RIGHT")
@@ -364,7 +367,9 @@ function W.Tooltip(owner, anchor, title, lines)
 			if type(l) == "table" then
 				if l.right ~= nil then
 					local r, g, b = Theme.TipColor("textDim")
-					GameTooltip:AddDoubleLine(l.left, l.right, r, g, b, 1, 1, 1)
+					local left = l.left
+					if left == nil or left == "" then left = " " end
+					GameTooltip:AddDoubleLine(left, l.right, r, g, b, 1, 1, 1)
 				else
 					GameTooltip:AddLine(l[1], l[2], l[3], l[4], true)
 				end
