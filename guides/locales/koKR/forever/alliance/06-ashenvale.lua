@@ -89,10 +89,14 @@ return {
 	["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "{npc:3916}에게서 길을 따라 다시 서쪽으로 가면 {npc:3664}(으)로 가는 길에 {area:415}이(가) 있습니다. {npc:3894}은(는) 여관 너머 건물 안에 있습니다.",
 
 	-- Step 21: Ilkrud Magthrull
-	-- {area:415} Astranaar · {area:412} Ruins of Ordil'Aran · {npc:3664} Ilkrud Magthrull
-	["From {area:415} head south-west to the {area:412} south of the shrine: {npc:3664} and his voidwalkers hold them. Pull his guards first."] = "",
+	-- {area:415} Astranaar · {area:417} Fire Scar Shrine · {npc:3664} Ilkrud Magthrull
+	["From {area:415} head south-west to the {area:417} and go in from the east side: {npc:3664} and his guards hold a hill inside it. Pull his guards first."] = "",
 
-	-- Step 22: The Zoram Strand
+	-- Step 22: Maestra's Post
+	-- {npc:3663} Delgren the Purifier · {zone:1440} Ashenvale
+	["{npc:3663}: its circles are for your next {zone:1440} visit, at about 28"] = "",
+
+	-- Step 23: The Zoram Strand
 	-- {area:414} Zoram Strand · {npc:3846} Talen
 	["Follow the coast north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "해안을 따라 북쪽으로 {area:414}까지 가세요. {npc:3846}은(는) 해변에 진을 치고 있고, 해안에는 성난지느러미일족 나가가 가득합니다.",
 	-- {item:5424} Ancient Statuette
@@ -100,11 +104,11 @@ return {
 	-- {item:5490} Wrathtail Head
 	["{item:5490}: any Wrathtail naga on the strand"] = "",
 
-	-- Step 24: Ruuzel
+	-- Step 25: Ruuzel
 	-- {quest:1009} Ruuzel · {area:414} Zoram Strand
 	["{quest:1009} walks the northern tip of the {area:414} with Wrathtail guards."] = "{quest:1009}은(는) 성난지느러미일족 경비병과 함께 {area:414}의 북쪽 끝을 돌아다닙니다.",
 
-	-- Step 25: Blackfathom Deeps
+	-- Step 26: Blackfathom Deeps
 	-- {area:2797} Blackfathom Deeps · {npc:4787} Argent Guard Thaelrid · {zone:1457} Darnassus
 	-- plural, as words: Corrupted Brain Stems = {item:5952} Corrupted Brain Stem
 	["{area:2797} is a dungeon for a group of five, about levels 22 to 30, and a full run takes about an hour. The way in is the sunken ruins at the north end of the strand: go down the stairs into the pit, swim through the tunnels under the wall, past the blue crystals, to the portal.\nInside: the naga and the satyrs drop the Corrupted Brain Stems for Gershala. {npc:4787}, by a campfire in an underwater side room off Ghamoo-ra's room, has a quest for {zone:1457}, which this route leaves to the Dungeons page."] = "{area:2797}은(는) 약 22~30레벨 5인 파티용 던전이며, 전체 공략에 약 1시간이 걸립니다. 들어가는 길은 해안 북쪽 끝의 가라앉은 폐허입니다. 계단을 내려가 구덩이로 들어간 뒤, 성벽 아래 터널을 헤엄쳐 푸른 수정을 지나 차원문까지 가십시오.\n내부: 나가와 사티로스가 게르샬라에게 줄 타락한 뇌줄기를 떨어뜨립니다. 가무라의 방에서 이어지는 수중 곁방의 모닥불 옆에 있는 {npc:4787}은(는) {zone:1457}(으)로 가는 퀘스트를 주며, 이 경로는 그 퀘스트를 던전 페이지에 맡깁니다.",
@@ -112,13 +116,9 @@ return {
 	-- plural, as words: Corrupted Brain Stems = {item:5952} Corrupted Brain Stem
 	["{quest:1275}: Corrupted Brain Stems"] = "{quest:1275}: 타락한 뇌줄기",
 
-	-- Step 27: Maestra's Post
-	-- {npc:3663} Delgren the Purifier · {zone:1440} Ashenvale
-	["{npc:3663}: its circles are for your next {zone:1440} visit, at about 28"] = "",
-
 	-- Step 28: Astranaar
-	-- {area:413} Maestra's Post · {area:415} Astranaar · {npc:3845} Shindrell Swiftfire
-	["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} stands by the flight master."] = "",
+	-- {area:415} Astranaar · {area:414} Zoram Strand · {npc:3845} Shindrell Swiftfire
+	["Hearth to {area:415}, where your hearthstone is bound, or follow the road east from the {area:414}: {npc:3845} stands by the flight master."] = "",
 
 	-- Step 29: Fly to Auberdine
 	-- {area:442} Auberdine

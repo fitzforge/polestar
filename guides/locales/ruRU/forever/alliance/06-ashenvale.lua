@@ -89,10 +89,14 @@ return {
 	["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "Назад на запад по дороге от NPC {npc:3916}: {area:415} по пути к NPC {npc:3664}. {npc:3894} в здании за таверной.",
 
 	-- Step 21: Ilkrud Magthrull
-	-- {area:415} Astranaar · {area:412} Ruins of Ordil'Aran · {npc:3664} Ilkrud Magthrull
-	["From {area:415} head south-west to the {area:412} south of the shrine: {npc:3664} and his voidwalkers hold them. Pull his guards first."] = "",
+	-- {area:415} Astranaar · {area:417} Fire Scar Shrine · {npc:3664} Ilkrud Magthrull
+	["From {area:415} head south-west to the {area:417} and go in from the east side: {npc:3664} and his guards hold a hill inside it. Pull his guards first."] = "",
 
-	-- Step 22: The Zoram Strand
+	-- Step 22: Maestra's Post
+	-- {npc:3663} Delgren the Purifier · {zone:1440} Ashenvale
+	["{npc:3663}: its circles are for your next {zone:1440} visit, at about 28"] = "",
+
+	-- Step 23: The Zoram Strand
 	-- {area:414} Zoram Strand · {npc:3846} Talen
 	["Follow the coast north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "Идите вдоль побережья на север к {area:414}. {npc:3846} стоит лагерем на пляже; берег кишит нагами из клана Зловещего Хвоста.",
 	-- {item:5424} Ancient Statuette
@@ -100,11 +104,11 @@ return {
 	-- {item:5490} Wrathtail Head
 	["{item:5490}: any Wrathtail naga on the strand"] = "",
 
-	-- Step 24: Ruuzel
+	-- Step 25: Ruuzel
 	-- {quest:1009} Ruuzel · {area:414} Zoram Strand
 	["{quest:1009} walks the northern tip of the {area:414} with Wrathtail guards."] = "{quest:1009} ходит по северной оконечности {area:414} со стражами из клана Зловещего Хвоста.",
 
-	-- Step 25: Blackfathom Deeps
+	-- Step 26: Blackfathom Deeps
 	-- {area:2797} Blackfathom Deeps · {npc:4787} Argent Guard Thaelrid · {zone:1457} Darnassus
 	-- plural, as words: Corrupted Brain Stems = {item:5952} Corrupted Brain Stem
 	["{area:2797} is a dungeon for a group of five, about levels 22 to 30, and a full run takes about an hour. The way in is the sunken ruins at the north end of the strand: go down the stairs into the pit, swim through the tunnels under the wall, past the blue crystals, to the portal.\nInside: the naga and the satyrs drop the Corrupted Brain Stems for Gershala. {npc:4787}, by a campfire in an underwater side room off Ghamoo-ra's room, has a quest for {zone:1457}, which this route leaves to the Dungeons page."] = "{area:2797} – подземелье для группы из пяти игроков, примерно 22-30-й уровень; полное прохождение занимает около часа. Вход – затонувшие руины в северном конце побережья: спуститесь по лестнице в яму, проплывите по туннелям под стеной мимо синих кристаллов к порталу.\nВнутри: с наг и сатиров падают оскверненные стволы мозга для Гершалы. {npc:4787}, у костра в подводной боковой комнате рядом с залом Гамо-ры, дает задание для города {zone:1457}; этот маршрут оставляет его странице «Подземелья».",
@@ -112,13 +116,9 @@ return {
 	-- plural, as words: Corrupted Brain Stems = {item:5952} Corrupted Brain Stem
 	["{quest:1275}: Corrupted Brain Stems"] = "{quest:1275}: оскверненные стволы мозга",
 
-	-- Step 27: Maestra's Post
-	-- {npc:3663} Delgren the Purifier · {zone:1440} Ashenvale
-	["{npc:3663}: its circles are for your next {zone:1440} visit, at about 28"] = "",
-
 	-- Step 28: Astranaar
-	-- {area:413} Maestra's Post · {area:415} Astranaar · {npc:3845} Shindrell Swiftfire
-	["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} stands by the flight master."] = "",
+	-- {area:415} Astranaar · {area:414} Zoram Strand · {npc:3845} Shindrell Swiftfire
+	["Hearth to {area:415}, where your hearthstone is bound, or follow the road east from the {area:414}: {npc:3845} stands by the flight master."] = "",
 
 	-- Step 29: Fly to Auberdine
 	-- {area:442} Auberdine

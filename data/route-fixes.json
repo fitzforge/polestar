@@ -15973,6 +15973,19 @@
 				"faction": "Alliance",
 				"why": "Alliance 50-60 fix round 2 (0.4.0): The Twilight Mystery is taken with Report to Marshal Bluewall on the Silithus guide's first Cenarion Hold stop (pair above).",
 				"source": "Alliance fix round 2 2026-11-16"
+			},
+			{
+				"a": [
+					"turnin",
+					973
+				],
+				"b": [
+					"accept",
+					1007
+				],
+				"faction": "Alliance",
+				"why": "CircusCyaneus (#2837): Delgren's hand-in of The Tower of Althalaxx comes right after Ilkrud Magthrull at the Fire Scar Shrine, at Maestra's Post on the way north-west to the Zoram Strand, instead of a walk back from Talen; after Talen the hearthstone bound at Astranaar takes the player to Shindrell Swiftfire and the flight master.",
+				"source": "triage 0418-j 2026-11-17"
 			}
 		],
 		"leftout": [

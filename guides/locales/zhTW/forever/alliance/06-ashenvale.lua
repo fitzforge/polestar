@@ -89,10 +89,14 @@ return {
 	["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "從{npc:3916}沿路往西回去，{area:415}就在前往{npc:3664}的路上：{npc:3894}在旅店後方的建築內。",
 
 	-- Step 21: Ilkrud Magthrull
-	-- {area:415} Astranaar · {area:412} Ruins of Ordil'Aran · {npc:3664} Ilkrud Magthrull
-	["From {area:415} head south-west to the {area:412} south of the shrine: {npc:3664} and his voidwalkers hold them. Pull his guards first."] = "從{area:415}向西南到神龕以南的{area:412}：{npc:3664}和他的虛空行者佔著那裡。先把他的守衛拉出來。",
+	-- {area:415} Astranaar · {area:417} Fire Scar Shrine · {npc:3664} Ilkrud Magthrull
+	["From {area:415} head south-west to the {area:417} and go in from the east side: {npc:3664} and his guards hold a hill inside it. Pull his guards first."] = "",
 
-	-- Step 22: The Zoram Strand
+	-- Step 22: Maestra's Post
+	-- {npc:3663} Delgren the Purifier · {zone:1440} Ashenvale
+	["{npc:3663}: its circles are for your next {zone:1440} visit, at about 28"] = "{npc:3663}：法陣留到下次來{zone:1440}時處理，約28級",
+
+	-- Step 23: The Zoram Strand
 	-- {area:414} Zoram Strand · {npc:3846} Talen
 	["Follow the coast north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "沿海岸向北前往{area:414}。{npc:3846}在海灘上紮營；怒尾納迦遍布海岸。",
 	-- {item:5424} Ancient Statuette
@@ -100,11 +104,11 @@ return {
 	-- {item:5490} Wrathtail Head
 	["{item:5490}: any Wrathtail naga on the strand"] = "{item:5490}：岸邊的任意怒尾納迦",
 
-	-- Step 24: Ruuzel
+	-- Step 25: Ruuzel
 	-- {quest:1009} Ruuzel · {area:414} Zoram Strand
 	["{quest:1009} walks the northern tip of the {area:414} with Wrathtail guards."] = "{quest:1009}帶著怒尾守衛在{area:414}的北端走動。",
 
-	-- Step 25: Blackfathom Deeps
+	-- Step 26: Blackfathom Deeps
 	-- {area:2797} Blackfathom Deeps · {npc:4787} Argent Guard Thaelrid · {zone:1457} Darnassus
 	-- plural, as words: Corrupted Brain Stems = {item:5952} Corrupted Brain Stem
 	["{area:2797} is a dungeon for a group of five, about levels 22 to 30, and a full run takes about an hour. The way in is the sunken ruins at the north end of the strand: go down the stairs into the pit, swim through the tunnels under the wall, past the blue crystals, to the portal.\nInside: the naga and the satyrs drop the Corrupted Brain Stems for Gershala. {npc:4787}, by a campfire in an underwater side room off Ghamoo-ra's room, has a quest for {zone:1457}, which this route leaves to the Dungeons page."] = "{area:2797}是五人地城，約22到30級，完整打一次約需一小時。入口是海灘北端的沉沒廢墟：走下樓梯進入深坑，游過牆下的隧道，經過藍色水晶，到達傳送門。\n裡面：納迦和薩特會掉落給葛沙拉的腐化的腦幹。{npc:4787}在迦莫拉房間旁一間水下側室的營火邊，有一個前往{zone:1457}的任務，本路線把它留給地城頁面。",
@@ -112,13 +116,9 @@ return {
 	-- plural, as words: Corrupted Brain Stems = {item:5952} Corrupted Brain Stem
 	["{quest:1275}: Corrupted Brain Stems"] = "{quest:1275}：腐化的腦幹",
 
-	-- Step 27: Maestra's Post
-	-- {npc:3663} Delgren the Purifier · {zone:1440} Ashenvale
-	["{npc:3663}: its circles are for your next {zone:1440} visit, at about 28"] = "{npc:3663}：法陣留到下次來{zone:1440}時處理，約28級",
-
 	-- Step 28: Astranaar
-	-- {area:413} Maestra's Post · {area:415} Astranaar · {npc:3845} Shindrell Swiftfire
-	["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} stands by the flight master."] = "沿路從{area:413}向東南返回{area:415}：{npc:3845}站在飛行管理員旁。",
+	-- {area:415} Astranaar · {area:414} Zoram Strand · {npc:3845} Shindrell Swiftfire
+	["Hearth to {area:415}, where your hearthstone is bound, or follow the road east from the {area:414}: {npc:3845} stands by the flight master."] = "",
 
 	-- Step 29: Fly to Auberdine
 	-- {area:442} Auberdine
@@ -307,11 +307,13 @@ return {
 	-- ["Fen Creepers"] = "沼澤爬行者",
 	-- ["Fen Creepers hide in the marsh pools north-west of the {area:1025}."] = "沼澤爬行者躲在{area:1025}西北方的沼澤水池中。",
 	-- ["Follow the road north to {area:205}, at the foot of the {area:881}. {npc:1071} stands in the dwarves' camp."] = "沿道路向北前往{area:881}山腳下的{area:205}。{npc:1071}站在矮人營地裡。",
+	-- ["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} stands by the flight master."] = "沿路從{area:413}向東南返回{area:415}：{npc:3845}站在飛行管理員旁。",
 	-- ["Follow the road south-east to {area:415}, on the island in the lake."] = "沿道路向東南前往湖中島上的{area:415}。",
 	-- ["For Bolvar Fordragon in {object:2117}: keep it"] = "給{object:2117}的伯瓦爾·弗塔根公爵：先留著",
 	-- ["For the giant crocolisks of the north coast, on your next visit"] = "北海岸的巨型鱷魚，下次來時再打",
 	-- ["For {npc:2228} in {area:271}: keep it"] = "給{area:271}的{npc:2228}：先留著",
 	-- ["From {area:17203} take the boat to {area:442}; {npc:3649} stands at the north end of the village. Then ride south along the road through {zone:1439}."] = "從{area:17203}搭船到{area:442}；{npc:3649}站在村子北端。然後沿道路向南騎過{zone:1439}。",
+	-- ["From {area:415} head south-west to the {area:412} south of the shrine: {npc:3664} and his voidwalkers hold them. Pull his guards first."] = "從{area:415}向西南到神龕以南的{area:412}：{npc:3664}和他的虛空行者佔著那裡。先把他的守衛拉出來。",
 	-- ["Hearth to Menethil"] = "用爐石回到米奈希爾港",
 	-- ["Hearthstone on cooldown? Ride back north through the {area:1276}."] = "爐石在冷卻中？向北騎回去穿過{area:1276}。",
 	-- ["Kerlonian sleeps at the {area:448} in southern {zone:1439}. Use the {item:13536} to wake him and lead him south along the road into {zone:1440} to {npc:11219} at {area:413}; blow the horn again whenever he falls asleep."] = "克羅尼亞·恒影睡在{zone:1439}南部的{area:448}。使用{item:13536}叫醒他，沿道路向南帶他進入{zone:1440}，到{area:413}找{npc:11219}；每當他睡著就再吹一次號角。",

@@ -173,8 +173,12 @@ step Astranaar
 # ---------------------------------------------------------------- West: Ilkrud and the Zoram Strand
 
 step Ilkrud Magthrull
-  tip From Astranaar head south-west to the Ruins of Ordil'Aran south of the shrine: Ilkrud and his voidwalkers hold them. Pull his guards first.
+  tip From Astranaar head south-west to the Fire Scar Shrine and go in from the east side: Ilkrud and his guards hold a hill inside it. Pull his guards first.
   collect 5533 quest 973                  -- Ilkrud Magthrull's Tome
+
+step Maestra's Post
+  turnin 973                              -- Delgren the Purifier
+  accept 1140                             -- Delgren the Purifier: its circles are for your next Ashenvale visit, at about 28
 
 step The Zoram Strand
   zone Ashenvale
@@ -203,12 +207,8 @@ step Blackfathom Deeps
 step Talen
   turnin 1009
 
-step Maestra's Post
-  turnin 973                              -- Delgren the Purifier
-  accept 1140                             -- Delgren the Purifier: its circles are for your next Ashenvale visit, at about 28
-
 step Astranaar
-  tip Follow the road south-east from Maestra's Post back to Astranaar: Shindrell Swiftfire stands by the flight master.
+  tip Hearth to Astranaar, where your hearthstone is bound, or follow the road east from the Zoram Strand: Shindrell Swiftfire stands by the flight master.
   turnin 1008                         -- Shindrell Swiftfire
 
 # ---------------------------------------------------------------- Menethil Harbor

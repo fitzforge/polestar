@@ -89,10 +89,14 @@ return {
 	["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "Auf der Straße von {npc:3916} zurück nach Westen liegt {area:415} auf dem Weg zu {npc:3664}: {npc:3894} ist im Gebäude hinter dem Gasthaus.",
 
 	-- Step 21: Ilkrud Magthrull
-	-- {area:415} Astranaar · {area:412} Ruins of Ordil'Aran · {npc:3664} Ilkrud Magthrull
-	["From {area:415} head south-west to the {area:412} south of the shrine: {npc:3664} and his voidwalkers hold them. Pull his guards first."] = "Geh von {area:415} nach Südwesten zu den {area:412} südlich des Schreins: {npc:3664} und seine Leerwandler halten sie. Zieh zuerst seine Wachen.",
+	-- {area:415} Astranaar · {area:417} Fire Scar Shrine · {npc:3664} Ilkrud Magthrull
+	["From {area:415} head south-west to the {area:417} and go in from the east side: {npc:3664} and his guards hold a hill inside it. Pull his guards first."] = "",
 
-	-- Step 22: The Zoram Strand
+	-- Step 22: Maestra's Post
+	-- {npc:3663} Delgren the Purifier · {zone:1440} Ashenvale
+	["{npc:3663}: its circles are for your next {zone:1440} visit, at about 28"] = "{npc:3663}: Seine Kreise sind für deinen nächsten Besuch im {zone:1440}, bei etwa Stufe 28",
+
+	-- Step 23: The Zoram Strand
 	-- {area:414} Zoram Strand · {npc:3846} Talen
 	["Follow the coast north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "Folge der Küste nach Norden zum {area:414}. {npc:3846} lagert am Strand; Naga der Rächerflossen bevölkern das Ufer.",
 	-- {item:5424} Ancient Statuette
@@ -100,11 +104,11 @@ return {
 	-- {item:5490} Wrathtail Head
 	["{item:5490}: any Wrathtail naga on the strand"] = "{item:5490}: jeder Wrathtail-Naga am Strand",
 
-	-- Step 24: Ruuzel
+	-- Step 25: Ruuzel
 	-- {quest:1009} Ruuzel · {area:414} Zoram Strand
 	["{quest:1009} walks the northern tip of the {area:414} with Wrathtail guards."] = "{quest:1009} streift mit Wachen der Rächerflossen über die Nordspitze des {area:414}s.",
 
-	-- Step 25: Blackfathom Deeps
+	-- Step 26: Blackfathom Deeps
 	-- {area:2797} Blackfathom Deeps · {npc:4787} Argent Guard Thaelrid · {zone:1457} Darnassus
 	-- plural, as words: Corrupted Brain Stems = {item:5952} Corrupted Brain Stem
 	["{area:2797} is a dungeon for a group of five, about levels 22 to 30, and a full run takes about an hour. The way in is the sunken ruins at the north end of the strand: go down the stairs into the pit, swim through the tunnels under the wall, past the blue crystals, to the portal.\nInside: the naga and the satyrs drop the Corrupted Brain Stems for Gershala. {npc:4787}, by a campfire in an underwater side room off Ghamoo-ra's room, has a quest for {zone:1457}, which this route leaves to the Dungeons page."] = "{area:2797} ist ein Dungeon für eine Gruppe aus fünf Spielern, etwa Stufe 22 bis 30; ein kompletter Run dauert etwa eine Stunde. Der Weg hinein führt durch die versunkenen Ruinen am Nordende des Strands: Steig die Treppe in die Grube hinab und schwimm durch die Tunnel unter der Mauer, an den blauen Kristallen vorbei, zum Portal.\nDrinnen: Die Naga und Satyrn lassen die Corrupted Brain Stems für Gershala fallen. {npc:4787} hat an einem Lagerfeuer in einem Unterwasser-Nebenraum von Ghamoo-ras Raum eine Quest für {zone:1457}, die diese Route der Seite „Dungeons“ überlässt.",
@@ -112,13 +116,9 @@ return {
 	-- plural, as words: Corrupted Brain Stems = {item:5952} Corrupted Brain Stem
 	["{quest:1275}: Corrupted Brain Stems"] = "{quest:1275}: Corrupted Brain Stems",
 
-	-- Step 27: Maestra's Post
-	-- {npc:3663} Delgren the Purifier · {zone:1440} Ashenvale
-	["{npc:3663}: its circles are for your next {zone:1440} visit, at about 28"] = "{npc:3663}: Seine Kreise sind für deinen nächsten Besuch im {zone:1440}, bei etwa Stufe 28",
-
 	-- Step 28: Astranaar
-	-- {area:413} Maestra's Post · {area:415} Astranaar · {npc:3845} Shindrell Swiftfire
-	["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} stands by the flight master."] = "Folge der Straße südöstlich von {area:413} zurück nach {area:415}: {npc:3845} steht beim Flugmeister.",
+	-- {area:415} Astranaar · {area:414} Zoram Strand · {npc:3845} Shindrell Swiftfire
+	["Hearth to {area:415}, where your hearthstone is bound, or follow the road east from the {area:414}: {npc:3845} stands by the flight master."] = "",
 
 	-- Step 29: Fly to Auberdine
 	-- {area:442} Auberdine
@@ -309,12 +309,14 @@ return {
 	-- ["Fen Creepers hide in the marsh pools north-west of the {area:1025}."] = "Moorkrabbler verstecken sich in den Sumpftümpeln nordwestlich von {area:1025}.",
 	-- ["Follow the road east. Young Wetlands Crocolisks lurk in the pools north of the excavation site."] = "Folge der Straße nach Osten. Junge Sumpflandkrokilisken lauern in den Tümpeln nördlich der Ausgrabungsstätte.",
 	-- ["Follow the road north to {area:205}, at the foot of the {area:881}. {npc:1071} stands in the dwarves' camp."] = "Folge der Straße nach Norden nach {area:205}, am Fuß von {area:881}. {npc:1071} steht im Lager der Zwerge.",
+	-- ["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} stands by the flight master."] = "Folge der Straße südöstlich von {area:413} zurück nach {area:415}: {npc:3845} steht beim Flugmeister.",
 	-- ["Follow the road south-east to {area:415}, on the island in the lake."] = "Folge der Straße nach Südosten nach {area:415}, auf der Insel im See.",
 	-- ["For Bolvar Fordragon in {object:2117}: keep it"] = "Für Bolvar Fordragon in {object:2117}: behalte sie",
 	-- ["For the giant crocolisks of the north coast, on your next visit"] = "Für die Riesigen Sumpflandkrokilisken der Nordküste, bei deinem nächsten Besuch",
 	-- ["For {npc:2228} in {area:271}: keep it"] = "Für {npc:2228} in {area:271}: behalte es",
 	-- ["From {area:17203} take the boat to {area:442}; {npc:3649} stands at the north end of the village. Then head south along the road through {zone:1439}."] = "Nimm von {area:17203} das Schiff nach {area:442}; {npc:3649} steht am Nordende des Dorfes. Geh dann südlich der Straße durch {zone:1439}.",
 	-- ["From {area:17203} take the boat to {area:442}; {npc:3649} stands at the north end of the village. Then ride south along the road through {zone:1439}."] = "Nimm vom {area:17203} das Schiff nach {area:442}; {npc:3649} steht am Nordende des Dorfes. Reite dann auf der Straße nach Süden durch {zone:1439}.",
+	-- ["From {area:415} head south-west to the {area:412} south of the shrine: {npc:3664} and his voidwalkers hold them. Pull his guards first."] = "Geh von {area:415} nach Südwesten zu den {area:412} südlich des Schreins: {npc:3664} und seine Leerwandler halten sie. Zieh zuerst seine Wachen.",
 	-- ["Head east along the {zone:1437} road, south through {area:836} into {zone:1432} and west through the tunnel into {zone:1426} to {area:1537}."] = "Geh entlang der Straße von {zone:1437} nach Osten, südlich durch {area:836} nach {zone:1432} und westlich durch den Tunnel nach {zone:1426} zu {area:1537}.",
 	-- ["Head south past {area:421} into the {area:1276} tunnel; it comes out in Stonetalon's {area:461}. {npc:4080} and {npc:4077} camp on the {area:1076} south-west of the crag."] = "Geh nach Süden am {area:421} vorbei in den Tunnel {area:1276}; er kommt in Steinkrallengebirges {area:461} heraus. {npc:4080} und {npc:4077} lagern auf dem {area:1076} südwestlich des Felsens.",
 	-- ["Hearth to Menethil"] = "Ruhestein nach Menethil",
