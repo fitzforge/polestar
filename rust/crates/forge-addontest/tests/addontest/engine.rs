@@ -2981,3 +2981,58 @@ emit(r)
 	assert_eq!(out["belgrom"], "", "no Horde guide takes Belgrom's letter (3504): {out}");
 	assert_eq!(out["agtor"], true, "50-60/04-azshara takes Betrayed (3505) from Ag'tor Bloodfist: {out}");
 }
+
+// #2681 and #2683 (roethlar and Fibrasek, Scourge Paladins 24 and 27, 0.4.0.1, Horde 02-the-barrens at Camp
+// Taurajo): "Turn in Ishamuhale" showed done with Ishamuhale (882) still in the log at 0/1, and the step went on to
+// Enraged Thunder Lizards (907), which Jorn Skyseer doesn't offer before Ishamuhale is handed in. The quest
+// database lists Melor Sends Word (1130, from Jorn, from level 20) as needing 882, so a character carrying 1130 made
+// 882 look handed in (#2461's rule); players' recordings show Jorn offering 1130 without 882. A quest still in the
+// log is never handed in, whatever its later chain says: the game takes it out of the log at the hand-in.
+const ISHAMUHALE: &str = r#"
+Polestar.RegisterGuide({ id = "test/barrens", pack = "test", title = "The Barrens", faction = "Horde", minLevel = 14, maxLevel = 30, zone = 1411, steps = {
+	{ title = "Camp Taurajo", goals = {
+		{ t = "turnin", quest = 882, title = "Ishamuhale", npc = 3387, npcName = "Jorn Skyseer", map = 1411, x = 44.9, y = 59.1 },
+		{ t = "accept", quest = 907, title = "Enraged Thunder Lizards", npc = 3387, npcName = "Jorn Skyseer", map = 1411, x = 44.9, y = 59.1 },
+	} },
+	{ goals = { { t = "level", level = 60 } } },
+} })
+"#;
+
+// Layout as BETRAYED_DB's: 1130's one-of `pre` is 882, as in 0.4.0.1's quest database.
+const ISHAMUHALE_DB: &str = r#"
+Polestar.QuestDB.SetMeta({ schema = 2 })
+AddRecords("quests", {
+	[882] = { "Ishamuhale", 19, 10, 178, nil, 2, nil, nil, nil, { 3261 } },
+	[907] = { "Enraged Thunder Lizards", 18, 10, 178, nil, 2, nil, nil, nil, { 882 } },
+	[1130] = { "Melor Sends Word", 30, 20, 178, nil, 2, nil, nil, nil, { 882 } },
+})
+"#;
+
+#[test]
+fn a_quest_still_in_the_log_is_not_handed_in_whatever_its_later_chain_says_2681_ishamuhale() {
+	let at = |world: &str| {
+		let script = format!(
+			r#"
+			{}
+			{ISHAMUHALE_DB}
+			{world}
+			stub.fire("QUEST_LOG_UPDATE"); E.SetGuide("test/barrens"); flush()
+			local v = E.GetStepView(1)
+			emit({{ index = E.GetStepIndex(), turnin = v.goals[1].status, accept = v.goals[2].status }})"#,
+			forge_addontest::questdb::ADD_RECORDS_LUA
+		);
+		run1(Run {
+			guides: ISHAMUHALE,
+			before: r#"w.race, w.raceName, w.faction, w.class, w.className, w.level = "Scourge", "Undead", "Horde", "PALADIN", "Paladin", 24"#,
+			full: true,
+			script: &script,
+			..Default::default()
+		})
+	};
+	let carrying = at("w.onQuest(882, { { required = 1, fulfilled = 0 } }); w.onQuest(1130, {})");
+	assert_eq!(carrying["index"], 1, "the guide stays at Camp Taurajo: {carrying}");
+	assert_ne!(carrying["turnin"], "done", "Ishamuhale at 0/1 in the log is not handed in, 1130 in the log or not: {carrying}");
+	let alone = at("w.onQuest(882, { { required = 1, fulfilled = 0 } })");
+	assert_eq!(carrying, alone, "1130 in the log changes nothing while 882 is in it");
+	assert_eq!(at("w.onQuest(1130, {}); w.onQuest(907, { { required = 3, fulfilled = 0 } })")["turnin"], "done", "with 882 out of the log and 907 taken, #2461's rule still counts it handed in");
+}

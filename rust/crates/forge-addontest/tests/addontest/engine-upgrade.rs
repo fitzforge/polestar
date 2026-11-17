@@ -196,6 +196,42 @@ fn a_carried_quest_whose_work_the_update_put_behind_them_is_still_to_do_when_its
 	assert_eq!(behind["step"], 2, "{behind}");
 }
 
+// #2682 and #2595 (0.3.7 -> 0.4.0, Horde Ashenvale & Thousand Needles): 0.4.0 moved Between a Rock and a
+// Thistlefur's and Troll Charm's work into new Thistlefur steps and their hand-ins onto the Zoram'gar stop the
+// player was at. The update passed the work behind them (Still to do), and the live goal was the hand-in of a
+// quest at 0/2, the arrow on Karang 800 yd off: "it says to turn in … but I have not completed that quest". Before a
+// hand-in that is not ready, the arrow leads to the quest's work the update left behind, as its Still to do row's
+// click does (Engine.AimBehind); the hand-in stays the step's goal.
+#[test]
+fn the_arrow_leads_to_a_carried_quest_s_work_an_update_put_behind_the_player_before_its_hand_in_on_the_live_step() {
+	let guide = GUIDE
+		.replace(BEHIND_GUIDE_FROM, r#"{ title = "New behind", goals = { a(108, 40), { t = "kill", target = "Wolf", npc = 299, count = 5, quest = 108, oi = 1, map = M, x = 49, y = 30 } } },"#)
+		.replace(r#"{ title = "Hand in 103", goals = { t(103) } },"#, r#"{ title = "Hand in 103", goals = { t(108, 70), t(103) } },"#);
+	// The save's "Hand in 103" step (turnin:103) changed: the earlier release's goals of it, as Core/LegacySteps.lua
+	// lists them for a real guide.
+	let script = SCRIPT.replace(r#"[h("accept:102")] = "accept:102""#, r#"[h("accept:102")] = "accept:102", [h("turnin:103")] = "turnin:103""#);
+	assert_ne!(script, SCRIPT, "the legacy steps took the changed step");
+	let run = |progress: u32| {
+		emitted(&RunAddon {
+			stubs: vec!["stub_world.lua"],
+			before: format!("{WORLD}\nstub.world.onQuest(108, {{ {{ required = 5, fulfilled = {progress} }} }}, \"Quest 108\")"),
+			addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+			saved: vec![("Polestar".to_string(), saved(""))],
+			login: false,
+			script: format!(
+				"{TEST_PACK}\n{TEST_SOURCE}\n{guide}\n{script}\nlocal p = E.GetWaypoint()\nlocal b = E.GetBehind()[1]\nemit({{ goal = E.GetStepView(8).goals[1].status, x = p and p.x or false, y = p and p.y or false, behind = b and b.quest or false }})"
+			),
+		})
+		.remove(1)
+	};
+	let open = run(1);
+	assert_eq!(open["behind"], 108, "108's kill is still to do: {open}");
+	assert_eq!(open["goal"], "active", "the hand-in stays the step's goal: {open}");
+	assert_eq!(json!([open["x"], open["y"]]), json!([49, 30]), "the arrow leads to the wolves, not to 108's hand-in: {open}");
+	let ready = run(5);
+	assert_eq!(json!([ready["x"], ready["y"]]), json!([70, 50]), "once 108 is ready, the arrow leads to its hand-in: {ready}");
+}
+
 #[test]
 fn an_error_in_the_update_s_mapping_falls_back_to_the_plain_restore_with_one_debug_line_and_runs_once() {
 	let out = emitted(&RunAddon {

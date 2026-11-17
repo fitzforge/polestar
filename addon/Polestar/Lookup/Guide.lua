@@ -775,7 +775,22 @@ local function questStep(q, from, isTarget, opts)
 	return step
 end
 
--- Steps for a quest and its unfinished prerequisites. -> steps | nil, reason
+-- The item quest q starts from, for a character who has neither it nor the
+-- quest: a collect goal at the nearest spawn of its best source (itemSpot,
+-- itemFrom), so the guide goes where it drops before the accept from it. #2677
+-- (Ursangous's Paw, from Ursangous in Ashenvale): the step said only "Accept
+-- Ursangous's Paw", with no place and no arrow. nil when nothing places it.
+local function startItemGoal(q, from)
+	local K = ns.Compat
+	local item = q.start and q.start.item and q.start.item[1]
+	if not item or K.IsOnQuest(q.id) or (K.GetItemCount(item, true) or 0) > 0 then return nil end
+	local s, _, spawns, dropper = itemSpot(item, from)
+	if not s then return nil end
+	return spawnSpots(at(itemFrom({ t = "collect", item = item, itemName = itemName(item), count = 1, group = eliteGroup(dropper) }, item), s), spawns)
+end
+
+-- Steps for a quest and its unfinished prerequisites; a quest started from an
+-- item gets that item first (startItemGoal). -> steps | nil, reason
 local function questSteps(questId, player, from)
 	local C = Codex()
 	if not C.Quest(questId) then return nil, "unknown" end
@@ -784,6 +799,9 @@ local function questSteps(questId, player, from)
 	for i, q in ipairs(chain) do
 		local step, err = questStep(q, from, q.id == questId)
 		if not step then return nil, err end
+		local first = step.goals[1]
+		local get = first and first.t == "accept" and first.item and startItemGoal(q, from)
+		if get then table.insert(step.goals, 1, get) end
 		steps[#steps + 1] = step
 	end
 	return steps

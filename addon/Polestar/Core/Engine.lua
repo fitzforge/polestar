@@ -200,15 +200,21 @@ end
 
 -- The later quest of q's chain (Own.laterOf) that is in the log or done, or
 -- nil. Read once per quest while the quest log and the database stay as they
--- are (Own.logStamp: bumped by every quest event; no table per ask).
+-- are (Own.logStamp: bumped by every quest event; no table per ask). Never
+-- while q itself is in the log: the game takes a quest out of the log when it
+-- is handed in, so whatever the database says follows it, q is still to do
+-- (Melor Sends Word, offered without Ishamuhale but listed as following it,
+-- made Ishamuhale look handed in at 0/1, #2681).
 Own.logStamp, Own.pastGen, Own.pastVal = 0, {}, {}
 function Own.chainPast(q)
 	local Q = ns.QuestDB
 	if not (Q and Q.IsLoaded and Q.IsLoaded()) then return nil end
+	local C = Compat()
+	if C.IsOnQuest(q) then return nil end
 	local ids, stamp = Q.QuestIds(), Own.logStamp
 	if Own.pastIds ~= ids then Own.pastIds, Own.pastGen, Own.pastVal = ids, {}, {} end
 	if Own.pastGen[q] == stamp then return Own.pastVal[q] or nil end
-	local C, found = Compat(), false
+	local found = false
 	for _, s in ipairs(Own.laterOf(q)) do
 		if turnedIn[s] or C.IsOnQuest(s) or C.IsQuestCompleted(s) then
 			found = s
@@ -6054,6 +6060,21 @@ function Own.alongAim(q)
 	return best
 end
 
+-- The arrow's place for a turn-in of quest q that is not ready while an update
+-- left its work behind the player (Own.passAdded, Engine.GetBehind): that
+-- work's first open goal, where its "Still to do" row's click leads
+-- (Engine.AimBehind). #2682, #2595: 0.4.0 moved Thistlefur's quests into new
+-- Ashenvale steps behind players who carried them, and their hand-ins onto the
+-- Zoram'gar stop they were at, so the arrow led to Karang for a quest at 0/2.
+-- Nil when none has a place.
+function Own.behindAim(q)
+	if not q or Compat().IsQuestReadyForTurnIn(q) then return nil end
+	for _, e in ipairs(Engine.GetBehind()) do
+		if e.quest == q then return waypointOf(e.goal, guide.steps[e.step].goals[e.goal], nil, e.step) end
+	end
+	return nil
+end
+
 -- While the window asks about a quest that left the log (Engine.LostQuestion),
 -- the arrow leads back to its giver, where Go back for it takes the route
 -- (#1365): its first accept the character can take before the step the hold
@@ -6119,7 +6140,8 @@ end
 -- guide of the other faction (Engine.OtherFaction, #2462: its towns are the
 -- enemy's). An along goal the player
 -- chose (Engine.AimAlong) leads while it is listed and open; so does, before
--- a turn-in that is not ready, its quest's work in along steps (Own.alongAim);
+-- a turn-in that is not ready, its quest's work in along steps (Own.alongAim)
+-- or the work an update left behind the player (Own.behindAim);
 -- so does the "While you're here" line the player clicked (Engine.AimWhileHere),
 -- while it shows. On the live step, a quest that left the log and waits for
 -- the player's answer leads back to its giver (Own.lostAim), whose accept the
@@ -6155,7 +6177,7 @@ local function findWaypoint()
 	if not grp then return current == computed and Own.failedAim(current) or nil end
 	local cg, header = Own.currentGoal(current, groups, focus)
 	if cg and goals[cg].t == "turnin" then
-		local wp = Own.alongAim(goals[cg].quest)
+		local wp = Own.alongAim(goals[cg].quest) or Own.behindAim(goals[cg].quest)
 		if wp then return wp end
 	end
 	local wp = cg and waypointOf(cg, goals[cg])
