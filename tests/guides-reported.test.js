@@ -15469,3 +15469,43 @@ test('#2563: Wetlands (Alliance): Fall of Dun Modr is taken on its own step, onl
 	const hills = goals('forever/alliance/30-40/01-hillsbrad-foothills.guide');
 	assert.ok(at(hills, 'turnin 472', is('turnin', 472)) >= 0, 'Longbraid still takes it on the Dun Modr stop');
 });
+
+// Item-started quests whose item comes from an earlier step (the "lost item" persona sweep, 0.4.1): a player who
+// skipped that step, or lost or sold the item, was held at an accept nothing at that place can start. The accept is
+// a step of its own, shown only with the item in the bags; the quest's later goals there need it, so they drop out by
+// its prerequisite. The accept uses the item up, so nothing follows it in its step.
+for (const [guide, quest, item] of [
+	['forever/collectibles/pets/mechanical-chicken.guide', 2766, 8705],
+	['forever/collectibles/pets/mechanical-chicken.guide', 351, 8623],
+	['forever/collectibles/pets/mechanical-chicken.guide', 485, 8704],
+	['forever/reputation/stormwind.guide', 91741, 247834],
+]) {
+	test(`${guide}: the item-started accept of ${quest} shows only with item ${item} in the bags`, { skip }, () => {
+		const { steps } = compiled(guide);
+		const at = steps.filter((st) => st.goals.some(is('accept', quest)));
+		assert.equal(at.length, 1, `one accept of ${quest}`);
+		const [st] = at;
+		assert.ok((st.when || []).some((p) => p.k === 'has' && !p.neg && p.item === item), `"${st.title}" shows only with item ${item}`);
+		assert.deepEqual(st.goals.map((g) => `${g.t} ${g.quest}`), [`accept ${quest}`], `"${st.title}" holds only the accept`);
+		const rest = steps.find((s) => s !== st && s.goals.some(is('turnin', quest)));
+		assert.ok(rest && !(rest.when || []).some((p) => p.k === 'has'), `${quest}'s hand-in step needs no item gate: it needs the accept`);
+	});
+}
+// Companion pets from a quest (0.4.1 persona sweep): a player who did the quest before the guide, or used the cage
+// right after the hand-in, was held at "Collect <pet>". The hand-in step shows only while the quest is not handed in;
+// the Mechanical Chicken's only with the three rescues handed in, since An OOX of Your Own needs them.
+for (const [guide, quest, pet, needs] of [
+	['forever/collectibles/pets/mechanical-chicken.guide', 3721, 10398, [2767, 648, 836]],
+	['forever/collectibles/pets/smolderweb-carrier.guide', 4862, 12529, []],
+	['forever/collectibles/pets/worg-carrier.guide', 4729, 12264, []],
+	['forever/collectibles/pets/spectral-bear-cub.guide', 96383, 277714, []],
+]) {
+	test(`${guide}: the pet's step shows only while ${quest} is still to hand in`, { skip }, () => {
+		const { steps } = compiled(guide);
+		const st = steps.find((s) => s.goals.some((g) => g.t === 'collect' && g.item === pet));
+		assert.ok(st && st.goals.some(is('turnin', quest)), 'the pet is collected on its quest\'s hand-in step');
+		const when = st.when || [];
+		assert.ok(when.some((p) => p.k === 'turnedin' && p.neg && [].concat(p.q).includes(quest)), `only while ${quest} is not handed in`);
+		for (const q of needs) assert.ok(when.some((p) => p.k === 'turnedin' && !p.neg && [].concat(p.q).includes(q)), `and only once ${q} is`);
+	});
+}
