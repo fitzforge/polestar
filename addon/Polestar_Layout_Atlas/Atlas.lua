@@ -2283,6 +2283,9 @@ on("guideShows", function(what, shown)
 	-- The game looks' quest tracker band behind the title: Atlas's title has
 	-- its own line under it (underline), the band's rods ran across the rail.
 	if what == "kitHeader" then return false end
+	-- A look's ornament in the window's top right corner (Waymark's compass
+	-- rose): the step's place stands there, its muted text over the art.
+	if what == "ornament" then return false end
 	if what == "upnextHead" then return not onRail() or not Core.setting("ui.upcomingOpen") end
 	return shown
 end)

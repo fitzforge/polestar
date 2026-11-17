@@ -1637,7 +1637,9 @@ GF.Part(function(GF)
 	-- its own way, guideProgress), "markWash" (the arrow's target row marked
 	-- by its light alone in every look, the bar only in the transparent style,
 	-- default off: GF.PaintMark), "kitHeader" (the game look's band behind the
-	-- step's title, Theme.KitHeader, default on).
+	-- step's title, Theme.KitHeader, default on), "ornament" (a look's art in
+	-- the guide window's top right corner, Waymark's compass rose, asked by the
+	-- look itself through Theme.SkinHookValue; default on).
 	function GF.Shows(name, default, ...)
 		local ran, v = GF.HookValue("guideShows", name, default, ...)
 		if ran and type(v) == "boolean" then return v end
