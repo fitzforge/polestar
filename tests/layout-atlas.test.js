@@ -1236,3 +1236,52 @@ emit({ names = names, layout = Polestar.Theme.LayoutId() or false })`,
 	assert.deepEqual(out.names, ['Polestar', 'Atlas (Beta)'], JSON.stringify(out));
 	assert.equal(out.layout, 'atlas');
 });
+
+// Install's look preview under Atlas: one picture drawn again in look after
+// look (the pointer over the looks) shows the last look alone, as a fresh
+// picture of it does: no paper, corners or glare of a look drawn before.
+test("under Atlas a look's card drawn again shows that look alone", () => {
+	const toc = require('node:fs').readFileSync(path.join(ADDONS, 'Polestar_Layout_Atlas', 'Polestar_Layout_Atlas.toc'), 'utf8');
+	const fields = [...toc.matchAll(/^## (X-[\w-]+):\s*(.*?)\s*$/gm)].map((m) => `[${JSON.stringify(m[1])}] = ${JSON.stringify(m[2])}`);
+	const [out] = runAddon({
+		stubs: ['stub_world.lua'],
+		addons: ['Polestar', 'Polestar_Options', 'Polestar_Layout_Atlas', 'Polestar_Skin_Vellum', 'Polestar_Skin_Lumen', 'Polestar_Skin_Sheen', 'Polestar_Skin_Aurora'],
+		login: true,
+		script: `
+stub.addons = { { name = "Polestar", loaded = true }, { name = "Polestar_Layout_Atlas", loaded = true } }
+stub.addonMeta["Polestar_Layout_Atlas"] = { ${fields.join(', ')} }
+local T, UI = Polestar.Theme, Polestar.UI
+UI.Welcome.Show("look")
+stub.advance(0.5)
+local F = UI.Welcome.frame
+for _, c in ipairs(F.LayoutPick and F.LayoutPick.cards or {}) do
+	if c.psValue == "atlas" then c:GetScript("OnClick")(c, "LeftButton") end
+end
+local art = F.LookPage.Preview.Art
+-- The textures shown in the picture, by texture and colour.
+local function shown()
+	local out = {}
+	local function walk(f)
+		for _, r in ipairs({ f:GetRegions() }) do
+			if r:IsShown() and r.GetTexture then
+				local c = { r:GetVertexColor() }
+				out[#out + 1] = string.format("%s %.2f,%.2f,%.2f,%.2f", tostring(r:GetTexture()), c[1] or -1, c[2] or -1, c[3] or -1, c[4] or -1)
+			end
+		end
+		for _, c in ipairs({ f:GetChildren() }) do if c:IsShown() then walk(c) end end
+	end
+	walk(art)
+	table.sort(out)
+	return out
+end
+T.DrawSkinCard(art, "polestar")
+local fresh = shown()
+for _, id in ipairs({ "vellum", "lumen", "sheen", "aurora", "polestar" }) do T.DrawSkinCard(art, id) end
+emit({ layout = T.LayoutId() or false, fresh = fresh, again = shown() })`,
+	}).emitted;
+	assert.equal(out.layout, 'atlas');
+	assert.ok(out.fresh.length > 0);
+	const lingering = out.again.filter((t) => !out.fresh.includes(t));
+	assert.deepEqual(lingering, [], 'pieces of a look drawn before still show');
+	assert.deepEqual(out.again, out.fresh);
+});
