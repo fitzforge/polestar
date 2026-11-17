@@ -9843,7 +9843,13 @@ quests"; under an open `level` goal, `Engine.GrindHint(i)`'s "You're 31: the
 quests after this are level 32–35" (the levels of the next
 `Own.GRIND_NEXT` accepts) and "Worth doing near here" (this guide's quests the
 character can take now with their giver within `Own.GRIND_NEAR_YD` of the player, a catch-up detour
-included; a click shows the first one's step), before the dungeon line; and
+included; a click shows the first one's step), then, in a guide that is no
+leveling guide (a class, item or profession guide) waiting `LEVEL_BACK` (2)
+levels or more ahead, "Level with <leveling guide> meanwhile: this guide picks
+up at level N" (`GF.LevelBack`: the tab the class quest heads-up opened it
+from, else an open leveling guide's tab, else `Engine.StartingGuide()` for a
+new tab; a click shows that tab or opens it, the guide waiting keeps its own),
+before the dungeon line; and
 with `GF.OFF_ROUTE_NUDGE` (3) or more quests in the log off the route
 (`RoutePlan.OffRoute`, worked out when the step changes) a line that opens
 the quest room on them (`UI.ShowQuestRoom("offroute")`). The bug report adds
