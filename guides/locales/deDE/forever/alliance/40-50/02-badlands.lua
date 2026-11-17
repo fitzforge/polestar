@@ -9,7 +9,7 @@ return {
 	-- Step 2: Valley of Fangs
 	-- {npc:2817} Rigglefuzz
 	-- plural, as words: Blue Pearls = {item:4611} Blue Pearl
-	["{npc:2817}: Blue Pearls from Stranglethorn"] = "",
+	["{npc:2817}: Blue Pearls from Stranglethorn"] = "{npc:2817}: Blaue Perlen aus dem Schlingendorntal",
 	-- {npc:2817} Rigglefuzz
 	["{npc:2817}'s next quest pays no experience: skip it."] = "Die nächste Quest von {npc:2817} gibt keine Erfahrung: Überspring sie.",
 
@@ -34,7 +34,7 @@ return {
 
 	-- Step 8: Ironband's Excavation Site
 	-- {zone:1432} Loch Modan
-	["Ride north through the pass into {zone:1432} and east along the south shore to Ironband's camp."] = "",
+	["Ride north through the pass into {zone:1432} and east along the south shore to Ironband's camp."] = "Reite nach Norden durch den Pass ins {zone:1432} und am Südufer entlang nach Osten zu Ironbands Lager.",
 
 	-- Step 9: Into Badlands
 	-- {zone:1418} Badlands
@@ -46,7 +46,7 @@ return {
 
 	-- Step 11: The Uldaman dig
 	-- {area:1517} Uldaman · {zone:1418} Badlands
-	["Back through the pass: the Stonevault troggs dig outside {area:1517} at the {zone:1418}' northern edge. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "",
+	["Back through the pass: the Stonevault troggs dig outside {area:1517} at the {zone:1418}' northern edge. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "Zurück durch den Pass: Die Steingrufttroggs graben außerhalb von {area:1517} am Nordrand des {zone:1418}. Die geschnitzten Urnen und die magenta Pilzgruppen liegen in ihren Höhlen und Tunneln, außerhalb des Dungeons selbst.",
 	-- {item:8047} Magenta Fungus Cap
 	["{item:8047}; below ground"] = "{item:8047}; unter der Erde",
 	-- {object:2743} Carved Stone Urn
@@ -61,7 +61,7 @@ return {
 
 	-- Step 14: Thelsamar
 	-- {area:144} Thelsamar
-	["Ride west along the loch to {area:144}."] = "",
+	["Ride west along the loch to {area:144}."] = "Reite am See entlang nach Westen zu {area:144}.",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "{npc:1470}, unter der Erde",
 
@@ -73,7 +73,7 @@ return {
 
 	-- Step 16: Southshore
 	-- {npc:3980} Raleigh the Devout
-	["{npc:3980} preaches by the inn."] = "",
+	["{npc:3980} preaches by the inn."] = "{npc:3980} predigt beim Gasthaus.",
 	-- {npc:3980} Raleigh the Devout
 	["{npc:3980}, upstairs"] = "{npc:3980}, oben",
 	-- {area:796} Scarlet Monastery
@@ -100,7 +100,7 @@ return {
 
 	-- Step 21: Aerie Peak
 	-- {npc:5636} Gryphon Master Talonaxe
-	["{npc:5636}, beside the flight master at the top; inside"] = "",
+	["{npc:5636}, beside the flight master at the top; inside"] = "{npc:5636}, oben neben dem Flugmeister; drinnen",
 	-- {zone:1425} The Hinterlands
 	["Talonaxe's next task waits for a later {zone:1425} guide."] = "Talonaxes nächste Aufgabe wartet auf einen späteren Guide für das {zone:1425}.",
 
@@ -132,7 +132,7 @@ return {
 	-- {quest:3631} Summon Felsteed
 	["Warlock: {quest:3631}"] = "Hexenmeister: {quest:3631}",
 	-- {zone:1413} Barrens · {area:392} Ratchet · {npc:6251} Strahad Farsan
-	["From Theramore, ride north into the {zone:1413} to {area:392}, or fly if you know its flight path. {npc:6251} teaches in the house by the bank."] = "",
+	["From Theramore, ride north into the {zone:1413} to {area:392}, or fly if you know its flight path. {npc:6251} teaches in the house by the bank."] = "Von Theramore reite nach Norden ins {zone:1413} nach {area:392}, oder fliege, wenn du seine Flugroute kennst. {npc:6251} lehrt im Haus bei der Bank.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Blue Pearls from Stranglethorn"] = "Blaue Perlen aus dem Schlingendorntal",

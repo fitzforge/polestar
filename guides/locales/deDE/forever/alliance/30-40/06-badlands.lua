@@ -41,9 +41,9 @@ return {
 	["{area:345}: kill these as you meet them"] = "{area:345}: Töte diese, wenn du ihnen begegnest",
 	-- {quest:739} Murdaloc · {spell:5242} Battle Shout · {spell:1160} Demoralizing Shout · {area:340} Kargath
 	-- plural, as words: Dustbelcher Lords = {npc:2719} Dustbelcher Lord
-	["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "",
+	["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "Die Oger der Staubbäuche lagern gleich südlich des Tals; jeder von ihnen lässt Schrott fallen. Bussarde kreisen über der Ebene im Osten.\\nDas zerschlagene Skelett liegt am Rand des Lagers der Steingrufttroggs; {quest:739}, Agmonds Mörder, läuft zwischen den Knochenknackern.\\nVorsicht: Die Lords der Staubbäuche sind Stufe 44-45. Sie benutzen {spell:5242} und {spell:1160}, und unter 50 % Leben rufen sie Verbündete innerhalb von 15 Metern zu Hilfe. Sieben von ihnen stehen etwa 750 Meter südlich von {area:340}.",
 	-- {quest:739} Murdaloc · {zone:1418} Badlands
-	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {zone:1418} guide at 43, and kill the Bonesnappers for this quest now."] = "",
+	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {zone:1418} guide at 43, and kill the Bonesnappers for this quest now."] = "{quest:739} selbst (42) läuft zwischen den Knochenknackern: Lass ihn für den späteren Guide für das {zone:1418} mit 43 und töte jetzt die Knochenknacker für diese Quest.",
 
 	-- Step 10: Lotwil Veriatus
 	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus
@@ -54,7 +54,7 @@ return {
 	["Lesser Rock Elementals"] = "Kleine Felselementare",
 	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus · {npc:1470} Ghak Healtouch
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard
-	["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}; every rock elemental can drop {npc:1470}'s Rock Elemental Shards."] = "",
+	["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}; every rock elemental can drop {npc:1470}'s Rock Elemental Shards."] = "Die Kleinen Felselementare streifen durch {area:1878} westlich von {npc:2921}; jedes Felselementar kann die Felselementar-Splitter von {npc:1470} fallen lassen.",
 
 	-- Step 13: The Ancient Chest
 	-- {object:126260} Ancient Chest
@@ -66,9 +66,9 @@ return {
 
 	-- Step 14: Valley of Fangs
 	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {area:345} Agmond's End
-	["Head south down the road: {npc:4618} and {npc:2817} camp in the {area:1877}, on the way to {area:345}."] = "",
+	["Head south down the road: {npc:4618} and {npc:2817} camp in the {area:1877}, on the way to {area:345}."] = "Geh die Straße nach Süden hinunter: {npc:4618} und {npc:2817} lagern im {area:1877}, auf dem Weg nach {area:345}.",
 	-- {npc:4454} Fizzle Brassbolts · {area:2240} Mirage Raceway · {zone:1446} Tanaris
-	["For {npc:4454} at the {area:2240}: the {zone:1446} guide passes him at 45, keep it"] = "",
+	["For {npc:4454} at the {area:2240}: the {zone:1446} guide passes him at 45, keep it"] = "Für {npc:4454} an der {area:2240}: Der Guide für {zone:1446} kommt mit 45 dort vorbei, behalte sie",
 
 	-- Step 15: Theldurin the Lost
 	-- {area:345} Agmond's End
@@ -86,15 +86,15 @@ return {
 	-- Step 17: Lotwil Veriatus
 	-- {npc:2921} Lotwil Veriatus · {item:4628} Bracers of Rock Binding
 	-- plural, as words: Greater Rock Elementals = {npc:2736} Greater Rock Elemental
-	["{npc:2921}'s last test is optional: five {item:4628}, which only the Greater Rock Elementals (42-44) in the south-western gulches drop, about one kill in five, well above your level. Take it only if you can handle them one at a time; otherwise hand in the slabs and move on."] = "",
+	["{npc:2921}'s last test is optional: five {item:4628}, which only the Greater Rock Elementals (42-44) in the south-western gulches drop, about one kill in five, well above your level. Take it only if you can handle them one at a time; otherwise hand in the slabs and move on."] = "{npc:2921}s letzter Test ist optional: fünf {item:4628}, die nur die Großen Felselementare (42-44) in den südwestlichen Schluchten fallen lassen, bei etwa jedem fünften Kill, deutlich über deinem Level. Nimm ihn nur, wenn du sie einzeln bewältigen kannst; gib sonst die Platten ab und zieh weiter.",
 
 	-- Step 18: Bracers of Rock Binding
 	-- plural, as words: Greater Rock Elementals = {npc:2736} Greater Rock Elemental
-	["South-west into the gulches: only the Greater Rock Elementals there drop the bracers."] = "",
+	["South-west into the gulches: only the Greater Rock Elementals there drop the bracers."] = "Südwestwärts in die Schluchten: Nur die Großen Felselementare dort lassen die Armschienen fallen.",
 
 	-- Step 20: Lucien Tosselwrench
 	-- {npc:2920} Lucien Tosselwrench · {npc:2921} Lotwil Veriatus · {item:2868} Patterned Bronze Bracers
-	["{npc:2920}, beside {npc:2921}, trades for {item:2868}, a blacksmith's craft: this step shows only when you carry a pair."] = "",
+	["{npc:2920}, beside {npc:2921}, trades for {item:2868}, a blacksmith's craft: this step shows only when you carry a pair."] = "{npc:2920}, neben {npc:2921}, tauscht gegen {item:2868}, ein von Schmieden hergestelltes Stück: Dieser Schritt erscheint nur, wenn du ein Paar dabeihast.",
 	-- {npc:2920} Lucien Tosselwrench · {npc:2921} Lotwil Veriatus
 	["{npc:2920}, beside {npc:2921}"] = "{npc:2920}, neben {npc:2921}",
 
@@ -104,7 +104,7 @@ return {
 
 	-- Step 22: Thelsamar
 	-- {npc:1470} Ghak Healtouch
-	["{npc:1470}, in the inn; below ground"] = "",
+	["{npc:1470}, in the inn; below ground"] = "{npc:1470}, im Gasthaus; unter der Erde",
 
 	-- Step 23: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
@@ -115,7 +115,7 @@ return {
 	-- Step 25: Theramore flight master
 	["Theramore flight master"] = "Flugmeister in Theramore",
 	-- {area:514} Foothold Citadel
-	["Off the boat, walk up the pier to Baldruc, the flight master by the gate of {area:514}."] = "",
+	["Off the boat, walk up the pier to Baldruc, the flight master by the gate of {area:514}."] = "Steig vom Boot und geh den Pier hinauf zu Baldruc, dem Flugmeister am Tor von {area:514}.",
 
 	-- Step 26: Nijel's Point
 	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort
@@ -140,14 +140,14 @@ return {
 
 	-- Step 31: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "",
+	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} wird im Zentaurenlager westlich des Friedhofs gefangen gehalten. Befrei sie und halte sie auf dem Weg hinaus am Leben; sie hält beim Friedhof an.\\nVorsicht: Die inszenierten Gruppen sind verknüpft und erscheinen nur während der Eskorte, sodass du sie weder im Voraus freikämpfen noch einzeln ziehen kannst. Es hilft, vor Beginn die normalen Zentauren auf dem Weg freizukämpfen.",
 	-- {npc:12277} Melizza Brimbuzzle
 	["escort {npc:12277} back toward the graveyard"] = "eskortiere {npc:12277} zurück zum Friedhof",
 
 	-- Step 32: Mannoroc Coven
 	-- {area:602} Mannoroc Coven · {zone:1443} Desolace
 	-- plural, as words: Mana Eaters = {npc:4678} Mana Eater · Ley Hunters = {npc:4685} Ley Hunter · Nether Maidens = {npc:4679} Nether Maiden · Doomwarder Captains = {npc:4680} Doomwarder Captain
-	["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "",
+	["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "Die Dämonen versammeln sich bei {area:602} im Süden von {zone:1443}: Teufelshunde (Manafresser, Magier- und Leyjäger), Nethermaiden und Netherschwestern und Captains der Verdammniswächter rund um die Grube.\\nVorsicht: Die meisten Gegner hier laufen Patrouillen, sodass du leicht zusätzliche Gegner anziehst.",
 
 	-- Step 33: The Valley of Bones
 	-- {area:2657} Valley of Bones
