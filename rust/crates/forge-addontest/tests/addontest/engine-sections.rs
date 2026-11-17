@@ -169,3 +169,47 @@ fn every_profession_guide_starts_at_the_range_the_skill_is_in_at_0_mid_way_and_n
 		}
 	}
 }
+
+#[test]
+fn resetting_guide_progress_clears_section_demand_memo_2611() {
+	let out = run(r#"
+		Polestar.RegisterGuide({
+			id = "test/cooking-when", pack = "test", title = "Cooking 1-50", category = "Professions", minLevel = 1, maxLevel = 60,
+			sections = {
+				{ skill = "Cooking", skillLine = 185, from = 1, to = 50 },
+			},
+			steps = {
+				{
+					title = "Elwynn: collect", section = 1, when = { { k = "zone", name = "Elwynn Forest" } },
+					goals = { { t = "collect", item = 6291, itemName = "Raw Brilliant Smallfish", count = 50 } },
+				},
+				{
+					title = "Elwynn: craft", section = 1, when = { { k = "zone", name = "Elwynn Forest" } },
+					goals = { { t = "craft", spell = 7751, spellName = "Brilliant Smallfish", item = 6888, itemName = "Brilliant Smallfish", skillLine = 185, untilSkill = 50, yellow = 45, grey = 50, reagents = { { item = 6291, itemName = "Raw Brilliant Smallfish", count = 1 } } } },
+				},
+				{
+					title = "Teldrassil: collect", section = 1, when = { { k = "zone", name = "Teldrassil" } },
+					goals = { { t = "collect", item = 6303, itemName = "Raw Slitherskin Mackerel", count = 50 } },
+				},
+				{
+					title = "Teldrassil: craft", section = 1, when = { { k = "zone", name = "Teldrassil" } },
+					goals = { { t = "craft", spell = 7752, spellName = "Slitherskin Mackerel", item = 6889, itemName = "Slitherskin Mackerel", skillLine = 185, untilSkill = 50, yellow = 45, grey = 50, reagents = { { item = 6303, itemName = "Raw Slitherskin Mackerel", count = 1 } } } },
+				},
+			},
+		})
+		w.learnSkill(185, "Cooking", 20, 75)
+		w.setZone("Elwynn Forest", "")
+		E.SetGuide("test/cooking-when")
+		flush()
+		r.elwynn = snap()
+		w.setZone("Teldrassil", "")
+		flush()
+		r.teldrassil = snap()
+		E.ResetProgress()
+		flush()
+		r.afterReset = snap()
+	"#);
+	assert_eq!(out["elwynn"], json!({ "at": 1, "text": "Collect Raw Brilliant Smallfish", "max": 31, "section": "Cooking 1-50", "state": "current" }));
+	assert_eq!(out["teldrassil"], json!({ "at": 3, "text": "Collect Raw Slitherskin Mackerel", "max": 31, "section": "Cooking 1-50", "state": "current" }));
+	assert_eq!(out["afterReset"], json!({ "at": 3, "text": "Collect Raw Slitherskin Mackerel", "max": 31, "section": "Cooking 1-50", "state": "current" }));
+}
