@@ -23,6 +23,8 @@
 --   Codex.Spell(spellId) -> { id, kind, item, name, class } | nil
 --   Codex.Name(kind, id) -> name | nil   -- no decoding; "item" spans every item kind,
 --                                           "npc" npc + rare, "object" object + treasure
+--   Codex.EnglishName(kind, id) -> name | nil   -- as Name, always the pack's English (a
+--                                           guide's `keywords` are English)
 --   Codex.Index(kind) -> blob | nil      -- the search index of a kind (item mount pet recipe
 --       tabard npc rare quest zone instance treasure), never loads the pack; lines
 --       "\2" .. folded .. "\1" .. id .. "," .. quality .. "," .. status .. "," .. #name .. "\n"
@@ -677,6 +679,16 @@ function Codex.Name(kind, id)
 	end
 	local name = nameOf(kind, id)
 	return name and shown(NAMES_KIND[kind], id, name)
+end
+
+function Codex.EnglishName(kind, id)
+	if id == nil or not ready() then return nil end
+	if kind ~= "instance" then id = tonumber(id) or id end
+	for _, g in ipairs(SPAN[kind] or { kind }) do
+		local name = nameOf(g, id)
+		if name then return name end
+	end
+	return nil
 end
 
 -- Decoded records carry translated names: drop them when the names pack
