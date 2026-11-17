@@ -1246,9 +1246,9 @@ L["%s: click through what they say until the quest's line is done."] = "%s: пр
 L["%s: use %s to call it up."] = "%s: используйте %s, чтобы призвать его."
 L["Use %s to learn it."] = "Используйте %s, чтобы выучить."
 -- L["After an earlier quest"] = ""
--- L["Chain: finished, %d skipped"] = ""
--- L["Chain: all %d done"] = ""
--- L["Chain: %d of %d"] = ""
+L["Chain: finished, %d skipped"] = "Цепочка: завершена, пропущено: %d"
+L["Chain: all %d done"] = "Цепочка: выполнены все %d"
+L["Chain: %d of %d"] = "Цепочка: %d из %d"
 
 -- Lookup/Spotter.lua
 L["From"] = "Источник:"

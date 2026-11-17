@@ -1246,9 +1246,9 @@ L["%s: click through what they say until the quest's line is done."] = "%s：逐
 L["%s: use %s to call it up."] = "%s：使用%s将其召唤出来。"
 L["Use %s to learn it."] = "使用%s来学习。"
 -- L["After an earlier quest"] = ""
--- L["Chain: finished, %d skipped"] = ""
--- L["Chain: all %d done"] = ""
--- L["Chain: %d of %d"] = ""
+L["Chain: finished, %d skipped"] = "任务链：已完成，跳过 %d 个"
+L["Chain: all %d done"] = "任务链：%d 个全部完成"
+L["Chain: %d of %d"] = "任务链：%d/%d"
 
 -- Lookup/Spotter.lua
 L["From"] = "来源"
