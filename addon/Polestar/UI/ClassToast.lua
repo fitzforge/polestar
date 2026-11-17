@@ -893,6 +893,11 @@ function CT.Place(animate)
 		local edge = ran and type(own) == "table" and own.GetTop and own or w
 		-- The gaps in the edge's units; the card's anchors take them in its own (k).
 		local r = reach(edge)
+		-- The window's own parts past its edges (the edge tab style's tabs).
+		if edge == w then
+			r.top = math.max(r.top, tonumber(w.psTopReach) or 0)
+			r.bottom = math.max(r.bottom, tonumber(w.psBottomReach) or 0)
+		end
 		local gap = { above = r.top + GAP, below = r.bottom + GAP, left = r.left + GAP, right = r.right + GAP }
 		local top, bottom, left, right = edge:GetTop(), edge:GetBottom(), edge:GetLeft(), edge:GetRight()
 		local s, us = w:GetEffectiveScale() or 1, UIParent:GetEffectiveScale() or 1

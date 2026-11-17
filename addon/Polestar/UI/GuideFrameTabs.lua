@@ -51,8 +51,32 @@ ns.UI.GuideFrame.Part(function(GF)
 		}
 		local reopen = GF.ReopenItem()
 		if reopen then table.insert(items, 3, reopen) end
-		W.ShowMenu(self, items, { point = "TOPLEFT", relPoint = "BOTTOMLEFT", x = 0, y = -2 })
+		W.ShowMenu(self, items, self.psMenuAt or { point = "TOPLEFT", relPoint = "BOTTOMLEFT", x = 0, y = -2 })
 	end
+
+	-- A tab's clicks and tooltip, for every tab style's buttons (Polestar_TabStyles/TabStyles.lua):
+	-- the button carries psIndex, psActive, psTitle, psMeta and psExperimental.
+	local function tabClick(self, button)
+		local E = Engine()
+		if not E then return end
+		if button == "RightButton" then return tabMenu(self) end
+		if button == "MiddleButton" and E.CloseTab then return E.CloseTab(self.psIndex) end
+		if E.SelectTab and not self.psActive then E.SelectTab(self.psIndex) end
+	end
+
+	local function tabTip(self, anchor)
+		local lines = {}
+		if self.psMeta and self.psMeta ~= "" then lines[#lines + 1] = self.psMeta end
+		-- One of Polestar's experimental guides: in the chip's purple.
+		if self.psExperimental then lines[#lines + 1] = { L["Experimental"], Theme.Color("experimental") } end
+		local t = (tabsOf(Engine(), true) or {})[self.psIndex]
+		local total = t and (t.total or t.stepCount)
+		if t and t.done and total and total > 0 then lines[#lines + 1] = string.format(L["%d of %d steps done"], t.done, total) end
+		lines[#lines + 1] = { L["Right-click for tab options"], Theme.Accent() }
+		W.Tooltip(self, anchor or "ANCHOR_TOP", self.psTitle or "", lines)
+		GF.HoverIn()
+	end
+	GF.TabMenu, GF.TabClick, GF.TabTip = tabMenu, tabClick, tabTip
 
 	-- A tab's label: the title, then its level range in a dimmer string. The
 	-- range tells same-named guides apart, so it keeps its width and the title
@@ -129,25 +153,10 @@ ns.UI.GuideFrame.Part(function(GF)
 		b.Close.psOnLeave = function(c) if not c:GetParent():IsMouseOver() then c:SetAlpha(closeRest()) end end
 		-- Its parts for a skin's hooks.guideTab (Skin API 2), made once.
 		b.psParts = { selected = b.Selected, bar = b.Bar, label = b.Label, range = b.Range, icon = b.Icon, close = b.Close }
-		b:SetScript("OnClick", function(self, button)
-			local E = Engine()
-			if not E then return end
-			if button == "RightButton" then return tabMenu(self) end
-			if button == "MiddleButton" and E.CloseTab then return E.CloseTab(self.psIndex) end
-			if E.SelectTab and not self.psActive then E.SelectTab(self.psIndex) end
-		end)
+		b:SetScript("OnClick", tabClick)
 		b:SetScript("OnEnter", function(self)
 			self.Close:SetAlpha(1)
-			local lines = {}
-			if self.psMeta and self.psMeta ~= "" then lines[#lines + 1] = self.psMeta end
-			-- One of Polestar's experimental guides: in the chip's purple.
-			if self.psExperimental then lines[#lines + 1] = { L["Experimental"], Theme.Color("experimental") } end
-			local t = (tabsOf(Engine(), true) or {})[self.psIndex]
-			local total = t and (t.total or t.stepCount)
-			if t and t.done and total and total > 0 then lines[#lines + 1] = string.format(L["%d of %d steps done"], t.done, total) end
-			lines[#lines + 1] = { L["Right-click for tab options"], Theme.Accent() }
-			W.Tooltip(self, "ANCHOR_TOP", self.psTitle or "", lines)
-			GF.HoverIn()
+			tabTip(self, "ANCHOR_TOP")
 		end)
 		b:SetScript("OnLeave", function(self)
 			if not self.Close:IsMouseOver() then self.Close:SetAlpha(closeRest()) end
@@ -163,6 +172,23 @@ ns.UI.GuideFrame.Part(function(GF)
 	}
 	GF.CATEGORY_ICON = CATEGORY_ICON
 
+	-- A tab's facts on its button `b`, from the tab `t` (Engine.GetTabs):
+	-- psTitle, psMeta, psExperimental, psRange ("(1-10)" or nil) and psIcon (a media name).
+	function GF.TabFacts(b, t)
+		b.psTitle = t.title or t.guideId
+		-- The tab's guide as the registry knows it, else as the tab gives it
+		-- (a copy's sample tab, which no registry holds).
+		local G = ns.Guides
+		local guide = G and G.Get and G.Get(t.guideId) or (t.minLevel and t) or nil
+		b.psMeta = guide and UI.GuideMeta(guide) or nil
+		b.psExperimental = G and G.IsExperimental and G.IsExperimental(guide) or nil
+		local lv = guide and UI.GuideLevels(guide)
+		b.psRange = lv and ("(" .. lv .. ")") or nil
+		b.psIcon = CATEGORY_ICON[t.category] or "icon-level"
+	end
+
+	-- The underline style's strip (guideWindow.tabStyle "underline"); the
+	-- other styles draw in Polestar_TabStyles (GF.RenderTabStyle).
 	function GF.RenderTabs()
 		if not F then return end
 		local tabs, active = tabsOf(Engine())
@@ -182,31 +208,25 @@ ns.UI.GuideFrame.Part(function(GF)
 			otherW = floor((avail - activeW) / (n - 1))
 		end
 		activeW, otherW = min(TAB_MAX_W, activeW), min(TAB_MAX_W, otherW)
-		local G = ns.Guides
 		local x = 1
 		for i = 1, n do
 			local t = tabs[i]
 			local b = tabButton(i)
 			b.psIndex = i
 			b.psActive = i == active
-			b.psTitle = t.title or t.guideId
-			-- The tab's guide as the registry knows it, else as the tab gives it
-			-- (a copy's sample tab, which no registry holds).
-			local guide = G and G.Get and G.Get(t.guideId) or (t.minLevel and t) or nil
-			b.psMeta = guide and UI.GuideMeta(guide) or nil
-			b.psExperimental = G and G.IsExperimental and G.IsExperimental(guide) or nil
+			GF.TabFacts(b, t)
+			-- The slim strip (compact mode) leaves out the levels.
+			if thin then b.psRange = nil end
 			b.Label:SetText(b.psTitle)
 			b.Label:SetWidth(0) -- unbound, to measure the whole title
 			b.psTitleW = floor(b.Label:GetStringWidth() + 1)
-			local lv = guide and UI.GuideLevels(guide)
-			b.psRange = (lv and not thin) and ("(" .. lv .. ")") or nil
 			b:SetHeight(tabH)
 			b.Range:SetText(b.psRange or "")
-			b.Icon:SetTexture(Theme.Media(CATEGORY_ICON[t.category] or "icon-level"))
+			b.Icon:SetTexture(Theme.Media(b.psIcon))
 			W.Color(b.Label, b.psActive and "text" or "textMuted")
 			W.Color(b.Range, b.psActive and "textDim" or "textMuted")
 			W.Color(b.Icon, b.psActive and "accent" or "textMuted")
-			b.Selected:SetShown(b.psActive)
+			b.Selected:SetShown(b.psActive and not GF.Transparent())
 			b.Bar:SetShown(b.psActive)
 			GF.PaintTab(b)
 			local w = b.psActive and activeW or otherW

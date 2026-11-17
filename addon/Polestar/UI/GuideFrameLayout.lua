@@ -26,11 +26,15 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- anchors; it never fetches views or builds strings.
 	---------------------------------------------------------------------------
 
-	-- The tab strip: in compact mode only while two guides or more are open,
-	-- slim (GF.StripH); one open guide the navigator names.
+	-- The tab strip: only in the underline style (GF.TabStyle). In compact
+	-- mode, with that style, slim (GF.StripH) and only while two guides or
+	-- more are open; one open guide the navigator names. Another style keeps
+	-- its own tabs in compact mode, as out of it.
 	local function stripShown()
 		if not (strip.psHasTabs and GF.On("tabs")) then return false end
-		return not compact() or (strip.psTabN or 0) >= 2
+		local style = GF.TabStyle()
+		if compact() then return style == nil and (strip.psTabN or 0) >= 2 end
+		return style == "underline"
 	end
 
 	-- A part a skin places itself (Skin API 2, hooks.guidePlace(name, frame,
@@ -431,6 +435,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		local width = F:GetWidth()
 		local isCompact = compact()
 		local showStrip = stripShown()
+		GF.PlaceTabStyle()
 		strip:SetShown(showStrip)
 		local SH = GF.StripH()
 		strip:SetHeight(showStrip and SH or 0.01)
@@ -544,7 +549,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		local x0, x1, y0, y1 = Theme.BandCoords(width - 2, stripH + NAV_H, 30)
 		if barsBottom() then y0, y1 = y1, y0 end
 		band:SetTexCoord(x0, x1, y0, y1)
-		if showStrip then GF.RenderTabs() end
+		GF.RenderTabStyle()
 		GF.PaintProgress(false)
 		if GF.live and UI.NameTargets then UI.NameTargets.Refresh() end
 		GF.PaintShades()

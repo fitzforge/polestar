@@ -83,12 +83,15 @@
 
 local ADDON, ns = ...
 
--- The live window's table, and every file's part in load order.
-local GF, partsOf = { live = true }, {}
+-- The live window's table, every file's part in load order and the copies
+-- made so far. A part a load-on-demand addon adds later (Polestar_TabStyles)
+-- joins the copies that exist too, after their build.
+local GF, partsOf, copies = { live = true }, {}, setmetatable({}, { __mode = "k" })
 ns.UI.GuideFrame = GF
 function GF.Part(fn)
 	partsOf[#partsOf + 1] = fn
 	fn(GF)
+	for copy in pairs(copies) do fn(copy) end
 end
 -- A copy of the window, unnamed, in `parent`, drawing `content` (a provider
 -- of GF.CONTENT): built, not drawn. opts.layout: the layout it draws with
@@ -105,6 +108,7 @@ function GF.Copy(parent, content, opts)
 		GF.copies = GF.copies or setmetatable({}, { __mode = "k" })
 		GF.copies[copy] = true
 	end
+	copies[copy] = true
 	return copy
 end
 
@@ -301,7 +305,7 @@ GF.Part(function(GF)
 	---------------------------------------------------------------------------
 
 	GF.LOOK = {
-		tabs = true, tabHeight = 1, navHeight = 1, stepCount = true, guideTitle = true, skipButton = true, reportButton = true,
+		tabs = true, tabStyle = "underline", tabHeight = 1, navHeight = 1, stepCount = true, guideTitle = true, skipButton = true, reportButton = true,
 		barTextSize = 1, titleSize = 1, goalSize = 1, detailSize = 1, noteSize = 1, upSize = 1,
 		outline = "outline", padding = 0, rowSpacing = 0, lineSpacing = 0, glyphSize = 1, checkSize = 1,
 		targetBar = true, targetBarColor = false, targetBarWidth = 2,
@@ -3635,8 +3639,8 @@ GF.Part(function(GF)
 			if has ~= strip.psHasTabs or was ~= GF.StripShown() then
 				strip.psHasTabs = has
 				GF.Layout()
-			elseif GF.StripShown() then
-				GF.RenderTabs()
+			else
+				GF.RenderTabStyle()
 			end
 		end))
 

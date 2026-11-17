@@ -206,6 +206,21 @@ const TEXT = {
 			zhTW: 'Polestar 的一部分：WoW Forever、Blizzard、Classic 和 Hearth 皮膚。選擇其中一個時載入。',
 		},
 	},
+	// The guide window's other tab styles (title menu, top edge, side strip): loaded the first time one is drawn.
+	Polestar_TabStyles: {
+		title: { deDE: 'Polestar: Tab-Stile', esES: 'Polestar: estilos de pestañas', esMX: 'Polestar: estilos de pestañas', frFR: "Polestar : styles d'onglets", koKR: 'Polestar 탭 스타일', ptBR: 'Polestar: estilos de abas', ruRU: 'Polestar: стили вкладок', zhCN: 'Polestar 标签样式', zhTW: 'Polestar 分頁樣式' },
+		notes: {
+			deDE: 'Teil von Polestar: die Tabs des Leitfadenfensters als Titelmenü, an der Oberkante und als Seitenleiste. Wird geladen, wenn du einen auswählst.',
+			esES: 'Parte de Polestar: las pestañas de la ventana de la guía como menú del título, en el borde superior y en una tira lateral. Se carga cuando eliges uno.',
+			esMX: 'Parte de Polestar: las pestañas de la ventana de la guía como menú del título, en el borde superior y en una tira lateral. Se carga cuando eliges uno.',
+			frFR: 'Fait partie de Polestar : les onglets de la fenêtre du guide en menu du titre, sur le bord supérieur et en bande latérale. Chargé quand vous en choisissez un.',
+			koKR: 'Polestar의 일부: 가이드 창의 탭을 제목 메뉴, 위쪽 가장자리, 옆 띠로 표시합니다. 하나를 고를 때 불러옵니다.',
+			ptBR: 'Parte do Polestar: as abas da janela do guia como menu do título, na borda superior e numa faixa lateral. Carregado quando você escolhe um.',
+			ruRU: 'Часть Polestar: вкладки окна руководства в меню заголовка, по верхнему краю и на боковой полосе. Загружается, когда вы выбираете один из них.',
+			zhCN: 'Polestar 的组成部分：指南窗口的标签可显示为标题菜单、顶边标签或侧边栏。选择其中一个时加载。',
+			zhTW: 'Polestar 的一部分：指南視窗的分頁可顯示為標題選單、頂邊分頁或側邊欄。選擇其中一個時載入。',
+		},
+	},
 	// The Skin API's example (docs/SKINS-API.md): in the repository only, never in a release.
 	Polestar_Skin_Example: {
 		title: { deDE: 'Polestar: Design-Beispiel', esES: 'Polestar: tema de ejemplo', esMX: 'Polestar: tema de ejemplo', frFR: "Polestar : habillage d'exemple", koKR: 'Polestar 스킨 예제', ptBR: 'Polestar: tema de exemplo', ruRU: 'Polestar: пример оформления', zhCN: 'Polestar 皮肤示例', zhTW: 'Polestar 皮膚範例' },

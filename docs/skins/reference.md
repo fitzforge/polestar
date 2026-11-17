@@ -1160,7 +1160,11 @@ assert(Theme.RegisterSkin("ref-hooks", {
 ### The guide window
 
 `Theme.GuideParts()` hands over the guide window's frames, to place things
-by and to restyle (capability `guideParts`): `window`, `strip` (the tabs), `nav` (the step bar),
+by and to restyle (capability `guideParts`): `window`, `strip` (the tabs),
+`tabSwitch` (the Title menu tab style's switcher), `tabEdge` (the On the top
+edge style's tabs), `tabSide` (the Down the left side style's tabs; each of
+these three is nil until its style is first drawn, and is in the parts from that layout's
+`guideLayout` on), `nav` (the step bar),
 `body`, `card` (the step), `person` (its header), `goals` (the scroll of
 goal rows), `rows` (the goal rows, pooled), `tip`,
 `after` ("Then:"), `along`, `upnext`, `empty` (no guide), `band` (the house

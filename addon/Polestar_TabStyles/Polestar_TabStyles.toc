@@ -1,0 +1,32 @@
+## Interface: 16001
+## Title: Polestar Tab Styles
+## Notes: Part of Polestar: the guide window's title menu, top edge and side strip tabs. Loaded when you pick one.
+## Title-deDE: Polestar: Tab-Stile
+## Notes-deDE: Teil von Polestar: die Tabs des Leitfadenfensters als Titelmenü, an der Oberkante und als Seitenleiste. Wird geladen, wenn du einen auswählst.
+## Title-esES: Polestar: estilos de pestañas
+## Notes-esES: Parte de Polestar: las pestañas de la ventana de la guía como menú del título, en el borde superior y en una tira lateral. Se carga cuando eliges uno.
+## Title-esMX: Polestar: estilos de pestañas
+## Notes-esMX: Parte de Polestar: las pestañas de la ventana de la guía como menú del título, en el borde superior y en una tira lateral. Se carga cuando eliges uno.
+## Title-frFR: Polestar : styles d'onglets
+## Notes-frFR: Fait partie de Polestar : les onglets de la fenêtre du guide en menu du titre, sur le bord supérieur et en bande latérale. Chargé quand vous en choisissez un.
+## Title-koKR: Polestar 탭 스타일
+## Notes-koKR: Polestar의 일부: 가이드 창의 탭을 제목 메뉴, 위쪽 가장자리, 옆 띠로 표시합니다. 하나를 고를 때 불러옵니다.
+## Title-ptBR: Polestar: estilos de abas
+## Notes-ptBR: Parte do Polestar: as abas da janela do guia como menu do título, na borda superior e numa faixa lateral. Carregado quando você escolhe um.
+## Title-ruRU: Polestar: стили вкладок
+## Notes-ruRU: Часть Polestar: вкладки окна руководства в меню заголовка, по верхнему краю и на боковой полосе. Загружается, когда вы выбираете один из них.
+## Title-zhCN: Polestar 标签样式
+## Notes-zhCN: Polestar 的组成部分：指南窗口的标签可显示为标题菜单、顶边标签或侧边栏。选择其中一个时加载。
+## Title-zhTW: Polestar 分頁樣式
+## Notes-zhTW: Polestar 的一部分：指南視窗的分頁可顯示為標題選單、頂邊分頁或側邊欄。選擇其中一個時載入。
+## Author: Polestar
+## Version: 0.4.0.1
+## Category: Polestar
+## Group: Polestar
+## LoadOnDemand: 1
+## Dependencies: Polestar
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+
+Menu.lua
+TabStyles.lua

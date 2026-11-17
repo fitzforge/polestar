@@ -471,6 +471,8 @@ mod ui_look_glow;
 mod ui_look_guidewindow;
 #[path = "ui-look-guidewindow-copy.rs"]
 mod ui_look_guidewindow_copy;
+#[path = "ui-look-guidewindow-tabstyles.rs"]
+mod ui_look_guidewindow_tabstyles;
 #[path = "ui-look-theme.rs"]
 mod ui_look_theme;
 #[path = "ui-look-toasts.rs"]

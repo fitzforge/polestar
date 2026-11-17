@@ -33,9 +33,10 @@ const ROOT = path.join(__dirname, '..', '..');
 const ADDONS = process.env.POLESTAR_ADDON_DIR ? path.resolve(process.env.POLESTAR_ADDON_DIR) : path.join(ROOT, 'addon');
 const STUBS = path.join(ROOT, 'tests', 'lua');
 // Polestar's load-on-demand addons runAddon loads when the addon asks (C_AddOns.LoadAddOn): the settings
-// window, the Skin API's checks (with the first skin or scheme another addon registers) and the game looks
-// and Hearth (the first time one is painted).
-const LOAD_ON_DEMAND = ['Polestar_Options', 'Polestar_SkinAPI', 'Polestar_Looks'];
+// window, the Skin API's checks (with the first skin or scheme another addon registers), the game looks
+// and Hearth (the first time one is painted) and the guide window's other tab styles (the first time one
+// is drawn).
+const LOAD_ON_DEMAND = ['Polestar_Options', 'Polestar_SkinAPI', 'Polestar_Looks', 'Polestar_TabStyles'];
 
 function norm(p) {
 	return p.replace(/\\/g, '/');
@@ -115,7 +116,8 @@ end`);
 	// The settings window's addon (Polestar_Options, load on demand: UI/OptionsLoader.lua asks for it the
 	// first time the settings open), the Skin API's checks (Polestar_SkinAPI: Theme/SkinApi.lua asks for
 	// them with the first skin or scheme another addon registers) and the game looks with Hearth
-	// (Polestar_Looks: Theme.LoadLooks, the first time one is painted), loaded from their TOC when asked, as
+	// (Polestar_Looks: Theme.LoadLooks, the first time one is painted) and the guide window's other tab styles
+	// (Polestar_TabStyles: UI/GuideFrameTabStyles.lua, the first time one is drawn), loaded from their TOC when asked, as
 	// the client loads them (forge-addontest's run.rs does the same; a test's own stub.packs entry,
 	// stub_packs.lua, wins).
 	const lod = LOAD_ON_DEMAND.filter((n) => !(opts.addons || []).some((e) => (typeof e === 'string' ? e : e.name) === n) && fs.existsSync(path.join(ADDONS, n, `${n}.toc`)));

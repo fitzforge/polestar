@@ -6,6 +6,7 @@
 	<Script file="NameTargets.lua"/>
 	<Script file="GuideFrame.lua"/>
 	<Script file="GuideFrameTabs.lua"/>
+	<Script file="GuideFrameTabStyles.lua"/>
 	<Script file="GuideFrameBanner.lua"/>
 	<Script file="GuideFrameHere.lua"/>
 	<Script file="GuideFrameLayout.lua"/>

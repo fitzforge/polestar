@@ -38,6 +38,7 @@ one into the other. The addons:
 | `Polestar_Travel` (`addon/Polestar_Travel/`) | Zone crossings for the travel planner, from an optional local crossings file; loaded with Polestar | `travel build` | no (local, gitignored) | no, never packaged (Nav, "Travel planner and zone crossings") |
 | `Polestar_SkinAPI` (`addon/Polestar_SkinAPI/`) | The Skin API's checks for a skin or colour scheme from another addon (its fields, colours, legibility, variants, preset: `docs/skins/reference.md`); loaded on demand by `Theme.RegisterSkin` / `Theme.RegisterScheme` the first time another addon registers one, so a player who uses no other addon's skin never loads it (Polestar's own skins and schemes need none of it) | hand-written | yes | yes |
 | `Polestar_Looks` (`addon/Polestar_Looks/`) | The game looks (WoW Forever, Blizzard, Classic: their kits, art tables and painters, `GameSkins.lua`, `GameArt.lua`; their sizes and type ladder, and their own waypoint arrow and map pin medallion in the client's art, given as a skin's `media` is, `Parts.lua`) and Hearth's painters (`Hearth.lua`); loaded on demand (`Theme.LoadLooks`) the first time one of them, or a skin built on one, is painted, so a player on the house look never loads them. Until then the core's `Theme.Kit` is nil and its `Theme.Kit*` stand-ins draw nothing; the part replaces them as it loads. Their palettes and fonts, and Hearth's sizes, stay in the core | hand-written; `GameArt.lua` by `media game-art` | yes | yes |
+| `Polestar_TabStyles` (`addon/Polestar_TabStyles/`) | The guide window's tab styles past the strip above the step bar (`guideWindow.tabStyle`): the title switcher, the top edge's and the left side's icon tabs (`TabStyles.lua`) and the switcher's menu rows (`Menu.lua`: headings, notes, the mark of the one in use, a close glyph; `W.MenuRows`); loaded on demand (`UI/GuideFrameTabStyles.lua`) the first time one of them is drawn, so a player on the strip never loads them. Without it the tabs stay above the step bar and the chat says so once | hand-written | yes | yes |
 | `Polestar_Options` (`addon/Polestar_Options/`) | The settings window, its Look pages and previews, the Profiles page and profile strings, Move frames; loaded on demand the first time the settings open (`UI/OptionsLoader.lua` is its door in the core) | hand-written | yes | yes |
 | `Polestar_Skin_<Name>` (`addon/Polestar_Skin_Vellum/` … `Polestar_Skin_Sheen/`) | The nine skins that ship (Vellum, Lumen, Beacon, Aurora, Hairline, Umbra, Waymark, Lanterns, Sheen), each an addon on the Skin API (`## X-Polestar-Skin`), loaded only when picked; `Polestar_Skin_Example` never ships (docs/SKINS-API.md) | hand-written | yes | yes |
 | `Polestar_Recorder` (`addon/Polestar_Recorder/`) | The optional standalone recorder of play sessions, for authoring | hand-written | yes | yes, as its own zip |
@@ -8741,7 +8742,12 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
 - **Guide window files**: `UI/GuideFrame.lua` holds the window's state,
   its goal rows and goals area, the render and the build. Its other parts
   are files of their own, loaded right after it (`UI/UI.xml`):
-  `GuideFrameTabs.lua` (the tab strip), `GuideFrameBanner.lua` (the
+  `GuideFrameTabs.lua` (the tab strip), `GuideFrameTabStyles.lua` (the
+  style in use of `guideWindow.tabStyle` and the loader
+  of the other styles: the title switcher, the top edge's and the left
+  side's icon tabs live in `Polestar_TabStyles`, a part of the window,
+  `GF.Part`, that joins the live window and every copy as it loads),
+  `GuideFrameBanner.lua` (the
   banner's notices, the wheel and the overview over the step number),
   `GuideFrameHere.lua` ("While you're here"), `GuideFrameLayout.lua` (where
   each part goes, the window's height, the progress bar),
