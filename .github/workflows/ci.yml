@@ -20,6 +20,10 @@ jobs:
     name: Tests
     runs-on: ubuntu-latest
     timeout-minutes: 50
+    env:
+      # Timing budgets only warn on GitHub's shared runners; the release gate
+      # enforces them on a quiet machine (docs/RELEASING.md, step 3).
+      POLESTAR_TIMING_BUDGETS: warn
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
         with:

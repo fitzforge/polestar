@@ -29,6 +29,9 @@ env:
   CARGO_TERM_COLOR: always
   CARGO_INCREMENTAL: "0"
   RUST_BACKTRACE: "1"
+  # Timing budgets (forge-addontest's assert_timing!) only warn on GitHub's shared runners; the release
+  # gate enforces them on a quiet machine (docs/RELEASING.md, step 3).
+  POLESTAR_TIMING_BUDGETS: warn
 
 defaults:
   run:

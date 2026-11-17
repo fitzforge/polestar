@@ -75,4 +75,6 @@ that read `data/forever` skip with a reason.
   maps or other files not in the repository: route builds, navigation and
   travel builds, legs bakes, replays of the arrow on recorded sessions, the sweeps that read
   recordings, the quiet performance run.
+- The timing budgets, enforced (`rust/scripts/timing-budgets.sh`, alone on
+  a quiet machine): on GitHub they only warn ([Timing budgets](#timing-budgets)).
 - Deploys, releases and anything that needs a credential.
