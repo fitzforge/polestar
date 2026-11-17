@@ -163,10 +163,10 @@ fn direct_turnin_needs_no_accept_and_is_checked_for_availability_and_prerequisit
 		only(&compile(&guide_text(&["step S", "  turnin 9100 direct"])).errors, "not available"),
 		["test.guide:8: quest 9100 (Orcish Errand) is not available to any race this step applies to"]
 	);
-	// 9200 needs 9201 turned in first, and the chain never turns it in.
+	// 7 needs 783 turned in first, and the chain never turns it in.
 	assert_eq!(
-		only(&compile(&guide_text(&["step S", "  turnin 9200 direct"])).errors, "turned in first"),
-		["test.guide:8: quest 9200 needs 9201 (The First Step) turned in first, but the chain never turns it in"]
+		only(&compile(&guide_text(&["step S", "  turnin 7 direct"])).warnings, "turned in first"),
+		["test.guide:8: quest 7 needs 783 (A Threat Within) turned in first, but the chain never turns it in"]
 	);
 }
 
@@ -282,18 +282,18 @@ fn prereq_data() -> Data {
 fn prerequisites_breadcrumbs_never_block_pre_all_needs_every_one_pre_any_one() {
 	let data = prereq_data();
 	let r = compile_with(&guide_text(&["step S", "  accept 9300"]), &data);
-	assert!(only(&r.errors, "needs").is_empty());
+	assert!(only(&r.warnings, "needs").is_empty());
 	assert!(r.steps()[0]["goals"][0].get("pre").is_none(), "breadcrumbs are not compiled as prerequisites");
 	let all = guide_text(&["step S", "  accept 9311", "  turnin 9311", "  accept 9310"]);
 	let ra = compile_with(&all, &data);
-	assert_eq!(only(&ra.errors, "needs"), vec![format!("test.guide:{}: quest 9310 needs 9312 (Quest 9312) turned in first, but the chain never turns it in", line_of(&all, "  accept 9310"))]);
+	assert_eq!(only(&ra.warnings, "needs"), vec![format!("test.guide:{}: quest 9310 needs 9312 (Quest 9312) turned in first, but the chain never turns it in", line_of(&all, "  accept 9310"))]);
 	assert_eq!(ra.steps()[0]["goals"][2]["preAll"], json!([9311, 9312]));
 	let rn = compile_with(&guide_text(&["step S", "  accept 9321", "  turnin 9321", "  accept 9320"]), &data);
-	assert!(only(&rn.errors, "needs").is_empty());
+	assert!(only(&rn.warnings, "needs").is_empty());
 	assert_eq!(rn.steps()[0]["goals"][2]["pre"], json!([9321, 9322]));
 	for id in [9330, 9340, 9350] {
 		let r2 = compile_with(&guide_text(&["step S", &format!("  accept {id}")]), &data);
-		assert!(only(&r2.errors, "needs").is_empty(), "quest {id}");
+		assert!(only(&r2.warnings, "needs").is_empty(), "quest {id}");
 		assert!(r2.steps()[0]["goals"][0].get("pre").is_none(), "quest {id}");
 	}
 }
@@ -351,13 +351,13 @@ fn a_direct_turnin_compiles_its_givers_wait_as_an_accept_does() {
 }
 
 // The Valik rule: a child quest (9340, `parent` 9341, like Valik 535 and Infiltration 533) is offered only while its
-// parent is in the log. Lint errs (an optional accept warns) when the chain does not hold the parent there: never taken before it, or handed in
+// parent is in the log. Lint warns when the chain does not hold the parent there: never taken before it, or handed in
 // before it; a step that applies only with the parent in the log (`when onquest`) holds it. A parent nobody can start
 // (9380's 9351) or one exclusive with the quest (9390's 9391) is none: no `parent` compiled, no warning.
 #[test]
 fn lint_says_when_the_chain_does_not_hold_a_child_quest_s_parent_in_the_log() {
 	let data = prereq_data();
-	let parent_warnings = |src: &str| only(&compile_with(src, &data).errors, "is offered only while");
+	let parent_warnings = |src: &str| only(&compile_with(src, &data).warnings, "is offered only while");
 	let held = guide_text(&["step A", "  accept 9341", "step B", "  accept 9340"]);
 	let r = compile_with(&held, &data);
 	let g = &r.steps()[1]["goals"][0];
@@ -384,7 +384,7 @@ fn lint_says_when_the_chain_does_not_hold_a_child_quest_s_parent_in_the_log() {
 	let first = text("t/one", &["step A", "  accept 9341", "  turnin 9341"], &["next t/two"]);
 	let again = text("t/two", &["step A", "  accept 9341", "step B", "  accept 9340", "  turnin 9341"], &[]);
 	let r = compile_files(&[("1.guide", &first), ("2.guide", &again)], &data, None);
-	assert!(only(&r.errors, "is offered only while").is_empty(), "{}", r.text);
+	assert!(only(&r.warnings, "is offered only while").is_empty(), "{}", r.text);
 }
 
 #[test]
@@ -400,29 +400,30 @@ fn coordinates_outside_0_100_are_errors() {
 }
 
 #[test]
-fn an_accept_whose_prerequisite_is_never_turned_in_earlier_in_the_chain_is_an_error() {
+fn an_accept_whose_prerequisite_is_never_turned_in_earlier_in_the_chain_warns() {
 	let src = guide_text(&["step S", "  accept 9200"]);
 	assert_eq!(
-		only(&compile(&src).errors, "needs 9201"),
+		only(&compile(&src).warnings, "needs 9201"),
 		vec![format!("test.guide:{}: quest 9200 needs 9201 (The First Step) turned in first, but the chain never turns it in", line_of(&src, "  accept 9200"))]
 	);
 	let chained = compile_map(&[("1.guide", &text("t/one", &["step S", "  accept 9201", "  turnin 9201"], &["next t/two"])), ("2.guide", &text("t/two", &["step S", "  accept 9200"], &[]))]);
-	assert!(only(&chained.errors, "turned in first").is_empty());
+	assert!(only(&chained.warnings, "turned in first").is_empty());
 }
 
 #[test]
-fn an_accept_two_levels_above_the_level_the_route_plausibly_reaches_is_an_error_one_level_warns_a_level_goal_or_earlier_xp_silences_it() {
+fn an_accept_above_the_level_the_route_plausibly_reaches_warns_a_level_goal_or_earlier_xp_silences_it() {
 	let src = guide_text(&["step S", "  accept 9300"]);
-	assert_eq!(only(&compile(&src).errors, "plausibly"), vec![format!("test.guide:{}: quest 9300 needs level 20, but the route plausibly reaches only level 1 here", line_of(&src, "  accept 9300"))]);
-	assert!(only(&compile(&guide_text(&["step S", "  level 20", "  accept 9300"])).errors, "plausibly").is_empty());
+	assert_eq!(
+		only(&compile(&src).warnings, "plausibly"),
+		vec![format!("test.guide:{}: quest 9300 needs level 20, but the route plausibly reaches only level 1 here", line_of(&src, "  accept 9300"))]
+	);
+	assert!(only(&compile(&guide_text(&["step S", "  level 20", "  accept 9300"])).warnings, "plausibly").is_empty());
 	// 783 + 33 turned in: (80 + 250) quest XP, doubled for kills along the way -> level 2 (400 XP needed).
 	assert!(only(&compile(&guide_text(&["step S", "  accept 783", "  turnin 783", "  accept 33", "  turnin 33", "  accept 9400"])).warnings, "plausibly").is_empty());
-	// 9400 needs level 2: one level short, the Engine waits for it there; a warning.
-	let one = compile(&guide_text(&["step S", "  accept 9400"]));
-	assert_eq!((only(&one.errors, "plausibly").len(), only(&one.warnings, "plausibly").len()), (0, 1));
+	assert_eq!(only(&compile(&guide_text(&["step S", "  accept 9400"])).warnings, "plausibly").len(), 1);
 	// The entry level of a chained guide is the best exit of its predecessors.
 	let chain = compile_map(&[("1.guide", &text("t/one", &["step S", "  level 20"], &["next t/two"])), ("2.guide", &text("t/two", &["step S", "  accept 9300"], &[]))]);
-	assert!(only(&chain.errors, "plausibly").is_empty());
+	assert!(only(&chain.warnings, "plausibly").is_empty());
 }
 
 #[test]
@@ -504,23 +505,23 @@ fn an_accept_closed_by_an_exclusive_quest_taken_earlier_in_the_chain_warns() {
 /// had it). An accept with one of its breadcrumbs taken earlier and not handed in warns; handed in, abandoned or
 /// never taken, it stays quiet.
 #[test]
-fn an_accept_while_its_breadcrumb_is_in_the_log_is_an_error() {
+fn an_accept_while_its_breadcrumb_is_in_the_log_warns() {
 	let data = prereq_data();
 	let msg = |b: u32| {
 		format!("quest 9300 (Quest 9300) is not offered while its breadcrumb {b} (Quest {b}) is in the log, and the chain takes that breadcrumb earlier without handing it in: hand it in first")
 	};
 	let held = guide_text(&["step S", "  accept 9301", "  accept 9300", "  turnin 9301"]);
-	assert_eq!(only(&compile_with(&held, &data).errors, "while its breadcrumb"), vec![format!("test.guide:{}: {}", line_of(&held, "  accept 9300"), msg(9301))]);
+	assert_eq!(only(&compile_with(&held, &data).warnings, "while its breadcrumb"), vec![format!("test.guide:{}: {}", line_of(&held, "  accept 9300"), msg(9301))]);
 	// By the breadcrumb's own link too (only 9302's `breadcrumbFor` names 9300), across guides chained with `next`.
 	let first = text("t/one", &["step S", "  accept 9302"], &["next t/two"]);
 	let second = text("t/two", &["step S", "  accept 9300", "  turnin 9302"], &[]);
 	assert_eq!(
-		only(&compile_files(&[("1.guide", &first), ("2.guide", &second)], &data, None).errors, "while its breadcrumb"),
+		only(&compile_files(&[("1.guide", &first), ("2.guide", &second)], &data, None).warnings, "while its breadcrumb"),
 		vec![format!("2.guide:{}: {}", line_of(&second, "  accept 9300"), msg(9302))]
 	);
 	// Handed in, abandoned or never taken: quiet.
 	for body in [&["step S", "  accept 9301", "  turnin 9301", "  accept 9300"][..], &["step S", "  accept 9301", "  abandon 9301", "  accept 9300"], &["step S", "  accept 9300"]] {
-		assert!(only(&compile_with(&guide_text(body), &data).errors, "while its breadcrumb").is_empty(), "{body:?}");
+		assert!(only(&compile_with(&guide_text(body), &data).warnings, "while its breadcrumb").is_empty(), "{body:?}");
 	}
 	// The engine reads the breadcrumbs off the accept (`crumbs`, by either link), titled for the reason text.
 	let g = compile_with(&guide_text(&["step S", "  accept 9300", "  accept 9310"]), &data).steps()[0]["goals"].as_array().unwrap().clone();
@@ -844,16 +845,14 @@ fn a_talk_with_quest_naming_another_npcs_line_is_an_error_that_says_which_index_
 
 #[test]
 fn a_kill_with_quest_on_a_talk_objective_of_the_same_npc_compiles_and_takes_its_index() {
-	let src = guide_text(&["step S", "  accept 9710", "  kill 823 quest 9710", "  kill 197 quest 9710.1", "  talk 295 quest 9710.3", "  turnin 9710"]);
+	let src = guide_text(&["step S", "  accept 9710", "  kill 823 quest 9710", "  kill 197 quest 9710.1", "  turnin 9710"]);
 	let r = compile_with(&src, &talk_data());
-	// It compiles; in our pack the play check `talk-kill` calls each a talk (lint_play.rs).
-	assert!(r.errors.iter().all(|e| e.contains("meant to speak to")), "{}", r.text);
-	assert_eq!(r.errors.len(), 2, "{}", r.text);
+	assert!(r.errors.is_empty(), "{}", r.text);
 	assert!(only(&r.warnings, r"objective\(s\) in data|, not this npc|no objective for this").is_empty(), "{}", r.text);
 	let g = talk_goals(&r);
 	assert_eq!(
 		g.iter().map(|g| (g["t"].clone(), g["npc"].clone(), g["quest"].clone(), g["oi"].clone())).collect::<Vec<_>>(),
-		vec![(json!("kill"), json!(823), json!(9710), json!(2)), (json!("kill"), json!(197), json!(9710), json!(1)), (json!("talk"), json!(295), json!(9710), json!(3))]
+		vec![(json!("kill"), json!(823), json!(9710), json!(2)), (json!("kill"), json!(197), json!(9710), json!(1)),]
 	);
 }
 

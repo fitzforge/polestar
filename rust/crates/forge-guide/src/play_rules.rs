@@ -1,7 +1,9 @@
 //! The play checks (docs/GUIDE_FORMAT.md, "Validation", "Play checks"): patterns players reported more than
-//! once, each a check over every guide instead of a fix per report. Errors in our pack (`guides`), warnings in
-//! every other, like the house rules. A step a check flags that is right as written is listed in
-//! `data/lint-allow.json` with its reason ([`Allow`]); an entry no step needs any more is a warning.
+//! once, each a check over every guide instead of a fix per report. On our pack (`guides`) a finding is a play
+//! check (Diagnostics::play_check): a warning in a compile, an error in a lint (promote_play_checks), so the
+//! tools that compile our pack (the judge, the writer, the honest playtest) go on; on every other pack a
+//! warning. A step a check flags that is right as written is listed in `data/lint-allow.json` with its reason
+//! ([`Allow`]); an entry no step needs any more is a warning.
 //!
 //! - `direct-gate`: a required `turnin <q> direct` whose quest takes items, in a step with no `when has <item>`
 //!   for each and no goal before it in the step that gets the item. The quest never enters the log, so nothing
@@ -92,17 +94,19 @@ impl Allow {
 	}
 }
 
-/// Report a play check's finding: an error in our pack, a warning in any other, unless the allow-list covers it.
+/// Report a play check's finding, unless the allow-list covers it: on our pack a play check (a warning in a compile,
+/// an error in a lint: Diagnostics::promote_play_checks), on any other a warning. `hint`: None keeps the finding's
+/// message as it was before the check (the offer warnings).
 #[allow(clippy::too_many_arguments)]
-pub fn report(diag: &mut Diagnostics, allow: &Allow, g: &V, ln: f64, rule: &str, subject: (&str, &V), msg: String, hint: &str) {
+pub fn report(diag: &mut Diagnostics, allow: &Allow, g: &V, ln: f64, rule: &'static str, subject: (&str, &V), msg: String, hint: Option<&str>) {
 	if allow.covers(rule, &g.get("id"), subject) {
 		return;
 	}
-	let hint = format!("{hint}; a step that is right as written goes in data/lint-allow.json (rule `{rule}`, the {} and the reason)", subject.0);
+	let hint = hint.map(String::from);
 	if g.get("pack").as_str() == Some("guides") {
-		diag.error(&ast_file(g), ln, msg, Some(hint));
+		diag.play_check(rule, &ast_file(g), ln, msg, hint);
 	} else {
-		diag.warn(&ast_file(g), ln, msg, Some(hint));
+		diag.warn(&ast_file(g), ln, msg, hint);
 	}
 }
 
@@ -169,7 +173,7 @@ pub fn check_direct_gates(g: &V, data: &Data, allow: &Allow, diag: &mut Diagnost
 							"`turnin {} direct` takes {list} from the bags, but the step has no `when has` for it: a player without it is held at a hand-in the giver never offers",
 							quest_name(data, &q)
 						),
-						&format!("put the hand-in last in a step with {gates} (the hand-in then waits for the item), or get the item earlier in the same step"),
+						Some(&format!("put the hand-in last in a step with {gates} (the hand-in then waits for the item), or get the item earlier in the same step")),
 					);
 				}
 			}
@@ -228,7 +232,7 @@ pub fn check_consumed_gates(g: &V, data: &Data, allow: &Allow, diag: &mut Diagno
 				"gate-consumed",
 				("item", &item),
 				format!("the step waits for {} (`when has`), and this goal uses it up before the step's other goals: once it is gone the step no longer applies and they drop", item_name(data, &item)),
-				"move this goal last in the step, or the goals after it to a step of their own",
+				Some("move this goal last in the step, or the goals after it to a step of their own"),
 			);
 		}
 	}
@@ -262,7 +266,7 @@ pub fn check_talk_kills(g: &V, data: &Data, allow: &Allow, diag: &mut Diagnostic
 					quest_name(data, &q),
 					ts(&goal.get("oi"))
 				),
-				&format!("write `talk {} quest {}.{}`", ts(&o.get("id")), ts(&q), ts(&goal.get("oi"))),
+				Some(&format!("write `talk {} quest {}.{}`", ts(&o.get("id")), ts(&q), ts(&goal.get("oi")))),
 			);
 		}
 	}
@@ -399,7 +403,7 @@ pub fn check_skippable_items(g: &V, before: &[V], data: &Data, allow: &Allow, di
 							"item-skippable",
 							("item", &item),
 							format!("{what} needs {} in the bags, but every earlier goal that gets it is `optional` or in a step with a `when` this step does not share: a player who passed them is held here", item_name(data, &item)),
-							&format!("give the step `when has {}`, or make a goal that gets the item required", ts(&item)),
+							Some(&format!("give the step `when has {}`, or make a goal that gets the item required", ts(&item))),
 						);
 					}
 				}
@@ -507,12 +511,12 @@ pub fn check_unworked_turnins(g: &V, before: &[V], data: &Data, allow: &Allow, d
 				"handin-unworked",
 				("quest", &q),
 				format!("quest {} is turned in, but no earlier goal works its objective {}: the guide window goes from the accept straight to the hand-in", quest_name(data, &q), open.join(", ")),
-				&format!(
+				Some(&format!(
 					"add `complete {}` after the accept (it lists the objective and leads to its place), or the objective's own goal (`kill <npc> quest {}.<n>`, `interact <object> quest {}.<n>`)",
 					ts(&q),
 					ts(&q),
 					ts(&q)
-				),
+				)),
 			);
 		}
 	}

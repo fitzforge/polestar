@@ -127,11 +127,11 @@ fn a_collect_names_the_sources_its_point_and_spawn_areas_belong_to_the_points_ow
 #[test]
 fn a_collect_whose_item_nothing_drops_names_the_npc_who_hands_it_over() {
 	// Dillinger's Report: no droppers, a quest item, Brother Danil its "vendor": he hands it over.
-	let handed = goals_of(&["step One", "  when level>=4", "  accept 99141", "  collect 286200 quest 99141.1 @48,42"]).0[1].clone();
+	let handed = goals_of(&["step One", "  accept 99141", "  collect 286200 quest 99141.1 @48,42"]).0[1].clone();
 	assert_eq!(handed["fromNpcs"], json!([{ "npc": 152, "npcName": "Brother Danil" }]));
 	assert!(handed.get("npc").is_none(), "a hand-over NPC is named, never placed");
 	// `npc <id>` names one outright; nothing else is then named.
-	let named = goals_of(&["step One", "  when level>=4", "  accept 99141", "  collect 286200 quest 99141.1 npc 295 @48,42"]).0[1].clone();
+	let named = goals_of(&["step One", "  accept 99141", "  collect 286200 quest 99141.1 npc 295 @48,42"]).0[1].clone();
 	assert_eq!(named["npc"], 295);
 	assert_eq!(named["npcName"], "Innkeeper Farley");
 	assert!(named.get("fromNpcs").is_none(), "the named NPC stands alone");
@@ -350,7 +350,7 @@ fn a_quest_collect_leads_to_the_droppers_near_the_quests_level_not_to_ones_3_or_
 		}
 	});
 	let data = data_from(&t, Value::Null, Value::Null);
-	let seed = last_goal(&data, &["  when level>=4", "  accept 95300", "  collect 95116 quest 95300"]);
+	let seed = last_goal(&data, &["  accept 95300", "  collect 95116 quest 95300"]);
 	assert!(near(&seed, 70.0, 70.0), "{seed}");
 	assert!(spot_list(&seed).iter().all(|s| near(s, 70.0, 70.0)), "{seed}");
 	assert_eq!(seed["fromNpcs"], json!([{ "npc": 95061, "npcName": "Grove Sapling" }]));
@@ -360,7 +360,7 @@ fn a_quest_collect_leads_to_the_droppers_near_the_quests_level_not_to_ones_3_or_
 	assert!(near(&loose, 30.0, 30.0), "{loose}");
 	assert_eq!(loose["from"], "Grove Elder");
 	// An Elder that crowds nobody out stays a source: 40% and 37% are both likely.
-	let bark = last_goal(&data, &["  when level>=4", "  accept 95301", "  collect 95117 quest 95301"]);
+	let bark = last_goal(&data, &["  accept 95301", "  collect 95117 quest 95301"]);
 	let mut ids: Vec<u64> = bark["fromNpcs"].as_array().unwrap().iter().map(|n| n["npc"].as_u64().unwrap()).collect();
 	ids.sort();
 	assert_eq!(ids, [95060, 95061]);
@@ -483,30 +483,19 @@ fn a_spawn_or_two_far_from_the_camp_that_holds_most_of_a_target_are_strays() {
 
 #[test]
 fn objective_index_and_count_come_from_the_linked_objective_explicit_values_win() {
-	let (g, r) = goals_of(&[
-		"step Zero",
-		"  accept 783",
-		"  turnin 783",
-		"step One",
-		"  accept 7",
-		"  kill 6 quest 7",
-		"  kill 6 x3 quest 7",
-		"  accept 9400",
-		"  interact 1617 quest 9400",
-		"  kill 6 quest 7.1 x2",
-	]);
-	assert_eq!(json!([g[3]["oi"], g[3]["count"], g[3]["title"]]), json!([1, 10, "Kobold Camp Cleanup"]));
-	assert_eq!(json!([g[4]["oi"], g[4]["count"]]), json!([1, 3]));
-	assert_eq!(json!([g[6]["oi"], get(&g[6], "count"), g[6]["objName"]]), json!([1, null, "Kobold Crate"]));
-	assert_eq!(json!([g[7]["oi"], g[7]["count"]]), json!([1, 2]));
+	let (g, r) = goals_of(&["step One", "  accept 7", "  kill 6 quest 7", "  kill 6 x3 quest 7", "  accept 9400", "  interact 1617 quest 9400", "  kill 6 quest 7.1 x2"]);
+	assert_eq!(json!([g[1]["oi"], g[1]["count"], g[1]["title"]]), json!([1, 10, "Kobold Camp Cleanup"]));
+	assert_eq!(json!([g[2]["oi"], g[2]["count"]]), json!([1, 3]));
+	assert_eq!(json!([g[4]["oi"], get(&g[4], "count"), g[4]["objName"]]), json!([1, null, "Kobold Crate"]));
+	assert_eq!(json!([g[5]["oi"], g[5]["count"]]), json!([1, 2]));
 	assert!(r.warned("objective").is_empty());
 }
 
 #[test]
 fn a_quest_link_with_no_matching_objective_warns_and_leaves_the_index_unset() {
-	let (g, r) = goals_of(&["step Zero", "  accept 783", "  turnin 783", "step One", "  accept 7", "  kill 69 quest 7"]);
-	assert!(g[3].get("oi").is_none());
-	assert_match(&r.warnings.join("\n"), r"test\.guide:12: quest 7 has no objective for this npc");
+	let (g, r) = goals_of(&["step One", "  accept 7", "  kill 69 quest 7"]);
+	assert!(g[1].get("oi").is_none());
+	assert_match(&r.warnings.join("\n"), r"test\.guide:9: quest 7 has no objective for this npc");
 }
 
 #[test]

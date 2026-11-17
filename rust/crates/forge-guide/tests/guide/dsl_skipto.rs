@@ -40,7 +40,7 @@ fn skipto_lines_collect_on_their_step_in_order_each_with_its_label_and_one_predi
 		"  kill 6",
 		"step C",
 		"  label mid",
-		"  accept 33",
+		"  accept 7",
 		"step D",
 		"  label end",
 		"  kill 6",

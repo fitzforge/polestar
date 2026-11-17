@@ -115,7 +115,7 @@ fn when_level_takes_a_point_inside_a_level_too_with_the_same_errors() {
 	assert_match(&err("level<12+99999"), r"more XP than level 12 needs");
 	assert_match(&err("level>=60.5"), r"needs a level from 1 to 59");
 	assert_match(&err("level>70"), r"level 70 is out of range \(1-60\)");
-	let r = compile(&guide_text(&["step S", "  when level>=2.5", "  accept 783"]));
+	let r = compile(&guide_text(&["step S", "  when level>=2.5", "  accept 7"]));
 	assert!(r.errors.is_empty(), "{}", r.text);
 	assert_eq!(r.steps()[0]["when"], json!([{ "k": "level", "op": ">=", "n": 2, "frac": 0.5 }]));
 	assert_match(&emit(&r.guides), r#"when = \{ \{ k = "level", op = ">=", n = 2, frac = 0\.5 \} \}"#);
@@ -125,7 +125,7 @@ fn when_level_takes_a_point_inside_a_level_too_with_the_same_errors() {
 fn a_when_level_with_frac_splits_its_level_no_never_holds_warning_at_the_guides_edge() {
 	// The guide is for levels 1-10.
 	let never = |when: &str| {
-		let r = compile(&guide_text(&["step S", &format!("  when {when}"), "  accept 783"]));
+		let r = compile(&guide_text(&["step S", &format!("  when {when}"), "  accept 7"]));
 		assert!(r.errors.is_empty(), "{when}");
 		r.warned("never holds").len()
 	};

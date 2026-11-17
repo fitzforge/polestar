@@ -77,8 +77,6 @@ fn labels_are_guide_wide_a_duplicate_an_unknown_or_an_earlier_until_target_is_an
 fn a_goal_polestar_checks_off_only_on_the_routes_own_step_warns_in_an_along_step() {
 	let text = guide_text(&[
 		"step McBride",
-		"  accept 783",
-		"  turnin 783",
 		"  accept 7",
 		"step On the way",
 		"  along until back",
@@ -89,7 +87,7 @@ fn a_goal_polestar_checks_off_only_on_the_routes_own_step_warns_in_an_along_step
 		"  kill 6 x3",
 		"step Back",
 		"  label back",
-		"  accept 33",
+		"  accept 783",
 	]);
 	let r = compile(&text);
 	assert!(r.errors.is_empty(), "{}", r.text);
@@ -102,7 +100,7 @@ fn a_goal_polestar_checks_off_only_on_the_routes_own_step_warns_in_an_along_step
 
 #[test]
 fn a_talk_with_quest_counts_in_an_along_step_a_bare_talk_still_warns() {
-	let text = guide_text(&["step McBride", "  accept 783", "  turnin 783", "  accept 7", "step On the way", "  along", "  talk 6 quest 7.1", "  talk 197", "step Back", "  turnin 7"]);
+	let text = guide_text(&["step McBride", "  accept 7", "step On the way", "  along", "  talk 6 quest 7.1", "  talk 197", "step Back", "  turnin 7"]);
 	let r = compile(&text);
 	assert!(r.errors.is_empty(), "{}", r.text);
 	let warned: Vec<&String> = r.warnings.iter().filter(|w| w.contains("in an `along` step never checks off")).collect();

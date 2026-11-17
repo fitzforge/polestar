@@ -1302,7 +1302,8 @@ Errors:
   an item whose every located dropper is such an npc; `lint` also errors on a
   non-`optional` quest goal of a quest the cached simulator world (below) excludes
   as `elite`, unless the goal was already reported as elite
-- the play checks below (errors in our pack, warnings in any other)
+- `lint` only: the play checks below on Polestar's own guides (in `compile`, and
+  in every other pack, they are warnings, so the tools that compile a pack go on)
 
 Play checks: patterns players reported again and again, each checked over
 every guide so the next one never ships. A step a check flags that is right

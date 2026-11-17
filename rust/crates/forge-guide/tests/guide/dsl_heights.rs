@@ -50,9 +50,6 @@ fn height_data() -> Data {
 
 fn src() -> String {
 	guide_text(&[
-		"step A Threat Within",
-		"  accept 783",
-		"  turnin 783",
 		"step Heights",
 		"  accept 7",
 		"  accept 33",
@@ -65,9 +62,8 @@ fn src() -> String {
 	])
 }
 
-/// The last step's goals (src's Heights step).
 fn goals(r: &Compiled) -> Vec<Value> {
-	r.steps().last().unwrap()["goals"].as_array().unwrap().clone()
+	r.steps()[0]["goals"].as_array().unwrap().clone()
 }
 
 fn find<'a>(goals: &'a [Value], t: &str, npc: Option<u32>) -> &'a Value {

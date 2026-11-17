@@ -1348,7 +1348,7 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 							ts(p)
 						}
 					};
-					// A required accept the giver cannot offer is an error (play_rules `offer`); an optional one, or
+					// A required accept the giver cannot offer is a play check (play_rules `offer`: an error in a lint); an optional one, or
 					// one in a step that waits for the quest (`when available`), stays a warning. A prerequisite the step
 					// waits for (`when turnedin`) is no gap.
 					let when = step.get("when").items();
@@ -1368,7 +1368,7 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 					let required = !goal.get("optional").truthy() && !waits;
 					let offer = |diag: &mut Diagnostics, msg: String| {
 						if required {
-							crate::play_rules::report(diag, &allow, g, ln, "offer", ("quest", &quest), msg, "take what it needs earlier in the route, or move the accept after it");
+							crate::play_rules::report(diag, &allow, g, ln, "offer", ("quest", &quest), msg, None);
 						} else {
 							diag.warn(&file, ln, msg, None);
 						}
@@ -1613,21 +1613,12 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 				}
 				if min_level > reach {
 					let msg = format!("quest {} needs level {}, but the route plausibly reaches only level {} here", ts(&goal.get("quest")), ts(&goal.get("minLevel")), crate::js::num_str(reach));
-					// An error two levels or more short, for a required accept in a step that does not wait for the
+					// A play check (`offer-level`) two levels or more short, for a required accept in a step that does not wait for the
 					// level (`when level>=N`): the Engine holds an accept a level short until the player gets there,
 					// as one does on the way, while the estimate leaves out the route's kills. Else a warning.
 					let waits = step.get("when").items().iter().any(|p| p.get("k").as_str() == Some("level"));
 					if !goal.get("optional").truthy() && !waits && min_level >= reach.floor() + 2.0 {
-						crate::play_rules::report(
-							diag,
-							&allow,
-							g,
-							line(goal),
-							"offer-level",
-							("quest", &goal.get("quest")),
-							msg,
-							"move the accept to where the route has the level, or reach it first with a `level` step",
-						);
+						crate::play_rules::report(diag, &allow, g, line(goal), "offer-level", ("quest", &goal.get("quest")), msg, None);
 					} else {
 						diag.warn(&file, line(goal), msg, None);
 					}

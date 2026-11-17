@@ -42,8 +42,28 @@ fn with_allow(entries: Value) -> Data {
 	d
 }
 
+/// `text` linted as `forge guide lint` does: compiled, the play checks promoted to errors.
+fn lint_with(text: &str, data: &Data) -> Compiled {
+	let c = compile_with(text, data);
+	let mut diag = c.diag;
+	diag.promote_play_checks();
+	finish(c.guides, diag)
+}
+
+fn lint(text: &str) -> Compiled {
+	lint_with(text, &fixture_data())
+}
+
 fn run(lines: &[&str], data: &Data) -> Compiled {
-	compile_with(&guide_text(lines), data)
+	lint_with(&guide_text(lines), data)
+}
+
+#[test]
+fn a_compile_keeps_the_play_checks_as_warnings() {
+	let c = compile_with(&guide_text(&["step De Vries", "  turnin 9600 direct"]), &play_data());
+	assert!(c.erred("from the bags").is_empty());
+	assert_eq!(c.warned("from the bags").len(), 1);
+	assert!(c.diag.warnings().iter().any(|d| d.rule == Some("direct-gate")));
 }
 
 fn other_pack(lines: &[&str], data: &Data) -> Compiled {
@@ -55,13 +75,13 @@ fn a_required_direct_hand_in_that_takes_items_needs_a_when_has_for_them() {
 	let d = play_data();
 	let bare = guide_text(&["step De Vries", "  turnin 9600 direct"]);
 	assert_eq!(
-		compile_with(&bare, &d).erred("from the bags"),
+		lint_with(&bare, &d).erred("from the bags"),
 		[format!(
 			"test.guide:{}: `turnin 9600 (Quest 9600) direct` takes Linen Cloth (2589) from the bags, but the step has no `when has` for it: a player without it is held at a hand-in the giver never offers",
 			line_of(&bare, "  turnin 9600 direct")
 		)]
 	);
-	assert!(compile_with(&bare, &d).diag.errors().iter().any(|e| e.hint.as_deref().is_some_and(|h| h.contains("`when has 2589`") && h.contains("rule `direct-gate`"))));
+	assert!(lint_with(&bare, &d).diag.errors().iter().any(|e| e.hint.as_deref().is_some_and(|h| h.contains("`when has 2589`") && h.contains("rule `direct-gate`"))));
 	// Gated, gathered earlier in the step, or optional: right.
 	assert!(run(&["step De Vries", "  when has 2589", "  turnin 9600 direct"], &d).erred("from the bags").is_empty());
 	assert!(run(&["step De Vries", "  collect 2589 x1", "  turnin 9600 direct"], &d).erred("from the bags").is_empty());
@@ -79,7 +99,7 @@ fn a_gated_step_that_hands_its_item_over_before_its_other_goals_drops_them() {
 	let d = play_data();
 	let text = guide_text(&["step De Vries", "  when has 2589", "  turnin 9600 direct", "  accept 783"]);
 	assert_eq!(
-		compile_with(&text, &d).erred("uses it up"),
+		lint_with(&text, &d).erred("uses it up"),
 		[format!(
 			"test.guide:{}: the step waits for Linen Cloth (2589) (`when has`), and this goal uses it up before the step's other goals: once it is gone the step no longer applies and they drop",
 			line_of(&text, "  turnin 9600 direct")
@@ -100,7 +120,7 @@ fn a_kill_on_a_talk_line_is_an_error() {
 	let d = play_data();
 	let text = guide_text(&["step S", "  accept 9601", "  kill 197 quest 9601.1", "  kill 6 quest 9601.2", "  turnin 9601"]);
 	assert_eq!(
-		compile_with(&text, &d).erred("talking to"),
+		lint_with(&text, &d).erred("talking to"),
 		[format!(
 			"test.guide:{}: `kill` on quest 9601 (Quest 9601)'s line 1, which the game counts by talking to Marshal McBride: the step tells the player to kill an NPC they are meant to speak to",
 			line_of(&text, "  kill 197 quest 9601.1")
@@ -116,7 +136,7 @@ fn a_hand_in_with_no_goal_working_its_objectives_is_an_error() {
 	let d = play_data();
 	let bare = guide_text(&["step Kerlonian", "  accept 9605", "step Back", "  turnin 9605"]);
 	assert_eq!(
-		compile_with(&bare, &d).erred("no earlier goal works"),
+		lint_with(&bare, &d).erred("no earlier goal works"),
 		[format!(
 			"test.guide:{}: quest 9605 (Quest 9605) is turned in, but no earlier goal works its objective 9605.1 = event Escort Kerlonian: the guide window goes from the accept straight to the hand-in",
 			line_of(&bare, "  turnin 9605")
@@ -144,7 +164,7 @@ fn an_item_only_skippable_goals_get_holds_the_goal_that_needs_it() {
 	// Only an optional buy gets it.
 	let text = guide_text(&["step Buy", "  buy 159 x1 optional", "step Drink", "  use 159"]);
 	assert_eq!(
-		compile_with(&text, &d).erred("in the bags"),
+		lint_with(&text, &d).erred("in the bags"),
 		[format!(
 			"test.guide:{}: `use` needs Refreshing Spring Water (159) in the bags, but every earlier goal that gets it is `optional` or in a step with a `when` this step does not share: a player who passed them is held here",
 			line_of(&text, "  use 159")
@@ -170,7 +190,7 @@ fn an_item_only_skippable_goals_get_holds_the_goal_that_needs_it() {
 #[test]
 fn a_required_accept_the_giver_cannot_offer_is_an_error_an_optional_or_waiting_one_a_warning() {
 	// 9200 needs 9201 turned in first.
-	let needs = |lines: &[&str]| compile(&guide_text(lines));
+	let needs = |lines: &[&str]| lint(&guide_text(lines));
 	assert_eq!(needs(&["step S", "  accept 9200"]).erred("turned in first").len(), 1);
 	let opt = needs(&["step S", "  accept 9200 optional"]);
 	assert!(opt.erred("turned in first").is_empty());
@@ -219,5 +239,5 @@ fn the_allow_list_is_read_from_beside_the_data_folder() {
 	std::fs::write(dir.join("lint-allow.json"), r#"{ "allow": [{ "rule": "offer", "guide": "t/main", "quest": 9200, "reason": "r" }] }"#).unwrap();
 	let d = forge_guide::data::load_data(&data).unwrap();
 	assert_eq!(d.lint_allow.items().len(), 1);
-	assert!(compile_with(&guide_text(&["step S", "  accept 9200"]), &d).erred("turned in first").is_empty());
+	assert!(lint_with(&guide_text(&["step S", "  accept 9200"]), &d).erred("turned in first").is_empty());
 }

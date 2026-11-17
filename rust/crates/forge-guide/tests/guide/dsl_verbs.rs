@@ -409,20 +409,20 @@ fn new_verbs_emit_reagents_as_nested_tables() {
 }
 
 #[test]
-fn prerequisites_are_any_of_one_turned_in_prerequisite_suffices_none_of_them_is_an_error() {
+fn prerequisites_are_any_of_one_turned_in_prerequisite_suffices_none_of_them_warns() {
 	// 9500 lists 9201 and 783 as prerequisites.
 	let pat = "turned in first|none of them";
-	assert!(only(&compile(&guide_text(&["step S", "  accept 783", "  turnin 783", "  accept 9500"])).errors, pat).is_empty());
-	assert!(only(&compile(&guide_text(&["step S", "  accept 9201", "  turnin 9201", "  accept 9500"])).errors, pat).is_empty());
+	assert!(only(&compile(&guide_text(&["step S", "  accept 783", "  turnin 783", "  accept 9500"])).warnings, pat).is_empty());
+	assert!(only(&compile(&guide_text(&["step S", "  accept 9201", "  turnin 9201", "  accept 9500"])).warnings, pat).is_empty());
 	let src = guide_text(&["step S", "  accept 9500"]);
 	assert_eq!(
-		only(&compile(&src).errors, pat),
+		only(&compile(&src).warnings, pat),
 		vec![format!("test.guide:{}: quest 9500 needs one of 9201 (The First Step), 783 (A Threat Within) turned in first, but the chain turns in none of them", line_of(&src, "  accept 9500"))]
 	);
 	// Accepting is not turning in.
-	assert_eq!(only(&compile(&guide_text(&["step S", "  accept 783", "  accept 9500"])).errors, "none of them").len(), 1);
+	assert_eq!(only(&compile(&guide_text(&["step S", "  accept 783", "  accept 9500"])).warnings, "none of them").len(), 1);
 	// Through a `next` chain.
 	let one = "guide t/one\ntitle One\nlevels 1-5\nzone Elwynn Forest\nnext t/two\n\nstep S\n  accept 9201\n  turnin 9201\n";
 	let two = "guide t/two\ntitle Two\nlevels 1-5\nzone Elwynn Forest\n\nstep S\n  accept 9500\n";
-	assert!(only(&compile_map(&[("1.guide", one), ("2.guide", two)]).errors, pat).is_empty());
+	assert!(only(&compile_map(&[("1.guide", one), ("2.guide", two)]).warnings, pat).is_empty());
 }

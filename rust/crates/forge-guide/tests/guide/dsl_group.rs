@@ -43,22 +43,10 @@ fn a_quest_s_object_work_among_hostile_elites_is_elite_near_and_leaves_the_guide
 
 #[test]
 fn every_goal_of_a_dungeon_quest_names_the_dungeon_a_raid_quest_the_raid_a_breadcrumb_with_the_area_is_not_one() {
-	let (_, goals) = groups(&guide(&[
-		"step S",
-		"  accept 9600",
-		"  kill 95040 quest 9600",
-		"  complete 9600",
-		"  turnin 9600",
-		"  accept 9601",
-		"  complete 9601",
-		"  turnin 9601",
-		"  accept 9602",
-		"  kill 6 quest 9602",
-		"  turnin 9602",
-	]));
+	let (_, goals) = groups(&guide(&["step S", "  accept 9600", "  kill 95040 quest 9600", "  complete 9600", "  turnin 9600", "  accept 9601", "  turnin 9601", "  accept 9602", "  turnin 9602"]));
 	let d = json!({ "kind": "dungeon", "name": "Hollow Deeps" });
 	let r = json!({ "kind": "raid", "name": "Molten Core" });
-	assert_eq!(goals, [d.clone(), d.clone(), d.clone(), d, r.clone(), r.clone(), r, Value::Null, Value::Null, Value::Null]);
+	assert_eq!(goals, [d.clone(), d.clone(), d.clone(), d, r.clone(), r, Value::Null, Value::Null]);
 }
 
 #[test]
@@ -106,7 +94,7 @@ fn the_guide_flag_leaves_out_opt_in_group_steps_their_quests_later_goals_and_a_d
 	assert!(flag(&["step A", "  when group 9600", "  accept 9600", "", "step B", "  kill 95040 quest 9600"]).is_undef());
 	// A dungeon quest's turn-in in the guide after the one that runs it: the run was the group content.
 	let head = |id: &str, next: &str| format!("guide {id}\ntitle {id}\nfaction Alliance\ncategory Class\nlevels 1-60\nzone Elwynn Forest\n{next}\n");
-	let run = format!("{}\nstep S\n  accept 9600\n  kill 95040 quest 9600\n", head("t/run", "next t/handin"));
+	let run = format!("{}\nstep S\n  accept 9600\n", head("t/run", "next t/handin"));
 	let handin = format!("{}\nstep S\n  turnin 9600\n", head("t/handin", ""));
 	let r = compile_files(&[("run.guide", &run), ("handin.guide", &handin)], &group_data(), None);
 	assert!(r.errors.is_empty(), "{}", r.text);
