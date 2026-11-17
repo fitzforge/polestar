@@ -1640,7 +1640,7 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 					// A quest's giver that an in-game capture also names as an ender is not added beside
 					// the enders the data already has unless players handed the quest in in that NPC's
 					// window (#2612: captures named the giver of quests handed in at an object).
-					let givers: Vec<f64> = if field == "end" && observed && (prev.get("npc").len() > 0 || prev.get("object").len() > 0) {
+					let givers: Vec<f64> = if field == "end" && observed && (!prev.get("npc").is_empty() || !prev.get("object").is_empty()) {
 						q.get("start").get("npc").items().iter().map(V::num).collect()
 					} else {
 						Vec::new()
