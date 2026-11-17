@@ -3243,5 +3243,31 @@
 			}
 		],
 		"note": "Aza'bek, the Crossroads cook who sells Soothing Spices, stands still at 49.74,29.35. The merged data had five points for Aza'bek, from 48.26,28.32 to 50.43,29.2, and `buy 3713 nearest` (Horde Dustwallow Marsh) sent players to 49.26,28.66, 64 yd away (#2774)."
+	},
+	"259023": {
+		"set": {
+			"spawns": {
+				"1417": {
+					"f": "e",
+					"pts": [
+						[
+							59.84,
+							27.57
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "npcs.json 259023: Arathi Highlands 59.84,27.57 and Ironforge 47.1,13.79; the Ironforge point is Eldrun Stormbreaker's (258098) spawn to the hundredth"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2851 (Logan, 0.4.0.1, Dwarf Shaman 30): stood at Ironforge 47.07,13.02, 4 yd from 47.1,13.79, with Call of Air (94789) in the log; nobody there took it, while While you're here offered its hand-in to Veyric Thunderhame 5 yd away"
+			}
+		],
+		"note": "Veyric Thunderhame, who takes Call of Air (94789) and gives the rest of the Alliance Shaman chain, stands in the hills of Arathi Highlands. The merged data also put him at Eldrun Stormbreaker's spot in Ironforge, so the Codex's nearest ender for 94789 was in Ironforge and While you're here offered the hand-in there (#2851)."
 	}
 }
