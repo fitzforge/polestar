@@ -328,6 +328,30 @@ fn home_all_dungeons_groups_by_band_the_faction_filter_changes_the_counts_search
 	assert_eq!(out["tab"], "quests");
 }
 
+// #2773 (Liquidor): a search, another section, then Dungeons again. The hub empties its box on the way out without
+// telling the section, so Dungeons kept its old search: a blank box over "Search" results, and the sidebar's bands did
+// nothing. Dungeons now takes the hub's search whenever it draws, as Rares does.
+#[test]
+fn a_search_left_for_another_section_is_gone_when_dungeons_shows_again_and_the_bands_work() {
+	let out = run(r#"
+		Polestar.Dungeons.Open()
+		local box = P.search
+		box:SetText("test"); stub.RunScript(box, "OnTextChanged", true)
+		local searched = PolestarPicker.Title:GetText()
+		P.ShowSection("Lookup")
+		P.ShowSection("Dungeons")
+		local back = { box = box:GetText(), title = PolestarPicker.Title:GetText(), band = DS.Shown().band }
+		DS.SetBand("all")
+		emit({ searched = searched, back = back, all = { title = PolestarPicker.Title:GetText(), cards = cardNames() } })"#);
+	let out = &out[0];
+	assert_eq!(out["searched"], "Search");
+	assert_eq!(out["back"]["box"], "");
+	assert_eq!(out["back"]["title"], "For your level", "an empty box shows the bands, not the old search");
+	assert_eq!(out["back"]["band"], "level");
+	assert_eq!(out["all"]["title"], "Dungeons", "a band clicked after coming back shows that band");
+	assert_eq!(out["all"]["cards"], json!(["The Deadmines", "Wailing Caverns", "Blackmaw Hold"]));
+}
+
 // A French client whose names pack lands with Home open: the cards take the names Dungeons.List gives from then on.
 #[test]
 fn home_a_names_pack_landing_late_renames_the_cards() {

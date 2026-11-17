@@ -2370,8 +2370,17 @@ local function renderEmpty(reason)
 	shown.view, shown.empty = "empty", reason
 end
 
+-- The hub's search is this section's filter, as Rares takes it: the hub empties its box when another section shows,
+-- without telling this one, which kept its old search under an empty box and the bands dead (#2773).
+local function syncFilter()
+	local P = UI.Picker
+	local s = P and P.ActiveSection and P.ActiveSection()
+	if s and s.key == "Dungeons" and P.Query then filter = P.Query() or "" end
+end
+
 function DS.Render()
 	if not root then return end
+	syncFilter()
 	for k in pairs(shown) do shown[k] = nil end
 	local Dg = D()
 	local loaded, reason
@@ -2409,6 +2418,7 @@ function DS.SetBossLoot(i)
 end
 
 function DS.Nav()
+	syncFilter()
 	local Dg = D()
 	if not (Dg and Dg.IsEnabled() and Dg.Load()) then return {}, nil end
 	local plevel = playerLevel()
