@@ -5109,6 +5109,31 @@
 		},
 		"note": "The Fate of Zephras (Horde): the objective (\"Speak with Talaanis Shadowsong\") ticks as the player talks to him, with no kill; the data counted it as a kill. Guides track it as a talk (#956)."
 	},
+	"93862": {
+		"set": {
+			"races": null,
+			"start": {
+				"npc": [
+					256386,
+					256390
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					256386,
+					256390
+				],
+				"object": []
+			}
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-16): an Alliance Human Paladin handed Crate Return in 19 times at npc 256390"
+		},
+		"note": "Crate Return is open to both factions: the Alliance hands it in at npc 256390, the Horde at npc 256386. QuestieDB 1.1.2 made it Horde-only, which the 0.4.0 data did not have."
+	},
 	"93926": {
 		"set": {
 			"objectives": [
@@ -7270,15 +7295,20 @@
 					"count": 1,
 					"text": "Black Skeletal Horse"
 				}
-			]
+			],
+			"races": 16
 		},
 		"source": [
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings (to 2026-11-16; excluded and suspect contributors left out): 4 people ran A Steed in Death as They Were in Life; each mount's line (its name) ticked as that mount's window opened, never on a kill"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16): the 5 people who took A Steed in Death as They Were in Life were all Undead"
 			}
 		],
-		"note": "A Steed in Death as They Were in Life: each mount is inspected through its window, a talk; the data counted them as kills."
+		"note": "A Steed in Death as They Were in Life: each mount is inspected through its window, a talk; the data counted them as kills. The quest is for Undead only, as the 0.4.0 data had it; QuestieDB 1.1.2 opened it to every Horde race."
 	},
 	"97017": {
 		"set": {
@@ -10462,7 +10492,15 @@
 	},
 	"92840": {
 		"set": {
-			"races": 4294967373
+			"races": 4294967373,
+			"objectives": [
+				{
+					"type": "object",
+					"id": 697118,
+					"count": 6,
+					"text": "Gather Data on Elemental Currents"
+				}
+			]
 		},
 		"source": [
 			{
@@ -10476,9 +10514,13 @@
 			{
 				"kind": "questie",
 				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_ALLIANCE in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16): 12 people's quest logs list one line, \"Gather Data on Elemental Currents\" x6; 43 of its 60 recorded ticks came within 4 seconds of a cast of spell 1320971, all such casts at the Windstone Formations, Zephras Isle 47-49,67-70 (map 2521)"
 			}
 		],
-		"note": "Catching Wind is open to every Alliance race: Forever's server sets the Alliance races (players' caches), and 1 Night Elf player (1 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: the Alliance), which closed it to Human, Dwarf, Night Elf and Gnome."
+		"note": "Catching Wind is open to every Alliance race: Forever's server sets the Alliance races (players' caches), and 1 Night Elf player (1 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: the Alliance), which closed it to Human, Dwarf, Night Elf and Gnome. Its one objective is six uses of the Index Esoteria on the Windstone Formations; the server counts them as a kill credit (253306), which no step can target."
 	},
 	"92841": {
 		"set": {

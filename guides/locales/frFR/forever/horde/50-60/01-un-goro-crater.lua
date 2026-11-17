@@ -169,7 +169,7 @@ return {
 
 	-- Step 34: Gadgetzan
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn · {area:983} Dunemaul Compound
-	["The hearth lands in {area:976}: {npc:11758} takes the {area:983} and Tran'rek Thistleshrub Valley, both done on the way into the crater."] = "La pierre de foyer vous ramène à {area:976} : {npc:11758} prend l'{area:983} et Tran'rek la vallée de Thistleshrub, toutes deux faites en route vers le cratère.",
+	["The hearth lands in {area:976}: {npc:11758} takes the {area:983} and Tran'rek Thistleshrub Valley, both done on the way into the crater."] = "La pierre de foyer vous ramène à {area:976} : {npc:11758} prend l'{area:983} et Tran'rek la vallée des Chardonniers, toutes deux faites en route vers le cratère.",
 
 	-- Step 35: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg

@@ -257,7 +257,8 @@ return {
 	-- {item:216616} Compound Cage Key
 	["{item:216616}, from the Subchiefs (or the Elites)"] = "{item:216616}, de los Subjefes (o de los Élites)",
 	-- {item:216617} Kurzen Fighter's Uniform
-	["{item:216617}, in the supply crate"] = "{item:216617}, en la caja de suministros",
+	-- was: ["{item:216617}, in the supply crate"] = "{item:216617}, en la caja de suministros"
+	["{item:216617}, in the supply crate deep in the cave"] = "",
 	-- {npc:218230} Wendel Mathers
 	["{npc:218230}, back at his cage on the way out"] = "{npc:218230}, de vuelta en su jaula al salir",
 	-- {npc:218229} Captain Aransas · {area:35} Booty Bay
@@ -457,6 +458,7 @@ return {
 	-- ["for the flight back to {npc:6251} at 43"] = "para el vuelo de vuelta a {npc:6251} a nivel 43",
 	-- ["for the {area:8} later"] = "para {area:8}, más tarde",
 	-- ["for {npc:2616} in Theramore: keep it"] = "para {npc:2616}, en Theramore: guárdalo",
+	-- ["{item:216617}, in the supply crate"] = "{item:216617}, en la caja de suministros",
 	-- ["{npc:1356}: for {npc:1344} in {zone:1432}, keep it"] = "{npc:1356}: para {npc:1344}, en {zone:1432}; guárdalo",
 	-- ["{npc:217588}: catch it, for {quest:93176}"] = "{npc:217588}: atrápala, para {quest:93176}",
 	-- ["{npc:2487}, top floor"] = "{npc:2487}, último piso",

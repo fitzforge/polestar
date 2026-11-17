@@ -394,6 +394,9 @@ local function decodeQuest(group, id, s)
 		elseif lead == "u" then
 			-- A child quest's parent, which must be in the log: u<quest>.
 			rec.parent = tonumber(sub(f, 2))
+		elseif lead == "h" then
+			-- How it is done beyond its objectives, in our words (#2714): h<text>.
+			rec.how = unesc(sub(f, 2))
 		elseif f == "d" then
 			-- Handed in at one talk, never in the log (#2686: Bloodpetal Sprouts).
 			rec.direct = true

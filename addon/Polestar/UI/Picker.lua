@@ -110,7 +110,7 @@ local CATEGORY_RANK = {}
 for i, c in ipairs(CATEGORIES) do CATEGORY_RANK[c] = i end
 local CATEGORY_ICON = {
 	Leveling = "icon-level", Class = "icon-train", Professions = "icon-craft", Reputation = "icon-rep", Exploration = "icon-explore",
-	Legacy = "icon-achieve", Collectibles = "icon-collect", Miscellaneous = "icon-treasure", Favorites = "star",
+	Legacy = "icon-achieve", Collectibles = "icon-collect", Miscellaneous = "icon-treasure", Favorites = "star", Lookup = "search",
 }
 P.CATEGORY_ICON = CATEGORY_ICON
 
@@ -1744,6 +1744,15 @@ local function navItems(counts, total)
 	for _, c in ipairs(CATEGORIES) do
 		if exists[c] then items[#items + 1] = { key = c, label = L[c], icon = CATEGORY_ICON[c], count = counts[c] or 0 } end
 	end
+	-- A category outside the format's list (Lookup's and Dungeons' made guides: "Lookup", #2779), after them.
+	local extra = {}
+	for c in pairs(exists) do
+		if not CATEGORY_RANK[c] then extra[#extra + 1] = c end
+	end
+	table.sort(extra)
+	for _, c in ipairs(extra) do
+		items[#items + 1] = { key = c, label = L[c], icon = CATEGORY_ICON[c] or "compact", count = counts[c] or 0 }
+	end
 	items[#items + 1] = { key = "Favorites", label = L["Favourites"], icon = CATEGORY_ICON.Favorites, count = counts.Favorites or 0 }
 	-- Community guides: one entry per shown pack with guides, "<title> · <author>".
 	if #packs > 0 then
@@ -1917,8 +1926,10 @@ function P.Render()
 	renderRail()
 	sectionLayout(active)
 	if active then
-		sectionNav(active)
+		-- The section first, then its sidebar: a section takes up a search the hub changed while another one
+		-- was shown when it draws, and its index counts what it shows (#2769).
 		renderSection(active)
+		sectionNav(active)
 		return
 	end
 	for _, s in ipairs(sections) do if s.psFrame then s.psFrame:Hide() end end

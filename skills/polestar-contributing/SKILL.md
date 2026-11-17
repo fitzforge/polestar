@@ -75,6 +75,13 @@ requests for one bug waste both. Before you write any code for an issue:
 A claim with no commit or reply for a week is free to take over: say so on
 the issue first. CONTRIBUTING.md, "Before you start", is the long form.
 
+**New guides are community guides.** A guide the author wrote themselves
+(a new route, a dungeon walkthrough, a collection) is published as their own
+community guide on polestar.guide (README, "Writing a community addon"), not
+added to Polestar's own `guides/`. A pull request adding a new `.guide` file
+there needs the maintainer's request in an issue first; without it, suggest
+the community guide instead. Fixes to existing guides are unaffected.
+
 ## Which branch
 
 Every pull request goes to **`next`**, the repository's default branch.

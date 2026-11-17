@@ -257,7 +257,8 @@ return {
 	-- {item:216616} Compound Cage Key
 	["{item:216616}, from the Subchiefs (or the Elites)"] = "{item:216616}，来自副首领（或精英）",
 	-- {item:216617} Kurzen Fighter's Uniform
-	["{item:216617}, in the supply crate"] = "{item:216617}，在补给箱里",
+	-- was: ["{item:216617}, in the supply crate"] = "{item:216617}，在补给箱里"
+	["{item:216617}, in the supply crate deep in the cave"] = "",
 	-- {npc:218230} Wendel Mathers
 	["{npc:218230}, back at his cage on the way out"] = "{npc:218230}，离开时回到他的笼子旁",
 	-- {npc:218229} Captain Aransas · {area:35} Booty Bay
@@ -483,6 +484,7 @@ return {
 	-- ["grind on {npc:690}"] = "反复击杀{npc:690}补足经验",
 	-- ["grind on {npc:766}"] = "反复击杀{npc:766}补足经验",
 	-- ["{area:43}: kill these as you meet them"] = "{area:43}：沿途击杀以下目标",
+	-- ["{item:216617}, in the supply crate"] = "{item:216617}，在补给箱里",
 	-- ["{item:5938}, from the Silt Crawlers on the same shore"] = "{item:5938}，来自同一段海岸的淤泥蟹",
 	-- ["{npc:1356}: for {npc:1344} in {zone:1432}, keep it"] = "{npc:1356}：交给{zone:1432}的{npc:1344}，留着",
 	-- ["{npc:1449}, inside {area:1742}"] = "{npc:1449}，位于{area:1742}内部",

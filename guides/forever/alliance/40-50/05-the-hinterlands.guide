@@ -206,6 +206,13 @@ step Sprogger
   when group 8554
   accept 8554
 
+step Negolash's bait
+  when group 8554
+  tip Negolash comes only for his food: hand in Enticing Negolash at Captain Smotts' ruined lifeboat on the shore south-east of Booty Bay, with 10 Barbecued Buzzard Wings and 5 Junglevine Wine, and he comes to the boat. Nixxrax Fillamug, the food and drink vendor at the inn, sells the wine. The wings are a cook's dish: if you don't cook, bring them from the Auction House.
+  buy 4595 x5 npc 2832                 -- Junglevine Wine, Nixxrax Fillamug
+  auction 4457 x10                     -- Barbecued Buzzard Wing: in your bags already if you cook
+  turnin 619 direct                    -- Ruined Lifeboat: the food goes in, Negolash comes
+
 step Facing Negolash
   when group 8554
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Negolash (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.

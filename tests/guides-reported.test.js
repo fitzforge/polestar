@@ -191,6 +191,9 @@ test("Tyr's Watch: Tanis Alderwood's goals carry his Undercity floor's height, f
 });
 
 test('Horde objective follow-ups: camp discovery, Silithyst delivery and cooking point at their actual objective', { skip }, () => {
+	// Betrayed (3505): the camp, where the Kaldorei Tome of Summoning takes the hand-in. The game counts only
+	// the two kill lines (players' recordings, #2585), so the data may have no event line for it.
+	const camp = { f: 'e', x: 59.53, y: 31.47 };
 	for (const [file, quest, map, npc] of [
 		['forever/horde/50-60/04-azshara.guide', 3505, 1447, null],
 		['forever/horde/50-60/06-silithus.guide', 9422, 1451, 18199],
@@ -198,7 +201,7 @@ test('Horde objective follow-ups: camp discovery, Silithyst delivery and cooking
 	]) {
 		const { goal } = goals(file).find(({ goal }) => goal.t === 'complete' && goal.quest === quest);
 		assert.equal(goal.map, map, `${quest}: the unfinished objective has an arrow on its map`);
-		const event = npc ? null : data.quests[quest].objectives.find((o) => o.type === 'event');
+		const event = npc ? null : data.quests[quest].objectives.find((o) => o.type === 'event') || camp;
 		const spawn = npc ? data.npcs[npc].spawns[map] : null;
 		assert.equal(goal.f || 'l', spawn ? spawn.f : event.f, `${quest}: keep the source coordinate frame`);
 		assert.equal(goal.x, spawn ? spawn.pts[0][0] : event.x);
@@ -2670,7 +2673,9 @@ function directStuck(st, goal) {
 	const before = st.goals.slice(0, st.goals.indexOf(goal));
 	for (const [item, n] of directNeeds(goal.quest)) {
 		const gated = (st.when || []).some((p) => p.k === 'has' && !p.neg && p.item === item && (p.n || 1) >= n);
-		const gathered = before.some((g) => (g.t === 'collect' || g.t === 'buy') && g.item === item && !g.optional);
+		// The goals that get it, as the lint's direct-gate reads them (play_rules.rs got_item): a collect, a buy,
+		// a craft or an Auction House buy (Negolash's wings, #2711), each a bag count.
+		const gathered = before.some((g) => ['collect', 'buy', 'craft', 'auction'].includes(g.t) && g.item === item && !g.optional);
 		if (!gated && !gathered) return `item ${item} x${n}: neither gathered in the step nor a \`when has\``;
 	}
 	return null;
@@ -3196,10 +3201,12 @@ test('side guides: no step sends a character to an NPC of the other faction (#24
 // purpose: raid and level 61+ bosses (past what a hold can wait for), the Legacy checklist's dungeon bands (held at each
 // band's first level), one dropper among many (any thunder lizard drops the horn, any Shardtooth the meat), the Barrens'
 // Echeyakee (the data's 60 is a summon's range), Chol'aruk (an optional group kill in a solo hub) and the Timbermaw
-// feather and bead farms (any Deadwood or Winterfall furbolg).
+// feather and bead farms (any Deadwood or Winterfall furbolg). Warned instead of held: the Gelkis valley's Undead
+// Ravagers, 37 to 45 in Shen'dralas (players' recordings), whose step waits for 39 and says how high they go.
 test('side guides: every fighting step waits on its own level for mobs at most 1 above it (Fitz\'s rule, #2462)', { skip }, () => {
 	const top = (id) => data.npcs[id] && (data.npcs[id].levelMax || data.npcs[id].level);
 	const LEFT = new Set(['legacy/legacy-challenges', 'reputation/orgrimmar 3475', 'reputation/orgrimmar 5832', 'reputation/orgrimmar 267307', 'reputation/wintersaber-trainers 7446', 'reputation/timbermaw-hold 7442']);
+	const WARNED = new Set(['reputation/centaur-clans 11561']);
 	const wrong = [];
 	for (const G of allGuides().filter((g) => /^forever\/(reputation|collectibles|exploration|miscellaneous|legacy)\//.test(g))) {
 		const id = G.replace(/^forever\//, '').replace(/\.guide$/, '');
@@ -3214,7 +3221,9 @@ test('side guides: every fighting step waits on its own level for mobs at most 1
 				const n = mob && data.npcs[mob];
 				if (!n || n.faction || LEFT.has(`${id} ${mob}`) || top(mob) >= 61 || own >= 60) continue;
 				const allow = goal.group ? 2 : 1;
-				if (top(mob) > own + allow) wrong.push(`${G}, ${step.title}: ${goal.t} ${goal.item || goal.npc}, ${n.name} up to ${top(mob)}, the step waits for ${own}`);
+				if (top(mob) <= own + allow) continue;
+				if (WARNED.has(`${id} ${mob}`)) assert.ok(JSON.stringify([step.note, step.tip, step.tips]).includes(`up to level ${top(mob)}`), `${G}, ${step.title}: a tip warns of ${n.name} up to level ${top(mob)}`);
+				else wrong.push(`${G}, ${step.title}: ${goal.t} ${goal.item || goal.npc}, ${n.name} up to ${top(mob)}, the step waits for ${own}`);
 			}
 		}
 	}
@@ -15686,7 +15695,8 @@ test(`${TELDRASSIL}: The Red Crystal is taken on the first Auberdine stop, with 
 	assert.ok(take.step.goals.some(is('accept', 98025)) && take.step.goals.some(is('turnin', 6342)), 'the first stop: Laird and the WANTED poster');
 	assert.ok(at(list, 'accept 4811', is('accept', 4811)) < at(list, 'accept 954', is('accept', 954)), 'before the second stop');
 	const ne = goals(NE_DARKSHORE).filter(nightElf);
-	assert.ok(at(ne, 'accept 4811', is('accept', 4811)) < at(ne, 'crystal', (g) => g.quest === 4811 && g.t === 'interact'), 'Night Elf Darkshore keeps the accept before the crystal');
+	// Since the 0.4.1 data the game lists one objective (the event at the crystal), led to by `complete 4811 @`.
+	assert.ok(at(ne, 'accept 4811', is('accept', 4811)) < at(ne, 'crystal', (g) => g.quest === 4811 && g.t === 'complete'), 'Night Elf Darkshore keeps the accept before the crystal');
 });
 
 // Level tidy (0.4.0): For Love Eternal's (963) Anaya Dawnrunner is level 16, and Night Elf Darkshore reaches
@@ -16311,6 +16321,56 @@ test('#2604: Stranglethorn (Alliance): Skullsplitter Tusks are looked for in the
 	assert.equal(goal.map, 1434);
 	assert.ok(goal.x >= 42 && goal.x <= 49 && goal.y >= 30 && goal.y <= 42, `the trolls' camp: ${goal.x},${goal.y}`);
 	for (const s of goal.spots || []) assert.ok(s.alt || s.x > 35, `no spot the arrow picks far from the ruins: ${s.x},${s.y}`);
+});
+
+// #2711 (Soggy, 0.4.0.1, Alliance Hinterlands & Blasted Lands): Facing Negolash only said to kill him. Negolash
+// comes only when Enticing Negolash (619) is handed in at the Ruined Lifeboat with 10 Barbecued Buzzard Wings and
+// 5 Junglevine Wine; the step before the kill now gets both and hands them in there.
+test('#2711: The Hinterlands (Alliance): Facing Negolash brings his food to the lifeboat before the kill', { skip }, () => {
+	const list = goals('forever/alliance/40-50/05-the-hinterlands.guide');
+	const wine = at(list, 'buy 4595', (g) => g.t === 'buy' && g.item === 4595 && g.count === 5);
+	const wings = at(list, 'auction 4457', (g) => g.t === 'auction' && g.item === 4457 && g.count === 10);
+	const bait = at(list, 'turnin 619 direct', (g) => is('turnin', 619)(g) && g.direct);
+	const kill = at(list, 'collect 3935', (g) => g.t === 'collect' && g.item === 3935);
+	assert.ok(wine < bait && wings < bait && bait < kill, 'the food first, then the lifeboat, then Negolash');
+	assert.equal(list[bait].goal.object, 2289, 'handed in at the Ruined Lifeboat');
+	for (const i of [wine, wings, bait]) assert.ok(list[i].step.when, 'only for a group taking Facing Negolash');
+});
+
+// #2712 (stabaho, 0.4.0.1, Horde Riverglades): Stick 'Em's spears go on the Freshwater Crocolisks in the river; the
+// goal pointed at 51.9,57.1 on the farmland south of it, where no recorded player impaled one. It points at the
+// river now (recordings: 10 people at 51.75,51.97).
+test('#2712: Riverglades (Horde): Stick \'Em points at the crocolisks in the river', { skip }, () => {
+	const list = goals('forever/horde/40-50/01b-riverglades.guide');
+	const { goal } = list[at(list, 'use 271639', (g) => g.t === 'use' && g.quest === 95955)];
+	assert.equal(goal.map, 2548);
+	assert.ok(Math.hypot(goal.x - 51.75, goal.y - 51.97) < 0.5, `on the river: ${goal.x},${goal.y}`);
+});
+
+// #2694 (Xaden Ryan, 0.4.0.1, Alliance Stranglethorn 40-50): the Kurzen Supply Crate is deep in the cave of
+// Kurzen's Compound; the goal had no height (the crate has none in the spawn data), so the walk ended on the hill
+// above it. The goal points at the crate with the cave floor's height (data/goal-heights.json).
+test('#2694: Stranglethorn (Alliance): the Cook in the Cage\'s supply crate is reached through the cave', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const { goal } = list[at(list, 'collect 216617', (g) => g.t === 'collect' && g.item === 216617)];
+	assert.ok(Math.hypot(goal.x - 49.6, goal.y - 7.7) < 0.2, `at the crate: ${goal.x},${goal.y}`);
+	assert.ok(goal.z != null && goal.z < 40, `the cave's floor, not the hill above (about 96): ${goal.z}`);
+});
+
+// #2691 (Requis, 0.4.0.1, Engineering): Schematic: Thorium Tube led to one of eight points the data gave Kor'gar
+// around Powderfuse Port; 35 people opened his goods, all at 77.6-77.7,50.9-51.0. The correction gives him that one
+// spot; the guide's vendor point follows it once the data is built with it.
+test('#2691: Engineering: Kor\'gar is looked for where he sells, at Powderfuse Port 77.6,50.95', { skip }, () => {
+	const fix = ((loadCorrections().npcs[260565] || {}).set || {}).spawns;
+	assert.deepEqual(fix && fix[2548], { f: 'l', pts: [[77.6, 50.95]] }, 'the correction places him');
+	const base = loadData(DATA);
+	const ref = Object.assign(Object.create(Object.getPrototypeOf(base)), base, { npcs: { ...base.npcs, 260565: { ...base.npcs[260565], spawns: fix } } });
+	const file = path.join(OFFICIAL_DIR, 'forever/professions/engineering.guide');
+	const { guides } = compileSources([{ file, text: fs.readFileSync(file, 'utf8') }], ref);
+	const buy = guides[0].steps.flatMap((s) => s.goals).find((g) => g.t === 'buy' && g.item === 16047);
+	const korgar = (buy && buy.candidates || []).find((c) => c.npc === 260565);
+	assert.ok(korgar, 'Kor\'gar sells it');
+	assert.deepEqual([korgar.map, korgar.x, korgar.y], [2548, 77.6, 50.95]);
 });
 
 // #2419 (Onrevax, 0.3.7.2, Alliance Stranglethorn 30-40): from Nesingwary's camp the guide walked the length of the

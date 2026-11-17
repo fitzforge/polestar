@@ -1436,3 +1436,37 @@ emit({ first = first, follows = follows, saved = saved, want = { "TOP", wx, wy }
 	assert_eq!(out[0]["follows"], true, "by exactly the pointer's travel, at the card's scale");
 	assert_eq!(out[0]["saved"], out[0]["want"], "saved on its own point, in whole units");
 }
+
+// #2776 (Liquidor): a search in the Rares section left the sidebar's counts at every rare and treasure, where the
+// Guides and Lookup sidebars count the matches. While searching, each tab counts what it would list.
+#[test]
+fn while_searching_rares_sidebar_counts_the_matches_of_each_tab() {
+	let pack = pack();
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua", "stub_rares.lua"],
+		before: pack.stub_lua.clone(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml", "Lookup/Lookup.xml", "UI/UI.xml", "Rares/Rares.xml"])],
+		login: true,
+		script: r#"Polestar.Codex.Load()
+local RV = Polestar.UI.RaresSection
+local function counts()
+	local out = {}
+	for _, it in ipairs((RV.Nav())) do out[it.key] = it.count end
+	return out
+end
+local all = counts()
+RV.Search("thuros")
+local found = counts()
+RV.Search("chest")
+local chest = counts()
+RV.Search("")
+emit({ all = all, found = found, chest = chest, again = counts() })"#
+			.into(),
+		..Default::default()
+	});
+	let out = &out[0];
+	assert_eq!(out["all"], json!({ "rare": 1, "treasure": 1, "seen": 0 }), "the sample pack: Thuros Lightfingers and a Battered Chest");
+	assert_eq!(out["found"], json!({ "rare": 1, "treasure": 0, "seen": 0 }));
+	assert_eq!(out["chest"], json!({ "rare": 0, "treasure": 1, "seen": 0 }));
+	assert_eq!(out["again"], out["all"]);
+}

@@ -20,7 +20,10 @@
 -- without) with the kind, the icon and the name; key facts; the sources
 -- from Lookup.Sources, best first (label, detail, travel time, chance, price
 -- or standing; ones this character cannot use yet dimmed and saying why);
--- the selected source carries its own "Guide" button; pinned at the bottom
+-- the selected source carries its own "Guide" button; for a quest in a
+-- chain, the chain under them (Lookup.ChainProgress, #2554): each quest done,
+-- in the log, open now or waiting and why, skipped ones marked, a click
+-- opens that quest's page; pinned at the bottom
 -- "Guide me" (or "Open guide" when a curated guide collects it), which opens
 -- the guide in a new tab (Lookup.Guide). Guides in the results open in a new
 -- tab or show among the guides; dungeons also open in the Dungeons section.
@@ -688,6 +691,13 @@ local function buildDetails()
 	d.NoSource:SetJustifyV("TOP")
 	d.NoSource:SetWidth(INNER)
 	d.NoSource:SetPoint("TOPLEFT", d.Scroll.Child, "TOPLEFT", 0, -4)
+	-- A quest's chain, under its sources (#2554).
+	d.ChainHead = makeFolder(d.Scroll.Child)
+	d.ChainHead:Hide()
+	d.ChainRows = {}
+	d.ChainBranches = W.Text(d.Scroll.Child, "small", "textDim")
+	d.ChainBranches:SetWordWrap(true)
+	d.ChainBranches:Hide()
 
 	-- Pinned at the bottom: a line saying what the button does, the button.
 	d.Note = W.Text(d, "note", "textDim")
@@ -728,8 +738,66 @@ local function setButton(b, text, enabled)
 	b:SetAlpha(enabled == false and 0.5 or 1)
 end
 
+-- A chain row: the state's glyph, the quest's title, and its state.
+local CHAIN_ROW_H = 40
+local CHAIN_GLYPH = {
+	done = { "check", "success" }, log = { "icon-accept", "accent" },
+	open = { "circle", "quest" }, later = { "lock", "textMuted" },
+}
+
+local function chainRowClick(self)
+	if self.psQuest then LK.Select("quest", self.psQuest) end
+end
+
+local function chainRow(i)
+	local d = details
+	local r = d.ChainRows[i]
+	if r then return r end
+	r = CreateFrame("Button", nil, d.Scroll.Child)
+	W.Hover(r)
+	r:SetHeight(CHAIN_ROW_H)
+	r.Icon = r:CreateTexture(nil, "ARTWORK")
+	r.Icon:SetSize(12, 12)
+	r.Icon:SetPoint("TOPLEFT", r, "TOPLEFT", 9, -8)
+	r.Label = W.Text(r, "body", "text")
+	r.Label:SetPoint("TOPLEFT", r, "TOPLEFT", 30, -6)
+	r.State = W.Text(r, "small", "textDim")
+	r.State:SetPoint("TOPLEFT", r, "TOPLEFT", 30, -23)
+	r:SetScript("OnClick", chainRowClick)
+	r:SetScript("OnEnter", W.SimpleTip)
+	r:SetScript("OnLeave", W.HideTip)
+	d.ChainRows[i] = r
+	return r
+end
+
+-- What a chain row says about its quest.
+local function chainStateText(e)
+	if e.state == "done" then return L["Done"] end
+	local t
+	if e.state == "log" then
+		t = L["In your quest log"]
+	elseif e.state == "open" then
+		t = L["You can take it now"]
+	else
+		t = e.why or L["Not yet"]
+	end
+	if e.skipped then t = L["Skipped"] .. DOT .. t end
+	return t
+end
+
+-- "Step 6 of 11", "All 11 done", or "Finished, 2 skipped" when only skipped
+-- quests are left.
+local function chainStepText(chain)
+	if chain.done and (chain.skippedCount or 0) > 0 then
+		return format(L["Finished, %d skipped"], chain.skippedCount)
+	end
+	if chain.done then return format(L["All %d done"], chain.total) end
+	return format(L["Step %d of %d"], chain.step, chain.total)
+end
+LK.ChainStepText = chainStepText
+
 -- Facts: { label, value, colour? }.
-local function factsFor(s, entity, list)
+local function factsFor(s, entity, list, chain)
 	local k, e, out = s.kind, entity or {}, {}
 	local function add(label, value, color) if value and value ~= "" then out[#out + 1] = { label, value, color } end end
 	if k == "guide" then
@@ -764,6 +832,7 @@ local function factsFor(s, entity, list)
 		end
 		local new = ns.NewQuests and ns.NewQuests.TooltipText(s.id)
 		add(L["Origin"], new, "accent")
+		if chain then add(L["Chain"], chainStepText(chain), chain.done and (chain.skippedCount or 0) == 0 and "success" or nil) end
 	elseif k == "instance" then
 		add(L["Type"], e.kind == "raid" and L["Raid"] or L["Dungeon"])
 		local lv = type(e.levels) == "table" and UI.LevelRange(e.levels[2] or e.levels[1], e.levels[3])
@@ -924,7 +993,9 @@ local function renderDetails(loaded, reason)
 	else
 		d.Status:Hide()
 	end
-	local facts = factsFor(s, entity, list)
+	local Lk = ns.Lookup
+	local chain = s.kind == "quest" and Lk and Lk.ChainProgress and Lk.ChainProgress(s.id) or nil
+	local facts = factsFor(s, entity, list, chain)
 	local shown = {}
 	for i, f in ipairs(facts) do
 		local row = factRow(i)
@@ -947,7 +1018,6 @@ local function renderDetails(loaded, reason)
 	y = y - FACT_GAP + 8
 
 	-- The bottom: what the button does, then the button(s).
-	local Lk = ns.Lookup
 	local curated = curatedOf(s.kind, s.id)
 	local note, primary, enabled, secondary
 	local best
@@ -1111,14 +1181,71 @@ local function renderDetails(loaded, reason)
 		else
 			d.NoSource:Hide()
 		end
+		-- The chain, under the sources (#2554).
+		local chainShown
+		if chain then
+			chainShown = { step = chainStepText(chain), quests = {}, branches = {} }
+			cy = cy + 10
+			d.ChainHead.Text:SetText(L["Chain"])
+			d.ChainHead.Count:SetText(chainStepText(chain))
+			d.ChainHead:SetWidth(cw + TEXT_X * 2 - 16)
+			d.ChainHead:ClearAllPoints()
+			d.ChainHead:SetPoint("TOPLEFT", child, "TOPLEFT", 8 - TEXT_X, -cy)
+			d.ChainHead:Show()
+			cy = cy + FOLDER_H + 4
+			for i, e in ipairs(chain.quests) do
+				local r = chainRow(i)
+				local here = e.id == s.id
+				local g = CHAIN_GLYPH[e.state] or CHAIN_GLYPH.later
+				setGlyph(r.Icon, e.skipped and "skip" or g[1], e.skipped and "warning" or g[2])
+				r.Label:SetText(e.title or (L["Quest"] .. " " .. e.id))
+				W.Color(r.Label, here and "accent" or (e.state == "done" and "textDim" or "quest"))
+				local st = chainStateText(e)
+				r.State:SetText(st)
+				W.Color(r.State, e.skipped and "warning" or "textDim")
+				r.Label:SetWidth(cw - 30 - 10)
+				r.State:SetWidth(cw - 30 - 10)
+				r.psQuest = not here and e.id or nil
+				r.psTip = not here and L["Click to open its page."] or nil
+				r:SetWidth(cw)
+				r:ClearAllPoints()
+				r:SetPoint("TOPLEFT", child, "TOPLEFT", 0, -cy)
+				r:Show()
+				cy = cy + CHAIN_ROW_H
+				chainShown.quests[i] = { id = e.id, title = e.title, state = st, here = here or nil }
+			end
+			for i = #chain.quests + 1, #d.ChainRows do d.ChainRows[i]:Hide() end
+			if chain.branches then
+				local titles = {}
+				for i, b in ipairs(chain.branches) do
+					titles[i] = b.title or (L["Quest"] .. " " .. b.id)
+					chainShown.branches[i] = titles[i]
+				end
+				d.ChainBranches:SetText(format(L["Then any of: %s"], table.concat(titles, ", ")))
+				d.ChainBranches:SetWidth(cw - 30 - 10)
+				d.ChainBranches:ClearAllPoints()
+				d.ChainBranches:SetPoint("TOPLEFT", child, "TOPLEFT", 30, -(cy + 4))
+				d.ChainBranches:Show()
+				cy = cy + d.ChainBranches:GetStringHeight() + 10
+			else
+				d.ChainBranches:Hide()
+			end
+		else
+			d.ChainHead:Hide()
+			d.ChainBranches:Hide()
+			for _, r in ipairs(d.ChainRows) do r:Hide() end
+		end
+		LK.chainShown = chainShown
 		W.SetScrollContent(d.Scroll, cy + 4, shell:GetHeight() - SH.top - y - bottom)
 	else
 		d.Head:Hide()
 		d.Scroll:Hide()
+		LK.chainShown = nil
 	end
 	LK.detail = {
 		kind = s.kind, id = s.id, title = title, facts = shown, sources = rowsShown, curated = curated, status = status,
 		primary = primary and d.Primary.Label:GetText() or nil, note = d.Note:GetText(), art = d.psArt,
+		chain = LK.chainShown,
 	}
 	if primary then LK.detail.enabled = d.Primary:IsEnabled() end
 end
@@ -1539,9 +1666,12 @@ function LK.Build(parent, hub)
 	-- It belongs to this section: other sections' tab rows stay theirs.
 	root:SetScript("OnShow", function() root.CodexLine:Show() end)
 	-- Leaving the section, not Polestar hiding (its layer hides the hub with
-	-- the section still open: a search running goes on).
+	-- the section still open: a search running goes on). The hub leaves a
+	-- section by hiding the section's frame, `parent`, not this one: with
+	-- only its own state read, the line stayed over the guide list's tabs
+	-- (#2692).
 	root:SetScript("OnHide", function(self)
-		if self:IsShown() then return end
+		if self:IsShown() and parent:IsShown() then return end
 		cancelPending()
 		root.CodexLine:Hide()
 	end)
