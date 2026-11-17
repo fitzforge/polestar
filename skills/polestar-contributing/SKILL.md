@@ -96,7 +96,8 @@ long form.
 ## What to run (and not run)
 
 Run only the checks for what you changed. CI runs the full suite on every
-pull request and tells you if anything else broke.
+pull request that changes more than documentation and tells you if anything
+else broke.
 
 | What you changed | What you run |
 |---|---|

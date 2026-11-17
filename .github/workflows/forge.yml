@@ -8,15 +8,17 @@ name: Forge
 # pull_request only: a pull request's code never runs with this repository's secrets or write token.
 # The tests include the addon's Lua tests (forge-addontest: addon/ on the client stub tests/lua), so
 # a change to the addon, the stub or the compiler's test fixtures runs them too; the committed data
-# (data/, forever-db/) and the guides are what forge's checks read, so a change there runs them as well.
-# ci.yml builds forge on every push and pull request for the Node tests and the changelog check.
+# (data/, forever-db/) and the guides are what forge's checks read, so a change there runs them as well,
+# and so do the documents the tests read (tests/ci-lane.test.js holds this list to them). A pull request
+# that touches none of these paths skips this workflow; none of its checks is required.
+# ci.yml builds forge on every push and on every pull request but a documentation-only one.
 on:
   push:
     branches: [main, next]
     tags: ["forge-v*"]
-    paths: ["rust/**", "addon/**", "data/**", "forever-db/**", "guides/**", "tests/lua/**", "tests/fixtures/dsl/**", "docs/FORGE.md", "docs/forge/**", ".github/workflows/forge.yml"]
+    paths: ["rust/**", "addon/**", "data/**", "forever-db/**", "guides/**", "tests/lua/**", "tests/fixtures/dsl/**", "docs/FORGE.md", "docs/forge/**", "docs/API.md", "docs/GUIDE_FORMAT.md", "docs/PACK_FORMAT.md", "docs/PACKS.md", "README.md", "THIRD_PARTY.md", ".github/workflows/forge.yml"]
   pull_request:
-    paths: ["rust/**", "addon/**", "data/**", "forever-db/**", "guides/**", "tests/lua/**", "tests/fixtures/dsl/**", "docs/FORGE.md", "docs/forge/**", ".github/workflows/forge.yml"]
+    paths: ["rust/**", "addon/**", "data/**", "forever-db/**", "guides/**", "tests/lua/**", "tests/fixtures/dsl/**", "docs/FORGE.md", "docs/forge/**", "docs/API.md", "docs/GUIDE_FORMAT.md", "docs/PACK_FORMAT.md", "docs/PACKS.md", "README.md", "THIRD_PARTY.md", ".github/workflows/forge.yml"]
 
 permissions:
   contents: read
