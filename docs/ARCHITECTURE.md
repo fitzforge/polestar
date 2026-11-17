@@ -9092,7 +9092,9 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   fonts and buttons, the class colour only on the stripe, the icon ring and
   the small header. It slides up from behind the window's top edge (a fade
   under `ui.reduceMotion`), follows the window, flips below it when the
-  screen has no room above (rechecked after a drag) and hides with it. It
+  screen has no room above (rechecked after a drag), or when above it would
+  cover the quest buttons or their target list (`Buttons.Covers`, rechecked on
+  `QUEST_BUTTONS_PLACED`, #2629), and hides with it. It
   shows for a chain of the character's class whose start has a giver for
   its race and side (`starts[q].r`, "<race>:<A|H>"), not a level-1 one (learned
   at the start), opening at the new level (PLAYER_LEVEL_UP) or in the last

@@ -441,6 +441,26 @@ function Buttons.PlaceList(t, mark, rows, scale, side)
 	end
 end
 
+-- What the set covers on screen now, for a card that keeps clear of it (the
+-- heads-up card, UI/ClassToast.lua, #2629): each shown button and the target
+-- list's shown rows and mark, { left, bottom, right, top } in screen pixels
+-- (a frame's own units times its effective scale). Empty before the buttons
+-- are made. QUEST_BUTTONS_PLACED says it may have changed.
+function Buttons.Covers()
+	local out = {}
+	local function add(f)
+		if not (f and f:IsVisible()) then return end
+		local l, b, r, t = f:GetLeft(), f:GetBottom(), f:GetRight(), f:GetTop()
+		if not (l and b and r and t) then return end
+		local e = f:GetEffectiveScale() or 1
+		out[#out + 1] = { l * e, b * e, r * e, t * e }
+	end
+	for i = 1, set and #set or 0 do add(set[i]) end
+	for i = 1, #TL.rows do add(TL.rows[i]) end
+	add(TL.anchor)
+	return out
+end
+
 local function savedPos()
 	local p = QoL.State().buttonPos
 	return type(p) == "table" and p or DEFAULT_POS
@@ -518,6 +538,7 @@ local function placeNow()
 	bag:SetPoint(bp[1], UIParent, bp[2], bp[3], bp[4])
 	for i = 1, #set do placeLabel(set[i]) end
 	Buttons.PlaceList(Buttons.target, TL.anchor, TL.rows, s)
+	ns.Fire("QUEST_BUTTONS_PLACED")
 end
 
 local function place()
@@ -3573,12 +3594,17 @@ local function create()
 	QB.Add(rareButton, { force = true, enabled = function() return QoL.On("rareButton") end })
 	QB.Add(bagButton, { force = true, enabled = function() return QoL.On("bagSpace") end,
 		wanted = function(b) return b.junk ~= nil end, icon = useIcon })
-	-- An Above name moves when a button over it comes or goes.
+	-- An Above name moves when a button over it comes or goes, and the
+	-- heads-up card may take another side (Buttons.Covers).
 	local function placeLabels() for i = 1, #set do placeLabel(set[i]) end end
+	local function cameOrWent()
+		placeLabels()
+		ns.Fire("QUEST_BUTTONS_PLACED")
+	end
 	for i = 1, #set do
 		set[i].psStack = set
-		set[i]:HookScript("OnShow", placeLabels)
-		set[i]:HookScript("OnHide", placeLabels)
+		set[i]:HookScript("OnShow", cameOrWent)
+		set[i]:HookScript("OnHide", cameOrWent)
 	end
 	fighting = QoL.InLockdown()
 	for i = 1, #set do applyAlpha(set[i]) end
