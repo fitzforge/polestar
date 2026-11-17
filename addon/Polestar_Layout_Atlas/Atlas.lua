@@ -1785,8 +1785,29 @@ local function layoutBottom(parts, journey, foot)
 	window.psBelow = joined and b:GetHeight() or 0
 end
 
+-- The window's resize grip (16 a side, 1 in from the bottom right corner)
+-- over the last part's foot: Atlas leaves 14 under it, not Polestar's
+-- progress bar, so the grip takes the mouse over the corner 13 a side (its
+-- glyph, 10, is drawn as it was); back to its own when Atlas leaves.
+local GRIP_IN = 3
+local gripWas
+local function gripFits(on)
+	local G = P.UI and P.UI.GuideFrame
+	local grip = G and G.grip
+	if not (grip and grip.SetHitRectInsets) then return end
+	if on then
+		if not gripWas then gripWas = { grip:GetHitRectInsets() } end
+		grip:SetHitRectInsets(GRIP_IN, 0, GRIP_IN, 0)
+	elseif gripWas then
+		grip:SetHitRectInsets(unpack(gripWas))
+		gripWas = nil
+	end
+end
+onLeave(function() gripFits(false) end)
+
 on("guideLayout", function(parts)
 	if not parts.window then return end
+	gripFits(true)
 	local journey, foot = slots.journey, slots.journeyFoot
 	layoutStack(parts)
 	layoutBottom(parts, journey, foot)
