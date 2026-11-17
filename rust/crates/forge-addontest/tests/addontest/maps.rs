@@ -797,7 +797,11 @@ fn every_maps_setting_is_registered_with_a_label_and_help_map_features_on_the_ma
 	]
 	.iter()
 	.map(|s| s.to_string())
-	.chain(["repair", "mailbox", "class", "weapon", "auctioneer", "banker", "battlemaster", "spirithealer", "stablemaster", "trainer", "vendor"].iter().map(|key| format!("maps.serviceFilters.{key}")))
+	.chain(
+		["repair", "mailbox", "class", "weapon", "auctioneer", "banker", "battlemaster", "spirithealer", "stablemaster", "transmogrifier", "trainer", "vendor"]
+			.iter()
+			.map(|key| format!("maps.serviceFilters.{key}")),
+	)
 	.collect();
 	want.sort();
 	assert_eq!(sorted_strings(&out["pages"]["Map"]), want);

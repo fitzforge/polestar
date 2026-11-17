@@ -42,8 +42,8 @@ use std::path::{Path, PathBuf};
 use std::time::Instant;
 
 /// Bump a stage's version when its code changes what it writes.
-/// data-3: the Alliance Tailoring and Leatherworking trainer lists (professions.json, #1536).
-pub const DATA_VERSION: &str = "data-3";
+/// data-4: Forever transmogrifier NPC flag adds a service role.
+pub const DATA_VERSION: &str = "data-4";
 pub const GRID_VERSION: &str = "grid-1";
 pub const PREPARE_VERSION: &str = "prepare-2";
 /// world-6: vendor buys for item objectives; world-7: the graveyard table (World::graveyards, the
