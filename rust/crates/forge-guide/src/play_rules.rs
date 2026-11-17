@@ -190,8 +190,24 @@ fn used_up(goal: &V, data: &Data) -> Vec<V> {
 	}
 }
 
+/// Whether goal `x`, after `consumer` in its step, is the consumer's own outcome: a `collect` of an item the
+/// consumer's quest rewards, or of one the world gives no other way (no dropper, object, vendor or container): it
+/// is in the bags the moment the consumer is done, so the step dropping then loses nothing.
+fn its_outcome(x: &V, consumer: &V, data: &Data) -> bool {
+	let item = got_item(x);
+	let Some(item) = item.filter(|_| t_of(x) == "collect") else { return false };
+	let q = data.quest(&consumer.get("quest"));
+	let rewarded = q.truthy() && q.get("web").get("items").items().iter().any(|r| key(&if r.is_arr() { r.at(0) } else { r.clone() }) == key(&item));
+	let it = data.item(&item);
+	let d = it.get("drops");
+	let some = |o: &V| o.truthy() && !o.keys().is_empty();
+	let world = it.truthy() && (some(&d.get("npc")) || some(&d.get("object")) || !it.get("vendors").items().is_empty() || !it.get("containers").items().is_empty());
+	rewarded || !world
+}
+
 /// gate-consumed (module docs): a step with `when has <item>` whose goal uses the item up before other goals of the
-/// step: once the item is gone the step's `when` fails, and Polestar drops the rest of the step on the spot.
+/// step: once the item is gone the step's `when` fails, and Polestar drops the rest of the step on the spot. Goals
+/// that are the consuming goal's own outcome (its_outcome) and notes lose nothing.
 pub fn check_consumed_gates(g: &V, data: &Data, allow: &Allow, diag: &mut Diagnostics) {
 	for step in g.get("steps").items() {
 		let gated = has_gates(&step);
@@ -201,7 +217,7 @@ pub fn check_consumed_gates(g: &V, data: &Data, allow: &Allow, diag: &mut Diagno
 		let goals = step.get("goals").items();
 		for (k, goal) in goals.iter().enumerate() {
 			let Some(item) = used_up(goal, data).into_iter().find(|i| gated.contains(&key(i))) else { continue };
-			if !goals[k + 1..].iter().any(|x| t_of(x) != "note") {
+			if !goals[k + 1..].iter().any(|x| t_of(x) != "note" && !its_outcome(x, goal, data)) {
 				continue;
 			}
 			report(

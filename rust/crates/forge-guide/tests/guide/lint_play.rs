@@ -89,6 +89,10 @@ fn a_gated_step_that_hands_its_item_over_before_its_other_goals_drops_them() {
 	assert!(run(&["step De Vries", "  when has 2589", "  accept 783", "  turnin 9600 direct"], &d).erred("uses it up").is_empty());
 	assert!(run(&["step De Vries", "  when has 2589", "  turnin 9600 direct", "step Then", "  accept 783"], &d).erred("uses it up").is_empty());
 	assert_eq!(run(&["step Read", "  when has 1210", "  accept 9602", "  accept 783"], &d).erred("uses it up").len(), 1);
+	// What the hand-in itself hands over loses nothing: an item the world gives no other way (Gladius); a vendor's
+	// water is a goal of its own and drops.
+	assert!(run(&["step De Vries", "  when has 2589", "  turnin 9600 direct", "  collect 2488 x1"], &d).erred("uses it up").is_empty());
+	assert_eq!(run(&["step De Vries", "  when has 2589", "  turnin 9600 direct", "  collect 159 x1"], &d).erred("uses it up").len(), 1);
 }
 
 #[test]
