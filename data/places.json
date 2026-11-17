@@ -2546,6 +2546,30 @@
 				}
 			],
 			"issue": 2650
+		},
+		{
+			"id": "2604-stv-skullsplitter-tusks-alliance",
+			"quest": 209,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1434,
+				"x": 45.4,
+				"y": 36.2,
+				"frame": "era"
+			},
+			"note": "Skullsplitter Tusks (209), Alliance: every Skullsplitter troll drops the tusks (about one kill in five), and their warriors, axe throwers and mystics camp in the ruins of Zul'Mamwe (42-49,30-42, 24 places each), as the Horde step already points (1149-stv-skullsplitter-tusks). The Alliance goal had the lone Skullsplitter Panther (100%, one spawn) as its point and two named trolls far north at Zul'Kunda (Gan'zulah and Nezzliok, 80%) as a place to search, so a player north of the ruins was sent to Zul'Kunda, where hardly any Skullsplitters are. With the point on the trolls' camp, Zul'Kunda is only an alternative, as for the Horde.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 667, 696, 780 spawns on map 1434; items.json 1524 drops (trolls 21%, 756 Skullsplitter Panther 100%, 1061 Gan'zulah and 1062 Nezzliok the Dire 80%, at Zul'Kunda 23.4-23.5,8.1-9.5)"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#2604 (Amerigo, 0.4.0): the arrow's third spot was at Zul'Kunda (23.5,8.8), which has no reliable number of Skullsplitter trolls; it should aim at Zul'Mamwe"
+				}
+			],
+			"issue": 2604
 		}
 	]
 }

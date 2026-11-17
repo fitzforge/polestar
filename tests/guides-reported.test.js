@@ -15600,3 +15600,14 @@ test('#2650: Hillsbrad (Horde): Citizen Wilkes is looked for on the west side of
 	assert.equal(goal.map, 1424);
 	assert.ok(goal.x >= 29 && goal.x <= 31.5 && goal.y >= 38 && goal.y <= 43, `where players meet him: ${goal.x},${goal.y}`);
 });
+
+// #2604 (Amerigo, 0.4.0, Alliance Stranglethorn 40-50): the Skullsplitter Tusks goal's third spot sent a player north
+// to Zul'Kunda, where only two named trolls drop them. Every Skullsplitter troll drops tusks, and their camp is the
+// ruins of Zul'Mamwe (42-49,30-42); the goal points there, as the Horde one does, so Zul'Kunda is only an alternative.
+test('#2604: Stranglethorn (Alliance): Skullsplitter Tusks are looked for in the trolls\' camp at Zul\'Mamwe', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const { goal } = list[at(list, 'collect 1524', (g) => g.t === 'collect' && g.quest === 209)];
+	assert.equal(goal.map, 1434);
+	assert.ok(goal.x >= 42 && goal.x <= 49 && goal.y >= 30 && goal.y <= 42, `the trolls' camp: ${goal.x},${goal.y}`);
+	for (const s of goal.spots || []) assert.ok(s.alt || s.x > 35, `no spot the arrow picks far from the ruins: ${s.x},${s.y}`);
+});

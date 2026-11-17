@@ -1384,6 +1384,9 @@
 		] },
 		"2650": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "#2650: Hillsbrad (Horde): Citizen Wilkes is looked for on the west side of the town" }
+		] },
+		"2604": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2604: Stranglethorn (Alliance): Skullsplitter Tusks are looked for in the trolls' camp at Zul'Mamwe" }
 		] }
 	},
 	"seedDrift": {
