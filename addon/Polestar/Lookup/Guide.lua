@@ -718,7 +718,158 @@ local function questSteps(questId, player, from)
 	return steps
 end
 Lookup.QuestChain = questChain
-Lookup.QuestStep = function(q, from, opts) return questStep(q, from, false, opts) end
+
+-- Who a quest is for decides whether it is on this character's line at all;
+-- a level or a profession only makes it wait.
+local NOT_FOR = { faction = true, race = true, class = true }
+local CHAIN_MAX = 60
+
+-- Whether every prerequisite is done: all of `pre`, one of `preAny`.
+local function prereqsDone(q)
+	local K = ns.Compat
+	for _, id in ipairs(q.pre or {}) do
+		if not K.IsQuestCompleted(id) then return false end
+	end
+	local any = q.preAny or {}
+	if #any == 0 then return true end
+	for _, id in ipairs(any) do
+		if K.IsQuestCompleted(id) then return true end
+	end
+	return false
+end
+
+-- A quest's chain for this character (#2554): the main line through it, back
+-- through its prerequisites (all of `pre`; of `preAny`, the one done, else the
+-- one questChain would pick) and forward through its follow-ups while there is
+-- one for this character. Unlike questChain, done quests stay in it.
+--   -> { quests = { { id, title, state, why, skipped } }, step, total, done,
+--        branches = { { id, title } } | nil } | nil when the quest stands alone.
+-- state: "done", "log" (in the quest log), "open" (can be taken now) or
+-- "later" (why: what it waits for). skipped: not done, before a done quest.
+-- step: the first quest not done (total when every quest is).
+-- The walk is the costly part (Codex.FollowUps reads every quest the first
+-- time it is asked about one), so its answer is kept per quest until a quest
+-- is turned in or taken, a level is gained, or the Codex loads: what decides
+-- the walk (a done preAny, a level gate, who a quest is for) moves only then.
+local chainLines = {}
+function Lookup.ResetChains() chainLines = {} end
+
+-- -> order { quest record, ... }, branches { { id, title } } | nil
+local function chainLine(questId, player)
+	local C, K = Codex(), ns.Compat
+	local order, seen = {}, {}
+	local function forMe(q)
+		local why = Lookup.QuestBlock(q, player)
+		return not NOT_FOR[why]
+	end
+	local function back(qid)
+		if seen[qid] or #order >= CHAIN_MAX then return end
+		local q = C.Quest(qid)
+		if not q then return end
+		seen[qid] = true
+		for _, pid in ipairs(q.pre or {}) do back(pid) end
+		local any = q.preAny or {}
+		if #any > 0 then
+			local pick
+			for _, pid in ipairs(any) do
+				if K.IsQuestCompleted(pid) then pick = pid; break end
+			end
+			if not pick then
+				local later
+				for _, pid in ipairs(any) do
+					local pq = C.Quest(pid)
+					local why = pq and Lookup.QuestBlock(pq, player)
+					if pq and not why then pick = pid; break end
+					if why == "level" and not later then later = pid end
+				end
+				pick = pick or later
+			end
+			if pick then back(pick) end
+		end
+		order[#order + 1] = q
+	end
+	back(questId)
+	local branches
+	local cur = questId
+	while #order < CHAIN_MAX do
+		local next = {}
+		for _, f in ipairs(C.FollowUps and C.FollowUps(cur) or {}) do
+			if f.id and not seen[f.id] and forMe(f) then next[#next + 1] = f end
+		end
+		if #next ~= 1 then
+			if #next > 1 then
+				branches = {}
+				for i, f in ipairs(next) do branches[i] = { id = f.id, title = f.title } end
+			end
+			break
+		end
+		local f = next[1]
+		seen[f.id] = true
+		order[#order + 1] = f
+		cur = f.id
+	end
+	return order, branches
+end
+
+function Lookup.ChainProgress(questId, player)
+	local C, K = Codex(), ns.Compat
+	if not (C and C.Quest and C.Quest(questId)) then return nil end
+	player = player or Lookup.PlayerInfo()
+	local line = chainLines[questId]
+	if not line then
+		local order, branches = chainLine(questId, player)
+		line = { order = order, branches = branches }
+		chainLines[questId] = line
+	end
+	local order, branches = line.order, line.branches
+	if #order < 2 and not branches then return nil end
+	local quests, step, lastDone = {}, nil, 0
+	for i, q in ipairs(order) do
+		local e = { id = q.id, title = q.title }
+		if K.IsQuestCompleted(q.id) then
+			e.state = "done"
+			lastDone = i
+		elseif K.IsOnQuest and K.IsOnQuest(q.id) then
+			e.state = "log"
+		else
+			local why, text = Lookup.QuestBlock(q, player)
+			if why then
+				e.state, e.why = "later", text
+			elseif not prereqsDone(q) then
+				e.state, e.why = "later", L["After an earlier quest"]
+			else
+				e.state = "open"
+			end
+		end
+		if e.state ~= "done" and not step then step = i end
+		quests[i] = e
+	end
+	for i = 1, lastDone - 1 do
+		if quests[i].state ~= "done" then quests[i].skipped = true end
+	end
+	return { quests = quests, step = step or #quests, total = #quests, done = step == nil, branches = branches }
+end
+
+-- The quest tooltip's line (#2554): "Chain: 6 of 11", "Chain: all 11 done",
+-- nil for a quest standing alone. Only once the Codex is loaded: a hover
+-- never loads it.
+function Lookup.ChainTooltipText(questId)
+	local C = Codex()
+	if not (questId and C and C.IsLoaded and C.IsLoaded()) then return nil end
+	local ch = Lookup.ChainProgress(questId)
+	if not ch then return nil end
+	if ch.done then return format(L["Chain: all %d done"], ch.total) end
+	return format(L["Chain: %d of %d"], ch.step, ch.total)
+end
+
+if ns.RegisterEvent then
+	for _, event in ipairs({ "QUEST_TURNED_IN", "QUEST_ACCEPTED", "PLAYER_LEVEL_UP" }) do
+		ns.RegisterEvent(event, Lookup.ResetChains)
+	end
+end
+if ns.On then ns.On("CODEX_LOADED", Lookup.ResetChains) end
+
+Lookup.QuestStep =function(q, from, opts) return questStep(q, from, false, opts) end
 
 -- A loot source can require a quest in the log OR already done (#1923).
 -- Finish its ordinary prerequisites, then only accept the required quest:

@@ -7814,10 +7814,29 @@ Polestar.Lookup.UnitMount(unit) -> { spell, item, name, icon, class } | nil
 Polestar.Lookup.Show(query, kind, id)                 -- SHOW_LOOKUP(query, kind, id) for UI/Lookup.lua
 Polestar.Lookup.RegisterPlanner(kind, build)          -- build(id) -> { title, steps, ... } | nil, reason: another module's guide kind
 Polestar.Lookup.QuestChain(questId, player) -> { quest, ... }  -- every open prerequisite first, the quest last
+Polestar.Lookup.ChainProgress(questId, player) -> { quests, step, total, done, branches } | nil  -- the quest's chain with each quest's state (#2554)
+Polestar.Lookup.ChainTooltipText(questId) -> "Chain: 6 of 11" | nil  -- only once the Codex is loaded; the guide window's quest tooltip
 Polestar.Lookup.QuestStep(quest, from) -> step         -- accept, objectives, turn-in
 Polestar.Lookup.AcceptPre(goal, quest) -> goal         -- the accept with the quest's pre (preAll), preAny (pre, the character's own) and preTitles
 ```
 
+- **Chain progress** (`Lookup.ChainProgress`, #2554): the main line through
+  a quest, back through its prerequisites (all of `pre`; of `preAny`, the one
+  done, else the one `QuestChain` would pick) and forward through
+  `Codex.FollowUps` while exactly one follow-up is this character's (a
+  faction, race or class lock leaves one out); several end the line as
+  `branches`. Unlike `QuestChain` it keeps done quests. Each quest's `state`
+  is `done`, `log`, `open` or `later` with `why` (`Lookup.QuestBlock`'s text,
+  or "After an earlier quest"); `skipped` marks one not done before a done
+  one. `step` is the first quest not done (`total`, and `done` true, when all
+  are). nil for a quest with no prerequisite and no follow-up. A quest's
+  Lookup page shows it as a "Chain" fact ("Step 6 of 11") and a Chain section
+  under its sources, a click on another quest's row opening its page. The
+  guide window's quest tooltip (a goal row) adds `ChainTooltipText`'s line
+  while the Codex is loaded; a hover never loads it. The walk is kept per
+  quest (`Codex.FollowUps` reads every quest the first time) until a quest is
+  turned in or taken, a level is gained or the Codex loads
+  (`Lookup.ResetChains`); the states are read on every call.
 - **Quest steps** (`Lookup.QuestStep`): a collect goal names who gives the
   item as a compiled goal does (`from`, `fromId`, `fromKind`, `fromRank`,
   `fromFaction`, `fromAlso`, `fromAlsoId`): of the Codex sources with a

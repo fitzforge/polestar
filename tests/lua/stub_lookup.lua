@@ -9,6 +9,7 @@
 --   lookupstub.sources[kind .. ":" .. id] = { rows }; .entity[...] = record
 --   lookupstub.curated[kind .. ":" .. id] = guideId
 --   lookupstub.guideResult = nil, "reason"  to make Guide fail
+--   lookupstub.chains[questId]  what Lookup.ChainProgress answers
 
 lookupstub = { calls = {}, loaded = true, reason = nil, sources = {}, entity = {}, curated = {} }
 
@@ -115,6 +116,9 @@ function Lookup.Guide(kind, id, index)
 	return "lookup/" .. kind .. "/" .. tostring(id)
 end
 function Lookup.Show(q, kind, id) Polestar.Fire("SHOW_LOOKUP", q, kind, id) end
+-- lookupstub.chains[questId] = what Lookup.ChainProgress answers (nil: the quest stands alone).
+lookupstub.chains = {}
+function Lookup.ChainProgress(id) return lookupstub.chains[id] end
 
 -- The two sample selections: a vendor mount and a rare drop.
 lookupstub.sources["mount:8631"] = {
