@@ -375,6 +375,10 @@ local paint -- below
 local function newCard(parent)
 	local F = CreateFrame("Frame", nil, parent)
 	F:Hide()
+	-- Its text keeps Polestar's general size (ui.textSize), not the guide
+	-- window's it sits in: the class quest heads-up it pairs with can sit
+	-- free of the window (toasts.headsup.place).
+	Theme.TextScope(F, false)
 	F.Glow = F:CreateTexture(nil, "BACKGROUND", nil, 1)
 	F.Glow:SetTexture(Theme.Media("white"))
 	F.Glow:SetAllPoints(F)

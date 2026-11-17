@@ -16,6 +16,7 @@ local function objectivesOff() return not ns.Get("qol.questDB") or not ns.Get("q
 local function areasOff() return objectivesOff() or ns.Get("qol.objectiveSpots") == "icons" end
 local function guideOff() return not ns.Get("qol.questDB") or not ns.Get("qol.guideHighlight") end
 local function platesOff() return not ns.Get("qol.questDB") or not ns.Get("qol.nameplateIcons") end
+local function tooltipsOff() return not ns.Get("qol.questDB") or not ns.Get("qol.questTooltips") end
 
 -- "Your level", "+5", "Any level" at the top of the slider.
 local function levelWindow(v)
@@ -72,6 +73,15 @@ if Q then
 					help = L["Quest, NPC and item data for markers and tooltips, loaded when one of them is on (about 5 MB of memory)."] },
 				{ kind = "toggle", key = "qol.questTooltips", label = L["Quest tooltips"], disabled = dbOff, search = "tooltip, quest progress, mob quests",
 					help = L["Name the quests a mob, item or object is for, with your progress."] },
+				{ kind = "toggle", key = "qol.questDropChance", label = L["Drop chance"], disabled = tooltipsOff, child = true,
+					search = "drop rate, drop chance, loot chance, percent",
+					help = L["On a mob that drops a quest item you still need, or an object it comes out of, show how often."] },
+				{ kind = "toggle", key = "qol.questTooltipsNpc", label = L["Quest givers and turn-ins"], disabled = tooltipsOff, child = true,
+					search = "quest giver, npc, starts, finishes, hand in, available",
+					help = L["On an NPC, name the quests it has for you now and the finished quests you can hand in to it."] },
+				{ kind = "toggle", key = "qol.questTooltipsReplace", label = L["Replace the game's quest lines"], disabled = tooltipsOff, child = true,
+					search = "duplicate, twice, double, native, blizzard",
+					help = L["On mobs and objects, leave out the game's own lines for the quests these tooltips name, so each quest shows once. In a group the game's lines stay: they show your party's progress."] },
 				{ kind = "toggle", key = "qol.questBagMarks", label = L["Quest marks in bags"], disabled = dbOff,
 					help = L["Mark bag items a quest still needs, in your log or ahead in your guide, until you hand the quest in."] },
 				{ kind = "toggle", key = "qol.questSellWarning", label = L["Offer to buy back quest items"], disabled = dbOff,

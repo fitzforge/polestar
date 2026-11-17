@@ -8,15 +8,18 @@
 --   sq.dbFiles = { "/abs/Quests.lua", ... }   -- files LoadAddOn("Polestar_QuestDB") runs
 --   sq.installPins()                          -- after the addon loaded: Polestar.Pins = fake
 --   sq.pins.layers[layer] -> { pins = {...}, opts = {...} } ; sq.pins.calls -> { { "SetLayer", layer, n }, ... }
---   sq.hoverUnit(npcID [, secret])            -- run the Unit tooltip post-calls on GameTooltip
---   sq.hoverItem(itemID); sq.hoverObject(objectID, name)
+--   sq.hoverUnit(npcID [, secret [, rows]])   -- run the Unit tooltip post-calls on GameTooltip
+--   sq.hoverItem(itemID); sq.hoverObject(objectID, name [, rows])
+--       rows: the client's own quest rows, { { type = "QuestTitle", id = questID, leftText = "..." },
+--       { type = "QuestObjective", leftText = "..." }, ... }; each is drawn before the post-calls unless a
+--       TooltipDataProcessor.AddLinePreCall for its type returns true
 --   sq.addPlate(unit, npcID [, secret]); sq.removePlate(unit)
 --   sq.secret(value)                          -- issecretvalue(value) is true from now on
 --   sq.collapsed[questID] = true              -- in the log, hidden from enumeration (collapsed header)
 
 local world = assert(stub.world, "stub_quests.lua needs stub_world.lua")
 
-local sq = { dbFiles = {}, loadCalls = 0, secrets = {}, plates = {}, postCalls = {}, collapsed = {} }
+local sq = { dbFiles = {}, loadCalls = 0, secrets = {}, plates = {}, postCalls = {}, linePreCalls = {}, collapsed = {} }
 stub.quests = sq
 
 ---------------------------------------------------------------------------
@@ -97,31 +100,45 @@ function TooltipDataProcessor.AddTooltipPostCall(kind, fn)
 	table.insert(sq.postCalls[kind], fn)
 end
 function TooltipDataProcessor.AddTooltipPreCall() end
-function TooltipDataProcessor.AddLinePreCall() end
+-- A line pre-call returning true leaves the client's row out (TooltipDataHandler.lua).
+Enum.TooltipDataLineType = { QuestObjective = 8, QuestTitle = 17, QuestPlayer = 18 }
+function TooltipDataProcessor.AddLinePreCall(lineType, fn)
+	sq.linePreCalls[lineType] = sq.linePreCalls[lineType] or {}
+	table.insert(sq.linePreCalls[lineType], fn)
+end
 function TooltipDataProcessor.AddLinePostCall() end
 
-local function runPostCalls(kind, data)
+local function runPostCalls(kind, data, rows)
 	GameTooltip:SetOwner(UIParent, "ANCHOR_NONE")
 	GameTooltip:AddLine(data.name or "?")
+	GameTooltip.processingInfo = { tooltipData = data }
+	for _, row in ipairs(rows or {}) do
+		local hidden = false
+		for _, fn in ipairs(sq.linePreCalls[Enum.TooltipDataLineType[row.type]] or {}) do
+			if fn(GameTooltip, row) == true then hidden = true end
+		end
+		if not hidden then GameTooltip:AddLine(row.leftText) end
+	end
 	for _, fn in ipairs(sq.postCalls[kind] or {}) do fn(GameTooltip, data) end
+	GameTooltip.processingInfo = nil
 	return GameTooltip.lines
 end
 
 -- The unit is "mouseover" (Hooks finds it through GameTooltip:GetUnit()).
-function sq.hoverUnit(npc, secret)
+function sq.hoverUnit(npc, secret, rows)
 	local guid = world.npcGUID(npc)
 	if secret then sq.secret(guid) end
 	world.units.mouseover = guid
 	GameTooltip.GetUnit = function() return "?", "mouseover" end
-	return runPostCalls(Enum.TooltipDataType.Unit, { type = 2, guid = guid })
+	return runPostCalls(Enum.TooltipDataType.Unit, { type = 2, guid = guid }, rows)
 end
 
 function sq.hoverItem(item)
 	return runPostCalls(Enum.TooltipDataType.Item, { type = 0, id = item })
 end
 
-function sq.hoverObject(object, name)
-	return runPostCalls(Enum.TooltipDataType.Object, { type = 4, id = object, lines = { { leftText = name } } })
+function sq.hoverObject(object, name, rows)
+	return runPostCalls(Enum.TooltipDataType.Object, { type = 4, id = object, lines = { { leftText = name } } }, rows)
 end
 
 ---------------------------------------------------------------------------

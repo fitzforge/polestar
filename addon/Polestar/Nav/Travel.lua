@@ -2295,6 +2295,19 @@ function Travel.Replan()
 		if pc then planAt, planC, planX, planY = GetTime(), pc, px, py end
 		return
 	end
+	-- The same way as the live route (a zone or a building crossed on the way): the live route stays and takes the
+	-- fresh plan's prices, as Travel.Remeasured does; ROUTE_CHANGED only when a price moved. Planned anew, every
+	-- crossing drew the whole route again (its layers, the walk, the strokes: ~2.5 ms each).
+	if soft and Travel.KeepSame(old, oldCi, legs, target) then
+		local fresh = legs
+		legs, ci, boarded, progressYards, legSince, remeasureOwed, floorless = old, oldCi, oldBoarded, oldProgress, oldSince, oldOwed, oldFloorless
+		if pc then planAt, planC, planX, planY = GetTime(), pc, px, py end
+		if Travel.TakePrices(fresh) then
+			Travel.version = Travel.version + 1
+			ns.Fire("ROUTE_CHANGED", legs)
+		end
+		return
+	end
 	legsFor = target
 	if pc then planAt, planC, planX, planY = GetTime(), pc, px, py end
 	pricePaths()
@@ -3349,6 +3362,17 @@ local function takePrices(fresh)
 	end
 	return changed
 end
+
+-- Travel.Replan's soft replan (a zone change, walking on) keeps the live route when the fresh plan goes its way for
+-- the same target and the player is on a walk (not a crossing's own, which zone changes are part of): what changed
+-- is only where the player stands on it. (On Travel: the main chunk is at its locals' limit.)
+function Travel.KeepSame(old, i, fresh, target)
+	local cur = old and old[i]
+	return cur ~= nil and cur.kind == "walk" and not cur.crossing and fresh ~= nil and fresh[1] ~= nil
+		and legsFor == target and sameWay(fresh, 1, old, i)
+end
+-- The live route's later walks take a fresh plan's prices for the same ends. -> true when a leg changed.
+Travel.TakePrices = takePrices
 
 -- The walking engine has measured the walks to the target (Nav/Walk.lua): plan
 -- again with them, and take that plan only when it goes another way; the same

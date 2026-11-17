@@ -495,7 +495,8 @@ end
 -- An accept the player ticked by hand still counts as the guide's accept: a
 -- tick never says the quest is in the log (#739), so its lines stay and the
 -- accept reopens (goalDone). An `optional` accept the player did not take is
--- the same: its turn-in holds only those who took the quest.
+-- the same: its turn-in holds only those who took the quest. So is an
+-- `either` accept, one of several the player picks from.
 -- Taking the quest brings the goals back.
 -- A `turnin ... direct` has no accept by definition: it is handed in from the
 -- giver's own window. It is orphaned the same way through the quest it waits
@@ -518,7 +519,7 @@ function Own.acceptMissing(q, s, l)
 	for _, a in ipairs(list) do
 		-- An accept an update passed (Own.passAdded) is none: its quest's later
 		-- goals go with it, whether the pass took its step or only the accept.
-		if a.s <= s and not a.goal.optional and not (skipped and skipped[a.s])
+		if a.s <= s and not a.goal.optional and not a.goal.either and not (skipped and skipped[a.s])
 			and stepApplies(a.step) and Guides.Matches(a.goal.only, player) and not Own.barred(a.goal) and not Own.gone(a.goal) and greyNeed(a.goal) ~= false then
 			return false
 		end
@@ -702,8 +703,8 @@ end
 -- the player past it, so it was only a lead-in, now closed (The Adventurer
 -- once The Great Outdoors is taken, #1950). Else the mark its giver's
 -- window left this session.
--- Else, also known in advance, "level": the accept's `minLevel` is above the
--- character's level (the route passes it, "Requires level N", and comes back
+-- Else, also known in advance, "level": the accept's or direct hand-in's
+-- `minLevel` is above the character's level (the route passes it, "Requires level N", and comes back
 -- to it on the level-up; its objectives and turn-in wait with it). Else
 -- "pre": the accept lacks a prerequisite the route no longer brings
 -- (Own.preBlocked), a mark that goes the moment that prerequisite is done,
@@ -748,8 +749,9 @@ local function unavailableFor(goal, depth)
 	end
 	if u or Own.offered[q] then return u end
 	local level = player and player.level
-	for i = 1, level and (own and 1 or #list) or 0 do
-		local a = own and goal or list[i].goal
+	local levelOwn = own or goal.direct
+	for i = 1, level and (levelOwn and 1 or #list) or 0 do
+		local a = levelOwn and goal or list[i].goal
 		local lvl = tonumber(a.minLevel)
 		if lvl and level < lvl then
 			local m = Own.levelMarks[a]
@@ -1140,6 +1142,19 @@ function Own.predicateHolds(p)
 	elseif k == "knows" then
 		-- IsPlayerSpell too: Forever's spellbook check says no for weapon skills.
 		ok = C.IsSpellKnown(p.spell) or C.IsPlayerSpell(p.spell) == true
+	elseif k == "rep" then
+		ok = Own.standingAtLeast(p.faction, p.standing, p.points)
+	elseif k == "buff" then
+		local has = C.PlayerHasAura and C.PlayerHasAura(p.spell)
+		-- The client will not say: neither `buff` nor `!buff` holds.
+		if has == nil then return false end
+		ok = has
+	elseif k == "equipped" or k == "indoors" then
+		local is
+		if k == "indoors" then is = C.IsIndoors and C.IsIndoors() else is = C.IsItemEquipped and C.IsItemEquipped(p.item) end
+		-- The client will not say: the predicate holds neither way.
+		if is == nil then return false end
+		ok = is
 	elseif k == "group" then
 		local answer = Own.groupAnswer(p.q)
 		-- Unanswered: the step applies either way, and waits (Own.groupPending).
@@ -1148,6 +1163,18 @@ function Own.predicateHolds(p)
 	end
 	if p.neg then return not ok end
 	return ok
+end
+
+-- Whether the standing with `faction` is `standing` (1 Hated .. 8 Exalted) or
+-- higher; with `points`, that many points into that standing, or any higher
+-- standing. A faction the character has not met is below every standing.
+function Own.standingAtLeast(faction, standing, points)
+	local fn = Compat().GetFactionStanding
+	if not fn then return false end
+	local now, value, barMin = fn(faction)
+	if not now then return false end
+	if now ~= standing then return now > standing end
+	return not points or ((value or 0) - (barMin or 0)) >= points
 end
 
 -- Whether predicate p of a step's `when` does not hold now. A
@@ -2507,6 +2534,8 @@ local function isManual(goal)
 	if t == "skill" then return not supports("skill") end
 	if t == "learn" then return not supports("spell") end
 	if t == "rep" then return not supports("faction") end
+	if t == "buff" then return not supports("aura") end
+	if t == "equip" then return not supports("equipment") end
 	if t == "achieve" then return not supports("achievement") end
 	if t == "craft" then return craftMode(goal) == "manual" end
 	return false
@@ -3003,6 +3032,7 @@ local function latchable(goal)
 	return t == "goto" or t == "explore" or t == "die" or t == "sethome" or t == "hearth" or t == "fly" or t == "getfp" or t == "enter"
 		or t == "buy" or t == "auction" or (t == "collect" and (not goal.quest or Own.bagCollect(goal))) or (t == "craft" and craftMode(goal) == "count")
 		or (t == "train" and goal.class == true) or t == "money" or t == "destroy" or t == "wait" or t == "abandon"
+		or t == "buff" or t == "equip" or t == "deposit"
 end
 
 -- Check-offs and latched results share CharState().manual[guideId]["s:g"].
@@ -3148,6 +3178,12 @@ local function objectiveState(goal)
 		if not objs then return false end
 		local o = objs[Own.objectiveLine(goal, objs)]
 		if o then cur, max, finished = o.numFulfilled, o.numRequired, o.finished end
+		-- `upto` (format 11): part of the line's count is this goal's; the rest is a later step's.
+		local part = goal.upto
+		if part and cur and (not max or part < max) then
+			if cur >= part or finished then return true, part, part end
+			return false, cur, part
+		end
 	end
 	if C.IsQuestReadyForTurnIn(q) then return true, cur, max end
 	return finished and true or false, cur, max
@@ -3613,7 +3649,12 @@ local function repState(goal)
 	if not fn then return false end
 	local standing, value, barMin, barMax = fn(goal.faction)
 	if not standing then return false end
-	local done = standing >= goal.standing
+	local done = Own.standingAtLeast(goal.faction, goal.standing, goal.points)
+	-- Points inside the goal's standing: the count runs toward them.
+	if goal.points and standing == goal.standing then
+		local cur = (value or barMin or 0) - (barMin or 0)
+		return done, cur < goal.points and cur or goal.points, goal.points, standingName(standing), "rep"
+	end
 	if barMax and barMin and barMax > barMin then
 		return done, (value or barMin) - barMin, barMax - barMin, standingName(standing), "rep"
 	end
@@ -3842,10 +3883,12 @@ end
 -- line and the goal the arrow leads to; a goto asks the goals after it). A
 -- view is built in one go: no event or timer runs in between, and nothing
 -- the view does changes what a goal's answer reads (check-offs, the quest
--- log, the bags, arrivals), so a second answer would be the first.
+-- log, the bags, arrivals), so a second answer would be the first. An
+-- answer asked while an `either` set of step s asks its members by their own
+-- state (Own.eitherIn) is not the goal's answer: it is never kept.
 goalDone = function(s, g, goal)
 	local memo = Own.doneMemo
-	if not memo then return Own.goalDoneLive(s, g, goal) end
+	if not memo or Own.eitherIn[s] then return Own.goalDoneLive(s, g, goal) end
 	local row = memo[s]
 	if not row then
 		row = {}
@@ -3860,6 +3903,8 @@ end
 function Own.goalDoneLive(s, g, goal)
 	local t = goal.t
 	local C = Compat()
+	-- One of a set (`either`): done once any other goal of the set is.
+	if goal.either and Own.eitherDone(s, g) then return true end
 	if t ~= "accept" and checked(s, g) then return true end
 	local now = Own.passedNow[guide.id]
 	if now and now[Own.key(s, g)] then return true end
@@ -3955,6 +4000,18 @@ function Own.goalDoneLive(s, g, goal)
 		return not C.IsOnQuest(goal.quest)
 	elseif t == "destroy" then
 		return (C.GetItemCount(goal.item) or 0) == 0
+	elseif t == "deposit" then
+		-- In the bank: with a count, the bank holds that many; without, the bags hold none.
+		local bags = C.GetItemCount(goal.item) or 0
+		if not goal.count then return bags == 0 end
+		local banked = (C.GetItemCount(goal.item, true) or 0) - bags
+		return banked >= goal.count, banked < goal.count and banked or goal.count, goal.count
+	elseif t == "equip" then
+		-- The item is worn; `off`: it is not.
+		if isManual(goal) then return false end
+		local worn = C.IsItemEquipped(goal.item)
+		if worn == nil then return false end
+		return worn ~= (goal.off == true)
 	elseif t == "money" then
 		return C.GetMoney() >= (goal.money or 0)
 	elseif t == "sethome" then
@@ -4015,6 +4072,12 @@ function Own.goalDoneLive(s, g, goal)
 		return skillState(goal, goal.level)
 	elseif t == "cast" then
 		return false -- ticked by the cast itself (Own.latchCast) or the player
+	elseif t == "buff" then
+		-- The aura is on the player; `off`: it is gone.
+		if isManual(goal) then return false end
+		local has = C.PlayerHasAura(goal.spell)
+		if has == nil then return false end
+		return has ~= (goal.off == true)
 	elseif t == "learn" then
 		if isManual(goal) then return false end
 		return C.IsSpellKnown(goal.spell)
@@ -4039,6 +4102,36 @@ end
 
 local function blocks(goal)
 	return goal.t ~= "note" and not goal.optional
+end
+
+-- `either` (format 11) marks a set of goals in a step, any one of which is
+-- enough: once one of them that applies to the character is done, the others
+-- count as done too, so the step never waits for more than one. Each of the
+-- others is asked by its own state only (Own.ownDone), never through the set
+-- again.
+function Own.eitherDone(s, g)
+	if Own.eitherIn[s] then return false end
+	local goals = guide.steps[s].goals
+	for j = 1, #goals do
+		local other = goals[j]
+		if j ~= g and other.either and goalApplies(other) and Own.ownDone(s, j, other) then return true end
+	end
+	return false
+end
+
+-- goalDone for goal g of step s by its own state, its `either` set aside:
+-- what to store for it (a latch), where the character's own quest progress
+-- is (placement), and what its set asks each member. Own.eitherIn marks the
+-- steps whose set is being asked, restored on every way out.
+Own.eitherIn = {}
+function Own.ownDone(s, g, goal)
+	if not goal.either then return goalDone(s, g, goal) end
+	local was = Own.eitherIn[s]
+	Own.eitherIn[s] = true
+	local ok, done, cur, max, label, kind = pcall(goalDone, s, g, goal)
+	Own.eitherIn[s] = was
+	if not ok then error(done, 0) end
+	return done, cur, max, label, kind
 end
 
 -- A `vendor` check-off beside other work of its step is a stop on the way,
@@ -4105,7 +4198,7 @@ end
 local function isBagCount(goal)
 	return goal.t == "buy" or goal.t == "auction" or (goal.t == "collect" and (not goal.quest or Own.bagCollect(goal)))
 		or (goal.t == "craft" and craftMode(goal) == "count") or goal.t == "money"
-		or goal.t == "abandon" or goal.t == "destroy"
+		or goal.t == "abandon" or goal.t == "destroy" or goal.t == "deposit"
 end
 
 -- Quest goals checked live from the quest log.
@@ -4191,7 +4284,7 @@ local function anchorStep(added)
 				if not goal.only and not goal.optional and isQuestGoal(goal) and goalApplies(goal)
 					and (goal.direct or (goal.quest and offered[goal.quest] and offered[goal.quest] <= s and not moved[goal.quest]))
 					and not (added and Own.goalMoved(added, s, goal)) then
-					local done, cur = goalDone(s, g, goal)
+					local done, cur = Own.ownDone(s, g, goal)
 					if done or (goal.oi and (cur or 0) > 0) then return s end
 				end
 			end
@@ -4309,8 +4402,8 @@ function Own.catchUpPast(level)
 	return out
 end
 
--- The first step with an accept waiting for the character's level
--- (unavailableFor's "level" mark: the route passes it until then), or nil.
+-- The first step with an accept or direct hand-in waiting for the character's
+-- level (unavailableFor's "level" mark: the route passes it until then), or nil.
 -- A guide that is no leveling guide waits there with nothing else left open
 -- (computeCurrent): a dungeon's or an attunement's quest the level-up brings
 -- back. A leveling guide finishes past it, as past an accept its giver
@@ -4320,7 +4413,7 @@ function Own.levelHold()
 	for s = 1, #steps do
 		if stepApplies(steps[s]) and not (sk and sk[s]) then
 			for g, goal in ipairs(steps[s].goals) do
-				if goal.t == "accept" and blocks(goal) and goalApplies(goal) and not goalDone(s, g, goal) then
+				if (goal.t == "accept" or goal.direct) and blocks(goal) and goalApplies(goal) and not goalDone(s, g, goal) then
 					local u = unavailableFor(goal)
 					if u and u.reason == "level" then return s end
 				end
@@ -4647,7 +4740,7 @@ local function latchPassed(from, to)
 			local flown = not Own.goalsDone(s) and (Own.flightPassed(s) or Own.alreadyAcross(s))
 			for g, goal in ipairs(step.goals) do
 				if latchable(goal) and goalApplies(goal) and not checked(s, g)
-					and (goalDone(s, g, goal) or (flown and (goal.t == "goto" or goal.t == "fly"))) then
+					and (Own.ownDone(s, g, goal) or (flown and (goal.t == "goto" or goal.t == "fly"))) then
 					manualFor(guide.id, true)[s .. ":" .. g] = true
 				end
 			end
@@ -4670,8 +4763,9 @@ local function latchInStep(s, live)
 	for g, goal in ipairs(step.goals) do
 		local t = goal.t
 		-- An abandon latches on the live step only: on a step looked at ahead it
-		-- reads done for a quest not taken yet (Own.abandonedByGuide).
-		if ((isBagCount(goal) and (live or t ~= "abandon")) or (live and (t == "fly" or t == "hearth" or t == "enter" or t == "wait"))) and goalApplies(goal) and not checked(s, g) and goalDone(s, g, goal) then
+		-- reads done for a quest not taken yet (Own.abandonedByGuide). So does a
+		-- deposit: the item not in the bags yet is not an item put in the bank.
+		if ((isBagCount(goal) and (live or (t ~= "abandon" and t ~= "deposit"))) or (live and (t == "fly" or t == "hearth" or t == "enter" or t == "wait" or t == "buff" or t == "equip"))) and goalApplies(goal) and not checked(s, g) and Own.ownDone(s, g, goal) then
 			manualFor(guide.id, true)[s .. ":" .. g] = true
 		end
 	end
@@ -5056,6 +5150,10 @@ local function describe(goal, s)
 		return L["Wait"], goal.text or L["%d seconds"]:format(tonumber(goal.seconds) or 0), "text", nil
 	elseif t == "destroy" then
 		return L["Destroy"], N.Item(goal.item) or goal.itemName, "item", nil
+	elseif t == "deposit" then
+		return L["Put in the bank"], N.Item(goal.item) or goal.itemName, "item", nil
+	elseif t == "equip" then
+		return goal.off and L["Take off"] or L["Equip"], N.Item(goal.item) or goal.itemName, "item", nil
 	elseif t == "kill" then
 		-- `tame`: kill credit for taming the beast (a Lookup guide's Taming the Beast).
 		return goal.tame and L["Tame"] or L["Kill"], N.Npc(goal.npc) or goal.target, "npc", goal.quest and fmt(L["for %s"], ns.Quoted(questTitle(goal))) or nil
@@ -5135,7 +5233,12 @@ local function describe(goal, s)
 		end
 		return L["Craft"], N.Spell(goal.spell) or goal.spellName, "spell", detail
 	elseif t == "rep" then
+		if goal.points then
+			return L["Reach %d points into %s with"]:format(goal.points, standingName(goal.standing)), N.Faction(goal.faction) or goal.factionName, "faction", nil
+		end
 		return L["Reach %s with"]:format(standingName(goal.standing)), N.Faction(goal.faction) or goal.factionName, "faction", nil
+	elseif t == "buff" then
+		return goal.off and L["Lose"] or L["Gain"], N.Spell(goal.spell) or goal.spellName, "spell", nil
 	elseif t == "explore" then
 		local mapName = C.GetMapName(goal.map)
 		if place or goal.text then return L["Explore"], place or goal.text, "area", mapName end
@@ -5327,15 +5430,15 @@ local function goalView(s, g, goal, stepStatus, group)
 		alternatives = n > 0 and n - 1 or 0
 	end
 	local unavail = status == "skipped" and unavailableFor(goal) or nil
-	-- An accept waiting for the character's level is no task yet (Fitz,
-	-- 0.3.6: no level text on pick-ups): not shown, like a goal for another
+	-- An accept or direct hand-in waiting for the character's level is no task
+	-- yet (Fitz, 0.3.6: no level text on pick-ups): not shown, like a goal for another
 	-- class; the level-up brings it back (Own.clearMarks). Unless the route
 	-- waits on it (Own.waitsOnLevel: a guide that is no leveling guide, or a
 	-- dungeon run ahead, with nothing else left open there): then its
 	-- "Requires level" line is the one thing the step says.
 	-- `waitsLevel`: the level a hidden one waits for (playtest.js's SIMULATE levels the player to it).
 	local waitsLevel
-	if unavail and unavail.reason == "level" and (goal.t == "accept" or layoutOf(guide).starters[goal]) and not Own.waitsOnLevel(s) then
+	if unavail and unavail.reason == "level" and (goal.t == "accept" or goal.direct or layoutOf(guide).starters[goal]) and not Own.waitsOnLevel(s) then
 		status, unavail, waitsLevel = "na", nil, tonumber(goal.minLevel)
 	end
 	-- A goal of a quest that left the log, held for the player's answer.
@@ -5927,6 +6030,15 @@ end
 
 function Own.isField(goal)
 	return (Own.FIELD[goal.t] == true or Own.isGrind(goal)) and not goal.candidates and (goal.spots ~= nil or (goal.map ~= nil and goal.x ~= nil and goal.y ~= nil))
+end
+
+-- A goal a `loop` step placed on its points though it is no field goal: a
+-- `skill` on a gathering round, or the accept, turnin or talk of an NPC who
+-- walks (`spread` over the loop's `spots`). Its points are searched one after
+-- another as a field goal's are: a dwell at one moves the arrow to the next.
+Own.SEARCH = { skill = true, accept = true, turnin = true, talk = true }
+function Own.isSearch(goal)
+	return Own.SEARCH[goal.t] == true and goal.spread == true and goal.spots ~= nil
 end
 
 -- The grind after goal g (a goto) in group grp of step s that the arrow takes
@@ -7867,7 +7979,7 @@ local function checkArrival()
 	-- arrow on (Spots, "Dwell"): to its next spot, or, with every place left, to
 	-- the step's nearest other field goal (below).
 	local wg = waypoint and guide and current and waypoint.stepIndex == current and guide.steps[current].goals[waypoint.goalIndex]
-	if wg and Own.isField(wg) and Own.dwelt(current, waypoint.goalIndex, wg, c, px, py) then
+	if wg and (Own.isField(wg) or Own.isSearch(wg)) and Own.dwelt(current, waypoint.goalIndex, wg, c, px, py) then
 		if wg.spots then Spots.repick(wg, c, px, py, "dwell") end
 		hit = true
 	end
@@ -8243,7 +8355,7 @@ function Own.allQuestsDone(g)
 		if Guides.Matches(step.only, player) then
 			for _, goal in ipairs(step.goals) do
 				local t = goal.t
-				if goal.quest and (t == "accept" or t == "turnin" or t == "complete") and not goal.optional
+				if goal.quest and (t == "accept" or t == "turnin" or t == "complete") and not goal.optional and not goal.either
 					and Guides.Matches(goal.only, player) then
 					any = true
 					if not questDone(goal.quest) then return false end
@@ -11543,6 +11655,8 @@ function Own.aheadOk(i, j, a, ready, near)
 	local q = a.quest
 	if not q then return false, "no quest" end
 	if a.optional then return false, "optional" end
+	-- One of several to pick from: the choice is made at its own step.
+	if a.either then return false, "either" end
 	if Own.goalSkipped(i, j) then return false, "goal skipped" end
 	if not goalApplies(a) then return false, "goal not for this character" end
 	if Own.groupPending(guide.steps[i]) then return false, "the group waits" end
@@ -12087,7 +12201,7 @@ function Own.hereBuild()
 				if s > live or back then
 					local g = idx[i + 1]
 					local on = C.IsOnQuest(q)
-					local take = not on and takes and goal.t == "accept" and s > live and not goal.limit and not goal.optional
+					local take = not on and takes and goal.t == "accept" and s > live and not goal.limit and not goal.optional and not goal.either
 						and (tonumber(goal.qlvl) or 0) <= topQ and (tonumber(goal.minLevel) or 0) <= level and not questDone(q) and not missingPre(goal)
 					if take then
 						if room == nil then room = Own.logRoom() >= 1 end
@@ -14812,6 +14926,35 @@ end
 
 local function onUpdateEvent() requestUpdate() end
 
+-- What guide g asks about that only a few guides do, worked out once: `buff` (a
+-- `buff` goal or predicate), `equip` (an `equip` goal or `when equipped`),
+-- `deposit` (a `deposit` goal), `indoors` (`when indoors`), on a step or a jump.
+-- -> { kind = true, ... }
+local ASKED_GOAL = { buff = "buff", equip = "equip", deposit = "deposit" }
+local ASKED_WHEN = { buff = "buff", equipped = "equip", indoors = "indoors" }
+Own.askedBy = setmetatable({}, { __mode = "k" })
+function Own.asks(g)
+	local asks = Own.askedBy[g]
+	if asks then return asks end
+	asks = {}
+	for _, step in ipairs(g.steps) do
+		for _, goal in ipairs(step.goals) do
+			local kind = ASKED_GOAL[goal.t]
+			if kind then asks[kind] = true end
+		end
+		for _, p in ipairs(step.when or NONE) do
+			local kind = ASKED_WHEN[p.k]
+			if kind then asks[kind] = true end
+		end
+		for _, k in ipairs(step.skipto or NONE) do
+			local kind = k.when and ASKED_WHEN[k.when.k]
+			if kind then asks[kind] = true end
+		end
+	end
+	Own.askedBy[g] = asks
+	return asks
+end
+
 -- Every name below is declared in Forever's API documentation; RegisterEvent
 -- skips any a client build does not know.
 for _, event in ipairs({
@@ -14831,6 +14974,23 @@ for _, event in ipairs({
 	"ACHIEVEMENT_EARNED", "CRITERIA_UPDATE", "CRITERIA_EARNED",
 }) do
 	ns.RegisterEvent(event, onUpdateEvent)
+end
+-- Events only a few guides ask about: an update only while a tab's guide does.
+local function askedUpdate(kind)
+	for i = 1, #tabs do
+		local g = tabs[i].guide
+		if g and Own.asks(g)[kind] then return requestUpdate() end
+	end
+end
+-- The player's auras (`buff` goals, `when buff`).
+ns.RegisterEvent("UNIT_AURA", function(_, unit)
+	if unit == "player" then askedUpdate("buff") end
+end)
+-- `equip` goals and `when equipped`; `deposit` goals; `when indoors`.
+ns.RegisterEvent("PLAYER_EQUIPMENT_CHANGED", function() askedUpdate("equip") end)
+ns.RegisterEvent("PLAYERBANKSLOTS_CHANGED", function() askedUpdate("deposit") end)
+for _, event in ipairs({ "ZONE_CHANGED_INDOORS", "MINIMAP_UPDATE_ZOOM" }) do
+	ns.RegisterEvent(event, function() askedUpdate("indoors") end)
 end
 -- The quest database says which quest collects count the bags (Own.bagCollect).
 ns.On("QUESTDB_LOADED", onUpdateEvent)
@@ -15220,6 +15380,18 @@ ns.RegisterEvent("QUEST_DETAIL", function(_, startItem) checkOffers("detail", st
 ns.RegisterEvent("QUEST_ACCEPTED", function(_, q)
 	if type(q) == "number" then Own.listed(q) end
 end)
+-- A direct hand-in can open on its progress or reward page without an offer
+-- list or detail page first. That quest is available despite stale level
+-- data; this single window says nothing about the giver's other quests.
+for _, event in ipairs({ "QUEST_PROGRESS", "QUEST_COMPLETE" }) do
+	ns.RegisterEvent(event, function()
+		local list = Compat().GetOfferedQuests("detail") -- GetQuestID of the open page
+		if list and list[1] then
+			Own.listed(list[1])
+			Own.offered[list[1]] = true
+		end
+	end)
+end
 for _, event in ipairs({ "QUEST_COMPLETE", "QUEST_TURNED_IN" }) do
 	ns.RegisterEvent(event, function()
 		local npc = Compat().GetNpcID("npc")
@@ -15289,7 +15461,8 @@ function Own.wantsFrom(from, verb, questID, span)
 			for g, goal in ipairs(step.goals) do
 				if Own.matchesVerb(goal, verb) and goal.quest == questID and questID ~= waits and goalApplies(goal)
 					and not Own.questSkipped(questID)
-					and not (verb == "direct" and goalDone(s, g, goal))
+					and not (verb == "direct" and (goalDone(s, g, goal) or unavailableFor(goal)))
+					and not (verb == "accept" and goal.either and goalDone(s, g, goal))
 					and not (verb ~= "accept" and ns.Party and ns.Party.HoldsQuest(questID)) then
 					return true
 				end

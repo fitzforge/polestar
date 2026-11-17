@@ -1835,7 +1835,7 @@ GF.Part(function(GF)
 		local n, count = 0, E.GetStepCount and E.GetStepCount() or 0
 		local i = index + 1
 		while n < want and i <= count do
-			local v = E.GetStepView(i)
+			local v = E.GetStepView(i, true)
 			if v and v.status ~= "na" and not v.along and not UI.StepHidden(i, E) then
 				n = n + 1
 				local r = upRow(n)
@@ -1871,7 +1871,7 @@ GF.Part(function(GF)
 		end
 		local count = E.GetStepCount and E.GetStepCount() or 0
 		for s = index + 1, count do
-			local v = E.GetStepView(s)
+			local v = E.GetStepView(s, true)
 			-- An along step never holds the route: "Then:" names the next step that does.
 			if v and v.status ~= "na" and not v.along and not UI.StepHidden(s, E) then
 				local gs, f = UI.StepGroups(v)
@@ -2560,10 +2560,10 @@ GF.Part(function(GF)
 		-- The undo goes once the step is no longer skipped (undone elsewhere).
 		local k = GF.notices.stepSkip
 		if k and k.guideId == guide.id then
-			local sv = E.GetStepView(k.step)
+			local sv = E.GetStepView(k.step, true)
 			if not (sv and sv.skipped) then GF.notices.stepSkip = nil end
 		end
-		local v = index and E.GetStepView(index)
+		local v = index and E.GetStepView(index, true)
 		if not v then
 			view, shownIndex, shownGuide, shownFocus = nil, nil, guide.id, nil
 			-- No live step only because a step skip left the rest out (#1372):
@@ -2632,7 +2632,7 @@ GF.Part(function(GF)
 		local E = Engine()
 		local index = E.GetStepIndex and E.GetStepIndex()
 		if index ~= shownIndex then return GF.Render() end
-		local v = E.GetStepView(index)
+		local v = E.GetStepView(index, true)
 		if not v then return GF.Render() end
 		local groups, focus = UI.StepGroups(v)
 		if focus ~= shownFocus then return GF.Render() end
@@ -2708,6 +2708,9 @@ GF.Part(function(GF)
 		readMetrics()
 		handOver()
 		F = CreateFrame("Frame", GF.live and "PolestarGuideFrame" or nil, GF.live and ns.UIParent or GF.parent)
+		-- Its text follows the guide window's own size (Guide window > Window),
+		-- the live window's and every copy's (the settings' preview).
+		Theme.TextScope(F, "ui.guideTextSize")
 		if GF.live then
 			F:SetFrameStrata("MEDIUM")
 			F:SetClampedToScreen(true)

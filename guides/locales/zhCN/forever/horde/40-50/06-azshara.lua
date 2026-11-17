@@ -188,22 +188,28 @@ return {
 	-- Step 52: Gadgetzan
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "{npc:7876}，在双足飞龙管理员旁边",
+
+	-- Step 53: The Egg-O-Matic
+	-- {object:142071} Egg-O-Matic
+	["The {object:142071}"] = "",
 	-- {object:142071} Egg-O-Matic
 	["The {object:142071}, in the middle of town"] = "{object:142071}，在镇子中央",
+
+	-- Step 54: Marin Noggenfogger
 	-- {zone:1449} Un'Goro Crater
 	["Pestlezugg's samples come from {zone:1449}."] = "匹斯特苏格要的样本来自{zone:1449}。",
 
-	-- Step 53: Marvon Rivetseeker
+	-- Step 55: Marvon Rivetseeker
 	-- {area:1938} Broken Pillar · {npc:7771} Marvon Rivetseeker · {zone:1449} Un'Goro Crater
 	["Ride south along the road to the {area:1938}; {npc:7771} camps beside it. From here the road west leads down into {zone:1449}, where the next guide starts."] = "沿道路向南骑往{area:1938}；{npc:7771}在旁边扎营。从这里向西的道路通往{zone:1449}，下一个指南从那里开始。",
 	-- {quest:3444} The Stone Circle · {npc:7771} Marvon Rivetseeker
 	["Keep {quest:3444}: {npc:7771}'s chest is opened on a later visit."] = "留着{quest:3444}：{npc:7771}的箱子要之后再来时才能打开。",
 
-	-- Step 54: The Dunemaul Compound
+	-- Step 56: The Dunemaul Compound
 	-- {area:1938} Broken Pillar · {npc:12046} Gor'marok the Ravager · {npc:11758} Andi Lynn · {zone:1446} Tanaris
 	["South of the {area:1938} the Dunemaul ogres hold their compound, with {npc:12046} at its eastern end: {npc:11758}'s quest, carried from your first {zone:1446} visit."] = "{area:1938}南边是砂槌食人魔的营地，{npc:12046}在营地东端：这是{npc:11758}的任务，从你第一次来{zone:1446}时就带着。",
 
-	-- Step 55: Thistleshrub Valley
+	-- Step 57: Thistleshrub Valley
 	-- {quest:3362} Thistleshrub Valley · {npc:7876} Tran'rek · {zone:1446} Tanaris · {area:976} Gadgetzan · {npc:11758} Andi Lynn
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
 	["West from the compound, on the way to Un'Goro's ramp: {quest:3362}'s Gnarled Thistleshrubs and Rootshapers (48-50) are {npc:7876}'s, carried from your first {zone:1446} visit. They wander a lot: pull them one at a time. {npc:7876} takes them on the next guide's {area:976} stop, with {npc:11758}'s."] = "从营地向西，前往安戈洛斜坡的路上：{quest:3362}的长瘤的灌木兽和塑根者（48-50）是{npc:7876}的任务，从你第一次来{zone:1446}时就带着。它们到处游荡：一次只拉一只。{npc:7876}会在下一个指南的{area:976}停留时连同{npc:11758}的任务一起交还。",
