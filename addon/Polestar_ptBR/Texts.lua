@@ -9524,6 +9524,9 @@ t.guides["forever/miscellaneous/stalk-with-the-earthmother"] = (function() retur
 		["{item:6291}: the Auction House, or the pool; the knife takes it"] = "{item:6291}: a Casa de Leilões ou a lagoa; a faca aceita",
 		["{npc:205729} hides in stealth on the main mesa of {zone:1456}, south of its pool: walk to where the arrow points until his outline shows. He hands you the {item:206159}. The quest opens at level 4, but the mine holds Venture Co. Workers (level 8-9), Supervisors (9-10) and {npc:3051} (12): go at 9 or 10."] = "{npc:205729} se esconde em furtividade na mesa principal de {zone:1456}, ao sul da lagoa: ande até onde a seta aponta até aparecer o contorno dele. Ele entrega o {item:206159}. A missão abre no nível 4, mas a mina tem Operários da Empreendimentos S.A. (nível 8-9), Supervisores (9-10) e {npc:3051} (12): vá no 9 ou 10.",
 } end)()
+t.guides["forever/miscellaneous/the-drowned-city-alliance"] = (function() return {
+		["Skullsplitter trolls"] = "Trolls Rachacrânio",
+} end)()
 t.guides["forever/professions/alchemy"] = (function() return {
 		["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1411} is marked."] = "110 {item:2447} para {item:5997} e {spell:2331} (28 deles para 75-150: colete todos agora): {skill:182}: {item:2447} (perícia 1). O maior aglomerado de {item:2447} em {zone:1411} está marcado.",
 		["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1412} is marked."] = "110 {item:2447} para {item:5997} e {spell:2331} (28 deles para 75-150: colete todos agora): {skill:182}: {item:2447} (perícia 1). O maior aglomerado de {item:2447} em {zone:1412} está marcado.",

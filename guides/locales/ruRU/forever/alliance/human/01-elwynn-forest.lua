@@ -481,10 +481,12 @@ return {
 	["Follow the road south to the {area:120}, on the way into {zone:1436}. {npc:963} stands outside the barracks; {npc:955} stands inside. He has {quest:91738} only while you carry the {item:247824}: talk to him and it goes straight to the hand-in."] = "Идите по дороге на юг. Цель: {area:120}, по пути в зону {zone:1436}. {npc:963} стоит у казарм; {npc:955} – внутри. Задание {quest:91738} есть у него, только пока у вас {item:247824}: поговорите с ним, и оно сразу перейдет к сдаче.",
 	-- {npc:963} Deputy Rainer · {npc:234} Gryan Stoutmantle · {area:108} Sentinel Hill
 	["{npc:963}: for {npc:234} at {area:108}"] = "{npc:963}: для {npc:234} у {area:108}",
+
+	-- Step 92: Sergeant De Vries
 	-- {npc:955} Sergeant De Vries · {item:247824} Thunder Applejack
 	["{npc:955}: he wants your {item:247824}; inside"] = "{npc:955}: ему нужен ваш {item:247824}; внутри",
 
-	-- Step 92: Forest's Edge
+	-- Step 93: Forest's Edge
 	-- {zone:1436} Westfall
 	-- plural, as words: Riverpaw Runts = {npc:97} Riverpaw Runt
 	["Riverpaw Runts and Outrunners hold the hills south of the garrison, along the {zone:1436} border."] = "Недоростки и гонцы стаи Речной Лапы занимают холмы к югу от гарнизона, вдоль границы с зоной {zone:1436}.",

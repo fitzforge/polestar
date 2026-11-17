@@ -35,6 +35,11 @@
 --       (Berard's Bookshelf in Pyrewood Village, #1778). A kill the
 --       Codex marks with `useItem` (an item used on that NPC) is a use of
 --       that item, at the NPC's spawns; a tame stays a tame (#2468)
+--   Lookup.DropQuestSteps(source, player, from, direct?) -> steps | nil, reason, quest
+--       obtain every source.requiresQuests quest not held or completed;
+--       finish its ordinary prerequisites, then only accept the root.
+--       A held root keeps a satisfied accept for recovery if abandoned.
+--       Missing or unavailable prerequisites return a failure, never a note.
 --   Lookup.AcceptPre(goal, quest) -> goal
 --       an accept goal with the Codex quest's prerequisites as a compiled
 --       guide's accept carries them (all of `pre` as preAll, one of `preAny`
@@ -247,7 +252,7 @@ end
 -- percent: Razorgore's 1.5% Nexus Crystal is no errand) -> point, its name
 -- (an inside source only), the best source's spawns (a placed source only),
 -- the best placed source's NPC record (a drop only).
-local function itemSpot(itemId, from, inside)
+local function itemSpot(itemId, from, inside, direct)
 	local C = Codex()
 	local item = C.Item(itemId)
 	if not item then return nil end
@@ -271,7 +276,7 @@ local function itemSpot(itemId, from, inside)
 		end
 	end
 	local b = best[1] or best[2]
-	if b then return Lookup.Nearest(b.rec.spawns, from), nil, b.rec.spawns, b.kind == "npc" and b.rec or nil end
+	if b then return Lookup.Nearest(b.rec.spawns, from, direct), nil, b.rec.spawns, b.kind == "npc" and b.rec or nil end
 	return placed, placedName
 end
 
@@ -581,6 +586,7 @@ end
 local function questStep(q, from, isTarget, opts)
 	local C = Codex()
 	local inside = opts and opts.inside
+	local direct = opts and opts.direct
 	local within, order = {}, {}
 	local function mark(p, name)
 		if not (p and p.name and name) then return end
@@ -595,13 +601,13 @@ local function questStep(q, from, isTarget, opts)
 		end
 		list[#list + 1] = name
 	end
-	local giver = Lookup.QuestEnd(q.start, from)
+	local giver = Lookup.QuestEnd(q.start, from, nil, direct)
 	if not giver then
 		giver = insideEnd(q.start, inside)
 		if giver then mark(giver.spawn, giver.name) end
 	end
 	local startItem = q.start and q.start.item and q.start.item[1]
-	local finish = Lookup.QuestEnd(q["end"], giver and giver.spawn or from)
+	local finish = Lookup.QuestEnd(q["end"], giver and giver.spawn or from, nil, direct)
 	if not finish then
 		finish = insideEnd(q["end"], inside)
 		if finish then mark(finish.spawn, finish.name) end
@@ -636,7 +642,7 @@ local function questStep(q, from, isTarget, opts)
 			local target = credit and objectiveWords(o, q) or (npc and npc.name) or o.text or npcName(o.id)
 			-- No placed NPC (a kill credit, Riverglades' "[DNT] Kill Credit"): the
 			-- objective's own place, where players' recordings show it ticking.
-			local s = (npc and Lookup.Nearest(npc.spawns, here)) or ((o.map and o.x and o.y) and o or nil)
+			local s = (npc and Lookup.Nearest(npc.spawns, here, direct)) or ((o.map and o.x and o.y) and o or nil)
 			if not s and inside then
 				s = inside("npc", o.id)
 				mark(s, target)
@@ -657,7 +663,7 @@ local function questStep(q, from, isTarget, opts)
 			goals[#goals + 1] = spawnSpots(at(goal, s), npc and npc.spawns)
 		elseif o.type == "item" and o.id then
 			local name = (C.Name("item", o.id)) or o.text or itemName(o.id)
-			local s, source, spawns, dropper = itemSpot(o.id, here, inside)
+			local s, source, spawns, dropper = itemSpot(o.id, here, inside, direct)
 			if source then mark(s, name) end
 			if not s then
 				-- Nothing places a source: the objective's own place, where
@@ -674,7 +680,7 @@ local function questStep(q, from, isTarget, opts)
 			local npc = C.Npc(o.id)
 			local credit = placeholderTarget(npc, o)
 			local who = credit and objectiveWords(o, q) or (npc and npc.name) or o.text or npcName(o.id)
-			local s = (npc and Lookup.Nearest(npc.spawns, here)) or ((o.map and o.x and o.y) and o or nil)
+			local s = (npc and Lookup.Nearest(npc.spawns, here, direct)) or ((o.map and o.x and o.y) and o or nil)
 			if not s and inside then
 				s = inside("npc", o.id)
 				mark(s, who)
@@ -684,7 +690,7 @@ local function questStep(q, from, isTarget, opts)
 		elseif o.type == "object" and o.id then
 			local obj = C.Object(o.id)
 			local objName = (obj and obj.name) or o.text or (L["Object"] .. " " .. o.id)
-			local s = (obj and Lookup.Nearest(obj.spawns, here)) or ((o.map and o.x and o.y) and o or nil)
+			local s = (obj and Lookup.Nearest(obj.spawns, here, direct)) or ((o.map and o.x and o.y) and o or nil)
 			if not s and inside then
 				s = inside("object", o.id)
 				mark(s, objName)
@@ -731,6 +737,92 @@ local function questSteps(questId, player, from)
 end
 Lookup.QuestChain = questChain
 Lookup.QuestStep = function(q, from, opts) return questStep(q, from, false, opts) end
+
+-- A loot source can require a quest in the log OR already done (#1923).
+-- Finish its ordinary prerequisites, then only accept the required quest:
+-- completing it is not a condition for the drop. Unlike the general quest
+-- preview, a missing or impossible prerequisite cannot become a note and
+-- silently leave the player farming a source that cannot drop the item.
+function Lookup.DropQuestSteps(src, player, from, direct)
+	local C, K = Codex(), ns.Compat
+	local steps, complete, visiting, accepted = {}, {}, {}, {}
+	local function copy(map)
+		local out = {}
+		for k, v in pairs(map) do out[k] = v end
+		return out
+	end
+	local function visit(id, acceptOnly)
+		if K.IsQuestCompleted(id) or complete[id] or (acceptOnly and accepted[id]) then return true end
+		local q = C.Quest(id)
+		if not q then
+			if not (acceptOnly and K.IsOnQuest(id)) then return nil, "unknown" end
+			q = { id = id, title = L["Quest"] .. " " .. id }
+		end
+		if visiting[id] then return nil, "noguide", q end
+		if not K.IsOnQuest(id) then
+			local why = Lookup.QuestBlock(q, player)
+			if why then return nil, why, q end
+			for _, by in ipairs(q.closedBy or {}) do
+				if K.IsOnQuest(by) or K.IsQuestCompleted(by) then return nil, "noguide", q end
+			end
+			visiting[id] = true
+			for _, pre in ipairs(q.pre or {}) do
+				local ok, err, blocked = visit(pre, false)
+				if not ok then return nil, err, blocked end
+			end
+			local any, satisfied = q.preAny or {}, false
+			for _, pre in ipairs(any) do
+				if K.IsQuestCompleted(pre) or complete[pre] then satisfied = true; break end
+			end
+			if #any > 0 and not satisfied then
+				local why, blocked
+				for _, pre in ipairs(any) do
+					local count, here = #steps, from
+					local oldComplete, oldVisiting, oldAccepted = copy(complete), copy(visiting), copy(accepted)
+					local ok, err, failed = visit(pre, false)
+					if ok then satisfied = true; break end
+					while #steps > count do table.remove(steps) end
+					complete, visiting, accepted, from = oldComplete, oldVisiting, oldAccepted, here
+					why, blocked = why or err, blocked or failed
+				end
+				if not satisfied then return nil, why or "noguide", blocked or q end
+			end
+			visiting[id] = nil
+		end
+		local step, err
+		if acceptOnly then
+			local giver = Lookup.QuestEnd(q.start, from, player, direct)
+			if (not giver or giver.hostile) and not K.IsOnQuest(id) then return nil, "nolocation", q end
+			-- Keep an already-satisfied accept in the guide: if the quest is
+			-- abandoned later, the Engine can offer its usual return to giver.
+			local goal = giver and endGoal("accept", q, giver) or { t = "accept", quest = id, title = q.title }
+			goal.minLevel = q.minLevel
+			Lookup.AcceptPre(goal, q)
+			step = { title = q.title, goals = { goal } }
+			accepted[id] = true
+		else
+			local item = q.start and q.start.item and q.start.item[1]
+			if item and not K.IsOnQuest(id) and (K.GetItemCount(item, true) or 0) == 0 then return nil, "nolocation", q end
+			step, err = questStep(q, from, true, { direct = direct })
+			if not step then return nil, err, q end
+			complete[id] = true
+		end
+		steps[#steps + 1] = step
+		local last = step.goals[#step.goals]
+		if last and last.map then from = last end
+		return true
+	end
+	for _, id in ipairs(src and src.requiresQuests or {}) do
+		local ok, err, q = visit(id, true)
+		if not ok then return nil, err, q end
+	end
+	return steps
+end
+
+local function dropSteps(ctx, row)
+	if (ns.Compat.GetItemCount(ctx.id, true) or 0) > 0 then return {} end
+	return Lookup.DropQuestSteps(row.src, ctx.player, ctx.from)
+end
 
 local RANK_CAPS = { 75, 150, 225, 300 }
 
@@ -795,7 +887,8 @@ builders.drop = function(ctx, row)
 	local C = Codex()
 	local npc = C.Npc(row.src.npc)
 	if not npc then return nil, "unknown" end
-	local steps = {}
+	local steps, err = dropSteps(ctx, row)
+	if not steps then return nil, err end
 	local inst = row.instance and C.Instance(row.instance)
 	local kill = { t = "kill", target = npc.name, npc = npc.id, optional = true }
 	local collect = { t = "collect", item = ctx.id, itemName = ctx.name, count = 1 }
@@ -819,13 +912,16 @@ end
 builders.object = function(ctx, row)
 	local obj = Codex().Object(row.src.object)
 	if not (obj and located(row)) then return nil, "nolocation" end
+	local steps, err = dropSteps(ctx, row)
+	if not steps then return nil, err end
 	local step = { title = obj.name, goals = {
 		at({ t = "goto" }, row),
 		at({ t = "interact", object = obj.id, objName = obj.name, optional = true }, row),
 		at({ t = "collect", item = ctx.id, itemName = ctx.name, count = 1 }, row),
 	} }
 	if row.chance then step.note = L["Drop chance"] .. " " .. percent(row.chance) end
-	return { step }
+	steps[#steps + 1] = step
+	return steps
 end
 
 builders.quest = function(ctx, row)

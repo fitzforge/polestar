@@ -80,6 +80,8 @@ return {
 		["ui.barShown"] = { with = TRANSPARENT, prepare = function() if GF.Watch then GF.Watch() end end,
 			probe = function() return { P.strip:GetAlpha(), P.nav.Steps:GetAlpha() } end },
 		["ui.scale"] = one("scale"),
+		-- The window's own text size: its goal text, and its height growing with it.
+		["ui.guideTextSize"] = function() return { snapshot().rowText, snapshot().height } end,
 		["ui.width"] = one("width"),
 		-- A tall step (the biggest goals and spacing, six steps up next): the cap on the window's height.
 		["ui.maxHeight"] = { value = 0.3, with = { ["guideWindow.goalSize"] = 1.8, ["guideWindow.rowSpacing"] = 12, ["ui.upcoming"] = 6 }, probe = one("height") },
@@ -132,6 +134,19 @@ return {
 		["guideWindow.progress"] = one("foot"),
 		["guideWindow.progressColor"] = one("fill"),
 		["guideWindow.progressPct"] = one("pct"),
+		-- The XP row's line: the pace part goes (#2371, #2379). The step has no level target here, so the pace is a
+		-- fixed line for the check.
+		["guideWindow.pace"] = {
+			prepare = function()
+				GF.psPaceText = GF.PaceText
+				GF.PaceText = function() return "On pace for level 6 by step 12" end
+				GF.UpdateXP()
+			end,
+			probe = function() return GF.xp.psHas and GF.xp.Text:GetText() or false end,
+			cleanup = function()
+				GF.PaceText, GF.psPaceText = GF.psPaceText, nil
+				GF.UpdateXP()
+			end },
 		["guideWindow.foldAnim"] = fold,
 		-- A preset card (Compact): the window narrower, without the step's person.
 		["Guide window:Presets"] = function() return { snapshot().width, snapshot().person } end,

@@ -865,7 +865,8 @@ pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid, extras: &Extras, ways: &[
 		})
 		.collect::<Result<_, String>>()?;
 	let geo = Geo { c: meta.c as usize, cs: meta.cs, zstep: meta.zstep, x0: meta.x0, y0: meta.y0, ny: meta.ny, swim: meta.swim };
-	let (joined, join_areas) = super::joins::apply(&geo, &mut outs, ways, cg, log)?;
+	let (mut joined, join_areas) = super::joins::apply(&geo, &mut outs, ways, cg, log)?;
+	joined.cuts = super::cuts::apply(&geo, &mut outs, map, log)?;
 	let mut maps = Maps {
 		class: Some(BTreeMap::new()),
 		zone: Some(BTreeMap::new()),

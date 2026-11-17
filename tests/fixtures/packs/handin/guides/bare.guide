@@ -1,0 +1,16 @@
+# Fixture: an escort taken and handed in with no goal for the escort between
+# (tests/playtest.test.js). The game takes no such hand-in, so the play is
+# stuck at it.
+guide handin/bare
+title Bare Hand-in Fixture
+faction Alliance
+race NightElf
+levels 20-22
+zone Darkshore
+
+step Kerlonian Evershade
+  accept 5321
+
+step Maestra's Post
+  zone Ashenvale
+  turnin 5321

@@ -78,21 +78,26 @@ pub const STEP_KEYS: [&str; 10] = ["title", "note", "image", "label", "only", "w
 pub const IMAGE_KEYS: [&str; 3] = ["file", "w", "h"];
 /// A step's `when` predicates and a `next` option's (`nextWhen`, format 4), in this key order (`node`, a
 /// `taxi` predicate's flight master, sits where no other predicate has a value).
-pub const WHEN_KEYS: [&str; 19] = ["k", "neg", "op", "n", "frac", "q", "item", "spell", "name", "label", "area", "node", "map", "skillLine", "minLevel", "pre", "preAll", "closedBy", "parent"];
+pub const WHEN_KEYS: [&str; 22] =
+	["k", "neg", "op", "n", "frac", "q", "item", "spell", "name", "label", "area", "node", "map", "skillLine", "minLevel", "pre", "preAll", "closedBy", "parent", "faction", "standing", "points"];
 // Keys only the profession/reputation/exploration/achievement verbs use sit
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a
 // goal without them is emitted as before.
-pub const GOAL_KEYS: [&str; 86] = [
+pub const GOAL_KEYS: [&str; 90] = [
 	"t",
 	"class",
 	// `train class`: its step's zone (uiMapID), whose trainers the Engine ranks first (#1357).
 	"zone",
 	"spell",
 	"spellName",
+	// A `buff` or `equip` goal the other way round: done while the aura is gone or the item is not worn (format 11).
+	"off",
 	"faction",
 	"factionName",
 	"standing",
+	// Points inside a `rep` goal's standing (format 11).
+	"points",
 	"achievement",
 	"achievementName",
 	"criteria",
@@ -111,6 +116,8 @@ pub const GOAL_KEYS: [&str; 86] = [
 	// A `collect … gather`: the item's gather way, true or { max, min, rank, skill, skillLine } (Core/Materials.lua).
 	"gather",
 	"oi",
+	// Part of the objective's count this goal is done at (format 11).
+	"upto",
 	"skill",
 	"skillLine",
 	"rank",
@@ -157,6 +164,8 @@ pub const GOAL_KEYS: [&str; 86] = [
 	// A kill or collect's spawn areas' level, the one most share (an area of another level carries its own `lvl`).
 	"lvl",
 	"optional",
+	// One of its step's `either` set (format 11).
+	"either",
 	"only",
 	"profLine",
 	"profName",

@@ -1158,7 +1158,7 @@ out.near, out.deep = cost(0, 0), cost({last}, {last})"#,
 	let want: Vec<Value> = spots.iter().map(|&(gx, gy)| json!(deep_area(gx * C + gy))).collect();
 	assert_eq!(got["rows"], json!(want), "every spot's row id, as the string says");
 	let (near, deep) = (got["near"].as_f64().unwrap(), got["deep"].as_f64().unwrap());
-	assert!(deep < near * 200.0, "a read {} nodes in costs {:.3} ms against {:.3} ms at the start (200 reads)", C * C - 1, deep * 1000.0, near * 1000.0);
+	forge_addontest::assert_timing!(deep < near * 200.0, "a read {} nodes in costs {:.3} ms against {:.3} ms at the start (200 reads)", C * C - 1, deep * 1000.0, near * 1000.0);
 }
 
 #[test]

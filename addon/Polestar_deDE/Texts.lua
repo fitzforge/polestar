@@ -9524,6 +9524,9 @@ t.guides["forever/miscellaneous/stalk-with-the-earthmother"] = (function() retur
 		["{item:6291}: the Auction House, or the pool; the knife takes it"] = "{item:6291}: das Auktionshaus oder der Teich; das Messer nimmt ihn",
 		["{npc:205729} hides in stealth on the main mesa of {zone:1456}, south of its pool: walk to where the arrow points until his outline shows. He hands you the {item:206159}. The quest opens at level 4, but the mine holds Venture Co. Workers (level 8-9), Supervisors (9-10) and {npc:3051} (12): go at 9 or 10."] = "{npc:205729} versteckt sich getarnt auf der Hauptmesa von {zone:1456}, südlich des Teichs: Geh dorthin, wohin der Pfeil zeigt, bis seine Umrisse sichtbar werden. Er gibt dir die {item:206159}. Die Quest beginnt auf Stufe 4, aber in der Mine sind Venture Co. Workers (Stufe 8-9), Supervisors (9-10) und {npc:3051} (12): Geh mit Stufe 9 oder 10.",
 } end)()
+t.guides["forever/miscellaneous/the-drowned-city-alliance"] = (function() return {
+		["Skullsplitter trolls"] = "Skullsplitter-Trolle",
+} end)()
 t.guides["forever/professions/alchemy"] = (function() return {
 		["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1411} is marked."] = "110 {item:2447} für {item:5997} und {spell:2331} (28 davon für 75-150: hol sie dir jetzt alle): {skill:182}: {item:2447} (Fertigkeit 1). Das dichteste Vorkommen von {item:2447} in {zone:1411} ist markiert.",
 		["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1412} is marked."] = "110 {item:2447} für {item:5997} und {spell:2331} (28 davon für 75-150: hol sie dir jetzt alle): {skill:182}: {item:2447} (Fertigkeit 1). Das dichteste Vorkommen von {item:2447} in {zone:1412} ist markiert.",

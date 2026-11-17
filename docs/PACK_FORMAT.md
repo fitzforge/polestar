@@ -16,7 +16,7 @@ The handbook is [PACKS.md](PACKS.md).
 [The addon](#the-addon) · [TOC fields](#toc-fields) ·
 [Rules Polestar enforces](#rules-polestar-enforces) ·
 [Polestar's own extra packs](#polestars-own-extra-packs) ·
-[Format 3](#format-3) · [Format 4](#format-4) · [Format 5](#format-5) · [Format 6](#format-6) · [Format 7](#format-7) · [Format 8](#format-8) · [Format 10](#format-10) · [Import strings](#import-strings) · [Versioning](#versioning)
+[Format 3](#format-3) · [Format 4](#format-4) · [Format 5](#format-5) · [Format 6](#format-6) · [Format 7](#format-7) · [Format 8](#format-8) · [Format 10](#format-10) · [Format 11](#format-11) · [Import strings](#import-strings) · [Versioning](#versioning)
 
 A community addon is an addon for World of Warcraft: Forever that depends
 on Polestar and registers guides with it. It is built from a pack: a folder
@@ -401,6 +401,10 @@ hold:
 | `"cooldown"` | `item` or `spell` (format 5) | the item or spell is on cooldown for more than the global cooldown (1.5 s) |
 | `"knows"` | `spell` (format 5) | the character knows the spell (`Compat.IsSpellKnown`, else `Compat.IsPlayerSpell`) |
 | `"taxi"` | `name`; optional `node` (format 10) | the character knows that flight path ([Format 10](#format-10)) |
+| `"rep"` | `faction` (the faction's id), `standing` (1 Hated .. 8 Exalted); optional `name`, `points` (format 11) | the standing with the faction is `standing` or higher (`Compat.GetFactionStanding`); with `points`, that many points into `standing`, or any higher standing. A faction the character has not met is below every standing |
+| `"buff"` | `spell` (format 11) | the player has the aura of that spell id, a buff or a debuff (`Compat.PlayerHasAura`); while the client refuses to say, neither `buff` nor `!buff` holds |
+| `"equipped"` | `item` (format 11) | the player wears the item (`Compat.IsItemEquipped`); while the client cannot say, neither `equipped` nor `!equipped` holds |
+| `"indoors"` | nothing more (format 11) | the player is indoors (`Compat.IsIndoors`); while the client cannot say, neither holds |
 | `"group"` | `q` (format 5) | the player answered "do it" for that group quest (`CharState().groupQuests[q] == "do"`); unanswered, the step applies and is not done, so the route waits there; refused in `nextWhen` and `skipto` |
 
 ```lua
@@ -865,6 +869,73 @@ A profession guide's materials (GUIDE_FORMAT.md, "Materials"):
   pick per item decide. A goal that does not apply is skipped like any goal
   for another character.
 
+## Format 11
+
+Format 10 with a goal's **`either`**, an objective goal's **`upto`**, the
+**`buff`**, **`deposit`** and **`equip`** goals, a `rep` goal's **`points`**
+and the **`rep`**, **`buff`**, **`equipped`** and **`indoors`** `when`
+predicates (on a step, a `skipto` or a `next` option). Polestar 0.4.1 and
+later read it. The compiler writes a pack in format 11 only when its guides
+use one of them: an older Polestar would wait for every goal of an `either`
+set, hold a step until the whole objective is done, refuse a guide with the
+others ("unknown verb", "bad when") or count a `rep` goal done at the start
+of its standing, so they need a format of their own.
+
+`either = true` on a goal: the goal is one of its step's set. Once any goal
+of the set that applies to the character is done, the others count as done.
+A quest's `accept` with `either` is a choice, as an `optional` one is: the
+quest's later goals apply only while it is in the log or handed in. An
+`either` that is not `true` refuses the guide.
+
+```lua
+{ title = "Volcor", goals = { { t = "accept", quest = 994, title = "Escape Through Force", either = true }, { t = "accept", quest = 995, title = "Escape Through Stealth", either = true } } }
+```
+
+`buff` goal: `{ t = "buff", spell = <spellId>, spellName = "<Name>" }`. Done
+while the player has the aura of that spell id (`Compat.PlayerHasAura`), and
+latched once its live step had it or the route has moved past it. With `off
+= true` it is done while the aura is gone. May have coordinates, which only
+point the arrow. On a client without an aura API the goal is the player's to
+tick. A goal without a numeric `spell` or a string `spellName`, or with an
+`off` that is not `true`, refuses the guide.
+
+`points` on a `rep` goal: `{ t = "rep", faction = 576, factionName =
+"Timbermaw Hold", standing = 4, points = 1500 }` is done at 1500 points into
+Neutral or at any higher standing; while the character is at that standing
+the goal's progress counts toward the points. `points` that is not a number
+of 1 or more, or on another verb, refuses the guide.
+
+```lua
+{ when = { { k = "rep", name = "Argent Dawn", faction = 529, standing = 6 }, { k = "buff", neg = true, spell = 1126 } }, goals = { ... } }
+```
+
+`deposit` goal: `{ t = "deposit", item = <itemId>, itemName = "<Name>" }`.
+Done once the bags hold none of the item, latched within its live step as a
+`destroy` is (not on a step ahead: an item not in the bags yet is not an
+item put in the bank). With `count = N` it is done once the bank holds N of
+the item (the count with the bank less the bags'), and its progress counts
+them. Polestar reads the counts and moves nothing.
+
+`equip` goal: `{ t = "equip", item = <itemId>, itemName = "<Name>" }`. Done
+while the player wears the item (`Compat.IsItemEquipped`), and latched once
+its live step had it or the route has moved past it. With `off = true` it is
+done while the item is not worn. A client that cannot say makes it the
+player's to tick. An `off` that is not `true`, or on another verb, refuses
+the guide. Polestar equips nothing.
+
+```lua
+{ when = { { k = "equipped", neg = true, item = 6256 }, { k = "indoors", neg = true } }, goals = { { t = "equip", item = 6256, itemName = "Fishing Pole" } } }
+```
+
+`upto = N` on a goal with `quest` and `oi`: the goal is done once the quest
+log's line counts N (or is finished), and its progress runs to N; a line
+whose own count is N or less is read as without it. Not a number: the guide
+is refused.
+
+```lua
+{ t = "kill", quest = 7, title = "Kobold Camp Cleanup", target = "Kobold Vermin", npc = 6, count = 10, oi = 1, upto = 4 }
+```
+
 ## Import strings
 
 One compiled guide as one line of text, for a player to paste on Polestar's
@@ -944,8 +1015,11 @@ or nothing (equal or lower). Imported guides are listed in the guide menu as
   `skipto`) by 0.3.0 and later, format 6 (a guide's `legs`), format 7
   (baked legs in the race parts) and format 8 (packed spawn spots and
   faction parts, Polestar's own pack only) by 0.3.0 and later, format 9
-  (the `wait` goal) by 0.3.0 and later, and format 10 (the `taxi` when
-  predicate, the `auction` goal and a `collect`'s `gather`) by 0.4.0 and later.
+  (the `wait` goal) by 0.3.0 and later, format 10 (the `taxi` when
+  predicate, the `auction` goal and a `collect`'s `gather`) by 0.4.0 and later,
+  and format 11 (a goal's `either`, an objective goal's `upto`, the `buff`,
+  `deposit` and `equip` goals, a `rep` goal's `points`, the `rep`, `buff`,
+  `equipped` and `indoors` when predicates) by 0.4.1 and later.
 - A pack in a format this Polestar does not read registers nothing; the
   Community guides page shows it as `too-new` with "Needs Polestar <version> or
   newer." (rule 5).
