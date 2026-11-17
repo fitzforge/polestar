@@ -421,32 +421,30 @@ fn a_secret_run_speed_or_map_position_reads_as_unknown_and_is_never_worked_on_25
 	assert_eq!(out["vector"], true, "a secret position vector is never indexed");
 }
 
+// #2595: in the client a secret string throws when it is compared, even with "", so each tooltip and map name
+// reader asks issecretvalue before it checks the text against anything. A Lua 5.1 string can't throw on ==, so the
+// test watches the order instead: given an empty text, every reader still asks whether it is secret first.
 #[test]
-fn secret_tooltip_lines_and_map_names_are_never_compared_to_empty_string_2595() {
+fn the_tooltip_and_map_name_readers_ask_whether_a_text_is_secret_before_comparing_it_2595() {
 	let out = run(r#"
-		local function boom() error("secret compared") end
-		local SECRET = setmetatable({}, { __eq = boom, __tostring = function() return "secret" end })
-		function issecretvalue(v) return rawequal(v, SECRET) end
-		local rawtype = type
-		type = function(v) if rawequal(v, SECRET) then return "string" end return rawtype(v) end
+		local asked
+		function issecretvalue(v) if v == "" then asked = true end return false end
 		C_TooltipInfo = {
-			GetHyperlink = function(link)
-				return { lines = { { leftText = SECRET } } }
-			end,
-			GetItemByID = function(id)
-				return { lines = { { leftText = SECRET, leftColor = { r = 1, g = 1, b = 1 } } } }
-			end,
+			GetHyperlink = function() return { lines = { { leftText = "" } } } end,
+			GetItemByID = function() return { lines = { { leftText = "", leftColor = { r = 1, g = 1, b = 1 } } } } end,
 		}
-		C.GetMapName = function(id) return SECRET end
-		local r = {
-			creature = C.CreatureCached(12345),
-			color = { C.ItemTipColor(6462) },
-			map = C.MapName(1429),
-		}
-		type = rawtype
-		emit(r)
+		C_Item = C_Item or {}
+		C_Item.GetItemNameByID = function() return "" end
+		C.GetMapName = function() return "" end
+		local function asks(read) asked = false; read(); return asked end
+		emit({
+			creature = asks(function() return C.CreatureCached(12345) end),
+			color = asks(function() return C.ItemTipColor(6462) end),
+			name = asks(function() return C.GetItemName(6462) end),
+			map = asks(function() return C.MapName(1429) end),
+		})
 	"#);
-	assert_eq!(out, json!({ "creature": false, "color": [], "map": Value::Null }));
+	assert_eq!(out, json!({ "creature": true, "color": true, "name": true, "map": true }), "issecretvalue is asked first");
 }
 
 #[test]
