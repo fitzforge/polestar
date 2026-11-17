@@ -757,6 +757,19 @@
 		],
 		"note": "Deathstalkers in Shadowfang (Shadowfang Keep) rewards 5,350 XP on Forever; the merged data had 2,000, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
 	},
+	"1130": {
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16): Jorn Skyseer (3387) offered Melor Sends Word to 74 people (64 established), levels 20 to 40, with Ishamuhale (882) neither in the log nor handed in"
+			}
+		],
+		"note": "Melor Sends Word (1130, Jorn Skyseer at Camp Taurajo) has no prerequisite on Forever: Jorn offers it from level 20. The merged data made it follow Ishamuhale (882), so a character carrying 1130 counted Ishamuhale as handed in while it was still in the log, and the Barrens guide went on to Enraged Thunder Lizards, which Jorn offers only after Ishamuhale (#2681, #2683)."
+	},
 	"1194": {
 		"set": {
 			"start": {

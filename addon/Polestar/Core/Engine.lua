@@ -200,15 +200,21 @@ end
 
 -- The later quest of q's chain (Own.laterOf) that is in the log or done, or
 -- nil. Read once per quest while the quest log and the database stay as they
--- are (Own.logStamp: bumped by every quest event; no table per ask).
+-- are (Own.logStamp: bumped by every quest event; no table per ask). Never
+-- while q itself is in the log: the game takes a quest out of the log when it
+-- is handed in, so whatever the database says follows it, q is still to do
+-- (Melor Sends Word, offered without Ishamuhale but listed as following it,
+-- made Ishamuhale look handed in at 0/1, #2681).
 Own.logStamp, Own.pastGen, Own.pastVal = 0, {}, {}
 function Own.chainPast(q)
 	local Q = ns.QuestDB
 	if not (Q and Q.IsLoaded and Q.IsLoaded()) then return nil end
+	local C = Compat()
+	if C.IsOnQuest(q) then return nil end
 	local ids, stamp = Q.QuestIds(), Own.logStamp
 	if Own.pastIds ~= ids then Own.pastIds, Own.pastGen, Own.pastVal = ids, {}, {} end
 	if Own.pastGen[q] == stamp then return Own.pastVal[q] or nil end
-	local C, found = Compat(), false
+	local found = false
 	for _, s in ipairs(Own.laterOf(q)) do
 		if turnedIn[s] or C.IsOnQuest(s) or C.IsQuestCompleted(s) then
 			found = s
