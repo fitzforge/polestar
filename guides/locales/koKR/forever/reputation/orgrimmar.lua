@@ -9,323 +9,323 @@ return {
 	-- Guide
 	["Orgrimmar Reputation"] = "오그리마 평판",
 	-- {zone:1411} Durotar · {zone:1448} Felwood · {zone:1447} Azshara · {item:14047} Runecloth
-	["{zone:1411} and Crossroads quests while you level, {zone:1448} and {zone:1447} quests from 55, then {item:14047} to Exalted."] = "",
+	["{zone:1411} and Crossroads quests while you level, {zone:1448} and {zone:1447} quests from 55, then {item:14047} to Exalted."] = "레벨을 올리는 동안 {zone:1411}과(와) 크로스로드 퀘스트를 진행하고, 55레벨부터 {zone:1448}과(와) {zone:1447} 퀘스트를 진행한 뒤, {item:14047}로 확고한 동맹까지 올리십시오.",
 	-- {faction:76} Orgrimmar
-	["Exalted with {faction:76}"] = "",
+	["Exalted with {faction:76}"] = "{faction:76} 확고한 동맹",
 
 	-- Step 1: Orgrimmar: how it works
 	-- {faction:76} Orgrimmar
-	["{faction:76}: how it works"] = "",
+	["{faction:76}: how it works"] = "{faction:76}: 작동 방식",
 	-- {faction:76} Orgrimmar · {npc:14726} Rashona Straglash · {quest:7832} Additional Runecloth · {item:14047} Runecloth · {zone:1456} Thunder Bluff · {zone:1458} Undercity · {zone:1411} Durotar · {npc:4949} Thrall · {quest:5726} Hidden Enemies
-	["{faction:76} reputation comes from quests and cloth. {npc:14726}, the cloth quartermaster, stands in the Drag beside the cloth and leather armor shop. She takes four one-time donations of 60 cloth (150 each) and then {quest:7832}, 20 {item:14047} for 50, as often as you like. Every point you earn with {faction:76} also gives a quarter as much to {zone:1456}, the {zone:1458} and the Darkspear Trolls. While you level, do {faction:76}'s quests within 5 levels of them: {zone:1411} at 5 to 12, the Crossroads at 12 to 20, {npc:4949}'s {quest:5726} at 12 to 16. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored Orgrimmar's merchants sell to you for 10% less (the Classic rule), the wolf vendor included; at Exalted other races can buy the wolves: 20 gold for a level 40 wolf, 200 gold for a swift wolf at level 60, once you have mount training. {faction:76} has no tabard or other reward."] = "",
+	["{faction:76} reputation comes from quests and cloth. {npc:14726}, the cloth quartermaster, stands in the Drag beside the cloth and leather armor shop. She takes four one-time donations of 60 cloth (150 each) and then {quest:7832}, 20 {item:14047} for 50, as often as you like. Every point you earn with {faction:76} also gives a quarter as much to {zone:1456}, the {zone:1458} and the Darkspear Trolls. While you level, do {faction:76}'s quests within 5 levels of them: {zone:1411} at 5 to 12, the Crossroads at 12 to 20, {npc:4949}'s {quest:5726} at 12 to 16. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored Orgrimmar's merchants sell to you for 10% less (the Classic rule), the wolf vendor included; at Exalted other races can buy the wolves: 20 gold for a level 40 wolf, 200 gold for a swift wolf at level 60, once you have mount training. {faction:76} has no tabard or other reward."] = "{faction:76} 평판은 퀘스트와 옷감에서 옵니다. 천 군수 장교 {npc:14726}은(는) 천과 가죽 방어구 상점 옆 드래그에 서 있습니다. 그녀는 60장씩 네 번의 일회성 기부(각 150)를 받은 다음, 횟수 제한 없이 {quest:7832}, 즉 {item:14047} 20개로 50을 받습니다. {faction:76}에서 얻은 포인트마다 4분의 1을 {zone:1456}, {zone:1458}, 어둠창 트롤에게도 줍니다. 레벨을 올리는 동안은 자신의 레벨과 5 이하 차이 나는 {faction:76} 퀘스트를 하십시오: {zone:1411}은(는) 5~12, 크로스로드는 12~20, {npc:4949}의 {quest:5726}은(는) 12~16입니다. 유산 특성 외교관은 최대 10%를 더합니다. 보상: 우대에서는 오그리마 상인들이 10% 저렴하게 팝니다(클래식 규칙). 늑대 상인도 포함입니다. 확고한 동맹이면 다른 종족도 늑대를 삽니다: 40레벨 늑대 20골드, 60레벨 신속 늑대 200골드. 단 승마 훈련을 받았어야 합니다. {faction:76}에게는 탭아드나 다른 보상이 없습니다.",
 	["her donations are handed in from her window and never enter the log"] = "그녀에게 하는 기부는 대화창에서 바로 제출하며 퀘스트 목록에 들어가지 않습니다",
 
 	-- Step 2: Valley of Trials (optional hub)
 	-- {area:363} Valley of Trials
-	["{area:363} (optional hub)"] = "",
+	["{area:363} (optional hub)"] = "{area:363} (선택 허브)",
 	-- {area:363} Valley of Trials · {faction:76} Orgrimmar · {npc:3143} Gornek · {npc:10176} Kaltunk
-	["Forever pays these old quests in full at any level. The {area:363} is the best of them: about 1,400 {faction:76} and 1,400 Darkspear reputation in 25 minutes. {npc:3143} waits in the Den, the big hut; {npc:10176} stands outside it."] = "",
+	["Forever pays these old quests in full at any level. The {area:363} is the best of them: about 1,400 {faction:76} and 1,400 Darkspear reputation in 25 minutes. {npc:3143} waits in the Den, the big hut; {npc:10176} stands outside it."] = "Forever에서는 이런 오래된 퀘스트를 어떤 레벨에서도 전액을 지급합니다. {area:363}이(가) 그중 가장 좋습니다: 25분에 {faction:76} 1,400과 어둠창 1,400. {npc:3143}은(는) 큰 오두막인 굴 안에서 기다리고, {npc:10176}은(는) 그 밖에 서 있습니다.",
 	-- {npc:3144} Eitrigg · {faction:76} Orgrimmar · {quest:787} The New Horde
-	["{npc:3144}, in {faction:76}: {quest:787}, +50"] = "",
+	["{npc:3144}, in {faction:76}: {quest:787}, +50"] = "{npc:3144}, {faction:76} 내: {quest:787}, +50",
 	-- {npc:5765} Ruzan · {quest:792} Vile Familiars
-	["{npc:5765}: {quest:792}, warlocks only"] = "",
+	["{npc:5765}: {quest:792}, warlocks only"] = "{npc:5765}: {quest:792}, 흑마법사 전용",
 
 	-- Step 3: Boars, weapons and peons
-	["Boars, weapons and peons"] = "",
+	["Boars, weapons and peons"] = "멧돼지, 무기, 일꾼",
 	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
-	["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "",
+	["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "훈련용 무기는 굴 안과 북쪽 멧돼지 사이의 땅에 놓여 있습니다. 일꾼에게는: 자고 있는 {npc:10556}을(를) 대상으로 삼고 {item:16114}을(를) 그것에 사용하십시오.",
 	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
-	["{npc:10556}: hit it with the {item:16114}"] = "",
+	["{npc:10556}: hit it with the {item:16114}"] = "{npc:10556}: {item:16114}(으)로 때리십시오",
 	-- {npc:10556} Lazy Peon
-	["Wake {npc:10556}"] = "",
+	["Wake {npc:10556}"] = "{npc:10556}을(를) 깨우십시오",
 
 	-- Step 4: The Den: hand in
 	-- {area:364} The Den
-	["{area:364}: hand in"] = "",
+	["{area:364}: hand in"] = "{area:364}: 제출",
 
 	-- Step 5: North of the Den
-	["North of the Den"] = "",
+	["North of the Den"] = "굴 북쪽",
 	-- {npc:3287} Hana'zua · {quest:790} Sarkoth · {quest:792} Vile Familiars · {area:365} Burning Blade Coven · {quest:6394} Thazz'ril's Pick
-	["The cactus apples grow beside the cacti north of the Den. {npc:3287} lies wounded by the rocks to the north; {quest:790}, his big scorpid, roams close by. {quest:792} swarm at the mouth of the {area:365}; {quest:6394} lies inside: take the middle tunnel where it splits three ways."] = "",
+	["The cactus apples grow beside the cacti north of the Den. {npc:3287} lies wounded by the rocks to the north; {quest:790}, his big scorpid, roams close by. {quest:792} swarm at the mouth of the {area:365}; {quest:6394} lies inside: take the middle tunnel where it splits three ways."] = "굴 북쪽의 선인장 옆에 선인장 사과가 자랍니다. {npc:3287}은(는) 북쪽 바위 근처에서 다친 채로 있습니다. 그의 큰 전갈 {quest:790}이(가) 가까이 돌아다닙니다. {quest:792}은(는) {area:365} 입구에 무리지어 있고, {quest:6394}은(는) 안쪽에 있습니다. 세 갈래로 갈라지는 곳에서 가운데 터널을 택하십시오.",
 	-- {quest:6394} Thazz'ril's Pick
-	["{quest:6394}, in the cave"] = "",
+	["{quest:6394}, in the cave"] = "{quest:6394}, 동굴 안",
 
 	-- Step 6: The Den: hand in again
 	-- {area:364} The Den
-	["{area:364}: hand in again"] = "",
+	["{area:364}: hand in again"] = "{area:364}: 다시 제출",
 
 	-- Step 7: Burning Blade Coven
 	-- {npc:3183} Yarrog Baneshadow
-	["Go back into the cave and keep to the right-hand wall all the way, over a small stream, to {npc:3183} on a ledge above a pool."] = "",
+	["Go back into the cave and keep to the right-hand wall all the way, over a small stream, to {npc:3183} on a ledge above a pool."] = "동굴로 다시 들어가 오른쪽 벽을 따라 계속 가십시오. 작은 개울을 넘어 웅덩이 위 선반에 있는 {npc:3183}에게 가면 됩니다.",
 	-- {quest:794} Burning Blade Medallion · {npc:3183} Yarrog Baneshadow
-	["{quest:794}, from {npc:3183}"] = "",
+	["{quest:794}, from {npc:3183}"] = "{quest:794}, {npc:3183}에게서",
 	-- {npc:3145} Zureetha Fargaze
-	["{npc:3145}, in the Den"] = "",
+	["{npc:3145}, in the Den"] = "{npc:3145}, 굴 안",
 	-- {quest:805} Report to Sen'jin Village · {quest:97225} Forgotten Loa Idols
-	["{quest:805}, +50: {quest:97225} waits on it"] = "",
+	["{quest:805}, +50: {quest:97225} waits on it"] = "{quest:805}, +50: 그 위에서 {quest:97225}이(가) 기다립니다",
 
 	-- Step 9: Sen'jin Village (optional hub)
 	-- {area:367} Sen'jin Village
-	["{area:367} (optional hub)"] = "",
+	["{area:367} (optional hub)"] = "{area:367} (선택 허브)",
 	-- {area:367} Sen'jin Village · {area:368} Echo Isles · {faction:76} Orgrimmar · {npc:3188} Master Gadrin · {npc:3304} Master Vornal · {npc:3194} Vel'rin Fang · {npc:7953} Xar'Ti
-	["Forever pays these old quests in full at any level. {area:367} and the {area:368}: about 700 {faction:76} and 650 Darkspear reputation in 25 minutes. {npc:3188} and {npc:3304} stand by the huts, {npc:3194} near the water, {npc:7953} south of the village."] = "",
+	["Forever pays these old quests in full at any level. {area:367} and the {area:368}: about 700 {faction:76} and 650 Darkspear reputation in 25 minutes. {npc:3188} and {npc:3304} stand by the huts, {npc:3194} near the water, {npc:7953} south of the village."] = "Forever에서는 이런 오래된 퀘스트를 어떤 레벨에서도 전액을 지급합니다. {area:367}과(와) {area:368}: 25분에 {faction:76} 약 700과 어둠창 650. {npc:3188}과(와) {npc:3304}은(는) 오두막 곁에, {npc:3194}은(는) 물가에, {npc:7953}은(는) 마을 남쪽에 있습니다.",
 	-- {quest:97225} Forgotten Loa Idols · {quest:805} Report to Sen'jin Village
-	["{quest:97225}, +100: needs {quest:805} from the Den"] = "",
+	["{quest:97225}, +100: needs {quest:805} from the Den"] = "{quest:97225}, +100: 굴에서 {quest:805}이(가) 필요합니다",
 
 	-- Step 10: The Echo Isles
 	-- {area:368} Echo Isles
-	["The {area:368}"] = "",
+	["The {area:368}"] = "{area:368}",
 	-- {area:368} Echo Isles · {quest:826} Zalazane
 	-- plural, as words: Durotar Tigers = {npc:3121} Durotar Tiger
-	["Swim to the largest of the {area:368}, south-east of the village. {quest:826}, the idols and the skulls at the circle of power are all there; the Durotar Tigers prowl the smaller islands."] = "",
+	["Swim to the largest of the {area:368}, south-east of the village. {quest:826}, the idols and the skulls at the circle of power are all there; the Durotar Tigers prowl the smaller islands."] = "마을 남동쪽의 {area:368} 중 가장 큰 섬으로 수영하십시오. {quest:826}, 힘의 원에 있는 우상과 해골이 모두 거기 있습니다. 듀로타 호랑이들은 더 작은 섬들을 어슬렁거립니다.",
 	-- {quest:808} Minshina's Skull · {object:3237} Imprisoned Darkspear
-	["{quest:808}: click an {object:3237} skull"] = "",
+	["{quest:808}: click an {object:3237} skull"] = "{quest:808}: {object:3237} 해골을 클릭하십시오",
 
 	-- Step 11: The coast and the road
-	["The coast and the road"] = "",
+	["The coast and the road"] = "해안과 길",
 	-- {quest:97223} Bloodtalon Matriarch · {area:362} Razor Hill
-	["Makrura and surf crawlers walk the beaches east and south of Sen'jin. The {quest:97223} is east of the village. The Ridgeshade spiders are along the road south of {area:362} and north-east of the Den."] = "",
+	["Makrura and surf crawlers walk the beaches east and south of Sen'jin. The {quest:97223} is east of the village. The Ridgeshade spiders are along the road south of {area:362} and north-east of the Den."] = "마크루라와 수면 거미가 센진 동쪽과 남쪽 해변을 돌아다닙니다. {quest:97223}은(는) 마을 동쪽에 있습니다. 산등성이그늘 거미는 {area:362} 남쪽 길과 굴 북동쪽을 따라 있습니다.",
 
 	-- Step 12: Sen'jin Village: hand in
 	-- {area:367} Sen'jin Village
-	["{area:367}: hand in"] = "",
+	["{area:367}: hand in"] = "{area:367}: 제출",
 
 	-- Step 13: Thrall: Hidden Enemies (optional hub)
 	-- {npc:4949} Thrall · {quest:5726} Hidden Enemies
-	["{npc:4949}: {quest:5726} (optional hub)"] = "",
+	["{npc:4949}: {quest:5726} (optional hub)"] = "{npc:4949}: {quest:5726} (선택 허브)",
 	-- {quest:5726} Hidden Enemies · {faction:76} Orgrimmar · {area:2437} Ragefire Chasm
-	["Forever pays these old quests in full at any level. {quest:5726}: 400 {faction:76} reputation in 20 minutes, with a run through {area:2437} that a level 60 clears alone."] = "",
+	["Forever pays these old quests in full at any level. {quest:5726}: 400 {faction:76} reputation in 20 minutes, with a run through {area:2437} that a level 60 clears alone."] = "Forever에서는 이런 오래된 퀘스트를 어떤 레벨에서도 전액을 지급합니다. {quest:5726}: 20분에 {faction:76} 평판 400. 60레벨이 혼자 {area:2437}을(를) 지나가며 벌 수 있습니다.",
 
 	-- Step 14: Skull Rock: the Lieutenant's Insignia
 	-- {quest:827} Skull Rock · {item:14544} Lieutenant's Insignia
-	["{quest:827}: the {item:14544}"] = "",
+	["{quest:827}: the {item:14544}"] = "{quest:827}: {item:14544}",
 	-- {quest:827} Skull Rock · {faction:76} Orgrimmar
 	-- plural, as words: Burning Blade Fanatics = {npc:3197} Burning Blade Fanatic
-	["{quest:827} is the cave just east of {faction:76}. Burning Blade Fanatics and Apprentices inside drop the insignia about one kill in five."] = "",
+	["{quest:827} is the cave just east of {faction:76}. Burning Blade Fanatics and Apprentices inside drop the insignia about one kill in five."] = "{quest:827}은(는) {faction:76} 바로 동쪽의 동굴입니다. 안의 불타는 칼날 광신도와 수련생이 5킬에 한 번꼴로 휘장을 떨어뜨립니다.",
 
 	-- Step 15: Orgrimmar: Thrall and Neeru Fireblade
 	-- {faction:76} Orgrimmar · {npc:4949} Thrall · {npc:3216} Neeru Fireblade
-	["{faction:76}: {npc:4949} and {npc:3216}"] = "",
+	["{faction:76}: {npc:4949} and {npc:3216}"] = "{faction:76}: {npc:4949}과(와) {npc:3216}",
 	-- {npc:3216} Neeru Fireblade · {object:172960} Cleft of Shadow
-	["{npc:3216} is in the {object:172960}. Tell him he may speak openly and click through his story."] = "",
+	["{npc:3216} is in the {object:172960}. Tell him he may speak openly and click through his story."] = "{npc:3216}은(는) {object:172960} 안에 있습니다. 그가 공개적으로 말할 수 있다고 전하고 이야기를 클릭해 넘기십시오.",
 	-- {npc:3216} Neeru Fireblade
-	["{npc:3216}: hear him out"] = "",
+	["{npc:3216}: hear him out"] = "{npc:3216}: 이야기를 다 들으십시오",
 
 	-- Step 16: Ragefire Chasm
 	-- {area:2437} Ragefire Chasm · {object:172960} Cleft of Shadow · {npc:11518} Jergosh the Invoker · {npc:11519} Bazzalan
-	["{area:2437} opens off the {object:172960}. {npc:11518} and {npc:11519} wait at the far end."] = "",
+	["{area:2437} opens off the {object:172960}. {npc:11518} and {npc:11519} wait at the far end."] = "{area:2437}은(는) {object:172960}에서 갈라져 나옵니다. {npc:11518}과(와) {npc:11519}은(는) 안쪽 끝에서 기다립니다.",
 	-- {npc:11518} Jergosh the Invoker · {npc:11519} Bazzalan
-	["{npc:11518} and {npc:11519}"] = "",
+	["{npc:11518} and {npc:11519}"] = "{npc:11518}과(와) {npc:11519}",
 
 	-- Step 17: Orgrimmar: Hidden Enemies done
 	-- {faction:76} Orgrimmar · {quest:5728} Hidden Enemies
-	["{faction:76}: {quest:5728} done"] = "",
+	["{faction:76}: {quest:5728} done"] = "{faction:76}: {quest:5728} 완료",
 
 	-- Step 18: Razor Hill: Sen'jin hand-ins
 	-- {area:362} Razor Hill
-	["{area:362}: Sen'jin hand-ins"] = "",
+	["{area:362}: Sen'jin hand-ins"] = "{area:362}: 센진 제출",
 
 	-- Step 19: Razor Hill (optional hub)
 	-- {area:362} Razor Hill
-	["{area:362} (optional hub)"] = "",
+	["{area:362} (optional hub)"] = "{area:362} (선택 허브)",
 	-- {area:362} Razor Hill · {zone:1411} Durotar · {faction:76} Orgrimmar · {npc:3142} Orgnil Soulscar · {npc:3139} Gar'Thok · {npc:3191} Cook Torka · {npc:3147} Furl Scornbrow · {npc:266940} Turroc
-	["Forever pays these old quests in full at any level. {area:362} and north {zone:1411}: about 1,800 {faction:76} and 1,650 Darkspear reputation in 80 minutes. {npc:3142} and {npc:3139} stand in the middle of the town, {npc:3191} by the barracks, {npc:3147} and {npc:266940} at the edges."] = "",
+	["Forever pays these old quests in full at any level. {area:362} and north {zone:1411}: about 1,800 {faction:76} and 1,650 Darkspear reputation in 80 minutes. {npc:3142} and {npc:3139} stand in the middle of the town, {npc:3191} by the barracks, {npc:3147} and {npc:266940} at the edges."] = "Forever에서는 이런 오래된 퀘스트를 어떤 레벨에서도 전액을 지급합니다. {area:362}과(와) {zone:1411} 북부: 80분에 {faction:76} 약 1,800과 어둠창 1,650. {npc:3142}과(와) {npc:3139}은(는) 마을 한가운데에, {npc:3191}은(는) 병영 곁에, {npc:3147}과(와) {npc:266940}은(는) 가장자리에 있습니다.",
 	-- {quest:806} Dark Storms · {quest:823} Report to Orgnil
-	["{quest:806}, +100: needs {quest:823} from Sen'jin"] = "",
+	["{quest:806}, +100: needs {quest:823} from Sen'jin"] = "{quest:806}, +100: 센진에서 {quest:823}이(가) 필요합니다",
 
 	-- Step 20: Tiragarde Keep
 	-- {area:362} Razor Hill · {npc:3192} Lieutenant Benedict · {object:3239} Benedict's Chest · {item:4881} Aged Envelope · {quest:830} The Admiral's Orders · {item:4870} Canvas Scraps · {item:275713} Raider's Bow
-	["The keep is south of {area:362} on the coast. {npc:3192} is in the keep's only building; his key opens {object:3239} on the roof, and the {item:4881} inside starts {quest:830}. The sailors and marines drop the {item:4870}; the {item:275713}, Battleaxe and Shield lie outside the keep."] = "",
+	["The keep is south of {area:362} on the coast. {npc:3192} is in the keep's only building; his key opens {object:3239} on the roof, and the {item:4881} inside starts {quest:830}. The sailors and marines drop the {item:4870}; the {item:275713}, Battleaxe and Shield lie outside the keep."] = "성채는 해안의 {area:362} 남쪽에 있습니다. {npc:3192}은(는) 성채의 유일한 건물 안에 있습니다. 그의 열쇠로 지붕의 {object:3239}을(를) 열 수 있고, 그 안의 {item:4881}이(가) {quest:830}을(를) 시작합니다. 수병과 해병이 {item:4870}을(를) 떨어뜨리고, {item:275713}, 전투도끼와 방패는 성채 밖에 있습니다.",
 
 	-- Step 21: Razormane Grounds and the Echo Isles
 	-- {area:816} Razormane Grounds · {area:368} Echo Isles
-	["{area:816} and the {area:368}"] = "",
+	["{area:816} and the {area:368}"] = "{area:816}과(와) {area:368}",
 	-- {area:362} Razor Hill · {area:368} Echo Isles · {object:3240} Taillasher Eggs
-	["The Razormane camps are south-west and west of {area:362}; the Prickly Pear cacti grow among them. Then head to the {area:368} for the {object:3240}: each nest gives an egg every time."] = "",
+	["The Razormane camps are south-west and west of {area:362}; the Prickly Pear cacti grow among them. Then head to the {area:368} for the {object:3240}: each nest gives an egg every time."] = "레이저메인 야영지는 {area:362} 남서쪽과 서쪽에 있고, 가시배 선인장이 그 사이에 자랍니다. 다음으로 {area:368}의 {object:3240}을(를) 향하십시오: 둥지마다 매번 알을 줍니다.",
 
 	-- Step 22: Razor Hill: hand in
 	-- {area:362} Razor Hill
-	["{area:362}: hand in"] = "",
+	["{area:362}: hand in"] = "{area:362}: 제출",
 	-- {quest:830} The Admiral's Orders · {npc:3230} Nazgrel · {faction:76} Orgrimmar
-	["{quest:830}, +100: to {npc:3230} in {faction:76}"] = "",
+	["{quest:830}, +100: to {npc:3230} in {faction:76}"] = "{quest:830}, +100: {faction:76} 안의 {npc:3230}에게",
 
 	-- Step 23: The wreck
-	["The wreck"] = "",
+	["The wreck"] = "난파선",
 	-- {area:372} Tiragarde Keep
-	["The wrecked ship lies in the shallows east of {area:372}. Open the Gnomish Toolboxes."] = "",
+	["The wrecked ship lies in the shallows east of {area:372}. Open the Gnomish Toolboxes."] = "난파선은 {area:372} 동쪽 여울에 있습니다. 노움 공구상자를 여십시오.",
 	-- {npc:3139} Gar'Thok · {area:362} Razor Hill
-	["back at {npc:3139} in {area:362}"] = "",
+	["back at {npc:3139} in {area:362}"] = "{area:362}에(에) 있는 {npc:3139}에게 돌아가십시오",
 
 	-- Step 24: North Durotar
 	-- {zone:1411} Durotar
-	["North {zone:1411}"] = "",
+	["North {zone:1411}"] = "{zone:1411} 북부",
 	-- {npc:3293} Rezlak · {area:362} Razor Hill · {npc:3193} Misha Tor'kren
-	["{npc:3293} stands on the road north of {area:362}, {npc:3193} at her farm west of it."] = "",
+	["{npc:3293} stands on the road north of {area:362}, {npc:3193} at her farm west of it."] = "{npc:3293}은(는) {area:362} 북쪽 길에 서 있고, {npc:3193}은(는) 그 서쪽 농장에 있습니다.",
 
 	-- Step 25: Thunder Ridge and Razorwind Canyon
 	-- {area:369} Thunder Ridge · {area:410} Razorwind Canyon
-	["{area:369} and {area:410}"] = "",
+	["{area:369} and {area:410}"] = "{area:369}과(와) {area:410}",
 	-- {npc:3203} Fizzle Darkstorm · {area:369} Thunder Ridge · {faction:76} Orgrimmar · {area:410} Razorwind Canyon · {area:362} Razor Hill · {item:4891} Kron's Amulet
-	["{npc:3203} keeps a Burning Blade camp in {area:369}, south of {faction:76}, among the thunder lizards. The supply sacks lie in {area:410}, north of {area:362}. {item:4891} drops from the crocolisks along the river to the west, about one in ten."] = "",
+	["{npc:3203} keeps a Burning Blade camp in {area:369}, south of {faction:76}, among the thunder lizards. The supply sacks lie in {area:410}, north of {area:362}. {item:4891} drops from the crocolisks along the river to the west, about one in ten."] = "{npc:3203}은(는) {faction:76} 남쪽, 천둥도마뱀 사이인 {area:369}에 불타는 칼날 야영지를 유지합니다. 보급 자루는 {area:362} 북쪽의 {area:410}에 있습니다. {item:4891}은(는) 서쪽 강변의 크로킬스크에게서 10마리에 한 번꼴로 떨어집니다.",
 
 	-- Step 26: Rezlak and Misha
 	-- {npc:3293} Rezlak
-	["{npc:3293} and Misha"] = "",
+	["{npc:3293} and Misha"] = "{npc:3293}과(와) 미샤",
 	-- {npc:3118} Dustwind Storm Witch · {item:277661} Dull Storm Orb · {quest:97281} A Simmering Storm · {npc:3293} Rezlak · {quest:97282} Stormy Potential
-	["A {npc:3118} may drop a {item:277661}: use it to start {quest:97281}. Once you hand that in, {npc:3293} offers {quest:97282}."] = "",
+	["A {npc:3118} may drop a {item:277661}: use it to start {quest:97281}. Once you hand that in, {npc:3293} offers {quest:97282}."] = "{npc:3118}이(가) {item:277661}을(를) 떨어뜨릴 수 있습니다: 그것을 사용해 {quest:97281}을(를) 시작하십시오. 그것을 제출하고 나면 {npc:3293}이(가) {quest:97282}를(을) 줍니다.",
 	-- {npc:3117} Dustwind Savage · {area:370} Drygulch Ravine
-	["{npc:3117}, in {area:370}"] = "",
+	["{npc:3117}, in {area:370}"] = "{npc:3117}, {area:370} 안",
 
 	-- Step 27: Stormy Potential
 	-- {area:369} Thunder Ridge · {npc:3293} Rezlak
 	-- plural, as words: Charged Thunder Lizard Organs = {item:277665} Charged Thunder Lizard Organ
-	["The Charged Thunder Lizard Organs come from the thunder lizards on {area:369}, just west of {npc:3293}."] = "",
+	["The Charged Thunder Lizard Organs come from the thunder lizards on {area:369}, just west of {npc:3293}."] = "충전된 천둥도마뱀 기관은 {npc:3293} 바로 서쪽 {area:369}의 천둥도마뱀에게서 나옵니다.",
 
 	-- Step 29: Skull Rock
 	-- {quest:828} Margoz · {quest:827} Skull Rock · {faction:76} Orgrimmar
-	["{quest:828} camps outside {quest:827}, the cave just east of {faction:76}."] = "",
+	["{quest:828} camps outside {quest:827}, the cave just east of {faction:76}."] = "{quest:828}은(는) {faction:76} 바로 동쪽 동굴인 {quest:827} 바깥에 야영지를 칩니다.",
 
 	-- Step 30: Orgrimmar: Neeru Fireblade and Nazgrel
 	-- {faction:76} Orgrimmar · {npc:3216} Neeru Fireblade · {npc:3230} Nazgrel
-	["{faction:76}: {npc:3216} and {npc:3230}"] = "",
+	["{faction:76}: {npc:3216} and {npc:3230}"] = "{faction:76}: {npc:3216}과(와) {npc:3230}",
 	-- {quest:829} Neeru Fireblade · {object:172960} Cleft of Shadow · {npc:3230} Nazgrel · {npc:4949} Thrall
-	["{quest:829} is in the {object:172960}; {npc:3230} in Grommash Hold beside {npc:4949}."] = "",
+	["{quest:829} is in the {object:172960}; {npc:3230} in Grommash Hold beside {npc:4949}."] = "{quest:829}은(는) {object:172960} 안에 있습니다. {npc:3230}은(는) {npc:4949} 곁 그롬마쉬 요새 안에 있습니다.",
 
 	-- Step 31: Far Watch Post
 	-- {faction:76} Orgrimmar · {zone:1413} Barrens · {npc:3337} Kargal Battlescar · {quest:809} Ak'Zeloth · {area:379} Far Watch Post
-	["Run out of {faction:76}'s west gate and over the bridge into the {zone:1413}. {npc:3337} and {quest:809} stand at {area:379}."] = "",
+	["Run out of {faction:76}'s west gate and over the bridge into the {zone:1413}. {npc:3337} and {quest:809} stand at {area:379}."] = "{faction:76} 서쪽 문으로 나와 다리를 건너 {zone:1413}(으)로 들어가십시오. {npc:3337}과(와) {quest:809}은(는) {area:379}에 서 있습니다.",
 	-- {quest:842} Crossroads Conscription · {quest:860} Sergra Darkthorn
-	["{quest:842}, +100: to {quest:860}"] = "",
+	["{quest:842}, +100: to {quest:860}"] = "{quest:842}, +100: {quest:860}에게",
 
 	-- Step 33: The Crossroads (optional hub)
 	-- {area:380} The Crossroads
-	["{area:380} (optional hub)"] = "",
+	["{area:380} (optional hub)"] = "{area:380} (선택 허브)",
 	-- {area:380} The Crossroads · {faction:76} Orgrimmar · {quest:860} Sergra Darkthorn · {npc:3464} Gazrog · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger · {npc:267310} Gur'ak · {npc:3432} Mankrik
-	["Forever pays these old quests in full at any level. {area:380}: about 1,500 {faction:76} reputation in 70 minutes, {faction:76}'s only. {quest:860}, {npc:3464}, {npc:3429}, {npc:3449} and {npc:267310} stand in the town, {npc:3432} by the inn."] = "",
+	["Forever pays these old quests in full at any level. {area:380}: about 1,500 {faction:76} reputation in 70 minutes, {faction:76}'s only. {quest:860}, {npc:3464}, {npc:3429}, {npc:3449} and {npc:267310} stand in the town, {npc:3432} by the inn."] = "Forever에서는 이런 오래된 퀘스트를 어떤 레벨에서도 전액을 지급합니다. {area:380}: 70분에 {faction:76} 평판 약 1,500. {faction:76} 것뿐입니다. {quest:860}, {npc:3464}, {npc:3429}, {npc:3449}, {npc:267310}은(는) 마을에 서 있고 {npc:3432}은(는) 여관 곁에 있습니다.",
 
 	-- Step 34: Around the Crossroads
-	["Around the Crossroads"] = "",
+	["Around the Crossroads"] = "크로스로드 주변",
 	-- {npc:267307} Chol'aruk · {area:1699} Thorn Hill · {npc:10668} Beaten Corpse · {area:378} Camp Taurajo
-	["The Razormane camps and the supply crates are north-east of the town; {npc:267307}, an elite boar, sits deep in the {area:1699} cave there. The Witchwing harpies nest far to the north-west. The {npc:10668} lies north-east of {area:378}, in the south: right-click it. Raptors and plainstriders are everywhere."] = "",
+	["The Razormane camps and the supply crates are north-east of the town; {npc:267307}, an elite boar, sits deep in the {area:1699} cave there. The Witchwing harpies nest far to the north-west. The {npc:10668} lies north-east of {area:378}, in the south: right-click it. Raptors and plainstriders are everywhere."] = "레이저메인 야영지와 보급 상자는 마을 북동쪽에 있습니다. 정예 멧돼지 {npc:267307}은(는) 그곳 {area:1699} 동굴 안쪽 깊은 곳에 앉아 있습니다. 칼날바람일족 하피는 훨씬 북서쪽에 둥지를 튑니다. {npc:10668}은(는) {area:378} 북동쪽, 남쪽에 있습니다: 클릭하십시오. 랩터와 들평원조류는 사방에 있습니다.",
 	-- {npc:10668} Beaten Corpse
-	["{npc:10668}: right-click it"] = "",
+	["{npc:10668}: right-click it"] = "{npc:10668}: 클릭하십시오",
 
 	-- Step 35: The Crossroads: hand in
 	-- {area:380} The Crossroads
-	["{area:380}: hand in"] = "",
+	["{area:380}: hand in"] = "{area:380}: 제출",
 
 	-- Step 36: Zhevras, quilboars, harpies and the Raptor Grounds
 	-- {area:1697} Raptor Grounds
-	["Zhevras, quilboars, harpies and the {area:1697}"] = "",
+	["Zhevras, quilboars, harpies and the {area:1697}"] = "즈헤브라, 퀄보, 하피, 그리고 {area:1697}",
 	-- {npc:3438} Kreenig Snarlsnout · {quest:3281} Stolen Silver · {area:1697} Raptor Grounds · {area:378} Camp Taurajo
 	-- plural, as words: Zhevra Runners = {npc:3242} Zhevra Runner · Witchwing Slayers = {npc:3278} Witchwing Slayer
-	["Zhevra Runners graze south and west of the town. {npc:3438} leads the Razormane camps north-east. The Witchwing Slayers carry the rings. The {quest:3281} is in the {area:1697} east of {area:378}: follow the nest-lined path on its left side to the last nest."] = "",
+	["Zhevra Runners graze south and west of the town. {npc:3438} leads the Razormane camps north-east. The Witchwing Slayers carry the rings. The {quest:3281} is in the {area:1697} east of {area:378}: follow the nest-lined path on its left side to the last nest."] = "즈헤브라 달리깅들은 마을 남쪽과 서쪽에서 풀을 뜯습니다. {npc:3438}이(가) 북동쪽 레이저메인 야영지를 이끕니다. 칼날바람일족 학살자들이 반지를 지니고 있습니다. {quest:3281}은(는) {area:378} 동쪽의 {area:1697}에 있습니다: 왼쪽에 둥지가 늘어선 길을 따라 마지막 둥지까지 가십시오.",
 
 	-- Step 37: The Crossroads: hand in again
 	-- {area:380} The Crossroads
-	["{area:380}: hand in again"] = "",
+	["{area:380}: hand in again"] = "{area:380}: 다시 제출",
 
 	-- Step 38: Prowlers, Serena Bloodfeather and Echeyakee
 	-- {npc:3452} Serena Bloodfeather · {quest:881} Echeyakee
-	["Prowlers, {npc:3452} and {quest:881}"] = "",
+	["Prowlers, {npc:3452} and {quest:881}"] = "밀렵꾼, {npc:3452}, 그리고 {quest:881}",
 	-- {quest:876} Serena Bloodfeather · {npc:3338} Sergra Darkthorn · {item:10327} Horn of Echeyakee · {object:147524} Echeyakee's Lair (no name in this language: may be words)
 	-- plural, as words: Savannah Prowlers = {npc:3425} Savannah Prowler
-	["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "",
+	["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "사바나 밀렵꾼은 크로스로드 서쪽과 북쪽에 있습니다. {quest:876}은(는) 훨씬 북서쪽의 칼날바람일족 하피로 안내합니다. 다음 {npc:3338}이(가) {item:10327}을(를) 줍니다: 마을 북쪽 {object:147524}의 코도 뼈 옆에서 불어 넣고 흰 사자를 처치하십시오.",
 
 	-- Step 39: Chen's Empty Keg (optional hub)
 	-- {quest:819} Chen's Empty Keg
-	["{quest:819} (optional hub)"] = "",
+	["{quest:819} (optional hub)"] = "{quest:819} (선택 허브)",
 	-- {quest:819} Chen's Empty Keg · {zone:1413} Barrens · {npc:3292} Brewmaster Drohn · {area:392} Ratchet · {faction:76} Orgrimmar
-	["Forever pays it in full at any level. {quest:819} lies on the ground at one of several spots in the central and northern {zone:1413}, most of them by the roads around the Crossroads; once someone takes it, it turns up at another. {npc:3292} in {area:392} pays 250 {faction:76} reputation for the keg and its first filling, then 50 for every filling after, as often as you like."] = "",
+	["Forever pays it in full at any level. {quest:819} lies on the ground at one of several spots in the central and northern {zone:1413}, most of them by the roads around the Crossroads; once someone takes it, it turns up at another. {npc:3292} in {area:392} pays 250 {faction:76} reputation for the keg and its first filling, then 50 for every filling after, as often as you like."] = "Forever에서는 어떤 레벨에서도 전액을 지급합니다. {quest:819}은(는) 중앙과 {zone:1413} 북부의 여러 지점 중 하나의 땅에 놓여 있고, 대부분 크로스로드 주변 길 곁입니다. 누군가 가져가면 다른 곳에 다시 나타납니다. {area:392}의 {npc:3292}은(는) 통과 첫 충전에 {faction:76} 평판 250를(을) 주고, 이후 충전마다 50를(을) 횟수 제한 없이 줍니다.",
 	-- {quest:819} Chen's Empty Keg
-	["{quest:819}: look for it by the roads"] = "",
+	["{quest:819}: look for it by the roads"] = "{quest:819}: 길 곁에서 찾으십시오",
 
 	-- Step 41: Lions, plainstriders and a thunder lizard
-	["Lions, plainstriders and a thunder lizard"] = "",
+	["Lions, plainstriders and a thunder lizard"] = "사자, 들평원조류, 천둥도마뱀",
 	-- {zone:1413} Barrens
-	["Savannah lions, plainstriders and thunder lizards roam the whole northern {zone:1413}. The lions drop a tusk about every other kill, the plainstriders a kidney about two kills in five; any thunder lizard may drop the horn, about one in five."] = "",
+	["Savannah lions, plainstriders and thunder lizards roam the whole northern {zone:1413}. The lions drop a tusk about every other kill, the plainstriders a kidney about two kills in five; any thunder lizard may drop the horn, about one in five."] = "사바나 사자, 들평원조류, 천둥도마뱀이 {zone:1413} 북부 전체를 돌아다닙니다. 사자는 두 번에 한 번꼴로 엄니를, 들평원조류는 다섯 번에 두 번꼴로 신장을 떨어뜨립니다. 천둥도마뱀은 다섯 마리에 한 마리꼴로 뿔을 떨어뜨릴 수 있습니다.",
 
 	-- Step 42: Ratchet: the repeatable keg
 	-- {area:392} Ratchet
-	["{area:392}: the repeatable keg"] = "",
+	["{area:392}: the repeatable keg"] = "{area:392}: 반복 가능한 통",
 	-- {item:4897} Thunderhawk Saliva Gland · {item:4896} Kodo Liver · {npc:3238} Stormhide · {area:378} Camp Taurajo · {area:392} Ratchet
 	-- plural, as words: Lightning Glands = {item:4898} Lightning Gland · Greater Thunderhawks = {npc:3249} Greater Thunderhawk
-	["From now on Drohn takes 5 Lightning Glands, a {item:4897} and a {item:4896} for 50, as often as you like. The {npc:3238} thunder lizards (a gland about every other kill), the Greater Thunderhawks and the kodos south of {area:378} drop them. Gather several sets before you head back to {area:392}."] = "",
+	["From now on Drohn takes 5 Lightning Glands, a {item:4897} and a {item:4896} for 50, as often as you like. The {npc:3238} thunder lizards (a gland about every other kill), the Greater Thunderhawks and the kodos south of {area:378} drop them. Gather several sets before you head back to {area:392}."] = "이제부터 드론은 번개 분비선 5개, {item:4897} 1개, {item:4896} 1개를 50에 받으며 횟수 제한이 없습니다. {npc:3238} 천둥도마뱀(두 번에 한 번꼴로 분비선), 우두머리 천둥매, {area:378} 남쪽의 코도가 그것을 떨어뜨립니다. {area:392}(으)로 돌아가기 전에 여러 세트를 모으십시오.",
 	-- {item:4898} Lightning Gland
 	-- plural, as words: Stormhides = {npc:3238} Stormhide
-	["{item:4898}, from Stormhides"] = "",
+	["{item:4898}, from Stormhides"] = "{item:4898}, 폭풍가죽에게서",
 	-- {item:4897} Thunderhawk Saliva Gland
 	-- plural, as words: Greater Thunderhawks = {npc:3249} Greater Thunderhawk
-	["{item:4897}, from Greater Thunderhawks"] = "",
+	["{item:4897}, from Greater Thunderhawks"] = "{item:4897}, 우두머리 천둥매에게서",
 	-- {item:4896} Kodo Liver
-	["{item:4896}, from the kodos"] = "",
+	["{item:4896}, from the kodos"] = "{item:4896}, 코도에게서",
 
 	-- Step 43: Rashona Straglash: A Donation of Wool
 	-- {npc:14726} Rashona Straglash · {item:14047} Runecloth · {quest:7832} Additional Runecloth
-	["From here it is cloth. Wool, Silk and Mageweave must all be handed in before {npc:14726} offers the {item:14047} donation, and {quest:7832} needs the {item:14047} donation. Buy cloth at the Auction House, or farm it: humanoids drop it, Wool from level 15 to 25, Silk 25 to 40, Mageweave 40 to 50, {item:14047} 50 and up. At 60 farm mobs of level 52 or more: lower ones are grey."] = "",
+	["From here it is cloth. Wool, Silk and Mageweave must all be handed in before {npc:14726} offers the {item:14047} donation, and {quest:7832} needs the {item:14047} donation. Buy cloth at the Auction House, or farm it: humanoids drop it, Wool from level 15 to 25, Silk 25 to 40, Mageweave 40 to 50, {item:14047} 50 and up. At 60 farm mobs of level 52 or more: lower ones are grey."] = "여기서부터는 옷감입니다. {npc:14726}이(가) {item:14047} 기부를 열기 전에 양모, 비단, 마법 옷감을 모두 제출해야 하고, {quest:7832}도 {item:14047} 기부가 필요합니다. 옷감은 경매장에서 사거나 직접 파밍하십시오: 인간형이 떨어뜨리며 양모는 15~25, 비단은 25~40, 마법 옷감은 40~50, {item:14047}은(는) 50 이상입니다. 60레벨이면 52레벨 이상 몹을 사냥하십시오: 더 낮은 것은 회색입니다.",
 	-- {item:2592} Wool Cloth
-	["{item:2592}: the Thistlefur furbolgs drop it about one kill in four"] = "",
+	["{item:2592}: the Thistlefur furbolgs drop it about one kill in four"] = "{item:2592}: 가시털일족 퓨볼그가 4킬에 한 번꼴로 떨어뜨립니다",
 
 	-- Step 44: A Donation of Silk
 	-- {area:287} Hillsbrad
-	["Silk: the Syndicate in {area:287} and Alterac drop it about one kill in three, or buy it."] = "",
+	["Silk: the Syndicate in {area:287} and Alterac drop it about one kill in three, or buy it."] = "비단: {area:287}과(와) 알터랙의 신디케이트가 3킬에 한 번꼴로 떨어뜨리거나 삽니다.",
 	-- {item:4306} Silk Cloth
-	["{item:4306}: the Syndicate"] = "",
+	["{item:4306}: the Syndicate"] = "{item:4306}: 신디케이트",
 
 	-- Step 45: A Donation of Mageweave
 	-- {zone:1448} Felwood · {zone:1446} Tanaris
-	["Mageweave: the Jadefire satyrs in southern {zone:1448} and the Dunemaul ogres in {zone:1446} drop it about one kill in three, or buy it."] = "",
+	["Mageweave: the Jadefire satyrs in southern {zone:1448} and the Dunemaul ogres in {zone:1446} drop it about one kill in three, or buy it."] = "마법 옷감: {zone:1448} 남부의 비취불 사티로스와 {zone:1446}의 모래망치 오우거가 3킬에 한 번꼴로 떨어뜨리거나 삽니다.",
 	-- {item:4338} Mageweave Cloth
-	["{item:4338}: the Jadefire satyrs"] = "",
+	["{item:4338}: the Jadefire satyrs"] = "{item:4338}: 비취불 사티로스",
 
 	-- Step 46: A Donation of Runecloth
 	-- {item:14047} Runecloth · {area:2266} Tyr's Hand · {zone:1423} Eastern Plaguelands · {area:2577} Dire Maul · {zone:1444} Feralas · {zone:1451} Silithus
-	["{item:14047}: the Scarlet at {area:2266} in the {zone:1423}, the Gordok ogres outside {area:2577} in {zone:1444} and the Twilight camps of {zone:1451} drop it about one kill in three. The Auction House is faster if you have gold."] = "",
+	["{item:14047}: the Scarlet at {area:2266} in the {zone:1423}, the Gordok ogres outside {area:2577} in {zone:1444} and the Twilight camps of {zone:1451} drop it about one kill in three. The Auction House is faster if you have gold."] = "{item:14047}: {zone:1423}의 {area:2266}에 있는 스칼렛, {zone:1444}의 {area:2577} 밖 고르독 오우거, {zone:1451}의 황혼 야영지가 3킬에 한 번꼴로 떨어뜨립니다. 골드가 있다면 경매장이 더 빠릅니다.",
 	-- {item:14047} Runecloth · {area:2266} Tyr's Hand
-	["{item:14047}: the Scarlet outside {area:2266}"] = "",
+	["{item:14047}: the Scarlet outside {area:2266}"] = "{item:14047}: {area:2266} 바깥의 스칼렛",
 
 	-- Step 47: Bloodvenom Post: Wild Guardians
 	-- {npc:10306} Trull Failbane · {area:1997} Bloodvenom Post · {zone:1452} Winterspring · {zone:1448} Felwood
-	["These quests are level 56 to 59, so they pay in full at 60. {npc:10306} stands at {area:1997}; the owlbeasts live in {zone:1452}, through the Timbermaw tunnel north of {zone:1448}."] = "",
+	["These quests are level 56 to 59, so they pay in full at 60. {npc:10306} stands at {area:1997}; the owlbeasts live in {zone:1452}, through the Timbermaw tunnel north of {zone:1448}."] = "이 퀘스트는 56~59레벨이므로 60레벨에서도 전액을 지급합니다. {npc:10306}은(는) {area:1997}에 서 있습니다. 올빼미야수는 {zone:1448} 북부의 나무구렁일족 터널을 지나 {zone:1452}에 삽니다.",
 
 	-- Step 48: Winterspring: owlbeasts
 	-- {zone:1452} Winterspring
-	["{zone:1452}: owlbeasts"] = "",
+	["{zone:1452}: owlbeasts"] = "{zone:1452}: 올빼미야수",
 	-- {area:2255} Everlook
 	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast · Ragged Owlbeasts = {npc:7450} Ragged Owlbeast
-	["Raging Owlbeasts north-west of {area:2255}, Ragged Owlbeasts further west."] = "",
+	["Raging Owlbeasts north-west of {area:2255}, Ragged Owlbeasts further west."] = "{area:2255} 북서쪽에는 성난 올빼미야수, 더 서쪽에는 누더기 올빼미야수가 있습니다.",
 
 	-- Step 49: Bloodvenom Post: hand in
 	-- {area:1997} Bloodvenom Post
-	["{area:1997}: hand in"] = "",
+	["{area:1997}: hand in"] = "{area:1997}: 제출",
 
 	-- Step 50: Winterspring: Moontouched Owlbeasts
 	-- {zone:1452} Winterspring
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
-	["{zone:1452}: Moontouched Owlbeasts"] = "",
+	["{zone:1452}: Moontouched Owlbeasts"] = "{zone:1452}: 달맞이 올빼미야수",
 	-- {area:2255} Everlook
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
-	["Moontouched Owlbeasts north of {area:2255} and south of it."] = "",
+	["Moontouched Owlbeasts north of {area:2255} and south of it."] = "{area:2255} 북쪽과 그 남쪽에 달맞이 올빼미야수가 있습니다.",
 
 	-- Step 51: Bloodvenom Post: hand in again
 	-- {area:1997} Bloodvenom Post
-	["{area:1997}: hand in again"] = "",
+	["{area:1997}: hand in again"] = "{area:1997}: 다시 제출",
 
 	-- Step 52: Winterspring: Berserk Owlbeasts
 	-- {zone:1452} Winterspring
 	-- plural, as words: Berserk Owlbeasts = {npc:7454} Berserk Owlbeast
-	["{zone:1452}: Berserk Owlbeasts"] = "",
+	["{zone:1452}: Berserk Owlbeasts"] = "{zone:1452}: 광포한 올빼미야수",
 	-- {area:2255} Everlook · {item:12558} Blue-feathered Necklace · {quest:4882} Guarding Secrets
 	-- plural, as words: Berserk Owlbeasts = {npc:7454} Berserk Owlbeast
-	["Most Berserk Owlbeasts are north of {area:2255}. A {item:12558} may drop from the owlbeasts now: use it to start {quest:4882}."] = "",
+	["Most Berserk Owlbeasts are north of {area:2255}. A {item:12558} may drop from the owlbeasts now: use it to start {quest:4882}."] = "광포한 올빼미야수 대부분이 {area:2255} 북쪽에 있습니다. 이제 올빼미야수에게서 {item:12558}이(가) 떨어질 수 있습니다: 그것을 사용해 {quest:4882}를(을) 시작하십시오.",
 
 	-- Step 53: Bloodvenom Post: last hand-in
 	-- {area:1997} Bloodvenom Post
-	["{area:1997}: last hand-in"] = "",
+	["{area:1997}: last hand-in"] = "{area:1997}: 마지막 제출",
 	-- {quest:4882} Guarding Secrets · {zone:1456} Thunder Bluff · {npc:5770} Nara Wildmane · {area:1639} Elder Rise
-	["{quest:4882}, +100 {zone:1456}: to {npc:5770} on {area:1639} in {zone:1456}"] = "",
+	["{quest:4882}, +100 {zone:1456}: to {npc:5770} on {area:1639} in {zone:1456}"] = "{quest:4882}, {zone:1456} +100: {zone:1456}의 {area:1639}에 있는 {npc:5770}에게",
 	-- {quest:4721} Wild Guardians · {faction:76} Orgrimmar
-	["{quest:4721}: 300 {faction:76} reputation."] = "",
+	["{quest:4721}: 300 {faction:76} reputation."] = "{quest:4721}: {faction:76} 평판 300.",
 
 	-- Step 54: Valormok: Betrayed
 	-- {area:1237} Valormok · {zone:1447} Azshara · {quest:3505} Betrayed · {npc:8576} Ag'tor Bloodfist · {npc:4485} Belgrom Rockmaul
@@ -335,48 +335,48 @@ return {
 	-- {npc:8578} Magus Rimtori
 	["{npc:8578}'s camp"] = "{npc:8578}의 야영지",
 	-- {object:151286} Kaldorei Tome of Summoning · {npc:8578} Magus Rimtori
-	["Kill the Reclaimers and Surveyors, then walk up to the book inside the ring of stone pillars. Read the {object:151286} there to start the next quest: break the crystals around the circle, kill the guard that comes, then {npc:8578}."] = "",
+	["Kill the Reclaimers and Surveyors, then walk up to the book inside the ring of stone pillars. Read the {object:151286} there to start the next quest: break the crystals around the circle, kill the guard that comes, then {npc:8578}."] = "되찾이와 측량사를 처치한 다음 돌기둥 원 안의 책으로 다가가십시오. 거기서 {object:151286}을(를) 읽어 다음 퀘스트를 시작하십시오: 원 주위의 수정을 부수고, 나타나는 경비를 처치한 다음 {npc:8578}에게 가십시오.",
 	-- {npc:8578} Magus Rimtori
-	["Find {npc:8578}'s camp"] = "",
+	["Find {npc:8578}'s camp"] = "{npc:8578}의 야영지 찾기",
 	-- {object:151286} Kaldorei Tome of Summoning
-	["the {object:151286}"] = "",
+	["the {object:151286}"] = "{object:151286}",
 
 	-- Step 56: Valormok and Orgrimmar
 	-- {area:1237} Valormok · {faction:76} Orgrimmar
-	["{area:1237} and {faction:76}"] = "",
+	["{area:1237} and {faction:76}"] = "{area:1237}과(와) {faction:76}",
 	-- {npc:4485} Belgrom Rockmaul · {faction:76} Orgrimmar
-	["{npc:4485}, in {faction:76}"] = "",
+	["{npc:4485}, in {faction:76}"] = "{npc:4485}, {faction:76} 안",
 	-- {quest:3506} Betrayed · {faction:76} Orgrimmar
-	["{quest:3506}: 300 {faction:76} reputation at 60."] = "",
+	["{quest:3506}: 300 {faction:76} reputation at 60."] = "{quest:3506}: 60레벨에서 {faction:76} 평판 300.",
 
 	-- Step 57: Blackrock Mountain, with a group
-	["Blackrock Mountain, with a group"] = "",
+	["Blackrock Mountain, with a group"] = "검은바위 산, 파티와 함께",
 	-- {area:340} Kargath · {zone:1418} Badlands · {faction:76} Orgrimmar · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire · {quest:4724} The Pack Mistress · {item:12652} Bijou's Reconnaissance Report · {quest:4903} Warlord's Command · {npc:3144} Eitrigg
-	["{area:340} in the {zone:1418} hands out {faction:76} quests for {area:1584} and {area:1583}, all level 58 to 60 and paid in full: Precarious Predicament and Operation: Death to Angerforge (150 each), {quest:4724} and {item:12652} (100 each), {quest:4903} (150), {npc:3144}'s Wisdom (100) and For The Horde! (Rend's head, 200 to every Horde city). These are dungeon quests: take them when your group goes."] = "",
+	["{area:340} in the {zone:1418} hands out {faction:76} quests for {area:1584} and {area:1583}, all level 58 to 60 and paid in full: Precarious Predicament and Operation: Death to Angerforge (150 each), {quest:4724} and {item:12652} (100 each), {quest:4903} (150), {npc:3144}'s Wisdom (100) and For The Horde! (Rend's head, 200 to every Horde city). These are dungeon quests: take them when your group goes."] = "{zone:1418}의 {area:340}이(가) {area:1584}와(과) {area:1583}의 {faction:76} 퀘스트를 줍니다. 모두 58~60레벨이고 전액을 지급합니다: 위태로운 처지와 작전: 앵거포지 처치(각 150), {quest:4724}와(와) {item:12652}(각 100), {quest:4903}(150), {npc:3144}의 지혜(100), 호드를 위하여!(렌드의 머리, 호드 도시마다 200). 이것은 던전 퀘스트입니다: 파티가 갈 때 받으십시오.",
 	-- {npc:9077} Warlord Goretooth · {quest:4903} Warlord's Command
-	["{npc:9077}: {quest:4903}, +150, a group of five"] = "",
+	["{npc:9077}: {quest:4903}, +150, a group of five"] = "{npc:9077}: {quest:4903}, +150, 5인 파티",
 	-- {npc:9081} Galamav the Marksman · {quest:4724} The Pack Mistress
-	["{npc:9081}: {quest:4724}, +100, a group of five"] = "",
+	["{npc:9081}: {quest:4724}, +100, a group of five"] = "{npc:9081}: {quest:4724}, +100, 5인 파티",
 
 	-- Step 58: Additional Runecloth to Honored
 	-- {quest:7832} Additional Runecloth
 	["{quest:7832} to Honored"] = "{quest:7832}: 우호적까지",
 	-- {quest:7832} Additional Runecloth · {item:14047} Runecloth
-	["{quest:7832}: 20 {item:14047} for 50 reputation, as often as you like. Friendly to Honored is 6,000: 120 hand-ins, 2,400 {item:14047}, less what the quests gave you (an orc starts at Friendly 1,000: 100 hand-ins; an Undead or Skyborne starts at Neutral 2,000 and first needs 20 hand-ins, 400 {item:14047}, to reach Friendly). Hand in every 20 you carry, one after another."] = "",
+	["{quest:7832}: 20 {item:14047} for 50 reputation, as often as you like. Friendly to Honored is 6,000: 120 hand-ins, 2,400 {item:14047}, less what the quests gave you (an orc starts at Friendly 1,000: 100 hand-ins; an Undead or Skyborne starts at Neutral 2,000 and first needs 20 hand-ins, 400 {item:14047}, to reach Friendly). Hand in every 20 you carry, one after another."] = "{quest:7832}: {item:14047} 20개로 평판 50, 횟수 제한 없음. 우호에서 우대까지는 6,000: 120회 제출, {item:14047} 2,400개. 퀘스트로 받은 양은 빼야 합니다(오크는 우호 1,000에서 시작: 100회 제출. 언데드나 Skyborne은 중립 2,000에서 시작해 우호까지 먼저 20회 제출, {item:14047} 400개가 필요). 가지고 있는 20개마다 계속 제출하십시오.",
 
 	-- Step 59: Additional Runecloth to Revered
 	-- {quest:7832} Additional Runecloth
 	["{quest:7832} to Revered"] = "{quest:7832}: 매우 우호적까지",
 	-- {item:14047} Runecloth
-	["Honored to Revered is 12,000: 240 hand-ins, 4,800 {item:14047}. The Auction House price of a stack decides whether to farm or buy."] = "",
+	["Honored to Revered is 12,000: 240 hand-ins, 4,800 {item:14047}. The Auction House price of a stack decides whether to farm or buy."] = "우대에서 존경까지는 12,000: 240회 제출, {item:14047} 4,800개. 경매장의 묶음 가격이 파밍과 구매 중 어느 쪽인지 결정합니다.",
 
 	-- Step 60: Additional Runecloth to Exalted
 	-- {quest:7832} Additional Runecloth
 	["{quest:7832} to Exalted"] = "{quest:7832}: 확고한 동맹까지",
 	-- {item:14047} Runecloth · {faction:76} Orgrimmar · {npc:3362} Ogunaro Wolfrunner · {object:172958} Valley of Honor
-	["Revered to Exalted is 21,000: 420 hand-ins, 8,400 {item:14047}. Raid heads pay too: The Lord of Blackrock (Nefarian) 200 to every Horde city and Victory for the Horde (Onyxia) 400 to {faction:76}. At Exalted, {npc:3362} in the {object:172958} sells the wolves to every Horde race: 20 gold for a level 40 wolf, 200 gold for a swift wolf at level 60 (Forever's prices); in Classic other races needed Exalted to buy them."] = "",
+	["Revered to Exalted is 21,000: 420 hand-ins, 8,400 {item:14047}. Raid heads pay too: The Lord of Blackrock (Nefarian) 200 to every Horde city and Victory for the Horde (Onyxia) 400 to {faction:76}. At Exalted, {npc:3362} in the {object:172958} sells the wolves to every Horde race: 20 gold for a level 40 wolf, 200 gold for a swift wolf at level 60 (Forever's prices); in Classic other races needed Exalted to buy them."] = "존경에서 확고한 동맹까지는 21,000: 420회 제출, {item:14047} 8,400개. 공격대 우두머리도 줍니다: 검은바위의 주인(네파리안)은 호드 도시마다 200, 호드를 위한 승리(오닉시아)는 {faction:76}에 400. 확고한 동맹이면 {object:172958} 안의 {npc:3362}이(가) 모든 호드 종족에게 늑대를 팝니다: 40레벨 늑대 20골드, 60레벨 신속 늑대 200골드(Forever 가격). 클래식에서는 다른 종족이 사려면 확고한 동맹이 필요했습니다.",
 	-- {npc:3362} Ogunaro Wolfrunner
-	["{npc:3362}: the wolves"] = "",
+	["{npc:3362}: the wolves"] = "{npc:3362}: 늑대",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Dark Adepts and Shadowmages (level 58-60) drop it here; every Scourge kill here also counts toward the {object:92525} (see that guide). The Auction House works too."] = "이곳의 암흑의 수행사제와 어둠마법사(레벨 58-60)가 떨어뜨립니다. 이곳에서 스컬지를 처치할 때마다 {object:92525} 평판도 오릅니다(해당 가이드 참고). 경매장도 이용할 수 있습니다.",
