@@ -2210,13 +2210,13 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 		spawnz_changed = tdb_report.get("spawnIds").num() > 0.0 && spawnz.is_some();
 		if let Some(t) = trainers.as_ref() {
 			let t2 = t.as_obj().unwrap().spread();
-			for (id, classes) in drop_tdb_non_trainers(&t2, &tdb) {
+			for (id, classes) in drop_tdb_non_trainers(&t2, tdb) {
 				kb.change("trainers", forge_guide::js::str_to_num(&id), "trainer", classes, V::Null, "tdb");
 				bump(&tdb_report, "trainersDropped", 1.0);
 			}
 			for (id, classes) in tdb.get("trainers").entries() {
 				let n = npcs.get(&id);
-				if t2.get(&id).truthy() || !n.truthy() || n.get("spawns").keys().is_empty() || !tdb_class_trainer(&tdb, &id) {
+				if t2.get(&id).truthy() || !n.truthy() || n.get("spawns").keys().is_empty() || !tdb_class_trainer(tdb, &id) {
 					continue;
 				}
 				let e = Obj::new();
