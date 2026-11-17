@@ -1,5 +1,5 @@
 {
-	"about": "The danger-at-the-spot gate's reviewed flags (#1575; tools/danger-gate.js, tools/lib/danger.js). One row per flag the gate may raise on the release candidate, kept on purpose: key (guide|goal|kind), the step and the mobs flagged, why it stays (reason) and what players' recordings and the data show (evidence). A new flag fails the gate until it is fixed in the guide or reviewed into this file. Recorded with the 0.3.7 candidate, the calibrated level model and the recordings archive of 2026-11-11. The gate runs with the recordings archive's census (--archive): an npc players meet as friendly, or never meet where the data places it, is no threat. Rows that stopped flagging on the 0.4.0 development branch (2026-11-13) were dropped.",
+	"about": "The danger-at-the-spot gate's reviewed flags (#1575; tools/danger-gate.js, tools/lib/danger.js). One row per flag the gate may raise on the release candidate, kept on purpose: key (guide|goal|kind), the step and the mobs flagged, why it stays (reason) and what players' recordings and the data show (evidence). A new flag fails the gate until it is fixed in the guide or reviewed into this file. Recorded with the 0.3.7 candidate, the calibrated level model and the recordings archive of 2026-11-11. The gate runs with the recordings archive's census (--archive): an npc players meet as friendly, or never meet where the data places it, is no threat. Rows that stopped flagging on the 0.4.0 development branch (2026-11-13) were dropped. The 0.4.1 candidate's new flags (2026-11-17, its data and level model) were reviewed in: most come from the data's new recorded points (rares' sightings, walking NPCs' talk spots), which a rerun on the 0.4.0.1 data does not raise.",
 	"flags": [
 		{
 			"key": "forever/alliance/02-westfall.guide|collect 1644.1|target",
@@ -17704,6 +17704,1678 @@
 			],
 			"reason": "warned at the step: its tip names Ukorsbane and says to pull the spiders away from him",
 			"evidence": "route level 6; Ukorsbane 8-8; recordings (2026-11-16): done by 52 (median 6.02), deaths 1, abandons 1"
+		},
+		{
+			"key": "forever/alliance/02-westfall.guide|collect 38.3|over",
+			"guide": "forever/alliance/02-westfall.guide",
+			"goal": "collect 38.3",
+			"kind": "over",
+			"title": "Goretusk Snouts",
+			"level": 14.4,
+			"mobs": [
+				"Vultros 26-26 x2"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 14.4; Vultros 26-26 x2; data change: points Vultros(16->24); recordings (2026-11-17): done by 85 (median 13.68), deaths 2, abandons 7"
+		},
+		{
+			"key": "forever/alliance/02-westfall.guide|collect 102.1|rare",
+			"guide": "forever/alliance/02-westfall.guide",
+			"goal": "collect 102.1",
+			"kind": "rare",
+			"title": "The gnoll hills",
+			"level": 15.4,
+			"mobs": [
+				"Sergeant Brashclaw 18-18"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 15.4; Sergeant Brashclaw 18-18; data change: points Sergeant Brashclaw(1->19); recordings (2026-11-17): done by 73 (median 15.28), deaths 2, abandons 9"
+		},
+		{
+			"key": "forever/alliance/02-westfall.guide|collect 92744.1|rare",
+			"guide": "forever/alliance/02-westfall.guide",
+			"goal": "collect 92744.1",
+			"kind": "rare",
+			"title": "The Longshore murlocs",
+			"level": 15.4,
+			"mobs": [
+				"Brack 19-19"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 15.4; Brack 19-19; data change: points Brack(1->7); recordings (2026-11-17): done by 65 (median 15.48), deaths 1, abandons 4"
+		},
+		{
+			"key": "forever/alliance/02-westfall.guide|collect 38.2|rare",
+			"guide": "forever/alliance/02-westfall.guide",
+			"goal": "collect 38.2",
+			"kind": "rare",
+			"title": "The Longshore murlocs",
+			"level": 15.4,
+			"mobs": [
+				"Brack 19-19"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 15.4; Brack 19-19; data change: points Brack(1->7); recordings (2026-11-17): done by 70 (median 15.24), deaths 1, abandons 7"
+		},
+		{
+			"key": "forever/alliance/02-westfall.guide|collect 38.1|elite",
+			"guide": "forever/alliance/02-westfall.guide",
+			"goal": "collect 38.1",
+			"kind": "elite",
+			"title": "Finish the Stringy Vulture Meat",
+			"level": 15.5,
+			"mobs": [
+				"Harvest Golem V000-A 60-60"
+			],
+			"reason": "Harvest Golem V000-A (60, elite) is a real Forever NPC players meet hostile in the middle of Westfall (around 50-54,37-44); it neither drops the meat nor stands at the vultures' camp: the goal's fourth spot moved next to one of its points when the 0.4.1 data added the Greater Fleshripper (16) as a source",
+			"evidence": "route level 15.5; Harvest Golem V000-A 60-60; its points come from QuestieDB's Forever data (13 -> 20, the one near this spot was there in 0.4.0.1); 4 people met it, nobody died to it; recordings (2026-11-17): done by 78 (median 14.22), deaths 3, abandons 7"
+		},
+		{
+			"key": "forever/alliance/02-westfall.guide|collect 153.1|over",
+			"guide": "forever/alliance/02-westfall.guide",
+			"goal": "collect 153.1",
+			"kind": "over",
+			"title": "Finish the Red Leather Bandanas",
+			"level": 16,
+			"mobs": [
+				"Vultros 26-26 x2"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 16; Vultros 26-26 x2; data change: points Vultros(16->24); recordings (2026-11-17): done by 85 (median 14.46), deaths 5, abandons 4"
+		},
+		{
+			"key": "forever/alliance/02-westfall.guide|collect 1644.1|over",
+			"guide": "forever/alliance/02-westfall.guide",
+			"goal": "collect 1644.1",
+			"kind": "over",
+			"title": "The Tome of Divinity",
+			"level": 16.7,
+			"mobs": [
+				"Theramore Emissary 22-23 x2",
+				"Sewer Beast 50-50 x4"
+			],
+			"reason": "Stormwind's Trade District, where the goal points (the Linen Cloth at the Auction House): the Theramore Emissary (22-23) is an envoy players meet neutral, which the data gives no side, and the Sewer Beast (50, rare) swims in the canals beside it",
+			"evidence": "route level 16.7; Theramore Emissary 22-23 x2, Sewer Beast 50-50 x4; census: Theramore Emissary met neutral, never hostile; Sewer Beast: 0.4.1's data adds players' recorded sightings from the canal banks (2 -> 24 points); on the 0.4.0.1 data only the Emissary flags; recordings (2026-11-17): done by 3 (median 12.25), deaths 4, abandons 0"
+		},
+		{
+			"key": "forever/alliance/02-westfall.guide|collect 1644.1|rare",
+			"guide": "forever/alliance/02-westfall.guide",
+			"goal": "collect 1644.1",
+			"kind": "rare",
+			"title": "The Tome of Divinity",
+			"level": 16.7,
+			"mobs": [
+				"Sewer Beast 50-50 x4"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 16.7; Sewer Beast 50-50 x4; data change: points Sewer Beast(2->24); recordings (2026-11-17): done by 3 (median 12.25), deaths 4, abandons 0"
+		},
+		{
+			"key": "forever/alliance/02-westfall.guide|collect 1644.1|pack",
+			"guide": "forever/alliance/02-westfall.guide",
+			"goal": "collect 1644.1",
+			"kind": "pack",
+			"title": "The Tome of Divinity",
+			"level": 16.7,
+			"mobs": [
+				"8 spawns 18+"
+			],
+			"reason": "Stormwind's Trade District: the spawns counted are city NPCs the data gives no side (the Theramore Emissary, met neutral) and the canals' Sewer Beast",
+			"evidence": "route level 16.7; 8 spawns 18+; the goal's point is the Trade District Auction House; recordings (2026-11-17): done by 3 (median 12.25), deaths 4, abandons 0"
+		},
+		{
+			"key": "forever/alliance/02-westfall.guide|complete 96403|over",
+			"guide": "forever/alliance/02-westfall.guide",
+			"goal": "complete 96403",
+			"kind": "over",
+			"title": "The Hall of Thanes",
+			"level": 16.7,
+			"mobs": [
+				"Melnan Darkstone 30-30 x2"
+			],
+			"reason": "Melnan Darkstone (30) is an Ironforge NPC who walks the city; 0.4.1's data adds his recorded talk spots (1 -> 24), which the gate counts as a camp",
+			"evidence": "route level 16.7; Melnan Darkstone 30-30 x2; players talk to him (gossip) at those spots; no side in the data; recordings (2026-11-17): done by 0 (median null), deaths 24, abandons 1"
+		},
+		{
+			"key": "forever/alliance/02-westfall.guide|complete 96394|over",
+			"guide": "forever/alliance/02-westfall.guide",
+			"goal": "complete 96394",
+			"kind": "over",
+			"title": "The Hall of Thanes",
+			"level": 16.7,
+			"mobs": [
+				"Melnan Darkstone 30-30 x2"
+			],
+			"reason": "Melnan Darkstone (30) is an Ironforge NPC who walks the city; 0.4.1's data adds his recorded talk spots (1 -> 24), which the gate counts as a camp",
+			"evidence": "route level 16.7; Melnan Darkstone 30-30 x2; players talk to him (gossip) at those spots; no side in the data; recordings (2026-11-17): done by 0 (median null), deaths 24, abandons 1"
+		},
+		{
+			"key": "forever/alliance/02-westfall.guide|complete 96393|over",
+			"guide": "forever/alliance/02-westfall.guide",
+			"goal": "complete 96393",
+			"kind": "over",
+			"title": "The Hall of Thanes",
+			"level": 16.7,
+			"mobs": [
+				"Melnan Darkstone 30-30 x2"
+			],
+			"reason": "Melnan Darkstone (30) is an Ironforge NPC who walks the city; 0.4.1's data adds his recorded talk spots (1 -> 24), which the gate counts as a camp",
+			"evidence": "route level 16.7; Melnan Darkstone 30-30 x2; players talk to him (gossip) at those spots; no side in the data; recordings (2026-11-17): done by 0 (median null), deaths 24, abandons 4"
+		},
+		{
+			"key": "forever/alliance/03-darkshore-return.guide|collect 272.1|pack",
+			"guide": "forever/alliance/03-darkshore-return.guide",
+			"goal": "collect 272.1",
+			"kind": "pack",
+			"title": "Trial of the Sea Lion",
+			"level": 23.6,
+			"mobs": [
+				"11 spawns 25+"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 23.6; 11 spawns 25+; data change: the mobs' spawn points re-derived (moved, same templates); recordings (2026-11-17): done by 14 (median 18.4), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/03-darkshore.guide|use item 15877|pack",
+			"guide": "forever/alliance/03-darkshore.guide",
+			"goal": "use item 15877",
+			"kind": "pack",
+			"title": "Trial of the Lake",
+			"level": 18,
+			"mobs": [
+				"11 spawns 20+"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 18; 11 spawns 20+; data change: the mobs' spawn points re-derived (moved, same templates); recordings (2026-11-17): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/05-duskwood.guide|collect 133.1|pack",
+			"guide": "forever/alliance/05-duskwood.guide",
+			"goal": "collect 133.1",
+			"kind": "pack",
+			"title": "Ghoul Ribs",
+			"level": 27.6,
+			"mobs": [
+				"7 spawns 29+"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 27.6; 7 spawns 29+; data change: the mobs' spawn points re-derived (moved, same templates); recordings (2026-11-17): done by 49 (median 28.17), deaths 11, abandons 2"
+		},
+		{
+			"key": "forever/alliance/06-ashenvale.guide|collect 98197.2|over",
+			"guide": "forever/alliance/06-ashenvale.guide",
+			"goal": "collect 98197.2",
+			"kind": "over",
+			"title": "Spoils of War",
+			"level": 24.3,
+			"mobs": [
+				"Nightveiled Rotheap 31-32 x2"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 24.3; Nightveiled Rotheap 31-32 x2; data change: the goal's spots re-derived; recordings (2026-11-17): done by 45 (median 26.34), deaths 0, abandons 8"
+		},
+		{
+			"key": "forever/alliance/06-wetlands.guide|collect 272.1|pack",
+			"guide": "forever/alliance/06-wetlands.guide",
+			"goal": "collect 272.1",
+			"kind": "pack",
+			"title": "Trial of the Sea Lion",
+			"level": 28,
+			"mobs": [
+				"11 spawns 30+"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 28; 11 spawns 30+; data change: the mobs' spawn points re-derived (moved, same templates); recordings (2026-11-17): done by 14 (median 18.4), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/06-wetlands.guide|kill 295.2|pack",
+			"guide": "forever/alliance/06-wetlands.guide",
+			"goal": "kill 295.2",
+			"kind": "pack",
+			"title": "Raptor valley",
+			"level": 28.3,
+			"mobs": [
+				"8 spawns 30+"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 28.3; 8 spawns 30+; data change: the mobs' spawn points re-derived (moved, same templates); recordings (2026-11-17): done by 36 (median 29.28), deaths 3, abandons 3"
+		},
+		{
+			"key": "forever/alliance/30-40/01-hillsbrad-foothills.guide|complete 87491|elite",
+			"guide": "forever/alliance/30-40/01-hillsbrad-foothills.guide",
+			"goal": "complete 87491",
+			"kind": "elite",
+			"title": "Captive Fire Elemental",
+			"level": 30.9,
+			"mobs": [
+				"Dark Iron Saboteur 28-29 x4",
+				"Dark Iron Tunneler 29-30 x2",
+				"Modr 32-32",
+				"Balgaras the Foul 34-34"
+			],
+			"reason": "a group-only step (`when group 87491`): its tip says the ruins are full of elites, to group up and to skip it alone; solo players never see it (the gate does not read a step's `when group`)",
+			"evidence": "route level 30.9; Dark Iron Saboteur 28-29 x4, Dark Iron Tunneler 29-30 x2, Modr 32-32, Balgaras the Foul 34-34; the step's complete goal (the escort) is new since 0.4.0.1, the step and its tip are not; recordings (2026-11-17): done by 0 (median null), deaths 15, abandons 8"
+		},
+		{
+			"key": "forever/alliance/30-40/01-hillsbrad-foothills.guide|collect 290.1|elite",
+			"guide": "forever/alliance/30-40/01-hillsbrad-foothills.guide",
+			"goal": "collect 290.1",
+			"kind": "elite",
+			"title": "Captain Halyndor",
+			"level": 31.1,
+			"mobs": [
+				"Nightveiled Rotheap 31-32"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 31.1; Nightveiled Rotheap 31-32; data change: the mobs' spawn points re-derived (moved, same templates); recordings (2026-11-17): done by 50 (median 29.13), deaths 8, abandons 2"
+		},
+		{
+			"key": "forever/alliance/30-40/01-hillsbrad-foothills.guide|collect 565.4|rare",
+			"guide": "forever/alliance/30-40/01-hillsbrad-foothills.guide",
+			"goal": "collect 565.4",
+			"kind": "rare",
+			"title": "Yeti cave",
+			"level": 31.6,
+			"mobs": [
+				"Araga 35-35"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 31.6; Araga 35-35; data change: points Araga(2->16); recordings (2026-11-17): done by 21 (median 33.94), deaths 4, abandons 14"
+		},
+		{
+			"key": "forever/alliance/30-40/01-hillsbrad-foothills.guide|complete 1447|rare",
+			"guide": "forever/alliance/30-40/01-hillsbrad-foothills.guide",
+			"goal": "complete 1447",
+			"kind": "rare",
+			"title": "Dashel Stonefist",
+			"level": 31.8,
+			"mobs": [
+				"Sewer Beast 50-50"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 31.8; Sewer Beast 50-50; data change: points Sewer Beast(2->24); recordings (2026-11-17): done by 0 (median null), deaths 2, abandons 10"
+		},
+		{
+			"key": "forever/alliance/30-40/02-desolace.guide|collect 1459.2|over",
+			"guide": "forever/alliance/30-40/02-desolace.guide",
+			"goal": "collect 1459.2",
+			"kind": "over",
+			"title": "Kodo Graveyard",
+			"level": 34.4,
+			"mobs": [
+				"Smeed Scrabblescrew 45-45 x2"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 34.4; Smeed Scrabblescrew 45-45 x2; data change: the goal's spots re-derived rank Smeed Scrabblescrew(undefined->0); recordings (2026-11-17): done by 20 (median 36.78), deaths 4, abandons 4"
+		},
+		{
+			"key": "forever/alliance/30-40/04b-stranglethorn-vale.guide|kill 195.1|over",
+			"guide": "forever/alliance/30-40/04b-stranglethorn-vale.guide",
+			"goal": "kill 195.1",
+			"kind": "over",
+			"title": "The Lashtail raptors",
+			"level": 35.5,
+			"mobs": [
+				"Grom'gol Ravager 55-55 x2"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 35.5; Grom'gol Ravager 55-55 x2; data change: points Grom'gol Ravager(13->15) rank Grom'gol Ravager(undefined->0); recordings (2026-11-17): done by 74 (median 36.23), deaths 2, abandons 4"
+		},
+		{
+			"key": "forever/alliance/30-40/05-arathi-highlands.guide|kill 1396.1|over",
+			"guide": "forever/alliance/30-40/05-arathi-highlands.guide",
+			"goal": "kill 1396.1",
+			"kind": "over",
+			"title": "The western swamp",
+			"level": 35.9,
+			"mobs": [
+				"Molt Thorn 42-42 x3"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 35.9; Molt Thorn 42-42 x3; data change: points Molt Thorn(19->24); recordings (2026-11-17): done by 26 (median 37.75), deaths 1, abandons 0"
+		},
+		{
+			"key": "forever/alliance/30-40/05-arathi-highlands.guide|complete 93585|over",
+			"guide": "forever/alliance/30-40/05-arathi-highlands.guide",
+			"goal": "complete 93585",
+			"kind": "over",
+			"title": "Father Tuttle",
+			"level": 36.1,
+			"mobs": [
+				"Draenei Exile 42-42 x7"
+			],
+			"reason": "the Harborage in the Swamp of Sorrows, where the quest is done: its Draenei Exiles (42) are neutral, which the data gives no side, and Seer Onku is friendly",
+			"evidence": "route level 36.1; Draenei Exile 42-42 x7; census: Draenei Exile met neutral by players (40 sightings), never hostile; nobody died to one; recordings (2026-11-17): done by 0 (median null), deaths 0, abandons 4"
+		},
+		{
+			"key": "forever/alliance/30-40/05-arathi-highlands.guide|complete 93585|rare",
+			"guide": "forever/alliance/30-40/05-arathi-highlands.guide",
+			"goal": "complete 93585",
+			"kind": "rare",
+			"title": "Father Tuttle",
+			"level": 36.1,
+			"mobs": [
+				"Molt Thorn 42-42"
+			],
+			"reason": "Molt Thorn (42, rare) wanders the Swamp of Sorrows' north-west past the Harborage; the goal is a talk in the neutral camp",
+			"evidence": "route level 36.1; Molt Thorn 42-42; no recorded death to Molt Thorn in the archive; recordings (2026-11-17): done by 0 (median null), deaths 0, abandons 4"
+		},
+		{
+			"key": "forever/alliance/30-40/05-arathi-highlands.guide|complete 93585|pack",
+			"guide": "forever/alliance/30-40/05-arathi-highlands.guide",
+			"goal": "complete 93585",
+			"kind": "pack",
+			"title": "Father Tuttle",
+			"level": 36.1,
+			"mobs": [
+				"8 spawns 38+"
+			],
+			"reason": "the Harborage's neutral Draenei Exiles (42) make up the pack: players meet them neutral",
+			"evidence": "route level 36.1; 8 spawns 38+; census: Draenei Exile met neutral (40 sightings), never hostile; recordings (2026-11-17): done by 0 (median null), deaths 0, abandons 4"
+		},
+		{
+			"key": "forever/alliance/30-40/05-arathi-highlands.guide|collect 512.1|rare",
+			"guide": "forever/alliance/30-40/05-arathi-highlands.guide",
+			"goal": "collect 512.1",
+			"kind": "rare",
+			"title": "Strahnbrad: kill these as you meet them",
+			"level": 37.1,
+			"mobs": [
+				"Narillasanz 44-44"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 37.1; Narillasanz 44-44; data change: points Narillasanz(2->12); recordings (2026-11-17): done by 15 (median 39.33), deaths 1, abandons 12"
+		},
+		{
+			"key": "forever/alliance/30-40/06-badlands.guide|collect 2500.2|rare",
+			"guide": "forever/alliance/30-40/06-badlands.guide",
+			"goal": "collect 2500.2",
+			"kind": "rare",
+			"title": "Hammertoe's Digsite: kill these as you meet them",
+			"level": 37.5,
+			"mobs": [
+				"Zaricotl 55-56"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 37.5; Zaricotl 55-56; data change: points Zaricotl(3->24); recordings (2026-11-17): done by 22 (median 40.92), deaths 3, abandons 2"
+		},
+		{
+			"key": "forever/alliance/30-40/06-badlands.guide|collect 703.1|over",
+			"guide": "forever/alliance/30-40/06-badlands.guide",
+			"goal": "collect 703.1",
+			"kind": "over",
+			"title": "Agmond's End: kill these as you meet them",
+			"level": 37.8,
+			"mobs": [
+				"Zaricotl 55-56 x2"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 37.8; Zaricotl 55-56 x2; data change: the goal's spots re-derived points Zaricotl(3->24); recordings (2026-11-17): done by 30 (median 40.56), deaths 2, abandons 4"
+		},
+		{
+			"key": "forever/alliance/30-40/06-badlands.guide|collect 703.1|rare",
+			"guide": "forever/alliance/30-40/06-badlands.guide",
+			"goal": "collect 703.1",
+			"kind": "rare",
+			"title": "Agmond's End: kill these as you meet them",
+			"level": 37.8,
+			"mobs": [
+				"Anathemus 45-45",
+				"Zaricotl 55-56 x2"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 37.8; Anathemus 45-45, Zaricotl 55-56 x2; data change: the goal's spots re-derived points Anathemus(1->22) points Zaricotl(3->24); recordings (2026-11-17): done by 30 (median 40.56), deaths 2, abandons 4"
+		},
+		{
+			"key": "forever/alliance/30-40/06-badlands.guide|collect 1108.1|over",
+			"guide": "forever/alliance/30-40/06-badlands.guide",
+			"goal": "collect 1108.1",
+			"kind": "over",
+			"title": "Agmond's End: kill these as you meet them",
+			"level": 37.8,
+			"mobs": [
+				"Anathemus 45-45 x3"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 37.8; Anathemus 45-45 x3; data change: points Anathemus(1->22); recordings (2026-11-17): done by 32 (median 40.85), deaths 2, abandons 2"
+		},
+		{
+			"key": "forever/alliance/30-40/06-badlands.guide|collect 1108.1|rare",
+			"guide": "forever/alliance/30-40/06-badlands.guide",
+			"goal": "collect 1108.1",
+			"kind": "rare",
+			"title": "Agmond's End: kill these as you meet them",
+			"level": 37.8,
+			"mobs": [
+				"Anathemus 45-45 x3",
+				"Zaricotl 55-56"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 37.8; Anathemus 45-45 x3, Zaricotl 55-56; data change: points Anathemus(1->22) points Zaricotl(3->24); recordings (2026-11-17): done by 32 (median 40.85), deaths 2, abandons 2"
+		},
+		{
+			"key": "forever/alliance/30-40/06-badlands.guide|kill 739.2|over",
+			"guide": "forever/alliance/30-40/06-badlands.guide",
+			"goal": "kill 739.2",
+			"kind": "over",
+			"title": "Agmond's End: kill these as you meet them",
+			"level": 37.8,
+			"mobs": [
+				"Anathemus 45-45 x3",
+				"Stonevault Shaman 40-41 x2"
+			],
+			"reason": "a kill-as-you-meet-them step: the Stonevault Shamans (40-41) are 0.2 over the line; the rest of the margin is Anathemus (45, rare), whose recorded sightings along his path 0.4.1's data adds",
+			"evidence": "route level 37.8; Anathemus 45-45 x3, Stonevault Shaman 40-41 x2; on the 0.4.0.1 data the flag is +0.2 (Stonevault Shaman); Anathemus 1 -> 22 points; recordings (2026-11-17): done by 26 (median 40.88), deaths 2, abandons 3"
+		},
+		{
+			"key": "forever/alliance/30-40/06-badlands.guide|kill 739.2|rare",
+			"guide": "forever/alliance/30-40/06-badlands.guide",
+			"goal": "kill 739.2",
+			"kind": "rare",
+			"title": "Agmond's End: kill these as you meet them",
+			"level": 37.8,
+			"mobs": [
+				"Anathemus 45-45 x3",
+				"Zaricotl 55-56"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 37.8; Anathemus 45-45 x3, Zaricotl 55-56; data change: points Anathemus(1->22) points Zaricotl(3->24); recordings (2026-11-17): done by 26 (median 40.88), deaths 2, abandons 3"
+		},
+		{
+			"key": "forever/alliance/30-40/06-badlands.guide|collect 97617.1|over",
+			"guide": "forever/alliance/30-40/06-badlands.guide",
+			"goal": "collect 97617.1",
+			"kind": "over",
+			"title": "Agmond's End: kill these as you meet them",
+			"level": 37.8,
+			"mobs": [
+				"Anathemus 45-45 x3"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 37.8; Anathemus 45-45 x3; data change: points Anathemus(1->22); recordings (2026-11-17): done by 4 (median 40.71), deaths 2, abandons 1"
+		},
+		{
+			"key": "forever/alliance/30-40/06-badlands.guide|collect 97617.1|rare",
+			"guide": "forever/alliance/30-40/06-badlands.guide",
+			"goal": "collect 97617.1",
+			"kind": "rare",
+			"title": "Agmond's End: kill these as you meet them",
+			"level": 37.8,
+			"mobs": [
+				"Anathemus 45-45 x3",
+				"Zaricotl 55-56"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 37.8; Anathemus 45-45 x3, Zaricotl 55-56; data change: points Anathemus(1->22) points Zaricotl(3->24); recordings (2026-11-17): done by 4 (median 40.71), deaths 2, abandons 1"
+		},
+		{
+			"key": "forever/alliance/30-40/06-badlands.guide|collect 733.1|rare",
+			"guide": "forever/alliance/30-40/06-badlands.guide",
+			"goal": "collect 733.1",
+			"kind": "rare",
+			"title": "Lesser Rock Elementals",
+			"level": 37.8,
+			"mobs": [
+				"Siege Golem 40-40 x2",
+				"Zaricotl 55-56"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 37.8; Siege Golem 40-40 x2, Zaricotl 55-56; data change: points Siege Golem(14->21) points Zaricotl(3->24); recordings (2026-11-17): done by 16 (median 39.85), deaths 2, abandons 3"
+		},
+		{
+			"key": "forever/alliance/30-40/06b-desolace.guide|use 6134.1|over",
+			"guide": "forever/alliance/30-40/06b-desolace.guide",
+			"goal": "use 6134.1",
+			"kind": "over",
+			"title": "The ghost magnets",
+			"level": 38.3,
+			"mobs": [
+				"Magram Necrokhan 45-45 x2"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 38.3; Magram Necrokhan 45-45 x2; data change: the mobs' spawn points re-derived (moved, same templates); recordings (2026-11-17): done by 18 (median 39.75), deaths 8, abandons 2"
+		},
+		{
+			"key": "forever/alliance/30-40/06b-desolace.guide|collect 6134.1|over",
+			"guide": "forever/alliance/30-40/06b-desolace.guide",
+			"goal": "collect 6134.1",
+			"kind": "over",
+			"title": "The ghost magnets",
+			"level": 38.3,
+			"mobs": [
+				"Magram Necrokhan 45-45 x2"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 38.3; Magram Necrokhan 45-45 x2; data change: the mobs' spawn points re-derived (moved, same templates); recordings (2026-11-17): done by 18 (median 39.75), deaths 8, abandons 2"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95119.1|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "kill 95119.1",
+			"kind": "over",
+			"title": "The Eastsea pirates",
+			"level": 42.7,
+			"mobs": [
+				"Gul'gash 49-49 x2"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 42.7; Gul'gash 49-49 x2; data change: the mobs' spawn points re-derived (moved, same templates); recordings (2026-11-17): done by 47 (median 42.02), deaths 2, abandons 2"
+		},
+		{
+			"key": "forever/alliance/40-50/02-badlands.guide|kill 739.1|rare",
+			"guide": "forever/alliance/40-50/02-badlands.guide",
+			"goal": "kill 739.1",
+			"kind": "rare",
+			"title": "Agmond's End",
+			"level": 45,
+			"mobs": [
+				"Zaricotl 55-56"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 45; Zaricotl 55-56; data change: points Zaricotl(3->24); recordings (2026-11-17): done by 25 (median 41.24), deaths 1, abandons 3"
+		},
+		{
+			"key": "forever/alliance/40-50/02-badlands.guide|kill 739.2|over",
+			"guide": "forever/alliance/40-50/02-badlands.guide",
+			"goal": "kill 739.2",
+			"kind": "over",
+			"title": "Agmond's End",
+			"level": 45,
+			"mobs": [
+				"Zaricotl 55-56 x2"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 45; Zaricotl 55-56 x2; data change: points Zaricotl(3->24); recordings (2026-11-17): done by 26 (median 40.88), deaths 2, abandons 3"
+		},
+		{
+			"key": "forever/alliance/40-50/02-badlands.guide|kill 739.2|rare",
+			"guide": "forever/alliance/40-50/02-badlands.guide",
+			"goal": "kill 739.2",
+			"kind": "rare",
+			"title": "Agmond's End",
+			"level": 45,
+			"mobs": [
+				"Zaricotl 55-56 x2"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 45; Zaricotl 55-56 x2; data change: points Zaricotl(3->24); recordings (2026-11-17): done by 26 (median 40.88), deaths 2, abandons 3"
+		},
+		{
+			"key": "forever/alliance/40-50/02-badlands.guide|collect 97617.3|rare",
+			"guide": "forever/alliance/40-50/02-badlands.guide",
+			"goal": "collect 97617.3",
+			"kind": "rare",
+			"title": "Agmond's End",
+			"level": 45,
+			"mobs": [
+				"Zaricotl 55-56"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 45; Zaricotl 55-56; data change: points Zaricotl(3->24); recordings (2026-11-17): done by 4 (median 40.85), deaths 1, abandons 1"
+		},
+		{
+			"key": "forever/alliance/40-50/02-badlands.guide|collect 732.1|over",
+			"guide": "forever/alliance/40-50/02-badlands.guide",
+			"goal": "collect 732.1",
+			"kind": "over",
+			"title": "Boss Tho'grun",
+			"level": 45,
+			"mobs": [
+				"Zaricotl 55-56 x2"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 45; Zaricotl 55-56 x2; data change: points Zaricotl(3->24); recordings (2026-11-17): done by 6 (median 43.01), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/alliance/40-50/02-badlands.guide|collect 732.1|rare",
+			"guide": "forever/alliance/40-50/02-badlands.guide",
+			"goal": "collect 732.1",
+			"kind": "rare",
+			"title": "Boss Tho'grun",
+			"level": 45,
+			"mobs": [
+				"Zaricotl 55-56 x2"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 45; Zaricotl 55-56 x2; data change: points Zaricotl(3->24); recordings (2026-11-17): done by 6 (median 43.01), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/alliance/40-50/04-tanaris.guide|collect 3161.1|rare",
+			"guide": "forever/alliance/40-50/04-tanaris.guide",
+			"goal": "collect 3161.1",
+			"kind": "rare",
+			"title": "The Broken Pillar",
+			"level": 47.6,
+			"mobs": [
+				"Soul of Tanaris 51-51"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 47.6; Soul of Tanaris 51-51; data change: the goal's spots re-derived first points for Soul of Tanaris; recordings (2026-11-17): done by 19 (median 47.44), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/alliance/50-60/02-felwood.guide|kill 5155.2|elite",
+			"guide": "forever/alliance/50-60/02-felwood.guide",
+			"goal": "kill 5155.2",
+			"kind": "elite",
+			"title": "Jaedenar",
+			"level": 52.7,
+			"mobs": [
+				"Spirit of Trey Lightforge 53-53 x2"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 52.7; Spirit of Trey Lightforge 53-53 x2; data change: first points for Spirit of Trey Lightforge; recordings (2026-11-17): done by 5 (median 53.57), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/alliance/50-60/02-felwood.guide|use 5157.1|elite",
+			"guide": "forever/alliance/50-60/02-felwood.guide",
+			"goal": "use 5157.1",
+			"kind": "elite",
+			"title": "Jaedenar again",
+			"level": 53,
+			"mobs": [
+				"Spirit of Trey Lightforge 53-53"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 53; Spirit of Trey Lightforge 53-53; data change: first points for Spirit of Trey Lightforge; recordings (2026-11-17): done by 5 (median 53.76), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/50-60/03-winterspring.guide|use item 12928|elite",
+			"guide": "forever/alliance/50-60/03-winterspring.guide",
+			"goal": "use item 12928",
+			"kind": "elite",
+			"title": "Everlook",
+			"level": 55.5,
+			"mobs": [
+				"Hailspite 60-60"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 55.5; Hailspite 60-60; data change: points Hailspite(21->24); recordings (2026-11-17): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/50-60/03-winterspring.guide|kill 5163.1|elite",
+			"guide": "forever/alliance/50-60/03-winterspring.guide",
+			"goal": "kill 5163.1",
+			"kind": "elite",
+			"title": "Everlook",
+			"level": 55.5,
+			"mobs": [
+				"Hailspite 60-60"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 55.5; Hailspite 60-60; data change: points Hailspite(21->24); recordings (2026-11-17): done by 1 (median 55.73), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/50-60/04-western-plaguelands.guide|kill 4985.1|over",
+			"guide": "forever/alliance/50-60/04-western-plaguelands.guide",
+			"goal": "kill 4985.1",
+			"kind": "over",
+			"title": "Diseased Grizzlies",
+			"level": 55.9,
+			"mobs": [
+				"Kirala Fairgrass 60-60 x2"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 55.9; Kirala Fairgrass 60-60 x2; data change: points Kirala Fairgrass(6->9) rank Kirala Fairgrass(undefined->0); recordings (2026-11-17): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/dwarf/01-dun-morogh.guide|collect 384.1|over",
+			"guide": "forever/alliance/dwarf/01-dun-morogh.guide",
+			"goal": "collect 384.1",
+			"kind": "over",
+			"title": "Dun Morogh: kill these as you meet them",
+			"level": 6.5,
+			"mobs": [
+				"Bjarn 12-12 x2"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 6.5; Bjarn 12-12 x2; data change: points Bjarn(4->14); recordings (2026-11-17): done by 47 (median 6.87), deaths 0, abandons 2"
+		},
+		{
+			"key": "forever/alliance/dwarf/01-dun-morogh.guide|collect 317.1|over",
+			"guide": "forever/alliance/dwarf/01-dun-morogh.guide",
+			"goal": "collect 317.1",
+			"kind": "over",
+			"title": "Dun Morogh: kill these as you meet them",
+			"level": 6.5,
+			"mobs": [
+				"Bjarn 12-12 x2"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 6.5; Bjarn 12-12 x2; data change: points Bjarn(4->14); recordings (2026-11-17): done by 41 (median 6.8), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/dwarf/01-dun-morogh.guide|kill 319.2|rare",
+			"guide": "forever/alliance/dwarf/01-dun-morogh.guide",
+			"goal": "kill 319.2",
+			"kind": "rare",
+			"title": "Brewnall: kill these as you meet them",
+			"level": 7.7,
+			"mobs": [
+				"Gibblewilt 11-11"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 7.7; Gibblewilt 11-11; data change: points Gibblewilt(2->15); recordings (2026-11-17): done by 39 (median 8.44), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/dwarf/01-dun-morogh.guide|kill 319.3|rare",
+			"guide": "forever/alliance/dwarf/01-dun-morogh.guide",
+			"goal": "kill 319.3",
+			"kind": "rare",
+			"title": "Brewnall: kill these as you meet them",
+			"level": 7.7,
+			"mobs": [
+				"Gibblewilt 11-11"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 7.7; Gibblewilt 11-11; data change: points Gibblewilt(2->15); recordings (2026-11-17): done by 37 (median 8.45), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/gnome/01-dun-morogh.guide|collect 384.1|over",
+			"guide": "forever/alliance/gnome/01-dun-morogh.guide",
+			"goal": "collect 384.1",
+			"kind": "over",
+			"title": "Dun Morogh: kill these as you meet them",
+			"level": 6.5,
+			"mobs": [
+				"Bjarn 12-12 x2"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 6.5; Bjarn 12-12 x2; data change: points Bjarn(4->14); recordings (2026-11-17): done by 47 (median 6.87), deaths 0, abandons 2"
+		},
+		{
+			"key": "forever/alliance/gnome/01-dun-morogh.guide|collect 317.1|over",
+			"guide": "forever/alliance/gnome/01-dun-morogh.guide",
+			"goal": "collect 317.1",
+			"kind": "over",
+			"title": "Dun Morogh: kill these as you meet them",
+			"level": 6.5,
+			"mobs": [
+				"Bjarn 12-12 x2"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 6.5; Bjarn 12-12 x2; data change: points Bjarn(4->14); recordings (2026-11-17): done by 41 (median 6.8), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/gnome/01-dun-morogh.guide|kill 319.2|rare",
+			"guide": "forever/alliance/gnome/01-dun-morogh.guide",
+			"goal": "kill 319.2",
+			"kind": "rare",
+			"title": "Brewnall: kill these as you meet them",
+			"level": 7.7,
+			"mobs": [
+				"Gibblewilt 11-11"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 7.7; Gibblewilt 11-11; data change: points Gibblewilt(2->15); recordings (2026-11-17): done by 39 (median 8.44), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/gnome/01-dun-morogh.guide|kill 319.3|rare",
+			"guide": "forever/alliance/gnome/01-dun-morogh.guide",
+			"goal": "kill 319.3",
+			"kind": "rare",
+			"title": "Brewnall: kill these as you meet them",
+			"level": 7.7,
+			"mobs": [
+				"Gibblewilt 11-11"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 7.7; Gibblewilt 11-11; data change: points Gibblewilt(2->15); recordings (2026-11-17): done by 37 (median 8.45), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/human/01-elwynn-forest.guide|collect 91733.3|pack",
+			"guide": "forever/alliance/human/01-elwynn-forest.guide",
+			"goal": "collect 91733.3",
+			"kind": "pack",
+			"title": "Downstream and Princess",
+			"level": 8.8,
+			"mobs": [
+				"9 spawns 10+"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 8.8; 9 spawns 10+; data change: the goal's spots re-derived; recordings (2026-11-17): done by 53 (median 9.33), deaths 24, abandons 7"
+		},
+		{
+			"key": "forever/alliance/nightelf/01-teldrassil.guide|collect 97977.1|over",
+			"guide": "forever/alliance/nightelf/01-teldrassil.guide",
+			"goal": "collect 97977.1",
+			"kind": "over",
+			"title": "Shadowglen: kill these as you meet them",
+			"level": 1.1,
+			"mobs": [
+				"Deer 1-5 x3"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 1.1; Deer 1-5 x3; data change: the goal's spots re-derived points Deer(134->138) rank Deer(undefined->0); recordings (2026-11-17): done by 49 (median 2.4), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/nightelf/01-teldrassil.guide|collect 459.1|over",
+			"guide": "forever/alliance/nightelf/01-teldrassil.guide",
+			"goal": "collect 459.1",
+			"kind": "over",
+			"title": "The grells west of the tree",
+			"level": 1.1,
+			"mobs": [
+				"Deer 1-5 x3"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 1.1; Deer 1-5 x3; data change: the goal's spots re-derived points Deer(134->138) rank Deer(undefined->0); recordings (2026-11-17): done by 48 (median 2.35), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/nightelf/01-teldrassil.guide|complete 5929|over",
+			"guide": "forever/alliance/nightelf/01-teldrassil.guide",
+			"goal": "complete 5929",
+			"kind": "over",
+			"title": "Moonglade",
+			"level": 12.8,
+			"mobs": [
+				"Great Bear Spirit 60-60 x5"
+			],
+			"reason": "the Great Bear Spirit (60) is the Moonglade spirit the druid talks to for this quest, not a mob: 0.4.1's data adds its recorded talk spots (1 -> 5), which the gate counts as a camp",
+			"evidence": "route level 12.8; Great Bear Spirit 60-60 x5; the quest's own talk target; no side in the data; recordings (2026-11-17): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/nightelf/02-darkshore.guide|complete 2118|rare",
+			"guide": "forever/alliance/nightelf/02-darkshore.guide",
+			"goal": "complete 2118",
+			"kind": "rare",
+			"title": "Bears and the Blackwood camp",
+			"level": 12.9,
+			"mobs": [
+				"Carnivous the Breaker 16-16"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 12.9; Carnivous the Breaker 16-16; data change: points Carnivous the Breaker(4->14); recordings (2026-11-17): done by 0 (median null), deaths 0, abandons 10"
+		},
+		{
+			"key": "forever/alliance/nightelf/02-darkshore.guide|interact 97222.1|rare",
+			"guide": "forever/alliance/nightelf/02-darkshore.guide",
+			"goal": "interact 97222.1",
+			"kind": "rare",
+			"title": "Stormwind flight master",
+			"level": 14.6,
+			"mobs": [
+				"Sewer Beast 50-50"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 14.6; Sewer Beast 50-50; data change: points Sewer Beast(2->24); recordings (2026-11-17): done by 17 (median 18.28), deaths 1, abandons 1"
+		},
+		{
+			"key": "forever/horde/02-the-barrens.guide|collect 869.1|rare",
+			"guide": "forever/horde/02-the-barrens.guide",
+			"goal": "collect 869.1",
+			"kind": "rare",
+			"title": "Raptor Heads as you go",
+			"level": 16.6,
+			"mobs": [
+				"Swiftmane 21-21"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 16.6; Swiftmane 21-21; data change: points Swiftmane(1->24); recordings (2026-11-17): done by 94 (median 15), deaths 0, abandons 4"
+		},
+		{
+			"key": "forever/horde/02-the-barrens.guide|collect 855.1|elite",
+			"guide": "forever/horde/02-the-barrens.guide",
+			"goal": "collect 855.1",
+			"kind": "elite",
+			"title": "The Barrens: kill these as you meet them",
+			"level": 16.6,
+			"mobs": [
+				"Deviate Coiler 15-16 x2",
+				"Deviate Stalker 15-17"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 16.6; Deviate Coiler 15-16 x2, Deviate Stalker 15-17; data change: the goal's spots re-derived points Deviate Coiler(7->13) points Deviate Stalker(5->13); recordings (2026-11-17): done by 87 (median 16.82), deaths 0, abandons 7"
+		},
+		{
+			"key": "forever/horde/02-the-barrens.guide|use item 15877|pack",
+			"guide": "forever/horde/02-the-barrens.guide",
+			"goal": "use item 15877",
+			"kind": "pack",
+			"title": "Trial of the Lake",
+			"level": 18.3,
+			"mobs": [
+				"11 spawns 20+"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 18.3; 11 spawns 20+; data change: the mobs' spawn points re-derived (moved, same templates); recordings (2026-11-17): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/02-the-barrens.guide|collect 865.1|rare",
+			"guide": "forever/horde/02-the-barrens.guide",
+			"goal": "collect 865.1",
+			"kind": "rare",
+			"title": "Raptor Grounds: kill these as you meet them",
+			"level": 18.3,
+			"mobs": [
+				"Thora Feathermoon 25-25",
+				"Hannah Bladeleaf 24-24"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 18.3; Thora Feathermoon 25-25, Hannah Bladeleaf 24-24; data change: points Thora Feathermoon(1->24) points Hannah Bladeleaf(1->24); recordings (2026-11-17): done by 111 (median 19.2), deaths 2, abandons 21"
+		},
+		{
+			"key": "forever/horde/02-the-barrens.guide|kill 878.3|pack",
+			"guide": "forever/horde/02-the-barrens.guide",
+			"goal": "kill 878.3",
+			"kind": "pack",
+			"title": "Bramblescar",
+			"level": 19.5,
+			"mobs": [
+				"8 spawns 21+"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 19.5; 8 spawns 21+; data change: the mobs' spawn points re-derived (moved, same templates); recordings (2026-11-17): done by 50 (median 21.87), deaths 2, abandons 7"
+		},
+		{
+			"key": "forever/horde/02-the-barrens.guide|collect 899.1|rare",
+			"guide": "forever/horde/02-the-barrens.guide",
+			"goal": "collect 899.1",
+			"kind": "rare",
+			"title": "Bramblescar",
+			"level": 19.5,
+			"mobs": [
+				"Swinegart Spearhide 22-22 x5"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 19.5; Swinegart Spearhide 22-22 x5; data change: points Swinegart Spearhide(1->9); recordings (2026-11-17): done by 57 (median 21.44), deaths 2, abandons 24"
+		},
+		{
+			"key": "forever/horde/02-the-barrens.guide|collect 852.1|rare",
+			"guide": "forever/horde/02-the-barrens.guide",
+			"goal": "collect 852.1",
+			"kind": "rare",
+			"title": "Hezrul Bloodmark",
+			"level": 21.4,
+			"mobs": [
+				"Aean Swiftriver 25-26"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 21.4; Aean Swiftriver 25-26; data change: points Aean Swiftriver(1->24) level Aean Swiftriver(26->25); recordings (2026-11-17): done by 43 (median 22.25), deaths 1, abandons 9"
+		},
+		{
+			"key": "forever/horde/02-the-barrens.guide|collect 95774.1|rare",
+			"guide": "forever/horde/02-the-barrens.guide",
+			"goal": "collect 95774.1",
+			"kind": "rare",
+			"title": "Olgra's Adornments",
+			"level": 21.4,
+			"mobs": [
+				"Aean Swiftriver 25-26",
+				"Thora Feathermoon 25-25",
+				"Hannah Bladeleaf 24-24",
+				"Marcus Bel 24-24"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 21.4; Aean Swiftriver 25-26, Thora Feathermoon 25-25, Hannah Bladeleaf 24-24, Marcus Bel 24-24; data change: the goal's spots re-derived points Aean Swiftriver(1->24) level Aean Swiftriver(26->25) points Thora Feathermoon(1->24) points Hannah Bladeleaf(1->24) points Marcus Bel(1->24); recordings (2026-11-17): done by 34 (median 21.82), deaths 1, abandons 9"
+		},
+		{
+			"key": "forever/horde/02-the-barrens.guide|collect 907.1|rare",
+			"guide": "forever/horde/02-the-barrens.guide",
+			"goal": "collect 907.1",
+			"kind": "rare",
+			"title": "Enraged Thunder Lizards",
+			"level": 21.4,
+			"mobs": [
+				"Marcus Bel 24-24",
+				"Aean Swiftriver 25-26"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 21.4; Marcus Bel 24-24, Aean Swiftriver 25-26; data change: points Marcus Bel(1->24) points Aean Swiftriver(1->24) level Aean Swiftriver(26->25); recordings (2026-11-17): done by 29 (median 22.06), deaths 1, abandons 0"
+		},
+		{
+			"key": "forever/horde/02-the-barrens.guide|collect 913.1|over",
+			"guide": "forever/horde/02-the-barrens.guide",
+			"goal": "collect 913.1",
+			"kind": "over",
+			"title": "Cry of the Thunderhawk",
+			"level": 21.4,
+			"mobs": [
+				"Azzere the Skyblade 25-25 x3",
+				"Aean Swiftriver 25-26 x3",
+				"Thora Feathermoon 25-25 x3"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 21.4; Azzere the Skyblade 25-25 x3, Aean Swiftriver 25-26 x3, Thora Feathermoon 25-25 x3; data change: points Azzere the Skyblade(1->11) points Aean Swiftriver(1->24) level Aean Swiftriver(26->25) points Thora Feathermoon(1->24); recordings (2026-11-17): done by 31 (median 22.14), deaths 1, abandons 0"
+		},
+		{
+			"key": "forever/horde/02-the-barrens.guide|collect 913.1|pack",
+			"guide": "forever/horde/02-the-barrens.guide",
+			"goal": "collect 913.1",
+			"kind": "pack",
+			"title": "Cry of the Thunderhawk",
+			"level": 21.4,
+			"mobs": [
+				"12 spawns 23+"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 21.4; 12 spawns 23+; data change: the mobs' spawn points re-derived (moved, same templates); recordings (2026-11-17): done by 31 (median 22.14), deaths 1, abandons 0"
+		},
+		{
+			"key": "forever/horde/04-the-barrens.guide|collect 6393.1|over",
+			"guide": "forever/horde/04-the-barrens.guide",
+			"goal": "collect 6393.1",
+			"kind": "over",
+			"title": "The Charred Vale: kill these as you meet them",
+			"level": 26.2,
+			"mobs": [
+				"Vengeful Ancient 29-30 x3"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 26.2; Vengeful Ancient 29-30 x3; data change: points Vengeful Ancient(1->12) level Vengeful Ancient(30->29); recordings (2026-11-17): done by 50 (median 26.25), deaths 0, abandons 13"
+		},
+		{
+			"key": "forever/horde/04-the-barrens.guide|collect 6393.1|rare",
+			"guide": "forever/horde/04-the-barrens.guide",
+			"goal": "collect 6393.1",
+			"kind": "rare",
+			"title": "The Charred Vale: kill these as you meet them",
+			"level": 26.2,
+			"mobs": [
+				"Vengeful Ancient 29-30 x3"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 26.2; Vengeful Ancient 29-30 x3; data change: points Vengeful Ancient(1->12) level Vengeful Ancient(30->29); recordings (2026-11-17): done by 50 (median 26.25), deaths 0, abandons 13"
+		},
+		{
+			"key": "forever/horde/04-the-barrens.guide|kill 6282.1|rare",
+			"guide": "forever/horde/04-the-barrens.guide",
+			"goal": "kill 6282.1",
+			"kind": "rare",
+			"title": "The Charred Vale: kill these as you meet them",
+			"level": 26.2,
+			"mobs": [
+				"Vengeful Ancient 29-30"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 26.2; Vengeful Ancient 29-30; data change: points Vengeful Ancient(1->12) level Vengeful Ancient(30->29); recordings (2026-11-17): done by 49 (median 26.12), deaths 3, abandons 11"
+		},
+		{
+			"key": "forever/horde/04-the-barrens.guide|interact 6381.1|rare",
+			"guide": "forever/horde/04-the-barrens.guide",
+			"goal": "interact 6381.1",
+			"kind": "rare",
+			"title": "The Charred Vale: kill these as you meet them",
+			"level": 26.2,
+			"mobs": [
+				"Vengeful Ancient 29-30"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 26.2; Vengeful Ancient 29-30; data change: points Vengeful Ancient(1->12) level Vengeful Ancient(30->29); recordings (2026-11-17): done by 48 (median 26.09), deaths 3, abandons 3"
+		},
+		{
+			"key": "forever/horde/04-the-barrens.guide|kill 6282.2|rare",
+			"guide": "forever/horde/04-the-barrens.guide",
+			"goal": "kill 6282.2",
+			"kind": "rare",
+			"title": "The Charred Vale: kill these as you meet them",
+			"level": 26.2,
+			"mobs": [
+				"Vengeful Ancient 29-30"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 26.2; Vengeful Ancient 29-30; data change: points Vengeful Ancient(1->12) level Vengeful Ancient(30->29); recordings (2026-11-17): done by 49 (median 26.12), deaths 3, abandons 11"
+		},
+		{
+			"key": "forever/horde/05-stonetalon-mountains.guide|kill 6503.1|over",
+			"guide": "forever/horde/05-stonetalon-mountains.guide",
+			"goal": "kill 6503.1",
+			"kind": "over",
+			"title": "Ashenvale Outrunners",
+			"level": 22.2,
+			"mobs": [
+				"Severed Sleeper 28-29 x2"
+			],
+			"reason": "the Severed druids' camp (28-30) sits at the south-east edge of the Ashenvale Outrunners' woods (23-24), off to the side of the goal's point at 72.5,69.5; one of the goal's spots lies beside it, and the tip sends the player south and south-east of the lumber camp",
+			"evidence": "route level 22.2; Severed Sleeper 28-29 x2; no Horde player in the archive died to a Severed mob (2 Alliance deaths at 77,74); the step is new since 0.4.0.1 (`when onquest 6503`); recordings (2026-11-17): done by 62 (median 26.23), deaths 3, abandons 5"
+		},
+		{
+			"key": "forever/horde/06-hillsbrad-foothills.guide|collect 30.1|pack",
+			"guide": "forever/horde/06-hillsbrad-foothills.guide",
+			"goal": "collect 30.1",
+			"kind": "pack",
+			"title": "Trial of the Sea Lion",
+			"level": 25,
+			"mobs": [
+				"11 spawns 26+"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 25; 11 spawns 26+; data change: the mobs' spawn points re-derived (moved, same templates); recordings (2026-11-17): done by 16 (median 18.71), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/horde/07-ashenvale.guide|collect 4767.1|pack",
+			"guide": "forever/horde/07-ashenvale.guide",
+			"goal": "collect 4767.1",
+			"kind": "pack",
+			"title": "Highperch",
+			"level": 28.6,
+			"mobs": [
+				"7 spawns 30+"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 28.6; 7 spawns 30+; data change: the goal's spots re-derived; recordings (2026-11-17): done by 52 (median 29.75), deaths 0, abandons 2"
+		},
+		{
+			"key": "forever/horde/30-40/01-hillsbrad-foothills.guide|collect 552.1|rare",
+			"guide": "forever/horde/30-40/01-hillsbrad-foothills.guide",
+			"goal": "collect 552.1",
+			"kind": "rare",
+			"title": "Helcular's Rod",
+			"level": 29.2,
+			"mobs": [
+				"Araga 35-35"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 29.2; Araga 35-35; data change: points Araga(2->16); recordings (2026-11-17): done by 43 (median 31.59), deaths 4, abandons 5"
+		},
+		{
+			"key": "forever/horde/30-40/02-thousand-needles.guide|kill 1147.1|over",
+			"guide": "forever/horde/30-40/02-thousand-needles.guide",
+			"goal": "kill 1147.1",
+			"kind": "over",
+			"title": "The Rustmaul Dig Site",
+			"level": 32,
+			"mobs": [
+				"Silithid Ravager 36-37 x6"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 32; Silithid Ravager 36-37 x6; data change: points Silithid Ravager(3->9) level Silithid Ravager(37->36); recordings (2026-11-17): done by 32 (median 33.95), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/horde/30-40/02-thousand-needles.guide|kill 1147.3|over",
+			"guide": "forever/horde/30-40/02-thousand-needles.guide",
+			"goal": "kill 1147.3",
+			"kind": "over",
+			"title": "The Rustmaul Dig Site",
+			"level": 32,
+			"mobs": [
+				"Silithid Ravager 36-37 x2"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 32; Silithid Ravager 36-37 x2; data change: points Silithid Ravager(3->9) level Silithid Ravager(37->36); recordings (2026-11-17): done by 32 (median 34.02), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/horde/30-40/02-thousand-needles.guide|kill 1147.3|rare",
+			"guide": "forever/horde/30-40/02-thousand-needles.guide",
+			"goal": "kill 1147.3",
+			"kind": "rare",
+			"title": "The Rustmaul Dig Site",
+			"level": 32,
+			"mobs": [
+				"Silithid Ravager 36-37 x2"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 32; Silithid Ravager 36-37 x2; data change: points Silithid Ravager(3->9) level Silithid Ravager(37->36); recordings (2026-11-17): done by 32 (median 34.02), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/horde/30-40/03-stranglethorn-vale.guide|kill 195.1|over",
+			"guide": "forever/horde/30-40/03-stranglethorn-vale.guide",
+			"goal": "kill 195.1",
+			"kind": "over",
+			"title": "Lashtail Raptors",
+			"level": 34.1,
+			"mobs": [
+				"Carnivorous Weed 36-38 x3"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 34.1; Carnivorous Weed 36-38 x3; data change: rank Carnivorous Weed(undefined->0); recordings (2026-11-17): done by 74 (median 36.23), deaths 3, abandons 4"
+		},
+		{
+			"key": "forever/horde/30-40/03-stranglethorn-vale.guide|kill 568.1|rare",
+			"guide": "forever/horde/30-40/03-stranglethorn-vale.guide",
+			"goal": "kill 568.1",
+			"kind": "rare",
+			"title": "Lashtail Raptors",
+			"level": 34.1,
+			"mobs": [
+				"Roloch 38-38"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 34.1; Roloch 38-38; data change: points Roloch(1->12); recordings (2026-11-17): done by 44 (median 36.07), deaths 3, abandons 2"
+		},
+		{
+			"key": "forever/horde/30-40/04-dustwallow-marsh.guide|use 6134.1|over",
+			"guide": "forever/horde/30-40/04-dustwallow-marsh.guide",
+			"goal": "use 6134.1",
+			"kind": "over",
+			"title": "The Valley of Bones",
+			"level": 37.4,
+			"mobs": [
+				"Magram Necrokhan 45-45 x2"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 37.4; Magram Necrokhan 45-45 x2; data change: the mobs' spawn points re-derived (moved, same templates); recordings (2026-11-17): done by 18 (median 39.75), deaths 8, abandons 2"
+		},
+		{
+			"key": "forever/horde/30-40/04-dustwallow-marsh.guide|collect 6134.1|over",
+			"guide": "forever/horde/30-40/04-dustwallow-marsh.guide",
+			"goal": "collect 6134.1",
+			"kind": "over",
+			"title": "The Valley of Bones",
+			"level": 37.4,
+			"mobs": [
+				"Magram Necrokhan 45-45 x2"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 37.4; Magram Necrokhan 45-45 x2; data change: the mobs' spawn points re-derived (moved, same templates); recordings (2026-11-17): done by 18 (median 39.75), deaths 8, abandons 2"
+		},
+		{
+			"key": "forever/horde/30-40/05-arathi-highlands.guide|collect 544.2|elite",
+			"guide": "forever/horde/30-40/05-arathi-highlands.guide",
+			"goal": "collect 544.2",
+			"kind": "elite",
+			"title": "The Dalaran crater",
+			"level": 37.5,
+			"mobs": [
+				"Arcane Sentry 55-55"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 37.5; Arcane Sentry 55-55; data change: the mobs' spawn points re-derived (moved, same templates); recordings (2026-11-17): done by 57 (median 31.46), deaths 6, abandons 1"
+		},
+		{
+			"key": "forever/horde/30-40/05-arathi-highlands.guide|collect 556.1|pack",
+			"guide": "forever/horde/30-40/05-arathi-highlands.guide",
+			"goal": "collect 556.1",
+			"kind": "pack",
+			"title": "The Dalaran crater",
+			"level": 37.5,
+			"mobs": [
+				"11 spawns 39+"
+			],
+			"reason": "the Dalaran crater: the pack is the Shadowy Figure (63) templates nobody has met there and the Arcane Sentries (55, elite) on the crater's rim; the Sentries killed Horde players at 31-34 elsewhere around the crater (18-26,71-81), none at this goal",
+			"evidence": "route level 37.5; 11 spawns 39+; Shadowy Figure (218241) never met in the archive; 6 Horde deaths to Arcane Sentry, none within 60 yd of the goal; recordings (2026-11-17): done by 50 (median 31.78), deaths 0, abandons 8"
+		},
+		{
+			"key": "forever/horde/30-40/05-arathi-highlands.guide|collect 503.1|rare",
+			"guide": "forever/horde/30-40/05-arathi-highlands.guide",
+			"goal": "collect 503.1",
+			"kind": "rare",
+			"title": "Gol'dir",
+			"level": 37.8,
+			"mobs": [
+				"Narillasanz 44-44"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 37.8; Narillasanz 44-44; data change: points Narillasanz(2->12); recordings (2026-11-17): done by 16 (median 38.74), deaths 2, abandons 3"
+		},
+		{
+			"key": "forever/horde/30-40/05-arathi-highlands.guide|complete 503|rare",
+			"guide": "forever/horde/30-40/05-arathi-highlands.guide",
+			"goal": "complete 503",
+			"kind": "rare",
+			"title": "Gol'dir",
+			"level": 37.8,
+			"mobs": [
+				"Narillasanz 44-44"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 37.8; Narillasanz 44-44; data change: points Narillasanz(2->12); recordings (2026-11-17): done by 0 (median null), deaths 2, abandons 3"
+		},
+		{
+			"key": "forever/horde/30-40/06-badlands.guide|collect 1419.1|elite",
+			"guide": "forever/horde/30-40/06-badlands.guide",
+			"goal": "collect 1419.1",
+			"kind": "elite",
+			"title": "Badlands: kill these as you meet them",
+			"level": 39.1,
+			"mobs": [
+				"Malevolent Mirage 42-42"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 39.1; Malevolent Mirage 42-42; data change: the mobs' spawn points re-derived (moved, same templates); recordings (2026-11-17): done by 16 (median 41.07), deaths 0, abandons 2"
+		},
+		{
+			"key": "forever/horde/30-40/06-badlands.guide|collect 1419.1|rare",
+			"guide": "forever/horde/30-40/06-badlands.guide",
+			"goal": "collect 1419.1",
+			"kind": "rare",
+			"title": "Badlands: kill these as you meet them",
+			"level": 39.1,
+			"mobs": [
+				"Zaricotl 55-56"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 39.1; Zaricotl 55-56; data change: points Zaricotl(3->24); recordings (2026-11-17): done by 16 (median 41.07), deaths 0, abandons 2"
+		},
+		{
+			"key": "forever/horde/30-40/06-badlands.guide|collect 2258.2|elite",
+			"guide": "forever/horde/30-40/06-badlands.guide",
+			"goal": "collect 2258.2",
+			"kind": "elite",
+			"title": "Badlands: kill these as you meet them",
+			"level": 39.1,
+			"mobs": [
+				"Malevolent Mirage 42-42"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 39.1; Malevolent Mirage 42-42; data change: the mobs' spawn points re-derived (moved, same templates); recordings (2026-11-17): done by 16 (median 41.15), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/30-40/06-badlands.guide|collect 2258.2|rare",
+			"guide": "forever/horde/30-40/06-badlands.guide",
+			"goal": "collect 2258.2",
+			"kind": "rare",
+			"title": "Badlands: kill these as you meet them",
+			"level": 39.1,
+			"mobs": [
+				"Zaricotl 55-56"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 39.1; Zaricotl 55-56; data change: points Zaricotl(3->24); recordings (2026-11-17): done by 16 (median 41.15), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/30-40/06-badlands.guide|collect 1108.1|over",
+			"guide": "forever/horde/30-40/06-badlands.guide",
+			"goal": "collect 1108.1",
+			"kind": "over",
+			"title": "Stonevault troggs",
+			"level": 39.1,
+			"mobs": [
+				"Anathemus 45-45 x3"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 39.1; Anathemus 45-45 x3; data change: points Anathemus(1->22); recordings (2026-11-17): done by 32 (median 40.85), deaths 3, abandons 2"
+		},
+		{
+			"key": "forever/horde/30-40/06-badlands.guide|collect 1108.1|rare",
+			"guide": "forever/horde/30-40/06-badlands.guide",
+			"goal": "collect 1108.1",
+			"kind": "rare",
+			"title": "Stonevault troggs",
+			"level": 39.1,
+			"mobs": [
+				"Anathemus 45-45 x3",
+				"Zaricotl 55-56"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 39.1; Anathemus 45-45 x3, Zaricotl 55-56; data change: points Anathemus(1->22) points Zaricotl(3->24); recordings (2026-11-17): done by 32 (median 40.85), deaths 3, abandons 2"
+		},
+		{
+			"key": "forever/horde/30-40/06-badlands.guide|collect 703.1|rare",
+			"guide": "forever/horde/30-40/06-badlands.guide",
+			"goal": "collect 703.1",
+			"kind": "rare",
+			"title": "Stonevault troggs",
+			"level": 39.1,
+			"mobs": [
+				"Zaricotl 55-56"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 39.1; Zaricotl 55-56; data change: the goal's spots re-derived points Zaricotl(3->24); recordings (2026-11-17): done by 30 (median 40.56), deaths 2, abandons 4"
+		},
+		{
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 95119.1|over",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
+			"goal": "kill 95119.1",
+			"kind": "over",
+			"title": "The Eastsea pirates",
+			"level": 43.1,
+			"mobs": [
+				"Gul'gash 49-49 x2"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 43.1; Gul'gash 49-49 x2; data change: the mobs' spawn points re-derived (moved, same templates); recordings (2026-11-17): done by 47 (median 42.02), deaths 2, abandons 2"
+		},
+		{
+			"key": "forever/horde/40-50/04-tanaris.guide|collect 3161.1|rare",
+			"guide": "forever/horde/40-50/04-tanaris.guide",
+			"goal": "collect 3161.1",
+			"kind": "rare",
+			"title": "Gahz'ridian ornaments",
+			"level": 48.2,
+			"mobs": [
+				"Soul of Tanaris 51-51"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 48.2; Soul of Tanaris 51-51; data change: the goal's spots re-derived first points for Soul of Tanaris; recordings (2026-11-17): done by 19 (median 47.44), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/horde/50-60/01-un-goro-crater.guide|collect 3881.2|over",
+			"guide": "forever/horde/50-60/01-un-goro-crater.guide",
+			"goal": "collect 3881.2",
+			"kind": "over",
+			"title": "Research Equipment",
+			"level": 51.3,
+			"mobs": [
+				"Elder Diemetradon 53-55 x2"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 51.3; Elder Diemetradon 53-55 x2; data change: the goal's spots re-derived rank Elder Diemetradon(undefined->0); recordings (2026-11-17): done by 10 (median 51.94), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/50-60/02-felwood.guide|kill 5155.2|elite",
+			"guide": "forever/horde/50-60/02-felwood.guide",
+			"goal": "kill 5155.2",
+			"kind": "elite",
+			"title": "Southern Jaedenar",
+			"level": 52.9,
+			"mobs": [
+				"Spirit of Trey Lightforge 53-53"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 52.9; Spirit of Trey Lightforge 53-53; data change: first points for Spirit of Trey Lightforge; recordings (2026-11-17): done by 5 (median 53.57), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/horde/50-60/02-felwood.guide|use 5157.1|elite",
+			"guide": "forever/horde/50-60/02-felwood.guide",
+			"goal": "use 5157.1",
+			"kind": "elite",
+			"title": "The Jaedenar moonwell",
+			"level": 53,
+			"mobs": [
+				"Spirit of Trey Lightforge 53-53"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 53; Spirit of Trey Lightforge 53-53; data change: first points for Spirit of Trey Lightforge; recordings (2026-11-17): done by 5 (median 53.76), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/50-60/07-felwood.guide|kill 5163.1|elite",
+			"guide": "forever/horde/50-60/07-felwood.guide",
+			"goal": "kill 5163.1",
+			"kind": "elite",
+			"title": "Are We There, Yeti?",
+			"level": 59.9,
+			"mobs": [
+				"Hailspite 60-60"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 59.9; Hailspite 60-60; data change: points Hailspite(21->24); recordings (2026-11-17): done by 1 (median 55.73), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/orc/01-durotar.guide|collect 794.1|rare",
+			"guide": "forever/horde/orc/01-durotar.guide",
+			"goal": "collect 794.1",
+			"kind": "rare",
+			"title": "Yarrog Baneshadow",
+			"level": 5.3,
+			"mobs": [
+				"Geolord Mottle 9-9"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 5.3; Geolord Mottle 9-9; data change: points Geolord Mottle(3->24); recordings (2026-11-17): done by 56 (median 5.07), deaths 5, abandons 1"
+		},
+		{
+			"key": "forever/horde/orc/01-durotar.guide|collect 1516.1|rare",
+			"guide": "forever/horde/orc/01-durotar.guide",
+			"goal": "collect 1516.1",
+			"kind": "rare",
+			"title": "Felstalker hooves",
+			"level": 5.3,
+			"mobs": [
+				"Geolord Mottle 9-9",
+				"Captain Flat Tusk 11-11"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 5.3; Geolord Mottle 9-9, Captain Flat Tusk 11-11; data change: points Geolord Mottle(3->24) points Captain Flat Tusk(3->13); recordings (2026-11-17): done by 9 (median 5.01), deaths 6, abandons 0"
+		},
+		{
+			"key": "forever/horde/tauren/01-mulgore.guide|collect 761.1|rare",
+			"guide": "forever/horde/tauren/01-mulgore.guide",
+			"goal": "collect 761.1",
+			"kind": "rare",
+			"title": "Poison Water",
+			"level": 6.4,
+			"mobs": [
+				"Mazzranache 9-9"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 6.4; Mazzranache 9-9; data change: points Mazzranache(1->14); recordings (2026-11-17): done by 24 (median 7.06), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/horde/tauren/01-mulgore.guide|collect 766.4|rare",
+			"guide": "forever/horde/tauren/01-mulgore.guide",
+			"goal": "collect 766.4",
+			"kind": "rare",
+			"title": "Poison Water",
+			"level": 6.4,
+			"mobs": [
+				"Mazzranache 9-9"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 6.4; Mazzranache 9-9; data change: points Mazzranache(1->14); recordings (2026-11-17): done by 24 (median 6.79), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/horde/tauren/01-mulgore.guide|collect 748.2|rare",
+			"guide": "forever/horde/tauren/01-mulgore.guide",
+			"goal": "collect 748.2",
+			"kind": "rare",
+			"title": "Poison Water",
+			"level": 6.4,
+			"mobs": [
+				"Snagglespear 9-9"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 6.4; Snagglespear 9-9; data change: points Snagglespear(2->8); recordings (2026-11-17): done by 25 (median 6.79), deaths 1, abandons 0"
+		},
+		{
+			"key": "forever/horde/tauren/01-mulgore.guide|collect 766.3|rare",
+			"guide": "forever/horde/tauren/01-mulgore.guide",
+			"goal": "collect 766.3",
+			"kind": "rare",
+			"title": "Poison Water",
+			"level": 6.4,
+			"mobs": [
+				"Snagglespear 9-9"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 6.4; Snagglespear 9-9; data change: points Snagglespear(2->8); recordings (2026-11-17): done by 23 (median 6.71), deaths 1, abandons 1"
+		},
+		{
+			"key": "forever/horde/tauren/01-mulgore.guide|complete 5930|over",
+			"guide": "forever/horde/tauren/01-mulgore.guide",
+			"goal": "complete 5930",
+			"kind": "over",
+			"title": "Moonglade",
+			"level": 12.6,
+			"mobs": [
+				"Great Bear Spirit 60-60 x5"
+			],
+			"reason": "the Great Bear Spirit (60) is the Moonglade spirit the druid talks to for this quest, not a mob: 0.4.1's data adds its recorded talk spots (1 -> 5), which the gate counts as a camp",
+			"evidence": "route level 12.6; Great Bear Spirit 60-60 x5; the quest's own talk target; no side in the data; recordings (2026-11-17): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/troll/01-durotar.guide|collect 794.1|rare",
+			"guide": "forever/horde/troll/01-durotar.guide",
+			"goal": "collect 794.1",
+			"kind": "rare",
+			"title": "Yarrog Baneshadow",
+			"level": 5.3,
+			"mobs": [
+				"Geolord Mottle 9-9"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 5.3; Geolord Mottle 9-9; data change: points Geolord Mottle(3->24); recordings (2026-11-17): done by 56 (median 5.07), deaths 5, abandons 1"
+		},
+		{
+			"key": "forever/horde/troll/01-durotar.guide|collect 1516.1|rare",
+			"guide": "forever/horde/troll/01-durotar.guide",
+			"goal": "collect 1516.1",
+			"kind": "rare",
+			"title": "Felstalker hooves",
+			"level": 5.3,
+			"mobs": [
+				"Geolord Mottle 9-9",
+				"Captain Flat Tusk 11-11"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 5.3; Geolord Mottle 9-9, Captain Flat Tusk 11-11; data change: points Geolord Mottle(3->24) points Captain Flat Tusk(3->13); recordings (2026-11-17): done by 9 (median 5.01), deaths 6, abandons 0"
+		},
+		{
+			"key": "forever/horde/undead/01-tirisfal-glades.guide|collect 367.1|rare",
+			"guide": "forever/horde/undead/01-tirisfal-glades.guide",
+			"goal": "collect 367.1",
+			"kind": "rare",
+			"title": "Cold Hearth Manor: kill these as you meet them",
+			"level": 7.3,
+			"mobs": [
+				"Bayne 10-10 x4"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 7.3; Bayne 10-10 x4; data change: points Bayne(1->12); recordings (2026-11-17): done by 61 (median 7.09), deaths 1, abandons 1"
+		},
+		{
+			"key": "forever/horde/undead/01-tirisfal-glades.guide|collect 97558.2|rare",
+			"guide": "forever/horde/undead/01-tirisfal-glades.guide",
+			"goal": "collect 97558.2",
+			"kind": "rare",
+			"title": "Cold Hearth Manor: kill these as you meet them",
+			"level": 7.3,
+			"mobs": [
+				"Bayne 10-10 x4"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 7.3; Bayne 10-10 x4; data change: points Bayne(1->12); recordings (2026-11-17): done by 58 (median 8.58), deaths 1, abandons 3"
+		},
+		{
+			"key": "forever/horde/undead/01-tirisfal-glades.guide|collect 368.1|rare",
+			"guide": "forever/horde/undead/01-tirisfal-glades.guide",
+			"goal": "collect 368.1",
+			"kind": "rare",
+			"title": "Tirisfal Glades: kill these as you meet them",
+			"level": 9.3,
+			"mobs": [
+				"Deeb 12-12 x4"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 9.3; Deeb 12-12 x4; data change: points Deeb(1->5); recordings (2026-11-17): done by 54 (median 8.81), deaths 7, abandons 1"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|collect 93759.2|elite",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "collect 93759.2",
+			"kind": "elite",
+			"title": "The shrub field",
+			"level": 57.8,
+			"mobs": [
+				"Ghansurok 61-61"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 57.8; Ghansurok 61-61; data change: points Ghansurok(12->14); recordings (2026-11-17): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|kill 92449.2|pack",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "kill 92449.2",
+			"kind": "pack",
+			"title": "Mourning's Rest",
+			"level": 58.5,
+			"mobs": [
+				"7 spawns 60+"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 58.5; 7 spawns 60+; data change: the goal's spots re-derived; recordings (2026-11-17): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|collect 90702.1|pack",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "collect 90702.1",
+			"kind": "pack",
+			"title": "Mourning's Rest",
+			"level": 58.5,
+			"mobs": [
+				"7 spawns 60+"
+			],
+			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
+			"evidence": "route level 58.5; 7 spawns 60+; data change: the goal's spots re-derived; recordings (2026-11-17): done by 0 (median null), deaths 0, abandons 0"
 		}
 	]
 }
