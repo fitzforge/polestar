@@ -520,7 +520,7 @@
 				"ref": "#2466: the reporter was sent to Arathi Highlands 81.30,26.20 (map 1417) for it"
 			}
 		],
-		"note": "The Ancient Egg (object 175889), which holds the egg for The Ancient Egg (4787), lies in The Hinterlands at 57.48,86.69 (map 1425), in the south. Its world point (-762,-3793.5) is inside two map frames, The Hinterlands' and Arathi Highlands', and it was read in Arathi's, the smaller one, as 81.3,26.2 (map 1417), so the Sunken Temple pick-up guide's collect step led to Hammerfall. Sets the one spawn, on The Hinterlands' map."
+		"note": "The Ancient Egg (object 175889), which holds the egg for The Ancient Egg (4787), lies in The Hinterlands at 57.48,86.69 (map 1425), in the south. Its world point (-762,-3793.5) is inside two map frames, The Hinterlands' and Arathi Highlands', and it was read in Arathi's, the smaller one, as 81.3,26.2 (map 1417), so the Sunken Temple pick-up guide's collect step led to Hammerfall. The merged data has two spawn rows for it, under 2 yd apart; one point on The Hinterlands' map replaces both."
 	},
 	"19019": {
 		"addSpawns": {
