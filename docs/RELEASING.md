@@ -563,7 +563,7 @@ GitHub's rulesets for the repository, under Settings, Rules:
 
 | Branch | Rules |
 |---|---|
-| `next` | changes by pull request only, with `Tests` and `Base branch` passing; no force push, no deletion |
+| `next` | changes by pull request only, with `Tests`, `Format, lints, tests` and `Base branch` passing; no force push, no deletion |
 | `release/**`, `hotfix/**`, `feature/**` | changes by pull request only, with green CI; only admins create them |
 | `main` | only maintainers update it; no force push, no deletion |
 
