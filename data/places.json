@@ -2522,6 +2522,30 @@
 				}
 			],
 			"issue": 2615
+		},
+		{
+			"id": "2650-hillsbrad-citizen-wilkes",
+			"quest": 567,
+			"objective": 2,
+			"faction": "Horde",
+			"at": {
+				"map": 1424,
+				"x": 30.6,
+				"y": 40.5,
+				"frame": "era"
+			},
+			"note": "Dangerous! (567): Citizen Wilkes walks the west side of Hillsbrad Fields' town, where players kill him (forever-db/corrections/npcs.json 2449); the goal's point was his Classic spawn at 32.62,39.79, where nobody met him.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-16): 72 people killed Citizen Wilkes, all between 29-31,38-43"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#2650 (Sable, 0.4.0): found him at 30.65,40.49"
+				}
+			],
+			"issue": 2650
 		}
 	]
 }

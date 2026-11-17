@@ -15591,3 +15591,12 @@ test('#2615: Thousand Needles (Horde): Test of Faith\'s leap points at the end o
 	assert.ok(Math.abs(goal.x - 26.43) < 0.2 && Math.abs(goal.y - 32.93) < 0.2, `the planks, not Dorn: ${goal.x},${goal.y}`);
 	assert.match(step.note || '', /end of the wooden planks/, 'the tip says where to step off');
 });
+
+// #2650 (Sable, 0.4.0, Horde Hillsbrad): Citizen Wilkes was not at the guide's spot, his Classic spawn at
+// 32.62,39.79; players kill him on the west side of Hillsbrad Fields' town (recordings: 72 people, 29-31,38-43).
+test('#2650: Hillsbrad (Horde): Citizen Wilkes is looked for on the west side of the town', { skip }, () => {
+	const list = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	const { goal } = list[at(list, 'kill 2449', (g) => g.t === 'kill' && g.npc === 2449)];
+	assert.equal(goal.map, 1424);
+	assert.ok(goal.x >= 29 && goal.x <= 31.5 && goal.y >= 38 && goal.y <= 43, `where players meet him: ${goal.x},${goal.y}`);
+});

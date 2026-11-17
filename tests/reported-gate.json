@@ -1381,6 +1381,9 @@
 		] },
 		"2615": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "#2615: Thousand Needles (Horde): Test of Faith's leap points at the end of the planks" }
+		] },
+		"2650": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2650: Hillsbrad (Horde): Citizen Wilkes is looked for on the west side of the town" }
 		] }
 	},
 	"seedDrift": {
