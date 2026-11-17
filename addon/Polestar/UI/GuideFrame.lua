@@ -500,6 +500,7 @@ GF.Part(function(GF)
 		if goal.optional and goal.status ~= "done" then
 			lines[#lines + 1] = goal.dismissed and L["Skipped. Undo brings it back."] or L["Optional: not needed for the route. Skip it if you pass on it."]
 		end
+		if #lines == 0 then return end
 		W.Tooltip(row, tooltipAnchor(), goal.text or "", lines)
 	end
 

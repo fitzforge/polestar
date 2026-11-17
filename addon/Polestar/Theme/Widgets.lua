@@ -357,7 +357,7 @@ end
 function W.Tooltip(owner, anchor, title, lines)
 	if not GameTooltip then return end
 	GameTooltip:SetOwner(owner, anchor or "ANCHOR_RIGHT")
-	GameTooltip:SetText(title or "", 1, 1, 1)
+	GameTooltip:SetText(title or "", 1, 1, 1, 1, true)
 	if lines then
 		for i = 1, #lines do
 			local l = lines[i]
