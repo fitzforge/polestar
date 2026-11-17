@@ -974,7 +974,7 @@ fn a_circuit_of_waypoints_in_one_step_costs_one_pass_over_the_step_and_a_later_a
 	assert_eq!(out["open"], n + 1, "every waypoint and the level are open at the start");
 	assert_eq!(json!({ "early": out["early"], "at": out["at"], "late": out["late"], "step": out["step"] }), json!({ "early": "done", "at": "done", "late": "active", "step": 2 }));
 	let seconds = out["seconds"].as_f64().unwrap();
-	assert!(seconds < 0.5, "took {seconds:.2} s of CPU");
+	forge_addontest::assert_timing!(seconds < 0.5, "took {seconds:.2} s of CPU");
 }
 
 #[test]
@@ -2705,6 +2705,39 @@ fn the_quality_of_life_refreshes_of_one_frame_share_a_step_view() {
 		..Default::default()
 	});
 	assert_eq!(out, json!({ "shared": true, "timer": true, "order": "abac", "fresh": true }), "{out}");
+}
+
+// The guide window reads the step views of a moment shared (Engine.GetStepView(i, true)), as the other readers do: a
+// step change built the shown step's view for the window, again for "Then:" and the "Up next" rows, beside the ones
+// the arrow and the buttons build (#2537). Its views read as fresh ones.
+#[test]
+fn the_guide_window_reads_the_moments_shared_step_views() {
+	let out = run1(Run {
+		full: true,
+		script: r#"
+			local w, GF = stub.world, Polestar.UI.GuideFrame
+			PolestarGuideFrame:Show(); flush()
+			local reads, unshared = 0, 0
+			local view = E.GetStepView
+			E.GetStepView = function(i, shared)
+				local src = debug.getinfo(2, "S").source or ""
+				if src:find("UI/GuideFrame", 1, true) then
+					reads = reads + 1
+					if not shared then unshared = unshared + 1 end
+				end
+				return view(i, shared)
+			end
+			w.accept(783, {}); flush()
+			w.turnIn(783); flush()
+			GF.Render()
+			local shown = GF.View and GF.View()
+			local fresh = view(E.GetStepIndex())
+			emit({ read = reads > 0, unshared = unshared, same = shown ~= nil and fresh ~= nil and shown.title == fresh.title
+				and #shown.goals == #fresh.goals })
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out, json!({ "read": true, "unshared": 0, "same": true }), "{out}");
 }
 
 // The guide window's progress count without the frame's spike (Engine.ProgressSoon): after a change the count runs

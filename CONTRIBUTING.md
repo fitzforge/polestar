@@ -235,7 +235,8 @@ shipped guides with his maps after merging
 ## Checks
 
 Run only the checks for what you changed. CI runs the full suite on every
-pull request and tells you if anything else broke.
+pull request that changes more than documentation and tells you if anything
+else broke ([docs/CI.md](docs/CI.md#lanes), "Lanes").
 
 | What you changed | What you run |
 |---|---|
@@ -266,7 +267,8 @@ maintainer regenerates those after merging your PR.
   tools fit together; [docs/README.md](docs/README.md) maps every document.
 - Behaviour changes come with tests that show the behaviour. Run the tests
   for what you changed (see [Checks](#checks) above); CI runs the full suite
-  on every PR and tells you if anything else broke.
+  on every PR that changes code, data or guides and tells you if anything
+  else broke.
 - For UI changes, `node tools/polestar.js preview` renders the guide window,
   menu and options to `docs/preview/*.svg`. Run it to review your change
   visually; CI runs it on every PR to verify the renderer still works.
@@ -293,6 +295,7 @@ maintainer regenerates those after merging your PR.
 | `next` | Everything for coming releases (the repository's default branch). **Every pull request goes here.** |
 | `release/<version>` | A feature release being tested, cut from `next` when it freezes (for example `release/0.4.1`). Only fixes for that release go in. |
 | `hotfix/<version>` | An urgent fix to what players have, cut from the latest release's tag (for example `hotfix/0.4.0.2` from `v0.4.0.1`). |
+| `feature/<name>` | A large feature not ready for `next` yet, built up by the maintainers over several pull requests (now `feature/dungeons-in-route`). It goes to `next` as a whole when it's ready. |
 
 Pull requests go to **`next`**: guide fixes, the addon, the tools, the data
 builds, translations, new guides, new features and route refreshes. Never to

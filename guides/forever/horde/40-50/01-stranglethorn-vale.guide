@@ -355,7 +355,7 @@ step The Vile Reef
   when onquest 95770
   when !complete 95770
   tip Locating the Lost City: west of Grom'gol, swim out over the Vile Reef and dive to the cavern entrance in the reef; the quest completes as you find it. Leave the cavern for now: the jungle stalkers are south along the coast.
-  goto 21.8,27.6 map 1434 "the Drowned City's entrance, underwater"
+  complete 95770 @21.8,27.6 map 1434   -- the Drowned City's entrance, underwater
 
 # ---------------------------------------------------------------- South to Booty Bay
 

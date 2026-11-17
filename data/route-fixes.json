@@ -6754,13 +6754,13 @@
 			{
 				"a": [
 					"task",
-					876
+					875
 				],
 				"b": [
 					"task",
 					95494
 				],
-				"why": "c13 review, #274 restated as same-visit work: Vrang's hides on the Dry Hills visit with the harpies. In c15 (the c14 plan): it named Harpy Lieutenants (875), and its repair moved 875's work to the ~19.7 hides visit, which takes Serena Bloodfeather (876) before 875's hand-in, so the chain guard refused it (Orc RECORD CONFLICT); it now names Serena (876, the next harpy quest, worked at 19.9 by the hides), which the chain allows. Replaces the overrides pairs 'turnin 95494/95507 before turnin 875', which c13 met by carrying Harpy Lieutenants from 16.0 to 21.6 past Darsok, and so lost Serena Bloodfeather (876) and Letter to Jin'Zil (1060)"
+				"why": "#1959: Vrang's hides and traps on the first Dry Hills loop, with Harpy Lieutenants (875), at about 17 (Savannah Patriarchs 15): his camp and the lions lie on the way east from the harpies to Echeyakee, and a second trip back only for him was the report. The second visit keeps Serena Bloodfeather (876, offered once 875 is handed in) and Walton's chain, whose Unwelcome Guests brings Terry Longdrink (19) up the ridge. Restores #274's same-visit intent (c13 review), which c15 had moved to Serena's visit."
 			},
 			{
 				"a": [

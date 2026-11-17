@@ -188,22 +188,28 @@ return {
 	-- Step 52: Gadgetzan
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "{npc:7876}, ao lado do mestre de voo",
+
+	-- Step 53: The Egg-O-Matic
+	-- {object:142071} Egg-O-Matic
+	["The {object:142071}"] = "",
 	-- {object:142071} Egg-O-Matic
 	["The {object:142071}, in the middle of town"] = "O {object:142071}, no meio da cidade",
+
+	-- Step 54: Marin Noggenfogger
 	-- {zone:1449} Un'Goro Crater
 	["Pestlezugg's samples come from {zone:1449}."] = "As amostras de Almofarrista vêm de {zone:1449}.",
 
-	-- Step 53: Marvon Rivetseeker
+	-- Step 55: Marvon Rivetseeker
 	-- {area:1938} Broken Pillar · {npc:7771} Marvon Rivetseeker · {zone:1449} Un'Goro Crater
 	["Ride south along the road to the {area:1938}; {npc:7771} camps beside it. From here the road west leads down into {zone:1449}, where the next guide starts."] = "Siga a estrada para o sul até {area:1938}; {npc:7771} acampa ao lado. Daqui a estrada para o oeste desce até {zone:1449}, onde começa o próximo guia.",
 	-- {quest:3444} The Stone Circle · {npc:7771} Marvon Rivetseeker
 	["Keep {quest:3444}: {npc:7771}'s chest is opened on a later visit."] = "Guarde {quest:3444}: o baú de {npc:7771} é aberto numa visita futura.",
 
-	-- Step 54: The Dunemaul Compound
+	-- Step 56: The Dunemaul Compound
 	-- {area:1938} Broken Pillar · {npc:12046} Gor'marok the Ravager · {npc:11758} Andi Lynn · {zone:1446} Tanaris
 	["South of the {area:1938} the Dunemaul ogres hold their compound, with {npc:12046} at its eastern end: {npc:11758}'s quest, carried from your first {zone:1446} visit."] = "Ao sul de {area:1938}, os ogros Malhaduna ocupam seu complexo, com {npc:12046} na ponta leste: é a missão de {npc:11758}, trazida da sua primeira visita a {zone:1446}.",
 
-	-- Step 55: Thistleshrub Valley
+	-- Step 57: Thistleshrub Valley
 	-- {quest:3362} Thistleshrub Valley · {npc:7876} Tran'rek · {zone:1446} Tanaris · {area:976} Gadgetzan · {npc:11758} Andi Lynn
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
 	["West from the compound, on the way to Un'Goro's ramp: {quest:3362}'s Gnarled Thistleshrubs and Rootshapers (48-50) are {npc:7876}'s, carried from your first {zone:1446} visit. They wander a lot: pull them one at a time. {npc:7876} takes them on the next guide's {area:976} stop, with {npc:11758}'s."] = "A oeste do complexo, a caminho da rampa de Un'Goro: os Moitagulhas Rotos e os Moldarraízes (48-50) do {quest:3362} são de {npc:7876}, trazidos da sua primeira visita a {zone:1446}. Eles andam muito: puxe um de cada vez. {npc:7876} recebe na parada em {area:976} do próximo guia, junto com a de {npc:11758}.",

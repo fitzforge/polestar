@@ -135,38 +135,29 @@ return {
 	-- {npc:1241} Tognus Flintfire · {skill:129} First Aid · {npc:2326} Thamner Pol · {area:131} Kharanos · {area:189} Steelgrill's Depot
 	["Sit by Eric's campfire (type /sit) and wait for the buff. With a profession learned, Eric also offers its Camping 101, which its trainer takes: blacksmithing with {npc:1241} and {skill:129} with {npc:2326} in {area:131}, mining and engineering at {area:189}."] = "坐在艾瑞克的营火旁（输入 /sit），等待获得增益效果。学会专业技能后，艾瑞克还会提供该专业的“露营 101”任务，交给对应的训练师：锻造交给{npc:1241}，{skill:129}交给{area:131}的{npc:2326}，采矿和工程学则在{area:189}交付。",
 
-	-- Step 21: Camping 101: Blacksmithing
-	-- {npc:1241} Tognus Flintfire · {skill:164} Blacksmithing
-	["{npc:1241} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1241}会在你的{skill:164}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
-	-- {npc:265813} Eric Brighthammer · {npc:1241} Tognus Flintfire
-	["{npc:265813}: for {npc:1241}, in the cellar west of the distillery"] = "{npc:265813}：交给酿酒厂西边地窖里的{npc:1241}",
-
-	-- Step 22: Camping 101: First Aid
+	-- Step 21: Camping 101: First Aid
 	-- {npc:2326} Thamner Pol · {skill:129} First Aid
 	["{npc:2326} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:2326}会在你的{skill:129}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:265813} Eric Brighthammer · {npc:2326} Thamner Pol · {area:2102} Thunderbrew Distillery
 	["{npc:265813}: for {npc:2326} in the {area:2102}"] = "{npc:265813}：交给{area:2102}的{npc:2326}",
 
-	-- Step 23: Camping 101: Mining
+	-- Step 22: Camping 101: Mining
 	-- {npc:5392} Yarr Hammerstone · {skill:186} Mining
 	["{npc:5392} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:5392}会在你的{skill:186}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:265813} Eric Brighthammer · {npc:5392} Yarr Hammerstone · {area:189} Steelgrill's Depot
 	["{npc:265813}: for {npc:5392} at {area:189}"] = "{npc:265813}：交给{area:189}的{npc:5392}",
 
-	-- Step 24: Camping 101: Engineering
+	-- Step 23: Camping 101: Engineering
 	-- {npc:1702} Bronk Guzzlegear · {skill:202} Engineering
 	["{npc:1702} takes it once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1702}会在你的{skill:202}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:265813} Eric Brighthammer · {npc:1702} Bronk Guzzlegear · {area:189} Steelgrill's Depot
 	["{npc:265813}: for {npc:1702} at {area:189}"] = "{npc:265813}：交给{area:189}的{npc:1702}",
 
-	-- Step 25: Tognus Flintfire
-	["talk to the trainer"] = "与训练师交谈",
-	-- {npc:1241} Tognus Flintfire
-	["{npc:1241}, below ground"] = "{npc:1241}：在地下",
-
-	-- Step 26: Kharanos
+	-- Step 24: Kharanos
 	-- {npc:1872} Tharek Blackstone · {npc:6806} Tannok Frosthammer · {npc:1226} Maxan Anvol · {npc:1267} Ragnar Thunderbrew · {npc:1699} Gremlock Pilsnor · {skill:185} Cooking
 	["{npc:1872} works the forge west of the distillery.\nThen go in: {npc:6806}, the innkeeper, {npc:1226} and {npc:1267}. {npc:1699}'s {skill:185} lesson waits for the return with the ribs, when the copper is there for it."] = "{npc:1872} 在酿酒厂西边的熔炉旁工作。\n然后进去找 {npc:6806}、旅店老板、{npc:1226} 和 {npc:1267}。等带着肋排回来、有足够铜币时，再向 {npc:1699} 学习 {skill:185}。",
+	-- {npc:1241} Tognus Flintfire
+	["{npc:1241}, below ground"] = "{npc:1241}：在地下",
 	-- {npc:6806} Tannok Frosthammer
 	["{npc:6806}, inside"] = "{npc:6806}：在屋内",
 	-- {npc:1226} Maxan Anvol
@@ -174,6 +165,15 @@ return {
 	-- {npc:1226} Maxan Anvol · {npc:12427} Mountaineer Dolf · {area:131} Kharanos
 	["{npc:1226}: heal {npc:12427} south of {area:131}"] = "{npc:1226}：治疗{area:131}南边的{npc:12427}",
 	["Last: some classes' trainers stand outside"] = "最后处理屋外的职业训练师：部分职业的训练师站在外面",
+
+	-- Step 25: Camping 101: Blacksmithing
+	-- {npc:1241} Tognus Flintfire · {skill:164} Blacksmithing
+	["{npc:1241} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1241}会在你的{skill:164}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
+	-- {npc:265813} Eric Brighthammer · {npc:1241} Tognus Flintfire
+	["{npc:265813}: for {npc:1241}, in the cellar west of the distillery"] = "{npc:265813}：交给酿酒厂西边地窖里的{npc:1241}",
+
+	-- Step 26: Tognus Flintfire
+	["talk to the trainer"] = "与训练师交谈",
 
 	-- Step 27: Thamner Pol
 	-- {npc:2326} Thamner Pol

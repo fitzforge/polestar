@@ -297,14 +297,14 @@ return {
 	-- {npc:5641} Takata Steelblade
 	["{npc:5641}'s next errand sends you after a demon lord with an elite guard: skip it."] = "La mission suivante de {npc:5641} vous envoie contre un seigneur démon escorté d'élites : passez-la.",
 	-- {npc:5395} Felgur Twocuts · {zone:1443} Desolace · {area:607} Valley of Spears
-	["{npc:5395} now offers Centaur Bounty: the second {zone:1443} visit, at 38, takes it on its way to the {area:607}."] = "{npc:5395} propose maintenant Centaur Bounty : la seconde visite de {zone:1443}, au niveau 38, la prend en route vers la {area:607}.",
+	["{npc:5395} now offers Centaur Bounty: the second {zone:1443} visit, at 38, takes it on its way to the {area:607}."] = "{npc:5395} propose maintenant « La prime aux centaures » : acceptez-la lors du deuxième passage à {zone:1443}, au niveau 38, en route vers {area:607}.",
 
 	-- Step 55: Shadowprey Village
 	["West to Shadowprey: your hearthstone is bound there."] = "Vers l'ouest jusqu'à Proie-de-l'Ombre : votre pierre de foyer y est liée.",
 	-- {npc:268705} Aka'rai
 	["{npc:268705}, on the path just north of the village"] = "{npc:268705}, sur le sentier juste au nord du village",
 	-- {item:14547} Hand of Iruxos · {zone:1443} Desolace · {zone:1454} Orgrimmar · {zone:1434} Stranglethorn Vale
-	["Taiga's {item:14547}, Drulzegar's Other Fish to Fry and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "La {item:14547} de Taiga, Other Fish to Fry de Drulzegar et les autres quêtes 37-40 de {zone:1443} attendent la seconde visite, au niveau 38 : les guides suivants prennent un vol pour {zone:1454} puis le zeppelin pour {zone:1434}.",
+	["Taiga's {item:14547}, Drulzegar's Other Fish to Fry and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "La {item:14547} de Taiga, D'autres poissons à frire de Drulzegar et les autres quêtes 37-40 de {zone:1443} attendent la seconde visite, au niveau 38 : les guides suivants prennent un vol pour {zone:1454} puis le zeppelin pour {zone:1434}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south to {npc:11863}'s tower."] = "Retournez au sud jusqu'à la tour de {npc:11863}.",

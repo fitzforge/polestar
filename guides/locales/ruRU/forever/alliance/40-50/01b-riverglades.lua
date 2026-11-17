@@ -205,8 +205,9 @@ return {
 	["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "Культисты заполонили улицы и поля ({area:16723}). Начните с ритуальных кругов в центре (там наполните катализатор Клэр), пройдите на запад через сгоревшие дома до края городка, затем вернитесь на северо-восток к рыхлой земле к западу от фермы Элбрима: закопайте там {item:266148}, которые выпадают из Сумеречных грабителей. Амулеты, страницы и кости пальцев выпадают из культистов.\nСохраняйте {item:4338} с культистов: {npc:263613} ({area:16724}) попросит двадцать штук, когда вернетесь. Иногда из культиста выпадает {quest:94885}: нажмите на него правой кнопкой мыши, чтобы начать задание.\nОсторожно: {npc:256899}, элитный огр (41-й уровень), бродит по западным улицам ({area:16723}), около 44-47,47-52. Выманивайте культистов к себе и пропускайте его; здесь игроки гибли чаще, чем где-либо еще в зоне.\n{npc:263380}, речная элита (42-й уровень), может забрести с юго-западных полей: пропустите его.",
 	-- {item:269990} Crystal Catalyst
 	["fill the {item:269990} at the ritual circles"] = "наполните {item:269990} у ритуальных кругов",
-	-- {object:621813} Loose Soil (no name in this language: may be words)
-	["{object:621813}: bury the mementos"] = "{object:621813}: закопайте памятные вещи",
+	-- {object:621813} Loose Soil (no name in this language: may be words) · {item:266148} Farmers' Mementos
+	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
+	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "",
 	-- {quest:94885} Field Marshal's Log
 	["{quest:94885}: only if a cultist dropped the log"] = "{quest:94885}: только если из культиста выпал журнал",
 
@@ -551,4 +552,5 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["{item:17028}, from {npc:272437}"] = "{item:17028} – у NPC {npc:272437}",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031} присматривает за старым собором в юго-западном углу локации {area:16724}. Летучие мыши гнездятся на его верхнем этаже; {npc:272437} раздает святые свечи рядом с ним; могилы – на кладбище у часовни.\n{npc:271742}, элита 53-го уровня, стоит в соборе: он вас не тронет, поэтому никогда не атакуйте его и уводите летучих мышей подальше от него.",
+	-- ["{object:621813}: bury the mementos"] = "{object:621813}: закопайте памятные вещи",
 }

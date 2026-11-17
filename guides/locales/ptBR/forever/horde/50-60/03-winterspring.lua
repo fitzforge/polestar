@@ -103,17 +103,17 @@ return {
 	-- {npc:9087} Bashana Runetotem · {item:11040} Morrowgrain · {quest:3761} Un'Goro Soil · {quest:3782} Morrowgrain Research · {item:11020} Evergreen Pouch
 	["{npc:9087} buys {item:11040} grown from your {quest:3761}. {quest:3782} wants ten, and the {item:11020} gives one try every ten minutes: take it only if you already have the grain."] = "{npc:9087} compra o {item:11040} cultivado a partir do seu {quest:3761}. {quest:3782} pede dez, e o {item:11020} dá uma tentativa a cada dez minutos: pegue só se você já tiver o grão.",
 
-	-- Step 21: Fly to Orgrimmar
+	-- Step 22: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Voe para {area:1637}",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "Mestre de voo de {zone:1456}",
 
-	-- Step 22: Vehena
+	-- Step 23: Vehena
 	-- {object:172961} Valley of Spirits (no name in this language: may be words)
 	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "Em {object:172961}. Cada doação leva sessenta unidades de Lã, Seda ou Magitrama da sua bolsa: entregue o que tiver, ignore o resto.",
 
-	-- Step 23: Rashona Straglash
+	-- Step 24: Rashona Straglash
 	-- {object:172958} Valley of Honor (no name in this language: may be words)
 	["In the {object:172958}."] = "Em {object:172958}.",
 	-- {item:14047} Runecloth

@@ -48,7 +48,7 @@ return {
 	-- {npc:4949} Thrall · {object:172957} Valley of Wisdom
 	["{npc:4949} waits in Grommash Hold, in the {object:172957}."] = "{npc:4949} attend dans le fort Grommash, dans la {object:172957}.",
 	-- {npc:4949} Thrall
-	["{npc:4949}, Grommash Hold, if you carry it"] = "{npc:4949}, Grommash Hold, si vous l'avez",
+	["{npc:4949}, Grommash Hold, if you carry it"] = "{npc:4949}, fort Grommash, si vous l'avez",
 
 	-- Step 10: Train
 	["Train"] = "Entraînement",
@@ -153,8 +153,11 @@ return {
 	-- Step 31: The smithy
 	["The smithy"] = "La forge",
 	-- {area:287} Hillsbrad · {npc:2404} Blacksmith Verringtan · {object:1736} Shipment of Iron · {npc:2449} Citizen Wilkes · {npc:2451} Farmer Kalaba
-	["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks by the smithy; {npc:2451} works the field south-east of the town."] = "À l'ouest à travers les contreforts jusqu'au village d'{area:287} : la forge se trouve en son centre. {npc:2404} et ses apprentis travaillent à la forge ; le {object:1736} est empilé à côté. Le {npc:2449} se promène près de la forge ; {npc:2451} travaille le champ au sud-est du village.",
+	-- was: ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks by the smithy; {npc:2451} works the field south-east of the town."] = "À l'ouest à travers les contreforts jusqu'au village d'{area:287} : la forge se trouve en son centre. {npc:2404} et ses apprentis travaillent à la forge ; le {object:1736} est empilé à côté. Le {npc:2449} se promène près de la forge ; {npc:2451} travaille le champ au sud-est du village."
+	["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the west side of the town; {npc:2451} works the field south-east of the town."] = "",
 	["Inside"] = "À l'intérieur",
+	-- {npc:2449} Citizen Wilkes
+	["{npc:2449}, on the west side of the town"] = "",
 
 	-- Step 32: Tarren Mill
 	-- {npc:2055} Master Apothecary Faranell · {zone:1458} Undercity
@@ -200,7 +203,7 @@ return {
 	["Level 30"] = "Niveau 30",
 	-- {npc:2410} Magus Wordeen Voidglare · {area:272} Tarren Mill · {zone:1454} Orgrimmar · {area:288} Azurelode Mine · {zone:1437} Wetlands
 	-- plural, as words: Torn Fin Muckdwellers = {npc:2374} Torn Fin Muckdweller
-	["{npc:2410}'s quests on the next {area:272} stop and Alliance Relations in {zone:1454}, the next guide's first stop, are offered from level 30. Short of 30? The Torn Fin Muckdwellers and Coastrunners (28-30) crowd the coast south of the {area:288}, a short walk: kill them until level 30. Their Oracles (30-31) cast from the shore further east. Or, with a group, run the Excavation Site dungeon (in the {zone:1437}) instead."] = "Les quêtes de {npc:2410} lors de la prochaine étape à {area:272} et Alliance Relations à {zone:1454}, première étape du guide suivant, sont proposées à partir du niveau 30. Pas encore 30 ? Les Marche-boue et Cours-la-côte Aileron déchiré (28-30) peuplent la côte au sud de la {area:288}, à quelques pas : tuez-les jusqu'au niveau 30. Leurs Oracles (30-31) lancent des sorts depuis le rivage plus à l'est. Ou, en groupe, faites plutôt le donjon Excavation Site (dans les {zone:1437}).",
+	["{npc:2410}'s quests on the next {area:272} stop and Alliance Relations in {zone:1454}, the next guide's first stop, are offered from level 30. Short of 30? The Torn Fin Muckdwellers and Coastrunners (28-30) crowd the coast south of the {area:288}, a short walk: kill them until level 30. Their Oracles (30-31) cast from the shore further east. Or, with a group, run the Excavation Site dungeon (in the {zone:1437}) instead."] = "Les quêtes de {npc:2410} lors de la prochaine étape à {area:272} et Les relations de l'Alliance à {zone:1454}, première étape du guide suivant, sont proposées à partir du niveau 30. Pas encore 30 ? Les Marche-boue et Cours-la-côte Aileron déchiré (28-30) peuplent la côte au sud de la {area:288}, à quelques pas : tuez-les jusqu'au niveau 30. Leurs Oracles (30-31) lancent des sorts depuis le rivage plus à l'est. Ou, en groupe, faites plutôt le donjon Excavation Site (dans les {zone:1437}).",
 	["Torn Fin murlocs"] = "Murlocs Aileron déchiré",
 	-- {npc:2375} Torn Fin Coastrunner
 	["grind on {npc:2375}"] = "tuez en boucle : {npc:2375}",
@@ -331,6 +334,7 @@ return {
 	-- ["The {area:279} crater's eastern rim"] = "Le bord est du cratère de {area:279}",
 	-- ["Torn Fin beach"] = "Plage des Aileron déchiré",
 	-- ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it."] = "À l'ouest à travers les contreforts jusqu'au village d'{area:287} : la forge se trouve en son centre. {npc:2404} et ses apprentis travaillent à la forge ; la {object:1736} est empilée à côté.",
+	-- ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks by the smithy; {npc:2451} works the field south-east of the town."] = "À l'ouest à travers les contreforts jusqu'au village d'{area:287} : la forge se trouve en son centre. {npc:2404} et ses apprentis travaillent à la forge ; le {object:1736} est empilé à côté. Le {npc:2449} se promène près de la forge ; {npc:2451} travaille le champ au sud-est du village.",
 	-- ["With a {item:3388} in your bags, {npc:2055} offers {quest:513} in the Apothecarium; {npc:2216} takes the elixir in {area:272}."] = "Avec un {item:3388} dans vos sacs, {npc:2055} propose {quest:513} dans l'Apothicarium ; {npc:2216} prend l'élixir à {area:272}.",
 	-- ["grind on {npc:2248}"] = "tuez en boucle : {npc:2248}",
 	-- ["grind on {npc:2562}"] = "tuez en boucle : {npc:2562}",

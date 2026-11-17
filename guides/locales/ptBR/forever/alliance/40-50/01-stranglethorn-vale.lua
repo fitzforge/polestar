@@ -273,6 +273,8 @@ return {
 	-- {area:310} Crystalvein Mine
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do.\nFollow the road north-east to the Venture Co. camp at the {area:310}; the miners, surveyors and foremen drop the crystals.\nCareful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp."] = "Os trolls Rachacrânio ocupam as ruínas logo a leste da mina; qualquer um pode deixar cair presas, e as panteras deles sempre deixam.\nSiga a estrada para nordeste até o acampamento da Empreendimentos S.A. em {area:310}; os mineradores, topógrafos e encarregados deixam cair os cristais.\nCuidado: Panteras Umbragorja furtivas e Tigresas-do-espinhaço andam em volta do acampamento.",
+	-- {item:1524} Skullsplitter Tusk
+	["{item:1524}, from the trolls of the ruins"] = "",
 
 	-- Step 49: Raptor Mastery
 	-- {npc:730} Tethis

@@ -134,7 +134,7 @@ Step directives:
 | `skipto <label> when <predicate>` | When the route reaches the step and the predicate holds, it skips this step and the ones after it up to the labelled step; several lines may follow one another, and the first that holds decides. See "Jumps". |
 | `tip <text>` | Player-facing step note (compiled to `step.note`). |
 | `image <path> [<w>x<h>]` | A picture shown in the guide window under the step's tip, while the tip is open, scaled to the window's width (at most 160 high): a screenshot of a spot that is hard to find, such as a cave mouth. `<path>` is the file's place in the pack folder, `/` between folders (`media/fargodeep-mine.tga`), a `.tga` or `.blp` file; without the extension the `.tga`, else the `.blp`. The file ships in the pack's addon folder at that path. `<w>x<h>` is the size it is drawn at (only the ratio counts: `512x256` is twice as wide as high); without it the compiler reads the file's own. One per step; a step with no `tip` reads "Picture of this spot" above it. See "Pictures" in the Cookbook. |
-| `loop` | The step's `goto` points, in order, are the places to search for its kill, collect and interact goals instead of a path to walk: see "Spawn areas", Loop. |
+| `loop` | The step's `goto` points, in order, are the places to search for its kill, collect, interact and skill goals (or, with none of those, for the NPC of its accept, turnin and talk goals) instead of a path to walk: see "Spawn areas", Loop. |
 
 A step must contain at least one goal.
 
@@ -157,6 +157,8 @@ A step must contain at least one goal.
 | `interact` | `<objectId>` | Click a game object. |
 | `use` | `<itemId> ["Item name"]` | |
 | `destroy` | `<itemId> ["Item name"]` | Delete an item from the bags (a start-zone Hearthstone to free a slot, a quest item that is no use any more). Done once the bags hold none of it, and it stays done for the rest of its step; a character that never held it has it done at once. The guide window reads "Destroy Hearthstone". Pack format 5. |
+| `deposit` | `<itemId> ["Item name"]` | Put an item in the bank (something a later guide needs, to free the bags until then). Done once the bags hold none of it, and it stays done for the rest of its step; a character that never held it has it done at once. With `xN` it counts the bank instead: done once the bank holds N of the item. The guide window reads "Put in the bank Linen Cloth". Give it `@x,y` at a banker for the arrow. Polestar only counts: the player moves the items. Pack format 11. |
+| `equip` | `<itemId> ["Item name"]` | Wear an item (a fishing pole before the pond, a quest's disguise). Done while the item is worn, and kept once its step had it. With `off` it is done while the item is not worn. Polestar only looks: the player puts it on. On a client that cannot say what is worn the player ticks it. Pack format 11. |
 | `sethome` | `"Location"` or `nearest` | Inn location as the game names it (the bind location it reports), e.g. `"Goldshire"`. Without `npc` the compiler names the inn's innkeeper, so the arrow leads to them ("What the compiler fills in"); `npc <id>` picks one yourself. `sethome nearest` binds at the nearest own-faction inn when the step comes up. Lint warns about a location no inn has (`polestar find --kind inn`). Completes on every client language: binding at the inn's innkeeper, or a bind location the client names as the inn's area (see "Places by ID"). A player with "Set your home at the guide's inn" on (Quality of Life, Travel; off by default) has Polestar bind and confirm when they talk to that innkeeper (for `nearest`, any innkeeper the compiler listed for it), never at another inn. |
 | `hearth` | `"Location"` | Done when the zone or subzone where you land has that name: an inn's location or the zone it is in, in the client's language when the compiler finds its area ("Places by ID"). Arriving any other way counts too (a flight that lands there), but not while a flight passes over it. The Hearthstone and quest item buttons are hidden during a flight. Lint warns about any other name. A step with nothing but `hearth` is not shown: hearthing is no step of its own, the guide moves on to the next step, and the arrow's route there takes the Hearthstone when it saves a long haul (the trip without it at least 3 minutes, at least 2 saved), wherever the Hearthstone is bound. Beside other goals, while the Hearthstone is on cooldown (or not in the bags), the goal says how long until it is ready and the arrow leads to that inn on foot, so a "Hearthstone on cooldown?" note is not needed. Where Polestar knows the trip there (walks, flights and boats as the arrow plans them), it says whether to set off now (the trip takes no longer than the wait) or wait for the Hearthstone, and with the Hearthstone ready but the trip under 8 minutes or saving under 5, it suggests travelling there and keeping the Hearthstone, the arrow leading the way. Bound at another inn (as `sethome` tells, from the inns Polestar knows), the goal says where it is bound first, and the arrow leads to the step's inn the same way. None of this holds the step: arriving checks the goal off either way. |
 | `die` | `"Graveyard"` | A deathskip: die on purpose, release and take the Spirit Healer's resurrection at that graveyard (the name is what the guide window shows). Needs `@x,y` at the graveyard's Spirit Healer, which lint checks against the healers' spawns; the arrow leads there. Done once the player is back alive within 40 yards of it, never as a ghost standing there. Only for players who turned on "Use deathskips" (Options, Automation, Guides; off by default, and always off on a Hardcore character): for everyone else the goal does not apply, its step passes and the next step's travel takes them there, so the guide must read right without it. A guide that uses it is written in pack format 5. |
@@ -175,8 +177,9 @@ A step must contain at least one goal.
 | `skill` | `<Profession> <N>` | Reach skill rank N (`Alchemy`, `Blacksmithing`, `Enchanting`, `Engineering`, `Herbalism`, `Leatherworking`, `Mining`, `Skinning`, `Tailoring`, `Cooking`, `Fishing`, `First Aid`, quoted when multi-word). |
 | `learn` | `<spellId> ["Name"]` | Learn a recipe or spell (trainer or recipe item); name from `professions.json`, else, for a spell a skill line teaches (a class spell, a talent; a profession's recipe still needs `professions.json`), from the client's spell tables of the data's build. A trainer-taught spell points at every trainer of its rank (a smart target; `npc <id>` fixes one); `learn <spellId> nearest` for a recipe sold by vendors sends the player to the closest own-faction vendor of the recipe item. |
 | `cast` | `<spellId> ["Name"]` | Cast a spell (a campfire, a class teleport, a racial): done when the player's own cast of that spell succeeds while the goal is open, in the step the guide is at or an along step listed under it; a cast before that does not count, and the tick is kept. Name from `professions.json` (a recipe), else give it: a spell in neither is an error. |
+| `buff` | `<spellId> ["Name"]` | Have an aura (a buff or a debuff) on the character: a blessing, an elixir's effect, a disguise a quest hands out. Done while the aura of that spell id is on the player, and kept once its step had it, so an aura that runs out before the step's other goals are done does not reopen it. With `off` the goal is the other way round: done while the aura is gone (wait out Resurrection Sickness, click a disguise off). The name is the client's for a spell its tables know, else give it: a spell in neither is an error. Coordinates only point the arrow. On a client that cannot read auras the player ticks it. Pack format 11. |
 | `craft` | `<spellId> ["Name"]` | Craft a recipe; `x<N>` crafts, or `until <N>` = until the recipe's profession reaches N. |
-| `rep` | `<Faction> <Standing>` | Reach a standing (`Neutral`, `Friendly`, `Honored`, `Revered`, `Exalted`) with a faction named in `factions.json`, or `rep <factionId> <Standing>`. |
+| `rep` | `<Faction> <Standing>[+<points>]` | Reach a standing (`Hated`, `Hostile`, `Unfriendly`, `Neutral`, `Friendly`, `Honored`, `Revered`, `Exalted`, or 1-8) with a faction named in `factions.json`, or `rep <factionId> <Standing>`. `+<points>` asks for that many points into the standing, as the reputation bar counts them (`rep "Timbermaw Hold" Neutral+1500`: 1500/3000 into Neutral, or any higher standing); the guide window counts toward them. Points need pack format 11. |
 | `explore` | `<x>,<y> ["Area"]` | Discover the map area at those coordinates (current zone). |
 | `achieve` | `<achievementId> ["Name"]` | Complete an achievement / Legacy Challenge; `criteria <n>` targets one criterion. |
 
@@ -219,12 +222,15 @@ Modifiers, in any order after the positional arguments:
 | `npc <id>` / `object <id>` / `item <id>` | Explicit entity (e.g. which quest giver). |
 | `quest <id>` / `quest <id>.<objective>` | Quest objective link (1-based objective, numbered in the order the game's quest log lists them; `polestar find <quest id>` prints them). |
 | `x<N>` | Count. |
+| `upto <N>` | On a `kill`, `collect`, `talk`, `interact` or `use` goal with `quest`: the goal is done at N of the objective's count, and the guide window counts toward N. For an objective worked in several places, a step each: see "Part of an objective". Pack format 11. |
 | `"text"` | Display text override (for `goto`: the label). A quoted token directly after the entity id of `kill`, `talk`, `interact`, `train` or `vendor` (like `collect`/`use`/`buy`) names that entity instead, for new Forever content missing from the data. |
 | `r <yards>` | Arrival radius (`goto`, default 8). |
 | `lvl <N>` | Minimum level shown on an `accept`. |
 | `grind <npcId>` | On `level`: the mob the level is reached on; the arrow leads to its nearest spawn area. |
 | `optional` | Never blocks the step. |
 | `gather [<Profession> <rank>] [levels <min>-<max>]` | `collect` only: this bag count is the item's gather way in a profession guide (see "Materials"). `gather Mining 1`: it takes that profession at that rank (Herbalism for a herb, Mining to smelt a bar, Skinning for leather, Enchanting for dust; quoted for two words: `gather "First Aid" 1`); `gather levels 15-30`: it drops from mobs of those levels as the player levels (cloth, meat). Either, both (the profession first) or neither. |
+| `either` | One of a set: the step's goals marked `either` are alternatives, and the step is done when any one of them is. See "One of several". Pack format 11. |
+| `off` | `buff` and `equip`: the goal is the other way round, done while the aura is gone or the item is not worn. |
 | `group [N]` | Needs a group, of `N` players (2–40) when given (`kill 1234 group 3`, `accept 7583 group 5`). The guide window says "Group of 3 advised" (or "Group advised") under the goal. Overrides what the compiler derives: see "Group content". |
 | `only <cond>[,<cond>...]` | Goal applies only to matching characters. |
 | `era` / `live` | Map frame of this goal's typed coordinates, overriding `coords`. |
@@ -286,6 +292,10 @@ step Back to Gornek
 | `cooldown item <item>`, `cooldown spell <spell>` | the item or spell is on cooldown, the global cooldown aside: `when !cooldown item 6948` while the Hearthstone is ready. Polestar looks again when the cooldown runs out |
 | `knows <spell>` | the character knows the spell: in the spellbook, or a profession recipe learned. `when !knows 100` is for the step that trains Charge, so a character who has it passes on |
 | `taxi "<Flight point>"` | the character knows that flight path, named as for `getfp` (the town, or the flight point's full name). `when taxi "Ironforge"` is for the flight a character with the Ironforge flight path takes, `when !taxi "Ironforge"` for the walk the others take. Polestar counts a flight path known once it has seen it on the flight map, on the world map's flight points or learnt ("New flight path discovered"); before that the character reads as not knowing it, so make the `!taxi` way one that works for everyone |
+| `rep <Faction> <Standing>[+<points>]` | the standing with the faction is that or higher, the faction and standing written as for the `rep` goal (`when rep "Argent Dawn" Honored`); with points, that many points into the standing or any higher one (`when !rep "Timbermaw Hold" Neutral+1500`). A faction the character has not met is below every standing |
+| `buff <spell>` | the character has the aura of that spell id, a buff or a debuff (`when !buff 1126` while the blessing is not on) |
+| `equipped <item>` | the character wears the item (`when !equipped 6256` for the step that says to take the Fishing Pole in hand). While the client cannot say, neither `equipped` nor `!equipped` holds |
+| `indoors` | the character is indoors, as the game says it: in a cave, a mine or a building (`when indoors` for the step that leads back out). While the client cannot say, neither holds |
 | `group <quest>` | the player chose to do that group quest; `!group` holds when they chose to skip it. Until they answer, the route waits at the step and asks (see "Group quests" below); not on a `next` line or a `skipto` |
 
 `!` in front of any predicate but `level` turns it around: `!onquest 788`
@@ -441,6 +451,30 @@ the outcome is stored once the route has passed the step: a sword step
 skipped because the character wore something better does not come back
 later. The item id is checked against the data, as for `has`.
 
+**Reputation and auras.** `when rep <Faction> <Standing>` is for a step
+that depends on a standing: a hand-in a faction takes only from Friendly, a
+grind that is over once a standing is reached. A `skipto` takes it too, to
+jump past a grind already done, and so does a `next` option. `when buff
+<spell>` is for a step that depends on an effect on the character: ask for
+the blessing only `when !buff` of it, sit a debuff out only `when buff` of
+it. Both are read live, and Polestar looks again when a standing or the
+character's auras change.
+
+```
+step Until Timbermaw Hold tolerates you
+  when !rep "Timbermaw Hold" Unfriendly
+  rep "Timbermaw Hold" Unfriendly
+
+step Wait out the sickness
+  when buff 15007
+  buff 15007 "Resurrection Sickness" off
+```
+
+The faction is checked against the data as for the `rep` goal: a name the
+data does not know is an error and needs the faction's id (`when rep 576
+Unfriendly`), because Polestar reads a standing by id. A spell id is not
+checked.
+
 **Professions and cooldowns.** `when skill <Profession> <N>` is for a step
 only some characters can do: one with Herbalism picks herbs on the way, one
 below a rank works on it. `when cooldown item <item>` or `cooldown spell
@@ -535,7 +569,10 @@ upgrade`, `when done`, `when skill`, `when cooldown`, `when group` or `when know
 predicate (above) writes format 5 (Polestar 0.3.0 and later), because 0.2.6 knows `when` but
 not those predicates; `money`, `task`, `enter`, `cast`, `abandon`, `destroy` and `die` goals also need format 5
 (docs/PACK_FORMAT.md). A `when taxi` predicate writes format 10 (Polestar
-0.4.0 and later).
+0.4.0 and later); a goal marked `either` or with `upto`, a `when rep`, `when
+buff`, `when equipped` or `when indoors` predicate, a `buff`, `deposit` or
+`equip` goal and a `rep` goal with points write format 11 (Polestar 0.4.1
+and later).
 
 ## Along the way
 
@@ -643,6 +680,72 @@ guides, a `background` record in `data/guide-fixes.json` writes all of this
 `background` changes nothing in the compiled guide: Polestar reads the step
 as the along step it is, so a pack with it is written in pack format 4, like
 `along`.
+
+## One of several
+
+`either` marks alternatives: the goals of a step that carry it are a set,
+and the step is done when any one of them is. The others then read done
+too, so the step never waits for a second one. Goals of the step without
+`either` hold it as usual.
+
+```
+step Volcor, in the furbolg cave
+  accept 994 either            -- Escape Through Force: fight the way out beside him,
+  accept 995 either            -- or Escape Through Stealth: he slips out alone
+
+step Terenthis, in Auberdine
+  turnin 994
+  turnin 995
+
+step Something to drink
+  buy 159 x5 either            -- water from the innkeeper,
+  collect 1179 x5 either       -- or the milk already in the bags
+```
+
+Use it where the game offers a choice (two quests of which a character gets
+one, any one of several items) or where two ways lead to the same end (the
+boat `either` the tunnel). A set needs two goals or more, and none of them
+`optional`: an optional goal never holds its step, so it cannot be one of
+the ways to finish it. A step has one set; a goal that is not for the
+character (`only`) is no way of theirs and finishes nothing.
+
+A quest taken as one of an `either` set is a choice, like an `optional`
+accept: its turn-in, objectives and `complete` goals later in the guide
+apply only while the quest is in the log or handed in, so the quests the
+player passed over never hold a step (Terenthis above asks for the one hand-in
+the player has). Polestar does not take the others for the player either:
+with "accept quests" on, the first quest of the set the player takes is the
+only one. Quests the data knows to close each other are what a set is for,
+and lint does not warn that one of them "is not offered once" the other is
+taken while both are of one set.
+
+A pack with `either` is written in pack format 11 (Polestar 0.4.1 and
+later): an older Polestar would wait for every goal of the set.
+## Part of an objective
+
+A quest objective is one line of the quest log, and a goal with `quest Q.O`
+is done when that line is. Some lines are worked in two places with other
+steps between them: four of the ten kobolds at the camp by the road, the
+rest at the mine after the hand-in next door. `upto <N>` ends a goal at N of
+the line's count, so each place gets a step and the route moves on between
+them:
+
+```
+step The camp by the road
+  kill 6 quest 7.1 upto 4 @47.6,35.1
+
+step The mine
+  kill 6 quest 7.1 @52.3,26.8
+```
+
+The first goal reads 0/4 and is done at four kills (or more: a player who
+killed seven there has it done too); the second counts the whole line,
+4/10 on arrival. `upto` goes on a goal that counts a quest objective
+(`quest Q.O`, or `quest Q` where the data finds the line); on any other goal
+it is an error. A part that is the whole of the line's count is the
+objective itself, and lint says so. A pack with `upto` is written in pack
+format 11 (Polestar 0.4.1 and later): an older Polestar would hold the step
+until the whole objective is done.
 
 ## Sections
 
@@ -970,13 +1073,13 @@ gets no `spots`, except an NPC who walks around:
   its own spot, the points following as alternatives.
 - **Loop** (a step with a `loop` line, for a search the data does not shape
   the way you want: a circuit through camps, round a lake): the step's `goto`
-  points, in order, become the spawn areas of each of its `kill`, `collect`
-  and `interact` goals that has no `@x,y` of its own and picks no place at
-  runtime (`nearest`), with `spread = true`. The goal's point is the first
-  goto, the spots are exactly the gotos (no alternatives, no spawn count `n`),
-  each as wide as its goto's `r` (default 30 yd), and the gotos leave the
-  step (their labels with them), so the player searches the points one after
-  another as in an area objective. Compile-time
+  points, in order, become the spawn areas of each of its `kill`, `collect`,
+  `interact` and `skill` goals that has no `@x,y` of its own and picks no
+  place at runtime (`nearest`), with `spread = true`. The goal's point is the
+  first goto, the spots are exactly the gotos (no alternatives, no spawn count
+  `n`), each as wide as its goto's `r` (default 30 yd), and the gotos leave
+  the step (their labels with them), so the player searches the points one
+  after another as in an area objective. Compile-time
   only: the compiled step has no `loop`. It is an error when the step has
   fewer than two gotos, gotos on different maps or frames, an `optional` or
   `only` goto, or no goal to place.
@@ -1034,6 +1137,38 @@ gets no `spots`, except an NPC who walks around:
   of 41.8,15.5, so that is the area, not 112 yd around Corporal Adamore's
   spawns. The recordings' coordinates are the game client's: its map frame
   (Forever, else Era) places them in the goal's frame.
+
+  A `skill` goal takes the points for a gathering round: the veins or herbs
+  that raise the skill are found by walking them, and nothing in the data
+  places a skill.
+
+  ```
+  step Copper, round the hills
+    loop
+    goto 47.6,35.1
+    goto 49.0,32.4
+    goto 52.3,26.8
+    skill Mining 50
+  ```
+
+  In a step with none of those goals, the loop is where to look for someone
+  who walks: its `accept`, `turnin` and `talk` goals take the points, and the
+  arrow leads from one to the next until the player meets the NPC. Use it for
+  a walker the data draws no circle for (Walkers, above), or whose round is
+  too long for one circle. Beside a kill, collect, interact or skill goal the
+  loop is that goal's, and an accept, turnin or talk keeps its own place.
+
+  ```
+  step Deputy Willem, somewhere on his rounds
+    loop
+    goto 48.2,42.0
+    goto 46.9,40.3
+    goto 45.5,42.6
+    accept 783
+  ```
+
+  Standing at a point for a few seconds with nothing found moves the arrow to
+  the next, for these goals as for a kill.
 
 See docs/ARCHITECTURE.md, Smart logic, "Spawn areas".
 
@@ -1264,6 +1399,10 @@ Errors:
   label, or a label on its own step or an earlier one; a `when done` naming no
   label of the guide, or `done` on a `next` line
 - a `skipto` line without a label, `when` and one predicate
+- a single `either` goal in a step (a set is two or more), or a goal that is
+  both `either` and `optional`
+- `upto` on a goal that counts no quest objective, or without a count of 1
+  or more
 - `background` on a step without `along until <label>`, or a quest objective
   in a `background` step with no finish step (a later step, not an along one,
   working the same objective) before the step that hands its quest in
@@ -1312,6 +1451,10 @@ Errors:
   accept is a warning
 
 Warnings:
+- a `when rep` naming by its id a faction the data lacks (by name it is an
+  error: the standing is read by id)
+- an `upto` that is the whole of its objective's count (the goal is done
+  with the objective, as without it)
 - a `when` predicate naming a quest or item the data lacks, a zone not in
   `zones.json`, a bind location no inn has, or a subzone that names no single
   area; a step whose `when level` leaves none of the guide's levels, or that
@@ -1612,10 +1755,27 @@ step Linen Bandage (1-40)
 
 ```
   rep Stormwind Friendly optional
+  rep "Timbermaw Hold" Neutral+1500   -- 1500 points into Neutral
   achieve 6 "Level 10" optional
 ```
 
 `achieve` always needs the achievement's quoted name.
+
+### Effects on the character: `buff`
+
+```
+  buff 1126 "Mark of the Wild"               -- ask a Druid before the fight
+  buff 15007 "Resurrection Sickness" off     -- wait until it wears off
+```
+
+### In hand and in the bank: `equip`, `deposit`
+
+```
+  equip 6256 "Fishing Pole"           -- in hand before the pond
+  equip 6256 "Fishing Pole" off       -- and the weapon back afterwards
+  deposit 2589 x40                    -- forty Linen Cloth, kept for later
+  deposit 6256                        -- the pole, if you carry it
+```
 
 ### Class- and race-only steps
 

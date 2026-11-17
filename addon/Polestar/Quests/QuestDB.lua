@@ -27,6 +27,9 @@ ns.RegisterDefaults("qol", {
 	lowLevelQuests = false, -- include grey (trivial) quests among available ones
 	questLevelWindow = 5, -- available quests up to this many levels above yours (10: any)
 	questTooltips = true, -- quest lines on unit, item and object tooltips
+	questDropChance = false, -- ... with how often a mob or object gives the quest item, on its tooltip
+	questTooltipsReplace = false, -- ... in place of the client's own rows for the same quests
+	questTooltipsNpc = false, -- ... and on an NPC, the quests it gives now and the ready ones it takes
 	questSellWarning = true, -- at a vendor, offer to buy back a sold item a quest needs
 	questBagMarks = true, -- a quest mark on bag items a quest (in the log or ahead in the guide) still needs
 	nameplateIcons = false, -- quest icon on nameplates of objective mobs
@@ -358,6 +361,27 @@ function Q.GetItemDroppers(itemID)
 	return out
 end
 
+-- How often npc npcID drops item itemID, in percent, or nil when it is not
+-- one of the item's droppers. Makes no table: quest tooltips ask on a hover.
+function Q.GetDropChance(itemID, npcID)
+	local rec = itemID and data.items[itemID]
+	for k = 1, rec and rec[2] or 0 do
+		if rec[1 + 2 * k] == npcID then return rec[2 + 2 * k] end
+	end
+	return nil
+end
+
+-- The same for an object the item comes out of (a chest, a plant).
+function Q.GetObjectDropChance(itemID, objectID)
+	local rec = itemID and data.items[itemID]
+	if not rec then return nil end
+	local i = 3 + 2 * (rec[2] or 0)
+	for k = 1, rec[i] or 0 do
+		if rec[i + 2 * k - 1] == objectID then return rec[i + 2 * k] end
+	end
+	return nil
+end
+
 -- { id, name, droppers = { { id, name, chance } }, objects = { { id, name, chance } }, vendors = { { id, name } } }
 function Q.GetItem(itemID)
 	local rec = itemID and data.items[itemID]
@@ -611,6 +635,31 @@ function Q.FollowUps(id)
 	return followUps[id]
 end
 
+-- Quests NPC npcID starts, ascending, or nil. Built on the first ask, and
+-- again once more quest chunks arrived (the NPC tooltip's "Starts a quest"
+-- lines, Quests/Tooltips.lua).
+local startedByNpc, startedByNpcOf
+function Q.StartedByNpc(npcID)
+	local ids = Q.QuestIds()
+	if startedByNpcOf ~= ids then
+		startedByNpc, startedByNpcOf = {}, ids
+		local starts = fieldOfAll(QUEST_START)
+		for _, q in ipairs(ids) do
+			for _, ref in Each(starts[q]) do
+				if ref > 0 then
+					local list = startedByNpc[ref]
+					if not list then
+						list = {}
+						startedByNpc[ref] = list
+					end
+					list[#list + 1] = q
+				end
+			end
+		end
+	end
+	return startedByNpc[npcID]
+end
+
 -- Quests item itemID starts (the quests' start item), ascending, or nil.
 -- Built on the first ask, and again once more quest chunks arrived (the item
 -- tooltip's "Starts a quest" line, Quests/PartyChat.lua's loot line).
@@ -632,6 +681,32 @@ function Q.StartedBy(itemID)
 		end
 	end
 	return startedBy[itemID]
+end
+
+-- All known quests that start from, request, or use an item. Built only when
+-- bag marks ask, and rebuilt if more quest chunks arrive.
+local itemQuests, itemQuestsOf
+function Q.ItemQuests(itemID)
+	local ids = Q.QuestIds()
+	if itemQuestsOf ~= ids then
+		itemQuests, itemQuestsOf = {}, ids
+		local function add(item, quest)
+			if not item then return end
+			local list = itemQuests[item]
+			if not list then list = {}; itemQuests[item] = list end
+			if list[#list] ~= quest then list[#list + 1] = quest end
+		end
+		for _, q in ipairs(ids) do
+			local rec = data.quests[q]
+			for _, item in Each(rec and rec[QUEST_START_ITEM]) do add(item, q) end
+			for _, item in Each(rec and rec[QUEST_ITEMS]) do add(item, q) end
+			local obj = rec and rec[QUEST_OBJ]
+			if type(obj) == "table" then
+				for i, kind in pairs(obj) do if i % 3 == 1 and kind == 2 then add(obj[i + 1], q) end end
+			end
+		end
+	end
+	return itemQuests[itemID]
 end
 
 ---------------------------------------------------------------------------

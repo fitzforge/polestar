@@ -64,6 +64,31 @@
 			"ref": "#619"
 		}
 	},
+	"3520": {
+		"params": [
+			{
+				"kind": "summon-by-item",
+				"item": 10699,
+				"npc": 8612,
+				"npcName": "Screecher Spirit",
+				"on": [
+					5307,
+					5308
+				]
+			}
+		],
+		"note": "Screecher Spirits: Yeh'kinya's Bramble (10699) is used on a dead Vale Screecher (5307) or Rogue Vale Screecher (5308), and the Screecher Spirit (8612) rises from the body; `on` names the creatures the item is used on, so the guide's use line targets and points at the screechers, not the spirit (#2578).",
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "conditions on spell 12699 (Summon Screecher Spirit, the bramble's use): the target is creature 5307 or 5308 and dead"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2578"
+			}
+		]
+	},
 	"97275": {
 		"params": [
 			{

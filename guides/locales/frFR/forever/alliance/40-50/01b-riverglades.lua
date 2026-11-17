@@ -205,8 +205,9 @@ return {
 	["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "Les cultistes remplissent les rues et les champs de {area:16723}. Commencez aux cercles rituels au centre (remplissez-y le catalyseur de Claire), progressez vers l'ouest à travers les maisons brûlées jusqu'à la lisière du village, puis revenez au nord-est jusqu'à la terre meuble à l'ouest de la ferme d'Elbrim : enterrez-y les {item:266148} que lâchent les Écumeurs du Crépuscule. Les charmes, pages et phalanges tombent sur les cultistes.\nGardez l'{item:4338} qu'ils lâchent : {npc:263613} à {area:16724} vous en demande vingt à votre retour. De temps en temps, un cultiste lâche {quest:94885} : faites un clic droit dessus pour commencer la quête.\nAttention : {npc:256899}, un ogre élite (niveau 41), arpente les rues ouest de {area:16723}, vers 44-47,47-52. Attirez les cultistes vers vous et laissez-le passer ; c'est ici que les joueurs sont le plus morts dans la zone.\n{npc:263380}, l'élite de la rivière (niveau 42), peut remonter depuis les champs du sud-ouest : laissez-le passer.",
 	-- {item:269990} Crystal Catalyst
 	["fill the {item:269990} at the ritual circles"] = "remplissez le {item:269990} aux cercles rituels",
-	-- {object:621813} Loose Soil (no name in this language: may be words)
-	["{object:621813}: bury the mementos"] = "{object:621813} : enterrez les souvenirs",
+	-- {object:621813} Loose Soil (no name in this language: may be words) · {item:266148} Farmers' Mementos
+	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
+	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "",
 	-- {quest:94885} Field Marshal's Log
 	["{quest:94885}: only if a cultist dropped the log"] = "{quest:94885} : seulement si un cultiste a lâché le journal",
 
@@ -383,7 +384,7 @@ return {
 
 	-- Step 74: Bolder'ok
 	-- {area:16726} Bolder'ok · {npc:259057} Dunston Willis
-	["North-west to {area:16726}, the ogres' town. Its ogres side with the Horde and attack you on sight, and Clugfist on his hill in the middle is an elite (level 50): keep to the town's north-eastern edge, where {npc:259057} hides."] = "Au nord-ouest jusqu'à {area:16726}, la ville des ogres. Ses ogres sont alliés à la Horde et vous attaquent à vue, et Clugfist, sur sa colline au centre, est un élite (niveau 50) : restez à la lisière nord-est de la ville, où se cache {npc:259057}.",
+	["North-west to {area:16726}, the ogres' town. Its ogres side with the Horde and attack you on sight, and Clugfist on his hill in the middle is an elite (level 50): keep to the town's north-eastern edge, where {npc:259057} hides."] = "Au nord-ouest jusqu'à {area:16726}, la ville des ogres. Ses ogres sont alliés à la Horde et vous attaquent à vue, et Poing-Serré, sur sa colline au centre, est un élite (niveau 50) : restez à la lisière nord-est de la ville, où se cache {npc:259057}.",
 
 	-- Step 75: Gronok's Key
 	-- {npc:263749} Gronok the Butcher · {npc:259057} Dunston Willis · {item:275043} Bloodmaster's Ring
@@ -551,4 +552,5 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["{item:17028}, from {npc:272437}"] = "{item:17028}, auprès de {npc:272437}",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031} garde la vieille cathédrale, au coin sud-ouest de {area:16724}. Les chauves-souris nichent à son étage supérieur ; {npc:272437} distribue les bougies sacrées à côté ; les tombes se trouvent dans le cimetière de la chapelle.\n{npc:271742}, un élite de niveau 53, se tient dans la cathédrale : il vous laisse tranquille, ne l'attaquez donc jamais et éloignez les chauves-souris de lui.",
+	-- ["{object:621813}: bury the mementos"] = "{object:621813} : enterrez les souvenirs",
 }

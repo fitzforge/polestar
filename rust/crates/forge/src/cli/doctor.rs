@@ -161,10 +161,7 @@ pub fn main() -> ExitCode {
 		}
 		_ => {
 			line(false, "data", "no checkout with data/sources here and no data pack");
-			fix(&format!(
-				"run from inside a Polestar checkout with data/sources, or forge data fetch (into {}) once a public data pack is published",
-				pack_dir.as_ref().map_or("--dest <dir>".into(), |p| p.display().to_string())
-			));
+			fix(&format!("run from inside a Polestar checkout with data/sources, or forge data fetch (into {})", pack_dir.as_ref().map_or("--dest <dir>".into(), |p| p.display().to_string())));
 			ready = false;
 			None
 		}

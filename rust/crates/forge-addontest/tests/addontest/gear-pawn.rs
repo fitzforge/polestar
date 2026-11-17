@@ -122,7 +122,7 @@ fn a_long_paste_of_mostly_spaces_is_refused_at_once_not_after_seconds_of_trimmin
 	let r = &out[0];
 	assert_eq!(r["long"], "toolong");
 	assert_eq!(r["gap"], false);
-	assert!(r["secs"].as_f64().unwrap() < 0.2, "took {}s", r["secs"]);
+	forge_addontest::assert_timing!(r["secs"].as_f64().unwrap() < 0.2, "took {}s", r["secs"]);
 }
 
 fn weights(s: &str) -> Value {

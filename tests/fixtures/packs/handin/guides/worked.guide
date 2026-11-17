@@ -1,0 +1,16 @@
+# Fixture: the same escort with its goal (tests/playtest.test.js): it plays
+# through.
+guide handin/worked
+title Worked Hand-in Fixture
+faction Alliance
+race NightElf
+levels 20-22
+zone Darkshore
+
+step Kerlonian Evershade
+  accept 5321
+  complete 5321
+
+step Maestra's Post
+  zone Ashenvale
+  turnin 5321

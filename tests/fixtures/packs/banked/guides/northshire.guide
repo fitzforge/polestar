@@ -1,0 +1,27 @@
+# Fixture: the `deposit` and `equip` goals and the `equipped` and `indoors`
+# predicates (tests/playtest.test.js): the simulated player banks the item
+# and puts the other on and off, so every step plays through.
+guide banked/northshire
+title Banked Fixture
+faction Alliance
+race Human
+levels 1-6
+zone Elwynn Forest
+
+step Northshire Abbey
+  goto 48.2,42.0 "Northshire Abbey"
+
+step Into the bank
+  when !indoors
+  deposit 2589 x10
+  deposit 159
+
+step In hand
+  when !equipped 6256
+  equip 6256
+
+step And off again
+  equip 6256 off
+
+step Then
+  task "Go on"

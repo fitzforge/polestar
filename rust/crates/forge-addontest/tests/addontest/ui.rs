@@ -631,6 +631,68 @@ fn right_click_on_a_quest_line_offers_show_in_quest_log_which_opens_the_log_at_t
 	assert_eq!(out["skip"], false, "nothing skipped");
 }
 
+// #2545: a quest's line, middle-clicked, opens the game's quest log at its quest; shift-clicked, it puts the quest's
+// link into the chat box (a chat box opened for it when none is being typed in). Neither moves the arrow, and a plain
+// click still does; the tooltip names both clicks. With the gamepad interface the row menu offers "Link in chat".
+#[test]
+fn a_quest_line_middle_clicked_opens_the_quest_log_shift_clicked_links_it_in_chat_2545() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml", "Quests/QuestLogLink.lua"])],
+		script: format!(
+			"uistub.install()\nstub.login()\nlocal GF, UI, W = Polestar.UI.GuideFrame, Polestar.UI, Polestar.Widgets\nlocal F = PolestarGuideFrame\n{HELPERS}\n{}",
+			r#"
+		local C, opened, inserted, typed = Polestar.Compat, {}, {}, {}
+		C.CanOpenQuestLog = function() return true end
+		C.IsOnQuest = function(q) return q == 15 end
+		C.OpenQuestLog = function(q) opened[#opened + 1] = q; return true end
+		local shift, chatOpen = false, true
+		IsModifiedClick = function(what) return what == "CHATLINK" and shift end
+		GetQuestLink = function(q) return "|cffffff00|Hquest:" .. q .. ":0|h[Investigate Echo Ridge]|h|r" end
+		ChatEdit_InsertLink = function(t) if not chatOpen then return false end inserted[#inserted + 1] = t; return true end
+		ChatFrame_OpenChat = function(t) typed[#typed + 1] = t end
+		uistub.setGuide(uistub.elwynn, 3)
+		for g = 1, 3 do uistub.goal(4, g).status = "done" end
+		uistub.goal(4, 2).status = "active"
+		uistub.setStep(4)
+		local row = rowFor("Investigate Echo Ridge")
+		local r = {}
+		uistub.calls = {}
+		stub.RunScript(row, "OnClick", "MiddleButton")
+		r.middle = { opened = opened, aim = lastCall("AimGoal") or false, menu = PolestarMenu and PolestarMenu:IsShown() or false }
+		shift = true
+		stub.RunScript(row, "OnClick", "LeftButton")
+		chatOpen = false
+		stub.RunScript(row, "OnClick", "LeftButton")
+		r.shift = { inserted = { unpack(inserted) }, typed = typed, aim = lastCall("AimGoal") or false }
+		shift = false
+		stub.RunScript(row, "OnClick", "LeftButton")
+		r.plain = lastCall("AimGoal") or false
+		stub.RunScript(row, "OnEnter")
+		r.tip = GameTooltip.lines
+		stub.RunScript(row, "OnLeave")
+		-- The gamepad interface: no quest log to open, no shift-click; the row menu links it.
+		Polestar.GamepadUI = function() return true end
+		C.CanOpenQuestLog = function() return false end
+		chatOpen = true
+		stub.RunScript(row, "OnClick", "RightButton")
+		local items = {}
+		for _, m in ipairs(PolestarMenu.rows) do if m:IsShown() then items[#items + 1] = m.Text:GetText() end end
+		for _, m in ipairs(PolestarMenu.rows) do if m:IsShown() and m.Text:GetText() == "Link in chat" then m:Click() end end
+		r.pad = { items = items, inserted = #inserted }
+		emit(r)"#
+		),
+		..Default::default()
+	})
+	.remove(0);
+	let link = "|cffffff00|Hquest:15:0|h[Investigate Echo Ridge]|h|r";
+	assert_eq!(out["middle"], json!({ "opened": [15], "aim": false, "menu": false }), "middle-click: the quest log at 15, nothing else");
+	assert_eq!(out["shift"], json!({ "inserted": [link], "typed": [link], "aim": false }), "shift-click: the link in chat");
+	assert_eq!(out["plain"][0], "AimGoal", "a plain click still points the arrow");
+	assert!(has(&out["tip"], "Middle-click: show in quest log. Shift-click: link in chat."), "{}", joined(&out["tip"]));
+	assert_eq!(out["pad"], json!({ "items": ["Tick it done", "Skip this quest", "Link in chat"], "inserted": 2 }), "the gamepad's row menu");
+}
+
 #[test]
 fn hovering_a_goal_explains_it_detail_quest_npc_location_and_what_clicks_do() {
 	let lines = run(r#"
@@ -1293,8 +1355,9 @@ fn in_the_game_looks_a_narrow_tab_s_text_ends_6_clear_of_its_close_and_classic_s
 
 // A look chosen with the window open lays its tabs out at once as a window opened in that look does, not in the
 // last look's fonts and sizes until the next redraw: the tabs' places and widths, their titles' cut and fonts, the
-// level range's and the close's places, the close's rest. Every look in turn, then the text grown, each against a
-// fresh window opened in it (the looks lay their tabs out differently, so the comparison has something to catch).
+// level range's and the close's places, the close's rest. Every look in turn, then the guide window's text grown
+// (ui.guideTextSize), each against a fresh window opened in it (the looks lay their tabs out differently, so the
+// comparison has something to catch).
 #[test]
 fn a_look_chosen_with_the_window_open_lays_its_tabs_out_as_a_window_opened_in_it_does() {
 	const MEASURE: &str = r#"
@@ -1322,7 +1385,7 @@ fn a_look_chosen_with_the_window_open_lays_its_tabs_out_as_a_window_opened_in_it
 			Polestar.Set("ui.skin", look)
 			out[look] = measure()
 		end
-		Polestar.Set("ui.textSize", 1.25)
+		Polestar.Set("ui.guideTextSize", 1.25)
 		out.grown = measure()
 		emit(out)"#
 	))
@@ -1332,7 +1395,7 @@ fn a_look_chosen_with_the_window_open_lays_its_tabs_out_as_a_window_opened_in_it
 		let opened = fresh(&format!("Polestar.Set(\"ui.skin\", {look:?})"));
 		assert_eq!(live[look], opened, "{look}: the tabs once it is chosen, against a window opened in it");
 	}
-	assert_eq!(live["grown"], fresh("Polestar.Set(\"ui.textSize\", 1.25)"), "the text grown with the window open");
+	assert_eq!(live["grown"], fresh("Polestar.Set(\"ui.guideTextSize\", 1.25)"), "the guide window's text grown with it open");
 	assert_ne!(live["forever"], live["polestar"], "the looks lay their tabs out differently");
 	assert_ne!(live["grown"], live["polestar"], "the grown text lays them out differently");
 }
@@ -1945,6 +2008,39 @@ fn a_long_xp_line_takes_a_second_line_instead_of_being_cut() {
 	assert!(out["narrow"]["h"].as_f64().unwrap() > one, "a line taller at the default width: {out}");
 	assert_eq!(out["wide"]["h"].as_f64(), Some(one), "one line where it fits: {out}");
 	assert_eq!(out["line"], true);
+}
+
+// The pace line has its own switch (guideWindow.pace, #2371, #2379): off, the XP row keeps the tracker's XP an hour and
+// time to level and drops "On pace…"; with nothing else to say the row goes; on again, the line is back.
+#[test]
+fn the_pace_line_turns_off_on_its_own_and_the_xp_row_keeps_the_rest() {
+	let out = run(r#"
+		local stats = { rate = 48000, timeToLevel = 30, maxed = false }
+		Polestar.QoL = {
+			GetXPStats = function() return stats end,
+			Duration = function() return "30s" end,
+			XP = { Short = function(n) return string.format("%.1fk", n / 1000) end, Summary = function() return "Level 24" end },
+		}
+		local pace = GF.PaceText
+		GF.PaceText = function() return "On pace for level 25.2 by step 96" end
+		uistub.setGuide(uistub.elwynn, 3)
+		Polestar.Fire("QOL_XP_UPDATED", stats)
+		local function row() return { shown = GF.xp:IsShown(), text = GF.xp:IsShown() and GF.xp.Text:GetText() or false } end
+		local r = { on = row() }
+		Polestar.Set("guideWindow.pace", false)
+		r.off = row()
+		stats = {}
+		Polestar.Fire("QOL_XP_UPDATED", stats)
+		r.alone = row()
+		Polestar.Set("guideWindow.pace", true)
+		r.back = row()
+		GF.PaceText = pace
+		emit(r)"#)
+	.remove(0);
+	assert_eq!(out["on"], json!({ "shown": true, "text": "48.0k XP/h  \u{b7}  30s to level  \u{b7}  On pace for level 25.2 by step 96" }), "{out}");
+	assert_eq!(out["off"], json!({ "shown": true, "text": "48.0k XP/h  \u{b7}  30s to level" }), "{out}");
+	assert_eq!(out["alone"], json!({ "shown": false, "text": false }), "the pace was all it had: {out}");
+	assert_eq!(out["back"], json!({ "shown": true, "text": "On pace for level 25.2 by step 96" }), "{out}");
 }
 
 // The XP line is measured at the window's width, as the layout measures it: an update that changes nothing in the
@@ -2585,7 +2681,7 @@ fn a_quest_started_by_a_dropped_item_reads_as_one_line_the_quest_the_go_to_namin
 
 // `when group` (Engine.GroupQuestion): the banner asks at the group quest the live step waits on; Skip it is
 // the default (the accent link, the gamepad's first focus), Do it with a group the other answer; it cannot be
-// dismissed.
+// dismissed. Skip it is then offered back as an undo for a while, as a skipped quest's or step's is (#2404).
 const ASK: &str = r#"
 		uistub.groupQuestion = { quest = 6284, title = "Arachnophobia" }
 		uistub.openTabs(TABS, 1)
@@ -2600,14 +2696,14 @@ fn a_group_quest_banner_asks_skip_it_or_do_it_with_a_group_and_cannot_be_dismiss
 		ASK,
 		r#"
 		B.Jump:Click()
-		emit({ shown = shown, kept = kept, call = lastCall("AnswerGroup"), after = B:IsShown(), flag = B.Jump.psDefault or false })"#,
+		emit({ shown = shown, kept = kept, call = lastCall("AnswerGroup"), after = { GF.BannerNotice() or false, B.Text:GetText(), B.Jump.Label:GetText(), B.Later:IsShown() }, flag = B.Jump.psDefault or false })"#,
 	]
 	.concat())
 	.remove(0);
 	assert_eq!(skip["shown"], json!([true, "Group quest: “Arachnophobia”\nIt needs a group. Skip it and the guide keeps to the solo route.", "Skip it", "Do it with a group", false, true]));
 	assert_eq!(skip["kept"], true, "dismissing does not answer");
 	assert_eq!(skip["call"], json!(["AnswerGroup", 6284, "skip"]));
-	assert_eq!(skip["after"], false);
+	assert_eq!(skip["after"], json!(["groupSkip", "Skipped “Arachnophobia”", "Undo", false]), "the skip offers its undo");
 	assert_eq!(skip["flag"], false, "no default mark once answered");
 	let group = run(&[
 		ASK,
@@ -2618,6 +2714,30 @@ fn a_group_quest_banner_asks_skip_it_or_do_it_with_a_group_and_cannot_be_dismiss
 	.concat())
 	.remove(0);
 	assert_eq!(group, json!({ "call": ["AnswerGroup", 6284, "do"], "after": false }));
+}
+
+// The group quest's skip, undone from the banner (#2404): the quest is unanswered again, so the step asks once more.
+// Not undone, the undo goes after 20 seconds and the skip stands.
+#[test]
+fn a_group_quest_skipped_at_the_banner_is_undone_from_it_and_the_question_comes_back() {
+	let out = run(&[
+		ASK,
+		r#"
+		B.Jump:Click()
+		B.Jump:Click()
+		local undone = { call = lastCall("AnswerGroup"), answer = Polestar.CharState().groupQuests[6284] or false, kind = GF.BannerNotice() or false, text = B.Text:GetText() }
+		B.Jump:Click()
+		stub.advance(21)
+		emit({ undone = undone, later = { kind = GF.BannerNotice() or false, shown = B:IsShown(), answer = Polestar.CharState().groupQuests[6284] or false } })"#,
+	]
+	.concat())
+	.remove(0);
+	assert_eq!(
+		out["undone"],
+		json!({ "call": ["AnswerGroup", 6284], "answer": false, "kind": "group", "text": "Group quest: “Arachnophobia”\nIt needs a group. Skip it and the guide keeps to the solo route." }),
+		"{out}"
+	);
+	assert_eq!(out["later"], json!({ "kind": false, "shown": false, "answer": "skip" }), "{out}");
 }
 
 // Dungeons in the route, Ask me (Engine.DungeonQuestion): the banner asks at the dungeon the live step waits on, Run

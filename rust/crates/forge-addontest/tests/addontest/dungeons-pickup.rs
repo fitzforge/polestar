@@ -3191,3 +3191,26 @@ emit(out)"#);
 fn arr_strs(v: &Value) -> Vec<String> {
 	v.as_array().map(|a| a.iter().filter_map(|x| x.as_str().map(str::to_string)).collect()).unwrap_or_default()
 }
+
+// #2582 (ttik3r, 0.4.0): Songblade Search is handed in to Daewyn Songblade, who stands only inside the Excavation
+// Site: Wetlands, and the off-guide list said "Where it is turned in is not known". An ender with no spawn outside
+// but a dungeon of its own is that dungeon's entrance, named by the dungeon; the other side's ender is still none.
+#[test]
+fn an_ender_who_stands_only_inside_a_dungeon_is_its_entrance_2582() {
+	let (mut codex, inputs) = fixture_parts();
+	codex["npcs"]["9001"] = json!({ "id": 9001, "name": "Inside Ender", "level": 30, "levelMax": null, "faction": null, "rare": false,
+		"elite": false, "boss": false, "instance": "shadowfang-keep", "roles": [], "spawns": [] });
+	codex["quests"]["9101"] = json!({ "id": 9101, "title": "Handed In Inside", "level": 20, "minLevel": 14, "faction": "H", "races": null,
+		"classes": null, "start": { "npc": [1937], "object": [], "item": [] }, "end": { "npc": [9001], "object": [] }, "objectives": [],
+		"pre": [], "zone": 1421, "rewards": [], "choices": [], "preAny": [] });
+	let pack = pack_of(&codex, &inputs);
+	let out = run(
+		&pack,
+		r#"
+		Polestar.Codex.Load()
+		local e = Polestar.RoutePlan.Ender(9101)
+		emit(e and { name = e.name, zone = e.zone, map = e.map, x = e.x, y = e.y, inside = e.inside or false } or false)"#,
+		Opts::default(),
+	);
+	assert_eq!(out[0], json!({ "name": "Inside Ender", "zone": "Shadowfang Keep", "map": 1421, "x": 44.8, "y": 67.8, "inside": true }));
+}
