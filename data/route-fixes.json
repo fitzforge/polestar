@@ -16569,6 +16569,32 @@
 				"faction": "Alliance",
 				"why": "Blood Tithe starts on the west side of Valanaar, on the walk into town from Fendaal. Hear Alvarion before crossing to Lotheluum and hunting the skyhoppers.",
 				"source": "#3144: 92679 giver and first-visit walk from Fendaal"
+			},
+			{
+				"a": [
+					"turnin",
+					91758
+				],
+				"b": [
+					"accept",
+					2158
+				],
+				"faction": "Alliance",
+				"why": "#2742 (Eykko): in Northshire, Rest and Relaxation (2158) was taken from Falkhaan Isenstrider at the stables south-west of the Abbey before the group-quest hand-ins, which went back north-east to Marshal McBride and Tordrin Sternblade (51.2,40.8) and then south again on the kobold tracks. Falkhaan is taken after Tordrin, on the way south to the tracks and Goldshire.",
+				"source": "#2742"
+			},
+			{
+				"a": [
+					"accept",
+					2158
+				],
+				"b": [
+					"task",
+					91772
+				],
+				"faction": "Alliance",
+				"why": "#2742 (Eykko): Falkhaan Isenstrider (45.6,47.7) before the kobold tracks of Shhh! We're Hunting Kobolds (91772), which run from 47.7,45.9 down the road to Goldshire, so the stables are not a walk back north.",
+				"source": "#2742"
 			}
 		],
 		"leftout": [
