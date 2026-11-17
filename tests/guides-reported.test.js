@@ -3247,6 +3247,21 @@ test('forever/class/warrior/fire-hardened-armor.guide: Kapu\'s report: Fire Hard
 	}
 });
 
+// #2859 (Logan, Dwarf Shaman of 30): Call of Air (94789, level 30, no objectives) shared its step with Elemental Aid
+// (96264, level 33, Charlga Razorflank's Tattered Note), so the Air Totem waited for the follow-up's 32. The hand-in now
+// has its own step at 30, as the Horde guide's hand-ins to Prate Cloudseer do, and Elemental Aid still waits for 32.
+test('forever/class/shaman/call-of-air-alliance.guide: #2859: the Air Totem at 30, Elemental Aid at 32', { skip }, () => {
+	const G = 'forever/class/shaman/call-of-air-alliance.guide';
+	const list = goals(G);
+	const held = (s) => Math.max(0, ...compiled(G).steps[s - 1].goals.filter((g) => g.t === 'level').map((g) => g.level));
+	const totem = list[at(list, 'turnin 94789', is('turnin', 94789))];
+	const aid = list[at(list, 'accept 96264', is('accept', 96264))];
+	assert.notEqual(aid.s, totem.s, 'Call of Air is handed in in a step of its own');
+	assert.ok(totem.s < aid.s, 'the hand-in comes before Elemental Aid');
+	assert.equal(held(totem.s), 30, `the Air Totem's step waits for 30 (waits for ${held(totem.s)})`);
+	assert.ok(held(aid.s) >= 32, `Elemental Aid (level 33) waits for 32 (waits for ${held(aid.s)})`);
+});
+
 // --- Southshore (never-seen check, 2026-11-08): 4 Alliance people passed Barkeep Kelly and none was offered Talk of the
 // Town (98463); the guide keeps it, optional at both ends, with a tip to skip it.
 test(`Talk of the Town is optional at Southshore and at its Booty Bay hand-in, with a tip to skip it`, { skip }, () => {

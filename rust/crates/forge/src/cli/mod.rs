@@ -215,6 +215,8 @@ const SIM_HELP: &str = "usage: forge sim <command> [options]
   calibrate [--root <checkout>] [--world-dir <dir>] [--fdj <dir>] [--recordings <dir>] [--out <file.json>]
           [--at ISO]: params.json (fitted quest-reward scales and kill times) from the worlds, the
           dungeon journal and recordings
+  fights  [--root <checkout>] [--recordings <dir>] [--out <file.json>] [--at ISO]: what the recordings
+          say about kill time by class, mob level and rank, beside the priors (a report, not params.json)
 
 --seed guides (default): the order of the guides in --guides (default <root>/guides), as forge build
 makes it; --seed <file>: a chain document. --guard: a kept change may not raise the seed's guard counts
