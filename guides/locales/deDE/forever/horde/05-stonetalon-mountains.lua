@@ -31,12 +31,12 @@ return {
 
 	-- Step 5: Ashenvale Outrunners
 	-- {quest:6503} Ashenvale Outrunners
-	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "",
+	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "{quest:6503} (23-24), Nachtelfen, pirschen durch die Wälder südlich und südöstlich des Holzfällerlagers; sie sind getarnt, also halte nach ihnen Ausschau.",
 
 	-- Step 6: Warsong lumber camp
-	["Warsong lumber camp"] = "",
+	["Warsong lumber camp"] = "Holzfällerlager der Warsong",
 	-- {npc:12867} Kuray'bin
-	["Back to {npc:12867} at the lumber camp, on the road north to Splintertree."] = "",
+	["Back to {npc:12867} at the lumber camp, on the road north to Splintertree."] = "Zurück zu {npc:12867} im Holzfällerlager, an der Straße nach Norden zum Splintertreeposten.",
 
 	-- Step 7: Va'xug Firefure
 	-- {npc:267214} Va'xug Firefure · {area:415} Astranaar
