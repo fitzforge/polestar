@@ -11793,7 +11793,7 @@ do
 					title = "The river and the Farholde camp",
 					note = "South-west of Rog'mar the river runs between the farms: impale the Freshwater Crocolisks with {npc:263190}'s spears. The Alliance trains its scouts and priests at a camp on the far bank. {npc:257079}, the Alliance elite, rides the road just east of the camp: pull the scouts and priests away from it.\nCareful: {npc:263380}, an elite (level 42), hunts along this river: if he comes your way, back off and let him pass.",
 					goals = {
-						{ t = "use", quest = 95955, title = "Stick 'Em", item = 271639, itemName = "Makeshift Stickin' Spear", oi = 1, map = 2548, x = 51.75, y = 51.97, note = "{npc:263190}'s spears, on the Freshwater Crocolisks in the river" },
+						{ t = "use", quest = 95955, title = "Stick 'Em", item = 271639, itemName = "Makeshift Stickin' Spear", oi = 1, map = 2548, x = 51.9, y = 57.1, note = "{npc:263190}'s spears, on the Freshwater Crocolisks" },
 						{ t = "kill", quest = 94483, title = "Show Them How It's Done", target = "Farholde Priest", npc = 270667, count = 8, oi = 1, map = 2548, x = 46.04, y = 59.58, spotsPacked = "46.4,59.6,,40,2;44.5,61.6,,41,4;43.9,65,,55,8;44.6,67.7,,57,6;46.3,65.5,,60,12;47.9,67.9,,65,8;49,66.4,,52,9;51.2,67.4,,54,8;52,69.9,,51,10;51.5,71.9,,46,7;51.5,74.9,,40,3;49.5,70.6,,55,8", spread = true, lvl = 39 },
 						{ t = "kill", quest = 94483, title = "Show Them How It's Done", target = "Farholde Scout", npc = 257926, count = 12, oi = 2, map = 2548, x = 45.1, y = 64.1, spotsPacked = "44.6,65.48,,63,3;47.74,66.25,,52,1;51.44,69.96,,42,3;65.8,79.2,,60,1,1", lvl = 39 },
 					},
