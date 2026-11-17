@@ -95,6 +95,7 @@ local page -- the dungeon shown, nil on Home
 local tab = "quests"
 local lootBoss, lootPage, lootBlock
 local filter = ""
+local searchBand -- a band picked while searching: narrows the results (nil: every match), as a guide category does
 local root, hub, home, pg, segs
 local cards, heads, blocks, bossRows, ties, givers = {}, {}, {}, {}, {}, {}
 local bossLootTiles = {}
@@ -348,25 +349,27 @@ local function list()
 	return listCache
 end
 
+-- Whether dungeon d is under a sidebar key.
+local function inKey(d, key, plevel, f)
+	if key == "level" then return forYouAs(d, plevel, f) end
+	if key == "raid" then return d.kind == "raid" end
+	if key == "all" then return d.kind ~= "raid" end
+	return d.kind ~= "raid" and bandOf(d.minLevel) == key
+end
+
+-- Whether dungeon d's name holds the search q (lower case; nil: no search).
+local function matches(d, q)
+	return not q or find(lower(d.name), q, 1, true) ~= nil
+end
+
 -- The cards a sidebar key shows, in level order; For your level, the ones
 -- that fit first, by closeness to where each suits best, the tough ones after.
+-- A search shows every match, or those under a key picked while searching (searchBand, #2776).
 local function entries(key, plevel, f)
 	local out = {}
 	local q = filter ~= "" and lower(filter) or nil
 	for _, d in ipairs(list()) do
-		local ok
-		if q then
-			ok = find(lower(d.name), q, 1, true) ~= nil
-		elseif key == "level" then
-			ok = forYouAs(d, plevel, f)
-		elseif key == "raid" then
-			ok = d.kind == "raid"
-		elseif key == "all" then
-			ok = d.kind ~= "raid"
-		else
-			ok = d.kind ~= "raid" and bandOf(d.minLevel) == key
-		end
-		if ok then out[#out + 1] = d end
+		if matches(d, q) and ((q and not searchBand) or inKey(d, key, plevel, f)) then out[#out + 1] = d end
 	end
 	if key == "level" and not q then
 		local rank = {}
@@ -1112,13 +1115,16 @@ function DS.PaintVisible()
 	end
 end
 
-local function navItems(plevel, f)
+-- q: the search (lower case) or nil; while searching, each entry counts its matches, as the guide categories do (#2776).
+local function navItems(plevel, f, q)
 	local items = {}
-	local counts, level, all, raids = {}, 0, 0, 0
+	local counts, level, all, raids, anyRaid = {}, 0, 0, 0, false
 	for _, d in ipairs(list()) do
+		local hit = matches(d, q)
 		if d.kind == "raid" then
-			raids = raids + 1
-		else
+			anyRaid = true
+			if hit then raids = raids + 1 end
+		elseif hit then
 			all = all + 1
 			local k = bandOf(d.minLevel)
 			if k then counts[k] = (counts[k] or 0) + 1 end
@@ -1130,7 +1136,7 @@ local function navItems(plevel, f)
 	for _, b in ipairs(BANDS) do
 		items[#items + 1] = { key = b.key, label = bandLabel(b.key), icon = "icon-level", count = counts[b.key] or 0 }
 	end
-	if raids > 0 then items[#items + 1] = { key = "raid", label = L["Raids"], icon = "icon-kill", count = raids } end
+	if anyRaid then items[#items + 1] = { key = "raid", label = L["Raids"], icon = "icon-kill", count = raids } end
 	return items, level
 end
 
@@ -1229,7 +1235,7 @@ local function renderHome(plevel)
 	W.ShellTabs(hub, nil)
 	hub.psKeepTabRow = nil
 	local f = factionKey()
-	local key = defaultBand(plevel)
+	local key = (filter ~= "" and searchBand) or defaultBand(plevel)
 	local rows = entries(key, plevel, f)
 	-- The header: where you are and what the grid holds.
 	local title, sub
@@ -2370,8 +2376,23 @@ local function renderEmpty(reason)
 	shown.view, shown.empty = "empty", reason
 end
 
+-- A new search (or none) lists every match again: a band picked during the last one no longer narrows it.
+local function setFilter(text)
+	text = text or ""
+	if text ~= filter then filter, searchBand = text, nil end
+end
+
+-- The hub's search is this section's filter, as Rares takes it: the hub empties its box when another section shows,
+-- without telling this one, which kept its old search under an empty box and the bands dead (#2773).
+local function syncFilter()
+	local P = UI.Picker
+	local s = P and P.ActiveSection and P.ActiveSection()
+	if s and s.key == "Dungeons" and P.Query then setFilter(P.Query()) end
+end
+
 function DS.Render()
 	if not root then return end
+	syncFilter()
 	for k in pairs(shown) do shown[k] = nil end
 	local Dg = D()
 	local loaded, reason
@@ -2409,15 +2430,18 @@ function DS.SetBossLoot(i)
 end
 
 function DS.Nav()
+	syncFilter()
 	local Dg = D()
 	if not (Dg and Dg.IsEnabled() and Dg.Load()) then return {}, nil end
 	local plevel = playerLevel()
-	local items = navItems(plevel, factionKey())
-	return items, (filter == "" and defaultBand(plevel)) or nil
+	local items = navItems(plevel, factionKey(), filter ~= "" and lower(filter) or nil)
+	if filter ~= "" then return items, searchBand end
+	return items, defaultBand(plevel)
 end
 
+-- While searching, a band narrows the results (and the band shown without a search stays as it was).
 function DS.SetBand(key)
-	band = key
+	if filter ~= "" then searchBand = key else band = key end
 	page = nil
 	if home then W.ScrollTo(home.Scroll, 0) end
 	refresh()
@@ -2535,7 +2559,7 @@ function DS.ShowOnMap()
 end
 
 function DS.Search(text)
-	filter = text or ""
+	setFilter(text)
 	page = nil
 	if home then W.ScrollTo(home.Scroll, 0) end
 	refresh()
@@ -2552,7 +2576,7 @@ end
 function DS.Show(key)
 	page = key
 	tab = "quests"
-	filter = ""
+	setFilter("")
 	local P = UI.Picker
 	local win = PolestarPicker
 	local was = win and win:IsShown()

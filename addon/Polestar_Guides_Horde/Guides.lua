@@ -9947,7 +9947,7 @@ do
 			{ npc = 5817, npcName = "Shimra", map = 1454, x = 47.91, y = 80.35, z = 18.9, f = "e", faction = "H" },
 			{ npc = 12957, npcName = "Blimo Gadgetspring", map = 1447, x = 45.21, y = 90.85, z = 21.2, f = "e", faction = "AH" },
 			{ npc = 8307, npcName = "Tarban Hearthgrain", map = 1413, x = 55.16, y = 32.08, z = 91.8, f = "e", faction = "H" },
-			{ npc = 248198, npcName = "Aza'bek", map = 1413, x = 49.26, y = 28.66, f = "e", faction = "H" },
+			{ npc = 248198, npcName = "Aza'bek", map = 1413, x = 49.74, y = 29.35, f = "e", faction = "H" },
 			{ npc = 256629, npcName = "Dala Fairmaw", map = 2482, x = 21.04, y = 78.63, faction = "AH" },
 			{ npc = 11189, npcName = "Qia", map = 1452, x = 61.2, y = 37.21, z = 724, f = "e", faction = "AH" },
 			{ npc = 3027, npcName = "Naal Mistrunner", map = 1456, x = 50.99, y = 52.45, z = 166.1, f = "e", faction = "H" },
