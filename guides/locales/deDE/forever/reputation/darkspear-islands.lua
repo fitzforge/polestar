@@ -9,7 +9,7 @@ return {
 	-- Guide
 	["Darkspear Islands Reputation"] = "Ruf: Darkspear-Inseln",
 	["Forever's new battleground: its gear comes for every bracket from 30, and Exalted gives a Legacy Point."] = "Das neue Schlachtfeld von Forever: Seine Ausrüstung gibt es für jede Stufengruppe ab 30, und Ehrfürchtig gibt einen Vermächtnispunkt.",
-	["Master of Darkspear Islands: a Legacy Point at Exalted"] = "Master of Darkspear Islands: ein Vermächtnispunkt bei Ehrfürchtig",
+	["Master of Darkspear Islands: a Legacy Point at Exalted"] = "Meister der Darkspear-Inseln: ein Vermächtnispunkt bei Ehrfürchtig",
 
 	-- Step 1: Merchant Coast
 	-- {zone:2524} Darkspear Islands · {zone:1445} Dustwallow Marsh · {area:391} Merchant Coast · {area:392} Ratchet · {npc:275276} Nizook Boof
@@ -69,7 +69,7 @@ return {
 
 	-- Step 12: Creeg Bothunk
 	-- {item:272095} Raider Gauntlets · {item:272105} Darkspear Pauldrons · {item:276502} Darkspear Battle Tabard
-	["Exalted gives the Legacy Point \"Master of Darkspear Islands\" and opens the epics: gloves in plate, mail, leather and cloth for levels 50 and 60 ({item:272095}, Gloves, Handguards and Handwraps, 3g94s to 15g16s) and level 60 shoulders in every armor type ({item:272105}, Shoulders, Spaulders, Mantle, Epaulets, Shoulderpads and Shoulderguards, 9g44s to 16g86s). The {item:276502} comes from a short questline that Exalted opens here."] = "Ehrfürchtig gibt den Vermächtnispunkt „Master of Darkspear Islands“ und öffnet die Epics: Handschuhe in Platte, Kette, Leder und Stoff für die Stufen 50 und 60 ({item:272095}, Gloves, Handguards und Handwraps, 3g94s bis 15g16s) und Schultern der Stufe 60 in jeder Rüstungsart ({item:272105}, Shoulders, Spaulders, Mantle, Epaulets, Shoulderpads und Shoulderguards, 9g44s bis 16g86s). Das {item:276502} stammt aus einer kurzen Questreihe, die Ehrfürchtig hier öffnet.",
+	["Exalted gives the Legacy Point \"Master of Darkspear Islands\" and opens the epics: gloves in plate, mail, leather and cloth for levels 50 and 60 ({item:272095}, Gloves, Handguards and Handwraps, 3g94s to 15g16s) and level 60 shoulders in every armor type ({item:272105}, Shoulders, Spaulders, Mantle, Epaulets, Shoulderpads and Shoulderguards, 9g44s to 16g86s). The {item:276502} comes from a short questline that Exalted opens here."] = "Ehrfürchtig gibt den Vermächtnispunkt „Meister der Darkspear-Inseln“ und öffnet die Epics: Handschuhe in Platte, Kette, Leder und Stoff für die Stufen 50 und 60 ({item:272095}, Gloves, Handguards und Handwraps, 3g94s bis 15g16s) und Schultern der Stufe 60 in jeder Rüstungsart ({item:272105}, Shoulders, Spaulders, Mantle, Epaulets, Shoulderpads und Shoulderguards, 9g44s bis 16g86s). Das {item:276502} stammt aus einer kurzen Questreihe, die Ehrfürchtig hier öffnet.",
 	-- {npc:263570} Creeg Bothunk
 	["{npc:263570}: Exalted rewards"] = "{npc:263570}: Belohnungen bei Ehrfürchtig",
 
@@ -129,7 +129,7 @@ return {
 
 	-- Step 24: Bryanna Embreeze
 	-- {item:271940} Theramore Gauntlets · {item:271955} Theramore Pauldrons · {item:276504} Theramore Battle Tabard
-	["Exalted gives the Legacy Point \"Master of Darkspear Islands\" and opens the epics: gloves in plate, mail, leather and cloth for levels 50 and 60 ({item:271940}, Gloves, Handguards and Handwraps, 3g94s to 15g16s) and level 60 shoulders in every armor type ({item:271955}, Shoulders, Spaulders, Mantle, Epaulets, Shoulderpads and Shoulderguards, 9g44s to 16g86s). The {item:276504} comes from a short questline that Exalted opens here."] = "Ehrfürchtig gibt den Vermächtnispunkt „Master of Darkspear Islands“ und öffnet die Epics: Handschuhe in Platte, Kette, Leder und Stoff für die Stufen 50 und 60 ({item:271940}, Gloves, Handguards und Handwraps, 3g94s bis 15g16s) und Schultern der Stufe 60 in jeder Rüstungsart ({item:271955}, Shoulders, Spaulders, Mantle, Epaulets, Shoulderpads und Shoulderguards, 9g44s bis 16g86s). Das {item:276504} stammt aus einer kurzen Questreihe, die Ehrfürchtig hier öffnet.",
+	["Exalted gives the Legacy Point \"Master of Darkspear Islands\" and opens the epics: gloves in plate, mail, leather and cloth for levels 50 and 60 ({item:271940}, Gloves, Handguards and Handwraps, 3g94s to 15g16s) and level 60 shoulders in every armor type ({item:271955}, Shoulders, Spaulders, Mantle, Epaulets, Shoulderpads and Shoulderguards, 9g44s to 16g86s). The {item:276504} comes from a short questline that Exalted opens here."] = "Ehrfürchtig gibt den Vermächtnispunkt „Meister der Darkspear-Inseln“ und öffnet die Epics: Handschuhe in Platte, Kette, Leder und Stoff für die Stufen 50 und 60 ({item:271940}, Gloves, Handguards und Handwraps, 3g94s bis 15g16s) und Schultern der Stufe 60 in jeder Rüstungsart ({item:271955}, Shoulders, Spaulders, Mantle, Epaulets, Shoulderpads und Shoulderguards, 9g44s bis 16g86s). Das {item:276504} stammt aus einer kurzen Questreihe, die Ehrfürchtig hier öffnet.",
 	-- {npc:263569} Bryanna Embreeze
 	["{npc:263569}: Exalted rewards"] = "{npc:263569}: Belohnungen bei Ehrfürchtig",
 

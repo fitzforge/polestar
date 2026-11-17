@@ -9,7 +9,7 @@ return {
 	-- Guide
 	["Warsong Gulch Reputation"] = "Ruf: Warsongschlucht",
 	["Flag captures and Marks of Honor raise it; Exalted gives a Legacy Point and epic bracers and legs."] = "Flaggeneroberungen und Ehrenabzeichen steigern ihn; Ehrfürchtig gibt einen Vermächtnispunkt sowie epische Armschienen und Beinschutz.",
-	["Master of Warsong Gulch: a Legacy Point at Exalted"] = "Master of Warsong Gulch: ein Vermächtnispunkt bei Ehrfürchtig",
+	["Master of Warsong Gulch: a Legacy Point at Exalted"] = "Meister der Warsongschlucht: ein Vermächtnispunkt bei Ehrfürchtig",
 
 	-- Step 1: Sentinel Farsong
 	-- {zone:1460} Warsong Gulch · {npc:14733} Sentinel Farsong
@@ -58,7 +58,7 @@ return {
 
 	-- Step 7: Illiyana Moonblaze
 	-- {item:19578} Berserker Bracers · {item:19582} Windtalker's Wristguards · {item:19587} Forest Stalker's Bracers · {item:19595} Dryad's Wrist Bindings · {item:19506} Silverwing Battle Tabard
-	["Exalted gives the Legacy Point \"Master of Warsong Gulch\" and opens the epics: {item:19578} (plate), {item:19582} (mail), {item:19587} (leather) and {item:19595} (cloth) for levels 40, 50 and 60 (2g47s to 12g11s), and the level 60 Sentinel's legs in plate, lamellar, chain, leather, lizardhide and silk (16g63s to 24g22s). The {item:19506} is 5g."] = "Ehrfürchtig gibt den Vermächtnispunkt „Master of Warsong Gulch“ und öffnet die Epics: {item:19578} (Platte), {item:19582} (Kette), {item:19587} (Leder) und {item:19595} (Stoff) für die Stufen 40, 50 und 60 (2g47s bis 12g11s) sowie den Beinschutz des Sentinel der Stufe 60 in Platte, Lamellen, Kette, Leder, Echsenhaut und Seide (16g63s bis 24g22s). Das {item:19506} kostet 5g.",
+	["Exalted gives the Legacy Point \"Master of Warsong Gulch\" and opens the epics: {item:19578} (plate), {item:19582} (mail), {item:19587} (leather) and {item:19595} (cloth) for levels 40, 50 and 60 (2g47s to 12g11s), and the level 60 Sentinel's legs in plate, lamellar, chain, leather, lizardhide and silk (16g63s to 24g22s). The {item:19506} is 5g."] = "Ehrfürchtig gibt den Vermächtnispunkt „Meister der Warsongschlucht“ und öffnet die Epics: {item:19578} (Platte), {item:19582} (Kette), {item:19587} (Leder) und {item:19595} (Stoff) für die Stufen 40, 50 und 60 (2g47s bis 12g11s) sowie den Beinschutz des Sentinel der Stufe 60 in Platte, Lamellen, Kette, Leder, Echsenhaut und Seide (16g63s bis 24g22s). Das {item:19506} kostet 5g.",
 	-- {item:19506} Silverwing Battle Tabard
 	["{item:19506}, 5g"] = "{item:19506}, 5g",
 
@@ -106,7 +106,7 @@ return {
 
 	-- Step 14: Kelm Hargunth
 	-- {item:19578} Berserker Bracers · {item:19582} Windtalker's Wristguards · {item:19587} Forest Stalker's Bracers · {item:19595} Dryad's Wrist Bindings · {item:19505} Warsong Battle Tabard
-	["Exalted gives the Legacy Point \"Master of Warsong Gulch\" and opens the epics: {item:19578} (plate), {item:19582} (mail), {item:19587} (leather) and {item:19595} (cloth) for levels 40, 50 and 60 (2g47s to 12g11s), and the level 60 Outrider's legs in plate, chain, mail, leather, lizardhide and silk (16g57s to 25g33s). The {item:19505} is 5g."] = "Ehrfürchtig gibt den Vermächtnispunkt „Master of Warsong Gulch“ und öffnet die Epics: {item:19578} (Platte), {item:19582} (Kette), {item:19587} (Leder) und {item:19595} (Stoff) für die Stufen 40, 50 und 60 (2g47s bis 12g11s) sowie den Beinschutz des Outrider der Stufe 60 in Platte, Kette, Schuppen, Leder, Echsenhaut und Seide (16g57s bis 25g33s). Das {item:19505} kostet 5g.",
+	["Exalted gives the Legacy Point \"Master of Warsong Gulch\" and opens the epics: {item:19578} (plate), {item:19582} (mail), {item:19587} (leather) and {item:19595} (cloth) for levels 40, 50 and 60 (2g47s to 12g11s), and the level 60 Outrider's legs in plate, chain, mail, leather, lizardhide and silk (16g57s to 25g33s). The {item:19505} is 5g."] = "Ehrfürchtig gibt den Vermächtnispunkt „Meister der Warsongschlucht“ und öffnet die Epics: {item:19578} (Platte), {item:19582} (Kette), {item:19587} (Leder) und {item:19595} (Stoff) für die Stufen 40, 50 und 60 (2g47s bis 12g11s) sowie den Beinschutz des Outrider der Stufe 60 in Platte, Kette, Schuppen, Leder, Echsenhaut und Seide (16g57s bis 25g33s). Das {item:19505} kostet 5g.",
 	-- {item:19505} Warsong Battle Tabard
 	["{item:19505}, 5g"] = "{item:19505}, 5g",
 

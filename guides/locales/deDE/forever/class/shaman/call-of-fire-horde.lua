@@ -109,7 +109,7 @@ return {
 	-- Step 21: Kuramaa
 	-- {object:660848} Kuramaa's Stump (no name in this language: may be words) · {area:16638} Valanaar · {npc:268605} Kuramaa · {spell:8050} Flame Shock
 	-- plural, as words: Windsong Crawlers = {npc:254588} Windsong Crawler
-	["{object:660848} is the twisted stump on the hilltop by the Shen'dar Highlands Anchor Pylon, west of {area:16638}, in the hills south of the Windsong Crawlers' lakes. Knock on it to call {npc:268605} (level 10). The spirit shrugs off most magic: only fire hurts it, so keep {spell:8050} on it. Take its wooden mask."] = "{object:660848} ist der verdrehte Baumstumpf auf der Hügelkuppe beim Shen'dar-Highlands-Ankerpylon, westlich von {area:16638}, in den Hügeln südlich der Seen der Windsong Crawlers. Klopf darauf, um {npc:268605} (Stufe 10) zu rufen. Der Geist wehrt die meiste Magie ab: Nur Feuer verletzt ihn, also halte {spell:8050} auf ihm. Nimm seine Holzmaske.",
+	["{object:660848} is the twisted stump on the hilltop by the Shen'dar Highlands Anchor Pylon, west of {area:16638}, in the hills south of the Windsong Crawlers' lakes. Knock on it to call {npc:268605} (level 10). The spirit shrugs off most magic: only fire hurts it, so keep {spell:8050} on it. Take its wooden mask."] = "{object:660848} ist der verdrehte Baumstumpf auf der Hügelkuppe beim Shen'darhochland-Ankerpylon, westlich von {area:16638}, in den Hügeln südlich der Seen der Windsong Crawlers. Klopf darauf, um {npc:268605} (Stufe 10) zu rufen. Der Geist wehrt die meiste Magie ab: Nur Feuer verletzt ihn, also halte {spell:8050} auf ihm. Nimm seine Holzmaske.",
 	-- {object:660848} Kuramaa's Stump (no name in this language: may be words)
 	["{object:660848}: knock on the bark"] = "{object:660848}: klopf auf die Rinde",
 
