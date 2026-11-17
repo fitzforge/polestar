@@ -363,6 +363,34 @@ const TEXT = {
 			zhTW: 'Polestar 的玻璃與光澤：帶斜面的半透明面板，每個按鈕和標籤上的光澤，橫過玻璃的光，職業顏色漸入強調色。',
 		},
 	},
+	Polestar_Skin_Atlas: {
+		title: { deDE: 'Polestar-Design: Atlas', esES: 'Polestar, tema: Atlas', esMX: 'Polestar, tema: Atlas', frFR: 'Polestar, habillage : Atlas', koKR: 'Polestar 스킨: Atlas', ptBR: 'Polestar, tema: Atlas', ruRU: 'Polestar, оформление: Atlas', zhCN: 'Polestar 皮肤：Atlas', zhTW: 'Polestar 皮膚：Atlas' },
+		notes: {
+			deDE: 'Die Farben von Atlas für Polestar: ein warmer Goldakzent und keine Trennlinien. Für das Atlas-Layout gemacht, zu jedem Layout passend.',
+			esES: 'Los colores de Atlas para Polestar: un acento dorado cálido y sin líneas de sección. Hecho para el diseño Atlas, válido con cualquier diseño.',
+			esMX: 'Los colores de Atlas para Polestar: un acento dorado cálido y sin líneas de sección. Hecho para el diseño Atlas, válido con cualquier diseño.',
+			frFR: "Les couleurs d'Atlas pour Polestar : un accent doré chaud et aucune ligne de section. Fait pour la disposition Atlas, valable avec toute disposition.",
+			koKR: 'Polestar용 Atlas 색상: 따뜻한 금색 강조색, 구분선 없음. Atlas 레이아웃용으로 만들었고 어떤 레이아웃에도 어울립니다.',
+			ptBR: 'As cores do Atlas para o Polestar: um destaque dourado quente e sem linhas de seção. Feito para o layout Atlas, combina com qualquer layout.',
+			ruRU: 'Цвета Atlas для Polestar: тёплый золотой акцент и никаких разделительных линий. Сделано для макета Atlas, подходит к любому макету.',
+			zhCN: 'Polestar 的 Atlas 配色：温暖的金色强调色，没有分隔线。为 Atlas 布局而做，也适用于任何布局。',
+			zhTW: 'Polestar 的 Atlas 配色：溫暖的金色強調色，沒有分隔線。為 Atlas 版面而做，也適用於任何版面。',
+		},
+	},
+	Polestar_Layout_Atlas: {
+		title: { deDE: 'Polestar-Layout: Atlas', esES: 'Polestar, diseño: Atlas', esMX: 'Polestar, diseño: Atlas', frFR: 'Polestar, disposition : Atlas', koKR: 'Polestar 레이아웃: Atlas', ptBR: 'Polestar, layout: Atlas', ruRU: 'Polestar, макет: Atlas', zhCN: 'Polestar 布局：Atlas', zhTW: 'Polestar 版面：Atlas' },
+		notes: {
+			deDE: 'Ein Zeitleisten-Layout für das Guide-Fenster von Polestar: der Schritt auf einer Schiene, die nächsten Schritte verblassen nach vorn, Karten über dem Fenster. Jedes Design gibt ihm die Farben.',
+			esES: 'Un diseño de línea de tiempo para la ventana de la guía de Polestar: el paso sobre un riel, los pasos siguientes cada vez más tenues, tarjetas sobre la ventana. Cualquier tema le da los colores.',
+			esMX: 'Un diseño de línea de tiempo para la ventana de la guía de Polestar: el paso sobre un riel, los pasos siguientes cada vez más tenues, tarjetas sobre la ventana. Cualquier tema le da los colores.',
+			frFR: "Une disposition en frise pour la fenêtre du guide de Polestar : l'étape sur un rail, les étapes suivantes de plus en plus pâles, des cartes au-dessus de la fenêtre. Tout habillage lui donne ses couleurs.",
+			koKR: 'Polestar 가이드 창의 타임라인 레이아웃: 레일 위의 단계, 갈수록 흐려지는 다음 단계, 창 위의 카드. 색은 어떤 스킨이든 입힙니다.',
+			ptBR: 'Um layout de linha do tempo para a janela do guia do Polestar: a etapa sobre um trilho, as próximas etapas cada vez mais claras, cartões acima da janela. Qualquer tema dá as cores.',
+			ruRU: 'Макет-лента для окна гайда Polestar: шаг на линии, следующие шаги всё бледнее, карточки над окном. Цвета даёт любое оформление.',
+			zhCN: 'Polestar 指南窗口的时间线布局：步骤在轨道上，后续步骤逐渐变淡，卡片位于窗口上方。任何皮肤都可为其配色。',
+			zhTW: 'Polestar 指南視窗的時間軸版面：步驟在軌道上，後續步驟逐漸變淡，卡片位於視窗上方。任何皮膚都可為其配色。',
+		},
+	},
 };
 
 // The per-language folders: { title, notes } templates, %1 the locale code,

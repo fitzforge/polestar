@@ -78,13 +78,44 @@ ns.UI.GuideFrame.Part(function(GF)
 			sec:SetPoint("TOPLEFT", card, "TOPLEFT", PAD, -(y + 8))
 			y = y + 8 + sec:GetStringHeight()
 		end
+		-- The steps before (guideWindow.lastSteps), one row each over the
+		-- header, the oldest on top, as tall as the look's Up next row
+		-- (GF.Space "lastRow" over GF.LookSpace "upRow").
+		local last = card.Last
+		if last:IsShown() then
+			local n, rowH = last.psCount or 0, GF.Space("lastRow", GF.LookSpace("upRow", UP_ROW))
+			last:ClearAllPoints()
+			last:SetPoint("TOPLEFT", card, "TOPLEFT", 0, -y)
+			last:SetPoint("TOPRIGHT", card, "TOPRIGHT", 0, -y)
+			last:SetHeight(n * rowH)
+			for i = 1, n do
+				local r = last.Rows[i]
+				r:ClearAllPoints()
+				r:SetPoint("TOPLEFT", last, "TOPLEFT", 0, -(i - 1) * rowH)
+				r:SetPoint("TOPRIGHT", last, "TOPRIGHT", 0, -(i - 1) * rowH)
+				r:SetHeight(rowH)
+				r.Num:ClearAllPoints()
+				r.Num:SetPoint("LEFT", r, "TOPLEFT", PAD - 10, -rowH / 2)
+				r.Icon:ClearAllPoints()
+				r.Icon:SetPoint("LEFT", r, "TOPLEFT", TEXT_X - 2, -rowH / 2)
+				r.Text:ClearAllPoints()
+				r.Text:SetPoint("LEFT", r, "TOPLEFT", TEXT_X - 2 + 13 + 9, -rowH / 2)
+				r.Text:SetWidth(max(40, width - TEXT_X - 14 - PAD))
+			end
+			y = y + n * rowH
+		end
 		if person:IsShown() then
 			local nameW = cw - ICON - 10
 			person.Name:SetWidth(nameW)
 			person.Where:SetWidth(nameW)
 			person.Why:SetWidth(nameW)
 			person.Level:SetWidth(nameW)
-			local h = 10 + person.Name:GetStringHeight()
+			-- The room over the title and under the header (GF.Gap "stepSpace",
+			-- "titleSpace"): 10 and 8 by Polestar's own.
+			local top = GF.Gap("stepSpace", 10)
+			person.Name:SetPoint("TOPLEFT", person, "TOPLEFT", TEXT_X, -top)
+			person.Icon:SetPoint("TOPLEFT", person, "TOPLEFT", PAD - 1, -(top + 1 + floor((GF.Num("titleSize") - 1) * 7 + 0.5)))
+			local h = top + person.Name:GetStringHeight()
 			local above = person.Where:IsShown() and person.Where or person.Name
 			if person.Where:IsShown() then h = h + 3 + person.Where:GetStringHeight() end
 			if person.Why:IsShown() then
@@ -98,7 +129,7 @@ ns.UI.GuideFrame.Part(function(GF)
 				person.Level:SetPoint("TOPLEFT", above, "BOTTOMLEFT", 0, -3)
 				h = h + 3 + person.Level:GetStringHeight()
 			end
-			h = floor(h + 8 + 0.5)
+			h = floor(h + GF.Gap("titleSpace", 8) + 0.5)
 			-- A skin may lay the step's header out its own way (Skin API 2,
 			-- hooks.guidePerson(person, width, height)): its answer is the height.
 			local ran, skinH = GF.HookValue("guidePerson", person, cw, h)
@@ -331,11 +362,24 @@ ns.UI.GuideFrame.Part(function(GF)
 	GF.CapHeight = function() return F and capHeight() or nil end
 
 	-- The journey (UI/JourneyPanel.lua) right under the focus it leads to;
-	-- not in compact mode unless the skin keeps it (GF.Shows "journey"), and
-	-- in the live window alone. A skin may place it itself (guidePlace
+	-- not in compact mode unless the skin keeps it (GF.Shows "journey"). A
+	-- copy (the settings preview) shows a sample route (JP.Sample) while
+	-- nav.journeySteps is on. A skin may place it itself (guidePlace
 	-- "journey"). Returns the new y.
 	local function stackJourney(y, width)
-		local JP = GF.live and UI.JourneyPanel or nil
+		local JP = UI.JourneyPanel
+		if not GF.live then
+			if not (JP and JP.Sample) then return y end
+			if not GF.journeySample then GF.journeySample = JP.Sample(body) or false end
+			local s = GF.journeySample
+			if not s then return y end
+			if ns.Get("nav.journeySteps") and GF.Shows("journey", not compact()) then
+				s.frame:Show()
+				return place("journey", s.frame, y, s.Layout(width), width)
+			end
+			s.frame:Hide()
+			return y
+		end
 		local jf = JP and JP.frame
 		if not jf then return y end
 		if jf.psHas and GF.Shows("journey", not compact()) then
@@ -427,6 +471,14 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 		if type(bottom) ~= "number" then return nil end
 		return top * uiScale / scale - bottom
+	end
+
+	-- How far a layout's frames reach below the window's bottom edge (Atlas's
+	-- folded Journey): the layout sets F.psBelow in its guideLayout hook. A
+	-- host showing a copy (the settings preview) leaves that room too. -> height
+	function GF.Below()
+		local h = F and tonumber(F.psBelow) or 0
+		return h > 0 and floor(h + 0.5) or 0
 	end
 
 	function GF.Layout()

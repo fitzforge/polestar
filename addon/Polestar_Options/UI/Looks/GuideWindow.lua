@@ -50,8 +50,8 @@ local PREVIEW_H = 250 -- the drawing's height until its band lays it out
 -- part as the window names it (GF.Placed).
 local PART_OF = {}
 for part, keys in pairs({
-	bars = { "tabs", "tabStyle", "tabHeight", "navHeight", "barTextSize", "stepCount", "guideTitle", "skipButton", "reportButton" },
-	person = { "titleSize", "glyphSize" },
+	bars = { "tabs", "tabStyle", "tabHeight", "navHeight", "barTextSize", "stepCount", "guideTitle", "skipButton", "reportButton", "allStepsButton" },
+	person = { "titleSize", "glyphSize", "lastSteps" },
 	goals = { "goalSize", "detailSize", "rowSpacing", "lineSpacing", "checkSize", "targetBar", "targetBarWidth", "targetBarColor" },
 	tip = { "noteSize" },
 	upnext = { "upSize" },
@@ -68,7 +68,8 @@ PART_OF["ui.showNotes"], PART_OF["ui.upcoming"], PART_OF["ui.upcomingOpen"] = "t
 -- the work at Goldshire (a kill done, folded into "1 done"; the kill the arrow
 -- points at, the current goal; a collect, its mobs and their levels under
 -- it), then Marshal Dughan's turn-in, the step's other person ("Then:"); the
--- author's tip; six steps after it for Up next; the XP line (on pace, and the
+-- author's tip; the steps before it for Steps before (Brother Paxton skipped,
+-- then the walk into Goldshire); six steps after it for Up next; the XP line (on pace, and the
 -- XP tracker's rate and time to level while it is on). Its places are the
 -- zone's; the numbers are a sample's.
 local SAMPLE
@@ -100,6 +101,13 @@ do
 				{ kind = "npc", name = L["Marshal Dughan"], goals = { 4 }, done = false, map = MAP, x = 42, y = 66 },
 			} },
 	}
+	-- Steps before: the five before it, the oldest first; the fourth skipped.
+	for i, title in ipairs({ L["Northshire Abbey"], L["Echo Ridge Mine"], L["Northshire Vineyards"], L["Brother Paxton"], L["Goldshire"] }) do
+		local s, skipped = 2 + i, i == 4
+		STEPS[s] = { index = s, title = title, status = skipped and "skipped" or "done", skipped = skipped, focus = 1,
+			goals = { goal(1, 1, "goto", nil, title, "place", skipped and "skipped" or "done") },
+			groups = { { kind = "here", goals = { 1 }, done = true } } }
+	end
 	-- Up next: the steps after it, by their titles.
 	for i, title in ipairs({ L["Fargodeep Mine"], L["Lion's Pride Inn"], L["Stonefield Farm"], L["Jasperlode Mine"],
 		ns.Names.Or("area", 86, "Eastvale Logging Camp"), ns.Names.Or("area", 40, "Westfall") }) do
@@ -202,7 +210,8 @@ function UI.GuideWindowScene(band)
 		self.psW, self.psHeight = width, height or PREVIEW_H
 		if not self.psDrawn then return end
 		local F = G.frame
-		local w, y = F:GetWidth(), F:GetHeight()
+		-- What a layout hangs under the window (G.Below) is in the box too.
+		local w, y = F:GetWidth(), F:GetHeight() + (G.Below and G.Below() or 0)
 		-- Tabs drawn outside the window (guideWindow.tabStyle "edge", "strip") keep their room in the box.
 		local ol, ot = G.TabsOutside()
 		local s = (tonumber(ns.Get("ui.scale")) or 1) * band:TrueScale()
@@ -271,8 +280,11 @@ function UI.GuideWindowScene(band)
 		local P, F = G.parts, G.frame
 		local nav, person, foot, up = P.nav, P.person, P.foot, P.upnext
 		hot(P.strip, "guideWindow.tabHeight")
-		-- The tab styles' own tabs (made on each style's first use).
+		-- The tab styles' own tabs (made on each style's first use), and the
+		-- steps before and the XP line where the window shows them.
 		for _, k in ipairs({ "tabSwitch", "tabEdge", "tabSide" }) do hot(P[k], "guideWindow.tabStyle") end
+		hot(P.last, "guideWindow.lastSteps")
+		hot(G.xp, "qol.xpTracker")
 		hot(nav, "guideWindow.navHeight")
 		hot(person, "guideWindow.titleSize")
 		for _, r in ipairs(G.rows) do hot(r, "guideWindow.goalSize") end
@@ -316,8 +328,8 @@ function UI.GuideWindowScene(band)
 			["guideWindow.tabs"] = { P.strip }, ["guideWindow.tabStyle"] = styled,
 			["guideWindow.tabHeight"] = { P.strip }, ["guideWindow.navHeight"] = { nav },
 			["guideWindow.barTextSize"] = bars, ["guideWindow.stepCount"] = { nav.Steps }, ["guideWindow.guideTitle"] = { nav.Title },
-			["guideWindow.skipButton"] = { nav.Skip }, ["guideWindow.reportButton"] = { nav.Report },
-			["guideWindow.titleSize"] = { person.Name }, ["guideWindow.goalSize"] = texts, ["guideWindow.detailSize"] = details,
+			["guideWindow.skipButton"] = { nav.Skip }, ["guideWindow.reportButton"] = { nav.Report }, ["guideWindow.allStepsButton"] = { nav.AllSteps },
+			["guideWindow.titleSize"] = { person.Name }, ["guideWindow.lastSteps"] = { person, P.last }, ["guideWindow.goalSize"] = texts, ["guideWindow.detailSize"] = details,
 			["guideWindow.glyphSize"] = icons, ["guideWindow.rowSpacing"] = rows, ["guideWindow.lineSpacing"] = spacing,
 			["guideWindow.checkSize"] = checks, ["guideWindow.targetBar"] = marks, ["guideWindow.targetBarWidth"] = marks,
 			["guideWindow.targetBarColor"] = marks, ["guideWindow.noteSize"] = { P.tip }, ["ui.showNotes"] = { P.tip },
@@ -382,10 +394,13 @@ local function buildPreview(view)
 		-- Drawn first: its natural size at its own scale.
 		G:Draw()
 		local ol, ot = G.Copy.TabsOutside()
-		local winW, winH = (G.Window:GetWidth() + ol) * s, (G.Window:GetHeight() + ot) * s
+		local below = G.Copy.Below and G.Copy.Below() or 0
+		local winW, winH = (G.Window:GetWidth() + ol) * s, (G.Window:GetHeight() + ot + below) * s
 		local room = self.psRoom and max(60, self.psRoom - 2 * P.BAND_PAD - P.LINE_GAP - P.LINE_H) or winH + 8
-		-- Whole: its height and the 8 its crop keeps under it; else the room, cut.
-		local h = min(winH + 8, room)
+		-- Whole: its height and the 8 its crop keeps under it, smaller to fit
+		-- the room (the band scales it, down to 60%); taller still, the room, cut.
+		local h = winH + 8
+		if h > room and room / h < 0.6 then h = room end
 		return winW, h, function(left, top, k)
 			G:ClearAllPoints()
 			G:SetPoint("TOPLEFT", self, "TOPLEFT", P.Snap(self, left - SIDE), -P.Snap(self, top))
@@ -561,8 +576,14 @@ local SPECS = {
 			help = L["Skip in the step bar. The guide menu still skips a step."], search = "skip, button, hide skip, skip button" },
 		{ kind = "toggle", key = "guideWindow.reportButton", label = L["Report"], new = NEW,
 			help = L["The bug button that reports a problem with the step. The guide menu still has it."], search = "bug, report, problem, button, report button" },
+		{ kind = "toggle", key = "guideWindow.allStepsButton", label = L["All steps"], new = NEW,
+			help = L["A button in the step bar that opens every step of the guide in one list. The step number and the guide menu open it too."],
+			search = "all steps, browse, step list, list, every step, button" },
 	} },
 	{ page = PAGE, tab = L["Parts"], section = L["Step card"], controls = {
+		{ kind = "slider", key = "guideWindow.lastSteps", label = L["Steps before"], min = 0, max = 5, step = 1, format = "%d", new = NEW,
+			help = L["How many of the steps before this one show over it, one dimmed line each, done or skipped; 0 turns them off. Click one to go back to it."],
+			search = "steps before, last step, previous steps, step before, done steps, history, back" },
 		textSize("titleSize", L["Name size"], L["The name of the person to talk to now, or the step's place, at the top of the card."],
 			"title, step title, name, header, npc name, person"),
 		textSize("goalSize", L["Goal size"], L["The goal lines of the step and of While you're here."], "goal, goals, objectives, step text, lines, text size"),
@@ -609,6 +630,23 @@ local SPECS = {
 			help = L["How many steps the Up next list holds; 0 turns it off."], search = "up next, upcoming, later steps, list, preview, upcoming steps" },
 		textSize("upSize", L["Up next size"], L["Up next and Along the way: their rows and their headers; the rows grow with the text."],
 			"up next, upcoming, along the way, later steps, list, rows"),
+		{ kind = "dropdown", key = "guideWindow.journeyStyle", label = L["Journey style"], new = "0.4.0",
+			-- Only a layout that draws the others (its defaults name one) offers them.
+			disabled = function()
+				local T = ns.Theme
+				local id = T and T.LayoutId and T.LayoutId()
+				local info = id and T.LayoutInfo and T.LayoutInfo(id)
+				return not (info and info.defaults and info.defaults["guideWindow.journeyStyle"])
+			end,
+			help = L["Where the travel route shows while you travel: under the step, in a card under the window, folded to the leg you are on, as nodes on the timeline, or as chips in the window's foot."],
+			search = "journey, travel, route, legs, flight, boat, folded, chips, timeline, under the window",
+			choices = {
+				{ value = "inside", label = L["Under the step"] },
+				{ value = "joined", label = L["Under the window"] },
+				{ value = "folded", label = L["Under the window, folded"] },
+				{ value = "rail", label = L["On the timeline"] },
+				{ value = "foot", label = L["In the foot"] },
+			} },
 		{ kind = "slider", key = "guideWindow.progressHeight", label = L["Progress bar"], min = 1, max = 12, step = 1, format = px, new = NEW,
 			disabled = offKey("progress"),
 			help = L["The guide's progress at the bottom of the window: its thickness. The game's looks keep their own bar."],

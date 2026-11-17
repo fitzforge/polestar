@@ -35,7 +35,8 @@
 -- GF.live), then again, part by part in the same order, for each copy
 -- GF.Copy(parent, content) makes (the settings preview's, UI/Looks/
 -- GuideWindow.lua). A copy is unnamed, in `parent`, takes no clicks, wheel or
--- tooltip (only the pointer's hover, for the look the window has under it),
+-- tooltip (only the pointer's hover, for the look the window has under it;
+-- a transparent window's tabs and step bar show on a copy at rest too),
 -- has no event, message, setting or hook of its own, and none of the frames
 -- other modules put in the live window (the class card, the journey, the step
 -- browser, name targets, gear picks), nor its banner, timers or party line.
@@ -132,9 +133,27 @@ GF.Part(function(GF)
 	-- skin or layout sets it (Skin API 2, hooks.guideSpace(name, px)): its
 	-- answer, a number of 0 or more, else px. `...`: what the hook is also
 	-- handed for that name ("xpRoom": the window's width).
-	function GF.Space(name, px, ...)
+	-- Out of compact mode the player's own size for it stands over both
+	-- (GF.Gap, GF.SPACE_KEYS: the gaps Options > Guide window, Step card sets);
+	-- GF.LookSpace: the look's alone.
+	function GF.LookSpace(name, px, ...)
 		local ran, v = GF.HookValue("guideSpace", name, px, ...)
 		if ran and type(v) == "number" and v >= 0 then return v end
+		return px
+	end
+	function GF.Space(name, px, ...)
+		px = GF.LookSpace(name, px, ...)
+		local key = GF.SPACE_KEYS[name]
+		return key and GF.Gap(key, px) or px
+	end
+	GF.SPACE_KEYS = { upRow = "upRowHeight", lastRow = "lastRowHeight", tipGap = "tipSpace", tipPad = "tipPadding", xpRow = "xpRowHeight" }
+	-- A gap the player sizes (Options > Guide window, Step card:
+	-- guideWindow.<key>, the gap's whole size in px; false, the look's own):
+	-- that size out of compact mode, else px. Compact mode keeps the look's.
+	function GF.Gap(key, px)
+		if ns.Get("ui.compact") then return px end
+		local v = tonumber(ns.Get("guideWindow." .. key))
+		if v and v >= 0 then return math.floor(v + 0.5) end
 		return px
 	end
 end)
@@ -305,13 +324,24 @@ GF.Part(function(GF)
 	---------------------------------------------------------------------------
 
 	GF.LOOK = {
-		tabs = true, tabStyle = "underline", tabHeight = 1, navHeight = 1, stepCount = true, guideTitle = true, skipButton = true, reportButton = true,
-		barTextSize = 1, titleSize = 1, goalSize = 1, detailSize = 1, noteSize = 1, upSize = 1,
+		tabs = true, tabStyle = "underline", tabHeight = 1, navHeight = 1, stepCount = true, guideTitle = true, skipButton = true, reportButton = true, allStepsButton = false,
+		barTextSize = 1, stepNumberSize = 1, titleSize = 1, goalSize = 1, detailSize = 1, noteSize = 1, upSize = 1,
 		outline = "outline", padding = 0, rowSpacing = 0, lineSpacing = 0, glyphSize = 1, checkSize = 1,
 		targetBar = true, targetBarColor = false, targetBarWidth = 2,
 		progress = true, progressPct = true, progressHeight = 3, progressColor = false, pace = true,
 		bgColor = false, bgOpacity = false, border = true, idleAlpha = 1, combatAlpha = 0.35, veil = 0.68, shade = 0.2,
-		stepAnim = true, animSpeed = 1, foldAnim = true, rules = true, hideTaxi = false, leftOut = true,
+		stepAnim = true, animSpeed = 1, foldAnim = true, rules = true, hideTaxi = false, leftOut = true, lastSteps = 0,
+		-- The step card's gaps, each its whole size in px (GF.Gap); false: the
+		-- look's own (Polestar's: 10 over the step's title, 8 under it, 2 over
+		-- the tip, 6 round its text, the skin's Up next row for Up next and the
+		-- steps before, a 28 px XP row).
+		stepSpace = false, titleSpace = false, tipSpace = false, tipPadding = false, upRowHeight = false, lastRowHeight = false, xpRowHeight = false,
+		-- Where the Journey goes: "inside" (under the step); a layout may offer
+		-- more ("joined", "folded", "rail", "foot": Polestar_Layout_Atlas).
+		journeyStyle = "inside",
+		-- The banner's action: "under" the text, or "right" on its line, by
+		-- the × (only a notice with one action; two stay under).
+		bannerLinks = "under",
 	}
 	if GF.live then ns.RegisterDefaults("guideWindow", GF.LOOK) end
 
@@ -335,15 +365,22 @@ GF.Part(function(GF)
 	-- Strings the player sizes by element: group -> its setting. GF.sized:
 	-- fontString -> group; GF.spaced: fontString -> its own line spacing (wrapped
 	-- lines, guideWindow.lineSpacing on top); GF.sizedAt: what was applied, so an
-	-- untouched string is never painted again.
-	GF.SIZE_KEYS = { title = "titleSize", goal = "goalSize", detail = "detailSize", note = "noteSize", up = "upSize", bar = "barTextSize" }
+	-- untouched string is never painted again. A group of several settings
+	-- takes their product (the step number: the bar's text, then its own).
+	GF.SIZE_KEYS = { title = "titleSize", goal = "goalSize", detail = "detailSize", note = "noteSize", up = "upSize", bar = "barTextSize",
+		count = { "barTextSize", "stepNumberSize" } }
 	GF.sized = setmetatable({}, { __mode = "k" })
 	GF.spaced = setmetatable({}, { __mode = "k" })
 	GF.sizedAt = setmetatable({}, { __mode = "k" })
 
 	function GF.SizeOne(fs)
-		local group = GF.sized[fs]
-		local k = group and GF.Num(GF.SIZE_KEYS[group]) or 1
+		local key = GF.sized[fs] and GF.SIZE_KEYS[GF.sized[fs]]
+		local k = 1
+		if type(key) == "table" then
+			for _, n in ipairs(key) do k = k * GF.Num(n) end
+		elseif key then
+			k = GF.Num(key)
+		end
 		local gap = GF.Num("lineSpacing")
 		local at = GF.sizedAt[fs]
 		if (at and (at[1] ~= k or at[2] ~= gap)) or (not at and (k ~= 1 or gap ~= 0)) then
@@ -1930,7 +1967,7 @@ GF.Part(function(GF)
 	-- button is off (nav.nearbyButton).
 	local function anchorSkip()
 		nav.Skip:ClearAllPoints()
-		nav.Skip:SetPoint("RIGHT", (nav.Nearby:IsShown() and nav.Nearby) or (nav.Report:IsShown() and nav.Report) or nav.Menu, "LEFT", -2, 0)
+		nav.Skip:SetPoint("RIGHT", (nav.AllSteps:IsShown() and nav.AllSteps) or (nav.Nearby:IsShown() and nav.Nearby) or (nav.Report:IsShown() and nav.Report) or nav.Menu, "LEFT", -2, 0)
 	end
 
 	local function navigatorFor(guide, index)
@@ -1957,6 +1994,11 @@ GF.Part(function(GF)
 		nav.Report:SetShown(guide ~= nil and GF.On("reportButton"))
 		nav.Nearby:ClearAllPoints()
 		nav.Nearby:SetPoint("RIGHT", nav.Report:IsShown() and nav.Report or nav.Lookup, "LEFT", 0, 0)
+		local SL = UI.StepList
+		nav.AllSteps:SetShown(guide ~= nil and SL ~= nil and GF.On("allStepsButton"))
+		W.SetIconState(nav.AllSteps, SL and SL.On() or false, true)
+		nav.AllSteps:ClearAllPoints()
+		nav.AllSteps:SetPoint("RIGHT", nav.Nearby:IsShown() and nav.Nearby or nav.Report:IsShown() and nav.Report or nav.Lookup, "LEFT", 0, 0)
 		anchorSkip()
 		-- No guide: no steps to walk; the navigator names the addon instead.
 		nav.Steps:SetShown(guide ~= nil and GF.On("stepCount"))
@@ -1967,9 +2009,89 @@ GF.Part(function(GF)
 			nav.Title:SetPoint("LEFT", nav, "LEFT", PAD, 0)
 		end
 		if GF.catchingUp == "guides" then return end
-		local cw = max(floor(nav.Steps.Count:GetStringWidth() + 0.5), 40)
+		-- At least 40 wide at its own size (guideWindow.stepNumberSize), so
+		-- the arrows hold still as the number changes.
+		local cw = max(floor(nav.Steps.Count:GetStringWidth() + 0.5), floor(40 * GF.Num("stepNumberSize") + 0.5))
 		nav.Steps.Count:SetWidth(cw)
 		nav.Steps:SetWidth(24 + cw + 24)
+	end
+
+	-- The steps before: up to guideWindow.lastSteps (0 to 5, 0 by default:
+	-- off) of the steps before the one on screen that the route holds, one
+	-- dimmed row each over the step's header, the oldest on top and the
+	-- newest right over the step (never more than there are; none in compact
+	-- mode). Each says whether it was done or skipped; a click goes back to
+	-- it. `E`: what the window draws from (a copy's provider: the preview's
+	-- sample step). card.Last holds them: Rows (pooled, GF.LastRow), psCount.
+	function GF.LastRow(i)
+		local last = card.Last
+		local r = last.Rows[i]
+		if r then return r end
+		r = CreateFrame("Button", nil, last)
+		r:SetHeight(UP_ROW)
+		W.Hover(r)
+		r.Num = GF.SizeAs(T(r, "number", "textMuted"), "up")
+		r.Num:SetJustifyH("RIGHT")
+		r.Num:SetWidth(22)
+		r.Icon = r:CreateTexture(nil, "ARTWORK")
+		r.Icon:SetSize(13, 13)
+		W.Color(r.Icon, "textMuted")
+		r.Text = GF.SizeAs(T(r, "label", "textMuted"), "up")
+		r.Text:SetJustifyH("LEFT")
+		r.Text:SetWordWrap(false)
+		r:SetAlpha(0.7)
+		r:SetScript("OnClick", function(self)
+			local E = Engine()
+			if E and E.Goto and self.psIndex then E.Goto(self.psIndex) end
+		end)
+		r:SetScript("OnEnter", function(self)
+			W.Tooltip(self, tooltipAnchor(), self.psTitle or "", { { L["Click to jump to this step"], Theme.Accent() } })
+			GF.HoverIn()
+		end)
+		r:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
+		last.Rows[i] = r
+		return r
+	end
+
+	function GF.FillLast(E, index)
+		local last = card.Last
+		local want = compact() and 0 or floor(tonumber(ns.Get("guideWindow.lastSteps")) or 0)
+		want = max(0, min(5, want))
+		-- The steps, newest first, then drawn oldest first.
+		local found, views = {}, {}
+		if want > 0 and type(index) == "number" then
+			for s = index - 1, 1, -1 do
+				local sv = E.GetStepView(s)
+				if sv and sv.status ~= "na" and not sv.along and not UI.StepHidden(s, E) then
+					local k = #found + 1
+					found[k], views[k] = s, sv
+					if #found >= want then break end
+				end
+			end
+		end
+		local n = #found
+		for i = 1, n do
+			local s, v, r = found[n + 1 - i], views[n + 1 - i], GF.LastRow(i)
+			local skipped = v.skipped or v.status == "skipped"
+			r.psIndex, r.psView = s, v
+			r.psStatus = skipped and "skipped" or v.status
+			r.psSummary = UI.StepSummary(v)
+			r.psTitle = v.title or r.psSummary
+			r.Num:SetText(UI.StepNo(s, E))
+			r.Icon:SetTexture(Theme.VerbIcon(UI.FirstVerb(v)))
+			local text = r.psSummary
+			if skipped then text = text .. "  |c" .. Theme.Hex("textMuted") .. L["skipped"] .. "|r" end
+			r.Text:SetText(text)
+			W.Color(r.Text, "textMuted")
+			r:Show()
+		end
+		for i = n + 1, #last.Rows do
+			local r = last.Rows[i]
+			r.psIndex, r.psView, r.psStatus, r.psSummary, r.psTitle = nil, nil, nil, nil, nil
+			r:Hide()
+		end
+		last.psCount = n
+		last:SetShown(n > 0)
 	end
 
 	local function fillUpcoming(E, index)
@@ -2822,6 +2944,7 @@ GF.Part(function(GF)
 		fillAlong(E)
 		GF.FillHere(E)
 		fillUpcoming(E, index)
+		GF.FillLast(E, index)
 		showSteps(true)
 		GF.Layout()
 		followCurrent(focusChanged)
@@ -3035,7 +3158,7 @@ GF.Part(function(GF)
 		end)
 		nav.Prev.psTipLines = { L["A look back: nothing changes."] }
 		nav.Prev:SetPoint("LEFT", nav.Steps, "LEFT", 0, 0)
-		nav.Steps.Count = GF.SizeAs(T(nav.Steps, "number", "text"), "bar")
+		nav.Steps.Count = GF.SizeAs(T(nav.Steps, "number", "text"), "count")
 		nav.Steps.Count:SetJustifyH("CENTER")
 		nav.Steps.Count:SetPoint("LEFT", nav.Prev, "RIGHT", 0, 0)
 		nav.Next = W.IconButton(nav.Steps, "chevron-right", 24, L["Next step"], function()
@@ -3063,6 +3186,14 @@ GF.Part(function(GF)
 		nav.Nearby:SetPoint("RIGHT", nav.Report, "LEFT", 0, 0)
 		nav.Nearby:SetShown(ns.Get("nav.nearbyButton") ~= false)
 		GF.nearbyButton = nav.Nearby
+		-- All steps: opens and closes the step browser (UI/StepList.lua), lit
+		-- while it is open; left of Nearby (guideWindow.allStepsButton).
+		nav.AllSteps = W.IconButton(nav, "layers", 24, L["All steps"], function()
+			if UI.StepList then UI.StepList.Toggle() end
+		end)
+		nav.AllSteps.psTipLines = { L["Every step of the guide in one list. Click one to look at it."] }
+		nav.AllSteps:SetPoint("RIGHT", nav.Nearby, "LEFT", 0, 0)
+		nav.AllSteps:Hide()
 		-- Skip: the 11px skip glyph and a Small label, a ghost button left of the
 		-- bug.
 		local skip = CreateFrame("Button", nil, nav)
@@ -3120,11 +3251,11 @@ GF.Part(function(GF)
 			GF.ScrubDone()
 			UI.StepList.Toggle()
 		end)
-		for _, b in ipairs({ nav.Menu, nav.Lookup, nav.Report, nav.Nearby, nav.Next, nav.Prev, nav.Skip }) do hoverable(b) end
+		for _, b in ipairs({ nav.Menu, nav.Lookup, nav.Report, nav.Nearby, nav.AllSteps, nav.Next, nav.Prev, nav.Skip }) do hoverable(b) end
 		-- Transparent chrome: the step number fades with its chevrons (nav.Steps
 		-- holds all three) and the title with them; a lone "3 / 8" over the world
 		-- would read as a stray number. Progress stays readable in the foot.
-		for _, c in ipairs({ nav.Menu, nav.Lookup, nav.Report, nav.Nearby, nav.Skip, nav.Steps, nav.Title }) do chrome[#chrome + 1] = c end
+		for _, c in ipairs({ nav.Menu, nav.Lookup, nav.Report, nav.Nearby, nav.AllSteps, nav.Skip, nav.Steps, nav.Title }) do chrome[#chrome + 1] = c end
 
 		-- Body
 		body = CreateFrame("Frame", nil, F)
@@ -3188,6 +3319,11 @@ GF.Part(function(GF)
 		card.Section:SetJustifyH("LEFT")
 		card.Section:SetWordWrap(false)
 		card.Section:Hide()
+		-- The steps before, over the header (GF.FillLast, layoutCard).
+		card.Last = CreateFrame("Frame", nil, card)
+		card.Last.Rows = {}
+		card.Last.psCount = 0
+		card.Last:Hide()
 		-- Blizzard: a gold separator under the person, above the goals.
 		person.Rule = person:CreateTexture(nil, "ARTWORK")
 		person.Rule:SetTexture(Theme.Media("white"))
@@ -3461,7 +3597,7 @@ GF.Part(function(GF)
 		GF.parts = {
 			strip = strip, nav = nav, body = body, card = card, person = person, tip = tip, after = after,
 			along = along, upnext = upnext, empty = empty, band = band, banner = banner, foot = foot, line = foot.Line, here = GF.here,
-			goals = goals,
+			goals = goals, last = card.Last,
 		}
 		GF.chrome = chrome
 		-- The parts a skin's hooks get (Skin API 2; Theme.GuideParts hands out

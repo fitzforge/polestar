@@ -1,0 +1,32 @@
+## Interface: 16001
+## Title: Polestar Skin: Atlas
+## Notes: Atlas's colours for Polestar: a warm gold accent and no section lines. Made for the Atlas layout, at home with any layout.
+## Title-deDE: Polestar-Design: Atlas
+## Notes-deDE: Die Farben von Atlas für Polestar: ein warmer Goldakzent und keine Trennlinien. Für das Atlas-Layout gemacht, zu jedem Layout passend.
+## Title-esES: Polestar, tema: Atlas
+## Notes-esES: Los colores de Atlas para Polestar: un acento dorado cálido y sin líneas de sección. Hecho para el diseño Atlas, válido con cualquier diseño.
+## Title-esMX: Polestar, tema: Atlas
+## Notes-esMX: Los colores de Atlas para Polestar: un acento dorado cálido y sin líneas de sección. Hecho para el diseño Atlas, válido con cualquier diseño.
+## Title-frFR: Polestar, habillage : Atlas
+## Notes-frFR: Les couleurs d'Atlas pour Polestar : un accent doré chaud et aucune ligne de section. Fait pour la disposition Atlas, valable avec toute disposition.
+## Title-koKR: Polestar 스킨: Atlas
+## Notes-koKR: Polestar용 Atlas 색상: 따뜻한 금색 강조색, 구분선 없음. Atlas 레이아웃용으로 만들었고 어떤 레이아웃에도 어울립니다.
+## Title-ptBR: Polestar, tema: Atlas
+## Notes-ptBR: As cores do Atlas para o Polestar: um destaque dourado quente e sem linhas de seção. Feito para o layout Atlas, combina com qualquer layout.
+## Title-ruRU: Polestar, оформление: Atlas
+## Notes-ruRU: Цвета Atlas для Polestar: тёплый золотой акцент и никаких разделительных линий. Сделано для макета Atlas, подходит к любому макету.
+## Title-zhCN: Polestar 皮肤：Atlas
+## Notes-zhCN: Polestar 的 Atlas 配色：温暖的金色强调色，没有分隔线。为 Atlas 布局而做，也适用于任何布局。
+## Title-zhTW: Polestar 皮膚：Atlas
+## Notes-zhTW: Polestar 的 Atlas 配色：溫暖的金色強調色，沒有分隔線。為 Atlas 版面而做，也適用於任何版面。
+## Author: TTik3r
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+## Version: 0.4.0.1
+## Category: Polestar
+## Group: Polestar
+## Dependencies: Polestar
+## LoadOnDemand: 1
+## X-Polestar-Skin: atlas
+
+Atlas.lua

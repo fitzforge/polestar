@@ -26,8 +26,9 @@ ns.UI.GuideFrame.Part(function(GF)
 	local hovering = false
 
 	-- ui.barShown keeps a transparent window's tabs and step bar on screen (not the grip).
+	-- A copy (the settings preview) shows them always: its title and tabs are part of what it previews.
 	local function chromeAlpha(c)
-		if not transparent() or hovering then return 1 end
+		if not transparent() or hovering or not GF.live then return 1 end
 		return (ns.Get("ui.barShown") and c ~= grip) and 1 or 0
 	end
 

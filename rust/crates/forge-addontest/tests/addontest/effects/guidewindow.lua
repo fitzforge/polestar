@@ -118,6 +118,7 @@ return {
 		["guideWindow.skipButton"] = one("skip"),
 		["guideWindow.reportButton"] = one("report"),
 		["guideWindow.titleSize"] = one("name"),
+		["guideWindow.lastSteps"] = function() return { P.last.psCount, snapshot().height } end,
 		["guideWindow.goalSize"] = one("rowText"),
 		["guideWindow.detailSize"] = function() return size(P.person.Where) end,
 		["guideWindow.glyphSize"] = one("icon"),

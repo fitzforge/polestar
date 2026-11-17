@@ -4,7 +4,7 @@
 //! links to those rows. A preset writes exactly what it names (the others of its row back to their defaults), is
 //! lit while the settings match it, and its card is drawn with its own values by the element's look code.
 
-use forge_addontest::{emitted, Addon, RunAddon};
+use forge_addontest::{emitted, lua_string, Addon, RunAddon};
 use serde_json::{json, Value};
 
 const ALL: [&str; 11] = [
@@ -237,4 +237,226 @@ fn a_page_opens_again_on_the_tab_last_opened_there() {
 		emit({ first = first, again = O.view.psTab.name, saved = PolestarDB.optionsTab and PolestarDB.optionsTab.arrow or false,
 			setting = Polestar.GetDefault("ui.optionsTab") == nil })"#);
 	assert_eq!(out, json!({ "first": "Essentials", "again": "Text", "saved": "Text", "setting": true }));
+}
+
+// The Atlas layout and skin installed as the release ships them: load on demand, named in their TOCs, loaded from
+// their files the first time Polestar asks (stub_packs.lua).
+fn run_with_atlas(script: &str) -> Value {
+	let files = |name: &str| -> String {
+		forge_addontest::run::toc_files(name).unwrap().iter().map(|f| lua_string(&f.display().to_string())).collect::<Vec<_>>().join(", ")
+	};
+	let before = format!(
+		r#"
+stub.addons = {{
+	{{ name = "Polestar" }},
+	{{ name = "Polestar_Layout_Atlas", title = "Polestar Layout: Atlas", notes = "A timeline layout.", demand = true }},
+	{{ name = "Polestar_Skin_Atlas", title = "Polestar Skin: Atlas", demand = true }},
+}}
+stub.addonMeta["Polestar_Layout_Atlas"] = {{ ["X-Polestar-Layout"] = "atlas", ["X-Polestar-Layout-Preset"] = "atlas = Atlas" }}
+stub.addonMeta["Polestar_Skin_Atlas"] = {{ ["X-Polestar-Skin"] = "atlas" }}
+stub.packs.Polestar_Layout_Atlas = {{ {} }}
+stub.packs.Polestar_Skin_Atlas = {{ {} }}"#,
+		files("Polestar_Layout_Atlas"),
+		files("Polestar_Skin_Atlas")
+	);
+	emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua", "stub_packs.lua"],
+		before,
+		addons: vec![Addon::files("Polestar", &ALL)],
+		script: format!("Polestar.UI.LoadOptions()\nuistub.install()\nstub.login()\nlocal UI, O, W = Polestar.UI, Polestar.UI.Options, Polestar.Widgets\n{script}"),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+// The guide window's Presets row, its cards in order with the one lit.
+const PRESET_ROW: &str = r#"
+	UI.ShowOptions("guidewindow")
+	O.Select("guidewindow", "Essentials")
+	local row
+	for c, w in pairs(O.view.cache) do if c.presets then row = w end end
+	local function choices() return type(row.psChoices) == "function" and row.psChoices() or row.psChoices end
+	local function values()
+		local t = {}
+		for i, ch in ipairs(choices()) do t[i] = ch.value end
+		return table.concat(t, ",")
+	end
+	local function lit() for v, card in pairs(row.psCardBy) do if card:IsShown() and card.Check:IsShown() then return v end end return false end
+"#;
+
+// No layout installed: the row is Polestar's own four cards.
+#[test]
+fn the_presets_row_has_no_layout_card_without_a_layout_installed() {
+	let out = run(&format!("{PRESET_ROW}\nemit({{ values = values(), lit = lit() }})"));
+	assert_eq!(out["values"], "standard,compact,transparent,large");
+	assert_eq!(out["lit"], "standard");
+}
+
+// Atlas installed, not loaded: its card follows the four, labelled from its TOC, a name on the card and "Not loaded",
+// and drawing it loads nothing. Picking it loads the layout and puts it in use, the player's skin kept, and lights it alone;
+// its card is then the window drawn through Atlas's hooks, on that copy's own parts. The built-in cards draw with
+// Polestar's own layout meanwhile: no layout hook runs for them. Standard (and Compact) go back to Polestar's own
+// layout, lit. A skin the player chose stays through Atlas and back.
+#[test]
+fn the_atlas_card_picks_the_layout_only_and_standard_goes_back() {
+	let out = run_with_atlas(&format!(
+		r##"{PRESET_ROW}
+	local T = Polestar.Theme
+	local r = {{ values = values(), lit = {{ lit() }} }}
+	local atlas = row.psCardBy["layout:atlas"]
+	r.before = {{ atlas.Name:GetText(), atlas.Note:GetText(), atlas.Art.psLabel and atlas.Art.psLabel:GetText() or false,
+		stub.packLoads.Polestar_Layout_Atlas or 0, T.LayoutInfo("atlas") ~= nil }}
+	atlas:Click()
+	r.picked = {{ T.LayoutId() or false, Polestar.Get("ui.skin"), T.SkinId(), stub.packLoads.Polestar_Layout_Atlas or 0 }}
+	r.lit[2] = lit()
+	-- Every Atlas hook counted, with the window it was handed.
+	local hooks = Polestar.ThemeInternal.LAYOUTS.atlas.hooks
+	local calls, windows = 0, {{}}
+	for name, fn in pairs(hooks) do
+		hooks[name] = function(...)
+			calls = calls + 1
+			for i = 1, select("#", ...) do
+				local a = select(i, ...)
+				if type(a) == "table" and rawget(a, "window") then windows[a.window] = true end
+			end
+			return fn(...)
+		end
+	end
+	local byValue = {{}}
+	for _, ch in ipairs(choices()) do byValue[ch.value] = ch end
+	r.builtin = {{}}
+	for _, v in ipairs({{ "standard", "compact", "transparent", "large" }}) do
+		calls = 0
+		byValue[v].draw(row.psCardBy[v].Art)
+		r.builtin[#r.builtin + 1] = calls
+	end
+	calls = 0
+	byValue["layout:atlas"].draw(atlas.Art)
+	local copy = atlas.Art.psCopy
+	r.atlasCard = {{ calls > 0, copy ~= nil and windows[copy.frame] == true, windows[Polestar.UI.GuideFrame.frame] == true,
+		atlas.Art.psLabel and atlas.Art.psLabel:IsShown() or false }}
+	row.psCardBy.standard:Click()
+	r.standard = {{ T.LayoutId() or false, Polestar.Get("ui.skin"), Polestar.Get("ui.layout") or false }}
+	r.lit[3] = lit()
+	atlas:Click()
+	row.psCardBy.compact:Click()
+	r.compact = {{ T.LayoutId() or false, Polestar.Get("ui.compact"), Polestar.Get("ui.skin") }}
+	r.lit[4] = lit()
+	atlas:Click()
+	row:Click("RightButton")
+	r.reset = {{ T.LayoutId() or false, Polestar.Get("ui.compact") }}
+	r.lit[5] = lit()
+	Polestar.Set("ui.skin", "forever")
+	atlas:Click()
+	local inAtlas = Polestar.Get("ui.skin")
+	row.psCardBy.standard:Click()
+	r.ownSkin = {{ inAtlas, Polestar.Get("ui.skin") }}
+	r.failed = T.LayoutInfo("atlas").failed or false
+	emit(r)"##
+	));
+	assert_eq!(out["values"], "standard,compact,transparent,large,layout:atlas", "the Atlas card after Polestar's own");
+	assert_eq!(out["before"], json!(["Atlas", "Not loaded", "Atlas", 0, false]), "labelled from its TOC, drawing it loads nothing");
+	assert_eq!(out["picked"], json!(["atlas", "polestar", "polestar", 1]), "picked: the layout loads and is in use, the skin left as it was");
+	assert_eq!(out["builtin"], json!([0, 0, 0, 0]), "the built-in cards call no layout hook while Atlas is in use");
+	assert_eq!(out["atlasCard"], json!([true, true, false, false]), "the Atlas card draws through its hooks, on the copy's own parts");
+	assert_eq!(out["standard"], json!([false, "polestar", false]), "Standard: Polestar's own layout, the skin as it was");
+	assert_eq!(out["compact"], json!([false, true, "polestar"]), "Compact too");
+	assert_eq!(out["reset"], json!([false, false]), "right-click: Standard");
+	assert_eq!(out["lit"], json!(["standard", "layout:atlas", "standard", "compact", "standard"]), "the check follows the layout in use");
+	assert_eq!(out["ownSkin"], json!(["forever", "forever"]), "the player's skin stays through Atlas and Standard");
+	assert_eq!(out["failed"], false, "no Atlas hook failed");
+}
+
+// Atlas, then Standard: the settings' preview copy (drawing with the layout in use) drops every change Atlas made to it,
+// as the live window does. Its title, zone and goal rows sit, show, size and take their fonts as a fresh copy's drawn
+// under Standard, a repaint after included.
+#[test]
+fn leaving_atlas_gives_the_preview_copy_polestar_s_own_layout_back() {
+	let out = run_with_atlas(&format!(
+		r##"{PRESET_ROW}
+	local GF = Polestar.UI.GuideFrame
+	local preview
+	for copy in pairs(GF.copies or {{}}) do preview = copy end
+	-- A window's title, zone and goal rows: anchors (to frames of that window, by name), shown, size.
+	local function snap(G)
+		local P = G.SkinParts()
+		local names = {{ [P.window] = "window" }}
+		for k, v in pairs(P) do if type(v) == "table" and k ~= "rows" then names[v] = k end end
+		for k, v in pairs(P.person) do if type(v) == "table" then names[v] = "person." .. tostring(k) end end
+		local function one(f)
+			local t = {{ shown = f:IsShown() and true or false, w = math.floor(f:GetWidth() + 0.5) }}
+			if f.GetFont then
+				local path, size, flags = f:GetFont()
+				t.font = table.concat({{ tostring(path), tostring(size), tostring(flags) }}, " ")
+			end
+			for i = 1, f:GetNumPoints() do
+				local pt, rel, rp, x, y = f:GetPoint(i)
+				t[#t + 1] = table.concat({{ pt, names[rel] or (rel and "other" or "parent"), tostring(rp), tostring(x), tostring(y) }}, " ")
+			end
+			return t
+		end
+		local s = {{ title = one(P.person.Name), zone = one(P.person.Where), person = one(P.person), rows = {{}} }}
+		for i, r in ipairs(P.rows) do
+			if r:IsShown() then s.rows[#s.rows + 1] = {{ row = one(r), text = r.Text and one(r.Text) or false }} end
+		end
+		return s
+	end
+	local r = {{ found = preview ~= nil }}
+	row.psCardBy["layout:atlas"]:Click()
+	stub.advance(0.5)
+	preview.Draw()
+	r.atlas = snap(preview)
+	row.psCardBy.standard:Click()
+	stub.advance(0.5)
+	-- A repaint (a theme change) after: what the window got back stays.
+	Polestar.Theme.Refresh()
+	preview.Draw()
+	r.after = snap(preview)
+	local fresh = GF.Copy(preview.parent, preview.content)
+	fresh.Draw()
+	r.fresh = snap(fresh)
+	r.layout = Polestar.Theme.LayoutId() or false
+	emit(r)"##
+	));
+	assert_eq!(out["found"], true, "the preview is a copy drawing with the layout in use");
+	assert_eq!(out["layout"], false, "Standard: Polestar's own layout");
+	assert_ne!(out["atlas"], out["fresh"], "under Atlas the preview is laid out as Atlas's");
+	assert_eq!(out["after"], out["fresh"], "after Atlas, the preview is a fresh copy's layout");
+}
+
+// A layout's preset: label and help as text, set as a skin preset's settings plus the skin it is drawn for; never
+// ui.layout (the card picks the layout), never behaviour.
+#[test]
+fn a_layout_preset_is_checked_as_it_registers() {
+	let out = run(r#"
+		local T = Polestar.Theme
+		local function try(id, preset)
+			local ok, msg = T.RegisterLayout(id, { api = 2, name = "Test " .. id, addon = "Polestar_Layout_Test", preset = preset })
+			return msg or (ok and "ok") or "?"
+		end
+		local r = {
+			try("p1", "x"),
+			try("p2", { label = "" }),
+			try("p3", { set = { ["ui.layout"] = "p3" } }),
+			try("p4", { set = { ["ui.skin"] = 3 } }),
+			try("p5", { set = { ["behavior.autoAccept"] = true } }),
+			try("p6", { colour = 1 }),
+			try("good", { help = "A test.", set = { ["ui.skin"] = "hearth", ["ui.width"] = 320 } }),
+		}
+		local info = T.LayoutInfo("good").preset
+		emit({ r = r, info = { info.label, info.help, info.set["ui.skin"], info.set["ui.width"] }, cap = T.HasCapability("layouts.preset") })"#);
+	assert_eq!(
+		out["r"],
+		json!([
+			"preset must be a table { label, help, set }",
+			"preset.label must be a string of 1-40 characters",
+			"preset.set[\"ui.layout\"]: picking the card chooses the layout",
+			"preset.set[\"ui.skin\"] must be a skin id",
+			"preset.behavior.autoAccept is not a look setting (a preset changes how Polestar looks, never what it does)",
+			"unknown field preset.colour",
+			"ok"
+		])
+	);
+	assert_eq!(out["info"], json!(["Test good", "A test.", "hearth", 320]), "the label is the layout's name when unset");
+	assert_eq!(out["cap"], true);
 }
