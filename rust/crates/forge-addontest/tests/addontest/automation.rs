@@ -423,10 +423,10 @@ fn an_escort_is_not_auto_accepted_in_a_group_alone_it_is_2708() {
 		local said = {}
 		for _, m in ipairs(stub.messages) do if tostring(m):find("escort") then said[#said + 1] = m end end
 		${calls}
-		emit({ calls = c, said = #said })
+		emit({ calls = table.concat(c, ", "), said = #said })
 	"#;
 	let grouped = run("function IsInGroup() return true end", &guide, script);
-	assert_eq!(grouped, json!({ "calls": [], "said": 1 }), "in a group: left to the player, said once");
+	assert_eq!(grouped, json!({ "calls": "", "said": 1 }), "in a group: left to the player, said once");
 	let alone = run("function IsInGroup() return false end", &guide, script);
-	assert_eq!(alone, json!({ "calls": ["AcceptQuest 97331 nil"], "said": 0 }), "alone: taken");
+	assert_eq!(alone, json!({ "calls": "AcceptQuest 97331 nil", "said": 0 }), "alone: taken");
 }
