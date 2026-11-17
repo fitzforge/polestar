@@ -2,6 +2,38 @@
 	"about": "Where an objective is done, or where the arrow leads for a quest's giver or ender, anchored on the quest (never a line). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file; FORGE.md, Fixing a generated guide, has the format. objective: the objective's number (as in `quest Q.N`), \"giver\" or \"ender\". at: { map, x, y, frame }; path: { map, frame, points } for a target that walks a road (a loop of gotos before the goal); write: true gives the objective its own goal line from the data before the quest's bare complete. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }, the kinds of forever-db/README.md) and its issue or pr.",
 	"places": [
 		{
+			"id": "stranglethorn-young-panthers-across-the-river",
+			"quest": 190,
+			"objective": 1,
+			"at": {
+				"map": 1434,
+				"x": 39.81,
+				"y": 11,
+				"frame": "era"
+			},
+			"note": "Panther Mastery needs ten Young Panthers. Start across the river from Nesingwary's camp, where the spawns cluster, and hunt them on the same outing as the regular Stranglethorn Tigers.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "Player report from Stranglethorn Vale: only a couple of Young Panthers near the previous waypoint, with the main hunting area across the river around 39.8,11"
+			}
+		},
+		{
+			"id": "stranglethorn-tigers-with-young-panthers",
+			"quest": 186,
+			"objective": 1,
+			"at": {
+				"map": 1434,
+				"x": 45,
+				"y": 15,
+				"frame": "era"
+			},
+			"note": "The second Tiger Mastery quest can be worked on the east side with Young Panthers. Start at the tiger spawns southeast of the panther area.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "Player report from Stranglethorn Vale: regular Stranglethorn Tigers are beside the Young Panthers. NPC 682 reference spawns on map 1434 cluster east of the river around 45,15."
+			}
+		},
+		{
 			"id": "621-westfall-oats-on-the-sack",
 			"quest": 151,
 			"objective": 1,

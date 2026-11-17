@@ -1558,6 +1558,24 @@ mod tests {
 	}
 
 	#[test]
+	fn panther_mastery_leads_across_the_river_for_both_factions() {
+		let all: Value = serde_json::from_str(include_str!("../../../../data/places.json")).unwrap();
+		let places = json!({ "places": all["places"].as_array().unwrap().iter().filter(|r| r["quest"] == 190 || r["quest"] == 186).collect::<Vec<_>>() });
+		let records = Records { places: Some(&places), ..Records::default() };
+		for (faction, guide) in [
+			("Alliance", include_str!("../../../../forge/seed/guides/forever/alliance/30-40/04-stranglethorn-vale.guide")),
+			("Horde", include_str!("../../../../forge/seed/guides/forever/horde/30-40/03-stranglethorn-vale.guide")),
+		] {
+			let file = "stranglethorn-vale.guide".to_string();
+			let mut tree = BTreeMap::from([(file.clone(), guide.to_string())]);
+			apply(&mut tree, std::slice::from_ref(&file), &HashSet::from([186, 190]), Some(faction), records, None);
+			let out = &tree[&file];
+			assert!(out.lines().any(|l| l.starts_with("  kill 683 quest 190 @39.81,11 map 1434 era")), "{faction}: Young Panthers should point across the river");
+			assert!(out.lines().any(|l| l.starts_with("  kill 682 quest 186 @45,15 map 1434 era")), "{faction}: regular tigers should point to the nearby east-side spawns");
+		}
+	}
+
+	#[test]
 	fn fyuries_krazek_report_1550_is_kept_by_the_checkout_records() {
 		let all: Value = serde_json::from_str(include_str!("../../../../data/guide-fixes.json")).unwrap();
 		let fixes = json!({ "fixes": all["fixes"].as_array().unwrap().iter().filter(|r| r["issue"] == 1550).cloned().collect::<Vec<_>>() });
