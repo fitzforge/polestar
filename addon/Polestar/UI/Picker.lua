@@ -1917,8 +1917,10 @@ function P.Render()
 	renderRail()
 	sectionLayout(active)
 	if active then
-		sectionNav(active)
+		-- The section first, then its sidebar: a section takes up a search the hub changed while another one
+		-- was shown when it draws, and its index counts what it shows (#2769).
 		renderSection(active)
+		sectionNav(active)
 		return
 	end
 	for _, s in ipairs(sections) do if s.psFrame then s.psFrame:Hide() end end
