@@ -209,6 +209,9 @@ GF.Part(function(GF)
 	-- provider too (GF.UseContent(content); nil: the Engine again).
 	-- Quests in the log off the route from which the card nudges a cleanup (#2634).
 	GF.OFF_ROUTE_NUDGE = 3
+	-- The off-route line closed by its ×: how many quests were off the route
+	-- then; it comes back when more are (this session).
+	GF.offRouteClosed = nil
 	GF.CONTENT = { "GetGuide", "GetTabs", "GetStepIndex", "GetLiveStep", "GetStepCount", "GetStepView", "StepNumber", "StepTotal",
 		"GetProgress", "GetAlong", "GetWhileHereList", "LeftOutHere", "StepHint", "Pace", "XPStats", "RestParts", "Target" }
 	local DERIVED = GF.live and {
@@ -1285,6 +1288,21 @@ GF.Part(function(GF)
 			l:SetScript("OnClick", lineClick)
 			l:SetScript("OnEnter", lineEnter)
 			l:SetScript("OnLeave", lineLeave)
+			-- The off-route line's × (psRoom): a button over its glyph that
+			-- closes the line (GF.DismissOffRoute); shown on that line alone.
+			l.Close = CreateFrame("Button", nil, l)
+			l.Close:SetSize(ICON + 6, lh)
+			l.Close:SetPoint("CENTER", l.Icon, "CENTER", 0, 0)
+			l.Close:SetScript("OnClick", function() GF.DismissOffRoute() end)
+			l.Close:SetScript("OnEnter", function(self)
+				W.Color(l.Icon, "text")
+				W.Tooltip(self, "ANCHOR_TOP", L["Close"], { L["Hides this line until more quests are off your route."] })
+			end)
+			l.Close:SetScript("OnLeave", function(self)
+				W.Color(l.Icon, "textMuted")
+				W.HideTooltip(self)
+			end)
+			l.Close:Hide()
 			lines[i] = l
 			return l
 		end
@@ -2213,6 +2231,7 @@ GF.Part(function(GF)
 	local function paintLine(l, key, icon, iconColor, text, list, title, open)
 		l.psKey, l.psGoals, l.psTitle, l.psDungeon = key, list, title, nil
 		l.psOut, l.psOutItem, l.psOutFix, l.psRoom, l.psInfo, l.psNear = nil, nil, nil, nil, nil, nil
+		if l.Close then l.Close:Hide() end
 		l.Icon:SetTexture((icon == "check" or icon == "icon-dungeon" or icon == "skip" or icon == "cross") and Theme.Media(icon) or Theme.VerbIcon(icon))
 		W.Color(l.Icon, iconColor)
 		l.Text:SetText(text)
@@ -2626,10 +2645,11 @@ GF.Part(function(GF)
 				model.offRoute = P and P.OffRoute and P.OffRoute() or false
 			end
 			local off = model.offRoute
-			if off and #off >= GF.OFF_ROUTE_NUDGE then
+			if off and #off >= GF.OFF_ROUTE_NUDGE and #off > (GF.offRouteClosed or 0) then
 				local l = addLine("offRoute", "cross", "textMuted", string.format(L["%d quests aren't part of your route"], #off), nil, L["Clean up quest log (%d)"]:format(#off), false)
 				l.psRoom = off
 				l.Chevron:SetTexture(Theme.Media("chevron-right"))
+				if l.Close then l.Close:Show() end
 			end
 		end
 		for gi, goal in ipairs(view.goals) do model.last[gi] = goal.status end
@@ -2777,6 +2797,13 @@ GF.Part(function(GF)
 
 	-- The card again from the view it shows: a summary line opened or closed,
 	-- a fold that landed.
+	-- The off-route line's ×: closes it until more quests are off the route.
+	function GF.DismissOffRoute()
+		local off = model and model.offRoute
+		GF.offRouteClosed = type(off) == "table" and #off or math.huge
+		GF.Refill()
+	end
+
 	function GF.Refill()
 		if not F or state ~= "steps" or not view then return end
 		fillCard(true)
