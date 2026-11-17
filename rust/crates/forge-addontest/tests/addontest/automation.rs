@@ -428,7 +428,10 @@ fn an_escort_is_not_auto_accepted_in_a_group_alone_it_is_2708() {
 		local said = {}
 		for _, m in ipairs(stub.messages) do if tostring(m):find("escort") then said[#said + 1] = m end end
 		${calls}
-		emit({ calls = table.concat(c, ", "), said = #said })
+		-- The accepts only: the second window, after the accept alone, is closed as one the guide no longer takes (#360).
+		local accepts = {}
+		for _, x in ipairs(c) do if x:find("^AcceptQuest") then accepts[#accepts + 1] = x end end
+		emit({ calls = table.concat(accepts, ", "), said = #said })
 	"#;
 	let grouped = run("function IsInGroup() return true end", &guide, script);
 	assert_eq!(grouped, json!({ "calls": "", "said": 1 }), "in a group: left to the player, said once");
