@@ -3204,9 +3204,13 @@ fn an_ender_who_stands_only_inside_a_dungeon_is_its_entrance_2582() {
 		"classes": null, "start": { "npc": [1937], "object": [], "item": [] }, "end": { "npc": [9001], "object": [] }, "objectives": [],
 		"pre": [], "zone": 1421, "rewards": [], "choices": [], "preAny": [] });
 	let pack = pack_of(&codex, &inputs);
-	let out = run(&pack, r#"
+	let out = run(
+		&pack,
+		r#"
 		Polestar.Codex.Load()
 		local e = Polestar.RoutePlan.Ender(9101)
-		emit(e and { name = e.name, zone = e.zone, map = e.map, x = e.x, y = e.y, inside = e.inside or false } or false)"#, Opts::default());
+		emit(e and { name = e.name, zone = e.zone, map = e.map, x = e.x, y = e.y, inside = e.inside or false } or false)"#,
+		Opts::default(),
+	);
 	assert_eq!(out[0], json!({ "name": "Inside Ender", "zone": "Shadowfang Keep", "map": 1421, "x": 44.8, "y": 67.8, "inside": true }));
 }
