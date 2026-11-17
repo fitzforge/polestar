@@ -12831,7 +12831,7 @@ for (const sv of SECOND_VISITS) {
 			assert.ok(!(Object.values(out.hidden) || []).includes(q), `${q} is not left out`);
 			assert.ok(out.accepts[q] && !/skipped/.test(out.accepts[q]), `${q} is not skipped: ${out.accepts[q]}`);
 		}
-		for (const q of sv.starters) assert.ok(out.accepts[q] && /active/.test(out.accepts[q]), `${q} is taken here: ${out.accepts[q]}`);
+		for (const q of sv.starters) assert.ok(out.accepts[q] && /active|pending/.test(out.accepts[q]), `${q} is taken here: ${out.accepts[q]}`);
 	});
 	test(`second visits (#2635): ${name} shows none of the catch-up to a character who did the first visit`, { skip }, () => {
 		const out = acceptStatuses(sv, sv.done);

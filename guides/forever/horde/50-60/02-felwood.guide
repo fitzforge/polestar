@@ -40,6 +40,7 @@ step Tirisfal Glades
   goto 83.2,68.5 "The Bulwark"
 
 step High Executor Derrington
+  when !onquest 5096
   when !turnedin 5096
   zone Tirisfal Glades
   tip You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.
