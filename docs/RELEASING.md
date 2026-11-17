@@ -312,6 +312,18 @@ version throughout.
    node --test "tests/**/*.test.js"
    ```
 
+   Then the timing budgets, enforced, with nothing else running on the
+   machine (no build, no other suite, the game closed). CI on GitHub's
+   shared runners only warns on them (CI.md, "Timing budgets"), so this
+   run is where a slower settings drag, recorder burst, tooltip or route
+   plan stops a release. It runs every forge-addontest test that uses
+   `assert_timing!` and the Node tests that use `assertTiming` (`--list`
+   names them), one at a time:
+
+   ```sh
+   rust/scripts/timing-budgets.sh
+   ```
+
    Then the reported-problems gate: every player-reported problem that was
    fixed stays fixed. It runs the tests `tests/reported-gate.json` names for
    each confirmed report, the whole of `tests/guides-reported.test.js`, the

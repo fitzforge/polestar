@@ -340,6 +340,29 @@ fn a_walk_in_portal_goes_one_way_only() {
 	assert_eq!(out["back"][0], "walk|Walk to the boat", "never back through it");
 }
 
+// #2156: a portal that asks for an item (the Transpolyporter from Booty Bay to Gnomeregan's Train Depot opens only
+// for a player carrying the Goblin Transponder) is taken while the item is in the bags, never without it.
+#[test]
+fn a_portal_that_asks_for_an_item_is_taken_only_with_it_in_the_bags_2156() {
+	let out = run(r#"
+		local r = {}
+		N.RegisterTravelData({ portals = { { id = "pad", name = "Far Gate", seconds = 5, item = 9173,
+			a = { "West Portal", 0, 0, 900, 9000, 5, 50 }, b = { "Far Gate", 1, 0, -400, 9001, 90, 50 } } } })
+		local function has(kind)
+			for _, l in ipairs(route()) do if l:find("^" .. kind .. "|") then return true end end
+			return false
+		end
+		nav.place(0, 850)
+		N.SetTarget(9001, 80, 60, "Target")               -- Farland (-100, -300)
+		r.without = has("portal")
+		nav.items[9173] = 1
+		T.Replan()
+		r.with = route()
+		emit(r)"#);
+	assert_eq!(out["without"], false, "no Goblin Transponder: no portal");
+	assert_eq!(out["with"], json!(["walk|Walk to the portal", "portal|Take the portal to Far Gate", "walk|Target"]));
+}
+
 // #1741: a turn-in through the walk-in portal, with the game's waypoint mirrored (nav.blizzardWaypoint), walked
 // to the portal, through it and on. `waypoint_ui`: Waypoint UI's public API (WaypointUIAPI.Navigation) is
 // loaded, recording what Polestar asks of it and of the game's quest tracking.

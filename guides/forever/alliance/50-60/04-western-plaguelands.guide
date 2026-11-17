@@ -467,6 +467,7 @@ step Gadgetzan
 
 step Gaeriyan
   tip Gaeriyan is a ghost at the graveyard just east of town: drink a Videre Elixir there, which kills you, release your spirit and talk to him as a ghost. Then run back to your body to come back to life: the gravestone stands nearby.
+  use 11243 @54.0,28.7 map 1446       -- Videre Elixir
   turnin 3912
   accept 3913
   turnin 3913                         -- A Conspicuous Gravestone

@@ -235,7 +235,8 @@ shipped guides with his maps after merging
 ## Checks
 
 Run only the checks for what you changed. CI runs the full suite on every
-pull request and tells you if anything else broke.
+pull request that changes more than documentation and tells you if anything
+else broke ([docs/CI.md](docs/CI.md#lanes), "Lanes").
 
 | What you changed | What you run |
 |---|---|
@@ -266,7 +267,8 @@ maintainer regenerates those after merging your PR.
   tools fit together; [docs/README.md](docs/README.md) maps every document.
 - Behaviour changes come with tests that show the behaviour. Run the tests
   for what you changed (see [Checks](#checks) above); CI runs the full suite
-  on every PR and tells you if anything else broke.
+  on every PR that changes code, data or guides and tells you if anything
+  else broke.
 - For UI changes, `node tools/polestar.js preview` renders the guide window,
   menu and options to `docs/preview/*.svg`. Run it to review your change
   visually; CI runs it on every PR to verify the renderer still works.

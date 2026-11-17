@@ -208,6 +208,14 @@ L["Repair before heading out: gear at %d%%"] = "Почините снаряже�
 L["The guide heads out of town next and your gear is worn: repair it here before it breaks."] = "Дальше гайд уводит из города, а ваше снаряжение изношено: почините его здесь, пока оно не сломалось."
 L["Sell before heading out: %s"] = "Продайте перед уходом: %s"
 L["The guide heads out of town next and your bags are nearly full: sell what you don't need here."] = "Дальше гайд уводит из города, а ваши сумки почти полны: продайте здесь все ненужное."
+L["Pays %d%% XP at your level and is out of the way (Skip grey quests)"] = "Даёт %d%% опыта на вашем уровне и лежит в стороне (Пропускать серые задания)"
+L["Grey for you: pays %d%% XP (Skip grey quests)"] = "Для вас серое: даёт %d%% опыта (Пропускать серые задания)"
+-- L["Put in the bank"] = ""
+-- L["Take off"] = ""
+-- L["Equip"] = ""
+-- L["Reach %d points into %s with"] = ""
+-- L["Lose"] = ""
+-- L["Gain"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Выберите награду, чтобы сдать задание."
@@ -609,6 +617,11 @@ L["The size of every quest marker on the world map and the minimap."] = "Раз�
 L["Timed quest alerts"] = "Оповещения о заданиях на время"
 L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] = "Строка в чате и звук, когда у задания на время остаётся 5 минут, снова за 1 минуту и если оно провалено. Окно руководства всегда показывает оставшееся время."
 L["Party chat"] = "Чат группы"
+-- L["On a mob that drops a quest item you still need, or an object it comes out of, show how often."] = ""
+-- L["Quest givers and turn-ins"] = ""
+-- L["On an NPC, name the quests it has for you now and the finished quests you can hand in to it."] = ""
+-- L["Replace the game's quest lines"] = ""
+-- L["On mobs and objects, leave out the game's own lines for the quests these tooltips name, so each quest shows once. In a group the game's lines stay: they show your party's progress."] = ""
 
 -- Quests/Party.lua
 L["%s done"] = "%s: готово"
@@ -1133,6 +1146,8 @@ L["Lists the quest items you can buy at an auction house instead of farming them
 L["Lists the current step's mobs, or the NPCs it sends you to when it has no mob, with their portraits and what they drop; click a name to target that one. Its key binding targets the first one close by."] = "Показывает противников текущего шага или, если их нет, NPC, к которым он ведет, с портретами и добычей; щелкните по имени, чтобы выбрать его целью. Назначенная клавиша выбирает первого поблизости."
 L["Names in the target list"] = "Имен в списке целей"
 L["How many of the step's mobs the target list shows, in guide order."] = "Сколько противников шага показывает список целей, в порядке гайда."
+-- L["Completed quest XP"] = ""
+-- L["Shows XP from completed quests you can turn in on the game's XP bar and in its tooltip."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Только Альянс"
@@ -1600,6 +1615,16 @@ L["A later guide of your route hands these in: keep them. Click to see each with
 L["No guide of your route takes, works or hands these in. Click to see them and keep or abandon each."] = "Ни один гайд вашего маршрута их не берет, не выполняет и не сдает. Нажмите, чтобы увидеть их и оставить каждое или отказаться от него."
 L["Click to see its quests in Dungeons"] = "Нажмите, чтобы увидеть его задания в «Подземельях»"
 L["Click to open it in Dungeons"] = "Нажмите, чтобы открыть его в «Подземельях»"
+L["Click for a guide to it, through what it needs first"] = "Нажмите, чтобы получить гайд к нему через всё, что нужно сначала"
+L["Brings back the quests it leaves out. Options, Automation turns it on again."] = "Возвращает пропущенные задания. Включить снова можно в Настройках, Автоматизация."
+L["Click to see them, each with an Abandon button"] = "Нажмите, чтобы увидеть их, у каждого кнопка «Отказаться»"
+L["Too far below the next quests: the guide has you grind to the level they need. Or do what's around you first."] = "Слишком низкий уровень для следующих заданий: гайд предлагает набить опыт до нужного уровня. Или сначала сделайте то, что рядом."
+L["Click to see its step"] = "Нажмите, чтобы увидеть его шаг"
+L["You're %d: the quests after this are level %s"] = "У вас %d уровень: следующие задания уровня %s"
+L["Worth doing near here: %s"] = "Стоит сделать поблизости: %s"
+L["%d left out here"] = "Пропущено здесь: %d"
+L["Left out here"] = "Пропущено здесь"
+L["Turn off Skip grey quests"] = "Выключить «Пропускать серые задания»"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Подъемник до %s"
@@ -2062,6 +2087,7 @@ L["For a party levelling together: every one is in the route."] = "Для гру
 L["Point at a look to see it here; click it to wear it."] = "Наведите курсор на оформление, чтобы увидеть его здесь; нажмите, чтобы применить."
 L["Built in"] = "Встроенные"
 L["Concept looks"] = "Концепт-оформления"
+L["Leaves out grey quests, and quests behind you that pay less than full XP when going back for them costs more time than they give. A quest still paying full XP stays, and so does one a later quest needs. The guide window says what it left out."] = "Пропускает серые задания, а также оставшиеся позади задания, дающие меньше полного опыта, если возвращаться к ним дольше, чем они того стоят. Задание, дающее полный опыт, остаётся, как и то, что нужно для более позднего задания. Окно гайда говорит, что пропущено."
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "Выделено для вас: скопируйте Ctrl+C (Cmd+C на Mac), затем нажмите Escape."
@@ -2121,6 +2147,8 @@ L["Install: %s"] = "Установка: %s"
 L["While here: %s"] = "Пока вы здесь: %s"
 L["Travel: %s"] = "Перемещение: %s"
 L["The report lists the settings you changed and your profile's name: no character names, chat, account or realm."] = "В отчете есть измененные вами настройки и название профиля: никаких имен персонажей, чата, учетной записи или игрового мира."
+L["Left out here: %d more"] = "Пропущено здесь: ещё %d"
+L["Left out here: %s"] = "Пропущено здесь: %s"
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "отключен в списке модификаций"
@@ -2221,7 +2249,6 @@ L["Never picks between rewards. Hold Shift to skip."] = "Никогда не в�
 L["Warn about missable quests"] = "Предупреждать о пропускаемых заданиях"
 L["Before you take a quest that closes another for good, says which in chat and leaves the accept to you."] = "Перед заданием, которое навсегда закроет другое, пишет в чат какое и оставляет принятие вам."
 L["Skip grey quests"] = "Пропускать серые задания"
-L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."] = "Не включает серые задания и их сдачу, если они не нужны для последующего задания."
 L["Pick a guide for me"] = "Выбирать гайд за меня"
 L["Where to level next"] = "Где качаться дальше"
 L["Where a guide offers more than one zone to continue in (/polestar path)."] = "Когда гайд предлагает несколько зон для продолжения (/polestar path)."
@@ -2382,7 +2409,6 @@ L["Glyphs only"] = "Только символы"
 L["Use deathskips"] = "Использовать смерть для сокращения пути"
 L["Where dying on purpose and taking the Spirit Healer's resurrection gets you there sooner, the guide shows a step for it. It costs durability and, from level 11, resurrection sickness. Always off on Hardcore characters."] = "Если умереть намеренно и воскреснуть у Целителя душ быстрее, гайд покажет для этого шаг. Это снижает прочность, а с 11-го уровня вызывает слабость после воскрешения. Всегда отключено для персонажей Hardcore."
 L["Text size"] = "Размер текста"
-L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "Размер текста Polestar независимо от масштаба окна. Меняется сразу. Щелкните правой кнопкой мыши для сброса."
 L["Numbered pins for the steps ahead"] = "Нумерованные метки следующих шагов"
 L["A small pin with its step number where each of the next steps takes you, fainter the further ahead. As many as Up next shows, else five."] = "Маленькая метка с номером шага там, куда ведет каждый из следующих шагов; чем дальше шаг, тем бледнее метка. Столько, сколько показывает «Далее», иначе пять."
 L["When a leveling guide ends"] = "Когда гайд прокачки заканчивается"
@@ -3463,6 +3489,8 @@ L["%s not found nearby."] = "%s не найден поблизости."
 
 -- Quests/BagMarks.lua
 L["Polestar quest items"] = "Предметы заданий Polestar"
+-- L["Polestar quest leftovers"] = ""
+-- L["Related quests completed (likely safe to delete)"] = ""
 
 -- Quests/DeleteWarning.lua
 L["Needed for:"] = "Нужно для:"
@@ -3923,6 +3951,8 @@ L["Button set"] = "Набор кнопок"
 L["Scale of the quest item, Hearthstone, target and rare buttons. Drag one to move them all. Sizes and layout change once a fight ends."] = "Масштаб кнопок предмета задания, камня возвращения, цели и редкой цели. Перетащите одну, чтобы переместить все. Размеры и расположение меняются после боя."
 L["Direction"] = "Направление"
 L["How the set lines up from the quest item button: a column (Hearthstone above, target below) or a row either way. In a row, names read best above or below."] = "Как выстраивается набор от кнопки предмета задания: столбцом (камень возвращения сверху, цель снизу) или рядом в любую сторону. В ряду имена лучше читаются сверху или снизу."
+L["Target list upward"] = "Список целей вверх"
+L["The target list's names go up from the target button instead of down, for buttons near the bottom of the screen."] = "Имена списка целей идут вверх от кнопки цели, а не вниз; удобно, когда кнопки внизу экрана."
 L["Column"] = "Столбец"
 L["Row"] = "Ряд"
 L["Row, reversed"] = "Ряд, обратный"
@@ -4119,6 +4149,7 @@ L["Shadow strength"] = "Сила тени"
 L["More looks"] = "Другие оформления"
 L["Game looks"] = "Оформления игры"
 L["Polestar looks"] = "Оформления Polestar"
+-- L["The size of Polestar's text, apart from the window scale. The guide window has its own, on its page. Changes at once. Right-click to reset."] = ""
 
 -- UI/Looks/GuideWindow.lua
 L["Marshal Dughan"] = "Маршал Дугхан"
@@ -4164,6 +4195,8 @@ L["The guide's progress at the bottom of the window."] = "Прогресс га�
 L["Progress colour"] = "Цвет прогресса"
 L["Percent"] = "Процент"
 L["The percent beside the progress bar."] = "Процент рядом с полосой прогресса."
+L["Pace line"] = "Строка темпа"
+L["The line above the progress bar: on pace for a level by a step, or how far behind the route you are."] = "Строка над полосой прогресса: к какому шагу вы достигнете какого уровня или насколько отстаете от маршрута."
 L["The next person or step slides up into place as it fades in. Off: it is simply there."] = "Следующий персонаж или шаг выезжает снизу, проявляясь. Выкл.: просто появляется."
 L["A goal you finish shuts like a drawer into the done line. Off: it fades and goes."] = "Выполненная цель задвигается, как ящик, в строку выполненных. Выкл.: она затухает и исчезает."
 L["The guide window's frame, bars, step card, tips and progress bar."] = "Рамка окна гайда, панели, карточка шага, советы и полоса прогресса."
@@ -4212,6 +4245,9 @@ L["Fargodeep Mine"] = "Рудник Подземных Глубин"
 L["Lion's Pride Inn"] = "Таверна «Гордость льва»"
 L["Stonefield Farm"] = "Ферма Стоунфилдов"
 L["Jasperlode Mine"] = "Яшмовая шахта"
+L["What it leaves out"] = "Что пропущено"
+L["A dim line where the guide passes over quests: open it to see each one and why, with a way to bring it back. Grind steps say what else is worth doing, and a line offers to clean up quests that aren't part of your route."] = "Бледная строка там, где гайд пропускает задания: откройте её, чтобы увидеть каждое и причину, с возможностью вернуть. Шаги с набором опыта подскажут, что ещё стоит сделать, а строка предложит убрать задания вне вашего маршрута."
+-- L["The size of the guide window's text, apart from its scale and the rest of Polestar's text (Theme > Text). The class quest card keeps that general size. Changes at once. Right-click to reset."] = ""
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "Стопка оповещений"
@@ -4644,6 +4680,16 @@ L["Not moved"] = "Не перемещено"
 L["From the look"] = "Из вида"
 L["Nothing to apply: the parts ticked are the same as yours."] = "Нечего применять: отмеченные части совпадают с вашими."
 
+-- QoL/QuestXP.lua
+-- L["+1 level"] = ""
+-- L["Current XP"] = ""
+-- L["Rested XP"] = ""
+-- L["Completed quests"] = ""
+-- L["Pending quest XP"] = ""
+-- L["After turn-ins: at least +1 level"] = ""
+-- L["XP after turn-ins"] = ""
+-- L["XP remaining after turn-ins"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Ведет Shortest Path Forever. Отключите «Вести через Shortest Path Forever, если он установлен» (Настройки, Стрелка и маршруты), чтобы использовать стрелку Polestar."
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Сейчас ведет Shortest Path Forever. Чтобы использовать стрелку Polestar, отключите \"Вести через Shortest Path Forever, если он установлен\" (Настройки, Интеграции)."
@@ -4848,3 +4894,5 @@ L["Nothing to apply: the parts ticked are the same as yours."] = "Нечего �
 -- L["Try %s"] = "Попробовать зону %s"
 -- L["Most of its quests are new in Forever."] = "Большинство заданий здесь новые в Forever."
 -- L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "Маршрут может начинаться с известного вам заклинания телепорта (городские телепорты мага, Лунная поляна друида), если так быстрее. Для телепорта в город нужна руна телепортации в сумках."
+-- L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."] = "Не включает серые задания и их сдачу, если они не нужны для последующего задания."
+-- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "Размер текста Polestar независимо от масштаба окна. Меняется сразу. Щелкните правой кнопкой мыши для сброса."

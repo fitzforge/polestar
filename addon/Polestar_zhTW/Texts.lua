@@ -3843,7 +3843,6 @@ t.guides["forever/horde/02-the-barrens"] = (function() return {
 		["Kolkar camp"] = "科卡爾半人馬營地",
 		["Leave {zone:1454} by the main gate and follow the road south through {zone:1411}, then west over the {area:814} bridge: {npc:5810} stands at {area:379} just above it, on the road to the Crossroads."] = "從大門離開{zone:1454}，沿道路向南穿過{zone:1411}，再向西過{area:814}橋：{npc:5810}站在橋上方不遠的{area:379}，就在前往十字路口的路上。",
 		["Level 20"] = "20級",
-		["North to the {area:383}. {npc:3682} camps below the hills; {npc:261366}, the hermit on the ridge behind him, has work for you only once {npc:3682} sends you up."] = "向北前往{area:383}。{npc:3682}在丘陵下紮營；他身後山脊上的隱士{npc:261366}，要等{npc:3682}派你上去後才會有工作給你。",
 		["North up the {area:458} to the Crossroads: {npc:3448} at the south gate, {npc:3432} by the inn, {npc:3428} west of the north gate."] = "沿{area:458}往北到十字路口：{npc:3448}在南門，{npc:3432}在旅店旁，{npc:3428}在北門西邊。",
 		["North up the {area:458} to the Crossroads: {npc:3448} at the south gate, {npc:3432} by the inn, {npc:3428} west of the north gate. Keep the {item:5075}: {npc:3430} takes it on the next stop in {area:378}."] = "沿{area:458}向北前往十字路口：{npc:3448}在南門，{npc:3432}在旅店旁，{npc:3428}在北門西邊。先留著{item:5075}：下次到{area:378}時交給{npc:3430}。",
 		["On the way back down the {area:1076}, {npc:11856} is held in {npc:11858}'s hut at the bend in the road. Once you take her quest she walks straight off south-east to {area:2538}, the burned village, without waiting: stay close, or the quest fails.\nCareful: Three Grimtotems ambush her at the burned village and go for her, not you: pull them off her and kill their caster quickly."] = "沿{area:1076}往回下山時，{npc:11856}被關在道路轉彎處{npc:11858}的小屋裡。接下她的任務後，她會直接往東南走向被燒毀的村莊{area:2538}，不會等你：緊跟著她，否則任務會失敗。\n小心：三個恐怖圖騰成員會在被燒毀的村莊伏擊她，並且攻擊她而不是你：把他們從她身上拉開，並迅速擊殺他們的施法者。",
@@ -6025,6 +6024,9 @@ t.guides["forever/miscellaneous/cozy-sleeping-bag"] = (function() return {
 		["West bank, before the waterfall"] = "西岸，瀑布之前",
 		["{area:272} on the way"] = "途經{area:272}",
 		["{zone:1413}' way into Stonetalon runs through {area:1702}, and the road on to the hills passes {area:2539} and {area:460}: all Horde posts. Come in from the north instead. With the {area:467} flight path, fly there and follow the road south. Otherwise fly to {area:415} and walk south-west to the {area:1276}, the tunnel from {zone:1440} into Stonetalon."] = "從{zone:1413}進入石爪山脈的路要經過{area:1702}，往山丘去的道路又經過{area:2539}和{area:460}：全都是部落的據點。改從北邊進來。如果有{area:467}的飛行路線，就飛過去再沿道路向南。否則飛往{area:415}，向西南走到{area:1276}，也就是從{zone:1440}通往石爪山脈的隧道。",
+} end)()
+t.guides["forever/miscellaneous/the-drowned-city-alliance"] = (function() return {
+		["Skullsplitter trolls"] = "劈顱食人妖",
 } end)()
 t.guides["forever/professions/alchemy"] = (function() return {
 		["Artisan {skill:171}"] = "專家級{skill:171}",

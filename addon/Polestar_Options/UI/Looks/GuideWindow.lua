@@ -56,6 +56,7 @@ for part, keys in pairs({
 	tip = { "noteSize" },
 	upnext = { "upSize" },
 	foot = { "progress", "progressHeight", "progressColor", "progressPct" },
+	xp = { "pace" },
 }) do
 	for _, k in ipairs(keys) do PART_OF["guideWindow." .. k] = part end
 end
@@ -121,6 +122,7 @@ do
 		GetProgress = function() return 11, 29 end,
 		GetAlong = function() return {} end,
 		GetWhileHereList = function() return {} end,
+		LeftOutHere = function() return {} end,
 		StepHint = function() return nil end,
 		Pace = function() return PACE end,
 		-- The XP tracker's numbers while it is on, as the live window gets them.
@@ -296,14 +298,14 @@ function UI.GuideWindowScene(band)
 		for _, s in ipairs(subs) do spacing[#spacing + 1] = s end
 		for key, parts in pairs({
 			["ui.style"] = window, ["ui.backing"] = window, ["guideWindow.veil"] = window, ["guideWindow.shade"] = window,
-			["guideWindow.outline"] = window, ["ui.barShown"] = { P.strip, nav }, ["ui.scale"] = window, ["ui.width"] = window,
+			["guideWindow.outline"] = window, ["ui.barShown"] = { P.strip, nav }, ["ui.scale"] = window, ["ui.guideTextSize"] = window, ["ui.width"] = window,
 			["ui.maxHeight"] = window, ["guideWindow.padding"] = rows, ["ui.compact"] = window, ["guideWindow.bgOpacity"] = window,
 			["guideWindow.bgColor"] = window, ["ui.opacity"] = window, ["guideWindow.idleAlpha"] = window, ["guideWindow.border"] = window,
 			["guideWindow.rules"] = { P.strip.Rule, nav.Rule, up.Toggle.Rule, G.xp.Rule }, ["ui.combat"] = window,
 			["guideWindow.combatAlpha"] = window, ["ui.instance"] = window, ["guideWindow.hideTaxi"] = window, ["ui.growUp"] = window,
 			["ui.barsBottom"] = { P.strip, nav }, ["guideWindow.stepAnim"] = moving, ["guideWindow.animSpeed"] = moving,
 			-- A goal done shuts into the done line.
-			["guideWindow.foldAnim"] = { G.lines[1] or person },
+			["guideWindow.foldAnim"] = { G.lines[1] or person }, ["guideWindow.leftOut"] = { G.lines[1] or person },
 			["guideWindow.tabs"] = { P.strip }, ["guideWindow.tabHeight"] = { P.strip }, ["guideWindow.navHeight"] = { nav },
 			["guideWindow.barTextSize"] = bars, ["guideWindow.stepCount"] = { nav.Steps }, ["guideWindow.guideTitle"] = { nav.Title },
 			["guideWindow.skipButton"] = { nav.Skip }, ["guideWindow.reportButton"] = { nav.Report },
@@ -313,6 +315,7 @@ function UI.GuideWindowScene(band)
 			["guideWindow.targetBarColor"] = marks, ["guideWindow.noteSize"] = { P.tip }, ["ui.showNotes"] = { P.tip },
 			["ui.upcoming"] = { up }, ["guideWindow.upSize"] = { up }, ["guideWindow.progress"] = { foot },
 			["guideWindow.progressHeight"] = { foot }, ["guideWindow.progressColor"] = { foot.Line }, ["guideWindow.progressPct"] = { foot.Pct },
+			["guideWindow.pace"] = { G.xp },
 		}) do
 			light(key, parts)
 		end
@@ -437,6 +440,9 @@ local SPECS = {
 		{ kind = "slider", key = "ui.scale", label = L["Scale"], min = 0.6, max = 1.6, step = 0.05, format = percent,
 			help = L["The whole guide window, text and all."],
 			search = "size, bigger, smaller, zoom, scale, huge, tiny, window scale" },
+		{ kind = "slider", key = "ui.guideTextSize", label = L["Text size"], min = 0.8, max = 1.4, step = 0.05, format = percent, new = NEW,
+			help = L["The size of the guide window's text, apart from its scale and the rest of Polestar's text (Theme > Text). The class quest card keeps that general size. Changes at once. Right-click to reset."],
+			search = "text size, font size, bigger text, smaller text, readability, larger, huge, tiny, guide text" },
 		{ kind = "slider", key = "ui.width", label = L["Width"], min = 260, max = 560, step = 10, format = "%d",
 			help = L["How wide the guide window is. You can also drag its bottom-right corner."],
 			search = "wide, wider, narrow, size, width" },
@@ -568,6 +574,9 @@ local SPECS = {
 					help = L["Its own colour; unset, the accent."],
 					search = "accent bar colour, marker colour, highlight colour", shown = accentNow, source = accentSource },
 			} },
+		{ kind = "toggle", key = "guideWindow.leftOut", label = L["What it leaves out"], new = "0.4.1",
+			help = L["A dim line where the guide passes over quests: open it to see each one and why, with a way to bring it back. Grind steps say what else is worth doing, and a line offers to clean up quests that aren't part of your route."],
+			search = "left out, skipped quests, hidden quests, missing quests, why, grind, clean up, explain" },
 	} },
 	{ page = PAGE, tab = L["Parts"], section = L["Below the goals"], controls = {
 		{ kind = "slider", key = "guideWindow.noteSize", label = L["Tip size"], min = 0.7, max = 1.8, step = 0.05, format = percent, new = NEW,
@@ -597,6 +606,9 @@ local SPECS = {
 				{ kind = "toggle", key = "guideWindow.progressPct", label = L["Percent"], new = NEW,
 					help = L["The percent beside the progress bar."], search = "percent, number, percentage" },
 			} },
+		{ kind = "toggle", key = "guideWindow.pace", label = L["Pace line"], new = "0.4.1",
+			help = L["The line above the progress bar: on pace for a level by a step, or how far behind the route you are."],
+			search = "pace, on pace, behind, level by step, xp line, progress text, hide pace" },
 	} },
 }
 

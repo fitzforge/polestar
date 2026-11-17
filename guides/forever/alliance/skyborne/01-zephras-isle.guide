@@ -37,6 +37,7 @@ step Back to Thendal Grove
 
 step Rorian the Dayseeker
   tip Jump off the top of the watchtower and use Walk on Air to float down to Rorian, west of the tower.
+  complete 92474 @43.7,24.1
   turnin 92461                                -- Rorian the Dayseeker
   turnin 92474
   accept 92532 only Warrior                   -- Rorian the Dayseeker: the Crumpled Note

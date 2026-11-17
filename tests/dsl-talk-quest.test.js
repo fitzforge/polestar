@@ -13,7 +13,8 @@ const { Data } = require('../tools/lib/dsl/data');
 
 // The fixture data plus 9710, whose lines are talks (Marshal McBride, Deputy
 // Willem, Innkeeper Farley), and 9711, whose talk to Brother Danil is a
-// legacy `kill` credit.
+// legacy `kill` credit. 9712 lists Marshal McBride twice: its first and its
+// last line are both a talk to him.
 function talkData() {
 	const base = fixtureData();
 	const talk = (id, text) => ({ type: 'talk', id, count: 1, text });
@@ -22,6 +23,7 @@ function talkData() {
 		...base.quests,
 		9710: quest(9710, 'Desperate Times', [talk(197, 'Marshal McBride'), talk(823, 'Deputy Willem'), talk(295, 'Innkeeper Farley')]),
 		9711: quest(9711, 'A Word', [{ type: 'kill', id: 152, count: 1, text: 'Brother Danil' }]),
+		9712: quest(9712, 'Patrol Report', [talk(197, 'Marshal McBride'), talk(823, 'Deputy Willem'), talk(197, 'Marshal McBride')]),
 	};
 	return new Data({ quests, npcs: base.npcs, objects: base.objects, items: base.items, zones: base.zones, 'map-frames': base.mapFrames, meta: base.meta }, { dir: base.dir });
 }
@@ -67,6 +69,19 @@ test("a talk with quest naming another npc's line is an error that says which in
 		r.warnings.filter((w) => w.includes('no objective for this npc')),
 		[`test.guide:${lineOf(src, 'talk 5479 quest 9710')}: quest 9710 has no objective for this npc; write \`quest 9710.<objective>\``],
 	);
+});
+
+test('two lines of a quest with one npc: each takes its own index, and `quest Q` the first', () => {
+	const src = guideText(['step S', '  accept 9712', '  talk 197 quest 9712.1', '  talk 823 quest 9712.2', '  talk 197 quest 9712.3', '  talk 197 quest 9712', '  turnin 9712']);
+	const r = compile(src, talkData());
+	assert.deepEqual(r.errors, [], r.text);
+	assert.deepEqual(r.warnings.filter((w) => OBJECTIVE_WARNINGS.test(w)), [], r.text);
+	assert.deepEqual(goalsOf(r).map((g) => [g.npc, g.oi]), [[197, 1], [823, 2], [197, 3], [197, 1]]);
+	// Another npc on one of the shared lines is still a swapped index.
+	const wrong = guideText(['step S', '  accept 9712', '  talk 823 quest 9712.3', '  turnin 9712']);
+	const d = compile(wrong, talkData()).diag.sorted().filter((x) => x.severity === 'error' && /9712\.3 is/.test(x.message));
+	assert.equal(d.length, 1);
+	assert.equal(d[0].message, 'quest 9712.3 is talk Marshal McBride x1, not this npc; Deputy Willem is 9712.2');
 });
 
 test('a kill with quest on a talk objective of the same npc compiles and takes its index', () => {

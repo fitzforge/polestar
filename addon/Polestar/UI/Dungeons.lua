@@ -439,11 +439,14 @@ end
 
 local POINT_COLOR = { npc = "npc", object = "object", item = "item" }
 
--- "Nalpak  ·  The Barrens", coloured; "inside the dungeon" when it is.
+-- "Nalpak  ·  The Barrens", coloured; "inside the dungeon" when it is. A
+-- giver or ender inside whom the data has not named (Alcaz Prison's
+-- prisoners, #2560) is the place alone.
 local function pointText(p)
 	if type(p) ~= "table" then return "|c" .. Theme.Hex("textMuted") .. L["Not known"] .. "|r" end
 	local N = ns.Names
 	local own = type(p.id) == "number" and ((p.kind == "npc" and N.Npc(p.id)) or (p.kind == "object" and N.Object(p.id)) or (p.kind == "item" and N.Item(p.id))) or nil
+	if p.inside and not (own or p.name) then return "|c" .. Theme.Hex("dungeon") .. L["inside the dungeon"] .. "|r" end
 	local name = own or p.name or L["Not known"]
 	local text = "|c" .. Theme.Hex(POINT_COLOR[p.kind] or "npc") .. name .. "|r"
 	local place
@@ -1684,10 +1687,10 @@ local function paintQuest(b, q, p, top, plevel, key)
 	b.StartPin:SetPoint("TOPLEFT", b, "TOPLEFT", VALUE_X - 4, -y)
 	-- The arrow goes to the first prerequisite still to do, else the giver.
 	local Dg = D()
-	local target, tlabel, first, turnIn
-	if key and Dg.GiverTarget then target, tlabel, first, turnIn = Dg.GiverTarget(key, q.id) end
+	local target, tlabel, first, turnIn, blocked
+	if key and Dg.GiverTarget then target, tlabel, first, turnIn, blocked = Dg.GiverTarget(key, q.id) end
 	-- Its own giver, or where the item that starts it drops outside (#1380).
-	if not target then target, tlabel = s, s and s.name end
+	if not target and not blocked then target, tlabel = s, s and s.name end
 	local go = canGuide(target)
 	b.StartPin.psPoint, b.StartPin.psLabel = target, tlabel
 	W.SetIconState(b.StartPin, false, go)

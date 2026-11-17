@@ -34,6 +34,8 @@ return {
 		["qol.buttonScale"] = function() return { B.Holder():GetScale(), item:GetScale() } end,
 		["buttons.layout"] = function() return { pt(hearth), pt(target) } end,
 		["buttons.spacing"] = function() return { pt(hearth), pt(target) } end,
+		-- The target list's first row: level with the target button's bottom, the rows going up (#2590).
+		["buttons.listUp"] = function() return pt(B.rows[1]) end,
 		-- The set moved away, then Reset: back in its default spot.
 		["Buttons:Position"] = { press = true,
 			prepare = function() QoL.State().buttonPos = { "CENTER", "CENTER", 0, 0 }; Polestar.Fire("SETTING_CHANGED", "buttons") end,

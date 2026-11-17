@@ -131,7 +131,7 @@ step Brackenwall Village: kill these as you meet them
   tip Careful: Darkfang Lurkers (level 36-37) use Sneak to stealth while out of combat and cast Poison once fighting.
   tip Careful: Stealthed spiders in the same area will attack you on sight.
   tip Careful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them.
-  collect 5959 quest 1322
+  collect 5959 quest 1322             -- Every Darkfang spider drops them: Lurkers, Spiders, Venomspitters and the Giant Darkfang Spiders
   collect 5884 quest 1206
   kill 4834 quest 1201
 
