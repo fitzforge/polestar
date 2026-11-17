@@ -103,24 +103,39 @@ emit(hookCounts())
 
 #[test]
 fn a_failing_painter_does_not_cost_the_other_modules_their_marks() {
-	let before = [ELLESMERE, r#"
+	let before = [
+		ELLESMERE,
+		r#"
 reportedErrors = 0
 function recordBagError() reportedErrors = reportedErrors + 1 end
 function geterrorhandler() return recordBagError end
 function throwingPainter() error("bag painter test failure") end
-"#].concat();
-	let out = run(&before, &[VERDICTS, r#"
+"#,
+	]
+	.concat();
+	let out = run(
+		&before,
+		&[
+			VERDICTS,
+			r#"
 g.bag(0, 1, "item:9002")
 g.openBag(0)
 local look = markLook(g.bagButton(0, 1))
 emit({ look.arrow.shown, look.quest.shown, reportedErrors > 0 })
-"#].concat());
+"#,
+		]
+		.concat(),
+	);
 	assert_eq!(out[0], json!([true, true, true]));
 }
 
 #[test]
 fn one_ellesmere_painter_draws_both_marks_on_the_same_overlay() {
-	let out = run(ELLESMERE, &[VERDICTS, r#"
+	let out = run(
+		ELLESMERE,
+		&[
+			VERDICTS,
+			r#"
 local keys = {}
 for name in pairs(EUI_Bags.itemOverlayIcons) do keys[#keys + 1] = name end
 table.sort(keys)
@@ -129,7 +144,10 @@ local button = CreateFrame("Button", nil, UIParent)
 button._textOverlay = CreateFrame("Frame", nil, button)
 EUI_Bags.itemOverlayIcons.Polestar(button, { itemLink = "item:9002" })
 emit(markLook(button._textOverlay))
-"#].concat());
+"#,
+		]
+		.concat(),
+	);
 	assert_eq!(out[0], json!({ "keys": ["Polestar"], "registrations": 1 }));
 	assert_eq!(out[1]["arrow"], json!({ "shown": true, "point": "BOTTOMLEFT", "onHost": true, "layer": "OVERLAY", "sublayer": 3, "size": [20, 20] }));
 	assert_eq!(out[1]["quest"], json!({ "shown": true, "point": "TOPRIGHT", "onHost": true, "layer": "OVERLAY", "sublayer": 3, "size": [16, 16] }));
@@ -137,7 +155,12 @@ emit(markLook(button._textOverlay))
 
 #[test]
 fn client_arrow_quest_icon_and_keep_lock_have_distinct_corners() {
-	let out = run(HOOKS, &[VERDICTS, STEP_ITEMS, r#"
+	let out = run(
+		HOOKS,
+		&[
+			VERDICTS,
+			STEP_ITEMS,
+			r#"
 g.bag(0, 1, "item:9002")
 g.openBag(0)
 local button = g.bagButton(0, 1)
@@ -146,7 +169,10 @@ local lock = textureOn(button, lockPath)
 local point, host, relative, x, y = lock:GetPoint(1)
 emit({ arrow = look.arrow.point, quest = look.quest.point, lock = point,
  shown = lock:IsShown(), onButton = host == button, relative = relative, x = x, y = y })
-"#].concat());
+"#,
+		]
+		.concat(),
+	);
 	assert_eq!(out[0], json!({ "arrow": "TOPLEFT", "quest": "TOPRIGHT", "lock": "BOTTOMLEFT", "shown": true, "onButton": true, "relative": "BOTTOMLEFT", "x": 1, "y": 1 }));
 }
 
@@ -160,7 +186,9 @@ end
 
 #[test]
 fn baganator_assigns_four_distinct_widget_corners() {
-	let out = run(BAGANATOR_CORNERS, r#"
+	let out = run(
+		BAGANATOR_CORNERS,
+		r#"
 -- The leftover's full-slot border is excluded: quest-class items never get the upgrade arrow.
 local ids = { "polestar_upgrade", "polestar_quest_needed", "polestar_step_item", "polestar_kept_item" }
 local corners, seen = {}, {}
@@ -170,7 +198,8 @@ for _, id in ipairs(ids) do
  seen[corner] = true; corners[#corners + 1] = corner
 end
 emit(corners)
-"#);
+"#,
+	);
 	assert_eq!(out[0], json!(["top_left", "top_right", "bottom_right", "bottom_left"]));
 }
 
