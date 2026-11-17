@@ -47,9 +47,9 @@ return {
 
 	-- Step 6: Feralas: level 60+ areas
 	-- {zone:1444} Feralas
-	["{zone:1444}: level 60+ areas"] = "",
+	["{zone:1444}: level 60+ areas"] = "{zone:1444}: áreas de nivel 60+",
 	-- {area:1113} Oneiros · {area:1111} Dream Bough
-	["{area:1113} and {area:1111} are level 60 areas, far above this guide. Skip this step for now and come back near that level: exploring the whole map needs them."] = "",
+	["{area:1113} and {area:1111} are level 60 areas, far above this guide. Skip this step for now and come back near that level: exploring the whole map needs them."] = "{area:1113} y {area:1111} son áreas de nivel 60, muy por encima de esta guía. Sáltate este paso por ahora y vuelve cerca de ese nivel: explorar todo el mapa las necesita.",
 	["level 60 area, well above this guide's range"] = "área de nivel 60, muy por encima del rango de esta guía",
 
 	-- Step 7: Dustwallow Marsh
@@ -67,9 +67,9 @@ return {
 
 	-- Step 8: Dustwallow Marsh: level 61+ area
 	-- {zone:1445} Dustwallow Marsh
-	["{zone:1445}: level 61+ area"] = "",
+	["{zone:1445}: level 61+ area"] = "{zone:1445}: área de nivel 61+",
 	-- {area:2079} Alcaz Island
-	["{area:2079} is a level 61 area, far above this guide. Skip this step for now and come back near that level: exploring the whole map needs it."] = "",
+	["{area:2079} is a level 61 area, far above this guide. Skip this step for now and come back near that level: exploring the whole map needs it."] = "{area:2079} es un área de nivel 61, muy por encima de esta guía. Sáltate este paso por ahora y vuelve cerca de ese nivel: explorar todo el mapa la necesita.",
 	["level 61 area, well above this guide's range"] = "área de nivel 61, muy por encima del rango de esta guía",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

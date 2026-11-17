@@ -11,21 +11,21 @@ return {
 
 	-- Step 1: Collin Mauren
 	-- {object:2164} Slaughtered Lamb
-	["In the {object:2164}, if you still carry it"] = "",
+	["In the {object:2164}, if you still carry it"] = "En {object:2164}, si todavía lo llevas",
 
 	-- Step 2: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "Vuela a {area:42}",
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "Maestro de vuelo de {zone:1453}",
 
 	-- Step 3: Stranglethorn Vale
 	-- {zone:1434} Stranglethorn Vale
-	["Into {zone:1434}"] = "",
+	["Into {zone:1434}"] = "Hacia {zone:1434}",
 
 	-- Step 4: Rebel Camp
 	-- {zone:1431} Duskwood
-	["From {zone:1431} take the road south; the camp sits in the hills west of the road."] = "",
+	["From {zone:1431} take the road south; the camp sits in the hills west of the road."] = "Desde {zone:1431} toma el camino al sur; el campamento está en las colinas al oeste del camino.",
 	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {area:35} Booty Bay
 	["{npc:770}, if 30-40/04 didn't give it: for {npc:773} in {area:35}"] = "{npc:770}, si 30-40/04 no te la dio: para {npc:773}, en {area:35}",
 
@@ -42,7 +42,7 @@ return {
 	-- {area:101} Kurzen's Compound
 	["East to {area:101}: Herod's records lie in a hut on its west side."] = "Al este, al {area:101}: los registros de Herod están en una cabaña de su lado oeste.",
 	-- {object:287} Bookie Herod's Records
-	["{object:287}, upstairs"] = "",
+	["{object:287}, upstairs"] = "{object:287}, arriba",
 
 	-- Step 7: Kurzen's Compound
 	-- {npc:218230} Wendel Mathers · {spell:7964} Smoke Bomb · {npc:813} Colonel Kurzen
@@ -51,9 +51,9 @@ return {
 	-- {npc:218230} Wendel Mathers
 	["{npc:218230}, in his cage"] = "{npc:218230}, en su jaula",
 	-- {npc:941} Kurzen Headshrinker
-	["{npc:941}, below ground"] = "",
+	["{npc:941}, below ground"] = "{npc:941}, bajo tierra",
 	-- {object:288} Bookie Herod's Strongbox
-	["{object:288}, below ground"] = "",
+	["{object:288}, below ground"] = "{object:288}, bajo tierra",
 
 	-- Step 8: Lake Nazferiti
 	-- {area:37} Lake Nazferiti
@@ -64,7 +64,7 @@ return {
 	["The jungle ruins"] = "Las ruinas de la selva",
 	["West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west.\nCareful: the Saltscale murlocs on the shore near the second tablet are elite (35-37): swim to the tablet from the water and keep clear of them."] = "Al oeste, a través de la selva, hasta las ruinas trols: cada una guarda una tablilla de piedra con las leyendas trols. Las dos primeras están en las ruinas al suroeste del campamento de Nesingwary, y las dos últimas en la colina del noroeste.\nCuidado: los múrlocs Escamas de Sal de la orilla cerca de la segunda tablilla son élites (35-37): nada hasta la tablilla desde el agua y mantente lejos de ellos.",
 	-- {item:2006} The Second Troll Legend · {object:58} Gri'lek the Wanderer
-	["{item:2006}: {object:58}; underwater"] = "",
+	["{item:2006}: {object:58}; underwater"] = "{item:2006}: {object:58}; bajo el agua",
 
 	-- Step 10: Water Elementals
 	-- plural, as words: Lesser Water Elementals = {npc:691} Lesser Water Elemental
@@ -98,7 +98,7 @@ return {
 	-- {area:99} Rebel Camp
 	["North-east up the road to the {area:99}, then back south through the jungle."] = "Al noreste por el camino hasta el {area:99}, y luego de vuelta al sur por la selva.",
 	-- {npc:733} Sergeant Yohwa
-	["{npc:733}: the Commandos and Headshrinkers fell in the compound"] = "",
+	["{npc:733}: the Commandos and Headshrinkers fell in the compound"] = "{npc:733}: los comandos y reductores de cabezas caídos en el complejo",
 	-- plural, as words: Skullsplitter Witch Doctors = {npc:670} Skullsplitter Witch Doctor
 	["keep it: the Skullsplitter Witch Doctors (41-42) wait for the 40-50 Stranglethorn guide"] = "guárdala: los Médicos Brujos Machacacráneos (41-42) esperan a la guía de Tuercespina 40-50",
 
@@ -111,21 +111,21 @@ return {
 
 	-- Step 16: Booty Bay
 	-- {npc:2495} Drizzlik
-	["{npc:2495}, inside"] = "",
+	["{npc:2495}, inside"] = "{npc:2495}, dentro",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, upstairs in the tavern"] = "{npc:2496}, en el piso de arriba de la taberna",
 	-- {zone:1416} Alterac Mountains
 	["For Archmage Ansirem in {zone:1416}"] = "Para el Archimago Ansirem, en {zone:1416}",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs"] = "",
+	["{npc:737}, upstairs"] = "{npc:737}, en el piso de arriba",
 	-- {npc:773} Krazek
-	["{npc:773}, upstairs"] = "",
+	["{npc:773}, upstairs"] = "{npc:773}, en el piso de arriba",
 	-- {npc:773} Krazek · {item:4278} Lesser Bloodstone Ore · {zone:1417} Arathi Highlands · {skill:186} Mining
 	-- plural, as words: Lesser Bloodstone Deposits = {object:2653} Lesser Bloodstone Deposit
 	["{npc:773}, upstairs: this optional quest needs four {item:4278}. Mine Lesser Bloodstone Deposits in {zone:1417} with {skill:186} 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore."] = "{npc:773}, en el piso de arriba: esta misión opcional pide cuatro {item:4278}. Extrae de Depósitos de Petrosangre inferior en {zone:1417} con {skill:186} 75, o compra el mineral en la casa de subastas o pídeselo a un amigo minero. Los kóbolds no lo sueltan; salta esta misión si no puedes conseguir el mineral.",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "",
-	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
+	["{npc:2498}, inside"] = "{npc:2498}, dentro",
+	["\"Sea Wolf\" MacKinley, on the top floor"] = "MacKinley «Lobo de Mar», en el piso superior",
 	-- {npc:4631} Wharfmaster Lozgil
 	["{npc:4631}, on the docks"] = "El {npc:4631}, en los muelles",
 

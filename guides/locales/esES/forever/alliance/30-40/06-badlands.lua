@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Into Badlands
 	-- {zone:1418} Badlands
-	["Into {zone:1418}"] = "",
+	["Into {zone:1418}"] = "Hacia {zone:1418}",
 
 	-- Step 2: Dorgaron
 	-- {npc:269577} Dorgaron · {area:346} Hammertoe's Digsite · {area:345} Agmond's End
@@ -23,7 +23,7 @@ return {
 
 	-- Step 5: Hammertoe's Digsite: kill these as you meet them
 	-- {area:346} Hammertoe's Digsite
-	["{area:346}: kill these as you meet them"] = "",
+	["{area:346}: kill these as you meet them"] = "{area:346}: mátalos según te los encuentres",
 	-- {npc:269577} Dorgaron
 	-- plural, as words: Crag Coyotes = {npc:2727} Crag Coyote
 	["The Shadowforge dwarves camp just north of the digsite; the crumpled map and {npc:269577}'s mining helmet lie among their tents. Tunnelers and Darkweavers carry Ryedol's pick and {npc:269577}'s artifacts. Crag Coyotes roam the slopes around it."] = "Los enanos Forjatiniebla acampan justo al norte de la excavación; el Mapa arrugado y el casco de minería de {npc:269577} están entre sus tiendas. Los Tuneladores y los Tejeoscuros llevan el Pico de la suerte de Ryedol y los artefactos de {npc:269577}. Los Coyotes del risco recorren las laderas de alrededor.",
@@ -51,14 +51,14 @@ return {
 
 	-- Step 10: Agmond's End: kill these as you meet them
 	-- {area:345} Agmond's End
-	["{area:345}: kill these as you meet them"] = "",
+	["{area:345}: kill these as you meet them"] = "{area:345}: mátalos según te los encuentres",
 	-- {quest:739} Murdaloc · {spell:5242} Battle Shout · {spell:1160} Demoralizing Shout · {area:340} Kargath
 	-- plural, as words: Dustbelcher Maulers = {npc:2717} Dustbelcher Mauler · Stonevault Bonesnappers = {npc:2893} Stonevault Bonesnapper · Dustbelcher Lords = {npc:2719} Dustbelcher Lord
 	["Buzzards circle the plain to the east. Careful: the Dustbelcher Maulers, Shamans and Wyrmhunters (40-43) camp far to the south-west: leave them.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: the Stonevault Bonesnappers are 39-40 and the Shamans 40-41, a level or two over you here: pull them from the camp's edge, one at a time.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "Las águilas ratoneras sobrevuelan la llanura al este. Cuidado: los Destructores, Chamanes y Cazavermis Rotapolvo (40-43) acampan muy al suroeste: déjalos.\nEl esqueleto maltrecho está al borde del campamento de los troggs Grutacanto; {quest:739}, el asesino de Agmond, camina entre los Partehuesos.\nCuidado: los Partehuesos Grutacanto son de nivel 39-40 y los Chamanes 40-41, uno o dos niveles por encima de ti: atráelos desde el borde del campamento, de uno en uno.\nCuidado: los Señores Rotapolvo son de nivel 44-45. Usan {spell:5242} y {spell:1160}, y por debajo del 50% de salud piden ayuda a los aliados a menos de 15 m. Siete de ellos están unos 750 m al sur de {area:340}.",
 	-- {item:7847} Buzzard Gizzard · {area:345} Agmond's End
 	["{item:7847}, if you still need one: the Buzzards east of {area:345} drop it only rarely"] = "{item:7847}, si aún te falta: las águilas ratoneras al este de {area:345} la sueltan muy raramente",
 	-- {quest:739} Murdaloc · {zone:1418} Badlands
-	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {zone:1418} guide at 43, and kill the Bonesnappers for this quest now."] = "",
+	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {zone:1418} guide at 43, and kill the Bonesnappers for this quest now."] = "El propio {quest:739} (42) anda entre los rompehuesos: déjalo para la guía posterior de {zone:1418}, a nivel 43, y mata ahora a los rompehuesos para esta misión.",
 	-- {item:278402} Unstudied Artifact
 	["{item:278402}, from the Shadowforge diggers and the Bonesnappers"] = "{item:278402}, de los excavadores Forjatiniebla y los Partehuesos",
 
@@ -87,7 +87,7 @@ return {
 	-- plural, as words: Obsidian Golems = {npc:4872} Obsidian Golem · Shadowforge Diggers = {npc:4846} Shadowforge Digger
 	["Head north to {area:1517}'s entrance, in the north of the {zone:1418}: the chest lies just inside the cave mouth. {npc:2932} and the Obsidian Golems (38) stand beside it and Shadowforge Diggers (35-36) work the tunnel, all elite: keep your group together."] = "Ve al norte hasta la entrada de {area:1517}, en el norte de {zone:1418}: el cofre está justo dentro de la boca de la cueva. {npc:2932} y los Gólems de obsidiana (38) están a su lado y los Excavadores Forjatiniebla (35-36) trabajan en el túnel, todos élite: mantén unido a tu grupo.",
 	-- {item:4631} Tablet of Ryun'eh
-	["{item:4631}; below ground"] = "",
+	["{item:4631}; below ground"] = "{item:4631}; bajo tierra",
 
 	-- Step 16: Valley of Fangs
 	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {area:1517} Uldaman · {area:345} Agmond's End
@@ -119,7 +119,7 @@ return {
 	-- Step 22: Thelsamar
 	-- {npc:1470} Ghak Healtouch
 	-- was: ["{npc:1470}, in the inn"] = "{npc:1470}, en la posada"
-	["{npc:1470}, in the inn; below ground"] = "",
+	["{npc:1470}, in the inn; below ground"] = "{npc:1470}, en la posada; bajo tierra",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "Un {npc:217590} se arrastra por {area:596}: atrapa uno con la herramienta del kit de entomología de {npc:217412}.",

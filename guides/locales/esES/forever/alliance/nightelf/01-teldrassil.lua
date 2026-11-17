@@ -16,7 +16,7 @@ return {
 
 	-- Step 2: Shadowglen: kill these as you meet them
 	-- {area:188} Shadowglen
-	["{area:188}: kill these as you meet them"] = "",
+	["{area:188}: kill these as you meet them"] = "{area:188}: mátalos según te los encuentres",
 	-- {area:256} Aldrassil
 	-- plural, as words: Young Nightsabers = {npc:2031} Young Nightsaber · Young Thistle Boars = {npc:1984} Young Thistle Boar · Gnarlpine Totems = {item:279082} Gnarlpine Totem · Grells = {npc:1988} Grell
 	["Young Nightsabers and Young Thistle Boars (level 1-2) roam around {area:256}: start with them. The Gnarlpine Totems stand in the woods west of the tree, where the Grells (2-3) roam: take them once the beasts are done."] = "Los Sables de la noche jóvenes y los Jabalíes cardo jóvenes (nivel 1-2) deambulan alrededor de {area:256}: empieza por ellos. Los Tótems Tuercepinos están en el bosque al oeste del árbol, donde rondan los grells (2-3): ve a por ellos cuando acabes con las bestias.",
@@ -35,7 +35,7 @@ return {
 	-- {npc:2082} Gilshalan Windwalker
 	["{npc:2082}, on the tree's ramp"] = "{npc:2082}, en la rampa del árbol",
 	-- {npc:3595} Shanda
-	["{npc:3595}: in at the tree's front entrance and up the ramp; upstairs"] = "",
+	["{npc:3595}: in at the tree's front entrance and up the ramp; upstairs"] = "{npc:3595}: entra por la puerta principal del árbol y sube la rampa; arriba",
 	-- {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light · {npc:3595} Shanda
 	["{quest:97979}: cast {spell:1259799} and Shadowmeld, then hand it back to {npc:3595}"] = "{quest:97979}: lanza {spell:1259799} y Fusión de las Sombras, y luego entrégasela a {npc:3595}",
 	-- {npc:8583} Dirania Silvershine
@@ -48,11 +48,11 @@ return {
 	-- plural, as words: Mangy Nightsabers = {npc:2032} Mangy Nightsaber · Thistle Boars = {npc:1985} Thistle Boar
 	["Mangy Nightsabers and Thistle Boars roam north of {area:256}, on the way to the cave. {npc:1994} sits deep inside. {npc:8584} waits in the trees west of the cave mouth."] = "Los sables de la Noche sarnosos y los jabalíes Cardo deambulan al norte de {area:256}, camino de la cueva. {npc:1994} está al fondo. {npc:8584} espera entre los árboles al oeste de la entrada de la cueva.",
 	-- plural, as words: Webwood Spiders = {npc:1986} Webwood Spider
-	["Webwood Spiders; below ground"] = "",
+	["Webwood Spiders; below ground"] = "Arañas Tejemadera; bajo tierra",
 
 	-- Step 6: Aldrassil
 	-- {area:256} Aldrassil · {npc:3593} Alyissia · {npc:3594} Frahun Shadewhisper · {npc:3595} Shanda · {npc:3596} Ayanna Everstride · {npc:3597} Mardant Strongoak
-	["The trainers stand upstairs inside {area:256}, along the ramp that winds up the tree: {npc:3593} and {npc:3594} on the first level, {npc:3595} above them, {npc:3596} and {npc:3597} at the top. The arrow cannot tell the levels apart."] = "",
+	["The trainers stand upstairs inside {area:256}, along the ramp that winds up the tree: {npc:3593} and {npc:3594} on the first level, {npc:3595} above them, {npc:3596} and {npc:3597} at the top. The arrow cannot tell the levels apart."] = "Los instructores están arriba dentro de {area:256}, a lo largo de la rampa que sube en espiral por el árbol: {npc:3593} y {npc:3594} en el primer nivel, {npc:3595} encima de ellos, {npc:3596} y {npc:3597} en la cima. La flecha no distingue los niveles.",
 	-- {npc:3593} Alyissia
 	["{npc:3593}, the warrior trainer; inside"] = "{npc:3593}, el instructor de guerreros; dentro",
 	-- {npc:3596} Ayanna Everstride
@@ -71,12 +71,12 @@ return {
 	-- plural, as words: Hyacinth Mushrooms = {item:10639} Hyacinth Mushroom · Grells = {npc:1988} Grell
 	["The {object:4406} lie at the back of {area:257}: take the central path, then left where it splits, up to the high ledge. Hyacinth Mushrooms drop from Grells, Moonpetal Lilies grow by the ponds north of {area:256}."] = "Los {object:4406} están al fondo de {area:257}: toma el sendero central, luego a la izquierda donde se divide, hasta la cornisa alta. Los grells sueltan champiñones jacinto; los lirios alunados crecen junto a las charcas al norte de {area:256}.",
 	-- plural, as words: Grells = {npc:1988} Grell
-	["Grells"] = "",
+	["Grells"] = "Grells",
 
 	-- Step 9: Shadowglen
 	["Below ground"] = "Bajo tierra",
 	-- {quest:97236} Fang of Githyiss
-	["{quest:97236}; below ground"] = "",
+	["{quest:97236}; below ground"] = "{quest:97236}; bajo tierra",
 
 	-- Step 10: Aldrassil
 	-- {npc:3514} Tenaron Stormgrip
@@ -85,22 +85,22 @@ return {
 	-- Step 11: The moonwell
 	["The moonwell"] = "El pozo de la luna",
 	-- {area:256} Aldrassil
-	["The moonwell sits north of {area:256}."] = "",
+	["The moonwell sits north of {area:256}."] = "El pozo de la luna está al norte de {area:256}.",
 	-- {item:5185} Crystal Phial
 	["Use the {item:5185} at the moonwell"] = "Usa la {item:5185} en el pozo de la luna",
 
 	-- Step 12: Tenaron Stormgrip
 	-- {area:256} Aldrassil · {object:654846} Lost Journal
 	["Back to the top of {area:256}. The {object:654846} lies beside him."] = "Vuelve a lo alto de {area:256}. El {object:654846} está a su lado.",
-	["Upstairs"] = "",
+	["Upstairs"] = "Piso de arriba",
 	-- {object:654846} Lost Journal
-	["{object:654846}, upstairs"] = "",
+	["{object:654846}, upstairs"] = "{object:654846}, arriba",
 	-- {npc:3595} Shanda · {area:256} Aldrassil · {npc:3600} Laurna Morninglight · {area:186} Dolanaar
 	["{npc:3595}, the priest trainer, on the second level of {area:256} on the way down: {npc:3600} in {area:186} takes it"] = "{npc:3595}, el instructor de sacerdotes, en el segundo nivel de {area:256} al bajar: la recibe {npc:3600} en {area:186}",
 
 	-- Step 13: Iverron's Antidote
 	-- {npc:8583} Dirania Silvershine · {area:256} Aldrassil · {npc:8584} Iverron
-	["Take the antidote from {npc:8583} at the foot of {area:256} only now, on the way down: it lasts five minutes. {npc:8584} waits north-west, by the cave: go straight on to him."] = "",
+	["Take the antidote from {npc:8583} at the foot of {area:256} only now, on the way down: it lasts five minutes. {npc:8584} waits north-west, by the cave: go straight on to him."] = "Toma el antídoto de {npc:8583}, al pie de {area:256}, recién ahora, de bajada: dura cinco minutos. {npc:8584} espera al noroeste, junto a la cueva: ve directo hacia él.",
 
 	-- Step 14: Porthannius
 	-- {area:188} Shadowglen · {area:256} Aldrassil · {npc:6780} Porthannius · {area:186} Dolanaar
@@ -152,7 +152,7 @@ return {
 
 	-- Step 23: Zarrin
 	-- {npc:6286} Zarrin
-	["{npc:6286}, south of the inn: Camping 101 asks you to learn it"] = "",
+	["{npc:6286}, south of the inn: Camping 101 asks you to learn it"] = "{npc:6286}, al sur de la posada: Campamento básico te pide aprenderla",
 
 	-- Step 24: Cyndra Kindwhisper
 	["talk to the trainer"] = "habla con el instructor",
@@ -171,11 +171,11 @@ return {
 	-- {npc:3515} Corithras Moonrage
 	["{npc:3515}, south of the inn"] = "{npc:3515}, al sur de la posada",
 	-- {npc:3608} Aldia
-	["{npc:3608}, upstairs"] = "",
+	["{npc:3608}, upstairs"] = "{npc:3608}, en el piso de arriba",
 	-- {npc:3567} Tallonkai Swiftroot
-	["{npc:3567}, upstairs"] = "",
+	["{npc:3567}, upstairs"] = "{npc:3567}, en el piso de arriba",
 	-- {npc:3600} Laurna Morninglight
-	["{npc:3600}, inside"] = "",
+	["{npc:3600}, inside"] = "{npc:3600}, dentro",
 	-- {npc:3600} Laurna Morninglight · {npc:12429} Sentinel Shaya · {area:259} Lake Al'Ameth
 	["{npc:3600}: heal {npc:12429} by {area:259}"] = "{npc:3600}: cura a {npc:12429} junto a {area:259}",
 
@@ -187,7 +187,7 @@ return {
 
 	-- Step 29: Teldrassil: kill these as you meet them
 	-- {quest:940} Teldrassil
-	["{quest:940}: kill these as you meet them"] = "",
+	["{quest:940}: kill these as you meet them"] = "{quest:940}: mata a estos según te los encuentres",
 	-- {area:186} Dolanaar · {area:260} Starbreeze Village
 	-- plural, as words: Strigid Owls = {npc:1995} Strigid Owl · Webwood Lurkers = {npc:1998} Webwood Lurker
 	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of {area:260}."] = "Los sables de la Noche, las lechuzas estrígidas y los rondadores Tejemadera rondan por todo {area:186} y a lo largo del camino al este; los rondadores también sueltan las patas de araña de la receta. El pozo de la luna está en el borde oeste de {area:260}.",
@@ -201,11 +201,11 @@ return {
 
 	-- Step 31: Starbreeze Village
 	-- {npc:2107} Gaerolas Talvethren · {object:126158} Tallonkai's Dresser
-	["{npc:2107} stands upstairs in a house in the village, east of the moonwell: go up inside, the arrow cannot tell the floors apart. {object:126158} is in the house on the hill at the east end of the village."] = "",
+	["{npc:2107} stands upstairs in a house in the village, east of the moonwell: go up inside, the arrow cannot tell the floors apart. {object:126158} is in the house on the hill at the east end of the village."] = "{npc:2107} está arriba en una casa de la aldea, al este del pozo de la luna: sube por adentro, la flecha no distingue los pisos. {object:126158} está en la casa de la colina, en el extremo este de la aldea.",
 	-- {item:5619} Jade Phial
 	["Use the {item:5619} at the moonwell"] = "Usa la {item:5619} en el pozo de la luna",
 	-- {object:126158} Tallonkai's Dresser
-	["{object:126158}; inside"] = "",
+	["{object:126158}; inside"] = "{object:126158}; adentro",
 
 	-- Step 32: Lake Al'Ameth
 	-- {npc:2150} Zenn Foulhoof · {npc:2080} Denalan · {quest:919} Timberling Sprouts
@@ -228,7 +228,7 @@ return {
 	-- {npc:2038} Lord Melenas
 	["{npc:2038} waits inside the cave, at the bottom or up on the ledge; keep to the right."] = "{npc:2038} espera dentro de la cueva, abajo o arriba en la cornisa; ve por la derecha.",
 	-- {npc:2038} Lord Melenas
-	["{npc:2038}; below ground"] = "",
+	["{npc:2038}; below ground"] = "{npc:2038}; bajo tierra",
 
 	-- Step 37: The road to Darnassus
 	-- {zone:1457} Darnassus
@@ -251,27 +251,27 @@ return {
 
 	-- Step 41: Darnassus
 	-- {quest:922} Rellian Greenspyre · {area:1658} Cenarion Enclave · {npc:7316} Sister Aquinne · {npc:7313} Priestess A'moora · {npc:8396} Sentinel Dalia Sunblade · {item:279378} Lunar Pendant
-	["Into the city through the gate. {quest:922} is just south of the {area:1658} at the north end, {npc:7316} in the west, {npc:7313} and {npc:8396} in the Temple of the Moon at the south end. On the way back out, use Dalia's {item:279378} at the bank and at the city gate; the other two owls wait for your last visit."] = "",
+	["Into the city through the gate. {quest:922} is just south of the {area:1658} at the north end, {npc:7316} in the west, {npc:7313} and {npc:8396} in the Temple of the Moon at the south end. On the way back out, use Dalia's {item:279378} at the bank and at the city gate; the other two owls wait for your last visit."] = "Entra a la ciudad por la puerta. {quest:922} está justo al sur de {area:1658}, en el extremo norte, {npc:7316} al oeste, {npc:7313} y {npc:8396} en el Templo de la Luna, en el extremo sur. Al salir, usa el {item:279378} de Dalia en el banco y en la puerta de la ciudad; los otros dos búhos esperan a tu última visita.",
 	-- {npc:7313} Priestess A'moora
-	["{npc:7313}, in the Temple of the Moon"] = "",
+	["{npc:7313}, in the Temple of the Moon"] = "{npc:7313}, en el Templo de la Luna",
 	-- {npc:8396} Sentinel Dalia Sunblade
-	["{npc:8396}, beside her"] = "",
+	["{npc:8396}, beside her"] = "{npc:8396}, a su lado",
 	-- {item:279378} Lunar Pendant
-	["{item:279378}: the bank, on the way out"] = "",
-	["the city gate"] = "",
+	["{item:279378}: the bank, on the way out"] = "{item:279378}: el banco, a la salida",
+	["the city gate"] = "la puerta de la ciudad",
 
 	-- Step 42: Ban'ethil Barrow Den's entrance
 	-- {area:262} Ban'ethil Barrow Den
-	["{area:262}'s entrance"] = "",
+	["{area:262}'s entrance"] = "Entrada de {area:262}",
 
 	-- Step 43: Ban'ethil Barrow Den
 	-- {npc:275744} Sentinel Lynessa Duskblossom · {npc:7317} Oben Rageclaw
 	-- plural, as words: Gnarlpine Defenders = {npc:2010} Gnarlpine Defender
 	["The barrow is south of the road. {npc:275744} is held inside, {npc:7317} sleeps in its depths, and the four relic chests sit in the lower rooms. Its furbolgs drop Shayla's fangs.\nCareful: the barrow's Gnarlpine Defenders, Augurs and Shamans (7-9) stand in threes in the narrow tunnels: pull each group back toward the entrance before you go deeper."] = "El túmulo está al sur del camino. {npc:275744} está retenida dentro, {npc:7317} duerme en lo más hondo y los cuatro cofres de reliquias están en las salas inferiores. Sus fúrbolgs sueltan los colmillos de Shayla.\nCuidado: los Defensores, Augures y Chamanes Tuercepinos (7-9) del túmulo están en grupos de tres en los túneles estrechos: atrae cada grupo hacia la entrada antes de adentrarte más.",
 	-- {item:5220} Gnarlpine Fang
-	["{item:5220}: any Gnarlpine furbolg"] = "",
+	["{item:5220}: any Gnarlpine furbolg"] = "{item:5220}: cualquier fúrbolg Tuercepinos",
 	-- {npc:7317} Oben Rageclaw
-	["{npc:7317}, below ground"] = "",
+	["{npc:7317}, below ground"] = "{npc:7317}, bajo tierra",
 	-- plural, as words: Gnarlpine Shamans = {npc:2009} Gnarlpine Shaman
 	["Gnarlpine Shamans"] = "Chamanes Tuercepinos",
 
@@ -279,7 +279,7 @@ return {
 	-- {npc:7318} Rageclaw · {npc:7317} Oben Rageclaw · {area:736} Ban'ethil Hollow · {item:8149} Voodoo Charm
 	["{npc:7318} (level 10), {npc:7317}'s soulless body, walks around {area:736} in the den: kill him, then use {npc:7317}'s {item:8149}."] = "{npc:7318} (nivel 10), el cuerpo sin alma de {npc:7317}, recorre {area:736} en la guarida: mátalo y luego usa el {item:8149} de {npc:7317}.",
 	-- {npc:7318} Rageclaw · {area:736} Ban'ethil Hollow
-	["{npc:7318}, in the den; walks around {area:736}: look inside the circle on the map"] = "",
+	["{npc:7318}, in the den; walks around {area:736}: look inside the circle on the map"] = "{npc:7318}, en la guarida; recorre {area:736}: busca dentro del círculo del mapa",
 
 	-- Step 45: Escaping Ban'ethil
 	-- {npc:275744} Sentinel Lynessa Duskblossom · {npc:2081} Sentinel Kyra Starsong · {area:186} Dolanaar
@@ -310,11 +310,11 @@ return {
 	-- plural, as words: Gnarlpine Mystics = {npc:7235} Gnarlpine Mystic
 	["Gnarlpine Mystics and {npc:7234} camp north-east of {area:260}. {npc:7234} drops the {item:8049}: open it for the jewel.\nCareful: {npc:7234} waits near the camp fire with mystics around him, so pulling him without adds is hard."] = "Los místicos Tuercepinos y {npc:7234} acampan al noreste de {area:260}. {npc:7234} suelta la {item:8049}: ábrela para conseguir la joya.\nCuidado: {npc:7234} espera junto a la hoguera con místicos a su alrededor, así que es difícil atraerlo sin que vengan otros.",
 	-- {item:8049} Gnarlpine Necklace · {npc:7234} Ferocitas the Dream Eater
-	["{item:8049}, from {npc:7234}"] = "",
+	["{item:8049}, from {npc:7234}"] = "{item:8049}, de {npc:7234}",
 
 	-- Step 51: Dolanaar
 	-- {area:264} Oracle Glade · {area:186} Dolanaar · {npc:3567} Tallonkai Swiftroot
-	["The road west to the {area:264} runs through {area:186}: hand {npc:3567} the jewel on the way."] = "",
+	["The road west to the {area:264} runs through {area:186}: hand {npc:3567} the jewel on the way."] = "El camino al oeste hasta {area:264} pasa por {area:186}: dale la joya a {npc:3567} por el camino.",
 
 	-- Step 52: Tallonkai Swiftroot
 	-- {npc:3567} Tallonkai Swiftroot · {quest:932} Twisted Hatred · {npc:272116} Xethorr the Wicked · {area:264} Oracle Glade
@@ -330,12 +330,12 @@ return {
 
 	-- Step 54: The Wellspring River
 	-- {area:265} Wellspring River
-	["The {area:265}"] = "",
+	["The {area:265}"] = "{area:265}",
 	-- {area:265} Wellspring River · {npc:272116} Xethorr the Wicked · {area:186} Dolanaar
 	-- plural, as words: Mossy Tumors = {item:5170} Mossy Tumor · Befouled Webwoods = {npc:272096} Befouled Webwood
 	["West from the webwoods to the {area:265}, then north along it to the glade: the timberlings along its banks drop the Mossy Tumors.\nCareful: {npc:272116}, a level 12 elite, prowls the east edge of the Befouled Webwoods north-west of {area:186}: if you are alone, keep clear of the webwoods and go round him."] = "Al oeste desde las arañas hasta {area:265}, y luego al norte a lo largo del río hasta el claro: los fustales de sus orillas sueltan los Tumores musgosos.\nCuidado: {npc:272116}, un élite de nivel 12, ronda el borde este de los Tejemadera infectos al noroeste de {area:186}: si vas solo, mantente lejos de las arañas y rodéalo.",
 	-- {item:5170} Mossy Tumor
-	["{item:5170}: timberlings"] = "",
+	["{item:5170}: timberlings"] = "{item:5170}: arbolitos",
 
 	-- Step 55: Oracle Glade
 	-- {object:6752} Strange Fronded Plant
@@ -348,11 +348,11 @@ return {
 	-- Step 56: Bloodfeather harpies
 	["Bloodfeather harpies"] = "Arpías Plumasangre",
 	-- {quest:938} Mist
-	["The Bloodfeather harpies nest on the slopes west and north of the glade. {quest:938}, an injured sabercat, lies by the glade's west wall among them: lead her back to Sentinel Arynia at the moonwell before her time runs out.\nCareful: The harpies stand packed together, so extra ones often join a fight. Casters are mixed in among them."] = "",
+	["The Bloodfeather harpies nest on the slopes west and north of the glade. {quest:938}, an injured sabercat, lies by the glade's west wall among them: lead her back to Sentinel Arynia at the moonwell before her time runs out.\nCareful: The harpies stand packed together, so extra ones often join a fight. Casters are mixed in among them."] = "Las arpías Plumasangre anidan en las laderas al oeste y al norte del claro. {quest:938}, una felina herida, yace junto a la pared oeste del claro, entre ellas: llévala de vuelta con la centinela Arynia, en el pozo de la luna, antes de que se acabe el tiempo.\nCuidado: Las arpías están muy juntas, así que muchas veces se suman otras a la pelea. Hay lanzadoras de hechizos mezcladas entre ellas.",
 	-- {quest:938} Mist
-	["{quest:938}, by the west wall"] = "",
+	["{quest:938}, by the west wall"] = "{quest:938}, junto a la pared oeste",
 	-- {quest:938} Mist
-	["Lead {quest:938} to the moonwell"] = "",
+	["Lead {quest:938} to the moonwell"] = "Lleva a {quest:938} al pozo de la luna",
 
 	-- Step 57: Sentinel Arynia Cloudsbreak
 	["Back to the moonwell."] = "Vuelve al pozo de la luna.",
@@ -377,7 +377,7 @@ return {
 	-- {object:673378} Oracle Tree Bark
 	["{object:673378}, just west of the moonwell"] = "{object:673378}, justo al oeste del pozo de la luna",
 	-- {object:673378} Oracle Tree Bark · {zone:1457} Darnassus
-	["the same {object:673378}: Fandral in {zone:1457} takes it"] = "",
+	["the same {object:673378}: Fandral in {zone:1457} takes it"] = "la misma {object:673378}: la recibe Fandral en {zone:1457}",
 
 	-- Step 62: Sentinel Shayla Nightbreeze
 	-- {area:186} Dolanaar
@@ -387,7 +387,7 @@ return {
 	-- {area:186} Dolanaar
 	["East along the road to {area:186}."] = "Al este por el camino hasta {area:186}.",
 	-- {npc:6094} Byancie
-	["{npc:6094}, inside"] = "",
+	["{npc:6094}, inside"] = "{npc:6094}, dentro",
 	-- {item:3371} Empty Vial · {npc:3614} Narret Shadowgrove · {npc:6094} Byancie
 	["{item:3371} from {npc:3614}, beside {npc:6094}"] = "{item:3371} de {npc:3614}, junto a {npc:6094}",
 	-- {npc:3600} Laurna Morninglight · {npc:11401} Priestess Alathea · {zone:1457} Darnassus
@@ -399,7 +399,7 @@ return {
 	-- {npc:3602} Kal · {npc:4217} Mathrengyl Bearwalker · {zone:1457} Darnassus
 	["{npc:3602}: {npc:4217} in {zone:1457} takes it"] = "{npc:3602}: la recibe {npc:4217} en {zone:1457}",
 	-- {npc:3598} Kyra Windblade · {quest:1684} Elanaria · {zone:1457} Darnassus
-	["{npc:3598}, the warrior trainer: {quest:1684} in {zone:1457} takes it"] = "",
+	["{npc:3598}, the warrior trainer: {quest:1684} in {zone:1457} takes it"] = "{npc:3598}, la instructora de guerreros: la recibe {quest:1684} en {zone:1457}",
 
 	-- Step 64: Tallonkai Swiftroot
 	-- {npc:3567} Tallonkai Swiftroot · {npc:272116} Xethorr the Wicked
@@ -439,25 +439,25 @@ return {
 
 	-- Step 70: Into Darnassus
 	-- {zone:1457} Darnassus
-	["Into {zone:1457}"] = "",
+	["Into {zone:1457}"] = "Hacia {zone:1457}",
 	-- {npc:4241} Mydrannul · {area:1659} Craftsmen's Terrace
-	["{npc:4241}, on the {area:1659} just inside the city"] = "",
+	["{npc:4241}, on the {area:1659} just inside the city"] = "{npc:4241}, en {area:1659}, justo al entrar a la ciudad",
 
 	-- Step 72: Elanaria
 	-- {quest:1684} Elanaria · {area:1660} Warrior's Terrace
-	["{quest:1684} stands on the {area:1660}, just inside the city."] = "",
+	["{quest:1684} stands on the {area:1660}, just inside the city."] = "{quest:1684} está en {area:1660}, justo al entrar a la ciudad.",
 
 	-- Step 73: Vorlus Vilehoof
 	-- {quest:1683} Vorlus Vilehoof · {area:736} Ban'ethil Hollow · {quest:1684} Elanaria
-	["Back out of the city gate and east along the road: {quest:1683} stands south of it, by {area:736}. Bring his horn back to {quest:1684}."] = "",
+	["Back out of the city gate and east along the road: {quest:1683} stands south of it, by {area:736}. Bring his horn back to {quest:1684}."] = "Sal otra vez por la puerta de la ciudad y ve al este por el camino: {quest:1683} está al sur, junto a {area:736}. Llévale su cuerno a {quest:1684}.",
 
 	-- Step 75: Darnassus
 	-- {zone:1457} Darnassus · {item:279378} Lunar Pendant · {area:1659} Craftsmen's Terrace · {area:3425} Cenarion Hold · {npc:4241} Mydrannul · {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave · {quest:922} Rellian Greenspyre · {npc:4092} Lariia · {npc:7999} Tyrande Whisperwind · {npc:7313} Priestess A'moora · {npc:8396} Sentinel Dalia Sunblade
 	["Follow the road west into {zone:1457} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "Sigue el camino al oeste hasta {zone:1457} y usa el {item:279378} en la posada de la {area:1659} y en la boca del túnel bajo {area:3425} para las dos últimas lechuzas. {npc:4241} está en la {area:1659}, justo al entrar en la ciudad. {npc:3516} está en el {area:1658}, en el extremo norte de la ciudad, y {quest:922} justo al sur; {npc:4092}, {npc:7999}, {npc:7313} y {npc:8396} están en el Templo de la Luna, en el extremo sur.",
 	-- {npc:4088} Elanaria · {area:1660} Warrior's Terrace · {spell:71} Defensive Stance
-	["{npc:4088}, on the {area:1660}: {spell:71}"] = "",
+	["{npc:4088}, on the {area:1660}: {spell:71}"] = "{npc:4088}, en {area:1660}: {spell:71}",
 	-- {item:279378} Lunar Pendant · {area:1659} Craftsmen's Terrace
-	["{item:279378}: the inn on the {area:1659}"] = "",
+	["{item:279378}: the inn on the {area:1659}"] = "{item:279378}: la posada de {area:1659}",
 
 	-- Step 76: Warrior trainer
 	["Warrior trainer"] = "Instructor de guerreros",
@@ -482,13 +482,13 @@ return {
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
 	["{npc:4217}, in the {area:1658}"] = "{npc:4217}, en el {area:1658}",
 	-- {area:3425} Cenarion Hold
-	["the tunnel mouth below {area:3425}, on the way south"] = "",
+	["the tunnel mouth below {area:3425}, on the way south"] = "la boca del túnel bajo {area:3425}, de camino al sur",
 	-- {npc:4092} Lariia
 	["{npc:4092}, in the Temple of the Moon"] = "{npc:4092}, en el Templo de la Luna",
 	-- {npc:7999} Tyrande Whisperwind · {npc:4092} Lariia
 	["{npc:7999}, above {npc:4092}"] = "{npc:7999}, encima de {npc:4092}",
 	-- {quest:2520} Sathrah's Sacrifice
-	["{quest:2520}, standing in the temple's central fountain"] = "",
+	["{quest:2520}, standing in the temple's central fountain"] = "{quest:2520}, parado en la fuente central del templo",
 	-- {npc:11401} Priestess Alathea
 	["{npc:11401}, in the Temple of the Moon: Starshards"] = "{npc:11401}, en el Templo de la Luna: Fragmentos estelares",
 
@@ -499,32 +499,32 @@ return {
 
 	-- Step 84: Ilyenia Moonfire
 	-- {npc:11866} Ilyenia Moonfire · {area:1660} Warrior's Terrace
-	["While you're here: learn Staves from {npc:11866} ({area:1660}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
+	["While you're here: learn Staves from {npc:11866} ({area:1660}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Ya que estás aquí: aprende Bastones con {npc:11866} ({area:1660}, 10 de plata); en un cazador, el arma cuerpo a cuerpo vale sobre todo por sus estadísticas, y las de dos manos son las que más tienen.",
 
 	-- Step 85: Ilyenia Moonfire
 	-- {npc:11866} Ilyenia Moonfire · {area:1660} Warrior's Terrace
-	["While you're here: learn Staves from {npc:11866} ({area:1660}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "",
+	["While you're here: learn Staves from {npc:11866} ({area:1660}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "Ya que estás aquí: aprende Bastones con {npc:11866} ({area:1660}, 10 de plata); un bastón tiene más estadísticas de hechizo que un arma de una mano mientras subes de nivel.",
 
 	-- Step 86: Portal to Teldrassil
 	-- {quest:940} Teldrassil
-	["Portal to {quest:940}"] = "",
+	["Portal to {quest:940}"] = "Portal a {quest:940}",
 
 	-- Step 87: Rut'theran Village
 	-- {area:702} Rut'theran Village · {npc:10118} Nessa Shadowsong · {npc:3838} Vesprystus · {quest:6342} Flight to Auberdine · {area:442} Auberdine · {npc:4200} Laird
-	["Take the portal down to {area:702}. {npc:10118} stands on the dock, {npc:3838} by the hippogryphs. Once you have {quest:6342}, talk to {npc:3838} again and choose the flight to {area:442}: it is free and lands beside {npc:4200}. If the flight map opens instead, close it and talk to him again holding Shift."] = "",
+	["Take the portal down to {area:702}. {npc:10118} stands on the dock, {npc:3838} by the hippogryphs. Once you have {quest:6342}, talk to {npc:3838} again and choose the flight to {area:442}: it is free and lands beside {npc:4200}. If the flight map opens instead, close it and talk to him again holding Shift."] = "Toma el portal de bajada a {area:702}. {npc:10118} está en el muelle, {npc:3838} junto a los hipogrifos. Cuando tengas {quest:6342}, vuelve a hablar con {npc:3838} y elige el vuelo a {area:442}: es gratis y aterriza junto a {npc:4200}. Si se abre el mapa de vuelo, ciérralo y vuelve a hablarle manteniendo Mayús.",
 	-- {npc:3838} Vesprystus · {quest:6342} Flight to Auberdine
-	["talk to {npc:3838} again: free with {quest:6342}"] = "",
+	["talk to {npc:3838} again: free with {quest:6342}"] = "vuelve a hablar con {npc:3838}: gratis con {quest:6342}",
 
 	-- Step 88: Auberdine
 	-- {npc:3841} Caylais Moonfeather · {npc:4200} Laird
-	["Learn the flight path from {npc:3841} where you land. {npc:4200}'s fish stall is just north of her, by the docks.\nThe boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street."] = "",
+	["Learn the flight path from {npc:3841} where you land. {npc:4200}'s fish stall is just north of her, by the docks.\nThe boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street."] = "Aprende la ruta de vuelo con {npc:3841} donde aterrizas. El puesto de pescado de {npc:4200} está justo al norte de ella, junto a los muelles.\nEl barco atraca al oeste de la aldea. El maestro de vuelo está en la colina al sur de la posada; los que dan misiones están repartidos por la calle principal.",
 	["The WANTED poster outside the inn"] = "El cartel de SE BUSCA a la puerta de la posada",
 	-- {npc:3666} Wizbang Cranktoggle
-	["{npc:3666}, upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart"] = "",
+	["{npc:3666}, upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart"] = "{npc:3666}, arriba en la posada: sube por la escalera de adentro, la flecha no distingue los pisos",
 
 	-- Step 89: Return to Nessa
 	-- {area:702} Rut'theran Village · {npc:3841} Caylais Moonfeather · {item:16263} Laird's Response · {npc:10118} Nessa Shadowsong · {area:442} Auberdine
-	["Fly back to {area:702} from {npc:3841}, hand {item:16263} to {npc:10118} on the dock, then fly back to {area:442}."] = "",
+	["Fly back to {area:702} from {npc:3841}, hand {item:16263} to {npc:10118} on the dock, then fly back to {area:442}."] = "Vuela de vuelta a {area:702} con {npc:3841}, dale {item:16263} a {npc:10118} en el muelle y luego vuela de vuelta a {area:442}.",
 
 	-- Step 90: The Long Wash
 	-- {quest:983} Buzzbox 827 · {object:175207} Beached Sea Creature
@@ -539,9 +539,9 @@ return {
 
 	-- Step 92: Gubber Blump
 	-- {npc:10216} Gubber Blump · {item:12238} Darkshore Grouper
-	["Fishers only: {npc:10216} stands on the pier. His {item:12238} is fished from the pier itself."] = "",
+	["Fishers only: {npc:10216} stands on the pier. His {item:12238} is fished from the pier itself."] = "Solo pescadores: {npc:10216} está en el muelle. Su {item:12238} se pesca desde el propio muelle.",
 	-- {npc:10216} Gubber Blump
-	["{npc:10216}, on the pier"] = "",
+	["{npc:10216}, on the pier"] = "{npc:10216}, en el muelle",
 
 	-- Step 93: Moonglade
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {quest:5929} Great Bear Spirit · {area:493} Moonglade · {npc:10897} Sindrayl · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village
@@ -551,7 +551,7 @@ return {
 
 	-- Step 94: Back to Darnassus
 	-- {npc:10118} Nessa Shadowsong · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
-	["{npc:10118} stands on the Rut'theran dock where you land. Then take the portal up to {npc:4217} in the {area:1658}."] = "",
+	["{npc:10118} stands on the Rut'theran dock where you land. Then take the portal up to {npc:4217} in the {area:1658}."] = "{npc:10118} está en el muelle de Rut'theran, donde aterrizas. Luego toma el portal de subida hasta {npc:4217}, en {area:1658}.",
 
 	-- Step 97: The Moonkin Stone
 	-- {object:177525} Moonkin Stone

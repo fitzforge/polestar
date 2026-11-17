@@ -30,11 +30,11 @@ return {
 	-- Step 3: Searing Gorge
 	["7 areas to discover here, levels 43-56."] = "Aquí hay 7 zonas por descubrir, niveles 43-56.",
 	-- {zone:1418} Badlands · {area:340} Kargath · {zone:1427} Searing Gorge
-	["The way in on foot is from the western {zone:1418}: the path by {area:340} climbs west into the {zone:1427}."] = "",
+	["The way in on foot is from the western {zone:1418}: the path by {area:340} climbs west into the {zone:1427}."] = "A pie se entra desde el oeste de {zone:1418}: el sendero junto a {area:340} sube al oeste hasta {zone:1427}.",
 	-- {area:144} Thelsamar · {zone:1432} Loch Modan · {zone:1418} Badlands · {area:340} Kargath
-	["Fly to {area:144} and ride south through {zone:1432} into the {zone:1418}, then west to {area:340} (Horde guards)."] = "",
+	["Fly to {area:144} and ride south through {zone:1432} into the {zone:1418}, then west to {area:340} (Horde guards)."] = "Vuela a {area:144} y ve al sur por {zone:1432} hasta {zone:1418}, y luego al oeste hasta {area:340} (guardias de la Horda).",
 	-- {area:340} Kargath · {zone:1418} Badlands
-	["Fly to {area:340} in the {zone:1418}."] = "",
+	["Fly to {area:340} in the {zone:1418}."] = "Vuela a {area:340}, en {zone:1418}.",
 	-- {area:1446} Thorium Point · {npc:2941} Lanie Reed
 	["Flight path here: {area:1446} ({npc:2941})."] = "Ruta de vuelo aquí: {area:1446} ({npc:2941}).",
 	-- {area:1446} Thorium Point
@@ -53,13 +53,13 @@ return {
 	-- Step 6: Deadwind Pass
 	["3 areas to discover here, levels 50-60."] = "Aquí hay 3 zonas por descubrir, niveles 50-60.",
 	-- {zone:1428} Burning Steppes · {zone:1433} Redridge Mountains · {area:1002} Three Corners · {zone:1431} Duskwood · {area:42} Darkshire · {zone:1430} Deadwind Pass
-	["Take the pass south from the {zone:1428} into the {zone:1433}, follow the road south-west through {area:1002} into {zone:1431} and east past {area:42} into {zone:1430}."] = "",
+	["Take the pass south from the {zone:1428} into the {zone:1433}, follow the road south-west through {area:1002} into {zone:1431} and east past {area:42} into {zone:1430}."] = "Toma el paso al sur desde {zone:1428} hasta {zone:1433}, sigue el camino al suroeste por {area:1002} hasta {zone:1431} y al este pasando {area:42} hasta {zone:1430}.",
 	["high-level undead around the tower: discover it from the road"] = "no-muertos de nivel alto alrededor de la torre: descúbrela desde el camino",
 
 	-- Step 7: Blasted Lands (1/2)
 	["9 areas to discover here, levels 46-63."] = "Aquí hay 9 zonas por descubrir, niveles 46-63.",
 	-- {zone:1430} Deadwind Pass · {zone:1435} Swamp of Sorrows · {zone:1419} Blasted Lands · {area:1438} Nethergarde Keep
-	["Ride east out of {zone:1430} into the {zone:1435} and take the road south into the {zone:1419}; {area:1438} (Alliance) stands just inside."] = "",
+	["Ride east out of {zone:1430} into the {zone:1435} and take the road south into the {zone:1419}; {area:1438} (Alliance) stands just inside."] = "Ve al este fuera de {zone:1430} hasta {zone:1435} y toma el camino al sur hasta {zone:1419}; {area:1438} (Alianza) está justo a la entrada.",
 	-- {area:1438} Nethergarde Keep · {npc:8609} Alexandra Constantine
 	["Flight path here: {area:1438} ({npc:8609})."] = "Ruta de vuelo aquí: {area:1438} ({npc:8609}).",
 	["level 63 area, well above this guide's range"] = "zona de nivel 63, muy por encima del rango de esta guía",

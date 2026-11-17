@@ -23,12 +23,12 @@ return {
 
 	-- Step 4: Ruga Ragetotem
 	-- {area:378} Camp Taurajo · {npc:6394} Ruga Ragetotem
-	["Fly to {area:378}. {npc:6394} stands in the hut with the leatherworking and tailoring trainers."] = "",
+	["Fly to {area:378}. {npc:6394} stands in the hut with the leatherworking and tailoring trainers."] = "Vuela a {area:378}. {npc:6394} está en la choza con los instructores de peletería y sastrería.",
 
 	-- Step 5: Trial at the Field of Giants
 	-- {item:7119} Twitching Antenna · {area:390} Field of Giants · {area:378} Camp Taurajo · {item:7120} Ruga's Bulwark
 	-- plural, as words: Silithid Mounds = {object:3685} Silithid Mound
-	["You have 30 minutes, and each {item:7119} rots 15 minutes after you loot it, so take the quest only when ready (logging out does not stop the clock). The Silithid Mounds dot the {area:390} south of {area:378}; every silithid drops an antenna. Creepers (level 20-21) and Grubs are the easiest: Swarmers (21-22) call small swarms and Creepers lay eggs that hatch adds. The eastern part of the field has plenty of Creepers. {item:7120}, a shield, is the reward."] = "",
+	["You have 30 minutes, and each {item:7119} rots 15 minutes after you loot it, so take the quest only when ready (logging out does not stop the clock). The Silithid Mounds dot the {area:390} south of {area:378}; every silithid drops an antenna. Creepers (level 20-21) and Grubs are the easiest: Swarmers (21-22) call small swarms and Creepers lay eggs that hatch adds. The eastern part of the field has plenty of Creepers. {item:7120}, a shield, is the reward."] = "Tienes 30 minutos, y cada {item:7119} se pudre 15 minutos después de saquearla, así que toma la misión solo cuando estés listo (desconectarte no detiene el reloj). Los montículos de silítidos salpican {area:390} al sur de {area:378}; todos los silítidos sueltan una antena. Los reptadores (nivel 20-21) y las larvas son los más fáciles: los enjambradores (21-22) llaman pequeños enjambres y los reptadores ponen huevos de los que salen refuerzos. La parte este del campo tiene muchos reptadores. La recompensa es {item:7120}, un escudo.",
 	-- {item:7119} Twitching Antenna
 	["{item:7119}, from the silithid"] = "{item:7119}, de los silítidos",
 
@@ -39,7 +39,7 @@ return {
 	-- Step 7: Windshear Mine
 	-- {area:2160} Windshear Mine · {area:461} Windshear Crag · {area:460} Sun Rock Retreat · {spell:116} Frostbolt
 	-- plural, as words: Smoky Iron Ingots = {item:7126} Smoky Iron Ingot
-	["You need 15 Smoky Iron Ingots. The {area:2160} lies at the east end of {area:461}, east of {area:460}; every Windshear kobold (level 19-23) drops an ingot four kills in five. Stonecutters, Geomancers and Overlords run for help when low; Geomancers cast {spell:116}."] = "",
+	["You need 15 Smoky Iron Ingots. The {area:2160} lies at the east end of {area:461}, east of {area:460}; every Windshear kobold (level 19-23) drops an ingot four kills in five. Stonecutters, Geomancers and Overlords run for help when low; Geomancers cast {spell:116}."] = "Necesitas 15 Lingotes de hierro humeante. {area:2160} está en el extremo este de {area:461}, al este de {area:460}; los kóbolds Cizalla (nivel 19-23) sueltan un lingote cuatro de cada cinco veces. Los picapedreros, geomantes y señores supremos huyen a pedir ayuda con poca salud; los geomantes lanzan {spell:116}.",
 	-- {item:7126} Smoky Iron Ingot
 	["{item:7126}, from the Windshear kobolds"] = "{item:7126}, de los kóbolds Cortaviento",
 
@@ -82,15 +82,15 @@ return {
 	-- Step 13: Satyr Hooves
 	-- {area:430} Satyrnaar · {area:431} Splintertree Post · {area:429} Xavian · {spell:6925} Gift of the Xavian
 	-- plural, as words: Fireballs = {spell:133} Fireball
-	["The satyrs of {area:430}, north-east of {area:431} ({area:429}, level 28-30), and the Felmusk satyrs north-west of the post (25-27) drop a hoof four kills in five. A {area:429} satyr at 15% health may cast {spell:6925} and heal to full: finish it fast or stun it. Hellcallers throw Fireballs from 40 yards; Felmusk satyrs reek in melee and run for help at 15%."] = "",
+	["The satyrs of {area:430}, north-east of {area:431} ({area:429}, level 28-30), and the Felmusk satyrs north-west of the post (25-27) drop a hoof four kills in five. A {area:429} satyr at 15% health may cast {spell:6925} and heal to full: finish it fast or stun it. Hellcallers throw Fireballs from 40 yards; Felmusk satyrs reek in melee and run for help at 15%."] = "Los sátiros de {area:430}, al noreste de {area:431} ({area:429}, nivel 28-30), y los sátiros Almizcle Vil al noroeste del puesto (25-27) sueltan una pezuña cuatro de cada cinco veces. Un sátiro de {area:429} al 15 % de salud puede lanzar {spell:6925} y curarse por completo: remátalo rápido o atúrdelo. Los clamainfiernos lanzan bolas de fuego desde 40 m; los sátiros Almizcle Vil apestan cuerpo a cuerpo y huyen a pedir ayuda al 15 %.",
 
 	-- Step 15: Orm Stonehoof
 	-- {npc:6410} Orm Stonehoof · {zone:1456} Thunder Bluff
-	["{npc:6410} works on {zone:1456}'s lowest level, close to the blacksmith."] = "",
+	["{npc:6410} works on {zone:1456}'s lowest level, close to the blacksmith."] = "{npc:6410} trabaja en el nivel más bajo de {zone:1456}, cerca del herrero.",
 
 	-- Step 16: Chimaeric Horn
 	-- {npc:6167} Chimaera Matriarch · {area:465} Charred Vale · {zone:1443} Desolace · {item:6840} Galvanized Horn · {spell:3396} Corrosive Poison
-	["The {npc:6167} (level 28, not elite, larger than the young ones around her) roams the south edge of the {area:465} in south-west Stonetalon, near the road to {zone:1443}. She is the only one: she returns 5 minutes after dying and drops the {item:6840} four kills in five. She spits {spell:3396} from 30 yards."] = "",
+	["The {npc:6167} (level 28, not elite, larger than the young ones around her) roams the south edge of the {area:465} in south-west Stonetalon, near the road to {zone:1443}. She is the only one: she returns 5 minutes after dying and drops the {item:6840} four kills in five. She spits {spell:3396} from 30 yards."] = "La {npc:6167} (nivel 28, no élite, más grande que las jóvenes que la rodean) recorre el borde sur de {area:465}, en el suroeste de Sierra Espolón, cerca del camino a {zone:1443}. Es la única: vuelve 5 minutos después de morir y suelta {item:6840} cuatro de cada cinco veces. Escupe {spell:3396} desde 30 m.",
 	-- {item:6840} Galvanized Horn · {npc:6167} Chimaera Matriarch
 	["{item:6840}, from the {npc:6167}"] = "{item:6840}, de la {npc:6167}",
 
@@ -102,7 +102,7 @@ return {
 	-- Step 19: Dragonmaw Shinbones
 	-- {zone:1437} Wetlands · {area:321} Hammerfall · {area:881} Thandol Span · {area:150} Menethil Harbor · {quest:1846} Dragonmaw Shinbones · {npc:6411} Velora Nitely · {item:7131} Dragonmaw Shinbone · {spell:686} Shadow Bolt
 	["The Dragonmaw orcs (level 26-30) camp in the middle of the {zone:1437}; from {area:321} in Arathi head south over the {area:881} ({area:150} is Alliance). With {quest:1846} from {npc:6411} in your log, every Raider, Swamprunner, Centurion, Shadowwarder and Bonewarder drops a {item:7131} (without the quest they drop none): right-click it to test it, and about one in four comes out sturdy, the rest break, so expect 30 or more kills for 8. You can test while moving or fighting. The orcs run for help at 15%; Raiders net you, Centurions shield-bash, Shadowwarders cast {spell:686}, Bonewarders raise skeletons."] = "Los orcos Faucedraco (nivel 26-30) acampan en medio de {zone:1437}; desde {area:321}, en Arathi, dirígete al sur cruzando {area:881} ({area:150} es de la Alianza). Con {quest:1846} de {npc:6411} en tu registro, todos los Asaltantes, Correpantanos, Centuriones, Pastores y Guardahuesos sueltan una {item:7131} (sin la misión no sueltan ninguna): haz clic derecho sobre ella para probarla; aproximadamente una de cada cuatro resulta robusta y el resto se rompen, así que cuenta con 30 muertes o más para conseguir 8. Puedes probarlas mientras te mueves o luchas. Los orcos huyen en busca de ayuda al 15%; los Asaltantes te lanzan redes, los Centuriones dan golpes con el escudo, los Pastores lanzan {spell:686} y los Guardahuesos levantan esqueletos.",
-	["from the Dragonmaw orcs: right-click to test it"] = "",
+	["from the Dragonmaw orcs: right-click to test it"] = "de los orcos Faucedraco: haz clic derecho para probarla",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly to {area:378}. South of the camp the Silithid Mounds dot the {area:390}: the silithid there carry the Twitching Antennae."] = "Vuela a {area:378}. Al sur del campamento, los Montículos de silítidos salpican {area:390}: los silítidos de allí llevan las Antenas retorcidas.",

@@ -35,7 +35,7 @@ return {
 	-- Step 8: Westfall (1/2)
 	["14 areas to discover here, levels 9-18."] = "Aquí hay 14 zonas por descubrir, niveles 9-18.",
 	-- {area:144} Thelsamar · {zone:1453} Stormwind City · {zone:1455} Ironforge · {area:2257} Deeprun Tram · {zone:1429} Elwynn Forest · {area:120} Westbrook Garrison · {zone:1436} Westfall
-	["Fly from {area:144} to {zone:1453} if you have its flight path; otherwise ride back to {zone:1455} and take the {area:2257}. Walk west out of {zone:1429} past the {area:120} into {zone:1436}."] = "",
+	["Fly from {area:144} to {zone:1453} if you have its flight path; otherwise ride back to {zone:1455} and take the {area:2257}. Walk west out of {zone:1429} past the {area:120} into {zone:1436}."] = "Vuela de {area:144} a {zone:1453} si tienes su punto de vuelo; si no, vuelve a {zone:1455} y toma {area:2257}. Camina al oeste fuera de {zone:1429}, pasando {area:120}, hasta {zone:1436}.",
 	-- {area:108} Sentinel Hill
 	["Flight path here: {area:108} (Thor)."] = "Ruta de vuelo aquí: {area:108} (Thor).",
 
@@ -49,7 +49,7 @@ return {
 	-- Step 12: Duskwood (1/2)
 	["13 areas to discover here, levels 10-30."] = "Aquí hay 13 zonas por descubrir, niveles 10-30.",
 	-- {area:1002} Three Corners · {zone:1431} Duskwood · {area:42} Darkshire
-	["From {area:1002} take the road south into {zone:1431}; {area:42} is east along its main road. Most of Duskwood is level 24-30: come with Redridge behind you."] = "",
+	["From {area:1002} take the road south into {zone:1431}; {area:42} is east along its main road. Most of Duskwood is level 24-30: come with Redridge behind you."] = "Desde {area:1002} toma el camino al sur hacia {zone:1431}; {area:42} está al este por su camino principal. Casi todo el Bosque del Ocaso es de nivel 24-30: ven con Crestagrana ya hecha.",
 	-- {area:42} Darkshire · {npc:2409} Felicia Maline
 	["Flight path here: {area:42} ({npc:2409})."] = "Ruta de vuelo aquí: {area:42} ({npc:2409}).",
 
@@ -65,7 +65,7 @@ return {
 	-- Step 16: Hillsbrad Foothills (1/2)
 	["12 areas to discover here, levels 20-31."] = "Aquí hay 12 zonas por descubrir, niveles 20-31.",
 	-- {area:150} Menethil Harbor · {area:271} Southshore
-	["Take the boat from {area:150} to {area:271}."] = "",
+	["Take the boat from {area:150} to {area:271}."] = "Toma el barco de {area:150} a {area:271}.",
 	-- {area:271} Southshore · {npc:2432} Darla Harris
 	["Flight path here: {area:271} ({npc:2432})."] = "Ruta de vuelo aquí: {area:271} ({npc:2432}).",
 	-- {area:272} Tarren Mill

@@ -15,15 +15,15 @@ return {
 
 	-- Step 2: Deino
 	-- {zone:1454} Orgrimmar · {spell:3567} Teleport: Orgrimmar · {object:173161} Darkbriar Lodge · {npc:5885} Deino · {object:172961} Valley of Spirits · {item:7269} Deino's Flask
-	["Take the zeppelin to {zone:1454} (or use {spell:3567}, which lands you on the upper floor of {object:173161}). {npc:5885} stands with the mage trainers on the lower floor of {object:173161} in the {object:172961}. She hands you {item:7269}."] = "",
+	["Take the zeppelin to {zone:1454} (or use {spell:3567}, which lands you on the upper floor of {object:173161}). {npc:5885} stands with the mage trainers on the lower floor of {object:173161} in the {object:172961}. She hands you {item:7269}."] = "Toma el zepelín a {zone:1454} (o usa {spell:3567}, que te deja en el piso de arriba de {object:173161}). {npc:5885} está con los instructores de magos en la planta baja de {object:173161}, en {object:172961}. Te da {item:7269}.",
 
 	-- Step 3: The Xavian Waterfall
 	-- {object:174797} Xavian Waterfall (no name in this language: may be words)
 	["The {object:174797}"] = "{object:174797}",
 	-- {area:431} Splintertree Post · {area:429} Xavian
-	["Fly to {area:431} and swim north up the river past the big lake to its far northern end, where the zone text reads {area:429}; satyrs hold the ruins around it and a few river beasts are in the way. Swim right in under the highest waterfall until you touch the rock wall, then use the flask (you can stay in the water). The waterfalls on the western Falfarren fork do not work."] = "",
+	["Fly to {area:431} and swim north up the river past the big lake to its far northern end, where the zone text reads {area:429}; satyrs hold the ruins around it and a few river beasts are in the way. Swim right in under the highest waterfall until you touch the rock wall, then use the flask (you can stay in the water). The waterfalls on the western Falfarren fork do not work."] = "Vuela a {area:431} y nada al norte río arriba pasando el lago grande hasta su extremo norte, donde el texto de zona dice {area:429}; los sátiros ocupan las ruinas alrededor y hay algunas bestias de río en el camino. Nada justo debajo de la cascada más alta hasta tocar la pared de roca y luego usa el frasco (puedes quedarte en el agua). Las cascadas de la bifurcación oeste de Falfarren no sirven.",
 	-- {item:7269} Deino's Flask
-	["{item:7269}, under the falls"] = "",
+	["{item:7269}, under the falls"] = "{item:7269}, debajo de la cascada",
 
 	-- Step 4: Back to Deino
 	-- {npc:5885} Deino
@@ -33,11 +33,11 @@ return {
 	-- {quest:1945} Laughing Sisters
 	["The {quest:1945}"] = "Las {quest:1945}",
 	-- {quest:1945} Laughing Sisters · {area:426} Raynewood Retreat · {zone:1440} Ashenvale
-	["The {quest:1945}, dryads of level 24-25, roam around the {area:426} in central {zone:1440}; every one drops a hair and they come back after 5 minutes. They often resist fire (and some frost and shadow): arcane spells land best. Each runs for help at low health. Keep clear of the guards by the white tower of the retreat, who hit hard."] = "",
+	["The {quest:1945}, dryads of level 24-25, roam around the {area:426} in central {zone:1440}; every one drops a hair and they come back after 5 minutes. They often resist fire (and some frost and shadow): arcane spells land best. Each runs for help at low health. Keep clear of the guards by the white tower of the retreat, who hit hard."] = "{quest:1945}, dríadas de nivel 24-25, rondan alrededor de {area:426}, en el centro de {zone:1440}; todas sueltan un cabello y vuelven a los 5 minutos. Suelen resistir el fuego (y algunas la escarcha y las sombras): los hechizos arcanos funcionan mejor. Cada una huye a pedir ayuda con poca salud. No te acerques a los guardias junto a la torre blanca del refugio, que pegan fuerte.",
 
 	-- Step 6: Kil'hala
 	-- {npc:3484} Kil'hala
-	["{npc:3484}, a troll tailor, works at the Crossroads. The robe gives intellect, stamina and spirit; the tunic more intellect and stamina but no spirit."] = "",
+	["{npc:3484}, a troll tailor, works at the Crossroads. The robe gives intellect, stamina and spirit; the tunic more intellect and stamina but no spirit."] = "{npc:3484}, una sastre trol, trabaja en el Cruce. La túnica da intelecto, aguante y espíritu; la camisola, más intelecto y aguante pero sin espíritu.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Satyrs hold the ruins of {area:429} in eastern {zone:1440}. Fill {item:7269} at the bottom of the highest waterfall."] = "Los sátiros ocupan las ruinas de {area:429} en el este de {zone:1440}. Llena el {item:7269} al pie de la cascada más alta.",

@@ -42,7 +42,7 @@ return {
 	-- Step 7: Mannoroc Coven
 	-- {area:602} Mannoroc Coven · {zone:1443} Desolace · {area:2408} Shadowprey Village · {item:7291} Infernal Orb · {spell:1120} Drain Soul
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner · Mana Eaters = {npc:4678} Mana Eater · Mage Hunters = {npc:4681} Mage Hunter · Ley Hunters = {npc:4685} Ley Hunter · Lesser Infernals = {npc:4676} Lesser Infernal
-	["{area:602} fills south-central {zone:1443}, east of {area:2408}. The Burning Blade Summoners (level 38-39, warlocks with imps) carry the {item:7291} every time. For the spirit, bring your demon to low health with your damage over time, then channel the ruby or the emerald on it and keep channelling while it dies, as with {spell:1120}: the gem does no damage of its own. The ruby works on the coven's felhounds: the two Mana Eaters (37-38) in the north, and the Mage Hunters (38) and Ley Hunters (39) further south. The emerald works on the Lesser Infernals (36-37, sixteen of them, fire-resistant)."] = "",
+	["{area:602} fills south-central {zone:1443}, east of {area:2408}. The Burning Blade Summoners (level 38-39, warlocks with imps) carry the {item:7291} every time. For the spirit, bring your demon to low health with your damage over time, then channel the ruby or the emerald on it and keep channelling while it dies, as with {spell:1120}: the gem does no damage of its own. The ruby works on the coven's felhounds: the two Mana Eaters (37-38) in the north, and the Mage Hunters (38) and Ley Hunters (39) further south. The emerald works on the Lesser Infernals (36-37, sixteen of them, fire-resistant)."] = "{area:602} ocupa el centro-sur de {zone:1443}, al este de {area:2408}. Los invocadores del Filo Ardiente (nivel 38-39, brujos con diablillos) llevan {item:7291} siempre. Para el espíritu, baja la salud de tu demonio con tu daño en el tiempo, luego canaliza el rubí o la esmeralda sobre él y sigue canalizando mientras muere, como con {spell:1120}: la gema no hace daño por sí misma. El rubí sirve con los canes viles del aquelarre: los dos devoradores de maná (37-38) del norte, y los cazamagos (38) y cazadores de líneas ley (39) más al sur. La esmeralda sirve con los infernales menores (36-37, son dieciséis, resistentes al fuego).",
 	-- {item:7291} Infernal Orb
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner
 	["{item:7291}, from the Burning Blade Summoners"] = "{item:7291}, de los Invocadores Filo Ardiente",
@@ -66,7 +66,7 @@ return {
 	-- {npc:6266} Menara Voidrender · {area:392} Ratchet · {item:15108} Orb of Dar'Orahil
 	["Back to {npc:6266} in the tower above {area:392} with the cleansed orb. On the felhound path, accept her last quest and wait beside her while she completes the {item:15108} (do not attack her: the quest log calls it a kill), then speak to her again and pick the off-hand orb or the staff."] = "Vuelve con {npc:6266} a la torre sobre {area:392} con el orbe purificado. En el camino del manáfago, acepta su última misión y espera a su lado mientras termina {item:15108} (no la ataques: el registro de misiones lo llama matar); luego vuelve a hablar con ella y elige el orbe de mano izquierda o el bastón.",
 	-- {npc:6266} Menara Voidrender
-	["Wait beside {npc:6266} while she makes the orb"] = "",
+	["Wait beside {npc:6266} while she makes the orb"] = "Espera junto a {npc:6266} mientras hace el orbe",
 
 	-- Step 11: The Orb of Noh'Orahil
 	-- {item:15107} Orb of Noh'Orahil

@@ -13,7 +13,7 @@ return {
 
 	-- Step 1: Lorekeeper Lydros
 	-- {area:1099} Camp Mojache · {area:2577} Dire Maul · {zone:1444} Feralas · {npc:14368} Lorekeeper Lydros · {item:18249} Crescent Key · {item:18594} Powerful Seaforium Charge
-	["Fly to Feathermoon (Alliance) or {area:1099} (Horde) and ride to {area:2577} in central {zone:1444}. {npc:14368} waits in the Athenaeum, the library, reached through the West wing, or through the North wing's courtyard doors with a {item:18249} (it drops from the imp Pusillin in the East wing; a {item:18594} also opens them; Blink no longer gets past). Other mages in your group can take it too: share it."] = "",
+	["Fly to Feathermoon (Alliance) or {area:1099} (Horde) and ride to {area:2577} in central {zone:1444}. {npc:14368} waits in the Athenaeum, the library, reached through the West wing, or through the North wing's courtyard doors with a {item:18249} (it drops from the imp Pusillin in the East wing; a {item:18594} also opens them; Blink no longer gets past). Other mages in your group can take it too: share it."] = "Vuela a Plumaluna (Alianza) o {area:1099} (Horda) y ve hasta {area:2577}, en el centro de {zone:1444}. {npc:14368} espera en el Athenaeum, la biblioteca, a la que se llega por el ala Oeste, o por las puertas del patio del ala Norte con {item:18249} (la suelta el diablillo Pusillin en el ala Este; {item:18594} también las abre; Traslación ya no sirve para pasar). Otros magos de tu grupo también pueden tomarla: compártela.",
 
 	-- Step 2: Hydrospawn
 	["Hydrospawn"] = "Hidromilecio",
@@ -25,7 +25,7 @@ return {
 	-- Step 3: Back to Lydros
 	["Back to Lydros"] = "De vuelta con Lydros",
 	-- {npc:14368} Lorekeeper Lydros · {spell:10140} Conjure Water
-	["{npc:14368}: {spell:10140}, and 200 Shen'dralar reputation"] = "",
+	["{npc:14368}: {spell:10140}, and 200 Shen'dralar reputation"] = "{npc:14368}: {spell:10140}, y 200 de reputación con los Shen'dralar",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly to Feathermoon (Alliance) or {area:1099} (Horde) and ride to {area:2577} in central {zone:1444}. {npc:14368} waits in the Athenaeum, the library, reached through the West wing (or the North wing with a {item:18249})."] = "Vuela al Bastión Plumaluna (Alianza) o a {area:1099} (Horda) y cabalga hasta {area:2577}, en el centro de {zone:1444}. {npc:14368} espera en el Ateneo, la biblioteca, a la que se llega por el ala oeste (o por el ala norte con una {item:18249}).",

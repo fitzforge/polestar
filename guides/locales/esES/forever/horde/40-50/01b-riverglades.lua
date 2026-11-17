@@ -16,7 +16,7 @@ return {
 	-- {zone:2548} Riverglades · {area:3} Badlands · {area:657} Harborage · {area:75} Stonard · {area:340} Kargath
 	["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "{zone:2548} están al sur de {area:3}. Ve al este desde {area:657} hasta {area:75} y vuela a {area:340}: el camino de bajada a la zona empieza allí.",
 	-- {area:75} Stonard
-	["{area:75} flight master"] = "",
+	["{area:75} flight master"] = "Maestro de vuelo de {area:75}",
 
 	-- Step 2: Into the Riverglades
 	-- {area:16591} Riverglades
@@ -36,7 +36,7 @@ return {
 
 	-- Step 5: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
-	["Boat to {area:16727}"] = "",
+	["Boat to {area:16727}"] = "Barco a {area:16727}",
 	-- {area:977} Steamwheedle Port · {area:976} Gadgetzan · {area:16727} Powderfuse Port
 	["{area:977} is on the coast north-east of {area:976}: wait on the pier for the goblin boat to {area:16727}."] = "{area:977} está en la costa al noreste de {area:976}: espera en el muelle el barco goblin a {area:16727}.",
 

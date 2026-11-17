@@ -12,7 +12,7 @@ return {
 
 	-- Step 2: Stormpike Battle Charger
 	-- {skill:762} Riding
-	["The Forever client lists it at 200g and level 60. It runs at full speed, so riding it needs Journeyman {skill:762}; any Alliance race can ride it."] = "",
+	["The Forever client lists it at 200g and level 60. It runs at full speed, so riding it needs Journeyman {skill:762}; any Alliance race can ride it."] = "El cliente de Forever la lista a 200 de oro y nivel 60. Corre a toda velocidad, así que para montarla necesitas {skill:762} de oficial; cualquier raza de la Alianza puede montarla.",
 	-- {npc:13217} Thanthaldis Snowgleam
 	["{npc:13217}, 200g"] = "{npc:13217}, 200 o",
 

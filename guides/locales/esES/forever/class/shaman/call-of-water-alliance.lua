@@ -46,27 +46,27 @@ return {
 
 	-- Step 10: Norric Lochthane
 	-- {npc:258043} Norric Lochthane · {area:146} Stonewrought Dam · {item:7810} Vial of Purest Water · {item:6637} Water Sapta · {item:7811} Remaining Drops of Purest Water · {zone:1436} Westfall
-	["Back to {npc:258043} by {area:146} with the {item:7810}. He hands you the {item:6637} and the {item:7811}: keep both for {zone:1436}."] = "",
+	["Back to {npc:258043} by {area:146} with the {item:7810}. He hands you the {item:6637} and the {item:7811}: keep both for {zone:1436}."] = "De vuelta con {npc:258043}, junto a {area:146}, con {item:7810}. Te da {item:6637} y {item:7811}: guarda ambos para {zone:1436}.",
 	-- {npc:258043} Norric Lochthane · {item:6637} Water Sapta
 	["{npc:258043}: your {item:6637}"] = "{npc:258043}: tu {item:6637}",
 
 	-- Step 11: Lost the Water Sapta?
 	-- {quest:94616} Water Sapta
-	["Lost the {quest:94616}?"] = "",
+	["Lost the {quest:94616}?"] = "¿Perdiste {quest:94616}?",
 	-- {quest:94616} Water Sapta · {npc:258043} Norric Lochthane · {zone:1436} Westfall
-	["Only if the {quest:94616} is gone from your bags: {npc:258043} gives you another before you leave for {zone:1436}."] = "",
+	["Only if the {quest:94616} is gone from your bags: {npc:258043} gives you another before you leave for {zone:1436}."] = "Solo si {quest:94616} ya no está en tus bolsas: {npc:258043} te da otro antes de que salgas hacia {zone:1436}.",
 	-- {npc:258043} Norric Lochthane · {quest:94616} Water Sapta
-	["{npc:258043}: a new {quest:94616}"] = "",
+	["{npc:258043}: a new {quest:94616}"] = "{npc:258043}: un {quest:94616} nuevo",
 
 	-- Step 12: Stendel's Pond
 	-- {area:108} Sentinel Hill · {area:20} Moonbrook · {area:919} Stendel's Pond · {object:619896} Forgotten Shrine · {item:6637} Water Sapta · {npc:5894} Corrupt Minor Manifestation of Water · {spell:8056} Frost Shock · {spell:122} Frost Nova · {item:7811} Remaining Drops of Purest Water · {npc:258043} Norric Lochthane · {npc:5895} Minor Manifestation of Water · {item:7813} Shard of Water
-	["Fly to {area:108} and head south to {area:20}: {area:919} and the {object:619896} lie just north of it. Drink the {item:6637} by the shrine to see the {npc:5894} (level 22, {spell:8056} and {spell:122}; one spawn, back three minutes after a kill), defeat it for its bracers (always dropped), then place them and the {item:7811} on the {object:619896} (this, not {npc:258043}, ends the quest). Click the shrine again: the {npc:5895} rises beside it; speak to it before you walk off (if it is gone, abandon and take the quest again at the shrine). It gives you the {item:7813}."] = "",
+	["Fly to {area:108} and head south to {area:20}: {area:919} and the {object:619896} lie just north of it. Drink the {item:6637} by the shrine to see the {npc:5894} (level 22, {spell:8056} and {spell:122}; one spawn, back three minutes after a kill), defeat it for its bracers (always dropped), then place them and the {item:7811} on the {object:619896} (this, not {npc:258043}, ends the quest). Click the shrine again: the {npc:5895} rises beside it; speak to it before you walk off (if it is gone, abandon and take the quest again at the shrine). It gives you the {item:7813}."] = "Vuela a {area:108} y ve al sur hasta {area:20}: {area:919} y {object:619896} están justo al norte. Bebe {item:6637} junto al santuario para ver a la {npc:5894} (nivel 22, {spell:8056} y {spell:122}; aparece en un solo lugar y vuelve tres minutos después de morir), derrótala para sus brazales (siempre caen), y luego colócalos junto con {item:7811} en {object:619896} (esto, no {npc:258043}, termina la misión). Vuelve a hacer clic en el santuario: la {npc:5895} se levanta a su lado; háblale antes de irte (si ya no está, abandona y vuelve a tomar la misión en el santuario). Te da {item:7813}.",
 	-- {npc:5895} Minor Manifestation of Water
 	["{npc:5895}, beside the shrine"] = "{npc:5895}, junto al santuario",
 
 	-- Step 13: Norric Lochthane
 	-- {npc:258043} Norric Lochthane · {item:7813} Shard of Water · {item:5177} Water Totem
-	["Back to {npc:258043} with the {item:7813}. Keep the {item:5177} in your bags for good: every water totem needs it."] = "",
+	["Back to {npc:258043} with the {item:7813}. Keep the {item:5177} in your bags for good: every water totem needs it."] = "De vuelta con {npc:258043} con {item:7813}. Guarda {item:5177} en tus bolsas para siempre: todo tótem de agua lo necesita.",
 	-- {npc:258043} Norric Lochthane · {spell:5394} Healing Stream Totem · {item:5177} Water Totem
 	["{npc:258043}: {spell:5394} and your {item:5177}"] = "{npc:258043}: {spell:5394} y tu {item:5177}",
 

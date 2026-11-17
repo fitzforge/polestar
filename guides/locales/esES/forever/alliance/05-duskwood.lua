@@ -10,16 +10,16 @@ return {
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "Vuela a {area:42}",
 	-- {area:69} Lakeshire · {area:42} Darkshire · {zone:1431} Duskwood
-	["Back to the {area:69} gryphon master: fly to {area:42} for {zone:1431}'s second loop."] = "",
+	["Back to the {area:69} gryphon master: fly to {area:42} for {zone:1431}'s second loop."] = "De vuelta con la maestra de grifos de {area:69}: vuela a {area:42} para el segundo circuito de {zone:1431}.",
 	-- {area:69} Lakeshire
-	["{area:69} flight master"] = "",
+	["{area:69} flight master"] = "Maestro de vuelo de {area:69}",
 
 	-- Step 2: Blind Mary
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery
 	["Her house stands on the hill south-east of {area:42}, above the {area:121}."] = "Su casa está en la colina al sureste de {area:42}, por encima del {area:121}.",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 	-- {item:1946} Mary's Looking Glass · {npc:511} Insane Ghoul · {zone:1431} Duskwood
-	["{item:1946}: the {npc:511} in the cemetery's crypt is level 26; it waits for the {zone:1431} return"] = "",
+	["{item:1946}: the {npc:511} in the cemetery's crypt is level 26; it waits for the {zone:1431} return"] = "{item:1946}: {npc:511} de la cripta del cementerio es de nivel 26; espera a la vuelta a {zone:1431}",
 
 	-- Step 3: Tranquil Gardens Cemetery
 	-- {quest:337} An Old History Book · {zone:1431} Duskwood
@@ -30,18 +30,18 @@ return {
 
 	-- Step 6: Gooey Spider Legs
 	-- plural, as words: Gooey Spider Legs = {item:2251} Gooey Spider Leg
-	["Gooey Spider Legs"] = "",
+	["Gooey Spider Legs"] = "Patas de araña pegajosas",
 	-- {npc:311} Sven Yorgen
 	-- plural, as words: Carrion Recluses = {npc:949} Carrion Recluse · Venom Web Spiders = {npc:217} Venom Web Spider · Pygmy Venom Web Spiders = {npc:539} Pygmy Venom Web Spider · Green Recluses = {npc:569} Green Recluse
-	["Carrion Recluses lurk in the woods on the way west, and Venom Web Spiders, Pygmy Venom Web Spiders and Green Recluses crawl just south of {npc:311}'s camp: each can drop a leg."] = "",
+	["Carrion Recluses lurk in the woods on the way west, and Venom Web Spiders, Pygmy Venom Web Spiders and Green Recluses crawl just south of {npc:311}'s camp: each can drop a leg."] = "Las reclusas carroñeras acechan en el bosque de camino al oeste, y las telarácnidas venenosas, telarácnidas venenosas pigmeas y reclusas verdes andan justo al sur del campamento de {npc:311}: cualquiera puede soltar una pata.",
 
 	-- Step 8: Back to Darkshire
 	-- {area:42} Darkshire
 	["Back to {area:42}"] = "Vuelta a {area:42}",
 	-- {area:42} Darkshire
-	["Hearth back to {area:42} if you bound at the Scarlet Raven Tavern on the first loop, or head back east along the road."] = "",
+	["Hearth back to {area:42} if you bound at the Scarlet Raven Tavern on the first loop, or head back east along the road."] = "Usa la piedra de hogar para volver a {area:42} si la vinculaste en la Taberna del Cuervo Escarlata en el primer circuito, o vuelve al este por el camino.",
 	-- {npc:265} Madame Eva
-	["{npc:265}, inside"] = "",
+	["{npc:265}, inside"] = "{npc:265}, dentro",
 	-- {npc:267} Clerk Daltry
 	["{npc:267}, in the town hall"] = "{npc:267}, en el ayuntamiento",
 	-- {npc:273} Tavernkeep Smitts
@@ -51,7 +51,7 @@ return {
 	-- {npc:272} Chef Grual
 	["{npc:272} is in the Scarlet Raven Tavern too."] = "{npc:272} también está en el Mesón del Cuervo Escarlata.",
 	-- {npc:288} Jitters · {area:94} Raven Hill
-	["For {npc:288}, at {area:94} on the way west"] = "",
+	["For {npc:288}, at {area:94} on the way west"] = "Para {npc:288}, en {area:94}, de camino al oeste",
 
 	-- Step 10: Rot Blossoms
 	-- plural, as words: Rot Blossoms = {item:1598} Rot Blossom
@@ -72,7 +72,7 @@ return {
 
 	-- Step 15: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
-	["{area:492}: kill these as you meet them"] = "",
+	["{area:492}: kill these as you meet them"] = "{area:492}: mátalos según te los encuentres",
 	-- {area:94} Raven Hill · {npc:522} Mor'Ladim
 	-- plural, as words: Skeletal Fiends = {npc:531} Skeletal Fiend · Skeletal Horrors = {npc:202} Skeletal Horror
 	["Head south through the cemetery towards {area:94}. Skeletal Fiends and Skeletal Horrors walk its southern half. {npc:522}, an elite, wanders the graves: keep away from him."] = "Ve al sur por el cementerio hacia {area:94}. Mefistos esqueléticos y Horrores esqueléticos recorren su mitad sur. {npc:522}, un élite, deambula entre las tumbas: mantente lejos de él.",
@@ -103,11 +103,11 @@ return {
 	-- {item:3372} Leaded Vial · {npc:1313} Maria Lumere
 	["{item:3372}: {npc:1313}, Alchemy Supplies"] = "{item:3372}: {npc:1313}, Suministros de alquimia",
 	-- {item:4371} Bronze Tube · {object:2096} Trade District · {npc:5519} Billibub Cogspinner
-	["{item:4371}: the Auction House, {object:2096}; {npc:5519} keeps one and is nearly always sold out"] = "",
+	["{item:4371}: the Auction House, {object:2096}; {npc:5519} keeps one and is nearly always sold out"] = "{item:4371}: la casa de subastas, {object:2096}; {npc:5519} tiene uno y casi siempre está agotado",
 
 	-- Step 22: Elwynn Forest
 	-- {area:94} Raven Hill · {area:87} Goldshire · {zone:1453} Stormwind
-	["North from {area:94} through Elwynn: {area:87} is on the road to {zone:1453}."] = "",
+	["North from {area:94} through Elwynn: {area:87} is on the road to {zone:1453}."] = "Al norte desde {area:94} por Elwynn: {area:87} está en el camino a {zone:1453}.",
 
 	-- Step 23: Class trainer
 	["Class trainer"] = "Instructor de clase",
@@ -115,18 +115,18 @@ return {
 
 	-- Step 24: Gazin Tenorm
 	-- {zone:1453} Stormwind · {npc:6173} Gazin Tenorm · {npc:6171} Duthorian Rall
-	["On into {zone:1453}: {npc:6173} and {npc:6171} are in the Cathedral of Light, on the way to the gryphon master."] = "",
+	["On into {zone:1453}: {npc:6173} and {npc:6171} are in the Cathedral of Light, on the way to the gryphon master."] = "Sigue hasta {zone:1453}: {npc:6173} y {npc:6171} están en la Catedral de la Luz, de camino al maestro de grifos.",
 	["Cathedral of Light"] = "Catedral de la Luz",
 	-- {npc:6171} Duthorian Rall
 	["{npc:6171}: Redemption"] = "{npc:6171}: Redención",
 
 	-- Step 25: Stormwind
 	-- {zone:1453} Stormwind · {object:28027} Dwarven District
-	["{zone:1453}'s {object:28027}"] = "",
+	["{zone:1453}'s {object:28027}"] = "{object:28027} de {zone:1453}",
 
 	-- Step 26: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "Tranvía a {zone:1455}",
 
 	-- Step 27: Shaman training
 	["Shaman training"] = "Entrenamiento de chamán",
@@ -134,9 +134,9 @@ return {
 	["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back."] = "{zone:1453} no tiene instructor de chamanes: toma el {area:2257} desde {object:28027} hasta {zone:1455}, entrena con {npc:258098} y vuelve en el tranvía.",
 
 	-- Step 28: Rogue training
-	["Rogue training"] = "",
+	["Rogue training"] = "Entrenamiento de pícaro",
 	-- {zone:1453} Stormwind
-	["Train here, in {zone:1453}, before you go on."] = "",
+	["Train here, in {zone:1453}, before you go on."] = "Entrena aquí, en {zone:1453}, antes de seguir.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Continue west to {area:94}. The {object:673515} glows by the ruined house south of the road."] = "Sigue al oeste hasta {area:94}. El {object:673515} brilla junto a la casa en ruinas al sur del camino.",

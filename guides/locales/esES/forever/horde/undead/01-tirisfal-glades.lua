@@ -13,7 +13,7 @@ return {
 	-- Step 2: Shadow Priest Sarvis
 	-- {area:154} Deathknell
 	["Follow the path north into {area:154}; Sarvis stands in front of the church."] = "Sigue el sendero al norte hasta {area:154}; el Sacerdote de las Sombras Sarvis está delante de la iglesia.",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 3: Mindless Zombies
 	-- plural, as words: Mindless Zombies = {npc:1501} Mindless Zombie
@@ -44,7 +44,7 @@ return {
 
 	-- Step 6: Deathknell: kill these as you meet them
 	-- {area:154} Deathknell
-	["{area:154}: kill these as you meet them"] = "",
+	["{area:154}: kill these as you meet them"] = "{area:154}: mátalos según te los encuentres",
 	-- {area:154} Deathknell · {npc:1661} Novice Elreth
 	-- plural, as words: Rattlecage Skeletons = {npc:1890} Rattlecage Skeleton · Young Scavengers = {npc:1508} Young Scavenger · Duskbats = {npc:1512} Duskbat · Ragged Scavengers = {npc:1509} Ragged Scavenger · Mangy Duskbats = {npc:1513} Mangy Duskbat
 	["Rattlecage Skeletons wander the ruined houses in the north half of {area:154}. Young Scavengers and Duskbats roam all around the village; the Ragged Scavengers and Mangy Duskbats are on its east side. {npc:1661} wants their paws and wings: kill them as you meet them while you clear the skeletons."] = "Los Esqueletos armadóseos deambulan por las casas en ruinas de la mitad norte de {area:154}. Los Carroñeros jóvenes y los Murciumbríos rondan por todo el pueblo; los Carroñeros andrajosos y los Murciumbríos sarnosos están en su lado este. {npc:1661} quiere sus patas y alas: mátalos según te los encuentres mientras limpias los esqueletos.",
@@ -52,13 +52,13 @@ return {
 	-- Step 7: Back to the church
 	["Back to the church"] = "Vuelve a la iglesia",
 	-- {npc:1661} Novice Elreth
-	["{npc:1661}, inside"] = "",
+	["{npc:1661}, inside"] = "{npc:1661}, dentro",
 	-- {npc:244808} Aramis Hammerhand · {spell:635} Holy Light · {npc:259377} Injured Deathguard
-	["{npc:244808}: {spell:635}, once five {npc:259377} are healed"] = "",
+	["{npc:244808}: {spell:635}, once five {npc:259377} are healed"] = "{npc:244808}: {spell:635}, una vez curados cinco {npc:259377}",
 	-- {npc:1569} Shadow Priest Sarvis
-	["{npc:1569}, inside"] = "",
+	["{npc:1569}, inside"] = "{npc:1569}, dentro",
 	-- {npc:244808} Aramis Hammerhand
-	["{npc:244808}, inside"] = "",
+	["{npc:244808}, inside"] = "{npc:244808}, dentro",
 	-- {npc:1570} Executor Arren
 	["{npc:1570}, in the church"] = "{npc:1570}, en la iglesia",
 
@@ -81,11 +81,11 @@ return {
 	-- Step 11: Night Web's Hollow
 	-- {npc:271961} Webbed Forsaken
 	-- plural, as words: Young Night Web Spiders = {npc:1504} Young Night Web Spider · Night Web Spiders = {npc:1505} Night Web Spider
-	["Head west to the cave. The Young Night Web Spiders sit outside; the Night Web Spiders and the cocooned {npc:271961} are inside.\nCareful: A low-level character can die quickly if it pulls several Night Web Spiders in the cave at the same time."] = "",
+	["Head west to the cave. The Young Night Web Spiders sit outside; the Night Web Spiders and the cocooned {npc:271961} are inside.\nCareful: A low-level character can die quickly if it pulls several Night Web Spiders in the cave at the same time."] = "Ve al oeste hasta la cueva. Las arañas Red Nocturna jóvenes están fuera; las arañas Red Nocturna y los {npc:271961} envueltos en capullos están adentro.\nCuidado: Un personaje de nivel bajo puede morir rápido si atrae a varias arañas Red Nocturna en la cueva al mismo tiempo.",
 	["Below ground"] = "Bajo tierra",
-	["attack the cocoons inside the cave to free them; below ground"] = "",
+	["attack the cocoons inside the cave to free them; below ground"] = "ataca los capullos dentro de la cueva para liberarlos; bajo tierra",
 	-- {npc:271961} Webbed Forsaken
-	["Free the {npc:271961}"] = "",
+	["Free the {npc:271961}"] = "Libera a los {npc:271961}",
 
 	-- Step 13: The Scarlet farm
 	["The Scarlet farm"] = "La granja Escarlata",
@@ -101,7 +101,7 @@ return {
 
 	-- Step 16: Meven Korgal
 	-- {npc:1667} Meven Korgal
-	["{npc:1667} stands at the south end of the Scarlet farm.\nCareful: He is flanked by two Scarlet guards, one a convert and the other an initiate, who may join the fight."] = "",
+	["{npc:1667} stands at the south end of the Scarlet farm.\nCareful: He is flanked by two Scarlet guards, one a convert and the other an initiate, who may join the fight."] = "{npc:1667} está en el extremo sur de la granja Escarlata.\nCuidado: Lo flanquean dos guardias Escarlata, un converso y un iniciado, que pueden unirse a la pelea.",
 
 	-- Step 18: Dark Cleric Duesten
 	-- {npc:2123} Dark Cleric Duesten · {npc:2129} Dark Cleric Beryl · {area:159} Brill · {spell:613} Lesser Heal
@@ -128,19 +128,19 @@ return {
 
 	-- Step 22: Gordo
 	-- {npc:10666} Gordo · {area:166} Cold Hearth Manor · {area:159} Brill · {item:12737} Gloom Weed
-	["{npc:10666}, the big abomination, walks the road from here east past {area:166} almost to {area:159}, and back: if he isn't at the arrow, follow the road east until you meet him. The {item:12737} grows along the road around him."] = "",
+	["{npc:10666}, the big abomination, walks the road from here east past {area:166} almost to {area:159}, and back: if he isn't at the arrow, follow the road east until you meet him. The {item:12737} grows along the road around him."] = "{npc:10666}, la gran abominación, recorre el camino desde aquí al este pasando {area:166} casi hasta {area:159}, y de vuelta: si no está donde marca la flecha, sigue el camino al este hasta encontrarlo. {item:12737} crece a lo largo del camino a su alrededor.",
 
 	-- Step 23: Deathguard Dillinger
 	-- {npc:1496} Deathguard Dillinger · {npc:1742} Deathguard Bartholomew · {area:159} Brill
-	["{npc:1496} and {npc:1742} stand at the west end of {area:159}, where the road from Solliden comes in."] = "",
+	["{npc:1496} and {npc:1742} stand at the west end of {area:159}, where the road from Solliden comes in."] = "{npc:1496} y {npc:1742} están en el extremo oeste de {area:159}, donde entra el camino desde Solliden.",
 	-- {npc:1742} Deathguard Bartholomew
-	["{npc:1742}, beside Dillinger"] = "",
+	["{npc:1742}, beside Dillinger"] = "{npc:1742}, junto a Dillinger",
 
 	-- Step 24: Junior Apothecary Holland
 	-- {area:159} Brill
-	["Holland walks around the north side of {area:159}, a few steps from Dillinger."] = "",
+	["Holland walks around the north side of {area:159}, a few steps from Dillinger."] = "Holland da vueltas por el lado norte de {area:159}, a pocos pasos de Dillinger.",
 	-- {npc:10665} Junior Apothecary Holland · {area:159} Brill
-	["{npc:10665} walks around {area:159}: look inside the circle on the map"] = "",
+	["{npc:10665} walks around {area:159}: look inside the circle on the map"] = "{npc:10665} da vueltas por {area:159}: búscalo dentro del círculo del mapa",
 
 	-- Step 25: Dry Branches
 	["Dry Branches"] = "Ramas secas",
@@ -209,13 +209,13 @@ return {
 
 	-- Step 37: Brill
 	-- {npc:1518} Apothecary Johaan · {npc:1515} Executor Zygand · {npc:1499} Magistrate Sevren
-	["{npc:1518} is in the apothecary's house on the west side of the square, {npc:1515} in front of the inn with the Wanted poster beside him, {npc:1499} in the town hall on the square's north side. The inn comes last, in one go."] = "",
+	["{npc:1518} is in the apothecary's house on the west side of the square, {npc:1515} in front of the inn with the Wanted poster beside him, {npc:1499} in the town hall on the square's north side. The inn comes last, in one go."] = "{npc:1518} está en la casa del boticario, en el lado oeste de la plaza, {npc:1515} frente a la posada con el cartel de Se busca a su lado, y {npc:1499} en el ayuntamiento, en el lado norte de la plaza. La posada va al final, de una vez.",
 	-- {npc:1518} Apothecary Johaan
-	["{npc:1518}, inside"] = "",
+	["{npc:1518}, inside"] = "{npc:1518}, dentro",
 	-- {npc:246152} Shari Stilwell
 	["{npc:246152}, the Paladin trainer"] = "{npc:246152}, la instructora de paladines",
 	-- {npc:1515} Executor Zygand
-	["{npc:1515}, in front of the inn"] = "",
+	["{npc:1515}, in front of the inn"] = "{npc:1515}, frente a la posada",
 	-- {npc:1499} Magistrate Sevren
 	["{npc:1499}, in the town hall"] = "{npc:1499}, en el ayuntamiento",
 
@@ -229,7 +229,7 @@ return {
 
 	-- Step 40: Carolai Anise
 	-- {npc:2132} Carolai Anise · {area:159} Brill
-	["From level 7 {npc:2132}, beside Johaan in the apothecary's house, offers her elixir quest; below 7 it waits for the next {area:159} visit."] = "",
+	["From level 7 {npc:2132}, beside Johaan in the apothecary's house, offers her elixir quest; below 7 it waits for the next {area:159} visit."] = "Desde el nivel 7, {npc:2132}, junto a Johaan en la casa del boticario, ofrece su misión del elixir; por debajo de 7, espera a la próxima visita a {area:159}.",
 	-- {npc:2132} Carolai Anise
 	["{npc:2132}, beside Johaan; inside"] = "{npc:2132}, junto a Johann; dentro",
 
@@ -239,9 +239,9 @@ return {
 
 	-- Step 43: Gallows' End Tavern
 	-- {npc:5688} Innkeeper Renee · {npc:265944} William Pickman · {npc:1931} Captured Scarlet Zealot · {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call
-	["Everything here is inside the inn, through its door on the south side: {npc:5688} at the bar, {npc:265944} at the north end of the ground floor, the {npc:1931} in the cellar under that end, and {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) upstairs: take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["Everything here is inside the inn, through its door on the south side: {npc:5688} at the bar, {npc:265944} at the north end of the ground floor, the {npc:1931} in the cellar under that end, and {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) upstairs: take the stairs inside, the arrow cannot tell the floors apart."] = "Todo aquí está dentro de la posada, por su puerta del lado sur: {npc:5688} en la barra, {npc:265944} en el extremo norte de la planta baja, {npc:1931} en el sótano debajo de ese extremo, y {npc:2128} (magos), {npc:2129} (sacerdotes), {npc:2127} (brujos) y {npc:2130} (pícaros) en el piso de arriba: sube por la escalera de adentro, la flecha no distingue los pisos.",
 	-- {npc:265944} William Pickman
-	["{npc:265944}, at the inn's north end: Camping 101 asks you to learn it"] = "",
+	["{npc:265944}, at the inn's north end: Camping 101 asks you to learn it"] = "{npc:265944}, en el extremo norte de la posada: Campamento 101 te pide aprenderla",
 
 	-- Step 44: The cellar stairs
 	["The cellar stairs"] = "",
@@ -254,7 +254,7 @@ return {
 	-- {npc:1931} Captured Scarlet Zealot
 	["The {npc:1931}, in the inn's cellar"] = "El {npc:1931}, en el sótano de la posada",
 	-- {area:159} Brill · {npc:2131} Austil de Mon · {npc:246152} Shari Stilwell
-	["The {area:159} trainers are in the inn ({npc:2131} downstairs, the rest upstairs); {npc:246152}, the Paladin trainer, by the square"] = "",
+	["The {area:159} trainers are in the inn ({npc:2131} downstairs, the rest upstairs); {npc:246152}, the Paladin trainer, by the square"] = "Los instructores de {area:159} están en la posada ({npc:2131} abajo, el resto arriba); {npc:246152}, la instructora de paladines, junto a la plaza",
 	-- {npc:2129} Dark Cleric Beryl
 	["{npc:2129}, upstairs"] = "{npc:2129}, en el piso de arriba",
 
@@ -264,13 +264,13 @@ return {
 
 	-- Step 48: Coleman Farthing and Gretchen Dedmar
 	-- {npc:1500} Coleman Farthing · {npc:1521} Gretchen Dedmar
-	["{npc:1500} and {npc:1521}"] = "",
+	["{npc:1500} and {npc:1521}"] = "{npc:1500} y {npc:1521}",
 	-- {npc:1500} Coleman Farthing · {npc:1521} Gretchen Dedmar · {area:159} Brill
-	["Still in the inn: from level 7 {npc:1500} on the ground floor and {npc:1521} upstairs offer their quests; below 7 they wait for the next {area:159} visit."] = "",
+	["Still in the inn: from level 7 {npc:1500} on the ground floor and {npc:1521} upstairs offer their quests; below 7 they wait for the next {area:159} visit."] = "Todavía en la posada: desde el nivel 7, {npc:1500} en la planta baja y {npc:1521} arriba ofrecen sus misiones; por debajo de 7, esperan a la próxima visita a {area:159}.",
 	-- {npc:1500} Coleman Farthing
 	["{npc:1500}, in the inn"] = "{npc:1500}, en la posada",
 	-- {npc:1521} Gretchen Dedmar
-	["{npc:1521}, upstairs"] = "",
+	["{npc:1521}, upstairs"] = "{npc:1521}, en el piso de arriba",
 
 	-- Step 49: Deathguard Linnea's camp
 	-- {npc:1495} Deathguard Linnea
@@ -292,10 +292,10 @@ return {
 
 	-- Step 53: Cold Hearth Manor: kill these as you meet them
 	-- {area:166} Cold Hearth Manor
-	["{area:166}: kill these as you meet them"] = "",
+	["{area:166}: kill these as you meet them"] = "{area:166}: mátalos según te los encuentres",
 	-- {npc:1525} Rotting Dead · {area:159} Brill · {npc:10666} Gordo · {npc:3549} Shelene Rhobart
 	-- plural, as words: Ravaged Corpses = {npc:1526} Ravaged Corpse · Decrepit Darkhounds = {npc:1547} Decrepit Darkhound
-	["{npc:1525} and Ravaged Corpses shamble through the fields just west of {area:159}; Decrepit Darkhounds roam there and on west along the road toward {npc:10666}. Johaan wants their blood, {npc:3549} their hides."] = "",
+	["{npc:1525} and Ravaged Corpses shamble through the fields just west of {area:159}; Decrepit Darkhounds roam there and on west along the road toward {npc:10666}. Johaan wants their blood, {npc:3549} their hides."] = "{npc:1525} y los cadáveres destrozados se arrastran por los campos justo al oeste de {area:159}; los canes oscuros decrépitos rondan ahí y más al oeste por el camino hacia {npc:10666}. Johaan quiere su sangre, {npc:3549} sus pieles.",
 
 	-- Step 54: Bowen Brisboise
 	-- {npc:3523} Bowen Brisboise · {area:159} Brill · {quest:97961} Camping 101: Tailoring
@@ -303,15 +303,15 @@ return {
 
 	-- Step 55: Gordo
 	-- {npc:10666} Gordo · {area:159} Brill · {area:166} Cold Hearth Manor
-	["{npc:10666} walks the long road west of {area:159}, past {area:166}, and back: the arrow follows his road west until you meet him."] = "",
+	["{npc:10666} walks the long road west of {area:159}, past {area:166}, and back: the arrow follows his road west until you meet him."] = "{npc:10666} recorre el largo camino al oeste de {area:159}, pasando {area:166}, y de vuelta: la flecha sigue su camino al oeste hasta que lo encuentres.",
 	-- {npc:10666} Gordo
 	["Ask {npc:10666} for his report"] = "Pide su informe a {npc:10666}",
 
 	-- Step 56: Calvin Montague
 	-- {npc:6784} Calvin Montague · {area:156} Solliden Farmstead
-	["{npc:6784} stands by the farmhouse at the {area:156}, on the way to the Crusader's Outpost."] = "",
+	["{npc:6784} stands by the farmhouse at the {area:156}, on the way to the Crusader's Outpost."] = "{npc:6784} está junto a la granja de {area:156}, de camino al Puesto de los Cruzados.",
 	-- {npc:6784} Calvin Montague · {npc:5688} Innkeeper Renee
-	["{npc:6784}, by the farmhouse: talk to him for the duel; he offers it once {npc:5688} has his letter"] = "",
+	["{npc:6784}, by the farmhouse: talk to him for the duel; he offers it once {npc:5688} has his letter"] = "{npc:6784}, junto a la granja: habla con él para el duelo; lo ofrece una vez que {npc:5688} tiene su carta",
 	-- {npc:6784} Calvin Montague
 	["Beat {npc:6784} in the duel"] = "Vence a {npc:6784} en el duelo",
 
@@ -319,15 +319,15 @@ return {
 	["Crusader's Outpost"] = "Avanzada de los Cruzados",
 	-- {npc:275954} Bareth Dawnstone
 	-- plural, as words: Scarlet Warriors = {npc:1535} Scarlet Warrior
-	["Scarlet Warriors guard the outpost north-west of the pumpkin fields. {npc:275954} is held inside: talk to him and stay with him until he is out.\nCareful: Scarlet Warriors are level 6-7 and not elite. Once their health falls to 15% they run off to bring help, so more of them may join the fight."] = "",
+	["Scarlet Warriors guard the outpost north-west of the pumpkin fields. {npc:275954} is held inside: talk to him and stay with him until he is out.\nCareful: Scarlet Warriors are level 6-7 and not elite. Once their health falls to 15% they run off to bring help, so more of them may join the fight."] = "Los guerreros Escarlata custodian el puesto al noroeste de los campos de calabazas. {npc:275954} está retenido adentro: habla con él y quédate a su lado hasta que salga.\nCuidado: Los guerreros Escarlata son de nivel 6-7 y no son élite. Cuando bajan al 15 % de salud huyen a buscar ayuda, así que más pueden unirse a la pelea.",
 	-- {npc:275954} Bareth Dawnstone
-	["{npc:275954}, on the top floor"] = "",
+	["{npc:275954}, on the top floor"] = "{npc:275954}, en el piso superior",
 	-- {npc:275954} Bareth Dawnstone
 	["Escort {npc:275954} out of the outpost"] = "Escolta a {npc:275954} fuera de la avanzada",
 
 	-- Step 58: Brill
 	-- {area:159} Brill · {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call
-	["Back east along the road to {area:159}. {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["Back east along the road to {area:159}. {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "De vuelta al este por el camino hasta {area:159}. {npc:2128} (magos), {npc:2129} (sacerdotes), {npc:2127} (brujos) y {npc:2130} (pícaros) están en el piso de arriba de la posada: sube por la escalera de adentro, la flecha no distingue los pisos.",
 	-- {item:2320} Coarse Thread · {npc:2118} Abigail Shiel
 	["{item:2320} from {npc:2118}, for Gretchen"] = "{item:2320} de {npc:2118}, para Gretchen Dedmar",
 
@@ -339,26 +339,26 @@ return {
 
 	-- Step 60: Tirisfal Glades: kill these as you meet them
 	-- {zone:1420} Tirisfal Glades
-	["{zone:1420}: kill these as you meet them"] = "",
+	["{zone:1420}: kill these as you meet them"] = "{zone:1420}: mata a estos según te los encuentres",
 	-- {area:159} Brill · {npc:3549} Shelene Rhobart · {quest:5482} Doom Weed · {area:164} Garren's Haunt · {npc:1753} Maggot Eye
 	-- plural, as words: Greater Duskbats = {npc:1553} Greater Duskbat · Vampiric Duskbats = {npc:1554} Vampiric Duskbat · Rot Hide Graverobbers = {npc:1941} Rot Hide Graverobber · Rot Hide Mongrels = {npc:1675} Rot Hide Mongrel
 	["Greater Duskbats (6-7) fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north, around {area:164}. Leave {npc:1753} (level 11) in his hut for now: the guide comes back for him at the end.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}. Straight north of {area:159} the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by."] = "Los Murciumbríos superiores (6-7) vuelan sobre los campos alrededor de {area:159} y a lo largo del camino al norte: Gretchen quiere sus pellejos y {npc:3549}, sus alas. Los Murciumbríos vampíricos (8-9), más alejados, también los sueltan, pero pegan más fuerte.\nLas {quest:5482} crecen en los campos del cementerio justo al norte de {area:159}, donde cavan los Asaltatumbas Putrepellejo; todos los Putrepellejo sueltan el icor.\nLos Bastardos Putrepellejo ocupan las colinas más al norte, alrededor de {area:164}. Deja de momento a {npc:1753} (nivel 11) en su choza: la guía vuelve a por él al final.\nLos múrlocs Aleta Vil pueblan la costa norte: todos sueltan las escamas, y los Oráculos menores y los Moramugres, las pieles para {npc:3549}. Justo al norte de {area:159}, en la costa hay Saltacharcos y Oráculos menores (7-9) sin Moramugres (9-10) cerca.",
 	-- {npc:1675} Rot Hide Mongrel · {area:164} Garren's Haunt
-	["{npc:1675} walks around {area:164}: look inside the circle on the map"] = "",
+	["{npc:1675} walks around {area:164}: look inside the circle on the map"] = "{npc:1675} da vueltas por {area:164}: búscalo dentro del círculo del mapa",
 
 	-- Step 61: Brill
 	-- {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call
-	["{npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "{npc:2128} (magos), {npc:2129} (sacerdotes), {npc:2127} (brujos) y {npc:2130} (pícaros) están en el piso de arriba de la posada: sube por la escalera de adentro, la flecha no distingue los pisos.",
 	-- {npc:246152} Shari Stilwell · {quest:91282} A Second Home · {quest:96899} Bandarion Keep
-	["{npc:246152}, the Paladin trainer: {quest:91282}, to {quest:96899}"] = "",
+	["{npc:246152}, the Paladin trainer: {quest:91282}, to {quest:96899}"] = "{npc:246152}, la instructora de paladines: {quest:91282}, hacia {quest:96899}",
 	-- {npc:1499} Magistrate Sevren
-	["{npc:1499}, inside"] = "",
+	["{npc:1499}, inside"] = "{npc:1499}, dentro",
 	-- {npc:2129} Dark Cleric Beryl · {item:16607} Acolyte's Sacrificial Robes
 	["{npc:2129}, upstairs: the {item:16607}"] = "{npc:2129}, en el piso de arriba: las {item:16607}",
 
 	-- Step 62: Deathguard Terrence
 	-- {npc:1738} Deathguard Terrence · {quest:96895} The Argent Emissary · {npc:267009} Hadric Harlson · {area:159} Brill · {area:157} Agamand Mills
-	["From level 10 {npc:1738} offers {quest:96895}: {npc:267009} waits at Linnea's camp, the next stop. Below 10 it waits for the {area:159} visit after {area:157}."] = "",
+	["From level 10 {npc:1738} offers {quest:96895}: {npc:267009} waits at Linnea's camp, the next stop. Below 10 it waits for the {area:159} visit after {area:157}."] = "Desde el nivel 10, {npc:1738} ofrece {quest:96895}: {npc:267009} espera en el campamento de Linnea, la próxima parada. Por debajo de 10, espera a la visita a {area:159} después de {area:157}.",
 
 	-- Step 63: Deathguard Linnea's camp
 	-- {area:159} Brill
@@ -366,18 +366,18 @@ return {
 
 	-- Step 64: Hadric Harlson
 	-- {npc:267009} Hadric Harlson
-	["{npc:267009} stands at the camp beside Linnea."] = "",
+	["{npc:267009} stands at the camp beside Linnea."] = "{npc:267009} está en el campamento, junto a Linnea.",
 
 	-- Step 65: Magistrate Sevren
 	-- {area:159} Brill · {area:157} Agamand Mills
-	["Back up the road to {area:159}, on the way north-west to {area:157}."] = "",
+	["Back up the road to {area:159}, on the way north-west to {area:157}."] = "Vuelve por el camino hasta {area:159}, de camino al noroeste hacia {area:157}.",
 
 	-- Step 66: Agamand Mills
 	-- {area:157} Agamand Mills · {npc:1657} Devlin Agamand · {npc:1656} Thurman Agamand · {item:2839} A Letter to Yvette
 	-- plural, as words: Cracked Skull Soldiers = {npc:1523} Cracked Skull Soldier · Darkeye Bonecasters = {npc:1522} Darkeye Bonecaster
 	["Follow the road north-west to {area:157}. {npc:1657} walks the graveyard south of the mills; Nissa, Gregor and {npc:1656} haunt the mills themselves. Rattlecage and Cracked Skull Soldiers drop the ribs, Darkeye Bonecasters the skulls, and any of them may drop {item:2839}.\nCareful: Rotting undead and Darkeye Bonecasters near the Agamands can join a fight as adds."] = "Sigue el camino al noroeste hasta {area:157}. {npc:1657} recorre el cementerio al sur de los molinos; Nissa, Gregor y {npc:1656} rondan por los propios molinos. Los Soldados armadóseos y los Soldados testapartida sueltan las costillas, los Tirahuesos Ojosombra las calaveras, y cualquiera de ellos puede soltar {item:2839}.\nCuidado: los no-muertos putrefactos y los Tirahuesos Ojosombra cerca de los Agamand pueden unirse a un combate.",
 	-- {npc:1655} Nissa Agamand
-	["{npc:1655}; upstairs"] = "",
+	["{npc:1655}; upstairs"] = "{npc:1655}; en el piso de arriba",
 	-- {item:2839} A Letter to Yvette
 	["{item:2839}, a rare drop"] = "{item:2839}, botín poco común",
 	["Only if the letter dropped"] = "Solo si te salió la carta",
@@ -390,7 +390,7 @@ return {
 	-- {npc:5724} Ageron Kargal · {npc:5675} Carendin Halgar · {zone:1458} Undercity
 	["{npc:5724}: {npc:5675} in the {zone:1458} takes it"] = "{npc:5724}: {npc:5675} la recoge en {zone:1458}",
 	-- {npc:1738} Deathguard Terrence · {area:159} Brill
-	["{npc:1738}, if you were below 10 on the last {area:159} visit"] = "",
+	["{npc:1738}, if you were below 10 on the last {area:159} visit"] = "{npc:1738}, si estabas por debajo de 10 en la última visita a {area:159}",
 
 	-- Step 68: Ulag the Cleaver
 	-- {npc:6390} Ulag the Cleaver
@@ -410,14 +410,14 @@ return {
 
 	-- Step 71: Back to Tirisfal Glades
 	-- {zone:1420} Tirisfal Glades
-	["Back to {zone:1420}"] = "",
+	["Back to {zone:1420}"] = "De vuelta a {zone:1420}",
 	["The Scarlet camp"] = "El campamento Escarlata",
 
 	-- Step 72: Tirisfal Glades: kill these as you meet them
 	-- {area:159} Brill · {npc:1662} Captain Perrine
 	["Follow the road south-west from {area:159} to the Scarlet Crusade camp. {npc:1662} stands at its south end; every Scarlet there can drop a ring."] = "Sigue el camino al suroeste desde {area:159} hasta el campamento de la Cruzada Escarlata. {npc:1662} está en su extremo sur; cualquier Escarlata de allí puede soltar un anillo.",
 	-- {npc:1537} Scarlet Zealot
-	["{npc:1537} walks around here: look inside the circle on the map"] = "",
+	["{npc:1537} walks around here: look inside the circle on the map"] = "{npc:1537} da vueltas por aquí: búscalo dentro del círculo del mapa",
 
 	-- Step 73: Perrine's Chest
 	-- {object:37098} Perrine's Chest · {npc:1662} Captain Perrine
@@ -429,7 +429,7 @@ return {
 
 	-- Step 76: Balnir Farmstead: kill these as you meet them
 	-- {area:165} Balnir Farmstead
-	["{area:165}: kill these as you meet them"] = "",
+	["{area:165}: kill these as you meet them"] = "{area:165}: mátalos según te los encuentres",
 	-- {quest:99142} Tomb Weed · {npc:1664} Captain Vachon
 	-- plural, as words: Bleeding Horrors = {npc:1529} Bleeding Horror · Wandering Spirits = {npc:1532} Wandering Spirit · Scarlet Friars = {npc:1538} Scarlet Friar
 	["Follow the road east past the cult's farm. Bleeding Horrors and Wandering Spirits haunt the graves on the east side of the farmstead, where the {quest:99142} grows: Linnea wants eight of each.\nThe Scarlet Friars camp just north-east of the graves; {npc:1664} stands among them.\nThe spiders lurk in the woods at the far east end of the glades.\nCareful: Riptear (13) is elite and prowls west and north of the Scarlet Friars' camp: watch for him before you pull."] = "Sigue el camino al este dejando atrás la granja del culto. Los Horrores sangrantes y los Espíritus deambulantes rondan las tumbas del lado este de la granja, donde crecen las {quest:99142}: Linnea quiere ocho de cada.\nLos Frailes Escarlata acampan justo al noreste de las tumbas; {npc:1664} está entre ellos.\nLas arañas acechan en el bosque del extremo este de los claros.\nCuidado: Desgarro (13) es élite y merodea al oeste y al norte del campamento de los Frailes Escarlata: búscalo antes de atraer a nadie.",
@@ -443,18 +443,18 @@ return {
 
 	-- Step 79: Brill
 	-- {area:159} Brill · {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call
-	["Back up the road to {area:159}. {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["Back up the road to {area:159}. {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "Vuelve por el camino hasta {area:159}. {npc:2128} (magos), {npc:2129} (sacerdotes), {npc:2127} (brujos) y {npc:2130} (pícaros) están en el piso de arriba de la posada: sube por la escalera de adentro, la flecha no distingue los pisos.",
 	-- {npc:1518} Apothecary Johaan · {area:228} Sepulcher
-	["{npc:1518}: for Renferrel at the {area:228}"] = "",
+	["{npc:1518}: for Renferrel at the {area:228}"] = "{npc:1518}: para Renferrel en {area:228}",
 	["The Wanted poster beside Zygand"] = "El cartel de Se busca junto a Zygand",
 	-- {npc:2211} Captured Mountaineer
-	["The {npc:2211}, in the inn's cellar"] = "",
+	["The {npc:2211}, in the inn's cellar"] = "El {npc:2211}, en el sótano de la posada",
 
 	-- Step 80: Maggot Eye
 	-- {area:164} Garren's Haunt · {npc:1753} Maggot Eye
 	["North to {area:164}, the Rot Hide camp on the hill south of the shore. {npc:1753} (level 11) stands in the hut: clear the gnolls around him first.\nCareful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone."] = "Al norte hasta {area:164}, el campamento Putrepellejo en la colina al sur de la costa. {npc:1753} (nivel 11) está en la choza: limpia primero los gnolls que lo rodean.\nCuidado: hay gnolls de guardia fuera de la choza que pueden unirse al combate. Si los esquivas y luchas con él dentro, pelea solo.",
 	-- {item:3635} Maggot Eye's Paw
-	["{item:3635}; inside"] = "",
+	["{item:3635}; inside"] = "{item:3635}; adentro",
 
 	-- Step 81: Leonid Barthalomew the Revered
 	-- {area:164} Garren's Haunt · {area:157} Agamand Mills · {area:16616} Whispering Forest · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro · {quest:96896} A Righteous Cause · {area:16881} Shadowvale
@@ -464,15 +464,15 @@ return {
 
 	-- Step 82: Paladin: Bandarion Keep
 	-- {quest:96899} Bandarion Keep
-	["Paladin: {quest:96899}"] = "",
+	["Paladin: {quest:96899}"] = "Paladín: {quest:96899}",
 	-- {npc:246349} Breton Samuels
-	["{npc:246349} waits at the keep's gate beside Leonid."] = "",
+	["{npc:246349} waits at the keep's gate beside Leonid."] = "{npc:246349} espera en la puerta del bastión, junto a Leonid.",
 
 	-- Step 83: Paladin: Murlocs at the Gates
 	-- {quest:91285} Murlocs at the Gates
-	["Paladin: {quest:91285}"] = "",
+	["Paladin: {quest:91285}"] = "Paladín: {quest:91285}",
 	-- {area:16881} Shadowvale
-	["The Vile Fin murlocs lurk on the bluffs just east of the keep and in the camps around the lake to the south-west, on the way down to {area:16881}."] = "",
+	["The Vile Fin murlocs lurk on the bluffs just east of the keep and in the camps around the lake to the south-west, on the way down to {area:16881}."] = "Los múrlocs Aleta Vil acechan en los riscos justo al este del bastión y en los campamentos alrededor del lago al suroeste, de camino bajando a {area:16881}.",
 	-- plural, as words: Vile Fin Attackers = {npc:250283} Vile Fin Attacker
 	["Vile Fin Attackers"] = "Atacantes Anca Vil",
 	-- plural, as words: Vile Fin Seers = {npc:250282} Vile Fin Seer
@@ -481,24 +481,24 @@ return {
 	-- Step 84: Shadowvale
 	-- {area:16881} Shadowvale · {area:16616} Whispering Forest
 	-- plural, as words: Shadowvale Lurchers = {npc:260428} Shadowvale Lurcher
-	["{area:16881} is the hollow at the west edge of the glades, south-west of the {area:16616}. Go down into the big basement under the ruined house (only a floor and a few pillars left, not the two-storey house): the bottles lie on its floor among the Shadowvale Lurchers and Mystics."] = "",
-	["the basement under the ruined house"] = "",
+	["{area:16881} is the hollow at the west edge of the glades, south-west of the {area:16616}. Go down into the big basement under the ruined house (only a floor and a few pillars left, not the two-storey house): the bottles lie on its floor among the Shadowvale Lurchers and Mystics."] = "{area:16881} es la hondonada en el borde oeste de los claros, al suroeste de {area:16616}. Baja al gran sótano debajo de la casa en ruinas (solo queda un piso y unos pilares, no la casa de dos plantas): las botellas están en el suelo entre los tambaleantes y místicos de Valle Umbrío.",
+	["the basement under the ruined house"] = "el sótano debajo de la casa en ruinas",
 	-- {item:286269} Glowing Crystal Fragment
-	["the {item:286269}, at the basement's south end"] = "",
+	["the {item:286269}, at the basement's south end"] = "{item:286269}, en el extremo sur del sótano",
 	-- plural, as words: Shadowvale Lurchers = {npc:260428} Shadowvale Lurcher
-	["the Shadowvale Lurchers and Mystics drop the bones; below ground"] = "",
+	["the Shadowvale Lurchers and Mystics drop the bones; below ground"] = "los tambaleantes y místicos de Valle Umbrío sueltan los huesos; bajo tierra",
 
 	-- Step 85: Hilda the Breaker and Ephram Barbaro
 	-- {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro
-	["{npc:246389} and {npc:259190}"] = "",
+	["{npc:246389} and {npc:259190}"] = "{npc:246389} y {npc:259190}",
 	-- {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro
-	["Back up to the forest's edge south of the keep's gate: {npc:246389} and {npc:259190} take the bones and the crystal."] = "",
+	["Back up to the forest's edge south of the keep's gate: {npc:246389} and {npc:259190} take the bones and the crystal."] = "Vuelve a subir al borde del bosque al sur de la puerta del bastión: {npc:246389} y {npc:259190} reciben los huesos y el cristal.",
 
 	-- Step 86: Paladin: Bandarion Keep
 	-- {npc:259190} Ephram Barbaro · {npc:246389} Hilda the Breaker · {npc:246349} Breton Samuels · {npc:246393} Jorin Croge · {npc:246394} Ander Solliden · {npc:246378} Danitha Morr
-	["{npc:259190} and {npc:246389} at the forest's edge, {npc:246349} at the gate, {npc:246393} and {npc:246394} nearby, {npc:246378} inside."] = "",
+	["{npc:259190} and {npc:246389} at the forest's edge, {npc:246349} at the gate, {npc:246393} and {npc:246394} nearby, {npc:246378} inside."] = "{npc:259190} y {npc:246389} en el borde del bosque, {npc:246349} en la puerta, {npc:246393} y {npc:246394} cerca, y {npc:246378} adentro.",
 	-- {npc:246378} Danitha Morr
-	["{npc:246378}, inside the keep"] = "",
+	["{npc:246378}, inside the keep"] = "{npc:246378}, dentro del bastión",
 
 	-- Step 87: The Undercity
 	-- {object:1661} The Undercity · {area:153} Ruins of Lordaeron · {npc:5675} Carendin Halgar · {object:36082} Magic Quarter · {item:6284} Runes of Summoning · {npc:4606} Aelthalyste · {object:36070} War Quarter · {npc:4568} Anastasia Hartwell
@@ -506,9 +506,9 @@ return {
 
 	-- Step 89: Brill
 	-- {npc:2132} Carolai Anise
-	["{npc:2132}, inside"] = "",
+	["{npc:2132}, inside"] = "{npc:2132}, dentro",
 	-- {area:159} Brill · {zone:1421} Silverpine Forest
-	["The next guide walks south from {area:159} into {zone:1421}."] = "",
+	["The next guide walks south from {area:159} into {zone:1421}."] = "La siguiente guía va caminando al sur desde {area:159} hacia {zone:1421}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:159}."] = "Vuelve a {area:159}.",

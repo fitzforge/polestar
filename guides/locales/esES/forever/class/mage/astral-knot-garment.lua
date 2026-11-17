@@ -19,19 +19,19 @@ return {
 
 	-- Step 3: High Sorcerer Andromath (Skyborne)
 	-- {quest:1939} High Sorcerer Andromath
-	["{quest:1939} (Skyborne)"] = "",
+	["{quest:1939} (Skyborne)"] = "{quest:1939} (Skyborne)",
 	-- {zone:1453} Stormwind · {object:2101} Mage Quarter · {quest:1939} High Sorcerer Andromath · {npc:5497} Jennea Cannon
-	["You do not need a letter: at 26 climb the Wizard's Sanctum, the violet tower of {zone:1453}'s {object:2101}. {quest:1939} waits on the spiral walkway, just past the door of the portal room near the top, and has the quest for you. ({npc:5497} may also offer you {quest:1939}, the pointer quest; it is only a pointer and you can skip it.)"] = "",
+	["You do not need a letter: at 26 climb the Wizard's Sanctum, the violet tower of {zone:1453}'s {object:2101}. {quest:1939} waits on the spiral walkway, just past the door of the portal room near the top, and has the quest for you. ({npc:5497} may also offer you {quest:1939}, the pointer quest; it is only a pointer and you can skip it.)"] = "No necesitas carta: a nivel 26 sube al Santuario del Mago, la torre violeta de {object:2101} de {zone:1453}. {quest:1939} espera en la pasarela en espiral, justo pasando la puerta de la sala del portal cerca de la cima, y tiene la misión para ti. ({npc:5497} también puede ofrecerte {quest:1939}, la misión indicadora; es solo una indicación y puedes saltarla.)",
 
 	-- Step 4: High Sorcerer Andromath
 	-- {quest:1939} High Sorcerer Andromath
-	["{quest:1939} waits on the spiral walkway of the Wizard's Sanctum, just past the door of the portal room as you walk down from the trainers."] = "",
+	["{quest:1939} waits on the spiral walkway of the Wizard's Sanctum, just past the door of the portal room as you walk down from the trainers."] = "{quest:1939} espera en la pasarela en espiral del Santuario del Mago, justo pasando la puerta de la sala del portal al bajar desde los instructores.",
 
 	-- Step 5: The Tower of Ilgalar
 	-- {area:96} Tower of Ilgalar
 	["The {area:96}"] = "{area:96}",
 	-- {zone:1429} Elwynn Forest · {area:69} Lakeshire · {area:96} Tower of Ilgalar · {spell:2691} Mana Burn
-	["Head east through {zone:1429} into Redridge, or fly to {area:69}. The {area:96} stands alone in the east of the zone. Climb to the very top floor (not the one below): the treatise is the book sticking out of the shelf where the stairs come up. Two gnoll dogs and a gnoll caster guard the shelf; the dogs' {spell:2691} interrupts the click, so fight them on the stairs out of their sight. Morganth (level 26 elite) stands across the top floor: you do not need him, keep to the left edge of the ramp so he stays put. The book is back two seconds after anyone takes it. If you die, your ghost can run up and come back to life beside it."] = "",
+	["Head east through {zone:1429} into Redridge, or fly to {area:69}. The {area:96} stands alone in the east of the zone. Climb to the very top floor (not the one below): the treatise is the book sticking out of the shelf where the stairs come up. Two gnoll dogs and a gnoll caster guard the shelf; the dogs' {spell:2691} interrupts the click, so fight them on the stairs out of their sight. Morganth (level 26 elite) stands across the top floor: you do not need him, keep to the left edge of the ramp so he stays put. The book is back two seconds after anyone takes it. If you die, your ghost can run up and come back to life beside it."] = "Ve al este por {zone:1429} hasta Montañas Crestagrana, o vuela a {area:69}. {area:96} está sola en el este de la zona. Sube hasta el último piso (no el de abajo): el tratado es el libro que sobresale del estante donde llega la escalera. Dos perros gnoll y un lanzador de hechizos gnoll custodian el estante; el {spell:2691} de los perros interrumpe el clic, así que pelea con ellos en la escalera, fuera de su vista. Morganth (élite de nivel 26) está al otro lado del último piso: no lo necesitas, mantente en el borde izquierdo de la rampa para que no se mueva. El libro vuelve dos segundos después de que alguien lo toma. Si mueres, tu fantasma puede subir y revivir a su lado.",
 
 	-- Step 6: Back to Andromath
 	["Back to Andromath"] = "Vuelve con Andromath",
@@ -41,11 +41,11 @@ return {
 	["Carrion Recluses"] = "Ermitaños carroñeros",
 	-- {area:492} Raven Hill Cemetery · {zone:1431} Duskwood · {spell:3609} Paralyzing Poison · {npc:522} Mor'Ladim
 	-- plural, as words: Carrion Recluses = {npc:949} Carrion Recluse · Black Widow Hatchlings = {npc:930} Black Widow Hatchling
-	["{area:492} in western {zone:1431}: the six Carrion Recluses (level 25-26, green, {spell:3609}) walk the graves, the central statue and the riverbank, and every one drops a silk; they come back after 5 minutes. The Black Widow Hatchlings (24-25) on the slopes east of the cemetery drop it about one time in six, so mix them in while you wait. {npc:522}, a level 35 elite skeleton, walks the cemetery: watch for him."] = "",
+	["{area:492} in western {zone:1431}: the six Carrion Recluses (level 25-26, green, {spell:3609}) walk the graves, the central statue and the riverbank, and every one drops a silk; they come back after 5 minutes. The Black Widow Hatchlings (24-25) on the slopes east of the cemetery drop it about one time in six, so mix them in while you wait. {npc:522}, a level 35 elite skeleton, walks the cemetery: watch for him."] = "{area:492}, en el oeste de {zone:1431}: las seis reclusas carroñeras (nivel 25-26, verdes, {spell:3609}) recorren las tumbas, la estatua central y la orilla del río, y todas sueltan una seda; vuelven a los 5 minutos. Las crías de viuda negra (24-25) de las laderas al este del cementerio la sueltan más o menos una vez de cada seis, así que mézclalas mientras esperas. {npc:522}, un esqueleto élite de nivel 35, recorre el cementerio: cuidado con él.",
 
 	-- Step 8: Wynne Larson
 	-- {npc:1309} Wynne Larson · {object:23296} Larson Clothiers · {object:2101} Mage Quarter
-	["{npc:1309} works at {object:23296} in the {object:2101}. The robe gives intellect, stamina and spirit; the blouse more intellect and stamina but no spirit."] = "",
+	["{npc:1309} works at {object:23296} in the {object:2101}. The robe gives intellect, stamina and spirit; the blouse more intellect and stamina but no spirit."] = "{npc:1309} trabaja en {object:23296}, en {object:2101}. La túnica da intelecto, aguante y espíritu; la blusa, más intelecto y aguante pero sin espíritu.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Carrion Recluses lurk in the woods of western {zone:1431} and each one drops the silk. The Black Widow Hatchlings further east drop it now and then."] = "Los Ermitaños carroñeros acechan en los bosques del oeste de {zone:1431} y todos sueltan la seda. Las Viudas negras reproductoras, más al este, la sueltan de vez en cuando.",

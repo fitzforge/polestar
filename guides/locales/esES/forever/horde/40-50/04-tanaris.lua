@@ -18,7 +18,7 @@ return {
 
 	-- Step 3: Gadgetzan
 	-- {npc:7876} Tran'rek · {area:979} Sandsorrow Watch
-	["The flight lands beside {npc:7876}. Take the town's quests before riding west to {area:979}."] = "",
+	["The flight lands beside {npc:7876}. Take the town's quests before riding west to {area:979}."] = "El vuelo aterriza junto a {npc:7876}. Toma las misiones del pueblo antes de ir al oeste, a {area:979}.",
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "{npc:7876}, junto al maestro de jinetes del viento",
 	-- {npc:11758} Andi Lynn · {area:1938} Broken Pillar
@@ -47,7 +47,7 @@ return {
 
 	-- Step 9: Senior Surveyor Fizzledowser
 	-- {area:976} Gadgetzan · {npc:7771} Marvon Rivetseeker
-	["Back east to Fizzledowser on the west side of {area:976}; {npc:7771} is south from there."] = "",
+	["Back east to Fizzledowser on the west side of {area:976}; {npc:7771} is south from there."] = "De vuelta al este, con Fizzledowser, en el lado oeste de {area:976}; {npc:7771} está al sur desde ahí.",
 
 	-- Step 10: Tran'rek
 	-- {area:978} Zul'Farrak · {npc:7876} Tran'rek
@@ -78,7 +78,7 @@ return {
 
 	-- Step 16: Thistleshrub Valley: kill these as you meet them
 	-- {quest:3362} Thistleshrub Valley
-	["{quest:3362}: kill these as you meet them"] = "",
+	["{quest:3362}: kill these as you meet them"] = "{quest:3362}: mata a estos según te los encuentres",
 	-- {zone:1446} Tanaris · {quest:2864} Tran'rek · {area:1938} Broken Pillar
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
 	["West of the compound the cactus creatures fill the valley; only the Dew Collectors (47-48) carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave {quest:2864}'s Gnarled Thistleshrubs and Rootshapers for the {area:1938} ride into Un'Goro at about 51."] = "Al oeste de la base, las criaturas cactus llenan el valle; solo los Colectores de rocío (47-48) llevan una glándula de rocío. Casi todos los enemigos de {zone:1446} pueden soltar, rara vez, el Localizador de emergencia OOX-17/TN: guárdalo si te sale uno.\nCuidado: los demás cardizales de la zona son de nivel 48-50 y deambulan mucho, así que es fácil atraer enemigos de más: mata a los Colectores de rocío del borde del valle y deja los Cardizales nudosos y los Formarraíces de {quest:2864} para el viaje a {area:1938} de camino a Un'Goro, hacia el nivel 51.",
@@ -93,7 +93,7 @@ return {
 
 	-- Step 19: Slake That Thirst
 	-- {spell:686} Shadow Bolt
-	["Careful: Shadow Mages (level 42-43) call a Voidwalker while out of combat and attack with Immolate and {spell:686}. Thieves can Disarm you, Rogues move around in Sneak, and Assassins use Execute once you are at 20% health or less."] = "",
+	["Careful: Shadow Mages (level 42-43) call a Voidwalker while out of combat and attack with Immolate and {spell:686}. Thieves can Disarm you, Rogues move around in Sneak, and Assassins use Execute once you are at 20% health or less."] = "Cuidado: Los magos de las sombras (nivel 42-43) invocan un abisario fuera de combate y atacan con Inmolar y {spell:686}. Los ladrones pueden desarmarte, los pícaros se mueven con Acechar y los asesinos usan Ejecutar cuando tienes 20 % de salud o menos.",
 
 	-- Step 20: Gadgetzan
 	-- {quest:654} Tanaris Field Sampling
@@ -105,13 +105,13 @@ return {
 	-- {item:8526} Violet Tragan · {zone:1425} Hinterlands
 	["the {item:8526} grows in the {zone:1425}, around level 48"] = "el {item:8526} crece en {zone:1425}, hacia el nivel 48",
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, dentro",
 	-- {npc:11758} Andi Lynn · {area:983} Dunemaul Compound · {area:1938} Broken Pillar
 	["{npc:11758}'s {area:983} stays in your log for the {area:1938} at about 52."] = "{area:983} de {npc:11758} se queda en tu registro para {area:1938}, hacia el nivel 52.",
 
 	-- Step 23: Scrimshank's gear
 	["Scrimshank's gear"] = "Equipo de análisis de Patagolpe",
-	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "",
+	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "Más al sur, el equipo del topógrafo novato Scrimshank está en la entrada de una colmena Centipaar.\nCuidado: Un bicho custodia el equipo. Muchos bichos patrullan los túneles, algunos de nivel 50, así que las peleas suelen atraer refuerzos.",
 	["Below ground"] = "Bajo tierra",
 
 	-- Step 24: OOX-17/TN
@@ -128,17 +128,17 @@ return {
 
 	-- Step 26: Gadgetzan
 	-- {npc:5204} Apothecary Zinge · {zone:1458} Undercity
-	["for {npc:5204} in the {zone:1458}, around level 52"] = "",
+	["for {npc:5204} in the {zone:1458}, around level 52"] = "para {npc:5204} en {zone:1458}, alrededor del nivel 52",
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["for {npc:7010} in {zone:1454}, around level 50"] = "para {npc:7010} en {zone:1454}, hacia el nivel 50",
 
 	-- Step 27: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
-	["Boat to {area:16727}"] = "",
+	["Boat to {area:16727}"] = "Barco a {area:16727}",
 
 	-- Step 28: Into Searing Gorge
 	-- {zone:1427} Searing Gorge
-	["Into {zone:1427}"] = "",
+	["Into {zone:1427}"] = "Hacia {zone:1427}",
 
 	-- Step 29: Searing Gorge
 	-- {area:247} Grimesilt Dig Site
@@ -159,7 +159,7 @@ return {
 
 	-- Step 33: The Cauldron's slavers and golems
 	-- {area:246} The Cauldron
-	["{area:246}'s slavers and golems"] = "",
+	["{area:246}'s slavers and golems"] = "Esclavistas y gólems de {area:246}",
 	-- {area:1446} Thorium Point · {npc:8479} Velarok Windblade
 	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Heavy War Golems = {npc:5854} Heavy War Golem
 	["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below {npc:8479}. Careful: the biggest golems are 49: pull them one at a time."] = "Cabalga al sur desde {area:1446} hacia La Caldera: los Capataces y Esclavistas Hierro Negro arrean a los esclavos por los caminos, y los Gólems de guerra pesados patrullan el fondo bajo {npc:8479}. Cuidado: los gólems más grandes son de nivel 49: atráelos de uno en uno.",
@@ -170,7 +170,7 @@ return {
 
 	-- Step 37: Searing Gorge: kill these as you meet them
 	-- {zone:1427} Searing Gorge
-	["{zone:1427}: kill these as you meet them"] = "",
+	["{zone:1427}: kill these as you meet them"] = "{zone:1427}: mata a estos según te los encuentres",
 	-- {npc:8479} Velarok Windblade · {item:11818} Grimesilt Outhouse Key · {area:1443} The Slag Pit
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Blazing Elementals = {npc:5850} Blazing Elemental · Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Searing Lava Spiders = {npc:5858} Searing Lava Spider · Incendosaurs = {npc:9318} Incendosaur · Dark Iron Slavers = {npc:5844} Dark Iron Slaver
 	["Heavy War Golems patrol the Cauldron below {npc:8479} and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Searing Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee. The biggest Incendosaurs and Lava Spiders are 49: pull them one at a time."] = "Los Gólems de guerra pesados patrullan La Caldera bajo {npc:8479} y sueltan el aceite; los Elementales de magma y los Elementales llameantes que vagan entre ellos sueltan los corazones. Los Capataces y Esclavistas Hierro Negro arrean a los esclavos por los caminos; un Esclavista puede soltar la {item:11818}: guárdala.\nLas Lavarañas superiores recorren las mesetas y las charcas de lava del suroeste de la garganta.\n{area:1443} se abre al norte de La Caldera. Los Incendosaurios nadan en sus charcas de lava: atráelos al borde. Los planos secretos están en la cornisa superior del foso.\nCuidado: los Esclavistas Hierro Negro (nivel 45-46) piden ayuda a aliados a menos de 15 m al atraerlos, lanzan Red desde hasta 15 m y usan Desgarrar cuerpo a cuerpo. Los Incendosaurios y Lavarañas más grandes son de nivel 49: atráelos de uno en uno.",

@@ -37,9 +37,9 @@ return {
 	["On the way back to {area:348}: the lost gryphon eggs lie in the hills just east of the aviary."] = "De vuelta a {area:348}: los huevos de grifo perdidos están en las colinas justo al este del aviario.",
 
 	-- Step 6: Aerie Peak
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 	-- {npc:5636} Gryphon Master Talonaxe
-	["{npc:5636}, inside"] = "",
+	["{npc:5636}, inside"] = "{npc:5636}, dentro",
 	-- {quest:2990} Thadius Grimshade · {area:1438} Nethergarde Keep
 	["for {quest:2990} at {area:1438}, later"] = "para {quest:2990} en {area:1438}, más adelante",
 	-- {npc:270263} Farseer Maret Firetend
@@ -49,7 +49,7 @@ return {
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "Vuela a {area:1537}",
 	-- {area:348} Aerie Peak
-	["{area:348} flight master"] = "",
+	["{area:348} flight master"] = "Maestro de vuelo de {area:348}",
 
 	-- Step 8: Class trainer
 	["Class trainer"] = "Instructor de clase",
@@ -58,7 +58,7 @@ return {
 	-- {area:1537} Ironforge
 	["{area:1537} inn"] = "Posada de {area:1537}",
 	-- {object:26486} Stonefire Tavern (no name in this language: may be words) · {zone:1427} Searing Gorge · {area:144} Thelsamar
-	["Set your hearth at the {object:26486}: the {zone:1427} guide starts with the hearth back here and the gryphon to {area:144}."] = "",
+	["Set your hearth at the {object:26486}: the {zone:1427} guide starts with the hearth back here and the gryphon to {area:144}."] = "Vincula tu piedra de hogar en {object:26486}: la guía de {zone:1427} empieza con la piedra de hogar de vuelta aquí y el grifo a {area:144}.",
 
 	-- Step 10: Tram to Stormwind
 	-- {zone:1453} Stormwind
@@ -68,12 +68,12 @@ return {
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "Vuela a {area:42}",
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "Maestro de vuelo de {zone:1453}",
 
 	-- Step 15: The bloodmages
 	["The bloodmages"] = "Los magos de sangre",
 	-- {zone:1419} Blasted Lands · {area:1438} Nethergarde Keep
-	["The bloodmages' camp is the first stop beside the road into the {zone:1419}, north-west of {area:1438}."] = "",
+	["The bloodmages' camp is the first stop beside the road into the {zone:1419}, north-west of {area:1438}."] = "El campamento de los magos de sangre es la primera parada junto al camino a {zone:1419}, al noroeste de {area:1438}.",
 	-- {npc:7505} Bloodmage Drazial · {zone:1419} Blasted Lands
 	["{npc:7505}: keep the five, their beasts (48-53) wait for the level-52 {zone:1419} stop"] = "{npc:7505}: guarda los cinco, sus bestias (48-53) esperan a la parada de nivel 52 en {zone:1419}",
 
@@ -85,16 +85,16 @@ return {
 	-- {npc:8022} Thadius Grimshade · {item:9471} Nekrum's Medallion · {area:978} Zul'Farrak
 	["{npc:8022}' next task, {item:9471}, is a {area:978} quest: skip it."] = "La siguiente tarea de {npc:8022}, {item:9471}, es una misión de {area:978}: omítela.",
 	-- {npc:5385} Watcher Mahar Ba
-	["{npc:5385}, upstairs"] = "",
+	["{npc:5385}, upstairs"] = "{npc:5385}, en el piso de arriba",
 
 	-- Step 17: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Vuela a {area:35}",
 	-- {area:1438} Nethergarde Keep
-	["{area:1438} flight master"] = "",
+	["{area:1438} flight master"] = "Maestro de vuelo de {area:1438}",
 
 	-- Step 18: Booty Bay
-	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
+	["\"Sea Wolf\" MacKinley, on the top floor"] = "MacKinley «Lobo de Mar», en el piso superior",
 	["\"Sea Wolf\" MacKinley, if the Stranglethorn guide didn't give it"] = "\"Lobo de mar\" MacKinley, si la guía de Tuercespina no te la dio",
 	-- {npc:2487} Fleet Master Seahorn
 	["{npc:2487}, top floor, if the Stranglethorn guide didn't give it"] = "{npc:2487}, último piso, si la guía de Tuercespina no te la dio",
@@ -105,7 +105,7 @@ return {
 
 	-- Step 19: Wild Shore: kill these as you meet them
 	-- {area:43} Wild Shore
-	["{area:43}: kill these as you meet them"] = "",
+	["{area:43}: kill these as you meet them"] = "{area:43}: mátalos según te los encuentres",
 	-- {area:43} Wild Shore · {area:35} Booty Bay
 	["The charts and orders lie in the pirate camp on the {area:43}, just south of {area:35}; its Swashbucklers walk the shore. The Warlocks and Swashbucklers (41-43) are under you now."] = "Las cartas y las órdenes están en el campamento pirata de {area:43}, justo al sur de {area:35}; sus Bucaneros recorren la costa. Los Brujos y Bucaneros (41-43) ya son de nivel inferior al tuyo.",
 
@@ -116,7 +116,7 @@ return {
 	-- Step 21: The Bloodsail captains
 	["The Bloodsail captains"] = "Los capitanes Velasangre",
 	-- {area:35} Booty Bay · {npc:2550} Captain Stillwater · {npc:2548} Captain Keelhaul · {npc:2546} Fleet Master Firallon
-	["The three Bloodsail ships lie at anchor off the coast just south of {area:35}: {npc:2550} (45) and {npc:2548} (46) on the nearer decks, {npc:2546} (48) on the flagship, each with a crew of 42-45 pirates. Swim out, clear each deck from the edge and pull one at a time."] = "",
+	["The three Bloodsail ships lie at anchor off the coast just south of {area:35}: {npc:2550} (45) and {npc:2548} (46) on the nearer decks, {npc:2546} (48) on the flagship, each with a crew of 42-45 pirates. Swim out, clear each deck from the edge and pull one at a time."] = "Los tres barcos Velasangre están anclados frente a la costa justo al sur de {area:35}: {npc:2550} (45) y {npc:2548} (46) en las cubiertas más cercanas, {npc:2546} (48) en el buque insignia, cada uno con una tripulación de piratas de nivel 42-45. Nada hasta ellos, despeja cada cubierta desde el borde y atráelos de a uno.",
 
 	-- Step 23: Naga Explorers
 	-- plural, as words: Naga Explorers = {npc:1907} Naga Explorer
@@ -145,7 +145,7 @@ return {
 	-- {npc:1514} Mokk the Savage
 	["Hand in the fangs and stay: three waves of gorillas come, {npc:1514} last.\nCareful: three waves of gorillas come one after another with little rest between, then {npc:1514}. Start at full health and mana, and stay near Unbagwa. Some classes find it hard alone: a friend makes it easy."] = "Entrega los colmillos y quédate: llegan tres oleadas de gorilas y, al final, {npc:1514}.\nCuidado: las tres oleadas de gorilas llegan una tras otra casi sin descanso y luego {npc:1514}. Empieza con la salud y el maná al máximo y quédate cerca de Unbagwa. A algunas clases les cuesta en solitario: con un amigo es fácil.",
 	-- {npc:1449} Witch Doctor Unbagwa · {area:1742} Spirit Den
-	["{npc:1449}, inside {area:1742}"] = "",
+	["{npc:1449}, inside {area:1742}"] = "{npc:1449}, dentro de {area:1742}",
 
 	-- Step 29: Booty Bay
 	["Ride back down to town."] = "Vuelve a bajar al pueblo.",
@@ -154,12 +154,12 @@ return {
 	-- {npc:2498} Crank Fizzlebub · {zone:1441} Thousand Needles
 	["{npc:2498}'s next Zanzil errand starts in {zone:1441}: skip it."] = "El siguiente encargo de {npc:2498} sobre Zanzil empieza en {zone:1441}: omítelo.",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "",
+	["{npc:2498}, inside"] = "{npc:2498}, dentro",
 	["MacKinley's next task sends you after elite ogres: skip it."] = "La siguiente tarea de MacKinley te manda a por ogros élite: omítela.",
 
 	-- Step 30: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "Son enemigos élite: se recomienda agruparse, busca gente para hacerlo. {quest:8552} necesita un grupo de 2. Omítela si estás solo: la ruta te hace recuperar esa experiencia matando enemigos.",
 
 	-- Step 34: Negolash's bait
 	-- {npc:1494} Negolash
@@ -174,7 +174,7 @@ return {
 
 	-- Step 35: Facing Negolash
 	-- {npc:1494} Negolash
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "Son enemigos élite: se recomienda agruparse, busca gente con quien hacerlo. {npc:1494} (élite de nivel 52) requiere un grupo de 2. Sáltalo si vas solo: la ruta te hace recuperar la experiencia matando enemigos.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep. Keep clear of the Helboars further south: they are level 52."] = "Jabalíes Cenicrín y Basiliscos Rocarroja comparten las laderas al suroeste del bastión. Evita a los Jabinfernos más al sur: son de nivel 52.",

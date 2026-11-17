@@ -18,18 +18,18 @@ return {
 	-- {npc:6171} Duthorian Rall · {item:6776} Tome of Valor
 	["{npc:6171} stands in the Cathedral of Light. Humans get the {item:6776} from him. Right-click the book to start its quest and hand it straight back to him."] = "{npc:6171} está en la Catedral de la Luz. Los humanos reciben {item:6776} de él. Haz clic derecho en el libro para empezar su misión y entrégasela enseguida a él.",
 	-- {item:6776} Tome of Valor
-	["Right-click the {item:6776}"] = "",
+	["Right-click the {item:6776}"] = "Haz clic derecho en {item:6776}",
 
 	-- Step 3: Daphne Stilwell
 	-- {npc:6182} Daphne Stilwell · {zone:1436} Westfall · {area:20} Moonbrook · {area:1581} Deadmines
 	-- plural, as words: Defias Raiders = {npc:6180} Defias Raider
-	["{npc:6182}'s farmhouse stands on the south-west coast of {zone:1436}, south of {area:20}: take the path that runs south beside the {area:1581}' back exit. When you take her quest, she walks from her orchard to the house and three waves of Defias Raiders (level 17-18) attack: three, then four, then five. Fight close to her so they do not swarm her, and heal her when she drops. You get time to eat and drink between waves, and she heals to full. If you or {npc:6182} die, the quest fails: abandon it and take it again from her (she is back five minutes after dying). Players find it hard alone before about 24."] = "",
+	["{npc:6182}'s farmhouse stands on the south-west coast of {zone:1436}, south of {area:20}: take the path that runs south beside the {area:1581}' back exit. When you take her quest, she walks from her orchard to the house and three waves of Defias Raiders (level 17-18) attack: three, then four, then five. Fight close to her so they do not swarm her, and heal her when she drops. You get time to eat and drink between waves, and she heals to full. If you or {npc:6182} die, the quest fails: abandon it and take it again from her (she is back five minutes after dying). Players find it hard alone before about 24."] = "La granja de {npc:6182} está en la costa suroeste de {zone:1436}, al sur de {area:20}: toma el sendero que va al sur junto a la salida trasera de {area:1581}. Cuando tomas su misión, camina desde su huerto hasta la casa y tres oleadas de asaltantes Defias (nivel 17-18) atacan: tres, luego cuatro, luego cinco. Pelea cerca de ella para que no la rodeen, y cúrala cuando baje. Tienes tiempo para comer y beber entre oleadas, y ella se cura por completo. Si tú o {npc:6182} mueren, la misión fracasa: abandónala y vuelve a tomarla con ella (vuelve cinco minutos después de morir). A los jugadores les cuesta solos antes del nivel 24 más o menos.",
 	-- {npc:6182} Daphne Stilwell
-	["Protect {npc:6182}: three waves"] = "",
+	["Protect {npc:6182}: three waves"] = "Protege a {npc:6182}: tres oleadas",
 
 	-- Step 4: Duthorian Rall
 	-- {npc:6171} Duthorian Rall · {item:9607} Bastion of Stormwind · {spell:5502} Sense Undead
-	["Back to the Cathedral of Light: {npc:6171} gives you the {item:9607} shield and teaches you {spell:5502}."] = "",
+	["Back to the Cathedral of Light: {npc:6171} gives you the {item:9607} shield and teaches you {spell:5502}."] = "De vuelta a la Catedral de la Luz: {npc:6171} te da el escudo {item:9607} y te enseña {spell:5502}.",
 
 	-- Step 5: Jordan Stilwell
 	-- {npc:6181} Jordan Stilwell · {zone:1455} Ironforge · {item:6996} Jordan's Weapon Notes
@@ -37,11 +37,11 @@ return {
 
 	-- Step 6: Bailor Stonehand
 	-- {npc:6241} Bailor Stonehand · {area:144} Thelsamar
-	["{npc:6241} is downstairs in the house of {area:144} that has a tailoring merchant outside. His quest only opens once you hold Jordan's."] = "",
+	["{npc:6241} is downstairs in the house of {area:144} that has a tailoring merchant outside. His quest only opens once you hold Jordan's."] = "{npc:6241} está abajo en la casa de {area:144} que tiene un vendedor de sastrería fuera. Su misión solo se abre cuando tienes la de Jordan.",
 
 	-- Step 7: Bailor's Ore
 	-- {zone:1432} Loch Modan
-	["The crate of ore sits outdoors in the middle of the Mo'grosh ogre camp in north-east {zone:1432}, beside a big tree and a broken wagon, between the caves. The camp holds about fifteen Mo'grosh ogres, elite (level 18-19), who knock you down and come back after five minutes: grouping up is encouraged; at 20-22 it needs a group of about three. The crate is back two seconds after each loot, so every paladin in the group gets one."] = "",
+	["The crate of ore sits outdoors in the middle of the Mo'grosh ogre camp in north-east {zone:1432}, beside a big tree and a broken wagon, between the caves. The camp holds about fifteen Mo'grosh ogres, elite (level 18-19), who knock you down and come back after five minutes: grouping up is encouraged; at 20-22 it needs a group of about three. The crate is back two seconds after each loot, so every paladin in the group gets one."] = "La caja de mineral está al aire libre en el centro del campamento de ogros Mo'grosh, en el noreste de {zone:1432}, junto a un árbol grande y una carreta rota, entre las cuevas. El campamento tiene unos quince ogros Mo'grosh, élite (nivel 18-19), que te derriban y vuelven a los cinco minutos: se recomienda agruparse; a nivel 20-22 necesita un grupo de unos tres. La caja vuelve dos segundos después de cada saqueo, así que cada paladín del grupo recibe una.",
 	-- {object:92420} Bailor's Ore
 	["{object:92420} crate"] = "{object:92420}: la caja",
 
@@ -62,13 +62,13 @@ return {
 
 	-- Step 10: Jordan's Smithing Hammer
 	-- {area:236} Shadowfang Keep · {zone:1421} Silverpine Forest · {zone:1437} Wetlands · {area:287} Hillsbrad
-	["{area:236} is a dungeon for a group of five in the low to mid 20s, in southern {zone:1421}, Horde land: a long trip for the Alliance, through the {zone:1437}, Arathi and {area:287}. The hammer lies on a crate across from the horses in the stables, early in the dungeon, at the far end of the courtyard before the ramp up; it is back five minutes after someone takes it."] = "",
+	["{area:236} is a dungeon for a group of five in the low to mid 20s, in southern {zone:1421}, Horde land: a long trip for the Alliance, through the {zone:1437}, Arathi and {area:287}. The hammer lies on a crate across from the horses in the stables, early in the dungeon, at the far end of the courtyard before the ramp up; it is back five minutes after someone takes it."] = "{area:236} es una mazmorra para un grupo de cinco de nivel 20 a 25 más o menos, en el sur de {zone:1421}, tierra de la Horda: un viaje largo para la Alianza, por {zone:1437}, Arathi y {area:287}. El martillo está sobre una caja frente a los caballos en los establos, al principio de la mazmorra, en el extremo del patio antes de la rampa; vuelve cinco minutos después de que alguien lo toma.",
 	-- {object:91138} Jordan's Hammer
 	["{object:91138}, inside"] = "{object:91138}, dentro",
 
 	-- Step 11: Thundris Windweaver
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
-	["{npc:3649} is in {area:442}. Take his quest before you hunt naga: the Kor Gem never drops without it."] = "",
+	["{npc:3649} is in {area:442}. Take his quest before you hunt naga: the Kor Gem never drops without it."] = "{npc:3649} está en {area:442}. Toma su misión antes de cazar nagas: la gema Kor nunca cae sin ella.",
 
 	-- Step 12: The north end of the Zoram Strand
 	-- {area:414} Zoram Strand
@@ -80,7 +80,7 @@ return {
 	-- {item:6995} Corrupted Kor Gem
 	["The {item:6995}"] = "La {item:6995}",
 	-- {area:2797} Blackfathom Deeps · {zone:1440} Ashenvale · {item:6995} Corrupted Kor Gem · {spell:122} Frost Nova
-	["The Blackfathom naga in the flooded passages around the {area:2797} entrance, on {zone:1440}'s north-west coast, drop the {item:6995}: Tide Priestesses (level 20-21), Oracles (21-22) and Sea Witches (23-24), one in two. You do not need to enter the instance. All are elite: grouping up is encouraged; players solo them one at a time, with difficulty. They heal themselves, run for help at low health, satyrs stand near some, and the Sea Witches cast {spell:122} up close. Some players report no drop while in a raid group."] = "",
+	["The Blackfathom naga in the flooded passages around the {area:2797} entrance, on {zone:1440}'s north-west coast, drop the {item:6995}: Tide Priestesses (level 20-21), Oracles (21-22) and Sea Witches (23-24), one in two. You do not need to enter the instance. All are elite: grouping up is encouraged; players solo them one at a time, with difficulty. They heal themselves, run for help at low health, satyrs stand near some, and the Sea Witches cast {spell:122} up close. Some players report no drop while in a raid group."] = "Los nagas de Brazanegra en los pasajes inundados alrededor de la entrada de {area:2797}, en la costa noroeste de {zone:1440}, sueltan {item:6995}: sacerdotisas de las mareas (nivel 20-21), oráculos (21-22) y brujas del mar (23-24), una de cada dos veces. No hace falta entrar a la instancia. Todos son élite: se recomienda agruparse; los jugadores los hacen solos de a uno, con dificultad. Se curan solos, huyen a pedir ayuda con poca salud, hay sátiros cerca de algunos, y las brujas del mar lanzan {spell:122} de cerca. Algunos jugadores dicen que no cae estando en un grupo de banda.",
 
 	-- Step 14: The Purified Kor Gem
 	-- {item:7083} Purified Kor Gem

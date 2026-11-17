@@ -30,17 +30,17 @@ return {
 
 	-- Step 4: Riding with Genn Fairweather
 	-- {skill:762} Riding · {npc:265756} Genn Fairweather
-	["{skill:762} with {npc:265756}"] = "",
+	["{skill:762} with {npc:265756}"] = "{skill:762} con {npc:265756}",
 	-- {skill:762} Riding · {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
-	["Skyborne learn {skill:762} from {npc:265756} himself for 100g, and it comes with a Galestrider. He stands at the {area:17684} in {area:16638}, near the skyboat docks."] = "",
+	["Skyborne learn {skill:762} from {npc:265756} himself for 100g, and it comes with a Galestrider. He stands at the {area:17684} in {area:16638}, near the skyboat docks."] = "Los Cielonato aprenden {skill:762} con el propio {npc:265756} por 100 de oro, y viene con un zancavientos. Está en {area:17684}, en {area:16638}, cerca de los muelles de los barcos celestes.",
 	-- {npc:265756} Genn Fairweather
-	["{npc:265756}, riding trainer"] = "",
+	["{npc:265756}, riding trainer"] = "{npc:265756}, instructor de equitación",
 
 	-- Step 5: Galestrider Riding for other races
 	-- {spell:1285849} Galestrider Riding
-	["{spell:1285849} for other races"] = "",
+	["{spell:1285849} for other races"] = "{spell:1285849} para otras razas",
 	-- {spell:1285849} Galestrider Riding · {skill:762} Riding · {npc:265756} Genn Fairweather
-	["Any race can buy Galestriders, but riding one also takes {spell:1285849}, which only the Skyborne get with {skill:762}. Other races can learn it too, but how is not known yet: in Classic another race's riding needed Exalted with its home faction, here the High Order (Alliance) or the Windshapers (Horde). Ask {npc:265756} before you buy."] = "",
+	["Any race can buy Galestriders, but riding one also takes {spell:1285849}, which only the Skyborne get with {skill:762}. Other races can learn it too, but how is not known yet: in Classic another race's riding needed Exalted with its home faction, here the High Order (Alliance) or the Windshapers (Horde). Ask {npc:265756} before you buy."] = "Cualquier raza puede comprar zancavientos, pero para montar uno también hace falta {spell:1285849}, que solo los Cielonato reciben con {skill:762}. Las demás razas también pueden aprenderla, pero todavía no se sabe cómo: en Classic la equitación de otra raza pedía Exaltado con su facción de origen, aquí la Alta Orden (Alianza) o los Formavientos (Horda). Pregúntale a {npc:265756} antes de comprar.",
 
 	-- Step 6: Genn Fairweather
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar

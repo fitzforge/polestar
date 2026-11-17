@@ -17,19 +17,19 @@ return {
 
 	-- Step 1: Into The Barrens
 	-- {zone:1413} The Barrens
-	["Into {zone:1413}"] = "",
+	["Into {zone:1413}"] = "Hacia {zone:1413}",
 
 	-- Step 2: Thalanaar flight master
 	-- {area:489} Thalanaar
-	["{area:489} flight master"] = "",
+	["{area:489} flight master"] = "Maestro de vuelo de {area:489}",
 
 	-- Step 3: Boat to Feathermoon Stronghold
 	-- {area:1116} Feathermoon Stronghold
-	["Boat to {area:1116}"] = "",
+	["Boat to {area:1116}"] = "Barco a {area:1116}",
 
 	-- Step 4: Feathermoon Stronghold
 	-- {area:1116} Feathermoon Stronghold · {area:1120} Sardor Isle · {area:1108} Forgotten Coast · {npc:7880} Ginro Hearthkindle
-	["{area:1116} stands on {area:1120}, off the {area:1108}: the boat from the coast's dock crosses to it. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{area:1116} stands on {area:1120}, off the {area:1108}: the boat from the coast's dock crosses to it. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{area:1116} está en {area:1120}, frente a {area:1108}: el barco del muelle de la costa cruza hasta allí. {npc:7880} está en el piso de arriba de su edificio: sube por adentro, la flecha no distingue los pisos.",
 	-- {npc:3936} Shandris Feathermoon
 	["{npc:3936}, beside him"] = "{npc:3936}, a su lado",
 	-- {npc:7877} Latronicus Moonspear
@@ -51,7 +51,7 @@ return {
 
 	-- Step 9: Boat to Forgotten Coast
 	-- {area:1108} Forgotten Coast
-	["Boat to {area:1108}"] = "",
+	["Boat to {area:1108}"] = "Barco a {area:1108}",
 
 	-- Step 10: Feralas
 	["The courier's boat"] = "El bote del mensajero",
@@ -74,20 +74,20 @@ return {
 	-- plural, as words: Hatecrest Serpent Guards = {npc:5333} Hatecrest Serpent Guard
 	["The {area:1121} is the island just south of {area:1120}: swim over. Hatecrest Serpent Guards and Sorceresses hold it; {npc:8136} (level 47) waits in the cave at its south end. Pull his guards first."] = "{area:1121} es la isla justo al sur de {area:1120}: cruza a nado. La ocupan Guardias serpiente y Hechiceras Crestafuria; {npc:8136} (nivel 47) espera en la cueva de su extremo sur. Atrae primero a sus guardias.",
 	-- {item:9248} Mysterious Relic
-	["{item:9248}; below ground"] = "",
+	["{item:9248}; below ground"] = "{item:9248}; bajo tierra",
 
 	-- Step 15: Feathermoon Stronghold
 	-- {npc:7877} Latronicus Moonspear · {npc:7878} Vestia Moonspear · {npc:7900} Angelas Moonbreeze · {npc:7880} Ginro Hearthkindle · {npc:7852} Pratt McGrubben
-	["Coming from the south: {npc:7877} and {npc:7878} first, then {npc:7900} beside {npc:7880}'s building, then the stairs. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:7852} is by the flight master, on the way out."] = "",
+	["Coming from the south: {npc:7877} and {npc:7878} first, then {npc:7900} beside {npc:7880}'s building, then the stairs. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:7852} is by the flight master, on the way out."] = "Viniendo desde el sur: primero {npc:7877} y {npc:7878}, luego {npc:7900} junto al edificio de {npc:7880}, luego la escalera. {npc:7880} está en el piso de arriba de su edificio: sube por adentro, la flecha no distingue los pisos. {npc:7852} está junto al maestro de vuelo, a la salida.",
 	-- {npc:7879} Quintis Jonespyre
-	["{npc:7879}, upstairs"] = "",
+	["{npc:7879}, upstairs"] = "{npc:7879}, en el piso de arriba",
 	-- {npc:7852} Pratt McGrubben
 	["{npc:7852}'s next order, Improved Quality, wants Rage Scar hides from yetis of 46-49: skip it."] = "El siguiente encargo de {npc:7852}, Calidad mejorada, pide pellejos de yetis Cicatriz de Rabia de nivel 46-49: sáltalo.",
 
 	-- Step 16: Fly to Thalanaar
 	-- {area:489} Thalanaar
-	["Fly to {area:489}"] = "",
-	["Feathermoon flight master"] = "",
+	["Fly to {area:489}"] = "Vuela a {area:489}",
+	["Feathermoon flight master"] = "Maestro de vuelo de Plumaluna",
 
 	-- Step 17: Back to the coast
 	["Back to the coast"] = "De vuelta a la costa",
@@ -117,7 +117,7 @@ return {
 	-- {item:11463} Undelivered Parcel
 	["{item:11463}, from the backpacks"] = "{item:11463}, de las mochilas",
 	-- {object:164954} Zukk'ash Pod
-	["{object:164954}, inside"] = "",
+	["{object:164954}, inside"] = "{object:164954}, dentro",
 
 	-- Step 23: Grind to 45
 	["Grind to 45"] = "Farmea hasta el 45",
@@ -134,7 +134,7 @@ return {
 
 	-- Step 25: Feathermoon Stronghold
 	-- {npc:7880} Ginro Hearthkindle
-	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:7880} está en el piso de arriba de su edificio: sube por adentro, la flecha no distingue los pisos.",
 
 	-- Step 26: Feathermoon Stronghold
 	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
@@ -150,7 +150,7 @@ return {
 	-- {zone:1441} Thousand Needles
 	["Ride north-east to the night elf outpost on the {zone:1441} border."] = "Cabalga hacia el noreste hasta el puesto de los elfos de la noche en la frontera de {zone:1441}.",
 	-- {npc:4048} Falfindel Waywarder · {area:489} Thalanaar
-	["{npc:4048} walks around {area:489}: look inside the circle on the map"] = "",
+	["{npc:4048} walks around {area:489}: look inside the circle on the map"] = "{npc:4048} recorre {area:489}: busca dentro del círculo del mapa",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Boat to the {area:1108} and ride east into {area:1105}. {npc:14637}'s quests on the coast need level 45."] = "Toma el barco a {area:1108} y cabalga hacia el este hasta {area:1105}. Las misiones de {npc:14637} en la costa requieren nivel 45.",

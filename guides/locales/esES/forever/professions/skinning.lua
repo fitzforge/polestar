@@ -10,7 +10,7 @@ return {
 	-- {skill:393} Skinning
 	["Learn {skill:393}"] = "Aprende {skill:393}",
 	-- {skill:393} Skinning · {item:7005} Skinning Knife · {item:11584} Cactus Apple Surprise · {item:247846} Pelt Collecting for Beginners · {item:277114} Apprentice's Skinning Satchel · {spell:1229517} Camp Chair
-	["Any {skill:393} trainer of your faction teaches Apprentice {skill:393} at any level (10c), and so does the Junior Skinning Trainer in each starting area; the arrow picks the nearest. Buy a {item:7005} from a trade goods or general vendor: keep it in your bags, you cannot skin without it. The first-hour quest of each starting area (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's {item:11584}, A Humble Task, Marla's Last Wish) offers {item:247846} as a reward: reading it gives 2 skill, up to 15. Trade goods vendors and the junior trainers sell the {item:277114}, a four-slot bag for leather and hides (25c). If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: {skill:393}: hand it in to the skinning trainer it names once you reach skill 20, for the {spell:1229517} recipe."] = "",
+	["Any {skill:393} trainer of your faction teaches Apprentice {skill:393} at any level (10c), and so does the Junior Skinning Trainer in each starting area; the arrow picks the nearest. Buy a {item:7005} from a trade goods or general vendor: keep it in your bags, you cannot skin without it. The first-hour quest of each starting area (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's {item:11584}, A Humble Task, Marla's Last Wish) offers {item:247846} as a reward: reading it gives 2 skill, up to 15. Trade goods vendors and the junior trainers sell the {item:277114}, a four-slot bag for leather and hides (25c). If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: {skill:393}: hand it in to the skinning trainer it names once you reach skill 20, for the {spell:1229517} recipe."] = "Cualquier instructor de {skill:393} de tu facción enseña Aprendiz de {skill:393} a cualquier nivel (10c), y también el instructor novato de desuello de cada zona inicial; la flecha elige el más cercano. Compra un {item:7005} a un mercader de artículos de comercio o general: guárdalo en tus bolsas, no puedes despellejar sin él. La misión de la primera hora de cada zona inicial (Roedores bribones, Entrega de correo del valle de Crestanevada, El protector del bosque, {item:11584} de Galgar, Una tarea humilde, El último deseo de Marla) ofrece {item:247846} como recompensa: leerlo da 2 puntos de habilidad, hasta 15. Los mercaderes de artículos de comercio y los instructores novatos venden {item:277114}, una bolsa de cuatro casillas para cuero y pellejos (25c). Si te sentaste junto a la hoguera de tu zona inicial para “Bendita naturaleza”, el guía de campamento de allí también ofrece “Campamento básico: {skill:393}”: entrégala al instructor de desuello que te indica cuando llegues a habilidad 20, a cambio de la receta {spell:1229517}.",
 
 	-- Step 2: Beasts 1-9: Elwynn Forest (1-50)
 	-- {zone:1429} Elwynn Forest
@@ -19,7 +19,7 @@ return {
 	-- plural, as words: Rough Wolf Pelts = {item:247877} Rough Wolf Pelt
 	["Kill and skin {npc:1922} (7), {npc:525} (4), Prowler (9), {npc:524} (7), {npc:113} (5), {npc:69} (2), {npc:822} (8), {npc:299} (1) along the loop until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. A quest here needs {skill:393}: Rough Wolf Pelts (level 8, {npc:6306}). Zone level 1-10. Expect about 60 beasts for these 49 points."] = "Mata y despelleja {npc:1922} (7), {npc:525} (4), Merodeador (9), {npc:524} (7), {npc:113} (5), {npc:69} (2), {npc:822} (8), {npc:299} (1) a lo largo del circuito hasta {skill:393} 50; despoja cada cadáver, luego despelléjalo, y despelleja las bestias de mayor nivel que permita tu habilidad. Una bestia de nivel L requiere habilidad (L-10)x10 hasta nivel 20 y Lx5 por encima. Una misión de aquí requiere {skill:393}: Pelambres de lobo toscas (nivel 8, {npc:6306}). Nivel de la zona 1-10. Cuenta con unas 60 bestias para estos 49 puntos.",
 	-- {npc:822} Young Forest Bear
-	["{npc:822}, Prowler"] = "",
+	["{npc:822}, Prowler"] = "{npc:822}, Merodeador",
 	-- {npc:822} Young Forest Bear
 	["Prowler, {npc:822}"] = "Merodeador, {npc:822}",
 
@@ -38,16 +38,16 @@ return {
 
 	-- Step 5: Beasts 1-10: Zephras Isle (1-50)
 	-- {zone:2521} Zephras Isle
-	["Beasts 1-10: {zone:2521} (1-50)"] = "",
+	["Beasts 1-10: {zone:2521} (1-50)"] = "Bestias 1-10: {zone:2521} (1-50)",
 	-- {npc:250928} Highlands Ursera · {npc:251284} Hippogryph Protector · {npc:251291} Hippogryph Youth · {npc:250873} Juvenile Vuldren · {npc:251707} Ornery Galestrider · {npc:250926} Scrawny Ursera · {npc:256092} Shadowgale Shriekling · {npc:253282} Shriekling Fledgling · {npc:250937} Ursera Scavenger · {npc:250874} Vuldren Alpha · {npc:254588} Windsong Crawler · {skill:393} Skinning
-	["Kill and skin Cloudrunner (6), Galestrider (5), {npc:250928} (7), {npc:251284} (6), {npc:251291} (6), {npc:250873} (1), {npc:251707} (8), Prideclaw (5), {npc:250926} (3), {npc:256092} (10), {npc:253282} (8), {npc:250937} (4), Vuldren (6), {npc:250874} (10), {npc:254588} (8) along the loop until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 1-15. Expect about 60 beasts for these 49 points."] = "",
+	["Kill and skin Cloudrunner (6), Galestrider (5), {npc:250928} (7), {npc:251284} (6), {npc:251291} (6), {npc:250873} (1), {npc:251707} (8), Prideclaw (5), {npc:250926} (3), {npc:256092} (10), {npc:253282} (8), {npc:250937} (4), Vuldren (6), {npc:250874} (10), {npc:254588} (8) along the loop until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 1-15. Expect about 60 beasts for these 49 points."] = "Mata y despelleja: Correnubes (6), Zancavientos (5), {npc:250928} (7), {npc:251284} (6), {npc:251291} (6), {npc:250873} (1), {npc:251707} (8), Leozarpa (5), {npc:250926} (3), {npc:256092} (10), {npc:253282} (8), {npc:250937} (4), Vuldren (6), {npc:250874} (10), {npc:254588} (8) a lo largo del circuito hasta {skill:393} 50; saquea cada cadáver, luego despelléjalo, y despelleja las bestias del nivel más alto que permita tu habilidad. Una bestia de nivel L requiere habilidad (L-10)x10 hasta el nivel 20 y Lx5 por encima. Nivel de la zona: 1-15. Cuenta con unas 60 bestias para estos 49 puntos.",
 	-- {npc:251291} Hippogryph Youth
 	["{npc:251291}, Prideclaw"] = "{npc:251291}, Garramanada",
-	["Prideclaw, Galestrider"] = "",
+	["Prideclaw, Galestrider"] = "Leozarpa, Zancavientos",
 	-- {npc:250928} Highlands Ursera
 	["Prideclaw, {npc:250928}"] = "Prideclaw, {npc:250928}",
 	["Galestrider, Cloudrunner"] = "Zancavendavales, Correnubes",
-	["Prideclaw, Vuldren"] = "",
+	["Prideclaw, Vuldren"] = "Leozarpa, Vuldren",
 	["Galestrider, Prideclaw"] = "",
 
 	-- Step 6: Beasts 1-9: Durotar (1-50)
@@ -80,7 +80,7 @@ return {
 	-- {skill:393} Skinning
 	["Journeyman {skill:393}"] = "{skill:393} de oficial",
 	-- {skill:393} Skinning · {spell:1229517} Camp Chair · {item:2318} Light Leather · {item:4470} Simple Wood
-	["Journeyman {skill:393} raises the cap to 150; it needs skill 50 and no character level, and costs 5s: train it as soon as you reach 50. The arrow picks the nearest {skill:393} trainer of your faction. {spell:1229517}, Forever's camping item for {skill:393}, is taught from skill 20 (1s, or free from Camping 101: {skill:393}): three {item:2318} and two {item:4470} each, it gives points until 25; placed beside a campfire it gives everyone at the camp a buff for an hour."] = "",
+	["Journeyman {skill:393} raises the cap to 150; it needs skill 50 and no character level, and costs 5s: train it as soon as you reach 50. The arrow picks the nearest {skill:393} trainer of your faction. {spell:1229517}, Forever's camping item for {skill:393}, is taught from skill 20 (1s, or free from Camping 101: {skill:393}): three {item:2318} and two {item:4470} each, it gives points until 25; placed beside a campfire it gives everyone at the camp a buff for an hour."] = "Oficial de {skill:393} sube el límite a 150; requiere habilidad 50 y ningún nivel de personaje, y cuesta 5s: apréndelo en cuanto llegues a 50. La flecha elige el instructor de {skill:393} más cercano de tu facción. {spell:1229517}, el objeto de campamento de Forever para {skill:393}, se enseña desde habilidad 20 (1s, o gratis con “Campamento básico: {skill:393}”): lleva tres {item:2318} y dos {item:4470} cada uno, da puntos hasta 25; colocado junto a una hoguera, da a todos en el campamento un beneficio durante una hora.",
 
 	-- Step 10: Beasts 10-15: Westfall (50-100)
 	-- {zone:1436} Westfall
@@ -88,7 +88,7 @@ return {
 	-- {npc:833} Coyote Packleader · {npc:454} Young Goretusk · {npc:547} Great Goretusk · {skill:393} Skinning
 	["Kill and skin Coyote (10), {npc:833} (11), {npc:454} (12), Goretusk (14), {npc:547} (15) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 120 beasts for these 50 points."] = "Mata y despelleja Coyote (10), {npc:833} (11), {npc:454} (12), Dentosangre (14), {npc:547} (15) a lo largo del circuito hasta {skill:393} 100; despoja cada cadáver, luego despelléjalo, y despelleja las bestias de mayor nivel que permita tu habilidad. Una bestia de nivel L requiere habilidad (L-10)x10 hasta nivel 20 y Lx5 por encima. Nivel de la zona 10-20. Calcula unas 120 bestias para estos 50 puntos.",
 	-- {npc:547} Great Goretusk
-	["Goretusk, {npc:547}"] = "",
+	["Goretusk, {npc:547}"] = "Dentosangre, {npc:547}",
 	-- {npc:454} Young Goretusk
 	["{npc:454}, Coyote"] = "{npc:454}, Coyote",
 	-- {npc:454} Young Goretusk
@@ -113,7 +113,7 @@ return {
 	-- {npc:2164} Rabid Thistle Bear
 	["{npc:2164}, Moonstalker"] = "{npc:2164}, Acechalunas",
 	-- {npc:2165} Grizzled Thistle Bear
-	["{npc:2165}, Moonstalker"] = "",
+	["{npc:2165}, Moonstalker"] = "{npc:2165}, Acechalunas",
 	-- {npc:2164} Rabid Thistle Bear
 	["Moonstalker, {npc:2164}"] = "Acechalunas, {npc:2164}",
 
@@ -129,9 +129,9 @@ return {
 	-- {npc:1778} Ferocious Grizzled Bear · {npc:1766} Mottled Worg · {npc:1797} Giant Grizzled Bear · {npc:1923} Bloodsnout Worg · {skill:393} Skinning
 	["Kill and skin Worg (10), {npc:1778} (11), {npc:1766} (11), {npc:1797} (12), {npc:1923} (16, needs 60) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 160 beasts for these 50 points."] = "Mata y despelleja Lupo (10), {npc:1778} (11), {npc:1766} (11), {npc:1797} (12), {npc:1923} (16, requiere 60) a lo largo del circuito hasta {skill:393} 100; despoja cada cadáver, luego despelléjalo, y despelleja las bestias de mayor nivel que permita tu habilidad. Una bestia de nivel L requiere habilidad (L-10)x10 hasta nivel 20 y Lx5 por encima. Nivel de la zona 10-20. Calcula unas 160 bestias para estos 50 puntos.",
 	-- {npc:1778} Ferocious Grizzled Bear
-	["{npc:1778}, Worg"] = "",
+	["{npc:1778}, Worg"] = "{npc:1778}, Lupo",
 	-- {npc:1766} Mottled Worg
-	["Worg, {npc:1766}"] = "",
+	["Worg, {npc:1766}"] = "Huargo, {npc:1766}",
 	-- {npc:1766} Mottled Worg
 	["{npc:1766}, Worg"] = "{npc:1766}, Lupo",
 
@@ -169,22 +169,22 @@ return {
 
 	-- Step 21: Beasts 19-29: Ashenvale (125-150)
 	-- {zone:1440} Ashenvale
-	["Beasts 19-29: {zone:1440} (125-150)"] = "",
+	["Beasts 19-29: {zone:1440} (125-150)"] = "Bestias 19-29: {zone:1440} (125-150)",
 	-- {npc:3823} Ghostpaw Runner · {npc:3809} Ashenvale Bear · {npc:3817} Shadowhorn Stag · {npc:3810} Elder Ashenvale Bear · {npc:3818} Elder Shadowhorn Stag · {npc:3811} Giant Ashenvale Bear · {skill:393} Skinning
 	["Kill and skin {npc:3823} (19), {npc:3809} (21), {npc:3817} (21), {npc:3810} (25), {npc:3818} (26, needs 130), {npc:3811} (29, needs 145) along the loop until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 40 beasts for these 25 points."] = "",
 
 	-- Step 24: Beasts 21-33: Alterac Mountains (150-175)
 	-- {zone:1416} Alterac Mountains
-	["Beasts 21-33: {zone:1416} (150-175)"] = "",
+	["Beasts 21-33: {zone:1416} (150-175)"] = "Bestias 21-33: {zone:1416} (150-175)",
 	-- {npc:2351} Gray Bear · {npc:2356} Elder Gray Bear · {npc:2248} Cave Yeti · {npc:2249} Ferocious Yeti · {npc:2406} Mountain Lion · {npc:2250} Mountain Yeti · {npc:2251} Giant Yeti · {npc:2407} Hulking Mountain Lion · {skill:393} Skinning
-	["Kill and skin {npc:2351} (21), {npc:2356} (25), Snapjaw (29), {npc:2248} (30), {npc:2249} (31, needs 155), {npc:2406} (32, needs 160), {npc:2250} (32, needs 160), {npc:2251} (33, needs 165), {npc:2407} (33, needs 165) along the loop until {skill:393} 175; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 30-40. Expect about 40 beasts for these 25 points."] = "",
-	["Snapjaw"] = "",
+	["Kill and skin {npc:2351} (21), {npc:2356} (25), Snapjaw (29), {npc:2248} (30), {npc:2249} (31, needs 155), {npc:2406} (32, needs 160), {npc:2250} (32, needs 160), {npc:2251} (33, needs 165), {npc:2407} (33, needs 165) along the loop until {skill:393} 175; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 30-40. Expect about 40 beasts for these 25 points."] = "Mata y despelleja: {npc:2351} (21), {npc:2356} (25), Quijaforte (29), {npc:2248} (30), {npc:2249} (31, requiere 155), {npc:2406} (32, requiere 160), {npc:2250} (32, requiere 160), {npc:2251} (33, requiere 165), {npc:2407} (33, requiere 165) a lo largo del circuito hasta {skill:393} 175; saquea cada cadáver, luego despelléjalo, y despelleja las bestias del nivel más alto que permita tu habilidad. Una bestia de nivel L requiere habilidad (L-10)x10 hasta el nivel 20 y Lx5 por encima. Nivel de la zona: 30-40. Cuenta con unas 40 bestias para estos 25 puntos.",
+	["Snapjaw"] = "Quijaforte",
 	-- {npc:2251} Giant Yeti
-	["Snapjaw, {npc:2251}"] = "",
+	["Snapjaw, {npc:2251}"] = "Quijaforte, {npc:2251}",
 	-- {npc:2407} Hulking Mountain Lion
-	["Snapjaw, {npc:2407}"] = "",
+	["Snapjaw, {npc:2407}"] = "Quijaforte, {npc:2407}",
 	-- {npc:2406} Mountain Lion
-	["Snapjaw, {npc:2406}"] = "",
+	["Snapjaw, {npc:2406}"] = "Quijaforte, {npc:2406}",
 
 	-- Step 25: Beasts 30-39: Stranglethorn Vale (175-200)
 	-- {zone:1434} Stranglethorn Vale
@@ -194,9 +194,9 @@ return {
 	-- {npc:682} Stranglethorn Tiger
 	["Panther, {npc:682}"] = "Pantera, {npc:682}",
 	-- {npc:684} Shadowmaw Panther
-	["{npc:684}, Panther"] = "",
+	["{npc:684}, Panther"] = "{npc:684}, Pantera",
 	-- {npc:682} Stranglethorn Tiger
-	["{npc:682}, Panther"] = "",
+	["{npc:682}, Panther"] = "{npc:682}, Pantera",
 
 	-- Step 26: Artisan Skinning
 	-- {skill:393} Skinning
@@ -206,15 +206,15 @@ return {
 
 	-- Step 27: Beasts 35-41: Swamp of Sorrows (200-225)
 	-- {zone:1435} Swamp of Sorrows
-	["Beasts 35-41: {zone:1435} (200-225)"] = "",
+	["Beasts 35-41: {zone:1435} (200-225)"] = "Bestias 35-41: {zone:1435} (200-225)",
 	-- {npc:1084} Young Sawtooth Crocolisk · {npc:1082} Sawtooth Crocolisk · {npc:768} Shadow Panther · {npc:1087} Sawtooth Snapper · {skill:393} Skinning
-	["Kill and skin {npc:1084} (35), {npc:1082} (38), {npc:768} (39), {npc:1087} (41, needs 205) along the loop until {skill:393} 225; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 35-45. Expect about 30 beasts for these 25 points."] = "",
+	["Kill and skin {npc:1084} (35), {npc:1082} (38), {npc:768} (39), {npc:1087} (41, needs 205) along the loop until {skill:393} 225; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 35-45. Expect about 30 beasts for these 25 points."] = "Mata y despelleja: {npc:1084} (35), {npc:1082} (38), {npc:768} (39), {npc:1087} (41, requiere 205) a lo largo del circuito hasta {skill:393} 225; saquea cada cadáver, luego despelléjalo, y despelleja las bestias del nivel más alto que permita tu habilidad. Una bestia de nivel L requiere habilidad (L-10)x10 hasta el nivel 20 y Lx5 por encima. Nivel de la zona: 35-45. Cuenta con unos 30 bestias para estos 25 puntos.",
 
 	-- Step 28: Beasts 45-48: Azshara (225-250)
 	-- {zone:1447} Azshara
 	["Beasts 45-48: {zone:1447} (225-250)"] = "Bestias 45-48: {zone:1447} (225-250)",
 	-- {npc:8759} Mosshoof Runner · {npc:6375} Thunderhead Hippogryph · {npc:6377} Thunderhead Stagwing · {skill:393} Skinning
-	["Kill and skin {npc:8759} (45), {npc:6375} (46, needs 230), {npc:6377} (48, needs 240) along the loop until {skill:393} 250; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 45-55. Expect about 30 beasts for these 25 points."] = "",
+	["Kill and skin {npc:8759} (45), {npc:6375} (46, needs 230), {npc:6377} (48, needs 240) along the loop until {skill:393} 250; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 45-55. Expect about 30 beasts for these 25 points."] = "Mata y despelleja: {npc:8759} (45), {npc:6375} (46, requiere 230), {npc:6377} (48, requiere 240) a lo largo del circuito hasta {skill:393} 250; saquea cada cadáver, luego despelléjalo, y despelleja las bestias del nivel más alto que permita tu habilidad. Una bestia de nivel L requiere habilidad (L-10)x10 hasta el nivel 20 y Lx5 por encima. Nivel de la zona: 45-55. Cuenta con unas 30 bestias para estos 25 puntos.",
 
 	-- Step 29: Beasts 48-54: Un'Goro Crater (250-275)
 	-- {zone:1449} Un'Goro Crater
@@ -230,9 +230,9 @@ return {
 
 	-- Step 30: Beasts 51-55: Western Plaguelands (275-300)
 	-- {zone:1422} Western Plaguelands
-	["Beasts 51-55: {zone:1422} (275-300)"] = "",
+	["Beasts 51-55: {zone:1422} (275-300)"] = "Bestias 51-55: {zone:1422} (275-300)",
 	-- {npc:1815} Diseased Black Bear · {npc:1817} Diseased Wolf · {npc:1816} Diseased Grizzly · {skill:393} Skinning
-	["Kill and skin {npc:1815} (51), {npc:1817} (53), {npc:1816} (55) along the loop until {skill:393} 300; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 51-58. Expect about 30 beasts for these 25 points."] = "",
+	["Kill and skin {npc:1815} (51), {npc:1817} (53), {npc:1816} (55) along the loop until {skill:393} 300; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 51-58. Expect about 30 beasts for these 25 points."] = "Mata y despelleja: {npc:1815} (51), {npc:1817} (53), {npc:1816} (55) a lo largo del circuito hasta {skill:393} 300; saquea cada cadáver, luego despelléjalo, y despelleja las bestias del nivel más alto que permita tu habilidad. Una bestia de nivel L requiere habilidad (L-10)x10 hasta el nivel 20 y Lx5 por encima. Nivel de la zona: 51-58. Cuenta con unos 30 bestias para estos 25 puntos.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:393} trainer of your faction teaches Apprentice {skill:393} (character level 5); the arrow picks the nearest. Buy a {item:7005} from a trade goods or general vendor: keep it in your bags, you cannot skin without it."] = "Cualquier instructor de {skill:393} de tu facción enseña {skill:393} de aprendiz (nivel de personaje 5); la flecha elige el más cercano. Compra un {item:7005} a un mercader de objetos comerciables o de víveres: guárdalo en las bolsas, sin él no puedes despellejar.",

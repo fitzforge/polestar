@@ -10,7 +10,7 @@ return {
 	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {npc:4454} Fizzle Brassbolts
 	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, Zamek by the goblin camp."] = "{area:2240} está en {area:439}, al sureste de {zone:1441}: {npc:4454} está en el campamento de los gnomos junto a la pista, y Zamek, junto al campamento goblin.",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
-	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "",
+	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "{npc:4454}: {quest:1137}, de parte de Martek en {zone:1418}",
 
 	-- Step 4: Gadgetzan
 	-- {area:439} Shimmering Flats · {zone:1446} Tanaris · {area:976} Gadgetzan
@@ -40,7 +40,7 @@ return {
 	-- {npc:7847} Caliph Scorpidsting · {area:976} Gadgetzan
 	["The same poster: {npc:7847} comes much later, after {area:976}"] = "El mismo cartel: {npc:7847} llega mucho más tarde, después de {area:976}",
 	-- {npc:7882} Security Chief Bilgewhizzle
-	["{npc:7882}, inside"] = "",
+	["{npc:7882}, inside"] = "{npc:7882}, dentro",
 	-- {npc:7882} Security Chief Bilgewhizzle · {quest:97530} Dunemaul Dues
 	["{npc:7882}: {quest:97530}, the bangles come from the ogres on your way south"] = "{npc:7882}: {quest:97530}, los brazaletes los sueltan los ogros de camino al sur",
 	-- {npc:7881} Stoley
@@ -48,7 +48,7 @@ return {
 
 	-- Step 7: Noonshade Ruins: kill these as you meet them
 	-- {area:1937} Noonshade Ruins
-	["{area:1937}: kill these as you meet them"] = "",
+	["{area:1937}: kill these as you meet them"] = "{area:1937}: mátalos según te los encuentres",
 	-- {area:976} Gadgetzan
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["Ride back west toward {area:976}. The Wastewander bandits and thieves hold the dunes on the way; any of them can carry a water pouch.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "Vuelve al oeste hacia {area:976}. Los Bandidos y Ladrones Deambuladores ocupan las dunas del camino; cualquiera puede llevar un odre de agua.\nCuidado: los Pícaros Vagayermo (nivel 43-44) se mueven en sigilo, así que pueden acercarse sin que los veas.",
@@ -60,20 +60,20 @@ return {
 
 	-- Step 10: Lost Rigger Cove: kill these as you meet them
 	-- {area:1336} Lost Rigger Cove
-	["{area:1336}: kill these as you meet them"] = "",
+	["{area:1336}: kill these as you meet them"] = "{area:1336}: mátalos según te los encuentres",
 	-- {npc:7883} Andre Firebeard · {npc:7881} Stoley
 	["Follow the coast south to the pirate cove. Southsea pirates crowd the beach and the boats: work along the edge and pull one at a time. {npc:7883} stands on the far side; {npc:7881}'s stolen cargo lies in the camp.\nCareful: Two or three pirates stand with {npc:7883}, and many more pirates from the town join the fight once it starts."] = "Sigue la costa hacia el sur hasta la cala pirata. Los piratas del Mar del Sur abarrotan la playa y los barcos: avanza por el borde y atráelos de uno en uno. {npc:7883} está en el lado opuesto; la carga robada de {npc:7881} está en el campamento.\nCuidado: dos o tres piratas acompañan a {npc:7883}, y muchos más piratas del pueblo se unen a la pelea en cuanto empieza.",
 	-- {quest:2873} Stoley's Shipment
-	["{quest:2873}; upstairs"] = "",
+	["{quest:2873}; upstairs"] = "{quest:2873}; arriba",
 
 	-- Step 11: Steamwheedle Port
 	-- {npc:7881} Stoley
-	["{npc:7881}, inside"] = "",
+	["{npc:7881}, inside"] = "{npc:7881}, dentro",
 	-- {area:35} Booty Bay · {zone:1425} Hinterlands
-	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "",
+	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "MacKinley «Lobo de Mar» en {area:35}: la ruta te lleva allí al final de la guía de {zone:1425}, guárdala",
 
 	-- Step 12: Noonshade Ruins
-	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "",
+	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "Cuidado: Los ladrones lanzan Desarmar. Los pícaros se mantienen ocultos con Sigilo. Los asesinos usan Ejecutar cuando tu salud está al 20% o menos.",
 
 	-- Step 15: The pool by Sandsorrow Watch
 	-- {area:979} Sandsorrow Watch
@@ -141,7 +141,7 @@ return {
 	-- Step 26: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
-	["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "",
+	["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "Cabalga al sureste hasta {area:985}. {npc:7847} está en el centro del campamento Vagayermos del sur: despeja primero a su alrededor.\nCuidado: Dos pícaros Vagayermos en sigilo lo acompañan adondequiera que vaya. En su campamento de aparición, dos magos oscuros y sus esbirros están lo bastante cerca para sumarse a la pelea. Junto a las torres puedes pelear con él sin ellos.",
 
 	-- Step 28: Fly to Auberdine
 	-- {area:442} Auberdine
@@ -192,9 +192,9 @@ return {
 
 	-- Step 42: Fly to Aerie Peak
 	-- {area:348} Aerie Peak
-	["Fly to {area:348}"] = "",
+	["Fly to {area:348}"] = "Vuela a {area:348}",
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "Maestro de vuelo de {area:150}",
 
 	-- Step 43: Fly to Southshore
 	-- {area:271} Southshore
@@ -206,9 +206,9 @@ return {
 
 	-- Step 45: Aerie Peak
 	-- {npc:5636} Gryphon Master Talonaxe
-	["{npc:5636}, beside the flight master"] = "",
+	["{npc:5636}, beside the flight master"] = "{npc:5636}, junto al maestro de vuelo",
 	-- {npc:7884} Fraggar Thundermantle
-	["{npc:7884}, inside"] = "",
+	["{npc:7884}, inside"] = "{npc:7884}, dentro",
 	-- {npc:5636} Gryphon Master Talonaxe · {quest:86620} Fledgling Rescue · {area:348} Aerie Peak
 	["{npc:5636}: {quest:86620}, the eggs in the hills just east of {area:348}"] = "{npc:5636}: {quest:86620}, los huevos en las colinas justo al este de {area:348}",
 	-- {npc:270263} Farseer Maret Firetend · {quest:86616} Repurposed Totems · {area:355} Altar of Zul

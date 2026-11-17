@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Into Eastern Plaguelands
 	-- {zone:1423} Eastern Plaguelands
-	["Into {zone:1423}"] = "",
+	["Into {zone:1423}"] = "Hacia {zone:1423}",
 
 	-- Step 2: Tirion Fordring
 	-- {zone:1423} Eastern Plaguelands · {npc:1855} Tirion Fordring · {area:2619} Thondroril River
@@ -25,7 +25,7 @@ return {
 	-- Step 6: Pamela's Doll
 	-- {npc:10926} Pamela Redpath
 	["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "La cabeza de la muñeca y sus dos costados están en las casas alrededor de {npc:10926}; únelos desde tus bolsas.",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 7: Pamela Redpath
 	-- {npc:11063} Carlin Redpath · {area:2268} Light's Hope Chapel
@@ -53,7 +53,7 @@ return {
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "Vuela a {area:272}",
 	-- {area:2268} Light's Hope Chapel
-	["{area:2268} flight master"] = "",
+	["{area:2268} flight master"] = "Maestro de vuelo de {area:2268}",
 
 	-- Step 12: To Sorrow Hill
 	-- {area:197} Sorrow Hill
@@ -81,7 +81,7 @@ return {
 	-- {area:272} Tarren Mill · {area:2268} Light's Hope Chapel
 	["Ride back south to {area:272} and fly to {area:2268}."] = "Vuelve al sur hasta {area:272} y vuela a {area:2268}.",
 	-- {area:272} Tarren Mill
-	["{area:272} flight master"] = "",
+	["{area:272} flight master"] = "Maestro de vuelo de {area:272}",
 
 	-- Step 18: Light's Hope Chapel
 	-- {quest:5168} Heroes of Darrowshire
@@ -89,7 +89,7 @@ return {
 
 	-- Step 19: Eastern Plaguelands: kill these as you meet them
 	-- {zone:1423} Eastern Plaguelands
-	["{zone:1423}: kill these as you meet them"] = "",
+	["{zone:1423}: kill these as you meet them"] = "{zone:1423}: mata a estos según te los encuentres",
 	-- plural, as words: Plaguehounds = {npc:8597} Plaguehound · Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub
 	["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground. Careful: the biggest Plaguehounds are 56, pull them one at a time.\nThe shattered sword lies on the ground north-west of the lake."] = "Los canes de peste y sus cachorros recorren las orillas del lago al suroeste de la capilla; los murcipestes y las larvas carroñeras comparten el terreno. Cuidado: los canes de peste más grandes son de nivel 56, atráelos de uno en uno.\nLa espada rota está en el suelo al noroeste del lago.",
 
@@ -133,7 +133,7 @@ return {
 
 	-- Step 26: Plaguewood: kill these as you meet them
 	-- {area:2277} Plaguewood
-	["{area:2277}: kill these as you meet them"] = "",
+	["{area:2277}: kill these as you meet them"] = "{area:2277}: mátalos según te los encuentres",
 	-- {area:2272} Northdale · {area:2271} Eastwall Tower · {area:2273} Zul'Mashar
 	-- plural, as words: Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound · Noxious Plaguebats = {npc:8601} Noxious Plaguebat · Monstrous Plaguebats = {npc:8602} Monstrous Plaguebat
 	["Frenzied Plaguehounds share the fields around {area:2272} and {area:2271}, south of {area:2273}; Noxious Plaguebats fly over the fields of the north, and Monstrous Plaguebats around {area:2272} and {area:2271}. Careful: the hounds are 57-58 and the biggest Monstrous Plaguebats 58: pull them one at a time."] = "Los canes de peste demenciados recorren los campos alrededor de {area:2272} y {area:2271}, al sur de {area:2273}; los murcipestes nocivos sobrevuelan los campos del norte, y los murcipestes monstruosos, alrededor de {area:2272} y {area:2271}. Cuidado: los canes son de nivel 57-58 y los murcipestes monstruosos más grandes de 58: atráelos de uno en uno.",
@@ -162,7 +162,7 @@ return {
 
 	-- Step 32: Fly to Bloodvenom Post
 	-- {area:1997} Bloodvenom Post
-	["Fly to {area:1997}"] = "",
+	["Fly to {area:1997}"] = "Vuela a {area:1997}",
 	-- {zone:1454} Orgrimmar · {zone:1447} Azshara
 	["Hearth to {zone:1454}: the Hearthstone is still bound there from the {zone:1447} guide (Mages teleport). Then the flight master."] = "Usa la piedra de hogar para ir a {zone:1454}: sigue vinculada allí desde la guía de {zone:1447} (los magos se teletransportan). Luego, el maestro de vuelo.",
 	-- {zone:1454} Orgrimmar
@@ -176,13 +176,13 @@ return {
 
 	-- Step 34: Thunder Bluff
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
-	["{npc:3033} (Druids) trains on {area:1639}, {npc:246344} (Paladins) in the city too."] = "",
+	["{npc:3033} (Druids) trains on {area:1639}, {npc:246344} (Paladins) in the city too."] = "{npc:3033} (druidas) entrena en {area:1639}, y {npc:246344} (paladines) también en la ciudad.",
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} on {area:1639}; {npc:246344}"] = "{npc:3033} en {area:1639}; {npc:246344}",
 
 	-- Step 35: Fly to Bloodvenom Post
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
 
 	-- Step 37: Deadwood Cauldron
 	-- {area:1762} Felpaw Village · {area:1769} Timbermaw Hold
@@ -192,7 +192,7 @@ return {
 	-- {quest:8471} Winterfall Ritual Totem · {npc:11558} Kernda · {zone:1448} Felwood · {area:1769} Timbermaw Hold
 	["Only if a {quest:8471} dropped for you: {npc:11558} waits at the {zone:1448} entrance of {area:1769}, and speaks to you only at Neutral with the Timbermaw."] = "Solo si te ha caído {quest:8471}: {npc:11558} espera en la entrada de {area:1769} del lado de {zone:1448}, y solo te habla si eres Neutral con el Bastión de los Fauces de Madera.",
 	-- {npc:11558} Kernda
-	["{npc:11558} walks around here: look inside the circle on the map"] = "",
+	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558} da vueltas por aquí: búscala dentro del círculo del mapa",
 
 	-- Step 40: Rabine Saturna
 	-- {area:1769} Timbermaw Hold · {zone:1450} Moonglade · {npc:11801} Rabine Saturna · {area:2361} Nighthaven
@@ -229,7 +229,7 @@ return {
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "Vuela a {area:976}",
 	-- {area:2255} Everlook
-	["{area:2255} flight master"] = "",
+	["{area:2255} flight master"] = "Maestro de vuelo de {area:2255}",
 
 	-- Step 48: Gaeriyan
 	-- {item:11243} Videre Elixir · {area:976} Gadgetzan · {npc:9299} Gaeriyan
@@ -255,15 +255,15 @@ return {
 
 	-- Step 54: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
-	["Fly to {area:541}"] = "",
+	["Fly to {area:541}"] = "Vuela a {area:541}",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "Maestro de vuelo de {area:976}",
 
 	-- Step 55: Marshal's Refuge
 	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock · {npc:8737} Linken
-	["The flight lands at {area:541}: {npc:9997} stands beside the flight master, and {npc:8737} by the cave a few steps away. {npc:9997}'s work is in Un'Goro on the next guide's way back north."] = "",
+	["The flight lands at {area:541}: {npc:9997} stands beside the flight master, and {npc:8737} by the cave a few steps away. {npc:9997}'s work is in Un'Goro on the next guide's way back north."] = "El vuelo aterriza en {area:541}: {npc:9997} está junto al maestro de vuelo, y {npc:8737} junto a la cueva, a pocos pasos. El trabajo de {npc:9997} está en Un'Goro, en el camino de vuelta al norte de la siguiente guía.",
 	-- {quest:3941} A Gnome's Assistance · {npc:9117} J.D. Collie · {area:541} Marshal's Refuge
-	["{quest:3941} goes to {npc:9117} in the cave here, on the next guide's return to {area:541}: keep it."] = "",
+	["{quest:3941} goes to {npc:9117} in the cave here, on the next guide's return to {area:541}: keep it."] = "{quest:3941} va para {npc:9117}, en la cueva de aquí, cuando la siguiente guía vuelva a {area:541}: guárdala.",
 
 	-- Step 56: Layo Starstrike
 	-- {area:3077} Valor's Rest · {zone:1451} Silithus · {npc:13220} Layo Starstrike
@@ -271,7 +271,7 @@ return {
 
 	-- Step 57: The Spirits of Southwind
 	-- {area:2738} Southwind Village · {object:179565} Dusty Reliquary · {quest:1123} Rabine Saturna
-	["Ride south-west to the ruins of {area:2738}. The {object:179565} for {quest:1123} sits inside one of the ruined houses."] = "",
+	["Ride south-west to the ruins of {area:2738}. The {object:179565} for {quest:1123} sits inside one of the ruined houses."] = "Ve al suroeste hasta las ruinas de {area:2738}. {object:179565} para {quest:1123} está dentro de una de las casas en ruinas.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A torn scroll lies at the entrance of the {area:2261}, the crypt south of the {area:2260}."] = "Hay un pergamino roto en la entrada de {area:2261}, la cripta al sur de {area:2260}.",
