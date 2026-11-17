@@ -142,8 +142,18 @@ fn cut_cluster(g: &Geo, k: u32, before: &Cluster, cut: &Cut, downs: &mut Vec<(us
 			}
 		}
 	}
-	let mut after = Cluster::decode(c, g.cs, g.zstep, &before.grid_field(&flags), &before.height, before.floor_field()?.as_deref(), Some(&before.class_field()), before.area_field()?.as_deref(), before.arc_field().as_deref())
-		.map_err(|e| format!("cuts: cluster {k}: {e}"))?;
+	let mut after = Cluster::decode(
+		c,
+		g.cs,
+		g.zstep,
+		&before.grid_field(&flags),
+		&before.height,
+		before.floor_field()?.as_deref(),
+		Some(&before.class_field()),
+		before.area_field()?.as_deref(),
+		before.arc_field().as_deref(),
+	)
+	.map_err(|e| format!("cuts: cluster {k}: {e}"))?;
 	// a floor's steps (its mask: to the neighbour's surface nearest its height, and back from a base cell)
 	for f in n..after.t() {
 		let lc = after.cell(f) as i64;
@@ -209,7 +219,8 @@ fn apply_list(g: &Geo, outs: &mut [(u32, Out)], list: &[Cut], log: &(dyn Fn(&str
 			let Some(&i) = at.get(&k) else { continue };
 			let o = &outs[i].1;
 			let (Some(grid), Some(height)) = (o.grid.as_deref(), o.height.as_deref()) else { continue };
-			let before = Cluster::decode(g.c, g.cs, g.zstep, grid, height, o.floor.as_deref(), o.class.as_deref(), o.area.as_deref(), o.arc.as_deref()).map_err(|e| format!("cuts: cluster {k}: {e}"))?;
+			let before =
+				Cluster::decode(g.c, g.cs, g.zstep, grid, height, o.floor.as_deref(), o.class.as_deref(), o.area.as_deref(), o.arc.as_deref()).map_err(|e| format!("cuts: cluster {k}: {e}"))?;
 			let mut downs = Vec::new();
 			let (mut after, gone) = cut_cluster(g, k, &before, cut, &mut downs)?;
 			if gone == 0 {
