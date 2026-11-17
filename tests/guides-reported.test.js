@@ -2725,6 +2725,25 @@ test('forever/horde/50-60/05-eastern-plaguelands.guide: Gaeriyan waits for Meet 
 	const when = st.when || [];
 	assert.ok(when.some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(3912)), 'only with Meet at the Grave in the log');
 });
+// The Archivist (5251) has two lines, both in Stratholme: kill Archivist Galford and burn the Scarlet Archive
+// (players' recordings list "monster x1 slain; object x1 Archive Burned" at the accept). The guide worked only the
+// kill, so its window went from Galford to the hand-in with the archive still to burn (lint `handin-unworked`).
+test('forever/reputation/argent-dawn.guide: The Archivist burns the Scarlet Archive with Galford, before the hand-in', { skip }, () => {
+	const list = goals('forever/reputation/argent-dawn.guide');
+	const galford = at(list, 'kill 10811 (5251.1)', (g) => g.t === 'kill' && g.quest === 5251 && g.npc === 10811);
+	const archive = at(list, 'interact 176245 (5251.2)', (g) => g.t === 'interact' && g.quest === 5251 && g.object === 176245);
+	assert.equal(list[archive].s, list[galford].s, 'in the Stratholme step');
+	assert.ok(archive < at(list, 'turnin 5251', is('turnin', 5251)), 'before the hand-in');
+});
+// Partially Digested Collar (93568) is started by the collar and counts the collar as its objective: the accept
+// leaves it in the bags (players' recordings: 10 people, "item x1 Partially Digested Collar" at the accept, handed
+// in to Liranne). So the Liranne step may wait on the collar and hold the accept and the hand-in together; the
+// lint's gate-consumed check reads the objective and lets it be.
+test('forever/40-50/shendralas.guide: Liranne\'s step keeps the collar, the objective of the quest it starts, through the hand-in', { skip }, () => {
+	const st = compiled('forever/40-50/shendralas.guide').steps.find((s) => s.goals.some(is('accept', 93568)));
+	assert.ok(data.quests[93568].objectives.some((o) => o.type === 'item' && o.id === 259461), 'the collar is the quest\'s objective');
+	assert.ok(st.goals.findIndex(is('accept', 93568)) < st.goals.findIndex(is('turnin', 93568)), 'accept, then the hand-in, in one step');
+});
 // A step shown only while the bags hold an item (`when has I`) stops applying the moment the item is used up, so
 // nothing may follow the goal that uses it up (a `use`, an accept the item starts, a hand-in that takes it) but what
 // that goal hands over (a collect of its reward): the rest of the step would be passed half done.

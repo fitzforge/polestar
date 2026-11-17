@@ -49,6 +49,7 @@ mod hand_spots;
 mod lint_flights;
 mod lint_format;
 mod lint_goto;
+mod lint_play;
 mod lint_timed;
 mod pack_manifest;
 mod pack_memory;

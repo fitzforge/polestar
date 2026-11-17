@@ -329,6 +329,41 @@ version throughout.
    test that pins it (`tests/reported-gate.test.js` checks every test named
    there exists).
 
+   Then the pin coverage guard: every issue closed as completed has a test
+   that names it (in `tests/reported-gate.json`, or a test mentioning `#N`),
+   and every route, guide and place record still names a quest some guide
+   has. The gaps known when the guard came in are listed with why in
+   `tests/pin-coverage.json`; anything else fails:
+
+   ```sh
+   node tools/pin-coverage.js      # reads the closed issues with gh
+   ```
+
+   A new unpinned fix gets its test (or, when nothing can be checked, an
+   entry saying why); a listed gap that is closed now leaves the list
+   (`node tools/pin-coverage.js --offline --prune`, in the pull request
+   that closes it). `tests/pin-coverage.test.js` checks the list in the
+   suite: no record matching nothing beyond it, no entry a test names.
+
+   Then the imperfect players: the guides played by players who skip a
+   step, lose a quest item before its hand-in, did a quest before the guide
+   offers it, update mid-guide from the last release (its save opened on
+   the new guides through `Core/LegacySteps.lua`), or start the route at a
+   guide with nothing from the guides before it. None may be stuck: held on
+   a step they can never complete. Give `--from` the last release's guides:
+
+   ```sh
+   git archive v<last release> guides | tar -x -C <dir>
+   node tools/polestar.js playtest --persona all --from <dir>/guides
+   ```
+
+   A stuck play names the guide, the persona and what it did ("skips step
+   89", "loses Thunder Applejack after getting it"). Fix the step (a `when
+   has <item>` gate, a goal that gets the item again, the LegacySteps
+   regeneration for an update), never the persona. `forge guide lint`
+   already refuses the patterns it can see in the lines (the play checks in
+   GUIDE_FORMAT.md's "Validation"); this catches the ones only play shows.
+
    Then the levels guard: every leveling guide's `levels` header says the
    levels the route brings a player there (per faction where a guide is
    shared). `data/route-levels.json` holds each guide's arrival and exit
