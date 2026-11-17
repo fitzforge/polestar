@@ -17,6 +17,8 @@ mod automation_spoken;
 #[path = "bag-slots.rs"]
 mod bag_slots;
 mod bagsmith;
+#[path = "class-guide-level-back.rs"]
+mod class_guide_level_back;
 #[path = "class-quests.rs"]
 mod class_quests;
 #[path = "class-skip.rs"]
