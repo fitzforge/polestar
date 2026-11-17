@@ -36781,6 +36781,27 @@
 			}
 		},
 		"ruRU": {
+			"npc:235903": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Ekkal"
+			},
+			"npc:255247": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Swarming Imp"
+			},
+			"npc:267097": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Maerion Thaelemaches"
+			},
 			"encounter:3315": {
 				"reason": "no-source",
 				"scenes": [
@@ -37976,6 +37997,20 @@
 			}
 		},
 		"zhCN": {
+			"npc:235903": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Ekkal"
+			},
+			"npc:267097": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Maerion Thaelemaches"
+			},
 			"encounter:3315": {
 				"reason": "no-source",
 				"scenes": [

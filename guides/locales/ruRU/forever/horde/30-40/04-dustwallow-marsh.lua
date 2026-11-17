@@ -186,7 +186,7 @@ return {
 	-- {area:2657} Valley of Bones
 	["The {area:2657}"] = "{area:2657}",
 	-- {area:2657} Valley of Bones · {zone:1443} Desolace · {item:15848} Crate of Ghost Magnets
-	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magram Necrokhans = {npc:253274} Magram Necrokhan
+	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre · Magram Necrokhans = {npc:253274} Magram Necrokhan
 	["South-east of the coven, the bone fields of the {area:2657}, where Undead Ravagers roam, at {zone:1443}'s southern edge: keep south of the Magram's village on the way. Use the {item:15848} at the arrow to draw the Magrami Spectres (38-39): they come in numbers, so fight them with your back to the valley's edge. They drop the ghost-o-plasm.\nCareful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields just west of the arrow, well above you: use the crate at the arrow, on the valley's eastern side, and pull the spectres away from them."] = "К юго-востоку от ковена – костяные поля ({area:2657}), где бродят опустошители-отрекшиеся, на южном краю зоны {zone:1443}: по пути держитесь южнее деревни Маграм. Используйте {item:15848} у стрелки, чтобы приманить призраков Маграми (38-39): они приходят толпой, так что сражайтесь спиной к краю долины. С них падает эктоплазма.\nОсторожно: некроханы и трупоеды Маграм (45, элита) ходят по костяным полям чуть западнее стрелки, намного выше вас: используйте ящик у стрелки, на восточной стороне долины, и уводите призраков от них.",
 
 	-- Step 37: Hornizz Brimbuzzle

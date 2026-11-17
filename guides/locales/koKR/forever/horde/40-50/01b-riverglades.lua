@@ -165,7 +165,7 @@ return {
 	["South-west of Rog'mar the river runs between the farms: impale the Freshwater Crocolisks with {npc:263190}'s spears. The Alliance trains its scouts and priests at a camp on the far bank. {npc:257079}, the Alliance elite, rides the road just east of the camp: pull the scouts and priests away from it.\nCareful: {npc:263380}, an elite (level 42), hunts along this river: if he comes your way, back off and let him pass."] = "로그마르 남서쪽에서 강이 농장 사이를 흐릅니다. {npc:263190}의 창으로 민물 악어를 꿰뚫으세요. 얼라이언스는 건너편 강둑의 야영지에서 정찰병과 사제를 훈련합니다. 얼라이언스 정예인 {npc:257079}이(가) 야영지 바로 동쪽 길을 순찰합니다. 정찰병과 사제를 그에게서 떼어 끌어오세요.\n주의: 정예(42레벨)인 {npc:263380}이(가) 이 강을 따라 사냥합니다. 다가오면 물러나서 지나가게 두세요.",
 	-- {npc:263190} Tan'jani
 	-- plural, as words: Freshwater Crocolisks = {npc:259046} Freshwater Crocolisk
-	["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "민물 악어에게 {npc:263190}의 창 사용",
+	["{npc:263190}'s spears, on the Freshwater Crocolisks in the river"] = "",
 
 	-- Step 39: Tran'gul
 	-- {npc:256710} Tran'gul · {npc:256418} Krom'rosh · {area:16743} Rog'mar · {area:16723} Sunnyglade
@@ -434,4 +434,7 @@ return {
 	-- Step 94: Kargath
 	-- {area:3} Badlands · {area:340} Kargath
 	["Across the {area:3} to {area:340}, the Horde fortress built into the cliffs at the zone's western edge: its flight master stands at the foot of the fortress."] = "{area:3}을(를) 가로질러 지역 서쪽 끝 절벽에 지어진 호드 요새 {area:340}(으)로 가세요. 비행 조련사는 요새 아래에 있습니다.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "민물 악어에게 {npc:263190}의 창 사용",
 }

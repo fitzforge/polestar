@@ -1,17 +1,17 @@
 {
 	"scope": "all",
-	"through": 1794872145,
+	"through": 1794890806,
 	"archive": {
-		"revision": "afd8a23c7bae3ec9",
-		"files": 9698,
-		"sessions": 9665,
+		"revision": "d549cd092298ab94",
+		"files": 9948,
+		"sessions": 9915,
 		"leftOut": {
 			"excluded": 33,
 			"olderBuild": 0,
 			"unreadable": 0
 		},
-		"voters": 632,
-		"counted": 304,
+		"voters": 641,
+		"counted": 315,
 		"mergedPeople": 0,
 		"newestBuild": 70938
 	},
@@ -45,24 +45,24 @@
 		"immediateS": 5
 	},
 	"counts": {
-		"quests": 1980,
+		"quests": 1990,
 		"objective spot": {
-			"trusted": 1991,
-			"gap": 415,
-			"conflict": 27,
-			"stale": 44
+			"trusted": 2029,
+			"gap": 406,
+			"conflict": 30,
+			"stale": 34
 		},
 		"prerequisite": {
-			"trusted": 437,
-			"gap": 40,
-			"conflict": 43,
-			"stale": 35
+			"trusted": 445,
+			"gap": 36,
+			"conflict": 45,
+			"stale": 30
 		},
 		"not a prerequisite": {
-			"trusted": 14,
+			"trusted": 15,
 			"gap": 1,
-			"conflict": 5,
-			"stale": 7
+			"conflict": 6,
+			"stale": 6
 		},
 		"any-of prerequisites": {
 			"trusted": 68,
@@ -89,11 +89,11 @@
 			"stale": 15
 		},
 		"minimum level": {
-			"trusted": 50,
+			"trusted": 52,
 			"gap": 11,
 			"conflict": 0,
 			"stale": 4
 		},
-		"questsEveryLineTrusted": 1291
+		"questsEveryLineTrusted": 1314
 	}
 }

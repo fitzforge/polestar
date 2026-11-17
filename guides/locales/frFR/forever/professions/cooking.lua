@@ -68,8 +68,8 @@ return {
 	["{item:6888} is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own {object:29784}. {item:6888} comes with {skill:185} (the client teaches it with the skill); {item:2678} are a cooking vendor's. The Strigid owls of {zone:1438} drop a {item:6889} more often than not, and {zone:1439}'s moonkin drop them too. Fishers can cook {item:6290} (recipe 40c) from Rut'theran's waters instead, and {npc:6286} in {area:186} gives Recipe of the Kaldorei (seven Small Spider Legs from the Webwood spiders) for {item:5472}, orange from 10 to 50."] = "{item:6888} est orange dès 1 (jaune à 45, vert à 65, gris à 85) : environ 50 préparations jusqu'à 50. Cuisinez à n'importe quel feu : le foyer d'une ville ou votre propre {object:29784}. {item:6888} vient avec {skill:185} (le client l'enseigne avec la compétence) ; les {item:2678} s'achètent chez un marchand de cuisine. Les Hiboux strigides de {zone:1438} laissent tomber un {item:6889} plus d'une fois sur deux, et les séléniens de {zone:1439} aussi. Les pêcheurs peuvent plutôt cuisiner le {item:6290} (recette 40 pc) pêché dans les eaux de Rut'theran, et {npc:6286} à {area:186} donne Une recette kaldorei (sept Petites pattes d'araignée sur les araignées Tissebois) pour {item:5472}, orange de 10 à 50.",
 
 	-- Step 13: Charred Wolf Meat: ingredients
-	-- {npc:250874} Vuldren Alpha
-	["Vuldren, {npc:250874} in Zephras Isle, or wherever the arrow points"] = "Vuldrène, {npc:250874} sur l'île de Zéphras, ou là où la flèche indique",
+	-- {npc:250873} Juvenile Vuldren
+	["{npc:250873} in Zephras Isle, or wherever the arrow points"] = "{npc:250873} sur l'île de Zéphras, ou là où la flèche indique",
 
 	-- Step 14: Charred Wolf Meat (1-50)
 	-- {spell:2538} Charred Wolf Meat · {object:29784} Basic Campfire · {item:2672} Stringy Wolf Meat
@@ -376,6 +376,7 @@ return {
 	-- ["Giant Eggs drop from the Ironbeak owls of {zone:1448}."] = "Les Oeufs géants sont laissés par les chouettes Bec-de-fer de {zone:1448}.",
 	-- ["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:185} trainer of your faction."] = "{skill:185} (Compagnon) porte le plafond à 150 ; requiert la compétence 50 et le niveau 10 : la flèche indique le maître en {skill:185} le plus proche de votre faction.",
 	-- ["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:185} trainer of your faction; training costs 5s."] = "{skill:185} (Compagnon) porte le plafond à 150 ; il demande la compétence 50 et le niveau 10 : la flèche indique le maître de {skill:185} de votre faction le plus proche ; l'apprentissage coûte 5 pa.",
+	-- ["Vuldren, {npc:250874} in Zephras Isle, or wherever the arrow points"] = "Vuldrène, {npc:250874} sur l'île de Zéphras, ou là où la flèche indique",
 	-- ["{area:442} docks"] = "Quais d'{area:442}",
 	-- ["{area:702} docks"] = "Quais de {area:702}",
 	-- ["{item:12210} is orange from 175 (yellow at 215, grey at 255): about 40 crafts to 215. Cook at any fire: {object:29784} comes with {skill:185}."] = "{item:12210} est orange dès 175 (jaune à 215, gris à 255) : environ 40 préparations jusqu'à 215. Cuisinez à n'importe quel feu : {object:29784} s'apprend avec {skill:185}.",

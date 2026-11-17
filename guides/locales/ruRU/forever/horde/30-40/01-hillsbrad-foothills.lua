@@ -124,10 +124,14 @@ return {
 
 	-- Step 26: Durnholde Keep
 	-- {npc:2238} Tog'thar · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key
-	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks."] = "К юго-востоку от Мельницы Таррен. Друлл и {npc:2238} прикованы в постройках во дворе крепости: {npc:2427} носит {item:3467}, а {npc:2428} – {item:3499}, оба в крепости. Убейте их, затем откройте оба замка.",
-	["Drull's ball and chain"] = "Ядро и цепь Друлла",
+	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings, and each lock needs its key: {npc:2427} carries the {item:3467} for Drull's, {npc:2428} the {item:3499} for {npc:2238}'s, both in the keep. Kill them first, then open both locks."] = "",
+	-- {item:3467} Dull Iron Key · {npc:2427} Jailor Eston
+	["{item:3467}, from {npc:2427}"] = "",
+	-- {item:3499} Burnished Gold Key · {npc:2428} Jailor Marlgen
+	["{item:3499}, from {npc:2428}"] = "",
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "Ядро и цепь: {npc:2238}",
+	["Drull's ball and chain"] = "Ядро и цепь Друлла",
 
 	-- Step 27: Krusk
 	-- {area:272} Tarren Mill
@@ -307,6 +311,7 @@ return {
 	-- ["North of Southshore's graveyard"] = "К северу от кладбища Южнобережья",
 	-- ["Only if {quest:535}'s missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one. Careful: at 31-32 they are still above you and stand close together, with Wizards (34-35) among them: pull one at a time from the camp's edge."] = "Только если послание от {quest:535} к вам не попало: преступники и воры Синдиката (32-34) у лагерей к западу от дороги тоже носят послания; примерно с каждого третьего падает одно. Осторожно: на 31-32 уровне они все еще выше вас и стоят кучно, а среди них – волшебники (34-35): выманивайте по одному с края лагеря.",
 	-- ["Shindigger keg"] = "Бочонок «Землекопского крепкого»",
+	-- ["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks."] = "К юго-востоку от Мельницы Таррен. Друлл и {npc:2238} прикованы в постройках во дворе крепости: {npc:2427} носит {item:3467}, а {npc:2428} – {item:3499}, оба в крепости. Убейте их, затем откройте оба замка.",
 	-- ["South-west, the Cave and Ferocious Yetis (30-32) fill the {area:277} in the hills west of {area:272}; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but at 29-30 they hit hard and come in pairs."] = "К юго-западу пещерные и лютые йети (30-32) заполняют {area:277} в холмах к западу от поселения {area:272}; примерно у одного из шестнадцати есть жезл. Оставайтесь в этих пещерах: горные и гигантские йети (32-34) из пещеры дальше к северу тоже носят его, но на 29-30 уровне они бьют сильно и ходят парами.",
 	-- ["Syndicate missives"] = "Донесения Синдиката",
 	-- ["The Syndicate Footpads and Thieves (32-33) around the camps west of the road carry the missives; about one in three drops one."] = "Преступники и воры Синдиката (32-33) у лагерей к западу от дороги носят донесения; примерно с каждого третьего падает одно.",

@@ -257,7 +257,8 @@ return {
 	-- {item:216616} Compound Cage Key
 	["{item:216616}, from the Subchiefs (or the Elites)"] = "{item:216616}, dos Subchefes (ou dos Elites)",
 	-- {item:216617} Kurzen Fighter's Uniform
-	["{item:216617}, in the supply crate"] = "{item:216617}, no caixote de suprimentos",
+	-- was: ["{item:216617}, in the supply crate"] = "{item:216617}, no caixote de suprimentos"
+	["{item:216617}, in the supply crate deep in the cave"] = "",
 	-- {npc:218230} Wendel Mathers
 	["{npc:218230}, back at his cage on the way out"] = "{npc:218230}, de volta à jaula dele, na saída",
 	-- {npc:218229} Captain Aransas · {area:35} Booty Bay
@@ -482,6 +483,7 @@ return {
 	-- ["grind on {npc:690}"] = "mate {npc:690} até subir",
 	-- ["grind on {npc:766}"] = "mate {npc:766} até subir",
 	-- ["{area:43}: kill these as you meet them"] = "{area:43}: vá matando estes pelo caminho",
+	-- ["{item:216617}, in the supply crate"] = "{item:216617}, no caixote de suprimentos",
 	-- ["{item:5938}, from the Silt Crawlers on the same shore"] = "{item:5938}, dos Guajás do Lodo na mesma praia",
 	-- ["{npc:1356}: for {npc:1344} in {zone:1432}, keep it"] = "{npc:1356}: para {npc:1344}, em {zone:1432}, guarde",
 	-- ["{npc:1449}, inside {area:1742}"] = "{npc:1449}, dentro de {area:1742}",

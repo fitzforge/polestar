@@ -84,8 +84,7 @@ step Ameth'Aran
 
 step The red crystal
   tip Climb the eastern mountains east of Ameth'Aran; the Mysterious Red Crystal sits on a ledge.
-  interact 175524 quest 4811.1                -- Mysterious Red Crystal
-  complete 4811
+  complete 4811 @47.2,48.7                    -- Mysterious Red Crystal
 
 step Bashal'Aran
   tip North along the hills. Asterion waits in the ruins of Bashal'Aran; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. Buzzbox 411 stands by the road west of the ruins; a Beached Sea Creature lies on the shore on the way to him.

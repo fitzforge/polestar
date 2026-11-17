@@ -257,7 +257,8 @@ return {
 	-- {item:216616} Compound Cage Key
 	["{item:216616}, from the Subchiefs (or the Elites)"] = "{item:216616}，從副首領（或精英）身上取得",
 	-- {item:216617} Kurzen Fighter's Uniform
-	["{item:216617}, in the supply crate"] = "{item:216617}，在補給箱裡",
+	-- was: ["{item:216617}, in the supply crate"] = "{item:216617}，在補給箱裡"
+	["{item:216617}, in the supply crate deep in the cave"] = "",
 	-- {npc:218230} Wendel Mathers
 	["{npc:218230}, back at his cage on the way out"] = "{npc:218230}，離開時回到他的籠子旁",
 	-- {npc:218229} Captain Aransas · {area:35} Booty Bay
@@ -457,6 +458,7 @@ return {
 	-- ["for the flight back to {npc:6251} at 43"] = "為了在43級時飛回{npc:6251}",
 	-- ["for the {area:8} later"] = "稍後用於{area:8}",
 	-- ["for {npc:2616} in Theramore: keep it"] = "給塞拉摩的{npc:2616}：保留此任務",
+	-- ["{item:216617}, in the supply crate"] = "{item:216617}，在補給箱裡",
 	-- ["{npc:1356}: for {npc:1344} in {zone:1432}, keep it"] = "{npc:1356}：給{zone:1432}的{npc:1344}，保留此任務",
 	-- ["{npc:217588}: catch it, for {quest:93176}"] = "{npc:217588}：抓一隻，用於{quest:93176}",
 	-- ["{npc:2487}, top floor"] = "{npc:2487}，頂樓",
