@@ -84,11 +84,12 @@ function engineKey(tree, data) {
 		...filesUnder(path.join(tree, 'tests', 'lua')),
 		path.join(tree, 'tests', 'helpers', 'lua.js'),
 		path.join(tree, 'tools', 'lib', 'playtest.js'),
-		path.join(data, 'meta.json'),
-	];
-	for (const f of files) {
+	].map((f) => [path.relative(tree, f), f]);
+	// The data by its build, wherever it lies.
+	files.push(['data/forever/meta.json', path.join(data, 'meta.json')]);
+	for (const [name, f] of files) {
 		if (!fs.existsSync(f)) continue;
-		h.update(path.relative(tree, f)).update('\0').update(fs.readFileSync(f)).update('\0');
+		h.update(name).update('\0').update(fs.readFileSync(f)).update('\0');
 	}
 	return h.digest('hex');
 }
