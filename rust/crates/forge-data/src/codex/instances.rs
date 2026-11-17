@@ -128,9 +128,14 @@ fn choose_entrance(name: &str, recorded: &V, table: &V, guides: &[GuideGoto], co
 	e
 }
 
-/// instances.js `chooseEntrancePoint`.
+/// The capitals' world maps (Stormwind, Ironforge, Darnassus, Orgrimmar, Thunder Bluff, the Undercity).
+const CAPITAL_MAPS: [f64; 6] = [1453.0, 1455.0, 1457.0, 1454.0, 1456.0, 1458.0];
+
+/// instances.js `chooseEntrancePoint`. A recorded way in that one person alone was seen to take from a capital is no
+/// way in: the Dungeon Finder or a summon moves a player into the dungeon from wherever they stand (Blackmaw Hold,
+/// on Mount Hyjal, came out "in Darnassus" from one such entry). The capitals' own dungeons have many people each.
 fn choose_entrance_point(name: &str, recorded: &V, table: &V, guides: &[GuideGoto], corpse: Option<&super::client::Corpse>, zones: &V, frames: &V, prefer: &[f64]) -> V {
-	let mut rec = recorded.items();
+	let mut rec: Vec<V> = recorded.items().into_iter().filter(|r| num0(&r.get("n")) >= 2.0 || !CAPITAL_MAPS.contains(&r.get("map").num())).collect();
 	rec.sort_by(|a, b| ord(num0(&b.get("n")) - num0(&a.get("n"))));
 	if let Some(r) = rec.first() {
 		if r.get("map").truthy() {
@@ -799,6 +804,20 @@ mod tests {
 		assert_eq!(rec.get("A").get("x").num(), 14.7, "and keeps the Alliance way in");
 		let one = parse_json(r#"{ "key": "deadmines", "map": 1436, "x": 42.5, "y": 71.7 }"#).unwrap();
 		assert!(!choose_entrance("Deadmines", &none, &one, &[], None, &none, &none, &[]).get("A").truthy(), "one way in: no A");
+	}
+
+	#[test]
+	fn one_person_seen_entering_from_a_capital_is_no_way_in_a_capital_s_own_dungeon_keeps_its_door() {
+		let none = V::Null;
+		// Blackmaw Hold (Mount Hyjal): its only recorded entry was from Darnassus (a Dungeon Finder or summon move).
+		let blackmaw = parse_json(r#"[{ "map": 1457, "x": 38.77, "y": 50.06, "n": 1 }]"#).unwrap();
+		assert!(!choose_entrance("Blackmaw Hold", &blackmaw, &none, &[], None, &none, &none, &[]).truthy(), "no way in from one capital entry");
+		// Ragefire Chasm: many people walked in from Orgrimmar.
+		let rfc = parse_json(r#"[{ "map": 1454, "x": 52.3, "y": 49.6, "n": 40 }, { "map": 1411, "x": 50.0, "y": 50.0, "n": 1 }]"#).unwrap();
+		assert_eq!(choose_entrance("Ragefire Chasm", &rfc, &none, &[], None, &none, &none, &[]).get("map").num(), 1454.0);
+		// A single entry outside the capitals still places a dungeon no other source does.
+		let field = parse_json(r#"[{ "map": 1440, "x": 14.1, "y": 13.9, "n": 1 }]"#).unwrap();
+		assert_eq!(choose_entrance("Blackfathom Deeps", &field, &none, &[], None, &none, &none, &[]).get("map").num(), 1440.0);
 	}
 
 	#[test]
