@@ -2548,6 +2548,26 @@ fn xp_tracker_off_returns_nil_and_prints_nothing() {
 	assert_eq!(out[1], true);
 }
 
+// The client sends UPDATE_EXHAUSTION with every XP gain, in the same frame as PLAYER_XP_UPDATE: the guide window was
+// painted twice per kill (#2537). In the frame of the last QOL_XP_UPDATED with the rest bonus unchanged it says
+// nothing more; a rest bonus that moved, or an UPDATE_EXHAUSTION of its own (resting in an inn), still updates.
+#[test]
+fn an_xp_gain_and_its_exhaustion_event_in_one_frame_send_one_xp_update() {
+	let out = run(r#"
+		local n = 0
+		Polestar.On("QOL_XP_UPDATED", function() n = n + 1 end)
+		q.rested = 0
+		local function count(fn) n = 0; fn(); return n end
+		emit({
+			kill = count(function() q.gainXP(120); stub.fire("UPDATE_EXHAUSTION") end),
+			rested = count(function() q.rested = 400; q.gainXP(120); q.rested = 280; stub.fire("UPDATE_EXHAUSTION") end),
+			inn = count(function() stub.advance(1); q.rested = 600; stub.fire("UPDATE_EXHAUSTION") end),
+			alone = count(function() stub.advance(1); stub.fire("UPDATE_EXHAUSTION") end),
+		})
+	"#);
+	assert_eq!(out[0], json!({ "kill": 1, "rested": 2, "inn": 1, "alone": 1 }));
+}
+
 // The guide's level on the game's XP bar (QoL/XPMark.lua).
 const XPMARK: &str = r#"
 local function mark(bar)
