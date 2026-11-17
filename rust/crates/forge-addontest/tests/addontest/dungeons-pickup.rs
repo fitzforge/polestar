@@ -3261,3 +3261,36 @@ fn an_ender_who_stands_only_inside_a_dungeon_is_its_entrance_2582() {
 	);
 	assert_eq!(out[0], json!({ "name": "Inside Ender", "zone": "Shadowfang Keep", "map": 1421, "x": 44.8, "y": 67.8, "inside": true }));
 }
+
+// #2338 (Stompsville, 0.3.7.2): the Mallet of Zul'Farrak calls Gahz'rilla, and nothing in the pick-up guide said
+// how to get one. It drops nowhere: Qiaga the Keeper drops the Sacred Mallet, used at Jintha'Alor's altar. The
+// page's `item` entry (the made item, `via` the one it is made from) builds its drop step from the via item, and the
+// pick-up guide's way in names the item with its note while the bags lack it; once carried, the line goes.
+#[test]
+fn an_item_the_run_uses_that_no_quest_gives_is_named_on_the_way_in_until_it_is_carried_2338_mallet_of_zul_farrak() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["9080"] = sideless_npc(9080, "Keeper of the Mallet", 1421, 60, 40);
+	c["items"]["8200"] = json!({ "id": 8200, "name": "Summoning Mallet", "quality": 2, "kind": "item", "spell": null, "reqLevel": null, "sources": [] });
+	c["items"]["8201"] = json!({ "id": 8201, "name": "Plain Mallet", "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [{ "type": "drop", "npc": 9080, "chance": 100.0 }] });
+	i["attunementTable"] = json!({ "attunements": [{ "key": KEY, "id": "mallet", "name": "Summoning Mallet", "kind": "item", "need": "one", "item": 8200, "via": 8201,
+		"note": "Use the Plain Mallet at the altar.", "sources": [{ "edition": "forever", "kind": "item", "id": 8200 }] }] });
+	let own = pack_of(&c, &i);
+	let script = k(r#"
+local a = D.Attunements("{KEY}")[1]
+local s = a and a.steps[1]
+local function lines()
+	local def = D.PickupGuide("{KEY}")
+	local out = {}
+	for _, g in ipairs(def.steps[#def.steps].goals) do if g.t == "note" then out[#out + 1] = g.text end end
+	return out
+end
+emit({ via = s and (s.kind .. ":" .. s.item.id .. "@" .. s.npc.id) or false, lines = lines() })
+stub.world.addItem(8200, 1)
+emit(lines())"#);
+	let out = run(&own, &script, Opts::default());
+	assert_eq!(out[0]["via"], "drop:8201@9080", "the page's step: the via item's drop");
+	assert_eq!(out[0]["lines"], json!(["Summoning Mallet: Use the Plain Mallet at the altar.", "After the run: choose Hand in the quests at the end of this guide or on the dungeon's page."]));
+	assert_eq!(out[1], json!(["After the run: choose Hand in the quests at the end of this guide or on the dungeon's page."]), "carried: no line");
+}

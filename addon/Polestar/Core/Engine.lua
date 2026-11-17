@@ -1223,12 +1223,14 @@ end
 -- Whether step's `when` fails only on quest work under way: each predicate
 -- that fails is a `complete` of a quest the player carries (#2350: Redridge's
 -- Wanted hand-ins, passed before the elite was dead). Such a failure is never
--- stored (Own.latchWhen): the step comes back once the quest is done.
-function Own.failsForNow(step)
+-- stored (Own.latchWhen): the step comes back once the quest is done. With
+-- `taken` false, a `complete` of a quest not in the log counts too: a step
+-- the player brings back (Engine.Unskip) waits for its quest the same way.
+function Own.failsForNow(step, taken)
 	local C, any = Compat(), false
 	for _, p in ipairs(step.when or NONE) do
 		if Own.predicateFails(step, p) then
-			if p.k ~= "complete" or p.neg or not C.IsOnQuest(p.q) then return false end
+			if p.k ~= "complete" or p.neg or (taken ~= false and not C.IsOnQuest(p.q)) then return false end
 			any = true
 		end
 	end
@@ -11633,7 +11635,9 @@ end
 --
 -- Candidates (Own.hereBuild, on a step, quest-log, level, bag, zone or setting
 -- change): open kill, collect, interact and use goals with a place on the
--- player's map, in every step of the guide after the live step (a later
+-- player's map, and placed `complete` goals (no escort) of quests the guide
+-- gives none of those (#2484: /sit by Eleanor's campfire, "Complete “The Great
+-- Outdoors”: <the step's note>"), in every step of the guide after the live step (a later
 -- trip away and back, a flight, a hearth or an instance in between change
 -- nothing: the player is here now), each
 --   * for a quest in the log and not ready to hand in; never an accept;
@@ -11811,6 +11815,7 @@ function Own.hereKey(e)
 	if goal.oi ~= nil then return q .. ":o" .. tostring(goal.oi) end
 	if goal.t == "collect" and goal.item then return q .. ":i" .. tostring(goal.item) end
 	if goal.t == "kill" and type(goal.npc) == "number" then return q .. ":n" .. goal.npc end
+	if goal.t == "complete" then return q .. ":c" end
 	return false
 end
 
@@ -11908,7 +11913,7 @@ Own.HERE_INDEX_RETRY = 10 -- seconds before an index with goals of maps not know
 function Own.hereGoalsOn(c)
 	local idx = Own.hereIndex[guide]
 	if not idx or (idx.unplaced and GetTime() - idx.at >= Own.HERE_INDEX_RETRY) then
-		idx = { at = GetTime(), unplaced = false, by = {}, uses = {} }
+		idx = { at = GetTime(), unplaced = false, by = {}, uses = {}, worked = {} }
 		local verbs = Own.HERE_VERBS
 		for s, step in ipairs(guide.steps) do
 			for g, goal in ipairs(step.goals) do
@@ -11920,7 +11925,9 @@ function Own.hereGoalsOn(c)
 					end
 					items[goal.item] = true
 				end
-				if goal.map and goal.quest and goal.x and goal.y and not goal.candidates and (verbs[goal.t] or goal.t == "turnin" or goal.t == "accept") then
+				if goal.quest and verbs[goal.t] then idx.worked[goal.quest] = true end
+				if goal.map and goal.quest and goal.x and goal.y and not goal.candidates
+					and (verbs[goal.t] or goal.t == "turnin" or goal.t == "accept" or (goal.t == "complete" and not goal.escort)) then
 					local gc = goalWorld(goal)
 					if gc then
 						local list = idx.by[gc]
@@ -12534,13 +12541,20 @@ function Own.hereFits(s, g, goal, live, shown)
 		end
 		return "turnin", 0, Own.hereSoonOf(s, goal, live)
 	end
+	-- A placed `complete` (#2484: /sit by Eleanor's campfire for The Great
+	-- Outdoors) is a row only for a quest the guide gives no kill, collect,
+	-- interact or use goal (Own.hereGoalsOn's `worked`): those are its rows.
+	if t == "complete" then
+		local idx = Own.hereIndex[guide]
+		if idx and idx.worked[q] then return nil end
+	end
 	if C.IsQuestReadyForTurnIn(q) or ns.CharState().pinnedQuests[q] then return nil end
 	local sh = shown[q]
 	if sh and (sh == true or goal.oi == nil or sh[goal.oi]) then return nil end
 	local done, cur, max = goalDone(s, g, goal)
 	if done then return nil end
 	for lg, other in ipairs(liveGoals) do
-		if other.quest == q and other.oi == goal.oi and Own.HERE_VERBS[other.t] and goalApplies(other) and not goalDone(live, lg, other) then return nil end
+		if other.quest == q and other.oi == goal.oi and (Own.HERE_VERBS[other.t] or other.t == "complete") and goalApplies(other) and not goalDone(live, lg, other) then return nil end
 	end
 	if t == "use" and goal.item and C.GetItemCount(goal.item) < 1 then return nil end
 	if t == "interact" and not Own.hereCarries(q) then return nil end
@@ -13571,6 +13585,10 @@ function Own.hereViewOf(e)
 			text = (not npc or Own.namesake(raw, npc)) and L["Take %s from them: saves a trip back"]:format(title)
 				or L["Take %s from %s: saves a trip back"]:format(title, npc)
 			v.hereTitle = title
+		elseif goal.t == "complete" then
+			-- A placed `complete` (#2484): the quest and how it is done there, in
+			-- the guide's own note ("/sit by her campfire until you get Boosted Rest").
+			text = goal.note and goal.note ~= "" and L["%s: %s"]:format(v.text or "", goal.note) or (v.text or "")
 		else
 			text = L["%s, %d more"]:format(v.text or "", left)
 		end
@@ -15044,7 +15062,10 @@ end
 
 -- Undo a skip: step i is open again (the live step when it is the first open
 -- one), with what its skip stored on the way (Own.skipRestore). True if it
--- was skipped.
+-- was skipped. A step whose `when` fails only on a `complete` (#1934: Zangen's
+-- hand-in of The Sacred Flame, unskipped with the quest at 0/1) is not kept
+-- applying (Own.keep): a hand-in can't be done before its quest is, so the
+-- step comes back once the quest is ready (Own.failsForNow).
 function Engine.Unskip(i)
 	if not guide or type(i) ~= "number" then return false end
 	local sk = skippedFor(guide.id)
@@ -15054,7 +15075,8 @@ function Engine.Unskip(i)
 	sk[i] = nil
 	if not next(sk) then ns.CharState().skipped[guide.id] = nil end
 	Own.skipRestore(guide.id, i)
-	Own.keep(i)
+	local step = guide.steps[i]
+	if not (step and not step.skipto and Own.failsForNow(step, false)) then Own.keep(i) end
 	evaluate()
 	return true
 end
