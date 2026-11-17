@@ -760,7 +760,7 @@ step Defensive Stance
   accept 1639
   turnin 1639                                 -- Bartleby
   accept 1640
-  talk 6090 quest 1640.1                      -- Beat Bartleby
+  kill 6090 quest 1640.1                      -- Beat Bartleby
   turnin 1640
   accept 1665
   turnin 1665                                 -- Harry Burlguard: Defensive Stance

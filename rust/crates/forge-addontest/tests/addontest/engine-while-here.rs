@@ -938,7 +938,12 @@ emit({{ seer = seer, camp = camp, report = report, calls = table.concat(calls, "
 	assert_eq!(cougars["done"], json!([true, true, true]), "her step is done: no trip back: {cougars}");
 	let short = run(6, 120, false);
 	assert_eq!(short["report"]["here"], "none", "a two-minute Grace: no visit, the bare hand-in out of the way: {short}");
-	assert_eq!(short["report"]["why"], "out of the way (37 s, over 20 s)", "{short}");
+	// The seconds follow the Seer's and the camp's spawns in the data (37 s on the 0.4.0.1 data, 36 s on the 0.4.1
+	// build, whose Seer Graytongue stands 0.05 further west): the reason and the 20 s limit are what this pins.
+	let why = short["report"]["why"].as_str().unwrap_or_default();
+	let num = why.strip_prefix("out of the way (").and_then(|r| r.strip_suffix(" s, over 20 s)"));
+	let secs: u32 = num.and_then(|n| n.parse().ok()).unwrap_or_else(|| panic!("out of the way, over the 20 s limit: {short}"));
+	assert!((30..=45).contains(&secs), "about 37 s out of the way: {short}");
 	let calls = short["calls"].as_str().unwrap();
 	assert!(!calls.contains("AcceptQuest 95805") && calls.contains("AcceptQuest 757"), "Grace not taken ahead, Rite of Strength is: {calls}");
 	// #1618 (MattMer, Protect Kaya): an escort is never taken ahead, like a timed quest whose walk does not fit: it

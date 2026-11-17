@@ -191,6 +191,9 @@ test("Tyr's Watch: Tanis Alderwood's goals carry his Undercity floor's height, f
 });
 
 test('Horde objective follow-ups: camp discovery, Silithyst delivery and cooking point at their actual objective', { skip }, () => {
+	// Betrayed (3505): the camp, where the Kaldorei Tome of Summoning takes the hand-in. The game counts only
+	// the two kill lines (players' recordings, #2585), so the data may have no event line for it.
+	const camp = { f: 'e', x: 59.53, y: 31.47 };
 	for (const [file, quest, map, npc] of [
 		['forever/horde/50-60/04-azshara.guide', 3505, 1447, null],
 		['forever/horde/50-60/06-silithus.guide', 9422, 1451, 18199],
@@ -198,7 +201,7 @@ test('Horde objective follow-ups: camp discovery, Silithyst delivery and cooking
 	]) {
 		const { goal } = goals(file).find(({ goal }) => goal.t === 'complete' && goal.quest === quest);
 		assert.equal(goal.map, map, `${quest}: the unfinished objective has an arrow on its map`);
-		const event = npc ? null : data.quests[quest].objectives.find((o) => o.type === 'event');
+		const event = npc ? null : data.quests[quest].objectives.find((o) => o.type === 'event') || camp;
 		const spawn = npc ? data.npcs[npc].spawns[map] : null;
 		assert.equal(goal.f || 'l', spawn ? spawn.f : event.f, `${quest}: keep the source coordinate frame`);
 		assert.equal(goal.x, spawn ? spawn.pts[0][0] : event.x);

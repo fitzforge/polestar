@@ -2119,7 +2119,11 @@ fn game_objectives(q: &V, c: &ClientList, windows: &FxHashSet<i64>) -> Game {
 		0
 	};
 	let mut talk = 0;
-	for oi in 1..=n {
+	// A quest whose own text asks for a fight, a use or an escort (talk.rs: "Beat Bartleby", "Defeat 3
+	// other players in duels or Novice Warriors") keeps its kills: the NPC turns hostile once talked to
+	// and gives in, with no kill to record (#2535).
+	let fights = crate::talk::asks_other(q.get("objectiveText").as_str().unwrap_or(""));
+	for oi in (1..=n).filter(|_| !fights) {
 		let o = &out[oi - 1];
 		if o.get("type").as_str() != Some("kill") {
 			continue;
@@ -2137,10 +2141,7 @@ fn game_objectives(q: &V, c: &ClientList, windows: &FxHashSet<i64>) -> Game {
 				t.set_str(k, v);
 			}
 			t.set("type", "talk");
-			// The game's own count for the line (Sparring Match 99108: three Novice Warriors to beat,
-			// each started by a talk), else one.
-			let max = listed.get(oi - 1).map_or(0, |(_, m)| *m);
-			t.set("count", if max > 1 { max as f64 } else { 1.0 });
+			t.set("count", 1.0);
 			out[oi - 1] = V::Obj(t);
 			talk += 1;
 		}
@@ -3295,15 +3296,14 @@ mod tests {
 	}
 
 	#[test]
-	fn a_talk_line_keeps_the_games_count() {
-		// Sparring Match 99108 (#2585): three Novice Warriors to beat, each fight started in their
-		// window; the talk rule made it one. The game's list says 3 for the line, so the talk keeps 3.
-		let mut ev = desperate_times("Speak with Valennia Stormfist");
-		ev[1] = ev[1].replace(r#""max":1"#, r#""max":3"#);
-		let t = Tables::new(TIMES, TIMES_NPCS, "{}");
-		t.apply(&[session("s", B, "enUS", &ev)]);
-		let first = t.quest("92640").get("objectives").items()[0].clone();
-		assert_eq!((first.get("type").as_str(), first.get("count").num()), (Some("talk"), 3.0));
+	fn a_quest_that_asks_for_a_fight_keeps_its_kills() {
+		// Beat Bartleby 1640, Sparring Match 99108 (#2535): the NPC turns hostile once talked to and
+		// gives in, so no kill is recorded; the quest's own text ("Beat", "Defeat") says it is a fight.
+		let fight = TIMES.replace(r#""title":"Desperate Times","#, r#""title":"Desperate Times","objectiveText":"Defeat Valennia Stormfist.","#);
+		let t = Tables::new(&fight, TIMES_NPCS, "{}");
+		t.apply(&[session("s", B, "enUS", &desperate_times("Speak with Valennia Stormfist"))]);
+		let types: Vec<String> = t.quest("92640").get("objectives").items().iter().map(|o| o.get("type").to_js_string()).collect();
+		assert_eq!(types, ["kill", "kill", "kill"]);
 	}
 
 	#[test]

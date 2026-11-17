@@ -549,7 +549,7 @@ fn elite_split(data: &Data, cands: &[V], sides: &V, rares: bool) -> Option<(Vec<
 	}
 }
 
-/// Droppers near a quest's level crowded out by ones far above it. -> (near, above) | None
+/// Droppers near a quest's level crowded out, or outranked, by ones far above it. -> (near, above) | None
 fn level_split(data: &Data, cands: &[V], qlvl: f64) -> Option<(Vec<V>, Vec<V>)> {
 	if !(qlvl > 0.0) || !cands.iter().any(|c| c.get("chance").is_num()) {
 		return None;
@@ -575,7 +575,9 @@ fn level_split(data: &Data, cands: &[V], qlvl: f64) -> Option<(Vec<V>, Vec<V>)> 
 	}
 	let all = likely(cands);
 	let near = likely(&rest);
-	if near.iter().any(|c| !includes(&all, c)) {
+	// Crowded out (under the bar the ones far above set), or likely beside them, which would still lead the goal
+	// to the far ones' camps: the Timberlings at 53% once recorded, beside the Elder Timberling's 100% (#327).
+	if near.iter().any(|c| !includes(&all, c)) || above.iter().any(|c| includes(&all, c)) {
 		Some((near, above))
 	} else {
 		None

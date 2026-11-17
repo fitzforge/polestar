@@ -2869,5 +2869,25 @@
 			}
 		],
 		"note": "Overmaster Pyron (Incendius!'s first step, Blackrock Depths' pick-up guide) stands in the Grinding Quarry in Searing Gorge, by the way into Blackrock Mountain. The merged data had him only on the Eastern Kingdoms continent map, at a point outside Searing Gorge, so the kill step pointed nowhere near him (#2464). His one spawn replaces it."
+	},
+	"4217": {
+		"set": {
+			"spawns": {
+				"1457": {
+					"f": "l",
+					"pts": [
+						[
+							35.2,
+							8.1
+						]
+					]
+				}
+			}
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' recordings to 2026-11-17: 838 events at Mathrengyl Bearwalker (offers, hand-ins, his vendor window) in 122 sessions, median 35.22,8.07 in Darnassus"
+		},
+		"note": "Mathrengyl Bearwalker (Morrowgrain Research, his pouch and seeds) paces his floor of the druids' building in the Cenarion Enclave. The data's five points of his path put each of his goals at a different spot, so a goal after another of his no longer followed the guide's goto at the door and its arrow walked to the ledge outside his floor (#1338). One point where players meet him."
 	}
 }

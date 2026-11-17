@@ -4,7 +4,7 @@
     "commit": "e5ce9b9e212c95a64dc0fbe0650b488dbc420fe7"
   },
   "files": {
-    "forever/alliance/02-westfall.guide": "7f20ee28d390bfabdd57d6f33e57e141abe4f1bbd2bd7ff31decea1aeb4acdcd",
+    "forever/alliance/02-westfall.guide": "bba931318a04669647dfaf46048766f825594b4497ec7ba7a4be37cd316d5b78",
     "forever/alliance/03-darkshore-return.guide": "5dba2377bb5b67e6dfe5092760b9f624ff4a1b88273c28c760348eb8181e56d7",
     "forever/alliance/03-darkshore.guide": "a91ded352f4c24e2a1263bd48d23a02bcc16622556c524b068396d821f6f3809",
     "forever/alliance/03-loch-modan.guide": "9e150306f3b49b86ce9b81037874e3a029b88a3da7daf7660e239e138cbee5e7",
@@ -34,7 +34,7 @@
     "forever/alliance/50-60/03-winterspring.guide": "775fc5e07bf34839d199dedcffc9d21f8b527e3bcc5f55d2c2cd0dc7accf1858",
     "forever/alliance/50-60/04-western-plaguelands.guide": "ce4d3d0144cffd7239b24a95e32999f81f138ae59be224554e3e443619c2052d",
     "forever/alliance/50-60/06-silithus.guide": "8f3c7c67b3d6408de9399d71f25ab798d54e94c33c8282c0135a71961626401b",
-    "forever/alliance/dwarf-gnome/01-dun-morogh.guide": "a5a757ce282cf992dccf4b6163f5892c439573ebb11a1b67c88b6c2089d53e25",
+    "forever/alliance/dwarf-gnome/01-dun-morogh.guide": "9afe6c041cbdb55937926e2c1d9ac2f2be797558474e9eb12806efa68d8d8c0f",
     "forever/alliance/human/01-elwynn-forest.guide": "034ef590c37d106a36aa2a465b491fc93c907dbf045304ddd4ed41c0582a88b0",
     "forever/alliance/nightelf/01-teldrassil.guide": "ef608f960566353ff415191f9fec47dce6b1f29365e05be3b9643655f31308d1",
     "forever/alliance/nightelf/02-darkshore.guide": "c43543cc8dc445e8d2731d053d4049dbe00fc1c5ee16ecb80ae0ff06bb3c2d89",
@@ -68,7 +68,7 @@
     "forever/horde/orc-troll/01-durotar.guide": "3f03b60f52484389b8d1dde7af409349fbaae1a5a9fa835839d144da5b11d4de",
     "forever/horde/orc-troll/02-the-barrens.guide": "5ed17f3b4b23e07a8d2c403f1eb4e3ce5d6c1c82821fe9b9fb1492fcb8bcc683",
     "forever/horde/skyborne/01-zephras-isle.guide": "e7c0bab321759e1cab4491855fa1f9afedfa3d017d2c8199d9145c2cb1e94c8a",
-    "forever/horde/tauren/01-mulgore.guide": "c65c39ec4603236221d32acd9a7d07341666ccb15300b5a7c881b09b4415def7",
+    "forever/horde/tauren/01-mulgore.guide": "2119746c4f0b2cf3599894220454cf1c603a54beb7c1e3e82f6b70e12d3dd120",
     "forever/horde/undead/01-tirisfal-glades.guide": "12ee5c28bb544d40cbc126684fb5407445882544607d29aa87d80b2fbfdaf980"
   }
 }
