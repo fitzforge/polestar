@@ -163,3 +163,26 @@ test('every pull request workflow cancels its run for the same pull request when
 	}
 	assert.ok(seen.includes('ci.yml') && seen.includes('forge.yml') && seen.includes('pr-base.yml'), seen.join(', '));
 });
+
+// The checks next requires (docs/RELEASING.md, "Branch rules"), by the workflow that reports each for a merge group.
+const REQUIRED = { Tests: 'ci.yml', 'Format, lints, tests': 'forge.yml', 'Base branch': 'merge-queue.yml' };
+
+test('every check next requires reports for a merge group, from a workflow that starts on one', () => {
+	for (const [check, f] of Object.entries(REQUIRED)) {
+		const text = workflow(f);
+		assert.match(text, /^ {2}merge_group:\s*$/m, `${f} starts on merge_group`);
+		assert.ok(text.includes(`    name: ${check}\n`), `${f} has a job named ${check}`);
+	}
+	for (const f of ['ci.yml', 'forge.yml']) {
+		const text = workflow(f);
+		assert.match(text, /merge_group\) git fetch --no-tags --quiet --depth=1 origin "\$GROUP_BASE" && from=\$GROUP_BASE ;;/, `${f}: a merge group's lane is what the group changes on top of its base`);
+		assert.match(text, /GROUP_BASE: \$\{\{ github\.event\.merge_group\.base_sha \}\}/, f);
+	}
+	// pr-base.yml runs on pull_request_target, held to it by the repository's Actions event policy; the merge
+	// queue's Base branch comes from merge-queue.yml, which runs nothing else and checks out nothing.
+	assert.doesNotMatch(workflow('pr-base.yml'), /^ {2}merge_group:/m);
+	const mq = workflow('merge-queue.yml');
+	assert.match(mq, /^on:\n {2}merge_group:\n\n/m, 'merge-queue.yml starts on merge groups only');
+	assert.doesNotMatch(mq, /actions\/checkout|uses:/, 'merge-queue.yml runs no code from the repository');
+	assert.match(workflow('forge.yml'), /^ {4}if: github\.event_name == 'push'$/m, 'the release builds run on pushes only, not for merge groups');
+});
