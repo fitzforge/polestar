@@ -11,14 +11,15 @@
 				"y": 11,
 				"frame": "era"
 			},
-			"note": "Panther Mastery needs ten Young Panthers. Start across the river from Nesingwary's camp, where the spawns cluster, and hunt them on the same outing as the regular Stranglethorn Tigers.",
+			"note": "Cam (cameronmoten) reports seeing only 1-2 Young Panthers near the original arrow and 12+ across the river. These are his firsthand field observations, not spawn-database counts. Start across the river from Nesingwary's camp, where the Young Panthers gather; keep the existing quest order.",
 			"source": {
 				"kind": "in-game-check",
-				"ref": "Player report from Stranglethorn Vale: only a couple of Young Panthers near the previous waypoint, with the main hunting area across the river around 39.8,11"
+				"ref": "Cam (cameronmoten), firsthand Stranglethorn Vale field report: 1-2 Young Panthers near the original arrow, 12+ across the river. Report issue pending."
 			}
 		},
 		{
 			"id": "stranglethorn-tigers-with-young-panthers",
+			"faction": "Horde",
 			"quest": 186,
 			"objective": 1,
 			"at": {
@@ -27,7 +28,7 @@
 				"y": 15,
 				"frame": "era"
 			},
-			"note": "The second Tiger Mastery quest can be worked on the east side with Young Panthers. Start at the tiger spawns southeast of the panther area.",
+			"note": "On the Horde route, point the second Tiger Mastery hunt at the tiger group east of camp. Keep the existing combined hunt with Panther Mastery 191 and the geologists, and the earlier Panther Mastery 190 hand-in.",
 			"source": {
 				"kind": "in-game-check",
 				"ref": "Player report from Stranglethorn Vale: regular Stranglethorn Tigers are beside the Young Panthers. NPC 682 reference spawns on map 1434 cluster east of the river around 45,15."

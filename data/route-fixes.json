@@ -11980,21 +11980,6 @@
 		],
 		"pairs": [
 			{
-				"a": ["accept", 186],
-				"b": ["task", 190, 0],
-				"why": "Pick up the regular Tiger Mastery quest before crossing the river for Young Panthers."
-			},
-			{
-				"a": ["task", 190, 0],
-				"b": ["task", 186, 0],
-				"why": "On the trip across the river, start with the Young Panthers and continue east to the regular Stranglethorn Tigers."
-			},
-			{
-				"a": ["task", 186, 0],
-				"b": ["turnin", 190],
-				"why": "Finish the regular Stranglethorn Tigers before heading back to camp to hand in Panther Mastery."
-			},
-			{
 				"a": [
 					"accept",
 					1097

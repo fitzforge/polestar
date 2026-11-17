@@ -1,5 +1,6 @@
 ---
 section: players
 ---
-- Stranglethorn Vale: Hunt Young Panthers across the river and work on the
-  regular Stranglethorn Tigers on the same trip, on both faction routes.
+- Stranglethorn Vale: The arrow leads to where Young Panthers gather across
+  the river on both routes, and to the eastern Stranglethorn Tiger group
+  on the Horde route (thanks cameronmoten, #2706).
