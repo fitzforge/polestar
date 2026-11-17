@@ -352,6 +352,44 @@ fn a_search_left_for_another_section_is_gone_when_dungeons_shows_again_and_the_b
 	assert_eq!(out["all"]["cards"], json!(["The Deadmines", "Wailing Caverns", "Blackmaw Hold"]));
 }
 
+// #2776 (Liquidor): while searching, the level bands kept counting every dungeon and a click on one did nothing. They
+// now count the matches, as the guide categories do, and a band picked while searching narrows the results to it; a
+// new search (or none) lists every match again.
+#[test]
+fn while_searching_the_bands_count_the_matches_and_a_band_narrows_the_results() {
+	let out = run(r#"
+		Polestar.Dungeons.Open()
+		local box = P.search
+		box:SetText("caverns"); stub.RunScript(box, "OnTextChanged", true)
+		local found = { navs = navs(), cards = cardNames() }
+		DS.SetBand("50")
+		local fifty = { cards = #cardNames(), title = PolestarPicker.Title:GetText() }
+		DS.SetBand("10")
+		local ten = { cards = cardNames(), band = DS.Shown().band }
+		box:SetText(""); stub.RunScript(box, "OnTextChanged", true)
+		emit({ found = found, fifty = fifty, ten = ten, cleared = { title = PolestarPicker.Title:GetText(), cards = cardNames() } })"#);
+	let out = &out[0];
+	assert_eq!(
+		out["found"]["navs"],
+		json!([
+			["level", "For your level", "1"],
+			["all", "All dungeons", "1"],
+			["10", "10\u{2013}20", "1"],
+			["20", "20\u{2013}30", ""],
+			["30", "30\u{2013}40", ""],
+			["40", "40\u{2013}50", ""],
+			["50", "50\u{2013}60", ""],
+		])
+	);
+	assert_eq!(out["found"]["cards"], json!(["Wailing Caverns"]));
+	assert_eq!(out["fifty"]["cards"], 0, "no match in 50-60");
+	assert_eq!(out["fifty"]["title"], "Search");
+	assert_eq!(out["ten"]["cards"], json!(["Wailing Caverns"]));
+	assert_eq!(out["ten"]["band"], "10");
+	assert_eq!(out["cleared"]["title"], "For your level", "the band shown without a search is kept");
+	assert_eq!(out["cleared"]["cards"], json!(["Wailing Caverns"]));
+}
+
 // A French client whose names pack lands with Home open: the cards take the names Dungeons.List gives from then on.
 #[test]
 fn home_a_names_pack_landing_late_renames_the_cards() {
