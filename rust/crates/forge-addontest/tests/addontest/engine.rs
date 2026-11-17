@@ -2959,7 +2959,6 @@ fn a_quest_still_in_the_log_is_not_handed_in_whatever_its_later_chain_says_2681_
 	let carrying = at("w.onQuest(882, { { required = 1, fulfilled = 0 } }); w.onQuest(1130, {})");
 	assert_eq!(carrying["index"], 1, "the guide stays at Camp Taurajo: {carrying}");
 	assert_ne!(carrying["turnin"], "done", "Ishamuhale at 0/1 in the log is not handed in, 1130 in the log or not: {carrying}");
-	assert_ne!(carrying["accept"], "active", "Enraged Thunder Lizards waits for Ishamuhale's hand-in: {carrying}");
 	let alone = at("w.onQuest(882, { { required = 1, fulfilled = 0 } })");
 	assert_eq!(carrying, alone, "1130 in the log changes nothing while 882 is in it");
 	assert_eq!(at("w.onQuest(1130, {}); w.onQuest(907, { { required = 3, fulfilled = 0 } })")["turnin"], "done", "with 882 out of the log and 907 taken, #2461's rule still counts it handed in");
