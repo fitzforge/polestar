@@ -47,6 +47,18 @@ const BUILDINGS = [
 		doors: [{ map: 1420, x: 61.66, y: 51.5, z: 34.3 }],
 		min: 1,
 	},
+	{
+		// Mîku (#2203): the naga for the Corrupted Kor Gem stand in the flooded ruins at the Blackfathom Deeps
+		// entrance, a pocket of the walking maps no walk from outside reaches. The arrow went north into Darkshore
+		// and up onto the ridge over the dungeon. The north end of the Zoram Strand, where players' recordings swim
+		// into the ruins (the walk from Zoram'gar, the strand and Darkshore reaches it).
+		name: 'the flooded ruins at the Blackfathom Deeps entrance',
+		issue: '#2203',
+		files: /\b6995\b/,
+		match: (goal) => goal.item === 6995,
+		doors: [{ map: 1440, x: 14.6, y: 13.7 }],
+		min: 2,
+	},
 ];
 
 let data;
