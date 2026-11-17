@@ -219,6 +219,8 @@ L["Repair before heading out: gear at %d%%"] = "Vor dem Aufbruch reparieren: Aus
 L["The guide heads out of town next and your gear is worn: repair it here before it breaks."] = "Der Guide verlässt als Nächstes die Stadt und deine Ausrüstung ist abgenutzt: Repariere sie hier, bevor sie kaputtgeht."
 L["Sell before heading out: %s"] = "Vor dem Aufbruch verkaufen: %s"
 L["The guide heads out of town next and your bags are nearly full: sell what you don't need here."] = "Der Guide verlässt als Nächstes die Stadt und deine Taschen sind fast voll: Verkaufe hier, was du nicht brauchst."
+L["Pays %d%% XP at your level and is out of the way (Skip grey quests)"] = "Bringt auf deiner Stufe %d%% EP und liegt abseits (Graue Quests überspringen)"
+L["Grey for you: pays %d%% XP (Skip grey quests)"] = "Für dich grau: bringt %d%% EP (Graue Quests überspringen)"
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Benötigt Polestar %s oder neuer."
@@ -671,6 +673,16 @@ L["A later guide of your route hands these in: keep them. Click to see each with
 L["No guide of your route takes, works or hands these in. Click to see them and keep or abandon each."] = "Kein Guide deiner Route nimmt sie an, erledigt sie oder gibt sie ab. Klicke, um sie zu sehen und jede zu behalten oder abzubrechen."
 L["Click to see its quests in Dungeons"] = "Klicken, um seine Quests in Dungeons zu sehen"
 L["Click to open it in Dungeons"] = "Klicken, um ihn in Dungeons zu öffnen"
+L["Click for a guide to it, through what it needs first"] = "Klicken für einen Guide dorthin, mit allem, was zuerst nötig ist"
+L["Brings back the quests it leaves out. Options, Automation turns it on again."] = "Holt die ausgelassenen Quests zurück. Unter Optionen, Automatisierung schaltest du es wieder ein."
+L["Click to see them, each with an Abandon button"] = "Klicken, um sie zu sehen, jede mit einer Schaltfläche zum Abbrechen"
+L["Too far below the next quests: the guide has you grind to the level they need. Or do what's around you first."] = "Zu weit unter den nächsten Quests: Der Guide lässt dich bis zur nötigen Stufe Monster töten. Oder erledige zuerst, was in deiner Nähe ist."
+L["Click to see its step"] = "Klicken, um ihren Schritt zu sehen"
+L["You're %d: the quests after this are level %s"] = "Du bist Stufe %d: Die Quests danach sind Stufe %s"
+L["Worth doing near here: %s"] = "Hier in der Nähe lohnenswert: %s"
+L["%d left out here"] = "%d hier ausgelassen"
+L["Left out here"] = "Hier ausgelassen"
+L["Turn off Skip grey quests"] = "Graue Quests überspringen ausschalten"
 
 -- UI/Lookup.lua
 L["Both factions"] = "Beide Fraktionen"
@@ -944,6 +956,7 @@ L["For a party levelling together: every one is in the route."] = "Für eine Gru
 L["Point at a look to see it here; click it to wear it."] = "Fahr mit der Maus über ein Design, um es hier zu sehen; klick darauf, um es zu übernehmen."
 L["Built in"] = "Eingebaut"
 L["Concept looks"] = "Konzept-Designs"
+L["Leaves out grey quests, and quests behind you that pay less than full XP when going back for them costs more time than they give. A quest still paying full XP stays, and so does one a later quest needs. The guide window says what it left out."] = "Lässt graue Quests aus, und Quests hinter dir, die weniger als volle EP bringen, wenn der Rückweg mehr Zeit kostet, als sie einbringen. Eine Quest mit vollen EP bleibt, ebenso eine, die eine spätere Quest braucht. Das Guide-Fenster sagt, was es ausgelassen hat."
 
 -- New on the next branch
 L["%d of %d done"] = "%d von %d erledigt"
@@ -996,7 +1009,6 @@ L["Keep the bottom edge in place, so longer steps extend the window up."] = "Der
 L["Key"] = "Schlüssel"
 L["Kill %s for %s"] = "Töte %s für %s"
 L["Kill it for %s"] = "Töte es für %s"
-L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."] = "Lässt graue Quests und ihre Abgaben aus, außer eine spätere Quest braucht sie zuerst."
 L["Left %d %s (%s) for you to buy."] = "%d %s (%s) zum Kaufen für dich übrig gelassen."
 L["Needs %s with %s"] = "Benötigt %s bei %s"
 L["No known source"] = "Keine bekannte Quelle"
@@ -2126,6 +2138,8 @@ L["Install: %s"] = "Installation: %s"
 L["While here: %s"] = "Wenn du schon hier bist: %s"
 L["Travel: %s"] = "Reise: %s"
 L["The report lists the settings you changed and your profile's name: no character names, chat, account or realm."] = "Der Bericht listet die Einstellungen auf, die du geändert hast, und den Namen deines Profils: keine Charakternamen, kein Chat, kein Account und kein Realm."
+L["Left out here: %d more"] = "Hier ausgelassen: %d weitere"
+L["Left out here: %s"] = "Hier ausgelassen: %s"
 
 -- Maps/Instances.lua
 L["Instance history cleared."] = "Instanzverlauf gelöscht."
@@ -4200,6 +4214,8 @@ L["Fargodeep Mine"] = "Tiefenschachtmine"
 L["Lion's Pride Inn"] = "Gasthaus Zur Höhle des Löwen"
 L["Stonefield Farm"] = "Hof der Steinfelds"
 L["Jasperlode Mine"] = "Jaspismine"
+L["What it leaves out"] = "Was ausgelassen wird"
+L["A dim line where the guide passes over quests: open it to see each one and why, with a way to bring it back. Grind steps say what else is worth doing, and a line offers to clean up quests that aren't part of your route."] = "Eine blasse Zeile, wo der Guide Quests auslässt: Öffne sie, um jede mit Grund zu sehen und sie zurückzuholen. Schritte zum Stufenaufstieg sagen, was sich sonst lohnt, und eine Zeile bietet an, Quests aufzuräumen, die nicht zu deiner Route gehören."
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "Alarmreihe"
@@ -4878,3 +4894,4 @@ L["Nothing to apply: the parts ticked are the same as yours."] = "Nichts anzuwen
 -- L["Most of its quests are new in Forever."] = "Die meisten Quests dort sind neu in Forever."
 -- L["When a level-up opens a dungeon's quests to this character, a card on the guide window says so, once per dungeon, with a button that picks up its quests in a new tab."] = "Wenn ein Stufenaufstieg die Quests eines Dungeons für diesen Charakter freischaltet, sagt dir eine Karte am Guide-Fenster das, einmal pro Dungeon, mit einer Schaltfläche, die dessen Quests in einem neuen Tab zusammenstellt."
 -- L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "Routen können mit einem Teleportzauber beginnen, den du kennst (die Stadtteleports eines Magiers, die Mondlichtung eines Druiden), wenn das schneller ist. Ein Stadtteleport braucht eine Rune der Teleportation in deinen Taschen."
+-- L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."] = "Lässt graue Quests und ihre Abgaben aus, außer eine spätere Quest braucht sie zuerst."
