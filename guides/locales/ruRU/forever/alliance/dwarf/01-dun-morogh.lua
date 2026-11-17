@@ -440,9 +440,9 @@ return {
 	["The west hills and the {area:925}"] = "Западные холмы и место {area:925}",
 	-- {npc:1343} Mountaineer Stormpike · {area:925} Algaz Station
 	-- plural, as words: Elder Black Bears = {npc:1186} Elder Black Bear · Mountain Boars = {npc:1190} Mountain Boar · Forest Lurkers = {npc:1195} Forest Lurker
-	["North through the hills west of the road to {npc:1343} at the {area:925}. The Tunnel Rat kobolds dig in the hills on the way; Elder Black Bears, Mountain Boars and Forest Lurkers roam the same ground."] = "На север через холмы западнее дороги, к {npc:1343} в месте {area:925}. Кобольды из племени Туннельных Крыс роют холмы по пути; старые черные медведи, горные вепри и лесные скрытни бродят по той же земле.",
+	["North through the hills west of the road to {npc:1343} at the {area:925}. The Tunnel Rat kobolds dig in the hills on the way; Elder Black Bears, Mountain Boars and Forest Lurkers roam the same ground."] = "На север через холмы западнее дороги, к {npc:1343} в месте {area:925}. Кобольды-туннельщики роют холмы по пути; старые черные медведи, горные вепри и лесные пауки-скрытни бродят по той же земле.",
 	-- {item:3110} Tunnel Rat Ear
-	["{item:3110}: Tunnel Rat kobolds"] = "{item:3110}: кобольды из племени Туннельных Крыс",
+	["{item:3110}: Tunnel Rat kobolds"] = "{item:3110}: кобольды-туннельщики",
 	-- {item:3172} Boar Intestines
 	-- plural, as words: Mountain Boars = {npc:1190} Mountain Boar
 	["{item:3172}: Mountain Boars"] = "{item:3172}: горные вепри",
@@ -451,7 +451,7 @@ return {
 	["{item:3173}: Elder Black Bears"] = "{item:3173}: старые черные медведи",
 	-- {item:3174} Spider Ichor
 	-- plural, as words: Forest Lurkers = {npc:1195} Forest Lurker
-	["{item:3174}: Forest Lurkers"] = "{item:3174}: лесные скрытни",
+	["{item:3174}: Forest Lurkers"] = "{item:3174}: лесные пауки-скрытни",
 	-- {npc:5413} Furen Longbeard · {zone:1453} Stormwind
 	["{npc:5413} in {zone:1453} takes it"] = "{npc:5413} в городе {zone:1453} примет его",
 
