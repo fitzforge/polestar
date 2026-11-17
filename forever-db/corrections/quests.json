@@ -1116,6 +1116,27 @@
 		},
 		"note": "Nether-lace Garment (Kil'hala, after 1945) is open to every Horde Mage: Orc, Undead and Troll. Forever's server sets no race limit (raceMask all, builds 70205-70450) and Forever's quest page sets none (reqrace 0); the merged data had Classic's Undead and Troll."
 	},
+	"2201": {
+		"set": {
+			"end": {
+				"npc": [],
+				"object": [
+					112877
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-16 (excluded contributors left out): 5 people ran Find the Gems (2201); both recorded hand-ins were at an object, none in Talvash del Kissel's window"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: end"
+			}
+		],
+		"note": "Find the Gems (2201) is handed in at Talvash's Scrying Bowl in Ironforge; Talvash del Kissel beside it was also listed as an ender (from QuestieDB), so While you're here could offer the hand-in to him (#2546 sweep, the same pattern as #2612)."
+	},
 	"2358": {
 		"remove": true,
 		"source": [
