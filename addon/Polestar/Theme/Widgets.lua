@@ -2618,7 +2618,7 @@ function W.Dropdown(parent, label, path, choices, desc, depends, opts)
 		if button == "RightButton" then
 			if not W.Enabled(row) then return end
 			W.HideMenu()
-			if row.psSet then
+			if row.psSet and (row.psReset or not path) then
 				if row.psReset then
 					W.ResetSetting(nil, function() return valueOf(row) end, row.psSet)
 					row:Refresh()
