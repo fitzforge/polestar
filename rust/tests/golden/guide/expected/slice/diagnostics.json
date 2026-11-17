@@ -1,7 +1,7 @@
 {
 	"ok": false,
-	"errors": 178,
-	"warnings": 93,
+	"errors": 185,
+	"warnings": 86,
 	"diagnostics": [
 		{
 			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
@@ -13,8 +13,9 @@
 		{
 			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
 			"line": 136,
-			"severity": "warning",
-			"message": "quest 33 needs 5261 (Eagan Peltskinner) turned in first, but the chain never turns it in"
+			"severity": "error",
+			"message": "quest 33 needs 5261 (Eagan Peltskinner) turned in first, but the chain never turns it in",
+			"hint": "take what it needs earlier in the route, or move the accept after it; a step that is right as written goes in data/lint-allow.json (rule `offer`, the quest and the reason)"
 		},
 		{
 			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
@@ -921,14 +922,16 @@
 		{
 			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
 			"line": 75,
-			"severity": "warning",
-			"message": "quest 870 needs 886 (The Barrens Oases) turned in first, but the chain never turns it in"
+			"severity": "error",
+			"message": "quest 870 needs 886 (The Barrens Oases) turned in first, but the chain never turns it in",
+			"hint": "take what it needs earlier in the route, or move the accept after it; a step that is right as written goes in data/lint-allow.json (rule `offer`, the quest and the reason)"
 		},
 		{
 			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
 			"line": 76,
-			"severity": "warning",
-			"message": "quest 844 needs 860 (Sergra Darkthorn) turned in first, but the chain never turns it in"
+			"severity": "error",
+			"message": "quest 844 needs 860 (Sergra Darkthorn) turned in first, but the chain never turns it in",
+			"hint": "take what it needs earlier in the route, or move the accept after it; a step that is right as written goes in data/lint-allow.json (rule `offer`, the quest and the reason)"
 		},
 		{
 			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
@@ -1351,8 +1354,9 @@
 		{
 			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
 			"line": 337,
-			"severity": "warning",
-			"message": "quest 786 needs 785 turned in first, but the chain never turns it in"
+			"severity": "error",
+			"message": "quest 786 needs 785 turned in first, but the chain never turns it in",
+			"hint": "take what it needs earlier in the route, or move the accept after it; a step that is right as written goes in data/lint-allow.json (rule `offer`, the quest and the reason)"
 		},
 		{
 			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
@@ -1474,8 +1478,9 @@
 		{
 			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
 			"line": 399,
-			"severity": "warning",
-			"message": "quest 6062 needs one of 6068 (The Hunter's Path), 6069 (The Hunter's Path), 6070 (The Hunter's Path) turned in first, but the chain turns in none of them"
+			"severity": "error",
+			"message": "quest 6062 needs one of 6068 (The Hunter's Path), 6069 (The Hunter's Path), 6070 (The Hunter's Path) turned in first, but the chain turns in none of them",
+			"hint": "take what it needs earlier in the route, or move the accept after it; a step that is right as written goes in data/lint-allow.json (rule `offer`, the quest and the reason)"
 		},
 		{
 			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
@@ -1711,14 +1716,16 @@
 		{
 			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/02-the-barrens.guide",
 			"line": 62,
-			"severity": "warning",
-			"message": "quest 844 needs 860 (Sergra Darkthorn) turned in first, but the chain never turns it in"
+			"severity": "error",
+			"message": "quest 844 needs 860 (Sergra Darkthorn) turned in first, but the chain never turns it in",
+			"hint": "take what it needs earlier in the route, or move the accept after it; a step that is right as written goes in data/lint-allow.json (rule `offer`, the quest and the reason)"
 		},
 		{
 			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/02-the-barrens.guide",
 			"line": 68,
-			"severity": "warning",
-			"message": "quest 870 needs 886 (The Barrens Oases) turned in first, but the chain never turns it in"
+			"severity": "error",
+			"message": "quest 870 needs 886 (The Barrens Oases) turned in first, but the chain never turns it in",
+			"hint": "take what it needs earlier in the route, or move the accept after it; a step that is right as written goes in data/lint-allow.json (rule `offer`, the quest and the reason)"
 		},
 		{
 			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/02-the-barrens.guide",

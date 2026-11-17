@@ -26,7 +26,7 @@ fn spots() -> Value {
 }
 
 fn compiled(lines: &[&str]) -> Compiled {
-	let mut l = vec!["step Accept", "  accept 7"];
+	let mut l = vec!["step Accept", "  accept 783", "  turnin 783", "  accept 7"];
 	l.extend_from_slice(lines);
 	l.extend(["step Hand in", "  turnin 7"]);
 	compile(&guide_text(&l))

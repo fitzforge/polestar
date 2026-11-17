@@ -42,12 +42,21 @@ function walk(dir, keep, out = []) {
 	return out;
 }
 
+// The tracked files under `dirs` (git ls-files), else every file found there (a tree outside git): files a run
+// leaves behind (another test's scratch, a build) never count as pins.
+function testFiles(root, dirs, keep) {
+	const r = spawnSync('git', ['ls-files', '-z', '--', ...dirs], { cwd: root, encoding: 'utf8', maxBuffer: 1 << 26 });
+	if (r.status === 0 && r.stdout) return r.stdout.split('\0').filter((f) => f && keep(f)).map((f) => path.join(root, f));
+	return dirs.flatMap((d) => walk(path.join(root, d), keep));
+}
+
 // The text of every test: node tests, the forge crates' test folders, the test modules of their sources
 // (from the first `#[cfg(test)]` on), and the judge's seeds.
 function testTexts(root = ROOT) {
 	const texts = [];
-	for (const f of walk(path.join(root, 'tests'), (p) => p.endsWith('.js'))) texts.push(fs.readFileSync(f, 'utf8'));
-	for (const f of walk(path.join(root, 'rust', 'crates'), (p) => p.endsWith('.rs'))) {
+	const skip = (f) => f.split(/[\\/]/).some((p) => p === 'fixtures' || p === 'target' || p === 'node_modules');
+	for (const f of testFiles(root, ['tests'], (f) => f.endsWith('.js') && !skip(f))) texts.push(fs.readFileSync(f, 'utf8'));
+	for (const f of testFiles(root, ['rust/crates'], (f) => f.endsWith('.rs') && !skip(f))) {
 		const t = fs.readFileSync(f, 'utf8');
 		const rel = path.relative(root, f).split(path.sep);
 		if (rel.includes('tests') || rel.includes('seed')) texts.push(t);

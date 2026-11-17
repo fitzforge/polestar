@@ -30,7 +30,7 @@ fn a_quest_with_no_objectives_whose_objective_text_says_escort_is_one() {
 
 #[test]
 fn an_event_objective_that_says_nothing_of_an_escort_a_kill_quest_and_a_goal_with_no_quest_are_not_escort() {
-	assert_eq!(escorts(&["step S", "  accept 9704", "  complete 9704", "  accept 7", "  kill 6 quest 7", "  kill 6"]), vec![Value::Null; 5]);
+	assert_eq!(escorts(&["step S", "  accept 9704", "  complete 9704", "  accept 783", "  turnin 783", "  accept 7", "  kill 6 quest 7", "  kill 6"]), vec![Value::Null; 7]);
 }
 
 #[test]

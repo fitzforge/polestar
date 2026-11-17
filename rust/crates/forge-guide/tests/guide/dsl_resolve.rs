@@ -483,19 +483,30 @@ fn a_spawn_or_two_far_from_the_camp_that_holds_most_of_a_target_are_strays() {
 
 #[test]
 fn objective_index_and_count_come_from_the_linked_objective_explicit_values_win() {
-	let (g, r) = goals_of(&["step One", "  accept 7", "  kill 6 quest 7", "  kill 6 x3 quest 7", "  accept 9400", "  interact 1617 quest 9400", "  kill 6 quest 7.1 x2"]);
-	assert_eq!(json!([g[1]["oi"], g[1]["count"], g[1]["title"]]), json!([1, 10, "Kobold Camp Cleanup"]));
-	assert_eq!(json!([g[2]["oi"], g[2]["count"]]), json!([1, 3]));
-	assert_eq!(json!([g[4]["oi"], get(&g[4], "count"), g[4]["objName"]]), json!([1, null, "Kobold Crate"]));
-	assert_eq!(json!([g[5]["oi"], g[5]["count"]]), json!([1, 2]));
+	let (g, r) = goals_of(&[
+		"step Zero",
+		"  accept 783",
+		"  turnin 783",
+		"step One",
+		"  accept 7",
+		"  kill 6 quest 7",
+		"  kill 6 x3 quest 7",
+		"  accept 9400",
+		"  interact 1617 quest 9400",
+		"  kill 6 quest 7.1 x2",
+	]);
+	assert_eq!(json!([g[3]["oi"], g[3]["count"], g[3]["title"]]), json!([1, 10, "Kobold Camp Cleanup"]));
+	assert_eq!(json!([g[4]["oi"], g[4]["count"]]), json!([1, 3]));
+	assert_eq!(json!([g[6]["oi"], get(&g[6], "count"), g[6]["objName"]]), json!([1, null, "Kobold Crate"]));
+	assert_eq!(json!([g[7]["oi"], g[7]["count"]]), json!([1, 2]));
 	assert!(r.warned("objective").is_empty());
 }
 
 #[test]
 fn a_quest_link_with_no_matching_objective_warns_and_leaves_the_index_unset() {
-	let (g, r) = goals_of(&["step One", "  accept 7", "  kill 69 quest 7"]);
-	assert!(g[1].get("oi").is_none());
-	assert_match(&r.warnings.join("\n"), r"test\.guide:9: quest 7 has no objective for this npc");
+	let (g, r) = goals_of(&["step Zero", "  accept 783", "  turnin 783", "step One", "  accept 7", "  kill 69 quest 7"]);
+	assert!(g[3].get("oi").is_none());
+	assert_match(&r.warnings.join("\n"), r"test\.guide:12: quest 7 has no objective for this npc");
 }
 
 #[test]

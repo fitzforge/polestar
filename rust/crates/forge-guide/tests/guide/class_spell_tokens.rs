@@ -32,7 +32,7 @@ fn class_data() -> Data {
 /// A Class guide `t/<id>` with these header lines (each ending in "\n").
 fn guide(id: &str, header: &str) -> String {
 	let tip = "Cold Snap resets Ice Block, and Frostbite roots the target. Frostbite's chance grows.";
-	format!("guide t/{id}\ntitle Test\ncategory Class\n{header}faction Alliance\nlevels 1-10\nzone Elwynn Forest\n\nstep Level 46: Cold Snap\n  tip {tip}\n  accept 7\n")
+	format!("guide t/{id}\ntitle Test\ncategory Class\n{header}faction Alliance\nlevels 1-10\nzone Elwynn Forest\n\nstep Level 46: Cold Snap\n  tip {tip}\n  accept 783\n")
 }
 
 #[test]

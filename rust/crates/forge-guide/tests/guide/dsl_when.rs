@@ -111,7 +111,7 @@ fn the_resolver_warns_about_ids_the_data_lacks_a_zone_the_game_never_names_and_a
 		"  accept 783",
 		"step Two",
 		"  when level>=20",
-		"  accept 7",
+		"  accept 179",
 		"step Three",
 		"  when onquest 7",
 		"  when !onquest 7",
