@@ -17,8 +17,28 @@ use crate::re;
 use crate::xp::level_point;
 
 pub const KINDS: [&str; 22] = [
-	"level", "money", "onquest", "complete", "turnedin", "available", "has", "upgrade", "zone", "subzone", "bound", "dungeon", "done", "skill", "cooldown", "group", "knows", "taxi", "rep", "buff",
-	"equipped", "indoors",
+	"level",
+	"money",
+	"onquest",
+	"complete",
+	"turnedin",
+	"available",
+	"has",
+	"upgrade",
+	"zone",
+	"subzone",
+	"bound",
+	"dungeon",
+	"done",
+	"skill",
+	"cooldown",
+	"group",
+	"knows",
+	"taxi",
+	"rep",
+	"buff",
+	"equipped",
+	"indoors",
 ];
 /// The standings, as the `rep` goal and predicate name them (1 Hated .. 8 Exalted).
 pub const STANDINGS: [(&str, f64); 8] = [("hated", 1.0), ("hostile", 2.0), ("unfriendly", 3.0), ("neutral", 4.0), ("friendly", 5.0), ("honored", 6.0), ("revered", 7.0), ("exalted", 8.0)];
