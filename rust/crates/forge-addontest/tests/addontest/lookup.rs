@@ -857,8 +857,8 @@ fn search_a_keystroke_costs_a_few_scans_of_the_names_and_grows_linearly_from_2_5
 	let ms = |t: &Value| format!("keystroke {:.3} ms, one scan {:.3} ms", num(&t["key"]), num(&t["scan"]));
 	// Here (Linux, lua5.1): a keystroke ~3 scans, 25,000 names ~2.5x 2,500; a Lua pass over every line alone
 	// costs ~35 scans.
-	assert!(num(&large["key"]) < 12.0 * num(&large["scan"]).max(0.01), "25,000 names: {}: more than 12 scans a keystroke", ms(&large));
-	assert!(num(&large["key"]) < 15.0 * num(&small["key"]).max(0.01), "25,000 names {} vs 2,500 {}: grows faster than the names", ms(&large), ms(&small));
+	forge_addontest::assert_timing!(num(&large["key"]) < 12.0 * num(&large["scan"]).max(0.01), "25,000 names: {}: more than 12 scans a keystroke", ms(&large));
+	forge_addontest::assert_timing!(num(&large["key"]) < 15.0 * num(&small["key"]).max(0.01), "25,000 names {} vs 2,500 {}: grows faster than the names", ms(&large), ms(&small));
 }
 
 // ---------------------------------------------------------------------------

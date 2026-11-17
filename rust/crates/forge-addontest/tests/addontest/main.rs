@@ -56,6 +56,8 @@ mod dsl_verbs;
 mod dungeon_route_held;
 #[path = "dungeons-attune.rs"]
 mod dungeons_attune;
+#[path = "dungeons-forever-quests.rs"]
+mod dungeons_forever_quests;
 #[path = "dungeons-pickup.rs"]
 mod dungeons_pickup;
 #[path = "dungeons-runtime.rs"]

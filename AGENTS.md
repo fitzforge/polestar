@@ -27,7 +27,9 @@ The rules that hold for every task:
   (`gh pr list --state open --search "<N>"`, the issue's `has-pr` label).
   Help on that one instead of opening a second, and link every issue yours
   fixes ("closes #N").
-- Pull requests always go to `next`, never to `main`.
+- Pull requests go to `next`, never to `main` (`release/` and `hotfix/`
+  branches only when a maintainer asks). Never push to a merged pull request
+  again.
 - Never claim a check passed that you did not run, and never invent quest
   ids, coordinates or names.
 - A human reads every comment before it is posted.
