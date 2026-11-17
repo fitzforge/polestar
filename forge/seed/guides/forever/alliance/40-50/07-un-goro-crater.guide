@@ -51,6 +51,13 @@ step Gadgetzan
   tip The flight from Theramore lands in Gadgetzan.
   turnin 2941
 
+step Marin Noggenfogger
+  when !onquest 2605
+  when !turnedin 2605
+  zone Tanaris
+  tip You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.
+  accept 2605                         -- Marin Noggenfogger
+
 step Gadgetzan
   when group 2944
   accept 2944

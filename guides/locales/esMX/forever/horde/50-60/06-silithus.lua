@@ -359,17 +359,20 @@ return {
 	["from the cauldron, for {npc:11055} at the {area:152}"] = "del caldero, para {npc:11055} en {area:152}",
 
 	-- Step 100: Mulgris Deepriver
-	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {area:201} Gahrron's Withering
+	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "No hiciste esto en la visita anterior de la ruta a esta zona: ahora va primero. Es rápido y abre las misiones que le siguen.",
+
+	-- Step 103: Mulgris Deepriver
+	-- {npc:10739} Mulgris Deepriver · {area:202} The Writhing Haunt · {area:201} Gahrron's Withering
 	["{npc:10739} camps by the {area:202}, beside the cauldron; his bears roam the hills north and east of it, on the way to {area:201}."] = "{npc:10739} acampa junto a {area:202}, al lado del caldero; sus osos recorren las colinas al norte y al este, de camino a {area:201}.",
 
-	-- Step 101: Diseased Grizzlies
+	-- Step 104: Diseased Grizzlies
 	["Diseased Grizzlies"] = "Osos pardos malsanos",
 
-	-- Step 104: Target: Gahrron's Withering
-	-- {area:202} Writhing Haunt · {area:201} Gahrron's Withering · {npc:11078} Cauldron Lord Soulwrath
+	-- Step 107: Target: Gahrron's Withering
+	-- {area:202} The Writhing Haunt · {area:201} Gahrron's Withering · {npc:11078} Cauldron Lord Soulwrath
 	["Back east past the {area:202} to {area:201}, the farm under the eastern hills: {npc:11078} guards its cauldron. Kill him for the key, then use the cauldron."] = "De vuelta al este pasando {area:202} hasta {area:201}, la granja bajo las colinas del este: {npc:11078} custodia su caldero. Mátalo para conseguir la llave y luego usa el caldero.",
 
-	-- Step 105: The Bulwark
+	-- Step 108: The Bulwark
 	-- {area:152} The Bulwark
 	["West to the {area:152} one last time."] = "Al oeste, hasta {area:152}, por última vez.",
 
