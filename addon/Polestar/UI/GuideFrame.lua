@@ -451,7 +451,10 @@ GF.Part(function(GF)
 			mark.psLit = lit
 			GF.PaintMark(mark)
 		end
-		if lit then lit:SetShown(on) end
+		-- A row the game look lights with its own art (Theme.KitRowLit,
+		-- r.psKitLit) keeps that art alone: the wash over it ran out past the
+		-- art's inset.
+		if lit then lit:SetShown(on and not rawget(r, "psKitLit")) end
 	end
 
 	-- The goal rows' mark (GF.ShowMark) on frame r, a row a layout or a card
@@ -883,7 +886,7 @@ GF.Part(function(GF)
 			W.Color(r.Icon, done and "success" or ((current or gold) and "accent" or "textDim"))
 		end
 		-- The game's looks light the goal to do now with their own art.
-		Theme.KitRowLit(r, current and not done and not skipped and not transparent(), nil, Theme.Metric("guideLitInset", 4))
+		r.psKitLit = Theme.KitRowLit(r, current and not done and not skipped and not transparent(), nil, Theme.Metric("guideLitInset", 4)) or nil
 		UI.SetCounted(r.Text, UI.GoalLine(goal, questHex, true))
 		-- White while it is to be done; done and skipped goals step back. The
 		-- turn-in of a quest whose objectives are still open, pinned (#644),
@@ -1633,7 +1636,8 @@ GF.Part(function(GF)
 	-- progress setting is on, default on: off for a skin that shows progress
 	-- its own way, guideProgress), "markWash" (the arrow's target row marked
 	-- by its light alone in every look, the bar only in the transparent style,
-	-- default off: GF.PaintMark).
+	-- default off: GF.PaintMark), "kitHeader" (the game look's band behind the
+	-- step's title, Theme.KitHeader, default on).
 	function GF.Shows(name, default, ...)
 		local ran, v = GF.HookValue("guideShows", name, default, ...)
 		if ran and type(v) == "boolean" then return v end

@@ -220,8 +220,9 @@ ns.UI.GuideFrame.Part(function(GF)
 		GF.PaintRule(nav.Rule)
 		-- Blizzard's damage meter header bar under the tabs.
 		Theme.KitStrip(strip, not clear)
-		-- The quest tracker's header behind the focus (Forever, Blizzard).
-		Theme.KitHeader(person, not clear)
+		-- The quest tracker's header behind the focus (Forever, Blizzard),
+		-- unless the layout leaves it out (GF.Shows "kitHeader").
+		Theme.KitHeader(person, not clear and GF.Shows("kitHeader", true))
 		-- The hairlines between the window's parts (guideWindow.rules): shown or hidden, never SetAlpha (their
 		-- strength is their colour's alpha, which SetAlpha replaces). The house look keeps them round the chrome and
 		-- over the footer (the XP line, the banner) and lets the body's sections ("Then:", Along the way, Up next,

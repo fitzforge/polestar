@@ -1322,3 +1322,38 @@ emit({ plain = plain, large = large, atlasLarge = atlasLarge, after = goalSize()
 	assert.ok(out.large > out.plain, JSON.stringify(out));
 	assert.equal(out.after, out.plain, `back to its own size: ${JSON.stringify(out)}`);
 });
+
+// A game look (Forever) under Atlas: the quest tracker band the kit draws
+// behind the step's title stays out (guideShows "kitHeader"; Atlas underlines
+// the title itself), and back in Polestar's own layout. The goal the kit
+// lights with its own selected card (Theme.KitRowLit) wears that card alone:
+// the mark's wash over it ran out past the card's inset.
+test('under Atlas a game look draws no title band and no wash over its lit goal', () => {
+	const run = (layout) => runAddon({
+		stubs: ['stub_world.lua'],
+		addons: ['Polestar', 'Polestar_Looks', 'Polestar_Skin_Atlas', 'Polestar_Layout_Atlas'],
+		script: `${GUIDE}
+local T = Polestar.Theme
+local GF = Polestar.UI.GuideFrame
+local header
+local kitHeader = T.KitHeader
+T.KitHeader = function(f, shown) if f == T.GuideParts().person then header = shown end return kitHeader(f, shown) end
+Polestar.Set("ui.shown", true)
+Polestar.Set("ui.skin", "forever")
+${layout ? `T.SetLayout("${layout}")` : ''}
+GF.Layout(); if GF.Render then GF.Render() end; stub.advance(1)
+GF.ApplyStyle()
+local r = GF.rows[1]
+GF.ShowMark(r, true)
+local l = rawget(r.Mark, "psLit")
+emit({ kit = T.Kit() ~= nil, header = header, kitLit = rawget(r, "psKitLit") or false, wash = l and l:IsShown() or false, mark = r.Mark:IsShown() })`,
+	}).emitted[0];
+	const atlas = run('atlas');
+	assert.equal(atlas.kit, true, 'the Forever kit is in use');
+	assert.equal(atlas.header, false, 'Atlas: no quest tracker band behind the title');
+	assert.equal(atlas.kitLit, true, 'the kit lights the goal to do now');
+	assert.equal(atlas.mark, true, 'the goal is marked');
+	assert.equal(atlas.wash, false, 'no wash over the kit-lit goal');
+	const own = run(null);
+	assert.equal(own.header, true, "Polestar's own layout keeps the band");
+});

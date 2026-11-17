@@ -2252,6 +2252,9 @@ on("guideShows", function(what, shown)
 	if what == "done" then return true end
 	if what == "progressFoot" then return false end
 	if what == "markWash" then return true end
+	-- The game looks' quest tracker band behind the title: Atlas's title has
+	-- its own line under it (underline), the band's rods ran across the rail.
+	if what == "kitHeader" then return false end
 	if what == "upnextHead" then return not onRail() or not Core.setting("ui.upcomingOpen") end
 	return shown
 end)
