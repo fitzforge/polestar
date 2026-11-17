@@ -8,16 +8,16 @@
 return {
 	-- Step 1: Learn Alchemy
 	-- {skill:171} Alchemy
-	["Learn {skill:171}"] = "",
+	["Learn {skill:171}"] = "{skill:171} 배우기",
 	-- {skill:171} Alchemy · {skill:182} Herbalism · {item:2447} Peacebloom · {item:765} Silverleaf
 	-- plural, as words: Empty Vials = {item:3371} Empty Vial
-	["Apprentice {skill:171} lets you craft up to 75 for 10c, at any character level. Any {skill:171} trainer of your faction teaches it; the arrow picks the nearest. Pair it with {skill:182}: {item:2447} and {item:765} grow in every starting zone, and Empty Vials cost 4c at any alchemy or trade supplies vendor. 1-75 takes about 3s 28c of vendor goods, plus 82 {item:765} and 110 {item:2447} to gather or buy."] = "",
+	["Apprentice {skill:171} lets you craft up to 75 for 10c, at any character level. Any {skill:171} trainer of your faction teaches it; the arrow picks the nearest. Pair it with {skill:182}: {item:2447} and {item:765} grow in every starting zone, and Empty Vials cost 4c at any alchemy or trade supplies vendor. 1-75 takes about 3s 28c of vendor goods, plus 82 {item:765} and 110 {item:2447} to gather or buy."] = "초급 {skill:171}은(는) 10코퍼로 75까지 제작할 수 있게 해 주며, 캐릭터 레벨 제한이 없습니다. 당신 진영의 어떤 {skill:171} 상급자에게서나 가르치며, 화살표가 가장 가까운 이를 가리킵니다. {skill:182}와(과) 함께 하세요: {item:2447}와(과) {item:765}은(는) 모든 시작 지대에 자라고, 빈 약병은 어떤 연금술 또는 무역 용품 상인에게서나 4코퍼입니다. 1-75에는 상인 재료 약 3실버 28코퍼와 함께 채집하거나 구매할 {item:765} 82개, {item:2447} 110개가 필요합니다.",
 
 	-- Step 2: Alchemy 1-75: vendor goods
 	-- {skill:171} Alchemy
-	["{skill:171} 1-75: vendor goods"] = "",
+	["{skill:171} 1-75: vendor goods"] = "{skill:171} 1-75: 상인 재료",
 	-- {item:3371} Empty Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 82 {item:3371} (3s 28c); about 3s 28c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	["Buy the whole bracket's share in one go: 82 {item:3371} (3s 28c); about 3s 28c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:3371} 82개(3실버 28코퍼). 모두 약 3실버 28코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1286}, {npc:5503}, {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348}, {npc:3334}).",
 
 	-- Step 3: Alchemy 1-75: Auction House
 	-- {skill:171} Alchemy
@@ -27,65 +27,65 @@ return {
 
 	-- Step 4: Silverleaf (Elwynn Forest)
 	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:1429} Elwynn Forest
-	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1429} is marked."] = "",
+	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1429} is marked."] = "{item:5997}에 필요한 {item:765} 82개: {skill:182}: {item:765}(숙련도 1). {zone:1429}에서 가장 많이 나는 {item:765} 지역이 표시됩니다.",
 
 	-- Step 5: Silverleaf (Dun Morogh)
 	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:1426} Dun Morogh
-	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1426} is marked."] = "",
+	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1426} is marked."] = "{item:5997}에 필요한 {item:765} 82개: {skill:182}: {item:765}(숙련도 1). {zone:1426}에서 가장 많이 나는 {item:765} 지역이 표시됩니다.",
 
 	-- Step 6: Silverleaf (Teldrassil)
 	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:1438} Teldrassil
-	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1438} is marked."] = "",
+	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1438} is marked."] = "{item:5997}에 필요한 {item:765} 82개: {skill:182}: {item:765}(숙련도 1). {zone:1438}에서 가장 많이 나는 {item:765} 지역이 표시됩니다.",
 
 	-- Step 7: Silverleaf (Zephras Isle)
 	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:2521} Zephras Isle
-	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:2521} is marked."] = "",
+	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:2521} is marked."] = "{item:5997}에 필요한 {item:765} 82개: {skill:182}: {item:765}(숙련도 1). {zone:2521}에서 가장 많이 나는 {item:765} 지역이 표시됩니다.",
 
 	-- Step 8: Silverleaf (Durotar)
 	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:1411} Durotar
-	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1411} is marked."] = "",
+	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1411} is marked."] = "{item:5997}에 필요한 {item:765} 82개: {skill:182}: {item:765}(숙련도 1). {zone:1411}에서 가장 많이 나는 {item:765} 지역이 표시됩니다.",
 
 	-- Step 9: Silverleaf (Mulgore)
 	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:1412} Mulgore
-	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1412} is marked."] = "",
+	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1412} is marked."] = "{item:5997}에 필요한 {item:765} 82개: {skill:182}: {item:765}(숙련도 1). {zone:1412}에서 가장 많이 나는 {item:765} 지역이 표시됩니다.",
 
 	-- Step 10: Silverleaf (Tirisfal Glades)
 	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:1420} Tirisfal Glades
-	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1420} is marked."] = "",
+	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1420} is marked."] = "{item:5997}에 필요한 {item:765} 82개: {skill:182}: {item:765}(숙련도 1). {zone:1420}에서 가장 많이 나는 {item:765} 지역이 표시됩니다.",
 
 	-- Step 11: Peacebloom (Elwynn Forest)
 	-- {item:2447} Peacebloom · {item:5997} Elixir of Minor Defense · {spell:2331} Minor Mana Potion · {skill:182} Herbalism · {zone:1429} Elwynn Forest
-	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1429} is marked."] = "",
+	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1429} is marked."] = "{item:5997} 및 {spell:2331}에 필요한 {item:2447} 110개(75-150에 28개: 지금 모두 채집하세요): {skill:182}: {item:2447}(숙련도 1). {zone:1429}에서 가장 많이 나는 {item:2447} 지역이 표시됩니다.",
 
 	-- Step 12: Peacebloom (Dun Morogh)
 	-- {item:2447} Peacebloom · {item:5997} Elixir of Minor Defense · {spell:2331} Minor Mana Potion · {skill:182} Herbalism · {zone:1426} Dun Morogh
-	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1426} is marked."] = "",
+	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1426} is marked."] = "{item:5997} 및 {spell:2331}에 필요한 {item:2447} 110개(75-150에 28개: 지금 모두 채집하세요): {skill:182}: {item:2447}(숙련도 1). {zone:1426}에서 가장 많이 나는 {item:2447} 지역이 표시됩니다.",
 
 	-- Step 13: Peacebloom (Teldrassil)
 	-- {item:2447} Peacebloom · {item:5997} Elixir of Minor Defense · {spell:2331} Minor Mana Potion · {skill:182} Herbalism · {zone:1438} Teldrassil
-	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1438} is marked."] = "",
+	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1438} is marked."] = "{item:5997} 및 {spell:2331}에 필요한 {item:2447} 110개(75-150에 28개: 지금 모두 채집하세요): {skill:182}: {item:2447}(숙련도 1). {zone:1438}에서 가장 많이 나는 {item:2447} 지역이 표시됩니다.",
 
 	-- Step 14: Peacebloom (Zephras Isle)
 	-- {item:2447} Peacebloom · {item:5997} Elixir of Minor Defense · {spell:2331} Minor Mana Potion · {skill:182} Herbalism · {zone:2521} Zephras Isle
-	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:2521} is marked."] = "",
+	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:2521} is marked."] = "{item:5997} 및 {spell:2331}에 필요한 {item:2447} 110개(75-150에 28개: 지금 모두 채집하세요): {skill:182}: {item:2447}(숙련도 1). {zone:2521}에서 가장 많이 나는 {item:2447} 지역이 표시됩니다.",
 
 	-- Step 15: Peacebloom (Durotar)
 	-- {item:2447} Peacebloom · {item:5997} Elixir of Minor Defense · {spell:2331} Minor Mana Potion · {skill:182} Herbalism · {zone:1411} Durotar
-	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1411} is marked."] = "",
+	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1411} is marked."] = "{item:5997} 및 {spell:2331}에 필요한 {item:2447} 110개(75-150에 28개: 지금 모두 채집하세요): {skill:182}: {item:2447}(숙련도 1). {zone:1411}에서 가장 많이 나는 {item:2447} 지역이 표시됩니다.",
 
 	-- Step 16: Peacebloom (Mulgore)
 	-- {item:2447} Peacebloom · {item:5997} Elixir of Minor Defense · {spell:2331} Minor Mana Potion · {skill:182} Herbalism · {zone:1412} Mulgore
-	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1412} is marked."] = "",
+	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1412} is marked."] = "{item:5997} 및 {spell:2331}에 필요한 {item:2447} 110개(75-150에 28개: 지금 모두 채집하세요): {skill:182}: {item:2447}(숙련도 1). {zone:1412}에서 가장 많이 나는 {item:2447} 지역이 표시됩니다.",
 
 	-- Step 17: Peacebloom (Tirisfal Glades)
 	-- {item:2447} Peacebloom · {item:5997} Elixir of Minor Defense · {spell:2331} Minor Mana Potion · {skill:182} Herbalism · {zone:1420} Tirisfal Glades
-	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1420} is marked."] = "",
+	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1420} is marked."] = "{item:5997} 및 {spell:2331}에 필요한 {item:2447} 110개(75-150에 28개: 지금 모두 채집하세요): {skill:182}: {item:2447}(숙련도 1). {zone:1420}에서 가장 많이 나는 {item:2447} 지역이 표시됩니다.",
 
 	-- Step 18: Elixir of Minor Defense to 75
 	-- {item:5997} Elixir of Minor Defense
 	["{item:5997} to 75"] = "{item:5997}: 75까지",
 	-- {item:5997} Elixir of Minor Defense · {item:765} Silverleaf · {item:2447} Peacebloom · {item:3371} Empty Vial
-	["{item:5997} is orange at 1 (yellow 55, green 75, grey 95): about 82 crafts to 75. Each takes 1 {item:765}, 1 {item:2447} and 1 {item:3371}. Known from the start and the cheapest way through the Apprentice range. Keep the elixirs (armour while you level) or sell them."] = "",
+	["{item:5997} is orange at 1 (yellow 55, green 75, grey 95): about 82 crafts to 75. Each takes 1 {item:765}, 1 {item:2447} and 1 {item:3371}. Known from the start and the cheapest way through the Apprentice range. Keep the elixirs (armour while you level) or sell them."] = "{item:5997}은(는) 1에 주황색입니다(노란색 55, 초록색 75, 회색 95). 75까지 약 82번 만드십시오. 한 번에 {item:765} 1개, {item:2447} 1개, {item:3371} 1개가 듭니다. 처음부터 알려져 있고 초급 구간을 통과하는 가장 저렴한 방법입니다. 엘릭서(레벨을 올리는 동안 방어구 역할)를 직접 쓰거나 판매하세요.",
 
 	-- Step 19: Journeyman Alchemy
 	-- {skill:171} Alchemy
@@ -95,9 +95,9 @@ return {
 
 	-- Step 20: Alchemy 75-150: vendor goods
 	-- {skill:171} Alchemy
-	["{skill:171} 75-150: vendor goods"] = "",
+	["{skill:171} 75-150: vendor goods"] = "{skill:171} 75-150: 상인 재료",
 	-- {item:3371} Empty Vial · {item:3372} Leaded Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 77 {item:3371} (3s 8c) and 15 {item:3372} (6s); about 9s 8c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	["Buy the whole bracket's share in one go: 77 {item:3371} (3s 8c) and 15 {item:3372} (6s); about 9s 8c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:3371} 77개(3실버 8코퍼) and {item:3372} 15개(6실버). 모두 약 9실버 8코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1286}, {npc:5503}, {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348}, {npc:3334}).",
 
 	-- Step 21: Alchemy 75-150: Auction House
 	-- {skill:171} Alchemy
@@ -107,73 +107,73 @@ return {
 
 	-- Step 22: Mageroyal (Westfall)
 	-- {item:785} Mageroyal · {spell:2331} Minor Mana Potion · {spell:3171} Elixir of Wisdom · {skill:182} Herbalism · {zone:1436} Westfall
-	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1436} is marked."] = "",
+	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1436} is marked."] = "{spell:2331} 및 {spell:3171}에 필요한 {item:785} 77개: {skill:182}: {item:785}(숙련도 50). {zone:1436}에서 가장 많이 나는 {item:785} 지역이 표시됩니다.",
 
 	-- Step 23: Mageroyal (Loch Modan)
 	-- {item:785} Mageroyal · {spell:2331} Minor Mana Potion · {spell:3171} Elixir of Wisdom · {skill:182} Herbalism · {zone:1432} Loch Modan
-	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1432} is marked."] = "",
+	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1432} is marked."] = "{spell:2331} 및 {spell:3171}에 필요한 {item:785} 77개: {skill:182}: {item:785}(숙련도 50). {zone:1432}에서 가장 많이 나는 {item:785} 지역이 표시됩니다.",
 
 	-- Step 24: Mageroyal (Teldrassil)
 	-- {item:785} Mageroyal · {spell:2331} Minor Mana Potion · {spell:3171} Elixir of Wisdom · {skill:182} Herbalism · {zone:1438} Teldrassil
-	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1438} is marked."] = "",
+	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1438} is marked."] = "{spell:2331} 및 {spell:3171}에 필요한 {item:785} 77개: {skill:182}: {item:785}(숙련도 50). {zone:1438}에서 가장 많이 나는 {item:785} 지역이 표시됩니다.",
 
 	-- Step 25: Mageroyal (Zephras Isle)
 	-- {item:785} Mageroyal · {spell:2331} Minor Mana Potion · {spell:3171} Elixir of Wisdom · {skill:182} Herbalism · {zone:2521} Zephras Isle
-	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:2521} is marked."] = "",
+	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:2521} is marked."] = "{spell:2331} 및 {spell:3171}에 필요한 {item:785} 77개: {skill:182}: {item:785}(숙련도 50). {zone:2521}에서 가장 많이 나는 {item:785} 지역이 표시됩니다.",
 
 	-- Step 26: Mageroyal (The Barrens)
 	-- {item:785} Mageroyal · {spell:2331} Minor Mana Potion · {spell:3171} Elixir of Wisdom · {skill:182} Herbalism · {zone:1413} The Barrens
-	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1413} is marked."] = "",
+	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1413} is marked."] = "{spell:2331} 및 {spell:3171}에 필요한 {item:785} 77개: {skill:182}: {item:785}(숙련도 50). {zone:1413}에서 가장 많이 나는 {item:785} 지역이 표시됩니다.",
 
 	-- Step 27: Mageroyal (Silverpine Forest)
 	-- {item:785} Mageroyal · {spell:2331} Minor Mana Potion · {spell:3171} Elixir of Wisdom · {skill:182} Herbalism · {zone:1421} Silverpine Forest
-	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1421} is marked."] = "",
+	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1421} is marked."] = "{spell:2331} 및 {spell:3171}에 필요한 {item:785} 77개: {skill:182}: {item:785}(숙련도 50). {zone:1421}에서 가장 많이 나는 {item:785} 지역이 표시됩니다.",
 
 	-- Step 28: Briarthorn (Westfall)
 	-- {item:2450} Briarthorn · {spell:3171} Elixir of Wisdom · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1436} Westfall
-	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1436} is marked."] = "",
+	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1436} is marked."] = "{spell:3171} 및 {spell:3176}에 필요한 {item:2450} 152개(150-225에 24개: 지금 모두 채집하세요): {skill:182}: {item:2450}(숙련도 70). {zone:1436}에서 가장 많이 나는 {item:2450} 지역이 표시됩니다.",
 
 	-- Step 29: Briarthorn (Loch Modan)
 	-- {item:2450} Briarthorn · {spell:3171} Elixir of Wisdom · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1432} Loch Modan
-	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1432} is marked."] = "",
+	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1432} is marked."] = "{spell:3171} 및 {spell:3176}에 필요한 {item:2450} 152개(150-225에 24개: 지금 모두 채집하세요): {skill:182}: {item:2450}(숙련도 70). {zone:1432}에서 가장 많이 나는 {item:2450} 지역이 표시됩니다.",
 
 	-- Step 30: Briarthorn (Darkshore)
 	-- {item:2450} Briarthorn · {spell:3171} Elixir of Wisdom · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1439} Darkshore
-	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1439} is marked."] = "",
+	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1439} is marked."] = "{spell:3171} 및 {spell:3176}에 필요한 {item:2450} 152개(150-225에 24개: 지금 모두 채집하세요): {skill:182}: {item:2450}(숙련도 70). {zone:1439}에서 가장 많이 나는 {item:2450} 지역이 표시됩니다.",
 
 	-- Step 31: Briarthorn (The Barrens)
 	-- {item:2450} Briarthorn · {spell:3171} Elixir of Wisdom · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1413} The Barrens
-	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1413} is marked."] = "",
+	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1413} is marked."] = "{spell:3171} 및 {spell:3176}에 필요한 {item:2450} 152개(150-225에 24개: 지금 모두 채집하세요): {skill:182}: {item:2450}(숙련도 70). {zone:1413}에서 가장 많이 나는 {item:2450} 지역이 표시됩니다.",
 
 	-- Step 32: Briarthorn (Silverpine Forest)
 	-- {item:2450} Briarthorn · {spell:3171} Elixir of Wisdom · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1421} Silverpine Forest
-	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1421} is marked."] = "",
+	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1421} is marked."] = "{spell:3171} 및 {spell:3176}에 필요한 {item:2450} 152개(150-225에 24개: 지금 모두 채집하세요): {skill:182}: {item:2450}(숙련도 70). {zone:1421}에서 가장 많이 나는 {item:2450} 지역이 표시됩니다.",
 
 	-- Step 33: Bruiseweed (Westfall)
 	-- {item:2453} Bruiseweed · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1436} Westfall
-	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1436} is marked."] = "",
+	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1436} is marked."] = "{spell:3176}에 필요한 {item:2453} 54개(150-225에 24개: 지금 모두 채집하세요): {skill:182}: {item:2453}(숙련도 100). {zone:1436}에서 가장 많이 나는 {item:2453} 지역이 표시됩니다.",
 
 	-- Step 34: Bruiseweed (Loch Modan)
 	-- {item:2453} Bruiseweed · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1432} Loch Modan
-	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1432} is marked."] = "",
+	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1432} is marked."] = "{spell:3176}에 필요한 {item:2453} 54개(150-225에 24개: 지금 모두 채집하세요): {skill:182}: {item:2453}(숙련도 100). {zone:1432}에서 가장 많이 나는 {item:2453} 지역이 표시됩니다.",
 
 	-- Step 35: Bruiseweed (Darkshore)
 	-- {item:2453} Bruiseweed · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1439} Darkshore
-	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1439} is marked."] = "",
+	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1439} is marked."] = "{spell:3176}에 필요한 {item:2453} 54개(150-225에 24개: 지금 모두 채집하세요): {skill:182}: {item:2453}(숙련도 100). {zone:1439}에서 가장 많이 나는 {item:2453} 지역이 표시됩니다.",
 
 	-- Step 36: Bruiseweed (The Barrens)
 	-- {item:2453} Bruiseweed · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1413} The Barrens
-	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1413} is marked."] = "",
+	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1413} is marked."] = "{spell:3176}에 필요한 {item:2453} 54개(150-225에 24개: 지금 모두 채집하세요): {skill:182}: {item:2453}(숙련도 100). {zone:1413}에서 가장 많이 나는 {item:2453} 지역이 표시됩니다.",
 
 	-- Step 37: Bruiseweed (Silverpine Forest)
 	-- {item:2453} Bruiseweed · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1421} Silverpine Forest
-	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1421} is marked."] = "",
+	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1421} is marked."] = "{spell:3176}에 필요한 {item:2453} 54개(150-225에 24개: 지금 모두 채집하세요): {skill:182}: {item:2453}(숙련도 100). {zone:1421}에서 가장 많이 나는 {item:2453} 지역이 표시됩니다.",
 
 	-- Step 38: Minor Mana Potion to 90
 	-- {spell:2331} Minor Mana Potion
 	["{spell:2331} to 90"] = "{spell:2331}: 90까지",
 	-- {spell:2331} Minor Mana Potion · {item:785} Mageroyal · {item:2447} Peacebloom · {item:3371} Empty Vial · {spell:3171} Elixir of Wisdom
-	["{spell:2331} is yellow at 75 (yellow 65, green 85, grey 105): about 28 crafts to 90. Each takes 1 {item:785}, 1 {item:2447} and 1 {item:3371}. The trainer teaches it from 25. It is yellow already, so count on about two crafts a point until {spell:3171} takes over at 90. {item:785} grows in the 10-25 zones."] = "",
+	["{spell:2331} is yellow at 75 (yellow 65, green 85, grey 105): about 28 crafts to 90. Each takes 1 {item:785}, 1 {item:2447} and 1 {item:3371}. The trainer teaches it from 25. It is yellow already, so count on about two crafts a point until {spell:3171} takes over at 90. {item:785} grows in the 10-25 zones."] = "{spell:2331}은(는) 75에서 노란색입니다(노란색 65, 초록색 85, 회색 105). 90까지 약 28번 만드십시오. 한 번에 {item:785} 1개, {item:2447} 1개, {item:3371} 1개가 듭니다. 상급자는 25부터 가르칩니다. 이미 노란색이니 {spell:3171}이(가) 90에서 이어받을 때까지 포인트당 약 두 번 만드십시오. {item:785}은(는) 10-25 구간에 자랍니다.",
 
 	-- Step 39: Alchemy recipes at 90
 	-- {skill:171} Alchemy
@@ -183,27 +183,27 @@ return {
 
 	-- Step 40: Elixir of Wisdom to 135
 	-- {spell:3171} Elixir of Wisdom
-	["{spell:3171} to 135"] = "",
+	["{spell:3171} to 135"] = "{spell:3171}: 135까지",
 	-- {spell:3171} Elixir of Wisdom · {item:785} Mageroyal · {item:2450} Briarthorn · {item:3371} Empty Vial
-	["{spell:3171} is orange at 90 (yellow 120, green 140, grey 160): about 49 crafts to 135. Each takes 1 {item:785}, 2 {item:2450} and 1 {item:3371}. Two {item:2450} and a {item:785} a craft, both from the 10-25 zones; orange to 120."] = "",
+	["{spell:3171} is orange at 90 (yellow 120, green 140, grey 160): about 49 crafts to 135. Each takes 1 {item:785}, 2 {item:2450} and 1 {item:3371}. Two {item:2450} and a {item:785} a craft, both from the 10-25 zones; orange to 120."] = "{spell:3171}은(는) 90에 주황색입니다(노란색 120, 초록색 140, 회색 160). 135까지 약 49번 만드십시오. 한 번에 {item:785} 1개, {item:2450} 2개, {item:3371} 1개가 듭니다. 제작당 {item:2450} 2개와 {item:785} 1개, 둘 다 10-25 구간에서 나옵니다; 120까지 주황색입니다.",
 
 	-- Step 41: Alchemy recipes at 135
 	-- {skill:171} Alchemy
 	["{skill:171} recipes at 135"] = "135에서 {skill:171} 제조법",
 	-- {skill:171} Alchemy · {spell:3176} Lesser Troll's Blood Elixir
-	["Back to an {skill:171} trainer: {spell:3176} (from 125)."] = "",
+	["Back to an {skill:171} trainer: {spell:3176} (from 125)."] = "{skill:171} 상급자에게 돌아가세요: {spell:3176}(125부터).",
 
 	-- Step 42: Lesser Troll's Blood Elixir to 150
 	-- {spell:3176} Lesser Troll's Blood Elixir
-	["{spell:3176} to 150"] = "",
+	["{spell:3176} to 150"] = "{spell:3176}: 150까지",
 	-- {spell:3176} Lesser Troll's Blood Elixir · {item:2453} Bruiseweed · {item:2450} Briarthorn · {item:3372} Leaded Vial · {skill:171} Alchemy
-	["{spell:3176} is orange at 135 (yellow 150, green 170, grey 190): about 15 crafts to 150, a point every craft. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. {skill:171} 150 is a Legacy System milestone."] = "",
+	["{spell:3176} is orange at 135 (yellow 150, green 170, grey 190): about 15 crafts to 150, a point every craft. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. {skill:171} 150 is a Legacy System milestone."] = "{spell:3176}은(는) 135에 주황색입니다(노란색 150, 초록색 170, 회색 190). 150까지 약 15번 만드십시오, 만들 때마다 1점씩 오릅니다. 한 번에 {item:2453} 2개, {item:2450} 2개, {item:3372} 1개가 듭니다. 제작당 {item:2453} 2개와 {item:2450} 2개; {item:2453}은(는) 15-30 구간에 자랍니다. {skill:171} 150은(는) 유산 시스템 이정표입니다.",
 
 	-- Step 43: Alchemy 150-225: vendor goods
 	-- {skill:171} Alchemy
-	["{skill:171} 150-225: vendor goods"] = "",
+	["{skill:171} 150-225: vendor goods"] = "{skill:171} 150-225: 상인 재료",
 	-- {item:3372} Leaded Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 83 {item:3372} (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	["Buy the whole bracket's share in one go: 83 {item:3372} (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:3372} 83개(33실버 20코퍼). 모두 약 33실버 20코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1286}, {npc:5503}, {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348}, {npc:3334}).",
 
 	-- Step 44: Alchemy 150-225: Auction House
 	-- {skill:171} Alchemy
@@ -215,49 +215,49 @@ return {
 	-- {object:1623} Wild Steelbloom
 	["{object:1623} (Alliance)"] = "{object:1623} (얼라이언스)",
 	-- {object:1623} Wild Steelbloom · {item:8951} Elixir of Defense · {skill:182} Herbalism · {zone:1442} Stonetalon Mountains · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
-	["40 {object:1623} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The densest patch of {object:1623} in {zone:1434} is marked."] = "",
+	["40 {object:1623} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The densest patch of {object:1623} in {zone:1434} is marked."] = "{item:8951}에 필요한 {object:1623} 40개(225-300에 8개: 지금 모두 채집하세요): {skill:182}: {object:1623}(숙련도 115) {zone:1442}, {zone:1417}, {zone:1434}. {zone:1434}에서 가장 많이 나는 {object:1623} 지역이 표시됩니다.",
 
 	-- Step 46: Wild Steelbloom (Horde)
 	-- {object:1623} Wild Steelbloom
 	["{object:1623} (Horde)"] = "{object:1623} (호드)",
 	-- {object:1623} Wild Steelbloom · {item:8951} Elixir of Defense · {skill:182} Herbalism · {zone:1442} Stonetalon Mountains · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
-	["40 {object:1623} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The densest patch of {object:1623} in {zone:1442} is marked."] = "",
+	["40 {object:1623} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The densest patch of {object:1623} in {zone:1442} is marked."] = "{item:8951}에 필요한 {object:1623} 40개(225-300에 8개: 지금 모두 채집하세요): {skill:182}: {object:1623}(숙련도 115) {zone:1442}, {zone:1417}, {zone:1434}. {zone:1442}에서 가장 많이 나는 {object:1623} 지역이 표시됩니다.",
 
 	-- Step 47: Kingsblood (Alliance)
 	-- {item:3356} Kingsblood
 	["{item:3356} (Alliance)"] = "{item:3356} (얼라이언스)",
 	-- {item:3356} Kingsblood · {spell:3452} Mana Potion · {skill:182} Herbalism · {zone:1440} Ashenvale · {zone:1437} Wetlands · {zone:1434} Stranglethorn Vale
-	["39 {item:3356} for {spell:3452}: {skill:182}: {item:3356} (skill 125) in {zone:1440} (18-30), {zone:1437} (20-30) and {zone:1434} (30-45). The densest patch of {item:3356} in {zone:1434} is marked."] = "",
+	["39 {item:3356} for {spell:3452}: {skill:182}: {item:3356} (skill 125) in {zone:1440} (18-30), {zone:1437} (20-30) and {zone:1434} (30-45). The densest patch of {item:3356} in {zone:1434} is marked."] = "{spell:3452}에 필요한 {item:3356} 39개: {skill:182}: {item:3356}(숙련도 125) {zone:1440}, {zone:1437}, {zone:1434}. {zone:1434}에서 가장 많이 나는 {item:3356} 지역이 표시됩니다.",
 
 	-- Step 48: Kingsblood (Horde)
 	-- {item:3356} Kingsblood
 	["{item:3356} (Horde)"] = "{item:3356} (호드)",
 	-- {item:3356} Kingsblood · {spell:3452} Mana Potion · {skill:182} Herbalism · {zone:1413} The Barrens · {zone:1440} Ashenvale · {zone:1434} Stranglethorn Vale
-	["39 {item:3356} for {spell:3452}: {skill:182}: {item:3356} (skill 125) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1434} (30-45). The densest patch of {item:3356} in {zone:1413} is marked."] = "",
+	["39 {item:3356} for {spell:3452}: {skill:182}: {item:3356} (skill 125) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1434} (30-45). The densest patch of {item:3356} in {zone:1413} is marked."] = "{spell:3452}에 필요한 {item:3356} 39개: {skill:182}: {item:3356}(숙련도 125) {zone:1413}, {zone:1440}, {zone:1434}. {zone:1413}에서 가장 많이 나는 {item:3356} 지역이 표시됩니다.",
 
 	-- Step 49: Stranglekelp (Alliance)
 	-- {object:2045} Stranglekelp
-	["{object:2045} (Alliance)"] = "",
+	["{object:2045} (Alliance)"] = "{object:2045} (얼라이언스)",
 	-- {object:2045} Stranglekelp · {spell:3452} Mana Potion · {skill:182} Herbalism · {zone:1437} Wetlands · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands
-	["39 {object:2045} for {spell:3452}: {skill:182}: {object:2045} (skill 85) in {zone:1437} (20-30), {zone:1434} (30-45) and {zone:1425} (40-50). The densest patch of {object:2045} in {zone:1434} is marked."] = "",
+	["39 {object:2045} for {spell:3452}: {skill:182}: {object:2045} (skill 85) in {zone:1437} (20-30), {zone:1434} (30-45) and {zone:1425} (40-50). The densest patch of {object:2045} in {zone:1434} is marked."] = "{spell:3452}에 필요한 {object:2045} 39개: {skill:182}: {object:2045}(숙련도 85) {zone:1437}, {zone:1434}, {zone:1425}. {zone:1434}에서 가장 많이 나는 {object:2045} 지역이 표시됩니다.",
 
 	-- Step 50: Stranglekelp (Horde)
 	-- {object:2045} Stranglekelp
-	["{object:2045} (Horde)"] = "",
+	["{object:2045} (Horde)"] = "{object:2045} (호드)",
 	-- {object:2045} Stranglekelp · {spell:3452} Mana Potion · {skill:182} Herbalism · {zone:1413} The Barrens · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands
-	["39 {object:2045} for {spell:3452}: {skill:182}: {object:2045} (skill 85) in {zone:1413} (10-25), {zone:1434} (30-45) and {zone:1425} (40-50). The densest patch of {object:2045} in {zone:1413} is marked."] = "",
+	["39 {object:2045} for {spell:3452}: {skill:182}: {object:2045} (skill 85) in {zone:1413} (10-25), {zone:1434} (30-45) and {zone:1425} (40-50). The densest patch of {object:2045} in {zone:1413} is marked."] = "{spell:3452}에 필요한 {object:2045} 39개: {skill:182}: {object:2045}(숙련도 85) {zone:1413}, {zone:1434}, {zone:1425}. {zone:1413}에서 가장 많이 나는 {object:2045} 지역이 표시됩니다.",
 
 	-- Step 51: Goldthorn (Alliance)
 	-- {object:2046} Goldthorn
 	["{object:2046} (Alliance)"] = "{object:2046} (얼라이언스)",
 	-- {object:2046} Goldthorn · {item:8951} Elixir of Defense · {skill:182} Herbalism · {zone:1417} Arathi Highlands · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["40 {object:2046} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:2046} (skill 170) in {zone:1417} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest patch of {object:2046} in {zone:1417} is marked."] = "",
+	["40 {object:2046} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:2046} (skill 170) in {zone:1417} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest patch of {object:2046} in {zone:1417} is marked."] = "{item:8951}에 필요한 {object:2046} 40개(225-300에 8개: 지금 모두 채집하세요): {skill:182}: {object:2046}(숙련도 170) {zone:1417}, {zone:1425}, {zone:1444}. {zone:1417}에서 가장 많이 나는 {object:2046} 지역이 표시됩니다.",
 
 	-- Step 52: Goldthorn (Horde)
 	-- {object:2046} Goldthorn
 	["{object:2046} (Horde)"] = "{object:2046} (호드)",
 	-- {object:2046} Goldthorn · {item:8951} Elixir of Defense · {skill:182} Herbalism · {zone:1417} Arathi Highlands · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["40 {object:2046} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:2046} (skill 170) in {zone:1417} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest patch of {object:2046} in {zone:1444} is marked."] = "",
+	["40 {object:2046} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:2046} (skill 170) in {zone:1417} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest patch of {object:2046} in {zone:1444} is marked."] = "{item:8951}에 필요한 {object:2046} 40개(225-300에 8개: 지금 모두 채집하세요): {skill:182}: {object:2046}(숙련도 170) {zone:1417}, {zone:1425}, {zone:1444}. {zone:1444}에서 가장 많이 나는 {object:2046} 지역이 표시됩니다.",
 
 	-- Step 53: Expert Alchemy
 	-- {skill:171} Alchemy
@@ -267,43 +267,43 @@ return {
 
 	-- Step 54: Lesser Troll's Blood Elixir to 160
 	-- {spell:3176} Lesser Troll's Blood Elixir
-	["{spell:3176} to 160"] = "",
+	["{spell:3176} to 160"] = "{spell:3176}: 160까지",
 	-- {spell:3176} Lesser Troll's Blood Elixir · {item:2453} Bruiseweed · {item:2450} Briarthorn · {item:3372} Leaded Vial
-	["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "",
+	["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "{spell:3176}은(는) 150에서 노란색입니다(노란색 150, 초록색 170, 회색 190). 160까지 약 12번 만드십시오. 한 번에 {item:2453} 2개, {item:2450} 2개, {item:3372} 1개가 듭니다. 제작당 {item:2453} 2개와 {item:2450} 2개; {item:2453}은(는) 15-30 구간에 자랍니다.",
 
 	-- Step 55: Alchemy recipes at 160
 	-- {skill:171} Alchemy
 	["{skill:171} recipes at 160"] = "160에서 {skill:171} 제조법",
 	-- {spell:3452} Mana Potion
-	["Still at the Expert trainer: {spell:3452} (from 160)."] = "",
+	["Still at the Expert trainer: {spell:3452} (from 160)."] = "계속 숙련 상급자에게서: {spell:3452}(160부터).",
 
 	-- Step 56: Mana Potion to 195
 	-- {spell:3452} Mana Potion
-	["{spell:3452} to 195"] = "",
+	["{spell:3452} to 195"] = "{spell:3452}: 195까지",
 	-- {spell:3452} Mana Potion · {item:3820} Stranglekelp · {item:3356} Kingsblood · {item:3372} Leaded Vial
-	["{spell:3452} is orange at 160 (yellow 180, green 200, grey 220): about 39 crafts to 195. Each takes 1 {item:3820}, 1 {item:3356} and 1 {item:3372}. {item:3820} grows under water along the coasts: bring a water breathing elixir or come up for air. {item:3356} grows in the 20-40 zones."] = "",
+	["{spell:3452} is orange at 160 (yellow 180, green 200, grey 220): about 39 crafts to 195. Each takes 1 {item:3820}, 1 {item:3356} and 1 {item:3372}. {item:3820} grows under water along the coasts: bring a water breathing elixir or come up for air. {item:3356} grows in the 20-40 zones."] = "{spell:3452}은(는) 160에 주황색입니다(노란색 180, 초록색 200, 회색 220). 195까지 약 39번 만드십시오. 한 번에 {item:3820} 1개, {item:3356} 1개, {item:3372} 1개가 듭니다. {item:3820}은(는) 해안가 수중에서 자랍니다: 수중 호흡 엘릭서를 가져오거나 숨을 쉬러 수면으로 오르세요. {item:3356}은(는) 20-40 구간에 자랍니다.",
 
 	-- Step 57: Alchemy recipes at 195
 	-- {skill:171} Alchemy
 	["{skill:171} recipes at 195"] = "195에서 {skill:171} 제조법",
 	-- {spell:11450} Elixir of Defense
-	["Still at the Expert trainer: {spell:11450} (from 195)."] = "",
+	["Still at the Expert trainer: {spell:11450} (from 195)."] = "계속 숙련 상급자에게서: {spell:11450}(195부터).",
 
 	-- Step 58: Elixir of Defense to 225
 	-- {item:8951} Elixir of Defense
 	["{item:8951} to 225"] = "{item:8951}: 225까지",
 	-- {item:8951} Elixir of Defense · {item:3355} Wild Steelbloom · {item:3821} Goldthorn · {item:3372} Leaded Vial · {zone:1418} Badlands · {skill:171} Alchemy
-	["{item:8951} is orange at 195 (yellow 215, green 235, grey 255): about 32 crafts to 225. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). {skill:171} 225 is a Legacy System milestone."] = "",
+	["{item:8951} is orange at 195 (yellow 215, green 235, grey 255): about 32 crafts to 225. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). {skill:171} 225 is a Legacy System milestone."] = "{item:8951}은(는) 195에 주황색입니다(노란색 215, 초록색 235, 회색 255). 225까지 약 32번 만드십시오. 한 번에 {item:3355} 1개, {item:3821} 1개, {item:3372} 1개가 듭니다. {item:3355}와(과) {item:3821}은(는) 30-45 구간의 약초입니다(스트렝글손, 아라시, {zone:1418}). {skill:171} 225은(는) 유산 시스템 이정표입니다.",
 
 	-- Step 59: Alchemy 225-300: vendor goods
 	-- {skill:171} Alchemy
-	["{skill:171} 225-300: vendor goods"] = "",
+	["{skill:171} 225-300: vendor goods"] = "{skill:171} 225-300: 상인 재료",
 	-- {item:3372} Leaded Vial · {item:8925} Crystal Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 51 {item:3372} (20s 40c) and 86 {item:8925} (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	["Buy the whole bracket's share in one go: 51 {item:3372} (20s 40c) and 86 {item:8925} (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:3372} 51개(20실버 40코퍼) and {item:8925} 86개(4골드 30실버). 모두 약 4골드 50실버 40코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1286}, {npc:5503}, {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348}, {npc:3334}).",
 
 	-- Step 60: Recipe: Elixir of Superior Defense
 	-- {item:13478} Recipe: Elixir of Superior Defense · {item:13445} Elixir of Greater Defense · {skill:171} Alchemy · {npc:5178} Soolie Berryfizz · {zone:1455} Ironforge · {npc:3348} Kor'geld · {zone:1454} Orgrimmar
-	["{item:13478} teaches {item:13445} ({skill:171} 265) for 1g 30s. Sold by Alliance: {npc:5178} ({zone:1455}), limited stock; Horde: {npc:3348} ({zone:1454}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; the Auction House often has it too."] = "",
+	["{item:13478} teaches {item:13445} ({skill:171} 265) for 1g 30s. Sold by Alliance: {npc:5178} ({zone:1455}), limited stock; Horde: {npc:3348} ({zone:1454}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; the Auction House often has it too."] = "{item:13478}은(는) 1골드 30실버에 {item:13445}({skill:171} 265)을(를) 가르칩니다. 얼라이언스 판매: {npc:5178}({zone:1455}), 수량 제한; 호드 판매: {npc:3348}({zone:1454}), 수량 제한. 판매자는 한두 개를 재고로 두고 판매 후 얼마 지나면 다시 들여놓습니다; 경매장에도 자주 있습니다.",
 
 	-- Step 61: Alchemy 225-300: Auction House
 	-- {skill:171} Alchemy
@@ -315,31 +315,31 @@ return {
 	-- {item:8836} Arthas' Tears
 	["{item:8836} (Alliance)"] = "{item:8836} (얼라이언스)",
 	-- {item:8836} Arthas' Tears · {item:9154} Draught of Detect Undead · {skill:182} Herbalism · {zone:1448} Felwood · {zone:1422} Western Plaguelands · {zone:1423} Eastern Plaguelands
-	["43 {item:8836} for {item:9154}: {skill:182}: {item:8836} (skill 220) in {zone:1448} (48-55), {zone:1422} (51-58) and {zone:1423} (53-60). The densest patch of {item:8836} in {zone:1422} is marked."] = "",
+	["43 {item:8836} for {item:9154}: {skill:182}: {item:8836} (skill 220) in {zone:1448} (48-55), {zone:1422} (51-58) and {zone:1423} (53-60). The densest patch of {item:8836} in {zone:1422} is marked."] = "{item:9154}에 필요한 {item:8836} 43개: {skill:182}: {item:8836}(숙련도 220) {zone:1448}, {zone:1422}, {zone:1423}. {zone:1422}에서 가장 많이 나는 {item:8836} 지역이 표시됩니다.",
 
 	-- Step 63: Arthas' Tears (Horde)
 	-- {item:8836} Arthas' Tears
 	["{item:8836} (Horde)"] = "{item:8836} (호드)",
 	-- {item:8836} Arthas' Tears · {item:9154} Draught of Detect Undead · {skill:182} Herbalism · {zone:1448} Felwood · {zone:1422} Western Plaguelands · {zone:1423} Eastern Plaguelands
-	["43 {item:8836} for {item:9154}: {skill:182}: {item:8836} (skill 220) in {zone:1448} (48-55), {zone:1422} (51-58) and {zone:1423} (53-60). The densest patch of {item:8836} in {zone:1448} is marked."] = "",
+	["43 {item:8836} for {item:9154}: {skill:182}: {item:8836} (skill 220) in {zone:1448} (48-55), {zone:1422} (51-58) and {zone:1423} (53-60). The densest patch of {item:8836} in {zone:1448} is marked."] = "{item:9154}에 필요한 {item:8836} 43개: {skill:182}: {item:8836}(숙련도 220) {zone:1448}, {zone:1422}, {zone:1423}. {zone:1448}에서 가장 많이 나는 {item:8836} 지역이 표시됩니다.",
 
 	-- Step 64: Sungrass (Alliance)
 	-- {item:8838} Sungrass
 	["{item:8838} (Alliance)"] = "{item:8838} (얼라이언스)",
 	-- {item:8838} Sungrass · {item:13445} Elixir of Greater Defense · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["43 {item:8838} for {item:13445}: {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8838} in {zone:1425} is marked."] = "",
+	["43 {item:8838} for {item:13445}: {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8838} in {zone:1425} is marked."] = "{item:13445}에 필요한 {item:8838} 43개: {skill:182}: {item:8838}(숙련도 230) {zone:1425}, {zone:1444}, {zone:1447}. {zone:1425}에서 가장 많이 나는 {item:8838} 지역이 표시됩니다.",
 
 	-- Step 65: Sungrass (Horde)
 	-- {item:8838} Sungrass
 	["{item:8838} (Horde)"] = "{item:8838} (호드)",
 	-- {item:8838} Sungrass · {item:13445} Elixir of Greater Defense · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["43 {item:8838} for {item:13445}: {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8838} in {zone:1444} is marked."] = "",
+	["43 {item:8838} for {item:13445}: {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8838} in {zone:1444} is marked."] = "{item:13445}에 필요한 {item:8838} 43개: {skill:182}: {item:8838}(숙련도 230) {zone:1425}, {zone:1444}, {zone:1447}. {zone:1444}에서 가장 많이 나는 {item:8838} 지역이 표시됩니다.",
 
 	-- Step 66: Stonescale Eel (Alliance)
 	-- {item:13422} Stonescale Eel
 	["{item:13422} (Alliance)"] = "{item:13422} (얼라이언스)",
 	-- {item:13422} Stonescale Eel · {item:13445} Elixir of Greater Defense · {skill:356} Fishing · {object:180712} Stonescale Eel Swarm
-	["43 {item:13422} for {item:13445}: {skill:356}. Fish {object:180712} here."] = "",
+	["43 {item:13422} for {item:13445}: {skill:356}. Fish {object:180712} here."] = "{item:13445}에 필요한 {item:13422} 43개: {skill:356}. 여기서 {object:180712}를(을) 낚으세요.",
 
 	-- Step 67: Stonescale Eel (Horde)
 	-- {item:13422} Stonescale Eel
@@ -349,13 +349,13 @@ return {
 	-- {skill:171} Alchemy
 	["Artisan {skill:171}"] = "전문 {skill:171}",
 	-- {skill:171} Alchemy · {npc:7948} Kylanna Windwhisper · {zone:1444} Feralas · {npc:1386} Rogvar · {zone:1435} Swamp of Sorrows · {item:8836} Arthas' Tears · {item:8838} Sungrass · {item:13422} Stonescale Eel · {item:9154} Draught of Detect Undead · {item:13423} Stonescale Oil
-	["Artisan raises the cap from 225 to 300 for 4g 50s (Classic's price; Forever's is not in the data); it needs {skill:171} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:7948} ({zone:1444}); Horde {npc:1386} ({zone:1435}). The arrow picks the nearest of your faction. 225-300 takes about 1g 30s of recipes and 4g 50s 40c of vendor goods, plus 43 {item:8836}, 43 {item:8838} and 43 {item:13422} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9154} (from 230) and {item:13423} (from 250), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3."] = "",
+	["Artisan raises the cap from 225 to 300 for 4g 50s (Classic's price; Forever's is not in the data); it needs {skill:171} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:7948} ({zone:1444}); Horde {npc:1386} ({zone:1435}). The arrow picks the nearest of your faction. 225-300 takes about 1g 30s of recipes and 4g 50s 40c of vendor goods, plus 43 {item:8836}, 43 {item:8838} and 43 {item:13422} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9154} (from 230) and {item:13423} (from 250), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3."] = "전문 단계는 4골드 50실버(클래식 가격이며, Forever 가격은 데이터에 없습니다)로 최대 숙련도를 225에서 300으로 올립니다. {skill:171} 200과 캐릭터 레벨 35이 필요하므로, 200이 되면 언제 들러도 배울 수 있습니다. 가르치는 상급자는 몇 명뿐입니다: 얼라이언스는 {npc:7948}({zone:1444}), 호드는 {npc:1386}({zone:1435})입니다. 화살표가 진영의 가장 가까운 상급자를 가리킵니다. 225-300에는 제조법 약 1골드 30실버와 상인 재료 4골드 50실버 40코퍼, 그리고 채집하거나 구매할 {item:8836} 43개, {item:8838} 43개, {item:13422} 43개가 필요합니다. 모두 가방에 넣어 오세요(위의 단계, 나머지는 경매장에서): 이 상급자들은 {item:9154}(230부터)와 {item:13423}(250부터)도 가르치고, 제작에는 작업대가 필요 없으니 여기서 바로 만들고 숙련도에 도달할 때마다 제조법을 배우세요. 3번 대신 한 번의 여행입니다.",
 
 	-- Step 69: Elixir of Defense to 230
 	-- {item:8951} Elixir of Defense
 	["{item:8951} to 230"] = "{item:8951}: 230까지",
 	-- {item:8951} Elixir of Defense · {item:3355} Wild Steelbloom · {item:3821} Goldthorn · {item:3372} Leaded Vial · {zone:1418} Badlands
-	["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "",
+	["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "{item:8951}은(는) 225에서 노란색입니다(노란색 215, 초록색 235, 회색 255). 230까지 약 8번 만드십시오. 한 번에 {item:3355} 1개, {item:3821} 1개, {item:3372} 1개가 듭니다. {item:3355}와(과) {item:3821}은(는) 30-45 구간의 약초입니다(스트렝글손, 아라시, {zone:1418}).",
 
 	-- Step 70: Alchemy recipes at 230
 	-- {skill:171} Alchemy
@@ -368,7 +368,7 @@ return {
 	["{item:9154} to 265"] = "{item:9154}: 265까지",
 	-- {item:9154} Draught of Detect Undead · {item:8836} Arthas' Tears · {item:8925} Crystal Vial · {zone:1448} Felwood · {skill:182} Herbalism
 	-- plural, as words: Crystal Vials = {item:8925} Crystal Vial
-	["{item:9154} is orange at 230 (yellow 245, green 265, grey 285): about 43 crafts to 265. Each takes 1 {item:8836} and 1 {item:8925}. {item:8836} grow in the Plaguelands and {zone:1448} ({skill:182} 220); Crystal Vials come from alchemy vendors."] = "",
+	["{item:9154} is orange at 230 (yellow 245, green 265, grey 285): about 43 crafts to 265. Each takes 1 {item:8836} and 1 {item:8925}. {item:8836} grow in the Plaguelands and {zone:1448} ({skill:182} 220); Crystal Vials come from alchemy vendors."] = "{item:9154}은(는) 230에 주황색입니다(노란색 245, 초록색 265, 회색 285). 265까지 약 43번 만드십시오. 한 번에 {item:8836} 1개와(과) {item:8925} 1개가 듭니다. {item:8836}은(는) 스컬지 땅과 {zone:1448}에서 자랍니다({skill:182} 220); 수정 약병은 연금술 상인에게서 나옵니다.",
 
 	-- Step 72: Alchemy recipes at 265
 	-- {skill:171} Alchemy
@@ -380,7 +380,7 @@ return {
 	-- {item:13445} Elixir of Greater Defense
 	["{item:13445} to 300"] = "{item:13445}: 300까지",
 	-- {item:13445} Elixir of Greater Defense · {item:13423} Stonescale Oil · {item:8838} Sungrass · {item:8925} Crystal Vial · {item:13422} Stonescale Eel · {skill:171} Alchemy
-	["{item:13445} is orange at 265 (yellow 280, green 300, grey 320): about 43 crafts to 300. Each takes 2 {item:13423}, 1 {item:8838} and 1 {item:8925}. Make the 86 {item:13423} (43 crafts) first. {item:13422} comes from the {item:13422} schools on the coasts of the 40-55 zones, or the Auction House (fishers sell them in stacks). {item:8838} grows in the 40-55 zones. {skill:171} 300 is a Legacy System milestone."] = "",
+	["{item:13445} is orange at 265 (yellow 280, green 300, grey 320): about 43 crafts to 300. Each takes 2 {item:13423}, 1 {item:8838} and 1 {item:8925}. Make the 86 {item:13423} (43 crafts) first. {item:13422} comes from the {item:13422} schools on the coasts of the 40-55 zones, or the Auction House (fishers sell them in stacks). {item:8838} grows in the 40-55 zones. {skill:171} 300 is a Legacy System milestone."] = "{item:13445}은(는) 265에 주황색입니다(노란색 280, 초록색 300, 회색 320). 300까지 약 43번 만드십시오. 한 번에 {item:13423} 2개, {item:8838} 1개, {item:8925} 1개가 듭니다. 먼저 {item:13423} 86개(43회 제작)를 만드십시오. {item:13422}은(는) 40-55 구간 해안의 {item:13422} 떼 또는 경매장에서 나옵니다(낚시꾼이 묶음으로 판매합니다). {item:8838}은(는) 40-55 구간에 자랍니다. {skill:171} 300은(는) 유산 시스템 이정표입니다.",
 	["from the recipe in your bags"] = "가방에 있는 제조법으로",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
