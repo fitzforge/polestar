@@ -2725,6 +2725,25 @@ test('forever/horde/50-60/05-eastern-plaguelands.guide: Gaeriyan waits for Meet 
 	const when = st.when || [];
 	assert.ok(when.some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(3912)), 'only with Meet at the Grave in the log');
 });
+// The Archivist (5251) has two lines, both in Stratholme: kill Archivist Galford and burn the Scarlet Archive
+// (players' recordings list "monster x1 slain; object x1 Archive Burned" at the accept). The guide worked only the
+// kill, so its window went from Galford to the hand-in with the archive still to burn (lint `handin-unworked`).
+test('forever/reputation/argent-dawn.guide: The Archivist burns the Scarlet Archive with Galford, before the hand-in', { skip }, () => {
+	const list = goals('forever/reputation/argent-dawn.guide');
+	const galford = at(list, 'kill 10811 (5251.1)', (g) => g.t === 'kill' && g.quest === 5251 && g.npc === 10811);
+	const archive = at(list, 'interact 176245 (5251.2)', (g) => g.t === 'interact' && g.quest === 5251 && g.object === 176245);
+	assert.equal(list[archive].s, list[galford].s, 'in the Stratholme step');
+	assert.ok(archive < at(list, 'turnin 5251', is('turnin', 5251)), 'before the hand-in');
+});
+// Partially Digested Collar (93568) is started by the collar and counts the collar as its objective: the accept
+// leaves it in the bags (players' recordings: 10 people, "item x1 Partially Digested Collar" at the accept, handed
+// in to Liranne). So the Liranne step may wait on the collar and hold the accept and the hand-in together; the
+// lint's gate-consumed check reads the objective and lets it be.
+test('forever/40-50/shendralas.guide: Liranne\'s step keeps the collar, the objective of the quest it starts, through the hand-in', { skip }, () => {
+	const st = compiled('forever/40-50/shendralas.guide').steps.find((s) => s.goals.some(is('accept', 93568)));
+	assert.ok(data.quests[93568].objectives.some((o) => o.type === 'item' && o.id === 259461), 'the collar is the quest\'s objective');
+	assert.ok(st.goals.findIndex(is('accept', 93568)) < st.goals.findIndex(is('turnin', 93568)), 'accept, then the hand-in, in one step');
+});
 // A step shown only while the bags hold an item (`when has I`) stops applying the moment the item is used up, so
 // nothing may follow the goal that uses it up (a `use`, an accept the item starts, a hand-in that takes it) but what
 // that goal hands over (a collect of its reward): the rest of the step would be passed half done.
@@ -6007,7 +6026,9 @@ test(`${TELDRASSIL}: flow audit: Washed Ashore is handed to Gwennyth on the walk
 	const turnin = at(list, 'turnin 3524', is('turnin', 3524));
 	assert.ok(bones < turnin, 'the bones, then Gwennyth');
 	assert.ok(turnin < at(list, 'accept 954', is('accept', 954)), 'Gwennyth first on the way into Auberdine, before Thundris');
-	assert.ok(!goals(NE_DARKSHORE).some(({ goal }) => is('turnin', 3524)(goal)), 'not again in the Night Elf Darkshore');
+	// Not again in the Night Elf Darkshore, except as its catch-up (#2635) for a Night Elf who skipped Teldrassil.
+	const again = goals(NE_DARKSHORE).filter(({ goal }) => is('turnin', 3524)(goal));
+	assert.ok(again.every(({ step }) => (step.when || []).some((p) => p.k === 'turnedin' && p.neg && p.q === 3524)), 'not again in the Night Elf Darkshore for a Night Elf who handed it in');
 });
 test(`${NE_DARKSHORE}: flow audit: Bashal'Aran is finished before the boat, and the sea is crossed once`, { skip }, () => {
 	for (const cls of ['WARRIOR', 'HUNTER', 'ROGUE', 'PRIEST', 'DRUID', 'MAGE', 'PALADIN', 'WARLOCK', 'SHAMAN']) {
@@ -13410,6 +13431,66 @@ test("creazy231's report (#1660): a player who did the 22-25 Hillsbrad guide see
 	for (const q of ['529', '532']) assert.ok(!/skipped|na/.test(out.accepts[q]), `${q} is open: ${out.accepts[q]}`);
 });
 
+// Second visits (#2635, from a Discord suggestion, 16 Nov): a character who starts the route between two visits to a
+// zone never had the first visit's chain starter, so the second visit's follow-ups were hidden (Test of Endurance,
+// 1150, in the Thousand Needles harpy den). Where the starter is quick, pays near-full XP and opens work on this
+// visit, the second visit brings it back first, shown only to characters without it (`forge guide lint` checks the
+// rest have a `leftout` record). `done` is what the earlier guide leaves a full-route character with: handed in, or
+// carried in the log.
+const SECOND_VISITS = [
+	{ guide: 'forever/horde/30-40/02-thousand-needles.guide', who: { race: 'Tauren', raceName: 'Tauren', faction: 'Horde', cls: 'HUNTER', className: 'Hunter', level: 30 }, starters: [1149], opens: [1150], done: 'w.complete({ 1149 })' },
+	{ guide: 'forever/horde/40-50/01-stranglethorn-vale.guide', who: { race: 'Orc', raceName: 'Orc', faction: 'Horde', cls: 'WARRIOR', className: 'Warrior', level: 39 }, starters: [583], opens: [338], done: 'w.complete({ 583 })' },
+	{ guide: 'forever/alliance/nightelf/02-darkshore.guide', who: { race: 'NightElf', raceName: 'Night Elf', faction: 'Alliance', cls: 'HUNTER', className: 'Hunter', level: 12 }, starters: [3524, 4681], opens: [4722, 4723, 4728], done: 'w.complete({ 3524 }); w.onQuest(4681, { { required = 1 } })' },
+	{ guide: 'forever/horde/50-60/02-felwood.guide', who: { race: 'Troll', raceName: 'Troll', faction: 'Horde', cls: 'MAGE', className: 'Mage', level: 53 }, starters: [5096], opens: [5098, 5228], done: 'w.onQuest(5096, { { required = 1, fulfilled = 1 } })' },
+	{ guide: 'forever/alliance/50-60/04-western-plaguelands.guide', who: { race: 'Human', raceName: 'Human', faction: 'Alliance', cls: 'WARRIOR', className: 'Warrior', level: 55 }, starters: [4984], opens: [4985], done: 'w.onQuest(4984, { { required = 8 } })' },
+	{ guide: 'forever/horde/50-60/06-silithus.guide', who: { race: 'Scourge', raceName: 'Undead', faction: 'Horde', cls: 'PRIEST', className: 'Priest', level: 58 }, starters: [4984], opens: [4985], done: 'w.complete({ 4984 })' },
+	{ guide: 'forever/alliance/07-thousand-needles.guide', who: { race: 'Dwarf', raceName: 'Dwarf', faction: 'Alliance', cls: 'HUNTER', className: 'Hunter', level: 29 }, starters: [173], opens: [221], done: 'w.onQuest(173, { { required = 6 } })' },
+	{ guide: 'forever/alliance/40-50/01-stranglethorn-vale.guide', who: { race: 'Gnome', raceName: 'Gnome', faction: 'Alliance', cls: 'MAGE', className: 'Mage', level: 39 }, starters: [606], opens: [607], done: 'w.onQuest(606, { { required = 5 } })' },
+	{ guide: 'forever/alliance/40-50/07-un-goro-crater.guide', who: { race: 'Human', raceName: 'Human', faction: 'Alliance', cls: 'PALADIN', className: 'Paladin', level: 49 }, starters: [2605], opens: [2606], done: 'w.onQuest(2605, { { required = 1 } })' },
+	{ guide: 'forever/horde/40-50/04-tanaris.guide', who: { race: 'Orc', raceName: 'Orc', faction: 'Horde', cls: 'SHAMAN', className: 'Shaman', level: 48 }, starters: [992], opens: [82], done: 'w.onQuest(992, { { required = 1 } })' },
+];
+// The statuses of the accepts of `quests` (comma-joined per quest when the guide has several), and what the plan left out.
+function acceptStatuses(sv, before) {
+	const set = [...sv.starters, ...sv.opens].map((q) => `[${q}] = 1`).join(', ');
+	return engineRun(sv.guide, sv.who, {
+		before,
+		script: `local out, hidden = {}, {}
+			for i = 1, #E.GetGuide().steps do
+				for _, g in ipairs(E.GetStepView(i).goals) do
+					if g.t == "accept" and ({ ${set} })[g.quest] then
+						out[tostring(g.quest)] = (out[tostring(g.quest)] and out[tostring(g.quest)] .. "," or "") .. g.status
+					end
+				end
+			end
+			for q in pairs(E.GetGuide().hidden or {}) do hidden[#hidden + 1] = q end
+			table.sort(hidden)
+			emit({ accepts = out, hidden = hidden })`,
+	});
+}
+
+for (const sv of SECOND_VISITS) {
+	const name = sv.guide.replace(/^forever\/|\.guide$/g, '');
+	test(`second visits (#2635): ${name} brings back ${sv.starters.join(', ')} for a character who started the route after the first visit`, { skip }, () => {
+		const list = goals(sv.guide);
+		// Every catch-up accept waits on the character lacking the chain.
+		const takes = list.filter(({ goal }) => goal.t === 'accept' && sv.starters.includes(goal.quest));
+		assert.ok(takes.length >= sv.starters.length, 'the starters are taken in the guide');
+		for (const { step, goal } of takes) assert.ok((step.when || []).some((p) => p.k === 'turnedin' && p.neg), `accept ${goal.quest}: only without the chain handed in`);
+		const out = acceptStatuses(sv, '');
+		// The follow-ups are not left out (a step that waits on the starter with `when` shows once it is handed in).
+		for (const q of sv.opens) {
+			assert.ok(!(Object.values(out.hidden) || []).includes(q), `${q} is not left out`);
+			assert.ok(out.accepts[q] && !/skipped/.test(out.accepts[q]), `${q} is not skipped: ${out.accepts[q]}`);
+		}
+		for (const q of sv.starters) assert.ok(out.accepts[q] && /active|pending/.test(out.accepts[q]), `${q} is taken here: ${out.accepts[q]}`);
+	});
+	test(`second visits (#2635): ${name} shows none of the catch-up to a character who did the first visit`, { skip }, () => {
+		const out = acceptStatuses(sv, sv.done);
+		for (const q of sv.starters) assert.ok([undefined, 'na', 'na,na'].includes(out.accepts[q]), `no ${q} step for them: ${out.accepts[q]}`);
+		for (const q of sv.opens) assert.ok(out.accepts[q] && !/skipped|na/.test(out.accepts[q]), `${q} is open: ${out.accepts[q]}`);
+	});
+}
+
 // Kolbi's report (#1776, Skyborne Druid 31, 0.3.6): "Dangerous! makes you split 4 kills between a few steps". Since the
 // level tidy (2026-11-15) Dangerous! (567) is taken from the Tarren Mill poster in this guide: Farmer Kalaba and Citizen
 // Wilkes come with Battle of Hillsbrad 529 at the smithy, the clerk and the miner with this guide's town hall (532) and
@@ -16167,8 +16248,9 @@ for (const [guide, quest, pet, needs] of [
 // #2612 (JeromeM, 0.4.0, Westfall): "Find the Lost Guards" sent the hand-in to Guard Thomas, who only gives it; the
 // half-eaten body takes it. The build had added the giver to the quest's enders from the in-game dialog captures,
 // on eight quests handed in at an object (players' recordings: none of their hand-ins in an NPC's window). Each
-// is corrected to its object alone, and every guide's hand-in of them goes to the object.
-const OBJECT_ENDERS = { 37: 55, 67: 3643, 944: 10076, 983: 17182, 4812: 175524, 91860: 566037, 94467: 61934, 94502: 619896 };
+// is corrected to its object alone, and every guide's hand-in of them goes to the object. Find the Gems (2201) had
+// Talvash del Kissel beside his Scrying Bowl as an ender the same way, from QuestieDB (#2546 sweep).
+const OBJECT_ENDERS = { 37: 55, 67: 3643, 944: 10076, 983: 17182, 2201: 112877, 4812: 175524, 91860: 566037, 94467: 61934, 94502: 619896 };
 test('#2612: quests handed in at an object are never handed in to their giver', { skip }, () => {
 	const corrections = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'forever-db', 'corrections', 'quests.json'), 'utf8'));
 	for (const [quest, object] of Object.entries(OBJECT_ENDERS)) {
@@ -16228,4 +16310,26 @@ test('#2604: Stranglethorn (Alliance): Skullsplitter Tusks are looked for in the
 	assert.equal(goal.map, 1434);
 	assert.ok(goal.x >= 42 && goal.x <= 49 && goal.y >= 30 && goal.y <= 42, `the trolls' camp: ${goal.x},${goal.y}`);
 	for (const s of goal.spots || []) assert.ok(s.alt || s.x > 35, `no spot the arrow picks far from the ruins: ${s.x},${s.y}`);
+});
+
+// #2684 (Gilfy, 0.4.0.1, Alliance Hinterlands): Repurposed Totems' step said only to kill the Vilebranch Soothsayers,
+// but Vilebranch Totems also lie on the ground among them (players' recordings: 30 totems from the ground object for 4
+// people, 12 from the Soothsayers for 5). The step's tip says so.
+test('#2684: Hinterlands (Alliance): Repurposed Totems says the totems also lie on the ground', { skip }, () => {
+	const list = goals('forever/alliance/40-50/05-the-hinterlands.guide');
+	const { step } = list[at(list, 'collect 279225', (g) => g.t === 'collect' && g.quest === 86616)];
+	assert.match(step.note || '', /Totems lie on the ground/, step.note);
+});
+
+// #2673 (Monono, Horde Hillsbrad 22-25): the guide ended with a walk from the zeppelin to the middle of Orgrimmar, and
+// the next guide (04-the-barrens) flies to Thunder Bluff from the wind rider master, south-west of there: a walk past
+// the flight master and back for nothing. The last stop in Orgrimmar is the wind rider master (Doras, 45.12,63.89).
+test('#2673: Hillsbrad (Horde): the guide ends at Orgrimmar\'s wind rider master, where the next guide flies on', { skip }, () => {
+	const list = goals('forever/horde/06-hillsbrad-foothills.guide');
+	const walks = list.filter(({ goal }) => goal.t === 'goto' && goal.map === 1454);
+	assert.equal(walks.length, 1, 'one walk in Orgrimmar');
+	const { goal } = walks[0];
+	assert.ok(Math.hypot(goal.x - 45.12, goal.y - 63.89) <= 0.5, `at the wind rider master: ${goal.x},${goal.y}`);
+	const next = compiled('forever/horde/04-the-barrens.guide').steps[0].goals;
+	assert.ok(next.some((g) => g.t === 'fly'), 'the next guide opens with a flight');
 });

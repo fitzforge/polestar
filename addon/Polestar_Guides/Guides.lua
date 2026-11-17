@@ -4401,7 +4401,7 @@ do
 			zoneName = "Feralas",
 			author = "Polestar",
 			version = 1,
-			names = { ["area:1105"] = "Feral Scar Vale", ["area:1108"] = "Forgotten Coast", ["area:35"] = "Booty Bay", ["area:351"] = "Skulk Rock", ["area:977"] = "Steamwheedle Port", ["area:981"] = "Gaping Chasm", ["item:10398"] = "Mechanical Chicken", ["item:8623"] = "OOX-17/TN Distress Beacon", ["item:8704"] = "OOX-09/HL Distress Beacon", ["item:8705"] = "OOX-22/FE Distress Beacon", ["npc:2490"] = "First Mate Crazz", ["npc:5276"] = "Sprite Dragon", ["npc:5327"] = "Coast Crawl Snapclaw", ["npc:7406"] = "Oglethorpe Obnoticus", ["npc:7808"] = "Marauding Owlbeast", ["npc:7809"] = "Vilebranch Ambusher", ["npc:7899"] = "Treasure Hunting Pirate", ["npc:9396"] = "Ground Pounder", ["quest:3721"] = "An OOX of Your Own", ["zone:1425"] = "Hinterlands", ["zone:1444"] = "Feralas", ["zone:1446"] = "Tanaris" },
+			names = { ["area:1105"] = "Feral Scar Vale", ["area:1108"] = "Forgotten Coast", ["area:35"] = "Booty Bay", ["area:351"] = "Skulk Rock", ["area:977"] = "Steamwheedle Port", ["area:981"] = "Gaping Chasm", ["item:10398"] = "Mechanical Chicken", ["item:8623"] = "OOX-17/TN Distress Beacon", ["item:8704"] = "OOX-09/HL Distress Beacon", ["item:8705"] = "OOX-22/FE Distress Beacon", ["npc:2490"] = "First Mate Crazz", ["npc:5276"] = "Sprite Dragon", ["npc:5327"] = "Coast Crawl Snapclaw", ["npc:7406"] = "Oglethorpe Obnoticus", ["npc:7808"] = "Marauding Owlbeast", ["npc:7809"] = "Vilebranch Ambusher", ["npc:7899"] = "Treasure Hunting Pirate", ["npc:9396"] = "Ground Pounder", ["quest:2766"] = "Find OOX-22/FE!", ["quest:351"] = "Find OOX-17/TN!", ["quest:3721"] = "An OOX of Your Own", ["quest:485"] = "Find OOX-09/HL!", ["zone:1425"] = "Hinterlands", ["zone:1444"] = "Feralas", ["zone:1446"] = "Tanaris" },
 			steps = {
 				{
 					title = "{item:8705} in {zone:1444}",
@@ -4411,10 +4411,17 @@ do
 					},
 				},
 				{
-					title = "Rescue OOX-22/FE",
-					note = "Right-click the beacon. OOX-22/FE sits in a cave near {area:1105}, among yetis and apes. Its escort runs west along the road to the dock on the {area:1108} with three ambushes: three yetis, then three gorillas, then four or five gnolls with a caster. Bring a friend if you are under 47. The robot keeps walking unless it is hit, so stay close; if it will not move, another player has it: wait for it to come back. Its turn-in is in {area:35}; keep the quest for later.",
+					title = "OOX-22/FE's beacon",
+					note = "Right-click the beacon: it starts {quest:2766}",
+					when = { { k = "has", n = 1, item = 8705 } },
 					goals = {
 						{ t = "accept", quest = 2766, title = "Find OOX-22/FE!", item = 8705, itemName = "OOX-22/FE Distress Beacon", minLevel = 40, qlvl = 45 },
+					},
+				},
+				{
+					title = "Rescue OOX-22/FE",
+					note = "OOX-22/FE sits in a cave near {area:1105}, among yetis and apes. Its escort runs west along the road to the dock on the {area:1108} with three ambushes: three yetis, then three gorillas, then four or five gnolls with a caster. Bring a friend if you are under 47. The robot keeps walking unless it is hit, so stay close; if it will not move, another player has it: wait for it to come back. Its turn-in is in {area:35}; keep the quest for later.",
+					goals = {
 						{ t = "turnin", quest = 2766, title = "Find OOX-22/FE!", npc = 7807, npcName = "Homing Robot OOX-22/FE", map = 1444, x = 53.35, y = 55.7, z = 62.2, f = "e" },
 						{ t = "accept", quest = 2767, title = "Rescue OOX-22/FE!", npc = 7807, npcName = "Homing Robot OOX-22/FE", minLevel = 40, qlvl = 45, pre = { 2766 }, preTitles = { [2766] = "Find OOX-22/FE!" }, map = 1444, x = 53.35, y = 55.7, z = 62.2, f = "e", escort = true },
 						{ t = "complete", quest = 2767, title = "Rescue OOX-22/FE!", note = "Escort OOX-22/FE", escort = true, objs = { { text = "Escort OOX-22/FE to the dock along the Forgotten Coast", count = 1 } } },
@@ -4428,10 +4435,17 @@ do
 					},
 				},
 				{
+					title = "OOX-17/TN's beacon",
+					note = "Right-click the beacon: it starts {quest:351}",
+					when = { { k = "has", n = 1, item = 8623 } },
+					goals = {
+						{ t = "accept", quest = 351, title = "Find OOX-17/TN!", item = 8623, itemName = "OOX-17/TN Distress Beacon", minLevel = 43, qlvl = 48 },
+					},
+				},
+				{
 					title = "Rescue OOX-17/TN",
 					note = "OOX-17/TN stands in the hills near the {area:981} in south-east {zone:1446}. Its escort to {area:977} has two ambushes: three scorpids near the start, three Wastewander bandits near the end. The robot has about 3,000 health and stops to fight what you attack, so it can tank for a moment while you recover. Its turn-in is in {area:35} too.",
 					goals = {
-						{ t = "accept", quest = 351, title = "Find OOX-17/TN!", item = 8623, itemName = "OOX-17/TN Distress Beacon", minLevel = 43, qlvl = 48 },
 						{ t = "turnin", quest = 351, title = "Find OOX-17/TN!", npc = 7784, npcName = "Homing Robot OOX-17/TN", map = 1446, x = 60.23, y = 64.72, z = 44.6, f = "e" },
 						{ t = "accept", quest = 648, title = "Rescue OOX-17/TN!", npc = 7784, npcName = "Homing Robot OOX-17/TN", minLevel = 43, qlvl = 48, pre = { 351 }, preTitles = { [351] = "Find OOX-17/TN!" }, map = 1446, x = 60.23, y = 64.72, z = 44.6, f = "e", escort = true },
 						{ t = "complete", quest = 648, title = "Rescue OOX-17/TN!", note = "Escort OOX-17/TN", escort = true, objs = { { text = "Escort OOX-17/TN to Steamwheedle Port", count = 1 } } },
@@ -4445,10 +4459,17 @@ do
 					},
 				},
 				{
+					title = "OOX-09/HL's beacon",
+					note = "Right-click the beacon: it starts {quest:485}",
+					when = { { k = "has", n = 1, item = 8704 } },
+					goals = {
+						{ t = "accept", quest = 485, title = "Find OOX-09/HL!", item = 8704, itemName = "OOX-09/HL Distress Beacon", minLevel = 43, qlvl = 48 },
+					},
+				},
+				{
 					title = "Rescue OOX-09/HL",
 					note = "OOX-09/HL waits on the largest island of the lake west of {area:351}. Its escort to the shore beyond Overlook Cliff has two ambushes of three: Marauding Owlbeasts, then Vilebranch Ambushers; the robot warns you just before each.",
 					goals = {
-						{ t = "accept", quest = 485, title = "Find OOX-09/HL!", item = 8704, itemName = "OOX-09/HL Distress Beacon", minLevel = 43, qlvl = 48 },
 						{ t = "turnin", quest = 485, title = "Find OOX-09/HL!", npc = 7806, npcName = "Homing Robot OOX-09/HL", map = 1425, x = 49.35, y = 37.66, z = 116.5, f = "e" },
 						{ t = "accept", quest = 836, title = "Rescue OOX-09/HL!", npc = 7806, npcName = "Homing Robot OOX-09/HL", minLevel = 43, qlvl = 48, pre = { 485 }, preTitles = { [485] = "Find OOX-09/HL!" }, map = 1425, x = 49.35, y = 37.66, z = 116.5, f = "e", escort = true },
 						{ t = "complete", quest = 836, title = "Rescue OOX-09/HL!", note = "Escort OOX-09/HL", escort = true, objs = { { text = "Escort OOX-09/HL to the shoreline beyond Overlook Cliff", count = 1 } } },
@@ -4461,6 +4482,12 @@ do
 						{ t = "turnin", quest = 2767, title = "Rescue OOX-22/FE!", npc = 7406, npcName = "Oglethorpe Obnoticus", map = 1434, x = 28.36, y = 76.35, z = 22.8, f = "e" },
 						{ t = "turnin", quest = 648, title = "Rescue OOX-17/TN!", npc = 7406, npcName = "Oglethorpe Obnoticus", map = 1434, x = 28.36, y = 76.35, z = 22.8, f = "e" },
 						{ t = "turnin", quest = 836, title = "Rescue OOX-09/HL!", npc = 7406, npcName = "Oglethorpe Obnoticus", map = 1434, x = 28.36, y = 76.35, z = 22.8, f = "e" },
+					},
+				},
+				{
+					title = "{quest:3721}",
+					when = { { k = "turnedin", q = 2767 }, { k = "turnedin", q = 648 }, { k = "turnedin", q = 836 }, { k = "turnedin", neg = true, q = 3721 } },
+					goals = {
 						{ t = "level", level = 45 },
 						{ t = "accept", quest = 3721, title = "An OOX of Your Own", npc = 7406, npcName = "Oglethorpe Obnoticus", minLevel = 45, qlvl = 50, preAll = { 648, 836, 2767 }, preTitles = { [648] = "Rescue OOX-17/TN!", [836] = "Rescue OOX-09/HL!", [2767] = "Rescue OOX-22/FE!" }, map = 1434, x = 28.36, y = 76.35, z = 22.8, f = "e" },
 						{ t = "turnin", quest = 3721, title = "An OOX of Your Own", npc = 7406, npcName = "Oglethorpe Obnoticus", map = 1434, x = 28.36, y = 76.35, z = 22.8, f = "e" },
@@ -4724,6 +4751,7 @@ do
 				},
 				{
 					title = "Back to {npc:10260}",
+					when = { { k = "turnedin", neg = true, q = 4862 } },
 					goals = {
 						{ t = "turnin", quest = 4862, title = "En-Ay-Es-Tee-Why", npc = 10260, npcName = "Kibler", map = 1428, x = 65.89, y = 21.92, z = 165.1, f = "e", group = { kind = "dungeon", map = 229, name = "Blackrock Spire" } },
 						{ t = "collect", item = 12529, itemName = "Smolderweb Carrier", map = 1428, x = 65.9, y = 21.9, f = "e" },
@@ -4757,6 +4785,7 @@ do
 				{
 					title = "{npc:6791} in {area:392}",
 					note = "Legacy Points are account-wide: each Legacy Challenge (a class reaching 25, 45 and 60, a crafting profession at 150, 225 and 300, PvP ranks and battleground reputations, exploring, dungeons and raids) is worth one, and the track counts points earned, not spent. It gives the {item:281060} at 15, the {item:277714} at 25, the {item:277717} at 40 and the {item:277718} at 55. The rewards are claimed as quests from {npc:6791} in the inn at {area:392}, the goblin port on the {zone:1413} coast (Alliance players come by the boat from {area:35}): with 25 points he offers {quest:96383}; hand it straight back for the cub.",
+					when = { { k = "turnedin", neg = true, q = 96383 } },
 					goals = {
 						{ t = "note", text = "Without PvP one character can earn 17 points: its class at 25, 45 and 60, two professions to 300, the two adventure challenges, the three dungeon tiers and the three raids. A second class or more professions on an alt make up the rest; the Legacy Challenges guide plans them." },
 						{ t = "accept", quest = 96383, title = "Legacy Reward: Spectral Bear Cub", npc = 6791, npcName = "Innkeeper Wiley", qlvl = 60, map = 1413, x = 62.05, y = 39.41, z = 24, f = "e" },
@@ -4964,6 +4993,7 @@ do
 				},
 				{
 					title = "Back to {npc:10260}",
+					when = { { k = "turnedin", neg = true, q = 4729 } },
 					goals = {
 						{ t = "turnin", quest = 4729, title = "Kibler's Exotic Pets", npc = 10260, npcName = "Kibler", map = 1428, x = 65.89, y = 21.92, z = 165.1, f = "e", group = { kind = "dungeon", map = 229, name = "Blackrock Spire" } },
 						{ t = "collect", item = 12264, itemName = "Worg Carrier", map = 1428, x = 65.9, y = 21.9, f = "e" },
@@ -15513,13 +15543,13 @@ do
 					only = { factions = { "Alliance" } },
 					goals = {
 						{ t = "collect", quest = 7223, title = "Armor Scraps", item = 17422, itemName = "Armor Scraps", count = 20, oi = 1, map = 1459, x = 44.59, y = 45.57, f = "e", spotsPacked = "44.6,45.6,,40,6;46.5,56.9,,49,11,,58;48.9,58.8,,40,6;49.7,55.4,,44,6,,58;51.3,60.1,,40,8;52.5,63.7,,40,1,,57;50,76.9,,40,12;49.4,82.4,,72,5;49.3,88.2,,40,13;51.5,35.7,,40,6;48.8,14.8,,40,6;42.7,15.7,,40,6;50.5,65,,46,7,1;50.4,80.5,,40,3,1;48.7,84.8,,48,12,1", spread = true, lvl = 60, fromNpcs = { { npc = 13330, npcName = "Seasoned Warrior" }, { npc = 13359, npcName = "Frostwolf Bowman" }, { npc = 14185, npcName = "Najak Hexxen" }, { npc = 13329, npcName = "Seasoned Legionnaire" }, { npc = 12051, npcName = "Frostwolf Legionnaire" }, { npc = 12053, npcName = "Frostwolf Guardian" }, { npc = 13328, npcName = "Seasoned Guardian" }, { npc = 13334, npcName = "Veteran Legionnaire" }, { npc = 13332, npcName = "Veteran Guardian" }, { npc = 13428, npcName = "Champion Warrior" }, { npc = 12052, npcName = "Frostwolf Warrior" }, { npc = 13425, npcName = "Champion Legionnaire" }, { npc = 14186, npcName = "Ravak Grimtotem" } }, fromNpcsAt = "1,4,7,8,9,6;5,10,11,6;2,10,11;10,11;1,4,7,8,9,10,6,11;5;1,4,7,8,9,6;6,2,3,5,13,12;6,1,4,7,8,9;1,4,7,8,9,6;1,4,7,8,9,6;1,4,7,8,9,6;2,5,10,11;6,12;6,2" },
-						{ t = "kill", quest = 7081, title = "Alterac Valley Graveyards", target = "PvP Graveyard Credit Marker", npc = 13756, count = 1, oi = 1, map = 1459, x = 51.8, y = 36, f = "e", spotsPacked = "42.4,15.6,,0;49.2,14.8,,0;49.3,76.7,,0;49.3,88.5,,0;51.6,57.1,,0;51.8,36,,0", lvl = 1, note = "assault a graveyard" },
-						{ t = "kill", quest = 7102, title = "Towers and Bunkers", target = "PvP Tower Credit Marker", npc = 13778, count = 1, oi = 1, map = 1459, x = 48.2, y = 58.7, f = "e", note = "Iceblood Tower banner" },
-						{ t = "kill", quest = 7122, title = "Capture a Mine", target = "PvP Mine Credit Marker", npc = 13796, count = 1, oi = 1, map = 1459, x = 44.3, y = 67.9, f = "e", spotsPacked = "44.3,67.9,,0;52.5,7.6,,0", lvl = 1, note = "{area:2963}" },
+						{ t = "kill", quest = 7081, title = "Alterac Valley Graveyards", target = "Graveyard Assaulted", logLine = true, count = 1, oi = 1, map = 1459, x = 51.8, y = 36, f = "e", spotsPacked = "42.4,15.6,,0;49.2,14.8,,0;49.3,76.7,,0;49.3,88.5,,0;51.6,57.1,,0;51.8,36,,0", lvl = 1, note = "assault a graveyard" },
+						{ t = "kill", quest = 7102, title = "Towers and Bunkers", target = "Banner Destroyed", logLine = true, count = 1, oi = 1, map = 1459, x = 48.2, y = 58.7, f = "e", note = "Iceblood Tower banner" },
+						{ t = "kill", quest = 7122, title = "Capture a Mine", target = "Mine Captured", logLine = true, count = 1, oi = 1, map = 1459, x = 44.3, y = 67.9, f = "e", spotsPacked = "44.3,67.9,,0;52.5,7.6,,0", lvl = 1, note = "{area:2963}" },
 						{ t = "kill", quest = 7282, title = "Brotherly Love", target = "Commander Louis Philips", npc = 13154, count = 1, oi = 1, map = 1459, x = 50.68, y = 65.69, f = "e", group = { kind = "elite", lvl = 61, rank = 1 } },
-						{ t = "kill", quest = 7301, title = "Fallen Sky Lords", target = "Trigger Ichman", npc = 14029, count = 1, oi = 1, map = 1459, x = 48, y = 84, f = "e", note = "{npc:13437}'s spot" },
-						{ t = "kill", quest = 7301, title = "Fallen Sky Lords", target = "Trigger Vipore", npc = 14031, count = 1, oi = 2, map = 1459, x = 50, y = 81, f = "e", note = "{npc:13439}'s spot" },
-						{ t = "kill", quest = 7301, title = "Fallen Sky Lords", target = "Trigger Slidore", npc = 14030, count = 1, oi = 3, map = 1459, x = 50, y = 65, f = "e", note = "{npc:13438}'s spot" },
+						{ t = "kill", quest = 7301, title = "Fallen Sky Lords", target = "Ichman's Location Discovered", logLine = true, count = 1, oi = 1, map = 1459, x = 48, y = 84, f = "e", note = "{npc:13437}'s spot" },
+						{ t = "kill", quest = 7301, title = "Fallen Sky Lords", target = "Vipore's Location Discovered", logLine = true, count = 1, oi = 2, map = 1459, x = 50, y = 81, f = "e", note = "{npc:13439}'s spot" },
+						{ t = "kill", quest = 7301, title = "Fallen Sky Lords", target = "Slidore's Location Discovered", logLine = true, count = 1, oi = 3, map = 1459, x = 50, y = 65, f = "e", note = "{npc:13438}'s spot" },
 						{ t = "kill", quest = 7367, title = "Defusing the Threat", target = "Frostwolf Explosives Expert", npc = 13597, count = 1, oi = 1, map = 1459, x = 49.6, y = 82.3, f = "e", group = { kind = "elite", lvl = 59, rank = 1 } },
 					},
 				},
@@ -15654,13 +15684,13 @@ do
 					only = { factions = { "Horde" } },
 					goals = {
 						{ t = "collect", quest = 7224, title = "Enemy Booty", item = 17422, itemName = "Armor Scraps", count = 20, oi = 1, map = 1459, x = 49.39, y = 88.3, f = "e", spotsPacked = "49.3,88.1,,40,18;50,76.9,,40,18;51.3,60,,40,9;44.6,45.6,,40,9;49.2,39.9,,49,5,,58;51.4,35.5,,60,11;51,31.2,,40,5,,60;51.6,22.7,,40,2,,57;48.6,15.2,,56,13;45.4,15.6,,57,5,,60;42.7,14.9,,60,22;52.3,13.7,,40,1,,57;52.4,44.1,,40,3,1,60;47.3,42.2,,40,3,1,56;48.9,37.7,,58,6,1,58;51.3,25.8,,40,1,1,57;51.5,19,,40,1,1,57;44,18.1,,40,2,1,60;49.8,16.8,,40,1,1,57", spread = true, lvl = 61, fromNpcs = { { npc = 13331, npcName = "Veteran Defender" }, { npc = 13358, npcName = "Stormpike Bowman" }, { npc = 14188, npcName = "Dirk Swindle" }, { npc = 14187, npcName = "Athramanis" }, { npc = 13326, npcName = "Seasoned Defender" }, { npc = 12127, npcName = "Stormpike Guardsman" }, { npc = 12050, npcName = "Stormpike Defender" }, { npc = 13424, npcName = "Champion Guardsman" }, { npc = 13422, npcName = "Champion Defender" }, { npc = 12048, npcName = "Alliance Sentinel" }, { npc = 13324, npcName = "Seasoned Guardsman" }, { npc = 13333, npcName = "Veteran Guardsman" }, { npc = 13327, npcName = "Seasoned Sentinel" }, { npc = 13336, npcName = "Veteran Sentinel" }, { npc = 13325, npcName = "Seasoned Mountaineer" } }, fromNpcsAt = "1,5,8,11,12,9,7,13,14;1,5,8,11,12,9,7,13,14;1,5,8,11,12,9,7,13,14;1,5,8,11,12,9,7,13,14;7,10;15,1,5,8,11,12,9,7,13,14;2,6;6;6,1,5,8,11,12,9,7,13,14;6,2;1,6,8,9,3,4,5,11,12,7,13,14;6;2;10,15;10,7;6;6;2;6" },
-						{ t = "kill", quest = 7082, title = "The Graveyards of Alterac", target = "PvP Graveyard Credit Marker", npc = 13756, count = 1, oi = 1, map = 1459, x = 49.3, y = 88.5, f = "e", spotsPacked = "42.4,15.6,,0;49.2,14.8,,0;49.3,76.7,,0;49.3,88.5,,0;51.6,57.1,,0;51.8,36,,0", lvl = 1, note = "assault a graveyard" },
-						{ t = "kill", quest = 7101, title = "Towers and Bunkers", target = "PvP Tower Credit Marker", npc = 13778, count = 1, oi = 1, map = 1459, x = 52.5, y = 43.8, f = "e", note = "{area:3305} banner" },
-						{ t = "kill", quest = 7124, title = "Capture a Mine", target = "PvP Mine Credit Marker", npc = 13796, count = 1, oi = 1, map = 1459, x = 52.5, y = 7.6, f = "e", spotsPacked = "44.3,67.9,,0;52.5,7.6,,0", lvl = 1, note = "{area:2957}" },
+						{ t = "kill", quest = 7082, title = "The Graveyards of Alterac", target = "Graveyard Assaulted", logLine = true, count = 1, oi = 1, map = 1459, x = 49.3, y = 88.5, f = "e", spotsPacked = "42.4,15.6,,0;49.2,14.8,,0;49.3,76.7,,0;49.3,88.5,,0;51.6,57.1,,0;51.8,36,,0", lvl = 1, note = "assault a graveyard" },
+						{ t = "kill", quest = 7101, title = "Towers and Bunkers", target = "Tower Captured", logLine = true, count = 1, oi = 1, map = 1459, x = 52.5, y = 43.8, f = "e", note = "{area:3305} banner" },
+						{ t = "kill", quest = 7124, title = "Capture a Mine", target = "Mine Captured", logLine = true, count = 1, oi = 1, map = 1459, x = 52.5, y = 7.6, f = "e", spotsPacked = "44.3,67.9,,0;52.5,7.6,,0", lvl = 1, note = "{area:2957}" },
 						{ t = "kill", quest = 7281, title = "Brotherly Love", target = "Commander Karl Philips", npc = 13320, count = 1, oi = 1, map = 1459, x = 50.6, y = 31.45, f = "e", group = { kind = "elite", lvl = 61, rank = 1 } },
-						{ t = "kill", quest = 7302, title = "Fallen Sky Lords", target = "Trigger Guse", npc = 14026, count = 1, oi = 1, map = 1459, x = 50.6, y = 30.6, f = "e", note = "{npc:13179}'s spot" },
-						{ t = "kill", quest = 7302, title = "Fallen Sky Lords", target = "Trigger Jeztor", npc = 14028, count = 1, oi = 2, map = 1459, x = 54, y = 27, f = "e", note = "{npc:13180}'s spot" },
-						{ t = "kill", quest = 7302, title = "Fallen Sky Lords", target = "Trigger Mulverick", npc = 14027, count = 1, oi = 3, map = 1459, x = 44.9, y = 14.6, f = "e", note = "{npc:13181}'s spot" },
+						{ t = "kill", quest = 7302, title = "Fallen Sky Lords", target = "Guse's Location Discovered", logLine = true, count = 1, oi = 1, map = 1459, x = 50.6, y = 30.6, f = "e", note = "{npc:13179}'s spot" },
+						{ t = "kill", quest = 7302, title = "Fallen Sky Lords", target = "Jeztor's Location Discovered", logLine = true, count = 1, oi = 2, map = 1459, x = 54, y = 27, f = "e", note = "{npc:13180}'s spot" },
+						{ t = "kill", quest = 7302, title = "Fallen Sky Lords", target = "Mulverick's Location Discovered", logLine = true, count = 1, oi = 3, map = 1459, x = 44.9, y = 14.6, f = "e", note = "{npc:13181}'s spot" },
 						{ t = "kill", quest = 7368, title = "Defusing the Threat", target = "Stormpike Explosives Expert", npc = 13598, count = 1, oi = 1, map = 1459, x = 42.8, y = 17, f = "e", group = { kind = "elite", lvl = 60, rank = 1 } },
 					},
 				},
@@ -19242,6 +19272,12 @@ do
 					when = { { k = "has", n = 1, item = 20741 } },
 					goals = {
 						{ t = "accept", quest = 8470, title = "Deadwood Ritual Totem", item = 20741, itemName = "Deadwood Ritual Totem", minLevel = 45, qlvl = 55 },
+					},
+				},
+				{
+					title = "{npc:11558}: the Deadwood totem",
+					when = { { k = "onquest", q = { 8470 } } },
+					goals = {
 						{ t = "turnin", quest = 8470, title = "Deadwood Ritual Totem", npc = 11558, npcName = "Kernda", map = 1448, x = 65.5, y = 3.52, z = 589.2, f = "e", spotsPacked = "65.42,2.39,,44,1" },
 					},
 				},
@@ -19251,6 +19287,12 @@ do
 					when = { { k = "has", n = 1, item = 20742 } },
 					goals = {
 						{ t = "accept", quest = 8471, title = "Winterfall Ritual Totem", item = 20742, itemName = "Winterfall Ritual Totem", minLevel = 50, qlvl = 56 },
+					},
+				},
+				{
+					title = "{npc:11558}: the Winterfall totem",
+					when = { { k = "onquest", q = { 8471 } } },
+					goals = {
 						{ t = "turnin", quest = 8471, title = "Winterfall Ritual Totem", npc = 11558, npcName = "Kernda", map = 1448, x = 65.5, y = 3.52, z = 589.2, f = "e", spotsPacked = "65.42,2.39,,44,1" },
 					},
 				},

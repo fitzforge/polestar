@@ -14,7 +14,8 @@
 --   Codex.Item(id) / Npc(id) / Object(id) / Quest(id) / Instance(key) / Zone(id) / Faction(id)
 --       (a quest's `xp`: its full XP reward, nil when not known or the pack predates it;
 --       a child quest's `parent`: the quest its giver wants in the log, nil when none or
---       the pack predates it;
+--       the pack predates it; a quest's `direct`: true when it is handed in at
+--       one talk, never in the log (Bloodpetal Sprouts, #2686);
 --       an event objective's `map`, `x`, `y`, `f`: where it is done, when known;
 --       a talk objective's `id`: the NPC to speak to, absent from packs before it;
 --       an NPC's or object's spawns { map, x, y, f, z }: z the height of its
@@ -393,6 +394,9 @@ local function decodeQuest(group, id, s)
 		elseif lead == "u" then
 			-- A child quest's parent, which must be in the log: u<quest>.
 			rec.parent = tonumber(sub(f, 2))
+		elseif f == "d" then
+			-- Handed in at one talk, never in the log (#2686: Bloodpetal Sprouts).
+			rec.direct = true
 		elseif f == "t" then
 			-- The kill objective before it is a beast to tame (Taming the Beast).
 			local o = rec.objectives[#rec.objectives]

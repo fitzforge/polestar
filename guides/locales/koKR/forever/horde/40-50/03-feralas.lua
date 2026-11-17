@@ -151,6 +151,7 @@ return {
 	-- {area:510} The Dragonmurk
 	["{area:510}: kill these as you meet them"] = "",
 	-- {area:511} Wyrmbog
+	-- was: ["Ride south-west to the {object:2555}, then east through the {area:511}. The Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "남서쪽의 {object:2555}(으)로 간 뒤, 동쪽으로 {area:511}을(를) 지나가세요. 화염갈기혈족 정찰병과 불꽃술사가 갓 부화한 화염 새끼용, 화염 새끼용과 함께 북쪽 가장자리를 돌아다니고, 맹독전사는 더 남동쪽의 용 동굴을 지킵니다. 모크모로크의 코담배, 그로그주, 금고는 용족 야영지에 있습니다."
 	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "",
 	-- {npc:4329} Firemane Scout · {area:510} The Dragonmurk
 	["{npc:4329} walks around {area:510}: look inside the circle on the map"] = "",

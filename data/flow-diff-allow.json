@@ -1,0 +1,4 @@
+{
+ "_about": "The new revisits and trips a change makes on purpose (node tools/polestar.js flow-diff; docs/ROUTE-FEEL.md \"Flow diff\"). Each row accepts one: `kind` \"revisit\" with the `guide` it happens in and the `zone` it goes back into, or \"trip\" with the `guide` and the `quest` (a one-quest trip) or the `step` title (a walk with nothing there). `reason` says why the route is better that way for players, on our own evidence. A pull request that adds a revisit or a trip adds its row here; rows sorted by guide.",
+ "allow": []
+}

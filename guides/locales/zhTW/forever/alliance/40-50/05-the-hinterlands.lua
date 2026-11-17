@@ -36,9 +36,9 @@ return {
 	["On the way back to {area:348}: the lost gryphon eggs lie in the hills just east of the aviary."] = "在回{area:348}的路上：遺失的獅鷲獸蛋就在獅鷲棲所東邊不遠的山丘上。",
 
 	-- Step 6: Aerie Peak
-	["Inside"] = "",
+	["Inside"] = "在裡面",
 	-- {npc:5636} Gryphon Master Talonaxe
-	["{npc:5636}, inside"] = "",
+	["{npc:5636}, inside"] = "{npc:5636}，室內",
 	-- {quest:2990} Thadius Grimshade · {area:1438} Nethergarde Keep
 	["for {quest:2990} at {area:1438}, later"] = "之後給{area:1438}的{quest:2990}",
 	-- {npc:270263} Farseer Maret Firetend
@@ -48,7 +48,7 @@ return {
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "飛往{area:1537}",
 	-- {area:348} Aerie Peak
-	["{area:348} flight master"] = "",
+	["{area:348} flight master"] = "{area:348}飛行管理員",
 
 	-- Step 8: Class trainer
 	["Class trainer"] = "職業訓練師",
@@ -67,12 +67,12 @@ return {
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "飛往{area:42}",
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "{zone:1453}飛行管理員",
 
 	-- Step 15: The bloodmages
 	["The bloodmages"] = "血法師",
 	-- {zone:1419} Blasted Lands · {area:1438} Nethergarde Keep
-	["The bloodmages' camp is the first stop beside the road into the {zone:1419}, north-west of {area:1438}."] = "",
+	["The bloodmages' camp is the first stop beside the road into the {zone:1419}, north-west of {area:1438}."] = "進入{zone:1419}後，第一個停靠點就是路旁的血法師營地，位於{area:1438}西北側。",
 	-- {npc:7505} Bloodmage Drazial · {zone:1419} Blasted Lands
 	["{npc:7505}: keep the five, their beasts (48-53) wait for the level-52 {zone:1419} stop"] = "{npc:7505}：保留這五個任務，牠們的野獸（48-53級）留到52級的{zone:1419}行程再處理",
 
@@ -84,16 +84,16 @@ return {
 	-- {npc:8022} Thadius Grimshade · {item:9471} Nekrum's Medallion · {area:978} Zul'Farrak
 	["{npc:8022}' next task, {item:9471}, is a {area:978} quest: skip it."] = "{npc:8022}的下一個任務{item:9471}是{area:978}的任務：跳過它。",
 	-- {npc:5385} Watcher Mahar Ba
-	["{npc:5385}, upstairs"] = "",
+	["{npc:5385}, upstairs"] = "{npc:5385}，樓上",
 
 	-- Step 17: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "飛往{area:35}",
 	-- {area:1438} Nethergarde Keep
-	["{area:1438} flight master"] = "",
+	["{area:1438} flight master"] = "{area:1438}飛行管理員",
 
 	-- Step 18: Booty Bay
-	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
+	["\"Sea Wolf\" MacKinley, on the top floor"] = "“海狼”馬克基雷，位於最頂層",
 	["\"Sea Wolf\" MacKinley, if the Stranglethorn guide didn't give it"] = "『海狼』麥金利，如果荊棘谷指南沒有給你這個任務",
 	-- {npc:2487} Fleet Master Seahorn
 	["{npc:2487}, top floor, if the Stranglethorn guide didn't give it"] = "{npc:2487}，頂樓，如果荊棘谷指南沒有給你這個任務",
@@ -115,7 +115,7 @@ return {
 	-- Step 21: The Bloodsail captains
 	["The Bloodsail captains"] = "血帆船長",
 	-- {area:35} Booty Bay · {npc:2550} Captain Stillwater · {npc:2548} Captain Keelhaul · {npc:2546} Fleet Master Firallon
-	["The three Bloodsail ships lie at anchor off the coast just south of {area:35}: {npc:2550} (45) and {npc:2548} (46) on the nearer decks, {npc:2546} (48) on the flagship, each with a crew of 42-45 pirates. Swim out, clear each deck from the edge and pull one at a time."] = "",
+	["The three Bloodsail ships lie at anchor off the coast just south of {area:35}: {npc:2550} (45) and {npc:2548} (46) on the nearer decks, {npc:2546} (48) on the flagship, each with a crew of 42-45 pirates. Swim out, clear each deck from the edge and pull one at a time."] = "三艘血帆海盜船停在{area:35}正南的近海上：較近的甲板上有{npc:2550}（45級）和{npc:2548}（46級），旗艦上是{npc:2546}（48級），每艘都有42-45級的海盜船員。游過去，從甲板邊緣清起，一次拉一個。",
 
 	-- Step 23: Naga Explorers
 	-- plural, as words: Naga Explorers = {npc:1907} Naga Explorer
@@ -153,16 +153,16 @@ return {
 	-- {npc:2498} Crank Fizzlebub · {zone:1441} Thousand Needles
 	["{npc:2498}'s next Zanzil errand starts in {zone:1441}: skip it."] = "{npc:2498}的下一個贊吉爾任務從{zone:1441}開始：跳過。",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "",
+	["{npc:2498}, inside"] = "{npc:2498}，室內",
 	["MacKinley's next task sends you after elite ogres: skip it."] = "馬克基雷的下一個任務要你去打精英巨魔：跳過。",
 
 	-- Step 30: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "這些是精英怪：建議組隊，找人一起做。{quest:8552}需要2人組隊。獨自一人時跳過：路線裡安排了刷怪補回經驗。",
 
 	-- Step 34: Facing Negolash
 	-- {npc:1494} Negolash
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "這些是精英怪：建議組隊，找人一起做。{npc:1494}（52級精英）需要2人組隊。獨自一人時跳過：路線裡安排了刷怪補回經驗。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep. Keep clear of the Helboars further south: they are level 52."] = "灰鬃野豬和紅石蜥蜴共同分布在要塞西南方的山坡上。遠離更南邊的地獄野豬：牠們是52級。",

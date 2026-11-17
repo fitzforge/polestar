@@ -1,4 +1,4 @@
-# Dungeons in the route: held back for 0.4.1
+# Dungeons in the route: held back until the feature ships
 
 The changelog fragments here are for dungeons woven into the leveling routes
 (`when dungeon` steps, "Dungeons in my route", the Install question, the
@@ -11,7 +11,7 @@ no release notes until they move back up.
 To ship it:
 
 1. Set `ns.dungeonRoute = true` in addon/Polestar/Core/Init.lua.
-2. Move these fragments back: `git mv changes/.0.4.1/*.md changes/` (not
+2. Move these fragments back: `git mv changes/.dungeons-in-route/*.md changes/` (not
    this README), and check them against what ships.
 3. Put the Install page back in the texts that name it: "Groups (group
    quests)" becomes "Groups and dungeons (dungeons in your route, group

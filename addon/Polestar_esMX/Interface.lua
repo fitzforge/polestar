@@ -236,6 +236,9 @@ L["Grey for you: pays %d%% XP (Skip grey quests)"] = "Gris para ti: da %d%% de E
 -- L["Reach %d points into %s with"] = ""
 -- L["Lose"] = ""
 -- L["Gain"] = ""
+-- L["Journeyman %s"] = ""
+-- L["Expert %s"] = ""
+-- L["Artisan %s"] = ""
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Requiere Polestar %s o posterior."
@@ -493,6 +496,8 @@ L["Choose this reward:"] = "Elige esta recompensa:"
 L["PvP rank"] = "Rango JcJ"
 L["Lookup"] = "Buscador"
 L["%s: click through what they say until the quest's line is done."] = "%s: haz clic en todo lo que diga hasta que se complete la línea de la misión."
+-- L["%s: use %s to call it up."] = ""
+-- L["Use %s to learn it."] = ""
 
 -- Lookup/Options.lua
 L["How to get anything"] = "Cómo conseguir cualquier cosa"
@@ -4499,6 +4504,9 @@ L["%s isn't in your quest log."] = "%s no está en tu registro de misiones."
 L["That quest isn't in your quest log."] = "Esa misión no está en tu registro de misiones."
 L["The quest log opens when combat ends."] = "El registro de misiones se abre cuando termina el combate."
 L["Show in quest log"] = "Mostrar en el registro de misiones"
+-- L["Link in chat"] = ""
+-- L["Middle-click: show in quest log. Shift-click: link in chat."] = ""
+-- L["Shift-click: link in chat."] = ""
 
 -- Dungeons/Mark.lua
 L["Needed for %s in %s"] = "Necesario para %s en %s"

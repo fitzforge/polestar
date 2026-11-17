@@ -135,38 +135,29 @@ return {
 	-- {npc:1241} Tognus Flintfire · {skill:129} First Aid · {npc:2326} Thamner Pol · {area:131} Kharanos · {area:189} Steelgrill's Depot
 	["Sit by Eric's campfire (type /sit) and wait for the buff. With a profession learned, Eric also offers its Camping 101, which its trainer takes: blacksmithing with {npc:1241} and {skill:129} with {npc:2326} in {area:131}, mining and engineering at {area:189}."] = "Siéntate junto a la fogata de Eric (escribe /sit) y espera el beneficio. Si ya aprendiste una profesión, Eric también ofrece su Campamento 101, que se entrega a su instructor: herrería con {npc:1241} y {skill:129} con {npc:2326} en {area:131}, minería e ingeniería en {area:189}.",
 
-	-- Step 21: Camping 101: Blacksmithing
-	-- {npc:1241} Tognus Flintfire · {skill:164} Blacksmithing
-	["{npc:1241} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1241} la recibe cuando tu habilidad de {skill:164} llegue a 20: recolecta o fabrica hasta entonces; mientras tanto, la guía sigue.",
-	-- {npc:265813} Eric Brighthammer · {npc:1241} Tognus Flintfire
-	["{npc:265813}: for {npc:1241}, in the cellar west of the distillery"] = "{npc:265813}: para {npc:1241}, en el sótano al oeste de la destilería",
-
-	-- Step 22: Camping 101: First Aid
+	-- Step 21: Camping 101: First Aid
 	-- {npc:2326} Thamner Pol · {skill:129} First Aid
 	["{npc:2326} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:2326} la recibe cuando tu habilidad de {skill:129} llegue a 20: recolecta o fabrica hasta entonces; mientras tanto, la guía sigue.",
 	-- {npc:265813} Eric Brighthammer · {npc:2326} Thamner Pol · {area:2102} Thunderbrew Distillery
 	["{npc:265813}: for {npc:2326} in the {area:2102}"] = "{npc:265813}: para {npc:2326} en {area:2102}",
 
-	-- Step 23: Camping 101: Mining
+	-- Step 22: Camping 101: Mining
 	-- {npc:5392} Yarr Hammerstone · {skill:186} Mining
 	["{npc:5392} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:5392} la recibe cuando tu habilidad de {skill:186} llegue a 20: recolecta o fabrica hasta entonces; mientras tanto, la guía sigue.",
 	-- {npc:265813} Eric Brighthammer · {npc:5392} Yarr Hammerstone · {area:189} Steelgrill's Depot
 	["{npc:265813}: for {npc:5392} at {area:189}"] = "{npc:265813}: para {npc:5392} en {area:189}",
 
-	-- Step 24: Camping 101: Engineering
+	-- Step 23: Camping 101: Engineering
 	-- {npc:1702} Bronk Guzzlegear · {skill:202} Engineering
 	["{npc:1702} takes it once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1702} la recibe cuando tu habilidad de {skill:202} llegue a 20: recolecta o fabrica hasta entonces; mientras tanto, la guía sigue.",
 	-- {npc:265813} Eric Brighthammer · {npc:1702} Bronk Guzzlegear · {area:189} Steelgrill's Depot
 	["{npc:265813}: for {npc:1702} at {area:189}"] = "{npc:265813}: para {npc:1702} en {area:189}",
 
-	-- Step 25: Tognus Flintfire
-	["talk to the trainer"] = "habla con el instructor",
-	-- {npc:1241} Tognus Flintfire
-	["{npc:1241}, below ground"] = "{npc:1241}, bajo tierra",
-
-	-- Step 26: Kharanos
+	-- Step 24: Kharanos
 	-- {npc:1872} Tharek Blackstone · {npc:6806} Tannok Frosthammer · {npc:1226} Maxan Anvol · {npc:1267} Ragnar Thunderbrew · {npc:1699} Gremlock Pilsnor · {skill:185} Cooking
 	["{npc:1872} works the forge west of the distillery.\nThen go in: {npc:6806}, the innkeeper, {npc:1226} and {npc:1267}. {npc:1699}'s {skill:185} lesson waits for the return with the ribs, when the copper is there for it."] = "{npc:1872} trabaja en la forja al oeste de la destilería.\nLuego entra: {npc:6806}, el posadero, {npc:1226} y {npc:1267}. La lección de {skill:185} de {npc:1699} espera a la vuelta con las costillas, cuando tengas el cobre para pagarla.",
+	-- {npc:1241} Tognus Flintfire
+	["{npc:1241}, below ground"] = "{npc:1241}, bajo tierra",
 	-- {npc:6806} Tannok Frosthammer
 	["{npc:6806}, inside"] = "{npc:6806}, adentro",
 	-- {npc:1226} Maxan Anvol
@@ -174,6 +165,15 @@ return {
 	-- {npc:1226} Maxan Anvol · {npc:12427} Mountaineer Dolf · {area:131} Kharanos
 	["{npc:1226}: heal {npc:12427} south of {area:131}"] = "{npc:1226}: sana a {npc:12427} al sur de {area:131}",
 	["Last: some classes' trainers stand outside"] = "Por último: los instructores de algunas clases están afuera",
+
+	-- Step 25: Camping 101: Blacksmithing
+	-- {npc:1241} Tognus Flintfire · {skill:164} Blacksmithing
+	["{npc:1241} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1241} la recibe cuando tu habilidad de {skill:164} llegue a 20: recolecta o fabrica hasta entonces; mientras tanto, la guía sigue.",
+	-- {npc:265813} Eric Brighthammer · {npc:1241} Tognus Flintfire
+	["{npc:265813}: for {npc:1241}, in the cellar west of the distillery"] = "{npc:265813}: para {npc:1241}, en el sótano al oeste de la destilería",
+
+	-- Step 26: Tognus Flintfire
+	["talk to the trainer"] = "habla con el instructor",
 
 	-- Step 27: Thamner Pol
 	-- {npc:2326} Thamner Pol

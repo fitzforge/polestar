@@ -912,6 +912,7 @@ take a jump.
 | group content `group` | elite work, dungeon and raid quests and goals on an instance map: see "Group content" below |
 | escort `escort` | the accept, `complete` and objective goals of an escort quest: see "Escort quests" below |
 | later hand-in `carriedTo` | `complete` and objective goals of a quest only a later guide of the chain hands in: see "Quests carried to a later guide" below |
+| placeholder target `logLine` | a `kill` or `talk` on one of the game's placeholder targets (a "[DNT] Kill Credit", "PvP Graveyard Credit Marker", "Trigger Ichman", #2614): its `npc` is dropped, `target` (`npcName`) is the name the placeholder carries ("[DNT] Kill Credit: Twilight Thrall" -> "Twilight Thrall"), else the objective's own text, else the goal's note, and the guide window reads it by its quest-log line. None of the three is an error. A `complete`'s `objs` leave out a placeholder's text the same way |
 | fresh start `fresh` | a leveling guide that other leveling guides lead to: how much of its quest XP follows on from their quests: see "Fresh starts" below |
 | height `z` | a goal at an NPC or object: the height of that NPC's or object's spawn (`spawnz.json`), so the walk ends on its floor: see "Heights" below |
 | place area `area` | `sethome`, `hearth`, `fly` and `getfp` (their location) and `goto` (its label): the AreaTable area of that name, so the goal completes and reads right on every client language: see "Places by ID" below |
@@ -1441,6 +1442,78 @@ Errors:
   an item whose every located dropper is such an npc; `lint` also errors on a
   non-`optional` quest goal of a quest the cached simulator world (below) excludes
   as `elite`, unless the goal was already reported as elite
+- one of the game's placeholder names ("[DNT] Kill Credit", "Credit", "PvP Tower Credit
+  Marker", "Trigger Ichman", "<UNUSED>", anything tagged `[PH]` or `(DND)`) in a name or text a
+  compiled goal shows (its target, NPC, object, item, source, objective lines, note):
+  give the objective its text in `forever-db/corrections/quests.json`, or the entity its name
+  (#2614). A `kill` or `talk` on such a target is worded for you (see "What the compiler
+  fills in")
+- in Polestar's own leveling guides (`lint` only): a non-`optional` `accept` whose
+  prerequisite only an earlier guide's visit to the same map brings (the guide
+  does not accept and hand it in before the accept): a character who starts the
+  route after that visit never sees the quest. The guide brings the prerequisite
+  back before it in steps `when !turnedin <the chain's last quest>`, or
+  `data/route-fixes.json` `overrides.leftout` records why it stays out
+  (docs/forge/routes.md, "Overrides"); a `leftout` record that names no such
+  accept is a warning
+- `lint` only: the play checks below on Polestar's own guides (in `compile`, and
+  in every other pack, they are warnings, so the tools that compile a pack go on)
+
+Play checks: patterns players reported again and again, each checked over
+every guide so the next one never ships. A step a check flags that is right
+as written is listed in `data/lint-allow.json` (beside the data folder) with
+the rule, the guide id, the quest or item, and the reason; an entry with no
+reason is an error, and one that covers no step any more is a warning:
+
+```json
+{ "allow": [{ "rule": "direct-gate", "guide": "forever/x/01-zone", "quest": 2741, "reason": "…" }] }
+```
+
+- `direct-gate`: a required `turnin <id> direct` whose quest takes items, in
+  a step with no `when has <item>` for each and no goal before it in the step
+  that gets the item. The quest never enters the log, so nothing tells the
+  route whether the player still carries the item; without it the giver
+  offers nothing and the step holds for good (An Apple Treat)
+- `gate-consumed`: a step with `when has <item>` in which a goal takes the
+  item out of the bags (a direct hand-in of it, the accept of a quest it
+  starts, unless that quest counts the item as an objective) before other
+  goals of the step: once the item is gone the step's `when` no longer
+  holds and Polestar drops the rest of the step on the spot. Put that goal
+  last, or the goals after it in a step of their own
+  (a `use` is left out: the data does not say which items are spent)
+- `talk-kill`: a `kill` on a quest-log line the data types as a talk
+  objective: write `talk <npc> quest Q.O`
+- `handin-unworked`: a required, plain `turnin Q` while one of Q's kill,
+  talk, object or event objectives has no goal working it since Q's accept
+  (for a quest the guide never accepts: anywhere before the hand-in, here or
+  in a guide chaining in): no `complete Q`, no goal bound to Q (`quest Q` or
+  `quest Q.O`), no unbound `kill`/`talk` of the objective's npc or `interact`
+  of its object. The guide window would go from the accept straight to the
+  hand-in (an escort the player never started). Right as written: a step
+  that waits for the work (`when complete Q`, `when has` an item of Q's), an
+  objective that is the ender itself (talk to, or click, whoever takes the
+  quest in), and an event objective whose spot in the data is within 30
+  yards of the hand-in
+- `offer`: a required `accept` (or `turnin … direct`) the giver cannot offer
+  there: a prerequisite the chain never turns in (a step with `when turnedin
+  <prerequisite>` waits for it), a parent quest not in the log, a breadcrumb
+  still in the log. An `optional` accept, or one in a step with `when
+  available <quest>`, warns instead (the warnings below). An exclusive quest
+  taken earlier only warns: a guide writes both ways of a choice one after
+  the other, and Polestar passes the way not taken
+- `offer-level`: a required `accept` two levels or more above the level the
+  route plausibly reaches there (when XP data exists), in a step with no
+  `when level` predicate; one level short warns (Polestar holds the accept
+  until the player gets there, and the estimate leaves out the route's kills)
+- `item-skippable`: a required `use <item>`, or an `accept` of a quest only
+  an item starts, whose item every earlier goal that gets it (a `collect`,
+  `buy` or `craft` of it, an accept that hands it over, a turn-in that
+  rewards it) is `optional` or in a step with a `when` the goal's step does
+  not share; a source step with `when !has <item>` counts as sure, and so
+  does the accept of the `use` goal's own quest, and a source step's `when has
+  <x>` on an item a required goal before it gets (the `direct-gate` pattern)
+  holds for everyone. Write `when has <item>` on the step, or make a goal
+  that gets the item required
 
 Warnings:
 - a `when rep` naming by its id a faction the data lacks (by name it is an
@@ -1454,12 +1527,16 @@ Warnings:
   character sees it
 - a goal in an `along` step that Polestar checks off only on the step the
   route is on (see "Along the way"): it never checks off there
-- an `accept` whose prerequisites (`pre`, any one suffices) are none of them turned in earlier in the chain
-- an `accept` above the level the route plausibly reaches (when XP data exists)
+- an `optional` `accept` (or one in a step that waits for it with `when
+  available`) whose prerequisites (`pre`, any one suffices) are none of them
+  turned in earlier in the chain; a required one is an `offer` error above
+- an `accept` the `offer-level` check leaves as a warning: above the level the
+  route plausibly reaches (when XP data exists) by less than two levels,
+  `optional`, or in a step with a `when level` predicate
 - an `accept` of a quest whose `excl` (exclusive) quest is accepted or turned in
   earlier in the chain: the game does not offer it while that quest is in the
   log or done
-- an `accept` of a quest while one of its breadcrumbs is in the log (accepted
+- an `optional` `accept` of a quest while one of its breadcrumbs is in the log (accepted
   earlier in the chain, not yet turned in or abandoned): the game does not
   offer it until the breadcrumb is handed in
 - a non-`optional` `accept` never turned in later in the guide or the guides

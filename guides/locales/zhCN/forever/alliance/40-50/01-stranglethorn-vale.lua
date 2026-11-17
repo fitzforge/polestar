@@ -180,33 +180,36 @@ return {
 	-- {area:35} Booty Bay · {area:43} Wild Shore
 	["Seahorn's Bloodsail Buccaneers: keep it for the level-48 {area:35} stop, with the {area:43} camp."] = "海角的血帆海盗任务：先留着，到48级回{area:35}时和{area:43}营地一起做。",
 
-	-- Step 32: Gorilla hills
+	-- Step 32: Booty Bay
+	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "你在路线之前来这里时错过了这一步：现在先做它。它很快，还会开启后面的任务。",
+	["\"Sea Wolf\" MacKinley, on the top floor"] = "“海狼”马克基雷，位于最顶层",
+
+	-- Step 33: Gorilla hills
 	["Gorilla hills"] = "猩猩山丘",
 	-- plural, as words: Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
 	["Head inland to the Mistvale gorilla hills. Elder Mistvale Gorillas drop the giblets."] = "向内陆前往迷雾谷猩猩所在的山丘。老迈的迷雾谷猩猩掉落内脏。",
 
-	-- Step 33: Booty Bay
+	-- Step 34: Booty Bay
 	["Head back down to town; Shaky stands at the tunnel mouth."] = "回到镇上；“病鬼”菲利普站在隧道口。",
 	-- {zone:1446} Tanaris
 	["for Stoley in {zone:1446}: keep it; on the top floor"] = "留给{zone:1446}的斯杜雷；任务在最顶层接取",
-	["\"Sea Wolf\" MacKinley, on the top floor"] = "“海狼”马克基雷，位于最顶层",
 	-- {area:35} Booty Bay
 	["\"Sea Wolf\" MacKinley: keep it, for the level-48 {area:35} stop, with Zanzil's village"] = "“海狼”麦金利：先留着，到48级回{area:35}时和赞吉尔的村子一起做",
 
-	-- Step 34: Cortello's scroll
+	-- Step 35: Cortello's scroll
 	["Cortello's scroll"] = "科泰罗的卷轴",
 	-- {area:35} Booty Bay
 	["Optional: Cortello's scroll lies inside one of the three Bloodsail ships anchored off the coast just south of {area:35}, on a middle or lower deck, and is not always on the same ship. Their crews are 42-45 pirates: clear your way from the edge, one at a time, and leave the captains (45-48), whom the route comes back for at 48."] = "可选：科泰罗的卷轴在{area:35}南边不远处海岸外停泊的三艘血帆海盗船之一里，位于中层或下层甲板，而且不一定每次都在同一艘船上。船员是42-45级的海盗：从边缘开始逐个清理，别碰船长（45-48级），路线会在48级时回来对付他们。",
 	-- {zone:1435} Swamp of Sorrows
 	["for the {zone:1435} later"] = "之后用于{zone:1435}",
 
-	-- Step 35: Jungle Stalkers
+	-- Step 36: Jungle Stalkers
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
 	["Jungle Stalkers"] = "丛林捕猎者",
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
 	["The Jungle Stalkers roam the slopes west of the mine."] = "丛林捕猎者在矿洞西侧的山坡上游荡。",
 
-	-- Step 36: Zul'Mamwe's Mystics and the Shadowmaw Panthers
+	-- Step 37: Zul'Mamwe's Mystics and the Shadowmaw Panthers
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["Zul'Mamwe's Mystics and the Shadowmaw Panthers"] = "祖玛维的秘法师和深喉猎豹",
 	-- {npc:739} Brother Nimetz
@@ -216,7 +219,7 @@ return {
 	-- plural, as words: Skullsplitter Mystics = {npc:780} Skullsplitter Mystic
 	["{item:2466}, from the Skullsplitter Mystics"] = "{item:2466}，来自劈颅秘法师",
 
-	-- Step 37: The north-west coast
+	-- Step 38: The north-west coast
 	["The north-west coast"] = "西北海岸",
 	-- {npc:2624} Gazban · {item:4034} Stone of the Tides
 	-- plural, as words: Giant Clams = {object:2744} Giant Clam
@@ -224,28 +227,28 @@ return {
 	-- {item:4611} Blue Pearl
 	["{item:4611}; underwater"] = "{item:4611}：在水下",
 
-	-- Step 38: Sin'Dall
+	-- Step 39: Sin'Dall
 	-- {npc:729} Sin'Dall
 	["North-east from the bay toward Nesingwary's camp: {npc:729}, the great tiger (37), lairs on the hilltop just south-west of the camp."] = "从海湾向东北朝奈辛瓦里营地走：巨虎{npc:729}（37级）盘踞在营地西南不远的山顶上。",
 
-	-- Step 39: Hemet Nesingwary
+	-- Step 40: Hemet Nesingwary
 	-- {npc:718} Sir S. J. Erlgadin
 	["{npc:718}, beside him"] = "{npc:718}，在他旁边",
 	-- {npc:717} Ajeck Rouack
 	["{npc:717}, beside them"] = "{npc:717}，在他们旁边",
 
-	-- Step 42: Arbor Tarantula
+	-- Step 43: Arbor Tarantula
 	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
 	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s {item:213565}."] = "奈辛瓦里营地东南边、通往{area:99}的丛林里有{npc:217588}：用{npc:217412}的{item:213565}里的工具捕捉一只。",
 
-	-- Step 43: Rebel Camp
+	-- Step 44: Rebel Camp
 	["Head north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale."] = "向东北经过奈辛瓦里营地，再沿道路向北前往山谷最北端的营地。",
 
-	-- Step 44: Brother Nimetz
+	-- Step 45: Brother Nimetz
 	-- {npc:739} Brother Nimetz · {area:301} Savage Coast · {npc:2277} Loremaster Dibbs · {area:271} Southshore · {zone:1418} Badlands · {zone:1425} Hinterlands
 	["{npc:739}: the {area:301} report bundle for {npc:2277} in {area:271}, on the {zone:1418} & {zone:1425} guide: keep it"] = "{npc:739}：给{area:271}的{npc:2277}的{area:301}报告，在{zone:1418}和{zone:1425}指南中做：先留着",
 
-	-- Step 45: Kurzen's Compound
+	-- Step 46: Kurzen's Compound
 	-- {area:99} Rebel Camp · {area:101} Kurzen's Compound · {npc:218230} Wendel Mathers · {npc:813} Colonel Kurzen
 	-- plural, as words: Kurzen Subchiefs = {npc:978} Kurzen Subchief
 	["East from the {area:99} to {area:101}: {npc:218230} is caged at its western edge. The Kurzen Subchiefs (35-36) and Elites (36-37) carry his cage key; the fighter's uniform lies in a supply crate in the compound's eastern part.\nCareful: {npc:813}, an elite of 39-40, stands at the compound's north end beside three of the Subchiefs: take the key from the Subchiefs and Elites further south and leave him be."] = "从{area:99}向东前往{area:101}：{npc:218230}被关在其西侧边缘。库尔森副首领（35-36级）和库尔森精英（36-37级）身上带着他的囚笼钥匙；战士制服在营地东部的一个补给箱里。\n注意：39-40级精英{npc:813}站在营地北端，旁边有三个副首领：从更南边的副首领和精英身上拿钥匙，别惹他。",
@@ -260,26 +263,28 @@ return {
 	-- {npc:218229} Captain Aransas · {area:35} Booty Bay
 	["For {npc:218229} in {area:35}, at the end of the jungle loop"] = "交给{area:35}的{npc:218229}，在丛林环线的终点",
 
-	-- Step 46: Panther Mastery
+	-- Step 47: Panther Mastery
 	-- {npc:728} Bhag'thera
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:728} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:728}是 40 级精英，多数职业到 42 级可以尝试单独击败，但可能仍需帮助。独自一人时可跳过，路线会安排刷怪补回经验。",
 
-	-- Step 47: Ruins of Zul'Mamwe: kill these as you meet them
+	-- Step 48: Ruins of Zul'Mamwe: kill these as you meet them
 	-- {area:103} Ruins of Zul'Mamwe
 	["{area:103}: kill these as you meet them"] = "{area:103}：沿途击杀以下目标",
 	-- {area:310} Crystalvein Mine
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do.\nFollow the road north-east to the Venture Co. camp at the {area:310}; the miners, surveyors and foremen drop the crystals.\nCareful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp."] = "劈颅巨魔占据矿洞以东的废墟，所有巨魔都有几率掉落獠牙，它们的豹子则必定掉落。\n沿路向东北前往{area:310}的风险投资公司营地，矿工、勘测员和工头会掉落水晶。\n注意：营地周围有潜行的深喉猎豹和荆棘谷雌虎。",
+	-- {item:1524} Skullsplitter Tusk
+	["{item:1524}, from the trolls of the ruins"] = "",
 
-	-- Step 48: Raptor Mastery
+	-- Step 49: Raptor Mastery
 	-- {npc:730} Tethis
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:730} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:730}是 43 级精英，多数职业到 45 级可以尝试单独击败，但可能仍需帮助。独自一人时可跳过，路线会安排刷怪补回经验。",
 
-	-- Step 52: Big Game Hunter
+	-- Step 53: Big Game Hunter
 	-- {npc:731} King Bangalash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:731} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back.\nCareful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, {npc:731} calls for help from creatures within 20 yd."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:731}是 43 级精英，多数职业到 45 级可以尝试单独击败，但可能仍需帮助。独自一人时可跳过，路线会安排刷怪补回经验。\n注意：附近有老虎和潜行的暗影黑豹，先清理再拉首领。拉到{npc:731}时，它会召集 20 码内的生物支援。",
 
-	-- Step 54: Booty Bay
+	-- Step 55: Booty Bay
 	-- {area:35} Booty Bay
 	["Follow the road south to {area:35}."] = "沿路向南前往{area:35}。",
 	-- {npc:737} Kebok
@@ -287,116 +292,116 @@ return {
 	-- {npc:773} Krazek · {quest:2864} Tran'rek · {zone:1446} Tanaris
 	["{npc:773}: for {quest:2864} in {zone:1446}, keep it"] = "{npc:773}：交给{zone:1446}的{quest:2864}，留着",
 
-	-- Step 55: Fly to Stormwind
+	-- Step 56: Fly to Stormwind
 	-- {area:35} Booty Bay
 	["{area:35} flight master"] = "{area:35}的飞行管理员",
 
-	-- Step 56: Stormwind
+	-- Step 57: Stormwind
 	-- {npc:1141} Angus Stern · {object:2169} Blue Recluse · {npc:5384} Brohann Caskbelly · {object:28027} Dwarven District
 	["{npc:1141} cooks in the {object:2169}; {npc:5384} is in the {object:28027}."] = "{npc:1141}在{object:2169}做饭；{npc:5384}在{object:28027}。",
 	-- {npc:5694} High Sorcerer Andromath · {npc:5464} Watchmaster Sorigal · {area:42} Darkshire
 	["{npc:5694}: for {npc:5464} in {area:42}, on the way to the swamp"] = "{npc:5694}：交给{area:42}的{npc:5464}，前往沼泽时顺路做",
 
-	-- Step 57: Stormwind
+	-- Step 58: Stormwind
 	-- {npc:1440} Milton Sheaf · {object:2117} Stormwind Keep
 	["{npc:1440}, the Royal Library in {object:2117}"] = "{npc:1440}，在{object:2117}的皇家图书馆",
 
-	-- Step 59: Paladin: The Tome of Nobility
+	-- Step 60: Paladin: The Tome of Nobility
 	-- {quest:1661} The Tome of Nobility
 	["Paladin: {quest:1661}"] = "圣骑士：{quest:1661}",
 	-- {npc:6171} Duthorian Rall
 	["{npc:6171}, in the Cathedral of Light"] = "{npc:6171}，在光明大教堂",
 
-	-- Step 60: Stormwind City
+	-- Step 61: Stormwind City
 	["Stormwind City"] = "暴风城",
 
-	-- Step 61: Warlock: Summon Felsteed
+	-- Step 62: Warlock: Summon Felsteed
 	-- {quest:4488} Summon Felsteed
 	["Warlock: {quest:4488}"] = "术士：{quest:4488}",
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {npc:6251} Strahad Farsan · {area:392} Ratchet
 	["{npc:461}, in the {object:2164}: {npc:6251} in {area:392} takes it at the end of the next guide"] = "{npc:461}，在{object:2164}：{area:392}的{npc:6251}在下一份指南结尾接收",
 
-	-- Step 63: Fly to Rut'theran Village
+	-- Step 64: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
 	["Fly to {area:702}"] = "飞往{area:702}",
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "{area:442}的飞行管理员",
 
-	-- Step 66: Riding at 40
+	-- Step 67: Riding at 40
 	-- {npc:4753} Jartsam · {zone:1457} Darnassus · {npc:4730} Lelanai · {area:17203} Stormwind Harbor · {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4732} Randal Hunter · {area:88} Eastvale Logging Camp · {zone:1429} Elwynn Forest
 	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4753} teaches Night Elves in {zone:1457}, beside {npc:4730}'s sabers: the boat from {area:17203} to {area:442}, then the flight to {area:702}. Forever may let any race learn from any riding trainer (unconfirmed), such as {npc:4732} at {area:88} in {zone:1429}. Collectibles, Mounts · Level 40 lists every colour."] = "40级且有100金时可以学习骑术，学会后会获得一匹坐骑。{npc:4753}在{zone:1457}教授暗夜精灵，旁边是{npc:4730}的豹：从{area:17203}乘船前往{area:442}，再飞往{area:702}。Forever可能允许任何种族向任何骑术训练师学习（未确认），例如{zone:1429}{area:88}的{npc:4732}。收藏指南“坐骑 · 40级”列出了所有颜色。",
 	-- {npc:4730} Lelanai
 	["{npc:4730}: other colours, 20g"] = "{npc:4730}：其他颜色，20金",
 
-	-- Step 68: Fly to Auberdine
+	-- Step 69: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "飞往{area:442}",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "{area:702}的飞行管理员",
 
-	-- Step 69: Boat to Stormwind Harbor
+	-- Step 70: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
 	["Boat to {area:17203}"] = "乘船前往{area:17203}",
 
-	-- Step 70: Fly to Darkshire
+	-- Step 71: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "飞往{area:42}",
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "{zone:1453}飞行管理员",
 
-	-- Step 71: Darkshire
+	-- Step 72: Darkshire
 	-- {npc:5464} Watchmaster Sorigal
 	["{npc:5464}, by the flight master"] = "{npc:5464}，在飞行管理员旁边",
 
-	-- Step 73: Misty Valley
+	-- Step 74: Misty Valley
 	["The scroll lies in the marsh north of Biggs. The Swampwalkers north of it can drop Khadgar's essays."] = "卷轴在比格斯北边的沼泽里。其北边的沼泽漫步者可能掉落卡德加的空间收敛研究笔记。",
 
-	-- Step 75: Cortello's Riddle
+	-- Step 76: Cortello's Riddle
 	-- {npc:217412} Amaryllis Webb · {quest:93176} My Little Friends
 	["{npc:217412}: {quest:93176}, from 30-40/05-arathi-highlands"] = "{npc:217412}：{quest:93176}，来自 30-40/05-arathi-highlands",
 
-	-- Step 76: Watcher Biggs
+	-- Step 77: Watcher Biggs
 	-- {npc:5476} Watcher Biggs
 	["{npc:5476} stands by the road junction in the west of the swamp."] = "{npc:5476}站在沼泽西侧的道路交汇处。",
 
-	-- Step 77: The sunken temple
+	-- Step 78: The sunken temple
 	["The sunken temple"] = "沉没的神庙",
 	-- {area:74} Pool of Tears
 	-- plural, as words: Tangled Horrors = {npc:766} Tangled Horror
 	["Head east; the Tangled Horrors along the way also drop the essays. Search the edge of the {area:74}, where the temple's ruins break the water."] = "向东前进；沿途的纠缠恐兽也会掉落研究笔记。在{area:74}边缘搜寻，神庙的废墟在那里露出水面。",
 
-	-- Step 78: Misty Reed Strand
+	-- Step 79: Misty Reed Strand
 	-- plural, as words: Silt Crawlers = {npc:922} Silt Crawler · Monstrous Crawlers = {npc:1088} Monstrous Crawler
 	["The Silt Crawlers (40-41) crowd the north end of the eastern shore, and the driftwood washes up along it from there.\nCareful: the big Monstrous Crawlers (43-44) further south on the shore are over you: take the legs at the north end and pick up the driftwood without pulling them."] = "淤泥蟹（40-41）聚集在东岸北端，浮木也从那里沿岸冲上来。\n小心：岸边更南面的巨型淤泥蟹（43-44）等级比你高：在北端收集蟹腿，捡浮木时别引到它们。",
 	-- {item:5938} Pristine Crawler Leg
 	-- plural, as words: Silt Crawlers = {npc:922} Silt Crawler
 	["{item:5938}, from the Silt Crawlers"] = "{item:5938}，来自淤泥蟹",
 
-	-- Step 79: Watcher Biggs
+	-- Step 80: Watcher Biggs
 	-- {area:1438} Nethergarde Keep
 	["for {area:1438}: keep it"] = "交给{area:1438}：留着",
 
-	-- Step 82: Stormwind
+	-- Step 83: Stormwind
 	-- {npc:5635} Falstad Wildhammer · {area:348} Aerie Peak
 	["for {npc:5635} at {area:348}: keep it"] = "交给{area:348}的{npc:5635}：留着",
 
-	-- Step 83: Tram to Ironforge
+	-- Step 84: Tram to Ironforge
 	-- {zone:1455} Ironforge
 	["Tram to {zone:1455}"] = "乘地铁前往{zone:1455}",
 
-	-- Step 86: Ironforge
+	-- Step 87: Ironforge
 	-- {npc:5637} Roetten Stonehammer · {object:32356} Hall of Explorers · {npc:2786} Gerrig Bonegrip · {object:32383} Forlorn Cavern
 	["{npc:5637} is in the Reclaimers' hall by the {object:32356}, {npc:2786} in the {object:32383}."] = "{npc:5637}在{object:32356}旁的寻物公司大厅，{npc:2786}在{object:32383}。",
 	-- {zone:1453} Stormwind
 	["{zone:1453} has no shaman trainer"] = "{zone:1453}没有萨满祭司训练师",
 
-	-- Step 88: Riding at 40
+	-- Step 89: Riding at 40
 	-- {npc:4772} Ultham Ironhorn · {area:803} Amberstill Ranch · {area:131} Kharanos · {zone:1432} Loch Modan · {npc:1261} Veron Amberstill
 	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4772} teaches Dwarves at {area:803}, east of {area:131} on the road to {zone:1432}, beside {npc:1261}'s rams. Forever may let any race learn from any riding trainer (unconfirmed). Collectibles, Mounts · Level 40 lists every colour."] = "40级且有100金时可以学习骑术，学会后会获得一匹坐骑。{npc:4772}在{area:803}教授矮人，位于{area:131}东边通往{zone:1432}的路上，旁边是{npc:1261}的山羊。无限 可能允许任何种族向任何骑术训练师学习（未确认）。收藏指南“坐骑 · 40级”列出了所有颜色。",
 	-- {npc:1261} Veron Amberstill
 	["{npc:1261}: other colours, 20g"] = "{npc:1261}：其他颜色，20金",
 
-	-- Step 90: Riding at 40
+	-- Step 91: Riding at 40
 	-- {npc:7954} Binjy Featherwhistle · {area:189} Steelgrill's Depot · {area:131} Kharanos · {npc:7955} Milli Featherwhistle
 	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:7954} teaches Gnomes at {area:189}, just east of {area:131}, beside {npc:7955}'s mechanostriders. Forever may let any race learn from any riding trainer (unconfirmed). Collectibles, Mounts · Level 40 lists every colour."] = "40级且有100金时可以学习骑术，学会后会获得一匹坐骑。{npc:7954}在{area:131}东边不远的{area:189}教授侏儒，旁边是{npc:7955}的机械陆行鸟。无限 可能允许任何种族向任何骑术训练师学习（未确认）。收藏指南“坐骑 · 40级”列出了所有颜色。",
 	-- {npc:7955} Milli Featherwhistle

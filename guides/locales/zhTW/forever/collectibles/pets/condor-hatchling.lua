@@ -11,7 +11,7 @@ return {
 
 	-- Step 1: Lord Condar
 	-- {npc:14268} Lord Condar · {zone:1432} Loch Modan · {item:282637} Shaking Egg
-	["{npc:14268} is a rare level 15-16 condor in south-eastern {zone:1432}. He appears at one of four spots, hours after he last died; the arrow takes you round them. He drops the {item:282637} only about once in 500 kills, so this is a pet for players who pass through {zone:1432} often: check his spots each time, and kill him whenever you see him."] = "",
+	["{npc:14268} is a rare level 15-16 condor in south-eastern {zone:1432}. He appears at one of four spots, hours after he last died; the arrow takes you round them. He drops the {item:282637} only about once in 500 kills, so this is a pet for players who pass through {zone:1432} often: check his spots each time, and kill him whenever you see him."] = "{npc:14268}是{zone:1432}東南部的一隻15到16級稀有禿鷲。他會在上次死亡數小時後出現在四個位置之一；箭頭會帶你依次轉一圈。他掉落{item:282637}的機率約為每500次擊殺一次，所以這是給常經過{zone:1432}的玩家的寵物：每次都去檢查他的重生點，見到就殺。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["{npc:14268} is a rare level 15-16 condor in south-eastern {zone:1432}; early kill counts give about 0.2% per kill, so expect many respawns."] = "{npc:14268}是{zone:1432}東南部15-16級的稀有禿鷹；早期的擊殺統計顯示每次約0.2%，所以要等很多次重生。",

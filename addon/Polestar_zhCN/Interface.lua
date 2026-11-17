@@ -216,6 +216,9 @@ L["Grey for you: pays %d%% XP (Skip grey quests)"] = "对你是灰色：只给 %
 -- L["Reach %d points into %s with"] = ""
 -- L["Lose"] = ""
 -- L["Gain"] = ""
+L["Journeyman %s"] = "中级%s"
+L["Expert %s"] = "高级%s"
+L["Artisan %s"] = "专家级%s"
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "选择一个奖励以完成交还。"
@@ -618,9 +621,9 @@ L["Timed quest alerts"] = "限时任务提醒"
 L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] = "限时任务剩余 5 分钟时、剩余 1 分钟时以及失败时，在聊天框显示一行提示并播放声音。指南窗口始终显示剩余时间。"
 L["Party chat"] = "小队聊天"
 -- L["On a mob that drops a quest item you still need, or an object it comes out of, show how often."] = ""
--- L["Quest givers and turn-ins"] = ""
+L["Quest givers and turn-ins"] = "任务发布者与交还"
 -- L["On an NPC, name the quests it has for you now and the finished quests you can hand in to it."] = ""
--- L["Replace the game's quest lines"] = ""
+L["Replace the game's quest lines"] = "替换游戏的任务行"
 -- L["On mobs and objects, leave out the game's own lines for the quests these tooltips name, so each quest shows once. In a group the game's lines stay: they show your party's progress."] = ""
 
 -- Quests/Party.lua
@@ -1146,7 +1149,7 @@ L["Lists the quest items you can buy at an auction house instead of farming them
 L["Lists the current step's mobs, or the NPCs it sends you to when it has no mob, with their portraits and what they drop; click a name to target that one. Its key binding targets the first one close by."] = "列出当前步骤的怪物；没有怪物时列出步骤指引你前往的 NPC，并显示头像和掉落物品。点击名字即可选中该目标。其快捷键会选中附近的第一个。"
 L["Names in the target list"] = "目标列表中的名字数"
 L["How many of the step's mobs the target list shows, in guide order."] = "目标列表按指南顺序显示的步骤怪物数量。"
--- L["Completed quest XP"] = ""
+L["Completed quest XP"] = "已完成任务的经验"
 -- L["Shows XP from completed quests you can turn in on the game's XP bar and in its tooltip."] = ""
 
 -- Lookup/Sources.lua
@@ -1202,6 +1205,8 @@ L["Enter"] = "进入"
 L["Choose this reward:"] = "选择此奖励："
 L["Lookup"] = "查询"
 L["%s: click through what they say until the quest's line is done."] = "%s：逐页点完对话，直到该任务目标完成。"
+L["%s: use %s to call it up."] = "%s：使用%s将其召唤出来。"
+L["Use %s to learn it."] = "使用%s来学习。"
 
 -- Lookup/Spotter.lua
 L["From"] = "来源"
@@ -4500,6 +4505,9 @@ L["%s isn't in your quest log."] = "%s不在你的任务日志中。"
 L["That quest isn't in your quest log."] = "该任务不在你的任务日志中。"
 L["The quest log opens when combat ends."] = "战斗结束后会打开任务日志。"
 L["Show in quest log"] = "在任务日志中显示"
+L["Link in chat"] = "发送链接到聊天"
+L["Middle-click: show in quest log. Shift-click: link in chat."] = "中键点击：在任务日志中显示。Shift-点击：发送链接到聊天。"
+L["Shift-click: link in chat."] = "Shift-点击：发送链接到聊天。"
 
 -- Dungeons/Mark.lua
 L["Needed for %s in %s"] = "%s所需（位于%s）"

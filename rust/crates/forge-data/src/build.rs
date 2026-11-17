@@ -850,6 +850,19 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 		log(&format!("place-name NPCs: {} dropped ({})", placeholders.len(), placeholders.iter().map(i64::to_string).collect::<Vec<_>>().join(", ")));
 	}
 
+	// Objectives on the game's placeholder targets (credit.rs, #2614): events in the quest log's words. Then the
+	// check: no placeholder name a player could read ships; each one left needs a correction.
+	let credits = crate::credit::retype(&norm.quests, &norm.npcs);
+	log(&format!("placeholder targets: {} quest(s) whose objective names a credit NPC are events", credits.len()));
+	let shown = crate::credit::scan(&norm.quests, &norm.npcs, &norm.objects, &norm.items);
+	if !shown.is_empty() {
+		return Err(format!(
+			"{} placeholder name(s) a player would read (#2614); give each objective its quest-log words in forever-db/corrections/quests.json, or the NPC, object or item its name:\n{}",
+			shown.len(),
+			shown.join("\n")
+		));
+	}
+
 	// ---- meta.json sources
 	let mut sources: Vec<V> = Vec::new();
 	sources.push(obj_of(vec![

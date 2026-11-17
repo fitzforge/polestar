@@ -8,16 +8,17 @@
 return {
 	-- Step 1: Learn Engineering
 	-- {skill:202} Engineering
-	["Learn {skill:202}"] = "",
+	["Learn {skill:202}"] = "學習{skill:202}",
 	-- {skill:202} Engineering · {item:5956} Blacksmith Hammer · {skill:186} Mining · {item:2835} Rough Stone · {item:2770} Copper Ore · {item:2840} Copper Bar
-	["Apprentice {skill:202} lets you craft up to 75 for 10c, at any character level. Any {skill:202} trainer of your faction teaches it; the arrow picks the nearest. Buy a {item:5956} and pair it with {skill:186}: {item:2835} and {item:2770} are the first parts. 1-75 takes about 4s 15c of recipes and 18s 18c of vendor goods, plus 46 {item:2835} and 75 {item:2840} to gather or buy."] = "",
+	["Apprentice {skill:202} lets you craft up to 75 for 10c, at any character level. Any {skill:202} trainer of your faction teaches it; the arrow picks the nearest. Buy a {item:5956} and pair it with {skill:186}: {item:2835} and {item:2770} are the first parts. 1-75 takes about 4s 15c of recipes and 18s 18c of vendor goods, plus 46 {item:2835} and 75 {item:2840} to gather or buy."] = "初級{skill:202}讓你在任何角色等級下花10銅把技能練到75。本陣營任意{skill:202}訓練師都教；箭頭會指向最近的一位。買一個{item:5956}，再配合{skill:186}：{item:2835}和{item:2770}是最早的零件。1-75大約花4銀15銅的配方錢和18銀18銅的商人貨物，外加46個{item:2835}和75個{item:2840}，需自行採集或購買。",
 
 	-- Step 2: Engineering 1-75: vendor goods
 	-- {skill:202} Engineering
-	["{skill:202} 1-75: vendor goods"] = "",
+	["{skill:202} 1-75: vendor goods"] = "{skill:202} 1-75：商人貨物",
 	-- {item:2880} Weak Flux · {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:5514} Brooke Stonebraid · {npc:1286} Edna Mullby
 	["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "",
-	["a tool, keep it in your bags"] = "",
+	-- was: ["{item:5956}: a tool, keep it in your bags"] = "{item:5956}：工具，請留在背包中"
+	["a tool, keep it in your bags"] = "一件工具，放在包裡",
 
 	-- Step 3: Engineering 1-75: Auction House
 	-- {skill:202} Engineering
@@ -62,7 +63,7 @@ return {
 	["{spell:3918} to 35"] = "{spell:3918}練到 35",
 	-- {spell:3918} Rough Blasting Powder · {item:2835} Rough Stone · {item:2770} Copper Ore
 	-- plural, as words: Copper Veins = {object:1731} Copper Vein
-	["{spell:3918} is orange at 1 (yellow 20, green 30, grey 40): about 46 crafts to 35. Each takes 1 {item:2835}. One {item:2835} a craft; {item:2835} comes with the {item:2770} from Copper Veins."] = "",
+	["{spell:3918} is orange at 1 (yellow 20, green 30, grey 40): about 46 crafts to 35. Each takes 1 {item:2835}. One {item:2835} a craft; {item:2835} comes with the {item:2770} from Copper Veins."] = "{spell:3918}在1時為橙色（20黃、30綠、40灰）：大約46次製作可到35。每次需要1個{item:2835}。每次一個{item:2835}；{item:2835}與銅礦脈出的{item:2770}一同獲得。",
 
 	-- Step 13: Engineering recipes at 35
 	-- {skill:202} Engineering
@@ -81,14 +82,14 @@ return {
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 57"] = "{skill:202} 57 配方",
 	-- {skill:202} Engineering · {spell:7430} Arclight Spanner · {spell:3924} Copper Tube
-	["Back to an {skill:202} trainer: {spell:7430} (from 50, 1s 50c) and {spell:3924} (from 50, 1s 50c)."] = "",
+	["Back to an {skill:202} trainer: {spell:7430} (from 50, 1s 50c) and {spell:3924} (from 50, 1s 50c)."] = "回到{skill:202}訓練師處：{spell:7430}（50起，1銀50銅）和{spell:3924}（50起，1銀50銅）。",
 
 	-- Step 16: Copper Tube to 75
 	-- {spell:3924} Copper Tube
 	["{spell:3924} to 75"] = "{spell:3924}練到 75",
 	-- {spell:3924} Copper Tube · {item:2840} Copper Bar · {item:2880} Weak Flux · {item:6219} Arclight Spanner
 	-- plural, as words: Copper Bars = {item:2840} Copper Bar
-	["{spell:3924} is orange at 57 (yellow 80, green 95, grey 110): about 18 crafts to 75, a point every craft. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. Make the {item:6219} now, while it still gives a point: a later recipe needs it in your bags, so keep it there."] = "",
+	["{spell:3924} is orange at 57 (yellow 80, green 95, grey 110): about 18 crafts to 75, a point every craft. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. Make the {item:6219} now, while it still gives a point: a later recipe needs it in your bags, so keep it there."] = "{spell:3924}在57時為橙色（80黃、95綠、110灰）：大約18次製作可到75，每次一點。每次需要2個{item:2840}和1個{item:2880}。每次兩個銅錠和一個{item:2880}（鍛造和工程學供應商）。附近需要鐵砧。趁{item:6219}還能漲點時先做出來：後面的配方要求它在你包裡，所以一直留著。",
 	["a tool: keep it in your bags"] = "工具：請留在背包中",
 
 	-- Step 17: Journeyman Engineering
@@ -99,7 +100,7 @@ return {
 
 	-- Step 18: Engineering 75-150: vendor goods
 	-- {skill:202} Engineering
-	["{skill:202} 75-150: vendor goods"] = "",
+	["{skill:202} 75-150: vendor goods"] = "{skill:202} 75-150：商人貨物",
 	-- {item:2880} Weak Flux · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:5514} Brooke Stonebraid · {npc:1286} Edna Mullby
 	["Buy the whole bracket's share in one go: 45 {item:2880} (45s); about 45s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "",
 
@@ -155,16 +156,16 @@ return {
 
 	-- Step 32: Crafted Heavy Shot to 94
 	-- {spell:3930} Crafted Heavy Shot
-	["{spell:3930} to 94"] = "",
+	["{spell:3930} to 94"] = "{spell:3930} 到94",
 	-- {spell:3930} Crafted Heavy Shot · {spell:3929} Coarse Blasting Powder · {item:2840} Copper Bar
 	["{spell:3930} is orange at 75 (yellow 85, green 90, grey 95): about 15 crafts to 94. Each takes 1 {spell:3929} and 1 {item:2840} and makes 200. Make the 15 {spell:3929} first: it gives points too while not grey. The {spell:3929} in each gives its own point while it is not grey: two chances a craft. Sell the shot to hunters or a vendor."] = "",
 
 	-- Step 33: Copper Tube to 100
 	-- {spell:3924} Copper Tube
-	["{spell:3924} to 100"] = "",
+	["{spell:3924} to 100"] = "{spell:3924} 到100",
 	-- {spell:3924} Copper Tube · {item:2840} Copper Bar · {item:2880} Weak Flux
 	-- plural, as words: Copper Bars = {item:2840} Copper Bar
-	["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby."] = "",
+	["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby."] = "{spell:3924}在94時為黃色（80黃、95綠、110灰）：大約14次製作可到100。每次需要2個{item:2840}和1個{item:2880}。每次兩個銅錠和一個{item:2880}（鍛造和工程學供應商）。附近需要鐵砧。",
 
 	-- Step 34: Engineering recipes at 100
 	-- {skill:202} Engineering
@@ -174,7 +175,7 @@ return {
 
 	-- Step 35: Practice Lock to 125
 	-- {item:6712} Practice Lock
-	["{item:6712} to 125"] = "",
+	["{item:6712} to 125"] = "{item:6712} 到125",
 	-- {item:6712} Practice Lock · {item:2841} Bronze Bar · {spell:3922} Handful of Copper Bolts · {item:2880} Weak Flux
 	-- plural, as words: Practice Locks = {item:6712} Practice Lock
 	["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby."] = "",
@@ -190,7 +191,7 @@ return {
 	["{spell:3945} to 140"] = "{spell:3945}練到 140",
 	-- {spell:3945} Heavy Blasting Powder · {item:2838} Heavy Stone
 	-- plural, as words: Iron Deposits = {object:1735} Iron Deposit · Iron Grenades = {item:4390} Iron Grenade
-	["{spell:3945} is yellow at 125 (yellow 125, green 135, grey 145): about 27 crafts to 140. Each takes 1 {item:2838}. One {item:2838} a craft (Iron Deposits). Keep some: Iron Grenades take one each."] = "",
+	["{spell:3945} is yellow at 125 (yellow 125, green 135, grey 145): about 27 crafts to 140. Each takes 1 {item:2838}. One {item:2838} a craft (Iron Deposits). Keep some: Iron Grenades take one each."] = "{spell:3945}在125時為黃色（125黃、135綠、145灰）：大約27次製作可到140。每次需要1個{item:2838}。每次一個{item:2838}（鐵礦脈）。留一些：每個鐵手雷都要一個。",
 
 	-- Step 38: Engineering recipes at 140
 	-- {skill:202} Engineering
@@ -200,7 +201,7 @@ return {
 
 	-- Step 39: Big Bronze Bomb to 150
 	-- {spell:3950} Big Bronze Bomb
-	["{spell:3950} to 150"] = "",
+	["{spell:3950} to 150"] = "{spell:3950} 到150",
 	-- {spell:3950} Big Bronze Bomb · {item:4377} Heavy Blasting Powder · {item:2841} Bronze Bar · {spell:3973} Silver Contact · {skill:202} Engineering
 	["{spell:3950} is yellow at 140 (yellow 140, green 165, grey 190): about 10 crafts to 150. Each takes 2 {item:4377}, 3 {item:2841} and 1 {spell:3973} and makes 3. Make the 10 {spell:3973} (2 crafts) first. Use the 20 {item:4377} you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data. Needs an anvil nearby. {skill:202} 150 is a Legacy System milestone."] = "",
 
@@ -212,7 +213,7 @@ return {
 
 	-- Step 41: Engineering 150-225: vendor goods
 	-- {skill:202} Engineering
-	["{skill:202} 150-225: vendor goods"] = "",
+	["{skill:202} 150-225: vendor goods"] = "{skill:202} 150-225：商人貨物",
 	-- {item:6530} Nightcrawlers · {zone:1453} Stormwind City · {npc:5494} Catherine Leland · {npc:1286} Edna Mullby
 	["Buy the whole bracket's share in one go: 31 {item:6530} (31s); about 31s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5494} and {npc:1286})."] = "",
 
@@ -292,7 +293,7 @@ return {
 
 	-- Step 56: Aquadynamic Fish Attractor to 166
 	-- {item:6533} Aquadynamic Fish Attractor
-	["{item:6533} to 166"] = "",
+	["{item:6533} to 166"] = "{item:6533} 到166",
 	-- {item:6533} Aquadynamic Fish Attractor · {item:2841} Bronze Bar · {item:6530} Nightcrawlers · {spell:3929} Coarse Blasting Powder
 	["{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 31 {spell:3929} first. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen."] = "",
 
@@ -301,7 +302,7 @@ return {
 	["{spell:3953} to 175"] = "{spell:3953}練到 175",
 	-- {spell:3953} Bronze Framework · {item:2841} Bronze Bar · {item:2319} Medium Leather · {item:2592} Wool Cloth
 	-- plural, as words: Bronze Frameworks = {spell:3953} Bronze Framework
-	["{spell:3953} is yellow at 166 (yellow 145, green 170, grey 195): about 19 crafts to 175. Each takes 2 {item:2841}, 1 {item:2319} and 1 {item:2592}. Bronze Frameworks are parts for later gadgets; the extras sell to vendors."] = "",
+	["{spell:3953} is yellow at 166 (yellow 145, green 170, grey 195): about 19 crafts to 175. Each takes 2 {item:2841}, 1 {item:2319} and 1 {item:2592}. Bronze Frameworks are parts for later gadgets; the extras sell to vendors."] = "{spell:3953}在166時為黃色（145黃、170綠、195灰）：大約19次製作可到175。每次需要2個{item:2841}、1個{item:2319}和1個{item:2592}。青銅框架是後續裝置的零件；多出來的賣給商人。",
 
 	-- Step 58: Engineering recipes at 175
 	-- {skill:202} Engineering
@@ -311,10 +312,10 @@ return {
 
 	-- Step 59: Solid Blasting Powder to 191
 	-- {item:10505} Solid Blasting Powder
-	["{item:10505} to 191"] = "",
+	["{item:10505} to 191"] = "{item:10505} 到191",
 	-- {item:10505} Solid Blasting Powder · {item:7912} Solid Stone
 	-- plural, as words: Mithril Deposits = {object:2040} Mithril Deposit
-	["{item:10505} is yellow at 175 (yellow 175, green 185, grey 195): about 31 crafts to 191. Each takes 2 {item:7912}. Two {item:7912} a craft (Mithril Deposits). Make plenty: the triggers, slugs and Gyro-Shot all use it."] = "",
+	["{item:10505} is yellow at 175 (yellow 175, green 185, grey 195): about 31 crafts to 191. Each takes 2 {item:7912}. Two {item:7912} a craft (Mithril Deposits). Make plenty: the triggers, slugs and Gyro-Shot all use it."] = "{item:10505}在175時為黃色（175黃、185綠、195灰）：大約31次製作可到191。每次需要2個{item:7912}。每次兩個{item:7912}（秘銀礦脈）。多做些：觸發器、彈丸和陀螺彈都要用它。",
 
 	-- Step 60: Engineering recipes at 191
 	-- {skill:202} Engineering
@@ -324,7 +325,7 @@ return {
 
 	-- Step 61: Big Iron Bomb to 210
 	-- {spell:3967} Big Iron Bomb
-	["{spell:3967} to 210"] = "",
+	["{spell:3967} to 210"] = "{spell:3967} 到210",
 	-- {spell:3967} Big Iron Bomb · {item:3575} Iron Bar · {spell:3945} Heavy Blasting Powder · {spell:3973} Silver Contact · {item:2842} Silver Bar · {item:2838} Heavy Stone · {npc:5174} Springspindle Fizzlegear · {zone:1455} Ironforge · {npc:5518} Lilliam Sparkspindle · {zone:1453} Stormwind City · {npc:4586} Graham Van Talen · {zone:1458} Undercity · {area:392} Ratchet · {spell:20220} Gnomish Engineering · {npc:7944} Tinkmaster Overspark · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay · {item:4407} Accurate Scope · {npc:8126} Nixx Sprocketspring · {area:976} Gadgetzan · {item:10507} Solid Dynamite · {npc:2675} Explosive Sheep
 	-- plural, as words: Silver Contacts = {spell:3973} Silver Contact · Mithril Tubes = {item:10559} Mithril Tube · Big Iron Bombs = {spell:3967} Big Iron Bomb
 	["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby."] = "",
@@ -345,11 +346,11 @@ return {
 	-- {skill:202} Engineering
 	["Artisan {skill:202}"] = "專家級{skill:202}",
 	-- {skill:202} Engineering · {npc:8736} Buzzek Bracketswing · {zone:1446} Tanaris · {item:3860} Mithril Bar · {item:7912} Solid Stone · {item:12359} Thorium Bar · {item:14047} Runecloth
-	["Artisan raises the cap from 225 to 300 for 4g 50s (Classic's price; Forever's is not in the data); it needs {skill:202} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:8736} ({zone:1446}); Horde {npc:8736} ({zone:1446}). The arrow picks the nearest of your faction. 225-300 takes about 2g 80s of recipes, plus 118 {item:3860}, 212 {item:7912}, 156 {item:12359} and 24 {item:14047} to gather or buy."] = "",
+	["Artisan raises the cap from 225 to 300 for 4g 50s (Classic's price; Forever's is not in the data); it needs {skill:202} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:8736} ({zone:1446}); Horde {npc:8736} ({zone:1446}). The arrow picks the nearest of your faction. 225-300 takes about 2g 80s of recipes, plus 118 {item:3860}, 212 {item:7912}, 156 {item:12359} and 24 {item:14047} to gather or buy."] = "大師級把上限從225提高到300，收費4金50銀（經典舊世的價格；Forever的價格不在資料中）；它需要{skill:202} 200和角色35級，所以從200起任何一次造訪都能學。只有少數訓練師教：聯盟{npc:8736}（{zone:1446}）；部落{npc:8736}（{zone:1446}）。箭頭會指向本陣營最近的一位。225-300大約花2金80銀的配方錢，外加118個{item:3860}、212個{item:7912}、156個{item:12359}和24個{item:14047}，需自行採集或購買。",
 
 	-- Step 65: Schematic: Thorium Widget
 	-- {item:16042} Schematic: Thorium Widget · {item:15994} Thorium Widget · {skill:202} Engineering · {npc:5175} Gearcutter Cogspinner · {zone:1455} Ironforge · {npc:3413} Sovik · {zone:1454} Orgrimmar
-	["{item:16042} teaches {item:15994} ({skill:202} 260) for 1g 20s. Sold by Alliance: {npc:5175} ({zone:1455}), limited stock; Horde: {npc:3413} ({zone:1454}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; the Auction House often has it too."] = "",
+	["{item:16042} teaches {item:15994} ({skill:202} 260) for 1g 20s. Sold by Alliance: {npc:5175} ({zone:1455}), limited stock; Horde: {npc:3413} ({zone:1454}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; the Auction House often has it too."] = "{item:16042}教{item:15994}（{skill:202} 260），售價1金20銀。出售者：聯盟{npc:5175}（{zone:1455}），限量；部落{npc:3413}（{zone:1454}），限量。賣家每次只備一兩個，售出後過段時間補貨；拍賣行也常有的賣。",
 
 	-- Step 66: Schematic: Thorium Tube
 	-- {item:16047} Schematic: Thorium Tube · {item:16000} Thorium Tube · {skill:202} Engineering · {npc:260565} Kor'gar · {zone:2548} Riverglades · {npc:11185} Xizzer Fizzbolt · {zone:1452} Winterspring
@@ -398,7 +399,7 @@ return {
 	["{item:10513} to 265"] = "{item:10513}練到 265",
 	-- {item:10513} Mithril Gyro-Shot · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder
 	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar
-	["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby."] = "",
+	["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby."] = "{item:10513}在245時為黃色（245黃、265綠、285灰）：大約28次製作可到265。每次需要2個{item:3860}和2個{item:10505}，產出200個。先做好那56個{item:10505}。每次兩個秘銀錠和兩個{item:10505}。附近需要鐵砧。",
 
 	-- Step 76: Thorium Widget to 287
 	-- {item:15994} Thorium Widget
@@ -413,7 +414,7 @@ return {
 	["{item:16000} to 300"] = "{item:16000}練到 300",
 	-- {item:16000} Thorium Tube · {item:12359} Thorium Bar · {skill:202} Engineering
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
-	["{item:16000} is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300. Each takes 6 {item:12359}. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. {skill:202} 300 is a Legacy System milestone."] = "",
+	["{item:16000} is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300. Each takes 6 {item:12359}. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. {skill:202} 300 is a Legacy System milestone."] = "{item:16000}在287時為橙色（295黃、305綠、315灰）：大約14次製作可到300。每次需要6個{item:12359}。圖紙拾取即繫結；每次六個瑟銀錠。附近需要鐵砧。{skill:202} 300是傳承系統里程碑。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Apprentice {skill:202}"] = "初級{skill:202}",

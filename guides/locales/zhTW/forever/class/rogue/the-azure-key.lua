@@ -24,21 +24,21 @@ return {
 
 	-- Step 3: Lord Jorach Ravenholdt
 	-- {area:3486} Ravenholdt Manor · {area:272} Tarren Mill · {area:271} Southshore · {area:275} Durnholde Keep · {zone:1416} Alterac Mountains
-	["{area:3486} hides in the hills east of {area:272}. Horde fly to {area:272}, Alliance to {area:271}. The trail starts behind the plateau north of {area:275}, climbs into the hills and runs through a small tunnel into the {zone:1416}; Lord Jorach is inside the manor. Do not attack anyone at the manor: lost Ravenholdt reputation makes him refuse to speak to you."] = "",
+	["{area:3486} hides in the hills east of {area:272}. Horde fly to {area:272}, Alliance to {area:271}. The trail starts behind the plateau north of {area:275}, climbs into the hills and runs through a small tunnel into the {zone:1416}; Lord Jorach is inside the manor. Do not attack anyone at the manor: lost Ravenholdt reputation makes him refuse to speak to you."] = "{area:3486}藏在{area:272}以東的丘陵中。部落飛往{area:272}，聯盟飛往{area:271}。小徑從{area:275}以北的高地後面開始，爬上丘陵，穿過一條小隧道進入{zone:1416}；喬拉奇領主就在莊園裡。不要攻擊莊園裡的任何人：損失拉文霍德聲望會讓他拒絕與你交談。",
 
 	-- Step 4: Sealed Azure Bag
 	-- {area:3137} Talrendis Point · {area:1237} Valormok · {zone:1447} Azshara · {spell:921} Pick Pocket · {area:1769} Timbermaw Hold · {spell:403} Lightning Bolt · {spell:6535} Lightning Cloud
 	-- plural, as words: Timbermaw Shamans = {npc:6188} Timbermaw Shaman
-	["Alliance fly to {area:3137}, Horde to {area:1237}. Only the level 50-51 Timbermaw Shamans in the furbolg hills of northern {zone:1447} carry the bag (the level 47-49 furbolgs further south do not): about one kill in thirty drops it. {spell:921} them instead and you lose no Timbermaw reputation; if you are Unfriendly or better with {area:1769}, mark them At War in your reputation panel first. They cast {spell:403} and {spell:6535}, heal each other and run at low health."] = "",
+	["Alliance fly to {area:3137}, Horde to {area:1237}. Only the level 50-51 Timbermaw Shamans in the furbolg hills of northern {zone:1447} carry the bag (the level 47-49 furbolgs further south do not): about one kill in thirty drops it. {spell:921} them instead and you lose no Timbermaw reputation; if you are Unfriendly or better with {area:1769}, mark them At War in your reputation panel first. They cast {spell:403} and {spell:6535}, heal each other and run at low health."] = "聯盟飛往{area:3137}，部落飛往{area:1237}。只有{zone:1447}北部熊怪丘陵裡50-51級的木喉薩滿帶著袋子（更南邊的47-49級熊怪沒有）：約三十殺掉一個。改用{spell:921}就不會損失木喉聲望；若你與{area:1769}的關係是冷淡或更好，先在聲望面板裡勾選“交戰”。它們會施放{spell:403}和{spell:6535}，互相治療，血量低時會逃跑。",
 
 	-- Step 5: Archmage Xylem
 	-- {npc:8395} Sanath Lim-yo · {area:1237} Valormok
-	["{npc:8395}, camped below the cliffs just east of {area:1237}, teleports you up (dismount first); a trail leads to Xylem's tower."] = "",
+	["{npc:8395}, camped below the cliffs just east of {area:1237}, teleports you up (dismount first); a trail leads to Xylem's tower."] = "{npc:8395}在{area:1237}以東懸崖下紮營，會把你傳送上去（先下坐騎）；一條小路通向賽勒姆的高塔。",
 
 	-- Step 6: Encoded Fragments
 	-- {spell:6907} Diseased Slime · {area:2497} Bitter Reaches · {zone:1447} Azshara · {area:1237} Valormok
 	-- plural, as words: Forest Oozes = {npc:8766} Forest Ooze · Mistwing Ravagers = {npc:8764} Mistwing Ravager
-	["The Forest Oozes (level 52-53, {spell:6907} up close) drop a fragment four times in five: the biggest group, seven of them, is in the {area:2497} hills of north-eastern {zone:1447}, four more south-east of {area:1237}. Pick their pockets before the kill for an extra fragment or two. Killing the Mistwing Ravagers and hippogryphs that share their spots makes more oozes appear."] = "",
+	["The Forest Oozes (level 52-53, {spell:6907} up close) drop a fragment four times in five: the biggest group, seven of them, is in the {area:2497} hills of north-eastern {zone:1447}, four more south-east of {area:1237}. Pick their pockets before the kill for an extra fragment or two. Killing the Mistwing Ravagers and hippogryphs that share their spots makes more oozes appear."] = "森林軟泥怪（52-53級，近身會{spell:6907}）五分之四機率掉一塊碎片：最大的一群有七隻，在{zone:1447}東北的{area:2497}丘陵；{area:1237}東南還有四隻。殺之前先偷它們的口袋，能多拿一兩塊碎片。殺掉與它們同處的霧翼掠奪者和角鷹獸會讓更多軟泥怪出現。",
 
 	-- Step 7: Back to Xylem
 	["Back to Xylem"] = "返回大法師克希雷姆",
@@ -47,14 +47,14 @@ return {
 	-- {area:1417} Sunken Temple
 	["Morphaz in the {area:1417}"] = "{area:1417}的摩弗拉斯",
 	-- {area:1417} Sunken Temple · {area:74} Pool of Tears · {area:75} Stonard · {area:1438} Nethergarde Keep · {npc:5710} Jammal'an the Prophet · {spell:12533} Acid Breath · {spell:2094} Blind
-	["Morphaz, a level 52 elite green drake, lives deep in the {area:1417}: a group of five, level 50-54. The temple stands in the {area:74}; climb into the sunken building, swim down through it and follow the passage to the portal. Horde: fly to {area:75}; Alliance: fly to {area:1438} and ride on. He is not there when you arrive: first kill the six troll guardians (elites of 50-52) on the platforms around the upper ring, which opens the way down (the left-hand ramp from the entrance) to {npc:5710} in the Pit of Sacrifice. Jammal'an's death brings out two drakes, Weaver and Dreamscythe; when both are dead, Morphaz and Hazzas appear together and fight as a pair. Their {spell:12533} is nature damage: nature protection potions help; poisons and {spell:2094} do not work on them. The key always drops. Hunters, Priests and Mages of 50 need Morphaz too: one clear serves them all."] = "",
+	["Morphaz, a level 52 elite green drake, lives deep in the {area:1417}: a group of five, level 50-54. The temple stands in the {area:74}; climb into the sunken building, swim down through it and follow the passage to the portal. Horde: fly to {area:75}; Alliance: fly to {area:1438} and ride on. He is not there when you arrive: first kill the six troll guardians (elites of 50-52) on the platforms around the upper ring, which opens the way down (the left-hand ramp from the entrance) to {npc:5710} in the Pit of Sacrifice. Jammal'an's death brings out two drakes, Weaver and Dreamscythe; when both are dead, Morphaz and Hazzas appear together and fight as a pair. Their {spell:12533} is nature damage: nature protection potions help; poisons and {spell:2094} do not work on them. The key always drops. Hunters, Priests and Mages of 50 need Morphaz too: one clear serves them all."] = "莫法茲是一頭52級精英綠龍，住在{area:1417}深處：五人隊，50-54級。神殿在{area:74}；爬進下沉的建築，向下遊過它，沿通道走到傳送門。部落：飛往{area:75}；聯盟：飛往{area:1438}再騎馬過去。你到的時候它不在：先殺掉上層環臺周圍六名食人妖守衛（50-52級精英），這會開啟下去的路（從入口走左側斜坡）通往犧牲之坑的{npc:5710}。賈瑪蘭死後會出現兩條龍，編織者和斬夢者；兩者都死後，莫法茲和哈扎斯一同出現，成對作戰。它們的{spell:12533}是自然傷害：自然防護藥水有用；毒藥和{spell:2094}對它們無效。鑰匙必掉。50級的獵人、牧師和法師也需要莫法茲：一次通關能全帶。",
 	-- {item:20022} Azure Key
 	["{item:20022}: Morphaz, inside the temple"] = "{item:20022}：神廟內的摩弗拉斯",
 
 	-- Step 9: Lord Ravenholdt
 	["Lord Ravenholdt"] = "拉文霍德領主",
 	-- {item:19982} Duskbat Drape · {item:19984} Ebon Mask · {item:20255} Whisperwalk Boots
-	["Look at the reward window before you hand in: Classic offered the {item:19982}, the {item:19984} or the {item:20255}, and Forever's notes say the choice may be gone."] = "",
+	["Look at the reward window before you hand in: Classic offered the {item:19982}, the {item:19984} or the {item:20255}, and Forever's notes say the choice may be gone."] = "交任務前先看獎勵視窗：經典舊世提供{item:19982}、{item:19984}或{item:20255}，而Forever的說明稱這個選擇可能已取消。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Alliance fly to {area:3137}, Horde to {area:1237}. The Timbermaw Shamans in {zone:1447}'s northern hills drop the bag, about one in thirty."] = "聯盟飛往{area:3137}，部落飛往{area:1237}。{zone:1447}北部丘陵的木喉薩滿會掉落袋子，機率約三十分之一。",
