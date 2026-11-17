@@ -436,13 +436,13 @@ function renderMd(diff, { base = 'base', head = 'head', limit = 25 } = {}) {
 	};
 	const why = (x) => (x.allowed ? ` (allowed: ${x.allowed})` : '');
 	list('New revisits', diff.revisits.added, (r) => `${short(r.guide)} step ${r.s}: back into ${r.zone} from ${r.from}, left in ${short(r.left)} step ${r.leftStep} (${r.branches.join(', ')})${why(r)}`);
-	list('Revisits gone', diff.revisits.gone, (r) => `${short(r.guide)}: ${r.zone} from ${r.from} (${r.branches.join(', ')})`);
+	list('Revisits gone', diff.revisits.gone, (r) => `${short(r.guide)} step ${r.s}: back into ${r.zone} from ${r.from} (${r.branches.join(', ')})`);
 	const yd = (v, z) => (v == null ? z : `${v} yd`);
 	const trip = (t) => (t.kind === 'empty' ? `a walk with nothing there (${t.detourYd} yd out of the way)` : `quest ${t.quest} alone`);
 	list('New trips', diff.trips.added, (t) => `${short(t.guide)} step ${t.s} "${t.title}": ${trip(t)} in ${t.zone}, ${yd(t.fromYd, t.from)} from the work before, ${yd(t.toYd, t.to)} to the next${why(t)}`);
 	list('Trips gone', diff.trips.gone, (t) => `${short(t.guide)} step ${t.s} "${t.title}": ${trip(t)}`);
-	const span = (c) => `${short(c.from)} -> ${c.to ? short(c.to) : 'never handed in'}`;
-	list('Carried longer', diff.carried, (c) => `quest ${c.quest} (${c.branch}): ${span(c.base)} (${c.base.span ?? '-'}) -> ${span(c.head)} (${c.head.span ?? 'never'})`);
+	const span = (c) => (!c.to ? `${short(c.from)} -> never handed in` : c.from === c.to ? `within ${short(c.from)}` : `${short(c.from)} -> ${short(c.to)} (${c.span === 1 ? '1 guide' : `${c.span} guides`} on)`);
+	list('Carried longer', diff.carried, (c) => `quest ${c.quest} (${c.branch}): ${span(c.base)}, now ${span(c.head)}`);
 	const at = (ps) => (ps.length ? ps.map((p) => `${short(p.guide)} step ${p.step} "${p.title}"`).join(', ') : 'nowhere');
 	list('Moved quests', diff.moved, (m) => `${m.verb} ${m.quest}: ${at(m.from)} -> ${at(m.to)}`);
 	return out.join('\n');

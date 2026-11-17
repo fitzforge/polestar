@@ -104,7 +104,7 @@ test('a quest handed in more guides after its accept is carried longer', () => {
 	const head = dump([act(1, 'accept', 5, 1, 10, 10)], [act(1, 'accept', 6, 2, 10, 10), act(2, 'turnin', 5, 2, 10, 10)]);
 	const diff = compare(measure(base, ctx), measure(head, ctx));
 	assert.deepEqual(diff.carried, [{ quest: 5, branch: 'Orc/Horde', base: { from: 'x/a', to: 'x/a', span: 0 }, head: { from: 'x/a', to: 'x/b', span: 1 } }]);
-	assert.match(renderMd(diff), /quest 5 \(Orc\/Horde\): x\/a -> x\/a \(0\) -> x\/a -> x\/b \(1\)/);
+	assert.match(renderMd(diff), /quest 5 \(Orc\/Horde\): within x\/a, now x\/a -> x\/b \(1 guide on\)/);
 });
 
 test('an accept written in another step is a moved quest: old place -> new place', () => {
