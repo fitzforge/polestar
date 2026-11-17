@@ -8,11 +8,11 @@
 return {
 	-- Step 2: Argent Officer Pureheart
 	-- {quest:5401} Argent Dawn Commission · {spell:437801} Light's Hope · {zone:1452} Winterspring
-	["No {quest:5401} yet ({spell:437801} gives it on the {zone:1452} guide's way through)? Pureheart gives you one here: the scourgestone quests need it."] = "",
+	["No {quest:5401} yet ({spell:437801} gives it on the {zone:1452} guide's way through)? Pureheart gives you one here: the scourgestone quests need it."] = "還沒有{quest:5401}？（{zone:1452}那篇指南路過時{spell:437801}會給）純淨之心會在這裡給你一個：天災石任務需要它。",
 
 	-- Step 3: Sorrow Hill: kill these as you meet them
 	-- {area:197} Sorrow Hill
-	["{area:197}: kill these as you meet them"] = "",
+	["{area:197}: kill these as you meet them"] = "{area:197}：遇到就殺",
 	-- {quest:5401} Argent Dawn Commission · {npc:10411} Eye of Naxxramas
 	-- plural, as words: Skeletal Flayers = {npc:1783} Skeletal Flayer · Slavering Ghouls = {npc:1791} Slavering Ghoul · Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
 	["Skeletal Flayers and Slavering Ghouls roam the fields north of the camp; all the Scourge here drop Scourgestones while you wear the {quest:5401} (equip it as a trinket first).\nCareful: These undead notice you from far away, and other undead nearby join the fight when one is pulled.\nCareful: The {npc:10411} (3 spawns, 15 min respawn) turns invisible when out of combat and calls in Rockwing Gargoyles once a fight starts."] = "骷髏撕掠者和被奴役的食屍鬼在營地北邊的田野遊蕩；裝備{quest:5401}時，這裡所有天譴軍都會掉落天譴石（先把它裝備在飾品欄）。\n小心：這些不死生物很遠就會發現你，拉到一隻時附近其他不死生物也會加入戰鬥。\n小心：{npc:10411}（3個重生點，15分鐘重生）脫戰時會隱形，戰鬥開始後會召喚石翼石像鬼。",
@@ -30,7 +30,7 @@ return {
 
 	-- Step 6: The Writhing Haunt: kill these as you meet them
 	-- {area:202} The Writhing Haunt
-	["{area:202}: kill these as you meet them"] = "",
+	["{area:202}: kill these as you meet them"] = "{area:202}：遇到就殺",
 	-- {item:12841} Invader's Scourgestone · {quest:5401} Argent Dawn Commission
 	["{item:12841}: wear the {quest:5401} while you kill"] = "{item:12841}：擊殺時要裝備{quest:5401}",
 
@@ -81,7 +81,7 @@ return {
 
 	-- Step 17: Mulgris Deepriver
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "你在路線之前來這裡時錯過了這一步：現在先做它。它很快，還會開啟後面的任務。",
-	["Inside"] = "",
+	["Inside"] = "在裡面",
 
 	-- Step 20: Diseased Grizzlies
 	["Diseased Grizzlies"] = "生病的灰熊",
@@ -100,7 +100,7 @@ return {
 
 	-- Step 24: Sorrow Hill: kill these as you meet them
 	-- {npc:1852} Araj the Summoner
-	["{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal.\nSmall lockboxes lie in the rubble all over Andorhal; each holds a watch.\nCareful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "",
+	["{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal.\nSmall lockboxes lie in the rubble all over Andorhal; each holds a watch.\nCareful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "{npc:1852}是精英：建議組隊。他在安多哈爾中部守護著自己的命匣。\n安多哈爾各處的瓦礫中散落著小鎖箱；每個裡面都有一隻懷錶。\n注意：食屍鬼和骷髏通常站在箱子旁，你一靠近就會攻擊。灼熱食屍鬼還會傷害附近的人，並會打破潛行。",
 
 	-- Step 26: More watches
 	["More watches"] = "更多懷錶",
@@ -132,7 +132,7 @@ return {
 	-- {area:2268} Light's Hope Chapel
 	["Fly to {area:2268}"] = "飛往{area:2268}",
 	-- {area:3197} Chillwind Camp
-	["{area:3197} flight master"] = "",
+	["{area:3197} flight master"] = "{area:3197}飛行管理員",
 
 	-- Step 35: Aurora Skycaller
 	-- {area:2276} Quel'Lithien Lodge · {area:2277} Plaguewood
@@ -143,11 +143,11 @@ return {
 	-- plural, as words: Plaguehounds = {npc:8597} Plaguehound
 	["Horgus' skull lies at {area:2624} and Marduk's sword in the {area:2623}, each where ghosts fight; grown Plaguehounds hunt the plains between."] = "霍古斯的顱骨在{area:2624}，馬杜克的劍在{area:2623}，各自位於鬼魂交戰之處；成年的瘟疫犬在兩地之間的平原上獵食。",
 	-- {item:12956} Skull of Horgus
-	["{item:12956}; underwater"] = "",
+	["{item:12956}; underwater"] = "{item:12956}；水下",
 
 	-- Step 37: Eastern Plaguelands: kill these as you meet them
 	-- {zone:1423} Eastern Plaguelands
-	["{zone:1423}: kill these as you meet them"] = "",
+	["{zone:1423}: kill these as you meet them"] = "{zone:1423}：沿途擊殺以下目標",
 	-- {area:2627} Terrordale · {item:15042} Empty Termite Jar
 	-- plural, as words: Plaguehound Runts = {npc:8596} Plaguehound Runt · Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub · Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound
 	["Ride west to {area:2627}. Plaguehound Runts, Plaguebats and Carrion Grubs roam its woods; fill the {item:15042} at the big termite mounds and kill the Frenzied Plaguehounds further north."] = "向西騎往{area:2627}。瘟疫幼犬、瘟疫蝙蝠和腐肉蟲在樹林中遊蕩；在大白蟻丘裝滿{item:15042}，並擊殺更北邊的狂怒的瘟疫犬。",
@@ -159,11 +159,11 @@ return {
 
 	-- Step 39: Augustus the Touched
 	-- {npc:8598} Frenzied Plaguehound
-	["{npc:8598}, 170 yd north-east"] = "",
+	["{npc:8598}, 170 yd north-east"] = "{npc:8598}，東北方170碼",
 
 	-- Step 40: Plaguewood: kill these as you meet them
 	-- {area:2277} Plaguewood
-	["{area:2277}: kill these as you meet them"] = "",
+	["{area:2277}: kill these as you meet them"] = "{area:2277}：遇到就殺",
 	-- plural, as words: Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound
 	["Careful: the Frenzied Plaguehounds are 57-58: pull them one at a time."] = "小心：狂怒的瘟疫犬是57-58級：一次只拉一隻。",
 
@@ -180,13 +180,13 @@ return {
 	-- {item:12954} Davil's Libram · {area:190} Hearthglen · {npc:1855} Tirion Fordring
 	["{item:12954} lies in the town hall of {area:190}, west of {npc:1855}: the Scarlet guards stand close together."] = "{item:12954}在{npc:1855}西邊{area:190}的市政廳裡：血色衛兵站得很密集。",
 	-- {item:12954} Davil's Libram
-	["{item:12954}; inside"] = "",
+	["{item:12954}; inside"] = "{item:12954}；室內",
 
 	-- Step 46: The Undercroft
 	-- {area:2261} The Undercroft · {object:177667} Torn Scroll · {npc:12248} Infiltrator Hameya
 	["Cross the river east to the {area:2261}, the crypt in the south-west of the zone. The {object:177667} lies inside: its key is on {npc:12248} in the far north-east, done in the next guide.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "向東渡河前往{area:2261}，也就是本區西南部的地穴。{object:177667}就在裡面：它的鑰匙在遠處東北方的{npc:12248}身上，在下一份指南完成。\n小心：米庫提奧會帶來大約四隻非精英的幫手。牠們是走到墳墓那裡，而不是當場出現。",
 	-- {object:177667} Torn Scroll
-	["{object:177667}, below ground"] = "",
+	["{object:177667}, below ground"] = "{object:177667}，地下",
 	-- {item:14613} Taelan's Hammer · {npc:11886} Mercutio Filthgorger
 	["{item:14613}, from {npc:11886} (57, elite): grouping up is advised"] = "{item:14613}，來自{npc:11886}（57級，精英）：建議組隊",
 
@@ -194,13 +194,13 @@ return {
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "飛往{area:271}",
 	-- {area:348} Aerie Peak
-	["{area:348} flight master"] = "",
+	["{area:348} flight master"] = "{area:348}飛行管理員",
 
 	-- Step 50: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
-	["Fly to {area:702}"] = "",
+	["Fly to {area:702}"] = "飛往{area:702}",
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "{area:442}飛行管理員",
 
 	-- Step 51: Rut'theran Village
 	-- {zone:1452} Winterspring
@@ -238,7 +238,7 @@ return {
 
 	-- Step 62: Boat to The Forgotten Coast
 	-- {area:1108} The Forgotten Coast
-	["Boat to {area:1108}"] = "",
+	["Boat to {area:1108}"] = "坐船到{area:1108}",
 
 	-- Step 63: Gregan Brewspewer
 	-- {area:1119} Twin Colossals · {npc:7775} Gregan Brewspewer · {item:11243} Videre Elixir · {item:11242} Evoroot
@@ -246,7 +246,7 @@ return {
 
 	-- Step 64: Rockbiter
 	-- {npc:7765} Rockbiter · {npc:7775} Gregan Brewspewer
-	["The giant {npc:7765} sits just north-west of {npc:7775}'s camp."] = "",
+	["The giant {npc:7765} sits just north-west of {npc:7775}'s camp."] = "巨人{npc:7765}就坐在{npc:7775}營地的西北邊。",
 
 	-- Step 65: Evoroot
 	-- {item:11242} Evoroot · {npc:7765} Rockbiter
@@ -258,7 +258,7 @@ return {
 
 	-- Step 67: Wandering Shay
 	-- {npc:7774} Shay Leafrunner · {npc:7765} Rockbiter
-	["Lead {npc:7774} back to {npc:7765} at walking pace: she wanders off, so ring the bell to call her back (not in combat), and clear the harpies on the way before she reaches them."] = "",
+	["Lead {npc:7774} back to {npc:7765} at walking pace: she wanders off, so ring the bell to call her back (not in combat), and clear the harpies on the way before she reaches them."] = "以步行速度把{npc:7774}帶回{npc:7765}那裡：她會走開，所以搖鈴把她叫回來（戰鬥時不行），並在她走到之前先清掉路上的鷹身人。",
 
 	-- Step 68: Gregan Brewspewer
 	-- {npc:7775} Gregan Brewspewer · {npc:7765} Rockbiter · {item:11242} Evoroot · {npc:9298} Donova Snowden · {npc:9299} Gaeriyan · {area:976} Gadgetzan
@@ -269,14 +269,14 @@ return {
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "飛往{area:392}",
 	-- {area:489} Thalanaar
-	["{area:489} flight master"] = "",
+	["{area:489} flight master"] = "{area:489}飛行管理員",
 
 	-- Step 71: Fly to Theramore
 	["Fly to Theramore"] = "飛往塞拉摩",
 
 	-- Step 72: The Barrens
 	-- {zone:1413} The Barrens · {area:392} Ratchet
-	["From Theramore, ride west into the {zone:1413} and north up the coast to {area:392}."] = "",
+	["From Theramore, ride west into the {zone:1413} and north up the coast to {area:392}."] = "從塞拉摩出發，向西騎入{zone:1413}，再沿海岸向北到{area:392}。",
 
 	-- Step 73: Ratchet
 	-- {npc:5901} Islen Waterseer
@@ -288,9 +288,9 @@ return {
 
 	-- Step 74: Fly to Everlook
 	-- {area:2255} Everlook
-	["Fly to {area:2255}"] = "",
+	["Fly to {area:2255}"] = "飛往{area:2255}",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "{area:392}飛行管理員",
 
 	-- Step 76: Donova Snowden
 	["Ride west along the road to the hot springs."] = "沿著道路向西騎往溫泉。",
@@ -315,7 +315,7 @@ return {
 
 	-- Step 81: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}，室內",
 	-- {npc:7583} Sprinkle
 	["On {npc:7583}"] = "關於{npc:7583}",
 	-- {npc:7583} Sprinkle · {item:12928} Umi's Mechanical Yeti
@@ -323,7 +323,7 @@ return {
 	-- {area:3197} Chillwind Camp
 	["For {area:3197}: keep it"] = "交給{area:3197}：保留此任務",
 	-- {npc:7876} Tran'rek
-	["{npc:7876}, north side of town: the tar is in Un'Goro, keep it"] = "",
+	["{npc:7876}, north side of town: the tar is in Un'Goro, keep it"] = "{npc:7876}，在城鎮北邊：焦油在安戈洛，留著",
 
 	-- Step 82: Gaeriyan
 	-- {npc:9299} Gaeriyan · {item:11243} Videre Elixir
@@ -337,7 +337,7 @@ return {
 
 	-- Step 85: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
-	["Fly to {area:541}"] = "",
+	["Fly to {area:541}"] = "飛往{area:541}",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "{area:976}飛行管理員",
 
@@ -345,7 +345,7 @@ return {
 	-- {area:976} Gadgetzan · {area:541} Marshal's Refuge · {npc:8737} Linken · {npc:9117} J.D. Collie · {npc:9997} Spraggle Frock · {npc:9999} Ringo
 	["Fly from {area:976} to {area:541}. {npc:8737} stands at the back of the refuge; {npc:9117} is in the cave behind him.\n{npc:9997}'s friend {npc:9999} has gone missing."] = "從{area:976}飛往{area:541}。{npc:8737}站在避難所後方；{npc:9117}在他身後的洞穴裡。\n{npc:9997}的朋友{npc:9999}失蹤了。",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, below ground"] = "",
+	["{npc:9117}, below ground"] = "{npc:9117}，地下",
 	-- {npc:9997} Spraggle Frock
 	["The wooden sign beside {npc:9997}"] = "{npc:9997}旁邊的木牌",
 
@@ -355,28 +355,28 @@ return {
 
 	-- Step 88: Layo Starstrike
 	-- {zone:1451} Silithus · {npc:13220} Layo Starstrike · {area:3077} Valor's Rest
-	["Ride out of the crater's north-western pass into {zone:1451}: {npc:13220} stands at {area:3077}, where the pass comes out."] = "",
+	["Ride out of the crater's north-western pass into {zone:1451}: {npc:13220} stands at {area:3077}, where the pass comes out."] = "從環形山西北的山口騎出去到{zone:1451}：{npc:13220}站在山口出來的地方、{area:3077}。",
 
 	-- Step 90: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
-	["Ride on west to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Ride on west to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "繼續向西騎到{area:3425}。{npc:15189}在他那棟樓的樓上：從裡面上樓，箭頭分不清樓層。",
 
 	-- Step 91: Silithus: kill these as you meet them
 	-- {zone:1451} Silithus
-	["{zone:1451}: kill these as you meet them"] = "",
+	["{zone:1451}: kill these as you meet them"] = "{zone:1451}：沿途擊殺以下目標",
 	-- plural, as words: Dredge Strikers = {npc:11740} Dredge Striker · Stonelash Scorpids = {npc:11735} Stonelash Scorpid · Sand Skitterers = {npc:11738} Sand Skitterer
 	["Dredge Strikers dig in the dunes north-west of the hold; Stonelash Scorpids and Sand Skitterers roam all around."] = "掘泥打擊者在要塞西北方的沙丘中挖掘；石鞭蠍和掠沙蜘蛛在四周遊蕩。",
 
 	-- Step 92: Level 56.89
-	["Level 56.89"] = "",
+	["Level 56.89"] = "56.89級",
 	-- {item:9328} Super Snapper FX
 	["If you skipped The {item:9328}, grind here to level 56.89 to stay on the route's plan."] = "",
 	-- {npc:11740} Dredge Striker
-	["grind on {npc:11740}"] = "",
+	["grind on {npc:11740}"] = "刷{npc:11740}",
 
 	-- Step 93: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
-	["Ride back to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Ride back to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "騎回{area:3425}。{npc:15189}在他那棟樓的樓上：從裡面上樓，箭頭分不清樓層。",
 	-- {npc:15189} Beetix Ficklespragg · {npc:15191} Windcaller Proudhorn · {zone:1451} Silithus · {area:3425} Cenarion Hold
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher
 	["{npc:15189}'s and {npc:15191}'s next tasks (the Stonelash scorpids and the Dredge Crushers) wait for the {zone:1451} guide's {area:3425} stop: take them then."] = "{npc:15189}和{npc:15191}的下一個任務（石鞭蠍和掘泥摧毀者）留到{zone:1451}指南的{area:3425}站再接。",
@@ -397,11 +397,11 @@ return {
 
 	-- Step 99: Krakle
 	-- {zone:1451} Silithus · {area:543} Golakka Hot Springs · {npc:10302} Krakle
-	["Coming in from {zone:1451}, {area:543} is just inside the crater: {npc:10302} the goblin sits by the water."] = "",
+	["Coming in from {zone:1451}, {area:543} is just inside the crater: {npc:10302} the goblin sits by the water."] = "從{zone:1451}進來，{area:543}就在環形山裡側：哥布林{npc:10302}坐在水邊。",
 
 	-- Step 100: Un'Goro Crater: kill these as you meet them
 	-- {zone:1449} Un'Goro Crater
-	["{zone:1449}: kill these as you meet them"] = "",
+	["{zone:1449}: kill these as you meet them"] = "{zone:1449}：沿途擊殺以下目標",
 
 	-- Step 101: Krakle's Thermometer
 	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer
@@ -432,15 +432,15 @@ return {
 	-- plural, as words: Un'Goro Gorillas = {npc:6514} Un'Goro Gorilla
 	["The gorillas live on {area:1943}, just east of the pylon: take the pelts for {npc:9619} now, while you are up here. Stay out of the deepest cave: {npc:9622} is level 55.\nCareful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "猩猩住在水晶塔東邊不遠的{area:1943}：趁你在上面時，現在就替{npc:9619}收集毛皮。別進最深的洞穴：{npc:9622}是55級。\n小心：安戈洛猩猩（50-51級）血量降到25%時會向20碼內的同伴求援。這一帶有個滿是猩猩的洞穴，在那裡戰鬥會引來大量怪物。",
 	-- {item:11478} Un'Goro Gorilla Pelt
-	["{item:11478}; below ground"] = "",
+	["{item:11478}; below ground"] = "{item:11478}；地下",
 	-- {item:11479} Un'Goro Stomper Pelt
-	["{item:11479}; below ground"] = "",
+	["{item:11479}; below ground"] = "{item:11479}；地下",
 	-- {item:11480} Un'Goro Thunderer Pelt
-	["{item:11480}; below ground"] = "",
+	["{item:11480}; below ground"] = "{item:11480}；地下",
 
 	-- Step 108: Lakkari Tar Pits: kill these as you meet them
 	-- {area:538} Lakkari Tar Pits
-	["{area:538}: kill these as you meet them"] = "",
+	["{area:538}: kill these as you meet them"] = "{area:538}：遇到就殺",
 	-- {area:538} Lakkari Tar Pits
 	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Tar Lords = {npc:6519} Tar Lord
 	["The Tar Beasts and Tar Lords wallow in the {area:538}, south of the refuge on the way down into the crater."] = "焦油怪和焦油領主在{area:538}裡打滾，位於避難所南邊、往下進入環形山的路上。",
@@ -449,11 +449,11 @@ return {
 	["The crater"] = "環形山",
 	-- {area:538} Lakkari Tar Pits · {area:537} Fire Plume Ridge · {area:540} Slithering Scar · {item:11018} Un'Goro Soil
 	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Gorishi Workers = {npc:6552} Gorishi Worker
-	["Tar Beasts wallow in the {area:538}; the fire elementals of {area:537} in the middle carry the ash; the Gorishi wasps of the {area:540} in the south carry the gland. Every creature in the crater can drop {item:11018}.\nCareful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd."] = "",
+	["Tar Beasts wallow in the {area:538}; the fire elementals of {area:537} in the middle carry the ash; the Gorishi wasps of the {area:540} in the south carry the gland. Every creature in the crater can drop {item:11018}.\nCareful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd."] = "焦油獸在{area:538}裡打滾；中部{area:537}的火元素攜帶著灰燼；南部{area:540}的格里什黃蜂攜帶著腺體。環形山裡的每種生物都可能掉落{item:11018}。\n注意：生命值降到45%以下的格里什工蜂有50%機率呼叫25碼內的同伴支援。",
 
 	-- Step 110: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
-	["{npc:9619} camps at the foot of the ramp into the crater."] = "",
+	["{npc:9619} camps at the foot of the ramp into the crater."] = "{npc:9619}在進入環形山的坡道腳下紮營。",
 	-- {quest:4291} The Scent of Lar'korwi
 	["{quest:4291}, if you still carry it from the first visit"] = "{quest:4291}，如果你身上還帶著第一次來時的任務",
 	-- {area:1943} Ironstone Plateau
@@ -468,7 +468,7 @@ return {
 	-- Step 114: Ironstone Plateau: kill these as you meet them
 	-- {area:1943} Ironstone Plateau · {area:541} Marshal's Refuge · {npc:9619} Torwa Pathfinder · {npc:9622} U'cha
 	-- plural, as words: Un'Goro Gorillas = {npc:6514} Un'Goro Gorilla
-	["The gorillas live on {area:1943}, east of {area:541}. Keep their pelts for {npc:9619}. Stay out of the deepest cave: {npc:9622} is level 55.\nCareful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "",
+	["The gorillas live on {area:1943}, east of {area:541}. Keep their pelts for {npc:9619}. Stay out of the deepest cave: {npc:9622} is level 55.\nCareful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "大猩猩生活在{area:541}東邊的{area:1943}。把它們的毛皮留給{npc:9619}。別進最深的洞穴：{npc:9622}是55級。\n注意：安戈洛大猩猩（50-51級）生命值降到25%後會呼叫20碼內的同伴支援。該區域有一個滿是猩猩的洞穴，在那裡戰鬥會引來大量增援。",
 
 	-- Step 116: U'cha
 	-- {npc:9622} U'cha
@@ -489,7 +489,7 @@ return {
 
 	-- Step 120: The Marshlands: kill these as you meet them
 	-- {area:1942} The Marshlands
-	["{area:1942}: kill these as you meet them"] = "",
+	["{area:1942}: kill these as you meet them"] = "{area:1942}：遇到就殺",
 
 	-- Step 121: The Gorishi hive
 	["The Gorishi hive"] = "格里什蟲巢",
@@ -513,7 +513,7 @@ return {
 	-- {npc:9999} Ringo
 	["Escort {npc:9999}"] = "護送{npc:9999}",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
-	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "",
+	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "把{npc:9999}向北帶到{area:541}。他昏倒時，對他使用{item:11804}喚醒他。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Andorhal Watches"] = "安多哈爾懷錶",

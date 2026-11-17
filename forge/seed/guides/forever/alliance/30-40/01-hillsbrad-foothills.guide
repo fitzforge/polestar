@@ -15,6 +15,8 @@ next forever/alliance/30-40/03-ashenvale
 # Solo players never see it (when group 474). Howin's Word to Ironforge (98300) is left out: he offers it only after Death to the
 # Dragonmaw (98291) and Stopping the Cycle (98297), which the route does not take.
 # Spark of Freedom (87491) is a group quest (#1313): its escort starts at the far west of Dun Modr's elite Dark Iron ruins.
+# The Dark Iron War (303, the ruins' elites) and Bring Back a Bang (88756, the explosives on Direforge Hill among the same
+# elites) are group quests on the same stop (#2587): asked like Spark of Freedom, never on the solo route.
 # MacKreel's Moonshine (647) is taken in 05-arathi-highlands: its 15-minute limit does not last the walk to Menethil and the boat (#1319).
 # Level tidy (0.4.0): Lifting the Curse (290), The Eye of Paleth (292) and Cleansing the Eye (293) are taken on the
 # Menethil stop at about 31 (Captain Halyndor is 30) instead of at 28 in 06-wetlands; 293 goes to Archbishop Benedictus on
@@ -96,6 +98,29 @@ step Modr
   tip Modr stands in the ruins of Dun Modr (use the Goaz Stone).
   collect 280396 quest 98310.2        -- Heart of Modr
 
+step Motley Garmason
+  when group 303
+  tip The Dark Iron War is a group quest: 30 elite Dark Irons (27-31) in the ruins west of the camp. Skip it if you are alone.
+  accept 303                          -- Motley Garmason, in the camp
+
+step Ashlan Stonesmirk
+  when group 88756
+  tip Bring Back a Bang is a group quest: the Stolen Explosives lie in the Dark Iron camp on Direforge Hill, south-east of Dun Modr, among the same elite dwarves. Skip it if you are alone.
+  accept 88756                        -- Ashlan Stonesmirk, in the camp
+
+step The Dark Iron War
+  when group 303
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Dark Iron Dwarves, Tunnelers, Saboteurs and Demolitionists (27-31) fill the ruins west of the camp; Balgaras the Foul (34, elite) walks among them.
+  kill 1051 quest 303.1               -- Dark Iron Dwarf
+  kill 1053 quest 303.2               -- Dark Iron Tunneler
+  kill 1052 quest 303.3               -- Dark Iron Saboteur
+  kill 1054 quest 303.4               -- Dark Iron Demolitionist
+
+step Direforge Hill
+  when group 88756
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. South-east of Dun Modr, about 500 yards, the Dark Irons camp on Direforge Hill: the Stolen Explosives lie among their tents. Then back past the camp and north to the Thandol Span.
+  collect 280806 quest 88756.1 @61.6,26.6 map 1437 -- Stolen Explosives
+
 step Ebenezer Rustlocke
   zone Wetlands
   tip North along the road from Dun Modr towards the Thandol Span: Ebenezer Rustlocke's corpse lies under the span. Rustlocke's parchment goes back to Rhag.
@@ -108,6 +133,14 @@ step Rhag Garmason
   tip Back down the road to Dun Modr: Rhag wants the Dark Iron explosives under the far end of the span destroyed.
   turnin 632                          -- Rhag Garmason
   accept 633
+
+step Motley Garmason
+  when complete 303
+  turnin 303                          -- in the camp, beside Rhag
+
+step Ashlan Stonesmirk
+  when complete 88756
+  turnin 88756                        -- in the camp, beside Rhag
 
 step The Cache of Explosives
   zone Arathi Highlands

@@ -200,15 +200,21 @@ end
 
 -- The later quest of q's chain (Own.laterOf) that is in the log or done, or
 -- nil. Read once per quest while the quest log and the database stay as they
--- are (Own.logStamp: bumped by every quest event; no table per ask).
+-- are (Own.logStamp: bumped by every quest event; no table per ask). Never
+-- while q itself is in the log: the game takes a quest out of the log when it
+-- is handed in, so whatever the database says follows it, q is still to do
+-- (Melor Sends Word, offered without Ishamuhale but listed as following it,
+-- made Ishamuhale look handed in at 0/1, #2681).
 Own.logStamp, Own.pastGen, Own.pastVal = 0, {}, {}
 function Own.chainPast(q)
 	local Q = ns.QuestDB
 	if not (Q and Q.IsLoaded and Q.IsLoaded()) then return nil end
+	local C = Compat()
+	if C.IsOnQuest(q) then return nil end
 	local ids, stamp = Q.QuestIds(), Own.logStamp
 	if Own.pastIds ~= ids then Own.pastIds, Own.pastGen, Own.pastVal = ids, {}, {} end
 	if Own.pastGen[q] == stamp then return Own.pastVal[q] or nil end
-	local C, found = Compat(), false
+	local found = false
 	for _, s in ipairs(Own.laterOf(q)) do
 		if turnedIn[s] or C.IsOnQuest(s) or C.IsQuestCompleted(s) then
 			found = s
@@ -1217,12 +1223,14 @@ end
 -- Whether step's `when` fails only on quest work under way: each predicate
 -- that fails is a `complete` of a quest the player carries (#2350: Redridge's
 -- Wanted hand-ins, passed before the elite was dead). Such a failure is never
--- stored (Own.latchWhen): the step comes back once the quest is done.
-function Own.failsForNow(step)
+-- stored (Own.latchWhen): the step comes back once the quest is done. With
+-- `taken` false, a `complete` of a quest not in the log counts too: a step
+-- the player brings back (Engine.Unskip) waits for its quest the same way.
+function Own.failsForNow(step, taken)
 	local C, any = Compat(), false
 	for _, p in ipairs(step.when or NONE) do
 		if Own.predicateFails(step, p) then
-			if p.k ~= "complete" or p.neg or not C.IsOnQuest(p.q) then return false end
+			if p.k ~= "complete" or p.neg or (taken ~= false and not C.IsOnQuest(p.q)) then return false end
 			any = true
 		end
 	end
@@ -5132,7 +5140,10 @@ local function unavailableText(u)
 		if pre then return L["Requires %s first"]:format(ns.Quoted(titleOfQuest(pre, a.preTitles))) end
 	end
 	local N = ns.Names
-	return L["Not offered by %s"]:format(N.Npc(a.npc) or a.npcName or N.Object(a.object) or a.objName or L["the quest giver"])
+	local giver = N.Npc(a.npc) or a.npcName or N.Object(a.object) or a.objName or L["the quest giver"]
+	-- A lead-in its giver did not offer (Own.leadIn): the quest it leads to is taken without it.
+	if u.reason == "leadin" then return L["Not offered by %s: you can take %s without it"]:format(giver, ns.Quoted(titleOfQuest(u.by, a.preTitles))) end
+	return L["Not offered by %s"]:format(giver)
 end
 
 -- The name of the first NPC (else object) the Codex says takes quest p in,
@@ -5851,6 +5862,16 @@ function Own.minutes(seconds)
 	return seconds < 60 and L["under a minute"] or L["%d min"]:format(math.ceil(math.floor(seconds * 1000 + 0.5) / 60000))
 end
 
+-- "Ride to" rather than "Walk to" on the way to a hearth goal's inn and the
+-- flight master (Own.flyFromAim): the character has the riding skill
+-- (ns.CanRide) and is not a ghost (a ghost walks, Nav/Travel.lua). The arrow's
+-- label (waypointOf) and the line under the goal (Own.hearthText) both ask
+-- this, so they agree.
+function Own.rides()
+	local T = ns.Nav and ns.Nav.travel
+	return ns.CanRide() and not (T and T.IsGhost and T.IsGhost())
+end
+
 -- The line under a hearth goal: how long the Hearthstone waits and, where
 -- the trip there is known, whether to set off now or wait for it; with the
 -- Hearthstone ready, that travelling is about as fast when it is. Bound at
@@ -5862,7 +5883,8 @@ function Own.hearthText(goal)
 	local elsewhere = Own.hearthElsewhere(goal)
 	if elsewhere then
 		local _, subject = describe(goal)
-		return (inn and L["Your Hearthstone is bound to %s, not %s: walk to the inn"] or L["Your Hearthstone is bound to %s, not %s"]):format(elsewhere, subject)
+		return (inn and (Own.rides() and L["Your Hearthstone is bound to %s, not %s: ride to the inn"] or L["Your Hearthstone is bound to %s, not %s: walk to the inn"])
+			or L["Your Hearthstone is bound to %s, not %s"]):format(elsewhere, subject)
 	end
 	if not wait then
 		if go then return L["The inn is only %s away: travel there and keep the Hearthstone"]:format(Own.minutes(trip)) end
@@ -5873,7 +5895,7 @@ function Own.hearthText(goal)
 		return nil
 	end
 	if wait == 0 then
-		return inn and L["No Hearthstone in your bags: walk to the inn"] or L["No Hearthstone in your bags"]
+		return inn and (Own.rides() and L["No Hearthstone in your bags: ride to the inn"] or L["No Hearthstone in your bags: walk to the inn"]) or L["No Hearthstone in your bags"]
 	end
 	local left = Own.minutes(wait)
 	if trip then
@@ -5881,7 +5903,8 @@ function Own.hearthText(goal)
 		if trip <= wait + cast then return L["Hearthstone ready in %s; the trip takes %s: set off now"]:format(left, Own.minutes(trip)) end
 		return L["Hearthstone ready in %s, sooner than the %s trip: wait for it"]:format(left, Own.minutes(trip))
 	end
-	return (inn and L["Hearthstone ready in %s: walk to the inn, or wait for it"] or L["Hearthstone ready in %s"]):format(left)
+	return (inn and (Own.rides() and L["Hearthstone ready in %s: ride to the inn, or wait for it"] or L["Hearthstone ready in %s: walk to the inn, or wait for it"])
+		or L["Hearthstone ready in %s"]):format(left)
 end
 
 -- Ranks for a fallback waypoint: blocking goals first, then optional goals,
@@ -5926,7 +5949,7 @@ local function waypointOf(g, goal, at, s, held)
 	local exact = area and Spots.exact(goal) or nil
 	return {
 		map = map, x = x, y = y, f = f, z = z,
-		label = walk and L["Walk to %s"]:format(subject) or (goalText(goal, verb, subject, detail, kind)),
+		label = walk and (Own.rides() and L["Ride to %s"] or L["Walk to %s"]):format(subject) or (goalText(goal, verb, subject, detail, kind)),
 		stepIndex = s, goalIndex = g, kind = goal.t, quest = goal.quest,
 		r = goal.r or DEFAULT_RADIUS, area = area,
 		search = area and (goal.spread or exact) or nil,
@@ -6039,6 +6062,21 @@ function Own.alongAim(q)
 	return best
 end
 
+-- The arrow's place for a turn-in of quest q that is not ready while an update
+-- left its work behind the player (Own.passAdded, Engine.GetBehind): that
+-- work's first open goal, where its "Still to do" row's click leads
+-- (Engine.AimBehind). #2682, #2595: 0.4.0 moved Thistlefur's quests into new
+-- Ashenvale steps behind players who carried them, and their hand-ins onto the
+-- Zoram'gar stop they were at, so the arrow led to Karang for a quest at 0/2.
+-- Nil when none has a place.
+function Own.behindAim(q)
+	if not q or Compat().IsQuestReadyForTurnIn(q) then return nil end
+	for _, e in ipairs(Engine.GetBehind()) do
+		if e.quest == q then return waypointOf(e.goal, guide.steps[e.step].goals[e.goal], nil, e.step) end
+	end
+	return nil
+end
+
 -- While the window asks about a quest that left the log (Engine.LostQuestion),
 -- the arrow leads back to its giver, where Go back for it takes the route
 -- (#1365): its first accept the character can take before the step the hold
@@ -6104,7 +6142,8 @@ end
 -- guide of the other faction (Engine.OtherFaction, #2462: its towns are the
 -- enemy's). An along goal the player
 -- chose (Engine.AimAlong) leads while it is listed and open; so does, before
--- a turn-in that is not ready, its quest's work in along steps (Own.alongAim);
+-- a turn-in that is not ready, its quest's work in along steps (Own.alongAim)
+-- or the work an update left behind the player (Own.behindAim);
 -- so does the "While you're here" line the player clicked (Engine.AimWhileHere),
 -- while it shows. On the live step, a quest that left the log and waits for
 -- the player's answer leads back to its giver (Own.lostAim), whose accept the
@@ -6140,7 +6179,7 @@ local function findWaypoint()
 	if not grp then return current == computed and Own.failedAim(current) or nil end
 	local cg, header = Own.currentGoal(current, groups, focus)
 	if cg and goals[cg].t == "turnin" then
-		local wp = Own.alongAim(goals[cg].quest)
+		local wp = Own.alongAim(goals[cg].quest) or Own.behindAim(goals[cg].quest)
 		if wp then return wp end
 	end
 	local wp = cg and waypointOf(cg, goals[cg])
@@ -11044,7 +11083,7 @@ function Own.flyFromAim(s)
 	if not best or bestD + Own.FLY_FROM_MARGIN >= namedD or bestD >= namedD * Own.FLY_FROM_SHARE then return nil end
 	return {
 		map = best.map, x = best.x, y = best.y, f = best.f,
-		label = L["Walk to the flight master"],
+		label = Own.rides() and L["Ride to the flight master"] or L["Walk to the flight master"],
 		stepIndex = s, goalIndex = ng, kind = "goto", r = DEFAULT_RADIUS,
 	}
 end
@@ -11599,7 +11638,9 @@ end
 --
 -- Candidates (Own.hereBuild, on a step, quest-log, level, bag, zone or setting
 -- change): open kill, collect, interact and use goals with a place on the
--- player's map, in every step of the guide after the live step (a later
+-- player's map, and placed `complete` goals (no escort) of quests the guide
+-- gives none of those (#2484: /sit by Eleanor's campfire, "Complete “The Great
+-- Outdoors”: <the step's note>"), in every step of the guide after the live step (a later
 -- trip away and back, a flight, a hearth or an instance in between change
 -- nothing: the player is here now), each
 --   * for a quest in the log and not ready to hand in; never an accept;
@@ -11777,6 +11818,7 @@ function Own.hereKey(e)
 	if goal.oi ~= nil then return q .. ":o" .. tostring(goal.oi) end
 	if goal.t == "collect" and goal.item then return q .. ":i" .. tostring(goal.item) end
 	if goal.t == "kill" and type(goal.npc) == "number" then return q .. ":n" .. goal.npc end
+	if goal.t == "complete" then return q .. ":c" end
 	return false
 end
 
@@ -11874,7 +11916,7 @@ Own.HERE_INDEX_RETRY = 10 -- seconds before an index with goals of maps not know
 function Own.hereGoalsOn(c)
 	local idx = Own.hereIndex[guide]
 	if not idx or (idx.unplaced and GetTime() - idx.at >= Own.HERE_INDEX_RETRY) then
-		idx = { at = GetTime(), unplaced = false, by = {}, uses = {} }
+		idx = { at = GetTime(), unplaced = false, by = {}, uses = {}, worked = {} }
 		local verbs = Own.HERE_VERBS
 		for s, step in ipairs(guide.steps) do
 			for g, goal in ipairs(step.goals) do
@@ -11886,7 +11928,9 @@ function Own.hereGoalsOn(c)
 					end
 					items[goal.item] = true
 				end
-				if goal.map and goal.quest and goal.x and goal.y and not goal.candidates and (verbs[goal.t] or goal.t == "turnin" or goal.t == "accept") then
+				if goal.quest and verbs[goal.t] then idx.worked[goal.quest] = true end
+				if goal.map and goal.quest and goal.x and goal.y and not goal.candidates
+					and (verbs[goal.t] or goal.t == "turnin" or goal.t == "accept" or (goal.t == "complete" and not goal.escort)) then
 					local gc = goalWorld(goal)
 					if gc then
 						local list = idx.by[gc]
@@ -12500,13 +12544,20 @@ function Own.hereFits(s, g, goal, live, shown)
 		end
 		return "turnin", 0, Own.hereSoonOf(s, goal, live)
 	end
+	-- A placed `complete` (#2484: /sit by Eleanor's campfire for The Great
+	-- Outdoors) is a row only for a quest the guide gives no kill, collect,
+	-- interact or use goal (Own.hereGoalsOn's `worked`): those are its rows.
+	if t == "complete" then
+		local idx = Own.hereIndex[guide]
+		if idx and idx.worked[q] then return nil end
+	end
 	if C.IsQuestReadyForTurnIn(q) or ns.CharState().pinnedQuests[q] then return nil end
 	local sh = shown[q]
 	if sh and (sh == true or goal.oi == nil or sh[goal.oi]) then return nil end
 	local done, cur, max = goalDone(s, g, goal)
 	if done then return nil end
 	for lg, other in ipairs(liveGoals) do
-		if other.quest == q and other.oi == goal.oi and Own.HERE_VERBS[other.t] and goalApplies(other) and not goalDone(live, lg, other) then return nil end
+		if other.quest == q and other.oi == goal.oi and (Own.HERE_VERBS[other.t] or other.t == "complete") and goalApplies(other) and not goalDone(live, lg, other) then return nil end
 	end
 	if t == "use" and goal.item and C.GetItemCount(goal.item) < 1 then return nil end
 	if t == "interact" and not Own.hereCarries(q) then return nil end
@@ -13537,6 +13588,10 @@ function Own.hereViewOf(e)
 			text = (not npc or Own.namesake(raw, npc)) and L["Take %s from them: saves a trip back"]:format(title)
 				or L["Take %s from %s: saves a trip back"]:format(title, npc)
 			v.hereTitle = title
+		elseif goal.t == "complete" then
+			-- A placed `complete` (#2484): the quest and how it is done there, in
+			-- the guide's own note ("/sit by her campfire until you get Boosted Rest").
+			text = goal.note and goal.note ~= "" and L["%s: %s"]:format(v.text or "", goal.note) or (v.text or "")
 		else
 			text = L["%s, %d more"]:format(v.text or "", left)
 		end
@@ -15010,7 +15065,10 @@ end
 
 -- Undo a skip: step i is open again (the live step when it is the first open
 -- one), with what its skip stored on the way (Own.skipRestore). True if it
--- was skipped.
+-- was skipped. A step whose `when` fails only on a `complete` (#1934: Zangen's
+-- hand-in of The Sacred Flame, unskipped with the quest at 0/1) is not kept
+-- applying (Own.keep): a hand-in can't be done before its quest is, so the
+-- step comes back once the quest is ready (Own.failsForNow).
 function Engine.Unskip(i)
 	if not guide or type(i) ~= "number" then return false end
 	local sk = skippedFor(guide.id)
@@ -15020,7 +15078,8 @@ function Engine.Unskip(i)
 	sk[i] = nil
 	if not next(sk) then ns.CharState().skipped[guide.id] = nil end
 	Own.skipRestore(guide.id, i)
-	Own.keep(i)
+	local step = guide.steps[i]
+	if not (step and not step.skipto and Own.failsForNow(step, false)) then Own.keep(i) end
 	evaluate()
 	return true
 end
@@ -15810,7 +15869,10 @@ end
 -- a page without one says "Report it" again. Nor is a refusal while the
 -- missing prerequisite is in the log ready to hand in (Own.preReady): the
 -- window shows before the hand-in that opens the quest (Regthar Deathgate,
--- Kolkar Leaders then Verog the Dervish, #998). A detail window opened from
+-- Kolkar Leaders then Verog the Dervish, #998). Nor is the refusal of a
+-- lead-in (Own.leadIn): it marks only the lead-in ("leadin"), so the guide
+-- passes it and its hand-in and goes on to the quest it leads to, which
+-- keeps the rule above. A detail window opened from
 -- that giver's list or chat option, popped up by a turn-in at that giver
 -- (the follow-up quest), or started by an item, says nothing about the
 -- others.
@@ -15852,7 +15914,9 @@ end
 -- tab has moved past is cleared only when the data says the quest has just
 -- opened: its level reached and prerequisites done (the guide goes back to
 -- it, as for #70). A mark still gated stays, its reason brought up to date
--- (a level reached, a prerequisite still missing).
+-- (a level reached, a prerequisite still missing); so does a lead-in's: the
+-- data never says its giver offers it now (the giver's window listing it
+-- does, Own.listed).
 function Own.clearMarks()
 	if not player then
 		wipe(unavailable)
@@ -15873,7 +15937,13 @@ function Own.clearMarks()
 	useActive()
 	for q, u in pairs(unavailable) do
 		local now, parent
-		if passed[q] then now, parent = unavailableReason(u.accept) end
+		if passed[q] then
+			if u.reason == "leadin" then
+				now = "leadin"
+			else
+				now, parent = unavailableReason(u.accept)
+			end
+		end
 		if now then
 			u.reason, u.pre = now, parent
 		else
@@ -15885,6 +15955,25 @@ end
 function Own.listed(q)
 	unavailable[q] = nil
 	Own.notListed[q] = nil
+end
+
+-- Accept `goal` as a lead-in of the loaded guide: one of its `closedBy` (the
+-- quest a breadcrumb leads to, in Forever's data) is a quest this guide
+-- takes too, with an accept that applies to the character, and no accept
+-- here needs it (layoutOf's `needs`). Its giver's refusal costs nothing but
+-- the lead-in: that quest's own giver gives it without (#2475: players'
+-- recordings, Tabetha offered Tiara of the Deep to 14 people who never had
+-- Anastasia Hartwell's Tabetha's Task). -> the quest it leads to, or nil
+function Own.leadIn(goal)
+	if type(goal.closedBy) ~= "table" then return nil end
+	local l = layoutOf(guide)
+	if l.needs[goal.quest] then return nil end
+	for _, by in ipairs(goal.closedBy) do
+		for _, a in ipairs(by ~= goal.quest and l.accepts[by] or NONE) do
+			if goalApplies(a.goal) then return by end
+		end
+	end
+	return nil
 end
 
 local function checkOffers(source, startItem)
@@ -15935,7 +16024,13 @@ local function checkOffers(source, startItem)
 						unavailable[q] = { reason = why, accept = goal, pre = parent }
 					elseif not why then
 						if chat == nil then chat = source == "gossip" and C.GossipHasChat() or false end
-						Own.notListed[q] = { goal = goal, chat = chat }
+						-- A lead-in passes, unless the quest may sit behind the chat option.
+						local by = not chat and Own.leadIn(goal)
+						if by then
+							unavailable[q] = { reason = "leadin", accept = goal, by = by }
+						else
+							Own.notListed[q] = { goal = goal, chat = chat }
+						end
 					end
 				end
 			end

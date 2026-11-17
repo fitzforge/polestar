@@ -18,7 +18,7 @@ return {
 
 	-- Step 3: Into Searing Gorge
 	-- {zone:1427} Searing Gorge
-	["Into {zone:1427}"] = "",
+	["Into {zone:1427}"] = "進入{zone:1427}",
 
 	-- Step 4: Searing Gorge
 	["The Grimesilt outhouse"] = "煤渣挖掘場的庫房",
@@ -33,11 +33,11 @@ return {
 	["The prisoner's next task, Ledger from {zone:1446}, sends you to the {zone:1435} and {zone:1445}: skip it."] = "囚犯的下一個任務「{zone:1446}的帳本」會派你去{zone:1435}和{zone:1445}：跳過它。",
 
 	-- Step 7: Level 48.27
-	["Level 48.27"] = "",
+	["Level 48.27"] = "48.27級",
 	-- {item:3985} Monogrammed Sash
 	["If you skipped The {item:3985} or Facing Negolash, grind here to level 48.27 to stay on the route's plan."] = "",
 	-- {npc:5839} Dark Iron Geologist
-	["grind on {npc:5839}"] = "",
+	["grind on {npc:5839}"] = "刷{npc:5839}",
 
 	-- Step 8: Dorius Stonetender
 	-- {area:247} Grimesilt Dig Site · {area:1959} Dustfire Valley · {object:175704} Singed Letter
@@ -80,27 +80,27 @@ return {
 
 	-- Step 23: Searing Gorge: kill these as you meet them
 	-- {zone:1427} Searing Gorge
-	["{zone:1427}: kill these as you meet them"] = "",
+	["{zone:1427}: kill these as you meet them"] = "{zone:1427}：沿途擊殺以下目標",
 	-- {area:1443} The Slag Pit · {npc:14621} Overseer Maltorius
 	-- plural, as words: Incendosaurs = {npc:9318} Incendosaur
 	["{area:1443} opens in the north of the Cauldron. The Secret Plans lie on its upper ledge; Incendosaurs swim in the lava pools further in, so pull them to the edge. Stay clear of {npc:14621} and his elite guards deep inside."] = "{area:1443}的入口在大熔爐北部。秘密設計圖：熾熱助熔劑在上層平台；燻火龍在更深處的熔岩池中游動，把牠們拉到邊緣。遠離深處的{npc:14621}和他的精英守衛。",
 	-- {item:18922} Secret Plans: Fiery Flux
-	["{item:18922}; below ground"] = "",
+	["{item:18922}; below ground"] = "{item:18922}；地下",
 
 	-- Step 24: Searing Gorge: kill these as you meet them
 	-- {npc:14621} Overseer Maltorius
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:14621} is a level 50 elite: most classes solo it at level 52, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:14621} is a level 50 elite: most classes solo it at level 52, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "這些是精英怪：建議組隊，找人來一起做。{npc:14621}是50級精英：大多數職業52級可以單挑，但你可能需要幫忙。如果只有你一個人就跳過：路線會安排你刷怪補經驗。",
 
 	-- Step 26: Level 48.66
-	["Level 48.66"] = "",
+	["Level 48.66"] = "48.66級",
 	-- {quest:7701} WANTED: Overseer Maltorius
 	["If you skipped {quest:7701}, grind here to level 48.66 to stay on the route's plan."] = "",
 	-- {npc:9318} Incendosaur
-	["grind on {npc:9318}"] = "",
+	["grind on {npc:9318}"] = "刷{npc:9318}",
 
 	-- Step 28: The Flame's Casing
 	-- {npc:5860} Twilight Dark Shaman
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back."] = "這些是精英怪：建議組隊，找人來一起做。{npc:5860}（50級精英）需要3人小隊。如果只有你一個人就跳過：路線會安排你刷怪補經驗。",
 
 	-- Step 30: The Torch of Retribution
 	-- {npc:8479} Velarok Windblade
@@ -120,15 +120,15 @@ return {
 	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east."] = "帶著{object:149047}沿大熔爐邊緣向南走，從西南方繞到東南方，點燃四座哨兵火盆。",
 
 	-- Step 33: Level 48.98
-	["Level 48.98"] = "",
+	["Level 48.98"] = "48.98級",
 	-- {quest:3452} The Flame's Casing
 	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan."] = "",
 	-- {npc:5844} Dark Iron Slaver
-	["grind on {npc:5844}"] = "",
+	["grind on {npc:5844}"] = "刷{npc:5844}",
 
 	-- Step 34: Margol's Horn
 	-- {quest:3181} The Horn of the Beast
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:3181} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:3181} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "這些是精英怪：建議組隊，找人來一起做。{quest:3181}需要2人小隊。如果只有你一個人就跳過：路線會安排你刷怪補經驗。",
 	["Below ground"] = "地下",
 
 	-- Step 36: Squire Maltrake

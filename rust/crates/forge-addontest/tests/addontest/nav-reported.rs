@@ -571,3 +571,24 @@ fn stormwind_orgrimmar_and_ironforge_npcs_on_floors_joined_from_the_flight_maste
 	let last = pts[pts.len() - 1];
 	assert!(last.2.is_some_and(|z| (z - 399.1).abs() < 5.0), "the walk to Thom Filch ends at his height, not {:?}", last.2);
 }
+
+const FIND_AND_MANY: &str = r#"
+local Path = Polestar_NavEngine
+local _, cost = Path.FindSync(@C, @FROM, @TO, { profile = "Alliance" })
+local costs = Path.FindManySync(@C, @FROM, { @TO }, { profile = "Alliance" })
+emit({ find = cost or false, many = costs and costs[1] or false })"#;
+
+// #2723 (undersailor, read in the code): the abstract A* measured its heuristic to the goal's snapped cell, but the
+// goal's nodes may lie a cell off it (the surfaces of a point without a height) and settle up to SNAP cells further, so
+// it could overstate the way left and settle on a dearer walk. In the Eastern Kingdoms, from 2894.9,-2879 to
+// 2679.7,-5343.9 (no heights, the Alliance profile; a pair of nav eval's broad sample) Find's walk cost 2765.94 where
+// the cheapest is 2765.21. FindMany's abstract search is a Dijkstra (no heuristic): Find's cost is no dearer than its.
+#[test]
+fn the_abstract_search_never_settles_on_a_dearer_walk_than_the_cheapest_2723() {
+	let (from, to) = (Pt { c: 0, x: 2894.9, y: -2879.0, z: None }, Pt { c: 0, x: 2679.7, y: -5343.9, z: None });
+	let pt = |p: Pt| format!("{{ x = {}, y = {} }}", p.x, p.y);
+	let script = FIND_AND_MANY.replace("@C", &from.c.to_string()).replace("@FROM", &pt(from)).replace("@TO", &pt(to));
+	let got = emitted(&RunAddon { stubs: vec!["stub_encoding.lua"], addons: vec![Addon::name("Polestar_Nav")], script, ..Default::default() }).into_iter().next().unwrap_or(Value::Null);
+	let (find, many) = (got["find"].as_f64().expect("Find finds a walk"), got["many"].as_f64().expect("FindMany finds one"));
+	assert!(find <= many + 0.01, "Find's walk costs {find:.3}, the cheapest {many:.3}");
+}

@@ -13,15 +13,15 @@ return {
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "中級{skill:762}",
 	-- {area:803} Amberstill Ranch · {area:131} Kharanos · {zone:1432} Loch Modan · {npc:4772} Ultham Ironhorn · {npc:1261} Veron Amberstill · {skill:762} Riding · {faction:47} Ironforge
-	["{area:803} is east of {area:131} on the road to {zone:1432}; {npc:4772} stands beside {npc:1261}'s rams. At 60 {npc:4772} teaches Journeyman {skill:762} to Dwarves for 1,000g (10% less at Honored with {faction:47}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift ram costs 200g here."] = "",
+	["{area:803} is east of {area:131} on the road to {zone:1432}; {npc:4772} stands beside {npc:1261}'s rams. At 60 {npc:4772} teaches Journeyman {skill:762} to Dwarves for 1,000g (10% less at Honored with {faction:47}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift ram costs 200g here."] = "{area:803}位於{area:131}以東、通往{zone:1432}的路上；{npc:4772}站在{npc:1261}的山羊旁。60級時{npc:4772}以1000金向矮人教授中級{skill:762}（與{faction:47}達到尊敬時便宜10%）；暴雪稱會附帶一隻坐騎。其他種族在本族的騎術訓練師處學習。這裡的迅捷山羊每隻200金。",
 	-- {npc:4772} Ultham Ironhorn
 	["{npc:4772}, riding trainer"] = "騎術訓練師{npc:4772}",
 
 	-- Step 2: Ram Riding for other races
 	-- {spell:826} Ram Riding
-	["{spell:826} for other races"] = "",
+	["{spell:826} for other races"] = "其他種族需要{spell:826}",
 	-- {spell:826} Ram Riding · {skill:762} Riding · {npc:4772} Ultham Ironhorn · {faction:47} Ironforge
-	["Any Alliance race can buy these rams, but riding one also takes {spell:826}, which only Dwarves get with {skill:762}. {npc:4772} teaches it to other races once they are Exalted with {faction:47} (the Ironforge Reputation guide shows the way). Until then, don't buy a ram for this character."] = "",
+	["Any Alliance race can buy these rams, but riding one also takes {spell:826}, which only Dwarves get with {skill:762}. {npc:4772} teaches it to other races once they are Exalted with {faction:47} (the Ironforge Reputation guide shows the way). Until then, don't buy a ram for this character."] = "任何聯盟種族都能購買這些山羊，但騎乘還需要{spell:826}，只有矮人透過{skill:762}獲得。其他種族與{faction:47}達到崇拜後可由{npc:4772}教授（鐵爐堡聲望攻略給出了路線）。在此之前，別給這個角色買山羊。",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "挑選顏色",

@@ -7,20 +7,20 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Poisons (Horde)"] = "",
+	["Poisons (Horde)"] = "毒藥（部落）",
 	-- {item:7676} Thistle Tea
 	["Forever teaches Poisons through this chain, not the trainer; the {item:7676} recipe comes with it."] = "Forever 透過這個任務鏈教授毒藥，而不是由訓練師教授；{item:7676}的配方也會一起給你。",
 
 	-- Step 1: Lockpicking practice
-	["Lockpicking practice"] = "",
+	["Lockpicking practice"] = "開鎖練習",
 	-- {object:129127} Gallywix's Lockbox · {spell:1804} Pick Lock · {npc:3401} Shenthul · {object:172960} Cleft of Shadow · {item:5060} Thieves' Tools · {area:392} Ratchet
-	["{object:129127} at the end of the tower job needs Lockpicking of about 70-75. Train {spell:1804} from Gest or {npc:3401} in the {object:172960} if you lack it, carry {item:5060}, and pick the Buccaneer's Strongboxes on the middle deck of the Tide Razor, the beached pirate ship south of {area:392}: they come back fast. Your cap rises 5 per level."] = "",
-	["Tide Razor"] = "",
-	["Lockpicking about 75: pick the Buccaneer's Strongboxes on the Tide Razor"] = "",
+	["{object:129127} at the end of the tower job needs Lockpicking of about 70-75. Train {spell:1804} from Gest or {npc:3401} in the {object:172960} if you lack it, carry {item:5060}, and pick the Buccaneer's Strongboxes on the middle deck of the Tide Razor, the beached pirate ship south of {area:392}: they come back fast. Your cap rises 5 per level."] = "塔樓任務最後的{object:129127}需要約70-75點開鎖。如果不會，就找{object:172960}裡的蓋斯特或{npc:3401}學習{spell:1804}，帶上{item:5060}，去撬潮汐剃刀號中層甲板上的海盜保險箱——那是{area:392}以南一艘擱淺的海盜船：重新出現很快。你的開鎖上限每級提高5點。",
+	["Tide Razor"] = "潮汐剃刀號",
+	["Lockpicking about 75: pick the Buccaneer's Strongboxes on the Tide Razor"] = "開鎖技能約75：撬開潮汐剃刀號上的海盜保險箱",
 
 	-- Step 2: The Shattered Salute
 	-- {npc:3401} Shenthul · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength
-	["{npc:3401} stands in the {object:172960}, the canyon under the {object:172982}. Take the quest and wait: he speaks three lines and salutes you. After his third line, target him and type /salute. If it does not count, abandon the quest and take it again. The tower job ahead is built around Ambush, which needs a dagger: if you have none, Kareth, the blade merchant in the {object:172960}, sells a Jambiya."] = "",
+	["{npc:3401} stands in the {object:172960}, the canyon under the {object:172982}. Take the quest and wait: he speaks three lines and salutes you. After his third line, target him and type /salute. If it does not count, abandon the quest and take it again. The tower job ahead is built around Ambush, which needs a dagger: if you have none, Kareth, the blade merchant in the {object:172960}, sells a Jambiya."] = "{npc:3401}站在{object:172960}裡，也就是{object:172982}下方的峽谷。接取任務後等著：他會說三句話，然後向你敬禮。等他說完第三句，選中他並輸入 /敬禮。如果沒算數，就放棄任務重新接取。前面的塔樓任務圍繞伏擊展開，需要匕首：如果沒有匕首，{object:172960}裡的武器商人卡雷斯出售一把詹比亞彎刀。",
 	-- {npc:3401} Shenthul
 	["/salute {npc:3401}"] = "對{npc:3401}輸入 /salute",
 	-- {quest:2458} Deep Cover · {item:8051} Flare Gun
@@ -28,9 +28,9 @@ return {
 
 	-- Step 3: Taskmaster Fizzule
 	-- {area:382} Sludge Fen · {item:8051} Flare Gun · {npc:3401} Shenthul
-	["Fly to the Crossroads and head north to the Venture Co. tower above the {area:382}. Fizzule stands under a tree east of the tower, outside it, and is hostile until signalled. Target him from about 50 yards and fire the {item:8051} twice, then walk up in front of him and /salute. In any other order he attacks. Lost the {item:8051}? Abandon and retake from {npc:3401}."] = "",
+	["Fly to the Crossroads and head north to the Venture Co. tower above the {area:382}. Fizzule stands under a tree east of the tower, outside it, and is hostile until signalled. Target him from about 50 yards and fire the {item:8051} twice, then walk up in front of him and /salute. In any other order he attacks. Lost the {item:8051}? Abandon and retake from {npc:3401}."] = "飛到十字路口，向北前往{area:382}上方風險投資公司的塔樓。菲祖爾站在塔樓東側的一棵樹下、塔外，在收到訊號前是敵對的。在約50碼外選中他，發射{item:8051}兩次，然後走到他面前 /敬禮。順序不對他就會攻擊。弄丟了{item:8051}？放棄任務，再找{npc:3401}重新接取。",
 	-- {item:8051} Flare Gun
-	["{item:8051}, twice, at Fizzule"] = "",
+	["{item:8051}, twice, at Fizzule"] = "{item:8051}，對菲祖爾使用兩次",
 
 	-- Step 4: The Venture Co. tower, with a group
 	["The Venture Co. tower, with a group"] = "風險投資公司的塔，組隊",
@@ -38,7 +38,7 @@ return {
 	-- plural, as words: Mutated Venture Co. Drones = {npc:7310} Mutated Venture Co. Drone
 	["{npc:7288} on the top floor is a level 23 elite: easier at 23 or with a friend. Keep {item:8066} in your bags and use it on him every time you come near, or he turns hostile. First Pick Pocket Silixiz's Tower Key from {npc:7287} (level 22), who walks by the tower: stealth up behind him (killing him does not give it). Then clear the tower floor by floor (everything comes back after 4 1/2 minutes): Mutated Venture Co. Drones (25) on the ground floor, Patrollers on the second, Lookouts on the open third, Gallywix on top, back 10 minutes after a kill. Pick {object:129127} beside him for the cache: it poisons you with the {spell:9810}, which weakens your stealth and agility until {npc:2391} cures it."] = "頂樓的{npc:7288}是23級精英：23級或找朋友會比較輕鬆。把{item:8066}放在背包裡，每次靠近他時都對他使用，否則他會變成敵對。先從在塔旁走動的{npc:7287}（22級）身上偷取希里克斯的塔樓鑰匙：潛行到他背後（殺死他拿不到）。然後逐層清塔（所有怪4分半後重生）：一樓是變異風險投資公司工人（25級），二樓是巡邏者，開放的三樓是瞭望者，頂樓是加里維克斯，擊殺後10分鐘重生。打開他旁邊的{object:129127}取得寶箱物品：它會讓你中{spell:9810}之毒，削弱你的潛行和敏捷，直到{npc:2391}為你治療。",
 	-- {item:8072} Silixiz's Tower Key
-	["Pick Pocket Foreman Silixiz for {item:8072}"] = "",
+	["Pick Pocket Foreman Silixiz for {item:8072}"] = "對工頭希利克斯使用搜尋，獲得{item:8072}",
 	-- {item:8074} Gallywix's Head · {npc:7288} Grand Foreman Puzik Gallywix
 	["{item:8074}: {npc:7288} (elite)"] = "{item:8074}：{npc:7288}（精英）",
 
@@ -62,7 +62,7 @@ return {
 	-- {npc:2391} Serge Hinott
 	["{npc:2391}: Poisons"] = "{npc:2391}：毒藥",
 	-- {item:8095} Hinott's Oil · {spell:9810} Touch of Zanzil
-	["{item:8095}: clears the {spell:9810}"] = "",
+	["{item:8095}: clears the {spell:9810}"] = "{item:8095}：解除{spell:9810}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 20 {npc:3401} stands in the {object:172960}, the canyon under the {object:172982}. Target him and type /salute."] = "20級時，{npc:3401}站在{object:172960}，也就是{object:172982}下方的峽谷。選取他並輸入 /salute。",

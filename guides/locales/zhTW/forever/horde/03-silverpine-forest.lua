@@ -12,7 +12,7 @@ return {
 
 	-- Step 2: Borstan
 	-- {object:173016} Borstan's Firepit
-	["{object:173016} is a few steps north."] = "",
+	["{object:173016} is a few steps north."] = "{object:173016}在北邊幾步遠。",
 
 	-- Step 3: Neeru Fireblade
 	-- {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {quest:829} Neeru Fireblade
@@ -67,15 +67,15 @@ return {
 
 	-- Step 12: Sayoc
 	-- {spell:197} Two-Handed Axes · {npc:11868} Sayoc · {object:172958} Valley of Honor
-	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Warrior fastest."] = "",
+	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Warrior fastest."] = "順路：向{npc:11868}學習{spell:197}（{object:172958}，10銀）；戰士用雙手武器升級最快。",
 
 	-- Step 13: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
-	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
+	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "順路：向{npc:2704}學習法杖（{object:172958}，10銀）；獵人的近戰武器主要看屬性，雙手武器提供的屬性最多。",
 
 	-- Step 14: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
-	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "",
+	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "順路：向{npc:2704}學習法杖（{object:172958}，10銀）；升級期間法杖提供的法術屬性比單手武器多。",
 
 	-- Step 17: Whuut
 	-- {npc:11046} Whuut · {npc:3348} Kor'geld
@@ -86,11 +86,11 @@ return {
 	-- Step 18: Valley of Wisdom
 	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom
 	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
-	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them."] = "",
+	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them."] = "{npc:268684}和{npc:268682}坐在{object:172957}格羅瑪什要塞後面；光滑的巨石就在他們周圍。",
 
 	-- Step 19: Thrall
 	-- {npc:4949} Thrall · {quest:98024} Journey to the Crossroads · {quest:93739} Exploring the Horde · {quest:95350} Welcome to Azeroth
-	["{npc:4949} stands in Grommash Hold. He offers {quest:98024} and {quest:93739} once {quest:95350} is handed in."] = "",
+	["{npc:4949} stands in Grommash Hold. He offers {quest:98024} and {quest:93739} once {quest:95350} is handed in."] = "{npc:4949}站在格羅瑪什要塞裡。{quest:95350}交還後，他會提供{quest:98024}和{quest:93739}。",
 	-- {npc:4949} Thrall
 	["{npc:4949}, inside Grommash Hold"] = "{npc:4949}，在Grommash Hold裡",
 	-- {npc:4949} Thrall · {zone:1413} Barrens
@@ -100,15 +100,15 @@ return {
 	-- {npc:3230} Nazgrel
 	["Speak with {npc:3230}, in Grommash Hold"] = "與Grommash Hold裡的{npc:3230}交談",
 	-- {npc:3230} Nazgrel
-	["Talk to {npc:3230}"] = "",
+	["Talk to {npc:3230}"] = "與{npc:3230}交談",
 	-- {npc:10540} Vol'jin
 	["Speak with {npc:10540}, in Grommash Hold"] = "與Grommash Hold裡的{npc:10540}交談",
 	-- {npc:10540} Vol'jin
-	["Talk to {npc:10540}"] = "",
+	["Talk to {npc:10540}"] = "與{npc:10540}交談",
 
 	-- Step 20: Nazgrel
 	-- {npc:3230} Nazgrel
-	["{npc:3230}, in Grommash Hold"] = "",
+	["{npc:3230}, in Grommash Hold"] = "{npc:3230}，在格羅瑪什要塞裡",
 
 	-- Step 21: Zeppelin to Undercity
 	-- {zone:1458} Undercity
@@ -118,18 +118,18 @@ return {
 	-- {area:159} Brill · {npc:1738} Deathguard Terrence · {npc:1518} Apothecary Johaan · {npc:246152} Shari Stilwell
 	["{area:159} is a short walk north up the road from the zeppelin towers: {npc:1738} stands by the road into town, {npc:1518} in the apothecary's house on the west side of the square; Paladins: {npc:246152} trains you in town."] = "",
 	-- {npc:1518} Apothecary Johaan
-	["{npc:1518}, inside"] = "",
+	["{npc:1518}, inside"] = "{npc:1518}：在屋內",
 	-- {npc:246152} Shari Stilwell · {area:159} Brill
 	["{npc:246152}, in {area:159}"] = "{npc:246152}，在{area:159}",
 
 	-- Step 23: Hadric Harlson
 	-- {npc:1495} Deathguard Linnea · {npc:267009} Hadric Harlson
-	["Back down the road past the zeppelin towers and east to {npc:1495}'s camp: {npc:267009} stands beside her."] = "",
+	["Back down the road past the zeppelin towers and east to {npc:1495}'s camp: {npc:267009} stands beside her."] = "沿路往回走過飛艇塔，向東到{npc:1495}的營地：{npc:267009}站在她旁邊。",
 
 	-- Step 24: The Cult of the Damned
 	-- {npc:267009} Hadric Harlson
 	-- plural, as words: Dark Neophytes = {npc:267006} Dark Neophyte · Dark Enforcers = {npc:275437} Dark Enforcer · Necrotic Crystal Fragments = {item:275851} Necrotic Crystal Fragment
-	["The cultists camp a short walk south-east of {npc:267009}. Dark Neophytes and Dark Enforcers drop the Necrotic Crystal Fragments; more fragments, black crystals, lie on the ground among the tents."] = "",
+	["The cultists camp a short walk south-east of {npc:267009}. Dark Neophytes and Dark Enforcers drop the Necrotic Crystal Fragments; more fragments, black crystals, lie on the ground among the tents."] = "教徒在{npc:267009}東南走一小段的地方紮營。黑暗新信徒和黑暗執行者掉死靈水晶碎片；更多碎片和黑色水晶就散落在帳篷間的地上。",
 
 	-- Step 27: The Sepulcher
 	-- {area:228} The Sepulcher · {npc:2226} Karos Razok
@@ -166,27 +166,27 @@ return {
 	-- {npc:1978} Deathstalker Erland · {npc:1950} Rane Yorick
 	["{npc:1978} waits north-east of the house. Escort him back to {npc:1950}; worgs attack on the way."] = "{npc:1978}在房子東北方等候。護送他回到{npc:1950}那裡；途中會有座狼攻擊。",
 	-- {npc:1978} Deathstalker Erland
-	["{npc:1978}, inside"] = "",
+	["{npc:1978}, inside"] = "{npc:1978}，在裡面",
 
 	-- Step 36: The Sepulcher
 	-- {npc:1938} Dalar Dawnweaver · {area:227} Valgan's Field
-	["{npc:1938}: his books lie in the {area:227} farmhouse, on the walk north"] = "",
+	["{npc:1938}: his books lie in the {area:227} farmhouse, on the walk north"] = "{npc:1938}：他的書在{area:227}的農舍裡，往北走時會經過",
 	-- {npc:1937} Apothecary Renferrel · {zone:1458} Undercity
-	["{npc:1937}: Zinge in the {zone:1458}, on the way to the zeppelin at the end"] = "",
+	["{npc:1937}: Zinge in the {zone:1458}, on the way to the zeppelin at the end"] = "{npc:1937}：津格在{zone:1458}，最後去乘飛艇的路上",
 	["Allister's Ambermill Investigations is for the ride through Silverpine at 22; leave it."] = "艾利斯特的安伯米爾調查是22級穿越銀松森林時做的；先別接。",
 
 	-- Step 37: Valgan's Field farmhouse
 	-- {area:227} Valgan's Field
-	["{area:227} farmhouse"] = "",
+	["{area:227} farmhouse"] = "{area:227}的農舍",
 	-- {area:227} Valgan's Field · {object:1571} Dusty Spellbooks · {npc:1770} Moonrage Darkrunner
-	["On the road north, the farmhouse at {area:227}: go upstairs, the {object:1571} lie on the floor in the back room. Looting them brings a {npc:1770}."] = "",
+	["On the road north, the farmhouse at {area:227}: go upstairs, the {object:1571} lie on the floor in the back room. Looting them brings a {npc:1770}."] = "北邊路上的{area:227}農舍：上樓，{object:1571}就在裡屋的地上。拾取它們會引來一隻{npc:1770}。",
 	-- {object:1571} Dusty Spellbooks
-	["{object:1571}; upstairs"] = "",
+	["{object:1571}; upstairs"] = "{object:1571}，樓上",
 
 	-- Step 38: Quinn Yorick
 	["North again to the Yoricks' house."] = "再次向北前往尤瑞克家。",
 	-- {npc:1951} Quinn Yorick
-	["{npc:1951}, inside"] = "",
+	["{npc:1951}, inside"] = "{npc:1951}，在裡面",
 
 	-- Step 39: Vile Fin murlocs
 	["Vile Fin murlocs"] = "邪鰭魚人",
@@ -203,14 +203,14 @@ return {
 	-- {npc:1937} Apothecary Renferrel
 	["{npc:1937}: for Quinn, on the road north at the end"] = "{npc:1937}：為了奎恩，最後在北邊的路上",
 	-- {npc:1938} Dalar Dawnweaver
-	["{npc:1938}, just north of Allister"] = "",
+	["{npc:1938}, just north of Allister"] = "{npc:1938}，就在阿利斯特北邊",
 	-- {npc:1499} Magistrate Sevren · {area:159} Brill
-	["{npc:1499} in {area:159}, on the way to the zeppelin at the end"] = "",
+	["{npc:1499} in {area:159}, on the way to the zeppelin at the end"] = "{npc:1499}在{area:159}，在最後去乘飛艇的路上",
 
 	-- Step 42: The Ivar Patch
 	-- {zone:1420} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
 	["Take the road north toward {zone:1420}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "沿道路向北朝{zone:1420}走：{area:238}的尤瑞克家就在路上。{quest:425}潛伏在房子西邊不遠處。",
-	["Inside"] = "",
+	["Inside"] = "在裡面",
 
 	-- Step 44: Magistrate Sevren
 	-- {area:159} Brill · {npc:1499} Magistrate Sevren
@@ -218,7 +218,7 @@ return {
 
 	-- Step 46: The Undercity
 	-- {object:1661} The Undercity · {area:153} Ruins of Lordaeron · {npc:2050} Raleigh Andrean · {npc:7683} Alessandro Luca · {npc:11044} Doctor Martin Felben · {npc:5204} Apothecary Zinge · {npc:2055} Master Apothecary Faranell
-	["{object:1661} lies under the {area:153}, beside the zeppelin towers. {npc:2050} stands at the inn by the way down; {npc:7683} on the way down to the Apothecarium, where {npc:11044} and {npc:5204} stand beside {npc:2055}."] = "",
+	["{object:1661} lies under the {area:153}, beside the zeppelin towers. {npc:2050} stands at the inn by the way down; {npc:7683} on the way down to the Apothecarium, where {npc:11044} and {npc:5204} stand beside {npc:2055}."] = "{object:1661}位於{area:153}下方、飛艇塔旁。{npc:2050}站在下行路口的旅店旁；{npc:7683}在通往鍊金房的下行路上，{npc:11044}和{npc:5204}就站在那裡的{npc:2055}旁邊。",
 	-- {npc:4556} Gordon Wendham
 	["{npc:4556}, the weapon merchant beside the bat handler"] = "{npc:4556}，蝙蝠管理員旁邊的武器商人",
 	-- {npc:4551} Michael Garrett
@@ -228,11 +228,11 @@ return {
 	-- {npc:11044} Doctor Martin Felben
 	["{npc:11044}, in the Apothecarium"] = "{npc:11044}，在 Apothecarium",
 	-- {npc:5204} Apothecary Zinge
-	["{npc:5204}, in the Apothecarium"] = "",
+	["{npc:5204}, in the Apothecarium"] = "{npc:5204}，在鍊金房",
 	-- {npc:5204} Apothecary Zinge
-	["{npc:5204}: Helbrim at the Crossroads, in the next guide"] = "",
+	["{npc:5204}: Helbrim at the Crossroads, in the next guide"] = "{npc:5204}：赫布瑞姆在十字路口，下一份指南",
 	-- {npc:260093} Garen Largo · {area:1497} Undercity
-	["{npc:260093}, the {area:1497}'s paladin trainer"] = "",
+	["{npc:260093}, the {area:1497}'s paladin trainer"] = "{npc:260093}，{area:1497}的聖騎士訓練師",
 
 	-- Step 47: Brom Killian
 	-- {npc:4598} Brom Killian · {zone:1458} Undercity
@@ -254,11 +254,11 @@ return {
 
 	-- Step 50: Lady Sylvanas Windrunner
 	-- {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter
-	["{npc:10181} holds court in the {object:36126}."] = "",
+	["{npc:10181} holds court in the {object:36126}."] = "{npc:10181}在{object:36126}裡坐鎮。",
 	-- {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter · {quest:93739} Exploring the Horde
 	["Speak with {npc:10181}, in the {object:36126}: {quest:93739}"] = "與{object:36126}的{npc:10181}交談：{quest:93739}",
 	-- {npc:10181} Lady Sylvanas Windrunner
-	["Talk to {npc:10181}"] = "",
+	["Talk to {npc:10181}"] = "與{npc:10181}交談",
 
 	-- Step 51: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -266,7 +266,7 @@ return {
 
 	-- Step 52: Orgrimmar
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
-	["{zone:1454}'s {object:172982}"] = "",
+	["{zone:1454}'s {object:172982}"] = "{zone:1454}的{object:172982}",
 
 	-- Step 53: Valley of Strength
 	-- {npc:268701} Thatog · {object:172982} Valley of Strength
@@ -286,7 +286,7 @@ return {
 
 	-- Step 62: Sayoc
 	-- {spell:197} Two-Handed Axes · {npc:11868} Sayoc · {object:172958} Valley of Honor
-	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Paladin fastest."] = "",
+	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Paladin fastest."] = "順路：向{npc:11868}學習{spell:197}（{object:172958}，10銀）；聖騎士用雙手武器升級最快。",
 
 	-- Step 64: Valley of Wisdom
 	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom · {area:379} Far Watch Post
@@ -295,7 +295,7 @@ return {
 
 	-- Step 65: Zor Lonetree
 	-- {npc:4047} Zor Lonetree · {npc:4049} Seereth Stonebreak
-	["{npc:4047}: {npc:4049}, on the road into Stonetalon in the next guide"] = "",
+	["{npc:4047}: {npc:4049}, on the road into Stonetalon in the next guide"] = "{npc:4047}：{npc:4049}在下一份指南進入石爪山的路上",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At the {area:2362}"] = "在{area:2362}",

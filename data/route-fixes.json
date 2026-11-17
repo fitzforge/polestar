@@ -6239,6 +6239,54 @@
 				],
 				"faction": "Horde",
 				"why": "Horde level tidy (2026-11-15), agreed with the 12-30 slice: Elixir of Agony 509 is worked on the Mudsnout blossoms at 30 in 30-40/01, and its delivery (513) goes to Master Apothecary Faranell on the Undercity stop at the end of that guide, after the mine."
+			},
+			{
+				"a": [
+					"accept",
+					575
+				],
+				"b": [
+					"accept",
+					583
+				],
+				"faction": "Alliance",
+				"why": "#2419 (Onrevax): Stranglethorn's first loop (30-40/04) starts at Booty Bay. 30-40/03 ends in Theramore; the walk to Ratchet (flight point) and its boat replace the boat to Menethil, the flight to Darkshire, the walk down the jungle from Nesingwary's camp and the flight to Sentinel Hill. Booty Bay's quests and the inn bind come first, the player walks north once, and the hearthstone brings them back. Level model (rested, 28 Alliance branches): this guide 196.8 -> 181.4 minutes, 13 minutes less to 60, no level and no over-level spot moved."
+			},
+			{
+				"a": [
+					"task",
+					201
+				],
+				"b": [
+					"accept",
+					185
+				],
+				"faction": "Alliance",
+				"why": "#2419: with Booty Bay first, Krazek's Investigate the Camp (201) is in the log when the player first reaches Nesingwary's camp: it is done there, not on a trip back at the end of the loop."
+			},
+			{
+				"a": [
+					"turnin",
+					198
+				],
+				"b": [
+					"task",
+					203
+				],
+				"faction": "Alliance",
+				"why": "#2419: with Booty Bay first, Supplies to Private Thorsen (198) goes to Thorsen on the first Rebel Camp stop, before the Kurzen work, not on a trip back at the end of the loop."
+			},
+			{
+				"a": [
+					"task",
+					575
+				],
+				"b": [
+					"turnin",
+					185
+				],
+				"faction": "Alliance",
+				"why": "#2419: with Booty Bay first, Supply and Demand (575) is in the log on the first Nesingwary stop, and its River Crocolisks (30-31) swim the river beside the camp: the skins come there, not on a step of their own between the coast and the hearth back."
 			}
 		],
 		"notes": [
@@ -8699,6 +8747,16 @@
 				"q": 87491,
 				"size": 2,
 				"why": "#1313: Spark of Freedom's Captive Fire Elemental (271481, Wetlands 45.67,16.66) is held at the far west of Dun Modr's Dark Iron ruins; every Dark Iron there is elite in the game's creature data (1051-1054 and 6523 at 27-30, Balgaras the Foul 1364 at 34), and the escort walks back east through them. Recorded: 2 people (0 established), one in a group of 4 at 26, one solo at 28. An escort through an elite town at the route's 30-32 is a group quest of 2, like Defeat Nek'rosh."
+			},
+			{
+				"q": 303,
+				"size": 2,
+				"why": "#2587 (swork1): The Dark Iron War is 30 kills of Dun Modr's Dark Irons, every one elite (Dwarf 27-28, Saboteur 28-29, Tunneler 29-30, Demolitionist 30-31; players' recordings: 2,171, 1,577, 1,683 and 654 elite kills), with Balgaras the Foul (34, elite) among them. Asked as a group quest on the Dun Modr stop with Spark of Freedom; the solo route leaves it out."
+			},
+			{
+				"q": 88756,
+				"size": 2,
+				"why": "#2587 (swork1): Bring Back a Bang's Stolen Explosives lie on Direforge Hill among the same elite Dark Irons (players' recordings: 103 loots by 34 people, all at Wetlands 60-63,24-29). Asked as a group quest on the Dun Modr stop; the solo route leaves it out."
 			},
 			{
 				"q": 1090,

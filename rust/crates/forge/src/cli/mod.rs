@@ -139,6 +139,7 @@ const GUIDE_HELP: &str = "usage: forge guide compile [<dir>] [options]
        forge guide seed [--checkout <dir>] [--force]
        forge guide publish --from <out>/guides [--data <dir>] [--checkout <dir>]
        forge guide check-generated [--checkout <dir>]
+       forge guide rehash [--checkout <dir>]
 
 compile: a pack's .guide files (docs/GUIDE_FORMAT.md) into its community addon folder, as its pack.json
 describes it (TOC, Pack.lua, MapFrames.lua, Guides.lua, LICENSE-DATA.txt, and LICENSE as LICENSE.txt).
@@ -190,6 +191,9 @@ Barrens) merged into that guide as their opening steps, its id retired; one legs
 trees'. --data: the quests' races for the races' copies (default data/forever/).
 check-generated: fail (exit 1) when a generated guide or a seed file was edited by hand, and say
 where the fix goes instead.
+rehash: recompute guides/GENERATED.json (every leveling guide with the generated header, legs.json)
+and forge/seed/SEED.json (every seed guide) from the files on disk: after the maintainer's hand edit
+to a generated guide and its seed copy, or for a merge conflict in either (take either side, run it).
 ";
 
 const SIM_HELP: &str = "usage: forge sim <command> [options]
