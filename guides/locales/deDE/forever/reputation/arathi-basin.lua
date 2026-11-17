@@ -9,7 +9,7 @@ return {
 	-- Guide
 	["Arathi Basin Reputation"] = "Ruf: Arathibecken",
 	["Every 200 resources your team gathers pays it; Exalted gives a Legacy Point, epic shoulders and the tabard."] = "Alle 200 gesammelten Ressourcen deines Teams zahlen sich aus; Ehrfürchtig gibt einen Vermächtnispunkt, epische Schultern und den Wappenrock.",
-	["Master of Arathi Basin: a Legacy Point at Exalted"] = "Meister des Arathibeckens: ein Vermächtnispunkt bei Ehrfürchtig",
+	["Master of Arathi Basin: a Legacy Point at Exalted"] = "Master of Arathi Basin: ein Vermächtnispunkt bei Ehrfürchtig",
 
 	-- Step 1: Refuge Pointe
 	-- {zone:1461} Arathi Basin
@@ -73,7 +73,7 @@ return {
 
 	-- Step 9: Samuel Hawke
 	-- {item:20073} Cloak of the Honor Guard · {item:20069} Ironbark Staff
-	["Exalted gives the Legacy Point \"Master of Arathi Basin\" and opens the epics: the level 60 Highlander's shoulders in every armor type (12g33s to 18g50s), {item:20073} (12g14s), {item:20069} (55g10s) and Sageclaw (44g24s), both from level 55."] = "Ehrfürchtig gibt den Vermächtnispunkt „Meister des Arathibeckens“ und schaltet die Epics frei: die Schultern des Highlanders für Stufe 60 in jeder Rüstungsart (12g33s bis 18g50s), {item:20073} (12g14s), {item:20069} (55g10s) und Sageclaw (44g24s), beide ab Stufe 55.",
+	["Exalted gives the Legacy Point \"Master of Arathi Basin\" and opens the epics: the level 60 Highlander's shoulders in every armor type (12g33s to 18g50s), {item:20073} (12g14s), {item:20069} (55g10s) and Sageclaw (44g24s), both from level 55."] = "Ehrfürchtig gibt den Vermächtnispunkt „Master of Arathi Basin“ und schaltet die Epics frei: die Schultern des Highlanders für Stufe 60 in jeder Rüstungsart (12g33s bis 18g50s), {item:20073} (12g14s), {item:20069} (55g10s) und Sageclaw (44g24s), beide ab Stufe 55.",
 	-- {npc:15127} Samuel Hawke
 	["{npc:15127}: Exalted rewards"] = "{npc:15127}: Belohnungen für Ehrfürchtig",
 
@@ -137,7 +137,7 @@ return {
 
 	-- Step 19: Rutherford Twing
 	-- {item:20068} Deathguard's Cloak · {item:20069} Ironbark Staff
-	["Exalted gives the Legacy Point \"Master of Arathi Basin\" and opens the epics: the level 60 Defiler's shoulders in every armor type (12g75s to 20g), {item:20068} (13g18s), {item:20069} (50g46s) and Mindfang (42g83s), both from level 55."] = "Ehrfürchtig gibt den Vermächtnispunkt „Meister des Arathibeckens“ und schaltet die Epics frei: die Schultern des Entweihten für Stufe 60 in jeder Rüstungsart (12g75s bis 20g), {item:20068} (13g18s), {item:20069} (50g46s) und Mindfang (42g83s), beide ab Stufe 55.",
+	["Exalted gives the Legacy Point \"Master of Arathi Basin\" and opens the epics: the level 60 Defiler's shoulders in every armor type (12g75s to 20g), {item:20068} (13g18s), {item:20069} (50g46s) and Mindfang (42g83s), both from level 55."] = "Ehrfürchtig gibt den Vermächtnispunkt „Master of Arathi Basin“ und schaltet die Epics frei: die Schultern des Entweihten für Stufe 60 in jeder Rüstungsart (12g75s bis 20g), {item:20068} (13g18s), {item:20069} (50g46s) und Mindfang (42g83s), beide ab Stufe 55.",
 	-- {npc:15126} Rutherford Twing
 	["{npc:15126}: Exalted rewards"] = "{npc:15126}: Belohnungen für Ehrfürchtig",
 
