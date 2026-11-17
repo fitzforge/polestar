@@ -9,6 +9,11 @@ pub const RELEASE_ADDONS: [&str; 6] = ["Polestar", "Polestar_Guides", "Polestar_
 /// FREEDOOM-COPYING.txt, CREDITS.md), loaded on demand the first time Play is pressed; shipped when present
 /// (committed), right after the game looks.
 pub const ARCADE: &str = "Polestar_Arcade";
+/// Parts of a shipped folder that stay in the repository and out of the release zip (archive paths; a name
+/// ending in `/` is a folder and everything in it): Freedoom Arcade's own build, test and publish scripts, its
+/// CurseForge page images, and the standalone addon's TOC under src/ (the client never reads a TOC there).
+/// Its licences, credits, README and changelog ship.
+pub const NOT_SHIPPED: &[&str] = &["Polestar_Arcade/tools/", "Polestar_Arcade/curseforge/", "Polestar_Arcade/src/FreedoomArcade.toc"];
 /// The Codex folder (Lookup, Dungeons and Rares read it): a release refuses to go without it.
 pub const CODEX: &str = "Polestar_Codex";
 /// The optional recorder, in a zip of its own.
