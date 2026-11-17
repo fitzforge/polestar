@@ -588,6 +588,8 @@ pub struct Stats {
 	/// Corrected values the recordings disagreed with (`"<section> <id>: <field>"`): the
 	/// corrections were kept.
 	pub overruled: Vec<String>,
+	/// Per quest, the NPCs counted players handed it in to (a `turnin` in that NPC's window).
+	pub npc_hand_ins: FxHashMap<i64, FxHashSet<i64>>,
 }
 
 type ByMap = IndexMap<i64, Vec<P>>;
@@ -2131,8 +2133,10 @@ fn game_objectives(q: &V, c: &ClientList, windows: &FxHashSet<i64>) -> Game {
 }
 
 /// A quest's recorded XP: the base reward when one was seen, else the log or turn-in values of
-/// players near the quest's level. Each player gives one value (the highest it saw); the quest
-/// gets the lower median of them, a value a player saw that one outlying player cannot move.
+/// players near the quest's level. Each player gives one value: the highest its quest log showed,
+/// and only without one the highest it was paid at the turn-in (a turn-in can carry a bonus of the
+/// player's own: 4,532 paid where the quest log shows 4,400, #2585). The quest gets the lower
+/// median of them, a value a player saw that one outlying player cannot move.
 /// Another source's XP is replaced only on trusted evidence (`recorder:xp-<kind>`); otherwise the
 /// recorded XP only fills a quest that has none (`recorder-gap:xp`).
 fn resolve_xp(q: &V, list: &[(&'static str, i64, Option<i64>, usize)], contributors: &IndexSet<String>, min: usize) {
@@ -2141,10 +2145,11 @@ fn resolve_xp(q: &V, list: &[(&'static str, i64, Option<i64>, usize)], contribut
 		let level = q.get("level");
 		pick = list.iter().filter(|o| o.0 != "base" && (matches!(level, V::Null) || o.2.is_some_and(|l| (l as f64) <= level.num() + FULL_XP_LEVELS))).collect();
 	}
+	let rank = |kind: &str| u8::from(kind == "turnin");
 	let mut per: IndexMap<usize, (&str, i64)> = IndexMap::new();
 	for o in &pick {
 		let best = per.entry(o.3).or_insert((o.0, o.1));
-		if o.1 > best.1 {
+		if (rank(o.0), std::cmp::Reverse(o.1)) < (rank(best.0), std::cmp::Reverse(best.1)) {
 			*best = (o.0, o.1);
 		}
 	}
@@ -2226,6 +2231,12 @@ fn resolve_factions(factions: &Obj, seen: &IndexMap<i64, IndexSet<String>>, pare
 		}
 		factions.set_str(key, canonical(&f, &FACTION_KEYS));
 	}
+}
+
+/// A recorded quest title that may vote: not empty, and none of the game's text tokens ($C, $R, $N:
+/// the client fills them in for the player, some sessions record them raw: "A $C's Training").
+fn plain_title(t: &str) -> bool {
+	!t.is_empty() && !t.contains('$')
 }
 
 /// Applies the recordings that count over the tables (see the module doc); `min_voters` is
@@ -2325,7 +2336,7 @@ pub fn apply_recordings<R: std::borrow::Borrow<Recording>>(
 			match (&*e, qid) {
 				("accept", Some(qid)) => {
 					if let Some(q) = ov.quest(qid) {
-						if let Some(t) = ev.get("title").as_str().filter(|t| !t.is_empty()) {
+						if let Some(t) = ev.get("title").as_str().filter(|t| plain_title(t)) {
 							q.title[lang].vote(V::str(t), &who);
 						}
 						if let Some(l) = pos_int(&ev.get("qlvl")) {
@@ -2366,6 +2377,7 @@ pub fn apply_recordings<R: std::borrow::Borrow<Recording>>(
 						ov.xp_obs(qid, "turnin", &ev.get("xpReward"), &ev.get("lvl"));
 					}
 					if let Some(n) = npc {
+						ov.stats.npc_hand_ins.entry(qid).or_default().insert(n);
 						ov.live_point("npc", n, &ev.get("npcName"), &ev);
 					}
 					if let Some(o) = pos_int(&ev.get("object")) {
@@ -2374,7 +2386,7 @@ pub fn apply_recordings<R: std::borrow::Borrow<Recording>>(
 				}
 				("text", Some(qid)) => {
 					if let Some(q) = ov.quest(qid) {
-						if let Some(t) = ev.get("title").as_str().filter(|t| !t.is_empty()) {
+						if let Some(t) = ev.get("title").as_str().filter(|t| plain_title(t)) {
 							q.title[lang].vote(V::str(t), &who);
 						}
 					}
@@ -3013,6 +3025,40 @@ mod tests {
 		t.apply(&recs);
 		assert_eq!(t.npcs.get("1568").get("spawns").get("1420").get("f").as_str(), Some("q"), "one player's spawn, however many installs");
 		assert_eq!(t.items.get("2589").get("drops").get("npc").get("1501").as_num(), Some(5.0), "one player's drop chance, however many installs");
+	}
+
+	#[test]
+	fn a_recorded_title_with_the_games_text_tokens_never_replaces_the_title() {
+		// #2585: some sessions record a class quest's title raw ("A $C's Training"); players would
+		// see "$C". Three players' raw titles leave the title alone; a plain one still replaces it.
+		let title = |t: &str| vec![format!(r#"{{"t":1,"e":"text","q":364,"title":"{t}"}}"#)];
+		let after = |t: &str| {
+			let mut recs: Vec<Recording> = [old("a", A, &title(t)), old("b", B, &title(t)), old("c", C, &title(t))].into_iter().chain([play(A), play(B), play(C)]).collect();
+			establish(&mut recs, ESTABLISH);
+			let tb = Tables::new(QUESTS, "{}", "{}");
+			tb.apply(&recs);
+			tb.quest("364").get("title").as_str().map(str::to_string)
+		};
+		assert_eq!(after("The $C of the Damned").as_deref(), Some("The Damned"));
+		assert_eq!(after("The Damned (Forever)").as_deref(), Some("The Damned (Forever)"));
+	}
+
+	#[test]
+	fn quest_xp_is_what_the_quest_log_shows_not_a_players_bonus_at_the_turn_in() {
+		// #2585: most players are paid 3% over the quest's reward at the turn-in (a bonus of their
+		// own); the log at the accept shows the quest's reward. A player seen only at the turn-in
+		// still counts with that value.
+		let both = vec![r#"{"t":1,"e":"accept","q":364,"rewardXp":440,"lvl":3}"#.to_string(), r#"{"t":2,"e":"turnin","q":364,"xpReward":453,"lvl":3}"#.to_string()];
+		let turnin_only = vec![r#"{"t":2,"e":"turnin","q":364,"xpReward":453,"lvl":3}"#.to_string()];
+		let xp = |recs: Vec<Recording>| {
+			let mut recs: Vec<Recording> = recs.into_iter().chain([play(A), play(B), play(C)]).collect();
+			establish(&mut recs, ESTABLISH);
+			let t = Tables::new(QUESTS, "{}", "{}");
+			t.apply(&recs);
+			t.quest("364").get("xp").as_num()
+		};
+		assert_eq!(xp(vec![old("a", A, &both), old("b", B, &both), old("c", C, &both)]), Some(440.0));
+		assert_eq!(xp(vec![old("a", A, &turnin_only), old("b", B, &turnin_only), old("c", C, &turnin_only)]), Some(453.0));
 	}
 
 	#[test]

@@ -791,6 +791,7 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 			live: changed_set.iter().copied().collect(),
 			corrections: corrections.clone(),
 			correction_origins: correction_origins.clone(),
+			npc_hand_ins: rec.npc_hand_ins.clone(),
 			// The fact check's local database is a local-only source.
 			facts_file: if cfg!(feature = "local-sources") { Some(local.join("factcheck").join("facts.sqlite")) } else { None },
 			tdb: tdb.as_ref().filter(|t| t.get("schema").num() >= 2.0).cloned(),

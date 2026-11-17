@@ -572,7 +572,7 @@
 			"kind": "client",
 			"ref": "creaturecache.wdb (1.60.1.70888): rank 2 (rare), as the knowledge base of the data build of 2026-11-13 recorded it (kb:client.cache:rank)"
 		},
-		"note": "Tunnelweb Matriarch is a rare on Forever: the server's creature answer the 70888 client cached said so. The 70938 client's cache no longer holds the creature and no other source gives a rank, so the 0.4.0 data had dropped her from the Codex's rares."
+		"note": "Tunnelweb Matriarch is a rare on Forever: the server's creature answer the 70888 client cached said so. The 70938 client's cache no longer holds the creature and no other source gives a rank, so the 0.4.0 data had dropped her from Lookup's rares."
 	},
 	"250483": {
 		"set": {
