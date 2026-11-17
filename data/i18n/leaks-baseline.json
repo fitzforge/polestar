@@ -32402,13 +32402,6 @@
 				],
 				"english": "Grimlok"
 			},
-			"encounter:594": {
-				"reason": "same-as-english",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Gahz'rilla"
-			},
 			"encounter:595": {
 				"reason": "same-as-english",
 				"scenes": [
@@ -34269,13 +34262,6 @@
 					"guides"
 				],
 				"english": "Polly"
-			},
-			"npc:7273": {
-				"reason": "same-as-english",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Gahz'rilla"
 			},
 			"npc:7311": {
 				"reason": "same-as-english",
