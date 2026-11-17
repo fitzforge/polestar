@@ -28,6 +28,10 @@ return {
 	["{npc:773}: Nesingwary's camp, on the way"] = "",
 	-- {npc:737} Kebok
 	["{npc:737}, in the tavern"] = "{npc:737}, dans la taverne",
+	-- {npc:737} Kebok
+	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
+	-- was: ["{npc:737}: the Tumbled Crystals, on the northern loop"] = "{npc:737} : les Cristaux réduits, lors de la boucle nord"
+	["{npc:737}: the Tumbled Crystals, on the northern loop"] = "",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, upstairs in the tavern"] = "{npc:2496}, à l'étage de la taverne",
 
@@ -150,9 +154,6 @@ return {
 	["{npc:773}, from {npc:770}"] = "{npc:773}, de la part de {npc:770}",
 	-- {npc:737} Kebok
 	["{npc:737}'s Bloodscalp ears wait for the second Stranglethorn loop: keep the quest."] = "Les oreilles Bloodscalp de {npc:737} attendent la deuxième boucle de Strangleronce : gardez la quête.",
-	-- {npc:737} Kebok
-	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
-	["{npc:737}, in the tavern: the Tumbled Crystals, on the northern loop"] = "",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}: the water elementals rise around the haunted island, on the northern loop"] = "{npc:2496} : les élémentaires d'eau surgissent autour de l'île hantée, lors de la boucle nord",
 

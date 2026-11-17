@@ -28,6 +28,9 @@ return {
 	["{npc:773}: Nesingwary's camp, on the way"] = "",
 	-- {npc:737} Kebok
 	["{npc:737}, in the tavern"] = "{npc:737} – в таверне",
+	-- {npc:737} Kebok
+	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
+	["{npc:737}: the Tumbled Crystals, on the northern loop"] = "",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, upstairs in the tavern"] = "{npc:2496} – наверху в таверне",
 
@@ -150,9 +153,6 @@ return {
 	["{npc:773}, from {npc:770}"] = "",
 	-- {npc:737} Kebok
 	["{npc:737}'s Bloodscalp ears wait for the second Stranglethorn loop: keep the quest."] = "Уши Кровавого Скальпа для NPC {npc:737} ждут второго круга по Тернистой долине: сохраните задание.",
-	-- {npc:737} Kebok
-	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
-	["{npc:737}, in the tavern: the Tumbled Crystals, on the northern loop"] = "",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}: the water elementals rise around the haunted island, on the northern loop"] = "",
 

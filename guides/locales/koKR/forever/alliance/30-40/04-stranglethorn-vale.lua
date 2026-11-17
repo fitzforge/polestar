@@ -28,6 +28,9 @@ return {
 	["{npc:773}: Nesingwary's camp, on the way"] = "",
 	-- {npc:737} Kebok
 	["{npc:737}, in the tavern"] = "{npc:737}, 선술집 안",
+	-- {npc:737} Kebok
+	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
+	["{npc:737}: the Tumbled Crystals, on the northern loop"] = "",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, upstairs in the tavern"] = "{npc:2496}, 선술집 위층",
 
@@ -150,9 +153,6 @@ return {
 	["{npc:773}, from {npc:770}"] = "",
 	-- {npc:737} Kebok
 	["{npc:737}'s Bloodscalp ears wait for the second Stranglethorn loop: keep the quest."] = "{npc:737}의 붉은머리부족 귀는 두 번째 가시덤불 골짜기 순회 때 모읍니다. 퀘스트는 보관하세요.",
-	-- {npc:737} Kebok
-	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
-	["{npc:737}, in the tavern: the Tumbled Crystals, on the northern loop"] = "",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}: the water elementals rise around the haunted island, on the northern loop"] = "",
 
