@@ -225,6 +225,18 @@ function ns.FormatDistance(yards, opts)
 	return L["%d yd"]:format(math.floor(yards / round + 0.5) * round)
 end
 
+-- True when the character has the riding skill, so an overland leg reads
+-- "Ride to ..." instead of "Walk to ..." (Nav/Travel.lua, the Engine's arrow,
+-- the journey panel). Checked when a route's captions are made, not whether
+-- the player is mounted now; false while the skills are not known yet.
+-- 762: Compat.SKILL_LINES' riding, the line QoL/Riding.lua reads too.
+local RIDING = 762
+function ns.CanRide()
+	local C = ns.Compat
+	local rank = C and C.GetSkillRank and C.GetSkillRank(RIDING)
+	return type(rank) == "number" and rank > 0
+end
+
 -- The rolling debug log: the last DEBUG_LINES lines Polestar noted (ns.Debug,
 -- caught errors, blocked calls), kept whether or not debug output is on, so
 -- a report carries what led up to a problem (UI/Report.lua). A ring: one
@@ -1062,10 +1074,11 @@ function ns.StartDrag(handle, frame, opts, x0, y0)
 	return true
 end
 
--- ns.StopDrag(): the move under way ends where the pointer is (onStop after a move).
-function ns.StopDrag()
+-- ns.StopDrag(keepPosition): end the move at the pointer, or keep the last
+-- position if the frame can no longer move (onStop after a move).
+function ns.StopDrag(keepPosition)
 	if not dragging then return end
-	dragTo(dragging)
+	if not keepPosition then dragTo(dragging) end
 	dragEnd()
 end
 

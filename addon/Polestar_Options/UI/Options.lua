@@ -456,8 +456,8 @@ local BUILTIN = {
 			search = "close quest window, auto close, skip quests" },
 		{ kind = "toggle", key = "behavior.warnClosing", label = L["Warn about missable quests"], help = L["Before you take a quest that closes another for good, says which in chat and leaves the accept to you."],
 			search = "missable, exclusive quests, breadcrumb, warning" },
-		{ kind = "toggle", key = "behavior.skipGrey", label = L["Skip grey quests"], help = L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."],
-			search = "gray quests, low level quests, trivial, skip easy quests" },
+		{ kind = "toggle", key = "behavior.skipGrey", label = L["Skip grey quests"], help = L["Leaves out grey quests, and quests behind you that pay less than full XP when going back for them costs more time than they give. A quest still paying full XP stays, and so does one a later quest needs. The guide window says what it left out."],
+			search = "gray quests, low level quests, trivial, skip easy quests, green quests, reduced xp, left out" },
 		-- A quest the route had passed that leaves the log (Engine Own.holdLost,
 		-- #1365): the guide window asks, or the answer is always the same.
 		{ kind = "dropdown", key = "behavior.lostQuests", label = L["When you abandon a guide quest"],
@@ -3304,7 +3304,7 @@ local function profileMenu(button)
 	end
 	items[#items + 1] = { separator = true }
 	items[#items + 1] = { text = L["Manage profiles"], icon = "layers", onClick = function() O.Select("profiles") end }
-	W.ShowMenu(button, items, { point = "BOTTOMRIGHT", relPoint = "TOPRIGHT", y = 4 })
+	W.ShowMenu(button, items, { point = "BOTTOMRIGHT", relPoint = "TOPRIGHT", y = 4, current = true })
 end
 
 ---------------------------------------------------------------------------

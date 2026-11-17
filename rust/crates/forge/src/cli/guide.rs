@@ -89,6 +89,13 @@ fn solo_exclusions(sim: &Path, root: &Path, data_dir: &Path) -> (Obj, Vec<&'stat
 	(excluded, stale)
 }
 
+/// data/route-fixes.json's `overrides.leftout` ($POLESTAR_ROUTE_FIXES names another file): the second-visit
+/// accepts the route leaves out on purpose (forge_guide::revisit). Nothing when the file is missing.
+fn route_leftout(root: &Path) -> V {
+	let path = std::env::var_os("POLESTAR_ROUTE_FIXES").map(PathBuf::from).unwrap_or_else(|| root.join("data/route-fixes.json"));
+	std::fs::read_to_string(path).ok().and_then(|t| parse_json(&t).ok()).map(|d| d.get("overrides").get("leftout")).unwrap_or(V::Undef)
+}
+
 /// The `dataHash` a world built now from `data_dir` would carry (forge_world::inputs; None when the
 /// inputs cannot be read).
 fn data_hash(root: &Path, data_dir: &Path) -> Option<String> {
@@ -103,7 +110,7 @@ fn data_hash(root: &Path, data_dir: &Path) -> Option<String> {
 	Some(forge_world::inputs::inputs_hash(&inputs))
 }
 
-/// `forge guide seed|publish|check-generated` (forge::generated).
+/// `forge guide seed|publish|check-generated|rehash` (forge::generated).
 fn generated(cmd: &str, args: &[String]) -> i32 {
 	use forge::generated;
 	let usage = |m: &str| {
@@ -163,6 +170,19 @@ fn generated(cmd: &str, args: &[String]) -> i32 {
 				Err(e) => fail(&e),
 			}
 		}
+		"rehash" => match generated::rehash(&checkout) {
+			Ok(done) if done.is_empty() => {
+				eprintln!("forge guide rehash: {} has no {} or {}: nothing to do", checkout.display(), generated::GENERATED, generated::SEED_MANIFEST);
+				0
+			}
+			Ok(done) => {
+				for (manifest, n) in &done {
+					eprintln!("forge guide rehash: {manifest}: {n} files, hashed from what is on disk");
+				}
+				0
+			}
+			Err(e) => fail(&e),
+		},
 		_ => match generated::check(&checkout) {
 			Ok(bad) if bad.is_empty() => {
 				eprintln!("forge guide check-generated: no generated guide or seed file is edited");
@@ -374,14 +394,14 @@ fn run() -> i32 {
 	if cmd == "check" {
 		return guidecheck(&args[1..]);
 	}
-	if matches!(cmd.as_str(), "seed" | "publish" | "check-generated") {
+	if matches!(cmd.as_str(), "seed" | "publish" | "check-generated" | "rehash") {
 		return generated(&cmd, &args[1..]);
 	}
 	if cmd == "bake" {
 		return bake(&args[1..]);
 	}
 	if cmd != "compile" && cmd != "lint" {
-		return usage(&format!("unknown command {cmd}: compile, lint, check, bake, seed, publish or check-generated"));
+		return usage(&format!("unknown command {cmd}: compile, lint, check, bake, seed, publish, check-generated or rehash"));
 	}
 	let rest = &args[1..];
 	let values: &[&str] = if cmd == "compile" { &COMPILE_VALUES } else { &LINT_VALUES };
@@ -469,7 +489,7 @@ fn run() -> i32 {
 	};
 	let Some(manifest) = manifest.filter(|m| m.truthy() && refused.is_none()) else {
 		if let Some(why) = refused {
-			extra.push(Diag { severity: "error", file: Some(forge_guide::project::shown(&pack_dir.join("pack.json"))), line: 1.0, message: why, hint: None });
+			extra.push(Diag { severity: "error", file: Some(forge_guide::project::shown(&pack_dir.join("pack.json"))), line: 1.0, message: why, hint: None, rule: None });
 		}
 		print_diagnostics(&extra, &fmt, quiet);
 		if summary {
@@ -518,6 +538,8 @@ fn run() -> i32 {
 	let mut diag = built.project.diag;
 	let mut stale = Vec::new();
 	if cmd == "lint" {
+		// The play checks are errors in a lint of our pack (warnings in a compile, so the tools that compile it go on).
+		diag.promote_play_checks();
 		// The default world was built from the default data; other data needs its own --sim.
 		let sim = if no_data { None } else { opt("--sim").map(at).or_else(|| opt("--data").is_none().then(|| root.join("data/sim"))) };
 		let excluded = match sim {
@@ -529,6 +551,10 @@ fn run() -> i32 {
 			None => Obj::new(),
 		};
 		forge_guide::validate::validate_solo_policy(&built.project.guides, &V::Obj(excluded), &mut diag);
+		// Second visits (revisit.rs): Polestar's own guides, with the route's `leftout` records.
+		if official {
+			forge_guide::revisit::check_second_visits(&built.project.guides, &route_leftout(&root), &mut diag);
+		}
 	}
 	let t_built = t0.elapsed();
 	let out = match opt("--out") {

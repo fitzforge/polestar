@@ -638,7 +638,12 @@ ns.UI.GuideFrame.Part(function(GF)
 			local title = n.free == 0 and L["Your bags are full."]
 				or string.format(n.free == 1 and L["Bags nearly full: %d slot left."] or L["Bags nearly full: %d slots left."], n.free)
 			local j, Q = n.junk, ns.QoL
-			if j then
+			if n.spare then
+				-- A spare bag to equip comes before any delete (#2369).
+				local s = n.spare
+				banner.Text:SetText(title .. "\n" .. string.format(L["Spare bag: %s"], s.link or (L["Item"] .. " " .. s.id)))
+				placeLink(banner.Jump, L["Equip it"], 0, -4)
+			elseif j then
 				local worth = j.value < math.huge and Q.Money(j.value) or "?"
 				banner.Text:SetText(title .. "\n" .. string.format(L["Cheapest junk: %s (%s)"], Q.Space.ItemText(j), worth))
 				placeLink(banner.Jump, n.armed and L["Click again to delete it"] or L["Delete it"], 0, -4)
@@ -753,7 +758,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			local CQ = ns.QoL and ns.QoL.ClassQuests
 			if CQ and CQ.Resolve then CQ.Resolve(n.guideId) end
 		elseif kind == "bags" then
-			-- The first click arms the item, the second deletes it.
+			-- Equips a spare bag; else the first click arms the item, the second deletes it.
 			ns.QoL.Space.Press()
 		elseif kind == "wear" then
 			ns.QoL.Wear.Take()

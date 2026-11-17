@@ -12,15 +12,15 @@ return {
 	-- Step 1: Learn to ride
 	["Learn to ride"] = "學習騎術",
 	-- {npc:4752} Kildar · {npc:3362} Ogunaro Wolfrunner · {faction:76} Orgrimmar · {object:172958} Valley of Honor · {skill:762} Riding
-	["{npc:4752} and {npc:3362}'s kennel are in {faction:76}'s {object:172958}. At 40 {npc:4752} teaches {skill:762} to Orcs for 100g (10% less at Honored with {faction:76}), and it comes with a wolf. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "",
+	["{npc:4752} and {npc:3362}'s kennel are in {faction:76}'s {object:172958}. At 40 {npc:4752} teaches {skill:762} to Orcs for 100g (10% less at Honored with {faction:76}), and it comes with a wolf. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "{npc:4752}和{npc:3362}的狼舍在{faction:76}的{object:172958}。40級時{npc:4752}以100金向獸人傳授{skill:762}（{faction:76}尊敬時優惠10%），學成後附帶一頭座狼。其他種族在本種族的騎術訓練師處學習{skill:762}並同時獲得本族首匹坐騎。",
 	-- {npc:4752} Kildar
 	["{npc:4752}, riding trainer"] = "騎術訓練師{npc:4752}",
 
 	-- Step 2: Wolf Riding for other races
 	-- {spell:825} Wolf Riding
-	["{spell:825} for other races"] = "",
+	["{spell:825} for other races"] = "{spell:825}（其他種族）",
 	-- {spell:825} Wolf Riding · {skill:762} Riding · {npc:4752} Kildar · {faction:76} Orgrimmar
-	["Any Horde race can buy these wolves, but riding one also takes {spell:825}, which only Orcs get with {skill:762}. {npc:4752} teaches it to other races once they are Exalted with {faction:76} (the Orgrimmar Reputation guide shows the way). Until then, don't buy a wolf for this character."] = "",
+	["Any Horde race can buy these wolves, but riding one also takes {spell:825}, which only Orcs get with {skill:762}. {npc:4752} teaches it to other races once they are Exalted with {faction:76} (the Orgrimmar Reputation guide shows the way). Until then, don't buy a wolf for this character."] = "任何部落種族都能購買這些座狼，但騎乘還需要{spell:825}，它只有獸人能隨{skill:762}一併獲得。其他種族需在{faction:76}達到崇拜後由{npc:4752}傳授（奧格瑪聲望指南有詳細方法）。在此之前，別給這個角色買座狼。",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "挑選顏色",

@@ -2795,10 +2795,11 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 					// What the guide window reads before the quest is in the log, and its "Use <item>:" (#942):
 					// the data's objectives (text, count) and the item the quest hands over when taken.
 					let objs: V = V::arr();
+					// A placeholder's text ("[DNT] Kill Credit") never reaches the window: the name it carries, or no line.
 					for o in q.get("objectives").items() {
-						if o.get("text").truthy() {
+						if let Some(text) = o.get("text").as_str().and_then(crate::placeholder::shown) {
 							let e: V = V::obj();
-							e.set("text", V::from(o.get("text").to_js_string()));
+							e.set("text", V::from(text));
 							e.set("count", if o.get("count").num() > 0.0 { o.get("count").num() } else { 1.0 });
 							objs.push(e);
 						}
@@ -3906,7 +3907,46 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 	if !goal.get("grind").is_undef() && goal.get("x").is_undef() {
 		r.warn(&ln, format!("`grind {}` has no known spawns here: the arrow keeps the step's goto", goal.get("grind")), None);
 	}
+	if v == "kill" || v == "talk" {
+		placeholder_target(&goal, &g.get("note"), r, &ln);
+	}
 	goal
+}
+
+/// A `kill` or `talk` goal on one of the game's placeholder targets (#2614: Alterac Valley's "PvP Graveyard
+/// Credit Marker" and "Trigger Ichman", a "[DNT] Kill Credit"): read by its quest-log line (`logLine`, the
+/// engine's line in the game's words), named for the window by the name the placeholder carries, else its
+/// objective's own text, else the goal's note; its NPC dropped (after its place was taken from its spawns),
+/// so nothing names or targets the placeholder. One with none of the three is an error.
+fn placeholder_target(goal: &V, note: &V, r: &mut R, ln: &V) {
+	let data = r.data;
+	let npc = goal.get("npc");
+	let Some(name) = (if npc.is_undef() { None } else { name_of(data, "npc", &npc) }) else { return };
+	if !crate::placeholder::banned(&name) {
+		return;
+	}
+	let objective = || {
+		let i = goal.get("oi").num();
+		if goal.get("quest").is_undef() || !(i >= 1.0 && is_integer(i)) {
+			return None;
+		}
+		let o = data.quest(&goal.get("quest")).get("objectives").at(i as usize - 1);
+		o.get("text").as_str().and_then(crate::placeholder::shown)
+	};
+	let shown = crate::placeholder::carried(&name).or_else(objective).or_else(|| note.as_str().and_then(crate::placeholder::shown));
+	let Some(shown) = shown else {
+		r.err(
+			ln,
+			format!("npc {npc} is the game's placeholder \"{name}\", and nothing names what the player does"),
+			Some("bind it to its objective (`quest Q.O`) and give the objective its text in forever-db/corrections/quests.json, or add a `--` note"),
+		);
+		return;
+	};
+	goal.set(if goal.get("t").as_str() == Some("talk") { "npcName" } else { "target" }, shown);
+	goal.set("logLine", true);
+	if let Some(o) = goal.as_obj() {
+		o.delete("npc");
+	}
 }
 
 /// Warn when explicit coordinates are far from every known spawn (same map frame only).

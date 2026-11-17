@@ -208,12 +208,17 @@ L["Repair before heading out: gear at %d%%"] = "출발 전에 수리: 장비 내
 L["The guide heads out of town next and your gear is worn: repair it here before it breaks."] = "가이드가 곧 마을을 떠나는데 장비가 많이 닳았습니다. 부서지기 전에 여기서 수리하세요."
 L["Sell before heading out: %s"] = "출발 전에 판매: %s"
 L["The guide heads out of town next and your bags are nearly full: sell what you don't need here."] = "가이드가 곧 마을을 떠나는데 가방이 거의 가득 찼습니다. 필요 없는 아이템을 여기서 판매하세요."
+L["Pays %d%% XP at your level and is out of the way (Skip grey quests)"] = "현재 레벨에서 경험치 %d%%만 주고 경로에서 벗어나 있습니다 (회색 퀘스트 건너뛰기)"
+L["Grey for you: pays %d%% XP (Skip grey quests)"] = "회색 퀘스트: 경험치 %d%% (회색 퀘스트 건너뛰기)"
 -- L["Put in the bank"] = ""
 -- L["Take off"] = ""
 -- L["Equip"] = ""
 -- L["Reach %d points into %s with"] = ""
 -- L["Lose"] = ""
 -- L["Gain"] = ""
+L["Journeyman %s"] = "숙련 %s"
+L["Expert %s"] = "전문 %s"
+L["Artisan %s"] = "대가 %s"
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "보상을 선택해 제출을 마치십시오."
@@ -616,9 +621,9 @@ L["Timed quest alerts"] = "시간 제한 퀘스트 알림"
 L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] = "시간 제한 퀘스트가 5분 남았을 때, 1분 남았을 때, 그리고 실패했을 때 대화창 메시지와 소리로 알립니다. 가이드 창에는 남은 시간이 항상 표시됩니다."
 L["Party chat"] = "파티 채팅"
 -- L["On a mob that drops a quest item you still need, or an object it comes out of, show how often."] = ""
--- L["Quest givers and turn-ins"] = ""
+L["Quest givers and turn-ins"] = "퀘스트 제공자와 제출"
 -- L["On an NPC, name the quests it has for you now and the finished quests you can hand in to it."] = ""
--- L["Replace the game's quest lines"] = ""
+L["Replace the game's quest lines"] = "게임의 퀘스트 줄 대체"
 -- L["On mobs and objects, leave out the game's own lines for the quests these tooltips name, so each quest shows once. In a group the game's lines stay: they show your party's progress."] = ""
 
 -- Quests/Party.lua
@@ -1144,7 +1149,7 @@ L["Lists the quest items you can buy at an auction house instead of farming them
 L["Lists the current step's mobs, or the NPCs it sends you to when it has no mob, with their portraits and what they drop; click a name to target that one. Its key binding targets the first one close by."] = "현재 단계의 몹을, 몹이 없으면 단계가 안내하는 NPC를 초상화와 드롭 아이템과 함께 보여 줍니다. 이름을 클릭하면 그 대상을 지정합니다. 단축키는 가까이 있는 첫 번째 대상을 지정합니다."
 L["Names in the target list"] = "대상 목록의 이름 수"
 L["How many of the step's mobs the target list shows, in guide order."] = "대상 목록에 단계의 몹을 가이드 순서대로 몇 개까지 보여 줄지 정합니다."
--- L["Completed quest XP"] = ""
+L["Completed quest XP"] = "완료한 퀘스트 경험치"
 -- L["Shows XP from completed quests you can turn in on the game's XP bar and in its tooltip."] = ""
 
 -- Lookup/Sources.lua
@@ -1200,6 +1205,8 @@ L["Enter"] = "입장"
 L["Choose this reward:"] = "이 보상 선택:"
 L["Lookup"] = "찾아보기"
 L["%s: click through what they say until the quest's line is done."] = "%s: 퀘스트 목표가 완료될 때까지 대화를 끝까지 넘기십시오."
+L["%s: use %s to call it up."] = "%s: 불러내려면 %s 사용"
+L["Use %s to learn it."] = "배우려면 %s 사용"
 
 -- Lookup/Spotter.lua
 L["From"] = "출처"
@@ -1613,6 +1620,16 @@ L["A later guide of your route hands these in: keep them. Click to see each with
 L["No guide of your route takes, works or hands these in. Click to see them and keep or abandon each."] = "경로의 어떤 가이드도 이 퀘스트를 받거나 진행하거나 제출하지 않습니다. 클릭하면 퀘스트를 보고 각각 보관하거나 포기할 수 있습니다."
 L["Click to see its quests in Dungeons"] = "클릭하여 던전에서 퀘스트 보기"
 L["Click to open it in Dungeons"] = "클릭하여 던전에서 열기"
+L["Click for a guide to it, through what it needs first"] = "클릭하면 먼저 필요한 퀘스트부터 차례로 가이드합니다"
+L["Brings back the quests it leaves out. Options, Automation turns it on again."] = "제외한 퀘스트를 다시 표시합니다. 옵션의 자동화에서 다시 켤 수 있습니다."
+L["Click to see them, each with an Abandon button"] = "클릭하면 포기 버튼과 함께 목록을 봅니다"
+L["Too far below the next quests: the guide has you grind to the level they need. Or do what's around you first."] = "다음 퀘스트보다 레벨이 너무 낮아 가이드가 필요한 레벨까지 사냥하도록 안내합니다. 주변의 할 일을 먼저 해도 됩니다."
+L["Click to see its step"] = "클릭하면 해당 단계를 봅니다"
+L["You're %d: the quests after this are level %s"] = "현재 %d레벨: 다음 퀘스트는 %s레벨입니다"
+L["Worth doing near here: %s"] = "근처에서 할 만한 퀘스트: %s"
+L["%d left out here"] = "여기서 %d개 제외됨"
+L["Left out here"] = "여기서 제외됨"
+L["Turn off Skip grey quests"] = "회색 퀘스트 건너뛰기 끄기"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "%s행 승강기"
@@ -2075,6 +2092,7 @@ L["For a party levelling together: every one is in the route."] = "함께 레벨
 L["Point at a look to see it here; click it to wear it."] = "스킨에 마우스를 올리면 여기에서 미리 보고, 클릭하면 적용합니다."
 L["Built in"] = "기본 제공"
 L["Concept looks"] = "콘셉트 스킨"
+L["Leaves out grey quests, and quests behind you that pay less than full XP when going back for them costs more time than they give. A quest still paying full XP stays, and so does one a later quest needs. The guide window says what it left out."] = "회색 퀘스트와, 지나온 퀘스트 중 경험치를 다 주지 않으면서 되돌아가는 시간이 얻는 것보다 큰 퀘스트를 제외합니다. 경험치를 모두 주는 퀘스트와 이후 퀘스트에 필요한 퀘스트는 남습니다. 가이드 창에서 무엇을 제외했는지 알려 줍니다."
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "선택되어 있습니다: Ctrl+C(Mac은 Cmd+C)로 복사한 뒤 Esc를 누르십시오."
@@ -2134,6 +2152,8 @@ L["Install: %s"] = "설치: %s"
 L["While here: %s"] = "온 김에: %s"
 L["Travel: %s"] = "이동: %s"
 L["The report lists the settings you changed and your profile's name: no character names, chat, account or realm."] = "보고서에는 변경한 설정과 프로필 이름만 담깁니다. 캐릭터 이름, 대화, 계정, 서버는 포함되지 않습니다."
+L["Left out here: %d more"] = "여기서 제외됨: %d개 더"
+L["Left out here: %s"] = "여기서 제외됨: %s"
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "애드온 목록에서 꺼짐"
@@ -2234,7 +2254,6 @@ L["Never picks between rewards. Hold Shift to skip."] = "보상은 고르지 않
 L["Warn about missable quests"] = "놓칠 수 있는 퀘스트 경고"
 L["Before you take a quest that closes another for good, says which in chat and leaves the accept to you."] = "다른 퀘스트를 영영 막는 퀘스트를 받기 전에 대화창에 알리고, 수락은 직접 하게 합니다."
 L["Skip grey quests"] = "회색 퀘스트 건너뛰기"
-L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."] = "이후 퀘스트에 먼저 필요하지 않으면 회색 퀘스트와 그 제출을 뺍니다."
 L["Pick a guide for me"] = "가이드 자동 선택"
 L["Where to level next"] = "다음 레벨업 장소"
 L["Where a guide offers more than one zone to continue in (/polestar path)."] = "가이드가 이어갈 지역을 여럿 제시할 때 (/polestar path)."
@@ -4231,6 +4250,8 @@ L["Fargodeep Mine"] = "개미굴 광산"
 L["Lion's Pride Inn"] = "사자무리 여관"
 L["Stonefield Farm"] = "스톤필드 농장"
 L["Jasperlode Mine"] = "석영 광산"
+L["What it leaves out"] = "제외한 항목"
+L["A dim line where the guide passes over quests: open it to see each one and why, with a way to bring it back. Grind steps say what else is worth doing, and a line offers to clean up quests that aren't part of your route."] = "가이드가 퀘스트를 건너뛰는 곳에 흐린 줄을 표시합니다. 열면 각 퀘스트와 이유, 되돌리는 방법을 봅니다. 사냥 단계에서는 할 만한 다른 일을 알려 주고, 경로에 없는 퀘스트를 정리하자는 줄도 표시합니다."
 -- L["The size of the guide window's text, apart from its scale and the rest of Polestar's text (Theme > Text). The class quest card keeps that general size. Changes at once. Right-click to reset."] = ""
 
 -- UI/Looks/Toasts.lua
@@ -4484,6 +4505,9 @@ L["%s isn't in your quest log."] = "%s 퀘스트가 퀘스트 목록에 없습�
 L["That quest isn't in your quest log."] = "그 퀘스트는 퀘스트 목록에 없습니다."
 L["The quest log opens when combat ends."] = "퀘스트 목록은 전투가 끝나면 열립니다."
 L["Show in quest log"] = "퀘스트 목록에서 보기"
+L["Link in chat"] = "대화창에 링크"
+L["Middle-click: show in quest log. Shift-click: link in chat."] = "가운데 클릭: 퀘스트 목록에서 보기. Shift-클릭: 대화창에 링크."
+L["Shift-click: link in chat."] = "Shift-클릭: 대화창에 링크."
 
 -- Dungeons/Mark.lua
 L["Needed for %s in %s"] = "%s 퀘스트에 필요 (%s)"
@@ -4871,4 +4895,5 @@ L["Nothing to apply: the parts ticked are the same as yours."] = "적용할 것�
 -- L["Try %s"] = "%s 시도"
 -- L["Most of its quests are new in Forever."] = "대부분의 퀘스트가 Forever 신규입니다."
 -- L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "더 빠르면 아는 순간이동 주문(마법사의 도시 순간이동, 드루이드의 달의 숲)으로 경로를 시작합니다. 도시 순간이동에는 가방에 순간이동의 룬이 필요합니다."
+-- L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."] = "이후 퀘스트에 먼저 필요하지 않으면 회색 퀘스트와 그 제출을 뺍니다."
 -- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "창 크기와 별도로 Polestar 글자의 크기입니다. 바로 바뀝니다. 오른쪽 클릭하면 초기화."

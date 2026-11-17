@@ -30,11 +30,11 @@ return {
 	-- Step 3: Searing Gorge
 	["7 areas to discover here, levels 43-56."] = "這裡有7個區域要發現，等級43-56。",
 	-- {zone:1418} Badlands · {area:340} Kargath · {zone:1427} Searing Gorge
-	["The way in on foot is from the western {zone:1418}: the path by {area:340} climbs west into the {zone:1427}."] = "",
+	["The way in on foot is from the western {zone:1418}: the path by {area:340} climbs west into the {zone:1427}."] = "步行進入的路線在{zone:1418}西部：{area:340}旁的小徑向西爬升，進入{zone:1427}。",
 	-- {area:144} Thelsamar · {zone:1432} Loch Modan · {zone:1418} Badlands · {area:340} Kargath
-	["Fly to {area:144} and ride south through {zone:1432} into the {zone:1418}, then west to {area:340} (Horde guards)."] = "",
+	["Fly to {area:144} and ride south through {zone:1432} into the {zone:1418}, then west to {area:340} (Horde guards)."] = "飛到{area:144}，向南騎過{zone:1432}進入{zone:1418}，然後向西到{area:340}（部落守衛）。",
 	-- {area:340} Kargath · {zone:1418} Badlands
-	["Fly to {area:340} in the {zone:1418}."] = "",
+	["Fly to {area:340} in the {zone:1418}."] = "飛到{zone:1418}的{area:340}。",
 	-- {area:1446} Thorium Point · {npc:2941} Lanie Reed
 	["Flight path here: {area:1446} ({npc:2941})."] = "這裡的飛行路線：{area:1446}（{npc:2941}）。",
 	-- {area:1446} Thorium Point
@@ -53,13 +53,13 @@ return {
 	-- Step 6: Deadwind Pass
 	["3 areas to discover here, levels 50-60."] = "這裡有3個區域要發現，等級50-60。",
 	-- {zone:1428} Burning Steppes · {zone:1433} Redridge Mountains · {area:1002} Three Corners · {zone:1431} Duskwood · {area:42} Darkshire · {zone:1430} Deadwind Pass
-	["Take the pass south from the {zone:1428} into the {zone:1433}, follow the road south-west through {area:1002} into {zone:1431} and east past {area:42} into {zone:1430}."] = "",
+	["Take the pass south from the {zone:1428} into the {zone:1433}, follow the road south-west through {area:1002} into {zone:1431} and east past {area:42} into {zone:1430}."] = "從{zone:1428}沿隘口向南進入{zone:1433}，沿路向西南穿過{area:1002}進入{zone:1431}，再向東經過{area:42}進入{zone:1430}。",
 	["high-level undead around the tower: discover it from the road"] = "塔周圍有高等級亡靈：從道路上發現它",
 
 	-- Step 7: Blasted Lands (1/2)
 	["9 areas to discover here, levels 46-63."] = "這裡有9個區域要發現，等級46-63。",
 	-- {zone:1430} Deadwind Pass · {zone:1435} Swamp of Sorrows · {zone:1419} Blasted Lands · {area:1438} Nethergarde Keep
-	["Ride east out of {zone:1430} into the {zone:1435} and take the road south into the {zone:1419}; {area:1438} (Alliance) stands just inside."] = "",
+	["Ride east out of {zone:1430} into the {zone:1435} and take the road south into the {zone:1419}; {area:1438} (Alliance) stands just inside."] = "從{zone:1430}向東騎出，進入{zone:1435}，再沿路向南進入{zone:1419}；{area:1438}（聯盟）就在入口內側。",
 	-- {area:1438} Nethergarde Keep · {npc:8609} Alexandra Constantine
 	["Flight path here: {area:1438} ({npc:8609})."] = "這裡的飛行路線：{area:1438}（{npc:8609}）。",
 	["level 63 area, well above this guide's range"] = "63級區域，遠高於本指南的等級範圍",

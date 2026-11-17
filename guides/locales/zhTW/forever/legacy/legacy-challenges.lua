@@ -59,7 +59,7 @@ return {
 
 	-- Step 10: PvP: battleground reputations (Alliance)
 	["PvP: battleground reputations (Alliance)"] = "PvP：戰場聲望（聯盟）",
-	["Exalted with each of the four battleground factions is worth a point. Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation, Alterac Valley Reputation and Darkspear Islands Reputation (Forever's new battleground, open from level 30). The Diplomat Legacy perk increases reputation gains."] = "",
+	["Exalted with each of the four battleground factions is worth a point. Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation, Alterac Valley Reputation and Darkspear Islands Reputation (Forever's new battleground, open from level 30). The Diplomat Legacy perk increases reputation gains."] = "與四個戰場陣營的聲望都達到崇拜，各算一分。請參照 Polestar 聲望指南《戰歌峽谷聲望》《阿拉希盆地聲望》《奧特蘭克山谷聲望》和《暗矛群島聲望》（Forever 新增戰場，30級開放）。傳承特長“外交家”會提高聲望獲取。",
 
 	-- Step 11: PvP: battleground reputations (Horde)
 	["PvP: battleground reputations (Horde)"] = "PvP：戰場聲望（部落）",
@@ -99,13 +99,13 @@ return {
 
 	-- Step 16: Adventure: Saving the Best for Last (Alliance)
 	-- {quest:8999} Saving the Best for Last
-	["Adventure: {quest:8999} (Alliance)"] = "",
+	["Adventure: {quest:8999} (Alliance)"] = "冒險：{quest:8999}（聯盟）",
 	-- {npc:16013} Deliana · {quest:8999} Saving the Best for Last
 	["{npc:16013} then offers your class's {quest:8999}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "{npc:16013}接著會提供你職業的{quest:8999}，這是這項挑戰的最後一個任務：它會收下你職業的地城套裝頭盔和胸甲並加以升級。",
 
 	-- Step 17: Adventure: Saving the Best for Last (Horde)
 	-- {quest:9007} Saving the Best for Last
-	["Adventure: {quest:9007} (Horde)"] = "",
+	["Adventure: {quest:9007} (Horde)"] = "冒險：{quest:9007}（部落）",
 	-- {npc:16012} Mokvar · {quest:9007} Saving the Best for Last
 	["{npc:16012} then offers your class's {quest:9007}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "{npc:16012}接著會提供你職業的{quest:9007}，這是這項挑戰的最後一個任務：它會收下你職業的地城套裝頭盔和胸甲並加以升級。",
 
@@ -114,22 +114,22 @@ return {
 	-- {area:2437} Ragefire Chasm · {area:16919} Hall of Thanes · {zone:1455} Ironforge · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {zone:1454} Orgrimmar
 	["The final boss of every level 15-25 dungeon earns one point together. {area:2437} and Forever's {area:16919} (in {zone:1455}) count as one: either final boss does. Tick each boss off when you kill it, and check the in-game Legacy panel for the list.\nAlliance: the {area:153}'s entrance is in the ruins beside the {zone:1458}, among Horde guards: go with a group. {area:2437} is inside {zone:1454}: the {area:16919} counts for it. Horde: the {area:16919} is inside {zone:1455}: {area:2437} counts for it."] = "",
 	-- {area:2437} Ragefire Chasm · {npc:11519} Bazzalan · {area:16919} Hall of Thanes
-	["{area:2437}: {npc:11519} (or {area:16919})"] = "",
+	["{area:2437}: {npc:11519} (or {area:16919})"] = "{area:2437}：{npc:11519}（或{area:16919}）",
 	-- {area:16919} Hall of Thanes · {npc:261319} Durgen Dirgehammer · {area:2437} Ragefire Chasm
-	["{area:16919}: {npc:261319} (or {area:2437})"] = "",
+	["{area:16919}: {npc:261319} (or {area:2437})"] = "{area:16919}：{npc:261319}（或{area:2437}）",
 	-- {area:153} Ruins of Lordaeron · {zone:1420} Tirisfal Glades · {npc:256035} Viktor the Vile
-	["{area:153} (Forever's, {zone:1420}): {npc:256035}"] = "",
+	["{area:153} (Forever's, {zone:1420}): {npc:256035}"] = "{area:153}（Forever 專屬，{zone:1420}）：{npc:256035}",
 	-- {area:718} Wailing Caverns · {npc:3678} Disciple of Naralex
 	["{area:718} (appears after the {npc:3678}'s event)"] = "{area:718}（在{npc:3678}的事件之後出現）",
 	-- {area:17732} Excavation Site: Wetlands · {npc:260326} Relic Guardian
-	["{area:17732} (Forever's): {npc:260326}"] = "",
+	["{area:17732} (Forever's): {npc:260326}"] = "{area:17732}（Forever 專屬）：{npc:260326}",
 
 	-- Step 19: Dungeons: level 26-45
 	["Dungeons: level 26-45"] = "地城：等級26-45",
 	-- {area:16550} The Drowned City · {area:17780} Krol'dok Stronghold · {zone:2548} Riverglades
 	["The final boss of every level 26-45 dungeon earns one point together. {area:16550} and {area:17780} (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "",
 	-- {zone:1416} Alterac Mountains · {npc:246020} Shade of the Archmage
-	["City of Dalaran (Forever's, {zone:1416}): {npc:246020}"] = "",
+	["City of Dalaran (Forever's, {zone:1416}): {npc:246020}"] = "達拉然城（Forever 專屬，{zone:1416}）：{npc:246020}",
 	-- {area:16550} The Drowned City
 	["the final boss of the {area:16550}"] = "",
 	-- {area:796} Scarlet Monastery
@@ -141,7 +141,7 @@ return {
 	-- {area:796} Scarlet Monastery
 	["{area:796}: Cathedral"] = "{area:796}：大教堂",
 	-- {area:17780} Krol'dok Stronghold
-	["the final boss of {area:17780}"] = "",
+	["the final boss of {area:17780}"] = "{area:17780}的最終首領",
 
 	-- Step 20: Dungeons: level 46-60
 	["Dungeons: level 46-60"] = "地城：等級46-60",
@@ -150,7 +150,7 @@ return {
 	-- {area:16620} Alcaz Prison
 	["the final boss of {area:16620}"] = "",
 	-- {area:1216} Blackmaw Hold
-	["the final boss of {area:1216}"] = "",
+	["the final boss of {area:1216}"] = "{area:1216}的最終首領",
 	-- {area:1583} Blackrock Spire
 	["Lower {area:1583}"] = "{area:1583}下層",
 	-- {area:1583} Blackrock Spire
@@ -163,7 +163,7 @@ return {
 	["Dire Maul North"] = "厄運之槌北區",
 	["Dire Maul West"] = "厄運之槌西區",
 	-- {area:16985} Shaper's Terrace
-	["the final boss of the {area:16985}"] = "",
+	["the final boss of the {area:16985}"] = "{area:16985}的最終首領",
 
 	-- Step 21: Raids: Onyxia
 	-- {npc:10184} Onyxia

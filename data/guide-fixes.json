@@ -4646,6 +4646,40 @@
 			"issue": 1313
 		},
 		{
+			"id": "2587-dun-modr-dark-iron-war",
+			"faction": "Alliance",
+			"at": {
+				"quest": 303,
+				"goal": "accept"
+			},
+			"tip": "The Dark Iron War is a group quest: 30 elite Dark Irons (27-31) in the ruins west of the camp. Skip it if you are alone.",
+			"note": "#2587 (swork1): Motley Garmason's The Dark Iron War is asked as a group quest on the Dun Modr stop of 30-40/01-hillsbrad-foothills, beside Spark of Freedom (route-fixes deliberate.group); its kills have their own `when group 303` step in the ruins and its hand-in a `when complete` step on the Rhag Garmason visit after the Thandol Span corpse.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-17: 82 people took The Dark Iron War, 66 runs handed in, most at 26-31; the objectives at accept are 15 Dark Iron Dwarves and 5 each of Tunnelers, Saboteurs and Demolitionists, every kill an elite (Dwarf 27-28, Saboteur 28-29, Tunneler 29-30, Demolitionist 30-31); 1,663 of its ticks in the ruins west of the camp (68 people), 454 on Direforge Hill (40 people)"
+				}
+			],
+			"issue": 2587
+		},
+		{
+			"id": "2587-direforge-hill-bring-back-a-bang",
+			"faction": "Alliance",
+			"at": {
+				"quest": 88756,
+				"goal": "accept"
+			},
+			"tip": "Bring Back a Bang is a group quest: the Stolen Explosives lie in the Dark Iron camp on Direforge Hill, south-east of Dun Modr, among the same elite dwarves. Skip it if you are alone.",
+			"note": "#2587 (swork1): Ashlan Stonesmirk's Bring Back a Bang is asked as a group quest on the Dun Modr stop; its explosives are collected on Direforge Hill (about 61.6,26.6, some 500 yards south-east of the camp) on a `when group 88756` step before the Thandol Span, and handed in on the Rhag Garmason visit after the corpse.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-17: 69 people took Bring Back a Bang, 50 runs handed in; 103 loots of the Stolen Explosives by 34 people, all on Direforge Hill (Wetlands 60-63,24-29), where the elite Dark Iron Dwarves, Tunnelers, Saboteurs and Demolitionists and Balgaras the Foul (34) spawn"
+				}
+			],
+			"issue": 2587
+		},
+		{
 			"id": "1313-thandol-span-saboteurs",
 			"at": {
 				"quest": 631,
@@ -11689,18 +11723,22 @@
 			"issue": 2284
 		},
 		{
-			"id": "2419-stranglethorn-booty-bay-bind-for-the-way-back",
+			"id": "2419-stranglethorn-booty-bay-first",
 			"faction": "Alliance",
 			"at": {
 				"quest": 575,
 				"goal": "accept"
 			},
-			"tip": "Follow the main road south the length of the jungle, past the Grom'gol turn-off, to Booty Bay on the southern cape. Bind your hearthstone at the inn: it is your way back here from Nesingwary's camp at the end of the jungle loop.",
-			"note": "#2419 (Onrevax): 30-40/04-stranglethorn-vale walks the length of the jungle to Booty Bay for its flight point and quests, then works them in the north and comes back; the step now says the inn bind is the way back from Nesingwary's camp (about 2,900 yd), so the arrow's hearth advice covers the return.",
+			"tip": "Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop.",
+			"note": "#2419 (Onrevax): 30-40/04-stranglethorn-vale walked the length of the jungle from Nesingwary's camp to Booty Bay for its flight point and quests, flew to Sentinel Hill and walked back in to work them in the north. Since 0.4.1 the guide starts at Booty Bay: 30-40/03-ashenvale ends in Theramore, so it goes on to Ratchet (flight point) and its boat, takes Booty Bay's quests and the inn bind first, walks north once, and the hearthstone brings the player back at the end of the loop (route-fixes deliberate.pairs). Level model (rested, 28 Alliance branches): 15 minutes less in this guide, 13 minutes less to 60, no level and no over-level spot moved.",
 			"source": [
 				{
 					"kind": "in-game-check",
 					"ref": "#2419: Onrevax, a level 34 Human Paladin on client 70938, at Nesingwary's Expedition on the step down to Booty Bay: an arrow of about 2,900 yd for a trip the route repeats later"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-17: 12 Alliance walks from Theramore to Ratchet at levels 29-38, none with a death in Dustwallow Marsh; the direct ones at 30-36 took 7 to 10 minutes"
 				}
 			],
 			"issue": 2419
@@ -12256,12 +12294,16 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "The Vilebranch Soothsayers (46-47) walk the ground around the foot of the Altar of Zul: their totems are for Maret Firetend. Careful: Qiaga the Keeper and Morta'gya the Keeper (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar.",
-			"note": "40-50/04-05 (fix round 1, 0.4.0): Repurposed Totems (86616, 4,400 XP) from Farseer Maret Firetend by Aerie Peak; the totems from the Vilebranch Soothsayers around the Altar of Zul, which 40-50/05 visits for The Altar of Zul. Players' recordings tick it at 46-49,64-69. Danger review: the goal points at the Soothsayers' western spawns (45.3,66.7) and the Careful line names Qiaga the Keeper and Morta'gya the Keeper (50, elites; spawns 48.6-48.8,68.2-68.4), who killed players at 44.1,64.5 and 48.0,66.2 (players' recordings, levels 43-46), where the route has about 47.9.",
+			"tip": "The Vilebranch Soothsayers (46-47) walk the ground around the foot of the Altar of Zul: their totems are for Maret Firetend, and more Vilebranch Totems lie on the ground among them: pick those up too. Careful: Qiaga the Keeper and Morta'gya the Keeper (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar.",
+			"note": "40-50/04-05 (fix round 1, 0.4.0): Repurposed Totems (86616, 4,400 XP) from Farseer Maret Firetend by Aerie Peak; the totems from the Vilebranch Soothsayers around the Altar of Zul, which 40-50/05 visits for The Altar of Zul. Players' recordings tick it at 46-49,64-69. Danger review: the goal points at the Soothsayers' western spawns (45.3,66.7) and the Careful line names Qiaga the Keeper and Morta'gya the Keeper (50, elites; spawns 48.6-48.8,68.2-68.4), who killed players at 44.1,64.5 and 48.0,66.2 (players' recordings, levels 43-46), where the route has about 47.9. 0.4.1 (#2684): the totems also lie on the ground among the Soothsayers (object 669105 in our data, with no spawns); the tip says so.",
 			"source": [
 				{
 					"kind": "recording",
 					"ref": "quest 86616 objective ticks at Hinterlands 46-49,64-69 (4 people accepted, 2 handed in)"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-16): Vilebranch Totems (279225) came from the ground object 669105 30 times for 4 people (4 established), at Hinterlands 46-48,64-68, and from the Vilebranch Soothsayers (4467) 12 times for 5 people"
 				},
 				{
 					"kind": "recording",
@@ -12803,6 +12845,142 @@
 				{
 					"kind": "client",
 					"ref": "quest 94768 pre 94745, 94748 in Forever's quest data"
+				}
+			]
+		},
+		{
+			"id": "2575-riverglades-loose-soil-mementos",
+			"faction": "Alliance",
+			"at": {
+				"quest": 94829,
+				"goal": "objective",
+				"objective": 1
+			},
+			"goalNote": "Loose Soil, west of Elbrim's farm: each grave takes one of the Farmers' Mementos the Twilight Raiders drop, so loot five first",
+			"note": "What We Lost (94829): the quest's only objective is the five graves (Loose Soil), so the arrow went to them before the player had any Farmers' Mementos (266148), which only the Twilight Raiders (256952) drop; each grave takes one. The goal's note says so where the player looks.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2575 (rockzors, 0.4.0): the Farmers' Mementos are needed before clicking the Loose Soil; they drop from Twilight Raiders"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-16): 23 people did What We Lost; each of its five ticks came with a spell cast at the soil (the memento placed)"
+				},
+				{
+					"kind": "questie",
+					"ref": "items.json 266148 Farmers' Mementos: dropped by npc 256952 Twilight Raider"
+				}
+			],
+			"issue": 2575
+		},
+		{
+			"id": "camping-blacksmithing-after-supplies-to-tannok-dwarf",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96044,
+				"goal": "accept",
+				"guide": "forever/alliance/dwarf/01-dun-morogh"
+			},
+			"step": {
+				"after": {
+					"quest": 2160,
+					"goal": "turnin"
+				}
+			},
+			"note": "01-dun-morogh (dwarf): Eric Brighthammer offers Camping 101: Blacksmithing (96044) only once Supplies to Tannok (2160) is handed in, so its step comes after the Kharanos step that hands 2160 in to Tannok; Eric's campfire is in front of the same distillery. Before, the step came first and a blacksmith passed it with the quest not offered.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-16: Eric Brighthammer offered Camping 101: Blacksmithing to 6 people who knew Blacksmithing, every one with Supplies to Tannok (2160) handed in; a Dwarf who knew Blacksmithing with 2160 still in the log was not offered it"
+				}
+			]
+		},
+		{
+			"id": "camping-blacksmithing-after-supplies-to-tannok-gnome",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96044,
+				"goal": "accept",
+				"guide": "forever/alliance/gnome/01-dun-morogh"
+			},
+			"step": {
+				"after": {
+					"quest": 2160,
+					"goal": "turnin"
+				}
+			},
+			"note": "01-dun-morogh (gnome): Eric Brighthammer offers Camping 101: Blacksmithing (96044) only once Supplies to Tannok (2160) is handed in, so its step comes after the Kharanos step that hands 2160 in to Tannok; Eric's campfire is in front of the same distillery. Before, the step came first and a blacksmith passed it with the quest not offered.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-16: Eric Brighthammer offered Camping 101: Blacksmithing to 6 people who knew Blacksmithing, every one with Supplies to Tannok (2160) handed in; a Dwarf who knew Blacksmithing with 2160 still in the log was not offered it"
+				}
+			]
+		},
+		{
+			"id": "camping-blacksmithing-tognus-after-the-accept-dwarf",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96044,
+				"goal": "turnin",
+				"guide": "forever/alliance/dwarf/01-dun-morogh"
+			},
+			"step": {
+				"after": {
+					"quest": 96044,
+					"goal": "accept"
+				}
+			},
+			"note": "01-dun-morogh (dwarf): Tognus Flintfire's hand-in step follows the Camping 101: Blacksmithing step, moved after Supplies to Tannok (camping-blacksmithing-after-supplies-to-tannok-dwarf).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-16: Eric Brighthammer offered Camping 101: Blacksmithing to 6 people who knew Blacksmithing, every one with Supplies to Tannok (2160) handed in; a Dwarf who knew Blacksmithing with 2160 still in the log was not offered it"
+				}
+			]
+		},
+		{
+			"id": "camping-tailoring-after-razor-hill-orc",
+			"faction": "Horde",
+			"at": {
+				"quest": 96102,
+				"goal": "accept",
+				"guide": "forever/horde/orc/01-durotar"
+			},
+			"step": {
+				"after": {
+					"quest": 97903,
+					"goal": "turnin"
+				}
+			},
+			"note": "01-durotar (orc): Brakk offers Camping 101: Tailoring (96102) only once A Peon's Burden (2161) and Camping 101: Cooking (96655) are handed in in Razor Hill, so its step comes after the Razor Hill trainers, on the walk south past Brakk's campfire to Tiragarde Keep. Before, the step came at the campfire before Razor Hill and a tailor passed it with the quest not offered.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-16: Brakk offered Camping 101: Tailoring to 4 people who knew Tailoring, every one with A Peon's Burden (2161) and Camping 101: Cooking (96655) handed in; the learned data has both as its prerequisites (4 counted voters)"
+				}
+			]
+		},
+		{
+			"id": "camping-tailoring-after-razor-hill-troll",
+			"faction": "Horde",
+			"at": {
+				"quest": 96102,
+				"goal": "accept",
+				"guide": "forever/horde/troll/01-durotar"
+			},
+			"step": {
+				"after": {
+					"quest": 97903,
+					"goal": "turnin"
+				}
+			},
+			"note": "01-durotar (troll): Brakk offers Camping 101: Tailoring (96102) only once A Peon's Burden (2161) and Camping 101: Cooking (96655) are handed in in Razor Hill, so its step comes after the Razor Hill trainers, on the walk south past Brakk's campfire to Tiragarde Keep. Before, the step came at the campfire before Razor Hill and a tailor passed it with the quest not offered.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-16: Brakk offered Camping 101: Tailoring to 4 people who knew Tailoring, every one with A Peon's Burden (2161) and Camping 101: Cooking (96655) handed in; the learned data has both as its prerequisites (4 counted voters)"
 				}
 			]
 		}

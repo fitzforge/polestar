@@ -208,12 +208,17 @@ L["Repair before heading out: gear at %d%%"] = "出发前修理：装备耐久 %
 L["The guide heads out of town next and your gear is worn: repair it here before it breaks."] = "指南接下来将离开城镇，而你的装备已有磨损：趁装备损坏前在这里修理。"
 L["Sell before heading out: %s"] = "出发前出售：%s"
 L["The guide heads out of town next and your bags are nearly full: sell what you don't need here."] = "指南接下来将离开城镇，而你的背包快满了：在这里卖掉不需要的物品。"
+L["Pays %d%% XP at your level and is out of the way (Skip grey quests)"] = "在你的等级只给 %d%% 经验，且不顺路（跳过灰色任务）"
+L["Grey for you: pays %d%% XP (Skip grey quests)"] = "对你是灰色：只给 %d%% 经验（跳过灰色任务）"
 -- L["Put in the bank"] = ""
 -- L["Take off"] = ""
 -- L["Equip"] = ""
 -- L["Reach %d points into %s with"] = ""
 -- L["Lose"] = ""
 -- L["Gain"] = ""
+L["Journeyman %s"] = "中级%s"
+L["Expert %s"] = "高级%s"
+L["Artisan %s"] = "专家级%s"
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "选择一个奖励以完成交还。"
@@ -616,9 +621,9 @@ L["Timed quest alerts"] = "限时任务提醒"
 L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] = "限时任务剩余 5 分钟时、剩余 1 分钟时以及失败时，在聊天框显示一行提示并播放声音。指南窗口始终显示剩余时间。"
 L["Party chat"] = "小队聊天"
 -- L["On a mob that drops a quest item you still need, or an object it comes out of, show how often."] = ""
--- L["Quest givers and turn-ins"] = ""
+L["Quest givers and turn-ins"] = "任务发布者与交还"
 -- L["On an NPC, name the quests it has for you now and the finished quests you can hand in to it."] = ""
--- L["Replace the game's quest lines"] = ""
+L["Replace the game's quest lines"] = "替换游戏的任务行"
 -- L["On mobs and objects, leave out the game's own lines for the quests these tooltips name, so each quest shows once. In a group the game's lines stay: they show your party's progress."] = ""
 
 -- Quests/Party.lua
@@ -1144,7 +1149,7 @@ L["Lists the quest items you can buy at an auction house instead of farming them
 L["Lists the current step's mobs, or the NPCs it sends you to when it has no mob, with their portraits and what they drop; click a name to target that one. Its key binding targets the first one close by."] = "列出当前步骤的怪物；没有怪物时列出步骤指引你前往的 NPC，并显示头像和掉落物品。点击名字即可选中该目标。其快捷键会选中附近的第一个。"
 L["Names in the target list"] = "目标列表中的名字数"
 L["How many of the step's mobs the target list shows, in guide order."] = "目标列表按指南顺序显示的步骤怪物数量。"
--- L["Completed quest XP"] = ""
+L["Completed quest XP"] = "已完成任务的经验"
 -- L["Shows XP from completed quests you can turn in on the game's XP bar and in its tooltip."] = ""
 
 -- Lookup/Sources.lua
@@ -1200,6 +1205,8 @@ L["Enter"] = "进入"
 L["Choose this reward:"] = "选择此奖励："
 L["Lookup"] = "查询"
 L["%s: click through what they say until the quest's line is done."] = "%s：逐页点完对话，直到该任务目标完成。"
+L["%s: use %s to call it up."] = "%s：使用%s将其召唤出来。"
+L["Use %s to learn it."] = "使用%s来学习。"
 
 -- Lookup/Spotter.lua
 L["From"] = "来源"
@@ -1613,6 +1620,16 @@ L["A later guide of your route hands these in: keep them. Click to see each with
 L["No guide of your route takes, works or hands these in. Click to see them and keep or abandon each."] = "路线中没有任何指南会接取、完成或交还这些任务。点击查看，并逐个保留或放弃。"
 L["Click to see its quests in Dungeons"] = "点击在地下城中查看其任务"
 L["Click to open it in Dungeons"] = "点击在地下城中打开"
+L["Click for a guide to it, through what it needs first"] = "点击获取前往它的指南，包括需要先完成的任务"
+L["Brings back the quests it leaves out. Options, Automation turns it on again."] = "恢复被略过的任务。可在选项的自动化中重新开启。"
+L["Click to see them, each with an Abandon button"] = "点击查看，每个任务都有放弃按钮"
+L["Too far below the next quests: the guide has you grind to the level they need. Or do what's around you first."] = "离下一批任务的等级太远：指南让你打怪升到它们需要的等级。或者先做附近的任务。"
+L["Click to see its step"] = "点击查看它的步骤"
+L["You're %d: the quests after this are level %s"] = "你是 %d 级：之后的任务是 %s 级"
+L["Worth doing near here: %s"] = "附近值得做的：%s"
+L["%d left out here"] = "此处略过 %d 个"
+L["Left out here"] = "此处略过"
+L["Turn off Skip grey quests"] = "关闭跳过灰色任务"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "乘升降梯前往%s"
@@ -2075,6 +2092,7 @@ L["For a party levelling together: every one is in the route."] = "适合一起�
 L["Point at a look to see it here; click it to wear it."] = "将鼠标指向一个皮肤即可在此预览；点击即可使用。"
 L["Built in"] = "内置"
 L["Concept looks"] = "概念皮肤"
+L["Leaves out grey quests, and quests behind you that pay less than full XP when going back for them costs more time than they give. A quest still paying full XP stays, and so does one a later quest needs. The guide window says what it left out."] = "略过灰色任务，以及身后经验不满额、且回头去做花的时间比所得更多的任务。仍给满额经验的任务会保留，后续任务需要的任务也会保留。指南窗口会说明略过了什么。"
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "已为你选中：按 Ctrl+C（Mac 上为 Cmd+C）复制，然后按 Esc。"
@@ -2134,6 +2152,8 @@ L["Install: %s"] = "安装：%s"
 L["While here: %s"] = "顺便完成：%s"
 L["Travel: %s"] = "旅行：%s"
 L["The report lists the settings you changed and your profile's name: no character names, chat, account or realm."] = "报告会列出你更改过的设置和配置名称：不含角色名、聊天、账号或服务器。"
+L["Left out here: %d more"] = "此处略过：还有 %d 个"
+L["Left out here: %s"] = "此处略过：%s"
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "已在插件列表中关闭"
@@ -2234,7 +2254,6 @@ L["Never picks between rewards. Hold Shift to skip."] = "从不替你选择奖�
 L["Warn about missable quests"] = "警告可错过的任务"
 L["Before you take a quest that closes another for good, says which in chat and leaves the accept to you."] = "当你要接受的任务会永久关闭另一个任务时，在聊天中提示是哪个，并由你决定是否接受。"
 L["Skip grey quests"] = "跳过灰色任务"
-L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."] = "略过灰色任务及其交还，除非后续任务需要先完成它们。"
 L["Pick a guide for me"] = "为我选择指南"
 L["Where to level next"] = "下一个练级地点"
 L["Where a guide offers more than one zone to continue in (/polestar path)."] = "当指南提供多个可继续的地区时（/polestar path）。"
@@ -4231,6 +4250,8 @@ L["Fargodeep Mine"] = "法戈第矿洞"
 L["Lion's Pride Inn"] = "狮王之傲旅店"
 L["Stonefield Farm"] = "斯通菲尔德农场"
 L["Jasperlode Mine"] = "玉石矿洞"
+L["What it leaves out"] = "略过的内容"
+L["A dim line where the guide passes over quests: open it to see each one and why, with a way to bring it back. Grind steps say what else is worth doing, and a line offers to clean up quests that aren't part of your route."] = "在指南略过任务的地方显示一行淡色文字：展开可看到每个任务及原因，并可恢复。打怪升级的步骤会说明还有什么值得做，另有一行提示清理不在路线中的任务。"
 -- L["The size of the guide window's text, apart from its scale and the rest of Polestar's text (Theme > Text). The class quest card keeps that general size. Changes at once. Right-click to reset."] = ""
 
 -- UI/Looks/Toasts.lua
@@ -4484,6 +4505,9 @@ L["%s isn't in your quest log."] = "%s不在你的任务日志中。"
 L["That quest isn't in your quest log."] = "该任务不在你的任务日志中。"
 L["The quest log opens when combat ends."] = "战斗结束后会打开任务日志。"
 L["Show in quest log"] = "在任务日志中显示"
+L["Link in chat"] = "发送链接到聊天"
+L["Middle-click: show in quest log. Shift-click: link in chat."] = "中键点击：在任务日志中显示。Shift-点击：发送链接到聊天。"
+L["Shift-click: link in chat."] = "Shift-点击：发送链接到聊天。"
 
 -- Dungeons/Mark.lua
 L["Needed for %s in %s"] = "%s所需（位于%s）"
@@ -4880,4 +4904,5 @@ L["Nothing to apply: the parts ticked are the same as yours."] = "无可应用�
 -- L["Try %s"] = "尝试%s"
 -- L["Most of its quests are new in Forever."] = "其中大部分任务是 Forever 新增的。"
 -- L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "更快时，路线可从你已学会的传送法术开始（法师的城市传送、德鲁伊的月光林地）。城市传送需要背包中有传送符文。"
+-- L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."] = "略过灰色任务及其交还，除非后续任务需要先完成它们。"
 -- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "Polestar 文字的大小，独立于窗口缩放。立即生效。右键点击重置。"

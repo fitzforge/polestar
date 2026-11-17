@@ -18,6 +18,8 @@ next forever/alliance/30-40/04-stranglethorn-vale
 # Since 2026-11-07 the Mirage Raceway and Dustwallow Marsh's Shady Rest quests are done here, on one crossing to
 # Theramore (the Raceway was a crossing of its own at 30 in 07-thousand-needles). The Missing Diplomat's Dustwallow
 # part (36-38) and Swamplight Manor stay in 40-50/01.
+# Since 0.4.1 the guide ends at Ratchet's dock (#2419), not on the boat to Menethil Harbor: from Theramore the road
+# leads to Ratchet (its flight point on the way) and the boat to Booty Bay, where 30-40/04-stranglethorn-vale starts.
 
 step Fly to Menethil Harbor
   zone Stormwind City
@@ -164,7 +166,12 @@ step Theramore
   accept 1320
   turnin 1320                         -- Captain Garran Vimes
 
-step Boat to Menethil Harbor
-  when !zone "Wetlands"
-  zone Dustwallow Marsh
-  goto 71.6,56.4 "Boat to Menethil Harbor"
+step Ratchet
+  zone The Barrens
+  tip From Theramore follow the road north-west through the marsh into the Barrens and up the coast to Ratchet: Stranglethorn starts at Booty Bay, across the sea. Ratchet's gryphon master stands above the dock.
+  getfp "Ratchet"
+
+step Boat to Booty Bay
+  when !zone "Stranglethorn Vale"
+  zone The Barrens
+  goto 63.4,38.5 "Boat to Booty Bay"

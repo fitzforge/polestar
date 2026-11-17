@@ -307,6 +307,66 @@ fn t_1762_a_giver_whose_window_lists_no_quest_but_has_a_chat_option_says_to_try_
 	assert_eq!(out["override"], json!(["active:nil:nil", chat]));
 }
 
+// #2475: the Zul'Farrak pick-up guide sends a level 45 Tauren Druid to Anastasia Hartwell (4568) for Tabetha's Task
+// (2861), a lead-in to Tabetha's (6546) Tiara of the Deep (2846); her window listed nothing. Players' recordings:
+// Tabetha offered Tiara of the Deep to 14 people who never had Tabetha's Task. ${tiara} is Tabetha's step's accept.
+const ANASTASIA: &str = r#"
+	Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Zul'Farrak: pick up the quests", faction = "Horde", minLevel = 40, maxLevel = 50, steps = {
+		{ title = "Anastasia Hartwell", goals = { { t = "accept", quest = 2861, title = "Tabetha's Task", npc = 4568, npcName = "Anastasia Hartwell", closedBy = { 2846 }, map = 1413, x = 51, y = 30 } } },
+		{ title = "Tabetha", goals = {
+			{ t = "turnin", quest = 2861, title = "Tabetha's Task", npc = 6546, npcName = "Tabetha", map = 1413, x = 45, y = 20 },
+			${tiara}
+		} },
+		{ goals = { { t = "level", level = 50 } } },
+	} })"#;
+
+#[test]
+fn t_2475_a_lead_in_its_giver_does_not_offer_is_passed_with_its_hand_in_for_the_quest_it_leads_to_which_keeps_741() {
+	let tiara = r#"{ t = "accept", quest = 2846, title = "Tiara of the Deep", npc = 6546, npcName = "Tabetha", map = 1413, x = 45, y = 20 }"#;
+	let refused = r#"
+			local w = stub.world
+			w.setLevel(45)
+			w.gossip(4568, { available = {} }); w.close(); flush()
+			local r = { refused = { E.GetStepIndex(), brief(1), brief(2), E.GetStepView(1).goals[1].noticeText or false } }
+			w.setLevel(46); flush()
+			r.levelUp = E.GetStepIndex()
+			w.gossip(6546, { available = {} }); w.close(); flush()
+			r.tabetha = { E.GetStepIndex(), brief(2)[2], E.GetStepView(2).goals[2].noticeText or false }
+			w.gossip(6546, { available = { { questID = 2846 } } }); w.accept(2846, {}); w.close(); flush()
+			r.taken = { E.GetStepIndex(), brief(1) }
+			emit(r)"#;
+	let out = run("", &ANASTASIA.replace("${tiara}", tiara), refused);
+	let leadin = "skipped:leadin:Not offered by Anastasia Hartwell: you can take “Tiara of the Deep” without it";
+	assert_eq!(out["refused"], json!([2, [leadin], [leadin, "active:nil:nil"], false]), "the guide goes on to Tabetha");
+	assert_eq!(out["levelUp"], 2, "a level-up does not bring the lead-in back");
+	// The quest it leads to keeps #741: Tabetha's refusal holds the guide at her.
+	assert_eq!(out["tabetha"], json!([2, "active:nil:nil", "Not offered by Tabetha? Report it with /polestar"]));
+	assert_eq!(out["taken"], json!([3, ["skipped:closed:No longer offered: you took “Tiara of the Deep”"]]));
+	// Anastasia listing it after all clears the mark: the guide goes back for it.
+	let listed = run(
+		"",
+		&ANASTASIA.replace("${tiara}", tiara),
+		r#"
+			local w = stub.world
+			w.setLevel(45)
+			w.gossip(4568, { available = {} }); w.close(); flush()
+			w.gossip(4568, { available = { { questID = 2861 } } }); w.close(); flush()
+			emit({ at = E.GetStepIndex(), step1 = brief(1) })"#,
+	);
+	assert_eq!(listed, json!({ "at": 1, "step1": ["active:nil:nil"] }));
+	// Not a lead-in of this guide: the quest it leads to is not taken here, or its accept needs it. #741 holds.
+	let report = json!([1, ["active:nil:nil"], "Not offered by Anastasia Hartwell? Report it with /polestar"]);
+	let stays = r#"
+			local w = stub.world
+			w.setLevel(45)
+			w.gossip(4568, { available = {} }); w.close(); flush()
+			emit({ E.GetStepIndex(), brief(1), E.GetStepView(1).goals[1].noticeText or false })"#;
+	let elsewhere = r#"{ t = "accept", quest = 2847, title = "Another Quest", npc = 6546, npcName = "Tabetha" }"#;
+	assert_eq!(run("", &ANASTASIA.replace("${tiara}", elsewhere), stays), report);
+	let needs = r#"{ t = "accept", quest = 2846, title = "Tiara of the Deep", npc = 6546, npcName = "Tabetha", pre = { 2861 } }"#;
+	assert_eq!(run("", &ANASTASIA.replace("${tiara}", needs), stays), report);
+}
+
 #[test]
 fn prerequisites_every_preall_must_be_done_one_pre_suffices_the_text_names_the_missing_one() {
 	// 890 needs 871 and 873 (preAll); 891 needs 871 or 873 (pre). Only 871 is done.

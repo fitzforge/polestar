@@ -1889,6 +1889,14 @@ function Dungeons.PickupGuide(key)
 		watched[#watched + 1] = { id = w.quest.id, title = w.quest.title, level = w.level }
 	end
 	Dungeons.watch[key] = watched
+	-- What the run uses that no quest gives (#2338: the Mallet of Zul'Farrak,
+	-- which calls Gahz'rilla): each of the page's `item` entries for this
+	-- character's side that is not in the bags, with its note on how to get it.
+	for _, a in ipairs(Dungeons.Attunements(key, LK().PlayerInfo().code)) do
+		if a.kind == "item" and a.note and not Dungeons.AttunementState(a).done then
+			last.goals[#last.goals + 1] = { t = "note", text = format(L["%s: %s"], a.item and a.item.name or a.name, L[a.note]) }
+		end
+	end
 	local e = d.entrance
 	if located(e) then
 		-- A way in through the other faction's land says so on the step.
