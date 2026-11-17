@@ -273,6 +273,19 @@
 				"ref": "18 sessions indoors at the goal, 0 outdoors"
 			},
 			"note": "cat-form, step \"The Stormrage Barrow Dens\"; cat-form, step \"The relics of the Barrow Dens\"; 02-the-barrens, step \"The Stormrage Barrow Dens\"; 03-darkshore-return, step \"The relics of the Barrow Dens\""
+		},
+		{
+			"id": "2694-stv-kurzen-supply-crate",
+			"map": 1434,
+			"x": 49.6,
+			"y": 7.7,
+			"frame": "era",
+			"z": 29,
+			"source": {
+				"kind": "recording",
+				"ref": "38 people looted the Kurzen Fighter's Uniform here (#2694), the position samples around each loot indoors; the walking maps' cave floor beside it is at 29-30, and the strongbox (object 288) a few yards away stands at 29.4 in the server data"
+			},
+			"note": "40-50/01-stranglethorn-vale (Alliance), step \"Kurzen's Compound\": The Cook in the Cage's supply crate, deep in the cave"
 		}
 	]
 }

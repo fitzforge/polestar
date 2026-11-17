@@ -1411,6 +1411,9 @@
 		"2712": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "#2712: Riverglades (Horde): Stick 'Em points at the crocolisks in the river" }
 		] },
+		"2694": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2694: Stranglethorn (Alliance): the Cook in the Cage's supply crate is reached through the cave" }
+		] },
 		"2691": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "#2691: Engineering: Kor'gar is looked for where he sells, at Powderfuse Port 77.6,50.95" }
 		] },

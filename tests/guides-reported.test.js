@@ -16321,6 +16321,16 @@ test('#2712: Riverglades (Horde): Stick \'Em points at the crocolisks in the riv
 	assert.ok(Math.hypot(goal.x - 51.75, goal.y - 51.97) < 0.5, `on the river: ${goal.x},${goal.y}`);
 });
 
+// #2694 (Xaden Ryan, 0.4.0.1, Alliance Stranglethorn 40-50): the Kurzen Supply Crate is deep in the cave of
+// Kurzen's Compound; the goal had no height (the crate has none in the spawn data), so the walk ended on the hill
+// above it. The goal points at the crate with the cave floor's height (data/goal-heights.json).
+test('#2694: Stranglethorn (Alliance): the Cook in the Cage\'s supply crate is reached through the cave', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const { goal } = list[at(list, 'collect 216617', (g) => g.t === 'collect' && g.item === 216617)];
+	assert.ok(Math.hypot(goal.x - 49.6, goal.y - 7.7) < 0.2, `at the crate: ${goal.x},${goal.y}`);
+	assert.ok(goal.z != null && goal.z < 40, `the cave's floor, not the hill above (about 96): ${goal.z}`);
+});
+
 // #2691 (Requis, 0.4.0.1, Engineering): Schematic: Thorium Tube led to one of eight points the data gave Kor'gar
 // around Powderfuse Port; 35 people opened his goods, all at 77.6-77.7,50.9-51.0. The correction gives him that one
 // spot; the guide's vendor point follows it once the data is built with it.
