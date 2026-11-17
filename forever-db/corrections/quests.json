@@ -2431,6 +2431,166 @@
 		},
 		"note": "Stolen Winter Veil Treats: ends with Strange Snowman (npc 13636); as its ender the merged data also listed The Abominable Greench (npc 13602)."
 	},
+	"7081": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 13756,
+					"count": 1,
+					"text": "Graveyard Assaulted"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 7081: Description"
+		},
+		"note": "Alterac Valley Graveyards (7081): the quest log's words for its objective, \"Graveyard Assaulted\", as the game's quest objectives give them. It credits the invisible marker NPC 13756 (\"PvP Graveyard Credit Marker\"), whose names no player should read (#2614); the data build makes it an event in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
+	"7082": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 13756,
+					"count": 1,
+					"text": "Graveyard Assaulted"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 7082: Description"
+		},
+		"note": "The Graveyards of Alterac (7082): the quest log's words for its objective, \"Graveyard Assaulted\", as the game's quest objectives give them. It credits the invisible marker NPC 13756 (\"PvP Graveyard Credit Marker\"), whose names no player should read (#2614); the data build makes it an event in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
+	"7101": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 13778,
+					"count": 1,
+					"text": "Tower Captured"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 7101: Description"
+		},
+		"note": "Towers and Bunkers (7101): the quest log's words for its objective, \"Tower Captured\", as the game's quest objectives give them. It credits the invisible marker NPC 13778 (\"PvP Tower Credit Marker\"), whose names no player should read (#2614); the data build makes it an event in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
+	"7102": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 13778,
+					"count": 1,
+					"text": "Banner Destroyed"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 7102: Description"
+		},
+		"note": "Towers and Bunkers (7102): the quest log's words for its objective, \"Banner Destroyed\", as the game's quest objectives give them. It credits the invisible marker NPC 13778 (\"PvP Tower Credit Marker\"), whose names no player should read (#2614); the data build makes it an event in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
+	"7122": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 13796,
+					"count": 1,
+					"text": "Mine Captured"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 7122: Description"
+		},
+		"note": "Capture a Mine (7122): the quest log's words for its objective, \"Mine Captured\", as the game's quest objectives give them. It credits the invisible marker NPC 13796 (\"PvP Mine Credit Marker\"), whose names no player should read (#2614); the data build makes it an event in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
+	"7124": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 13796,
+					"count": 1,
+					"text": "Mine Captured"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 7124: Description"
+		},
+		"note": "Capture a Mine (7124): the quest log's words for its objective, \"Mine Captured\", as the game's quest objectives give them. It credits the invisible marker NPC 13796 (\"PvP Mine Credit Marker\"), whose names no player should read (#2614); the data build makes it an event in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
+	"7301": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 14029,
+					"count": 1,
+					"text": "Ichman's Location Discovered"
+				},
+				{
+					"type": "kill",
+					"id": 14031,
+					"count": 1,
+					"text": "Vipore's Location Discovered"
+				},
+				{
+					"type": "kill",
+					"id": 14030,
+					"count": 1,
+					"text": "Slidore's Location Discovered"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 7301: Description"
+		},
+		"note": "Fallen Sky Lords (7301): the quest log's words for its objectives, \"Ichman's Location Discovered\", \"Vipore's Location Discovered\", \"Slidore's Location Discovered\", as the game's quest objectives give them. They credit the invisible marker NPCs 14029 (\"Trigger Ichman\"), 14031 (\"Trigger Vipore\"), 14030 (\"Trigger Slidore\"), whose names no player should read (#2614); the data build makes them events in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
+	"7302": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 14026,
+					"count": 1,
+					"text": "Guse's Location Discovered"
+				},
+				{
+					"type": "kill",
+					"id": 14028,
+					"count": 1,
+					"text": "Jeztor's Location Discovered"
+				},
+				{
+					"type": "kill",
+					"id": 14027,
+					"count": 1,
+					"text": "Mulverick's Location Discovered"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 7302: Description"
+		},
+		"note": "Fallen Sky Lords (7302): the quest log's words for its objectives, \"Guse's Location Discovered\", \"Jeztor's Location Discovered\", \"Mulverick's Location Discovered\", as the game's quest objectives give them. They credit the invisible marker NPCs 14026 (\"Trigger Guse\"), 14028 (\"Trigger Jeztor\"), 14027 (\"Trigger Mulverick\"), whose names no player should read (#2614); the data build makes them events in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
 	"7562": {
 		"set": {
 			"start": {
@@ -2449,6 +2609,286 @@
 			"ref": "creature_queststarter/gameobject_queststarter"
 		},
 		"note": "Mor'zul Bloodbringer: starts with Spackle Thornberry (npc 5520), Martha Strain (npc 5753), Kurgul (npc 5815) and Jubahl Corpseseeker (npc 6382); as its giver the merged data also listed Greshka (npc 12807)."
+	},
+	"8105": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 15005,
+					"count": 1,
+					"text": "Mine Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15004,
+					"count": 1,
+					"text": "Lumber Mill Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15002,
+					"count": 1,
+					"text": "Blacksmith Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15003,
+					"count": 1,
+					"text": "Farm Assaulted"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 8105: Description"
+		},
+		"note": "The Battle for Arathi Basin! (8105): the quest log's words for its objectives, \"Mine Assaulted\", \"Lumber Mill Assaulted\", \"Blacksmith Assaulted\", \"Farm Assaulted\", as the game's quest objectives give them. They credit the invisible marker NPCs 15005 (\"PvP ALT-N Credit Marker\"), 15004 (\"PvP ALT-S Credit Marker\"), 15002 (\"PvP Mid Credit Marker\"), 15003 (\"PvP H-Mid Credit Marker\"), whose names no player should read (#2614); the data build makes them events in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
+	"8120": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 15005,
+					"count": 1,
+					"text": "Mine Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15004,
+					"count": 1,
+					"text": "Lumber Mill Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15002,
+					"count": 1,
+					"text": "Blacksmith Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15001,
+					"count": 1,
+					"text": "Stable Assaulted"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 8120: Description"
+		},
+		"note": "The Battle for Arathi Basin! (8120): the quest log's words for its objectives, \"Mine Assaulted\", \"Lumber Mill Assaulted\", \"Blacksmith Assaulted\", \"Stable Assaulted\", as the game's quest objectives give them. They credit the invisible marker NPCs 15005 (\"PvP ALT-N Credit Marker\"), 15004 (\"PvP ALT-S Credit Marker\"), 15002 (\"PvP Mid Credit Marker\"), 15001 (\"PvP A-Mid Credit Marker\"), whose names no player should read (#2614); the data build makes them events in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
+	"8166": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 15005,
+					"count": 1,
+					"text": "Mine Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15004,
+					"count": 1,
+					"text": "Lumber Mill Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15002,
+					"count": 1,
+					"text": "Blacksmith Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15003,
+					"count": 1,
+					"text": "Farm Assaulted"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 8166: Description"
+		},
+		"note": "The Battle for Arathi Basin! (8166): the quest log's words for its objectives, \"Mine Assaulted\", \"Lumber Mill Assaulted\", \"Blacksmith Assaulted\", \"Farm Assaulted\", as the game's quest objectives give them. They credit the invisible marker NPCs 15005 (\"PvP ALT-N Credit Marker\"), 15004 (\"PvP ALT-S Credit Marker\"), 15002 (\"PvP Mid Credit Marker\"), 15003 (\"PvP H-Mid Credit Marker\"), whose names no player should read (#2614); the data build makes them events in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
+	"8167": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 15005,
+					"count": 1,
+					"text": "Mine Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15004,
+					"count": 1,
+					"text": "Lumber Mill Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15002,
+					"count": 1,
+					"text": "Blacksmith Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15003,
+					"count": 1,
+					"text": "Farm Assaulted"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 8167: Description"
+		},
+		"note": "The Battle for Arathi Basin! (8167): the quest log's words for its objectives, \"Mine Assaulted\", \"Lumber Mill Assaulted\", \"Blacksmith Assaulted\", \"Farm Assaulted\", as the game's quest objectives give them. They credit the invisible marker NPCs 15005 (\"PvP ALT-N Credit Marker\"), 15004 (\"PvP ALT-S Credit Marker\"), 15002 (\"PvP Mid Credit Marker\"), 15003 (\"PvP H-Mid Credit Marker\"), whose names no player should read (#2614); the data build makes them events in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
+	"8168": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 15005,
+					"count": 1,
+					"text": "Mine Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15004,
+					"count": 1,
+					"text": "Lumber Mill Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15002,
+					"count": 1,
+					"text": "Blacksmith Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15003,
+					"count": 1,
+					"text": "Farm Assaulted"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 8168: Description"
+		},
+		"note": "The Battle for Arathi Basin! (8168): the quest log's words for its objectives, \"Mine Assaulted\", \"Lumber Mill Assaulted\", \"Blacksmith Assaulted\", \"Farm Assaulted\", as the game's quest objectives give them. They credit the invisible marker NPCs 15005 (\"PvP ALT-N Credit Marker\"), 15004 (\"PvP ALT-S Credit Marker\"), 15002 (\"PvP Mid Credit Marker\"), 15003 (\"PvP H-Mid Credit Marker\"), whose names no player should read (#2614); the data build makes them events in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
+	"8169": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 15005,
+					"count": 1,
+					"text": "Mine Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15004,
+					"count": 1,
+					"text": "Lumber Mill Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15002,
+					"count": 1,
+					"text": "Blacksmith Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15001,
+					"count": 1,
+					"text": "Stable Assaulted"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 8169: Description"
+		},
+		"note": "The Battle for Arathi Basin! (8169): the quest log's words for its objectives, \"Mine Assaulted\", \"Lumber Mill Assaulted\", \"Blacksmith Assaulted\", \"Stable Assaulted\", as the game's quest objectives give them. They credit the invisible marker NPCs 15005 (\"PvP ALT-N Credit Marker\"), 15004 (\"PvP ALT-S Credit Marker\"), 15002 (\"PvP Mid Credit Marker\"), 15001 (\"PvP A-Mid Credit Marker\"), whose names no player should read (#2614); the data build makes them events in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
+	"8170": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 15005,
+					"count": 1,
+					"text": "Mine Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15004,
+					"count": 1,
+					"text": "Lumber Mill Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15002,
+					"count": 1,
+					"text": "Blacksmith Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15001,
+					"count": 1,
+					"text": "Stable Assaulted"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 8170: Description"
+		},
+		"note": "The Battle for Arathi Basin! (8170): the quest log's words for its objectives, \"Mine Assaulted\", \"Lumber Mill Assaulted\", \"Blacksmith Assaulted\", \"Stable Assaulted\", as the game's quest objectives give them. They credit the invisible marker NPCs 15005 (\"PvP ALT-N Credit Marker\"), 15004 (\"PvP ALT-S Credit Marker\"), 15002 (\"PvP Mid Credit Marker\"), 15001 (\"PvP A-Mid Credit Marker\"), whose names no player should read (#2614); the data build makes them events in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
+	"8171": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 15005,
+					"count": 1,
+					"text": "Mine Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15004,
+					"count": 1,
+					"text": "Lumber Mill Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15002,
+					"count": 1,
+					"text": "Blacksmith Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15001,
+					"count": 1,
+					"text": "Stable Assaulted"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 8171: Description"
+		},
+		"note": "The Battle for Arathi Basin! (8171): the quest log's words for its objectives, \"Mine Assaulted\", \"Lumber Mill Assaulted\", \"Blacksmith Assaulted\", \"Stable Assaulted\", as the game's quest objectives give them. They credit the invisible marker NPCs 15005 (\"PvP ALT-N Credit Marker\"), 15004 (\"PvP ALT-S Credit Marker\"), 15002 (\"PvP Mid Credit Marker\"), 15001 (\"PvP A-Mid Credit Marker\"), whose names no player should read (#2614); the data build makes them events in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
 	},
 	"8227": {
 		"set": {
@@ -2881,6 +3321,64 @@
 			}
 		],
 		"note": "Ten Commendation Signets: starts with Officer Vu'Shalay (npc 15761) and ends with Officer Vu'Shalay (npc 15761); as its giver the merged data also listed Darkspear Commendation Officer (npc 15737); as its ender the merged data also listed Darkspear Commendation Officer (npc 15737)."
+	},
+	"8867": {
+		"set": {
+			"objectives": [
+				{
+					"type": "object",
+					"id": 180771,
+					"count": 8,
+					"text": "Lunar Fireworks Fired"
+				},
+				{
+					"type": "object",
+					"id": 180772,
+					"count": 2,
+					"text": "Lunar Fireworks Cluster Fired"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_objectives 8867: Description, Amount"
+			},
+			{
+				"kind": "questie",
+				"ref": "quest 8867 objectives: objects 180771, 180772"
+			}
+		],
+		"note": "Lunar Fireworks (8867): the quest log's two lines, \"Lunar Fireworks Fired\" x8 and \"Lunar Fireworks Cluster Fired\" x2, as the game's quest objectives give them, at the Firework Launcher (180771) and the Cluster Launcher (180772) where they are fired. The game's objectives credit the invisible marker NPCs 15893 (\"Lunar Firework Credit Marker\") and 15894 (\"Lunar Cluster Credit Marker\"), whose names no player should read (#2614)."
+	},
+	"9015": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 16059,
+					"count": 1,
+					"text": "Theldren's Team Defeated"
+				},
+				{
+					"type": "item",
+					"id": 22047,
+					"count": 1,
+					"text": "Top Piece of Lord Valthalak's Amulet"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_objectives 9015: Description, Amount"
+			},
+			{
+				"kind": "questie",
+				"ref": "quest 9015 objectives: npc 16059, item 22047"
+			}
+		],
+		"note": "The Challenge (9015): the quest log's line \"Theldren's Team Defeated\", as the game's quest objectives give it, for the fight with Theldren (16059) and his team, then the Top Piece of Lord Valthalak's Amulet (22047). The game's objective credits the invisible NPC 16166 (\"Theldren Kill Credit\"), whose name no player should read (#2614)."
 	},
 	"65593": {
 		"set": {

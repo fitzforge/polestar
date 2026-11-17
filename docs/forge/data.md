@@ -256,7 +256,9 @@ Credit Marker", Alterac Valley's "Trigger Ichman". After the talk rule, a kill o
 becomes an `event` in the quest log's own words ("Graveyard Assaulted"), placed at the NPC's spot when it has one
 (`forge-data/src/credit.rs`; the names in `forge-guide/src/placeholder.rs`). A placeholder text that carries a
 name gives way to it ("[DNT] Kill Credit: Twilight Thrall"); one that carries none needs a correction with the
-quest log's words, from players' recordings. Then the build fails while any placeholder name a player could read
+quest log's words, from players' recordings or the game's quest objectives. The battlegrounds' quests, Lunar
+Fireworks and The Challenge have such records too: the public build has no source for the quest log's words and
+would otherwise read only the markers' names. Then the build fails while any placeholder name a player could read
 is left: a title, an objective's words, or the name of an NPC, object or item an objective, giver, ender or
 starting item points at, in every quest but the game's unused and test ones ("<UNUSED>", "<TEST> HEY MISTER
 WILSON!", "REUSE"), which Lookup's search leaves out, as it does NPCs and items with a placeholder name.
