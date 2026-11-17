@@ -1145,6 +1145,7 @@ local WEAPON_SKILL = {
 	[0] = 44, [1] = 172, [2] = 45, [3] = 46, [4] = 54, [5] = 160, [6] = 229, [7] = 43,
 	[8] = 55, [10] = 136, [13] = 473, [15] = 173, [16] = 176, [18] = 226, [19] = 228,
 }
+Gear.WEAPON_SKILL = WEAPON_SKILL
 -- line -> known; false when the client can't list weapon skills (then every
 -- weapon the class can train counts, as before). Reset by invalidate().
 local weaponSkills
