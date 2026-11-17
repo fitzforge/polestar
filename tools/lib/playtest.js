@@ -719,8 +719,9 @@ async function personaPlaytest({ dir = OFFICIAL_DIR, manifest, personas, filter 
 							plays.push(playGuideIn(pool, sim, g, { ...who, before: `${before}\n${v.before}`, script: lua(v.persona) }).then(([o]) => record(persona, v.variant, stuckOf(o))));
 						}
 					}
-					// fresh: a character who opens this guide with none of the earlier guides' quests done or carried.
-					if (personas.includes('fresh') && before.trim()) {
+					// fresh: a character who opens a guide some route leads into with none of the earlier guides' quests
+					// done or carried. (A guide no route leads into keeps what it waits on from elsewhere: chainDone.)
+					if (personas.includes('fresh') && arriving.has(g.id) && before.trim()) {
 						plays.push(playGuideIn(pool, sim, g, { ...who, script: lua(base) }).then(([o]) => record('fresh', 'opened the guide with nothing from the guides before it', stuckOf(o))));
 					}
 					const was = oldById.get(g.id);
