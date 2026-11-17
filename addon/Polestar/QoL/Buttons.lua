@@ -27,7 +27,9 @@
 --     of one; farther, the rows' mobs before the NPCs (#1623). A row the
 --     arrow points at (clicked) comes before the step's own mobs (#2011).
 --     Each name takes its own kind's mark and ping. Every click moves the next name to the
---     front. With qol.targetPlate (on by default) its icon shows what you do with the
+--     front; a click while a living one of its names is targeted takes the
+--     next one of that name instead (Buttons.WireCycle; the step key, the
+--     list's rows and the guide's names too). With qol.targetPlate (on by default) its icon shows what you do with the
 --     name the next click targets (Buttons.TargetLook: a speech bubble, !,
 --     ?, a sword, a bag, a skull for an elite, rare or boss), the name beside
 --     it in that kind's colour, and a row of small icons for the names after
@@ -1829,8 +1831,11 @@ end
 -- first living match is kept. A name that is not MacroSafeName never becomes
 -- a line. ping: a /ping line (Buttons.PingLine) after the names; mark: a /tm
 -- line (Buttons.MarkLine) for the end. Names past MACRO_LIMIT are dropped
--- from the end; the preferred name, the ping and the mark stay.
-function Buttons.TargetMacro(list, preferred, mark, ping)
+-- from the end; the preferred name, the ping and the mark stay. keep: no
+-- "/cleartarget [nocombat]", for a press on a living unit of the preferred
+-- name (Buttons.WireCycle): /targetexact then moves on to the next unit of
+-- that name.
+function Buttons.TargetMacro(list, preferred, mark, ping, keep)
 	local n = #list
 	if n == 0 then return nil end
 	local order = {}
@@ -1843,7 +1848,8 @@ function Buttons.TargetMacro(list, preferred, mark, ping)
 	local tail = (ping and ("\n" .. ping) or "") .. (mark and ("\n" .. mark) or "")
 	local text
 	repeat
-		local lines = { "/cleartarget [nocombat]" }
+		local lines = {}
+		if not keep then lines[1] = "/cleartarget [nocombat]" end
 		for k = 1, count do
 			lines[#lines + 1] = (k == 1 and "/targetexact " or "/targetexact [noexists] ") .. order[k]
 			lines[#lines + 1] = "/cleartarget [dead]"
@@ -1859,17 +1865,18 @@ end
 -- the mark of the first name's kind, or, when the names the macro holds are of
 -- both kinds, both kinds' lines (Buttons.MixedMarkLines), so a fallback of the
 -- other kind gets its own kind's icon, not the first name's (#2152). One block
--- of names, so a mixed list fits a macro as well as it did. -> text, the
--- first name's kind, mixed (true: both kinds' lines).
-function Buttons.MarkedMacro(list, first, kindOf, ping)
+-- of names, so a mixed list fits a macro as well as it did. keep: as
+-- TargetMacro's. -> text, the first name's kind, mixed (true: both kinds'
+-- lines).
+function Buttons.MarkedMacro(list, first, kindOf, ping, keep)
 	local kind = kindOf(first)
 	local mark = Buttons.MarkLine(kind)
-	local text = Buttons.TargetMacro(list, first, mark, ping)
+	local text = Buttons.TargetMacro(list, first, mark, ping, keep)
 	if not (text and mark) then return text, kind, false end
 	local held = select(2, text:gsub("/targetexact", ""))
 	for k = 2, held do
 		if kindOf((first - 2 + k) % #list + 1) ~= kind then
-			return Buttons.TargetMacro(list, first, Buttons.MixedMarkLines(), ping), kind, true
+			return Buttons.TargetMacro(list, first, Buttons.MixedMarkLines(), ping, keep), kind, true
 		end
 	end
 	return text, kind, false
@@ -1915,6 +1922,71 @@ function Buttons.AcquiredIndex(b)
 		end
 	end
 	return b.aCycle or 1
+end
+
+-- Repeated presses go from mob to mob (a player on Discord, 2026-11-17: the
+-- first one was already tagged). /targetexact moves on to the next unit of a
+-- name only while the target already has that name, and every macro opens
+-- with "/cleartarget [nocombat]", so out of combat each press took the
+-- nearest one again. The index in list of the target's name while the target
+-- is a living unit, else nil: a corpse, a unit of another name or no target
+-- keeps the clear. (Fields, not locals: the file is at Lua's local limit.)
+function Buttons.CycleIndex(list)
+	if not (list and UnitExists and UnitExists("target")) or (UnitIsDead and UnitIsDead("target")) then return nil end
+	local name = ns.Compat.Readable(UnitName and UnitName("target"))
+	if not name then return nil end
+	for i = 1, #list do
+		if list[i] == name then return i end
+	end
+	return nil
+end
+
+-- The macro a button applied, for its presses (Buttons.WireCycle): text is
+-- Buttons.MarkedMacro(list, ..., kindOf, ping), or with a single name and
+-- kindOf a kind ("mob" or "npc"), TargetMacro's with that kind's mark; ping:
+-- true when it has Buttons.QuestPingLine(). nil text: no macro.
+function Buttons.SetPress(b, list, kindOf, text, ping)
+	if not text then
+		b.press = nil
+		return
+	end
+	local p = b.press or {}
+	p.list, p.kindOf, p.text, p.ping = list, kindOf, text, ping
+	b.press = p
+end
+
+-- A press out of combat on a living unit of one of b.press's names leaves the
+-- target and starts from its name (TargetMacro's keep), so the press takes
+-- the next one of that name; the corpse lines, the other names, the ping and
+-- the mark stay. PostClick puts the applied macro back. In a fight nothing
+-- changes: macros cannot, and the clear is "[nocombat]" anyway. While a
+-- press is cycled, b.pressedKind and b.pressedMixed are its macro's (the
+-- target list's rows mark by them). attr: the macro's attribute
+-- ("macrotext", or "macrotext1" for a left click only).
+function Buttons.WireCycle(b, attr)
+	attr = attr or "macrotext"
+	b:HookScript("PreClick", function(self)
+		local p = self.press
+		if not p or QoL.InLockdown() then return end
+		local i = Buttons.CycleIndex(p.list)
+		if not i then return end
+		local text, kind, mixed
+		local ping = p.ping and Buttons.QuestPingLine() or nil
+		if type(p.kindOf) == "string" then
+			kind, mixed = p.kindOf, false
+			text = Buttons.TargetMacro(p.list, i, Buttons.MarkLine(kind), ping, true)
+		else
+			text, kind, mixed = Buttons.MarkedMacro(p.list, i, p.kindOf, ping, true)
+		end
+		if not text or #text > MACRO_LIMIT then return end
+		self:SetAttribute(attr, text)
+		self.pressed, self.pressedKind, self.pressedMixed = true, kind, mixed
+	end)
+	b:HookScript("PostClick", function(self)
+		if not self.pressed or QoL.InLockdown() then return end
+		self.pressed, self.pressedKind, self.pressedMixed = nil, nil, nil
+		self:SetAttribute(attr, self.press and self.press.text)
+	end)
 end
 
 -- Names seen in the world (the target, the mouseover, a nameplate) as an
@@ -2534,6 +2606,8 @@ do
 			end
 			r:SetAttribute("type", text and "macro" or nil)
 			r:SetAttribute("macrotext", text)
+			-- Its presses: the folded row's names, or its own name (Buttons.WireCycle).
+			Buttons.SetPress(r, text and (fold and list or { name }), fold and targetKind or kind, text, true)
 			r.applied = text and name or nil
 			-- The mark the row's click puts on (Buttons.AdvanceMark).
 			r.kind = r.applied and kind or nil
@@ -2779,9 +2853,11 @@ do
 		wire(r, rowTooltip)
 		r:HookScript("PostClick", function(self, _, down)
 			if down or self.dragging then return end
-			-- A macro of both kinds: the mark of the kind it targeted.
-			local kind = self.kind or "mob"
-			if self.mixed then
+			-- A macro of both kinds: the mark of the kind it targeted. A press
+			-- that moved on from the target (Buttons.WireCycle) ran its own macro.
+			local kind, mixed = self.kind or "mob", self.mixed
+			if self.pressed then kind, mixed = self.pressedKind, self.pressedMixed end
+			if mixed then
 				local hostile = flag(UnitCanAttack, "player", "target")
 				if hostile then
 					kind = "mob"
@@ -2791,6 +2867,7 @@ do
 			end
 			Buttons.AdvanceMark(kind)
 		end)
+		Buttons.WireCycle(r)
 		return r
 	end
 
@@ -2919,6 +2996,7 @@ do
 			local text = Buttons.MarkedMacro(list, cycle, targetKind, Buttons.QuestPingLine())
 			b:SetAttribute("type", text and "macro" or nil)
 			b:SetAttribute("macrotext", text)
+			Buttons.SetPress(b, list, targetKind, text, true)
 			b.applied = list[cycle]
 			b.aList, b.aVerbs, b.aIds, b.aMarks, b.aCycle = list, target.verbs, target.ids, target.marks, cycle
 			paintTarget(b)
@@ -3264,11 +3342,14 @@ local function applyStep(b)
 		if step.kind == "target" then
 			-- A fallback of the other kind takes its own kind's mark (#2152); both kinds are pinged.
 			text = Buttons.MarkedMacro(step.list, step.cycle, stepKind, Buttons.QuestPingLine())
+			Buttons.SetPress(b, step.list, stepKind, text, true)
 		elseif step.kind == "npc" then
 			text = Buttons.TargetMacro({ step.value }, 1, Buttons.MarkLine("npc"), Buttons.QuestPingLine())
+			Buttons.SetPress(b, { step.value }, "npc", text, true)
 		elseif step.kind == "item" then
 			item = "item:" .. step.value
 		end
+		if step.kind ~= "target" and step.kind ~= "npc" then Buttons.SetPress(b, nil, nil, nil) end
 		b:SetAttribute("type", item and "item" or text and "macro" or nil)
 		b:SetAttribute("item", item)
 		b:SetAttribute("macrotext", text)
@@ -3531,6 +3612,7 @@ local function create()
 		local marked = Buttons.AdvanceMark(kind)
 		if n > 1 and not marked then applyTarget(targetButton) end
 	end)
+	Buttons.WireCycle(targetButton)
 	rareButton = newButton("PolestarRareButton", "rare", rareTooltip)
 	rareButton:HookScript("PostClick", function(self, _, down)
 		if down or self.dragging then return end
@@ -3576,6 +3658,7 @@ local function create()
 		local marked = Buttons.AdvanceMark(kind)
 		if names and not marked then applyStep(self) end
 	end)
+	Buttons.WireCycle(stepButton)
 	Buttons.item, Buttons.hearth, Buttons.target, Buttons.rare, Buttons.step, Buttons.bag = itemButton, hearthButton, targetButton, rareButton, stepButton, bagButton
 	Buttons.rows, Buttons.anchor = TL.rows, TL.anchor
 	set = { bagButton, hearthButton, itemButton, targetButton, rareButton }
