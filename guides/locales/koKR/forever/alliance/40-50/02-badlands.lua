@@ -89,7 +89,7 @@ return {
 
 	-- Step 20: Fly to Southshore
 	-- {area:271} Southshore
-	["Fly to {area:271}"] = "{area:271}(으)로 날아가세요",
+	["Fly to {area:271}"] = "{area:271}(으)로 날아가기",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "{area:144} 비행 조련사",
 
@@ -130,7 +130,7 @@ return {
 
 	-- Step 28: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "{area:150}(으)로 비행",
+	["Fly to {area:150}"] = "{area:150}(으)로 날아가기",
 	-- {area:348} Aerie Peak
 	["{area:348} flight master"] = "",
 

@@ -77,7 +77,7 @@ return {
 
 	-- Step 14: Fly to Camp Taurajo
 	-- {area:378} Camp Taurajo
-	["Fly to {area:378}"] = "{area:378}(으)로 비행",
+	["Fly to {area:378}"] = "{area:378}(으)로 날아가기",
 	-- {quest:1063} The Elder Crone · {area:378} Camp Taurajo · {area:2897} Zoram'gar Outpost · {zone:1456} Thunder Bluff · {npc:4046} Magatha Grimtotem · {npc:3419} Apothecary Zamah · {npc:2216} Apothecary Lydon · {area:272} Tarren Mill · {zone:1454} Orgrimmar
 	["{quest:1063} first: fly to {area:378} from the {area:2897} flight master and walk on to {zone:1456}. {npc:4046} and {npc:3419} send you to {npc:2216} in {area:272}, the next guide's base, and {zone:1456}'s flight path takes you on to {zone:1454}."] = "먼저 {quest:1063}: {area:2897}의 비행 조련사에게서 {area:378}(으)로 비행한 뒤 {zone:1456}까지 걸어가세요. {npc:4046}와(과) {npc:3419}이(가) 다음 가이드의 거점인 {area:272}의 {npc:2216}에게 보내며, {zone:1456}의 비행 경로로 {zone:1454}까지 이어서 갈 수 있습니다.",
 
@@ -103,7 +103,7 @@ return {
 
 	-- Step 18: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar · {area:2897} Zoram'gar Outpost
-	["Fly to {area:1637} from the {area:2897} flight master."] = "{area:2897}의 비행 조련사에게서 {area:1637}(으)로 비행하세요.",
+	["Fly to {area:1637} from the {area:2897} flight master."] = "{area:2897}의 비행 조련사에게서 {area:1637}(으)로 날아가기하세요.",
 
 	-- Step 19: Druid trainer
 	["Druid trainer"] = "드루이드 상급자",

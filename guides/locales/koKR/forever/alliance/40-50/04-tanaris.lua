@@ -145,7 +145,7 @@ return {
 
 	-- Step 28: Fly to Auberdine
 	-- {area:442} Auberdine
-	["Fly to {area:442}"] = "{area:442}(으)로 비행",
+	["Fly to {area:442}"] = "{area:442}(으)로 날아가기",
 	-- {zone:1457} Darnassus · {npc:7763} Curgle Cranklehop · {area:442} Auberdine · {area:150} Menethil Harbor · {area:348} Aerie Peak
 	["{zone:1457} first, while you are on this side of the sea: Troyas' answer, {npc:7763}'s crate, Tyrande and the soil errand, then the boat from {area:442} to {area:150} and the gryphon to {area:348}."] = "바다 이쪽에 있는 동안 {zone:1457}부터 들르십시오: 트로야스의 답신, {npc:7763}의 상자, 티란데와 흙 심부름. 그런 다음 {area:442}에서 배를 타고 {area:150}(으)로 가서 그리폰을 타고 {area:348}(으)로 가십시오.",
 	-- {area:976} Gadgetzan
@@ -176,7 +176,7 @@ return {
 	["{npc:3516}, at the top of the tree"] = "{npc:3516}, 나무 꼭대기",
 
 	-- Step 37: Class trainer
-	["Class trainer"] = "직업 상급자",
+	["Class trainer"] = "직업 전문가",
 
 	-- Step 38: Cenarion Enclave
 	-- {zone:1449} Un'Goro Crater
@@ -198,7 +198,7 @@ return {
 
 	-- Step 43: Fly to Southshore
 	-- {area:271} Southshore
-	["Fly to {area:271}"] = "{area:271}(으)로 비행",
+	["Fly to {area:271}"] = "{area:271}(으)로 날아가기",
 
 	-- Step 44: Hinterlands
 	-- {area:348} Aerie Peak · {area:271} Southshore · {zone:1425} Hinterlands

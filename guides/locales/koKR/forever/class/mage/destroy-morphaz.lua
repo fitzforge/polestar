@@ -21,7 +21,7 @@ return {
 
 	-- Step 3: Sanath Lim-yo
 	-- {area:3137} Talrendis Point · {area:1237} Valormok · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara · {area:1221} Ruins of Eldarath · {npc:8379} Archmage Xylem
-	["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below his master's tower, a short way east of {area:1237}: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. Get off your mount before he teleports you up, or the teleport may not take you. A trail with no enemies climbs to {npc:8379} at the top of the tower; an attendant at the top sends you back down, as often as you like."] = "{area:3137}(얼라이언스) 또는 {area:1237}(호드)(으)로 날아가세요. {npc:8395}은(는) {area:1237}에서 동쪽으로 조금 떨어진 스승의 탑 아래에 야영합니다. {zone:1447} 큰길의 {area:1221} 갈림길에서 곧장 북쪽 절벽으로 가세요. 그가 순간이동시켜 주기 전에 탈것에서 내리세요. 그렇지 않으면 순간이동이 되지 않을 수 있습니다. 적이 없는 오솔길이 탑 꼭대기의 {npc:8379}에게 이어지며, 꼭대기의 시종이 원하는 만큼 다시 내려보내 줍니다.",
+	["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below his master's tower, a short way east of {area:1237}: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. Get off your mount before he teleports you up, or the teleport may not take you. A trail with no enemies climbs to {npc:8379} at the top of the tower; an attendant at the top sends you back down, as often as you like."] = "{area:3137}(얼라이언스) 또는 {area:1237}(호드)(으)로 날아가기. {npc:8395}은(는) {area:1237}에서 동쪽으로 조금 떨어진 스승의 탑 아래에 야영합니다. {zone:1447} 큰길의 {area:1221} 갈림길에서 곧장 북쪽 절벽으로 가세요. 그가 순간이동시켜 주기 전에 탈것에서 내리세요. 그렇지 않으면 순간이동이 되지 않을 수 있습니다. 적이 없는 오솔길이 탑 꼭대기의 {npc:8379}에게 이어지며, 꼭대기의 시종이 원하는 만큼 다시 내려보내 줍니다.",
 	-- {npc:8379} Archmage Xylem
 	["{npc:8379}, in the tower"] = "탑 안의 {npc:8379}",
 

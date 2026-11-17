@@ -444,7 +444,7 @@ return {
 
 	-- Step 85: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "Лететь в {area:1537}",
+	["Fly to {area:1537}"] = "Летите сюда: {area:1537}",
 	-- {npc:1571} Shellei Brondir
 	["{npc:1571} is the flight master by Menethil's inn."] = "",
 	-- {area:150} Menethil Harbor

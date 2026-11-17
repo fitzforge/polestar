@@ -192,7 +192,7 @@ return {
 
 	-- Step 48: Fly to Southshore
 	-- {area:271} Southshore
-	["Fly to {area:271}"] = "{area:271}(으)로 날아가세요",
+	["Fly to {area:271}"] = "{area:271}(으)로 날아가기",
 	-- {area:348} Aerie Peak
 	["{area:348} flight master"] = "",
 
@@ -267,12 +267,12 @@ return {
 
 	-- Step 70: Fly to Ratchet
 	-- {area:392} Ratchet
-	["Fly to {area:392}"] = "{area:392}(으)로 비행",
+	["Fly to {area:392}"] = "{area:392}(으)로 날아가기",
 	-- {area:489} Thalanaar
 	["{area:489} flight master"] = "",
 
 	-- Step 71: Fly to Theramore
-	["Fly to Theramore"] = "테라모어 섬으로 비행",
+	["Fly to Theramore"] = "테라모어 섬으로 날아가기",
 
 	-- Step 72: The Barrens
 	-- {zone:1413} The Barrens · {area:392} Ratchet

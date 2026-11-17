@@ -103,7 +103,7 @@ return {
 
 	-- Step 19: Fly to Stormwind
 	-- {zone:1453} Stormwind
-	["Fly to {zone:1453}"] = "{zone:1453}로 비행",
+	["Fly to {zone:1453}"] = "{zone:1453}로 날아가기",
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "",
 
@@ -335,7 +335,7 @@ return {
 
 	-- Step 69: Fly to Auberdine
 	-- {area:442} Auberdine
-	["Fly to {area:442}"] = "{area:442}(으)로 비행",
+	["Fly to {area:442}"] = "{area:442}(으)로 날아가기",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "{area:702} 비행 조련사",
 
@@ -345,7 +345,7 @@ return {
 
 	-- Step 71: Fly to Darkshire
 	-- {area:42} Darkshire
-	["Fly to {area:42}"] = "{area:42}(으)로 날아가세요",
+	["Fly to {area:42}"] = "{area:42}(으)로 날아가기",
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "",
 

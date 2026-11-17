@@ -192,7 +192,7 @@ return {
 
 	-- Step 42: Gadgetzan
 	-- {area:976} Gadgetzan · {quest:2741} The Super Egg-O-Matic
-	["Fly to {area:976}. Still carrying {quest:2741}? The machine stands in the middle of town."] = "{area:976}(으)로 날아가세요. 아직 {quest:2741}을(를) 가지고 있나요? 기계는 마을 한가운데에 있습니다.",
+	["Fly to {area:976}. Still carrying {quest:2741}? The machine stands in the middle of town."] = "{area:976}(으)로 날아가기. 아직 {quest:2741}을(를) 가지고 있나요? 기계는 마을 한가운데에 있습니다.",
 
 	-- Step 45: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar

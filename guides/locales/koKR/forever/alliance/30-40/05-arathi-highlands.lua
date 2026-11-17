@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Fly to Darkshire
 	-- {area:42} Darkshire
-	["Fly to {area:42}"] = "{area:42}(으)로 날아가세요",
+	["Fly to {area:42}"] = "{area:42}(으)로 날아가기",
 	-- {area:35} Booty Bay
 	["{area:35} flight master"] = "",
 
@@ -75,7 +75,7 @@ return {
 
 	-- Step 14: Fly to Stormwind
 	-- {zone:1453} Stormwind
-	["Fly to {zone:1453}"] = "{zone:1453}(으)로 날아가세요",
+	["Fly to {zone:1453}"] = "{zone:1453}(으)로 날아가기",
 	-- {zone:1430} Deadwind Pass · {area:42} Darkshire
 	["Back west through {zone:1430} to {area:42}."] = "{zone:1430}을(를) 지나 서쪽으로 {area:42}까지 돌아가세요.",
 
@@ -109,7 +109,7 @@ return {
 
 	-- Step 21: Fly to Southshore
 	-- {area:271} Southshore
-	["Fly to {area:271}"] = "{area:271}(으)로 날아가세요",
+	["Fly to {area:271}"] = "{area:271}(으)로 날아가기",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "{zone:1455} 비행 조련사",
 
@@ -336,7 +336,7 @@ return {
 
 	-- Step 72: Fly to Thelsamar
 	-- {area:144} Thelsamar
-	["Fly to {area:144}"] = "{area:144}(으)로 비행",
+	["Fly to {area:144}"] = "{area:144}(으)로 날아가기",
 
 	-- Step 73: To Thelsamar
 	-- {area:144} Thelsamar

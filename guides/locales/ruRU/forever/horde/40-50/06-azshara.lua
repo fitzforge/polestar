@@ -8,7 +8,7 @@
 return {
 	-- Step 2: Fly to Booty Bay
 	-- {area:35} Booty Bay
-	["Fly to {area:35}"] = "Летите: {area:35}",
+	["Fly to {area:35}"] = "Летите сюда: {area:35}",
 	-- {area:75} Stonard
 	["{area:75} flight master"] = "",
 
@@ -35,7 +35,7 @@ return {
 
 	-- Step 11: Fly to Grom'gol
 	-- {object:3202} Grom'gol
-	["Fly to {object:3202}"] = "Летите: {object:3202}",
+	["Fly to {object:3202}"] = "Летите сюда: {object:3202}",
 	-- {area:35} Booty Bay
 	["{area:35} flight master"] = "",
 
@@ -116,7 +116,7 @@ return {
 
 	-- Step 32: Thunder Bluff
 	-- {zone:1456} Thunder Bluff · {area:1099} Camp Mojache · {area:378} Camp Taurajo · {zone:1412} Mulgore · {area:1639} Elder Rise · {npc:3033} Turak Runetotem · {npc:246344} Alodan the Hopeful
-	["Fly to {zone:1456}; it is on the way to {area:1099}. No flight path there yet? Fly to {area:378} and ride west through {zone:1412}. Hamuul and Magatha are on the {area:1639}; Druids and Paladins train here ({npc:3033}, {npc:246344})."] = "Летите в {zone:1456}; это по пути к месту {area:1099}. Маршрута полета туда еще нет? Летите в {area:378} и езжайте на запад через {zone:1412}. Хамуул и Магата – здесь: {area:1639}; друиды и паладины обучаются здесь ({npc:3033}, {npc:246344}).",
+	["Fly to {zone:1456}; it is on the way to {area:1099}. No flight path there yet? Fly to {area:378} and ride west through {zone:1412}. Hamuul and Magatha are on the {area:1639}; Druids and Paladins train here ({npc:3033}, {npc:246344})."] = "Летите сюда: {zone:1456}; это по пути к месту {area:1099}. Маршрута полета туда еще нет? Летите в {area:378} и езжайте на запад через {zone:1412}. Хамуул и Магата – здесь: {area:1639}; друиды и паладины обучаются здесь ({npc:3033}, {npc:246344}).",
 	-- {npc:6746} Innkeeper Pala
 	["{npc:6746}, at the inn: for Hamuul"] = "{npc:6746}, в таверне: для Хамуула",
 	-- {npc:5769} Arch Druid Hamuul Runetotem · {area:1639} Elder Rise

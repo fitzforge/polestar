@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "{area:150}(으)로 비행",
+	["Fly to {area:150}"] = "{area:150}(으)로 날아가기",
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "",
 
@@ -116,7 +116,7 @@ return {
 	["{area:976} is a short walk down the road; keep to it. {npc:7823}, the Alliance flight master, stands inside the walls."] = "",
 
 	-- Step 21: Fly to Theramore
-	["Fly to Theramore"] = "테라모어 섬으로 비행",
+	["Fly to Theramore"] = "테라모어 섬으로 날아가기",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "{area:976} 비행 조련사",
 

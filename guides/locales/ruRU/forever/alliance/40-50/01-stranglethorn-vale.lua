@@ -103,7 +103,7 @@ return {
 
 	-- Step 19: Fly to Stormwind
 	-- {zone:1453} Stormwind
-	["Fly to {zone:1453}"] = "Лететь в {zone:1453}",
+	["Fly to {zone:1453}"] = "Летите сюда: {zone:1453}",
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "",
 
@@ -134,7 +134,7 @@ return {
 
 	-- Step 26: Fly to Booty Bay
 	-- {area:35} Booty Bay
-	["Fly to {area:35}"] = "Летите: {area:35}",
+	["Fly to {area:35}"] = "Летите сюда: {area:35}",
 	-- {area:42} Darkshire
 	["{area:42} flight master"] = "",
 

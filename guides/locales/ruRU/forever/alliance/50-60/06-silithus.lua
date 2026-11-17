@@ -122,7 +122,7 @@ return {
 
 	-- Step 18: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "Лететь сюда: {area:1537}",
+	["Fly to {area:1537}"] = "Летите сюда: {area:1537}",
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "",
 
@@ -380,7 +380,7 @@ return {
 
 	-- Step 83: Fly to Stormwind
 	-- {zone:1453} Stormwind
-	["Fly to {zone:1453}"] = "Лететь в {zone:1453}",
+	["Fly to {zone:1453}"] = "Летите сюда: {zone:1453}",
 
 	-- Step 84: Stormwind
 	-- {npc:3520} Ol' Emma

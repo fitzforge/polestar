@@ -114,7 +114,7 @@ return {
 
 	-- Step 16: Fly to Auberdine
 	-- {area:442} Auberdine
-	["Fly to {area:442}"] = "{area:442}(으)로 비행",
+	["Fly to {area:442}"] = "{area:442}(으)로 날아가기",
 
 	-- Step 17: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
@@ -122,7 +122,7 @@ return {
 
 	-- Step 18: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "{area:1537}(으)로 비행",
+	["Fly to {area:1537}"] = "{area:1537}(으)로 날아가기",
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "",
 
@@ -131,7 +131,7 @@ return {
 
 	-- Step 20: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "{area:150}(으)로 비행",
+	["Fly to {area:150}"] = "{area:150}(으)로 날아가기",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "{zone:1455} 비행 조련사",
 
@@ -141,7 +141,7 @@ return {
 	-- Step 23: Gadgetzan
 	-- {area:976} Gadgetzan · {quest:5801} Fire Plume Forged
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
-	["Fly to {area:976}. Buy two Thorium Bars at the Auction House here for {quest:5801}."] = "{area:976}(으)로 날아가세요. {quest:5801}에 쓸 토륨 주괴 2개를 이곳 경매장에서 사세요.",
+	["Fly to {area:976}. Buy two Thorium Bars at the Auction House here for {quest:5801}."] = "{area:976}(으)로 날아가기. {quest:5801}에 쓸 토륨 주괴 2개를 이곳 경매장에서 사세요.",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "",
 
@@ -261,7 +261,7 @@ return {
 
 	-- Step 45: Gadgetzan
 	-- {area:976} Gadgetzan
-	["Fly to {area:976}."] = "{area:976}(으)로 날아가세요.",
+	["Fly to {area:976}."] = "{area:976}(으)로 날아가기.",
 	-- {npc:7740} Gracina Spiritmight · {zone:1457} Darnassus
 	["{npc:7740} in {zone:1457}: keep it"] = "{zone:1457}의 {npc:7740}: 보관하세요",
 
@@ -380,7 +380,7 @@ return {
 
 	-- Step 83: Fly to Stormwind
 	-- {zone:1453} Stormwind
-	["Fly to {zone:1453}"] = "{zone:1453}로 비행",
+	["Fly to {zone:1453}"] = "{zone:1453}로 날아가기",
 
 	-- Step 84: Stormwind
 	-- {npc:3520} Ol' Emma
@@ -420,7 +420,7 @@ return {
 
 	-- Step 89: Fly to Southshore
 	-- {area:271} Southshore
-	["Fly to {area:271}"] = "{area:271}(으)로 날아가세요",
+	["Fly to {area:271}"] = "{area:271}(으)로 날아가기",
 
 	-- Step 93: Chillwind Camp
 	-- {npc:1852} Araj the Summoner

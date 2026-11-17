@@ -259,7 +259,7 @@ return {
 
 	-- Step 55: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "{area:1537}(으)로 비행",
+	["Fly to {area:1537}"] = "{area:1537}(으)로 날아가기",
 	-- {area:271} Southshore
 	["{area:271} flight master"] = "",
 
@@ -274,7 +274,7 @@ return {
 
 	-- Step 61: Fly to Stormwind
 	-- {zone:1453} Stormwind
-	["Fly to {zone:1453}"] = "{zone:1453}로 비행",
+	["Fly to {zone:1453}"] = "{zone:1453}로 날아가기",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "{zone:1455} 비행 조련사",
 

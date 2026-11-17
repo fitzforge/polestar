@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
-	["Fly to {area:1638}"] = "Лететь: {area:1638}",
+	["Fly to {area:1638}"] = "Летите сюда: {area:1638}",
 	-- {area:1638} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore · {npc:3419} Apothecary Zamah
 	["Fly to {area:1638} (without its flight path the arrow goes by {area:378} and {zone:1412}): two of its elders give quests worked on this guide's and the next guide's walks, and {npc:3419} takes Lydon's toxin."] = "Летите сюда: {area:1638} (без этого маршрута полета стрелка ведет через {area:378} и {zone:1412}): двое старейшин выдают там задания для этого и следующего гайдов, а {npc:3419} примет токсин Лайдона.",
 
@@ -28,7 +28,7 @@ return {
 
 	-- Step 4: Fly to Camp Taurajo
 	-- {area:378} Camp Taurajo
-	["Fly to {area:378}"] = "Лететь: {area:378}",
+	["Fly to {area:378}"] = "Летите сюда: {area:378}",
 	-- {area:378} Camp Taurajo · {npc:2995} Tal · {zone:1456} Thunder Bluff
 	["Fly to {area:378}: {npc:2995} on {zone:1456}'s central rise, or the Crossroads' wind rider master if you start this guide there."] = "Летите сюда – {area:378}: {npc:2995} на центральном возвышении ({zone:1456}) или распорядитель ветрокрылов на Перекрестках, если вы начинаете этот гайд там.",
 
@@ -125,7 +125,7 @@ return {
 
 	-- Step 25: Fly to Ratchet
 	-- {area:392} Ratchet
-	["Fly to {area:392}"] = "Лететь: {area:392}",
+	["Fly to {area:392}"] = "Летите сюда: {area:392}",
 	["Crossroads flight master"] = "Распорядитель полетов на Перекрестке",
 
 	-- Step 26: Sputtervalve

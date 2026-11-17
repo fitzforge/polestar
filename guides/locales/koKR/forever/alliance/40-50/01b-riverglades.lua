@@ -545,7 +545,7 @@ return {
 
 	-- Step 114: Fly to Thelsamar
 	-- {area:144} Thelsamar
-	["Fly to {area:144}"] = "{area:144}(으)로 비행",
+	["Fly to {area:144}"] = "{area:144}(으)로 날아가기",
 	-- {zone:1418} Badlands · {zone:1432} Loch Modan · {area:144} Thelsamar
 	["The next guide starts in the {zone:1418}, south of {zone:1432}: fly to {area:144}."] = "다음 가이드는 {zone:1432} 남쪽의 {zone:1418}에서 시작합니다: {area:144}(으)로 날아가십시오.",
 

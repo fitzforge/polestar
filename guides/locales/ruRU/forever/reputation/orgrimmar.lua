@@ -329,7 +329,7 @@ return {
 
 	-- Step 54: Valormok: Betrayed
 	-- {area:1237} Valormok · {zone:1447} Azshara · {quest:3505} Betrayed · {npc:8576} Ag'tor Bloodfist · {npc:4485} Belgrom Rockmaul
-	["Fly to {area:1237} in western {zone:1447}: on Forever, {quest:3505} starts with {npc:8576} there, with no letter from {npc:4485} first. The {quest:3505} quests are level 53 and pay in full at 60 too, as every quest does in Forever. {npc:8576} sends you north-east to the blood elf camp on the bluffs of the northern peninsula."] = "Летите в {area:1237} на западе края {zone:1447}: на Forever задание {quest:3505} начинается прямо там, у NPC {npc:8576}, без предварительного письма от NPC {npc:4485}. Задания цепочки {quest:3505} – 53 уровня, и на 60 уровне за них тоже дают полную награду, как и за любое задание на Forever. {npc:8576} отправляет вас на северо-восток, к лагерю эльфов крови на утесах северного полуострова.",
+	["Fly to {area:1237} in western {zone:1447}: on Forever, {quest:3505} starts with {npc:8576} there, with no letter from {npc:4485} first. The {quest:3505} quests are level 53 and pay in full at 60 too, as every quest does in Forever. {npc:8576} sends you north-east to the blood elf camp on the bluffs of the northern peninsula."] = "Летите сюда: {area:1237} на западе края {zone:1447}: на Forever задание {quest:3505} начинается прямо там, у NPC {npc:8576}, без предварительного письма от NPC {npc:4485}. Задания цепочки {quest:3505} – 53 уровня, и на 60 уровне за них тоже дают полную награду, как и за любое задание на Forever. {npc:8576} отправляет вас на северо-восток, к лагерю эльфов крови на утесах северного полуострова.",
 
 	-- Step 55: Magus Rimtori's camp
 	-- {npc:8578} Magus Rimtori

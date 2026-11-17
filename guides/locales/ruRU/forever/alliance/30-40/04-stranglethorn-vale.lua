@@ -158,7 +158,7 @@ return {
 
 	-- Step 22: Fly to Stormwind
 	-- {zone:1453} Stormwind
-	["Fly to {zone:1453}"] = "Лететь в {zone:1453}",
+	["Fly to {zone:1453}"] = "Летите сюда: {zone:1453}",
 	-- {area:35} Booty Bay
 	["{area:35} flight master"] = "",
 
@@ -173,7 +173,7 @@ return {
 
 	-- Step 27: Fly to Stonetalon Peak
 	-- {area:467} Stonetalon Peak
-	["Fly to {area:467}"] = "Летите в {area:467}",
+	["Fly to {area:467}"] = "Летите сюда: {area:467}",
 	-- {area:467} Stonetalon Peak · {zone:1443} Desolace · {area:415} Astranaar · {area:465} Charred Vale
 	["You know the {area:467} flight: it lands closer to {zone:1443} than {area:415} does. From the peak, follow the road south through the mountains to the {area:465}."] = "Вам известен маршрут полета в {area:467}: он ближе к зоне {zone:1443}, чем {area:415}. От пика идите по дороге на юг через горы до места {area:465}.",
 	-- {area:442} Auberdine

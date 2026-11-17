@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Fly to Darkshire
 	-- {area:42} Darkshire
-	["Fly to {area:42}"] = "{area:42}(으)로 날아가세요",
+	["Fly to {area:42}"] = "{area:42}(으)로 날아가기",
 	-- {area:69} Lakeshire · {area:42} Darkshire · {zone:1431} Duskwood
 	["Back to the {area:69} gryphon master: fly to {area:42} for {zone:1431}'s second loop."] = "",
 	-- {area:69} Lakeshire

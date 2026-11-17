@@ -102,12 +102,12 @@ return {
 
 	-- Step 21: Fly to Chillwind Camp
 	-- {area:3197} Chillwind Camp
-	["Fly to {area:3197}"] = "{area:3197}(으)로 비행",
+	["Fly to {area:3197}"] = "{area:3197}(으)로 날아가기",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "{zone:1455} 비행 조련사",
 
 	-- Step 22: Fly to Theramore
-	["Fly to Theramore"] = "테라모어 섬으로 비행",
+	["Fly to Theramore"] = "테라모어 섬으로 날아가기",
 	-- {area:2255} Everlook
 	["{area:2255} flight master"] = "",
 

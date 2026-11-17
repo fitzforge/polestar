@@ -42,7 +42,7 @@ return {
 
 	-- Step 12: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "{area:150}(으)로 비행",
+	["Fly to {area:150}"] = "{area:150}(으)로 날아가기",
 	-- {zone:1453} Stormwind City
 	["{zone:1453} flight master"] = "",
 
@@ -434,7 +434,7 @@ return {
 
 	-- Step 82: Fly to Auberdine
 	-- {area:442} Auberdine
-	["Fly to {area:442}"] = "{area:442}(으)로 비행",
+	["Fly to {area:442}"] = "{area:442}(으)로 날아가기",
 	-- {area:415} Astranaar
 	["{area:415} flight master"] = "",
 
@@ -444,7 +444,7 @@ return {
 
 	-- Step 85: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "{area:1537}(으)로 비행",
+	["Fly to {area:1537}"] = "{area:1537}(으)로 날아가기",
 	-- {npc:1571} Shellei Brondir
 	["{npc:1571} is the flight master by Menethil's inn."] = "",
 	-- {area:150} Menethil Harbor

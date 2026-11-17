@@ -8,9 +8,9 @@
 return {
 	-- Step 1: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
-	["Fly to {area:1638}"] = "{area:1638}(으)로 비행",
+	["Fly to {area:1638}"] = "{area:1638}(으)로 날아가기",
 	-- {area:1638} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore · {npc:3419} Apothecary Zamah
-	["Fly to {area:1638} (without its flight path the arrow goes by {area:378} and {zone:1412}): two of its elders give quests worked on this guide's and the next guide's walks, and {npc:3419} takes Lydon's toxin."] = "{area:1638}(으)로 비행하세요(그곳 비행 경로가 없으면 화살표가 {area:378}와(과) {zone:1412}을(를) 거쳐 안내합니다). 그곳의 장로 두 명이 이 가이드와 다음 가이드의 여정에서 진행할 퀘스트를 주고, {npc:3419}에게 라이던의 독소를 제출합니다.",
+	["Fly to {area:1638} (without its flight path the arrow goes by {area:378} and {zone:1412}): two of its elders give quests worked on this guide's and the next guide's walks, and {npc:3419} takes Lydon's toxin."] = "{area:1638}(으)로 날아가기하세요(그곳 비행 경로가 없으면 화살표가 {area:378}와(과) {zone:1412}을(를) 거쳐 안내합니다). 그곳의 장로 두 명이 이 가이드와 다음 가이드의 여정에서 진행할 퀘스트를 주고, {npc:3419}에게 라이던의 독소를 제출합니다.",
 
 	-- Step 2: Apothecary Zamah
 	-- {npc:3419} Apothecary Zamah · {area:2197} Pools of Vision · {area:1640} Spirit Rise · {npc:2995} Tal
@@ -28,9 +28,9 @@ return {
 
 	-- Step 4: Fly to Camp Taurajo
 	-- {area:378} Camp Taurajo
-	["Fly to {area:378}"] = "{area:378}(으)로 비행",
+	["Fly to {area:378}"] = "{area:378}(으)로 날아가기",
 	-- {area:378} Camp Taurajo · {npc:2995} Tal · {zone:1456} Thunder Bluff
-	["Fly to {area:378}: {npc:2995} on {zone:1456}'s central rise, or the Crossroads' wind rider master if you start this guide there."] = "{area:378}(으)로 비행하세요. {zone:1456} 중앙 언덕의 {npc:2995}, 또는 이 가이드를 크로스로드에서 시작한다면 크로스로드의 와이번 조련사입니다.",
+	["Fly to {area:378}: {npc:2995} on {zone:1456}'s central rise, or the Crossroads' wind rider master if you start this guide there."] = "{area:378}(으)로 날아가기하세요. {zone:1456} 중앙 언덕의 {npc:2995}, 또는 이 가이드를 크로스로드에서 시작한다면 크로스로드의 와이번 조련사입니다.",
 
 	-- Step 5: Camp Taurajo
 	-- {area:378} Camp Taurajo · {npc:3433} Tatternack Steelforge · {npc:3387} Jorn Skyseer · {npc:3430} Mangletooth
@@ -125,7 +125,7 @@ return {
 
 	-- Step 25: Fly to Ratchet
 	-- {area:392} Ratchet
-	["Fly to {area:392}"] = "{area:392}(으)로 비행",
+	["Fly to {area:392}"] = "{area:392}(으)로 날아가기",
 	["Crossroads flight master"] = "크로스로드 비행 조련사",
 
 	-- Step 26: Sputtervalve

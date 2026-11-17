@@ -33,7 +33,7 @@ return {
 
 	-- Step 6: Fly to Ratchet
 	-- {area:392} Ratchet
-	["Fly to {area:392}"] = "Летите: {area:392}",
+	["Fly to {area:392}"] = "Летите сюда: {area:392}",
 	-- {area:35} Booty Bay · {area:392} Ratchet
 	["{area:35} first: the goblins' boat sails there from {area:392}, and every {area:35} quest is for the north of the vale, which you then walk up into."] = "Сначала {area:35}: туда ходит корабль гоблинов из места {area:392}, а все задания из места {area:35} ведут на север долины, куда вы затем подниметесь пешком.",
 	-- {zone:1454} Orgrimmar
@@ -153,7 +153,7 @@ return {
 
 	-- Step 24: Fly to Booty Bay
 	-- {area:35} Booty Bay
-	["Fly to {area:35}"] = "Летите: {area:35}",
+	["Fly to {area:35}"] = "Летите сюда: {area:35}",
 	-- {object:3202} Grom'gol
 	["{object:3202} flight master"] = "",
 
@@ -170,7 +170,7 @@ return {
 
 	-- Step 26: Fly to Grom'gol
 	-- {object:3202} Grom'gol
-	["Fly to {object:3202}"] = "Летите: {object:3202}",
+	["Fly to {object:3202}"] = "Летите сюда: {object:3202}",
 	-- {area:35} Booty Bay
 	["{area:35} flight master"] = "",
 

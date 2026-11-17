@@ -287,7 +287,7 @@ return {
 
 	-- Step 63: Fly to Nethergarde Keep
 	-- {area:1438} Nethergarde Keep
-	["Fly to {area:1438}"] = "Летите в {area:1438}",
+	["Fly to {area:1438}"] = "Летите сюда: {area:1438}",
 
 	-- Step 64: Ambassador Ardalan
 	-- {area:1438} Nethergarde Keep
@@ -341,7 +341,7 @@ return {
 
 	-- Step 77: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "Лететь в {area:1537}",
+	["Fly to {area:1537}"] = "Летите сюда: {area:1537}",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "Распорядитель полетов: {area:144}",
 

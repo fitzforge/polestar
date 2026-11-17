@@ -158,7 +158,7 @@ return {
 
 	-- Step 22: Fly to Stormwind
 	-- {zone:1453} Stormwind
-	["Fly to {zone:1453}"] = "{zone:1453}로 비행",
+	["Fly to {zone:1453}"] = "{zone:1453}로 날아가기",
 	-- {area:35} Booty Bay
 	["{area:35} flight master"] = "",
 

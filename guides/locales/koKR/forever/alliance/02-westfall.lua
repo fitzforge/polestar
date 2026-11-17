@@ -119,7 +119,7 @@ return {
 	["{npc:1646}, {object:2098}: his compass is in his old house in {zone:1436}"] = "",
 
 	-- Step 24: Class trainer
-	["Class trainer"] = "직업 상급자",
+	["Class trainer"] = "직업 전문가",
 	-- {object:2100} Old Town · {object:2098} Cathedral Square · {object:2101} Mage Quarter · {object:28027} Dwarven District
 	["While you're in the city: Warriors and Rogues train in {object:2100}, Paladins and Priests in the Cathedral of Light across {object:2098}, Mages and Warlocks in the {object:2101}, Hunters in the {object:28027}."] = "도시에 있는 동안: 전사와 도적은 {object:2100}, 성기사와 사제는 {object:2098} 건너편 빛의 대성당, 마법사와 흑마법사는 {object:2101}, 사냥꾼은 {object:28027}에서 훈련합니다.",
 

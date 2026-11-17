@@ -134,7 +134,7 @@ return {
 
 	-- Step 27: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "{area:1537}(으)로 비행",
+	["Fly to {area:1537}"] = "{area:1537}(으)로 날아가기",
 	-- {area:1537} Ironforge · {area:144} Thelsamar · {zone:1426} Dun Morogh
 	["You have the {area:1537} flight path: back north to {area:144}'s gryphons, quicker than walking through the tunnel and across {zone:1426}."] = "{area:1537} 비행 경로를 이미 알고 있습니다: 북쪽의 {area:144} 그리폰으로 돌아가세요. 터널을 지나 {zone:1426}을(를) 가로질러 걷는 것보다 빠릅니다.",
 	-- {area:144} Thelsamar
@@ -272,7 +272,7 @@ return {
 
 	-- Step 49: Fly to Stormwind
 	-- {zone:1453} Stormwind
-	["Fly to {zone:1453}"] = "{zone:1453}로 비행",
+	["Fly to {zone:1453}"] = "{zone:1453}로 날아가기",
 	-- {area:108} Sentinel Hill
 	["{area:108} flight master"] = "",
 
@@ -352,7 +352,7 @@ return {
 
 	-- Step 63: Fly to Lakeshire
 	-- {area:69} Lakeshire
-	["Fly to {area:69}"] = "{area:69}(으)로 비행",
+	["Fly to {area:69}"] = "{area:69}(으)로 날아가기",
 
 	-- Step 64: Sentinel Hill
 	-- {npc:234} Gryan Stoutmantle
@@ -400,7 +400,7 @@ return {
 	["{npc:6171}: Redemption"] = "{npc:6171}: 구원",
 
 	-- Step 72: Class trainer
-	["Class trainer"] = "직업 상급자",
+	["Class trainer"] = "직업 전문가",
 	-- {object:2100} Old Town · {object:2101} Mage Quarter · {object:28027} Dwarven District
 	["Train on the way to the harbour: {object:2100} (Warriors, Rogues), the Cathedral of Light (Paladins, Priests), the {object:2101} (Mages, Warlocks), the {object:28027} (Hunters)."] = "항구로 가는 길에 훈련하십시오: {object:2100}(전사, 도적), 빛의 대성당(성기사, 사제), {object:2101}(마법사, 흑마법사), {object:28027}(사냥꾼).",
 

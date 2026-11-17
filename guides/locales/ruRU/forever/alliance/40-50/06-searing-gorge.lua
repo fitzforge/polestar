@@ -14,7 +14,7 @@ return {
 	-- {area:144} Thelsamar
 	["Fly to {area:144}"] = "Летите сюда: {area:144}",
 	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "Распорядитель полетов: {zone:1455}",
+	["{zone:1455} flight master"] = "Распорядитель полетов ({zone:1455})",
 
 	-- Step 3: Into Searing Gorge
 	-- {zone:1427} Searing Gorge
@@ -139,7 +139,7 @@ return {
 
 	-- Step 38: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "Лететь в {area:1537}",
+	["Fly to {area:1537}"] = "Летите сюда: {area:1537}",
 	-- {area:1446} Thorium Point
 	["{area:1446} flight master"] = "Распорядитель полетов: {area:1446}",
 

@@ -17,7 +17,7 @@ return {
 	-- {area:467} Stonetalon Peak · {area:608} Nijel's Point · {zone:1442} Stonetalon Mountains · {zone:1443} Desolace
 	["Fly to {area:467} (or to {area:608} if you have it) and take the road south-west out of the {zone:1442} into {zone:1443}; {area:608} in the north is the Alliance town."] = "{area:467}(으)로(비행 경로가 있다면 {area:608}(으)로) 날아가 남서쪽 길로 {zone:1442}을(를) 빠져나가 {zone:1443}(으)로 가십시오. 북쪽의 {area:608}은(는) 얼라이언스 마을입니다.",
 	-- {area:460} Sun Rock Retreat · {zone:1443} Desolace · {area:2408} Shadowprey Village
-	["Fly to {area:460} and take the road south-west into {zone:1443}; {area:2408} on the west coast is the Horde town."] = "{area:460}(으)로 비행한 뒤 남서쪽 길로 {zone:1443}에 가십시오. 서해안의 {area:2408}은(는) 호드 마을입니다.",
+	["Fly to {area:460} and take the road south-west into {zone:1443}; {area:2408} on the west coast is the Horde town."] = "{area:460}(으)로 날아가기한 뒤 남서쪽 길로 {zone:1443}에 가십시오. 서해안의 {area:2408}은(는) 호드 마을입니다.",
 	-- {area:608} Nijel's Point · {npc:6706} Baritanas Skyriver
 	["Flight path here: {area:608} ({npc:6706})."] = "이곳의 비행 경로: {area:608} ({npc:6706}).",
 	-- {area:2408} Shadowprey Village
@@ -55,13 +55,13 @@ return {
 	-- Step 7: Dustwallow Marsh
 	["7 areas to discover here, levels 36-61."] = "이곳에서 발견할 지역은 7곳, 36-61레벨입니다.",
 	-- {area:150} Menethil Harbor · {area:513} Theramore Isle
-	["Fly to Theramore (or take the boat from {area:150}); {area:513} is the Alliance town."] = "테라모어 섬으로 비행하십시오(또는 {area:150}에서 배를 타십시오). {area:513}은(는) 얼라이언스 마을입니다.",
+	["Fly to Theramore (or take the boat from {area:150}); {area:513} is the Alliance town."] = "테라모어 섬으로 날아가기하십시오(또는 {area:150}에서 배를 타십시오). {area:513}은(는) 얼라이언스 마을입니다.",
 	-- {zone:1445} Dustwallow Marsh · {zone:1413} Barrens · {area:496} Brackenwall Village
 	["{zone:1445} is east of the southern {zone:1413}; {area:496} in the north-west is the Horde town."] = "{zone:1445}은(는) {zone:1413} 남부의 동쪽에 있습니다. 북서쪽의 {area:496}은(는) 호드 마을입니다.",
 	["Flight path here: Theramore (Baldruc)."] = "이곳의 비행 경로: 테라모어 섬 (발드럭).",
 	-- {area:496} Brackenwall Village
 	["Flight path here: {area:496} (Shardi)."] = "이곳의 비행 경로: {area:496} (샤르디).",
-	["any one of these names counts"] = "이 이름 중 하나만 떠도 됩니다",
+	["any one of these names counts"] = "이 이름 중 하나만 발견해도 됩니다",
 	["Horde town: Alliance characters only need to touch its edge (guards); any one of these names counts"] = "호드 마을: 얼라이언스 캐릭터는 가장자리만 밟으면 됩니다(경비병). 이 이름 중 하나만 떠도 됩니다",
 	["Alliance town: Horde characters only need to touch its edge (guards); any one of these names counts"] = "얼라이언스 마을: 호드 캐릭터는 가장자리만 밟으면 됩니다(경비병). 이 이름 중 하나만 떠도 됩니다",
 

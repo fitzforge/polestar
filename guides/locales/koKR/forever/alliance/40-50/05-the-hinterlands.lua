@@ -46,7 +46,7 @@ return {
 
 	-- Step 7: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "{area:1537}(으)로 비행",
+	["Fly to {area:1537}"] = "{area:1537}(으)로 날아가기",
 	-- {area:348} Aerie Peak
 	["{area:348} flight master"] = "",
 
@@ -65,7 +65,7 @@ return {
 
 	-- Step 12: Fly to Darkshire
 	-- {area:42} Darkshire
-	["Fly to {area:42}"] = "{area:42}(으)로 날아가세요",
+	["Fly to {area:42}"] = "{area:42}(으)로 날아가기",
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "",
 

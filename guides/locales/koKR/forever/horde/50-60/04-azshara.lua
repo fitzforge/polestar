@@ -162,7 +162,7 @@ return {
 
 	-- Step 31: Belgrom Rockmaul
 	-- {zone:1454} Orgrimmar · {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {npc:3326} Zevrost · {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
-	["Fly to {zone:1454}; {npc:4485} is in the {object:172958}, {npc:3326} and {npc:8659} in the {object:172960}."] = "{zone:1454}(으)로 날아가세요. {npc:4485}은(는) {object:172958}에, {npc:3326}와(과) {npc:8659}은(는) {object:172960}에 있습니다.",
+	["Fly to {zone:1454}; {npc:4485} is in the {object:172958}, {npc:3326} and {npc:8659} in the {object:172960}."] = "{zone:1454}(으)로 날아가기. {npc:4485}은(는) {object:172958}에, {npc:3326}와(과) {npc:8659}은(는) {object:172960}에 있습니다.",
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow
 	["{npc:3326}, the {object:172960}"] = "{object:172960}의 {npc:3326}",
 

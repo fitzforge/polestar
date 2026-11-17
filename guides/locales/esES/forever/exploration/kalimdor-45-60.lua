@@ -47,7 +47,7 @@ return {
 	["Flight path here: {area:3137} (Jarrodenus)."] = "Ruta de vuelo aquí: {area:3137} (Jarrodenus).",
 	-- {area:1237} Valormok
 	["Flight path here: {area:1237} (Kroum)."] = "Ruta de vuelo aquí: {area:1237} (Kroum).",
-	["Horde town: Alliance characters only need to touch its edge (guards)"] = "Pueblo de la Horda: los personajes de la Alianza solo necesitan tocar su borde (guardias)",
+	["Horde town: Alliance characters only need to touch its edge (guards)"] = "Pueblo de la Horda: los personajes de la Alianza solo tienen que tocar su borde (guardias)",
 
 	-- Step 9: Felwood (1/2)
 	["12 areas to discover here, levels 47-54."] = "Aquí hay 12 zonas por descubrir, niveles 47-54.",

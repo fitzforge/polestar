@@ -260,7 +260,7 @@ return {
 
 	-- Step 55: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "Лететь в {area:1537}",
+	["Fly to {area:1537}"] = "Летите сюда: {area:1537}",
 	-- {area:271} Southshore
 	["{area:271} flight master"] = "",
 
@@ -275,7 +275,7 @@ return {
 
 	-- Step 61: Fly to Stormwind
 	-- {zone:1453} Stormwind
-	["Fly to {zone:1453}"] = "Лететь в {zone:1453}",
+	["Fly to {zone:1453}"] = "Летите сюда: {zone:1453}",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "Распорядитель полетов ({zone:1455})",
 

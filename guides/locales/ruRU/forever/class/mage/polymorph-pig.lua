@@ -13,7 +13,7 @@ return {
 	-- Step 1: Xylem's tower
 	["Xylem's tower"] = "",
 	-- {area:3137} Talrendis Point · {area:1237} Valormok · {npc:8395} Sanath Lim-yo · {npc:8379} Archmage Xylem · {zone:1447} Azshara · {area:1221} Ruins of Eldarath
-	["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below {npc:8379}'s tower, a short way east of {area:1237}: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. Dismount, and he teleports you up; a trail climbs to the Archmage at the top of the tower."] = "Летите в {area:3137} (Альянс) или {area:1237} (Орда). {npc:8395} разбил лагерь под башней, где живет {npc:8379}, недалеко к востоку от места {area:1237}: от развилки главной дороги зоны {zone:1447} у места {area:1221} идите прямо на север к скалам. Слезьте с транспорта, и он телепортирует вас наверх; тропа ведет к верховному магу на вершине башни.",
+	["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below {npc:8379}'s tower, a short way east of {area:1237}: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. Dismount, and he teleports you up; a trail climbs to the Archmage at the top of the tower."] = "Летите сюда: {area:3137} (Альянс) или {area:1237} (Орда). {npc:8395} разбил лагерь под башней, где живет {npc:8379}, недалеко к востоку от места {area:1237}: от развилки главной дороги зоны {zone:1447} у места {area:1221} идите прямо на север к скалам. Слезьте с транспорта, и он телепортирует вас наверх; тропа ведет к верховному магу на вершине башни.",
 
 	-- Step 2: Warlord Krellian
 	-- {npc:8408} Warlord Krellian · {spell:99} Demoralizing Roar · {area:1223} Temple of Zin-Malor · {area:1221} Ruins of Eldarath · {item:23250} Prismatic Shell

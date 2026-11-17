@@ -103,7 +103,7 @@ return {
 
 	-- Step 18: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar · {area:2897} Zoram'gar Outpost
-	["Fly to {area:1637} from the {area:2897} flight master."] = "Летите в {area:1637} от распорядителя полетов ({area:2897}).",
+	["Fly to {area:1637} from the {area:2897} flight master."] = "Летите сюда: {area:1637} от распорядителя полетов ({area:2897}).",
 
 	-- Step 19: Druid trainer
 	["Druid trainer"] = "Учитель друидов",

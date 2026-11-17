@@ -13,7 +13,7 @@ return {
 	-- Step 1: Elwynn Forest (1/2)
 	-- {zone:1429} Elwynn Forest · {zone:1426} Dun Morogh
 	["Discovering an area gives experience scaled to its level, so this runs alongside leveling. Alliance starts in {zone:1429}; dwarves and gnomes can begin at the {zone:1426} step. 12 areas to discover here, levels 5-10."] = "지역을 발견하면 그 레벨에 맞는 경험치를 얻으므로 레벨업과 함께 진행할 수 있습니다. 얼라이언스는 {zone:1429}에서 시작하며, 드워프와 노움은 {zone:1426} 단계부터 시작해도 됩니다. 이곳에서 발견할 지역은 12곳, 레벨 5-10입니다.",
-	["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "한 캐릭터로 세계 지도 전체를 탐험하는 것은 Forever 유산 도전 과제입니다(계정 공통 유산 점수 1점).",
+	["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "한 캐릭터로 세계 지도 전체를 탐험하는 것은 Forever 유산 도전입니다(계정 공통 유산 점수 1점).",
 	-- {area:9} Northshire Valley · {zone:1429} Elwynn Forest · {area:87} Goldshire
 	["{area:9} opens onto {zone:1429}; {area:87} is south down the road."] = "{area:9}에서 나가면 {zone:1429}입니다. {area:87}은(는) 길을 따라 남쪽에 있습니다.",
 

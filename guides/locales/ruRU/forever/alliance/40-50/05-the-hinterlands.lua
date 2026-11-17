@@ -46,7 +46,7 @@ return {
 
 	-- Step 7: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "Лететь в {area:1537}",
+	["Fly to {area:1537}"] = "Летите сюда: {area:1537}",
 	-- {area:348} Aerie Peak
 	["{area:348} flight master"] = "",
 
@@ -65,7 +65,7 @@ return {
 
 	-- Step 12: Fly to Darkshire
 	-- {area:42} Darkshire
-	["Fly to {area:42}"] = "Летите в {area:42}",
+	["Fly to {area:42}"] = "Летите сюда: {area:42}",
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "Распорядитель полетов: {zone:1453}",
 
@@ -88,7 +88,7 @@ return {
 
 	-- Step 17: Fly to Booty Bay
 	-- {area:35} Booty Bay
-	["Fly to {area:35}"] = "Летите: {area:35}",
+	["Fly to {area:35}"] = "Летите сюда: {area:35}",
 	-- {area:1438} Nethergarde Keep
 	["{area:1438} flight master"] = "",
 

@@ -17,7 +17,7 @@ return {
 
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "{area:150}(으)로 비행",
+	["Fly to {area:150}"] = "{area:150}(으)로 날아가기",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "{area:144} 비행 조련사",
 
@@ -127,7 +127,7 @@ return {
 	["for {npc:3980} in {area:271}: keep it"] = "{area:271}의 {npc:3980}에게: 보관하십시오",
 
 	-- Step 25: Fly to Theramore
-	["Fly to Theramore"] = "테라모어 섬으로 비행",
+	["Fly to Theramore"] = "테라모어 섬으로 날아가기",
 	["The next guide starts in Theramore."] = "다음 가이드는 테라모어 섬에서 시작합니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

@@ -107,7 +107,7 @@ return {
 	-- {npc:4752} Kildar · {object:172958} Valley of Honor · {npc:3362} Ogunaro Wolfrunner · {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. {npc:4752} teaches Orcs in the {object:172958}, by {npc:3362}'s kennel. Skyborne learn it from {npc:265756} at the {area:17684} in {area:16638} on Zephras Isle, with a Galestrider: the skyboat to the isle leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes. Your race's other mounts are 20 gold each: Collectibles, Mounts · Level 40 has a guide for each."] = "탈것 타기는 40레벨이 필요하고 100골드가 듭니다. 배우면 탈것을 하나 받습니다. {npc:4752}은(는) {object:172958}의 {npc:3362} 우리 옆에서 오크에게 가르칩니다. 스카이본은 제프라스 섬 {area:16638}의 {area:17684}에 있는 {npc:265756}에게서 돌풍타조와 함께 배웁니다. 섬으로 가는 하늘배는 {zone:1456} 북쪽, {area:17045} 남쪽 절벽에서 약 5분마다 출발합니다. 종족의 다른 탈것은 각각 20골드입니다: 수집품, 탈것 · 40레벨에 각각의 가이드가 있습니다.",
 	-- {npc:4752} Kildar
-	["{npc:4752}, riding trainer"] = "탈것 타기 상급자 {npc:4752}",
+	["{npc:4752}, riding trainer"] = "{npc:4752}, 탈것 상급자",
 	-- {npc:3362} Ogunaro Wolfrunner · {npc:4752} Kildar
 	["Wolves: {npc:3362}, beside {npc:4752}."] = "늑대: {npc:4752} 옆의 {npc:3362}",
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
@@ -135,7 +135,7 @@ return {
 	-- {npc:3690} Kar Stormsinger · {area:222} Bloodhoof Village · {npc:3685} Harb Clawhoof · {zone:1456} Thunder Bluff
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:3690} in {area:222}, with {npc:3685}'s kodos (20 gold each) beside him. Ride back up to {zone:1456}'s flight master afterwards."] = "탈것 타기는 40레벨이 필요하고 100골드가 듭니다. 배우면 탈것을 하나 받습니다. 각 종족은 자기 종족의 상급자에게서 배웁니다. 당신의 상급자는 {area:222}의 {npc:3690}이며, 그 옆에서 {npc:3685}이(가) 코도(각 20골드)를 팝니다. 그 뒤에 {zone:1456}의 비행 조련사에게 다시 올라가세요.",
 	-- {npc:3690} Kar Stormsinger
-	["{npc:3690}, riding trainer"] = "탈것 타기 상급자 {npc:3690}",
+	["{npc:3690}, riding trainer"] = "{npc:3690}, 탈것 상급자",
 	-- {npc:3685} Harb Clawhoof · {npc:3690} Kar Stormsinger · {area:222} Bloodhoof Village
 	["Kodos: {npc:3685}, beside {npc:3690} in {area:222}."] = "코도: {area:222}의 {npc:3690} 옆의 {npc:3685}",
 
@@ -147,7 +147,7 @@ return {
 
 	-- Step 27: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
-	["Fly to {area:976}"] = "{area:976}(으)로 비행",
+	["Fly to {area:976}"] = "{area:976}(으)로 날아가기",
 
 	-- Step 30: Ratchet for the Felsteed
 	-- {area:392} Ratchet
@@ -251,7 +251,7 @@ return {
 	["The sprite darters flit over the grove just west of Mojache; nearly every one drops a wing. The Woodpaw alphas lead the camps south-west of it: kill them within the hour.\nCareful: Most Alphas sit in small tent camps with 2-4 other gnolls that join the fight, and other gnolls patrol between the camps."] = "화살요정용은 모자케 야영지 바로 서쪽 숲 위를 날아다닙니다. 거의 모두 날개를 떨어뜨립니다. 덩굴발일족 우두머리는 그 남서쪽 야영지를 이끌고 있습니다. 한 시간 안에 처치하세요.\n주의: 우두머리 대부분은 작은 천막 야영지에 다른 놀 2-4마리와 함께 있어 함께 싸우며, 다른 놀이 야영지 사이를 순찰합니다.",
 
 	-- Step 58: Grimtotem camp
-	["Grimtotem camp"] = "그림토템부족 야영지",
+	["Grimtotem camp"] = "그림토템 야영지",
 	-- {npc:222286} Namida Grimtotem
 	["The Grimtotem tauren camp beside the sprite darters' grove; raiders, naturalists and shamans all carry horns.\nCareful: {npc:222286} (level 43, elite) stands in the camp: pull the raiders and shamans away from her."] = "그림토템부족 타우렌은 화살요정용의 숲 옆에 야영하고 있습니다. 침략자, 식물학자, 주술사 모두 뿔을 지니고 있습니다.\n주의: 야영지에 {npc:222286}(43레벨 정예)이(가) 있습니다. 침략자와 주술사를 그녀에게서 떼어 끌어오세요.",
 

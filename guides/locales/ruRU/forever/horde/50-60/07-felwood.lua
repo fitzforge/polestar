@@ -33,7 +33,7 @@ return {
 
 	-- Step 8: The Emerald Sanctuary
 	-- {area:431} Splintertree Post · {zone:1440} Ashenvale · {zone:1448} Felwood · {area:2479} Emerald Sanctuary
-	["Fly to {area:431} and ride north-west along the road out of {zone:1440} into {zone:1448}. The {area:2479} is the druids' camp just past the border."] = "Летите в {area:431} и езжайте на северо-запад по дороге из зоны {zone:1440} в {zone:1448}. {area:2479} — лагерь друидов сразу за границей.",
+	["Fly to {area:431} and ride north-west along the road out of {zone:1440} into {zone:1448}. The {area:2479} is the druids' camp just past the border."] = "Летите сюда: {area:431} и езжайте на северо-запад по дороге из зоны {zone:1440} в {zone:1448}. {area:2479} — лагерь друидов сразу за границей.",
 	-- {npc:9116} Eridan Bluewind
 	["{npc:9116}, inside"] = "",
 	-- {npc:9116} Eridan Bluewind · {item:11173} Irontree Heart · {zone:1448} Felwood

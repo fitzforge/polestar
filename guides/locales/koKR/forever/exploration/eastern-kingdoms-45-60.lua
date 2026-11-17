@@ -15,9 +15,9 @@ return {
 	["Starts in the {zone:1425}, north-east of {zone:1424}. The last area of this guide completes the {zone:1415} map. 14 areas to discover here, levels 41-49."] = "{zone:1424} 북동쪽의 {zone:1425}에서 시작합니다. 이 가이드의 마지막 지역으로 {zone:1415} 지도가 완성됩니다. 이곳에서 발견할 지역 14곳, 레벨 41-49.",
 	["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "한 캐릭터로 세계 지도 전체를 탐험하는 것은 Forever 유산 도전입니다(계정 공통 유산 점수 1점).",
 	-- {area:348} Aerie Peak · {area:271} Southshore · {zone:1424} Hillsbrad Foothills · {zone:1425} The Hinterlands
-	["Fly to {area:348} if you have it; otherwise fly to {area:271} and walk north-east from {zone:1424} into the {zone:1425}."] = "{area:348} 비행 경로가 있으면 그곳으로 비행하고, 없으면 {area:271}(으)로 비행한 뒤 {zone:1424}에서 북동쪽 {zone:1425}로 걸어가십시오.",
+	["Fly to {area:348} if you have it; otherwise fly to {area:271} and walk north-east from {zone:1424} into the {zone:1425}."] = "{area:348} 비행 경로가 있으면 그곳으로 날아가기하고, 없으면 {area:271}(으)로 날아가기한 뒤 {zone:1424}에서 북동쪽 {zone:1425}로 걸어가십시오.",
 	-- {area:3317} Revantusk Village · {area:272} Tarren Mill · {zone:1424} Hillsbrad Foothills · {zone:1425} The Hinterlands
-	["Fly to {area:3317} if you have it; otherwise fly to {area:272} and walk east from {zone:1424} into the {zone:1425}."] = "{area:3317} 비행 경로가 있으면 그곳으로 비행하고, 없으면 {area:272}(으)로 비행한 뒤 {zone:1424}에서 동쪽 {zone:1425}로 걸어가십시오.",
+	["Fly to {area:3317} if you have it; otherwise fly to {area:272} and walk east from {zone:1424} into the {zone:1425}."] = "{area:3317} 비행 경로가 있으면 그곳으로 날아가기하고, 없으면 {area:272}(으)로 날아가기한 뒤 {zone:1424}에서 동쪽 {zone:1425}로 걸어가십시오.",
 	-- {area:348} Aerie Peak · {npc:8018} Guthrum Thunderfist
 	["Flight path here: {area:348} ({npc:8018})."] = "이곳의 비행 경로: {area:348}({npc:8018}).",
 	-- {area:3317} Revantusk Village

@@ -134,7 +134,7 @@ return {
 
 	-- Step 27: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "Лететь в {area:1537}",
+	["Fly to {area:1537}"] = "Летите сюда: {area:1537}",
 	-- {area:1537} Ironforge · {area:144} Thelsamar · {zone:1426} Dun Morogh
 	["You have the {area:1537} flight path: back north to {area:144}'s gryphons, quicker than walking through the tunnel and across {zone:1426}."] = "Точка полета {area:1537} у вас уже есть: вернитесь на север к грифонам ({area:144}) – так быстрее, чем идти через туннель и по землям {zone:1426}.",
 	-- {area:144} Thelsamar
@@ -272,7 +272,7 @@ return {
 
 	-- Step 49: Fly to Stormwind
 	-- {zone:1453} Stormwind
-	["Fly to {zone:1453}"] = "Лететь в {zone:1453}",
+	["Fly to {zone:1453}"] = "Летите сюда: {zone:1453}",
 	-- {area:108} Sentinel Hill
 	["{area:108} flight master"] = "",
 

@@ -40,9 +40,9 @@ return {
 	-- Step 6: Azshara (1/3)
 	["19 areas to discover here, levels 42-55."] = "이곳에서 발견할 지역 19곳, 레벨 42-55.",
 	-- {area:3137} Talrendis Point · {area:415} Astranaar · {zone:1440} Ashenvale · {zone:1447} Azshara
-	["Fly to {area:3137} if you have it, otherwise to {area:415}, and walk east out of {zone:1440} into {zone:1447}."] = "{area:3137} 비행 경로가 있으면 그곳으로, 없으면 {area:415}(으)로 비행한 뒤 {zone:1440}에서 동쪽 {zone:1447}(으)로 걸어가십시오.",
+	["Fly to {area:3137} if you have it, otherwise to {area:415}, and walk east out of {zone:1440} into {zone:1447}."] = "{area:3137} 비행 경로가 있으면 그곳으로, 없으면 {area:415}(으)로 날아가기한 뒤 {zone:1440}에서 동쪽 {zone:1447}(으)로 걸어가십시오.",
 	-- {area:1237} Valormok · {area:431} Splintertree Post · {zone:1440} Ashenvale · {zone:1447} Azshara
-	["Fly to {area:1237} if you have it, otherwise to {area:431}, and walk east out of {zone:1440} into {zone:1447}."] = "{area:1237} 비행 경로가 있으면 그곳으로, 없으면 {area:431}(으)로 비행한 뒤 {zone:1440}에서 동쪽 {zone:1447}(으)로 걸어가십시오.",
+	["Fly to {area:1237} if you have it, otherwise to {area:431}, and walk east out of {zone:1440} into {zone:1447}."] = "{area:1237} 비행 경로가 있으면 그곳으로, 없으면 {area:431}(으)로 날아가기한 뒤 {zone:1440}에서 동쪽 {zone:1447}(으)로 걸어가십시오.",
 	-- {area:3137} Talrendis Point
 	["Flight path here: {area:3137} (Jarrodenus)."] = "이곳의 비행 경로: {area:3137}(자로데누스).",
 	-- {area:1237} Valormok

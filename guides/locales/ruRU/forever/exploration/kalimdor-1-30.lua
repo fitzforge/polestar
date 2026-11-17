@@ -13,14 +13,14 @@ return {
 	-- Step 1: Teldrassil (1/2)
 	-- {zone:1438} Teldrassil · {area:442} Auberdine · {zone:1439} Darkshore
 	["Discovering an area gives experience scaled to its level, so this runs alongside leveling. Alliance starts on {zone:1438}; humans, dwarves and gnomes arrive by boat at {area:442} and can begin at the {zone:1439} step. 11 areas to discover here, levels 5-11."] = "Открытие местности дает опыт по ее уровню, так что это идет параллельно с прокачкой. Альянс начинает здесь: {zone:1438}; люди, дворфы и гномы приплывают на корабле в {area:442} и могут начать с шага «{zone:1439}». Местностей для открытия здесь: 11, уровни 5-11.",
-	["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "Исследование всей карты мира одним персонажем — испытание наследия Forever (Forever Legacy Challenge; 1 очко наследия на всю учетную запись).",
+	["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "Исследование всей карты мира одним персонажем – испытание наследия Forever (1 очко наследия на всю учетную запись).",
 	-- {area:188} Shadowglen · {zone:1438} Teldrassil · {area:186} Dolanaar · {area:702} Rut'theran Village · {zone:1457} Darnassus
 	["{area:188} opens onto {zone:1438}; {area:186} is south along the road. {area:702}, at the foot of the tree, is reached through the portal in {zone:1457}."] = "{area:188} выходит в {zone:1438}; {area:186} — на юг по дороге. {area:702} у подножия древа доступна через портал в городе {zone:1457}.",
 	-- {area:702} Rut'theran Village
 	["Flight path here: {area:702} (Vesprystus)."] = "Маршрут полета здесь: {area:702} (Весприст).",
 
 	-- Step 2: Teldrassil (2/2)
-	["any one of these names counts"] = "подойдет любое из этих названий",
+	["any one of these names counts"] = "засчитывается любое из этих названий",
 
 	-- Step 3: Darkshore (1/2)
 	["9 areas to discover here, levels 11-19."] = "Местностей для открытия здесь: 9, уровни 11-19.",
@@ -157,7 +157,7 @@ return {
 
 	-- Step 37: Thousand Needles (1/2)
 	-- {area:378} Camp Taurajo · {zone:1413} The Barrens · {area:485} Great Lift · {zone:1441} Thousand Needles
-	["Fly to {area:378} and walk south through the {zone:1413} to the {area:485} down into {zone:1441}."] = "Летите в {area:378} и идите на юг через {zone:1413} к лифту ({area:485}) вниз в {zone:1441}.",
+	["Fly to {area:378} and walk south through the {zone:1413} to the {area:485} down into {zone:1441}."] = "Летите сюда: {area:378} и идите на юг через {zone:1413} к лифту ({area:485}) вниз в {zone:1441}.",
 	-- {area:484} Freewind Post
 	["Flight path here: {area:484} (Nyse)."] = "Маршрут полета здесь: {area:484} (Нице).",
 

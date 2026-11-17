@@ -15,7 +15,7 @@ return {
 
 	-- Step 2: Fly to Darkshire
 	-- {area:42} Darkshire
-	["Fly to {area:42}"] = "{area:42}(으)로 날아가세요",
+	["Fly to {area:42}"] = "{area:42}(으)로 날아가기",
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "",
 

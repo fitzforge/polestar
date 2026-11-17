@@ -131,7 +131,7 @@ return {
 	-- {area:2408} Shadowprey Village
 	["Fly to {area:2408}"] = "",
 	-- {area:2408} Shadowprey Village · {area:392} Ratchet
-	["Fly to {area:2408} from the flight master you are next to: {area:392}'s, or Brackenwall's if you had no errand in {area:392}."] = "지금 옆에 있는 비행 조련사에게서 {area:2408}(으)로 날아가세요. {area:392}의 비행 조련사, {area:392}에 볼일이 없었다면 담쟁이 마을의 비행 조련사입니다.",
+	["Fly to {area:2408} from the flight master you are next to: {area:392}'s, or Brackenwall's if you had no errand in {area:392}."] = "지금 옆에 있는 비행 조련사에게서 {area:2408}(으)로 날아가기. {area:392}의 비행 조련사, {area:392}에 볼일이 없었다면 담쟁이 마을의 비행 조련사입니다.",
 
 	-- Step 26: Shadowprey Village
 	-- {npc:11624} Taiga Wisemane · {npc:12340} Drulzegar Skraghook

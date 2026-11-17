@@ -161,7 +161,7 @@ return {
 
 	-- Step 37: Fly to Southshore
 	-- {area:271} Southshore
-	["Fly to {area:271}"] = "{area:271}(으)로 날아가세요",
+	["Fly to {area:271}"] = "{area:271}(으)로 날아가기",
 
 	-- Step 38: The Super Snapper FX
 	-- {npc:7977} Gammerita · {zone:1425} Hinterlands · {area:307} Overlook Cliffs
@@ -212,7 +212,7 @@ return {
 
 	-- Step 47: Fly to Lakeshire
 	-- {area:69} Lakeshire
-	["Fly to {area:69}"] = "{area:69}(으)로 비행",
+	["Fly to {area:69}"] = "{area:69}(으)로 날아가기",
 
 	-- Step 48: Morgan's Vigil flight master
 	-- {area:2418} Morgan's Vigil
@@ -337,11 +337,11 @@ return {
 
 	-- Step 74: Fly to Thelsamar
 	-- {area:144} Thelsamar
-	["Fly to {area:144}"] = "{area:144}(으)로 비행",
+	["Fly to {area:144}"] = "{area:144}(으)로 날아가기",
 
 	-- Step 77: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "{area:1537}(으)로 비행",
+	["Fly to {area:1537}"] = "{area:1537}(으)로 날아가기",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "{area:144} 비행 조련사",
 
@@ -351,7 +351,7 @@ return {
 
 	-- Step 81: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "{area:150}(으)로 비행",
+	["Fly to {area:150}"] = "{area:150}(으)로 날아가기",
 
 	-- Step 83: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village

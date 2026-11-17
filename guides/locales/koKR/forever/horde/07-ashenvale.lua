@@ -153,7 +153,7 @@ return {
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "{area:1638}(으)로 날아가기",
 	-- {area:1638} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore
-	["Fly to {area:1638} from Zoram'gar. If you don't know its flight path, fly to {area:378} and walk north through {zone:1412} instead."] = "조람가르에서 {area:1638}(으)로 날아가세요. 비행 경로를 모른다면 {area:378}(으)로 날아가 {zone:1412}을(를) 지나 북쪽으로 걸어가세요.",
+	["Fly to {area:1638} from Zoram'gar. If you don't know its flight path, fly to {area:378} and walk north through {zone:1412} instead."] = "조람가르에서 {area:1638}(으)로 날아가기. 비행 경로를 모른다면 {area:378}(으)로 날아가 {zone:1412}을(를) 지나 북쪽으로 걸어가세요.",
 	-- {area:2897} Zoram'gar Outpost
 	["{area:2897} flight master"] = "",
 

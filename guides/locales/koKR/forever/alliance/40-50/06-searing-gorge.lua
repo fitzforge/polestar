@@ -12,7 +12,7 @@ return {
 
 	-- Step 2: Fly to Thelsamar
 	-- {area:144} Thelsamar
-	["Fly to {area:144}"] = "{area:144}(으)로 비행",
+	["Fly to {area:144}"] = "{area:144}(으)로 날아가기",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "{zone:1455} 비행 조련사",
 
@@ -139,7 +139,7 @@ return {
 
 	-- Step 38: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "{area:1537}(으)로 비행",
+	["Fly to {area:1537}"] = "{area:1537}(으)로 날아가기",
 	-- {area:1446} Thorium Point
 	["{area:1446} flight master"] = "{area:1446}의 비행 조련사",
 

@@ -19,7 +19,7 @@ return {
 	["{area:1497} trainers"] = "Учителя: {area:1497}",
 
 	-- Step 3: Riding at 40
-	["Riding at 40"] = "Верховая езда на 40-м",
+	["Riding at 40"] = "Верховая езда на 40-м уровне",
 	-- {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {object:3202} Grom'gol
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, a short ride north of the zeppelin towers, with {npc:4731}'s skeletal horses (20 gold each) beside her. Ride back to the towers for the {object:3202} zeppelin."] = "Верховая езда требует 40-го уровня и стоит 100 золотых; при обучении вы получаете ездовое животное. Каждая раса учится у учителя своей расы: ваш – {npc:4773} ({area:159}), недалеко к северу от башен дирижаблей, рядом кони-скелеты NPC {npc:4731} (по 20 золотых). Вернитесь к башням, чтобы сесть на дирижабль до места {object:3202}.",
 	-- {npc:4773} Velma Warnam
@@ -48,7 +48,7 @@ return {
 
 	-- Step 9: Fly to Booty Bay
 	-- {area:35} Booty Bay
-	["Fly to {area:35}"] = "Летите: {area:35}",
+	["Fly to {area:35}"] = "Летите сюда: {area:35}",
 	-- {object:3202} Grom'gol
 	["{object:3202} flight master"] = "",
 

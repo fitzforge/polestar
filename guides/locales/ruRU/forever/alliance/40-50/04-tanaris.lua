@@ -198,7 +198,7 @@ return {
 
 	-- Step 43: Fly to Southshore
 	-- {area:271} Southshore
-	["Fly to {area:271}"] = "Лететь сюда: {area:271}",
+	["Fly to {area:271}"] = "Летите сюда: {area:271}",
 
 	-- Step 44: Hinterlands
 	-- {area:348} Aerie Peak · {area:271} Southshore · {zone:1425} Hinterlands

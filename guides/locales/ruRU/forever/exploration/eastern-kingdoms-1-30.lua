@@ -13,12 +13,12 @@ return {
 	-- Step 1: Elwynn Forest (1/2)
 	-- {zone:1429} Elwynn Forest · {zone:1426} Dun Morogh
 	["Discovering an area gives experience scaled to its level, so this runs alongside leveling. Alliance starts in {zone:1429}; dwarves and gnomes can begin at the {zone:1426} step. 12 areas to discover here, levels 5-10."] = "Открытие местности дает опыт по ее уровню, так что это идет параллельно с прокачкой. Альянс начинает в зоне {zone:1429}; дворфы и гномы могут начать с шага «{zone:1426}». Местностей для открытия здесь: 12, уровни 5-10.",
-	["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "Исследование всей карты мира одним персонажем — испытание наследия Forever (Forever Legacy Challenge; 1 очко наследия на всю учетную запись).",
+	["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "Исследование всей карты мира одним персонажем – испытание наследия Forever (1 очко наследия на всю учетную запись).",
 	-- {area:9} Northshire Valley · {zone:1429} Elwynn Forest · {area:87} Goldshire
 	["{area:9} opens onto {zone:1429}; {area:87} is south down the road."] = "{area:9} выходит в {zone:1429}; {area:87} — на юг по дороге.",
 
 	-- Step 2: Elwynn Forest (2/2)
-	["any one of these names counts"] = "подойдет любое из этих названий",
+	["any one of these names counts"] = "засчитывается любое из этих названий",
 
 	-- Step 3: Dun Morogh (1/3)
 	["18 areas to discover here, levels 4-12."] = "Местностей для открытия здесь: 18, уровни 4-12.",
