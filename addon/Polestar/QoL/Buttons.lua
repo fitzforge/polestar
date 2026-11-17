@@ -3107,7 +3107,7 @@ local function refresh()
 
 	applyBag(bagButton)
 end
-local refreshSoon = QoL.Coalesce(refresh)
+local refreshSoon, refreshOnLog = QoL.Coalesce(refresh)
 Buttons.Refresh = refresh
 
 local function repaintItems()
@@ -3246,7 +3246,7 @@ ns.RegisterEvent("BAG_UPDATE_DELAYED", function()
 	repaintItems()
 	refreshSoon()
 end)
-QoL.OnLogChange(refreshSoon)
+ns.RegisterEvent("QUEST_LOG_UPDATE", refreshOnLog)
 ns.RegisterEvent("BAG_UPDATE_COOLDOWN", repaintItems)
 -- Who may mark (Buttons.MarkRight) follows the group.
 ns.RegisterEvent("GROUP_ROSTER_UPDATE", refreshSoon)

@@ -234,36 +234,6 @@ function QoL.Open(goalView)
 	return s == "active" or s == "pending"
 end
 
--- Recompute fn once on the next frame after any number of calls. The
--- refresh runs from a timer of its own, with its errors caught and noted as
--- ns.Safe does, but in the moment it finds (ns.Moment): the refreshes of one
--- frame then share the step view the first of them builds (QoL.CurrentStep,
--- Engine.GetStepView shared). Anything between them that changes what the
--- view shows (a game event, a message, an Engine request, another timer of
--- Polestar's) starts a new moment, and the next refresh builds a fresh one.
--- A kill's burst asked for two views, one per refresh (#2555).
-function QoL.Coalesce(fn)
-	local scheduled = false
-	local function run()
-		scheduled = false
-		fn()
-	end
-	local function due() ns.SafeCall(run) end
-	return function()
-		if scheduled then return end
-		scheduled = true
-		if C_Timer and C_Timer.After then C_Timer.After(0, due) else run() end
-	end
-end
-
--- Fire `fn` on every message that can change the current step.
-function QoL.OnStep(fn)
-	ns.On("STEP_CHANGED", fn)
-	ns.On("STEP_UPDATED", fn)
-	ns.On("GUIDE_CHANGED", fn)
-	ns.On("TABS_CHANGED", fn)
-end
-
 -- One quest as a refresh reads it, appended to `into` from n: in the log or
 -- not, ready or failed, and each objective's counts and state. -> the new n
 local function readQuest(C, into, n, q)
@@ -305,9 +275,8 @@ local function readStepLog(into)
 	return n
 end
 
--- That read at the last QUEST_LOG_UPDATE and its version: one more each time
--- a read differs from the one before. Read once per event (ns.Moment),
--- whatever the number of watchers.
+-- That read and its version: one more each time a read differs from the one
+-- before. Read once per moment (ns.Moment), whatever the number of readers.
 local logNow, logWas, logVersion, logMoment = {}, {}, 0, nil
 local function logVersionNow()
 	local moment = ns.Moment()
@@ -326,20 +295,52 @@ local function logVersionNow()
 	return logVersion
 end
 
--- `fn` on QUEST_LOG_UPDATE only when what the step's refreshes read of the log
--- changed since the last one it was called for. The client sends
--- QUEST_LOG_UPDATE for much that leaves the log as it was (several per kill,
--- some per loot), and a refresh that reads the step's view cost about half a
--- millisecond each time. The step itself changing comes through QoL.OnStep as
--- before, the bags through BAG_UPDATE_DELAYED.
-function QoL.OnLogChange(fn)
-	local seen
-	ns.RegisterEvent("QUEST_LOG_UPDATE", function()
-		local v = logVersionNow()
-		if v == seen then return end
-		seen = v
+-- Recompute fn once on the next frame after any number of calls. The
+-- refresh runs from a timer of its own, with its errors caught and noted as
+-- ns.Safe does, but in the moment it finds (ns.Moment): the refreshes of one
+-- frame then share the step view the first of them builds (QoL.CurrentStep,
+-- Engine.GetStepView shared). Anything between them that changes what the
+-- view shows (a game event, a message, an Engine request, another timer of
+-- Polestar's) starts a new moment, and the next refresh builds a fresh one.
+-- A kill's burst asked for two views, one per refresh (#2555).
+-- -> soon(), and onLog() for QUEST_LOG_UPDATE: the client sends it for much
+-- that leaves the log as it was (several per kill, some per loot, fifty in a
+-- burst), and a refresh that reads the step's view costs about half a
+-- millisecond. A run asked for only by onLog reads the step's part of the log
+-- once (readStepLog: one read per moment, whatever the number of refreshes)
+-- and skips fn when it is as at its last such run. The step itself changing
+-- comes through QoL.OnStep and soon() as before, the bags through
+-- BAG_UPDATE_DELAYED.
+function QoL.Coalesce(fn)
+	local scheduled, other, seen = false, false, nil
+	local function run()
+		scheduled = false
+		if not other then
+			local v = logVersionNow()
+			if v == seen then return end
+			seen = v
+		end
+		other = false
 		fn()
-	end)
+	end
+	local function due() ns.SafeCall(run) end
+	local function schedule()
+		if scheduled then return end
+		scheduled = true
+		if C_Timer and C_Timer.After then C_Timer.After(0, due) else run() end
+	end
+	return function()
+		other = true
+		schedule()
+	end, schedule
+end
+
+-- Fire `fn` on every message that can change the current step.
+function QoL.OnStep(fn)
+	ns.On("STEP_CHANGED", fn)
+	ns.On("STEP_UPDATED", fn)
+	ns.On("GUIDE_CHANGED", fn)
+	ns.On("TABS_CHANGED", fn)
 end
 
 ---------------------------------------------------------------------------

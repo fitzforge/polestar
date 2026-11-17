@@ -290,12 +290,12 @@ local function refresh()
 	items, kept = now, keep
 	BagGlow.Redraw()
 end
-local refreshSoon = QoL.Coalesce(refresh)
+local refreshSoon, refreshOnLog = QoL.Coalesce(refresh)
 BagGlow.Refresh = refresh
 
 QoL.OnStep(refreshSoon)
 ns.RegisterEvent("BAG_UPDATE_DELAYED", refreshSoon)
-QoL.OnLogChange(refreshSoon)
+ns.RegisterEvent("QUEST_LOG_UPDATE", refreshOnLog)
 local function reset()
 	items, kept = {}, {}
 	refreshSoon()
