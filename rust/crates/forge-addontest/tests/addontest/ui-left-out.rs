@@ -57,8 +57,9 @@ fn run(script: &str) -> Value {
 	.remove(0)
 }
 
+// A Lua list as strings (an empty one comes out as {}).
 fn strings(v: &Value) -> Vec<String> {
-	v.as_array().unwrap().iter().map(|x| text(x).to_string()).collect()
+	v.as_array().map(|a| a.iter().map(|x| text(x).to_string()).collect()).unwrap_or_default()
 }
 
 #[test]
