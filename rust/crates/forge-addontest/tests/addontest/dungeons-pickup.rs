@@ -2131,6 +2131,27 @@ stub.advance(0.6)
 	assert_eq!(after, json!({ "tabs": ["lookup/handin/shadowfang-keep"], "steps": [{ "title": "Keeper Bel'dugur", "goals": "turnin:1013" }] }));
 }
 
+// #2765 (a Hillsbrad player: after Shadowfang Keep the guide went back to the leveling route, and only the
+// dungeon page's Hand in the quests button guided the turn-ins): a saved pick-up tab is rebuilt at /reload or
+// login, and once every quest is taken there is nothing left to pick up, so the build gave nothing and the tab
+// was dropped with the end card that offers the hand-ins. It comes back as the hand-in guide in its place.
+#[test]
+fn a_saved_pick_up_tab_with_nothing_left_to_take_comes_back_after_reload_as_the_hand_in_guide_in_its_place_2765() {
+	let pack = default_pack();
+	let saved = format!("PolestarCharDB = {{ schema = 1, tabs = {{ {} }}, activeTab = 1 }}", serde_json::to_string(GID).unwrap());
+	let after = run(
+		&pack,
+		&k(r#"emit({ tabs = tabIds(), active = Polestar.Engine.GetGuide() and Polestar.Engine.GetGuide().id or false, pickup = D.PickupGuide("{KEY}") ~= nil, steps = describe(Polestar.Guides.Get("lookup/handin/{KEY}")) })"#),
+		Opts { at: None, saved: Some(saved), ..after_run() },
+	)
+	.remove(0);
+	assert_eq!(
+		after,
+		json!({ "tabs": ["lookup/handin/shadowfang-keep"], "active": "lookup/handin/shadowfang-keep", "pickup": false,
+			"steps": [{ "title": "Dalar Dawnweaver", "goals": "turnin:1014 accept:1016 turnin:1016 note" }] })
+	);
+}
+
 // A dungeon with a way in for each faction (the City of Dalaran, #706): the page, the arrow and the pick-up
 // guide's last step (all from Dungeons.Get, over the Codex pack's decoder) use the character's own.
 #[test]

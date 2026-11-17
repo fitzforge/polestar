@@ -30,7 +30,6 @@ return {
 	["{npc:737}, in the tavern"] = "{npc:737}，在旅店里",
 	-- {npc:737} Kebok
 	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
-	-- was: ["{npc:737}: the Tumbled Crystals, on the northern loop"] = "{npc:737}：打磨过的水晶，北部路线会去收集"
 	["{npc:737}: the Tumbled Crystals, on the northern loop"] = "{npc:737}：打磨过的水晶，北部路线会去收集",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, upstairs in the tavern"] = "{npc:2496}，在旅店楼上",

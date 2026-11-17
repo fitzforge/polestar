@@ -336,7 +336,7 @@ step Kurzen's Compound
   tip Careful: Colonel Kurzen, an elite of 39-40, stands at the compound's north end beside three of the Subchiefs: take the key from the Subchiefs and Elites further south and leave him be.
   accept 97047 @44.3,7.9 map 1434     -- Wendel Mathers, in his cage, if you didn't take it on the 30-40 loop
   collect 216616 quest 97047          -- Compound Cage Key, from the Subchiefs (or the Elites)
-  collect 216617 quest 97047 @50.0,8.0 map 1434 -- Kurzen Fighter's Uniform, in the supply crate
+  collect 216617 quest 97047 @49.6,7.7 map 1434 -- Kurzen Fighter's Uniform, in the supply crate deep in the cave
   turnin 97047 @44.3,7.9 map 1434     -- Wendel Mathers, back at his cage on the way out
   accept 97048                        -- For Captain Aransas in Booty Bay, at the end of the jungle loop
 

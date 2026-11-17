@@ -15,5 +15,6 @@
 	<Script file="RouteSparkle.lua"/>
 	<Script file="RouteLines.lua"/>
 	<Script file="FlightTimer.lua"/>
+	<Script file="Arcade.lua"/>
 	<Script file="Instances.lua"/>
 </Ui>

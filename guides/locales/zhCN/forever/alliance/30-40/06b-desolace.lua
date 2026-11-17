@@ -42,7 +42,7 @@ return {
 
 	-- Step 7: Hornizz Brimbuzzle
 	-- {quest:6134} Ghost-o-plasm Round Up · {area:2657} Valley of Bones
-	-- plural, as words: Magram Necrokhans = {npc:253274} Magram Necrokhan
+	-- plural, as words: Magrami Spectres = {npc:11560} Magrami Spectre · Magram Necrokhans = {npc:253274} Magram Necrokhan
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:6134}'s magnets draw the Magrami Spectres a few yards from the Magram Necrokhans and Corpsefeeders (45, elite) in the {area:2657}. Skip it if you are alone."] = "这些是精英怪：建议组队，找人一起做。{quest:6134}的磁铁能把{area:2657}里的玛格拉姆幽灵从玛格拉姆亡灵可汗和食尸者（45级，精英）身边吸引几码出来。如果你是单人，就跳过它。",
 
 	-- Step 8: Flesh Picker
@@ -80,6 +80,7 @@ return {
 	-- Step 13: The ghost magnets
 	["The ghost magnets"] = "幽灵磁铁",
 	-- {item:15848} Crate of Ghost Magnets
+	-- plural, as words: Magrami Spectres = {npc:11560} Magrami Spectre
 	["Use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres; the Necrokhans and Corpsefeeders (45, elite) walk close by: keep the group together."] = "在荒地东侧的箭头处使用{item:15848}，引来玛格拉姆鬼魂；死灵可汗和食尸者（45级，精英）就在附近走动：保持小队在一起。",
 
 	-- Step 14: Mannoroc Coven

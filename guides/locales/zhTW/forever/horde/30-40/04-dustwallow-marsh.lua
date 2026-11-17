@@ -186,7 +186,7 @@ return {
 	-- {area:2657} Valley of Bones
 	["The {area:2657}"] = "{area:2657}",
 	-- {area:2657} Valley of Bones · {zone:1443} Desolace · {item:15848} Crate of Ghost Magnets
-	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magram Necrokhans = {npc:253274} Magram Necrokhan
+	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre · Magram Necrokhans = {npc:253274} Magram Necrokhan
 	["South-east of the coven, the bone fields of the {area:2657}, where Undead Ravagers roam, at {zone:1443}'s southern edge: keep south of the Magram's village on the way. Use the {item:15848} at the arrow to draw the Magrami Spectres (38-39): they come in numbers, so fight them with your back to the valley's edge. They drop the ghost-o-plasm.\nCareful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields just west of the arrow, well above you: use the crate at the arrow, on the valley's eastern side, and pull the spectres away from them."] = "在法陣東南方，{zone:1443}南緣的{area:2657}白骨荒野，亡靈劫毀者在那裡遊蕩：途中保持在瑪格拉姆村莊南邊。在箭頭處使用{item:15848}引來瑪格拉姆幽靈（38-39級）：它們數量很多，背靠山谷邊緣作戰。它們會掉落幽質。\n注意：瑪格拉姆亡靈可汗和食屍者（45級，精英）在箭頭西邊的白骨荒野遊走，遠高於你：在山谷東側的箭頭處使用箱子，並把幽靈拉離牠們。",
 
 	-- Step 37: Hornizz Brimbuzzle

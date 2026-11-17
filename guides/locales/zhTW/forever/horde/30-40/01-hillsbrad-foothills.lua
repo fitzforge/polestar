@@ -124,10 +124,14 @@ return {
 
 	-- Step 26: Durnholde Keep
 	-- {npc:2238} Tog'thar · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key
-	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks."] = "在塔倫米爾東南方。德盧爾和{npc:2238}被鎖在城堡庭院的建築裡：{npc:2427}帶著{item:3467}，{npc:2428}帶著{item:3499}，兩人都在城堡裡。殺死他們，然後打開兩道鎖。",
-	["Drull's ball and chain"] = "德盧爾的腳鐐",
+	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings, and each lock needs its key: {npc:2427} carries the {item:3467} for Drull's, {npc:2428} the {item:3499} for {npc:2238}'s, both in the keep. Kill them first, then open both locks."] = "",
+	-- {item:3467} Dull Iron Key · {npc:2427} Jailor Eston
+	["{item:3467}, from {npc:2427}"] = "",
+	-- {item:3499} Burnished Gold Key · {npc:2428} Jailor Marlgen
+	["{item:3499}, from {npc:2428}"] = "",
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "{npc:2238}的腳鐐",
+	["Drull's ball and chain"] = "德盧爾的腳鐐",
 
 	-- Step 27: Krusk
 	-- {area:272} Tarren Mill
@@ -307,6 +311,7 @@ return {
 	-- ["North of Southshore's graveyard"] = "南海鎮墓地北邊",
 	-- ["Only if {quest:535}'s missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one. Careful: at 31-32 they are still above you and stand close together, with Wizards (34-35) among them: pull one at a time from the camp's edge."] = "只有在沒拿到{quest:535}的信件時才做：道路西邊營地周圍的辛迪加劫匪和竊賊（32-34級）也帶著信件，約每三隻掉一封。小心：31-32級時他們仍比你高，而且站得很近，其中還有巫師（34-35級）：從營地邊緣一次拉一隻。",
 	-- ["Shindigger keg"] = "鐵鏟酒桶",
+	-- ["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks."] = "在塔倫米爾東南方。德盧爾和{npc:2238}被鎖在城堡庭院的建築裡：{npc:2427}帶著{item:3467}，{npc:2428}帶著{item:3499}，兩人都在城堡裡。殺死他們，然後打開兩道鎖。",
 	-- ["South-west, the Cave and Ferocious Yetis (30-32) fill the {area:277} in the hills west of {area:272}; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but at 29-30 they hit hard and come in pairs."] = "往西南走，洞穴雪人和兇惡的雪人（30-32級）遍布{area:272}西側山中的{area:277}；約每十六隻有一隻帶著魔棒。待在這片洞穴裡：更北邊那個洞穴的山嶺雪人和巨型雪人（32-34級）也帶著魔棒，但29-30級時牠們打得很痛，而且成對出現。",
 	-- ["Syndicate missives"] = "辛迪加信件",
 	-- ["The Syndicate Footpads and Thieves (32-33) around the camps west of the road carry the missives; about one in three drops one."] = "道路西邊營地周圍的辛迪加劫匪和辛迪加竊賊（32-33級）身上帶著信件；約三分之一會掉落。",

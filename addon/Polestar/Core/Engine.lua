@@ -1570,7 +1570,7 @@ end
 -- it yet, and the guide has none of its work (#1998: Young Crocolisk Skins,
 -- 484, taken on an earlier guide and left unfinished, held Apprentice's
 -- Duties' accept at James Halloran, who stands on the Wetlands route).
-function Own.coming(p, depth)
+function Own.comingNow(p, depth)
 	local state = ns.CharState()
 	local skipped, manual = state.skipped[guide.id], state.manual[guide.id]
 	local l = layoutOf(guide)
@@ -1606,6 +1606,27 @@ function Own.coming(p, depth)
 		end
 	end
 	return others and Own.notMine(p)
+end
+
+-- Own.comingNow, worked out once per quest and depth while a pass that reads
+-- the same state throughout (Own.levelHold) keeps Own.comingSeen. Without it a
+-- guide with prerequisite chains (a Lookup pick-up guide: Krol'dok Stronghold's
+-- 30 steps) followed every chain again from each accept: ~2,900 calls and
+-- 20-25 ms per evaluation, in the frame of each kill.
+function Own.coming(p, depth)
+	local seen = Own.comingSeen
+	if not seen then return Own.comingNow(p, depth) end
+	local byDepth = seen[depth or 0]
+	if not byDepth then
+		byDepth = {}
+		seen[depth or 0] = byDepth
+	end
+	local v = byDepth[p]
+	if v == nil then
+		v = Own.comingNow(p, depth) and true or false
+		byDepth[p] = v
+	end
+	return v
 end
 
 -- Whether held quest p has objectives the client lists, one of them not
@@ -4595,7 +4616,7 @@ end
 -- (computeCurrent): a dungeon's or an attunement's quest the level-up brings
 -- back. A leveling guide finishes past it, as past an accept its giver
 -- refused: its end is its last step (Own.noteEnd), not a pickup for later.
-function Own.levelHold()
+function Own.levelHoldNow()
 	local steps, sk = guide.steps, skippedFor(guide.id)
 	for s = 1, #steps do
 		if stepApplies(steps[s]) and not (sk and sk[s]) then
@@ -4608,6 +4629,17 @@ function Own.levelHold()
 		end
 	end
 	return nil
+end
+
+-- Nothing the pass reads changes during it, so each quest's Own.coming is
+-- worked out once (Own.comingSeen); an error still ends the pass's memo.
+function Own.levelHold()
+	if Own.comingSeen then return Own.levelHoldNow() end
+	Own.comingSeen = {}
+	local ok, hold = pcall(Own.levelHoldNow)
+	Own.comingSeen = nil
+	if not ok then error(hold, 0) end
+	return hold
 end
 
 -- A step of a dungeon run in a leveling guide (`when dungeon`, not negated).
@@ -8103,15 +8135,18 @@ end
 -- The end of a leveling guide reached ahead of the live step (a player who
 -- skipped ahead: Own.noteEnd): its last step for everyone (a class's or a
 -- race's own steps are not the end: Own.forSome) done out of turn, by what
--- the game keeps: quest state, the level, bags, flight paths, spells. Never
--- by where the player is or has been, nor by an NPC's window (goto,
--- explore, fly, hearth, enter, die; train, vendor, sethome, a talk with no
--- quest: Own.byPresence): the Undercity, the last stop of Hillsbrad (30-32),
--- is also its fifth, a hub the player visits to train, and a zone the
--- route crosses (0.3.5: "You've reached the end of this guide" at step 2).
+-- the game keeps: quest state, the level, bags, spells. Never by where the
+-- player is or has been, nor by an NPC's window (goto, explore, fly, hearth,
+-- enter, die; train, vendor, sethome, a talk with no quest: Own.byPresence):
+-- the Undercity, the last stop of Hillsbrad (30-32), is also its fifth, a hub
+-- the player visits to train, and a zone the route crosses (0.3.5: "You've
+-- reached the end of this guide" at step 2). Nor by a flight path known
+-- (getfp): the player may have learned it before the guide, and a guide
+-- that ends at the hub it starts from (Riverglades' walk back to Kargath,
+-- #2715) read done as soon as the player landed there.
 -- Those count once their step is on screen, or ticked, or when later work
 -- of the step is done (a walk to the turn-in: Own.laterWorkDone).
-Own.PRESENCE = { goto = true, explore = true, fly = true, hearth = true, enter = true, die = true, vendor = true, sethome = true }
+Own.PRESENCE = { goto = true, explore = true, fly = true, hearth = true, enter = true, die = true, vendor = true, sethome = true, getfp = true }
 function Own.byPresence(goal)
 	local t = goal.t
 	if t == "train" then return not isProfessionTrain(goal) end
@@ -16208,6 +16243,19 @@ function Engine.AcceptRefusal(questID)
 	if Engine.WantsQuest("accept", questID) then return nil end
 	local _, why = Own.aheadWants(questID)
 	return why or "not wanted"
+end
+
+-- Whether the loaded guide takes quest q as an escort (a goal of it with
+-- the compiled `escort`: its accept or the escort's own line, Zimmix's Great
+-- Escape). Automation leaves such an accept to a player in a group (#2708).
+function Engine.EscortQuest(questID)
+	if not (guide and questID) then return false end
+	for _, step in ipairs(guide.steps) do
+		for _, goal in ipairs(step.goals) do
+			if goal.quest == questID and goal.escort then return true end
+		end
+	end
+	return false
 end
 
 -- Saved tabs of leveling guides an update reworked (Own.reworked), by guide

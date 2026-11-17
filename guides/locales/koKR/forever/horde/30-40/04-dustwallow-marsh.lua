@@ -186,7 +186,7 @@ return {
 	-- {area:2657} Valley of Bones
 	["The {area:2657}"] = "{area:2657}",
 	-- {area:2657} Valley of Bones · {zone:1443} Desolace · {item:15848} Crate of Ghost Magnets
-	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magram Necrokhans = {npc:253274} Magram Necrokhan
+	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre · Magram Necrokhans = {npc:253274} Magram Necrokhan
 	["South-east of the coven, the bone fields of the {area:2657}, where Undead Ravagers roam, at {zone:1443}'s southern edge: keep south of the Magram's village on the way. Use the {item:15848} at the arrow to draw the Magrami Spectres (38-39): they come in numbers, so fight them with your back to the valley's edge. They drop the ghost-o-plasm.\nCareful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields just west of the arrow, well above you: use the crate at the arrow, on the valley's eastern side, and pull the spectres away from them."] = "집회장 남동쪽, {zone:1443} 남쪽 끝에 언데드 약탈자가 배회하는 {area:2657}의 뼈 들판이 있습니다. 가는 길에 마그람 마을 남쪽으로 지나가세요. 화살표 지점에서 {item:15848}을(를) 사용해 마그라미 망령(38-39)을 끌어내세요. 여러 마리가 몰려오니 골짜기 가장자리를 등지고 싸우세요. 망령이 유령 원형질을 떨어뜨립니다.\n주의: 마그람 강령칸과 시체먹이(45, 정예)가 화살표 바로 서쪽 뼈 들판을 돌아다니며, 당신보다 훨씬 강합니다. 골짜기 동쪽의 화살표 지점에서 상자를 사용하고 망령을 그들에게서 떨어진 곳으로 끌어오세요.",
 
 	-- Step 37: Hornizz Brimbuzzle

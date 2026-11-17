@@ -40,6 +40,7 @@ one into the other. The addons:
 | `Polestar_Looks` (`addon/Polestar_Looks/`) | The game looks (WoW Forever, Blizzard, Classic: their kits, art tables and painters, `GameSkins.lua`, `GameArt.lua`; their sizes and type ladder, and their own waypoint arrow and map pin medallion in the client's art, given as a skin's `media` is, `Parts.lua`) and Hearth's painters (`Hearth.lua`); loaded on demand (`Theme.LoadLooks`) the first time one of them, or a skin built on one, is painted, so a player on the house look never loads them. Until then the core's `Theme.Kit` is nil and its `Theme.Kit*` stand-ins draw nothing; the part replaces them as it loads. Their palettes and fonts, and Hearth's sizes, stay in the core | hand-written; `GameArt.lua` by `media game-art` | yes | yes |
 | `Polestar_Options` (`addon/Polestar_Options/`) | The settings window, its Look pages and previews, the Profiles page and profile strings, Move frames; loaded on demand the first time the settings open (`UI/OptionsLoader.lua` is its door in the core) | hand-written | yes | yes |
 | `Polestar_Skin_<Name>` (`addon/Polestar_Skin_Vellum/` … `Polestar_Skin_Sheen/`) | The nine skins that ship (Vellum, Lumen, Beacon, Aurora, Hairline, Umbra, Waymark, Lanterns, Sheen), each an addon on the Skin API (`## X-Polestar-Skin`), loaded only when picked; `Polestar_Skin_Example` never ships (docs/SKINS-API.md) | hand-written | yes | yes |
+| `Polestar_Arcade` (`addon/Polestar_Arcade/`) | Freedoom Arcade by petllama, a program of its own (GPL-2.0-or-later, its `LICENSE` and `CREDITS.md`): his DOOM engine port and three Freedoom levels, offered on flights by `Maps/Arcade.lua` and loaded on demand the first time Play is pressed; never loaded when his standalone `FreedoomArcade` addon is installed and enabled. Polestar talks to it only through `LoadAddOn` and `FreedoomArcadeAPI` | `git subtree` of github.com/petllama/FreedoomArcade with our commits on top; assets by its `tools/build_assets.py` and `tools/subset.py` | yes | yes |
 | `Polestar_Recorder` (`addon/Polestar_Recorder/`) | The optional standalone recorder of play sessions, for authoring | hand-written | yes | yes, as its own zip |
 
 A guide goes from a `.guide` file to the game in four steps. An author
@@ -7122,6 +7123,24 @@ change queued in combat while the old secure macro still runs does not change
 it. A missing, secret or unmatched name falls back to the applied first name's
 kind.
 
+### Pressing again moves on
+
+Every target macro opens with `/cleartarget [nocombat]`, so a hand-clicked mob
+or the quest giver just turned in to cannot stop the chain. The client's
+`/targetexact` moves on to the next unit of a name only while the target
+already has that name, so the clear alone made every press out of combat take
+the nearest one again, tagged or not. The Target button, the step key, the
+target list's rows and the guide's clickable names keep the macro they applied
+(`Buttons.SetPress`), and `Buttons.WireCycle` hooks their `PreClick`: out of
+combat, when the target is a living unit whose readable name is one of theirs
+(`Buttons.CycleIndex`), the press runs the same macro from that name without
+the clear (`TargetMacro`'s `keep`), so it takes the next one of that name;
+the corpse lines, the other names, the ping and the mark stay. A corpse, a
+unit of another name or no target keeps the clear. `PostClick` puts the
+applied macro back. In a fight nothing changes: the attribute cannot, and the
+clear is `[nocombat]` anyway. A row's mark kind for that press comes from the
+macro it ran (`pressedKind`, `pressedMixed`).
+
 ### Clickable objectives
 
 `qol.guideNameTarget` is off by default. Enabling it extends objective-row
@@ -9092,7 +9111,9 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   fonts and buttons, the class colour only on the stripe, the icon ring and
   the small header. It slides up from behind the window's top edge (a fade
   under `ui.reduceMotion`), follows the window, flips below it when the
-  screen has no room above (rechecked after a drag) and hides with it. It
+  screen has no room above (rechecked after a drag), or when above it would
+  cover the quest buttons or their target list (`Buttons.Covers`, rechecked on
+  `QUEST_BUTTONS_PLACED`, #2629), and hides with it. It
   shows for a chain of the character's class whose start has a giver for
   its race and side (`starts[q].r`, "<race>:<A|H>"), not a level-1 one (learned
   at the start), opening at the new level (PLAYER_LEVEL_UP) or in the last
@@ -9769,6 +9790,10 @@ opens on its card. The open state is not saved. `GuideFrame.Layout` asks `StepLi
 and stacks it at `StepList.Layout(width, room)`, filling the space within
 the window's height captured on opening (still limited by the screen's top
 with Grow upward). Overflow scrolls; a short list leaves the spare space.
+In compact mode the window is too short to browse in: Layout passes
+`StepList.Layout(width, room, least)` with the height cap as `room` and the
+captured height as `least`, so the list grows the window to fit its cards up
+to the cap and the window returns to its height on closing.
 `StepList.Fill` reads `Engine.GetStepView` for each step not hidden for this
 character (`UI.StepHidden`): all of them when the guide, the step on screen,
 the live step, the progress, a step's gate (`Engine.StepGate`: whether it
@@ -9819,7 +9844,13 @@ quests"; under an open `level` goal, `Engine.GrindHint(i)`'s "You're 31: the
 quests after this are level 32–35" (the levels of the next
 `Own.GRIND_NEXT` accepts) and "Worth doing near here" (this guide's quests the
 character can take now with their giver within `Own.GRIND_NEAR_YD` of the player, a catch-up detour
-included; a click shows the first one's step), before the dungeon line; and
+included; a click shows the first one's step), then, in a guide that is no
+leveling guide (a class, item or profession guide) waiting `LEVEL_BACK` (2)
+levels or more ahead, "Level with <leveling guide> meanwhile: this guide picks
+up at level N" (`GF.LevelBack`: the tab the class quest heads-up opened it
+from, else an open leveling guide's tab, else `Engine.StartingGuide()` for a
+new tab; a click shows that tab or opens it, the guide waiting keeps its own),
+before the dungeon line; and
 with `GF.OFF_ROUTE_NUDGE` (3) or more quests in the log off the route
 (`RoutePlan.OffRoute`, worked out when the step changes) a line that opens
 the quest room on them (`UI.ShowQuestRoom("offroute")`). The bug report adds

@@ -86,6 +86,24 @@ fn guide_lookup_button_opens_lookup_with_search_focus_without_changing_the_guide
 	assert_eq!(out["sameStep"], true);
 }
 
+// #2769 (Liquidor): a search, another section, then Lookup again. The hub empties its box on the way, and the sidebar
+// drew before Lookup took up the empty search: its kinds still counted the old results under an empty box.
+#[test]
+fn a_search_left_for_another_section_is_gone_from_lookup_s_sidebar_when_it_shows_again() {
+	let out = run(r#"
+		Polestar.Lookup.Show("saber")
+		local searched = { navs = navKeys(), all = nav("all").Count:IsShown() }
+		Polestar.UI.Picker.ShowSection("Guides")
+		Polestar.UI.Picker.ShowSection("Lookup")
+		emit({ searched = searched, query = LK.Query(), box = Polestar.UI.Picker.search:GetText(), navs = navKeys(),
+			all = nav("all").Count:IsShown() })"#);
+	assert_eq!(out["searched"]["all"], true, "while searching, Everything counts the results");
+	assert_eq!(out["query"], "");
+	assert_eq!(out["box"], "");
+	assert_eq!(out["all"], false, "an empty box: no result count on Everything");
+	assert_ne!(out["navs"], out["searched"]["navs"], "the kinds are no longer the old search's");
+}
+
 #[test]
 fn show_lookup_opens_the_hub_at_lookup_on_the_query_results_grouped_by_kind_the_first_selected() {
 	let out = run(r#"
@@ -597,6 +615,31 @@ fn lookup_turned_off_in_options_guides_only_the_section_says_where_to_turn_it_on
 	assert_eq!(out["idle"]["codex"], "Lookup is off: searching guides only");
 	assert!(is_match(text(&out["none"]), r"Nothing matches .saber.\. Lookup is turned off in Options > Discovery > Lookup"));
 	assert_eq!(out["loads"], 0);
+}
+
+// #2692: Lookup's "Lookup is off: searching guides only" sits in the hub's tab row. Going to the guide list hides
+// the section's frame (the hub's), not Lookup's own, and the line read only its own frame's state: it stayed on
+// the guide list over its tabs. The hub hiding with Lookup open keeps it for when the hub comes back.
+#[test]
+fn the_codex_line_leaves_the_tab_row_with_the_section_and_comes_back_with_it_2692() {
+	let out = run(r#"
+		stub.cascadeVisibility = true
+		lookupstub.loaded, lookupstub.reason = false, "off"
+		Polestar.Codex.Load = function() return false, "off" end
+		UI.ShowLookup()
+		local line = LK.root.CodexLine
+		local r = { lookup = { line:GetText(), line:IsVisible() } }
+		Polestar.UI.Picker.ShowSection("Guides")
+		r.guides = { tabs = PolestarPicker.TabRow:IsShown(), line = line:IsVisible() }
+		UI.ShowLookup()
+		r.back = line:IsVisible()
+		PolestarPicker:Hide(); PolestarPicker:Show()
+		r.reopened = line:IsVisible()
+		emit(r)"#);
+	assert_eq!(out["lookup"], json!(["Lookup is off: searching guides only", true]));
+	assert_eq!(out["guides"], json!({ "tabs": true, "line": false }), "the guide list's tab row is its own");
+	assert_eq!(out["back"], true, "back in Lookup, the line is back");
+	assert_eq!(out["reopened"], true, "the hub hidden and shown again with Lookup open keeps it");
 }
 
 // #2554: a quest in a chain shows "Step N of M" among its facts and the whole chain under its sources, each quest

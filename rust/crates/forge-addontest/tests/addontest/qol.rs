@@ -1301,7 +1301,7 @@ fn target_button_a_name_with_a_line_break_or_other_control_character_never_reach
 	assert_eq!(out[2], "/cleartarget [nocombat]\n/targetexact Kobold Laborer\n/cleartarget [dead]", "TargetMacro itself drops an unsafe name");
 }
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 struct Unit {
 	name: &'static str,
 	dead: bool,
@@ -1310,9 +1310,14 @@ struct Unit {
 }
 
 // Plays a target macro the way the client does: /targetexact takes the nearest unit with the name, alive or
-// dead, and keeps the target when none matches; [dead], [noharm], [noexists] and [nocombat] test the current
+// dead, and keeps the target when none matches; while the target already has the name it moves on to the next
+// one out (the nearest again after the farthest); [dead], [noharm], [noexists] and [nocombat] test the current
 // target and the fight, and the line runs when any bracket holds.
 fn play_macro(text: &str, units: &[Unit], target: Option<Unit>, combat: bool) -> Option<String> {
+	play_macro_unit(text, units, target, combat).map(|t| format!("{}{}", t.name, if t.dead { " (dead)" } else { "" }))
+}
+
+fn play_macro_unit(text: &str, units: &[Unit], target: Option<Unit>, combat: bool) -> Option<Unit> {
 	let line_re = regex::Regex::new(r"^(/\w+)((?:\s*\[[^\]]*\])*)\s*(.*)$").unwrap();
 	let cond_re = regex::Regex::new(r"\[([^\]]*)\]").unwrap();
 	let mut target = target;
@@ -1333,12 +1338,18 @@ fn play_macro(text: &str, units: &[Unit], target: Option<Unit>, combat: bool) ->
 			"/cleartarget" => target = None,
 			"/targetexact" => {
 				let name = &m[3];
-				target = units.iter().filter(|u| u.name == name).min_by_key(|u| u.yd).copied().or(target);
+				let named = || units.iter().filter(move |u| u.name == name);
+				let nearest = named().min_by_key(|u| u.yd);
+				let next = match target {
+					Some(t) if t.name == name => named().filter(|u| u.yd > t.yd).min_by_key(|u| u.yd).or(nearest),
+					_ => nearest,
+				};
+				target = next.copied().or(target);
 			}
 			_ => panic!("unexpected command {line}"),
 		}
 	}
-	target.map(|t| format!("{}{}", t.name, if t.dead { " (dead)" } else { "" }))
+	target
 }
 
 #[test]
@@ -1392,6 +1403,94 @@ fn target_button_a_corpse_is_never_left_selected_the_first_living_match_wins_the
 	assert!(long.len() <= 255, "{} characters", long.len());
 	assert!(is_match(long, r"^/cleartarget \[nocombat\]\n/targetexact Defias Pathstalker\n/cleartarget \[dead\]\n/targetexact \[noexists\] Defias Highwayman\n"));
 	assert!(!is_match(long, r"Defias Smuggler"));
+}
+
+#[test]
+fn target_button_step_key_and_rows_a_press_on_a_living_one_of_their_names_moves_on_to_the_next_one_of_that_name() {
+	// A player on Discord (2026-11-17): pressing again should take the next mob of the kind when the first one is
+	// tagged. /targetexact moves on only while the target already has the name, and "/cleartarget [nocombat]"
+	// undid that, so every press out of combat took the nearest one again.
+	let out = run(r#"
+		q.step({ { t = "kill", target = "Kobold Vermin", quest = 7, oi = 1 }, { t = "kill", target = "Kobold Worker", quest = 7, oi = 2 } })
+		stub.runTimers()
+		local function press(b)
+			local before = b:GetAttribute("macrotext")
+			q.ran = {}
+			q.keyClick(b)
+			return { ran = q.ran[1] and q.ran[1][2] or false, before = before, after = b:GetAttribute("macrotext") }
+		end
+		local out = {}
+		for _, name in ipairs({ "PolestarTargetButton", "PolestarStepButton", "PolestarTargetRow2" }) do
+			local b = _G[name]
+			local row = {}
+			q.target = false
+			row.none = press(b)
+			q.target = { name = "Kobold Worker", hostile = true }
+			row.match = press(b)
+			q.target = { name = "Kobold Worker", hostile = true, dead = true }
+			row.corpse = press(b)
+			q.target = { name = "Gnarlpine Ursa", hostile = true }
+			row.other = press(b)
+			q.target = { name = "Kobold Worker", hostile = true }
+			q.combat(true)
+			row.combat = press(b)
+			q.combat(false)
+			out[name] = row
+		end
+		-- The mark stays on a press that moves on.
+		set("markTarget", true)
+		q.target = { name = "Kobold Worker", hostile = true }
+		out.marked = press(PolestarTargetButton)
+		emit(out)
+	"#);
+	let o = &out[0];
+	let clear = "/cleartarget [nocombat]\n";
+	let vw = "/targetexact Kobold Vermin\n/cleartarget [dead]\n/targetexact [noexists] Kobold Worker\n/cleartarget [dead]";
+	let wv = "/targetexact Kobold Worker\n/cleartarget [dead]\n/targetexact [noexists] Kobold Vermin\n/cleartarget [dead]";
+	let applied = format!("{clear}{vw}");
+	let ran = |b: &str, case: &str| o[b][case]["ran"].as_str().unwrap().to_string();
+
+	// The target button (the list keeps its order: Kobold Vermin first).
+	let t = "PolestarTargetButton";
+	assert_eq!(ran(t, "none"), applied, "no target: from nothing, the list's order");
+	assert_eq!(ran(t, "match"), wv, "a living Kobold Worker targeted: kept, and its name first");
+	assert_eq!(ran(t, "corpse"), applied, "a corpse of the name is cleared");
+	assert_eq!(ran(t, "other"), applied, "a unit of none of the names is cleared");
+	assert_eq!(ran(t, "combat"), o[t]["combat"]["before"].as_str().unwrap(), "in combat the macro is left as it was");
+	for case in ["none", "match", "corpse", "other", "combat"] {
+		assert_eq!(o[t][case]["after"], json!(applied), "{case}: the applied macro back after the press");
+	}
+
+	// The step key: the same macro, from its own next name.
+	let s = "PolestarStepButton";
+	assert_eq!(ran(s, "match"), wv, "the step key moves on from a living Kobold Worker too");
+	for case in ["none", "corpse", "other"] {
+		assert!(ran(s, case).starts_with(clear), "step key, {case}: from nothing");
+		assert!(o[s][case]["after"].as_str().unwrap().starts_with(clear), "step key, {case}: its macro back");
+	}
+	assert!(o[s]["match"]["after"].as_str().unwrap().starts_with(clear), "step key: its macro back after moving on");
+	assert_eq!(ran(s, "combat"), o[s]["combat"]["before"].as_str().unwrap(), "step key: in combat the macro is left as it was");
+
+	// A target list row: its own name.
+	let r = "PolestarTargetRow2";
+	let worker = "/targetexact Kobold Worker\n/cleartarget [dead]";
+	assert_eq!(ran(r, "match"), worker, "a row moves on from a living one of its name");
+	for case in ["none", "corpse", "other"] {
+		assert_eq!(ran(r, case), format!("{clear}{worker}"), "row, {case}");
+	}
+	assert_eq!(o[r]["match"]["after"], json!(format!("{clear}{worker}")));
+
+	assert_eq!(o["marked"]["ran"], json!(format!("{wv}\n/tm [@target,harm,nodead] !8")), "the mark stays");
+
+	// Played: two Kobold Workers and a Kobold Vermin; the first Worker is selected (tagged by someone else).
+	let a = Unit { name: "Kobold Worker", dead: false, harm: true, yd: 5 };
+	let b = Unit { name: "Kobold Worker", dead: false, harm: true, yd: 12 };
+	let v = Unit { name: "Kobold Vermin", dead: false, harm: true, yd: 8 };
+	let units = [a, b, v];
+	assert_eq!(play_macro_unit(&ran(t, "match"), &units, Some(a), false), Some(b), "the next Kobold Worker");
+	assert_eq!(play_macro_unit(&ran(t, "match"), &units, Some(b), false), Some(a), "and round again");
+	assert_eq!(play_macro_unit(&ran(r, "match"), &units, Some(a), false), Some(b), "a row too");
+	assert_eq!(play_macro_unit(&format!("{clear}{worker}"), &units, Some(a), false), Some(a), "the old macro took the nearest one again");
 }
 
 #[test]

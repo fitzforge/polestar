@@ -79,7 +79,6 @@ return {
 	-- Step 13: The mine, the centaurs and the plains
 	["The mine, the centaurs and the plains"] = "La mina, los centauros y las llanuras",
 	-- {quest:765} Supervisor Fizsprocket · {item:281031} Mulgore Expansion Plans · {quest:98424} Fizsprocket's Notes · {zone:1412} Mulgore
-	-- plural, as words: Swoops = {npc:2970} Swoop
 	["Back to the mine for the workers, supervisors and {quest:765} in the back: his {item:281031} start {quest:98424}, and its other pages lie inside the mine. The Galak centaurs and Herak camp east of the village. Swoops fly all over {zone:1412}; the Windfury harpies roost south-east of the village; the Palemane gnolls camp west of it."] = "De vuelta a la mina por los obreros, los supervisores y {quest:765}, al fondo: sus {item:281031} inician {quest:98424}, y sus otras páginas están dentro de la mina. Los centauros Galak y Herak acampan al este de la aldea. Los vencejos vuelan por todo {zone:1412}; las arpías Furia del Viento anidan al sureste de la aldea; los gnolls Crin Pálida acampan al oeste.",
 	-- {item:281031} Mulgore Expansion Plans · {quest:765} Supervisor Fizsprocket
 	["{item:281031}, from {quest:765}"] = "{item:281031}, de {quest:765}",

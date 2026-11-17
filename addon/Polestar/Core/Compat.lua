@@ -813,7 +813,7 @@ function Compat.ItemTipColor(itemID)
 	local line = ok and type(data) == "table" and type(data.lines) == "table" and data.lines[1]
 	if type(line) ~= "table" then return nil end
 	local text, c = line.leftText, line.leftColor
-	if type(text) ~= "string" or text == "" or isSecret(text) or text == RETRIEVING_ITEM_INFO then return nil end
+	if type(text) ~= "string" or isSecret(text) or text == "" or text == RETRIEVING_ITEM_INFO then return nil end
 	if type(c) ~= "table" or type(c.r) ~= "number" or isSecret(c.r) then return nil end
 	itemTipColors[itemID] = { c.r, c.g, c.b }
 	return c.r, c.g, c.b
@@ -897,7 +897,7 @@ function Compat.GetItemName(itemID)
 	local fn = type(itemID) == "number" and C_Item and C_Item.GetItemNameByID
 	if not fn then return nil end
 	local ok, name = pcall(fn, itemID)
-	if ok and type(name) == "string" and name ~= "" and not isSecret(name) then return name end
+	if ok and type(name) == "string" and not isSecret(name) and name ~= "" then return name end
 	return nil
 end
 
@@ -945,7 +945,7 @@ function Compat.CreatureCached(npcID)
 	local ok, data = pcall(get, ("unit:Creature-0-0-0-0-%d-0000000000"):format(npcID))
 	local line = ok and type(data) == "table" and type(data.lines) == "table" and data.lines[1]
 	local text = type(line) == "table" and line.leftText
-	if type(text) ~= "string" or text == "" or isSecret(text) or text == UNKNOWNOBJECT or text == RETRIEVING_DATA then return false end
+	if type(text) ~= "string" or isSecret(text) or text == "" or text == UNKNOWNOBJECT or text == RETRIEVING_DATA then return false end
 	creaturesCached[npcID] = true
 	return true
 end
@@ -976,7 +976,7 @@ function Compat.MapName(uiMapID)
 	if not uiMapID then return nil end
 	local C = ns.Compat
 	local ok, name = pcall(C.GetMapName, uiMapID)
-	if ok and type(name) == "string" and name ~= "" and not isSecret(name) then return name end
+	if ok and type(name) == "string" and not isSecret(name) and name ~= "" then return name end
 	local X = ns.Codex
 	local z = X and X.IsLoaded and X.IsLoaded() and X.Zone and X.Zone(uiMapID)
 	return z and z.name or nil

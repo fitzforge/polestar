@@ -84,11 +84,13 @@ fn source_fields(ty: &str) -> &'static [&'static str] {
 	}
 }
 
+/// The most sources of a type an item keeps. Vendors have none: Lookup ranks an item's sellers by the
+/// player's travel to each, so cutting them by id left whole cities out (Red Dye kept ten sellers, none in
+/// Ironforge, and an Ironforge player was sent to Loch Modan, #2719).
 fn cap(ty: &str) -> Option<usize> {
 	match ty {
 		"drop" => Some(10),
 		"object" => Some(6),
-		"vendor" => Some(10),
 		"container" => Some(6),
 		_ => None,
 	}
@@ -485,6 +487,16 @@ fn mechanics_entry(mechanics: &V, quest_id: f64) -> V {
 	} else {
 		mechanics.get(&key(quest_id))
 	}
+}
+
+/// How a quest is done beyond its objectives, in our own public words (#2714: Powering the Pylons' mana, gathered
+/// with the Mana Sieve before the pylons take it): data/mechanics-public.json's steps' facts, in step order, one
+/// text. None without a public entry or facts.
+fn public_how(public: &V, quest_id: f64) -> Option<String> {
+	let mut steps: Vec<(f64, String)> =
+		mechanics_entry(public, quest_id).get("steps").items().iter().filter_map(|s| s.get("fact").as_str().map(|f| (s.get("n").num(), f.trim().to_string()))).filter(|(_, f)| !f.is_empty()).collect();
+	steps.sort_by(|a, b| ord(a.0 - b.0));
+	(!steps.is_empty()).then(|| steps.into_iter().map(|(_, f)| f).collect::<Vec<_>>().join(" "))
 }
 
 fn drives_use_on_mob(e: &V) -> bool {
@@ -2185,6 +2197,10 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			if !pre.get("parent").is_undef() {
 				o.set("parent", pre.get("parent"));
 			}
+			// How it is done beyond its objectives, our public words (#2714), for Lookup's quest steps.
+			if let Some(how) = public_how(&inputs.mechanics_public, idf) {
+				o.set("how", how);
+			}
 			// One Forever hands in at one talk, never in the log (quests.json `direct`: Bloodpetal Sprouts, #2686), so
 			// the hand-in guides never take it as an accept.
 			if q.get("direct").truthy() {
@@ -2493,6 +2509,7 @@ mod tests {
 			journal_quests: Vec::new(),
 			store_xp: Default::default(),
 			mechanics: parse_json(mechanics).unwrap(),
+			mechanics_public: V::Null,
 			warnings: Vec::new(),
 		}
 	}
@@ -2544,6 +2561,49 @@ mod tests {
 		assert!(obj("88005").get("summonOn").is_nullish() && obj("88006").get("summonOn").is_nullish());
 		assert!(obj("88005").get("summonItem").is_nullish(), "a kind that does not drive");
 		assert!(obj("88006").get("summonItem").is_nullish(), "the item calls up another NPC");
+	}
+
+	// #2719: Red Dye has 101 sellers in the data; the Codex kept the ten lowest ids (none in Ironforge) and Lookup
+	// sent an Ironforge player to Loch Modan. Every seller is kept now.
+	#[test]
+	fn an_item_keeps_every_vendor_that_sells_it_2719() {
+		let mut i = inputs("{}", "{}");
+		let ids: Vec<u32> = (1..=14).collect();
+		let npcs: Vec<String> =
+			ids.iter().map(|n| format!(r#""{n}": {{ "id": {n}, "name": "Seller {n}", "roles": ["vendor"], "spawns": {{ "1455": {{ "f": "e", "pts": [[{n}, 50]] }} }} }}"#)).collect();
+		i.forever.npcs = parse_json(&format!("{{ {} }}", npcs.join(", "))).unwrap();
+		i.forever.zones = parse_json(r#"{ "1455": { "id": 1455, "name": "Ironforge" } }"#).unwrap();
+		i.forever.items = parse_json(&format!(
+			r#"{{ "2604": {{ "id": 2604, "name": "Red Dye", "vendors": [{}], "drops": {{ "npc": {{}}, "object": {{}} }} }} }}"#,
+			ids.iter().map(u32::to_string).collect::<Vec<_>>().join(", ")
+		))
+		.unwrap();
+		let codex = merge_codex(&i);
+		let sold_by: Vec<f64> = codex.items.get("2604").get("sources").items().iter().filter(|s| s.get("type").as_str() == Some("vendor")).map(|s| s.get("npc").num()).collect();
+		assert_eq!(sold_by.len(), 14, "every seller, not the first ten by id: {sold_by:?}");
+	}
+
+	// #2714: Powering the Pylons' pylons take mana gathered with the Mana Sieve first, which no objective says. The
+	// quest's `how` is our public mechanics' facts in step order; the merged mechanics.json's (private layers'
+	// text) never is.
+	#[test]
+	fn a_quest_keeps_how_it_is_done_from_the_public_mechanics_only_2714() {
+		let quests = r#"{
+			"96018": { "id": 96018, "title": "Powering the Pylons", "objectives": [{ "type": "event", "count": 1, "text": "Western pylon repaired" }] },
+			"88010": { "id": 88010, "title": "Private only", "objectives": [{ "type": "event", "count": 1, "text": "Done" }] }
+		}"#;
+		let private = r#"{ "quests": { "88010": { "steps": [{ "n": 1, "fact": "From a page's comments." }] } } }"#;
+		let mut i = inputs(quests, private);
+		i.mechanics_public = parse_json(
+			r#"{ "quests": { "96018": { "steps": [
+			{ "n": 2, "fact": "Then use Repair and Recharge Pylon at each pylon." },
+			{ "n": 1, "fact": "Gather mana with the Mana Sieve first." }
+		] } } }"#,
+		)
+		.unwrap();
+		let codex = merge_codex(&i);
+		assert_eq!(codex.quests.get("96018").get("how").as_str(), Some("Gather mana with the Mana Sieve first. Then use Repair and Recharge Pylon at each pylon."));
+		assert!(codex.quests.get("88010").get("how").is_nullish(), "private text never ships");
 	}
 
 	#[test]
