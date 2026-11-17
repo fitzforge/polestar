@@ -133,6 +133,19 @@ fn a_character_who_can_ride_reads_ride_to_on_a_crossing_without_a_caption() {
 	assert_eq!(out, json!(["walk|Ride to West Vale", "walk|Ride to West Vale", "walk|Target"]));
 }
 
+// A ghost walks (a walk-only plan): "Walk to <zone>" with the riding skill too.
+#[test]
+fn a_ghost_who_can_ride_still_reads_walk_to_on_a_crossing_without_a_caption() {
+	let out = run(r#"
+		Polestar.Compat.GetSkillRank = function(line) if line == 762 then return 75, 75 end end
+		UnitIsGhost = function() return true end
+		crossings()
+		nav.place(-500, -500)                            -- East Vale, heading west
+		target(-500, 500)
+		emit(route())"#);
+	assert_eq!(out, json!(["walk|Walk to West Vale", "walk|Walk to West Vale", "walk|Target"]));
+}
+
 #[test]
 fn an_open_ground_pair_walks_straight_across_the_border_a_one_way_pair_only_one_way() {
 	let out = run(r#"

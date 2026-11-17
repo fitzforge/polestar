@@ -1272,6 +1272,22 @@ fn a_character_who_can_ride_rides_to_a_cave_mouth_the_walk_to_a_lift_s_landing_s
 	);
 }
 
+// A ghost walks: with the riding skill too, the split walk's cave mouth reads walk.
+#[test]
+fn a_ghost_who_can_ride_still_walks_to_a_cave_mouth() {
+	let out = run(&format!(
+		"{RIDER}UnitIsGhost = function() return true end\n{}{}",
+		split(),
+		r#"
+		emit(labels())"#
+	));
+	assert_eq!(
+		out,
+		json!(["walk|Cross the bridge to Lakeshire", "walk|Walk to the cave mouth in Testshire", "walk|Walk to The Great Lift, Bottom", "lift|Ride the elevator up", "walk|Target",]),
+		"a ghost reads walk at the cave mouth"
+	);
+}
+
 // The Undercity's canals lie under the Ruins: a chokepoint there is no stop for a walk over the Ruins above it.
 #[test]
 fn a_chokepoint_more_than_30_yd_above_or_below_the_path_is_no_stop_one_on_the_paths_floor_is() {

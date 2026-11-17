@@ -672,8 +672,9 @@ local function crossCaption(e, ride)
 end
 
 -- The captions of the legs to and on a boat, zeppelin, airship, tram or
--- portal, translated (this file loads after the locale file); RIDE_TO for a
--- character who can ride.
+-- portal, translated (this file loads after the locale file); Travel.RIDE_TO
+-- for a character who can ride (a field, not a local: the file's main chunk
+-- keeps clear of Lua 5.1's 200 locals).
 local WALK_TO = {
 	boat = L["Walk to the boat"],
 	zeppelin = L["Walk to the zeppelin tower"],
@@ -681,9 +682,10 @@ local WALK_TO = {
 	tram = L["Walk to the Deeprun Tram"],
 	portal = L["Walk to the portal"],
 }
-local RIDE_TO = {
+Travel.RIDE_TO = {
 	boat = L["Ride to the boat"],
 	zeppelin = L["Ride to the zeppelin tower"],
+	airship = L["Ride to the airship dock"],
 	tram = L["Ride to the Deeprun Tram"],
 	portal = L["Ride to the portal"],
 }
@@ -723,6 +725,9 @@ local function planBody(p, S)
 	local known = p.known or {}
 	local zoned = next(covered) ~= nil
 	local walkOnly = p.walkOnly -- a ghost: no flights, rides, portals, hearth or teleports
+	-- The overland legs' captions say "Ride to ..." (ns.CanRide), read once per plan; a walk-only plan walks.
+	-- (The route tools' planner stub has no ns.CanRide: walk.)
+	local ride = not walkOnly and ns.CanRide and ns.CanRide() or false
 
 	-- Vertices (vzone: the zone on a continent with crossing data)
 	local vc, vx, vy, vkind, vref, vzone
@@ -1441,7 +1446,6 @@ local function planBody(p, S)
 	local function waypointLabel(before, w, after)
 		local nd = vref[w]
 		if vkind[w] == CROSS then
-			local ride = ns.CanRide()
 			if before == 1 and onCross[w] then return crossCaption(nd.partner, ride) end
 			if before and vkind[before] == CROSS and vref[before].partner == nd then return crossCaption(vref[before], ride) end
 			if after and vkind[after] == CROSS and vref[after] == nd.partner then return crossCaption(nd, ride) end
@@ -1540,9 +1544,9 @@ local function planBody(p, S)
 				leg.radius, leg.waypoint = vref[to].r, true
 				leg.step = k == CROSS and "crossing" or "chain"
 			elseif k == TAXI then
-				leg.label = ns.CanRide() and L["Ride to the flight master"] or L["Walk to the flight master"]
+				leg.label = ride and L["Ride to the flight master"] or L["Walk to the flight master"]
 			elseif k == DOCK then
-				leg.label = ns.CanRide() and (RIDE_TO[dockOf[to].kind] or RIDE_TO.boat) or (WALK_TO[dockOf[to].kind] or WALK_TO.boat)
+				leg.label = ride and (Travel.RIDE_TO[dockOf[to].kind] or Travel.RIDE_TO.boat) or (WALK_TO[dockOf[to].kind] or WALK_TO.boat)
 			elseif k == TARGET then
 				leg.label = tg.label
 				if tg.kind == "goto" then leg.step = "goto" end
@@ -2712,8 +2716,9 @@ local CHOKE_BARE = {
 }
 -- A character who can ride (ns.CanRide): the walks to a cave or building
 -- mouth, by place, zone or bare; every other kind keeps its caption above
--- (a lift's walk leads to a ride of its own).
-local CHOKE_RIDE = {
+-- (a lift's walk leads to a ride of its own). (A field, not a local: the
+-- file's main chunk keeps clear of Lua 5.1's 200 locals.)
+Travel.CHOKE_RIDE = {
 	to = { cave = L["Ride to the %s cave mouth"], building = L["Ride to the %s entrance"] },
 	zone = { cave = L["Ride to the cave mouth in %s"], building = L["Ride to the entrance in %s"] },
 	bare = { cave = L["Ride to the cave mouth"], building = L["Ride to the entrance"] },
@@ -2750,7 +2755,8 @@ end
 -- A stop's caption: never empty, never "Unknown".
 local function stopLabel(s, c)
 	local kind = CHOKE_BARE[s.kind] and s.kind or "pass"
-	local ride = ns.CanRide() and CHOKE_RIDE or nil
+	-- A ghost, or the escort the route was planned for (questTimed: a walk-only plan), walks.
+	local ride = not (isGhost() or questTimed == "escort") and ns.CanRide and ns.CanRide() and Travel.CHOKE_RIDE or nil
 	local place = s.kind == "lift" and present(s.name) or present(s.to) or present(s.name)
 	if place then
 		if s.kind == "lift" and (s.side == "top" or s.side == "bottom") then

@@ -1830,6 +1830,49 @@ fn hotline_s_report_576_a_hearth_step_while_the_hearthstone_waits_says_how_long_
 	assert_eq!(out["unknown"], json!({ "line": "Hearthstone ready in 10 min", "arrow": false }));
 }
 
+// A character with the riding skill (line 762) reads ride where the walker reads walk: the line under the hearth goal
+// and the arrow's label above it agree.
+#[test]
+fn a_hearth_step_while_the_hearthstone_waits_or_is_not_in_the_bags_says_ride_to_the_inn_for_a_character_who_can_ride() {
+	let out = run1(Run {
+		guides: r#"
+			Polestar.RegisterGuide({ id = "test/hearth-ride", pack = "test", title = "Hearth", minLevel = 1, maxLevel = 10, steps = {
+				{ goals = { { t = "hearth", location = "Goldshire" }, { t = "note", text = "The inn by the road." } } },
+				{ goals = { { t = "level", level = 99 } } },
+			} })
+		"#,
+		before: r#"w.setZone("Stormwind City", "Trade District")"#,
+		script: r#"
+			Polestar.Compat.GetSkillRank = function(line) if line == 762 then return 75, 75 end end
+			local hs = { have = true, remaining = 23 * 60 - 20 }
+			Polestar.QoL = Polestar.QoL or {}
+			Polestar.QoL.GetHearth = function() return hs end
+			Polestar.Nav = Polestar.Nav or {}
+			Polestar.Nav.FindInn = function(npc, name)
+				if name == "Goldshire" then return { map = 1429, x = 43.8, y = 65.8, f = "e", npc = 295 } end
+			end
+			local function changed() Polestar.Fire("QOL_HEARTH_CHANGED"); flush() end
+			local function state()
+				local g, wp = E.GetStepView(E.GetStepIndex()).goals[1], E.GetWaypoint()
+				return { line = g.hearthText or false, arrow = wp and { wp.map, wp.x, wp.y, wp.label } or false }
+			end
+			E.SetGuide("test/hearth-ride"); flush()
+			local r = { waiting = state() }
+			hs.have = false; changed()
+			r.none = state()
+			-- a ghost walks (Nav/Travel.lua), the line and the arrow alike
+			Polestar.Nav.travel = { IsGhost = function() return true end }; changed()
+			r.ghost = state()
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	let ride = json!([1429, 43.8, 65.8, "Ride to Goldshire"]);
+	assert_eq!(out["waiting"], json!({ "line": "Hearthstone ready in 23 min: ride to the inn, or wait for it", "arrow": ride }));
+	assert_eq!(out["none"], json!({ "line": "No Hearthstone in your bags: ride to the inn", "arrow": ride }));
+	assert_eq!(out["ghost"], json!({ "line": "No Hearthstone in your bags: walk to the inn", "arrow": [1429, 43.8, 65.8, "Walk to Goldshire"] }), "a ghost walks");
+}
+
 // A Shaman's Astral Recall does a hearth step as the Hearthstone does (players asked on Discord, 2026-11-13): while the
 // Hearthstone waits, or is not in the bags, and Astral Recall is ready, the step says "Cast Astral Recall" and the arrow
 // does not walk to the inn; with Astral Recall cooling down too, the Hearthstone's wait as before.
@@ -2475,6 +2518,36 @@ fn a_hearth_step_whose_hearthstone_is_bound_at_another_inn_says_so_and_walks_the
 	assert_eq!(out["unknownBound"], json!({ "line": false, "arrow": false }));
 	assert_eq!(out["walked"], 2, "arriving in Goldshire on foot checks the hearth off");
 	assert_eq!(out["unknownInn"], json!({ "line": false, "arrow": false }));
+}
+
+// A character with the riding skill (line 762), the Hearthstone bound at another inn: ride, the line and the arrow alike.
+#[test]
+fn a_hearth_step_whose_hearthstone_is_bound_at_another_inn_says_ride_to_the_inn_for_a_character_who_can_ride() {
+	let out = run1(Run {
+		guides: r#"
+			Polestar.RegisterGuide({ id = "test/hearth-bound-ride", pack = "test", title = "Hearth", minLevel = 1, maxLevel = 10, steps = {
+				{ goals = { { t = "hearth", location = "Goldshire" }, { t = "note", text = "The inn by the road." } } },
+				{ goals = { { t = "level", level = 99 } } },
+			} })
+		"#,
+		before: r#"w.setZone("Stormwind City", "Trade District"); w.bind("Kharanos")"#,
+		script: r#"
+			Polestar.Compat.GetSkillRank = function(line) if line == 762 then return 75, 75 end end
+			local hs = { have = true, remaining = 0 }
+			Polestar.QoL = Polestar.QoL or {}
+			Polestar.QoL.GetHearth = function() return hs end
+			Polestar.Nav = Polestar.Nav or {}
+			Polestar.Nav.FindInn = function(npc, name)
+				if name == "Goldshire" then return { map = 1429, x = 43.8, y = 65.8, f = "e", npc = 295 } end
+			end
+			Polestar.Nav.BoundInn = function() return { map = 1426, x = 47.4, y = 52.4, f = "w", npc = 1247 } end
+			E.SetGuide("test/hearth-bound-ride"); flush()
+			local g, wp = E.GetStepView(E.GetStepIndex()).goals[1], E.GetWaypoint()
+			emit({ line = g.hearthText or false, arrow = wp and { wp.map, wp.x, wp.y, wp.label } or false })
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out, json!({ "line": "Your Hearthstone is bound to Kharanos, not Goldshire: ride to the inn", "arrow": [1429, 43.8, 65.8, "Ride to Goldshire"] }));
 }
 
 // #1753 (doctor-house, 0.3.6, Night Elf Hunter 27, Duskwood's Hushed Bank: "kill these as you meet them"): "63x
