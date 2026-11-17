@@ -329,6 +329,24 @@ docs/RELEASING.md has the release side.
 rebase: GitHub shows it as merged because your exact commits are in the base
 branch. A fix or a follow-up is a new pull request.
 
+## Merge conflicts
+
+Many pull requests land on `next` at once, so a few shared files often
+conflict when you bring your branch up to date (`git merge origin/next`).
+None of them needs a hand merge:
+
+| Files | How |
+|---|---|
+| The interface translations, `addon/Polestar_<locale>/Interface.lua` | Merged for you: `.gitattributes` gives them `merge=union`, which keeps both sides' lines. Each translation is one `L["..."] = "..."` line in no meaningful order, so that is safe: a key both sides changed (set twice) or one side retired fails `forge i18n check` (CI); keep the right line and run `forge i18n sync`. GitHub's merge button ignores the attribute, so a conflict shown there goes away when you merge `next` into your branch locally and push. |
+| `guides/GENERATED.json`, `forge/seed/SEED.json` (the maintainers' hand edits to generated guides) | Resolve the guides themselves first, then take either side of the manifests and recompute them from the files: `git checkout --theirs guides/GENERATED.json forge/seed/SEED.json && forge guide rehash && git add guides/GENERATED.json forge/seed/SEED.json` |
+| Compiled guides (`addon/Polestar_Guides*/`, the locales' `Texts.lua`) | Compile again from the merged guides, which rewrites them whole: `forge guide compile`, then `git add` what it wrote. It needs the reference data; without it, take either side (`git checkout --theirs <file>`) and say so in the pull request. |
+| Changelog fragments (`changes/`) | They never conflict: each change has its own file. Give yours a name no one else will pick (`forge changelog add ... --name <issue>-<slug>`). |
+
+`merge=union` is only for files where every entry is one self-contained
+line and the order does not matter; never for JSON, the compiled
+`Texts.lua` (nested tables) or the fragments (an entry spans lines).
+`tests/merge-union.test.js` holds every file that has it to that.
+
 ## Using an AI agent
 
 Agents are welcome. [AGENTS.md](AGENTS.md), which most coding agents read

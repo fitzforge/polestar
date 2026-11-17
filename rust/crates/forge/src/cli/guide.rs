@@ -110,7 +110,7 @@ fn data_hash(root: &Path, data_dir: &Path) -> Option<String> {
 	Some(forge_world::inputs::inputs_hash(&inputs))
 }
 
-/// `forge guide seed|publish|check-generated` (forge::generated).
+/// `forge guide seed|publish|check-generated|rehash` (forge::generated).
 fn generated(cmd: &str, args: &[String]) -> i32 {
 	use forge::generated;
 	let usage = |m: &str| {
@@ -170,6 +170,19 @@ fn generated(cmd: &str, args: &[String]) -> i32 {
 				Err(e) => fail(&e),
 			}
 		}
+		"rehash" => match generated::rehash(&checkout) {
+			Ok(done) if done.is_empty() => {
+				eprintln!("forge guide rehash: {} has no {} or {}: nothing to do", checkout.display(), generated::GENERATED, generated::SEED_MANIFEST);
+				0
+			}
+			Ok(done) => {
+				for (manifest, n) in &done {
+					eprintln!("forge guide rehash: {manifest}: {n} files, hashed from what is on disk");
+				}
+				0
+			}
+			Err(e) => fail(&e),
+		},
 		_ => match generated::check(&checkout) {
 			Ok(bad) if bad.is_empty() => {
 				eprintln!("forge guide check-generated: no generated guide or seed file is edited");
@@ -381,14 +394,14 @@ fn run() -> i32 {
 	if cmd == "check" {
 		return guidecheck(&args[1..]);
 	}
-	if matches!(cmd.as_str(), "seed" | "publish" | "check-generated") {
+	if matches!(cmd.as_str(), "seed" | "publish" | "check-generated" | "rehash") {
 		return generated(&cmd, &args[1..]);
 	}
 	if cmd == "bake" {
 		return bake(&args[1..]);
 	}
 	if cmd != "compile" && cmd != "lint" {
-		return usage(&format!("unknown command {cmd}: compile, lint, check, bake, seed, publish or check-generated"));
+		return usage(&format!("unknown command {cmd}: compile, lint, check, bake, seed, publish, check-generated or rehash"));
 	}
 	let rest = &args[1..];
 	let values: &[&str] = if cmd == "compile" { &COMPILE_VALUES } else { &LINT_VALUES };
