@@ -15,11 +15,12 @@
 // tests/pin-coverage.json holds the gaps known when the guard came in (each with why); the guard
 // fails on any other, and names a known gap that is closed now so its entry goes.
 //
-//   node tools/pin-coverage.js [--issues FILE] [--offline]
+//   node tools/pin-coverage.js [--issues FILE] [--offline] [--prune]
 //     --issues FILE  closed issues as `gh issue list --state closed --json number,title,stateReason,labels`
 //                    prints them (default: that command, run here)
 //     --offline      records only (no issues)
-// Exit 0: no new gap; 1: new gaps (listed); 2: could not run.
+//     --prune        drop the known gaps that are closed now from tests/pin-coverage.json
+// Exit 0: no new gap (and, without --prune, no closed one listed); 1: gaps to act on (listed); 2: could not run.
 
 const fs = require('node:fs');
 const path = require('node:path');
@@ -152,14 +153,24 @@ function compare({ fixed = null, pinned, dead, baseline }) {
 	return { newIssues, closedIssues, newRecords, closedRecords };
 }
 
+// Drops the known gaps `r` names as closed from the baseline file (never adds one).
+function prune(r, file = BASELINE) {
+	const b = loadBaseline(file);
+	for (const n of r.closedIssues) delete b.issues[String(n)];
+	for (const k of r.closedRecords) delete b.records[k];
+	fs.writeFileSync(file, `${JSON.stringify(b, null, '\t')}\n`);
+}
+
 function main(argv) {
 	let issuesFile = null;
 	let offline = false;
+	let pruning = false;
 	for (let i = 0; i < argv.length; i++) {
 		if (argv[i] === '--issues') issuesFile = argv[++i];
 		else if (argv[i] === '--offline') offline = true;
+		else if (argv[i] === '--prune') pruning = true;
 		else {
-			console.error(`unknown option ${argv[i]}\nusage: node tools/pin-coverage.js [--issues FILE] [--offline]`);
+			console.error(`unknown option ${argv[i]}\nusage: node tools/pin-coverage.js [--issues FILE] [--offline] [--prune]`);
 			return 2;
 		}
 	}
@@ -180,8 +191,13 @@ function main(argv) {
 	const r = compare({ fixed, pinned: pinnedIssues(), dead: deadRecords(), baseline: loadBaseline() });
 	for (const i of r.newIssues) console.log(`unpinned #${i.number} ${i.title}: add its test to tests/reported-gate.json (or, with why, to tests/pin-coverage.json)`);
 	for (const d of r.newRecords) console.log(`matches nothing: ${d.key} (no guide has quest ${d.quests.join(', ')}): drop or fix the record`);
-	for (const n of r.closedIssues) console.log(`pinned now: #${n}: drop it from tests/pin-coverage.json`);
-	for (const k of r.closedRecords) console.log(`matches again or gone: ${k}: drop it from tests/pin-coverage.json`);
+	for (const n of r.closedIssues) console.log(`pinned now: #${n}: ${pruning ? 'dropped' : 'drop it'} from tests/pin-coverage.json`);
+	for (const k of r.closedRecords) console.log(`matches again or gone: ${k}: ${pruning ? 'dropped' : 'drop it'} from tests/pin-coverage.json`);
+	if (pruning) {
+		prune(r);
+		r.closedIssues = [];
+		r.closedRecords = [];
+	}
 	const bad = r.newIssues.length + r.newRecords.length + r.closedIssues.length + r.closedRecords.length;
 	console.log(`pin-coverage ${bad ? 'failed' : 'ok'}: ${fixed ? `${fixed.length} fixed issues, ${r.newIssues.length} new unpinned; ` : ''}${r.newRecords.length} new records matching nothing; ${r.closedIssues.length + r.closedRecords.length} known gaps closed`);
 	return bad ? 1 : 0;
@@ -189,4 +205,4 @@ function main(argv) {
 
 if (require.main === module) process.exit(main(process.argv.slice(2)));
 
-module.exports = { fixedIssues, pinnedIssues, deadRecords, recordQuests, recordKey, compare, loadBaseline, guideQuests };
+module.exports = { fixedIssues, pinnedIssues, deadRecords, recordQuests, recordKey, compare, loadBaseline, guideQuests, prune };

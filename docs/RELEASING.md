@@ -340,8 +340,10 @@ version throughout.
    ```
 
    A new unpinned fix gets its test (or, when nothing can be checked, an
-   entry saying why); a listed gap that is closed now leaves the list.
-   `tests/pin-coverage.test.js` runs the records half in the suite.
+   entry saying why); a listed gap that is closed now leaves the list
+   (`node tools/pin-coverage.js --offline --prune`, in the pull request
+   that closes it). `tests/pin-coverage.test.js` checks the list in the
+   suite: no record matching nothing beyond it, no entry a test names.
 
    Then the imperfect players: the guides played by players who skip a
    step, lose a quest item before its hand-in, did a quest before the guide

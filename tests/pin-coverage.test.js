@@ -6,19 +6,29 @@
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { fixedIssues, pinnedIssues, deadRecords, recordQuests, recordKey, compare, loadBaseline } = require('../tools/pin-coverage');
+const fs = require('node:fs');
+const path = require('node:path');
+const { tmpdir } = require('./helpers/tmp');
+const { fixedIssues, pinnedIssues, deadRecords, recordQuests, recordKey, compare, loadBaseline, prune } = require('../tools/pin-coverage');
 
 const baseline = loadBaseline();
+
+test('--prune drops only the known gaps that are closed now', () => {
+	const file = path.join(tmpdir(), 'pin-coverage.json');
+	fs.writeFileSync(file, JSON.stringify({ about: 'a', issues: { 10: { why: 'w' }, 12: { why: 'w' } }, records: { x: 'gone', y: 'kept' } }));
+	prune({ closedIssues: [12], closedRecords: ['x'] }, file);
+	assert.deepEqual(loadBaseline(file), { about: 'a', issues: { 10: { why: 'w' } }, records: { y: 'kept' } });
+});
 
 test('no data record matches nothing beyond the known ones, and none of those matches again', () => {
 	const r = compare({ pinned: new Set(), dead: deadRecords(), baseline });
 	assert.deepEqual(r.newRecords.map((d) => `${d.key}: no guide has quest ${d.quests.join(', ')}`), []);
-	assert.deepEqual(r.closedRecords, [], 'drop these entries from tests/pin-coverage.json: they match a guide again, or the record is gone');
+	assert.deepEqual(r.closedRecords, [], 'they match a guide again, or the record is gone: `node tools/pin-coverage.js --offline --prune` drops them from tests/pin-coverage.json');
 });
 
 test('every known unpinned issue is still unpinned (a pinned one leaves the list), and says why', () => {
 	const pinned = pinnedIssues();
-	assert.deepEqual(Object.keys(baseline.issues).filter((n) => pinned.has(Number(n))), [], 'pinned now: drop from tests/pin-coverage.json');
+	assert.deepEqual(Object.keys(baseline.issues).filter((n) => pinned.has(Number(n))), [], 'a test names them now: `node tools/pin-coverage.js --offline --prune` drops them from tests/pin-coverage.json');
 	const bare = [...Object.entries(baseline.issues), ...Object.entries(baseline.records).map(([k, why]) => [k, { why }])].filter(([, v]) => !(v && typeof v.why === 'string' && v.why.length > 10));
 	assert.deepEqual(bare, []);
 });

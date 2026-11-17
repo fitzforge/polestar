@@ -73,10 +73,6 @@
 			"title": "Weird pathing in Westfall in my own custom Westfall guide using Polestar",
 			"why": "NOT-A-FIX: closed: router change, no specific fix"
 		},
-		"190": {
-			"title": "Alchemy Profession Guide starts off incorrect.",
-			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 3/4"
-		},
 		"228": {
 			"title": "Cant take state of minds until after you do murloc quest in westfall",
 			"why": "PINNED (rule): dwarf: turnin 92742@alliance/02-westfall:364 vs accept 92745@alliance/02-westfall:366; gnome: turnin 92742@alliance/02-westfall:364 vs accept 92745@alliance/02-westfall:366; human: turnin 92742@alliance/02-westfall:364 vs accept 92745@alliance/02-westfall:366 | data prereq of 92745 includes 92742 → "
@@ -92,10 +88,6 @@
 		"277": {
 			"title": "Arrow not recognizing when I enter a new zone",
 			"why": "PINNED (sibling): fixed with #246 (pinned)"
-		},
-		"297": {
-			"title": "Alchemy leveling",
-			"why": "HOLDS (guide): professions/alchemy.guide 1-75 is Elixir of Minor Defense; Minor Healing Potion only in first-aid.guide"
 		},
 		"330": {
 			"title": "Feature: Action buttons: choose which side of the button its name sits on",
@@ -301,10 +293,6 @@
 			"title": "Arrow still needs to be alot more flexible.",
 			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 11/11"
 		},
-		"1084": {
-			"title": "Wrong step: Durotar, step 47",
-			"why": "HOLDS (guide): orc: turnin 834@horde/orc/01-durotar:464 vs accept 97282@horde/orc/01-durotar:487 | data has no prereq link (not swept)"
-		},
 		"1181": {
 			"title": "Feature: a target list beside the target button, as an alternative to cycling through names",
 			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 20/21"
@@ -341,10 +329,6 @@
 			"title": "SilverPine Guide Bug",
 			"why": "HOLDS (guide): Undead chain: tirisfal → 03-silverpine directly; Orgrimmar steps: horde/03-silverpine-forest:319 only {'classes': None, 'races': ['Scourge'], 'factions': None}"
 		},
-		"1321": {
-			"title": "Abbild der Erzmagierin Modera",
-			"why": "HOLDS (data): data: Heart of Disruption (92458) needs An Alarming Request (92432, min level 30) first"
-		},
 		"1330": {
 			"title": "Bug: the pace line says \"On pace for level 21\" when the character is already 21 (guide's end)",
 			"why": "PINNED (linked): rust/crates/forge-addontest/tests/addontest/levels.rs: fn pace_at_or_past_the_guide_s_top_is_on_pace_and_reaches_beyond_it() "
@@ -364,18 +348,6 @@
 		"1404": {
 			"title": "Guiding Stars: thank bug reporters in a third column",
 			"why": "PINNED (linked): rust/crates/forge-addontest/tests/addontest/ui-thanks.rs: fn every_label_fits_its_column_in_every_locale_with_names_and_with_non; rust/crates/forge-addontest/tests/addontest/ui-thanks.rs: fn run(before: &str, script: &str) -> Value {; rust/crates/forge-addontest/tests/addontest/ui-thanks.rs: fn thre"
-		},
-		"1410": {
-			"title": "Incorrect Location for Image of Archmage Modera",
-			"why": "PINNED (sibling): fixed with #1305 (pinned)"
-		},
-		"1411": {
-			"title": "Wrong step: City of Dalaran: pick up the quests, step 1",
-			"why": "PINNED (sibling): fixed with #1305 (pinned)"
-		},
-		"1417": {
-			"title": "Квест \"Доставка багровых ящиков\" дается с 29 уровня, а гайд 26-28",
-			"why": "HOLDS (guide): Crimson Crate Delivery (98240) is in no guide"
 		},
 		"1432": {
 			"title": "Wrong spot marked for Vial placement location",
@@ -405,17 +377,9 @@
 			"title": "Quest objective for Hillsbrad's Hoard. position marked. gotta use the quest item on this position.",
 			"why": "HOLDS (guide): Hillsbrad's Hoard (98059) is no longer in any guide after the 0.4.0 Horde rework"
 		},
-		"1483": {
-			"title": "Extra Route/Step",
-			"why": "HOLDS (guide): human/01-elwynn-forest:539 goto \"Gakin the Darkbinder\", step :543"
-		},
 		"1484": {
 			"title": "Message in Polestar Client (0.1.4)",
 			"why": "HOLDS (code): fix lines all present (20/20)"
-		},
-		"1487": {
-			"title": "City of Dalaran",
-			"why": "HOLDS (data): data: Starving Arcane / Heart of Disruption pre [92432]"
 		},
 		"1489": {
 			"title": "Quest chain for HOT",
@@ -441,17 +405,9 @@
 			"title": "Feature: Add a quick lookup button to the main guide window for quick access.",
 			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 2/2"
 		},
-		"1535": {
-			"title": "A Meal Served Cold - timed quest not attempted in the time limit.",
-			"why": "HOLDS (guide): A Meal Served Cold (212) is in no guide"
-		},
 		"1537": {
 			"title": "SM Quests",
 			"why": "CANT-TELL (code): accept-only steps hide the quest level (0.3.6 UI); no test located"
-		},
-		"1544": {
-			"title": "My Little Friends - Capture, not kill.",
-			"why": "HOLDS (guide): \"Collect … Specimen\" lines, when onquest 93176: alliance/30-40/05-arathi-highlands:217, 40-50/01-stranglethorn-vale:317"
 		},
 		"1555": {
 			"title": "Quest and quest giver not here to turn in.",
@@ -460,10 +416,6 @@
 		"1566": {
 			"title": "Wrong step: Stonetalon Mountains & Ashenvale, step 10",
 			"why": "PINNED (rule): orc: turnin 98251@horde/05-stonetalon-mountains:117 vs accept 98252@horde/05-stonetalon-mountains:118; skyborne: turnin 98251@horde/05-stonetalon-mountains:117 vs accept 98252@horde/05-stonetalon-mountains:118; tauren: turnin 98251@horde/05-stonetalon-mountains:117 vs accept 98252@horde/05-stonetalo"
-		},
-		"1572": {
-			"title": "this quest is pointing to the wrong \"Image of Archmage Modera\" marked the good one.",
-			"why": "HOLDS (data): same as #1410"
 		},
 		"1592": {
 			"title": "no offer quest lvl 31",
@@ -488,10 +440,6 @@
 		"1805": {
 			"title": "MelloUI's Route option hides the guide window and the arrow",
 			"why": "PINNED (linked): rust/crates/forge-addontest/tests/addontest/out-of-sight.rs: fn a_window_another_addon_keeps_out_of_sight_stays_on_through_polestar; rust/crates/forge-addontest/tests/addontest/out-of-sight.rs: fn a_window_scale_changed_while_another_addon_keeps_the_window_out_of_; rust/crates/forge-addontest/tests/"
-		},
-		"1808": {
-			"title": "Enchanting Guide: Step 14 Learn Enchant Boots - Lesser Agility",
-			"why": "HOLDS (guide): professions/enchanting.guide: Enchant Boots - Lesser Agility (160) at the Expert trainers Kitta Firewind / Hgarth (lines 43, 219)"
 		},
 		"1819": {
 			"title": "Navigation Arrow Direction Issues",
@@ -533,10 +481,6 @@
 			"title": "Told to fly from taurajo to crossroads and immediately back",
 			"why": "HOLDS (sibling): fixed by the walking-maps / arrow work of #1238 (pinned)"
 		},
-		"1926": {
-			"title": "Bug: Vimes Report not given by Captain Garran Vimes.",
-			"why": "PINNED (sibling): fixed with #1984 (pinned)"
-		},
 		"1930": {
 			"title": "Title: Rogue Axes Not Recognized as Usable Weapons",
 			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 1/1"
@@ -552,10 +496,6 @@
 		"1948": {
 			"title": "Bug: 타우라조 야영지에서 바엘 모단으로 가는 경로를 크로스...",
 			"why": "HOLDS (sibling): fixed by the walking-maps / arrow work of #1238 (pinned)"
-		},
-		"1958": {
-			"title": "leatherworking is wrong",
-			"why": "HOLDS (guide): professions/leatherworking.guide collects Thick Leather for Nightscape Headband/Pants (180-225), no Thick Leather craft at 155"
 		},
 		"1967": {
 			"title": "shredding the machines back and forth",
@@ -661,10 +601,6 @@
 			"title": "Incorrect guidance on the client",
 			"why": "HOLDS (code): client text fix line present (1/1)"
 		},
-		"2148": {
-			"title": "Bug: Watcher Dodds is showing Awaiting Dodds quest on the map but I dont have that...",
-			"why": "HOLDS (guide): Awaiting Word (236) in no guide"
-		},
 		"2221": {
 			"title": "hearth and astral recall",
 			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 61/62"
@@ -672,10 +608,6 @@
 		"2223": {
 			"title": "lvling guide to lv 30 step 7",
 			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
-		},
-		"2256": {
-			"title": "Bug: Howin Kindfeather is showing a quest available on the map/minimap. The quest ...",
-			"why": "HOLDS (data): shipped QuestDB: 98291 preAll {98245,98246} (Trying Times)"
 		},
 		"2263": {
 			"title": "UI issue when grow upwards option is enabled and bar at bottom option is enabled",
@@ -717,10 +649,6 @@
 			"title": "Covert Extraction doesn't point to needed collection items",
 			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
 		},
-		"2353": {
-			"title": "Quest level too high",
-			"why": "HOLDS (guide): Speaking with Gan'zulah (586) moved to horde/40-50/02-feralas:35"
-		},
 		"2368": {
 			"title": "Feature: make it so you can move to steps all the way to the top of screen",
 			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
@@ -741,14 +669,6 @@
 			"title": "Feature: Dungeon Quest Guide for Krol´Dok",
 			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
 		},
-		"2389": {
-			"title": "Last unending torment chain incorrect location",
-			"why": "HOLDS (data): shipped QuestDB 97292: event objective at map 1458 44.9,62.9 (forever-db correction)"
-		},
-		"2394": {
-			"title": "Feralas 43-45 guide water pouch",
-			"why": "HOLDS (guide): horde/40-50/02-feralas:419 collect 1707 has no count override (data count 5)"
-		},
 		"2411": {
 			"title": "Réapprivisionnement de l'infirmerie",
 			"why": "PINNED (linked): tests/guides-reported.test.js: test('Danger at the spot (#1575, #1695): the Syndicate missives fallba; tests/guides-reported.test.js: test('Tincho on Discord (#1575), Maazias (#1925): Helcular\\'s flames a; tests/guides-reported.test.js: test('forever/horde/30-40/01-hillsbrad-foothills.guide: from th"
@@ -757,57 +677,21 @@
 			"title": "Wrong step: When pointing out to Dalaran Dungeon Entrance the system freaks out and sends you on the right side of the map",
 			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
 		},
-		"2437": {
-			"title": "Open the Maw quest sending you to pick up when no quest is available",
-			"why": "HOLDS (data): data/QuestDB: Open the Maw 95682 pre 95663 (Dragonmaw Rumors)"
-		},
 		"2449": {
 			"title": "Inefficient routing picking up quests for Sunken Temple",
 			"why": "CANT-TELL (code): Sunken Temple pick-up plans its quests together (0.4.0 lookup planner); no test located"
-		},
-		"2458": {
-			"title": "Orneval (26-30) La chasse achevée",
-			"why": "HOLDS (guide): horde/07-ashenvale:264 turnin 247 under `when turnedin` of the three hunts"
-		},
-		"2459": {
-			"title": "Bug: not detecting when i took elevator down, keeps telling me to go back up",
-			"why": "HOLDS (guide): The Great Lift step now has only NPC goals at the top (turnin 5881 Grish, accept 4542 Moonhorn) and no goto at the lift landing; next step goes to Freewind Post's lift: horde/07-ashenvale:402-411"
-		},
-		"2464": {
-			"title": "Overmaster Pyron",
-			"why": "HOLDS (data): data/forever npc 9026 Overmaster Pyron: map 1427 (Searing Gorge) 25.4,80.1 only (forever-db correction); reputation/gnomeregan-exiles:253-263 leads there"
-		},
-		"2469": {
-			"title": "Trek to Ashenvale",
-			"why": "PINNED (linked): tests/guides-reported.test.js: test(`${WETLANDS}: Elemental Bracers is done at about 29 on the Krolg ; tests/guides-reported.test.js: test(`${WETLANDS}: thin-data audit: Elemental Bracers points where pla"
 		},
 		"2481": {
 			"title": "Upgrade spells notification:",
 			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
 		},
-		"2490": {
-			"title": "Chasing A-Me 01 - Bit difficult for its place in the guide(?",
-			"why": "HOLDS (guide): Alliance (reporter level 50): Chasing A-Me 01 (4243) moved to the later Un'Goro visit in 50-60/04-western-plaguelands (levels 55-58), line 584. Horde takes it in 50-60/01-un-goro-crater:122 (levels 51-53); not part of the report"
-		},
-		"2491": {
-			"title": "Alien Ecology - Bit difficult for its place in the guide?",
-			"why": "HOLDS (guide): Alliance: Alien Ecology (3883) on the later visit, 50-60/04-western-plaguelands:609 (levels 55-58); Horde 50-60/01-un-goro-crater:115"
-		},
 		"2506": {
 			"title": "Panther Master step missed",
 			"why": "HOLDS (guide): Alliance 40-50/01-stranglethorn-vale: Shadowmaw Panther kills for 192 at :288 with the STV raptors stop, turnin :303"
 		},
-		"2508": {
-			"title": "Incorrect quest guide for BFD; \"Trouble in the Deeps\"",
-			"why": "HOLDS (data): data: Trouble in the Deeps 6562 breadcrumbFor 6563 (the lookup skip reads it)"
-		},
 		"2510": {
 			"title": "zum'rah's head görevini aldırmıyor. skywatcher platosunda camp gev'rek de",
 			"why": "HOLDS (codex): shipped Codex (Polestar_Codex/Dungeons1.lua): Zum'rah's Head 96775 on the zulfarrak page, start Mazu'kon (264074) map 1412 32.5,20.7"
-		},
-		"2560": {
-			"title": "investigate prison dungeon new in forever has the right quests",
-			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
 		},
 		"2577": {
 			"title": "Bug: Ruins of Lordaeron guide is incomplete, it leaves the remaining steps for Une...",
