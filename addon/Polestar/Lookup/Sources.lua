@@ -732,15 +732,38 @@ local function purchaseGates(item, r)
 	end
 end
 
+-- An item many vendors sell (the Codex keeps every seller, #2719): the
+-- route's travel only to the ROUTED_VENDORS of the character's side nearest
+-- as the crow flies, the rest at that straight-line time, so a lookup of
+-- water sold in every town asks the route planner ten times, not two
+-- hundred. -> { [src] = true } | nil (all routed).
+local ROUTED_VENDORS = 10
+local function routedVendors(sources, p, from, direct)
+	if direct or not from then return nil end
+	local near = {}
+	for _, src in ipairs(sources) do
+		if src.type == "vendor" then
+			local npc, _, t = npcSpawn(src.npc, from, true)
+			if npc and t and sideOK(npc.faction, p) then near[#near + 1] = { src = src, t = t } end
+		end
+	end
+	if #near <= ROUTED_VENDORS then return nil end
+	table.sort(near, function(a, b) return a.t < b.t end)
+	local keep = {}
+	for i = 1, ROUTED_VENDORS do keep[near[i].src] = true end
+	return keep
+end
+
 local function itemSources(id, p, from, direct)
 	local C = Codex()
 	local item = C.Item(id)
 	if not item then return {}, nil end
 	local list = {}
+	local routed = routedVendors(item.sources or {}, p, from, direct)
 	for _, src in ipairs(item.sources or {}) do
 		local build = builders[src.type]
 		if build then
-			local r = build(src, p, from, direct)
+			local r = build(src, p, from, direct or (routed ~= nil and src.type == "vendor" and not routed[src]))
 			if r then list[#list + 1] = r end
 		end
 	end

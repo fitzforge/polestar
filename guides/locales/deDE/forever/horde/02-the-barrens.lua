@@ -173,17 +173,17 @@ return {
 
 	-- Step 37: Vrang Wildgore
 	-- {quest:881} Echeyakee · {npc:3682} Vrang Wildgore
-	["East from the keg toward {quest:881}: {npc:3682} camps below the hills, and his errands lie in the plains beside his camp."] = "",
+	["East from the keg toward {quest:881}: {npc:3682} camps below the hills, and his errands lie in the plains beside his camp."] = "Östlich vom Fass Richtung {quest:881}: {npc:3682} lagert unterhalb der Hügel, und seine Aufträge liegen auf den Ebenen neben seinem Lager.",
 
 	-- Step 38: Savannah lions
-	["Savannah lions"] = "",
+	["Savannah lions"] = "Savannen-Löwen",
 	-- {npc:3682} Vrang Wildgore
 	-- plural, as words: Savannah Patriarchs = {npc:3241} Savannah Patriarch · Sprung Traps = {object:640104} Sprung Trap
-	["Savannah Patriarchs roam the plains east of {npc:3682}'s camp, and the Sprung Traps lie among them."] = "",
+	["Savannah Patriarchs roam the plains east of {npc:3682}'s camp, and the Sprung Traps lie among them."] = "Savannen-Patriarchen streifen über die Ebenen östlich des Lagers von {npc:3682}, und die Springfallen liegen zwischen ihnen.",
 
 	-- Step 39: Vrang Wildgore
 	-- {npc:261366} Walton · {npc:3682} Vrang Wildgore · {area:383} Dry Hills · {npc:3452} Serena Bloodfeather
-	["{npc:261366}, the hermit on the ridge behind {npc:3682}: on the next {area:383} visit, with {npc:3452}"] = "",
+	["{npc:261366}, the hermit on the ridge behind {npc:3682}: on the next {area:383} visit, with {npc:3452}"] = "{npc:261366}, der Einsiedler auf dem Grat hinter {npc:3682}: bei deinem nächsten Besuch von {area:383}, mit {npc:3452}",
 
 	-- Step 40: Echeyakee
 	-- {quest:881} Echeyakee
@@ -305,15 +305,15 @@ return {
 
 	-- Step 64: The Barrens: kill these as you meet them
 	-- {area:383} Dry Hills · {quest:876} Serena Bloodfeather
-	["North to the {area:383}: {quest:876} leads the Witchwing harpies in the hills to the west.\nCareful: The route in passes stealthed Harpy Ambushers and an elite harpy that patrols."] = "",
+	["North to the {area:383}: {quest:876} leads the Witchwing harpies in the hills to the west.\nCareful: The route in passes stealthed Harpy Ambushers and an elite harpy that patrols."] = "Nach Norden zur {area:383}: {quest:876} führt die Witchwing-Harpyien in den Hügeln im Westen.\nVorsicht: Der Weg hindurch kommt an getarnten Harpyien-Lauerern und einer Elite-Harpyie vorbei, die patrouilliert.",
 	-- {quest:865} Raptor Horns · {npc:3682} Vrang Wildgore
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
 	-- was: ["{quest:865}, if still open: Sunscale Scytheclaws prowl among the lions"] = "{quest:865}, falls noch offen: Bluthornsensenklauen streifen zwischen den Löwen umher"
-	["{quest:865}, if still open: Sunscale Scytheclaws prowl among the lions below {npc:3682}'s camp"] = "",
+	["{quest:865}, if still open: Sunscale Scytheclaws prowl among the lions below {npc:3682}'s camp"] = "{quest:865}, falls die Quest noch offen ist: Bluthornsensenklauen streunen zwischen den Löwen unterhalb des Lagers von {npc:3682}",
 
 	-- Step 65: Walton
 	-- {npc:261366} Walton · {npc:3682} Vrang Wildgore
-	["{npc:261366}, the hermit, stands on the ridge behind {npc:3682}'s camp."] = "",
+	["{npc:261366}, the hermit, stands on the ridge behind {npc:3682}'s camp."] = "{npc:261366}, der Einsiedler, steht auf dem Grat hinter dem Lager von {npc:3682}.",
 
 	-- Step 66: Trouble in the Valley
 	-- {npc:262119} Corporal Adamore · {npc:261366} Walton

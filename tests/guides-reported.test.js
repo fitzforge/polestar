@@ -2673,7 +2673,9 @@ function directStuck(st, goal) {
 	const before = st.goals.slice(0, st.goals.indexOf(goal));
 	for (const [item, n] of directNeeds(goal.quest)) {
 		const gated = (st.when || []).some((p) => p.k === 'has' && !p.neg && p.item === item && (p.n || 1) >= n);
-		const gathered = before.some((g) => (g.t === 'collect' || g.t === 'buy') && g.item === item && !g.optional);
+		// The goals that get it, as the lint's direct-gate reads them (play_rules.rs got_item): a collect, a buy,
+		// a craft or an Auction House buy (Negolash's wings, #2711), each a bag count.
+		const gathered = before.some((g) => ['collect', 'buy', 'craft', 'auction'].includes(g.t) && g.item === item && !g.optional);
 		if (!gated && !gathered) return `item ${item} x${n}: neither gathered in the step nor a \`when has\``;
 	}
 	return null;
@@ -16318,6 +16320,56 @@ test('#2604: Stranglethorn (Alliance): Skullsplitter Tusks are looked for in the
 	assert.equal(goal.map, 1434);
 	assert.ok(goal.x >= 42 && goal.x <= 49 && goal.y >= 30 && goal.y <= 42, `the trolls' camp: ${goal.x},${goal.y}`);
 	for (const s of goal.spots || []) assert.ok(s.alt || s.x > 35, `no spot the arrow picks far from the ruins: ${s.x},${s.y}`);
+});
+
+// #2711 (Soggy, 0.4.0.1, Alliance Hinterlands & Blasted Lands): Facing Negolash only said to kill him. Negolash
+// comes only when Enticing Negolash (619) is handed in at the Ruined Lifeboat with 10 Barbecued Buzzard Wings and
+// 5 Junglevine Wine; the step before the kill now gets both and hands them in there.
+test('#2711: The Hinterlands (Alliance): Facing Negolash brings his food to the lifeboat before the kill', { skip }, () => {
+	const list = goals('forever/alliance/40-50/05-the-hinterlands.guide');
+	const wine = at(list, 'buy 4595', (g) => g.t === 'buy' && g.item === 4595 && g.count === 5);
+	const wings = at(list, 'auction 4457', (g) => g.t === 'auction' && g.item === 4457 && g.count === 10);
+	const bait = at(list, 'turnin 619 direct', (g) => is('turnin', 619)(g) && g.direct);
+	const kill = at(list, 'collect 3935', (g) => g.t === 'collect' && g.item === 3935);
+	assert.ok(wine < bait && wings < bait && bait < kill, 'the food first, then the lifeboat, then Negolash');
+	assert.equal(list[bait].goal.object, 2289, 'handed in at the Ruined Lifeboat');
+	for (const i of [wine, wings, bait]) assert.ok(list[i].step.when, 'only for a group taking Facing Negolash');
+});
+
+// #2712 (stabaho, 0.4.0.1, Horde Riverglades): Stick 'Em's spears go on the Freshwater Crocolisks in the river; the
+// goal pointed at 51.9,57.1 on the farmland south of it, where no recorded player impaled one. It points at the
+// river now (recordings: 10 people at 51.75,51.97).
+test('#2712: Riverglades (Horde): Stick \'Em points at the crocolisks in the river', { skip }, () => {
+	const list = goals('forever/horde/40-50/01b-riverglades.guide');
+	const { goal } = list[at(list, 'use 271639', (g) => g.t === 'use' && g.quest === 95955)];
+	assert.equal(goal.map, 2548);
+	assert.ok(Math.hypot(goal.x - 51.75, goal.y - 51.97) < 0.5, `on the river: ${goal.x},${goal.y}`);
+});
+
+// #2694 (Xaden Ryan, 0.4.0.1, Alliance Stranglethorn 40-50): the Kurzen Supply Crate is deep in the cave of
+// Kurzen's Compound; the goal had no height (the crate has none in the spawn data), so the walk ended on the hill
+// above it. The goal points at the crate with the cave floor's height (data/goal-heights.json).
+test('#2694: Stranglethorn (Alliance): the Cook in the Cage\'s supply crate is reached through the cave', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const { goal } = list[at(list, 'collect 216617', (g) => g.t === 'collect' && g.item === 216617)];
+	assert.ok(Math.hypot(goal.x - 49.6, goal.y - 7.7) < 0.2, `at the crate: ${goal.x},${goal.y}`);
+	assert.ok(goal.z != null && goal.z < 40, `the cave's floor, not the hill above (about 96): ${goal.z}`);
+});
+
+// #2691 (Requis, 0.4.0.1, Engineering): Schematic: Thorium Tube led to one of eight points the data gave Kor'gar
+// around Powderfuse Port; 35 people opened his goods, all at 77.6-77.7,50.9-51.0. The correction gives him that one
+// spot; the guide's vendor point follows it once the data is built with it.
+test('#2691: Engineering: Kor\'gar is looked for where he sells, at Powderfuse Port 77.6,50.95', { skip }, () => {
+	const fix = ((loadCorrections().npcs[260565] || {}).set || {}).spawns;
+	assert.deepEqual(fix && fix[2548], { f: 'l', pts: [[77.6, 50.95]] }, 'the correction places him');
+	const base = loadData(DATA);
+	const ref = Object.assign(Object.create(Object.getPrototypeOf(base)), base, { npcs: { ...base.npcs, 260565: { ...base.npcs[260565], spawns: fix } } });
+	const file = path.join(OFFICIAL_DIR, 'forever/professions/engineering.guide');
+	const { guides } = compileSources([{ file, text: fs.readFileSync(file, 'utf8') }], ref);
+	const buy = guides[0].steps.flatMap((s) => s.goals).find((g) => g.t === 'buy' && g.item === 16047);
+	const korgar = (buy && buy.candidates || []).find((c) => c.npc === 260565);
+	assert.ok(korgar, 'Kor\'gar sells it');
+	assert.deepEqual([korgar.map, korgar.x, korgar.y], [2548, 77.6, 50.95]);
 });
 
 // #2419 (Onrevax, 0.3.7.2, Alliance Stranglethorn 30-40): from Nesingwary's camp the guide walked the length of the

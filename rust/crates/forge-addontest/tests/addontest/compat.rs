@@ -509,6 +509,32 @@ fn a_secret_run_speed_or_map_position_reads_as_unknown_and_is_never_worked_on_25
 	assert_eq!(out["vector"], true, "a secret position vector is never indexed");
 }
 
+// #2595: in the client a secret string throws when it is compared, even with "", so each tooltip and map name
+// reader asks issecretvalue before it checks the text against anything. A Lua 5.1 string can't throw on ==, so the
+// test watches the order instead: given an empty text, every reader still asks whether it is secret first.
+#[test]
+fn the_tooltip_and_map_name_readers_ask_whether_a_text_is_secret_before_comparing_it_2595() {
+	let out = run(r#"
+		local asked
+		function issecretvalue(v) if v == "" then asked = true end return false end
+		C_TooltipInfo = {
+			GetHyperlink = function() return { lines = { { leftText = "" } } } end,
+			GetItemByID = function() return { lines = { { leftText = "", leftColor = { r = 1, g = 1, b = 1 } } } } end,
+		}
+		C_Item = C_Item or {}
+		C_Item.GetItemNameByID = function() return "" end
+		C.GetMapName = function() return "" end
+		local function asks(read) asked = false; read(); return asked end
+		emit({
+			creature = asks(function() return C.CreatureCached(12345) end),
+			color = asks(function() return C.ItemTipColor(6462) end),
+			name = asks(function() return C.GetItemName(6462) end),
+			map = asks(function() return C.MapName(1429) end),
+		})
+	"#);
+	assert_eq!(out, json!({ "creature": true, "color": true, "name": true, "map": true }), "issecretvalue is asked first");
+}
+
 #[test]
 fn c3_nav_qa_the_world_map_opens_through_c_map_openworldmap_when_the_client_has_it_the_global_opener_only_as_a_fallback_never_in_combat() {
 	let out = run(r#"

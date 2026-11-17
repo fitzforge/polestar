@@ -422,6 +422,10 @@ GF.Part(function(GF)
 			lines[#lines + 1] = { left = L["Quest"], right = title and (title .. id .. goal.quest .. "|r") or ("#" .. goal.quest) }
 			local new = ns.NewQuests and ns.NewQuests.TooltipText(goal.quest)
 			if new then lines[#lines + 1] = { new, Theme.Accent() } end
+			-- Where the quest sits in its chain, "Chain: 6 of 11" (Lookup.ChainTooltipText, #2554).
+			local Lk = ns.Lookup
+			local chain = Lk and Lk.ChainTooltipText and Lk.ChainTooltipText(goal.quest)
+			if chain then lines[#lines + 1] = { chain, Theme.Color("textDim") } end
 			-- A dungeon's quest, or one of the nearest prerequisites before one (Dungeons/Mark.lua).
 			local dungeon = ns.Dungeons and ns.Dungeons.MarkTooltip and ns.Dungeons.MarkTooltip(goal.quest)
 			if dungeon then lines[#lines + 1] = { dungeon, Theme.Accent() } end
@@ -496,6 +500,7 @@ GF.Part(function(GF)
 		if goal.optional and goal.status ~= "done" then
 			lines[#lines + 1] = goal.dismissed and L["Skipped. Undo brings it back."] or L["Optional: not needed for the route. Skip it if you pass on it."]
 		end
+		if #lines == 0 then return end
 		W.Tooltip(row, tooltipAnchor(), goal.text or "", lines)
 	end
 
