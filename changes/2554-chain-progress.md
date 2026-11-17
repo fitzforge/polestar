@@ -6,4 +6,5 @@ section: players
   open to take now, or what it waits for, with the ones you skipped marked
   and the follow-ups it branches into. A click on a quest opens its page. The
   guide window's quest tooltips say it too, "Chain: 6 of 11", or "Chain:
-  finished, 2 skipped" when only skipped quests are left (#2554).
+  finished, 2 skipped" when only skipped quests are left (#2554, thanks
+  moose25, #2700).
