@@ -40,6 +40,29 @@ test('every bundled look on every surface, at every UI scale', { timeout: 15 * 6
 	);
 });
 
+// The same bar with a layout picked (Atlas, Polestar_Layout_Atlas): every
+// look on every surface, the layout saved before login as a player's is.
+// EXPECTED_ATLAS as EXPECTED: a finding named with its owner, never a check
+// loosened.
+const EXPECTED_ATLAS = [];
+
+test('every bundled look on every surface with the Atlas layout picked, at every UI scale', { timeout: 15 * 60 * 1000 }, async () => {
+	const { findings } = await audit({ layout: 'atlas' });
+	const used = new Set();
+	const unexpected = findings.filter((f) => {
+		const i = EXPECTED_ATLAS.findIndex((e) => matches(e, f));
+		if (i < 0) return true;
+		used.add(i);
+		return false;
+	});
+	const stale = EXPECTED_ATLAS.filter((_, i) => !used.has(i)).map((e) => `${e.look} · ${e.surface} · ${e.check} · ${e.match} (${e.owner})`);
+	assert.deepEqual(
+		{ unexpected: unexpected.map(line), stale },
+		{ unexpected: [], stale: [] },
+		`${unexpected.length} finding(s) with Atlas picked not in EXPECTED_ATLAS (fix them, or name each there with its owner); ${stale.length} EXPECTED_ATLAS entr(ies) no longer found (take them out)`,
+	);
+});
+
 // Probes on the guide window, each breaking one thing the audit checks.
 const TABS = 'uistub.openTabs({ { uistub.elwynn, 3 }, { uistub.tailoring, 2 }, { uistub.stormwindRep, 2 } }, 1)';
 const PROBE = (key, script, roots = []) => ({ key, title: `the audit's probe: ${key}`, family: 'guide', roots: ['PolestarGuideFrame', ...roots], script: `${TABS}\nlocal F, GF = PolestarGuideFrame, Polestar.UI.GuideFrame\n${script}` });

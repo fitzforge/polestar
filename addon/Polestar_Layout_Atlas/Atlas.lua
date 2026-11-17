@@ -672,7 +672,11 @@ end
 local function stackFrame(window)
 	local own = store(window)
 	if not own.stack then
-		own.stack = CreateFrame("Frame", nil, window)
+		-- A window of its own for what stands above the guide window (as the
+		-- heads-up card is): the live window's is PolestarGuideFrameCards, so
+		-- the cards are measured against their own edges, not the window's.
+		local name = window.GetName and window:GetName()
+		own.stack = CreateFrame("Frame", name and not _G[name .. "Cards"] and name .. "Cards" or nil, window)
 		own.stack:SetHeight(1)
 		own.stack.cards = {}
 	end
