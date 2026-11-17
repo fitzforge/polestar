@@ -974,7 +974,7 @@ fn a_circuit_of_waypoints_in_one_step_costs_one_pass_over_the_step_and_a_later_a
 	assert_eq!(out["open"], n + 1, "every waypoint and the level are open at the start");
 	assert_eq!(json!({ "early": out["early"], "at": out["at"], "late": out["late"], "step": out["step"] }), json!({ "early": "done", "at": "done", "late": "active", "step": 2 }));
 	let seconds = out["seconds"].as_f64().unwrap();
-	assert!(seconds < 0.5, "took {seconds:.2} s of CPU");
+	forge_addontest::assert_timing!(seconds < 0.5, "took {seconds:.2} s of CPU");
 }
 
 #[test]

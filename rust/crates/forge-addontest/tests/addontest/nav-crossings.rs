@@ -551,7 +551,7 @@ fn the_local_crossings_route_real_trips_through_their_gates_within_the_planner_b
 	assert_eq!(out["routes"][2], json!(["Enter Stormwind City", "Enter Stormwind City", "Target"]));
 	assert!(out["routes"][3].as_array().unwrap().iter().any(|l| forge_addontest::is_match(forge_addontest::text(l), r"Loch Modan")), "Dun Morogh -> Loch Modan crosses a tunnel: {}", out["routes"][3]);
 	let ms = out["ms"].as_f64().unwrap();
-	assert!(ms < 20.0, "a plan with crossings took {ms:.1} ms");
+	forge_addontest::assert_timing!(ms < 20.0, "a plan with crossings took {ms:.1} ms");
 }
 
 #[test]

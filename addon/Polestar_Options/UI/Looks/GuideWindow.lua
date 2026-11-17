@@ -56,6 +56,7 @@ for part, keys in pairs({
 	tip = { "noteSize" },
 	upnext = { "upSize" },
 	foot = { "progress", "progressHeight", "progressColor", "progressPct" },
+	xp = { "pace" },
 }) do
 	for _, k in ipairs(keys) do PART_OF["guideWindow." .. k] = part end
 end
@@ -314,6 +315,7 @@ function UI.GuideWindowScene(band)
 			["guideWindow.targetBarColor"] = marks, ["guideWindow.noteSize"] = { P.tip }, ["ui.showNotes"] = { P.tip },
 			["ui.upcoming"] = { up }, ["guideWindow.upSize"] = { up }, ["guideWindow.progress"] = { foot },
 			["guideWindow.progressHeight"] = { foot }, ["guideWindow.progressColor"] = { foot.Line }, ["guideWindow.progressPct"] = { foot.Pct },
+			["guideWindow.pace"] = { G.xp },
 		}) do
 			light(key, parts)
 		end
@@ -601,6 +603,9 @@ local SPECS = {
 				{ kind = "toggle", key = "guideWindow.progressPct", label = L["Percent"], new = NEW,
 					help = L["The percent beside the progress bar."], search = "percent, number, percentage" },
 			} },
+		{ kind = "toggle", key = "guideWindow.pace", label = L["Pace line"], new = "0.4.1",
+			help = L["The line above the progress bar: on pace for a level by a step, or how far behind the route you are."],
+			search = "pace, on pace, behind, level by step, xp line, progress text, hide pace" },
 	} },
 }
 

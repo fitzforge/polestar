@@ -132,6 +132,19 @@ return {
 		["guideWindow.progress"] = one("foot"),
 		["guideWindow.progressColor"] = one("fill"),
 		["guideWindow.progressPct"] = one("pct"),
+		-- The XP row's line: the pace part goes (#2371, #2379). The step has no level target here, so the pace is a
+		-- fixed line for the check.
+		["guideWindow.pace"] = {
+			prepare = function()
+				GF.psPaceText = GF.PaceText
+				GF.PaceText = function() return "On pace for level 6 by step 12" end
+				GF.UpdateXP()
+			end,
+			probe = function() return GF.xp.psHas and GF.xp.Text:GetText() or false end,
+			cleanup = function()
+				GF.PaceText, GF.psPaceText = GF.psPaceText, nil
+				GF.UpdateXP()
+			end },
 		["guideWindow.foldAnim"] = fold,
 		-- The step's "N left out here" line (Engine.LeftOutHere, the fake Engine's answer for the step).
 		["guideWindow.leftOut"] = function()

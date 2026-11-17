@@ -149,6 +149,7 @@ ns.RegisterDefaults("buttons", {
 	itemSize = SIZE, hearthSize = SIZE, targetSize = SIZE, rareSize = SIZE, bagSize = SIZE,
 	spacing = 8,           -- between two buttons of the set
 	layout = "column",     -- column (Hearthstone above, target below) | row (left to right) | rowReverse
+	listUp = false,        -- the target list grows up from the target button, not down (#2590)
 	padding = 2,           -- the icon's inset from the button's edge
 	backing = "panel",     -- panel | dark | none
 	backingColor = false,
@@ -198,7 +199,8 @@ end
 -- down; row: bag and Hearthstone left, target and rare right; rowReverse
 -- the other way round. rows: how many rows the target list shows beside the
 -- target button (Buttons.ListRect); the rare button moves along the set to
--- clear them. -> { kind = { x, y } } (reused)
+-- clear them, unless they go up (TL.up: beside or over the button, clear of
+-- it already). -> { kind = { x, y } } (reused)
 local offsets = { bag = {}, hearth = {}, item = { 0, 0 }, target = {}, rare = {} }
 function Buttons.Offsets(rows)
 	local gap = num("buttons.spacing", 0, 40, 8)
@@ -219,7 +221,7 @@ function Buttons.Offsets(rows)
 	walk({ "hearth", "bag" }, 1)
 	walk({ "target", "rare" }, -1)
 	local x0, x1, y0 = Buttons.ListRect(rows)
-	if x0 then
+	if x0 and not TL.up() then
 		local t, r, h = offsets.target, offsets.rare, Buttons.Size("rare") / 2
 		if layout == "row" then
 			r[1] = math.max(r[1], t[1] + x1 + gap + h)
@@ -319,6 +321,11 @@ function TL.side()
 	return ns.Get("qol.buttonTextSide") == "left" and "left" or "right"
 end
 
+-- Whether the list grows up from the target button (buttons.listUp, #2590):
+-- beside it, the first row level with its bottom and each next one above;
+-- in a row, over it instead of under it.
+function TL.up() return ns.Get("buttons.listUp") == true end
+
 -- The rows' box for n rows from the target button's centre, in button
 -- pixels before qol.buttonScale (y up): x0, x1, y0, y1; nil for none. The
 -- gap to the button is the set's spacing (buttons.spacing). side: TL.side()'s.
@@ -328,10 +335,16 @@ function Buttons.ListRect(n, side)
 	side = side or TL.side()
 	local h, w, g = Buttons.Size("target") / 2, TL.W, num("buttons.spacing", 0, 40, 8)
 	local tall = n * TL.H + (n - 1) * TL.GAP
-	if side == "right" then return h + g, h + g + w, h - tall, h end
-	if side == "left" then return -h - g - w, -h - g, h - tall, h end
-	if side == "below" then return -h, w - h, -h - g - tall, -h - g end
-	return h - w, h, -h - g - tall, -h - g
+	local up = TL.up()
+	local y0, y1
+	if side == "right" or side == "left" then
+		if up then y0, y1 = -h, tall - h else y0, y1 = h - tall, h end
+		if side == "right" then return h + g, h + g + w, y0, y1 end
+		return -h - g - w, -h - g, y0, y1
+	end
+	if up then y0, y1 = h + g, h + g + tall else y0, y1 = -h - g - tall, -h - g end
+	if side == "below" then return -h, w - h, y0, y1 end
+	return h - w, h, y0, y1
 end
 
 -- The Polestar mark and the rows on target button t (the live one, hidden,
@@ -355,23 +368,28 @@ function Buttons.PlaceList(t, mark, rows, scale, side)
 			l:ClearAllPoints()
 			if side == "right" then l:SetPoint("RIGHT", mark, "LEFT", -8, 0)
 			elseif side == "left" then l:SetPoint("LEFT", mark, "RIGHT", 8, 0)
+			elseif TL.up() then l:SetPoint("TOP", mark, "BOTTOM", 0, -4)
 			else l:SetPoint("BOTTOM", mark, "TOP", 0, 4) end
 		end
 	end
+	-- Down from the button's top, or up from its bottom (TL.up).
+	local up = TL.up()
+	local edge, far = up and "BOTTOM" or "TOP", up and "TOP" or "BOTTOM"
+	local dy = up and 1 or -1
 	for i = 1, #rows do
 		local r = rows[i]
 		if scale then r:SetScale(scale) end
 		r:ClearAllPoints()
 		if i > 1 then
-			r:SetPoint("TOP", rows[i - 1], "BOTTOM", 0, -TL.GAP)
+			r:SetPoint(edge, rows[i - 1], far, 0, dy * TL.GAP)
 		elseif side == "right" then
-			r:SetPoint("TOPLEFT", t, "TOPRIGHT", g, 0)
+			r:SetPoint(edge .. "LEFT", t, edge .. "RIGHT", g, 0)
 		elseif side == "left" then
-			r:SetPoint("TOPRIGHT", t, "TOPLEFT", -g, 0)
+			r:SetPoint(edge .. "RIGHT", t, edge .. "LEFT", -g, 0)
 		elseif side == "below" then
-			r:SetPoint("TOPLEFT", t, "BOTTOMLEFT", 0, -g)
+			r:SetPoint(edge .. "LEFT", t, far .. "LEFT", 0, dy * g)
 		else
-			r:SetPoint("TOPRIGHT", t, "BOTTOMRIGHT", 0, -g)
+			r:SetPoint(edge .. "RIGHT", t, far .. "RIGHT", 0, dy * g)
 		end
 	end
 end
@@ -3234,6 +3252,7 @@ ns.RegisterEvent("PLAYER_REGEN_ENABLED", function() combat(false) end)
 local PLACE_KEYS = {
 	["qol.buttonScale"] = true, ["buttons.itemSize"] = true, ["buttons.hearthSize"] = true, ["buttons.targetSize"] = true,
 	["buttons.rareSize"] = true, ["buttons.bagSize"] = true, ["buttons.spacing"] = true, ["buttons.layout"] = true,
+	["buttons.listUp"] = true,
 }
 
 ns.OnLogin(function()
