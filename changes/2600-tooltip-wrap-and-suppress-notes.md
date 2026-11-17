@@ -1,6 +1,6 @@
 ---
 section: players
 ---
-- Tooltips: notes and text-only rows no longer show redundant tooltips on
-  hover, and long tooltip titles wrap cleanly instead of stretching across the
-  screen (thanks Ramirez).
+- Guide window: a note or a plain text row no longer shows a tooltip that
+  only repeats its text, and long tooltip titles wrap instead of stretching
+  across the screen (#2600, thanks Ramirez and ESp3cter).
