@@ -9620,6 +9620,41 @@ screen (else the live one) scrolls to the top. In a profession guide each
 skill range (`section`, the view's `section` from `Engine.GetSection`) is a
 heading over the first card under it, the range the player's skill is in
 (`state` "current") in the accent colour, the others muted.
+A card whose step has quests left out (`Engine.LeftOutHere(i, true)`) ends in
+a muted "N left out here" line, each quest and why in its tooltip.
+
+### What the guide leaves out
+
+`Engine.LeftOutHere(i[, alone])` (#2634) lists the quests the route leaves
+out at step i, each once, with the reason the engine's own marks give and a
+fix: `{ quest, title, kind, text, fix, step }`. Kinds: `catchup` (the
+catch-up's detour, its share from `Own.leftOutWhy`), `grey` (greyNeed),
+`pre`, `closed`, `level`, `skipped` (unavailableFor's marks, with
+unavailableText's wording), `when` (a step's `when` that fails,
+`Own.whenText`) and the plan's quests left out with their steps for a
+prerequisite from an earlier guide (`Own.hiddenAt`: at the step standing where
+their accept was). Fixes: `{ kind = "chain", quest }` (`UI.LeftOutGuide`:
+Lookup's guide to the quest through what it needs, else its Lookup page) and
+`{ kind = "skipGrey" }` (the setting off; `SETTING_CHANGED` clears the
+catch-up's quests at once). It takes the step's own hidden quests (Skip grey
+quests, the catch-up, an accept waiting for a level) and the steps the route
+passed over just before it, back to a step with anything done, one the
+player skipped, or `Own.LEFT_OUT_STEPS`; `alone`: the step's own only. Never
+a step or goal for another class or race, a dungeon run not taken, or a
+quest done. Kept per evaluation (`generation`) and level.
+The guide window's card (live window, `guideWindow.leftOut`, on by
+default) shows a dim "N left out here" line that opens in place to a line per
+quest ("title · why", "Guide me" on a `chain` fix) and "Turn off Skip grey
+quests"; under an open `level` goal, `Engine.GrindHint(i)`'s "You're 31: the
+quests after this are level 32–35" (the levels of the next
+`Own.GRIND_NEXT` accepts) and "Worth doing near here" (this guide's quests the
+character can take now with their giver within `Own.GRIND_NEAR_YD` of the player, a catch-up detour
+included; a click shows the first one's step), before the dungeon line; and
+with `GF.OFF_ROUTE_NUDGE` (3) or more quests in the log off the route
+(`RoutePlan.OffRoute`, worked out when the step changes) a line that opens
+the quest room on them (`UI.ShowQuestRoom("offroute")`). The bug report adds
+the reported step's list ("Left out here: title (quest) · why", five at most,
+cut early when the report is too long).
 
 ### Journey panel
 

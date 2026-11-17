@@ -429,11 +429,13 @@ fn the_catch_up_leaves_out_exactly_the_quests_forever_pays_less_for_when_they_ar
 	for p in [9u32, 12, 20, 31, 45, 58] {
 		let mut steps = String::new();
 		let ds: Vec<u32> = (4..=9).filter(|&d| d < p).collect();
+		// Each quest far from the anchor's camp and 300 yd from the next: a detour unless it pays it all.
 		for &d in &ds {
 			steps += &format!(
-				"{{ goals = {{ {{ t = \"accept\", quest = {q}, title = \"{d} below\", qlvl = {l}, map = 1429, x = 90, y = 90 }} }} }},\n{{ goals = {{ {{ t = \"turnin\", quest = {q}, title = \"{d} below\", map = 1429, x = 90, y = 90 }} }} }},\n",
+				"{{ goals = {{ {{ t = \"accept\", quest = {q}, title = \"{d} below\", qlvl = {l}, map = 1429, x = {x}, y = 90 }} }} }},\n{{ goals = {{ {{ t = \"turnin\", quest = {q}, title = \"{d} below\", map = 1429, x = {x}, y = 90 }} }} }},\n",
 				q = 900 + d,
-				l = p - d
+				l = p - d,
+				x = 10 * (d - 3)
 			);
 		}
 		let guides = format!(
