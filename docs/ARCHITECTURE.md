@@ -7540,8 +7540,10 @@ Polestar.QoL.XPMark.frame                                -- the mark, once made
   first" ("reach 23 first" without an XP rate). Grinding time is the XP
   short over the QoL tracker's XP an hour. Nothing without the Codex
   (Lookup), at 60, or with no target (a guide that is not a leveling one
-  with no `level` goal ahead). Re-read with the XP row and on
-  `STEP_CHANGED`.
+  with no `level` goal ahead), or with the Pace line switch off
+  (`guideWindow.pace`, Guide window > Parts > Below the goals; #2371,
+  #2379: the row keeps the XP an hour). Re-read with the XP row, on that
+  switch and on `STEP_CHANGED`.
 - **A quest well over your level, on its step** (`Levels.StepHint(i)`): a
   step with work (not an accept, a hand-in or a talk: taking a quest early
   is normal) on an open quest 3 or more levels above the character says so

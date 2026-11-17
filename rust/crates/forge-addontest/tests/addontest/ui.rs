@@ -1947,6 +1947,39 @@ fn a_long_xp_line_takes_a_second_line_instead_of_being_cut() {
 	assert_eq!(out["line"], true);
 }
 
+// The pace line has its own switch (guideWindow.pace, #2371, #2379): off, the XP row keeps the tracker's XP an hour and
+// time to level and drops "On pace…"; with nothing else to say the row goes; on again, the line is back.
+#[test]
+fn the_pace_line_turns_off_on_its_own_and_the_xp_row_keeps_the_rest() {
+	let out = run(r#"
+		local stats = { rate = 48000, timeToLevel = 30, maxed = false }
+		Polestar.QoL = {
+			GetXPStats = function() return stats end,
+			Duration = function() return "30s" end,
+			XP = { Short = function(n) return string.format("%.1fk", n / 1000) end, Summary = function() return "Level 24" end },
+		}
+		local pace = GF.PaceText
+		GF.PaceText = function() return "On pace for level 25.2 by step 96" end
+		uistub.setGuide(uistub.elwynn, 3)
+		Polestar.Fire("QOL_XP_UPDATED", stats)
+		local function row() return { shown = GF.xp:IsShown(), text = GF.xp:IsShown() and GF.xp.Text:GetText() or false } end
+		local r = { on = row() }
+		Polestar.Set("guideWindow.pace", false)
+		r.off = row()
+		stats = {}
+		Polestar.Fire("QOL_XP_UPDATED", stats)
+		r.alone = row()
+		Polestar.Set("guideWindow.pace", true)
+		r.back = row()
+		GF.PaceText = pace
+		emit(r)"#)
+	.remove(0);
+	assert_eq!(out["on"], json!({ "shown": true, "text": "48.0k XP/h  \u{b7}  30s to level  \u{b7}  On pace for level 25.2 by step 96" }), "{out}");
+	assert_eq!(out["off"], json!({ "shown": true, "text": "48.0k XP/h  \u{b7}  30s to level" }), "{out}");
+	assert_eq!(out["alone"], json!({ "shown": false, "text": false }), "the pace was all it had: {out}");
+	assert_eq!(out["back"], json!({ "shown": true, "text": "On pace for level 25.2 by step 96" }), "{out}");
+}
+
 // The XP line is measured at the window's width, as the layout measures it: an update that changes nothing in the
 // row lays the window out no more (at the row's own width, 0 before a layout, the two disagreed on a line that takes
 // two, and every XP update laid the whole window out again).
