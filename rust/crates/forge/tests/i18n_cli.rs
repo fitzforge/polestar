@@ -102,6 +102,48 @@ fn guides_sync_writes_every_text_with_its_names_and_check_fails_on_a_lost_token_
 	let _ = std::fs::remove_dir_all(&dir);
 }
 
+/// #1315 (Saulo's idea): a text whose English changed starts from its old translation. The tip's
+/// name {npc:6} became words ("The kobolds"), so its tokens differ and the old translation would only
+/// sit in the retired block; sync writes it as a `-- was:` comment right above the new, empty line,
+/// matching the texts through the names. The line itself stays "" (the English shows) until a
+/// translator fills it, a text unlike every old one gets no draft, and a second sync writes the same.
+#[test]
+fn guides_sync_writes_a_changed_texts_old_translation_above_its_new_line_matching_through_names() {
+	let dir = Path::new(env!("CARGO_TARGET_TMPDIR")).join(format!("i18n-drafts-{}", std::process::id()));
+	let _ = std::fs::remove_dir_all(&dir);
+	std::fs::create_dir_all(dir.join("guides")).unwrap();
+	std::fs::write(dir.join("pack.json"), r#"{"id":"texts","title":"Texts Pack","author":"Ann","version":"1.0.0","license":"CC0-1.0","folder":"PolestarPack_Texts"}"#).unwrap();
+	std::fs::write(dir.join("guides/main.guide"), GUIDE).unwrap();
+	let data = root().join("tests/fixtures/dsl/data");
+	let (d, p) = (data.to_string_lossy().into_owned(), dir.to_string_lossy().into_owned());
+	let i18n = |cmd: &str| forge(&["guides", cmd, "frFR", "--pack", &p, "--data", &d]);
+	assert_eq!(i18n("sync").status, 0);
+	let file = dir.join("locales/frFR/guides/main.lua");
+	let old_en = "{npc:197} stands at the abbey door; {npc:152} sells food inside. {npc:6} crowd the camp to the north.";
+	let old_fr = "{npc:197} se tient à la porte de l'abbaye ; {npc:152} vend à manger à l'intérieur. Les {npc:6} envahissent le camp au nord.";
+	let text = std::fs::read_to_string(&file).unwrap();
+	assert!(text.contains(&format!("[\"{old_en}\"] = \"\",")), "{text}");
+	std::fs::write(&file, text.replace(&format!("[\"{old_en}\"] = \"\","), &format!("[\"{old_en}\"] = \"{old_fr}\","))).unwrap();
+	let changed = GUIDE
+		.replace("Kobold Vermin crowd the camp to the north.", "The kobolds crowd the camp to the north.")
+		.replace("-- Marshal McBride; he also trains you", "-- Marshal McBride, who also sells nothing at all today");
+	std::fs::write(dir.join("guides/main.guide"), changed).unwrap();
+	let sync = i18n("sync");
+	assert_eq!(sync.status, 0, "{}", sync.stderr);
+	let text = std::fs::read_to_string(&file).unwrap();
+	let new_en = "{npc:197} stands at the abbey door; {npc:152} sells food inside. The kobolds crowd the camp to the north.";
+	assert!(
+		text.contains(&format!("\t-- was: [\"{old_en}\"] = \"{old_fr}\"\n\t[\"{new_en}\"] = \"\",\n")),
+		"the old translation is a draft right above the new line, which stays empty: {text}"
+	);
+	assert_eq!(text.matches("-- was:").count(), 1, "a text unlike every old one gets no draft: {text}");
+	assert!(text.contains(&format!("\t-- [\"{old_en}\"] = \"{old_fr}\",")), "and the old line stays in the retired block");
+	assert_eq!(i18n("check").status, 0, "a draft is a comment: the file checks clean");
+	assert_eq!(i18n("sync").status, 0);
+	assert_eq!(std::fs::read_to_string(&file).unwrap(), text, "a second sync writes the same file");
+	let _ = std::fs::remove_dir_all(&dir);
+}
+
 /// `guides sync` on reference data read from a Forever client build whose tables are not in the sources
 /// beside it: the texts would name spells as words and places without their area, and every good
 /// translation of them would move out as stale. It stops with one error and writes nothing.
