@@ -3248,11 +3248,11 @@
 		"set": {
 			"spawns": {
 				"1417": {
-					"f": "e",
+					"f": "l",
 					"pts": [
 						[
-							59.84,
-							27.57
+							59.72,
+							27.59
 						]
 					]
 				}
@@ -3262,6 +3262,10 @@
 			{
 				"kind": "questie",
 				"ref": "npcs.json 259023: Arathi Highlands 59.84,27.57 and Ironforge 47.1,13.79; the Ironforge point is Eldrun Stormbreaker's (258098) spawn to the hundredth"
+			},
+			{
+				"kind": "recording",
+				"ref": "rec.py, players' recordings to 2026-11-17: 12 people opened Veyric Thunderhame's window at Arathi Highlands 59.8,27.6 (37 windows, 28 hand-ins); none met him in Ironforge, where 6 people trained with Eldrun Stormbreaker at 47.5,13.6"
 			},
 			{
 				"kind": "in-game-check",
