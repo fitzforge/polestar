@@ -6466,8 +6466,8 @@
 				"goal": "turnin",
 				"guide": "forever/alliance/06-ashenvale"
 			},
-			"tip": "Follow the road south-east from Maestra's Post back to Astranaar: Shindrell Swiftfire stands by the flight master.",
-			"note": "06-ashenvale: the last Astranaar stop is Shindrell Swiftfire's hand-in by the flight master alone; Raene's and Pelturas's hand-ins went in on the pass after Dal Bloodclaw (astranaar-pass-hand-ins-split). 0.3.6 hand edit.",
+			"tip": "Hearth to Astranaar, where your hearthstone is bound, or follow the road east from the Zoram Strand: Shindrell Swiftfire stands by the flight master.",
+			"note": "06-ashenvale: the last Astranaar stop is Shindrell Swiftfire's hand-in by the flight master alone; Raene's and Pelturas's hand-ins went in on the pass after Dal Bloodclaw (astranaar-pass-hand-ins-split). 0.3.6 hand edit. #2837: Delgren's hand-in comes right after Ilkrud now, on the way to the coast, so this stop follows Talen's and the hearthstone bound at Astranaar takes the player there.",
 			"source": [
 				{
 					"kind": "questie",
@@ -6484,12 +6484,16 @@
 				"objective": 1,
 				"guide": "forever/alliance/06-ashenvale"
 			},
-			"tip": "From Astranaar head south-west to the Ruins of Ordil'Aran south of the shrine: Ilkrud and his voidwalkers hold them. Pull his guards first.",
-			"note": "06-ashenvale: Ilkrud Magthrull's step now follows the Astranaar hand-ins on the pass (astranaar-pass-hand-ins-split), so its tip leads on from Astranaar instead of telling players to leave the hand-ins for later. 0.3.6 hand edit.",
+			"tip": "From Astranaar head south-west to the Fire Scar Shrine and go in from the east side: Ilkrud and his guards hold a hill inside it. Pull his guards first.",
+			"note": "06-ashenvale: Ilkrud Magthrull's step now follows the Astranaar hand-ins on the pass (astranaar-pass-hand-ins-split), so its tip leads on from Astranaar instead of telling players to leave the hand-ins for later. 0.3.6 hand edit. #2837: he stands in the Fire Scar Shrine, not the Ruins of Ordil'Aran.",
 			"source": [
 				{
 					"kind": "questie",
 					"ref": "quest 973 objective Ilkrud Magthrull's Tome"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-17: 35 people killed Ilkrud Magthrull, every kill at 25-26,60-63 in Ashenvale (the Fire Scar Shrine)"
 				}
 			]
 		},

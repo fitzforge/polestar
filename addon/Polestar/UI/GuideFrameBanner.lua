@@ -49,14 +49,19 @@ ns.UI.GuideFrame.Part(function(GF)
 	GF.notices = notices
 
 	-- The step on screen when it is not the live step: { guideId, index, live,
-	-- skipped }, or nil. Dismissed per step (notices.away holds the key).
+	-- skipped }, or nil. Dismissed per step (notices.away holds the key). A
+	-- skipped step that holds nothing for the character (the view's `why`:
+	-- passed because its condition failed, its quest not in the log) is not
+	-- offered back: unskipped, it would still hold nothing (#2847). The card
+	-- says why; the banner offers the way back to the live step.
 	local function awayNotice(E, g)
 		local view = GF.View()
 		if not (E.GetLiveStep and view and g) then return nil end
 		local index, live = E.GetStepIndex(), E.GetLiveStep()
 		if not index or index ~= view.index or index == live then return nil end
-		if not view.skipped and not live then return nil end
-		local a = { guideId = g.id, index = index, live = live, skipped = view.skipped and true or false }
+		local skipped = view.skipped and not view.why
+		if not skipped and not live then return nil end
+		local a = { guideId = g.id, index = index, live = live, skipped = skipped and true or false }
 		if notices.away == g.id .. ":" .. index then return nil end
 		return a
 	end
@@ -377,6 +382,10 @@ ns.UI.GuideFrame.Part(function(GF)
 		banner.Jump.psDefault = (kind == "group" or kind == "lost" or kind == "dungeon" or kind == "dungeonRun") or nil -- the gamepad's first focus (UI/GamepadGuide.lua)
 		banner.Text:SetWidth(width - PAD * 2 - 21 - 24)
 		banner.Later:Hide()
+		-- The item the notice names, for its text's tooltip (banner.Item): the gear offer's, the spare bag's or the junk's.
+		local item = (kind == "wear" and n) or (kind == "bags" and (n.spare or n.junk)) or nil
+		banner.Item.psItem = item and (item.link or item.id) or nil
+		banner.Item:SetShown(banner.Item.psItem ~= nil)
 		local oneLine = false -- no link row under the text
 		if kind == "skipped" then
 			banner.Icon:SetTexture(Theme.Media("skip"))

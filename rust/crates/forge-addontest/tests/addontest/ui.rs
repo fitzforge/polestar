@@ -3068,6 +3068,26 @@ fn looking_at_another_step_than_the_live_one_offers_the_way_back_a_skipped_step_
 	assert_eq!(out["unskip"], json!(["Unskip", 3]));
 }
 
+// #2847: a skipped step that holds nothing for the character (the view's `why`, its quest not in the log) offers the
+// way back to the live step, not an unskip that would bring back nothing.
+#[test]
+fn a_skipped_step_that_holds_nothing_offers_the_way_back_not_an_unskip_2847() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		local B = GF.parts.banner
+		uistub.live = 4
+		uistub.skipped[3] = true
+		uistub.guides[uistub.elwynn].steps[3].why = "Only with \226\128\156Kobold Camp Cleanup\226\128\157 in your quest log"
+		uistub.setStep(3)
+		local shown = { B.Text:GetText(), B.Jump.Label:GetText() }
+		B.Jump:Click()
+		emit({ shown = shown, back = lastCall("Goto"), unskip = lastCall("Unskip") or false })"#)
+	.remove(0);
+	assert_eq!(out["shown"], json!(["Looking back. The guide is at step 4.", "Back to step 4"]));
+	assert_eq!(out["back"], json!(["Goto", 4]));
+	assert_eq!(out["unskip"], false);
+}
+
 // Fitz, testing 0.3.3: the "Looking ahead" banner's Dismiss button did nothing (GF.DismissBanner took the banner for
 // one that is answered, never dismissed). Dismissed, it stays away on that step; another step brings it back.
 #[test]

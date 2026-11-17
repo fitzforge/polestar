@@ -251,6 +251,16 @@ test('quest objects stand where players loot them: Krom\'zar\'s Banner, the coff
 	assert.ok(at(19019, 1413).pts.some((q) => q[0] === 61.92 && q[1] === 3.62), 'and in the Barrens where players loot it');
 });
 
+// Merkanex (#2861): the City of Dalaran pick-up guide sent a Horde player up the stairs to the guards for Dalaran
+// Patrols, and to 16,77 for the slaves. Players kill both around the ruins outside the dome, none south of 68.
+test('Dalaran Summoners and Elemental Slaves stand around the ruins outside the dome, none at 10-20,73-81 (#2861)', () => {
+	for (const id of [2358, 2359]) {
+		const pts = corrections.npcs[id].addSpawns[1416].pts;
+		assert.ok(pts.length >= 20, `npc ${id}: the recorded kill spots`);
+		for (const [x, y] of pts) assert.ok(x >= 16 && x <= 28 && y >= 49 && y <= 67, `npc ${id}: ${x},${y} outside the ruins`);
+	}
+});
+
 test('The Glowing Shard\'s one line is to speak with Sputtervalve in Ratchet, so its hand-in guide goes there first (#1326)', () => {
 	assert.deepEqual(corrections.quests[6981].set.objectives, [{ type: 'talk', id: 3442, count: 1, text: 'Speak with someone in Ratchet about the Glowing Shard' }]);
 });
