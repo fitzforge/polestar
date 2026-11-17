@@ -216,6 +216,9 @@ L["Grey for you: pays %d%% XP (Skip grey quests)"] = "對你是灰色：只給 %
 -- L["Reach %d points into %s with"] = ""
 -- L["Lose"] = ""
 -- L["Gain"] = ""
+L["Journeyman %s"] = "中級%s"
+L["Expert %s"] = "高級%s"
+L["Artisan %s"] = "專家級%s"
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "選擇一項獎勵以完成繳交。"
@@ -1202,6 +1205,8 @@ L["Enter"] = "進入"
 L["Choose this reward:"] = "選擇此獎勵："
 L["Lookup"] = "查詢"
 L["%s: click through what they say until the quest's line is done."] = "%s：逐頁點完對話，直到該任務目標完成。"
+L["%s: use %s to call it up."] = "%s：使用%s將其召喚出來。"
+L["Use %s to learn it."] = "使用%s來學習。"
 
 -- Lookup/Spotter.lua
 L["From"] = "來自"
@@ -4500,6 +4505,9 @@ L["%s isn't in your quest log."] = "%s不在你的任務日誌中。"
 L["That quest isn't in your quest log."] = "該任務不在你的任務日誌中。"
 L["The quest log opens when combat ends."] = "脫離戰鬥後會開啟任務日誌。"
 L["Show in quest log"] = "在任務日誌中顯示"
+L["Link in chat"] = "發送連結到聊天"
+L["Middle-click: show in quest log. Shift-click: link in chat."] = "中鍵點擊：在任務日誌中顯示。Shift-點擊：發送連結到聊天。"
+L["Shift-click: link in chat."] = "Shift-點擊：發送連結到聊天。"
 
 -- Dungeons/Mark.lua
 L["Needed for %s in %s"] = "%s所需（位於%s）"

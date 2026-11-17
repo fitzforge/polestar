@@ -38869,7 +38869,8 @@
 			"npc:255183": {
 				"reason": "no-source",
 				"scenes": [
-					"picker"
+					"picker",
+					"rares"
 				],
 				"english": "Jezerelle the Swaying"
 			},

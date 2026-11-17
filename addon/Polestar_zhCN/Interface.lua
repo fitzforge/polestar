@@ -216,6 +216,9 @@ L["Grey for you: pays %d%% XP (Skip grey quests)"] = "对你是灰色：只给 %
 -- L["Reach %d points into %s with"] = ""
 -- L["Lose"] = ""
 -- L["Gain"] = ""
+L["Journeyman %s"] = "中级%s"
+L["Expert %s"] = "高级%s"
+L["Artisan %s"] = "专家级%s"
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "选择一个奖励以完成交还。"
@@ -1202,6 +1205,8 @@ L["Enter"] = "进入"
 L["Choose this reward:"] = "选择此奖励："
 L["Lookup"] = "查询"
 L["%s: click through what they say until the quest's line is done."] = "%s：逐页点完对话，直到该任务目标完成。"
+L["%s: use %s to call it up."] = "%s：使用%s将其召唤出来。"
+L["Use %s to learn it."] = "使用%s来学习。"
 
 -- Lookup/Spotter.lua
 L["From"] = "来源"
@@ -4500,6 +4505,9 @@ L["%s isn't in your quest log."] = "%s不在你的任务日志中。"
 L["That quest isn't in your quest log."] = "该任务不在你的任务日志中。"
 L["The quest log opens when combat ends."] = "战斗结束后会打开任务日志。"
 L["Show in quest log"] = "在任务日志中显示"
+L["Link in chat"] = "发送链接到聊天"
+L["Middle-click: show in quest log. Shift-click: link in chat."] = "中键点击：在任务日志中显示。Shift-点击：发送链接到聊天。"
+L["Shift-click: link in chat."] = "Shift-点击：发送链接到聊天。"
 
 -- Dungeons/Mark.lua
 L["Needed for %s in %s"] = "%s所需（位于%s）"

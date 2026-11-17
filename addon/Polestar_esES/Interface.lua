@@ -216,6 +216,9 @@ L["Grey for you: pays %d%% XP (Skip grey quests)"] = "Gris para ti: da un %d%% d
 -- L["Reach %d points into %s with"] = ""
 -- L["Lose"] = ""
 -- L["Gain"] = ""
+L["Journeyman %s"] = "%s de oficial"
+L["Expert %s"] = "%s de experto"
+L["Artisan %s"] = "%s de artesano"
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Elige una recompensa para entregar la misión."
@@ -1202,6 +1205,8 @@ L["Enter"] = "Entra a"
 L["Choose this reward:"] = "Elige esta recompensa:"
 L["Lookup"] = "Buscador"
 L["%s: click through what they say until the quest's line is done."] = "%s: haz clic en todo lo que diga hasta que se complete la línea de la misión."
+L["%s: use %s to call it up."] = "%s: usa %s para invocarlo."
+L["Use %s to learn it."] = "Usa %s para aprenderlo."
 
 -- Lookup/Spotter.lua
 L["From"] = "De"
@@ -4500,6 +4505,9 @@ L["%s isn't in your quest log."] = "%s no está en tu registro de misiones."
 L["That quest isn't in your quest log."] = "Esa misión no está en tu registro de misiones."
 L["The quest log opens when combat ends."] = "El registro de misiones se abre cuando termina el combate."
 L["Show in quest log"] = "Mostrar en el registro de misiones"
+L["Link in chat"] = "Enlazar en el chat"
+L["Middle-click: show in quest log. Shift-click: link in chat."] = "Clic central: mostrar en el registro de misiones. Mayús+clic: enlazar en el chat."
+L["Shift-click: link in chat."] = "Mayús+clic: enlazar en el chat."
 
 -- Dungeons/Mark.lua
 L["Needed for %s in %s"] = "Necesario para %s en %s"

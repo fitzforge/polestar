@@ -216,6 +216,9 @@ L["Grey for you: pays %d%% XP (Skip grey quests)"] = "Для вас серое: 
 -- L["Reach %d points into %s with"] = ""
 -- L["Lose"] = ""
 -- L["Gain"] = ""
+L["Journeyman %s"] = "%s (подмастерье)"
+L["Expert %s"] = "%s (умелец)"
+L["Artisan %s"] = "%s (мастер)"
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Выберите награду, чтобы сдать задание."
@@ -1202,6 +1205,8 @@ L["Enter"] = "Войти"
 L["Choose this reward:"] = "Выберите эту награду:"
 L["Lookup"] = "Поиск"
 L["%s: click through what they say until the quest's line is done."] = "%s: прощелкайте весь диалог, пока строка задания не будет выполнена."
+L["%s: use %s to call it up."] = "%s: используйте %s, чтобы призвать его."
+L["Use %s to learn it."] = "Используйте %s, чтобы выучить."
 
 -- Lookup/Spotter.lua
 L["From"] = "Источник:"
@@ -4500,6 +4505,9 @@ L["%s isn't in your quest log."] = "%s нет в журнале заданий."
 L["That quest isn't in your quest log."] = "Этого задания нет в журнале заданий."
 L["The quest log opens when combat ends."] = "Журнал заданий откроется после боя."
 L["Show in quest log"] = "Показать в журнале заданий"
+L["Link in chat"] = "Ссылка в чат"
+L["Middle-click: show in quest log. Shift-click: link in chat."] = "Средний щелчок: показать в журнале заданий. Shift-щелчок: ссылка в чат."
+L["Shift-click: link in chat."] = "Shift-щелчок: ссылка в чат."
 
 -- Dungeons/Mark.lua
 L["Needed for %s in %s"] = "Нужно для %s (%s)"
