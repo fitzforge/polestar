@@ -439,11 +439,14 @@ end
 
 local POINT_COLOR = { npc = "npc", object = "object", item = "item" }
 
--- "Nalpak  ·  The Barrens", coloured; "inside the dungeon" when it is.
+-- "Nalpak  ·  The Barrens", coloured; "inside the dungeon" when it is. A
+-- giver or ender inside whom the data has not named (Alcaz Prison's
+-- prisoners, #2560) is the place alone.
 local function pointText(p)
 	if type(p) ~= "table" then return "|c" .. Theme.Hex("textMuted") .. L["Not known"] .. "|r" end
 	local N = ns.Names
 	local own = type(p.id) == "number" and ((p.kind == "npc" and N.Npc(p.id)) or (p.kind == "object" and N.Object(p.id)) or (p.kind == "item" and N.Item(p.id))) or nil
+	if p.inside and not (own or p.name) then return "|c" .. Theme.Hex("dungeon") .. L["inside the dungeon"] .. "|r" end
 	local name = own or p.name or L["Not known"]
 	local text = "|c" .. Theme.Hex(POINT_COLOR[p.kind] or "npc") .. name .. "|r"
 	local place
