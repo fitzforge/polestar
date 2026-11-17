@@ -1186,3 +1186,22 @@ emit(out)`,
 	assert.equal(out.compact.xp, true, 'the XP row shows in compact mode');
 	assert.deepEqual([out.house.along, out.house.xpShows, out.house.journey, out.house.xp], [false, false, false, false], "Polestar's own compact: none");
 });
+
+// The Atlas card in Presets carries a Beta tag, from its TOC
+// (## X-Polestar-Layout-Stage: beta), loaded or not.
+test('the Atlas layout preset is tagged beta', () => {
+	const toc = require('node:fs').readFileSync(path.join(ADDONS, 'Polestar_Layout_Atlas', 'Polestar_Layout_Atlas.toc'), 'utf8');
+	const fields = [...toc.matchAll(/^## (X-[\w-]+):\s*(.*?)\s*$/gm)].map((m) => `[${JSON.stringify(m[1])}] = ${JSON.stringify(m[2])}`);
+	const [out] = runAddon({
+		stubs: ['stub_world.lua'],
+		addons: ['Polestar', 'Polestar_Layout_Atlas'],
+		login: true,
+		script: `
+stub.addons = { { name = "Polestar", loaded = true }, { name = "Polestar_Layout_Atlas", loaded = true } }
+stub.addonMeta["Polestar_Layout_Atlas"] = { ${fields.join(', ')} }
+local stage
+for _, lp in ipairs(Polestar.Theme.LayoutPresets()) do if lp.id == "atlas" then stage = lp.stage end end
+emit({ stage = stage or false })`,
+	}).emitted;
+	assert.deepEqual(out, { stage: 'beta' });
+});

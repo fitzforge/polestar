@@ -29,6 +29,7 @@
 ## LoadOnDemand: 1
 ## X-Polestar-Layout: atlas
 ## X-Polestar-Layout-Preset: atlas = Atlas
+## X-Polestar-Layout-Stage: beta
 
 Atlas.lua
 Test.lua

@@ -253,6 +253,12 @@ end
 ns.On("SETTING_CHANGED", redrawShown)
 if ns.Theme and ns.Theme.OnChanged then ns.Theme.OnChanged(redrawShown) end
 
+-- A layout's stage (Theme.LayoutPresets' stage): the tag on its card.
+local STAGES = {
+	alpha = { tag = L["Alpha"], tip = L["Alpha: early and still changing; parts may not work yet."] },
+	beta = { tag = L["Beta"], tip = L["Beta: still being finished; tell us what looks wrong."] },
+}
+
 -- The row's presets: its own, then (opts.layouts) a card per installed
 -- layout with a preset, value "layout:<id>". -> a list (list.layouts set
 -- for a row with layout cards)
@@ -262,8 +268,10 @@ local function presetsOf(opts)
 	local list = { layouts = true }
 	for i, p in ipairs(opts.presets) do list[i] = p end
 	for _, lp in ipairs(T.LayoutPresets()) do
+		local stage = STAGES[lp.stage]
 		list[#list + 1] = { value = "layout:" .. lp.id, label = lp.label, help = lp.help, set = lp.set, layout = lp.id,
-			loaded = lp.loaded, addon = lp.addon, draw = opts.layouts.draw, note = not lp.loaded and L["Not loaded"] or nil }
+			loaded = lp.loaded, addon = lp.addon, draw = opts.layouts.draw, note = not lp.loaded and L["Not loaded"] or nil,
+			tag = stage and stage.tag, tagTip = stage and stage.tip }
 	end
 	return list
 end
@@ -292,7 +300,7 @@ function O.PresetCards(opts)
 						go()
 					end
 				end
-				out[i] = { value = p.value, label = p.label, note = p.note, draw = draw, tip = O.PresetSummary(p) }
+				out[i] = { value = p.value, label = p.label, note = p.note, tag = p.tag, tagTip = p.tagTip, draw = draw, tip = O.PresetSummary(p) }
 			end
 			return out
 		end,
