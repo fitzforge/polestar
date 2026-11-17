@@ -16104,6 +16104,19 @@ function Engine.AcceptRefusal(questID)
 	return why or "not wanted"
 end
 
+-- Whether the loaded guide takes quest q as an escort (a goal of it with
+-- the compiled `escort`: its accept or the escort's own line, Zimmix's Great
+-- Escape). Automation leaves such an accept to a player in a group (#2708).
+function Engine.EscortQuest(questID)
+	if not (guide and questID) then return false end
+	for _, step in ipairs(guide.steps) do
+		for _, goal in ipairs(step.goals) do
+			if goal.quest == questID and goal.escort then return true end
+		end
+	end
+	return false
+end
+
 -- Saved tabs of leveling guides an update reworked (Own.reworked), by guide
 -- id: the quest log decides where they go (Own.followReworked).
 Own.reworkedTabs = {}

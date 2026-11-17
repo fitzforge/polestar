@@ -1416,6 +1416,9 @@
 		] },
 		"2698": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/ui-quest-unlocks.rs", "test": "more_than_four_follow_ups_list_four_then_how_many_more" }
+		] },
+		"2708": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/automation.rs", "test": "an_escort_is_not_auto_accepted_in_a_group_alone_it_is_2708" }
 		] }
 	},
 	"seedDrift": {
