@@ -5639,7 +5639,9 @@ test(`${TELDRASSIL}: flow audit: Washed Ashore is handed to Gwennyth on the walk
 	const turnin = at(list, 'turnin 3524', is('turnin', 3524));
 	assert.ok(bones < turnin, 'the bones, then Gwennyth');
 	assert.ok(turnin < at(list, 'accept 954', is('accept', 954)), 'Gwennyth first on the way into Auberdine, before Thundris');
-	assert.ok(!goals(NE_DARKSHORE).some(({ goal }) => is('turnin', 3524)(goal)), 'not again in the Night Elf Darkshore');
+	// Not again in the Night Elf Darkshore, except as its catch-up (#2635) for a Night Elf who skipped Teldrassil.
+	const again = goals(NE_DARKSHORE).filter(({ goal }) => is('turnin', 3524)(goal));
+	assert.ok(again.every(({ step }) => (step.when || []).some((p) => p.k === 'turnedin' && p.neg && p.q === 3524)), 'not again in the Night Elf Darkshore for a Night Elf who handed it in');
 });
 test(`${NE_DARKSHORE}: flow audit: Bashal'Aran is finished before the boat, and the sea is crossed once`, { skip }, () => {
 	for (const cls of ['WARRIOR', 'HUNTER', 'ROGUE', 'PRIEST', 'DRUID', 'MAGE', 'PALADIN', 'WARLOCK', 'SHAMAN']) {
