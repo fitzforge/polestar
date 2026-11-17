@@ -78,7 +78,7 @@ return {
 
 	-- Step 17: The Dark Iron War
 	-- {npc:1364} Balgaras the Foul
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. Dark Iron Dwarves, Tunnelers, Saboteurs and Demolitionists (27-31) fill the ruins west of the camp; {npc:1364} (34, elite) walks among them."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. Des Nains Sombrefer, des Tunnelers, des Saboteurs et des Démolisseurs (27-31) remplissent les ruines à l'ouest du camp ; {npc:1364} (34, élite) se promène parmi eux.",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. Dark Iron Dwarves, Tunnelers, Saboteurs and Demolitionists (27-31) fill the ruins west of the camp; {npc:1364} (34, elite) walks among them."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. Des Nains Sombrefer, des Tunneliers, des Saboteurs et des Démolisseurs (27-31) remplissent les ruines à l'ouest du camp ; {npc:1364} (34, élite) se promène parmi eux.",
 
 	-- Step 18: Direforge Hill
 	-- {area:1016} Direforge Hill · {item:280806} Stolen Explosives · {area:880} Thandol Span
