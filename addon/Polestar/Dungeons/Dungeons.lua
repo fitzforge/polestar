@@ -545,11 +545,16 @@ function Dungeons.GuideTo(key)
 end
 
 -- Through Compat.OpenWorldMap: the client's C_Map opener, never in combat
--- (the global OpenWorldMap taints the map: NAV_QA C3).
+-- (the global OpenWorldMap taints the map: NAV_QA C3). The entrance gets its
+-- own pin there, in focus, until the map closes (Maps.ShowDungeonEntrance,
+-- #2780: the map opened on the zone with nothing to say where the way in is).
 function Dungeons.ShowOnMap(key)
-	local map = Dungeons.Entrance(key)
+	local map, x, y, f = Dungeons.Entrance(key)
 	if not map then return false end
-	return ns.Compat.OpenWorldMap(map)
+	local opened = ns.Compat.OpenWorldMap(map)
+	local M = ns.Maps
+	if opened and M and M.ShowDungeonEntrance then M.ShowDungeonEntrance(key, map, x, y, f) end
+	return opened
 end
 
 ns.RegisterCommand("dungeons", function(rest)
