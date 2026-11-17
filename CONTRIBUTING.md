@@ -112,6 +112,14 @@ steps keep two of you from fixing the same thing without knowing:
    pull request that fixes the pattern and lists every issue it closes.
 6. **A claim that went quiet** (no commit or reply for a week) is free:
    say on the issue that you are taking it over, and go ahead.
+7. **A new guide is a community guide.** Polestar's own guide list holds the
+   guides the maintainer plans and keeps. A guide you wrote yourself (a new
+   route, a dungeon walkthrough, a collection) is published as your own
+   community guide on [polestar.guide](https://polestar.guide/community),
+   where it stays yours to update and is credited to you
+   (README, "Writing a community addon"). A pull request that adds a new
+   guide to `guides/` is merged only when the maintainer asked for that guide
+   in an issue first. Fixes to existing guides are always welcome here.
 
 An issue filed from the Discord #bugs forum tells its reporter in their
 thread when the first pull request for it opens, so link only what you are
