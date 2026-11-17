@@ -1,6 +1,15 @@
 {
 	"about": "The reported-problems gate (npm run test:reported, tools/reported-gate.js): every player-reported problem that was fixed (closed, or labelled fix-merged, with the confirmed label) and the tests that fail if it comes back. The gate runs these tests with the whole of tests/guides-reported.test.js, the judge's player-report seeds (forge judge seed-tests) and the danger-at-the-spot gate (#1575). A fix for a report adds its issue here with the test that pins it; a report with nothing left to check says why (uncheckable). tests/reported-gate.test.js checks that every test named here exists. seedDrift: the judge's seeds that still assert an earlier form of a guides-reported case that has changed since and passes; the gate lists them and fails only on other seeds, until each is brought up to its case.",
 	"issues": {
+		"2833": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/lookup-guides.rs", "test": "a_quest_with_two_placed_events_has_a_goal_at_each_and_moves_on_as_each_ticks_2833" }
+		] },
+		"2780": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/maps-reveal.rs", "test": "show_on_map_pins_the_dungeon_s_entrance_in_focus_until_the_map_closes_2780" }
+		] },
+		"2863": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "a_building_or_cave_mouth_named_after_the_subzone_the_player_is_in_is_just_the_entrance_2863" }
+		] },
 		"108": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/automation.rs", "test": "t_108_a_direct_turn_in_is_taken_from_the_quests_the_giver_offers_and_finished_in_the_progress_window" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/automation.rs", "test": "t_108_a_direct_turn_in_follows_autoturnin_not_autoaccept_there_is_no_accept_to_make" },

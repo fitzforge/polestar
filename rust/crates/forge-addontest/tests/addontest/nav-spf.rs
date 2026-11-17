@@ -1336,6 +1336,34 @@ fn a_building_mouth_beside_an_inn_s_innkeeper_is_the_inn_s_entrance() {
 	);
 }
 
+// #2863 (Edet in the Ruins of Andorhal): a house's door there is named after the ruins, so the walk to it read
+// "Walk to the Ruins of Andorhal entrance" while the player stood in the ruins, as if it were the way into them.
+// A mouth named after the subzone the player is in is just the entrance; one named after another place keeps it.
+#[test]
+fn a_building_or_cave_mouth_named_after_the_subzone_the_player_is_in_is_just_the_entrance_2863() {
+	let out = run(r#"
+		nav.useTravelWorld()
+		nav.Compat.GetZoneText = function() return "Testshire", "Ruins of Testshire" end
+		PolestarNavChokepoints = { [0] = {
+			{ wx = 0, wy = -200, r = 10, kind = "building", name = "Ruins of Testshire", zone = "Testshire" },
+			{ wx = 0, wy = -300, r = 10, kind = "cave", name = "Ruins of Testshire", zone = "Testshire" },
+			{ wx = 0, wy = -450, r = 10, kind = "building", name = "Westbrook Keep", zone = "Testshire" },
+		} }
+		nav.place(0, 0)
+		target(0, -600)
+		N.Sample()
+		fake.resolve(0, 0, 0, -200, 0, -300, 0, -450, 0, -600)
+		local legs, ci = N.GetRoute()
+		local out = {}
+		for i = ci or 1, legs and #legs or 0 do out[#out + 1] = legs[i].kind .. "|" .. legs[i].label end
+		emit(out)"#);
+	assert_eq!(
+		out,
+		json!(["walk|Walk to the entrance", "walk|Walk to the cave mouth", "walk|Walk to the Westbrook Keep entrance", "walk|Target"]),
+		"the mouths in the player's own subzone say no name; another place's door keeps its name"
+	);
+}
+
 #[test]
 fn k2_the_steps_stay_the_same_over_10_position_updates_along_a_leg_and_advance_as_each_is_reached() {
 	let out = run(&format!(

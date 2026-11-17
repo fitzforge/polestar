@@ -126,6 +126,13 @@ fn ctx() -> Ctx {
 		"start": { "npc": [5008], "object": [], "item": [] }, "end": { "npc": [5008], "object": [] },
 		"objectives": [{ "type": "event", "count": 1, "text": "Western pylon repaired", "map": home, "x": 40, "y": 40, "f": "e" }], "pre": [], "preAny": [], "zone": home, "rewards": [], "choices": [],
 		"how": "Gather mana with the Mana Sieve first; then use Repair and Recharge Pylon at the pylon." });
+	// #2833: two event objectives, each with its own place (Powering the Pylons' western and eastern pylons).
+	codex["quests"]["7013"] = json!({ "id": 7013, "title": "Two Pylons", "level": 18, "minLevel": 15, "faction": "A", "races": null, "classes": null,
+		"start": { "npc": [5008], "object": [], "item": [] }, "end": { "npc": [5008], "object": [] },
+		"objectives": [
+			{ "type": "event", "count": 1, "text": "Western pylon repaired", "map": home, "x": 40, "y": 40, "f": "e" },
+			{ "type": "event", "count": 1, "text": "Eastern pylon repaired", "map": home, "x": 70, "y": 30, "f": "e" }
+		], "pre": [], "preAny": [], "zone": home, "rewards": [], "choices": [] });
 	let mut frames: Vec<(i64, Value)> = codex["frames"].as_object().unwrap().iter().map(|(k, f)| (k.parse::<i64>().unwrap(), f.clone())).collect();
 	frames.sort_by_key(|(id, _)| *id);
 	let maps = frames
@@ -356,6 +363,46 @@ fn a_quest_s_how_is_its_step_s_note_2714() {
 	})
 	.remove(0);
 	assert_eq!(got["note"], json!("Gather mana with the Mana Sieve first; then use Repair and Recharge Pylon at the pylon."));
+}
+
+// #2833 (Shizo, Powering the Pylons): the quest's two pylons are event objectives, which shared one `complete` at the
+// first one's place, so the arrow stayed on the western pylon after it was repaired. With two or more placed events,
+// each is a goal at its place, read by its quest-log line, and the arrow moves on as each line ticks.
+#[test]
+fn a_quest_with_two_placed_events_has_a_goal_at_each_and_moves_on_as_each_ticks_2833() {
+	let c = ctx();
+	let got = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: world(&c, &format!("w.level = 20\nw.moveTo({}, 50, 50)\n", c.home)),
+		addons: vec!["Polestar".into()],
+		script: r#"stub.login()
+			local E, w = Polestar.Engine, stub.world
+			local id = Polestar.Lookup.Guide("quest", 7013)
+			local step = Polestar.Guides.Get(id).steps[1]
+			local goals = {}
+			for _, g in ipairs(step.goals) do goals[#goals + 1] = { t = g.t, oi = g.oi or false, logLine = g.logLine or false, x = g.x or false, y = g.y or false } end
+			w.accept(7013, { { text = "Western pylon repaired: 0/1", required = 1 }, { text = "Eastern pylon repaired: 0/1", required = 1 } }); stub.advance(0.6)
+			local function states() local out = {} for i, v in ipairs(E.GetStepView(1).goals) do out[i] = v.status end return out end
+			local before = states()
+			w.progress(7013, 1, 1); stub.advance(0.6)
+			emit({ goals = goals, before = before, after = states() })"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(
+		got["goals"],
+		json!([
+			{ "t": "accept", "oi": false, "logLine": false, "x": got["goals"][0]["x"], "y": got["goals"][0]["y"] },
+			{ "t": "kill", "oi": 1, "logLine": true, "x": 40, "y": 40 },
+			{ "t": "kill", "oi": 2, "logLine": true, "x": 70, "y": 30 },
+			{ "t": "turnin", "oi": false, "logLine": false, "x": got["goals"][3]["x"], "y": got["goals"][3]["y"] }
+		]),
+		"a goal at each pylon, by its quest-log line"
+	);
+	assert_eq!(got["before"][1], json!("active"), "the western pylon first: {}", got["before"]);
+	assert_eq!(got["after"][1], json!("done"), "{}", got["after"]);
+	assert_eq!(got["after"][2], json!("active"), "then the eastern one: {}", got["after"]);
 }
 
 // #2505 (kaigltv, Hot Wolf Ribs): every recipe went to the profession trainer, though most are taught by a recipe
