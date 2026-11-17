@@ -118,6 +118,59 @@ fn bag_button_deletes_only_on_a_second_press_within_five_seconds_and_only_the_it
 	assert_eq!(out[4], 1, "never with something on the cursor");
 }
 
+// #2369: with a bag in the bags and a bag slot empty, the bag button offered to delete junk instead of equipping the
+// bag. A bag that takes any item now comes first, on one press; a soul bag or a quiver is never offered, and with
+// every bag slot taken the button goes back to the junk.
+#[test]
+fn bag_button_equips_a_spare_bag_on_one_press_before_offering_any_delete() {
+	let out = run(&[
+		BAGS,
+		r#"
+		local S, b = QoL.Space, QoL.Buttons.bag
+		q.items[20] = { name = "Small Bag", quality = 1, price = 25, classID = 1, subclassID = 0, bagSize = 10 }
+		q.items[21] = { name = "Felcloth Bag", quality = 2, price = 900, classID = 1, subclassID = 1, bagSize = 20 }
+		q.items[22] = { name = "Light Quiver", quality = 1, price = 1, classID = 11, subclassID = 2, bagSize = 8 }
+		fill(1)
+		q.addItem(0, 16, 21, 1)
+		bagsChanged()
+		emit({ spare = S.Spare() ~= nil, junk = S.Junk().id, label = b.Label:GetText() })
+
+		q.addItem(0, 16, 22, 1)
+		bagsChanged()
+		emit({ spare = S.Spare() ~= nil, junk = S.Junk().id })
+
+		q.addItem(0, 16, 20, 1)
+		bagsChanged()
+		local s = S.Spare()
+		emit({ bag = s.bag, slot = s.slot, id = s.id, into = s.into, label = b.Label:GetText(), shown = b:IsShown() and true or false })
+
+		q.cursor = { 0, 3 }             -- something already on the cursor
+		emit(S.Press())
+		q.cursor = nil
+
+		q.click(b)
+		stub.advance(0.1)
+		emit({ worn = q.worn[21], deleted = #(q.deleted or {}), said = printed("Equipped |Hitem:20|h%[Small Bag%]|h%."),
+			free = (S.Free()), shown = b:IsShown() and true or false })
+
+		for bag = 2, 4 do q.bags[bag].size = 4 end
+		q.addItem(0, 16, 20, 1)
+		fill(1)
+		q.addItem(0, 16, 20, 1)
+		for bag = 2, 4 do for slot = 1, 4 do q.addItem(bag, slot, 3, 1) end end
+		bagsChanged()
+		emit({ spare = S.Spare() ~= nil, junk = S.Junk().id, shown = b:IsShown() and true or false })
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "spare": false, "junk": 2, "label": "" }), "a soul bag is not a spare bag");
+	assert_eq!(out[1], json!({ "spare": false, "junk": 2 }), "nor is a quiver");
+	assert_eq!(out[2], json!({ "bag": 0, "slot": 16, "id": 20, "into": 2, "label": "Press to equip", "shown": true }), "the first empty bag slot past the quiver");
+	assert_eq!(out[3], "busy", "never with something on the cursor");
+	assert_eq!(out[4], json!({ "worn": 20, "deleted": 0, "said": true, "free": 11, "shown": false }), "one press, nothing deleted");
+	assert_eq!(out[5], json!({ "spare": false, "junk": 2, "shown": true }), "every bag slot taken: back to the junk");
+}
+
 // #1557: the bag button deleted Noboru's Cudgel, a grey item that begins a quest, and the quest went with it. A
 // quest's item or a quest starter is never the junk to delete (Space) nor sold at a merchant (Vendor), even when it
 // is the cheapest grey; the other greys are offered and sold instead.
@@ -666,6 +719,21 @@ fn banner_bags_full_offers_the_two_click_delete_and_close_dismisses_it() {
 	assert_eq!(out[0], json!({ "shown": true, "text": "Your bags are full.\nCheapest junk: [Broken Fang] x2 (14c)", "jump": "Delete it", "close": true }));
 	assert_eq!(out[1], "Click again to delete it");
 	assert_eq!(out[2], json!({ "shown": false, "log": ["press", "dismiss"] }));
+}
+
+#[test]
+fn banner_bags_full_offers_a_spare_bag_before_the_junk() {
+	let out = run_ui(
+		r#"
+		bags = { free = 0, spare = { id = 20, link = "[Small Bag]", into = 2 }, junk = { id = 2, count = 2, value = 14, link = "[Broken Fang]" }, armed = false }
+		Polestar.Fire("BAG_SPACE")
+		emit({ text = B.Text:GetText(), jump = B.Jump.Label:GetText() })
+		B.Jump:Click()
+		emit(log)
+	"#,
+	);
+	assert_eq!(out[0], json!({ "text": "Your bags are full.\nSpare bag: [Small Bag]", "jump": "Equip it" }));
+	assert_eq!(out[1], json!(["press"]));
 }
 
 #[test]

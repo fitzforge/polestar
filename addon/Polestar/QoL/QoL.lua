@@ -488,6 +488,34 @@ function Client.DeleteSlot(bag, slot)
 	return true
 end
 
+-- Whether a regular bag slot (1 to NUM_BAG_SLOTS) has no bag in it: the
+-- client gives an empty slot no container slots and no worn item.
+function Client.BagSlotEmpty(bag)
+	if bag < 1 or bag > (NUM_BAG_SLOTS or 4) then return false end
+	if Client.NumSlots(bag) > 0 then return false end
+	local C = C_Container
+	local inv = C and C.ContainerIDToInventoryID and C.ContainerIDToInventoryID(bag)
+	return not (inv and Client.WornID(inv))
+end
+
+-- Puts the bag a bag slot holds into the empty bag slot `into` (PickupContainerItem,
+-- then PutItemInBag on that slot's inventory ID). Never with something already on the
+-- cursor; when the bag does not go in, the cursor is cleared, which puts it back. true
+-- when it went.
+function Client.EquipBag(bag, slot, into)
+	local C = C_Container
+	if not (C and C.PickupContainerItem and C.ContainerIDToInventoryID and PutItemInBag and CursorHasItem) then return false end
+	if CursorHasItem() then return false end
+	C.PickupContainerItem(bag, slot)
+	if not CursorHasItem() then return false end
+	PutItemInBag(C.ContainerIDToInventoryID(into))
+	if CursorHasItem() then
+		if ClearCursor then ClearCursor() end
+		return false
+	end
+	return true
+end
+
 function Client.ItemCount(itemID)
 	local C = ns.Compat
 	if C and C.GetItemCount then return C.GetItemCount(itemID) or 0 end

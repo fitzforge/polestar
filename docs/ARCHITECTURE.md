@@ -7679,9 +7679,11 @@ Polestar.QoL.Marks.Protected(itemID) -> bool              -- marked keep, or QoL
 Polestar.QoL.Marks.Junk(itemID) -> bool                   -- marked junk and not protected
 Polestar.QoL.Space.Count() -> free, total                 -- slots of bags whose family is 0 (no quivers, soul or profession bags)
 Polestar.QoL.Space.Cheapest() -> { bag, slot, id, count, value, link } | nil
+Polestar.QoL.Space.SpareBag() -> { bag, slot, id, link, into } | nil -- a bag that takes any item, with a bag slot empty
+Polestar.QoL.Space.Spare() -> SpareBag()'s answer while the bags are low | nil
 Polestar.QoL.Space.Low() -> bool                          -- qol.bagSpace on and free <= qol.bagsLow (2)
-Polestar.QoL.Space.Press() -> "armed" | "deleted" | "none" | "busy" | "off"
-Polestar.QoL.Space.Banner() -> { free, junk, armed } | nil -- while low and the live step has an open collect goal
+Polestar.QoL.Space.Press() -> "equipped" | "armed" | "deleted" | "none" | "busy" | "off"
+Polestar.QoL.Space.Banner() -> { free, spare, junk, armed } | nil -- while low and the live step has an open collect goal
 Polestar.QoL.Space.Dismiss()                              -- the banner, until the bags have room again
 ```
 
@@ -7706,6 +7708,16 @@ Polestar.QoL.Space.Dismiss()                              -- the banner, until t
   below (an uncommon one sells instead), never a protected one nor a quest's
   item or quest starter (`Client.SlotQuest`). Cheapest by
   vendor price × stack; no value is 0, an uncached price goes last.
+- **A spare bag first** (#2369): while the bags are low, a bag that takes
+  any item (`Enum.ItemClass.Container`, subclass 0; never a soul,
+  profession or ammo bag, nor a quiver) sitting in the bags while a regular
+  bag slot is empty (`Client.BagSlotEmpty`: no container slots and nothing
+  worn there) is offered before any junk. One `Press` equips it
+  (`Client.EquipBag`: `PickupContainerItem`, then `PutItemInBag` on the
+  slot's `ContainerIDToInventoryID`; the cursor cleared when it does not go
+  in), since nothing is lost. The slot is read again first; nothing on the
+  cursor beforehand. The button says "Press to equip" and the banner "Equip
+  it"; the junk comes back once every bag slot is taken.
 - **Two presses.** `Press` arms the cheapest junk for 5 s; a second `Press`
   while that same slot still holds that same item (read again) picks it up
   and calls `DeleteCursorItem` (restricted: only from a press, as the
