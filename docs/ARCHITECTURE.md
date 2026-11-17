@@ -1923,7 +1923,9 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   opened; learning one updates), and the player's
   answer at a group quest (`Own.groupAnswer`:
   `CharState().groupQuests[q]`, "do" or "skip", set by `Engine.AnswerGroup`
-  from the guide window's banner or Options, Discovery, Group quests;
+  from the guide window's banner or Options, Discovery, Group quests; the
+  banner's "Skip it" offers its undo there for 20 seconds, `AnswerGroup(q,
+  nil)`, which asks again, #2404;
   `Engine.GroupQuests` lists a character's; a quest not answered takes
   `behavior.groupQuests`, "do" or "skip" for all of them, or "ask", none,
   re-evaluated on `SETTING_CHANGED`; Options, Guide, Automation, "Group
@@ -6054,8 +6056,11 @@ order (`{}` without a profile or hubs). Reasons: `nodata`, `outside`, `offmesh`,
 slices of `Path.budget` ms (3 ms at any frame rate; 0.3.1 grew it to 8 ms at
 100 fps, halving the frame rate while a search ran) and wait out combat. A
 decode yields at its slice points to its very end. Once the queue is empty
-the router rests: `Rest` trims the decoded graph to `Path.graphRestKB`, and
-decoded clusters, the decoder's scratch and the endpoint trees stay for the
+the router rests: `Rest` trims the decoded graph to `Path.graphRestKB` and the
+endpoint trees to the newest `Path.restTrees` (2; up to four while a search
+runs), the endpoint trees' spare pool (one tree, filled only while a run
+gives up more than it keeps) empties, and decoded clusters, the decoder's
+scratch and the kept endpoint trees stay for the
 next search (a walk from nearby reads the same clusters: 0.3.1 decoded them
 again for every search); after `Path.restSeconds` (60) with no search `Idle`
 drops them, except the one `Path.SurfacesAt` reads (the player's floor, until
@@ -6065,6 +6070,10 @@ batch's is the next one's) stays `Path.spareSeconds` (15): until 0.3.4 every
 emptied queue dropped it, so a walk re-asked every few seconds grew those
 tables again every time. `Path.cacheKB` and `Path.graphKB` cap them
 meanwhile, all set in `API.lua`.
+A grid search tree is three tables keyed by node: its costs, its yards (maps
+with classes) and its parent and mark in one number (`stamp * 2^20 + parent +
+1`; 0.4.1, #2531: they were two tables, and a tree's tables sit in the hash
+part at 40 bytes a key, a city cluster's tree up to 5 MB).
 The maps are base64 zlib blocks decoded per cluster with `C_EncodingUtil`.
 `forge nav check` holds the maps to `PACK.json` (grid build, cells, date, sizes,
 the sha256 of every file), and `Nav.xml` to it.
@@ -6329,10 +6338,12 @@ The quest is the goal's own, else the first quest within 40 steps whose
 objectives ask for the item. Optional goals, goals naming the NPC who hands
 the item over, quests done or skipped, and quests that hand the item over
 themselves are left out. Scope `all` adds the item objectives of the other
-quests in the log. Per item: the most each quest asks for, summed over the
-quests, less what the character holds (`Materials.Have`: the bags, the bank,
-the mail and what was bought and is on its way; `GetItemCount` with the bank
-without it); only items still short are listed.
+quests in the log, but not of a quest whose every goal in the running guide
+is optional (an `optional` goal or step, #2553: the guide takes it only when
+the player already has the item). Per item: the most each quest asks for,
+summed over the quests, less what the character holds (`Materials.Have`: the
+bags, the bank, the mail and what was bought and is on its way;
+`GetItemCount` with the bank without it); only items still short are listed.
 
 The rule. An item is an auction house buy when it is all of:
 
@@ -7095,7 +7106,10 @@ Where they stand follows the Buttons page (`TL.side`): in a column
 (`buttons.layout`) beside the target button on its name's side
 (`qol.buttonTextSide`, left or else right), the first row level with its top;
 in a row under it, reaching away from the quest item button; the gap is the
-set's spacing (`buttons.spacing`). `Buttons.ListRect(n)` gives the rows' box
+set's spacing (`buttons.spacing`). With `buttons.listUp` (Target list upward,
+off by default, #2590: `TL.up`) the rows go up instead: beside the button the
+first row level with its bottom, in a row over it; the rare button then keeps
+its slot. `Buttons.ListRect(n)` gives the rows' box
 from the target button's centre, `Buttons.Offsets(n)` moves the rare button
 along the set to clear it, `place()` adds it to the holder's clamp and
 Unlock mode to the quest buttons' box (`Buttons.ListRows`), and
@@ -7538,8 +7552,10 @@ Polestar.QoL.XPMark.frame                                -- the mark, once made
   first" ("reach 23 first" without an XP rate). Grinding time is the XP
   short over the QoL tracker's XP an hour. Nothing without the Codex
   (Lookup), at 60, or with no target (a guide that is not a leveling one
-  with no `level` goal ahead). Re-read with the XP row and on
-  `STEP_CHANGED`.
+  with no `level` goal ahead), or with the Pace line switch off
+  (`guideWindow.pace`, Guide window > Parts > Below the goals; #2371,
+  #2379: the row keeps the XP an hour). Re-read with the XP row, on that
+  switch and on `STEP_CHANGED`.
 - **A quest well over your level, on its step** (`Levels.StepHint(i)`): a
   step with work (not an accept, a hand-in or a talk: taking a quest early
   is normal) on an open quest 3 or more levels above the character says so

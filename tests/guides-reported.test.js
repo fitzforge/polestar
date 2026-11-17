@@ -2462,6 +2462,35 @@ test(`forever/alliance/40-50/05-the-hinterlands.guide: Mokk's heart waits for Un
 	assert.ok(heart > ritual, 'the heart comes after the fangs are handed in');
 	assert.ok((steps[heart].when || []).some((p) => p.k === 'turnedin' && !p.neg && [].concat(p.q).includes(349)), 'and only once Unbagwa has them: Mokk comes from his ritual');
 });
+test('forever/horde/50-60/05-eastern-plaguelands.guide: Gaeriyan waits for Meet at the Grave (#2561 sweep)', { skip }, () => {
+	// The elixir comes only from Gregan's Evoroot hand-in, gated on the Evoroot since #2561's sweep: a player without
+	// it never hands The Videre Elixir to Donova or takes Meet at the Grave, and the Gaeriyan step (drink the elixir)
+	// must not hold the route. Not `when has 11243`: drinking it there would drop the step before Gaeriyan.
+	const { steps } = compiled('forever/horde/50-60/05-eastern-plaguelands.guide');
+	const st = steps.find((s) => s.goals.some((g) => g.t === 'use' && g.item === 11243));
+	assert.ok(st && st.goals.some(is('turnin', 3912)), 'the elixir is drunk on the Gaeriyan step');
+	const when = st.when || [];
+	assert.ok(when.some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(3912)), 'only with Meet at the Grave in the log');
+});
+// A step shown only while the bags hold an item (`when has I`) stops applying the moment the item is used up, so
+// nothing may follow the goal that uses it up (a `use`, an accept the item starts, a hand-in that takes it) but what
+// that goal hands over (a collect of its reward): the rest of the step would be passed half done.
+test('Every guide: a step gated on carrying an item holds no work after the goal that uses the item up (#2561 sweep)', { skip }, () => {
+	const bad = [];
+	for (const guide of allGuides()) {
+		for (const st of compiled(guide).steps) {
+			for (const p of (st.when || []).filter((w) => w.k === 'has' && !w.neg)) {
+				const uses = (g) => (g.t === 'use' && g.item === p.item) || (g.t === 'accept' && g.item === p.item)
+					|| (g.t === 'turnin' && data.quests[g.quest] && directNeeds(g.quest).has(p.item));
+				const at = st.goals.findIndex(uses);
+				if (at < 0) continue;
+				const after = st.goals.slice(at + 1).filter((g) => !g.optional && g.t !== 'collect' && g.t !== 'note' && !uses(g));
+				if (after.length) bad.push(`${guide} "${st.title}" (has ${p.item}): ${after.map((g) => `${g.t} ${g.quest || g.item || ''}`).join(', ')}`);
+			}
+		}
+	}
+	assert.deepEqual(bad, []);
+});
 test('Every guide: no required hand-in straight from the bags can hold the route without its items (#2561 sweep)', { skip }, () => {
 	const bad = [];
 	for (const guide of allGuides()) {
@@ -13534,11 +13563,15 @@ test('no Alliance guide waits on Vimes\'s Report (#1984, #2493)', { skip }, () =
 });
 
 // #1985: Dustwallow Marsh's venom-sac step named only the Darkfang Venomspitters; every Darkfang spider drops the
-// Acidic Venom Sacs for The Black Shield (1322), the Giant Darkfang Spiders too (drop data, players' recordings).
-test('guide-fixes says every Darkfang spider drops the Acidic Venom Sacs (#1985)', () => {
+// Acidic Venom Sacs for The Black Shield (1322), the Giant Darkfang Spiders too (drop data, players' recordings). The
+// record alone never reached the guide (0.4.0 was not rebuilt from it): the guide's goal line carries the note.
+test('Dustwallow Marsh (Horde): the venom-sac goal says every Darkfang spider drops them, in the guide and its record (#1985)', { skip }, () => {
 	const { fixes } = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8'));
 	const r = fixes.find((f) => f.at && f.at.quest === 1322 && f.at.goal === 'objective' && f.at.objective === 1);
 	assert.ok(r && /Giant Darkfang Spiders/.test(r.goalNote) && /Lurkers/.test(r.goalNote), 'a goal note on 1322.1 naming every Darkfang kind');
+	const list = goals('forever/horde/30-40/04-dustwallow-marsh.guide');
+	const { goal } = list[at(list, 'collect 5959 quest 1322', (g) => g.t === 'collect' && g.item === 5959 && g.quest === 1322)];
+	for (const kind of ['Lurkers', 'Spiders', 'Venomspitters', 'Giant Darkfang Spiders']) assert.match(goal.note || '', new RegExp(kind), `the guide's goal names the ${kind}`);
 });
 
 // Dungeons in the route (0.3.8): a dungeon a character chose is injected into the one route as steps, every
@@ -15528,3 +15561,75 @@ test('#2563: Wetlands (Alliance): Fall of Dun Modr is taken on its own step, onl
 	const hills = goals('forever/alliance/30-40/01-hillsbrad-foothills.guide');
 	assert.ok(at(hills, 'turnin 472', is('turnin', 472)) >= 0, 'Longbraid still takes it on the Dun Modr stop');
 });
+
+// --- Bare `complete`s away from the giver (#703): with no place of its own, a
+// `complete` leads the arrow to the quest's giver (#303). For these quests the
+// work is somewhere else: Coriella Calmbreeze north-west of Shen'dar Village,
+// Frankal and Rutgar at Bronzebeard's Encampment while the giver is in
+// Cenarion Hold, the Aged Kodos in the Kodo Graveyard. Each objective is its
+// own goal with a place, before the turn-in, or the `complete` has a place
+// (Ayessa Dawnsinger, as Elaadrin in the Horde guide: the data has her for
+// the other faction only, so a `kill` of her reads as an elite to fight).
+// (Restored after 0.4.0: the case was lost while the place records, data/places.json's 703-*, still hold.)
+const AWAY_FROM_THE_GIVER = [
+	[ZEPHRAS_ALLIANCE, 93461], // Welcome to Shen'dar Village
+	[ZEPHRAS_ALLIANCE, 92849], // The Missing Scholar
+	[ZEPHRAS_ALLIANCE, 92640], // Desperate Times
+	['forever/alliance/50-60/06-silithus.guide', 8304], // Dearest Natalia
+	['forever/alliance/30-40/02-desolace.guide', 5561], // Kodo Roundup
+	[MULGORE, 833], // A Sacred Burial
+];
+
+test('#703: quests whose objectives are away from the giver lead to each objective', { skip }, () => {
+	data = data || loadData(DATA);
+	for (const [guide, quest] of AWAY_FROM_THE_GIVER) {
+		const list = goals(guide);
+		const take = at(list, `${guide}: accept ${quest}`, is('accept', quest));
+		const give = at(list, `${guide}: turnin ${quest}`, is('turnin', quest));
+		const between = list.slice(take + 1, give).filter(({ goal }) => goal.quest === quest);
+		assert.deepEqual(between.filter((x) => !located(x)).map(({ goal }) => goal.t), [], `${guide}: every goal of ${quest} has a place for the arrow`);
+		const objectives = data.quest(quest).objectives.map((_, i) => i + 1);
+		const placedComplete = between.some(({ goal }) => goal.t === 'complete');
+		assert.deepEqual(placedComplete ? [] : objectives.filter((oi) => !between.some(({ goal }) => goal.oi === oi)), [], `${guide}: every objective of ${quest} has its goal before the turn-in`);
+	}
+});
+
+// Item-started quests whose item comes from an earlier step (the "lost item" persona sweep, 0.4.1): a player who
+// skipped that step, or lost or sold the item, was held at an accept nothing at that place can start. The accept is
+// a step of its own, shown only with the item in the bags; the quest's later goals there need it, so they drop out by
+// its prerequisite. The accept uses the item up, so nothing follows it in its step.
+for (const [guide, quest, item] of [
+	['forever/collectibles/pets/mechanical-chicken.guide', 2766, 8705],
+	['forever/collectibles/pets/mechanical-chicken.guide', 351, 8623],
+	['forever/collectibles/pets/mechanical-chicken.guide', 485, 8704],
+	['forever/reputation/stormwind.guide', 91741, 247834],
+]) {
+	test(`${guide}: the item-started accept of ${quest} shows only with item ${item} in the bags`, { skip }, () => {
+		const { steps } = compiled(guide);
+		const at = steps.filter((st) => st.goals.some(is('accept', quest)));
+		assert.equal(at.length, 1, `one accept of ${quest}`);
+		const [st] = at;
+		assert.ok((st.when || []).some((p) => p.k === 'has' && !p.neg && p.item === item), `"${st.title}" shows only with item ${item}`);
+		assert.deepEqual(st.goals.map((g) => `${g.t} ${g.quest}`), [`accept ${quest}`], `"${st.title}" holds only the accept`);
+		const rest = steps.find((s) => s !== st && s.goals.some(is('turnin', quest)));
+		assert.ok(rest && !(rest.when || []).some((p) => p.k === 'has'), `${quest}'s hand-in step needs no item gate: it needs the accept`);
+	});
+}
+// Companion pets from a quest (0.4.1 persona sweep): a player who did the quest before the guide, or used the cage
+// right after the hand-in, was held at "Collect <pet>". The hand-in step shows only while the quest is not handed in;
+// the Mechanical Chicken's only with the three rescues handed in, since An OOX of Your Own needs them.
+for (const [guide, quest, pet, needs] of [
+	['forever/collectibles/pets/mechanical-chicken.guide', 3721, 10398, [2767, 648, 836]],
+	['forever/collectibles/pets/smolderweb-carrier.guide', 4862, 12529, []],
+	['forever/collectibles/pets/worg-carrier.guide', 4729, 12264, []],
+	['forever/collectibles/pets/spectral-bear-cub.guide', 96383, 277714, []],
+]) {
+	test(`${guide}: the pet's step shows only while ${quest} is still to hand in`, { skip }, () => {
+		const { steps } = compiled(guide);
+		const st = steps.find((s) => s.goals.some((g) => g.t === 'collect' && g.item === pet));
+		assert.ok(st && st.goals.some(is('turnin', quest)), 'the pet is collected on its quest\'s hand-in step');
+		const when = st.when || [];
+		assert.ok(when.some((p) => p.k === 'turnedin' && p.neg && [].concat(p.q).includes(quest)), `only while ${quest} is not handed in`);
+		for (const q of needs) assert.ok(when.some((p) => p.k === 'turnedin' && !p.neg && [].concat(p.q).includes(q)), `and only once ${q} is`);
+	});
+}

@@ -488,3 +488,86 @@ fn duskwood_the_walk_to_zzarc_vul_goes_in_by_the_vulgol_ogre_mounds_entrance_194
 	let yards = yards_of(&pts);
 	assert!(yards < 350.0, "the walk in is {yards:.0} yd");
 }
+
+// #2331 (Logan), Wetlands, the Water Totem's Call of Water: from the road (48.00,39.13) the arrow pointed straight at
+// Hervdana Saegrund (65.80,76.50) over the mountain. Her ledge above the Dun Algaz road was joined to nothing on the
+// walking maps, so every walk to her came back with no way; players walk up to her from the road to the north. A grid
+// join puts that way in: the walk from the reporter's spot, and from Menethil Harbor, is found and ends at her.
+#[test]
+fn wetlands_the_walk_to_hervdana_saegrund_is_found_from_the_road_and_from_menethil_harbor_2331() {
+	forge_addontest::needs!("map-frames.json");
+	let hervdana = world(1437, 65.80, 76.50);
+	for (from, what) in [(world(1437, 48.00, 39.13), "the reporter's spot"), (world(1437, 10.80, 59.60), "Menethil Harbor")] {
+		let got = walk(from, hervdana, Some("Alliance"));
+		assert!(truthy(&got), "the engine finds a walk from {what} to Hervdana Saegrund");
+		let pts = points(&got);
+		let last = pts[pts.len() - 1];
+		let gap = (last.0 - hervdana.x).hypot(last.1 - hervdana.y);
+		assert!(gap < 10.0, "the walk from {what} ends {gap:.1} yd from her");
+	}
+	joined_both_ways(world(1437, 64.50, 74.90), hervdana, Some("Alliance"), "Hervdana Saegrund's ledge");
+}
+
+// #2316 (Fenn), Desolace, Horde: walking up to Gurda Wildmane at Ghost Walker Post from the road to the east, the arrow
+// led straight up the post's east face, which can't be climbed. Players' recordings come down that face and go up by
+// the slope on the north side. The face is a cut on the walking maps now (up across it is closed, down stays): the walk
+// from the road (60.0,60.5) to Gurda (56.29,59.68) goes round by the north side, and crosses the face's line (Desolace
+// 57.3 from 57.6 to 60.3) nowhere.
+#[test]
+fn desolace_the_walk_from_the_road_to_gurda_wildmane_goes_up_the_north_slope_not_the_east_face_2316() {
+	forge_addontest::needs!("map-frames.json");
+	let road = world(1443, 60.0, 60.5);
+	let gurda = world(1443, 56.29, 59.68);
+	let (north, south) = (world(1443, 57.3, 57.6), world(1443, 57.3, 60.3));
+	let got = walk(road, gurda, Some("Horde"));
+	assert!(truthy(&got), "the engine finds a walk from the road to Gurda Wildmane");
+	let pts = points(&got);
+	for w in pts.windows(2) {
+		let (a, b) = (w[0], w[1]);
+		if (a.1 - north.y) * (b.1 - north.y) <= 0.0 && a.1 != b.1 {
+			let t = (north.y - a.1) / (b.1 - a.1);
+			let x = a.0 + (b.0 - a.0) * t;
+			assert!(x > north.x || x < south.x, "the walk crosses the east face's line at {x:.1} (the face runs {:.1} to {:.1})", north.x, south.x);
+		}
+	}
+}
+
+// The city sweep (0.4.1, #2028): every guide goal in the capitals walked from its city's flight master. Three NPCs
+// whose spawn height stands a few yards beside or under the surfaces of their own cell (a bar, a counter, a balcony's
+// steps) were walked to nowhere at their height, and without it over the city's roof: Gwenna Firebrew, the Stonefire
+// Tavern's innkeeper (Ironforge 18.64,51.76, 502), Nissa Firestone (the Great Forge, 55.09,58.26, 512.5) and Connor
+// Rivers (Stormwind's Mage Quarter, 105.2). The router settles such a goal on the surface nearest its height a few
+// cells away that walks to the city, so the walk to them is found at the NPC's height (Gwenna's and Connor's both
+// ways; a walk from Nissa's spot still settles on the ledge beside her, as starts do).
+#[test]
+fn ironforge_and_stormwind_npcs_beside_their_cells_surfaces_are_walked_to_at_their_height() {
+	let ironforge_fm = Pt { c: 0, x: -4821.1, y: -1152.4, z: Some(502.3) };
+	joined_both_ways(ironforge_fm, Pt { c: 0, x: -4842.3, y: -861.0, z: Some(502.0) }, Some("Alliance"), "Gwenna Firebrew");
+	let nissa = Pt { c: 0, x: -4876.6, y: -1149.2, z: Some(512.5) };
+	let got = walk(ironforge_fm, nissa, Some("Alliance"));
+	assert!(truthy(&got), "the engine finds a walk from Ironforge's flight master to Nissa Firestone");
+	let pts = points(&got);
+	let last = pts[pts.len() - 1];
+	assert!(last.2.is_some_and(|z| (z - 512.5).abs() < 5.0) && (last.0 - nissa.x).hypot(last.1 - nissa.y) < 10.0, "the walk ends at Nissa Firestone");
+	joined_both_ways(Pt { c: 0, x: -8835.8, y: 490.1, z: Some(109.7) }, Pt { c: 0, x: -9102.3, y: 834.7, z: Some(105.2) }, Some("Alliance"), "Connor Rivers");
+}
+
+// The city sweep's NPCs whose floor neither map joined to the city (0.4.1, #2028): grid joins from the flight master.
+// Ilsa Corbin, Stormwind's warriors' trainer in Old Town (109.5), Thatog in Orgrimmar's Valley of Strength (36.7) and
+// Jes'rimon on the Drag (54.8) are walked to at their height and back; Thom Filch, under Ironforge (399.1, the
+// Forever server's spawn), is walked to (our grid's way down to him has a drop it can't climb back, so the way out
+// is left for the in-game check).
+#[test]
+fn stormwind_orgrimmar_and_ironforge_npcs_on_floors_joined_from_the_flight_master_are_walked_to_at_their_height_2028() {
+	let stormwind_fm = Pt { c: 0, x: -8835.8, y: 490.1, z: Some(109.7) };
+	let orgrimmar_fm = Pt { c: 1, x: 1676.3, y: -4313.4, z: Some(61.7) };
+	joined_both_ways(stormwind_fm, Pt { c: 0, x: -8688.6, y: 325.8, z: Some(109.5) }, Some("Alliance"), "Ilsa Corbin");
+	joined_both_ways(orgrimmar_fm, Pt { c: 1, x: 1598.6, y: -4460.2, z: Some(36.7) }, Some("Horde"), "Thatog");
+	joined_both_ways(orgrimmar_fm, Pt { c: 1, x: 1955.1, y: -4459.4, z: Some(54.8) }, Some("Horde"), "Jes'rimon");
+	let thom = Pt { c: 0, x: -4803.7, y: -968.2, z: Some(399.1) };
+	let got = walk(Pt { c: 0, x: -4821.1, y: -1152.4, z: Some(502.3) }, thom, Some("Alliance"));
+	assert!(truthy(&got), "the engine finds a walk from Ironforge's flight master to Thom Filch");
+	let pts = points(&got);
+	let last = pts[pts.len() - 1];
+	assert!(last.2.is_some_and(|z| (z - 399.1).abs() < 5.0), "the walk to Thom Filch ends at his height, not {:?}", last.2);
+}

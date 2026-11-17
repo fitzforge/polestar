@@ -15,6 +15,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { runAddon, ADDONS } = require('./helpers/lua');
 const { localPacks } = require('./helpers/profile');
+const { assertTiming } = require('./helpers/timing');
 
 // Sorted ids, spread with gaps, in chunks of at most `per`, like the pack's.
 function chunks(ids, per) {
@@ -159,5 +160,5 @@ local function time(from)
 end
 emit({ first = time(1), last = time(${n} - 1999) })`,
 	}).emitted;
-	assert.ok(r.last <= Math.max(r.first * 5, 0.02), `last ids ${(r.last * 1000).toFixed(1)} ms vs first ${(r.first * 1000).toFixed(1)} ms`);
+	assertTiming(r.last <= Math.max(r.first * 5, 0.02), `last ids ${(r.last * 1000).toFixed(1)} ms vs first ${(r.first * 1000).toFixed(1)} ms`);
 });

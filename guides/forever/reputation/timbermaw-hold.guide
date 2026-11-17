@@ -110,6 +110,10 @@ step Deadwood Ritual Totem
   zone Felwood
   tip The northern Deadwood rarely drop a Deadwood Ritual Totem (about 3%). From Neutral, Kernda takes it in the tunnel, on the Felwood side: 150 reputation and two Major Healing and Mana Potions.
   accept 8470
+
+step Kernda: the Deadwood totem
+  when onquest 8470
+  zone Felwood
   turnin 8470
 
 step Winterfall Ritual Totem
@@ -117,6 +121,10 @@ step Winterfall Ritual Totem
   zone Felwood
   tip The Winterfall furbolgs rarely drop a Winterfall Ritual Totem (3-4%). Kernda takes it in the tunnel too: 150 reputation and three Major Healing and Mana Potions.
   accept 8471
+
+step Kernda: the Winterfall totem
+  when onquest 8471
+  zone Felwood
   turnin 8471
 
 step Neutral to Friendly

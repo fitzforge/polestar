@@ -43,7 +43,8 @@
 //!    (write integral numbers without `.0`); `assert.equal(x, undefined)` → `assert!(x.is_null())`;
 //!    `assert.ok(x)` → `assert!(`[`truthy`]`(&x))`; `assert.match(s, /re/)` → `assert!(`[`is_match`]`(s, r"re"))`
 //!    with the same pattern (JS and Rust regex syntax agree on what these tests use; `/re/s` → `(?s)`).
-//!    Keep each assertion's message as the macro's message.
+//!    Keep each assertion's message as the macro's message. A figure read off a clock (a timing budget) is
+//!    [`assert_timing!`] instead of `assert!`: it only warns on CI's shared runners ([`timing`]).
 //! 5. Guide text: [`dsl::guide_text`], [`dsl::line_of`], [`dsl::compile`] / [`dsl::compile_with`]
 //!    (`compile(text, data, { pack })`), [`dsl::plain`] (`plain(r.guides[0])`), [`dsl::write_our_test_pack`] /
 //!    [`dsl::write_test_pack`] (`writeTestPack`; keep the returned [`dsl::TestPack`] alive while Lua reads
@@ -64,6 +65,7 @@ pub mod navmap;
 pub mod playtest;
 pub mod questdb;
 pub mod run;
+pub mod timing;
 pub mod tmp;
 
 pub use locale::{fake_locale, shipped_strings};

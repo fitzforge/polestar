@@ -670,6 +670,14 @@ forge nav check
   adds nothing, so a later pack of his that has the way changes nothing. PACK.json's `leffe.joins` counts what was
   added. Add a pair only when players walk it in the game (recordings, an in-game check, a report) and the walking
   maps have no way, or a long detour, between its ends.
+- **Cuts** (`pack/cuts.rs`; the lines in `pack/joins.json`'s `cuts`, compiled in): faces players cannot walk up
+  that his maps (and our grid) walk up. A cut is a line on a map and a band of heights; with `--leffe`, every move of
+  his maps that crosses the line going up (its end more than 0.5 yd above its start, both ends in the band) is taken
+  out: a base cell's step by its data flag, a floor's step by its step mask, an explicit link, an arc. Each step taken
+  out comes back as a one-way arc down, so walks still go down the face, never up it. The cut clusters' entrance
+  edges are priced again where the cut changed their walk (dearer by the way round, gone with no way left); the
+  others keep their costs. PACK.json's `cuts` counts them. Add a cut only where players' recordings or a report show
+  the face can't be climbed (Ghost Walker Post's east face, #2316).
 - Ground no player reaches is left out of his maps (`pack/reach.rs`, Shortest Path Forever v1.33's rule,
   ported): a walk is followed from every fixed place (flight masters and inns by their NPC's spawn in
   `data/forever/spawnz.json`, boat, zeppelin, tram and lift landings and portal ends from `travel.json`, the travel
