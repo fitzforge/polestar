@@ -36,7 +36,7 @@ return {
 	-- plural, as words: Bloodpetal Flayers = {npc:6510} Bloodpetal Flayer · Bloodpetal Threshers = {npc:6511} Bloodpetal Thresher
 	["Top up here to level 51 before the crater's loop: its {npc:9166} and Bloodpetal Flayers are up to level 52. The Bloodpetal Threshers (49-50) on the slopes south-east of the refuge are under your level, and {npc:9118} wants five of them. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Доберите здесь 51-й уровень до маршрута по кратеру: жутедактили ({npc:9166}) и кровоцветы-живодеры там до 52-го уровня. Кровоцветы-крепкозубы (49-50) на склонах к юго-востоку от лагеря ниже вас по уровню, а {npc:9118} просит пятерых из них. Или, с группой, пройдите вместо этого подземелье {area:1417} или {area:2100}.",
 	-- {npc:6511} Bloodpetal Thresher
-	["grind on {npc:6511}"] = "",
+	["grind on {npc:6511}"] = "убивайте: {npc:6511}",
 
 	-- Step 6: Pterrordax
 	-- {npc:9166} Pterrordax · {npc:9998} Shizzle · {npc:9997} Spraggle Frock · {npc:9167} Frenzied Pterrordax
@@ -50,7 +50,7 @@ return {
 
 	-- Step 8: Lakkari Tar Pits: kill these as you meet them
 	-- {area:538} Lakkari Tar Pits
-	["{area:538}: kill these as you meet them"] = "",
+	["{area:538}: kill these as you meet them"] = "{area:538}: убивайте их по пути",
 	-- {area:537} Fire Plume Ridge · {npc:9998} Shizzle · {npc:8659} Jes'rimon
 	-- plural, as words: Bloodpetal Flayers = {npc:6510} Bloodpetal Flayer · Dinosaur Bones = {item:11114} Dinosaur Bone · Elder Diemetradons = {npc:9164} Elder Diemetradon · Bloodpetal Trappers = {npc:6512} Bloodpetal Trapper
 	["Ride south-west to {area:537}, the volcano in the middle of the crater. Bloodpetal Flayers grow around its foot.\nSouth of the hot springs, Dinosaur Bones lie on the ground among the Stegodons and drop from the Diemetradons nearby, which also carry the scales {npc:9998} wants. Careful: the Stegodons are elites (52-53): pick the bones up around them, don't pull them; the Elder Diemetradons are 53-55, take the smaller ones. Ravasaurs hunt in packs in the south-west: their claws are for {npc:8659}, and now and then one carries a Mangled Journal (a rare drop: take its quest only if you get one). Avoid Gruff, a level 57 Stegodon.\nRide south-west along the western cliffs. Bloodpetal Trappers grow in the jungle there. Careful: the biggest Trappers are 53: pull them one at a time."] = "Езжайте на юго-запад: {area:537}, вулкан в центре кратера. У его подножия растут кровоцветы-живодеры.\nК югу от горячих источников кости динозавров лежат на земле среди стегодонов и падают с деметродонов рядом, у которых также чешуя для персонажа {npc:9998}. Осторожно: стегодоны — элита (52-53): собирайте кости вокруг них, не агрите их; старые деметродоны — 53-55, бейте тех, что поменьше. Равазавры охотятся стаями на юго-западе: их когти – для персонажа {npc:8659}, а иногда с них падает истрепанный дневник (редкая добыча: берите задание, только если он выпадет). Избегайте Граффа – стегодона 57-го уровня.\nЕзжайте на юго-запад вдоль западных утесов. Там в джунглях растут кровоцветы-звероловы. Осторожно: самые крупные звероловы — 53-го уровня: вытягивайте по одному.",
@@ -106,14 +106,14 @@ return {
 
 	-- Step 21: Un'Goro Crater: kill these as you meet them
 	-- {zone:1449} Un'Goro Crater
-	["{zone:1449}: kill these as you meet them"] = "",
+	["{zone:1449}: kill these as you meet them"] = "{zone:1449}: убивайте их по пути",
 	["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "Ящик экспедиции стоит в заброшенном лагере в восточных джунглях.",
 
 	-- Step 22: Marshal's Refuge
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the entrance"] = "{npc:9998}, у входа",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, below ground"] = "",
+	["{npc:9117}, below ground"] = "{npc:9117}, под землей",
 	-- {npc:9118} Larion · {quest:4147} Marvon's Workshop · {npc:8737} Linken
 	["Keep {npc:9118}'s {quest:4147} and {npc:8737}'s letter for later guides."] = "Сохраните задание {quest:4147} ({npc:9118}) и письмо ({npc:8737}) для следующих руководств.",
 
@@ -165,7 +165,7 @@ return {
 
 	-- Step 33: To Gadgetzan
 	-- {area:976} Gadgetzan
-	["To {area:976}"] = "",
+	["To {area:976}"] = "В место {area:976}",
 
 	-- Step 34: Gadgetzan
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn · {area:983} Dunemaul Compound
@@ -173,7 +173,7 @@ return {
 
 	-- Step 35: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, внутри",
 
 	-- Step 36: Orgrimmar
 	-- {area:1637} Orgrimmar · {area:16727} Powderfuse Port · {zone:1458} Undercity
@@ -181,13 +181,13 @@ return {
 
 	-- Step 37: Back to Gadgetzan
 	-- {area:976} Gadgetzan
-	["Back to {area:976}"] = "",
+	["Back to {area:976}"] = "Назад: {area:976}",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "Распорядитель полетов: {zone:1454}",
 
 	-- Step 38: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
-	["Boat to {area:16727}"] = "",
+	["Boat to {area:16727}"] = "Корабль: {area:16727}",
 	-- {npc:9706} Yorba Screwspigot · {quest:4324} Yuka Screwspigot · {area:251} Flame Crest
 	["{npc:9706}, by the dock: for {quest:4324} at {area:251}, later in this guide"] = "",
 
@@ -237,7 +237,7 @@ return {
 
 	-- Step 48: Ruins of Thaurissan: kill these as you meet them
 	-- {area:250} Ruins of Thaurissan
-	["{area:250}: kill these as you meet them"] = "",
+	["{area:250}: kill these as you meet them"] = "{area:250}: убивайте их по пути",
 	-- {quest:4296} Tablet of the Seven · {area:251} Flame Crest · {npc:10267} Tinkee Steamboil · {item:12284} Draco-Incarcinatrix 900 · {npc:7040} Black Dragonspawn · {npc:7044} Black Drake
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
 	["Ride west to the dig site. The {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence.\nCareful: a {npc:7040} and a {npc:7044}, elites of 50-53, wander the same hills: pull the broodlings away from them, or bring a group."] = "Езжайте на запад к раскопкам. Табличка ({quest:4296}) стоит в центре среди дворфов Тауриссана. Скопируйте ее.\nДетеныши черного дракона гнездятся на холмах чуть восточнее места {area:251}. Используйте {item:12284} (от NPC {npc:10267}) на почти мертвом детеныше, чтобы поймать его сущность.\nОсторожно: по тем же холмам бродят {npc:7040} и {npc:7044} – элита 50-53 уровня. Оттягивайте детенышей подальше от них или возьмите группу.",
@@ -254,7 +254,7 @@ return {
 
 	-- Step 53: Fly to Undercity
 	-- {area:1497} Undercity
-	["Fly to {area:1497}"] = "",
+	["Fly to {area:1497}"] = "Летите сюда: {area:1497}",
 	-- {area:340} Kargath
 	["{area:340} flight master"] = "Распорядитель полетов: {area:340}",
 

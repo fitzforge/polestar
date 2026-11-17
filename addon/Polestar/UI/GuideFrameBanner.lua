@@ -386,6 +386,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		local item = (kind == "wear" and n) or (kind == "bags" and (n.spare or n.junk)) or nil
 		banner.Item.psItem = item and (item.link or item.id) or nil
 		banner.Item:SetShown(banner.Item.psItem ~= nil)
+		local oneLine = false -- no link row under the text
 		if kind == "skipped" then
 			banner.Icon:SetTexture(Theme.Media("skip"))
 			local lines = {}
@@ -647,18 +648,21 @@ ns.UI.GuideFrame.Part(function(GF)
 			local title = n.free == 0 and L["Your bags are full."]
 				or string.format(n.free == 1 and L["Bags nearly full: %d slot left."] or L["Bags nearly full: %d slots left."], n.free)
 			local j, Q = n.junk, ns.QoL
+			-- One line: the bags, then the spare bag or the cheapest junk with its
+			-- link under it; without either, the bags alone.
 			if n.spare then
 				-- A spare bag to equip comes before any delete (#2369).
 				local s = n.spare
-				banner.Text:SetText(title .. "\n" .. string.format(L["Spare bag: %s"], s.link or (L["Item"] .. " " .. s.id)))
+				banner.Text:SetText(title .. "  \194\183  " .. string.format(L["Spare bag: %s"], s.link or (L["Item"] .. " " .. s.id)))
 				placeLink(banner.Jump, L["Equip it"], 0, -4)
 			elseif j then
 				local worth = j.value < math.huge and Q.Money(j.value) or "?"
-				banner.Text:SetText(title .. "\n" .. string.format(L["Cheapest junk: %s (%s)"], Q.Space.ItemText(j), worth))
+				banner.Text:SetText(title .. "  \194\183  " .. string.format(L["Cheapest junk: %s (%s)"], Q.Space.ItemText(j), worth))
 				placeLink(banner.Jump, n.armed and L["Click again to delete it"] or L["Delete it"], 0, -4)
 			else
-				banner.Text:SetText(title .. "\n" .. L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."])
+				banner.Text:SetText(title)
 				banner.Jump:Hide()
+				oneLine = true
 			end
 			banner.Close:Show()
 		elseif kind == "wear" then
@@ -679,7 +683,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			placeLink(banner.Jump, n.kind == "old" and L["How to update"] or L["Update"], 0, -4)
 			banner.Close:SetShown(n.closable)
 		end
-		local h = floor(9 + banner.Text:GetStringHeight() + 4 + 18 + 9 + 0.5)
+		local h = floor(9 + banner.Text:GetStringHeight() + (oneLine and 0 or 4 + 18) + 9 + 0.5)
 		banner:SetHeight(h)
 		return h
 	end

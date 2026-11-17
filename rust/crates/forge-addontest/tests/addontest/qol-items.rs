@@ -740,9 +740,22 @@ fn banner_bags_full_offers_the_two_click_delete_and_close_dismisses_it() {
 		emit({ shown = B:IsShown(), log = log })
 	"#,
 	);
-	assert_eq!(out[0], json!({ "shown": true, "text": "Your bags are full.\nCheapest junk: [Broken Fang] x2 (14c)", "jump": "Delete it", "close": true }));
+	assert_eq!(out[0], json!({ "shown": true, "text": "Your bags are full.  ·  Cheapest junk: [Broken Fang] x2 (14c)", "jump": "Delete it", "close": true }));
 	assert_eq!(out[1], "Click again to delete it");
 	assert_eq!(out[2], json!({ "shown": false, "log": ["press", "dismiss"] }));
+}
+
+// Without junk or a spare bag the notice is the news alone: one line, no link row under it.
+#[test]
+fn banner_bags_full_without_junk_says_only_that_the_bags_are_full() {
+	let out = run_ui(
+		r#"
+		bags = { free = 0, armed = false }
+		Polestar.Fire("BAG_SPACE")
+		emit({ shown = B:IsShown(), text = B.Text:GetText(), jump = B.Jump:IsShown() })
+	"#,
+	);
+	assert_eq!(out[0], json!({ "shown": true, "text": "Your bags are full.", "jump": false }));
 }
 
 #[test]
@@ -756,7 +769,7 @@ fn banner_bags_full_offers_a_spare_bag_before_the_junk() {
 		emit(log)
 	"#,
 	);
-	assert_eq!(out[0], json!({ "text": "Your bags are full.\nSpare bag: [Small Bag]", "jump": "Equip it" }));
+	assert_eq!(out[0], json!({ "text": "Your bags are full.  ·  Spare bag: [Small Bag]", "jump": "Equip it" }));
 	assert_eq!(out[1], json!(["press"]));
 }
 

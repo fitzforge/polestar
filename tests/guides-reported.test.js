@@ -3247,6 +3247,21 @@ test('forever/class/warrior/fire-hardened-armor.guide: Kapu\'s report: Fire Hard
 	}
 });
 
+// #2859 (Logan, Dwarf Shaman of 30): Call of Air (94789, level 30, no objectives) shared its step with Elemental Aid
+// (96264, level 33, Charlga Razorflank's Tattered Note), so the Air Totem waited for the follow-up's 32. The hand-in now
+// has its own step at 30, as the Horde guide's hand-ins to Prate Cloudseer do, and Elemental Aid still waits for 32.
+test('forever/class/shaman/call-of-air-alliance.guide: #2859: the Air Totem at 30, Elemental Aid at 32', { skip }, () => {
+	const G = 'forever/class/shaman/call-of-air-alliance.guide';
+	const list = goals(G);
+	const held = (s) => Math.max(0, ...compiled(G).steps[s - 1].goals.filter((g) => g.t === 'level').map((g) => g.level));
+	const totem = list[at(list, 'turnin 94789', is('turnin', 94789))];
+	const aid = list[at(list, 'accept 96264', is('accept', 96264))];
+	assert.notEqual(aid.s, totem.s, 'Call of Air is handed in in a step of its own');
+	assert.ok(totem.s < aid.s, 'the hand-in comes before Elemental Aid');
+	assert.equal(held(totem.s), 30, `the Air Totem's step waits for 30 (waits for ${held(totem.s)})`);
+	assert.ok(held(aid.s) >= 32, `Elemental Aid (level 33) waits for 32 (waits for ${held(aid.s)})`);
+});
+
 // --- Southshore (never-seen check, 2026-11-08): 4 Alliance people passed Barkeep Kelly and none was offered Talk of the
 // Town (98463); the guide keeps it, optional at both ends, with a tip to skip it.
 test(`Talk of the Town is optional at Southshore and at its Booty Bay hand-in, with a tip to skip it`, { skip }, () => {
@@ -13335,6 +13350,21 @@ test('Desolace: Centaur Bounty: each spot of the Centaur Ear collect names its o
 		const magram = ids.some((l) => l.includes(4641) && l.includes(4640) && !l.some((id) => id >= 4632 && id <= 4637));
 		assert.ok(magram, `${quest}: a Magram Village spot names the Magram Windchaser and Wrangler, no Kolkar`);
 	}
+});
+
+// WhoAmI on Discord (#1869): "Gray Bear also drops Gray Bear Tongue, not only Vicious Gray Bear." Gray Bears and
+// Vicious Gray Bears share the Hillsbrad hills, but a spot named only the bears whose own spawn stood within reach of
+// it, so most spots' target button said Vicious Gray Bear alone. Spawn areas joined across connected spawns (#2288,
+// shacklef00rd) name every dropper that roams the same hills, and the guide's hand-placed point still links only the
+// droppers at that point.
+test('forever/horde/06-hillsbrad-foothills.guide: Elixir of Suffering: every bear spot of the Gray Bear Tongue collect names Gray Bear (#1869)', { skip }, () => {
+	const list = goals('forever/horde/06-hillsbrad-foothills.guide');
+	const { goal } = list[at(list, 'collect 3476 quest 496', (g) => g.t === 'collect' && g.item === 3476 && g.quest === 496)];
+	assert.equal(typeof goal.fromNpcsAt, 'string', 'the goal lists each spot\'s mobs');
+	const ids = goal.fromNpcsAt.split(';').filter(Boolean).map((s) => s.split(',').map((k) => goal.fromNpcs[Number(k) - 1].npc));
+	assert.ok(ids.length > 10, `the bear spots are listed (${ids.length})`);
+	const without = ids.filter((l) => !l.includes(2351)).length;
+	assert.equal(without, 0, `every bear spot names Gray Bear (2351): ${without} of ${ids.length} do not`);
 });
 
 // rockzors (#1602, 0.3.6): "include Carved Centaur Totems with the Centaur Bounty quest". Players' recordings
