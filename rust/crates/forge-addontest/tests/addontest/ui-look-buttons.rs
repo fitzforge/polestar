@@ -172,7 +172,9 @@ fn buttons_page_registers_every_button_look_with_defaults_new_badges_search_and_
 			r.keys[#r.keys + 1] = c.key
 			if Polestar.GetDefault(c.key) == nil then r.missing[#r.missing + 1] = c.key end
 			local fresh = c.key:find("^buttons%.") or c.key:find("^ui%.launcher.") or c.key:find("^maps%.minimapButton.")
-			if not (c.search and c.search ~= "" and c.help and c.help ~= "") or (fresh and c.new ~= "0.3.8") then r.bare[#r.bare + 1] = c.key end
+			-- The page came in 0.3.8; a row added since carries its own version (Target list upward, #2590).
+			local since = c.key == "buttons.listUp" and "0.4.1" or "0.3.8"
+			if not (c.search and c.search ~= "" and c.help and c.help ~= "") or (fresh and c.new ~= since) then r.bare[#r.bare + 1] = c.key end
 		end
 		-- The deep tabs' registrations (Essentials stands for their rows: settings-essentials.rs).
 		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do

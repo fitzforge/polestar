@@ -1923,7 +1923,9 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   opened; learning one updates), and the player's
   answer at a group quest (`Own.groupAnswer`:
   `CharState().groupQuests[q]`, "do" or "skip", set by `Engine.AnswerGroup`
-  from the guide window's banner or Options, Discovery, Group quests;
+  from the guide window's banner or Options, Discovery, Group quests; the
+  banner's "Skip it" offers its undo there for 20 seconds, `AnswerGroup(q,
+  nil)`, which asks again, #2404;
   `Engine.GroupQuests` lists a character's; a quest not answered takes
   `behavior.groupQuests`, "do" or "skip" for all of them, or "ask", none,
   re-evaluated on `SETTING_CHANGED`; Options, Guide, Automation, "Group
@@ -6329,10 +6331,12 @@ The quest is the goal's own, else the first quest within 40 steps whose
 objectives ask for the item. Optional goals, goals naming the NPC who hands
 the item over, quests done or skipped, and quests that hand the item over
 themselves are left out. Scope `all` adds the item objectives of the other
-quests in the log. Per item: the most each quest asks for, summed over the
-quests, less what the character holds (`Materials.Have`: the bags, the bank,
-the mail and what was bought and is on its way; `GetItemCount` with the bank
-without it); only items still short are listed.
+quests in the log, but not of a quest whose every goal in the running guide
+is optional (an `optional` goal or step, #2553: the guide takes it only when
+the player already has the item). Per item: the most each quest asks for,
+summed over the quests, less what the character holds (`Materials.Have`: the
+bags, the bank, the mail and what was bought and is on its way;
+`GetItemCount` with the bank without it); only items still short are listed.
 
 The rule. An item is an auction house buy when it is all of:
 
@@ -7095,7 +7099,10 @@ Where they stand follows the Buttons page (`TL.side`): in a column
 (`buttons.layout`) beside the target button on its name's side
 (`qol.buttonTextSide`, left or else right), the first row level with its top;
 in a row under it, reaching away from the quest item button; the gap is the
-set's spacing (`buttons.spacing`). `Buttons.ListRect(n)` gives the rows' box
+set's spacing (`buttons.spacing`). With `buttons.listUp` (Target list upward,
+off by default, #2590: `TL.up`) the rows go up instead: beside the button the
+first row level with its bottom, in a row over it; the rare button then keeps
+its slot. `Buttons.ListRect(n)` gives the rows' box
 from the target button's centre, `Buttons.Offsets(n)` moves the rare button
 along the set to clear it, `place()` adds it to the holder's clamp and
 Unlock mode to the quest buttons' box (`Buttons.ListRows`), and
@@ -7538,8 +7545,10 @@ Polestar.QoL.XPMark.frame                                -- the mark, once made
   first" ("reach 23 first" without an XP rate). Grinding time is the XP
   short over the QoL tracker's XP an hour. Nothing without the Codex
   (Lookup), at 60, or with no target (a guide that is not a leveling one
-  with no `level` goal ahead). Re-read with the XP row and on
-  `STEP_CHANGED`.
+  with no `level` goal ahead), or with the Pace line switch off
+  (`guideWindow.pace`, Guide window > Parts > Below the goals; #2371,
+  #2379: the row keeps the XP an hour). Re-read with the XP row, on that
+  switch and on `STEP_CHANGED`.
 - **A quest well over your level, on its step** (`Levels.StepHint(i)`): a
   step with work (not an accept, a hand-in or a talk: taking a quest early
   is normal) on an open quest 3 or more levels above the character says so
