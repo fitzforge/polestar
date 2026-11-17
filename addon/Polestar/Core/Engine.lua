@@ -9182,8 +9182,13 @@ local function evaluate()
 	checkTrainDue()
 	-- "While you're here" candidates, after a step, quest-log, level or zone
 	-- change (Own.hereBuild); a clicked line that went takes the arrow back.
-	if Own.hereDirty or Own.hereGuide ~= guide then
-		if Own.hereBuild() then requestUpdate() end
+	-- Built the frame after the evaluation (Own.hereLater): that frame holds
+	-- the evaluation and what it announces (the window, the arrow's route);
+	-- the candidates, a pass over the goals of every later step, come next
+	-- (#2537: a step change's worst frame).
+	if (Own.hereDirty or Own.hereGuide ~= guide) and not Own.hereQueued then
+		Own.hereQueued = true
+		ns.After(0, Own.hereLater)
 	end
 	updateTicker()
 	if #pendingCompleted > 0 then
@@ -12003,6 +12008,19 @@ function Own.hereDirect(list, n, live, nearTo)
 		end
 	end
 	return n
+end
+
+-- The build an evaluation queued (evaluate), the frame after it; nothing
+-- when an earlier build has caught up. The arrival poll runs while there are
+-- candidates to measure (updateTicker), and a clicked line that went asks
+-- for one more evaluation, as when the build ran inside it.
+Own.hereQueued = false
+function Own.hereLater()
+	Own.hereQueued = false
+	if not (Own.hereDirty or Own.hereGuide ~= guide) then return end
+	local aimed = Own.hereBuild()
+	updateTicker()
+	if aimed then requestUpdate() end
 end
 
 -- Build the candidates (Own.hereAll[1..hereAllN], route order) for the

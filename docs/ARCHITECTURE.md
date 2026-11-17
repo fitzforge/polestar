@@ -2007,7 +2007,9 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   "turnin", `left`, `yards` and `hereText`, "Kill Kobold Vermin, 2 more";
   `Engine.AimWhileHere(i)` and `Engine.DismissWhileHere(i)` take the line's
   place in the list, 1 by default). `Own.hereBuild` builds the
-  candidates (`Own.hereAll`, route order) in `evaluate` only when something
+  candidates (`Own.hereAll`, route order) the frame after an `evaluate`
+  (`Own.hereLater`, so a step change's frame holds only the evaluation and
+  what it announces) and only when something
   changed them (`Own.hereDirty`: a step change of the active tab, another
   guide, the quest log, the level, a new zone, the `behavior.whileHere*`
   settings): the open kill, collect, interact and use goals with a place on
