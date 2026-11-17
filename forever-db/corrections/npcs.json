@@ -820,6 +820,16 @@
 		},
 		"note": "Durgen Dirgehammer is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
 	},
+	"263348": {
+		"set": {
+			"faction": null
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-16): 91 people saw it neutral, 71 people killed it 628 times"
+		},
+		"note": "Roving Tallstrider (Riverglades) is a neutral beast both sides kill, not Alliance-friendly as QuestieDB's Forever store has it. As a friendly NPC the route took its 25% Intact Tallstrider Beak (Song of the Strider, 95984) for no source and dropped the quest and its follow-up."
+	},
 	"263389": {
 		"set": {
 			"rank": 1

@@ -262,6 +262,15 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Summary, String> {
 			inputs::load_cm_db(p, &mut cmv)?;
 			have_cm = true;
 		}
+		// The maintainer's full release (with the KB) never goes out without CMaNGOS's loot: 2,995
+		// item_source rows left a 2026.11.2 candidate when its build tree lacked cm.db (#2585). A
+		// build without a KB (CI, contributors), or one that passes no path, notes it only.
+		None if o.kb.is_file() && o.cmangos.is_some() => {
+			return Err(format!(
+				"the CMaNGOS classic-db sqlite {} is missing: its loot rows (item sources and chances) would leave the release; pass --cmangos <cm.db>",
+				o.cmangos.as_ref().unwrap().display()
+			))
+		}
 		None => notes.push("no CMaNGOS classic-db sqlite: no loot chances, object or item names from it".into()),
 	}
 	let cm = have_cm.then_some(cmv);

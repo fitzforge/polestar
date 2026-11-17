@@ -369,6 +369,34 @@ fn publish_tier_selection_and_schema() {
 }
 
 #[test]
+fn a_full_publish_without_the_cmangos_loot_fails() {
+	// #2585: a build tree without cm.db lost 2,995 item_source rows with only a note. With the KB
+	// and a CMaNGOS path that does not exist, publish refuses; a path left out (None) still notes.
+	let base = scratch("no-cmangos");
+	let kb = base.join("kb.sqlite");
+	make_kb(&kb);
+	let mut o = publish::Options::new(&base, &base.join("release"));
+	o.kb = kb;
+	o.public_data = Some(fixture());
+	o.public_drops = Some(fixture());
+	o.provenance = base.join("private").join("provenance.sqlite");
+	o.sources = base.join("no-sources");
+	o.corrections = base.join("no-corrections.json");
+	o.factoruide = None;
+	o.tdb = None;
+	o.version = Some("2026.10.1".into());
+	o.date = Some("2026-10-23".into());
+	o.producer_commit = Some("test".into());
+	o.evidence = None;
+	o.cmangos = Some(base.join("missing").join("cm.db"));
+	let err = publish::run(&o, &|_| {}).err().expect("refused");
+	assert!(err.contains("CMaNGOS classic-db sqlite") && err.contains("--cmangos"), "{err}");
+	o.cmangos = None;
+	assert!(publish::run(&o, &|_| {}).is_ok());
+	let _ = std::fs::remove_dir_all(&base);
+}
+
+#[test]
 fn publish_takes_public_corrections_and_never_the_private_overlay() {
 	// The KB labels both `correction`; its correction_origin tells them apart (#2585). A public
 	// correction whose source names an independent check stands alone; one the private overlay
