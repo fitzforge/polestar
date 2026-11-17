@@ -84,7 +84,11 @@ fn brutal_armor_from_the_heads_up_waits_for_29_and_leads_back_to_the_barrens_tab
 	assert_eq!(out["step"], "Thun'grim Firegaze", "the guide waits at Thun'grim Firegaze: {out}");
 	assert_eq!(out["text"], "Level with The Barrens meanwhile: this guide picks up at level 29", "{out}");
 	assert_eq!(out["compact"], out["text"], "compact mode too: {out}");
-	assert_eq!(out["after"], json!({ "ids": ["forever/horde/02-the-barrens", "forever/class/warrior/brutal-armor"], "active": "forever/horde/02-the-barrens" }), "back on the Barrens tab, Brutal Armor kept in its own: {out}");
+	assert_eq!(
+		out["after"],
+		json!({ "ids": ["forever/horde/02-the-barrens", "forever/class/warrior/brutal-armor"], "active": "forever/horde/02-the-barrens" }),
+		"back on the Barrens tab, Brutal Armor kept in its own: {out}"
+	);
 }
 
 #[test]
