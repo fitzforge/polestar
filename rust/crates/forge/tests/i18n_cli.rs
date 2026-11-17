@@ -132,10 +132,7 @@ fn guides_sync_writes_a_changed_texts_old_translation_above_its_new_line_matchin
 	assert_eq!(sync.status, 0, "{}", sync.stderr);
 	let text = std::fs::read_to_string(&file).unwrap();
 	let new_en = "{npc:197} stands at the abbey door; {npc:152} sells food inside. The kobolds crowd the camp to the north.";
-	assert!(
-		text.contains(&format!("\t-- was: [\"{old_en}\"] = \"{old_fr}\"\n\t[\"{new_en}\"] = \"\",\n")),
-		"the old translation is a draft right above the new line, which stays empty: {text}"
-	);
+	assert!(text.contains(&format!("\t-- was: [\"{old_en}\"] = \"{old_fr}\"\n\t[\"{new_en}\"] = \"\",\n")), "the old translation is a draft right above the new line, which stays empty: {text}");
 	assert_eq!(text.matches("-- was:").count(), 1, "a text unlike every old one gets no draft: {text}");
 	assert!(text.contains(&format!("\t-- [\"{old_en}\"] = \"{old_fr}\",")), "and the old line stays in the retired block");
 	assert_eq!(i18n("check").status, 0, "a draft is a comment: the file checks clean");

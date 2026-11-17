@@ -221,9 +221,8 @@ fn successor(stale: &str, texts: &[Text], taken: &HashSet<String>) -> Option<Str
 /// token a text lost still has its name.
 #[cfg(feature = "native")]
 fn token_names(file_text: &str, texts: &[Text]) -> std::collections::HashMap<String, String> {
-	static PART: LazyLock<Regex> = LazyLock::new(|| {
-		Regex::new(r"^\{((?:npc|object|item|quest|zone|area|spell|faction|skill):[0-9]+)\} (.+?)(?: \(no name in this language: may be words\))?$").unwrap()
-	});
+	static PART: LazyLock<Regex> =
+		LazyLock::new(|| Regex::new(r"^\{((?:npc|object|item|quest|zone|area|spell|faction|skill):[0-9]+)\} (.+?)(?: \(no name in this language: may be words\))?$").unwrap());
 	let mut names = std::collections::HashMap::new();
 	for line in file_text.lines() {
 		let Some(rest) = line.trim_start().strip_prefix("-- {") else { continue };
