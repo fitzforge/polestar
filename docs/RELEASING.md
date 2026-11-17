@@ -172,7 +172,7 @@ version throughout.
 
    ```sh
    forge release version 0.2.0
-   forge data build --kb --questie <AddOns folder of the QuestieDB to use>   # fetches the sources first (forge data sources)
+   forge data build --kb --questie <AddOns folder of the QuestieDB to use> --recordings <the recordings archive>   # fetches the sources first (forge data sources)
    forge data questdb
    forge data itemdb && forge data gear
    forge data sources --only builders && forge data codex   # release-safe inputs only
@@ -228,6 +228,16 @@ version throughout.
    every flight point of the committed file (the Forever ones need the
    Forever build's TaxiNodes and TaxiPath in `data/sources`: `forge data
    sources --only builders`): check `git diff` before committing.
+
+   Pass `--recordings` with the maintainer's recordings archive (pulled and
+   re-sessioned just before: `forge record pull`, `forge record resession`).
+   Without it the build reads `data/recordings`, which a release checkout
+   does not have, and every rule that learns from players' recordings
+   (givers and enders, drops, spawn spots, talk objectives, quest XP) is
+   left out of the shipped data. The build reads the archive one session at
+   a time, and its statistics check stops a build whose counted sessions
+   fell by more than half against the last good build
+   (`recordings.counted`).
 
    Pass `--questie` explicitly on a release build. Without it the build
    picks the first QuestieDB it finds among the installed clients, so a

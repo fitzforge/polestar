@@ -369,6 +369,37 @@ fn publish_tier_selection_and_schema() {
 }
 
 #[test]
+fn publish_takes_public_corrections_and_never_the_private_overlay() {
+	// The KB labels both `correction`; its correction_origin tells them apart (#2585). A public
+	// correction whose source names an independent check stands alone; one the private overlay
+	// sets never does, nor does a private mechanics fix.
+	let (base, out, side) = publish_with(
+		"origins",
+		"create table correction_origin(kind text, id integer, field text, origin text, kinds text, primary key(kind, id, field));
+		insert into correction_origin values ('quest', 1, 'min_level', 'public', 'in-game-check');
+		insert into facts values ('quest', 2, 'level', '15', 'correction', 'high', 1, 1);
+		insert into correction_origin values ('quest', 2, 'level', 'private', '');
+		insert into mechanics values (2, 'delayed-offer', 'kept', 'correction', 'high', 1, '[\"correction\"]');
+		insert into correction_origin values ('mechanic', 2, '*', 'private', '');
+		insert into mechanics values (5, 'delayed-offer', 'kept', 'correction', 'high', 1, '[\"correction\"]');
+		insert into correction_origin values ('mechanic', 5, '*', 'public', 'recording');",
+	);
+	let q = rows(&out, "quest");
+	let q1 = q.iter().find(|r| r["id"] == 1).unwrap();
+	assert_eq!(q1["min_level"], 6, "{q1}");
+	let q2 = q.iter().find(|r| r["id"] == 2).unwrap();
+	assert!(q2.get("level").is_none(), "{q2}");
+	let mech: Vec<(i64, String)> = rows(&out, "mechanic").iter().map(|r| (r["quest"].as_i64().unwrap(), r["kind"].as_str().unwrap().to_string())).collect();
+	assert!(mech.contains(&(5, "delayed-offer".into())) && !mech.contains(&(2, "delayed-offer".into())), "{mech:?}");
+	let db = rusqlite::Connection::open(&side).unwrap();
+	let s: String = db.query_row("select sources from prov where tbl = 'quest' and key = '1' and field = 'min_level'", [], |r| r.get(0)).unwrap();
+	assert_eq!(s, "correction,recorder");
+	let (find, _) = check::check(&out, &check::CheckOptions { provenance: Some(side.clone()), evidence: None, corrections: None }).unwrap();
+	assert!(find.is_empty(), "{find:#?}");
+	let _ = std::fs::remove_dir_all(&base);
+}
+
+#[test]
 fn publish_check_catches_planted_findings() {
 	let (base, out, side) = publish_once("check");
 	let opts = check::CheckOptions { provenance: Some(side.clone()), evidence: None, corrections: None };

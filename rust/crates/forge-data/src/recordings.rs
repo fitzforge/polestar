@@ -288,47 +288,143 @@ pub fn read_config(dir: &Path) -> Result<Config, String> {
 	})
 }
 
+/// The session files of a recordings folder (schema 1 or 2; `config.json` and dot files are not
+/// sessions), in file order; None when there is no such folder.
+fn session_names(dir: &Path) -> Option<Vec<String>> {
+	let rd = std::fs::read_dir(dir).ok()?;
+	let mut files: Vec<String> = rd.flatten().map(|e| e.file_name().to_string_lossy().to_string()).filter(|f| f.ends_with(".json") && !f.starts_with('.') && f != "config.json").collect();
+	files.sort_by(|a, b| cmp_utf16(a, b));
+	Some(files)
+}
+
+fn load_session(dir: &Path, file: &str) -> Result<V, String> {
+	let text = std::fs::read_to_string(dir.join(file)).map_err(|e| format!("recording {file}: {e}"))?;
+	let rec = parse_json(&text).map_err(|e| format!("recording {file}: {e}"))?;
+	if !matches!(rec.get("schema").as_num(), Some(1.0) | Some(2.0)) || !rec.get("events").is_arr() {
+		return Err(format!("recording {file}: expected {{ schema: 1 or 2, events: [...] }}"));
+	}
+	Ok(rec)
+}
+
+/// One session of a [`SessionFiles`]: whether its player counts, and the cohort [`establish`]
+/// gave its contributor.
+struct SessionFile {
+	file: String,
+	counts: bool,
+	cohort: Option<String>,
+}
+
+/// A recordings folder read one session at a time. [`scan_recordings`] reads every session once
+/// for its header (who counts); [`SessionFiles::sessions`] reads them again one by one, each as
+/// [`read_recordings`] holds it. The release data build reads the maintainer's whole recordings
+/// archive this way: gigabytes of sessions, too many to hold at once.
+pub struct SessionFiles {
+	dir: std::path::PathBuf,
+	files: Vec<SessionFile>,
+	/// Distinct counted players whose evidence replaces another source's value (`minVoters`).
+	pub min_voters: usize,
+}
+
+impl SessionFiles {
+	/// The sessions, less those of builds older than `minBuild`.
+	pub fn len(&self) -> usize {
+		self.files.len()
+	}
+
+	pub fn is_empty(&self) -> bool {
+		self.files.is_empty()
+	}
+
+	/// The sessions whose player counts.
+	pub fn counted(&self) -> usize {
+		self.files.iter().filter(|f| f.counts).count()
+	}
+
+	pub fn names(&self) -> impl Iterator<Item = &str> {
+		self.files.iter().map(|f| f.file.as_str())
+	}
+
+	/// Every session in file order, read from disk as it is reached.
+	pub fn sessions(&self) -> impl Iterator<Item = Result<Recording, String>> + '_ {
+		self.files.iter().map(|f| {
+			let rec = load_session(&self.dir, &f.file)?;
+			if let Some(c) = &f.cohort {
+				rec.set("cohort", c.as_str());
+			}
+			Ok(Recording { file: f.file.clone(), rec, counts: f.counts })
+		})
+	}
+}
+
+/// [`read_recordings`]'s reading of `dir`, keeping of each session only whether it counts.
+pub fn scan_recordings(dir: &Path) -> Result<SessionFiles, String> {
+	let Some(names) = session_names(dir) else { return Ok(SessionFiles { dir: dir.to_path_buf(), files: Vec::new(), min_voters: MIN_VOTERS }) };
+	let Config { exclude, min_build, establish: est, min_voters } = read_config(dir)?;
+	// Each session file, and whether its contributor may count (`exclude` never does, and plays no
+	// part in establishing anyone); the headers of those that may, in the same order.
+	let mut kept: Vec<(String, bool)> = Vec::new();
+	let mut heads: Vec<Head> = Vec::new();
+	for file in names {
+		let rec = load_session(dir, &file)?;
+		if let (Some(min), Some(build)) = (min_build, rec.get("build").as_num()) {
+			if build < min {
+				continue;
+			}
+		}
+		let may = !exclude.contains(&contributor_of(&rec));
+		if may {
+			heads.push(Head::of(&rec));
+		}
+		kept.push((file, may));
+	}
+	let counts = establish_heads(&mut heads, est);
+	let mut counted = heads.into_iter().zip(counts);
+	let mut files = Vec::with_capacity(kept.len());
+	for (file, may) in kept {
+		let (counts, cohort) = if may {
+			let (h, c) = counted.next().expect("one header per session that may count");
+			(c, h.cohort)
+		} else {
+			(false, None)
+		};
+		files.push(SessionFile { file, counts, cohort });
+	}
+	Ok(SessionFiles { dir: dir.to_path_buf(), files, min_voters })
+}
+
 /// data/recordings/*.json (schema 1 or 2; `config.json` and dot files are not sessions), less the
 /// sessions of builds older than `config.json`'s `minBuild`, each marked by [`establish`]. The
 /// contributors `config.json`'s `exclude` lists (the maintainer's audit: manipulated or suspect
 /// uploads) never count, and play no part in establishing anyone (their cohort-mates count only on
 /// their own record).
 pub fn read_recordings(dir: &Path) -> Result<Recordings, String> {
-	let Ok(rd) = std::fs::read_dir(dir) else { return Ok(Recordings { list: Vec::new(), min_voters: MIN_VOTERS }) };
-	let mut files: Vec<String> = rd.flatten().map(|e| e.file_name().to_string_lossy().to_string()).filter(|f| f.ends_with(".json") && !f.starts_with('.') && f != "config.json").collect();
-	files.sort_by(|a, b| cmp_utf16(a, b));
-	let Config { exclude, min_build, establish: est, min_voters } = read_config(dir)?;
-	let mut out = Vec::new();
-	for file in files {
-		let text = std::fs::read_to_string(dir.join(&file)).map_err(|e| format!("recording {file}: {e}"))?;
-		let rec = parse_json(&text).map_err(|e| format!("recording {file}: {e}"))?;
-		if !matches!(rec.get("schema").as_num(), Some(1.0) | Some(2.0)) || !rec.get("events").is_arr() {
-			return Err(format!("recording {file}: expected {{ schema: 1 or 2, events: [...] }}"));
-		}
-		if let (Some(min), Some(build)) = (min_build, rec.get("build").as_num()) {
-			if build < min {
-				continue;
-			}
-		}
-		out.push(Recording { file, rec, counts: false });
-	}
-	let (mut counted, excluded): (Vec<Recording>, Vec<Recording>) = out.into_iter().partition(|r| !exclude.contains(&r.contributor()));
-	establish(&mut counted, est);
-	counted.extend(excluded);
-	counted.sort_by(|a, b| cmp_utf16(&a.file, &b.file));
-	Ok(Recordings { list: counted, min_voters })
+	let s = scan_recordings(dir)?;
+	Ok(Recordings { list: s.sessions().collect::<Result<_, _>>()?, min_voters: s.min_voters })
 }
 
 /// meta.json's revision of the recordings: sha256 over file names and contents, 16 hex digits.
-pub fn revision(recs: &[Recording]) -> String {
-	let mut h = Sha256::new();
-	for r in recs {
-		h.update(r.file.as_bytes());
-		h.update(b"\0");
-		h.update(stringify(&r.rec, None).as_bytes());
-		h.update(b"\0");
+#[derive(Default)]
+pub struct Revision(Sha256);
+
+impl Revision {
+	pub fn add(&mut self, r: &Recording) {
+		self.0.update(r.file.as_bytes());
+		self.0.update(b"\0");
+		self.0.update(stringify(&r.rec, None).as_bytes());
+		self.0.update(b"\0");
 	}
-	h.finalize().iter().map(|b| format!("{b:02x}")).collect::<String>()[..16].to_string()
+
+	pub fn finish(self) -> String {
+		self.0.finalize().iter().map(|b| format!("{b:02x}")).collect::<String>()[..16].to_string()
+	}
+}
+
+pub fn revision(recs: &[Recording]) -> String {
+	let mut h = Revision::default();
+	for r in recs {
+		h.add(r);
+	}
+	h.finish()
 }
 
 pub(crate) fn pos_int(v: &V) -> Option<i64> {
@@ -2136,14 +2232,23 @@ fn resolve_factions(factions: &Obj, seen: &IndexMap<i64, IndexSet<String>>, pare
 /// [`Recordings::min_voters`]. `corrections` (forever-db/corrections, already applied to the tables)
 /// are put back afterwards ([`crate::corrections::reassert`]): a recording never overrides a
 /// corrected value, whatever its evidence, and every field it disagreed on is in
-/// [`Stats::overruled`].
-pub fn apply_recordings(db: &Db, recordings: &[Recording], corrections: &V, min_voters: usize, so: SpawnOptions, live_maps: &dyn Fn(i64) -> bool, sim: bool) -> Stats {
+/// [`Stats::overruled`]. `recordings` may be read as they are reached ([`SessionFiles::sessions`]):
+/// each session is gone once applied.
+pub fn apply_recordings<R: std::borrow::Borrow<Recording>>(
+	db: &Db,
+	recordings: impl IntoIterator<Item = R>,
+	corrections: &V,
+	min_voters: usize,
+	so: SpawnOptions,
+	live_maps: &dyn Fn(i64) -> bool,
+	sim: bool,
+) -> Stats {
 	let mut ov = Overlay {
 		db,
 		so,
 		live_maps,
 		min: min_voters,
-		stats: Stats { recordings: recordings.len(), ..Stats::default() },
+		stats: Stats::default(),
 		touched: IndexSet::new(),
 		touched_entities: IndexMap::new(),
 		quests: IndexMap::new(),
@@ -2177,6 +2282,8 @@ pub fn apply_recordings(db: &Db, recordings: &[Recording], corrections: &V, min_
 		filled: FxHashSet::default(),
 	};
 	for r in recordings {
+		let r = r.borrow();
+		ov.stats.recordings += 1;
 		if !r.counts {
 			continue;
 		}
@@ -2949,6 +3056,47 @@ mod tests {
 		for (f, c) in &after {
 			assert_eq!(*c, f.contains(A) || f == "a.json", "{f}");
 		}
+		std::fs::remove_dir_all(&dir).unwrap();
+	}
+
+	#[test]
+	fn the_build_reads_a_recordings_folder_one_session_at_a_time_as_it_reads_it_whole() {
+		// #2585: the release data build reads the whole archive, too big to hold, through
+		// scan_recordings: the same sessions, the same who-counts, the same overlay and revision.
+		let dir = std::env::temp_dir().join(format!("forge-data-recordings-stream-{}", std::process::id()));
+		let _ = std::fs::remove_dir_all(&dir);
+		std::fs::create_dir_all(&dir).unwrap();
+		const D: &str = "dddddddddddddddd";
+		let xp = vec![r#"{"t":1,"e":"accept","q":364,"rewardXpBase":450,"lvl":3}"#.to_string()];
+		let recs = [old("a", A, &xp), play(A), old("b", B, &xp), in_cohort(old("c", C, &xp), "beefbeefbeefbeef"), old("d", D, &xp)];
+		for r in &recs {
+			std::fs::write(dir.join(&r.file), stringify(&r.rec, None)).unwrap();
+		}
+		std::fs::write(dir.join("config.json"), format!(r#"{{"exclude":["{D}"]}}"#)).unwrap();
+		let whole = read_recordings(&dir).unwrap();
+		let scan = scan_recordings(&dir).unwrap();
+		assert_eq!((scan.len(), scan.counted(), scan.min_voters), (whole.len(), whole.iter().filter(|r| r.counts).count(), whole.min_voters));
+		assert_eq!(scan.names().collect::<Vec<_>>(), whole.iter().map(|r| r.file.as_str()).collect::<Vec<_>>());
+		let (t1, t2) = (Tables::new(QUESTS, "{}", "{}"), Tables::new(QUESTS, "{}", "{}"));
+		let s1 = t1.apply(&whole);
+		let db = Db { quests: &t2.quests, npcs: &t2.npcs, objects: &t2.objects, items: &t2.items, zones: &t2.zones, factions: &t2.factions, instances: &t2.instances };
+		let mut rev = Revision::default();
+		let s2 = apply_recordings(
+			&db,
+			scan.sessions().map(|r| {
+				let r = r.unwrap();
+				rev.add(&r);
+				r
+			}),
+			&V::obj(),
+			MIN_VOTERS,
+			DEFAULTS,
+			&|_| false,
+			false,
+		);
+		assert_eq!((s1.recordings, s1.events), (s2.recordings, s2.events));
+		assert_eq!(stringify(&t1.quest("364"), None), stringify(&t2.quest("364"), None));
+		assert_eq!(rev.finish(), revision(&whole));
 		std::fs::remove_dir_all(&dir).unwrap();
 	}
 

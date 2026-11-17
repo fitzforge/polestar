@@ -16,7 +16,7 @@ use crate::merge::{apply_questie, Ctx, World};
 use crate::normalize::normalize;
 use crate::pfquest;
 use crate::questie::{read_questie, QUESTIE_REPO, REPO as QUESTIEDB_REPO};
-use crate::recordings::{apply_recordings, read_recordings};
+use crate::recordings::{apply_recordings, scan_recordings};
 use crate::spawns::{SpawnOptions, DEFAULTS};
 use crate::tables::{self, Source};
 
@@ -530,12 +530,13 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 		Some(f) => Some((f.to_path_buf(), read(f)?)),
 		None => None,
 	};
-	let corrections = {
-		let public = crate::corrections::load(&o.corrections)?;
-		match &private {
-			Some((_, p)) => crate::corrections::overlay(&public, p),
-			None => public,
-		}
+	let public_corrections = crate::corrections::load(&o.corrections)?;
+	// Which corrected fields the private overlay sets: the knowledge base keeps them apart, so the
+	// public tier never takes one (`correction_origin`).
+	let correction_origins = crate::corrections::origins(&public_corrections, private.as_ref().map_or(&V::Null, |(_, p)| p));
+	let corrections = match &private {
+		Some((_, p)) => crate::corrections::overlay(&public_corrections, p),
+		None => public_corrections,
 	};
 	// Applied with or without Forever's quest data: a correction for an absent record becomes the
 	// record when it can stand alone, else it is named in the warnings.
@@ -607,11 +608,24 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 		(Some(a), Some(b), Some(c)) => Some(build_races(a, b, c)),
 		_ => None,
 	});
-	let recordings = read_recordings(&o.recordings)?;
+	// One session at a time: the maintainer's recordings archive is gigabytes.
+	let recordings = scan_recordings(&o.recordings)?;
+	log(&format!("recordings: {} session(s) in {}, {} counted", recordings.len(), o.recordings.display(), recordings.counted()));
 	let instances = Obj::new();
+	let mut revision = crate::recordings::Revision::default();
+	let mut unread: Option<String> = None;
 	let rec = apply_recordings(
 		&crate::recordings::Db { quests: &norm.quests, npcs: &norm.npcs, objects: &norm.objects, items: &norm.items, zones: &zones, factions: &factions, instances: &instances },
-		&recordings,
+		recordings.sessions().map_while(|r| match r {
+			Ok(r) => {
+				revision.add(&r);
+				Some(r)
+			}
+			Err(e) => {
+				unread = Some(e);
+				None
+			}
+		}),
 		// Corrections stay the last word: the overlay puts every corrected value back.
 		&corrections,
 		recordings.min_voters,
@@ -619,6 +633,10 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 		&live,
 		sim,
 	);
+	if let Some(e) = unread {
+		return Err(e);
+	}
+	let revision = revision.finish();
 	let durations = extras::item_durations(fwago.as_ref().and_then(|f| f.get("ItemSparse")).map(Vec::as_slice).unwrap_or(&[]), &norm.items);
 	// Camp bots a player summons (Reagent Bot, Repair Bot) are vendors with sniffed spawns of camps long
 	// gone: they sell nothing a guide can send a player to (Forever's SpellEffect names them).
@@ -772,6 +790,7 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 			zones: &zones,
 			live: changed_set.iter().copied().collect(),
 			corrections: corrections.clone(),
+			correction_origins: correction_origins.clone(),
 			// The fact check's local database is a local-only source.
 			facts_file: if cfg!(feature = "local-sources") { Some(local.join("factcheck").join("facts.sqlite")) } else { None },
 			tdb: tdb.as_ref().filter(|t| t.get("schema").num() >= 2.0).cloned(),
@@ -942,10 +961,10 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 		sources.push(obj_of(vec![
 			("name", s("Polestar recordings")),
 			("url", V::Null),
-			("revision", s(&crate::recordings::revision(&recordings))),
+			("revision", s(&revision)),
 			("license", s("Polestar original work")),
 			("copyright", V::Null),
-			("sessions", arr(recordings.iter().map(|r| s(&r.file)).collect())),
+			("sessions", arr(recordings.names().map(s).collect())),
 		]));
 	}
 	if heights.is_some() {
@@ -1045,6 +1064,7 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	c("unmappedSpawnPoints", n(norm.stats.unmapped_points));
 	c("untitledQuestsSkipped", n(norm.stats.skipped_quests));
 	c("recordings", n(rec.recordings));
+	c("recordingsCounted", n(recordings.counted()));
 	c("recordingEvents", n(rec.events));
 	c("recordedQuests", n(rec.touched_quests));
 	c("recorderOnlyQuests", n(rec.recorder_only_quests));

@@ -200,7 +200,7 @@ forge data check --help
 | Forever's quest data | the addon in your Forever client's AddOns folder (found automatically; `--questie DIR` to point at it, `--no-questie` to leave it out) | quest givers, objectives, XP and more for Forever |
 | An open quest database | `data/sources` (`--pfquest DIR`) | the base layer: quests, NPCs, objects, items for Classic; read through a built-in Lua 5.1 |
 | Cached facts | `data/sources` | spawn heights and objective counts from an open Classic server database, web quest XP |
-| Recordings | `data/recordings/*.json` (`--recordings DIR`) | our own in-game recordings |
+| Recordings | `data/recordings/*.json` (`--recordings DIR`: a release build passes the maintainer's recordings archive) | our own in-game recordings, read one session at a time |
 | Corrections | `forever-db/corrections/` (`--corrections PATH`) | our own fixes, see [Corrections](#corrections) |
 
 Each source's name, version and licence is recorded in `data/forever/meta.json` under `sources`.
@@ -843,6 +843,11 @@ If anything matches, it writes nothing and lists each hit
 guard. The only exemption is the corrections' section files (`textScanExempt`): they are already public. The guard is
 tested in `rust/crates/forge/tests/pack.rs`.
 
+**Corrections in the pack's KB.** The KB labels every corrected field `correction`, whether
+`forever-db/corrections` or the maintainer's private overlay set it; its `correction_origin` table
+(never packed) says which. The pack keeps a corrected fact, mechanic or step only when the public
+corrections made it, and none from a KB without that table.
+
 To add a file to the pack, add it to a source in `pack-spec.json` with its title, credit, licence and
 URL. A file that is not under a source with a licence does not go in.
 
@@ -873,7 +878,10 @@ forge data publish --check forever-db                           # the guard
 
 - With the KB (`--kb`, default `data/local/kb/forever-kb.sqlite`) the values come from the KB under
   the independent-source rule; without one, from public data builds alone, with corrections applied
-  only when their `source.kind` names an independent check. There a quest's races or classes that
+  only when their `source.kind` names an independent check. With the KB the same holds for
+  corrections: a public correction (the KB's `correction_origin`) whose `source.kind` names an
+  independent check stands on its own; a value or a mechanics fix the private overlay sets never
+  does. Without the KB a quest's races or classes that
   no source states (a quest only a correction adds, without them) are left out, never published as
   0, every race or class.
 - A re-run replaces only the generated files, and the same inputs give the same bytes: the version

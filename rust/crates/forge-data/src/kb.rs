@@ -1161,6 +1161,9 @@ pub struct KbInputs<'a> {
 	pub zones: &'a Obj,
 	pub live: FxHashSet<i64>,
 	pub corrections: V,
+	/// Where each corrected field comes from, public corrections or the private overlay
+	/// (`crate::corrections::origins`): the `correction_origin` table the public tier reads.
+	pub correction_origins: Vec<crate::corrections::Origin>,
 	/// The fact check's local database (a local-only source); None: none.
 	pub facts_file: Option<PathBuf>,
 	pub tdb: Option<V>,
@@ -2483,7 +2486,7 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 
 	// ---- write ----
 	if let Some(f) = &inp.kb_file {
-		write_kb(f, &kb, quests, npcs, objects, items, &verify_v, &mech, tdb, training.as_ref(), trainers.as_ref(), &alt.versions)?;
+		write_kb(f, &kb, quests, npcs, objects, items, &verify_v, &mech, tdb, training.as_ref(), trainers.as_ref(), &alt.versions, &inp.correction_origins)?;
 	}
 	if let Some(f) = &inp.verify_file {
 		std::fs::create_dir_all(f.parent().unwrap()).map_err(|e| e.to_string())?;
@@ -3361,6 +3364,7 @@ fn write_kb(
 	training: Option<&V>,
 	trainers: Option<&V>,
 	versions: &IndexMap<String, Option<String>>,
+	origins: &[crate::corrections::Origin],
 ) -> Result<(), String> {
 	std::fs::create_dir_all(file.parent().unwrap()).map_err(|e| e.to_string())?;
 	let tmp = PathBuf::from(format!("{}.tmp", file.display()));
@@ -3386,7 +3390,8 @@ create table training(class text, level integer, copper integer, source text);
 create table mechanics(quest integer, kind text, status text, source text, confidence text, drives integer, sources text);
 create table steps(quest integer, n integer, action text, target_kind text, target integer, item integer, count integer, place text, fact text, confidence text, drives integer, source text, evidence text);
 create table verify_in_game(rank integer, kind text, id integer, name text, yards integer, conflicts text);
-create table changes(tbl text, id integer, field text, before text, after text, source text);",
+create table changes(tbl text, id integer, field text, before text, after text, source text);
+create table correction_origin(kind text, id integer, field text, origin text, kinds text, primary key(kind, id, field));",
 	)
 	.map_err(e)?;
 	let tx = db.transaction().map_err(e)?;
@@ -3525,6 +3530,10 @@ create table changes(tbl text, id integer, field text, before text, after text, 
 				let j = |v: &V| utf16_slice(&stringify(if v.is_undef() { &V::Null } else { v }, None), 4000);
 				vec![s(c.table), V::Num(c.id), s(&c.field), s(&j(&c.from)), s(&j(&c.to)), s(&c.source)]
 			}),
+		)?;
+		run(
+			"insert into correction_origin values (?,?,?,?,?)",
+			&mut origins.iter().map(|o| vec![s(o.kind), V::Num(o.id as f64), s(&o.field), s(if o.private { "private" } else { "public" }), s(&o.kinds.join(","))]),
 		)?;
 	}
 	tx.commit().map_err(e)?;
@@ -3696,6 +3705,7 @@ mod tests {
 			zones: &empty,
 			live: FxHashSet::default(),
 			corrections,
+			correction_origins: Vec::new(),
 			facts_file: None,
 			tdb: Some(tdb),
 			classic: None,
@@ -3835,6 +3845,7 @@ mod tests {
 			zones: &empty,
 			live: FxHashSet::default(),
 			corrections: V::Null,
+			correction_origins: Vec::new(),
 			facts_file: None,
 			tdb: None,
 			classic: None,
