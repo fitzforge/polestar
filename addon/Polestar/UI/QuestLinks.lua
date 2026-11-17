@@ -1,4 +1,4 @@
--- Quest menus open the guide search without changing the active guide.
+-- Quest menus can search guides or start a guide for the selected quest.
 -- Forever's MENU_QUEST_MAP_LOG_TITLE owns questID; the tracker menu owns
 -- a container, so resolve its block before the menu takes the mouse focus.
 local ADDON, ns = ...
@@ -32,6 +32,9 @@ local function add(root, id)
 	root:QueueDivider()
 	root:CreateButton(L["Polestar"] .. ": " .. L["Show in Guides"], function()
 		UI.Picker.ShowQuest(id)
+	end)
+	root:CreateButton(L["Polestar"] .. ": " .. L["Start quest guide"], function()
+		ns.Lookup.Guide("quest", id)
 	end)
 end
 
