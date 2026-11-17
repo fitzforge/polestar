@@ -7911,7 +7911,11 @@ local function updateTicker()
 	end
 	useActive()
 	if not need then need = Spots.waypointGoal() ~= nil or (guide ~= nil and current ~= nil and Own.nearPick[guide.steps[current]] ~= nil) end
-	if not need then need = Own.hereAllN > 0 or Own.hereOnN > 0 or Own.hereFlyN > 0 or Own.hereGatherN > 0 or Own.hereVendorN > 0 end
+	-- A build of the While-here candidates queued for the next frame
+	-- (Own.hereLater) counts as candidates: the poll starts with the
+	-- evaluation, as when the build ran inside it, and runs that build first
+	-- if it comes before it (Own.hereTick).
+	if not need then need = Own.hereQueued or Own.hereAllN > 0 or Own.hereOnN > 0 or Own.hereFlyN > 0 or Own.hereGatherN > 0 or Own.hereVendorN > 0 end
 	if need and not ticker then
 		ticker = ns.NewTicker(ARRIVAL_POLL, checkArrival)
 	elseif not need and ticker then
@@ -12656,8 +12660,11 @@ end
 -- distance, and two shown swap only once the lower is HERE_ORDER yards
 -- nearer, so rows do not jump. Allocation-free. With HERE_SHOW lines up,
 -- only those are measured. True when a line the player had clicked went
--- (the arrow goes back to the guide).
+-- (the arrow goes back to the guide). A build an evaluation queued for the
+-- next frame (Own.hereLater) runs first when the poll comes before it, so
+-- the poll never measures the candidates or the radius from before.
 function Own.hereTick(c, px, py)
+	if Own.hereQueued then Own.hereLater() end
 	if Own.hereOnN == 0 and Own.hereAllN == 0 and Own.hereFlyN == 0 and Own.hereGatherN == 0 and Own.hereVendorN == 0 then return false end
 	-- On a taxi, boat or zeppelin, in an instance, hearthing or the live
 	-- step's escort: the lines shown hide and wait (Own.hereHeld), no new one
