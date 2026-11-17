@@ -6,6 +6,13 @@
 //
 //   node tools/lib/nav/eval/broad.js sample [--per 1000] [--max 4000] [--min 40] [--seed 1] [--worlds <dir>] --out pairs.json
 //   node tools/lib/nav/eval/broad.js run --nav <Polestar_Nav dir> --pairs pairs.json [--workers N] [--grid <dir>] --out run.json
+//   node tools/lib/nav/eval/broad.js run --spf <Shortest Path Forever checkout> --pairs pairs.json ... --out run.json
+//     a second opinion, offline only: the same pairs on Shortest Path Forever's own router and walking maps (its
+//     Routing/{PathGrid,Path,PathJobs}.lua, Nav/ and Data/Road*.lua, GPL-3.0-or-later, read from a local checkout,
+//     nothing of it copied here), each line measured the same way. `compare` against a Polestar run lists the walks it
+//     finds and Polestar does not: leads for grid joins (0.4.1 path study: 13 per 1,000, 8 in the Hinterlands). Its
+//     lines carry its own maps' heights, read here against Polestar's grid: compare routed and detour, not the height
+//     rows (drops, underground, steep).
 //   node tools/lib/nav/eval/broad.js compare <base run.json> <cand run.json>
 //   node tools/lib/nav/eval/broad.js workers --nav <Polestar_Nav dir>     the harness processes run would use there
 //
@@ -18,7 +25,10 @@
 //   underground a vertex of the line more than 4 yd under the column's terrain with no surface of any kind within
 //              4 yd of its height on our grid (--grid, default data/local/nav4): a node in solid ground (2 yd samples
 //              of the drawn segments are not judged: a straight segment between two valley nodes dips under a ridge)
-//   steepStep  a step climbing or falling steeper than 50 deg over at least 1 yd
+//   steepStep  a step climbing or falling steeper than 50 deg over at least 1 yd; split in two (0.4.1): climbUp a
+//              step of at least 4 yd flat climbing steeper than 50 deg, not a lift ride (a rise over 40 yd: the
+//              router rides lifts inside a walk), and steepDown one of at least 2 yd falling steeper than 50 deg (a
+//              ledge drop: walked down, never up). Judge a map rule that adds drops on climbUp, not steepStep.
 //   cliff      2 yd samples standing (within 3 yd) on a grid surface whose steepest terrain triangle (tslope) is over
 //              50 deg: any (cliffPct), and 5 or more, 10 yd (cliff10Pct)
 // The summary per continent and overall: routed share, detour median and p95, the share of routed pairs with each
@@ -79,16 +89,27 @@ function samplePairs({ worlds = path.join(ROOT, 'data', 'sim'), per = 1000, max 
 	return { seed, per, max, min, worlds: path.relative(ROOT, worlds), pairs };
 }
 
-// One harness process over `queries`; resolves { init, results }.
-function harness({ navDir, queries, lua, tag }) {
+// Shortest Path Forever's router and maps in its client's load order (its Data/Road*.lua, Nav/Nav.xml's scripts, then
+// Routing/PathGrid, Path, PathJobs), from a local checkout (`run --spf`).
+function spfFiles(dir) {
+	const out = [path.join(dir, 'Data/RoadCells.lua'), path.join(dir, 'Data/RoadEdges.lua')];
+	for (const m of fs.readFileSync(path.join(dir, 'Nav/Nav.xml'), 'utf8').matchAll(/<Script file="([^"]+)"/g)) out.push(path.join(dir, 'Nav', m[1].replace(/\\/g, '/')));
+	for (const f of ['PathGrid', 'Path', 'PathJobs']) out.push(path.join(dir, 'Routing', f + '.lua'));
+	for (const f of out) if (!fs.existsSync(f)) throw new Error(`--spf: ${f} not found (a Shortest Path Forever checkout?)`);
+	return out;
+}
+
+// One harness process over `queries`; resolves { init, results }. spf: navDir is a Shortest Path Forever checkout.
+function harness({ navDir, queries, lua, tag, spf = false }) {
 	const tmp = fs.mkdtempSync(path.join(os.tmpdir(), `polestar-broad-${tag}-`));
 	const list = path.join(tmp, 'files.txt');
 	const qfile = path.join(tmp, 'queries.jsonl');
 	const out = path.join(tmp, 'out.jsonl');
-	fs.writeFileSync(list, navFiles(path.resolve(navDir)).join('\n') + '\n');
+	fs.writeFileSync(list, (spf ? spfFiles(path.resolve(navDir)) : navFiles(path.resolve(navDir))).join('\n') + '\n');
 	fs.writeFileSync(qfile, queries.map((q) => JSON.stringify(q)).join('\n') + '\n');
 	return new Promise((resolve, reject) => {
-		const p = spawn(lua, [HARNESS, ENCODING, list, qfile, out], { stdio: ['ignore', 'ignore', 'pipe'] });
+		const env = { ...process.env, NAV_EVAL_SPF: spf ? '1' : '0' };
+		const p = spawn(lua, [HARNESS, ENCODING, list, qfile, out], { stdio: ['ignore', 'ignore', 'pipe'], env });
 		let err = '';
 		p.stderr.on('data', (d) => (err += d));
 		p.on('close', (code) => {
@@ -147,6 +168,8 @@ function measure(pair, res, grid) {
 	let drop = 0;
 	let dropSteep = 0;
 	let steep = 0;
+	let climbUp = 0;
+	let steepDown = 0;
 	for (let i = 1; i < pts.length; i++) {
 		const [ax, ay, az] = pts[i - 1];
 		const [bx, by, bz] = pts[i];
@@ -158,10 +181,15 @@ function measure(pair, res, grid) {
 			if (Math.atan2(-dz, d) * DEG > 45) dropSteep = Math.max(dropSteep, -dz);
 		}
 		if (d >= 1 && Math.atan2(Math.abs(dz), d) * DEG > 50) steep++;
+		const ang = Math.atan2(dz, d) * DEG;
+		if (d >= 4 && ang > 50 && dz <= 40) climbUp++;
+		if (d >= 2 && ang < -50) steepDown++;
 	}
 	m.drop15 = drop > 0 ? +drop.toFixed(1) : 0;
 	m.dropSteep = dropSteep > 0 ? +dropSteep.toFixed(1) : 0;
 	m.steepSteps = steep;
+	m.climbUp = climbUp;
+	m.steepDown = steepDown;
 	if (grid) {
 		const { FLAG } = require('../grid/format');
 		// A vertex under the terrain in solid ground: the router put a node where no surface is.
@@ -219,6 +247,8 @@ function summarize(rows) {
 		dropSteepPct: share(ok.filter((r) => r.dropSteep > 0).length, ok.length),
 		undergroundPct: withGrid.length ? share(withGrid.filter((r) => r.underground > 0).length, withGrid.length) : null,
 		steepStepPct: share(ok.filter((r) => r.steepSteps > 0).length, ok.length),
+		climbUpPct: share(ok.filter((r) => r.climbUp > 0).length, ok.length),
+		steepDownPct: share(ok.filter((r) => r.steepDown > 0).length, ok.length),
 		cliffPct: withGrid.length ? share(withGrid.filter((r) => r.cliff > 0).length, withGrid.length) : null,
 		cliff10Pct: withGrid.length ? share(withGrid.filter((r) => r.cliff >= 5).length, withGrid.length) : null,
 		msMedian: pct(ms, 0.5),
@@ -227,15 +257,15 @@ function summarize(rows) {
 	};
 }
 
-async function runBroad({ navDir, pairsDoc, workers, gridDir, log = () => {} }) {
+async function runBroad({ navDir, pairsDoc, workers, gridDir, spf = false, log = () => {} }) {
 	const lua = findInterpreter();
-	const fit = defaultWorkers(navDir);
+	const fit = defaultWorkers(spf ? path.join(navDir, 'Nav') : navDir);
 	const W = workers || fit.workers;
 	log(`broad: ${pairsDoc.pairs.length} pairs on ${navDir} in ${W} harness process(es) (${fit.navMB} MB folder, ~${fit.perGB} GB each, ${fit.availGB} GB free)`);
 	const queries = pairsDoc.pairs.map((p) => ({ type: 'route', id: p.id, map: p.map, from: p.from, to: p.to, profile: p.profile, style: 'balanced', level: null, danger: null }));
 	const chunks = Array.from({ length: W }, (_, i) => queries.filter((_, k) => k % W === i));
 	const t0 = Date.now();
-	const outs = await Promise.all(chunks.map((q, i) => harness({ navDir, queries: q, lua, tag: i })));
+	const outs = await Promise.all(chunks.map((q, i) => harness({ navDir, queries: q, lua, tag: i, spf })));
 	log(`broad: harness done in ${((Date.now() - t0) / 1000).toFixed(1)} s`);
 	const byId = new Map();
 	for (const o of outs) for (const r of o.results) byId.set(r.id, r);
@@ -257,6 +287,8 @@ const LABELS = [
 	['drop15Pct', 'falls > 15 yd in one drawn segment (any grade), %'],
 	['undergroundPct', 'a vertex in solid ground under the terrain, %'],
 	['steepStepPct', 'a step steeper than 50 deg, %'],
+	['climbUpPct', 'a climb steeper than 50 deg over 4+ yd, lifts apart, %'],
+	['steepDownPct', 'a descent steeper than 50 deg over 2+ yd (ledge drops), %'],
 	['cliffPct', 'touches a >50 deg surface (any 2 yd sample), %'],
 	['cliff10Pct', 'on >50 deg surfaces for 10+ yd, %'],
 	['msMedian', 'search ms median'],
@@ -291,7 +323,7 @@ function compareRuns(base, cand) {
 	}
 	worse.sort((a, b) => b.d - a.d);
 	out.push('', `Routed in base, unreachable in cand: ${lost.length}${lost.length ? `: ${lost.slice(0, 20).join(', ')}` : ''}`);
-	out.push(`Unreachable in base, routed in cand: ${won.length}`);
+	out.push(`Unreachable in base, routed in cand: ${won.length}${won.length ? `: ${won.slice(0, 30).join(', ')}` : ''}`);
 	out.push(`Pairs whose detour changed: ${worse.length}`);
 	out.push(`Largest detour increases: ${worse.filter((w) => w.d > 0).slice(0, 10).map((w) => `${w.id} ${w.from} -> ${w.to}`).join('; ') || 'none'}`);
 	out.push(`Largest detour decreases: ${worse.filter((w) => w.d < 0).slice(-10).reverse().map((w) => `${w.id} ${w.from} -> ${w.to}`).join('; ') || 'none'}`);
@@ -301,7 +333,7 @@ function compareRuns(base, cand) {
 async function main(argv) {
 	const { parseArgs } = require('../../cli');
 	const [cmd, ...rest] = argv;
-	const { opts: o, positional, error } = parseArgs(rest, { flags: [], options: ['--per', '--max', '--min', '--seed', '--worlds', '--out', '--nav', '--pairs', '--workers', '--grid'] });
+	const { opts: o, positional, error } = parseArgs(rest, { flags: [], options: ['--per', '--max', '--min', '--seed', '--worlds', '--out', '--nav', '--spf', '--pairs', '--workers', '--grid'] });
 	if (error) throw new Error(error);
 	if (cmd === 'sample') {
 		const doc = samplePairs({ worlds: o.worlds ? path.resolve(o.worlds) : undefined, per: o.per ? +o.per : 1000, max: o.max ? +o.max : 4000, min: o.min ? +o.min : 40, seed: o.seed ? +o.seed : 1 });
@@ -309,7 +341,8 @@ async function main(argv) {
 		console.log(`broad: ${doc.pairs.length} pairs in ${o.out}`);
 	} else if (cmd === 'run') {
 		const pairsDoc = JSON.parse(fs.readFileSync(path.resolve(o.pairs), 'utf8'));
-		const rep = await runBroad({ navDir: path.resolve(o.nav), pairsDoc, workers: o.workers ? +o.workers : null, gridDir: path.resolve(o.grid || path.join(ROOT, 'data', 'local', 'nav4')), log: (m) => console.error(m) });
+		if (!o.nav === !o.spf) throw new Error('broad run: --nav <Polestar_Nav dir> or --spf <Shortest Path Forever checkout>');
+		const rep = await runBroad({ navDir: path.resolve(o.nav || o.spf), spf: !!o.spf, pairsDoc, workers: o.workers ? +o.workers : null, gridDir: path.resolve(o.grid || path.join(ROOT, 'data', 'local', 'nav4')), log: (m) => console.error(m) });
 		fs.writeFileSync(path.resolve(o.out), JSON.stringify(rep) + '\n');
 		console.log(table([{ label: path.basename(path.dirname(rep.navDir)) || rep.navDir, s: rep.summary.all }]));
 	} else if (cmd === 'workers') {
