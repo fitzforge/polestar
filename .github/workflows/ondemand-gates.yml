@@ -15,7 +15,7 @@ name: On-demand gates
 #
 # public: gates that need data/forever, run against data built from public sources
 # (.github/actions/public-data): lint errors, prerequisite order (tests/prereq-order.test.js), the
-# reported cases and their todos (tests/guides-reported.test.js; a release ships with none), the
+# reported cases and their todos (tests/reported/; a release ships with none), the
 # route patterns (tests/guides-patterns.test.js) and the guide-end sweep's fresh-character run
 # (forge-addontest guides_end::every, guides_end_early). On public data a finding can be the data's:
 # give `base` and only findings the base does not have fail.
@@ -328,7 +328,9 @@ jobs:
           done
           grep '^::' "$logs/lint-head.log" | head -n 50 || true
 
-      # The node gates, in TAP: a failing test is a finding; guides-reported's todo cases are counted.
+      # The node gates, in TAP: a failing test is a finding; the reported cases' todos are counted.
+      # The reported cases are tests/reported/*.test.js (tests/guides-reported.test.js on a base from
+      # before they were split by area).
       - name: Prerequisite order, reported cases, route patterns
         if: ${{ !cancelled() }}
         run: |
@@ -336,7 +338,10 @@ jobs:
           for side in head base; do
             [ -d "$side" ] || continue
             for t in prereq-order guides-reported guides-patterns; do
-              (cd "$side" && FORGE="$FORGE" node --test --test-reporter=tap "tests/$t.test.js") > "$logs/$t-$side.tap" 2>&1 || true
+              files="tests/$t.test.js"
+              if [ "$t" = guides-reported ] && [ -d "$side/tests/reported" ]; then files=$(cd "$side" && ls tests/reported/*.test.js); fi
+              # shellcheck disable=SC2086 # one word per file
+              (cd "$side" && FORGE="$FORGE" node --test --test-reporter=tap $files) > "$logs/$t-$side.tap" 2>&1 || true
               grep -E '^\s*not ok [0-9]+ - ' "$logs/$t-$side.tap" | grep -v '# TODO' \
                 | sed -E 's/^\s*not ok [0-9]+ - //' | sort -u > "$RUNNER_TEMP/$t-$side.txt" || true
               grep -E '^\s*(not )?ok [0-9]+ - .*# TODO' "$logs/$t-$side.tap" \

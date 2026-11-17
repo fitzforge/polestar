@@ -23,7 +23,7 @@ const RULES = [
 	{ kind: 'tooldata', when: (f) => f.startsWith('tools/'), map: 'tools/** not .js (json, lua, templates): tests whose closure holds a .js in its folder naming it (any .js there when none does)' },
 	{ kind: 'addon', when: (f) => f.startsWith('addon/'), map: 'addon/<A>/x.lua|xml|toc: runAddon tests loading A whole, x, or a manifest of A that loads x; tests calling a tool that runs the addon' },
 	{ kind: 'stub', when: (f) => f.startsWith('tests/lua/'), map: 'tests/lua/x: tests naming x; every runAddon test when helpers/lua.js loads x itself; tests calling a tool that runs the addon with x' },
-	{ kind: 'guides', when: (f) => f.startsWith('guides/'), map: 'guides*.test.js' },
+	{ kind: 'guides', when: (f) => f.startsWith('guides/'), map: 'guides*.test.js and tests/reported/*.test.js' },
 	{ kind: 'path', when: () => true, map: "tests reading the path (fixtures, data, docs, …): a path string, path.join over a known root, or a helper's path constant" },
 ];
 // A file that selects no test is listed as unmapped.
@@ -496,7 +496,7 @@ const SELECT = {
 		}
 	},
 	guides(f, add) {
-		for (const t of testFiles()) if (path.basename(t).startsWith('guides')) add(t, 'a guides test');
+		for (const t of testFiles()) if (path.basename(t).startsWith('guides') || rel(t).startsWith('tests/reported/')) add(t, 'a guides test');
 	},
 	path(f, add) {
 		for (const t of testFiles())

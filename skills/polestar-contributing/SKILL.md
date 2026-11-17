@@ -108,7 +108,7 @@ else broke.
 
 | What you changed | What you run |
 |---|---|
-| A guide step (edit to an existing `.guide` file) | `forge guide lint` and `polestar playtest --filter <guide>` (need reference data; say so in PR if unavailable); for a reported-bug fix, also `node --test tests/guides-reported.test.js`; then `forge i18n guides sync` and `forge guide compile`, committed in the same pull request (below) |
+| A guide step (edit to an existing `.guide` file) | `forge guide lint` and `polestar playtest --filter <guide>` (need reference data; say so in PR if unavailable); for a reported-bug fix, also `node --test tests/reported/<area>.test.js` (the file for the guide's area); then `forge i18n guides sync` and `forge guide compile`, committed in the same pull request (below) |
 | A new or renamed guide file | Same lint, playtest, sync and compile, committed in the same pull request |
 | Addon Lua (`addon/Polestar/`) | `node --test tests/<area>.test.js` for the area you changed (find it: `grep -rl <module-name> tests/*.test.js`) |
 | A tool or its library (`tools/`) | That tool's tests (`node --test "tests/<tool>*.test.js"`) |

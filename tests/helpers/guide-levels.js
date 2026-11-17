@@ -1,5 +1,5 @@
 'use strict';
-// Our guides' headers as the level checks read them (tests/guides-levels.test.js, guides-reported.test.js): each
+// Our guides' headers as the level checks read them (tests/guides-levels.test.js, tests/reported/): each
 // guide's levels for each faction it serves (`levels <min>-<max>`, or `levels <min>-<max> Alliance|Horde` on a guide
 // both factions play: docs/GUIDE_FORMAT.md, "Header"), its `next` guides and its category.
 

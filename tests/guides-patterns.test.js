@@ -5,7 +5,7 @@
 // "Click X" on something you cast or /sit at (#92, #100), a click hidden
 // behind the field goals it is done among (#102), a bought item the route
 // never buys (#88), and a follow-up taken only after a walk to someone else
-// and back (#310). tests/guides-reported.test.js pins each report itself.
+// and back (#310). tests/reported/ pins each report itself.
 // Every test names all its offenders as guide:line.
 //
 // Needs data/forever (forge data build); skips without it.

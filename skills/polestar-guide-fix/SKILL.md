@@ -47,7 +47,7 @@ where the route comes from and why it goes the way it does. A fix that
 changes the route updates them too, so a later route refresh keeps it.
 Routes are refreshed by Polestar Forge (`forge build`, docs/FORGE.md), which
 starts from the guides' own order; an order players asked for that a
-refresh must keep gets its case in `tests/guides-reported.test.js` and the
+refresh must keep gets its case in `tests/reported/` (the file for the guide's area) and the
 same pair under `deliberate` in `data/route-fixes.json` (Forge's hard
 orders); a quest to always include or leave out goes under `overrides` in
 the same file (docs/forge/routes.md#11-overrides).
@@ -110,8 +110,12 @@ The rest of this step is for hand-edited guides.
 
 ## 4. Pin it with a test
 
-Add a case to `tests/guides-reported.test.js` (cave mouths go in
-`tests/guides-caves.test.js`). It checks what the player gets, such as the
+Add a case to the file of the guide's area in `tests/reported/`: by faction
+and band (`horde-starts`, `horde-10-30`, `horde-30-40`, `horde-40-50`,
+`horde-50-60`, the same for `alliance`), `class` or `other-guides`; a check
+across one faction's guides in `<faction>-routes`, across both factions in
+`every-guide` (`tests/reported/helpers.js` has the shared helpers; cave
+mouths go in `tests/guides-caves.test.js`). It checks what the player gets, such as the
 goal order or where the arrow leads, never the guide's wording. Name the
 report in the test's title, following the cases already there. On a
 hand-edited guide the test fails on the old guide and passes on the fixed
@@ -125,7 +129,7 @@ deliver it.
 ```sh
 forge guide lint
 polestar playtest --filter <guide file or id>
-node --test tests/guides-reported.test.js  # or tests/guides-caves.test.js for a cave mouth
+node --test tests/reported/<area>.test.js  # or tests/guides-caves.test.js for a cave mouth
 ```
 
 You don't need the whole suite; CI runs it on your pull request and tells
