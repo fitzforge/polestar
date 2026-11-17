@@ -554,14 +554,31 @@ local SPECS = {
 					search = "tabs, tab bar, header, strip, hide tabs, guides" },
 			} },
 		{ kind = "dropdown", key = "guideWindow.tabStyle", label = L["Tab style"], new = "0.4.0", disabled = offKey("tabs"),
-			help = L["How the tabs of the open guides show: a strip above the step bar, a menu on the guide's title, small tabs on the window's top edge, or a column down its left side."],
-			search = "tab style, tabs, switcher, dropdown, edge tabs, side strip, vertical tabs, title menu",
-			choices = {
-				{ value = "underline", label = L["Above the step bar"] },
-				{ value = "switcher", label = L["Title menu"] },
-				{ value = "edge", label = L["On the top edge"] },
-				{ value = "strip", label = L["Down the left side"] },
-			} },
+			help = L["How the tabs of the open guides show: a strip above the step bar, a menu on the guide's title, small tabs on the window's top edge, or a column down its left side. Default follows the layout."],
+			search = "tab style, tabs, switcher, dropdown, edge tabs, side strip, vertical tabs, title menu, default",
+			-- Default: nothing saved, so the layout's style shows (Atlas: down the
+			-- left side) and follows the layout when it changes.
+			get = function()
+				local s = ns.GetStored("guideWindow.tabStyle")
+				return s == nil and "default" or s
+			end,
+			set = function(v)
+				ns.Set("guideWindow.tabStyle", v ~= "default" and v or nil)
+			end,
+			choices = function()
+				local names = {
+					underline = L["Above the step bar"], switcher = L["Title menu"],
+					edge = L["On the top edge"], strip = L["Down the left side"],
+				}
+				local d = names[ns.GetDefault("guideWindow.tabStyle")]
+				return {
+					{ value = "default", label = d and string.format(L["Default (%s)"], d) or L["Default"] },
+					{ value = "underline", label = names.underline },
+					{ value = "switcher", label = names.switcher },
+					{ value = "edge", label = names.edge },
+					{ value = "strip", label = names.strip },
+				}
+			end },
 		{ kind = "slider", key = "guideWindow.navHeight", label = L["Step bar height"], min = 0.7, max = 1.6, step = 0.05, format = percent, new = NEW,
 			help = L["How tall the bar with the step number, Skip and the menu is."], search = "bar height, header, navigator, taller, shorter, size, step bar height" },
 		textSize("barTextSize", L["Bar text"], L["The tabs, the step number, the guide's title, Skip and the percent."],

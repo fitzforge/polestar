@@ -190,3 +190,57 @@ emit(out)`);
 	assert.equal(out.noBorder.tabBorder, true, 'no window border: none on the tab');
 	assert.ok(out.noBorder.offLift <= out.px + 1e-6, 'no border: past the shade alone');
 });
+
+test('Default tab style: nothing saved, so the layout\'s style shows and follows the layout', () => {
+	const [out] = runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar'], script: `
+stub.login()
+local P = Polestar
+P.Set("guideWindow.tabStyle", "edge")
+local saved = P.Get("guideWindow.tabStyle")
+P.SetLayoutDefaults({ ["guideWindow.tabStyle"] = "strip" })
+local kept = P.Get("guideWindow.tabStyle")
+-- The Default choice: nothing stored.
+P.Set("guideWindow.tabStyle", nil)
+local layout = P.Get("guideWindow.tabStyle")
+local stored = P.GetStored("guideWindow.tabStyle")
+P.SetLayoutDefaults(nil)
+emit({ saved = saved, kept = kept, layout = layout, stored = stored == nil, base = P.Get("guideWindow.tabStyle") })` }).emitted;
+	assert.equal(out.saved, 'edge');
+	assert.equal(out.kept, 'edge', 'a saved style beats the layout\'s default');
+	assert.equal(out.layout, 'strip', 'Default shows the layout\'s style');
+	assert.equal(out.stored, true, 'Default stores nothing');
+	assert.equal(out.base, 'underline', 'and follows the layout back to Polestar\'s own');
+});
+
+// Three tabs in a narrow window: the tabs not in view keep a few letters of
+// their title, the level range gives way first (a range with no name tells
+// nothing).
+test('a narrow tab keeps its title before its level range', () => {
+	const script = SCRIPT.replace(/Polestar\.Set\("guideWindow\.tabStyle", "edge"\)[\s\S]*$/, `
+for i = 2, 3 do
+	Polestar.RegisterGuide({ id = "test/tabs" .. i, pack = "test", title = "Westfall and the Dead Mines " .. i, minLevel = 10, maxLevel = 20,
+		steps = { { goals = { { t = "accept", quest = 30 + i, title = "Quest " .. i } } } } })
+end
+Polestar.Set("guideWindow.tabStyle", "underline")
+Polestar.Engine.OpenTab("test/tabs2", false)
+Polestar.Engine.OpenTab("test/tabs3", false)
+stub.advance(0.6)
+F:SetWidth(300)
+draw()
+local strip
+for _, c in ipairs({ F:GetChildren() }) do if type(c) == "table" and c.psCount then strip = c end end
+local tabs = {}
+for _, b in ipairs({ strip:GetChildren() }) do
+	if type(b) == "table" and type(rawget(b, "Label")) == "table" and type(rawget(b, "Range")) == "table" and b:IsShown() then
+		tabs[#tabs + 1] = { title = b.Label:IsShown() and b.Label:GetWidth() or 0, full = b.psTitleW, range = b.Range:IsShown(), w = b:GetWidth() }
+	end
+end
+emit({ n = strip.psCount, tabs = tabs })`);
+	const [out] = runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar'], script }).emitted;
+	assert.equal(out.n, 3, JSON.stringify(out));
+	assert.equal(out.tabs.length, 3, JSON.stringify(out));
+	for (const t of out.tabs) {
+		assert.ok(t.title >= 1, `every tab shows some of its title: ${JSON.stringify(out.tabs)}`);
+		if (t.range) assert.ok(t.title >= Math.min(t.full, 30), `a range shows only beside a few letters of the title: ${JSON.stringify(t)}`);
+	}
+});
