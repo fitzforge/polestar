@@ -85,7 +85,8 @@ fn a_profession_guide_starts_at_the_player_s_skill_asks_only_for_what_is_still_n
 	assert_eq!(out["cloth"]["at"], 3);
 	assert_eq!(out["at45"], json!({ "at": 5, "text": "Craft Heavy Linen Bandage", "max": 50, "section": "First Aid 40-50", "state": "current" }));
 	assert_eq!(out["passed"], json!(["done", "done"]));
-	assert_eq!(out["capped"], json!({ "at": 6, "text": "Learn First Aid", "max": false, "section": "First Aid 50-75", "state": "done" }));
+	// The rank says which (#2619, mayzap: "Learn Enchanting" at Journeyman read as the profession already learnt).
+	assert_eq!(out["capped"], json!({ "at": 6, "text": "Learn Journeyman First Aid", "max": false, "section": "First Aid 50-75", "state": "done" }));
 	assert_eq!(out["trained"]["at"], false);
 	assert_eq!(out["heading"], json!(["First Aid 1-40", "done", "done"]));
 }

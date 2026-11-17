@@ -5,8 +5,9 @@
 --   Lookup.CuratedGuide(kind, id) -> guideId | nil
 --       a registered guide whose `collects` holds the item (kind "spell": the
 --       spell's item, else a guide with the spell's name among its
---       `keywords`, as the class mount guides have); one that fits the
---       character first
+--       `keywords`, as the class mount guides have; kind "quest": a guide
+--       with the quest's title as one of its `keywords`, as the class quest
+--       guides list their quests); one that fits the character first
 --   Lookup.BuildGuide(kind, id, ranked) -> def | nil, reason
 --       ranked: a row of Lookup.Sources(kind, id), its index, or nil (best)
 --   Lookup.Guide(kind, id, index) -> guideId | nil, reason
@@ -128,8 +129,20 @@ local function keywordMatch(list, name)
 	return false
 end
 
+-- A keyword that is the name itself, case aside: quest titles are short and
+-- often part of other names, so a quest matches whole keywords only.
+local function keywordIs(list, name)
+	if type(list) ~= "table" or type(name) ~= "string" or name == "" then return false end
+	local want = lower(name)
+	for i = 1, #list do
+		local k = list[i]
+		if type(k) == "string" and lower(k) == want then return true end
+	end
+	return false
+end
+
 function Lookup.CuratedGuide(kind, id)
-	local itemId, spellName
+	local itemId, spellName, questTitle
 	if ITEM_KINDS[kind] then
 		itemId = tonumber(id)
 	elseif kind == "spell" then
@@ -137,6 +150,14 @@ function Lookup.CuratedGuide(kind, id)
 		local spell = C and C.Spell(id)
 		if not spell then return nil end
 		itemId, spellName = spell.item, spell.name
+	elseif kind == "quest" then
+		-- A quest a class guide walks through (The Test of Righteousness in
+		-- Verigan's Fist): that guide, not one built from the quest's data,
+		-- which knows nothing of the chain's other quests (#2606). Keywords
+		-- are English, so the title is the pack's English in every language.
+		local C = Codex()
+		questTitle = C and C.EnglishName and C.EnglishName("quest", id)
+		if not questTitle then return nil end
 	else
 		return nil
 	end
@@ -149,7 +170,8 @@ function Lookup.CuratedGuide(kind, id)
 	for _, pack in ipairs(from) do
 		for _, h in ipairs(list) do
 			if h.pack == pack and type(h.id) == "string" and h.id:sub(1, #PREFIX) ~= PREFIX
-				and ((itemId and holds(h.collects, itemId)) or (spellName and keywordMatch(h.keywords, spellName)))
+				and ((itemId and holds(h.collects, itemId)) or (spellName and keywordMatch(h.keywords, spellName))
+					or (questTitle and keywordIs(h.keywords, questTitle)))
 				and ns.Guides.GuideMatches(h, player) then
 				return h.id
 			end
@@ -210,6 +232,21 @@ end
 local function npcName(id)
 	local C = Codex()
 	return (C.Name("npc", id)) or (L["NPC"] .. " " .. id)
+end
+
+-- Whether a kill or talk objective's target is one of the game's placeholders
+-- (#2614: "PvP Tower Credit Marker", a "[DNT] Kill Credit"). The data build makes
+-- such objectives events, so only an older Codex has one; the goal is then read
+-- by its quest-log line (Engine, `logLine`) and never names the placeholder.
+local function placeholderTarget(npc, o)
+	local P = ns.Compat.Placeholder
+	return P((npc and npc.name) or (Codex().Name("npc", o.id))) or (not npc and P(o.text))
+end
+
+-- The words for such an objective before the quest is in the log: its own
+-- text, else its quest's title.
+local function objectiveWords(o, q)
+	return (not ns.Compat.Placeholder(o.text) and o.text) or q.title
 end
 
 local function percent(n)
@@ -624,7 +661,8 @@ local function questStep(q, from, isTarget, opts)
 		local count = o.count or 1
 		if o.type == "kill" and o.id then
 			local npc = C.Npc(o.id)
-			local target = (npc and npc.name) or o.text or npcName(o.id)
+			local credit = placeholderTarget(npc, o)
+			local target = credit and objectiveWords(o, q) or (npc and npc.name) or o.text or npcName(o.id)
 			-- No placed NPC (a kill credit, Riverglades' "[DNT] Kill Credit"): the
 			-- objective's own place, where players' recordings show it ticking.
 			local s = (npc and Lookup.Nearest(npc.spawns, here, direct)) or ((o.map and o.x and o.y) and o or nil)
@@ -663,11 +701,12 @@ local function questStep(q, from, isTarget, opts)
 				-- `useItem`: the item this kill is really a use of (Codex, from a
 				-- use-item-on-mob mechanic). The engine then says Use. A tame
 				-- (Taming the Beast) stays a kill the engine words as Tame.
-				local goal = { target = target, npc = o.id, quest = q.id, oi = oi, count = count, title = q.title, group = eliteGroup(npc) }
+				local goal = { target = target, npc = not credit and o.id or nil, logLine = credit or nil, quest = q.id, oi = oi, count = count, title = q.title, group = eliteGroup(npc) }
 				if not summon and type(o.useItem) == "number" and o.useItem > 0 and not o.tame then
 					goal.t = "use"
 					goal.item = o.useItem
 					goal.itemName = itemName(o.useItem)
+					goal.logLine = nil -- "Use <item>" says what to do
 				else
 					goal.t = "kill"
 					goal.tame = o.tame
@@ -691,14 +730,15 @@ local function questStep(q, from, isTarget, opts)
 			-- Speak to an NPC (Hidden Enemies: Neeru Fireblade): the engine counts it by the
 			-- quest's objective line, so it holds the step until done.
 			local npc = C.Npc(o.id)
-			local who = (npc and npc.name) or o.text or npcName(o.id)
+			local credit = placeholderTarget(npc, o)
+			local who = credit and objectiveWords(o, q) or (npc and npc.name) or o.text or npcName(o.id)
 			local s = (npc and Lookup.Nearest(npc.spawns, here, direct)) or ((o.map and o.x and o.y) and o or nil)
 			if not s and inside then
 				s = inside("npc", o.id)
 				mark(s, who)
 			end
-			goals[#goals + 1] = at({ t = "talk", npc = o.id, npcName = who, quest = q.id, oi = oi, title = q.title }, s)
-			talks[#talks + 1] = who
+			goals[#goals + 1] = at({ t = "talk", npc = not credit and o.id or nil, npcName = who, logLine = credit or nil, quest = q.id, oi = oi, title = q.title }, s)
+			if not credit then talks[#talks + 1] = who end
 		elseif o.type == "object" and o.id then
 			local obj = C.Object(o.id)
 			local objName = (obj and obj.name) or o.text or (L["Object"] .. " " .. o.id)

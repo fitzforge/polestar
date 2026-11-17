@@ -259,6 +259,13 @@ step Booty Bay
   note Seahorn's Bloodsail Buccaneers: keep it for the level-48 Booty Bay stop, with the Wild Shore camp.
   turnin 576                          -- Dizzy One-Eye
 
+step Booty Bay
+  when !onquest 606
+  when !turnedin 606
+  zone Stranglethorn Vale
+  tip You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.
+  accept 606                          -- "Sea Wolf" MacKinley, on the top floor
+
 step Gorilla hills
   tip Head inland to the Mistvale gorilla hills. Elder Mistvale Gorillas drop the giblets.
   collect 3919 quest 606              -- Mistvale Giblets
@@ -343,7 +350,7 @@ step Ruins of Zul'Mamwe: kill these as you meet them
   tip The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do.
   tip Follow the road north-east to the Venture Co. camp at the Crystalvein Mine; the miners, surveyors and foremen drop the crystals.
   tip Careful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp.
-  collect 1524 quest 209              -- Skullsplitter Tusk
+  collect 1524 quest 209.1 @45.4,36.2 map 1434 era -- Skullsplitter Tusk, from the trolls of the ruins
   collect 3917 quest 600              -- Singing Blue Crystal
 
 step Raptor Mastery

@@ -76,6 +76,7 @@ return {
 	["{skill:164} 75-150: vendor goods"] = "",
 	-- {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:1286} Edna Mullby · {npc:5512} Kaita Deepforge · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:5817} Shimra · {npc:3413} Sovik
 	["Buy the whole bracket's share in one go: {item:5956} (a tool: one, kept in your bags, 18c); about 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:1286} and {npc:5512}; {zone:1454}: {npc:3367}, {npc:5817} and {npc:3413})."] = "",
+	-- was: ["{item:5956}: a tool, keep it in your bags"] = "{item:5956}：工具，放在背包裡"
 	["a tool, keep it in your bags"] = "",
 
 	-- Step 15: Blacksmithing 75-150: Auction House

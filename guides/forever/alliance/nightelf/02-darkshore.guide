@@ -19,8 +19,9 @@ next forever/alliance/02-westfall
 # ---------------------------------------------------------------- Auberdine
 
 step Auberdine
-  only Human,Dwarf,Gnome,Skyborne
+  when !turnedin 3524
   zone Darkshore
+  tip You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.
   tip The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street.
   accept 3524                                 -- Gwennyth Bly'Leggonde
   accept 98025                                -- The WANTED poster outside the inn
@@ -28,7 +29,7 @@ step Auberdine
 # ---------------------------------------------------------------- The beach
 
 step The beach
-  only Human,Dwarf,Gnome,Skyborne
+  when !turnedin 3524
   tip Tide Crawlers scuttle along the shore below the village; Buzzbox 827 stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The Beached Sea Creature lies on the shore just south of the village.
   collect 12242 quest 3524                    -- Sea Creature Bones
 
@@ -47,6 +48,12 @@ step Auberdine
   accept 983                                  -- Wizbang Cranktoggle, upstairs in the inn
   accept 4811 only NightElf                   -- Sentinel Glynda Nal'Shea
   turnin 1141 optional                        -- Gubber Blump
+
+step Gwennyth Bly'Leggonde
+  when !turnedin 3524
+  zone Darkshore
+  turnin 3524                                 -- Gwennyth Bly'Leggonde
+  accept 4681
 
 step The skeletal turtle
   collect 12289 quest 4681                    -- Sea Turtle Remains, on the beach west of the docks; underwater

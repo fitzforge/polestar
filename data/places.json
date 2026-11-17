@@ -2481,6 +2481,78 @@
 				}
 			],
 			"issue": 1575
+		},
+		{
+			"id": "2615-needles-test-of-faith-planks",
+			"quest": 1149,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1441,
+				"x": 26.43,
+				"y": 32.93,
+				"frame": "era"
+			},
+			"note": "Test of Faith (1149): taking it from Dorn Plainstalker puts the player on a high cliff in western Thousand Needles, and the leap counts only from the end of the wooden planks there (the game's area trigger 246, the objective's point). The complete goal had no point, so the arrow led back to Dorn, 1,250 yd east, and a player jumped from the wrong spot and died.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2615 (xstevan, 0.4.0): /polestar where 1441 @26.43,31.23 right after taking the quest, 50 yd from the planks' trigger; the arrow pointed 1,248 yd away and the jump from there killed him"
+				},
+				{
+					"kind": "pfquest",
+					"ref": "quests.json 1149 objective: event 246 at map 1441 26.43,32.93 (era)"
+				}
+			],
+			"issue": 2615
+		},
+		{
+			"id": "2650-hillsbrad-citizen-wilkes",
+			"quest": 567,
+			"objective": 2,
+			"faction": "Horde",
+			"at": {
+				"map": 1424,
+				"x": 30.6,
+				"y": 40.5,
+				"frame": "era"
+			},
+			"note": "Dangerous! (567): Citizen Wilkes walks the west side of Hillsbrad Fields' town, where players kill him (forever-db/corrections/npcs.json 2449); the goal's point was his Classic spawn at 32.62,39.79, where nobody met him.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-16): 72 people killed Citizen Wilkes, all between 29-31,38-43"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#2650 (Sable, 0.4.0): found him at 30.65,40.49"
+				}
+			],
+			"issue": 2650
+		},
+		{
+			"id": "2604-stv-skullsplitter-tusks-alliance",
+			"quest": 209,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1434,
+				"x": 45.4,
+				"y": 36.2,
+				"frame": "era"
+			},
+			"note": "Skullsplitter Tusks (209), Alliance: every Skullsplitter troll drops the tusks (about one kill in five), and their warriors, axe throwers and mystics camp in the ruins of Zul'Mamwe (42-49,30-42, 24 places each), as the Horde step already points (1149-stv-skullsplitter-tusks). The Alliance goal had the lone Skullsplitter Panther (100%, one spawn) as its point and two named trolls far north at Zul'Kunda (Gan'zulah and Nezzliok, 80%) as a place to search, so a player north of the ruins was sent to Zul'Kunda, where hardly any Skullsplitters are. With the point on the trolls' camp, Zul'Kunda is only an alternative, as for the Horde.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 667, 696, 780 spawns on map 1434; items.json 1524 drops (trolls 21%, 756 Skullsplitter Panther 100%, 1061 Gan'zulah and 1062 Nezzliok the Dire 80%, at Zul'Kunda 23.4-23.5,8.1-9.5)"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#2604 (Amerigo, 0.4.0): the arrow's third spot was at Zul'Kunda (23.5,8.8), which has no reliable number of Skullsplitter trolls; it should aim at Zul'Mamwe"
+				}
+			],
+			"issue": 2604
 		}
 	]
 }

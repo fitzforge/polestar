@@ -288,9 +288,10 @@ return {
 
 	-- Step 65: Dorn Plainstalker
 	-- {npc:2986} Dorn Plainstalker · {quest:1149} Test of Faith
-	["{npc:2986} stands on a mesa top east of the Galak camps. For the {quest:1149}, walk off the end of the planks beside him: you land safely."] = "{npc:2986} se tient au sommet d'une mesa à l'est des camps galak. Pour {quest:1149}, avancez jusqu'au bout des planches à côté de lui et sautez : vous atterrissez sans dommage.",
+	["{npc:2986} stands on a mesa top east of the Galak camps. Taking his {quest:1149} puts you on a high cliff far to the west: follow the stone path to the end of the wooden planks and step off there, and you land safely. Jump from anywhere else and you fall to your death."] = "",
 	-- {npc:2986} Dorn Plainstalker
 	["{npc:2986}, below ground"] = "{npc:2986}, sous terre",
+	["the end of the planks"] = "",
 	-- {npc:2986} Dorn Plainstalker · {npc:4490} Grenka Bloodscreech
 	["{npc:2986}: {npc:4490}, in the harpy den west of the post"] = "{npc:2986} : {npc:4490}, dans le repaire des harpies à l'ouest du poste",
 	-- {quest:1150} Test of Endurance · {npc:4490} Grenka Bloodscreech
@@ -434,6 +435,7 @@ return {
 	-- ["{npc:210995} may not offer these to every class; if he doesn't, carry on.; walks around {area:1276}: the map marks where to look"] = "{npc:210995} ne propose peut-être pas ces quêtes à toutes les classes ; s'il ne le fait pas, continuez ; il se déplace autour de {area:1276} : la carte indique où chercher",
 	-- ["{npc:210995}, a Forever addition, stands on the west shore of {area:421} with three quick Dragonslayer quests."] = "{npc:210995}, un ajout de Forever, se tient sur la rive ouest de {area:421} avec trois quêtes rapides de tueur de dragon.",
 	-- ["{npc:2986} offers {quest:1151} once {quest:1150} is in"] = "{npc:2986} propose {quest:1151} une fois {quest:1150} rendue",
+	-- ["{npc:2986} stands on a mesa top east of the Galak camps. For the {quest:1149}, walk off the end of the planks beside him: you land safely."] = "{npc:2986} se tient au sommet d'une mesa à l'est des camps galak. Pour {quest:1149}, avancez jusqu'au bout des planches à côté de lui et sautez : vous atterrissez sans dommage.",
 	-- ["{npc:2986}'s mesa is north-east of Freewind."] = "La mesa de {npc:2986} se trouve au nord-est du Poste de Librevent.",
 	-- ["{npc:3917} on the way"] = "{npc:3917} en chemin",
 	-- ["{npc:4151} along the way to {area:2240}"] = "{npc:4151} sur le chemin de {area:2240}",
