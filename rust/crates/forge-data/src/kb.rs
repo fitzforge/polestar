@@ -2210,9 +2210,13 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 		spawnz_changed = tdb_report.get("spawnIds").num() > 0.0 && spawnz.is_some();
 		if let Some(t) = trainers.as_ref() {
 			let t2 = t.as_obj().unwrap().spread();
+			for (id, classes) in drop_tdb_non_trainers(&t2, &tdb) {
+				kb.change("trainers", forge_guide::js::str_to_num(&id), "trainer", classes, V::Null, "tdb");
+				bump(&tdb_report, "trainersDropped", 1.0);
+			}
 			for (id, classes) in tdb.get("trainers").entries() {
 				let n = npcs.get(&id);
-				if t2.get(&id).truthy() || !n.truthy() || n.get("spawns").keys().is_empty() {
+				if t2.get(&id).truthy() || !n.truthy() || n.get("spawns").keys().is_empty() || !tdb_class_trainer(&tdb, &id) {
 					continue;
 				}
 				let e = Obj::new();
@@ -3544,6 +3548,32 @@ pub fn mechanics_source() -> V {
 	V::Obj(o)
 }
 
+/// The fewest distinct spells a class trainer's lists teach (#2559). Every class trainer teaches at least 4
+/// (the starting areas' shaman trainers); the capitals' portal trainers (Larimaine Purdue, Thuul) teach a
+/// city's Teleport and Portal only, nothing a level 15 mage comes for. An extract without `trainerSpells`
+/// (before schema 14) leaves every trainer in.
+const MIN_CLASS_TRAINER_SPELLS: f64 = 3.0;
+
+fn tdb_class_trainer(tdb: &V, id: &str) -> bool {
+	let spells = tdb.get("trainerSpells");
+	!spells.truthy() || spells.get(id).num() >= MIN_CLASS_TRAINER_SPELLS
+}
+
+/// Drops from trainers.json's entries (`trainers`, a copy of the file read in) the ones only the TDB added that
+/// it no longer counts as class trainers: an earlier build's portal trainers (#2559). Returns their ids and classes.
+fn drop_tdb_non_trainers(trainers: &Obj, tdb: &V) -> Vec<(String, V)> {
+	let stale = |id: &str, e: &V| {
+		let s = e.get("sources").items();
+		let only_tdb = s.len() == 1 && s[0].as_str() == Some("forever-tdb");
+		only_tdb && !(tdb.get("trainers").get(id).truthy() && tdb_class_trainer(tdb, id))
+	};
+	let gone: Vec<(String, V)> = trainers.entries().into_iter().filter(|(id, e)| stale(id, e)).map(|(id, e)| (id.to_string(), e.get("classes"))).collect();
+	for (id, _) in &gone {
+		trainers.delete(id);
+	}
+	gone
+}
+
 /// trainers.json's entries (`trainers`, a copy of the file read in) take `top`, the highest level a trainer's
 /// sniffed lists teach (the TDB extract's `trainerTop`, #2477: the starting areas' trainers stop at 6), which
 /// ClassTrainers.lua passes to the engine. Each entry changed is a copy: the entries are shared with the file
@@ -3580,6 +3610,25 @@ mod tests {
 		set_trainer_tops(&t2, &forge_guide::js::parse_json(r#"{"911":6,"913":60,"5":6}"#).unwrap());
 		assert_eq!(stringify(&V::Obj(t2), None), r#"{"911":{"id":911,"classes":["WARRIOR"],"top":6},"913":{"id":913,"classes":["WARRIOR"],"top":60}}"#);
 		assert_eq!(stringify(&read, None), r#"{"911":{"id":911,"classes":["WARRIOR"]},"913":{"id":913,"classes":["WARRIOR"]}}"#, "the file read in is left as it was");
+	}
+
+	#[test]
+	fn portal_trainers_are_no_class_trainers_and_an_earlier_builds_entry_goes_2559() {
+		// Larimaine Purdue (2485) teaches Teleport and Portal: Stormwind only; Jennea Cannon (5497) is the mage trainer.
+		let tdb = forge_guide::js::parse_json(r#"{"trainers":{"2485":["MAGE"],"5497":["MAGE"],"3062":["SHAMAN"]},"trainerSpells":{"2485":2,"5497":150,"3062":4}}"#).unwrap();
+		assert!(!tdb_class_trainer(&tdb, "2485"));
+		assert!(tdb_class_trainer(&tdb, "5497") && tdb_class_trainer(&tdb, "3062"), "a starting area's 4 spells are a class trainer's");
+		let read: V = forge_guide::js::parse_json(
+			r#"{"2485":{"id":2485,"classes":["MAGE"],"sources":["forever-tdb"]},"4165":{"id":4165,"classes":["MAGE"],"sources":["forever-tdb"]},"5497":{"id":5497,"classes":["MAGE"],"sources":["forever-tdb"]},"3062":{"id":3062,"classes":["SHAMAN"],"sources":["curated"]}}"#,
+		)
+		.unwrap();
+		let t2 = read.as_obj().unwrap().spread();
+		let gone: Vec<String> = drop_tdb_non_trainers(&t2, &tdb).into_iter().map(|(id, _)| id).collect();
+		assert_eq!(gone, vec!["2485", "4165"], "the portal trainer and the one the extract no longer lists");
+		assert_eq!(t2.keys().iter().map(|k| k.to_string()).collect::<Vec<_>>(), vec!["3062", "5497"]);
+		assert_eq!(read.keys().len(), 4, "the file read in is left as it was");
+		let old = forge_guide::js::parse_json(r#"{"trainers":{"2485":["MAGE"]}}"#).unwrap();
+		assert!(tdb_class_trainer(&old, "2485"), "an extract before trainerSpells keeps its trainers");
 	}
 
 	use super::*;
