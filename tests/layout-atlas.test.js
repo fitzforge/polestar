@@ -1346,7 +1346,20 @@ GF.ApplyStyle()
 local r = GF.rows[1]
 GF.ShowMark(r, true)
 local l = rawget(r.Mark, "psLit")
-emit({ kit = T.Kit() ~= nil, header = header, kitLit = rawget(r, "psKitLit") or false, wash = l and l:IsShown() or false, mark = r.Mark:IsShown() })`,
+r.Text:SetText("Kill 8 Kobold Vermin 3/8")
+GF.Hook("guideRow", r, { index = 1, t = "kill", status = "active", progress = { cur = 3, max = 8 } }, { current = true })
+local count = { top = false, right = false }
+for _, fs in ipairs({ r:GetRegions() }) do
+	if fs:GetObjectType() == "FontString" and fs:IsShown() and fs:GetText() == "3/8" then
+		for i = 1, fs:GetNumPoints() do
+			local p, rel, _, x = fs:GetPoint(i)
+			if p == "TOP" then count.top = rel == r.Text end
+			if p == "RIGHT" then count.right = -x end
+		end
+	end
+end
+emit({ kit = T.Kit() ~= nil, header = header, kitLit = rawget(r, "psKitLit") or false, wash = l and l:IsShown() or false, mark = r.Mark:IsShown(),
+	count = count, inset = T.Metric("guideLitInset", 4), litInset = GF.LookSpace("litInset", T.Metric("guideLitInset", 4)) })`,
 	}).emitted[0];
 	const atlas = run('atlas');
 	assert.equal(atlas.kit, true, 'the Forever kit is in use');
@@ -1354,6 +1367,9 @@ emit({ kit = T.Kit() ~= nil, header = header, kitLit = rawget(r, "psKitLit") or 
 	assert.equal(atlas.kitLit, true, 'the kit lights the goal to do now');
 	assert.equal(atlas.mark, true, 'the goal is marked');
 	assert.equal(atlas.wash, false, 'no wash over the kit-lit goal');
+	assert.equal(atlas.count.top, true, "the count sits on the text's first line");
+	assert.equal(atlas.litInset, 0, "the layout sets where the kit's card stands: the row's edges");
 	const own = run(null);
 	assert.equal(own.header, true, "Polestar's own layout keeps the band");
+	assert.equal(own.litInset, own.inset, "Polestar's own layout keeps the look's inset");
 });

@@ -2138,11 +2138,14 @@ local function countColumn(row, goal, info)
 	else
 		own.count:SetTextColor(Theme.Color(info.done and "textMuted" or "textDim"))
 	end
+	-- On the text's first line.
+	local right = 14
 	own.count:ClearAllPoints()
-	own.count:SetPoint("TOPRIGHT", row, "TOPRIGHT", -14, -4)
+	own.count:SetPoint("TOP", row.Text, "TOP", 0, 0)
+	own.count:SetPoint("RIGHT", row, "RIGHT", -right, 0)
 	own.count:Show()
 	-- The text wraps clear of the count.
-	row.psRightMin = 14 + math.ceil(own.count:GetUnboundedStringWidth()) + 8
+	row.psRightMin = right + math.ceil(own.count:GetUnboundedStringWidth()) + 8
 end
 
 on("guideRow", function(row, goal, info)
@@ -2812,6 +2815,9 @@ end)
 -- row's right padding), so the row takes its second line when the whole of
 -- it wraps.
 on("guideSpace", function(name, px, width)
+	-- A look's lit card on the goal to do now (Theme.KitRowLit) fills the
+	-- row as Atlas's own wash does: the layout sets where it stands.
+	if name == "litInset" then return 0 end
 	if name ~= "xpRoom" or not (has("guideInset") and type(width) == "number" and width > 0) then return nil end
 	return math.max(1, width - (CARD_X + 11) - OPT_PAD)
 end)

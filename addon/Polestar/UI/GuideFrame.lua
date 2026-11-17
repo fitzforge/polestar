@@ -886,7 +886,7 @@ GF.Part(function(GF)
 			W.Color(r.Icon, done and "success" or ((current or gold) and "accent" or "textDim"))
 		end
 		-- The game's looks light the goal to do now with their own art.
-		r.psKitLit = Theme.KitRowLit(r, current and not done and not skipped and not transparent(), nil, Theme.Metric("guideLitInset", 4)) or nil
+		r.psKitLit = Theme.KitRowLit(r, current and not done and not skipped and not transparent(), nil, GF.LookSpace("litInset", Theme.Metric("guideLitInset", 4))) or nil
 		UI.SetCounted(r.Text, UI.GoalLine(goal, questHex, true))
 		-- White while it is to be done; done and skipped goals step back. The
 		-- turn-in of a quest whose objectives are still open, pinned (#644),
