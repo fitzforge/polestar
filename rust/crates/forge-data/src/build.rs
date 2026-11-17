@@ -637,6 +637,9 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 		so_,
 		&live,
 		sim,
+		// Recorded drop chances count loot windows, which read 1.2-3x high (players open a window on
+		// only some kills): off until they count kills while the item is wanted (#2747).
+		false,
 	);
 	if let Some(e) = unread {
 		return Err(e);

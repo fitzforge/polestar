@@ -761,6 +761,8 @@ const FACTION: usize = 3;
 struct Overlay<'a> {
 	db: &'a Db<'a>,
 	so: SpawnOptions,
+	/// Recorded drop chances on ([`apply_recordings`]).
+	drop_chances: bool,
 	live_maps: &'a dyn Fn(i64) -> bool,
 	min: usize,
 	stats: Stats,
@@ -1414,7 +1416,7 @@ impl<'a> Overlay<'a> {
 		let db = self.db;
 		let mut chances = 0;
 		let samples = std::mem::take(&mut self.quest_loot).finish();
-		for kind in ["npc", "object"] {
+		for kind in ["npc", "object"].into_iter().filter(|_| self.drop_chances) {
 			let k = k_ix(kind);
 			for (&id, m) in &self.loots[k] {
 				let windows = &self.windows[k][&id];
@@ -2267,7 +2269,8 @@ fn plain_title(t: &str) -> bool {
 /// are put back afterwards ([`crate::corrections::reassert`]): a recording never overrides a
 /// corrected value, whatever its evidence, and every field it disagreed on is in
 /// [`Stats::overruled`]. `recordings` may be read as they are reached ([`SessionFiles::sessions`]):
-/// each session is gone once applied.
+/// each session is gone once applied. `drop_chances`: whether recorded drop chances replace or fill
+/// the sources' (off in the data build until they count kills, not loot windows: #2747).
 pub fn apply_recordings<R: std::borrow::Borrow<Recording>>(
 	db: &Db,
 	recordings: impl IntoIterator<Item = R>,
@@ -2276,10 +2279,12 @@ pub fn apply_recordings<R: std::borrow::Borrow<Recording>>(
 	so: SpawnOptions,
 	live_maps: &dyn Fn(i64) -> bool,
 	sim: bool,
+	drop_chances: bool,
 ) -> Stats {
 	let mut ov = Overlay {
 		db,
 		so,
+		drop_chances,
 		live_maps,
 		min: min_voters,
 		stats: Stats::default(),
@@ -2650,7 +2655,7 @@ mod tests {
 
 		fn apply(&self, recs: &[Recording]) -> Stats {
 			let db = Db { quests: &self.quests, npcs: &self.npcs, objects: &self.objects, items: &self.items, zones: &self.zones, factions: &self.factions, instances: &self.instances };
-			apply_recordings(&db, recs, &V::obj(), MIN_VOTERS, DEFAULTS, &|_| false, false)
+			apply_recordings(&db, recs, &V::obj(), MIN_VOTERS, DEFAULTS, &|_| false, false, true)
 		}
 
 		fn quest(&self, id: &str) -> V {
@@ -2737,7 +2742,7 @@ mod tests {
 		crate::corrections::apply(&corrections, &t.quests, &t.npcs, &t.objects, &t.items, false);
 		let mut recs = vec![session("a", A, "enUS", &rewrite(10))];
 		recs.extend(from(&[B, C], &rewrite(10)));
-		let st = apply_recordings(&db, &recs, &corrections, MIN_VOTERS, DEFAULTS, &|_| false, false);
+		let st = apply_recordings(&db, &recs, &corrections, MIN_VOTERS, DEFAULTS, &|_| false, false, true);
 		let q = t.quest("364");
 		// Every corrected field stands.
 		assert_eq!(q.get("level").as_num(), Some(3.0));
@@ -2884,6 +2889,24 @@ mod tests {
 		// Three players, each under MIN_WINDOWS of their own: not trusted, however many windows together.
 		assert_eq!(chance(&from(&[A, B, C], &loot(1501, 2589, 6, 6))), Some(5.0));
 		assert_eq!(chance(&from(&[A, B, C], &loot(1501, 2589, 12, 12))), Some(100.0));
+	}
+
+	#[test]
+	fn with_drop_chances_off_the_sources_chances_stand() {
+		// #2585/#2747: loot-window chances read 1.2-3x high, so the data build passes them by: three
+		// trusted players looting 12 of 12 leave Linen at its source's 5%, and fill no gap.
+		fn db_of(t: &Tables) -> Db<'_> {
+			Db { quests: &t.quests, npcs: &t.npcs, objects: &t.objects, items: &t.items, zones: &t.zones, factions: &t.factions, instances: &t.instances }
+		}
+		let recs = from(&[A, B, C], &loot(1501, 2589, 12, 12));
+		let t = Tables::new("{}", ZOMBIE, LINEN);
+		let st = apply_recordings(&db_of(&t), &recs, &V::obj(), MIN_VOTERS, DEFAULTS, &|_| false, false, false);
+		assert_eq!(t.items.get("2589").get("drops").get("npc").get("1501").as_num(), Some(5.0));
+		assert!(t.items.get("2589").get("seen").is_undef());
+		assert_eq!(st.recorded_drop_chances, 0);
+		let t = Tables::new("{}", ZOMBIE, r#"{"2589":{"id":2589,"name":"Linen Cloth","drops":{"npc":{},"object":{}},"vendors":[]}}"#);
+		apply_recordings(&db_of(&t), &recs, &V::obj(), MIN_VOTERS, DEFAULTS, &|_| false, false, false);
+		assert!(t.items.get("2589").get("drops").get("npc").get("1501").is_undef());
 	}
 
 	#[test]
@@ -3209,6 +3232,7 @@ mod tests {
 			DEFAULTS,
 			&|_| false,
 			false,
+			true,
 		);
 		assert_eq!((s1.recordings, s1.events), (s2.recordings, s2.events));
 		assert_eq!(stringify(&t1.quest("364"), None), stringify(&t2.quest("364"), None));

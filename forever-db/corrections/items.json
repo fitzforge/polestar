@@ -665,29 +665,5 @@
 			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
 		},
 		"note": "Ancient Branch: off the lists of its world-event vendors (15734, 15736), who have no spawn in Forever's world (npcs.json corrections, #1735)."
-	},
-	"16885": {
-		"removeDrops": {
-			"npc": [
-				8766
-			]
-		},
-		"source": {
-			"kind": "recording",
-			"ref": "players' recordings to 2026-11-17: one Heavy Junkbox in 26 Forest Ooze loot windows, from one person"
-		},
-		"note": "Heavy Junkbox is a Rogue's pickpocket find from humanoids; a Forest Ooze (8766) has no pockets. The one recorded loot made the ooze its only dropper, and the Ravenholdt guide's junkbox step read as a fight with level 52-53 oozes (#2585)."
-	},
-	"260883": {
-		"removeDrops": {
-			"object": [
-				618329
-			]
-		},
-		"source": {
-			"kind": "recording",
-			"ref": "players' recordings to 2026-11-17: 14 people looted Construct Parts 616466 on Zephras Isle (11 Enchanted Gyrozephyrs); nobody looted object 618329"
-		},
-		"note": "Enchanted Gyrozephyr (The Broken Construct, 93737) comes from the Construct Parts north of Windsong Lake (616466), where players loot it about one time in three. QuestieDB also lists object 618329 at 100%; once the recorded chance for 616466 came in, the arrow went to 618329's spot by Riaani (55.1,69.5), where nobody found one (#285, #2585)."
 	}
 }

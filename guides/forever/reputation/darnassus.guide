@@ -133,7 +133,7 @@ step Dolanaar: Denalan and the lake
 step Dolanaar: the woods around the village
   when done dn-dolanaar
   tip The timberlings by the lake drop seeds and sprouts; the Gnarlpine Ambushers lurk on the road west to Darnassus; Lord Melenas waits deep in Fel Rock, north-west of the village; the dreamcatcher lies in the furbolg camp east of the village, by Gaerolas; the Nightsabers west of the village carry the pelts.
-  collect 5168 x8 quest 918.1 npc 2022 -- Timberling Seed
+  collect 5168 x8 quest 918.1         -- Timberling Seed
   collect 5169 x12 quest 919.1        -- Timberling Sprout
   collect 8048 quest 2438.1           -- Emerald Dreamcatcher
   collect 5221 quest 932.1            -- Melenas' Head
