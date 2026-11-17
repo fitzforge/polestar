@@ -331,10 +331,7 @@ function Compat.AddOnPresent(name)
 	if not A then return false end
 	if A.IsAddOnLoaded and A.IsAddOnLoaded(name) then return true end
 	if not (A.DoesAddOnExist and A.GetAddOnInfo) or not A.DoesAddOnExist(name) then return false end
-	-- One that loads on demand and is not loaded yet reads loadable false,
-	-- reason "DEMAND_LOADED", in the client: it can load.
-	local _, _, _, loadable, reason = A.GetAddOnInfo(name)
-	return (loadable or reason == "DEMAND_LOADED") and true or false
+	return select(4, A.GetAddOnInfo(name)) and true or false
 end
 
 -- The trait configs that can hold the player's talents, most trusted first:
