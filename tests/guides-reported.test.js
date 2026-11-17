@@ -2793,6 +2793,26 @@ test(`${ELWYNN}: Shhh! We're Hunting Kobolds counts the Kobold Tracks before the
 	assert.ok(accept < tracks && tracks < at(list, 'turnin 91772', is('turnin', 91772)), 'accept, the tracks, then the hand-in');
 });
 
+// Eykko (#2742): Rest and Relaxation (2158) was taken from Falkhaan Isenstrider, at the stables south-west of the
+// Abbey, before the group-quest hand-ins sent the player back north-east to Marshal McBride and Tordrin Sternblade,
+// then south again on the kobold tracks. Who did The Big Picture takes Falkhaan after Tordrin, before the tracks;
+// the step after it takes him for everyone else, after the Abbey as before (already done for the group), so no
+// hand-in waits on a `when`-only accept (data/route-fixes.json pairs, #2742).
+test(`${ELWYNN}: Falkhaan Isenstrider after Tordrin Sternblade and before the kobold tracks (#2742)`, { skip }, () => {
+	const list = goals(ELWYNN);
+	const group = (e) => (e.step.when || []).some((w) => w.k === 'group' && w.q === 91752 && !w.neg);
+	const falkhaan = list.filter(({ goal }) => goal.t === 'accept' && goal.quest === 2158);
+	const abbey = list[at(list, 'turnin 21', is('turnin', 21))].s;
+	assert.ok(!falkhaan.some((e) => e.s === abbey), 'not in the Abbey step, before the group hand-ins');
+	const grouped = list.indexOf(falkhaan.find(group));
+	assert.ok(grouped >= 0, 'the group branch takes Falkhaan');
+	assert.ok(at(list, 'turnin 91758', is('turnin', 91758)) < grouped, 'after Tordrin Sternblade');
+	const tracks = at(list, 'interact 563442 (91772.1)', (g) => g.t === 'interact' && g.quest === 91772);
+	assert.ok(grouped < tracks, 'before the kobold tracks on the road south');
+	const everyone = falkhaan.find((e) => !(e.step.when || []).length);
+	assert.ok(everyone && list.indexOf(everyone) > tracks, 'a step everyone plays takes Falkhaan after the group branch');
+});
+
 // Croaky (level 11 elite) killed players 4 times at levels 8-9 on the Downstream
 // step (players' recordings; 12 deaths in the archive by #977). His head stays an
 // optional extra (#221), collected only in the steps for players who group for it

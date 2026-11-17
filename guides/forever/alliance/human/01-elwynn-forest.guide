@@ -127,7 +127,6 @@ step Northshire Abbey
   train class
   accept 5623 only Priest                     -- Priestess Anetta, the priest trainer: Priestess Josetta in Goldshire takes it
   turnin 3905                                 -- Brother Neals, upstairs
-  accept 2158                                 -- Falkhaan Isenstrider, by the stables south of the Abbey
 
 step Northshire Abbey
   when group 91752
@@ -135,7 +134,11 @@ step Northshire Abbey
   accept 91758
   turnin 91758                                -- Tordrin Sternblade
   accept 91772                                -- his kobold tracker shows the kobolds to click on the road to Goldshire
+  accept 2158                                 -- Falkhaan Isenstrider, by the stables south of the Abbey
   interact 563442 quest 91772.1
+
+step Northshire Abbey
+  accept 2158                                 -- Falkhaan Isenstrider, by the stables south of the Abbey
 
 step Level 5.48
   when !group 91752
