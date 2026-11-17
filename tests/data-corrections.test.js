@@ -352,6 +352,15 @@ test('Aza\'bek has one Crossroads spot, not five points across the hill (#2774)'
 	});
 });
 
+// Logan (#2851): Veyric Thunderhame, who takes Call of Air (94789), stands only in Arathi Highlands (12 people opened his
+// window at 59.8,27.6, none met him in Ironforge). The merged data also gave him Eldrun Stormbreaker's Ironforge spot, so
+// While you're here offered the hand-in beside Eldrun.
+test('Veyric Thunderhame stands only in Arathi Highlands, not at Eldrun Stormbreaker\'s spot (#2851)', () => {
+	assert.deepEqual(corrections.npcs[259023]?.set?.spawns, {
+		1417: { f: 'l', pts: [[59.72, 27.59]] },
+	});
+});
+
 test('class quests the data left open are locked to their class, and Magma or Lava? is open to everyone (class-quest card)', () => {
 	const classes = (id) => corrections.quests[id] && corrections.quests[id].set.classes;
 	assert.deepEqual([78261, 78307].map(classes), [8, 8], 'The Horn of Xelthos: Rogue');
