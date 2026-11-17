@@ -29,9 +29,14 @@ Polestar.RegisterGuide({
 "#;
 
 fn run(script: &str) -> Value {
+	run_in("", script)
+}
+
+/// `before`: client set-up ahead of the addon (a `GetLocale` for another language).
+fn run_in(before: &str, script: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
-		before: WORLD.into(),
+		before: format!("{before}\n{WORLD}"),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
 		login: false,
 		script: [TEST_PACK, TEST_SOURCE, GUIDE, "stub.login()", "E = Polestar.Engine", "E.SetGuide(\"test/av\"); stub.advance(0.25)", script].join("\n"),
@@ -60,6 +65,28 @@ fn a_goal_on_a_credit_target_reads_as_its_quest_log_line_never_kill_the_placehol
 	assert_eq!(line(&out["ahead"]), json!(["Graveyard Assaulted", "", "Graveyard Assaulted", "text"]), "before the quest is in the log: {out}");
 	assert_eq!(line(&out["log"]), json!(["Friedhof angegriffen", "", "Friedhof angegriffen", "text"]), "the log's line in the client's language");
 	assert_eq!(line(&out["marker"]), json!(["Graveyard Assaulted", "", "Graveyard Assaulted", "text"]), "a log line the game words with a placeholder");
+}
+
+// On a client in another language the compiled name is the data's English: before the quest is in the log the goal
+// reads "Complete <quest>" in the client's words, as a `complete` with no objective names does; in the log, the
+// log's own line.
+#[test]
+fn on_a_translated_client_a_credit_goal_never_shows_the_datas_english() {
+	let out = run_in(
+		r#"function GetLocale() return "deDE" end"#,
+		r#"
+		local w = stub.world
+		local out = { ahead = E.GetStepView(1) }
+		w.accept(7081, { { text = "Friedhof angegriffen: 0/1", required = 1 } }); stub.advance(0.25)
+		out.log = E.GetStepView(1)
+		emit(out)
+	"#,
+	);
+	let ahead = line(&out["ahead"]);
+	assert_eq!(ahead[2], "Alterac Valley Graveyards", "{out}");
+	assert_eq!(ahead[3], "quest");
+	assert!(!ahead[0].as_str().unwrap_or("").contains("Graveyard Assaulted"), "{out}");
+	assert_eq!(line(&out["log"]), json!(["Friedhof angegriffen", "", "Friedhof angegriffen", "text"]));
 }
 
 #[test]
