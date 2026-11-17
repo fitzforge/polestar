@@ -16506,6 +16506,7 @@ test('#2792: Stranglethorn (Horde 40-50): Panther and Raptor Mastery left open g
 		assert.ok(when.some((p) => p.k === 'onquest' && (p.q || []).includes(quest)), `${quest}: only while it is in the log`);
 	}
 });
+
 // #2801 (Gindry, 0.4.0.1, Alliance Desolace): Karnitol's Satchel drops from the Slitherblade Tidehunters and Sea
 // Witches (recordings: every recorded loot came with one of their kills), not from the sea floor the tip named,
 // and 11 of 28 people who took The Karnitol Shipwreck gave it up. The tip says where it drops, and the satchel and
@@ -16519,6 +16520,7 @@ test('#2801: Desolace (Alliance): Karnitol\'s Satchel drops from the naga and ne
 	assert.match(tip, /Tidehunters and Sea Witches/);
 	assert.doesNotMatch(tip, /sea floor/);
 });
+
 // #2825 (Thyndare, 0.4.0.1, Horde Riverglades): Jom-jom's spawn data holds his escort's walk, and the accept led to
 // the walk's point nearest the player, not to the cave where he waits (22 of 22 recorded accepts at 73.3-74.0,
 // 24.6-24.9). The sweep of escort givers found Melizza Brimbuzzle (Desolace) and Tooga (Tanaris) sent to their

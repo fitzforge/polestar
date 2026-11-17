@@ -1496,6 +1496,25 @@
 		] },
 		"2746": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_page_quest_that_asks_for_a_profession_the_character_has_not_learned_is_not_picked_up" }
+		] },
+		"2792": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2792: Stranglethorn (Horde 40-50): Panther and Raptor Mastery left open get their mobs before the hand-in" }
+		] },
+		"2801": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2801: Desolace (Alliance): Karnitol's Satchel drops from the naga and never holds the route" }
+		] },
+		"2825": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2825: escort givers are looked for where they wait, not along their escort" }
+		] },
+		"2830": { "tests": [
+			{ "cargo": "forge-data", "target": "data", "file": "rust/crates/forge-data/tests/data/travel.rs", "test": "the_airship_ends_away_from_zephras_isle_stand_at_the_npc_on_their_dock_2830" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/travel.rs", "test": "the_shipped_farholde_inn_stands_at_its_innkeeper_and_the_airship_ends_on_their_docks_2830_2832" }
+		] },
+		"2831": { "tests": [
+			{ "cargo": "forge-data", "target": "lib", "file": "rust/crates/forge-data/src/codex/merge.rs", "test": "doctor_s_orderly_bandages_the_wounded_soldiers_from_the_shipped_public_mechanics_2831" }
+		] },
+		"2832": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/travel.rs", "test": "the_shipped_farholde_inn_stands_at_its_innkeeper_and_the_airship_ends_on_their_docks_2830_2832" }
 		] }
 	},
 	"seedDrift": {
