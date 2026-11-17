@@ -1293,8 +1293,9 @@ fn in_the_game_looks_a_narrow_tab_s_text_ends_6_clear_of_its_close_and_classic_s
 
 // A look chosen with the window open lays its tabs out at once as a window opened in that look does, not in the
 // last look's fonts and sizes until the next redraw: the tabs' places and widths, their titles' cut and fonts, the
-// level range's and the close's places, the close's rest. Every look in turn, then the text grown, each against a
-// fresh window opened in it (the looks lay their tabs out differently, so the comparison has something to catch).
+// level range's and the close's places, the close's rest. Every look in turn, then the guide window's text grown
+// (ui.guideTextSize), each against a fresh window opened in it (the looks lay their tabs out differently, so the
+// comparison has something to catch).
 #[test]
 fn a_look_chosen_with_the_window_open_lays_its_tabs_out_as_a_window_opened_in_it_does() {
 	const MEASURE: &str = r#"
@@ -1322,7 +1323,7 @@ fn a_look_chosen_with_the_window_open_lays_its_tabs_out_as_a_window_opened_in_it
 			Polestar.Set("ui.skin", look)
 			out[look] = measure()
 		end
-		Polestar.Set("ui.textSize", 1.25)
+		Polestar.Set("ui.guideTextSize", 1.25)
 		out.grown = measure()
 		emit(out)"#
 	))
@@ -1332,7 +1333,7 @@ fn a_look_chosen_with_the_window_open_lays_its_tabs_out_as_a_window_opened_in_it
 		let opened = fresh(&format!("Polestar.Set(\"ui.skin\", {look:?})"));
 		assert_eq!(live[look], opened, "{look}: the tabs once it is chosen, against a window opened in it");
 	}
-	assert_eq!(live["grown"], fresh("Polestar.Set(\"ui.textSize\", 1.25)"), "the text grown with the window open");
+	assert_eq!(live["grown"], fresh("Polestar.Set(\"ui.guideTextSize\", 1.25)"), "the guide window's text grown with it open");
 	assert_ne!(live["forever"], live["polestar"], "the looks lay their tabs out differently");
 	assert_ne!(live["grown"], live["polestar"], "the grown text lays them out differently");
 }

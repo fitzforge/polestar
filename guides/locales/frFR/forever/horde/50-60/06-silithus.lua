@@ -30,7 +30,7 @@ return {
 	["Back to Southwind and climb the tower. Stirring the hive at the top brings out Hive'Ashi Ambushers; one carries the {item:17346}."] = "Retournez à Sudevent et montez dans la tour. Remuer la ruche au sommet fait sortir des Embusquées de la Ruche'Ashi ({npc:13301}) ; l'une porte {item:17346}.",
 
 	-- Step 6: The Spirits of Southwind
-	["The Spirits of Southwind"] = "The Spirits of Southwind",
+	["The Spirits of Southwind"] = "Les esprits de Sudevent",
 	["Inside"] = "À l'intérieur",
 
 	-- Step 7: Level 57
@@ -126,7 +126,7 @@ return {
 	-- {npc:15190} Noggle Ficklespragg
 	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15190} se tient à l'étage de son bâtiment : montez par l'intérieur, la flèche ne distingue pas les étages.",
 	-- {area:2744} Hive'Regal
-	["Mar'alith's next errand, Into the Maw of Madness, leads into {area:2744} among elites. Skip it."] = "La mission suivante de Mar'alith, Into the Maw of Madness, mène dans la {area:2744}, parmi des élites. Passez-la.",
+	["Mar'alith's next errand, Into the Maw of Madness, leads into {area:2744} among elites. Skip it."] = "La mission suivante de Mar'alith, L'antre de la folie, mène dans la {area:2744}, parmi des élites. Passez-la.",
 
 	-- Step 26: Layo Starstrike
 	-- {area:3077} Valor's Rest · {zone:1451} Silithus

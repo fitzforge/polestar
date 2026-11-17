@@ -48,7 +48,7 @@ return {
 	-- {npc:4949} Thrall · {object:172957} Valley of Wisdom
 	["{npc:4949} waits in Grommash Hold, in the {object:172957}."] = "{npc:4949} attend dans le fort Grommash, dans la {object:172957}.",
 	-- {npc:4949} Thrall
-	["{npc:4949}, Grommash Hold, if you carry it"] = "{npc:4949}, Grommash Hold, si vous l'avez",
+	["{npc:4949}, Grommash Hold, if you carry it"] = "{npc:4949}, fort Grommash, si vous l'avez",
 
 	-- Step 10: Train
 	["Train"] = "Entraînement",
@@ -200,7 +200,7 @@ return {
 	["Level 30"] = "Niveau 30",
 	-- {npc:2410} Magus Wordeen Voidglare · {area:272} Tarren Mill · {zone:1454} Orgrimmar · {area:288} Azurelode Mine · {zone:1437} Wetlands
 	-- plural, as words: Torn Fin Muckdwellers = {npc:2374} Torn Fin Muckdweller
-	["{npc:2410}'s quests on the next {area:272} stop and Alliance Relations in {zone:1454}, the next guide's first stop, are offered from level 30. Short of 30? The Torn Fin Muckdwellers and Coastrunners (28-30) crowd the coast south of the {area:288}, a short walk: kill them until level 30. Their Oracles (30-31) cast from the shore further east. Or, with a group, run the Excavation Site dungeon (in the {zone:1437}) instead."] = "Les quêtes de {npc:2410} lors de la prochaine étape à {area:272} et Alliance Relations à {zone:1454}, première étape du guide suivant, sont proposées à partir du niveau 30. Pas encore 30 ? Les Marche-boue et Cours-la-côte Aileron déchiré (28-30) peuplent la côte au sud de la {area:288}, à quelques pas : tuez-les jusqu'au niveau 30. Leurs Oracles (30-31) lancent des sorts depuis le rivage plus à l'est. Ou, en groupe, faites plutôt le donjon Excavation Site (dans les {zone:1437}).",
+	["{npc:2410}'s quests on the next {area:272} stop and Alliance Relations in {zone:1454}, the next guide's first stop, are offered from level 30. Short of 30? The Torn Fin Muckdwellers and Coastrunners (28-30) crowd the coast south of the {area:288}, a short walk: kill them until level 30. Their Oracles (30-31) cast from the shore further east. Or, with a group, run the Excavation Site dungeon (in the {zone:1437}) instead."] = "Les quêtes de {npc:2410} lors de la prochaine étape à {area:272} et Les relations de l'Alliance à {zone:1454}, première étape du guide suivant, sont proposées à partir du niveau 30. Pas encore 30 ? Les Marche-boue et Cours-la-côte Aileron déchiré (28-30) peuplent la côte au sud de la {area:288}, à quelques pas : tuez-les jusqu'au niveau 30. Leurs Oracles (30-31) lancent des sorts depuis le rivage plus à l'est. Ou, en groupe, faites plutôt le donjon Excavation Site (dans les {zone:1437}).",
 	["Torn Fin murlocs"] = "Murlocs Aileron déchiré",
 	-- {npc:2375} Torn Fin Coastrunner
 	["grind on {npc:2375}"] = "tuez en boucle : {npc:2375}",
