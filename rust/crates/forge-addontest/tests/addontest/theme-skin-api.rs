@@ -2355,7 +2355,10 @@ fn a_layout_s_settings_defaults_sit_between_the_player_s_values_and_polestar_s()
 	assert_eq!(out["good"], json!({ "ok": true, "msg": false }));
 	assert_eq!(out["house"], json!({ "tabs": true, "bar": true, "pad": 0, "opacity": false, "strip": true }), "Polestar's defaults");
 	assert_eq!(out["bare"], json!({ "tabs": false, "bar": false, "pad": 4, "opacity": 0.5, "strip": false }), "the layout's defaults, the strip hidden: {out}");
-	assert_eq!(out["heard"], "guideWindow.bgOpacity,guideWindow.hideTaxi,guideWindow.padding,guideWindow.tabs,guideWindow.targetBar,guideWindow.targetBarColor", "each setting that changed is announced");
+	assert_eq!(
+		out["heard"], "guideWindow.bgOpacity,guideWindow.hideTaxi,guideWindow.padding,guideWindow.tabs,guideWindow.targetBar,guideWindow.targetBarColor",
+		"each setting that changed is announced"
+	);
 	assert_eq!((out["resetTo"].clone(), out["base"].clone()), (json!(false), json!(true)), "reset goes to the layout's default");
 	assert_eq!(out["saved"], json!([true, 2]), "the player's values are kept, Polestar's default included");
 	assert_eq!(out["switched"], json!({ "tabs": true, "bar": true, "pad": 2, "opacity": false, "strip": true }), "the player's values survive the switch: {out}");
