@@ -5280,6 +5280,22 @@ test("forever/class/paladin/lumina-windsinger.guide: A Grim Fate is handed in at
 	assert.ok(goal.map === 1421 && Math.hypot(goal.x - 64.9, goal.y - 34.3) < 1, `on Fenris Isle (${goal.map} ${goal.x},${goal.y})`);
 });
 
+// gidi_'s report (#2648): Zimmix's Great Escape (97331) was accepted at his cell with the escort only in a note, so the
+// step was done on the accept and the guide moved on while Zimmix walked out of Zul'Kunda. The merged data had no
+// objective for it (players' recordings: one event line, "Escort Zimmix Sputterspark to safety", done east of the
+// ruins), so no check saw a hand-in without work. Both Stranglethorn guides wait for the escort in the accept's step.
+test("gidi_'s report (#2648): Zimmix's escort is a goal of his step in both Stranglethorn guides, before the hand-in", { skip }, () => {
+	for (const file of [STRANGLETHORN_HORDE, 'forever/alliance/30-40/04b-stranglethorn-vale.guide']) {
+		const list = goals(file);
+		const accept = at(list, `${file}: accept 97331`, is('accept', 97331));
+		const escort = at(list, `${file}: complete 97331`, is('complete', 97331));
+		assert.equal(list[escort].s, list[accept].s, `${file}: in Zimmix's step`);
+		assert.ok(accept < escort && escort < at(list, `${file}: turnin 97331`, is('turnin', 97331)), `${file}: accept, the escort, then the hand-in`);
+		const { goal } = list[escort];
+		assert.ok(goal.map === 1434 && Math.hypot(goal.x - 26.8, goal.y - 11.4) < 1, `${file}: where the escort ends (${goal.map} ${goal.x},${goal.y})`);
+	}
+});
+
 // #1813 (Alliance, Cozy Sleeping Bag): the Barrens' way into Stonetalon runs through Honor's Stand, and the road
 // on to the hills past Malaka'jin and Sun Rock Retreat. Players' recordings of Stepping Stones (79192, Alliance):
 // about 40 runs, most entering Stonetalon from the Barrens at 83.5,97, 7 people dead at Honor's Stand (one of them

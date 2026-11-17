@@ -18325,5 +18325,26 @@
 			}
 		],
 		"note": "Ak'Zeloth is Neeru Fireblade's errand to speak with Ak'Zeloth: it has no objectives. The merged data gave it The Demon Seed's (924) objective, Destroy the Demon Seed, so a guide's hand-in looked like work never done."
+	},
+	"97331": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Escort Zimmix Sputterspark to safety",
+					"map": 1434,
+					"f": "e",
+					"x": 26.8,
+					"y": 11.4
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-16, excluded contributors left out): 29 objective lists at the accept, each the one event line 'Escort Zimmix Sputterspark to safety'; 24 completions at Stranglethorn Vale 26.76,11.38 on average (26.46-26.93, 11.28-11.44), east of the ruins of Zul'Kunda"
+		},
+		"note": "Zimmix's Great Escape is an escort out of the ruins of Zul'Kunda; the merged data had no objective, so guides showed nothing between its accept and its hand-in to Wharfmaster Lozgil (#2648)."
 	}
 }
