@@ -131,7 +131,7 @@ return {
 	-- {skill:186} Mining · {spell:3307} Smelt Iron
 	["Mine every Tin (65, green), Lesser Bloodstone (75, green), Silver (75, green, rare), Iron (125, orange) node you pass and circle the waypoints until {skill:186} 155. Smelt at a forge when your bags fill: {spell:3307} (orange to 130, grey at 140) gives points too. Zone level 30-40. Expect about 50 nodes for these 30 points."] = "Добывайте по пути: Оловянная жила (65, зеленый), малый кровавый камень (75, зеленый), серебряная жила (75, зеленый, редкий), залежи железа (125, оранжевый) – и обходите точки маршрута, пока {skill:186} не достигнет 155. Когда сумки заполнятся, переплавляйте в горне: {spell:3307} (оранжевый до 130, серый с 140) тоже дает очки. Уровень зоны: 30-40. На эти 30 очков уйдет около 50 залежей.",
 	["Iron, Tin"] = "",
-	["Lesser Bloodstone, Iron"] = "",
+	["Lesser Bloodstone, Iron"] = "Малое месторождение кровавого камня, залежи железа",
 
 	-- Step 24: Iron: Arathi Highlands (155-175)
 	-- {zone:1417} Arathi Highlands
@@ -144,7 +144,7 @@ return {
 	["Mithril: {zone:1418} (175-200)"] = "",
 	-- {skill:186} Mining · {spell:3308} Smelt Gold
 	["Mine every Iron (125, green), Gold (155, orange), Mithril (175, orange) node you pass and circle the waypoints until {skill:186} 200. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. Zone level 35-45. Expect about 40 nodes for these 25 points."] = "Добывайте по пути: Залежи железа (125, зеленый), золотая жила (155, оранжевый), мифриловые залежи (175, оранжевый) – и обходите точки маршрута, пока {skill:186} не достигнет 200. Когда сумки заполнятся, переплавляйте в горне: {spell:3308} (оранжевый до 170, серый с 185) тоже дает очки. Уровень зоны: 35-45. На эти 25 очков уйдет около 40 залежей.",
-	["Mithril, Iron"] = "",
+	["Mithril, Iron"] = "Мифриловые залежи, залежи железа",
 	["Iron, Mithril"] = "",
 
 	-- Step 26: Artisan Mining

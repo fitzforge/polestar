@@ -75,11 +75,11 @@ return {
 
 	-- Step 21: Liferoot & Fadeleaf: Swamp of Sorrows (160-185)
 	-- {item:3820} Stranglekelp · {item:3356} Kingsblood · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {skill:182} Herbalism
-	["Pick every {item:3820} (85, green), {item:3356} (125, yellow), {item:3357} (150, orange), {item:3818} (160, orange), {item:3821} (from 170) you pass and circle the waypoints until {skill:182} 185. {item:3820} grows underwater along the shore: watch your breath. Zone level 35-45. Expect about 40 herbs for these 25 points."] = "",
+	["Pick every {item:3820} (85, green), {item:3356} (125, yellow), {item:3357} (150, orange), {item:3818} (160, orange), {item:3821} (from 170) you pass and circle the waypoints until {skill:182} 185. {item:3820} grows underwater along the shore: watch your breath. Zone level 35-45. Expect about 40 herbs for these 25 points."] = "Recoge cada {item:3820} (85, verde), {item:3356} (125, amarillo), {item:3357} (150, naranja), {item:3818} (160, naranja), {item:3821} (desde 170) que encuentres y recorre los puntos de ruta hasta {skill:182} 185. {item:3820} crece bajo el agua a lo largo de la orilla: vigila tu respiración. Nivel de zona 35-45. Calcula unas 40 hierbas para estos 25 puntos.",
 
 	-- Step 22: Goldthorn & Khadgar's Whisker: Feralas (185-200)
 	-- {object:1623} Wild Steelbloom · {item:3357} Liferoot · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {skill:182} Herbalism
-	["Pick every {object:1623} (115, green, rare), {item:3357} (150, yellow), {item:3821} (170, orange), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 200. Zone level 40-50. Expect about 20 herbs for these 15 points."] = "",
+	["Pick every {object:1623} (115, green, rare), {item:3357} (150, yellow), {item:3821} (170, orange), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 200. Zone level 40-50. Expect about 20 herbs for these 15 points."] = "Recoge cada {object:1623} (115, verde, rara), {item:3357} (150, amarillo), {item:3821} (170, naranja), {object:2043} (185, naranja) que encuentres y recorre los puntos de ruta hasta {skill:182} 200. Nivel de zona 40-50. Calcula unas 20 hierbas para estos 15 puntos.",
 
 	-- Step 23: Artisan Herbalism
 	-- {skill:182} Herbalism
@@ -89,10 +89,9 @@ return {
 
 	-- Step 24: Goldthorn & Khadgar's Whisker: Feralas (200-210) cont.
 	-- {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {zone:1444} Feralas
-	["{item:3821} & {object:2043}: {zone:1444} (200-210) cont."] = "",
+	["{item:3821} & {object:2043}: {zone:1444} (200-210) cont."] = "{item:3821} y {object:2043}: {zone:1444} (200-210), continuación",
 	-- {object:1623} Wild Steelbloom · {item:3357} Liferoot · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {skill:182} Herbalism
-	-- was: ["Pick every {object:1623} (115, green, rare), {item:3356} (125, green), {item:3357} (150, green), {item:3818} (160, yellow), {item:3821} (170, yellow), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 210. Zone level 35-45. Expect about 20 herbs for these 10 points."] = "Recoge cada {object:1623} (115, verde, rara), {item:3356} (125, verde), {item:3357} (150, verde), {item:3818} (160, amarillo), {item:3821} (170, amarillo), {object:2043} (185, naranja) que encuentres y recorre los puntos de ruta hasta {skill:182} 210. Nivel de zona 35-45. Calcula unas 20 hierbas para estos 10 puntos."
-	["Pick every {object:1623} (115, green, rare), {item:3357} (150, green), {item:3821} (170, yellow), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 210. Zone level 40-50. Expect about 20 herbs for these 10 points."] = "",
+	["Pick every {object:1623} (115, green, rare), {item:3357} (150, green), {item:3821} (170, yellow), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 210. Zone level 40-50. Expect about 20 herbs for these 10 points."] = "Recoge cada {object:1623} (115, verde, rara), {item:3357} (150, verde), {item:3821} (170, amarillo), {object:2043} (185, naranja) que encuentres y recorre los puntos de ruta hasta {skill:182} 210. Nivel de zona 40-50. Calcula unas 20 hierbas para estos 10 puntos.",
 
 	-- Step 25: Purple Lotus: The Hinterlands (210-230)
 	-- {object:1623} Wild Steelbloom · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {item:8831} Purple Lotus · {skill:182} Herbalism · {item:8153} Wildvine

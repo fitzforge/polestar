@@ -75,11 +75,11 @@ return {
 
 	-- Step 21: Liferoot & Fadeleaf: Swamp of Sorrows (160-185)
 	-- {item:3820} Stranglekelp · {item:3356} Kingsblood · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {skill:182} Herbalism
-	["Pick every {item:3820} (85, green), {item:3356} (125, yellow), {item:3357} (150, orange), {item:3818} (160, orange), {item:3821} (from 170) you pass and circle the waypoints until {skill:182} 185. {item:3820} grows underwater along the shore: watch your breath. Zone level 35-45. Expect about 40 herbs for these 25 points."] = "",
+	["Pick every {item:3820} (85, green), {item:3356} (125, yellow), {item:3357} (150, orange), {item:3818} (160, orange), {item:3821} (from 170) you pass and circle the waypoints until {skill:182} 185. {item:3820} grows underwater along the shore: watch your breath. Zone level 35-45. Expect about 40 herbs for these 25 points."] = "지나가는 {item:3820}(85, 초록색), {item:3356}(125, 노란색), {item:3357}(150, 주황색), {item:3818}(160, 주황색), {item:3821}(170부터)을(를) 모두 채집하고, {skill:182} 185까지 경유지를 도세요. {item:3820}은(는) 해안을 따라 물속에서 자랍니다. 숨에 주의하세요. 지역 레벨 35-45. 이번 25점에는 약초 약 40개가 필요합니다.",
 
 	-- Step 22: Goldthorn & Khadgar's Whisker: Feralas (185-200)
 	-- {object:1623} Wild Steelbloom · {item:3357} Liferoot · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {skill:182} Herbalism
-	["Pick every {object:1623} (115, green, rare), {item:3357} (150, yellow), {item:3821} (170, orange), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 200. Zone level 40-50. Expect about 20 herbs for these 15 points."] = "",
+	["Pick every {object:1623} (115, green, rare), {item:3357} (150, yellow), {item:3821} (170, orange), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 200. Zone level 40-50. Expect about 20 herbs for these 15 points."] = "지나가는 {object:1623}(115, 초록색, 희귀), {item:3357}(150, 노란색), {item:3821}(170, 주황색), {object:2043}(185, 주황색)을(를) 모두 채집하고, {skill:182} 200까지 경유지를 도세요. 지역 레벨 40-50. 이번 15점에는 약초 약 20개가 필요합니다.",
 
 	-- Step 23: Artisan Herbalism
 	-- {skill:182} Herbalism
@@ -89,10 +89,9 @@ return {
 
 	-- Step 24: Goldthorn & Khadgar's Whisker: Feralas (200-210) cont.
 	-- {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {zone:1444} Feralas
-	["{item:3821} & {object:2043}: {zone:1444} (200-210) cont."] = "",
+	["{item:3821} & {object:2043}: {zone:1444} (200-210) cont."] = "{item:3821} & {object:2043}: {zone:1444} (200-210) (계속)",
 	-- {object:1623} Wild Steelbloom · {item:3357} Liferoot · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {skill:182} Herbalism
-	-- was: ["Pick every {object:1623} (115, green, rare), {item:3356} (125, green), {item:3357} (150, green), {item:3818} (160, yellow), {item:3821} (170, yellow), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 210. Zone level 35-45. Expect about 20 herbs for these 10 points."] = "지나가는 {object:1623}(115, 초록색, 희귀), {item:3356}(125, 초록색), {item:3357}(150, 초록색), {item:3818}(160, 노란색), {item:3821}(170, 노란색), {object:2043}(185, 주황색)을(를) 모두 채집하고, {skill:182} 210까지 경유지를 도세요. 지역 레벨 35-45. 이번 10점에는 약초 약 20개가 필요합니다."
-	["Pick every {object:1623} (115, green, rare), {item:3357} (150, green), {item:3821} (170, yellow), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 210. Zone level 40-50. Expect about 20 herbs for these 10 points."] = "",
+	["Pick every {object:1623} (115, green, rare), {item:3357} (150, green), {item:3821} (170, yellow), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 210. Zone level 40-50. Expect about 20 herbs for these 10 points."] = "지나가는 {object:1623}(115, 초록색, 희귀), {item:3357}(150, 초록색), {item:3821}(170, 노란색), {object:2043}(185, 주황색)을(를) 모두 채집하고, {skill:182} 210까지 경유지를 도세요. 지역 레벨 40-50. 이번 10점에는 약초 약 20개가 필요합니다.",
 
 	-- Step 25: Purple Lotus: The Hinterlands (210-230)
 	-- {object:1623} Wild Steelbloom · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {item:8831} Purple Lotus · {skill:182} Herbalism · {item:8153} Wildvine

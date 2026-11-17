@@ -131,7 +131,7 @@ return {
 	-- {skill:186} Mining · {spell:3307} Smelt Iron
 	["Mine every Tin (65, green), Lesser Bloodstone (75, green), Silver (75, green, rare), Iron (125, orange) node you pass and circle the waypoints until {skill:186} 155. Smelt at a forge when your bags fill: {spell:3307} (orange to 130, grey at 140) gives points too. Zone level 30-40. Expect about 50 nodes for these 30 points."] = "开采沿途所有锡矿（65，绿色）、次级血石矿（75，绿色）、银矿（75，绿色，稀有）和铁矿（125，橙色），沿路径点循环，直到{skill:186}155。背包满时去熔炉熔炼：{spell:3307}（130前为橙色，140变灰）也能提升技能。地区等级30-40。这30点预计需开采约50处矿点。",
 	["Iron, Tin"] = "铁矿、锡矿",
-	["Lesser Bloodstone, Iron"] = "",
+	["Lesser Bloodstone, Iron"] = "次级血石、铁矿石",
 
 	-- Step 24: Iron: Arathi Highlands (155-175)
 	-- {zone:1417} Arathi Highlands
@@ -144,7 +144,7 @@ return {
 	["Mithril: {zone:1418} (175-200)"] = "秘银矿：{zone:1418}（175-200）",
 	-- {skill:186} Mining · {spell:3308} Smelt Gold
 	["Mine every Iron (125, green), Gold (155, orange), Mithril (175, orange) node you pass and circle the waypoints until {skill:186} 200. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. Zone level 35-45. Expect about 40 nodes for these 25 points."] = "开采沿途所有铁矿（技能 125，绿色）、金矿（技能 155，橙色）、秘银矿（技能 175，橙色），沿路径点循环采矿，直到 {skill:186} 达到 200。背包满时到熔炉熔炼：{spell:3308}（170 前为橙色，185 变灰）也能提升技能。地区等级为 35-45 级。提升这 25 点预计需要开采约 40 个矿点。",
-	["Mithril, Iron"] = "",
+	["Mithril, Iron"] = "秘银矿脉、铁矿石",
 	["Iron, Mithril"] = "铁矿、秘银矿",
 
 	-- Step 26: Artisan Mining

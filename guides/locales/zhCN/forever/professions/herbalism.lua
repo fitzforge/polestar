@@ -75,11 +75,11 @@ return {
 
 	-- Step 21: Liferoot & Fadeleaf: Swamp of Sorrows (160-185)
 	-- {item:3820} Stranglekelp · {item:3356} Kingsblood · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {skill:182} Herbalism
-	["Pick every {item:3820} (85, green), {item:3356} (125, yellow), {item:3357} (150, orange), {item:3818} (160, orange), {item:3821} (from 170) you pass and circle the waypoints until {skill:182} 185. {item:3820} grows underwater along the shore: watch your breath. Zone level 35-45. Expect about 40 herbs for these 25 points."] = "",
+	["Pick every {item:3820} (85, green), {item:3356} (125, yellow), {item:3357} (150, orange), {item:3818} (160, orange), {item:3821} (from 170) you pass and circle the waypoints until {skill:182} 185. {item:3820} grows underwater along the shore: watch your breath. Zone level 35-45. Expect about 40 herbs for these 25 points."] = "采集沿途每一株 {item:3820}（85，绿色）、{item:3356}（125，黄色）、{item:3357}（150，橙色）、{item:3818}（160，橙色）、{item:3821}（170起可采），沿路径点循环，直到 {skill:182} 达到185。{item:3820} 长在岸边水下：留意呼吸。地区等级35—45。提升这25点预计需采集约40株草药。",
 
 	-- Step 22: Goldthorn & Khadgar's Whisker: Feralas (185-200)
 	-- {object:1623} Wild Steelbloom · {item:3357} Liferoot · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {skill:182} Herbalism
-	["Pick every {object:1623} (115, green, rare), {item:3357} (150, yellow), {item:3821} (170, orange), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 200. Zone level 40-50. Expect about 20 herbs for these 15 points."] = "",
+	["Pick every {object:1623} (115, green, rare), {item:3357} (150, yellow), {item:3821} (170, orange), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 200. Zone level 40-50. Expect about 20 herbs for these 15 points."] = "采集沿途每一株 {object:1623}（115，绿色，稀少）、{item:3357}（150，黄色）、{item:3821}（170，橙色）、{object:2043}（185，橙色），沿路径点循环采集，直到 {skill:182} 200。地区等级40—50。提升这15点预计需要采集约20株草药。",
 
 	-- Step 23: Artisan Herbalism
 	-- {skill:182} Herbalism
@@ -89,10 +89,9 @@ return {
 
 	-- Step 24: Goldthorn & Khadgar's Whisker: Feralas (200-210) cont.
 	-- {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {zone:1444} Feralas
-	["{item:3821} & {object:2043}: {zone:1444} (200-210) cont."] = "",
+	["{item:3821} & {object:2043}: {zone:1444} (200-210) cont."] = "{item:3821} 与 {object:2043}：{zone:1444}（200—210），续",
 	-- {object:1623} Wild Steelbloom · {item:3357} Liferoot · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {skill:182} Herbalism
-	-- was: ["Pick every {object:1623} (115, green, rare), {item:3356} (125, green), {item:3357} (150, green), {item:3818} (160, yellow), {item:3821} (170, yellow), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 210. Zone level 35-45. Expect about 20 herbs for these 10 points."] = "采集沿途每个{object:1623}（115，绿色，稀有）、{item:3356}（125，绿色）、{item:3357}（150，绿色）、{item:3818}（160，黄色）、{item:3821}（170，黄色）和{object:2043}（185，橙色），沿路径点循环，直到{skill:182}210。地区等级35-45。提升这10点预计需要约20株草药。"
-	["Pick every {object:1623} (115, green, rare), {item:3357} (150, green), {item:3821} (170, yellow), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 210. Zone level 40-50. Expect about 20 herbs for these 10 points."] = "",
+	["Pick every {object:1623} (115, green, rare), {item:3357} (150, green), {item:3821} (170, yellow), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 210. Zone level 40-50. Expect about 20 herbs for these 10 points."] = "采集沿途每个{object:1623}（115，绿色，稀有）、{item:3357}（150，绿色）、{item:3821}（170，黄色）和{object:2043}（185，橙色），沿路径点循环，直到{skill:182}210。地区等级40-50。提升这10点预计需要约20株草药。",
 
 	-- Step 25: Purple Lotus: The Hinterlands (210-230)
 	-- {object:1623} Wild Steelbloom · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {item:8831} Purple Lotus · {skill:182} Herbalism · {item:8153} Wildvine

@@ -131,7 +131,7 @@ return {
 	-- {skill:186} Mining · {spell:3307} Smelt Iron
 	["Mine every Tin (65, green), Lesser Bloodstone (75, green), Silver (75, green, rare), Iron (125, orange) node you pass and circle the waypoints until {skill:186} 155. Smelt at a forge when your bags fill: {spell:3307} (orange to 130, grey at 140) gives points too. Zone level 30-40. Expect about 50 nodes for these 30 points."] = "Extrae cada nodo de Estaño (65, verde), Sangrita inferior (75, verde), Plata (75, verde, raro), Hierro (125, naranja) que encuentres y recorre los puntos de ruta hasta {skill:186} 155. Funde en una forja cuando se llenen tus bolsas: {spell:3307} (naranja hasta 130, gris a 140) también da puntos. Nivel de la zona: 30-40. Cuenta con unos 50 nodos para estos 30 puntos.",
 	["Iron, Tin"] = "Hierro, Estaño",
-	["Lesser Bloodstone, Iron"] = "",
+	["Lesser Bloodstone, Iron"] = "Sangrita inferior, Hierro",
 
 	-- Step 24: Iron: Arathi Highlands (155-175)
 	-- {zone:1417} Arathi Highlands
@@ -144,7 +144,7 @@ return {
 	["Mithril: {zone:1418} (175-200)"] = "Mitril: {zone:1418} (175-200)",
 	-- {skill:186} Mining · {spell:3308} Smelt Gold
 	["Mine every Iron (125, green), Gold (155, orange), Mithril (175, orange) node you pass and circle the waypoints until {skill:186} 200. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. Zone level 35-45. Expect about 40 nodes for these 25 points."] = "Extrae cada nodo de Hierro (125, verde), Oro (155, naranja), Mitril (175, naranja) que encuentres y recorre los puntos de ruta hasta {skill:186} 200. Funde en una forja cuando se llenen tus bolsas: {spell:3308} (naranja hasta 170, gris a 185) también da puntos. Nivel de la zona: 35-45. Cuenta con unos 40 nodos para estos 25 puntos.",
-	["Mithril, Iron"] = "",
+	["Mithril, Iron"] = "Mitril, Hierro",
 	["Iron, Mithril"] = "Hierro, Mitril",
 
 	-- Step 26: Artisan Mining

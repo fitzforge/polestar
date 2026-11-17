@@ -75,11 +75,11 @@ return {
 
 	-- Step 21: Liferoot & Fadeleaf: Swamp of Sorrows (160-185)
 	-- {item:3820} Stranglekelp · {item:3356} Kingsblood · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {skill:182} Herbalism
-	["Pick every {item:3820} (85, green), {item:3356} (125, yellow), {item:3357} (150, orange), {item:3818} (160, orange), {item:3821} (from 170) you pass and circle the waypoints until {skill:182} 185. {item:3820} grows underwater along the shore: watch your breath. Zone level 35-45. Expect about 40 herbs for these 25 points."] = "",
+	["Pick every {item:3820} (85, green), {item:3356} (125, yellow), {item:3357} (150, orange), {item:3818} (160, orange), {item:3821} (from 170) you pass and circle the waypoints until {skill:182} 185. {item:3820} grows underwater along the shore: watch your breath. Zone level 35-45. Expect about 40 herbs for these 25 points."] = "Собирайте по пути: {item:3820} (85, зеленый), {item:3356} (125, желтый), {item:3357} (150, оранжевый), {item:3818} (160, оранжевый), {item:3821} (с 170) – и обходите точки маршрута, пока {skill:182} не достигнет 185. {item:3820} растет под водой вдоль берега: следите за дыханием. Уровень зоны: 35-45. На эти 25 очков уйдет около 40 трав.",
 
 	-- Step 22: Goldthorn & Khadgar's Whisker: Feralas (185-200)
 	-- {object:1623} Wild Steelbloom · {item:3357} Liferoot · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {skill:182} Herbalism
-	["Pick every {object:1623} (115, green, rare), {item:3357} (150, yellow), {item:3821} (170, orange), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 200. Zone level 40-50. Expect about 20 herbs for these 15 points."] = "",
+	["Pick every {object:1623} (115, green, rare), {item:3357} (150, yellow), {item:3821} (170, orange), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 200. Zone level 40-50. Expect about 20 herbs for these 15 points."] = "Собирайте по пути: {object:1623} (115, зеленый, редкий), {item:3357} (150, желтый), {item:3821} (170, оранжевый), {object:2043} (185, оранжевый) – и обходите точки маршрута, пока {skill:182} не достигнет 200. Уровень зоны: 40-50. На эти 15 очков уйдет около 20 трав.",
 
 	-- Step 23: Artisan Herbalism
 	-- {skill:182} Herbalism
@@ -89,10 +89,9 @@ return {
 
 	-- Step 24: Goldthorn & Khadgar's Whisker: Feralas (200-210) cont.
 	-- {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {zone:1444} Feralas
-	["{item:3821} & {object:2043}: {zone:1444} (200-210) cont."] = "",
+	["{item:3821} & {object:2043}: {zone:1444} (200-210) cont."] = "{item:3821} и {object:2043}: {zone:1444} (200-210), продолжение",
 	-- {object:1623} Wild Steelbloom · {item:3357} Liferoot · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {skill:182} Herbalism
-	-- was: ["Pick every {object:1623} (115, green, rare), {item:3356} (125, green), {item:3357} (150, green), {item:3818} (160, yellow), {item:3821} (170, yellow), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 210. Zone level 35-45. Expect about 20 herbs for these 10 points."] = "Собирайте по пути: {object:1623} (115, зеленый, редкий), {item:3356} (125, зеленый), {item:3357} (150, зеленый), {item:3818} (160, желтый), {item:3821} (170, желтый), {object:2043} (185, оранжевый) – и обходите точки маршрута, пока {skill:182} не достигнет 210. Уровень зоны: 35-45. На эти 10 очков уйдет около 20 трав."
-	["Pick every {object:1623} (115, green, rare), {item:3357} (150, green), {item:3821} (170, yellow), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 210. Zone level 40-50. Expect about 20 herbs for these 10 points."] = "",
+	["Pick every {object:1623} (115, green, rare), {item:3357} (150, green), {item:3821} (170, yellow), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 210. Zone level 40-50. Expect about 20 herbs for these 10 points."] = "Собирайте по пути: {object:1623} (115, зеленый, редкий), {item:3357} (150, зеленый), {item:3821} (170, желтый), {object:2043} (185, оранжевый) – и обходите точки маршрута, пока {skill:182} не достигнет 210. Уровень зоны: 40-50. На эти 10 очков уйдет около 20 трав.",
 
 	-- Step 25: Purple Lotus: The Hinterlands (210-230)
 	-- {object:1623} Wild Steelbloom · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {item:8831} Purple Lotus · {skill:182} Herbalism · {item:8153} Wildvine

@@ -131,7 +131,7 @@ return {
 	-- {skill:186} Mining · {spell:3307} Smelt Iron
 	["Mine every Tin (65, green), Lesser Bloodstone (75, green), Silver (75, green, rare), Iron (125, orange) node you pass and circle the waypoints until {skill:186} 155. Smelt at a forge when your bags fill: {spell:3307} (orange to 130, grey at 140) gives points too. Zone level 30-40. Expect about 50 nodes for these 30 points."] = "Minez chaque gisement d'étain (65, vert), pierre de sang inférieure (75, vert), argent (75, vert, rare), fer (125, orange) sur votre passage et faites le tour des points de passage jusqu'à {skill:186} 155. Fondez à une forge quand vos sacs sont pleins : {spell:3307} (orange jusqu'à 130, gris à 140) donne aussi des points. Zone de niveau 30-40. Comptez environ 50 gisements pour ces 30 points.",
 	["Iron, Tin"] = "Fer, étain",
-	["Lesser Bloodstone, Iron"] = "",
+	["Lesser Bloodstone, Iron"] = "Pierre de sang inférieure, Fer",
 
 	-- Step 24: Iron: Arathi Highlands (155-175)
 	-- {zone:1417} Arathi Highlands
@@ -144,7 +144,7 @@ return {
 	["Mithril: {zone:1418} (175-200)"] = "Mithril : {zone:1418} (175-200)",
 	-- {skill:186} Mining · {spell:3308} Smelt Gold
 	["Mine every Iron (125, green), Gold (155, orange), Mithril (175, orange) node you pass and circle the waypoints until {skill:186} 200. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. Zone level 35-45. Expect about 40 nodes for these 25 points."] = "Minez chaque gisement de fer (125, vert), or (155, orange), mithril (175, orange) sur votre passage et faites le tour des points de passage jusqu'à {skill:186} 200. Fondez à une forge quand vos sacs sont pleins : {spell:3308} (orange jusqu'à 170, gris à 185) donne aussi des points. Zone de niveau 35-45. Comptez environ 40 gisements pour ces 25 points.",
-	["Mithril, Iron"] = "",
+	["Mithril, Iron"] = "Mithril, Fer",
 	["Iron, Mithril"] = "Fer, mithril",
 
 	-- Step 26: Artisan Mining

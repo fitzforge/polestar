@@ -131,7 +131,7 @@ return {
 	-- {skill:186} Mining · {spell:3307} Smelt Iron
 	["Mine every Tin (65, green), Lesser Bloodstone (75, green), Silver (75, green, rare), Iron (125, orange) node you pass and circle the waypoints until {skill:186} 155. Smelt at a forge when your bags fill: {spell:3307} (orange to 130, grey at 140) gives points too. Zone level 30-40. Expect about 50 nodes for these 30 points."] = "지나가는 주석(65, 초록색), 하급 혈석(75, 초록색), 은(75, 초록색, 희귀), 철(125, 주황색) 광맥을 모두 캐고, {skill:186} 155까지 경유지를 도세요. 가방이 차면 제련소에서 제련하세요. {spell:3307}(130까지 주황색, 140에 회색)도 숙련도를 올려 줍니다. 지역 레벨 30-40. 이번 30점에는 광맥 약 50개가 필요합니다.",
 	["Iron, Tin"] = "",
-	["Lesser Bloodstone, Iron"] = "",
+	["Lesser Bloodstone, Iron"] = "저급 혈석, 철",
 
 	-- Step 24: Iron: Arathi Highlands (155-175)
 	-- {zone:1417} Arathi Highlands
@@ -144,7 +144,7 @@ return {
 	["Mithril: {zone:1418} (175-200)"] = "",
 	-- {skill:186} Mining · {spell:3308} Smelt Gold
 	["Mine every Iron (125, green), Gold (155, orange), Mithril (175, orange) node you pass and circle the waypoints until {skill:186} 200. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. Zone level 35-45. Expect about 40 nodes for these 25 points."] = "지나가는 철(125, 초록색), 금(155, 주황색), 미스릴(175, 주황색) 광맥을 모두 캐고, {skill:186} 200까지 경유지를 도세요. 가방이 차면 제련소에서 제련하세요. {spell:3308}(170까지 주황색, 185에 회색)도 숙련도를 올려 줍니다. 지역 레벨 35-45. 이번 25점에는 광맥 약 40개가 필요합니다.",
-	["Mithril, Iron"] = "",
+	["Mithril, Iron"] = "미스릴, 철",
 	["Iron, Mithril"] = "",
 
 	-- Step 26: Artisan Mining
