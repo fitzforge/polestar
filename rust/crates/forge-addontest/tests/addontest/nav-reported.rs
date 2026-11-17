@@ -495,6 +495,7 @@ fn duskwood_the_walk_to_zzarc_vul_goes_in_by_the_vulgol_ogre_mounds_entrance_194
 // join puts that way in: the walk from the reporter's spot, and from Menethil Harbor, is found and ends at her.
 #[test]
 fn wetlands_the_walk_to_hervdana_saegrund_is_found_from_the_road_and_from_menethil_harbor_2331() {
+	forge_addontest::needs!("map-frames.json");
 	let hervdana = world(1437, 65.80, 76.50);
 	for (from, what) in [(world(1437, 48.00, 39.13), "the reporter's spot"), (world(1437, 10.80, 59.60), "Menethil Harbor")] {
 		let got = walk(from, hervdana, Some("Alliance"));
@@ -514,6 +515,7 @@ fn wetlands_the_walk_to_hervdana_saegrund_is_found_from_the_road_and_from_meneth
 // 57.3 from 57.6 to 60.3) nowhere.
 #[test]
 fn desolace_the_walk_from_the_road_to_gurda_wildmane_goes_up_the_north_slope_not_the_east_face_2316() {
+	forge_addontest::needs!("map-frames.json");
 	let road = world(1443, 60.0, 60.5);
 	let gurda = world(1443, 56.29, 59.68);
 	let (north, south) = (world(1443, 57.3, 57.6), world(1443, 57.3, 60.3));
