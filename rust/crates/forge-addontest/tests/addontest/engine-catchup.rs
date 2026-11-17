@@ -292,15 +292,21 @@ fn a_guide_the_catch_up_passed_whole_is_done_for_the_list_only_once_all_its_ques
 }
 
 // Yendi: a catch-up stopped at the end of a guide ("Guide complete, Up next") on a second try in the session
-// (the next guide had finished on the first), and on a quest whose prerequisite was a grey one it left out.
+// (the next guide had finished on the first), and on a quest whose prerequisite was a grey one it left out. Since
+// #2620 a quest paying full XP in the guide passed keeps its prerequisite, so the quest that needs it here is the
+// next guide's, with fewer than CHAIN_WORTH such quests to keep the chain.
 #[test]
 fn a_catch_up_goes_on_to_the_next_guide_silently_on_a_second_try_and_past_a_quest_whose_prerequisite_it_left_out() {
-	let guides = GUIDES.replacen(r#"maxLevel = 12, next = "test/mid""#, r#"maxLevel = 12, next = "test/low2""#, 1)
-		+ r#"
+	let guides = GUIDES.replacen(r#"maxLevel = 12, next = "test/mid""#, r#"maxLevel = 12, next = "test/low2""#, 1).replacen(
+		r#"{ goals = { { t = "turnin", quest = 203, title = "Yellow" } } },"#,
+		r#"{ goals = { { t = "turnin", quest = 203, title = "Yellow" } } },
+	{ goals = { { t = "accept", quest = 152, title = "Yellow after it", qlvl = 19, pre = { 150 } } } },
+	{ goals = { { t = "turnin", quest = 152, title = "Yellow after it" } } },"#,
+		1,
+	) + r#"
 		Polestar.RegisterGuide({ id = "test/low2", pack = "test", title = "Low 2", faction = "Alliance", minLevel = 8, maxLevel = 14, next = "test/mid", steps = {
 			{ goals = { { t = "accept", quest = 150, title = "Grey start", qlvl = 8 } } },
-			{ goals = { { t = "turnin", quest = 150, title = "Grey start" }, { t = "accept", quest = 152, title = "Yellow after it", qlvl = 19, pre = { 150 } } } },
-			{ goals = { { t = "turnin", quest = 152, title = "Yellow after it" } } },
+			{ goals = { { t = "turnin", quest = 150, title = "Grey start" } } },
 		} })
 	"#;
 	let out = run(

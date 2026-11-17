@@ -133,6 +133,15 @@ return {
 		["guideWindow.progressColor"] = one("fill"),
 		["guideWindow.progressPct"] = one("pct"),
 		["guideWindow.foldAnim"] = fold,
+		-- The step's "N left out here" line (Engine.LeftOutHere, the fake Engine's answer for the step).
+		["guideWindow.leftOut"] = function()
+			Polestar.Engine.LeftOutHere = function() return { { quest = 1, title = "Left out", kind = "pre", text = "Requires another quest first" } } end
+			uistub.update()
+			for _, l in ipairs(GF.lines) do
+				if l:IsShown() and l.psOut then return true end
+			end
+			return false
+		end,
 		-- A preset card (Compact): the window narrower, without the step's person.
 		["Guide window:Presets"] = function() return { snapshot().width, snapshot().person } end,
 	},
