@@ -110,6 +110,16 @@ step Writhing Haunt cauldron
   accept 5223
 
 step Mulgris Deepriver
+  when !onquest 4984
+  when !turnedin 4984
+  tip You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.
+  accept 4984                         -- Inside
+
+step The Writhing Haunt
+  when !turnedin 4984
+  kill 1817 quest 4984.1              -- Diseased Wolf
+
+step Mulgris Deepriver
   turnin 4984                         -- Inside
   accept 4985
 

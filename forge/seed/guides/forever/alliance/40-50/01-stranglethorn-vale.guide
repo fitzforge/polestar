@@ -259,6 +259,13 @@ step Booty Bay
   note Seahorn's Bloodsail Buccaneers: keep it for the level-48 Booty Bay stop, with the Wild Shore camp.
   turnin 576                          -- Dizzy One-Eye
 
+step Booty Bay
+  when !onquest 606
+  when !turnedin 606
+  zone Stranglethorn Vale
+  tip You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.
+  accept 606                          -- "Sea Wolf" MacKinley, on the top floor
+
 step Gorilla hills
   tip Head inland to the Mistvale gorilla hills. Elder Mistvale Gorillas drop the giblets.
   collect 3919 quest 606              -- Mistvale Giblets

@@ -167,15 +167,7 @@ fn of_guide(g: &V, by_id: &FxHashMap<String, &V>, preds: &FxHashMap<String, Vec<
 						}
 					}
 					if !needs.is_empty() {
-						out.push(SecondVisit {
-							guide: id_of(g),
-							file: file.clone(),
-							line: goal.hidden("_line").num(),
-							quest: q,
-							title: goal.get("title").to_js_string(),
-							map,
-							needs,
-						});
+						out.push(SecondVisit { guide: id_of(g), file: file.clone(), line: goal.hidden("_line").num(), quest: q, title: goal.get("title").to_js_string(), map, needs });
 					}
 				}
 				Some("turnin") => {
@@ -314,9 +306,7 @@ mod tests {
 		let b = guide(
 			r#"{ "id": "t/b", "steps": [ { "goals": [ { "t": "accept", "quest": 10, "title": "Ten", "map": 1441, "pre": [1] }, { "t": "accept", "quest": 11, "title": "Eleven", "map": 1441, "pre": [2] } ] } ] }"#,
 		);
-		let leftout = guide(
-			r#"[ { "q": 11, "guide": "t/b", "reason": "slow" }, { "q": 12, "guide": "t/b", "reason": "gone" }, { "q": 13, "guide": "t/elsewhere", "reason": "not compiled" } ]"#,
-		);
+		let leftout = guide(r#"[ { "q": 11, "guide": "t/b", "reason": "slow" }, { "q": 12, "guide": "t/b", "reason": "gone" }, { "q": 13, "guide": "t/elsewhere", "reason": "not compiled" } ]"#);
 		let mut diag = Diagnostics::new();
 		check_second_visits(&[a, b], &leftout, &mut diag);
 		let got: Vec<String> = diag.list.iter().map(|d| format!("{}: {}", d.severity, d.message)).collect();

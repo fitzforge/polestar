@@ -10684,6 +10684,51 @@
 				"issue": "#2635"
 			},
 			{
+				"q": 583,
+				"reason": "Catch-up in forever/horde/40-50/01-stranglethorn-vale (#2635): a character who skipped forever/horde/30-40/03-stranglethorn-vale arrives without Welcome to the Jungle (583), so Barnil Stonepot's The Green Hills of Stranglethorn (338) and its chapters (339-342) were hidden. Nesingwary's camp, where the guide stops anyway, now has Barnil give it and Hemet take it back first, `when !turnedin 583`: a talk, 125 XP at 39 (half: level 30), and it opens Barnil's page hand-ins (775 XP a chapter). Recordings: 84 players took it at 30-38.",
+				"issue": "#2635"
+			},
+			{
+				"q": 3524,
+				"reason": "Catch-up in forever/alliance/nightelf/02-darkshore (#2635): a Night Elf who skipped forever/alliance/nightelf/01-teldrassil arrives without Washed Ashore (3524, 4681), so Beached Sea Turtle and Beached Sea Creature (4722, 4723, 4728) were hidden. The guide's Auberdine and beach steps for 3524 (written for other races, who never follow this guide) now show `when !turnedin 3524`, and Gwennyth takes 3524 and gives 4681 before the skeletal turtle step the guide works anyway: 675 and 975 XP at full rate at 12, on the beach the guide walks. Recordings: 110 players took 3524 at 11-21.",
+				"issue": "#2635"
+			},
+			{
+				"q": 4681,
+				"reason": "Catch-up in forever/alliance/nightelf/02-darkshore (#2635): Washed Ashore part 2, given by Gwennyth `when !turnedin 3524`; see 3524.",
+				"issue": "#2635"
+			},
+			{
+				"q": 5096,
+				"reason": "Catch-up in forever/horde/50-60/02-felwood (#2635): a character who skipped forever/horde/50-60/01-un-goro-crater reaches the Bulwark without Scarlet Diversions (5096), so Derrington's All Along the Watchtowers (5098) and Vandis' The Scourge Cauldrons (5228, then 5229) were hidden. Derrington gives it first on the Bulwark stop, `when !turnedin 5096`: the Scarlet tents stand just past Felstone Farm, a short ride east, 5,250 XP at full rate (level 53), and 5228 is handed in on the same stop. Recordings: 5 players took it at 51-56.",
+				"issue": "#2635"
+			},
+			{
+				"q": 4984,
+				"reason": "Catch-up in forever/alliance/50-60/04-western-plaguelands and forever/horde/50-60/06-silithus (#2635): a character who skipped the guide that takes The Wildlife Suffers Too (4984: Alliance 50-60/03-winterspring, Horde 50-60/02-felwood) reaches Mulgris without it, so his Diseased Grizzlies (4985) were hidden. Mulgris gives it on the guide's Writhing Haunt stop (`when !onquest 4984`, `when !turnedin 4984`), the Diseased Wolves roam the same fields, and he takes it back before 4985: 4,100 XP at full rate (level 54) at 55-60. Recordings: 5 players took it at 52-57.",
+				"issue": "#2635"
+			},
+			{
+				"q": 173,
+				"reason": "Catch-up in forever/alliance/07-thousand-needles (#2635): a character who skipped forever/alliance/04-redridge-mountains reaches Darkshire without Worgen in the Woods (173), so Calor's next parts (221, 222) were hidden. Calor gives it on the Darkshire stop before the worgen step the guide works anyway, `when !onquest 173` and `when !turnedin 173`: 1,150 XP at full rate (level 28) at 29. Recordings: 115 players took it at 23-37.",
+				"issue": "#2635"
+			},
+			{
+				"q": 606,
+				"reason": "Catch-up in forever/alliance/40-50/01-stranglethorn-vale (#2635): a character who skipped forever/alliance/30-40/04b-stranglethorn-vale reaches Booty Bay without Scaring Shaky (606), so Return to MacKinley (607) and Voodoo Dues (609) were hidden. MacKinley gives it on the Booty Bay stop before the gorilla hills the guide works anyway, `when !onquest 606` and `when !turnedin 606`: 3,300 XP at full rate (level 41). Recordings: 81 players took it at 32-50.",
+				"issue": "#2635"
+			},
+			{
+				"q": 2605,
+				"reason": "Catch-up in forever/alliance/40-50/07-un-goro-crater (#2635): a character who skipped forever/alliance/40-50/04-tanaris lands in Gadgetzan without The Thirsty Goblin (2605), so In Good Taste (2606) and Sprinkle's quests after it were hidden. Marin gives it on the Gadgetzan landing, before Thistleshrub Valley where the guide collects the gland anyway, `when !onquest 2605` and `when !turnedin 2605`: 4,550 XP at full rate (level 49). Recordings: 35 players took it at 44-51.",
+				"issue": "#2635"
+			},
+			{
+				"q": 992,
+				"reason": "Catch-up in forever/horde/40-50/04-tanaris (#2635): a character who skipped forever/horde/40-50/02-feralas lands in Gadgetzan without Gadgetzan Water Survey (992), so Noxious Lair Investigation (82) and the silithid chain after it were hidden. Fizzledowser gives it on the Gadgetzan landing, before the Sandsorrow Watch pool the guide taps anyway, `when !onquest 992` and `when !turnedin 992`: 3,050 XP at full rate (level 46) at 48. Recordings: 37 players took it at 42-49.",
+				"issue": "#2635"
+			},
+			{
 				"q": 1478,
 				"after": [
 					"turnin",

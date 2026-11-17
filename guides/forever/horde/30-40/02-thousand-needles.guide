@@ -175,7 +175,7 @@ step Prate Cloudseer
 step Dorn Plainstalker
   when !turnedin 1149
   zone Thousand Needles
-  tip You missed Dorn's Test of Faith, from the 27-29 guide: it comes first now. It takes a minute and opens his Test of Endurance in this guide.
+  tip You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.
   tip Dorn Plainstalker waits on the mesa just north-east of Freewind Post, across the rope bridges.
   tip For the Test of Faith, walk off the end of the planks beside him: you land safely.
   accept 1149                         -- Dorn Plainstalker
