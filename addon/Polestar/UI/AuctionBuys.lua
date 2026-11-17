@@ -117,7 +117,7 @@ function AU.CardModel(kind, list, town)
 	end
 	if n > AU.CARD_LINES then lines[#lines + 1] = format(L["+%d more"], n - AU.CARD_LINES) end
 	m.giver = concat(lines, "\n")
-	m.route = L["You can buy these instead of gathering them. See the list for estimates."]
+	m.route = L["No vendor sells these, and farming them is slow or not possible."]
 	m.spells = row
 	local function list_()
 		AU.Show()
@@ -417,7 +417,7 @@ function AU.Layout()
 	elseif #list == 0 then
 		hint = L["Nothing to buy at the auction house: the quests ahead get what they need on the way."]
 	else
-		hint = L["You can buy these quest items instead of gathering them. Cached prices and stock can change."]
+		hint = L["The quests ahead in your guide and in your quest log need these. No vendor sells them, and farming them is slow or not possible: the auction house usually has them."]
 	end
 	if canSearch and (#list + #mats) > 0 then hint = hint .. " " .. L["Search opens one in the Auction House with the count filled in; buying is your click."] end
 	F.Hint:SetText(hint)
@@ -429,7 +429,7 @@ function AU.Layout()
 		r:SetPoint("TOPLEFT", F.Body, "TOPLEFT", 0, -y)
 		r:SetPoint("TOPRIGHT", F.Body, "TOPRIGHT", -W.ScrollBarRoom(F.Scroll), -y)
 		local parts = { format(L["For %s"], questNames(e)), AU.Why(e) }
-		if e.have > 0 then parts[#parts + 1] = format(L["%s held"], e.have) end
+		if e.have > 0 then parts[#parts + 1] = format(L["%d in your bags and bank"], e.have) end
 		local price, info
 		if M and M.Price then price, info = M.Price(e.item, e.need) end
 		if price then cost, quoted = cost + price, quoted + 1 end
