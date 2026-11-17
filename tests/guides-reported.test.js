@@ -2670,7 +2670,9 @@ function directStuck(st, goal) {
 	const before = st.goals.slice(0, st.goals.indexOf(goal));
 	for (const [item, n] of directNeeds(goal.quest)) {
 		const gated = (st.when || []).some((p) => p.k === 'has' && !p.neg && p.item === item && (p.n || 1) >= n);
-		const gathered = before.some((g) => (g.t === 'collect' || g.t === 'buy') && g.item === item && !g.optional);
+		// The goals that get it, as the lint's direct-gate reads them (play_rules.rs got_item): a collect, a buy,
+		// a craft or an Auction House buy (Negolash's wings, #2711), each a bag count.
+		const gathered = before.some((g) => ['collect', 'buy', 'craft', 'auction'].includes(g.t) && g.item === item && !g.optional);
 		if (!gated && !gathered) return `item ${item} x${n}: neither gathered in the step nor a \`when has\``;
 	}
 	return null;
