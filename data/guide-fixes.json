@@ -12983,6 +12983,21 @@
 					"ref": "players' in-game recordings to 2026-11-16: Brakk offered Camping 101: Tailoring to 4 people who knew Tailoring, every one with A Peon's Burden (2161) and Camping 101: Cooking (96655) handed in; the learned data has both as its prerequisites (4 counted voters)"
 				}
 			]
+		},
+		{
+			"id": "2825-tanaris-tooga-wanders-the-valley",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1560,
+				"goal": "accept"
+			},
+			"tip": "The little turtle Tooga wanders the west edge of the Thistleshrub Valley, most often where the arrow leads: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife Torta, by the water just east of Steamwheedle Port: he walks slowly and the desert's beasts go for him, so keep him alive.",
+			"note": "#2825's sweep of escort givers: players find Tooga along the valley's west edge, most at 30.0-30.6,70.4-70.9, not at its north end; the accept's point is in data/places.json (2825-tanaris-tooga-giver).",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 18 accepts of 1560 at 28.4-32.1,60.6-74.1, 14 of them from 70.4 south"
+			},
+			"issue": 2825
 		}
 	]
 }

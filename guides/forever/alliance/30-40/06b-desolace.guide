@@ -76,7 +76,7 @@ step Maraudine centaurs
 step Melizza Brimbuzzle
   tip Melizza is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.
   tip Careful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help.
-  accept 6132
+  accept 6132 @33.9,53.5 map 1443
   complete 6132 @40.1,61.6            -- escort Melizza back toward the graveyard
 
 step Mannoroc Coven

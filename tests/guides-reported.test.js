@@ -16491,3 +16491,22 @@ test("forever/horde/30-40/01-hillsbrad-foothills.guide: Acen's report (#2512): t
 	assert.ok(togthar < drull, "Tog'thar's lock beside the jailors first, Drull's on the way back");
 	assert.ok([dull, gold, drull, togthar].every((i) => list[i].s === list[drull].s), 'one step');
 });
+
+// #2825 (Thyndare, 0.4.0.1, Horde Riverglades): Jom-jom's spawn data holds his escort's walk, and the accept led to
+// the walk's point nearest the player, not to the cave where he waits (22 of 22 recorded accepts at 73.3-74.0,
+// 24.6-24.9). The sweep of escort givers found Melizza Brimbuzzle (Desolace) and Tooga (Tanaris) sent to their
+// escorts' ends the same way.
+test('#2825: escort givers are looked for where they wait, not along their escort', { skip }, () => {
+	const cases = [
+		[H40('01b-riverglades'), 94556, 73.4, 24.7],
+		['forever/alliance/30-40/06b-desolace.guide', 6132, 33.9, 53.5],
+		['forever/horde/30-40/04-dustwallow-marsh.guide', 6132, 33.9, 53.5],
+		['forever/alliance/40-50/04-tanaris.guide', 1560, 30.2, 70.7],
+		[H40('04-tanaris'), 1560, 30.2, 70.7],
+	];
+	for (const [guide, quest, x, y] of cases) {
+		const list = goals(guide);
+		const { goal } = list[at(list, `accept ${quest}`, is('accept', quest))];
+		assert.deepEqual([goal.x, goal.y], [x, y], `${guide}: accept ${quest}`);
+	}
+});
