@@ -404,7 +404,7 @@ return {
 	-- Step 86: Windsong Lake
 	-- {item:257128} Zephyrseed · {npc:254344} Endaria Mistgaze · {quest:93736} Unwelcome Spirits · {area:16625} Windsong Lake · {npc:259013} Resaan Nimbuswalker
 	-- plural, as words: Wind Hollows = {npc:251676} Wind Hollow · Wind Hollow Essences = {item:262357} Wind Hollow Essence
-	["{item:257128} cones grow south of the hermit; the Wind Hollows drift east of the lake and also drop the Wind Hollow Essences for {npc:254344}'s {quest:93736}. The refugees' belongings lie along the north shore of {area:16625}; {npc:259013} is at its north-west end."] = "{item:257128}-Zapfen wachsen südlich des Einsiedlers; die Wind Hollows treiben östlich des Sees und lassen auch die Wind Hollow Essences für {quest:93736} von {npc:254344} fallen. Die Habseligkeiten der Flüchtlinge liegen am Nordufer von {area:16625}; {npc:259013} ist an dessen Nordwestende.",
+	["{item:257128} cones grow south of the hermit; the Wind Hollows drift east of the lake and also drop the Wind Hollow Essences for {npc:254344}'s {quest:93736}. The refugees' belongings lie along the north shore of {area:16625}; {npc:259013} is at its north-west end."] = "{item:257128}-Zapfen wachsen südlich des Einsiedlers; die Windhöhlen treiben östlich des Sees und lassen auch die Windhöhlen-Essenzen für {quest:93736} von {npc:254344} fallen. Die Habseligkeiten der Flüchtlinge liegen am Nordufer von {area:16625}; {npc:259013} ist an dessen Nordwestende.",
 
 	-- Step 88: The Shrine of Akir
 	-- {area:16629} Shrine of Akir

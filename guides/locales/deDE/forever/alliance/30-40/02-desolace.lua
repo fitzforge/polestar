@@ -44,7 +44,7 @@ return {
 
 	-- Step 8: Dalinda Malem
 	-- {npc:5644} Dalinda Malem · {area:608} Nijel's Point
-	["{npc:5644} hides inside the Burning Blade's fortress south-west of {area:608}."] = "{npc:5644} versteckt sich in der Festung der Burning Blade südwestlich von {area:608}.",
+	["{npc:5644} hides inside the Burning Blade's fortress south-west of {area:608}."] = "{npc:5644} versteckt sich in der Festung der Brennenden Klinge südwestlich von {area:608}.",
 	["Inside"] = "Drinnen",
 
 	-- Step 9: Tyranis Malem and the Seer

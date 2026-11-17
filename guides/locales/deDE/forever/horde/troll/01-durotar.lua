@@ -287,7 +287,7 @@ return {
 	-- Step 63: Drygulch Ravine
 	-- {area:370} Drygulch Ravine · {npc:3293} Rezlak · {item:277661} Dull Storm Orb · {area:371} Dustwind Cave · {item:6652} Reagent Pouch
 	-- plural, as words: Burning Blade Cultists = {npc:3199} Burning Blade Cultist
-	["Savages and Storm Witches nest in {area:370}, east of {npc:3293}. A Storm Witch drops the {item:277661}. Shamans: the Burning Blade Cultists by {area:371}, at the ravine's south end, drop the {item:6652}."] = "Savages und Storm Witches nisten in {area:370}, östlich von {npc:3293}. Eine Storm Witch lässt {item:277661} fallen. Schamanen: Die Burning Blade Cultists bei {area:371} am Südende der Schlucht lassen {item:6652} fallen.",
+	["Savages and Storm Witches nest in {area:370}, east of {npc:3293}. A Storm Witch drops the {item:277661}. Shamans: the Burning Blade Cultists by {area:371}, at the ravine's south end, drop the {item:6652}."] = "Savages und Storm Witches nisten in {area:370}, östlich von {npc:3293}. Eine Storm Witch lässt {item:277661} fallen. Schamanen: Die Kultisten der Brennenden Klinge bei {area:371} am Südende der Schlucht lassen {item:6652} fallen.",
 
 	-- Step 64: Deathskip to Northern Durotar
 	["Deathskip to Northern Durotar"] = "Todessprung ins nördliche Durotar",
@@ -363,7 +363,7 @@ return {
 
 	-- Step 84: Skull Rock
 	-- {quest:827} Skull Rock · {item:4871} Searing Collar · {npc:3204} Gazz'uz · {item:4903} Eye of Burning Shadow
-	["Burning Blade cultists hold the caves of {quest:827}; any of them drops a {item:4871}. {npc:3204}, a level 14 warlock, stands deep inside and drops the {item:4903}.\nCareful: voidwalkers fight beside the Burning Blade cultists in {quest:827} and {npc:3204} (14) waits at the back with his own: pull one cultist at a time near the entrance for the collars. The {item:4903} is optional: leave {npc:3204} unless you are 13 or have a friend."] = "Kultisten der Burning Blade halten die Höhlen von {quest:827}; jeder lässt {item:4871} fallen. {npc:3204}, ein Hexenmeister der Stufe 14, steht tief drinnen und lässt {item:4903} fallen.\nVorsicht: In {quest:827} kämpfen Leerwandler an der Seite der Kultisten der Burning Blade, und {npc:3204} (14) wartet hinten mit seinem eigenen: Zieh die Kultisten für die Halsbänder einzeln nahe dem Eingang. {item:4903} ist optional: Lass {npc:3204} in Ruhe, außer du bist 13 oder hast einen Freund dabei.",
+	["Burning Blade cultists hold the caves of {quest:827}; any of them drops a {item:4871}. {npc:3204}, a level 14 warlock, stands deep inside and drops the {item:4903}.\nCareful: voidwalkers fight beside the Burning Blade cultists in {quest:827} and {npc:3204} (14) waits at the back with his own: pull one cultist at a time near the entrance for the collars. The {item:4903} is optional: leave {npc:3204} unless you are 13 or have a friend."] = "Kultisten der Brennenden Klinge halten die Höhlen von {quest:827}; jeder lässt {item:4871} fallen. {npc:3204}, ein Hexenmeister der Stufe 14, steht tief drinnen und lässt {item:4903} fallen.\nVorsicht: In {quest:827} kämpfen Leerwandler an der Seite der Kultisten der Brennenden Klinge, und {npc:3204} (14) wartet hinten mit seinem eigenen: Zieh die Kultisten für die Halsbänder einzeln nahe dem Eingang. {item:4903} ist optional: Lass {npc:3204} in Ruhe, außer du bist 13 oder hast einen Freund dabei.",
 
 	-- Step 85: Tablet of Verga
 	-- {object:58595} Burning Blade Stash · {area:817} Skull Rock

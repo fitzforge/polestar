@@ -33,28 +33,28 @@ return {
 	["Twisted Fire Totems"] = "Verdrehte Feuertotems",
 	-- {area:338} Angor Fortress · {zone:1418} Badlands · {npc:3560} Healing Ward
 	-- plural, as words: Twisted Fire Totems = {item:274044} Twisted Fire Totem · Fire Nova Totems = {npc:5879} Fire Nova Totem
-	["Five Twisted Fire Totems. The Stonevault troggs (Skullthumpers, Bonesnappers and Shamans, level 37-41) south of {area:338} in the {zone:1418} carry them; the Shamans drop Fire Nova Totems and a {npc:3560}, the Bonesnappers run for help when hurt. Respawn about five minutes."] = "Fünf Twisted Fire Totems. Die Stonevault-Troggs (Skullthumpers, Bonesnappers und Shamans, Stufe 37-41) südlich von {area:338} in den {zone:1418} tragen sie; die Shamans lassen Fire Nova Totems und einen {npc:3560} fallen, die Bonesnappers rufen bei Verletzung um Hilfe. Respawn etwa fünf Minuten.",
+	["Five Twisted Fire Totems. The Stonevault troggs (Skullthumpers, Bonesnappers and Shamans, level 37-41) south of {area:338} in the {zone:1418} carry them; the Shamans drop Fire Nova Totems and a {npc:3560}, the Bonesnappers run for help when hurt. Respawn about five minutes."] = "Fünf verdrehte Feuertotems. Die Stonevault-Troggs (Skullthumpers, Bonesnappers und Shamans, Stufe 37-41) südlich von {area:338} in den {zone:1418} tragen sie; die Shamans lassen Feuernova-Totems und einen {npc:3560} fallen, die Bonesnappers rufen bei Verletzung um Hilfe. Respawn etwa fünf Minuten.",
 
 	-- Step 6: Twisted Earth Totems
 	-- plural, as words: Twisted Earth Totems = {item:274045} Twisted Earth Totem
 	["Twisted Earth Totems"] = "Verdrehte Erdtotems",
 	-- {area:75} Stonard · {zone:1435} Swamp of Sorrows
 	-- plural, as words: Twisted Earth Totems = {item:274045} Twisted Earth Totem · The Lost Ones = {npc:256028} The Lost One
-	["Five Twisted Earth Totems. The Lost Ones (murlocs, level 34-39) north and north-east of {area:75} in the {zone:1435} carry them; most run for help when hurt."] = "Fünf Twisted Earth Totems. Die Lost Ones (Murlocs, Stufe 34-39) nördlich und nordöstlich von {area:75} im {zone:1435} tragen sie; die meisten rufen bei Verletzung um Hilfe.",
+	["Five Twisted Earth Totems. The Lost Ones (murlocs, level 34-39) north and north-east of {area:75} in the {zone:1435} carry them; most run for help when hurt."] = "Fünf verdrehte Erdtotems. Die Lost Ones (Murlocs, Stufe 34-39) nördlich und nordöstlich von {area:75} im {zone:1435} tragen sie; die meisten rufen bei Verletzung um Hilfe.",
 
 	-- Step 7: Twisted Water Totems
 	-- plural, as words: Twisted Water Totems = {item:274046} Twisted Water Totem
 	["Twisted Water Totems"] = "Verdrehte Wassertotems",
 	-- {area:496} Brackenwall Village · {zone:1445} Dustwallow Marsh
 	-- plural, as words: Twisted Water Totems = {item:274046} Twisted Water Totem
-	["Five Twisted Water Totems. The Mirefin murlocs (level 35-38) north-east of {area:496} in northern {zone:1445} carry them."] = "Fünf Twisted Water Totems. Die Mirefin-Murlocs (Stufe 35-38) nordöstlich von {area:496} im Norden von {zone:1445} tragen sie.",
+	["Five Twisted Water Totems. The Mirefin murlocs (level 35-38) north-east of {area:496} in northern {zone:1445} carry them."] = "Fünf verdrehte Wassertotems. Die Mirefin-Murlocs (Stufe 35-38) nordöstlich von {area:496} im Norden von {zone:1445} tragen sie.",
 
 	-- Step 8: Twisted Air Totems
 	-- plural, as words: Twisted Air Totems = {item:274047} Twisted Air Totem
 	["Twisted Air Totems"] = "Verdrehte Lufttotems",
 	-- {area:2408} Shadowprey Village · {zone:1443} Desolace · {spell:9654} Jumping Lightning
 	-- plural, as words: Twisted Air Totems = {item:274047} Twisted Air Totem
-	["Five Twisted Air Totems. The Maraudine centaurs (level 36-40) north and north-east of {area:2408} in western {zone:1443} carry them; the Scouts drop one nearly every other kill. Wranglers Net and Disarm, Windchasers heal, Stormers throw {spell:9654}: pull one at a time. Respawn about five minutes."] = "Fünf Twisted Air Totems. Die Maraudine-Zentauren (Stufe 36-40) nördlich und nordöstlich von {area:2408} im Westen von {zone:1443} tragen sie; die Scouts lassen bei fast jedem zweiten Kill eines fallen. Wranglers werfen Netz und Entwaffnen, Windchasers heilen, Stormers werfen {spell:9654}: Zieh einen nach dem anderen. Respawn etwa fünf Minuten.",
+	["Five Twisted Air Totems. The Maraudine centaurs (level 36-40) north and north-east of {area:2408} in western {zone:1443} carry them; the Scouts drop one nearly every other kill. Wranglers Net and Disarm, Windchasers heal, Stormers throw {spell:9654}: pull one at a time. Respawn about five minutes."] = "Fünf verdrehte Lufttotems. Die Maraudine-Zentauren (Stufe 36-40) nördlich und nordöstlich von {area:2408} im Westen von {zone:1443} tragen sie; die Scouts lassen bei fast jedem zweiten Kill eines fallen. Wranglers werfen Netz und Entwaffnen, Windchasers heilen, Stormers werfen {spell:9654}: Zieh einen nach dem anderen. Respawn etwa fünf Minuten.",
 
 	-- Step 10: The steam pools
 	["The steam pools"] = "Die Dampfbecken",
