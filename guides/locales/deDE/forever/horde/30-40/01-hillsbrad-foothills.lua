@@ -124,10 +124,14 @@ return {
 
 	-- Step 26: Durnholde Keep
 	-- {npc:2238} Tog'thar · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key
-	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks."] = "Südöstlich von Tarrens Mühle. Drull und {npc:2238} sind in den Gebäuden im Hof der Burg angekettet: {npc:2427} trägt {item:3467} und {npc:2428} {item:3499}, beide in der Burg. Töte sie und öffne dann beide Schlösser.",
-	["Drull's ball and chain"] = "Drulls Kugel und Kette",
+	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings, and each lock needs its key: {npc:2427} carries the {item:3467} for Drull's, {npc:2428} the {item:3499} for {npc:2238}'s, both in the keep. Kill them first, then open both locks."] = "",
+	-- {item:3467} Dull Iron Key · {npc:2427} Jailor Eston
+	["{item:3467}, from {npc:2427}"] = "",
+	-- {item:3499} Burnished Gold Key · {npc:2428} Jailor Marlgen
+	["{item:3499}, from {npc:2428}"] = "",
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "Kugel und Kette von {npc:2238}",
+	["Drull's ball and chain"] = "Drulls Kugel und Kette",
 
 	-- Step 27: Krusk
 	-- {area:272} Tarren Mill
@@ -153,7 +157,6 @@ return {
 	-- Step 31: The smithy
 	["The smithy"] = "Die Schmiede",
 	-- {area:287} Hillsbrad · {npc:2404} Blacksmith Verringtan · {object:1736} Shipment of Iron · {npc:2449} Citizen Wilkes · {npc:2451} Farmer Kalaba
-	-- was: ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks by the smithy; {npc:2451} works the field south-east of the town."] = "Nach Westen über die Ausläufer zum Ort {area:287}: Die Schmiede steht in seiner Mitte. {npc:2404} und seine Lehrlinge arbeiten an der Esse; die {object:1736} ist daneben gestapelt. {npc:2449} läuft bei der Schmiede umher; {npc:2451} bestellt das Feld südöstlich des Orts."
 	["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the west side of the town; {npc:2451} works the field south-east of the town."] = "Westwärts über die Ausläufer zur Stadt {area:287}: die Schmiede steht in ihrer Mitte. {npc:2404} und seine Lehrlinge arbeiten in der Schmiede; das {object:1736} liegt daneben gestapelt. {npc:2449} geht die Westseite der Stadt entlang; {npc:2451} arbeitet auf dem Feld südöstlich der Stadt.",
 	["Inside"] = "Drinnen",
 	-- {npc:2449} Citizen Wilkes
@@ -321,6 +324,7 @@ return {
 	-- ["Place the {object:1729} on the {object:1728} beside the inn; upstairs"] = "Stelle das {object:1729} auf den {object:1728} neben dem Gasthaus; oben",
 	-- ["Shindigger keg"] = "Fässchen Shindigger-Starkbier",
 	-- ["South of Hammerfall, the Witherbark trolls hold the village in the hills. Axe Throwers guard the outer huts; the Witch Doctors and Headhunters hold the heart of the village. Careful: All three troll types flee for help at 15% health, which can pull more trolls from the nearby camps."] = "Südlich von Hammerfall halten die Witherbark-Trolle das Dorf in den Hügeln. Axtwerfer bewachen die äußeren Hütten; die Hexendoktoren und Kopfjäger halten das Herz des Dorfes. Vorsicht: Alle drei Trollarten fliehen bei 15% Gesundheit, um Hilfe zu holen, was weitere Trolle aus den nahen Lagern heranziehen kann.",
+	-- ["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks."] = "Südöstlich von Tarrens Mühle. Drull und {npc:2238} sind in den Gebäuden im Hof der Burg angekettet: {npc:2427} trägt {item:3467} und {npc:2428} {item:3499}, beide in der Burg. Töte sie und öffne dann beide Schlösser.",
 	-- ["South-west, the Cave and Ferocious Yetis (30-32) fill the {area:277} in the hills west of {area:272}; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but at 29-30 they hit hard and come in pairs."] = "Im Südwesten füllen die Höhlenyetis und Wilden Yetis (30-32) {area:277} in den Hügeln westlich von {area:272}; etwa jeder sechzehnte trägt die Rute. Bleib in diesen Höhlen: Die Berg- und Riesenyetis (32-34) der Höhle weiter nördlich tragen sie auch, aber mit 29-30 schlagen sie hart zu und kommen zu zweit.",
 	-- ["Syndicate missives"] = "Schreiben des Syndikats",
 	-- ["The Daggerspine naga line the shore south-east of the town."] = "Die Naga der Daggerspine säumen das Ufer südöstlich der Stadt.",

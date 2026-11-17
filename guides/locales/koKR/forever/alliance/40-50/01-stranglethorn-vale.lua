@@ -257,7 +257,8 @@ return {
 	-- {item:216616} Compound Cage Key
 	["{item:216616}, from the Subchiefs (or the Elites)"] = "{item:216616}, 부대장(또는 정예병)에게서 획득",
 	-- {item:216617} Kurzen Fighter's Uniform
-	["{item:216617}, in the supply crate"] = "{item:216617}, 보급품 상자 안",
+	-- was: ["{item:216617}, in the supply crate"] = "{item:216617}, 보급품 상자 안"
+	["{item:216617}, in the supply crate deep in the cave"] = "",
 	-- {npc:218230} Wendel Mathers
 	["{npc:218230}, back at his cage on the way out"] = "{npc:218230}, 나가는 길에 그의 우리에서",
 	-- {npc:218229} Captain Aransas · {area:35} Booty Bay
@@ -457,6 +458,7 @@ return {
 	-- ["for the flight back to {npc:6251} at 43"] = "43레벨에 {npc:6251}에게 돌아가는 비행을 위해",
 	-- ["for the {area:8} later"] = "나중에 {area:8}에 쓸 것",
 	-- ["for {npc:2616} in Theramore: keep it"] = "테라모어의 {npc:2616}에게 줄 것: 보관하세요",
+	-- ["{item:216617}, in the supply crate"] = "{item:216617}, 보급품 상자 안",
 	-- ["{npc:1356}: for {npc:1344} in {zone:1432}, keep it"] = "{npc:1356}: {zone:1432}의 {npc:1344}에게 줄 것, 보관하세요",
 	-- ["{npc:217588}: catch it, for {quest:93176}"] = "{npc:217588}: {quest:93176}을(를) 위해 잡으세요",
 	-- ["{npc:2487}, top floor"] = "{npc:2487}, 꼭대기 층",

@@ -42,7 +42,7 @@ return {
 
 	-- Step 7: Hornizz Brimbuzzle
 	-- {quest:6134} Ghost-o-plasm Round Up · {area:2657} Valley of Bones
-	-- plural, as words: Magram Necrokhans = {npc:253274} Magram Necrokhan
+	-- plural, as words: Magrami Spectres = {npc:11560} Magrami Spectre · Magram Necrokhans = {npc:253274} Magram Necrokhan
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:6134}'s magnets draw the Magrami Spectres a few yards from the Magram Necrokhans and Corpsefeeders (45, elite) in the {area:2657}. Skip it if you are alone."] = "정예 몹입니다. 파티를 권장하니 함께할 사람을 찾으십시오. {quest:6134}의 자석은 {area:2657}에서 마그람일족 강령왕과 시체먹이(45, 정예)로부터 몇 미터 떨어진 곳으로 마그라미 유령을 끌어냅니다. 혼자라면 건너뛰십시오.",
 
 	-- Step 8: Flesh Picker
@@ -80,6 +80,7 @@ return {
 	-- Step 13: The ghost magnets
 	["The ghost magnets"] = "유령 유인기",
 	-- {item:15848} Crate of Ghost Magnets
+	-- plural, as words: Magrami Spectres = {npc:11560} Magrami Spectre
 	["Use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres; the Necrokhans and Corpsefeeders (45, elite) walk close by: keep the group together."] = "들판 동쪽의 화살표 위치에서 {item:15848}을(를) 사용해 마그라미 유령을 끌어내십시오. 강령왕과 시체먹이(45, 정예)가 가까이 돌아다니니 파티와 함께 움직이십시오.",
 
 	-- Step 14: Mannoroc Coven

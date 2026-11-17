@@ -219,9 +219,16 @@ L["Grey for you: pays %d%% XP (Skip grey quests)"] = "회색 퀘스트: 경험�
 L["Journeyman %s"] = "숙련 %s"
 L["Expert %s"] = "전문 %s"
 L["Artisan %s"] = "대가 %s"
+-- L["Not offered by %s: you can take %s without it"] = ""
+-- L["Your Hearthstone is bound to %s, not %s: ride to the inn"] = ""
+-- L["No Hearthstone in your bags: ride to the inn"] = ""
+-- L["Hearthstone ready in %s: ride to the inn, or wait for it"] = ""
+-- L["Ride to %s"] = ""
+-- L["Ride to the flight master"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "보상을 선택해 제출을 마치십시오."
+-- L["%s is an escort: it starts as soon as it is taken. Accept it yourself when your group is ready."] = ""
 
 -- Core/Commands.lua
 L["Toggle guide window"] = "가이드 창 켜기/끄기"
@@ -445,6 +452,17 @@ L["Detour around %s"] = "%s 우회"
 L["Walk to the airship dock"] = "비행선 승강장까지 걸어가기"
 L["Take the airship to %s"] = "비행선 타고 이동: %s"
 L["Learn the flight path at %s, then fly to %s"] = "%s 비행 경로를 배운 뒤 %s(으)로 비행"
+-- L["Ride to the boat"] = ""
+-- L["Ride to the zeppelin tower"] = ""
+-- L["Ride to the airship dock"] = ""
+-- L["Ride to the Deeprun Tram"] = ""
+-- L["Ride to the portal"] = ""
+-- L["Ride to the %s cave mouth"] = ""
+-- L["Ride to the %s entrance"] = ""
+-- L["Ride to the cave mouth in %s"] = ""
+-- L["Ride to the entrance in %s"] = ""
+-- L["Ride to the cave mouth"] = ""
+-- L["Ride to the entrance"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -523,6 +541,7 @@ L["Arrows"] = "화살"
 L["Bullets"] = "탄환"
 L["Bows & guns"] = "활 및 총"
 L["Mailbox"] = "우체통"
+-- L["Transmogrifier"] = ""
 
 -- Nav/Prompts.lua
 L["Right-click to skip this leg."] = "오른쪽 클릭: 이 구간 건너뛰기."
@@ -769,6 +788,7 @@ L["Best pick"] = "최선의 선택"
 L["Item"] = "아이템"
 L["Reward pick"] = "보상 선택"
 L["weapon skill not trained"] = "무기 숙련 미습득"
+-- L["Your ranged damage uses this weapon's stats, not its damage"] = ""
 
 -- Gear/Options.lua
 L["Automatic (talents)"] = "자동 (특성)"
@@ -928,6 +948,9 @@ L["Left-click to fold the list to one row."] = "왼쪽 클릭: 목록을 한 줄
 L["Right-click for its settings. Shift-drag to move."] = "오른쪽 클릭: 설정. Shift-드래그로 이동합니다."
 L["Right-click for its settings. Drag to move."] = "오른쪽 클릭: 설정. 끌어서 이동."
 L["Targets the first name in the list that is close. Click a name to target that one."] = "목록에서 가까이 있는 첫 번째 이름을 대상으로 지정합니다. 이름을 클릭하면 그 대상을 지정합니다."
+-- L["Dragging the Polestar mark in combat places the buttons after the fight."] = ""
+-- L["Press to equip"] = ""
+-- L["Press to equip it."] = ""
 
 -- QoL/XP.lua
 L["Level %d"] = "레벨 %d"
@@ -1151,6 +1174,21 @@ L["Names in the target list"] = "대상 목록의 이름 수"
 L["How many of the step's mobs the target list shows, in guide order."] = "대상 목록에 단계의 몹을 가이드 순서대로 몇 개까지 보여 줄지 정합니다."
 L["Completed quest XP"] = "완료한 퀘스트 경험치"
 -- L["Shows XP from completed quests you can turn in on the game's XP bar and in its tooltip."] = ""
+-- L["Target list style"] = ""
+-- L["Full rows show each name, what it drops and the goal's count. Slim rows are shorter, with a small face, the name and the count; names only leaves the face out. Portraits show the faces alone, in a column or a row, each with how many are left; hover one for its name."] = ""
+-- L["Full"] = ""
+-- L["Slim"] = ""
+-- L["Names only"] = ""
+-- L["Portraits in a column"] = ""
+-- L["Portraits in a row"] = ""
+-- L["Portraits"] = ""
+-- L["3D draws each creature's model. 2D shows the game's flat portrait once you have seen that one (your target, or its nameplate up), and an icon for what you do with it until then."] = ""
+-- L["3D models"] = ""
+-- L["2D portraits"] = ""
+-- L["Name the one that's close"] = ""
+-- L["With portraits, the name of the one close enough to target shows beside its face in a column, under it in a row (above it when the list goes up over the buttons)."] = ""
+-- L["Equip a spare bag first"] = ""
+-- L["When your bags are nearly full and a bag sits in them while a bag slot is empty, the bag button and the guide window offer to put it on before any junk. Nothing happens until you press."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "얼라이언스 전용"
@@ -1207,6 +1245,10 @@ L["Lookup"] = "찾아보기"
 L["%s: click through what they say until the quest's line is done."] = "%s: 퀘스트 목표가 완료될 때까지 대화를 끝까지 넘기십시오."
 L["%s: use %s to call it up."] = "%s: 불러내려면 %s 사용"
 L["Use %s to learn it."] = "배우려면 %s 사용"
+-- L["After an earlier quest"] = ""
+-- L["Chain: finished, %d skipped"] = ""
+-- L["Chain: all %d done"] = ""
+-- L["Chain: %d of %d"] = ""
 
 -- Lookup/Spotter.lua
 L["From"] = "출처"
@@ -1289,6 +1331,7 @@ L["Opens the inner doors of Dire Maul's North and West wings."] = "혈투의 전
 L["Opens Gnomeregan's back door, the Workshop entrance."] = "놈리건의 뒷문인 작업장 입구를 엽니다."
 L["Opens the doors of the Armory and the Cathedral."] = "무기고와 대성당의 문을 엽니다."
 L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "달라란 시로 가는 호드 쪽 길의 문을 엽니다. 열쇠 하나로 파티 전체에게 열립니다. 얼라이언스는 주문과 까마귀의 하수관을 통해 들어갑니다."
+-- L["Rings the gong by the sacred pool in Zul'Farrak to call Gahz'rilla; one mallet does it for the group. Qiaga the Keeper (elite) on top of the Altar of Zul in the Hinterlands drops the Sacred Mallet: use it at the altar at the very top of Jintha'Alor and it becomes the Mallet of Zul'Farrak. Both places are full of elites."] = ""
 
 -- UI/UI.lua
 L["Map %d"] = "지도 %d"
@@ -1835,6 +1878,14 @@ L["Opens Lookup with this search."] = "이 검색어로 찾아보기를 엽니�
 L["No guide to this mount yet: the sources above say where it comes from and what it takes. Guide on one leads you there."] = "이 탈것의 가이드는 아직 없습니다: 위의 출처에서 어디서 얻는지, 무엇이 필요한지 볼 수 있습니다. 출처 하나에 가이드를 켜면 그곳으로 안내합니다."
 L["Origin"] = "출처"
 L["Builds a guide to %s, the quickest of these to reach, and opens it in a new tab."] = "이 중 가장 빨리 갈 수 있는 %s까지 가는 가이드를 만들어 새 탭에서 엽니다."
+-- L["In your quest log"] = ""
+-- L["You can take it now"] = ""
+-- L["Not yet"] = ""
+-- L["Skipped"] = ""
+-- L["Finished, %d skipped"] = ""
+-- L["All %d done"] = ""
+-- L["Click to open its page."] = ""
+-- L["Then any of: %s"] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "제출 가능"
@@ -1962,6 +2013,8 @@ L["best at %d"] = "%d레벨에 적합"
 L["Tough at your level"] = "현재 레벨에선 어려움"
 L["The Dungeons section is turned off. Turn it on under Options > Discovery > Lookup."] = "던전 항목이 꺼져 있습니다. 설정 > 발견 > 찾아보기에서 켜십시오."
 L["%d-%d players"] = "%d-%d인"
+-- L["No boss drops known"] = ""
+-- L["Drops (%d)"] = ""
 
 -- UI/RouteChoice.lua
 L["Right here"] = "바로 여기"
@@ -2190,6 +2243,7 @@ L["Read more:"] = "자세히:"
 L["Read more: docs/GUIDE_PACKS.md in Polestar's source"] = "자세히: Polestar 소스의 docs/GUIDE_PACKS.md"
 L["Turn on and reload"] = "켜고 다시 불러오기"
 L["Polestar Guides is turned off in the AddOns list, so Polestar has no guides to show. Turn it on for all your characters and reload?"] = "애드온 목록에서 Polestar 가이드가 꺼져 있어 Polestar가 보여 줄 가이드가 없습니다. 모든 캐릭터에서 켜고 다시 불러올까요?"
+-- L["Part of Polestar is turned off in the AddOns list (%s), so its settings cannot open. Turn it on for all your characters and reload?"] = ""
 
 -- UI/Options.lua
 L["Recorder"] = "기록기"
@@ -2552,6 +2606,8 @@ L["Sell: fewer free bag slots than"] = "판매: 가방 빈 칸이 다음보다 �
 L["Reminds you to sell when fewer bag slots are free than this, or than the items the next steps collect. 0 counts those items alone."] = "가방 빈 칸이 이 값보다, 또는 다음 단계에서 수집할 아이템 수보다 적으면 판매를 알립니다. 0이면 그 아이템 수만 기준으로 합니다."
 L["Repair: gear worn below"] = "수리: 장비 내구도가 다음 미만일 때"
 L["Reminds you to repair when a piece of your gear is below this share of its durability. 0: never."] = "장비 중 하나의 내구도가 이 비율 미만이면 수리를 알립니다. 0: 알리지 않음."
+L["play Freedoom Arcade by petllama"] = "petllama의 Freedoom Arcade 플레이"
+L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom by the Freedoom project (BSD License), from the Polestar_Arcade folder."] = "petllama의 Freedoom Arcade(GPL-2.0 이상)가 Freedoom 프로젝트의 Freedoom 3개 레벨(BSD 라이선스)을 Polestar_Arcade 폴더에서 실행합니다."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
@@ -3253,6 +3309,7 @@ L["Marks friendly service NPCs and mailboxes on zone and city maps using Polesta
 L["Shows the enabled NPC service categories on the minimap as well."] = "활성화된 NPC 서비스 분류를 미니맵에도 표시합니다."
 L["Shows trainers for your character's class."] = "캐릭터 직업의 상급자를 표시합니다."
 L["Shows this service category on the map."] = "이 서비스 분류를 지도에 표시합니다."
+-- L["Transmogrifiers"] = ""
 
 -- UI/GearScales.lua
 L["Strength"] = "힘"
@@ -3399,6 +3456,8 @@ L["Deleted %s."] = "%s 삭제함."
 L["Free slots: %d of %d"] = "빈 칸: %d/%d"
 L["Cheapest junk: %s (%s)"] = "가장 싼 잡동사니: %s (%s)"
 L["Free bag slots and the cheapest junk"] = "가방 빈 칸과 가장 싼 잡동사니"
+-- L["Equipped %s."] = ""
+-- L["Spare bag: %s"] = ""
 
 -- QoL/Restock.lua
 L["Restock"] = "보충"
@@ -4479,6 +4538,8 @@ L["Rares, travel & zones"] = "희귀, 이동, 지역"
 L["Zones and coordinates"] = "지역과 좌표"
 L["Trackers & map"] = "추적기 및 지도"
 L["Minimap and coordinates"] = "미니맵과 좌표"
+L["Offer Freedoom Arcade on flights"] = "비행 중 Freedoom Arcade 제안"
+L["On a flight with a minute or more to go, Polestar asks if you want to play Freedoom Arcade by petllama while you wait: three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade opens it any time."] = "남은 비행 시간이 1분 이상이면 Polestar가 기다리는 동안 petllama의 Freedoom Arcade를 플레이할지 묻습니다. Freedoom 3개 레벨이며, Freedoom Arcade 애드온이 설치되어 있으면 전체 게임입니다. 착륙 10초 전에 게임을 저장하고 일시 정지한 뒤 닫습니다. /polestar arcade로 언제든 열 수 있습니다."
 
 -- Dungeons/Options.lua
 L["Dungeons and characters"] = "던전과 캐릭터"
@@ -4548,6 +4609,7 @@ L["Jump anyway? They stay in your log, and the guide lists who takes each in."] 
 L["Jump anyway"] = "그래도 이동"
 L["Open any flight master's map once on this continent so Polestar knows your flight paths."] = "이 대륙에서 아무 비행 조련사의 지도를 한 번 열면 Polestar가 당신의 비행 경로를 알게 됩니다."
 L["This guide is for %s characters. Polestar won't guide you through it."] = "이 가이드는 %s 캐릭터용입니다. Polestar가 이 가이드를 안내하지 않습니다."
+-- L["Equip it"] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "%s 키를 눌러 다시 시작하거나 가이드 창을 여십시오."
@@ -4687,6 +4749,21 @@ L["Moved"] = "이동됨"
 L["Not moved"] = "이동 안 함"
 L["From the look"] = "모양에 따름"
 L["Nothing to apply: the parts ticked are the same as yours."] = "적용할 것이 없습니다: 선택한 항목이 내 설정과 같습니다."
+
+-- Maps/Arcade.lua
+L["Freedoom Arcade can't open: its folder Polestar_Arcade is missing or turned off."] = "Freedoom Arcade를 열 수 없습니다: Polestar_Arcade 폴더가 없거나 꺼져 있습니다."
+L["Freedoom Arcade opens after the fight."] = "Freedoom Arcade는 전투가 끝난 뒤 열립니다."
+L["Play Freedoom Arcade"] = "Freedoom Arcade 플레이"
+L["Freedoom Arcade by petllama"] = "petllama의 Freedoom Arcade"
+L["3 levels of Freedoom Phase 1. Esc: menu, P: pause, F6/F9: save/load."] = "Freedoom Phase 1의 3개 레벨. Esc: 메뉴, P: 일시 정지, F6/F9: 저장/불러오기."
+L["a game: Play"] = "플레이"
+L["Do you want to play Doom while waiting?"] = "기다리는 동안 Doom을 플레이할까요?"
+L["Don't ask again"] = "다시 묻지 않기"
+L["Freedoom Arcade is saved and paused for the fight: type %s to continue."] = "전투 때문에 Freedoom Arcade를 저장하고 일시 정지했습니다. 계속하려면 %s 명령을 입력하세요."
+L["Landing in 10 seconds"] = "10초 후 착륙"
+L["Freedoom Arcade is saved and paused."] = "Freedoom Arcade를 저장하고 일시 정지했습니다."
+L["Close Freedoom Arcade to get your keys back."] = "키를 다시 쓰려면 Freedoom Arcade를 닫으세요."
+L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "착륙했습니다. Freedoom Arcade를 저장하고 일시 정지했습니다. 계속하려면 %s 명령을 입력하세요."
 
 -- QoL/QuestXP.lua
 -- L["+1 level"] = ""

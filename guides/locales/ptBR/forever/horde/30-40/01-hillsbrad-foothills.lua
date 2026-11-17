@@ -124,10 +124,14 @@ return {
 
 	-- Step 26: Durnholde Keep
 	-- {npc:2238} Tog'thar · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key
-	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks."] = "A sudeste da Serraria Tarren. Drull e {npc:2238} estão acorrentados nos prédios do pátio da fortaleza: {npc:2427} carrega {item:3467} e {npc:2428}, {item:3499}, ambos na fortaleza. Mate-os e depois abra as duas fechaduras.",
-	["Drull's ball and chain"] = "Bola e corrente de Drull",
+	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings, and each lock needs its key: {npc:2427} carries the {item:3467} for Drull's, {npc:2428} the {item:3499} for {npc:2238}'s, both in the keep. Kill them first, then open both locks."] = "",
+	-- {item:3467} Dull Iron Key · {npc:2427} Jailor Eston
+	["{item:3467}, from {npc:2427}"] = "",
+	-- {item:3499} Burnished Gold Key · {npc:2428} Jailor Marlgen
+	["{item:3499}, from {npc:2428}"] = "",
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "Bola e corrente de {npc:2238}",
+	["Drull's ball and chain"] = "Bola e corrente de Drull",
 
 	-- Step 27: Krusk
 	-- {area:272} Tarren Mill
@@ -321,6 +325,7 @@ return {
 	-- ["Place the {object:1729} on the {object:1728} beside the inn; upstairs"] = "Coloque {object:1729} em {object:1728} ao lado da estalagem; no andar de cima",
 	-- ["Shindigger keg"] = "Barril do Festeiro",
 	-- ["South of Hammerfall, the Witherbark trolls hold the village in the hills. Axe Throwers guard the outer huts; the Witch Doctors and Headhunters hold the heart of the village. Careful: All three troll types flee for help at 15% health, which can pull more trolls from the nearby camps."] = "Ao sul de Ruína do Martelo, os trolls Cascasseca ocupam a aldeia nas colinas. Arremessadores de Machado guardam as cabanas de fora; os Mandingueiros e Caçadores de Cabeças ficam no coração da aldeia. Cuidado: os três tipos de troll fogem atrás de ajuda com 15% de vida, o que pode trazer mais trolls dos acampamentos vizinhos.",
+	-- ["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks."] = "A sudeste da Serraria Tarren. Drull e {npc:2238} estão acorrentados nos prédios do pátio da fortaleza: {npc:2427} carrega {item:3467} e {npc:2428}, {item:3499}, ambos na fortaleza. Mate-os e depois abra as duas fechaduras.",
 	-- ["South-west, the Cave and Ferocious Yetis (30-32) fill the {area:277} in the hills west of {area:272}; about one in sixteen carries the rod."] = "A sudoeste, os Yetis das Cavernas e Yetis Ferozes (30-32) enchem {area:277}, nas colinas a oeste de {area:272}; cerca de um em cada dezesseis carrega o bastão.",
 	-- ["South-west, the Cave and Ferocious Yetis (30-32) fill the {area:277} in the hills west of {area:272}; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but at 29-30 they hit hard and come in pairs."] = "A sudoeste, os Yetis das Cavernas e Yetis Ferozes (30-32) enchem {area:277}, nas colinas a oeste de {area:272}; cerca de um em cada dezesseis carrega o bastão. Fique nessas cavernas: os Yetis das Montanhas e Yetis Gigantes (32-34) da caverna mais ao norte também o carregam, mas no nível 29-30 eles batem forte e vêm em pares.",
 	-- ["Syndicate missives"] = "Missivas da Camarilha",

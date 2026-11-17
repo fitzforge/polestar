@@ -70,19 +70,25 @@ return {
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
 	["{npc:3649} is in {area:442}. Take his quest before you hunt naga: the Kor Gem never drops without it."] = "{npc:3649}在{area:442}。獵殺納迦前先接他的任務：沒有任務時柯爾寶石絕不會掉落。",
 
-	-- Step 12: The Corrupted Kor Gem
+	-- Step 12: The north end of the Zoram Strand
+	-- {area:414} Zoram Strand
+	["The north end of the {area:414}"] = "",
+	-- {area:414} Zoram Strand · {zone:1439} Darkshore
+	["The naga's flooded ruins lie just past the north end of the {area:414}, south of {zone:1439} along the coast. The arrow cannot find its own way down into them, so it leads you to the water's edge first: from there swim north into the ruins."] = "",
+
+	-- Step 13: The Corrupted Kor Gem
 	-- {item:6995} Corrupted Kor Gem
 	["The {item:6995}"] = "{item:6995}",
 	-- {area:2797} Blackfathom Deeps · {zone:1440} Ashenvale · {item:6995} Corrupted Kor Gem · {spell:122} Frost Nova
 	["The Blackfathom naga in the flooded passages around the {area:2797} entrance, on {zone:1440}'s north-west coast, drop the {item:6995}: Tide Priestesses (level 20-21), Oracles (21-22) and Sea Witches (23-24), one in two. You do not need to enter the instance. All are elite: grouping up is encouraged; players solo them one at a time, with difficulty. They heal themselves, run for help at low health, satyrs stand near some, and the Sea Witches cast {spell:122} up close. Some players report no drop while in a raid group."] = "{zone:1440}西北海岸{area:2797}入口周圍的水淹通道裡，黑淵納迦掉落{item:6995}：潮汐女祭司（20-21級）、神諭者（21-22級）和海巫（23-24級），約每兩隻掉一個。你不需要進入副本。它們全是精英：建議組隊；玩家們通常一次單挑一隻，但很困難。它們會自療，殘血時跑去求援，有些旁邊站著薩特，海巫會近身施放{spell:122}。有玩家反映在團隊中不掉落。",
 
-	-- Step 13: The Purified Kor Gem
+	-- Step 14: The Purified Kor Gem
 	-- {item:7083} Purified Kor Gem
 	["The {item:7083}"] = "{item:7083}",
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
 	["Back to {npc:3649} in {area:442}: he purifies the gem."] = "回到{area:442}找{npc:3649}：他會淨化寶石。",
 
-	-- Step 14: Verigan's Fist
+	-- Step 15: Verigan's Fist
 	-- {npc:6181} Jordan Stilwell · {zone:1455} Ironforge
 	["Bring the four parts to {npc:6181} outside {zone:1455}. Accept his last quest and wait by him while he forges the mace at his anvil."] = "把四個部件交給{zone:1455}外的{npc:6181}。接下他的最後一個任務，在他用鐵砧鍛造戰錘時在旁邊等候。",
 
