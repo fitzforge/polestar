@@ -5461,7 +5461,9 @@ once), and ones within 30 yd of a crossing, chain node or a guide
 floor guard or the ends near it. Captions: a passage names
 the area on the side the path reaches 25 yd past it ("Cross the bridge to
 Lakeshire", "Through the gate into Orgrimmar"); a cave or building its
-name ("Walk to the Frostmane Hold cave mouth"); without a name, the kind and
+name ("Walk to the Frostmane Hold cave mouth"; "Ride to ..." for a character
+with the riding skill, `ns.CanRide`, but not a ghost or on an escort);
+without a name, the kind and
 the zone ("Through the gate in Durotar"); never empty or "Unknown" (K1). A
 lift is a walk to the landing the path reaches first ("Walk to The Great
 Lift, Bottom": the side comes from the path's direction, K4) and a `lift`
@@ -5506,7 +5508,7 @@ walk stays inside one zone; between zones it goes only through
   or lift, each with an arrival radius and optionally the height of its floor
   (`z`: a walk to that end ends there, the Undercity's entrance hall rather
   than the city under it), joined by an explicit walk link, with a
-  caption per direction (`ab`, `ba`; else "Walk to <zone>", "Go to <zone>" before 0.3.7), optionally one way;
+  caption per direction (`ab`, `ba`; else "Walk to <zone>", "Ride to <zone>" for a rider outside a walk-only plan (a ghost, an escort), "Go to <zone>" before 0.3.7), optionally one way;
 - an open-ground pair: two zones whose shared border is walkable anywhere
   (optionally one way);
 - an approach chain: ordered nodes with radius and caption (a cave, a climb, a
@@ -5523,7 +5525,8 @@ walk stays inside one zone; between zones it goes only through
   height is unknown, as with real paths off, where no floor is known (#2224). A
   hop between neighbouring nodes whose floors lie 20 yd or more apart within
   15 yd on the map is a lift: a `lift` leg ("Ride the elevator up/down",
-  Transit's lift id and timetable), the walk to it "Walk to the lift". The
+  Transit's lift id and timetable), the walk to it "Walk to the lift" (a
+  rider too: lift captions never say ride). The
   Undercity's way in and out is one such chain, `undercity-south-lift` (from
   Fitz's own walk): Tirisfal's front door, the corridor and the entrance hall
   to the south lift's top and bottom landings, both ends mouths; the other
