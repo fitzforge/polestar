@@ -21,9 +21,6 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: discord-known-issues
-
 jobs:
   board:
     name: Write the board
@@ -38,6 +35,10 @@ jobs:
           (contains(github.event.comment.body, 'Known issue:') || contains(github.event.comment.body, 'Workaround:'))))
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    # On the job, not the workflow: a workflow-level group let every issue event (most skip the
+    # job) cancel the pending run that would have written the board, so on a busy day it never ran.
+    concurrency:
+      group: discord-known-issues
     permissions:
       contents: read
       issues: read
