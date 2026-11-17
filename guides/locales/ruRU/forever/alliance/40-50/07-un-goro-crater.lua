@@ -16,7 +16,7 @@ return {
 	["{zone:1455} flight master"] = "Распорядитель полетов ({zone:1455})",
 
 	-- Step 3: Theramore
-	["Theramore"] = "",
+	["Theramore"] = "Терамор",
 	-- {npc:2616} Privateer Groy
 	["{npc:2616} stands on the docks where the boat lands."] = "{npc:2616} стоит на причале, куда прибывает корабль.",
 
@@ -41,7 +41,7 @@ return {
 	-- {npc:12046} Gor'marok the Ravager
 	["Ride south to the ogre compound. Brutes and Enforcers (46-48) fill it; {npc:12046} (49) stands in the middle with guards around him: clear them first."] = "Езжайте на юг к лагерю огров. Он полон громил и силовиков (46-48); {npc:12046} (49) стоит в центре с охраной: сначала разберитесь с ней.",
 	-- {npc:12046} Gor'marok the Ravager
-	["{npc:12046}, below ground"] = "",
+	["{npc:12046}, below ground"] = "{npc:12046}, под землей",
 
 	-- Step 10: Thistleshrub Valley: kill these as you meet them
 	-- {quest:3362} Thistleshrub Valley
@@ -54,13 +54,13 @@ return {
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn
 	["Ride back north-east to {area:976}: {npc:11758} stands on the east side of town."] = "Езжайте обратно на северо-восток в {area:976}: {npc:11758} стоит в восточной части города.",
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, внутри",
 
 	-- Step 12: The Gaping Chasm
 	-- {area:1938} Broken Pillar · {area:981} The Gaping Chasm
 	["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "Езжайте на юг мимо места {area:1938} к месту {area:981} – туннелям Хаззали; снаряжение Холстомера лежит глубоко внутри.\nОсторожно: снаряжение охраняет один жук. По туннелям патрулирует много жуков, некоторые из них 50-го уровня, так что в бою часто привлекаются лишние противники.",
 	-- {item:8593} Scrimshank's Surveying Gear
-	["{item:8593}; below ground"] = "",
+	["{item:8593}; below ground"] = "{item:8593}; под землей",
 
 	-- Step 13: Gadgetzan
 	-- {npc:7740} Gracina Spiritmight · {zone:1457} Darnassus · {zone:1428} Burning Steppes
@@ -125,7 +125,7 @@ return {
 
 	-- Step 23: Marshal's Refuge
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, below ground"] = "",
+	["{npc:9117}, below ground"] = "{npc:9117}, под землей",
 	-- {npc:7775} Gregan Brewspewer · {zone:1444} Feralas
 	["For {npc:7775} in {zone:1444}: keep it"] = "Для NPC {npc:7775} (зона {zone:1444}): сохраните",
 
@@ -134,11 +134,11 @@ return {
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
 	["Still short of level 49.79 after the refuge's hand-ins? Top up on the Bloodpetal Lashers and Threshers (48-50) of the eastern jungle, where you took the petals, before you leave the crater."] = "После сдачи заданий в лагере все еще не хватает до уровня 49.79? Доберите опыт на кровоцветах-хлыстунах и молотильщиках (48-50) в восточных джунглях, где собирали лепестки, прежде чем покинуть кратер.",
 	-- {npc:6511} Bloodpetal Thresher
-	["grind on {npc:6511}"] = "",
+	["grind on {npc:6511}"] = "убивайте: {npc:6511}",
 
 	-- Step 25: Fly to Astranaar
 	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	["Fly to {area:415}"] = "Летите сюда: {area:415}",
 	-- {zone:1455} Ironforge · {zone:1427} Searing Gorge · {zone:1440} Ashenvale · {zone:1447} Azshara
 	["The {zone:1455} quests were taken at the end of the {zone:1427} guide: fly straight on to {zone:1440} for {zone:1447}."] = "Задания из зоны {zone:1455} были взяты в конце гайда по зоне {zone:1427}: летите сразу дальше в зону {zone:1440}, чтобы попасть в зону {zone:1447}.",
 	-- {area:541} Marshal's Refuge
@@ -156,7 +156,7 @@ return {
 
 	-- Step 30: Fly to Astranaar
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "Распорядитель полетов: {area:442}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Archesonus stands beside King Magni in the {object:171709}."] = "Аркессон стоит рядом с королем Магни ({object:171709}).",

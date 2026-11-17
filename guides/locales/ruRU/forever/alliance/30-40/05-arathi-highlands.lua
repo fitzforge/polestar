@@ -14,7 +14,7 @@ return {
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "Летите сюда: {area:42}",
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "Распорядитель полетов: {area:35}",
 
 	-- Step 3: Watcher Biggs
 	-- {npc:5476} Watcher Biggs · {npc:217412} Amaryllis Webb · {quest:93176} My Little Friends
@@ -123,7 +123,7 @@ return {
 	-- {npc:2434} Shadowy Assassin
 	["{npc:2434}, if you spot him"] = "{npc:2434}, если заметите",
 	-- {npc:2276} Magistrate Henry Maleb
-	["{npc:2276}, inside"] = "",
+	["{npc:2276}, inside"] = "{npc:2276}, внутри",
 
 	-- Step 25: Alterac Mountains
 	["Syndicate camp"] = "Лагерь Синдиката",
@@ -155,7 +155,7 @@ return {
 
 	-- Step 32: Drywhisker Gorge: kill these as you meet them
 	-- {area:318} Drywhisker Gorge
-	["{area:318}: kill these as you meet them"] = "",
+	["{area:318}: kill these as you meet them"] = "{area:318}: убивайте их по пути",
 	-- {area:321} Hammerfall · {skill:186} Mining
 	-- plural, as words: Lesser Bloodstone Deposits = {object:2653} Lesser Bloodstone Deposit
 	["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop the Motes of Myzrael, not Krazek's ore. Lesser Bloodstone Deposits need {skill:186} 75: mine four ore, buy them at the Auction House, or ask a miner friend. The ore goal is optional; continue with Myzrael if you cannot get it. Careful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "Кобольды из племени Сухоусов копают в ущелье к востоку от места {area:321} (Орда); обойдите поселение с севера. С них падает «Мощь Мизраэли», а не руда для Кразека. Для малых месторождений кровавого камня нужен навык {skill:186} 75: добудьте четыре куска руды, купите их на аукционе или попросите друга-шахтера. Цель с рудой необязательна; если не можете ее достать, продолжайте с Мизраэлем. Осторожно: все виды кобольдов убегают за подмогой при низком здоровье (кобольды – при 30%, геодезисты и землекопы – при 15%), и так можно привлечь еще больше.",
@@ -176,7 +176,7 @@ return {
 	-- {area:318} Drywhisker Gorge · {area:314} Go'Shek Farm · {area:317} Witherbark Village
 	["South from {area:318}, past {area:314}, to {area:317} in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk."] = "На юг от места {area:318}, мимо места {area:314}, сюда: {area:317} на холмах. Знахари стоят среди хижин, а темные охотники охраняют дальний конец долины. Клык может выпасть с любого тролля.",
 	-- {item:5040} Shadow Hunter Knife
-	["{item:5040}; below ground"] = "",
+	["{item:5040}; below ground"] = "{item:5040}; под землей",
 
 	-- Step 36: Quae
 	-- {npc:2712} Quae · {npc:2713} Kinelory · {area:314} Go'Shek Farm
@@ -221,7 +221,7 @@ return {
 
 	-- Step 48: The Drowned Reef: kill these as you meet them
 	-- {area:328} The Drowned Reef
-	["{area:328}: kill these as you meet them"] = "",
+	["{area:328}: kill these as you meet them"] = "{area:328}: убивайте их по пути",
 	["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay."] = "Два затонувших корабля лежат в заливе к западу от бухты. Карты и журналы внутри них; самоцветы лежат на морском дне вокруг. Наги из клана Пронзающего Гребня плавают по всему заливу.",
 	-- {npc:2595} Daggerspine Raider
 	["{npc:2595}, underwater"] = "",
@@ -246,7 +246,7 @@ return {
 	-- {npc:2793} Kor'gresh Coldrage
 	["South-east through the hills: {npc:2793}, an ogre mage, holds the cave at the southern end of the Witherbark valley.\nCareful: {npc:2793} is level 39, a caster, one or two over you here: clear the cave mouth first, then pull him alone at full health."] = "На юго-восток через холмы: {npc:2793}, огр-маг, занимает пещеру в южном конце долины Сухокожих.\nОсторожно: {npc:2793} 39-го уровня, заклинатель, на один-два уровня выше вас: сначала расчистите вход в пещеру, затем выманите его одного с полным здоровьем.",
 	-- {item:4525} Trelane's Wand of Invocation
-	["{item:4525}; below ground"] = "",
+	["{item:4525}; below ground"] = "{item:4525}; под землей",
 
 	-- Step 51: Foggy MacKreel
 	-- {npc:2793} Kor'gresh Coldrage · {area:880} Thandol Span · {npc:2696} Foggy MacKreel · {quest:647} MacKreel's Moonshine · {npc:2705} Brewmeister Bilger · {area:271} Southshore · {area:320} Refuge Pointe
@@ -254,7 +254,7 @@ return {
 
 	-- Step 53: Fly to Southshore
 	-- {area:320} Refuge Pointe
-	["{area:320} flight master"] = "",
+	["{area:320} flight master"] = "Распорядитель полетов: {area:320}",
 
 	-- Step 54: Brewmeister Bilger
 	-- {area:271} Southshore · {npc:2276} Magistrate Henry Maleb · {npc:2277} Loremaster Dibbs · {area:280} Strahnbrad
@@ -272,7 +272,7 @@ return {
 
 	-- Step 57: Ruins of Alterac: kill these as you meet them
 	-- {area:281} Ruins of Alterac
-	["{area:281}: kill these as you meet them"] = "",
+	["{area:281}: kill these as you meet them"] = "{area:281}: убивайте их по пути",
 	-- {area:280} Strahnbrad
 	-- plural, as words: Argus Shadow Mages = {npc:2318} Argus Shadow Mage · Crushridge Warmongers = {npc:2287} Crushridge Warmonger · Crushridge Maulers = {npc:2254} Crushridge Mauler · Crushridge Ogres = {npc:2252} Crushridge Ogre
 	["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins.\nCareful: Crushridge Warmongers call nearby allies within 15 yd once they fall below half health.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and carry the tomes too: pull one at a time, or group up."] = "",
@@ -287,7 +287,7 @@ return {
 
 	-- Step 59: Strahnbrad: kill these as you meet them
 	-- {area:280} Strahnbrad
-	["{area:280}: kill these as you meet them"] = "",
+	["{area:280}: kill these as you meet them"] = "{area:280}: убивайте их по пути",
 	-- {npc:2306} Baron Vardus · {area:280} Strahnbrad
 	["Careful: Syndicate Spies and Assassins can be stealthed. Assassins also poison you.\nCareful: {npc:2306} (40) turns up in one spot at a time: the cellar of {area:280}'s inn, or one of the Syndicate tent camps north of the village. Leave him be."] = "Осторожно: шпионы и убийцы Синдиката могут быть незаметны. Убийцы еще и отравляют.\nОсторожно: {npc:2306} (40) появляется каждый раз в одном месте: в подвале таверны (место {area:280}) или в одном из палаточных лагерей Синдиката к северу от деревни. Не трогайте его.",
 
@@ -315,7 +315,7 @@ return {
 	-- {quest:92457} Starving Arcane
 	["{quest:92457}: the remnants and echoes, inside"] = "{quest:92457}: остатки и отголоски, внутри",
 	-- {quest:92458} Heart of Disruption · {item:251961} Arcane Mote
-	["{quest:92458}: the {item:251961}, inside"] = "",
+	["{quest:92458}: the {item:251961}, inside"] = "{quest:92458}: {item:251961}, внутри",
 
 	-- Step 65: Image of Archmage Modera
 	["Back out of the grate to Modera's camp on the lake shore."] = "Выберитесь обратно через решетку к лагерю Модеры на берегу озера.",
@@ -328,7 +328,7 @@ return {
 	-- {npc:2438} Bartolo Ginsetti · {npc:2381} Micha Yance · {item:2321} Fine Thread
 	["{npc:2438} stands between the flight master and the inn; {npc:2381} beside him sells {item:2321} if you have none."] = "",
 	-- {item:2321} Fine Thread · {npc:2381} Micha Yance
-	["{item:2321}, from {npc:2381}"] = "",
+	["{item:2321}, from {npc:2381}"] = "{item:2321}, у персонажа {npc:2381}",
 
 	-- Step 71: Ironforge
 	-- {npc:1356} Prospector Stormpike · {npc:1344} Prospector Ironband · {zone:1432} Loch Modan
@@ -340,13 +340,13 @@ return {
 
 	-- Step 73: To Thelsamar
 	-- {area:144} Thelsamar
-	["To {area:144}"] = "",
+	["To {area:144}"] = "В место {area:144}",
 	-- {zone:1455} Ironforge · {zone:1426} Dun Morogh · {zone:1432} Loch Modan · {area:144} Thelsamar
 	["From {zone:1455} take the tunnel east through {zone:1426} into {zone:1432} and follow the road to {area:144}."] = "Из города {zone:1455} идите через туннель на восток через зону {zone:1426} в зону {zone:1432} и по дороге сюда: {area:144}.",
 
 	-- Step 74: Thelsamar
 	-- {npc:1470} Ghak Healtouch
-	["{npc:1470}, below ground"] = "",
+	["{npc:1470}, below ground"] = "{npc:1470}, под землей",
 
 	-- Step 75: Prospector Ironband
 	["South-east along the loch to the dig site."] = "На юго-восток вдоль озера к раскопкам.",

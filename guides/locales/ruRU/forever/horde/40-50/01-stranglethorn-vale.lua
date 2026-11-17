@@ -72,7 +72,7 @@ return {
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs, has his next errand now: the Skullsplitter tusks come from the trolls of Zul'Mamwe, later on this loop."] = "У NPC {npc:737} наверху теперь есть следующее поручение: клыки Дробителей Черепов – с троллей Зул'Мамве, позже на этом круге.",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs"] = "",
+	["{npc:737}, upstairs"] = "{npc:737}, наверху",
 
 	-- Step 12: Bloodsail Correspondence
 	-- {area:35} Booty Bay
@@ -144,7 +144,7 @@ return {
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {npc:4752} Kildar · {object:172958} Valley of Honor · {npc:3362} Ogunaro Wolfrunner · {zone:1444} Feralas
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454}: {npc:4752} teaches Orcs in the {object:172958}, by {npc:3362}'s kennel (wolves 20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "Верховая езда требует 40-го уровня и стоит 100 золотых; изучив ее, вы получите транспорт, а без него {zone:2548} после Тернистой долины – долгий путь пешком. Сядьте на дирижабль у башни ({object:3202}) до места {zone:1454}: {npc:4752} обучает орков здесь: {object:172958}, у псарни ({npc:3362}; волки по 20 золотых). Затем дирижаблем обратно сюда: {object:3202}. Не хватает золота? Пропустите этот шаг: гайд по зоне {zone:1444} снова проходит через {zone:1454} примерно на 45-м.",
 	-- {npc:4752} Kildar
-	["{npc:4752}, riding trainer"] = "",
+	["{npc:4752}, riding trainer"] = "{npc:4752}, учитель верховой езды",
 
 	-- Step 32: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {zone:1411} Durotar · {area:367} Sen'jin Village · {npc:7953} Xar'Ti · {zone:1444} Feralas
@@ -156,7 +156,7 @@ return {
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {area:222} Bloodhoof Village · {npc:3690} Kar Stormsinger · {npc:3685} Harb Clawhoof · {zone:1444} Feralas
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454}, fly to {zone:1456} and ride down to {area:222}: {npc:3690} teaches Tauren there, with {npc:3685}'s kodos (20 gold each). Then fly back to {zone:1454} for the {object:3202} zeppelin. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1456} again at about 45."] = "Верховая езда требует 40-го уровня и стоит 100 золотых; изучив ее, вы получите транспорт, а без него {zone:2548} после Тернистой долины – долгий путь пешком. Сядьте на дирижабль у башни ({object:3202}) до места {zone:1454}, летите сюда: {zone:1456} и спуститесь к месту {area:222}: {npc:3690} обучает там тауренов, кодо у NPC {npc:3685} (по 20 золотых). Затем летите обратно сюда: {zone:1454}, к дирижаблю до места {object:3202}. Не хватает золота? Пропустите этот шаг: гайд по зоне {zone:1444} снова проходит через {zone:1456} примерно на 45-м.",
 	-- {npc:3690} Kar Stormsinger
-	["{npc:3690}, riding trainer"] = "",
+	["{npc:3690}, riding trainer"] = "{npc:3690}, учитель верховой езды",
 
 	-- Step 34: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {zone:2521} Zephras Isle · {area:17045} Skywatcher Plateau · {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar · {zone:1444} Feralas
@@ -220,7 +220,7 @@ return {
 	-- {object:3202} Grom'gol
 	["Fly back to {object:3202}: Zul'Mamwe's Skullsplitters are just east of it."] = "Летите обратно в {object:3202}: Череполомы Зул'Мамве – сразу к востоку.",
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "Распорядитель полетов: {area:35}",
 
 	-- Step 42: Zul'Mamwe
 	["Zul'Mamwe"] = "Зул'Мамбве",
@@ -230,7 +230,7 @@ return {
 
 	-- Step 43: Balia'mah Ruins: kill these as you meet them
 	-- {area:127} Balia'mah Ruins
-	["{area:127}: kill these as you meet them"] = "",
+	["{area:127}: kill these as you meet them"] = "{area:127}: убивайте их по пути",
 	-- {object:3202} Grom'gol
 	["The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "Следующие трофейные черепа – в небольших руинах чуть к северу от лагеря воинов.\nПоследние черепа – в руинах недалеко к западу, по пути обратно сюда: {object:3202}.",
 
@@ -267,9 +267,9 @@ return {
 	-- {area:75} Stonard
 	["Head east to {area:75}, in the reeds south of the road."] = "Идите на восток сюда: {area:75}, в камышах к югу от дороги.",
 	-- {npc:5591} Dar
-	["{npc:5591}, inside"] = "",
+	["{npc:5591}, inside"] = "{npc:5591}, внутри",
 	-- {npc:1442} Helgrum the Swift
-	["{npc:1442}, upstairs"] = "",
+	["{npc:1442}, upstairs"] = "{npc:1442}, наверху",
 	-- {npc:1443} Fel'zerul
 	["{npc:1443}, on the top floor"] = "",
 

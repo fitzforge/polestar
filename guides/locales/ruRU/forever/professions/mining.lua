@@ -32,7 +32,7 @@ return {
 
 	-- Step 5: Copper: Zephras Isle (1-50)
 	-- {zone:2521} Zephras Isle
-	["Copper: {zone:2521} (1-50)"] = "",
+	["Copper: {zone:2521} (1-50)"] = "Медная жила: {zone:2521} (1-50)",
 	-- {skill:186} Mining · {spell:2657} Smelt Copper
 	["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-15. Expect about 60 nodes for these 49 points."] = "Добывайте по пути: Медная жила (1, оранжевый) – и обходите точки маршрута, пока {skill:186} не достигнет 50. Когда сумки заполнятся, переплавляйте в горне: {spell:2657} (оранжевый до 25, серый с 70) тоже дает очки. Уровень зоны: 1-15. На эти 49 очков уйдет около 60 залежей.",
 
@@ -75,7 +75,7 @@ return {
 
 	-- Step 13: Copper: Zephras Isle (50-65) cont.
 	-- {zone:2521} Zephras Isle
-	["Copper: {zone:2521} (50-65) cont."] = "",
+	["Copper: {zone:2521} (50-65) cont."] = "Медная жила: {zone:2521} (50-65), продолжение",
 	-- {skill:186} Mining · {spell:2657} Smelt Copper
 	["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-15. Expect about 80 nodes for these 15 points."] = "Добывайте по пути: Медная жила (1, желтый) – и обходите точки маршрута, пока {skill:186} не достигнет 65. Когда сумки заполнятся, переплавляйте в горне: {spell:2657} (оранжевый до 25, серый с 70) тоже дает очки. Уровень зоны: 1-15. На эти 15 очков уйдет около 80 залежей.",
 
@@ -108,7 +108,7 @@ return {
 
 	-- Step 19: Tin: Ashenvale (65-125)
 	-- {zone:1440} Ashenvale
-	["Tin: {zone:1440} (65-125)"] = "",
+	["Tin: {zone:1440} (65-125)"] = "Оловянная жила: {zone:1440} (65-125)",
 	-- {skill:186} Mining · {spell:2657} Smelt Copper · {spell:3304} Smelt Tin · {spell:2659} Smelt Bronze · {item:2840} Copper Bar · {item:3576} Tin Bar · {spell:2658} Smelt Silver
 	["Mine every Copper (1, green), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. Zone level 18-30. Expect about 130 nodes for these 60 points. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "",
 	["Tin"] = "Оловянная жила",

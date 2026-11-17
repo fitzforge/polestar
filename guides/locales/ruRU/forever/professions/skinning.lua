@@ -113,7 +113,7 @@ return {
 	-- {npc:2164} Rabid Thistle Bear
 	["{npc:2164}, Moonstalker"] = "{npc:2164}, Лунопард",
 	-- {npc:2165} Grizzled Thistle Bear
-	["{npc:2165}, Moonstalker"] = "",
+	["{npc:2165}, Moonstalker"] = "{npc:2165}, Лунопард",
 	-- {npc:2164} Rabid Thistle Bear
 	["Moonstalker, {npc:2164}"] = "Лунопард, {npc:2164}",
 
@@ -129,7 +129,7 @@ return {
 	-- {npc:1778} Ferocious Grizzled Bear · {npc:1766} Mottled Worg · {npc:1797} Giant Grizzled Bear · {npc:1923} Bloodsnout Worg · {skill:393} Skinning
 	["Kill and skin Worg (10), {npc:1778} (11), {npc:1766} (11), {npc:1797} (12), {npc:1923} (16, needs 60) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 160 beasts for these 50 points."] = "Убивайте зверей по кругу и снимайте с них шкуры: Ворг (10), {npc:1778} (11), {npc:1766} (11), {npc:1797} (12), {npc:1923} (16, нужно 60) – пока {skill:393} не достигнет 100; обыскивайте каждую тушу, затем снимайте шкуру; свежуйте зверей самого высокого уровня, какой позволяет навык. Зверю уровня L нужен навык (L-10)x10 до 20-го уровня и Lx5 выше. Уровень зоны: 10-20. На эти 50 очков уйдет около 160 зверей.",
 	-- {npc:1778} Ferocious Grizzled Bear
-	["{npc:1778}, Worg"] = "",
+	["{npc:1778}, Worg"] = "{npc:1778}, Ворг",
 	-- {npc:1766} Mottled Worg
 	["Worg, {npc:1766}"] = "",
 	-- {npc:1766} Mottled Worg

@@ -39,7 +39,7 @@ return {
 	-- Step 6: Aerie Peak
 	["Inside"] = "Внутри",
 	-- {npc:5636} Gryphon Master Talonaxe
-	["{npc:5636}, inside"] = "",
+	["{npc:5636}, inside"] = "{npc:5636}, внутри",
 	-- {quest:2990} Thadius Grimshade · {area:1438} Nethergarde Keep
 	["for {quest:2990} at {area:1438}, later"] = "для NPC {quest:2990} ({area:1438}), позже",
 	-- {npc:270263} Farseer Maret Firetend
@@ -49,7 +49,7 @@ return {
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "Лететь в {area:1537}",
 	-- {area:348} Aerie Peak
-	["{area:348} flight master"] = "",
+	["{area:348} flight master"] = "Распорядитель полетов: {area:348}",
 
 	-- Step 8: Class trainer
 	["Class trainer"] = "Учитель классовых навыков",
@@ -85,13 +85,13 @@ return {
 	-- {npc:8022} Thadius Grimshade · {item:9471} Nekrum's Medallion · {area:978} Zul'Farrak
 	["{npc:8022}' next task, {item:9471}, is a {area:978} quest: skip it."] = "Следующее поручение {npc:8022}, {item:9471}, — задание для подземелья {area:978}: пропустите.",
 	-- {npc:5385} Watcher Mahar Ba
-	["{npc:5385}, upstairs"] = "",
+	["{npc:5385}, upstairs"] = "{npc:5385}, наверху",
 
 	-- Step 17: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Летите: {area:35}",
 	-- {area:1438} Nethergarde Keep
-	["{area:1438} flight master"] = "",
+	["{area:1438} flight master"] = "Распорядитель полетов: {area:1438}",
 
 	-- Step 18: Booty Bay
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
@@ -105,7 +105,7 @@ return {
 
 	-- Step 19: Wild Shore: kill these as you meet them
 	-- {area:43} Wild Shore
-	["{area:43}: kill these as you meet them"] = "",
+	["{area:43}: kill these as you meet them"] = "{area:43}: убивайте их по пути",
 	-- {area:43} Wild Shore · {area:35} Booty Bay
 	["The charts and orders lie in the pirate camp on the {area:43}, just south of {area:35}; its Swashbucklers walk the shore. The Warlocks and Swashbucklers (41-43) are under you now."] = "Карты и приказы лежат в пиратском лагере на месте {area:43}, чуть южнее места {area:35}; его головорезы ходят по берегу. Чернокнижники и головорезы (41-43) теперь ниже вас по уровню.",
 
@@ -145,7 +145,7 @@ return {
 	-- {npc:1514} Mokk the Savage
 	["Hand in the fangs and stay: three waves of gorillas come, {npc:1514} last.\nCareful: three waves of gorillas come one after another with little rest between, then {npc:1514}. Start at full health and mana, and stay near Unbagwa. Some classes find it hard alone: a friend makes it easy."] = "Сдайте клыки и оставайтесь на месте: придут три волны горилл, последним – {npc:1514}.\nОсторожно: три волны горилл идут одна за другой почти без передышки, затем {npc:1514}. Начинайте с полным здоровьем и маной и держитесь рядом с Унбагвой. Некоторым классам трудно в одиночку: с другом будет легко.",
 	-- {npc:1449} Witch Doctor Unbagwa · {area:1742} Spirit Den
-	["{npc:1449}, inside {area:1742}"] = "",
+	["{npc:1449}, inside {area:1742}"] = "{npc:1449}, внутри: {area:1742}",
 
 	-- Step 29: Booty Bay
 	["Ride back down to town."] = "Езжайте обратно вниз, в город.",
@@ -154,7 +154,7 @@ return {
 	-- {npc:2498} Crank Fizzlebub · {zone:1441} Thousand Needles
 	["{npc:2498}'s next Zanzil errand starts in {zone:1441}: skip it."] = "Следующее поручение {npc:2498} про Занзила начинается в зоне {zone:1441}: пропустите его.",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "",
+	["{npc:2498}, inside"] = "{npc:2498}, внутри",
 	["MacKinley's next task sends you after elite ogres: skip it."] = "Следующее задание Маккинли отправляет вас к элитным ограм: пропустите его.",
 
 	-- Step 30: Monogrammed Sash

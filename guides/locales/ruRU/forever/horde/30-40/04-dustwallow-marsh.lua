@@ -66,7 +66,7 @@ return {
 
 	-- Step 14: Brackenwall Village: kill these as you meet them
 	-- {area:496} Brackenwall Village
-	["{area:496}: kill these as you meet them"] = "",
+	["{area:496}: kill these as you meet them"] = "{area:496}: убивайте их по пути",
 	-- plural, as words: Darkfang Lurkers = {npc:4411} Darkfang Lurker · Theramore Infiltrators = {npc:4834} Theramore Infiltrator · Darkmist Lurkers = {npc:4377} Darkmist Lurker
 	["Head west back across the marsh. The Darkfang Lurkers (36-37) and Venomspitters (37-38) on the ridges north of Brackenwall drop the venom sacs. Theramore Infiltrators (35-36) sneak through the same woods: they are stealthed, so look closely.\nThe Darkmist spiders swarm the cavern mouth north-west of Brackenwall; every kind drops eyes. Work its outer edge, where the Spiders and Recluses (35-37) stand: the Lurkers and Silkspinners (37-39) deeper in are two or three over you.\nCareful: Darkfang Lurkers (level 36-37) use Sneak to stealth while out of combat and cast Poison once fighting.\nCareful: Stealthed spiders in the same area will attack you on sight.\nCareful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them."] = "Возвращайтесь на запад через болото. Скрытни-темножвалы (36-37) и плюющиеся ядом (37-38) на гребнях к северу от Гиблотопи роняют ядовитые железы. Тераморские секретные агенты (35-36) крадутся по тем же лесам: они в незаметности, так что смотрите внимательно.\nПауки Мглистой пещеры кишат у входа в пещеру к северо-западу от Гиблотопи; глаза падают со всех видов. Действуйте по внешнему краю, где стоят пауки и затворники (35-37): паучата и шелкопряды (37-39) глубже на два-три уровня выше вас.\nОсторожно: скрытни-темножвалы (36-37 уровня) вне боя используют Незаметность, а в бою применяют яд.\nОсторожно: пауки в незаметности в этой же местности нападают, едва заметив вас.\nОсторожно: паучата Мглистой пещеры передвигаются незаметно и в бою применяют яд. Пауки стоят плотно, поэтому лишние враги часто присоединяются; выманивание одиночных целей с внешнего края уменьшает их число.",
 	-- plural, as words: Giant Darkfang Spiders = {npc:4415} Giant Darkfang Spider
@@ -109,9 +109,9 @@ return {
 
 	-- Step 21: Fly to Ratchet
 	-- {area:392} Ratchet
-	["Fly to {area:392}"] = "",
+	["Fly to {area:392}"] = "Летите сюда: {area:392}",
 	-- {area:496} Brackenwall Village
-	["{area:496} flight master"] = "",
+	["{area:496} flight master"] = "Распорядитель полетов: {area:496}",
 
 	-- Step 22: Ratchet
 	-- {npc:3446} Mebok Mizzyrix
@@ -123,13 +123,13 @@ return {
 
 	-- Step 24: Ratchet flight master
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Распорядитель полетов: {area:392}",
 	-- {area:392} Ratchet
 	["Back north along the coast to {area:392}'s flight master."] = "Обратно на север вдоль побережья к распорядителю полетов: {area:392}.",
 
 	-- Step 25: Fly to Shadowprey Village
 	-- {area:2408} Shadowprey Village
-	["Fly to {area:2408}"] = "",
+	["Fly to {area:2408}"] = "Летите сюда: {area:2408}",
 	-- {area:2408} Shadowprey Village · {area:392} Ratchet
 	["Fly to {area:2408} from the flight master you are next to: {area:392}'s, or Brackenwall's if you had no errand in {area:392}."] = "Летите сюда: {area:2408}, от ближайшего распорядителя полетов: {area:392} или Гиблотопь, если в месте {area:392} у вас не было дел.",
 
@@ -166,7 +166,7 @@ return {
 	-- {area:599} Thunder Axe Fortress · {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {item:13542} Demon Box
 	["North up the road to {area:599}. Clear the middle of the largest building, then use the {item:14523} on the red {object:176581} there. A {npc:11876} (37) comes out: kill it for the {item:13542}. The Burning Blade around it are well under you now."] = "Идите на север по дороге сюда: {area:599}. Зачистите середину самого большого здания, затем используйте {item:14523} на красном объекте {object:176581}. Появится {npc:11876} (37): убейте его ради предмета {item:13542}. Пылающий Клинок вокруг теперь намного ниже вас.",
 	-- {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal
-	["{item:14523}, on the {object:176581}"] = "",
+	["{item:14523}, on the {object:176581}"] = "{item:14523}, на объекте {object:176581}",
 
 	-- Step 33: Sar'theris Strand
 	-- {area:598} Sar'theris Strand
@@ -203,19 +203,19 @@ return {
 
 	-- Step 40: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Fly to {area:1637}"] = "",
+	["Fly to {area:1637}"] = "Летите сюда: {area:1637}",
 	-- {area:2408} Shadowprey Village
 	["{area:2408} flight master"] = "Распорядитель полетов: {area:2408}",
 
 	-- Step 41: Back to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Back to {area:1637}"] = "",
+	["Back to {area:1637}"] = "Назад: {area:1637}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Распорядитель полетов: {zone:1456}",
 
 	-- Step 42: Belgrom Rockmaul
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor
-	["{npc:4485} stands in the {object:172958}."] = "",
+	["{npc:4485} stands in the {object:172958}."] = "{npc:4485} стоит здесь: {object:172958}.",
 
 	-- Step 43: Nogg
 	-- {npc:3412} Nogg · {object:172958} Valley of Honor · {npc:4485} Belgrom Rockmaul · {quest:2841} Rig Wars · {area:133} Gnomeregan
@@ -223,7 +223,7 @@ return {
 
 	-- Step 44: Orgrimmar trainers
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} trainers"] = "",
+	["{zone:1454} trainers"] = "Учителя: {zone:1454}",
 	-- {zone:1458} Undercity
 	["Train while you are in the city; everyone else trains in the {zone:1458}, next."] = "",
 	-- {zone:1458} Undercity
