@@ -2185,6 +2185,11 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			if !pre.get("parent").is_undef() {
 				o.set("parent", pre.get("parent"));
 			}
+			// One Forever hands in at one talk, never in the log (quests.json `direct`: Bloodpetal Sprouts, #2686), so
+			// the hand-in guides never take it as an accept.
+			if q.get("direct").truthy() {
+				o.set("direct", true);
+			}
 			if int(&q.get("xp")).is_some_and(|x| x > 0.0) {
 				o.set("xp", int(&q.get("xp")).unwrap());
 			}

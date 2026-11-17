@@ -1582,6 +1582,16 @@
 		],
 		"note": "Boat Wreckage: starts with Wrecked Row Boat (object 164909); as its giver the merged data also listed Wrecked Row Boat (object 186419)."
 	},
+	"4144": {
+		"set": {
+			"direct": true
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-16): 7 people (6 established) handed Bloodpetal Sprouts in to Muigin, none of them with an accept or the quest in the log first"
+		},
+		"note": "Bloodpetal Sprouts (4144, Muigin at Marshal's Refuge, after Haze of Evil) is handed in at one talk while carrying the three Bloodpetal Sprouts, and never enters the log: Sunken Temple's hand-in guide asked players to accept it (#2686)."
+	},
 	"4221": {
 		"set": {
 			"start": {
