@@ -216,6 +216,9 @@ L["Grey for you: pays %d%% XP (Skip grey quests)"] = "Gris para ti: da un %d%% d
 -- L["Reach %d points into %s with"] = ""
 -- L["Lose"] = ""
 -- L["Gain"] = ""
+L["Journeyman %s"] = "%s de oficial"
+L["Expert %s"] = "%s de experto"
+L["Artisan %s"] = "%s de artesano"
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Elige una recompensa para entregar la misión."
@@ -618,9 +621,9 @@ L["Timed quest alerts"] = "Avisos de misiones con tiempo"
 L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] = "Una línea de chat y un sonido cuando a una misión con tiempo le quedan 5 minutos, otra vez a 1 minuto y si fracasa. La ventana de la guía siempre muestra el tiempo restante."
 L["Party chat"] = "Chat de grupo"
 -- L["On a mob that drops a quest item you still need, or an object it comes out of, show how often."] = ""
--- L["Quest givers and turn-ins"] = ""
+L["Quest givers and turn-ins"] = "Dadores de misiones y entregas"
 -- L["On an NPC, name the quests it has for you now and the finished quests you can hand in to it."] = ""
--- L["Replace the game's quest lines"] = ""
+L["Replace the game's quest lines"] = "Sustituir las líneas de misión del juego"
 -- L["On mobs and objects, leave out the game's own lines for the quests these tooltips name, so each quest shows once. In a group the game's lines stay: they show your party's progress."] = ""
 
 -- Quests/Party.lua
@@ -1146,7 +1149,7 @@ L["Lists the quest items you can buy at an auction house instead of farming them
 L["Lists the current step's mobs, or the NPCs it sends you to when it has no mob, with their portraits and what they drop; click a name to target that one. Its key binding targets the first one close by."] = "Muestra los monstruos del paso actual, o los PNJ a los que te envía si no tiene monstruos, con sus retratos y lo que sueltan; haz clic en un nombre para seleccionarlo. Su atajo de teclado selecciona el primero que esté cerca."
 L["Names in the target list"] = "Nombres en la lista de objetivos"
 L["How many of the step's mobs the target list shows, in guide order."] = "Cuántos monstruos del paso muestra la lista de objetivos, en el orden de la guía."
--- L["Completed quest XP"] = ""
+L["Completed quest XP"] = "Experiencia de misiones completadas"
 -- L["Shows XP from completed quests you can turn in on the game's XP bar and in its tooltip."] = ""
 
 -- Lookup/Sources.lua
@@ -1202,6 +1205,8 @@ L["Enter"] = "Entra a"
 L["Choose this reward:"] = "Elige esta recompensa:"
 L["Lookup"] = "Buscador"
 L["%s: click through what they say until the quest's line is done."] = "%s: haz clic en todo lo que diga hasta que se complete la línea de la misión."
+L["%s: use %s to call it up."] = "%s: usa %s para invocarlo."
+L["Use %s to learn it."] = "Usa %s para aprenderlo."
 
 -- Lookup/Spotter.lua
 L["From"] = "De"
@@ -4500,6 +4505,9 @@ L["%s isn't in your quest log."] = "%s no está en tu registro de misiones."
 L["That quest isn't in your quest log."] = "Esa misión no está en tu registro de misiones."
 L["The quest log opens when combat ends."] = "El registro de misiones se abre cuando termina el combate."
 L["Show in quest log"] = "Mostrar en el registro de misiones"
+L["Link in chat"] = "Enlazar en el chat"
+L["Middle-click: show in quest log. Shift-click: link in chat."] = "Clic central: mostrar en el registro de misiones. Mayús+clic: enlazar en el chat."
+L["Shift-click: link in chat."] = "Mayús+clic: enlazar en el chat."
 
 -- Dungeons/Mark.lua
 L["Needed for %s in %s"] = "Necesario para %s en %s"

@@ -217,6 +217,9 @@ L["Grey for you: pays %d%% XP (Skip grey quests)"] = "Grise pour vous : rapporte
 -- L["Reach %d points into %s with"] = ""
 -- L["Lose"] = ""
 -- L["Gain"] = ""
+-- L["Journeyman %s"] = ""
+-- L["Expert %s"] = ""
+-- L["Artisan %s"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Choisissez une récompense pour rendre la quête."
@@ -1203,6 +1206,8 @@ L["Enter"] = "Entrer"
 L["Choose this reward:"] = "Choisissez cette récompense :"
 L["Lookup"] = "Recherche"
 L["%s: click through what they say until the quest's line is done."] = "%s : cliquez sur tout le dialogue jusqu'à ce que l'objectif de la quête soit fait."
+-- L["%s: use %s to call it up."] = ""
+-- L["Use %s to learn it."] = ""
 
 -- Lookup/Spotter.lua
 L["From"] = "Provenance"
@@ -4501,6 +4506,9 @@ L["%s isn't in your quest log."] = "%s n'est pas dans votre journal des quêtes.
 L["That quest isn't in your quest log."] = "Cette quête n'est pas dans votre journal des quêtes."
 L["The quest log opens when combat ends."] = "Le journal des quêtes s'ouvre à la fin du combat."
 L["Show in quest log"] = "Afficher dans le journal des quêtes"
+-- L["Link in chat"] = ""
+-- L["Middle-click: show in quest log. Shift-click: link in chat."] = ""
+-- L["Shift-click: link in chat."] = ""
 
 -- Dungeons/Mark.lua
 L["Needed for %s in %s"] = "Requis pour %s dans %s"
