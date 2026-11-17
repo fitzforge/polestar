@@ -38,6 +38,67 @@
 			],
 			"note": "The Befouled Element (1918) starts from the Befouled Water Globe (16408), which Tideress (12759) drops only for a player who has Stonetalon Standstill (25) in the log or handed in. Source: players' in-game recordings to 2026-11-08: the 7 people who took 1918 all had 25 (6 in the log, 1 handed in), 2 people without it killed Tideress and got no globe, and the player report #1346. The loot tables of the Classic servers have only a Horde condition on the globe."
 		},
+		"498": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "kill",
+					"target": {
+						"type": "npc",
+						"id": 2427
+					},
+					"item": 3467,
+					"fact": "Jailor Eston in Durnholde Keep carries the Dull Iron Key: it opens Drull's lock.",
+					"confidence": "high"
+				},
+				{
+					"n": 2,
+					"action": "kill",
+					"target": {
+						"type": "npc",
+						"id": 2428
+					},
+					"item": 3499,
+					"fact": "Jailor Marlgen in Durnholde Keep carries the Burnished Gold Key: it opens Tog'thar's lock.",
+					"confidence": "high"
+				},
+				{
+					"n": 3,
+					"action": "use-item",
+					"target": {
+						"type": "object",
+						"id": 1722
+					},
+					"item": 3499,
+					"fact": "Open Tog'thar's ball and chain with the Burnished Gold Key.",
+					"place": {
+						"map": 1424,
+						"x": 79.79,
+						"y": 39.65,
+						"f": "e"
+					},
+					"confidence": "high"
+				},
+				{
+					"n": 4,
+					"action": "use-item",
+					"target": {
+						"type": "object",
+						"id": 1721
+					},
+					"item": 3467,
+					"fact": "Open Drull's ball and chain with the Dull Iron Key.",
+					"place": {
+						"map": 1424,
+						"x": 75.33,
+						"y": 41.5,
+						"f": "e"
+					},
+					"confidence": "high"
+				}
+			],
+			"note": "The Rescue (498): each locked ball and chain opens only with its jailor's key. Source: players' in-game recordings to 2026-11-17: Jailor Eston's (2427) loot held the Dull Iron Key (3467) for 37 people and Jailor Marlgen's (2428) the Burnished Gold Key (3499) for 40; 58 people ticked each lock, Drull's (objective 1) at 75.3,41.6 and Tog'thar's (objective 2) at 79.8,39.6; and Acen's report (#2512), where the guide sent him to the locks without the keys."
+		},
 		"91736": {
 			"kinds": [
 				{

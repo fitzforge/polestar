@@ -16310,3 +16310,25 @@ test('#2604: Stranglethorn (Alliance): Skullsplitter Tusks are looked for in the
 	assert.ok(goal.x >= 42 && goal.x <= 49 && goal.y >= 30 && goal.y <= 42, `the trolls' camp: ${goal.x},${goal.y}`);
 	for (const s of goal.spots || []) assert.ok(s.alt || s.x > 35, `no spot the arrow picks far from the ruins: ${s.x},${s.y}`);
 });
+
+// Acen (#2512, Tauren Hunter 30, 0.3.7.2): the Durnholde Keep step went straight to the two locked balls and chains,
+// and each needs its jailor's key (players' recordings: Jailor Eston's loot held the Dull Iron Key for 37 people,
+// Jailor Marlgen's the Burnished Gold Key for 40). The keys are goals of their own before the locks, on the same
+// step, Tog'thar's lock beside the jailors first and Drull's on the way back west. The keys sit on the keyring:
+// Compat.GetItemCount counts it (forge-addontest compat.rs).
+test("forever/horde/30-40/01-hillsbrad-foothills.guide: Acen's report (#2512): the jailors' keys before their locks", { skip }, () => {
+	const list = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	const key = (item, npc) => {
+		const i = at(list, `collect ${item}`, (g) => g.t === 'collect' && g.item === item);
+		assert.equal(list[i].goal.fromId, npc, `collect ${item} leads to its jailor ${npc}`);
+		return i;
+	};
+	const lock = (object) => at(list, `interact ${object}`, (g) => g.t === 'interact' && g.object === object && g.quest === 498);
+	const dull = key(3467, 2427);
+	const gold = key(3499, 2428);
+	const drull = lock(1721);
+	const togthar = lock(1722);
+	assert.ok(dull < drull && gold < togthar, 'each key before its lock');
+	assert.ok(togthar < drull, "Tog'thar's lock beside the jailors first, Drull's on the way back");
+	assert.ok([dull, gold, drull, togthar].every((i) => list[i].s === list[drull].s), 'one step');
+});
