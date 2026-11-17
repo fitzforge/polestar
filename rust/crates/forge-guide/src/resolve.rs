@@ -54,7 +54,11 @@ const RECORDED_MISS_YARDS: f64 = 60.0;
 
 const GATHER_ROLES: [&str; 3] = ["mine", "herb", "fishing"];
 const LOOP_RADIUS: f64 = 30.0;
-const LOOP_VERBS: [&str; 3] = ["kill", "collect", "interact"];
+/// `skill`: a gathering round, the herbs or veins that raise the skill found by walking the points.
+const LOOP_VERBS: [&str; 4] = ["kill", "collect", "interact", "skill"];
+/// A step with none of those: the loop is where to look for someone who walks, the NPC of its accept,
+/// turnin and talk goals.
+const LOOP_NPC_VERBS: [&str; 3] = ["accept", "turnin", "talk"];
 const ON_STEP_ONLY: [&str; 8] = ["goto", "talk", "hearth", "die", "getfp", "fly", "vendor", "task"];
 const CATEGORIES: [&str; 9] = ["Leveling", "Class", "Professions", "Reputation", "Legacy", "Exploration", "Collectibles", "Miscellaneous", "Dungeons"];
 
@@ -1087,11 +1091,15 @@ fn recorded_areas(data: &Data, goal: &V, sources: &[V], known: &[V], map: &V, f:
 		return None;
 	}
 	// The region: the spots at the goal's places (else the one nearest its point), grown spot by spot. The author's
-	// point at a spawn of a target that stands at several places, inside a spot that holds it (holds), is that
-	// place: the spots of its other places are alternatives, never grown into one zone-wide search (#621).
+	// point at a place of a target that stands at several places, at a spot that holds it (holds), is that place:
+	// the spots of its other places are alternatives, never grown into one zone-wide search (#621). "At a place" is
+	// within SPAWN_CHECK_YARDS of a spawn (the lint's own threshold for explicit coordinates) and "at a spot" within
+	// RECORDED_MISS_YARDS of its edge, as for the spots at the goal's places: a route's or a record's point sits in
+	// the middle of a camp, rarely on one spawn (#385's bears west of Tarren Mill, #340's Blackrock camp).
 	let edge = |s: &Spot| from(s, x, y) - radius(s);
 	let mut region: Vec<usize> = if elsewhere { (0..rec.len()).min_by(|&a, &b| ord(edge(&rec[a]) - edge(&rec[b]))).into_iter().collect() } else { local };
-	let placed = author && !elsewhere && pts.len() > 1 && at_spawn(x, y) && region.iter().any(|&i| holds(&rec[i]) && from(&rec[i], x, y) <= radius(&rec[i]) + SPOT_MIN_RADIUS);
+	let at_place = pts.iter().any(|p| distance(data, map, px(p), py(p), x, y) <= SPAWN_CHECK_YARDS);
+	let placed = author && !elsewhere && pts.len() > 1 && at_place && region.iter().any(|&i| holds(&rec[i]) && from(&rec[i], x, y) <= radius(&rec[i]) + RECORDED_MISS_YARDS);
 	let mut k = 0;
 	while k < region.len() && !placed {
 		let a = &rec[region[k]];
@@ -1141,7 +1149,9 @@ fn recorded_areas(data: &Data, goal: &V, sources: &[V], known: &[V], map: &V, f:
 		.chain(still.iter().map(|s| (num(s, "x"), num(s, "y"))))
 		.map(|(cx, cy)| V::from(vec![V::from(cx), V::from(cy)]))
 		.collect();
-	let spread = centres.len() > 1 && extent90(&centres, &data.frame(map)) > SPREAD_YARDS;
+	// (The author's place is held as the place even when players' spot about it is wider than SPREAD_YARDS: #385's
+	// bears are killed over 350 yd of hills, and the step leads to its camp, not over them all.)
+	let spread = !placed && centres.len() > 1 && extent90(&centres, &data.frame(map)) > SPREAD_YARDS;
 	let (areas, rest) = own.split_at(own.len().min(if spread { SPREAD_CAP } else { SPOT_CAP }));
 	let area = |s: &Spot, alt: bool| -> V {
 		let o = obj! { "x" => s.x, "y" => s.y, "r" => radius(s) };
@@ -1344,7 +1354,8 @@ fn only_of(c: &V) -> V {
 	}
 }
 
-/// A `loop` step: its `goto` points are the places to search for its kill, collect and interact goals.
+/// A `loop` step: its `goto` points are the places to search for its kill, collect, interact and skill
+/// goals, or with none of those for the NPC of its accept, turnin and talk goals.
 fn apply_loop(step: &V, s: &V, r: &mut R) {
 	let data = r.data;
 	let ln = s.get("loop");
@@ -1367,16 +1378,26 @@ fn apply_loop(step: &V, s: &V, r: &mut R) {
 		return r.err(&own.hidden("_line"), "a `loop` point cannot be `optional` or have `only`: every goal of the loop searches it", None);
 	}
 	let sgoals = s.get("goals");
-	let targets: Vec<V> = goals
-		.iter()
-		.enumerate()
-		.filter(|(i, g)| {
-			g.get("t").as_str().is_some_and(|t| LOOP_VERBS.contains(&t)) && !sgoals.at(*i).get("explicitCoords").truthy() && !sgoals.at(*i).get("anywhere").truthy() && !g.get("candidates").truthy()
-		})
-		.map(|(_, g)| g.clone())
-		.collect();
+	let placeable = |verbs: &[&str]| -> Vec<V> {
+		goals
+			.iter()
+			.enumerate()
+			.filter(|(i, g)| {
+				g.get("t").as_str().is_some_and(|t| verbs.contains(&t)) && !sgoals.at(*i).get("explicitCoords").truthy() && !sgoals.at(*i).get("anywhere").truthy() && !g.get("candidates").truthy()
+			})
+			.map(|(_, g)| g.clone())
+			.collect()
+	};
+	let mut targets = placeable(&LOOP_VERBS);
+	if targets.is_empty() && !goals.iter().any(|g| g.get("t").as_str().is_some_and(|t| LOOP_VERBS.contains(&t))) {
+		targets = placeable(&LOOP_NPC_VERBS);
+	}
 	if targets.is_empty() {
-		return r.err(&ln, "`loop` needs a kill, collect or interact goal without its own `@x,y`", Some("a goal placed with `@x,y` keeps its point; drop `loop` to walk the gotos as a path"));
+		return r.err(
+			&ln,
+			"`loop` needs a kill, collect, interact or skill goal without its own `@x,y`, or with none of those an accept, turnin or talk",
+			Some("a goal placed with `@x,y` keeps its point; drop `loop` to walk the gotos as a path"),
+		);
 	}
 	for goal in &targets {
 		goal.set("map", first.get("map"));
@@ -1893,6 +1914,20 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 				}
 			}
 		}
+		// `either` marks a set: with one goal alone there is nothing to choose between.
+		let set: Vec<V> = s.get("goals").items().iter().filter(|g| g.get("either").truthy()).cloned().collect();
+		for g in &set {
+			if g.get("optional").truthy() {
+				r.err(
+					&g.get("line"),
+					"a goal cannot be both `either` and `optional`: an optional goal never holds its step",
+					Some("drop `optional`: once another `either` goal of the step is done, this one no longer holds it"),
+				);
+			}
+		}
+		if set.len() == 1 {
+			r.err(&set[0].get("line"), "`either` needs a second `either` goal in its step: the step is done when any one of them is", Some("mark every alternative `either`, or drop it"));
+		}
 		if s.get("loop").truthy() {
 			apply_loop(&step, s, r);
 			if let Some(last) = step.get("goals").items().iter().rev().find(|goal| !goal.get("x").is_undef()) {
@@ -2220,7 +2255,8 @@ fn resolve_when(list: &V, zone_id: &V, levels: Option<(f64, f64)>, sides: &dyn F
 					r.warn(&ln, format!("item {} is not in data (new Forever content?)", p.get("item")), None);
 				}
 			}
-			"upgrade" => {
+			"indoors" => {}
+			"upgrade" | "equipped" => {
 				w.set("item", p.get("item"));
 				if have_items && !data.item(&p.get("item")).truthy() {
 					r.warn(&ln, format!("item {} is not in data (new Forever content?)", p.get("item")), None);
@@ -2287,8 +2323,39 @@ fn resolve_when(list: &V, zone_id: &V, levels: Option<(f64, f64)>, sides: &dyn F
 					w.set("spell", p.get("spell"));
 				}
 			}
-			"knows" => {
+			"knows" | "buff" => {
 				w.set("spell", p.get("spell"));
+			}
+			"rep" => {
+				// The engine reads a standing by faction id: a name must be one the data knows.
+				let where_ = if data.has_factions { "" } else { " (factions.json missing)" };
+				if !p.get("faction").is_undef() {
+					let f = data.faction(&p.get("faction"));
+					w.set("faction", p.get("faction"));
+					if f.truthy() && f.get("name").truthy() {
+						w.set("name", f.get("name").to_js_string());
+					} else {
+						r.warn(&ln, format!("faction {} is not in data{} (new Forever content?)", p.get("faction"), where_), None);
+					}
+				} else {
+					let found = data.faction_named(&p.get("name").to_js_string());
+					if found.truthy() {
+						let f = found.get("faction");
+						w.set("name", f.get("name").to_js_string());
+						w.set("faction", f.get("id"));
+						if found.get("ambiguous").truthy() {
+							let ids: Vec<V> = found.get("ambiguous").items().iter().map(|x| x.get("id")).collect();
+							r.warn(&ln, format!("faction \"{}\" matches ids {}; using {} (write `rep <factionId> <Standing>` to choose)", p.get("name"), join(&ids, ", "), f.get("id")), None);
+						}
+					} else {
+						w.set("name", p.get("name"));
+						r.err(&ln, format!("unknown faction \"{}\"{}; give its id: `rep <factionId> <Standing>`", p.get("name"), where_), None);
+					}
+				}
+				w.set("standing", p.get("standing"));
+				if p.get("points").truthy() {
+					w.set("points", p.get("points"));
+				}
 			}
 			"dungeon" => {
 				w.set("name", p.get("name"));
@@ -3042,6 +3109,21 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 				goal.set("item", g.get("item"));
 				goal.set("itemName", or_undef(require_name(r, "item", &g.get("item"), &g.get("itemName"), "Item name")));
 			}
+			"deposit" => {
+				// Into the bank: until the bags hold none, or with `xN` until the bank holds N.
+				goal.set("item", g.get("item"));
+				goal.set("itemName", or_undef(require_name(r, "item", &g.get("item"), &g.get("itemName"), "Item name")));
+				if !g.get("count").is_undef() {
+					goal.set("count", g.get("count"));
+				}
+			}
+			"equip" => {
+				goal.set("item", g.get("item"));
+				goal.set("itemName", or_undef(require_name(r, "item", &g.get("item"), &g.get("itemName"), "Item name")));
+				if g.get("off").truthy() {
+					goal.set("off", true);
+				}
+			}
 			"talk" => {
 				goal.set("npc", g.get("npc"));
 				goal.set("npcName", or_undef(require_name(r, "npc", &g.get("npc"), &g.get("npcName"), "NPC name")));
@@ -3218,6 +3300,24 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 				goal.set("level", g.get("level"));
 				if !goal.get("skillLine").is_undef() {
 					progress_of(ctx, &goal.get("skillLine")).set("target", g.get("level"));
+				}
+			}
+			"buff" => {
+				// An aura: its name from the client's spell tables, else the author's.
+				let name: V = if g.get("spellName").truthy() {
+					g.get("spellName")
+				} else if let Some(taught) = taught_spell_name(data, &g.get("spell")) {
+					taught.into()
+				} else {
+					V::Null
+				};
+				if !name.truthy() {
+					r.err(&ln, format!("spell {} is not in data; give its name: `buff {} \"Name\"`", g.get("spell"), g.get("spell")), None);
+				}
+				goal.set("spell", g.get("spell"));
+				goal.set("spellName", or_undef(name));
+				if g.get("off").truthy() {
+					goal.set("off", true);
 				}
 			}
 			"cast" => {
@@ -3475,7 +3575,10 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 			// objective it names is (a kill written on an item's line), and progress and count follow the wrong
 			// quest-log line. An error. Another target of the same kind that is no objective: a warning.
 			let right = if named.truthy() { find(&id) } else { None };
-			let swapped = right.is_some_and(|ri| oi.num() != ri as f64);
+			// Two lines of a quest may share one target (report to the same officer before and after the
+			// patrol): `find` gives the first, but the line named is right whenever its own target is the goal's.
+			let names_own = named.truthy() && same_kind(&named.get("kind")) && named.get("id").strict_eq(&id);
+			let swapped = right.is_some_and(|ri| oi.num() != ri as f64) && !names_own;
 			if swapped || (named.truthy() && same_kind(&named.get("kind")) && !named.get("id").is_nullish() && !named.get("id").strict_eq(&id)) {
 				let own = right.and_then(|ri| data.quest_objectives(&gq).get(ri - 1).cloned());
 				let own_part = match (&own, right) {
@@ -3726,8 +3829,31 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 	if !g.get("r").is_undef() {
 		goal.set("r", g.get("r"));
 	}
+	if g.get("points").truthy() {
+		goal.set("points", g.get("points"));
+	}
+	// `upto <N>`: part of a quest objective's count. Without the objective's line there is nothing to count; at
+	// the whole of its count the goal is the objective itself.
+	if !g.get("upto").is_undef() {
+		if goal.get("quest").is_undef() || goal.get("oi").is_undef() {
+			r.err(&ln, "`upto` counts part of a quest objective: the goal needs `quest <id>.<objective>`", None);
+		} else {
+			goal.set("upto", g.get("upto"));
+			let count = data.quest_objectives(&goal.get("quest")).get((goal.get("oi").num() - 1.0) as usize).map(|o| o.get("count")).unwrap_or_default();
+			if !count.is_nullish() && g.get("upto").num() >= count.num() {
+				r.warn(
+					&ln,
+					format!("`upto {}` is the whole of quest {}.{} (x{}): the goal is done with the objective, as without it", g.get("upto"), goal.get("quest"), goal.get("oi"), count),
+					Some("drop `upto`, or give the part of the count this step is for"),
+				);
+			}
+		}
+	}
 	if g.get("optional").truthy() {
 		goal.set("optional", true);
+	}
+	if g.get("either").truthy() {
+		goal.set("either", true);
 	}
 	if !g.get("gossip").is_undef() {
 		goal.set("gossip", g.get("gossip"));
@@ -3735,6 +3861,9 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 	if g.get("direct").truthy() {
 		goal.set("direct", true);
 		let q = if !goal.get("quest").is_undef() { data.quest(&goal.get("quest")) } else { V::Null };
+		if q.truthy() && q.get("minLevel").num() > 0.0 {
+			goal.set("minLevel", q.get("minLevel").num());
+		}
 		if q.truthy() && q.get("level").num() > 0.0 {
 			goal.set("qlvl", q.get("level").num());
 		}

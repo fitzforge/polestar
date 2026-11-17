@@ -1,11 +1,62 @@
 # CI and the on-demand runs
 
 Every pull request runs CI on GitHub (`ci.yml`, `forge.yml` and the
-workflows its paths start). The heavy checks a batch of work needs before
+workflows its paths start; see [Lanes](#lanes)). The heavy checks a batch of work needs before
 it is merged also run on GitHub, on any pushed branch, started by hand: the
 **on-demand workflows**. GitHub's standard runners are free for a public
 repository, so a batch's suites, playtests and gates need not hold a local
 machine for an hour.
+
+## Lanes
+
+What a pull request starts depends on what it changes. `Tests` (`ci.yml`)
+and `Base branch` (`pr-base.yml`), the checks `next` requires, report on
+every pull request; the other workflows start only on their paths. A newer
+push to a pull request cancels the runs of the older one
+(`tests/ci-lane.test.js` holds every pull request workflow to it).
+
+`Tests` picks its lane from the files the pull request changes
+(`tools/ci-lane.js`, run from the base branch's copy so a pull request cannot
+pick its own): **documentation** alone (anything under `docs/` or
+`.github/ISSUE_TEMPLATE/`, a `.md` at the root or under `.github/`) that no
+Node test and no check of `ci.yml` reads runs only the checks every tracked
+file gets (wording, names, SVGs: about a minute and a half). Anything else,
+anything unsure, and every push to `main` or `next` runs the **full** lane:
+forge built, the Node suite, the changelog, translation and preview checks.
+Markdown in the code folders (`changes/`, `tools/`, `tests/`, `skills/`,
+`addon/`, `guides/`, ...) is a fragment, template, fixture or shipped file,
+so it runs the full lane.
+
+| Change | `Tests` | `forge.yml` (Format, lints, tests incl. the addon's Lua tests; MSRV; wasm32) | Other |
+|---|---|---|---|
+| Documentation only (`docs/CI.md`, `CONTRIBUTING.md`, an issue form) | docs lane | no | `Base branch`, `Public text`, `Generated guides` |
+| A document a Rust test reads (`docs/FORGE.md`, `docs/forge/`, `docs/API.md`, `docs/GUIDE_FORMAT.md`, `docs/PACK_FORMAT.md`, `docs/PACKS.md`, `README.md`, `THIRD_PARTY.md`) | docs lane | yes | as above |
+| Addon Lua (`addon/`) | full | yes | `Textures` for `addon/Polestar/Theme/` |
+| Rust (`rust/`) | full | yes | `Client` for `rust/crates/polestar-recording/` |
+| A guide (`guides/`) | full | yes | |
+| Corrections (`forever-db/`) | full | yes | `Data corrections` |
+| Node tools and tests (`tools/`, `tests/`) | full | for `tests/lua/`, `tests/fixtures/dsl/` | `Textures` for `tools/media/` |
+
+`tests/ci-lane.test.js` checks that `forge.yml` starts on every document a
+Rust test reads.
+
+## Timing budgets
+
+Some tests hold a figure read off a clock to a budget: a settings slider's
+repaint, a recorder burst, a tooltip, a route plan (forge-addontest's
+`assert_timing!`, the Node tests' `assertTiming`). The budgets are set on a
+quiet machine; GitHub's shared runners are neither quiet nor alike, so CI
+sets `POLESTAR_TIMING_BUDGETS=warn` (`ci.yml`, `forge.yml`,
+`ondemand-suites.yml`) and a figure over its budget there is a warning
+annotation on the run, not a failure. Everything else those tests check
+(allocations, counts, what shows) still fails as usual. Anywhere the
+variable is not `warn` (a local run, the release gate) the budgets fail the
+test. The release gate runs them alone, enforced, with
+`rust/scripts/timing-budgets.sh` ([RELEASING.md](RELEASING.md#steps), step 3);
+`--list` names the tests it finds. A new timing assertion uses
+`assert_timing!`/`assertTiming`, never a plain `assert!`.
+
+## The on-demand workflows
 
 | Workflow | What it runs |
 |---|---|
@@ -75,4 +126,6 @@ that read `data/forever` skip with a reason.
   maps or other files not in the repository: route builds, navigation and
   travel builds, legs bakes, replays of the arrow on recorded sessions, the sweeps that read
   recordings, the quiet performance run.
+- The timing budgets, enforced (`rust/scripts/timing-budgets.sh`, alone on
+  a quiet machine): on GitHub they only warn ([Timing budgets](#timing-budgets)).
 - Deploys, releases and anything that needs a credential.

@@ -42,7 +42,7 @@ const { buildPack } = require('./pack/build');
 const { readManifest } = require('./pack/manifest');
 const { loadData } = require('./dsl/data');
 const { Diagnostics } = require('./dsl/diag');
-const { honestPlay, loadKb } = require('./playtest-honest');
+const { honestPlay, guideFits, loadKb } = require('./playtest-honest');
 
 const CLASSES = ['WARRIOR', 'PALADIN', 'HUNTER', 'ROGUE', 'PRIEST', 'SHAMAN', 'MAGE', 'WARLOCK', 'DRUID'];
 
@@ -92,6 +92,29 @@ function mapsLua(data) {
 		.join('\n');
 }
 
+// SIM_WORK: per quest of the packs' guides, the objectives a hand-in cannot
+// take on its own (kill, talk, object, event lines of the quest data), as
+// { i = line, t = kind, id, map, x, y }. A quest's item lines stay out: an
+// item may come before the accept, from a reward or a vendor, which the stub
+// bags do not follow. The simulated player finishes these lines only through
+// a goal that works them, or at the hand-in when the line is its ender
+// (speak with, or click, the one who takes it in) or an event at the ender's
+// spot; the game refuses any other hand-in (SIMULATE).
+function workLua(list, data) {
+	const qs = new Set();
+	for (const { guides } of list) for (const g of guides) for (const s of g.steps || []) for (const x of s.goals) if (x.t === 'accept' && x.quest != null) qs.add(x.quest);
+	const rows = [];
+	for (const q of [...qs].sort((a, b) => a - b)) {
+		const quest = data.quests[q];
+		const lines = ((quest && quest.objectives) || [])
+			.map((o, i) => ({ o, i: i + 1 }))
+			.filter(({ o }) => o.type === 'kill' || o.type === 'talk' || o.type === 'object' || o.type === 'event')
+			.map(({ o, i }) => `{ i = ${i}, t = ${JSON.stringify(o.type)}, id = ${o.id == null ? 'nil' : o.id}, n = ${o.count || 1}, map = ${o.map == null ? 'nil' : o.map}, x = ${o.x == null ? 'nil' : o.x}, y = ${o.y == null ? 'nil' : o.y} }`);
+		if (lines.length) rows.push(`[${q}] = { ${lines.join(', ')} }`);
+	}
+	return `SIM_WORK = { ${rows.join(',\n')} }`;
+}
+
 // Each file runs the way the client runs it: with the addon name and a namespace.
 const loadPack = (folder, scripts) =>
 	['do local ns = {}', ...scripts.map((f) => `assert(loadfile(${JSON.stringify(f)}))(${JSON.stringify(folder)}, ns)`), 'end'].join('\n');
@@ -101,7 +124,7 @@ const loadPack = (folder, scripts) =>
 function simPacks(list, data) {
 	const root = fs.mkdtempSync(path.join(os.tmpdir(), 'polestar-sim-'));
 	const loads = list.map(({ guides, manifest }) => loadPack(manifest.folder, writePackInto(root, { guides, manifest, data }).scripts)).join('\n');
-	return { loads, maps: mapsLua(data), dir: root, dispose: () => fs.rmSync(root, { recursive: true, force: true }) };
+	return { loads, maps: mapsLua(data), work: workLua(list, data), dir: root, dispose: () => fs.rmSync(root, { recursive: true, force: true }) };
 }
 
 // Compile guide files of ours (relative to guides/, or { file, text }) with
@@ -143,6 +166,7 @@ function playOptions(pack, g, { race, faction, cls, stubs = [], before = '', scr
 		before: `
 			local w = stub.world
 			${pack.maps}
+			${pack.work || ''}
 			w.race, w.raceName = ${JSON.stringify(race)}, ${JSON.stringify(raceName)}
 			w.class, w.className = ${JSON.stringify(cls)}, ${JSON.stringify(cls)}
 			w.faction = ${JSON.stringify(faction)}
@@ -210,18 +234,7 @@ function playableClasses(data, race, faction) {
 	return side ? side.classes : [];
 }
 
-// Classes named by the `class` header or any `only` in the guide that the
-// race can be, plus one playable class the guide never names. A guide
-// limited by its `class` header is played only as those classes, each of
-// them. `only` (class files) replaces that choice with the given classes the
-// race can be.
-function classesFor(data, guide, race, faction, only = null) {
-	let can = playableClasses(data, race, faction);
-	if (guide.classes && guide.classes.length) {
-		const allowed = guide.classes.map((c) => String(c).toUpperCase());
-		can = can.filter((c) => allowed.includes(c));
-	}
-	if (only) return can.filter((c) => only.includes(c));
+function namedClasses(guide) {
 	const named = new Set((guide.classes || []).map((c) => String(c).toUpperCase()));
 	const visit = (cond) => {
 		for (const c of (cond && cond.classes) || []) named.add(String(c).toUpperCase());
@@ -230,6 +243,21 @@ function classesFor(data, guide, race, faction, only = null) {
 		visit(s.only);
 		for (const g of s.goals) visit(g.only);
 	}
+	return named;
+}
+
+// Classes named by the `class` header or any `only` in the guide (or chain) that the
+// race can be, plus one playable class it never names. A guide
+// limited by its `class` header is played only as those classes, each of
+// them. `only` (class files) replaces that choice with the given classes the
+// race can be.
+function classesFor(data, guide, race, faction, only = null, named = namedClasses(guide)) {
+	let can = playableClasses(data, race, faction);
+	if (guide.classes && guide.classes.length) {
+		const allowed = guide.classes.map((c) => String(c).toUpperCase());
+		can = can.filter((c) => allowed.includes(c));
+	}
+	if (only) return can.filter((c) => only.includes(c));
 	const plain = can.find((c) => !named.has(c));
 	return [...[...named].filter((c) => can.includes(c)), ...(plain ? [plain] : [])];
 }
@@ -270,29 +298,21 @@ function personasFor(guide, arriving = []) {
 	return races.map((race) => ({ race, faction: sideOf(race) || guide.faction || 'Alliance' }));
 }
 
-// A persona for each class the guide names (its `class` header or any `only`)
+// A persona for each class the guide (or chain) names (its `class` header or any `only`)
 // that none of `personas` can be: the first race in races.json on the guide's
 // side (its race list, if it has one) that can be it, so an `only Druid` step
 // in a Horde guide is played as a Tauren rather than skipped.
-function classPersonas(data, guide, personas) {
+function classPersonas(data, guide, personas, named = namedClasses(guide), admits = () => true) {
 	if (!data.races || !Object.keys(data.races).length) return [];
-	const named = new Set((guide.classes || []).map((c) => String(c).toUpperCase()));
-	const visit = (cond) => {
-		for (const c of (cond && cond.classes) || []) named.add(String(c).toUpperCase());
-	};
-	for (const s of guide.steps) {
-		visit(s.only);
-		for (const g of s.goals) visit(g.only);
-	}
 	const allowed = guide.races && guide.races.length ? guide.races.map((x) => (x === 'Undead' ? 'Scourge' : x)) : null;
 	const sides = guide.faction ? [guide.faction] : ['Alliance', 'Horde'];
 	const added = [];
 	for (const cls of named) {
 		const all = [...personas, ...added];
-		if (all.some(({ race, faction }) => playableClasses(data, race, faction).includes(cls))) continue;
+		if (all.some(({ race, faction }) => playableClasses(data, race, faction).includes(cls) && admits({ race, faction, cls }))) continue;
 		for (const [race, bySide] of Object.entries(data.races)) {
 			if (allowed && !allowed.includes(race)) continue;
-			const faction = sides.find((s) => bySide[s] && bySide[s].classes.includes(cls));
+			const faction = sides.find((s) => bySide[s] && bySide[s].classes.includes(cls) && admits({ race, faction: s, cls }));
 			if (faction) {
 				added.push({ race, faction });
 				break;
@@ -635,28 +655,48 @@ async function playtest({ dir, manifest, official = false, filter = null, classe
 
 // playtest --honest (tools/lib/playtest-honest.js): the compiled guides
 // played from their lines and the data only, each `next` chain whole from
-// its first guide, as each persona and class its first guide is played as;
+// its first guide, sampling classes named throughout the chain while keeping
+// that first guide's race, faction and class eligibility;
 // findings for the guides of `play` (sources). No Lua. `kb`: the knowledge
 // base file (default data/local/kb/forever-kb.sqlite when present; null: none).
-// -> { results: [], findings, diag, played, honest: true }
+// -> { results: [], findings, diag, played, plays, honest: true }
 function honestRun({ guides, packs, play, data, classes, groups, chosen, kb, diag }) {
 	if (kb != null && !fs.existsSync(kb)) {
 		diag.error(kb, 0, 'knowledge base not found');
-		return { results: [], findings: [], diag, played: 0, honest: true };
+		return { results: [], findings: [], diag, played: 0, plays: 0, honest: true };
 	}
 	const all = packs.flatMap((p) => p.guides);
 	const wanted = guides.filter((g) => play.has(g._ast && g._ast.source));
+	const selected = new Set(wanted.map((g) => g.id));
 	const arriving = new Map();
 	for (const g of all) {
 		for (const to of g.nextChoices || (g.next ? [g.next] : [])) arriving.set(to, [...(arriving.get(to) || []), ...(g.races || [])]);
 	}
-	const personas = (root) => {
+	let plays = 0;
+	const personas = (root, chain) => {
+		const named = new Set(chain.flatMap((g) => [...namedClasses(g)]));
 		let list = personasFor(root, arriving.get(root.id));
-		list = [...list, ...classPersonas(data, root, list)];
-		return list.flatMap(({ race, faction }) => classesFor(data, root, race, faction, classes).map((cls) => ({ race, faction, cls })));
+		// Later race headers need their own candidates. A dual-faction race can
+		// play either side, but every candidate must still fit the chain root.
+		for (const name of new Set(chain.flatMap((g) => g.races || []))) {
+			const race = name === 'Undead' ? 'Scourge' : name;
+			for (const faction of root.faction ? [root.faction] : ['Alliance', 'Horde']) {
+				if (sideOf(race) && sideOf(race) !== faction) continue;
+				if (!list.some((p) => p.race === race && p.faction === faction)) list.push({ race, faction });
+			}
+		}
+		list = list.filter((p) => guideFits({ races: root.races, faction: root.faction }, p));
+		for (const guide of chain) {
+			list = [...list, ...classPersonas(data, root, list, classes || named, (p) => guideFits(root, p) && guideFits(guide, p))];
+		}
+		const characters = list.flatMap(({ race, faction }) => classesFor(data, root, race, faction, classes, named).map((cls) => ({ race, faction, cls })))
+			.filter((p) => chain.some((g) => selected.has(g.id) && guideFits(g, p)));
+		// A compatible context guide does not count as playing the selection.
+		plays += characters.length;
+		return characters;
 	};
 	const findings = honestPlay(all, data, personas, { kb: kb === undefined ? loadKb() : kb ? loadKb(kb) : null, play: wanted.map((g) => g.id), groups, chosen });
-	return { results: [], findings, diag, played: wanted.length, honest: true };
+	return { results: [], findings, diag, played: wanted.length, plays, honest: true };
 }
 
 const titleCase = (s) => s.charAt(0) + s.slice(1).toLowerCase();
@@ -695,11 +735,47 @@ for _, s in ipairs(G.steps) do
 		end
 	end
 end
+-- A quest's lines: those the guide's goals point at, and its kill, talk,
+-- object and event lines from the data (SIM_WORK), which only their goals
+-- finish: the game takes no hand-in with one open (act's turnin).
+local WORK_KIND = { kill = "monster", talk = "monster", object = "object", event = "event" }
+local function workLines(q)
+	local out = {}
+	for _, l in ipairs(SIM_WORK and SIM_WORK[q] or {}) do out[l.i] = l end
+	return out
+end
 local function objectivesFor(q)
-	local list, o, n = {}, objs[q], 0
-	if o then for i in pairs(o) do if i > n then n = i end end end
-	for i = 1, n do list[i] = { required = o[i] or 1, type = kinds[q][i] or "event" } end
+	local list, o, n, work = {}, objs[q] or {}, 0, workLines(q)
+	for i in pairs(o) do if i > n then n = i end end
+	for i in pairs(work) do if i > n then n = i end end
+	for i = 1, n do
+		local l = work[i]
+		list[i] = { required = math.max(o[i] or 1, l and l.n or 1), type = (kinds[q] and kinds[q][i]) or (l and WORK_KIND[l.t]) or "event" }
+	end
 	return list
+end
+-- Quests taken in this play (carried ones were worked before it), and the
+-- hand-ins the game refused, with the lines left open.
+local taken, refused = {}, {}
+-- Whether data line l is done by the hand-in goal r itself: speaking with or
+-- clicking its ender, or an event at the ender's spot.
+local function atEnder(l, r)
+	if (l.t == "kill" or l.t == "talk") then return l.id ~= nil and l.id == r.npc end
+	if l.t == "object" then return l.id ~= nil and l.id == r.object end
+	return l.t == "event" and l.map ~= nil and l.map == r.map and r.x ~= nil and math.abs(l.x - r.x) < 0.6 and math.abs(l.y - r.y) < 0.6
+end
+-- An unbound kill, talk or interact at a line's target counts for every quest
+-- taken in this play that asks for it.
+local function creditTarget(r)
+	for q, entry in pairs(w.log) do
+		if taken[q] then
+			for i, l in pairs(workLines(q)) do
+				local hit = l.id ~= nil and (((l.t == "kill" or l.t == "talk") and l.id == r.npc) or (l.t == "object" and l.id == r.object))
+				local o = entry.objectives[i]
+				if hit and o and not o.finished then w.progress(q, i, o.numRequired) end
+			end
+		end
+	end
 end
 local function ensureSkill(r, line)
 	if not w.skills[line] then w.learnSkill(line, r.skill or tostring(line), 1, 300) end
@@ -729,10 +805,34 @@ local function checkPick(i, g, r)
 end
 local function act(i, g, r)
 	local t, q = g.t, g.quest
+	if not q and (t == "kill" or t == "talk" or t == "interact") then creditTarget(r) end
 	if t == "accept" then
-		if not w.log[q] and not w.completed[q] then w.accept(q, objectivesFor(q), g.subject) end
+		if not w.log[q] and not w.completed[q] then
+			w.accept(q, objectivesFor(q), g.subject)
+			taken[q] = true
+		end
 	elseif t == "turnin" then
-		if w.log[q] then w.finish(q) end
+		local entry = w.log[q]
+		if entry then
+			-- Lines the data has that no goal of the play worked hold the hand-in;
+			-- the rest (item lines the bags may hold, lines of carried quests,
+			-- the ender's own) are done here, as before.
+			local work, open = taken[q] and workLines(q) or {}, {}
+			for oi, o in ipairs(entry.objectives) do
+				if not o.finished then
+					local l = work[oi]
+					if l and not atEnder(l, r) then
+						open[#open + 1] = ("%d (%s%s)"):format(oi, l.t, l.id and (" " .. l.id) or "")
+					else
+						w.progress(q, oi, o.numRequired)
+					end
+				end
+			end
+			if #open > 0 then
+				refused[q] = table.concat(open, ", ")
+				return
+			end
+		end
 		w.turnIn(q)
 	elseif t == "complete" then
 		if w.log[q] then w.finish(q) end
@@ -740,6 +840,12 @@ local function act(i, g, r)
 		if w.log[q] then w.abandon(q) end
 	elseif t == "destroy" then
 		if g.item then w.removeItem(g.item) end
+	elseif t == "deposit" then
+		-- Into the bank: what the goal counts, else all the bags hold.
+		if r.count and (w.items[r.item] or 0) < r.count then w.addItem(r.item, r.count - (w.items[r.item] or 0)) end
+		w.deposit(r.item)
+	elseif t == "equip" then
+		w.equip(r.item, not r.off)
 	elseif q and g.oi and (t == "kill" or t == "collect" or t == "use" or t == "interact" or t == "talk") then
 		if w.log[q] then
 			local o = w.log[q].objectives[g.oi]
@@ -801,12 +907,22 @@ local function act(i, g, r)
 			w.addItem(r.item, r.count or 1)
 		end
 	elseif t == "rep" then
-		w.setRep(r.faction, r.factionName or tostring(r.faction), r.standing, 0, 0, 3000)
+		-- Points inside the standing (a rep goal with +points): that far along its bar.
+		local points = r.points or 0
+		w.setRep(r.faction, r.factionName or tostring(r.faction), r.standing, points, 0, math.max(3000, points))
+	elseif t == "buff" then
+		-- The aura on the player, or gone for a goal with off.
+		w.setAura(r.spell, not r.off)
 	elseif t == "explore" then
 		local id = 900000 + i * 100 + g.index
 		w.addArea(r.map, r.x - 1, r.y - 1, r.x + 1, r.y + 1, id)
 		w.moveTo(r.map, r.x, r.y)
 		w.explore(id)
+		-- An explore tied to a quest is its find (an event line).
+		if q and w.log[q] then
+			local o = r.oi and w.log[q].objectives[r.oi]
+			if o then w.progress(q, r.oi, o.numRequired) else w.finish(q) end
+		end
 	elseif t == "achieve" then
 		local a = w.achievements[r.achievement]
 		if not a then
@@ -886,7 +1002,10 @@ while guard < 4000 do
 			same = E.GetStepIndex() == i and E.GetStepView(i).goals[open.index].status ~= "done"
 		end
 		if same then
-			stuck = { step = i, title = view.title, goal = open.index, t = open.t, text = open.text, status = after.goals[open.index].status }
+			local quest = G.steps[i].goals[open.index].quest
+			local why = open.t == "turnin" and quest and refused[quest]
+			stuck = { step = i, title = view.title, goal = open.index, t = open.t, text = open.text, status = after.goals[open.index].status,
+				why = why and ("the game takes no hand-in of quest %d: line %s, which no goal of the guide works, is not done"):format(quest, why) or nil }
 			break
 		end
 	end

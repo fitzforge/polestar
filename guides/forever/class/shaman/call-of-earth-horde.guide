@@ -7,6 +7,7 @@ faction Horde
 levels 4-5
 zone Durotar
 keywords Earth Totem, Stoneskin Totem, Earth Sapta, Call of Earth, Canaga Earthcaller, Seer Ravenfeather, Windshaper Boro, Spirit Rock, Kodo Rock, Rise of Spirits, Minor Manifestation of Earth, Felstalker Hoof, Ritual Salve, Signet of Akir, Rough Quartz, Shaman, class quest, totem
+collects 5175
 reward item 5175
 reward spell 8071 "Stoneskin Totem"
 why Your Earth Totem: without it no earth totem can be cast. Stoneskin Totem comes with it at level 4.

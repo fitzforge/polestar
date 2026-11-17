@@ -9522,6 +9522,9 @@ t.guides["forever/miscellaneous/stalk-with-the-earthmother"] = (function() retur
 		["{item:6291}: the Auction House, or the pool; the knife takes it"] = "{item:6291}：去拍卖行购买，或在池塘里钓；使用刀具会消耗它",
 		["{npc:205729} hides in stealth on the main mesa of {zone:1456}, south of its pool: walk to where the arrow points until his outline shows. He hands you the {item:206159}. The quest opens at level 4, but the mine holds Venture Co. Workers (level 8-9), Supervisors (9-10) and {npc:3051} (12): go at 9 or 10."] = "{npc:205729}潜行在{zone:1456}主台地上、水池南边：走到箭头所指的位置，直到他的轮廓显现。他会交给你{item:206159}。任务4级即可接，但矿洞里有风险投资公司工人（8-9级）、监工（9-10级）和{npc:3051}（12级）：建议9或10级再去。",
 } end)()
+t.guides["forever/miscellaneous/the-drowned-city-alliance"] = (function() return {
+		["Skullsplitter trolls"] = "劈颅巨魔",
+} end)()
 t.guides["forever/professions/alchemy"] = (function() return {
 		["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1411} is marked."] = "准备 110 个 {item:2447}，用于 {item:5997} 和 {spell:2331}（75-150 阶段需要其中 28 个，现在一并采齐）：通过 {skill:182} 采集 {item:2447}（技能 1）。已标记 {zone:1411} 中 {item:2447} 最密集的区域。",
 		["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1412} is marked."] = "准备 110 个 {item:2447}，用于 {item:5997} 和 {spell:2331}（75-150 阶段需要其中 28 个，现在一并采齐）：通过 {skill:182} 采集 {item:2447}（技能 1）。已标记 {zone:1412} 中 {item:2447} 最密集的区域。",

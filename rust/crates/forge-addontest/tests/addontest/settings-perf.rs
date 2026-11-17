@@ -231,7 +231,7 @@ fn a_dragged_slider_repaints_once_a_frame_within_budget_and_lays_out_once_when_i
 	for (key, ms, kib) in [("theme", STEP_MS, STEP_KIB), ("own", GW_STEP_MS, GW_STEP_KIB), ("opacity", GW_STEP_MS, GW_STEP_KIB)] {
 		let r = &out[key];
 		if CPU_CLOCK {
-			assert!(num(&r["ms"]) < ms * scale + slack, "{key}: a drag step over {ms} ms: {report}");
+			forge_addontest::assert_timing!(num(&r["ms"]) < ms * scale + slack, "{key}: a drag step over {ms} ms: {report}");
 		}
 		assert!(num(&r["kib"]) < kib, "{key}: a drag step allocated over {kib} KiB: {report}");
 		assert_eq!(r["full"], 0, "{key}: no full refresh while the drag goes on: {report}");

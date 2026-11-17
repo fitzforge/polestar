@@ -86,8 +86,9 @@ end
 -- so a fast frame is never doubled (0.3.1 grew it to 8 ms at 100 fps or more, halving the frame rate while a
 -- search ran).
 
--- With the queue empty the router rests: Grid.Rest trims the decoded graph to Path.graphRestKB, and decoded clusters,
--- the decoder's scratch and the endpoint trees stay for the next search (a walk or measure from nearby reads the same
+-- With the queue empty the router rests: Grid.Rest trims the decoded graph to Path.graphRestKB and the endpoint trees
+-- to the newest Path.restTrees, Search.Rest drops the endpoint trees' pool, and decoded clusters, the decoder's
+-- scratch and the kept endpoint trees stay for the next search (a walk or measure from nearby reads the same
 -- clusters) until it has rested Path.restSeconds, then Grid.Idle drops them. The search scratch (Search.Spare: the
 -- abstract A*'s tables, keyed by entrance ids, the heap and the grid trees; a long walk's is ~15 MB) stays
 -- Path.spareSeconds: the next search fills the same tables instead of growing new ones key by key. Until 0.3.4 every
@@ -98,6 +99,7 @@ Path.spareSeconds = 15
 local rests = 0 -- times the queue emptied: a later rest makes an earlier rest's timers stale
 local function rest()
 	Grid.Rest()
+	Search.Rest()
 	rests = rests + 1
 	local mine = rests
 	if C_Timer and C_Timer.After then

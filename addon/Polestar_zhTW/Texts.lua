@@ -6025,6 +6025,9 @@ t.guides["forever/miscellaneous/cozy-sleeping-bag"] = (function() return {
 		["{area:272} on the way"] = "途經{area:272}",
 		["{zone:1413}' way into Stonetalon runs through {area:1702}, and the road on to the hills passes {area:2539} and {area:460}: all Horde posts. Come in from the north instead. With the {area:467} flight path, fly there and follow the road south. Otherwise fly to {area:415} and walk south-west to the {area:1276}, the tunnel from {zone:1440} into Stonetalon."] = "從{zone:1413}進入石爪山脈的路要經過{area:1702}，往山丘去的道路又經過{area:2539}和{area:460}：全都是部落的據點。改從北邊進來。如果有{area:467}的飛行路線，就飛過去再沿道路向南。否則飛往{area:415}，向西南走到{area:1276}，也就是從{zone:1440}通往石爪山脈的隧道。",
 } end)()
+t.guides["forever/miscellaneous/the-drowned-city-alliance"] = (function() return {
+		["Skullsplitter trolls"] = "劈顱食人妖",
+} end)()
 t.guides["forever/professions/alchemy"] = (function() return {
 		["Artisan {skill:171}"] = "專家級{skill:171}",
 		["Back to an {skill:171} trainer: {spell:3171} (from 90)."] = "回到{skill:171}訓練師：{spell:3171}（90起）。",

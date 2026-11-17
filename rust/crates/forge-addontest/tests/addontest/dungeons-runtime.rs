@@ -701,7 +701,7 @@ emit({ list = #list, quests = #q, bosses = #b, listMs = (t1 - t0) * 1000, pageMs
 	assert_eq!(out["list"], 3);
 	assert_eq!(out["quests"], 4);
 	let (list_ms, page_ms) = (out["listMs"].as_f64().unwrap(), out["pageMs"].as_f64().unwrap());
-	assert!(list_ms < 50.0 && page_ms < 50.0, "list {list_ms} ms, page {page_ms} ms");
+	forge_addontest::assert_timing!(list_ms < 50.0 && page_ms < 50.0, "list {list_ms} ms, page {page_ms} ms");
 }
 
 #[test]

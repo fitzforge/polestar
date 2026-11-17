@@ -51,6 +51,7 @@ step Back at Aldrassil
   accept 3120 only Druid                      -- Conservator Ilthalaine: Verdant Sigil
   accept 916                                  -- Gilshalan Windwalker, on the tree's ramp
   accept 97979                                -- Shanda: in at the tree's front entrance and up the ramp; upstairs
+  complete 97979
   note "The Goddess Provides: cast Elune's Light and Shadowmeld, then hand it back to Shanda"
   turnin 97979
   accept 4495                                 -- Dirania Silvershine, east of the tree

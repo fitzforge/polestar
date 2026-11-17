@@ -1383,6 +1383,33 @@ fn target_list_in_a_row_the_rows_hang_under_the_target_button_and_the_rare_butto
 	assert_eq!(out[2], json!([-88, 0]), "back in its slot once the rows go");
 }
 
+// Buttons > Target list upward (buttons.listUp, #2590): beside the button the first row sits level with its bottom
+// and each next one stands on the last; in a row the rows stand over the button. The rare button keeps its slot (the
+// rows no longer reach down past it) and the set's clamp covers the rows above.
+#[test]
+fn target_list_upward_the_rows_go_up_from_the_target_button_and_the_rare_button_keeps_its_slot() {
+	let out = run_with(
+		r#"
+		local holder = select(2, PolestarRareButton:GetPoint(1))
+		local function at(f) local p, rel, rp, x, y = f:GetPoint(1); return { p, rp, x, y, rel == t, rel == B.rows[1] } end
+		kobolds()
+		Polestar.Set("buttons.listUp", true)
+		stub.runTimers()
+		emit({ at(B.rows[1]), at(B.rows[2]), select(5, PolestarRareButton:GetPoint(1)), holder.clamp })
+		Polestar.Set("buttons.layout", "row")
+		stub.runTimers()
+		emit({ at(B.rows[1]), { select(4, PolestarRareButton:GetPoint(1)) }, holder.clamp })
+	"#,
+		r#"stub.Methods.SetClampRectInsets = function(self, ...) self.clamp = { ... } end"#,
+	);
+	// Column: the target button's centre 44 under the item's (bottom -62); three rows (94 tall) from its bottom reach
+	// -62 + 94 = 32, under the Hearthstone slot's top (44 + 18), so the clamp's top stays; the rare button stays at -88.
+	assert_eq!(out[0], json!([["BOTTOMLEFT", "BOTTOMRIGHT", 8, 0, true, false], ["BOTTOM", "TOP", 0, 2, false, true], -88, [0, 216, 44, -88]]), "{out:?}");
+	// Row: the rows 8 over the target button (top 18), 94 tall: their top at 120, 102 over the holder's top; the rare
+	// button keeps its slot (88) under the rows' right end (44 - 18 + 208 = 234, 216 past the holder's edge).
+	assert_eq!(out[1], json!([["BOTTOMLEFT", "TOPLEFT", 0, 8, true, false], [88, 0], [-44, 216, 102, 0]]), "{out:?}");
+}
+
 // The rows follow the Buttons page's sizes: the gap to the target button is the set's spacing, the mark fits a
 // small target button, and a bigger target button moves the rows' top and the rare button with it.
 #[test]
