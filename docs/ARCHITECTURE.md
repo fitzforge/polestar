@@ -6331,10 +6331,12 @@ The quest is the goal's own, else the first quest within 40 steps whose
 objectives ask for the item. Optional goals, goals naming the NPC who hands
 the item over, quests done or skipped, and quests that hand the item over
 themselves are left out. Scope `all` adds the item objectives of the other
-quests in the log. Per item: the most each quest asks for, summed over the
-quests, less what the character holds (`Materials.Have`: the bags, the bank,
-the mail and what was bought and is on its way; `GetItemCount` with the bank
-without it); only items still short are listed.
+quests in the log, but not of a quest whose every goal in the running guide
+is optional (an `optional` goal or step, #2553: the guide takes it only when
+the player already has the item). Per item: the most each quest asks for,
+summed over the quests, less what the character holds (`Materials.Have`: the
+bags, the bank, the mail and what was bought and is on its way;
+`GetItemCount` with the bank without it); only items still short are listed.
 
 The rule. An item is an auction house buy when it is all of:
 
