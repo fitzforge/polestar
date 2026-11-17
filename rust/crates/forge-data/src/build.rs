@@ -617,6 +617,10 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	let recordings = scan_recordings(&o.recordings)?;
 	log(&format!("recordings: {} session(s) in {}, {} counted", recordings.len(), o.recordings.display(), recordings.counted()));
 	let instances = Obj::new();
+	// Creatures Forever's spells summon (its SpellEffect): camp bots lose their vendor roles below, and
+	// recordings give no spawns to those no source places.
+	let summoned = fwago.as_ref().and_then(|f| f.get("SpellEffect")).map(|effects| extras::summoned_creatures(effects));
+	let unplaced_summoned = summoned.as_ref().map(|s| extras::unplaced_summoned(s, &norm.npcs)).unwrap_or_default();
 	let mut revision = crate::recordings::Revision::default();
 	let mut unread: Option<String> = None;
 	let rec = apply_recordings(
@@ -645,11 +649,15 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 		return Err(e);
 	}
 	let revision = revision.finish();
+	let unspawned = extras::drop_recorded_summoned_spawns(&unplaced_summoned, &norm.npcs);
+	if !unspawned.is_empty() {
+		log(&format!("summoned creatures: recorded spawns of {} taken back ({})", unspawned.len(), unspawned.iter().map(i64::to_string).collect::<Vec<_>>().join(", ")));
+	}
 	let durations = extras::item_durations(fwago.as_ref().and_then(|f| f.get("ItemSparse")).map(Vec::as_slice).unwrap_or(&[]), &norm.items);
 	// Camp bots a player summons (Reagent Bot, Repair Bot) are vendors with sniffed spawns of camps long
 	// gone: they sell nothing a guide can send a player to (Forever's SpellEffect names them).
-	if let Some(effects) = fwago.as_ref().and_then(|f| f.get("SpellEffect")) {
-		let gone = extras::drop_summoned_vendors(&extras::summoned_creatures(effects), &norm.npcs, &norm.items);
+	if let Some(summoned) = &summoned {
+		let gone = extras::drop_summoned_vendors(summoned, &norm.npcs, &norm.items);
 		if !gone.is_empty() {
 			log(&format!("summoned vendors: {} dropped as sellers ({})", gone.len(), gone.iter().map(i64::to_string).collect::<Vec<_>>().join(", ")));
 		}
