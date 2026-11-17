@@ -16319,3 +16319,16 @@ test('#2684: Hinterlands (Alliance): Repurposed Totems says the totems also lie 
 	const { step } = list[at(list, 'collect 279225', (g) => g.t === 'collect' && g.quest === 86616)];
 	assert.match(step.note || '', /Totems lie on the ground/, step.note);
 });
+
+// #2673 (Monono, Horde Hillsbrad 22-25): the guide ended with a walk from the zeppelin to the middle of Orgrimmar, and
+// the next guide (04-the-barrens) flies to Thunder Bluff from the wind rider master, south-west of there: a walk past
+// the flight master and back for nothing. The last stop in Orgrimmar is the wind rider master (Doras, 45.12,63.89).
+test('#2673: Hillsbrad (Horde): the guide ends at Orgrimmar\'s wind rider master, where the next guide flies on', { skip }, () => {
+	const list = goals('forever/horde/06-hillsbrad-foothills.guide');
+	const walks = list.filter(({ goal }) => goal.t === 'goto' && goal.map === 1454);
+	assert.equal(walks.length, 1, 'one walk in Orgrimmar');
+	const { goal } = walks[0];
+	assert.ok(Math.hypot(goal.x - 45.12, goal.y - 63.89) <= 0.5, `at the wind rider master: ${goal.x},${goal.y}`);
+	const next = compiled('forever/horde/04-the-barrens.guide').steps[0].goals;
+	assert.ok(next.some((g) => g.t === 'fly'), 'the next guide opens with a flight');
+});
