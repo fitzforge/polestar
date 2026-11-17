@@ -616,9 +616,9 @@ L["Timed quest alerts"] = "Оповещения о заданиях на вре�
 L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] = "Строка в чате и звук, когда у задания на время остаётся 5 минут, снова за 1 минуту и если оно провалено. Окно руководства всегда показывает оставшееся время."
 L["Party chat"] = "Чат группы"
 -- L["On a mob that drops a quest item you still need, or an object it comes out of, show how often."] = ""
--- L["Quest givers and turn-ins"] = ""
+L["Quest givers and turn-ins"] = "Выдача и сдача заданий"
 -- L["On an NPC, name the quests it has for you now and the finished quests you can hand in to it."] = ""
--- L["Replace the game's quest lines"] = ""
+L["Replace the game's quest lines"] = "Заменять строки заданий игры"
 -- L["On mobs and objects, leave out the game's own lines for the quests these tooltips name, so each quest shows once. In a group the game's lines stay: they show your party's progress."] = ""
 
 -- Quests/Party.lua
@@ -1144,7 +1144,7 @@ L["Lists the quest items you can buy at an auction house instead of farming them
 L["Lists the current step's mobs, or the NPCs it sends you to when it has no mob, with their portraits and what they drop; click a name to target that one. Its key binding targets the first one close by."] = "Показывает противников текущего шага или, если их нет, NPC, к которым он ведет, с портретами и добычей; щелкните по имени, чтобы выбрать его целью. Назначенная клавиша выбирает первого поблизости."
 L["Names in the target list"] = "Имен в списке целей"
 L["How many of the step's mobs the target list shows, in guide order."] = "Сколько противников шага показывает список целей, в порядке гайда."
--- L["Completed quest XP"] = ""
+L["Completed quest XP"] = "Опыт за выполненные задания"
 -- L["Shows XP from completed quests you can turn in on the game's XP bar and in its tooltip."] = ""
 
 -- Lookup/Sources.lua

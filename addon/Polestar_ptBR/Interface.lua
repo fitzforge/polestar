@@ -616,9 +616,9 @@ L["Timed quest alerts"] = "Alertas de missões com tempo"
 L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] = "Uma linha no chat e um som quando uma missão com tempo tem 5 minutos restantes, de novo com 1 minuto e se ela falhar. A janela do guia sempre mostra o tempo restante."
 L["Party chat"] = "Chat do grupo"
 -- L["On a mob that drops a quest item you still need, or an object it comes out of, show how often."] = ""
--- L["Quest givers and turn-ins"] = ""
+L["Quest givers and turn-ins"] = "Doadores de missões e entregas"
 -- L["On an NPC, name the quests it has for you now and the finished quests you can hand in to it."] = ""
--- L["Replace the game's quest lines"] = ""
+L["Replace the game's quest lines"] = "Substituir as linhas de missão do jogo"
 -- L["On mobs and objects, leave out the game's own lines for the quests these tooltips name, so each quest shows once. In a group the game's lines stay: they show your party's progress."] = ""
 
 -- Quests/Party.lua
@@ -1144,7 +1144,7 @@ L["Lists the quest items you can buy at an auction house instead of farming them
 L["Lists the current step's mobs, or the NPCs it sends you to when it has no mob, with their portraits and what they drop; click a name to target that one. Its key binding targets the first one close by."] = "Lista as criaturas da etapa atual, ou os PNJs aos quais ela manda você quando não tem criaturas, com retratos e o que deixam cair; clique num nome para selecioná-lo. O atalho dele seleciona o primeiro que estiver perto."
 L["Names in the target list"] = "Nomes na lista de alvos"
 L["How many of the step's mobs the target list shows, in guide order."] = "Quantas criaturas da etapa a lista de alvos mostra, na ordem do guia."
--- L["Completed quest XP"] = ""
+L["Completed quest XP"] = "Experiência de missões concluídas"
 -- L["Shows XP from completed quests you can turn in on the game's XP bar and in its tooltip."] = ""
 
 -- Lookup/Sources.lua

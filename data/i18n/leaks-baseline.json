@@ -37304,6 +37304,13 @@
 				],
 				"english": "Woodwyrd"
 			},
+			"npc:255373": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Strashaz Enchantress"
+			},
 			"npc:255391": {
 				"reason": "no-source",
 				"scenes": [
@@ -37317,6 +37324,13 @@
 					"dungeons"
 				],
 				"english": "Blazeroar"
+			},
+			"npc:255995": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Strashaz Soldier"
 			},
 			"npc:255997": {
 				"reason": "no-source",
@@ -37449,6 +37463,13 @@
 				],
 				"english": "Twilight Commander Zarmok"
 			},
+			"npc:259256": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Tunk"
+			},
 			"npc:259620": {
 				"reason": "no-source",
 				"scenes": [
@@ -37485,6 +37506,13 @@
 					"dungeons"
 				],
 				"english": "Min'loth the Serpent"
+			},
+			"npc:260271": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Sully McCleary"
 			},
 			"npc:260353": {
 				"reason": "no-source",
@@ -37628,19 +37656,26 @@
 				],
 				"english": "Gnawed Corpse"
 			},
+			"npc:264770": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Mason Connery"
+			},
+			"npc:264845": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Mason Connery"
+			},
 			"npc:265701": {
 				"reason": "no-source",
 				"scenes": [
 					"dungeons"
 				],
 				"english": "Captain Truman"
-			},
-			"npc:266593": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Sergeant Danneth"
 			},
 			"npc:268423": {
 				"reason": "no-source",
@@ -37789,6 +37824,13 @@
 					"guide"
 				],
 				"english": "Molsen Farm Water Well"
+			},
+			"object:611086": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Connery's Trunk"
 			},
 			"object:614679": {
 				"reason": "no-source",
@@ -38255,13 +38297,6 @@
 					"dungeons"
 				],
 				"english": "Archmage Lan'dalock"
-			},
-			"npc:29049": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Arille Azuregaze"
 			},
 			"npc:31439": {
 				"reason": "no-source",
@@ -38838,6 +38873,13 @@
 				],
 				"english": "Jezerelle the Swaying"
 			},
+			"npc:255373": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Strashaz Enchantress"
+			},
 			"npc:255391": {
 				"reason": "no-source",
 				"scenes": [
@@ -38874,6 +38916,13 @@
 					"slash"
 				],
 				"english": "Slydris"
+			},
+			"npc:255995": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Strashaz Soldier"
 			},
 			"npc:255997": {
 				"reason": "no-source",
@@ -39153,6 +39202,13 @@
 				],
 				"english": "Denaaris Stargale"
 			},
+			"npc:259250": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Alphonse Dumas"
+			},
 			"npc:259385": {
 				"reason": "no-source",
 				"scenes": [
@@ -39234,12 +39290,26 @@
 				],
 				"english": "Captain Dreadrise"
 			},
+			"npc:260146": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Sully McCleary"
+			},
 			"npc:260243": {
 				"reason": "no-source",
 				"scenes": [
 					"dungeons"
 				],
 				"english": "Min'loth the Serpent"
+			},
+			"npc:260271": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Sully McCleary"
 			},
 			"npc:260353": {
 				"reason": "no-source",
@@ -39405,6 +39475,20 @@
 				],
 				"english": "Gnawed Corpse"
 			},
+			"npc:264770": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Mason Connery"
+			},
+			"npc:264845": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Mason Connery"
+			},
 			"npc:264936": {
 				"reason": "no-source",
 				"scenes": [
@@ -39440,13 +39524,6 @@
 					"guides"
 				],
 				"english": "Lord Tomas"
-			},
-			"npc:266593": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Sergeant Danneth"
 			},
 			"npc:266901": {
 				"reason": "no-source",
@@ -40006,6 +40083,13 @@
 					"guides"
 				],
 				"english": "Flutterfly Dust"
+			},
+			"object:611086": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Connery's Trunk"
 			},
 			"object:613238": {
 				"reason": "no-source",

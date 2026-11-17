@@ -616,9 +616,9 @@ L["Timed quest alerts"] = "限时任务提醒"
 L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] = "限时任务剩余 5 分钟时、剩余 1 分钟时以及失败时，在聊天框显示一行提示并播放声音。指南窗口始终显示剩余时间。"
 L["Party chat"] = "小队聊天"
 -- L["On a mob that drops a quest item you still need, or an object it comes out of, show how often."] = ""
--- L["Quest givers and turn-ins"] = ""
+L["Quest givers and turn-ins"] = "任务发布者与交还"
 -- L["On an NPC, name the quests it has for you now and the finished quests you can hand in to it."] = ""
--- L["Replace the game's quest lines"] = ""
+L["Replace the game's quest lines"] = "替换游戏的任务行"
 -- L["On mobs and objects, leave out the game's own lines for the quests these tooltips name, so each quest shows once. In a group the game's lines stay: they show your party's progress."] = ""
 
 -- Quests/Party.lua
@@ -1144,7 +1144,7 @@ L["Lists the quest items you can buy at an auction house instead of farming them
 L["Lists the current step's mobs, or the NPCs it sends you to when it has no mob, with their portraits and what they drop; click a name to target that one. Its key binding targets the first one close by."] = "列出当前步骤的怪物；没有怪物时列出步骤指引你前往的 NPC，并显示头像和掉落物品。点击名字即可选中该目标。其快捷键会选中附近的第一个。"
 L["Names in the target list"] = "目标列表中的名字数"
 L["How many of the step's mobs the target list shows, in guide order."] = "目标列表按指南顺序显示的步骤怪物数量。"
--- L["Completed quest XP"] = ""
+L["Completed quest XP"] = "已完成任务的经验"
 -- L["Shows XP from completed quests you can turn in on the game's XP bar and in its tooltip."] = ""
 
 -- Lookup/Sources.lua
