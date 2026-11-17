@@ -317,10 +317,6 @@ step Camping 101: Leatherworking
   when skill Leatherworking 1
   accept 97906                        -- Brakk: for Karolek
 
-step Camping 101: Tailoring
-  when skill Tailoring 1
-  accept 96102                        -- Brakk: for Snang
-
 step Camping 101: Herbalism
   when skill Herbalism 1
   accept 97905                        -- Brakk: for Jandi
@@ -364,6 +360,10 @@ step Rawrk
 
 step Cook Torka
   accept 815
+
+step Camping 101: Tailoring
+  when skill Tailoring 1
+  accept 96102                        -- Brakk: for Snang
 
 step Tiragarde Keep
   tip The keep stands on the coast south-east of Razor Hill. The raiders' axe, bow and shield lie on its outskirts. Sailors and marines drop the Canvas Scraps.

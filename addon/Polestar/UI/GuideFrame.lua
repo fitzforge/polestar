@@ -480,6 +480,8 @@ GF.Part(function(GF)
 		if goal.x and goal.map and ns.Nav and ns.Nav.SetTarget then
 			lines[#lines + 1] = { L["Click to point the arrow here"], ar, ag, ab }
 		end
+		-- Middle-click: the quest log; shift-click: the quest's link in chat (#2545).
+		if ns.QuestClickTips then ns.QuestClickTips(goal.quest, lines) end
 		if goal.unavailable == "skipped" then
 			lines[#lines + 1] = { L["Right-click to bring this quest back"], ar, ag, ab }
 		elseif goal.quest and goal.status ~= "done" then
@@ -528,7 +530,8 @@ GF.Part(function(GF)
 	-- A quest's line, right-clicked: tick this goal done (or untick it), open
 	-- the game's quest log at its quest (ns.QuestLogMenuItem), or skip the whole
 	-- quest and what follows from it (Engine.SkipQuest), or bring a skipped
-	-- quest back.
+	-- quest back; last, its link in chat (ns.QuestLinkMenuItem: a gamepad's
+	-- shift-click, #2545).
 	local function rowMenu(row)
 		local E, goal = Engine(), row.psGoal
 		if not (E and goal and goal.quest and E.SkipQuest) then return false end
@@ -548,6 +551,8 @@ GF.Part(function(GF)
 		if loses then tip = tip .. " " .. loses end
 		items[#items + 1] = { text = L["Skip this quest"], icon = "skip", tip = tip,
 			onClick = function() E.SkipQuest(goal.quest, true) end }
+		local link = ns.QuestLinkMenuItem and ns.QuestLinkMenuItem(goal.quest)
+		if link then items[#items + 1] = link end
 		W.ShowMenu(row, items)
 		return true
 	end
@@ -578,6 +583,8 @@ GF.Part(function(GF)
 	local function rowClick(row, button)
 		local goal = row.psGoal
 		if not goal then return end
+		-- A quest's line: a middle-click shows it in the quest log, a shift-click links it in chat (#2545).
+		if ns.QuestRowClick and ns.QuestRowClick(goal.quest, button) then return end
 		if button == "RightButton" then
 			if not rowMenu(row) then toggleGoal(row) end
 			return
@@ -603,7 +610,7 @@ GF.Part(function(GF)
 		local r = rows[i]
 		if r then return r end
 		r = CreateFrame("Button", nil, goals.Child)
-		r:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+		r:RegisterForClicks("LeftButtonUp", "RightButtonUp", "MiddleButtonUp")
 		r.Hover = r:CreateTexture(nil, "BACKGROUND")
 		r.Hover:SetTexture(Theme.Media("white"))
 		r.Hover:SetAllPoints(r)
@@ -1522,7 +1529,7 @@ GF.Part(function(GF)
 		local r = alongRows[i]
 		if r then return r end
 		r = CreateFrame("Button", nil, along)
-		r:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+		r:RegisterForClicks("LeftButtonUp", "RightButtonUp", "MiddleButtonUp")
 		r:SetHeight(UP_ROW)
 		W.Hover(r)
 		r.Icon = r:CreateTexture(nil, "ARTWORK")
@@ -1533,6 +1540,8 @@ GF.Part(function(GF)
 		r.Text:SetMaxLines(2)
 		r:SetScript("OnClick", function(self, button)
 			local E = Engine()
+			-- A quest's row (psQuest): a middle-click shows it in the quest log, a shift-click links it in chat (#2545).
+			if ns.QuestRowClick and ns.QuestRowClick(self.psQuest, button) then return end
 			-- The finished quests no open route hands in (RoutePlan.Carried):
 			-- their list, with who takes each and a hand-in guide.
 			if self.psCarried then
@@ -1571,6 +1580,7 @@ GF.Part(function(GF)
 			if self.psCarried then
 				lines[#lines + 1] = { L["The route ahead never hands these in. Click to see who takes each, with a guide there."], Theme.Color("textDim") }
 			end
+			if ns.QuestClickTips then ns.QuestClickTips(self.psQuest, lines) end
 			W.Tooltip(self, tooltipAnchor(), self.psTitle or "", lines)
 			GF.HoverIn()
 		end)
@@ -1973,7 +1983,7 @@ GF.Part(function(GF)
 				local r = alongRow(n)
 				local where = b.zone and (b.yards and string.format(L["back in %s, %s"], b.zone, ns.FormatDistance(b.yards)) or string.format(L["back in %s"], b.zone)) or nil
 				local quest = ns.Quoted(b.title or (L["Quest"] .. " " .. b.quest))
-				r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind = nil, nil, b.title, nil, b.quest
+				r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind, r.psQuest = nil, nil, b.title, nil, b.quest, b.quest
 				r.psPlace, r.psCarried = true, nil
 				r.Icon:SetTexture(Theme.VerbIcon("turnin"))
 				r.Text:SetText(where and string.format(L["Still to do: %s, %s"], quest, where) or string.format(L["Still to do: %s"], quest))
@@ -1989,7 +1999,7 @@ GF.Part(function(GF)
 			n, back = n + 1, back + 1
 			local r, xp = alongRow(n), 0
 			for _, c in ipairs(carried) do xp = xp + (c.xp or 0) end
-			r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind = nil, nil, L["Finished quests you're still carrying"], nil, nil
+			r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind, r.psQuest = nil, nil, L["Finished quests you're still carrying"], nil, nil, nil
 			r.psPlace, r.psCarried = nil, true
 			r.Icon:SetTexture(Theme.VerbIcon("turnin"))
 			local text = #carried == 1 and L["1 finished quest to hand in elsewhere"] or string.format(L["%d finished quests to hand in elsewhere"], #carried)
@@ -2025,7 +2035,7 @@ GF.Part(function(GF)
 				if not s.untilStep or (untilStep and untilStep ~= s.untilStep) then mixed = true end
 				untilStep = untilStep or s.untilStep
 				local r = alongRow(n)
-				r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind = e.step, gv.index, s.title or UI.GoalLine(gv), e.pin, nil
+				r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind, r.psQuest = e.step, gv.index, s.title or UI.GoalLine(gv), e.pin, nil, gv.quest
 				r.psPlace, r.psCarried = e.place, nil
 				r.Icon:SetTexture(Theme.VerbIcon(gv.t))
 				UI.SetCounted(r.Text, UI.GoalLine(gv))

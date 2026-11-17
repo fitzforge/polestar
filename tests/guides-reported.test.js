@@ -1768,6 +1768,23 @@ test('Hotline\'s report: Walton and Vrang\'s quests come in the order the game o
 	assert.deepEqual(order, [...order].sort((a, b) => a - b), 'each goal comes after the one before it in the chain');
 });
 
+// #1959 (a level 19 Undead Warlock): Vrang Wildgore's two quests came on a second trip to the Dry Hills, though
+// he camps beside the harpies and the raptor-horn spot of the first one. Bruised Pride and Lion Hides and Vrang's
+// Game are taken, worked and handed in on the first Dry Hills loop, between the harpies' rings and their hand-in to
+// Darsok; the second trip carries Serena Bloodfeather (offered only with that hand-in) and Walton's chain.
+test(`${BARRENS}: #1959: Vrang's two quests are done on the first Dry Hills loop, with the harpies`, { skip }, () => {
+	const list = goals(BARRENS);
+	const rings = at(list, 'collect 875 (Harpy Lieutenants)', is('collect', 875));
+	const lieutenants = at(list, 'turnin 875', is('turnin', 875));
+	for (const [t, q] of [['accept', 95494], ['accept', 95507], ['collect', 95494], ['collect', 95507], ['turnin', 95494], ['turnin', 95507]]) {
+		const i = at(list, `${t} ${q}`, is(t, q));
+		assert.ok(rings < i && i < lieutenants, `${t} ${q} is on the harpies' loop (goal ${i}, rings ${rings}, hand-in ${lieutenants})`);
+	}
+	const serena = at(list, 'collect 876 (Serena Bloodfeather)', is('collect', 876));
+	assert.ok(lieutenants < serena, 'Serena comes on the later visit');
+	assert.ok(lieutenants < at(list, 'turnin 95495 (Walton)', is('turnin', 95495)), 'Walton too');
+});
+
 // --- The Barrens (Fitz, a Scourge Warlock, #70): at the Crossroads the guide
 // sent them to Sergra Darkthorn for Jorn Skyseer (3261), which needs The
 // Angry Scytheclaws (905), the end of her chain in forever/horde/02-the-barrens.
@@ -4560,8 +4577,9 @@ test('forever/horde/02-the-barrens.guide: Fitz\'s report (#273): the Savannah Li
 
 test('forever/horde/02-the-barrens.guide: Fitz\'s report (#274): the Dry Hills step also collects the Raptor Horns, in the Dry Hills, before the Ratchet turn-in', { skip }, () => {
 	const list = goals('forever/horde/02-the-barrens.guide');
-	// The step where Vrang's harpy quest is worked in the Dry Hills (its title is the route's own).
-	const hills = list.findIndex(({ goal }) => is('collect', 95494)(goal));
+	// The Dry Hills visit after Raptor Horns is taken at Ratchet: Serena Bloodfeather's harpies, above the lions
+	// (Vrang's own hides come on the first loop since #1959, before the horns are offered).
+	const hills = list.findIndex(({ goal }) => is('collect', 876)(goal));
 	assert.ok(hills >= 0, 'the Dry Hills step is in the guide');
 	const horns = list.findIndex(({ s, goal }) => s === list[hills].s && is('collect', 865)(goal));
 	assert.ok(horns >= 0, 'the Dry Hills step collects the Raptor Horns');
@@ -9952,6 +9970,8 @@ test('Alliance starting zones: profession Camping 101s from the campfire, for th
 		['forever/alliance/skyborne/01-zephras-isle.guide', 96101, [97963, 97964, 97965, 97967, 97969, 97970, 97971, 97973, 98286]],
 	];
 	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	// Eric Brighthammer offers Blacksmithing only once Supplies to Tannok is handed in: its step follows that stop.
+	const waitsFor = { 96044: 2160 };
 	for (const [guide, sit, quests] of sets) {
 		const list = goals(guide);
 		const sat = at(list, `${guide}: turnin ${sit}`, is('turnin', sit));
@@ -9964,8 +9984,9 @@ test('Alliance starting zones: profession Camping 101s from the campfire, for th
 			const when = (i) => [].concat(list[i].step.when || []);
 			assert.ok(when(take).some((w) => w.k === 'skill' && !w.neg), `${guide}: ${q} is offered only with the profession`);
 			assert.ok(when(give).some((w) => w.k === 'onquest' && !w.neg && [].concat(w.q).includes(q)), `${guide}: ${q}'s hand-in shows only with the quest in the log`);
-			const between = list.slice(sat + 1, take);
-			assert.ok(between.every(({ step }) => step === list[sat].step || [].concat(step.when || []).some((w) => w.k === 'skill')), `${guide}: ${q}'s step follows the campfire step directly`);
+			const from = waitsFor[q] ? at(list, `${guide}: turnin ${waitsFor[q]}`, is('turnin', waitsFor[q])) : sat;
+			const between = list.slice(from + 1, take);
+			assert.ok(between.every(({ step }) => step === list[from].step || [].concat(step.when || []).some((w) => w.k === 'skill')), `${guide}: ${q}'s step follows the campfire step directly (or the stop its giver waits for)`);
 		}
 	}
 });
@@ -15935,6 +15956,23 @@ test('Alliance 40-50 reports: Jarl\'s spices bought before the hand-in (#1917), 
 	const tip = [pool.step.note, pool.step.tip].flat().filter(Boolean).join(' ');
 	assert.match(tip, /tap it/, 'says to tap the pool');
 	assert.match(tip, /Scarabs/, 'warns of the Scarabs');
+});
+
+// Camping 101 accepts and their givers' prerequisites: Eric Brighthammer offers Blacksmithing (96044) only once
+// Supplies to Tannok (2160) is handed in, Brakk offers Tailoring (96102) only once A Peon's Burden (2161) and
+// Camping 101: Cooking (96655) are (players' recordings). A Camping step placed before those hand-ins was
+// passed with the quest not offered, and the guide never came back to it.
+test('Start zones: a Camping 101 accept comes after the hand-ins its giver waits for', { skip }, () => {
+	const cases = [...DUN_MOROGHS.map((g) => [g, 96044, [2160]]), ...DUROTARS.map((g) => [g, 96102, [2161, 96655]])];
+	for (const [guide, quest, pres] of cases) {
+		const list = goals(guide);
+		const take = at(list, `accept ${quest}`, is('accept', quest));
+		for (const pre of pres) {
+			assert.ok(at(list, `turnin ${pre}`, is('turnin', pre)) < take, `${guide}: ${pre} is handed in before ${quest} is taken`);
+		}
+		const hand = list.findIndex(({ goal }) => is('turnin', quest)(goal));
+		assert.ok(hand < 0 || take < hand, `${guide}: ${quest} is taken before its hand-in`);
+	}
 });
 
 // --- Reports fixed in earlier releases that had no test of their own (regression audit after 0.4.0). Each case

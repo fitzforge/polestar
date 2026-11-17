@@ -571,6 +571,33 @@ builders.craft = function(src, p, from, direct)
 		if best then
 			place(r, best, bestT)
 			r.trainer = bestNpc.id
+			r.trainerAt = best
+			r.detail = detail(L["Crafted"], r.zone)
+		end
+	end
+	-- A craft taught by a recipe item, not yet known (#2505: Recipe: Hot Wolf Ribs is
+	-- sold in Feralas and Desolace; no trainer teaches it): the row leads to the
+	-- recipe's own best source (Lookup.Sources of each recipe item that teaches
+	-- it), and its effort counts that source's; a recipe in the bags is only used.
+	-- The trainer stays for the rank.
+	if src.spell and not ns.Compat.IsSpellKnown(src.spell) and C.RecipeItems then
+		local recipes = C.RecipeItems(src.spell) or {}
+		local bestRow, bestId
+		for _, id in ipairs(recipes) do
+			if ns.Compat.GetItemCount(id) > 0 then
+				bestRow, bestId = nil, id
+				break
+			end
+			local row = Lookup.BestSource((Lookup.Sources("recipe", id, direct)))
+			if row and (not bestRow or (row.available and not bestRow.available)
+				or (row.available == bestRow.available and (row.cost or 0) < (bestRow.cost or 0))) then
+				bestRow, bestId = row, id
+			end
+		end
+		r.recipe, r.recipeRow = bestId, bestRow
+		if bestRow then
+			r.map, r.x, r.y, r.f, r.zone, r.travel = bestRow.map, bestRow.x, bestRow.y, bestRow.f, bestRow.zone, bestRow.travel
+			r.effort = r.effort + (bestRow.effort or 0)
 			r.detail = detail(L["Crafted"], r.zone)
 		end
 	end

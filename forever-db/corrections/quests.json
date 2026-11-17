@@ -17544,6 +17544,25 @@
 					"count": 1,
 					"text": "Raise your blacksmithing skill to 20"
 				}
+			],
+			"pre": [
+				95998,
+				96101,
+				96604,
+				96605,
+				96606,
+				96607,
+				96608
+			],
+			"preAll": [],
+			"preAny": [
+				95998,
+				96101,
+				96604,
+				96605,
+				96606,
+				96607,
+				96608
 			]
 		},
 		"source": [
@@ -17554,9 +17573,13 @@
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your blacksmithing skill to 20\" (x1) (#1952)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-16: an Undead Paladin who knew Blacksmithing was offered it by Eleanor Shackleton with Continue Your Training (91209) still in the quest log, took it at level 6 and handed 91209 in 162 s later"
 			}
 		],
-		"note": "Camping 101: Blacksmithing: the objective is to raise Blacksmithing to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+		"note": "Camping 101: Blacksmithing: the objective is to raise Blacksmithing to 20 before the trainer takes it, not a talk with the trainer (#1952). It needs The Great Outdoors like every Camping 101, not Continue Your Training (91209): that is a Paladin quest, so the recorded prerequisite would have kept the quest from every other Undead blacksmith."
 	},
 	"97953": {
 		"set": {

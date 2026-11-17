@@ -2585,10 +2585,17 @@ local picks = setmetatable({}, { __mode = "k" }) -- goal -> { list = { candidate
 -- Barrens at Orgrimmar's training step was sent to the Valley of Trials
 -- (#1357), and the Undercity's training step, current at Orgrimmar's
 -- zeppelin tower, named Orgrimmar's trainers.
+-- A class trainer the character has outgrown (Own.trainerTop: the highest
+-- level it teaches, below the character's) comes after every other, for a
+-- `train class` goal and the training reminder alike: the starting areas'
+-- trainers teach to 6, and Goldshire's training step sent a level 12 Hunter
+-- standing in Northshire to Tordrin Sternblade (#2477).
 Own.UNMEASURED = 1e9
 Own.PLANNED = 8
 local RUN_SPEED = 7 -- yards per second, unmounted
 Own.HOME_NEAR = 100
+Own.OUTGROWN = 8 -- tiers an outgrown class trainer drops (after continent, zone level and the step's zone)
+Own.trainerTop = {} -- class trainer npc -> the highest level it teaches, below the cap (ns.RegisterClassTrainerTops)
 -- Farm spots (`collect … nearest`): seconds to farm the items still missing
 -- there, and how many levels the spot's weakest mobs are above the player
 -- (3 or more: too high).
@@ -2675,6 +2682,14 @@ local function pickFor(goal)
 			for _, c in ipairs(list) do
 				if c.map ~= home and cost[c] * RUN_SPEED > Own.HOME_NEAR then tier[c] = tier[c] + 4 end
 			end
+		end
+	end
+	-- A class trainer the character has outgrown (#2477): after every other one.
+	if goal.t == "train" and goal.class then
+		local level = player.level or 1
+		for _, c in ipairs(list) do
+			local top = c.npc and Own.trainerTop[c.npc]
+			if top and top < level then tier[c] = tier[c] + Own.OUTGROWN end
 		end
 	end
 	-- Farm spots whose mobs are too high go, unless nothing else is left:
@@ -8606,7 +8621,8 @@ end
 -- character first seen without a stored level counts as trained.
 ---------------------------------------------------------------------------
 
-local classTrainers = { candidates = {} } -- a pseudo goal, so pickFor ranks them
+-- A pseudo goal, so pickFor ranks them as a `train class` goal (its outgrown trainers last, #2477).
+local classTrainers = { t = "train", class = true, candidates = {} }
 local trainerClasses = {} -- npc -> { [classFile] = true }, every class trainer
 Own.TRAIN_LOOKAHEAD = 4 -- applicable steps, from the current one
 
@@ -8636,6 +8652,18 @@ function ns.RegisterClassTrainerIds(byClass)
 			end
 		end
 	end
+end
+
+-- The class trainers whose training stops short of the level cap, with the
+-- highest level each teaches ({ [911] = 6, ... }: the starting areas'), from
+-- Core/ClassTrainers.lua: pickFor puts the ones the character has outgrown
+-- last (#2477).
+function ns.RegisterClassTrainerTops(tops)
+	if type(tops) ~= "table" then return end
+	for npc, top in pairs(tops) do
+		if type(npc) == "number" and type(top) == "number" then Own.trainerTop[npc] = top end
+	end
+	contextGen = contextGen + 1 -- every goal's pick, class trainers' or a `train class` goal's, again
 end
 
 -- Where the guide goes next: the first open goal with coordinates of each of
@@ -15442,12 +15470,13 @@ for _, event in ipairs({ "BAG_UPDATE_COOLDOWN", "SPELL_UPDATE_COOLDOWN" }) do
 end
 
 -- Where the player is changed enough to re-pick candidates: a zone change or
--- landing (control comes back after a flight).
+-- landing (control comes back after a flight); and a level-up, past which a
+-- class trainer may be outgrown (#2477) and a farm spot's mobs fit otherwise.
 function Own.onContextEvent()
 	contextGen = contextGen + 1
 	requestUpdate()
 end
-for _, event in ipairs({ "ZONE_CHANGED", "ZONE_CHANGED_INDOORS", "ZONE_CHANGED_NEW_AREA", "PLAYER_CONTROL_GAINED" }) do
+for _, event in ipairs({ "ZONE_CHANGED", "ZONE_CHANGED_INDOORS", "ZONE_CHANGED_NEW_AREA", "PLAYER_CONTROL_GAINED", "PLAYER_LEVEL_UP" }) do
 	ns.RegisterEvent(event, Own.onContextEvent)
 end
 
