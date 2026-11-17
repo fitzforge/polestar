@@ -203,7 +203,7 @@ return {
 
 	-- Step 40: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Fly to {area:1637}"] = "",
+	["Fly to {area:1637}"] = "Летите сюда: {area:1637}",
 	-- {area:2408} Shadowprey Village
 	["{area:2408} flight master"] = "Распорядитель полетов: {area:2408}",
 

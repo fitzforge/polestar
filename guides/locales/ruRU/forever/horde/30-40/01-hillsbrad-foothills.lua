@@ -41,7 +41,7 @@ return {
 
 	-- Step 8: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Fly to {area:1637}"] = "",
+	["Fly to {area:1637}"] = "Летите сюда: {area:1637}",
 	["Crossroads flight master"] = "Распорядитель полетов на Перекрестке",
 
 	-- Step 9: Thrall

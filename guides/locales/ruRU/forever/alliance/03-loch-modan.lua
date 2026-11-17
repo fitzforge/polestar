@@ -37,7 +37,7 @@ return {
 
 	-- Step 7: Back to the Algaz Station
 	-- {area:925} Algaz Station
-	["Back to the {area:925}"] = "",
+	["Back to the {area:925}"] = "Назад к месту {area:925}",
 
 	-- Step 8: Stonewrought Dam
 	["Chief Engineer Hinderweir stands on top of the dam, up the ramp at its west end."] = "",
@@ -122,7 +122,7 @@ return {
 	["South of Thelsamar, Ylva lies dead in the mouth of a trogg cave. Take her banner, raise it beside her and hold the spot: troggs come in waves from both sides, then {npc:269185}.\nCareful: Stonevault Cave Hunters (36, elite) hold the pass just south of Ylva, toward the {zone:1418}: stay by the banner and don't chase troggs south."] = "",
 
 	-- Step 25: The tunnel post
-	["The tunnel post"] = "",
+	["The tunnel post"] = "Пост у туннеля",
 	-- {zone:1426} Dun Morogh
 	["West to the dwarven post at the tunnel to {zone:1426}."] = "",
 

@@ -217,7 +217,7 @@ return {
 
 	-- Step 45: Pristine Yeti Horns
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
-	["Pristine Yeti Horns"] = "",
+	["Pristine Yeti Horns"] = "Нетронутые рога йети",
 	-- {area:2255} Everlook
 	["Umi's horns, carried from your last {area:2255} stop: the yeti hills start just south-east of {area:2255}. Only Matriarchs and Patriarchs drop horns, and the Patriarchs reach 58: pull them one at a time."] = "Рога для Уми, взятые при прошлой остановке ({area:2255}): холмы йети начинаются чуть к юго-востоку от места {area:2255}. Рога падают только с матриархов и патриархов, а патриархи бывают 58-го уровня: выманивайте по одному.",
 

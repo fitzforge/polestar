@@ -97,7 +97,7 @@ return {
 
 	-- Step 17: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Fly to {area:1637}"] = "",
+	["Fly to {area:1637}"] = "Летите сюда: {area:1637}",
 	-- {npc:2995} Tal · {area:1637} Orgrimmar
 	["Back up to {npc:2995} on the central rise and fly to {area:1637}."] = "Поднимитесь обратно к NPC {npc:2995} на центральном возвышении и летите в {area:1637}.",
 

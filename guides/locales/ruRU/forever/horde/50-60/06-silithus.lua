@@ -196,7 +196,7 @@ return {
 
 	-- Step 45: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Fly to {area:1637}"] = "",
+	["Fly to {area:1637}"] = "Летите сюда: {area:1637}",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "Распорядитель полетов: {area:976}",
 
@@ -366,7 +366,7 @@ return {
 	["{npc:10739} camps by the {area:202}, beside the cauldron; his bears roam the hills north and east of it, on the way to {area:201}."] = "{npc:10739} стоит лагерем у места {area:202}, рядом с котлом; его медведи бродят по холмам к северу и востоку, по пути сюда: {area:201}.",
 
 	-- Step 104: Diseased Grizzlies
-	["Diseased Grizzlies"] = "",
+	["Diseased Grizzlies"] = "Болезненные гризли",
 
 	-- Step 107: Target: Gahrron's Withering
 	-- {area:202} The Writhing Haunt · {area:201} Gahrron's Withering · {npc:11078} Cauldron Lord Soulwrath
