@@ -1,14 +1,15 @@
 'use strict';
 // tools/ci-lane.js and the pull request workflows it serves (docs/CI.md, "Lanes"): which changes take ci.yml's
-// docs lane, that the Tests job runs every step in a lane, that the Rust suites start on every document their
-// tests read, and that a newer push cancels a pull request's older run.
+// docs lane and skip forge.yml's suites, that the Tests and Format, lints, tests jobs report on every pull request
+// and run every step in a lane, that the Rust suites run on every document their tests read, and that a newer push
+// cancels a pull request's older run.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
-const { lane, isDocPath, DOCS_TESTS } = require('../tools/ci-lane');
+const { lane, forgeLane, isDocPath, globRe, DOCS_TESTS, FORGE_PATHS } = require('../tools/ci-lane');
 
 const ROOT = path.join(__dirname, '..');
 const WORKFLOWS = path.join(ROOT, '.github', 'workflows');
@@ -51,11 +52,11 @@ test('the docs lane runs test files that exist', () => {
 	for (const t of DOCS_TESTS) assert.ok(fs.existsSync(path.join(ROOT, t)), t);
 });
 
-// The steps of ci.yml's Tests job: [{ name, if }], read by indentation (two spaces a level).
-function testSteps(text) {
+// The steps of a workflow's job: [{ name, if, id }], read by indentation (two spaces a level).
+function jobSteps(text, job) {
 	const lines = text.split('\n');
-	const start = lines.findIndex((l) => /^ {2}test:\s*$/.test(l));
-	assert.ok(start >= 0, 'ci.yml has a test job');
+	const start = lines.findIndex((l) => l === `  ${job}:`);
+	assert.ok(start >= 0, `a ${job} job`);
 	const steps = [];
 	let inSteps = false;
 	for (const l of lines.slice(start + 1)) {
@@ -75,7 +76,7 @@ test("ci.yml's Tests job: the lane step decides, and every step after it runs in
 	const text = workflow('ci.yml');
 	assert.match(text, /^ {4}name: Tests$/m, 'the required check keeps its name');
 	assert.doesNotMatch(text, /^ {2}pull_request:\n {4}paths/m, 'Tests starts on every pull request');
-	const steps = testSteps(text);
+	const steps = jobSteps(text, 'test');
 	const at = steps.findIndex((s) => s.id === 'lane');
 	assert.ok(at > 0, `a step with id lane: ${JSON.stringify(steps)}`);
 	assert.equal(steps.slice(0, at).filter((s) => s.if).length, 0, 'the steps before the lane run in both lanes');
@@ -105,17 +106,45 @@ function rustReadDocs() {
 	return found;
 }
 
-const globRe = (g) => new RegExp(`^${g.replace(/[.+^${}()|[\]\\]/g, '\\$&').replace(/\*\*/g, '\u0000').replace(/\*/g, '[^/]*').replace(/\u0000/g, '.*')}$`);
-
-test("forge.yml starts on every document a Rust test reads, on pushes and pull requests alike", () => {
+test("forge.yml's suites run on every document a Rust test reads, and its pushes start on the same paths", () => {
 	const text = workflow('forge.yml');
 	const lists = [...text.matchAll(/^ {4}paths: \[(.*)\]$/gm)].map((m) => JSON.parse(`[${m[1]}]`));
-	assert.equal(lists.length, 2, 'push and pull_request paths');
-	assert.deepEqual(lists[0], lists[1], 'push and pull_request start on the same paths');
+	assert.equal(lists.length, 1, 'push paths only: every pull request runs forge.yml');
+	assert.deepEqual(lists[0], FORGE_PATHS, "push starts on tools/ci-lane.js's FORGE_PATHS");
 	const read = rustReadDocs();
 	assert.ok(read.has('docs/API.md') && read.has('docs/forge/*.md'), `the reader finds the known reads: ${[...read.keys()]}`);
-	const missing = [...read].filter(([p]) => !lists[1].some((g) => globRe(g).test(p) || globRe(g).test(p.replace(/\*/g, 'x')))).map(([p, w]) => `${p} (${w.join(', ')})`);
-	assert.deepEqual(missing, [], 'add these to forge.yml\'s paths');
+	const missing = [...read].filter(([p]) => !FORGE_PATHS.some((g) => globRe(g).test(p) || globRe(g).test(p.replace(/\*/g, 'x')))).map(([p, w]) => `${p} (${w.join(', ')})`);
+	assert.deepEqual(missing, [], "add these to FORGE_PATHS in tools/ci-lane.js and forge.yml's push paths");
+});
+
+test("forge.yml's lane: its paths run the suites, anything else skips them, no list runs them", () => {
+	for (const files of [['rust/crates/forge/src/main.rs'], ['addon/Polestar/Core/Core.lua'], ['guides/forever/horde/02-the-barrens.guide'], ['forever-db/corrections/quests.json'], ['data/route-fixes.json'], ['tests/lua/stub.lua'], ['docs/forge/routes.md'], ['README.md'], ['.github/workflows/forge.yml'], ['docs/CI.md', 'rust/Cargo.toml'], []]) {
+		assert.equal(forgeLane(files).forge, 'run', files.join(', ') || '(none)');
+	}
+	for (const files of [['docs/CI.md'], ['CONTRIBUTING.md'], ['tools/ci-lane.js', 'tests/ci-lane.test.js'], ['changes/x.md'], ['.github/workflows/ci.yml'], ['skills/polestar-guide-fix/SKILL.md'], ['docs/forgery.md'], ['addons/x.lua']]) {
+		const r = forgeLane(files);
+		assert.equal(r.forge, 'skip', `${files.join(', ')}: ${r.reasons.join('; ')}`);
+	}
+});
+
+test("forge.yml's Format, lints, tests: reports on every pull request, the base's lane decides, every later step runs in it", () => {
+	const text = workflow('forge.yml');
+	assert.match(text, /^ {2}pull_request:\s*$/m, 'every pull request starts forge.yml');
+	assert.match(text, /^ {4}name: Format, lints, tests$/m, 'the required check keeps its name');
+	assert.match(text, /node "\$base\/tools\/ci-lane\.js" --forge --github/, "the lane comes from the base's copy of the script");
+	const job = (name) => {
+		const m = new RegExp(`^ {2}${name}:\\n((?: {4}.*\\n|\\s*\\n)*)`, 'm').exec(text);
+		assert.ok(m, `forge.yml has a ${name} job`);
+		return m[1];
+	};
+	const check = job('check');
+	assert.match(check, /^ {4}needs: lane$/m);
+	assert.match(check, /^ {4}if: \$\{\{ !cancelled\(\) \}\}$/m, 'the check runs whatever the lane job did, so it always reports');
+	const steps = jobSteps(text, 'check');
+	assert.equal(steps[0].if, null, 'the first step runs in both lanes');
+	assert.match(check, /needs\.lane\.result/, 'the first step fails when the lane job did not finish');
+	for (const s of steps.slice(1)) assert.equal(s.if, "needs.lane.outputs.forge != 'skip'", `${s.name}: runs unless the lane skips`);
+	for (const name of ['msrv', 'wasm']) assert.match(job(name), /^ {4}if: needs\.lane\.outputs\.forge != 'skip'$/m, `${name} skips with the lane`);
 });
 
 test('every pull request workflow cancels its run for the same pull request when a newer push comes', () => {

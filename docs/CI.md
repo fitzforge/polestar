@@ -9,11 +9,12 @@ machine for an hour.
 
 ## Lanes
 
-What a pull request starts depends on what it changes. `Tests` (`ci.yml`)
-and `Base branch` (`pr-base.yml`), the checks `next` requires, report on
-every pull request; the other workflows start only on their paths. A newer
-push to a pull request cancels the runs of the older one
-(`tests/ci-lane.test.js` holds every pull request workflow to it).
+What a pull request starts depends on what it changes. `Tests` (`ci.yml`),
+`Format, lints, tests` (`forge.yml`) and `Base branch` (`pr-base.yml`), the
+checks `next` requires, report on every pull request; the other workflows
+start only on their paths. A newer push to a pull request cancels the runs
+of the older one (`tests/ci-lane.test.js` holds every pull request workflow
+to it).
 
 `Tests` picks its lane from the files the pull request changes
 (`tools/ci-lane.js`, run from the base branch's copy so a pull request cannot
@@ -27,9 +28,18 @@ Markdown in the code folders (`changes/`, `tools/`, `tests/`, `skills/`,
 `addon/`, `guides/`, ...) is a fragment, template, fixture or shipped file,
 so it runs the full lane.
 
+`forge.yml` runs the Rust and Lua suites (format, Clippy, the Rust tests with
+the addon's Lua tests, the documented commands; the minimum Rust version and
+the wasm32 build) when the pull request changes a path they read
+(`FORGE_PATHS` in `tools/ci-lane.js`, from the base branch's copy too: the
+Rust code, the addon, the data, the guides, the Lua stub and compiler
+fixtures, and the documents the Rust tests read). Otherwise its `Forge lane`
+job says skip, `Format, lints, tests` passes in seconds and MSRV and wasm32
+are skipped. Pushes to `main` and `next` run them on the same paths.
+
 | Change | `Tests` | `forge.yml` (Format, lints, tests incl. the addon's Lua tests; MSRV; wasm32) | Other |
 |---|---|---|---|
-| Documentation only (`docs/CI.md`, `CONTRIBUTING.md`, an issue form) | docs lane | no | `Base branch`, `Public text`, `Generated guides` |
+| Documentation only (`docs/CI.md`, `CONTRIBUTING.md`, an issue form) | docs lane | skipped (the check passes) | `Base branch`, `Public text`, `Generated guides` |
 | A document a Rust test reads (`docs/FORGE.md`, `docs/forge/`, `docs/API.md`, `docs/GUIDE_FORMAT.md`, `docs/PACK_FORMAT.md`, `docs/PACKS.md`, `README.md`, `THIRD_PARTY.md`) | docs lane | yes | as above |
 | Addon Lua (`addon/`) | full | yes | `Textures` for `addon/Polestar/Theme/` |
 | Rust (`rust/`) | full | yes | `Client` for `rust/crates/polestar-recording/` |
@@ -37,8 +47,8 @@ so it runs the full lane.
 | Corrections (`forever-db/`) | full | yes | `Data corrections` |
 | Node tools and tests (`tools/`, `tests/`) | full | for `tests/lua/`, `tests/fixtures/dsl/` | `Textures` for `tools/media/` |
 
-`tests/ci-lane.test.js` checks that `forge.yml` starts on every document a
-Rust test reads.
+`tests/ci-lane.test.js` checks that `FORGE_PATHS` covers every document a
+Rust test reads and that `forge.yml`'s push trigger lists the same paths.
 
 ## Timing budgets
 
