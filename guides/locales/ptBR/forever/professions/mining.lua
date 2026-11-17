@@ -19,8 +19,8 @@ return {
 	-- {skill:186} Mining · {spell:2657} Smelt Copper
 	["Mine every Copper (1, orange), Poor Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "Minere todos os nós de Cobre (1, laranja) e Cobre Pobre (1, laranja) que encontrar e percorra os pontos de passagem até {skill:186} 50. Funda em uma forja quando as bolsas encherem: {spell:2657} (laranja até 25, cinza em 70) também dá pontos. Nível da zona 1-10. Espere cerca de 60 nós para esses 49 pontos.",
 	["Copper"] = "Cobre",
-	["Poor Copper"] = "Cobre Pobre",
 	["Copper, Poor Copper"] = "Cobre, Cobre Pobre",
+	["Poor Copper"] = "Cobre Pobre",
 
 	-- Step 3: Copper & Poor Copper: Dun Morogh (1-50)
 	-- {zone:1426} Dun Morogh
@@ -39,6 +39,7 @@ return {
 	-- Step 6: Copper & Poor Copper: Durotar (1-50)
 	-- {zone:1411} Durotar
 	["Copper & Poor Copper: {zone:1411} (1-50)"] = "Cobre e Cobre Pobre: {zone:1411} (1-50)",
+	["Poor Copper, Copper"] = "Cobre Pobre, Cobre",
 
 	-- Step 7: Copper: Mulgore (1-50)
 	-- {zone:1412} Mulgore
@@ -49,7 +50,6 @@ return {
 	-- Step 8: Copper & Poor Copper: Tirisfal Glades (1-50)
 	-- {zone:1420} Tirisfal Glades
 	["Copper & Poor Copper: {zone:1420} (1-50)"] = "Cobre e Cobre Pobre: {zone:1420} (1-50)",
-	["Poor Copper, Copper"] = "Cobre Pobre, Cobre",
 
 	-- Step 9: Journeyman Mining
 	-- {skill:186} Mining
@@ -102,6 +102,7 @@ return {
 	["Incendicite & Tin: {zone:1437} (65-125)"] = "Incendicita e Estanho: {zone:1437} (65-125)",
 	-- {skill:186} Mining · {spell:2657} Smelt Copper · {spell:3304} Smelt Tin · {spell:2659} Smelt Bronze · {item:2840} Copper Bar · {item:3576} Tin Bar · {spell:2658} Smelt Silver
 	["Mine every Copper (1, green), Incendicite (65, orange), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. Zone level 20-30. Expect about 130 nodes for these 60 points. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "Minere todos os nós de Cobre (1, verde), Incendicita (65, laranja), Estanho (65, laranja) e Prata (a partir de 75, raro) que encontrar e percorra os pontos de passagem até {skill:186} 125. Funda em uma forja quando as bolsas encherem: {spell:2657} (laranja até 25, cinza em 70), {spell:3304} (cinza em 75) e {spell:2659} (cinza em 115) também dão pontos. {spell:2659} usa {item:2840} e {item:3576}, um de cada: guarde barras das fundições anteriores. Nível da zona 20-30. Espere cerca de 130 nós para esses 60 pontos. {spell:2658} (2s; laranja até 100, cinza em 125) é ensinado a partir de 75: aprenda se passar por um instrutor de {skill:186}; não vale uma viagem só para isso.",
+	["Copper, Tin"] = "Cobre, Estanho",
 	["Tin, Copper"] = "Estanho, Cobre",
 	["Incendicite, Tin"] = "Incendicita, Estanho",
 
@@ -111,13 +112,6 @@ return {
 	-- {skill:186} Mining · {spell:2657} Smelt Copper · {spell:3304} Smelt Tin · {spell:2659} Smelt Bronze · {item:2840} Copper Bar · {item:3576} Tin Bar · {spell:2658} Smelt Silver
 	["Mine every Copper (1, green), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. Zone level 18-30. Expect about 130 nodes for these 60 points. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "Minere todos os nós de Cobre (1, verde), Estanho (65, laranja) e Prata (a partir de 75, raro) que encontrar e percorra os pontos de passagem até {skill:186} 125. Funda em uma forja quando as bolsas encherem: {spell:2657} (laranja até 25, cinza em 70), {spell:3304} (cinza em 75) e {spell:2659} (cinza em 115) também dão pontos. {spell:2659} usa {item:2840} e {item:3576}, um de cada: guarde barras das fundições anteriores. Nível da zona 18-30. Espere cerca de 130 nós para esses 60 pontos. {spell:2658} (2s; laranja até 100, cinza em 125) é ensinado a partir de 75: aprenda se passar por um instrutor de {skill:186}; não vale uma viagem só para isso.",
 	["Tin"] = "Estanho",
-
-	-- Step 20: Copper & Tin: The Barrens (65-125)
-	-- {zone:1413} The Barrens
-	["Copper & Tin: {zone:1413} (65-125)"] = "Cobre e Estanho: {zone:1413} (65-125)",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper · {spell:3304} Smelt Tin · {spell:2659} Smelt Bronze · {item:2840} Copper Bar · {item:3576} Tin Bar · {spell:2658} Smelt Silver
-	["Mine every Copper (1, green), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. Zone level 10-25. Expect about 280 nodes for these 60 points. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "Minere todos os nós de Cobre (1, verde), Estanho (65, laranja) e Prata (a partir de 75, raro) que encontrar e percorra os pontos de passagem até {skill:186} 125. Funda em uma forja quando as bolsas encherem: {spell:2657} (laranja até 25, cinza em 70), {spell:3304} (cinza em 75) e {spell:2659} (cinza em 115) também dão pontos. {spell:2659} usa {item:2840} e {item:3576}, um de cada: guarde barras das fundições anteriores. Nível da zona 10-25. Espere cerca de 280 nós para esses 60 pontos. {spell:2658} (2s; laranja até 100, cinza em 125) é ensinado a partir de 75: aprenda se passar por um instrutor de {skill:186}; não vale uma viagem só para isso.",
-	["Copper, Tin"] = "Cobre, Estanho",
 
 	-- Step 21: Tin: Hillsbrad Foothills (65-125)
 	-- {zone:1424} Hillsbrad Foothills
@@ -137,7 +131,7 @@ return {
 	-- {skill:186} Mining · {spell:3307} Smelt Iron
 	["Mine every Tin (65, green), Lesser Bloodstone (75, green), Silver (75, green, rare), Iron (125, orange) node you pass and circle the waypoints until {skill:186} 155. Smelt at a forge when your bags fill: {spell:3307} (orange to 130, grey at 140) gives points too. Zone level 30-40. Expect about 50 nodes for these 30 points."] = "Minere todos os nós de Estanho (65, verde), Pedra-sangrenta Inferior (75, verde), Prata (75, verde, raro) e Ferro (125, laranja) que encontrar e percorra os pontos de passagem até {skill:186} 155. Funda em uma forja quando as bolsas encherem: {spell:3307} (laranja até 130, cinza em 140) também dá pontos. Nível da zona 30-40. Espere cerca de 50 nós para esses 30 pontos.",
 	["Iron, Tin"] = "Ferro, Estanho",
-	["Lesser Bloodstone"] = "Pedra-sangrenta Inferior",
+	["Lesser Bloodstone, Iron"] = "",
 
 	-- Step 24: Iron: Arathi Highlands (155-175)
 	-- {zone:1417} Arathi Highlands
@@ -150,6 +144,7 @@ return {
 	["Mithril: {zone:1418} (175-200)"] = "Mithril: {zone:1418} (175-200)",
 	-- {skill:186} Mining · {spell:3308} Smelt Gold
 	["Mine every Iron (125, green), Gold (155, orange), Mithril (175, orange) node you pass and circle the waypoints until {skill:186} 200. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. Zone level 35-45. Expect about 40 nodes for these 25 points."] = "Minere todos os nós de Ferro (125, verde), Ouro (155, laranja) e Mithril (175, laranja) que encontrar e percorra os pontos de passagem até {skill:186} 200. Funda em uma forja quando as bolsas encherem: {spell:3308} (laranja até 170, cinza em 185) também dá pontos. Nível da zona 35-45. Espere cerca de 40 nós para esses 25 pontos.",
+	["Mithril, Iron"] = "",
 	["Iron, Mithril"] = "Ferro, Mithril",
 
 	-- Step 26: Artisan Mining
@@ -193,6 +188,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:186} trainer of your faction teaches Apprentice {skill:186} (character level 5); the arrow picks the nearest. Buy a {item:2901} from a trade goods or general vendor: keep it in your bags, you cannot mine without it."] = "Qualquer instrutor de {skill:186} da sua facção ensina {skill:186} Aprendiz (nível de personagem 5); a seta escolhe o mais próximo. Compre uma {item:2901} de um mercador de mercadorias ou de artigos gerais: mantenha-a nas bolsas, sem ela você não pode minerar.",
 	-- ["Artisan {skill:186} raises the cap to 300; it needs skill 200 and character level 35. The arrow picks the nearest {skill:186} trainer of your faction."] = "{skill:186} Artífice eleva o limite para 300; requer perícia 200 e nível de personagem 35. A seta escolhe o instrutor de {skill:186} mais próximo da sua facção.",
+	-- ["Copper & Tin: {zone:1413} (65-125)"] = "Cobre e Estanho: {zone:1413} (65-125)",
 	-- ["Copper, Silver"] = "Cobre, Prata",
 	-- ["Copper: {zone:1411} (1-50)"] = "Cobre: {zone:1411} (1-50)",
 	-- ["Copper: {zone:1411} (50-65) cont."] = "Cobre: {zone:1411} (50-65) cont.",
@@ -213,12 +209,14 @@ return {
 	-- ["Iron: {zone:1416} (125-155)"] = "Ferro: {zone:1416} (125-155)",
 	-- ["Iron: {zone:1431} (125-155)"] = "Ferro: {zone:1431} (125-155)",
 	-- ["Journeyman {skill:186} raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest {skill:186} trainer of your faction."] = "{skill:186} Profissional eleva o limite para 150; requer perícia 50 e nível de personagem 10. A seta escolhe o instrutor de {skill:186} mais próximo da sua facção.",
+	-- ["Lesser Bloodstone"] = "Pedra-sangrenta Inferior",
 	-- ["Lesser Bloodstone, Gold"] = "Pedra-sangrenta Inferior, Ouro",
 	-- ["Lesser Bloodstone, Silver"] = "Pedra-sangrenta Inferior, Prata",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 10-20."] = "Minere cada jazida de Cobre (1, verde), Estanho (65, laranja), Prata (a partir de 75) pelo caminho e percorra os pontos de rota até {skill:186} 125. Funda o minério numa forja quando as bolsas encherem: fundir também eleva {skill:186}. Zona de nível 10-20.",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 10-25."] = "Minere cada jazida de Cobre (1, verde), Estanho (65, laranja), Prata (a partir de 75) pelo caminho e percorra os pontos de rota até {skill:186} 125. Funda o minério numa forja quando as bolsas encherem: fundir também eleva {skill:186}. Zona de nível 10-25.",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 15-25."] = "Minere cada jazida de Cobre (1, verde), Estanho (65, laranja), Prata (a partir de 75) pelo caminho e percorra os pontos de rota até {skill:186} 125. Funda o minério numa forja quando as bolsas encherem: fundir também eleva {skill:186}. Zona de nível 15-25.",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 20-30."] = "Minere cada jazida de Cobre (1, verde), Estanho (65, laranja), Prata (a partir de 75) pelo caminho e percorra os pontos de rota até {skill:186} 125. Funda o minério numa forja quando as bolsas encherem: fundir também eleva {skill:186}. Zona de nível 20-30.",
+	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. Zone level 10-25. Expect about 280 nodes for these 60 points. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "Minere todos os nós de Cobre (1, verde), Estanho (65, laranja) e Prata (a partir de 75, raro) que encontrar e percorra os pontos de passagem até {skill:186} 125. Funda em uma forja quando as bolsas encherem: {spell:2657} (laranja até 25, cinza em 70), {spell:3304} (cinza em 75) e {spell:2659} (cinza em 115) também dão pontos. {spell:2659} usa {item:2840} e {item:3576}, um de cada: guarde barras das fundições anteriores. Nível da zona 10-25. Espere cerca de 280 nós para esses 60 pontos. {spell:2658} (2s; laranja até 100, cinza em 125) é ensinado a partir de 75: aprenda se passar por um instrutor de {skill:186}; não vale uma viagem só para isso.",
 	-- ["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "Minere todos os nós de Cobre (1, laranja) e Cobre Pobre (1, laranja) que encontrar e percorra os pontos de passagem até {skill:186} 50. Funda em uma forja quando as bolsas encherem: {spell:2657} (laranja até 25, cinza em 70) também dá pontos. Nível da zona 1-10. Espere cerca de 60 nós para esses 49 pontos.",
 	-- ["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 10-20. Expect about 60 nodes for these 49 points."] = "Minere todos os nós de Cobre (1, laranja) que encontrar e percorra os pontos de passagem até {skill:186} 50. Funda em uma forja quando as bolsas encherem: {spell:2657} (laranja até 25, cinza em 70) também dá pontos. Nível da zona 10-20. Espere cerca de 60 nós para esses 49 pontos.",
 	-- ["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 1-10."] = "Minere cada jazida de Cobre (1, laranja) pelo caminho e percorra os pontos de rota até {skill:186} 50. Funda o minério numa forja quando as bolsas encherem: fundir também eleva {skill:186}. Zona de nível 1-10.",

@@ -19,8 +19,8 @@ return {
 	-- {skill:186} Mining · {spell:2657} Smelt Copper
 	["Mine every Copper (1, orange), Poor Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "採集沿途經過的每一個銅礦（1，橙色）、劣質銅礦（1，橙色），並繞著路徑點循環，直到{skill:186}50。背包滿了就到熔爐熔煉：{spell:2657}（25之前為橙色，70變灰）也會提供點數。地區等級1-10。這49點預計需要約60個礦點。",
 	["Copper"] = "銅礦",
-	["Poor Copper"] = "劣質銅礦",
 	["Copper, Poor Copper"] = "銅礦、劣質銅礦",
+	["Poor Copper"] = "劣質銅礦",
 
 	-- Step 3: Copper & Poor Copper: Dun Morogh (1-50)
 	-- {zone:1426} Dun Morogh
@@ -39,6 +39,7 @@ return {
 	-- Step 6: Copper & Poor Copper: Durotar (1-50)
 	-- {zone:1411} Durotar
 	["Copper & Poor Copper: {zone:1411} (1-50)"] = "銅礦與劣質銅礦：{zone:1411}（1-50）",
+	["Poor Copper, Copper"] = "劣質銅礦、銅礦",
 
 	-- Step 7: Copper: Mulgore (1-50)
 	-- {zone:1412} Mulgore
@@ -49,7 +50,6 @@ return {
 	-- Step 8: Copper & Poor Copper: Tirisfal Glades (1-50)
 	-- {zone:1420} Tirisfal Glades
 	["Copper & Poor Copper: {zone:1420} (1-50)"] = "銅礦與劣質銅礦：{zone:1420}（1-50）",
-	["Poor Copper, Copper"] = "劣質銅礦、銅礦",
 
 	-- Step 9: Journeyman Mining
 	-- {skill:186} Mining
@@ -102,6 +102,7 @@ return {
 	["Incendicite & Tin: {zone:1437} (65-125)"] = "燃石與錫礦：{zone:1437}（65-125）",
 	-- {skill:186} Mining · {spell:2657} Smelt Copper · {spell:3304} Smelt Tin · {spell:2659} Smelt Bronze · {item:2840} Copper Bar · {item:3576} Tin Bar · {spell:2658} Smelt Silver
 	["Mine every Copper (1, green), Incendicite (65, orange), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. Zone level 20-30. Expect about 130 nodes for these 60 points. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "路過每一處銅礦（1點，綠色）、燃石（65，橙色）、錫礦（65，橙色）、銀礦（75起，稀有）都採，並沿路徑點迴圈，直到{skill:186}達到125。揹包滿了就在熔爐熔鍊：{spell:2657}（25前橙色，70後變灰）、{spell:3304}（75後變灰）、{spell:2659}（115後變灰）也能漲點。{spell:2659}每次需要一塊{item:2840}和一塊{item:3576}：在學它之前，把熔鍊出的錠留著。區域等級20-30。這60點大約需要130個礦點。{spell:2658}（2銀；100前橙色，125後變灰）從75起可學：路過{skill:186}訓練師就學，不值得專門跑一趟。",
+	["Copper, Tin"] = "銅礦、錫礦",
 	["Tin, Copper"] = "錫礦、銅礦",
 	["Incendicite, Tin"] = "燃石、錫礦",
 
@@ -111,13 +112,6 @@ return {
 	-- {skill:186} Mining · {spell:2657} Smelt Copper · {spell:3304} Smelt Tin · {spell:2659} Smelt Bronze · {item:2840} Copper Bar · {item:3576} Tin Bar · {spell:2658} Smelt Silver
 	["Mine every Copper (1, green), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. Zone level 18-30. Expect about 130 nodes for these 60 points. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "路過每一處銅礦（1點，綠色）、錫礦（65，橙色）、銀礦（75起，稀有）都採，並沿路徑點迴圈，直到{skill:186}達到125。揹包滿了就在熔爐熔鍊：{spell:2657}（25前橙色，70後變灰）、{spell:3304}（75後變灰）、{spell:2659}（115後變灰）也能漲點。{spell:2659}每次需要一塊{item:2840}和一塊{item:3576}：在學它之前，把熔鍊出的錠留著。區域等級18-30。這60點大約需要130個礦點。{spell:2658}（2銀；100前橙色，125後變灰）從75起可學：路過{skill:186}訓練師就學，不值得專門跑一趟。",
 	["Tin"] = "錫礦",
-
-	-- Step 20: Copper & Tin: The Barrens (65-125)
-	-- {zone:1413} The Barrens
-	["Copper & Tin: {zone:1413} (65-125)"] = "銅礦與錫礦：{zone:1413}（65-125）",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper · {spell:3304} Smelt Tin · {spell:2659} Smelt Bronze · {item:2840} Copper Bar · {item:3576} Tin Bar · {spell:2658} Smelt Silver
-	["Mine every Copper (1, green), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. Zone level 10-25. Expect about 280 nodes for these 60 points. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "路過每一處銅礦（1點，綠色）、錫礦（65，橙色）、銀礦（75起，稀有）都採，並沿路徑點迴圈，直到{skill:186}達到125。揹包滿了就在熔爐熔鍊：{spell:2657}（25前橙色，70後變灰）、{spell:3304}（75後變灰）、{spell:2659}（115後變灰）也能漲點。{spell:2659}每次需要一塊{item:2840}和一塊{item:3576}：在學它之前，把熔鍊出的錠留著。區域等級10-25。這60點大約需要280個礦點。{spell:2658}（2銀；100前橙色，125後變灰）從75起可學：路過{skill:186}訓練師就學，不值得專門跑一趟。",
-	["Copper, Tin"] = "銅礦、錫礦",
 
 	-- Step 21: Tin: Hillsbrad Foothills (65-125)
 	-- {zone:1424} Hillsbrad Foothills
@@ -137,7 +131,7 @@ return {
 	-- {skill:186} Mining · {spell:3307} Smelt Iron
 	["Mine every Tin (65, green), Lesser Bloodstone (75, green), Silver (75, green, rare), Iron (125, orange) node you pass and circle the waypoints until {skill:186} 155. Smelt at a forge when your bags fill: {spell:3307} (orange to 130, grey at 140) gives points too. Zone level 30-40. Expect about 50 nodes for these 30 points."] = "採集沿途經過的每一個錫礦（65，綠色）、次級血石礦（75，綠色）、銀礦（75，綠色，稀有）、鐵礦床（125，橙色），並繞著路徑點循環，直到{skill:186}155。背包滿了就到熔爐熔煉：{spell:3307}（130之前為橙色，140變灰）也會提供點數。地區等級30-40。這30點預計需要約50個礦點。",
 	["Iron, Tin"] = "鐵礦、錫礦",
-	["Lesser Bloodstone"] = "次級血石",
+	["Lesser Bloodstone, Iron"] = "",
 
 	-- Step 24: Iron: Arathi Highlands (155-175)
 	-- {zone:1417} Arathi Highlands
@@ -150,6 +144,7 @@ return {
 	["Mithril: {zone:1418} (175-200)"] = "秘銀：{zone:1418}（175-200）",
 	-- {skill:186} Mining · {spell:3308} Smelt Gold
 	["Mine every Iron (125, green), Gold (155, orange), Mithril (175, orange) node you pass and circle the waypoints until {skill:186} 200. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. Zone level 35-45. Expect about 40 nodes for these 25 points."] = "採集沿途經過的每一個鐵礦床（125，綠色）、金礦脈（155，橙色）、祕銀礦床（175，橙色），並繞著路徑點循環，直到{skill:186}200。背包滿了就到熔爐熔煉：{spell:3308}（170之前為橙色，185變灰）也會提供點數。地區等級35-45。這25點預計需要約40個礦點。",
+	["Mithril, Iron"] = "",
 	["Iron, Mithril"] = "鐵礦、秘銀",
 
 	-- Step 26: Artisan Mining
@@ -192,6 +187,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:186} trainer of your faction teaches Apprentice {skill:186} (character level 5); the arrow picks the nearest. Buy a {item:2901} from a trade goods or general vendor: keep it in your bags, you cannot mine without it."] = "你陣營的任何{skill:186}訓練師都能教初級{skill:186}（角色等級5）；箭頭會指向最近的一位。向商業用品商或雜貨商購買{item:2901}：放在背包裡，沒有它就無法採礦。",
+	-- ["Copper & Tin: {zone:1413} (65-125)"] = "銅礦與錫礦：{zone:1413}（65-125）",
 	-- ["Copper, Silver"] = "銅礦、銀礦",
 	-- ["Copper: {zone:1439} (1-50)"] = "銅礦：{zone:1439}（1-50）",
 	-- ["Copper: {zone:1439} (50-65) cont."] = "銅礦：{zone:1439}（50-65）（續）",
@@ -206,10 +202,12 @@ return {
 	-- ["Iron: {zone:1416} (125-155)"] = "鐵礦床：{zone:1416}（125-155）",
 	-- ["Iron: {zone:1431} (125-155)"] = "鐵礦床：{zone:1431}（125-155）",
 	-- ["Journeyman {skill:186} raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest {skill:186} trainer of your faction."] = "中級{skill:186}將上限提高至150；需要技能50且角色等級10。箭頭會指向你陣營最近的{skill:186}訓練師。",
+	-- ["Lesser Bloodstone"] = "次級血石",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 10-20."] = "採集沿途經過的每一個銅礦（1，綠色）、錫礦（65，橙色）、銀礦（75起），並繞著路徑點循環，直到{skill:186}125。背包滿了就到熔爐熔煉礦石：熔煉也會提升{skill:186}。地區等級10-20。",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 10-25."] = "採集沿途經過的每一個銅礦（1，綠色）、錫礦（65，橙色）、銀礦（75起），並繞著路徑點循環，直到{skill:186}125。背包滿了就到熔爐熔煉礦石：熔煉也會提升{skill:186}。地區等級10-25。",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 15-25."] = "採集沿途經過的每一個銅礦（1，綠色）、錫礦（65，橙色）、銀礦（75起），並繞著路徑點循環，直到{skill:186}125。背包滿了就到熔爐熔煉礦石：熔煉也會提升{skill:186}。地區等級15-25。",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 20-30."] = "採集沿途經過的每一個銅礦（1，綠色）、錫礦（65，橙色）、銀礦（75起），並繞著路徑點循環，直到{skill:186}125。背包滿了就到熔爐熔煉礦石：熔煉也會提升{skill:186}。地區等級20-30。",
+	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. Zone level 10-25. Expect about 280 nodes for these 60 points. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "路過每一處銅礦（1點，綠色）、錫礦（65，橙色）、銀礦（75起，稀有）都採，並沿路徑點迴圈，直到{skill:186}達到125。揹包滿了就在熔爐熔鍊：{spell:2657}（25前橙色，70後變灰）、{spell:3304}（75後變灰）、{spell:2659}（115後變灰）也能漲點。{spell:2659}每次需要一塊{item:2840}和一塊{item:3576}：在學它之前，把熔鍊出的錠留著。區域等級10-25。這60點大約需要280個礦點。{spell:2658}（2銀；100前橙色，125後變灰）從75起可學：路過{skill:186}訓練師就學，不值得專門跑一趟。",
 	-- ["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 10-20."] = "採集沿途經過的每一個銅礦（1，黃色），並繞著路徑點循環，直到{skill:186}65。背包滿了就到熔爐熔煉礦石：熔煉也會提升{skill:186}。地區等級10-20。",
 	-- ["Mine every Gold (155, green), Mithril (175, green), Truesilver (230, orange), Small Thorium (245, orange) node you pass and circle the waypoints until {skill:186} 275. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 45-55."] = "採集沿途經過的每一個金礦脈（155，綠色）、祕銀礦床（175，綠色）、真銀礦床（230，橙色）、瑟銀礦脈（245，橙色），並繞著路徑點循環，直到{skill:186}275。背包滿了就到熔爐熔煉礦石：熔煉也會提升{skill:186}。地區等級45-55。",
 	-- ["Mine every Gold (155, green), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 43-50."] = "採集沿途經過的每一個金礦脈（155，綠色）、祕銀礦床（175，綠色）、{object:147516}（230，橙色）、真銀礦床（230，橙色），並繞著路徑點循環，直到{skill:186}245。背包滿了就到熔爐熔煉礦石：熔煉也會提升{skill:186}。地區等級43-50。",

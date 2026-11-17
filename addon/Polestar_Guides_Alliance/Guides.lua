@@ -1019,8 +1019,7 @@ do
 					title = "The red crystal",
 					note = "Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge.",
 					goals = {
-						{ t = "interact", quest = 4811, title = "The Red Crystal", object = 175524, objName = "Mysterious Red Crystal", oi = 1, map = 1439, x = 47.25, y = 48.72, z = 81, only = { races = { "Dwarf", "Gnome", "Human", "Skyborne" } } },
-						{ t = "complete", quest = 4811, title = "The Red Crystal", only = { races = { "Dwarf", "Gnome", "Human", "Skyborne" } }, objs = { { text = "Locate the large, red crystal on Darkshore's eastern mountain range", count = 1 } } },
+						{ t = "complete", quest = 4811, title = "The Red Crystal", map = 1439, x = 47.2, y = 48.7, f = "e", only = { races = { "Dwarf", "Gnome", "Human", "Skyborne" } }, note = "{object:175524}", objs = { { text = "Locate the large, red crystal on Darkshore's eastern mountain range", count = 1 } } },
 					},
 				},
 				{
@@ -19463,8 +19462,7 @@ do
 					title = "The red crystal",
 					note = "Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge.",
 					goals = {
-						{ t = "interact", quest = 4811, title = "The Red Crystal", object = 175524, objName = "Mysterious Red Crystal", oi = 1, map = 1439, x = 47.25, y = 48.72, z = 81 },
-						{ t = "complete", quest = 4811, title = "The Red Crystal", objs = { { text = "Locate the large, red crystal on Darkshore's eastern mountain range", count = 1 } } },
+						{ t = "complete", quest = 4811, title = "The Red Crystal", map = 1439, x = 47.2, y = 48.7, f = "e", note = "{object:175524}", objs = { { text = "Locate the large, red crystal on Darkshore's eastern mountain range", count = 1 } } },
 					},
 				},
 				{

@@ -187,7 +187,7 @@ return {
 
 	-- Step 31: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "{zone:1454}的飛行管理員",
 
 	-- Step 32: Orgrimmar
 	["Train before you fly on: the next guide flies from here."] = "繼續飛行前先訓練：下一份指南從這裡起飛。",

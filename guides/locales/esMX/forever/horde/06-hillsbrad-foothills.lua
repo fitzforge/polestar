@@ -187,7 +187,7 @@ return {
 
 	-- Step 31: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "Maestro de vuelo de {zone:1454}",
 
 	-- Step 32: Orgrimmar
 	["Train before you fly on: the next guide flies from here."] = "Entrena antes de seguir en vuelo: la siguiente guía vuela desde aquí.",

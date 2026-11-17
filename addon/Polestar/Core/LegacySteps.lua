@@ -59,6 +59,7 @@ ns.LegacyStepsLoad = function() return {
 		[2206092108] = "turnin:729,accept:731,complete:731",
 		[2365794239] = "turnin:952",
 		[2491130227] = "turnin:4731,turnin:4733,turnin:4732,accept:87760,turnin:4740,accept:98461,turnin:731,turnin:6123,accept:6124,turnin:98042,turnin:986,accept:993,vendor:",
+		[2687736308] = "interact:4811,complete:4811",
 		[2726360707] = "turnin:985,accept:986,turnin:4728,turnin:4730,turnin:4727,turnin:4725,turnin:4813,turnin:6122,accept:6123,turnin:4762,accept:4763,use:12346,collect:12347,vendor:",
 		[2994578933] = "collect:986,accept:98042,accept:945,complete:945,accept:968,complete:944,turnin:944,accept:949,turnin:949,accept:950,collect:98042",
 		[3069141168] = "accept:954,accept:97914,vendor:,accept:958,accept:982,accept:984,accept:965,accept:2118,accept:4811,accept:947,accept:98025,accept:4740,getfp:3841,accept:983,accept:3524,accept:1138,accept:963,accept:1141,accept:729",
@@ -1087,6 +1088,7 @@ ns.LegacyStepsLoad = function() return {
 		[1014268781] = "goto:1439,complete:984",
 		[1700170998] = "sethome:6737,accept:983,accept:4811,turnin:1141",
 		[1924131405] = "vendor:",
+		[2687736308] = "interact:4811,complete:4811",
 		[3405839476] = "goto:1439,complete:2118",
 	},
 	["forever/alliance/skyborne/01-zephras-isle"] = {
