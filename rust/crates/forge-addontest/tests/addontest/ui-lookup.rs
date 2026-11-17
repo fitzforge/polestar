@@ -598,3 +598,28 @@ fn lookup_turned_off_in_options_guides_only_the_section_says_where_to_turn_it_on
 	assert!(is_match(text(&out["none"]), r"Nothing matches .saber.\. Lookup is turned off in Options > Discovery > Lookup"));
 	assert_eq!(out["loads"], 0);
 }
+
+// #2692: Lookup's "Lookup is off: searching guides only" sits in the hub's tab row. Going to the guide list hides
+// the section's frame (the hub's), not Lookup's own, and the line read only its own frame's state: it stayed on
+// the guide list over its tabs. The hub hiding with Lookup open keeps it for when the hub comes back.
+#[test]
+fn the_codex_line_leaves_the_tab_row_with_the_section_and_comes_back_with_it_2692() {
+	let out = run(r#"
+		stub.cascadeVisibility = true
+		lookupstub.loaded, lookupstub.reason = false, "off"
+		Polestar.Codex.Load = function() return false, "off" end
+		UI.ShowLookup()
+		local line = LK.root.CodexLine
+		local r = { lookup = { line:GetText(), line:IsVisible() } }
+		Polestar.UI.Picker.ShowSection("Guides")
+		r.guides = { tabs = PolestarPicker.TabRow:IsShown(), line = line:IsVisible() }
+		UI.ShowLookup()
+		r.back = line:IsVisible()
+		PolestarPicker:Hide(); PolestarPicker:Show()
+		r.reopened = line:IsVisible()
+		emit(r)"#);
+	assert_eq!(out["lookup"], json!(["Lookup is off: searching guides only", true]));
+	assert_eq!(out["guides"], json!({ "tabs": true, "line": false }), "the guide list's tab row is its own");
+	assert_eq!(out["back"], true, "back in Lookup, the line is back");
+	assert_eq!(out["reopened"], true, "the hub hidden and shown again with Lookup open keeps it");
+}
