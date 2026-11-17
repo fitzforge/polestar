@@ -121,10 +121,6 @@
 			"title": "I did all the steps but I dont have the quest swelling forces from Arbal to acc",
 			"why": "PINNED (rule): dwarf: turnin 950@alliance/03-darkshore-return:92 vs accept 98013@alliance/03-darkshore-return:97; gnome: turnin 950@alliance/03-darkshore-return:92 vs accept 98013@alliance/03-darkshore-return:97; human: turnin 950@alliance/03-darkshore-return:92 vs accept 98013@alliance/03-darkshore-return:97 | da"
 		},
-		"394": {
-			"title": "Dungeon Quest XP Incorrect",
-			"why": "HOLDS (data): the 53 dungeon-XP corrections are all applied in the release data (forever-db/corrections vs data/forever); the 2 tests the PR added are gone"
-		},
 		"410": {
 			"title": "Guide is labelling the objectives incorrectly but counting them properly.",
 			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 4/4"
@@ -136,10 +132,6 @@
 		"455": {
 			"title": "Guide format: bring back petllama's `along` objectives, `loop` steps, half-level goals, `skipto` and conditional `next` on top of `when`",
 			"why": "PINNED (linked): tests/planner-timeline.test.js: test('a level goal inside a level grinds to that share of its XP, and "
-		},
-		"462": {
-			"title": "WC Pickup Quests Start",
-			"why": "HOLDS (data): data: Deviate Hides (1486) start npc [5767 Nalpak] only (no mailbox)"
 		},
 		"480": {
 			"title": "XP Tracker Tooltip Bug",
@@ -225,10 +217,6 @@
 			"title": "Wrong step: Ashenvale, Wetlands & Stonetalon Mountains, step 49",
 			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 1/2"
 		},
-		"703": {
-			"title": "Guides: six bare `complete` goals where the arrow stays on the giver",
-			"why": "CANT-TELL (code): place records from #704 (test lost); see the records table"
-		},
 		"771": {
 			"title": "Bug: client black screen",
 			"why": "NOT-A-FIX: reporter: app opened as usual"
@@ -272,10 +260,6 @@
 		"1001": {
 			"title": "watching the roads Quest",
 			"why": "PINNED (rule): orc: turnin 482@horde/03-silverpine-forest:384 vs accept 95981@horde/05-stonetalon-mountains:274; skyborne: turnin 482@horde/03-silverpine-forest:384 vs accept 95981@horde/05-stonetalon-mountains:274; tauren: turnin 482@horde/03-silverpine-forest:384 vs accept 95981@horde/05-stonetalon-mountains:274"
-		},
-		"1031": {
-			"title": "Feature: export and import Polestar settings to share them with friends",
-			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 1/9"
 		},
 		"1034": {
 			"title": "Codex recorded sources: use the data build's drop-chance and reward rules before the first non-empty snapshot",
