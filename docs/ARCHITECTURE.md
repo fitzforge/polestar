@@ -3305,21 +3305,31 @@ holds at its opening, see "Not yet available"):
   latched. Any other open goal holds the step.
 
 **The catch-up** (`Own.catchUp`, with `behavior.skipGrey` on, in a guide that
-does not do every step): before the start is worked out, the accepts behind
-the last quest progress that are more than 2 levels below the character
-(green or lower) and not taken yet are left out, unless a quest worth doing
+does not do every step) judges a quest by what Forever pays for it at the
+character's level (`Own.payShare`, `Levels.Share`: 100% up to 5 levels over the
+quest, 80% at 6, 60% at 7, 50% from 8, the curve of forge-guide's `xp.rs`, pinned
+by forge-addontest's levels test) and the walk it costs (#2620). A quest still
+paying full XP is never left out. One paying less is left out only when it is
+a detour (`Own.detours`): the walk from the nearest place of the route's own
+work to each of its places and back, `HERE_WINDING` over the straight line at
+`HERE_SPEED`, takes more than `Own.DETOUR_SEC` (60 s, forge-sim's
+`DETOUR_CHEAP_SEC`). Before the start is worked out, such accepts behind the
+last quest progress and not taken yet are left out, unless a quest worth doing
 needs them first (`Own.needsFrom` down `pre`/`preAll`, over the guide and the
-guides after it: `Own.chainOf`). Worth doing: an accept that is not grey,
-behind the anchor only from 2 levels below up. A quest in the log goes by the
-same rules (`"log"`): left out while not done, kept once it only has to be
-handed in. Left out (`Own.leftOut[guideId]`, for the session; each
-placement works it out again), an accept no longer applies, with its turn-in
-and objectives; taking the quest by hand brings it back. In a guide the
-character is past (`maxLevel` + 2) going
-back is a detour: every grey or green accept not taken yet is left out,
-anywhere in the guide, unless at least `Own.CHAIN_WORTH` (3) accepts from
-yellow up need it down the chain (`Own.catchUpPast`); a quest in the log
-too, until it only has to be handed in. Grey accepts anywhere go by `behavior.skipGrey`'s own rule (greyNeed).
+guides after it: `Own.chainOf`). Worth doing: an accept that is not grey
+(`Own.greyOut`), behind the anchor only one not left out. A quest in the log
+goes by the same rules (`"log"`): left out while not done, kept once it only
+has to be handed in. Left out (`Own.leftOut[guideId]`, with each quest's share
+and detour in `Own.leftOutWhy`, for the session; each placement works it out
+again; turning the setting off clears both), an accept no longer applies,
+with its turn-in and objectives; taking the quest by hand brings it back. In
+a guide the character is past (`maxLevel` + 2) the route's own work is the
+guide's quests still paying full XP: every accept paying less and not taken
+yet is left out when it is a detour from them, anywhere in the guide, unless
+at least `Own.CHAIN_WORTH` (3) accepts paying full XP need it down the chain
+(`Own.catchUpPast`); a quest in the log too, until it only has to be handed
+in. Grey accepts anywhere go by `behavior.skipGrey`'s own rule (greyNeed):
+grey in the client and paying less than full XP (`Own.greyOut`).
 Travel goals (goto, fly, hearth, explore) before the start also pass in a
 step before the last left-out or grey-skipped accept: the way to what was
 left out goes with it. A flight path, a hearth, training or a purchase there

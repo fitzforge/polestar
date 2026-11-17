@@ -362,24 +362,40 @@ function Own.needsFrom(pres, open)
 	return set
 end
 
+-- What Forever pays for a quest of level qlvl at the character's level
+-- (Levels.Share, the curve forge-guide's xp.rs and the level model use: 1 up
+-- to 5 levels over the quest, 0.8 at 6, 0.6 at 7, 0.5 from 8 on; #2620).
+function Own.payShare(qlvl, level)
+	local Lv, q = ns.Levels, tonumber(qlvl)
+	if not (Lv and q and level) then return 1 end
+	return Lv.Share(level, q)
+end
+
+-- Grey for "Skip grey quests": grey for the character in the client, and
+-- paying less than full XP. A quest the client shows grey but that still
+-- pays it all (a level 4 quest at 9) is no quest to leave out.
+function Own.greyOut(qlvl, level)
+	local q = tonumber(qlvl)
+	return q ~= nil and Compat().IsQuestTrivial(q, level) and Own.payShare(q, level) < 1
+end
+
 -- Quests a guide or any guide after it (via `next` and every route choice)
 -- still needs at a character level: the prerequisites (`pre`, `preAll`) of
--- every accept that is not grey at that level, and of every accept a needed
--- quest's own accept is, down the chain (a grey Buzzbox 827 opens the Buzzbox
--- quests that still give full experience). A quest's own turn-in and
--- objectives are not a need: they go with its accept. Each needed quest maps
--- to the accept that is not grey it leads to, the nearest down the chain
--- (the first in guide order among equals). Cached per guide and level.
+-- every accept that is not grey at that level (Own.greyOut), and of every
+-- accept a needed quest's own accept is, down the chain (a grey Buzzbox 827
+-- opens the Buzzbox quests that still give full experience). A quest's own
+-- turn-in and objectives are not a need: they go with its accept. Each needed
+-- quest maps to the accept that is not grey it leads to, the nearest down the
+-- chain (the first in guide order among equals). Cached per guide and level.
 local function chainNeeds(g, level)
 	local chain = Own.chainOf(g)
 	local c = chainNeedsCache[g]
 	local set = c[level]
 	if set then return set end
-	local C = Compat()
 	-- The accepts that are not grey, needed as they are.
 	local open = {}
 	for _, goal in ipairs(chain.accepts) do
-		if not (goal.qlvl and C.IsQuestTrivial(tonumber(goal.qlvl), level)) then open[#open + 1] = goal end
+		if not Own.greyOut(goal.qlvl, level) then open[#open + 1] = goal end
 	end
 	set = Own.needsFrom(chain.pres, open)
 	c[level] = set
@@ -394,8 +410,9 @@ function Own.everyStep(g)
 end
 
 -- behavior.skipGrey: an accept for a quest already grey for the character
--- (or a `turnin ... direct`, handed in with no accept, the compiler giving it
--- its quest's level too), not taken yet and not a prerequisite of a quest
+-- (Own.greyOut: the client's grey, paying less than full XP; or a `turnin ...
+-- direct`, handed in with no accept, the compiler giving it its quest's level
+-- too), not taken yet and not a prerequisite of a quest
 -- later in the guide or its chain, no longer applies (status "na", never
 -- blocks, never auto-accepted);
 -- its turn-in and objectives go with it (orphaned). greyNeed gives false for
@@ -406,7 +423,7 @@ local function greyNeed(goal)
 	if not (goal.t == "accept" or goal.direct) or not goal.qlvl or not ns.Get("behavior.skipGrey") or Own.everyStep(guide) then return nil end
 	local C = Compat()
 	local level = player.level or 1
-	if not C.IsQuestTrivial(tonumber(goal.qlvl), level) then return nil end
+	if not Own.greyOut(goal.qlvl, level) then return nil end
 	local q = goal.quest
 	if C.IsOnQuest(q) or questDone(q) then return nil end
 	return chainNeeds(guide, level)[q] or false
@@ -607,7 +624,8 @@ end
 -- The catch-up's quests left out, per guide (guideId -> { [questID] = true |
 -- "log" }), for the session; placement works them out again (Own.catchUp).
 -- Taken by hand, a quest is back; one in the log ("log") is back once done.
-Own.leftOut = {}
+-- leftOutWhy: the same quests' { share, secs } (Own.catchUp's why).
+Own.leftOut, Own.leftOutWhy = {}, {}
 -- Guides placement passed whole (guideId -> true), for the session: the
 -- guide list checks such a guide only once every quest of it is done
 -- (Engine.GetGuideState). placedThrough: the ones opened for the player
@@ -4200,62 +4218,183 @@ local function anchorStep(added)
 	return 0
 end
 
--- The catch-up: behind the last quest progress (anchor), the guide leaves out
--- what is too low to be worth going back for, as "Skip grey quests" does for
--- grey quests anywhere: an accept that is green for the character (more than
--- 2 levels below) and not taken yet, unless a quest worth doing needs it first
--- (down the guide and the guides after it). Worth doing: an accept that is
--- not grey, behind the anchor only from yellow up (2 levels below or more). A
--- quest in the log by the same rules ("log"): left out while not done, kept
--- once it only has to be handed in. Only for leveling guides, with "Skip grey
--- quests" on.
+-- The catch-up (#2620): what Forever pays for a quest at the character's
+-- level (Own.payShare) and the walk it costs decide what the guide leaves
+-- out. A quest still paying full XP is never left out. One paying less (6
+-- levels or more below the character) is left out when it is a detour: the
+-- walk from the nearest place of the route's own work to each of its places
+-- and back takes more than DETOUR_SEC (forge-sim's DETOUR_CHEAP_SEC: a detour
+-- that short keeps a quest paying half worth the route's time, its work at 6
+-- levels and more over its mobs going fast). On the way, it stays, its XP
+-- per minute at least the route's.
+--
+-- Behind the last quest progress (anchor), such an accept not taken yet is
+-- left out, unless a quest worth doing needs it first (down the guide and the
+-- guides after it). Worth doing: an accept that is not grey (Own.greyOut),
+-- behind the anchor only one not left out. A quest in the log by the same
+-- rules ("log"): left out while not done, kept once it only has to be handed
+-- in. A grey accept not taken is greyNeed's. Only for leveling guides, with
+-- "Skip grey quests" on. -> out ({ [q] = true | "log" }), why ({ [q] = {
+-- share (Own.payShare), secs (the detour, seconds; nil: no place of it
+-- known) } }: the guide window's "left out here" says it, Engine.LeftOutHere).
+Own.DETOUR_SEC = 60
+
+-- A goal's place in world yards: continent, x, y; nil when it has none.
+local function worldPoint(goal)
+	local map, x, y, f = posOf(goal)
+	if not (map and x and y) then return nil end
+	return Compat().MapToWorld(map, x, y, f)
+end
+
+-- The walk each quest of `cand` ({ [q] = true }) adds to the loaded guide's
+-- route (Own.catchUp), in seconds: from the nearest place of the route to
+-- each of its places and back (HERE_WINDING over the straight line, at
+-- HERE_SPEED). The route's places: every goal of a step `ahead(s)` holds for,
+-- and every goal of a quest still to do that is no candidate and not left
+-- out as grey (greyNeed). A quest's own: its goals for the character (no
+-- accept once it is in the log). -> { [q] = seconds (math.huge: no place of
+-- the route on its continent) }, nil for a quest with no place known.
+function Own.detours(cand, ahead)
+	local C = Compat()
+	local accepts = layoutOf(guide).accepts
+	local route, own = {}, {}
+	for s, step in ipairs(guide.steps) do
+		if stepApplies(step) then
+			for _, goal in ipairs(step.goals) do
+				local q = goal.quest
+				local mine = q and cand[q]
+				local use = Guides.Matches(goal.only, player)
+				if use and mine then
+					use = not (goal.t == "accept" and C.IsOnQuest(q))
+				elseif use then
+					local a = q and accepts[q] and accepts[q][1]
+					if q then
+						use = (ahead(s) or isQuestGoal(goal)) and not questDone(q) and not (a and greyNeed(a.goal) == false)
+					else
+						use = ahead(s)
+					end
+				end
+				local c, x, y = nil, nil, nil
+				if use then c, x, y = worldPoint(goal) end
+				if c then
+					local list
+					if mine then
+						list = own[q] or {}
+						own[q] = list
+					else
+						list = route
+					end
+					list[#list + 1] = { c, x, y }
+				end
+			end
+		end
+	end
+	local secs = {}
+	for q, places in pairs(own) do
+		local sum = 0
+		for _, p in ipairs(places) do
+			local best = math.huge
+			for _, r in ipairs(route) do
+				if r[1] == p[1] then
+					local d = (r[2] - p[2]) ^ 2 + (r[3] - p[3]) ^ 2
+					if d < best then best = d end
+				end
+			end
+			sum = sum + 2 * math.sqrt(best) * Own.HERE_WINDING / Own.HERE_SPEED
+		end
+		secs[q] = sum
+	end
+	return secs
+end
+
+-- Of the quests `cand` ({ [q] = true }), the ones that are a detour
+-- (Own.detours over DETOUR_SEC, or no place known): { [q] = true }, and each
+-- detour's seconds.
+local function awayOf(cand, ahead)
+	local secs, away = Own.detours(cand, ahead), {}
+	for q in pairs(cand) do
+		if not (secs[q] and secs[q] <= Own.DETOUR_SEC) then away[q] = true end
+	end
+	return away, secs
+end
+
+-- The catch-up's detours, settled: a candidate a quest worth doing needs
+-- (worthOf(away) -> the accepts worth doing, Own.needsFrom down the chain)
+-- is no candidate any more but part of the route, so the detours of the rest
+-- are worked out again from it (Thistlefur's Between a Rock and a
+-- Thistlefur, which King of the Foulweald needs, then takes the way past the
+-- other Thistlefur quests). `cand` keeps only the quests still to judge. ->
+-- away, secs as awayOf
+local function settle(cand, ahead, worthOf)
+	local pres = Own.chainOf(guide).pres
+	local away, secs
+	for _ = 1, 4 do
+		away, secs = awayOf(cand, ahead)
+		local needs, more = Own.needsFrom(pres, worthOf(away)), false
+		for q in pairs(needs) do
+			if cand[q] then
+				cand[q], more = nil, true
+			end
+		end
+		if not more or not next(cand) then break end
+	end
+	return away, secs
+end
+
 function Own.catchUp(anchor, level)
 	local _, top = Guides.Levels(guide, player and player.faction)
 	if top and level >= top + 2 then return Own.catchUpPast(level) end
-	local out = {}
-	if anchor <= 1 then return out end
+	local out, why = {}, {}
+	if anchor <= 1 then return out, why end
 	local C = Compat()
-	local stepOf = layoutOf(guide).stepOf
-	local chain = Own.chainOf(guide)
-	local function low(goal)
-		local qlvl = tonumber(goal.qlvl)
-		return qlvl ~= nil and qlvl < level - 2
-	end
-	local worth = {}
-	for _, goal in ipairs(chain.accepts) do
-		local s = stepOf[goal]
-		local qlvl = tonumber(goal.qlvl)
-		if not (qlvl and C.IsQuestTrivial(qlvl, level)) and not (s and s < anchor and low(goal)) then
-			worth[#worth + 1] = goal
-		end
-	end
-	local needs = Own.needsFrom(chain.pres, worth)
 	local steps = guide.steps
+	-- Accepts behind the anchor paying less than full XP: open, or in the log and not done.
+	local cand, list = {}, {}
 	for s = 1, anchor - 1 do
 		if stepApplies(steps[s]) then
 			for _, goal in ipairs(steps[s].goals) do
 				local q = goal.quest
-				if (goal.t == "accept" or goal.direct) and q and not goal.optional and Guides.Matches(goal.only, player)
-					and low(goal) and not needs[q] and not questDone(q) then
-					if C.IsOnQuest(q) then
-						-- In the log: left out until done, kept to hand in.
-						if not C.IsQuestReadyForTurnIn(q) then out[q] = "log" end
-					elseif not C.IsQuestTrivial(tonumber(goal.qlvl), level) then
-						out[q] = true -- grey ones: greyNeed
+				if (goal.t == "accept" or goal.direct) and q and not cand[q] and not goal.optional and Guides.Matches(goal.only, player)
+					and not questDone(q) and Own.payShare(goal.qlvl, level) < 1 then
+					local onQuest = C.IsOnQuest(q)
+					if (onQuest and not C.IsQuestReadyForTurnIn(q)) or (not onQuest and not Own.greyOut(goal.qlvl, level)) then
+						cand[q] = true
+						list[#list + 1] = goal
 					end
 				end
 			end
 		end
 	end
-	return out
+	if not next(cand) then return out, why end
+	local stepOf = layoutOf(guide).stepOf
+	local chain = Own.chainOf(guide)
+	local away, secs = settle(cand, function(s) return s >= anchor end, function(away)
+		local worth = {}
+		for _, goal in ipairs(chain.accepts) do
+			local s = stepOf[goal]
+			if not Own.greyOut(goal.qlvl, level) and not (s and s < anchor and away[goal.quest]) then worth[#worth + 1] = goal end
+		end
+		return worth
+	end)
+	for _, goal in ipairs(list) do
+		local q = goal.quest
+		if cand[q] and away[q] then
+			out[q] = C.IsOnQuest(q) and "log" or true
+			why[q] = { share = Own.payShare(goal.qlvl, level), secs = secs[q] }
+		end
+	end
+	return out, why
 end
 
 -- In a guide the character is past (2 levels over its top), going back is a
--- detour: every grey or green accept not taken yet is left out, unless at
--- least CHAIN_WORTH quests from yellow up need it, down the chain (The Tower
--- of Althalaxx at 30: five grey and green quests in Darkshore lead to four
--- at 28 and 31 in Ashenvale, so the chain stays). A quest in the log by the
--- same rules, kept once it only has to be handed in.
+-- detour unless the guide's own work still worth it takes them there: every
+-- accept paying less than full XP and not taken yet is left out when it is a
+-- detour from the quests that still pay it all (Own.detours), unless one of
+-- those in this guide needs it, or at least CHAIN_WORTH quests paying full XP
+-- need it down the chain (The Tower of Althalaxx at 30: five low quests in
+-- Darkshore lead to four at 28 and 31 in Ashenvale, so the chain stays). A
+-- quest in the log by the same rules, kept once it only has to be handed in.
+-- -> out, why as Own.catchUp.
 Own.CHAIN_WORTH = 3
 function Own.catchUpPast(level)
 	local C = Compat()
@@ -4264,12 +4403,11 @@ function Own.catchUpPast(level)
 	local key = "past:" .. level
 	local counts = cache[key]
 	if not counts then
-		-- For each quest, how many distinct accepts from yellow up need it.
+		-- For each quest, how many distinct accepts paying full XP need it.
 		counts = {}
 		local targets = {}
 		for _, goal in ipairs(chain.accepts) do
-			local qlvl = tonumber(goal.qlvl)
-			if qlvl and qlvl >= level - 2 and not targets[goal.quest] then
+			if goal.qlvl and Own.payShare(goal.qlvl, level) >= 1 and not targets[goal.quest] then
 				targets[goal.quest] = true
 				local seen, queue, head = { [goal.quest] = true }, { goal.quest }, 1
 				while queue[head] do
@@ -4289,24 +4427,40 @@ function Own.catchUpPast(level)
 		end
 		cache[key] = counts
 	end
-	local out = {}
+	local cand, list = {}, {}
 	for _, step in ipairs(guide.steps) do
 		if stepApplies(step) then
 			for _, goal in ipairs(step.goals) do
-				local q, qlvl = goal.quest, tonumber(goal.qlvl)
-				if (goal.t == "accept" or goal.direct) and q and qlvl and qlvl < level - 2 and not goal.optional
+				local q = goal.quest
+				if (goal.t == "accept" or goal.direct) and q and not cand[q] and goal.qlvl and Own.payShare(goal.qlvl, level) < 1 and not goal.optional
 					and Guides.Matches(goal.only, player) and not questDone(q)
-					and (counts[q] or 0) < Own.CHAIN_WORTH then
-					if not C.IsOnQuest(q) then
-						out[q] = true
-					elseif not C.IsQuestReadyForTurnIn(q) then
-						out[q] = "log" -- in the log, not done: left out; done, kept to hand in
-					end
+					and (counts[q] or 0) < Own.CHAIN_WORTH
+					and not (C.IsOnQuest(q) and C.IsQuestReadyForTurnIn(q)) then
+					cand[q] = true
+					list[#list + 1] = goal
 				end
 			end
 		end
 	end
-	return out
+	local out, why = {}, {}
+	if not next(cand) then return out, why end
+	local stepOf = layoutOf(guide).stepOf
+	local away, secs = settle(cand, function() return false end, function(away)
+		local worth = {}
+		for _, goal in ipairs(chain.accepts) do
+			if stepOf[goal] and (Own.payShare(goal.qlvl, level) >= 1 or (cand[goal.quest] and not away[goal.quest])) then worth[#worth + 1] = goal end
+		end
+		return worth
+	end)
+	for _, goal in ipairs(list) do
+		local q = goal.quest
+		if cand[q] and away[q] then
+			-- In the log, not done: left out; done, kept to hand in.
+			out[q] = C.IsOnQuest(q) and "log" or true
+			why[q] = { share = Own.payShare(goal.qlvl, level), secs = secs[q] }
+		end
+	end
+	return out, why
 end
 
 -- The first step with an accept waiting for the character's level
@@ -4397,11 +4551,11 @@ local function place()
 	local level = player.level or 1
 	local sk = skippedFor(guide.id)
 	local catchUp = ns.Get("behavior.skipGrey") and not Own.everyStep(guide)
-	Own.leftOut[guide.id] = nil
+	Own.leftOut[guide.id], Own.leftOutWhy[guide.id] = nil, nil
 	local addedAll = ns.CharState().added
 	local added = type(addedAll) == "table" and addedAll[guide.id] or nil
 	local anchor = anchorStep(added)
-	if catchUp then Own.leftOut[guide.id] = Own.catchUp(anchor, level) end
+	if catchUp then Own.leftOut[guide.id], Own.leftOutWhy[guide.id] = Own.catchUp(anchor, level) end
 	Own.passedNow[guide.id], Own.passedWhole[guide.id] = nil, nil
 	local function open(s, g, goal)
 		return blocks(goal) and goalApplies(goal) and not unavailableFor(goal) and not goalDone(s, g, goal)
@@ -10749,6 +10903,227 @@ function Own.stepWhy(step, goals)
 	return L["Skipped for your character: none of its goals apply"]
 end
 
+-- What the route leaves out at step i of the loaded guide, and why (#2634),
+-- for the guide window's "N left out here" and the bug report: the quests of
+-- step i the window does not show (left out by Skip grey quests or its
+-- catch-up, or an accept waiting for a level), and the quests of the steps
+-- just before it that the route passed over whole (back to a step with
+-- anything done, one the player skipped, or LEFT_OUT_STEPS steps), each once.
+-- The reasons are the engine's own marks: the catch-up's (Own.leftOutWhy),
+-- greyNeed's, unavailableFor's (pre, closed, level, skipped), a step's
+-- `when` (Own.whenText) and the plan's quests left out for a prerequisite
+-- from an earlier guide (Own.hiddenAt). Never a step or goal for another class or race
+-- (`only`), a dungeon run not taken (Own.dungeonHidden), a quest done, or a
+-- goal with no reason the engine knows. -> { { quest, title, kind ("catchup" |
+-- "grey" | "pre" | "closed" | "level" | "skipped" | "when"), text, fix = nil |
+-- { kind = "chain", quest } (Lookup's guide to the quest through what it
+-- needs) | { kind = "skipGrey" } (turn the setting off), step }, ... }.
+-- Kept per step for the evaluation (the window asks it on every refill).
+-- alone: step i's own quests only (the step browser's card for it), all of a
+-- step the route passed over.
+Own.LEFT_OUT_STEPS = 25
+Own.leftOutCache = setmetatable({}, { __mode = "k" })
+function Engine.LeftOutHere(i, alone)
+	if not (guide and type(i) == "number" and guide.steps[i]) then return {} end
+	if not player then refreshPlayer() end
+	local cache = Own.leftOutCache[guide]
+	if not (cache and cache.gen == generation and cache.level == player.level) then
+		cache = { gen = generation, level = player.level, alone = {} }
+		Own.leftOutCache[guide] = cache
+	end
+	local kept = alone and cache.alone or cache
+	if kept[i] then return kept[i] end
+	local C, l = Compat(), layoutOf(guide)
+	local out, seen = {}, {}
+	local share = function(qlvl) return math.floor(Own.payShare(qlvl, player.level or 1) * 100 + 0.5) end
+	local function add(s, goal, kind, text, fix)
+		local q = goal.quest
+		seen[q] = true
+		out[#out + 1] = { quest = q, title = titleOfQuest(q, goal.preTitles), kind = kind, text = text, fix = fix, step = s }
+	end
+	-- One goal of step s: whole, the route passed the step over.
+	local function judge(s, goal, whole, when)
+		local q = goal.quest
+		if not q or seen[q] or not Guides.Matches(goal.only, player) or questDone(q) then return end
+		if when then return add(s, goal, "when", when) end
+		local lo = Own.leftOut[guide.id]
+		local w = lo and lo[q]
+		if w and ((w == "log" and not C.IsQuestReadyForTurnIn(q)) or (w ~= "log" and not C.IsOnQuest(q))) then
+			local y = (Own.leftOutWhy[guide.id] or NONE)[q] or NONE
+			return add(s, goal, "catchup", L["Pays %d%% XP at your level and is out of the way (Skip grey quests)"]:format(y.share and math.floor(y.share * 100 + 0.5) or share(goal.qlvl)), { kind = "skipGrey" })
+		end
+		local list = l.accepts[q]
+		local a = (goal.t == "accept" or goal.direct) and goal or (list and list[1] and list[1].goal)
+		if a and greyNeed(a) == false then
+			return add(s, goal, "grey", L["Grey for you: pays %d%% XP (Skip grey quests)"]:format(share(a.qlvl)), { kind = "skipGrey" })
+		end
+		local u = unavailableFor(goal)
+		if not u then return end
+		-- On the step itself only an accept waiting for a level is out of sight (goalView).
+		if not whole and not (u.reason == "level" and goal.t == "accept" and not Own.waitsOnLevel(s)) then return end
+		if u.reason == "pre" then
+			local root = Own.skippedWithTitle(u)
+			if root then return add(s, goal, "pre", L["Left out because you skipped %s"]:format(ns.Quoted(root))) end
+			return add(s, goal, "pre", unavailableText(u), { kind = "chain", quest = u.accept.quest or q })
+		end
+		return add(s, goal, u.reason, unavailableText(u))
+	end
+	-- The quests the plan left out with all their goals (Own.feederPlan's
+	-- `hidden`: a prerequisite from an earlier guide not put in), at the step
+	-- that stands where their accept was (Own.hiddenAt).
+	local function planned(s)
+		for _, h in ipairs(Own.hiddenAt(guide)[s] or NONE) do
+			local q = h.q
+			if not seen[q] and not questDone(q) then
+				seen[q] = true
+				out[#out + 1] = { quest = q, title = titleOfQuest(q, { [q] = h.title }), kind = "pre",
+					text = L["Requires %s first"]:format(ns.Quoted(h.needTitle or titleOfQuest(h.need))), fix = { kind = "chain", quest = q }, step = s }
+			end
+		end
+	end
+	local steps = guide.steps
+	if alone then
+		planned(i)
+		if stepApplies(steps[i]) and not (Own.hiddenStep(steps[i]) or Own.dungeonHidden(steps[i])) then
+			local whole = stepStatusOf(i) == "skipped"
+			for _, goal in ipairs(steps[i].goals) do judge(i, goal, whole) end
+		end
+		cache.alone[i] = out
+		return out
+	end
+	-- The steps passed over just before i, nearest first.
+	local first = i
+	for j = i - 1, math.max(1, i - Own.LEFT_OUT_STEPS), -1 do
+		local step = steps[j]
+		if isSkipped(j) then break end
+		if not (Own.hiddenStep(step) or Own.dungeonHidden(step)) then
+			if stepApplies(step) then
+				local any = false
+				for g, goal in ipairs(step.goals) do
+					if Guides.Matches(goal.only, player) and goalDone(j, g, goal) then
+						any = true
+						break
+					end
+				end
+				if any then break end
+			end
+			first = j
+		end
+	end
+	for j = first, i do
+		local step = steps[j]
+		planned(j)
+		if not (Own.hiddenStep(step) or Own.dungeonHidden(step) or Own.gone(step)) then
+			local when
+			if not stepApplies(step) then
+				local p = Own.whenFails(step)
+				when = p and p.k ~= "dungeon" and Own.whenText(p) or nil
+			end
+			if when or stepApplies(step) then
+				for _, goal in ipairs(step.goals) do
+					judge(j, goal, j < i, when)
+				end
+			end
+		end
+	end
+	cache[i] = out
+	return out
+end
+
+-- Where the guide window says each quest of planned guide g's `hidden` is
+-- left out (Engine.LeftOutHere): { [step] = { { q, title, need, needTitle },
+-- ... } }, at g's first step standing for its accept's step in the guide it
+-- was planned from (`fromBase`), or a later one when that step went.
+Own.hiddenAtCache = setmetatable({}, { __mode = "k" })
+function Own.hiddenAt(g)
+	if not (g.hidden and g.base and g.fromBase) then return NONE end
+	local at = Own.hiddenAtCache[g]
+	if at then return at end
+	at = {}
+	local accepts, base = layoutOf(g.base).accepts, g.base.steps
+	local qs = {}
+	for q in pairs(g.hidden) do qs[#qs + 1] = q end
+	table.sort(qs)
+	for _, q in ipairs(qs) do
+		local a = accepts[q] and accepts[q][1]
+		if a then
+			local t
+			for b = a.s, #base do
+				t = g.fromBase[b]
+				if t then break end
+			end
+			t = t or #g.steps
+			local h = g.hidden[q]
+			at[t] = at[t] or {}
+			at[t][#at[t] + 1] = { q = q, title = h.title, need = h.need, needTitle = h.needTitle }
+		end
+	end
+	Own.hiddenAtCache[g] = at
+	return at
+end
+
+-- Why a grind step grinds, and what else there is (#2634): for step i of the
+-- loaded guide with an open `level` goal, the levels of the quests the guide
+-- takes next (its next GRIND_NEXT accepts for the character after step i,
+-- not done), and the quests of this guide still worth doing near the player
+-- instead: not done, not in the log, the character can take them now (no
+-- level, prerequisite or closed mark, Skip grey quests not leaving them out
+-- as grey), their giver within GRIND_NEAR_YD. A quest the catch-up left out
+-- as a detour counts: from here it is none. -> { lo, hi (nil: no quest
+-- after it), nearby = { { quest, title, share }, ... } (at most GRIND_NEARBY) }
+-- | nil. Kept for the evaluation, as Engine.LeftOutHere.
+Own.GRIND_NEXT, Own.GRIND_NEAR_YD, Own.GRIND_NEARBY = 6, 400, 3
+Own.grindCache = {}
+function Engine.GrindHint(i)
+	local step = guide and type(i) == "number" and guide.steps[i]
+	if not (step and stepApplies(step)) then return nil end
+	if not player then refreshPlayer() end
+	local gc = Own.grindCache
+	if gc.guide == guide and gc.gen == generation and gc.i == i then return gc.hint or nil end
+	local grind = false
+	for g, goal in ipairs(step.goals) do
+		if goal.t == "level" and goalApplies(goal) and not goalDone(i, g, goal) then grind = true end
+	end
+	gc.guide, gc.gen, gc.i, gc.hint = guide, generation, i, false
+	if not grind then return nil end
+	local C = Compat()
+	local level = player.level or 1
+	local lo, hi, n = nil, nil, 0
+	for s = i + 1, #guide.steps do
+		local other = guide.steps[s]
+		if stepApplies(other) and not Own.dungeonStep(other) then
+			for _, goal in ipairs(other.goals) do
+				local q, lvl = goal.quest, tonumber(goal.qlvl)
+				if goal.t == "accept" and q and lvl and Guides.Matches(goal.only, player) and not questDone(q) and not C.IsOnQuest(q) then
+					lo, hi, n = math.min(lo or lvl, lvl), math.max(hi or lvl, lvl), n + 1
+				end
+			end
+		end
+		if n >= Own.GRIND_NEXT then break end
+	end
+	local nearby = {}
+	local c, px, py = C.GetPlayerWorldPosition()
+	local seen = {}
+	for s, other in ipairs(c and guide.steps or NONE) do
+		if stepApplies(other) then
+			for _, goal in ipairs(other.goals) do
+				local q = goal.quest
+				if #nearby < Own.GRIND_NEARBY and goal.t == "accept" and q and not seen[q] and Guides.Matches(goal.only, player)
+					and not questDone(q) and not C.IsOnQuest(q) and greyNeed(goal) ~= false and not unavailableFor(goal) and not missingPre(goal) then
+					seen[q] = true
+					local wc, gx, gy = worldPoint(goal)
+					if wc == c and (gx - px) ^ 2 + (gy - py) ^ 2 <= Own.GRIND_NEAR_YD ^ 2 then
+						nearby[#nearby + 1] = { quest = q, title = titleOfQuest(q, goal.preTitles), share = Own.payShare(goal.qlvl, level), step = s }
+					end
+				end
+			end
+		end
+	end
+	if not lo and #nearby == 0 then return nil end
+	gc.hint = { lo = lo, hi = hi, nearby = nearby }
+	return gc.hint
+end
+
 -- Whether step i of the loaded guide applies now (nil), else why not: 0
 -- for a step not for this character (`only`) or gone from the game, else the
 -- index of its first `when` predicate that fails. What a skipped step says
@@ -14855,6 +15230,9 @@ ns.On("SETTING_CHANGED", function(path)
 		Own.dungeonGen = Own.dungeonGen + 1
 		requestUpdate()
 	end
+	-- Turned off, every quest the catch-up left out is back at once (the guide
+	-- window's "Turn off" under "left out here", Engine.LeftOutHere).
+	if path == "behavior.skipGrey" and not ns.Get("behavior.skipGrey") then Own.leftOut, Own.leftOutWhy = {}, {} end
 	if path == "behavior.groupQuests" or path == "behavior.deathskips" or path == "behavior.skipGrey" then requestUpdate() end
 end)
 
