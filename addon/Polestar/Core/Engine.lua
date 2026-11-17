@@ -5132,7 +5132,10 @@ local function unavailableText(u)
 		if pre then return L["Requires %s first"]:format(ns.Quoted(titleOfQuest(pre, a.preTitles))) end
 	end
 	local N = ns.Names
-	return L["Not offered by %s"]:format(N.Npc(a.npc) or a.npcName or N.Object(a.object) or a.objName or L["the quest giver"])
+	local giver = N.Npc(a.npc) or a.npcName or N.Object(a.object) or a.objName or L["the quest giver"]
+	-- A lead-in its giver did not offer (Own.leadIn): the quest it leads to is taken without it.
+	if u.reason == "leadin" then return L["Not offered by %s: you can take %s without it"]:format(giver, ns.Quoted(titleOfQuest(u.by, a.preTitles))) end
+	return L["Not offered by %s"]:format(giver)
 end
 
 -- The name of the first NPC (else object) the Codex says takes quest p in,
@@ -15810,7 +15813,10 @@ end
 -- a page without one says "Report it" again. Nor is a refusal while the
 -- missing prerequisite is in the log ready to hand in (Own.preReady): the
 -- window shows before the hand-in that opens the quest (Regthar Deathgate,
--- Kolkar Leaders then Verog the Dervish, #998). A detail window opened from
+-- Kolkar Leaders then Verog the Dervish, #998). Nor is the refusal of a
+-- lead-in (Own.leadIn): it marks only the lead-in ("leadin"), so the guide
+-- passes it and its hand-in and goes on to the quest it leads to, which
+-- keeps the rule above. A detail window opened from
 -- that giver's list or chat option, popped up by a turn-in at that giver
 -- (the follow-up quest), or started by an item, says nothing about the
 -- others.
@@ -15852,7 +15858,9 @@ end
 -- tab has moved past is cleared only when the data says the quest has just
 -- opened: its level reached and prerequisites done (the guide goes back to
 -- it, as for #70). A mark still gated stays, its reason brought up to date
--- (a level reached, a prerequisite still missing).
+-- (a level reached, a prerequisite still missing); so does a lead-in's: the
+-- data never says its giver offers it now (the giver's window listing it
+-- does, Own.listed).
 function Own.clearMarks()
 	if not player then
 		wipe(unavailable)
@@ -15873,7 +15881,13 @@ function Own.clearMarks()
 	useActive()
 	for q, u in pairs(unavailable) do
 		local now, parent
-		if passed[q] then now, parent = unavailableReason(u.accept) end
+		if passed[q] then
+			if u.reason == "leadin" then
+				now = "leadin"
+			else
+				now, parent = unavailableReason(u.accept)
+			end
+		end
 		if now then
 			u.reason, u.pre = now, parent
 		else
@@ -15885,6 +15899,25 @@ end
 function Own.listed(q)
 	unavailable[q] = nil
 	Own.notListed[q] = nil
+end
+
+-- Accept `goal` as a lead-in of the loaded guide: one of its `closedBy` (the
+-- quest a breadcrumb leads to, in Forever's data) is a quest this guide
+-- takes too, with an accept that applies to the character, and no accept
+-- here needs it (layoutOf's `needs`). Its giver's refusal costs nothing but
+-- the lead-in: that quest's own giver gives it without (#2475: players'
+-- recordings, Tabetha offered Tiara of the Deep to 14 people who never had
+-- Anastasia Hartwell's Tabetha's Task). -> the quest it leads to, or nil
+function Own.leadIn(goal)
+	if type(goal.closedBy) ~= "table" then return nil end
+	local l = layoutOf(guide)
+	if l.needs[goal.quest] then return nil end
+	for _, by in ipairs(goal.closedBy) do
+		for _, a in ipairs(by ~= goal.quest and l.accepts[by] or NONE) do
+			if goalApplies(a.goal) then return by end
+		end
+	end
+	return nil
 end
 
 local function checkOffers(source, startItem)
@@ -15935,7 +15968,13 @@ local function checkOffers(source, startItem)
 						unavailable[q] = { reason = why, accept = goal, pre = parent }
 					elseif not why then
 						if chat == nil then chat = source == "gossip" and C.GossipHasChat() or false end
-						Own.notListed[q] = { goal = goal, chat = chat }
+						-- A lead-in passes, unless the quest may sit behind the chat option.
+						local by = not chat and Own.leadIn(goal)
+						if by then
+							unavailable[q] = { reason = "leadin", accept = goal, by = by }
+						else
+							Own.notListed[q] = { goal = goal, chat = chat }
+						end
 					end
 				end
 			end
