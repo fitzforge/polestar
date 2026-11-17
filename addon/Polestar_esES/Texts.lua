@@ -591,6 +591,7 @@ t.guides["forever/alliance/30-40/02-desolace"] = (function() return {
 		["{object:177787}, beside the chest: keep it, its keys and chest come on {zone:1443}'s south loop at the end of 30-40"] = "{object:177787}, junto al cofre: guárdalo, sus llaves y el cofre llegan en el circuito sur de {zone:1443} al final de 30-40",
 } end)()
 t.guides["forever/alliance/30-40/03-ashenvale"] = (function() return {
+		["Boat to {area:35}"] = "Barco a {area:35}",
 		["East through the canyons. {area:484}, a Horde camp with guards, sits on the mesa here: keep to the canyon floor and give the foot of its lifts a wide berth."] = "Al este por los cañones. {area:484}, un campamento de la Horda con guardias, está sobre la meseta: quédate en el fondo del cañón y mantente bien lejos del pie de sus elevadores.",
 		["Fly to Theramore"] = "Vuela a Theramore",
 		["Fly to {area:150}"] = "Vuela a {area:150}",
@@ -614,6 +615,7 @@ t.guides["forever/alliance/30-40/03-ashenvale"] = (function() return {
 } end)()
 t.guides["forever/alliance/30-40/04-stranglethorn-vale"] = (function() return {
 		["Back south past Nesingwary: Panthers and Stranglethorn Raptors run in the clearings west of the camp toward the coast; the elder tigers hold the hills south-west."] = "Vuelve al sur, pasado Nesingwary: las Panteras y los Raptores de Tuercespina corren por los claros al oeste del campamento, hacia la costa; los tigres mayores ocupan las colinas del suroeste.",
+		["Boat to {area:35}"] = "Barco a {area:35}",
 		["Both roam the grass around the camp and along the road north."] = "Ambos recorren la hierba alrededor del campamento y a lo largo del camino al norte.",
 		["Class training"] = "Entrenamiento de clase",
 		["Fly to {area:467}"] = "Vuela a {area:467}",

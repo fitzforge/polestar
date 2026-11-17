@@ -592,6 +592,7 @@ t.guides["forever/alliance/30-40/02-desolace"] = (function() return {
 		["{object:177787}, beside the chest: keep it, its keys and chest come on {zone:1443}'s south loop at the end of 30-40"] = "{object:177787}，在箱子旁邊：先留著，它的鑰匙和箱子在30-40結尾的{zone:1443}南線上",
 } end)()
 t.guides["forever/alliance/30-40/03-ashenvale"] = (function() return {
+		["Boat to {area:35}"] = "搭船前往{area:35}",
 		["East through the canyons. {area:484}, a Horde camp with guards, sits on the mesa here: keep to the canyon floor and give the foot of its lifts a wide berth."] = "向東穿過峽谷。{area:484}是部落的營地，有守衛，位於這裡的台地上：沿著峽谷底部走，離它的升降梯底部遠一點。",
 		["Fly to Theramore"] = "飛往塞拉摩",
 		["Fly to {area:150}"] = "飛往{area:150}",
@@ -615,6 +616,7 @@ t.guides["forever/alliance/30-40/03-ashenvale"] = (function() return {
 } end)()
 t.guides["forever/alliance/30-40/04-stranglethorn-vale"] = (function() return {
 		["Back south past Nesingwary: Panthers and Stranglethorn Raptors run in the clearings west of the camp toward the coast; the elder tigers hold the hills south-west."] = "往南經過赫米特·奈辛瓦里：黑豹和荊棘谷迅猛龍在營地西邊通往海岸的空地上奔跑；老年荊棘谷猛虎佔據西南方的丘陵。",
+		["Boat to {area:35}"] = "搭船前往{area:35}",
 		["Both roam the grass around the camp and along the road north."] = "兩者都在營地周圍的草地和往北的道路沿線遊蕩。",
 		["Class training"] = "職業訓練",
 		["Fly to {area:467}"] = "飛往{area:467}",

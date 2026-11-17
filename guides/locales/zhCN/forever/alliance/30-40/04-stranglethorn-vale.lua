@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Boat to Booty Bay
 	-- {area:35} Booty Bay
-	["Boat to {area:35}"] = "",
+	["Boat to {area:35}"] = "乘船前往{area:35}",
 	-- {area:392} Ratchet · {area:35} Booty Bay
 	["The boat from {area:392}'s dock crosses to {area:35}, on Stranglethorn's southern cape."] = "",
 
@@ -31,7 +31,7 @@ return {
 	-- {npc:737} Kebok
 	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
 	-- was: ["{npc:737}: the Tumbled Crystals, on the northern loop"] = "{npc:737}：打磨过的水晶，北部路线会去收集"
-	["{npc:737}: the Tumbled Crystals, on the northern loop"] = "",
+	["{npc:737}: the Tumbled Crystals, on the northern loop"] = "{npc:737}：打磨过的水晶，北部路线会去收集",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, upstairs in the tavern"] = "{npc:2496}，在旅店楼上",
 

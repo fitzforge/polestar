@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Boat to Booty Bay
 	-- {area:35} Booty Bay
-	["Boat to {area:35}"] = "",
+	["Boat to {area:35}"] = "Barco a {area:35}",
 	-- {area:392} Ratchet · {area:35} Booty Bay
 	["The boat from {area:392}'s dock crosses to {area:35}, on Stranglethorn's southern cape."] = "",
 

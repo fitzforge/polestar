@@ -1118,6 +1118,7 @@ t.guides["forever/alliance/30-40/04-stranglethorn-vale"] = (function() return {
 		["{npc:716} collects the {item:2755}: the pages drop from almost every humanoid in the jungle. Turn the pages into chapters as you go."] = "{npc:716} sammelt die {item:2755}: Die Seiten lässt fast jeder Humanoide im Dschungel fallen. Füg die Seiten unterwegs zu Kapiteln zusammen.",
 		["{npc:737}'s Bloodscalp ears wait for the second Stranglethorn loop: keep the quest."] = "Die Bloodscalp-Ohren für {npc:737} warten auf die zweite Runde durch Schlingendorn: Behalte die Quest.",
 		["{npc:737}, in the tavern"] = "{npc:737}, in der Taverne",
+		["{npc:737}: the Tumbled Crystals, on the northern loop"] = "{npc:737}: die Tumbled Crystals, auf der nördlichen Runde",
 		["{npc:738}, at the foot of the path"] = "{npc:738}, am Fuß des Pfads",
 		["{npc:770}: for {npc:773} in {area:35}, later in this guide"] = "{npc:770}: für {npc:773} in {area:35}, weiter hinten in diesem Guide",
 		["{npc:773}, from {npc:770}"] = "{npc:773}, von {npc:770}",

@@ -674,6 +674,7 @@ t.guides["forever/alliance/30-40/02-desolace"] = (function() return {
 		["{object:177787}, beside the chest: keep it, its keys and chest come on {zone:1443}'s south loop at the end of 30-40"] = "{object:177787} рядом с сундуком: сохраните их – ключи и сундук будут на южном круге зоны {zone:1443} в конце 30-40",
 } end)()
 t.guides["forever/alliance/30-40/03-ashenvale"] = (function() return {
+		["Boat to {area:35}"] = "Корабль: {area:35}",
 		["East through the canyons. {area:484}, a Horde camp with guards, sits on the mesa here: keep to the canyon floor and give the foot of its lifts a wide berth."] = "На восток через каньоны. Здесь на плато стоит {area:484} – лагерь Орды со стражей: держитесь дна каньона и обходите подножие его подъемников стороной.",
 		["Fly to Theramore"] = "Лететь на остров Терамор",
 		["Fly to {area:150}"] = "Летите сюда: {area:150}",
@@ -699,6 +700,7 @@ t.guides["forever/alliance/30-40/03-ashenvale"] = (function() return {
 } end)()
 t.guides["forever/alliance/30-40/04-stranglethorn-vale"] = (function() return {
 		["Back south past Nesingwary: Panthers and Stranglethorn Raptors run in the clearings west of the camp toward the coast; the elder tigers hold the hills south-west."] = "Назад на юг мимо Эрнестуэя: пантеры и ящеры Тернистой долины бегают по полянам к западу от лагеря в сторону побережья; старые тигры занимают холмы на юго-западе.",
+		["Boat to {area:35}"] = "Корабль: {area:35}",
 		["Both roam the grass around the camp and along the road north."] = "И те и другие бродят по траве вокруг лагеря и вдоль дороги на север.",
 		["Class training"] = "Обучение классовым навыкам",
 		["Fly to {area:467}"] = "Летите в {area:467}",

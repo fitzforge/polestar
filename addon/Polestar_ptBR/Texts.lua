@@ -1118,6 +1118,7 @@ t.guides["forever/alliance/30-40/04-stranglethorn-vale"] = (function() return {
 		["{npc:716} collects the {item:2755}: the pages drop from almost every humanoid in the jungle. Turn the pages into chapters as you go."] = "{npc:716} coleciona {item:2755}: as páginas caem de quase todo humanoide da selva. Transforme as páginas em capítulos pelo caminho.",
 		["{npc:737}'s Bloodscalp ears wait for the second Stranglethorn loop: keep the quest."] = "As orelhas Sanguescalpo de {npc:737} ficam para o segundo circuito da Selva do Espinhaço: guarde a missão.",
 		["{npc:737}, in the tavern"] = "{npc:737}, na taberna",
+		["{npc:737}: the Tumbled Crystals, on the northern loop"] = "{npc:737}: os Cristais Rolados, no circuito do norte",
 		["{npc:738}, at the foot of the path"] = "{npc:738}, no pé do caminho",
 		["{npc:770}: for {npc:773} in {area:35}, later in this guide"] = "{npc:770}: para {npc:773} em {area:35}, mais adiante neste guia",
 		["{npc:773}, from {npc:770}"] = "{npc:773}, de {npc:770}",
