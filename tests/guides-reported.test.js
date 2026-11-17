@@ -5296,6 +5296,34 @@ test("gidi_'s report (#2648): Zimmix's escort is a goal of his step in both Stra
 	}
 });
 
+// The same gap as Zimmix's (#2648), found by comparing the data with players' recordings: quests whose objectives the
+// merged data lacks (two escorts, two spell casts, a ghost elixir) were taken and handed in with nothing between, so
+// the step was done on the accept. Each guide now has the work as a goal between the accept and the hand-in, where
+// players' recordings have it done.
+test('quests the data had no objectives for: their work is a goal between the accept and the hand-in', { skip }, () => {
+	const cases = [
+		['forever/alliance/30-40/01-hillsbrad-foothills.guide', 87491, 'complete', { map: 1437, x: 47.8, y: 16.8 }], // Spark of Freedom, escort
+		['forever/alliance/30-40/05-arathi-highlands.guide', 93585, 'complete', { map: 1435, x: 26.0, y: 31.7 }], // This Light of Mine, escort
+		['forever/alliance/skyborne/01-zephras-isle.guide', 92474, 'complete', { x: 43.7, y: 24.1 }], // Falling With Style, on the watchtower
+		['forever/horde/skyborne/01-zephras-isle.guide', 92474, 'complete', { x: 43.7, y: 24.1 }],
+		['forever/alliance/nightelf/01-teldrassil.guide', 97979, 'complete', null], // The Goddess Provides, two casts at Shanda
+		['forever/alliance/50-60/04-western-plaguelands.guide', 3912, 'use', { map: 1446, x: 54.0, y: 28.7 }], // Meet at the Grave: the Videre Elixir
+	];
+	for (const [file, q, t, at_] of cases) {
+		const list = goals(file);
+		const work = at(list, `${file}: ${t} for ${q}`, (g) => g.t === t && (t === 'use' ? g.item === 11243 : g.quest === q));
+		const tin = at(list, `${file}: turnin ${q}`, is('turnin', q));
+		assert.ok(work < tin, `${file}: the work before the hand-in of ${q}`);
+		const acc = list.findIndex(({ goal }) => is('accept', q)(goal));
+		if (acc >= 0) assert.ok(acc < work, `${file}: after the accept of ${q}`);
+		if (at_) {
+			const { goal } = list[work];
+			if (at_.map) assert.equal(goal.map, at_.map, `${file}: ${q} on map ${at_.map}`);
+			assert.ok(Math.hypot(goal.x - at_.x, goal.y - at_.y) < 1, `${file}: ${q} where players do it (${goal.map} ${goal.x},${goal.y})`);
+		}
+	}
+});
+
 // #1813 (Alliance, Cozy Sleeping Bag): the Barrens' way into Stonetalon runs through Honor's Stand, and the road
 // on to the hills past Malaka'jin and Sun Rock Retreat. Players' recordings of Stepping Stones (79192, Alliance):
 // about 40 runs, most entering Stonetalon from the Barrens at 83.5,97, 7 people dead at Honor's Stand (one of them
