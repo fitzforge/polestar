@@ -2552,6 +2552,8 @@ L["Sell: fewer free bag slots than"] = "Продажа: свободных яч�
 L["Reminds you to sell when fewer bag slots are free than this, or than the items the next steps collect. 0 counts those items alone."] = "Напоминает о продаже, когда свободных ячеек в сумках меньше этого числа или меньше, чем предметов, собираемых в следующих шагах. 0 — учитывать только эти предметы."
 L["Repair: gear worn below"] = "Починка: прочность ниже"
 L["Reminds you to repair when a piece of your gear is below this share of its durability. 0: never."] = "Напоминает о починке, когда прочность какого-либо предмета снаряжения опускается ниже этой доли. 0 — никогда."
+L["play Freedoom Arcade by petllama"] = "играть в Freedoom Arcade от petllama"
+L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom by the Freedoom project (BSD License), from the Polestar_Arcade folder."] = "Freedoom Arcade от petllama (GPL-2.0 или новее) запускает три уровня Freedoom от проекта Freedoom (лицензия BSD) из папки Polestar_Arcade."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"
@@ -4479,6 +4481,8 @@ L["Rares, travel & zones"] = "Редкие, перемещения и зоны"
 L["Zones and coordinates"] = "Зоны и координаты"
 L["Trackers & map"] = "Трекеры и карта"
 L["Minimap and coordinates"] = "Мини-карта и координаты"
+L["Offer Freedoom Arcade on flights"] = "Предлагать Freedoom Arcade в полёте"
+L["On a flight with a minute or more to go, Polestar asks if you want to play Freedoom Arcade by petllama while you wait: three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade opens it any time."] = "Если до конца полёта осталась минута или больше, Polestar предлагает поиграть в Freedoom Arcade от petllama, пока вы ждёте: три уровня Freedoom или вся игра, если установлен аддон Freedoom Arcade. За 10 секунд до посадки игра сохраняется, ставится на паузу и закрывается. /polestar arcade открывает её в любой момент."
 
 -- Dungeons/Options.lua
 L["Dungeons and characters"] = "Подземелья и персонажи"
@@ -4687,6 +4691,21 @@ L["Moved"] = "Перемещено"
 L["Not moved"] = "Не перемещено"
 L["From the look"] = "Из вида"
 L["Nothing to apply: the parts ticked are the same as yours."] = "Нечего применять: отмеченные части совпадают с вашими."
+
+-- Maps/Arcade.lua
+L["Freedoom Arcade can't open: its folder Polestar_Arcade is missing or turned off."] = "Freedoom Arcade не открывается: папки Polestar_Arcade нет или она отключена."
+L["Freedoom Arcade opens after the fight."] = "Freedoom Arcade откроется после боя."
+L["Play Freedoom Arcade"] = "Играть в Freedoom Arcade"
+L["Freedoom Arcade by petllama"] = "Freedoom Arcade от petllama"
+L["3 levels of Freedoom Phase 1. Esc: menu, P: pause, F6/F9: save/load."] = "3 уровня Freedoom Phase 1. Esc: меню, P: пауза, F6/F9: сохранить/загрузить."
+L["a game: Play"] = "Играть"
+L["Do you want to play Doom while waiting?"] = "Хотите поиграть в Doom, пока ждёте?"
+L["Don't ask again"] = "Больше не спрашивать"
+L["Freedoom Arcade is saved and paused for the fight: type %s to continue."] = "Freedoom Arcade сохранён и на паузе из-за боя: введите %s, чтобы продолжить."
+L["Landing in 10 seconds"] = "Посадка через 10 секунд"
+L["Freedoom Arcade is saved and paused."] = "Freedoom Arcade сохранён и поставлен на паузу."
+L["Close Freedoom Arcade to get your keys back."] = "Закройте Freedoom Arcade, чтобы вернуть управление клавишами."
+L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Посадка. Freedoom Arcade сохранён и на паузе: введите %s, чтобы продолжить."
 
 -- QoL/QuestXP.lua
 -- L["+1 level"] = ""

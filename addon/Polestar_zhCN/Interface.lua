@@ -2552,6 +2552,8 @@ L["Sell: fewer free bag slots than"] = "出售：背包空位少于"
 L["Reminds you to sell when fewer bag slots are free than this, or than the items the next steps collect. 0 counts those items alone."] = "当背包空位少于此数值，或少于接下来步骤要收集的物品数时，提醒你出售。设为 0 则只计算这些物品。"
 L["Repair: gear worn below"] = "修理：装备耐久低于"
 L["Reminds you to repair when a piece of your gear is below this share of its durability. 0: never."] = "当你的任一装备耐久低于此比例时，提醒你修理。0：从不提醒。"
+L["play Freedoom Arcade by petllama"] = "玩 petllama 的 Freedoom Arcade"
+L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom by the Freedoom project (BSD License), from the Polestar_Arcade folder."] = "petllama 的 Freedoom Arcade（GPL-2.0 或更高版本）从 Polestar_Arcade 文件夹运行 Freedoom 项目的三个 Freedoom 关卡（BSD 许可）。"
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"
@@ -4479,6 +4481,8 @@ L["Rares, travel & zones"] = "稀有、旅行与地区"
 L["Zones and coordinates"] = "地区与坐标"
 L["Trackers & map"] = "追踪器与地图"
 L["Minimap and coordinates"] = "微缩地图与坐标"
+L["Offer Freedoom Arcade on flights"] = "飞行时提供 Freedoom Arcade"
+L["On a flight with a minute or more to go, Polestar asks if you want to play Freedoom Arcade by petllama while you wait: three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade opens it any time."] = "飞行剩余一分钟或更久时，Polestar 会询问你是否想在等待时玩 petllama 的 Freedoom Arcade：Freedoom 的三个关卡，若已安装 Freedoom Arcade 插件则是完整游戏。降落前 10 秒，游戏会存档、暂停并关闭。随时可用 /polestar arcade 打开。"
 
 -- Dungeons/Options.lua
 L["Dungeons and characters"] = "地下城与角色"
@@ -4687,6 +4691,21 @@ L["Moved"] = "已移动"
 L["Not moved"] = "未移动"
 L["From the look"] = "跟随外观"
 L["Nothing to apply: the parts ticked are the same as yours."] = "无可应用：勾选的部分与你的设置相同。"
+
+-- Maps/Arcade.lua
+L["Freedoom Arcade can't open: its folder Polestar_Arcade is missing or turned off."] = "无法打开 Freedoom Arcade：它的文件夹 Polestar_Arcade 缺失或已停用。"
+L["Freedoom Arcade opens after the fight."] = "战斗结束后再打开 Freedoom Arcade。"
+L["Play Freedoom Arcade"] = "玩 Freedoom Arcade"
+L["Freedoom Arcade by petllama"] = "Freedoom Arcade，作者 petllama"
+L["3 levels of Freedoom Phase 1. Esc: menu, P: pause, F6/F9: save/load."] = "Freedoom Phase 1 的 3 个关卡。Esc：菜单，P：暂停，F6/F9：存档/读档。"
+L["a game: Play"] = "开始游戏"
+L["Do you want to play Doom while waiting?"] = "等待时想玩 Doom 吗？"
+L["Don't ask again"] = "不再询问"
+L["Freedoom Arcade is saved and paused for the fight: type %s to continue."] = "因进入战斗，Freedoom Arcade 已存档并暂停：输入 %s 继续。"
+L["Landing in 10 seconds"] = "10 秒后降落"
+L["Freedoom Arcade is saved and paused."] = "Freedoom Arcade 已存档并暂停。"
+L["Close Freedoom Arcade to get your keys back."] = "关闭 Freedoom Arcade 以恢复按键操作。"
+L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "已降落。Freedoom Arcade 已存档并暂停：输入 %s 继续。"
 
 -- QoL/QuestXP.lua
 -- L["+1 level"] = ""

@@ -2370,6 +2370,14 @@
    "at": [
     "Guide > Automation > Quests"
    ]
+  },
+  {
+   "id": "maps.flightArcade",
+   "kind": "toggle",
+   "label": "Offer Freedoom Arcade on flights",
+   "at": [
+    "Integrations > Freedoom Arcade"
+   ]
   }
  ]
 }

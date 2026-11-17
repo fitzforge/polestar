@@ -2552,6 +2552,8 @@ L["Sell: fewer free bag slots than"] = "판매: 가방 빈 칸이 다음보다 �
 L["Reminds you to sell when fewer bag slots are free than this, or than the items the next steps collect. 0 counts those items alone."] = "가방 빈 칸이 이 값보다, 또는 다음 단계에서 수집할 아이템 수보다 적으면 판매를 알립니다. 0이면 그 아이템 수만 기준으로 합니다."
 L["Repair: gear worn below"] = "수리: 장비 내구도가 다음 미만일 때"
 L["Reminds you to repair when a piece of your gear is below this share of its durability. 0: never."] = "장비 중 하나의 내구도가 이 비율 미만이면 수리를 알립니다. 0: 알리지 않음."
+L["play Freedoom Arcade by petllama"] = "petllama의 Freedoom Arcade 플레이"
+L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom by the Freedoom project (BSD License), from the Polestar_Arcade folder."] = "petllama의 Freedoom Arcade(GPL-2.0 이상)가 Freedoom 프로젝트의 Freedoom 3개 레벨(BSD 라이선스)을 Polestar_Arcade 폴더에서 실행합니다."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
@@ -4479,6 +4481,8 @@ L["Rares, travel & zones"] = "희귀, 이동, 지역"
 L["Zones and coordinates"] = "지역과 좌표"
 L["Trackers & map"] = "추적기 및 지도"
 L["Minimap and coordinates"] = "미니맵과 좌표"
+L["Offer Freedoom Arcade on flights"] = "비행 중 Freedoom Arcade 제안"
+L["On a flight with a minute or more to go, Polestar asks if you want to play Freedoom Arcade by petllama while you wait: three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade opens it any time."] = "남은 비행 시간이 1분 이상이면 Polestar가 기다리는 동안 petllama의 Freedoom Arcade를 플레이할지 묻습니다. Freedoom 3개 레벨이며, Freedoom Arcade 애드온이 설치되어 있으면 전체 게임입니다. 착륙 10초 전에 게임을 저장하고 일시 정지한 뒤 닫습니다. /polestar arcade로 언제든 열 수 있습니다."
 
 -- Dungeons/Options.lua
 L["Dungeons and characters"] = "던전과 캐릭터"
@@ -4687,6 +4691,21 @@ L["Moved"] = "이동됨"
 L["Not moved"] = "이동 안 함"
 L["From the look"] = "모양에 따름"
 L["Nothing to apply: the parts ticked are the same as yours."] = "적용할 것이 없습니다: 선택한 항목이 내 설정과 같습니다."
+
+-- Maps/Arcade.lua
+L["Freedoom Arcade can't open: its folder Polestar_Arcade is missing or turned off."] = "Freedoom Arcade를 열 수 없습니다: Polestar_Arcade 폴더가 없거나 꺼져 있습니다."
+L["Freedoom Arcade opens after the fight."] = "Freedoom Arcade는 전투가 끝난 뒤 열립니다."
+L["Play Freedoom Arcade"] = "Freedoom Arcade 플레이"
+L["Freedoom Arcade by petllama"] = "petllama의 Freedoom Arcade"
+L["3 levels of Freedoom Phase 1. Esc: menu, P: pause, F6/F9: save/load."] = "Freedoom Phase 1의 3개 레벨. Esc: 메뉴, P: 일시 정지, F6/F9: 저장/불러오기."
+L["a game: Play"] = "플레이"
+L["Do you want to play Doom while waiting?"] = "기다리는 동안 Doom을 플레이할까요?"
+L["Don't ask again"] = "다시 묻지 않기"
+L["Freedoom Arcade is saved and paused for the fight: type %s to continue."] = "전투 때문에 Freedoom Arcade를 저장하고 일시 정지했습니다. 계속하려면 %s 명령을 입력하세요."
+L["Landing in 10 seconds"] = "10초 후 착륙"
+L["Freedoom Arcade is saved and paused."] = "Freedoom Arcade를 저장하고 일시 정지했습니다."
+L["Close Freedoom Arcade to get your keys back."] = "키를 다시 쓰려면 Freedoom Arcade를 닫으세요."
+L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "착륙했습니다. Freedoom Arcade를 저장하고 일시 정지했습니다. 계속하려면 %s 명령을 입력하세요."
 
 -- QoL/QuestXP.lua
 -- L["+1 level"] = ""

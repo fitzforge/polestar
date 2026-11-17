@@ -178,4 +178,12 @@ ns.Credits = {
 		{ name = "IgorMagals", ref = 724 },
 		{ name = "Caliber", ref = 2344 },
 	},
+	-- Ideas that shipped though someone else built them, in the order they shipped: who, and the pull request or issue.
+	ideas = {
+		{ name = "PRDesrochers", ref = 293 },
+		{ name = "aronjanosch", ref = 954 },
+		{ name = "CDVolvik", ref = 1012 },
+		{ name = "IgorMagals", ref = 724 },
+		{ name = "petllama", ref = 2228 },
+	},
 }
