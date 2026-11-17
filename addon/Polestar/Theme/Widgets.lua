@@ -2415,7 +2415,11 @@ function layoutMenu()
 end
 
 -- items: { { text, icon, checked, disabled, onClick, tip, color, confirm, preview }, { separator = true }, ... }
--- opts: { point = "TOPRIGHT", relPoint = "BOTTOMRIGHT", x = 0, y = -4, minWidth = 168 }
+-- opts: { point = "TOPRIGHT", relPoint = "BOTTOMRIGHT", x = 0, y = -4, minWidth = 168, current = true }
+-- opts.current: a list of choices whose checked row is the current one; a
+-- long one opens scrolled to it. Any other menu (actions, toggles) opens at
+-- its top, whatever its ticks (#2647: the guide window's menu opened centred
+-- on Compact mode and Transparent, hiding Choose guide above them).
 function W.ShowMenu(anchor, items, opts)
 	if not menu then buildMenu() end
 	menu.psItems, menu.psOpts = items, opts or {}
@@ -2423,9 +2427,13 @@ function W.ShowMenu(anchor, items, opts)
 	local f = rawget(menu, "Filter")
 	if f then f:SetText("") end
 	layoutMenu()
-	-- A long list opens with its current choice in view.
+	-- A long list opens at its top, or a list of choices with its current
+	-- choice in view.
 	local long = rawget(menu, "Scroll") and menu.Scroll:IsShown()
-	if long then W.ScrollTo(menu.Scroll, max(0, (menu.psCheckedY or 0) - (menu.Scroll.psView or 0) / 2)) end
+	if long then
+		local y = opts.current and menu.psCheckedY or 0
+		W.ScrollTo(menu.Scroll, max(0, y - (opts.current and (menu.Scroll.psView or 0) / 2 or 0)))
+	end
 	menu:ClearAllPoints()
 	menu.psOwner = anchor
 	local point, relPoint = opts.point or "TOPRIGHT", opts.relPoint or "BOTTOMRIGHT"
@@ -2545,7 +2553,7 @@ local function openChoices(self)
 			end
 		end, preview = c.preview and function() c.preview(c.value) end }
 	end
-	W.ShowMenu(self, items, { minWidth = self:GetWidth() })
+	W.ShowMenu(self, items, { minWidth = self:GetWidth(), current = true })
 end
 
 -- The widest word of a row's label: the least it can wrap to uncut.

@@ -8,25 +8,25 @@
 return {
 	-- Guide
 	-- {item:211527} Cozy Sleeping Bag · {item:221498} Old Toolbox
-	["A trail of hidden notes across both continents: the {item:211527} at the end, a 12-slot {item:221498} on the way."] = "",
+	["A trail of hidden notes across both continents: the {item:211527} at the end, a 12-slot {item:221498} on the way."] = "沿著藏在兩塊大陸各處的紙條尋找線索：最終獲得{item:211527}，途中還能拿到12格{item:221498}。",
 
 	-- Step 1: The note in Westfall
 	-- {zone:1436} Westfall
-	["The note in {zone:1436}"] = "",
+	["The note in {zone:1436}"] = "{zone:1436}的紙條",
 	-- {zone:1436} Westfall
-	["The chain opens at level 14. A burned-out campfire in western {zone:1436}, with a nailed plank beside it."] = "",
+	["The chain opens at level 14. A burned-out campfire in western {zone:1436}, with a nailed plank beside it."] = "任務鏈在14級開放。{zone:1436}西部有一處燒盡的營火，旁邊釘著一塊木板。",
 
 	-- Step 2: Its twin in the Barrens
 	-- {zone:1413} Barrens
-	["Its twin in the {zone:1413}"] = "",
+	["Its twin in the {zone:1413}"] = "{zone:1413}的另一處線索",
 	-- {zone:1413} Barrens
-	["The note's \"twin land\" is the {zone:1413}: the same burned-out campfire stands in the southern {zone:1413}."] = "",
+	["The note's \"twin land\" is the {zone:1413}: the same burned-out campfire stands in the southern {zone:1413}."] = "紙條所說的另一片土地是{zone:1413}：同樣燃盡的營火位於{zone:1413}南部。",
 
 	-- Step 3: The note in the Barrens
 	-- {zone:1413} Barrens
-	["The note in the {zone:1413}"] = "",
+	["The note in the {zone:1413}"] = "{zone:1413}的紙條",
 	-- {zone:1413} Barrens
-	["The chain opens at level 14. A burned-out campfire in the southern {zone:1413}, with a nailed plank beside it."] = "",
+	["The chain opens at level 14. A burned-out campfire in the southern {zone:1413}, with a nailed plank beside it."] = "任務鏈在14級開放。{zone:1413}南部有一處燒盡的營火，旁邊釘著一塊木板。",
 
 	-- Step 4: Along the coast to Westfall
 	-- {zone:1436} Westfall
@@ -37,9 +37,9 @@ return {
 
 	-- Step 5: Its twin in Westfall
 	-- {zone:1436} Westfall
-	["Its twin in {zone:1436}"] = "",
+	["Its twin in {zone:1436}"] = "{zone:1436}的另一處線索",
 	-- {zone:1436} Westfall
-	["The note's \"twin land\" is {zone:1436}: the same burned-out campfire stands in western {zone:1436}."] = "",
+	["The note's \"twin land\" is {zone:1436}: the same burned-out campfire stands in western {zone:1436}."] = "紙條所說的另一片土地是{zone:1436}：同樣燃盡的營火位於{zone:1436}西部。",
 
 	-- Step 6: Stonetalon from the north
 	["Stonetalon from the north"] = "從北邊進入石爪山脈",
@@ -48,13 +48,13 @@ return {
 
 	-- Step 7: Stonetalon Mountains
 	-- {area:460} Sun Rock Retreat · {zone:1442} Stonetalon Mountains · {object:424005} Pocket Litter
-	["The next hideout is a small camp in the hills north-west of {area:460}, in the middle of the {zone:1442}. Leave the road where a path climbs west into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "",
-	["Path into the hills"] = "",
+	["The next hideout is a small camp in the hills north-west of {area:460}, in the middle of the {zone:1442}. Leave the road where a path climbs west into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "下一個藏身處是{zone:1442}中部{area:460}西北山丘中的小營地。在有小徑向西爬上山丘的地方離開道路，沿小徑走到營地；{object:424005}就在帳篷旁的木箱上。",
+	["Path into the hills"] = "上山小徑",
 
 	-- Step 8: A hundred paces north
-	["A hundred paces north"] = "",
+	["A hundred paces north"] = "向北一百步",
 	-- {object:424012} Mound of Dirt
-	["Walk north through the camp and drop carefully down the steep slope to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up."] = "",
+	["Walk north through the camp and drop carefully down the steep slope to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up."] = "向北穿過營地，小心沿陡坡下到下方巖臺上的{object:424012}。跳偏只會滑到下面：貼著崖壁繞路走回上方即可。",
 
 	-- Step 9: Tarren Mill on the way
 	-- {area:272} Tarren Mill
@@ -64,9 +64,9 @@ return {
 
 	-- Step 10: The dam in Loch Modan
 	-- {zone:1432} Loch Modan
-	["The dam in {zone:1432}"] = "",
+	["The dam in {zone:1432}"] = "{zone:1432}的水壩",
 	-- {area:146} Stonewrought Dam
-	["The figurine is on a ledge just below the top of the {area:146}, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge."] = "",
+	["The figurine is on a ledge just below the top of the {area:146}, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge."] = "雕像位於{area:146}北側、接近壩頂的巖臺上。慢慢挪下邊緣，倒退走可以避免衝過頭。",
 
 	-- Step 11: Out of the river
 	["Out of the river"] = "離開河流",
@@ -78,10 +78,10 @@ return {
 	-- Step 12: Thoradin's Wall
 	-- {area:1057} Thoradin's Wall · {area:287} Hillsbrad
 	["At the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "到了阿拉希和{area:287}之間{area:1057}的大門，轉向北，沿著{area:287}那一側的城牆走到一輛靠在牆邊的翻倒推車。跳上推車和它的梯子登上城牆，再越過岩石到達隱藏的營地。有些角色無法鑽過營地的貨網底下；換個種族或較小的形態就能通過。",
-	["Fallen cart"] = "",
+	["Fallen cart"] = "翻倒的貨車",
 
 	-- Step 13: The hidden camp
-	["The hidden camp"] = "",
+	["The hidden camp"] = "隱蔽營地",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Round {area:1702}"] = "繞過{area:1702}",

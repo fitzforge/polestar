@@ -32,11 +32,11 @@ return {
 
 	-- Step 6: Fray Island
 	-- {area:392} Ratchet · {area:391} Merchant Coast · {area:720} Fray Island · {npc:6236} Klannoc Macleod
-	["Fly to {area:392} and go south along the {area:391}. {area:720} lies offshore to the south-east: wade across on the shallow sand bar; off it the water is deep and fatigue sets in. {npc:6236} stands by the arena."] = "",
+	["Fly to {area:392} and go south along the {area:391}. {area:720} lies offshore to the south-east: wade across on the shallow sand bar; off it the water is deep and fatigue sets in. {npc:6236} stands by the arena."] = "飛到{area:392}，沿{area:391}向南。{area:720}在東南方的近海：從淺沙灘上涉水過去；離岸後水很深，會陷入疲勞。{npc:6236}站在競技場旁。",
 
 	-- Step 7: The Affray
 	-- {npc:6248} Twiggy Flathead · {npc:6238} Big Will · {spell:1160} Demoralizing Shout
-	["You have 10 minutes. Eat and drink to full, then step onto the grate in the middle of the crowd: {npc:6248} announces the challengers (level 26-27), who come one at a time, 15-20 seconds apart, and only while you stand near the grate. After each kill, step off the grate to eat or bandage; step back on when ready for the next. Six of them, then {npc:6238} (level 33, not elite) walks out; he stays neutral until you attack him, so bandage or eat first. Do not use {spell:1160}: it sends the challengers running and more of them pile in at once. If nothing starts, step off and on the grate again, or abandon the quest and take it again."] = "",
+	["You have 10 minutes. Eat and drink to full, then step onto the grate in the middle of the crowd: {npc:6248} announces the challengers (level 26-27), who come one at a time, 15-20 seconds apart, and only while you stand near the grate. After each kill, step off the grate to eat or bandage; step back on when ready for the next. Six of them, then {npc:6238} (level 33, not elite) walks out; he stays neutral until you attack him, so bandage or eat first. Do not use {spell:1160}: it sends the challengers running and more of them pile in at once. If nothing starts, step off and on the grate again, or abandon the quest and take it again."] = "你有10分鐘。先吃喝補滿，然後踏上人群中央的鐵柵：{npc:6248}會宣佈挑戰者（26-27級）出場，他們一次來一個，間隔15-20秒，而且只在你站在鐵柵附近時才來。每殺一個就離開鐵柵去吃喝或包紮；準備好下一個再踏回去。六個之後，{npc:6238}（33級，非精英）會走出來；在你攻擊他之前他一直保持中立，所以先包紮或吃喝。不要用{spell:1160}：它會把挑戰者嚇跑，讓更多人同時湧上來。如果什麼都沒開始，就離開鐵柵再踏回去，或者放棄任務重新接。",
 
 	-- Step 8: Bath'rah the Windwatcher
 	-- {npc:6176} Bath'rah the Windwatcher · {area:272} Tarren Mill · {zone:1416} Alterac Mountains · {area:271} Southshore · {quest:1712} Cyclonian · {item:6929} Bath'rah's Parchment · {item:3357} Liferoot · {item:6851} Essence of the Exile
@@ -45,13 +45,13 @@ return {
 
 	-- Step 9: Liferoot
 	-- {item:3357} Liferoot · {zone:1437} Wetlands · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale · {npc:1302} Bernard Gump · {npc:1313} Maria Lumere · {zone:1453} Stormwind · {npc:844} Antonio Perelli · {area:460} Sun Rock Retreat · {zone:1441} Thousand Needles
-	["You need 8 {item:3357}. Herbalists pick it by rivers and lakes in the {zone:1437}, {zone:1417} and {zone:1434}; otherwise the auction house. Herb vendors keep only one at a time and restock every two hours: {npc:1302} and {npc:1313} in {zone:1453}, {npc:844} on the road in eastern Elwynn, Jeeda at {area:460} in Stonetalon, Montarr in {zone:1441}. Kurzen Medicine Men in northern Stranglethorn drop one about one kill in twelve."] = "",
+	["You need 8 {item:3357}. Herbalists pick it by rivers and lakes in the {zone:1437}, {zone:1417} and {zone:1434}; otherwise the auction house. Herb vendors keep only one at a time and restock every two hours: {npc:1302} and {npc:1313} in {zone:1453}, {npc:844} on the road in eastern Elwynn, Jeeda at {area:460} in Stonetalon, Montarr in {zone:1441}. Kurzen Medicine Men in northern Stranglethorn drop one about one kill in twelve."] = "你需要8個{item:3357}。草藥師在{zone:1437}、{zone:1417}和{zone:1434}的河湖邊採集；否則就去拍賣行。草藥商每次只備一個，每兩小時補貨：{zone:1453}的{npc:1302}和{npc:1313}、艾爾文森林東部路上的{npc:844}、石爪山脈{area:460}的Jeeda、{zone:1441}的Montarr。荊棘谷北部的庫爾森藥劑師約十二殺掉一個。",
 
 	-- Step 10: Bloodscalp Tusks
 	-- plural, as words: Bloodscalp Tusks = {item:3901} Bloodscalp Tusk
-	["Bloodscalp Tusks"] = "",
+	["Bloodscalp Tusks"] = "血頂獠牙",
 	-- {area:117} Grom'gol Base Camp · {area:123} Bal'lal Ruins
-	["You need 30 tusks. Every Bloodscalp troll (level 33-37) of north-west Stranglethorn drops one about one kill in three, so plan on some 80 kills: the camps and ruins north and north-west of {area:117} and around the {area:123} on the coast. They enrage below 30% health and the Warriors disarm; back in 5 minutes."] = "",
+	["You need 30 tusks. Every Bloodscalp troll (level 33-37) of north-west Stranglethorn drops one about one kill in three, so plan on some 80 kills: the camps and ruins north and north-west of {area:117} and around the {area:123} on the coast. They enrage below 30% health and the Warriors disarm; back in 5 minutes."] = "你需要30根獠牙。荊棘谷西北部的每個血頂食人妖（33-37級）約三殺掉一根，所以預計要殺80個左右：{area:117}以北和西北的營地與廢墟，以及海岸{area:123}周圍。它們在血量低於30%時會狂暴，戰士會繳械；5分鐘內能回來。",
 
 	-- Step 11: The exiles of Arathi
 	["The exiles of Arathi"] = "阿拉希的流放者",
@@ -72,15 +72,15 @@ return {
 	-- {object:89931} Bath'rah's Cauldron · {quest:1712} Cyclonian · {quest:1714} Essence of the Exile
 	["Click {object:89931} with the 24 charms in your bags and {quest:1712} in your log. Its window asks for the charms straight away, with nothing to accept: Continue, then Complete, and it hands you the {quest:1714}."] = "背包裡帶著24個符咒、任務日誌中有{quest:1712}時，點擊{object:89931}。它的視窗會直接索取符咒，沒有要接取的任務：先點「繼續」，再點「完成任務」，它就會給你{quest:1714}。",
 	-- {quest:1714} Essence of the Exile · {npc:6176} Bath'rah the Windwatcher
-	["{quest:1714}, from the cauldron by {npc:6176}"] = "",
+	["{quest:1714}, from the cauldron by {npc:6176}"] = "{quest:1714}，來自{npc:6176}旁的大鍋",
 
 	-- Step 13: The Summoning
 	-- {npc:6176} Bath'rah the Windwatcher · {quest:1713} The Summoning · {quest:1712} Cyclonian · {item:6052} Nature Protection Potion · {spell:10101} Knock Away · {item:6894} Whirlwind Heart
-	["Back to {npc:6176}. Accepting {quest:1713} starts his ritual, and {quest:1712} appears just north of his camp. {quest:1712} is elite (level 40): grouping up is encouraged; it needs a group of two or three around level 40. It deals nature damage (a {item:6052} soaks it), whirls, and {spell:10101} throws you far while it heals itself as you run back: fight with your back to a slope or rock. The {item:6894} always drops. If the fight fails {npc:6176} stops answering: abandon {quest:1713} and take it again for a new summon; the earlier items are not needed again."] = "",
+	["Back to {npc:6176}. Accepting {quest:1713} starts his ritual, and {quest:1712} appears just north of his camp. {quest:1712} is elite (level 40): grouping up is encouraged; it needs a group of two or three around level 40. It deals nature damage (a {item:6052} soaks it), whirls, and {spell:10101} throws you far while it heals itself as you run back: fight with your back to a slope or rock. The {item:6894} always drops. If the fight fails {npc:6176} stops answering: abandon {quest:1713} and take it again for a new summon; the earlier items are not needed again."] = "回到{npc:6176}。接受{quest:1713}會啟動他的儀式，{quest:1712}會出現在他營地正北。{quest:1712}是精英（40級）：建議組隊；需要兩到三個40級左右的隊友。它造成自然傷害（{item:6052}可以扛住），會旋風斬，而{spell:10101}會把你遠遠擊飛，同時它在你跑回來時自愈：背靠斜坡或岩石作戰。{item:6894}必定掉落。如果戰鬥失敗，{npc:6176}就不再搭理你：放棄{quest:1713}重新接取，可重新召喚；之前的物品不必再準備。",
 	-- {item:6894} Whirlwind Heart · {quest:1712} Cyclonian
 	["{item:6894}, from {quest:1712}"] = "{item:6894}，來自{quest:1712}",
 	-- {npc:6176} Bath'rah the Windwatcher · {item:6975} Whirlwind Axe
-	["{npc:6176}: {item:6975}, Sword or Warhammer"] = "",
+	["{npc:6176}: {item:6975}, Sword or Warhammer"] = "{npc:6176}：{item:6975}，劍或戰錘",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Defeat the challengers and {npc:6238}"] = "擊敗挑戰者和{npc:6238}",
