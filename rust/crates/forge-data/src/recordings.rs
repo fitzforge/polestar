@@ -1911,13 +1911,16 @@ fn merge_objectives(q: &V, slots: &IndexMap<i64, Slot>, min: usize, settled: boo
 		// Mill 98386; never a longer name: "Black Drake Whelp" is not "Black Drake").
 		let matches = |t: &str, name: &str| {
 			let (t, name) = (t.trim().to_lowercase(), name.trim().to_lowercase());
-			let done = |rest: &str| rest.starts_with(' ') && { let w = rest.trim(); !w.contains(' ') && w.len() > 2 && w.ends_with("ed") };
+			let done = |rest: &str| {
+				rest.starts_with(' ') && {
+					let w = rest.trim();
+					!w.contains(' ') && w.len() > 2 && w.ends_with("ed")
+				}
+			};
 			!t.is_empty() && (format!("{t}s") == name || name.strip_prefix(&t).is_some_and(done))
 		};
 		let mut idx = name.as_ref().and_then(|name| {
-			list.iter().enumerate().position(|(i, o)| {
-				!used.contains(&i) && !name.is_empty() && (same(&o.get("text"), name) || o.get("text").as_str().is_some_and(|t| matches(t, name)))
-			})
+			list.iter().enumerate().position(|(i, o)| !used.contains(&i) && !name.is_empty() && (same(&o.get("text"), name) || o.get("text").as_str().is_some_and(|t| matches(t, name))))
 		});
 		if idx.is_none() {
 			if let Some(id) = id {
