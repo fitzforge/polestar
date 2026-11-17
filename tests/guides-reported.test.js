@@ -16492,6 +16492,20 @@ test("forever/horde/30-40/01-hillsbrad-foothills.guide: Acen's report (#2512): t
 	assert.ok([dull, gold, drull, togthar].every((i) => list[i].s === list[drull].s), 'one step');
 });
 
+// #2792 (Petsq, 0.4.0.1, Horde Stranglethorn 40-50): a player who reached the guide with Panther Mastery (192)
+// still open got its hand-in at Nesingwary's camp and no step for the Shadowmaw Panthers; Raptor Mastery (195),
+// handed in at the same stop, had the same gap. Each now has a step, only while the quest is in the log, before
+// its hand-in.
+test('#2792: Stranglethorn (Horde 40-50): Panther and Raptor Mastery left open get their mobs before the hand-in', { skip }, () => {
+	const list = goals(H40('01-stranglethorn-vale'));
+	for (const [quest, npc] of [[192, 684], [195, 686]]) {
+		const kill = at(list, `kill ${npc} quest ${quest}`, (g) => g.t === 'kill' && g.quest === quest && g.npc === npc);
+		const turnin = at(list, `turnin ${quest}`, is('turnin', quest));
+		assert.ok(kill < turnin, `${quest}: the mobs before the hand-in`);
+		const when = list[kill].step.when || [];
+		assert.ok(when.some((p) => p.k === 'onquest' && (p.q || []).includes(quest)), `${quest}: only while it is in the log`);
+	}
+});
 // #2801 (Gindry, 0.4.0.1, Alliance Desolace): Karnitol's Satchel drops from the Slitherblade Tidehunters and Sea
 // Witches (recordings: every recorded loot came with one of their kills), not from the sea floor the tip named,
 // and 11 of 28 people who took The Karnitol Shipwreck gave it up. The tip says where it drops, and the satchel and
