@@ -11,7 +11,7 @@ return {
 	["Dreaming Whelps"] = "睡夢中的雛龍",
 	-- {zone:1435} Swamp of Sorrows · {zone:1430} Deadwind Pass
 	-- plural, as words: Dreaming Whelps = {npc:741} Dreaming Whelp
-	["The Dreaming Whelps (levels 35-36) live in western {zone:1435}, near the {zone:1430} border. They drop it about once in 1,250 kills, and there are only a handful, back about every five minutes, so expect days of farming; it can be traded, so the Auction House may be quicker."] = "",
+	["The Dreaming Whelps (levels 35-36) live in western {zone:1435}, near the {zone:1430} border. They drop it about once in 1,250 kills, and there are only a handful, back about every five minutes, so expect days of farming; it can be traded, so the Auction House may be quicker."] = "夢境雛龍（35-36級）住在{zone:1435}西部，靠近{zone:1430}邊界。約每擊殺1,250隻掉落一次，而且數量很少，約每五分鐘重新出現，所以要做好刷好幾天的準備；它可以交易，拍賣行可能更快。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["The Dreaming Whelps (level 35) in western {zone:1435} drop it about once in 1,250 kills in our data."] = "{zone:1435}西部的睡夢中的雛龍（35級）依我們的資料約每1,250次擊殺掉落一次。",

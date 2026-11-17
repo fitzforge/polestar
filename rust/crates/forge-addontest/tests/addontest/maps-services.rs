@@ -221,7 +221,7 @@ fn tracking_menus_offer_persistent_categories_and_minimap_opt_in() {
       hooks=#stub.menus.MENU_WORLD_MAP_TRACKING,frames=#P.GetMinimapFrames("maps.services")})
   "#);
 	assert_eq!(out["title"], "Polestar: NPC services");
-	assert_eq!(out["count"], 13);
+	assert_eq!(out["count"], 14);
 	assert_eq!(out["before"], true);
 	assert_eq!(out["after"], false);
 	assert_eq!(out["minimap"], true);

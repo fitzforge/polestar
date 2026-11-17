@@ -17,12 +17,8 @@
 --
 -- Four bag views:
 --   * The client's bags (Blizzard_UIPanels_Game Mainline ContainerFrame.lua,
---     which Forever loads): each container frame's UpdateItems is post-hooked
---     on the frame itself (ContainerFrameMixin's functions are copied onto
---     each frame as it is made, so a hook on the mixin would miss them): the
---     bag frames (ContainerFrameContainer.ContainerFrames) and the combined
---     backpack (ContainerFrameCombinedBags). The client runs UpdateItems once
---     a bag's items have loaded, on BAG_UPDATE and as a bag opens. The arrow
+--     which Forever loads): Core/BagSlots.lua owns the hooks and addon
+--     registration for all four views. The arrow
 --     is a texture on the item button (the gamepad interface hooks only
 --     CreateFrame), in the top-left corner where the client's own, unused,
 --     UpgradeIcon sits, at OVERLAY sublevel 3: over the icon overlays (1, 2),
@@ -30,18 +26,12 @@
 --     Nothing is written into the button's table: arrows are kept here by
 --     button.
 --   * Baganator and BagSmith: a corner widget (top-left, first), the way
---     Baganator shows Pawn's arrow. Each addon hides and places it, and is
---     registered when this file loads or when that addon loads.
+--     Baganator shows Pawn's arrow. Each addon hides and places it.
 --   * EllesmereUI Bags (EllesmereUIBags), which replaces the client's bag
---     frames, so there is nothing to hook: it runs the painters registered with
---     EUI_Bags.RegisterItemOverlayIcon(name, fn(button, data)) on every slot it
---     paints (grid and list, bags, reagent bag and bank). The arrow is a texture
+--     frames (grid and list, bags, reagent bag and bank). The arrow is a texture
 --     on the button's _textOverlay, bottom-left: top-left is where it shows
 --     the item's level (btn.ItemLevelText), which the arrow would cover, and
---     bottom-right is its own Pawn arrow's. Registered as this file loads when
---     it is in, else when EllesmereUIBags loads. New verdicts re-mark the
---     shown slots from the link each last painted, so its window is not
---     rebuilt (a full RefreshInventory) for them, in or out of combat.
+--     bottom-right is its own Pawn arrow's.
 --
 -- New verdicts (GEAR_UPDATED: equipment, bags, level, spec, item data, gear
 -- settings) repaint the shown bags at most once every REDRAW seconds.
@@ -50,8 +40,9 @@ local ADDON, ns = ...
 
 local Gear = ns.Gear
 local L = ns.L
+local Slots = ns.BagSlots
 
-local type, pairs, ipairs, pcall = type, pairs, ipairs, pcall
+local type, pairs = type, pairs
 
 local Bags = {}
 Gear.Bags = Bags
@@ -112,110 +103,40 @@ local function arrowFor(button)
 	return t
 end
 
-local function linkOf(button)
-	local ok, bag = pcall(button.GetBagID, button)
-	if not (ok and type(bag) == "number") then return nil end
-	return Gear.Client.BagLink(bag, button:GetID())
-end
-
-local function updateFrame(frame)
-	if type(frame.EnumerateValidItems) ~= "function" then return end
-	local on = Bags.IsOn()
-	for _, button in frame:EnumerateValidItems() do
-		local up = on and Bags.IsUpgrade(linkOf(button))
-		if up then
-			arrowFor(button):Show()
-		elseif arrows[button] then
-			arrows[button]:Hide()
-		end
-	end
-end
-
-local function onUpdateItems(frame)
-	ns.SafeCall(updateFrame, frame)
-end
-
-local function containerFrames()
-	local out = {}
-	local list = ContainerFrameContainer and ContainerFrameContainer.ContainerFrames
-	if type(list) == "table" then
-		for _, f in ipairs(list) do out[#out + 1] = f end
-	end
-	if ContainerFrameCombinedBags then out[#out + 1] = ContainerFrameCombinedBags end
-	return out
-end
-
-local hooked = setmetatable({}, { __mode = "k" })
-
-local function hookBags()
-	if not hooksecurefunc then return end
-	for _, f in ipairs(containerFrames()) do
-		if not hooked[f] and type(f.UpdateItems) == "function" then
-			hooksecurefunc(f, "UpdateItems", onUpdateItems)
-			hooked[f] = true
-		end
-	end
-end
-hookBags()
-ns.OnLogin(hookBags)
-
 ---------------------------------------------------------------------------
 -- Baganator and BagSmith
 ---------------------------------------------------------------------------
 
-local registeredBags = {}
-
-local function cornerAPI(name)
-	local B = _G[name]
-	local API = type(B) == "table" and B.API
-	if type(API) == "table" and API.RegisterCornerWidget then return API end
-	return nil
+local function showWidget(details)
+	return Bags.IsUpgrade(type(details) == "table" and details.itemLink or nil)
 end
 
-local function registerBag(name)
-	if registeredBags[name] then return true end
-	local API = cornerAPI(name)
-	if not API then return false end
-	registeredBags[name] = true
-	local options = name == "BagSmith" and { listRows = true } or nil
-	API.RegisterCornerWidget(L["Polestar"], WIDGET, function(_, details)
-		return Bags.IsUpgrade(type(details) == "table" and details.itemLink or nil)
-	end, function(button)
-		local t = button:CreateTexture(nil, "OVERLAY")
-		t:SetSize(BADGE, BADGE)
-		t:SetTexture(media())
-		paint(t)
-		widgets[t] = true
-		return t
-	end, { corner = "top_left", priority = 1 }, nil, options)
-	return true
+local function makeWidget(button)
+	local t = button:CreateTexture(nil, "OVERLAY")
+	t:SetSize(BADGE, BADGE)
+	t:SetTexture(media())
+	paint(t)
+	widgets[t] = true
+	return t
 end
-
-local function onAddonLoaded(_, name)
-	if name ~= "Baganator" and name ~= "BagSmith" then return end
-	registerBag(name)
-	if registeredBags.Baganator and registeredBags.BagSmith then
-		ns.UnregisterEvent("ADDON_LOADED", onAddonLoaded)
-	end
-end
-
-registerBag("Baganator")
-registerBag("BagSmith")
-if not (registeredBags.Baganator and registeredBags.BagSmith) then ns.RegisterEvent("ADDON_LOADED", onAddonLoaded) end
 
 ---------------------------------------------------------------------------
 -- EllesmereUI Bags
 ---------------------------------------------------------------------------
 
-local ELLESMERE = "Polestar" -- the painter's name in EUI_Bags.itemOverlayIcons
-local ellesmere = false
 local marks = setmetatable({}, { __mode = "k" }) -- item button -> arrow texture
-local painted = setmetatable({}, { __mode = "k" }) -- item button -> link it last painted (false: none)
 
-local function ellesmereAPI()
-	local B = _G.EUI_Bags
-	if type(B) == "table" and type(B.RegisterItemOverlayIcon) == "function" then return B end
-	return nil
+local function ellesmereArrow(button)
+	local t = marks[button]
+	if t then return t end
+	local host = button._textOverlay or button
+	t = host:CreateTexture(nil, "OVERLAY", nil, LAYER)
+	t:SetSize(BADGE, BADGE)
+	t:SetPoint("BOTTOMLEFT", host, "BOTTOMLEFT", 0, 0)
+	t:SetTexture(media())
+	paint(t)
+	marks[button] = t
+	return t
 end
 
 -- One slot's arrow from its link. EllesmereUI Bags reruns the painters each
@@ -223,74 +144,32 @@ end
 local function markEllesmere(button, link)
 	local t = marks[button]
 	if link and Bags.IsUpgrade(link) then
-		if not t then
-			local host = button._textOverlay or button
-			t = host:CreateTexture(nil, "OVERLAY", nil, LAYER)
-			t:SetSize(BADGE, BADGE)
-			t:SetPoint("BOTTOMLEFT", host, "BOTTOMLEFT", 0, 0)
-			t:SetTexture(media())
-			paint(t)
-			marks[button] = t
-		end
-		t:Show()
+		ellesmereArrow(button):Show()
 	elseif t then
 		t:Hide()
 	end
 end
 
--- data = { bag, slot, info, itemLink }, valid during the call only.
-local function paintEllesmere(button, data)
-	local link
-	if type(data) == "table" then
-		link = data.itemLink
-		if not link and data.bag and data.slot and data.slot > 0 then link = Gear.Client.BagLink(data.bag, data.slot) end
-	end
-	painted[button] = link or false
-	markEllesmere(button, link)
-end
-
-local function registerEllesmere()
-	if ellesmere then return true end
-	local B = ellesmereAPI()
-	if not B then return false end
-	ellesmere = true
-	B.RegisterItemOverlayIcon(ELLESMERE, paintEllesmere)
-	return true
-end
-
-local function onEllesmereLoaded(_, name)
-	if name == "EllesmereUIBags" and registerEllesmere() then
-		ns.UnregisterEvent("ADDON_LOADED", onEllesmereLoaded)
+local function paintBagSlot(button, view, itemID, link)
+	if view == "ellesmere" then markEllesmere(button, link); return end
+	if Bags.IsUpgrade(link) then
+		arrowFor(button):Show()
+	elseif arrows[button] then
+		arrows[button]:Hide()
 	end
 end
 
-if not registerEllesmere() then ns.RegisterEvent("ADDON_LOADED", onEllesmereLoaded) end
+if Slots then
+	Slots.Painter("bag-arrows", paintBagSlot)
+	Slots.Widget("bag-arrows", WIDGET, L["Polestar"], showWidget, makeWidget, "top_left")
+end
 
 ---------------------------------------------------------------------------
 -- Keeping the arrows fresh
 ---------------------------------------------------------------------------
 
 function Bags.Redraw()
-	for _, f in ipairs(containerFrames()) do
-		if hooked[f] and f:IsShown() then onUpdateItems(f) end
-	end
-	-- EllesmereUI Bags: re-mark the shown slots from the links they last
-	-- painted (bags and bank alike), without making it rebuild its window.
-	for button, link in pairs(painted) do
-		if button:IsVisible() then markEllesmere(button, link or nil) end
-	end
-	for name in pairs(registeredBags) do
-		local API = cornerAPI(name)
-		if API and API.RequestItemButtonsRefresh and (not API.IsCornerWidgetActive or API.IsCornerWidgetActive(WIDGET)) then
-			local B = _G[name]
-			local reasons = name == "Baganator" and B.Constants and B.Constants.RefreshReason
-			if name == "BagSmith" then
-				API.RequestItemButtonsRefresh()
-			else
-				API.RequestItemButtonsRefresh(reasons and reasons.ItemWidgets and { reasons.ItemWidgets } or nil)
-			end
-		end
-	end
+	if Slots then Slots.Redraw("bag-arrows") end
 end
 
 local pending = false

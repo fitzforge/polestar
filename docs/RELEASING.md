@@ -380,8 +380,9 @@ version throughout.
    floored or rounded and its last the exit floored or rounded (57.7 reads
    57 or 58). A failing guide gets its header fixed by hand (in the guide
    and its `forge/seed/` copy, with its pitch if the pitch quotes the range,
-   `guides/GENERATED.json` and `forge/seed/SEED.json` rehashed, `forge guide
-   check-generated` clean), or, when the header is right for players on
+   `guides/GENERATED.json` and `forge/seed/SEED.json` recomputed with
+   `forge guide rehash`, `forge guide check-generated` clean), or, when the
+   header is right for players on
    other evidence, a `keep` row with the reason. On a release candidate fix
    only the guides the test names; never rewrite every header at once.
    Commit the refreshed snapshot with the release.
@@ -563,7 +564,7 @@ GitHub's rulesets for the repository, under Settings, Rules:
 
 | Branch | Rules |
 |---|---|
-| `next` | changes by pull request only, with `Tests` and `Base branch` passing; no force push, no deletion |
+| `next` | changes by pull request only, with `Tests`, `Format, lints, tests` and `Base branch` passing; no force push, no deletion |
 | `release/**`, `hotfix/**`, `feature/**` | changes by pull request only, with green CI; only admins create them |
 | `main` | only maintainers update it; no force push, no deletion |
 

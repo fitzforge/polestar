@@ -5851,6 +5851,16 @@ function Own.minutes(seconds)
 	return seconds < 60 and L["under a minute"] or L["%d min"]:format(math.ceil(math.floor(seconds * 1000 + 0.5) / 60000))
 end
 
+-- "Ride to" rather than "Walk to" on the way to a hearth goal's inn and the
+-- flight master (Own.flyFromAim): the character has the riding skill
+-- (ns.CanRide) and is not a ghost (a ghost walks, Nav/Travel.lua). The arrow's
+-- label (waypointOf) and the line under the goal (Own.hearthText) both ask
+-- this, so they agree.
+function Own.rides()
+	local T = ns.Nav and ns.Nav.travel
+	return ns.CanRide() and not (T and T.IsGhost and T.IsGhost())
+end
+
 -- The line under a hearth goal: how long the Hearthstone waits and, where
 -- the trip there is known, whether to set off now or wait for it; with the
 -- Hearthstone ready, that travelling is about as fast when it is. Bound at
@@ -5862,7 +5872,8 @@ function Own.hearthText(goal)
 	local elsewhere = Own.hearthElsewhere(goal)
 	if elsewhere then
 		local _, subject = describe(goal)
-		return (inn and L["Your Hearthstone is bound to %s, not %s: walk to the inn"] or L["Your Hearthstone is bound to %s, not %s"]):format(elsewhere, subject)
+		return (inn and (Own.rides() and L["Your Hearthstone is bound to %s, not %s: ride to the inn"] or L["Your Hearthstone is bound to %s, not %s: walk to the inn"])
+			or L["Your Hearthstone is bound to %s, not %s"]):format(elsewhere, subject)
 	end
 	if not wait then
 		if go then return L["The inn is only %s away: travel there and keep the Hearthstone"]:format(Own.minutes(trip)) end
@@ -5873,7 +5884,7 @@ function Own.hearthText(goal)
 		return nil
 	end
 	if wait == 0 then
-		return inn and L["No Hearthstone in your bags: walk to the inn"] or L["No Hearthstone in your bags"]
+		return inn and (Own.rides() and L["No Hearthstone in your bags: ride to the inn"] or L["No Hearthstone in your bags: walk to the inn"]) or L["No Hearthstone in your bags"]
 	end
 	local left = Own.minutes(wait)
 	if trip then
@@ -5881,7 +5892,8 @@ function Own.hearthText(goal)
 		if trip <= wait + cast then return L["Hearthstone ready in %s; the trip takes %s: set off now"]:format(left, Own.minutes(trip)) end
 		return L["Hearthstone ready in %s, sooner than the %s trip: wait for it"]:format(left, Own.minutes(trip))
 	end
-	return (inn and L["Hearthstone ready in %s: walk to the inn, or wait for it"] or L["Hearthstone ready in %s"]):format(left)
+	return (inn and (Own.rides() and L["Hearthstone ready in %s: ride to the inn, or wait for it"] or L["Hearthstone ready in %s: walk to the inn, or wait for it"])
+		or L["Hearthstone ready in %s"]):format(left)
 end
 
 -- Ranks for a fallback waypoint: blocking goals first, then optional goals,
@@ -5926,7 +5938,7 @@ local function waypointOf(g, goal, at, s, held)
 	local exact = area and Spots.exact(goal) or nil
 	return {
 		map = map, x = x, y = y, f = f, z = z,
-		label = walk and L["Walk to %s"]:format(subject) or (goalText(goal, verb, subject, detail, kind)),
+		label = walk and (Own.rides() and L["Ride to %s"] or L["Walk to %s"]):format(subject) or (goalText(goal, verb, subject, detail, kind)),
 		stepIndex = s, goalIndex = g, kind = goal.t, quest = goal.quest,
 		r = goal.r or DEFAULT_RADIUS, area = area,
 		search = area and (goal.spread or exact) or nil,
@@ -11044,7 +11056,7 @@ function Own.flyFromAim(s)
 	if not best or bestD + Own.FLY_FROM_MARGIN >= namedD or bestD >= namedD * Own.FLY_FROM_SHARE then return nil end
 	return {
 		map = best.map, x = best.x, y = best.y, f = best.f,
-		label = L["Walk to the flight master"],
+		label = Own.rides() and L["Ride to the flight master"] or L["Walk to the flight master"],
 		stepIndex = s, goalIndex = ng, kind = "goto", r = DEFAULT_RADIUS,
 	}
 end

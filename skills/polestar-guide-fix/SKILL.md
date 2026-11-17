@@ -143,10 +143,21 @@ pull request body. It exits 1 on a new revisit or trip: fix the route, or
 name it in `data/flow-diff-allow.json` with the reason the route is better
 that way for players (docs/ROUTE-FEEL.md, "Flow diff").
 
-**Do not commit `addon/Polestar_Guides/Guides.lua`.** The maintainer runs
-`polestar regen` after merge. Never edit it by hand or splice in a hunk
-from another compile: a spliced hunk can load without error while the game
-never sees the goals it contains.
+**Commit the recompiled guides and their translation sync in the same pull
+request.** CI has no reference data and cannot compile guides, so a fix
+merged without them leaves `next` stale for every pull request after it.
+After your last guide edit (and after merging `next` into your branch):
+
+```sh
+forge i18n guides sync    # guides/locales/<locale>/
+forge guide compile       # addon/Polestar_Guides*/ and each language's Texts.lua
+```
+
+and commit everything they write. Never edit the compiled files by hand or
+splice in a hunk from another compile: a spliced hunk can load without
+error while the game never sees the goals it contains. Without reference
+data, say so in the pull request; a maintainer pushes the compile to your
+branch before merging.
 
 
 ## 6. Changelog and commit

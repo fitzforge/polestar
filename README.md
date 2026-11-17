@@ -909,9 +909,16 @@ guides you there instead.
   Buttons page's look. The small Polestar mark in the button's place moves the
   buttons; left-click it to fold the list to one row showing the mob that is
   close, right-click it for its settings; in Quick Keybind Mode, hover it to
-  bind the target button's key. **Simple target button** (Settings, Questing,
-  Buttons, Targeting) keeps only the button, which moves to the next name on
-  each click. Its icon shows what you do with the one it targets next (a
+  bind the target button's key. **Target list style** (Settings, Questing,
+  Buttons, Targeting) makes it smaller: slim rows with a small portrait, the
+  name and the count; names only, without faces; or portraits alone in a
+  column or a row, each with how many are left, and the name of the one that
+  is close beside its portrait (under or over it in a row). **Portraits** (3D or 2D)
+  chooses the faces: 2D shows the game's flat portrait once you have seen that
+  mob, and an icon for what you do with it until then. **Simple target
+  button** (Settings, Questing, Buttons, Targeting) keeps only the button,
+  which moves to the next name on each click. Its icon shows what you do with
+  the one it targets next (a
   speech bubble, ! or ? for an NPC, a sword or a bag for a mob, a skull for an
   elite, rare or boss, or their face once you have seen them), with the name
   beside it in green, red or gold and small icons for the names after it.
