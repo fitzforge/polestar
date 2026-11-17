@@ -452,22 +452,29 @@ forge sim fights --recordings data/recordings --out fights.json
 ```
 
 A sample is the seconds between two kills of one session (over 2 s, at most 180 s) less the straight
-walk between them at `runSpeed`. Left out: a kill in a group, another player's tap, a rare or a boss,
-a mob more than 6 levels below or 4 above the character, and a pair with a death, a flight, a ride
-or AFK between them. Samples are pooled per player, class, level, mob level and rank; a pool counts
-as its median, weighs at most 40 samples and needs 3, so one player's long farm is one vote. The fit
-is additive in log seconds over level, mob level, class and rank. A term nothing was recorded for is
-`null`. `forge sim calibrate` still fits its own `killSec1` / `killSec60` from the same seconds with
-the walk left in, so its values read higher.
+walk between them at `runSpeed`. Left out: a kill in a group, another player's tap, a rare or a
+boss, a mob more than 6 levels below or 4 above the character, and a pair with a death, a flight, a
+ride or AFK between them. Samples are pooled per player, class, level, mob level and rank; a pool
+counts as its median, weighs at most 40 samples and needs 3, so one player's long farm is one vote.
+The fit is in log seconds, in two steps. Mob level and rank are measured inside one player's kills
+at one level: how much longer the same character takes on a mob 2 levels above than on an even-level
+one, and on an elite than on its normal kills. Level and class are then fitted across players from
+what is left. The report's `groups` and `eliteCells` say how many groups of kills and elite pools
+that rests on. A mob level no player fought beside another one is left out, and a term nothing was
+recorded for is `null`. `forge sim calibrate` still fits its own `killSec1` / `killSec60` from the
+same seconds with the walk left in, so its values read higher.
 
 Read `killUp` and `eliteTime` with care: they measure the fights players chose, not the fights a
 route would send them to. A player fights a mob above the character, or an elite alone, when the
 character can take it, so those samples come from the strong cases and both terms read low. On the
-archive at #2798, `killUp` read 0.007 and `eliteTime` 0.98, with mobs 3 and 4 levels above faster
-than mobs 2 above. The window adds to it: a fight that takes over 180 s with the rest after it is
-not a sample, and the longest fights are the ones against elites and mobs above the character. A
-low `killUp` or `eliteTime` in the report is therefore no reason by itself to lower the prior. The
-level line and `killDown` rest on the fights every player takes, and read close to their priors.
+archive at #2798, with every player set against every other, `killUp` read 0.007 and `eliteTime`
+0.98, with mobs 3 and 4 levels above faster than mobs 2 above. Measuring inside one player's kills
+takes out the strong player against the weak one. It does not take out one player's own choice from
+fight to fight: the mob above that is a weak kind, the elite fought with every cooldown up. The
+window adds to it: a fight that takes over 180 s with the rest after it is not a sample, and the
+longest fights are the ones against elites and mobs above the character. A low `killUp` or
+`eliteTime` in the report is therefore no reason by itself to lower the prior. The level line and
+`killDown` rest on the fights every player takes, and read close to their priors.
 
 ## When it goes wrong
 

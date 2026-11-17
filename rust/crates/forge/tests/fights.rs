@@ -1,5 +1,5 @@
-//! `forge sim fights` (forge::fights): which kills make a sample, and that the fit gives back the
-//! terms a made-up set of players was generated from.
+//! `forge sim fights` (forge::fights): which kills make a sample, that the fit gives back the
+//! terms a made-up set of players was generated from, and that a player is set against themselves.
 
 use forge::fights::{fit, report, session_samples, Sample, RUN_SPEED};
 use serde_json::{json, Value};
@@ -158,6 +158,58 @@ fn noise_and_one_player_who_farms_do_not_move_it_far() {
 }
 
 #[test]
+fn a_strong_player_who_picks_harder_mobs_does_not_flatten_the_terms() {
+	// Two Rogues at the same levels. The strong one (0.6 of the model's seconds) fights mobs at
+	// and above the character and elites; the weak one (1.4) fights mobs at and below it, never an
+	// elite. Set against each other, the mobs above look fast because the strong player fought them.
+	let mut s = Vec::new();
+	for (voter, own, gaps, elites) in [("strong", 0.6, 0..=3i64, true), ("weak", 1.4, -3..=0i64, false)] {
+		for level in (10..=30).step_by(5) {
+			for d in gaps.clone() {
+				for elite in [false, true] {
+					if elite && !elites {
+						continue;
+					}
+					for _ in 0..5 {
+						s.push(Sample { voter: voter.into(), class: "ROGUE".into(), level, gap: d, elite, sec: base(level) * gap_mul(d) * own * if elite { ELITE } else { 1.0 } });
+					}
+				}
+			}
+		}
+	}
+	let f = fit(2, &s);
+	let near = |got: f64, want: f64| assert!((got - want).abs() < 1e-6, "{got} != {want}");
+	near(f.kill_up.unwrap(), 0.1);
+	near(f.kill_down.unwrap(), 0.05);
+	near(f.elite_time.unwrap(), ELITE);
+	near(f.gaps.iter().find(|g| g.gap == 3).unwrap().ratio, 1.3);
+	near(f.gaps.iter().find(|g| g.gap == -3).unwrap().ratio, 0.85);
+}
+
+#[test]
+fn a_mob_level_no_player_fought_beside_another_is_left_out() {
+	// One player on even-level mobs and mobs 1 above; another on mobs 3 above only. Nothing sets
+	// the second player's kills against a mob level the first fought, so +3 has no ratio.
+	let mut s = Vec::new();
+	for (voter, d) in [("a", 0i64), ("a", 1), ("b", 3)] {
+		for _ in 0..5 {
+			s.push(Sample { voter: voter.into(), class: "MAGE".into(), level: 12, gap: d, elite: false, sec: base(12) * gap_mul(d) });
+		}
+	}
+	let f = fit(2, &s);
+	assert_eq!(f.gaps.iter().map(|g| g.gap).collect::<Vec<_>>(), vec![0, 1]);
+	assert!((f.kill_up.unwrap() - 0.1).abs() < 1e-6);
+	assert_eq!(f.groups, 1, "one player and level with two mob levels to compare");
+
+	// An elite with no normal kill of the same player at the same level has nothing to be set against.
+	let mut e: Vec<Sample> = s.iter().filter(|x| x.voter == "a").cloned().collect();
+	for _ in 0..5 {
+		e.push(Sample { voter: "c".into(), class: "MAGE".into(), level: 12, gap: 0, elite: true, sec: 99.0 });
+	}
+	assert_eq!(fit(2, &e).elite_time, None);
+}
+
+#[test]
 fn a_term_nothing_was_recorded_for_is_absent() {
 	// One class, one level, even-level normal mobs only.
 	let s: Vec<Sample> = (0..10).map(|_| Sample { voter: "a".into(), class: "MAGE".into(), level: 12, gap: 0, elite: false, sec: 14.0 }).collect();
@@ -185,6 +237,9 @@ fn the_report_sets_each_term_beside_its_prior() {
 	assert_eq!(r["classFactor"]["WARRIOR"]["prior"], 1.15);
 	assert_eq!(r["classFactor"]["MAGE"]["voters"], 3);
 	assert_eq!((r["sessions"].as_u64(), r["voters"].as_u64()), (Some(9), Some(9)));
+	// 9 players at 8 levels, each with all 7 mob levels; an elite cell where (player + level + |d|) is a multiple of 3.
+	assert_eq!((r["schema"].as_u64(), r["groups"].as_u64(), r["eliteCells"].as_u64()), (Some(2), Some(72), Some(f.elite_cells as u64)));
+	assert!(f.elite_cells > 0 && r["byGap"][0]["samples"] == 72 * 5);
 	assert_eq!(r["byGap"].as_array().unwrap().len(), 7);
 }
 
