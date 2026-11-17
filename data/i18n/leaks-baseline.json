@@ -37805,12 +37805,26 @@
 				],
 				"english": "Fishing Trap"
 			},
+			"objective:92753": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Explosives placed"
+			},
 			"objective:93404": {
 				"reason": "no-source",
 				"scenes": [
 					"dungeons"
 				],
 				"english": "Woodwyrd extinguished"
+			},
+			"objective:94888": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Farholde Scouts rescued"
 			},
 			"text:1500 Merchant's Favor": {
 				"reason": "kept-english",
@@ -40094,12 +40108,26 @@
 				],
 				"english": "Windstone Formation"
 			},
+			"objective:92753": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Explosives placed"
+			},
 			"objective:93404": {
 				"reason": "no-source",
 				"scenes": [
 					"dungeons"
 				],
 				"english": "Woodwyrd extinguished"
+			},
+			"objective:94888": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Farholde Scouts rescued"
 			},
 			"text:1,500 Merchant's Favor": {
 				"reason": "kept-english",
