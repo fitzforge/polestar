@@ -437,3 +437,44 @@ fn an_unskipped_step_whose_when_fails_only_on_complete_waits_for_the_quest_to_be
 		assert_eq!(out[2], json!({ "live2": true, "status": "current" }), "the quest done: the hand-in step is back ({order})");
 	}
 }
+
+// #2847: Hillsbrad's Razormaw nests (`when onquest` Trying Times) were passed without the quest and stored as
+// skipped; the window said "You skipped this step" and offered an unskip that brought back nothing, its one goal
+// still for a quest not in the log. The step's `why` names the condition that fails instead.
+#[test]
+fn a_step_passed_because_its_quest_is_not_in_the_log_says_so_unskipped_it_still_holds_nothing_2847() {
+	let g = r#"
+Polestar.RegisterGuide({
+	id = "test/when", pack = "test", title = "When", minLevel = 1, maxLevel = 10,
+	steps = {
+		{ title = "Deputy Willem", goals = {
+			{ t = "accept", quest = 783, title = "A Threat Within", npc = 823, npcName = "Deputy Willem", map = 1429, x = 48.2, y = 42.0 },
+		} },
+		{ title = "Nests", when = { { k = "onquest", q = { 7 } } }, goals = {
+			{ t = "collect", item = 159, itemName = "Egg", title = "Kobold Camp Cleanup", count = 1, quest = 7, oi = 1, map = 1429, x = 40, y = 40 },
+		} },
+		{ title = "Marshal McBride", goals = {
+			{ t = "turnin", quest = 783, title = "A Threat Within", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 },
+		} },
+	},
+})
+"#;
+	let script = r#"
+		local function st() local v = E.GetStepView(2); return { live = E.GetLiveStep(), skipped = v.skipped, why = v.why or false } end
+		local before = st()
+		E.Unskip(2); flush()
+		emit({ before = before, after = st() })
+	"#;
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}{TAKEN}"),
+		addons: vec![core()],
+		saved: vec![("Polestar".into(), DEFAULT_SAVED.into())],
+		script: [TEST_PACK, TEST_SOURCE, g, HELPERS, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, script].join("\n"),
+		..Default::default()
+	})
+	.remove(0);
+	let why = "Only with \u{201c}Kobold Camp Cleanup\u{201d} in your quest log";
+	assert_eq!(out["before"], json!({ "live": 3, "skipped": true, "why": why }), "passed and stored as skipped: the condition says why");
+	assert_eq!(out["after"], json!({ "live": 3, "skipped": false, "why": why }), "unskipped, it still holds nothing");
+}

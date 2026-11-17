@@ -11255,8 +11255,10 @@ end
 -- material's other way (Own.materialWhy). The first `when` predicate that
 -- fails, or, when none of its goals applies (`goals`: its goal views), the
 -- group quest it waits on not answered "do" (Elwynn's Goldshire hand-in of
--- Book Return), else that none applies. nil while a goal applies, for a step
--- hidden from the character (Own.hiddenStep), or with no goals.
+-- Book Return), else the predicate that fails now on a step stored as passed
+-- (Hillsbrad's Razormaw nests without Trying Times in the log, #2847), else
+-- that none applies. nil while a goal applies, for a step hidden from the
+-- character (Own.hiddenStep), or with no goals.
 function Own.stepWhy(step, goals)
 	if #goals == 0 or Own.hiddenStep(step) then return nil end
 	if not step.when then return Own.materialWhy(step, goals) end
@@ -11270,6 +11272,8 @@ function Own.stepWhy(step, goals)
 	for _, p in ipairs(step.when) do
 		if p.k == "group" and not p.neg and Own.groupAnswer(p.q) ~= "do" then return Own.whenText(p) end
 	end
+	local p = Own.whenFails(step)
+	if p then return Own.whenText(p) end
 	return L["Skipped for your character: none of its goals apply"]
 end
 
