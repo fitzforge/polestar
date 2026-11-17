@@ -1,4 +1,5 @@
 ---
 section: players
 ---
-- Welcome wizard: fix a Lua error opening the install wizard on the targeting page (#2592, thanks Jeor).
+- The install wizard's Targeting page no longer stops with a Lua error
+  (#2592, thanks Jeor and ESp3cter).
