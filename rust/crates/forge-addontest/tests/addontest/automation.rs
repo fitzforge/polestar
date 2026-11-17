@@ -408,13 +408,18 @@ fn t_108_a_direct_turn_in_already_done_is_never_handed_in_again() {
 // an escort's accept is left to the player, with one word in chat; alone it is taken as before.
 #[test]
 fn an_escort_is_not_auto_accepted_in_a_group_alone_it_is_2708() {
-	let guide = ["", TEST_PACK, TEST_SOURCE, r#"Polestar.RegisterGuide({
+	let guide = [
+		"",
+		TEST_PACK,
+		TEST_SOURCE,
+		r#"Polestar.RegisterGuide({
 		id = "test/escort", pack = "test", title = "Escort", minLevel = 1, maxLevel = 60,
 		steps = { { goals = {
 			{ t = "accept", quest = 97331, title = "Zimmix's Great Escape" },
 			{ t = "complete", quest = 97331, title = "Zimmix's Great Escape", escort = true },
 		} } },
-	})"#]
+	})"#,
+	]
 	.join("\n");
 	let script = r#"
 		Polestar.Engine.SetGuide("test/escort"); flush()

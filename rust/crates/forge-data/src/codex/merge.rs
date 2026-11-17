@@ -492,13 +492,8 @@ fn mechanics_entry(mechanics: &V, quest_id: f64) -> V {
 /// with the Mana Sieve before the pylons take it): data/mechanics-public.json's steps' facts, in step order, one
 /// text. None without a public entry or facts.
 fn public_how(public: &V, quest_id: f64) -> Option<String> {
-	let mut steps: Vec<(f64, String)> = mechanics_entry(public, quest_id)
-		.get("steps")
-		.items()
-		.iter()
-		.filter_map(|s| s.get("fact").as_str().map(|f| (s.get("n").num(), f.trim().to_string())))
-		.filter(|(_, f)| !f.is_empty())
-		.collect();
+	let mut steps: Vec<(f64, String)> =
+		mechanics_entry(public, quest_id).get("steps").items().iter().filter_map(|s| s.get("fact").as_str().map(|f| (s.get("n").num(), f.trim().to_string()))).filter(|(_, f)| !f.is_empty()).collect();
 	steps.sort_by(|a, b| ord(a.0 - b.0));
 	(!steps.is_empty()).then(|| steps.into_iter().map(|(_, f)| f).collect::<Vec<_>>().join(" "))
 }
@@ -2569,9 +2564,14 @@ mod tests {
 	fn an_item_keeps_every_vendor_that_sells_it_2719() {
 		let mut i = inputs("{}", "{}");
 		let ids: Vec<u32> = (1..=14).collect();
-		let npcs: Vec<String> = ids.iter().map(|n| format!(r#""{n}": {{ "id": {n}, "name": "Seller {n}", "roles": ["vendor"], "spawns": {{ "1455": {{ "f": "e", "pts": [[{n}, 50]] }} }} }}"#)).collect();
+		let npcs: Vec<String> =
+			ids.iter().map(|n| format!(r#""{n}": {{ "id": {n}, "name": "Seller {n}", "roles": ["vendor"], "spawns": {{ "1455": {{ "f": "e", "pts": [[{n}, 50]] }} }} }}"#)).collect();
 		i.forever.npcs = parse_json(&format!("{{ {} }}", npcs.join(", "))).unwrap();
-		i.forever.items = parse_json(&format!(r#"{{ "2604": {{ "id": 2604, "name": "Red Dye", "vendors": [{}], "drops": {{ "npc": {{}}, "object": {{}} }} }} }}"#, ids.iter().map(u32::to_string).collect::<Vec<_>>().join(", "))).unwrap();
+		i.forever.items = parse_json(&format!(
+			r#"{{ "2604": {{ "id": 2604, "name": "Red Dye", "vendors": [{}], "drops": {{ "npc": {{}}, "object": {{}} }} }} }}"#,
+			ids.iter().map(u32::to_string).collect::<Vec<_>>().join(", ")
+		))
+		.unwrap();
 		let codex = merge_codex(&i);
 		let sold_by: Vec<f64> = codex.items.get("2604").get("sources").items().iter().filter(|s| s.get("type").as_str() == Some("vendor")).map(|s| s.get("npc").num()).collect();
 		assert_eq!(sold_by.len(), 14, "every seller, not the first ten by id: {sold_by:?}");
@@ -2588,10 +2588,12 @@ mod tests {
 		}"#;
 		let private = r#"{ "quests": { "88010": { "steps": [{ "n": 1, "fact": "From a page's comments." }] } } }"#;
 		let mut i = inputs(quests, private);
-		i.mechanics_public = parse_json(r#"{ "quests": { "96018": { "steps": [
+		i.mechanics_public = parse_json(
+			r#"{ "quests": { "96018": { "steps": [
 			{ "n": 2, "fact": "Then use Repair and Recharge Pylon at each pylon." },
 			{ "n": 1, "fact": "Gather mana with the Mana Sieve first." }
-		] } } }"#)
+		] } } }"#,
+		)
 		.unwrap();
 		let codex = merge_codex(&i);
 		assert_eq!(codex.quests.get("96018").get("how").as_str(), Some("Gather mana with the Mana Sieve first. Then use Repair and Recharge Pylon at each pylon."));
