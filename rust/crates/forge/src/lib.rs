@@ -28,6 +28,7 @@
 pub mod bake;
 pub mod calibrate;
 pub mod fetch;
+pub mod fights;
 pub mod gate;
 pub mod generated;
 pub mod lead_in;
