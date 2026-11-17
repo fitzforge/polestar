@@ -669,13 +669,18 @@ function handSpots(data, sources, map, f, x, y, near, altSources = sources) {
 }
 
 // A `loop` step (docs/GUIDE_FORMAT.md, "Spawn areas"): its `goto` points, in
-// order, are the places to search. Each kill, collect or interact goal the
-// author did not place (`@x,y`) and that picks no place at runtime gets them
-// as its spawn areas, searched one after another (`spread`), its point at the
-// first; the gotos leave the step. A spot's radius is its goto's `r`, else
-// LOOP_RADIUS yards.
+// order, are the places to search. Each kill, collect, interact or skill goal
+// the author did not place (`@x,y`) and that picks no place at runtime gets
+// them as its spawn areas, searched one after another (`spread`), its point
+// at the first; the gotos leave the step. A spot's radius is its goto's `r`,
+// else LOOP_RADIUS yards.
 const LOOP_RADIUS = 30;
-const LOOP_VERBS = new Set(['kill', 'collect', 'interact']);
+// `skill`: a gathering round. The herbs or veins that raise the skill are
+// found by walking the points, and nothing in the data places a skill.
+const LOOP_VERBS = new Set(['kill', 'collect', 'interact', 'skill']);
+// A step with none of those: the loop is where to look for someone who walks,
+// the NPC of its accept, turnin and talk goals (a quest giver on a patrol).
+const LOOP_NPC_VERBS = new Set(['accept', 'turnin', 'talk']);
 function applyLoop(step, s, data, err) {
 	const ln = s.loop;
 	const gotos = step.goals.filter((g) => g.t === 'goto');
@@ -686,9 +691,11 @@ function applyLoop(step, s, data, err) {
 	if (gotos.some((g) => g.f !== first.f)) return err(ln, '`loop` points must all be in one map frame: all Era, or all `live`');
 	const own = gotos.find((g) => g.only || g.optional);
 	if (own) return err(own._line, 'a `loop` point cannot be `optional` or have `only`: every goal of the loop searches it');
-	const targets = step.goals.filter((g, i) => LOOP_VERBS.has(g.t) && !s.goals[i].explicitCoords && !s.goals[i].anywhere && !g.candidates);
+	const placeable = (verbs) => step.goals.filter((g, i) => verbs.has(g.t) && !s.goals[i].explicitCoords && !s.goals[i].anywhere && !g.candidates);
+	let targets = placeable(LOOP_VERBS);
+	if (!targets.length && !step.goals.some((g) => LOOP_VERBS.has(g.t))) targets = placeable(LOOP_NPC_VERBS);
 	if (!targets.length) {
-		return err(ln, '`loop` needs a kill, collect or interact goal without its own `@x,y`', 'a goal placed with `@x,y` keeps its point; drop `loop` to walk the gotos as a path');
+		return err(ln, '`loop` needs a kill, collect, interact or skill goal without its own `@x,y`, or with none of those an accept, turnin or talk', 'a goal placed with `@x,y` keeps its point; drop `loop` to walk the gotos as a path');
 	}
 	for (const goal of targets) {
 		goal.map = first.map;
@@ -832,7 +839,7 @@ function resolveGuide(ast, data, diag, opts = {}) {
 			// `done` names a step of the guide being played; the options are also listed from other guides.
 			if (p.k === 'done') err(p.line, '`done` checks a step of the guide being played: it cannot decide a `next` option', 'use a predicate on the character, such as `turnedin <quest>`');
 			else if (p.k === 'group') err(p.line, '`group` asks the player at a step of the guide: it cannot decide a `next` option', 'put `when group <quest>` on the steps of that quest');
-			else guide.nextWhen[id] = resolveWhen([p], endZone ? endZone.id : null, null, data, warn, guideSides);
+			else guide.nextWhen[id] = resolveWhen([p], endZone ? endZone.id : null, null, data, warn, guideSides, err);
 		}
 	}
 	setIf(guide, 'pitch', h.pitch);
@@ -935,12 +942,12 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		const stepZone = resolveZone(s.zone || (s.goals[0] && s.goals[0].zone));
 		// The factions the step is for, narrowed by its races as a goal's (a `taxi` predicate's flight master), when asked.
 		const stepSides = () => smartSides(sidesFor([h.faction ? [h.faction] : null, s.only && s.only.factions]), applicable([headLayer, s.only]));
-		setIf(step, 'when', resolveWhen(s.when, stepZone ? stepZone.id : null, levels, data, warn, stepSides));
+		setIf(step, 'when', resolveWhen(s.when, stepZone ? stepZone.id : null, levels, data, warn, stepSides, err));
 		setIf(step, 'label', s.label);
 		setIf(step, 'along', s.along);
 		setIf(step, 'section', s.section);
 		// `skipto <label> when <predicate>`: { to, when } in the step's order, `when` one predicate.
-		if (s.skipto) step.skipto = s.skipto.map((k) => ({ to: k.to, when: resolveWhen([k.when], stepZone ? stepZone.id : null, null, data, warn, stepSides)[0] }));
+		if (s.skipto) step.skipto = s.skipto.map((k) => ({ to: k.to, when: resolveWhen([k.when], stepZone ? stepZone.id : null, null, data, warn, stepSides, err)[0] }));
 		step.goals = [];
 		hidden(step, '_line', s.line);
 		hidden(step, '_only', s.only);
@@ -1004,6 +1011,12 @@ function resolveGuide(ast, data, diag, opts = {}) {
 				use(moves, goal.map);
 			}
 		}
+		// `either` marks a set: with one goal alone there is nothing to choose between.
+		const set = s.goals.filter((g) => g.either);
+		for (const g of set) {
+			if (g.optional) err(g.line, 'a goal cannot be both `either` and `optional`: an optional goal never holds its step', 'drop `optional`: once another `either` goal of the step is done, this one no longer holds it');
+		}
+		if (set.length === 1) err(set[0].line, '`either` needs a second `either` goal in its step: the step is done when any one of them is', 'mark every alternative `either`, or drop it');
 		if (s.loop) {
 			applyLoop(step, s, data, err);
 			const last = step.goals.findLast((goal) => goal.x !== undefined);
@@ -1185,7 +1198,8 @@ function nonEmpty(o) {
 // point (`taxi`) checked as a getfp's, with its taxi node for the factions
 // `sides()` gives (places.js goalNode). `levels`: the
 // guide's [min, max], to warn about a step no character in that range sees.
-function resolveWhen(list, zoneId, levels, data, warn, sides) {
+// A `rep` faction the data cannot give an id is an error (`err`): the engine reads a standing by faction id.
+function resolveWhen(list, zoneId, levels, data, warn, sides, err) {
 	if (!list || !list.length) return undefined;
 	const haveQuests = nonEmpty(data.quests);
 	const haveItems = nonEmpty(data.items);
@@ -1266,6 +1280,38 @@ function resolveWhen(list, zoneId, levels, data, warn, sides) {
 				break;
 			case 'knows':
 				w.spell = p.spell;
+				break;
+			case 'buff':
+				w.spell = p.spell;
+				break;
+			case 'rep': {
+				// The engine reads a standing by faction id: a name must be one the data knows.
+				const where = data.hasFactions ? '' : ' (factions.json missing)';
+				if (p.faction !== undefined) {
+					const f = data.faction(p.faction);
+					w.faction = p.faction;
+					if (f && f.name) w.name = String(f.name);
+					else warn(p.line, `faction ${p.faction} is not in data${where} (new Forever content?)`);
+				} else {
+					const found = data.factionNamed(p.name);
+					if (found) {
+						w.name = String(found.faction.name);
+						w.faction = found.faction.id;
+						if (found.ambiguous) warn(p.line, `faction "${p.name}" matches ids ${found.ambiguous.map((f) => f.id).join(', ')}; using ${found.faction.id} (write \`rep <factionId> <Standing>\` to choose)`);
+					} else {
+						w.name = p.name;
+						err(p.line, `unknown faction "${p.name}"${where}; give its id: \`rep <factionId> <Standing>\``);
+					}
+				}
+				w.standing = p.standing;
+				if (p.points) w.points = p.points;
+				break;
+			}
+			case 'indoors':
+				break;
+			case 'equipped':
+				w.item = p.item;
+				if (haveItems && !data.item(p.item)) warn(p.line, `item ${p.item} is not in data (new Forever content?)`);
 				break;
 			case 'dungeon': {
 				w.name = p.name;
@@ -1743,6 +1789,19 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			goal.itemName = requireName('item', g.item, g.itemName, 'Item name') || undefined;
 			break;
 		}
+		case 'deposit': {
+			// Into the bank: until the bags hold none, or with `xN` until the bank holds N.
+			goal.item = g.item;
+			goal.itemName = requireName('item', g.item, g.itemName, 'Item name') || undefined;
+			if (g.count !== undefined) goal.count = g.count;
+			break;
+		}
+		case 'equip': {
+			goal.item = g.item;
+			goal.itemName = requireName('item', g.item, g.itemName, 'Item name') || undefined;
+			if (g.off) goal.off = true;
+			break;
+		}
 		case 'talk': {
 			goal.npc = g.npc;
 			goal.npcName = requireName('npc', g.npc, g.npcName, 'NPC name') || undefined;
@@ -1885,6 +1944,15 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			}
 			goal.level = g.level;
 			if (goal.skillLine !== undefined) progressOf(ctx, goal.skillLine).target = g.level;
+			break;
+		}
+		case 'buff': {
+			// An aura: its name from the client's spell tables, else the author's.
+			const name = g.spellName || taughtSpellName(data, g.spell);
+			if (!name) err(ln, `spell ${g.spell} is not in data; give its name: \`buff ${g.spell} "Name"\``);
+			goal.spell = g.spell;
+			goal.spellName = name || undefined;
+			if (g.off) goal.off = true;
 			break;
 		}
 		case 'cast': {
@@ -2058,7 +2126,11 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			const bagHint = `the quest uses item ${id} without counting it: drop \`quest ${g.quest}${oi !== undefined ? `.${oi}` : ''}\` so the step counts it in the bags`;
 			const named = oi !== undefined && kind && id !== undefined ? data.questObjectives(g.quest)[oi - 1] : null;
 			const right = named ? find(id) : null;
-			const swapped = !!right && right !== oi;
+			// Two lines of a quest may share one target (report to the same officer
+			// before and after the patrol): `find` gives the first, but the line
+			// named is right whenever its own target is the goal's.
+			const namesOwn = !!named && sameKind(named.kind) && named.id === id;
+			const swapped = !!right && right !== oi && !namesOwn;
 			if (swapped || (named && sameKind(named.kind) && named.id != null && named.id !== id)) {
 				const own = right ? data.questObjectives(g.quest)[right - 1] : null;
 				(swapped ? err : warn)(
@@ -2219,12 +2291,25 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 		}
 	}
 	if (g.r !== undefined) goal.r = g.r;
+	if (g.points) goal.points = g.points;
+	// `upto <N>`: part of a quest objective's count. Without the objective's line there is nothing
+	// to count; at the whole of its count the goal is the objective itself.
+	if (g.upto !== undefined) {
+		const line = goal.oi !== undefined ? data.questObjectives(goal.quest)[goal.oi - 1] : null;
+		if (goal.quest === undefined || goal.oi === undefined) err(ln, '`upto` counts part of a quest objective: the goal needs `quest <id>.<objective>`');
+		else {
+			goal.upto = g.upto;
+			if (line && line.count !== null && g.upto >= line.count) warn(ln, `\`upto ${g.upto}\` is the whole of quest ${goal.quest}.${goal.oi} (x${line.count}): the goal is done with the objective, as without it`, 'drop `upto`, or give the part of the count this step is for');
+		}
+	}
 	if (g.optional) goal.optional = true;
+	if (g.either) goal.either = true;
 	// `turnin ... direct`: handed in from the giver's window with no accept;
-	// its quest's level, as an accept's, for the engine's grey-quest skipping.
+	// carry its minimum level and quest level for eligibility and grey-quest skipping.
 	if (g.direct) {
 		goal.direct = true;
 		const q = goal.quest !== undefined ? data.quest(goal.quest) : null;
+		if (q && Number(q.minLevel) > 0) goal.minLevel = Number(q.minLevel);
 		if (q && Number(q.level) > 0) goal.qlvl = Number(q.level);
 		// What its giver waits on, as for an accept: the engine lets the goal go when the guide's accept of
 		// that quest is skipped or never taken (Stranglethorn Fever 349 wants Fin Fizracket's 348 in the log).

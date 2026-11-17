@@ -41,7 +41,8 @@ ns.RegisterDefaults("ui", {
 	classCardSound = true, -- the class-quest card's and the class quest heads-up's chime (UI/ClassCard.lua, UI/ClassToast.lua)
 	skin = "polestar", -- "polestar" (the house style, the default) | "halo" | "hearth" | "forever" | "blizzard" | "classic" (Polestar.Theme, "Skins")
 	font = "skin", -- "skin" (the game's in Polestar) | "opensans" | "game" | "inter" | "fira"
-	textSize = 1, -- 0.8..1.4: every text role's size against its own (Theme.FontSpec), apart from the window scale
+	textSize = 1, -- 0.8..1.4: every text role's size against its own (Theme.FontSpec), apart from the window scale; the guide window has its own (guideTextSize)
+	guideTextSize = 1, -- 0.8..1.4: the same, for the guide window's text only (Theme.TextScope)
 	scheme = "dusk", -- "dusk" | "night" | "graphite" | "ellesmere" (Polestar.Theme.SCHEMES)
 	accent = false, -- false: the scheme's (or EllesmereUI's) accent; { r, g, b }: your own
 	bgColor = false, -- false: the scheme's ground; { r, g, b }: your own

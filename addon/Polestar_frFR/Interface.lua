@@ -211,6 +211,12 @@ L["Sell before heading out: %s"] = "Vendez avant de partir : %s"
 L["The guide heads out of town next and your bags are nearly full: sell what you don't need here."] = "Le guide quitte bientôt la ville et vos sacs sont presque pleins : vendez ici ce dont vous n'avez pas besoin."
 L["Pays %d%% XP at your level and is out of the way (Skip grey quests)"] = "Rapporte %d%% d'XP à votre niveau et est hors du chemin (Passer les quêtes grises)"
 L["Grey for you: pays %d%% XP (Skip grey quests)"] = "Grise pour vous : rapporte %d%% d'XP (Passer les quêtes grises)"
+-- L["Put in the bank"] = ""
+-- L["Take off"] = ""
+-- L["Equip"] = ""
+-- L["Reach %d points into %s with"] = ""
+-- L["Lose"] = ""
+-- L["Gain"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Choisissez une récompense pour rendre la quête."
@@ -612,6 +618,11 @@ L["The size of every quest marker on the world map and the minimap."] = "La tail
 L["Timed quest alerts"] = "Alertes des quêtes à durée limitée"
 L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] = "Une ligne de discussion et un son quand une quête à durée limitée n'a plus que 5 minutes, de nouveau à 1 minute et si elle échoue. La fenêtre du guide affiche toujours le temps restant."
 L["Party chat"] = "Discussion de groupe"
+-- L["On a mob that drops a quest item you still need, or an object it comes out of, show how often."] = ""
+-- L["Quest givers and turn-ins"] = ""
+-- L["On an NPC, name the quests it has for you now and the finished quests you can hand in to it."] = ""
+-- L["Replace the game's quest lines"] = ""
+-- L["On mobs and objects, leave out the game's own lines for the quests these tooltips name, so each quest shows once. In a group the game's lines stay: they show your party's progress."] = ""
 
 -- Quests/Party.lua
 L["%s done"] = "%s : fait"
@@ -1136,6 +1147,8 @@ L["Lists the quest items you can buy at an auction house instead of farming them
 L["Lists the current step's mobs, or the NPCs it sends you to when it has no mob, with their portraits and what they drop; click a name to target that one. Its key binding targets the first one close by."] = "Liste les monstres de l'étape en cours, ou les PNJ vers lesquels elle vous envoie quand elle n'a pas de monstre, avec leurs portraits et ce qu'ils lâchent ; cliquez sur un nom pour le cibler. Son raccourci cible le premier à proximité."
 L["Names in the target list"] = "Noms dans la liste de cibles"
 L["How many of the step's mobs the target list shows, in guide order."] = "Combien de monstres de l'étape la liste de cibles affiche, dans l'ordre du guide."
+-- L["Completed quest XP"] = ""
+-- L["Shows XP from completed quests you can turn in on the game's XP bar and in its tooltip."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Alliance uniquement"
@@ -1462,7 +1475,7 @@ L["Pinned by you. Right-click to unpin."] = "Épinglée par vous. Clic droit pou
 L["Pinned: its objectives are still open."] = "Épinglée : ses objectifs ne sont pas finis."
 L["pinned, still open"] = "épinglée, pas finie"
 L["Level 40: class mount (Warlock)"] = "Niveau 40 : monture de classe (démoniste)"
-L["Summon Felsteed quest chain (Strahad Farsan, Ratchet); riding trainer otherwise."] = "Chaîne de quêtes Invoquer un Palefroi corrompu (Strahad Farsan, Ratchet) ; sinon, maître de monte."
+L["Summon Felsteed quest chain (Strahad Farsan, Ratchet); riding trainer otherwise."] = "Chaîne de quêtes Invoquer un Palefroi corrompu (Strahad Farsan, Cabestan) ; sinon, maître de monte."
 L["Level 40: class mount (Paladin)"] = "Niveau 40 : monture de classe (paladin)"
 L["Tome of Nobility quest chain (Lord Grayson Shadowbreaker, Stormwind); riding trainer otherwise."] = "Chaîne de quêtes Le Tome de noblesse (seigneur Grayson Shadowbreaker, Hurlevent) ; sinon, maître de monte."
 L["Level 40: you can learn to ride"] = "Niveau 40 : vous pouvez apprendre la monte"
@@ -2397,7 +2410,6 @@ L["Glyphs only"] = "Glyphes seuls"
 L["Use deathskips"] = "Mourir pour gagner du temps"
 L["Where dying on purpose and taking the Spirit Healer's resurrection gets you there sooner, the guide shows a step for it. It costs durability and, from level 11, resurrection sickness. Always off on Hardcore characters."] = "Là où mourir exprès et ressusciter auprès de l'esprit guérisseur vous y mène plus vite, le guide affiche une étape pour cela. Cela coûte de la durabilité et, à partir du niveau 11, du mal de résurrection. Toujours désactivé sur les personnages Hardcore."
 L["Text size"] = "Taille du texte"
-L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "La taille du texte de Polestar, indépendamment de l'échelle de la fenêtre. S'applique aussitôt. Clic droit pour réinitialiser."
 L["Numbered pins for the steps ahead"] = "Repères numérotés des étapes à venir"
 L["A small pin with its step number where each of the next steps takes you, fainter the further ahead. As many as Up next shows, else five."] = "Un petit repère avec son numéro d'étape là où chacune des étapes suivantes vous mène, plus pâle à mesure qu'elle est lointaine. Autant que À suivre en affiche, sinon cinq."
 L["%d KiB"] = "%d Kio"
@@ -3478,6 +3490,8 @@ L["%s not found nearby."] = "%s introuvable à proximité."
 
 -- Quests/BagMarks.lua
 L["Polestar quest items"] = "Objets de quête Polestar"
+-- L["Polestar quest leftovers"] = ""
+-- L["Related quests completed (likely safe to delete)"] = ""
 
 -- Quests/DeleteWarning.lua
 L["Needed for:"] = "Requis pour :"
@@ -4136,6 +4150,7 @@ L["Shadow strength"] = "Intensité de l'ombre"
 L["More looks"] = "Autres habillages"
 L["Game looks"] = "Habillages du jeu"
 L["Polestar looks"] = "Habillages Polestar"
+-- L["The size of Polestar's text, apart from the window scale. The guide window has its own, on its page. Changes at once. Right-click to reset."] = ""
 
 -- UI/Looks/GuideWindow.lua
 L["Marshal Dughan"] = "Maréchal Dughan"
@@ -4233,6 +4248,7 @@ L["Stonefield Farm"] = "Ferme des Stonefield"
 L["Jasperlode Mine"] = "Mine Veine-de-jaspe"
 L["What it leaves out"] = "Ce qu'il laisse de côté"
 L["A dim line where the guide passes over quests: open it to see each one and why, with a way to bring it back. Grind steps say what else is worth doing, and a line offers to clean up quests that aren't part of your route."] = "Une ligne discrète là où le guide passe des quêtes : ouvrez-la pour voir chacune et pourquoi, avec un moyen de la rétablir. Les étapes où l'on tue des monstres disent ce qui vaut encore la peine, et une ligne propose de faire le tri des quêtes hors de votre itinéraire."
+-- L["The size of the guide window's text, apart from its scale and the rest of Polestar's text (Theme > Text). The class quest card keeps that general size. Changes at once. Right-click to reset."] = ""
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "File d'alertes"
@@ -4665,6 +4681,16 @@ L["Not moved"] = "Non déplacé"
 L["From the look"] = "Selon l'apparence"
 L["Nothing to apply: the parts ticked are the same as yours."] = "Rien à appliquer : les parties cochées sont identiques aux vôtres."
 
+-- QoL/QuestXP.lua
+-- L["+1 level"] = ""
+-- L["Current XP"] = ""
+-- L["Rested XP"] = ""
+-- L["Completed quests"] = ""
+-- L["Pending quest XP"] = ""
+-- L["After turn-ins: at least +1 level"] = ""
+-- L["XP after turn-ins"] = ""
+-- L["XP remaining after turn-ins"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Alliance"] = "Alliance"
 -- L["Blood Elf"] = "Elfe de sang"
@@ -4910,3 +4936,4 @@ L["Nothing to apply: the parts ticked are the same as yours."] = "Rien à appliq
 -- L["Most of its quests are new in Forever."] = "La plupart de ses quêtes sont nouvelles dans Forever."
 -- L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "Un itinéraire peut commencer par un sort de téléportation que vous connaissez (les téléportations de mage vers les capitales, Reflet-de-Lune pour le druide) quand c'est plus rapide. Une téléportation vers une capitale demande une rune de téléportation dans vos sacs."
 -- L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."] = "Écarte les quêtes grises et leurs rendus, sauf si une quête ultérieure les requiert."
+-- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "La taille du texte de Polestar, indépendamment de l'échelle de la fenêtre. S'applique aussitôt. Clic droit pour réinitialiser."

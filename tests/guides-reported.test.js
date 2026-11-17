@@ -7,7 +7,8 @@
 // rule (tests/lint-timed.test.js); the Fargodeep Mine and Blackfathom Deeps
 // mouths are in tests/guides-caves.test.js.
 //
-// Needs data/forever (forge data build); skips without it.
+// Needs data/forever (forge data build); skips without it, except the
+// header-only Lookup regression, which uses a small display-data fixture.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
@@ -15,7 +16,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { needs } = require('./helpers/data');
 const { compileSources, compileProject, OFFICIAL_DIR } = require('../tools/lib/dsl/project');
-const { loadData } = require('../tools/lib/dsl/data');
+const { loadData, Data } = require('../tools/lib/dsl/data');
 const { parseGuide } = require('../tools/lib/dsl/parse');
 const { Diagnostics } = require('../tools/lib/dsl/diag');
 const { loadCorrections } = require('../tools/lib/data/corrections');
@@ -23,12 +24,162 @@ const { DATA, SOURCES } = require('../tools/lib/paths');
 const { loadWeb } = require('../tools/lib/codex/web');
 const { runAddon } = require('./helpers/lua');
 const { writeTestPack } = require('./helpers/dsl');
+const { writeCodexPack } = require('./helpers/codex');
 const { buildSimPack, playGuide, SIMULATE } = require('../tools/lib/playtest');
 const { makeProjector, dist } = require('../tools/lib/route/geo');
 const { tokeniseGuides } = require('../tools/lib/dsl/tokens');
 const { guideHeaders } = require('./helpers/guide-levels');
 
 const skip = needs('quests.json', 'npcs.json', 'objects.json', 'map-frames.json');
+
+// These approaches contain only explicit coordinates and quest-state predicates, so
+// exercise their actual source without the optional reference data. The task after
+// each approach makes its applicability observable without the later chain's work.
+for (const [verb, quest] of [['accept', 98393], ['turnin', 98397]]) {
+	test(`Cat Form: the entrance before ${verb} ${quest} is needed only until that visit is done (#2294)`, async (t) => {
+		const file = path.join(OFFICIAL_DIR, 'forever/class/druid/cat-form.guide');
+		const text = fs.readFileSync(file, 'utf8');
+		const diag = new Diagnostics();
+		const ast = parseGuide(text, file, diag);
+		assert.deepEqual(diag.errors, []);
+		const isVisit = (s) => s.goals.some((g) => g.verb === verb && g.quest === quest);
+		assert.equal(ast.steps.filter(isVisit).length, 1, 'the visit is unambiguous');
+		const visit = ast.steps.findIndex(isVisit);
+		assert.ok(visit > 0, `the ${quest} visit has an approach`);
+		const lines = text.split('\n');
+		const source = [
+			...lines.slice(0, ast.steps[0].line - 1),
+			...lines.slice(ast.steps[visit - 1].line - 1, ast.steps[visit].line - 1),
+			'step Continue after the visit', '  task "Continue"',
+		].join('\n');
+		const maps = new Data({ zones: {
+			1450: { id: 1450, name: 'Moonglade', type: 3 },
+			1457: { id: 1457, name: 'Darnassus', type: 3 },
+		} });
+		const compiled = compileSources([{ file, text: source }], maps);
+		assert.deepEqual(compiled.diag.list, []);
+		const approach = compiled.guides[0].steps[0];
+		const door = approach.goals.find((g) => g.t === 'goto');
+		assert.ok(door, 'keep the entrance needed to reach the upstairs trainer (#1338)');
+		assert.deepEqual([door.map, door.x, door.y], [1457, 35.8, 11.6]);
+		if (verb === 'accept') assert.ok(approach.goals.some((g) => g.t === 'level' && g.level === 20));
+		const pack = writeTestPack(compiled.guides, maps);
+		try {
+			const loads = pack.scripts.map((f) => `assert(loadfile(${JSON.stringify(f)}))("Polestar_Guides", ns)`).join('\n');
+			const states = ['untaken', 'held', 'turnedIn'].map((state) => ({ state, level: 20 }));
+			if (verb === 'accept') states.push({ state: 'untaken', level: 19 });
+			for (const race of ['NightElf', 'Skyborne']) {
+				for (const { state, level } of states) {
+					await t.test(`${race}, ${state}, level ${level}`, () => {
+						const [out] = runAddon({
+							stubs: ['stub_world.lua'],
+							before: `local w = stub.world
+								w.race, w.raceName, w.faction, w.class, w.className = "${race}", "${race}", "Alliance", "DRUID", "Druid"
+								w.level = ${level}
+								w.addMap(1450, {name="Moonglade", c=1, left=-1381.25, right=-3689.583, top=8491.666, bottom=6952.083})
+								w.addMap(1457, {name="Darnassus", c=1, left=2938.363, right=1880.03, top=10238.316, bottom=9532.587})
+								w.moveTo(1450, 40, 60)`,
+							addons: [{ name: 'Polestar', files: ['Core/Core.xml'] }],
+							saved: { Polestar: 'PolestarDB = {schema=1, settings={behavior={autoSelectGuide=false}}}' },
+							script: `do local ns = {}
+								${loads}
+								end
+								local w = stub.world
+								${state !== 'untaken' ? `w.accept(${quest}, {})` : ''}
+								${state === 'turnedIn' ? `w.turnIn(${quest})` : ''}
+								stub.login(); stub.advance(0.5)
+								local E = Polestar.Engine
+								E.SetGuide("forever/class/druid/cat-form"); stub.advance(0.5)
+								emit({step=E.GetStepIndex(), point=E.GetWaypoint(), firstDone=E.GetStepView(1).goals[1].status=="done"})`,
+						}).emitted;
+						const completed = state === 'turnedIn' || (verb === 'accept' && state === 'held');
+						assert.equal(out.step, completed ? 2 : 1, 'only completed work makes this visit unnecessary');
+						if (!completed && level === 20) assert.deepEqual([out.point.map, out.point.x, out.point.y], [1457, 35.8, 11.6]);
+						if (level === 19) assert.equal(out.firstDone, false, 'the level goal still holds the approach');
+					});
+				}
+			}
+		} finally {
+			fs.rmSync(pack.dir, { recursive: true, force: true });
+		}
+	});
+}
+
+// This regression needs no local reference build: compile the actual headers,
+// whose index Lookup uses, with one inert step. Display names and zone ids are
+// from the checked-in guide packs; quest mechanics are not part of this fixture.
+const TOTEMS = [[5175, 'earth'], [5176, 'fire'], [5177, 'water'], [5178, 'air']];
+function totemHeaders() {
+	const items = Object.fromEntries([
+		[5175, 'Earth Totem'], [5176, 'Fire Totem'], [5177, 'Water Totem'], [5178, 'Air Totem'],
+		[6637, 'Water Sapta'], [263412, 'Totem of Charged Flames'],
+		[280607, "Lightning's Grasp"], [280605, "Tidebringer's Claw"],
+		[280604, 'Rage of the Storm'], [280696, "Elementalist's Guard"],
+	].map(([id, name]) => [id, { id, name }]));
+	const zones = Object.fromEntries([
+		[1426, 'Dun Morogh'], [1411, 'Durotar'], [1413, 'The Barrens'],
+		[1455, 'Ironforge'], [1454, 'Orgrimmar'],
+	].map(([id, name]) => [id, { id, name }]));
+	const headerData = new Data({ items, zones });
+	const sources = TOTEMS.flatMap(([, element]) => ['alliance', 'horde'].map((side) => {
+		const file = path.join(OFFICIAL_DIR, `forever/class/shaman/call-of-${element}-${side}.guide`);
+		const text = fs.readFileSync(file, 'utf8');
+		const firstStep = text.search(/^step(?:\s|$)/m);
+		assert.ok(firstStep > 0, `${file}: the authored header ends before the steps`);
+		return { file, text: text.slice(0, firstStep) + 'step\n  note Header lookup test\n' };
+	}));
+	const { guides, diag } = compileSources(sources, headerData);
+	assert.deepEqual(diag.sorted(), []);
+	assert.equal(guides.length, 8);
+	return { guides, headerData };
+}
+
+for (const [side, race] of [['Alliance', 'Dwarf'], ['Horde', 'Orc']]) {
+	test(`${side} Shaman totems: item Lookup opens the authored class guide (#2331, Logan)`, () => {
+		const { guides, headerData } = totemHeaders();
+		const pack = writeTestPack(guides, headerData);
+		// A real serialized Codex pack lets the public action load normally.
+		// It intentionally has no totem records: this tests curated selection,
+		// not the generated quest chain or its unavailable Forever-only facts.
+		const codex = writeCodexPack(require('./fixtures/codex/lookup.json'));
+		try {
+			const [opened, fallback] = runAddon({
+				stubs: ['stub_world.lua', 'stub_encoding.lua'],
+				before: `local w = stub.world
+					w.race, w.raceName, w.faction = "${race}", "${race}", "${side}"
+					w.class, w.className, w.classID, w.level = "SHAMAN", "Shaman", 7, 30
+					${codex.stubLua}`,
+				addons: ['Polestar', { name: 'Polestar_Guides', files: pack.scripts }],
+				login: true,
+				script: `local L, E, G = Polestar.Lookup, Polestar.Engine, Polestar.Guides
+					local result = {}
+					for _, item in ipairs({5175, 5176, 5177, 5178}) do
+						local id, reason = L.Guide("item", item)
+						result[#result + 1] = { opened = id or false, reason = reason or false,
+							active = E.GetGuide() and E.GetGuide().id or false }
+					end
+					emit(result)
+					-- Another class gets none of them: 0.4.0 never offers a guide of another class (#2462).
+					stub.world.class, stub.world.className, stub.world.classID = "WARRIOR", "Warrior", 1
+					local curated = L.CuratedGuide("item", 5177)
+					local id = L.Guide("item", 5177)
+					emit({ curated = curated or false, opened = id or false,
+						matches = curated and G.GuideMatches(G.Get(curated), Polestar.Compat.GetPlayerInfo()) or false,
+						active = E.GetGuide() and E.GetGuide().id or false })`,
+			}).emitted;
+			assert.deepEqual(opened.map((r) => r.opened), TOTEMS.map(([, element]) => `forever/class/shaman/call-of-${element}-${side.toLowerCase()}`));
+			for (const row of opened) assert.equal(row.active, row.opened, 'the selected guide is active');
+			for (const [item, element] of TOTEMS) for (const faction of ['alliance', 'horde']) {
+				assert.deepEqual(guides.find((g) => g.id.endsWith(`call-of-${element}-${faction}`)).collects, [item], 'only the primary totem is indexed');
+			}
+			assert.equal(fallback.curated, false, 'a Warrior is never sent to a Shaman guide (#2462)');
+			assert.notEqual(fallback.opened, `forever/class/shaman/call-of-water-${side.toLowerCase()}`);
+		} finally {
+			fs.rmSync(pack.dir, { recursive: true, force: true });
+			codex.cleanup();
+		}
+	});
+}
 
 test("Tyr's Watch: Tanis Alderwood's goals carry his Undercity floor's height, from the Forever TDB when classic-db lacks him (#855)", { skip: skip || needs('spawnz.json') }, () => {
 	const list = goals('forever/class/paladin/tyrs-watch.guide');
@@ -76,6 +227,91 @@ test('Horde Call of Fire: hand in the carried trainer lead at Kranal before star
 		}
 	}
 });
+
+// Read each actual entrance block so these quest-state regressions run even without
+// optional reference data. A task after the block makes its applicability observable
+// independently of the later chain; the original race, level and coordinates stay.
+for (const [name, verb, quest, level, races] of [
+	['aquatic-form', 'accept', 26, 16, ['NightElf', 'Skyborne']],
+	['aquatic-form', 'turnin', 5061, 16, ['NightElf', 'Skyborne']],
+	['cure-poison', 'accept', 6121, 14, ['NightElf']],
+	['cure-poison', 'accept', 6121, 14, ['Skyborne']],
+	['cure-poison', 'turnin', 6125, 14, ['NightElf', 'Skyborne']],
+]) {
+	test(`${name}: ${races.join('/')} entrance before ${verb} ${quest} follows quest progress (#2299)`, async (t) => {
+		const file = path.join(OFFICIAL_DIR, `forever/class/druid/${name}.guide`);
+		const text = fs.readFileSync(file, 'utf8');
+		const diag = new Diagnostics();
+		const ast = parseGuide(text, file, diag);
+		assert.deepEqual(diag.errors, []);
+		const isVisit = (s) => s.goals.some((g) => g.verb === verb && g.quest === quest)
+			&& s.only.races.length === races.length && races.every((race) => s.only.races.includes(race));
+		assert.equal(ast.steps.filter(isVisit).length, 1, 'the quest and races identify one visit');
+		const visit = ast.steps.findIndex(isVisit);
+		assert.ok(visit > 0, `the ${quest} visit has an approach`);
+		const lines = text.split('\n');
+		const source = [
+			...lines.slice(0, ast.steps[0].line - 1),
+			...lines.slice(ast.steps[visit - 1].line - 1, ast.steps[visit].line - 1),
+			'step Continue after the visit', '  task "Continue"',
+		].join('\n');
+		const maps = new Data({ items: {
+			// Header rewards, from forever-db/data/item.jsonl; no quest data are needed.
+			15866: { id: 15866, name: 'Veildust Medicine Bag' },
+			16608: { id: 16608, name: 'Aquarius Belt' },
+			263411: { id: 263411, name: 'Idol of Shifting Tides' },
+		}, zones: {
+			1450: { id: 1450, name: 'Moonglade', type: 3 },
+			1457: { id: 1457, name: 'Darnassus', type: 3 },
+		} });
+		const compiled = compileSources([{ file, text: source }], maps);
+		assert.deepEqual(compiled.diag.list, []);
+		const approach = compiled.guides[0].steps[0];
+		const door = approach.goals.find((g) => g.t === 'goto');
+		assert.ok(door, 'the upstairs trainer still has an entrance (#1338)');
+		assert.deepEqual([door.map, door.x, door.y], [1457, 35.8, 11.6]);
+		if (verb === 'accept') assert.ok(approach.goals.some((g) => g.t === 'level' && g.level === level));
+		const pack = writeTestPack(compiled.guides, maps);
+		try {
+			const loads = pack.scripts.map((f) => `assert(loadfile(${JSON.stringify(f)}))("Polestar_Guides", ns)`).join('\n');
+			const states = ['untaken', 'held', 'turnedIn'].map((state) => ({ state, playerLevel: level }));
+			if (verb === 'accept') states.push({ state: 'untaken', playerLevel: level - 1 });
+			for (const race of races) {
+				for (const { state, playerLevel } of states) {
+					await t.test(`${race}, ${state}, level ${playerLevel}`, () => {
+						const [out] = runAddon({
+							stubs: ['stub_world.lua'],
+							before: `local w = stub.world
+								w.race, w.raceName, w.faction, w.class, w.className = "${race}", "${race}", "Alliance", "DRUID", "Druid"
+								w.level = ${playerLevel}
+								w.addMap(1450, {name="Moonglade", c=1, left=-1381.25, right=-3689.583, top=8491.666, bottom=6952.083})
+								w.addMap(1457, {name="Darnassus", c=1, left=2938.363, right=1880.03, top=10238.316, bottom=9532.587})
+								w.moveTo(1450, 40, 60)`,
+							addons: [{ name: 'Polestar', files: ['Core/Core.xml'] }],
+							saved: { Polestar: 'PolestarDB = {schema=1, settings={behavior={autoSelectGuide=false}}}' },
+							script: `do local ns = {}
+								${loads}
+								end
+								local w = stub.world
+								${state !== 'untaken' ? `w.accept(${quest}, {})` : ''}
+								${state === 'turnedIn' ? `w.turnIn(${quest})` : ''}
+								stub.login(); stub.advance(0.5)
+								local E = Polestar.Engine
+								E.SetGuide("forever/class/druid/${name}"); stub.advance(0.5)
+								emit({step=E.GetStepIndex(), point=E.GetWaypoint(), firstDone=E.GetStepView(1).goals[1].status=="done"})`,
+						}).emitted;
+						const completed = state === 'turnedIn' || (verb === 'accept' && state === 'held');
+						assert.equal(out.step, completed ? 2 : 1, 'quest progress skips only an unnecessary visit');
+						if (!completed && playerLevel === level) assert.deepEqual([out.point.map, out.point.x, out.point.y], [1457, 35.8, 11.6]);
+						if (playerLevel < level) assert.equal(out.firstDone, false, 'the level goal still holds the approach');
+					});
+				}
+			}
+		} finally {
+			fs.rmSync(pack.dir, { recursive: true, force: true });
+		}
+	});
+}
 
 // The starts two races share publish one guide per race (docs/forge/routes.md, "Publishing every
 // start"): a report on the shared folder's guide holds on each race's copy.
@@ -7084,6 +7320,31 @@ test("Fyurie's report (#1550): Favor for Krazek never holds the route, while Myz
 	assert.ok(!motes.goal.optional, 'collecting the Motes of Myzrael still holds the step');
 });
 
+// shacklef00rd's tests from #2305, pinned to 0.4.0's fix (#2335): the group question. A player who answers "Skip it"
+// never sees Zamael's steps, so nothing required (not even the hand-in of a Prayer to Elune already in the log) pulls
+// him back into the Twilight camp; one who answers "Do it with a group" sees real goals, so the arrow leads him there.
+test("Edet's report (#2300): Prayer to Elune never requires the elite camp, even with the quest already held", { skip }, () => {
+	const grouped = ({ step }) => (step.when || []).some((p) => p.k === 'group' && !p.neg && [p.q].flat().includes(3377));
+	const list = goals('forever/alliance/40-50/06-searing-gorge.guide');
+	const prayer = list.filter(({ goal }) => goal.quest === 3377);
+	assert.deepEqual(prayer.map(({ goal }) => goal.t), ['accept', 'talk', 'turnin'], 'keep the quest available');
+	assert.ok(prayer.every(grouped), 'pickup, talk and hand-in all wait for the group answer: "Skip it" hides them, carried quest or not');
+	assert.ok(prayer.every(({ goal }) => !goal.optional), 'for a player who chose the group, each goal holds its step, so the arrow leads there');
+	assert.deepEqual(list.filter(({ goal }) => goal.npc === 8436 && !grouped({ step: list.find((e) => e.goal === goal).step })).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'no other goal sends anyone to Zamael');
+	const { goal: talk } = prayer[1];
+	assert.deepEqual([talk.npc, talk.oi, talk.map, talk.x, talk.y], [8436, 1, 1427, 29.6, 26.3], 'keep the real talk target and coordinates');
+	for (const [verb, quest] of [['kill', 7724], ['accept', 3441], ['talk', 3441], ['turnin', 3441]]) {
+		const e = list[at(list, `${verb} ${quest}`, is(verb, quest))];
+		assert.ok(!e.goal.optional && !grouped(e), `${verb} ${quest} remains required for everyone`);
+	}
+});
+
+test("Edet's report (#2300): the route records keep the elite-camp quest a group quest, and available", () => {
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	assert.ok(fixes.deliberate.group.some((r) => r.q === 3377 && r.size === 4), 'a build writes the group question for it');
+	assert.ok(!fixes.overrides.skip.some((r) => r.q === 3377), 'the quest remains available for players who choose to do it');
+});
+
 // Flow re-order (2026-11-07): Alliance Arathi took the tusks and pouches from the few Witherbark west of
 // Refuge Pointe and made a second trip to Witherbark Village for the knife.
 test(`${ARATHI}: flow re-order: Worth Its Weight in Gold in one visit to Witherbark Village`, { skip }, () => {
@@ -10397,6 +10658,130 @@ test('Level sweep: accepts below their minimum level are moved or gated', { skip
 	assert.ok(all['forever/horde/02-the-barrens'].min <= 14, 'the Barrens start at 14: Orc and Troll Rogues, Mages and Priests enter them at 13.99');
 });
 
+test('Bear Form approaches follow completed visits without dropping carried work (#2306)', async (t) => {
+	const file = path.join(OFFICIAL_DIR, 'forever/class/druid/bear-form.guide');
+	const text = fs.readFileSync(file, 'utf8');
+	const diag = new Diagnostics();
+	const ast = parseGuide(text, file, diag);
+	assert.deepEqual(diag.errors, []);
+	const lines = text.split('\n');
+	const zones = new Data({ zones: {
+		1450: { id: 1450, name: 'Moonglade' }, 1457: { id: 1457, name: 'Darnassus' },
+		1416: { id: 1416, name: 'Alterac Mountains' }, 1412: { id: 1412, name: 'Mulgore' },
+	} });
+	const islandStates = [
+		['chain untaken', [], [], false],
+		['94006 held', [94006], [], false],
+		['94006 handed in, final untaken', [], [94006], false],
+		['94638 held', [94638], [94006], false],
+		['94638 handed in', [], [94006, 94638], true],
+	];
+	const visits = [
+		{ name: 'later Night Elf doorway', quest: 6001, race: 'NightElf', faction: 'Alliance', point: [1457, 35.8, 11.6], states: [
+			['visit untaken', [], [], false],
+			['5931 held', [5931], [], false],
+			['5931 handed in, 6001 untaken', [], [5931], false],
+			['6001 held', [6001], [5931], true],
+			['6001 handed in', [], [5931, 6001], true],
+		] },
+		{ name: 'first Night Elf doorway', quest: 5921, race: 'NightElf', faction: 'Alliance', point: [1457, 35.8, 11.6], states: [
+			['visit untaken', [], [], false],
+			['5921 held without a letter', [5921], [], true],
+			['5921 handed in without a letter', [], [5921], true],
+			...[5923, 5924, 5925].flatMap((letter) => [
+				[`${letter} letter held, 5921 untaken`, [letter], [], false],
+				[`${letter} letter and 5921 held`, [letter, 5921], [], false],
+				[`${letter} letter held after 5921 hand-in`, [letter], [5921], false],
+			]),
+		] },
+		{ name: 'Alliance skyboat', race: 'Skyborne', faction: 'Alliance', point: [1416, 12.5, 51.8], states: islandStates },
+		{ name: 'Horde skyboat', race: 'Skyborne', faction: 'Horde', point: [1412, 34.3, 25.8], states: islandStates },
+	];
+	for (const visit of visits) {
+		const identifies = visit.quest
+			? (s) => s.goals.some((g) => g.verb === 'accept' && g.quest === visit.quest)
+			: (s) => s.title.startsWith('Skyboat') && s.only.factions.includes(visit.faction);
+		assert.equal(ast.steps.filter(identifies).length, 1, `${visit.name} has one source block`);
+		const approach = (s) => s.goals.length === 1 && s.goals[0].verb === 'goto';
+		let end = ast.steps.findIndex(identifies) + (visit.quest ? 0 : 1);
+		// Trainer hand-ins can sit between the entrance and its quest pickup.
+		if (visit.quest) while (end > 0 && !approach(ast.steps[end - 1])) end--;
+		let start = end - 1;
+		// Include every contiguous approach to exercise their interaction on arrival.
+		if (visit.quest) while (start > 0 && approach(ast.steps[start - 1])) start--;
+		assert.ok(start >= 0 && end < ast.steps.length);
+		// Compile the actual approaches, retaining the guide header and restrictions. A sentinel
+		// task exposes whether the Engine leaves it, without optional quest/reference data.
+		const source = [
+			...lines.slice(0, ast.steps[0].line - 1),
+			...lines.slice(ast.steps[start].line - 1, ast.steps[end].line - 1),
+			'step Continue after the visit', '  task "Continue"',
+		].join('\n');
+		const compiled = compileSources([{ file, text: source }], zones);
+		assert.deepEqual(compiled.diag.list, []);
+		const pack = writeTestPack(compiled.guides, zones);
+		const loads = pack.scripts.map((f) => `assert(loadfile(${JSON.stringify(f)}))("Polestar_Guides", ns)`).join('\n');
+		const continuation = compiled.guides[0].steps.length;
+		const snapshot = 'emit({step=E.GetStepIndex(), point=E.GetWaypoint()})';
+		const runState = (held, completed, after = '') => runAddon({
+			stubs: ['stub_world.lua'],
+			addons: [{ name: 'Polestar', files: ['Core/Core.xml'] }],
+			saved: { Polestar: 'PolestarDB = {schema=1, settings={behavior={autoSelectGuide=false}}}' },
+			before: `local w = stub.world
+				w.race, w.raceName, w.faction, w.class, w.className = "${visit.race}", "${visit.race}", "${visit.faction}", "DRUID", "Druid"
+				w.level = 10
+				w.addMap(1450, {name="Moonglade", c=1, left=-1381.25, right=-3689.583, top=8491.666, bottom=6952.083})
+				w.addMap(1457, {name="Darnassus", c=1, left=2938.363, right=1880.03, top=10238.316, bottom=9532.587})
+				w.moveTo(1450, 40, 50)`,
+			script: `do local ns = {}
+				${loads}
+				end
+				local w = stub.world
+				${held.map((q) => `w.accept(${q}, {})`).join('\n')}
+				w.complete({${completed.join(',')}})
+				stub.login(); stub.advance(0.5)
+				local E = Polestar.Engine
+				E.SetGuide("forever/class/druid/bear-form"); stub.advance(0.5)
+				${snapshot}
+				${after}`,
+		}).emitted;
+		const atDoor = (out) => {
+			assert.ok(out.step >= 1 && out.step < continuation, 'the approach stays active');
+			assert.deepEqual([out.point.map, out.point.x, out.point.y], visit.point, 'retain the original doorway or port');
+		};
+		try {
+			for (const [state, held, completed, continues] of visit.states) {
+				await t.test(`${visit.name}: ${state}`, () => {
+					const [out] = runState(held, completed);
+					if (continues) assert.equal(out.step, continuation, 'a finished visit removes its approach');
+					else atDoor(out);
+				});
+			}
+			if (visit.quest === 5921) {
+				for (const [name, held, action] of [
+					['arrive with a letter', [5925], ''],
+					['arrive without a letter', [], ''],
+					['abandon the letter before arrival', [5925], 'w.abandon(5925)'],
+					['take a letter before arrival', [], 'w.accept(5925, {})'],
+					['abandon Moonglade while carrying a letter', [5925, 5921], 'w.abandon(5921)'],
+				]) {
+					await t.test(`first Night Elf doorway: ${name}`, () => {
+						const [before, changed, arrived] = runState(held, [], `
+							${action}
+							stub.advance(0.5); ${snapshot}
+							w.moveTo(1457, 35.8, 11.6); stub.advance(2); ${snapshot}`);
+						atDoor(before);
+						atDoor(changed);
+						assert.equal(arrived.step, continuation, 'one arrival completes the approach, even when both reasons apply');
+					});
+				}
+			}
+		} finally {
+			fs.rmSync(pack.dir, { recursive: true, force: true });
+		}
+	}
+});
+
 // FlyHifiGuy's report (#1327): on Trial of the Lake (28/29, a 30-minute quest timer) a teleport reset the trial, and the
 // trial's step opened with "Cast Teleport: Moonglade" for the whole step. The arrow plans no Hearthstone or class
 // teleport while a quest timer runs (Nav/Travel.lua; forge-addontest travel-transit.rs). The guides: every trial step
@@ -11158,6 +11543,113 @@ test('Class audit: Aquatic Form (Horde) takes the Sludge Fen half before the zep
 	const zeppelin = at(list, 'Zeppelin to Undercity', (g) => g.t === 'goto' && /Zeppelin to Undercity/.test(g.label || g.text || ''));
 	const endurance = at(list, 'collect 15882', (g) => g.t === 'collect' && g.item === 15882);
 	assert.ok(agility < zeppelin && zeppelin < endurance, 'Barrens half, zeppelin, Silverpine half');
+});
+
+test('Bear Form hands in each carried alternative trainer letter (#2310)', async (t) => {
+	const file = path.join(OFFICIAL_DIR, 'forever/class/druid/bear-form.guide');
+	const text = fs.readFileSync(file, 'utf8');
+	const diag = new Diagnostics();
+	const ast = parseGuide(text, file, diag);
+	assert.deepEqual(diag.errors, []);
+	const letters = [5923, 5924, 5926, 5927];
+	const sides = [
+		{ quests: [5923, 5924], race: 'NightElf', npc: 4217, name: 'Mathrengyl Bearwalker', map: 1457, zone: 'Darnassus', x: 35.4, y: 8.4, next: 5921 },
+		{ quests: [5926, 5927], race: 'Tauren', npc: 3033, name: 'Turak Runetotem', map: 1456, zone: 'Thunder Bluff', x: 76.5, y: 27.2, next: 5922 },
+	];
+	// Canonical distinct IDs/enders (forever-db quest_end.jsonl:2623-2628), with
+	// published giver positions. This fixture tests ready client windows, not eligibility.
+	const quests = {}, npcs = {}, zones = { 1450: { id: 1450, name: 'Moonglade' } };
+	for (const side of sides) {
+		for (const id of side.quests) quests[id] = { id, title: 'Heeding the Call', end: { npc: [side.npc] }, objectives: [] };
+		npcs[side.npc] = { id: side.npc, name: side.name, spawns: { [side.map]: { f: 'e', pts: [[side.x, side.y]] } } };
+		zones[side.map] = { id: side.map, name: side.zone };
+	}
+	const data = new Data({ quests, npcs, zones });
+	const lines = text.split('\n');
+	const handins = ast.steps.flatMap((s, i) => s.goals.some((g) => g.verb === 'turnin' && letters.includes(g.quest))
+		? lines.slice(s.line - 1, ast.steps[i + 1]?.line - 1 || lines.length) : []);
+	const compiled = compileSources([{ file, text: [
+		...lines.slice(0, ast.steps[0].line - 1), ...handins,
+		'step Continue after trainer letters', '  task "Continue"',
+	].join('\n') }], data);
+	assert.deepEqual(compiled.diag.list, []);
+	const pack = writeTestPack(compiled.guides, data);
+	const loads = pack.scripts.map((f) => `assert(loadfile(${JSON.stringify(f)}))("Polestar_Guides", ns)`).join('\n');
+	const sentinel = compiled.guides[0].steps.length;
+	const run = (side, q, { state = 'held', race = side.race, mode = 'gossip', auto = true, action = '' } = {}) => runAddon({
+		stubs: ['stub_world.lua'],
+		addons: [{ name: 'Polestar', files: ['Core/Core.xml'] }],
+		saved: { Polestar: 'PolestarDB={schema=1,settings={behavior={autoSelectGuide=false,autoAccept=false,autoTurnin=true}}}' },
+		before: `local w = stub.world
+			w.race, w.raceName, w.faction, w.class, w.className = "${race}", "${race}", "${race === 'NightElf' ? 'Alliance' : 'Horde'}", "DRUID", "Druid"
+			w.level = 10
+			w.addMap(1457, {name="Darnassus", c=1, left=2938.363, right=1880.03, top=10238.316, bottom=9532.587})
+			w.addMap(1456, {name="Thunder Bluff", c=1, left=516.667, right=-527.083, top=-850, bottom=-1545.833})
+			w.moveTo(${side.map}, ${side.x}, ${side.y})`,
+		script: `do local ns = {}
+			${loads}
+			end
+			local w, E = stub.world, Polestar.Engine
+			${state === 'held' ? `w.onQuest(${q}, {})` : state === 'done' ? `w.complete({${q}})` : ''}
+			stub.login(); stub.advance(0.5)
+			E.SetGuide("forever/class/druid/bear-form"); stub.advance(0.5)
+			Polestar.Set("behavior.autoTurnin", ${auto})
+			${action}
+			stub.advance(0.5)
+			emit({step=E.GetStepIndex(), wanted=E.WantsQuest("turnin",${q}), wants={${letters.map((id) => `[${id}]=E.WantsQuest("turnin",${id})`).join(',')}}})
+			w.calls={}
+			${mode === 'gossip' || mode === 'greeting'
+				? `w.${mode}(${side.npc}, {active={{questID=${q}, isComplete=true}}, available={}})`
+				: `w.quest${mode === 'progress' ? 'Progress' : 'Complete'}(${side.npc}, ${q})`}
+			stub.advance(1)
+			emit({step=E.GetStepIndex(), held=w.log[${q}]~=nil, done=w.completed[${q}]==true, calls=#w.calls})`,
+	}).emitted;
+	try {
+		for (const side of sides) for (const q of side.quests) {
+			for (const mode of ['gossip', 'greeting', 'progress', 'complete']) {
+				await t.test(`${q}: ready letter through ${mode}`, () => {
+					const [before, after] = run(side, q, { mode });
+					assert.equal(before.wanted, true, 'the carried alternative is an exact wanted hand-in');
+					for (const id of letters) assert.equal(before.wants[id], id === q, 'unheld alternatives are not wanted');
+					assert.equal(after.done, true, 'the ready NPC window hands in the letter');
+					assert.equal(after.held, false);
+					assert.equal(after.step, sentinel, 'no other letter is required');
+					const turnin = ast.steps.findIndex((s) => s.goals.some((g) => g.verb === 'turnin' && g.quest === q));
+					const accept = ast.steps.findIndex((s) => s.goals.some((g) => g.verb === 'accept' && g.quest === side.next));
+					assert.ok(turnin >= 0 && turnin < accept, 'hand in a carried letter before accepting Moonglade');
+					if (side.race === 'NightElf') {
+						const entrance = ast.steps.findIndex((s) => s.goals.some((g) => g.verb === 'goto' && g.x === 35.8 && g.y === 11.6));
+						assert.ok(entrance >= 0 && entrance < turnin, 'reach the Cenarion entrance before the upstairs hand-in');
+					}
+				});
+			}
+			for (const [name, opts, held, done] of [
+				['absent', { state: 'absent' }, false, false],
+				['already handed in', { state: 'done' }, false, true],
+				['wrong race', { race: side.race === 'NightElf' ? 'Tauren' : 'NightElf' }, true, false],
+				['skipped quest', { action: `E.SkipQuest(${q}, true)` }, true, false],
+				['abandoned before the window', { action: `w.abandon(${q})` }, false, false],
+			]) {
+				await t.test(`${q}: ${name}`, () => {
+					const [before, after] = run(side, q, opts);
+					assert.equal(before.wanted, false);
+					assert.equal(before.step, sentinel, 'an inapplicable letter does not hold the guide');
+					assert.equal(after.held, held);
+					assert.equal(after.done, done);
+					assert.equal(after.calls, 0, 'no unwanted hand-in action');
+				});
+			}
+			await t.test(`${q}: auto-turn-in disabled`, () => {
+				const [before, after] = run(side, q, { auto: false });
+				assert.equal(before.wanted, true, 'manual hand-in stays in the guide');
+				assert.equal(after.held, true);
+				assert.equal(after.done, false);
+				assert.equal(after.calls, 0, 'respect the automation setting');
+			});
+		}
+	} finally {
+		fs.rmSync(pack.dir, { recursive: true, force: true });
+	}
 });
 
 // Tyr's Watch: a step gated `when onquest 99152,99153` whose hand-ins were all optional counted done at once, so

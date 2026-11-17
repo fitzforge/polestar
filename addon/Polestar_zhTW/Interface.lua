@@ -210,6 +210,12 @@ L["Sell before heading out: %s"] = "出發前販賣：%s"
 L["The guide heads out of town next and your bags are nearly full: sell what you don't need here."] = "指南接下來將離開城鎮，而你的背包快滿了：請在此賣掉不需要的物品。"
 L["Pays %d%% XP at your level and is out of the way (Skip grey quests)"] = "在你的等級只給 %d%% 經驗，且不順路（跳過灰色任務）"
 L["Grey for you: pays %d%% XP (Skip grey quests)"] = "對你是灰色：只給 %d%% 經驗（跳過灰色任務）"
+-- L["Put in the bank"] = ""
+-- L["Take off"] = ""
+-- L["Equip"] = ""
+-- L["Reach %d points into %s with"] = ""
+-- L["Lose"] = ""
+-- L["Gain"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "選擇一項獎勵以完成繳交。"
@@ -611,6 +617,11 @@ L["The size of every quest marker on the world map and the minimap."] = "世界�
 L["Timed quest alerts"] = "限時任務提醒"
 L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] = "限時任務剩下 5 分鐘時、剩下 1 分鐘時以及失敗時，在聊天框顯示一行提示並播放音效。指南視窗一律顯示剩餘時間。"
 L["Party chat"] = "隊伍聊天"
+-- L["On a mob that drops a quest item you still need, or an object it comes out of, show how often."] = ""
+-- L["Quest givers and turn-ins"] = ""
+-- L["On an NPC, name the quests it has for you now and the finished quests you can hand in to it."] = ""
+-- L["Replace the game's quest lines"] = ""
+-- L["On mobs and objects, leave out the game's own lines for the quests these tooltips name, so each quest shows once. In a group the game's lines stay: they show your party's progress."] = ""
 
 -- Quests/Party.lua
 L["%s done"] = "%s 已完成"
@@ -1135,6 +1146,8 @@ L["Lists the quest items you can buy at an auction house instead of farming them
 L["Lists the current step's mobs, or the NPCs it sends you to when it has no mob, with their portraits and what they drop; click a name to target that one. Its key binding targets the first one close by."] = "列出目前步驟的怪物；沒有怪物時列出步驟指引你前往的 NPC，並顯示頭像與掉落物品。點擊名字即可選取該目標。其按鍵會選取附近的第一個。"
 L["Names in the target list"] = "目標清單中的名字數"
 L["How many of the step's mobs the target list shows, in guide order."] = "目標清單依指南順序顯示的步驟怪物數量。"
+-- L["Completed quest XP"] = ""
+-- L["Shows XP from completed quests you can turn in on the game's XP bar and in its tooltip."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "僅限聯盟"
@@ -2396,7 +2409,6 @@ L["Glyphs only"] = "僅符號"
 L["Use deathskips"] = "使用死亡跑點"
 L["Where dying on purpose and taking the Spirit Healer's resurrection gets you there sooner, the guide shows a step for it. It costs durability and, from level 11, resurrection sickness. Always off on Hardcore characters."] = "當故意死亡並接受靈魂醫者復活能更快抵達時，指南會顯示對應步驟。這會損耗耐久度，且從 11 級起會有復活虛弱。專家模式角色一律關閉。"
 L["Text size"] = "文字大小"
-L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "Polestar 文字的大小，與視窗縮放分開。立即生效。右鍵點擊重置。"
 L["Numbered pins for the steps ahead"] = "後續步驟的編號標記"
 L["A small pin with its step number where each of the next steps takes you, fainter the further ahead. As many as Up next shows, else five."] = "在接下來每個步驟會帶你前往的地點顯示一個附步驟編號的小標記，越後面越淡。數量與「接下來」顯示的相同，否則為五個。"
 L["When a leveling guide ends"] = "升級指南結束時"
@@ -3477,6 +3489,8 @@ L["%s not found nearby."] = "附近找不到 %s。"
 
 -- Quests/BagMarks.lua
 L["Polestar quest items"] = "Polestar 任務物品"
+-- L["Polestar quest leftovers"] = ""
+-- L["Related quests completed (likely safe to delete)"] = ""
 
 -- Quests/DeleteWarning.lua
 L["Needed for:"] = "所需任務："
@@ -4135,6 +4149,7 @@ L["Shadow strength"] = "陰影強度"
 L["More looks"] = "更多皮膚"
 L["Game looks"] = "遊戲皮膚"
 L["Polestar looks"] = "Polestar 皮膚"
+-- L["The size of Polestar's text, apart from the window scale. The guide window has its own, on its page. Changes at once. Right-click to reset."] = ""
 
 -- UI/Looks/GuideWindow.lua
 L["Marshal Dughan"] = "治安官杜漢"
@@ -4232,6 +4247,7 @@ L["Stonefield Farm"] = "斯通菲爾德農場"
 L["Jasperlode Mine"] = "玉石礦坑"
 L["What it leaves out"] = "略過的內容"
 L["A dim line where the guide passes over quests: open it to see each one and why, with a way to bring it back. Grind steps say what else is worth doing, and a line offers to clean up quests that aren't part of your route."] = "在指南略過任務的地方顯示一行淡色文字：展開可看到每個任務及原因，並可恢復。打怪升級的步驟會說明還有什麼值得做，另有一行提示清理不在路線中的任務。"
+-- L["The size of the guide window's text, apart from its scale and the rest of Polestar's text (Theme > Text). The class quest card keeps that general size. Changes at once. Right-click to reset."] = ""
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "警示列"
@@ -4664,6 +4680,16 @@ L["Not moved"] = "未移動"
 L["From the look"] = "跟隨外觀"
 L["Nothing to apply: the parts ticked are the same as yours."] = "無可套用：勾選的部分與你的設定相同。"
 
+-- QoL/QuestXP.lua
+-- L["+1 level"] = ""
+-- L["Current XP"] = ""
+-- L["Rested XP"] = ""
+-- L["Completed quests"] = ""
+-- L["Pending quest XP"] = ""
+-- L["After turn-ins: at least +1 level"] = ""
+-- L["XP after turn-ins"] = ""
+-- L["XP remaining after turn-ins"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在導引。關閉「已安裝時以 Shortest Path Forever 導引」（「選項」>「箭頭與路線」）即可使用 Polestar 的箭頭。"
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever 正在導引。若要使用 Polestar 的箭頭，請關閉\"已安裝時以 Shortest Path Forever 導引\"（選項，整合）。"
@@ -4862,3 +4888,4 @@ L["Nothing to apply: the parts ticked are the same as yours."] = "無可套用�
 -- L["Most of its quests are new in Forever."] = "其中大部分任務是 Forever 新增的。"
 -- L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "在較快時，路線可能以你會的傳送法術開始（法師的主城傳送、德魯伊的月光林地）。主城傳送需要背包中有傳送符文。"
 -- L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."] = "略過灰色任務及其繳交，除非之後的任務需要先完成它們。"
+-- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "Polestar 文字的大小，與視窗縮放分開。立即生效。右鍵點擊重置。"

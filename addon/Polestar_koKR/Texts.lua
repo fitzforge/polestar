@@ -6018,6 +6018,9 @@ t.guides["forever/miscellaneous/cozy-sleeping-bag"] = (function() return {
 		["{area:272} on the way"] = "가는 길의 {area:272}",
 		["{zone:1413}' way into Stonetalon runs through {area:1702}, and the road on to the hills passes {area:2539} and {area:460}: all Horde posts. Come in from the north instead. With the {area:467} flight path, fly there and follow the road south. Otherwise fly to {area:415} and walk south-west to the {area:1276}, the tunnel from {zone:1440} into Stonetalon."] = "{zone:1413}에서 돌발톱 산맥으로 가는 길은 {area:1702}을(를) 지나고, 언덕으로 이어지는 길은 {area:2539}와(과) {area:460}을(를) 지납니다. 모두 호드 거점입니다. 대신 북쪽에서 들어가십시오. {area:467} 비행 경로가 있다면 그곳으로 날아가 길을 따라 남쪽으로 가십시오. 없다면 {area:415}(으)로 날아가 남서쪽 {area:1276}까지 걸어가십시오. {zone:1440}에서 돌발톱 산맥으로 이어지는 터널입니다.",
 } end)()
+t.guides["forever/miscellaneous/the-drowned-city-alliance"] = (function() return {
+		["Skullsplitter trolls"] = "백골가루부족 트롤",
+} end)()
 t.guides["forever/professions/alchemy"] = (function() return {
 		["Artisan {skill:171}"] = "전문 {skill:171}",
 		["Back to an {skill:171} trainer: {spell:3171} (from 90)."] = "{skill:171} 상급자에게 돌아가세요: {spell:3171}(90부터).",

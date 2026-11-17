@@ -6011,6 +6011,9 @@ t.guides["forever/miscellaneous/cozy-sleeping-bag"] = (function() return {
 		["{area:272} on the way"] = "{area:272} de camino",
 		["{zone:1413}' way into Stonetalon runs through {area:1702}, and the road on to the hills passes {area:2539} and {area:460}: all Horde posts. Come in from the north instead. With the {area:467} flight path, fly there and follow the road south. Otherwise fly to {area:415} and walk south-west to the {area:1276}, the tunnel from {zone:1440} into Stonetalon."] = "La entrada de {zone:1413} a Sierra Espolón pasa por {area:1702}, y el camino que sigue hacia las colinas pasa por {area:2539} y {area:460}: todos puestos de la Horda. Entra por el norte. Con la ruta de vuelo de {area:467}, vuela allí y sigue el camino al sur. Si no, vuela a {area:415} y camina al suroeste hasta {area:1276}, el túnel de {zone:1440} a Sierra Espolón.",
 } end)()
+t.guides["forever/miscellaneous/the-drowned-city-alliance"] = (function() return {
+		["Skullsplitter trolls"] = "Trols Machacacráneos",
+} end)()
 t.guides["forever/professions/alchemy"] = (function() return {
 		["Artisan {skill:171}"] = "{skill:171} de artesano",
 		["Back to an {skill:171} trainer: {spell:3171} (from 90)."] = "Vuelve con un instructor de {skill:171}: {spell:3171} (desde 90).",

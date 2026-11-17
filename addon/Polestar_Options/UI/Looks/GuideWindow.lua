@@ -298,7 +298,7 @@ function UI.GuideWindowScene(band)
 		for _, s in ipairs(subs) do spacing[#spacing + 1] = s end
 		for key, parts in pairs({
 			["ui.style"] = window, ["ui.backing"] = window, ["guideWindow.veil"] = window, ["guideWindow.shade"] = window,
-			["guideWindow.outline"] = window, ["ui.barShown"] = { P.strip, nav }, ["ui.scale"] = window, ["ui.width"] = window,
+			["guideWindow.outline"] = window, ["ui.barShown"] = { P.strip, nav }, ["ui.scale"] = window, ["ui.guideTextSize"] = window, ["ui.width"] = window,
 			["ui.maxHeight"] = window, ["guideWindow.padding"] = rows, ["ui.compact"] = window, ["guideWindow.bgOpacity"] = window,
 			["guideWindow.bgColor"] = window, ["ui.opacity"] = window, ["guideWindow.idleAlpha"] = window, ["guideWindow.border"] = window,
 			["guideWindow.rules"] = { P.strip.Rule, nav.Rule, up.Toggle.Rule, G.xp.Rule }, ["ui.combat"] = window,
@@ -440,6 +440,9 @@ local SPECS = {
 		{ kind = "slider", key = "ui.scale", label = L["Scale"], min = 0.6, max = 1.6, step = 0.05, format = percent,
 			help = L["The whole guide window, text and all."],
 			search = "size, bigger, smaller, zoom, scale, huge, tiny, window scale" },
+		{ kind = "slider", key = "ui.guideTextSize", label = L["Text size"], min = 0.8, max = 1.4, step = 0.05, format = percent, new = NEW,
+			help = L["The size of the guide window's text, apart from its scale and the rest of Polestar's text (Theme > Text). The class quest card keeps that general size. Changes at once. Right-click to reset."],
+			search = "text size, font size, bigger text, smaller text, readability, larger, huge, tiny, guide text" },
 		{ kind = "slider", key = "ui.width", label = L["Width"], min = 260, max = 560, step = 10, format = "%d",
 			help = L["How wide the guide window is. You can also drag its bottom-right corner."],
 			search = "wide, wider, narrow, size, width" },

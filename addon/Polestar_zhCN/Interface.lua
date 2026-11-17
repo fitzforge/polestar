@@ -210,6 +210,12 @@ L["Sell before heading out: %s"] = "出发前出售：%s"
 L["The guide heads out of town next and your bags are nearly full: sell what you don't need here."] = "指南接下来将离开城镇，而你的背包快满了：在这里卖掉不需要的物品。"
 L["Pays %d%% XP at your level and is out of the way (Skip grey quests)"] = "在你的等级只给 %d%% 经验，且不顺路（跳过灰色任务）"
 L["Grey for you: pays %d%% XP (Skip grey quests)"] = "对你是灰色：只给 %d%% 经验（跳过灰色任务）"
+-- L["Put in the bank"] = ""
+-- L["Take off"] = ""
+-- L["Equip"] = ""
+-- L["Reach %d points into %s with"] = ""
+-- L["Lose"] = ""
+-- L["Gain"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "选择一个奖励以完成交还。"
@@ -611,6 +617,11 @@ L["The size of every quest marker on the world map and the minimap."] = "世界�
 L["Timed quest alerts"] = "限时任务提醒"
 L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] = "限时任务剩余 5 分钟时、剩余 1 分钟时以及失败时，在聊天框显示一行提示并播放声音。指南窗口始终显示剩余时间。"
 L["Party chat"] = "小队聊天"
+-- L["On a mob that drops a quest item you still need, or an object it comes out of, show how often."] = ""
+-- L["Quest givers and turn-ins"] = ""
+-- L["On an NPC, name the quests it has for you now and the finished quests you can hand in to it."] = ""
+-- L["Replace the game's quest lines"] = ""
+-- L["On mobs and objects, leave out the game's own lines for the quests these tooltips name, so each quest shows once. In a group the game's lines stay: they show your party's progress."] = ""
 
 -- Quests/Party.lua
 L["%s done"] = "%s 已完成"
@@ -1135,6 +1146,8 @@ L["Lists the quest items you can buy at an auction house instead of farming them
 L["Lists the current step's mobs, or the NPCs it sends you to when it has no mob, with their portraits and what they drop; click a name to target that one. Its key binding targets the first one close by."] = "列出当前步骤的怪物；没有怪物时列出步骤指引你前往的 NPC，并显示头像和掉落物品。点击名字即可选中该目标。其快捷键会选中附近的第一个。"
 L["Names in the target list"] = "目标列表中的名字数"
 L["How many of the step's mobs the target list shows, in guide order."] = "目标列表按指南顺序显示的步骤怪物数量。"
+-- L["Completed quest XP"] = ""
+-- L["Shows XP from completed quests you can turn in on the game's XP bar and in its tooltip."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "仅限联盟"
@@ -2396,7 +2409,6 @@ L["Glyphs only"] = "仅符号"
 L["Use deathskips"] = "使用死亡跳跃"
 L["Where dying on purpose and taking the Spirit Healer's resurrection gets you there sooner, the guide shows a step for it. It costs durability and, from level 11, resurrection sickness. Always off on Hardcore characters."] = "如果故意死亡并接受灵魂医者的复活能更快到达，指南会为此显示一个步骤。这会损失耐久度，11级起还会有复活虚弱。专家模式角色始终关闭。"
 L["Text size"] = "文字大小"
-L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "Polestar 文字的大小，独立于窗口缩放。立即生效。右键点击重置。"
 L["Numbered pins for the steps ahead"] = "为后续步骤显示编号图钉"
 L["A small pin with its step number where each of the next steps takes you, fainter the further ahead. As many as Up next shows, else five."] = "在接下来每个步骤要去的地方显示带步骤编号的小图钉，越靠后越淡。数量与“接下来”显示的相同，否则为五个。"
 L["When a leveling guide ends"] = "练级指南结束时"
@@ -3477,6 +3489,8 @@ L["%s not found nearby."] = "附近未找到 %s。"
 
 -- Quests/BagMarks.lua
 L["Polestar quest items"] = "Polestar 任务物品"
+-- L["Polestar quest leftovers"] = ""
+-- L["Related quests completed (likely safe to delete)"] = ""
 
 -- Quests/DeleteWarning.lua
 L["Needed for:"] = "所需任务："
@@ -4135,6 +4149,7 @@ L["Shadow strength"] = "阴影强度"
 L["More looks"] = "更多皮肤"
 L["Game looks"] = "游戏皮肤"
 L["Polestar looks"] = "Polestar 皮肤"
+-- L["The size of Polestar's text, apart from the window scale. The guide window has its own, on its page. Changes at once. Right-click to reset."] = ""
 
 -- UI/Looks/GuideWindow.lua
 L["Marshal Dughan"] = "治安官杜汉"
@@ -4232,6 +4247,7 @@ L["Stonefield Farm"] = "斯通菲尔德农场"
 L["Jasperlode Mine"] = "玉石矿洞"
 L["What it leaves out"] = "略过的内容"
 L["A dim line where the guide passes over quests: open it to see each one and why, with a way to bring it back. Grind steps say what else is worth doing, and a line offers to clean up quests that aren't part of your route."] = "在指南略过任务的地方显示一行淡色文字：展开可看到每个任务及原因，并可恢复。打怪升级的步骤会说明还有什么值得做，另有一行提示清理不在路线中的任务。"
+-- L["The size of the guide window's text, apart from its scale and the rest of Polestar's text (Theme > Text). The class quest card keeps that general size. Changes at once. Right-click to reset."] = ""
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "提醒队列"
@@ -4664,6 +4680,16 @@ L["Not moved"] = "未移动"
 L["From the look"] = "跟随外观"
 L["Nothing to apply: the parts ticked are the same as yours."] = "无可应用：勾选的部分与你的设置相同。"
 
+-- QoL/QuestXP.lua
+-- L["+1 level"] = ""
+-- L["Current XP"] = ""
+-- L["Rested XP"] = ""
+-- L["Completed quests"] = ""
+-- L["Pending quest XP"] = ""
+-- L["After turn-ins: at least +1 level"] = ""
+-- L["XP after turn-ins"] = ""
+-- L["XP remaining after turn-ins"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在导航。要使用 Polestar 的箭头，请关闭“安装 Shortest Path Forever 时由其导航”（选项 > 箭头与路线）。"
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever 正在导航。要使用 Polestar 的箭头，请关闭\"安装 Shortest Path Forever 时由其导航\"（选项，整合）。"
@@ -4871,3 +4897,4 @@ L["Nothing to apply: the parts ticked are the same as yours."] = "无可应用�
 -- L["Most of its quests are new in Forever."] = "其中大部分任务是 Forever 新增的。"
 -- L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "更快时，路线可从你已学会的传送法术开始（法师的城市传送、德鲁伊的月光林地）。城市传送需要背包中有传送符文。"
 -- L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."] = "略过灰色任务及其交还，除非后续任务需要先完成它们。"
+-- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "Polestar 文字的大小，独立于窗口缩放。立即生效。右键点击重置。"

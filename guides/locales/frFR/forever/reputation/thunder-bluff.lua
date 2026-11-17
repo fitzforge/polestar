@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Thunder Bluff Reputation"] = "Réputation : Thunder Bluff",
+	["Thunder Bluff Reputation"] = "Réputation : Pitons-du-Tonnerre",
 	-- {zone:1412} Mulgore · {zone:1452} Winterspring · {item:11040} Morrowgrain · {item:14047} Runecloth
 	["{zone:1412} quests while you level, {zone:1452} quests and {item:11040} from 55, then {item:14047} to Exalted."] = "Les quêtes de {zone:1412} pendant que vous montez de niveau, les quêtes de {zone:1452} et {item:11040} à partir du niveau 55, puis {item:14047} jusqu'à Exalté.",
 	-- {faction:81} Thunder Bluff
