@@ -8177,7 +8177,11 @@ local function updateTicker()
 	end
 	useActive()
 	if not need then need = Spots.waypointGoal() ~= nil or (guide ~= nil and current ~= nil and Own.nearPick[guide.steps[current]] ~= nil) end
-	if not need then need = Own.hereAllN > 0 or Own.hereOnN > 0 or Own.hereFlyN > 0 or Own.hereGatherN > 0 or Own.hereVendorN > 0 end
+	-- A build of the While-here candidates queued for the next frame
+	-- (Own.hereLater) counts as candidates: the poll starts with the
+	-- evaluation, as when the build ran inside it, and runs that build first
+	-- if it comes before it (Own.hereTick).
+	if not need then need = Own.hereQueued or Own.hereAllN > 0 or Own.hereOnN > 0 or Own.hereFlyN > 0 or Own.hereGatherN > 0 or Own.hereVendorN > 0 end
 	if need and not ticker then
 		ticker = ns.NewTicker(ARRIVAL_POLL, checkArrival)
 	elseif not need and ticker then
@@ -9448,8 +9452,13 @@ local function evaluate()
 	checkTrainDue()
 	-- "While you're here" candidates, after a step, quest-log, level or zone
 	-- change (Own.hereBuild); a clicked line that went takes the arrow back.
-	if Own.hereDirty or Own.hereGuide ~= guide then
-		if Own.hereBuild() then requestUpdate() end
+	-- Built the frame after the evaluation (Own.hereLater): that frame holds
+	-- the evaluation and what it announces (the window, the arrow's route);
+	-- the candidates, a pass over the goals of every later step, come next
+	-- (#2537: a step change's worst frame).
+	if (Own.hereDirty or Own.hereGuide ~= guide) and not Own.hereQueued then
+		Own.hereQueued = true
+		ns.After(0, Own.hereLater)
 	end
 	updateTicker()
 	if #pendingCompleted > 0 then
@@ -12495,6 +12504,19 @@ function Own.hereDirect(list, n, live, nearTo)
 	return n
 end
 
+-- The build an evaluation queued (evaluate), the frame after it; nothing
+-- when an earlier build has caught up. The arrival poll runs while there are
+-- candidates to measure (updateTicker), and a clicked line that went asks
+-- for one more evaluation, as when the build ran inside it.
+Own.hereQueued = false
+function Own.hereLater()
+	Own.hereQueued = false
+	if not (Own.hereDirty or Own.hereGuide ~= guide) then return end
+	local aimed = Own.hereBuild()
+	updateTicker()
+	if aimed then requestUpdate() end
+end
+
 -- Build the candidates (Own.hereAll[1..hereAllN], route order) for the
 -- active tab's live step, from every later step's goals of the loaded guide
 -- on the player's continent (any zone of it: the poll measures them in world
@@ -13128,8 +13150,11 @@ end
 -- distance, and two shown swap only once the lower is HERE_ORDER yards
 -- nearer, so rows do not jump. Allocation-free. With HERE_SHOW lines up,
 -- only those are measured. True when a line the player had clicked went
--- (the arrow goes back to the guide).
+-- (the arrow goes back to the guide). A build an evaluation queued for the
+-- next frame (Own.hereLater) runs first when the poll comes before it, so
+-- the poll never measures the candidates or the radius from before.
 function Own.hereTick(c, px, py)
+	if Own.hereQueued then Own.hereLater() end
 	if Own.hereOnN == 0 and Own.hereAllN == 0 and Own.hereFlyN == 0 and Own.hereGatherN == 0 and Own.hereVendorN == 0 then return false end
 	-- On a taxi, boat or zeppelin, in an instance, hearthing or the live
 	-- step's escort: the lines shown hide and wait (Own.hereHeld), no new one
