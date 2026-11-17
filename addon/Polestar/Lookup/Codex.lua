@@ -400,6 +400,11 @@ local function decodeQuest(group, id, s)
 			-- Vale Screecher calls up the Screecher Spirit): m<item>.
 			local o = rec.objectives[#rec.objectives]
 			if o then o.summonItem = tonumber(sub(f, 2)) end
+		elseif lead == "g" then
+			-- The creatures that item is used on (#2578: the Vale Screechers the
+			-- bramble is used on, dead): g<npc>,<npc>...
+			local o = rec.objectives[#rec.objectives]
+			if o then o.summonOn = numbers(sub(f, 2)) end
 		elseif lead == "p" then
 			-- Where the objective before it is done (an event's area): p<map>,<x>,<y>,<f>.
 			local o = rec.objectives[#rec.objectives]

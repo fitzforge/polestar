@@ -629,10 +629,23 @@ local function questStep(q, from, isTarget, opts)
 			-- `summonItem`: the item that calls the target up (Codex, from a
 			-- summon-by-item mechanic, #2326): its use first, then the target,
 			-- spoken to when it is friendly (the Screecher Spirit), else killed.
+			-- `summonOn`: the creatures the item is used on (#2578: the Vale
+			-- Screechers): the use line targets them and leads to their spawns.
 			local summon = type(o.summonItem) == "number" and o.summonItem > 0 and not o.tame and o.summonItem
 			if summon then
 				local use = { t = "use", item = summon, itemName = itemName(summon), quest = q.id, oi = oi, count = count, title = q.title }
-				goals[#goals + 1] = spawnSpots(at(use, s), npc and npc.spawns)
+				local useAt, useSpawns = s, npc and npc.spawns
+				if type(o.summonOn) == "table" and #o.summonOn > 0 then
+					local from, spawns = {}, {}
+					for _, id in ipairs(o.summonOn) do
+						local on = C.Npc(id)
+						from[#from + 1] = { npc = id, npcName = (on and on.name) or npcName(id) }
+						for _, sp in ipairs(on and on.spawns or {}) do spawns[#spawns + 1] = sp end
+					end
+					use.npc, use.target, use.fromNpcs = from[1].npc, from[1].npcName, from
+					useAt, useSpawns = Lookup.Nearest(spawns, here) or s, spawns
+				end
+				goals[#goals + 1] = spawnSpots(at(use, useAt), useSpawns)
 				summons[#summons + 1] = format(L["%s: use %s to call it up."], target, use.itemName)
 			end
 			local friendly = summon and npc and type(npc.faction) == "string" and npc.faction ~= ""

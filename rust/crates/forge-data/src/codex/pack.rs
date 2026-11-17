@@ -406,6 +406,12 @@ fn encode_quest(rec: &V) -> Result<String, String> {
 		if summon.truthy() {
 			parts.push(format!("m{}", num(&summon)?));
 		}
+		// The creatures that item is used on (#2578: Yeh'kinya's Bramble on a dead Vale Screecher): g<npc>,<npc>...
+		// An older reader skips it (no objective kind is g).
+		let on = o.get("summonOn");
+		if summon.truthy() && on.len() > 0 {
+			parts.push(format!("g{}", list(&on)?));
+		}
 		// The hostile elites at an object's work, per side (elites.rs): w<side><rank>,<lvl>.
 		let el = o.get("elites");
 		for side in ["A", "H"] {
