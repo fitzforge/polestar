@@ -126,6 +126,11 @@ function O.ApplyPreset(list, value)
 				for k, v in pairs(was) do p[k] = v end
 				p.set = spec.set
 			end
+			-- A layout still in beta or alpha may not take over every part of
+			-- the window until the interface reloads.
+			if p.tag and ns.Print then
+				ns.Print(string.format(L["%s is in testing: if the window looks wrong, type /reload once."], tostring(p.label)))
+			end
 		else
 			local id = layoutInUse() or ns.Get("ui.layout")
 			for _, x in ipairs(list) do
@@ -255,8 +260,8 @@ if ns.Theme and ns.Theme.OnChanged then ns.Theme.OnChanged(redrawShown) end
 
 -- A layout's stage (Theme.LayoutPresets' stage): the tag on its card.
 local STAGES = {
-	alpha = { tag = L["Alpha"], tip = L["Alpha: early and still changing; parts may not work yet."] },
-	beta = { tag = L["Beta"], tip = L["Beta: still being finished; tell us what looks wrong."] },
+	alpha = { tag = L["Alpha"], tip = L["Alpha: early and still changing; parts may not work yet. After picking it, type /reload once."] },
+	beta = { tag = L["Beta"], tip = L["Beta: still being finished; tell us what looks wrong. After picking it, type /reload once."] },
 }
 
 -- The row's presets: its own, then (opts.layouts) a card per installed
