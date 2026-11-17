@@ -12,17 +12,22 @@
 --     has not loaded yet goes last).
 --   * while the live step has an open collect goal, the guide window's
 --     banner says so and offers the same delete (Space.Banner).
+--   * a spare bag comes first (qol.spareBag, off by default; #2369): when a
+--     bag that takes any item sits in the bags while a bag slot is empty, the
+--     button and the banner offer to equip it instead, on one press (nothing
+--     is lost), and offer a delete only once there is no bag to equip.
 -- Deleting takes two presses of the button, its binding or the banner's
 -- link: the first arms that item for ARM seconds, the second deletes it
 -- once the slot is read again and still holds it (an item moved or swapped
 -- in between is left alone, and the next press arms afresh). Nothing is
 -- ever deleted any other way.
 --
--- Fires BAG_SPACE when the free count, the cheapest junk or the armed item
--- changes.
+-- Fires BAG_SPACE when the free count, the spare bag, the cheapest junk or
+-- the armed item changes.
 --
 -- Client: C_Container.GetContainerNumFreeSlots (bagFamily 0: any item),
--- GetContainerItemInfo, PickupContainerItem; CursorHasItem, DeleteCursorItem
+-- GetContainerItemInfo, PickupContainerItem; CursorHasItem, DeleteCursorItem;
+-- ContainerIDToInventoryID and PutItemInBag to equip a bag
 -- (ContainerDocumentation, GameCursorDocumentation; the client's DELETE_ITEM
 -- dialog in GameDialogDefs.lua calls it from its button).
 
@@ -40,6 +45,7 @@ local ARM = 5 -- seconds the first press keeps an item armed
 
 local free, total = 0, 0
 local junk         -- { bag, slot, id, count, value, link }: the cheapest junk, or nil
+local spare        -- { bag, slot, id, link, into }: a bag to equip, or nil
 local armed        -- { bag, slot, id, at }
 local dismissed = false
 local sig
@@ -91,6 +97,33 @@ function Space.Cheapest()
 	return best
 end
 
+local CLASS_CONTAINER, SUBCLASS_BAG = 1, 0 -- Enum.ItemClass.Container, a bag that takes any item
+
+-- A bag that takes any item, sitting in the bags while a regular bag slot is
+-- empty: { bag, slot, id, link, into } (into: the empty bag slot) or nil.
+function Space.SpareBag()
+	local into
+	for bag = 1, Client.NumBags() do
+		if Client.BagSlotEmpty(bag) then
+			into = bag
+			break
+		end
+	end
+	if not into then return nil end
+	for bag = 0, Client.NumBags() do
+		for slot = 1, Client.NumSlots(bag) do
+			local info = Client.SlotInfo(bag, slot)
+			if info and info.itemID and not info.isLocked and not Client.SlotQuest(bag, slot) then
+				local class, subclass = Client.ItemKind(info.itemID)
+				if class == CLASS_CONTAINER and subclass == SUBCLASS_BAG then
+					return { bag = bag, slot = slot, id = info.itemID, link = info.hyperlink, into = into }
+				end
+			end
+		end
+	end
+	return nil
+end
+
 function Space.Threshold()
 	return tonumber(ns.Get("qol.bagsLow")) or 0
 end
@@ -102,6 +135,7 @@ end
 
 function Space.Free() return free, total end
 function Space.Junk() return junk end
+function Space.Spare() return spare end
 
 -- The armed item is the cheapest junk still.
 function Space.Armed()
@@ -109,14 +143,16 @@ function Space.Armed()
 end
 
 local function signature()
-	local j = junk
+	local j, b = junk, spare
 	return free .. ":" .. total .. ":" .. (j and (j.bag .. "/" .. j.slot .. "/" .. j.id .. "/" .. j.count) or "-")
+		.. ":" .. (b and (b.bag .. "/" .. b.slot .. "/" .. b.id .. ">" .. b.into) or "-")
 		.. ":" .. (Space.Armed() and "armed" or "") .. ":" .. (Space.Low() and "low" or "") .. ":" .. (dismissed and "d" or "")
 end
 
 -- Reads the bags again; fires BAG_SPACE when something shown changed.
 function Space.Refresh()
 	free, total = Space.Count()
+	spare = Space.Low() and QoL.On("spareBag") and Space.SpareBag() or nil
 	junk = Space.Low() and Space.Cheapest() or nil
 	if not Space.Low() then dismissed = false end
 	local s = signature()
@@ -134,12 +170,25 @@ local function itemText(j)
 end
 Space.ItemText = itemText
 
--- The one press: arm the cheapest junk, or delete it when it is armed
--- already. -> "armed", "deleted", "none" (nothing to delete), "busy" (the
--- cursor holds something) or "off".
+-- The one press: equip a spare bag when there is one; else arm the cheapest
+-- junk, or delete it when it is armed already. -> "equipped", "armed",
+-- "deleted", "none" (nothing to equip or delete), "busy" (the cursor holds
+-- something, or the bag did not go in) or "off".
 function Space.Press()
 	if not QoL.On("bagSpace") then return "off" end
 	Space.Refresh()
+	local b = spare
+	if b then
+		armed = nil
+		local info = Client.SlotInfo(b.bag, b.slot)
+		local result = "busy"
+		if info and info.itemID == b.id and Client.BagSlotEmpty(b.into) and Client.EquipBag(b.bag, b.slot, b.into) then
+			ns.Print(format(L["Equipped %s."], b.link or (L["Item"] .. " " .. b.id)))
+			result = "equipped"
+		end
+		Space.Refresh()
+		return result
+	end
 	local j = junk
 	if not j then
 		armed = nil
@@ -181,12 +230,12 @@ local function collecting()
 	return false
 end
 
--- The guide window's banner: { free, junk, armed } while the bags are low and
+-- The guide window's banner: { free, spare, junk, armed } while the bags are low and
 -- the live step collects something; nil otherwise or once dismissed (until
 -- the bags have room again).
 function Space.Banner()
 	if dismissed or not Space.Low() or not collecting() then return nil end
-	return { free = free, junk = junk, armed = Space.Armed() }
+	return { free = free, spare = spare, junk = junk, armed = Space.Armed() }
 end
 
 function Space.Dismiss()
@@ -198,7 +247,7 @@ ns.OnLogin(Space.Refresh)
 ns.RegisterEvent("BAG_UPDATE_DELAYED", refreshSoon)
 ns.On("ITEM_MARKS", refreshSoon)
 ns.On("SETTING_CHANGED", function(path)
-	if path == "" or path == "qol" or path == "qol.bagSpace" or path == "qol.bagsLow" then refreshSoon() end
+	if path == "" or path == "qol" or path == "qol.bagSpace" or path == "qol.bagsLow" or path == "qol.spareBag" then refreshSoon() end
 end)
 
 -- /polestar bags: the free slots and the cheapest junk, in chat.
@@ -206,6 +255,8 @@ if ns.RegisterCommand then
 	ns.RegisterCommand("bags", function()
 		local f, t = Space.Count()
 		ns.Print(format(L["Free slots: %d of %d"], f, t))
+		local b = QoL.On("spareBag") and Space.SpareBag()
+		if b then ns.Print(format(L["Spare bag: %s"], b.link or (L["Item"] .. " " .. b.id))) end
 		local j = Space.Cheapest()
 		if j then
 			ns.Print(format(L["Cheapest junk: %s (%s)"], itemText(j), j.value < huge and QoL.Money(j.value) or "?"))

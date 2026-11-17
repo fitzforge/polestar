@@ -14,7 +14,11 @@ mod automation_close_skipped;
 mod automation_profession_quests;
 #[path = "automation-spoken.rs"]
 mod automation_spoken;
+#[path = "bag-slots.rs"]
+mod bag_slots;
 mod bagsmith;
+#[path = "class-guide-level-back.rs"]
+mod class_guide_level_back;
 #[path = "class-quests.rs"]
 mod class_quests;
 #[path = "class-skip.rs"]
@@ -56,6 +60,8 @@ mod dsl_verbs;
 mod dungeon_route_held;
 #[path = "dungeons-attune.rs"]
 mod dungeons_attune;
+#[path = "dungeons-forever-quests.rs"]
+mod dungeons_forever_quests;
 #[path = "dungeons-pickup.rs"]
 mod dungeons_pickup;
 #[path = "dungeons-runtime.rs"]
@@ -124,8 +130,12 @@ mod engine_heights;
 mod engine_keep;
 #[path = "engine-l10n.rs"]
 mod engine_l10n;
+#[path = "engine-left-out.rs"]
+mod engine_left_out;
 #[path = "engine-level.rs"]
 mod engine_level;
+#[path = "engine-level-hold.rs"]
+mod engine_level_hold;
 #[path = "engine-level-pick.rs"]
 mod engine_level_pick;
 #[path = "engine-level-wait.rs"]
@@ -266,6 +276,8 @@ mod lookup_tooltip_performance;
 #[path = "lua-helper-paths.rs"]
 mod lua_helper_paths;
 mod maps;
+#[path = "maps-arcade.rs"]
+mod maps_arcade;
 #[path = "maps-overlays.rs"]
 mod maps_overlays;
 #[path = "maps-reveal.rs"]
@@ -350,6 +362,7 @@ mod party_pair;
 #[path = "party-sync.rs"]
 mod party_sync;
 mod pause;
+mod placeholders;
 mod profiles;
 mod qol;
 #[path = "qol-bagglow.rs"]
@@ -455,6 +468,8 @@ mod ui_headsup_card;
 mod ui_import;
 #[path = "ui-journey.rs"]
 mod ui_journey;
+#[path = "ui-left-out.rs"]
+mod ui_left_out;
 #[path = "ui-long-translations.rs"]
 mod ui_long_translations;
 #[path = "ui-look-buttons.rs"]

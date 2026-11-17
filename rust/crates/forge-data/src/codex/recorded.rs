@@ -610,7 +610,7 @@ mod tests {
 		}"#);
 		let (zones, factions, instances) = (obj("{}"), obj("{}"), obj("{}"));
 		let db = Db { quests: &quests, npcs: &npcs, objects: &objects, items: &items, zones: &zones, factions: &factions, instances: &instances };
-		apply_recordings(&db, &recs.list, &V::obj(), recs.min_voters, DEFAULTS, &|_| false, false);
+		apply_recordings(&db, &recs.list, &V::obj(), recs.min_voters, DEFAULTS, &|_| false, false, true);
 
 		let s = |v: &V| stringify(v, None);
 		for (npc, expected) in [("1501", 25.0), ("1502", 20.0)] {
@@ -692,7 +692,7 @@ mod tests {
 		}"#);
 		let (quests, objects, zones, factions, instances) = (obj("{}"), obj("{}"), obj("{}"), obj("{}"), obj("{}"));
 		let db = Db { quests: &quests, npcs: &npcs, objects: &objects, items: &items, zones: &zones, factions: &factions, instances: &instances };
-		apply_recordings(&db, &recs.list, &V::obj(), recs.min_voters, DEFAULTS, &|_| false, false);
+		apply_recordings(&db, &recs.list, &V::obj(), recs.min_voters, DEFAULTS, &|_| false, false, true);
 
 		// Coyote Meat: 9 of 20 own windows. Large Candle: 6 of the 10 windows Kobold Candles was open for. Gold
 		// Dust: 4 of the 10 windows its objective was open for (the fast-looted candle's window held it too).

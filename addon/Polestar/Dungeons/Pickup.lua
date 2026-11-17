@@ -267,7 +267,8 @@ function Dungeons.StartDrops(key, pq, rec)
 			kind, sid, r = "object", src.object, C.Object(src.object)
 		end
 		if r then
-			local d = { kind = kind, id = sid, name = r.name, chance = src.chance, spawns = r.spawns, faction = r.faction }
+			local d = { kind = kind, id = sid, name = r.name, chance = src.chance, spawns = r.spawns, faction = r.faction,
+				requiresQuests = src.requiresQuests }
 			if (src.instance or r.instance) == key then
 				out.inside[#out.inside + 1] = d
 			elseif not (src.instance or r.instance) and r.spawns and #r.spawns > 0 then
@@ -309,16 +310,22 @@ function Dungeons.DropPoint(key, pq, from, rec)
 	-- the source hands the item over for something else first (Highlord
 	-- Demitrian's Vessel of Rebirth, after the Bindings).
 	local only = #d.inside == 0
+	local blocked
 	for _, s in ipairs(d.outside) do
 		if (s.chance and s.chance >= MIN_DROP) or (only and s.kind == "npc" and not s.faction) then
 			local p = spawnOn(s.spawns, from, zone)
 			if p then
-				return { kind = "drop", source = s.kind, id = s.id, name = s.name, map = p.map, x = p.x, y = p.y, f = p.f, z = p.z,
-					item = d.item, itemName = d.itemName, chance = s.chance }
+				local point = { kind = "drop", source = s.kind, id = s.id, name = s.name, map = p.map, x = p.x, y = p.y, f = p.f, z = p.z,
+					item = d.item, itemName = d.itemName, chance = s.chance, requiresQuests = s.requiresQuests }
+				if (ns.Compat.GetItemCount(d.item, true) or 0) > 0 then return point end
+				local steps, why, q = LK().DropQuestSteps(s, LK().PlayerInfo(), from)
+				if steps then point.dropSteps = steps; return point end
+				point.dropBlocked, point.dropQuest = why, q
+				blocked = blocked or point
 			end
 		end
 	end
-	return nil
+	return blocked
 end
 
 local function hasClass(list, class)
@@ -886,6 +893,20 @@ function Dungeons.PickupPlan(key, offer)
 						pre[#pre + 1] = r
 					end
 				end
+				-- Loot requirements are accepts, not ordinary completed-quest
+				-- prerequisites. A source whose pickup cannot be planned must
+				-- not turn into an unconditional farm stop (#1923).
+				local function checkDrop(drop)
+					if not (drop and drop.dropBlocked) then return end
+					local q = drop.dropQuest
+					if drop.dropBlocked == "level" and q then
+						if not waitOn or (q.minLevel or 1) > (waitOn.minLevel or 1) then waitOn = q end
+					else ok = false end
+				end
+				checkDrop(giver)
+				for _, r in ipairs(pre) do
+					if not inLog(r.id) then checkDrop(Dungeons.DropPoint(key, r, from, r)) end
+				end
 				-- A chain through an alternative the plan already ruled out
 				-- (no other way in): this quest is closed by that choice.
 				if ok and clashes(pq.id) then ok = false end
@@ -990,6 +1011,7 @@ local function acceptGoal(pq, rec, g)
 		goal.item, goal.itemName = g.item, g.itemName
 		return goal
 	end
+	if g.kind == "quest" then return goal end -- held quest, no giver in this data pack
 	goal.map, goal.x, goal.y, goal.f = g.map, g.x, g.y, g.f == "e" and "e" or nil
 	if g.kind == "object" then
 		goal.object, goal.objName = g.id, g.name
@@ -1391,12 +1413,50 @@ local function stopsOf(plan, from)
 		byKey[s.key] = #stops
 		return s
 	end
-	local function dep(s, i)
-		if not i or i == byKey[s.key] then return end
-		for _, d in ipairs(s.deps) do
-			if d == i then return end
+	local function depend(s, index)
+		if not index or byKey[s.key] == index then return end
+		for _, d in ipairs(s.deps) do if d == index then return end end
+		s.deps[#s.deps + 1] = index
+	end
+	local function giverStop(g, deps, take)
+		table.sort(deps)
+		local gk = "g" .. g.kind .. g.id
+		local k = #deps > 0 and (gk .. "<" .. table.concat(deps, ",")) or gk
+		local s = stops[byKey[k] or 0]
+		if not s then
+			local idx = {}
+			for i, dk in ipairs(deps) do idx[i] = byKey[dk] end
+			s = add({ key = k, giverKey = gk, giver = g, inP = g, outP = g, deps = idx, accepts = {} })
 		end
-		s.deps[#s.deps + 1] = i
+		for _, t in ipairs(s.accepts) do if t.quest.id == take.quest.id then return k end end
+		s.accepts[#s.accepts + 1] = take
+		local held = true
+		for _, t in ipairs(s.accepts) do if not inLog(t.quest.id) then held = false; break end end
+		s.inP, s.outP = held and from or g, held and from or g
+		return k
+	end
+	-- The source's enabling quests are accepted at their givers. Their
+	-- ordinary prerequisites still use full quest stops. Share the same
+	-- stop keys with page quests so the route does not repeat those visits.
+	local function dropStops(drop, opens)
+		local deps = {}
+		for _, step in ipairs(drop and drop.dropSteps or {}) do
+			local first, last = step.goals[1], step.goals[#step.goals]
+			local r = ns.Codex.Quest(first.quest) or { id = first.quest, title = first.title }
+			local k
+			if last.t == "turnin" then
+				k = "q" .. r.id
+				local s = stops[byKey[k] or 0] or add({ key = k, rec = r, inP = first, outP = last, deps = {}, opens = {} })
+				for _, dep in ipairs(deps) do depend(s, byKey[dep]) end
+				if s.opens[#s.opens] ~= opens then s.opens[#s.opens + 1] = opens end
+			else
+				local g = { kind = first.npc and "npc" or first.object and "object" or "quest", id = first.npc or first.object or first.quest,
+					name = first.npcName or first.objName, map = first.map, x = first.x, y = first.y, f = first.f }
+				k = giverStop(g, deps, { quest = r, rec = r })
+			end
+			deps = { k }
+		end
+		return deps[1]
 	end
 	for _, t in ipairs(plan.take) do
 		local prev
@@ -1406,30 +1466,28 @@ local function stopsOf(plan, from)
 			if not byKey[k] then
 				-- A quest an item starts begins where the item drops (#1380).
 				local start = endPoint(Lk.QuestEnd(r.start, from))
-				local drop = not start and Dungeons.DropPoint(plan.dungeon.key, r, from, r) or nil
+				local drop = not start and not inLog(r.id) and Dungeons.DropPoint(plan.dungeon.key, r, from, r) or nil
 				local finish = endPoint(Lk.QuestEnd(r["end"], start or drop or from))
 				add({ key = k, rec = r, inP = start or drop, outP = finish or start or drop, deps = {}, drop = drop, opens = {}, item = start == nil })
 			end
 			local s = stops[byKey[k]]
+			-- The drop's own required quests first (#1923), then 0.4.0's: what
+			-- its `pre`/`preAny` name, and the stop before it only for an item
+			-- start or a breadcrumb spliced in before it.
+			local dropKey = dropStops(s.drop, t.quest)
+			if dropKey then depend(s, byKey[dropKey]) end
 			local opens = s.opens
 			if opens[#opens] ~= t.quest then opens[#opens + 1] = t.quest end
-			for _, id in ipairs(r.pre or {}) do dep(s, byKey["q" .. id]) end
-			for _, id in ipairs(r.preAny or {}) do dep(s, byKey["q" .. id]) end
-			if prev and (s.item or (plan.closedBy and plan.closedBy[stops[prev].rec.id])) then dep(s, prev) end
+			for _, id in ipairs(r.pre or {}) do depend(s, byKey["q" .. id]) end
+			for _, id in ipairs(r.preAny or {}) do depend(s, byKey["q" .. id]) end
+			if prev and (s.item or (plan.closedBy and plan.closedBy[stops[prev].rec.id])) then depend(s, prev) end
 			prev = byKey[k]
 			deps[#deps + 1] = k
 		end
-		table.sort(deps)
 		local g = t.giver
-		local gk = "g" .. g.kind .. g.id
-		local k = #deps > 0 and (gk .. "<" .. table.concat(deps, ",")) or gk
-		local s = stops[byKey[k] or 0]
-		if not s then
-			local idx = {}
-			for i, dk in ipairs(deps) do idx[i] = byKey[dk] end
-			s = add({ key = k, giverKey = gk, giver = g, inP = g, outP = g, deps = idx, accepts = {} })
-		end
-		s.accepts[#s.accepts + 1] = t
+		local dropKey = dropStops(g, t.quest)
+		if dropKey then deps[#deps + 1] = dropKey end
+		giverStop(g, deps, t)
 	end
 	return stops
 end
@@ -1831,6 +1889,14 @@ function Dungeons.PickupGuide(key)
 		watched[#watched + 1] = { id = w.quest.id, title = w.quest.title, level = w.level }
 	end
 	Dungeons.watch[key] = watched
+	-- What the run uses that no quest gives (#2338: the Mallet of Zul'Farrak,
+	-- which calls Gahz'rilla): each of the page's `item` entries for this
+	-- character's side that is not in the bags, with its note on how to get it.
+	for _, a in ipairs(Dungeons.Attunements(key, LK().PlayerInfo().code)) do
+		if a.kind == "item" and a.note and not Dungeons.AttunementState(a).done then
+			last.goals[#last.goals + 1] = { t = "note", text = format(L["%s: %s"], a.item and a.item.name or a.name, L[a.note]) }
+		end
+	end
 	local e = d.entrance
 	if located(e) then
 		-- A way in through the other faction's land says so on the step.
@@ -1935,6 +2001,21 @@ end
 -- One quest's giver
 ---------------------------------------------------------------------------
 
+local function dropTarget(drop)
+	if drop.dropBlocked then return nil, nil, nil, true end
+	local first
+	for _, step in ipairs(drop.dropSteps or {}) do
+		if #step.goals > 1 or not inLog(step.goals[1].quest) then first = step; break end
+	end
+	if not first then return drop, false end
+	local goal = first.goals[1]
+	local turnIn = goal.quest and inLog(goal.quest)
+	if turnIn then goal = first.goals[#first.goals] end
+	if not located(goal) then return nil end
+	return { kind = goal.npc and "npc" or "object", id = goal.npc or goal.object,
+		name = goal.npcName or goal.objName, map = goal.map, x = goal.x, y = goal.y, f = goal.f }, turnIn, first.title
+end
+
 -- A quest of the chain -> where to go for it, turnIn: its turn-in when it is
 -- in the log, else its giver (Dungeons.Giver for a page quest; an item that
 -- starts it where the page places one, else where it drops outside).
@@ -1947,18 +2028,27 @@ local function chainPoint(key, id, rec, from)
 		if cq and located(cq.finish) then return cq.finish, true end
 		return nil
 	end
+	local pageStart
 	if cq then
 		local g = Dungeons.Giver(cq, from, rec)
 		if g then return g, false end
 		local s = cq.start
-		if located(s) and not s.inside and (s.kind == "item" or cq.startItem) then return s, false end
+		if located(s) and not s.inside and (s.kind == "item" or cq.startItem) then pageStart = s end
 	end
 	local d = (cq or rec) and Dungeons.DropPoint(key, cq or rec, from, rec)
-	if d then return d, false end
+	if d then
+		local pt, turnIn, required, blocked = dropTarget(d)
+		-- A page's item location is usable only after any drop prerequisite.
+		if pt == d and pageStart then return pageStart, false end
+		return pt, turnIn, required, blocked
+	end
+	if pageStart then return pageStart, false end
 	local e = rec and Lk.QuestEnd(rec.start, from)
 	return e and not e.hostile and endPoint(e) or nil, false
 end
 
+-- The fifth result marks an unavailable drop prerequisite. Callers must not
+-- replace that missing target with the quest's own giver or item location.
 function Dungeons.GiverTarget(key, questId)
 	local pq = Dungeons.Quest(key, questId)
 	if not pq then return nil end
@@ -1968,15 +2058,17 @@ function Dungeons.GiverTarget(key, questId)
 		if rec then
 			local first = Lk.QuestChain(questId, Lk.PlayerInfo())[1]
 			if first and first.id ~= questId then
-				local pt, turnIn = chainPoint(key, first.id, first, ns.PlayerPoint())
-				if pt then return pt, pt.name, first.title, turnIn end
+				local pt, turnIn, required, blocked = chainPoint(key, first.id, first, ns.PlayerPoint())
+				if blocked then return nil, nil, nil, nil, true end
+				if pt then return pt, pt.name, required or first.title, turnIn end
 			end
 		else
 			for _, cid in ipairs(pq.chain or {}) do
 				if not done(cid) then
 					local cq = Dungeons.Quest(key, cid)
-					local pt, turnIn = chainPoint(key, cid, nil, nil)
-					if pt then return pt, pt.name, cq and cq.title, turnIn end
+					local pt, turnIn, required, blocked = chainPoint(key, cid, nil, nil)
+					if blocked then return nil, nil, nil, nil, true end
+					if pt then return pt, pt.name, required or (cq and cq.title), turnIn end
 					break
 				end
 			end
@@ -1985,7 +2077,10 @@ function Dungeons.GiverTarget(key, questId)
 	local g = Dungeons.Giver(pq, ns.PlayerPoint())
 	if g then return g, g.name end
 	local d = Dungeons.DropPoint(key, pq, ns.PlayerPoint())
-	if d then return d, d.name end
+	if d then
+		local pt, turnIn, required, blocked = dropTarget(d)
+		return pt, pt and pt.name, required, turnIn, blocked
+	end
 	local s = pq.start
 	if located(s) and (s.inside or s.kind == "item" or pq.startItem) then return s, s.name end
 	return nil

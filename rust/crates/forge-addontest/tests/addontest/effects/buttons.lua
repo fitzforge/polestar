@@ -34,6 +34,8 @@ return {
 		["qol.buttonScale"] = function() return { B.Holder():GetScale(), item:GetScale() } end,
 		["buttons.layout"] = function() return { pt(hearth), pt(target) } end,
 		["buttons.spacing"] = function() return { pt(hearth), pt(target) } end,
+		-- The target list's first row: level with the target button's bottom, the rows going up (#2590).
+		["buttons.listUp"] = function() return pt(B.rows[1]) end,
 		-- The set moved away, then Reset: back in its default spot.
 		["Buttons:Position"] = { press = true,
 			prepare = function() QoL.State().buttonPos = { "CENTER", "CENTER", 0, 0 }; Polestar.Fire("SETTING_CHANGED", "buttons") end,
@@ -61,6 +63,15 @@ return {
 			for _, r in ipairs(B.rows) do if r:IsShown() then n = n + 1 end end
 			return n
 		end },
+		-- The list's look: a row's size (portrait tiles in a column).
+		["qol.targetListStyle"] = { value = "column", probe = function() return { B.rows[1]:GetWidth(), B.rows[1]:GetHeight() } end },
+		-- With portraits, the close Murloc's name beside its tile.
+		["qol.targetCloseName"] = { with = { ["qol.targetListStyle"] = "column" },
+			prepare = function() q.units.nameplate1 = { name = "Murloc" }; stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate1") end,
+			cleanup = function() q.units.nameplate1 = nil; stub.fire("NAME_PLATE_UNIT_REMOVED", "nameplate1") end,
+			probe = function() return B.rows[1].Name:IsShown() and true or false end },
+		-- The faces: 2D shows an icon for a mob not seen yet, 3D none without a model.
+		["qol.targetPortraits"] = { value = "flat", probe = function() return tostring(B.rows[1].Face:GetTexture()) end },
 		["qol.rareButton"] = function() return rare:IsShown() and true or false end,
 		-- The icon's inset from the button's edge.
 		["buttons.padding"] = function() return pt(item.Icon) end,

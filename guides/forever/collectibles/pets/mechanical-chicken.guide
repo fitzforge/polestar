@@ -18,9 +18,13 @@ step OOX-22/FE Distress Beacon in Feralas
   tip Each robot starts with a distress beacon that mobs in its zone drop, about one kill in 40 to 100 in Classic's data. In Feralas the best are the Coast Crawl Snapclaws and Deepseers (levels 43-45) on the Forgotten Coast and the Sprite Dragons (47-48), about 2.5%; ogres, harpies, naga and Grimtotems drop it about 1%. You can loot it from level 40.
   collect 8705 x1 nearest
 
-step Rescue OOX-22/FE
-  tip Right-click the beacon. OOX-22/FE sits in a cave near Feral Scar Vale, among yetis and apes. Its escort runs west along the road to the dock on the Forgotten Coast with three ambushes: three yetis, then three gorillas, then four or five gnolls with a caster. Bring a friend if you are under 47. The robot keeps walking unless it is hit, so stay close; if it will not move, another player has it: wait for it to come back. Its turn-in is in Booty Bay; keep the quest for later.
+step OOX-22/FE's beacon
+  when has 8705
+  tip Right-click the beacon: it starts Find OOX-22/FE!
   accept 2766
+
+step Rescue OOX-22/FE
+  tip OOX-22/FE sits in a cave near Feral Scar Vale, among yetis and apes. Its escort runs west along the road to the dock on the Forgotten Coast with three ambushes: three yetis, then three gorillas, then four or five gnolls with a caster. Bring a friend if you are under 47. The robot keeps walking unless it is hit, so stay close; if it will not move, another player has it: wait for it to come back. Its turn-in is in Booty Bay; keep the quest for later.
   turnin 2766
   accept 2767
   complete 2767                       -- Escort OOX-22/FE
@@ -30,10 +34,15 @@ step OOX-17/TN Distress Beacon in Tanaris
   tip Tanaris mobs drop OOX-17/TN's beacon about one kill in 50 to 150. Best: the Treasure Hunting Pirates and Buccaneers on the south shore (44-45) and the Ground Pounders in the north (41-43), about 2%. You can loot it from level 43.
   collect 8623 x1 nearest
 
+step OOX-17/TN's beacon
+  zone Tanaris
+  when has 8623
+  tip Right-click the beacon: it starts Find OOX-17/TN!
+  accept 351
+
 step Rescue OOX-17/TN
   zone Tanaris
   tip OOX-17/TN stands in the hills near the Gaping Chasm in south-east Tanaris. Its escort to Steamwheedle Port has two ambushes: three scorpids near the start, three Wastewander bandits near the end. The robot has about 3,000 health and stops to fight what you attack, so it can tank for a moment while you recover. Its turn-in is in Booty Bay too.
-  accept 351
   turnin 351
   accept 648
   complete 648                        -- Escort OOX-17/TN
@@ -43,10 +52,15 @@ step OOX-09/HL Distress Beacon in the Hinterlands
   tip Most Hinterlands mobs drop OOX-09/HL's beacon about once in 100 kills: Silvermane wolves, owlbeasts, Highvale elves, Witherbark and Vilebranch trolls. You can loot it from level 43.
   collect 8704 x1 nearest
 
+step OOX-09/HL's beacon
+  zone The Hinterlands
+  when has 8704
+  tip Right-click the beacon: it starts Find OOX-09/HL!
+  accept 485
+
 step Rescue OOX-09/HL
   zone The Hinterlands
   tip OOX-09/HL waits on the largest island of the lake west of Skulk Rock. Its escort to the shore beyond Overlook Cliff has two ambushes of three: Marauding Owlbeasts, then Vilebranch Ambushers; the robot warns you just before each.
-  accept 485
   turnin 485
   accept 836
   complete 836                        -- Escort OOX-09/HL
@@ -57,6 +71,13 @@ step Oglethorpe Obnoticus in Booty Bay
   turnin 2767
   turnin 648
   turnin 836
+
+step An OOX of Your Own
+  zone Stranglethorn Vale
+  when turnedin 2767
+  when turnedin 648
+  when turnedin 836
+  when !turnedin 3721
   level 45
   accept 3721
   turnin 3721

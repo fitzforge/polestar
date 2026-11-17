@@ -53,6 +53,7 @@ const { ROOT } = require('./helpers/lua');
 const { needs } = require('./helpers/data');
 const { buildSimPack, playGuide, luaValue, SIMULATE } = require('../tools/lib/playtest');
 const { localPacks, withinBudget } = require('./helpers/profile');
+const { assertTiming } = require('./helpers/timing');
 
 const LEVELING = 'forever/horde/02-the-barrens.guide';
 const GATHERING = 'forever/professions/mining.guide';
@@ -310,7 +311,7 @@ test('event bursts, walking frames and step changes stay within budget with ever
 	}
 	assert.ok(m.changes > 10, `too few step changes measured (${m.changes})`);
 	for (const r of m.rounds) assert.ok(r.caughtUp, 'the catch-up ended before the bursts');
-	for (const k of ['burst', 'tick', 'setGuide', 'catchUp', 'stepChange']) assert.ok(within(m, k, m[k]), `${k} over budget: ${report}`);
+	for (const k of ['burst', 'tick', 'setGuide', 'catchUp', 'stepChange']) assertTiming(within(m, k, m[k]), `${k} over budget: ${report}`);
 	console.log(report);
 });
 
@@ -329,6 +330,6 @@ test(`a gathering guide plays to the end in under ${BUDGET.gatherSeconds} s`, { 
 	const seconds = fastest(times);
 	const report = `${gathering.id} took ${seconds.toFixed(2)} s (fastest of ${ROUNDS}); budget ${BUDGET.gatherSeconds} s, `
 		+ `scale ${round3(m.scale)} (refNow ${round3(m.refNow)} ms, refBaseline ${REF_BASELINE} ms), scaled budget ${m.limit.gatherSeconds} s`;
-	assert.ok(within(m, 'gatherSeconds', seconds), report);
+	assertTiming(within(m, 'gatherSeconds', seconds), report);
 	console.log(report);
 });

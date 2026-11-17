@@ -407,3 +407,33 @@ emit({
 		})
 	);
 }
+
+// #1934 (WoneX, 0.3.6): The Sacred Flame's hand-in step (`when complete 1195`) was passed while the quest was not in
+// the log, so it was stored as skipped. Taken later from Zangen and the step brought back with Unskip, it applied
+// "whatever its when", and the guide showed Turn in The Sacred Flame as the live step with the quest at 0/1. A hand-in
+// can't be done before its quest is: an unskipped step whose `when` fails only on `complete` is not kept applying; it
+// comes back once the quest is ready. Unskipped before the quest is taken, the same.
+#[test]
+fn an_unskipped_step_whose_when_fails_only_on_complete_waits_for_the_quest_to_be_ready_1934() {
+	let saved = format!("PolestarCharDB = {}", lua_value(&json!({ "schema": 1, "guide": "test/when", "skipped": { "test/when": { "1": true } } })));
+	// Whether step 2 is the live step, and its status.
+	let script = |order: &str| {
+		format!(
+			r#"
+			local function s2() local v = E.GetStepView(2); return {{ live2 = E.GetLiveStep() == 2, status = v.status }} end
+			emit(s2())
+			{order}
+			emit(s2())
+			stub.world.progress(783, 1, 1); flush()
+			emit(s2())
+		"#
+		)
+	};
+	let take = r#"stub.world.onQuest(783, { { required = 1, fulfilled = 0 } }); stub.fire("QUEST_LOG_UPDATE"); flush()"#;
+	for order in [format!("{take}; E.Unskip(2); flush()"), format!("E.Unskip(2); flush(); {take}")] {
+		let out = run(r#"{ { k = "complete", q = 783 } }"#, "", Some(&saved), "", &script(&order));
+		assert_eq!(out[0], json!({ "live2": false, "status": "skipped" }), "passed without the quest: stored as skipped");
+		assert_eq!(out[1], json!({ "live2": false, "status": "na" }), "unskipped at 0/1: not the live step ({order})");
+		assert_eq!(out[2], json!({ "live2": true, "status": "current" }), "the quest done: the hand-in step is back ({order})");
+	}
+}

@@ -44,6 +44,9 @@ local defaults = {
 	targetAnnounce = false,  -- ... a chat line when its names change
 	targetRows = 5,          -- how many names the target list shows (1-8)
 	targetSimple = false,    -- the target button alone, cycling, without its list of names
+	targetListStyle = "full", -- the list's look: full, slim, names only, or portraits alone in a column or a strip
+	targetCloseName = true,  -- portraits: the close one's name beside its face
+	targetPortraits = "model", -- the list's faces: "model" (3D) or "flat" (2D once seen, else an icon)
 	guideNameTarget = false, -- opt in: extend navigation clicks to targeting, with shared marking settings
 	rareButton = true,       -- target button for a rare the addon spotted
 	hearthButton = true,     -- Hearthstone button while a hearth goal is active
@@ -56,6 +59,7 @@ local defaults = {
 	buttonTextSide = "right", -- which side of the button its name sits on
 	xpTracker = true,
 	xpTargetMark = true,     -- the guide's level target on the game's XP bar
+	questXPOverlay = true,
 	boostedRest = true,      -- Boosted Rest and the sleeping bag on the XP line, the party's in the party panel
 	sellJunk = true,
 	autoRepair = true,
@@ -66,6 +70,7 @@ local defaults = {
 	itemMarksClick = true,   -- ... Ctrl+Alt-click cycles the marks (off: only the keys mark)
 	bagSpace = true,         -- free bag slots: the junk button and the bags-full banner
 	bagsLow = 2,             -- ... at this many free slots or fewer
+	spareBag = false,        -- ... offer to put a bag from the bags in an empty bag slot first, on a press (QoL/Space.lua, #2369)
 	rewardHighlight = true,
 	rewardAutoPick = false,
 	rewardEquip = false,     -- wear what a turn-in gives when it is an upgrade
@@ -234,6 +239,67 @@ function QoL.Open(goalView)
 	return s == "active" or s == "pending"
 end
 
+-- One quest as a refresh reads it, appended to `into` from n: in the log or
+-- not, ready or failed, and each objective's counts and state. -> the new n
+local function readQuest(C, into, n, q)
+	into[n + 1] = q
+	into[n + 2] = (C.IsOnQuest(q) and 1 or 0) + (C.IsQuestReadyForTurnIn(q) and 2 or 0) + (C.IsQuestFailed(q) and 4 or 0)
+	n = n + 2
+	local objs = C.GetQuestObjectives(q)
+	if objs then
+		for k = 1, #objs do
+			local o = objs[k]
+			into[n + 1], into[n + 2], into[n + 3] = o.numFulfilled, o.numRequired, o.finished and 1 or 0
+			n = n + 3
+		end
+	end
+	into[n + 1] = -1 -- the quest's end
+	return n + 1
+end
+
+-- What the step's refreshes read of the quest log, in `into` (wiped first):
+-- how many quests it holds, and each quest of the current step's goals and of
+-- the While-here line (QoL/Buttons.lua ChooseQuestItem's and TargetNames'
+-- quests, QoL/BagGlow.lua's). -> its length; nil when the Engine or the log
+-- can't say.
+local function readStepLog(into)
+	local E, C, QL = ns.Engine, ns.Compat, C_QuestLog
+	if not (E and E.GetGuide and E.GetStepIndex and QL and QL.GetNumQuestLogEntries) then return nil end
+	local n = 1
+	into[1] = QL.GetNumQuestLogEntries() or 0
+	local guide, i = E.GetGuide(), E.GetStepIndex()
+	local step = guide and i and guide.steps and guide.steps[i]
+	local goals = step and step.goals
+	for g = 1, goals and #goals or 0 do
+		local q = goals[g].quest
+		if type(q) == "number" then n = readQuest(C, into, n, q) end
+	end
+	local here = E.GetWhileHere and E.GetWhileHere()
+	if here and type(here.quest) == "number" then n = readQuest(C, into, n, here.quest) end
+	for k = #into, n + 1, -1 do into[k] = nil end
+	return n
+end
+
+-- That read and its version: one more each time a read differs from the one
+-- before. Read once per moment (ns.Moment), whatever the number of readers.
+local logNow, logWas, logVersion, logMoment = {}, {}, 0, nil
+local function logVersionNow()
+	local moment = ns.Moment()
+	if moment == logMoment then return logVersion end
+	logMoment = moment
+	logNow, logWas = logWas, logNow
+	local n = readStepLog(logNow)
+	local same = n ~= nil and n == #logWas
+	for k = 1, same and n or 0 do
+		if logNow[k] ~= logWas[k] then
+			same = false
+			break
+		end
+	end
+	if not same then logVersion = logVersion + 1 end
+	return logVersion
+end
+
 -- Recompute fn once on the next frame after any number of calls. The
 -- refresh runs from a timer of its own, with its errors caught and noted as
 -- ns.Safe does, but in the moment it finds (ns.Moment): the refreshes of one
@@ -242,17 +308,39 @@ end
 -- view shows (a game event, a message, an Engine request, another timer of
 -- Polestar's) starts a new moment, and the next refresh builds a fresh one.
 -- A kill's burst asked for two views, one per refresh (#2555).
+-- -> soon(), and onLog() for QUEST_LOG_UPDATE: the client sends it for much
+-- that leaves the log as it was (several per kill, some per loot, fifty in a
+-- burst), and a refresh that reads the step's view costs about half a
+-- millisecond. A refresh that onLog asks for reads the step's part of the log
+-- as it runs (readStepLog: one read per moment, whatever the number of
+-- refreshes, and the step's view reads the same lines then), and a run asked
+-- for only by onLog skips fn when that part is as at its last run. The step
+-- itself changing comes through QoL.OnStep and soon() as before, the bags
+-- through BAG_UPDATE_DELAYED.
 function QoL.Coalesce(fn)
-	local scheduled = false
+	local scheduled, other, logged, seen = false, false, false, nil
 	local function run()
 		scheduled = false
+		if logged then
+			local v = logVersionNow()
+			if not other and v == seen then return end
+			seen = v
+		end
+		other = false
 		fn()
 	end
 	local function due() ns.SafeCall(run) end
-	return function()
+	local function schedule()
 		if scheduled then return end
 		scheduled = true
 		if C_Timer and C_Timer.After then C_Timer.After(0, due) else run() end
+	end
+	return function()
+		other = true
+		schedule()
+	end, function()
+		logged = true
+		schedule()
 	end
 end
 
@@ -401,6 +489,34 @@ function Client.DeleteSlot(bag, slot)
 	C.PickupContainerItem(bag, slot)
 	if not CursorHasItem() then return false end
 	DeleteCursorItem()
+	return true
+end
+
+-- Whether a regular bag slot (1 to NUM_BAG_SLOTS) has no bag in it: the
+-- client gives an empty slot no container slots and no worn item.
+function Client.BagSlotEmpty(bag)
+	if bag < 1 or bag > (NUM_BAG_SLOTS or 4) then return false end
+	if Client.NumSlots(bag) > 0 then return false end
+	local C = C_Container
+	local inv = C and C.ContainerIDToInventoryID and C.ContainerIDToInventoryID(bag)
+	return not (inv and Client.WornID(inv))
+end
+
+-- Puts the bag a bag slot holds into the empty bag slot `into` (PickupContainerItem,
+-- then PutItemInBag on that slot's inventory ID). Never with something already on the
+-- cursor; when the bag does not go in, the cursor is cleared, which puts it back. true
+-- when it went.
+function Client.EquipBag(bag, slot, into)
+	local C = C_Container
+	if not (C and C.PickupContainerItem and C.ContainerIDToInventoryID and PutItemInBag and CursorHasItem) then return false end
+	if CursorHasItem() then return false end
+	C.PickupContainerItem(bag, slot)
+	if not CursorHasItem() then return false end
+	PutItemInBag(C.ContainerIDToInventoryID(into))
+	if CursorHasItem() then
+		if ClearCursor then ClearCursor() end
+		return false
+	end
 	return true
 end
 

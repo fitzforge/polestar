@@ -110,6 +110,22 @@ fn ctx() -> Ctx {
 	codex["quests"]["7010"] = json!({ "id": 7010, "title": "Creepers in the Marsh", "level": 18, "minLevel": 15, "faction": "A", "races": null, "classes": null,
 		"start": { "npc": [5008], "object": [], "item": [] }, "end": { "npc": [5008], "object": [] },
 		"objectives": [{ "type": "kill", "id": 5014, "count": 6, "text": "Marsh Creeper" }], "pre": [], "preAny": [], "zone": home, "rewards": [], "choices": [] });
+	// #2326: a friendly spirit an item calls up (Screecher Spirits' shape): use the item, then speak to it. #2578: the
+	// item is used on a Vale Prowler (the Vale Screecher's part), which stands elsewhere.
+	codex["npcs"]["5015"] = json!({ "id": 5015, "name": "Vale Spirit", "level": 1, "levelMax": 1, "faction": "AH", "rare": false, "elite": false, "boss": false, "instance": null, "roles": [],
+		"spawns": [{ "map": home, "x": 30, "y": 60, "f": "e" }] });
+	codex["npcs"]["5016"] = json!({ "id": 5016, "name": "Vale Prowler", "level": 18, "levelMax": 19, "faction": null, "rare": false, "elite": false, "boss": false, "instance": null, "roles": [],
+		"spawns": [{ "map": home, "x": 70, "y": 20, "f": "e" }] });
+	codex["items"]["8021"] = json!({ "id": 8021, "name": "Spirit Bramble", "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [] });
+	codex["quests"]["7011"] = json!({ "id": 7011, "title": "Spirits of the Vale", "level": 18, "minLevel": 15, "faction": "A", "races": null, "classes": null,
+		"start": { "npc": [5008], "object": [], "item": [] }, "end": { "npc": [5008], "object": [] },
+		"objectives": [{ "type": "kill", "id": 5015, "count": 3, "text": "Vale Spirit", "summonItem": 8021, "summonOn": [5016] }], "pre": [], "preAny": [], "zone": home, "rewards": [], "choices": [] });
+	// #2714: an event objective that needs gathering first (Powering the Pylons' mana), said only by the quest's
+	// `how` (our public mechanics' words).
+	codex["quests"]["7012"] = json!({ "id": 7012, "title": "Powering the Pylons", "level": 18, "minLevel": 15, "faction": "A", "races": null, "classes": null,
+		"start": { "npc": [5008], "object": [], "item": [] }, "end": { "npc": [5008], "object": [] },
+		"objectives": [{ "type": "event", "count": 1, "text": "Western pylon repaired", "map": home, "x": 40, "y": 40, "f": "e" }], "pre": [], "preAny": [], "zone": home, "rewards": [], "choices": [],
+		"how": "Gather mana with the Mana Sieve first; then use Repair and Recharge Pylon at the pylon." });
 	let mut frames: Vec<(i64, Value)> = codex["frames"].as_object().unwrap().iter().map(|(k, f)| (k.parse::<i64>().unwrap(), f.clone())).collect();
 	frames.sort_by_key(|(id, _)| *id);
 	let maps = frames
@@ -292,6 +308,76 @@ fn a_craft_learn_the_profession_at_its_trainer_skill_up_learn_the_recipe_craft()
 	assert_plays(&c, "item", 8005, json!([{ "title": "Tailoring", "goals": "learn craft" }]), r#"w.learnSkill(197, "Tailoring", 120, 150)"#);
 }
 
+// #2326 (Stompsville, Zul'Farrak's pick-up guide): Screecher Spirits read "Kill Screecher Spirit", though the spirit
+// rises only from Yeh'kinya's Bramble used on a dead Vale Screecher, and it is spoken to, never killed. A target the
+// Codex says an item calls up (summonItem) is the item's use, then a talk when it is friendly; the step says so.
+// #2578 (Zack): the use line's target button had only the spirit; it targets and leads to the creature the item is
+// used on (summonOn: the Vale Screechers).
+#[test]
+fn a_target_an_item_calls_up_use_the_item_on_its_creature_then_speak_to_it_2326_2578() {
+	let c = ctx();
+	assert_plays(&c, "quest", 7011, json!([{ "title": "Spirits of the Vale", "goals": "accept use talk turnin" }]), "");
+	let got = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: world(&c, &format!("w.level = 20\nw.moveTo({}, 50, 50)\n", c.home)),
+		addons: vec!["Polestar".into()],
+		script: r#"stub.login()
+			local id = Polestar.Lookup.Guide("quest", 7011)
+			local step = Polestar.Guides.Get(id).steps[1]
+			local use = step.goals[2]
+			emit({ note = step.note or false, npc = use.npc or false, target = use.target or false, from = use.fromNpcs and use.fromNpcs[1].npcName or false, x = use.x or false, y = use.y or false })"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert!(got["note"].as_str().unwrap_or("").contains("Vale Spirit: use Spirit Bramble to call it up."), "{got}");
+	assert_eq!(
+		(got["npc"].as_f64(), &got["target"], &got["from"], got["x"].as_f64(), got["y"].as_f64()),
+		(Some(5016.0), &json!("Vale Prowler"), &json!("Vale Prowler"), Some(70.0), Some(20.0)),
+		"the use line targets the Vale Prowler, at its spawn: {got}"
+	);
+}
+
+// #2714 (Unholy, Razorfen Downs' pick-up guide): Powering the Pylons' pylons take mana gathered with the Mana Sieve
+// first, which no objective says; the step said nothing about it. The Codex's `how` (our public mechanics) is the
+// step's note.
+#[test]
+fn a_quest_s_how_is_its_step_s_note_2714() {
+	let c = ctx();
+	let got = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: world(&c, &format!("w.level = 20\nw.moveTo({}, 50, 50)\n", c.home)),
+		addons: vec!["Polestar".into()],
+		script: r#"stub.login()
+			local id = Polestar.Lookup.Guide("quest", 7012)
+			emit({ note = Polestar.Guides.Get(id).steps[1].note or false })"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(got["note"], json!("Gather mana with the Mana Sieve first; then use Repair and Recharge Pylon at the pylon."));
+}
+
+// #2505 (kaigltv, Hot Wolf Ribs): every recipe went to the profession trainer, though most are taught by a recipe
+// item (Recipe: Hot Wolf Ribs is sold in Feralas and Desolace). A craft a recipe item teaches goes to that recipe's
+// own best source first (its vendor here), then the profession's steps with the recipe's use; once the recipe is
+// in the bags, the vendor step is left out.
+#[test]
+fn a_craft_a_recipe_item_teaches_buy_the_recipe_first_then_learn_and_craft_2505() {
+	let c = ctx();
+	assert_plays(
+		&c,
+		"item",
+		8019,
+		json!([
+			{ "title": "Mira Saddler", "goals": "goto buy" },
+			{ "title": "Tailoring", "goals": "train skill learn craft" },
+		]),
+		"",
+	);
+	assert_plays(&c, "item", 8019, json!([{ "title": "Tailoring", "goals": "train skill learn craft" }]), "w.addItem(8020, 1)");
+}
+
 #[test]
 fn a_reputation_reward_reach_the_standing_then_buy_it_from_the_quartermaster() {
 	let c = ctx();
@@ -449,4 +535,155 @@ emit({ t = g.t, closedBy = g.closedBy or false, status = v.status, text = v.unav
 	let open = run("");
 	assert_eq!(open["text"], json!(false), "{open}");
 	assert_ne!(open["status"], json!("skipped"), "{open}");
+}
+
+// #2554: a quest's chain, from the real Codex pack. 9501 -> 9502 -> 9503 -> 9504, then two follow-ups (9505, 9506)
+// and a Horde one (9507) that is not this character's. 9502 is done without 9501 (Forever lets some chains skip a
+// step), 9503 is in the log and 9504 needs level 25: the chain marks 9501 skipped, counts the step from 9503 (the
+// first quest neither done nor skipped), keeps the done and in-log states, says why 9504 waits, and lists the two
+// Alliance follow-ups as branches. A quest with no prerequisite or follow-up has no chain. The quest tooltip's line
+// says "Chain: 3 of 4", only with Lookup on and once the Codex is loaded (a hover never loads it), and follows the
+// quests turned in.
+#[test]
+fn chain_progress_walks_back_through_prerequisites_and_forward_through_one_follow_up_marking_skipped_quests_2554() {
+	let mut c = ctx();
+	let quest = |id: i64, title: &str, faction: &str, min: i64, pre: Vec<i64>| {
+		json!({ "id": id, "title": title, "level": min + 2, "minLevel": min, "faction": faction, "races": null, "classes": null,
+			"start": { "npc": [5008], "object": [], "item": [] }, "end": { "npc": [5008], "object": [] },
+			"objectives": [], "pre": pre, "preAny": [], "zone": c.home, "rewards": [], "choices": [] })
+	};
+	let add = [
+		quest(9501, "Chain One", "A", 15, vec![]),
+		quest(9502, "Chain Two", "A", 15, vec![9501]),
+		quest(9503, "Chain Three", "A", 15, vec![9502]),
+		quest(9504, "Chain Four", "A", 25, vec![9503]),
+		quest(9505, "Branch East", "A", 25, vec![9504]),
+		quest(9506, "Branch West", "A", 25, vec![9504]),
+		quest(9507, "Branch Horde", "H", 25, vec![9504]),
+	];
+	for q in add {
+		let id = q["id"].to_string();
+		c.codex["quests"][id] = q;
+	}
+	c.pack = write_codex_pack(&c.codex, &CodexOpts::default());
+	let tail = format!("w.level = 20\nw.moveTo({}, 50, 50)\nw.complete({{ 9502 }})\n", c.home) + r#"w.onQuest(9503, {}, "Chain Three")"#;
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: world(&c, &tail),
+		addons: vec!["Polestar".into()],
+		script: r#"
+stub.login()
+local LK = Polestar.Lookup
+local cold = { tip = LK.ChainTooltipText(9503) or false, loaded = Polestar.Codex.IsLoaded() }
+local ch = LK.ChainProgress(9503)
+local quests = {}
+for i, e in ipairs(ch.quests) do quests[i] = { e.id, e.state, e.why or false, e.skipped or false } end
+local branches = {}
+for i, b in ipairs(ch.branches or {}) do branches[i] = b.id end
+table.sort(branches)
+local tip = LK.ChainTooltipText(9503)
+Polestar.Set("lookup.enabled", false)
+local offTip = LK.ChainTooltipText(9503) or false
+Polestar.Set("lookup.enabled", true)
+for _, id in ipairs({ 9501, 9503, 9504 }) do stub.world.turnIn(id) end
+stub.advance(0.3)
+emit({ quests = quests, step = ch.step, total = ch.total, done = ch.done, branches = branches,
+	fromFirst = #LK.ChainProgress(9501).quests, alone = LK.ChainProgress(7010) or false,
+	cold = cold, tip = tip, offTip = offTip, allDone = LK.ChainTooltipText(9503), aloneTip = LK.ChainTooltipText(7010) or false })"#
+			.into(),
+		..Default::default()
+	});
+	let out = &out[0];
+	assert_eq!(
+		out["quests"],
+		json!([[9501, "open", false, true], [9502, "done", false, false], [9503, "log", false, false], [9504, "later", "Requires level 25", false],]),
+		"9501 was skipped: not done, though 9502 that needs it is"
+	);
+	assert_eq!(json!({ "step": out["step"], "total": out["total"], "done": out["done"] }), json!({ "step": 3, "total": 4, "done": false }), "the step is 9503: the skipped 9501 is not one to do");
+	assert_eq!(out["branches"], json!([9505, 9506]), "the Horde follow-up is not this character's");
+	assert_eq!(out["fromFirst"], 4, "the same line from its first quest");
+	assert_eq!(out["alone"], false, "a quest standing alone has no chain");
+	assert_eq!(out["cold"], json!({ "tip": false, "loaded": false }), "a tooltip never loads the Codex");
+	assert_eq!(out["tip"], "Chain: 3 of 4");
+	assert_eq!(out["offTip"], false, "no chain line with Lookup turned off");
+	assert_eq!(out["allDone"], "Chain: all 4 done", "turned in: the line follows");
+	assert_eq!(out["aloneTip"], false);
+}
+
+// A quest that needs two (`pre` 9511 and 9512): with 9512 done and 9511 not, 9511 is still needed, so it is not
+// skipped and the step is 9511. Once 9513 is turned in without 9511, 9511 is skipped, nothing is left to do, and the
+// line says the chain is finished with one skipped, not "all 3 done".
+#[test]
+fn a_quest_still_needed_by_a_later_one_is_not_skipped_and_a_chain_left_with_only_skipped_quests_says_so_2554() {
+	let mut c = ctx();
+	let quest = |id: i64, title: &str, pre: Vec<i64>| {
+		json!({ "id": id, "title": title, "level": 17, "minLevel": 15, "faction": "A", "races": null, "classes": null,
+			"start": { "npc": [5008], "object": [], "item": [] }, "end": { "npc": [5008], "object": [] },
+			"objectives": [], "pre": pre, "preAny": [], "zone": c.home, "rewards": [], "choices": [] })
+	};
+	for q in [quest(9511, "Needed One", vec![]), quest(9512, "Needed Two", vec![]), quest(9513, "Needs Both", vec![9511, 9512])] {
+		let id = q["id"].to_string();
+		c.codex["quests"][id] = q;
+	}
+	c.pack = write_codex_pack(&c.codex, &CodexOpts::default());
+	let tail = format!("w.level = 20\nw.moveTo({}, 50, 50)\nw.complete({{ 9512 }})\n", c.home);
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: world(&c, &tail),
+		addons: vec!["Polestar".into()],
+		script: r#"
+stub.login()
+local LK = Polestar.Lookup
+local function line()
+	local ch = LK.ChainProgress(9513)
+	local quests = {}
+	for i, e in ipairs(ch.quests) do quests[i] = { e.id, e.state, e.skipped or false } end
+	return { quests = quests, step = ch.step, done = ch.done, skipped = ch.skippedCount }
+end
+local before = line()
+stub.world.turnIn(9513)
+stub.advance(0.3)
+emit({ before = before, after = line(), tip = LK.ChainTooltipText(9513) })"#
+			.into(),
+		..Default::default()
+	});
+	let out = &out[0];
+	assert_eq!(out["before"], json!({ "quests": [[9511, "open", false], [9512, "done", false], [9513, "later", false]], "step": 1, "done": false, "skipped": 0 }), "9513 still needs 9511");
+	assert_eq!(out["after"], json!({ "quests": [[9511, "open", true], [9512, "done", false], [9513, "done", false]], "step": 3, "done": true, "skipped": 1 }), "9513 done without 9511");
+	assert_eq!(out["tip"], "Chain: finished, 1 skipped");
+}
+
+// #2677 (Prodigy, Orc Hunter 30, 0.4.0.1: Lookup's guide for Ursangous's Paw, which starts from the paw Ursangous
+// drops): its one step said "Accept Ursangous's Paw" with no place and no arrow, and "it isn't where it's marked".
+// A quest started from an item the character has neither in the bags nor as the quest gets a collect goal for the
+// item first, at its source's nearest spawn and naming it; holding the item, the step starts at the accept.
+#[test]
+fn a_quest_started_from_an_item_goes_where_the_item_drops_first_2677() {
+	let mut c = ctx();
+	c.codex["npcs"]["5020"] = json!({ "id": 5020, "name": "Old Clawfoot", "level": 20, "levelMax": 20, "faction": null, "rare": false, "elite": false, "boss": false, "instance": null, "roles": [],
+		"spawns": [{ "map": c.home, "x": 70, "y": 30, "f": "e" }] });
+	c.codex["items"]["8030"] = json!({ "id": 8030, "name": "Clawfoot's Paw", "quality": 1, "kind": "item", "spell": null, "reqLevel": null,
+		"sources": [{ "type": "drop", "npc": 5020, "chance": 100, "from": ["questie"] }] });
+	c.codex["quests"]["7040"] = json!({ "id": 7040, "title": "Clawfoot's Paw", "level": 18, "minLevel": 15, "faction": "A", "races": null, "classes": null,
+		"start": { "npc": [], "object": [], "item": [8030] }, "end": { "npc": [5009], "object": [] },
+		"objectives": [], "pre": [], "preAny": [], "zone": c.home, "rewards": [], "choices": [] });
+	c.pack = write_codex_pack(&c.codex, &CodexOpts::default());
+	let first = |setup: &str| {
+		emitted(&RunAddon {
+			stubs: vec!["stub_world.lua"],
+			before: world(&c, &format!("w.level = 20\nw.moveTo({}, 50, 50)\n{setup}", c.home)),
+			addons: vec!["Polestar".into()],
+			script: r#"
+stub.login()
+local id = Polestar.Lookup.Guide("quest", 7040)
+local verbs, g = {}, Polestar.Guides.Get(id).steps[1].goals
+for i, x in ipairs(g) do verbs[i] = x.t end
+emit({ goals = table.concat(verbs, " "), item = g[1].item or false, x = g[1].x or false, y = g[1].y or false, from = g[1].from or false })"#
+				.into(),
+			..Default::default()
+		})
+		.remove(0)
+	};
+	assert_eq!(first(""), json!({ "goals": "collect accept turnin", "item": 8030, "x": 70, "y": 30, "from": "Old Clawfoot" }), "where the paw drops, first");
+	assert_eq!(first("w.items[8030] = 1")["goals"], "accept turnin", "with the paw in the bags the step starts at the accept");
 }

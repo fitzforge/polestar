@@ -1161,6 +1161,11 @@ pub struct KbInputs<'a> {
 	pub zones: &'a Obj,
 	pub live: FxHashSet<i64>,
 	pub corrections: V,
+	/// Where each corrected field comes from, public corrections or the private overlay
+	/// (`crate::corrections::origins`): the `correction_origin` table the public tier reads.
+	pub correction_origins: Vec<crate::corrections::Origin>,
+	/// Per quest, the NPCs counted players handed it in to (`recordings::Stats::npc_hand_ins`).
+	pub npc_hand_ins: FxHashMap<i64, FxHashSet<i64>>,
 	/// The fact check's local database (a local-only source); None: none.
 	pub facts_file: Option<PathBuf>,
 	pub tdb: Option<V>,
@@ -1533,6 +1538,8 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 	let alt = alt;
 	let tdb = inp.tdb.as_ref();
 	let mut kb = Kb { inp, changes: Vec::new(), verify_xp: FxHashMap::default(), fact_rows: Vec::new(), alt_rows: Vec::new(), verify: IndexMap::new(), pos: [0; 3] };
+	// Quests whose captured giver was not added to their enders (the rule at the `end` merge below).
+	let mut held_givers: Vec<i64> = Vec::new();
 	let alt_of = |kind: &str, id: f64| -> Vec<Fact> { alt.facts.get(&format!("{kind}:{}", num_str(id))).cloned().unwrap_or_default() };
 	let to_cand = |a: &Fact| Cand { source: a.source.clone(), value: a.value.clone(), note: a.note.clone(), project: false };
 	let npc_faction = |id: f64| -> V { npcs.get(&num_str(id)).get("faction") };
@@ -1630,8 +1637,25 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 					let prev_o = prev.as_obj().cloned().unwrap_or_default();
 					let next = prev_o.spread();
 					let observed = OBSERVED.contains(&w.source.as_str());
+					// A quest's giver that an in-game capture also names as an ender is not added beside
+					// the enders the data already has unless players handed the quest in in that NPC's
+					// window (#2612: captures named the giver of quests handed in at an object).
+					let givers: Vec<f64> = if field == "end" && observed && (!prev.get("npc").is_empty() || !prev.get("object").is_empty()) {
+						q.get("start").get("npc").items().iter().map(V::num).collect()
+					} else {
+						Vec::new()
+					};
+					let handed = inp.npc_hand_ins.get(&(id as i64));
 					for k in ["npc", "object"] {
-						let theirs: Vec<f64> = win.iter().filter(|(kk, _)| kk == k).map(|(_, v)| *v).collect();
+						let mut theirs: Vec<f64> = win.iter().filter(|(kk, _)| kk == k).map(|(_, v)| *v).collect();
+						if k == "npc" && !givers.is_empty() {
+							let pk: Vec<f64> = prev.get(k).items().iter().map(V::num).collect();
+							let before = theirs.len();
+							theirs.retain(|v| pk.contains(v) || !givers.contains(v) || handed.is_some_and(|h| h.contains(&(*v as i64))));
+							if theirs.len() < before {
+								held_givers.push(id as i64);
+							}
+						}
 						let pk: Vec<f64> = prev.get(k).items().iter().map(V::num).collect();
 						let list: Vec<f64> = if observed {
 							pk.iter().copied().chain(theirs.iter().copied().filter(|v| !pk.contains(v))).collect()
@@ -2210,9 +2234,13 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 		spawnz_changed = tdb_report.get("spawnIds").num() > 0.0 && spawnz.is_some();
 		if let Some(t) = trainers.as_ref() {
 			let t2 = t.as_obj().unwrap().spread();
+			for (id, classes) in drop_tdb_non_trainers(&t2, tdb) {
+				kb.change("trainers", forge_guide::js::str_to_num(&id), "trainer", classes, V::Null, "tdb");
+				bump(&tdb_report, "trainersDropped", 1.0);
+			}
 			for (id, classes) in tdb.get("trainers").entries() {
 				let n = npcs.get(&id);
-				if t2.get(&id).truthy() || !n.truthy() || n.get("spawns").keys().is_empty() {
+				if t2.get(&id).truthy() || !n.truthy() || n.get("spawns").keys().is_empty() || !tdb_class_trainer(tdb, &id) {
 					continue;
 				}
 				let e = Obj::new();
@@ -2224,6 +2252,7 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 				kb.change("trainers", forge_guide::js::str_to_num(&id), "trainer", V::Null, classes, "tdb");
 				bump(&tdb_report, "trainersAdded", 1.0);
 			}
+			set_trainer_tops(&t2, &tdb.get("trainerTop"));
 			trainers = Some(V::Obj(t2));
 		}
 		let tt = tdb.get("training");
@@ -2481,9 +2510,18 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 	let vc = verify_counts(&verify_v);
 	vc.set("positionComparisons", pos_v);
 
+	if !held_givers.is_empty() {
+		held_givers.sort_unstable();
+		held_givers.dedup();
+		log(&format!(
+			"kb: {} quest(s) whose giver an in-game capture names as an ender, kept off their enders (no hand-in in that NPC's window): {}",
+			held_givers.len(),
+			held_givers.iter().map(i64::to_string).collect::<Vec<_>>().join(", ")
+		));
+	}
 	// ---- write ----
 	if let Some(f) = &inp.kb_file {
-		write_kb(f, &kb, quests, npcs, objects, items, &verify_v, &mech, tdb, training.as_ref(), trainers.as_ref(), &alt.versions)?;
+		write_kb(f, &kb, quests, npcs, objects, items, &verify_v, &mech, tdb, training.as_ref(), trainers.as_ref(), &alt.versions, &inp.correction_origins)?;
 	}
 	if let Some(f) = &inp.verify_file {
 		std::fs::create_dir_all(f.parent().unwrap()).map_err(|e| e.to_string())?;
@@ -3361,6 +3399,7 @@ fn write_kb(
 	training: Option<&V>,
 	trainers: Option<&V>,
 	versions: &IndexMap<String, Option<String>>,
+	origins: &[crate::corrections::Origin],
 ) -> Result<(), String> {
 	std::fs::create_dir_all(file.parent().unwrap()).map_err(|e| e.to_string())?;
 	let tmp = PathBuf::from(format!("{}.tmp", file.display()));
@@ -3386,7 +3425,8 @@ create table training(class text, level integer, copper integer, source text);
 create table mechanics(quest integer, kind text, status text, source text, confidence text, drives integer, sources text);
 create table steps(quest integer, n integer, action text, target_kind text, target integer, item integer, count integer, place text, fact text, confidence text, drives integer, source text, evidence text);
 create table verify_in_game(rank integer, kind text, id integer, name text, yards integer, conflicts text);
-create table changes(tbl text, id integer, field text, before text, after text, source text);",
+create table changes(tbl text, id integer, field text, before text, after text, source text);
+create table correction_origin(kind text, id integer, field text, origin text, kinds text, primary key(kind, id, field));",
 	)
 	.map_err(e)?;
 	let tx = db.transaction().map_err(e)?;
@@ -3526,6 +3566,10 @@ create table changes(tbl text, id integer, field text, before text, after text, 
 				vec![s(c.table), V::Num(c.id), s(&c.field), s(&j(&c.from)), s(&j(&c.to)), s(&c.source)]
 			}),
 		)?;
+		run(
+			"insert into correction_origin values (?,?,?,?,?)",
+			&mut origins.iter().map(|o| vec![s(o.kind), V::Num(o.id as f64), s(&o.field), s(if o.private { "private" } else { "public" }), s(&o.kinds.join(","))]),
+		)?;
 	}
 	tx.commit().map_err(e)?;
 	db.execute_batch("create index alt_key on alternatives(kind, id, field); create index obj_q on objectives(quest); create index giv_q on givers(quest); create index sp_id on spawns(kind, id); create index dr_item on drops(item); create index st_q on steps(quest); create index me_q on mechanics(quest)").map_err(e)?;
@@ -3543,6 +3587,46 @@ pub fn mechanics_source() -> V {
 	V::Obj(o)
 }
 
+/// The fewest distinct spells a class trainer's lists teach (#2559). Every class trainer teaches at least 4
+/// (the starting areas' shaman trainers); the capitals' portal trainers (Larimaine Purdue, Thuul) teach a
+/// city's Teleport and Portal only, nothing a level 15 mage comes for. An extract without `trainerSpells`
+/// (before schema 14) leaves every trainer in.
+const MIN_CLASS_TRAINER_SPELLS: f64 = 3.0;
+
+fn tdb_class_trainer(tdb: &V, id: &str) -> bool {
+	let spells = tdb.get("trainerSpells");
+	!spells.truthy() || spells.get(id).num() >= MIN_CLASS_TRAINER_SPELLS
+}
+
+/// Drops from trainers.json's entries (`trainers`, a copy of the file read in) the ones only the TDB added that
+/// it no longer counts as class trainers: an earlier build's portal trainers (#2559). Returns their ids and classes.
+fn drop_tdb_non_trainers(trainers: &Obj, tdb: &V) -> Vec<(String, V)> {
+	let stale = |id: &str, e: &V| {
+		let s = e.get("sources").items();
+		let only_tdb = s.len() == 1 && s[0].as_str() == Some("forever-tdb");
+		only_tdb && !(tdb.get("trainers").get(id).truthy() && tdb_class_trainer(tdb, id))
+	};
+	let gone: Vec<(String, V)> = trainers.entries().into_iter().filter(|(id, e)| stale(id, e)).map(|(id, e)| (id.to_string(), e.get("classes"))).collect();
+	for (id, _) in &gone {
+		trainers.delete(id);
+	}
+	gone
+}
+
+/// trainers.json's entries (`trainers`, a copy of the file read in) take `top`, the highest level a trainer's
+/// sniffed lists teach (the TDB extract's `trainerTop`, #2477: the starting areas' trainers stop at 6), which
+/// ClassTrainers.lua passes to the engine. Each entry changed is a copy: the entries are shared with the file
+/// read in, against which the build decides whether to write it.
+fn set_trainer_tops(trainers: &Obj, tops: &V) {
+	for (id, top) in tops.entries() {
+		if let (Some(o), true) = (trainers.get(&id).as_obj(), top.num() > 0.0) {
+			let o = o.spread();
+			o.set("top", top);
+			trainers.set_str(id.clone(), o);
+		}
+	}
+}
+
 #[cfg(test)]
 mod tests {
 	#[test]
@@ -3556,6 +3640,34 @@ mod tests {
 		assert!(names[1].starts_with("Factoruide"));
 		assert!(kb_credits(&|_| false, true, true, true).is_empty());
 		assert!(kb_credits(&used, false, false, false).is_empty());
+	}
+
+	#[test]
+	fn trainers_take_the_level_their_sniffed_lists_stop_at_and_the_file_read_in_keeps_its_own_2477() {
+		let read: V = forge_guide::js::parse_json(r#"{"911":{"id":911,"classes":["WARRIOR"]},"913":{"id":913,"classes":["WARRIOR"]}}"#).unwrap();
+		let t2 = read.as_obj().unwrap().spread();
+		set_trainer_tops(&t2, &forge_guide::js::parse_json(r#"{"911":6,"913":60,"5":6}"#).unwrap());
+		assert_eq!(stringify(&V::Obj(t2), None), r#"{"911":{"id":911,"classes":["WARRIOR"],"top":6},"913":{"id":913,"classes":["WARRIOR"],"top":60}}"#);
+		assert_eq!(stringify(&read, None), r#"{"911":{"id":911,"classes":["WARRIOR"]},"913":{"id":913,"classes":["WARRIOR"]}}"#, "the file read in is left as it was");
+	}
+
+	#[test]
+	fn portal_trainers_are_no_class_trainers_and_an_earlier_builds_entry_goes_2559() {
+		// Larimaine Purdue (2485) teaches Teleport and Portal: Stormwind only; Jennea Cannon (5497) is the mage trainer.
+		let tdb = forge_guide::js::parse_json(r#"{"trainers":{"2485":["MAGE"],"5497":["MAGE"],"3062":["SHAMAN"]},"trainerSpells":{"2485":2,"5497":150,"3062":4}}"#).unwrap();
+		assert!(!tdb_class_trainer(&tdb, "2485"));
+		assert!(tdb_class_trainer(&tdb, "5497") && tdb_class_trainer(&tdb, "3062"), "a starting area's 4 spells are a class trainer's");
+		let read: V = forge_guide::js::parse_json(
+			r#"{"2485":{"id":2485,"classes":["MAGE"],"sources":["forever-tdb"]},"4165":{"id":4165,"classes":["MAGE"],"sources":["forever-tdb"]},"5497":{"id":5497,"classes":["MAGE"],"sources":["forever-tdb"]},"3062":{"id":3062,"classes":["SHAMAN"],"sources":["curated"]}}"#,
+		)
+		.unwrap();
+		let t2 = read.as_obj().unwrap().spread();
+		let gone: Vec<String> = drop_tdb_non_trainers(&t2, &tdb).into_iter().map(|(id, _)| id).collect();
+		assert_eq!(gone, vec!["2485", "4165"], "the portal trainer and the one the extract no longer lists");
+		assert_eq!(t2.keys().iter().map(|k| k.to_string()).collect::<Vec<_>>(), vec!["3062", "5497"]);
+		assert_eq!(read.keys().len(), 4, "the file read in is left as it was");
+		let old = forge_guide::js::parse_json(r#"{"trainers":{"2485":["MAGE"]}}"#).unwrap();
+		assert!(tdb_class_trainer(&old, "2485"), "an extract before trainerSpells keeps its trainers");
 	}
 
 	use super::*;
@@ -3696,6 +3808,8 @@ mod tests {
 			zones: &empty,
 			live: FxHashSet::default(),
 			corrections,
+			correction_origins: Vec::new(),
+			npc_hand_ins: FxHashMap::default(),
 			facts_file: None,
 			tdb: Some(tdb),
 			classic: None,
@@ -3716,6 +3830,55 @@ mod tests {
 		let count = |id: &str| world.get(id).get("objectives").at(0).get("count").num();
 		assert_eq!(count("93165"), 5.0, "the correction's count stays");
 		assert_eq!(count("900001"), 10.0, "with no higher source, the TDB's count wins");
+	}
+
+	#[test]
+	fn a_captured_giver_joins_the_enders_only_with_hand_ins_in_its_window() {
+		// Find the Lost Guards 37 (#2612): handed in at the half-eaten body (object 55); an in-game
+		// capture names its giver, Guard Thomas (261), as an ender too, and the step sent players to
+		// him. 38 is the same quest shape where players did hand it in to 261: there the giver joins.
+		let q =
+			|id: u32| format!(r#""{id}": {{ "id": {id}, "title": "Q{id}", "start": {{ "npc": [261], "object": [], "item": [] }}, "end": {{ "npc": [], "object": [55] }}, "source": ["pfquest"] }}"#);
+		let world = parse_json(&format!("{{ {}, {} }}", q(37), q(38))).unwrap();
+		let npcs = parse_json(r#"{ "261": { "id": 261, "name": "Guard Thomas", "spawns": { "1429": { "pts": [[73.9, 72.2]] } } } }"#).unwrap();
+		let objects = parse_json(r#"{ "55": { "id": 55, "name": "A half-eaten body", "spawns": { "1429": { "pts": [[72.6, 60.3]] } } } }"#).unwrap();
+		let empty = Obj::new();
+		let none = PathBuf::from("/nonexistent");
+		let ends: Vec<(String, f64)> = vec![("npc".into(), 261.0)];
+		let vo = Vo { commit: "0123456789abcdef".into(), quests: [(37, (ends.clone(), ends.clone())), (38, (ends.clone(), ends))].into_iter().collect() };
+		let mut handed: FxHashMap<i64, FxHashSet<i64>> = FxHashMap::default();
+		handed.entry(38).or_default().insert(261);
+		let inp = KbInputs {
+			quests: world.as_obj().unwrap(),
+			npcs: npcs.as_obj().unwrap(),
+			objects: objects.as_obj().unwrap(),
+			items: &empty,
+			frames: V::obj(),
+			zones: &empty,
+			live: FxHashSet::default(),
+			corrections: V::Null,
+			correction_origins: Vec::new(),
+			npc_hand_ins: handed,
+			facts_file: None,
+			tdb: None,
+			classic: None,
+			factoruide_file: None,
+			quest_xp: None,
+			spawnz: None,
+			training: None,
+			trainers: None,
+			mechanics: MechFiles { quest_mechanics: none.clone(), quest_steps: none.clone(), tdb_layer: none.clone(), web: none.clone(), public: none.clone(), evidence: none },
+			v2_quests: FxHashSet::default(),
+			eg: None,
+			vo: Some(vo),
+			client: None,
+			kb_file: None,
+			verify_file: None,
+		};
+		build_kb(&inp, &|_| {}).unwrap();
+		let end = |id: &str| stringify(&world.get(id).get("end"), None);
+		assert_eq!(end("37"), r#"{"npc":[],"object":[55]}"#, "no hand-in in the giver's window: the object only");
+		assert_eq!(end("38"), r#"{"npc":[261],"object":[55]}"#, "players handed it in to the giver: it joins");
 	}
 
 	fn fact_of(alt: &Alt, key: &str, field: &str, source: &str) -> Option<String> {
@@ -3835,6 +3998,8 @@ mod tests {
 			zones: &empty,
 			live: FxHashSet::default(),
 			corrections: V::Null,
+			correction_origins: Vec::new(),
+			npc_hand_ins: FxHashMap::default(),
 			facts_file: None,
 			tdb: None,
 			classic: None,

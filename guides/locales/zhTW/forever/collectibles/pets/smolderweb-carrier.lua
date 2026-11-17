@@ -10,14 +10,14 @@ return {
 	-- {npc:10260} Kibler · {area:251} Flame Crest
 	["{npc:10260} at {area:251}"] = "{area:251}的{npc:10260}",
 	-- {npc:10260} Kibler · {area:251} Flame Crest · {zone:1428} Burning Steppes · {area:254} Blackrock Mountain · {item:12264} Worg Carrier
-	["{npc:10260} stands inside the cave at {area:251}, the camp in northern {zone:1428} east of {area:254}. He also gives {npc:10260}'s Exotic Pets (the {item:12264}): take both, they are done in the same run."] = "",
+	["{npc:10260} stands inside the cave at {area:251}, the camp in northern {zone:1428} east of {area:254}. He also gives {npc:10260}'s Exotic Pets (the {item:12264}): take both, they are done in the same run."] = "{npc:10260}站在{area:251}的洞穴裡，那是{zone:1428}北部、{area:254}以東的營地。他還會給{npc:10260}的異域寵物任務（需{item:12264}）：兩個都接，一趟就能做完。",
 
 	-- Step 2: Lower Blackrock Spire
 	-- {area:1583} Blackrock Spire
 	["Lower {area:1583}"] = "{area:1583}下層",
 	-- {area:1583} Blackrock Spire · {area:254} Blackrock Mountain · {npc:10596} Mother Smolderweb
 	-- plural, as words: Spire Spider Eggs = {item:12530} Spire Spider Egg
-	["Lower {area:1583} is a group of five, level 55-60, inside {area:254}. The Spire Spider Eggs lie around {npc:10596}'s nest in the Skitterweb Tunnels, the spider halls: click them until you have 15 (each gives one to three). Hard-hitting spiderlings can hatch as you loot. By player reports the eggs cannot be looted in a raid group, so keep the party at five or fewer."] = "",
+	["Lower {area:1583} is a group of five, level 55-60, inside {area:254}. The Spire Spider Eggs lie around {npc:10596}'s nest in the Skitterweb Tunnels, the spider halls: click them until you have 15 (each gives one to three). Hard-hitting spiderlings can hatch as you loot. By player reports the eggs cannot be looted in a raid group, so keep the party at five or fewer."] = "下層{area:1583}是五人副本，55到60級，位於{area:254}內。尖塔蜘蛛蛋散落在蛛網隧道——即蜘蛛大廳——中{npc:10596}的巢穴周圍：點選它們直到湊夠15個（每個給一到三個）。拾取時可能孵出攻擊兇猛的蜘蛛幼體。據玩家反映，團隊狀態下無法拾取這些蛋，所以隊伍保持在五人以內。",
 
 	-- Step 3: Back to Kibler
 	-- {npc:10260} Kibler

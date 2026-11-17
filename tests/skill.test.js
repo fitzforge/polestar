@@ -133,7 +133,7 @@ function invocations(texts) {
 	}
 	const out = [];
 	for (const line of lines) {
-		for (const m of line.matchAll(/(?<![<\/.\w-])polestar ([a-z][a-z0-9]*)((?: [^\s|]+| "[^"]*")*)/g)) out.push({ cmd: m[1], args: m[2].trim(), line });
+		for (const m of line.matchAll(/(?<![<\/.\w-])polestar ([a-z](?:[a-z0-9-]*[a-z0-9])?)((?: [^\s|]+| "[^"]*")*)/g)) out.push({ cmd: m[1], args: m[2].trim(), line });
 	}
 	return out;
 }
@@ -183,7 +183,7 @@ test('the reference names every header key, step line, verb, modifier and condit
 
 // The parser's modifier names as the reference writes them.
 const LABEL = { at: '@x,y', count: 'xN', text: '"text"', frame: 'era', until: 'until', criteria: 'criteria' };
-const COMMON = ['optional', 'only', 'text', 'group'];
+const COMMON = ['optional', 'only', 'text', 'group', 'either'];
 const PLACE = ['at', 'map', 'r', 'frame'];
 
 test("the Goals table's last column lists exactly the modifiers each verb takes", () => {
@@ -196,7 +196,7 @@ test("the Goals table's last column lists exactly the modifiers each verb takes"
 		// Beyond the common ones: the verb's own modifiers, as written.
 		const own = allowed.filter((m) => !COMMON.includes(m) && !PLACE.includes(m)).map(label);
 		const placeNamed = named.filter((n) => ['@x,y', 'map', 'r', 'era', 'live'].includes(n));
-		const ownNamed = named.filter((n) => !placeNamed.includes(n) && n !== '"text"' && n !== 'group');
+		const ownNamed = named.filter((n) => !placeNamed.includes(n) && n !== '"text"' && n !== 'group' && n !== 'either');
 		assert.deepEqual(ownNamed.sort(), own.sort(), `${verb}: ${col}`);
 		const place = allowed.filter((m) => PLACE.includes(m));
 		if (/no place modifiers/.test(col)) assert.deepEqual(place, [], verb);

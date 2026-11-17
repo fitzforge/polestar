@@ -456,8 +456,8 @@ local BUILTIN = {
 			search = "close quest window, auto close, skip quests" },
 		{ kind = "toggle", key = "behavior.warnClosing", label = L["Warn about missable quests"], help = L["Before you take a quest that closes another for good, says which in chat and leaves the accept to you."],
 			search = "missable, exclusive quests, breadcrumb, warning" },
-		{ kind = "toggle", key = "behavior.skipGrey", label = L["Skip grey quests"], help = L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."],
-			search = "gray quests, low level quests, trivial, skip easy quests" },
+		{ kind = "toggle", key = "behavior.skipGrey", label = L["Skip grey quests"], help = L["Leaves out grey quests, and quests behind you that pay less than full XP when going back for them costs more time than they give. A quest still paying full XP stays, and so does one a later quest needs. The guide window says what it left out."],
+			search = "gray quests, low level quests, trivial, skip easy quests, green quests, reduced xp, left out" },
 		-- A quest the route had passed that leaves the log (Engine Own.holdLost,
 		-- #1365): the guide window asks, or the answer is always the same.
 		{ kind = "dropdown", key = "behavior.lostQuests", label = L["When you abandon a guide quest"],
@@ -809,6 +809,7 @@ local function buildAbout(view)
 		.. hex .. "/polestar next, prev, skip|r   " .. L["move through steps"] .. "\n"
 		.. hex .. "/polestar install|r   " .. L["set Polestar up again, a page at a time"] .. "\n"
 		.. hex .. "/polestar report|r   " .. L["report a problem with a step on the Polestar Discord"] .. "\n"
+		.. hex .. "/polestar arcade|r   " .. L["play Freedoom Arcade by petllama"] .. "\n"
 		.. hex .. "/polestar help|r   " .. L["every command"])
 	-- Install (UI/Welcome.lua) and what's new, first under the hero: the
 	-- setup a new character gets, again whenever the player wants it.
@@ -824,6 +825,7 @@ local function buildAbout(view)
 	local credH, credText = block(L["Credits"], L["Inter typeface by The Inter Project Authors, SIL Open Font License 1.1."] .. "\n"
 		.. L["Wordmark set in Cinzel by The Cinzel Project Authors, SIL Open Font License 1.1."] .. "\n"
 		.. L["Quest and map data includes pfQuest by shagu (MIT License)."] .. "\n"
+		.. L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom by the Freedoom project (BSD License), from the Polestar_Arcade folder."] .. "\n"
 		.. L["Discord and its logo are trademarks of Discord Inc.; the logo marks the link to the Polestar Discord."] .. "\n"
 		.. L["With EllesmereUI installed, Polestar can follow its accent, font and panel colour through its public skinning API."] .. "\n"
 		.. L["Gear scores from Forever Leveling BiS by Timearc when it is installed, through its public API."])
@@ -3304,7 +3306,7 @@ local function profileMenu(button)
 	end
 	items[#items + 1] = { separator = true }
 	items[#items + 1] = { text = L["Manage profiles"], icon = "layers", onClick = function() O.Select("profiles") end }
-	W.ShowMenu(button, items, { point = "BOTTOMRIGHT", relPoint = "TOPRIGHT", y = 4 })
+	W.ShowMenu(button, items, { point = "BOTTOMRIGHT", relPoint = "TOPRIGHT", y = 4, current = true })
 end
 
 ---------------------------------------------------------------------------

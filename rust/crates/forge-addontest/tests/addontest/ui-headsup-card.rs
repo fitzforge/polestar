@@ -289,3 +289,159 @@ fn dragging_the_heads_up_card_switches_its_place_to_free_and_saves_its_spot_2629
 	assert_eq!(out["lockedStayed"], true, "locked (ui.lockHud): a plain drag leaves the card");
 	assert_eq!(out["shiftMoved"], true, "locked (ui.lockHud): Shift-drag moves it");
 }
+
+// The card with the quest buttons and their target list (QoL/Buttons.lua) on one screen (#2629: Drasi's list drawn
+// over the card and its buttons). The stub keeps a frame's anchors but never lays them out, so here the window, the
+// buttons, the list's rows and mark and the card read their edges off their anchors as the client does (the frame
+// each hangs from, every scale counted). The screen is 1366 x 768 pixels; UIParent's units follow the UI scale.
+// The step has five mobs, so the list shows five rows.
+const ON_SCREEN: &str = r#"
+local B, QoL = Polestar.QoL.Buttons, Polestar.QoL
+local w = GF.frame
+local function at(pt, wd, ht)
+	return (pt:find("LEFT") and 0 or pt:find("RIGHT") and 1 or 0.5) * wd, (pt:find("BOTTOM") and 0 or pt:find("TOP") and 1 or 0.5) * ht
+end
+-- A frame's box in screen pixels, { left, bottom, right, top }, from its first anchor.
+local function box(o)
+	local e = o:GetEffectiveScale()
+	local wd, ht = o:GetWidth() * e, o:GetHeight() * e
+	local p, rel, rp, x, y = o:GetPoint(1)
+	if o == UIParent or not p then return { 0, 0, wd, ht } end
+	local r = box(rel or UIParent)
+	local ax, ay = at(rp, r[3] - r[1], r[4] - r[2])
+	local px, py = at(p, wd, ht)
+	local l, b = r[1] + ax + x * e - px, r[2] + ay + y * e - py
+	return { l, b, l + wd, b + ht }
+end
+-- The frame's edges as the client gives them: its box in its own units.
+local function live(o)
+	local function edge(i) return function(self) return box(self)[i] / self:GetEffectiveScale() end end
+	o.GetLeft, o.GetBottom, o.GetRight, o.GetTop = edge(1), edge(2), edge(3), edge(4)
+	o.GetCenter = function(self)
+		local b, e = box(self), self:GetEffectiveScale()
+		return (b[1] + b[3]) / 2 / e, (b[2] + b[4]) / 2 / e
+	end
+end
+local function screen(scale) UIParent.scale, UIParent.width, UIParent.height = scale, 1366 / scale, 768 / scale end
+local function kill(name, id) return G("kill", { verb = "Kill", subject = name, subjectKind = "npc", npc = id, status = "active" }) end
+add({ id = "test/boars", pack = "guides", title = "Boars", faction = "Horde", category = "Leveling", minLevel = 1, maxLevel = 12,
+	zone = 1411, zoneName = "Durotar", author = "Polestar", version = 1, steps = {
+	{ title = "Boars", goals = { kill("Test Boar A", 9001), kill("Test Boar B", 9002), kill("Test Boar C", 9003), kill("Test Boar D", 9004), kill("Test Boar E", 9005) } },
+} })
+uistub.openTabs({ { "test/boars", 1 } }, 1)
+stub.advance(1)
+CT.Show(1506)
+stub.advance(1)
+for _, o in ipairs({ w, B.Holder(), B.item, B.hearth, B.target, B.rare, B.bag, B.anchor, CT.frame }) do live(o) end
+for _, r in ipairs(B.rows) do live(r) end
+local function rowsShown()
+	local n = 0
+	for _, r in ipairs(B.rows) do if r:IsVisible() then n = n + 1 end end
+	return n
+end
+-- How many of the shown buttons, the list's rows and its mark the card covers.
+local function covered()
+	local c = box(CT.frame)
+	local n = 0
+	local list = { B.anchor, B.item, B.hearth, B.target, B.rare, B.bag }
+	for _, r in ipairs(B.rows) do list[#list + 1] = r end
+	for _, o in ipairs(list) do
+		if o:IsVisible() then
+			local b = box(o)
+			if c[1] < b[3] and b[1] < c[3] and c[2] < b[4] and b[2] < c[4] then n = n + 1 end
+		end
+	end
+	return n
+end
+"#;
+
+fn run_on_screen(script: &str) -> Value {
+	let pre = crate::class_quests::TOAST_PRE;
+	emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "QoL/QoL.xml", "UI/UI.xml"])],
+		script: format!("{pre}{DUMP}{ON_SCREEN}{script}"),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+// Where they open for a player who never moved them (the window at the screen's top right, the buttons right of
+// its middle, the list beside the target button): at UI scale 0.64, 1 and 1.5, above, below or on its own spot,
+// full or compact (the card and the window), with the window as tall as the step makes it or a long step's 300
+// units, the card covers none of the buttons and none of the list.
+#[test]
+fn at_their_default_places_the_heads_up_card_never_covers_the_target_list_2629() {
+	let out = run_on_screen(
+		r#"
+		local scenes, bad = {}, {}
+		for _, scale in ipairs({ 0.64, 1, 1.5 }) do
+			for _, place in ipairs({ "above", "below", "free" }) do
+				for _, compact in ipairs({ false, true }) do
+					for _, tall in ipairs({ false, 300 }) do
+						screen(scale)
+						Polestar.Set("toasts.headsup.place", place)
+						Polestar.Set("toasts.headsup.compact", compact)
+						Polestar.Set("ui.compact", compact)
+						GF.ApplyPosition()
+						GF.Layout()
+						if tall then w:SetHeight(tall) end
+						CT.Place(false)
+						stub.advance(1)
+						local name = table.concat({ scale, place, compact and "compact" or "full", tall or "laid out" }, " ")
+						scenes[#scenes + 1] = name
+						if not CT.frame:IsShown() then bad[#bad + 1] = name .. ": no card" end
+						local n = covered()
+						if n > 0 then bad[#bad + 1] = name .. ": the card " .. CT.side .. " covers " .. n end
+					end
+				end
+			end
+		end
+		emit({ rows = rowsShown(), scenes = #scenes, bad = bad, moved = QoL.State().buttonPos or false, pos = Polestar.Get("ui.pos") or false })"#,
+	);
+	assert_eq!(out["rows"], 5, "the list shows the step's five mobs");
+	assert_eq!(out["scenes"], 36);
+	let bad = &out["bad"];
+	assert!(bad.as_array().is_some_and(|a| a.is_empty()) || bad.as_object().is_some_and(|o| o.is_empty()), "the card covers the list or a button: {bad}");
+	assert_eq!((&out["moved"], &out["pos"]), (&Value::Bool(false), &Value::Bool(false)), "nothing moved: the default places");
+}
+
+// A player who moved them keeps their places: with the list standing over where the card would go (Drasi's
+// screenshot: the rows over the card above the window and over the window's header), the card takes a side clear
+// of it; and moving the buttons onto a card already shown moves the card aside.
+#[test]
+fn the_heads_up_card_takes_a_side_clear_of_a_moved_target_list_2629() {
+	let out = run_on_screen(
+		r#"
+		screen(1)
+		local spot = { "CENTER", "CENTER", 260, 140 }
+		B.SetPosition(spot)
+		local row = box(B.rows[1])
+		Polestar.Set("ui.pos", { row[1] - 40, row[4] - 60 })
+		w:SetHeight(300)
+		CT.Place(false)
+		stub.advance(1)
+		local moved = { side = CT.side, covered = covered(), buttons = QoL.State().buttonPos, pos = Polestar.Get("ui.pos") }
+		-- Back to the default places, the card above the window; then the buttons dragged so the first row lands on it.
+		B.SetPosition(nil)
+		Polestar.Set("ui.pos", nil)
+		w:SetHeight(300)
+		CT.Place(false)
+		stub.advance(1)
+		local before = { side = CT.side, covered = covered() }
+		local c = box(CT.frame)
+		B.SetPosition({ "CENTER", "BOTTOMLEFT", c[1] - 6, c[4] + 16 })
+		stub.advance(1)
+		emit({ rows = rowsShown(), moved = moved, row = row, before = before, dragged = { side = CT.side, covered = covered() } })"#,
+	);
+	assert_eq!(out["rows"], 5);
+	let moved = &out["moved"];
+	assert_eq!(moved["covered"], 0, "the card clear of the moved list: {moved}");
+	assert_ne!(moved["side"], "above", "above is under the list: {moved}");
+	assert_eq!(moved["buttons"], serde_json::json!(["CENTER", "CENTER", 260, 140]), "the buttons stay where the player put them");
+	let (l, t) = (out["row"][0].as_f64().unwrap(), out["row"][3].as_f64().unwrap());
+	let pos = (moved["pos"][0].as_f64().unwrap(), moved["pos"][1].as_f64().unwrap());
+	assert_eq!(pos, (l - 40.0, t - 60.0), "the window stays where the player put it");
+	assert_eq!(out["before"], serde_json::json!({ "side": "above", "covered": 0 }), "at the default places: above the window");
+	assert_eq!(out["dragged"]["covered"], 0, "the buttons dragged onto the card: it moves aside: {}", out["dragged"]);
+}

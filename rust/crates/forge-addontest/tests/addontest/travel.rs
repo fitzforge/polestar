@@ -772,7 +772,7 @@ fn estimatetravel_stays_cheap_for_a_burst_of_candidates_on_the_real_network() {
 	let first = out["first"].as_f64().unwrap();
 	let ms = out["ms"].as_f64().unwrap();
 	assert!(first > 0.0 && first < 600.0, "Sentinel Hill -> Redridge by air: {first} s");
-	assert!(ms < 200.0, "10 estimates took {ms:.1} ms");
+	forge_addontest::assert_timing!(ms < 200.0, "10 estimates took {ms:.1} ms");
 }
 
 #[test]

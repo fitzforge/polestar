@@ -223,11 +223,6 @@ step Camping 101: Leatherworking
   when !knows 1229432
   accept 97906                        -- Brakk: for Karolek
 
-step Camping 101: Tailoring
-  when skill Tailoring 1
-  when !knows 1229504
-  accept 96102                        -- Brakk: for Snang
-
 step Camping 101: Herbalism
   when skill Herbalism 1
   when !knows 1229705
@@ -279,6 +274,11 @@ step Rawrk
   when complete 97903
   complete 97903 @54.17,41.93 map 1411
   turnin 97903                        -- Rawrk: Camping 101: First Aid
+
+step Camping 101: Tailoring
+  when skill Tailoring 1
+  when !knows 1229504
+  accept 96102                        -- Brakk: for Snang
 
 step Grunt Kor'ja
   only Troll,Priest

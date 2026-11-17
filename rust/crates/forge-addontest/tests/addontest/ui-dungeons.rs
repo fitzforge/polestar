@@ -328,6 +328,68 @@ fn home_all_dungeons_groups_by_band_the_faction_filter_changes_the_counts_search
 	assert_eq!(out["tab"], "quests");
 }
 
+// #2773 (Liquidor): a search, another section, then Dungeons again. The hub empties its box on the way out without
+// telling the section, so Dungeons kept its old search: a blank box over "Search" results, and the sidebar's bands did
+// nothing. Dungeons now takes the hub's search whenever it draws, as Rares does.
+#[test]
+fn a_search_left_for_another_section_is_gone_when_dungeons_shows_again_and_the_bands_work() {
+	let out = run(r#"
+		Polestar.Dungeons.Open()
+		local box = P.search
+		box:SetText("test"); stub.RunScript(box, "OnTextChanged", true)
+		local searched = PolestarPicker.Title:GetText()
+		P.ShowSection("Lookup")
+		P.ShowSection("Dungeons")
+		local back = { box = box:GetText(), title = PolestarPicker.Title:GetText(), band = DS.Shown().band }
+		DS.SetBand("all")
+		emit({ searched = searched, back = back, all = { title = PolestarPicker.Title:GetText(), cards = cardNames() } })"#);
+	let out = &out[0];
+	assert_eq!(out["searched"], "Search");
+	assert_eq!(out["back"]["box"], "");
+	assert_eq!(out["back"]["title"], "For your level", "an empty box shows the bands, not the old search");
+	assert_eq!(out["back"]["band"], "level");
+	assert_eq!(out["all"]["title"], "Dungeons", "a band clicked after coming back shows that band");
+	assert_eq!(out["all"]["cards"], json!(["The Deadmines", "Wailing Caverns", "Blackmaw Hold"]));
+}
+
+// #2776 (Liquidor): while searching, the level bands kept counting every dungeon and a click on one did nothing. They
+// now count the matches, as the guide categories do, and a band picked while searching narrows the results to it; a
+// new search (or none) lists every match again.
+#[test]
+fn while_searching_the_bands_count_the_matches_and_a_band_narrows_the_results() {
+	let out = run(r#"
+		Polestar.Dungeons.Open()
+		local box = P.search
+		box:SetText("caverns"); stub.RunScript(box, "OnTextChanged", true)
+		local found = { navs = navs(), cards = cardNames() }
+		DS.SetBand("50")
+		local fifty = { cards = #cardNames(), title = PolestarPicker.Title:GetText() }
+		DS.SetBand("10")
+		local ten = { cards = cardNames(), band = DS.Shown().band }
+		box:SetText(""); stub.RunScript(box, "OnTextChanged", true)
+		emit({ found = found, fifty = fifty, ten = ten, cleared = { title = PolestarPicker.Title:GetText(), cards = cardNames() } })"#);
+	let out = &out[0];
+	assert_eq!(
+		out["found"]["navs"],
+		json!([
+			["level", "For your level", "1"],
+			["all", "All dungeons", "1"],
+			["10", "10\u{2013}20", "1"],
+			["20", "20\u{2013}30", ""],
+			["30", "30\u{2013}40", ""],
+			["40", "40\u{2013}50", ""],
+			["50", "50\u{2013}60", ""],
+		])
+	);
+	assert_eq!(out["found"]["cards"], json!(["Wailing Caverns"]));
+	assert_eq!(out["fifty"]["cards"], 0, "no match in 50-60");
+	assert_eq!(out["fifty"]["title"], "Search");
+	assert_eq!(out["ten"]["cards"], json!(["Wailing Caverns"]));
+	assert_eq!(out["ten"]["band"], "10");
+	assert_eq!(out["cleared"]["title"], "For your level", "the band shown without a search is kept");
+	assert_eq!(out["cleared"]["cards"], json!(["Wailing Caverns"]));
+}
+
 // A French client whose names pack lands with Home open: the cards take the names Dungeons.List gives from then on.
 #[test]
 fn home_a_names_pack_landing_late_renames_the_cards() {
@@ -952,6 +1014,34 @@ fn bosses_kill_order_level_and_the_quests_each_serves_a_quest_line_opens_the_que
 	assert!(ties.contains(&"Drops Glowing Shard, which starts “The Glowing Shard”".into()), "{ties:?}");
 	assert_eq!(out["tab"], "quests");
 	assert!(out["blocks"].as_f64().unwrap() > 0.0);
+}
+
+#[test]
+fn boss_drops_expand_one_boss_at_a_time_and_reuse_item_tiles() {
+	let out = run(r#"
+		local bosses = Polestar.Dungeons.Bosses("wailing-caverns")
+		bosses[1].loot = { 5187, 2041 }
+		bosses[3].loot = { 5180 }
+		Polestar.Dungeons.Open("wailing-caverns")
+		DS.SetTab("bosses")
+		local empty = DS.bossRows[2].NoLoot:IsShown()
+		DS.bossRows[1].Loot:Click()
+		local first = { DS.Shown().lootBoss, shownTexts(DS.bossLootTiles, "Name"), DS.bossLootTiles[1].psID }
+		DS.bossRows[3].Loot:Click()
+		local second = { DS.Shown().lootBoss, shownTexts(DS.bossLootTiles, "Name"), DS.bossLootTiles[1].psID, #DS.bossLootTiles }
+		DS.SetTab("map")
+		local hidden = not DS.bossLootTiles[1]:GetParent():IsShown()
+		emit({ empty = empty, first = first, second = second, hidden = hidden })"#);
+	let out = &out[0];
+	assert_eq!(out["empty"], true);
+	assert_eq!(out["first"][0], 1);
+	assert_eq!(out["first"][1], json!(["Rhahk'Zor's Hammer", "Tunic of Westfall"]));
+	assert_eq!(out["first"][2], 5187);
+	assert_eq!(out["second"][0], 3);
+	assert_eq!(out["second"][1], json!(["Necklace of Calisea"]));
+	assert_eq!(out["second"][2], 5180);
+	assert_eq!(out["second"][3], 2, "the shared tile pool is reused");
+	assert_eq!(out["hidden"], true);
 }
 
 #[test]

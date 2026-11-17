@@ -16,64 +16,69 @@ return {
 	-- {quest:377} Crime and Punishment · {area:717} Stockade · {npc:270} Councilman Millstipe
 	["{quest:377}, from your {area:717} run: {npc:270} is in the town hall, beside Commander Althea."] = "你{area:717}之行的{quest:377}：{npc:270}在市政廳，在指揮官艾爾希亞旁邊。",
 
-	-- Step 4: Nightbane Shadow Weavers
+	-- Step 4: Calor
+	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "你在路線之前來這裡時錯過了這一步：現在先做它。它很快，還會開啟後面的任務。",
+	-- {npc:663} Calor
+	["{npc:663}, by the town hall"] = "{npc:663}，在市政廳旁",
+
+	-- Step 5: Nightbane Shadow Weavers
 	-- plural, as words: Nightbane Shadow Weavers = {npc:533} Nightbane Shadow Weaver
 	["Nightbane Shadow Weavers"] = "夜行織影狼人",
 	-- {area:42} Darkshire
 	["The worgen hold the woods of Brightwood, west of {area:42} and north of the road. Pull them one at a time."] = "狼人佔據亮木樹林的樹林，在{area:42}西邊、道路北側。一次只拉一隻。",
 
-	-- Step 6: Nightbane Dark Runners
+	-- Step 7: Nightbane Dark Runners
 	-- plural, as words: Nightbane Dark Runners = {npc:205} Nightbane Dark Runner
 	["Nightbane Dark Runners"] = "夜行黑暗狼人",
 	-- {area:42} Darkshire
 	["The Dark Runners prowl the woods south of the road, west of {area:42}."] = "黑暗狼人在道路南側、{area:42}西邊的樹林中徘徊。",
 
-	-- Step 8: The Insane Ghoul
+	-- Step 9: The Insane Ghoul
 	-- {npc:511} Insane Ghoul
 	["The {npc:511}"] = "{npc:511}",
 	-- {npc:511} Insane Ghoul · {area:121} Tranquil Gardens Cemetery · {area:42} Darkshire · {npc:663} Calor
 	-- plural, as words: Nightbane Vile Fangs = {npc:206} Nightbane Vile Fang
 	["The {npc:511} hides in the small crypt by the {area:121}, south of {area:42}. {npc:663}'s Nightbane Vile Fangs and Tainted Ones (level 29-31) roam the woods around it: they come at the end of this guide, a level later."] = "{npc:511}躲在{area:42}南邊、{area:121}旁的小墓穴裡。{npc:663}要的夜行邪齒狼人和墮落者（29-31級）在周圍的樹林裡遊蕩：它們在本指南最後、再升一級後處理。",
 	-- {item:1946} Mary's Looking Glass
-	["{item:1946}; inside"] = "",
+	["{item:1946}; inside"] = "{item:1946}；室內",
 
-	-- Step 9: Darkshire
+	-- Step 10: Darkshire
 	-- {npc:276} Viktori Prism'Antras
-	["{npc:276}, inside"] = "",
+	["{npc:276}, inside"] = "{npc:276}，室內",
 
-	-- Step 10: Vul'Gol Ogre Mound: kill these as you meet them
+	-- Step 11: Vul'Gol Ogre Mound: kill these as you meet them
 	-- {area:93} Vul'Gol Ogre Mound
-	["{area:93}: kill these as you meet them"] = "",
+	["{area:93}: kill these as you meet them"] = "{area:93}：遇到就殺",
 	-- {area:42} Darkshire · {object:119} Abercrombie's Crate · {npc:300} Zzarc' Vul
 	["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it. {npc:300} is inside the ogre mound's cave: go in by the cave mouth on the mound's west side."] = "從{area:42}向西南前往巨魔山。{object:119}放在入口處的營地裡；裂拳巨魔守衛著它。{npc:300}在巨魔山的洞穴裡：從山丘西側的洞口進入。",
 	-- {npc:272273} Lost Watcher · {quest:96138} Merrick's Bow
 	["Only if a {npc:272273} dropped {quest:96138}: right-click it"] = "僅限{npc:272273}掉落了{quest:96138}時：右鍵點擊它",
 	["Below ground"] = "地下",
 
-	-- Step 11: Defias Strongbox
+	-- Step 12: Defias Strongbox
 	-- {zone:1431} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
 	["The Defias camp lies in the south-west of {zone:1431}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "迪菲亞營地位於{zone:1431}西南部，{area:94}南邊，靠近{zone:1436}邊界。保險箱在帳篷之間。",
 	-- {item:5947} Defias Docket
-	["{item:5947}; inside"] = "",
+	["{item:5947}; inside"] = "{item:5947}；室內",
 
-	-- Step 13: Raven Hill Cemetery: kill these as you meet them
+	-- Step 14: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
-	["{area:492}: kill these as you meet them"] = "",
+	["{area:492}: kill these as you meet them"] = "{area:492}：遇到就殺",
 	-- {area:492} Raven Hill Cemetery · {npc:522} Mor'Ladim · {npc:311} Sven Yorgen
 	-- plural, as words: Plague Spreaders = {npc:604} Plague Spreader · Skeletal Raiders = {npc:1110} Skeletal Raider
-	["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him.\nSkeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp.\nCareful: The skeletons in the catacombs are packed close together, so you can easily pull extra mobs."] = "",
+	["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him.\nSkeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp.\nCareful: The skeletons in the catacombs are packed close together, so you can easily pull extra mobs."] = "瘟疫傳播者在{area:492}的北半部走動。精英{npc:522}在墳墓間徘徊：遠離他。\n骷髏襲擊者、治療者和守望者佔據墓地西側，就在{npc:311}營地以東。\n小心：地下墓穴裡的骷髏捱得很近，很容易多拉到怪。",
 
-	-- Step 14: The Weathered Grave
+	-- Step 15: The Weathered Grave
 	-- {npc:311} Sven Yorgen · {npc:268} Sirra Von'Indi · {area:42} Darkshire
 	["The grave stands among the skeletons at the cemetery's north-west corner, on the way to {npc:311}. Its quest and the next are talk-only, to {npc:268} and Commander Althea in {area:42}: level 35 quests, but no fight."] = "墳墓位於墓地西北角的骷髏之間，就在前往{npc:311}的路上。它的任務和下一個任務都只需對話，分別交給{area:42}的{npc:268}和指揮官艾希雅：雖是35級任務，但不用戰鬥。",
 
-	-- Step 15: Sven Yorgen's Camp
+	-- Step 16: Sven Yorgen's Camp
 	-- {npc:311} Sven Yorgen
 	["{npc:311}'s Camp"] = "{npc:311}的營地",
 	-- {npc:1212} Bishop Farthing · {zone:1453} Stormwind
 	["For {npc:1212} in {zone:1453}, in the next guide"] = "交給{zone:1453}的{npc:1212}，在下一份指南",
 
-	-- Step 16: Back to Darkshire
+	-- Step 17: Back to Darkshire
 	-- {area:42} Darkshire
 	["Back to {area:42}"] = "回到{area:42}",
 	-- {area:42} Darkshire · {npc:311} Sven Yorgen · {zone:1431} Duskwood
@@ -84,32 +89,32 @@ return {
 	["{npc:268}, in the house behind the town hall"] = "{npc:268}，在市政廳後面的房子裡",
 	["Wait a moment, then speak with her again"] = "稍等一下，然後再和她說話",
 	-- {npc:840} Watcher Backus · {area:42} Darkshire
-	["{npc:840} walks around {area:42}: look inside the circle on the map"] = "",
+	["{npc:840} walks around {area:42}: look inside the circle on the map"] = "{npc:840}在{area:42}附近走動：看地圖上的圓圈內",
 	-- {npc:482} Elling Trias · {zone:1453} Stormwind
 	["For {npc:482} in {zone:1453}, in the next guide"] = "交給{zone:1453}的{npc:482}，在下一份指南",
 
-	-- Step 17: Nightbane Vile Fangs and Tainted Ones
+	-- Step 18: Nightbane Vile Fangs and Tainted Ones
 	-- plural, as words: Nightbane Vile Fangs = {npc:206} Nightbane Vile Fang
 	["Nightbane Vile Fangs and Tainted Ones"] = "夜行邪齒狼人與墮落者",
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {spell:8282} Curse of Blood
 	["The strongest worgen roam the woods south of {area:42}, west and south of the {area:121}.\nCareful: {spell:8282} lasts 10 minutes and adds 13 to each hit of physical damage you take.\nCareful: Some worgen outside the cave stand in groups, including one camp of four. To avoid adds, pull them one at a time from the raised ground next to the cave entrance.\nCareful: Gutspill, a level 32 abomination, walks these woods: let it pass."] = "最強的狼人在{area:42}南邊的樹林裡遊蕩，位於{area:121}的西邊和南邊。\n小心：{spell:8282}持續10分鐘，使你受到的每次物理傷害增加13點。\n小心：洞穴外有些狼人成群站著，包括一個四隻的營地。為避免引到多隻，從洞穴入口旁的高地一次拉一隻。\n小心：32級憎惡「濺腸」在這片樹林中巡邏：讓它走過去。",
 
-	-- Step 18: Calor and Jonathan Carevin
+	-- Step 19: Calor and Jonathan Carevin
 	-- {npc:663} Calor · {npc:661} Jonathan Carevin
 	["{npc:663} and {npc:661}"] = "{npc:663}和{npc:661}",
 	-- {npc:661} Jonathan Carevin · {npc:633} Elaine Carevin
 	["{npc:661}, by {npc:633}'s house; inside"] = "{npc:661}，在{npc:633}的房子旁；在裡面",
 
-	-- Step 19: Viktori Prism'Antras
+	-- Step 20: Viktori Prism'Antras
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}'s house stands at the east end of town, on the way to the flight master."] = "{npc:276}的房子在城鎮東端，就在前往飛行管理員的路上。",
-	["Inside"] = "",
+	["Inside"] = "在裡面",
 
-	-- Step 20: Fly to Menethil Harbor
+	-- Step 21: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "飛往{area:150}",
 	-- {area:42} Darkshire
-	["{area:42} flight master"] = "",
+	["{area:42} flight master"] = "{area:42}飛行管理員",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to Menethil"] = "回到米奈希爾",

@@ -234,12 +234,13 @@ function Nav.RegisterTravelData(d, replace)
 			ab = t.ab, ba = t.ba, waitA = t.waitA, waitB = t.waitB,
 		}
 	end
-	-- Walk-in portals, one way a -> b: { id, name, faction, a = end, b = end, seconds }.
+	-- Walk-in portals, one way a -> b: { id, name, faction, a = end, b = end, seconds, item }; `item`: one the
+	-- player must carry for the portal to take them (the Goblin Transponder for the Transpolyporter, #2156).
 	for _, t in ipairs(d.portals or {}) do
 		local a, b = t.a, t.b
 		if type(a) == "table" and type(b) == "table" then
 			portals[#portals + 1] = {
-				id = t.id, kind = "portal", name = t.name, area = t.area, faction = t.faction or 3, seconds = t.seconds or 5,
+				id = t.id, kind = "portal", name = t.name, area = t.area, faction = t.faction or 3, seconds = t.seconds or 5, item = t.item,
 				a = withBoard(point(a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8] or "e", a[9]), a[10]),
 				b = withBoard(point(b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8] or "e", b[9]), b[10]),
 			}
@@ -388,7 +389,7 @@ end
 --     (a, b: the ends, at the ship's stop; end.board = { name, c, wx, wy, map, z }: where a ship
 --     lying off its pier is boarded, the dock the planner walks to; else end.z: the floor the
 --     walk to it ends on, when TravelData knows it)
---   portals = { { id, kind = "portal", name, faction, a, b, seconds }, ... }
+--   portals = { { id, kind = "portal", name, faction, a, b, seconds, item }, ... }
 function Nav.GetTravelData()
 	return { taxi = taxiList, taxiById = taxi, flights = flights, transports = transports, inns = inns, portals = portals, build = Travel.build }
 end
@@ -429,6 +430,8 @@ end
 --         are to each other walk straight to the partner),
 --       teleports = { { spell, name, to = point, cast, ready, bind, length }, ... } or nil
 --         (`bind`: lands at `hearth`, weighed as the Hearthstone is),
+--       items = { [itemID] = true } or nil: the items portals ask for that the player carries (a portal
+--         with an `item` not in it is left out),
 --       departure = function(transport, side, after) -> wait, ride (seconds, from
 --         `after` seconds into the trip) or nil: the transports' average waits,
 --       walkOnly = true: walking only (a ghost), noFlights = true: no flights (Travel.AtField),
@@ -518,6 +521,10 @@ end
 -- through the Searing Gorge gate, #1694). A city's map keeps its target (one
 -- at most INNER_MAX yards across, or inside the other zone's frame): the
 -- walking maps put the Undercity's halls in Tirisfal, the ground above them.
+-- So does a target outside the other zone's frame: the walking maps put
+-- Grenka Bloodscreech's mesa in Thousand Needles (26.5,55.5) in Un'Goro
+-- Crater, a zone whose map ends far south of it, and the travel arrow read
+-- "Un'Goro Crater" for her (#1918).
 local INNER_MAX = 1500
 -- Zone frame z is a city's (at most INNER_MAX across) or inside o's; true when either has no frame.
 local function inner(z, o)
@@ -539,7 +546,7 @@ local function mapZoneOf(map, c, wx, wy, target)
 			local D = Nav.danger
 			local at = D and D.ZoneAt and D.ZoneAt(c, wx, wy)
 			local o = at and at ~= map and zoneInfo[at]
-			if not o or o.c ~= c or inner(z, o) then return map end
+			if not o or o.c ~= c or inner(z, o) or not Travel.InBox(o, wx, wy) then return map end
 			return at
 		end
 		if wildZone[map] then return nil end
@@ -658,19 +665,29 @@ end
 
 -- Walking from crossing end `e` to its partner: its data caption, else
 -- "Walk to <zone>" (0.3.7; it read "Go to <zone>", the Journey's twice
--- over: the walk to the crossing and the walk across it).
-local function crossCaption(e)
-	return e.caption or format(L["Walk to %s"], zoneName(e.partner.map))
+-- over: the walk to the crossing and the walk across it). `ride`: the
+-- character can ride (ns.CanRide), "Ride to <zone>".
+local function crossCaption(e, ride)
+	return e.caption or format(ride and L["Ride to %s"] or L["Walk to %s"], zoneName(e.partner.map))
 end
 
 -- The captions of the legs to and on a boat, zeppelin, airship, tram or
--- portal, translated (this file loads after the locale file).
+-- portal, translated (this file loads after the locale file); Travel.RIDE_TO
+-- for a character who can ride (a field, not a local: the file's main chunk
+-- keeps clear of Lua 5.1's 200 locals).
 local WALK_TO = {
 	boat = L["Walk to the boat"],
 	zeppelin = L["Walk to the zeppelin tower"],
 	airship = L["Walk to the airship dock"],
 	tram = L["Walk to the Deeprun Tram"],
 	portal = L["Walk to the portal"],
+}
+Travel.RIDE_TO = {
+	boat = L["Ride to the boat"],
+	zeppelin = L["Ride to the zeppelin tower"],
+	airship = L["Ride to the airship dock"],
+	tram = L["Ride to the Deeprun Tram"],
+	portal = L["Ride to the portal"],
 }
 local TAKE = {
 	boat = L["Take the boat to %s"],
@@ -708,6 +725,9 @@ local function planBody(p, S)
 	local known = p.known or {}
 	local zoned = next(covered) ~= nil
 	local walkOnly = p.walkOnly -- a ghost: no flights, rides, portals, hearth or teleports
+	-- The overland legs' captions say "Ride to ..." (ns.CanRide), read once per plan; a walk-only plan walks.
+	-- (The route tools' planner stub has no ns.CanRide: walk.)
+	local ride = not walkOnly and ns.CanRide and ns.CanRide() or false
 
 	-- Vertices (vzone: the zone on a continent with crossing data)
 	local vc, vx, vy, vkind, vref, vzone
@@ -790,7 +810,7 @@ local function planBody(p, S)
 	end
 	-- Walk-in portals: a ride one way, from a to b.
 	for _, t in ipairs(walkOnly and {} or portals) do
-		if allowed(t.faction, faction) and not (skip and skip.transports[t]) then
+		if allowed(t.faction, faction) and not (t.item and not (p.items and p.items[t.item])) and not (skip and skip.transports[t]) then
 			local va = add(DOCK, t.a.c, t.a.wx, t.a.wy, t, t.a.map, t.a)
 			local vb = add(DOCK, t.b.c, t.b.wx, t.b.wy, t, t.b.map, t.b)
 			rideTo[va], rideCost[va] = vb, t.seconds
@@ -1082,7 +1102,11 @@ local function planBody(p, S)
 	-- (ground no walk joins to its zone: Rut'theran under the tree, #1761). Not
 	-- when the engine found no walk from the player (p.noDirect), not from or
 	-- to a chain's inside, nor when a chain joins the two zones: its hand-made
-	-- way is the one where the walking maps fail (the Undercity's south lift).
+	-- way is the one where the walking maps fail (the Undercity's south lift),
+	-- unless the player's floor is known to be over 20 yd above the chain's
+	-- lowest (p.z, or each of p.floors): at the Ruins of Lordaeron's portal, on
+	-- the Undercity's map above the city, the route went down the Undervator and
+	-- back up the south lift to the portal a few yards away (#2516).
 	local nearCross
 	local nearProbe = type(p.nearProbe) == "table" and p.nearProbe or nil
 	local nearReach = p.nearWalk or (nearProbe and nearProbe.reach)
@@ -1091,12 +1115,19 @@ local function planBody(p, S)
 		local d = yards(vc[1], vx[1], vy[1], vc[2], vx[2], vy[2])
 		if d < nearReach then nearCross = d * walkRate end
 		for _, ch in ipairs(nearCross and chains or {}) do
-			local a, b = false, false
+			local a, b, low = false, false, nil
 			for _, nd in ipairs(ch.nodes) do
 				local z = chainV[nd] and vzone[chainV[nd]]
 				if z == vzone[1] then a = true elseif z == vzone[2] then b = true end
+				if nd.z and (not low or nd.z < low) then low = nd.z end
 			end
-			if a and b then nearCross = nil end
+			local above = low ~= nil and (p.z and p.z - low > 20 or (not p.z and p.floors and p.floors[1] and true or false))
+			if above and not p.z then
+				for _, f in ipairs(p.floors) do
+					if f - low <= 20 then above = false end
+				end
+			end
+			if a and b and not above then nearCross = nil end
 		end
 		if nearCross and not p.nearWalk then nearProbe.yards, nearCross = d, nil end
 	end
@@ -1415,9 +1446,9 @@ local function planBody(p, S)
 	local function waypointLabel(before, w, after)
 		local nd = vref[w]
 		if vkind[w] == CROSS then
-			if before == 1 and onCross[w] then return crossCaption(nd.partner) end
-			if before and vkind[before] == CROSS and vref[before].partner == nd then return crossCaption(vref[before]) end
-			if after and vkind[after] == CROSS and vref[after] == nd.partner then return crossCaption(nd) end
+			if before == 1 and onCross[w] then return crossCaption(nd.partner, ride) end
+			if before and vkind[before] == CROSS and vref[before].partner == nd then return crossCaption(vref[before], ride) end
+			if after and vkind[after] == CROSS and vref[after] == nd.partner then return crossCaption(nd, ride) end
 			return L["Walk"]
 		end
 		local inward = true
@@ -1513,9 +1544,9 @@ local function planBody(p, S)
 				leg.radius, leg.waypoint = vref[to].r, true
 				leg.step = k == CROSS and "crossing" or "chain"
 			elseif k == TAXI then
-				leg.label = L["Walk to the flight master"]
+				leg.label = ride and L["Ride to the flight master"] or L["Walk to the flight master"]
 			elseif k == DOCK then
-				leg.label = WALK_TO[dockOf[to].kind] or WALK_TO.boat
+				leg.label = ride and (Travel.RIDE_TO[dockOf[to].kind] or Travel.RIDE_TO.boat) or (WALK_TO[dockOf[to].kind] or WALK_TO.boat)
 			elseif k == TARGET then
 				leg.label = tg.label
 				if tg.kind == "goto" then leg.step = "goto" end
@@ -2037,6 +2068,21 @@ local function departureFn()
 	end
 end
 
+-- The items portals ask for that this character carries ({ [itemID] = true }), or nil: the Goblin Transponder
+-- opens the Transpolyporter from Booty Bay to Gnomeregan's Train Depot and back (#2156).
+function Travel.PortalItems()
+	local C = ns.Compat
+	if not (C and C.GetItemCount) then return nil end
+	local out
+	for _, t in ipairs(portals) do
+		if t.item and (C.GetItemCount(t.item) or 0) > 0 then
+			out = out or {}
+			out[t.item] = true
+		end
+	end
+	return out
+end
+
 -- Class teleports this character can cast now or soon (Nav/Transit.lua), or nil.
 local function teleportList()
 	local X = ns.Transit
@@ -2222,6 +2268,7 @@ local function plan(target, held)
 		nearWalk = reach,
 		nearProbe = probe,
 		teleports = teleports,
+		items = Travel.PortalItems(),
 		noFlights = field or nil,
 		departure = departureFn(),
 		walkOnly = ghost or questTimed == "escort",
@@ -2282,6 +2329,19 @@ function Travel.Replan()
 		-- with the floor would take it after all.)
 		legs, ci, boarded, progressYards, legSince, remeasureOwed, floorless = old, oldCi, oldBoarded, oldProgress, oldSince, oldOwed, oldFloorless
 		if pc then planAt, planC, planX, planY = GetTime(), pc, px, py end
+		return
+	end
+	-- The same way as the live route (a zone or a building crossed on the way): the live route stays and takes the
+	-- fresh plan's prices, as Travel.Remeasured does; ROUTE_CHANGED only when a price moved. Planned anew, every
+	-- crossing drew the whole route again (its layers, the walk, the strokes: ~2.5 ms each).
+	if soft and Travel.KeepSame(old, oldCi, legs, target) then
+		local fresh = legs
+		legs, ci, boarded, progressYards, legSince, remeasureOwed, floorless = old, oldCi, oldBoarded, oldProgress, oldSince, oldOwed, oldFloorless
+		if pc then planAt, planC, planX, planY = GetTime(), pc, px, py end
+		if Travel.TakePrices(fresh) then
+			Travel.version = Travel.version + 1
+			ns.Fire("ROUTE_CHANGED", legs)
+		end
 		return
 	end
 	legsFor = target
@@ -2381,6 +2441,7 @@ function Nav.EstimateTravel(from, to, budgeted, noHearth)
 		noStone = wait == nil or nil,
 		noHearth = noHearth or nil,
 		teleports = teleports,
+		items = Travel.PortalItems(),
 		departure = departureFn(),
 		walkOnly = ghost or timed == "escort",
 		-- The same way the plan takes (its walks through zones far above dearer).
@@ -2653,6 +2714,15 @@ local CHOKE_BARE = {
 	building = L["Walk to the entrance"],
 	lift = L["Walk to the lift"],
 }
+-- A character who can ride (ns.CanRide): the walks to a cave or building
+-- mouth, by place, zone or bare; every other kind keeps its caption above
+-- (a lift's walk leads to a ride of its own). (A field, not a local: the
+-- file's main chunk keeps clear of Lua 5.1's 200 locals.)
+Travel.CHOKE_RIDE = {
+	to = { cave = L["Ride to the %s cave mouth"], building = L["Ride to the %s entrance"] },
+	zone = { cave = L["Ride to the cave mouth in %s"], building = L["Ride to the entrance in %s"] },
+	bare = { cave = L["Ride to the cave mouth"], building = L["Ride to the entrance"] },
+}
 
 local function present(s)
 	return type(s) == "string" and s ~= "" and s ~= "Unknown" and s or nil
@@ -2685,6 +2755,8 @@ end
 -- A stop's caption: never empty, never "Unknown".
 local function stopLabel(s, c)
 	local kind = CHOKE_BARE[s.kind] and s.kind or "pass"
+	-- A ghost, or the escort the route was planned for (questTimed: a walk-only plan), walks.
+	local ride = not (isGhost() or questTimed == "escort") and ns.CanRide and ns.CanRide() and Travel.CHOKE_RIDE or nil
 	local place = s.kind == "lift" and present(s.name) or present(s.to) or present(s.name)
 	if place then
 		if s.kind == "lift" and (s.side == "top" or s.side == "bottom") then
@@ -2692,11 +2764,11 @@ local function stopLabel(s, c)
 		elseif s.kind == "building" and innDoor(c, s.wx, s.wy) then
 			place = format(L["%s Inn"], place)
 		end
-		return format(CHOKE_TO[kind], place)
+		return format(ride and ride.to[kind] or CHOKE_TO[kind], place)
 	end
 	local zone = stopZone(s, c)
-	if zone then return format(CHOKE_IN[kind], zone) end
-	return CHOKE_BARE[kind]
+	if zone then return format(ride and ride.zone[kind] or CHOKE_IN[kind], zone) end
+	return ride and ride.bare[kind] or CHOKE_BARE[kind]
 end
 
 -- A crossing, a chain node, or the walk's own hand-made end near (c, wx, wy).
@@ -3268,24 +3340,40 @@ end
 -- 118 times in 4 minutes; from Stonetalon Mountains into the Barrens, the walk to the crossing at its 274 s estimate
 -- against the Barrens' own walk through a pass, 351 s along its path but 60 s by its straight line). The same way is
 -- taken fresh as before, and near the walk's end (a crossing just walked through) the fresh plan as before.
-local keep = { SAVES = 20, OFF = 25, AHEAD = 50, NEAR = 100, MAX = 4, ways = {} }
+-- A live walk whose path the walking engine has not answered yet (planned a moment ago, its search under way) and
+-- that a fresh plan took over less than keep.HOLD seconds ago is priced as the fresh plan prices it, by its straight
+-- line x WALK_DETOUR (0.4.1's border sweep: from the Riverglades 250 yd from a Redridge goal, the player walked the
+-- zone line, each zone change planned again before the last plan's walk was searched, and the route went from the
+-- crossing's way (86 s) to the walk straight there (63 s) and back every second, 224 times in 4 minutes). A first plan
+-- not searched yet still gives way to a fresh one, as before (outside Stormwind's gate, the walk in through it was
+-- planned first and the walk straight to the goal a second later; holding the first, the player arrived 29 s later).
+local keep = { SAVES = 20, OFF = 25, AHEAD = 50, NEAR = 100, MAX = 4, HOLD = 10, ways = {} }
 keepLive = function(old, i, progress, fresh, target, pc, px, py)
 	local cur = old and old[i]
 	if not (cur and cur.kind == "walk" and not cur.crossing and legsFor == target) then return false end
 	if not (fresh and fresh[1]) then return true end
 	if sameWay(fresh, 1, old, i) then return false end
+	if keep.target ~= target then keep.target, keep.ways, keep.switched = target, {}, nil end
 	local W, P = Nav.walk, cur.parent
 	local g = P or cur.to
 	local gc, gx, gy = P and P.c or g.c, P and P.wx or g.wx, P and P.wy or g.wy
 	local _, off
 	if W and W.Progress then _, off = W.Progress(gc, gx, gy) end
-	if not (off and off <= keep.OFF) then return false end
-	local along = W and W.Left and W.Left(gc, gx, gy)
-	if along then along = along - (cur.tail or 0) else along = progress end
+	local along
+	if off == nil and W and W.Searches and W.Searches(pc) and gc == pc then
+		if not (keep.switched and GetTime() - keep.switched < keep.HOLD) then
+			keep.switched = GetTime()
+			return false
+		end
+		along = yards(pc, px, py, gc, gx, gy) * WALK_DETOUR - (cur.tail or 0)
+	else
+		if not (off and off <= keep.OFF) then return false end
+		along = W and W.Left and W.Left(gc, gx, gy)
+		if along then along = along - (cur.tail or 0) else along = progress end
+	end
 	if not (along and along >= keep.AHEAD) then return false end
 	local left = along / RUN_SPEED + (cur.rest or 0)
 	local cost = fresh[1].seconds + (fresh[1].rest or 0)
-	if keep.target ~= target then keep.target, keep.ways = target, {} end
 	local ways = keep.ways
 	for _, w in ipairs(ways) do
 		if w.seconds > cost and w.c == pc and yards(pc, px, py, w.c, w.x, w.y) <= keep.NEAR and sameWay(fresh, 1, w.legs, w.i) then cost = w.seconds end
@@ -3293,6 +3381,7 @@ keepLive = function(old, i, progress, fresh, target, pc, px, py)
 	if cost > left - keep.SAVES then return true end
 	if #ways >= keep.MAX then table.remove(ways, 1) end
 	ways[#ways + 1] = { legs = old, i = i, seconds = left, c = pc, x = px, y = py }
+	keep.switched = GetTime()
 	return false
 end
 
@@ -3321,6 +3410,17 @@ local function takePrices(fresh)
 	end
 	return changed
 end
+
+-- Travel.Replan's soft replan (a zone change, walking on) keeps the live route when the fresh plan goes its way for
+-- the same target and the player is on a walk (not a crossing's own, which zone changes are part of): what changed
+-- is only where the player stands on it. (On Travel: the main chunk is at its locals' limit.)
+function Travel.KeepSame(old, i, fresh, target)
+	local cur = old and old[i]
+	return cur ~= nil and cur.kind == "walk" and not cur.crossing and fresh ~= nil and fresh[1] ~= nil
+		and legsFor == target and sameWay(fresh, 1, old, i)
+end
+-- The live route's later walks take a fresh plan's prices for the same ends. -> true when a leg changed.
+Travel.TakePrices = takePrices
 
 -- The walking engine has measured the walks to the target (Nav/Walk.lua): plan
 -- again with them, and take that plan only when it goes another way; the same

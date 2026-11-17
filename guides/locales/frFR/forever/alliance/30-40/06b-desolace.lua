@@ -42,7 +42,7 @@ return {
 
 	-- Step 7: Hornizz Brimbuzzle
 	-- {quest:6134} Ghost-o-plasm Round Up · {area:2657} Valley of Bones
-	-- plural, as words: Magram Necrokhans = {npc:253274} Magram Necrokhan
+	-- plural, as words: Magrami Spectres = {npc:11560} Magrami Spectre · Magram Necrokhans = {npc:253274} Magram Necrokhan
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:6134}'s magnets draw the Magrami Spectres a few yards from the Magram Necrokhans and Corpsefeeders (45, elite) in the {area:2657}. Skip it if you are alone."] = "Ce sont des monstres élites : il est conseillé de former un groupe, cherchez des joueurs avec qui la faire. Les aimants de {quest:6134} attirent les Spectres magrami à quelques mètres des Nécrokhans magram et des Dévoreurs de cadavres (45, élites) dans la {area:2657}. Passez-la si vous êtes seul.",
 
 	-- Step 8: Flesh Picker
@@ -80,6 +80,7 @@ return {
 	-- Step 13: The ghost magnets
 	["The ghost magnets"] = "Les aimants fantômes",
 	-- {item:15848} Crate of Ghost Magnets
+	-- plural, as words: Magrami Spectres = {npc:11560} Magrami Spectre
 	["Use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres; the Necrokhans and Corpsefeeders (45, elite) walk close by: keep the group together."] = "Utilisez la {item:15848} à sa flèche, du côté est des champs, pour attirer les Spectres magrami ; les Nécrokhans et les Dévoreurs de cadavres (45, élites) passent tout près : gardez le groupe groupé.",
 
 	-- Step 14: Mannoroc Coven

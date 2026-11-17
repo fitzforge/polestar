@@ -64,7 +64,7 @@ step The Sepulcher
 
 step The pyre on Fenris Isle
   tip Fenris Isle lies in the lake north-east of the Sepulcher. The gnolls' pyre, with the Charred Remains, is on its shore: click the remains to hand in, and click them again for the next quest. The body is a tauren's, not the elf's.
-  turnin 91860                        -- Charred Remains
+  turnin 91860 object 566037          -- Charred Remains
   accept 91861                        -- from the Charred Remains
 
 step Fenris Keep
@@ -115,6 +115,15 @@ step Ulric Frostveil
   tip Ulric Frostveil waits at Zoram'gar Outpost on Ashenvale's west coast: take the zeppelin from Grom'gol (or the Undercity) to Orgrimmar, then go north through the Barrens into Ashenvale and west along the road. Andruk, the outpost's wind rider master, saves you the walk next time. Take Ulric's quest before you hunt the naga: the Kor Gem only drops while you have it.
   level 24
   accept 95042                        -- Ulric Frostveil, Zoram'gar Outpost
+
+# The flooded ruins at the Blackfathom Deeps entrance are not on the walking maps: without a waypoint the arrow
+# led north into Darkshore and up onto the ridge over the dungeon (#2203). The step before the naga leads to the
+# north end of the Zoram Strand, where players' recordings swim into the ruins; from there the arrow is straight.
+step The north end of the Zoram Strand
+  zone Ashenvale
+  tip The naga's flooded ruins lie just past the north end of the Zoram Strand. The arrow cannot find its own way down into them, so it leads you to the water's edge first: from there swim north into the ruins.
+  level 25
+  goto 14.6,13.7 "The north end of the Zoram Strand"
 
 step The Corrupted Kor Gem
   zone Ashenvale

@@ -164,8 +164,8 @@ A new Forge may change what a stage writes; the stages it affects run again on t
    the leveling maps, Leffe's navigation maps and the walking grid, with a fix for anything
    missing; optional things are shown as a note. It exits 1 when `forge build` could not run.
 3. **Get the data.** In a Polestar checkout that has its own `data/sources`, Forge uses those.
-   Everyone else will download the public data pack with `forge data fetch`; it has not been
-   published yet ([The data pack](#the-data-pack)).
+   Everyone else can download the public data pack with `forge data fetch`
+   ([The data pack](#the-data-pack)).
 
 4. **Build.** From the Polestar checkout (its `guides/` folder holds the current guides):
 
@@ -256,12 +256,11 @@ because the files on disk are that version's.
 
 Some inputs are not in the game: Forever's quest data from other projects, the quest facts players
 and tools have gathered, the walks already priced. Polestar maintainers keep them in the checkout's
-`data/sources`. Everyone else will get the **data pack**, a release asset holding only data we may
-share, with every source, licence and credit in its `manifest.json`.
+`data/sources`. The public **data pack** is a release asset holding only data we may share, with
+every source, licence and credit in its `manifest.json`.
 
-**No public data pack has been published yet.** Once it is, `forge data fetch` downloads it from
-the `data-pack` release; until then it says so, and you build from your own game client
-(`forge build --wow <path>`).
+`forge data fetch` downloads the public pack from the
+[`data-pack` release](https://github.com/fitzforge/polestar/releases/tag/data-pack).
 
 ```sh
 forge data fetch                      # the pack of the data-pack release
@@ -589,7 +588,9 @@ guide replaced by its seed, never its own earlier output. Contributors never edi
 goes into the records above. When the maintainer edits a generated guide by hand, the same hunk goes
 into the seed in that commit (the writer keeps the seed's titles, tips, notes and goal comments) and
 what the writer recomputes (the order, who a line is for, travel, the step a goal is on) into records;
-`forge/seed/SEED.json` is re-hashed with it. After a build of every start the maintainer
+`forge guide rehash` recomputes `guides/GENERATED.json` and `forge/seed/SEED.json` from the files
+on disk (a merge conflict in either: take either side, then run it; CONTRIBUTING.md, "Merge
+conflicts"). After a build of every start the maintainer
 writes the result into the checkout with `forge guide publish --from <out>/guides` (the shared route
 once per faction, each start's own guides, one copy per race where two races share a start folder,
 one `legs.json`; header and `GENERATED.json`: docs/forge/routes.md, "Publishing every start"), then
@@ -623,8 +624,8 @@ Start with `forge doctor`: it names the problem and the fix for most setups.
 
 | Message | Fix |
 |---|---|
-| `no data/sources above here: pass --root` and no data pack | run from inside a Polestar checkout with `data/sources`; once the public data pack is published, `forge data fetch` |
-| `forge data fetch` says no public data pack has been published yet | build from your own game client: `forge build --wow <path>` |
+| `no data/sources above here: pass --root` and no data pack | run from inside a Polestar checkout with `data/sources`, or download the public pack with `forge data fetch` |
+| `public data pack index not found ... (404)` | check the [data-pack release](https://github.com/fitzforge/polestar/releases/tag/data-pack) for its index asset, or use `forge data fetch --url <pack index URL or path>` |
 | `the data pack has no navigation grid ... no client ... was found` | install the game (Forge builds the grid from it), or pass `--grid <a built grid>` |
 | the game is not found | pass `--wow <folder>` once (it is remembered), or set `POLESTAR_WOW_DIR` |
 | `forge doctor` says the install is not complete, or `... is not in the local storage` | the launcher has not downloaded those files, or reused their space for others: run **Scan and Repair** in the launcher, let it finish, then `forge doctor` again (`forge gamedata check` lists the files per map). `forge build` refuses to build the walking grid from such an install (it would be wrong where files are missing) unless given `--allow-incomplete` |
@@ -641,7 +642,7 @@ print the forge command to run):
 | Command | Does |
 |---|---|
 | `forge guide compile`, `lint`, `check` | compile and lint a guide pack; read written guides as a player would |
-| `forge guide seed`, `publish`, `check-generated` | the seed, the generated leveling guides and their CI check |
+| `forge guide seed`, `publish`, `check-generated`, `rehash` | the seed, the generated leveling guides, their CI check, their manifests recomputed from the files |
 | `forge data build`, `sources`, `check`, `check-corrections` | the reference data, its sources and its gates |
 | `forge data questdb`, `names`, `itemdb`, `codex`, `gear`, `talents`, `maps`, `trainers`, `travel`, `professions`, `dungeons` | the data addons and the generated Lua |
 | `forge data pack`, `fetch`, `publish` | the data pack for contributors, and the open Forever database |

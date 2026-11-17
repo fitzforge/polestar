@@ -8,7 +8,7 @@
 //! every dungeon in the route, and Shortest Path Forever, so no control waits on something missing. A few live in the
 //! window's own chrome (the Menu scale in its header): those are checked there. A later release's control whose
 //! setting this build does not register yet (its row placed ahead of it on purpose), or whose row this build holds
-//! back (its `needs` says no: "Dungeons in my route", 0.4.1's, while Core/Init.lua's dungeon route switch is off), is
+//! back (its `needs` says no: "Dungeons in my route", 0.4.2's, while Core/Init.lua's dungeon route switch is off), is
 //! pending, not lost, until this build is that release (pending_lua).
 
 use forge_addontest::run::{addons_dir, lua_value};

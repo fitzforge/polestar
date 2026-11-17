@@ -434,6 +434,52 @@ fn curated_guides_the_one_for_this_character_and_class_mounts_by_keyword() {
 	assert_eq!(horde, "test/horde-strider");
 }
 
+// #2606 (Sayvil972, 0.4.0, frFR): looking up The Test of Righteousness built a guide from the quest's data, which sent
+// the paladin to Bailor Stonehand for an ore shipment he only gives after his own quest; Verigan's Fist, the class
+// guide that walks the whole chain, lists the quest among its keywords. A quest whose English title is a whole
+// keyword of a guide this character can follow opens that guide, in any client language; a keyword merely holding
+// the title, or a guide for another class, does not.
+#[test]
+fn a_quest_lookup_opens_the_class_guide_that_lists_it_2606() {
+	let setup = r#"
+		local function g(id, extra)
+			local def = { id = id, pack = "test", title = id, category = "Class", steps = { { goals = { { t = "note", text = "x" } } } } }
+			for k, v in pairs(extra) do def[k] = v end
+			assert(Polestar.RegisterGuide(def))
+		end
+		g("test/vale-warrior", { classes = { "WARRIOR" }, keywords = { "Saddles", "Trouble in the Vale", "Alliance Errand runs" } })
+		g("test/vale-mage", { classes = { "MAGE" }, keywords = { "Saddles", "The Saddler's Request" } })
+		g("test/route", { category = "Leveling", minLevel = 1, maxLevel = 60 })
+	"#;
+	let [warrior, other_class, part, english, opened] = first::<5>(run(&[
+		"\n",
+		TEST_PACK,
+		"\n",
+		TEST_SOURCE,
+		setup,
+		r#"
+		local L = Polestar.Lookup
+		emit(L.CuratedGuide("quest", 7001) or false)
+		emit(L.CuratedGuide("quest", 7002) or false)
+		emit(L.CuratedGuide("quest", 7004) or false)
+		-- A French client: the quest's title is translated, the guide's keywords are not.
+		local N = Polestar.Names
+		N.Localised = function() return true end
+		local cached = N.Cached
+		N.Cached = function(kind, id) if kind == "quest" and id == 7001 then return "Des ennuis dans le val" end return cached(kind, id) end
+		Polestar.Fire("NAMES_LOADED")
+		emit(L.CuratedGuide("quest", 7001) or false)
+		emit(L.Guide("quest", 7001) or false)
+	"#,
+	]
+	.concat()));
+	assert_eq!(warrior, "test/vale-warrior");
+	assert_eq!(other_class, false, "the mage's guide is not this warrior's");
+	assert_eq!(part, false, "a keyword holding Alliance Errand is not the quest");
+	assert_eq!(english, "test/vale-warrior");
+	assert_eq!(opened, "test/vale-warrior");
+}
+
 #[test]
 fn generated_guides_registered_unsaved_in_pack_lookup_opened_in_a_tab_rebuilt_for_another_source() {
 	let [first_id, def, second, tabs, step] = first::<5>(run(r#"
@@ -857,8 +903,8 @@ fn search_a_keystroke_costs_a_few_scans_of_the_names_and_grows_linearly_from_2_5
 	let ms = |t: &Value| format!("keystroke {:.3} ms, one scan {:.3} ms", num(&t["key"]), num(&t["scan"]));
 	// Here (Linux, lua5.1): a keystroke ~3 scans, 25,000 names ~2.5x 2,500; a Lua pass over every line alone
 	// costs ~35 scans.
-	assert!(num(&large["key"]) < 12.0 * num(&large["scan"]).max(0.01), "25,000 names: {}: more than 12 scans a keystroke", ms(&large));
-	assert!(num(&large["key"]) < 15.0 * num(&small["key"]).max(0.01), "25,000 names {} vs 2,500 {}: grows faster than the names", ms(&large), ms(&small));
+	forge_addontest::assert_timing!(num(&large["key"]) < 12.0 * num(&large["scan"]).max(0.01), "25,000 names: {}: more than 12 scans a keystroke", ms(&large));
+	forge_addontest::assert_timing!(num(&large["key"]) < 15.0 * num(&small["key"]).max(0.01), "25,000 names {} vs 2,500 {}: grows faster than the names", ms(&large), ms(&small));
 }
 
 // ---------------------------------------------------------------------------

@@ -200,6 +200,22 @@ end
 -- Quest frame
 ---------------------------------------------------------------------------
 
+-- An escort taken in a group (#2708): the escorted NPC sets off the moment
+-- one player takes it, before the others have taken it or handed in the
+-- quest that opens it. In a group its accept is left to the player, with a
+-- word in chat once per quest a session.
+local escortTold = {}
+local function groupEscort(q)
+	if not (IsInGroup and IsInGroup() and ns.Engine.EscortQuest and ns.Engine.EscortQuest(q)) then return false end
+	ns.Debug(("auto-accept left %s (detail): an escort, in a group"):format(tostring(q)))
+	if not escortTold[q] then
+		escortTold[q] = true
+		local title = GetTitleText and GetTitleText()
+		ns.Print(L["%s is an escort: it starts as soon as it is taken. Accept it yourself when your group is ready."]:format(ns.Quoted(title ~= "" and title or tostring(q))))
+	end
+	return true
+end
+
 local function onDetail()
 	local q = questID()
 	if not (canAccept() and wantsAccept(q)) then
@@ -214,6 +230,7 @@ local function onDetail()
 		ns.Debug(("auto-accept left %s (detail): needs the PvP confirmation"):format(tostring(q)))
 		return false
 	end
+	if groupEscort(q) then return false end
 	noteActed()
 	if QuestGetAutoAccept and QuestGetAutoAccept() then
 		if AcknowledgeAutoAcceptQuest then AcknowledgeAutoAcceptQuest() end

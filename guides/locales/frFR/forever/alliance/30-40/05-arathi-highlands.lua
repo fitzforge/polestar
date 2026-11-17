@@ -93,15 +93,15 @@ return {
 	-- {npc:185335} Summoned Incubus
 	["{npc:185335}, at the same circle"] = "{npc:185335}, sur le même cercle",
 	-- {npc:6122} Gakin the Darkbinder
-	["{npc:6122} binds the incubus to you"] = "{npc:6122} vous lie l'incube",
+	["{npc:6122} binds the incubus to you"] = "{npc:6122} lie l'incube à vous",
 
 	-- Step 17: Stormwind
 	-- {npc:12336} Brother Crowley
-	["{npc:12336}, Cathedral of Light"] = "{npc:12336}, Cathedral of Light",
+	["{npc:12336}, Cathedral of Light"] = "{npc:12336}, Cathédrale de la Lumière",
 
 	-- Step 19: Stormwind
 	-- {npc:1440} Milton Sheaf
-	["{npc:1440}, the Royal Library in the keep"] = "{npc:1440}, la Royal Library du donjon",
+	["{npc:1440}, the Royal Library in the keep"] = "{npc:1440}, la Bibliothèque royale du donjon",
 
 	-- Step 20: Tram to Ironforge
 	-- {zone:1455} Ironforge
@@ -305,13 +305,13 @@ return {
 
 	-- Step 63: Image of Archmage Modera
 	-- {npc:269127} Image of Archmage Modera · {quest:92458} Heart of Disruption · {item:277507} Dalaran Sewer Key
-	["For your City of Dalaran run, next: the {npc:269127} wants the arcane remnants in the city thinned out and a mote from the heart of the disruption. {quest:92458} brings the {item:277507}, which opens the grate."] = "Pour votre expédition dans City of Dalaran, la prochaine étape : l'{npc:269127} veut que vous éclaircissiez les rangs des vestiges arcaniques de la ville et que vous rapportiez une particule du cœur de la perturbation. {quest:92458} donne la {item:277507}, qui ouvre la grille.",
+	["For your City of Dalaran run, next: the {npc:269127} wants the arcane remnants in the city thinned out and a mote from the heart of the disruption. {quest:92458} brings the {item:277507}, which opens the grate."] = "Pour votre expédition dans Cité de Dalaran, la prochaine étape : l'{npc:269127} veut que vous éclaircissiez les rangs des vestiges arcaniques de la ville et que vous rapportiez une particule du cœur de la perturbation. {quest:92458} donne la {item:277507}, qui ouvre la grille.",
 
 	-- Step 64: City of Dalaran
-	["City of Dalaran"] = "City of Dalaran",
+	["City of Dalaran"] = "Cité de Dalaran",
 	-- {quest:92457} Starving Arcane · {item:251961} Arcane Mote · {quest:92458} Heart of Disruption
 	-- plural, as words: Seeking Remnants = {npc:247003} Seeking Remnant · Saturated Remnants = {npc:247001} Saturated Remnant
-	["The City of Dalaran is a dungeon for a group of five at about level 28 to 33: at your level it goes quickly. Its way in is the sewer grate in the city's western wall, by the lake, 30 yards from Modera's camp.\nInside: the Seeking Remnants, Saturated Remnants and Mana Echoes are Modera's {quest:92457}; the {item:251961} for {quest:92458} drops inside too."] = "City of Dalaran est un donjon pour un groupe de cinq, vers les niveaux 28 à 33 : à votre niveau, il se fait vite. On y entre par la grille d'égout du mur ouest de la ville, près du lac, à 30 mètres du camp de Modera.\nÀ l'intérieur : les Seeking Remnants, les Saturated Remnants et les Mana Echoes sont pour {quest:92457}, la quête de Modera ; la {item:251961} pour {quest:92458} se trouve aussi à l'intérieur.",
+	["The City of Dalaran is a dungeon for a group of five at about level 28 to 33: at your level it goes quickly. Its way in is the sewer grate in the city's western wall, by the lake, 30 yards from Modera's camp.\nInside: the Seeking Remnants, Saturated Remnants and Mana Echoes are Modera's {quest:92457}; the {item:251961} for {quest:92458} drops inside too."] = "Cité de Dalaran est un donjon pour un groupe de cinq, vers les niveaux 28 à 33 : à votre niveau, il se fait vite. On y entre par la grille d'égout du mur ouest de la ville, près du lac, à 30 mètres du camp de Modera.\nÀ l'intérieur : les Seeking Remnants, les Saturated Remnants et les Mana Echoes sont pour {quest:92457}, la quête de Modera ; la {item:251961} pour {quest:92458} se trouve aussi à l'intérieur.",
 	-- {quest:92457} Starving Arcane
 	["{quest:92457}: the remnants and echoes, inside"] = "{quest:92457} : les vestiges et les échos, à l'intérieur",
 	-- {quest:92458} Heart of Disruption · {item:251961} Arcane Mote
