@@ -10446,44 +10446,110 @@ function Own.stopEmpty(s)
 	return false
 end
 
--- The continent of step n's first open goal with a place (a flight's: its
--- flight master's goto, else its landing), or nil.
+-- Walk step s's last goto for the character: continent, world x, world y; or nil.
+function Own.walkEnd(s)
+	local goals = guide.steps[s].goals
+	for g = #goals, 1, -1 do
+		local goal = goals[g]
+		if goal.t == "goto" and goalApplies(goal) then
+			local map, x, y, f = posOf(goal)
+			if map and x and y then return Compat().MapToWorld(map, x, y, f) end
+			return nil
+		end
+	end
+	return nil
+end
+
+-- The place of step n's first open goal with one (a flight's: its flight
+-- master's goto, else its landing): continent, world x, world y; or nil.
 function Own.stepContinent(n)
 	local C = Compat()
 	for g, goal in ipairs(guide.steps[n].goals) do
 		if blocks(goal) and goalApplies(goal) and not unavailableFor(goal) and not goalDone(n, g, goal) then
 			if goal.t == "fly" then
 				local node = ns.Nav and ns.Nav.GetTaxiNode and ns.Nav.GetTaxiNode(goal.node)
-				if node and node.c then return node.c end
+				if node and node.c then return node.c, node.wx, node.wy end
 			else
 				local map, x, y, f = posOf(goal)
-				local c = map and x and y and C.MapToWorld(map, x, y, f)
-				if c then return c end
+				local c, wx, wy
+				if map and x and y then c, wx, wy = C.MapToWorld(map, x, y, f) end
+				if c then return c, wx, wy end
 			end
 		end
 	end
 	return nil
 end
 
+-- A crossing's dock (a boat's or a zeppelin's end, Nav/Travel.lua's data)
+-- within this many yards of a walk's end makes that walk one to the crossing.
+Own.DOCK_REACH = 60
+
+-- The far end of a crossing with an end within Own.DOCK_REACH yards of world
+-- point (c, x, y) and both ends on continent c, of those the one nearest
+-- (wx, wy) (Menethil Harbor's dock serves Southshore and Auberdine): its
+-- world x and y, else nil.
+function Own.farDock(c, x, y, wx, wy)
+	local nav = ns.Nav
+	local d = nav and nav.GetTravelData and nav.GetTravelData()
+	local reach = Own.DOCK_REACH * Own.DOCK_REACH
+	local fx, fy, best
+	for _, t in ipairs(d and d.transports or NONE) do
+		local a, b = t.a, t.b
+		if a and b and a.c == c and b.c == c and a.wx and a.wy and b.wx and b.wy then
+			local far
+			if (a.wx - x) ^ 2 + (a.wy - y) ^ 2 <= reach then
+				far = b
+			elseif (b.wx - x) ^ 2 + (b.wy - y) ^ 2 <= reach then
+				far = a
+			end
+			if far then
+				local dd = (far.wx - wx) ^ 2 + (far.wy - wy) ^ 2
+				if not best or dd < best then fx, fy, best = far.wx, far.wy, dd end
+			end
+		end
+	end
+	return fx, fy
+end
+
+-- Walk step s ends at a crossing's dock on the continent of the work after
+-- it, step n (Own.travelOnto), and both the player and that work lie nearer
+-- the crossing's far end than its dock (#1983): Feralas's "Boat to
+-- Feathermoon Stronghold", a walk to the Forgotten Coast's dock, sent a
+-- player who flew in to Feathermoon back over the water and across again,
+-- since a walk passes only on arrival.
+function Own.pastDock(s, n)
+	local c, x, y = Own.walkEnd(s)
+	if not (c and x and y) then return false end
+	local pc, px, py = Compat().GetPlayerWorldPosition()
+	local wc, wx, wy = Own.stepContinent(n)
+	if pc ~= c or wc ~= c or not (px and py and wx and wy) then return false end
+	local fx, fy = Own.farDock(c, x, y, wx, wy)
+	if not fx then return false end
+	return (px - fx) ^ 2 + (py - fy) ^ 2 < (px - x) ^ 2 + (py - y) ^ 2
+		and (wx - fx) ^ 2 + (wy - fy) ^ 2 < (wx - x) ^ 2 + (wy - y) ^ 2
+end
+
 -- A walk to a boat or a zeppelin the player is already past (#1971, #1978):
 -- walk step s (gotos alone for the character, as written and still open)
 -- ends on another continent than the step the route goes on to after it
--- (Own.travelOnto), and the player stands on that step's continent. Such a
--- walk is written for a player coming from where the previous guide ends
--- (Thousand Needles & Desolace opens at the Undercity's zeppelin to
--- Orgrimmar); one who loaded the guide on the far side was sent across and
--- back: from Freewind Post to the Undercity's tower, and on the zeppelin back
--- to Orgrimmar. It passes whether the planner leads or not, once the quest
--- log can be read (work would read done before). The route latches its
--- gotos as it moves past (latchPassed), so crossing back later in the guide
--- never reopens it.
+-- (Own.travelOnto), and the player stands on that step's continent; or it
+-- ends at a crossing along one continent the player is across already
+-- (Own.pastDock, #1983). Such a walk is written for a player coming from
+-- where the previous guide ends (Thousand Needles & Desolace opens at the
+-- Undercity's zeppelin to Orgrimmar); one who loaded the guide on the far
+-- side was sent across and back: from Freewind Post to the Undercity's
+-- tower, and on the zeppelin back to Orgrimmar. It passes whether the
+-- planner leads or not, once the quest log can be read (work would read done
+-- before). The route latches its gotos as it moves past (latchPassed), so
+-- crossing back later in the guide never reopens it.
 function Own.alreadyAcross(s)
 	if not (logReady and guide) then return false end
 	if Own.writtenTravel(guide.steps[s]) ~= "walk" or Own.transitKind(s) ~= "walk" then return false end
 	local ends = Own.transitContinent(s, true)
 	local n = Own.travelOnto(s)
 	local there = n and Own.stepContinent(n)
-	if not (ends and there) or there == ends then return false end
+	if not (ends and there) then return false end
+	if there == ends then return Own.pastDock(s, n) end
 	return Compat().GetPlayerWorldPosition() == there
 end
 
