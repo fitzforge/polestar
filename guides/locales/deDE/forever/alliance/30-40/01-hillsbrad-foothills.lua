@@ -66,24 +66,24 @@ return {
 	-- Step 15: Motley Garmason
 	-- {quest:303} The Dark Iron War
 	-- plural, as words: Dark Irons = {object:147516} Dark Iron
-	["{quest:303} is a group quest: 30 elite Dark Irons (27-31) in the ruins west of the camp. Skip it if you are alone."] = "",
+	["{quest:303} is a group quest: 30 elite Dark Irons (27-31) in the ruins west of the camp. Skip it if you are alone."] = "{quest:303} ist eine Gruppenquest: 30 Elite-Dunkeleisen (27-31) in den Ruinen westlich des Lagers. Überspring sie, wenn du allein bist.",
 	-- {npc:1074} Motley Garmason
-	["{npc:1074}, in the camp"] = "",
+	["{npc:1074}, in the camp"] = "{npc:1074}, im Lager",
 
 	-- Step 16: Ashlan Stonesmirk
 	-- {quest:88756} Bring Back a Bang · {item:280806} Stolen Explosives · {object:147516} Dark Iron · {area:1016} Direforge Hill · {area:205} Dun Modr
-	["{quest:88756} is a group quest: the {item:280806} lie in the {object:147516} camp on {area:1016}, south-east of {area:205}, among the same elite dwarves. Skip it if you are alone."] = "",
+	["{quest:88756} is a group quest: the {item:280806} lie in the {object:147516} camp on {area:1016}, south-east of {area:205}, among the same elite dwarves. Skip it if you are alone."] = "{quest:88756} ist eine Gruppenquest: Die {item:280806} liegen im Lager der {object:147516} auf {area:1016}, südöstlich von {area:205}, zwischen denselben Elite-Zwergen. Überspring sie, wenn du allein bist.",
 	-- {npc:1073} Ashlan Stonesmirk
-	["{npc:1073}, in the camp"] = "",
+	["{npc:1073}, in the camp"] = "{npc:1073}, im Lager",
 
 	-- Step 17: The Dark Iron War
 	-- {npc:1364} Balgaras the Foul
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. Dark Iron Dwarves, Tunnelers, Saboteurs and Demolitionists (27-31) fill the ruins west of the camp; {npc:1364} (34, elite) walks among them."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. Dark Iron Dwarves, Tunnelers, Saboteurs and Demolitionists (27-31) fill the ruins west of the camp; {npc:1364} (34, elite) walks among them."] = "Das sind Elite-Mobs: Sich zusammenzutun wird empfohlen, such dir Leute dafür. Dunkeleisenzwerge, Tunneler, Saboteure und Sprengmeister (27-31) füllen die Ruinen westlich des Lagers; {npc:1364} (34, Elite) läuft zwischen ihnen umher.",
 
 	-- Step 18: Direforge Hill
 	-- {area:1016} Direforge Hill · {item:280806} Stolen Explosives · {area:880} Thandol Span
 	-- plural, as words: Dark Irons = {object:147516} Dark Iron
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. South-east of Dun Modr, about 500 yards, the Dark Irons camp on {area:1016}: the {item:280806} lie among their tents. Then back past the camp and north to the {area:880}."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. South-east of Dun Modr, about 500 yards, the Dark Irons camp on {area:1016}: the {item:280806} lie among their tents. Then back past the camp and north to the {area:880}."] = "Das sind Elite-Mobs: Sich zusammenzutun wird empfohlen, such dir Leute dafür. Südöstlich von Dun Modr, etwa 500 Meter, liegt das Lager der Dunkeleisen auf {area:1016}: Die {item:280806} liegen zwischen ihren Zelten. Dann zurück an dem Lager vorbei und nach Norden zur {area:880}.",
 
 	-- Step 19: Ebenezer Rustlocke
 	["Ebenezer Rustlocke"] = "Ebenezer Rustlocke",
@@ -100,7 +100,7 @@ return {
 
 	-- Step 21: Motley Garmason
 	-- {npc:1075} Rhag Garmason
-	["in the camp, beside {npc:1075}"] = "",
+	["in the camp, beside {npc:1075}"] = "im Lager, neben {npc:1075}",
 
 	-- Step 23: The Cache of Explosives
 	-- {object:2704} Cache of Explosives
