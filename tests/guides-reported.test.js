@@ -2677,7 +2677,7 @@ test('Alliance 12-21: Westfall, Darkshore and Loch Modan start where Humans ente
 test(`${HILLSBRAD_ALLIANCE}: Fyurie's report: Spark of Freedom is asked as a group quest; the Dun Modr camp quests are not (#1313)`, { skip }, () => {
 	const list = goals(HILLSBRAD_ALLIANCE);
 	const mine = list.filter(({ goal }) => goal.quest === 87491);
-	assert.equal(mine.length, 2, 'the accept and the hand-in');
+	assert.deepEqual(mine.map(({ goal }) => goal.t), ['accept', 'complete', 'turnin'], 'the accept, the escort and the hand-in');
 	for (const { step, goal } of mine) assert.ok((step.when || []).some((p) => p.k === 'group' && [p.q].flat().includes(87491) && !p.neg), `${goal.t} 87491 is under when group 87491`);
 	for (const [t, q] of [['turnin', 472], ['accept', 631]]) {
 		const { step } = list[at(list, `${t} ${q}`, is(t, q))];
@@ -4820,7 +4820,8 @@ test(`${WESTFALL}: flow audit: one north loop, one target per step in walking or
 // The tower comes first now: The Anchors of Zephras and Falling With Style
 // (both need level 2 and nothing else), then the Walk on Air glide down to
 // Rorian, who takes Harmony in Balance and Falling With Style on one visit.
-// Falling With Style has no objectives: it is only handed in.
+// Falling With Style counts the Walk on Air cast at the top of the tower (players' recordings: the line "Use Walk
+// on Air" at every accept, done on the tower's top), so its goal is there, before Rorian's hand-ins.
 
 test(`Alx-Ryan's report (#363): on Zephras Isle, the watchtower quests come before Rorian, who takes Harmony in Balance and Falling With Style on one visit`, { skip }, () => {
 	for (const guide of [ZEPHRAS_ALLIANCE, ZEPHRAS_HORDE]) {
@@ -4832,7 +4833,9 @@ test(`Alx-Ryan's report (#363): on Zephras Isle, the watchtower quests come befo
 		assert.equal(Math.abs(falling - harmony), 1, `${guide}: Harmony in Balance and Falling With Style are handed in one after the other`);
 		assert.equal(list[falling].s, list[harmony].s, `${guide}: on the same step`);
 		assert.equal(list[falling].goal.npc, list[harmony].goal.npc, `${guide}: to the same NPC, Rorian`);
-		assert.deepEqual(list.filter(({ goal }) => goal.quest === 92474 && goal.t === 'complete').map(({ s }) => s), [], `${guide}: no complete goal for a quest with no objectives`);
+		const cast = at(list, `${guide}: complete 92474`, is('complete', 92474));
+		assert.ok(cast < harmony, `${guide}: Walk on Air before Rorian's hand-ins`);
+		assert.ok(Math.hypot(list[cast].goal.x - 43.7, list[cast].goal.y - 24.1) < 1, `${guide}: on the tower's top (${list[cast].goal.x},${list[cast].goal.y})`);
 	}
 });
 
