@@ -12,6 +12,7 @@ test('quest details show the existing Polestar actions for the currently viewed 
 		hooksecurefunc = noop
 		Menu = { ModifyMenu = noop }
 		local click
+		local gamepad = true
 		Spoken = { CreateRoundButton = function()
 			return { HookScript = noop, SetFrameLevel = noop, ClearAllPoints = noop,
 				SetPoint = noop, SetShown = noop, SetScript = function(_, _, fn) click = fn end }
@@ -26,10 +27,14 @@ test('quest details show the existing Polestar actions for the currently viewed 
 			UI = { Picker = { ShowQuest = emit } },
 			L = setmetatable({}, { __index = function(_, key) return key end }),
 			Compat = { Readable = function(value) return value end },
-			Hidden = function() return false end, GamepadUI = function() return false end,
+			Hidden = function() return false end, GamepadUI = function() return gamepad end,
 			OnLogin = function(fn) fn() end,
 		}
-		assert(loadfile("addon/Polestar/UI/QuestLinks.lua"))("Polestar", ns)
+		local loadQuestLinks = assert(loadfile("addon/Polestar/UI/QuestLinks.lua"))
+		loadQuestLinks("Polestar", ns)
+		assert(click == nil, "gamepad mode must not create the details button")
+		gamepad = false
+		loadQuestLinks("Polestar", ns)
 		click({})
 		details.questID = 43
 		click({})
