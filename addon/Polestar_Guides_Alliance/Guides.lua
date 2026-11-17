@@ -12301,7 +12301,7 @@ do
 			title = "{zone:1448}",
 			faction = "Alliance",
 			minLevel = 52,
-			maxLevel = 54,
+			maxLevel = 53,
 			category = "Leveling",
 			zone = 1448,
 			zoneName = "Felwood",
