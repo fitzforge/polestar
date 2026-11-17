@@ -812,7 +812,7 @@
 			{ "node": "tests/guides-caves.test.js", "test": "Bennistrov (#1336): Insane Druids' arrow led over the hill above The Dor'Danil Barrow Den" }
 		] },
 		"1338": { "tests": [
-			{ "node": "tests/guides-floors.test.js", "test": "every guide's goal at an NPC upstairs in ${b.name} comes after a goto at its door (#1338)" },
+			{ "node": "tests/guides-floors.test.js", "test": "every guide's goal in ${b.name} comes after a goto at its way in (${b.issue})" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "a_way_in_reaches_past_goals_at_the_target_s_own_spot_1338_the_optional_turn_in_before_the_accept" }
 		] },
 		"1339": { "tests": [
@@ -1407,6 +1407,46 @@
 			{ "node": "tests/placeholder-names.test.js", "test": "#2614: no guide pack shows the game's placeholder names (\"[DNT] Kill Credit\", \"PvP Tower Credit Marker\", \"Trigger Ichman\")" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/placeholders.rs", "test": "a_goal_on_a_credit_target_reads_as_its_quest_log_line_never_kill_the_placeholder" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/placeholders.rs", "test": "lookups_quest_step_never_names_a_credit_target" }
+		] },
+		"2681": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine.rs", "test": "a_quest_still_in_the_log_is_not_handed_in_whatever_its_later_chain_says_2681_ishamuhale" }
+		] },
+		"2683": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine.rs", "test": "a_quest_still_in_the_log_is_not_handed_in_whatever_its_later_chain_says_2681_ishamuhale" }
+		] },
+		"2682": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-upgrade.rs", "test": "the_arrow_leads_to_a_carried_quest_s_work_an_update_put_behind_the_player_before_its_hand_in_on_the_live_step" }
+		] },
+		"2595": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-upgrade.rs", "test": "the_arrow_leads_to_a_carried_quest_s_work_an_update_put_behind_the_player_before_its_hand_in_on_the_live_step" }
+		] },
+		"2677": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/lookup-guides.rs", "test": "a_quest_started_from_an_item_goes_where_the_item_drops_first_2677" }
+		] },
+		"2684": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2684: Hinterlands (Alliance): Repurposed Totems says the totems also lie on the ground" }
+		] },
+		"2673": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2673: Hillsbrad (Horde): the guide ends at Orgrimmar's wind rider master, where the next guide flies on" }
+		] },
+		"2686": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_follow_up_handed_in_at_one_talk_is_never_taken_its_items_come_first_then_the_hand_in_2686_bloodpetal_sprouts" }
+		] },
+		"2509": { "tests": [
+			{ "node": "tests/guides-floors.test.js", "test": "every guide's goal in ${b.name} comes after a goto at its way in (${b.issue})" }
+		] },
+		"2203": { "tests": [
+			{ "node": "tests/guides-floors.test.js", "test": "every guide's goal in ${b.name} comes after a goto at its way in (${b.issue})" }
+		] },
+		"2512": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "forever/horde/30-40/01-hillsbrad-foothills.guide: Acen's report (#2512): the jailors' keys before their locks" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/compat.rs", "test": "getitemcount_counts_a_key_on_the_keyring_once_whether_the_client_counts_the_keyring_or_not" }
+		] },
+		"2672": { "tests": [
+			{ "node": "tests/data-corrections.test.js", "test": "quest givers who walk a path have points along it, not one spot (#2519, #2672, #1237)" }
+		] },
+		"2433": { "tests": [
+			{ "node": "tests/travel-chains.test.js", "test": "a Druid with Teleport: Moonglade goes from Stormwind to Darnassus by Moonglade, not the boat (#2433, #2463)" }
 		] }
 	},
 	"seedDrift": {

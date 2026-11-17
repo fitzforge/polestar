@@ -1288,11 +1288,18 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 				return x0 + (floor(k / st.ny) * C + floor(lc / C) + 0.5) * cs, y0 + ((k % st.ny) * C + lc % C + 0.5) * cs
 			end
 			-- Rounded graph edges, snapping and, with classes, a yard cheaper than running (hmin) must not let the
-			-- heuristic overstate the remaining cost.
+			-- heuristic overstate the remaining cost. The goal's nodes are not all at its cell (gc): a point without a
+			-- height starts from the surfaces within a cell of it (surfaces), and each settles up to SNAP cells on
+			-- (settle), so the goal tree's cost from an entrance can be up to (SNAP + 1) diagonal cells short of the
+			-- straight yards to gc's centre. Measured from gc, the heuristic overstated by up to that and the search could
+			-- settle on a longer walk (#2723, reported by undersailor). The reach comes off the straight yards before the
+			-- scale, as Shortest Path Forever's abstract A* does since its 1.37.1 (Routing/Path.lua, by Cillian Berragan,
+			-- GPL-3.0-or-later) and as Path.LowerBound does.
 			local goalCell = cellOf(st, gk, gc)
 			local goalX = x0 + (floor(gk / st.ny) * C + floor(goalCell / C) + 0.5) * cs
 			local goalY = y0 + (gk % st.ny * C + goalCell % C + 0.5) * cs
 			local lower = max(0, 1 - 0.5 / cs) * hmin
+			local reach = (SNAP + 1) * SQRT2 * cs
 			local function h(id)
 				local x, y
 				if id > LIFT_ID then
@@ -1302,7 +1309,8 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 					x, y = world(id)
 				end
 				local dx, dy = abs(x - goalX), abs(y - goalY)
-				return (dx > dy and dx + (SQRT2 - 1) * dy or dy + (SQRT2 - 1) * dx) * lower
+				local gap = dx > dy and dx + (SQRT2 - 1) * dy or dy + (SQRT2 - 1) * dx
+				return gap > reach and (gap - reach) * lower or 0
 			end
 			agen = agen + 1
 			local gen = agen

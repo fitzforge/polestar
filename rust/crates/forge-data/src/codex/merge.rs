@@ -1079,7 +1079,6 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 	if al.is_none() && !fv.dungeons.truthy() {
 		if let Some(facts) = cl.and_then(|c| c.instances.as_ref()) {
 			let cl = cl.unwrap();
-			let quality = |id: f64| cl.items.get(&(id as i64)).and_then(|c| c.quality);
 			let built = build_instances(
 				facts,
 				&Ctx {
@@ -1091,7 +1090,7 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 					recorded: &fv.instances,
 					entrance_table: &inputs.entrance_table,
 					curated: &inputs.entrances,
-					quality: &quality,
+					client: cl,
 					web: wh,
 				},
 			);
@@ -2185,6 +2184,11 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			// A child quest's parent, which must be in the log for its giver to offer it (Valik 535, Infiltration 533).
 			if !pre.get("parent").is_undef() {
 				o.set("parent", pre.get("parent"));
+			}
+			// One Forever hands in at one talk, never in the log (quests.json `direct`: Bloodpetal Sprouts, #2686), so
+			// the hand-in guides never take it as an accept.
+			if q.get("direct").truthy() {
+				o.set("direct", true);
 			}
 			if int(&q.get("xp")).is_some_and(|x| x > 0.0) {
 				o.set("xp", int(&q.get("xp")).unwrap());

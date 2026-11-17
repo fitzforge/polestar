@@ -2907,5 +2907,285 @@
 			"ref": "players' recordings to 2026-11-17: 838 events at Mathrengyl Bearwalker (offers, hand-ins, his vendor window) in 122 sessions, median 35.22,8.07 in Darnassus, a few yards from his earlier point 35.37,8.4"
 		},
 		"note": "Mathrengyl Bearwalker (Morrowgrain Research, his pouch and seeds) paces his floor of the druids' building in the Cenarion Enclave. The data's five points of his path put each of his goals at a different spot, so a goal after another of his no longer followed the guide's goto at the door and its arrow walked to the ledge outside his floor (#1338). One point, the earlier data's, where the Darnassus guide grows the Morrowgrain."
+	},
+	"1742": {
+		"set": {
+			"spawns": {
+				"1420": {
+					"f": "e",
+					"pts": [
+						[
+							58.47,
+							51.39
+						],
+						[
+							58.4,
+							49.85
+						],
+						[
+							59.26,
+							49.31
+						],
+						[
+							60.14,
+							49.01
+						],
+						[
+							60.2,
+							47.39
+						],
+						[
+							59.38,
+							46.81
+						],
+						[
+							58.28,
+							47.84
+						],
+						[
+							57.48,
+							48.8
+						],
+						[
+							57.87,
+							49.64
+						],
+						[
+							58.29,
+							50.88
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20034111 (Deathguard Bartholomew) walks waypoint path 810017420, about 432 yd, through the spawn at 58.47,51.39"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 70 people opened Deathguard Bartholomew's window, 31 of them more than 25 yd from 58.47,51.39, and 70 within 20 yd of the path (most often at 58,50 (25), 60,49 (5), 59,48 (3), 58,49 (2), 60,47 (2))"
+			}
+		],
+		"note": "Deathguard Bartholomew walks round Brill's graveyard and the data had one spot on his walk, so the map marker and the arrow pointed at that spot while players met him anywhere along it (sweep for #2519)."
+	},
+	"1721": {
+		"set": {
+			"spawns": {
+				"1453": {
+					"f": "l",
+					"pts": [
+						[
+							76.47,
+							63.65
+						],
+						[
+							73.93,
+							62.52
+						],
+						[
+							71.23,
+							59.18
+						],
+						[
+							71.18,
+							56.68
+						],
+						[
+							72.88,
+							54.95
+						],
+						[
+							74.56,
+							56.2
+						],
+						[
+							76.08,
+							59.15
+						],
+						[
+							75.74,
+							62.28
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20079770 (Nikova Raskol) walks waypoint path 810017210, about 326 yd, through the spawn at 76.42,63.67"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 91 people opened Nikova Raskol's window, 75 of them more than 25 yd from 76.42,63.67, and 89 within 20 yd of the path (most often at 76,61 (6), 73,55 (6), 73,62 (5), 76,60 (5), 71,59 (4))"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2672"
+			}
+		],
+		"note": "Nikova Raskol walks a loop through Old Town and the data had one spot on it, at its south-east corner: the Stockade's pick-up guide pointed there while players met her anywhere on the loop (#1237, #2672, #2519)."
+	},
+	"3140": {
+		"set": {
+			"spawns": {
+				"1411": {
+					"f": "e",
+					"pts": [
+						[
+							54.18,
+							73.3
+						],
+						[
+							54.44,
+							74.29
+						],
+						[
+							54.58,
+							74.88
+						],
+						[
+							54.36,
+							76.15
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20004699 (Lar Prowltusk) walks waypoint path 800046990, about 285 yd, through the spawn at 54.44,74.35"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 52 people opened Lar Prowltusk's window, 37 of them more than 25 yd from 54.44,74.35, and 52 within 20 yd of the path (most often at 54,73 (15), 55,75 (12), 54,76 (11), 54,75 (2))"
+			}
+		],
+		"note": "Lar Prowltusk walks up and down a path of about 285 yd in southern Durotar and the data had one spot on it, so the map marker and the arrow pointed at that spot while players met him anywhere along the path (sweep for #2519)."
+	},
+	"2616": {
+		"set": {
+			"spawns": {
+				"1445": {
+					"f": "e",
+					"pts": [
+						[
+							68.84,
+							53.22
+						],
+						[
+							68.46,
+							52.24
+						],
+						[
+							67.72,
+							51.72
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20007896 (Privateer Groy) walks waypoint path 810026160, about 146 yd, through the spawn at 68.84,53.22"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 13 people opened Privateer Groy's window, 5 of them more than 25 yd from 68.84,53.22, and 13 within 20 yd of the path (most often at 68,52 (5))"
+			}
+		],
+		"note": "Privateer Groy walks a short path and the data had one spot on it, so the map marker and the arrow pointed at that spot while players met him anywhere along the path (sweep for #2519)."
+	},
+	"5639": {
+		"set": {
+			"spawns": {
+				"1454": {
+					"f": "e",
+					"pts": [
+						[
+							51.43,
+							46.47
+						],
+						[
+							48.54,
+							49.07
+						],
+						[
+							45.83,
+							51.1
+						],
+						[
+							44.09,
+							53.77
+						],
+						[
+							42.54,
+							49.76
+						],
+						[
+							44.68,
+							51.95
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20001903 (Craven Drok) walks waypoint path 800019030, about 375 yd, through the spawn at 51.3,45.9"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 22 people opened Craven Drok's window, 15 of them more than 25 yd from 51.3,45.9, and 18 within 20 yd of the path (most often at 49,48 (4), 51,51 (4), 44,52 (2), 48,50 (2), 47,50 (2))"
+			}
+		],
+		"note": "Craven Drok walks a path through Orgrimmar and the data had one spot on it, so the map marker and the arrow pointed at that spot while players met him anywhere along the path (sweep for #2519)."
+	},
+	"1481": {
+		"set": {
+			"spawns": {
+				"1437": {
+					"f": "e",
+					"pts": [
+						[
+							9.41,
+							58.76
+						],
+						[
+							8.64,
+							58.24
+						],
+						[
+							8.02,
+							57.75
+						],
+						[
+							8.4,
+							58.75
+						],
+						[
+							8.85,
+							59.84
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20009475 (Bart Tidewater) walks waypoint path 800094750, about 233 yd, through the spawn at 8.66,58.12"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 10 people opened Bart Tidewater's window, 9 of them more than 25 yd from 8.66,58.12, and 10 within 20 yd of the path (most often at 9,60 (4), 9,59 (3), 8,57 (1), 8,58 (1))"
+			}
+		],
+		"note": "Bart Tidewater walks a path of about 233 yd around Menethil Harbor and the data had one spot on it, so the map marker and the arrow pointed at that spot while players met him anywhere along the path (sweep for #2519)."
 	}
 }

@@ -118,7 +118,6 @@ return {
 
 	-- Step 22: Thelsamar
 	-- {npc:1470} Ghak Healtouch
-	-- was: ["{npc:1470}, in the inn"] = "{npc:1470}，在旅店裡"
 	["{npc:1470}, in the inn; below ground"] = "{npc:1470}，在旅店裡；地下",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

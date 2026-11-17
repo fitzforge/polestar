@@ -2249,3 +2249,40 @@ fn the_candidates_are_worked_out_the_frame_after_the_evaluation() {
 	assert_eq!(r["frames"], 1, "one frame after the evaluation: {r}");
 	assert!(r["after"].as_str().unwrap().contains("2:1:work:1"), "the vermin: 1 more: {r}");
 }
+
+// #2484 (Claude1131, 0.3.7.2): The Great Outdoors taken ahead of the guide, the player stood at Eleanor's campfire,
+// and While you're here offered nothing for it: its only work is a placed `complete` (/sit by the fire until Boosted
+// Rest), and rows came only from kill, collect, interact and use goals. A placed `complete` of a quest in the log is a
+// row now, read with the goal's note, unless the guide gives the quest a work goal of its own (step 2's vermin:
+// those are its rows) or it is an escort's.
+#[test]
+fn a_placed_complete_of_a_quest_in_the_log_is_a_row_with_its_note_unless_the_quest_has_work_goals_2484() {
+	let guide = r#"
+stub.world.onQuest(61, { 1, 1 }, "The Great Outdoors"); stub.world.onQuest(62, { 1 }, "The Escort")
+Polestar.RegisterGuide({
+	id = "test/fire", pack = "test", title = "Fire", minLevel = 1, maxLevel = 10,
+	steps = {
+		{ title = "Wolves", goals = { { t = "kill", target = "Young Wolf", npc = 299, count = 8, quest = 33, oi = 1, map = 1429, x = 60, y = 60 } } },
+		{ title = "Vermin", goals = { { t = "kill", target = "Kobold Vermin", npc = 6, count = 10, quest = 7, oi = 1, map = 1429, x = 47.6, y = 46.0 } } },
+		{ title = "Eleanor", goals = {
+			{ t = "complete", quest = 61, title = "The Great Outdoors", map = 1429, x = 47.6, y = 45.2, note = "/sit by her campfire until you get Boosted Rest" },
+			{ t = "complete", quest = 7, title = "Kobold Camp Cleanup", map = 1429, x = 47.6, y = 45.2 },
+			{ t = "complete", quest = 62, title = "The Escort", map = 1429, x = 47.6, y = 45.2, escort = true },
+		} },
+	},
+})
+"#;
+	let out = run_guide(
+		guide,
+		"test/fire",
+		r#"
+		at(47.6, 45.1)
+		emit({ cands(), here() })
+		w.progress(61, 1, 1); w.progress(61, 2, 1); flush(); at(47.6, 45.1)
+		emit(cands())
+	"#,
+	);
+	assert_eq!(out[0][0], "2:1:work:2 3:1:work:2", "the vermin and the campfire; neither 7's complete nor the escort");
+	assert_eq!(out[0][1], "3:1 Complete “The Great Outdoors”: /sit by her campfire until you get Boosted Rest 0");
+	assert_eq!(out[1], "2:1:work:2", "done: no row");
+}

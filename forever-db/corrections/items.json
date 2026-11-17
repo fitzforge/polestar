@@ -219,6 +219,57 @@
 		},
 		"note": "Red Firework: off the lists of its world-event vendors (15011, 15012), who have no spawn in Forever's world (npcs.json corrections, #1735)."
 	},
+	"11315": {
+		"removeDrops": {
+			"npc": [
+				6498,
+				6499,
+				6500,
+				6501,
+				6502,
+				6503,
+				6505,
+				6506,
+				6507,
+				6508,
+				6509,
+				6510,
+				6511,
+				6512,
+				6513,
+				6514,
+				6516,
+				6517,
+				6518,
+				6519,
+				6527,
+				6551,
+				6552,
+				6553,
+				6556,
+				6557,
+				6559,
+				6560,
+				9162,
+				9163,
+				9164,
+				9165,
+				9166,
+				9167
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16): Bloodpetal Sprouts came from the Bloodpetal Sprout object (164958) 146 times for 21 people (18 established), and never from a creature"
+			},
+			{
+				"kind": "pfquest",
+				"ref": "units of item 11315: 34 Un'Goro creatures, each at 100"
+			}
+		],
+		"note": "Bloodpetal Sprouts are picked from the Bloodpetal Sprout plants in Un'Goro Crater. The merged data also had every Un'Goro creature dropping one every time, which would send an errand for them to the nearest dinosaur (#2686)."
+	},
 	"17194": {
 		"removeVendors": [
 			13420,

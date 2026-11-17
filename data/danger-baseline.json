@@ -1820,6 +1820,48 @@
 			"evidence": "route level 30.5; 9 spawns 32+; recordings (2026-11-11): done by 7 people at 26-33 (median 28), 0 people died within 60 yd, 3 abandoned"
 		},
 		{
+			"key": "forever/alliance/30-40/01-hillsbrad-foothills.guide|kill 303.1|over",
+			"guide": "forever/alliance/30-40/01-hillsbrad-foothills.guide",
+			"goal": "kill 303.1",
+			"kind": "over",
+			"title": "The Dark Iron War",
+			"level": 30.9,
+			"mobs": [
+				"Balgaras the Foul 34-34 x2"
+			],
+			"reason": "a group step (`when group 303`, #2587): only a player who chose the group way follows it, the solo route never sees it; every Dark Iron in the ruins is elite and the step's tip names Balgaras the Foul (34, elite), as Spark of Freedom's does on the same stop",
+			"evidence": "route level 30.9; Balgaras the Foul 34-34 x2; recordings (archive to 2026-11-17): The Dark Iron War taken by 82 people, 66 runs handed in, most at 26-31; 48 people died in the Dun Modr ruins at 23-35 (median 30)"
+		},
+		{
+			"key": "forever/alliance/30-40/01-hillsbrad-foothills.guide|kill 303.3|over",
+			"guide": "forever/alliance/30-40/01-hillsbrad-foothills.guide",
+			"goal": "kill 303.3",
+			"kind": "over",
+			"title": "The Dark Iron War",
+			"level": 30.9,
+			"mobs": [
+				"Balgaras the Foul 34-34 x2"
+			],
+			"reason": "a group step (`when group 303`, #2587): only a player who chose the group way follows it, the solo route never sees it; every Dark Iron in the ruins is elite and the step's tip names Balgaras the Foul (34, elite), as Spark of Freedom's does on the same stop",
+			"evidence": "route level 30.9; Balgaras the Foul 34-34 x2; recordings (archive to 2026-11-17): The Dark Iron War taken by 82 people, 66 runs handed in, most at 26-31; 48 people died in the Dun Modr ruins at 23-35 (median 30)"
+		},
+		{
+			"key": "forever/alliance/30-40/01-hillsbrad-foothills.guide|collect 88756.1|elite",
+			"guide": "forever/alliance/30-40/01-hillsbrad-foothills.guide",
+			"goal": "collect 88756.1",
+			"kind": "elite",
+			"title": "Direforge Hill",
+			"level": 30.9,
+			"mobs": [
+				"Dark Iron Saboteur 28-29 x3",
+				"Dark Iron Demolitionist 30-31 x2",
+				"Neru 32-32 x2",
+				"Dark Iron Tunneler 29-30 x3"
+			],
+			"reason": "a group step (`when group 88756`, #2587): only a player who chose the group way follows it, the solo route never sees it; the Stolen Explosives lie only in Direforge Hill's elite Dark Iron camp and the step says so; Neru appears only for the Goaz Stone (98310, a group quest)",
+			"evidence": "route level 30.9; Dark Iron Saboteur 28-29 x3, Dark Iron Demolitionist 30-31 x2, Neru 32-32 x2, Dark Iron Tunneler 29-30 x3; recordings (archive to 2026-11-17): Bring Back a Bang taken by 69 people, 50 runs handed in; all 103 explosive loots (34 people) at Wetlands 60-63,24-29"
+		},
+		{
 			"key": "forever/alliance/30-40/01-hillsbrad-foothills.guide|collect 98072.1|elite",
 			"guide": "forever/alliance/30-40/01-hillsbrad-foothills.guide",
 			"goal": "collect 98072.1",
