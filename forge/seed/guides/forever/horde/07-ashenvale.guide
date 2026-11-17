@@ -405,9 +405,9 @@ step Splithoof Hold
   collect 5869 quest 1197 @42.0,31.5  -- Cloven Hoof, from the Ancient Brazier
 
 step Dorn Plainstalker
-  tip Dorn Plainstalker stands on a mesa top east of the Galak camps. For the Test of Faith, walk off the end of the planks beside him: you land safely.
+  tip Dorn Plainstalker stands on a mesa top east of the Galak camps. Taking his Test of Faith puts you on a high cliff far to the west: follow the stone path to the end of the wooden planks and step off there, and you land safely. Jump from anywhere else and you fall to your death.
   accept 1149                         -- Dorn Plainstalker, below ground
-  complete 1149
+  complete 1149 @26.43,32.93 map 1441 era -- the end of the planks
   turnin 1149
   accept 1150                         -- Dorn Plainstalker: Grenka Bloodscreech, in the harpy den west of the post
   note Test of Endurance (Grenka Bloodscreech, 31) waits for the next Freewind visit, at about 30: keep it.

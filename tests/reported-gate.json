@@ -1378,6 +1378,9 @@
 		] },
 		"2575": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "#2575: Riverglades (Alliance): the Loose Soil goal says to loot the Farmers' Mementos from the Twilight Raiders first" }
+		] },
+		"2615": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2615: Thousand Needles (Horde): Test of Faith's leap points at the end of the planks" }
 		] }
 	},
 	"seedDrift": {

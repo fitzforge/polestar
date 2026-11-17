@@ -15580,3 +15580,14 @@ test('#2575: Riverglades (Alliance): the Loose Soil goal says to loot the Farmer
 	assert.match(goal.note || '', /Farmers' Mementos|\{item:266148\}/, goal.note);
 	assert.match(goal.note || '', /Twilight Raiders|\{npc:256952\}/, goal.note);
 });
+
+// #2615 (xstevan, 0.4.0, Horde Ashenvale & Thousand Needles): Test of Faith puts the player on a high cliff far west
+// of Dorn Plainstalker; the leap counts only from the end of the wooden planks there. The complete goal had no
+// point, so the arrow led back to Dorn, 1,250 yd away, and the player jumped from the wrong spot and died.
+test('#2615: Thousand Needles (Horde): Test of Faith\'s leap points at the end of the planks', { skip }, () => {
+	const list = goals('forever/horde/07-ashenvale.guide');
+	const { goal, step } = list[at(list, 'complete 1149', is('complete', 1149))];
+	assert.equal(goal.map, 1441);
+	assert.ok(Math.abs(goal.x - 26.43) < 0.2 && Math.abs(goal.y - 32.93) < 0.2, `the planks, not Dorn: ${goal.x},${goal.y}`);
+	assert.match(step.note || '', /end of the wooden planks/, 'the tip says where to step off');
+});

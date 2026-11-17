@@ -2498,6 +2498,30 @@
 				}
 			],
 			"issue": 1575
+		},
+		{
+			"id": "2615-needles-test-of-faith-planks",
+			"quest": 1149,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1441,
+				"x": 26.43,
+				"y": 32.93,
+				"frame": "era"
+			},
+			"note": "Test of Faith (1149): taking it from Dorn Plainstalker puts the player on a high cliff in western Thousand Needles, and the leap counts only from the end of the wooden planks there (the game's area trigger 246, the objective's point). The complete goal had no point, so the arrow led back to Dorn, 1,250 yd east, and a player jumped from the wrong spot and died.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2615 (xstevan, 0.4.0): /polestar where 1441 @26.43,31.23 right after taking the quest, 50 yd from the planks' trigger; the arrow pointed 1,248 yd away and the jump from there killed him"
+				},
+				{
+					"kind": "pfquest",
+					"ref": "quests.json 1149 objective: event 246 at map 1441 26.43,32.93 (era)"
+				}
+			],
+			"issue": 2615
 		}
 	]
 }
