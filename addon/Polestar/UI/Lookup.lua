@@ -628,6 +628,17 @@ local function sourceRow(i)
 	return r
 end
 
+-- The details' icon: an item's page shows the game's own tooltip for it on
+-- hover (W.ItemTip), and Shift-click links it in chat, Ctrl-click tries it
+-- on (W.ItemClick), as the Dungeons section's tiles do; other pages have none.
+local function wellEnter(self)
+	if self.psItem then W.ItemTip(self, self.psItem) else W.HideTooltip(self) end
+end
+
+local function wellClick(self, button)
+	if self.psItem and button == "LeftButton" then W.ItemClick(self.psItem) end
+end
+
 local function buildDetails()
 	local d = CreateFrame("Frame", nil, root)
 	details = d
@@ -651,6 +662,9 @@ local function buildDetails()
 	d.Well:SetSize(ICON, ICON)
 	d.Well:SetPoint("BOTTOMLEFT", d.Art, "BOTTOMLEFT", DPAD, 16)
 	d.Well:SetFrameLevel(d.Art.Over:GetFrameLevel() + 2)
+	d.Well:SetScript("OnEnter", wellEnter)
+	d.Well:SetScript("OnLeave", W.HideTooltip)
+	d.Well:SetScript("OnMouseUp", wellClick)
 	d.WellGround = d.Well:CreateTexture(nil, "BACKGROUND")
 	d.WellGround:SetTexture(Theme.Media("white"))
 	d.WellGround:SetAllPoints(d.Well)
@@ -887,6 +901,8 @@ local function emptyDetails(title, note)
 	local d = details
 	d.psArt = ZoneArt.Paint(d.Art, nil, nil, nil, 1)
 	for _, p in ipairs({ d.Well, d.Title, d.Sub, d.Status, d.Head, d.Scroll, d.Note, d.Primary, d.Secondary }) do p:Hide() end
+	d.Well.psItem = nil
+	W.HideTooltip(d.Well)
 	for _, f in ipairs(d.Facts) do
 		f.Label:Hide()
 		f.Value:Hide()
@@ -969,6 +985,12 @@ local function renderDetails(loaded, reason)
 		local ir, ig, ib = Theme.Color("ink")
 		Theme.Border(d.Well, ir, ig, ib, 0.18)
 	end
+	-- Only an item's icon takes the mouse, so the band still drags the window
+	-- from any other page's glyph; a tooltip already up follows the new page.
+	d.Well.psItem = KIND[s.kind] and KIND[s.kind].item and type(s.id) == "number" and s.id or nil
+	d.Well:EnableMouse(d.Well.psItem ~= nil)
+	-- (Through GetScript: this function is at Lua 5.1's 60 upvalues.)
+	if GameTooltip and GameTooltip.GetOwner and GameTooltip:GetOwner() == d.Well then d.Well:GetScript("OnEnter")(d.Well) end
 	d.Well:Show()
 	d.Title:SetText(title .. questMark(s))
 	paintName(d.Title, s.kind, quality)
