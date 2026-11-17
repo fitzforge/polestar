@@ -13500,7 +13500,7 @@ do
 					note = "{npc:5955} waits in the valley. Walk him all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too.",
 					goals = {
 						{ t = "accept", quest = 1560, title = "Tooga's Quest", npc = 5955, npcName = "Tooga", minLevel = 40, qlvl = 50, limit = 1800, map = 1446, x = 30, y = 65, f = "e", spotsPacked = "30,65,,15,1;29.5,60.5,,15,1;30,70,,15,1;31.8,74.2,9,15,1", escort = true },
-						{ t = "complete", quest = 1560, title = "Tooga's Quest", map = 1446, x = 66.58, y = 25.67, f = "e", escort = true, objs = { { text = "Torta", count = 1 } } },
+						{ t = "complete", quest = 1560, title = "Tooga's Quest", map = 1446, x = 66.58, y = 25.67, f = "e", escort = true, objs = { { text = "Lead Tooga to Torta", count = 1 } } },
 					},
 				},
 				{
