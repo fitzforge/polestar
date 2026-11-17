@@ -162,8 +162,10 @@ below.
   route: a later route refresh keeps every fix they document (Forge starts
   each route from the guides' own order and keeps their deliberate orders:
   [docs/forge/routes.md](docs/forge/routes.md)).
-- A fix for a player's report gets a case in `tests/guides-reported.test.js`
-  (or `tests/guides-caves.test.js` for a cave mouth) that checks what the
+- A fix for a player's report gets a case in the file of its guide's area
+  under `tests/reported/` (for example `tests/reported/alliance-10-30.test.js`
+  for Westfall; `tests/reported/helpers.js` lists the areas), or in
+  `tests/guides-caves.test.js` for a cave mouth, that checks what the
   player sees, the goal order or where the arrow leads, not the guide's
   wording, so a refresh that undoes it fails the suite. A quest item that
   vanishes after a while is checked by lint itself (`item ... lasts ...`).
@@ -183,7 +185,7 @@ below.
   ```sh
   forge guide lint                        # every compile check, writes nothing
   node tools/polestar.js playtest --filter westfall  # play the matching guides to the end for every class
-  node --test tests/guides-reported.test.js          # or tests/guides-caves.test.js for a cave mouth
+  node --test tests/reported/alliance-10-30.test.js  # the file of the guide's area; tests/guides-caves.test.js for a cave mouth
   ```
 
   `--filter` plays only the guides whose file or id contains its text;
@@ -240,7 +242,7 @@ else broke ([docs/CI.md](docs/CI.md#lanes), "Lanes").
 
 | What you changed | What you run |
 |---|---|
-| A guide step (`.guide` file, existing guide) | `forge guide lint` and `playtest --filter <guide>` (need reference data; say so in the PR if unavailable); for a fix to a reported bug, also `node --test tests/guides-reported.test.js` (or `tests/guides-caves.test.js` for a cave mouth) |
+| A guide step (`.guide` file, existing guide) | `forge guide lint` and `playtest --filter <guide>` (need reference data; say so in the PR if unavailable); for a fix to a reported bug, also `node --test tests/reported/<area>.test.js` for the guide's area (or `tests/guides-caves.test.js` for a cave mouth) |
 | A new or renamed guide file | The same lint and playtest; note in the PR that `Guides.lua` needs recompiling — the maintainer does it after merge |
 | The addon's Lua (`addon/Polestar/`) | The test file(s) for the area you changed: `node --test tests/<area>.test.js`. Find it with `grep -rl <module-name> tests/*.test.js`; for example, a change to `Theme/` → `node --test tests/theme.test.js`. For a UI change, optionally run `node tools/polestar.js preview` to review the renders |
 | A tool or its library (`tools/`) | That tool's tests: `node --test "tests/<tool>*.test.js"` (e.g. `node --test tests/compile.test.js`) |

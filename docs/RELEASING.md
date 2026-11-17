@@ -316,7 +316,7 @@ version throughout.
 
    Then the reported-problems gate: every player-reported problem that was
    fixed stays fixed. It runs the tests `tests/reported-gate.json` names for
-   each confirmed report, the whole of `tests/guides-reported.test.js`, the
+   each confirmed report, every file of `tests/reported/`, the
    judge's player-report seeds on the shipped guides and the danger gate
    (`tools/danger-gate.js`) on the candidate's calibrated level model, and
    names the reports whose tests fail:

@@ -1,5 +1,5 @@
 {
-	"about": "The reported-problems gate (npm run test:reported, tools/reported-gate.js): every player-reported problem that was fixed (closed, or labelled fix-merged, with the confirmed label) and the tests that fail if it comes back. The gate runs these tests with the whole of tests/guides-reported.test.js, the judge's player-report seeds (forge judge seed-tests) and the danger-at-the-spot gate (#1575). A fix for a report adds its issue here with the test that pins it; a report with nothing left to check says why (uncheckable). tests/reported-gate.test.js checks that every test named here exists. seedDrift: the judge's seeds that still assert an earlier form of a guides-reported case that has changed since and passes; the gate lists them and fails only on other seeds, until each is brought up to its case.",
+	"about": "The reported-problems gate (npm run test:reported, tools/reported-gate.js): every player-reported problem that was fixed (closed, or labelled fix-merged, with the confirmed label) and the tests that fail if it comes back. The gate runs these tests with every file of tests/reported/ (the player-reported guide cases), the judge's player-report seeds (forge judge seed-tests) and the danger-at-the-spot gate (#1575). A fix for a report adds its issue here with the test that pins it; a report with nothing left to check says why (uncheckable). tests/reported-gate.test.js checks that every test named here exists. seedDrift: the judge's seeds that still assert an earlier form of a guides-reported case that has changed since and passes; the gate lists them and fails only on other seeds, until each is brought up to its case.",
 	"issues": {
 		"108": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/automation.rs", "test": "t_108_a_direct_turn_in_is_taken_from_the_quests_the_giver_offers_and_finished_in_the_progress_window" },
@@ -10,45 +10,45 @@
 			{ "node": "tests/profession.test.js", "test": "no profession guide crafts a recipe past its grey threshold (issue #109)" }
 		] },
 		"112": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Forever follow-ups are taken only once the quests before them are handed in" },
-			{ "node": "tests/guides-reported.test.js", "test": "every leveling path hands in each accept's prerequisites before the accept, for every start, race and class" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "Forever follow-ups are taken only once the quests before them are handed in" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "every leveling path hands in each accept's prerequisites before the accept, for every start, race and class" }
 		] },
 		"120": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${TIRISFAL}: an3vilmonk3y's report (#345) and Onrevax's (#120): A Light in the Darkness is taken from Aramis once The Damned is handed in, for every class, and not at Sarvis" },
+			{ "node": "tests/reported/horde-starts.test.js", "test": "${TIRISFAL}: an3vilmonk3y's report (#345) and Onrevax's (#120): A Light in the Darkness is taken from Aramis once The Damned is handed in, for every class, and not at Sarvis" },
 			{ "seed": "{TIRISFAL}: an3vilmonk3y's report (#345) and Onrevax's (#120): A Light in the Darkness is taken from Aramis once The Damned is handed in, for every class, and not at Sarvis" }
 		] },
 		"126": { "tests": [
 			{ "cargo": "forge-guide", "target": "guide", "file": "rust/crates/forge-guide/tests/guide/dsl_resolve.rs", "test": "a_collect_that_normal_mobs_drop_leads_to_them_not_into_the_camp_of_elites_that_drop_it_too" },
-			{ "node": "tests/guides-reported.test.js", "test": "Forever follow-ups are taken only once the quests before them are handed in" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "Forever follow-ups are taken only once the quests before them are handed in" }
 		] },
 		"127": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-unavailable.rs", "test": "t_127_a_quest_the_giver_s_window_lists_as_active_is_taken_not_refused_before_the_log_has_it_accepting_clears_the_notice" }
 		] },
 		"128": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Forever follow-ups are taken only once the quests before them are handed in" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "Forever follow-ups are taken only once the quests before them are handed in" }
 		] },
 		"132": { "tests": [
 			{ "cargo": "forge-i18n", "target": "i18n", "file": "rust/crates/forge-i18n/tests/i18n/leaks.rs", "test": "every_scene_runs_to_the_end_and_every_word_on_screen_is_in_the_clients_language" },
 			{ "cargo": "forge-data", "target": "data", "file": "rust/crates/forge-data/tests/data/names.rs", "test": "the_ids_kept_are_the_ones_the_guides_the_quest_database_and_the_codex_name" }
 		] },
 		"140": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "every step with a quest objective to do has a goal the arrow can lead to" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "every step with a quest objective to do has a goal the arrow can lead to" },
 			{ "seed": "every step with a quest objective to do has a goal the arrow can lead to" }
 		] },
 		"143": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Forever follow-ups are taken only once the quests before them are handed in" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "Forever follow-ups are taken only once the quests before them are handed in" },
 			{ "node": "tests/data-corrections.test.js", "test": "The State of the Mines waits for both Testing the Wells and Murloc Gills" }
 		] },
 		"144": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${WESTFALL}: Alba Fairmoon's chain is given to Humans too (#144 lifted by players' recordings)" },
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "${WESTFALL}: Alba Fairmoon's chain is given to Humans too (#144 lifted by players' recordings)" },
 			{ "seed": "{WESTFALL}: Alba Fairmoon's chain is given to Humans too (#144 lifted by players' recordings)" }
 		] },
 		"148": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Forever follow-ups are taken only once the quests before them are handed in" },
-			{ "node": "tests/guides-reported.test.js", "test": "every leveling path hands in each accept's prerequisites before the accept, for every start, race and class" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "Forever follow-ups are taken only once the quests before them are handed in" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "every leveling path hands in each accept's prerequisites before the accept, for every start, race and class" }
 		] },
 		"161": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Rupert's and Wyatt R's reports: no guide sends you to Dalar Dawnweaver or the refugees for Stop the Spread (#229, #161)" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "Rupert's and Wyatt R's reports: no guide sends you to Dalar Dawnweaver or the refugees for Stop the Spread (#229, #161)" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-manual.rs", "test": "a_quest_its_giver_did_not_list_is_never_skipped_nor_kept_across_a_reload_161_741" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-unavailable.rs", "test": "t_161_in_a_step_the_guide_has_moved_past_a_level_up_or_a_turn_in_brings_back_what_the_data_says_has_opened_level_prerequisite" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-unavailable.rs", "test": "t_161_a_level_up_or_a_turn_in_clears_the_marks_of_the_step_at_hand_so_its_giver_is_asked_again" },
@@ -59,7 +59,7 @@
 			{ "seed": "#171: every hearth is to an inn the guide binds at first" }
 		] },
 		"175": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Phear's report: a kill or collect leads to the camp that holds its mobs, not a stray one or two far from it" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "Phear's report: a kill or collect leads to the camp that holds its mobs, not a stray one or two far from it" }
 		] },
 		"177": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-l10n.rs", "test": "t_177_walking_into_the_cave_a_goto_names_arrives_there_by_area_id_on_a_french_client_too_a_goto_naming_the_zone_does_not" },
@@ -75,32 +75,32 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/gamepad-ui.rs", "test": "with_the_gamepad_interface_polestar_keeps_to_its_own_windows_and_its_minimap_button_is_the_way_in" }
 		] },
 		"190": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#190, #297, #1958, #1808: profession guides craft and learn what Forever's trainers teach" }
+			{ "node": "tests/reported/other-guides.test.js", "test": "#190, #297, #1958, #1808: profession guides craft and learn what Forever's trainers teach" }
 		] },
 		"195": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "zone_danger_195_tirisfal_to_the_spring_well_at_level_20_as_horde_walks_no_yard_of_western_plaguelands" }
 		] },
 		"213": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${DARKSHORE}: XooVe's report: the Beached Sea Creature by Bashal'Aran is taken on the walk from Asterion to Buzzbox 411 (#213)" },
-			{ "node": "tests/guides-reported.test.js", "test": "#213: quests whose giver the route already stands at are taken there, not on a walk back" },
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "${DARKSHORE}: XooVe's report: the Beached Sea Creature by Bashal'Aran is taken on the walk from Asterion to Buzzbox 411 (#213)" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "#213: quests whose giver the route already stands at are taken there, not on a walk back" },
 			{ "seed": "{DARKSHORE}: XooVe's report: the Beached Sea Creature by Bashal'Aran is taken on the walk from Asterion to Buzzbox 411 (#213)" },
 			{ "seed": "#213: quests whose giver the route already stands at are taken there, not on a walk back" }
 		] },
 		"221": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: Syfin's report (#221): Croaky's Head is an optional extra; Ridgepoint Tower holds and leads the arrow only with the head" }
+			{ "node": "tests/reported/alliance-starts.test.js", "test": "${ELWYNN}: Syfin's report (#221): Croaky's Head is an optional extra; Ridgepoint Tower holds and leads the arrow only with the head" }
 		] },
 		"223": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine.rs", "test": "an_objective_goal_reads_the_quest_log_line_named_after_its_target_not_the_position_it_was_compiled_with_223_279_335" }
 		] },
 		"225": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${HILLSBRAD_ALLIANCE}: Lou-Saydus's report: Nek'rosh's Gambit, taken after From the Ashes in ${WETLANDS}, is handed in on the Wetlands loop (#225)" },
+			{ "node": "tests/reported/alliance-routes.test.js", "test": "${HILLSBRAD_ALLIANCE}: Lou-Saydus's report: Nek'rosh's Gambit, taken after From the Ashes in ${WETLANDS}, is handed in on the Wetlands loop (#225)" },
 			{ "seed": "{HILLSBRAD_ALLIANCE}: Lou-Saydus's report: Nek'rosh's Gambit, taken after From the Ashes in {WETLANDS}, is handed in on the Wetlands loop (#225)" }
 		] },
 		"227": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Walking givers (#227): every step at Moon Priestess Amara or Private Thorsen says they move along their road" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "Walking givers (#227): every step at Moon Priestess Amara or Private Thorsen says they move along their road" }
 		] },
 		"229": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Rupert's and Wyatt R's reports: no guide sends you to Dalar Dawnweaver or the refugees for Stop the Spread (#229, #161)" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "Rupert's and Wyatt R's reports: no guide sends you to Dalar Dawnweaver or the refugees for Stop the Spread (#229, #161)" },
 			{ "seed": "Rupert's and Wyatt R's reports: no guide sends you to Dalar Dawnweaver or the refugees for Stop the Spread (#229, #161)" }
 		] },
 		"234": { "tests": [
@@ -130,7 +130,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-crossings.rs", "test": "the_barrens_to_ashenvale_road_plans_made_between_the_crossing_s_ends_keep_heading_north_237" }
 		] },
 		"240": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${DUROTAR}: Gruko's report (#240): Thazz'ril's Pick and Yarrog are done on one trip into the Burning Blade Coven, for every class" },
+			{ "node": "tests/reported/horde-starts.test.js", "test": "${DUROTAR}: Gruko's report (#240): Thazz'ril's Pick and Yarrog are done on one trip into the Burning Blade Coven, for every class" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine.rs", "test": "a_goto_that_leads_into_the_next_step_is_done_once_that_step_s_quest_work_is_so_work_done_ahead_never_sends_the_player_back_to_the_cave_mouth_240" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine.rs", "test": "a_goto_ahead_of_a_step_done_only_through_class_quests_a_skipped_step_or_unavailable_quests_still_holds_240" }
 		] },
@@ -138,19 +138,19 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/qol.rs", "test": "death_a_ghost_in_the_next_zone_is_led_to_the_corpse_on_its_own_zone_map_not_off_the_edge_of_theirs_270" }
 		] },
 		"273": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "forever/horde/02-the-barrens.guide: Fitz's report (#273): the Savannah Lion Hide arrow stays in the Dry Hills with the traps, never by Ratchet" },
+			{ "node": "tests/reported/horde-10-30.test.js", "test": "forever/horde/02-the-barrens.guide: Fitz's report (#273): the Savannah Lion Hide arrow stays in the Dry Hills with the traps, never by Ratchet" },
 			{ "seed": "forever/horde/04-the-barrens.guide: Fitz's report (#273): the Savannah Lion Hide arrow stays in the Dry Hills with the traps, never by Ratchet" }
 		] },
 		"278": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "forever/horde/05-stonetalon-mountains.guide: Hotline's report (#278): the Bundle of Reports is opened at Kadrak, before the Warsong Scout" }
+			{ "node": "tests/reported/horde-10-30.test.js", "test": "forever/horde/05-stonetalon-mountains.guide: Hotline's report (#278): the Bundle of Reports is opened at Kadrak, before the Warsong Scout" }
 		] },
 		"279": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: Bashidian Twotao's report (#279): the bait ingredients count their own objectives" },
+			{ "node": "tests/reported/alliance-starts.test.js", "test": "${ELWYNN}: Bashidian Twotao's report (#279): the bait ingredients count their own objectives" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine.rs", "test": "an_objective_goal_reads_the_quest_log_line_named_after_its_target_not_the_position_it_was_compiled_with_223_279_335" },
 			{ "seed": "forever/alliance/human/01-elwynn-forest.guide: Bashidian Twotao's report (#279): the bait ingredients count their own objectives" }
 		] },
 		"280": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${LOCH_MODAN}: Avtom's report (#280): Iron Pike and Iron Rivet lead to the gnolls that drop them, not to the rare Ribchaser's camp among the Mongrels" },
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "${LOCH_MODAN}: Avtom's report (#280): Iron Pike and Iron Rivet lead to the gnolls that drop them, not to the rare Ribchaser's camp among the Mongrels" },
 			{ "seed": "forever/alliance/03-loch-modan.guide: Avtom's report (#280): Iron Pike and Iron Rivet lead to the gnolls that drop them, not to the rare Ribchaser's camp among the Mongrels" }
 		] },
 		"281": { "tests": [
@@ -160,25 +160,25 @@
 		] },
 		"283": {"uncheckable": "never reproduced: the walk to the lake measured 102 yd against 101 in a straight line on 0.2.5 and later; closed with the 0.3.3 walking maps, no change to pin"},
 		"285": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "𝔄𝔫𝔫𝔦𝔢's report (#285): on Zephras Isle, every objective of a quest is sent for before its turn-in; the Enchanted Gyrozephyr at its spawns" },
+			{ "node": "tests/reported/start-zones.test.js", "test": "𝔄𝔫𝔫𝔦𝔢's report (#285): on Zephras Isle, every objective of a quest is sent for before its turn-in; the Enchanted Gyrozephyr at its spawns" },
 			{ "seed": "𝔄𝔫𝔫𝔦𝔢's report (#285): on Zephras Isle, every objective of a quest is sent for before its turn-in; the Enchanted Gyrozephyr at its spawns" }
 		] },
 		"286": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#286: a typed coordinate is near its target's spawns in its own map frame, not only in the other one" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "#286: a typed coordinate is near its target's spawns in its own map frame, not only in the other one" },
 			{ "seed": "#286: a typed coordinate is near its target's spawns in its own map frame, not only in the other one" }
 		] },
 		"289": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#289: a quest item picked up from objects is collected at one of the objects' spawns" },
+			{ "node": "tests/reported/other-guides.test.js", "test": "#289: a quest item picked up from objects is collected at one of the objects' spawns" },
 			{ "seed": "#289: a quest item picked up from objects is collected at one of the objects' spawns" }
 		] },
 		"296": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/theme.rs", "test": "fonts_keep_skin_and_user_choices_with_client_fonts_for_cjk_and_fira_for_russian_game_skins" }
 		] },
 		"297": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#190, #297, #1958, #1808: profession guides craft and learn what Forever's trainers teach" }
+			{ "node": "tests/reported/other-guides.test.js", "test": "#190, #297, #1958, #1808: profession guides craft and learn what Forever's trainers teach" }
 		] },
 		"298": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${WESTFALL}: Smuve's report (#298): the Molsen Farm step does not wait for the Precessive Autocognition Assembly" },
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "${WESTFALL}: Smuve's report (#298): the Molsen Farm step does not wait for the Precessive Autocognition Assembly" },
 			{ "seed": "Smuve's report (#298): the Molsen Farm step does not wait for the Precessive Autocognition Assembly" }
 		] },
 		"299": { "tests": [
@@ -187,7 +187,7 @@
 			{ "node": "tests/dsl-forever-maps.test.js", "test": "route geometry measures a Forever-only map in its Forever frame, author points included" }
 		] },
 		"302": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${DARKSHORE}: XooVe's report (#302): The Blackwood Corrupted fills the bowl and gathers the three samples before the Talisman, and uses the bowl where Xabraxxis comes" },
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "${DARKSHORE}: XooVe's report (#302): The Blackwood Corrupted fills the bowl and gathers the three samples before the Talisman, and uses the bowl where Xabraxxis comes" },
 			{ "seed": "forever/alliance/03-darkshore.guide: XooVe's report (#302): The Blackwood Corrupted fills the bowl and gathers the three samples before the Talisman, never uses the empty bowl after the filled one is collected, and uses the bowl where Xabraxxis comes" }
 		] },
 		"306": { "tests": [
@@ -198,7 +198,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine.rs", "test": "the_collect_of_a_quest_s_starting_item_is_done_once_the_quest_is_taken_though_the_item_is_gone" }
 		] },
 		"310": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: Zepheriel's report (#310): Skirmish at Echo Ridge is taken from McBride before Brother Paxton, with nobody between" },
+			{ "node": "tests/reported/alliance-starts.test.js", "test": "${ELWYNN}: Zepheriel's report (#310): Skirmish at Echo Ridge is taken from McBride before Brother Paxton, with nobody between" },
 			{ "seed": "forever/alliance/human/01-elwynn-forest.guide: Zepheriel's report (#310): Skirmish at Echo Ridge is taken from McBride before Brother Paxton, with nobody between" }
 		] },
 		"312": { "tests": [
@@ -211,30 +211,30 @@
 			{ "node": "tests/profession.test.js", "test": "draft: a limited-stock vendor recipe that binds when picked up is not sent to the Auction House (#315)" }
 		] },
 		"327": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${TELDRASSIL}: Pynte's report (#327): the Timberling Seed arrow stays round Denalan with the Timberlings, not with the Elder Timberlings in the north" },
-			{ "node": "tests/guides-reported.test.js", "test": "#327: Pirate Hats Ahoy! names every pirate that drops the hat, not the Southsea Kidnapper alone, in both guides" },
+			{ "node": "tests/reported/alliance-starts.test.js", "test": "${TELDRASSIL}: Pynte's report (#327): the Timberling Seed arrow stays round Denalan with the Timberlings, not with the Elder Timberlings in the north" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "#327: Pirate Hats Ahoy! names every pirate that drops the hat, not the Southsea Kidnapper alone, in both guides" },
 			{ "seed": "{TELDRASSIL}: Pynte's report (#327): the Timberling Seed arrow stays round Denalan with the Timberlings, not with the Elder Timberlings in the north" },
 			{ "seed": "#327: Pirate Hats Ahoy! names every pirate that drops the hat, not the Southsea Kidnapper alone, in both guides" }
 		] },
 		"328": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Pynte (#328): both mouths where the walk in reaches the cave's floor" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "Pynte (#328): both mouths where the walk in reaches the cave's floor" }
 		] },
 		"334": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${TELDRASSIL}: Pynte's report: Escaping Ban'ethil is taken after the relics and The Sleeping Druid's chain (#334)" },
+			{ "node": "tests/reported/alliance-starts.test.js", "test": "${TELDRASSIL}: Pynte's report: Escaping Ban'ethil is taken after the relics and The Sleeping Druid's chain (#334)" },
 			{ "seed": "{TELDRASSIL}: Pynte's report: Escaping Ban'ethil is taken after the relics and The Sleeping Druid's chain (#334)" }
 		] },
 		"338": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-reported.rs", "test": "stormwind_the_walk_to_the_deeprun_tram_ends_at_its_entrance_not_on_the_roof_above_it_338" }
 		] },
 		"340": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${REDRIDGE}: Tazul's report (#340): the Battleworn Axes lead to the Blackrock camps east of Stonewatch Keep, not to Alther's Mill" }
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "${REDRIDGE}: Tazul's report (#340): the Battleworn Axes lead to the Blackrock camps east of Stonewatch Keep, not to Alther's Mill" }
 		] },
 		"341": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/route-plan.rs", "test": "a_questie_update_dropped_by_its_0_1_s_throttle_is_retried_once_not_polled_and_waits_out_combat_341" }
 		] },
 		"345": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${TIRISFAL}: an3vilmonk3y's report (#345): the class letter is taken at Sarvis with Rattling the Rattlecages, and a Warlock's skulls are collected in the Rattlecage step" },
-			{ "node": "tests/guides-reported.test.js", "test": "${TIRISFAL}: an3vilmonk3y's report (#345) and Onrevax's (#120): A Light in the Darkness is taken from Aramis once The Damned is handed in, for every class, and not at Sarvis" },
+			{ "node": "tests/reported/horde-starts.test.js", "test": "${TIRISFAL}: an3vilmonk3y's report (#345): the class letter is taken at Sarvis with Rattling the Rattlecages, and a Warlock's skulls are collected in the Rattlecage step" },
+			{ "node": "tests/reported/horde-starts.test.js", "test": "${TIRISFAL}: an3vilmonk3y's report (#345) and Onrevax's (#120): A Light in the Darkness is taken from Aramis once The Damned is handed in, for every class, and not at Sarvis" },
 			{ "seed": "{TIRISFAL}: an3vilmonk3y's report (#345): the class letter is taken at Sarvis with Rattling the Rattlecages, and a Warlock's skulls are collected in the Rattlecage step" },
 			{ "seed": "{TIRISFAL}: an3vilmonk3y's report (#345) and Onrevax's (#120): A Light in the Darkness is taken from Aramis once The Damned is handed in, for every class, and not at Sarvis" }
 		] },
@@ -249,11 +249,11 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-reported.rs", "test": "undercity_the_walk_from_the_apothecarium_to_varimathras_stays_in_the_city_420" }
 		] },
 		"351": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${DUROTAR}: tor's report (#351): Encroachment is taken after the Tiragarde Keep and Sen'jin, Echo Isles and Kolkar Crag turn-ins" },
+			{ "node": "tests/reported/horde-starts.test.js", "test": "${DUROTAR}: tor's report (#351): Encroachment is taken after the Tiragarde Keep and Sen'jin, Echo Isles and Kolkar Crag turn-ins" },
 			{ "seed": "{DUROTAR}: tor's report (#351): Encroachment is taken after the Tiragarde Keep and Sen'jin, Echo Isles and Kolkar Crag turn-ins" }
 		] },
 		"352": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${DUROTAR}: tor's report: Securing the Lines is taken after the Sen'jin, Echo Isles and Kolkar Crag turn-ins, on Fizzle Darkstorm's visit" }
+			{ "node": "tests/reported/horde-starts.test.js", "test": "${DUROTAR}: tor's report: Securing the Lines is taken after the Sen'jin, Echo Isles and Kolkar Crag turn-ins, on Fizzle Darkstorm's visit" }
 		] },
 		"353": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/theme.rs", "test": "fonts_a_chinese_or_korean_name_takes_the_client_s_font_for_its_script_and_back_when_the_text_changes_353" }
@@ -265,7 +265,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/qol.rs", "test": "target_button_a_collect_names_the_mobs_the_arrow_leads_to_first_356_then_the_item_s_droppers" }
 		] },
 		"357": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${DUROTAR}: defect's report (#357): with The Admiral's Orders taken, Tiragarde Keep waits for neither Benedict's Key nor the Aged Envelope" },
+			{ "node": "tests/reported/horde-starts.test.js", "test": "${DUROTAR}: defect's report (#357): with The Admiral's Orders taken, Tiragarde Keep waits for neither Benedict's Key nor the Aged Envelope" },
 			{ "seed": "{DUROTAR}: defect's report (#357): with The Admiral's Orders taken, Tiragarde Keep waits for neither Benedict's Key nor the Aged Envelope" }
 		] },
 		"362": { "tests": [
@@ -275,15 +275,15 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine.rs", "test": "a_flight_that_lands_while_the_player_looks_ahead_at_another_step_still_counts_for_its_own_step_362" }
 		] },
 		"363": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Alx-Ryan's report (#363): on Zephras Isle, the watchtower quests come before Rorian, who takes Harmony in Balance and Falling With Style on one visit" },
+			{ "node": "tests/reported/start-zones.test.js", "test": "Alx-Ryan's report (#363): on Zephras Isle, the watchtower quests come before Rorian, who takes Harmony in Balance and Falling With Style on one visit" },
 			{ "seed": "Alx-Ryan's report (#363): on Zephras Isle, the watchtower quests come before Rorian, who takes Harmony in Balance and Falling With Style on one visit" }
 		] },
 		"364": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-transit.rs", "test": "c9_an_untimed_average_wait_is_not_worded_as_a_countdown_since_it_stays_the_same_as_time_passes_364" }
 		] },
 		"365": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${TIRISFAL}: Onrevax's report (#365): the Coarse Thread for The Chill of Death is asked for again at the turn-in, from Abigail Shiel" },
-			{ "node": "tests/guides-reported.test.js", "test": "${guide}: the same pattern as #365, ${what}: asked for again on the step that hands in ${quest}" },
+			{ "node": "tests/reported/horde-starts.test.js", "test": "${TIRISFAL}: Onrevax's report (#365): the Coarse Thread for The Chill of Death is asked for again at the turn-in, from Abigail Shiel" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "${guide}: the same pattern as #365, ${what}: asked for again on the step that hands in ${quest}" },
 			{ "seed": "{TIRISFAL}: Onrevax's report (#365): the Coarse Thread for The Chill of Death is asked for again at the turn-in, from Abigail Shiel" }
 		] },
 		"366": { "tests": [
@@ -308,7 +308,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/codex.rs", "test": "mergecodex_a_guard_recorded_on_a_city_map_and_on_the_zone_that_holds_it_is_placed_in_the_city_382" }
 		] },
 		"385": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Bashidian Twotao's report (#385): a quest drop from droppers of several level bands leads to the low ones' camp, not over the whole zone" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "Bashidian Twotao's report (#385): a quest drop from droppers of several level bands leads to the low ones' camp, not over the whole zone" },
 			{ "seed": "Bashidian Twotao's report (#385): a quest drop from droppers of several level bands leads to the low ones' camp, not over the whole zone" },
 			{ "cargo": "forge-guide", "target": "guide", "file": "rust/crates/forge-guide/tests/guide/recorded_areas.rs", "test": "an_author_s_point_in_a_camp_near_a_spawn_a_well_backed_spot_holds_stays_the_place_385" }
 		] },
@@ -316,7 +316,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/qol.rs", "test": "death_resurrection_sickness_is_forever_s_ten_minutes_from_level_11_or_what_the_game_last_gave_at_that_level_390" }
 		] },
 		"391": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Tazul's report: Elemental Bracers counts the five bracers before the Divined Scroll" },
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "Tazul's report: Elemental Bracers counts the five bracers before the Divined Scroll" },
 			{ "seed": "Tazul's report: Elemental Bracers counts the five bracers before the Divined Scroll" }
 		] },
 		"392": { "tests": [
@@ -327,7 +327,7 @@
 			{ "node": "tests/data-corrections.test.js", "test": "corrections give dungeon quests their Forever XP over the Classic QuestXP (#394)" }
 		] },
 		"395": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Phear's report (#395): on Zephras Isle, The Wounds of Betrayal and Standing Our Ground lead to each objective, in both guides" },
+			{ "node": "tests/reported/start-zones.test.js", "test": "Phear's report (#395): on Zephras Isle, The Wounds of Betrayal and Standing Our Ground lead to each objective, in both guides" },
 			{ "seed": "Phear's report (#395): on Zephras Isle, The Wounds of Betrayal and Standing Our Ground lead to each objective, in both guides" }
 		] },
 		"398": { "tests": [
@@ -337,25 +337,25 @@
 			{ "cargo": "forge-guide", "target": "guide", "file": "rust/crates/forge-guide/tests/guide/dsl_place_ids.rs", "test": "a_getfp_naming_no_npc_gets_its_taxi_nodes_flight_master_and_position_for_the_factions_its_races_can_be_an_explicit_npc_wins" }
 		] },
 		"402": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${TELDRASSIL}: Pynte's report: Flight to Auberdine is flown with Vesprystus, not the boat, and Return to Nessa is handed in (#402, #403)" },
+			{ "node": "tests/reported/alliance-starts.test.js", "test": "${TELDRASSIL}: Pynte's report: Flight to Auberdine is flown with Vesprystus, not the boat, and Return to Nessa is handed in (#402, #403)" },
 			{ "seed": "{TELDRASSIL}: Pynte's report: Flight to Auberdine is flown with Vesprystus, not the boat, and Return to Nessa is handed in (#402, #403)" }
 		] },
 		"404": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Pynte's report (#404): guides played below riding level never tell you to ride somewhere" }
+			{ "node": "tests/reported/other-guides.test.js", "test": "Pynte's report (#404): guides played below riding level never tell you to ride somewhere" }
 		] },
 		"406": { "tests": [
 			{ "cargo": "forge-guide", "target": "guide", "file": "rust/crates/forge-guide/tests/guide/dsl_place_ids.rs", "test": "a_getfp_naming_no_npc_gets_its_taxi_nodes_flight_master_and_position_for_the_factions_its_races_can_be_an_explicit_npc_wins" }
 		] },
 		"408": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Hotline's report: a Paladin heals the Injured Deathguard before turning in Rediscovering the Light" },
+			{ "node": "tests/reported/horde-starts.test.js", "test": "Hotline's report: a Paladin heals the Injured Deathguard before turning in Rediscovering the Light" },
 			{ "seed": "Hotline's report: a Paladin heals the Injured Deathguard before turning in Rediscovering the Light" }
 		] },
 		"412": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "forever/class/warlock/incubus-horde.guide: Phyz's report (#412): Avelina's and Isaac's hearts each read their own line of Hearts of the Lovers" },
+			{ "node": "tests/reported/class.test.js", "test": "forever/class/warlock/incubus-horde.guide: Phyz's report (#412): Avelina's and Isaac's hearts each read their own line of Hearts of the Lovers" },
 			{ "seed": "forever/class/warlock/incubus-horde.guide: Phyz's report (#412): Avelina's and Isaac's hearts each read their own line of Hearts of the Lovers" }
 		] },
 		"416": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${WESTFALL}: Pynte's report (#416): the farm quests and Report to Gryan Stoutmantle are taken on the road in, before Sentinel Hill" }
+			{ "node": "tests/reported/alliance-routes.test.js", "test": "${WESTFALL}: Pynte's report (#416): the farm quests and Report to Gryan Stoutmantle are taken on the road in, before Sentinel Hill" }
 		] },
 		"420": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-reported.rs", "test": "undercity_the_walk_from_the_apothecarium_to_varimathras_stays_in_the_city_420" }
@@ -364,13 +364,13 @@
 			{ "node": "tests/travel-crossings.test.js", "test": "shipped crossings: Elwynn Forest to Duskwood walks over their border, not through Redridge (#421)" }
 		] },
 		"453": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Nittepitte's report (#453): Making Do is optional in Redridge and on the way back through Auberdine, and taken only after Expanding Horizons is handed in" }
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "Nittepitte's report (#453): Making Do is optional in Redridge and on the way back through Auberdine, and taken only after Expanding Horizons is handed in" }
 		] },
 		"462": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "MgM's report: the corrections leave Nalpak and Verna Furlbrow as the only givers, not the mailboxes (#462)" }
 		] },
 		"504": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Trouble in the Valley (#504): the step at Corporal Adamore's camp says his marines come together" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "Trouble in the Valley (#504): the step at Corporal Adamore's camp says his marines come together" }
 		] },
 		"515": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/lookup-guides.rs", "test": "an_event_objective_explore_report_is_placed_where_the_data_puts_it_not_at_the_giver_515" }
@@ -382,10 +382,10 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/theme.rs", "test": "ellesmereui_font_with_an_outline_a_primary_button_s_dark_label_on_the_accent_drops_it_other_text_keeps_it_521" }
 		] },
 		"524": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ASHENVALE}: Ioney's report (#524): Unrequited Love is handed to Tarrel Rockweaver before In Search of the Excavation Team, and taken in Auberdine before the boat" }
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "${ASHENVALE}: Ioney's report (#524): Unrequited Love is handed to Tarrel Rockweaver before In Search of the Excavation Team, and taken in Auberdine before the boat" }
 		] },
 		"532": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "EpicTibbles's report (#532): an objective that is talking to someone reads \"Talk to\", not \"Kill\": the Skyborne visits to the Horde leaders" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "EpicTibbles's report (#532): an objective that is talking to someone reads \"Talk to\", not \"Kill\": the Skyborne visits to the Horde leaders" },
 			{ "seed": "EpicTibbles's report (#532): an objective that is talking to someone reads \"Talk to\", not \"Kill\": the Skyborne visits to the Horde leaders" }
 		] },
 		"533": { "tests": [
@@ -399,7 +399,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-reported.rs", "test": "stormwind_the_walk_from_the_trade_district_to_jennea_cannon_keeps_to_the_streets_not_the_terrain_under_them_541" }
 		] },
 		"553": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: zeike's report (#553): Forest's Edge does not wait for the rare Gruff Swiftbite; The Collector and Manhunt are left out" }
+			{ "node": "tests/reported/alliance-starts.test.js", "test": "${ELWYNN}: zeike's report (#553): Forest's Edge does not wait for the rare Gruff Swiftbite; The Collector and Manhunt are left out" }
 		] },
 		"566": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "zone_danger_566_tarren_mill_to_brill_at_level_24_with_no_flight_path_known_walks_no_yard_of_western_plaguelands" }
@@ -412,7 +412,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/qol.rs", "test": "target_button_every_open_goal_gets_a_name_one_goal_s_many_mobs_do_not_crowd_out_the_rest_571" }
 		] },
 		"575": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "forever/horde/30-40/04-dustwallow-marsh.guide: Syrael's report (#575): the ghost-o-plasm points at the Valley of Bones, after Melizza" },
+			{ "node": "tests/reported/horde-30-40.test.js", "test": "forever/horde/30-40/04-dustwallow-marsh.guide: Syrael's report (#575): the ghost-o-plasm points at the Valley of Bones, after Melizza" },
 			{ "seed": "forever/horde/30-40/04-dustwallow-marsh.guide: Syrael's report (#575): the ghost-o-plasm points at the Valley of Bones, after Melizza" }
 		] },
 		"576": { "tests": [
@@ -423,7 +423,7 @@
 			{ "node": "tests/guides-caves.test.js", "test": "#1336 sweep (Pynte, #583): the walking maps have no way into the Ban'ethil Barrow Den" }
 		] },
 		"592": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${BARRENS}: Miguel Antunes's report (#592): loot a zhevra carcass and use it at the Dead Tree before Ishamuhale's Fang" },
+			{ "node": "tests/reported/horde-10-30.test.js", "test": "${BARRENS}: Miguel Antunes's report (#592): loot a zhevra carcass and use it at the Dead Tree before Ishamuhale's Fang" },
 			{ "seed": "{BARRENS}: Miguel Antunes's report (#592): loot a zhevra carcass and use it at the Dead Tree before Ishamuhale's Fang" }
 		] },
 		"604": { "tests": [
@@ -434,32 +434,32 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/lookup-guides.rs", "test": "tazul_s_report_610_a_lookup_quest_objective_lists_every_place_its_mob_spawns_and_the_arrow_takes_the_one_the_player_is_at" }
 		] },
 		"612": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: Nittepitte's report (#612): the Mining Tools are picked up on the walk into the Jasperlode Mine, before its far end" },
+			{ "node": "tests/reported/alliance-starts.test.js", "test": "${ELWYNN}: Nittepitte's report (#612): the Mining Tools are picked up on the walk into the Jasperlode Mine, before its far end" },
 			{ "seed": "{ELWYNN}: Nittepitte's report (#612): the Mining Tools are picked up on the walk into the Jasperlode Mine, before its far end" }
 		] },
 		"614": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ASHENVALE}: Ioney's report (#614): Sida's Bag is searched for at Ironbeard's Tomb, not at the oozes across the Wetlands" },
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "${ASHENVALE}: Ioney's report (#614): Sida's Bag is searched for at Ironbeard's Tomb, not at the oozes across the Wetlands" },
 			{ "seed": "{ASHENVALE}: Ioney's report (#614): Sida's Bag is searched for at Ironbeard's Tomb, not at the oozes across the Wetlands" }
 		] },
 		"617": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${WETLANDS}: Ioney's report (#617): Pilot Longbeard (level 28) is taken after the Wetlands hand-ins, a top-up to 28 only between them, and the 20-24 guide has no grind for it" },
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "${WETLANDS}: Ioney's report (#617): Pilot Longbeard (level 28) is taken after the Wetlands hand-ins, a top-up to 28 only between them, and the 20-24 guide has no grind for it" },
 			{ "seed": "{WETLANDS}: Ioney's report (#617): Pilot Longbeard (level 28) is taken after the Wetlands hand-ins, a top-up to 28 only between them, and the 20-24 guide has no grind for it" }
 		] },
 		"619": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${TELDRASSIL}: #619: the Gnarlpine Necklace is looted from Ferocitas before the jewel is collected" },
+			{ "node": "tests/reported/alliance-starts.test.js", "test": "${TELDRASSIL}: #619: the Gnarlpine Necklace is looted from Ferocitas before the jewel is collected" },
 			{ "seed": "{TELDRASSIL}: #619: the Gnarlpine Necklace is looted from Ferocitas before the jewel is collected" },
 			{ "seed": "{TELDRASSIL}: #619: the necklace and the jewel are collected where Ferocitas is killed, before any turn-in" }
 		] },
 		"620": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "forever/professions: Schpune's report (#620): Skinning, Mining and Herbalism are learned at level 1, from the Junior trainers in the starting zones too" },
+			{ "node": "tests/reported/other-guides.test.js", "test": "forever/professions: Schpune's report (#620): Skinning, Mining and Herbalism are learned at level 1, from the Junior trainers in the starting zones too" },
 			{ "seed": "forever/professions: Schpune's report (#620): Skinning, Mining and Herbalism are learned at level 1, from the Junior trainers in the starting zones too" }
 		] },
 		"621": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${WESTFALL}: Xaden Ryan's report (#621): the oats are gathered in the Jansen Stead's fields on the way back, not searched over the zone on the road in" },
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "${WESTFALL}: Xaden Ryan's report (#621): the oats are gathered in the Jansen Stead's fields on the way back, not searched over the zone on the road in" },
 			{ "seed": "{WESTFALL}: Xaden Ryan's report (#621): the oats are gathered in the Jansen Stead's fields on the way back, not searched over the zone on the road in" }
 		] },
 		"647": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${TELDRASSIL}: Pynte's report (#647): Teldrassil is taken from the Oracle Tree Bark on The Oracle Tree's turn-in and handed to Fandral with Crown of the Earth" },
+			{ "node": "tests/reported/alliance-starts.test.js", "test": "${TELDRASSIL}: Pynte's report (#647): Teldrassil is taken from the Oracle Tree Bark on The Oracle Tree's turn-in and handed to Fandral with Crown of the Earth" },
 			{ "seed": "{TELDRASSIL}: Pynte's report (#647): Teldrassil is taken from the Oracle Tree Bark on The Oracle Tree's turn-in and handed to Fandral with Crown of the Earth" }
 		] },
 		"650": {"uncheckable": "closed without a change: on the 0.3.x walking maps the walk is not a detour worth removing, so there is no fixed behaviour to pin"},
@@ -471,7 +471,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/qol.rs", "test": "secure_buttons_key_label_names_the_key_that_runs_it_in_play_from_the_gamepad_module" }
 		] },
 		"703": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#703: quests whose objectives are away from the giver lead to each objective" }
+			{ "node": "tests/reported/alliance-routes.test.js", "test": "#703: quests whose objectives are away from the giver lead to each objective" }
 		] },
 		"776": { "tests": [
 			{ "cargo": "polestar-recording", "target": "lib", "file": "rust/crates/polestar-recording/src/install.rs", "test": "a_picked_install_is_the_same_folder_as_the_found_one" },
@@ -483,60 +483,60 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/codex.rs", "test": "curatedrepgates_a_collectible_guide_reaching_a_standing_before_it_buys_the_item_gates_that_vendor" }
 		] },
 		"792": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "The Adventurer is never accepted before The Red Messenger is handed in (#792)" },
-			{ "node": "tests/guides-reported.test.js", "test": "Forever follow-ups are taken only once the quests before them are handed in" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "The Adventurer is never accepted before The Red Messenger is handed in (#792)" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "Forever follow-ups are taken only once the quests before them are handed in" }
 		] },
 		"796": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Forgotten Loa Idols is never accepted before Report to Sen'jin Village is handed in (#796)" },
-			{ "node": "tests/guides-reported.test.js", "test": "Forever follow-ups are taken only once the quests before them are handed in" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "Forgotten Loa Idols is never accepted before Report to Sen'jin Village is handed in (#796)" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "Forever follow-ups are taken only once the quests before them are handed in" }
 		] },
 		"797": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-along.rs", "test": "reaching_the_step_until_names_ends_the_list_but_a_quest_with_work_left_keeps_its_goals_until_done" },
-			{ "node": "tests/guides-reported.test.js", "test": "a quest with objectives is completed or collected between its accept and its turn-in" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "a quest with objectives is completed or collected between its accept and its turn-in" }
 		] },
 		"800": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Tomb Weed is never accepted before Doom Weed is handed in (#800)" },
-			{ "node": "tests/guides-reported.test.js", "test": "Forever follow-ups are taken only once the quests before them are handed in" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "Tomb Weed is never accepted before Doom Weed is handed in (#800)" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "Forever follow-ups are taken only once the quests before them are handed in" }
 		] },
 		"801": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${TIRISFAL}: petllama's report (#801): WANTED: Maggot Eye is taken from the poster after Fields of Grief and Vital Intelligence are handed in" }
+			{ "node": "tests/reported/horde-starts.test.js", "test": "${TIRISFAL}: petllama's report (#801): WANTED: Maggot Eye is taken from the poster after Fields of Grief and Vital Intelligence are handed in" }
 		] },
 		"802": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "EpicTibbles's report (#532): an objective that is talking to someone reads \"Talk to\", not \"Kill\"" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "EpicTibbles's report (#532): an objective that is talking to someone reads \"Talk to\", not \"Kill\"" },
 			{ "cargo": "forge-writer", "target": "lib", "file": "rust/crates/forge-writer/src/fixes.rs", "test": "a_talk_objective_the_data_counts_as_a_kill_reads_talk_to" }
 		] },
 		"807": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Rohkin's report (#807): Stormy Potential is an optional extra after the Dull Storm Orb's quest" },
-			{ "node": "tests/guides-reported.test.js", "test": "Stormy Potential is never accepted before A Simmering Storm is handed in (#807)" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "Rohkin's report (#807): Stormy Potential is an optional extra after the Dull Storm Orb's quest" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "Stormy Potential is never accepted before A Simmering Storm is handed in (#807)" }
 		] },
 		"812": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/class-quests.rs", "test": "only_the_quest_data_makes_a_class_quest_never_a_line_s_only" }
 		] },
 		"820": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: Applejack reports (#820, #823, #2312, #2561): direct hand-ins after the Stonefield apples, with no early accept" },
+			{ "node": "tests/reported/alliance-starts.test.js", "test": "${ELWYNN}: Applejack reports (#820, #823, #2312, #2561): direct hand-ins after the Stonefield apples, with no early accept" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/quests.rs", "test": "the_applejack_still_s_apples_are_protected_from_the_guide_until_it_is_past_the_still_820" }
 		] },
 		"823": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: Applejack reports (#820, #823, #2312, #2561): direct hand-ins after the Stonefield apples, with no early accept" }
+			{ "node": "tests/reported/alliance-starts.test.js", "test": "${ELWYNN}: Applejack reports (#820, #823, #2312, #2561): direct hand-ins after the Stonefield apples, with no early accept" }
 		] },
 		"825": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Zephras Isle: A Last Request's note and Skypriest Aanders count the objectives the game gives them (#825)" }
+			{ "node": "tests/reported/start-zones.test.js", "test": "Zephras Isle: A Last Request's note and Skypriest Aanders count the objectives the game gives them (#825)" }
 		] },
 		"827": { "tests": [
 			{ "cargo": "forge-guide", "target": "guide", "file": "rust/crates/forge-guide/tests/guide/dsl_resolve.rs", "test": "each_spawn_area_carries_its_mobs_level_the_goal_the_one_most_share_827" }
 		] },
 		"830": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "A Difficult Path is never accepted before The Mindless Ones is handed in (#830)" },
-			{ "node": "tests/guides-reported.test.js", "test": "Forever follow-ups are taken only once the quests before them are handed in" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "A Difficult Path is never accepted before The Mindless Ones is handed in (#830)" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "Forever follow-ups are taken only once the quests before them are handed in" }
 		] },
 		"837": { "tests": [
 			{ "cargo": "forge-data", "target": "data", "file": "rust/crates/forge-data/tests/data/codex.rs", "test": "dungeon_pages_take_forever_dbs_xp_first" }
 		] },
 		"844": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: no Desperate Prayer for a Human priest (#844)" }
+			{ "node": "tests/reported/alliance-routes.test.js", "test": "${ELWYNN}: no Desperate Prayer for a Human priest (#844)" }
 		] },
 		"848": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ZEPHRAS_ALLIANCE}: Visur's report (#848): The Missing Scholar is handed in to Fillion Flamebreeze, not Dondallion Whisperwind" }
+			{ "node": "tests/reported/alliance-starts.test.js", "test": "${ZEPHRAS_ALLIANCE}: Visur's report (#848): The Missing Scholar is handed in to Fillion Flamebreeze, not Dondallion Whisperwind" }
 		] },
 		"849": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "The Wrath of Rath'mael waits for the second Rear Guard Patrol, which waits for the first (#849)" }
@@ -548,11 +548,11 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-along.rs", "test": "before_a_turn_in_that_is_not_ready_the_arrow_leads_to_its_open_along_work_and_the_turn_in_says_so" }
 		] },
 		"855": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Tyr's Watch: Tanis Alderwood's goals carry his Undercity floor's height, from the Forever TDB when classic-db lacks him (#855)" }
+			{ "node": "tests/reported/class.test.js", "test": "Tyr's Watch: Tanis Alderwood's goals carry his Undercity floor's height, from the Forever TDB when classic-db lacks him (#855)" }
 		] },
 		"859": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Visur's report (#859): Desperate Times talks to Valennia, Ayessa and Elaadrin, in the order the game reveals them, on both Zephras Isle guides" },
-			{ "node": "tests/guides-reported.test.js", "test": "Visur's report (#859): no guide asks for a kill the game's objectives do not count, or for a kill of someone it asks you to talk to" },
+			{ "node": "tests/reported/start-zones.test.js", "test": "Visur's report (#859): Desperate Times talks to Valennia, Ayessa and Elaadrin, in the order the game reveals them, on both Zephras Isle guides" },
+			{ "node": "tests/reported/horde-starts.test.js", "test": "Visur's report (#859): no guide asks for a kill the game's objectives do not count, or for a kill of someone it asks you to talk to" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine.rs", "test": "t_859_a_quest_talk_goal_ticks_from_its_quest_log_line_and_a_talk_counts_only_on_a_line_the_client_does_not_list_yet" },
 			{ "seed": "Visur's report (#859): no guide asks for a kill the game's objectives do not count, or for a kill of someone it asks you to talk to" }
 		] },
@@ -564,33 +564,33 @@
 		] },
 		"872": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "Crocs of the Sky waits for Apprentice's Duties, and The Shamed Lieutenant for A Friend of the Family (#872 sweep)" },
-			{ "node": "tests/guides-reported.test.js", "test": "Watching the Roads is never accepted before Dalaran's Intentions is handed in (#872)" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "Watching the Roads is never accepted before Dalaran's Intentions is handed in (#872)" }
 		] },
 		"873": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#873: data/places.json labels the Curing the Sick and Are We There, Yeti? objectives with the item use, not \"Kill\"" },
-			{ "node": "tests/guides-reported.test.js", "test": "#873: the druid Cure Poison guide's Curing the Sick goal reads the salve use, not \"Kill\"" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "#873: data/places.json labels the Curing the Sick and Are We There, Yeti? objectives with the item use, not \"Kill\"" },
+			{ "node": "tests/reported/class.test.js", "test": "#873: the druid Cure Poison guide's Curing the Sick goal reads the salve use, not \"Kill\"" }
 		] },
 		"874": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Tyr's Watch (#874): a goal at Danitha Morr right after Deathguard Billmuth downstairs says she is back upstairs" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "Tyr's Watch (#874): a goal at Danitha Morr right after Deathguard Billmuth downstairs says she is back upstairs" }
 		] },
 		"875": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "A use before the line that collects for a quest is bound to that quest, in every guide (#875, #910)" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "A use before the line that collects for a quest is bound to that quest, in every guide (#875, #910)" },
 			{ "cargo": "forge-writer", "target": "engine", "file": "rust/crates/forge-writer/tests/engine.rs", "test": "r2_use_that_makes_the_quests_collect_is_bound_to_it" }
 		] },
 		"891": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Whuut's the Rush is never accepted before Yelmak's Medley is handed in (#891)" },
-			{ "node": "tests/guides-reported.test.js", "test": "Forever follow-ups are taken only once the quests before them are handed in" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "Whuut's the Rush is never accepted before Yelmak's Medley is handed in (#891)" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "Forever follow-ups are taken only once the quests before them are handed in" }
 		] },
 		"907": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${BARRENS}: DexeeXI's report (#907): Northwatch Hold is cleared before Gilthares's escort, and the escort runs straight to Ratchet" },
-			{ "node": "tests/guides-reported.test.js", "test": "Every Horde route (DexeeXI, #907): Northwatch Hold is cleared before Gilthares's escort, which runs straight to Ratchet" }
+			{ "node": "tests/reported/horde-10-30.test.js", "test": "${BARRENS}: DexeeXI's report (#907): Northwatch Hold is cleared before Gilthares's escort, and the escort runs straight to Ratchet" },
+			{ "node": "tests/reported/horde-routes.test.js", "test": "Every Horde route (DexeeXI, #907): Northwatch Hold is cleared before Gilthares's escort, which runs straight to Ratchet" }
 		] },
 		"910": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "A use before the line that collects for a quest is bound to that quest, in every guide (#875, #910)" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "A use before the line that collects for a quest is bound to that quest, in every guide (#875, #910)" },
 			{ "cargo": "forge-writer", "target": "engine", "file": "rust/crates/forge-writer/tests/engine.rs", "test": "r2_use_that_makes_the_quests_collect_is_bound_to_it" }
 		] },
 		"912": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Snowiee's report (#912): a class the training stop cannot train trains in the town the way passes with its trainer, before leaving it" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "Snowiee's report (#912): a class the training stop cannot train trains in the town the way passes with its trainer, before leaving it" }
 		] },
 		"914": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "a_guide_goal_after_a_reached_guide_goto_keeps_the_straight_arrow_from_the_mouth_the_goto_itself_is_walked" }
@@ -599,44 +599,44 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_ten_quest_chain_starts_at_its_first_quest_918_testing_the_wells_before_the_state_of_the_mines" }
 		] },
 		"920": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ASHENVALE}: Fyurie's report (#920): The Sleeper Has Awakened is taken from Kerlonian right before the escort, not on the Darkshore visit" }
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "${ASHENVALE}: Fyurie's report (#920): The Sleeper Has Awakened is taken from Kerlonian right before the escort, not on the Darkshore visit" }
 		] },
 		"924": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "lax's report (#924): every grind's arrow leads to a spawn of the mob it names" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "lax's report (#924): every grind's arrow leads to a spawn of the mob it names" }
 		] },
 		"934": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#934: Winterspring (Alliance): the level 55.05 top-up grinds Winterfall furbolgs, never Timbermaw" }
+			{ "node": "tests/reported/alliance-50-60.test.js", "test": "#934: Winterspring (Alliance): the level 55.05 top-up grinds Winterfall furbolgs, never Timbermaw" }
 		] },
 		"946": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/qol-items.rs", "test": "junk_in_the_reagent_bag_is_the_cheapest_junk_and_sells_but_its_free_slots_never_count" }
 		] },
 		"947": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${BARRENS}: Rohkin's report (#947): a Warlock is never sent into another zone and straight back with nothing done there" },
-			{ "node": "tests/guides-reported.test.js", "test": "Every Horde route (Rohkin, #947): nobody is sent into another zone and straight back with nothing done there" }
+			{ "node": "tests/reported/horde-10-30.test.js", "test": "${BARRENS}: Rohkin's report (#947): a Warlock is never sent into another zone and straight back with nothing done there" },
+			{ "node": "tests/reported/horde-routes.test.js", "test": "Every Horde route (Rohkin, #947): nobody is sent into another zone and straight back with nothing done there" }
 		] },
 		"948": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Erá's report (#948): the Rogue's Certificate of Thievery ends at Lucius, with no Horns of Nez'ra" }
+			{ "node": "tests/reported/class.test.js", "test": "Erá's report (#948): the Rogue's Certificate of Thievery ends at Lucius, with no Horns of Nez'ra" }
 		] },
 		"957": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${BARRENS}: Rohkin's report (#957): Mankrik's tusks are collected with Tribes at War, not before it" },
-			{ "node": "tests/guides-reported.test.js", "test": "Sweep from #957: a drop is collected with the later quest that kills the same mobs, not in a clear before it" },
-			{ "node": "tests/guides-reported.test.js", "test": "Every Horde route (Rohkin, #957): the Bristleback tusks are collected on the Tribes at War kills, never before it" }
+			{ "node": "tests/reported/horde-10-30.test.js", "test": "${BARRENS}: Rohkin's report (#957): Mankrik's tusks are collected with Tribes at War, not before it" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "Sweep from #957: a drop is collected with the later quest that kills the same mobs, not in a clear before it" },
+			{ "node": "tests/reported/horde-routes.test.js", "test": "Every Horde route (Rohkin, #957): the Bristleback tusks are collected on the Tribes at War kills, never before it" }
 		] },
 		"961": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Upper-floor givers (#960, #961): every step at one says to go up, train-class steps included" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "Upper-floor givers (#960, #961): every step at one says to go up, train-class steps included" }
 		] },
 		"977": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Fyurie's report (#977): ${guide.replace(/^forever\\//, '')} sends nobody to work far above their level" },
-			{ "node": "tests/guides-reported.test.js", "test": "Recordings (#977): Croaky's Head, a level 11 elite's drop, is collected only by players grouping for it, not in Elwynn's step for everyone" },
-			{ "node": "tests/guides-reported.test.js", "test": "Level fit (#977): the Rogues' Venture Co. tower (drones 25, Gallywix a 23 elite) shows from level 23, not at the route's 20" },
-			{ "node": "tests/guides-reported.test.js", "test": "Every Alliance route (Fyurie, #977): Fangore and the Shadowhide gnolls of Solomon's Law are worked only from level 22" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "Fyurie's report (#977): ${guide.replace(/^forever\\//, '')} sends nobody to work far above their level" },
+			{ "node": "tests/reported/alliance-starts.test.js", "test": "Recordings (#977): Croaky's Head, a level 11 elite's drop, is collected only by players grouping for it, not in Elwynn's step for everyone" },
+			{ "node": "tests/reported/horde-10-30.test.js", "test": "Level fit (#977): the Rogues' Venture Co. tower (drones 25, Gallywix a 23 elite) shows from level 23, not at the route's 20" },
+			{ "node": "tests/reported/alliance-routes.test.js", "test": "Every Alliance route (Fyurie, #977): Fangore and the Shadowhide gnolls of Solomon's Law are worked only from level 22" }
 		] },
 		"978": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#978: the druid Cure Poison guide sends Alliance Skyborne to Mathrengyl Bearwalker in Darnassus for Lessons Anew, not Alfina Nightgaze in Alterac" }
+			{ "node": "tests/reported/class.test.js", "test": "#978: the druid Cure Poison guide sends Alliance Skyborne to Mathrengyl Bearwalker in Darnassus for Lessons Anew, not Alfina Nightgaze in Alterac" }
 		] },
 		"984": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "A Void Path waits for Never Coming Back, handed in to the same giver (#1002, #984)" },
-			{ "node": "tests/guides-reported.test.js", "test": "A Void Path is never accepted before Never Coming Back is handed in (#984, #1002)" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "A Void Path is never accepted before Never Coming Back is handed in (#984, #1002)" }
 		] },
 		"995": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/quests.rs", "test": "nameplate_icon_position_moves_the_icon_and_its_count_right_or_above" }
@@ -654,15 +654,15 @@
 		] },
 		"1002": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "A Void Path waits for Never Coming Back, handed in to the same giver (#1002, #984)" },
-			{ "node": "tests/guides-reported.test.js", "test": "A Void Path is never accepted before Never Coming Back is handed in (#984, #1002)" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "A Void Path is never accepted before Never Coming Back is handed in (#984, #1002)" }
 		] },
 		"1003": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Snowiee's report (#1003): the Great Cat Spirit's accepts and turn-ins point to where it stands in Moonglade, by the bridge" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "Snowiee's report (#1003): the Great Cat Spirit's accepts and turn-ins point to where it stands in Moonglade, by the bridge" }
 		] },
 		"1004": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Bill's report (#1004): a town's bind never sends you back to the giver you just left" },
-			{ "node": "tests/guides-reported.test.js", "test": "Every Horde route (Bill, #1004): the Ratchet bind never sends you back to where you stood before it" },
-			{ "node": "tests/guides-reported.test.js", "test": "The Barrens (Horde 14-21): one bind, at the Crossroads; Ratchet and Camp Taurajo are not bound (0.4.0 audit)" },
+			{ "node": "tests/reported/horde-10-30.test.js", "test": "Bill's report (#1004): a town's bind never sends you back to the giver you just left" },
+			{ "node": "tests/reported/horde-routes.test.js", "test": "Every Horde route (Bill, #1004): the Ratchet bind never sends you back to where you stood before it" },
+			{ "node": "tests/reported/horde-10-30.test.js", "test": "The Barrens (Horde 14-21): one bind, at the Crossroads; Ratchet and Camp Taurajo are not bound (0.4.0 audit)" },
 			{ "seed": "Bill's report (#1004): a town's bind never sends you back to the giver you just left" },
 			{ "seed": "The Barrens (Horde 14-21): one bind, at the Crossroads; Ratchet and Camp Taurajo are not bound (0.4.0 audit)" }
 		] },
@@ -680,7 +680,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/ui-card.rs", "test": "an_opened_look_ahead_line_names_only_the_place_or_person_and_no_goal_reads_twice" }
 		] },
 		"1024": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Pools of Vision NPCs (#1024): every step at one says they stand down in the cave under Spirit Rise" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "Pools of Vision NPCs (#1024): every step at one says they stand down in the cave under Spirit Rise" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/codex.rs", "test": "buildcodex_gives_each_npc_place_the_height_of_its_spawn_within_15_yards_1024" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/codex.rs", "test": "spawn_heights_round_trip_through_codex_lua_on_the_point_they_belong_to_1024" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "the_pick_up_guide_s_goals_at_an_npc_carry_the_height_of_its_spawn_so_the_arrow_walks_to_its_floor_1024" },
@@ -700,13 +700,13 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "terrain_beside_a_target_measured_from_far_away_the_player_s_walk_is_straight_never_the_far_measure_less_the_yards_moved_1053" }
 		] },
 		"1084": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#1084: Durotar: Stormy Potential is taken after Winds in the Desert is handed in, on both Durotar starts" }
+			{ "node": "tests/reported/horde-starts.test.js", "test": "#1084: Durotar: Stormy Potential is taken after Winds in the Desert is handed in, on both Durotar starts" }
 		] },
 		"1089": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Trek to Ashenvale (#1089, #1811): Sentinel Selarin comes and goes; her quest never holds a step and is offered again after the escort" }
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "Trek to Ashenvale (#1089, #1811): Sentinel Selarin comes and goes; her quest never holds a step and is offered again after the escort" }
 		] },
 		"1224": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${guide}: #1224: the troll whelps are worked in the Coldridge field step with Felix's parts, before Grelin" }
+			{ "node": "tests/reported/alliance-starts.test.js", "test": "${guide}: #1224: the troll whelps are worked in the Coldridge field step with Felix's parts, before Grelin" }
 		] },
 		"1226": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "an_open_breadcrumb_of_the_chain_is_done_on_the_way_before_the_quest_it_leads_to_1226_the_greenwarden_before_tramping_paws" }
@@ -715,7 +715,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_prerequisite_whose_objective_is_to_speak_to_an_npc_sends_the_player_to_that_npc_before_its_turn_in_1236_hidden_enemies_and_neeru_fireblade" }
 		] },
 		"1234": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Gray's report (#1234): Kodo Roundup's tip says to talk to each tamed kodo at Smeed's, one at a time" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "Gray's report (#1234): Kodo Roundup's tip says to talk to each tamed kodo at Smeed's, one at a time" }
 		] },
 		"1235": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "Heart of Disruption waits for An Alarming Request (Alliance) and Blood in the Streets (Horde) (#1235, #1250)" }
@@ -730,7 +730,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_prerequisite_whose_objective_is_to_speak_to_an_npc_sends_the_player_to_that_npc_before_its_turn_in_1236_hidden_enemies_and_neeru_fireblade" }
 		] },
 		"1241": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Bonesavv77's report (#1241): Sun Rock Retreat takes Tammra Windfield before Braelyn Firehand and the flight path" }
+			{ "node": "tests/reported/horde-10-30.test.js", "test": "Bonesavv77's report (#1241): Sun Rock Retreat takes Tammra Windfield before Braelyn Firehand and the flight path" }
 		] },
 		"1242": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "t_1242_from_the_canals_the_walk_to_the_deeprun_tram_goes_through_its_door_not_across_to_the_end_under_the_keep" }
@@ -739,35 +739,35 @@
 			{ "node": "tests/data-corrections.test.js", "test": "Heart of Disruption waits for An Alarming Request (Alliance) and Blood in the Streets (Horde) (#1235, #1250)" }
 		] },
 		"1257": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#1257: Duskwood's Pygmy Venom Web Spiders are sought on the Hushed Bank west of Raven Hill" }
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "#1257: Duskwood's Pygmy Venom Web Spiders are sought on the Hushed Bank west of Raven Hill" }
 		] },
 		"1298": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine.rs", "test": "t_1298_a_bind_after_the_innkeeper_s_window_closed_completes_the_sethome_at_that_innkeeper_only" }
 		] },
 		"1299": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Bennistrov's report: This Land Was Their Land is taken only after Defeat Nek'rosh is handed in, on its group branch (#1299)" }
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "Bennistrov's report: This Land Was Their Land is taken only after Defeat Nek'rosh is handed in, on its group branch (#1299)" }
 		] },
 		"1304": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/gear.rs", "test": "a_miscellaneous_weapon_is_a_profession_tool_never_an_upgrade_even_with_more_dps" }
 		] },
 		"1305": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Image of Archmage Modera is met at the Kirin Tor camp in Silverpine Forest, never by the Dalaran sewer entrance in Alterac (#1305)" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "Image of Archmage Modera is met at the Kirin Tor camp in Silverpine Forest, never by the Dalaran sewer entrance in Alterac (#1305)" }
 		] },
 		"1308": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/travel.rs", "test": "an_unseen_continent_plans_a_flight_to_a_flight_master_the_player_may_have_1795" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/travel.rs", "test": "the_first_flight_map_on_a_continent_settles_a_maybe_flight_1795" }
 		] },
 		"1312": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${WETLANDS}: Bennistrov's report: From the Ashes points at each of the four Attack Plans, not at Nek'rosh (#1312)" }
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "${WETLANDS}: Bennistrov's report: From the Ashes points at each of the four Attack Plans, not at Nek'rosh (#1312)" }
 		] },
 		"1313": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${HILLSBRAD_ALLIANCE}: Fyurie's report: Spark of Freedom is asked as a group quest; the Dun Modr camp quests are not (#1313)" }
+			{ "node": "tests/reported/alliance-30-40.test.js", "test": "${HILLSBRAD_ALLIANCE}: Fyurie's report: Spark of Freedom is asked as a group quest; the Dun Modr camp quests are not (#1313)" }
 		] },
 		"1314": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${title} (${q}): every goal is optional and the accept says to skip it when ${giver} doesn't offer it (#1314)" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "${title} (${q}): every goal is optional and the accept says to skip it when ${giver} doesn't offer it (#1314)" }
 		] },
 		"1319": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ARATHI}: Fyurie's report (#1319): MacKreel's Moonshine is taken after Kor'gresh and handed in straight off the Southshore flight" }
+			{ "node": "tests/reported/alliance-30-40.test.js", "test": "${ARATHI}: Fyurie's report (#1319): MacKreel's Moonshine is taken after Kor'gresh and handed in straight off the Southshore flight" }
 		] },
 		"1320": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-guide-end.rs", "test": "an_accept_held_back_by_its_level_never_ends_the_guide_with_a_live_step_the_end_comes_with_the_last_step_1320" },
@@ -778,7 +778,7 @@
 			{ "node": "tests/data-corrections.test.js", "test": "Starving Arcane and Heart of Disruption wait for An Alarming Request (#1487, #1321)" }
 		] },
 		"1322": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "DexeeXI's report (#1322): the guides name the elixirs the quests take by their names in the game" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "DexeeXI's report (#1322): the guides name the elixirs the quests take by their names in the game" }
 		] },
 		"1324": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/gear.rs", "test": "bonus_damage_to_several_schools_is_worth_no_more_than_its_largest_bonus_as_spell_power_soranruk_is_no_upgrade_over_spine_of_the_devourer" }
@@ -792,7 +792,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_dungeon_quest_whose_open_line_is_to_speak_to_an_npc_outside_is_handed_in_after_that_talk_1326_the_glowing_shard_and_sputtervalve" }
 		] },
 		"1327": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "FlyHifiGuy's report (#1327): no teleport or Hearthstone while Trial of the Lake runs, no hearth goal inside a timed quest" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "FlyHifiGuy's report (#1327): no teleport or Hearthstone while Trial of the Lake runs, no hearth goal inside a timed quest" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/compat.rs", "test": "issue_1327_a_quest_timer_runs_while_a_log_quest_has_time_allowed_and_is_neither_ready_nor_failed" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/travel-transit.rs", "test": "issue_1327_no_class_teleport_while_a_quest_timer_runs_it_comes_back_when_the_quest_is_done" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/travel-transit.rs", "test": "issue_1327_no_hearthstone_while_a_quest_timer_runs_it_comes_back_when_the_timer_ends" }
@@ -802,7 +802,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "with_six_tabs_open_a_dungeon_guide_never_takes_the_active_tab_a_hand_in_still_takes_the_finished_pick_up_s_tab" }
 		] },
 		"1333": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ASHENVALE_HORDE}: Maazias's report: The Tear of the Moons is not sent at players two levels under it (#1333)" },
+			{ "node": "tests/reported/horde-10-30.test.js", "test": "${ASHENVALE_HORDE}: Maazias's report: The Tear of the Moons is not sent at players two levels under it (#1333)" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/levels.rs", "test": "a_delivery_s_level_gives_no_hint_a_quest_with_work_elsewhere_still_does_1333" }
 		] },
 		"1334": { "tests": [
@@ -816,20 +816,20 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "a_way_in_reaches_past_goals_at_the_target_s_own_spot_1338_the_optional_turn_in_before_the_accept" }
 		] },
 		"1339": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${LOCH_MODAN}: nikilok's report (#1339): Silver of the Waves' toolbox is looked for at all four places players took it" }
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "${LOCH_MODAN}: nikilok's report (#1339): Silver of the Waves' toolbox is looked for at all four places players took it" }
 		] },
 		"1346": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#1346: Tideress (The Befouled Element) comes after Stonetalon Standstill is taken, in every guide" }
+			{ "node": "tests/reported/horde-10-30.test.js", "test": "#1346: Tideress (The Befouled Element) comes after Stonetalon Standstill is taken, in every guide" }
 		] },
 		"1348": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${REDRIDGE}: uNBEx's report (#1348): the Bronze Tube comes from the Stormwind Auction House before Darkshire" },
-			{ "node": "tests/guides-reported.test.js", "test": "Every guide (#1348): no Bronze Tube buy holds a step; a required tube comes from the Auction House" }
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "${REDRIDGE}: uNBEx's report (#1348): the Bronze Tube comes from the Stormwind Auction House before Darkshire" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "Every guide (#1348): no Bronze Tube buy holds a step; a required tube comes from the Auction House" }
 		] },
 		"1349": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "forever/horde/30-40/01-hillsbrad-foothills.guide: the Defiler's Basic Care Package is optional and says it needs Defilers reputation" }
+			{ "node": "tests/reported/horde-30-40.test.js", "test": "forever/horde/30-40/01-hillsbrad-foothills.guide: the Defiler's Basic Care Package is optional and says it needs Defilers reputation" }
 		] },
 		"1352": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${DARKSHORE_RETURN}: scalatrava's report (#1352): the Twilight Tome's quest is taken after The Twilight Camp is handed in to it" }
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "${DARKSHORE_RETURN}: scalatrava's report (#1352): the Twilight Tome's quest is taken after The Twilight Camp is handed in to it" }
 		] },
 		"1353": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-feeders.rs", "test": "t_1353_local_feeders_go_in_beside_the_guide_s_nearest_step_in_its_own_zone" },
@@ -839,10 +839,10 @@
 		] },
 		"1354": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "Follow-ups wait for the quest before them, so a skipped one takes its follow-up with it (#1354 sweep)" },
-			{ "node": "tests/guides-reported.test.js", "test": "${WETLANDS}: Bennistrov's report (#1354): Bolvar's A Friend of the Family goes with the skipped one before it" }
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "${WETLANDS}: Bennistrov's report (#1354): Bolvar's A Friend of the Family goes with the skipped one before it" }
 		] },
 		"1357": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#1357: a training step carries its town, and the town has a trainer of each class it trains" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "#1357: a training step carries its town, and the town has a trainer of each class it trains" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-smart.rs", "test": "train_class_ranks_its_step_s_zone_first_wherever_the_player_stands_unless_a_trainer_is_right_there_1357" },
 			{ "cargo": "forge-guide", "target": "guide", "file": "rust/crates/forge-guide/tests/guide/dsl_smart.rs", "test": "train_class_carries_its_step_s_zone_for_the_engine_to_rank_that_town_first_1357" }
 		] },
@@ -855,7 +855,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-lost-quest.rs", "test": "a_passed_quest_leaving_the_log_holds_the_live_step_and_asks" }
 		] },
 		"1370": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Emil's report (#1370): Gerenzo's Orders is asked as a group quest; Windshear Crag's other quests are not" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "Emil's report (#1370): Gerenzo's Orders is asked as a group quest; Windshear Crag's other quests are not" }
 		] },
 		"1372": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/class-skip.rs", "test": "a_letter_from_another_giver_in_the_log_keeps_the_next_call_of_water_open" },
@@ -871,11 +871,11 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-journey.rs", "test": "hold_nothing_takes_the_arrow_off_the_corpse_once_it_lets_go_what_is_underneath_shows_a_picked_point_only_on_its_step_1382" }
 		] },
 		"1386": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Ash's report (#1386): a class step collects a quest-only item only with its quest in the log; the Tauren Sea Lion chain runs accept, halves, hand-in" }
+			{ "node": "tests/reported/horde-10-30.test.js", "test": "Ash's report (#1386): a class step collects a quest-only item only with its quest in the log; the Tauren Sea Lion chain runs accept, halves, hand-in" }
 		] },
 		"1396": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "scalatrava's report (#1352): the Twilight Tome's quest is taken after The Twilight Camp is handed in to it" },
-			{ "node": "tests/guides-reported.test.js", "test": "every leveling path hands in each accept's prerequisites before the accept, for every start, race and class" }
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "scalatrava's report (#1352): the Twilight Tome's quest is taken after The Twilight Camp is handed in to it" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "every leveling path hands in each accept's prerequisites before the accept, for every start, race and class" }
 		] },
 		"1400": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-vendor.rs", "test": "vendor_nearest_ticks_at_another_merchant_who_repairs_in_the_same_town" }
@@ -894,13 +894,13 @@
 			{ "node": "tests/data-corrections.test.js", "test": "the Image of Archmage Modera stands only at the Kirin Tor camp in Silverpine (#1410, #1572)" }
 		] },
 		"1417": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Forever follow-ups are taken only once the quests before them are handed in" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "Forever follow-ups are taken only once the quests before them are handed in" }
 		] },
 		"1429": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${WESTFALL}: doctor-house's report (#1429): no \"Go to Stormwind City\" after training in Stormwind" }
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "${WESTFALL}: doctor-house's report (#1429): no \"Go to Stormwind City\" after training in Stormwind" }
 		] },
 		"1442": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${DARKSHORE}: frostyends's report (#1442): Washed Ashore is on the Auberdine stop for every race before the Beached Sea Turtles" },
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "${DARKSHORE}: frostyends's report (#1442): Washed Ashore is on the Auberdine stop for every race before the Beached Sea Turtles" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-feeders.rs", "test": "t_1442_a_prerequisite_the_guide_has_only_for_other_races_is_missing_for_a_character_who_can_take_it" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-feeders.rs", "test": "t_1442_darkshore_s_follow_ups_for_a_night_elf_who_skipped_its_own_darkshore_are_never_shown_as_ready" }
 		] },
@@ -909,13 +909,13 @@
 			{ "cargo": "forge-data", "target": "data", "file": "rust/crates/forge-data/tests/data/names.rs", "test": "the_shipped_names_the_client_showed_load_and_each_language_file_is_its_own" }
 		] },
 		"1483": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#1483: Elwynn Forest: the Warlock's Stormwind walk names Gakin the Darkbinder" }
+			{ "node": "tests/reported/alliance-starts.test.js", "test": "#1483: Elwynn Forest: the Warlock's Stormwind walk names Gakin the Darkbinder" }
 		] },
 		"1487": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "Starving Arcane and Heart of Disruption wait for An Alarming Request (#1487, #1321)" }
 		] },
 		"1496": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "forever/miscellaneous/cozy-sleeping-bag.guide: shatteredeagle's report (#1496): the Alliance way in only applies before Stonetalon" }
+			{ "node": "tests/reported/other-guides.test.js", "test": "forever/miscellaneous/cozy-sleeping-bag.guide: shatteredeagle's report (#1496): the Alliance way in only applies before Stonetalon" }
 		] },
 		"1498": { "tests": [
 			{ "node": "tests/profession-trainers.test.js", "test": "Hotline's report (#1498) and #1708's learns: Linen Belt is not Josephine Lister's, Minor Mana Potion not Doctor Herbert Halsey's" },
@@ -925,20 +925,20 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-training.rs", "test": "training_with_dargh_trueaim_at_the_farstrider_lodge_ticks_loch_modan_s_train_class_step_1507" }
 		] },
 		"1508": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "forever/alliance/03-loch-modan.guide: the flight to Ironforge goes by the Ironforge flight path, the tunnel walk for the rest (#1508, #1518)" },
-			{ "node": "tests/guides-reported.test.js", "test": "forever/alliance/03-loch-modan.guide: the tunnel and gate waypoints drop once the player is in Ironforge (#1508)" }
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "forever/alliance/03-loch-modan.guide: the flight to Ironforge goes by the Ironforge flight path, the tunnel walk for the rest (#1508, #1518)" },
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "forever/alliance/03-loch-modan.guide: the tunnel and gate waypoints drop once the player is in Ironforge (#1508)" }
 		] },
 		"1509": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "forever/alliance/03-loch-modan.guide: the road east to Redridge points at the road, not into the Tower of Azora (#1509)" }
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "forever/alliance/03-loch-modan.guide: the road east to Redridge points at the road, not into the Tower of Azora (#1509)" }
 		] },
 		"1515": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/travel-transit.rs", "test": "issue_1515_a_class_teleport_landing_in_the_zone_the_player_stands_in_is_never_planned" }
 		] },
 		"1518": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "forever/alliance/03-loch-modan.guide: the flight to Ironforge goes by the Ironforge flight path, the tunnel walk for the rest (#1508, #1518)" }
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "forever/alliance/03-loch-modan.guide: the flight to Ironforge goes by the Ironforge flight path, the tunnel walk for the rest (#1508, #1518)" }
 		] },
 		"1521": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "forever/alliance/30-40/03-ashenvale.guide: the walk east from Highperch keeps away from Freewind Post (#1521)" }
+			{ "node": "tests/reported/alliance-30-40.test.js", "test": "forever/alliance/30-40/03-ashenvale.guide: the walk east from Highperch keeps away from Freewind Post (#1521)" }
 		] },
 		"1526": { "tests": [
 			{ "cargo": "forge-data", "target": "data", "file": "rust/crates/forge-data/tests/data/data_build.rs", "test": "mailboxes_carry_pfquest_s_side" }
@@ -947,12 +947,12 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-flights.rs", "test": "a_flight_to_a_known_landing_the_zone_text_names_otherwise_is_done_on_landing_1530" }
 		] },
 		"1531": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#1531 pattern: Brutal Armor's Dragonmaw Shinbone step shows only with Dragonmaw Shinbones in the log" },
-			{ "node": "tests/guides-reported.test.js", "test": "#1531: the Ashenvale hunt trophies only after The Ashenvale Hunt, offered at Splintertree to a player without it" },
+			{ "node": "tests/reported/class.test.js", "test": "#1531 pattern: Brutal Armor's Dragonmaw Shinbone step shows only with Dragonmaw Shinbones in the log" },
+			{ "node": "tests/reported/horde-10-30.test.js", "test": "#1531: the Ashenvale hunt trophies only after The Ashenvale Hunt, offered at Splintertree to a player without it" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-unavailable.rs", "test": "a_quest_s_starting_item_waits_with_a_quest_that_cannot_be_taken_1531" }
 		] },
 		"1535": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "A Meal Served Cold (30-minute limit) is in no leveling guide" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "A Meal Served Cold (30-minute limit) is in no leveling guide" }
 		] },
 		"1536": { "tests": [
 			{ "cargo": "forge-data", "target": "lib", "file": "rust/crates/forge-data/src/professions/trainers.rs", "test": "listed_trainers_teach_their_profession" },
@@ -962,14 +962,14 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-while-here.rs", "test": "a_click_that_needs_an_item_the_bags_lack_is_no_line_until_the_item_is_there_1540" }
 		] },
 		"1542": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Alliance Arathi Highlands: the Shadowy Assassin never holds the Southshore step (#1542)" }
+			{ "node": "tests/reported/alliance-30-40.test.js", "test": "Alliance Arathi Highlands: the Shadowy Assassin never holds the Southshore step (#1542)" }
 		] },
 		"1544": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#1544: Alliance: My Little Friends' specimens are collects, shown with the quest in the log" },
-			{ "node": "tests/guides-reported.test.js", "test": "Alliance Desolace south loop: the Flesh Picker is only for players on My Little Friends" }
+			{ "node": "tests/reported/alliance-routes.test.js", "test": "#1544: Alliance: My Little Friends' specimens are collects, shown with the quest in the log" },
+			{ "node": "tests/reported/alliance-30-40.test.js", "test": "Alliance Desolace south loop: the Flesh Picker is only for players on My Little Friends" }
 		] },
 		"1550": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Fyurie's report (#1550): Favor for Krazek never holds the route, while Myzrael still does" },
+			{ "node": "tests/reported/alliance-routes.test.js", "test": "Fyurie's report (#1550): Favor for Krazek never holds the route, while Myzrael still does" },
 			{ "cargo": "forge-writer", "target": "lib", "file": "rust/crates/forge-writer/src/fixes.rs", "test": "fyuries_krazek_report_1550_is_kept_by_the_checkout_records" }
 		] },
 		"1553": { "tests": [
@@ -980,13 +980,13 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/qol-items.rs", "test": "a_grey_quest_starter_or_quest_item_is_never_sold" }
 		] },
 		"1559": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Horde Silverpine: Camping 101 hand-ins as plain turn-ins on carrier-only steps beside the trainers' stops (#1559)" },
+			{ "node": "tests/reported/horde-10-30.test.js", "test": "Horde Silverpine: Camping 101 hand-ins as plain turn-ins on carrier-only steps beside the trainers' stops (#1559)" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/automation-profession-quests.rs", "test": "t_1559_a_skinner_and_miner_takes_both_camping_101s_at_the_campfire_and_hands_them_in_at_razor_hill_and_orgrimmar" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/automation-profession-quests.rs", "test": "t_1559_a_character_without_the_profession_is_not_held_by_it" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/automation-profession-quests.rs", "test": "t_1559_alliance_eric_brighthammer_gives_first_aid_s_camping_101_with_cooking_and_thamner_pol_takes_it" }
 		] },
 		"1563": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ASHENVALE_HORDE}: Kolbi's report (#1563): Freewind Post's bind comes on the return with the Galak hand-in, not on the first stop" }
+			{ "node": "tests/reported/horde-10-30.test.js", "test": "${ASHENVALE_HORDE}: Kolbi's report (#1563): Freewind Post's bind comes on the return with the Galak hand-in, not on the first stop" }
 		] },
 		"1564": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "t_1564_from_darnassus_to_banethil_barrow_den_the_route_walks_out_through_the_gate_never_down_the_rutheran_portal" }
@@ -998,15 +998,15 @@
 			{ "node": "tests/data-corrections.test.js", "test": "the Image of Archmage Modera stands only at the Kirin Tor camp in Silverpine (#1410, #1572)" }
 		] },
 		"1575": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Tincho on Discord (#1575), Maazias (#1925): Helcular's flames and grave are not on the Horde route" },
-			{ "node": "tests/guides-reported.test.js", "test": "Danger at the spot (#1575, #1695): the Syndicate missives fallback comes when the Syndicate are under you" },
-			{ "node": "tests/guides-reported.test.js", "test": "Danger at the spot (#1575): the steps players died at among elites say so, in every leveling guide holding the goal" },
-			{ "node": "tests/guides-reported.test.js", "test": "Danger at the spot (#1575): goals an item several mobs drop point at the ones at the route's level, not a camp 4+ levels over (#1695's pattern)" }
+			{ "node": "tests/reported/horde-30-40.test.js", "test": "Tincho on Discord (#1575), Maazias (#1925): Helcular's flames and grave are not on the Horde route" },
+			{ "node": "tests/reported/horde-30-40.test.js", "test": "Danger at the spot (#1575, #1695): the Syndicate missives fallback comes when the Syndicate are under you" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "Danger at the spot (#1575): the steps players died at among elites say so, in every leveling guide holding the goal" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "Danger at the spot (#1575): goals an item several mobs drop point at the ones at the route's level, not a camp 4+ levels over (#1695's pattern)" }
 		] },
 		"1579": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "forever/alliance/30-40/02-desolace.guide: Vahlarriel's Vengeance is taken when the Malem chest's part of her search is handed back, not with its first part (#1579)" },
-			{ "node": "tests/guides-reported.test.js", "test": "forever/alliance/40-50/04-tanaris.guide: no Zamek's Distraction without Keeping Pace (offer sweep, #1579)" },
-			{ "node": "tests/guides-reported.test.js", "test": "Leveling guides: a child quest is accepted only after its parent (offer sweep, #1579)" }
+			{ "node": "tests/reported/alliance-30-40.test.js", "test": "forever/alliance/30-40/02-desolace.guide: Vahlarriel's Vengeance is taken when the Malem chest's part of her search is handed back, not with its first part (#1579)" },
+			{ "node": "tests/reported/alliance-40-50.test.js", "test": "forever/alliance/40-50/04-tanaris.guide: no Zamek's Distraction without Keeping Pace (offer sweep, #1579)" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "Leveling guides: a child quest is accepted only after its parent (offer sweep, #1579)" }
 		] },
 		"1581": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav.rs", "test": "the_arrow_label_keeps_a_long_quest_name_on_one_line_and_wraps_a_longer_one_to_two_1581" }
@@ -1039,19 +1039,19 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-journey.rs", "test": "nearby_rank_keeps_a_city_npc_on_the_city_map_not_its_zone_copy_a_yard_nearer" }
 		] },
 		"1602": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "rockzors (#1602): Alliance Desolace takes Carved Centaur Totems with Centaur Bounty at Kolkar Village" }
+			{ "node": "tests/reported/alliance-30-40.test.js", "test": "rockzors (#1602): Alliance Desolace takes Carved Centaur Totems with Centaur Bounty at Kolkar Village" }
 		] },
 		"1608": { "tests": [
 			{ "node": "tests/profession-trainers.test.js", "test": "mutaka's report (#1608): Expert Leatherworking points only at Una and Telonis" },
 			{ "node": "tests/profession-trainers.test.js", "test": "every crafting guide's Expert and Artisan train step lists exactly the trainers who teach that rank on Forever (#1608)" }
 		] },
 		"1614": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Desolace: Kodo Roundup: the Kodo Kombobulator step names the Aged, Dying and Ancient Kodos it tames (#1614)" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "Desolace: Kodo Roundup: the Kodo Kombobulator step names the Aged, Dying and Ancient Kodos it tames (#1614)" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/qol.rs", "test": "target_button_names_what_a_use_goal_s_item_works_on_and_every_creature_a_kill_s_objective_credits_1614" },
 			{ "cargo": "forge-guide", "target": "guide", "file": "rust/crates/forge-guide/tests/guide/dsl_resolve.rs", "test": "a_use_of_the_item_a_quest_hands_over_and_a_kill_of_its_objective_name_every_creature_it_credits_1614" }
 		] },
 		"1616": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Desolace: Centaur Bounty: each spot of the Centaur Ear collect names its own camp's centaurs (#1616)" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "Desolace: Centaur Bounty: each spot of the Centaur Ear collect names its own camp's centaurs (#1616)" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine.rs", "test": "spotindexof_gives_the_spot_the_arrow_takes_else_the_nearest_and_changes_nothing_1616" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/qol.rs", "test": "target_button_names_the_mobs_at_the_spot_the_arrow_takes_when_a_collect_s_spots_hold_other_camps_1616" },
 			{ "cargo": "forge-guide", "target": "guide", "file": "rust/crates/forge-guide/tests/guide/dsl_resolve.rs", "test": "a_collect_whose_spots_hold_more_sources_than_its_point_names_lists_each_spots_own_1616" }
@@ -1079,7 +1079,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-journey.rs", "test": "nearby_a_codex_spawn_s_height_reaches_the_arrow_so_a_city_npc_under_the_lifts_is_not_sought_on_the_floor_above_1639" }
 		] },
 		"1644": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${BARRENS_12}: #1644: no oasis trip for the seed test alone; the seed test with Verog, the snapjaws with Hezrul" }
+			{ "node": "tests/reported/horde-10-30.test.js", "test": "${BARRENS_12}: #1644: no oasis trip for the seed test alone; the seed test with Verog, the snapjaws with Hezrul" }
 		] },
 		"1650": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "the_walk_from_the_suspicious_barrel_to_hinderweir_keeps_the_dams_height_off_its_edge_400_yd_along_the_dam_never_round_by_grim_batol_1650" }
@@ -1095,22 +1095,22 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_prerequisite_step_says_which_dungeon_quest_it_is_needed_for_and_an_elite_s_drop_says_group_advised" }
 		] },
 		"1660": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "creazy231's report (#1660): Hillsbrad 30-40 catches a player who skipped the 22-25 guide up on Battle of Hillsbrad and The Rescue" },
-			{ "node": "tests/guides-reported.test.js", "test": "creazy231's report (#1660): a player who did the 22-25 Hillsbrad guide sees none of the catch-up" }
+			{ "node": "tests/reported/horde-30-40.test.js", "test": "creazy231's report (#1660): Hillsbrad 30-40 catches a player who skipped the 22-25 guide up on Battle of Hillsbrad and The Rescue" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "creazy231's report (#1660): a player who did the 22-25 Hillsbrad guide sees none of the catch-up" }
 		] },
 		"1661": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#1661: with the Syndicate Missive already in the bags the guide passes Henchman Valik" },
+			{ "node": "tests/reported/horde-30-40.test.js", "test": "#1661: with the Syndicate Missive already in the bags the guide passes Henchman Valik" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-unavailable.rs", "test": "t_1661_a_child_quest_whose_parent_is_handed_in_is_closed_for_good_even_in_a_step_whose_when_was_stored_as_held" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-unavailable.rs", "test": "t_1661_a_child_quest_whose_parent_is_not_in_the_log_and_that_the_route_no_longer_brings_is_passed" }
 		] },
 		"1667": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "class guides: every step waits on its own level for mobs and quests at most 1 above it (Fitz's rule, #1667, Kapu)" }
+			{ "node": "tests/reported/class.test.js", "test": "class guides: every step waits on its own level for mobs and quests at most 1 above it (Fitz's rule, #1667, Kapu)" }
 		] },
 		"1674": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/travel-build.rs", "test": "from_lorthunas_terrace_to_elaadrin_in_valanaar_the_route_takes_the_portal_down_never_the_hearthstone" }
 		] },
 		"1676": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "SpydaPablo's report (#1676): the Barrens' last flight to Ratchet is only for its quests" }
+			{ "node": "tests/reported/horde-10-30.test.js", "test": "SpydaPablo's report (#1676): the Barrens' last flight to Ratchet is only for its quests" }
 		] },
 		"1682": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-router.rs", "test": "path_surfacesat_s_areas_deep_in_a_cluster_read_from_a_checkpoint_not_the_string_s_start_and_read_the_same_rows" }
@@ -1130,17 +1130,17 @@
 		] },
 		"1695": { "tests": [
 			{ "node": "tests/danger-gate.test.js", "test": "a collect whose tour reaches droppers 4+ over while ones at your level drop it too is flagged mixed (#1695)" },
-			{ "node": "tests/guides-reported.test.js", "test": "Kolbi on Discord (#1695): Helcular's Rod is farmed on the Foothill Caverns' 30-32 yetis, never toured into the 32-34 cave" },
-			{ "node": "tests/guides-reported.test.js", "test": "Danger at the spot (#1575, #1695): the Syndicate missives fallback comes when the Syndicate are under you" },
-			{ "node": "tests/guides-reported.test.js", "test": "Danger at the spot (#1575): goals an item several mobs drop point at the ones at the route's level, not a camp 4+ levels over (#1695's pattern)" }
+			{ "node": "tests/reported/horde-30-40.test.js", "test": "Kolbi on Discord (#1695): Helcular's Rod is farmed on the Foothill Caverns' 30-32 yetis, never toured into the 32-34 cave" },
+			{ "node": "tests/reported/horde-30-40.test.js", "test": "Danger at the spot (#1575, #1695): the Syndicate missives fallback comes when the Syndicate are under you" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "Danger at the spot (#1575): goals an item several mobs drop point at the ones at the route's level, not a camp 4+ levels over (#1695's pattern)" }
 		] },
 		"1697": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/levels.rs", "test": "a_stray_drop_chance_beside_a_dropper_with_none_known_is_not_estimated_1697" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/levels.rs", "test": "every_shipped_leveling_guide_s_estimate_stays_sane_on_the_real_codex_1697" }
 		] },
 		"1699": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Fenn's report (#1699): quests handed in on the spot are direct turn-ins, never accepts or tracked objectives" },
-			{ "node": "tests/guides-reported.test.js", "test": "generated leveling guides: quests handed in on the spot are direct turn-ins, with no accept, bound objective or quest condition (#1699 sweep)" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "Fenn's report (#1699): quests handed in on the spot are direct turn-ins, never accepts or tracked objectives" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "generated leveling guides: quests handed in on the spot are direct turn-ins, with no accept, bound objective or quest condition (#1699 sweep)" }
 		] },
 		"1700": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "a_hillside_corner_cut_wide_never_holds_the_arrow_back_on_it_outdoors_or_indoors" },
@@ -1165,14 +1165,14 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/travel-transit.rs", "test": "issue_1741_without_waypoint_ui_the_game_s_pin_stays_on_the_target" }
 		] },
 		"1752": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "mutaka's report (#1752): Jungle Secrets from Private Thorsen at the foot of the Rebel Camp's path, optional" }
+			{ "node": "tests/reported/alliance-30-40.test.js", "test": "mutaka's report (#1752): Jungle Secrets from Private Thorsen at the foot of the Rebel Camp's path, optional" }
 		] },
 		"1753": { "tests": [
 			{ "node": "tests/ui-report.test.js", "test": "a long report with many addons and an error caught 63 times stays in its box: the box scrolls under Copy report, selected whole for Ctrl+C, nothing draws over the form, the window fits a 720-unit screen (#1753)" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine.rs", "test": "a_spot_picked_by_hand_with_no_other_spot_fresh_is_kept_without_a_lua_error_1753" }
 		] },
 		"1760": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "gabriel pasternak's report (#1760): the Horde Elemental Aid chain's givers and enders, and Call of Air first" }
+			{ "node": "tests/reported/class.test.js", "test": "gabriel pasternak's report (#1760): the Horde Elemental Aid chain's givers and enders, and Call of Air first" }
 		] },
 		"1762": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-unavailable.rs", "test": "t_1762_a_giver_whose_window_lists_no_quest_but_has_a_chat_option_says_to_try_it_its_detail_window_clears_the_line" }
@@ -1186,7 +1186,7 @@
 			{ "node": "tests/profession-trainers.test.js", "test": "every crafting guide's Expert and Artisan train step lists exactly the trainers who teach that rank on Forever (#1608)" }
 		] },
 		"1776": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Kolbi's report (#1776): Hillsbrad 30-40's catch-up kills Dangerous!'s Kalaba with the peasants and Wilkes at the smithy" }
+			{ "node": "tests/reported/horde-30-40.test.js", "test": "Kolbi's report (#1776): Hillsbrad 30-40's catch-up kills Dangerous!'s Kalaba with the peasants and Wilkes at the smithy" }
 		] },
 		"1782": { "tests": [
 			{ "cargo": "forge-guide", "target": "guide", "file": "rust/crates/forge-guide/tests/guide/dsl_heights.rs", "test": "a_use_bound_to_an_objective_at_an_object_or_a_creature_gets_that_ones_spawn_z_1782" },
@@ -1199,7 +1199,7 @@
 			{ "cargo": "forge-guide", "target": "guide", "file": "rust/crates/forge-guide/tests/guide/dsl_heights.rs", "test": "a_goto_takes_the_height_of_the_goal_it_leads_to_in_its_step_or_the_next_within_15_yards_1786" }
 		] },
 		"1792": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${REDRIDGE}: nikilok's report (#1792): no Bronze Tube from Herble; Gearcutter Cogspinner's on the Ironforge stop before, optional" },
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "${REDRIDGE}: nikilok's report (#1792): no Bronze Tube from Herble; Gearcutter Cogspinner's on the Ironforge stop before, optional" },
 			{ "seed": "{REDRIDGE}: nikilok's report (#1792): no Bronze Tube from Herble; Gearcutter Cogspinner's on the Ironforge stop before, optional" }
 		] },
 		"1801": { "tests": [
@@ -1210,10 +1210,10 @@
 			{ "cargo": "forge-judge", "target": "lib", "file": "rust/crates/forge-judge/src/honest/tests.rs", "test": "r3_quests_handed_in_on_the_spot_need_no_quest_in_the_log" }
 		] },
 		"1808": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#190, #297, #1958, #1808: profession guides craft and learn what Forever's trainers teach" }
+			{ "node": "tests/reported/other-guides.test.js", "test": "#190, #297, #1958, #1808: profession guides craft and learn what Forever's trainers teach" }
 		] },
 		"1813": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "forever/miscellaneous/cozy-sleeping-bag.guide: #1813: Alliance come into Stonetalon from the north, by the Talondeep Path" }
+			{ "node": "tests/reported/other-guides.test.js", "test": "forever/miscellaneous/cozy-sleeping-bag.guide: #1813: Alliance come into Stonetalon from the north, by the Talondeep Path" }
 		] },
 		"1817": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_follow_up_asking_only_for_an_item_in_the_bags_is_handed_in_at_its_ender_after_the_stop_that_gives_it_1817_prehistoric_prism" }
@@ -1230,7 +1230,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/qol.rs", "test": "trainer_never_spends_gold_even_with_saved_bulk_training_settings" }
 		] },
 		"1833": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${LOCH_MODAN}: #1833: A Hunter's Challenge is handed in before the crocolisks and Daggerfang" }
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "${LOCH_MODAN}: #1833: A Hunter's Challenge is handed in before the crocolisks and Daggerfang" }
 		] },
 		"1834": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "t_1834_with_tomtom_s_arrow_tomtom_is_handed_booty_bays_flight_master_for_the_flight_to_gromgol_not_the_far_target" },
@@ -1238,26 +1238,26 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/travel-transit.rs", "test": "issue_1834_tomtom_as_a_mirror_only_keeps_its_waypoint_on_the_goal" }
 		] },
 		"1866": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${WETLANDS}: #1866: the Tome of Mel'Thandris is read on the later moonwell visit, with a warning" }
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "${WETLANDS}: #1866: the Tome of Mel'Thandris is read on the later moonwell visit, with a warning" }
 		] },
 		"1890": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/travel-transit.rs", "test": "issue_1890_after_landing_the_route_never_flies_back_to_the_flight_master_it_left_from_another_target_may" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/travel-transit.rs", "test": "issue_1890_after_a_ride_arrives_the_route_never_rides_it_back_another_target_may" }
 		] },
 		"1926": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#1926, #2148: Vimes's Report and Awaiting Word, which their givers do not offer on Forever, are in no guide" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "#1926, #2148: Vimes's Report and Awaiting Word, which their givers do not offer on Forever, are in no guide" }
 		] },
 		"1952": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#1952: the Alliance start guides' Camping 101 trainer steps wait until the quest is complete" }
+			{ "node": "tests/reported/alliance-starts.test.js", "test": "#1952: the Alliance start guides' Camping 101 trainer steps wait until the quest is complete" }
 		] },
 		"1956": { "tests": [
 			{ "node": "tests/profession-trainers.test.js", "test": "Pyzx's report (#1956): recipes only the Artisan trainers teach are learned from them, not the Expert trainers" }
 		] },
 		"1958": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#190, #297, #1958, #1808: profession guides craft and learn what Forever's trainers teach" }
+			{ "node": "tests/reported/other-guides.test.js", "test": "#190, #297, #1958, #1808: profession guides craft and learn what Forever's trainers teach" }
 		] },
 		"1985": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Dustwallow Marsh (Horde): the venom-sac goal says every Darkfang spider drops them, in the guide and its record (#1985)" }
+			{ "node": "tests/reported/horde-30-40.test.js", "test": "Dustwallow Marsh (Horde): the venom-sac goal says every Darkfang spider drops them, in the guide and its record (#1985)" }
 		] },
 		"1992": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "Archmage Tervosh and Lady Jaina stand in Theramore's tower; the Missing Diplomat spots are no spawns of theirs (#1992)" }
@@ -1266,7 +1266,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_waiting_quest_s_line_is_plain_text_marked_accent_never_a_colour_code_the_window_prints_1993" }
 		] },
 		"1999": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Bennistrov's report (#1999): Feralas never sends you to the Rage Scar yetis" }
+			{ "node": "tests/reported/alliance-40-50.test.js", "test": "Bennistrov's report (#1999): Feralas never sends you to the Rage Scar yetis" }
 		] },
 		"2014": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "Henrig Lonebrow's Journal lies where players loot it now, its old spot gone (#2014)" }
@@ -1279,114 +1279,114 @@
 			{ "node": "tests/data-corrections.test.js", "test": "Gnogaine waits for The Day After, whatever breadcrumb links the data has (Gnomeregan pick-up)" }
 		] },
 		"2082": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${LOCH_MODAN}: #2082: the way back to Auberdine drops once in Darkshore, with training on the way" }
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "${LOCH_MODAN}: #2082: the way back to Auberdine drops once in Darkshore, with training on the way" }
 		] },
 		"2148": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#1926, #2148: Vimes's Report and Awaiting Word, which their givers do not offer on Forever, are in no guide" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "#1926, #2148: Vimes's Report and Awaiting Word, which their givers do not offer on Forever, are in no guide" }
 		] },
 		"2199": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Pysch_MC's report (#2199): the Searing Gorge guide names the Searing Lava Spiders as the game does" }
+			{ "node": "tests/reported/alliance-40-50.test.js", "test": "Pysch_MC's report (#2199): the Searing Gorge guide names the Searing Lava Spiders as the game does" }
 		] },
 		"2201": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "forever/alliance/03-loch-modan.guide: the flight to Ironforge goes by the Ironforge flight path, the tunnel walk for the rest (#1508, #1518)" }
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "forever/alliance/03-loch-modan.guide: the flight to Ironforge goes by the Ironforge flight path, the tunnel walk for the rest (#1508, #1518)" }
 		] },
 		"2207": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Bennistrov's and Visur's report (#2207): the Dunemaul grind says why, and grinds on the safer ogres" }
+			{ "node": "tests/reported/alliance-40-50.test.js", "test": "Bennistrov's and Visur's report (#2207): the Dunemaul grind says why, and grinds on the safer ogres" }
 		] },
 		"2243": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${REDRIDGE}: Acrylic's report (#2243): Look to the Stars is a step of its own, only with a Bronze Tube; the chain drops out without one" }
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "${REDRIDGE}: Acrylic's report (#2243): Look to the Stars is a step of its own, only with a Bronze Tube; the chain drops out without one" }
 		] },
 		"2253": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ARATHI}: Galen's Escape warns of the Lost Ones the escort pulls onto Galen (#2253)" }
+			{ "node": "tests/reported/alliance-30-40.test.js", "test": "${ARATHI}: Galen's Escape warns of the Lost Ones the escort pulls onto Galen (#2253)" }
 		] },
 		"2256": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "the release data: Death to the Dragonmaw (#2256) and Open the Maw (#2437) wait for their quests, Trouble in the Deeps leads to The Essence of Aku'Mai (#2508)" }
 		] },
 		"2268": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#2268: Dun Morogh holds Quarrymaster Thesten for the powder keg's quest before Helm's Bed Lake" }
+			{ "node": "tests/reported/alliance-starts.test.js", "test": "#2268: Dun Morogh holds Quarrymaster Thesten for the powder keg's quest before Helm's Bed Lake" }
 		] },
 		"2300": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#2300: Searing Gorge (Alliance): Prayer to Elune waits for a group, among the Twilight camp's elites" }
+			{ "node": "tests/reported/alliance-40-50.test.js", "test": "#2300: Searing Gorge (Alliance): Prayer to Elune waits for a group, among the Twilight camp's elites" }
 		] },
 		"2311": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#2311: a complete that leads its step has a place for the arrow" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "#2311: a complete that leads its step has a place for the arrow" }
 		] },
 		"2312": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: Applejack reports (#820, #823, #2312, #2561): direct hand-ins after the Stonefield apples, with no early accept" },
+			{ "node": "tests/reported/alliance-starts.test.js", "test": "${ELWYNN}: Applejack reports (#820, #823, #2312, #2561): direct hand-ins after the Stonefield apples, with no early accept" },
 			{ "cargo": "forge", "target": "guide_direct_hand_ins", "file": "rust/crates/forge/tests/guide_direct_hand_ins.rs", "test": "applejack_corrections_remove_accepts_and_preserve_the_elwynn_route" }
 		] },
 		"2326": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#2326: Feralas (Horde): the Screecher Spirits are talked to, after the bramble" }
+			{ "node": "tests/reported/horde-40-50.test.js", "test": "#2326: Feralas (Horde): the Screecher Spirits are talked to, after the bramble" }
 		] },
 		"2327": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#2327: a leveling guide that ends on the way into another zone drops that step once you are there" }
+			{ "node": "tests/reported/alliance-routes.test.js", "test": "#2327: a leveling guide that ends on the way into another zone drops that step once you are there" }
 		] },
 		"2337": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "Khan Jehn waits for Checking Things Out, the end of Nerlokh's chain (#2337)" }
 		] },
 		"2353": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Horde 40-60 accept levels: quests are taken where the route reaches their level" }
+			{ "node": "tests/reported/horde-routes.test.js", "test": "Horde 40-60 accept levels: quests are taken where the route reaches their level" }
 		] },
 		"2389": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "Unending Torment's serum is given at its Apothecarium spot (#2389)" }
 		] },
 		"2394": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#2394: Horde Feralas & Tanaris: Water Pouch Bounty counts the quest's 5 pouches" }
+			{ "node": "tests/reported/horde-40-50.test.js", "test": "#2394: Horde Feralas & Tanaris: Water Pouch Bounty counts the quest's 5 pouches" }
 		] },
 		"2437": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "the release data: Death to the Dragonmaw (#2256) and Open the Maw (#2437) wait for their quests, Trouble in the Deeps leads to The Essence of Aku'Mai (#2508)" }
 		] },
 		"2458": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#2458: Horde Ashenvale: The Hunt Completed is a direct hand-in that waits for Sharptalon's Claw" }
+			{ "node": "tests/reported/horde-10-30.test.js", "test": "#2458: Horde Ashenvale: The Hunt Completed is a direct hand-in that waits for Sharptalon's Claw" }
 		] },
 		"2459": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#2459: Horde Ashenvale & Thousand Needles: the Great Lift step has no goto at the lift, the next step leads on" }
+			{ "node": "tests/reported/horde-10-30.test.js", "test": "#2459: Horde Ashenvale & Thousand Needles: the Great Lift step has no goto at the lift, the next step leads on" }
 		] },
 		"2464": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "Overmaster Pyron stands in Searing Gorge's Grinding Quarry (#2464)" }
 		] },
 		"2469": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Trek to Ashenvale (#1089, #1811): Sentinel Selarin comes and goes; her quest never holds a step and is offered again after the escort" }
+			{ "node": "tests/reported/alliance-10-30.test.js", "test": "Trek to Ashenvale (#1089, #1811): Sentinel Selarin comes and goes; her quest never holds a step and is offered again after the escort" }
 		] },
 		"2490": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#2490, #2491: Alliance: A-Me 01 and Alien Ecology wait for the later Un'Goro visit" }
+			{ "node": "tests/reported/alliance-routes.test.js", "test": "#2490, #2491: Alliance: A-Me 01 and Alien Ecology wait for the later Un'Goro visit" }
 		] },
 		"2491": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#2490, #2491: Alliance: A-Me 01 and Alien Ecology wait for the later Un'Goro visit" }
+			{ "node": "tests/reported/alliance-routes.test.js", "test": "#2490, #2491: Alliance: A-Me 01 and Alien Ecology wait for the later Un'Goro visit" }
 		] },
 		"2508": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "the release data: Death to the Dragonmaw (#2256) and Open the Maw (#2437) wait for their quests, Trouble in the Deeps leads to The Essence of Aku'Mai (#2508)" }
 		] },
 		"2535": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#2535 #2539 #2543: stories heard from friendly NPCs are talks in the data, not kills" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "#2535 #2539 #2543: stories heard from friendly NPCs are talks in the data, not kills" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_pick_up_guide_step_for_a_story_from_a_friendly_npc_says_talk_to_not_kill_2543" }
 		] },
 		"2539": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#2535 #2539 #2543: stories heard from friendly NPCs are talks in the data, not kills" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "#2535 #2539 #2543: stories heard from friendly NPCs are talks in the data, not kills" }
 		] },
 		"2543": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#2535 #2539 #2543: stories heard from friendly NPCs are talks in the data, not kills" },
+			{ "node": "tests/reported/every-guide.test.js", "test": "#2535 #2539 #2543: stories heard from friendly NPCs are talks in the data, not kills" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_pick_up_guide_step_for_a_story_from_a_friendly_npc_says_talk_to_not_kill_2543" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/quests.rs", "test": "a_talk_objective_keeps_its_line_says_talk_to_on_the_npc_and_puts_no_skull_on_it_2543" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/quests.rs", "test": "a_pinned_quest_s_talk_line_is_built_as_a_talk_to_its_npc_2543" }
 		] },
 		"2563": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#2563: Wetlands (Alliance): Fall of Dun Modr is taken on its own step, only while A Grim Task is not handed in" }
+			{ "node": "tests/reported/alliance-routes.test.js", "test": "#2563: Wetlands (Alliance): Fall of Dun Modr is taken on its own step, only while A Grim Task is not handed in" }
 		] },
 		"2612": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#2612: quests handed in at an object are never handed in to their giver" }
+			{ "node": "tests/reported/every-guide.test.js", "test": "#2612: quests handed in at an object are never handed in to their giver" }
 		] },
 		"2575": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#2575: Riverglades (Alliance): the Loose Soil goal says to loot the Farmers' Mementos from the Twilight Raiders first" }
+			{ "node": "tests/reported/alliance-40-50.test.js", "test": "#2575: Riverglades (Alliance): the Loose Soil goal says to loot the Farmers' Mementos from the Twilight Raiders first" }
 		] },
 		"2615": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#2615: Thousand Needles (Horde): Test of Faith's leap points at the end of the planks" }
+			{ "node": "tests/reported/horde-10-30.test.js", "test": "#2615: Thousand Needles (Horde): Test of Faith's leap points at the end of the planks" }
 		] },
 		"2650": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#2650: Hillsbrad (Horde): Citizen Wilkes is looked for on the west side of the town" }
+			{ "node": "tests/reported/horde-30-40.test.js", "test": "#2650: Hillsbrad (Horde): Citizen Wilkes is looked for on the west side of the town" }
 		] },
 		"2604": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#2604: Stranglethorn (Alliance): Skullsplitter Tusks are looked for in the trolls' camp at Zul'Mamwe" }
+			{ "node": "tests/reported/alliance-40-50.test.js", "test": "#2604: Stranglethorn (Alliance): Skullsplitter Tusks are looked for in the trolls' camp at Zul'Mamwe" }
 		] },
 		"2606": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/lookup.rs", "test": "a_quest_lookup_opens_the_class_guide_that_lists_it_2606" }
@@ -1410,7 +1410,7 @@
 		] }
 	},
 	"seedDrift": {
-		"forever/alliance/dwarf/01-dun-morogh.guide: Tom's report: the arrow reaches the Grizzled Den (Frosthowl) through its mouth at 42.57,54.68": "The guides-reported case for the Grizzled Den's mouth (tests/guides-reported.test.js CAVES, the 0.4.0 level tidy) now takes Frosthowl's fish on the shipments' one visit through the same mouth; the seed still asserts the earlier second visit from Brewnall.",
+		"forever/alliance/dwarf/01-dun-morogh.guide: Tom's report: the arrow reaches the Grizzled Den (Frosthowl) through its mouth at 42.57,54.68": "The guides-reported case for the Grizzled Den's mouth (tests/reported/every-guide.test.js CAVES, the 0.4.0 level tidy) now takes Frosthowl's fish on the shipments' one visit through the same mouth; the seed still asserts the earlier second visit from Brewnall.",
 		"forever/alliance/dwarf/01-dun-morogh.guide: thmastin's report: Grik'nir comes after Anvilmar, and the journal and Nori's mug are handed in on one camp visit": "The guides-reported case of the same name follows the 0.4.0 Dun Morogh order of each start's own guide and passes; the seed still asserts the shared dwarf-gnome guide's order.",
 		"forever/alliance/dwarf/01-dun-morogh.guide: thmastin's report: Sten's quests and the class letter are taken before Balir, then Anvilmar is entered once": "The guides-reported case of the same name reads the class letters per class in the per-race guides and passes; the seed still looks for the shared guide's letter accept.",
 		"forever/alliance/dwarf/01-dun-morogh.guide: thmastin's report: Kharanos is done outside first (Eric before Tharek), then the distillery, training last": "The guides-reported case of the same name follows the 0.4.0 Kharanos stop and passes; the seed still asserts the shared guide's bind step.",

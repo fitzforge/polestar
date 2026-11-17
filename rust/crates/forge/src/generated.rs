@@ -36,7 +36,7 @@ pub const WHERE_FIXES_GO: &str = "Put the fix where every build applies it:
   - how a quest is done (an item from a chest, a delayed offer, an object to click):
     forever-db/corrections/mechanics.json
   - whether the route takes a quest, or an order players asked for: data/route-fixes.json
-  - the check that pins the fix: tests/guides-reported.test.js
+  - the check that pins the fix: tests/reported/ (the file for the guide's area)
 A step's wording, tip or arrow point has no record file yet: describe the fix on the issue and the
 maintainer applies it. docs/FORGE.md, \"Fixing a generated guide\", has the details.";
 

@@ -25,9 +25,9 @@ test('every report in the map has its tests, a reason nothing can be checked, or
 		else if (v.uncheckable !== undefined && !(typeof v.uncheckable === 'string' && v.uncheckable.length > 20)) bad.push(`#${issue}: say why nothing can be checked`);
 		else if (v.same !== undefined && !(gate.issues[v.same] && gate.issues[v.same].tests)) bad.push(`#${issue}: same as #${v.same}, which has no tests`);
 	}
-	// A seed the gate lets fail says why: the guides-reported case it ports has changed since.
+	// A seed the gate lets fail says why: the reported case it ports has changed since.
 	for (const [name, why] of Object.entries(gate.seedDrift || {})) {
-		if (!(typeof why === 'string' && /guides-reported case/.test(why))) bad.push(`seedDrift ${name}: say which case it is behind`);
+		if (!(typeof why === 'string' && /reported case/.test(why))) bad.push(`seedDrift ${name}: say which case it is behind`);
 	}
 	assert.deepEqual(bad, []);
 });
@@ -53,9 +53,11 @@ test('every test the map names exists where it says', () => {
 	assert.deepEqual(missing, []);
 });
 
-test('the gate runs guides-reported whole, each named node file once and one cargo run per crate and test target', () => {
+test('the gate runs every file of tests/reported whole, each named node file once and one cargo run per crate and test target', () => {
 	const files = nodeFiles(gate);
-	assert.ok(files.includes('tests/guides-reported.test.js'));
+	const reported = fs.readdirSync(path.join(ROOT, 'tests', 'reported')).filter((f) => f.endsWith('.test.js'));
+	assert.ok(reported.length > 1 && reported.every((f) => files.includes(`tests/reported/${f}`)), files.join(', '));
+	assert.ok(!files.some((f) => f.endsWith('/helpers.js')), 'the shared helpers are no test file');
 	assert.equal(new Set(files).size, files.length);
 	const groups = cargoGroups(gate);
 	assert.equal(new Set(groups.map((g) => `${g.crate} ${g.target}`)).size, groups.length);

@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 'use strict';
 // The reported-problems gate (#2042): every player-reported problem that was fixed stays fixed. In one run it plays
-// the tests tests/reported-gate.json names for each confirmed report (node suites and the forge crates' tests), the
-// whole of tests/guides-reported.test.js, the judge's player-report seeds on the shipped guides (forge judge
-// seed-tests) and the danger-at-the-spot gate (tools/danger-gate.js, #1575), then names the reports whose tests fail.
+// the tests tests/reported-gate.json names for each confirmed report (node suites and the forge crates' tests), every
+// file of tests/reported/ (the player-reported guide cases), the judge's player-report seeds on the shipped guides
+// (forge judge seed-tests) and the danger-at-the-spot gate (tools/danger-gate.js, #1575), then names the reports whose
+// tests fail.
 //
 //   npm run test:reported -- --levels <Alliance.json>,<Horde.json> [options]
 //   node tools/reported-gate.js [options]
@@ -14,7 +15,7 @@
 //     --list           print what each part would run, and run nothing
 // The data tests need data/forever (forge data build): without it they would skip and pass, so the gate stops.
 // A seed that fails only on a guide file the shipped tree doesn't have (the route builder's folder layout, such as
-// horde/orc-troll) is listed as not applicable. A seed in the map's seedDrift (the guides-reported case it ports has
+// horde/orc-troll) is listed as not applicable. A seed in the map's seedDrift (the reported case it ports has
 // changed since and passes; the seed still asserts the earlier form) is listed as behind, not failed, and one that no
 // longer fails is named so its entry can go.
 // Exit 0: every part ran and passed; 1: a test failed (the reports it pins are listed); 2: a part could not run.
@@ -27,8 +28,9 @@ const { parseArgs } = require('./lib/cli');
 const ROOT = path.join(__dirname, '..');
 const GATE = path.join(ROOT, 'tests', 'reported-gate.json');
 const PARTS = ['node', 'seeds', 'cargo', 'danger'];
-// Run whole, whatever the map names: every case in it is a reported problem.
-const ALWAYS_NODE = ['tests/guides-reported.test.js'];
+// Run whole, whatever the map names: every case in them is a reported problem.
+const REPORTED_DIR = 'tests/reported';
+const alwaysNode = () => fs.readdirSync(path.join(ROOT, REPORTED_DIR)).filter((f) => f.endsWith('.test.js')).map((f) => `${REPORTED_DIR}/${f}`);
 
 function loadGate(file = GATE) {
 	return JSON.parse(fs.readFileSync(file, 'utf8'));
@@ -40,7 +42,7 @@ function pins(gate) {
 }
 
 function nodeFiles(gate) {
-	return [...new Set([...ALWAYS_NODE, ...pins(gate).filter((p) => p.test.node).map((p) => p.test.node)])].sort();
+	return [...new Set([...alwaysNode(), ...pins(gate).filter((p) => p.test.node).map((p) => p.test.node)])].sort();
 }
 
 // The cargo runs: one per crate and test target, each with the test names as filters.
@@ -220,9 +222,9 @@ async function main(argv) {
 					part: 'seeds',
 					ok: !failed.length,
 					lines: [
-						`${tests.length} seeds: ${tests.filter((t) => t.passed && !t.skipped).length} pass, ${failed.length} fail, ${behind.length} behind their guides-reported case (seedDrift), ${tests.filter((t) => t.skipped).length} skip, ${na.length} name a guide the shipped tree doesn't have`,
+						`${tests.length} seeds: ${tests.filter((t) => t.passed && !t.skipped).length} pass, ${failed.length} fail, ${behind.length} behind their reported case (seedDrift), ${tests.filter((t) => t.skipped).length} skip, ${na.length} name a guide the shipped tree doesn't have`,
 						...failed.map((t) => `failing: ${t.name}: ${t.failures.slice(0, 3).join('; ')}`),
-						...behind.map((t) => `behind its guides-reported case: ${t.name}`),
+						...behind.map((t) => `behind its reported case: ${t.name}`),
 						...caughtUp.map((name) => `in seedDrift but not failing (drop it from tests/reported-gate.json): ${name}`),
 						...na.map((t) => `not applicable: ${t.name} (${t.failures[0]})`),
 					],

@@ -33,8 +33,9 @@ push.
 
 `npm run test:reported` runs the reported-problems gate (`tools/reported-gate.js`,
 a release gate): for every confirmed player report that was fixed, the tests
-`reported-gate.json` names (node files and forge crates' tests), with the
-whole of `guides-reported.test.js`, the judge's player-report seeds on the
+`reported-gate.json` names (node files and forge crates' tests), with every
+file of `reported/` (the player-reported guide cases, one file per area, the
+shared helpers in `reported/helpers.js`), the judge's player-report seeds on the
 shipped guides and the danger gate (`--levels`, the release candidate's
 calibrated level model), then the reports whose tests fail. A fix for a
 report adds the report and its test to `reported-gate.json`;
@@ -134,7 +135,7 @@ CI, they skip; everything else runs.
 
 | Local input | Built by | Tests that use it |
 |---|---|---|
-| `data/forever/*.json` (reference data) | `data build` and the other data commands | `guides.test.js`, `guides-caves.test.js`, `guides-floors.test.js` (goals upstairs where the walking maps have no way up come after a goto at the door) and `guides-reported.test.js` (player-reported guide fixes, one case per report), `guides-patterns.test.js` (the patterns behind those reports, across every guide: the first giver beside the spawn, class letters on a training visit, "Click X" only for clicks, quest clicks shown with their step's kills, vendor-only items bought), `lint-timed.test.js` (the old and fixed orders of timed quest items, every guide in time; needs item durations), `engine-placement.test.js`, `perf.test.js`, `acceptance-packs.test.js`, `playtest.test.js`, `play.test.js`, `play-pack.test.js`, `play-start.test.js`, `new.test.js`, `dev.test.js`, `dsl.test.js`, `maps-zonelevels.test.js`, `profession-gathering.test.js`, forge-data's `questdb` (the real database's size budget), `planner-timeline.test.js` (the Dwarf chain played to level 55; needs `travel.json` too) |
+| `data/forever/*.json` (reference data) | `data build` and the other data commands | `guides.test.js`, `guides-caves.test.js`, `guides-floors.test.js` (goals upstairs where the walking maps have no way up come after a goto at the door) and `reported/*.test.js` (player-reported guide fixes, one case per report, one file per area), `guides-patterns.test.js` (the patterns behind those reports, across every guide: the first giver beside the spawn, class letters on a training visit, "Click X" only for clicks, quest clicks shown with their step's kills, vendor-only items bought), `lint-timed.test.js` (the old and fixed orders of timed quest items, every guide in time; needs item durations), `engine-placement.test.js`, `perf.test.js`, `acceptance-packs.test.js`, `playtest.test.js`, `play.test.js`, `play-pack.test.js`, `play-start.test.js`, `new.test.js`, `dev.test.js`, `dsl.test.js`, `maps-zonelevels.test.js`, `profession-gathering.test.js`, forge-data's `questdb` (the real database's size budget), `planner-timeline.test.js` (the Dwarf chain played to level 55; needs `travel.json` too) |
 | Client map tables cached in `data/sources/wago` | `exploration build` | `exploration.test.js` |
 | Classic Era `TaxiPathNode` cached in `data/sources/wago` | `travel build` | `nav-transit.test.js` (the transport model against every sniffed CMaNGOS period) |
 | `addon/Polestar_QuestDB` | `forge data questdb` | forge-addontest `questdb-memory` (data/forever), forge-data `questdb` |
