@@ -173,11 +173,23 @@ below.
   see it. Give the entry a `source` (an in-game check or issue, a recording,
   the client, CMaNGOS, the Forever TrinityCore DB, QuestieDB or pfQuest;
   `forever-db/README.md` lists the kinds) and a `note` in your own words.
-- **Do not commit `addon/Polestar_Guides/Guides.lua`.** It is compiled from
-  `guides/` and `data/forever`; the maintainer runs `forge guide compile`
-  (via `polestar regen`) after merge. Never hand-edit it or splice
-  in a hunk from a partial compile: a spliced hunk can still be valid Lua
-  while the game never sees the goals it contains.
+- **Commit the recompiled guides and their translation files in the same
+  pull request.** CI has no reference data, so it cannot compile guides:
+  a guide change without them leaves `next` stale for every pull request
+  after it. After your last guide edit (and after merging `next` into your
+  branch), run
+
+  ```sh
+  forge i18n guides sync    # guides/locales/<locale>/: the texts your change added, changed or removed
+  forge guide compile       # addon/Polestar_Guides*/ and each language's Texts.lua
+  ```
+
+  (`forge guide compile experimental` too for a guide in `experimental/`)
+  and commit everything they write. Never hand-edit the compiled files or
+  splice in a hunk from a partial compile: a spliced hunk can still be
+  valid Lua while the game never sees the goals it contains. Both need the
+  reference data; without it, say so in the pull request and a maintainer
+  pushes the compile to your branch before merging it.
 - Check your change:
 
   ```sh
@@ -240,8 +252,8 @@ else broke ([docs/CI.md](docs/CI.md#lanes), "Lanes").
 
 | What you changed | What you run |
 |---|---|
-| A guide step (`.guide` file, existing guide) | `forge guide lint` and `playtest --filter <guide>` (need reference data; say so in the PR if unavailable); for a fix to a reported bug, also `node --test tests/guides-reported.test.js` (or `tests/guides-caves.test.js` for a cave mouth) |
-| A new or renamed guide file | The same lint and playtest; note in the PR that `Guides.lua` needs recompiling — the maintainer does it after merge |
+| A guide step (`.guide` file, existing guide) | `forge guide lint` and `playtest --filter <guide>` (need reference data; say so in the PR if unavailable); for a fix to a reported bug, also `node --test tests/guides-reported.test.js` (or `tests/guides-caves.test.js` for a cave mouth); then `forge i18n guides sync` and `forge guide compile`, committed with the change ([Fixing a guide](#fixing-a-guide)) |
+| A new or renamed guide file | The same lint, playtest, sync and compile, committed with the change |
 | The addon's Lua (`addon/Polestar/`) | The test file(s) for the area you changed: `node --test tests/<area>.test.js`. Find it with `grep -rl <module-name> tests/*.test.js`; for example, a change to `Theme/` → `node --test tests/theme.test.js`. For a UI change, optionally run `node tools/polestar.js preview` to review the renders |
 | A tool or its library (`tools/`) | That tool's tests: `node --test "tests/<tool>*.test.js"` (e.g. `node --test tests/compile.test.js`) |
 | `tools/media/` (texture generators) | `node tools/polestar.js media` to see the textures locally; CI verifies the generators work |
@@ -254,12 +266,15 @@ A few tests skip automatically when the reference data (`data/forever`) or
 Lua 5.1 is missing. [tests/README.md](tests/README.md) describes the suite;
 [docs/SUITE.md](docs/SUITE.md) what is in and out of scope.
 
-**You do not commit** `addon/Polestar_Guides/Guides.lua`, `addon/Polestar_Experimental/`
-(compiled from `experimental/`), `docs/preview/*.svg`, the locale files in
-`addon/Polestar*/`, or `addon/Polestar/Media/*.tga` unless your change is to
-the generator itself (a texture generator in `tools/media/`, the preview
-renderer in `tools/preview/`, or the compiler in `tools/lib/dsl/`). The
-maintainer regenerates those after merging your PR.
+**A guide change commits its compiled guides and translation files**
+(`addon/Polestar_Guides*/`, `addon/Polestar_Experimental/`, the languages'
+`Texts.lua`, `guides/locales/`; see [Fixing a guide](#fixing-a-guide)).
+**You do not commit** `docs/preview/*.svg`, the interface translation files
+(`Interface.lua` in `addon/Polestar_<locale>/`) or
+`addon/Polestar/Media/*.tga` unless your change is to the generator itself
+(a texture generator in `tools/media/`, the preview renderer in
+`tools/preview/`, or the English string set). The maintainer regenerates
+those after merging your PR.
 
 ## Code changes
 
