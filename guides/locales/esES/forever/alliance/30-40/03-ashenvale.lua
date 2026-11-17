@@ -124,12 +124,17 @@ return {
 	-- {npc:4456} Fiora Longears · {area:514} Foothold Citadel · {npc:4941} Caz Twosprocket
 	["{npc:4456} is in the north of town, Captain Vimes in {area:514}; {npc:4941} stands in the town."] = "",
 
-	-- Step 23: Boat to Menethil Harbor
-	-- {area:150} Menethil Harbor
-	["Boat to {area:150}"] = "Barco a {area:150}",
+	-- Step 23: Ratchet
+	-- {zone:1413} Barrens · {area:392} Ratchet · {area:35} Booty Bay
+	["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock."] = "",
+
+	-- Step 24: Boat to Booty Bay
+	-- {area:35} Booty Bay
+	["Boat to {area:35}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back west along the road to the satyr camps of {area:429}."] = "Vuelve al oeste por el camino hasta los campamentos sátiros de {area:429}.",
+	-- ["Boat to {area:150}"] = "Barco a {area:150}",
 	-- ["Dartol's Rod"] = "Vara de transformación de Dartol",
 	-- ["Follow the road east to the satyr camps of {area:429}; {npc:3920} hides at their edge."] = "Sigue el camino hacia el este hasta los campamentos sátiros de {area:429}; {npc:3920} se esconde en su borde.",
 	-- ["Follow the road west out of {area:415}; {area:413} lies north of it."] = "Sigue el camino hacia el oeste desde {area:415}; {area:413} queda al norte.",
