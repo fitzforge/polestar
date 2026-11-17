@@ -291,6 +291,7 @@ step The cellar stairs
   goto 61.66,51.50 "The cellar stairs"
 
 step Gallows' End Tavern
+  tip Back up from the cellar: Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) are upstairs, Austil de Mon (warriors) on the ground floor; take the stairs inside, the arrow cannot tell the floors apart.
   turnin 407                          -- The Captured Scarlet Zealot, in the inn's cellar
   train class                         -- The Brill trainers are in the inn (Austil de Mon downstairs, the rest upstairs); Shari Stilwell, the Paladin trainer, by the square
   turnin 5651 only Priest             -- Dark Cleric Beryl, upstairs
