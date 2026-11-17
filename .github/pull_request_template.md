@@ -1,4 +1,4 @@
-<!-- Base branch: every pull request goes to next, never main. See CONTRIBUTING.md, "Branches". -->
+<!-- Base branch: next, never main (release/ and hotfix/ branches only when a maintainer asks). See CONTRIBUTING.md, "Branches". -->
 
 ## Issues
 

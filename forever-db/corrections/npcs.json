@@ -572,7 +572,7 @@
 			"kind": "client",
 			"ref": "creaturecache.wdb (1.60.1.70888): rank 2 (rare), as the knowledge base of the data build of 2026-11-13 recorded it (kb:client.cache:rank)"
 		},
-		"note": "Tunnelweb Matriarch is a rare on Forever: the server's creature answer the 70888 client cached said so. The 70938 client's cache no longer holds the creature and no other source gives a rank, so the 0.4.0 data had dropped her from the Codex's rares."
+		"note": "Tunnelweb Matriarch is a rare on Forever: the server's creature answer the 70888 client cached said so. The 70938 client's cache no longer holds the creature and no other source gives a rank, so the 0.4.0 data had dropped her from Lookup's rares."
 	},
 	"250483": {
 		"set": {
@@ -1069,6 +1069,20 @@
 			}
 		],
 		"note": "The Ghostly Attendant, An Ancient Grudge's giver and ender, stands inside the Hall of Thanes (instance map 3065, Forever's)."
+	},
+	"259256": {
+		"set": {
+			"instances": [
+				3039
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 27 people (23 established) killed Tunk inside Krol'dok Stronghold (instance map 3039), none anywhere else; 15 people looted the Horde's Krol'dok Moulding (item 267137) and 12 the Alliance's (267138) from him"
+			}
+		],
+		"note": "Tunk, the Blacksmith whose Krol'dok Moulding starts Krol'dok Moulding (94973 Horde, 94980 Alliance), stands inside Krol'dok Stronghold, so the Dungeons page lists both quests as picked up inside (#2560 sweep)."
 	},
 	"9500": {
 		"set": {
