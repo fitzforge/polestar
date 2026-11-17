@@ -1393,6 +1393,9 @@
 		] },
 		"2588": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-arrow-look.rs", "test": "the_backing_plate_is_as_wide_as_the_widest_line_it_backs_2588" }
+		] },
+		"2589": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/ui-look-toasts.rs", "test": "the_essentials_tracker_band_keeps_its_height_when_the_pointer_picks_a_shorter_one_2589" }
 		] }
 	},
 	"seedDrift": {
