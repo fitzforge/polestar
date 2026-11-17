@@ -189,6 +189,17 @@ below.
   `--filter` plays only the guides whose file or id contains its text;
   `--class Warrior` narrows it to one class. You don't need the full test
   suite; CI runs it on your pull request.
+- A pull request that moves a quest (to a later step, into another guide,
+  into a new step) shows its flow diff:
+  `node tools/polestar.js flow-diff --base origin/next --guides <guide> --md flow.md`
+  plays the route before and after your change and lists, per guide that
+  plays differently, the zones in order, any new trip back into a zone the
+  route had left, steps that send the player far for one quest (or to a
+  place with nothing to do), quests carried for more guides, the walking
+  and flying time, and where each moved quest went. Paste the table into the
+  pull request. It fails on a new revisit or trip unless
+  `data/flow-diff-allow.json` names it with a reason
+  ([docs/ROUTE-FEEL.md](docs/ROUTE-FEEL.md#flow-diff-what-one-change-does-to-the-route)).
 
 Both need the reference data (below). If you cannot build it, send the fix
 anyway: describe what you changed and why, say that you could not run the
