@@ -105,7 +105,7 @@ return {
 	-- {item:8526} Violet Tragan · {zone:1425} Hinterlands
 	["the {item:8526} grows in the {zone:1425}, around level 48"] = "{item:8526} растет здесь: {zone:1425}, примерно на 48-м уровне",
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, внутри",
 	-- {npc:11758} Andi Lynn · {area:983} Dunemaul Compound · {area:1938} Broken Pillar
 	["{npc:11758}'s {area:983} stays in your log for the {area:1938} at about 52."] = "Задание {area:983} от NPC {npc:11758} остается в журнале до места {area:1938} примерно на 52-м уровне.",
 
@@ -134,11 +134,11 @@ return {
 
 	-- Step 27: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
-	["Boat to {area:16727}"] = "",
+	["Boat to {area:16727}"] = "Корабль: {area:16727}",
 
 	-- Step 28: Into Searing Gorge
 	-- {zone:1427} Searing Gorge
-	["Into {zone:1427}"] = "",
+	["Into {zone:1427}"] = "В зону {zone:1427}",
 
 	-- Step 29: Searing Gorge
 	-- {area:247} Grimesilt Dig Site
@@ -170,7 +170,7 @@ return {
 
 	-- Step 37: Searing Gorge: kill these as you meet them
 	-- {zone:1427} Searing Gorge
-	["{zone:1427}: kill these as you meet them"] = "",
+	["{zone:1427}: kill these as you meet them"] = "{zone:1427}: убивайте их по пути",
 	-- {npc:8479} Velarok Windblade · {item:11818} Grimesilt Outhouse Key · {area:1443} The Slag Pit
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Blazing Elementals = {npc:5850} Blazing Elemental · Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Searing Lava Spiders = {npc:5858} Searing Lava Spider · Incendosaurs = {npc:9318} Incendosaur · Dark Iron Slavers = {npc:5844} Dark Iron Slaver
 	["Heavy War Golems patrol the Cauldron below {npc:8479} and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Searing Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee. The biggest Incendosaurs and Lava Spiders are 49: pull them one at a time."] = "Тяжелые боевые големы патрулируют Котлован ниже места, где стоит {npc:8479}, с них падает масло; с бродящих среди них магмовых и пылающих элементалей падают сердца. Надсмотрщики и поработители из клана Черного Железа гоняют рабов по тропам; с поработителя может упасть {item:11818}: сохраните его.\nБольшие лавовые пауки бродят по плато и лавовым озерам на юго-западе ущелья.\n{area:1443} – на севере Котлована. Пламезавры плавают в его лавовых озерах: выманивайте их к краю. Секретные чертежи лежат на верхнем уступе ямы.\nОсторожно: поработители из клана Черного Железа (45-46-го уровня) зовут на помощь союзников в радиусе 15 м, бросают сеть с 15 м и применяют Кровопускание в ближнем бою. Самые крупные пламезавры и лавовые пауки 49-го уровня: привлекайте их по одному.",

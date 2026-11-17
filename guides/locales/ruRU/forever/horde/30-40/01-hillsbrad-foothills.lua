@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Freewind Post flight master
 	-- {area:484} Freewind Post
-	["{area:484} flight master"] = "",
+	["{area:484} flight master"] = "Распорядитель полетов: {area:484}",
 
 	-- Step 2: Thunder Bluff
 	-- {area:484} Freewind Post · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
@@ -27,21 +27,21 @@ return {
 	-- Step 4: Fly to the Crossroads
 	["Fly to the Crossroads"] = "",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Распорядитель полетов: {zone:1456}",
 
 	-- Step 5: Fly to the Crossroads
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Распорядитель полетов: {area:392}",
 
 	-- Step 7: Korran
 	-- {npc:3428} Korran · {quest:1145} The Swarm Grows · {zone:1454} Orgrimmar
 	["{npc:3428} stands beside the Crossroads flight master. {quest:1145} is offered from level 29; below it, the next guide's {zone:1454} stop takes it."] = "{npc:3428} стоит рядом с распорядителем полетов на Перекрестке. {quest:1145} доступно с 29-го уровня; если уровень ниже, его можно взять на остановке в зоне {zone:1454} в следующем гайде.",
 	-- {npc:3428} Korran · {npc:4485} Belgrom Rockmaul · {zone:1454} Orgrimmar
-	["{npc:3428}: for {npc:4485} in {zone:1454}"] = "",
+	["{npc:3428}: for {npc:4485} in {zone:1454}"] = "{npc:3428}: для персонажа {npc:4485} ({zone:1454})",
 
 	-- Step 8: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Fly to {area:1637}"] = "",
+	["Fly to {area:1637}"] = "Летите сюда: {area:1637}",
 	["Crossroads flight master"] = "Распорядитель полетов на Перекрестке",
 
 	-- Step 9: Thrall
@@ -70,7 +70,7 @@ return {
 
 	-- Step 14: Undercity flight master
 	-- {zone:1458} Undercity
-	["{zone:1458} flight master"] = "",
+	["{zone:1458} flight master"] = "Распорядитель полетов: {zone:1458}",
 
 	-- Step 15: Brazier of Everfount
 	-- {area:228} Sepulcher · {object:113791} Brazier of Everfount · {npc:5895} Minor Manifestation of Water · {item:7813} Shard of Water · {npc:5901} Islen Waterseer · {area:272} Tarren Mill
@@ -84,7 +84,7 @@ return {
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "Летите сюда: {area:272}",
 	-- {area:228} Sepulcher
-	["{area:228} flight master"] = "",
+	["{area:228} flight master"] = "Распорядитель полетов: {area:228}",
 
 	-- Step 18: Tarren Mill
 	-- {quest:567} Dangerous! · {npc:2216} Apothecary Lydon · {npc:2393} Christoph Jeffcoat
@@ -92,7 +92,7 @@ return {
 	-- {quest:567} Dangerous!
 	["{quest:567}, the poster by the inn"] = "{quest:567}, плакат у таверны",
 	-- {npc:2216} Apothecary Lydon
-	["{npc:2216}, inside"] = "",
+	["{npc:2216}, inside"] = "{npc:2216}, внутри",
 	-- {npc:2393} Christoph Jeffcoat · {quest:7321} Soothing Turtle Bisque
 	["{npc:2393}: {quest:7321}, the Snapjaws of the river south of town"] = "{npc:2393}: {quest:7321}, черепахи-хваталки в реке к югу от городка",
 	-- {item:3713} Soothing Spices · {npc:2393} Christoph Jeffcoat
@@ -106,7 +106,7 @@ return {
 	-- {npc:2229} Krusk · {area:275} Durnholde Keep
 	["{npc:2229} wants his two scouts freed from {area:275}."] = "{npc:2229} хочет, чтобы вы освободили двух его разведчиков ({area:275}).",
 	-- {npc:2229} Krusk
-	["{npc:2229}, inside"] = "",
+	["{npc:2229}, inside"] = "{npc:2229}, внутри",
 
 	-- Step 21: Hillsbrad Fields
 	-- {area:287} Hillsbrad · {npc:232} Farmer Ray · {npc:2403} Farmer Getz
@@ -270,9 +270,9 @@ return {
 
 	-- Step 50: Fly to Undercity
 	-- {area:1497} Undercity
-	["Fly to {area:1497}"] = "",
+	["Fly to {area:1497}"] = "Летите сюда: {area:1497}",
 	-- {area:272} Tarren Mill
-	["{area:272} flight master"] = "",
+	["{area:272} flight master"] = "Распорядитель полетов: {area:272}",
 
 	-- Step 51: Master Apothecary Faranell
 	-- {npc:2055} Master Apothecary Faranell · {object:36126} Royal Quarter

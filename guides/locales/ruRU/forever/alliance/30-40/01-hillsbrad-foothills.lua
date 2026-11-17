@@ -28,7 +28,7 @@ return {
 
 	-- Step 7: Dragonmaw Gates: kill these as you meet them
 	-- {area:1038} Dragonmaw Gates
-	["{area:1038}: kill these as you meet them"] = "",
+	["{area:1038}: kill these as you meet them"] = "{area:1038}: убивайте их по пути",
 	-- {area:1036} Angerfang Encampment · {quest:98283} Carnage · {area:205} Dun Modr
 	["The whelps nest in the hills north-east of the {area:1036}; {quest:98283} prowls further north, and the Razormaw raptors hunt the highlands on the way north to {area:205}.\n{quest:98283} is elite: grouping up is advised."] = "",
 
@@ -68,13 +68,13 @@ return {
 	-- plural, as words: Dark Irons = {object:147516} Dark Iron
 	["{quest:303} is a group quest: 30 elite Dark Irons (27-31) in the ruins west of the camp. Skip it if you are alone."] = "",
 	-- {npc:1074} Motley Garmason
-	["{npc:1074}, in the camp"] = "",
+	["{npc:1074}, in the camp"] = "{npc:1074} – в лагере",
 
 	-- Step 16: Ashlan Stonesmirk
 	-- {quest:88756} Bring Back a Bang · {item:280806} Stolen Explosives · {object:147516} Dark Iron · {area:1016} Direforge Hill · {area:205} Dun Modr
 	["{quest:88756} is a group quest: the {item:280806} lie in the {object:147516} camp on {area:1016}, south-east of {area:205}, among the same elite dwarves. Skip it if you are alone."] = "",
 	-- {npc:1073} Ashlan Stonesmirk
-	["{npc:1073}, in the camp"] = "",
+	["{npc:1073}, in the camp"] = "{npc:1073} – в лагере",
 
 	-- Step 17: The Dark Iron War
 	-- {npc:1364} Balgaras the Foul
@@ -104,7 +104,7 @@ return {
 
 	-- Step 23: The Cache of Explosives
 	-- {object:2704} Cache of Explosives
-	["The {object:2704}"] = "",
+	["The {object:2704}"] = "{object:2704}",
 	-- {area:880} Thandol Span
 	-- plural, as words: Dark Irons = {object:147516} Dark Iron
 	["Over the {area:880}: the Dark Irons' cache of explosives sits by its Arathi end."] = "",
@@ -114,7 +114,7 @@ return {
 
 	-- Step 25: Rhag Garmason again
 	-- {npc:1075} Rhag Garmason
-	["{npc:1075} again"] = "",
+	["{npc:1075} again"] = "Снова {npc:1075}",
 	-- {area:205} Dun Modr
 	["Back over the span and down the road through {area:205} on the way south."] = "",
 	-- {npc:2700} Captain Nials · {area:320} Refuge Pointe
@@ -173,7 +173,7 @@ return {
 	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern
 	["Back south to Menethil: {npc:1217} stands in the {area:2104}."] = "Назад на юг в Менетил: {npc:1217} стоит в таверне ({area:2104}).",
 	-- {npc:1284} Archbishop Benedictus · {zone:1453} Stormwind
-	["For {npc:1284} in {zone:1453}, at the end of this guide"] = "",
+	["For {npc:1284} in {zone:1453}, at the end of this guide"] = "Для NPC {npc:1284} ({zone:1453}), в конце этого гайда",
 
 	-- Step 38: Level 30.8
 	["Level 30.8"] = "",
@@ -193,11 +193,11 @@ return {
 	-- {npc:2711} Phin Odelic
 	["{npc:2711}: his trail leads to Arathi"] = "{npc:2711}: его след ведет в Арати",
 	-- {npc:2228} Lieutenant Farren Orinelle
-	["{npc:2228}, inside"] = "",
+	["{npc:2228}, inside"] = "{npc:2228}, внутри",
 	-- {npc:2366} Barkeep Kelly · {area:35} Booty Bay
 	["{npc:2366}, in the inn: for {area:35} (04-stranglethorn-vale)"] = "{npc:2366}, в таверне: для {area:35} (04-stranglethorn-vale)",
 	-- {npc:2430} Chef Jessen
-	["{npc:2430}, upstairs"] = "",
+	["{npc:2430}, upstairs"] = "{npc:2430}, наверху",
 	-- {npc:2382} Darren Malvew
 	["{npc:2382}: the lions come later"] = "{npc:2382}: львы будут позже",
 	-- {item:3713} Soothing Spices · {npc:2381} Micha Yance
@@ -262,7 +262,7 @@ return {
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "Лететь в {area:1537}",
 	-- {area:271} Southshore
-	["{area:271} flight master"] = "",
+	["{area:271} flight master"] = "Распорядитель полетов: {area:271}",
 
 	-- Step 56: Hall of Explorers
 	-- {npc:1356} Prospector Stormpike · {npc:2916} Historian Karnik · {npc:5637} Roetten Stonehammer · {object:32356} Hall of Explorers
