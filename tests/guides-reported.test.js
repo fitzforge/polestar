@@ -16492,6 +16492,19 @@ test("forever/horde/30-40/01-hillsbrad-foothills.guide: Acen's report (#2512): t
 	assert.ok([dull, gold, drull, togthar].every((i) => list[i].s === list[drull].s), 'one step');
 });
 
+// #2801 (Gindry, 0.4.0.1, Alliance Desolace): Karnitol's Satchel drops from the Slitherblade Tidehunters and Sea
+// Witches (recordings: every recorded loot came with one of their kills), not from the sea floor the tip named,
+// and 11 of 28 people who took The Karnitol Shipwreck gave it up. The tip says where it drops, and the satchel and
+// its hand-in never hold the route.
+test('#2801: Desolace (Alliance): Karnitol\'s Satchel drops from the naga and never holds the route', { skip }, () => {
+	const list = goals('forever/alliance/30-40/06b-desolace.guide');
+	const satchel = list[at(list, 'collect 6245', (g) => g.t === 'collect' && g.quest === 1456)];
+	assert.equal(satchel.goal.optional, true, 'the satchel is optional');
+	assert.equal(list[at(list, 'turnin 1456', is('turnin', 1456))].goal.optional, true, 'so is its hand-in');
+	const tip = [satchel.step.note, satchel.step.tip].flat().filter(Boolean).join(' ');
+	assert.match(tip, /Tidehunters and Sea Witches/);
+	assert.doesNotMatch(tip, /sea floor/);
+});
 // #2825 (Thyndare, 0.4.0.1, Horde Riverglades): Jom-jom's spawn data holds his escort's walk, and the accept led to
 // the walk's point nearest the player, not to the cave where he waits (22 of 22 recorded accepts at 73.3-74.0,
 // 24.6-24.9). The sweep of escort givers found Melizza Brimbuzzle (Desolace) and Tooga (Tanaris) sent to their
