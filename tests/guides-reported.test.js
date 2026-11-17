@@ -15570,3 +15570,13 @@ test('#2612: quests handed in at an object are never handed in to their giver', 
 	}
 	assert.ok(seen >= 10, `the guides' hand-ins of these quests were checked (${seen})`);
 });
+
+// #2575 (rockzors, 0.4.0, Alliance Riverglades): What We Lost's only objective is the five graves (Loose Soil), so the
+// arrow went to them before the player had the Farmers' Mementos the Twilight Raiders drop; each grave takes one.
+// The graves' goal says so on its line.
+test('#2575: Riverglades (Alliance): the Loose Soil goal says to loot the Farmers\' Mementos from the Twilight Raiders first', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01b-riverglades.guide');
+	const { goal } = list[at(list, 'the Loose Soil goal', (g) => g.t === 'interact' && g.quest === 94829)];
+	assert.match(goal.note || '', /Farmers' Mementos|\{item:266148\}/, goal.note);
+	assert.match(goal.note || '', /Twilight Raiders|\{npc:256952\}/, goal.note);
+});

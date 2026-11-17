@@ -12805,6 +12805,32 @@
 					"ref": "quest 94768 pre 94745, 94748 in Forever's quest data"
 				}
 			]
+		},
+		{
+			"id": "2575-riverglades-loose-soil-mementos",
+			"faction": "Alliance",
+			"at": {
+				"quest": 94829,
+				"goal": "objective",
+				"objective": 1
+			},
+			"goalNote": "Loose Soil, west of Elbrim's farm: each grave takes one of the Farmers' Mementos the Twilight Raiders drop, so loot five first",
+			"note": "What We Lost (94829): the quest's only objective is the five graves (Loose Soil), so the arrow went to them before the player had any Farmers' Mementos (266148), which only the Twilight Raiders (256952) drop; each grave takes one. The goal's note says so where the player looks.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2575 (rockzors, 0.4.0): the Farmers' Mementos are needed before clicking the Loose Soil; they drop from Twilight Raiders"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-16): 23 people did What We Lost; each of its five ticks came with a spell cast at the soil (the memento placed)"
+				},
+				{
+					"kind": "questie",
+					"ref": "items.json 266148 Farmers' Mementos: dropped by npc 256952 Twilight Raider"
+				}
+			],
+			"issue": 2575
 		}
 	]
 }

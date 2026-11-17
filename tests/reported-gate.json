@@ -1375,6 +1375,9 @@
 		] },
 		"2612": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "#2612: quests handed in at an object are never handed in to their giver" }
+		] },
+		"2575": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2575: Riverglades (Alliance): the Loose Soil goal says to loot the Farmers' Mementos from the Twilight Raiders first" }
 		] }
 	},
 	"seedDrift": {
