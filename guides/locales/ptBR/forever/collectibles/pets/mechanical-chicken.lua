@@ -14,15 +14,15 @@ return {
 	["Each robot starts with a distress beacon that mobs in its zone drop, about one kill in 40 to 100 in Classic's data. In {zone:1444} the best are the Coast Crawl Snapclaws and Deepseers (levels 43-45) on the {area:1108} and the Sprite Dragons (47-48), about 2.5%; ogres, harpies, naga and Grimtotems drop it about 1%. You can loot it from level 40."] = "Cada robô começa com um sinalizador de socorro que monstros da zona dele soltam, cerca de uma morte em 40 a 100 nos dados do Classic. Em {zone:1444}, os melhores são os Estalagarras da Areia e Videntes das Profundezas (nível 43-45) em {area:1108} e os Dragões-íris (47-48), cerca de 2,5%; ogros, harpias, nagas e Grimtotems soltam cerca de 1%. Dá para saquear a partir do nível 40.",
 
 	-- Step 2: OOX-22/FE's beacon
-	["OOX-22/FE's beacon"] = "",
+	["OOX-22/FE's beacon"] = "A baliza de OOX-22/FE",
 	-- {quest:2766} Find OOX-22/FE!
-	["Right-click the beacon: it starts {quest:2766}"] = "",
+	["Right-click the beacon: it starts {quest:2766}"] = "Clique com o botão direito na baliza: ela inicia {quest:2766}",
 
 	-- Step 3: Rescue OOX-22/FE
 	["Rescue OOX-22/FE"] = "Resgate OOX-22/FE",
 	-- {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {area:35} Booty Bay
 	-- was: ["Right-click the beacon. OOX-22/FE sits in a cave near {area:1105}, among yetis and apes. Its escort runs west along the road to the dock on the {area:1108} with three ambushes: three yetis, then three gorillas, then four or five gnolls with a caster. Bring a friend if you are under 47. The robot keeps walking unless it is hit, so stay close; if it will not move, another player has it: wait for it to come back. Its turn-in is in {area:35}; keep the quest for later."] = "Clique com o botão direito no sinalizador. OOX-22/FE fica numa caverna perto de {area:1105}, entre yetis e macacos. A escolta dele corre para oeste pela estrada até a doca de {area:1108}, com três emboscadas: três yetis, depois três gorilas, depois quatro ou cinco gnolls com um conjurador. Leve um amigo se estiver abaixo do 47. O robô continua andando a menos que seja atingido, então fique perto; se ele não se mexer, outro jogador está com ele: espere ele voltar. A entrega dele fica em {area:35}; guarde a missão para depois."
-	["OOX-22/FE sits in a cave near {area:1105}, among yetis and apes. Its escort runs west along the road to the dock on the {area:1108} with three ambushes: three yetis, then three gorillas, then four or five gnolls with a caster. Bring a friend if you are under 47. The robot keeps walking unless it is hit, so stay close; if it will not move, another player has it: wait for it to come back. Its turn-in is in {area:35}; keep the quest for later."] = "",
+	["OOX-22/FE sits in a cave near {area:1105}, among yetis and apes. Its escort runs west along the road to the dock on the {area:1108} with three ambushes: three yetis, then three gorillas, then four or five gnolls with a caster. Bring a friend if you are under 47. The robot keeps walking unless it is hit, so stay close; if it will not move, another player has it: wait for it to come back. Its turn-in is in {area:35}; keep the quest for later."] = "OOX-22/FE está numa caverna perto de {area:1105}, entre yetis e macacos. A escolta dele corre para o oeste pela estrada até o cais de {area:1108}, com três emboscadas: três yetis, depois três gorilas, depois quatro ou cinco gnolls com um conjurador. Leve um amigo se você estiver abaixo do nível 47. O robô continua andando enquanto não é atingido, então fique perto dele; se ele não se mover, outro jogador o tem: espere ele voltar. A entrega é em {area:35}; guarde a missão para mais tarde.",
 	["Escort OOX-22/FE"] = "Escolte OOX-22/FE",
 
 	-- Step 4: OOX-17/TN Distress Beacon in Tanaris
@@ -33,9 +33,9 @@ return {
 	["{zone:1446} mobs drop OOX-17/TN's beacon about one kill in 50 to 150. Best: the Treasure Hunting Pirates and Buccaneers on the south shore (44-45) and the Ground Pounders in the north (41-43), about 2%. You can loot it from level 43."] = "Monstros de {zone:1446} soltam o sinalizador de OOX-17/TN em cerca de uma morte em 50 a 150. Os melhores: os Piratas e Bucaneiros Caçadores de Tesouros da costa sul (44-45) e os Soca-terras do norte (41-43), cerca de 2%. Dá para saquear a partir do nível 43.",
 
 	-- Step 5: OOX-17/TN's beacon
-	["OOX-17/TN's beacon"] = "",
+	["OOX-17/TN's beacon"] = "A baliza de OOX-17/TN",
 	-- {quest:351} Find OOX-17/TN!
-	["Right-click the beacon: it starts {quest:351}"] = "",
+	["Right-click the beacon: it starts {quest:351}"] = "Clique com o botão direito na baliza: ela inicia {quest:351}",
 
 	-- Step 6: Rescue OOX-17/TN
 	["Rescue OOX-17/TN"] = "Resgate OOX-17/TN",
@@ -50,9 +50,9 @@ return {
 	["Most {zone:1425} mobs drop OOX-09/HL's beacon about once in 100 kills: Silvermane wolves, owlbeasts, Highvale elves, Witherbark and Vilebranch trolls. You can loot it from level 43."] = "A maioria dos monstros de {zone:1425} soltam o sinalizador de OOX-09/HL em cerca de uma morte em 100: lobos Jubaprata, ursos-coruja, elfos Altovale, trolls Cascasseca e Ramatorpe. Dá para saquear a partir do nível 43.",
 
 	-- Step 8: OOX-09/HL's beacon
-	["OOX-09/HL's beacon"] = "",
+	["OOX-09/HL's beacon"] = "A baliza de OOX-09/HL",
 	-- {quest:485} Find OOX-09/HL!
-	["Right-click the beacon: it starts {quest:485}"] = "",
+	["Right-click the beacon: it starts {quest:485}"] = "Clique com o botão direito na baliza: ela inicia {quest:485}",
 
 	-- Step 9: Rescue OOX-09/HL
 	["Rescue OOX-09/HL"] = "Resgate OOX-09/HL",

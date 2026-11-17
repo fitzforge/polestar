@@ -154,10 +154,10 @@ return {
 	["The smithy"] = "A ferraria",
 	-- {area:287} Hillsbrad · {npc:2404} Blacksmith Verringtan · {object:1736} Shipment of Iron · {npc:2449} Citizen Wilkes · {npc:2451} Farmer Kalaba
 	-- was: ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks by the smithy; {npc:2451} works the field south-east of the town."] = "Para oeste pelo sopé até a cidade de {area:287}: a ferraria fica no meio dela. {npc:2404} e os aprendizes dele trabalham na forja; {object:1736} está empilhado ao lado. {npc:2449} anda perto da ferraria; {npc:2451} cuida do campo a sudeste da cidade."
-	["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the west side of the town; {npc:2451} works the field south-east of the town."] = "",
+	["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the west side of the town; {npc:2451} works the field south-east of the town."] = "Para o oeste, através dos contrafortes, até a vila de {area:287}: a forja fica no meio dela. {npc:2404} e os aprendizes dele trabalham na forja; o {object:1736} está empilhado ao lado. {npc:2449} anda pelo lado oeste da vila; {npc:2451} trabalha no campo a sudeste da vila.",
 	["Inside"] = "Lá dentro",
 	-- {npc:2449} Citizen Wilkes
-	["{npc:2449}, on the west side of the town"] = "",
+	["{npc:2449}, on the west side of the town"] = "{npc:2449}, no lado oeste da vila",
 
 	-- Step 32: Tarren Mill
 	-- {npc:2055} Master Apothecary Faranell · {zone:1458} Undercity
