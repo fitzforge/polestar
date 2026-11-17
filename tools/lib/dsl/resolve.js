@@ -329,13 +329,12 @@ function eliteSplit(data, cands, sides, rares = false) {
 
 // Sources ([{ kind, id, chance? }], by chance) whose likely ones (at least
 // half the best chance; sub-1% drops only when nothing drops it at 1%) leave
-// out droppers near a quest's level `qlvl` because an npc whose lowest level
-// is ABOVE_QUEST_LEVELS or more above it drops it at a higher chance, or hold
-// such an npc beside them: `near`, the likely ones among the droppers near the
-// quest's level (their own best chance sets the bar), `above`, those far above.
+// out droppers near a quest's level `qlvl` only because an npc whose lowest
+// level is ABOVE_QUEST_LEVELS or more above it drops it at a higher chance:
+// `near`, the likely ones among the droppers near the quest's level (their
+// own best chance sets the bar), `above`, those far above it.
 // -> { near, above } | null (no quest level, no chances, nothing near the
-// quest's level drops it at 1% while something does, or nothing far above is
-// likely or crowds one out)
+// quest's level drops it at 1% while something does, or none crowded out)
 function levelSplit(data, cands, qlvl) {
 	if (!(qlvl > 0) || !cands.some((c) => typeof c.chance === 'number')) return null;
 	const chanceOf = (c) => c.chance || 0;
@@ -352,9 +351,7 @@ function levelSplit(data, cands, qlvl) {
 	if (Math.max(...rest.map(chanceOf)) < 1 && Math.max(...cands.map(chanceOf)) >= 1) return null;
 	const all = likely(cands);
 	const near = likely(rest);
-	// Crowded out (under the bar the ones far above set), or likely beside them, which would still lead the goal
-	// to the far ones' camps: the Timberlings at 53% once recorded, beside the Elder Timberling's 100% (#327).
-	return near.some((c) => !all.includes(c)) || above.some((c) => all.includes(c)) ? { near, above } : null;
+	return near.some((c) => !all.includes(c)) ? { near, above } : null;
 }
 
 // Whether a rare drops the item at the highest chance while normal sources

@@ -238,7 +238,7 @@ step Lake Al'Ameth
   turnin 997                                  -- Denalan
   accept 918
   accept 919
-  collect 5168 quest 918.1
+  collect 5168 quest 918.1 npc 2022
   collect 5169 quest 919.1
   turnin 918
   accept 922                                  -- Denalan: Rellian Greenspyre in Darnassus takes it

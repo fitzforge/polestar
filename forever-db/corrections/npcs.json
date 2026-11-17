@@ -2895,8 +2895,8 @@
 					"f": "l",
 					"pts": [
 						[
-							35.2,
-							8.1
+							35.37,
+							8.4
 						]
 					]
 				}
@@ -2904,8 +2904,8 @@
 		},
 		"source": {
 			"kind": "recording",
-			"ref": "players' recordings to 2026-11-17: 838 events at Mathrengyl Bearwalker (offers, hand-ins, his vendor window) in 122 sessions, median 35.22,8.07 in Darnassus"
+			"ref": "players' recordings to 2026-11-17: 838 events at Mathrengyl Bearwalker (offers, hand-ins, his vendor window) in 122 sessions, median 35.22,8.07 in Darnassus, a few yards from his earlier point 35.37,8.4"
 		},
-		"note": "Mathrengyl Bearwalker (Morrowgrain Research, his pouch and seeds) paces his floor of the druids' building in the Cenarion Enclave. The data's five points of his path put each of his goals at a different spot, so a goal after another of his no longer followed the guide's goto at the door and its arrow walked to the ledge outside his floor (#1338). One point where players meet him."
+		"note": "Mathrengyl Bearwalker (Morrowgrain Research, his pouch and seeds) paces his floor of the druids' building in the Cenarion Enclave. The data's five points of his path put each of his goals at a different spot, so a goal after another of his no longer followed the guide's goto at the door and its arrow walked to the ledge outside his floor (#1338). One point, the earlier data's, where the Darnassus guide grows the Morrowgrain."
 	}
 }

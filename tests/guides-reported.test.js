@@ -3199,10 +3199,12 @@ test('side guides: no step sends a character to an NPC of the other faction (#24
 // purpose: raid and level 61+ bosses (past what a hold can wait for), the Legacy checklist's dungeon bands (held at each
 // band's first level), one dropper among many (any thunder lizard drops the horn, any Shardtooth the meat), the Barrens'
 // Echeyakee (the data's 60 is a summon's range), Chol'aruk (an optional group kill in a solo hub) and the Timbermaw
-// feather and bead farms (any Deadwood or Winterfall furbolg).
+// feather and bead farms (any Deadwood or Winterfall furbolg). Warned instead of held: the Gelkis valley's Undead
+// Ravagers, 37 to 45 in Shen'dralas (players' recordings), whose step waits for 39 and says how high they go.
 test('side guides: every fighting step waits on its own level for mobs at most 1 above it (Fitz\'s rule, #2462)', { skip }, () => {
 	const top = (id) => data.npcs[id] && (data.npcs[id].levelMax || data.npcs[id].level);
 	const LEFT = new Set(['legacy/legacy-challenges', 'reputation/orgrimmar 3475', 'reputation/orgrimmar 5832', 'reputation/orgrimmar 267307', 'reputation/wintersaber-trainers 7446', 'reputation/timbermaw-hold 7442']);
+	const WARNED = new Set(['reputation/centaur-clans 11561']);
 	const wrong = [];
 	for (const G of allGuides().filter((g) => /^forever\/(reputation|collectibles|exploration|miscellaneous|legacy)\//.test(g))) {
 		const id = G.replace(/^forever\//, '').replace(/\.guide$/, '');
@@ -3217,7 +3219,9 @@ test('side guides: every fighting step waits on its own level for mobs at most 1
 				const n = mob && data.npcs[mob];
 				if (!n || n.faction || LEFT.has(`${id} ${mob}`) || top(mob) >= 61 || own >= 60) continue;
 				const allow = goal.group ? 2 : 1;
-				if (top(mob) > own + allow) wrong.push(`${G}, ${step.title}: ${goal.t} ${goal.item || goal.npc}, ${n.name} up to ${top(mob)}, the step waits for ${own}`);
+				if (top(mob) <= own + allow) continue;
+				if (WARNED.has(`${id} ${mob}`)) assert.ok(JSON.stringify([step.tip, step.tips]).includes(`up to level ${top(mob)}`), `${G}, ${step.title}: a tip warns of ${n.name} up to level ${top(mob)}`);
+				else wrong.push(`${G}, ${step.title}: ${goal.t} ${goal.item || goal.npc}, ${n.name} up to ${top(mob)}, the step waits for ${own}`);
 			}
 		}
 	}
@@ -5347,12 +5351,13 @@ test(`${WETLANDS}: Ioney's report (#617): Pilot Longbeard (level 28) is taken af
 // ones near the quest's level (resolve.js, levelSplit). The Southsea Kidnapper
 // stood alone on Pirate Hats Ahoy! with pfQuest's 50% against 10% for the other
 // pirates; it does not drop the hat (corrections.json removeDrops). Both tests
-// are XrayAlpha's.
+// are XrayAlpha's. Players' recordings (0.4.1 data) put the Timberlings at 53%, over the bar beside the Elder's 100%,
+// so the goal names its Timberling itself (`npc 2022`): the target button and the name follow it.
 
 test(`${TELDRASSIL}: Pynte's report (#327): the Timberling Seed arrow stays round Denalan with the Timberlings, not with the Elder Timberlings in the north`, { skip }, () => {
 	const list = goals(TELDRASSIL);
 	const { goal } = list[at(list, 'the Timberling Seed collect', (g) => g.t === 'collect' && g.quest === 918 && g.item === 5168)];
-	const ids = (goal.fromNpcs || []).map((n) => n.npc);
+	const ids = goal.npc ? [goal.npc] : (goal.fromNpcs || []).map((n) => n.npc);
 	assert.notEqual(goal.from, 'Elder Timberling', 'the goal names the Timberlings, not the Elder');
 	assert.ok(ids.includes(2022), `the Timberlings (2022) are among the droppers (${ids.join(', ')})`);
 	assert.ok(!ids.includes(2030), 'the Elder Timberling (2030) is not');
@@ -13309,6 +13314,9 @@ test('Desolace: Kodo Roundup: the Kodo Kombobulator step names the Aged, Dying a
 // the same five everywhere (Magram Scout and four Kolkar)." Centaur Ears drop from every tribe in Desolace and the
 // collect's spots run through all their camps: the goal now says which mobs spawn at each spot (`fromNpcsAt`), and
 // the button names the spot the arrow takes. A camp of each tribe names its own centaurs first and no other tribe's.
+// With players' recordings (0.4.1 data) the Kolkar and Magram drop the ears at 30-43%, while the Gelkis keep the
+// quest data's 20%, under half the best: the Horde goal's spots can leave the Gelkis camps out, and then no spot
+// names a Gelkis (0.4.2 weighs recorded and listed chances alike).
 test('Desolace: Centaur Bounty: each spot of the Centaur Ear collect names its own camp\'s centaurs (#1616)', { skip }, () => {
 	const TRIBES = ['Kolkar', 'Magram', 'Gelkis', 'Maraudine'];
 	for (const [file, quest] of [['forever/horde/30-40/04-dustwallow-marsh.guide', 1366], ['forever/alliance/30-40/02-desolace.guide', 1387]]) {
@@ -13318,6 +13326,7 @@ test('Desolace: Centaur Bounty: each spot of the Centaur Ear collect names its o
 		const groups = goal.fromNpcsAt.split(';').map((s) => (s ? s.split(',').map((k) => goal.fromNpcs[Number(k) - 1].npcName) : []));
 		assert.equal(groups.length, goal.spots.length, `${quest}: a list per spot`);
 		for (const t of TRIBES) {
+			if (quest === 1366 && t === 'Gelkis' && !groups.some((names) => names.some((n) => n.startsWith(t)))) continue;
 			const others = TRIBES.filter((o) => o !== t);
 			const own = groups.some((names) => names.length && names[0].startsWith(t) && !names.some((n) => others.some((o) => n.startsWith(o))));
 			assert.ok(own, `${quest}: a spot at a ${t} camp names its ${t} centaurs and no other tribe's`);
