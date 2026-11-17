@@ -20,7 +20,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			{ separator = true },
 		}
 		for _, it in ipairs(GF.TabListItems()) do items[#items + 1] = it end
-		W.ShowMenu(button, items)
+		W.ShowMenu(button, items, { current = true })
 	end
 
 	function openMenu(button)
