@@ -7097,7 +7097,10 @@ Where they stand follows the Buttons page (`TL.side`): in a column
 (`buttons.layout`) beside the target button on its name's side
 (`qol.buttonTextSide`, left or else right), the first row level with its top;
 in a row under it, reaching away from the quest item button; the gap is the
-set's spacing (`buttons.spacing`). `Buttons.ListRect(n)` gives the rows' box
+set's spacing (`buttons.spacing`). With `buttons.listUp` (Target list upward,
+off by default, #2590: `TL.up`) the rows go up instead: beside the button the
+first row level with its bottom, in a row over it; the rare button then keeps
+its slot. `Buttons.ListRect(n)` gives the rows' box
 from the target button's centre, `Buttons.Offsets(n)` moves the rare button
 along the set to clear it, `place()` adds it to the holder's clamp and
 Unlock mode to the quest buttons' box (`Buttons.ListRows`), and

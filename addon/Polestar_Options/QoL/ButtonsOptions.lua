@@ -278,6 +278,7 @@ local function buildActionBand(view)
 	for _, p in ipairs(lists) do all[#all + 1] = p end
 	f:Light("qol.targetButton", unpack(lists))
 	f:Light("qol.targetSimple", unpack(lists))
+	f:Light("buttons.listUp", unpack(lists))
 	f:Light("buttons.targetSize", idle.rows.mark, fight.rows.mark)
 	local boxes = { idle.box, fight.box }
 	for key, parts in pairs({
@@ -498,6 +499,10 @@ local SPECS = {
 			help = L["How the set lines up from the quest item button: a column (Hearthstone above, target below) or a row either way. In a row, names read best above or below."],
 			search = "layout, direction, growth, grow, stack, column, row, horizontal, vertical, orientation",
 			choices = { { value = "column", label = L["Column"] }, { value = "row", label = L["Row"] }, { value = "rowReverse", label = L["Row, reversed"] } } },
+		{ kind = "toggle", key = "buttons.listUp", label = L["Target list upward"], new = "0.4.1",
+			disabled = function() return not QoL.On("targetButton") or QoL.On("targetSimple") end,
+			help = L["The target list's names go up from the target button instead of down, for buttons near the bottom of the screen."],
+			search = "target list, grow up, upward, upwards, above, direction, names, bottom of the screen" },
 		{ kind = "slider", key = "buttons.spacing", label = L["Spacing"], min = 0, max = 40, step = 1, format = px, new = NEW,
 			help = L["The gap between two buttons of the set."],
 			search = "gap, space between, padding, distance, tight, apart, spread" },
