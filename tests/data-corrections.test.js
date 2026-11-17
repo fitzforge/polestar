@@ -32,6 +32,20 @@ test('the corrections are one file per section in forever-db/corrections', () =>
 	assert.ok(!fs.existsSync(path.join(__dirname, '..', 'tools', 'lib', 'data', 'corrections.json')), 'the old single file is gone');
 });
 
+// JSON keeps the last of two entries with the same id, silently: a second "92474" entry added for its objectives
+// dropped the first one's race fix (2026-11-17). Each id is one entry per file.
+test('no correction file has the same id twice', () => {
+	const dup = [];
+	for (const s of SECTIONS) {
+		const seen = new Set();
+		for (const m of fs.readFileSync(path.join(PUBLIC_DIR, `${s}.json`), 'utf8').matchAll(/^\t"([^"]+)":/gm)) {
+			if (seen.has(m[1])) dup.push(`${s}.json ${m[1]}`);
+			seen.add(m[1]);
+		}
+	}
+	assert.deepEqual(dup, []);
+});
+
 test('the overlay takes mechanics flat or under quests; mechanics 603 and 1064 stay private', () => {
 	const out = overlayCorrections({ mechanics: {} }, { mechanics: { quests: { 603: { note: 'nested' } }, 1064: { note: 'flat' } } });
 	assert.deepEqual(Object.keys(out.mechanics).sort(), ['1064', '603']);
