@@ -50,6 +50,26 @@ are skipped. Pushes to `main` and `next` run them on the same paths.
 `tests/ci-lane.test.js` checks that `FORGE_PATHS` covers every document a
 Rust test reads and that `forge.yml`'s push trigger lists the same paths.
 
+## Merge queue
+
+The workflows are ready for GitHub's merge queue on `next`: every check
+`next` requires also reports for a merge group (`merge_group`), the commit
+the queue builds from `next`'s tip and the pull requests ahead in it, so two
+pull requests that each pass alone are tested together before either lands.
+
+| Check | For a pull request | For a merge group |
+|---|---|---|
+| `Tests` | `ci.yml` | `ci.yml`, its lane from what the group changes on top of `next` |
+| `Format, lints, tests` | `forge.yml` | `forge.yml`, the same |
+| `Base branch` | `pr-base.yml` (`pull_request_target`) | `merge-queue.yml`: GitHub starts no `pull_request_target` run for a group, and a group only holds pull requests already based on `next` |
+
+The release builds of `forge.yml` stay on pushes. With the queue on, a pull
+request joins it with `gh pr merge --merge --auto` (or the "Merge when
+ready" button): GitHub adds it once its own checks pass and merges it when
+the group's do; a group that fails leaves the queue and the pull requests
+behind it are tested again without it. `tests/ci-lane.test.js` holds every
+required check to a workflow that starts on `merge_group`.
+
 ## Timing budgets
 
 Some tests hold a figure read off a clock to a budget: a settings slider's

@@ -11,7 +11,8 @@ name: Forge
 # (data/, forever-db/) and the guides are what forge's checks read, so a change there runs them as well,
 # and so do the documents the tests read (FORGE_PATHS in tools/ci-lane.js; tests/ci-lane.test.js holds
 # it to them and to the push paths below).
-# Every pull request runs this workflow: "Format, lints, tests" is a required check, so it always reports.
+# Every pull request and merge group (the merge queue's run on top of next, docs/CI.md "Merge queue")
+# runs this workflow: "Format, lints, tests" is a required check, so it always reports.
 # The lane job decides from the base branch's copy of tools/ci-lane.js (a pull request cannot pick its
 # own lane): a change that touches none of those paths passes the check at once and skips MSRV and
 # wasm32; anything else, anything unsure, and every push runs them all.
@@ -22,6 +23,7 @@ on:
     tags: ["forge-v*"]
     paths: ["rust/**", "addon/**", "data/**", "forever-db/**", "guides/**", "tests/lua/**", "tests/fixtures/dsl/**", "docs/FORGE.md", "docs/forge/**", "docs/API.md", "docs/GUIDE_FORMAT.md", "docs/PACK_FORMAT.md", "docs/PACKS.md", "README.md", "THIRD_PARTY.md", ".github/workflows/forge.yml"]
   pull_request:
+  merge_group:
 
 permissions:
   contents: read
@@ -58,7 +60,7 @@ jobs:
         working-directory: .
     steps:
       # Two commits: a pull request's merge commit and the base it merges into, whose difference is
-      # what the pull request changes.
+      # what the pull request changes. A merge group's base (next's tip) is fetched on its own.
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
         with:
           persist-credentials: false
@@ -73,10 +75,15 @@ jobs:
         shell: bash
         env:
           EVENT: ${{ github.event_name }}
+          GROUP_BASE: ${{ github.event.merge_group.base_sha }}
         run: |
-          changed="$RUNNER_TEMP/changed.txt" base="$RUNNER_TEMP/base"
-          if [ "$EVENT" = pull_request ] && git diff --no-renames --name-only HEAD^1 HEAD > "$changed" \
-            && git worktree add --detach --quiet "$base" HEAD^1 && [ -f "$base/tools/ci-lane.js" ]; then
+          changed="$RUNNER_TEMP/changed.txt" base="$RUNNER_TEMP/base" from=
+          case "$EVENT" in
+            pull_request) from=$(git rev-parse HEAD^1) || from= ;;
+            merge_group) git fetch --no-tags --quiet --depth=1 origin "$GROUP_BASE" && from=$GROUP_BASE ;;
+          esac
+          if [ -n "$from" ] && git diff --no-renames --name-only "$from" HEAD > "$changed" \
+            && git worktree add --detach --quiet "$base" "$from" && [ -f "$base/tools/ci-lane.js" ]; then
             node "$base/tools/ci-lane.js" --forge --github --files "$changed"
           else
             echo "forge=run" >> "$GITHUB_OUTPUT"
@@ -213,7 +220,7 @@ jobs:
   build:
     name: Build ${{ matrix.name }}
     needs: check
-    if: github.event_name != 'pull_request'
+    if: github.event_name == 'push'
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60
     strategy:
