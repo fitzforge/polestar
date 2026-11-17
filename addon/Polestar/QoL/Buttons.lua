@@ -3067,16 +3067,24 @@ end
 
 local function applyBag(b)
 	local Space = QoL.Space
-	local j = ns.GuideShown() and Space and Space.Low() and Space.Junk()
-	b.junk = j or nil
-	if j then
+	local low = ns.GuideShown() and Space and Space.Low()
+	local s = low and Space.Spare()
+	local j = low and not s and Space.Junk()
+	b.spare, b.junk = s or nil, j or nil
+	if s then
+		-- A spare bag to equip comes before any delete (#2369).
+		b.Icon:SetTexture(Client.ItemIcon(s.id) or media("icon-use"))
+		b.Icon:SetDesaturated(false)
+		b.Count:SetText(tostring((Space.Free())))
+		b.Label:SetText(L["Press to equip"])
+	elseif j then
 		b.Icon:SetTexture(Client.ItemIcon(j.id) or media("icon-use"))
 		b.Icon:SetDesaturated(not Space.Armed())
 		b.Count:SetText(tostring((Space.Free())))
 		b.Label:SetText(Space.Armed() and L["Press again to delete"] or "")
 	end
 	QoL.Secure("bag", function()
-		if b.junk then b:Show() else b:Hide() end
+		if b.spare or b.junk then b:Show() else b:Hide() end
 	end)
 end
 
@@ -3086,7 +3094,11 @@ local function bagTooltip(b, tip)
 	local f, t = Space.Free()
 	tip:SetText(L["Bag space"])
 	tip:AddLine(string.format(L["Free slots: %d of %d"], f, t), 1, 1, 1)
-	if j then
+	local s = b.spare
+	if s then
+		tip:AddLine(string.format(L["Spare bag: %s"], s.link or (L["Item"] .. " " .. s.id)), 1, 1, 1)
+		tip:AddLine(L["Press to equip it."], 0.6, 0.6, 0.6)
+	elseif j then
 		tip:AddLine(string.format(L["Cheapest junk: %s (%s)"], Space.ItemText(j), j.value < math.huge and QoL.Money(j.value) or "?"), 1, 1, 1)
 		tip:AddLine(L["Press twice to delete it."], 0.6, 0.6, 0.6)
 	end

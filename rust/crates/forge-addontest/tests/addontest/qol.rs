@@ -79,7 +79,7 @@ fn options_every_qol_setting_is_registered_on_questing_or_quality_of_life_with_l
 			"rewardHighlight", "rewardAutoPick", "flightAutoOpen", "flightHighlight", "flightAutoTake", "deathHelper", "instantQuestText",
 			"skipGossip", "fastLoot", "declineDuels", "repairGuild", "hideErrors", "autoReleasePvP", "declineGuildInvites",
 			"declinePartyStrangers", "acceptPartyFriends", "acceptSummon", "acceptResurrect", "buyGoals",
-			"rewardEquip", "autoBind", "hideQuestTracker", "restock", "itemMarks", "itemMarksClick", "bagSpace", "bagsLow", "wearOffer",
+			"rewardEquip", "autoBind", "hideQuestTracker", "restock", "itemMarks", "itemMarksClick", "bagSpace", "bagsLow", "spareBag", "wearOffer",
 			"questLoot", "instanceTrack" }) do keys[k] = Polestar.GetDefault("qol." .. k) end
 		emit(keys)
 	"#);
@@ -107,6 +107,7 @@ fn options_every_qol_setting_is_registered_on_questing_or_quality_of_life_with_l
 	assert_eq!(defaults["flightAutoTake"], false, "taking the flight by itself is off by default");
 	assert_eq!(defaults["buyGoals"], false, "buying for the guide is off by default");
 	assert_eq!(defaults["rewardEquip"], false, "wearing rewards is off by default");
+	assert_eq!(defaults["spareBag"], false, "equipping a spare bag is off by default");
 	assert_eq!(defaults["autoBind"], false, "binding the Hearthstone is off by default");
 	assert_eq!(defaults["hideQuestTracker"], false, "the game's quest tracker shows by default");
 	assert_eq!(defaults["sellJunk"], true);

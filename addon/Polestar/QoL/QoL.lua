@@ -70,6 +70,7 @@ local defaults = {
 	itemMarksClick = true,   -- ... Ctrl+Alt-click cycles the marks (off: only the keys mark)
 	bagSpace = true,         -- free bag slots: the junk button and the bags-full banner
 	bagsLow = 2,             -- ... at this many free slots or fewer
+	spareBag = false,        -- ... offer to put a bag from the bags in an empty bag slot first, on a press (QoL/Space.lua, #2369)
 	rewardHighlight = true,
 	rewardAutoPick = false,
 	rewardEquip = false,     -- wear what a turn-in gives when it is an upgrade
@@ -488,6 +489,34 @@ function Client.DeleteSlot(bag, slot)
 	C.PickupContainerItem(bag, slot)
 	if not CursorHasItem() then return false end
 	DeleteCursorItem()
+	return true
+end
+
+-- Whether a regular bag slot (1 to NUM_BAG_SLOTS) has no bag in it: the
+-- client gives an empty slot no container slots and no worn item.
+function Client.BagSlotEmpty(bag)
+	if bag < 1 or bag > (NUM_BAG_SLOTS or 4) then return false end
+	if Client.NumSlots(bag) > 0 then return false end
+	local C = C_Container
+	local inv = C and C.ContainerIDToInventoryID and C.ContainerIDToInventoryID(bag)
+	return not (inv and Client.WornID(inv))
+end
+
+-- Puts the bag a bag slot holds into the empty bag slot `into` (PickupContainerItem,
+-- then PutItemInBag on that slot's inventory ID). Never with something already on the
+-- cursor; when the bag does not go in, the cursor is cleared, which puts it back. true
+-- when it went.
+function Client.EquipBag(bag, slot, into)
+	local C = C_Container
+	if not (C and C.PickupContainerItem and C.ContainerIDToInventoryID and PutItemInBag and CursorHasItem) then return false end
+	if CursorHasItem() then return false end
+	C.PickupContainerItem(bag, slot)
+	if not CursorHasItem() then return false end
+	PutItemInBag(C.ContainerIDToInventoryID(into))
+	if CursorHasItem() then
+		if ClearCursor then ClearCursor() end
+		return false
+	end
 	return true
 end
 
