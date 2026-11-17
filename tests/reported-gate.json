@@ -1399,6 +1399,9 @@
 		] },
 		"2582": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "an_ender_who_stands_only_inside_a_dungeon_is_its_entrance_2582" }
+		] },
+		"2619": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-sections.rs", "test": "a_profession_guide_starts_at_the_player_s_skill_asks_only_for_what_is_still_needed_and_keeps_a_missing_rank" }
 		] }
 	},
 	"seedDrift": {

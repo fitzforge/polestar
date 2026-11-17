@@ -5100,6 +5100,13 @@ local function describe(goal, s)
 		local _, npcName = npcOf(goal)
 		if goal.skillLine and rankCap(goal) then
 			local name = skillName(goal)
+			-- A rank past the first says so ("Learn Journeyman Enchanting"): a
+			-- bare "Learn Enchanting" read as the profession the player already
+			-- had (#2619).
+			local cap = rankCap(goal)
+			if name and cap == 150 then name = L["Journeyman %s"]:format(name)
+			elseif name and cap == 225 then name = L["Expert %s"]:format(name)
+			elseif name and cap == 300 then name = L["Artisan %s"]:format(name) end
 			return L["Learn"], name, "skill", fmt(L["from %s"], npcName)
 		end
 		if goal.class or (goal.npc and Engine.IsClassTrainer(goal.npc)) then
