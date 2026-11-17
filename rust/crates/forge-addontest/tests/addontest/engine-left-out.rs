@@ -86,17 +86,7 @@ emit({ title = g.steps[live].title, here = OUT(live), endurance = STATUS(1150) }
 // The bug report carries the step's reasons, with the quest ids, as the window says them.
 #[test]
 fn the_bug_report_names_what_is_left_out_here_and_why() {
-	let out = shipped(
-		"Tauren",
-		"WARRIOR",
-		30,
-		false,
-		"",
-		NEEDLES,
-		"Jandia",
-		true,
-		r#"emit({ text = table.concat(Polestar.UI.Report.Details().lines, "\n") })"#,
-	);
+	let out = shipped("Tauren", "WARRIOR", 30, false, "", NEEDLES, "Jandia", true, r#"emit({ text = table.concat(Polestar.UI.Report.Details().lines, "\n") })"#);
 	let text = out["text"].as_str().unwrap_or("");
 	assert!(text.contains("Left out here: Test of Endurance (1150) \u{b7} Requires \u{201c}Test of Faith\u{201d} first"), "{text}");
 }

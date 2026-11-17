@@ -11071,20 +11071,21 @@ end
 -- as grey), their giver within GRIND_NEAR_YD. A quest the catch-up left out
 -- as a detour counts: from here it is none. -> { lo, hi (nil: no quest
 -- after it), nearby = { { quest, title, share }, ... } (at most GRIND_NEARBY) }
--- | nil. Kept for the evaluation, as Engine.LeftOutHere.
-Own.GRIND_NEXT, Own.GRIND_NEAR_YD, Own.GRIND_NEARBY = 6, 400, 3
+-- | nil. Kept for GRIND_KEEP seconds on the same step and level: a grind's
+-- kills change neither, and the player walks on between two looks.
+Own.GRIND_NEXT, Own.GRIND_NEAR_YD, Own.GRIND_NEARBY, Own.GRIND_KEEP = 6, 400, 3, 5
 Own.grindCache = {}
 function Engine.GrindHint(i)
 	local step = guide and type(i) == "number" and guide.steps[i]
 	if not (step and stepApplies(step)) then return nil end
 	if not player then refreshPlayer() end
-	local gc = Own.grindCache
-	if gc.guide == guide and gc.gen == generation and gc.i == i then return gc.hint or nil end
+	local gc, now = Own.grindCache, GetTime()
+	if gc.guide == guide and gc.i == i and gc.level == player.level and now - gc.at < Own.GRIND_KEEP then return gc.hint or nil end
 	local grind = false
 	for g, goal in ipairs(step.goals) do
 		if goal.t == "level" and goalApplies(goal) and not goalDone(i, g, goal) then grind = true end
 	end
-	gc.guide, gc.gen, gc.i, gc.hint = guide, generation, i, false
+	gc.guide, gc.i, gc.level, gc.at, gc.hint = guide, i, player.level, now, false
 	if not grind then return nil end
 	local C = Compat()
 	local level = player.level or 1
