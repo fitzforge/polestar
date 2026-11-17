@@ -146,6 +146,18 @@ test('a stuck step is reported with guide, step, title and class; exit 1', { ski
 	assert.match(out, /playtest failed: 1 guide, 1 play: 1 stuck/);
 });
 
+// The simulated player used to finish a quest at its hand-in, so a guide with no goal for an escort (Kerlonian's,
+// 5321, 2026-11-16) played clean while players were sent to the hand-in with the escort undone. The game takes no
+// hand-in with a line open: a kill, talk, object or event line no goal works holds the play there.
+test('a hand-in whose quest has a line no goal works is stuck there; with the goal it plays through', { skip }, async () => {
+	const { result, out } = await quiet(() => cmd.run(['--pack', path.join(PACKS, 'handin'), '--class', 'Warrior']));
+	assert.equal(result, 1, out);
+	const stuck = lines(out).filter((l) => l.startsWith('stuck '));
+	assert.equal(stuck.length, 1, out);
+	assert.match(stuck[0], /^stuck handin\/bare \(Night Elf Warrior\) at step 2 "Maestra's Post": the game takes no hand-in of quest 5321: line \d \(event\), which no goal of the guide works, is not done$/);
+	assert.ok(lines(out).includes('ok  handin/worked (Night Elf Warrior)'), out);
+});
+
 test('a guide that plays through, handing over to one of ours, prints ok with race and class for each class it branches on that the race can be, plus one it never names; exit 0', { skip }, async () => {
 	const { result, out } = await quiet(() => cmd.run(['--filter', 'northshire', '--pack', path.join(PACKS, 'plays')]));
 	assert.equal(result, 0, out);

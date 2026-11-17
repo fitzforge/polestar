@@ -64,7 +64,7 @@ step The Sepulcher
 
 step The pyre on Fenris Isle
   tip Fenris Isle lies in the lake north-east of the Sepulcher. The gnolls' pyre, with the Charred Remains, is on its shore: click the remains to hand in, and click them again for the next quest. The body is a tauren's, not the elf's.
-  turnin 91860                        -- Charred Remains
+  turnin 91860 object 566037          -- Charred Remains
   accept 91861                        -- from the Charred Remains
 
 step Fenris Keep
