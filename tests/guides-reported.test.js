@@ -2813,6 +2813,18 @@ test(`${ELWYNN}: Falkhaan Isenstrider after Tordrin Sternblade and before the ko
 	assert.ok(everyone && list.indexOf(everyone) > tracks, 'a step everyone plays takes Falkhaan after the group branch');
 });
 
+// Gindry (#2778): a Dwarf Paladin in Stormwind was sent to Ironforge for the Tome of Nobility breadcrumb and back to
+// Duthorian Rall. Rall offers The Tome of Nobility (1661) without it (players' recordings: a Dwarf at 40 offered it with
+// neither breadcrumb taken), so the breadcrumb is taken only by a Dwarf who is in Ironforge; the hand-in stays Rall's.
+test('Paladin Warhorse: the Ironforge breadcrumb only while in Ironforge, the Tome of Nobility from Duthorian Rall (#2778)', { skip }, () => {
+	const guide = 'forever/collectibles/mounts/alliance/paladin-warhorse.guide';
+	const list = goals(guide);
+	const crumb = list[at(list, 'accept 4485', is('accept', 4485))].step;
+	assert.ok((crumb.when || []).some((w) => w.k === 'zone' && w.name === 'Ironforge'), 'only in Ironforge');
+	assert.equal(list[at(list, 'accept 1661', is('accept', 1661))].goal.npc, 6171, 'The Tome of Nobility from Duthorian Rall');
+	assert.equal(list[at(list, 'turnin 1661', is('turnin', 1661))].goal.npc, 6171, 'handed in to Duthorian Rall');
+});
+
 // Croaky (level 11 elite) killed players 4 times at levels 8-9 on the Downstream
 // step (players' recordings; 12 deaths in the archive by #977). His head stays an
 // optional extra (#221), collected only in the steps for players who group for it
