@@ -29,56 +29,59 @@ return {
 	-- {area:976} Gadgetzan
 	["The flight from Theramore lands in {area:976}."] = "El vuelo desde Theramore aterriza en {area:976}.",
 
-	-- Step 7: The Noxious Lair
+	-- Step 6: Marin Noggenfogger
+	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "No hiciste esto en la visita anterior de la ruta a esta zona: ahora va primero. Es rápido y abre las misiones que le siguen.",
+
+	-- Step 8: The Noxious Lair
 	-- {npc:4196} Silithid Swarm
 	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
 	["Ride west to the Centipaar hive in the dunes. Any Centipaar can drop insect parts.\nCareful: Centipaar Swarmers cast {npc:4196} both in and out of combat, which brings small adds that interrupt you."] = "Cabalga al oeste hasta la colmena Centipaar en las dunas. Cualquier Centipaar puede soltar partes de insecto.\nCuidado: los enjambristas Centipaar lanzan {npc:4196} dentro y fuera de combate, lo que atrae pequeños enemigos que te interrumpen.",
 
-	-- Step 8: Dunemaul Compound
+	-- Step 9: Dunemaul Compound
 	-- {npc:12046} Gor'marok the Ravager
 	["Ride south to the ogre compound. Brutes and Enforcers (46-48) fill it; {npc:12046} (49) stands in the middle with guards around him: clear them first."] = "Cabalga al sur hasta el complejo ogro. Está lleno de brutos y déspotas (46-48); {npc:12046} (49) está en el centro rodeado de guardias: despéjalos primero.",
 	-- {npc:12046} Gor'marok the Ravager
 	["{npc:12046}, below ground"] = "{npc:12046}, bajo tierra",
 
-	-- Step 9: Thistleshrub Valley: kill these as you meet them
+	-- Step 10: Thistleshrub Valley: kill these as you meet them
 	-- {quest:3362} Thistleshrub Valley
 	["{quest:3362}: kill these as you meet them"] = "{quest:3362}: mata a estos según te los encuentres",
 	-- {quest:3362} Thistleshrub Valley
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
 	["Ride west into {quest:3362}. The Dew Collectors drop the glands; only some are full, so keep the Laden one. Gnarled Thistleshrubs and Rootshapers share the valley.\nCareful: the thistleshrubs wander a lot, so you can easily pull extra mobs."] = "Cabalga al oeste hasta {quest:3362}. Los recolectores de rocío sueltan las glándulas; solo algunas están llenas, así que guarda la cargada. Los cardizales nudosos y los formarraíces comparten el valle.\nCuidado: los cardizales deambulan mucho, así que puedes atraer enemigos de más con facilidad.",
 
-	-- Step 10: Gadgetzan
+	-- Step 11: Gadgetzan
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn
 	["Ride back north-east to {area:976}: {npc:11758} stands on the east side of town."] = "Cabalga de vuelta al noreste hasta {area:976}: {npc:11758} está en el lado este del pueblo.",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}, adentro",
 
-	-- Step 11: The Gaping Chasm
+	-- Step 12: The Gaping Chasm
 	-- {area:1938} Broken Pillar · {area:981} The Gaping Chasm
 	["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "Cabalga al sur más allá de {area:1938} hasta {area:981}, los túneles Hazzali; el equipo de Scrimshank está en lo más profundo.\nCuidado: Un insecto vigila el equipo. Muchos insectos patrullan los túneles, algunos de nivel 50, así que las peleas suelen atraer enemigos de más.",
 	-- {item:8593} Scrimshank's Surveying Gear
 	["{item:8593}; below ground"] = "{item:8593}; bajo tierra",
 
-	-- Step 12: Gadgetzan
+	-- Step 13: Gadgetzan
 	-- {npc:7740} Gracina Spiritmight · {zone:1457} Darnassus · {zone:1428} Burning Steppes
 	["For {npc:7740} in {zone:1457}, at the end of the {zone:1428} guide: keep it"] = "Para {npc:7740} en {zone:1457}, al final de la guía de {zone:1428}: guárdalo",
 
-	-- Step 14: Torwa Pathfinder
+	-- Step 15: Torwa Pathfinder
 	-- {area:976} Gadgetzan · {zone:1449} Un'Goro Crater · {npc:9619} Torwa Pathfinder
 	["Ride west out of {area:976} to the long ramp down into {zone:1449}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "Cabalga al oeste desde {area:976} hasta la larga rampa que baja a {zone:1449}. {npc:9619} acampa al pie de la rampa, en la esquina sureste del cráter.",
 
-	-- Step 15: Fresh Threshadon Carcass
+	-- Step 16: Fresh Threshadon Carcass
 	-- {npc:9619} Torwa Pathfinder · {item:280459} Crystal Infused Scale
 	-- plural, as words: Venomhide Ravasaurs = {npc:6508} Venomhide Ravasaur
 	["The dead Threshadon lies by the water north of {npc:9619}.\nCareful: Venomhide Ravasaurs (50-51) hunt along the water there: pull them one at a time before you loot the carcass.\nAny ravasaur may drop a {item:280459}: right-click it, {npc:9619} takes it."] = "El threshadon muerto yace junto al agua al norte de {npc:9619}.\nCuidado: los ravasaurios Pellejo Venenoso (50-51) cazan junto al agua allí: atráelos de uno en uno antes de saquear el cadáver.\nCualquier ravasaurio puede soltar una {item:280459}: haz clic derecho en ella, {npc:9619} la recibe.",
 
-	-- Step 16: Torwa Pathfinder
+	-- Step 17: Torwa Pathfinder
 	-- {quest:87494} Microcrystal Contamination
 	["{quest:87494}, if a ravasaur dropped the scale"] = "{quest:87494}, si un ravasaurio soltó la escama",
 	-- {area:1943} Ironstone Plateau
 	["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 56"] = "Los gorilas de {area:1943} llevan las pieles: guárdala para la segunda visita a Un'Goro, alrededor del nivel 56",
 
-	-- Step 17: Lar'korwi Mates and the raft
+	-- Step 18: Lar'korwi Mates and the raft
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
 	["Lar'korwi Mates and the raft"] = "Compañeras de Lar'korwi ({npc:9683}) y la balsa",
 	-- {npc:9619} Torwa Pathfinder · {npc:8737} Linken · {item:11116} A Mangled Journal
@@ -87,11 +90,11 @@ return {
 	-- {object:161504} A Small Pack
 	["{object:161504}, underwater"] = "{object:161504}, bajo el agua",
 
-	-- Step 18: Torwa Pathfinder
+	-- Step 19: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
 	["Back east to {npc:9619} with the glands."] = "De vuelta al este con {npc:9619} con las glándulas.",
 
-	-- Step 19: Marshal's Refuge
+	-- Step 20: Marshal's Refuge
 	-- {npc:271301} Power Crystal · {object:157936} Un'Goro Dirt Pile
 	["Ride north-west to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every {npc:271301} and {object:157936} you pass from here on."] = "Cabalga al noroeste hasta el refugio.\nMantente bien lejos de los demosaurios y estegodones élite. Recoge cada {npc:271301} y {object:157936} que encuentres de aquí en adelante.",
 	-- {npc:9998} Shizzle
@@ -105,7 +108,7 @@ return {
 	-- {npc:9272} Spark Nilminer · {npc:9271} Hol'anyee Marshal · {npc:9270} Williden Marshal · {npc:9618} Karna Remtravel
 	["{npc:9272}, {npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 56."] = "{npc:9272}, {npc:9271}, {npc:9270} y {npc:9618} tienen misiones entre enemigos de nivel 51-55: déjalas para la segunda visita a Un'Goro, alrededor del nivel 56.",
 
-	-- Step 20: Fire Plume Ridge and the eastern jungle
+	-- Step 21: Fire Plume Ridge and the eastern jungle
 	-- {area:537} Fire Plume Ridge
 	["{area:537} and the eastern jungle"] = "{area:537} y la jungla del este",
 	-- {quest:3764} Un'Goro Soil · {area:537} Fire Plume Ridge · {npc:9998} Shizzle · {npc:9165} Fledgling Pterrordax
@@ -116,24 +119,24 @@ return {
 	-- {quest:3764} Un'Goro Soil
 	["{quest:3764}, from the Threshers and the dirt piles"] = "{quest:3764}, de los Trilladores y los montones de tierra",
 
-	-- Step 21: Lakkari Tar Pits
+	-- Step 22: Lakkari Tar Pits
 	-- plural, as words: Tar Lords = {npc:6519} Tar Lord
 	["Crystal clusters stand all over the crater. The pits' Tar Lords (53-54) and the oozes around them (50-54) are over you: take the clusters on the jungle's north-eastern edge, among the Lashers and young beasts (48-50)."] = "Hay grupos de cristales por todo el cráter. Los Señores de alquitrán de los pozos (53-54) y los mocos a su alrededor (50-54) te superan: toma los cristales del borde noreste de la jungla, entre los Azotadores y las bestias jóvenes (48-50).",
 
-	-- Step 22: Marshal's Refuge
+	-- Step 23: Marshal's Refuge
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "{npc:9117}, bajo tierra",
 	-- {npc:7775} Gregan Brewspewer · {zone:1444} Feralas
 	["For {npc:7775} in {zone:1444}: keep it"] = "Para {npc:7775} en {zone:1444}: guárdala",
 
-	-- Step 23: Level 49.79
+	-- Step 24: Level 49.79
 	["Level 49.79"] = "Nivel 49.79",
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
 	["Still short of level 49.79 after the refuge's hand-ins? Top up on the Bloodpetal Lashers and Threshers (48-50) of the eastern jungle, where you took the petals, before you leave the crater."] = "¿Todavía no llegas al nivel 49.79 después de las entregas del refugio? Sube de nivel con los Azotadores y Trilladores Sangrepétalo (48-50) de la jungla del este, donde tomaste los pétalos, antes de salir del cráter.",
 	-- {npc:6511} Bloodpetal Thresher
 	["grind on {npc:6511}"] = "sube de nivel con {npc:6511}",
 
-	-- Step 24: Fly to Astranaar
+	-- Step 25: Fly to Astranaar
 	-- {area:415} Astranaar
 	["Fly to {area:415}"] = "Vuela a {area:415}",
 	-- {zone:1455} Ironforge · {zone:1427} Searing Gorge · {zone:1440} Ashenvale · {zone:1447} Azshara
@@ -141,17 +144,17 @@ return {
 	-- {area:541} Marshal's Refuge
 	["{area:541} flight master"] = "Maestro de vuelo de {area:541}",
 
-	-- Step 25: To Ironforge
+	-- Step 26: To Ironforge
 	-- {zone:1455} Ironforge
 	["To {zone:1455}"] = "A {zone:1455}",
 
-	-- Step 26: Mystic Ward
+	-- Step 27: Mystic Ward
 	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara
 	["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}: para Ogtinc en {zone:1447}, guárdala",
 	-- {npc:7312} Dink · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara
 	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "{npc:7312}, el instructor de magos: para {npc:8395} en {zone:1447}, guárdala",
 
-	-- Step 29: Fly to Astranaar
+	-- Step 30: Fly to Astranaar
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "Maestro de vuelo de {area:442}",
 
