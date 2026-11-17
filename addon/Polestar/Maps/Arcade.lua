@@ -53,14 +53,18 @@ ns.Arcade = Arcade
 
 -- "FreedoomArcade" | "Polestar_Arcade" | nil: the copy Polestar uses. None
 -- with the game's gamepad interface: the game plays with the keyboard.
--- Installed and enabled: loaded, or loadable (on demand too) by the client's
--- addon list.
+-- Installed and enabled: loaded, loadable, or loadable on demand. The client
+-- gives an addon that loads on demand, not loaded yet (Polestar_Arcade), as
+-- not loadable with reason "DEMAND_LOADED" ("DEP_DEMAND_LOADED" when one it
+-- depends on loads on demand): LoadAddOn loads it (Theme.InstalledSkins reads
+-- it the same way).
+local ON_DEMAND = { DEMAND_LOADED = true, DEP_DEMAND_LOADED = true }
 local function present(name)
 	if ns.Compat.AddOnPresent(name) then return true end
 	local A = C_AddOns
 	if not (A and A.GetAddOnInfo) then return false end
-	local ok, _, _, _, loadable = pcall(A.GetAddOnInfo, name)
-	return ok and loadable and true or false
+	local ok, _, _, _, loadable, reason = pcall(A.GetAddOnInfo, name)
+	return ok and (loadable or ON_DEMAND[reason]) and true or false
 end
 
 function Arcade.Which()
