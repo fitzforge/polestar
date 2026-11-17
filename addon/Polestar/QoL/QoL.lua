@@ -264,6 +264,84 @@ function QoL.OnStep(fn)
 	ns.On("TABS_CHANGED", fn)
 end
 
+-- One quest as a refresh reads it, appended to `into` from n: in the log or
+-- not, ready or failed, and each objective's counts and state. -> the new n
+local function readQuest(C, into, n, q)
+	into[n + 1] = q
+	into[n + 2] = (C.IsOnQuest(q) and 1 or 0) + (C.IsQuestReadyForTurnIn(q) and 2 or 0) + (C.IsQuestFailed(q) and 4 or 0)
+	n = n + 2
+	local objs = C.GetQuestObjectives(q)
+	if objs then
+		for k = 1, #objs do
+			local o = objs[k]
+			into[n + 1], into[n + 2], into[n + 3] = o.numFulfilled, o.numRequired, o.finished and 1 or 0
+			n = n + 3
+		end
+	end
+	into[n + 1] = -1 -- the quest's end
+	return n + 1
+end
+
+-- What the step's refreshes read of the quest log, in `into` (wiped first):
+-- how many quests it holds, and each quest of the current step's goals and of
+-- the While-here line (QoL/Buttons.lua ChooseQuestItem's and TargetNames'
+-- quests, QoL/BagGlow.lua's). -> its length; nil when the Engine or the log
+-- can't say.
+local function readStepLog(into)
+	local E, C, QL = ns.Engine, ns.Compat, C_QuestLog
+	if not (E and E.GetGuide and E.GetStepIndex and QL and QL.GetNumQuestLogEntries) then return nil end
+	local n = 1
+	into[1] = QL.GetNumQuestLogEntries() or 0
+	local guide, i = E.GetGuide(), E.GetStepIndex()
+	local step = guide and i and guide.steps and guide.steps[i]
+	local goals = step and step.goals
+	for g = 1, goals and #goals or 0 do
+		local q = goals[g].quest
+		if type(q) == "number" then n = readQuest(C, into, n, q) end
+	end
+	local here = E.GetWhileHere and E.GetWhileHere()
+	if here and type(here.quest) == "number" then n = readQuest(C, into, n, here.quest) end
+	for k = #into, n + 1, -1 do into[k] = nil end
+	return n
+end
+
+-- That read at the last QUEST_LOG_UPDATE and its version: one more each time
+-- a read differs from the one before. Read once per event (ns.Moment),
+-- whatever the number of watchers.
+local logNow, logWas, logVersion, logMoment = {}, {}, 0, nil
+local function logVersionNow()
+	local moment = ns.Moment()
+	if moment == logMoment then return logVersion end
+	logMoment = moment
+	logNow, logWas = logWas, logNow
+	local n = readStepLog(logNow)
+	local same = n ~= nil and n == #logWas
+	for k = 1, same and n or 0 do
+		if logNow[k] ~= logWas[k] then
+			same = false
+			break
+		end
+	end
+	if not same then logVersion = logVersion + 1 end
+	return logVersion
+end
+
+-- `fn` on QUEST_LOG_UPDATE only when what the step's refreshes read of the log
+-- changed since the last one it was called for. The client sends
+-- QUEST_LOG_UPDATE for much that leaves the log as it was (several per kill,
+-- some per loot), and a refresh that reads the step's view cost about half a
+-- millisecond each time. The step itself changing comes through QoL.OnStep as
+-- before, the bags through BAG_UPDATE_DELAYED.
+function QoL.OnLogChange(fn)
+	local seen
+	ns.RegisterEvent("QUEST_LOG_UPDATE", function()
+		local v = logVersionNow()
+		if v == seen then return end
+		seen = v
+		fn()
+	end)
+end
+
 ---------------------------------------------------------------------------
 -- Gossip and Blizzard's dialogs, for the helpers that answer them
 ---------------------------------------------------------------------------

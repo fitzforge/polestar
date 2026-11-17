@@ -295,7 +295,7 @@ BagGlow.Refresh = refresh
 
 QoL.OnStep(refreshSoon)
 ns.RegisterEvent("BAG_UPDATE_DELAYED", refreshSoon)
-ns.RegisterEvent("QUEST_LOG_UPDATE", refreshSoon)
+QoL.OnLogChange(refreshSoon)
 local function reset()
 	items, kept = {}, {}
 	refreshSoon()

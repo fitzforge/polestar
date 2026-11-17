@@ -3246,7 +3246,7 @@ ns.RegisterEvent("BAG_UPDATE_DELAYED", function()
 	repaintItems()
 	refreshSoon()
 end)
-ns.RegisterEvent("QUEST_LOG_UPDATE", refreshSoon)
+QoL.OnLogChange(refreshSoon)
 ns.RegisterEvent("BAG_UPDATE_COOLDOWN", repaintItems)
 -- Who may mark (Buttons.MarkRight) follows the group.
 ns.RegisterEvent("GROUP_ROSTER_UPDATE", refreshSoon)
