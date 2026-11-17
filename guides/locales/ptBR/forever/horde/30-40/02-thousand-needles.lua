@@ -82,12 +82,16 @@ return {
 	["{npc:5905} also starts Elemental Aid ({area:1717}), the 33-40 chain to The Tempest's Weapons: forever/class/shaman/call-of-air-horde."] = "{npc:5905} também inicia Elemental Aid ({area:1717}), a série 33-40 até The Tempest's Weapons: forever/class/shaman/call-of-air-horde.",
 
 	-- Step 16: Dorn Plainstalker
+	-- {npc:2986} Dorn Plainstalker · {area:484} Freewind Post · {quest:1149} Test of Faith
+	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.\n{npc:2986} waits on the mesa just north-east of {area:484}, across the rope bridges.\nFor the {quest:1149}, walk off the end of the planks beside him: you land safely."] = "Você perdeu isto na visita anterior da rota a esta região: vem primeiro agora. É rápido e abre as missões seguintes.\n{npc:2986} espera na mesa logo a nordeste de {area:484}, do outro lado das pontes de corda.\nPara o {quest:1149}, ande até o fim das tábuas ao lado dele: você cai em segurança.",
+
+	-- Step 17: Dorn Plainstalker
 	-- {npc:2986} Dorn Plainstalker · {area:484} Freewind Post
 	["{npc:2986} waits on the mesa just north-east of {area:484}, across the rope bridges."] = "{npc:2986} espera na mesa logo a nordeste de {area:484}, do outro lado das pontes de corda.",
 	-- {npc:2986} Dorn Plainstalker · {npc:4490} Grenka Bloodscreech
 	["{npc:2986}: {npc:4490}, in the harpy den west of the post"] = "{npc:2986}: {npc:4490}, no covil das harpias a oeste do posto",
 
-	-- Step 17: Jandia
+	-- Step 18: Jandia
 	-- {npc:4877} Jandia · {area:484} Freewind Post
 	["{npc:4877}, the trade supplies vendor, stands inside {area:484}'s inn."] = "{npc:4877}, a mercadora de suprimentos comerciais, fica dentro da estalagem de {area:484}.",
 	-- {npc:4877} Jandia · {area:487} Roguefeather Den
@@ -95,7 +99,7 @@ return {
 	-- {npc:4877} Jandia
 	["{npc:4877}: her stolen supplies lie in the same harpy den"] = "{npc:4877}: os suprimentos roubados dela estão no mesmo covil de harpias",
 
-	-- Step 18: The Screeching Canyon: kill these as you meet them
+	-- Step 19: The Screeching Canyon: kill these as you meet them
 	-- {area:483} The Screeching Canyon
 	["{area:483}: kill these as you meet them"] = "{area:483}: vá matando estes pelo caminho",
 	-- {area:2097} Darkcloud Pinnacle · {area:487} Roguefeather Den · {npc:4877} Jandia · {quest:98069} Stolen Freewind Supplies · {npc:4490} Grenka Bloodscreech · {npc:2986} Dorn Plainstalker
@@ -105,33 +109,33 @@ return {
 	-- {item:5843} Grenka's Claw · {npc:4490} Grenka Bloodscreech
 	["{item:5843}, from {npc:4490}"] = "{item:5843}, de {npc:4490}",
 
-	-- Step 19: Jandia
+	-- Step 20: Jandia
 	-- {area:484} Freewind Post
 	["Back east to {area:484}."] = "De volta para o leste, até {area:484}.",
 	-- {npc:4877} Jandia
 	["{npc:4877}, inside the inn"] = "{npc:4877}, dentro da estalagem",
 
-	-- Step 20: Dorn Plainstalker
+	-- Step 21: Dorn Plainstalker
 	-- {npc:2986} Dorn Plainstalker · {npc:4499} Rok'Alim the Pounder
 	["Back across to {npc:2986}'s mesa north-east of the post, then take the lift down to the canyon floor. {npc:2986}'s next test, {npc:4499}, is an elite: leave it."] = "Volte à mesa de {npc:2986}, a nordeste do posto, e desça de elevador até o fundo do cânion. O próximo teste de {npc:2986}, {npc:4499}, é um elite: deixe-o.",
 
-	-- Step 21: Stormheart
+	-- Step 22: Stormheart
 	-- {npc:270094} Stormheart · {area:484} Freewind Post
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:270094} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone: the route has you grind the XP back.\n{npc:270094} walks the canyon road east of {area:484}'s lift, on the way to the salt flats: kill him for his heart."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {npc:270094} é elite de nível 30: a maioria das classes encara sozinha no nível 32, mas talvez você precise de ajuda. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.\n{npc:270094} anda pela estrada do cânion a leste do elevador de {area:484}, no caminho para as planícies de sal: mate-o pelo coração.",
 	-- {item:279186} Stormheart's Still-beating Heart · {npc:270094} Stormheart
 	["{item:279186}, from {npc:270094}"] = "{item:279186}, de {npc:270094}",
 
-	-- Step 22: Moktar Krin
+	-- Step 23: Moktar Krin
 	-- {npc:4483} Moktar Krin
 	["Take the lift down and follow the canyon east. {npc:4483} camps on the north-western edge of the salt flats."] = "Desça de elevador e siga o cânion para o leste. {npc:4483} acampa na borda noroeste das planícies de sal.",
 
-	-- Step 23: Mirage Raceway
+	-- Step 24: Mirage Raceway
 	-- {area:2240} Mirage Raceway
 	["The goblins and gnomes of the {area:2240} are neutral and give quests to both factions."] = "Os goblins e gnomos de {area:2240} são neutros e dão missões às duas facções.",
 	-- {npc:4452} Kravel Koalbeard · {quest:5762} Hemet Nesingwary
 	["{npc:4452}'s crate for {quest:5762} in Stranglethorn, later on the route"] = "A caixa de {npc:4452} para {quest:5762}, na Selva do Espinhaço, mais adiante na rota",
 
-	-- Step 24: Shimmering Flats: kill these as you meet them
+	-- Step 25: Shimmering Flats: kill these as you meet them
 	-- {area:439} Shimmering Flats
 	["{area:439}: kill these as you meet them"] = "{area:439}: vá matando estes pelo caminho",
 	-- plural, as words: Saltstone Basilisks = {npc:4147} Saltstone Basilisk · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Scorpid Terrors = {npc:4139} Scorpid Terror
@@ -145,7 +149,7 @@ return {
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver
 	["{quest:1104}, from the Scorpid Reavers of the north half"] = "{quest:1104}, dos Aniquiladores Escorpídeos da metade norte",
 
-	-- Step 25: Mirage Raceway
+	-- Step 26: Mirage Raceway
 	["South-west back to the raceway."] = "De volta ao sudoeste, até o circuito.",
 	-- {npc:4452} Kravel Koalbeard · {quest:1111} Wharfmaster Dizzywig · {area:392} Ratchet
 	["{npc:4452}: his parts order goes to {quest:1111} in {area:392}, later on the route"] = "{npc:4452}: o pedido de peças dele vai para {quest:1111} em {area:392}, mais adiante na rota",
@@ -154,7 +158,7 @@ return {
 	-- {npc:4630} Pozzik · {area:392} Ratchet
 	["{npc:4630}: for Gazlowe in {area:392}, later on the route"] = "{npc:4630}: para Gazlowe em {area:392}, mais adiante na rota",
 
-	-- Step 26: Level 32
+	-- Step 27: Level 32
 	["Level 32"] = "Nível 32",
 	-- {zone:1443} Desolace · {area:1717} Razorfen Kraul
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Scorpid Terrors = {npc:4139} Scorpid Terror
@@ -164,57 +168,57 @@ return {
 	-- {npc:4140} Scorpid Reaver
 	["grind on {npc:4140}"] = "mate {npc:4140} até subir",
 
-	-- Step 27: The southern flats
+	-- Step 28: The southern flats
 	["The southern flats"] = "As planícies do sul",
 	-- plural, as words: Saltstone Crystalhides = {npc:4151} Saltstone Crystalhide
 	["South of the raceway, the Saltstone Crystalhides (32-33) and Gazers (34-35) roam the far end of the flats.\nCareful: the level 35 Gazers can still be two over you: pull them one at a time from the camp's edge, never two together."] = "Ao sul do circuito, os Cristaldermes Sal-gema (32-33) e os Observadores (34-35) vagam pela outra ponta das planícies.\nCuidado: os Observadores de nível 35 ainda podem estar dois níveis acima de você: puxe-os um de cada vez da borda do acampamento, nunca dois juntos.",
 
-	-- Step 28: The Rustmaul Dig Site
+	-- Step 29: The Rustmaul Dig Site
 	-- {item:5877} Cracked Silithid Carapace · {npc:4132} Silithid Ravager
 	["West of them the silithid swarm the dig site. Searchers and Hive Drones walk among the mounds; the Invaders (34-35) stay inside the hive cave. The first silithid you kill drops a {item:5877}: open it.\nCareful: Hive Drones call for help when they fall to 20% health, and the {npc:4132} (37, rare) walks the dig: take the Searchers and Drones (32-34) outside first, then pull the Invaders (34-35) one at a time from the cave mouth."] = "A oeste deles, os silitídeos enxameiam o sítio de escavação. Buscadores e Zangões da Colmeia andam entre os montes; os Invasores (34-35) ficam dentro da caverna da colmeia. O primeiro silitídeo que você matar solta uma {item:5877}: abra-a.\nCuidado: os Zangões da Colmeia chamam ajuda quando caem para 20% de vida, e o {npc:4132} (37, raro) anda pela escavação: mate primeiro os Buscadores e Zangões (32-34) do lado de fora, depois puxe os Invasores (34-35) um de cada vez da entrada da caverna.",
 
-	-- Step 29: Parts of the Swarm
+	-- Step 30: Parts of the Swarm
 	["Keep killing silithid at the dig site for the heart, the talons and the carapaces."] = "Continue matando silitídeos no sítio de escavação, pelo coração, pelas garras e pelas carapaças.",
 
-	-- Step 30: Moktar Krin
+	-- Step 31: Moktar Krin
 	-- {npc:4483} Moktar Krin
 	["North from the dig to {npc:4483}'s camp on the western edge of the flats."] = "Ao norte da escavação, até o acampamento de {npc:4483}, na borda oeste das planícies.",
 
-	-- Step 31: Mirage Raceway
+	-- Step 32: Mirage Raceway
 	-- {area:976} Gadgetzan
 	["East to the raceway, on the way south to {area:976}."] = "A leste, até o circuito, no caminho para o sul até {area:976}.",
 
-	-- Step 32: Gadgetzan
+	-- Step 33: Gadgetzan
 	-- {zone:1446} Tanaris · {area:976} Gadgetzan · {area:484} Freewind Post
 	["South from the raceway over the {zone:1446} border to {area:976}, the walled goblin town: learn its flight path and fly back to {area:484} from there, which is quicker than the walk west across the flats, and the next guides fly straight to {area:976}."] = "Ao sul do circuito, passando a divisa de {zone:1446}, até {area:976}, a cidade goblin murada: aprenda a rota de voo de lá e voe de volta para {area:484}, o que é mais rápido que a caminhada para oeste pelas planícies, e os próximos guias voam direto para {area:976}.",
 
-	-- Step 34: Freewind Post
+	-- Step 35: Freewind Post
 	-- {npc:10537} Cliffwatcher Longhorn
 	["{npc:10537} stands in the middle of the post, on the way to the flight master."] = "{npc:10537} fica no meio do posto, no caminho para o mestre de voo.",
 	-- {npc:10537} Cliffwatcher Longhorn · {npc:11259} Nataka Longhorn · {zone:1443} Desolace
 	["{npc:10537}: for {npc:11259} in {zone:1443}, next"] = "{npc:10537}: para {npc:11259}, em {zone:1443}, em seguida",
 
-	-- Step 35: Fly to Sun Rock Retreat
+	-- Step 36: Fly to Sun Rock Retreat
 	-- {area:460} Sun Rock Retreat
 	["Fly to {area:460}"] = "Voar para o {area:460}",
 	-- {area:484} Freewind Post
 	["{area:484} flight master"] = "Mestre de voo de {area:484}",
 
-	-- Step 37: Scrabblescrew's Camp
+	-- Step 38: Scrabblescrew's Camp
 	-- {zone:1443} Desolace · {npc:11596} Smeed Scrabblescrew
 	["Head south out of Stonetalon into {zone:1443} and follow the road south to {npc:11596}'s camp."] = "Siga para o sul, saindo de Torres de Pedra, até {zone:1443}, e continue pela estrada para o sul até o acampamento de {npc:11596}.",
 
-	-- Step 38: Ghost Walker Post
+	-- Step 39: Ghost Walker Post
 	-- {npc:5395} Felgur Twocuts · {npc:11259} Nataka Longhorn · {npc:5641} Takata Steelblade · {npc:4498} Maurin Bonesplitter · {area:596} Kodo Graveyard
 	["{npc:5395} stands in the post, {npc:11259} up on its rise; {npc:5641} and {npc:4498} wait on the rise west of it, above the {area:596}."] = "{npc:5395} fica no posto, {npc:11259} no alto da elevação; {npc:5641} e {npc:4498} esperam na elevação a oeste dela, acima de {area:596}.",
 	-- {npc:11259} Nataka Longhorn
 	["{npc:11259}, up on the rise"] = "{npc:11259}, no alto da elevação",
 
-	-- Step 40: Takata Steelblade and Maurin Bonesplitter
+	-- Step 41: Takata Steelblade and Maurin Bonesplitter
 	-- {npc:5641} Takata Steelblade · {npc:4498} Maurin Bonesplitter
 	["{npc:5641} and {npc:4498}"] = "{npc:5641} e {npc:4498}",
 
-	-- Step 41: Kodo Graveyard
+	-- Step 42: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo · {npc:11521} Kodo Apparition
 	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702} in the graveyard and walk the tamed kodo back to {npc:11596}. At his camp, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time. Careful: leave the kodo skulls on the ground alone: opening one raises a {npc:11521} (37-38) that hits hard."] = "Use o {item:13892} de {npc:11596} num Kodo Idoso, Moribundo ou {npc:4702} no cemitério e leve o kodo domado de volta a {npc:11596}. No acampamento dele, fale com o kodo: isso o conta e deixa você domar o próximo. Cinco kodos, um de cada vez. Cuidado: não mexa nos crânios de kodo no chão: abrir um faz surgir uma {npc:11521} (37-38) que bate forte.",
 	-- {npc:4702} Ancient Kodo
@@ -222,7 +226,7 @@ return {
 	-- {npc:11596} Smeed Scrabblescrew
 	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "o kodo domado, no acampamento de {npc:11596}: fale com ele, cinco vezes",
 
-	-- Step 43: Shadowprey Village
+	-- Step 44: Shadowprey Village
 	-- {area:606} Gelkis Village · {npc:268705} Aka'rai · {quest:97265} Hate the Hatefury
 	["Head west to the troll village on the coast, keeping clear of the {area:606} on the way. {npc:268705} stands on the path just north of the village.\n{npc:268705} may not be here on Forever: if {npc:268705} doesn't offer {quest:97265}, skip it."] = "Siga para oeste até a vila troll na costa, mantendo distância de {area:606} no caminho. {npc:268705} fica na trilha logo ao norte da vila.\n{npc:268705} pode não estar aqui no Forever: se {npc:268705} não oferecer {quest:97265}, pule.",
 	-- {npc:268705} Aka'rai · {area:603} Sargeron
@@ -232,26 +236,26 @@ return {
 	-- {npc:6726} Thalon
 	["{npc:6726}, at the village's south-west end"] = "{npc:6726}, na ponta sudoeste da aldeia",
 
-	-- Step 44: Ethel Rethor
+	-- Step 45: Ethel Rethor
 	-- {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress · {area:2406} Ranazjar Isle
 	["Head north along the coast, then inland to the ruined tower of {area:2405}: {npc:11863} waits inside. The coast's clams and naga come after {area:599}, on one walk north to {area:2406}."] = "Siga para o norte pela costa e depois para o interior, até a torre em ruínas de {area:2405}: {npc:11863} espera lá dentro. Os mariscos e as nagas da costa ficam para depois de {area:599}, numa só caminhada para o norte até {area:2406}.",
 
-	-- Step 45: Thunder Axe Fortress
+	-- Step 46: Thunder Axe Fortress
 	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:20310} Flayed Demon Skin · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {zone:1443} Desolace
 	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. Leave the red {object:176581} for now: its {npc:11876} is 37, and the second {zone:1443} visit comes back for it."] = "Siga para leste até {area:599}. Derrube um sectário da Lâmina Ardente e use {item:6436} nele antes que morra, para obter {item:6435}. {npc:13019} fica no último andar da fortaleza com o Cetro. Os sectários também deixam cair {item:20310} de vez em quando (1-5%); quando cair, leia. Deixe o {object:176581} vermelho por enquanto: o {npc:11876} dele é nível 37, e a segunda visita a {zone:1443} volta para ele.",
 	["On the top floor"] = "No último andar",
 
-	-- Step 46: Ethel Rethor
+	-- Step 47: Ethel Rethor
 	-- {npc:11863} Azore Aldamort
 	["Back west to {npc:11863}."] = "De volta ao oeste, até {npc:11863}.",
 	-- {npc:11863} Azore Aldamort · {item:15803} Book of the Ancients · {npc:12369} Lord Kragaru · {area:2406} Ranazjar Isle
 	["{npc:11863}'s next errand, the {item:15803}, needs {npc:12369} (38) out on {area:2406}: leave it, he is over your level."] = "A próxima tarefa de {npc:11863}, o {item:15803}, exige {npc:12369} (38), em {area:2406}: deixe para depois, ele está acima do seu nível.",
 
-	-- Step 47: Rackmore's Log
+	-- Step 48: Rackmore's Log
 	-- {object:177787} Rackmore's Log · {npc:11863} Azore Aldamort
 	["{object:177787} lies on the ground just south-west of {npc:11863}'s tower, on the way down to the shore: read it. Its two keys drop only while you have the quest."] = "{object:177787} fica no chão logo a sudoeste da torre de {npc:11863}, no caminho para a praia: leia-o. As duas chaves só caem enquanto você tiver a missão.",
 
-	-- Step 48: Clam beds
+	-- Step 49: Clam beds
 	["Clam beds"] = "Leitos de mariscos",
 	-- {item:15874} Soft-shelled Clam · {item:15878} Rackmore's Silver Key
 	-- plural, as words: Giant Softshell Clams = {object:177784} Giant Softshell Clam · Enraged Reef Crawlers = {npc:12347} Enraged Reef Crawler · Drysnap Crawlers = {npc:11562} Drysnap Crawler
@@ -264,29 +268,29 @@ return {
 	-- {item:15878} Rackmore's Silver Key
 	["{item:15878}, from the Drysnap crabs"] = "{item:15878}, dos caranguejos Secoestalo",
 
-	-- Step 49: Sar'theris Strand
+	-- Step 50: Sar'theris Strand
 	-- {area:598} Sar'theris Strand · {item:15881} Rackmore's Golden Key · {zone:1443} Desolace
 	["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second {zone:1443} visit, at 38."] = "Continue para o norte até {area:598} para pegar a {item:15881}: qualquer Lâmina Serpeante pode deixá-la cair.\nCuidado: os Mirmidões (34-35) ocupam a metade norte da praia com as Bruxas do Mar e os Oráculos (34-36, conjuradores), até dois níveis acima de você no 33: cace as Nagas e Feiticeiras (32-33) da metade sul até a chave cair e deixe o norte para a segunda visita a {zone:1443}, no nível 38.",
 	-- {item:15881} Rackmore's Golden Key
 	["{item:15881}, from the Slitherblade naga"] = "{item:15881}, das nagas Sibilâmina",
 
-	-- Step 50: Rackmore's Chest
+	-- Step 51: Rackmore's Chest
 	-- {area:2406} Ranazjar Isle · {object:177786} Rackmore's Chest · {object:177673} Serpent Statue
 	["Swim out to {area:2406} off the far northern tip: {object:177786} stands on the shore beside the {object:177673}. Open it with both keys; leave the statue alone."] = "Nade até {area:2406}, na ponta extrema norte: o {object:177786} fica na margem, ao lado da {object:177673}. Abra-o com as duas chaves; não mexa na estátua.",
 
-	-- Step 51: Sargeron
+	-- Step 52: Sargeron
 	-- {area:599} Thunder Axe Fortress · {area:603} Sargeron · {npc:268705} Aka'rai
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue
 	["Head east past {area:599} and along the northern hills to the satyrs' ruins of {area:603}. Kill every kind you meet for {npc:268705}; the Shadowstalkers walk unseen.\nCareful: Hatefury Rogues use Hide when they spawn, so they are stealthed until you find them."] = "Siga para leste, passando por {area:599} e pelas colinas do norte, até as ruínas dos sátiros de {area:603}. Mate todos os tipos que encontrar para {npc:268705}; os Assombrantes andam sem serem vistos.\nCuidado: os Errantes Furiódio usam Esconder ao surgir, então ficam furtivos até você encontrá-los.",
 	-- {npc:4671} Hatefury Trickster
 	["{npc:4671}, on the way south"] = "{npc:4671}, no caminho para o sul",
 
-	-- Step 52: Khan Dez'hepah
+	-- Step 53: Khan Dez'hepah
 	-- {area:609} Kolkar Village · {quest:1365} Khan Dez'hepah
 	-- plural, as words: Kolkar Battle Lords = {npc:4636} Kolkar Battle Lord
 	["South to {area:609}. {quest:1365} (35) walks among the tents on the east side with a Battle Lord or two (32-33): clear around him, then pull him alone at full health.\nCareful: Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health."] = "Ao sul, até {area:609}. {quest:1365} (35) anda entre as tendas do lado leste com um ou dois Senhores de Batalha (32-33): limpe em volta dele, depois puxe-o sozinho, com vida cheia.\nCuidado: os Senhores de Batalha Kolkar chamam aliados num raio de 30 metros quando caem a 20% de vida.",
 
-	-- Step 53: Ghost Walker Post
+	-- Step 54: Ghost Walker Post
 	["South-west down the road to the post."] = "Desça a estrada para o sudoeste até o posto.",
 	-- {npc:5641} Takata Steelblade · {npc:5640} Keldran · {zone:1454} Orgrimmar
 	["{npc:5641}: for {npc:5640} in {zone:1454}, next guide"] = "{npc:5641}: para {npc:5640}, em {zone:1454}, no próximo guia",
@@ -295,7 +299,7 @@ return {
 	-- {npc:5395} Felgur Twocuts · {zone:1443} Desolace · {area:607} Valley of Spears
 	["{npc:5395} now offers Centaur Bounty: the second {zone:1443} visit, at 38, takes it on its way to the {area:607}."] = "{npc:5395} agora oferece Centaur Bounty: a segunda visita a {zone:1443}, no nível 38, a pega no caminho para {area:607}.",
 
-	-- Step 54: Shadowprey Village
+	-- Step 55: Shadowprey Village
 	["West to Shadowprey: your hearthstone is bound there."] = "A oeste, até Pescassombra: sua Pedra de Regresso está vinculada lá.",
 	-- {npc:268705} Aka'rai
 	["{npc:268705}, on the path just north of the village"] = "{npc:268705}, na trilha logo ao norte da aldeia",

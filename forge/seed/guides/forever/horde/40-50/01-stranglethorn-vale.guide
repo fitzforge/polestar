@@ -237,6 +237,12 @@ step Nesingwary's camp
   when group 193
   accept 193
 
+step Nesingwary's camp
+  when !turnedin 583
+  tip You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.
+  accept 583                          -- Barnil Stonepot
+  turnin 583                          -- Hemet Nesingwary
+
 step The Green Hills of Stranglethorn
   when turnedin 583
   tip Barnil Stonepot collects the pages of The Green Hills of Stranglethorn: the trolls of the vale drop them now and then. Take his quest; each chapter he takes once you have all its pages.

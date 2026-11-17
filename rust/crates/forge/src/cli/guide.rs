@@ -89,6 +89,13 @@ fn solo_exclusions(sim: &Path, root: &Path, data_dir: &Path) -> (Obj, Vec<&'stat
 	(excluded, stale)
 }
 
+/// data/route-fixes.json's `overrides.leftout` ($POLESTAR_ROUTE_FIXES names another file): the second-visit
+/// accepts the route leaves out on purpose (forge_guide::revisit). Nothing when the file is missing.
+fn route_leftout(root: &Path) -> V {
+	let path = std::env::var_os("POLESTAR_ROUTE_FIXES").map(PathBuf::from).unwrap_or_else(|| root.join("data/route-fixes.json"));
+	std::fs::read_to_string(path).ok().and_then(|t| parse_json(&t).ok()).map(|d| d.get("overrides").get("leftout")).unwrap_or(V::Undef)
+}
+
 /// The `dataHash` a world built now from `data_dir` would carry (forge_world::inputs; None when the
 /// inputs cannot be read).
 fn data_hash(root: &Path, data_dir: &Path) -> Option<String> {
@@ -529,6 +536,10 @@ fn run() -> i32 {
 			None => Obj::new(),
 		};
 		forge_guide::validate::validate_solo_policy(&built.project.guides, &V::Obj(excluded), &mut diag);
+		// Second visits (revisit.rs): Polestar's own guides, with the route's `leftout` records.
+		if official {
+			forge_guide::revisit::check_second_visits(&built.project.guides, &route_leftout(&root), &mut diag);
+		}
 	}
 	let t_built = t0.elapsed();
 	let out = match opt("--out") {

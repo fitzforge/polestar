@@ -1448,6 +1448,14 @@ Errors:
   give the objective its text in `forever-db/corrections/quests.json`, or the entity its name
   (#2614). A `kill` or `talk` on such a target is worded for you (see "What the compiler
   fills in")
+- in Polestar's own leveling guides (`lint` only): a non-`optional` `accept` whose
+  prerequisite only an earlier guide's visit to the same map brings (the guide
+  does not accept and hand it in before the accept): a character who starts the
+  route after that visit never sees the quest. The guide brings the prerequisite
+  back before it in steps `when !turnedin <the chain's last quest>`, or
+  `data/route-fixes.json` `overrides.leftout` records why it stays out
+  (docs/forge/routes.md, "Overrides"); a `leftout` record that names no such
+  accept is a warning
 
 Warnings:
 - a `when rep` naming by its id a faction the data lacks (by name it is an

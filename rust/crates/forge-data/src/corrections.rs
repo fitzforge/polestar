@@ -1211,7 +1211,7 @@ fn check_deliberate(ck: &mut Ck, d: &V) {
 }
 
 fn check_overrides(ck: &mut Ck, o: &V) {
-	ck.keys("", o, &["about", "_about", "include", "skip", "revert", "pairs"]);
+	ck.keys("", o, &["about", "_about", "include", "skip", "revert", "pairs", "leftout"]);
 	let step = |ck: &mut Ck, a: &str, s: &V, task: bool| {
 		let ok = s.is_arr() && (s.len() == 2 || (task && s.len() == 3)) && matches!(s.items()[0].as_str(), Some("accept" | "task" | "turnin"));
 		if !ok {
@@ -1295,6 +1295,28 @@ fn check_overrides(ck: &mut Ck, o: &V) {
 		if !(f.is_undef() || matches!(f.as_str(), Some("Alliance" | "Horde"))) {
 			ck.err(format!("{a}.faction"), format!("{} is not Alliance or Horde", show(&f)));
 		}
+	}
+	// Second-visit accepts left out on purpose (forge guide lint, forge-guide revisit.rs): {q, guide, reason, issue}.
+	let leftout = o.get("leftout");
+	if !leftout.is_undef() && !leftout.is_arr() {
+		ck.err("leftout", "must be a list");
+	}
+	let mut named: Vec<(String, String)> = Vec::new();
+	for (i, e) in leftout.items().iter().enumerate() {
+		let a = format!("leftout[{i}]");
+		ck.keys(&a, e, &["q", "guide", "reason", "issue"]);
+		ck.refers(&format!("{a}.q"), "quests", &e.get("q"));
+		if !has_text(&e.get("guide")) {
+			ck.err(format!("{a}.guide"), "guide is required: the id of the guide whose accept stays out");
+		}
+		if !has_text(&e.get("reason")) {
+			ck.err(format!("{a}.reason"), "reason is required: why the guide does not bring the prerequisite back");
+		}
+		let k = (e.get("guide").to_js_string(), num_str(e.get("q").num()));
+		if named.contains(&k) {
+			ck.warn(&a, format!("quest {} in \"{}\" is already in leftout", k.1, k.0));
+		}
+		named.push(k);
 	}
 }
 
@@ -2390,6 +2412,20 @@ mod tests {
 		let has = |s: &str| f.iter().any(|x| x.contains(s));
 		assert!(has("warning m quests.10.kinds[0].kind: teleport is not a kind"), "{f:#?}");
 		assert!(has("error m quests.10.steps[0].fact"), "{f:#?}");
+	}
+
+	#[test]
+	fn a_leftout_record_names_the_quest_the_guide_and_why() {
+		let o = r##"{ "overrides": { "leftout": [{ "q": 10, "guide": "forever/horde/x", "reason": "slow", "issue": "#2635" }, { "q": 5, "reason": "" },
+			{ "q": 10, "guide": "forever/horde/x", "reason": "again" }, { "q": 10, "guide": "forever/horde/y", "reason": "r", "why": "x" }] } }"##;
+		let f = findings(None, None, Some(o));
+		let has = |s: &str| f.iter().any(|x| x.contains(s));
+		assert!(!has("leftout[0]"), "a full record is fine: {f:#?}");
+		assert!(has("overrides.leftout[1].q: no quest 5 in the data"), "{f:#?}");
+		assert!(has("overrides.leftout[1].guide: guide is required"), "{f:#?}");
+		assert!(has("overrides.leftout[1].reason: reason is required"), "{f:#?}");
+		assert!(has("warning o overrides.leftout[2]: quest 10 in \"forever/horde/x\" is already in leftout"), "{f:#?}");
+		assert!(has("overrides.leftout[3]"), "an unknown key: {f:#?}");
 	}
 
 	#[test]
