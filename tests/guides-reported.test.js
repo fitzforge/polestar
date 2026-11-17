@@ -3220,7 +3220,7 @@ test('side guides: every fighting step waits on its own level for mobs at most 1
 				if (!n || n.faction || LEFT.has(`${id} ${mob}`) || top(mob) >= 61 || own >= 60) continue;
 				const allow = goal.group ? 2 : 1;
 				if (top(mob) <= own + allow) continue;
-				if (WARNED.has(`${id} ${mob}`)) assert.ok(JSON.stringify([step.tip, step.tips]).includes(`up to level ${top(mob)}`), `${G}, ${step.title}: a tip warns of ${n.name} up to level ${top(mob)}`);
+				if (WARNED.has(`${id} ${mob}`)) assert.ok(JSON.stringify([step.note, step.tip, step.tips]).includes(`up to level ${top(mob)}`), `${G}, ${step.title}: a tip warns of ${n.name} up to level ${top(mob)}`);
 				else wrong.push(`${G}, ${step.title}: ${goal.t} ${goal.item || goal.npc}, ${n.name} up to ${top(mob)}, the step waits for ${own}`);
 			}
 		}
