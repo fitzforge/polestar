@@ -56,7 +56,7 @@ return {
 
 	-- Step 11: Ruins of Eldarath: kill these as you meet them
 	-- {area:1221} Ruins of Eldarath
-	["{area:1221}: kill these as you meet them"] = "",
+	["{area:1221}: kill these as you meet them"] = "{area:1221}: mátalos según te los encuentres",
 	["Ride east to the ruins on the coast. The four tablets lie among the ruins, guarded by Spitelash naga (52-55): pull them one at a time."] = "Cabalga al este hasta las ruinas de la costa. Las cuatro tablillas están entre las ruinas, custodiadas por nagas Látigo de Ira (52-55): atráelos de uno en uno.",
 
 	-- Step 12: Ruins of Eldarath
@@ -143,13 +143,13 @@ return {
 	-- Step 26: Archmage Xylem
 	-- {area:1237} Valormok · {npc:8395} Sanath Lim-yo
 	["Xylem's tower stands on the cliff just north of {area:1237}: {npc:8395}, in {area:1237}, teleports you up for free (talk to him); otherwise the path winds up its north side."] = "La torre de Xylem está en el acantilado justo al norte de {area:1237}: {npc:8395}, en {area:1237}, te teletransporta arriba gratis (habla con él); si no, el camino sube serpenteando por su lado norte.",
-	["Upstairs"] = "",
+	["Upstairs"] = "Piso de arriba",
 
 	-- Step 28: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Vuela a {area:1637}",
 	-- {area:1237} Valormok
-	["{area:1237} flight master"] = "",
+	["{area:1237} flight master"] = "Maestro de vuelo de {area:1237}",
 
 	-- Step 29: Paladin trainer
 	["Paladin trainer"] = "",
@@ -168,7 +168,7 @@ return {
 
 	-- Step 32: Into Durotar
 	-- {zone:1411} Durotar
-	["Into {zone:1411}"] = "",
+	["Into {zone:1411}"] = "Hacia {zone:1411}",
 
 	-- Step 33: Zeppelin to Undercity
 	-- {zone:1458} Undercity

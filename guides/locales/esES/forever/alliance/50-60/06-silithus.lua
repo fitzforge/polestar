@@ -27,7 +27,7 @@ return {
 	-- {area:3137} Talrendis Point
 	["Fly to {area:3137}"] = "Vuela a {area:3137}",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Maestro de vuelo de {area:392}",
 
 	-- Step 3: Felwood
 	-- {area:2479} Emerald Sanctuary
@@ -83,20 +83,20 @@ return {
 	-- {area:1770} Shadow Hold · {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {npc:9518} Rakaiah
 	["Back into {area:1770}: {npc:9861} and {npc:9860} guard {npc:9517} in its deepest chamber. The succubus {npc:9518} waits on the way, with Trey Lightforge's remains beside her.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "",
 	-- {npc:9518} Rakaiah
-	["{npc:9518}, below ground"] = "",
+	["{npc:9518}, below ground"] = "{npc:9518}, bajo tierra",
 	-- {npc:11020} Remains of Trey Lightforge
-	["{npc:11020}, below ground"] = "",
+	["{npc:11020}, below ground"] = "{npc:11020}, bajo tierra",
 	-- {npc:9861} Moora
-	["{npc:9861}, below ground"] = "",
+	["{npc:9861}, below ground"] = "{npc:9861}, bajo tierra",
 	-- {npc:9860} Salia
-	["{npc:9860}, below ground"] = "",
+	["{npc:9860}, below ground"] = "{npc:9860}, bajo tierra",
 	-- {npc:9517} Shadow Lord Fel'dan
 	["{npc:9517}; below ground"] = "",
 
 	-- Step 12: The Emerald Sanctuary
 	["Ride back south along the road to the Sanctuary."] = "Vuelve al sur por el camino hasta el Santuario.",
 	-- {npc:9116} Eridan Bluewind
-	["{npc:9116}, inside"] = "",
+	["{npc:9116}, inside"] = "{npc:9116}, dentro",
 	-- {item:11169} Book of Aquor
 	["Keep the {item:11169}, the claws and the heart he hands back"] = "Guarda el {item:11169}, las garras y el corazón que te devuelve",
 
@@ -110,7 +110,7 @@ return {
 	-- {npc:9616} Laris Geardawdle · {zone:1455} Ironforge · {zone:1452} Winterspring · {area:976} Gadgetzan
 	["{npc:9616}'s jars went to {zone:1455} on the {zone:1452} guide's {zone:1455} stop: fly straight to {area:976}."] = "Los tarros de {npc:9616} fueron a {zone:1455} en la parada de {zone:1455} de la guía de {zone:1452}: vuela directamente a {area:976}.",
 	-- {area:3137} Talrendis Point
-	["{area:3137} flight master"] = "",
+	["{area:3137} flight master"] = "Maestro de vuelo de {area:3137}",
 
 	-- Step 16: Fly to Auberdine
 	-- {area:442} Auberdine
@@ -124,7 +124,7 @@ return {
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "Vuela a {area:1537}",
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "Maestro de vuelo de {area:150}",
 
 	-- Step 19: Laris Geardawdle
 	["Its jars are filled on the Un'Goro visit"] = "Sus jarras se llenan en la visita a Un'Goro",
@@ -143,7 +143,7 @@ return {
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
 	["Fly to {area:976}. Buy two Thorium Bars at the Auction House here for {quest:5801}."] = "Vuela a {area:976}. Compra dos lingotes de torio en la casa de subastas de aquí para {quest:5801}.",
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, dentro",
 
 	-- Step 24: Aquementas
 	-- {item:11169} Book of Aquor · {quest:4005} Aquementas
@@ -167,7 +167,7 @@ return {
 	-- {area:541} Marshal's Refuge · {npc:10980} Umi's Mechanical Yeti · {npc:10977} Quixxil
 	["Ride north to {area:541}. Use {npc:10980} beside {npc:10977}."] = "Cabalga al norte hasta {area:541}. Usa {npc:10980} junto a {npc:10977}.",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, below ground"] = "",
+	["{npc:9117}, below ground"] = "{npc:9117}, bajo tierra",
 	-- {npc:8737} Linken
 	["{npc:8737}, at the back of the refuge"] = "{npc:8737}, al fondo del refugio",
 	-- {npc:10977} Quixxil · {npc:10980} Umi's Mechanical Yeti
@@ -175,7 +175,7 @@ return {
 
 	-- Step 30: Fly to Cenarion Hold
 	-- {area:3425} Cenarion Hold
-	["Fly to {area:3425}"] = "",
+	["Fly to {area:3425}"] = "Vuela a {area:3425}",
 	-- {area:541} Marshal's Refuge
 	["{area:541} flight master"] = "Maestro de vuelo de {area:541}",
 
@@ -207,7 +207,7 @@ return {
 
 	-- Step 34: Hive'Ashi: kill these as you meet them
 	-- {area:2742} Hive'Ashi
-	["{area:2742}: kill these as you meet them"] = "",
+	["{area:2742}: kill these as you meet them"] = "{area:2742}: mátalos según te los encuentres",
 	-- {item:20404} Encrypted Twilight Text · {npc:15306} Bor Wildmane · {npc:15194} Hermit Ortell · {area:2742} Hive'Ashi
 	-- plural, as words: Dust Stormers = {npc:11744} Dust Stormer · Desert Rumblers = {npc:11746} Desert Rumbler · Twilight Avengers = {npc:11880} Twilight Avenger · Twilight Flamereavers = {npc:15201} Twilight Flamereaver
 	["The Twilight's Hammer dig fills the north-west corner: tablet fragments lie on the ground and the Dust Stormers and Desert Rumblers carry them too. Every cultist can drop an {item:20404}: keep twenty, ten for {npc:15306} and ten for {npc:15194} later.\nCareful: take the texts from the Twilight Avengers and Geolords; leave the Twilight Flamereavers (60) and stay out of the hive's mouth, where the {area:2742} elites (59-60) wait."] = "La excavación del Martillo Crepuscular ocupa la esquina noroeste: hay fragmentos de tablilla en el suelo y los sirocosos y estruendores del desierto también los llevan. Cualquier cultor puede soltar un {item:20404}: guarda veinte, diez para {npc:15306} y diez para {npc:15194} más tarde.\nCuidado: consigue los textos de los vengadores y geoseñores Crepusculares; deja a los flamatracadores Crepusculares (60) y no entres en la boca de la colmena, donde esperan los élites de {area:2742} (59-60).",
@@ -267,7 +267,7 @@ return {
 
 	-- Step 46: Fly to Everlook
 	-- {area:2255} Everlook
-	["Fly to {area:2255}"] = "",
+	["Fly to {area:2255}"] = "Vuela a {area:2255}",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "Maestro de vuelo de {area:976}",
 
@@ -305,7 +305,7 @@ return {
 
 	-- Step 58: Felwood
 	-- {quest:5086} Toxic Horrors
-	["The {quest:5086}"] = "",
+	["The {quest:5086}"] = "{quest:5086}",
 
 	-- Step 59: Toxic Horrors
 	-- {quest:5086} Toxic Horrors
@@ -352,7 +352,7 @@ return {
 
 	-- Step 74: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
-	["Fly to {area:702}"] = "",
+	["Fly to {area:702}"] = "Vuela a {area:702}",
 
 	-- Step 75: Rut'theran Village
 	-- {area:702} Rut'theran Village · {npc:7916} Erelas Ambersky
@@ -410,7 +410,7 @@ return {
 
 	-- Step 87: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "Tranvía a {zone:1455}",
 
 	-- Step 88: Ironforge
 	-- {area:2257} Deeprun Tram · {zone:1455} Ironforge · {npc:14724} Bubulo Acerbus · {npc:14723} Mistina Steelshield · {item:14047} Runecloth
@@ -440,7 +440,7 @@ return {
 	-- {npc:10778} Janice Felstone · {area:199} Felstone Field
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
 	["{npc:10778}'s ghost wanders by the farmhouse of {area:199}, west of Andorhal. The Jabbering Ghouls in the field carry the other half of the charm: combine the two halves."] = "El fantasma de {npc:10778} vaga junto a la granja de {area:199}, al oeste de Andorhal. Los necrófagos farfullantes del campo llevan la otra mitad del amuleto: combina las dos mitades.",
-	["Upstairs"] = "",
+	["Upstairs"] = "Piso de arriba",
 
 	-- Step 96: Northridge Lumber Camp
 	["Ride north up the road to the lumber mill and set the termite barrel down in the middle of it."] = "Cabalga al norte por el camino hasta el aserradero y deja el barril de termitas en el centro.",
@@ -534,7 +534,7 @@ return {
 	-- {npc:10667} Chromie · {area:3197} Chillwind Camp
 	["{npc:10667} waits upstairs in the ruined inn on the west side of Andorhal, on the way back to {area:3197}."] = "{npc:10667} espera en el piso de arriba de la posada en ruinas del lado oeste de Andorhal, de camino de vuelta a {area:3197}.",
 	-- {npc:10667} Chromie
-	["{npc:10667}, upstairs"] = "",
+	["{npc:10667}, upstairs"] = "{npc:10667}, en el piso de arriba",
 
 	-- Step 118: Chillwind Camp
 	-- {area:3197} Chillwind Camp

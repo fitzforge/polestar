@@ -72,7 +72,7 @@ return {
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs, has his next errand now: the Skullsplitter tusks come from the trolls of Zul'Mamwe, later on this loop."] = "{npc:737}, en el piso de arriba, ya tiene su siguiente encargo: los colmillos Machacacráneos los sueltan los trols de Zul'Mamwe, más adelante en este recorrido.",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs"] = "",
+	["{npc:737}, upstairs"] = "{npc:737}, en el piso de arriba",
 
 	-- Step 12: Bloodsail Correspondence
 	-- {area:35} Booty Bay
@@ -220,7 +220,7 @@ return {
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Fly back to {object:3202}: Zul'Mamwe's Skullsplitters are just east of it."] = "Vuela de vuelta a {object:3202}: los Partecráneos de Zul'Mamwe están justo al este.",
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "Maestro de vuelo de {area:35}",
 
 	-- Step 42: Zul'Mamwe
 	["Zul'Mamwe"] = "Zul'Mamwe",
@@ -230,7 +230,7 @@ return {
 
 	-- Step 43: Balia'mah Ruins: kill these as you meet them
 	-- {area:127} Balia'mah Ruins
-	["{area:127}: kill these as you meet them"] = "",
+	["{area:127}: kill these as you meet them"] = "{area:127}: mátalos según te los encuentres",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "Los siguientes cráneos trofeo están en las pequeñas ruinas justo al norte del campamento de guerreros.\nLos últimos cráneos están en las ruinas a poca distancia al oeste, de camino de vuelta a {object:3202}.",
 
@@ -267,9 +267,9 @@ return {
 	-- {area:75} Stonard
 	["Head east to {area:75}, in the reeds south of the road."] = "Ve al este hasta {area:75}, entre los juncos al sur del camino.",
 	-- {npc:5591} Dar
-	["{npc:5591}, inside"] = "",
+	["{npc:5591}, inside"] = "{npc:5591}, dentro",
 	-- {npc:1442} Helgrum the Swift
-	["{npc:1442}, upstairs"] = "",
+	["{npc:1442}, upstairs"] = "{npc:1442}, en el piso de arriba",
 	-- {npc:1443} Fel'zerul
 	["{npc:1443}, on the top floor"] = "",
 

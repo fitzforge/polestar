@@ -10,15 +10,15 @@ return {
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Vuela a {area:35}",
 	-- {area:75} Stonard
-	["{area:75} flight master"] = "",
+	["{area:75} flight master"] = "Maestro de vuelo de {area:75}",
 
 	-- Step 3: Booty Bay
 	-- {area:75} Stonard · {area:35} Booty Bay · {npc:7406} Oglethorpe Obnoticus
 	["The flight from {area:75} lands on {area:35}'s upper deck. {npc:7406} has his workshop on the upper ring of the bay."] = "El vuelo desde {area:75} aterriza en la plataforma superior de {area:35}. {npc:7406} tiene su taller en el anillo superior de la bahía.",
 	-- {npc:7406} Oglethorpe Obnoticus
-	["{npc:7406}, inside"] = "",
+	["{npc:7406}, inside"] = "{npc:7406}, dentro",
 	-- {npc:2491} Whiskey Slim
-	["{npc:2491}, in the inn"] = "",
+	["{npc:2491}, in the inn"] = "{npc:2491}, en la posada",
 	-- {zone:1446} Tanaris
 	["\"Sea Wolf\" MacKinley, on the top floor: Stoley's shipment from {zone:1446}"] = "\"Lobo de mar\" MacKinley, en el piso superior: el cargamento de Stoley desde {zone:1446}",
 	-- {npc:2487} Fleet Master Seahorn
@@ -37,7 +37,7 @@ return {
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Fly to {object:3202}"] = "Vuela a {object:3202}",
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "Maestro de vuelo de {area:35}",
 
 	-- Step 12: Grom'gol Base Camp
 	-- {area:117} Grom'gol Base Camp · {npc:2497} Nimboya · {object:2076} Bubbling Cauldron
@@ -76,7 +76,7 @@ return {
 
 	-- Step 23: Haldarr Encampment: kill these as you meet them
 	-- {area:1236} Haldarr Encampment
-	["{area:1236}: kill these as you meet them"] = "",
+	["{area:1236}: kill these as you meet them"] = "{area:1236}: mátalos según te los encuentres",
 	["The Highborne ghosts haunt the ruins just north of the shrine; the Haldarr satyrs camp a little further north."] = "Las apariciones de Altonato rondan las ruinas justo al norte del santuario; los sátiros Haldarr acampan un poco más al norte.",
 	-- {npc:6117} Highborne Lichling · {area:1235} Shadowsong Shrine
 	["{npc:6117} walks around {area:1235}: look inside the circle on the map"] = "",
@@ -93,7 +93,7 @@ return {
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Vuela a {area:1637}",
 	-- {area:1237} Valormok
-	["{area:1237} flight master"] = "",
+	["{area:1237} flight master"] = "Maestro de vuelo de {area:1237}",
 
 	-- Step 27: Orgrimmar
 	-- {npc:7010} Zilzibin Drumlore
@@ -133,7 +133,7 @@ return {
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "Vuela a {area:1099}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
 
 	-- Step 36: Camp Mojache
 	-- {npc:7776} Talo Thornhoof · {zone:1448} Felwood
@@ -162,7 +162,7 @@ return {
 
 	-- Step 45: The Forgotten Coast: kill these as you meet them
 	-- {area:1108} The Forgotten Coast
-	["{area:1108}: kill these as you meet them"] = "",
+	["{area:1108}: kill these as you meet them"] = "{area:1108}: mátalos según te los encuentres",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	-- plural, as words: Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray · Land Walkers = {npc:5357} Land Walker · Cliff Giants = {npc:5358} Cliff Giant
 	["The Sea Elementals and Sea Sprays wash along the shore around the dock.\nThe Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "Los Elementales marinos y los Rocíos del mar recorren la orilla alrededor del muelle.\nLos caminantes de la tierra y los gigantes del risco recorren las colinas al norte del muelle. Primero, dispara a cada uno con {item:18904}: encogidos, ya no son élite. Cada gigante encogido suelta residuo; usa también la Vasija de muisek gigante de montaña sobre su cuerpo.",
@@ -183,7 +183,7 @@ return {
 
 	-- Step 50: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, dentro",
 
 	-- Step 52: Gadgetzan
 	-- {npc:7876} Tran'rek
@@ -191,7 +191,7 @@ return {
 
 	-- Step 53: The Egg-O-Matic
 	-- {object:142071} Egg-O-Matic
-	["The {object:142071}"] = "",
+	["The {object:142071}"] = "{object:142071}",
 	-- {object:142071} Egg-O-Matic
 	["The {object:142071}, in the middle of town"] = "{object:142071}, en el centro del pueblo",
 

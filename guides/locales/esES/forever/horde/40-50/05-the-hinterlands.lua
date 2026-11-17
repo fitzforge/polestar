@@ -39,7 +39,7 @@ return {
 
 	-- Step 9: The Overlook Cliffs: kill these as you meet them
 	-- {area:307} The Overlook Cliffs
-	["{area:307}: kill these as you meet them"] = "",
+	["{area:307}: kill these as you meet them"] = "{area:307}: mátalos según te los encuentres",
 	-- {npc:2491} Whiskey Slim · {area:307} The Overlook Cliffs
 	-- plural, as words: Saltwater Snapjaws = {npc:2505} Saltwater Snapjaw
 	["The big turtles crawl along the beaches north of the village, and {npc:2491}'s bottles of port lie on the same beaches, from the village up to the {area:307}: pick them up as you go. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it.\nCareful: the biggest Saltwater Snapjaws are 50: pull them one at a time."] = "Las tortugas grandes se arrastran por las playas al norte del poblado, y las botellas de oporto de {npc:2491} están en las mismas playas, desde el poblado hasta {area:307}: recógelas sobre la marcha. Un quijaforte puede soltar, rara vez, la baliza de socorro de OOX-09/HL: guárdala.\nCuidado: los Quijafortes Aguasalada más grandes son de nivel 50: atráelos de uno en uno.",
@@ -66,7 +66,7 @@ return {
 
 	-- Step 14: Shaol'watha: kill these as you meet them
 	-- {area:1917} Shaol'watha
-	["{area:1917}: kill these as you meet them"] = "",
+	["{area:1917}: kill these as you meet them"] = "{area:1917}: mátalos según te los encuentres",
 	-- {area:1884} Agol'watha · {area:1917} Shaol'watha · {area:351} Skulk Rock · {item:9618} Wildkin Muisek Vessel · {npc:14738} Otho Moji'ko · {spell:7367} Infected Bite · {npc:2925} Silvermane Howler
 	-- plural, as words: Silvermane Stalkers = {npc:2926} Silvermane Stalker · Savage Owlbeasts = {npc:2929} Savage Owlbeast · Razorbeak Skylords = {npc:2659} Razorbeak Skylord · Long Elegant Feathers = {item:4589} Long Elegant Feather
 	["West of the island, the Vilebranch scalpers hold the temples of {area:1884} and {area:1917}. Slagtree's tools lie at one of the temples.\nThe Silvermane Stalkers, Savage Owlbeasts and Razorbeak Skylords share the hills between the temples and {area:351}. Use the {item:9618} on the owlbeasts you kill. The Skylords also drop Long Elegant Feathers: keep ten for {npc:14738}'s second message.\nCareful: Silvermane Stalkers are level 47-48 and stay stealthed while out of combat. Up close they use {spell:7367}. When a {npc:2925} falls to 50% health or lower, it calls for help from anything within 25 yd."] = "",
@@ -81,7 +81,7 @@ return {
 
 	-- Step 17: The Altar of Zul: kill these as you meet them
 	-- {area:355} The Altar of Zul
-	["{area:355}: kill these as you meet them"] = "",
+	["{area:355}: kill these as you meet them"] = "{area:355}: mátalos según te los encuentres",
 	-- {area:355} The Altar of Zul · {npc:8636} Morta'gya the Keeper
 	-- plural, as words: Silvermane Howlers = {npc:2925} Silvermane Howler
 	["South-west of the lake, the Vilebranch soothsayers hold the {area:355}, the troll temple south of the central hills. Qiaga and {npc:8636} (elite, 50) stand at its top: take the soothsayers on the lower steps.\nSouth-west, the Silvermane Howlers roam the hills east of the Witherbark villages."] = "Al suroeste del lago, los adivinos Vilrama ocupan {area:355}, el templo trol al sur de las colinas centrales. Qiaga y {npc:8636} (élite, 50) están en la cima: mata a los adivinos de los escalones inferiores.\nAl suroeste, los Aulladores Crinpladas recorren las colinas al este de los poblados Secacorteza.",
@@ -109,7 +109,7 @@ return {
 
 	-- Step 22: Revantusk Village
 	-- {npc:14731} Lard
-	["{npc:14731}, inside"] = "",
+	["{npc:14731}, inside"] = "{npc:14731}, dentro",
 
 	-- Step 23: Revantusk Village
 	-- {npc:14736} Primal Torntusk · {npc:14731} Lard
@@ -120,7 +120,7 @@ return {
 	-- {quest:7816} Gammerita, Mon! · {area:354} Jintha'Alor
 	["If you skipped {quest:7816} or the {area:354} group quests, grind here to level 49.02 to stay on the route's plan."] = "",
 	-- {npc:2505} Saltwater Snapjaw
-	["grind on {npc:2505}"] = "",
+	["grind on {npc:2505}"] = "mata {npc:2505}",
 
 	-- Step 26: The Atal'ai Exile
 	-- {area:353} Shadra'Alor
@@ -140,7 +140,7 @@ return {
 	-- {area:75} Stonard
 	["Fly to {area:75}"] = "Vuela a {area:75}",
 	-- {area:3317} Revantusk Village
-	["{area:3317} flight master"] = "",
+	["{area:3317} flight master"] = "Maestro de vuelo de {area:3317}",
 
 	-- Step 31: To Stonard
 	-- {area:75} Stonard
@@ -166,7 +166,7 @@ return {
 
 	-- Step 37: Serpent's Coil: kill these as you meet them
 	-- {area:1440} Serpent's Coil
-	["{area:1440}: kill these as you meet them"] = "",
+	["{area:1440}: kill these as you meet them"] = "{area:1440}: mátalos según te los encuentres",
 	-- {npc:5982} Black Slayer · {spell:5416} Venom Sting · {npc:8301} Clack the Reaver
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger
 	["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills.\nEast of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south.\nCareful: Scorpok Stingers (50-51) use {spell:5416}; {npc:8301} adds Knockdown. Pull the Stingers one at a time."] = "Las cinco misiones piden las mismas partes: reúnelas todas de una pasada. Al oeste del camino, los buitres {npc:5982}, las Hienas risitas hambrientas, los Aguijoneros Scorpok y los basiliscos Ojo de la Muerte comparten las colinas.\nAl este del camino, los jabalíes Crin de Ceniza y los Gruñidores hozan en las laderas junto a los basiliscos Piedrarroja. Aléjate de los Jabalíes infernales de nivel 52, más al sur.\nCuidado: los Aguijoneros Scorpok (50-51) usan {spell:5416}; {npc:8301} añade Derribo. Atrae a los Aguijoneros de uno en uno.",

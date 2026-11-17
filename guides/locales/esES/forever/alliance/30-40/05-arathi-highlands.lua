@@ -14,7 +14,7 @@ return {
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "Vuela a {area:42}",
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "Maestro de vuelo de {area:35}",
 
 	-- Step 3: Watcher Biggs
 	-- {npc:5476} Watcher Biggs · {npc:217412} Amaryllis Webb · {quest:93176} My Little Friends
@@ -105,7 +105,7 @@ return {
 
 	-- Step 20: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "Tranvía a {zone:1455}",
 
 	-- Step 21: Fly to Southshore
 	-- {area:271} Southshore
@@ -123,7 +123,7 @@ return {
 	-- {npc:2434} Shadowy Assassin
 	["{npc:2434}, if you spot him"] = "{npc:2434}, si lo ves",
 	-- {npc:2276} Magistrate Henry Maleb
-	["{npc:2276}, inside"] = "",
+	["{npc:2276}, inside"] = "{npc:2276}, dentro",
 
 	-- Step 25: Alterac Mountains
 	["Syndicate camp"] = "Campamento del Sindicato",
@@ -155,7 +155,7 @@ return {
 
 	-- Step 32: Drywhisker Gorge: kill these as you meet them
 	-- {area:318} Drywhisker Gorge
-	["{area:318}: kill these as you meet them"] = "",
+	["{area:318}: kill these as you meet them"] = "{area:318}: mátalos según te los encuentres",
 	-- {area:321} Hammerfall · {skill:186} Mining
 	-- plural, as words: Lesser Bloodstone Deposits = {object:2653} Lesser Bloodstone Deposit
 	["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop the Motes of Myzrael, not Krazek's ore. Lesser Bloodstone Deposits need {skill:186} 75: mine four ore, buy them at the Auction House, or ask a miner friend. The ore goal is optional; continue with Myzrael if you cannot get it. Careful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "Los kóbolds Mostacho Seco excavan en el desfiladero al este de {area:321} (Horda); rodea el pueblo por el norte. Sueltan las Motas de Myzrael, no el mineral de Krazek. Los Depósitos de Petrosangre inferior requieren {skill:186} 75: extrae cuatro de mineral, cómpralos en la casa de subastas o pídeselos a un amigo minero. El objetivo del mineral es opcional; sigue con Myzrael si no puedes conseguirlo. Cuidado: todos los tipos de kóbold huyen en busca de ayuda cuando tienen poca salud (los kóbolds al 30%, los peritos y los cavadores al 15%), lo que puede atraer a más.",
@@ -221,7 +221,7 @@ return {
 
 	-- Step 48: The Drowned Reef: kill these as you meet them
 	-- {area:328} The Drowned Reef
-	["{area:328}: kill these as you meet them"] = "",
+	["{area:328}: kill these as you meet them"] = "{area:328}: mátalos según te los encuentres",
 	["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay."] = "Los dos naufragios están en la bahía al oeste de la cala. Las cartas de navegación y los diarios están dentro; las gemas están en el fondo del mar a su alrededor. Los nagas Espinadaga nadan por toda la bahía.",
 	-- {npc:2595} Daggerspine Raider
 	["{npc:2595}, underwater"] = "",
@@ -254,13 +254,13 @@ return {
 
 	-- Step 53: Fly to Southshore
 	-- {area:320} Refuge Pointe
-	["{area:320} flight master"] = "",
+	["{area:320} flight master"] = "Maestro de vuelo de {area:320}",
 
 	-- Step 54: Brewmeister Bilger
 	-- {area:271} Southshore · {npc:2276} Magistrate Henry Maleb · {npc:2277} Loremaster Dibbs · {area:280} Strahnbrad
 	["Off the flight, straight to the {area:271} inn. Then {npc:2276} and {npc:2277}, in the town hall, take the Syndicate camp's quests and send you north to {area:280}."] = "Al bajar del vuelo, directo a la posada de {area:271}. Luego {npc:2276} y {npc:2277}, en el ayuntamiento, te dan las misiones del campamento del Sindicato y te mandan al norte, a {area:280}.",
 	-- {npc:2705} Brewmeister Bilger
-	["{npc:2705}, below ground"] = "",
+	["{npc:2705}, below ground"] = "{npc:2705}, bajo tierra",
 	-- {npc:2276} Magistrate Henry Maleb · {area:280} Strahnbrad
 	["{npc:2276}: the signet rings are in {area:280}"] = "{npc:2276}: los anillos de sello están en {area:280}",
 	-- {npc:1356} Prospector Stormpike · {zone:1455} Ironforge
@@ -272,7 +272,7 @@ return {
 
 	-- Step 57: Ruins of Alterac: kill these as you meet them
 	-- {area:281} Ruins of Alterac
-	["{area:281}: kill these as you meet them"] = "",
+	["{area:281}: kill these as you meet them"] = "{area:281}: mátalos según te los encuentres",
 	-- {area:280} Strahnbrad
 	-- plural, as words: Argus Shadow Mages = {npc:2318} Argus Shadow Mage · Crushridge Warmongers = {npc:2287} Crushridge Warmonger · Crushridge Maulers = {npc:2254} Crushridge Mauler · Crushridge Ogres = {npc:2252} Crushridge Ogre
 	["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins.\nCareful: Crushridge Warmongers call nearby allies within 15 yd once they fall below half health.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and carry the tomes too: pull one at a time, or group up."] = "",
@@ -287,7 +287,7 @@ return {
 
 	-- Step 59: Strahnbrad: kill these as you meet them
 	-- {area:280} Strahnbrad
-	["{area:280}: kill these as you meet them"] = "",
+	["{area:280}: kill these as you meet them"] = "{area:280}: mátalos según te los encuentres",
 	-- {npc:2306} Baron Vardus · {area:280} Strahnbrad
 	["Careful: Syndicate Spies and Assassins can be stealthed. Assassins also poison you.\nCareful: {npc:2306} (40) turns up in one spot at a time: the cellar of {area:280}'s inn, or one of the Syndicate tent camps north of the village. Leave him be."] = "Cuidado: los espías y asesinos del Sindicato pueden estar en sigilo. Los asesinos además te envenenan.\nCuidado: {npc:2306} (40) aparece en un solo lugar cada vez: el sótano de la posada de {area:280}, o uno de los campamentos de tiendas del Sindicato al norte del pueblo. Déjalo en paz.",
 
@@ -315,7 +315,7 @@ return {
 	-- {quest:92457} Starving Arcane
 	["{quest:92457}: the remnants and echoes, inside"] = "{quest:92457}: los restos y los ecos, dentro",
 	-- {quest:92458} Heart of Disruption · {item:251961} Arcane Mote
-	["{quest:92458}: the {item:251961}, inside"] = "",
+	["{quest:92458}: the {item:251961}, inside"] = "{quest:92458}: {item:251961}, dentro",
 
 	-- Step 65: Image of Archmage Modera
 	["Back out of the grate to Modera's camp on the lake shore."] = "Sal de nuevo por la reja hasta el campamento de Modera, en la orilla del lago.",
@@ -328,7 +328,7 @@ return {
 	-- {npc:2438} Bartolo Ginsetti · {npc:2381} Micha Yance · {item:2321} Fine Thread
 	["{npc:2438} stands between the flight master and the inn; {npc:2381} beside him sells {item:2321} if you have none."] = "",
 	-- {item:2321} Fine Thread · {npc:2381} Micha Yance
-	["{item:2321}, from {npc:2381}"] = "",
+	["{item:2321}, from {npc:2381}"] = "{item:2321}, de {npc:2381}",
 
 	-- Step 71: Ironforge
 	-- {npc:1356} Prospector Stormpike · {npc:1344} Prospector Ironband · {zone:1432} Loch Modan
@@ -340,13 +340,13 @@ return {
 
 	-- Step 73: To Thelsamar
 	-- {area:144} Thelsamar
-	["To {area:144}"] = "",
+	["To {area:144}"] = "A {area:144}",
 	-- {zone:1455} Ironforge · {zone:1426} Dun Morogh · {zone:1432} Loch Modan · {area:144} Thelsamar
 	["From {zone:1455} take the tunnel east through {zone:1426} into {zone:1432} and follow the road to {area:144}."] = "Desde {zone:1455}, toma el túnel al este por {zone:1426} hasta {zone:1432} y sigue el camino hasta {area:144}.",
 
 	-- Step 74: Thelsamar
 	-- {npc:1470} Ghak Healtouch
-	["{npc:1470}, below ground"] = "",
+	["{npc:1470}, below ground"] = "{npc:1470}, bajo tierra",
 
 	-- Step 75: Prospector Ironband
 	["South-east along the loch to the dig site."] = "Al sureste por el lago hasta la excavación.",

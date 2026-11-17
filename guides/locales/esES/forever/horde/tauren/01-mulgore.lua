@@ -10,7 +10,7 @@ return {
 	-- {area:221} Camp Narache · {npc:2980} Grull Hawkwind
 	["You start on the mesa of {area:221}. {npc:2980} and the chief stand by the big tent in the middle."] = "Empiezas en la meseta de {area:221}. {npc:2980} y el jefe están junto a la gran tienda del centro.",
 	-- {npc:2981} Chief Hawkwind
-	["{npc:2981}, inside"] = "",
+	["{npc:2981}, inside"] = "{npc:2981}, dentro",
 
 	-- Step 2: Greatmother Hawkwind
 	-- {npc:2991} Greatmother Hawkwind · {object:2907} Water Pitcher
@@ -18,7 +18,7 @@ return {
 
 	-- Step 3: Camp Narache: kill these as you meet them
 	-- {area:221} Camp Narache
-	["{area:221}: kill these as you meet them"] = "",
+	["{area:221}: kill these as you meet them"] = "{area:221}: mátalos según te los encuentres",
 	-- {npc:2980} Grull Hawkwind
 	["Plainstriders roam the mesa all around the camp: take their meat and feathers on the way back to {npc:2980}."] = "",
 
@@ -54,7 +54,7 @@ return {
 
 	-- Step 9: Red Cloud Mesa: kill these as you meet them
 	-- {area:220} Red Cloud Mesa
-	["{area:220}: kill these as you meet them"] = "",
+	["{area:220}: kill these as you meet them"] = "{area:220}: mátalos según te los encuentres",
 	-- {npc:8554} Chief Sharptusk Thornmantle · {object:3076} Dirt-stained Map
 	-- plural, as words: Battleboars = {npc:2966} Battleboar
 	["Battleboars graze north of the shrine; the Bristleback quilboar hold the ravine to the north-east. {npc:8554} stands at its eastern end, and the {object:3076} lies on the ground in the camp."] = "Los jabaguerreros pastan al norte del santuario; los jabaespines Lomopelo ocupan el barranco del noreste. {npc:8554} está en su extremo este, y {object:3076} está en el suelo del campamento.",
@@ -207,7 +207,7 @@ return {
 
 	-- Step 40: Galak Camp: kill these as you meet them
 	-- {area:474} Galak Camp
-	["{area:474}: kill these as you meet them"] = "",
+	["{area:474}: kill these as you meet them"] = "{area:474}: mátalos según te los encuentres",
 	-- {npc:275789} Malah Longwind
 	-- plural, as words: Prairie Wolf Alphas = {npc:2960} Prairie Wolf Alpha
 	["Prairie Wolf Alphas roam among the wolves on the plains around {npc:275789} and the Galak camp to the east."] = "Los Lobos alfa de pradera rondan entre los lobos de las llanuras alrededor de {npc:275789} y del campamento Galak al este.",
@@ -241,7 +241,7 @@ return {
 	-- {npc:2950} Palemane Skinner · {area:16677} Bristleback Retreat
 	["{npc:2950} walks around {area:16677}: look inside the circle on the map"] = "",
 	-- {npc:2951} Palemane Poacher
-	["{npc:2951}, below ground"] = "",
+	["{npc:2951}, below ground"] = "{npc:2951}, bajo tierra",
 
 	-- Step 48: Bloodhoof Village
 	-- {npc:2948} Mull Thunderhorn · {zone:1456} Thunder Bluff
@@ -301,7 +301,7 @@ return {
 	-- {npc:269068} Eylah Sunhorn · {npc:3014} Nida Winterhoof · {npc:3012} Nata Dawnstrider · {npc:3005} Mahu · {npc:3027} Naal Mistrunner · {item:278078} Prepared Incense
 	["{npc:269068} wants tauren incense: buy its four parts from {npc:3014} the herbalist, {npc:3012} the enchanting supplier, {npc:3005} the leatherworking supplier and {npc:3027} the cooking supplier, then combine them into {item:278078}."] = "{npc:269068} quiere incienso tauren: compra sus cuatro partes a {npc:3014}, la herbolaria; a {npc:3012}, proveedora de encantamiento; a {npc:3005}, proveedora de peletería, y a {npc:3027}, proveedor de cocina; luego combínalas en {item:278078}.",
 	-- {npc:2987} Eyahn Eagletalon · {npc:269068} Eylah Sunhorn
-	["{npc:2987}, beside {npc:269068}"] = "",
+	["{npc:2987}, beside {npc:269068}"] = "{npc:2987}, junto a {npc:269068}",
 	-- {item:278079} Bundle of Herbs · {npc:3014} Nida Winterhoof
 	["{item:278079}, from {npc:3014}"] = "{item:278079}, de {npc:3014}",
 	-- {item:278080} Bundle of Dried Cedar Twigs · {npc:3012} Nata Dawnstrider
@@ -323,7 +323,7 @@ return {
 	-- {npc:3441} Melor Stonehoof · {quest:860} Sergra Darkthorn
 	["{npc:3441}: for {quest:860} at the Crossroads"] = "{npc:3441}: para {quest:860} en el Cruce",
 	-- {npc:3039} Holt Thunderhorn · {npc:3041} Torm Ragetotem
-	["{npc:3039}, beside {npc:3041}"] = "",
+	["{npc:3039}, beside {npc:3041}"] = "{npc:3039}, junto a {npc:3041}",
 
 	-- Step 68: Ansekhwa
 	-- {spell:199} Two-Handed Maces · {npc:11869} Ansekhwa
@@ -376,13 +376,13 @@ return {
 
 	-- Step 81: Into Mulgore
 	-- {zone:1412} Mulgore
-	["Into {zone:1412}"] = "",
+	["Into {zone:1412}"] = "Hacia {zone:1412}",
 	-- {area:1639} Elder Rise · {zone:1456} Thunder Bluff · {zone:1412} Mulgore · {zone:1413} Barrens
 	["From {area:1639}, take {zone:1456}'s north lift down: at its foot the way runs east along the ledge, then south-east across {zone:1412} to the {zone:1413}."] = "Desde {area:1639}, baja por el elevador norte de {zone:1456}: al pie, el camino va al este por la cornisa y luego al sureste por {zone:1412} hasta {zone:1413}.",
 
 	-- Step 82: Into Barrens
 	-- {zone:1413} Barrens
-	["Into {zone:1413}"] = "",
+	["Into {zone:1413}"] = "Hacia {zone:1413}",
 
 	-- Step 83: Kirge Sternhorn
 	-- {npc:3418} Kirge Sternhorn · {area:378} Camp Taurajo · {zone:1412} Mulgore · {area:458} Gold Road

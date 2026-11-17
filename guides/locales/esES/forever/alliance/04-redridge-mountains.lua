@@ -23,9 +23,9 @@ return {
 
 	-- Step 4: Fly to Sentinel Hill
 	-- {area:108} Sentinel Hill
-	["Fly to {area:108}"] = "",
+	["Fly to {area:108}"] = "Vuela a {area:108}",
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "Maestro de vuelo de {zone:1453}",
 
 	-- Step 5: Half Pendant of Aquatic Endurance
 	-- {area:108} Sentinel Hill · {object:177790} Strange Lockbox
@@ -62,7 +62,7 @@ return {
 	-- {npc:265} Madame Eva
 	["{npc:265}, in her house by the tavern; inside"] = "",
 	-- {npc:265} Madame Eva
-	["{npc:265}, inside"] = "",
+	["{npc:265}, inside"] = "{npc:265}, dentro",
 	-- {npc:6790} Innkeeper Trelayne
 	["{npc:6790}, Scarlet Raven Tavern"] = "{npc:6790}, Mesón del Cuervo Escarlata",
 	-- {npc:267} Clerk Daltry
@@ -80,7 +80,7 @@ return {
 	-- {npc:276} Viktori Prism'Antras · {quest:174} Look to the Stars · {item:4371} Bronze Tube
 	["{npc:276} is in her house at the east end of town. {quest:174} needs a {item:4371}, so this step shows only while you carry one: without a tube the guide passes {npc:276} and her chain."] = "{npc:276} está en su casa, en el extremo este del pueblo. {quest:174} requiere un {item:4371}, así que este paso solo aparece mientras lleves uno: sin tubo, la guía pasa de largo a {npc:276} y su cadena.",
 	-- {npc:276} Viktori Prism'Antras
-	["{npc:276}, inside"] = "",
+	["{npc:276}, inside"] = "{npc:276}, dentro",
 
 	-- Step 13: Viktori Prism'Antras
 	-- {npc:302} Blind Mary
@@ -92,7 +92,7 @@ return {
 
 	-- Step 15: Tranquil Gardens Cemetery: kill these as you meet them
 	-- {area:121} Tranquil Gardens Cemetery
-	["{area:121}: kill these as you meet them"] = "",
+	["{area:121}: kill these as you meet them"] = "{area:121}: mátalos según te los encuentres",
 	-- {area:42} Darkshire · {npc:302} Blind Mary · {zone:1431} Duskwood · {item:2378} Skeleton Finger
 	-- plural, as words: Skeletal Warriors = {npc:48} Skeletal Warrior · Skeletal Mages = {npc:203} Skeletal Mage
 	["Skeletal Warriors and Skeletal Mages walk among the graves south-east of {area:42}, below {npc:302}'s house on the hill. Every skeleton in {zone:1431} can drop a {item:2378}.\nCareful: Because the skeletons stand near each other, running straight in tends to pull several at once."] = "",
@@ -115,7 +115,7 @@ return {
 
 	-- Step 19: The Hushed Bank: kill these as you meet them
 	-- {area:1097} The Hushed Bank
-	["{area:1097}: kill these as you meet them"] = "",
+	["{area:1097}: kill these as you meet them"] = "{area:1097}: mátalos según te los encuentres",
 	-- {npc:289} Abercrombie · {area:1097} The Hushed Bank · {quest:163} Raven Hill · {npc:311} Sven Yorgen · {zone:1436} Westfall
 	-- plural, as words: Pygmy Venom Web Spiders = {npc:539} Pygmy Venom Web Spider
 	["Rabid Dire Wolves roam the woods around the cemetery and {npc:289}, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders are the small spiders, and few: most crawl along the {area:1097} west of {quest:163}, fewer up north towards {npc:311}'s camp; they drop the venom too. Every ghoul of the cemetery's northern half can drop a fang. Wolves and the bigger spiders share the {zone:1436} border, so pull with care."] = "",
@@ -131,7 +131,7 @@ return {
 
 	-- Step 21: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
-	["{area:492}: kill these as you meet them"] = "",
+	["{area:492}: kill these as you meet them"] = "{area:492}: mátalos según te los encuentres",
 	-- {npc:522} Mor'Ladim
 	-- plural, as words: Skeletal Horrors = {npc:202} Skeletal Horror · Skeletal Fiends = {npc:531} Skeletal Fiend · Flesh Eaters = {npc:3} Flesh Eater · Bone Chewers = {npc:210} Bone Chewer · Plague Spreaders = {npc:604} Plague Spreader · Fetid Corpses = {npc:1270} Fetid Corpse
 	["The cemetery lies north of the village. Skeletal Horrors and Skeletal Fiends (23-25) walk its southern half and carry the fingers; for the fangs, Flesh Eaters (24-25) drop the most, so leave the Bone Chewers, Plague Spreaders and Fetid Corpses (26-30) further in alone. {npc:522}, an elite, wanders the graves: keep away from him.\nCareful: Eliza, a level 31 elite, rises from her grave at the cemetery's north end: keep away from it."] = "El cementerio está al norte del pueblo. Los Horrores esqueléticos y los Mefistos esqueléticos (23-25) recorren su mitad sur y llevan los dedos; para los colmillos, los Comecarnes (24-25) son los que más sueltan, así que deja en paz a los Masticahuesos Oseral, los Propagadores de la Peste y los Cadáveres fétidos (26-30) más adentro. {npc:522}, un élite, deambula entre las tumbas: mantente lejos de él.\nCuidado: Eliza, una élite de nivel 31, se alza de su tumba en el extremo norte del cementerio: mantente lejos de ella.",
@@ -145,7 +145,7 @@ return {
 
 	-- Step 24: Darkshire
 	-- {npc:268} Sirra Von'Indi
-	["{npc:268}, inside"] = "",
+	["{npc:268}, inside"] = "{npc:268}, dentro",
 	-- {npc:272} Chef Grual
 	["{npc:272}, in the Scarlet Raven Tavern"] = "",
 	-- {npc:272} Chef Grual · {zone:1431} Duskwood
@@ -182,7 +182,7 @@ return {
 	-- {npc:341} Foreman Oslow
 	["{npc:341}, beside him"] = "{npc:341}, a su lado",
 	-- {npc:900} Bailiff Conacher
-	["{npc:900}, in the town hall"] = "",
+	["{npc:900}, in the town hall"] = "{npc:900}, en el ayuntamiento",
 	["The Wanted poster by the inn"] = "El cartel de Se busca junto a la posada",
 
 	-- Step 30: Bellygrub
@@ -245,13 +245,13 @@ return {
 	-- plural, as words: Blackrock Champions = {npc:435} Blackrock Champion
 	["From the keep head back west along the lake's north shore and north up the {area:95} to {area:997}; {area:69}'s hand-ins wait for Keeshan's escort, which ends there. Blackrock Champions camp in the valley."] = "",
 	-- {npc:435} Blackrock Champion
-	["{npc:435}, below ground"] = "",
+	["{npc:435}, below ground"] = "{npc:435}, bajo tierra",
 
 	-- Step 42: Corporal Keeshan
 	-- {zone:1428} Burning Steppes · {area:69} Lakeshire
 	["Keeshan hides at the very north end of the valley, by the {zone:1428} border. Escort him down to {area:69}; Blackrock orcs ambush you on the way."] = "Keeshan se esconde en el extremo norte del valle, junto a la frontera de {zone:1428}. Escóltalo hasta {area:69}; los orcos Roca Negra te tienden emboscadas por el camino.",
 	-- {npc:349} Corporal Keeshan
-	["{npc:349}, below ground"] = "",
+	["{npc:349}, below ground"] = "{npc:349}, bajo tierra",
 
 	-- Step 43: Magistrate Solomon: Gath'Ilzogg
 	-- {npc:344} Magistrate Solomon

@@ -49,7 +49,7 @@ return {
 
 	-- Step 5: Back to Thorium Point
 	-- {area:1446} Thorium Point
-	["Back to {area:1446}"] = "",
+	["Back to {area:1446}"] = "Vuelve a {area:1446}",
 
 	-- Step 6: Imperial Plate, for Blacksmiths
 	["Imperial Plate, for Blacksmiths"] = "",
@@ -103,7 +103,7 @@ return {
 
 	-- Step 10: Gaining Acceptance to Honored
 	-- {quest:7737} Gaining Acceptance
-	["{quest:7737} to Honored"] = "",
+	["{quest:7737} to Honored"] = "{quest:7737} hasta Honorable",
 	-- {quest:7737} Gaining Acceptance · {item:18945} Dark Iron Residue · {object:147516} Dark Iron · {area:1584} Blackrock Depths · {item:11370} Dark Iron Ore · {area:2717} Molten Core · {npc:12944} Lokhtos Darkbargainer · {item:16979} Flarecore Gloves · {item:16982} Corehound Boots · {item:16983} Molten Helm · {item:17014} Dark Iron Bracers · {item:273572} Enchant Weapon - Strength
 	["Friendly to Honored is 6,000 reputation. While you are Friendly Burninate takes {quest:7737} instead: 25 reputation for 4 {item:18945}, 240 turn-ins and 960 residue in all. About a third of the {object:147516} dwarves in {area:1584} drop residue, sometimes several at once; it also sells on the Auction House. {item:11370} or {area:2717} materials at {npc:12944} (next steps) count here too. {npc:12944}'s shop opens at Friendly: {item:16979} 8g, {item:16982} 15g, {item:16983} 16g, {item:17014} 7g, {item:273572} 3g, Transmute Elemental Fire 12g."] = "",
 	-- {item:18945} Dark Iron Residue
@@ -111,7 +111,7 @@ return {
 
 	-- Step 11: The Shadowforge Key
 	-- {item:11000} Shadowforge Key
-	["The {item:11000}"] = "",
+	["The {item:11000}"] = "La {item:11000}",
 	-- {npc:12944} Lokhtos Darkbargainer · {npc:8888} Franclorn Forgewright · {area:1445} Blackrock Mountain · {npc:9056} Fineous Darkvire · {area:1584} Blackrock Depths · {item:10999} Ironfel · {item:11000} Shadowforge Key
 	["Optional, and it saves every later trip to {npc:12944} the Ring of Law fight. {npc:8888} is a ghost in the middle of {area:1445}: only the dead see him, so die in the mountain and walk to his tomb as a spirit. He sends you after {npc:9056} in {area:1584}, who always drops {item:10999}; place it on {npc:8888}'s monument in the Shrine of Thaurissan and the {item:11000} falls out. {area:1584} is a five-player dungeon: group up."] = "",
 	-- {npc:8888} Franclorn Forgewright
@@ -146,7 +146,7 @@ return {
 	-- {item:17203} Sulfuron Ingot · {npc:11988} Golemagg the Incinerator · {area:2717} Molten Core · {npc:12944} Lokhtos Darkbargainer · {item:18592} Plans: Sulfuron Hammer · {item:17204} Eye of Sulfuras · {item:17182} Sulfuras, Hand of Ragnaros
 	["Carry a {item:17203} ({npc:11988}, the {area:2717}) to {npc:12944} and he offers you a contract: ask about the offer and take it. Handing in the contract with the ingot pays 200 reputation and {item:18592}, the hammer Blacksmiths later join with the {item:17204} into {item:17182}."] = "",
 	-- {item:18628} Thorium Brotherhood Contract · {npc:12944} Lokhtos Darkbargainer
-	["{item:18628}, from {npc:12944}"] = "",
+	["{item:18628}, from {npc:12944}"] = "{item:18628}, de {npc:12944}",
 	-- {item:17203} Sulfuron Ingot
 	["{item:17203}, already in your bags"] = "",
 

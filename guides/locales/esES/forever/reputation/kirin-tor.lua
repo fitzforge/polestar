@@ -33,7 +33,7 @@ return {
 	-- {quest:92457} Starving Arcane · {npc:246020} Shade of the Archmage · {npc:246748} Archmage Modera · {item:251961} Arcane Mote · {faction:2740} Kirin Tor
 	["The City of Dalaran is a dungeon for levels 28 to 33: go in through the sewers with the key Modera gave you. The arcane elementals throughout the city count for {quest:92457}. The {npc:246020}, the last boss, waits in the Purple Parlor above the Violet Citadel (a portal by {npc:246748} in the Citadel takes you up) and drops the {item:251961}. Beta players saw every kill in the dungeon pay {faction:2740} reputation, the bosses the most. Group of five advised below level 35."] = "",
 	-- {item:251961} Arcane Mote · {npc:246020} Shade of the Archmage
-	["{item:251961}, from the {npc:246020}"] = "",
+	["{item:251961}, from the {npc:246020}"] = "{item:251961}, de la {npc:246020}",
 
 	-- Step 5: Back to Modera's image
 	["Back to Modera's image"] = "",
@@ -50,11 +50,11 @@ return {
 	-- {area:796} Scarlet Monastery · {zone:1420} Tirisfal Glades
 	["The {area:796} stands in the north-east of {zone:1420}; Doan waits at the end of the Library wing. Group of five advised below level 40."] = "",
 	-- {item:273169} The Lost Magic of the Runemasters · {npc:6487} Arcanist Doan
-	["{item:273169}, from {npc:6487}"] = "",
+	["{item:273169}, from {npc:6487}"] = "{item:273169}, de {npc:6487}",
 
 	-- Step 9: Back to Magus Olvek
 	-- {npc:264265} Magus Olvek
-	["Back to {npc:264265}"] = "",
+	["Back to {npc:264265}"] = "Vuelve con {npc:264265}",
 
 	-- Step 10: City of Dalaran runs to Friendly
 	["City of Dalaran runs to Friendly"] = "",
@@ -72,7 +72,7 @@ return {
 
 	-- Step 13: The Kirin Tor Tabard
 	-- {item:285327} Kirin Tor Tabard
-	["The {item:285327}"] = "",
+	["The {item:285327}"] = "La {item:285327}",
 	-- {npc:32287} Archmage Alvareaux · {npc:28776} Elizabeth Ross · {area:279} Dalaran · {item:285327} Kirin Tor Tabard
 	["{npc:32287} and {npc:28776}, the tabard vendor in {area:279}, sell the {item:285327} at Exalted for 25g."] = "",
 }

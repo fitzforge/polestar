@@ -8,13 +8,13 @@
 return {
 	-- Guide
 	-- {quest:6061} Taming the Beast
-	["{quest:6061} (Horde)"] = "",
+	["{quest:6061} (Horde)"] = "{quest:6061} (Horda)",
 	-- {item:15908} Taming Rod · {spell:1515} Tame Beast · {spell:5149} Beast Training
 	["Your own pet at 10: three practice tames with a {item:15908} teach {spell:1515}, then {spell:5149}."] = "",
 
 	-- Step 1: Thotar in Razor Hill
 	-- {npc:3171} Thotar · {area:362} Razor Hill
-	["{npc:3171} in {area:362}"] = "",
+	["{npc:3171} in {area:362}"] = "{npc:3171} en {area:362}",
 	-- {npc:3171} Thotar · {area:362} Razor Hill · {npc:3407} Sian'dur · {zone:1454} Orgrimmar · {npc:11814} Kali Remik · {area:367} Sen'jin Village · {npc:3038} Kary Thunderhorn · {zone:1456} Thunder Bluff · {quest:6068} The Hunter's Path
 	["At 10 go to {npc:3171}, the hunter trainer inside the barracks in {area:362}. If {npc:3407} in {zone:1454}, {npc:11814} in {area:367} or {npc:3038} in {zone:1456} hands you {quest:6068}, take it and hand it to {npc:3171} for a little experience; it is only a pointer, and you can take the first rod without it."] = "",
 	-- {npc:3171} Thotar · {item:15908} Taming Rod
@@ -88,7 +88,7 @@ return {
 
 	-- Step 12: Quel'ana Quickgale in Valanaar
 	-- {npc:252389} Quel'ana Quickgale · {area:16638} Valanaar
-	["{npc:252389} in {area:16638}"] = "",
+	["{npc:252389} in {area:16638}"] = "{npc:252389} en {area:16638}",
 	-- {npc:252389} Quel'ana Quickgale · {area:16638} Valanaar · {npc:254411} Quel'dora Quickgale
 	["{npc:252389} stands with the trainers by {area:16638}'s west gate, {npc:254411} beside her."] = "",
 	-- {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod
@@ -110,7 +110,7 @@ return {
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living galestrider"] = "",
 	-- {npc:251707} Ornery Galestrider
-	["Tame {npc:251707}"] = "",
+	["Tame {npc:251707}"] = "Domestica un {npc:251707}",
 
 	-- Step 15: Vuldren Alpha
 	-- {area:16626} Gustberry Lowlands
@@ -119,9 +119,9 @@ return {
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living alpha"] = "",
 	-- {npc:250874} Vuldren Alpha
-	["Tame {npc:250874}"] = "",
+	["Tame {npc:250874}"] = "Domestica un {npc:250874}",
 	-- {npc:254411} Quel'dora Quickgale · {spell:5149} Beast Training
-	["{npc:254411}, beside her: {spell:5149}"] = "",
+	["{npc:254411}, beside her: {spell:5149}"] = "{npc:254411}, a su lado: {spell:5149}",
 
 	-- Step 16: Your first pet
 	["Your first pet"] = "",

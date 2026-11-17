@@ -17,11 +17,11 @@ return {
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "Vuela a {area:42}",
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "Maestro de vuelo de {zone:1453}",
 
 	-- Step 3: Stranglethorn Vale
 	-- {zone:1434} Stranglethorn Vale
-	["Into {zone:1434}"] = "",
+	["Into {zone:1434}"] = "Hacia {zone:1434}",
 
 	-- Step 4: Rebel Camp
 	-- {zone:1431} Duskwood
@@ -51,7 +51,7 @@ return {
 	-- {npc:218230} Wendel Mathers
 	["{npc:218230}, in his cage"] = "{npc:218230}, en su jaula",
 	-- {npc:941} Kurzen Headshrinker
-	["{npc:941}, below ground"] = "",
+	["{npc:941}, below ground"] = "{npc:941}, bajo tierra",
 	-- {object:288} Bookie Herod's Strongbox
 	["{object:288}, below ground"] = "",
 
@@ -111,20 +111,20 @@ return {
 
 	-- Step 16: Booty Bay
 	-- {npc:2495} Drizzlik
-	["{npc:2495}, inside"] = "",
+	["{npc:2495}, inside"] = "{npc:2495}, dentro",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, upstairs in the tavern"] = "{npc:2496}, en el piso de arriba de la taberna",
 	-- {zone:1416} Alterac Mountains
 	["For Archmage Ansirem in {zone:1416}"] = "Para el Archimago Ansirem, en {zone:1416}",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs"] = "",
+	["{npc:737}, upstairs"] = "{npc:737}, en el piso de arriba",
 	-- {npc:773} Krazek
-	["{npc:773}, upstairs"] = "",
+	["{npc:773}, upstairs"] = "{npc:773}, en el piso de arriba",
 	-- {npc:773} Krazek · {item:4278} Lesser Bloodstone Ore · {zone:1417} Arathi Highlands · {skill:186} Mining
 	-- plural, as words: Lesser Bloodstone Deposits = {object:2653} Lesser Bloodstone Deposit
 	["{npc:773}, upstairs: this optional quest needs four {item:4278}. Mine Lesser Bloodstone Deposits in {zone:1417} with {skill:186} 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore."] = "{npc:773}, en el piso de arriba: esta misión opcional pide cuatro {item:4278}. Extrae de Depósitos de Petrosangre inferior en {zone:1417} con {skill:186} 75, o compra el mineral en la casa de subastas o pídeselo a un amigo minero. Los kóbolds no lo sueltan; salta esta misión si no puedes conseguir el mineral.",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "",
+	["{npc:2498}, inside"] = "{npc:2498}, dentro",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
 	-- {npc:4631} Wharfmaster Lozgil
 	["{npc:4631}, on the docks"] = "El {npc:4631}, en los muelles",

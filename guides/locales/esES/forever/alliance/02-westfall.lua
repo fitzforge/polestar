@@ -10,7 +10,7 @@ return {
 	-- {zone:1453} Stormwind · {zone:1436} Westfall · {area:87} Goldshire · {npc:241} Remy "Two Times" · {npc:240} Marshal Dughan · {quest:40} A Fishy Peril · {quest:35} Further Concerns · {quest:109} Report to Gryan Stoutmantle
 	["On the road from {zone:1453} to {zone:1436}, {area:87} is the first stop: {npc:241} stands outside the inn, {npc:240} beside him. {npc:241}'s {quest:40} goes straight to Dughan, who then gives {quest:35}; his {quest:109} goes with you to {zone:1436}."] = "",
 	-- {npc:240} Marshal Dughan · {npc:234} Gryan Stoutmantle · {area:108} Sentinel Hill
-	["{npc:240}: for {npc:234} at {area:108}"] = "",
+	["{npc:240}: for {npc:234} at {area:108}"] = "{npc:240}: para {npc:234} en {area:108}",
 
 	-- Step 2: The Tower of Azora
 	-- {area:91} Tower of Azora
@@ -29,7 +29,7 @@ return {
 	["The {area:88}"] = "{area:88}",
 	["The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it."] = "El campamento está al noreste del puente. Los Fajos de madera están alrededor del campamento y en el bosque al norte.",
 	-- {npc:278} Sara Timberlain
-	["{npc:278}, inside"] = "",
+	["{npc:278}, inside"] = "{npc:278}, dentro",
 
 	-- Step 5: A half-eaten body
 	["It lies by the river north-west of the logging camp."] = "Está junto al río, al noroeste del campamento maderero.",
@@ -83,7 +83,7 @@ return {
 	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk
 	["South along the road, past the fork. {npc:233} stands outside, {npc:235} in the house, {npc:253395} in the barn to the west. Young Goretusks and Fleshrippers roam the fields around the farm: start on livers and the stew's meat on the way."] = "Al sur por el camino, más allá del cruce. {npc:233} está fuera, {npc:235} en la casa, {npc:253395} en el granero al oeste. Jóvenes Colmillos y Desgarradores merodean los campos de la granja: empieza con los hígados y la carne del guiso de camino.",
 	-- {npc:235} Salma Saldean
-	["{npc:235}, inside"] = "",
+	["{npc:235}, inside"] = "{npc:235}, dentro",
 
 	-- Step 19: Goretusk Snouts
 	-- plural, as words: Goretusk Snouts = {item:731} Goretusk Snout
@@ -98,9 +98,9 @@ return {
 	-- {npc:234} Gryan Stoutmantle · {npc:821} Captain Danuvin · {npc:491} Quartermaster Lewis · {npc:523} Thor · {npc:878} Scout Galiaan · {npc:1323} Osric Strang · {zone:1453} Stormwind · {npc:279} Morgan Pestle · {object:2096} Trade District · {object:2156} Limited Immunity · {object:2100} Old Town · {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {npc:352} Dungar Longdrink
 	["{npc:234} and {npc:821} stand at the top of the stone tower, {npc:491} inside it, {npc:523} the gryphon master on the south side of the hill with {npc:878} beside him. {npc:523} gives you Lewis' note for {npc:1323} with a free flight to {zone:1453}: take it now. In {zone:1453}, {npc:279}'s shop is in the {object:2096} by the gryphons, {npc:1323}'s shop, {object:2156}, in {object:2100}; {npc:1646} stands in {object:2098} on the way back to {npc:352}, the gryphon master."] = "",
 	-- {npc:491} Quartermaster Lewis
-	["{npc:491}, inside"] = "",
+	["{npc:491}, inside"] = "{npc:491}, dentro",
 	-- {npc:878} Scout Galiaan · {npc:523} Thor
-	["{npc:878}, beside {npc:523}"] = "",
+	["{npc:878}, beside {npc:523}"] = "{npc:878}, junto a {npc:523}",
 	-- {npc:523} Thor · {zone:1453} Stormwind
 	["{npc:523}: the free flight he offers goes to {zone:1453}"] = "{npc:523}: el vuelo gratis que te ofrece va a {zone:1453}",
 
@@ -147,7 +147,7 @@ return {
 
 	-- Step 31: Stringy Vulture Meat as you go
 	-- {item:729} Stringy Vulture Meat
-	["{item:729} as you go"] = "",
+	["{item:729} as you go"] = "{item:729} sobre la marcha",
 	["Fleshrippers circle the fields along this loop: kill the ones you pass for the stew's meat."] = "",
 	-- {item:729} Stringy Vulture Meat
 	["{item:729}: Fleshrippers"] = "{item:729}: Desgarradores",
@@ -218,7 +218,7 @@ return {
 
 	-- Step 41: Finish the Stringy Vulture Meat
 	-- {item:729} Stringy Vulture Meat
-	["Finish the {item:729}"] = "",
+	["Finish the {item:729}"] = "Termina las {item:729}",
 	-- {area:107} Saldean's Farm
 	-- plural, as words: Young Fleshrippers = {npc:199} Young Fleshripper
 	["Still short of three? Young Fleshrippers circle the fields north-west of {area:107}."] = "",
@@ -252,12 +252,12 @@ return {
 
 	-- Step 47: Moonbrook: kill these as you meet them
 	-- {area:20} Moonbrook
-	["{area:20}: kill these as you meet them"] = "",
+	["{area:20}: kill these as you meet them"] = "{area:20}: mátalos según te los encuentres",
 	-- {area:108} Sentinel Hill · {area:20} Moonbrook · {object:1166} Alexston's Chest · {area:219} Alexston Farmstead · {npc:1646} Baros Alexston · {area:113} Gold Coast Quarry
 	-- plural, as words: Defias Pillagers = {npc:589} Defias Pillager
 	["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}. {object:1166} stands in the farmhouse at the {area:219}, among them: {npc:1646}' compass is inside.\nCareful: The {area:113} cave holds many Defias packed together, so it is easy to pull several at once there."] = "",
 	-- {item:2998} A Simple Compass · {object:1166} Alexston's Chest
-	["{item:2998}, from {object:1166}"] = "",
+	["{item:2998}, from {object:1166}"] = "{item:2998}, de {object:1166}",
 
 	-- Step 48: Sentinel Hill
 	-- {npc:523} Thor
@@ -283,7 +283,7 @@ return {
 
 	-- Step 54: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "Tranvía a {zone:1455}",
 
 	-- Step 55: Shaman training
 	["Shaman training"] = "Instrucción de chamán",

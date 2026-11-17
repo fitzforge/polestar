@@ -10,7 +10,7 @@ return {
 	-- {npc:823} Deputy Willem · {npc:197} Marshal McBride · {npc:951} Brother Paxton · {npc:247229} Daniel · {npc:196} Eagan Peltskinner
 	["You start in front of the Abbey. {npc:823} stands at the foot of the steps, {npc:197} inside the hall, {npc:951} and {npc:247229} in the library to the right, {npc:196} outside the north-west corner."] = "Empiezas delante de la abadía. {npc:823} está al pie de la escalinata; {npc:197}, dentro de la sala; {npc:951} y {npc:247229}, en la biblioteca de la derecha; {npc:196}, fuera, en la esquina noroeste.",
 	-- {npc:197} Marshal McBride
-	["{npc:197}, inside"] = "",
+	["{npc:197}, inside"] = "{npc:197}, dentro",
 	-- {npc:459} Drusilla La Salle
 	["{npc:459}, outside the Abbey"] = "{npc:459}, fuera de la abadía",
 
@@ -36,7 +36,7 @@ return {
 
 	-- Step 6: Echo Ridge Mine: kill these as you meet them
 	-- {area:34} Echo Ridge Mine
-	["{area:34}: kill these as you meet them"] = "",
+	["{area:34}: kill these as you meet them"] = "{area:34}: mátalos según te los encuentres",
 	-- {object:83763} Stolen Books
 	-- plural, as words: Kobold Workers = {npc:257} Kobold Worker
 	["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}."] = "Sigue el sendero hacia el norte hasta la mina. Los Trabajadores kóbold pululan fuera; cualquier kóbold del valle puede soltar {object:83763}.",
@@ -111,15 +111,15 @@ return {
 	-- {quest:91752} The Big Picture
 	["If you skipped {quest:91752}, grind here to level 5.48 to stay on the route's plan."] = "",
 	-- {npc:80} Kobold Laborer
-	["grind on {npc:80}"] = "",
+	["grind on {npc:80}"] = "mata {npc:80}",
 
 	-- Step 19: Goldshire
 	-- {area:87} Goldshire · {npc:240} Marshal Dughan · {npc:241} Remy "Two Times" · {npc:295} Innkeeper Farley · {npc:253} William Pestle
 	["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road."] = "",
 	-- {npc:295} Innkeeper Farley
-	["{npc:295}, inside"] = "",
+	["{npc:295}, inside"] = "{npc:295}, dentro",
 	-- {npc:253} William Pestle
-	["{npc:253}, inside"] = "",
+	["{npc:253}, inside"] = "{npc:253}, dentro",
 	-- {npc:377} Priestess Josetta
 	["{npc:377}, upstairs"] = "{npc:377}, en el piso de arriba",
 	-- {npc:377} Priestess Josetta · {npc:12423} Guard Roberts · {area:18} Crystal Lake
@@ -197,7 +197,7 @@ return {
 
 	-- Step 36: Crystal Lake: kill these as you meet them
 	-- {area:18} Crystal Lake
-	["{area:18}: kill these as you meet them"] = "",
+	["{area:18}: kill these as you meet them"] = "{area:18}: mátalos según te los encuentres",
 	-- plural, as words: Murloc Streamrunners = {npc:735} Murloc Streamrunner · Junk Piles = {object:694785} Junk Pile
 	["Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp. Careful: the murlocs stand close together, so a fight easily pulls two or three at once: pull them one at a time from the edge of the camp, and don't chase one into the next group."] = "Los múrlocs y los Correcorrientes múrloc ocupan la orilla este; los Montones de chatarra están en su campamento. Cuidado: los múrlocs están muy juntos, así que es fácil atraer a dos o tres a la vez en un combate: atráelos de uno en uno desde el borde del campamento y no persigas a ninguno hasta el siguiente grupo.",
 
@@ -247,7 +247,7 @@ return {
 
 	-- Step 48: Maclure Vineyards: kill these as you meet them
 	-- {area:64} Maclure Vineyards
-	["{area:64}: kill these as you meet them"] = "",
+	["{area:64}: kill these as you meet them"] = "{area:64}: mátalos según te los encuentres",
 	-- {npc:248464} Nimsy
 	-- plural, as words: Kobold Miners = {npc:40} Kobold Miner
 	["The mine is west of the vineyards. Kobold Miners and Tunnelers fill both levels; {npc:248464}, a named kobold, holds the picture book in the lower tunnels. {npc:248464} is elite: grouping up is advised."] = "La mina está al oeste de los viñedos. Los Mineros kóbold y los Tuneladores llenan ambos niveles; {npc:248464}, un kóbold con nombre, tiene el álbum de fotos en los túneles inferiores. {npc:248464} es élite: se recomienda ir en grupo.",
@@ -281,7 +281,7 @@ return {
 	-- {quest:91775} Book Return
 	["If you skipped {quest:91775}, grind here to level 8.39 to stay on the route's plan."] = "",
 	-- {npc:40} Kobold Miner
-	["grind on {npc:40}"] = "",
+	["grind on {npc:40}"] = "mata {npc:40}",
 
 	-- Step 54: Class trainer
 	["Class trainer"] = "Instructor de clase",
@@ -342,7 +342,7 @@ return {
 	-- {area:86} Stone Cairn Lake
 	["The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it.\nCareful: Elmpaw, a level 12 elite gnoll, walks the woods and hills from the logging camp north to {area:86} and the gnoll camps: keep clear of him when you see him coming."] = "El campamento está al noreste del puente. Los Haces de leña están por el campamento y en el bosque al norte.\nCuidado: Zarpaolmo, un gnoll élite de nivel 12, recorre el bosque y las colinas desde el campamento maderero al norte hasta {area:86} y los campamentos gnoll: apártate de él cuando lo veas venir.",
 	-- {npc:278} Sara Timberlain
-	["{npc:278}, inside"] = "",
+	["{npc:278}, inside"] = "{npc:278}, dentro",
 
 	-- Step 67: A half-eaten body
 	["It lies by the river north-west of the logging camp."] = "Está junto al río, al noroeste del campamento maderero.",
@@ -365,7 +365,7 @@ return {
 
 	-- Step 71: Jasperlode Mine: kill these as you meet them
 	-- {area:54} Jasperlode Mine
-	["{area:54}: kill these as you meet them"] = "",
+	["{area:54}: kill these as you meet them"] = "{area:54}: mátalos según te los encuentres",
 	-- {item:247816} Mining Tools · {npc:471} Mother Fang · {npc:248474} Geosculptor Yip
 	-- plural, as words: Kobold Geomancers = {npc:476} Kobold Geomancer · Mine Spiders = {npc:43} Mine Spider
 	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels.\nCareful: {npc:471} (7-10), the Mine Spiders (7-9) and {npc:248474} (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend."] = "La mina está al suroeste de los campamentos gnoll. {item:247816} están cerca de la entrada; los Geománticos kóbold ocupan los túneles.\nCuidado: {npc:471} (7-10), las Arañas mineras (7-9) y {npc:248474} (7) son élites del fondo de la mina: atrae a los kóbolds de uno en uno cerca de la entrada y retírate si viene un élite; son más fáciles con un amigo.",
@@ -393,7 +393,7 @@ return {
 	-- {area:87} Goldshire · {npc:6306} Helene Peltskinner · {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
 	["Follow the road west back to {area:87}; {npc:6306} stands on the lake shore before town. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:6306} Helene Peltskinner
-	["{npc:6306}, inside"] = "",
+	["{npc:6306}, inside"] = "{npc:6306}, dentro",
 	-- {npc:240} Marshal Dughan
 	["{npc:240}, while William brews"] = "",
 	-- {npc:514} Smith Argus · {npc:1416} Grimand Elmore · {zone:1453} Stormwind
@@ -443,15 +443,15 @@ return {
 	-- {npc:524} Rockhide Boar · {item:15908} Taming Rod
 	["{npc:524}: tame it with the {item:15908}"] = "{npc:524}: domestícalo con la {item:15908}",
 	-- {npc:524} Rockhide Boar
-	["Tame {npc:524}"] = "",
+	["Tame {npc:524}"] = "Domestica un {npc:524}",
 	-- {npc:1922} Gray Forest Wolf · {item:15908} Taming Rod
 	["{npc:1922}: tame it with the {item:15908}"] = "{npc:1922}: domestícalo con la {item:15908}",
 	-- {npc:1922} Gray Forest Wolf
-	["Tame {npc:1922}"] = "",
+	["Tame {npc:1922}"] = "Domestica un {npc:1922}",
 	-- {npc:822} Young Forest Bear · {item:15908} Taming Rod
 	["{npc:822}: tame it with the {item:15908}"] = "{npc:822}: domestícalo con la {item:15908}",
 	-- {npc:822} Young Forest Bear
-	["Tame {npc:822}"] = "",
+	["Tame {npc:822}"] = "Domestica un {npc:822}",
 	-- {npc:258930} Isaac Chan · {spell:5149} Beast Training
 	["{npc:258930}, beside her: {spell:5149}"] = "{npc:258930}, a su lado: {spell:5149}",
 

@@ -21,7 +21,7 @@ return {
 	-- plural, as words: Burning Blade Apprentices = {npc:3198} Burning Blade Apprentice
 	["{area:817} is the cave in the cliffs just east of {zone:1454}'s gate. Inside, take the right-hand ramp up and follow it to the top: the {object:58595} sits on that upper ledge, which cannot be reached from the lower floor. The cave is packed with Burning Blade Apprentices and Fanatics (level 9-11, many with voidwalkers) that respawn quickly, and {npc:3204}, a level 14 Burning Blade warlock, stands near the stash. Old notes call him elite; Forever's data lists him as normal. At 10 it is hard alone: pull one pack at a time and Fear the extra, wait for 11, or go with a friend. The stash always holds the tablet."] = "",
 	-- {item:6535} Tablet of Verga · {object:58595} Burning Blade Stash
-	["{item:6535}, in the {object:58595}"] = "",
+	["{item:6535}, in the {object:58595}"] = "{item:6535}, en {object:58595}",
 
 	-- Step 3: The Binding (Orgrimmar)
 	-- {npc:5875} Gan'rul Bloodeye · {item:7464} Glyphs of Summoning · {object:172960} Cleft of Shadow · {npc:3216} Neeru Fireblade · {spell:14868} Curse of Agony · {spell:348} Immolate

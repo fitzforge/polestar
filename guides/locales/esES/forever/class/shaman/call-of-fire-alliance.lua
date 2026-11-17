@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {quest:94449} Call of Fire
-	["{quest:94449} (Alliance)"] = "",
+	["{quest:94449} (Alliance)"] = "{quest:94449} (Alianza)",
 	-- {item:5176} Fire Totem · {spell:3599} Searing Totem · {item:263412} Totem of Charged Flames
 	["Your {item:5176} for every fire totem, {spell:3599} with it, and Forever's {item:263412}."] = "",
 
@@ -57,7 +57,7 @@ return {
 
 	-- Step 9: The Brazier of the Dormant Flame
 	-- {object:61934} Brazier of the Dormant Flame
-	["The {object:61934}"] = "",
+	["The {object:61934}"] = "{object:61934}",
 	-- {object:61934} Brazier of the Dormant Flame · {item:277329} Torch of Eternal Flame
 	["Click the {object:61934} atop the shrine with the torch in your bags to place the ember, then click it again for the next quest: the lit {item:277329}."] = "",
 

@@ -18,7 +18,7 @@ return {
 
 	-- Step 3: Into Searing Gorge
 	-- {zone:1427} Searing Gorge
-	["Into {zone:1427}"] = "",
+	["Into {zone:1427}"] = "Hacia {zone:1427}",
 
 	-- Step 4: Searing Gorge
 	["The Grimesilt outhouse"] = "La letrina de Limugre",
@@ -37,7 +37,7 @@ return {
 	-- {item:3985} Monogrammed Sash
 	["If you skipped The {item:3985} or Facing Negolash, grind here to level 48.27 to stay on the route's plan."] = "",
 	-- {npc:5839} Dark Iron Geologist
-	["grind on {npc:5839}"] = "",
+	["grind on {npc:5839}"] = "mata {npc:5839}",
 
 	-- Step 8: Dorius Stonetender
 	-- {area:247} Grimesilt Dig Site · {area:1959} Dustfire Valley · {object:175704} Singed Letter
@@ -96,7 +96,7 @@ return {
 	-- {quest:7701} WANTED: Overseer Maltorius
 	["If you skipped {quest:7701}, grind here to level 48.66 to stay on the route's plan."] = "",
 	-- {npc:9318} Incendosaur
-	["grind on {npc:9318}"] = "",
+	["grind on {npc:9318}"] = "mata {npc:9318}",
 
 	-- Step 28: The Flame's Casing
 	-- {npc:5860} Twilight Dark Shaman
@@ -124,7 +124,7 @@ return {
 	-- {quest:3452} The Flame's Casing
 	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan."] = "",
 	-- {npc:5844} Dark Iron Slaver
-	["grind on {npc:5844}"] = "",
+	["grind on {npc:5844}"] = "mata {npc:5844}",
 
 	-- Step 34: Margol's Horn
 	-- {quest:3181} The Horn of the Beast

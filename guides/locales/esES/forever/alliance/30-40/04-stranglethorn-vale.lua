@@ -17,7 +17,7 @@ return {
 	-- {npc:2495} Drizzlik
 	["{npc:2495}, by the bank; inside"] = "{npc:2495}, junto al banco; dentro",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "",
+	["{npc:2498}, inside"] = "{npc:2498}, dentro",
 	-- {npc:6807} Innkeeper Skindle · {object:56910} The Salty Sailor Tavern
 	["{npc:6807}, {object:56910}; upstairs"] = "",
 	-- {npc:2832} Nixxrax Fillamug · {object:56910} The Salty Sailor Tavern
@@ -36,7 +36,7 @@ return {
 
 	-- Step 3: North to Nesingwary's Expedition
 	-- {area:100} Nesingwary's Expedition
-	["North to {area:100}"] = "",
+	["North to {area:100}"] = "Al norte, hacia {area:100}",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Follow the main road north the length of the jungle, past the {object:3202} turn-off, to the hunters' camp just west of the road."] = "",
 
@@ -100,7 +100,7 @@ return {
 
 	-- Step 15: Kurzen's Compound: kill these as you meet them
 	-- {area:101} Kurzen's Compound
-	["{area:101}: kill these as you meet them"] = "",
+	["{area:101}: kill these as you meet them"] = "{area:101}: mátalos según te los encuentres",
 	-- {area:99} Rebel Camp · {quest:200} Bookie Herod
 	-- plural, as words: Kurzen Elites = {npc:939} Kurzen Elite
 	["The Kurzen rebels hold the camp east of the {area:99}; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents. {quest:200}'s records lie in a hut on the compound's west side. Careful: Kurzen Elites and Witch Doctors (36) hold the compound's eastern half, by the cave: stay on its west side."] = "Los rebeldes de Kurzen ocupan el campamento al este del {area:99}; recorre su borde exterior, donde están los Jíbaros y los Auxiliadores, y saquea las cajas de suministros junto a las tiendas. Los registros de {quest:200} están en una choza del lado oeste del campamento. Cuidado: los Élites y Médicos brujos Kurzen (36) ocupan la mitad este del campamento, junto a la cueva: quédate en su lado oeste.",
@@ -116,7 +116,7 @@ return {
 	-- plural, as words: Kurzen Jungle Fighters = {npc:937} Kurzen Jungle Fighter
 	["The elder tigers next are 34-35: short of 33.2? Keep on the Kurzen Jungle Fighters and Medicine Men around the compound's outer edge until level 33.2. Or, with a group, run the {area:796} dungeon (Library) instead."] = "Los tigres mayores que vienen son de nivel 34-35: ¿no llegas a 33.2? Sigue con los Jíbaros y Auxiliadores Kurzen del borde exterior del campamento hasta el nivel 33.2. O, con un grupo, haz la mazmorra {area:796} (Biblioteca).",
 	-- {npc:937} Kurzen Jungle Fighter
-	["grind on {npc:937}"] = "",
+	["grind on {npc:937}"] = "mata {npc:937}",
 
 	-- Step 18: Stranglethorn Vale: kill these as you meet them
 	-- {zone:1434} Stranglethorn Vale
@@ -143,12 +143,12 @@ return {
 	-- {area:35} Booty Bay
 	["Hearth back to {area:35}."] = "",
 	-- {npc:2495} Drizzlik
-	["{npc:2495}, inside"] = "",
+	["{npc:2495}, inside"] = "{npc:2495}, dentro",
 	-- {npc:2495} Drizzlik
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["{npc:2495}: the Snapjaw Crocolisks, on the northern loop"] = "",
 	-- {npc:773} Krazek
-	["{npc:773}, upstairs"] = "",
+	["{npc:773}, upstairs"] = "{npc:773}, en el piso de arriba",
 	-- {npc:773} Krazek · {npc:770} Corporal Kaleb
 	["{npc:773}, from {npc:770}"] = "",
 	-- {npc:737} Kebok
@@ -160,7 +160,7 @@ return {
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "Vuela a {zone:1453}",
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "Maestro de vuelo de {area:35}",
 
 	-- Step 24: Collin Mauren
 	-- {npc:4078} Collin Mauren · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
@@ -177,11 +177,11 @@ return {
 	-- {area:467} Stonetalon Peak · {zone:1443} Desolace · {area:415} Astranaar · {area:465} Charred Vale
 	["You know the {area:467} flight: it lands closer to {zone:1443} than {area:415} does. From the peak, follow the road south through the mountains to the {area:465}."] = "Conoces la ruta de vuelo a {area:467}: aterriza más cerca de {zone:1443} que {area:415}. Desde el pico, sigue el camino al sur por las montañas hasta {area:465}.",
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "Maestro de vuelo de {area:442}",
 
 	-- Step 28: Fly to Astranaar
 	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	["Fly to {area:415}"] = "Vuela a {area:415}",
 
 	-- Step 29: Fly to Astranaar
 	-- {area:415} Astranaar · {quest:1738} Heartswood
@@ -195,7 +195,7 @@ return {
 
 	-- Step 31: Stonetalon Mountains
 	-- {area:608} Nijel's Point
-	["The road to {area:608}"] = "",
+	["The road to {area:608}"] = "El camino a {area:608}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Bloodscalp trolls"] = "Trols Cabellesangre",

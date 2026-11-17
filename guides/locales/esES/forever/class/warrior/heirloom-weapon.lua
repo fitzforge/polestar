@@ -14,7 +14,7 @@ return {
 
 	-- Step 1: Seena Skybreaker in Valanaar
 	-- {npc:252377} Seena Skybreaker · {area:16638} Valanaar
-	["{npc:252377} in {area:16638}"] = "",
+	["{npc:252377} in {area:16638}"] = "{npc:252377} en {area:16638}",
 	-- {npc:252377} Seena Skybreaker · {area:16638} Valanaar · {npc:257196} Zaal Stormshield · {area:16629} Shrine of Akir
 	["At 10, {npc:252377} stands with the trainers by {area:16638}'s west gate. A cultist, {npc:257196}, holds her family's shield at the {area:16629}."] = "",
 
@@ -22,7 +22,7 @@ return {
 	-- {area:16638} Valanaar · {area:16629} Shrine of Akir · {npc:257196} Zaal Stormshield · {item:263993} Skybreaker Bulwark
 	["Head north-west from {area:16638} to the {area:16629}. {npc:257196} stands west of the shrine's approach, among the cult's Guardians, Spiritcallers and Blademasters: pull them one at a time before you take him. He drops the {item:263993}."] = "",
 	-- {item:263993} Skybreaker Bulwark · {npc:257196} Zaal Stormshield
-	["{item:263993}, from {npc:257196}"] = "",
+	["{item:263993}, from {npc:257196}"] = "{item:263993}, de {npc:257196}",
 
 	-- Step 3: The Skybreaker Bulwark
 	-- {npc:252377} Seena Skybreaker · {area:16638} Valanaar · {spell:71} Defensive Stance · {item:275290} Stormforged Protector · {npc:5810} Uzzek
@@ -38,7 +38,7 @@ return {
 
 	-- Step 6: Uzzek at Far Watch Post
 	-- {npc:5810} Uzzek · {area:379} Far Watch Post
-	["{npc:5810} at {area:379}"] = "",
+	["{npc:5810} at {area:379}"] = "{npc:5810} en {area:379}",
 	-- {npc:5810} Uzzek · {area:379} Far Watch Post · {zone:1411} Durotar · {zone:1412} Mulgore
 	["{npc:5810} is easy to miss: he stands under a small canopy by a large tree just west of {area:379}, below the road's south side, with the post in sight to his east. Going straight south from the post does not lead to him. From {zone:1411} cross the bridge west; from {zone:1412} head north past the Crossroads."] = "",
 
@@ -64,7 +64,7 @@ return {
 	-- {object:58369} Stolen Iron Chest · {npc:5878} Thun'grim Firegaze
 	["The {object:58369} stands by a broken wagon in the Razormane camp north-west of {npc:5878}, north-east of the Crossroads. Two Razormanes guard it and their hunters pull more quilboar: clear them one at a time, then open the chest (it refills within seconds, so a friend can loot it too)."] = "",
 	-- {item:6534} Forged Steel Bars · {object:58369} Stolen Iron Chest
-	["{item:6534}, from the {object:58369}"] = "",
+	["{item:6534}, from the {object:58369}"] = "{item:6534}, de {object:58369}",
 
 	-- Step 11: Speak with Dillinger
 	-- {npc:2131} Austil de Mon · {area:159} Brill · {npc:1496} Deathguard Dillinger · {npc:5810} Uzzek · {quest:1505} Veteran Uzzek · {quest:1498} Path of Defense
@@ -84,7 +84,7 @@ return {
 
 	-- Step 15: The Agamand Family Crypt
 	-- {area:158} Agamand Family Crypt
-	["The {area:158}"] = "",
+	["The {area:158}"] = "{area:158}",
 	-- {area:158} Agamand Family Crypt · {area:157} Agamand Mills · {area:159} Brill
 	-- plural, as words: Agamand Weapon Racks = {object:105169} Agamand Weapon Rack
 	["The four Agamand Weapon Racks are inside the {area:158} at the north end of {area:157}, north of {area:159}, one rack per room: one in the lowest room, two in the pair of rooms up the stairs, one in the room above those. The axe rack stands in a dark corner. The crypt's undead come in packs of three or more and return quickly; the ones in the top room are not linked. The axe, dagger and mace racks take 15 minutes to refill after someone loots them."] = "",

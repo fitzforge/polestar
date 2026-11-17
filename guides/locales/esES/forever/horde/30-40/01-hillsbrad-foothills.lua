@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Freewind Post flight master
 	-- {area:484} Freewind Post
-	["{area:484} flight master"] = "",
+	["{area:484} flight master"] = "Maestro de vuelo de {area:484}",
 
 	-- Step 2: Thunder Bluff
 	-- {area:484} Freewind Post · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
@@ -27,17 +27,17 @@ return {
 	-- Step 4: Fly to the Crossroads
 	["Fly to the Crossroads"] = "",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
 
 	-- Step 5: Fly to the Crossroads
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Maestro de vuelo de {area:392}",
 
 	-- Step 7: Korran
 	-- {npc:3428} Korran · {quest:1145} The Swarm Grows · {zone:1454} Orgrimmar
 	["{npc:3428} stands beside the Crossroads flight master. {quest:1145} is offered from level 29; below it, the next guide's {zone:1454} stop takes it."] = "{npc:3428} está junto al maestro de vuelo de El Cruce. {quest:1145} está disponible desde el nivel 29; si no llegas, la parada en {zone:1454} de la siguiente guía la recoge.",
 	-- {npc:3428} Korran · {npc:4485} Belgrom Rockmaul · {zone:1454} Orgrimmar
-	["{npc:3428}: for {npc:4485} in {zone:1454}"] = "",
+	["{npc:3428}: for {npc:4485} in {zone:1454}"] = "{npc:3428}: para {npc:4485} en {zone:1454}",
 
 	-- Step 8: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
@@ -70,7 +70,7 @@ return {
 
 	-- Step 14: Undercity flight master
 	-- {zone:1458} Undercity
-	["{zone:1458} flight master"] = "",
+	["{zone:1458} flight master"] = "Maestro de vuelo de {zone:1458}",
 
 	-- Step 15: Brazier of Everfount
 	-- {area:228} Sepulcher · {object:113791} Brazier of Everfount · {npc:5895} Minor Manifestation of Water · {item:7813} Shard of Water · {npc:5901} Islen Waterseer · {area:272} Tarren Mill
@@ -84,7 +84,7 @@ return {
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "Vuela a {area:272}",
 	-- {area:228} Sepulcher
-	["{area:228} flight master"] = "",
+	["{area:228} flight master"] = "Maestro de vuelo de {area:228}",
 
 	-- Step 18: Tarren Mill
 	-- {quest:567} Dangerous! · {npc:2216} Apothecary Lydon · {npc:2393} Christoph Jeffcoat
@@ -92,7 +92,7 @@ return {
 	-- {quest:567} Dangerous!
 	["{quest:567}, the poster by the inn"] = "{quest:567}, el cartel junto a la posada",
 	-- {npc:2216} Apothecary Lydon
-	["{npc:2216}, inside"] = "",
+	["{npc:2216}, inside"] = "{npc:2216}, dentro",
 	-- {npc:2393} Christoph Jeffcoat · {quest:7321} Soothing Turtle Bisque
 	["{npc:2393}: {quest:7321}, the Snapjaws of the river south of town"] = "{npc:2393}: {quest:7321}, las Bocadientes del río al sur del pueblo",
 	-- {item:3713} Soothing Spices · {npc:2393} Christoph Jeffcoat
@@ -106,7 +106,7 @@ return {
 	-- {npc:2229} Krusk · {area:275} Durnholde Keep
 	["{npc:2229} wants his two scouts freed from {area:275}."] = "{npc:2229} quiere que liberes a sus dos exploradores de {area:275}.",
 	-- {npc:2229} Krusk
-	["{npc:2229}, inside"] = "",
+	["{npc:2229}, inside"] = "{npc:2229}, dentro",
 
 	-- Step 21: Hillsbrad Fields
 	-- {area:287} Hillsbrad · {npc:232} Farmer Ray · {npc:2403} Farmer Getz
@@ -115,7 +115,7 @@ return {
 
 	-- Step 22: Tarren Mill
 	-- {area:272} Tarren Mill
-	["Back east to {area:272}."] = "",
+	["Back east to {area:272}."] = "Vuelve al este a {area:272}.",
 
 	-- Step 23: Hillsbrad Peasants
 	-- plural, as words: Hillsbrad Peasants = {npc:2267} Hillsbrad Peasant
@@ -175,7 +175,7 @@ return {
 	-- {area:287} Hillsbrad · {npc:2335} Magistrate Burnside · {npc:2448} Clerk Horrace Whitesteed
 	["On to {area:287} town, south-west of the yeti caves. The town hall is on the town's west side: {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "",
 	-- {object:1761} Hillsbrad Proclamation
-	["{object:1761}, inside"] = "",
+	["{object:1761}, inside"] = "{object:1761}, dentro",
 
 	-- Step 35: Tarren Mill
 	-- {area:271} Southshore
@@ -197,7 +197,7 @@ return {
 	-- {area:287} Hillsbrad · {area:288} Azurelode Mine · {npc:2305} Foreman Bonds · {npc:2450} Miner Hackett
 	["Head south-west past {area:287} town to the {area:288}. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "Ve al suroeste, pasado el pueblo de {area:287}, hasta {area:288}. Hay mineros trabajando en los túneles; {npc:2305} (30) y {npc:2450} (29) están al fondo.",
 	-- {area:288} Azurelode Mine
-	["Inside {area:288}"] = "",
+	["Inside {area:288}"] = "Dentro de {area:288}",
 
 	-- Step 40: Level 30
 	["Level 30"] = "",
@@ -266,9 +266,9 @@ return {
 
 	-- Step 50: Fly to Undercity
 	-- {area:1497} Undercity
-	["Fly to {area:1497}"] = "",
+	["Fly to {area:1497}"] = "Vuela a {area:1497}",
 	-- {area:272} Tarren Mill
-	["{area:272} flight master"] = "",
+	["{area:272} flight master"] = "Maestro de vuelo de {area:272}",
 
 	-- Step 51: Master Apothecary Faranell
 	-- {npc:2055} Master Apothecary Faranell · {object:36126} Royal Quarter

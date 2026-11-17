@@ -59,7 +59,7 @@ return {
 
 	-- Step 10: Coldridge Valley: kill these as you meet them
 	-- {area:132} Coldridge Valley
-	["{area:132}: kill these as you meet them"] = "",
+	["{area:132}: kill these as you meet them"] = "{area:132}: mátalos según te los encuentres",
 	-- {npc:786} Grelin Whitebeard
 	-- plural, as words: Frostmane Troll Whelps = {npc:706} Frostmane Troll Whelp
 	["Frostmane Troll Whelps fill the slopes south and east of {npc:786}'s camp."] = "Las crías de trol Peloescarcha ({npc:706}) llenan las laderas al sur y al este del campamento de {npc:786}.",
@@ -98,7 +98,7 @@ return {
 	-- {area:77} Anvilmar · {npc:2756} Grund Drokda · {npc:8416} Felix Whindlebolt · {npc:269075} Snow Leopard Prowler
 	["Back north to {area:77} on the way to the tunnel: {npc:2756} stands by {npc:8416} at its door. Gozwin's camp is in the hills just north-west; the {npc:269075} (level 6) prowls around it."] = "Vuelve al norte hasta {area:77} de camino al túnel: {npc:2756} está junto a {npc:8416}, en su puerta. El campamento de Gozwin está en las colinas justo al noroeste; el {npc:269075} (nivel 6) merodea a su alrededor.",
 	-- {npc:2756} Grund Drokda
-	["{npc:2756}, inside"] = "",
+	["{npc:2756}, inside"] = "{npc:2756}, dentro",
 	-- {item:277976} Gozwin's Mechanic's Log
 	["{item:277976}, in the camp"] = "{item:277976}, en el campamento",
 
@@ -147,11 +147,11 @@ return {
 	-- {area:131} Kharanos · {npc:1252} Senir Whitebeard · {area:2102} Thunderbrew Distillery · {npc:1872} Tharek Blackstone · {npc:6806} Tannok Frosthammer · {npc:1226} Maxan Anvol · {npc:1267} Ragnar Thunderbrew · {npc:1699} Gremlock Pilsnor · {skill:185} Cooking
 	["Follow the road through the tunnel and north-east to {area:131}. Start outside: {npc:1252} and Eric's campfire are in front of the {area:2102}.\n{npc:1872} works the forge west of the distillery.\nThen go in: {npc:6806}, the innkeeper, {npc:1226} and {npc:1267}. {npc:1699}'s {skill:185} lesson waits for the return with the ribs, when the copper is there for it."] = "",
 	-- {npc:1241} Tognus Flintfire
-	["{npc:1241}, below ground"] = "",
+	["{npc:1241}, below ground"] = "{npc:1241}, bajo tierra",
 	-- {npc:6806} Tannok Frosthammer
-	["{npc:6806}, inside"] = "",
+	["{npc:6806}, inside"] = "{npc:6806}, dentro",
 	-- {npc:1226} Maxan Anvol
-	["{npc:1226}, upstairs"] = "",
+	["{npc:1226}, upstairs"] = "{npc:1226}, en el piso de arriba",
 	-- {npc:1226} Maxan Anvol · {npc:12427} Mountaineer Dolf · {area:131} Kharanos
 	["{npc:1226}: heal {npc:12427} south of {area:131}"] = "{npc:1226}: cura a {npc:12427} al sur de {area:131}",
 	["Last: some classes' trainers stand outside"] = "",
@@ -175,7 +175,7 @@ return {
 	-- {area:131} Kharanos · {zone:1455} Ironforge
 	["Follow the road north-east from {area:131} to the depot below the {zone:1455} road."] = "Sigue el camino al noreste desde {area:131} hasta el depósito bajo el camino de {zone:1455}.",
 	-- {npc:1694} Loslor Rudge
-	["{npc:1694}, beside him"] = "",
+	["{npc:1694}, beside him"] = "{npc:1694}, a su lado",
 
 	-- Step 28: Yarr Hammerstone
 	-- {npc:5392} Yarr Hammerstone
@@ -223,7 +223,7 @@ return {
 	["{npc:1699}: Camping 101 asks you to learn it; below ground"] = "",
 	-- {npc:1226} Maxan Anvol · {item:16605} Friar's Robes of the Light
 	["{npc:1226}, upstairs: {item:16605}"] = "{npc:1226}, en el piso de arriba: {item:16605}",
-	["Upstairs"] = "",
+	["Upstairs"] = "Piso de arriba",
 
 	-- Step 36: Kharanos and the depot
 	-- {area:131} Kharanos
@@ -237,7 +237,7 @@ return {
 	-- {area:137} Brewnall Village · {area:131} Kharanos · {npc:8508} Gretta Ganter · {npc:1374} Rejold Barleybrew · {npc:1375} Marleth Barleybrew
 	["{area:137} sits on the lake west of {area:131}. {npc:8508}'s dock is the first stop; {npc:1374} and {npc:1375} are in the village beyond it."] = "",
 	-- {npc:8508} Gretta Ganter
-	["{npc:8508}, on the dock"] = "",
+	["{npc:8508}, on the dock"] = "{npc:8508}, en el muelle",
 
 	-- Step 38: Brewnall: kill these as you meet them
 	["Brewnall: kill these as you meet them"] = "Las Birras: mata estos según los encuentres",
@@ -287,7 +287,7 @@ return {
 	-- plural, as words: Frostmane Hideskinners = {npc:1122} Frostmane Hideskinner
 	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} es la cueva de los trols en las colinas al suroeste de {area:137}. Mata Cazacabezas en la entrada y recórrela hasta el fondo.\nCuidado: los Desolladores Peloescarcha del interior son de nivel 9-10 y están en parejas: atráelos de uno en uno hasta la entrada.",
 	-- {npc:1123} Frostmane Headhunter
-	["{npc:1123}, below ground"] = "",
+	["{npc:1123}, below ground"] = "{npc:1123}, bajo tierra",
 
 	-- Step 47: Tundra MacGrann
 	-- {npc:1266} Tundra MacGrann · {area:801} Chill Breeze Valley · {area:131} Kharanos · {npc:1271} Old Icebeard
@@ -300,9 +300,9 @@ return {
 	-- plural, as words: Ice Claw Bears = {npc:1196} Ice Claw Bear · Snow Leopards = {npc:1201} Snow Leopard · Large Crag Boars = {npc:1126} Large Crag Boar
 	["Back east through {area:131}: {npc:1252} by Eric's campfire takes the {quest:287} report, and {npc:1269} the cogs and gears. The Shaman quest here waits for level 10: a Shaman still short of it finishes on the Ice Claw Bears (7-8), Snow Leopards and Large Crag Boars in the fields just south of {area:131}."] = "Vuelve al este por {area:131}: {npc:1252}, junto a la hoguera de Eric, recoge el informe de {quest:287}, y {npc:1269}, los engranajes. La misión de chamán de aquí requiere nivel 10: si a un chamán aún le falta, que termine con los Osos zarpahelada (7-8), Leopardos de la nieve y Grandes jabalíes del risco en los campos justo al sur de {area:131}.",
 	-- {npc:1252} Senir Whitebeard · {npc:1274} Senator Barin Redstone · {zone:1455} Ironforge
-	["{npc:1252}: {npc:1274} in {zone:1455} takes it"] = "",
+	["{npc:1252}: {npc:1274} in {zone:1455} takes it"] = "{npc:1252}: la recoge {npc:1274} en {zone:1455}",
 	-- {npc:1269} Razzle Sprysprocket
-	["{npc:1269}, below ground"] = "",
+	["{npc:1269}, below ground"] = "{npc:1269}, bajo tierra",
 	-- {npc:258113} Ingrid Dunwald · {npc:257597} Bruegs Kindleborn
 	["{npc:258113}: {npc:257597} by the South Gate takes it"] = "{npc:258113}: la recoge {npc:257597}, junto a la Puerta Sur",
 
@@ -310,7 +310,7 @@ return {
 	-- {area:131} Kharanos · {zone:1426} Dun Morogh
 	["Follow the road north-east from {area:131} to the depot: the whole east of {zone:1426} is one sweep from here."] = "",
 	-- {npc:1377} Pilot Stonegear
-	["{npc:1377}, beside him"] = "",
+	["{npc:1377}, beside him"] = "{npc:1377}, a su lado",
 
 	-- Step 50: Misty Pine Refuge
 	-- {area:138} Misty Pine Refuge
@@ -328,7 +328,7 @@ return {
 
 	-- Step 54: Misty Pine Refuge: kill these as you meet them
 	-- {area:138} Misty Pine Refuge
-	["{area:138}: kill these as you meet them"] = "",
+	["{area:138}: kill these as you meet them"] = "{area:138}: mátalos según te los encuentres",
 	-- {quest:99160} Rime's Wrath
 	-- plural, as words: Minor Ice Elementals = {npc:276003} Minor Ice Elemental
 	["The three rifles lie in the snow around the frozen lake by the refuge. Minor Ice Elementals drift around the lake and along the way: kill them as you go for {quest:99160}.\nFinish off the Minor Ice Elementals around the small lake just west of the refuge if you are still short."] = "",
@@ -410,7 +410,7 @@ return {
 	-- {npc:1572} Thorgrum Borrelson
 	["{npc:1572}, the gryphon master"] = "",
 	-- {npc:1572} Thorgrum Borrelson · {npc:4256} Golnir Bouldertoe · {zone:1455} Ironforge
-	["{npc:1572}: for {npc:4256} in {zone:1455}"] = "",
+	["{npc:1572}: for {npc:4256} in {zone:1455}"] = "{npc:1572}: para {npc:4256} en {zone:1455}",
 
 	-- Step 85: The west hills and the Algaz Station
 	-- {area:925} Algaz Station
@@ -430,7 +430,7 @@ return {
 	-- plural, as words: Forest Lurkers = {npc:1195} Forest Lurker
 	["{item:3174}: Forest Lurkers"] = "",
 	-- {npc:5413} Furen Longbeard · {zone:1453} Stormwind
-	["{npc:5413} in {zone:1453} takes it"] = "",
+	["{npc:5413} in {zone:1453} takes it"] = "La recoge {npc:5413} en {zone:1453}",
 
 	-- Step 86: Silver Stream Mine
 	-- {item:5026} Fire Tar
@@ -444,7 +444,7 @@ return {
 
 	-- Step 87: Back to the Algaz Station
 	-- {area:925} Algaz Station
-	["Back to the {area:925}"] = "",
+	["Back to the {area:925}"] = "Vuelve a {area:925}",
 
 	-- Step 88: Thelsamar
 	-- {area:144} Thelsamar · {npc:1340} Mountaineer Kadrell
@@ -479,7 +479,7 @@ return {
 	-- {npc:4256} Golnir Bouldertoe · {object:32372} Great Forge (no name in this language: may be words) · {npc:1573} Gryth Thurden · {area:144} Thelsamar
 	["{npc:4256} works at the {object:32372}'s north end, and {npc:1573} keeps the gryphons in the {object:32372}, where the flight from {area:144} lands."] = "{npc:4256} trabaja en el extremo norte de {object:32372}, y {npc:1573} cuida de los grifos en {object:32372}, donde aterriza el vuelo desde {area:144}.",
 	-- {npc:4256} Golnir Bouldertoe · {object:32372} Great Forge (no name in this language: may be words)
-	["{npc:4256}, in the {object:32372}"] = "",
+	["{npc:4256}, in the {object:32372}"] = "{npc:4256}, en {object:32372}",
 	-- {npc:1573} Gryth Thurden · {object:32372} Great Forge (no name in this language: may be words)
 	["{npc:1573}, the gryphon master in the {object:32372}"] = "{npc:1573}, el maestro de grifos de {object:32372}",
 
@@ -497,7 +497,7 @@ return {
 
 	-- Step 95: The Tome of Divinity
 	-- {item:6775} Tome of Divinity
-	["The {item:6775}"] = "",
+	["The {item:6775}"] = "La {item:6775}",
 	-- {object:32383} Forlorn Cavern · {object:32362} Mystic Ward (no name in this language: may be words) · {npc:5149} Brandur Ironhammer · {npc:6179} Tiza Battleforge · {npc:6178} Muiredon Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words) · {npc:6175} John Turner · {item:2589} Linen Cloth · {zone:1426} Dun Morogh
 	["West from the {object:32383} into the {object:32362}: {npc:5149}, {npc:6179} and {npc:6178} are in the {object:32386}, Tiza and Muiredon on its upper floor: the stairs up start just north-east of {npc:5149}. {npc:6175}, a beggar, wanders the city. He asks for ten {item:2589}: the troggs and trolls of {zone:1426} drop it, and the Auction House sells it."] = "",
 
@@ -569,7 +569,7 @@ return {
 
 	-- Step 109: Stormwind flight master
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "Maestro de vuelo de {zone:1453}",
 
 	-- Step 110: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District

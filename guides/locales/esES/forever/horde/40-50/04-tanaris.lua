@@ -105,7 +105,7 @@ return {
 	-- {item:8526} Violet Tragan · {zone:1425} Hinterlands
 	["the {item:8526} grows in the {zone:1425}, around level 48"] = "el {item:8526} crece en {zone:1425}, hacia el nivel 48",
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, dentro",
 	-- {npc:11758} Andi Lynn · {area:983} Dunemaul Compound · {area:1938} Broken Pillar
 	["{npc:11758}'s {area:983} stays in your log for the {area:1938} at about 52."] = "{area:983} de {npc:11758} se queda en tu registro para {area:1938}, hacia el nivel 52.",
 
@@ -134,11 +134,11 @@ return {
 
 	-- Step 27: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
-	["Boat to {area:16727}"] = "",
+	["Boat to {area:16727}"] = "Barco a {area:16727}",
 
 	-- Step 28: Into Searing Gorge
 	-- {zone:1427} Searing Gorge
-	["Into {zone:1427}"] = "",
+	["Into {zone:1427}"] = "Hacia {zone:1427}",
 
 	-- Step 29: Searing Gorge
 	-- {area:247} Grimesilt Dig Site

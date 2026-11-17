@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Into Eastern Plaguelands
 	-- {zone:1423} Eastern Plaguelands
-	["Into {zone:1423}"] = "",
+	["Into {zone:1423}"] = "Hacia {zone:1423}",
 
 	-- Step 2: Tirion Fordring
 	-- {zone:1423} Eastern Plaguelands · {npc:1855} Tirion Fordring · {area:2619} Thondroril River
@@ -53,7 +53,7 @@ return {
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "Vuela a {area:272}",
 	-- {area:2268} Light's Hope Chapel
-	["{area:2268} flight master"] = "",
+	["{area:2268} flight master"] = "Maestro de vuelo de {area:2268}",
 
 	-- Step 12: To Sorrow Hill
 	-- {area:197} Sorrow Hill
@@ -81,7 +81,7 @@ return {
 	-- {area:272} Tarren Mill · {area:2268} Light's Hope Chapel
 	["Ride back south to {area:272} and fly to {area:2268}."] = "Vuelve al sur hasta {area:272} y vuela a {area:2268}.",
 	-- {area:272} Tarren Mill
-	["{area:272} flight master"] = "",
+	["{area:272} flight master"] = "Maestro de vuelo de {area:272}",
 
 	-- Step 18: Light's Hope Chapel
 	-- {quest:5168} Heroes of Darrowshire
@@ -133,7 +133,7 @@ return {
 
 	-- Step 26: Plaguewood: kill these as you meet them
 	-- {area:2277} Plaguewood
-	["{area:2277}: kill these as you meet them"] = "",
+	["{area:2277}: kill these as you meet them"] = "{area:2277}: mátalos según te los encuentres",
 	-- {area:2272} Northdale · {area:2271} Eastwall Tower · {area:2273} Zul'Mashar
 	-- plural, as words: Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound · Noxious Plaguebats = {npc:8601} Noxious Plaguebat · Monstrous Plaguebats = {npc:8602} Monstrous Plaguebat
 	["Frenzied Plaguehounds share the fields around {area:2272} and {area:2271}, south of {area:2273}; Noxious Plaguebats fly over the fields of the north, and Monstrous Plaguebats around {area:2272} and {area:2271}. Careful: the hounds are 57-58 and the biggest Monstrous Plaguebats 58: pull them one at a time."] = "Los canes de peste demenciados recorren los campos alrededor de {area:2272} y {area:2271}, al sur de {area:2273}; los murcipestes nocivos sobrevuelan los campos del norte, y los murcipestes monstruosos, alrededor de {area:2272} y {area:2271}. Cuidado: los canes son de nivel 57-58 y los murcipestes monstruosos más grandes de 58: atráelos de uno en uno.",
@@ -162,7 +162,7 @@ return {
 
 	-- Step 32: Fly to Bloodvenom Post
 	-- {area:1997} Bloodvenom Post
-	["Fly to {area:1997}"] = "",
+	["Fly to {area:1997}"] = "Vuela a {area:1997}",
 	-- {zone:1454} Orgrimmar · {zone:1447} Azshara
 	["Hearth to {zone:1454}: the Hearthstone is still bound there from the {zone:1447} guide (Mages teleport). Then the flight master."] = "Usa la piedra de hogar para ir a {zone:1454}: sigue vinculada allí desde la guía de {zone:1447} (los magos se teletransportan). Luego, el maestro de vuelo.",
 	-- {zone:1454} Orgrimmar
@@ -182,7 +182,7 @@ return {
 
 	-- Step 35: Fly to Bloodvenom Post
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
 
 	-- Step 37: Deadwood Cauldron
 	-- {area:1762} Felpaw Village · {area:1769} Timbermaw Hold
@@ -229,7 +229,7 @@ return {
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "Vuela a {area:976}",
 	-- {area:2255} Everlook
-	["{area:2255} flight master"] = "",
+	["{area:2255} flight master"] = "Maestro de vuelo de {area:2255}",
 
 	-- Step 48: Gaeriyan
 	-- {item:11243} Videre Elixir · {area:976} Gadgetzan · {npc:9299} Gaeriyan
@@ -255,7 +255,7 @@ return {
 
 	-- Step 54: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
-	["Fly to {area:541}"] = "",
+	["Fly to {area:541}"] = "Vuela a {area:541}",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "Maestro de vuelo de {area:976}",
 

@@ -16,7 +16,7 @@ return {
 
 	-- Step 2: Fly to Grom'gol
 	-- {area:75} Stonard
-	["{area:75} flight master"] = "",
+	["{area:75} flight master"] = "Maestro de vuelo de {area:75}",
 
 	-- Step 3: Grom'gol Base Camp
 	-- {object:3202} Grom'gol (no name in this language: may be words) · {area:35} Booty Bay · {npc:1514} Mokk the Savage · {zone:1454} Orgrimmar · {object:2076} Bubbling Cauldron
@@ -60,7 +60,7 @@ return {
 
 	-- Step 9: The Cape of Stranglethorn: kill these as you meet them
 	-- {area:1577} The Cape of Stranglethorn
-	["{area:1577}: kill these as you meet them"] = "",
+	["{area:1577}: kill these as you meet them"] = "{area:1577}: mátalos según te los encuentres",
 	-- {object:759} Holy Spring · {area:35} Booty Bay
 	["West to the coast: the naga explorers wade along the shore and carry the reed bundles; the {object:759} bubbles in the hills just east of them. Then follow the coast south to {area:35}."] = "Al oeste, hasta la costa: los exploradores nagas vadean la orilla y llevan los haces de juncos; {object:759} burbujea en las colinas justo al este. Después sigue la costa al sur hasta {area:35}.",
 
@@ -68,10 +68,10 @@ return {
 	-- {area:35} Booty Bay · {npc:2494} Privateer Bloads · {npc:2486} Fin Fizracket · {npc:2498} Crank Fizzlebub · {npc:737} Kebok · {npc:773} Krazek
 	["In {area:35}: {npc:2494} on the docks, {npc:2486} by the inn, {npc:2498} inside it, MacKinley, {npc:737} and {npc:773} upstairs."] = "En {area:35}: {npc:2494} en los muelles, {npc:2486} junto a la posada, {npc:2498} dentro, MacKinley, {npc:737} y {npc:773} en el piso de arriba.",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "",
+	["{npc:2498}, inside"] = "{npc:2498}, dentro",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs"] = "",
+	["{npc:737}, upstairs"] = "{npc:737}, en el piso de arriba",
 	-- {npc:773} Krazek · {quest:2864} Tran'rek · {area:976} Gadgetzan
 	["{npc:773}, upstairs: for {quest:2864} in {area:976}, later in this guide"] = "{npc:773}, arriba: para {quest:2864} en {area:976}, más adelante en esta guía",
 
@@ -88,7 +88,7 @@ return {
 
 	-- Step 13: Fly to Grom'gol
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "Maestro de vuelo de {area:35}",
 
 	-- Step 14: Grom'gol Base Camp
 	-- {object:3202} Grom'gol (no name in this language: may be words) · {npc:2519} Kin'weelay · {npc:2465} Far Seer Mok'thardin
@@ -143,7 +143,7 @@ return {
 	-- {area:484} Freewind Post
 	["Fly to {area:484}"] = "Vuela a {area:484}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
 
 	-- Step 27: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -157,7 +157,7 @@ return {
 
 	-- Step 31: Fly to Freewind Post
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Maestro de vuelo de {area:392}",
 
 	-- Step 37: Gadgetzan
 	-- {area:976} Gadgetzan · {area:2240} Mirage Raceway · {zone:1446} Tanaris
@@ -175,7 +175,7 @@ return {
 
 	-- Step 40: To Gadgetzan
 	-- {area:976} Gadgetzan
-	["To {area:976}"] = "",
+	["To {area:976}"] = "A {area:976}",
 
 	-- Step 41: Gadgetzan
 	-- {area:976} Gadgetzan · {zone:1446} Tanaris
@@ -183,7 +183,7 @@ return {
 
 	-- Step 43: Noonshade Ruins: kill these as you meet them
 	-- {area:1937} Noonshade Ruins
-	["{area:1937}: kill these as you meet them"] = "",
+	["{area:1937}: kill these as you meet them"] = "{area:1937}: mátalos según te los encuentres",
 	-- {area:976} Gadgetzan
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: Luglunket wants five.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "Los bandidos y ladrones acampan en las dunas al este de {area:976}. Cualquier Deambulador puede llevar una bolsa de agua: Luglunket quiere cinco.\nCuidado: los Pícaros Deambuladores (nivel 43-44) se mueven en sigilo, así que pueden acercarse sin que los veas.",
@@ -191,9 +191,9 @@ return {
 	-- Step 45: Steamwheedle Port
 	["Ride north-east to the goblin harbour on the coast."] = "Cabalga hacia el noreste hasta Puerto Bonvapor, el puerto goblin de la costa.",
 	-- {npc:7882} Security Chief Bilgewhizzle
-	["{npc:7882}, inside"] = "",
+	["{npc:7882}, inside"] = "{npc:7882}, dentro",
 	-- {npc:7881} Stoley
-	["{npc:7881}, inside"] = "",
+	["{npc:7881}, inside"] = "{npc:7881}, dentro",
 	-- {npc:8579} Yeh'kinya · {zone:1444} Feralas
 	["{npc:8579}: the screechers live in {zone:1444}, on the next {zone:1444} visit"] = "{npc:8579}: los Pícaros estridadores del valle viven en {zone:1444}, en la próxima visita a {zone:1444}",
 	-- {npc:260405} Wharfmaster Steamfizzle · {zone:2548} Riverglades
@@ -201,14 +201,14 @@ return {
 
 	-- Step 46: Lost Rigger Cove: kill these as you meet them
 	-- {area:1336} Lost Rigger Cove
-	["{area:1336}: kill these as you meet them"] = "",
+	["{area:1336}: kill these as you meet them"] = "{area:1336}: mátalos según te los encuentres",
 	-- {npc:7883} Andre Firebeard
 	["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883} (45), and many more pirates from the town join the fight once it starts: pull his guards away from him first."] = "Al sur por la costa, los piratas del Mar del Sur ocupan la cala. {npc:7883} y el cargamento robado están en los muelles del fondo. Cualquier pirata puede soltar un sombrero; los secuestradores, más a menudo.\nCuidado: dos o tres piratas acompañan a {npc:7883} (45), y muchos más piratas del pueblo se unen a la pelea en cuanto empieza: aleja primero a sus guardias de él.",
-	["Upstairs"] = "",
+	["Upstairs"] = "Piso de arriba",
 
 	-- Step 47: Waterspring Field: kill these as you meet them
 	-- {area:985} Waterspring Field
-	["{area:985}: kill these as you meet them"] = "",
+	["{area:985}: kill these as you meet them"] = "{area:985}: mátalos según te los encuentres",
 	-- {area:976} Gadgetzan · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["The shadow mages, rogues and assassins camp south-east of {area:976}.\nSouth-east of Gadgetzan the Wastewander bandits camp in the dunes; {npc:7847} stands in the eastern camp.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "",
@@ -231,7 +231,7 @@ return {
 	-- {npc:8115} Witch Doctor Uzer'i · {zone:1454} Orgrimmar
 	["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}: para {zone:1454}, hacia el nivel 45",
 	-- {npc:7854} Jangdor Swiftstrider
-	["{npc:7854}, inside"] = "",
+	["{npc:7854}, inside"] = "{npc:7854}, dentro",
 
 	-- Step 53: Gordunni Outpost
 	-- {npc:222233} Ohk'zi
@@ -269,7 +269,7 @@ return {
 
 	-- Step 62: Ruins of Isildien: kill these as you meet them
 	-- {area:2522} Ruins of Isildien
-	["{area:2522}: kill these as you meet them"] = "",
+	["{area:2522}: kill these as you meet them"] = "{area:2522}: mátalos según te los encuentres",
 	-- {area:1105} Feral Scar Vale
 	["Ride west from the hive to the ogre ruins below {area:1105}. Shamans, warlocks and maulers fill them; the Mage-Lords at the southern end carry the orb.\nCareful: the Mage-Lords (45-46) and the Shamans cast from range and the ruins are packed: pull one at a time from the edge."] = "Cabalga hacia el oeste desde la colmena hasta las ruinas de ogros bajo {area:1105}. Están llenas de chamanes, brujos y destructores; los Señores de la Magia del extremo sur llevan el orbe.\nCuidado: los Señores de la Magia (45-46) y los chamanes lanzan hechizos a distancia y las ruinas están abarrotadas: atráelos de uno en uno desde el borde.",
 	-- {npc:5234} Gordunni Mauler · {area:2522} Ruins of Isildien
@@ -289,7 +289,7 @@ return {
 	-- {zone:1444} Feralas
 	["the Rage Scar yetis, on the next visit to {zone:1444}"] = "",
 	-- {npc:7875} Hadoken Swiftstrider · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
-	["{npc:7875}: for {npc:7010} in {zone:1454}"] = "",
+	["{npc:7875}: for {npc:7010} in {zone:1454}"] = "{npc:7875}: para {npc:7010} en {zone:1454}",
 	-- {zone:1454} Orgrimmar · {zone:2652} Shen'dralas
 	["for {zone:1454}, after {zone:2652}"] = "para {zone:1454}, después de {zone:2652}",
 	-- {zone:2652} Shen'dralas · {area:1099} Camp Mojache · {zone:1443} Desolace · {zone:1454} Orgrimmar · {npc:4485} Belgrom Rockmaul · {npc:7311} Uthel'nay

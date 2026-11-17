@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Into Winterspring
 	-- {zone:1452} Winterspring
-	["Into {zone:1452}"] = "",
+	["Into {zone:1452}"] = "Hacia {zone:1452}",
 
 	-- Step 2: Salfa
 	-- {npc:11556} Salfa · {zone:1452} Winterspring · {area:1769} Timbermaw Hold
@@ -38,11 +38,11 @@ return {
 	-- {npc:11556} Salfa · {npc:9298} Donova Snowden · {item:14047} Runecloth · {area:1584} Blackrock Depths · {area:2577} Dire Maul
 	["The western Winterfall camp sits in the hills between {npc:11556} and {npc:9298}. Top up here first to level 55 on its Pathfinders (53-54) at the camp's edge: the Den Watchers inside are 55-56. Killing them raises your Timbermaw reputation and fills your bags with {item:14047} for Meilosh. Or, with a group, run {area:1584} or {area:2577} instead."] = "El campamento Nevada del oeste está en las colinas entre {npc:11556} y {npc:9298}. Sube primero aquí hasta el nivel 55 con sus Exploradores (53-54) en el borde del campamento: los Vigías de la guarida del interior son de nivel 55-56. Matarlos aumenta tu reputación con los Fauces de Madera y te llena las bolsas de {item:14047} para Meilosh. O, si tienes grupo, haz {area:1584} o {area:2577}.",
 	-- {npc:7442} Winterfall Pathfinder
-	["grind on {npc:7442}"] = "",
+	["grind on {npc:7442}"] = "mata {npc:7442}",
 
 	-- Step 9: Frostfire Hot Springs: kill these as you meet them
 	-- {area:2246} Frostfire Hot Springs
-	["{area:2246}: kill these as you meet them"] = "",
+	["{area:2246}: kill these as you meet them"] = "{area:2246}: mátalos según te los encuentres",
 	-- {item:12771} Empty Firewater Flask · {quest:8471} Winterfall Ritual Totem · {item:14047} Runecloth
 	["Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need) and a {quest:8471} (about one in thirty): right-click whichever drops. Keep the {item:14047} the furbolgs drop for Meilosh."] = "Cualquier fúrbolg de aquí puede soltar un {item:12771} (más o menos uno de cada diez: sale entre las muertes que piden estas misiones) y un {quest:8471} (más o menos uno de cada treinta): haz clic derecho en el que caiga. Guarda el {item:14047} que sueltan los fúrbolgs para Meilosh.",
 
@@ -67,7 +67,7 @@ return {
 
 	-- Step 14: Ice Thistle Hills: kill these as you meet them
 	-- {area:2247} Ice Thistle Hills
-	["{area:2247}: kill these as you meet them"] = "",
+	["{area:2247}: kill these as you meet them"] = "{area:2247}: mátalos según te los encuentres",
 	-- {area:2244} Winterfall Village · {area:2255} Everlook
 	-- plural, as words: Chillwind Chimaeras = {npc:7448} Chillwind Chimaera · Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti · Rogue Ice Thistles = {npc:7457} Rogue Ice Thistle · Fledgling Chillwinds = {npc:7447} Fledgling Chillwind · Chillwind Ravagers = {npc:7449} Chillwind Ravager
 	["Ice Thistle yetis live in the hills south of {area:2244}, Chillwind Chimaeras in the valley toward {area:2255}.\nCareful: the Ice Thistle Yetis are 55-56 and the Chimaeras 55-57: take the Rogue Ice Thistles (53-55) and the Fledgling Chillwinds (53-55) at the edge of the hills, and leave the Chillwind Ravagers (57-59) alone."] = "Los yetis Cardo Nevado viven en las colinas al sur de {area:2244}, y las Quimeras Viento Gélido en el valle hacia {area:2255}.\nCuidado: los Yetis Cardo Nevado son de nivel 55-56 y las Quimeras de 55-57: ve a por los Cardos Nevados huidos (53-55) y los Volantones Viento Gélido (53-55) del borde de las colinas, y deja en paz a los Devastadores Viento Gélido (57-59).",
@@ -109,7 +109,7 @@ return {
 	-- Step 22: Fly to Theramore
 	["Fly to Theramore"] = "Vuela a Theramore",
 	-- {area:2255} Everlook
-	["{area:2255} flight master"] = "",
+	["{area:2255} flight master"] = "Maestro de vuelo de {area:2255}",
 
 	-- Step 23: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
@@ -117,7 +117,7 @@ return {
 
 	-- Step 24: Fly to Chillwind Camp
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "Maestro de vuelo de {area:150}",
 
 	-- Step 25: Chillwind Camp
 	["Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master."] = "Puracorazón, Dumah, Puño de Valor y MacDonnell están por el centro del campamento, junto al maestro de vuelo.",
@@ -152,7 +152,7 @@ return {
 
 	-- Step 30: Into Eastern Plaguelands
 	-- {zone:1423} Eastern Plaguelands
-	["Into {zone:1423}"] = "",
+	["Into {zone:1423}"] = "Hacia {zone:1423}",
 
 	-- Step 32: Pamela Redpath
 	-- {zone:1423} Eastern Plaguelands · {area:2262} Darrowshire · {npc:10926} Pamela Redpath

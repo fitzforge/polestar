@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Into Winterspring
 	-- {zone:1452} Winterspring
-	["Into {zone:1452}"] = "",
+	["Into {zone:1452}"] = "Hacia {zone:1452}",
 
 	-- Step 2: Salfa
 	-- {npc:11556} Salfa · {zone:1452} Winterspring · {area:1769} Timbermaw Hold
@@ -23,7 +23,7 @@ return {
 
 	-- Step 4: Frostfire Hot Springs: kill these as you meet them
 	-- {area:2246} Frostfire Hot Springs
-	["{area:2246}: kill these as you meet them"] = "",
+	["{area:2246}: kill these as you meet them"] = "{area:2246}: mátalos según te los encuentres",
 	-- {item:14047} Runecloth
 	-- plural, as words: Ragged Owlbeasts = {npc:7450} Ragged Owlbeast
 	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "Abrecaminos, vigías del cubil y totémicos comparten los campamentos fúrbolg alrededor de las fuentes termales; las Lechubestias pulgosas deambulan por las laderas entre ellos. Mata primero a los totémicos. Guarda todo el {item:14047} que consigas para Meilosh.\nCuidado: los vigías del cubil llegan al nivel 56: atráelos de uno en uno y aléjate de los tótems de los campamentos.",
@@ -48,7 +48,7 @@ return {
 	["{area:2255} is the goblin town on the east side of the valley, past the owlbeast hills."] = "{area:2255} es el pueblo goblin del lado este del valle, pasadas las colinas de los lechúcicos.",
 	["Gregor's quests lead to other zones: keep them."] = "Las misiones de Gregor llevan a otras zonas: guárdalas.",
 	-- {npc:10431} Gregor Greystone
-	["{npc:10431}, inside"] = "",
+	["{npc:10431}, inside"] = "{npc:10431}, dentro",
 
 	-- Step 9: Ice Thistle yetis
 	["Ice Thistle yetis"] = "Yetis Cardo Nevado",
@@ -71,7 +71,7 @@ return {
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "Vuela a {area:1099}",
 	-- {area:2255} Everlook
-	["{area:2255} flight master"] = "",
+	["{area:2255} flight master"] = "Maestro de vuelo de {area:2255}",
 
 	-- Step 14: Evoroot
 	-- {item:11242} Evoroot · {npc:7775} Gregan Brewspewer · {area:1114} Ruins of Ravenwind
@@ -107,7 +107,7 @@ return {
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Vuela a {area:1637}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
 
 	-- Step 23: Vehena
 	-- {object:172961} Valley of Spirits

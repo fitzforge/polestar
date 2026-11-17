@@ -41,7 +41,7 @@ return {
 	-- {npc:12046} Gor'marok the Ravager
 	["Ride south to the ogre compound. Brutes and Enforcers (46-48) fill it; {npc:12046} (49) stands in the middle with guards around him: clear them first."] = "Cabalga hacia el sur hasta el complejo ogro. Está lleno de brutos y déspotas (46-48); {npc:12046} (49) está en el centro rodeado de guardias: elimínalos primero.",
 	-- {npc:12046} Gor'marok the Ravager
-	["{npc:12046}, below ground"] = "",
+	["{npc:12046}, below ground"] = "{npc:12046}, bajo tierra",
 
 	-- Step 10: Thistleshrub Valley: kill these as you meet them
 	-- {quest:3362} Thistleshrub Valley
@@ -54,7 +54,7 @@ return {
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn
 	["Ride back north-east to {area:976}: {npc:11758} stands on the east side of town."] = "Cabalga de vuelta hacia el noreste hasta {area:976}: {npc:11758} está en el lado este del pueblo.",
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, dentro",
 
 	-- Step 12: The Gaping Chasm
 	-- {area:1938} Broken Pillar · {area:981} The Gaping Chasm
@@ -125,7 +125,7 @@ return {
 
 	-- Step 23: Marshal's Refuge
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, below ground"] = "",
+	["{npc:9117}, below ground"] = "{npc:9117}, bajo tierra",
 	-- {npc:7775} Gregan Brewspewer · {zone:1444} Feralas
 	["For {npc:7775} in {zone:1444}: keep it"] = "Para {npc:7775} en {zone:1444}: guárdala",
 
@@ -134,11 +134,11 @@ return {
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
 	["Still short of level 49.79 after the refuge's hand-ins? Top up on the Bloodpetal Lashers and Threshers (48-50) of the eastern jungle, where you took the petals, before you leave the crater."] = "¿Aún te falta para el nivel 49.79 tras las entregas del refugio? Sube con los Azotadores y Trilladores Sangrepétalo (48-50) de la jungla del este, donde cogiste los pétalos, antes de salir del cráter.",
 	-- {npc:6511} Bloodpetal Thresher
-	["grind on {npc:6511}"] = "",
+	["grind on {npc:6511}"] = "mata {npc:6511}",
 
 	-- Step 25: Fly to Astranaar
 	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	["Fly to {area:415}"] = "Vuela a {area:415}",
 	-- {zone:1455} Ironforge · {zone:1427} Searing Gorge · {zone:1440} Ashenvale · {zone:1447} Azshara
 	["The {zone:1455} quests were taken at the end of the {zone:1427} guide: fly straight on to {zone:1440} for {zone:1447}."] = "Las misiones de {zone:1455} se cogieron al final de la guía de {zone:1427}: vuela directamente a {zone:1440} para ir a {zone:1447}.",
 	-- {area:541} Marshal's Refuge
@@ -156,7 +156,7 @@ return {
 
 	-- Step 30: Fly to Astranaar
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "Maestro de vuelo de {area:442}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Archesonus stands beside King Magni in the {object:171709}."] = "Archesonus está junto al rey Magni en {object:171709}.",

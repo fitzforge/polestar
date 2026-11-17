@@ -18,7 +18,7 @@ return {
 
 	-- Step 3: Into Ashenvale
 	-- {zone:1440} Ashenvale
-	["Into {zone:1440}"] = "",
+	["Into {zone:1440}"] = "Hacia {zone:1440}",
 	-- {area:431} Splintertree Post
 	["The road north to {area:431}"] = "",
 
@@ -73,7 +73,7 @@ return {
 	-- {quest:1063} The Elder Crone · {area:1638} Thunder Bluff · {area:2897} Zoram'gar Outpost · {npc:4046} Magatha Grimtotem · {npc:3419} Apothecary Zamah · {npc:2216} Apothecary Lydon · {area:272} Tarren Mill · {zone:1454} Orgrimmar
 	["{quest:1063} first: fly to {area:1638} from the {area:2897} flight master. {npc:4046} and {npc:3419} send you to {npc:2216} in {area:272}, the next guide's base, and {area:1638}'s flight path takes you on to {zone:1454}."] = "Primero {quest:1063}: vuela a {area:1638} desde el maestro de vuelo de {area:2897}. {npc:4046} y {npc:3419} te envían con {npc:2216} en {area:272}, la base de la siguiente guía, y la ruta de vuelo de {area:1638} te lleva luego a {zone:1454}.",
 	-- {area:2897} Zoram'gar Outpost
-	["{area:2897} flight master"] = "",
+	["{area:2897} flight master"] = "Maestro de vuelo de {area:2897}",
 
 	-- Step 14: Fly to Camp Taurajo
 	-- {area:378} Camp Taurajo

@@ -32,7 +32,7 @@ return {
 
 	-- Step 5: Back to Amaryllis Webb
 	-- {npc:217412} Amaryllis Webb
-	["Back to {npc:217412}"] = "",
+	["Back to {npc:217412}"] = "Vuelve con {npc:217412}",
 	-- {npc:217412} Amaryllis Webb · {item:280456} Weevil K. Neevil
 	["Hand {npc:217412} the three specimens: she gives you {item:280456} and 35s."] = "",
 

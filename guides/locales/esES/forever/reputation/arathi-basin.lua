@@ -35,7 +35,7 @@ return {
 
 	-- Step 3: Back to Refuge Pointe
 	-- {area:320} Refuge Pointe
-	["Back to {area:320}"] = "",
+	["Back to {area:320}"] = "Vuelve a {area:320}",
 	["hand in the three marks first"] = "",
 
 	-- Step 4: League of Arathor to Friendly

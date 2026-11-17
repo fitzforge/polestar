@@ -57,7 +57,7 @@ return {
 
 	-- Step 9: The Crystalline Tear
 	-- {object:180633} Crystalline Tear
-	["The {object:180633}"] = "",
+	["The {object:180633}"] = "{object:180633}",
 	-- {object:180633} Crystalline Tear · {area:3428} Ahn'Qiraj · {zone:1451} Silithus
 	["The {object:180633} is a small red crystal on the ground just outside the gates of {area:3428}, in the far south-west of {zone:1451}. Click it, then stay and watch the vision of the War of the Shifting Sands to its end. If it is cut short, abandon the quest and click the Tear again."] = "",
 	["Watch the vision"] = "",
@@ -100,7 +100,7 @@ return {
 
 	-- Step 17: Back to Narain Soothfancy
 	-- {npc:11811} Narain Soothfancy
-	["Back to {npc:11811}"] = "",
+	["Back to {npc:11811}"] = "Vuelve con {npc:11811}",
 	-- {quest:8606} Decoy! · {npc:11811} Narain Soothfancy · {area:2255} Everlook · {zone:1452} Winterspring · {npc:15554} Number Two
 	["{quest:8606} sends you, disguised with {npc:11811}'s turban, to a drop-off point south of {area:2255} in {zone:1452}. Leave the bag of gold there: {npc:15554}, a level 61 elite, comes for it (group of 3 to 5)."] = "",
 
@@ -114,7 +114,7 @@ return {
 
 	-- Step 20: The Isle of Dread
 	-- {area:1121} Isle of Dread
-	["The {area:1121}"] = "",
+	["The {area:1121}"] = "{area:1121}",
 	-- {npc:12803} Lord Lakmaeran · {area:1121} Isle of Dread
 	["{npc:12803} and the Chimaerok on the {area:1121} are elites of level 60 to 62 that respawn every ten minutes: a raid's work. The Chimaerok drop a tenderloin about half the time, Lakmaeran two to four now and then."] = "",
 	-- {item:21027} Lakmaeran's Carcass · {npc:12803} Lord Lakmaeran
@@ -153,7 +153,7 @@ return {
 
 	-- Step 25: The Forest Wisp
 	-- {npc:15624} Forest Wisp
-	["The {npc:15624}"] = "",
+	["The {npc:15624}"] = "El {npc:15624}",
 	-- {npc:15624} Forest Wisp
 	["{npc:15624}: 25 (and 25 Cenarion Circle)"] = "",
 

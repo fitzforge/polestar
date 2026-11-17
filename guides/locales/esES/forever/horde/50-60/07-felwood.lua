@@ -25,7 +25,7 @@ return {
 
 	-- Step 6: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
-	["Fly to {area:431}"] = "",
+	["Fly to {area:431}"] = "Vuela a {area:431}",
 
 	-- Step 7: Felwood
 	-- {area:2479} Emerald Sanctuary
@@ -35,7 +35,7 @@ return {
 	-- {area:431} Splintertree Post · {zone:1440} Ashenvale · {zone:1448} Felwood · {area:2479} Emerald Sanctuary
 	["Fly to {area:431} and ride north-west along the road out of {zone:1440} into {zone:1448}. The {area:2479} is the druids' camp just past the border."] = "Vuela a {area:431} y cabalga hacia el noroeste por el camino que sale de {zone:1440} y entra en {zone:1448}. {area:2479} es el campamento de los druidas justo pasada la frontera.",
 	-- {npc:9116} Eridan Bluewind
-	["{npc:9116}, inside"] = "",
+	["{npc:9116}, inside"] = "{npc:9116}, dentro",
 	-- {npc:9116} Eridan Bluewind · {item:11173} Irontree Heart · {zone:1448} Felwood
 	["{npc:9116}'s Silver Heart needs an {item:11173} from northern {zone:1448} and a ride back here. Skip it."] = "Corazón de plata, de {npc:9116}, pide un {item:11173} del norte de {zone:1448} y volver hasta aquí. Omítela.",
 
@@ -67,7 +67,7 @@ return {
 
 	-- Step 14: Captured Arko'narin
 	-- {npc:11016} Captured Arko'narin
-	["{npc:11016}, below ground"] = "",
+	["{npc:11016}, below ground"] = "{npc:11016}, bajo tierra",
 
 	-- Step 15: Maybess Riverbreeze
 	-- {npc:9529} Maybess Riverbreeze
@@ -127,7 +127,7 @@ return {
 	-- plural, as words: Rabid Shardtooths = {npc:7446} Rabid Shardtooth
 	["Top up here to level 59.9 before the hand-ins at {zone:1452}: they take you to level 60. The Rabid Shardtooths (59) of {area:2249}, just north of the strange source, give far more experience than the furbolgs by {area:1769}. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "",
 	-- {npc:7446} Rabid Shardtooth
-	["grind on {npc:7446}"] = "",
+	["grind on {npc:7446}"] = "mata {npc:7446}",
 
 	-- Step 33: Are We There, Yeti?
 	-- {area:2255} Everlook

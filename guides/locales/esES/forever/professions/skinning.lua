@@ -112,7 +112,7 @@ return {
 	-- {npc:2164} Rabid Thistle Bear
 	["{npc:2164}, Moonstalker"] = "{npc:2164}, Acechalunas",
 	-- {npc:2165} Grizzled Thistle Bear
-	["{npc:2165}, Moonstalker"] = "",
+	["{npc:2165}, Moonstalker"] = "{npc:2165}, Acechalunas",
 	-- {npc:2164} Rabid Thistle Bear
 	["Moonstalker, {npc:2164}"] = "Acechalunas, {npc:2164}",
 
@@ -128,7 +128,7 @@ return {
 	-- {npc:1778} Ferocious Grizzled Bear · {npc:1766} Mottled Worg · {npc:1797} Giant Grizzled Bear · {npc:1923} Bloodsnout Worg · {skill:393} Skinning
 	["Kill and skin Worg (10), {npc:1778} (11), {npc:1766} (11), {npc:1797} (12), {npc:1923} (16, needs 60) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 160 beasts for these 50 points."] = "Mata y despelleja Lupo (10), {npc:1778} (11), {npc:1766} (11), {npc:1797} (12), {npc:1923} (16, requiere 60) a lo largo del circuito hasta {skill:393} 100; despoja cada cadáver, luego despelléjalo, y despelleja las bestias de mayor nivel que permita tu habilidad. Una bestia de nivel L requiere habilidad (L-10)x10 hasta nivel 20 y Lx5 por encima. Nivel de la zona 10-20. Calcula unas 160 bestias para estos 50 puntos.",
 	-- {npc:1778} Ferocious Grizzled Bear
-	["{npc:1778}, Worg"] = "",
+	["{npc:1778}, Worg"] = "{npc:1778}, Lupo",
 	-- {npc:1766} Mottled Worg
 	["Worg, {npc:1766}"] = "",
 	-- {npc:1766} Mottled Worg

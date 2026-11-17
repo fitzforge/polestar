@@ -12,7 +12,7 @@ return {
 
 	-- Step 3: Sorrow Hill: kill these as you meet them
 	-- {area:197} Sorrow Hill
-	["{area:197}: kill these as you meet them"] = "",
+	["{area:197}: kill these as you meet them"] = "{area:197}: mátalos según te los encuentres",
 	-- {quest:5401} Argent Dawn Commission · {npc:10411} Eye of Naxxramas
 	-- plural, as words: Skeletal Flayers = {npc:1783} Skeletal Flayer · Slavering Ghouls = {npc:1791} Slavering Ghoul · Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
 	["Skeletal Flayers and Slavering Ghouls roam the fields north of the camp; all the Scourge here drop Scourgestones while you wear the {quest:5401} (equip it as a trinket first).\nCareful: These undead notice you from far away, and other undead nearby join the fight when one is pulled.\nCareful: The {npc:10411} (3 spawns, 15 min respawn) turns invisible when out of combat and calls in Rockwing Gargoyles once a fight starts."] = "Los Despellejadores esqueléticos y los Necrófagos esclavizantes merodean por los campos al norte del campamento; toda la Plaga de aquí suelta Piedras de la Plaga mientras lleves la {quest:5401} (equípala antes como abalorio).\nCuidado: estos no-muertos te detectan desde muy lejos, y otros no-muertos cercanos se unen al combate cuando atraes a uno.\nCuidado: el {npc:10411} (3 apariciones, reaparece en 15 min) se vuelve invisible fuera de combate y llama a Gárgolas Ventorroca en cuanto empieza el combate.",
@@ -20,7 +20,7 @@ return {
 	-- Step 4: Marlene Redpath
 	-- {npc:10927} Marlene Redpath · {npc:10936} Joseph Redpath
 	["{npc:10927}'s farmhouse stands on the hill east of the camp; {npc:10936}'s monument is just north of it."] = "La granja de {npc:10927} está en la colina al este del campamento; el monumento de {npc:10936} está justo al norte.",
-	["Upstairs"] = "",
+	["Upstairs"] = "Piso de arriba",
 	-- {item:12894} Joseph's Wedding Ring
 	["{item:12894}, at the monument"] = "{item:12894}, en el monumento",
 
@@ -30,7 +30,7 @@ return {
 
 	-- Step 6: The Writhing Haunt: kill these as you meet them
 	-- {area:202} The Writhing Haunt
-	["{area:202}: kill these as you meet them"] = "",
+	["{area:202}: kill these as you meet them"] = "{area:202}: mátalos según te los encuentres",
 	-- {item:12841} Invader's Scourgestone · {quest:5401} Argent Dawn Commission
 	["{item:12841}: wear the {quest:5401} while you kill"] = "{item:12841}: lleva puesta la {quest:5401} mientras matas",
 
@@ -132,7 +132,7 @@ return {
 	-- {area:2268} Light's Hope Chapel
 	["Fly to {area:2268}"] = "Vuela a {area:2268}",
 	-- {area:3197} Chillwind Camp
-	["{area:3197} flight master"] = "",
+	["{area:3197} flight master"] = "Maestro de vuelo de {area:3197}",
 
 	-- Step 35: Aurora Skycaller
 	-- {area:2276} Quel'Lithien Lodge · {area:2277} Plaguewood
@@ -163,7 +163,7 @@ return {
 
 	-- Step 40: Plaguewood: kill these as you meet them
 	-- {area:2277} Plaguewood
-	["{area:2277}: kill these as you meet them"] = "",
+	["{area:2277}: kill these as you meet them"] = "{area:2277}: mátalos según te los encuentres",
 	-- plural, as words: Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound
 	["Careful: the Frenzied Plaguehounds are 57-58: pull them one at a time."] = "Cuidado: los Canes de peste demenciados son de nivel 57-58: atráelos de uno en uno.",
 
@@ -194,13 +194,13 @@ return {
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "Vuela a {area:271}",
 	-- {area:348} Aerie Peak
-	["{area:348} flight master"] = "",
+	["{area:348} flight master"] = "Maestro de vuelo de {area:348}",
 
 	-- Step 50: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
-	["Fly to {area:702}"] = "",
+	["Fly to {area:702}"] = "Vuela a {area:702}",
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "Maestro de vuelo de {area:442}",
 
 	-- Step 51: Rut'theran Village
 	-- {zone:1452} Winterspring
@@ -238,7 +238,7 @@ return {
 
 	-- Step 62: Boat to The Forgotten Coast
 	-- {area:1108} The Forgotten Coast
-	["Boat to {area:1108}"] = "",
+	["Boat to {area:1108}"] = "Barco a {area:1108}",
 
 	-- Step 63: Gregan Brewspewer
 	-- {area:1119} Twin Colossals · {npc:7775} Gregan Brewspewer · {item:11243} Videre Elixir · {item:11242} Evoroot
@@ -269,7 +269,7 @@ return {
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "Vuela a {area:392}",
 	-- {area:489} Thalanaar
-	["{area:489} flight master"] = "",
+	["{area:489} flight master"] = "Maestro de vuelo de {area:489}",
 
 	-- Step 71: Fly to Theramore
 	["Fly to Theramore"] = "Vuela a Theramore",
@@ -288,9 +288,9 @@ return {
 
 	-- Step 74: Fly to Everlook
 	-- {area:2255} Everlook
-	["Fly to {area:2255}"] = "",
+	["Fly to {area:2255}"] = "Vuela a {area:2255}",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Maestro de vuelo de {area:392}",
 
 	-- Step 76: Donova Snowden
 	["Ride west along the road to the hot springs."] = "Cabalga al oeste por el camino hasta las fuentes termales.",
@@ -315,7 +315,7 @@ return {
 
 	-- Step 81: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, dentro",
 	-- {npc:7583} Sprinkle
 	["On {npc:7583}"] = "Con {npc:7583}",
 	-- {npc:7583} Sprinkle · {item:12928} Umi's Mechanical Yeti
@@ -337,7 +337,7 @@ return {
 
 	-- Step 85: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
-	["Fly to {area:541}"] = "",
+	["Fly to {area:541}"] = "Vuela a {area:541}",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "Maestro de vuelo de {area:976}",
 
@@ -345,7 +345,7 @@ return {
 	-- {area:976} Gadgetzan · {area:541} Marshal's Refuge · {npc:8737} Linken · {npc:9117} J.D. Collie · {npc:9997} Spraggle Frock · {npc:9999} Ringo
 	["Fly from {area:976} to {area:541}. {npc:8737} stands at the back of the refuge; {npc:9117} is in the cave behind him.\n{npc:9997}'s friend {npc:9999} has gone missing."] = "Vuela de {area:976} a {area:541}. {npc:8737} está al fondo del refugio; {npc:9117} está en la cueva detrás de él.\n{npc:9999}, amigo de {npc:9997}, ha desaparecido.",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, below ground"] = "",
+	["{npc:9117}, below ground"] = "{npc:9117}, bajo tierra",
 	-- {npc:9997} Spraggle Frock
 	["The wooden sign beside {npc:9997}"] = "El cartel de madera junto a {npc:9997}",
 
@@ -372,7 +372,7 @@ return {
 	-- {item:9328} Super Snapper FX
 	["If you skipped The {item:9328}, grind here to level 56.89 to stay on the route's plan."] = "",
 	-- {npc:11740} Dredge Striker
-	["grind on {npc:11740}"] = "",
+	["grind on {npc:11740}"] = "mata {npc:11740}",
 
 	-- Step 93: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
@@ -440,7 +440,7 @@ return {
 
 	-- Step 108: Lakkari Tar Pits: kill these as you meet them
 	-- {area:538} Lakkari Tar Pits
-	["{area:538}: kill these as you meet them"] = "",
+	["{area:538}: kill these as you meet them"] = "{area:538}: mátalos según te los encuentres",
 	-- {area:538} Lakkari Tar Pits
 	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Tar Lords = {npc:6519} Tar Lord
 	["The Tar Beasts and Tar Lords wallow in the {area:538}, south of the refuge on the way down into the crater."] = "Las bestias de alquitrán y los señores del alquitrán se revuelcan en {area:538}, al sur del refugio, en la bajada al cráter.",
@@ -489,7 +489,7 @@ return {
 
 	-- Step 120: The Marshlands: kill these as you meet them
 	-- {area:1942} The Marshlands
-	["{area:1942}: kill these as you meet them"] = "",
+	["{area:1942}: kill these as you meet them"] = "{area:1942}: mátalos según te los encuentres",
 
 	-- Step 121: The Gorishi hive
 	["The Gorishi hive"] = "La colmena Gorishi",
@@ -502,7 +502,7 @@ return {
 	["West across the south of the crater: Dinosaur Bones lie on the ground in the south-west, among the stegodons: those are elite, pick the bones up around them and take the rest from the Diemetradons. The expedition's {item:11112} lies in the south-west jungle."] = "Al oeste cruzando el sur del cráter: hay huesos de dinosaurio en el suelo del suroeste, entre los estegodontes: son élite, así que recoge los huesos a su alrededor y consigue el resto de los diemetradones. El {item:11112} de la expedición está en la jungla del suroeste.",
 
 	-- Step 123: Western Pylon
-	["Western Pylon"] = "",
+	["Western Pylon"] = "Pilón del oeste",
 	["The pylon stands on the western cliffs."] = "La torre está en los acantilados del oeste.",
 
 	-- Step 124: Ringo

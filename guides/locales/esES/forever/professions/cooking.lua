@@ -46,7 +46,7 @@ return {
 
 	-- Step 8: Herb Baked Egg: shopping
 	-- {item:6888} Herb Baked Egg
-	["{item:6888}: shopping"] = "",
+	["{item:6888}: shopping"] = "{item:6888}: compras",
 	-- {item:2678} Mild Spices
 	["The arrow picks the nearest vendor of your faction for each item. You need 50 {item:2678} (1s)."] = "",
 
@@ -58,7 +58,7 @@ return {
 
 	-- Step 10: Herb Baked Egg: ingredients
 	-- {item:6888} Herb Baked Egg
-	["{item:6888}: ingredients"] = "",
+	["{item:6888}: ingredients"] = "{item:6888}: ingredientes",
 	-- {npc:1995} Strigid Owl · {zone:1438} Teldrassil
 	["{npc:1995} (58%) in {zone:1438}, or wherever the arrow points"] = "{npc:1995} (58%) en {zone:1438}, o donde indique la flecha",
 
@@ -101,7 +101,7 @@ return {
 
 	-- Step 26: Coyote Steak: ingredients
 	-- {spell:2541} Coyote Steak
-	["{spell:2541}: ingredients"] = "",
+	["{spell:2541}: ingredients"] = "{spell:2541}: ingredientes",
 	-- {npc:833} Coyote Packleader · {zone:1436} Westfall
 	["Coyote (54%), {npc:833} (51%) in {zone:1436}, or wherever the arrow points"] = "Coyote (54%), {npc:833} (51%) en {zone:1436}, o donde indique la flecha",
 
@@ -111,7 +111,7 @@ return {
 
 	-- Step 28: Crab Cake: shopping
 	-- {spell:2544} Crab Cake
-	["{spell:2544}: shopping"] = "",
+	["{spell:2544}: shopping"] = "{spell:2544}: compras",
 	-- {item:2678} Mild Spices
 	["The arrow picks the nearest vendor of your faction for each item. You need 44 {item:2678} (90c)."] = "",
 
@@ -123,7 +123,7 @@ return {
 
 	-- Step 30: Crab Cake: ingredients
 	-- {spell:2544} Crab Cake
-	["{spell:2544}: ingredients"] = "",
+	["{spell:2544}: ingredients"] = "{spell:2544}: ingredientes",
 	-- {npc:830} Sand Crawler · {zone:1436} Westfall
 	["{npc:830} (43%) in {zone:1436}, or wherever the arrow points"] = "{npc:830} (43%) en {zone:1436}, o donde indique la flecha",
 
@@ -133,7 +133,7 @@ return {
 
 	-- Step 32: Smoked Bear Meat: shopping
 	-- {item:6890} Smoked Bear Meat
-	["{item:6890}: shopping"] = "",
+	["{item:6890}: shopping"] = "{item:6890}: compras",
 	["The arrow picks the nearest vendor of your faction for each item."] = "La flecha elige el mercader más cercano de tu facción para cada objeto.",
 
 	-- Step 33: Smoked Bear Meat: Auction House
@@ -144,7 +144,7 @@ return {
 
 	-- Step 34: Smoked Bear Meat: ingredients
 	-- {item:6890} Smoked Bear Meat
-	["{item:6890}: ingredients"] = "",
+	["{item:6890}: ingredients"] = "{item:6890}: ingredientes",
 	-- {npc:1189} Black Bear Patriarch · {zone:1432} Loch Modan
 	["{npc:1189} (39%) in {zone:1432}, or wherever the arrow points"] = "{npc:1189} (39%) en {zone:1432}, o donde indique la flecha",
 
@@ -154,7 +154,7 @@ return {
 
 	-- Step 36: Dry Pork Ribs: shopping
 	-- {spell:2546} Dry Pork Ribs
-	["{spell:2546}: shopping"] = "",
+	["{spell:2546}: shopping"] = "{spell:2546}: compras",
 	-- {item:2678} Mild Spices
 	["The arrow picks the nearest vendor of your faction for each item. You need 52 {item:2678} (1s 10c)."] = "",
 
@@ -166,7 +166,7 @@ return {
 
 	-- Step 38: Dry Pork Ribs: ingredients
 	-- {spell:2546} Dry Pork Ribs
-	["{spell:2546}: ingredients"] = "",
+	["{spell:2546}: ingredients"] = "{spell:2546}: ingredientes",
 	-- {npc:1191} Mangy Mountain Boar · {zone:1432} Loch Modan
 	["{npc:1191} (31%) in {zone:1432}, or wherever the arrow points"] = "{npc:1191} (31%) en {zone:1432}, o donde indique la flecha",
 
@@ -176,13 +176,13 @@ return {
 
 	-- Step 40: Boiled Clams: shopping
 	-- {item:5525} Boiled Clams
-	["{item:5525}: shopping"] = "",
+	["{item:5525}: shopping"] = "{item:5525}: compras",
 	-- {item:159} Refreshing Spring Water
 	["The arrow picks the nearest vendor of your faction for each item. You need 40 {item:159} (2s)."] = "",
 
 	-- Step 41: Boiled Clams: ingredients
 	-- {item:5525} Boiled Clams
-	["{item:5525}: ingredients"] = "",
+	["{item:5525}: ingredients"] = "{item:5525}: ingredientes",
 	-- {npc:3812} Clattering Crawler · {npc:3814} Spined Crawler · {npc:3944} Wrathtail Priestess · {zone:1439} Darkshore · {item:5523} Small Barnacled Clam · {item:5503} Clam Meat
 	["{npc:3812} (42%), {npc:3814} (42%), {npc:3944} (42%) in {zone:1439}, or wherever the arrow points; open each {item:5523} for its {item:5503}"] = "",
 

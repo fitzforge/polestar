@@ -26,19 +26,19 @@ return {
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "Vuela a {area:272}",
 	-- {zone:1458} Undercity
-	["{zone:1458} flight master"] = "",
+	["{zone:1458} flight master"] = "Maestro de vuelo de {zone:1458}",
 
 	-- Step 5: Tarren Mill
 	-- {npc:2229} Krusk · {npc:2410} Magus Wordeen Voidglare · {npc:2437} Keeper Bel'varil · {npc:2770} Tallow
 	["{npc:2229}, {npc:2410} and {npc:2437} are inside the inn; {npc:2770} stands outside it."] = "{npc:2229}, {npc:2410} y {npc:2437} están dentro de la posada; {npc:2770} está fuera.",
 	-- {npc:2229} Krusk
-	["{npc:2229}, inside"] = "",
+	["{npc:2229}, inside"] = "{npc:2229}, dentro",
 	-- {npc:2410} Magus Wordeen Voidglare
-	["{npc:2410}, inside"] = "",
+	["{npc:2410}, inside"] = "{npc:2410}, dentro",
 	-- {npc:2410} Magus Wordeen Voidglare · {quest:93680} Key to the City · {item:279469} Grimy Key
 	["{npc:2410}: {quest:93680}, the {item:279469} is by the traitors"] = "",
 	-- {npc:2437} Keeper Bel'varil
-	["{npc:2437}, inside"] = "",
+	["{npc:2437}, inside"] = "{npc:2437}, dentro",
 	-- {npc:2770} Tallow · {npc:2771} Drum Fel · {area:321} Hammerfall
 	["{npc:2770}: for {npc:2771} in {area:321}, later in this guide"] = "{npc:2770}: para {npc:2771} en {area:321}, más adelante en esta guía",
 	-- {item:3703} Southshore Stout · {npc:2333} Henchman Valik
@@ -88,7 +88,7 @@ return {
 
 	-- Step 14: Old Dalaran Ruins: kill these as you meet them
 	-- {area:17707} Old Dalaran Ruins
-	["{area:17707}: kill these as you meet them"] = "",
+	["{area:17707}: kill these as you meet them"] = "{area:17707}: mátalos según te los encuentres",
 	-- {area:280} Strahnbrad · {area:1357} Gallows' Corner · {area:279} Dalaran
 	-- plural, as words: Dalaran Summoners = {npc:2358} Dalaran Summoner · Elemental Slaves = {npc:2359} Elemental Slave · Kirin Tor Guards = {npc:246848} Kirin Tor Guard
 	["From {area:280} follow the road south-west to {area:1357} and on west to the ruins north of the {area:279} crater, along the lake shore. The Dalaran Summoners lead Elemental Slaves; the bracers drop from the slaves. Careful: Arcane Sentries (55, elite) and Kirin Tor Guards (55) guard the dome itself and attack the Horde: work the ruins' outer edge and don't go up to the dome."] = "Desde {area:280} sigue el camino al suroeste hasta {area:1357} y luego al oeste hasta las ruinas al norte del cráter de {area:279}, por la orilla del lago. Los Invocadores Dalaran dirigen a los Esclavos elementales; los brazales los sueltan los esclavos. Cuidado: los Centinelas arcanos (55, élite) y los Guardias del Kirin Tor (55) protegen la propia cúpula y atacan a la Horda: quédate en el borde exterior de las ruinas y no subas a la cúpula.",
@@ -189,14 +189,14 @@ return {
 	-- {area:321} Hammerfall
 	["Back to {area:321}"] = "Vuelve a {area:321}",
 	-- {area:321} Hammerfall
-	["Back north-east to {area:321}."] = "",
+	["Back north-east to {area:321}."] = "Vuelve al noreste, a {area:321}.",
 
 	-- Step 32: Boulderfist quests for a group
 	["Boulderfist quests for a group"] = "",
 	-- {npc:2771} Drum Fel · {quest:678} Call to Arms · {npc:2772} Korin Fel · {quest:680} The Real Threat
 	["{npc:2771}'s next {quest:678} and {npc:2772}'s {quest:680} are the elite ogres (38-40) in Stromgarde's ogre quarter, on the same group trip as the Sigil."] = "",
 	-- {npc:2772} Korin Fel
-	["{npc:2772}, beside him"] = "",
+	["{npc:2772}, beside him"] = "{npc:2772}, a su lado",
 
 	-- Step 33: The Stone of Outer Binding
 	-- {object:2690} Stone of Outer Binding
@@ -228,7 +228,7 @@ return {
 
 	-- Step 40: The Drowned Reef: kill these as you meet them
 	-- {area:328} The Drowned Reef
-	["{area:328}: kill these as you meet them"] = "",
+	["{area:328}: kill these as you meet them"] = "{area:328}: mátalos según te los encuentres",
 	-- plural, as words: Daggerspine Raiders = {npc:2595} Daggerspine Raider
 	["West of the cove the Daggerspine Raiders and Sorceresses (38-40) hold the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks."] = "Al oeste de la cala, los Asaltantes Espinadaga y las hechiceras (38-40) ocupan la orilla: atráelos de uno en uno. Los dos naufragios están en las aguas poco profundas, con las cartas y los diarios dentro; las gemas están en el fondo del mar alrededor de los naufragios.",
 	["Underwater"] = "Bajo el agua",

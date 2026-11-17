@@ -34,7 +34,7 @@ return {
 	-- {skill:762} Riding · {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
 	["Skyborne learn {skill:762} from {npc:265756} himself for 100g, and it comes with a Galestrider. He stands at the {area:17684} in {area:16638}, near the skyboat docks."] = "",
 	-- {npc:265756} Genn Fairweather
-	["{npc:265756}, riding trainer"] = "",
+	["{npc:265756}, riding trainer"] = "{npc:265756}, instructor de equitación",
 
 	-- Step 5: Galestrider Riding for other races
 	-- {spell:1285849} Galestrider Riding

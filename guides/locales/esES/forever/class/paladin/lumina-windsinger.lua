@@ -58,7 +58,7 @@ return {
 
 	-- Step 8: The Enchanted Silver Ingot
 	-- {item:267361} Enchanted Silver Ingot
-	["The {item:267361}"] = "",
+	["The {item:267361}"] = "La {item:267361}",
 	-- {area:236} Shadowfang Keep · {npc:4275} Archmage Arugal
 	["{area:236} is the dungeon in south Silverpine, for a group of five in the low to mid 20s. The ingot sits on the table next to {npc:4275} at the very end. A friend's cleared instance works: walk in and run to the table."] = "",
 	-- {item:267361} Enchanted Silver Ingot
@@ -85,7 +85,7 @@ return {
 
 	-- Step 12: The Purified Kor Gem
 	-- {item:272448} Purified Kor Gem
-	["The {item:272448}"] = "",
+	["The {item:272448}"] = "La {item:272448}",
 	-- {npc:259649} Ulric Frostveil · {item:272448} Purified Kor Gem · {npc:248840} Trevan Rol
 	["Back to {npc:259649} at Zoram'gar: he cleanses the gem. Keep the {item:272448} for {npc:248840}."] = "",
 

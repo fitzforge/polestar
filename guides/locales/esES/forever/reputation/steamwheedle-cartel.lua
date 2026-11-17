@@ -42,7 +42,7 @@ return {
 
 	-- Step 4: Back to Zorbin Fandazzle
 	-- {npc:14637} Zorbin Fandazzle
-	["Back to {npc:14637}"] = "",
+	["Back to {npc:14637}"] = "Vuelve con {npc:14637}",
 	-- {npc:14637} Zorbin Fandazzle · {quest:7725} Again With the Zapped Giants · {quest:7726} Refuel for the Zapping
 	["From now on {npc:14637} offers {quest:7725} (10 residue) and {quest:7726} (6 cores), again and again: 25 reputation with every town each time."] = "",
 
@@ -81,7 +81,7 @@ return {
 
 	-- Step 8: Back to Tinkee Steamboil
 	-- {npc:10267} Tinkee Steamboil
-	["Back to {npc:10267}"] = "",
+	["Back to {npc:10267}"] = "Vuelve con {npc:10267}",
 	-- {quest:4810} Return to Tinkee
 	["{quest:4810} gives 50 to every town. Her later quests, Egg Freezing (150 to every town) and Egg Collection (200), are done in the Rookery of Upper Blackrock Spire, a ten-player dungeon: take them up with your group."] = "",
 

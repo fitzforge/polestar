@@ -18,9 +18,9 @@ return {
 
 	-- Step 3: Back to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Back to {area:1637}"] = "",
+	["Back to {area:1637}"] = "Vuelve a {area:1637}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
 
 	-- Step 4: Keldran
 	-- {npc:5640} Keldran · {object:172961} Valley of Spirits
@@ -28,7 +28,7 @@ return {
 
 	-- Step 5: Orgrimmar trainers
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} trainers"] = "",
+	["{zone:1454} trainers"] = "Instructores de {zone:1454}",
 	["Train while you are in the city."] = "",
 
 	-- Step 6: Fly to Ratchet
@@ -61,15 +61,15 @@ return {
 	-- {npc:4631} Wharfmaster Lozgil
 	["{npc:4631}, on the pier"] = "{npc:4631}, en el embarcadero",
 	-- {npc:2495} Drizzlik
-	["{npc:2495}, inside"] = "",
+	["{npc:2495}, inside"] = "{npc:2495}, dentro",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside, on the bottom floor"] = "",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, upstairs"] = "{npc:2496}, en el piso de arriba",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs"] = "",
+	["{npc:737}, upstairs"] = "{npc:737}, en el piso de arriba",
 	-- {npc:773} Krazek
-	["{npc:773}, upstairs"] = "",
+	["{npc:773}, upstairs"] = "{npc:773}, en el piso de arriba",
 
 	-- Step 10: Grom'gol
 	-- {area:35} Booty Bay · {object:3202} Grom'gol (no name in this language: may be words)
@@ -84,7 +84,7 @@ return {
 
 	-- Step 12: Nesingwary's Expedition: kill these as you meet them
 	-- {area:100} Nesingwary's Expedition
-	["{area:100}: kill these as you meet them"] = "",
+	["{area:100}: kill these as you meet them"] = "{area:100}: mátalos según te los encuentres",
 	-- {item:4614} Pendant of Myzrael
 	-- plural, as words: River Crocolisks = {npc:1150} River Crocolisk · Young Stranglethorn Tigers = {npc:681} Young Stranglethorn Tiger · Young Panthers = {npc:683} Young Panther · Stranglethorn Raptors = {npc:685} Stranglethorn Raptor
 	["River Crocolisks lie along the river below the camp. Young Stranglethorn Tigers prowl west of the camp, Young Panthers east of it. Head west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A {item:4614} is a very rare drop from them: if one drops, read it. Careful: The troll camps have many patrolling mobs, so other trolls often join a fight."] = "Los crocoliscos fluviales están a lo largo del río, bajo el campamento. Los tigres de Tuercespina jóvenes merodean al oeste del campamento, y las panteras jóvenes al este. Ve hacia el oeste pasado el campamento. Los raptores de Tuercespina (33-34) cazan en los claros, y los trols Cabellesangre ocupan las ruinas de la costa: cualquier Cabellesangre puede soltar un colmillo. Un {item:4614} es un botín muy raro de ellos: si te sale uno, léelo. Cuidado: los campamentos trols tienen muchos enemigos patrullando, así que a menudo se unen otros trols al combate.",
@@ -121,7 +121,7 @@ return {
 
 	-- Step 19: The Savage Coast: kill these as you meet them
 	-- {area:301} The Savage Coast
-	["{area:301}: kill these as you meet them"] = "",
+	["{area:301}: kill these as you meet them"] = "{area:301}: mátalos según te los encuentres",
 	-- {npc:729} Sin'Dall
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
 	["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "Al oeste pasado el campamento, hay basiliscos Espina de Cristal (34-35) sobre las rocas; cualquier Cabellesangre del poblado de más allá puede soltar una oreja.\nDeja por ahora a {npc:729}, el tigre de nivel 37 en la colina al suroeste del campamento: aquí te saca dos niveles, y la guía de Tuercespina 40-50 vuelve a por él.\nCuidado: el nido de raptores tiene raptores jóvenes que se unen al combate cuando atacas a los adultos.",
@@ -161,7 +161,7 @@ return {
 	-- {npc:2495} Drizzlik · {npc:2498} Crank Fizzlebub · {npc:2496} Baron Revilgaz · {npc:737} Kebok · {npc:773} Krazek · {npc:4631} Wharfmaster Lozgil
 	["{npc:2495}'s shop is in the building east of the inn; {npc:2498} is on the inn's bottom floor, {npc:2496}, {npc:737} and {npc:773} upstairs beside the flight master. {npc:4631} stands on the pier."] = "La tienda de {npc:2495} está en el edificio al este de la posada; {npc:2498} está en la planta baja de la posada, y {npc:2496}, {npc:737} y {npc:773} en el piso de arriba, junto al maestro de vuelo. {npc:4631} está en el muelle.",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "",
+	["{npc:2498}, inside"] = "{npc:2498}, dentro",
 	-- {npc:4631} Wharfmaster Lozgil
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment
 	["{npc:4631}, on the pier: the Stolen Shipments"] = "{npc:4631}, en el muelle: los envíos robados",
@@ -172,7 +172,7 @@ return {
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Fly to {object:3202}"] = "Vuela a {object:3202}",
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "Maestro de vuelo de {area:35}",
 
 	-- Step 27: Level 35
 	["Level 35"] = "",
@@ -180,7 +180,7 @@ return {
 	-- plural, as words: Bloodscalp Headhunters = {npc:671} Bloodscalp Headhunter · Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger · Lashtail Raptors = {npc:686} Lashtail Raptor
 	["{quest:629}'s and Zul'Kunda's quests are next, with Bloodscalp Headhunters of 36-37. Still below 35 after {area:35}'s hand-ins? The Elder Stranglethorn Tigers (34-35) roam the hills north of {object:3202}, below Nesingwary's camp: kill them until level 35. The Lashtail Raptors (35-36) beside them are a level higher."] = "Ahora tocan {quest:629} y las misiones de Zul'Kunda, con Rebanacabezas Cabellesangre de nivel 36-37. ¿Sigues por debajo del 35 tras las entregas de {area:35}? Los tigres de Tuercespina mayores (34-35) merodean por las colinas al norte de {object:3202}, bajo el campamento de Hemet: mátalos hasta el nivel 35. Los raptores colazote (35-36) de al lado son un nivel más altos.",
 	-- {npc:1085} Elder Stranglethorn Tiger
-	["grind on {npc:1085}"] = "",
+	["grind on {npc:1085}"] = "mata {npc:1085}",
 
 	-- Step 28: The Vile Reef
 	-- {area:104} Vile Reef · {item:4094} Tablet Shard
@@ -189,7 +189,7 @@ return {
 
 	-- Step 29: Ruins of Zul'Kunda: kill these as you meet them
 	-- {area:102} Ruins of Zul'Kunda
-	["{area:102}: kill these as you meet them"] = "",
+	["{area:102}: kill these as you meet them"] = "{area:102}: mátalos según te los encuentres",
 	-- {item:3915} Bloody Bone Necklace · {item:2755} Green Hills of Stranglethorn
 	-- plural, as words: Bloodscalp Headhunters = {npc:671} Bloodscalp Headhunter
 	["The Bloodscalp Headhunters (36-37) in the village on the coast carry the shrunken heads. Careful: the 37s can be two over you: pull them one at a time from the village's edge, never into the middle with the Witch Doctors.\nThe Bloodscalp trolls hold the ruins up the coast north of the reef and the village beyond; every one can drop a {item:3915}. Keep looting pages of The {item:2755}."] = "Los Rebanacabezas Cabellesangre (36-37) del poblado de la costa llevan las cabezas reducidas. Cuidado: los de nivel 37 pueden estar dos niveles por encima de ti: atráelos de uno en uno desde el borde del poblado, nunca al centro con los médicos brujos.\nLos trols Cabellesangre ocupan las ruinas costa arriba, al norte del arrecife, y el poblado de más allá; cualquiera puede soltar un {item:3915}. Sigue guardando páginas de {item:2755}.",
@@ -222,7 +222,7 @@ return {
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks"] = "Crocoliscos Quijaforte",
 	-- {npc:1152} Snapjaw Crocolisk
-	["grind on {npc:1152}"] = "",
+	["grind on {npc:1152}"] = "mata {npc:1152}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Elder tigers and Lashtail raptors"] = "Tigres mayores y raptores colazote",

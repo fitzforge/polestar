@@ -17,15 +17,15 @@ return {
 
 	-- Step 1: Into The Barrens
 	-- {zone:1413} The Barrens
-	["Into {zone:1413}"] = "",
+	["Into {zone:1413}"] = "Hacia {zone:1413}",
 
 	-- Step 2: Thalanaar flight master
 	-- {area:489} Thalanaar
-	["{area:489} flight master"] = "",
+	["{area:489} flight master"] = "Maestro de vuelo de {area:489}",
 
 	-- Step 3: Boat to Feathermoon Stronghold
 	-- {area:1116} Feathermoon Stronghold
-	["Boat to {area:1116}"] = "",
+	["Boat to {area:1116}"] = "Barco a {area:1116}",
 
 	-- Step 4: Feathermoon Stronghold
 	-- {area:1116} Feathermoon Stronghold · {area:1120} Sardor Isle · {area:1108} Forgotten Coast · {npc:7880} Ginro Hearthkindle
@@ -51,7 +51,7 @@ return {
 
 	-- Step 9: Boat to Forgotten Coast
 	-- {area:1108} Forgotten Coast
-	["Boat to {area:1108}"] = "",
+	["Boat to {area:1108}"] = "Barco a {area:1108}",
 
 	-- Step 10: Feralas
 	["The courier's boat"] = "El bote del mensajero",
@@ -80,13 +80,13 @@ return {
 	-- {npc:7877} Latronicus Moonspear · {npc:7878} Vestia Moonspear · {npc:7900} Angelas Moonbreeze · {npc:7880} Ginro Hearthkindle · {npc:7852} Pratt McGrubben
 	["Coming from the south: {npc:7877} and {npc:7878} first, then {npc:7900} beside {npc:7880}'s building, then the stairs. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:7852} is by the flight master, on the way out."] = "",
 	-- {npc:7879} Quintis Jonespyre
-	["{npc:7879}, upstairs"] = "",
+	["{npc:7879}, upstairs"] = "{npc:7879}, en el piso de arriba",
 	-- {npc:7852} Pratt McGrubben
 	["{npc:7852}'s next order, Improved Quality, wants Rage Scar hides from yetis of 46-49: skip it."] = "El siguiente encargo de {npc:7852}, Calidad mejorada, pide pellejos de yetis Cicatriz de Rabia de nivel 46-49: sáltalo.",
 
 	-- Step 16: Fly to Thalanaar
 	-- {area:489} Thalanaar
-	["Fly to {area:489}"] = "",
+	["Fly to {area:489}"] = "Vuela a {area:489}",
 	["Feathermoon flight master"] = "",
 
 	-- Step 17: Back to the coast
@@ -117,7 +117,7 @@ return {
 	-- {item:11463} Undelivered Parcel
 	["{item:11463}, from the backpacks"] = "{item:11463}, de las mochilas",
 	-- {object:164954} Zukk'ash Pod
-	["{object:164954}, inside"] = "",
+	["{object:164954}, inside"] = "{object:164954}, dentro",
 
 	-- Step 23: Grind to 45
 	["Grind to 45"] = "Farmea hasta el 45",

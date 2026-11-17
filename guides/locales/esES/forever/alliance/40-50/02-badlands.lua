@@ -10,7 +10,7 @@ return {
 	-- {npc:1470} Ghak Healtouch · {area:144} Thelsamar · {area:1517} Uldaman · {zone:1418} Badlands
 	["{npc:1470} is below ground in {area:144}, by the inn, where the flight lands. His mushrooms grow in the {area:1517} dig at the {zone:1418}' northern edge, on this guide's loop back north."] = "{npc:1470} está bajo tierra en {area:144}, junto a la posada, donde aterriza el vuelo. Sus champiñones crecen en la excavación de {area:1517}, en el borde norte de {zone:1418}, en el regreso al norte de esta guía.",
 	-- {npc:1470} Ghak Healtouch
-	["{npc:1470}, below ground"] = "",
+	["{npc:1470}, below ground"] = "{npc:1470}, bajo tierra",
 
 	-- Step 3: Hammertoe's Digsite
 	-- {zone:1432} Loch Modan · {zone:1418} Badlands · {npc:2860} Sigrun Ironhew
@@ -54,7 +54,7 @@ return {
 
 	-- Step 12: Into Loch Modan
 	-- {zone:1432} Loch Modan
-	["Into {zone:1432}"] = "",
+	["Into {zone:1432}"] = "Hacia {zone:1432}",
 
 	-- Step 13: Ironband's Excavation Site
 	-- {zone:1432} Loch Modan
@@ -62,7 +62,7 @@ return {
 
 	-- Step 14: Into Badlands
 	-- {zone:1418} Badlands
-	["Into {zone:1418}"] = "",
+	["Into {zone:1418}"] = "Hacia {zone:1418}",
 
 	-- Step 15: Badlands
 	-- {area:1517} Uldaman
@@ -97,7 +97,7 @@ return {
 	-- {npc:3980} Raleigh the Devout
 	["{npc:3980} preaches by the inn."] = "",
 	-- {npc:3980} Raleigh the Devout
-	["{npc:3980}, upstairs"] = "",
+	["{npc:3980}, upstairs"] = "{npc:3980}, en el piso de arriba",
 	-- {area:796} Scarlet Monastery
 	["Raleigh's next errand is in the {area:796}: skip it."] = "El siguiente encargo de Raleigh el Devoto es en {area:796}: omítelo.",
 
@@ -109,9 +109,9 @@ return {
 	-- {area:271} Southshore · {zone:1425} The Hinterlands · {area:348} Aerie Peak · {npc:5635} Falstad Wildhammer · {quest:1450} Gryphon Master Talonaxe · {npc:7884} Fraggar Thundermantle
 	["Ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "Cabalga al noreste, fuera de {area:271}, por el camino hacia {zone:1425}; {area:348} está justo pasada la frontera. {npc:5635} recibe en lo alto, {quest:1450} cuida del aviario y {npc:7884} está junto a la posada.",
 	-- {quest:1450} Gryphon Master Talonaxe
-	["{quest:1450}, inside"] = "",
+	["{quest:1450}, inside"] = "{quest:1450}, dentro",
 	-- {npc:7884} Fraggar Thundermantle
-	["{npc:7884}, inside"] = "",
+	["{npc:7884}, inside"] = "{npc:7884}, dentro",
 
 	-- Step 25: Rhapsody Shindigger
 	-- {npc:5634} Rhapsody Shindigger · {area:348} Aerie Peak
@@ -132,18 +132,18 @@ return {
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Vuela a {area:150}",
 	-- {area:348} Aerie Peak
-	["{area:348} flight master"] = "",
+	["{area:348} flight master"] = "Maestro de vuelo de {area:348}",
 
 	-- Step 30: Theramore
 	["Theramore"] = "Theramore",
 	-- {npc:4944} Captain Garran Vimes
 	["{npc:4944}, on the top floor"] = "",
 	-- {npc:4794} Morgan Stern
-	["{npc:4794}, inside"] = "",
+	["{npc:4794}, inside"] = "{npc:4794}, dentro",
 
 	-- Step 31: Cortello's Riddle
 	-- {area:498} Bloodfen Burrow
-	["Inside {area:498}"] = "",
+	["Inside {area:498}"] = "Dentro de {area:498}",
 
 	-- Step 32: Mudsprocket
 	["Mudsprocket"] = "Barroñuela",

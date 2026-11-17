@@ -44,7 +44,7 @@ return {
 
 	-- Step 6: Deathknell: kill these as you meet them
 	-- {area:154} Deathknell
-	["{area:154}: kill these as you meet them"] = "",
+	["{area:154}: kill these as you meet them"] = "{area:154}: mátalos según te los encuentres",
 	-- {area:154} Deathknell · {npc:1661} Novice Elreth
 	-- plural, as words: Rattlecage Skeletons = {npc:1890} Rattlecage Skeleton · Young Scavengers = {npc:1508} Young Scavenger · Duskbats = {npc:1512} Duskbat · Ragged Scavengers = {npc:1509} Ragged Scavenger · Mangy Duskbats = {npc:1513} Mangy Duskbat
 	["Rattlecage Skeletons wander the ruined houses in the north half of {area:154}. Young Scavengers and Duskbats roam all around the village; the Ragged Scavengers and Mangy Duskbats are on its east side. {npc:1661} wants their paws and wings: kill them as you meet them while you clear the skeletons."] = "Los Esqueletos armadóseos deambulan por las casas en ruinas de la mitad norte de {area:154}. Los Carroñeros jóvenes y los Murciumbríos rondan por todo el pueblo; los Carroñeros andrajosos y los Murciumbríos sarnosos están en su lado este. {npc:1661} quiere sus patas y alas: mátalos según te los encuentres mientras limpias los esqueletos.",
@@ -52,13 +52,13 @@ return {
 	-- Step 7: Back to the church
 	["Back to the church"] = "Vuelve a la iglesia",
 	-- {npc:1661} Novice Elreth
-	["{npc:1661}, inside"] = "",
+	["{npc:1661}, inside"] = "{npc:1661}, dentro",
 	-- {npc:244808} Aramis Hammerhand · {spell:635} Holy Light · {npc:259377} Injured Deathguard
 	["{npc:244808}: {spell:635}, once five {npc:259377} are healed"] = "",
 	-- {npc:1569} Shadow Priest Sarvis
-	["{npc:1569}, inside"] = "",
+	["{npc:1569}, inside"] = "{npc:1569}, dentro",
 	-- {npc:244808} Aramis Hammerhand
-	["{npc:244808}, inside"] = "",
+	["{npc:244808}, inside"] = "{npc:244808}, dentro",
 	-- {npc:1570} Executor Arren
 	["{npc:1570}, in the church"] = "{npc:1570}, en la iglesia",
 
@@ -211,7 +211,7 @@ return {
 	-- {npc:1518} Apothecary Johaan · {npc:1515} Executor Zygand · {npc:1499} Magistrate Sevren
 	["{npc:1518} is in the apothecary's house on the west side of the square, {npc:1515} in front of the inn with the Wanted poster beside him, {npc:1499} in the town hall on the square's north side. The inn comes last, in one go."] = "",
 	-- {npc:1518} Apothecary Johaan
-	["{npc:1518}, inside"] = "",
+	["{npc:1518}, inside"] = "{npc:1518}, dentro",
 	-- {npc:246152} Shari Stilwell
 	["{npc:246152}, the Paladin trainer"] = "{npc:246152}, la instructora de paladines",
 	-- {npc:1515} Executor Zygand
@@ -255,13 +255,13 @@ return {
 
 	-- Step 46: Coleman Farthing and Gretchen Dedmar
 	-- {npc:1500} Coleman Farthing · {npc:1521} Gretchen Dedmar
-	["{npc:1500} and {npc:1521}"] = "",
+	["{npc:1500} and {npc:1521}"] = "{npc:1500} y {npc:1521}",
 	-- {npc:1500} Coleman Farthing · {npc:1521} Gretchen Dedmar · {area:159} Brill
 	["Still in the inn: from level 7 {npc:1500} on the ground floor and {npc:1521} upstairs offer their quests; below 7 they wait for the next {area:159} visit."] = "",
 	-- {npc:1500} Coleman Farthing
 	["{npc:1500}, in the inn"] = "{npc:1500}, en la posada",
 	-- {npc:1521} Gretchen Dedmar
-	["{npc:1521}, upstairs"] = "",
+	["{npc:1521}, upstairs"] = "{npc:1521}, en el piso de arriba",
 
 	-- Step 47: Deathguard Linnea's camp
 	-- {npc:1495} Deathguard Linnea
@@ -283,7 +283,7 @@ return {
 
 	-- Step 51: Cold Hearth Manor: kill these as you meet them
 	-- {area:166} Cold Hearth Manor
-	["{area:166}: kill these as you meet them"] = "",
+	["{area:166}: kill these as you meet them"] = "{area:166}: mátalos según te los encuentres",
 	-- {npc:1525} Rotting Dead · {area:159} Brill · {npc:10666} Gordo · {npc:3549} Shelene Rhobart
 	-- plural, as words: Ravaged Corpses = {npc:1526} Ravaged Corpse · Decrepit Darkhounds = {npc:1547} Decrepit Darkhound
 	["{npc:1525} and Ravaged Corpses shamble through the fields just west of {area:159}; Decrepit Darkhounds roam there and on west along the road toward {npc:10666}. Johaan wants their blood, {npc:3549} their hides."] = "",
@@ -343,7 +343,7 @@ return {
 	-- {npc:246152} Shari Stilwell · {quest:91282} A Second Home · {quest:96899} Bandarion Keep
 	["{npc:246152}, the Paladin trainer: {quest:91282}, to {quest:96899}"] = "",
 	-- {npc:1499} Magistrate Sevren
-	["{npc:1499}, inside"] = "",
+	["{npc:1499}, inside"] = "{npc:1499}, dentro",
 	-- {npc:2129} Dark Cleric Beryl · {item:16607} Acolyte's Sacrificial Robes
 	["{npc:2129}, upstairs: the {item:16607}"] = "{npc:2129}, en el piso de arriba: las {item:16607}",
 
@@ -420,7 +420,7 @@ return {
 
 	-- Step 74: Balnir Farmstead: kill these as you meet them
 	-- {area:165} Balnir Farmstead
-	["{area:165}: kill these as you meet them"] = "",
+	["{area:165}: kill these as you meet them"] = "{area:165}: mátalos según te los encuentres",
 	-- {quest:99142} Tomb Weed · {npc:1664} Captain Vachon
 	-- plural, as words: Bleeding Horrors = {npc:1529} Bleeding Horror · Wandering Spirits = {npc:1532} Wandering Spirit · Scarlet Friars = {npc:1538} Scarlet Friar
 	["Follow the road east past the cult's farm. Bleeding Horrors and Wandering Spirits haunt the graves on the east side of the farmstead, where the {quest:99142} grows: Linnea wants eight of each.\nThe Scarlet Friars camp just north-east of the graves; {npc:1664} stands among them.\nThe spiders lurk in the woods at the far east end of the glades.\nCareful: Riptear (13) is elite and prowls west and north of the Scarlet Friars' camp: watch for him before you pull."] = "Sigue el camino al este dejando atrás la granja del culto. Los Horrores sangrantes y los Espíritus deambulantes rondan las tumbas del lado este de la granja, donde crecen las {quest:99142}: Linnea quiere ocho de cada.\nLos Frailes Escarlata acampan justo al noreste de las tumbas; {npc:1664} está entre ellos.\nLas arañas acechan en el bosque del extremo este de los claros.\nCuidado: Desgarro (13) es élite y merodea al oeste y al norte del campamento de los Frailes Escarlata: búscalo antes de atraer a nadie.",
@@ -439,7 +439,7 @@ return {
 	["{npc:1518}: for Renferrel at the {area:228}"] = "",
 	["The Wanted poster beside Zygand"] = "El cartel de Se busca junto a Zygand",
 	-- {npc:2211} Captured Mountaineer
-	["The {npc:2211}, in the inn's cellar"] = "",
+	["The {npc:2211}, in the inn's cellar"] = "El {npc:2211}, en el sótano de la posada",
 
 	-- Step 78: Maggot Eye
 	-- {area:164} Garren's Haunt · {npc:1753} Maggot Eye
@@ -455,13 +455,13 @@ return {
 
 	-- Step 80: Paladin: Bandarion Keep
 	-- {quest:96899} Bandarion Keep
-	["Paladin: {quest:96899}"] = "",
+	["Paladin: {quest:96899}"] = "Paladín: {quest:96899}",
 	-- {npc:246349} Breton Samuels
 	["{npc:246349} waits at the keep's gate beside Leonid."] = "",
 
 	-- Step 81: Paladin: Murlocs at the Gates
 	-- {quest:91285} Murlocs at the Gates
-	["Paladin: {quest:91285}"] = "",
+	["Paladin: {quest:91285}"] = "Paladín: {quest:91285}",
 	-- {area:16881} Shadowvale
 	["The Vile Fin murlocs lurk on the bluffs just east of the keep and in the camps around the lake to the south-west, on the way down to {area:16881}."] = "",
 	-- plural, as words: Vile Fin Attackers = {npc:250283} Vile Fin Attacker
@@ -481,7 +481,7 @@ return {
 
 	-- Step 83: Hilda the Breaker and Ephram Barbaro
 	-- {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro
-	["{npc:246389} and {npc:259190}"] = "",
+	["{npc:246389} and {npc:259190}"] = "{npc:246389} y {npc:259190}",
 	-- {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro
 	["Back up to the forest's edge south of the keep's gate: {npc:246389} and {npc:259190} take the bones and the crystal."] = "",
 
@@ -497,7 +497,7 @@ return {
 
 	-- Step 87: Brill
 	-- {npc:2132} Carolai Anise
-	["{npc:2132}, inside"] = "",
+	["{npc:2132}, inside"] = "{npc:2132}, dentro",
 	-- {area:159} Brill · {zone:1421} Silverpine Forest
 	["The next guide walks south from {area:159} into {zone:1421}."] = "",
 

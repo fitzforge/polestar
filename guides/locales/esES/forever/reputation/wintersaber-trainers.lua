@@ -29,7 +29,7 @@ return {
 
 	-- Step 3: Back to Rivern Frostwind
 	-- {npc:10618} Rivern Frostwind
-	["Back to {npc:10618}"] = "",
+	["Back to {npc:10618}"] = "Vuelve con {npc:10618}",
 
 	-- Step 4: Neutral to Friendly: Frostsaber Provisions, then Winterfall Intrusion
 	-- {quest:4970} Frostsaber Provisions · {quest:5201} Winterfall Intrusion

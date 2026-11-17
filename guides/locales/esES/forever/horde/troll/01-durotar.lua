@@ -22,11 +22,11 @@ return {
 	-- {npc:3143} Gornek · {npc:3159} Kzan Thornslash
 	["{npc:3143} stands just inside the cave mouth; {npc:3159} at the back of the cave behind him."] = "{npc:3143} está nada más entrar en la cueva; {npc:3159}, al fondo de la cueva, detrás de él.",
 	-- {npc:3143} Gornek
-	["{npc:3143}, inside"] = "",
+	["{npc:3143}, inside"] = "{npc:3143}, dentro",
 	-- {npc:3707} Ken'jai
 	["{npc:3707}, the priest trainer at the Den"] = "{npc:3707}, el instructor de sacerdotes, en El Cubil",
 	-- {npc:3159} Kzan Thornslash
-	["{npc:3159}, at the back of the cave; below ground"] = "",
+	["{npc:3159}, at the back of the cave; below ground"] = "{npc:3159}, al fondo de la cueva; bajo tierra",
 	-- {npc:9796} Galgar
 	["{npc:9796}, by the cooking fire"] = "{npc:9796}, junto al fuego de cocina",
 
@@ -36,7 +36,7 @@ return {
 
 	-- Step 5: Valley of Trials: kill these as you meet them
 	-- {area:363} Valley of Trials
-	["{area:363}: kill these as you meet them"] = "",
+	["{area:363}: kill these as you meet them"] = "{area:363}: mátalos según te los encuentres",
 	-- {npc:3287} Hana'zua · {quest:792} Vile Familiars · {area:365} Burning Blade Coven
 	-- plural, as words: Scorpid Workers = {npc:3124} Scorpid Worker · Cactus Apples = {item:11583} Cactus Apple
 	["The Scorpid Workers roam the slope south of {npc:3287}; pick the Cactus Apples by the cactuses on the way.\nThe {quest:792} swarm the slope below the {area:365}, the cave on the valley's north side."] = "Los trabajadores escórpidos recorren la ladera al sur de {npc:3287}; recoge las manzanas de cactus junto a los cactus por el camino.\nLos {quest:792} abundan en la ladera bajo {area:365}, la cueva del lado norte del valle.",
@@ -172,7 +172,7 @@ return {
 	-- {npc:3191} Cook Torka
 	["{npc:3191}: Camping 101 asks you to learn it"] = "",
 	-- {npc:6928} Innkeeper Grosk
-	["{npc:6928}, inside"] = "",
+	["{npc:6928}, inside"] = "{npc:6928}, dentro",
 	-- {npc:3147} Furl Scornbrow
 	["{npc:3147}, in the watchtower"] = "{npc:3147}, en la atalaya",
 
@@ -200,19 +200,19 @@ return {
 	-- Step 41: Lieutenant Benedict
 	-- {npc:3192} Lieutenant Benedict · {item:4881} Aged Envelope
 	["{npc:3192} waits at the top of the keep; his key opens the chest beside him, which holds the {item:4881}."] = "{npc:3192} espera en lo alto del fuerte; su llave abre el cofre que tiene al lado, que contiene {item:4881}.",
-	["Upstairs"] = "",
+	["Upstairs"] = "Piso de arriba",
 
 	-- Step 42: Razor Hill
 	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3147} Furl Scornbrow · {npc:3142} Orgnil Soulscar · {npc:266940} Turroc
 	["Back north-west to {area:362}: {npc:3139} first, then {npc:3147} in the watchtower, then {npc:3142} and {npc:266940} on the way out east to the shore."] = "",
 	-- {npc:266940} Turroc
-	["{npc:266940}, inside"] = "",
+	["{npc:266940}, inside"] = "{npc:266940}, dentro",
 	-- {npc:3706} Tai'jin · {npc:266940} Turroc · {item:16606} Juju Hex Robes
 	["{npc:3706}, beside {npc:266940}: the {item:16606}"] = "{npc:3706}, junto a {npc:266940}: {item:16606}",
 
 	-- Step 43: Scuttle Coast: kill these as you meet them
 	-- {area:373} Scuttle Coast
-	["{area:373}: kill these as you meet them"] = "",
+	["{area:373}: kill these as you meet them"] = "{area:373}: mátalos según te los encuentres",
 	-- {area:362} Razor Hill
 	["Makrura and surf crawlers line the beaches north-east of Sen'jin; the Taillasher eggs sit in nests along the beach.\nThe gnomish toolboxes lie in the wreckage along the shore east and south-east of {area:362}. Follow the shore south to Sen'jin."] = "",
 	["Underwater"] = "Bajo el agua",
@@ -245,7 +245,7 @@ return {
 
 	-- Step 49: Echo Isles: kill these as you meet them
 	-- {area:368} Echo Isles
-	["{area:368}: kill these as you meet them"] = "",
+	["{area:368}: kill these as you meet them"] = "{area:368}: mátalos según te los encuentres",
 	-- {quest:826} Zalazane
 	-- plural, as words: Hexed Trolls = {npc:3207} Hexed Troll · Hexed Pendants = {item:275724} Hexed Pendant · Voodoo Trolls = {npc:3206} Voodoo Troll
 	["Head south through the isles. The Loa idols lie all over the southern isles; Voodoo and Hexed Trolls hold them and drop the Hexed Pendants. {quest:826} and Minshina's cage are on the southernmost isle.\nCareful: the trolls stand close together and the Voodoo Trolls cast from range: pull one at a time. {quest:826} himself is level 10.\nWade back west to the shore south of Sen'jin when the isles are done."] = "Ve al sur por las islas. Los ídolos loa están por todas las islas del sur; los trols vudú y los trols embrujados las ocupan y sueltan los colgantes embrujados. {quest:826} y la jaula de Minshina están en la isla más al sur.\nCuidado: los trols están muy juntos y los trols vudú lanzan hechizos a distancia: atráelos de uno en uno. El propio {quest:826} es de nivel 10.\nCuando termines las islas, vuelve vadeando al oeste hasta la orilla al sur de Sen'jin.",
@@ -255,11 +255,11 @@ return {
 	-- {quest:840} Conscript of the Horde · {area:362} Razor Hill · {quest:96825} This Fruit Could Bite Back
 	["Top up here to level 10: {quest:840}, at {area:362}, needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "Sube aquí hasta el nivel 10: {quest:840}, en {area:362}, requiere nivel 10.\nLos higos chumbos de {quest:96825} crecen junto a estas chozas: recógelos mientras matas.",
 	-- {npc:3111} Razormane Quilboar
-	["grind on {npc:3111}"] = "",
+	["grind on {npc:3111}"] = "mata {npc:3111}",
 
 	-- Step 53: Razor Hill
 	-- {npc:3169} Tarshaw Jaggedscar
-	["{npc:3169}, inside"] = "",
+	["{npc:3169}, inside"] = "{npc:3169}, dentro",
 	-- {npc:3294} Ophek
 	["{npc:3294}, by the inn"] = "{npc:3294}, junto a la posada",
 	-- {npc:3706} Tai'jin · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
@@ -296,7 +296,7 @@ return {
 
 	-- Step 67: Thunder Ridge: kill these as you meet them
 	-- {area:369} Thunder Ridge
-	["{area:369}: kill these as you meet them"] = "",
+	["{area:369}: kill these as you meet them"] = "{area:369}: mátalos según te los encuentres",
 	-- {area:369} Thunder Ridge · {npc:3293} Rezlak
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
 	["Thunder Lizards and Lightning Hides graze on {area:369}, just west and south-west of {npc:3293}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "Los truenagartos y los lomorrayos pastan en {area:369}, justo al oeste y suroeste de {npc:3293}.\nCuidado: Halikor, un élite de nivel 12, recorre {area:369} entre los lagartos: localízalo antes de atraer.",
