@@ -164,6 +164,9 @@ pub fn public_build_options(root: &Path, sources: &Path, questie: bool, empty_co
 	o.sources = sources.to_path_buf();
 	o.web_xp = false;
 	o.web_zones = false;
+	// No corrections here, and no objective text ships in the public tables (#2614's words come from
+	// corrections): the placeholder check is the full build's.
+	o.placeholder_guard = false;
 	o.corrections = empty_corrections.to_path_buf();
 	o.questie = if questie { crate::questie::detect_questie() } else { None };
 	let defs = o.sources.join("wowdbdefs");

@@ -369,6 +369,18 @@ fn publish_tier_selection_and_schema() {
 }
 
 #[test]
+fn the_public_builds_leave_the_placeholder_check_to_the_full_build() {
+	// #2585: publish's public builds take no corrections, so the objectives #2614's corrections give
+	// their quest-log words (Eyes of the Sentinels 98067: "Credit" x4) stopped every release; the
+	// public tables carry no objective text. The full build keeps the check.
+	let base = scratch("placeholder-guard");
+	let o = publish::public_build_options(&base, &base.join("sources"), false, &base.join("empty.json"));
+	assert!(!o.placeholder_guard);
+	assert!(forge_data::Options::new(&base).placeholder_guard);
+	let _ = std::fs::remove_dir_all(&base);
+}
+
+#[test]
 fn a_full_publish_without_the_cmangos_loot_fails() {
 	// #2585: a build tree without cm.db lost 2,995 item_source rows with only a note. With the KB
 	// and a CMaNGOS path that does not exist, publish refuses; a path left out (None) still notes.

@@ -203,6 +203,12 @@ forge data check --help
 | Recordings | `data/recordings/*.json` (`--recordings DIR`: a release build passes the maintainer's recordings archive) | our own in-game recordings, read one session at a time |
 | Corrections | `forever-db/corrections/` (`--corrections PATH`) | our own fixes, see [Corrections](#corrections) |
 
+The shipped guides follow the full build, the one with the recordings archive. Recordings give a
+quest the game's own objective lines (their order, their counts, talks instead of kills), so a
+guide's objective indices (`quest 4182.3`) can differ from what a build without the archive (a
+contributor's, or the public one) has: `forge guide lint` on such a build may report an index the
+full build has right. Check a reported index against the full build before changing it.
+
 Each source's name, version and licence is recorded in `data/forever/meta.json` under `sources`.
 For the full credits and licences, see [rust/NOTICE.md](../../rust/NOTICE.md) and
 [THIRD_PARTY.md](../../THIRD_PARTY.md).

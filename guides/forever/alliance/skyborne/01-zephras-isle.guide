@@ -502,7 +502,7 @@ step Taming the Beast
 
 step The Windstone Formations
   tip The Windstone Formations stand on the rise west of Fillion's camp.
-  interact 697118 quest 92840.2
+  interact 697118 quest 92840.1
   collect 262668 quest 93797.1 only Mage      -- Wind-Infused Bough: by the formations
 
 step Elaadrin Evengale

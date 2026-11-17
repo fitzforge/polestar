@@ -10448,7 +10448,15 @@
 	},
 	"92840": {
 		"set": {
-			"races": 4294967373
+			"races": 4294967373,
+			"objectives": [
+				{
+					"type": "object",
+					"id": 697118,
+					"count": 6,
+					"text": "Gather Data on Elemental Currents"
+				}
+			]
 		},
 		"source": [
 			{
@@ -10462,9 +10470,13 @@
 			{
 				"kind": "questie",
 				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_ALLIANCE in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16): 12 people's quest logs list one line, \"Gather Data on Elemental Currents\" x6; 43 of its 60 recorded ticks came within 4 seconds of a cast of spell 1320971, all such casts at the Windstone Formations, Zephras Isle 47-49,67-70 (map 2521)"
 			}
 		],
-		"note": "Catching Wind is open to every Alliance race: Forever's server sets the Alliance races (players' caches), and 1 Night Elf player (1 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: the Alliance), which closed it to Human, Dwarf, Night Elf and Gnome."
+		"note": "Catching Wind is open to every Alliance race: Forever's server sets the Alliance races (players' caches), and 1 Night Elf player (1 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: the Alliance), which closed it to Human, Dwarf, Night Elf and Gnome. Its one objective is six uses of the Index Esoteria on the Windstone Formations; the server counts them as a kill credit (253306), which no step can target."
 	},
 	"92841": {
 		"set": {

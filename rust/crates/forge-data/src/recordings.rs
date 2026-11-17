@@ -1906,9 +1906,17 @@ fn merge_objectives(q: &V, slots: &IndexMap<i64, Slot>, min: usize, settled: boo
 		if name.is_none() && id.is_none() {
 			continue;
 		}
+		// The game's line names the data's objective, its plural, or the objective followed by one word
+		// saying what is done to it ("Tarantula Egg destroyed" for the Tarantula Egg object, Alther's
+		// Mill 98386; never a longer name: "Black Drake Whelp" is not "Black Drake").
+		let matches = |t: &str, name: &str| {
+			let (t, name) = (t.trim().to_lowercase(), name.trim().to_lowercase());
+			let done = |rest: &str| rest.starts_with(' ') && { let w = rest.trim(); !w.contains(' ') && w.len() > 2 && w.ends_with("ed") };
+			!t.is_empty() && (format!("{t}s") == name || name.strip_prefix(&t).is_some_and(done))
+		};
 		let mut idx = name.as_ref().and_then(|name| {
 			list.iter().enumerate().position(|(i, o)| {
-				!used.contains(&i) && !name.is_empty() && (same(&o.get("text"), name) || o.get("text").as_str().is_some_and(|t| format!("{t}s").trim().to_lowercase() == name.trim().to_lowercase()))
+				!used.contains(&i) && !name.is_empty() && (same(&o.get("text"), name) || o.get("text").as_str().is_some_and(|t| matches(t, name)))
 			})
 		});
 		if idx.is_none() {
@@ -2126,7 +2134,10 @@ fn game_objectives(q: &V, c: &ClientList, windows: &FxHashSet<i64>) -> Game {
 				t.set_str(k, v);
 			}
 			t.set("type", "talk");
-			t.set("count", 1.0);
+			// The game's own count for the line (Sparring Match 99108: three Novice Warriors to beat,
+			// each started by a talk), else one.
+			let max = listed.get(oi - 1).map_or(0, |(_, m)| *m);
+			t.set("count", if max > 1 { max as f64 } else { 1.0 });
 			out[oi - 1] = V::Obj(t);
 			talk += 1;
 		}
@@ -2412,6 +2423,11 @@ pub fn apply_recordings<R: std::borrow::Borrow<Recording>>(
 					let oi = pos_int(&ev.get("oi"));
 					let p = ev.get("text").as_str().and_then(parse_progress_text);
 					let (Some(oi), Some(p)) = (oi, p) else { continue };
+					// A reputation line ("Neutral / Friendly Gelkis Clan Centaur: 1/1") is a standing the
+					// quest requires, never work a step can do: it is no objective (#2585, 1382/1368/1385).
+					if ev.get("type").as_str() == Some("reputation") {
+						continue;
+					}
 					let kind = match ev.get("type").as_str() {
 						Some("monster") => Some("kill"),
 						Some("item") => Some("item"),
@@ -3037,6 +3053,32 @@ mod tests {
 	}
 
 	#[test]
+	fn a_line_naming_an_objective_and_what_is_done_to_it_is_that_objective() {
+		// Alther's Mill 98386 (#2585): the game's line "Tarantula Egg destroyed: 6/6" is the data's
+		// Tarantula Egg objective; it was added as a third line, a kill no step works. "Mindless Zombie
+		// Lord" is a longer name, not the Mindless Zombie.
+		let tick = |text: &str| vec![format!(r#"{{"t":3,"e":"progress","q":364,"oi":1,"text":"{text}: 6/6","type":"monster"}}"#)];
+		let t = Tables::new(QUESTS, NPCS, "{}");
+		t.apply(&from(&[A, B, C], &tick("Mindless Zombie destroyed")));
+		let q = t.quest("364");
+		assert_eq!(q.get("objectives").len(), 2, "matched, not added");
+		assert_eq!(q.get("objectives").items()[0].get("count").num(), 6.0);
+		let t = Tables::new(QUESTS, NPCS, "{}");
+		t.apply(&from(&[A, B, C], &tick("Mindless Zombie Lord slain")));
+		assert_eq!(t.quest("364").get("objectives").len(), 3, "a longer name is another line");
+	}
+
+	#[test]
+	fn a_reputation_line_is_never_an_objective() {
+		// Strange Alliance 1382 (#2585): "Neutral / Friendly Gelkis Clan Centaur: 1/1" is a standing the
+		// quest requires; it was added as an event objective no step can work.
+		let line = vec![r#"{"t":3,"e":"progress","q":365,"oi":1,"text":"Neutral / Friendly Gelkis Clan Centaur: 1/1","type":"reputation"}"#.to_string()];
+		let t = Tables::new(QUESTS, NPCS, "{}");
+		t.apply(&from(&[A, B, C], &line));
+		assert_eq!(t.quest("365").get("objectives").len(), 0);
+	}
+
+	#[test]
 	fn a_line_credited_to_nothing_is_never_added_beside_a_quests_objectives() {
 		// Finding the Source 974 (#2585): its "Find the hottest area" line ticks on a hidden credit with
 		// no creature; three players' line joined the hot spot object as a kill nobody can target, and
@@ -3247,6 +3289,18 @@ mod tests {
 		let t = Tables::new(TIMES, TIMES_NPCS, "{}");
 		t.apply(&[Recording { counts: false, ..session("n", A, "enUS", &desperate_times("Speak with Valennia Stormfist")) }]);
 		assert_eq!(j(&t.quest("92640").get("objectives")), j(&obj(TIMES).get("92640").get("objectives")));
+	}
+
+	#[test]
+	fn a_talk_line_keeps_the_games_count() {
+		// Sparring Match 99108 (#2585): three Novice Warriors to beat, each fight started in their
+		// window; the talk rule made it one. The game's list says 3 for the line, so the talk keeps 3.
+		let mut ev = desperate_times("Speak with Valennia Stormfist");
+		ev[1] = ev[1].replace(r#""max":1"#, r#""max":3"#);
+		let t = Tables::new(TIMES, TIMES_NPCS, "{}");
+		t.apply(&[session("s", B, "enUS", &ev)]);
+		let first = t.quest("92640").get("objectives").items()[0].clone();
+		assert_eq!((first.get("type").as_str(), first.get("count").num()), (Some("talk"), 3.0));
 	}
 
 	#[test]

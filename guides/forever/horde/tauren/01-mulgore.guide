@@ -192,7 +192,7 @@ step Bloodhoof Village
   accept 748                          -- Mull Thunderhorn
   tip Krang Stonehoof's quest: beat three Novice Warriors (or players in duels) next to him.
   accept 99108
-  kill 10721 x3 quest 99108.1
+  talk 10721 quest 99108.1
   turnin 99108
   accept 761                          -- Harken Windtotem
   accept 745                          -- Baine Bloodhoof

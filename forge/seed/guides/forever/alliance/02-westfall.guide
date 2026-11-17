@@ -358,7 +358,7 @@ step Defensive Stance
   accept 1639 only Human
   turnin 1639 only Human -- Bartleby
   accept 1640 only Human
-  kill 6090 quest 1640.1 only Human -- Beat Bartleby
+  talk 6090 quest 1640.1 only Human -- Beat Bartleby
   turnin 1640 only Human
   accept 1665 only Human
   turnin 1665 only Human -- Harry Burlguard: Defensive Stance

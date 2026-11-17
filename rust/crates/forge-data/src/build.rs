@@ -52,6 +52,10 @@ pub struct Options {
 	/// wants is looked up first (`sources::web_xp`); the CLI fetches the other sources before the build.
 	pub offline: bool,
 	pub web_zones: bool,
+	/// Stop on a placeholder name a player would read (#2614). Off for `forge data publish`'s public
+	/// builds: they take no corrections (the tier decides which count), and the public tables carry no
+	/// objective text, so the corrections that give those objectives their words are not needed there.
+	pub placeholder_guard: bool,
 	pub cap: usize,
 	/// meta.json builtAt (ISO 8601, as `new Date(x).toISOString()` prints it).
 	pub built_at: String,
@@ -204,6 +208,7 @@ impl Options {
 			web_xp: true,
 			offline: true,
 			web_zones: true,
+			placeholder_guard: true,
 			cap: DEFAULTS.cap,
 			built_at: now_iso(),
 			kb: None,
@@ -875,12 +880,15 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	let credits = crate::credit::retype(&norm.quests, &norm.npcs);
 	log(&format!("placeholder targets: {} quest(s) whose objective names a credit NPC are events", credits.len()));
 	let shown = crate::credit::scan(&norm.quests, &norm.npcs, &norm.objects, &norm.items);
-	if !shown.is_empty() {
+	if !shown.is_empty() && o.placeholder_guard {
 		return Err(format!(
 			"{} placeholder name(s) a player would read (#2614); give each objective its quest-log words in forever-db/corrections/quests.json, or the NPC, object or item its name:\n{}",
 			shown.len(),
 			shown.join("\n")
 		));
+	}
+	if !shown.is_empty() {
+		log(&format!("placeholder names left (public build, no corrections): {}", shown.len()));
 	}
 
 	// ---- meta.json sources
