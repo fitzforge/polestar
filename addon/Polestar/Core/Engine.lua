@@ -8054,15 +8054,18 @@ end
 -- The end of a leveling guide reached ahead of the live step (a player who
 -- skipped ahead: Own.noteEnd): its last step for everyone (a class's or a
 -- race's own steps are not the end: Own.forSome) done out of turn, by what
--- the game keeps: quest state, the level, bags, flight paths, spells. Never
--- by where the player is or has been, nor by an NPC's window (goto,
--- explore, fly, hearth, enter, die; train, vendor, sethome, a talk with no
--- quest: Own.byPresence): the Undercity, the last stop of Hillsbrad (30-32),
--- is also its fifth, a hub the player visits to train, and a zone the
--- route crosses (0.3.5: "You've reached the end of this guide" at step 2).
+-- the game keeps: quest state, the level, bags, spells. Never by where the
+-- player is or has been, nor by an NPC's window (goto, explore, fly, hearth,
+-- enter, die; train, vendor, sethome, a talk with no quest: Own.byPresence):
+-- the Undercity, the last stop of Hillsbrad (30-32), is also its fifth, a hub
+-- the player visits to train, and a zone the route crosses (0.3.5: "You've
+-- reached the end of this guide" at step 2). Nor by a flight path known
+-- (getfp): the player may have learned it before the guide, and a guide
+-- that ends at the hub it starts from (Riverglades' walk back to Kargath,
+-- #2715) read done as soon as the player landed there.
 -- Those count once their step is on screen, or ticked, or when later work
 -- of the step is done (a walk to the turn-in: Own.laterWorkDone).
-Own.PRESENCE = { goto = true, explore = true, fly = true, hearth = true, enter = true, die = true, vendor = true, sethome = true }
+Own.PRESENCE = { goto = true, explore = true, fly = true, hearth = true, enter = true, die = true, vendor = true, sethome = true, getfp = true }
 function Own.byPresence(goal)
 	local t = goal.t
 	if t == "train" then return not isProfessionTrain(goal) end

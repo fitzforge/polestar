@@ -1407,6 +1407,9 @@
 			{ "node": "tests/placeholder-names.test.js", "test": "#2614: no guide pack shows the game's placeholder names (\"[DNT] Kill Credit\", \"PvP Tower Credit Marker\", \"Trigger Ichman\")" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/placeholders.rs", "test": "a_goal_on_a_credit_target_reads_as_its_quest_log_line_never_kill_the_placeholder" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/placeholders.rs", "test": "lookups_quest_step_never_names_a_credit_target" }
+		] },
+		"2715": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-guide-end.rs", "test": "a_last_step_at_the_hub_the_guide_starts_from_with_its_flight_path_known_is_no_end_ahead_2715" }
 		] }
 	},
 	"seedDrift": {
