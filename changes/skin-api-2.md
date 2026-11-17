@@ -34,4 +34,5 @@ section: contributors
   and the Journey in compact mode, and `markWash`: the row the arrow points
   at lit by a wash instead of the bar). `Polestar.UI.GuideFrame.MarkRow(row, on)`
   marks a row a layout draws itself; `guidePlace "classCard"` places the class
-  quest card. A skin or layout addon that loads on demand loads when picked.
+  quest card. A skin or layout addon that loads on demand loads when picked
+  (thanks TTik3r, #2442).
