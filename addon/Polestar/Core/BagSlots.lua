@@ -12,6 +12,7 @@
 --       top_right, bottom_left or bottom_right; bagsmithCorner overrides it.
 --       Registered once per addon, present now or on its ADDON_LOADED.
 --   BagSlots.Redraw(owner) -- repaint that owner's shown slots and active widgets
+--       (EllesmereUI Bags' shown slots with every painter)
 --
 -- Client mechanisms:
 --   * ContainerFrameMixin's functions are copied onto each frame as it is
@@ -195,8 +196,10 @@ function Slots.Redraw(owner)
 	for _, frame in ipairs(containerFrames()) do
 		if hooked[frame] and frame:IsShown() then updateFrame(frame, owner) end
 	end
+	-- EllesmereUI slots repaint every painter: the keep lock there moves
+	-- aside for the quest icon, so a quest mark change moves it too.
 	for button, link in pairs(painted) do
-		if button:IsVisible() then paintSlot(button, "ellesmere", idOfLink(link), link or nil, owner) end
+		if button:IsVisible() then paintSlot(button, "ellesmere", idOfLink(link), link or nil) end
 	end
 	refreshWidgets("Baganator", owner)
 	refreshWidgets("BagSmith", owner)

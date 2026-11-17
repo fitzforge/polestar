@@ -4,7 +4,8 @@
 -- the player finds it at a glance (qol.bagGlow, on by default). A slot
 -- holding an item a later step keeps (QoL.Kept, QoL/Keep.lua) that a
 -- merchant would buy gets a small lock instead, bottom-left in the client's
--- bags, Baganator and BagSmith; left of the quest icon in EllesmereUI Bags.
+-- bags, Baganator and BagSmith; top-right in EllesmereUI Bags, beside the
+-- quest icon when the slot has one.
 --
 --   BagGlow.Items(view, raw) -> { [itemID] = true }   -- what glows for a step
 --   BagGlow.Redraw()                                  -- repaint the shown bags now
@@ -20,7 +21,8 @@
 --     is bottom-right in Baganator, bottom-left in BagSmith to leave its
 --     protected stack count visible.
 --   * EllesmereUI Bags: the full-slot glow is centred on _textOverlay or the
---     button; the lock is top-right, offset (-17, -1), left of the quest icon.
+--     button; the lock is in the top-right corner, moved left of the quest
+--     icon on a slot that shows one.
 --
 -- The step (STEP_CHANGED and friends), the bags (BAG_UPDATE_DELAYED) and the
 -- quest log repaint the shown bags on the next frame.
@@ -97,13 +99,20 @@ local function lockFor(button, view)
 	local t = cache[button]
 	if t then return t end
 	local host = view == "ellesmere" and (button._textOverlay or button) or button
-	local point = view == "ellesmere" and "TOPRIGHT" or "BOTTOMLEFT"
 	t = host:CreateTexture(nil, "OVERLAY", nil, LAYER)
 	t:SetSize(LOCK_SIZE, LOCK_SIZE)
-	t:SetPoint(point, host, point, view == "ellesmere" and -17 or 1, view == "ellesmere" and -1 or 1)
+	if view ~= "ellesmere" then t:SetPoint("BOTTOMLEFT", host, "BOTTOMLEFT", 1, 1) end
 	t:SetTexture(LOCK)
 	cache[button] = t
 	return t
+end
+
+local function placeEllesmereLock(t, button, itemID)
+	local host = button._textOverlay or button
+	local Q = ns.QuestDB
+	local beside = Q and Q.BagMarkShown and Q.BagMarkShown(itemID)
+	t:ClearAllPoints()
+	t:SetPoint("TOPRIGHT", host, "TOPRIGHT", beside and -17 or -1, -1)
 end
 
 local function pulse(t)
@@ -167,7 +176,9 @@ local function paintBagSlot(button, view, itemID, link)
 		hide(glowCache[button])
 	end
 	if id and locked(id) then
-		lockFor(button, view):Show()
+		local lock = lockFor(button, view)
+		if view == "ellesmere" then placeEllesmereLock(lock, button, id) end
+		lock:Show()
 	elseif lockCache[button] then
 		lockCache[button]:Hide()
 	end

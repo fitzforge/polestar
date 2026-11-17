@@ -1317,7 +1317,7 @@ Polestar.Hooks.AddLine(tooltip, left, right?, r, g, b, rr, rg, rb)
 
 Polestar.BagSlots.Painter(owner, fn(button, view, itemID, link))  -- view "client" or "ellesmere"; one painter per owner, in registration order through SafeCall
 Polestar.BagSlots.Widget(owner, id, label, show, make, corner, bagsmithCorner)  -- show(details) -> bool, make(button) -> region; Baganator and BagSmith, registered once each
-Polestar.BagSlots.Redraw(owner)  -- that owner's shown client and EllesmereUI slots, and active corner widgets
+Polestar.BagSlots.Redraw(owner)  -- that owner's shown client slots and active corner widgets; EllesmereUI's shown slots with every painter
 
 Polestar.Search.Query(text, opts) -> results, counts, more   -- opts = { kinds, limit = 60, perKind, offset, subtitles = false }
    -- result = { kind, id, title, subtitle, quality, score, status, curated }; exact > prefix > word prefix > substring
@@ -7671,7 +7671,8 @@ Polestar.QoL.KeptToSell() -> { { item, link }, ... }          -- kept items in t
   would buy gets a small lock in its bottom-left corner (Baganator and
   BagSmith: a bottom-left corner widget), unless it is the glowing step item.
   EllesmereUI Bags shows the step item's full-slot glow on its text overlay
-  and the keep lock just left of the top-right quest icon. Both follow
+  and the keep lock in the top-right corner, moved just left of the quest
+  icon on a slot that shows one (`QuestDB.BagMarkShown`). Both follow
   `qol.bagGlow`; client and EllesmereUI glows stop pulsing with `ui.reduceMotion` on.
 - **Warned:** opening a merchant with kept items that sell in the bags
   prints them in chat first ("Keep <items>: later steps of the guide need

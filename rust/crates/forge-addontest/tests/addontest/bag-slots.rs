@@ -230,3 +230,33 @@ fn reduce_motion_stops_and_restarts_client_and_ellesmere_pulses_twice() {
 	let out = run(ELLESMERE, &[VERDICTS, STEP_ITEMS, MOTION_STATES].concat());
 	assert_eq!(out[0], json!([[false, false], [true, true], [false, false], [true, true], [false, false]]));
 }
+
+// The vial a later step keeps has no quest icon: its lock sits in the corner, not 17 px in. A quest needing it
+// (or the quest marks' setting) moves the lock aside for the icon and back, on the quest marks' redraw alone.
+const ELLESMERE_LOCK_ASIDE: &str = r#"
+Polestar.Engine.KeptItems = function() return { [9002] = 2, [9005] = 4 } end
+QoL.BagGlow.Refresh()
+local vial = overlaySlot(9005)
+local lock = textureOn(vial._textOverlay, lockPath)
+local Q, needed = Polestar.QuestDB, false
+Q.IsItemNeeded = function(id) return id == 9002 or (id == 9005 and needed) end
+local function lockX()
+ local point, _, _, x = lock:GetPoint(1)
+ assert(point == "TOPRIGHT" and lock:IsShown() and #lock.points == 1)
+ return x
+end
+local xs = { lockX() }
+for _ = 1, 2 do
+ needed = true; Q.RedrawBagMarks(); xs[#xs + 1] = lockX()
+ Polestar.Set("qol.questBagMarks", false); xs[#xs + 1] = lockX()
+ Polestar.Set("qol.questBagMarks", true); xs[#xs + 1] = lockX()
+ needed = false; Q.RedrawBagMarks(); xs[#xs + 1] = lockX()
+end
+emit(xs)
+"#;
+
+#[test]
+fn ellesmere_keep_lock_sits_in_the_corner_and_moves_aside_only_for_a_quest_icon() {
+	let out = run(ELLESMERE, &[VERDICTS, STEP_ITEMS, ELLESMERE_LOCK_ASIDE].concat());
+	assert_eq!(out[0], json!([-1, -17, -1, -17, -1, -17, -1, -17, -1]));
+}

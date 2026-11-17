@@ -18,6 +18,7 @@
 --
 --   Q.IsItemNeeded(itemID) -> bool          -- also used by the item guards
 --   Q.IsObsoleteQuestItem(itemID) -> bool   -- a leftover suggestion only
+--   Q.BagMarkShown(itemID) -> bool          -- the quest icon shows on the item's slot
 --   Q.RedrawBagMarks()                      -- repaint the shown bags now
 
 local ADDON, ns = ...
@@ -41,6 +42,10 @@ end
 -- not turn off the other guards that ask this.
 function Q.IsItemNeeded(itemID)
 	return Q.IsRunning() and (Q.ObjectivesForItem(itemID) ~= nil or Q.IsItemNeededAhead(itemID)) or false
+end
+
+function Q.BagMarkShown(itemID)
+	return itemID ~= nil and isOn() and Q.IsItemNeeded(itemID) or false
 end
 
 -- A suggestion only: the client cannot prove an item has no other use.
