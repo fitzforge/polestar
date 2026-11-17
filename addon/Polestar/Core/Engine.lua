@@ -3969,6 +3969,27 @@ function Own.usedLaterDone(s, g, goal)
 	return false
 end
 
+-- Whether untied collect goal g of step s (one item at a time) feeds a later
+-- `use <item> quest Q.O` of its step whose objective takes more than one and
+-- is not done: each use spends the item and the next has to be fetched
+-- again (Fetch 'n' Fletch: a Wood Bundle from the woodpiles, fletched into
+-- one of 20 spears, #2633). Its met bag count is then not latched
+-- (latchInStep), so using the item up sends the arrow back to fetch the
+-- next; Own.usedLaterDone closes it with the objective.
+function Own.refetch(s, g, goal)
+	if goal.t ~= "collect" or goal.quest or not goal.item or (goal.count or 1) > 1 then return false end
+	local goals = guide.steps[s].goals
+	for j = g + 1, #goals do
+		local later = goals[j]
+		if later.t == "use" and later.item == goal.item then
+			if not (later.quest and later.oi) then return false end
+			local done, _, max = goalDone(s, j, later)
+			return not done and (max or 0) > 1
+		end
+	end
+	return false
+end
+
 -- done, cur, max[, label, kind] for goal g of step s. Notes are never done
 -- (and never block). A stored check-off (the player's tick, or a result the
 -- Engine latched) is done whatever the live state says, as is a goal the
@@ -5011,7 +5032,8 @@ local function latchInStep(s, live)
 		-- An abandon latches on the live step only: on a step looked at ahead it
 		-- reads done for a quest not taken yet (Own.abandonedByGuide). So does a
 		-- deposit: the item not in the bags yet is not an item put in the bank.
-		if ((isBagCount(goal) and (live or (t ~= "abandon" and t ~= "deposit"))) or (live and (t == "fly" or t == "hearth" or t == "enter" or t == "wait" or t == "buff" or t == "equip"))) and goalApplies(goal) and not checked(s, g) and Own.ownDone(s, g, goal) then
+		-- An item fetched again for each use is never latched (Own.refetch).
+		if ((isBagCount(goal) and (live or (t ~= "abandon" and t ~= "deposit"))) or (live and (t == "fly" or t == "hearth" or t == "enter" or t == "wait" or t == "buff" or t == "equip"))) and goalApplies(goal) and not checked(s, g) and not Own.refetch(s, g, goal) and Own.ownDone(s, g, goal) then
 			manualFor(guide.id, true)[s .. ":" .. g] = true
 		end
 	end

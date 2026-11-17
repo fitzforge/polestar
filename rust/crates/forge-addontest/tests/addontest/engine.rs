@@ -522,6 +522,48 @@ Polestar.RegisterGuide({ id = "test/trial", pack = "test", title = "Trial", zone
 	assert_eq!(doing, json!({ "before": { "index": 2, "collect": "active" }, "looted": "done" }), "on the trial: the bags count");
 }
 
+// #2633 (Redrett, 0.4.0, Riverglades): Fetch 'n' Fletch's step collects a Wood Bundle (no quest) and uses it to
+// fletch one of 20 spears (`use … quest 95951.1`). The first bundle latched the collect done for the rest of the
+// step, so after each use the arrow stayed on the fletching spot instead of going back to the woodpiles. An untied
+// collect of one item that a later use of its step spends towards an objective of more than one is not latched:
+// each use reopens it, and the objective done closes it.
+#[test]
+fn an_item_fetched_again_for_each_use_reopens_after_every_use_until_the_objective_is_done_2633() {
+	const FLETCH: &str = r#"
+Polestar.RegisterGuide({ id = "test/fletch", pack = "test", title = "Riverglades", zone = 1429, steps = {
+	{ title = "Turner's Logging Camp", goals = {
+		{ t = "collect", item = 271629, itemName = "Wood Bundle", count = 1, map = 1429, x = 41.5, y = 61.2 },
+		{ t = "use", item = 271629, itemName = "Wood Bundle", quest = 95951, oi = 1, map = 1429, x = 39.2, y = 62.8 },
+	} },
+	{ goals = { { t = "level", level = 60 } } },
+} })
+"#;
+	let out = run1(Run {
+		guides: FLETCH,
+		before: "w.onQuest(95951, { 20 })",
+		script: r#"
+			local w = stub.world
+			local function at() return { collect = E.GetStepView(1).goals[1].status, use = E.GetStepView(1).goals[2].status, arrow = E.GetWaypoint() and E.GetWaypoint().goalIndex or false } end
+			E.SetGuide("test/fletch"); flush()
+			local r = { start = at() }
+			w.addItem(271629, 1); flush()
+			r.looted = at()
+			w.removeItem(271629); w.progress(95951, 1, 1); flush()
+			r.used = at()
+			w.addItem(271629, 1); flush()
+			w.removeItem(271629); w.progress(95951, 1, 20); flush()
+			r.done = { index = E.GetStepIndex(), collect = E.GetStepView(1).goals[1].status }
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out["start"], json!({ "collect": "active", "use": "active", "arrow": 1 }), "{out}");
+	assert_eq!(out["looted"]["collect"], "done", "a bundle in the bags: {out}");
+	assert_eq!(out["looted"]["arrow"], 2, "on to the fletching: {out}");
+	assert_eq!(out["used"], json!({ "collect": "active", "use": "active", "arrow": 1 }), "1 of 20 fletched: back to the woodpiles: {out}");
+	assert_eq!(out["done"], json!({ "index": 2, "collect": "done" }), "20 of 20: the step is done: {out}");
+}
+
 // #2099 on the shipped guide (addon/Polestar_Guides_Horde), Corey's state: a level 19 Tauren Druid at the Crossroads
 // who had done the aquatic form chain (27, 28, 30, 31) and Lessons Anew (6126, 6127) before The Barrens' Druid
 // block, every flight path in the guide known. Quests the guide hands in up to Trial of the Lake are done; those
