@@ -198,6 +198,20 @@ below.
   valid Lua while the game never sees the goals it contains. Both need the
   reference data; without it, say so in the pull request and a maintainer
   pushes the compile to your branch before merging it.
+
+  `next`'s compiled files are built from the maintainers' reference data:
+  the data build of the last release, kept unchanged until a data refresh
+  replaces it (that refresh's pull request recompiles every pack). A
+  compile with another build of `data/forever` (your own `forge data
+  build`, an older or newer one) also changes the compiled files of guides
+  you did not touch. If `git status` after the compile shows compiled
+  changes beyond your guides (other guides' `Guides.lua` entries, their
+  texts), don't commit that compile: commit only your guide edits and say
+  so in the pull request, and a maintainer pushes the compile made with
+  their data to your branch before merging. Maintainers check that `next`'s
+  packs reproduce from a data folder with
+  `rust/scripts/check-packs-reproduce.sh <data dir>` (its `forever/` and
+  `sources/`).
 - Check your change:
 
   ```sh

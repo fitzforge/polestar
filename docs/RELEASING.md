@@ -88,6 +88,31 @@ Run `regen` once per merge or batch, then push the regenerated files on
 `next`. You do not need to run it before every commit, only before pushing
 a batch to `next` or starting the release steps below.
 
+## The data `next` compiles with
+
+After a release ships, the maintainers keep its data build as the data
+every guide pull request into `next` compiles with: one self-contained
+folder holding the release's `data/forever` as `forever/` and its
+`data/sources` as `sources/` (copies, never symlinks into a working
+checkout, so no later build changes it). Guide pull requests, ours and the
+contributors' we push the compile to, run `forge i18n guides sync`, `forge
+guide compile` and `forge guide compile experimental` with it, so the
+compiled files change only where guides changed. Check that `next`'s packs
+reproduce from it once the release is merged back, and whenever a compiled
+diff looks wider than its guides:
+
+```sh
+FORGE=<forge built from next> rust/scripts/check-packs-reproduce.sh <data folder>
+```
+
+It compiles `HEAD` in a temporary worktree with that data and exits 0 when
+nothing changed; otherwise it lists the files that differ (a guide change
+merged without its compile, or compiled with other data: recompile with the
+maintainers' data in a pull request). The folder is replaced only by the
+next data build that merges into `next` (the cycle's data refresh or the
+next release's build); that pull request recompiles every pack with it, and
+the check runs again on the merged `next`.
+
 ## On-demand runs on GitHub
 
 A batch of work (an integration branch, a triage round) gets its full

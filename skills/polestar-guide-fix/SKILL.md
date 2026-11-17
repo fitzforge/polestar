@@ -159,6 +159,13 @@ error while the game never sees the goals it contains. Without reference
 data, say so in the pull request; a maintainer pushes the compile to your
 branch before merging.
 
+`next`'s compiled files are built from the maintainers' data (the last
+release's data build). A compile with another build of `data/forever`
+also rewrites compiled entries of guides you did not touch: if `git
+status` shows compiled changes beyond your guides, don't commit that
+compile. Commit your guide edits, say so in the pull request, and a
+maintainer pushes the compile made with their data to your branch.
+
 
 ## 6. Changelog and commit
 
