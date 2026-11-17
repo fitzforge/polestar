@@ -1302,6 +1302,14 @@ Errors:
   an item whose every located dropper is such an npc; `lint` also errors on a
   non-`optional` quest goal of a quest the cached simulator world (below) excludes
   as `elite`, unless the goal was already reported as elite
+- in Polestar's own leveling guides (`lint` only): a non-`optional` `accept` whose
+  prerequisite only an earlier guide's visit to the same map brings (the guide
+  does not accept and hand it in before the accept): a character who starts the
+  route after that visit never sees the quest. The guide brings the prerequisite
+  back before it in steps `when !turnedin <the chain's last quest>`, or
+  `data/route-fixes.json` `overrides.leftout` records why it stays out
+  (docs/forge/routes.md, "Overrides"); a `leftout` record that names no such
+  accept is a warning
 
 Warnings:
 - a `when` predicate naming a quest or item the data lacks, a zone not in
