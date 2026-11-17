@@ -452,6 +452,11 @@ fn encode_quest(rec: &V) -> Result<String, String> {
 	if rec.get("how").truthy() {
 		parts.push(format!("h{}", esc(&rec.get("how"))));
 	}
+	// Handed in at one talk, never in the log (#2686: Bloodpetal Sprouts): `d`. An older reader skips it (no objective
+	// kind is d).
+	if rec.get("direct").truthy() {
+		parts.push("d".into());
+	}
 	Ok(parts.join(";"))
 }
 
@@ -930,5 +935,18 @@ mod tests {
 		assert!(line(r#", "closedBy": [276]"#).ends_with(";x830;c276"), "The Greenwarden: closed by Tramping Paws");
 		assert!(line(r#", "closedBy": [282, 287]"#).ends_with(";x830;c282,287"));
 		assert!(line("").ends_with(";x830"), "nothing closes it: no field");
+	}
+
+	#[test]
+	fn a_quest_record_says_it_is_handed_in_at_one_talk_2686() {
+		let line = |extra: &str| {
+			let rec = forge_guide::js::parse_json(&format!(
+				r#"{{ "id": 4144, "level": 53, "minLevel": 47, "faction": "A", "races": null, "classes": null, "zone": 1449, "start": {{ "npc": [9119], "object": [], "item": [] }}, "end": {{ "npc": [9119], "object": [] }}, "pre": [4143], "rewards": [], "choices": [], "preAny": [4143], "objectives": [{{ "type": "item", "id": 11315, "count": 3, "text": "Bloodpetal Sprout" }}], "xp": 5300{extra} }}"#
+			))
+			.unwrap();
+			encode_quest(&rec).unwrap()
+		};
+		assert!(line(r#", "direct": true"#).ends_with(";x5300;d"), "Bloodpetal Sprouts: handed in at one talk");
+		assert!(line("").ends_with(";x5300"), "taken into the log: no field");
 	}
 }

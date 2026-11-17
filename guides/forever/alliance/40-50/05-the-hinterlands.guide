@@ -26,7 +26,7 @@ step The Altar of Zul
   complete 2989 @49.0,68.7
 
 step Vilebranch Soothsayers
-  tip The Vilebranch Soothsayers (46-47) walk the ground around the foot of the Altar of Zul: their totems are for Maret Firetend. Careful: Qiaga the Keeper and Morta'gya the Keeper (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar.
+  tip The Vilebranch Soothsayers (46-47) walk the ground around the foot of the Altar of Zul: their totems are for Maret Firetend, and more Vilebranch Totems lie on the ground among them: pick those up too. Careful: Qiaga the Keeper and Morta'gya the Keeper (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar.
   collect 279225 quest 86616 @45.3,66.7 map 1425 -- Vilebranch Totem
 
 step Skulk Rock

@@ -9,7 +9,7 @@ return {
 	-- Step 1: Mulgris Deepriver
 	-- {area:202} Writhing Haunt · {area:200} Dalson's Tears
 	["He camps by the {area:202}, south-east of {area:200}."] = "他在{area:200}東南方的{area:202}旁紮營。",
-	["Inside"] = "",
+	["Inside"] = "在裡面",
 
 	-- Step 2: Diseased Wolves
 	["Diseased Wolves"] = "生病的狼",
@@ -40,9 +40,9 @@ return {
 	["Derrington's watchtowers and Vandis' cauldron are done on a later visit: keep them."] = "德靈頓的瞭望塔和范蒂絲的大鍋會在之後造訪時完成：先保留。",
 
 	-- Step 10: Paladin trainer
-	["Paladin trainer"] = "",
+	["Paladin trainer"] = "聖騎士訓練師",
 	-- {npc:246152} Shari Stilwell · {zone:1420} Tirisfal Glades · {zone:1454} Orgrimmar
-	["{npc:246152} in {zone:1420}; {zone:1454} has no paladin trainer"] = "",
+	["{npc:246152} in {zone:1420}; {zone:1454} has no paladin trainer"] = "{npc:246152}在{zone:1420}；{zone:1454}沒有聖騎士訓練師",
 
 	-- Step 11: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -50,7 +50,7 @@ return {
 
 	-- Step 12: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "",
+	["The middle of {zone:1454}"] = "{zone:1454}中部",
 
 	-- Step 13: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
@@ -64,11 +64,11 @@ return {
 	-- Step 15: Druid trainer
 	["Druid trainer"] = "德魯伊訓練師",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
-	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "",
+	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "{npc:3034}在{zone:1412}；{zone:1454}沒有德魯伊訓練師",
 
 	-- Step 16: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
-	["Fly to {area:431}"] = "",
+	["Fly to {area:431}"] = "飛往{area:431}",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "{zone:1454}的飛行管理員",
 
@@ -123,7 +123,7 @@ return {
 	-- {item:277959} Putrescent Wolf Organs
 	["{item:277959}, from the Felpaw wolves"] = "{item:277959}，來自魔爪狼",
 	-- {npc:8957} Angerclaw Grizzly
-	["grind on {npc:8957}"] = "",
+	["grind on {npc:8957}"] = "刷{npc:8957}",
 
 	-- Step 27: Irontree Woods
 	["Below ground"] = "地下",

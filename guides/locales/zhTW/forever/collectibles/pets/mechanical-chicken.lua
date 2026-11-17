@@ -11,7 +11,7 @@ return {
 	["{item:8705} in {zone:1444}"] = "{zone:1444}的{item:8705}",
 	-- {zone:1444} Feralas · {area:1108} Forgotten Coast
 	-- plural, as words: Coast Crawl Snapclaws = {npc:5327} Coast Crawl Snapclaw · Sprite Dragons = {npc:5276} Sprite Dragon
-	["Each robot starts with a distress beacon that mobs in its zone drop, about one kill in 40 to 100 in Classic's data. In {zone:1444} the best are the Coast Crawl Snapclaws and Deepseers (levels 43-45) on the {area:1108} and the Sprite Dragons (47-48), about 2.5%; ogres, harpies, naga and Grimtotems drop it about 1%. You can loot it from level 40."] = "",
+	["Each robot starts with a distress beacon that mobs in its zone drop, about one kill in 40 to 100 in Classic's data. In {zone:1444} the best are the Coast Crawl Snapclaws and Deepseers (levels 43-45) on the {area:1108} and the Sprite Dragons (47-48), about 2.5%; ogres, harpies, naga and Grimtotems drop it about 1%. You can loot it from level 40."] = "每個機器人一開始都要靠其所在地區的怪物掉落遇難信標，按經典舊世的資料約40到100殺掉一個。在{zone:1444}，最好的是{area:1108}的海岸爬行鉗爪者和深海先知（43-45級）以及精靈龍（47-48級），約2.5%；食人魔、鷹身人、納迦和恐怖圖騰約1%。40級起就能拾取。",
 
 	-- Step 2: OOX-22/FE's beacon
 	["OOX-22/FE's beacon"] = "",
@@ -29,7 +29,7 @@ return {
 	["{item:8623} in {zone:1446}"] = "{zone:1446}的{item:8623}",
 	-- {zone:1446} Tanaris
 	-- plural, as words: Treasure Hunting Pirates = {npc:7899} Treasure Hunting Pirate · Ground Pounders = {npc:9396} Ground Pounder
-	["{zone:1446} mobs drop OOX-17/TN's beacon about one kill in 50 to 150. Best: the Treasure Hunting Pirates and Buccaneers on the south shore (44-45) and the Ground Pounders in the north (41-43), about 2%. You can loot it from level 43."] = "",
+	["{zone:1446} mobs drop OOX-17/TN's beacon about one kill in 50 to 150. Best: the Treasure Hunting Pirates and Buccaneers on the south shore (44-45) and the Ground Pounders in the north (41-43), about 2%. You can loot it from level 43."] = "{zone:1446}的怪物約50到150殺掉一次OOX-17/TN的信標。最好的是南岸的尋寶海盜和劫掠者（44-45級）以及北部的重擊者（41-43級），約2%。43級起就能拾取。",
 
 	-- Step 5: OOX-17/TN's beacon
 	["OOX-17/TN's beacon"] = "",
@@ -39,14 +39,14 @@ return {
 	-- Step 6: Rescue OOX-17/TN
 	["Rescue OOX-17/TN"] = "拯救OOX-17/TN",
 	-- {area:981} Gaping Chasm · {zone:1446} Tanaris · {area:977} Steamwheedle Port · {area:35} Booty Bay
-	["OOX-17/TN stands in the hills near the {area:981} in south-east {zone:1446}. Its escort to {area:977} has two ambushes: three scorpids near the start, three Wastewander bandits near the end. The robot has about 3,000 health and stops to fight what you attack, so it can tank for a moment while you recover. Its turn-in is in {area:35} too."] = "",
+	["OOX-17/TN stands in the hills near the {area:981} in south-east {zone:1446}. Its escort to {area:977} has two ambushes: three scorpids near the start, three Wastewander bandits near the end. The robot has about 3,000 health and stops to fight what you attack, so it can tank for a moment while you recover. Its turn-in is in {area:35} too."] = "OOX-17/TN站在{zone:1446}東南{area:981}附近的丘陵裡。護送它到{area:977}會遭遇兩撥伏擊：起點附近三隻蠍子，終點附近三名廢土強盜。機器人約3,000生命，會停下來打你攻擊的目標，所以能暫時替你抗一會兒，讓你恢復。它的交付點也在{area:35}。",
 	["Escort OOX-17/TN"] = "護送OOX-17/TN",
 
 	-- Step 7: OOX-09/HL Distress Beacon in the Hinterlands
 	-- {item:8704} OOX-09/HL Distress Beacon · {zone:1425} Hinterlands
 	["{item:8704} in the {zone:1425}"] = "{zone:1425}的{item:8704}",
 	-- {zone:1425} Hinterlands
-	["Most {zone:1425} mobs drop OOX-09/HL's beacon about once in 100 kills: Silvermane wolves, owlbeasts, Highvale elves, Witherbark and Vilebranch trolls. You can loot it from level 43."] = "",
+	["Most {zone:1425} mobs drop OOX-09/HL's beacon about once in 100 kills: Silvermane wolves, owlbeasts, Highvale elves, Witherbark and Vilebranch trolls. You can loot it from level 43."] = "{zone:1425}的大多數怪物約100殺掉一次OOX-09/HL的信標：銀鬃狼、貓頭鷹獸、高谷精靈、枯木和邪枝食人妖。43級起就能拾取。",
 
 	-- Step 8: OOX-09/HL's beacon
 	["OOX-09/HL's beacon"] = "",
@@ -57,14 +57,14 @@ return {
 	["Rescue OOX-09/HL"] = "拯救OOX-09/HL",
 	-- {area:351} Skulk Rock
 	-- plural, as words: Marauding Owlbeasts = {npc:7808} Marauding Owlbeast · Vilebranch Ambushers = {npc:7809} Vilebranch Ambusher
-	["OOX-09/HL waits on the largest island of the lake west of {area:351}. Its escort to the shore beyond Overlook Cliff has two ambushes of three: Marauding Owlbeasts, then Vilebranch Ambushers; the robot warns you just before each."] = "",
+	["OOX-09/HL waits on the largest island of the lake west of {area:351}. Its escort to the shore beyond Overlook Cliff has two ambushes of three: Marauding Owlbeasts, then Vilebranch Ambushers; the robot warns you just before each."] = "OOX-09/HL在{area:351}以西湖中最大的島上等待。護送它到眺望崖另一側的岸邊會遭遇兩撥各三隻的伏擊：先是遊蕩的貓頭鷹獸，然後是邪枝伏擊者；每次伏擊前機器人都會警告你。",
 	["Escort OOX-09/HL"] = "護送OOX-09/HL",
 
 	-- Step 10: Oglethorpe Obnoticus in Booty Bay
 	-- {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay
 	["{npc:7406} in {area:35}"] = "{area:35}的{npc:7406}",
 	-- {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay · {npc:2490} First Mate Crazz · {quest:3721} An OOX of Your Own · {item:10398} Mechanical Chicken
-	["{npc:7406} is in {area:35}, upstairs in the building north of the inn, above {npc:2490}. Hand in all three rescues; at level 45 he then offers {quest:3721}, which you turn straight back in for the {item:10398}."] = "",
+	["{npc:7406} is in {area:35}, upstairs in the building north of the inn, above {npc:2490}. Hand in all three rescues; at level 45 he then offers {quest:3721}, which you turn straight back in for the {item:10398}."] = "{npc:7406}在{area:35}，旅店以北那棟建築的樓上，{npc:2490}上方。交掉三次救援；45級時他會提供{quest:3721}，接完立刻交回，換取{item:10398}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Each robot starts with a distress beacon that mobs in its zone drop (about 1-2.5% per kill in our data). Start in {zone:1444}."] = "每個機器人都從一個定位器開始，由所在地區的怪物掉落（依我們的資料，每次擊殺約1-2.5%）。從{zone:1444}開始。",

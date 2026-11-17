@@ -8,10 +8,10 @@
 return {
 	-- Step 1: Learn Blacksmithing
 	-- {skill:164} Blacksmithing
-	["Learn {skill:164}"] = "",
+	["Learn {skill:164}"] = "學習{skill:164}",
 	-- {skill:164} Blacksmithing · {item:5956} Blacksmith Hammer · {skill:186} Mining · {item:2835} Rough Stone · {item:2770} Copper Ore
 	-- plural, as words: Copper Veins = {object:1731} Copper Vein
-	["Apprentice {skill:164} lets you craft up to 75 for 10c, at any character level. Any {skill:164} trainer of your faction teaches it; the arrow picks the nearest. Buy a {item:5956} (any blacksmithing supplier) and pair it with {skill:186}: {item:2835} and {item:2770} come from the Copper Veins of every starting zone. 1-75 takes about 1s of recipes, plus 286 {item:2835} to gather or buy."] = "",
+	["Apprentice {skill:164} lets you craft up to 75 for 10c, at any character level. Any {skill:164} trainer of your faction teaches it; the arrow picks the nearest. Buy a {item:5956} (any blacksmithing supplier) and pair it with {skill:186}: {item:2835} and {item:2770} come from the Copper Veins of every starting zone. 1-75 takes about 1s of recipes, plus 286 {item:2835} to gather or buy."] = "初級{skill:164}讓你在任何角色等級下花10銅把技能練到75。本陣營任意{skill:164}訓練師都教；箭頭會指向最近的一位。買一個{item:5956}（任何鍛造供應商）並與{skill:186}配合：{item:2835}和{item:2770}來自每個新手區域的銅礦脈。1-75大約花1銀的配方錢，外加286個{item:2835}，需自行採集或購買。",
 
 	-- Step 2: Blacksmithing 1-75: Auction House
 	-- {skill:164} Blacksmithing
@@ -51,7 +51,7 @@ return {
 	-- {spell:2660} Rough Sharpening Stone
 	["{spell:2660} to 35"] = "{spell:2660}練到35",
 	-- {spell:2660} Rough Sharpening Stone · {item:2835} Rough Stone
-	["{spell:2660} is orange at 1 (yellow 15, green 35, grey 55): about 42 crafts to 35. Each takes 1 {item:2835}. One {item:2835} a craft, a point every craft to 15."] = "",
+	["{spell:2660} is orange at 1 (yellow 15, green 35, grey 55): about 42 crafts to 35. Each takes 1 {item:2835}. One {item:2835} a craft, a point every craft to 15."] = "{spell:2660}在1時為橙色（15黃、35綠、55灰）：大約42次製作可到35。每次需要1個{item:2835}。每次一個{item:2835}，到15前每次一點。",
 
 	-- Step 11: Blacksmithing recipes at 35
 	-- {skill:164} Blacksmithing
@@ -63,7 +63,7 @@ return {
 	-- {spell:3320} Rough Grinding Stone
 	["{spell:3320} to 75"] = "{spell:3320}練到75",
 	-- {spell:3320} Rough Grinding Stone · {item:2835} Rough Stone
-	["{spell:3320} is orange at 35 (yellow 45, green 65, grey 85): about 64 crafts to 75. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "",
+	["{spell:3320} is orange at 35 (yellow 45, green 65, grey 85): about 64 crafts to 75. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320}在35時為橙色（45黃、65綠、85灰）：大約64次製作可到75。每次需要2個{item:2835}。每次兩個{item:2835}。磨石是後續圖紙的零件；多出來的賣給商人。",
 
 	-- Step 13: Journeyman Blacksmithing
 	-- {skill:164} Blacksmithing
@@ -73,11 +73,11 @@ return {
 
 	-- Step 14: Blacksmithing 75-150: vendor goods
 	-- {skill:164} Blacksmithing
-	["{skill:164} 75-150: vendor goods"] = "",
+	["{skill:164} 75-150: vendor goods"] = "{skill:164} 75-150：商人貨物",
 	-- {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:1286} Edna Mullby · {npc:5512} Kaita Deepforge · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:5817} Shimra · {npc:3413} Sovik
 	["Buy the whole bracket's share in one go: {item:5956} (a tool: one, kept in your bags, 18c); about 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:1286} and {npc:5512}; {zone:1454}: {npc:3367}, {npc:5817} and {npc:3413})."] = "",
 	-- was: ["{item:5956}: a tool, keep it in your bags"] = "{item:5956}：工具，放在背包裡"
-	["a tool, keep it in your bags"] = "",
+	["a tool, keep it in your bags"] = "一件工具，放在包裡",
 
 	-- Step 15: Blacksmithing 75-150: Auction House
 	-- {skill:164} Blacksmithing
@@ -129,7 +129,7 @@ return {
 	-- {spell:3320} Rough Grinding Stone
 	["{spell:3320} to 83"] = "{spell:3320}練到83",
 	-- {spell:3320} Rough Grinding Stone · {item:2835} Rough Stone
-	["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "",
+	["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320}在75時為綠色（45黃、65綠、85灰）：大約58次製作可到83。每次需要2個{item:2835}。每次兩個{item:2835}。磨石是後續圖紙的零件；多出來的賣給商人。",
 
 	-- Step 28: Runed Copper Belt to 100
 	-- {spell:2666} Runed Copper Belt
@@ -146,10 +146,10 @@ return {
 
 	-- Step 30: Heavy Sharpening Stone to 113
 	-- {spell:2674} Heavy Sharpening Stone
-	["{spell:2674} to 113"] = "",
+	["{spell:2674} to 113"] = "{spell:2674} 到113",
 	-- {spell:2674} Heavy Sharpening Stone · {item:2838} Heavy Stone
 	-- plural, as words: Iron Deposits = {object:1735} Iron Deposit
-	["{spell:2674} is yellow at 100 (yellow 100, green 107, grey 115): about 28 crafts to 113. Each takes 1 {item:2838}. {item:2838} comes from Iron Deposits; one a craft."] = "",
+	["{spell:2674} is yellow at 100 (yellow 100, green 107, grey 115): about 28 crafts to 113. Each takes 1 {item:2838}. {item:2838} comes from Iron Deposits; one a craft."] = "{spell:2674}在100時為黃色（100黃、107綠、115灰）：大約28次製作可到113。每次需要1個{item:2838}。{item:2838}來自鐵礦脈；每次一個。",
 
 	-- Step 31: Blacksmithing recipes at 113
 	-- {skill:164} Blacksmithing
@@ -172,9 +172,9 @@ return {
 
 	-- Step 34: Blacksmithing 150-225: vendor goods
 	-- {skill:164} Blacksmithing
-	["{skill:164} 150-225: vendor goods"] = "",
+	["{skill:164} 150-225: vendor goods"] = "{skill:164} 150-225：商人貨物",
 	-- {item:2605} Green Dye · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra · {item:3859} Steel Bar · {skill:186} Mining · {item:3575} Iron Bar
-	["Buy the whole bracket's share in one go: 28 {item:2605} (28s); about 28s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817}). If you smelt the 195 {item:3859} yourself ({skill:186} 165: an {item:3575} and a Coal each), buy 195 Coal too (9g 75s, trade and blacksmithing suppliers); skip them if you buy the bars."] = "",
+	["Buy the whole bracket's share in one go: 28 {item:2605} (28s); about 28s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817}). If you smelt the 195 {item:3859} yourself ({skill:186} 165: an {item:3575} and a Coal each), buy 195 Coal too (9g 75s, trade and blacksmithing suppliers); skip them if you buy the bars."] = "一次買齊這一段所需的全部：28個{item:2605}（28銀）；總共約28銀。箭頭會指向本陣營最近的賣家（{zone:1453}：{npc:1347}、{npc:1286}和{npc:5565}；{zone:1454}：{npc:3364}、{npc:3367}和{npc:5817}）。如果你自己熔鍊那195個{item:3859}（{skill:186} 165：每個需一個{item:3575}和一塊煤），還要買195塊煤（9金75銀，雜貨和鍛造供應商）；若直接買錠則跳過。",
 
 	-- Step 35: Blacksmithing 150-225: Auction House
 	-- {skill:164} Blacksmithing
@@ -220,7 +220,7 @@ return {
 
 	-- Step 43: Green Iron Bracers to 175
 	-- {spell:3501} Green Iron Bracers
-	["{spell:3501} to 175"] = "",
+	["{spell:3501} to 175"] = "{spell:3501} 到175",
 	-- {spell:3501} Green Iron Bracers · {item:3575} Iron Bar · {item:2605} Green Dye
 	-- plural, as words: Iron Bars = {item:3575} Iron Bar
 	["{spell:3501} is orange at 150 (yellow 165, green 177, grey 190): about 28 crafts to 175. Each takes 6 {item:3575} and 1 {item:2605}. Six Iron Bars and a {item:2605} a craft; {item:2605} comes from tailoring, leatherworking and trade supplies vendors. Orange to 165 on Forever, so a point every craft for the first fifteen. Needs an anvil nearby."] = "",
@@ -236,7 +236,7 @@ return {
 	["{item:7964} to 185"] = "{item:7964}練到185",
 	-- {item:7964} Solid Sharpening Stone · {item:7912} Solid Stone
 	-- plural, as words: Mithril Deposits = {object:2040} Mithril Deposit
-	["{item:7964} is yellow at 175 (yellow 175, green 180, grey 185): about 30 crafts to 185. Each takes 1 {item:7912}. One {item:7912} a craft (Mithril Deposits): cheap points between the iron and the steel bracers. Use the stones on your weapons or sell them."] = "",
+	["{item:7964} is yellow at 175 (yellow 175, green 180, grey 185): about 30 crafts to 185. Each takes 1 {item:7912}. One {item:7912} a craft (Mithril Deposits): cheap points between the iron and the steel bracers. Use the stones on your weapons or sell them."] = "{item:7964}在175時為黃色（175黃、180綠、185灰）：大約30次製作可到185。每次需要1個{item:7912}。每次一個{item:7912}（秘銀礦脈）：在鐵護腕和鋼護腕之間便宜的漲點選擇。把磨石用在武器上，或者賣掉。",
 
 	-- Step 46: Blacksmithing recipes at 185
 	-- {skill:164} Blacksmithing
@@ -259,7 +259,7 @@ return {
 
 	-- Step 49: Heavy Mithril Breastplate to 225
 	-- {item:7930} Heavy Mithril Breastplate
-	["{item:7930} to 225"] = "",
+	["{item:7930} to 225"] = "{item:7930} 到225",
 	-- {item:7930} Heavy Mithril Breastplate · {item:3860} Mithril Bar · {skill:164} Blacksmithing
 	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar
 	["{item:7930} is orange at 205 (yellow 225, green 235, grey 245): about 20 crafts to 225, a point every craft. Each takes 16 {item:3860}. Sixteen Mithril Bars a craft and nothing else; orange to 225 on Forever, so a point every craft to the Artisan cap. Needs an anvil nearby. {skill:164} 225 is a Legacy System milestone."] = "",
@@ -268,15 +268,15 @@ return {
 	-- {skill:164} Blacksmithing
 	["Artisan {skill:164}"] = "專家級{skill:164}",
 	-- {skill:164} Blacksmithing · {npc:2836} Brikk Keencraft · {zone:1434} Stranglethorn Vale · {spell:16640} Dense Weightstone · {spell:9968} Heavy Mithril Boots · {spell:9920} Solid Grinding Stone · {spell:10001} Big Black Mace · {spell:16639} Dense Grinding Stone · {item:1210} Shadowgem · {item:3860} Mithril Bar · {item:4304} Thick Leather · {item:7909} Aquamarine · {item:7910} Star Ruby · {item:7912} Solid Stone · {item:7971} Black Pearl · {item:8170} Rugged Leather · {item:12359} Thorium Bar · {item:12365} Dense Stone · {item:12799} Large Opal
-	["Artisan raises the cap from 225 to 300 for 5g (Classic's price; Forever's is not in the data); it needs {skill:164} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:2836} ({zone:1434}); Horde {npc:2836} ({zone:1434}). The arrow picks the nearest of your faction. Learn now: {spell:16640} (from 225), {spell:9968} (from 210), {spell:9920} (from 175), {spell:10001} (from 205) and {spell:16639} (from 225). 225-300 takes about 3g 60s of recipes, plus 44 {item:1210}, 596 {item:3860}, 142 {item:4304}, 19 {item:7909}, 19 {item:7910}, 44 {item:7912}, 11 {item:7971}, 206 {item:8170}, 2026 {item:12359}, 801 {item:12365} and 10 {item:12799} to gather or buy."] = "",
+	["Artisan raises the cap from 225 to 300 for 5g (Classic's price; Forever's is not in the data); it needs {skill:164} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:2836} ({zone:1434}); Horde {npc:2836} ({zone:1434}). The arrow picks the nearest of your faction. Learn now: {spell:16640} (from 225), {spell:9968} (from 210), {spell:9920} (from 175), {spell:10001} (from 205) and {spell:16639} (from 225). 225-300 takes about 3g 60s of recipes, plus 44 {item:1210}, 596 {item:3860}, 142 {item:4304}, 19 {item:7909}, 19 {item:7910}, 44 {item:7912}, 11 {item:7971}, 206 {item:8170}, 2026 {item:12359}, 801 {item:12365} and 10 {item:12799} to gather or buy."] = "大師級把上限從225提高到300，收費5金（經典舊世的價格；Forever的價格不在資料中）；它需要{skill:164} 200和角色35級，所以從200起任何一次造訪都能學。只有少數訓練師教：聯盟{npc:2836}（{zone:1434}）；部落{npc:2836}（{zone:1434}）。箭頭會指向本陣營最近的一位。現在學：{spell:16640}（225起）、{spell:9968}（210起）、{spell:9920}（175起）、{spell:10001}（205起）和{spell:16639}（225起）。225-300大約花3金60銀的配方錢，外加44個{item:1210}、596個{item:3860}、142個{item:4304}、19個{item:7909}、19個{item:7910}、44個{item:7912}、11個{item:7971}、206個{item:8170}、2026個{item:12359}、801個{item:12365}和10個{item:12799}，需自行採集或購買。",
 
 	-- Step 51: Plans: Ornate Thorium Handaxe
 	-- {item:12819} Plans: Ornate Thorium Handaxe · {item:12773} Ornate Thorium Handaxe · {skill:164} Blacksmithing · {npc:11278} Magnus Frostwake · {zone:1422} Western Plaguelands
-	["{item:12819} teaches {item:12773} ({skill:164} 250) for 1g 60s. Sold by {npc:11278} ({zone:1422})."] = "",
+	["{item:12819} teaches {item:12773} ({skill:164} 250) for 1g 60s. Sold by {npc:11278} ({zone:1422})."] = "{item:12819}教{item:12773}（{skill:164} 250），售價1金60銀。出售者{npc:11278}（{zone:1422}）。",
 
 	-- Step 52: Plans: Huge Thorium Battleaxe
 	-- {item:12823} Plans: Huge Thorium Battleaxe · {item:12775} Huge Thorium Battleaxe · {skill:164} Blacksmithing · {npc:11278} Magnus Frostwake · {zone:1422} Western Plaguelands
-	["{item:12823} teaches {item:12775} ({skill:164} 255) for 2g. Sold by {npc:11278} ({zone:1422})."] = "",
+	["{item:12823} teaches {item:12775} ({skill:164} 255) for 2g. Sold by {npc:11278} ({zone:1422})."] = "{item:12823}教{item:12775}（{skill:164} 255），售價2金。出售者{npc:11278}（{zone:1422}）。",
 
 	-- Step 53: Blacksmithing 225-300: Auction House
 	-- {skill:164} Blacksmithing
@@ -356,7 +356,7 @@ return {
 	-- {item:12643} Dense Weightstone
 	["{item:12643} to 235"] = "{item:12643}練到235",
 	-- {item:12643} Dense Weightstone · {item:12365} Dense Stone
-	["{item:12643} is orange at 225 (yellow 230, green 232, grey 235): about 17 crafts to 235. Each takes 1 {item:12365}. One {item:12365} a craft (Thorium veins): cheap points at the start of Artisan."] = "",
+	["{item:12643} is orange at 225 (yellow 230, green 232, grey 235): about 17 crafts to 235. Each takes 1 {item:12365}. One {item:12365} a craft (Thorium veins): cheap points at the start of Artisan."] = "{item:12643}在225時為橙色（230黃、232綠、235灰）：大約17次製作可到235。每次需要1個{item:12365}。每次一個{item:12365}（瑟銀礦脈）：大師級開頭便宜的漲點選擇。",
 
 	-- Step 69: Heavy Mithril Boots to 247
 	-- {item:7933} Heavy Mithril Boots
@@ -367,14 +367,14 @@ return {
 
 	-- Step 70: Big Black Mace to 250
 	-- {item:7945} Big Black Mace
-	["{item:7945} to 250"] = "",
+	["{item:7945} to 250"] = "{item:7945} 到250",
 	-- {item:7945} Big Black Mace · {item:3860} Mithril Bar · {item:7971} Black Pearl · {item:1210} Shadowgem · {item:7966} Solid Grinding Stone · {item:4304} Thick Leather · {object:1732} Tin Vein
 	-- plural, as words: Shadowgems = {item:1210} Shadowgem
 	["{item:7945} is green at 247 (yellow 230, green 242, grey 255): about 11 crafts to 250. Each takes 16 {item:3860}, 1 {item:7971}, 4 {item:1210}, 1 {item:7966} and 2 {item:4304}. Make the 11 {item:7966} first. Only about 11 crafts to bridge 247-250, but each wants four Shadowgems (about one {object:1732} in a hundred) and a {item:7971}: buy those at the Auction House unless your bags already hold them. Needs an anvil nearby. {item:7971} (11 for 225-300): {item:7971} is a rare drop (no mob gives it one time in 50): buy it at the Auction House, or keep the ones you find."] = "",
 
 	-- Step 71: Ornate Thorium Handaxe to 255
 	-- {item:12773} Ornate Thorium Handaxe
-	["{item:12773} to 255"] = "",
+	["{item:12773} to 255"] = "{item:12773} 到255",
 	-- {item:12773} Ornate Thorium Handaxe · {item:12359} Thorium Bar · {item:12799} Large Opal · {item:12644} Dense Grinding Stone · {item:8170} Rugged Leather
 	["{item:12773} is orange at 250 (yellow 275, green 287, grey 300): about 5 crafts to 255, a point every craft. Each takes 20 {item:12359}, 2 {item:12799}, 2 {item:12644} and 4 {item:8170}. Make the 10 {item:12644} first. {item:12799} turns up in about one Thorium vein in 130: buy the ten at the Auction House. Five crafts only, until the battleaxe plans can be used at 255. Needs an anvil nearby."] = "",
 	["from the recipe in your bags"] = "使用背包裡的配方",
@@ -384,15 +384,15 @@ return {
 	["{item:12775} to 285"] = "{item:12775}練到285",
 	-- {item:12775} Huge Thorium Battleaxe · {item:12359} Thorium Bar · {item:12644} Dense Grinding Stone · {item:8170} Rugged Leather · {npc:11278} Magnus Frostwake · {area:2298} Caer Darrow · {zone:1422} Western Plaguelands · {quest:7654} Imperial Plate Boots
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar · Dense Grinding Stones = {item:12644} Dense Grinding Stone
-	["{item:12775} is orange at 255 (yellow 280, green 292, grey 305): about 31 crafts to 285. Each takes 40 {item:12359}, 6 {item:12644} and 6 {item:8170}. Make the 186 {item:12644} first. Plans from {npc:11278} ({area:2298}, {zone:1422}), unlimited stock, but they bind when picked up. Forty Thorium Bars and six Dense Grinding Stones a craft: the dearest stretch, so stop where the {quest:7654} take over. Other ways through: world-drop plans from the Auction House (the Radiant pieces: about 820 Thorium Bars and 190 Hearts of Fire for the Radiant route) or the Merchant's Favor sets. Needs an anvil nearby."] = "",
+	["{item:12775} is orange at 255 (yellow 280, green 292, grey 305): about 31 crafts to 285. Each takes 40 {item:12359}, 6 {item:12644} and 6 {item:8170}. Make the 186 {item:12644} first. Plans from {npc:11278} ({area:2298}, {zone:1422}), unlimited stock, but they bind when picked up. Forty Thorium Bars and six Dense Grinding Stones a craft: the dearest stretch, so stop where the {quest:7654} take over. Other ways through: world-drop plans from the Auction House (the Radiant pieces: about 820 Thorium Bars and 190 Hearts of Fire for the Radiant route) or the Merchant's Favor sets. Needs an anvil nearby."] = "{item:12775}在255時為橙色（280黃、292綠、305灰）：大約31次製作可到285。每次需要40個{item:12359}、6個{item:12644}和6個{item:8170}。先做好那186個{item:12644}。圖紙由{npc:11278}（{zone:1422}的{area:2298}）出售，不限量，但拾取即繫結。每次四十個瑟銀錠和六個緻密磨石：最貴的一段，所以到{quest:7654}接手時就停手。其他路徑：拍賣行的世界掉落圖紙（“光輝”系列：這條路線約需820個瑟銀錠和190個火焰之心），或商人的恩惠套裝。附近需要鐵砧。",
 
 	-- Step 73: Plans: Imperial Plate Boots
 	-- {npc:14567} Derotain Mudsipper · {zone:1446} Tanaris · {item:12700} Plans: Imperial Plate Boots · {skill:164} Blacksmithing · {item:12359} Thorium Bar · {quest:7654} Imperial Plate Boots · {quest:7652} A Blue Light Bargain
-	["{npc:14567} ({zone:1446}) trades {item:12700} ({skill:164} 270) for 40 {item:12359} in {quest:7654}, which needs {skill:164} 265 and character level 50; take {quest:7652} first (it asks for nothing). The plans bind when picked up."] = "",
+	["{npc:14567} ({zone:1446}) trades {item:12700} ({skill:164} 270) for 40 {item:12359} in {quest:7654}, which needs {skill:164} 265 and character level 50; take {quest:7652} first (it asks for nothing). The plans bind when picked up."] = "{npc:14567}（{zone:1446}）在{quest:7654}中以40個{item:12359}換取{item:12700}（{skill:164} 270），該任務需要{skill:164} 265和角色50級；先接{quest:7652}（它不要求任何東西）。圖紙拾取即繫結。",
 
 	-- Step 74: Imperial Plate Boots to 300
 	-- {item:12426} Imperial Plate Boots
-	["{item:12426} to 300"] = "",
+	["{item:12426} to 300"] = "{item:12426} 到300",
 	-- {item:12426} Imperial Plate Boots · {item:12359} Thorium Bar · {item:7910} Star Ruby · {item:7909} Aquamarine · {npc:14567} Derotain Mudsipper · {skill:164} Blacksmithing
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar · Huge Thorium Battleaxes = {item:12775} Huge Thorium Battleaxe
 	["{item:12426} is orange at 285 (yellow 290, green 300, grey 310): about 19 crafts to 300. Each takes 34 {item:12359}, 1 {item:7910} and 1 {item:7909}. About 34 Thorium Bars a craft against the battleaxe's 40 and its grinding stones, orange to 290. Below character level 50 {npc:14567} has no quest for you: keep making Huge Thorium Battleaxes to 300 instead (yellow to 292, grey at 305: about twice the Thorium Bars). Needs an anvil nearby. {skill:164} 300 is a Legacy System milestone."] = "",

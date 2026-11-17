@@ -16250,8 +16250,9 @@ for (const [guide, quest, pet, needs] of [
 // #2612 (JeromeM, 0.4.0, Westfall): "Find the Lost Guards" sent the hand-in to Guard Thomas, who only gives it; the
 // half-eaten body takes it. The build had added the giver to the quest's enders from the in-game dialog captures,
 // on eight quests handed in at an object (players' recordings: none of their hand-ins in an NPC's window). Each
-// is corrected to its object alone, and every guide's hand-in of them goes to the object.
-const OBJECT_ENDERS = { 37: 55, 67: 3643, 944: 10076, 983: 17182, 4812: 175524, 91860: 566037, 94467: 61934, 94502: 619896 };
+// is corrected to its object alone, and every guide's hand-in of them goes to the object. Find the Gems (2201) had
+// Talvash del Kissel beside his Scrying Bowl as an ender the same way, from QuestieDB (#2546 sweep).
+const OBJECT_ENDERS = { 37: 55, 67: 3643, 944: 10076, 983: 17182, 2201: 112877, 4812: 175524, 91860: 566037, 94467: 61934, 94502: 619896 };
 test('#2612: quests handed in at an object are never handed in to their giver', { skip }, () => {
 	const corrections = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'forever-db', 'corrections', 'quests.json'), 'utf8'));
 	for (const [quest, object] of Object.entries(OBJECT_ENDERS)) {
@@ -16361,4 +16362,26 @@ test('#2691: Engineering: Kor\'gar is looked for where he sells, at Powderfuse P
 	const korgar = (buy && buy.candidates || []).find((c) => c.npc === 260565);
 	assert.ok(korgar, 'Kor\'gar sells it');
 	assert.deepEqual([korgar.map, korgar.x, korgar.y], [2548, 77.6, 50.95]);
+});
+
+// #2684 (Gilfy, 0.4.0.1, Alliance Hinterlands): Repurposed Totems' step said only to kill the Vilebranch Soothsayers,
+// but Vilebranch Totems also lie on the ground among them (players' recordings: 30 totems from the ground object for 4
+// people, 12 from the Soothsayers for 5). The step's tip says so.
+test('#2684: Hinterlands (Alliance): Repurposed Totems says the totems also lie on the ground', { skip }, () => {
+	const list = goals('forever/alliance/40-50/05-the-hinterlands.guide');
+	const { step } = list[at(list, 'collect 279225', (g) => g.t === 'collect' && g.quest === 86616)];
+	assert.match(step.note || '', /Totems lie on the ground/, step.note);
+});
+
+// #2673 (Monono, Horde Hillsbrad 22-25): the guide ended with a walk from the zeppelin to the middle of Orgrimmar, and
+// the next guide (04-the-barrens) flies to Thunder Bluff from the wind rider master, south-west of there: a walk past
+// the flight master and back for nothing. The last stop in Orgrimmar is the wind rider master (Doras, 45.12,63.89).
+test('#2673: Hillsbrad (Horde): the guide ends at Orgrimmar\'s wind rider master, where the next guide flies on', { skip }, () => {
+	const list = goals('forever/horde/06-hillsbrad-foothills.guide');
+	const walks = list.filter(({ goal }) => goal.t === 'goto' && goal.map === 1454);
+	assert.equal(walks.length, 1, 'one walk in Orgrimmar');
+	const { goal } = walks[0];
+	assert.ok(Math.hypot(goal.x - 45.12, goal.y - 63.89) <= 0.5, `at the wind rider master: ${goal.x},${goal.y}`);
+	const next = compiled('forever/horde/04-the-barrens.guide').steps[0].goals;
+	assert.ok(next.some((g) => g.t === 'fly'), 'the next guide opens with a flight');
 });

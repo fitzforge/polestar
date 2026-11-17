@@ -12256,12 +12256,16 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "The Vilebranch Soothsayers (46-47) walk the ground around the foot of the Altar of Zul: their totems are for Maret Firetend. Careful: Qiaga the Keeper and Morta'gya the Keeper (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar.",
-			"note": "40-50/04-05 (fix round 1, 0.4.0): Repurposed Totems (86616, 4,400 XP) from Farseer Maret Firetend by Aerie Peak; the totems from the Vilebranch Soothsayers around the Altar of Zul, which 40-50/05 visits for The Altar of Zul. Players' recordings tick it at 46-49,64-69. Danger review: the goal points at the Soothsayers' western spawns (45.3,66.7) and the Careful line names Qiaga the Keeper and Morta'gya the Keeper (50, elites; spawns 48.6-48.8,68.2-68.4), who killed players at 44.1,64.5 and 48.0,66.2 (players' recordings, levels 43-46), where the route has about 47.9.",
+			"tip": "The Vilebranch Soothsayers (46-47) walk the ground around the foot of the Altar of Zul: their totems are for Maret Firetend, and more Vilebranch Totems lie on the ground among them: pick those up too. Careful: Qiaga the Keeper and Morta'gya the Keeper (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar.",
+			"note": "40-50/04-05 (fix round 1, 0.4.0): Repurposed Totems (86616, 4,400 XP) from Farseer Maret Firetend by Aerie Peak; the totems from the Vilebranch Soothsayers around the Altar of Zul, which 40-50/05 visits for The Altar of Zul. Players' recordings tick it at 46-49,64-69. Danger review: the goal points at the Soothsayers' western spawns (45.3,66.7) and the Careful line names Qiaga the Keeper and Morta'gya the Keeper (50, elites; spawns 48.6-48.8,68.2-68.4), who killed players at 44.1,64.5 and 48.0,66.2 (players' recordings, levels 43-46), where the route has about 47.9. 0.4.1 (#2684): the totems also lie on the ground among the Soothsayers (object 669105 in our data, with no spawns); the tip says so.",
 			"source": [
 				{
 					"kind": "recording",
 					"ref": "quest 86616 objective ticks at Hinterlands 46-49,64-69 (4 people accepted, 2 handed in)"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-16): Vilebranch Totems (279225) came from the ground object 669105 30 times for 4 people (4 established), at Hinterlands 46-48,64-68, and from the Vilebranch Soothsayers (4467) 12 times for 5 people"
 				},
 				{
 					"kind": "recording",
