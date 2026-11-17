@@ -4401,7 +4401,7 @@ do
 			zoneName = "Feralas",
 			author = "Polestar",
 			version = 1,
-			names = { ["area:1105"] = "Feral Scar Vale", ["area:1108"] = "Forgotten Coast", ["area:35"] = "Booty Bay", ["area:351"] = "Skulk Rock", ["area:977"] = "Steamwheedle Port", ["area:981"] = "Gaping Chasm", ["item:10398"] = "Mechanical Chicken", ["item:8623"] = "OOX-17/TN Distress Beacon", ["item:8704"] = "OOX-09/HL Distress Beacon", ["item:8705"] = "OOX-22/FE Distress Beacon", ["npc:2490"] = "First Mate Crazz", ["npc:5276"] = "Sprite Dragon", ["npc:5327"] = "Coast Crawl Snapclaw", ["npc:7406"] = "Oglethorpe Obnoticus", ["npc:7808"] = "Marauding Owlbeast", ["npc:7809"] = "Vilebranch Ambusher", ["npc:7899"] = "Treasure Hunting Pirate", ["npc:9396"] = "Ground Pounder", ["quest:3721"] = "An OOX of Your Own", ["zone:1425"] = "Hinterlands", ["zone:1444"] = "Feralas", ["zone:1446"] = "Tanaris" },
+			names = { ["area:1105"] = "Feral Scar Vale", ["area:1108"] = "Forgotten Coast", ["area:35"] = "Booty Bay", ["area:351"] = "Skulk Rock", ["area:977"] = "Steamwheedle Port", ["area:981"] = "Gaping Chasm", ["item:10398"] = "Mechanical Chicken", ["item:8623"] = "OOX-17/TN Distress Beacon", ["item:8704"] = "OOX-09/HL Distress Beacon", ["item:8705"] = "OOX-22/FE Distress Beacon", ["npc:2490"] = "First Mate Crazz", ["npc:5276"] = "Sprite Dragon", ["npc:5327"] = "Coast Crawl Snapclaw", ["npc:7406"] = "Oglethorpe Obnoticus", ["npc:7808"] = "Marauding Owlbeast", ["npc:7809"] = "Vilebranch Ambusher", ["npc:7899"] = "Treasure Hunting Pirate", ["npc:9396"] = "Ground Pounder", ["quest:2766"] = "Find OOX-22/FE!", ["quest:351"] = "Find OOX-17/TN!", ["quest:3721"] = "An OOX of Your Own", ["quest:485"] = "Find OOX-09/HL!", ["zone:1425"] = "Hinterlands", ["zone:1444"] = "Feralas", ["zone:1446"] = "Tanaris" },
 			steps = {
 				{
 					title = "{item:8705} in {zone:1444}",
@@ -4411,10 +4411,17 @@ do
 					},
 				},
 				{
-					title = "Rescue OOX-22/FE",
-					note = "Right-click the beacon. OOX-22/FE sits in a cave near {area:1105}, among yetis and apes. Its escort runs west along the road to the dock on the {area:1108} with three ambushes: three yetis, then three gorillas, then four or five gnolls with a caster. Bring a friend if you are under 47. The robot keeps walking unless it is hit, so stay close; if it will not move, another player has it: wait for it to come back. Its turn-in is in {area:35}; keep the quest for later.",
+					title = "OOX-22/FE's beacon",
+					note = "Right-click the beacon: it starts {quest:2766}",
+					when = { { k = "has", n = 1, item = 8705 } },
 					goals = {
 						{ t = "accept", quest = 2766, title = "Find OOX-22/FE!", item = 8705, itemName = "OOX-22/FE Distress Beacon", minLevel = 40, qlvl = 45 },
+					},
+				},
+				{
+					title = "Rescue OOX-22/FE",
+					note = "OOX-22/FE sits in a cave near {area:1105}, among yetis and apes. Its escort runs west along the road to the dock on the {area:1108} with three ambushes: three yetis, then three gorillas, then four or five gnolls with a caster. Bring a friend if you are under 47. The robot keeps walking unless it is hit, so stay close; if it will not move, another player has it: wait for it to come back. Its turn-in is in {area:35}; keep the quest for later.",
+					goals = {
 						{ t = "turnin", quest = 2766, title = "Find OOX-22/FE!", npc = 7807, npcName = "Homing Robot OOX-22/FE", map = 1444, x = 53.35, y = 55.7, z = 62.2, f = "e" },
 						{ t = "accept", quest = 2767, title = "Rescue OOX-22/FE!", npc = 7807, npcName = "Homing Robot OOX-22/FE", minLevel = 40, qlvl = 45, pre = { 2766 }, preTitles = { [2766] = "Find OOX-22/FE!" }, map = 1444, x = 53.35, y = 55.7, z = 62.2, f = "e", escort = true },
 						{ t = "complete", quest = 2767, title = "Rescue OOX-22/FE!", note = "Escort OOX-22/FE", escort = true, objs = { { text = "Escort OOX-22/FE to the dock along the Forgotten Coast", count = 1 } } },
@@ -4428,10 +4435,17 @@ do
 					},
 				},
 				{
+					title = "OOX-17/TN's beacon",
+					note = "Right-click the beacon: it starts {quest:351}",
+					when = { { k = "has", n = 1, item = 8623 } },
+					goals = {
+						{ t = "accept", quest = 351, title = "Find OOX-17/TN!", item = 8623, itemName = "OOX-17/TN Distress Beacon", minLevel = 43, qlvl = 48 },
+					},
+				},
+				{
 					title = "Rescue OOX-17/TN",
 					note = "OOX-17/TN stands in the hills near the {area:981} in south-east {zone:1446}. Its escort to {area:977} has two ambushes: three scorpids near the start, three Wastewander bandits near the end. The robot has about 3,000 health and stops to fight what you attack, so it can tank for a moment while you recover. Its turn-in is in {area:35} too.",
 					goals = {
-						{ t = "accept", quest = 351, title = "Find OOX-17/TN!", item = 8623, itemName = "OOX-17/TN Distress Beacon", minLevel = 43, qlvl = 48 },
 						{ t = "turnin", quest = 351, title = "Find OOX-17/TN!", npc = 7784, npcName = "Homing Robot OOX-17/TN", map = 1446, x = 60.23, y = 64.72, z = 44.6, f = "e" },
 						{ t = "accept", quest = 648, title = "Rescue OOX-17/TN!", npc = 7784, npcName = "Homing Robot OOX-17/TN", minLevel = 43, qlvl = 48, pre = { 351 }, preTitles = { [351] = "Find OOX-17/TN!" }, map = 1446, x = 60.23, y = 64.72, z = 44.6, f = "e", escort = true },
 						{ t = "complete", quest = 648, title = "Rescue OOX-17/TN!", note = "Escort OOX-17/TN", escort = true, objs = { { text = "Escort OOX-17/TN to Steamwheedle Port", count = 1 } } },
@@ -4445,10 +4459,17 @@ do
 					},
 				},
 				{
+					title = "OOX-09/HL's beacon",
+					note = "Right-click the beacon: it starts {quest:485}",
+					when = { { k = "has", n = 1, item = 8704 } },
+					goals = {
+						{ t = "accept", quest = 485, title = "Find OOX-09/HL!", item = 8704, itemName = "OOX-09/HL Distress Beacon", minLevel = 43, qlvl = 48 },
+					},
+				},
+				{
 					title = "Rescue OOX-09/HL",
 					note = "OOX-09/HL waits on the largest island of the lake west of {area:351}. Its escort to the shore beyond Overlook Cliff has two ambushes of three: Marauding Owlbeasts, then Vilebranch Ambushers; the robot warns you just before each.",
 					goals = {
-						{ t = "accept", quest = 485, title = "Find OOX-09/HL!", item = 8704, itemName = "OOX-09/HL Distress Beacon", minLevel = 43, qlvl = 48 },
 						{ t = "turnin", quest = 485, title = "Find OOX-09/HL!", npc = 7806, npcName = "Homing Robot OOX-09/HL", map = 1425, x = 49.35, y = 37.66, z = 116.5, f = "e" },
 						{ t = "accept", quest = 836, title = "Rescue OOX-09/HL!", npc = 7806, npcName = "Homing Robot OOX-09/HL", minLevel = 43, qlvl = 48, pre = { 485 }, preTitles = { [485] = "Find OOX-09/HL!" }, map = 1425, x = 49.35, y = 37.66, z = 116.5, f = "e", escort = true },
 						{ t = "complete", quest = 836, title = "Rescue OOX-09/HL!", note = "Escort OOX-09/HL", escort = true, objs = { { text = "Escort OOX-09/HL to the shoreline beyond Overlook Cliff", count = 1 } } },
@@ -4461,6 +4482,12 @@ do
 						{ t = "turnin", quest = 2767, title = "Rescue OOX-22/FE!", npc = 7406, npcName = "Oglethorpe Obnoticus", map = 1434, x = 28.36, y = 76.35, z = 22.8, f = "e" },
 						{ t = "turnin", quest = 648, title = "Rescue OOX-17/TN!", npc = 7406, npcName = "Oglethorpe Obnoticus", map = 1434, x = 28.36, y = 76.35, z = 22.8, f = "e" },
 						{ t = "turnin", quest = 836, title = "Rescue OOX-09/HL!", npc = 7406, npcName = "Oglethorpe Obnoticus", map = 1434, x = 28.36, y = 76.35, z = 22.8, f = "e" },
+					},
+				},
+				{
+					title = "{quest:3721}",
+					when = { { k = "turnedin", q = 2767 }, { k = "turnedin", q = 648 }, { k = "turnedin", q = 836 }, { k = "turnedin", neg = true, q = 3721 } },
+					goals = {
 						{ t = "level", level = 45 },
 						{ t = "accept", quest = 3721, title = "An OOX of Your Own", npc = 7406, npcName = "Oglethorpe Obnoticus", minLevel = 45, qlvl = 50, preAll = { 648, 836, 2767 }, preTitles = { [648] = "Rescue OOX-17/TN!", [836] = "Rescue OOX-09/HL!", [2767] = "Rescue OOX-22/FE!" }, map = 1434, x = 28.36, y = 76.35, z = 22.8, f = "e" },
 						{ t = "turnin", quest = 3721, title = "An OOX of Your Own", npc = 7406, npcName = "Oglethorpe Obnoticus", map = 1434, x = 28.36, y = 76.35, z = 22.8, f = "e" },
@@ -4724,6 +4751,7 @@ do
 				},
 				{
 					title = "Back to {npc:10260}",
+					when = { { k = "turnedin", neg = true, q = 4862 } },
 					goals = {
 						{ t = "turnin", quest = 4862, title = "En-Ay-Es-Tee-Why", npc = 10260, npcName = "Kibler", map = 1428, x = 65.89, y = 21.92, z = 165.1, f = "e", group = { kind = "dungeon", map = 229, name = "Blackrock Spire" } },
 						{ t = "collect", item = 12529, itemName = "Smolderweb Carrier", map = 1428, x = 65.9, y = 21.9, f = "e" },
@@ -4757,6 +4785,7 @@ do
 				{
 					title = "{npc:6791} in {area:392}",
 					note = "Legacy Points are account-wide: each Legacy Challenge (a class reaching 25, 45 and 60, a crafting profession at 150, 225 and 300, PvP ranks and battleground reputations, exploring, dungeons and raids) is worth one, and the track counts points earned, not spent. It gives the {item:281060} at 15, the {item:277714} at 25, the {item:277717} at 40 and the {item:277718} at 55. The rewards are claimed as quests from {npc:6791} in the inn at {area:392}, the goblin port on the {zone:1413} coast (Alliance players come by the boat from {area:35}): with 25 points he offers {quest:96383}; hand it straight back for the cub.",
+					when = { { k = "turnedin", neg = true, q = 96383 } },
 					goals = {
 						{ t = "note", text = "Without PvP one character can earn 17 points: its class at 25, 45 and 60, two professions to 300, the two adventure challenges, the three dungeon tiers and the three raids. A second class or more professions on an alt make up the rest; the Legacy Challenges guide plans them." },
 						{ t = "accept", quest = 96383, title = "Legacy Reward: Spectral Bear Cub", npc = 6791, npcName = "Innkeeper Wiley", qlvl = 60, map = 1413, x = 62.05, y = 39.41, z = 24, f = "e" },
@@ -4964,6 +4993,7 @@ do
 				},
 				{
 					title = "Back to {npc:10260}",
+					when = { { k = "turnedin", neg = true, q = 4729 } },
 					goals = {
 						{ t = "turnin", quest = 4729, title = "Kibler's Exotic Pets", npc = 10260, npcName = "Kibler", map = 1428, x = 65.89, y = 21.92, z = 165.1, f = "e", group = { kind = "dungeon", map = 229, name = "Blackrock Spire" } },
 						{ t = "collect", item = 12264, itemName = "Worg Carrier", map = 1428, x = 65.9, y = 21.9, f = "e" },
@@ -19242,6 +19272,12 @@ do
 					when = { { k = "has", n = 1, item = 20741 } },
 					goals = {
 						{ t = "accept", quest = 8470, title = "Deadwood Ritual Totem", item = 20741, itemName = "Deadwood Ritual Totem", minLevel = 45, qlvl = 55 },
+					},
+				},
+				{
+					title = "{npc:11558}: the Deadwood totem",
+					when = { { k = "onquest", q = { 8470 } } },
+					goals = {
 						{ t = "turnin", quest = 8470, title = "Deadwood Ritual Totem", npc = 11558, npcName = "Kernda", map = 1448, x = 65.5, y = 3.52, z = 589.2, f = "e", spotsPacked = "65.42,2.39,,44,1" },
 					},
 				},
@@ -19251,6 +19287,12 @@ do
 					when = { { k = "has", n = 1, item = 20742 } },
 					goals = {
 						{ t = "accept", quest = 8471, title = "Winterfall Ritual Totem", item = 20742, itemName = "Winterfall Ritual Totem", minLevel = 50, qlvl = 56 },
+					},
+				},
+				{
+					title = "{npc:11558}: the Winterfall totem",
+					when = { { k = "onquest", q = { 8471 } } },
+					goals = {
 						{ t = "turnin", quest = 8471, title = "Winterfall Ritual Totem", npc = 11558, npcName = "Kernda", map = 1448, x = 65.5, y = 3.52, z = 589.2, f = "e", spotsPacked = "65.42,2.39,,44,1" },
 					},
 				},

@@ -205,8 +205,9 @@ return {
 	["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "教徒遍布{area:16723}的街道和田野。從中央的儀式法陣開始（在那裡裝滿克萊兒的催化劑），往西穿過燒毀的房屋到鎮邊，再往東北回到艾爾布林農場西邊的鬆軟土堆：把暮光掠奪者掉落的{item:266148}埋在那裡。符咒、書頁和指骨都由教徒掉落。\n保留他們掉落的{item:4338}：你回到{area:16724}時，{npc:263613}會要二十塊。教徒偶爾會掉落{quest:94885}：右鍵點擊它以接受任務。\n小心：精英食人魔{npc:256899}（41級）在{area:16723}西側街道巡邏，約在44-47,47-52。把教徒拉向你，讓他走過去；這裡是本地區玩家死最多的地方。\n河邊的精英{npc:263380}（42級）可能從西南田野晃過來：讓他走過去。",
 	-- {item:269990} Crystal Catalyst
 	["fill the {item:269990} at the ritual circles"] = "在儀式法陣裝滿{item:269990}",
-	-- {object:621813} Loose Soil (no name in this language: may be words)
-	["{object:621813}: bury the mementos"] = "{object:621813}：埋下紀念物",
+	-- {object:621813} Loose Soil (no name in this language: may be words) · {item:266148} Farmers' Mementos
+	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
+	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "",
 	-- {quest:94885} Field Marshal's Log
 	["{quest:94885}: only if a cultist dropped the log"] = "{quest:94885}：僅限教徒掉落了日誌時",
 
@@ -551,4 +552,5 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["{item:17028}, from {npc:272437}"] = "{item:17028}，向{npc:272437}索取",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031}看守著{area:16724}西南角的舊大教堂。蝙蝠棲息在教堂上層；{npc:272437}在教堂旁發放聖潔蠟燭；墳墓在禮拜堂墓園裡。\n{npc:271742}是53級精英，站在大教堂裡：他不會主動攻擊你，千萬別打他，並把蝙蝠拉離他身邊。",
+	-- ["{object:621813}: bury the mementos"] = "{object:621813}：埋下紀念物",
 }

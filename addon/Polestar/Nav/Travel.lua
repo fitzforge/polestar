@@ -521,6 +521,10 @@ end
 -- through the Searing Gorge gate, #1694). A city's map keeps its target (one
 -- at most INNER_MAX yards across, or inside the other zone's frame): the
 -- walking maps put the Undercity's halls in Tirisfal, the ground above them.
+-- So does a target outside the other zone's frame: the walking maps put
+-- Grenka Bloodscreech's mesa in Thousand Needles (26.5,55.5) in Un'Goro
+-- Crater, a zone whose map ends far south of it, and the travel arrow read
+-- "Un'Goro Crater" for her (#1918).
 local INNER_MAX = 1500
 -- Zone frame z is a city's (at most INNER_MAX across) or inside o's; true when either has no frame.
 local function inner(z, o)
@@ -542,7 +546,7 @@ local function mapZoneOf(map, c, wx, wy, target)
 			local D = Nav.danger
 			local at = D and D.ZoneAt and D.ZoneAt(c, wx, wy)
 			local o = at and at ~= map and zoneInfo[at]
-			if not o or o.c ~= c or inner(z, o) then return map end
+			if not o or o.c ~= c or inner(z, o) or not Travel.InBox(o, wx, wy) then return map end
 			return at
 		end
 		if wildZone[map] then return nil end

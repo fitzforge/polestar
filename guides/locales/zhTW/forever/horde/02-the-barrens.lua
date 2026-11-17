@@ -171,18 +171,32 @@ return {
 	-- plural, as words: Witchwing Slayers = {npc:3278} Witchwing Slayer
 	["North-west to the {area:383}: the Witchwing Slayers hold their western end; they wear the rings.\nCareful: Some stealthed harpy ambushers wait in the area and stay hidden until you get close. A level 19 elite harpy also patrols there."] = "",
 
-	-- Step 37: Echeyakee
+	-- Step 37: Vrang Wildgore
+	-- {quest:881} Echeyakee · {npc:3682} Vrang Wildgore
+	["East from the keg toward {quest:881}: {npc:3682} camps below the hills, and his errands lie in the plains beside his camp."] = "",
+
+	-- Step 38: Savannah lions
+	["Savannah lions"] = "",
+	-- {npc:3682} Vrang Wildgore
+	-- plural, as words: Savannah Patriarchs = {npc:3241} Savannah Patriarch · Sprung Traps = {object:640104} Sprung Trap
+	["Savannah Patriarchs roam the plains east of {npc:3682}'s camp, and the Sprung Traps lie among them."] = "",
+
+	-- Step 39: Vrang Wildgore
+	-- {npc:261366} Walton · {npc:3682} Vrang Wildgore · {area:383} Dry Hills · {npc:3452} Serena Bloodfeather
+	["{npc:261366}, the hermit on the ridge behind {npc:3682}: on the next {area:383} visit, with {npc:3452}"] = "",
+
+	-- Step 40: Echeyakee
 	-- {quest:881} Echeyakee
 	["South-east on the way back to the Crossroads: {quest:881}, a white lion, prowls the plains north of the Razormane camp.\nCareful: Savannah Huntresses roam around the lair. They respawn quickly and often join the fight alongside {quest:881}, so clear them out before you blow the horn.\nSunscale raptors here count toward the heads."] = "",
 
-	-- Step 38: Finish the Raptor Heads
+	-- Step 41: Finish the Raptor Heads
 	-- plural, as words: Raptor Heads = {item:5062} Raptor Head
 	["Finish the Raptor Heads"] = "",
 	-- {quest:881} Echeyakee
 	-- plural, as words: Sunscale Lashtails = {npc:3254} Sunscale Lashtail
 	["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "",
 
-	-- Step 39: The Crossroads
+	-- Step 42: The Crossroads
 	-- {npc:3464} Gazrog · {npc:3338} Sergra Darkthorn · {npc:3449} Darsok Swiftdagger · {npc:3429} Thork
 	["In from the north gate: {npc:3464} first, {npc:3338} by the inn, then up to {npc:3449} and {npc:3429} on the tower platform, where the flight master stands."] = "從北門進來：先找{npc:3464}，再找旅店旁的{npc:3338}，然後上到飛行管理員所在的塔樓平台，找{npc:3449}和{npc:3429}。",
 	-- {npc:3464} Gazrog · {quest:3281} Stolen Silver · {area:385} Northwatch Hold
@@ -196,17 +210,17 @@ return {
 	-- {npc:3429} Thork · {area:1703} Mor'shan Rampart
 	["{npc:3429}, on the tower, from level 17. Keep it: Kadrak at the {area:1703}, next guide"] = "",
 
-	-- Step 40: Thunder Bluff
+	-- Step 43: Thunder Bluff
 	-- {area:1638} Thunder Bluff · {quest:853} Apothecary Zamah · {area:2197} Pools of Vision · {area:1640} Spirit Rise · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
 	["Fly from the Crossroads to {area:1638}. {quest:853} waits in the {area:2197}, the cave under {area:1640}: hand in the spores there first, while their time runs. Then {npc:3033} trains you on {area:1639}."] = "從十字路口飛往{area:1638}。{quest:853}在{area:1640}下方的洞穴{area:2197}裡：趁時限還沒到，先去那裡繳交孢子。接著{npc:3033}在{area:1639}為你訓練。",
 	-- {quest:853} Apothecary Zamah · {area:2197} Pools of Vision
 	["{quest:853}, in the {area:2197}"] = "{quest:853}，在{area:2197}",
 
-	-- Step 41: Moonglade
+	-- Step 44: Moonglade
 	-- {spell:18960} Teleport: Moonglade
 	["Cast {spell:18960}"] = "",
 
-	-- Step 42: Trial of the Lake
+	-- Step 45: Trial of the Lake
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:656} Lake Elune'ara · {area:2362} Shrine of Remulos · {npc:11799} Tajarri · {quest:28} Trial of the Lake
 	-- plural, as words: Shrine Baubles = {item:15877} Shrine Bauble
 	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. The Shrine Baubles lie on the bed of {area:656} and fade within minutes: swim one straight to the {area:2362} on the north-west shore, use it there and speak to {npc:11799}. {quest:28} runs on a timer: no teleport or Hearthstone until {npc:11799} has it."] = "",
@@ -223,131 +237,130 @@ return {
 	-- {npc:11798} Bunthen Plainswind · {area:2361} Nighthaven
 	["{npc:11798} in {area:2361} flies druids there"] = "{area:2361}的{npc:11798}會載德魯伊飛到那裡",
 
-	-- Step 43: Fly to Ratchet
+	-- Step 46: Fly to Ratchet
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "飛往{area:392}",
 	-- {zone:1456} Thunder Bluff · {area:392} Ratchet
 	["Fly from {zone:1456} straight on to {area:392}."] = "從{zone:1456}直接飛往{area:392}。",
 
-	-- Step 44: Fly to Ratchet
+	-- Step 47: Fly to Ratchet
 	["Crossroads flight master"] = "十字路口飛行管理員",
 
-	-- Step 45: Ratchet
+	-- Step 48: Ratchet
 	-- {object:3972} WANTED
 	["{object:3972} poster"] = "{object:3972}海報",
 
-	-- Step 46: Mebok Mizzyrix
+	-- Step 49: Mebok Mizzyrix
 	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix · {quest:1491} Smart Drinks
 	["For your {area:718} run: {npc:3446}'s next errand, {quest:1491}."] = "為了你的{area:718}之行：{npc:3446}的下一個差事，{quest:1491}。",
 
-	-- Step 48: Ratchet
+	-- Step 51: Ratchet
 	-- {npc:3442} Sputtervalve · {quest:1483} Ziz Fizziks · {area:1076} Webwinder Path
 	["{npc:3442}: keep it, {quest:1483} is on the {area:1076} in Stonetalon, at the end of this guide"] = "",
 	-- {npc:3442} Sputtervalve · {npc:9316} Wenikee Boltbucket · {area:382} Sludge Fen
 	["{npc:3442}: {npc:9316} stands on the road north of the Crossroads, on the way to the {area:382}"] = "",
 
-	-- Step 49: Bruuz
+	-- Step 52: Bruuz
 	-- {npc:209797} Bruuz
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:209797} (level 20 elite) needs a group of 2. Skip it if you are alone."] = "這些是精英怪：建議組隊，找人一起打。{npc:209797}（20級精英）需要2人小隊。單人就跳過。",
 
-	-- Step 50: Ratchet
+	-- Step 53: Ratchet
 	-- {npc:3391} Gazlowe
 	["{npc:3391} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 
-	-- Step 51: Raptor nests
+	-- Step 54: Raptor nests
 	["Raptor nests"] = "迅猛龍巢",
 	-- {area:392} Ratchet · {area:1697} Raptor Grounds · {item:5165} Sunscale Feather
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
 	["South-west from {area:392} across the plains to the {area:1697}: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs a {item:5165}: kill Sunscale raptors (most drop one) until you have three, then use a feather at each nest."] = "從{area:392}往西南穿過平原前往{area:1697}：三個巢一起位於綠洲西南方，由赤鱗鐮爪龍守護。每個巢都需要一根{item:5165}：擊殺赤鱗迅猛龍（大多會掉落一根）直到你有三根，然後在每個巢使用一根羽毛。",
 
-	-- Step 52: Raptor Grounds: kill these as you meet them
+	-- Step 55: Raptor Grounds: kill these as you meet them
 	-- {area:1697} Raptor Grounds
 	["{area:1697}: kill these as you meet them"] = "",
 	-- {area:1697} Raptor Grounds · {npc:3446} Mebok Mizzyrix · {area:392} Ratchet · {npc:3682} Vrang Wildgore · {area:385} Northwatch Hold
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
 	["Sunscale Scytheclaws hunt the plains around the {area:1697}; they drop the horns. {npc:3446} takes them back in {area:392}; any still missing come with {npc:3682}'s hills later.\nSouth-east toward the coast: the stolen silver lies in a raptor nest north-west of {area:385}."] = "赤鱗鐮爪龍在{area:1697}周圍的平原獵食；牠們會掉落龍角。回{area:392}交給{npc:3446}；還缺的之後在{npc:3682}的丘陵補齊。\n往東南朝海岸走：被偷的銀子在{area:385}西北方的迅猛龍巢裡。",
 
-	-- Step 53: Stolen Booty
+	-- Step 56: Stolen Booty
 	-- {npc:3467} Baron Longshore
 	["East to the beach, at the south end of the pirate camp: the crate of boots and the fragile crate with the lens sit there, and {npc:3467} (16) stands beside them."] = "向東到海灘，在海盜營地南端：裝靴子的箱子和裝鏡片的易碎箱子就在那裡，{npc:3467}（16）站在旁邊。",
 
-	-- Step 54: Ratchet
+	-- Step 57: Ratchet
 	-- {area:392} Ratchet
 	["Back north along the beach to {area:392}."] = "沿海灘往北走回{area:392}。",
 	-- {npc:3446} Mebok Mizzyrix · {object:3972} WANTED
 	["{npc:3446}, beside the {object:3972} poster"] = "",
 
-	-- Step 59: Dreadmist Peak
+	-- Step 62: Dreadmist Peak
 	-- {area:384} Dreadmist Peak · {item:15842} Empty Dreadmist Peak Sampler · {object:19464} Dreadmist Peak Pool · {npc:3448} Tonga Runetotem · {skill:182} Herbalism · {npc:3490} Hula'mahi · {item:2449} Earthroot
 	["Head north from the Crossroads to {area:384} and fill the {item:15842} at the {object:19464}, then back to {npc:3448} in the Crossroads. No {skill:182}? {npc:3490} beside him sells {item:2449}, three at a time until he restocks."] = "",
 	-- {item:2449} Earthroot · {npc:3490} Hula'mahi
 	["{item:2449} from {npc:3490}; herbalists pick it on the plains"] = "向{npc:3490}購買{item:2449}；草藥學家可在平原上採集",
 
-	-- Step 60: Kolkar camp
+	-- Step 63: Kolkar camp
 	["Kolkar camp"] = "科卡爾半人馬營地",
 	-- {npc:3389} Regthar Deathgate · {item:2449} Earthroot
 	-- plural, as words: Lost Barrens Kodos = {npc:3234} Lost Barrens Kodo
 	["Lost Barrens Kodos roam the plains around the Kolkar camp north-west of {npc:3389}; herbalists pick {item:2449} there too."] = "",
 
-	-- Step 61: Vrang Wildgore
-	-- {area:383} Dry Hills · {npc:3682} Vrang Wildgore · {npc:261366} Walton
-	["North to the {area:383}. {npc:3682} camps below the hills; {npc:261366}, the hermit on the ridge behind him, has work for you only once {npc:3682} sends you up."] = "向北前往{area:383}。{npc:3682}在丘陵下紮營；他身後山脊上的隱士{npc:261366}，要等{npc:3682}派你上去後才會有工作給你。",
-
-	-- Step 62: The Barrens: kill these as you meet them
-	-- {quest:876} Serena Bloodfeather
-	-- plural, as words: Savannah Patriarchs = {npc:3241} Savannah Patriarch · Sprung Traps = {object:640104} Sprung Trap
-	["Savannah Patriarchs roam the plains east of the hills, and the Sprung Traps lie among them. {quest:876} leads the Witchwing harpies in the hills to the west.\nCareful: The route in passes stealthed Harpy Ambushers and an elite harpy that patrols."] = "",
-	-- {quest:865} Raptor Horns
+	-- Step 64: The Barrens: kill these as you meet them
+	-- {area:383} Dry Hills · {quest:876} Serena Bloodfeather
+	["North to the {area:383}: {quest:876} leads the Witchwing harpies in the hills to the west.\nCareful: The route in passes stealthed Harpy Ambushers and an elite harpy that patrols."] = "",
+	-- {quest:865} Raptor Horns · {npc:3682} Vrang Wildgore
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
-	["{quest:865}, if still open: Sunscale Scytheclaws prowl among the lions"] = "",
+	["{quest:865}, if still open: Sunscale Scytheclaws prowl among the lions below {npc:3682}'s camp"] = "",
 
-	-- Step 65: Trouble in the Valley
+	-- Step 65: Walton
+	-- {npc:261366} Walton · {npc:3682} Vrang Wildgore
+	["{npc:261366}, the hermit, stands on the ridge behind {npc:3682}'s camp."] = "",
+
+	-- Step 66: Trouble in the Valley
 	-- {npc:262119} Corporal Adamore · {npc:261366} Walton
 	["{npc:262119} and his marines hold the wrecked caravan south of {npc:261366}. The marines are linked: pulling one calls the rest. Pull from the edge and run; they leash short, so you can thin the camp one at a time before tackling the Corporal."] = "",
 
-	-- Step 66: Walton
+	-- Step 67: Walton
 	-- {npc:261366} Walton · {npc:261367} Terry Longdrink · {area:21} Kul Tiras
 	["Assist {npc:261366}: stay by him when {npc:261367} and the {area:21} marines come up the ridge"] = "協助{npc:261366}：{npc:261367}和{area:21}水兵爬上山脊時，待在他身邊",
 
-	-- Step 67: Wenikee Boltbucket
+	-- Step 68: Wenikee Boltbucket
 	-- {npc:261366} Walton · {area:382} Sludge Fen · {npc:9316} Wenikee Boltbucket
 	["East from {npc:261366} toward the {area:382}: {npc:9316} stands at the camp on the road north of the Crossroads."] = "從{npc:261366}向東朝{area:382}走：{npc:9316}站在十字路口北邊道路上的營地。",
 
-	-- Step 68: Ignition
+	-- Step 69: Ignition
 	-- {npc:3439} Wizzlecrank's Shredder · {area:382} Sludge Fen · {npc:3445} Supervisor Lugwizzle
 	["{npc:3439} stands inside the Venture Co. camp in the {area:382}; {npc:3445} carries the key."] = "",
 
-	-- Step 69: Strange Lockbox
+	-- Step 70: Strange Lockbox
 	-- {object:177794} Strange Lockbox · {area:382} Sludge Fen · {item:15883} Half Pendant of Aquatic Agility · {quest:30} Trial of the Sea Lion
 	["The {object:177794} lies at the north edge of the {area:382}, by the Venture Co. tower. It holds the {item:15883} for {quest:30}."] = "{object:177794}在{area:382}北緣，風險投資公司的塔旁。裡面有{quest:30}所需的{item:15883}。",
 
-	-- Step 70: The Escape
+	-- Step 71: The Escape
 	-- {npc:3442} Sputtervalve · {area:392} Ratchet
 	["Wizzlecrank drives his shredder out of the camp: stay with him and kill whatever attacks him. {npc:3442} takes it in {area:392}.\nCareful: The route leads west and climbs a ramp. Once you reach the top, two Venture Company mobs ambush you."] = "",
 
-	-- Step 71: Nugget Slugs
+	-- Step 72: Nugget Slugs
 	-- {area:382} Sludge Fen
 	["The tool buckets with the slugs lie around the Venture Co. drill site in the {area:382}."] = "裝著蛞蝓的工具籃在{area:382}的風險投資公司鑽探場周圍。",
 
-	-- Step 72: Boulder Lode Mine
+	-- Step 73: Boulder Lode Mine
 	-- {item:5097} Cats Eye Emerald
 	-- plural, as words: Venture Co. Overseers = {npc:3286} Venture Co. Overseer
 	["The Venture Co. Overseers and Enforcers at the mine in the north-east corner of the zone drop the {item:5097}."] = "地區東北角礦坑的風險投資公司監工和風險投資公司執行者會掉落{item:5097}。",
 
-	-- Step 73: Wenikee Boltbucket
+	-- Step 74: Wenikee Boltbucket
 	-- {npc:9316} Wenikee Boltbucket
 	["West from the mine to {npc:9316}'s camp, then south down the road to the Crossroads."] = "",
 	-- {quest:3923} Rilli Greasygob · {zone:1454} Orgrimmar · {object:172958} Valley of Honor
 	["Keep it: {quest:3923} is in {zone:1454}'s {object:172958}, on the {zone:1454} trip at 20"] = "",
 
-	-- Step 74: the Crossroads
+	-- Step 75: the Crossroads
 	["the Crossroads"] = "",
 	-- {npc:3449} Darsok Swiftdagger · {npc:3448} Tonga Runetotem
 	["South down the road to the Crossroads: {npc:3449} stands on the tower platform, {npc:3448} at the south gate."] = "",
 	-- {item:15826} Curative Animal Salve
 	["He gives you the {item:15826}"] = "他會給你{item:15826}",
 
-	-- Step 75: Verog the Dervish
+	-- Step 76: Verog the Dervish
 	-- {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis · {npc:3448} Tonga Runetotem
 	["{npc:3395} doesn't wander on his own: he comes out when you kill the Kolkar centaurs at the {area:388}, south-east of the Crossroads. Keep killing them around the oasis until he appears. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395}不會自己出現：在十字路口東南方的{area:388}擊殺科卡爾半人馬時他才會現身。在綠洲周圍持續擊殺直到他出現。趁在那裡，到綠洲東岸冒泡的裂縫測試{npc:3448}的種子。",
 	["Underwater"] = "在水下",
@@ -356,22 +369,22 @@ return {
 	-- {npc:12296} Sickly Gazelle
 	["Cure {npc:12296}"] = "",
 
-	-- Step 76: Bristleback camps
+	-- Step 77: Bristleback camps
 	["Bristleback camps"] = "刺背營地",
 	-- {area:378} Camp Taurajo · {area:458} Gold Road · {npc:3432} Mankrik · {npc:3430} Mangletooth · {quest:883} Lakota'mani
 	["The Bristleback quilboar camps spread over the plains north of {area:378}, either side of the {area:458}. {npc:3432}'s wife lies at their north edge, on your way south. Leave the quilboar for now: {npc:3430} in {area:378} wants the same camps cleared. {quest:883}, a grey kodo (level 22), sometimes wanders here: his hoof starts a quest. Leave him alone below level 21."] = "刺背野豬人營地散布在{area:378}北方的平原上，{area:458}兩側都有。{npc:3432}的妻子躺在營地北緣，就在你往南的路上。野豬人先別打：{area:378}的{npc:3430}要你清理同樣的營地。{quest:883}是一隻灰色科多獸（22級），有時會在這裡遊蕩：牠的蹄子會開啟任務。21級以下別惹牠。",
 
-	-- Step 77: Camp Taurajo
+	-- Step 78: Camp Taurajo
 	-- {area:458} Gold Road · {area:378} Camp Taurajo
 	["Follow the {area:458} south to {area:378}."] = "沿{area:458}向南前往{area:378}。",
 	-- {npc:3430} Mangletooth
 	["{npc:3430}, in the cage"] = "{npc:3430}，在籠子裡",
 
-	-- Step 78: Bramblescar
+	-- Step 79: Bramblescar
 	-- {npc:3432} Mankrik · {npc:3430} Mangletooth · {item:5075} Blood Shard
 	["Back north into the Bristleback camps. Any Bristleback can drop a tusk for {npc:3432}, so collect them while you kill these for {npc:3430}. Keep one {item:5075}."] = "",
 
-	-- Step 81: Level 20
+	-- Step 82: Level 20
 	["Level 20"] = "20級",
 	-- {zone:1454} Orgrimmar · {area:1700} Agama'gor · {area:718} Wailing Caverns
 	-- plural, as words: Bristleback Geomancers = {npc:3263} Bristleback Geomancer
@@ -381,7 +394,7 @@ return {
 	-- {npc:3263} Bristleback Geomancer
 	["grind on {npc:3263}"] = "刷{npc:3263}",
 
-	-- Step 82: The Crossroads
+	-- Step 83: The Crossroads
 	-- {area:458} Gold Road · {npc:3448} Tonga Runetotem · {npc:3432} Mankrik · {npc:3428} Korran · {item:5075} Blood Shard · {npc:3430} Mangletooth · {area:378} Camp Taurajo
 	["North up the {area:458} to the Crossroads: {npc:3448} at the south gate, {npc:3432} by the inn, {npc:3428} west of the north gate. Keep the {item:5075}: {npc:3430} takes it on the next stop in {area:378}."] = "沿{area:458}向北前往十字路口：{npc:3448}在南門，{npc:3432}在旅店旁，{npc:3428}在北門西邊。先留著{item:5075}：下次到{area:378}時交給{npc:3430}。",
 	-- {npc:3448} Tonga Runetotem · {area:387} Lushwater Oasis · {npc:3396} Hezrul Bloodmark · {zone:1454} Orgrimmar
@@ -392,82 +405,82 @@ return {
 	-- {npc:3428} Korran · {quest:868} Egg Hunt · {zone:1413} The Barrens
 	["{npc:3428}'s {quest:868} waits for this guide's last Crossroads stop: its eggs come on the next {zone:1413} guide's walk south, at about 25."] = "{npc:3428}的{quest:868}留到本指南最後一次到十字路口時再處理：蠍卵在下一份{zone:1413}指南往南走的路上，約25級時收集。",
 
-	-- Step 83: Fly to Orgrimmar
+	-- Step 84: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "飛往{area:1637}",
 	-- {area:1637} Orgrimmar · {npc:3615} Devrak
 	["Train your level 20 ranks in {area:1637} now: fly from {npc:3615} on the Crossroads' tower."] = "",
 
-	-- Step 84: Orgrimmar
+	-- Step 85: Orgrimmar
 	-- {npc:3354} Sorek · {object:172958} Valley of Honor · {npc:5892} Searn Firewarder · {object:172957} Valley of Wisdom
 	["{npc:3354} is in the {object:172958}, {npc:5892} in the {object:172957}."] = "",
 
-	-- Step 85: Valley of Honor
+	-- Step 86: Valley of Honor
 	-- {quest:3923} Rilli Greasygob · {object:172958} Valley of Honor
 	["{quest:3923} stands by the {object:172958}'s water, east of the Drag."] = "",
 
-	-- Step 86: Shenthul
+	-- Step 87: Shenthul
 	-- {quest:2458} Deep Cover · {npc:7233} Taskmaster Fizzule · {area:382} Sludge Fen
 	["{quest:2458}: {npc:7233}, by the {area:382} on the next guide's walk north"] = "",
 
-	-- Step 87: Orgrimmar class quests
+	-- Step 88: Orgrimmar class quests
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} class quests"] = "{zone:1454}的職業任務",
 	-- {npc:6018} Ur'kyo · {object:172961} Valley of Spirits
 	["{npc:6018} stands in the {object:172961} on the city's west side."] = "{npc:6018}站在城市西側的{object:172961}。",
 
-	-- Step 88: Gan'rul Bloodeye
+	-- Step 89: Gan'rul Bloodeye
 	-- {object:172960} Cleft of Shadow · {object:172982} Valley of Strength
 	["The {object:172960} is the canyon under the {object:172982}."] = "{object:172960}是{object:172982}下方的峽谷。",
 	-- {npc:5909} Cazul
 	["{npc:5909}, a few steps away"] = "{npc:5909}，就在幾步之外",
 
-	-- Step 89: Ur'kyo
+	-- Step 90: Ur'kyo
 	-- {npc:6018} Ur'kyo · {object:172961} Valley of Spirits
 	["{npc:6018} stands in the {object:172961}, on the city's west side."] = "{npc:6018}站在城市西側的{object:172961}。",
 	-- {npc:6018} Ur'kyo · {npc:4606} Aelthalyste · {zone:1458} Undercity
 	["{npc:6018}: {npc:4606} in the {zone:1458}, two guides on"] = "{npc:6018}：兩份指南後{zone:1458}的{npc:4606}",
 
-	-- Step 91: Thunder Bluff
+	-- Step 92: Thunder Bluff
 	-- {npc:246344} Alodan the Hopeful · {area:1638} Thunder Bluff · {zone:1454} Orgrimmar · {area:378} Camp Taurajo · {zone:1412} Mulgore · {npc:2995} Tal
 	["Train your level 20 ranks: {npc:246344} teaches Paladins in {area:1638}; {zone:1454} has no Paladin trainer. You have no flight path there yet: fly to {area:378}, head west through {zone:1412} and up a lift, and take the flight path from {npc:2995} on the central rise."] = "",
 
-	-- Step 93: The Great Cat Spirit
+	-- Step 94: The Great Cat Spirit
 	-- {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:499} Cat Form · {spell:526} Cure Poison · {zone:1450} Moonglade · {npc:11798} Bunthen Plainswind · {area:392} Ratchet
 	["Fly from the Crossroads to {area:1638} and train your level 20 ranks: {npc:3033} is on {area:1639}. {spell:499} and {spell:526} follow in {zone:1450} on the same trip, then {npc:11798} flies you back here and on to {area:392}."] = "",
 
-	-- Step 94: Moonglade
+	-- Step 95: Moonglade
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
 	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "",
 
-	-- Step 96: Moonglade
+	-- Step 97: Moonglade
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
 	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "",
 
-	-- Step 97: Moonglade
+	-- Step 98: Moonglade
 	-- {npc:11802} Dendrite Starblaze · {npc:3033} Turak Runetotem
 	["{npc:11802}: the welcome from {npc:3033}"] = "{npc:11802}：{npc:3033}的歡迎",
 
-	-- Step 98: The Stormrage Barrow Dens
+	-- Step 99: The Stormrage Barrow Dens
 	-- {area:2363} Stormrage Barrow Dens
 	["The {area:2363}"] = "{area:2363}",
 	-- {npc:11957} Great Cat Spirit · {npc:272054} Avatar of Saeyleenan · {item:280680} Relic of the Silent Shadow
 	-- plural, as words: Territorial Terrans = {npc:230558} Territorial Terran
 	["Tauren: the {npc:11957} waits on the southern hill above the bridge. Skyborne: the {npc:272054} stands south of the twin bridges. Then the dens east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the {item:280680} lies at the foot of the white cat statue. Careful: the spirits are Territorial Terrans (level 60) that kill whoever they see: stay off their paths, and click the statue again before the stealth runs out."] = "牛頭人：{npc:11957}在橋上方的南邊山丘等著。天裔精靈：{npc:272054}站在雙橋南邊。然後前往湖東邊的獸穴：解除變形，點擊入口的雕像獲得五分鐘的潛行，避開裡面的靈魂，每種聖物各拿一個；{item:280680}在白貓雕像的腳下。小心：這些靈魂是Territorial Terran（60級），看到誰就殺誰：避開牠們的路線，並在潛行結束前再次點擊雕像。",
 
-	-- Step 101: Fly to Ratchet
+	-- Step 102: Fly to Ratchet
 	-- {zone:1456} Thunder Bluff · {area:392} Ratchet
 	["Fly from {zone:1456} on to {area:392}."] = "",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "",
 
-	-- Step 102: Fly to Ratchet
+	-- Step 103: Fly to Ratchet
 	-- {area:392} Ratchet · {object:172982} Valley of Strength
 	["Fly on to {area:392} from Doras on the tower in the {object:172982}."] = "",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "{zone:1454}的飛行管理員",
 
-	-- Step 104: Northwatch Hold: kill these as you meet them
+	-- Step 105: Northwatch Hold: kill these as you meet them
 	-- {area:385} Northwatch Hold
 	["{area:385}: kill these as you meet them"] = "",
 	-- {area:385} Northwatch Hold · {npc:3393} Captain Fairmount
@@ -476,21 +489,21 @@ return {
 	["On the top floor"] = "",
 	["Upstairs"] = "樓上",
 
-	-- Step 105: Free From the Hold
+	-- Step 106: Free From the Hold
 	-- {npc:3465} Gilthares Firebough · {area:392} Ratchet
 	["{npc:3465} is chained inside the hold. Talk to him to start the escort and stay close: Theramore soldiers attack on the way out. He walks you back to {area:392}."] = "{npc:3465}被鎖在要塞內。和他交談開始護送並緊跟著他：出去的路上塞拉摩士兵會攻擊。他會和你一起走回{area:392}。",
 
-	-- Step 108: Ratchet: Wailing Caverns quests
+	-- Step 109: Ratchet: Wailing Caverns quests
 	-- {area:392} Ratchet · {area:718} Wailing Caverns
 	["{area:392}: {area:718} quests"] = "{area:392}：{area:718}任務",
 	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix · {object:3972} WANTED · {npc:3665} Crane Operator Bigglefuzz · {npc:3396} Hezrul Bloodmark
 	["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the {object:3972} poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "你的{area:718}任務，如果還沒接的話：{npc:3446}在{object:3972}告示旁，{npc:3665}在飛行管理員旁的碼頭上。這趟地城之行在本指南稍後，在{npc:3396}之後。",
 
-	-- Step 109: Islen Waterseer
+	-- Step 110: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
 	["{npc:5901} waits on the hill south of {area:392}, on your way north."] = "{npc:5901}在{area:392}南邊的山丘上等著，就在你往北的路上。",
 
-	-- Step 110: Ishamuhale
+	-- Step 111: Ishamuhale
 	-- {quest:882} Ishamuhale · {item:10338} Fresh Zhevra Carcass · {object:147538} Dead Tree (no name in this language: may be words) · {area:392} Ratchet
 	["{quest:882}, a big Sunscale raptor, only comes to a fresh kill: loot a {item:10338} from a zhevra, then use it at the {object:147538} north-west of {area:392}, north of the road to the Crossroads, and be ready when he arrives."] = "",
 	-- {item:10338} Fresh Zhevra Carcass
@@ -499,44 +512,44 @@ return {
 	-- {object:147538} Dead Tree (no name in this language: may be words) · {quest:882} Ishamuhale
 	["At the {object:147538}: summons {quest:882}"] = "",
 
-	-- Step 111: Gazrog
+	-- Step 112: Gazrog
 	-- {npc:3464} Gazrog
 	["{npc:3464}, by the Crossroads' north gate"] = "",
 
-	-- Step 114: Ken'zigla
+	-- Step 115: Ken'zigla
 	-- {npc:4197} Ken'zigla · {area:2539} Malaka'jin · {npc:3389} Regthar Deathgate
 	["{npc:4197} lives in {area:2539}, the troll village just inside Stonetalon at the end of the road west from {npc:3389}."] = "{npc:4197}住在{area:2539}，那是從{npc:3389}往西的道路盡頭、剛進入石爪山脈的食人妖村落。",
 
-	-- Step 115: To Regthar Deathgate
+	-- Step 116: To Regthar Deathgate
 	-- {npc:3389} Regthar Deathgate
 	["To {npc:3389}"] = "",
 
-	-- Step 117: Hezrul Bloodmark
+	-- Step 118: Hezrul Bloodmark
 	-- {npc:3396} Hezrul Bloodmark · {area:387} Lushwater Oasis · {npc:3389} Regthar Deathgate · {npc:3448} Tonga Runetotem
 	-- plural, as words: Oasis Snapjaws = {npc:3461} Oasis Snapjaw
 	["{npc:3396} leads the Kolkar on the west shore of {area:387}, south of {npc:3389}. He walks that shore, from about 46,36 in the north to 46,42 in the south: if he isn't at the arrow, follow the shore until you meet him. Hand his head to {npc:3389} on your last Crossroads stop. Oasis Snapjaws crawl in the oasis' water there: their shells are for {npc:3448}."] = "{npc:3396}帶領科卡爾盤踞在{npc:3389}南邊的{area:387}西岸。他沿著岸邊走動，北端約46,36，南端約46,42：若箭頭處沒看到他，就沿岸找到他為止。最後一次到十字路口時，把他的頭交給{npc:3389}。綠洲鉗嘴龜在那裡的綠洲水中爬行：牠們的殼是給{npc:3448}的。",
 
-	-- Step 118: Nalpak and Ebru
+	-- Step 119: Nalpak and Ebru
 	-- {npc:5767} Nalpak · {npc:5768} Ebru
 	["{npc:5767} and {npc:5768}"] = "{npc:5767}和{npc:5768}",
 	-- {area:718} Wailing Caverns · {npc:5767} Nalpak · {npc:5768} Ebru
 	["For your {area:718} run: {npc:5767} and {npc:5768} stand in a hidden cave in the rocks above the entrance, at the north end of the oasis' west shore: climb up from the west side. Follow the arrow up."] = "為了你的{area:718}之行：{npc:5767}和{npc:5768}站在入口上方岩石中的一個隱藏洞穴裡，位於綠洲西岸的北端：從西側爬上去。跟著箭頭往上走。",
 
-	-- Step 119: Wailing Caverns
+	-- Step 120: Wailing Caverns
 	-- {area:718} Wailing Caverns · {npc:3396} Hezrul Bloodmark · {area:387} Lushwater Oasis · {npc:5767} Nalpak · {npc:3655} Mad Magglish · {item:5334} 99-Year-Old Port · {npc:5768} Ebru · {item:6464} Wailing Essence · {npc:3678} Disciple of Naralex · {npc:3654} Mutanus the Devourer · {item:10441} Glowing Shard · {area:392} Ratchet · {npc:8418} Falla Sagewind
 	["{area:718} is a dungeon for a group of five, about levels 17 to 24, and a full run takes about an hour. Its mouth is just north of {npc:3396}'s shore, at the north end of {area:387}, under {npc:5767}'s cave.\nIn the caves before the portal: {npc:3655}, stealthed, with the {item:5334} (he moves between a few spots and comes back slowly: leave him if he's gone). Inside: the Deviates for {npc:5768}, and their hides for {npc:5767} (they drop rarely: one run may not be enough, so leave the rest for another run), {item:6464} from the Ectoplasms. After the four Fanglords, the {npc:3678} at the entrance leads you to Naralex: {npc:3654} drops the {item:10441}: its quest (someone in {area:392}, then {npc:8418} above the caverns) is not on this route; the Dungeons page's hand-in guide takes it."] = "{area:718}是五人地城，約17到24級，完整打一次約需一小時。洞口就在{npc:3396}所在岸邊的北邊，{area:387}北端，{npc:5767}的洞穴下方。\n傳送門前的洞穴裡：潛行中的{npc:3655}帶著{item:5334}（他會在幾個地點之間移動，回來得很慢：如果他不在就別管了）。裡面：給{npc:5768}的變異生物，以及給{npc:5767}的牠們的皮（掉率很低：打一次可能不夠，剩下的留給下一次），{item:6464}則來自軟泥怪。擊敗四位尖牙領主後，入口處的{npc:3678}會帶你去找納拉雷克斯：{npc:3654}會掉落{item:10441}，它的任務（先找{area:392}的某人，再找洞穴上方的{npc:8418}）不在本路線中；由地城頁面的繳交指南處理。",
 	-- {item:6464} Wailing Essence
 	["{item:6464}: the Ectoplasms"] = "{item:6464}：軟泥怪",
 
-	-- Step 120: Nalpak
+	-- Step 121: Nalpak
 	["Back out of the caverns and up to the cave above the entrance."] = "從洞穴出來，往上走到入口上方的洞穴。",
 
-	-- Step 122: Olgra's Adornments
+	-- Step 123: Olgra's Adornments
 	-- {area:458} Gold Road · {area:378} Camp Taurajo · {item:277277} Olgra's Adornments · {npc:3432} Mankrik
 	-- plural, as words: Razormane Raiders = {npc:268624} Razormane Raider
 	["On the way back down the {area:458} to {area:378}: the Razormane Raiders among the Bristleback camps, either side of the road north of the camp, carry {item:277277}. Hand them to {npc:3432} on your last Crossroads stop."] = "",
 
-	-- Step 123: Camp Taurajo
+	-- Step 124: Camp Taurajo
 	-- {area:458} Gold Road · {area:378} Camp Taurajo
 	["Down the {area:458} to {area:378} again."] = "再次沿{area:458}往南前往{area:378}。",
 	-- {npc:12696} Senani Thunderheart · {zone:1440} Ashenvale
@@ -544,37 +557,37 @@ return {
 	-- {npc:6394} Ruga Ragetotem
 	["{npc:6394}, inside"] = "",
 
-	-- Step 125: Grunt Dogran
+	-- Step 126: Grunt Dogran
 	["Dogran is chained up in the quilboar camp west of the road."] = "步兵多格蘭被鎖在道路西邊的野豬人營地裡。",
 	-- {npc:5875} Gan'rul Bloodeye · {zone:1454} Orgrimmar
 	["Keep it: {npc:5875} in {zone:1454}, on the next guide's {zone:1454} stop"] = "",
 
-	-- Step 126: Enraged Thunder Lizards
+	-- Step 127: Enraged Thunder Lizards
 	-- {area:378} Camp Taurajo · {quest:884} Owatanka
 	-- plural, as words: Thunderheads = {npc:3239} Thunderhead
 	["Thunderheads graze on the plains just south of {area:378}. {quest:884}, a blue thunder lizard (level 24), roams among them: his Tailspike starts a quest. Leave him alone below level 23."] = "雷首蜥蜴在{area:378}南邊不遠的平原吃草。藍色雷霆蜥蜴{quest:884}（24級）在牠們之間遊蕩：牠的尾刺會開啟任務。23級以下別惹牠。",
 
-	-- Step 127: Jorn Skyseer
+	-- Step 128: Jorn Skyseer
 	-- {quest:1824} Trial at the Field of Giants · {npc:6394} Ruga Ragetotem
 	-- plural, as words: Silithid Mounds = {object:3685} Silithid Mound
 	["Warriors: take {quest:1824} from {npc:6394} now: it runs for 30 minutes from the accept. The antennae come first, at the Silithid Mounds south of the camp, then straight back to {npc:6394}; the thunderhawks after."] = "戰士：現在就向{npc:6394}接取{quest:1824}：從接取起計時30分鐘。先在營地南邊的異種蠍土丘收集觸角，然後直接回到{npc:6394}那裡；雷鷹之後再處理。",
 
-	-- Step 128: Twitching Antennae
+	-- Step 129: Twitching Antennae
 	["Twitching Antennae"] = "抽動的觸鬚",
 	-- {area:390} Field of Giants · {area:378} Camp Taurajo · {npc:6394} Ruga Ragetotem · {npc:4196} Silithid Swarm · {npc:5781} Silithid Creeper Egg · {npc:3253} Silithid Harvester
 	-- plural, as words: Silithid Swarmers = {npc:3252} Silithid Swarmer · Silithid Mounds = {object:3685} Silithid Mound · Silithid Creepers = {npc:3250} Silithid Creeper
 	["The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the Silithid Mounds in the {area:390}, south of {area:378}, until you have five, then take them straight to {npc:6394} in {area:378}, before the thunderhawks. Careful: Silithid Swarmers (level 21-22) cast {npc:4196} both in and out of combat, which brings several small adds; Silithid Creepers (level 20-21) periodically cast {npc:5781} in combat, which spawns extra adds. A {npc:3253} (24, rare) also wanders the mounds: leave it."] = "觸角掉落十五分鐘後就會消失：在{area:378}南邊{area:390}的異種蠍土丘擊殺異種群居蠍和異種爬行者，直到湊滿五個，然後先別管雷鷹，直接帶去{area:378}交給{npc:6394}。小心：異種群居蠍（21-22級）在戰鬥中和戰鬥外都會施放{npc:4196}，引來好幾隻小怪；異種爬行者（20-21級）在戰鬥中會不時施放{npc:5781}，生出額外的小怪。一隻{npc:3253}（24級，稀有）也在土丘間遊蕩：別理牠。",
 	["Twitching Antennae from the silithid"] = "從異種蠍身上取得顫抖的觸角",
 
-	-- Step 129: Ruga Ragetotem
+	-- Step 130: Ruga Ragetotem
 	-- {area:378} Camp Taurajo · {npc:6394} Ruga Ragetotem
 	["Back north into {area:378} before the antennae fade: {npc:6394} is inside."] = "在觸角消失前向北回到{area:378}：{npc:6394}在裡面。",
 
-	-- Step 130: Cry of the Thunderhawk
+	-- Step 131: Cry of the Thunderhawk
 	-- plural, as words: Thunderhawk Cloudscrapers = {npc:3424} Thunderhawk Cloudscraper
 	["Thunderhawk Cloudscrapers circle over the plains south of the camp."] = "雷鷹破雲者在營地南邊的平原上空盤旋。",
 
-	-- Step 131: Brine
+	-- Step 132: Brine
 	-- {npc:5899} Brine · {area:378} Camp Taurajo · {item:7766} Empty Brown Waterskin
 	["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}: fill the {item:7766} at the watering hole below it."] = "",
 	-- {item:7766} Empty Brown Waterskin
@@ -582,101 +595,101 @@ return {
 	-- {object:107045} Spring Well · {area:272} Tarren Mill · {area:287} Hillsbrad
 	["Keep it: the {object:107045} is beside {area:272}, on the {area:287} guide"] = "",
 
-	-- Step 132: Camp Taurajo
+	-- Step 133: Camp Taurajo
 	-- {area:378} Camp Taurajo
 	["Back north into {area:378} on the way to the Crossroads: Jorn takes the thunderhawk wings."] = "",
 
-	-- Step 133: The Crossroads
+	-- Step 134: The Crossroads
 	-- {area:458} Gold Road · {npc:3448} Tonga Runetotem · {npc:3432} Mankrik · {npc:3428} Korran
 	["North up the {area:458} to the Crossroads: {npc:3448} at the south gate, {npc:3432} by the inn, {npc:3428} west of the north gate."] = "沿{area:458}往北到十字路口：{npc:3448}在南門，{npc:3432}在旅店旁，{npc:3428}在北門西邊。",
 	-- {npc:3428} Korran · {quest:868} Egg Hunt · {zone:1413} The Barrens · {area:378} Camp Taurajo
 	["{npc:3428}, west of the north gate: keep {quest:868}, its eggs lie on the next {zone:1413} guide's walk south from {area:378}, at about 25"] = "{npc:3428}，在北門西邊：保留{quest:868}，蠍卵在下一份{zone:1413}指南從{area:378}往南走的路上，約25級",
 
-	-- Step 134: Thun'grim Firegaze
+	-- Step 135: Thun'grim Firegaze
 	-- {npc:5878} Thun'grim Firegaze
 	["{npc:5878} camps beside the road east of the Crossroads."] = "",
 	-- {quest:1838} Brutal Armor · {area:1717} Razorfen Kraul
 	["He offers {quest:1838} next (1838, level 30): it needs {area:1717} and sends you all over Kalimdor and the Eastern Kingdoms. The Warrior class guide {quest:1838} covers it."] = "他接著提供{quest:1838}（1838，30級）：需要{area:1717}，並會讓你跑遍卡林多和東部王國。戰士職業指南{quest:1838}涵蓋此任務。",
 
-	-- Step 136: Counterattack!
+	-- Step 137: Counterattack!
 	-- {npc:3389} Regthar Deathgate · {npc:9456} Warlord Krom'zar
 	["Speak to {npc:3389} again to start the attack: the Kolkar charge the bunkers just west of him in waves. Fight beside the grunts until {npc:9456} (elite, 20) arrives with two bodyguards, usually from the south, then click the banner over his body."] = "",
 
-	-- Step 137: Seereth Stonebreak's camp
+	-- Step 138: Seereth Stonebreak's camp
 	-- {npc:4049} Seereth Stonebreak
 	["{npc:4049}'s camp"] = "",
 
-	-- Step 138: Seereth Stonebreak
+	-- Step 139: Seereth Stonebreak
 	-- {npc:4049} Seereth Stonebreak · {npc:11857} Makaba Flathoof
 	["{npc:4049} and {npc:11857} share the camp on the road west to Stonetalon."] = "",
 	-- {npc:4049} Seereth Stonebreak · {area:461} Windshear Crag
 	["{npc:4049}: the Venture loggers at {area:461}"] = "",
 
-	-- Step 139: Grimtotem camp
+	-- Step 140: Grimtotem camp
 	["Grimtotem camp"] = "恐怖圖騰營地",
 	-- {npc:11857} Makaba Flathoof
 	["The Grimtotem camp is just north of {npc:11857}, a short walk off the road: Ruffians and Mercenaries stand among the tents."] = "",
 
-	-- Step 140: Makaba Flathoof
+	-- Step 141: Makaba Flathoof
 	-- {npc:11857} Makaba Flathoof
 	["Back down to {npc:11857}."] = "",
 	-- {npc:11858} Grundig Darkcloud · {area:1076} Webwinder Path
 	["{npc:11858} waits up the {area:1076}"] = "",
 
-	-- Step 141: To Malaka'jin
+	-- Step 142: To Malaka'jin
 	-- {area:2539} Malaka'jin
 	["To {area:2539}"] = "",
 
-	-- Step 142: Malaka'jin
+	-- Step 143: Malaka'jin
 	-- {npc:4049} Seereth Stonebreak · {area:2539} Malaka'jin
 	["Follow the road on west from {npc:4049} into Stonetalon. The troll village of {area:2539} sits at the entrance of the canyon."] = "",
 	-- {npc:12816} Xen'Zilla · {area:1076} Webwinder Path
 	["{npc:12816}: the spiders along the {area:1076}"] = "",
 
-	-- Step 143: Webwinder Path: kill these as you meet them
+	-- Step 144: Webwinder Path: kill these as you meet them
 	-- {area:1076} Webwinder Path
 	["{area:1076}: kill these as you meet them"] = "",
 	-- {area:2539} Malaka'jin · {npc:11858} Grundig Darkcloud
 	-- plural, as words: Grimtotem Brutes = {npc:11912} Grimtotem Brute · Deepmoss Creepers = {npc:4005} Deepmoss Creeper
 	["North up the road from {area:2539}: {npc:11858} and his Grimtotem Brutes hold the bend in the road, and the Deepmoss Creepers and Venomspitters lurk in the webs on both sides of the path all the way up."] = "",
 
-	-- Step 144: Ziz Fizziks
+	-- Step 145: Ziz Fizziks
 	-- {area:1076} Webwinder Path · {quest:1483} Ziz Fizziks · {area:461} Windshear Crag
 	["The road climbs north as the {area:1076}. {quest:1483} has a hut where the road forks east to {area:461}."] = "道路以{area:1076}向北爬升。{quest:1483}的小屋在道路向東分岔通往{area:461}的地方。",
 	-- {quest:1483} Ziz Fizziks
 	["{quest:1483}, inside"] = "{quest:1483}，在裡面",
 
-	-- Step 145: Windshear Crag
+	-- Step 146: Windshear Crag
 	-- {area:461} Windshear Crag
 	["East of Ziz, the Venture Company is clear-cutting {area:461}; one of the Operators carries the blueprints."] = "",
 	-- plural, as words: Venture Co. Loggers = {npc:3989} Venture Co. Logger
 	["Venture Co. Loggers, all over the clear-cut"] = "",
 
-	-- Step 146: Piznik
+	-- Step 147: Piznik
 	-- {npc:4276} Piznik · {area:2160} Windshear Mine
 	["{npc:4276}'s defence is hard alone at this level: grouping up is encouraged, look for people to do it with. Skip it if you are alone.\n{npc:4276} mines at the bottom of the {area:2160} on the east side of the crag, past its kobolds (levels 19-23). Talk to him, then keep him alive for five minutes while he mines: a dozen or more kobolds come at him in waves, melee fighters first, then casters, and the mine's own kobolds respawn into the fight. If he dies, the quest fails."] = "",
 	-- {npc:4276} Piznik
 	["{npc:4276}, below ground"] = "",
 
-	-- Step 147: Ziz Fizziks: Gerenzo's Orders
+	-- Step 148: Ziz Fizziks: Gerenzo's Orders
 	-- {npc:4201} Ziz Fizziks
 	["{npc:4201}, inside"] = "{npc:4201}，在裡面",
 
-	-- Step 148: Ziz Fizziks
+	-- Step 149: Ziz Fizziks
 	-- {npc:4201} Ziz Fizziks · {npc:3442} Sputtervalve · {area:392} Ratchet · {zone:1413} The Barrens
 	["{npc:4201}: for {npc:3442}, beside {area:392}'s flight master at the end of the {zone:1413} & Stonetalon guide"] = "{npc:4201}：交給{npc:3442}，他在{area:392}的飛行管理員旁，於{zone:1413}與石爪山脈指南的最後",
 
-	-- Step 149: Kaya Flathoof
+	-- Step 150: Kaya Flathoof
 	-- {area:1076} Webwinder Path · {npc:11856} Kaya Flathoof · {npc:11858} Grundig Darkcloud · {area:2538} Camp Aparaje
 	["On the way back down the {area:1076}, {npc:11856} is held in {npc:11858}'s hut at the bend in the road. Once you take her quest she walks straight off south-east to {area:2538}, the burned village, without waiting: stay close, or the quest fails.\nCareful: Three Grimtotems ambush her at the burned village and go for her, not you: pull them off her and kill their caster quickly."] = "沿{area:1076}往回下山時，{npc:11856}被關在道路轉彎處{npc:11858}的小屋裡。接下她的任務後，她會直接往東南走向被燒毀的村莊{area:2538}，不會等你：緊跟著她，否則任務會失敗。\n小心：三個恐怖圖騰成員會在被燒毀的村莊伏擊她，並且攻擊她而不是你：把他們從她身上拉開，並迅速擊殺他們的施法者。",
 	-- {npc:11856} Kaya Flathoof · {npc:11858} Grundig Darkcloud
 	["{npc:11856}, inside {npc:11858}'s hut"] = "{npc:11856}，在{npc:11858}的小屋裡",
 
-	-- Step 150: Malaka'jin
+	-- Step 151: Malaka'jin
 	-- {area:2539} Malaka'jin · {npc:12816} Xen'Zilla
 	["West from the burned village to {area:2539}: {npc:12816} stands just outside it, before the village."] = "從被燒毀的村莊往西前往{area:2539}：{npc:12816}就站在村外，在進村之前。",
 
-	-- Step 152: Seereth Stonebreak
+	-- Step 153: Seereth Stonebreak
 	-- {npc:4049} Seereth Stonebreak · {npc:11857} Makaba Flathoof
 	["East along the road to {npc:4049} and {npc:11857}'s camp, on the way back out of Stonetalon."] = "",
 	-- {npc:4049} Seereth Stonebreak · {quest:1063} The Elder Crone · {zone:1456} Thunder Bluff
@@ -697,6 +710,7 @@ return {
 	-- ["Follow the road south-east to {area:392} on the coast."] = "沿道路向東南前往海岸的{area:392}。",
 	-- ["Keep it: {quest:3923} stands outside {zone:1454}; a later guide hands it in"] = "先留著：{quest:3923}站在{zone:1454}外；之後的指南會繳交",
 	-- ["Kolkar Wranglers and Stormers hold the camps south of {npc:3389}."] = "科卡爾牧民和科卡爾召雷師佔據{npc:3389}南邊的營地。",
+	-- ["North to the {area:383}. {npc:3682} camps below the hills; {npc:261366}, the hermit on the ridge behind him, has work for you only once {npc:3682} sends you up."] = "向北前往{area:383}。{npc:3682}在丘陵下紮營；他身後山脊上的隱士{npc:261366}，要等{npc:3682}派你上去後才會有工作給你。",
 	-- ["Oasis Snapjaws crawl around {area:387}, south-west of the {area:380}, and around the {area:388}."] = "綠洲鉗嘴龜在{area:380}西南方的{area:387}周圍，以及{area:388}周圍爬行。",
 	-- ["Over the {area:814} bridge below {area:379} and south along the {zone:1411} bank to where a narrow trail climbs the mountain: {npc:5900} keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail."] = "經過{area:379}下方的{area:814}橋，沿{zone:1411}岸邊往南走，直到一條窄路爬上山：{npc:5900}看守山頂的神殿。上山時小心邊緣，並沿同一條路下山。",
 	-- ["Plainstriders and Sunscale raptors roam the plains all around the {area:380}, thickest to the north."] = "平原陸行鳥和赤鱗迅猛龍在{area:380}周圍的平原遊蕩，北邊最密集。",

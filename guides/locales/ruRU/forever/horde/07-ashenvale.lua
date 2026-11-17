@@ -288,9 +288,10 @@ return {
 
 	-- Step 65: Dorn Plainstalker
 	-- {npc:2986} Dorn Plainstalker · {quest:1149} Test of Faith
-	["{npc:2986} stands on a mesa top east of the Galak camps. For the {quest:1149}, walk off the end of the planks beside him: you land safely."] = "{npc:2986} стоит на вершине столовой горы к востоку от лагерей Галак. Для задания {quest:1149} сойдите с края досок рядом с ним: вы приземлитесь невредимым.",
+	["{npc:2986} stands on a mesa top east of the Galak camps. Taking his {quest:1149} puts you on a high cliff far to the west: follow the stone path to the end of the wooden planks and step off there, and you land safely. Jump from anywhere else and you fall to your death."] = "",
 	-- {npc:2986} Dorn Plainstalker
 	["{npc:2986}, below ground"] = "",
+	["the end of the planks"] = "",
 	-- {npc:2986} Dorn Plainstalker · {npc:4490} Grenka Bloodscreech
 	["{npc:2986}: {npc:4490}, in the harpy den west of the post"] = "{npc:2986}: {npc:4490}, в логове гарпий к западу от лагеря",
 	-- {quest:1150} Test of Endurance · {npc:4490} Grenka Bloodscreech
@@ -409,6 +410,7 @@ return {
 	-- ["{npc:12837}, inside the inn"] = "{npc:12837}, в таверне",
 	-- ["{npc:12867} stands at the lumber camp. The night elf Outrunners stalk the woods south-east of it; they stealth, so watch for them."] = "{npc:12867} стоит на лесозаготовках. Бегуны ночных эльфов рыщут в лесу к юго-востоку; они скрываются, так что смотрите в оба.",
 	-- ["{npc:210995}, a Forever addition, stands on the west shore of {area:421} with three quick Dragonslayer quests."] = "{npc:210995}, добавленный в Forever, стоит на западном берегу ({area:421}) с тремя быстрыми заданиями драконоборцев.",
+	-- ["{npc:2986} stands on a mesa top east of the Galak camps. For the {quest:1149}, walk off the end of the planks beside him: you land safely."] = "{npc:2986} стоит на вершине столовой горы к востоку от лагерей Галак. Для задания {quest:1149} сойдите с края досок рядом с ним: вы приземлитесь невредимым.",
 	-- ["{npc:2986}'s mesa is north-east of Freewind."] = "Плато NPC {npc:2986} – к северо-востоку от Привольного.",
 	-- ["{npc:4454}: his letter goes to Martek in the {zone:1418}, around level 38"] = "{npc:4454}: его письмо – Мартеку ({zone:1418}), около 38-го уровня",
 	-- ["{npc:4499}, a hard-hitting rock elemental, walks the cliffs of {area:482}, back west past {area:2237}. {npc:4499} is elite: grouping up is advised."] = "{npc:4499}, сильно бьющий каменный элементаль, ходит по утесам ({area:482}), обратно на запад мимо места {area:2237}. {npc:4499} – элита: лучше собрать группу.",

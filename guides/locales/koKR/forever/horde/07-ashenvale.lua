@@ -288,9 +288,10 @@ return {
 
 	-- Step 65: Dorn Plainstalker
 	-- {npc:2986} Dorn Plainstalker · {quest:1149} Test of Faith
-	["{npc:2986} stands on a mesa top east of the Galak camps. For the {quest:1149}, walk off the end of the planks beside him: you land safely."] = "{npc:2986}은(는) 갈라크일족 야영지 동쪽 고원 꼭대기에 서 있습니다. {quest:1149}에서는 그 옆 널빤지 끝에서 걸어 떨어지세요. 안전하게 착지합니다.",
+	["{npc:2986} stands on a mesa top east of the Galak camps. Taking his {quest:1149} puts you on a high cliff far to the west: follow the stone path to the end of the wooden planks and step off there, and you land safely. Jump from anywhere else and you fall to your death."] = "",
 	-- {npc:2986} Dorn Plainstalker
 	["{npc:2986}, below ground"] = "",
+	["the end of the planks"] = "",
 	-- {npc:2986} Dorn Plainstalker · {npc:4490} Grenka Bloodscreech
 	["{npc:2986}: {npc:4490}, in the harpy den west of the post"] = "{npc:2986}: 거점 서쪽 하피 소굴의 {npc:4490}",
 	-- {quest:1150} Test of Endurance · {npc:4490} Grenka Bloodscreech
@@ -403,6 +404,7 @@ return {
 	-- ["{npc:12759}, a corrupted water elemental, drifts in {area:421}. Her {item:16408} starts a quest for Splintertree."] = "타락한 물의 정령 {npc:12759}은(는) {area:421}을(를) 떠다닙니다. 그녀의 {item:16408}은(는) 토막나무 주둔지 퀘스트를 시작합니다.",
 	-- ["{npc:12867} stands at the lumber camp. The night elf Outrunners stalk the woods south-east of it; they stealth, so watch for them."] = "{npc:12867}은(는) 벌목기지에 서 있습니다. 나이트 엘프 정찰병은 그 남동쪽 숲에 숨어 있습니다. 은신하므로 주의하세요.",
 	-- ["{npc:210995}, a Forever addition, stands on the west shore of {area:421} with three quick Dragonslayer quests."] = "Forever에서 추가된 {npc:210995}은(는) {area:421} 서쪽 기슭에서 간단한 용 사냥꾼 퀘스트 세 개를 줍니다.",
+	-- ["{npc:2986} stands on a mesa top east of the Galak camps. For the {quest:1149}, walk off the end of the planks beside him: you land safely."] = "{npc:2986}은(는) 갈라크일족 야영지 동쪽 고원 꼭대기에 서 있습니다. {quest:1149}에서는 그 옆 널빤지 끝에서 걸어 떨어지세요. 안전하게 착지합니다.",
 	-- ["{npc:4454}: his letter goes to Martek in the {zone:1418}, around level 38"] = "{npc:4454}: 그의 편지는 38레벨쯤 {zone:1418}의 마르텍에게 전합니다",
 	-- ["{npc:4499}, a hard-hitting rock elemental, walks the cliffs of {area:482}, back west past {area:2237}. {npc:4499} is elite: grouping up is advised."] = "강하게 때리는 바위 정령 {npc:4499}이 {area:2237}을(를) 지나 서쪽으로 돌아간 {area:482} 절벽을 돌아다닙니다. {npc:4499}은(는) 정예입니다. 파티를 권장합니다.",
 	-- ["{npc:4877}, the trade supplies vendor: the Screeching harpies of {area:487}; inside the inn"] = "교역품 상인 {npc:4877}: {area:487}의 회오리 하피. 여관 안",
