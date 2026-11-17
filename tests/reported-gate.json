@@ -1408,6 +1408,9 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/placeholders.rs", "test": "a_goal_on_a_credit_target_reads_as_its_quest_log_line_never_kill_the_placeholder" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/placeholders.rs", "test": "lookups_quest_step_never_names_a_credit_target" }
 		] },
+		"2711": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2711: The Hinterlands (Alliance): Facing Negolash brings his food to the lifeboat before the kill" }
+		] },
 		"2712": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "#2712: Riverglades (Horde): Stick 'Em points at the crocolisks in the river" }
 		] },

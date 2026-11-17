@@ -16311,6 +16311,20 @@ test('#2604: Stranglethorn (Alliance): Skullsplitter Tusks are looked for in the
 	for (const s of goal.spots || []) assert.ok(s.alt || s.x > 35, `no spot the arrow picks far from the ruins: ${s.x},${s.y}`);
 });
 
+// #2711 (Soggy, 0.4.0.1, Alliance Hinterlands & Blasted Lands): Facing Negolash only said to kill him. Negolash
+// comes only when Enticing Negolash (619) is handed in at the Ruined Lifeboat with 10 Barbecued Buzzard Wings and
+// 5 Junglevine Wine; the step before the kill now gets both and hands them in there.
+test('#2711: The Hinterlands (Alliance): Facing Negolash brings his food to the lifeboat before the kill', { skip }, () => {
+	const list = goals('forever/alliance/40-50/05-the-hinterlands.guide');
+	const wine = at(list, 'buy 4595', (g) => g.t === 'buy' && g.item === 4595 && g.count === 5);
+	const wings = at(list, 'auction 4457', (g) => g.t === 'auction' && g.item === 4457 && g.count === 10);
+	const bait = at(list, 'turnin 619 direct', (g) => is('turnin', 619)(g) && g.direct);
+	const kill = at(list, 'collect 3935', (g) => g.t === 'collect' && g.item === 3935);
+	assert.ok(wine < bait && wings < bait && bait < kill, 'the food first, then the lifeboat, then Negolash');
+	assert.equal(list[bait].goal.object, 2289, 'handed in at the Ruined Lifeboat');
+	for (const i of [wine, wings, bait]) assert.ok(list[i].step.when, 'only for a group taking Facing Negolash');
+});
+
 // #2712 (stabaho, 0.4.0.1, Horde Riverglades): Stick 'Em's spears go on the Freshwater Crocolisks in the river; the
 // goal pointed at 51.9,57.1 on the farmland south of it, where no recorded player impaled one. It points at the
 // river now (recordings: 10 people at 51.75,51.97).

@@ -391,6 +391,33 @@
 				}
 			],
 			"note": "Verog the Dervish (851): Verog (3395) appears at the Stagnant Oasis after Kolkar centaurs are killed there, not as a standing spawn. Source: players' in-game recordings to 2026-11-15: of 76 recorded Verog kills (61 people), 63 came within ten minutes of a Kolkar kill, a median of 25 seconds after the last one (Kolkar Marauders, Bloodchargers, Pack Runners); and Corey's report (#2479)."
+		},
+		"8554": {
+			"kinds": [
+				{
+					"kind": "other",
+					"confidence": "high"
+				}
+			],
+			"steps": [
+				{
+					"n": 1,
+					"action": "turn-in",
+					"target": {
+						"type": "object",
+						"id": 2289
+					},
+					"fact": "Negolash is not standing anywhere: hand in Enticing Negolash (619) at the Ruined Lifeboat on the shore south-east of Booty Bay, with 10 Barbecued Buzzard Wings and 5 Junglevine Wine, and he comes to the boat. Kill him there for Smotts' Cutlass.",
+					"place": {
+						"map": 1434,
+						"x": 32.48,
+						"y": 81.98,
+						"f": "e"
+					},
+					"confidence": "high"
+				}
+			],
+			"note": "Facing Negolash (8554): Negolash (1494) is called up by Enticing Negolash (619), a quest started and ended at the Ruined Lifeboat (object 2289) that takes 10 Barbecued Buzzard Wings (4457) and 5 Junglevine Wine (4595). Source: the game's data (619's start and end at object 2289, its two item objectives; 8554's text asks for the food in the lifeboat); players' in-game recordings to 2026-11-17: 619 handed in by 1 person, Negolash seen by 5 people only at 30-32,72-82 and killed by 2 there; and Soggy's report (#2711)."
 		}
 	}
 }
