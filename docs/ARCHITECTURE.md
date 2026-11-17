@@ -9771,6 +9771,10 @@ opens on its card. The open state is not saved. `GuideFrame.Layout` asks `StepLi
 and stacks it at `StepList.Layout(width, room)`, filling the space within
 the window's height captured on opening (still limited by the screen's top
 with Grow upward). Overflow scrolls; a short list leaves the spare space.
+In compact mode the window is too short to browse in: Layout passes
+`StepList.Layout(width, room, least)` with the height cap as `room` and the
+captured height as `least`, so the list grows the window to fit its cards up
+to the cap and the window returns to its height on closing.
 `StepList.Fill` reads `Engine.GetStepView` for each step not hidden for this
 character (`UI.StepHidden`): all of them when the guide, the step on screen,
 the live step, the progress, a step's gate (`Engine.StepGate`: whether it
