@@ -126,11 +126,11 @@ return {
 
 	-- Step 23: Ratchet
 	-- {zone:1413} Barrens · {area:392} Ratchet · {area:35} Booty Bay
-	["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock."] = "",
+	["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock."] = "De Theramore, siga a estrada para o noroeste pelo pântano até {zone:1413} e suba a costa até {area:392}: Selva do Espinhaço começa em {area:35}, do outro lado do mar. O mestre dos grifos de {area:392} fica acima do cais.",
 
 	-- Step 24: Boat to Booty Bay
 	-- {area:35} Booty Bay
-	["Boat to {area:35}"] = "",
+	["Boat to {area:35}"] = "Barco para {area:35}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back west along the road to the satyr camps of {area:429}."] = "Volte para oeste pela estrada até os acampamentos de sátiros de {area:429}.",

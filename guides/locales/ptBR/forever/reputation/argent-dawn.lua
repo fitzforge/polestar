@@ -72,7 +72,7 @@ return {
 	-- {npc:10811} Archivist Galford
 	["{npc:10811}, Scarlet side"] = "{npc:10811}, lado Escarlate",
 	-- {object:176245} Scarlet Archive
-	["the {object:176245}: burn it, Scarlet side"] = "",
+	["the {object:176245}: burn it, Scarlet side"] = "o {object:176245}: queime-o, lado Escarlate",
 
 	-- Step 7: Scholomance
 	-- {area:2057} Scholomance · {area:2298} Caer Darrow · {zone:1422} Western Plaguelands · {item:13704} Skeleton Key · {faction:529} Argent Dawn · {quest:5508} Corruptor's Scourgestones · {npc:10508} Ras Frostwhisper · {npc:1853} Darkmaster Gandling
