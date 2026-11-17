@@ -1217,12 +1217,14 @@ end
 -- Whether step's `when` fails only on quest work under way: each predicate
 -- that fails is a `complete` of a quest the player carries (#2350: Redridge's
 -- Wanted hand-ins, passed before the elite was dead). Such a failure is never
--- stored (Own.latchWhen): the step comes back once the quest is done.
-function Own.failsForNow(step)
+-- stored (Own.latchWhen): the step comes back once the quest is done. With
+-- `taken` false, a `complete` of a quest not in the log counts too: a step
+-- the player brings back (Engine.Unskip) waits for its quest the same way.
+function Own.failsForNow(step, taken)
 	local C, any = Compat(), false
 	for _, p in ipairs(step.when or NONE) do
 		if Own.predicateFails(step, p) then
-			if p.k ~= "complete" or p.neg or not C.IsOnQuest(p.q) then return false end
+			if p.k ~= "complete" or p.neg or (taken ~= false and not C.IsOnQuest(p.q)) then return false end
 			any = true
 		end
 	end
@@ -15010,7 +15012,10 @@ end
 
 -- Undo a skip: step i is open again (the live step when it is the first open
 -- one), with what its skip stored on the way (Own.skipRestore). True if it
--- was skipped.
+-- was skipped. A step whose `when` fails only on a `complete` (#1934: Zangen's
+-- hand-in of The Sacred Flame, unskipped with the quest at 0/1) is not kept
+-- applying (Own.keep): a hand-in can't be done before its quest is, so the
+-- step comes back once the quest is ready (Own.failsForNow).
 function Engine.Unskip(i)
 	if not guide or type(i) ~= "number" then return false end
 	local sk = skippedFor(guide.id)
@@ -15020,7 +15025,8 @@ function Engine.Unskip(i)
 	sk[i] = nil
 	if not next(sk) then ns.CharState().skipped[guide.id] = nil end
 	Own.skipRestore(guide.id, i)
-	Own.keep(i)
+	local step = guide.steps[i]
+	if not (step and not step.skipto and Own.failsForNow(step, false)) then Own.keep(i) end
 	evaluate()
 	return true
 end
