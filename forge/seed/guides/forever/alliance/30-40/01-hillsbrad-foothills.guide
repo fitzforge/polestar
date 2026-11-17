@@ -88,6 +88,7 @@ step Captive Fire Elemental
   when group 87491
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. The Captive Fire Elemental is held at the far west end of the Dark Iron ruins, past level 27-30 elite dwarves, and Balgaras the Foul (34, elite) can be among them. Lead it east out of the ruins, then hand it in to Roggo Harlbarrow in the camp. Skip it if you are alone.
   accept 87491                        -- Captive Fire Elemental
+  complete 87491 @47.8,16.8 map 1437
   turnin 87491                        -- Roggo Harlbarrow
 
 step Modr

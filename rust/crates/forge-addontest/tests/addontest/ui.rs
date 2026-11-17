@@ -631,6 +631,68 @@ fn right_click_on_a_quest_line_offers_show_in_quest_log_which_opens_the_log_at_t
 	assert_eq!(out["skip"], false, "nothing skipped");
 }
 
+// #2545: a quest's line, middle-clicked, opens the game's quest log at its quest; shift-clicked, it puts the quest's
+// link into the chat box (a chat box opened for it when none is being typed in). Neither moves the arrow, and a plain
+// click still does; the tooltip names both clicks. With the gamepad interface the row menu offers "Link in chat".
+#[test]
+fn a_quest_line_middle_clicked_opens_the_quest_log_shift_clicked_links_it_in_chat_2545() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml", "Quests/QuestLogLink.lua"])],
+		script: format!(
+			"uistub.install()\nstub.login()\nlocal GF, UI, W = Polestar.UI.GuideFrame, Polestar.UI, Polestar.Widgets\nlocal F = PolestarGuideFrame\n{HELPERS}\n{}",
+			r#"
+		local C, opened, inserted, typed = Polestar.Compat, {}, {}, {}
+		C.CanOpenQuestLog = function() return true end
+		C.IsOnQuest = function(q) return q == 15 end
+		C.OpenQuestLog = function(q) opened[#opened + 1] = q; return true end
+		local shift, chatOpen = false, true
+		IsModifiedClick = function(what) return what == "CHATLINK" and shift end
+		GetQuestLink = function(q) return "|cffffff00|Hquest:" .. q .. ":0|h[Investigate Echo Ridge]|h|r" end
+		ChatEdit_InsertLink = function(t) if not chatOpen then return false end inserted[#inserted + 1] = t; return true end
+		ChatFrame_OpenChat = function(t) typed[#typed + 1] = t end
+		uistub.setGuide(uistub.elwynn, 3)
+		for g = 1, 3 do uistub.goal(4, g).status = "done" end
+		uistub.goal(4, 2).status = "active"
+		uistub.setStep(4)
+		local row = rowFor("Investigate Echo Ridge")
+		local r = {}
+		uistub.calls = {}
+		stub.RunScript(row, "OnClick", "MiddleButton")
+		r.middle = { opened = opened, aim = lastCall("AimGoal") or false, menu = PolestarMenu and PolestarMenu:IsShown() or false }
+		shift = true
+		stub.RunScript(row, "OnClick", "LeftButton")
+		chatOpen = false
+		stub.RunScript(row, "OnClick", "LeftButton")
+		r.shift = { inserted = { unpack(inserted) }, typed = typed, aim = lastCall("AimGoal") or false }
+		shift = false
+		stub.RunScript(row, "OnClick", "LeftButton")
+		r.plain = lastCall("AimGoal") or false
+		stub.RunScript(row, "OnEnter")
+		r.tip = GameTooltip.lines
+		stub.RunScript(row, "OnLeave")
+		-- The gamepad interface: no quest log to open, no shift-click; the row menu links it.
+		Polestar.GamepadUI = function() return true end
+		C.CanOpenQuestLog = function() return false end
+		chatOpen = true
+		stub.RunScript(row, "OnClick", "RightButton")
+		local items = {}
+		for _, m in ipairs(PolestarMenu.rows) do if m:IsShown() then items[#items + 1] = m.Text:GetText() end end
+		for _, m in ipairs(PolestarMenu.rows) do if m:IsShown() and m.Text:GetText() == "Link in chat" then m:Click() end end
+		r.pad = { items = items, inserted = #inserted }
+		emit(r)"#
+		),
+		..Default::default()
+	})
+	.remove(0);
+	let link = "|cffffff00|Hquest:15:0|h[Investigate Echo Ridge]|h|r";
+	assert_eq!(out["middle"], json!({ "opened": [15], "aim": false, "menu": false }), "middle-click: the quest log at 15, nothing else");
+	assert_eq!(out["shift"], json!({ "inserted": [link], "typed": [link], "aim": false }), "shift-click: the link in chat");
+	assert_eq!(out["plain"][0], "AimGoal", "a plain click still points the arrow");
+	assert!(has(&out["tip"], "Middle-click: show in quest log. Shift-click: link in chat."), "{}", joined(&out["tip"]));
+	assert_eq!(out["pad"], json!({ "items": ["Tick it done", "Skip this quest", "Link in chat"], "inserted": 2 }), "the gamepad's row menu");
+}
+
 #[test]
 fn hovering_a_goal_explains_it_detail_quest_npc_location_and_what_clicks_do() {
 	let lines = run(r#"
@@ -1293,8 +1355,9 @@ fn in_the_game_looks_a_narrow_tab_s_text_ends_6_clear_of_its_close_and_classic_s
 
 // A look chosen with the window open lays its tabs out at once as a window opened in that look does, not in the
 // last look's fonts and sizes until the next redraw: the tabs' places and widths, their titles' cut and fonts, the
-// level range's and the close's places, the close's rest. Every look in turn, then the text grown, each against a
-// fresh window opened in it (the looks lay their tabs out differently, so the comparison has something to catch).
+// level range's and the close's places, the close's rest. Every look in turn, then the guide window's text grown
+// (ui.guideTextSize), each against a fresh window opened in it (the looks lay their tabs out differently, so the
+// comparison has something to catch).
 #[test]
 fn a_look_chosen_with_the_window_open_lays_its_tabs_out_as_a_window_opened_in_it_does() {
 	const MEASURE: &str = r#"
@@ -1322,7 +1385,7 @@ fn a_look_chosen_with_the_window_open_lays_its_tabs_out_as_a_window_opened_in_it
 			Polestar.Set("ui.skin", look)
 			out[look] = measure()
 		end
-		Polestar.Set("ui.textSize", 1.25)
+		Polestar.Set("ui.guideTextSize", 1.25)
 		out.grown = measure()
 		emit(out)"#
 	))
@@ -1332,7 +1395,7 @@ fn a_look_chosen_with_the_window_open_lays_its_tabs_out_as_a_window_opened_in_it
 		let opened = fresh(&format!("Polestar.Set(\"ui.skin\", {look:?})"));
 		assert_eq!(live[look], opened, "{look}: the tabs once it is chosen, against a window opened in it");
 	}
-	assert_eq!(live["grown"], fresh("Polestar.Set(\"ui.textSize\", 1.25)"), "the text grown with the window open");
+	assert_eq!(live["grown"], fresh("Polestar.Set(\"ui.guideTextSize\", 1.25)"), "the guide window's text grown with it open");
 	assert_ne!(live["forever"], live["polestar"], "the looks lay their tabs out differently");
 	assert_ne!(live["grown"], live["polestar"], "the grown text lays them out differently");
 }

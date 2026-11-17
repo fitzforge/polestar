@@ -33,7 +33,7 @@ return {
 	-- {npc:2934} Keeper Bel'dugur
 	["{npc:2934}, on the way back to Zinge"] = "{npc:2934}, sur le chemin du retour vers Zinge",
 	-- {item:8523} Field Testing Kit · {area:976} Gadgetzan
-	["the {item:8523} from these errands: keep it, Tanaris Field Sampling hands it back in {area:976}"] = "la {item:8523} de ces missions : gardez-la, Tanaris Field Sampling vous la redonne à {area:976}",
+	["the {item:8523} from these errands: keep it, Tanaris Field Sampling hands it back in {area:976}"] = "la {item:8523} de ces missions : gardez-la, la quête Les échantillons du désert de Tanaris vous la redonne à {area:976}",
 
 	-- Step 5: Undercity
 	-- {npc:7825} Oran Snakewrithe · {object:36126} Royal Quarter

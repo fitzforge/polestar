@@ -1,14 +1,15 @@
 //! The catch-up, with "Skip grey quests" on (off by default): a character who already did part of the route
 //! opens a leveling guide and it resumes where they are, as placement does, leaving out what is too low to be
-//! worth it: grey quests anywhere, green ones behind the last quest progress, the way to them, and a whole guide
-//! they are past (opened for them, it chains to the next one; opened by them, it stays). A low quest a later
-//! quest worth doing needs is kept. Guides that are not leveling ones do every step. Real Core manifest, stub
-//! world.
+//! worth it: grey quests anywhere, quests paying less than full XP behind the last quest progress when they are
+//! a detour (#2620: Forever pays 100% to 5 levels over a quest, 80% at 6, 60% at 7, half from 8), the way to
+//! them, and a whole guide they are past (opened for them, it chains to the next one; opened by them, it stays).
+//! A low quest a later quest worth doing needs is kept. Guides that are not leveling ones do every step. Real
+//! Core manifest, stub world.
 
 use forge_addontest::{emitted, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
 use serde_json::{json, Value};
 
-// A level-20 Human: grey at 13 and below, green from 14 to 17, yellow from 18.
+// A level-20 Human: grey at 13 and below; full XP from 15 up, 80% at 14 (6 below).
 const WORLD: &str = r#"
 local w = stub.world
 w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
@@ -18,9 +19,9 @@ w.level = 20
 "#;
 
 // test/low (1-12): grey for them, done in part, with a grey quest handed in with no accept (`turnin ... direct`,
-// as Distracting Jarven in Dun Morogh). test/mid (15-22): a trip to a green quest behind their progress, a grey
-// quest a yellow one needs, a green quest still in the log behind it (kept: they chose it), and the last quest
-// they did.
+// as Distracting Jarven in Dun Morogh). test/mid (15-22): a trip to a reduced-XP quest behind their progress
+// (no place known: a detour), a grey quest a yellow one needs, a reduced-XP quest still in the log behind it
+// (kept: they chose it), and the last quest they did.
 const GUIDES: &str = r#"
 Polestar.RegisterGuide({ id = "test/low", pack = "test", title = "Low", faction = "Alliance", minLevel = 1, maxLevel = 12, next = "test/mid", steps = {
 	{ goals = { { t = "accept", quest = 101, title = "Grey done", qlvl = 5 } } },
@@ -32,7 +33,7 @@ Polestar.RegisterGuide({ id = "test/low", pack = "test", title = "Low", faction 
 } })
 Polestar.RegisterGuide({ id = "test/mid", pack = "test", title = "Mid", faction = "Alliance", minLevel = 15, maxLevel = 22, steps = {
 	{ goals = { { t = "goto", map = 1429, x = 20, y = 20, label = "Town" } } },
-	{ goals = { { t = "accept", quest = 201, title = "Green behind", qlvl = 15 } } },
+	{ goals = { { t = "accept", quest = 201, title = "Green behind", qlvl = 14 } } },
 	{ goals = { { t = "goto", map = 1429, x = 30, y = 30, label = "Camp" } } },
 	{ goals = { { t = "turnin", quest = 201, title = "Green behind" } } },
 	{ goals = { { t = "accept", quest = 202, title = "Grey needed", qlvl = 12 } } },
@@ -116,8 +117,9 @@ fn a_level_20_character_given_a_grey_guide_is_taken_through_it_to_the_next_and_r
 	assert_eq!(Value::from(out["statuses"].as_array().unwrap()[..9].to_vec()), json!(["done", "na", "done", "na", "active", "pending", "done", "pending", "done"]));
 }
 
-// Yendi at 30 in Duskwood (25-27): Gather Rot Blossoms (24) and The Night Watch (26) in the log, neither done. In
-// the log by the same rules as a quest not taken: too low and not done, it goes; done, it stays to be handed in.
+// Yendi in Duskwood (25-27), here at 32: Gather Rot Blossoms (24) and The Night Watch (26) in the log, neither
+// done, both paying less than full XP (8 and 6 below). In the log by the same rules as a quest not taken: too low
+// and not done, it goes; done, it stays to be handed in.
 #[test]
 fn a_low_quest_in_the_log_goes_while_it_is_not_done_and_stays_once_it_only_has_to_be_handed_in() {
 	let duskwood = r#"
@@ -137,7 +139,7 @@ fn a_low_quest_in_the_log_goes_while_it_is_not_done_and_stays_once_it_only_has_t
 	let script = r#"E.SetGuide(nil); E.OpenTab("test/dusk", true, true); flush(); emit({ guide = E.GetGuide().id, at = E.GetStepIndex() })"#;
 	let not_done = run(
 		&[
-			r#"stub.world.level = 30
+			r#"stub.world.level = 32
 			stub.world.onQuest(156, { { type = "item", required = 8, fulfilled = 0 } })
 			"#,
 			night,
@@ -150,7 +152,7 @@ fn a_low_quest_in_the_log_goes_while_it_is_not_done_and_stays_once_it_only_has_t
 	assert_eq!(not_done["guide"], "test/mid", "both too low and not done: the guide passes");
 	let ready = run(
 		&[
-			r#"stub.world.level = 30
+			r#"stub.world.level = 32
 			stub.world.onQuest(156, { { type = "item", required = 8, fulfilled = 8 } })
 			"#,
 			night,
@@ -290,15 +292,21 @@ fn a_guide_the_catch_up_passed_whole_is_done_for_the_list_only_once_all_its_ques
 }
 
 // Yendi: a catch-up stopped at the end of a guide ("Guide complete, Up next") on a second try in the session
-// (the next guide had finished on the first), and on a quest whose prerequisite was a grey one it left out.
+// (the next guide had finished on the first), and on a quest whose prerequisite was a grey one it left out. Since
+// #2620 a quest paying full XP in the guide passed keeps its prerequisite, so the quest that needs it here is the
+// next guide's, with fewer than CHAIN_WORTH such quests to keep the chain.
 #[test]
 fn a_catch_up_goes_on_to_the_next_guide_silently_on_a_second_try_and_past_a_quest_whose_prerequisite_it_left_out() {
-	let guides = GUIDES.replacen(r#"maxLevel = 12, next = "test/mid""#, r#"maxLevel = 12, next = "test/low2""#, 1)
-		+ r#"
+	let guides = GUIDES.replacen(r#"maxLevel = 12, next = "test/mid""#, r#"maxLevel = 12, next = "test/low2""#, 1).replacen(
+		r#"{ goals = { { t = "turnin", quest = 203, title = "Yellow" } } },"#,
+		r#"{ goals = { { t = "turnin", quest = 203, title = "Yellow" } } },
+	{ goals = { { t = "accept", quest = 152, title = "Yellow after it", qlvl = 19, pre = { 150 } } } },
+	{ goals = { { t = "turnin", quest = 152, title = "Yellow after it" } } },"#,
+		1,
+	) + r#"
 		Polestar.RegisterGuide({ id = "test/low2", pack = "test", title = "Low 2", faction = "Alliance", minLevel = 8, maxLevel = 14, next = "test/mid", steps = {
 			{ goals = { { t = "accept", quest = 150, title = "Grey start", qlvl = 8 } } },
-			{ goals = { { t = "turnin", quest = 150, title = "Grey start" }, { t = "accept", quest = 152, title = "Yellow after it", qlvl = 19, pre = { 150 } } } },
-			{ goals = { { t = "turnin", quest = 152, title = "Yellow after it" } } },
+			{ goals = { { t = "turnin", quest = 150, title = "Grey start" } } },
 		} })
 	"#;
 	let out = run(
@@ -415,4 +423,100 @@ fn a_guide_opened_by_hand_stays_though_the_catch_up_would_pass_it_whole() {
 	let out = run(DONE, GUIDES, &on(), r#"E.SetGuide("test/low"); flush(); emit({ guide = E.GetGuide().id, placed = PLACED[#PLACED] })"#);
 	assert_eq!(out["guide"], "test/low");
 	assert_eq!(out["placed"], json!({ "id": "test/low", "step": false, "chain": "" }));
+}
+
+// #2620: "Skip grey quests" cut quests still paying full XP once the character was past a guide. What Forever
+// pays (forge-guide's quest_xp_share, the level model's curve, Levels.Share in the addon) decides: a quest paying
+// it all is never left out, one paying less is left out when it is a detour (far from the route's own work), at
+// every level. A quest the client shows grey that still pays it all (a level 4 quest at 9) stays too.
+#[test]
+fn the_catch_up_leaves_out_exactly_the_quests_forever_pays_less_for_when_they_are_a_detour() {
+	use forge_guide::xp::quest_xp_share;
+	for p in [9u32, 12, 20, 31, 45, 58] {
+		let mut steps = String::new();
+		let ds: Vec<u32> = (4..=9).filter(|&d| d < p).collect();
+		// Each quest far from the anchor's camp and 300 yd from the next: a detour unless it pays it all.
+		for &d in &ds {
+			steps += &format!(
+				"{{ goals = {{ {{ t = \"accept\", quest = {q}, title = \"{d} below\", qlvl = {l}, map = 1429, x = {x}, y = 90 }} }} }},\n{{ goals = {{ {{ t = \"turnin\", quest = {q}, title = \"{d} below\", map = 1429, x = {x}, y = 90 }} }} }},\n",
+				q = 900 + d,
+				l = p - d,
+				x = 10 * (d - 3)
+			);
+		}
+		let guides = format!(
+			r#"Polestar.RegisterGuide({{ id = "test/curve", pack = "test", title = "Curve", faction = "Alliance", minLevel = {lo}, maxLevel = {hi}, steps = {{
+{steps}	{{ goals = {{ {{ t = "accept", quest = 990, title = "Done", qlvl = {p}, map = 1429, x = 40, y = 40 }} }} }},
+	{{ goals = {{ {{ t = "accept", quest = 991, title = "Ahead", qlvl = {p}, map = 1429, x = 40, y = 40 }} }} }},
+}} }})"#,
+			lo = p - 2,
+			hi = p + 2
+		);
+		let out = run(
+			&format!("stub.world.level = {p}; stub.world.moveTo(1429, 40, 40); stub.world.complete({{ 990 }})"),
+			&guides,
+			&on(),
+			r#"E.SetGuide("test/curve"); flush()
+			local out = {}
+			for i, step in ipairs(E.GetGuide().steps) do
+				local goal = step.goals[1]
+				if goal.t == "accept" and goal.quest < 990 then out[tostring(goal.quest - 900)] = E.GetStepView(i).goals[1].status end
+			end
+			emit(out)"#,
+		);
+		for &d in &ds {
+			let left_out = out[d.to_string()] == "na";
+			let reduced = quest_xp_share(p as f64, (p - d) as f64) < 1.0;
+			assert_eq!(left_out, reduced, "level {p}, a quest {d} below (pays {}): {out}", quest_xp_share(p as f64, (p - d) as f64));
+		}
+	}
+}
+
+// #2620 (Zack, Donkeyman, TheLombaxLegend): what counts is XP per minute. A quest paying 80% that is on the way
+// (its giver and hand-in beside the route's own work) stays; the same quest far off the route is left out, and
+// the guide window says why (Engine.LeftOutHere) with the way to bring it back.
+#[test]
+fn a_reduced_xp_quest_on_the_way_stays_one_off_the_way_goes_and_says_why() {
+	let guides = r#"
+		Polestar.RegisterGuide({ id = "test/way", pack = "test", title = "Way", faction = "Alliance", minLevel = 16, maxLevel = 22, steps = {
+			{ goals = { { t = "accept", quest = 801, title = "Off the way", qlvl = 14, map = 1429, x = 90, y = 90 } } },
+			{ goals = { { t = "accept", quest = 802, title = "On the way", qlvl = 14, map = 1429, x = 40.1, y = 40 } } },
+			{ goals = { { t = "accept", quest = 803, title = "Full XP", qlvl = 15, map = 1429, x = 90, y = 10 } } },
+			{ goals = { { t = "turnin", quest = 801, title = "Off the way", map = 1429, x = 90, y = 90 }, { t = "turnin", quest = 802, title = "On the way", map = 1429, x = 40, y = 40.1 } } },
+			{ goals = { { t = "accept", quest = 804, title = "Done", qlvl = 19, map = 1429, x = 40, y = 40 } } },
+			{ goals = { { t = "accept", quest = 805, title = "Ahead", qlvl = 20, map = 1429, x = 40, y = 40 } } },
+		} })
+	"#;
+	let out = run(
+		"stub.world.moveTo(1429, 40, 40); stub.world.complete({ 804 })",
+		guides,
+		&on(),
+		r#"E.SetGuide("test/way"); flush()
+		local s = {}
+		for i = 1, 3 do s[i] = E.GetStepView(i).goals[1].status end
+		local why = {}
+		for _, o in ipairs(E.LeftOutHere(1, true)) do why[#why + 1] = o.title .. ": " .. o.text .. " [" .. o.fix.kind .. "]" end
+		emit({ statuses = s, why = why })"#,
+	);
+	assert_eq!(out["statuses"][0], "na", "80% and far off the way: left out: {out}");
+	assert_ne!(out["statuses"][1], "na", "80% on the way: kept: {out}");
+	assert_ne!(out["statuses"][2], "na", "full XP, however far: kept: {out}");
+	assert_eq!(out["why"], json!(["Off the way: Pays 80% XP at your level and is out of the way (Skip grey quests) [skipGrey]"]));
+}
+
+// #2634: the guide window's "Turn off Skip grey quests" brings back what the catch-up left out at once.
+#[test]
+fn turning_skip_grey_quests_off_brings_back_what_the_catch_up_left_out() {
+	let out = run(
+		DONE,
+		GUIDES,
+		&on(),
+		r#"E.SetGuide("test/mid"); flush()
+		local before = E.GetStepView(2).goals[1].status
+		Polestar.Set("behavior.skipGrey", false); flush()
+		emit({ before = before, after = E.GetStepView(2).goals[1].status, out = #E.LeftOutHere(2, true) })"#,
+	);
+	assert_eq!(out["before"], "na");
+	assert_ne!(out["after"], "na", "{out}");
+	assert_eq!(out["out"], 0);
 }

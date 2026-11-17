@@ -80,6 +80,8 @@ return {
 		["ui.barShown"] = { with = TRANSPARENT, prepare = function() if GF.Watch then GF.Watch() end end,
 			probe = function() return { P.strip:GetAlpha(), P.nav.Steps:GetAlpha() } end },
 		["ui.scale"] = one("scale"),
+		-- The window's own text size: its goal text, and its height growing with it.
+		["ui.guideTextSize"] = function() return { snapshot().rowText, snapshot().height } end,
 		["ui.width"] = one("width"),
 		-- A tall step (the biggest goals and spacing, six steps up next): the cap on the window's height.
 		["ui.maxHeight"] = { value = 0.3, with = { ["guideWindow.goalSize"] = 1.8, ["guideWindow.rowSpacing"] = 12, ["ui.upcoming"] = 6 }, probe = one("height") },
@@ -146,6 +148,15 @@ return {
 				GF.UpdateXP()
 			end },
 		["guideWindow.foldAnim"] = fold,
+		-- The step's "N left out here" line (Engine.LeftOutHere, the fake Engine's answer for the step).
+		["guideWindow.leftOut"] = function()
+			Polestar.Engine.LeftOutHere = function() return { { quest = 1, title = "Left out", kind = "pre", text = "Requires another quest first" } } end
+			uistub.update()
+			for _, l in ipairs(GF.lines) do
+				if l:IsShown() and l.psOut then return true end
+			end
+			return false
+		end,
 		-- A preset card (Compact): the window narrower, without the step's person.
 		["Guide window:Presets"] = function() return { snapshot().width, snapshot().person } end,
 	},

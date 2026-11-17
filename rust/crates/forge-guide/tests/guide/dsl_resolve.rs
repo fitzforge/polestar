@@ -42,6 +42,52 @@ fn quest_titles_quest_givers_and_their_positions_come_from_data_era_sourced_poin
 	assert_eq!(g[2]["title"], "My Own Title", "explicit title wins over data");
 }
 
+// #2318: direct hand-ins have no accept to carry the quest's minimum level.
+fn direct_quest_data(min_level: Option<u32>) -> Data {
+	let t = core_with(|t| {
+		let q = t.get_mut("quests").unwrap()["783"].as_object_mut().unwrap();
+		q.insert("level".into(), json!(10));
+		if let Some(level) = min_level {
+			q.insert("minLevel".into(), json!(level));
+		} else {
+			q.remove("minLevel");
+		}
+	});
+	data_from(&t, Value::Null, Value::Null)
+}
+
+#[test]
+fn direct_hand_ins_carry_the_minimum_quest_level_into_compiled_lua() {
+	let r = compile_with(&guide_text(&["step S", "  turnin 783 direct"]), &direct_quest_data(Some(7)));
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let g = &r.steps()[0]["goals"][0];
+	assert_eq!(g["direct"], true);
+	assert_eq!(g["minLevel"], 7);
+	assert_eq!(g["qlvl"], 10, "quest difficulty still controls grey-quest skipping");
+	assert_match(&emit(&r.guides), r#"\{ t = "turnin", [^\n]+minLevel = 7, qlvl = 10, [^\n]*direct = true"#);
+}
+
+#[test]
+fn ordinary_hand_ins_leave_the_minimum_level_on_their_accept_goal() {
+	let r = compile_with(&guide_text(&["step S", "  accept 783", "  turnin 783"]), &direct_quest_data(Some(7)));
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let goals = &r.steps()[0]["goals"];
+	assert_eq!(goals[0]["minLevel"], 7);
+	for key in ["minLevel", "qlvl", "direct"] {
+		assert!(goals[1].get(key).is_none(), "ordinary hand-in acquired {key}");
+	}
+}
+
+#[test]
+fn direct_hand_ins_omit_absent_and_zero_minimum_levels() {
+	for min_level in [None, Some(0)] {
+		let g = last_goal(&direct_quest_data(min_level), &["  turnin 783 direct"]);
+		assert!(g.get("minLevel").is_none());
+		assert_eq!(g["qlvl"], 10);
+		assert_eq!(g["direct"], true);
+	}
+}
+
 #[test]
 fn the_spawn_nearest_the_previous_goal_on_the_same_map_is_chosen_measured_in_yards() {
 	// From 47.6,35.1 the nearest Kobold Vermin in map percent is 47.6,31.2, but Elwynn is wider than tall: in

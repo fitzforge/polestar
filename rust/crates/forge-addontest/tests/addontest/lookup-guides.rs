@@ -110,6 +110,16 @@ fn ctx() -> Ctx {
 	codex["quests"]["7010"] = json!({ "id": 7010, "title": "Creepers in the Marsh", "level": 18, "minLevel": 15, "faction": "A", "races": null, "classes": null,
 		"start": { "npc": [5008], "object": [], "item": [] }, "end": { "npc": [5008], "object": [] },
 		"objectives": [{ "type": "kill", "id": 5014, "count": 6, "text": "Marsh Creeper" }], "pre": [], "preAny": [], "zone": home, "rewards": [], "choices": [] });
+	// #2326: a friendly spirit an item calls up (Screecher Spirits' shape): use the item, then speak to it. #2578: the
+	// item is used on a Vale Prowler (the Vale Screecher's part), which stands elsewhere.
+	codex["npcs"]["5015"] = json!({ "id": 5015, "name": "Vale Spirit", "level": 1, "levelMax": 1, "faction": "AH", "rare": false, "elite": false, "boss": false, "instance": null, "roles": [],
+		"spawns": [{ "map": home, "x": 30, "y": 60, "f": "e" }] });
+	codex["npcs"]["5016"] = json!({ "id": 5016, "name": "Vale Prowler", "level": 18, "levelMax": 19, "faction": null, "rare": false, "elite": false, "boss": false, "instance": null, "roles": [],
+		"spawns": [{ "map": home, "x": 70, "y": 20, "f": "e" }] });
+	codex["items"]["8021"] = json!({ "id": 8021, "name": "Spirit Bramble", "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [] });
+	codex["quests"]["7011"] = json!({ "id": 7011, "title": "Spirits of the Vale", "level": 18, "minLevel": 15, "faction": "A", "races": null, "classes": null,
+		"start": { "npc": [5008], "object": [], "item": [] }, "end": { "npc": [5008], "object": [] },
+		"objectives": [{ "type": "kill", "id": 5015, "count": 3, "text": "Vale Spirit", "summonItem": 8021, "summonOn": [5016] }], "pre": [], "preAny": [], "zone": home, "rewards": [], "choices": [] });
 	let mut frames: Vec<(i64, Value)> = codex["frames"].as_object().unwrap().iter().map(|(k, f)| (k.parse::<i64>().unwrap(), f.clone())).collect();
 	frames.sort_by_key(|(id, _)| *id);
 	let maps = frames
@@ -290,6 +300,56 @@ fn a_craft_learn_the_profession_at_its_trainer_skill_up_learn_the_recipe_craft()
 	let c = ctx();
 	assert_plays(&c, "item", 8005, json!([{ "title": "Tailoring", "goals": "train skill learn craft" }]), "");
 	assert_plays(&c, "item", 8005, json!([{ "title": "Tailoring", "goals": "learn craft" }]), r#"w.learnSkill(197, "Tailoring", 120, 150)"#);
+}
+
+// #2326 (Stompsville, Zul'Farrak's pick-up guide): Screecher Spirits read "Kill Screecher Spirit", though the spirit
+// rises only from Yeh'kinya's Bramble used on a dead Vale Screecher, and it is spoken to, never killed. A target the
+// Codex says an item calls up (summonItem) is the item's use, then a talk when it is friendly; the step says so.
+// #2578 (Zack): the use line's target button had only the spirit; it targets and leads to the creature the item is
+// used on (summonOn: the Vale Screechers).
+#[test]
+fn a_target_an_item_calls_up_use_the_item_on_its_creature_then_speak_to_it_2326_2578() {
+	let c = ctx();
+	assert_plays(&c, "quest", 7011, json!([{ "title": "Spirits of the Vale", "goals": "accept use talk turnin" }]), "");
+	let got = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: world(&c, &format!("w.level = 20\nw.moveTo({}, 50, 50)\n", c.home)),
+		addons: vec!["Polestar".into()],
+		script: r#"stub.login()
+			local id = Polestar.Lookup.Guide("quest", 7011)
+			local step = Polestar.Guides.Get(id).steps[1]
+			local use = step.goals[2]
+			emit({ note = step.note or false, npc = use.npc or false, target = use.target or false, from = use.fromNpcs and use.fromNpcs[1].npcName or false, x = use.x or false, y = use.y or false })"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert!(got["note"].as_str().unwrap_or("").contains("Vale Spirit: use Spirit Bramble to call it up."), "{got}");
+	assert_eq!(
+		(got["npc"].as_f64(), &got["target"], &got["from"], got["x"].as_f64(), got["y"].as_f64()),
+		(Some(5016.0), &json!("Vale Prowler"), &json!("Vale Prowler"), Some(70.0), Some(20.0)),
+		"the use line targets the Vale Prowler, at its spawn: {got}"
+	);
+}
+
+// #2505 (kaigltv, Hot Wolf Ribs): every recipe went to the profession trainer, though most are taught by a recipe
+// item (Recipe: Hot Wolf Ribs is sold in Feralas and Desolace). A craft a recipe item teaches goes to that recipe's
+// own best source first (its vendor here), then the profession's steps with the recipe's use; once the recipe is
+// in the bags, the vendor step is left out.
+#[test]
+fn a_craft_a_recipe_item_teaches_buy_the_recipe_first_then_learn_and_craft_2505() {
+	let c = ctx();
+	assert_plays(
+		&c,
+		"item",
+		8019,
+		json!([
+			{ "title": "Mira Saddler", "goals": "goto buy" },
+			{ "title": "Tailoring", "goals": "train skill learn craft" },
+		]),
+		"",
+	);
+	assert_plays(&c, "item", 8019, json!([{ "title": "Tailoring", "goals": "train skill learn craft" }]), "w.addItem(8020, 1)");
 }
 
 #[test]

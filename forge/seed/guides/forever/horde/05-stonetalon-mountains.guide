@@ -94,6 +94,16 @@ step Splintertree Post
   note Senani's hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next Ashenvale visit, at 26.
   vendor nearest
 
+step Ashenvale Outrunners
+  when onquest 6503
+  tip The night elf Ashenvale Outrunners (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them.
+  kill 12856 quest 6503 @72.5,69.5 map 1440
+
+step Warsong lumber camp
+  when onquest 6503
+  tip Back to Kuray'bin at the lumber camp, on the road north to Splintertree.
+  turnin 6503                         -- Kuray'bin
+
 step Va'xug Firefure
   tip On the way west, Va'xug Firefure is stuck in a ravine south of the main road, south-east of Astranaar. Shadowhorn Stags and Ashenvale Bears roam the woods all around it.
   accept 98251 @40.4,61.5             -- Va'xug Firefure

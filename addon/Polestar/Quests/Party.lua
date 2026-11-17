@@ -1446,9 +1446,11 @@ function Party.Waiting(goal)
 	for _, m in ipairs(holders()) do
 		local counts = m.quests[goal.quest]
 		local c = counts and counts[line]
-		if c and c[1] < c[2] then
+		-- `upto`: the goal is part of the line's count, for a member as for the player.
+		local max = c and (goal.upto and goal.upto < c[2] and goal.upto or c[2])
+		if c and c[1] < max then
 			out = out or {}
-			out[#out + 1] = { name = m.name, cur = c[1], max = c[2] }
+			out[#out + 1] = { name = m.name, cur = c[1], max = max }
 		end
 	end
 	return out

@@ -44,7 +44,7 @@
 -- What a window draws is one small interface (GF.CONTENT): the Engine's read
 -- API it draws a step from (GetGuide, GetTabs, GetStepIndex, GetLiveStep,
 -- GetStepCount, GetStepView, StepNumber, StepTotal, GetProgress, GetAlong,
--- GetWhileHereList; a gate, notice or action it lacks is nothing to show or
+-- GetWhileHereList, LeftOutHere; a gate, notice or action it lacks is nothing to show or
 -- do) and the lines other modules work out from it: StepHint(i) and Pace()
 -- (Core/Levels.lua), XPStats() and RestParts() (QoL), Target() (where the
 -- arrow points: Nav, else the Engine's waypoint). The live window reads the
@@ -207,8 +207,10 @@ GF.Part(function(GF)
 	-- its step change pays nothing for the interface. A copy reads its host's
 	-- provider for both (copy.content). A host may hand the live window a
 	-- provider too (GF.UseContent(content); nil: the Engine again).
+	-- Quests in the log off the route from which the card nudges a cleanup (#2634).
+	GF.OFF_ROUTE_NUDGE = 3
 	GF.CONTENT = { "GetGuide", "GetTabs", "GetStepIndex", "GetLiveStep", "GetStepCount", "GetStepView", "StepNumber", "StepTotal",
-		"GetProgress", "GetAlong", "GetWhileHereList", "StepHint", "Pace", "XPStats", "RestParts", "Target" }
+		"GetProgress", "GetAlong", "GetWhileHereList", "LeftOutHere", "StepHint", "Pace", "XPStats", "RestParts", "Target" }
 	local DERIVED = GF.live and {
 		StepHint = function(i)
 			local Lv = ns.Levels
@@ -270,7 +272,7 @@ GF.Part(function(GF)
 		targetBar = true, targetBarColor = false, targetBarWidth = 2,
 		progress = true, progressPct = true, progressHeight = 3, progressColor = false, pace = true,
 		bgColor = false, bgOpacity = false, border = true, idleAlpha = 1, combatAlpha = 0.35, veil = 0.68, shade = 0.2,
-		stepAnim = true, animSpeed = 1, foldAnim = true, rules = true, hideTaxi = false,
+		stepAnim = true, animSpeed = 1, foldAnim = true, rules = true, hideTaxi = false, leftOut = true,
 	}
 	if GF.live then ns.RegisterDefaults("guideWindow", GF.LOOK) end
 
@@ -478,6 +480,8 @@ GF.Part(function(GF)
 		if goal.x and goal.map and ns.Nav and ns.Nav.SetTarget then
 			lines[#lines + 1] = { L["Click to point the arrow here"], ar, ag, ab }
 		end
+		-- Middle-click: the quest log; shift-click: the quest's link in chat (#2545).
+		if ns.QuestClickTips then ns.QuestClickTips(goal.quest, lines) end
 		if goal.unavailable == "skipped" then
 			lines[#lines + 1] = { L["Right-click to bring this quest back"], ar, ag, ab }
 		elseif goal.quest and goal.status ~= "done" then
@@ -526,7 +530,8 @@ GF.Part(function(GF)
 	-- A quest's line, right-clicked: tick this goal done (or untick it), open
 	-- the game's quest log at its quest (ns.QuestLogMenuItem), or skip the whole
 	-- quest and what follows from it (Engine.SkipQuest), or bring a skipped
-	-- quest back.
+	-- quest back; last, its link in chat (ns.QuestLinkMenuItem: a gamepad's
+	-- shift-click, #2545).
 	local function rowMenu(row)
 		local E, goal = Engine(), row.psGoal
 		if not (E and goal and goal.quest and E.SkipQuest) then return false end
@@ -546,6 +551,8 @@ GF.Part(function(GF)
 		if loses then tip = tip .. " " .. loses end
 		items[#items + 1] = { text = L["Skip this quest"], icon = "skip", tip = tip,
 			onClick = function() E.SkipQuest(goal.quest, true) end }
+		local link = ns.QuestLinkMenuItem and ns.QuestLinkMenuItem(goal.quest)
+		if link then items[#items + 1] = link end
 		W.ShowMenu(row, items)
 		return true
 	end
@@ -576,6 +583,8 @@ GF.Part(function(GF)
 	local function rowClick(row, button)
 		local goal = row.psGoal
 		if not goal then return end
+		-- A quest's line: a middle-click shows it in the quest log, a shift-click links it in chat (#2545).
+		if ns.QuestRowClick and ns.QuestRowClick(goal.quest, button) then return end
 		if button == "RightButton" then
 			if not rowMenu(row) then toggleGoal(row) end
 			return
@@ -601,7 +610,7 @@ GF.Part(function(GF)
 		local r = rows[i]
 		if r then return r end
 		r = CreateFrame("Button", nil, goals.Child)
-		r:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+		r:RegisterForClicks("LeftButtonUp", "RightButtonUp", "MiddleButtonUp")
 		r.Hover = r:CreateTexture(nil, "BACKGROUND")
 		r.Hover:SetTexture(Theme.Media("white"))
 		r.Hover:SetAllPoints(r)
@@ -1170,6 +1179,26 @@ GF.Part(function(GF)
 				UI.DungeonToast.GrindOpen(self.psDungeon.key)
 				return
 			end
+			-- "Left out here" (#2634): a quest's fix, or the setting off.
+			local item, fix = self.psOutItem, self.psOutFix
+			if item then
+				if item.fix and item.fix.kind == "chain" then UI.LeftOutGuide(item.fix.quest) end
+				return
+			end
+			if fix then
+				ns.Set("behavior.skipGrey", false)
+				return
+			end
+			if self.psRoom then
+				UI.ShowQuestRoom("offroute")
+				return
+			end
+			-- A grind step's lines (#2634): the why says only; a quest near here shows its step.
+			if self.psInfo then return end
+			if self.psNear then
+				GF.LookAt(self.psNear[1].step)
+				return
+			end
 			if key == "done" then
 				model.doneOpen = not model.doneOpen
 			else
@@ -1181,6 +1210,7 @@ GF.Part(function(GF)
 		local function lineEnter(self)
 			local tips = {}
 			local d = self.psDungeon
+			local item = self.psOutItem
 			if d then
 				local where = {}
 				local range = UI.LevelRange(d.minLevel, d.maxLevel)
@@ -1189,6 +1219,31 @@ GF.Part(function(GF)
 				if #where > 0 then tips[1] = table.concat(where, "  \194\183  ") end
 				if d.enemy then tips[#tips + 1] = { d.enemy, Theme.TipColor("warning") } end
 				tips[#tips + 1] = { d.take > 0 and L["Click to see its quests in Dungeons"] or L["Click to open it in Dungeons"], Theme.Accent() }
+			elseif item then
+				tips[1] = item.text
+				if item.fix and item.fix.kind == "chain" then
+					tips[2] = { L["Click for a guide to it, through what it needs first"], Theme.Accent() }
+				end
+			elseif self.psOutFix then
+				tips[1] = L["Brings back the quests it leaves out. Options, Automation turns it on again."]
+			elseif self.psRoom then
+				for i = 1, min(#self.psRoom, 12) do tips[#tips + 1] = self.psRoom[i].title or ("#" .. self.psRoom[i].quest) end
+				tips[#tips + 1] = { L["Click to see them, each with an Abandon button"], Theme.Accent() }
+			elseif self.psInfo then
+				tips[1] = L["Too far below the next quests: the guide has you grind to the level they need. Or do what's around you first."]
+			elseif self.psNear then
+				for i = 1, #self.psNear do
+					local o = self.psNear[i]
+					tips[#tips + 1] = o.share < 1 and (o.title .. "  " .. string.format(L["%d%% XP"], floor(o.share * 100 + 0.5))) or o.title
+				end
+				tips[#tips + 1] = { L["Click to see its step"], Theme.Accent() }
+			elseif self.psOut then
+				for i = 1, min(#self.psOut, 12) do
+					local o = self.psOut[i]
+					tips[#tips + 1] = o.title .. ": " .. o.text
+				end
+				local open = model.open[self.psKey]
+				tips[#tips + 1] = { open and L["Click to fold them away"] or L["Click to list them"], Theme.Accent() }
 			else
 				local list = self.psGoals
 				for i = 1, list and min(#list, 12) or 0 do tips[#tips + 1] = UI.GoalLine(list[i]) end
@@ -1474,7 +1529,7 @@ GF.Part(function(GF)
 		local r = alongRows[i]
 		if r then return r end
 		r = CreateFrame("Button", nil, along)
-		r:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+		r:RegisterForClicks("LeftButtonUp", "RightButtonUp", "MiddleButtonUp")
 		r:SetHeight(UP_ROW)
 		W.Hover(r)
 		r.Icon = r:CreateTexture(nil, "ARTWORK")
@@ -1485,6 +1540,8 @@ GF.Part(function(GF)
 		r.Text:SetMaxLines(2)
 		r:SetScript("OnClick", function(self, button)
 			local E = Engine()
+			-- A quest's row (psQuest): a middle-click shows it in the quest log, a shift-click links it in chat (#2545).
+			if ns.QuestRowClick and ns.QuestRowClick(self.psQuest, button) then return end
 			-- The finished quests no open route hands in (RoutePlan.Carried):
 			-- their list, with who takes each and a hand-in guide.
 			if self.psCarried then
@@ -1523,6 +1580,7 @@ GF.Part(function(GF)
 			if self.psCarried then
 				lines[#lines + 1] = { L["The route ahead never hands these in. Click to see who takes each, with a guide there."], Theme.Color("textDim") }
 			end
+			if ns.QuestClickTips then ns.QuestClickTips(self.psQuest, lines) end
 			W.Tooltip(self, tooltipAnchor(), self.psTitle or "", lines)
 			GF.HoverIn()
 		end)
@@ -1835,7 +1893,7 @@ GF.Part(function(GF)
 		local n, count = 0, E.GetStepCount and E.GetStepCount() or 0
 		local i = index + 1
 		while n < want and i <= count do
-			local v = E.GetStepView(i)
+			local v = E.GetStepView(i, true)
 			if v and v.status ~= "na" and not v.along and not UI.StepHidden(i, E) then
 				n = n + 1
 				local r = upRow(n)
@@ -1871,7 +1929,7 @@ GF.Part(function(GF)
 		end
 		local count = E.GetStepCount and E.GetStepCount() or 0
 		for s = index + 1, count do
-			local v = E.GetStepView(s)
+			local v = E.GetStepView(s, true)
 			-- An along step never holds the route: "Then:" names the next step that does.
 			if v and v.status ~= "na" and not v.along and not UI.StepHidden(s, E) then
 				local gs, f = UI.StepGroups(v)
@@ -1925,7 +1983,7 @@ GF.Part(function(GF)
 				local r = alongRow(n)
 				local where = b.zone and (b.yards and string.format(L["back in %s, %s"], b.zone, ns.FormatDistance(b.yards)) or string.format(L["back in %s"], b.zone)) or nil
 				local quest = ns.Quoted(b.title or (L["Quest"] .. " " .. b.quest))
-				r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind = nil, nil, b.title, nil, b.quest
+				r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind, r.psQuest = nil, nil, b.title, nil, b.quest, b.quest
 				r.psPlace, r.psCarried = true, nil
 				r.Icon:SetTexture(Theme.VerbIcon("turnin"))
 				r.Text:SetText(where and string.format(L["Still to do: %s, %s"], quest, where) or string.format(L["Still to do: %s"], quest))
@@ -1941,7 +1999,7 @@ GF.Part(function(GF)
 			n, back = n + 1, back + 1
 			local r, xp = alongRow(n), 0
 			for _, c in ipairs(carried) do xp = xp + (c.xp or 0) end
-			r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind = nil, nil, L["Finished quests you're still carrying"], nil, nil
+			r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind, r.psQuest = nil, nil, L["Finished quests you're still carrying"], nil, nil, nil
 			r.psPlace, r.psCarried = nil, true
 			r.Icon:SetTexture(Theme.VerbIcon("turnin"))
 			local text = #carried == 1 and L["1 finished quest to hand in elsewhere"] or string.format(L["%d finished quests to hand in elsewhere"], #carried)
@@ -1977,7 +2035,7 @@ GF.Part(function(GF)
 				if not s.untilStep or (untilStep and untilStep ~= s.untilStep) then mixed = true end
 				untilStep = untilStep or s.untilStep
 				local r = alongRow(n)
-				r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind = e.step, gv.index, s.title or UI.GoalLine(gv), e.pin, nil
+				r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind, r.psQuest = e.step, gv.index, s.title or UI.GoalLine(gv), e.pin, nil, gv.quest
 				r.psPlace, r.psCarried = e.place, nil
 				r.Icon:SetTexture(Theme.VerbIcon(gv.t))
 				UI.SetCounted(r.Text, UI.GoalLine(gv))
@@ -2149,11 +2207,13 @@ GF.Part(function(GF)
 	-- it. The dungeon line (key "dungeon") is a link: its chevron points on.
 	local function paintLine(l, key, icon, iconColor, text, list, title, open)
 		l.psKey, l.psGoals, l.psTitle, l.psDungeon = key, list, title, nil
-		l.Icon:SetTexture((icon == "check" or icon == "icon-dungeon") and Theme.Media(icon) or Theme.VerbIcon(icon))
+		l.psOut, l.psOutItem, l.psOutFix, l.psRoom, l.psInfo, l.psNear = nil, nil, nil, nil, nil, nil
+		l.Icon:SetTexture((icon == "check" or icon == "icon-dungeon" or icon == "skip" or icon == "cross") and Theme.Media(icon) or Theme.VerbIcon(icon))
 		W.Color(l.Icon, iconColor)
 		l.Text:SetText(text)
 		if l ~= fold.glow then W.Color(l.Text, "textDim") end
 		l.Chevron:SetTexture(Theme.Media(key == "dungeon" and "chevron-right" or open and "chevron-up" or "chevron-down"))
+		l.Chevron:Show()
 		l.psK = nil
 		l:SetAlpha(1)
 		l:Show()
@@ -2265,10 +2325,29 @@ GF.Part(function(GF)
 			return l
 		end
 		-- Under an open goal that grinds to a level, on the live window's current
-		-- step: a dungeon at the character's level, one line that opens its
-		-- page (UI.DungeonToast.GrindLine, worked out once per step and level).
-		local function addDungeon(goal)
+		-- step: why (#2634, Engine.GrindHint: "You're 30: the quests after this
+		-- are level 32-35") and what else there is: this guide's quests still
+		-- worth doing near the player (a click shows the first one's step), and
+		-- a dungeon at the character's level, one line that opens its page
+		-- (UI.DungeonToast.GrindLine, worked out once per step and level).
+		local function addGrind(goal)
 			if goal.t ~= "level" or not GF.live then return end
+			local h = goal.status ~= "done" and GF.On("leftOut") and E.GrindHint and E.GrindHint(view.index)
+			if h then
+				local lv = (ns.Compat.GetPlayerInfo() or {}).level
+				if h.lo and lv then
+					local l = addLine("grindWhy", "level", "textDim", string.format(L["You're %d: the quests after this are level %s"], lv, UI.LevelRange(h.lo, h.hi)), nil, nil, false)
+					l.psInfo = true
+					l.Chevron:Hide()
+				end
+				if #h.nearby > 0 then
+					local names = {}
+					for k, o in ipairs(h.nearby) do names[k] = o.title end
+					local l = addLine("grindNear", "accept", "textDim", string.format(L["Worth doing near here: %s"], table.concat(names, ", ")), nil, nil, false)
+					l.psNear = h.nearby
+					l.Chevron:SetTexture(Theme.Media("chevron-right"))
+				end
+			end
 			local DT = UI.DungeonToast
 			local d = DT and DT.GrindLine and DT.GrindLine(guide, view, goal)
 			if not d then return end
@@ -2302,7 +2381,7 @@ GF.Part(function(GF)
 			-- on their rows and stepped back while open.
 			for _, goal in ipairs(cardGoals(view, groups, focus)) do
 				addRow(goal, rowWho(goal, groups, focus), focus ~= nil and goal.group ~= focus)
-				addDungeon(goal)
+				addGrind(goal)
 			end
 		else
 			-- The focus person's other groups on the same visit (Thundris
@@ -2435,7 +2514,7 @@ GF.Part(function(GF)
 				local k = kept[i]
 				if k == true then
 					addRow(goal, nil, false)
-					addDungeon(goal)
+					addGrind(goal)
 				elseif k then
 					addRow(goal, nil, false, k)
 				elseif model.doneOpen then
@@ -2503,6 +2582,51 @@ GF.Part(function(GF)
 				end
 			end
 		end
+		-- What the route leaves out here (#2634, Engine.LeftOutHere): one dim
+		-- line, "N left out here", on the live window with guideWindow.leftOut
+		-- on. Opened, a line per quest with why; a quest that needs another
+		-- first opens a guide to it (UI.LeftOutGuide), and "Turn off Skip grey
+		-- quests" brings back the low ones.
+		local outList = GF.live and GF.On("leftOut") and E.LeftOutHere and E.LeftOutHere(view.index) or nil
+		if outList and #outList > 0 then
+			local open = model.open.leftOut
+			local l = addLine("leftOut", "skip", "textMuted", string.format(L["%d left out here"], #outList), nil, L["Left out here"], open)
+			l.psOut = outList
+			if open then
+				local grey = false
+				for k, o in ipairs(outList) do
+					local chain = o.fix and o.fix.kind == "chain"
+					local text = "|c" .. Theme.Hex("text") .. o.title .. "|r" .. DOT .. o.text
+					if chain then text = text .. DOT .. "|c" .. Theme.Hex("accent") .. L["Guide me"] .. "|r" end
+					local il = addLine("leftOut" .. k, "accept", "textMuted", text, nil, o.title, false)
+					il.psOutItem = o
+					il.Chevron:SetTexture(Theme.Media("chevron-right"))
+					il.Chevron:SetShown(chain)
+					grey = grey or (o.fix ~= nil and o.fix.kind == "skipGrey")
+				end
+				if grey then
+					local fl = addLine("leftOutFix", "skip", "accent", "|c" .. Theme.Hex("accent") .. L["Turn off Skip grey quests"] .. "|r", nil, L["Skip grey quests"], false)
+					fl.psOutFix = true
+					fl.Chevron:SetTexture(Theme.Media("chevron-right"))
+				end
+			end
+		end
+		-- The cleanup nudge (#2634): with OFF_ROUTE_NUDGE or more quests in the
+		-- log that no guide of the route uses (RoutePlan.OffRoute), one dim
+		-- line that opens them with an Abandon button each (UI.ShowQuestRoom
+		-- "offroute"). Worked out when the step changes, not on every refill.
+		if GF.live and GF.On("leftOut") then
+			if not sameFocus or model.offRoute == nil then
+				local P = ns.RoutePlan
+				model.offRoute = P and P.OffRoute and P.OffRoute() or false
+			end
+			local off = model.offRoute
+			if off and #off >= GF.OFF_ROUTE_NUDGE then
+				local l = addLine("offRoute", "cross", "textMuted", string.format(L["%d quests aren't part of your route"], #off), nil, L["Clean up quest log (%d)"]:format(#off), false)
+				l.psRoom = off
+				l.Chevron:SetTexture(Theme.Media("chevron-right"))
+			end
+		end
 		for gi, goal in ipairs(view.goals) do model.last[gi] = goal.status end
 		for i = n + 1, #rows do
 			local r = rows[i]
@@ -2560,10 +2684,10 @@ GF.Part(function(GF)
 		-- The undo goes once the step is no longer skipped (undone elsewhere).
 		local k = GF.notices.stepSkip
 		if k and k.guideId == guide.id then
-			local sv = E.GetStepView(k.step)
+			local sv = E.GetStepView(k.step, true)
 			if not (sv and sv.skipped) then GF.notices.stepSkip = nil end
 		end
-		local v = index and E.GetStepView(index)
+		local v = index and E.GetStepView(index, true)
 		if not v then
 			view, shownIndex, shownGuide, shownFocus = nil, nil, guide.id, nil
 			-- No live step only because a step skip left the rest out (#1372):
@@ -2632,7 +2756,7 @@ GF.Part(function(GF)
 		local E = Engine()
 		local index = E.GetStepIndex and E.GetStepIndex()
 		if index ~= shownIndex then return GF.Render() end
-		local v = E.GetStepView(index)
+		local v = E.GetStepView(index, true)
 		if not v then return GF.Render() end
 		local groups, focus = UI.StepGroups(v)
 		if focus ~= shownFocus then return GF.Render() end
@@ -2708,6 +2832,9 @@ GF.Part(function(GF)
 		readMetrics()
 		handOver()
 		F = CreateFrame("Frame", GF.live and "PolestarGuideFrame" or nil, GF.live and ns.UIParent or GF.parent)
+		-- Its text follows the guide window's own size (Guide window > Window),
+		-- the live window's and every copy's (the settings' preview).
+		Theme.TextScope(F, "ui.guideTextSize")
 		if GF.live then
 			F:SetFrameStrata("MEDIUM")
 			F:SetClampedToScreen(true)
