@@ -481,10 +481,12 @@ return {
 	["Follow the road south to the {area:120}, on the way into {zone:1436}. {npc:963} stands outside the barracks; {npc:955} stands inside. He has {quest:91738} only while you carry the {item:247824}: talk to him and it goes straight to the hand-in."] = "Sigue el camino al sur hasta {area:120}, a la entrada de {zone:1436}. {npc:963} está afuera del cuartel; {npc:955}, adentro. Solo tiene {quest:91738} mientras llevas el {item:247824}: háblale y pasa directo a la entrega.",
 	-- {npc:963} Deputy Rainer · {npc:234} Gryan Stoutmantle · {area:108} Sentinel Hill
 	["{npc:963}: for {npc:234} at {area:108}"] = "{npc:963}: para {npc:234} en {area:108}",
+
+	-- Step 92: Sergeant De Vries
 	-- {npc:955} Sergeant De Vries · {item:247824} Thunder Applejack
 	["{npc:955}: he wants your {item:247824}; inside"] = "{npc:955}: quiere tu {item:247824}; adentro",
 
-	-- Step 92: Forest's Edge
+	-- Step 93: Forest's Edge
 	-- {zone:1436} Westfall
 	-- plural, as words: Riverpaw Runts = {npc:97} Riverpaw Runt
 	["Riverpaw Runts and Outrunners hold the hills south of the garrison, along the {zone:1436} border."] = "Los cachorros y avanzados Zarparrío ocupan las colinas al sur de la guarnición, a lo largo de la frontera con {zone:1436}.",

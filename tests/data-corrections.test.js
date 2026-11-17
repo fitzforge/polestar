@@ -32,6 +32,26 @@ test('the corrections are one file per section in forever-db/corrections', () =>
 	assert.ok(!fs.existsSync(path.join(__dirname, '..', 'tools', 'lib', 'data', 'corrections.json')), 'the old single file is gone');
 });
 
+// JSON keeps the last of two entries with the same id, silently: a second "92474" entry added for its objectives
+// dropped the first one's race fix (2026-11-17). Each id is one entry per file.
+test('no correction file has the same id twice', () => {
+	const dup = [];
+	for (const s of SECTIONS) {
+		const seen = new Set();
+		for (const m of fs.readFileSync(path.join(PUBLIC_DIR, `${s}.json`), 'utf8').matchAll(/^\t"([^"]+)":/gm)) {
+			if (seen.has(m[1])) dup.push(`${s}.json ${m[1]}`);
+			seen.add(m[1]);
+		}
+	}
+	assert.deepEqual(dup, []);
+});
+
+test('Damp Note requires The Essence of Aku\'Mai on the recorded Priestess drop, not on its follow-up quest (#1923)', () => {
+	assert.deepEqual(corrections.items[16790].dropRequires, { npc: { 4802: [6563] } });
+	assert.match(corrections.items[16790].source.ref, /#1923.*6820003090/);
+	assert.notEqual(corrections.quests[6564]?.set?.pre?.includes(6563), true, 'accepting the root is enough; it is not a completion prerequisite');
+});
+
 test('the overlay takes mechanics flat or under quests; mechanics 603 and 1064 stay private', () => {
 	const out = overlayCorrections({ mechanics: {} }, { mechanics: { quests: { 603: { note: 'nested' } }, 1064: { note: 'flat' } } });
 	assert.deepEqual(Object.keys(out.mechanics).sort(), ['1064', '603']);
@@ -538,6 +558,30 @@ test('Blood of My Blood counts 10 of any Fallow Sanctuary Lost One', () => {
 	assert.equal(o.count, 10);
 	assert.deepEqual(o.credit, [759, 760, 761, 762]);
 	assert.ok(o.credit.includes(o.id), 'the kill names one of the credited Lost Ones');
+});
+
+// Dungeon quests whose Forever XP is about twice the Classic QuestXP the merged data has (#394), corrected from dated
+// in-game evidence. (Restored after 0.4.0: the JS data builder's case went with the builder; the corrections and the
+// release data still carry it.)
+test('corrections give dungeon quests their Forever XP over the Classic QuestXP (#394)', (t) => {
+	const xp = { 377: 4400, 959: 2650, 1486: 3100 }; // Crime and Punishment (The Stockade), Trouble at the Docks and Deviate Hides (Wailing Caverns)
+	for (const [q, want] of Object.entries(xp)) assert.equal(corrections.quests[q].set.xp, want, `${q} in the corrections`);
+	const file = path.join(__dirname, '..', 'data', 'forever', 'quests.json');
+	if (!fs.existsSync(file)) return t.skip('no data/forever');
+	const quests = JSON.parse(fs.readFileSync(file, 'utf8'));
+	for (const [q, want] of Object.entries(xp)) assert.equal(quests[q].xp, want, `${q} in the release data`);
+});
+
+// MgM's report (#462): QuestieDB's Forever store gives Deviate Hides (1486) an Orgrimmar Mailbox and Poor Old Blanchy
+// (151) a Stormwind one as a second giver, so the Wailing Caverns pick-up page sent a player from Tirisfal to the
+// Orgrimmar mailbox. Forever's quest data has only the NPC. (Restored after 0.4.0, as #394's.)
+test("MgM's report: the corrections leave Nalpak and Verna Furlbrow as the only givers, not the mailboxes (#462)", (t) => {
+	assert.deepEqual(corrections.quests[1486].set.start, { npc: [5767], object: [], item: [] });
+	assert.deepEqual(corrections.quests[151].set.start, { npc: [238], object: [], item: [] });
+	const file = path.join(__dirname, '..', 'data', 'forever', 'quests.json');
+	if (!fs.existsSync(file)) return t.skip('no data/forever');
+	const quests = JSON.parse(fs.readFileSync(file, 'utf8'));
+	assert.deepEqual([quests[1486].start, quests[151].start], [{ npc: [5767], object: [], item: [] }, { npc: [238], object: [], item: [] }]);
 });
 
 // --- Reports fixed in earlier releases that had no test of their own (regression audit after 0.4.0).

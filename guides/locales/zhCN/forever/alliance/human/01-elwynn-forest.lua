@@ -481,10 +481,12 @@ return {
 	["Follow the road south to the {area:120}, on the way into {zone:1436}. {npc:963} stands outside the barracks; {npc:955} stands inside. He has {quest:91738} only while you carry the {item:247824}: talk to him and it goes straight to the hand-in."] = "沿道路向南前往{area:120}，这里位于通往{zone:1436}的路上。{npc:963}站在兵营外；{npc:955}在兵营里。只有当你带着{item:247824}时他才有{quest:91738}：与他交谈，任务会直接进入交还阶段。",
 	-- {npc:963} Deputy Rainer · {npc:234} Gryan Stoutmantle · {area:108} Sentinel Hill
 	["{npc:963}: for {npc:234} at {area:108}"] = "{npc:963}：给{area:108}的{npc:234}",
+
+	-- Step 92: Sergeant De Vries
 	-- {npc:955} Sergeant De Vries · {item:247824} Thunder Applejack
 	["{npc:955}: he wants your {item:247824}; inside"] = "{npc:955}：他要你的{item:247824}；在里面",
 
-	-- Step 92: Forest's Edge
+	-- Step 93: Forest's Edge
 	-- {zone:1436} Westfall
 	-- plural, as words: Riverpaw Runts = {npc:97} Riverpaw Runt
 	["Riverpaw Runts and Outrunners hold the hills south of the garrison, along the {zone:1436} border."] = "{npc:97}和河爪豺狼人前锋占据着要塞南边、{zone:1436}边境沿线的山丘。",

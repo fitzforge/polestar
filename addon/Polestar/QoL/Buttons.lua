@@ -1745,6 +1745,27 @@ function Buttons.TargetMacro(list, preferred, mark, ping)
 	return text
 end
 
+-- The target button's and the step key's macro (Buttons.TargetMacro) for list
+-- from first, kindOf(i) giving name i's kind ("mob" or "npc"), and the ping:
+-- the mark of the first name's kind, or, when the names the macro holds are of
+-- both kinds, both kinds' lines (Buttons.MixedMarkLines), so a fallback of the
+-- other kind gets its own kind's icon, not the first name's (#2152). One block
+-- of names, so a mixed list fits a macro as well as it did. -> text, the
+-- first name's kind, mixed (true: both kinds' lines).
+function Buttons.MarkedMacro(list, first, kindOf, ping)
+	local kind = kindOf(first)
+	local mark = Buttons.MarkLine(kind)
+	local text = Buttons.TargetMacro(list, first, mark, ping)
+	if not (text and mark) then return text, kind, false end
+	local held = select(2, text:gsub("/targetexact", ""))
+	for k = 2, held do
+		if kindOf((first - 2 + k) % #list + 1) ~= kind then
+			return Buttons.TargetMacro(list, first, Buttons.MixedMarkLines(), ping), kind, true
+		end
+	end
+	return text, kind, false
+end
+
 -- The rare alert card's Target button (Rares/Toast.lua): the one rare, the
 -- ping, and the mob's mark while "Mark what they target" is on (and allowed:
 -- Buttons.MarkRight). nil for a name that cannot be a macro line or does not
@@ -1771,6 +1792,21 @@ end
 
 -- The single button that cycles (qol.targetSimple) instead of the list.
 local function simple() return QoL.On("targetSimple") end
+
+-- A fallback can acquire a different kind from the preferred name. Match
+-- against the macro's applied snapshot: desired names may change in combat
+-- before its secure attributes can. A secret or unknown name keeps the
+-- applied preferred kind's best-effort cycle behavior. (A field, not a
+-- local: this file is at Lua's limit of 200 locals.)
+function Buttons.AcquiredIndex(b)
+	local name = ns.Compat.Readable(UnitName and UnitName("target"))
+	if name then
+		for i = 1, b.aList and #b.aList or 0 do
+			if b.aList[i] == name then return i end
+		end
+	end
+	return b.aCycle or 1
+end
 
 -- Names seen in the world (the target, the mouseover, a nameplate) as an
 -- elite, rare or boss this session, and the faces of the names seen: one
@@ -2190,16 +2226,9 @@ do
 					for k = 1, #list do
 						if list[k] == target.foldFirst then first = k end
 					end
-					local mark, ping
-					kind, mark, ping = markPing(first)
-					text = Buttons.TargetMacro(list, first, mark, ping)
 					-- Names of both kinds in the macro: the mark of the kind it
-					-- targets (Buttons.MixedMarkLines), not the first name's.
-					local held = text and select(2, text:gsub("/targetexact", "")) or 0
-					for k = 2, held do
-						mixed = mixed or targetKind((first - 2 + k) % #list + 1) ~= kind
-					end
-					if mixed and mark then text = Buttons.TargetMacro(list, first, Buttons.MixedMarkLines(), ping) end
+					-- targets (Buttons.MarkedMacro), not the first name's.
+					text, kind, mixed = Buttons.MarkedMacro(list, first, targetKind, Buttons.QuestPingLine())
 					if text and #text > MACRO_LIMIT then text = nil end
 					if text then
 						local n = select(2, text:gsub("/targetexact", ""))
@@ -2556,9 +2585,9 @@ do
 			local list = target.list
 			-- The list keeps its order: only the single button cycles.
 			local cycle = simple() and target.cycle or 1
-			-- A mob and an NPC goal's NPC are both pinged for the group (Fitz, 2026-11-13).
-			local kind = targetKind(cycle)
-			local text = Buttons.TargetMacro(list, cycle, Buttons.MarkLine(kind), Buttons.QuestPingLine())
+			-- A mob and an NPC goal's NPC are both pinged for the group (Fitz, 2026-11-13);
+			-- a fallback of the other kind takes its own kind's mark (#2152).
+			local text = Buttons.MarkedMacro(list, cycle, targetKind, Buttons.QuestPingLine())
 			b:SetAttribute("type", text and "macro" or nil)
 			b:SetAttribute("macrotext", text)
 			b.applied = list[cycle]
@@ -2883,8 +2912,8 @@ local STEP_MARK = { target = "mob", npc = "npc" }
 
 -- The mark the step key's next press puts on: in a "target" list, the kind
 -- of the name it tries first.
-local function stepKind()
-	if step.kind == "target" then return step.list[step.cycle] == step.npc and "npc" or "mob" end
+local function stepKind(i)
+	if step.kind == "target" then return step.list[i or step.cycle] == step.npc and "npc" or "mob" end
 	return STEP_MARK[step.kind]
 end
 
@@ -2892,8 +2921,8 @@ local function applyStep(b)
 	QoL.Secure("step", function()
 		local text, item
 		if step.kind == "target" then
-			local kind = stepKind()
-			text = Buttons.TargetMacro(step.list, step.cycle, Buttons.MarkLine(kind), Buttons.QuestPingLine())
+			-- A fallback of the other kind takes its own kind's mark (#2152); both kinds are pinged.
+			text = Buttons.MarkedMacro(step.list, step.cycle, stepKind, Buttons.QuestPingLine())
 		elseif step.kind == "npc" then
 			text = Buttons.TargetMacro({ step.value }, 1, Buttons.MarkLine("npc"), Buttons.QuestPingLine())
 		elseif step.kind == "item" then
@@ -2902,6 +2931,7 @@ local function applyStep(b)
 		b:SetAttribute("type", item and "item" or text and "macro" or nil)
 		b:SetAttribute("item", item)
 		b:SetAttribute("macrotext", text)
+		b.aList, b.aNpc, b.aKind, b.aCycle = step.list, step.npc, step.kind, step.cycle
 	end)
 end
 
@@ -3125,7 +3155,7 @@ local function refresh()
 
 	applyBag(bagButton)
 end
-local refreshSoon = QoL.Coalesce(refresh)
+local refreshSoon, refreshOnLog = QoL.Coalesce(refresh)
 Buttons.Refresh = refresh
 
 local function repaintItems()
@@ -3154,7 +3184,8 @@ local function create()
 		if down or self.dragging then return end
 		-- Only the single button moves to the next name; the list keeps its order.
 		local n = simple() and #target.list or 0
-		local kind = targetKind()
+		-- The mark of the kind the press found, which can be a fallback of the other kind (#2152).
+		local kind = NPC_VERBS[self.aVerbs and self.aVerbs[Buttons.AcquiredIndex(self)]] and "npc" or "mob"
 		if n > 1 then target.cycle = target.cycle % n + 1 end
 		local marked = Buttons.AdvanceMark(kind)
 		if n > 1 and not marked then applyTarget(targetButton) end
@@ -3198,7 +3229,8 @@ local function create()
 		end
 		local n = #step.list
 		local names = step.kind == "target" and n > 1
-		local kind = stepKind()
+		local kind = STEP_MARK[self.aKind]
+		if self.aKind == "target" then kind = self.aList[Buttons.AcquiredIndex(self)] == self.aNpc and "npc" or "mob" end
 		if names then step.cycle = step.cycle % n + 1 end
 		local marked = Buttons.AdvanceMark(kind)
 		if names and not marked then applyStep(self) end
@@ -3265,7 +3297,7 @@ ns.RegisterEvent("BAG_UPDATE_DELAYED", function()
 	repaintItems()
 	refreshSoon()
 end)
-ns.RegisterEvent("QUEST_LOG_UPDATE", refreshSoon)
+ns.RegisterEvent("QUEST_LOG_UPDATE", refreshOnLog)
 ns.RegisterEvent("BAG_UPDATE_COOLDOWN", repaintItems)
 -- Who may mark (Buttons.MarkRight) follows the group.
 ns.RegisterEvent("GROUP_ROSTER_UPDATE", refreshSoon)

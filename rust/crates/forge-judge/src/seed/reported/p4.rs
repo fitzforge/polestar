@@ -12,7 +12,7 @@ use regex::Regex;
 
 use crate::seed::{at, everyone, for_class, is, located, Check, Ctx, Row, SeedTest};
 
-const DUROTAR: &str = "forever/horde/orc-troll/01-durotar.guide";
+const DUROTAR: &str = "forever/horde/orc/01-durotar.guide";
 const TELDRASSIL: &str = "forever/alliance/nightelf/01-teldrassil.guide";
 const ELWYNN: &str = "forever/alliance/human/01-elwynn-forest.guide";
 const ASHENVALE: &str = "forever/alliance/06-ashenvale.guide";

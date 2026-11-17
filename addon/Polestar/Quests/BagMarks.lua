@@ -5,6 +5,8 @@
 -- Abandoning a quest keeps it, as the quest is ahead in the guide again.
 -- So does a guide that has gone past every step for a quest you never accepted:
 -- nothing ahead needs the item, and the mark clears.
+-- A red border suggests a leftover only when every known quest tied to that
+-- quest-class item was handed in and none is repeatable or kept by the guide.
 --
 -- Four bag views (qol.questBagMarks, which hides only the marks: the sale,
 -- delete and buyback guards ask Q.IsItemNeeded whatever it says), the way
@@ -23,8 +25,10 @@ local type, pairs, ipairs, pcall, tonumber = type, pairs, ipairs, pcall, tonumbe
 
 local ICON = "Interface/GossipFrame/ActiveQuestIcon"
 local SIZE = 16
+local BORDER = "Interface\\Buttons\\UI-ActionButton-Border"
+local BORDER_SCALE = 1.9
 
--- The marks only (none while Polestar is hidden); the guards below ask Q.IsItemNeeded.
+-- Bag visuals only (none while Polestar is hidden); guards still ask Q.IsItemNeeded.
 local function isOn()
 	return Q.IsRunning() and ns.Get("qol.questBagMarks") and not ns.Hidden() and true or false
 end
@@ -36,7 +40,40 @@ function Q.IsItemNeeded(itemID)
 	return Q.IsRunning() and (Q.ObjectivesForItem(itemID) ~= nil or Q.IsItemNeededAhead(itemID)) or false
 end
 
+-- A suggestion only: the client cannot prove an item has no other use.
+function Q.IsObsoleteQuestItem(itemID)
+	local client = ns.QoL and ns.QoL.Client
+	if not (itemID and Q.IsRunning() and client and client.ItemClass) then return false end
+	if client.ItemClass(itemID) ~= client.CLASS_QUEST or Q.IsItemNeeded(itemID) then return false end
+	local kept = ns.QoL and ns.QoL.Kept
+	if kept and kept(itemID) then return false end
+	local log = C_QuestLog
+	if not (log and log.IsOnQuest and log.IsQuestFlaggedCompleted and log.IsRepeatableQuest) then return false end
+	local quests = Q.ItemQuests(itemID)
+	if not quests then return false end
+	for i = 1, #quests do
+		local q = quests[i]
+		if log.IsOnQuest(q) or not log.IsQuestFlaggedCompleted(q) or log.IsRepeatableQuest(q) ~= false then return false end
+	end
+	return true
+end
+
 local marks = setmetatable({}, { __mode = "k" }) -- item button -> texture
+local borders = setmetatable({}, { __mode = "k" })
+
+local function borderFor(button, cache, parent)
+	local t = cache[button]
+	if t then return t end
+	t = (parent or button):CreateTexture(nil, "OVERLAY", nil, 2)
+	local w, h = button:GetSize()
+	t:SetSize((w and w > 0 and w or 37) * BORDER_SCALE, (h and h > 0 and h or 37) * BORDER_SCALE)
+	t:SetPoint("CENTER", button, "CENTER")
+	t:SetTexture(BORDER)
+	t:SetVertexColor(1, 0.12, 0.12, 1)
+	t:SetBlendMode("ADD")
+	cache[button] = t
+	return t
+end
 
 local function markFor(button)
 	local t = marks[button]
@@ -69,6 +106,11 @@ local function updateFrame(frame)
 			markFor(button):Show()
 		elseif marks[button] then
 			marks[button]:Hide()
+		end
+		if id and Q.IsObsoleteQuestItem(id) then
+			borderFor(button, borders):Show()
+		elseif borders[button] then
+			borders[button]:Hide()
 		end
 	end
 end
@@ -108,8 +150,10 @@ local function needed(link)
 	return id and Q.IsItemNeeded(id) or false
 end
 
--- Baganator and BagSmith: a corner widget, top-right, placed by the addon.
+-- Baganator and BagSmith place the quest icon and leftover border as corner widgets.
 local WIDGET = "polestar_quest_needed"
+local RED_WIDGET = "polestar_quest_leftover"
+local widgetBorders = setmetatable({}, { __mode = "k" })
 local registeredBags = {}
 
 local function cornerAPI(name)
@@ -133,6 +177,15 @@ local function registerBag(name)
 		t:SetTexture(ICON)
 		return t
 	end, { corner = "top_right", priority = 1 }, nil, options)
+	API.RegisterCornerWidget(ns.L["Polestar quest leftovers"], RED_WIDGET, function(_, details)
+		return isOn() and type(details) == "table" and Q.IsObsoleteQuestItem(details.itemID) or false
+	end, function(button)
+		local frame = CreateFrame("Frame")
+		frame:SetParent(button)
+		frame:SetSize(1, 1)
+		borderFor(button, widgetBorders, frame)
+		return frame
+	end, { corner = "top_left", priority = 1 }, nil, options)
 	return true
 end
 
@@ -154,6 +207,7 @@ if not (registeredBags.Baganator and registeredBags.BagSmith) then ns.RegisterEv
 local ELLESMERE = "PolestarQuestItems"
 local ellesmere = false
 local eMarks = setmetatable({}, { __mode = "k" }) -- item button -> texture
+local eBorders = setmetatable({}, { __mode = "k" })
 local painted = setmetatable({}, { __mode = "k" }) -- item button -> link it last painted (false: none)
 
 local function ellesmereAPI()
@@ -190,6 +244,12 @@ local function paintEllesmere(button, data)
 	end
 	painted[button] = link or false
 	markEllesmere(button, link)
+	local id = type(link) == "string" and tonumber(link:match("item:(%d+)"))
+	if id and isOn() and Q.IsObsoleteQuestItem(id) then
+		borderFor(button, eBorders):Show()
+	elseif eBorders[button] then
+		eBorders[button]:Hide()
+	end
 end
 
 local function registerEllesmere()
@@ -209,18 +269,36 @@ end
 
 if not registerEllesmere() then ns.RegisterEvent("ADDON_LOADED", onEllesmereLoaded) end
 
+local tooltipOn = false
+local function onItemTooltip(tt, _, itemID)
+	if isOn() and Q.IsObsoleteQuestItem(itemID) then
+		ns.Hooks.AddLine(tt, ns.L["Related quests completed (likely safe to delete)"])
+	end
+end
+
+local function refreshTooltip()
+	local H = ns.Hooks
+	if not (H and H.ItemLines) then return end
+	local on = isOn()
+	if on == tooltipOn then return end
+	tooltipOn = on
+	H.ItemLines("quest-leftovers", on and onItemTooltip or nil)
+end
+
 -- Repaints the shown bags now.
 function Q.RedrawBagMarks()
+	refreshTooltip()
 	hookBags()
 	for _, f in ipairs(containerFrames()) do
 		if hooked[f] and f:IsShown() then onUpdateItems(f) end
 	end
 	for button, link in pairs(painted) do
-		if button:IsVisible() then markEllesmere(button, link or nil) end
+		if button:IsVisible() then paintEllesmere(button, { itemLink = link or nil }) end
 	end
 	for name in pairs(registeredBags) do
 		local API = cornerAPI(name)
-		if API and API.RequestItemButtonsRefresh and (not API.IsCornerWidgetActive or API.IsCornerWidgetActive(WIDGET)) then
+		if API and API.RequestItemButtonsRefresh and (not API.IsCornerWidgetActive or API.IsCornerWidgetActive(WIDGET)
+			or API.IsCornerWidgetActive(RED_WIDGET)) then
 			local B = _G[name]
 			local reasons = name == "Baganator" and B.Constants and B.Constants.RefreshReason
 			if name == "BagSmith" then

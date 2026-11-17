@@ -6,7 +6,7 @@ use crate::seed::{at, everyone, for_class, is, located, Check, Ctx, Row, SeedTes
 
 use forge_guide::js::{Obj, V};
 
-const DUN_MOROGH: &str = "forever/alliance/dwarf-gnome/01-dun-morogh.guide";
+const DUN_MOROGH: &str = "forever/alliance/dwarf/01-dun-morogh.guide";
 const ELWYNN: &str = "forever/alliance/human/01-elwynn-forest.guide";
 const DARKSHORE: &str = "forever/alliance/03-darkshore.guide";
 const LOCH_MODAN: &str = "forever/alliance/03-loch-modan.guide";
@@ -24,12 +24,12 @@ pub fn tests() -> Vec<SeedTest> {
 		t("Phear's report: a kill or collect leads to the camp that holds its mobs, not a stray one or two far from it", strays),
 		t("forever/alliance/03-darkshore-return.guide: the Grizzled Scalps are collected in the step at the Grove, where the bears are and Buzzbox 525 takes them", grizzled_scalps),
 		t("the cloth the guides tell you to buy leads to the Auction House: the capitals' cloth donations and Grimand's Runecloth", cloth_auction_house),
-		t("forever/alliance/dwarf-gnome/01-dun-morogh.guide: rikette's report: the Grizzled Den leads the arrow to the wendigo cave", grizzled_den),
+		t("forever/alliance/dwarf/01-dun-morogh.guide: rikette's report: the Grizzled Den leads the arrow to the wendigo cave", grizzled_den),
 		t("every step with a quest objective to do has a goal the arrow can lead to", objective_steps_placed),
 		t("Rumbleshot's Ammo, The Red Crystal: every objective the data can place has a goal of its own, not only the turn-in", objectives_own_goal),
 		t("forever/alliance/03-darkshore.guide: Twerkjob's report: The Red Crystal leads the arrow to the crystal on the eastern ridge (#241)", red_crystal),
 		t("forever/alliance/03-darkshore.guide: XooVe's report (#302): The Blackwood Corrupted fills the bowl and gathers the three samples before the Talisman, never uses the empty bowl after the filled one is collected, and uses the bowl where Xabraxxis comes", blackwood_corrupted),
-		t("forever/alliance/dwarf-gnome/01-dun-morogh.guide: Rumbleshot's Ammo leads to the Ammo Crate by Mountaineer Gretchen, not to Hegnar", rumbleshot_ammo),
+		t("forever/alliance/dwarf/01-dun-morogh.guide: Rumbleshot's Ammo leads to the Ammo Crate by Mountaineer Gretchen, not to Hegnar", rumbleshot_ammo),
 		t("legacy-challenges: Return to Bodley is turned in before Back to the Beginning is taken", legacy_bodley),
 		t("Fitz's playtest: every goto at a boat, zeppelin or tram stop is on its deck or pier, not in the water", transport_gotos_dry),
 		t("Fitz's playtest: typed coordinates are on the zone of every character who sees them", typed_coords_zone),

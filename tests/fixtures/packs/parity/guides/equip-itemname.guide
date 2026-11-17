@@ -1,0 +1,10 @@
+# Fixture: tests/packs-parity.test.js. Lint rejects it; the runtime refuses its compiled twin.
+guide parity/equip-itemname
+title Parity equip-itemname
+faction Alliance
+levels 1-10
+zone Elwynn Forest
+
+step S
+  level 2
+  equip 999999

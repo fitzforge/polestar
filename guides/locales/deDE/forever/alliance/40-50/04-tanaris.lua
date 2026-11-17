@@ -75,7 +75,7 @@ return {
 	-- Step 12: Noonshade Ruins
 	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "Vorsicht: Diebe wirken Entwaffnen. Schurken bleiben mit Schleichen versteckt. Assassinen benutzen Hinrichten, wenn deine Gesundheit bei 20 % oder darunter liegt.",
 
-	-- Step 14: The pool by Sandsorrow Watch
+	-- Step 15: The pool by Sandsorrow Watch
 	-- {area:979} Sandsorrow Watch
 	["The pool by {area:979}"] = "Der Teich bei der {area:979}",
 	-- {area:979} Sandsorrow Watch · {item:8584} Untapped Dowsing Widget
@@ -85,7 +85,7 @@ return {
 	-- {area:979} Sandsorrow Watch
 	["Pool by {area:979}"] = "Teich bei der {area:979}",
 
-	-- Step 15: Zul'Farrak
+	-- Step 16: Zul'Farrak
 	-- {area:978} Zul'Farrak · {quest:3042} Troll Temper · {npc:7604} Sergeant Bly · {quest:2768} Divino-matic Rod
 	["{area:978} is a dungeon for a group of five; its quests here are level 45 to 47. Its gate lies about 400 yards north of the pool.\nInside: the Scarabs drop the shells, every Sandfury troll can drop {quest:3042}, and {npc:7604} carries the {quest:2768}."] = "{area:978} ist ein Dungeon für eine Gruppe aus fünf Spielern; seine Quests hier sind Stufe 45 bis 47. Das Tor liegt etwa 400 Meter nördlich des Teichs.\nDrinnen: Die Skarabäen lassen die Panzer fallen, jeder Troll der Sandfury kann {quest:3042} fallen lassen, und {npc:7604} trägt {quest:2768} bei sich.",
 	-- {quest:2865} Scarab Shells
@@ -95,29 +95,29 @@ return {
 	-- {quest:2768} Divino-matic Rod · {npc:7604} Sergeant Bly
 	["{quest:2768}: {npc:7604}, inside"] = "{quest:2768}: {npc:7604}, drinnen",
 
-	-- Step 16: Gadgetzan
+	-- Step 17: Gadgetzan
 	-- {area:982} Noxious Lair · {area:976} Gadgetzan
 	["keep it: the {area:982}'s Centipaar (48-50) wait for the Un'Goro guide's {area:976} landing at about 49.5"] = "Behalte sie: Die Centipaar (48-50) im {area:982} warten auf die Landung in {area:976} im Un'Goro-Guide bei etwa 49,5",
 
-	-- Step 17: Tran'rek
+	-- Step 18: Tran'rek
 	-- {area:978} Zul'Farrak · {npc:7876} Tran'rek
 	["Your {area:978} scarab shells: {npc:7876}, on the north side of town."] = "Deine Skarabäuspanzer aus {area:978}: {npc:7876}, auf der Nordseite der Stadt.",
 
-	-- Step 18: Chief Engineer Bilgewhizzle
+	-- Step 19: Chief Engineer Bilgewhizzle
 	-- {quest:2768} Divino-matic Rod · {npc:7407} Chief Engineer Bilgewhizzle
 	["The {quest:2768}: {npc:7407}, by the water tower."] = "{quest:2768}: {npc:7407}, beim Wasserturm.",
 
-	-- Step 19: Trenton Lighthammer
+	-- Step 20: Trenton Lighthammer
 	-- {quest:3042} Troll Temper · {npc:7804} Trenton Lighthammer
 	["The {quest:3042}: {npc:7804}, in town."] = "{quest:3042}: {npc:7804}, in der Stadt.",
 
-	-- Step 20: The Broken Pillar
+	-- Step 21: The Broken Pillar
 	-- {area:1938} Broken Pillar
 	["The {area:1938}"] = "Die {area:1938}",
 	-- {area:1938} Broken Pillar · {npc:7771} Marvon Rivetseeker · {quest:3161} Gahz'ridian
 	["Ride south to the dig camp at the {area:1938}. {npc:7771} hands you a detector helm: wear it to see the {quest:3161} mounds, which lie thick in the sand around the camp and south-west toward the ogres."] = "Reite nach Süden zum Grabungslager an der {area:1938}. {npc:7771} gibt dir einen Detektorhelm: Trag ihn, um die Hügel von {quest:3161} zu sehen, die dicht im Sand rund um das Lager und nach Südwesten Richtung Oger liegen.",
 
-	-- Step 22: Dunemaul Compound
+	-- Step 23: Dunemaul Compound
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley
 	-- plural, as words: Dunemaul Ogres = {npc:5471} Dunemaul Ogre
 	["Ride south-west to the ogre compound and keep to its south end; the compound's quest waits for the Un'Goro guide.\nWhy the grind to 47: {npc:5955} waits at the edge of the {quest:3362} (mobs of 48-50). Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes and Enforcers (46-48) inside."] = "Reite nach Südwesten zum Ogergelände und halte dich an dessen Südende; die Quest des Geländes wartet auf den Un'Goro-Guide.\nWarum bis 47 grinden: {npc:5955} wartet am Rand von {quest:3362} (Mobs der Stufe 48-50). Grinde an den Ogern der Dünenbrecher (45-46) am Südende des Geländes, dem sichereren Lager, nicht an den Schlägern und Vollstreckern (46-48) drinnen.",
@@ -126,7 +126,7 @@ return {
 	-- {npc:5471} Dunemaul Ogre
 	["grind on {npc:5471}, at the compound's south end"] = "Grinde an {npc:5471}, am Südende des Lagers",
 
-	-- Step 23: Tooga's escort
+	-- Step 24: Tooga's escort
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "Eskorte von {npc:5955}",
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley · {npc:6015} Torta · {area:977} Steamwheedle Port
@@ -134,16 +134,16 @@ return {
 	-- {npc:5955} Tooga
 	["{npc:5955}, beside her: Oasis"] = "{npc:5955}, neben ihr: Oase",
 
-	-- Step 24: Steamwheedle Port
+	-- Step 25: Steamwheedle Port
 	-- {npc:6015} Torta · {area:977} Steamwheedle Port
 	["From {npc:6015}, {area:977} is just west along the shore."] = "Von {npc:6015} aus liegt {area:977} gleich westlich am Ufer entlang.",
 
-	-- Step 25: Caliph Scorpidsting
+	-- Step 26: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "Reite nach Südosten zum {area:985}. {npc:7847} steht in der Mitte des südlichen Wastewander-Lagers: Räum zuerst um ihn herum.\nVorsicht: Zwei getarnte Wastewander Rogues begleiten ihn, wohin er auch geht. An seinem Spawn-Lager sind zwei Schattenmagier und ihre Diener nah genug, um in einen Kampf mit ihm einzugreifen. Draußen bei den Türmen kannst du ihn ohne sie bekämpfen.",
 
-	-- Step 27: Fly to Auberdine
+	-- Step 28: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "Flieg nach {area:442}",
 	-- {zone:1457} Darnassus · {npc:7763} Curgle Cranklehop · {area:442} Auberdine · {area:150} Menethil Harbor · {area:348} Aerie Peak
@@ -151,13 +151,13 @@ return {
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "Flugmeister von {area:976}",
 
-	-- Step 28: Teldrassil
+	-- Step 29: Teldrassil
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:3838} Vesprystus
 	["Take the boat from {area:442}'s dock to {area:702}; {npc:3838}, the hippogryph master, stands on the rise just east of the landing: learn the flight path on the way up to the village."] = "Nimm das Boot vom Steg in {area:442} nach {area:702}; {npc:3838}, der Hippogryphenmeister, steht auf der Anhöhe gleich östlich der Anlegestelle: Lerne die Flugroute auf dem Weg hinauf zum Dorf.",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "Flugmeister von {area:702}",
 
-	-- Step 29: Rut'theran Village
+	-- Step 30: Rut'theran Village
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
 	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907} steht oben, über {npc:7916}: Geh drinnen hinauf, der Pfeil kann die Stockwerke nicht unterscheiden.",
 	-- {npc:7907} Daryn Lightwind · {zone:1446} Tanaris
@@ -166,45 +166,45 @@ return {
 	["{npc:7916}: the feathers lie in the {zone:1425}, next"] = "{npc:7916}: Die Federn liegen im {zone:1425}, als Nächstes",
 	["the book on her table"] = "das Buch auf ihrem Tisch",
 
-	-- Step 31: Temple of the Moon
+	-- Step 32: Temple of the Moon
 	["Temple of the Moon"] = "Tempel des Mondes",
 	-- {zone:1457} Darnassus
 	["Step through the portal into {zone:1457}. The Temple of the Moon is in the south of the city."] = "Tritt durch das Portal nach {zone:1457}. Der Tempel des Mondes liegt im Süden der Stadt.",
 
-	-- Step 35: Cenarion Enclave
+	-- Step 36: Cenarion Enclave
 	-- {npc:3516} Arch Druid Fandral Staghelm
 	["{npc:3516}, at the top of the tree"] = "{npc:3516}, oben im Baum",
 
-	-- Step 36: Class trainer
+	-- Step 37: Class trainer
 	["Class trainer"] = "Klassenlehrer",
 
-	-- Step 37: Cenarion Enclave
+	-- Step 38: Cenarion Enclave
 	-- {zone:1449} Un'Goro Crater
 	["the soil comes from {zone:1449}, later"] = "die Erde kommt später aus {zone:1449}",
 
-	-- Step 38: Portal to Teldrassil
+	-- Step 39: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
 	["Portal to {zone:1438}"] = "Portal nach {zone:1438}",
 
-	-- Step 40: Boat to Menethil Harbor
+	-- Step 41: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "Schiff nach {area:150}",
 
-	-- Step 41: Fly to Aerie Peak
+	-- Step 42: Fly to Aerie Peak
 	-- {area:348} Aerie Peak
 	["Fly to {area:348}"] = "Flieg nach {area:348}",
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "Flugmeister von {area:150}",
 
-	-- Step 42: Fly to Southshore
+	-- Step 43: Fly to Southshore
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "Flieg nach {area:271}",
 
-	-- Step 43: Hinterlands
+	-- Step 44: Hinterlands
 	-- {area:348} Aerie Peak · {area:271} Southshore · {zone:1425} Hinterlands
 	["No flight path to {area:348} yet: ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border."] = "Noch keine Flugroute nach {area:348}: Reite auf der Straße nach Nordosten aus {area:271} hinaus ins {zone:1425}; {area:348} liegt gleich hinter der Grenze.",
 
-	-- Step 44: Aerie Peak
+	-- Step 45: Aerie Peak
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, beside the flight master"] = "{npc:5636}, neben dem Flugmeister",
 	-- {npc:7884} Fraggar Thundermantle
