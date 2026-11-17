@@ -1666,9 +1666,12 @@ function LK.Build(parent, hub)
 	-- It belongs to this section: other sections' tab rows stay theirs.
 	root:SetScript("OnShow", function() root.CodexLine:Show() end)
 	-- Leaving the section, not Polestar hiding (its layer hides the hub with
-	-- the section still open: a search running goes on).
+	-- the section still open: a search running goes on). The hub leaves a
+	-- section by hiding the section's frame, `parent`, not this one: with
+	-- only its own state read, the line stayed over the guide list's tabs
+	-- (#2692).
 	root:SetScript("OnHide", function(self)
-		if self:IsShown() then return end
+		if self:IsShown() and parent:IsShown() then return end
 		cancelPending()
 		root.CodexLine:Hide()
 	end)

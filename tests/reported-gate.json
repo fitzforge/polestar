@@ -1408,6 +1408,33 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/placeholders.rs", "test": "a_goal_on_a_credit_target_reads_as_its_quest_log_line_never_kill_the_placeholder" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/placeholders.rs", "test": "lookups_quest_step_never_names_a_credit_target" }
 		] },
+		"2711": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2711: The Hinterlands (Alliance): Facing Negolash brings his food to the lifeboat before the kill" }
+		] },
+		"2712": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2712: Riverglades (Horde): Stick 'Em points at the crocolisks in the river" }
+		] },
+		"2694": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2694: Stranglethorn (Alliance): the Cook in the Cage's supply crate is reached through the cave" }
+		] },
+		"2691": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2691: Engineering: Kor'gar is looked for where he sells, at Powderfuse Port 77.6,50.95" }
+		] },
+		"2715": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-guide-end.rs", "test": "a_last_step_at_the_hub_the_guide_starts_from_with_its_flight_path_known_is_no_end_ahead_2715" }
+		] },
+		"2692": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/ui-lookup.rs", "test": "the_codex_line_leaves_the_tab_row_with_the_section_and_comes_back_with_it_2692" }
+		] },
+		"2698": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/ui-quest-unlocks.rs", "test": "more_than_four_follow_ups_list_four_then_how_many_more" }
+		] },
+		"2708": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/automation.rs", "test": "an_escort_is_not_auto_accepted_in_a_group_alone_it_is_2708" }
+		] },
+		"2714": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/lookup-guides.rs", "test": "a_quest_s_how_is_its_step_s_note_2714" }
+		] },
 		"2681": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine.rs", "test": "a_quest_still_in_the_log_is_not_handed_in_whatever_its_later_chain_says_2681_ishamuhale" }
 		] },

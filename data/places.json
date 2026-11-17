@@ -2570,6 +2570,58 @@
 				}
 			],
 			"issue": 2604
+		},
+		{
+			"id": "2712-riverglades-stick-em-river",
+			"quest": 95955,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 2548,
+				"x": 51.75,
+				"y": 51.97,
+				"frame": "live"
+			},
+			"note": "Stick 'Em (95955): Tan'jani's spears are used on the Freshwater Crocolisks in the river south-west of Rog'mar. The goal pointed at 51.9,57.1, on the farmland south of the river, where no recorded player impaled one; the point is now the busiest place on the river on the way from Rog'mar to the Farholde camp.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-17 (data/recorded/quests.json 95955): the objective ticks at 45.88,58.59 (12 people), 51.75,51.97 (10, within 16 yd), 54.38,49.57 (9) and further along the river; none at 51.9,57.1"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#2712 (stabaho, 0.4.0.1): crocs in the river at 52.83,53.08, the arrow pointed at a farm"
+				}
+			],
+			"issue": 2712
+		},
+		{
+			"id": "2694-stv-kurzen-supply-crate",
+			"quest": 97047,
+			"objective": 2,
+			"faction": "Alliance",
+			"at": {
+				"map": 1434,
+				"x": 49.6,
+				"y": 7.7,
+				"frame": "era"
+			},
+			"note": "The Cook in the Cage (97047): the Kurzen Fighter's Uniform comes from the Kurzen Supply Crate (object 424002) deep in the cave at the east end of Kurzen's Compound. The goal pointed at 50.0,8.0, about 25 yd off the crate; with no height either, the walk ended on the hill above the cave. The point is the crate's spawn; its floor is in data/goal-heights.json (2694-stv-kurzen-supply-crate).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-17: 38 people looted the uniform at 49.52-49.72,7.65-7.87, and the position samples around each loot read indoors"
+				},
+				{
+					"kind": "questie",
+					"ref": "objects.json 424002 Kurzen Supply Crate at 1434 49.6,7.7"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#2694 (Xaden Ryan, 0.4.0.1): the arrow led onto the hill, the way in is the cave"
+				}
+			],
+			"issue": 2694
 		}
 	]
 }

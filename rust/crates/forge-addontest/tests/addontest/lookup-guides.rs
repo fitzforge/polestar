@@ -120,6 +120,12 @@ fn ctx() -> Ctx {
 	codex["quests"]["7011"] = json!({ "id": 7011, "title": "Spirits of the Vale", "level": 18, "minLevel": 15, "faction": "A", "races": null, "classes": null,
 		"start": { "npc": [5008], "object": [], "item": [] }, "end": { "npc": [5008], "object": [] },
 		"objectives": [{ "type": "kill", "id": 5015, "count": 3, "text": "Vale Spirit", "summonItem": 8021, "summonOn": [5016] }], "pre": [], "preAny": [], "zone": home, "rewards": [], "choices": [] });
+	// #2714: an event objective that needs gathering first (Powering the Pylons' mana), said only by the quest's
+	// `how` (our public mechanics' words).
+	codex["quests"]["7012"] = json!({ "id": 7012, "title": "Powering the Pylons", "level": 18, "minLevel": 15, "faction": "A", "races": null, "classes": null,
+		"start": { "npc": [5008], "object": [], "item": [] }, "end": { "npc": [5008], "object": [] },
+		"objectives": [{ "type": "event", "count": 1, "text": "Western pylon repaired", "map": home, "x": 40, "y": 40, "f": "e" }], "pre": [], "preAny": [], "zone": home, "rewards": [], "choices": [],
+		"how": "Gather mana with the Mana Sieve first; then use Repair and Recharge Pylon at the pylon." });
 	let mut frames: Vec<(i64, Value)> = codex["frames"].as_object().unwrap().iter().map(|(k, f)| (k.parse::<i64>().unwrap(), f.clone())).collect();
 	frames.sort_by_key(|(id, _)| *id);
 	let maps = frames
@@ -330,6 +336,26 @@ fn a_target_an_item_calls_up_use_the_item_on_its_creature_then_speak_to_it_2326_
 		(Some(5016.0), &json!("Vale Prowler"), &json!("Vale Prowler"), Some(70.0), Some(20.0)),
 		"the use line targets the Vale Prowler, at its spawn: {got}"
 	);
+}
+
+// #2714 (Unholy, Razorfen Downs' pick-up guide): Powering the Pylons' pylons take mana gathered with the Mana Sieve
+// first, which no objective says; the step said nothing about it. The Codex's `how` (our public mechanics) is the
+// step's note.
+#[test]
+fn a_quest_s_how_is_its_step_s_note_2714() {
+	let c = ctx();
+	let got = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: world(&c, &format!("w.level = 20\nw.moveTo({}, 50, 50)\n", c.home)),
+		addons: vec!["Polestar".into()],
+		script: r#"stub.login()
+			local id = Polestar.Lookup.Guide("quest", 7012)
+			emit({ note = Polestar.Guides.Get(id).steps[1].note or false })"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(got["note"], json!("Gather mana with the Mana Sieve first; then use Repair and Recharge Pylon at the pylon."));
 }
 
 // #2505 (kaigltv, Hot Wolf Ribs): every recipe went to the profession trainer, though most are taught by a recipe

@@ -2757,6 +2757,32 @@
 		],
 		"note": "Tallow Sparksocket is a stable master (the title under the name reads \"Stable Master\"), but the merged data had no stable master role for this Forever NPC, so Nearby's stable master search passed over it and named one on another continent (#2010)."
 	},
+	"260565": {
+		"set": {
+			"spawns": {
+				"2548": {
+					"f": "l",
+					"pts": [
+						[
+							77.6,
+							50.95
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 35 people opened Kor'gar's goods, every window at 77.6-77.7,50.9-51.0; none at the other seven points"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2691"
+			}
+		],
+		"note": "Kor'gar (npc 260565), the engineering supplies vendor at Powderfuse Port in the Riverglades, stands at 77.6,50.95. The merged data gave him eight points around the port, 76.98-78.64,50.93-54.75, and the Engineering guide's Schematic: Thorium Tube led to one of them, 77.96,52.59, where he is not (#2691)."
+	},
 	"265756": {
 		"set": {
 			"roles": [
