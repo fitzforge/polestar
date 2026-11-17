@@ -654,6 +654,27 @@ fn walking_past_a_flight_master_not_learnt_to_near_a_known_one_learns_it_and_fli
 	assert!(total < 180.0, "about two minutes, against six on foot ({total} s)");
 }
 
+// The shipped travel data. #2832 (Halambic): Farholde Keep's inn stood about 30 yd from Barracks Master Harlan
+// (63.0,82.5 against his 64.58,84.13, where players bind), so the "Set your home" arrow led into the keep. #2830
+// (Wolven): the Zephras Isle airship's Mulgore end stood at the ship's stop with no height, off the cliff, and the
+// arrow went to the valley floor under the dock; it now stands on the dock (190), as the Dalaran end on its own (110).
+#[test]
+fn the_shipped_farholde_inn_stands_at_its_innkeeper_and_the_airship_ends_on_their_docks_2830_2832() {
+	let out = run_real(
+		r#"
+		local T = Polestar.Nav.GetTravelData()
+		local inn = Polestar.Nav.FindInn(257595)
+		local ends = {}
+		for _, t in ipairs(T.transports) do
+			if t.id == "airship-zephras-mulgore" or t.id == "airship-zephras-dalaran" then ends[t.id] = { x = t.b.x, y = t.b.y, z = t.b.z } end
+		end
+		emit({ inn = { map = inn.map, x = inn.x, y = inn.y }, ends = ends })"#,
+	);
+	assert_eq!(out["inn"], json!({ "map": 2548, "x": 64.58, "y": 84.13 }), "at Barracks Master Harlan");
+	assert_eq!(out["ends"]["airship-zephras-mulgore"], json!({ "x": 34.25, "y": 25.68, "z": 190 }), "on the Mulgore dock");
+	assert_eq!(out["ends"]["airship-zephras-dalaran"], json!({ "x": 12.9, "y": 52.01, "z": 110 }), "on the Kirin Tor camp's dock");
+}
+
 #[test]
 fn binding_at_an_innkeeper_teaches_nav_what_the_bind_location_means() {
 	let out = run(r#"
