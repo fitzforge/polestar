@@ -623,3 +623,48 @@ fn the_codex_line_leaves_the_tab_row_with_the_section_and_comes_back_with_it_269
 	assert_eq!(out["back"], true, "back in Lookup, the line is back");
 	assert_eq!(out["reopened"], true, "the hub hidden and shown again with Lookup open keeps it");
 }
+
+// #2554: a quest in a chain shows "Step N of M" among its facts and the whole chain under its sources, each quest
+// with its state (a skipped one marked), the follow-up branches after it, and a click opening another quest's page;
+// hovering another quest's row says so. A chain left with only skipped quests says it is finished, not all done.
+#[test]
+fn a_quest_in_a_chain_shows_its_step_each_quest_s_state_and_its_branches_and_a_row_opens_that_quest() {
+	let out = run(r#"
+		lookupstub.chains[38] = {
+			quests = {
+				{ id = 36, title = "Gathering Ingredients", state = "later", why = "Needs level 14", skipped = true },
+				{ id = 37, title = "Fresh Meat", state = "done" },
+				{ id = 38, title = "Westfall Stew", state = "open" },
+				{ id = 4970, title = "Frostsaber Provisions", state = "later", why = "After an earlier quest" },
+			},
+			step = 3, total = 4, skippedCount = 1,
+			branches = { { id = 40, title = "A Fishy Peril" }, { id = 41, title = "Furlbrow's Deed" } },
+		}
+		Polestar.Lookup.Show(nil, "quest", 38)
+		local d = LK.detail
+		local chainFact
+		for _, f in ipairs(d.facts) do if f[1] == "Chain" then chainFact = f[2] end end
+		local rows = LK.details.ChainRows
+		local first = { head = LK.details.ChainHead.Count:GetText(), fact = chainFact, chain = d.chain,
+			branches = LK.details.ChainBranches:GetText(), clickHere = rows[3].psQuest or false }
+		stub.RunScript(rows[4], "OnEnter")
+		first.tip = GameTooltip.lines
+		stub.RunScript(rows[4], "OnLeave")
+		rows[4]:Click()
+		first.finished = LK.ChainStepText({ done = true, step = 4, total = 4, skippedCount = 1 })
+		emit({ first = first, sel = LK.Selected(), after = LK.detail.chain or false })"#);
+	let f = &out["first"];
+	assert_eq!(f["fact"], "Step 3 of 4");
+	assert_eq!(f["head"], "Step 3 of 4");
+	assert!(f["tip"].as_array().unwrap().iter().any(|l| text(l) == "Click to open its page."), "{}", f["tip"]);
+	assert_eq!(f["finished"], "Finished, 1 skipped");
+	assert_eq!(
+		cols(&f["chain"]["quests"], &["id", "state", "here"]),
+		json!([[36, "Skipped  \u{b7}  Needs level 14", null], [37, "Done", null], [38, "You can take it now", true], [4970, "After an earlier quest", null],])
+	);
+	assert_eq!(f["chain"]["branches"], json!(["A Fishy Peril", "Furlbrow's Deed"]));
+	assert_eq!(f["branches"], "Then any of: A Fishy Peril, Furlbrow's Deed");
+	assert_eq!(f["clickHere"], false, "the quest's own row opens nothing");
+	assert_eq!(out["sel"], json!({ "kind": "quest", "id": 4970 }), "a row opens that quest's page");
+	assert_eq!(out["after"], false, "a quest standing alone has no chain");
+}

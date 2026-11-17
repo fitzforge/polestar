@@ -154,10 +154,10 @@ return {
 	["The smithy"] = "La forge",
 	-- {area:287} Hillsbrad · {npc:2404} Blacksmith Verringtan · {object:1736} Shipment of Iron · {npc:2449} Citizen Wilkes · {npc:2451} Farmer Kalaba
 	-- was: ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks by the smithy; {npc:2451} works the field south-east of the town."] = "À l'ouest à travers les contreforts jusqu'au village d'{area:287} : la forge se trouve en son centre. {npc:2404} et ses apprentis travaillent à la forge ; le {object:1736} est empilé à côté. Le {npc:2449} se promène près de la forge ; {npc:2451} travaille le champ au sud-est du village."
-	["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the west side of the town; {npc:2451} works the field south-east of the town."] = "",
+	["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the west side of the town; {npc:2451} works the field south-east of the town."] = "Vers l'ouest, à travers les contreforts, jusqu'à la ville de {area:287} : la forge se trouve en son milieu. {npc:2404} et ses apprentis travaillent à la forge ; le {object:1736} est empilé à côté. {npc:2449} parcourt le côté ouest de la ville ; {npc:2451} travaille le champ au sud-est de la ville.",
 	["Inside"] = "À l'intérieur",
 	-- {npc:2449} Citizen Wilkes
-	["{npc:2449}, on the west side of the town"] = "",
+	["{npc:2449}, on the west side of the town"] = "{npc:2449}, du côté ouest de la ville",
 
 	-- Step 32: Tarren Mill
 	-- {npc:2055} Master Apothecary Faranell · {zone:1458} Undercity
@@ -184,12 +184,12 @@ return {
 
 	-- Step 36: Melisara
 	-- {npc:2278} Melisara · {area:272} Tarren Mill · {npc:2410} Magus Wordeen Voidglare
-	["For your City of Dalaran run, later in this guide: {npc:2278} stands in {area:272}, a short walk east of {npc:2410}."] = "Pour votre expédition dans City of Dalaran, plus loin dans ce guide : {npc:2278} se tient à {area:272}, à quelques pas à l'est de {npc:2410}.",
+	["For your City of Dalaran run, later in this guide: {npc:2278} stands in {area:272}, a short walk east of {npc:2410}."] = "Pour votre expédition dans Cité de Dalaran, plus loin dans ce guide : {npc:2278} se tient à {area:272}, à quelques pas à l'est de {npc:2410}.",
 
 	-- Step 37: City of Dalaran
-	["City of Dalaran"] = "City of Dalaran",
+	["City of Dalaran"] = "Cité de Dalaran",
 	-- {item:277507} Dalaran Sewer Key · {npc:247126} Atrexis the Grave Knight · {npc:2278} Melisara · {npc:268743} Rexxie Copperclutch
-	["The City of Dalaran is a dungeon for a group of five, about levels 28 to 33, under the violet dome. Without the {item:277507}, go in through the sewer pipe north-west of the crater: the arrow leads there.\nInside: {npc:247126} is {npc:2278}'s. {npc:268743}, in the sewer, gives Opportunistic Education and takes it back there."] = "City of Dalaran est un donjon pour un groupe de cinq, vers les niveaux 28 à 33, sous le dôme violet. Sans la {item:277507}, entrez par la canalisation d'égout au nord-ouest du cratère : la flèche y mène.\nÀ l'intérieur : {npc:247126} est pour {npc:2278}. {npc:268743}, dans les égouts, donne Opportunistic Education et la reprend là-bas.",
+	["The City of Dalaran is a dungeon for a group of five, about levels 28 to 33, under the violet dome. Without the {item:277507}, go in through the sewer pipe north-west of the crater: the arrow leads there.\nInside: {npc:247126} is {npc:2278}'s. {npc:268743}, in the sewer, gives Opportunistic Education and takes it back there."] = "Cité de Dalaran est un donjon pour un groupe de cinq, vers les niveaux 28 à 33, sous le dôme violet. Sans la {item:277507}, entrez par la canalisation d'égout au nord-ouest du cratère : la flèche y mène.\nÀ l'intérieur : {npc:247126} est pour {npc:2278}. {npc:268743}, dans les égouts, donne Opportunistic Education et la reprend là-bas.",
 	-- {quest:96986} The Grave Knight · {npc:247126} Atrexis the Grave Knight
 	["{quest:96986}: {npc:247126}, inside"] = "{quest:96986} : {npc:247126}, à l'intérieur",
 
@@ -242,7 +242,7 @@ return {
 
 	-- Step 44: Melisara
 	-- {quest:96986} The Grave Knight · {npc:2278} Melisara · {npc:2410} Magus Wordeen Voidglare
-	["{quest:96986} from your City of Dalaran run: {npc:2278}, a short walk east of {npc:2410}."] = "{quest:96986} de votre expédition dans City of Dalaran : {npc:2278}, à quelques pas à l'est de {npc:2410}.",
+	["{quest:96986} from your City of Dalaran run: {npc:2278}, a short walk east of {npc:2410}."] = "{quest:96986} de votre expédition dans Cité de Dalaran : {npc:2278}, à quelques pas à l'est de {npc:2410}.",
 
 	-- Step 45: Battle of Hillsbrad with a group
 	-- {quest:539} Battle of Hillsbrad
