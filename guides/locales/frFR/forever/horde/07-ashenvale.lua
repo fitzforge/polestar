@@ -288,10 +288,10 @@ return {
 
 	-- Step 65: Dorn Plainstalker
 	-- {npc:2986} Dorn Plainstalker · {quest:1149} Test of Faith
-	["{npc:2986} stands on a mesa top east of the Galak camps. Taking his {quest:1149} puts you on a high cliff far to the west: follow the stone path to the end of the wooden planks and step off there, and you land safely. Jump from anywhere else and you fall to your death."] = "{npc:2986} se tient au sommet d'une mesa à l'est des camps Galak. Prendre sa {quest:1149} vous dépose sur une haute falaise bien à l'ouest : suivez le chemin de pierre jusqu'au bout des planches de bois et sautez de là, et vous atterrissez sain et sauf. Sautez de n'importe où ailleurs et vous tombez à mort.",
+	["{npc:2986} stands on a mesa top east of the Galak camps. Taking his {quest:1149} puts you on a high cliff far to the west: follow the stone path to the end of the wooden planks and step off there, and you land safely. Jump from anywhere else and you fall to your death."] = "{npc:2986} se tient au sommet d'une mesa à l'est des camps Galak. Prendre sa {quest:1149} vous dépose sur une haute falaise bien à l'ouest : suivez le chemin de pierre jusqu'au bout des planches de bois et sautez de là, et vous atterrissez sain et sauf. Sautez d'un autre endroit et vous tombez à mort.",
 	-- {npc:2986} Dorn Plainstalker
 	["{npc:2986}, below ground"] = "{npc:2986}, sous terre",
-	["the end of the planks"] = "le bout des planches",
+	["the end of the planks"] = "Le bout des planches",
 	-- {npc:2986} Dorn Plainstalker · {npc:4490} Grenka Bloodscreech
 	["{npc:2986}: {npc:4490}, in the harpy den west of the post"] = "{npc:2986} : {npc:4490}, dans le repaire des harpies à l'ouest du poste",
 	-- {quest:1150} Test of Endurance · {npc:4490} Grenka Bloodscreech
