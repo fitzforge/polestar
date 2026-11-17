@@ -1310,6 +1310,27 @@ fn a_chokepoint_more_than_30_yd_above_or_below_the_path_is_no_stop_one_on_the_pa
 	assert_eq!(out, json!(["walk|Walk to the Ruins Door cave mouth", "walk|Target"]));
 }
 
+// A cave or building mouth whose name starts with "The" read "Walk to the The Screeching Canyon cave mouth".
+#[test]
+fn a_mouth_named_the_something_gets_one_article_walking_or_riding() {
+	let script = r#"
+		nav.useTravelWorld()
+		PolestarNavChokepoints = { [0] = {
+			{ wx = 0, wy = -200, r = 10, kind = "cave", name = "The Screeching Canyon", zone = "Testshire" },
+			{ wx = 0, wy = -400, r = 10, kind = "building", name = "The Great Hall", zone = "Testshire" },
+		} }
+		nav.place(0, 0)
+		target(0, -600)
+		N.Sample()
+		fake.resolve(0, 0, 0, -300, 0, -600)
+		local legs, ci = N.GetRoute()
+		local out = {}
+		for i = ci or 1, legs and #legs or 0 do out[#out + 1] = legs[i].kind .. "|" .. legs[i].label end
+		emit(out)"#;
+	assert_eq!(run(script), json!(["walk|Walk to the Screeching Canyon cave mouth", "walk|Walk to the Great Hall entrance", "walk|Target"]));
+	assert_eq!(run(&format!("{RIDER}{script}")), json!(["walk|Ride to the Screeching Canyon cave mouth", "walk|Ride to the Great Hall entrance", "walk|Target"]));
+}
+
 // #1046: a building mouth is named after its area, so the Gallows' End Tavern's door read "Walk to
 // the Brill entrance", the town's way in. With an inn's innkeeper beside it, it is the inn's door.
 #[test]

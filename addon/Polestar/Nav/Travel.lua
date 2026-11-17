@@ -2764,7 +2764,10 @@ local function stopLabel(s, c)
 		elseif s.kind == "building" and innDoor(c, s.wx, s.wy) then
 			place = format(L["%s Inn"], place)
 		end
-		return format(ride and ride.to[kind] or CHOKE_TO[kind], place)
+		local caption = ride and ride.to[kind] or CHOKE_TO[kind]
+		-- "Walk to the %s cave mouth" for The Screeching Canyon: one article, not "the The".
+		if caption:find("the %s", 1, true) then place = place:gsub("^The ", "") end
+		return format(caption, place)
 	end
 	local zone = stopZone(s, c)
 	if zone then return format(ride and ride.zone[kind] or CHOKE_IN[kind], zone) end
