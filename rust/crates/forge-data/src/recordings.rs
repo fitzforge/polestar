@@ -653,6 +653,8 @@ struct Slot {
 	id: Ballot,
 	/// Each player's count (the highest it saw).
 	max: IndexMap<String, f64>,
+	/// Some player's line read "<creature> slain" (a creature's kill line, not a hidden credit).
+	slain: bool,
 }
 
 /// What players recorded of one quest.
@@ -1916,11 +1918,13 @@ fn merge_objectives(q: &V, slots: &IndexMap<i64, Slot>, min: usize, settled: boo
 		}
 		let idx = match idx {
 			None => {
-				// A line credited to no creature or object (a hidden credit the server counts as a kill:
-				// "Find the hottest area of Fire Plume Ridge") is never added beside the objectives a
-				// quest has: it repeats one of them in the game's words (#2585, Finding the Source 974).
-				let untargeted = id.is_none() && kind.as_deref().is_some_and(|k| k != "event");
-				if (had && (!tr || untargeted)) || settled {
+				// A line credited to no creature or object and not a creature's "slain" line (a hidden
+				// credit the server counts as a kill: "Find the hottest area of Fire Plume Ridge", "Videre
+				// Elixir Used at Gravestone") is never added: beside a quest's objectives it repeats one of
+				// them in the game's words, and alone it is a kill no step or route can target (#2585,
+				// Finding the Source 974, Meet at the Grave 3912).
+				let untargeted = id.is_none() && !s.slain && kind.as_deref().is_some_and(|k| k != "event");
+				if (had && !tr) || untargeted || settled {
 					continue;
 				}
 				let o = Obj::new();
@@ -2421,6 +2425,7 @@ pub fn apply_recordings<R: std::borrow::Borrow<Recording>>(
 						s.name.vote(V::from(p.name), &who);
 					}
 					let m = s.max.entry(who.clone()).or_insert(0.0);
+					s.slain |= p.slain;
 					*m = m.max(p.max);
 					if let Some(k) = kind {
 						s.kind.vote(V::str(k), &who);
@@ -3035,7 +3040,7 @@ mod tests {
 	fn a_line_credited_to_nothing_is_never_added_beside_a_quests_objectives() {
 		// Finding the Source 974 (#2585): its "Find the hottest area" line ticks on a hidden credit with
 		// no creature; three players' line joined the hot spot object as a kill nobody can target, and
-		// the route model dropped the quest and its chain. A quest without objectives still takes it.
+		// the route model dropped the quest and its chain (Meet at the Grave 3912: the same line alone).
 		let line = vec![r#"{"t":3,"e":"progress","q":364,"oi":1,"text":"Find the hottest area: 1/1","type":"monster"}"#.to_string()];
 		let t = Tables::new(QUESTS, NPCS, "{}");
 		t.apply(&from(&[A, B, C], &line));
@@ -3043,7 +3048,7 @@ mod tests {
 		let gap = vec![r#"{"t":3,"e":"progress","q":365,"oi":1,"text":"Find the hottest area: 1/1","type":"monster"}"#.to_string()];
 		let t = Tables::new(QUESTS, NPCS, "{}");
 		t.apply(&from(&[A, B, C], &gap));
-		assert_eq!(t.quest("365").get("objectives").len(), 1);
+		assert_eq!(t.quest("365").get("objectives").len(), 0, "nor alone");
 	}
 
 	#[test]
