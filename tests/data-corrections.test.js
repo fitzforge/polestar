@@ -352,6 +352,14 @@ test('Aza\'bek has one Crossroads spot, not five points across the hill (#2774)'
 	});
 });
 
+// Jeor (#2856): Maximillian Crowe, the Goldshire warlock trainer, stands upstairs in the Lion's Pride Inn at
+// 43.01, 65.67. The old coordinate (44.37, 66.15) sent players outside behind the house.
+test('Maximillian Crowe stands upstairs in Lion\'s Pride Inn (#2856)', () => {
+	assert.deepEqual(corrections.npcs[906]?.set?.spawns, {
+		1429: { f: 'e', pts: [[43.01, 65.67]] },
+	});
+});
+
 test('class quests the data left open are locked to their class, and Magma or Lava? is open to everyone (class-quest card)', () => {
 	const classes = (id) => corrections.quests[id] && corrections.quests[id].set.classes;
 	assert.deepEqual([78261, 78307].map(classes), [8, 8], 'The Horn of Xelthos: Rogue');

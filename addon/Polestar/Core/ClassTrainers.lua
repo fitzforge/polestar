@@ -33,7 +33,7 @@ ns.RegisterClassTrainers({
 	{ npc = 461, npcName = "Demisette Cloyce", map = 1453, x = 39.24, y = 84.96, z = 101.5, faction = "A", classes = { "WARLOCK" } },
 	{ npc = 837, npcName = "Branstock Khalder", map = 1426, x = 28.6, y = 66.39, z = 392.8, f = "e", faction = "A", classes = { "PRIEST" } },
 	{ npc = 895, npcName = "Thorgas Grimson", map = 1426, x = 29.18, y = 67.45, z = 395.6, f = "e", faction = "A", classes = { "HUNTER" } },
-	{ npc = 906, npcName = "Maximillian Crowe", map = 1429, x = 44.39, y = 66.24, z = 49.9, f = "e", faction = "A", classes = { "WARLOCK" } },
+	{ npc = 906, npcName = "Maximillian Crowe", map = 1429, x = 43.01, y = 65.67, z = 63.9, f = "e", faction = "A", classes = { "WARLOCK" } },
 	{ npc = 911, npcName = "Llane Beshere", map = 1429, x = 50.24, y = 42.29, z = 82.3, f = "e", faction = "A", classes = { "WARRIOR" } },
 	{ npc = 912, npcName = "Thran Khorman", map = 1426, x = 28.83, y = 67.24, z = 395.6, f = "e", faction = "A", classes = { "WARRIOR" } },
 	{ npc = 913, npcName = "Lyria Du Lac", map = 1429, x = 41.09, y = 65.77, z = 57.9, f = "e", faction = "A", classes = { "WARRIOR" } },

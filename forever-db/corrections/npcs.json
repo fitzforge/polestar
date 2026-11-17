@@ -3243,5 +3243,27 @@
 			}
 		],
 		"note": "Aza'bek, the Crossroads cook who sells Soothing Spices, stands still at 49.74,29.35. The merged data had five points for Aza'bek, from 48.26,28.32 to 50.43,29.2, and `buy 3713 nearest` (Horde Dustwallow Marsh) sent players to 49.26,28.66, 64 yd away (#2774)."
+	},
+	"906": {
+		"set": {
+			"spawns": {
+				"1429": {
+					"f": "e",
+					"pts": [
+						[
+							43.01,
+							65.67
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#2856 (Jeor, 0.4.1): stood at Maximillian Crowe upstairs in Lion's Pride Inn at 43.01,65.67; the arrow pointed outside behind the building at 44.37,66.15"
+			}
+		],
+		"note": "Maximillian Crowe, the Goldshire warlock trainer, stands upstairs in the Lion's Pride Inn at 43.01,65.67. The arrow previously pointed outside behind the inn (#2856)."
 	}
 }
