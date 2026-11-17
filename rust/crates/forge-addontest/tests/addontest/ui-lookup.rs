@@ -686,3 +686,66 @@ fn a_quest_in_a_chain_shows_its_step_each_quest_s_state_and_its_branches_and_a_r
 	assert_eq!(out["sel"], json!({ "kind": "quest", "id": 4970 }), "a row opens that quest's page");
 	assert_eq!(out["after"], false, "a quest standing alone has no chain");
 }
+
+#[test]
+fn an_item_s_icon_in_the_details_shows_the_game_s_tooltip_for_it_other_pages_icons_none() {
+	let out = run(r#"
+		local links = {}
+		GameTooltip.SetHyperlink = function(self, link) links[#links + 1] = link end
+		local well
+		local function hover()
+			GameTooltip.owner = nil
+			stub.RunScript(well, "OnEnter")
+			local r = { mouse = well:IsMouseEnabled(), owner = GameTooltip:GetOwner() == well, link = links[#links] or false }
+			stub.RunScript(well, "OnLeave")
+			links = {}
+			return r
+		end
+		Polestar.Lookup.Show(nil, "item", 4386)
+		well = LK.details.Well
+		local item = hover()
+		Polestar.Lookup.Show(nil, "mount", 8631)
+		local mount = hover()
+		Polestar.Lookup.Show(nil, "npc", 4730)
+		local npc = hover()
+		Polestar.Lookup.Show(nil, "item", 4386)
+		stub.RunScript(well, "OnEnter")
+		links = {}
+		Polestar.Lookup.Show(nil, "mount", 8631)
+		local follows = links[1] or false
+		Polestar.Lookup.Show(nil, "npc", 4730)
+		local leftNpc = GameTooltip:IsShown()
+		Polestar.Lookup.Show(nil, "item", 4386)
+		stub.RunScript(well, "OnEnter")
+		LK.Select(nil)
+		local leftEmpty = GameTooltip:IsShown()
+		emit({ item = item, mount = mount, npc = npc, follows = follows, leftNpc = leftNpc, leftEmpty = leftEmpty })"#);
+	assert_eq!(out["item"], json!({ "mouse": true, "owner": true, "link": "item:4386" }));
+	assert_eq!(out["mount"], json!({ "mouse": true, "owner": true, "link": "item:8631" }));
+	assert_eq!(out["npc"]["mouse"], false, "an NPC's glyph leaves the band to drag the window");
+	assert_eq!(out["npc"]["link"], false);
+	assert_eq!(out["follows"], "item:8631", "a tooltip already up follows the newly opened item");
+	assert_eq!(out["leftNpc"], false, "and goes when the page is no item");
+	assert_eq!(out["leftEmpty"], false, "and when the details empty");
+}
+
+#[test]
+fn a_modified_click_on_an_item_s_icon_in_the_details_hands_its_link_to_the_client_a_plain_or_right_click_does_nothing() {
+	let out = run(r#"
+		local modified, handled = false, {}
+		IsModifiedClick = function() return modified end
+		Polestar.Compat.ItemLink = function(id) return "|Hitem:" .. id .. "|h[x]|h" end
+		HandleModifiedItemClick = function(link) handled[#handled + 1] = link end
+		Polestar.Lookup.Show(nil, "item", 4386)
+		local well = LK.details.Well
+		stub.RunScript(well, "OnMouseUp", "LeftButton")
+		local plain = #handled
+		modified = true
+		stub.RunScript(well, "OnMouseUp", "RightButton")
+		stub.RunScript(well, "OnMouseUp", "LeftButton")
+		Polestar.Lookup.Show(nil, "npc", 4730)
+		stub.RunScript(well, "OnMouseUp", "LeftButton")
+		emit({ plain = plain, handled = handled })"#);
+	assert_eq!(out["plain"], 0, "a plain click is not a modified click");
+	assert_eq!(out["handled"], json!(["|Hitem:4386|h[x]|h"]), "Shift / Ctrl on the item hands its link over; an NPC's glyph none");
+}
