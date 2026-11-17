@@ -392,7 +392,7 @@ fn api_version_and_capabilities_say_what_this_polestar_offers() {
 		for _, c in ipairs({ "skins", "schemes", "surfaces.window", "surfaces.toast", "surfaces.arrow", "surfaces.pin", "fonts", "preset",
 			"lightSchemes", "surfaces.guideTitle", "variants", "resolve", "shadow", "artTint", "media.dart", "guideParts",
 			"surfaces.card", "surfaces.actionButton", "surfaces.guideRow", "surfaces.guideLayout", "surfaces.guideRender",
-			"surfaces.guideProgress", "surfaces.guideAnchor", "media.pins", "arrow.parts", "pin.parts", "tokens.accent2", "tokens.glow",
+			"surfaces.guideProgress", "surfaces.guideAnchor", "surfaces.guideTakes", "surfaces.guidePerson", "surfaces.guideInset", "surfaces.guideUpRow", "surfaces.guideShows", "surfaces.guideSpace", "media.pins", "arrow.parts", "pin.parts", "tokens.accent2", "tokens.glow",
 			"tokens.pins", "skins.installed", "theme.functions", "kit.color", "kit.glow", "kit.tintArt" }) do
 			if not T.HasCapability(c) then caps[#caps + 1] = c end
 		end
@@ -404,7 +404,28 @@ fn api_version_and_capabilities_say_what_this_polestar_offers() {
 	assert!(out["n"].as_u64().unwrap() >= 40);
 	assert_eq!(
 		out["surfaces"]["hooks"],
-		json!(["actionButton", "arrow", "card", "guideAnchor", "guideLayout", "guideMenu", "guidePlace", "guideProgress", "guideRender", "guideRow", "guideTab", "guideTitle", "pin", "toast"])
+		json!([
+			"actionButton",
+			"arrow",
+			"card",
+			"guideAnchor",
+			"guideInset",
+			"guideLayout",
+			"guideMenu",
+			"guidePerson",
+			"guidePlace",
+			"guideProgress",
+			"guideRender",
+			"guideRow",
+			"guideShows",
+			"guideSpace",
+			"guideTab",
+			"guideTakes",
+			"guideTitle",
+			"guideUpRow",
+			"pin",
+			"toast"
+		])
 	);
 	assert_eq!(out["surfaces"]["paint"], json!(["button", "checkbox", "close", "dropdown", "editbox", "guide", "inset", "panel", "scrollbar", "sidebar", "tab", "tile", "toast", "window"]));
 }
@@ -822,6 +843,8 @@ T.SkinHookValue = function(surface, ...)
 end
 Polestar.Set("behavior.autoAccept", false)
 Polestar.Set("ui.launcher", true)
+-- Up next on, for its rows (guideUpRow).
+Polestar.Set("ui.upcoming", 2)
 E.SetGuide("test/class/call-of-water"); stub.advance(3)
 -- The skin, chosen with the window on screen.
 Polestar.Set("ui.skin", "moonlit")
@@ -1199,6 +1222,282 @@ fn a_part_a_skin_places_itself_leaves_the_guide_window_s_height_and_comes_back_w
 	assert_eq!(out["off"], out["house"], "Polestar's own look: the house layout");
 }
 
+// Skin API 2's guideTakes: each goal of the step about to be listed is offered to the skin; one it takes (its answer
+// true) leaves the window's rows for a card of the skin's own, the other goals stay. Taken no more (Polestar's own
+// look), the goal is a row again.
+#[test]
+fn a_goal_a_skin_takes_leaves_the_guide_window_s_rows_and_comes_back_without_the_skin() {
+	let out = run_ui(
+		r##"
+		local T = Polestar.Theme
+		local offered = {}
+		local ok, why = T.RegisterSkin("taker", { name = "Taker", addon = "Test_Taker", base = "polestar",
+			hooks = {
+				guideTakes = function(goal)
+					offered[goal.t] = true
+					return goal.t == "collect"
+				end,
+			} })
+		uistub.openTabs(TABS, 1)
+		local function rows()
+			local kinds = {}
+			for _, r in ipairs(GF.rows) do
+				if r:IsShown() and r.psGoal then kinds[#kinds + 1] = r.psGoal.t end
+			end
+			table.sort(kinds)
+			return table.concat(kinds, ",")
+		end
+		local house = rows()
+		Polestar.Set("ui.skin", "taker")
+		GF.Render()
+		local taken = rows()
+		Polestar.Set("ui.skin", "polestar")
+		GF.Render()
+		emit({ ok = ok, why = why or false, house = house, taken = taken, back = rows(), kill = offered.kill or false,
+			collect = offered.collect or false, cap = T.HasCapability("surfaces.guideTakes") })"##,
+	);
+	assert_eq!(out["ok"], true, "registered: {}", out["why"]);
+	assert_eq!(out["cap"], true, "the capability says the hook is there");
+	assert!(out["house"].as_str().unwrap_or("").contains("collect"), "the house lists the collect goal: {out}");
+	assert_eq!((out["kill"].clone(), out["collect"].clone()), (json!(true), json!(true)), "each goal is offered: {out}");
+	assert!(!out["taken"].as_str().unwrap_or("").contains("collect"), "the taken goal leaves the rows: {out}");
+	assert!(out["taken"].as_str().unwrap_or("").contains("kill"), "the other goals stay: {out}");
+	assert_eq!(out["back"], out["house"], "without the skin, the goal is a row again");
+}
+
+// Skin API 2's guidePerson: the step's header, laid out, is handed to the skin with its text's room and Polestar's
+// height; a number back is its height (the window grows by the difference). Without the skin, the house height.
+#[test]
+fn a_skin_sets_the_step_header_s_height_for_the_step_being_drawn() {
+	let out = run_ui(
+		r##"
+		local T = Polestar.Theme
+		local P = GF.parts
+		local seen = {}
+		local ok, why = T.RegisterSkin("header", { name = "Header", addon = "Test_Header", base = "polestar",
+			hooks = {
+				guidePerson = function(person, width, h)
+					seen[#seen + 1] = { mine = person == P.person, width = width > 0, h = h }
+					return h + 20
+				end,
+			} })
+		uistub.openTabs(TABS, 1)
+		local function hs() return { person = math.floor(P.person:GetHeight() + 0.5), window = math.floor(F:GetHeight() + 0.5) } end
+		local house = hs()
+		Polestar.Set("ui.skin", "header")
+		GF.Render()
+		local skinned = hs()
+		local last = seen[#seen] or {}
+		Polestar.Set("ui.skin", "polestar")
+		GF.Render()
+		emit({ ok = ok, why = why or false, house = house, skinned = skinned, back = hs(), mine = last.mine or false,
+			width = last.width or false, h = last.h or false, cap = T.HasCapability("surfaces.guidePerson") })"##,
+	);
+	assert_eq!(out["ok"], true, "registered: {}", out["why"]);
+	assert_eq!(out["cap"], true);
+	assert_eq!((out["mine"].clone(), out["width"].clone()), (json!(true), json!(true)), "handed the header and its room: {out}");
+	assert_eq!(out["h"], out["house"]["person"], "with Polestar's height: {out}");
+	assert_eq!(n(&out["skinned"]["person"]) - n(&out["house"]["person"]), 20.0, "the header takes the skin's height: {out}");
+	assert_eq!(n(&out["skinned"]["window"]) - n(&out["house"]["window"]), 20.0, "the window grows by as much: {out}");
+	assert_eq!(out["back"], out["house"], "without the skin, the house height");
+}
+
+// Skin API 2's guideInset: the step's card and Up next start as far in from the window's left edge as the skin says,
+// each narrower by as much (a rail of the skin's own down the left). Without the skin, at the edge as before.
+#[test]
+fn a_skin_sets_the_step_s_card_and_up_next_in_from_the_window_s_left_edge() {
+	let out = run_ui(
+		r##"
+		local T = Polestar.Theme
+		local P = GF.parts
+		local asked = {}
+		local ok, why = T.RegisterSkin("rail", { name = "Rail", addon = "Test_Rail", base = "polestar",
+			hooks = {
+				guideInset = function(name)
+					asked[name] = true
+					return (name == "card" and 20) or (name == "upnext" and 10) or nil
+				end,
+			} })
+		Polestar.Set("ui.upcoming", 3)
+		uistub.openTabs(TABS, 1)
+		stub.advance(1)
+		local function at(f)
+			local _, _, _, x = f:GetPoint(1)
+			local w = f:GetWidth()
+			if f:GetNumPoints() > 1 then w = F:GetWidth() - (x or 0) end
+			return { w = math.floor(w + 0.5), x = math.floor((x or 0) + 0.5) }
+		end
+		local function snap() return { card = at(P.card), up = at(P.upnext), goals = math.floor(P.goals.Child:GetWidth() + 0.5) } end
+		local house = snap()
+		local shown = P.upnext:IsShown()
+		Polestar.Set("ui.skin", "rail")
+		GF.Render()
+		stub.advance(1)
+		local skinned = snap()
+		Polestar.Set("ui.skin", "polestar")
+		GF.Render()
+		stub.advance(1)
+		emit({ ok = ok, why = why or false, house = house, skinned = skinned, back = snap(), shown = shown,
+			card = asked.card or false, upnext = asked.upnext or false, cap = T.HasCapability("surfaces.guideInset") })"##,
+	);
+	assert_eq!(out["ok"], true, "registered: {}", out["why"]);
+	assert_eq!(out["cap"], true);
+	assert_eq!(out["shown"], true, "Up next is on screen: {out}");
+	assert_eq!((out["card"].clone(), out["upnext"].clone()), (json!(true), json!(true)), "asked for both parts: {out}");
+	let (h, s) = (&out["house"], &out["skinned"]);
+	assert_eq!(n(&s["card"]["x"]) - n(&h["card"]["x"]), 20.0, "the card moves in by its inset: {out}");
+	assert_eq!(n(&h["card"]["w"]) - n(&s["card"]["w"]), 20.0, "the card narrows by its inset: {out}");
+	assert_eq!(n(&h["goals"]) - n(&s["goals"]), 20.0, "its goals with it: {out}");
+	assert_eq!(n(&s["up"]["x"]) - n(&h["up"]["x"]), 10.0, "Up next moves in by its inset: {out}");
+	assert_eq!(n(&h["up"]["w"]) - n(&s["up"]["w"]), 10.0, "Up next narrows by its inset: {out}");
+	assert_eq!(out["back"], out["house"], "without the skin, at the edge as before");
+}
+
+// Skin API 2's guideUpRow: each Up next row, once painted, is handed to the skin with the step it shows and that
+// step's number, at every render; the skin's touch on it goes with the skin, since Polestar paints the row again.
+#[test]
+fn a_skin_hears_each_up_next_row_with_its_step_and_its_touch_goes_with_it() {
+	let out = run_ui(
+		r##"
+		local T = Polestar.Theme
+		local seen = {}
+		local ok, why = T.RegisterSkin("uprow", { name = "Up row", addon = "Test_UpRow", base = "polestar",
+			hooks = {
+				guideUpRow = function(row, v, i)
+					seen[#seen + 1] = { i = i, step = type(v) == "table" and v.title or false, mine = row.psIndex == i }
+					row.Text:SetText("#" .. i)
+				end,
+			} })
+		Polestar.Set("ui.upcoming", 3)
+		Polestar.Set("ui.upcomingOpen", true)
+		uistub.openTabs(TABS, 1)
+		local function texts()
+			local out = {}
+			for _, r in ipairs(GF.upRows) do if r:IsShown() then out[#out + 1] = r.Text:GetText() end end
+			return out
+		end
+		local house = texts()
+		Polestar.Set("ui.skin", "uprow")
+		GF.Render()
+		local skinned = texts()
+		Polestar.Set("ui.skin", "polestar")
+		GF.Render()
+		emit({ ok = ok, why = why or false, house = house, skinned = skinned, back = texts(), seen = seen,
+			cap = T.HasCapability("surfaces.guideUpRow") })"##,
+	);
+	assert_eq!(out["ok"], true, "registered: {}", out["why"]);
+	assert_eq!(out["cap"], true);
+	let house = out["house"].as_array().cloned().unwrap_or_default();
+	assert!(!house.is_empty(), "Up next lists steps: {out}");
+	let seen = out["seen"].as_array().cloned().unwrap_or_default();
+	assert!(seen.len() >= house.len(), "every row is handed over: {out}");
+	assert!(seen.iter().all(|s| s["mine"] == json!(true) && s["step"].is_string()), "each with its step and number: {out}");
+	assert_eq!(out["skinned"][0], json!(format!("#{}", seen[0]["i"])), "the skin's touch is on the row: {out}");
+	assert_eq!(out["back"], out["house"], "without the skin, Polestar's rows");
+}
+
+// Skin API 2's guideShows: the window asks the skin whether a part shows its way, with Polestar's own choice as the
+// default. A skin answering against the default keeps the tip in compact mode, keeps the step's finished goals in
+// place as rows (no "N done" line), drops Up next's heading with its rows shown though Up next is folded, and keeps
+// the goals area whole past the window's cap (the window grows instead). A skin answering the default changes
+// nothing; without the skin, all of it is as it was.
+#[test]
+fn a_skin_answers_which_parts_the_guide_window_shows_against_the_default_and_the_default_changes_nothing() {
+	let out = run_ui(
+		r##"
+		local T = Polestar.Theme
+		local P = GF.parts
+		local asked, flip = {}, false
+		local ok, why = T.RegisterSkin("shows", { name = "Shows", addon = "Test_Shows", base = "polestar",
+			hooks = {
+				guideShows = function(name, default)
+					asked[name] = type(default)
+					if flip then return not default end
+					return default
+				end,
+			} })
+		Polestar.Set("ui.upcoming", 3)
+		Polestar.Set("ui.upcomingOpen", false)
+		uistub.openTabs(TABS, 1)
+		stub.advance(1)
+		local function snap()
+			local doneLine, doneRows = false, 0
+			for i = 1, GF.area.n do
+				local f = GF.area.items[i]
+				if f.psLine and f.psKey == "done" and f:IsShown() then doneLine = true end
+				if not f.psLine and f.psGoal and f.psGoal.status == "done" and f:IsShown() then doneRows = doneRows + 1 end
+			end
+			local upRows = 0
+			for _, r in ipairs(GF.upRows) do if r:IsShown() then upRows = upRows + 1 end end
+			return { doneLine = doneLine, doneRows = doneRows, head = P.upnext.Toggle:IsShown(), upRows = upRows }
+		end
+		local function tipIn(compactOn)
+			Polestar.Set("ui.compact", compactOn)
+			GF.Render()
+			stub.advance(0.5)
+			local shown = P.tip:IsShown()
+			Polestar.Set("ui.compact", false)
+			GF.Render()
+			stub.advance(0.5)
+			return shown
+		end
+		local function tall()
+			Polestar.Set("ui.maxHeight", 0.1)
+			GF.Render()
+			stub.advance(0.5)
+			local h = math.floor(F:GetHeight() + 0.5)
+			Polestar.Set("ui.maxHeight", 0.5)
+			GF.Render()
+			stub.advance(0.5)
+			return h
+		end
+		local house = snap()
+		house.tipCompact, house.tip, house.capped = tipIn(true), tipIn(false), tall()
+		Polestar.Set("ui.skin", "shows")
+		GF.Render()
+		stub.advance(0.5)
+		local same = snap()
+		same.tipCompact, same.tip, same.capped = tipIn(true), tipIn(false), tall()
+		flip = true
+		GF.Render()
+		stub.advance(0.5)
+		local flipped = snap()
+		flipped.tipCompact, flipped.capped = tipIn(true), tall()
+		Polestar.Set("ui.showNotes", false)
+		flipped.notesOff = tipIn(true)
+		Polestar.Set("ui.showNotes", true)
+		flip = false
+		Polestar.Set("ui.skin", "polestar")
+		GF.Render()
+		stub.advance(0.5)
+		local back = snap()
+		back.tipCompact, back.tip, back.capped = tipIn(true), tipIn(false), tall()
+		emit({ ok = ok, why = why or false, house = house, same = same, flipped = flipped, back = back, asked = asked,
+			cap = T.HasCapability("surfaces.guideShows") })"##,
+	);
+	assert_eq!(out["ok"], true, "registered: {}", out["why"]);
+	assert_eq!(out["cap"], true);
+	for name in ["tip", "done", "upnextHead", "goalScroll"] {
+		assert_eq!(out["asked"][name], "boolean", "asked for {name} with a boolean default: {out}");
+	}
+	let h = &out["house"];
+	assert_eq!(
+		(h["tipCompact"].clone(), h["tip"].clone(), h["doneLine"].clone(), h["doneRows"].clone(), h["head"].clone(), h["upRows"].clone()),
+		(json!(false), json!(true), json!(true), json!(0), json!(true), json!(0)),
+		"the house: no tip in compact mode, done goals folded into a line, Up next folded under its heading: {out}"
+	);
+	assert_eq!(out["same"], out["house"], "a skin answering the default changes nothing: {out}");
+	let f = &out["flipped"];
+	assert_eq!(f["tipCompact"], true, "the tip kept in compact mode: {out}");
+	assert_eq!(f["notesOff"], false, "never with the player's tips off: {out}");
+	// The step's done accept as a row (its done "Go to" names the header's own place: never a row).
+	assert_eq!((f["doneLine"].clone(), f["doneRows"].clone()), (json!(false), json!(1)), "done goals kept in place as rows, no line: {out}");
+	assert_eq!(f["head"], false, "Up next without its heading: {out}");
+	assert!(f["upRows"].as_u64().unwrap_or(0) > 0, "its rows shown though Up next is folded: {out}");
+	assert!(n(&f["capped"]) > n(&h["capped"]), "the goals area kept whole past the cap, the window taller: {out}");
+	assert_eq!(out["back"], out["house"], "without the skin, as it was: {out}");
+}
+
 // The settings window's Theme page with its picker's cards as a player gets them: the arrow (Nav, with Maps) for
 // their dials, the real Nav in place of the UI stub's, and the example skin. `showTheme()` opens the page on its
 // Colour tab (it opens on Essentials, whose scheme is a dropdown); `cards(key)`: a card row's cards there by value
@@ -1541,4 +1840,527 @@ fn a_variant_drawn_from_another_look_dresses_the_open_guide_window_in_it_and_bac
 	assert_eq!(out["forever"], json!({ "key": "forever", "line": false, "bar": true }), "dressed as WoW Forever: its status bar");
 	assert_eq!(out["blizzard"], json!({ "key": "blizzard", "line": false, "bar": true }));
 	assert_eq!(out["back"], out["flat"], "back to the house's progress line");
+}
+
+// Layouts (Theme.RegisterLayout, capability "layouts"): the guide window's structure alone. A layout takes the
+// common facts, the structure hooks, onApply and onLeave; a skin's field (tokens, a colour, a painter) or a skin's
+// hook is refused, naming why. Registered, it is listed with its facts and is not in use until chosen.
+#[test]
+fn a_layout_registers_with_structure_hooks_only_and_a_skin_s_fields_are_refused() {
+	let out = run(r##"
+		local function try(id, spec)
+			local ok, msg = T.RegisterLayout(id, spec)
+			return { ok = ok, msg = msg or false }
+		end
+		local function spec(extra)
+			local s = { api = 2, name = "Ledger", addon = "Polestar_Layout_Ledger" }
+			for k, v in pairs(extra or {}) do s[k] = v end
+			return s
+		end
+		local out = { cap = T.HasCapability("layouts") }
+		out.tokens = try("l1", spec({ tokens = { bg = "#000000" } }))
+		out.paint = try("l2", spec({ paint = {} }))
+		out.typo = try("l3", spec({ hookz = {} }))
+		out.skinHook = try("l4", spec({ hooks = { toast = function() end } }))
+		out.unknownHook = try("l5", spec({ hooks = { minimap = function() end } }))
+		out.notFn = try("l6", spec({ hooks = { guideInset = 4 } }))
+		out.onApply = try("l7", spec({ onApply = true }))
+		out.noName = try("l8", { addon = "X" })
+		out.badId = try("1x", spec())
+		out.future = try("l9", spec({ api = 99 }))
+		out.notTable = try("l10", "ledger")
+		out.good = try("ledger", spec({ desc = "Ruled columns", hooks = { guideInset = function() return 0 end, guideShows = function(_, d) return d end } }))
+		out.again = try("ledger", spec())
+		out.list = T.Layouts()
+		local info = T.LayoutInfo("ledger")
+		out.info = { info.name, info.addon, info.desc, info.api, table.concat(info.hooks, ","), info.failed or false }
+		out.inUse = T.LayoutId() or false
+		out.none = T.LayoutInfo("l1") or false
+		emit(out)"##);
+	assert_eq!(out["cap"], true);
+	let msg = |k: &str| out[k]["msg"].as_str().unwrap_or("").to_string();
+	assert_eq!(msg("tokens"), "a layout carries no tokens or colours (tokens is a skin's field)");
+	assert_eq!(msg("paint"), "a layout carries no tokens or colours (paint is a skin's field)");
+	assert_eq!(msg("typo"), "unknown field \"hookz\"");
+	assert_eq!(msg("skinHook"), "hooks.toast is a skin's (a layout hooks the guide window's structure only)");
+	assert_eq!(msg("unknownHook"), "unknown hooks \"minimap\"");
+	assert_eq!(msg("notFn"), "hooks.guideInset has the wrong type");
+	assert_eq!(msg("onApply"), "onApply must be a function");
+	assert!(msg("noName").starts_with("name must be"), "{}", msg("noName"));
+	assert!(msg("badId").starts_with("the id must be"), "{}", msg("badId"));
+	assert!(msg("future").starts_with("needs Skin API 99"), "{}", msg("future"));
+	assert_eq!(msg("notTable"), "the spec must be a table");
+	for k in ["tokens", "paint", "typo", "skinHook", "unknownHook", "notFn", "onApply", "noName", "badId", "future", "notTable"] {
+		assert_eq!(out[k]["ok"], false, "{k} refused");
+	}
+	assert_eq!(out["good"], json!({ "ok": true, "msg": false }));
+	assert_eq!(out["again"]["msg"], "the id \"ledger\" is taken (Polestar_Layout_Ledger)");
+	assert_eq!(out["list"], json!(["ledger"]), "only the one that registered");
+	assert_eq!(out["info"], json!(["Ledger", "Polestar_Layout_Ledger", "Ruled columns", 2, "guideInset,guideShows", false]));
+	assert_eq!(out["inUse"], false, "not in use until chosen");
+	assert_eq!(out["none"], false);
+}
+
+// Who answers a hook: the layout in use, else the skin in use, else Polestar's own. The skin's look (its tokens)
+// stays whatever the layout; a hook the layout does not set is still the skin's; with no layout chosen every hook
+// is the skin's, as before. The layout's onApply and onLeave run as it comes and goes. A layout's hook that fails
+// turns the layout off for the session, the skin's hook answering again, the player's choice kept.
+#[test]
+fn the_layout_s_hook_answers_before_the_skin_s_and_the_skin_s_tokens_still_apply() {
+	let out = run_ui(
+		r##"
+		local T = Polestar.Theme
+		local P = GF.parts
+		local events = {}
+		local skinUp = 0
+		assert(T.RegisterSkin("rail", { name = "Rail", addon = "Test_Rail", base = "polestar", tokens = { accent = "#ff8800" },
+			hooks = {
+				guideInset = function(name) return name == "card" and 20 or 0 end,
+				guideUpRow = function() skinUp = skinUp + 1 end,
+			} }))
+		local ok, why = T.RegisterLayout("ledger", { api = 2, name = "Ledger", addon = "Polestar_Layout_Ledger",
+			hooks = { guideInset = function(name) return name == "card" and 40 or 0 end },
+			onApply = function(id) events[#events + 1] = "apply " .. id end,
+			onLeave = function(id) events[#events + 1] = "leave " .. id end })
+		local broken = false
+		assert(T.RegisterLayout("broken", { api = 2, name = "Broken", addon = "Polestar_Layout_Broken",
+			hooks = { guideInset = function(name) if broken then error("boom") end return 60 end } }))
+		Polestar.Set("ui.upcoming", 3)
+		Polestar.Set("ui.upcomingOpen", true)
+		uistub.openTabs(TABS, 1)
+		stub.advance(1)
+		local function x()
+			GF.Render()
+			stub.advance(1)
+			local _, _, _, px = P.card:GetPoint(1)
+			return math.floor((px or 0) + 0.5)
+		end
+		local function accent()
+			local c = T.Palette().accent
+			return string.format("%02x%02x%02x", math.floor(c[1] * 255 + 0.5), math.floor(c[2] * 255 + 0.5), math.floor(c[3] * 255 + 0.5))
+		end
+		local out = { ok = ok, why = why or false, house = x() }
+		Polestar.Set("ui.skin", "rail")
+		out.skin = x()
+		skinUp = 0
+		out.set = { T.SetLayout("ledger") }
+		out.layout = { x(), T.LayoutId(), T.SkinId(), accent(), skinUp > 0, Polestar.Get("ui.layout") }
+		Polestar.Set("ui.skin", "polestar")
+		out.layoutAlone = x()
+		Polestar.Set("ui.skin", "rail")
+		out.back = { T.SetLayout() }
+		out.skinAgain = { x(), T.LayoutId() or false, Polestar.Get("ui.layout") or false }
+		out.events = table.concat(events, ",")
+		out.missing = { T.SetLayout("nobody") }
+		T.SetLayout("broken")
+		out.broken = x()
+		broken = true
+		x()
+		stub.advance(1)
+		out.failed = { x(), T.LayoutId() or false, Polestar.Get("ui.layout"), T.LayoutInfo("broken").failed ~= nil }
+		emit(out)"##,
+	);
+	assert_eq!(out["ok"], true, "registered: {}", out["why"]);
+	let house = n(&out["house"]);
+	assert_eq!(n(&out["skin"]) - house, 20.0, "no layout chosen: the skin's hook: {out}");
+	assert_eq!(out["set"], json!([true]));
+	assert_eq!(n(&out["layout"][0]) - house, 40.0, "the layout's hook answers first: {out}");
+	assert_eq!(out["layout"][1], "ledger");
+	assert_eq!(out["layout"][2], "rail", "the skin stays in use");
+	assert_eq!(out["layout"][3], "ff8800", "and its tokens with it");
+	assert_eq!(out["layout"][4], true, "a hook the layout does not set is still the skin's");
+	assert_eq!(out["layout"][5], "ledger", "saved in ui.layout");
+	assert_eq!(n(&out["layoutAlone"]) - house, 40.0, "a layout under Polestar's own look: {out}");
+	assert_eq!(out["back"], json!([true]));
+	assert_eq!(out["skinAgain"], json!([out["skin"].clone(), json!(false), json!(false)]), "Polestar's own layout again: unset, the skin's hook answers");
+	assert_eq!(out["events"], "apply ledger,leave ledger");
+	assert_eq!(out["missing"], json!([false, "no installed addon declares it (## X-Polestar-Layout)"]));
+	assert_eq!(n(&out["broken"]) - house, 60.0, "{out}");
+	assert_eq!(n(&out["failed"][0]) - house, 20.0, "a failed layout is off: the skin's hook again: {out}");
+	assert_eq!(out["failed"][1], false);
+	assert_eq!(out["failed"][2], "broken", "the player's choice kept");
+	assert_eq!(out["failed"][3], true);
+}
+
+// Installed layout addons (## X-Polestar-Layout): listed whether loaded or not; one that loads on demand loads at
+// login when the saved layout is its own and is in use once it registers, and loads when the player picks one of
+// its layouts. The install check leaves a Polestar_Layout_* folder alone, as it does a skin addon: its version is
+// its own.
+#[test]
+fn installed_layout_addons_are_found_in_the_toc_and_load_on_demand_when_saved_or_picked() {
+	let out = emitted(&RunAddon {
+		before: r##"
+stub.addons = {
+	{ name = "Polestar" },
+	{ name = "Polestar_Layout_Ledger", title = "Ledger" },
+	{ name = "Polestar_Layout_Rail", title = "Rail" },
+	{ name = "Polestar_Layout_Off", title = "Off", reason = "DISABLED" },
+	{ name = "Test_Plain", title = "Plain" },
+}
+stub.addonMeta["Polestar_Layout_Ledger"] = { ["X-Polestar-Layout"] = "ledger, ledger-wide", Version = "9.9.9" }
+stub.addonMeta["Polestar_Layout_Rail"] = { ["X-Polestar-Layout"] = "rail", Version = "0.1" }
+stub.addonMeta["Polestar_Layout_Off"] = { ["X-Polestar-Layout"] = "off" }
+local function layout(id, addon)
+	Polestar.Theme.RegisterLayout(id, { api = 2, name = id, addon = addon,
+		hooks = { guideInset = function() return 8 end } })
+end
+fakeLayouts = {
+	Polestar_Layout_Ledger = function() layout("ledger", "Polestar_Layout_Ledger") layout("ledger-wide", "Polestar_Layout_Ledger") end,
+	Polestar_Layout_Rail = function() layout("rail", "Polestar_Layout_Rail") end,
+}
+loads = {}
+local load = C_AddOns.LoadAddOn
+function C_AddOns.LoadAddOn(name)
+	local fn = fakeLayouts[name]
+	if fn and not stub.addonsLoaded[name] then
+		loads[#loads + 1] = name
+		stub.addonsLoaded[name] = true
+		fn()
+		return true, nil
+	end
+	return load(name)
+end"##
+			.into(),
+		addons: vec![Addon::files("Polestar", FILES)],
+		stubs: vec!["stub_world.lua"],
+		saved: vec![("Polestar".into(), r##"PolestarDB = { schema = 1, settings = { ui = { layout = "ledger" } } }"##.into())],
+		login: true,
+		script: r##"
+local T = Polestar.Theme
+local out = { login = { T.LayoutId() or false, table.concat(loads, ","), T.SkinHookValue("guideInset", "card") } }
+local list = {}
+for _, rec in ipairs(T.InstalledLayouts()) do list[#list + 1] = { rec.addon, table.concat(rec.ids, ","), rec.loaded, rec.reason or false } end
+out.installed = list
+out.picked = { T.SetLayout("rail"), T.LayoutId(), table.concat(loads, ",") }
+out.off = { T.LoadLayoutAddon("off") }
+out.skinsNot = #T.InstalledSkins()
+local _, stale = Polestar.Data.CheckInstall()
+out.stale = table.concat(stale, ",")
+emit(out)"##
+			.into(),
+	})
+	.remove(0);
+	assert_eq!(out["login"], json!(["ledger", "Polestar_Layout_Ledger", true, 8]), "the saved layout's addon loaded at login and is in use");
+	assert_eq!(
+		out["installed"],
+		json!([["Polestar_Layout_Ledger", "ledger,ledger-wide", true, false], ["Polestar_Layout_Rail", "rail", false, false], ["Polestar_Layout_Off", "off", false, "DISABLED"]]),
+		"every addon that declares layouts, loaded or not"
+	);
+	assert_eq!(out["picked"], json!([true, "rail", "Polestar_Layout_Ledger,Polestar_Layout_Rail"]));
+	assert_eq!(out["off"], json!([false, "DISABLED"]));
+	assert_eq!(out["skinsNot"], 0, "a layout addon is not a skin addon");
+	assert_eq!(out["stale"], "", "the install check leaves layout addons alone: {out}");
+}
+
+// A layout may also lay out the title bar (guideTitle: which of its parts show), a goal row (guideRow: its lines
+// and columns) and where the progress shows (guideProgress), the skin's tokens colouring them: under a skin, each
+// runs as the layout's, the skin's accent still the one in use, the skin's own hook running after it, and only
+// the skin's once the layout leaves. The other skin hooks (toast, card, the tabs, the menu) stay a skin's.
+#[test]
+fn a_layout_lays_out_the_title_bar_goal_rows_and_progress_in_the_skin_s_tokens() {
+	let out = run_ui(
+		r##"
+		local T = Polestar.Theme
+		local by = { title = {}, row = {}, progress = {} }
+		local function mark(kind, who) by[kind][who] = (by[kind][who] or 0) + 1 end
+		assert(T.RegisterSkin("rail", { name = "Rail", addon = "Test_Rail", base = "polestar", tokens = { accent = "#ff8800" },
+			hooks = {
+				guideTitle = function() mark("title", "skin") end,
+				guideRow = function() mark("row", "skin") end,
+				guideProgress = function() mark("progress", "skin") end,
+			} }))
+		local seen
+		local ok, why = T.RegisterLayout("ledger", { api = 2, name = "Ledger", addon = "Polestar_Layout_Ledger",
+			hooks = {
+				guideTitle = function(nav, parts) mark("title", "layout"); if parts.rule then parts.rule:Hide() end end,
+				guideRow = function(row) mark("row", "layout"); row.Text:SetMaxLines(1); seen = { T.Accent() } end,
+				guideProgress = function() mark("progress", "layout") end,
+			} })
+		local refused = {}
+		for _, h in ipairs({ "toast", "card", "guideTab", "guideMenu" }) do
+			local okH, msg = T.RegisterLayout("x" .. h:lower(), { api = 2, name = "X", addon = "X", hooks = { [h] = function() end } })
+			refused[#refused + 1] = (not okH) and msg or false
+		end
+		Polestar.Set("ui.skin", "rail")
+		uistub.openTabs(TABS, 1)
+		stub.advance(1)
+		local function draw()
+			by = { title = {}, row = {}, progress = {} }
+			GF.ApplyStyle()
+			GF.Render()
+			stub.advance(1)
+			local copy = {}
+			for k, t in pairs(by) do copy[k] = { skin = t.skin, layout = t.layout } end
+			return copy
+		end
+		local out = { ok = ok, why = why or false, refused = refused }
+		out.skin = draw()
+		T.SetLayout("ledger")
+		out.layout = draw()
+		out.accent = seen and string.format("%02x%02x%02x", math.floor(seen[1] * 255 + 0.5), math.floor(seen[2] * 255 + 0.5), math.floor(seen[3] * 255 + 0.5)) or false
+		T.SetLayout()
+		out.back = draw()
+		emit(out)"##,
+	);
+	assert_eq!(out["ok"], true, "registered: {}", out["why"]);
+	for (i, h) in ["toast", "card", "guideTab", "guideMenu"].iter().enumerate() {
+		assert_eq!(out["refused"][i], format!("hooks.{h} is a skin's (a layout hooks the guide window's structure only)"));
+	}
+	for k in ["title", "row", "progress"] {
+		assert!(out["skin"][k]["skin"].as_f64().unwrap_or(0.0) > 0.0, "no layout: the skin's {k}: {out}");
+		assert!(out["layout"][k]["layout"].as_f64().unwrap_or(0.0) > 0.0, "the layout's {k}: {out}");
+		assert!(out["layout"][k]["skin"].as_f64().unwrap_or(0.0) > 0.0, "the skin's {k} still styles under the layout: {out}");
+		assert!(out["back"][k]["skin"].as_f64().unwrap_or(0.0) > 0.0, "the skin's {k} again: {out}");
+	}
+	assert_eq!(out["accent"], "ff8800", "the skin's accent colours the layout's row");
+}
+
+// Under a layout, the skin's own guideTitle, guideRow, guideRender, guidePlace and guideProgress run after the
+// layout's, with the same parts: the layout lays out, the skin styles. The layout's answer wins when it is not
+// nil, else the skin's counts; for guidePlace the layout alone decides. A skin hook that fails turns the skin off
+// and leaves the layout in use, and a layout hook that fails leaves the skin's hooks running.
+#[test]
+fn under_a_layout_the_skin_s_title_rows_render_place_and_progress_hooks_run_after_the_layout_s() {
+	let out = run_ui(
+		r##"
+		local T = Polestar.Theme
+		local order, kinds = {}, { "guideTitle", "guideRow", "guideRender", "guidePlace", "guideProgress" }
+		local answer = { layout = nil, skin = nil }
+		local skinBreaks, layoutBreaks = false, false
+		local args = {}
+		local function hooks(who)
+			local t = {}
+			for _, k in ipairs(kinds) do
+				t[k] = function(...)
+					if who == "skin" and skinBreaks then error("skin boom") end
+					if who == "layout" and layoutBreaks then error("layout boom") end
+					order[k] = (order[k] or "") .. who:sub(1, 1)
+					args[k] = args[k] or {}
+					args[k][who] = (select(1, ...))
+					return answer[who]
+				end
+			end
+			return t
+		end
+		assert(T.RegisterSkin("glow", { name = "Glow", addon = "Test_Glow", base = "polestar", tokens = { accent = "#33ccaa" }, hooks = hooks("skin") }))
+		-- Shaped as the Atlas layout: its own title bar, rows, progress and While you're here above the window.
+		local ok, why = T.RegisterLayout("atlas-test", { api = 2, name = "Atlas test", addon = "Polestar_Layout_AtlasTest", hooks = hooks("layout") })
+		Polestar.Set("ui.skin", "glow")
+		T.SetLayout("atlas-test")
+		uistub.openTabs(TABS, 1)
+		stub.advance(1)
+		order = {}
+		GF.ApplyStyle()
+		GF.Render()
+		stub.advance(1)
+		local same = {}
+		for _, k in ipairs(kinds) do same[k] = args[k] ~= nil and args[k].layout == args[k].skin end
+		local snap = {}
+		for k, v in pairs(order) do snap[k] = v end
+		local out = { ok = ok, why = why or false, order = snap, same = same, accent = string.format("%02x", math.floor(T.Accent() * 255 + 0.5)) }
+		local function ask(surface, l, s)
+			answer.layout, answer.skin = l, s
+			return { T.SkinHookValue(surface, "x") }
+		end
+		out.layoutWins = ask("guideRow", "l", "s")
+		out.nilSkin = ask("guideRow", nil, "s")
+		out.bothNil = ask("guideRow", nil, nil)
+		out.placeNil = ask("guidePlace", nil, true)
+		out.placeMine = ask("guidePlace", true, nil)
+		out.inset = ask("guideInset", nil, nil)
+		answer.layout, answer.skin = nil, nil
+		skinBreaks = true
+		T.SkinHook("guideTitle", GF.parts.nav, {})
+		out.skinFailed = { T.SkinId(), T.LayoutId() or false, T.SkinHooks("guideRow") }
+		emit(out)"##,
+	);
+	assert_eq!(out["ok"], true, "registered: {}", out["why"]);
+	for k in ["guideTitle", "guideRow", "guideRender", "guideProgress"] {
+		let o = out["order"][k].as_str().unwrap_or("");
+		assert!(o.starts_with("ls"), "{k}: the layout's, then the skin's: {out}");
+		assert_eq!(o, "ls".repeat(o.len() / 2), "{k}: each layout call followed by the skin's: {out}");
+	}
+	assert!(out["order"]["guidePlace"].as_str().unwrap_or("").starts_with("ls"), "guidePlace too: {out}");
+	for k in ["guideTitle", "guideRow", "guideRender", "guidePlace", "guideProgress"] {
+		assert_eq!(out["same"][k], true, "{k}: the skin gets the layout's parts: {out}");
+	}
+	assert_eq!(out["accent"], "33", "the skin's tokens stay");
+	assert_eq!(out["layoutWins"], json!([true, "l"]), "the layout's answer wins");
+	assert_eq!(out["nilSkin"], json!([true, "s"]), "the layout's nil: the skin's counts");
+	assert_eq!(out["bothNil"], json!([true]));
+	assert_eq!(out["placeNil"], json!([true]), "guidePlace: the layout decides, its nil kept");
+	assert_eq!(out["placeMine"], json!([true, true]));
+	assert_eq!(out["inset"], json!([false]), "a hook neither sets");
+	assert_eq!(out["skinFailed"][1], "atlas-test", "a failing skin hook leaves the layout in use: {out}");
+	assert_eq!(out["skinFailed"][2], true, "the layout's hooks still run: {out}");
+}
+
+// The reverse: a layout's guideTitle that fails turns the layout off; the skin's guideTitle runs on and the skin
+// stays in use.
+#[test]
+fn a_failing_layout_hook_leaves_the_skin_s_hook_running() {
+	let out = run_ui(
+		r##"
+		local T = Polestar.Theme
+		local skinRan, breaks = 0, false
+		assert(T.RegisterSkin("glow", { name = "Glow", addon = "Test_Glow", base = "polestar",
+			hooks = { guideTitle = function() skinRan = skinRan + 1 end } }))
+		assert(T.RegisterLayout("brittle", { api = 2, name = "Brittle", addon = "Polestar_Layout_Brittle",
+			hooks = { guideTitle = function() if breaks then error("boom") end end } }))
+		Polestar.Set("ui.skin", "glow")
+		T.SetLayout("brittle")
+		breaks = true
+		local before = skinRan
+		local ran = T.SkinHook("guideTitle", {}, {})
+		local first = skinRan - before
+		stub.advance(1)
+		T.SkinHook("guideTitle", {}, {})
+		emit({ ran = ran, first = first, after = skinRan - before, layout = T.LayoutId() or false, skin = T.SkinId(),
+			failed = T.LayoutInfo("brittle").failed ~= nil })"##,
+	);
+	assert_eq!(out["ran"], true, "the skin's hook ran though the layout's failed");
+	assert_eq!(out["first"], 1);
+	assert_eq!(out["after"], 2, "and runs on");
+	assert_eq!(out["layout"], false, "the layout is off");
+	assert_eq!(out["skin"], "glow", "the skin stays");
+	assert_eq!(out["failed"], true);
+}
+
+// The client gives an addon that loads on demand and is not loaded yet as loadable false, reason "DEMAND_LOADED"
+// (the stub does the same). Such an addon can load: a layout and a skin each picked from one load it and come into
+// use, and neither is listed with a reason.
+#[test]
+fn a_layout_and_a_skin_picked_from_load_on_demand_addons_not_loaded_yet_load() {
+	let out = emitted(&RunAddon {
+		before: r##"
+stub.addons = {
+	{ name = "Polestar" },
+	{ name = "Polestar_Layout_Ledger", title = "Ledger", demand = true },
+	{ name = "Polestar_Skin_Ember", title = "Ember", demand = true },
+}
+stub.addonMeta["Polestar_Layout_Ledger"] = { ["X-Polestar-Layout"] = "ledger" }
+stub.addonMeta["Polestar_Skin_Ember"] = { ["X-Polestar-Skin"] = "ember" }
+fakeAddons = {
+	Polestar_Layout_Ledger = function()
+		Polestar.Theme.RegisterLayout("ledger", { api = 2, name = "Ledger", addon = "Polestar_Layout_Ledger",
+			hooks = { guideInset = function() return 8 end } })
+	end,
+	Polestar_Skin_Ember = function()
+		Polestar.Theme.RegisterSkin("ember", { api = 2, name = "Ember", addon = "Polestar_Skin_Ember", base = "hearth" })
+	end,
+}
+local load = C_AddOns.LoadAddOn
+function C_AddOns.LoadAddOn(name)
+	local fn = fakeAddons[name]
+	if fn and not stub.addonsLoaded[name] then
+		stub.addonsLoaded[name] = true
+		fn()
+		return true, nil
+	end
+	return load(name)
+end"##
+			.into(),
+		addons: vec![Addon::files("Polestar", FILES)],
+		stubs: vec!["stub_world.lua"],
+		login: true,
+		script: r##"
+local T = Polestar.Theme
+local _, _, _, loadable, reason = C_AddOns.GetAddOnInfo("Polestar_Layout_Ledger")
+local out = { client = { loadable, reason } }
+out.layoutRec = T.InstalledLayouts()[1].reason or false
+out.skinRec = T.InstalledSkins()[1].reason or false
+out.layout = { T.SetLayout("ledger") }
+out.layoutId = T.LayoutId() or false
+Polestar.Set("ui.skin", "ember")
+out.skin = { T.SkinId(), T.SkinKey() }
+emit(out)"##
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["client"], json!([false, "DEMAND_LOADED"]), "as the client gives it before LoadAddOn");
+	assert_eq!(out["layoutRec"], false, "a load-on-demand layout addon can load: no reason");
+	assert_eq!(out["skinRec"], false, "a load-on-demand skin addon can load: no reason");
+	assert_eq!(out["layout"], json!([true]), "picked: its addon loads");
+	assert_eq!(out["layoutId"], "ledger");
+	assert_eq!(out["skin"], json!(["ember", "hearth"]), "picked: its addon loads and the skin is in use");
+}
+
+// A layout's defaults for the guide window's settings (spec.defaults): a setting reads the player's saved value,
+// else the layout's default, else Polestar's. Switching layout changes only the settings the player never set (each
+// announced, so the window follows); a player's own value survives the switch; a reset goes back to the layout's
+// default. Only guideWindow.* settings Polestar has, with values of their default's type, are taken.
+#[test]
+fn a_layout_s_settings_defaults_sit_between_the_player_s_values_and_polestar_s() {
+	let out = run_ui(
+		r##"
+		local T = Polestar.Theme
+		local P = GF.parts
+		local function try(id, defaults)
+			local ok, msg = T.RegisterLayout(id, { api = 2, name = id, addon = "Polestar_Layout_Test", defaults = defaults })
+			return { ok = ok, msg = msg or false }
+		end
+		local out = { bad = {
+			try("b1", { ["ui.scale"] = 1 }),
+			try("b2", { ["guideWindow.nope"] = true }),
+			try("b3", { ["guideWindow.tabs"] = "no" }),
+			try("b4", { ["guideWindow.targetBarColor"] = "nope" }),
+			try("b5", { ["guideWindow.bgOpacity"] = "x" }),
+			try("b6", "tabs"),
+		} }
+		out.good = try("bare", { ["guideWindow.tabs"] = false, ["guideWindow.targetBar"] = false,
+			["guideWindow.targetBarColor"] = "#ff0000", ["guideWindow.bgOpacity"] = 0.5, ["guideWindow.padding"] = 4, ["guideWindow.hideTaxi"] = true })
+		try("tabsOnly", { ["guideWindow.tabs"] = false })
+		local heard = {}
+		Polestar.On("SETTING_CHANGED", function(path) if path:find("^guideWindow%.") then heard[#heard + 1] = path end end)
+		uistub.openTabs(TABS, 1)
+		stub.advance(1)
+		local function read()
+			return { tabs = Polestar.Get("guideWindow.tabs"), bar = Polestar.Get("guideWindow.targetBar"),
+				pad = Polestar.Get("guideWindow.padding"), opacity = Polestar.Get("guideWindow.bgOpacity") or false,
+				strip = P.strip:IsShown() }
+		end
+		out.house = read()
+		T.SetLayout("bare")
+		stub.advance(1)
+		out.bare = read()
+		table.sort(heard)
+		out.heard = table.concat(heard, ",")
+		out.resetTo = Polestar.GetDefault("guideWindow.tabs")
+		out.base = Polestar.GetBaseDefault("guideWindow.tabs")
+		-- The player's own value, then a switch: it stays.
+		Polestar.Set("guideWindow.padding", 2)
+		Polestar.Set("guideWindow.tabs", true)
+		out.saved = { Polestar.DB().settings.guideWindow.tabs, Polestar.DB().settings.guideWindow.padding }
+		T.SetLayout("tabsOnly")
+		out.switched = read()
+		T.SetLayout()
+		out.none = read()
+		-- A reset goes back to the layout's default.
+		T.SetLayout("bare")
+		Polestar.Set("guideWindow.tabs", nil)
+		Polestar.Set("guideWindow.padding", Polestar.GetDefault("guideWindow.padding"))
+		out.reset = read()
+		out.stored = { Polestar.DB().settings.guideWindow.tabs == nil, Polestar.DB().settings.guideWindow.padding == nil }
+		out.info = T.LayoutInfo("bare").defaults["guideWindow.tabs"]
+		emit(out)"##,
+	);
+	let bad: Vec<String> = out["bad"].as_array().unwrap().iter().map(|b| b["msg"].as_str().unwrap_or("").to_string()).collect();
+	assert_eq!(bad[0], "defaults key \"ui.scale\" is not a guide window setting (guideWindow.<name>)");
+	assert_eq!(bad[1], "defaults key \"guideWindow.nope\" is not a guide window setting (guideWindow.<name>)");
+	assert_eq!(bad[2], "defaults[\"guideWindow.tabs\"] must be a boolean, like Polestar's default");
+	assert_eq!(bad[3], "defaults[\"guideWindow.targetBarColor\"] must be false or a colour");
+	assert_eq!(bad[4], "defaults[\"guideWindow.bgOpacity\"] must be false, true or a number");
+	assert_eq!(bad[5], "defaults must be a table of setting = value");
+	assert_eq!(out["good"], json!({ "ok": true, "msg": false }));
+	assert_eq!(out["house"], json!({ "tabs": true, "bar": true, "pad": 0, "opacity": false, "strip": true }), "Polestar's defaults");
+	assert_eq!(out["bare"], json!({ "tabs": false, "bar": false, "pad": 4, "opacity": 0.5, "strip": false }), "the layout's defaults, the strip hidden: {out}");
+	assert_eq!(out["heard"], "guideWindow.bgOpacity,guideWindow.hideTaxi,guideWindow.padding,guideWindow.tabs,guideWindow.targetBar,guideWindow.targetBarColor", "each setting that changed is announced");
+	assert_eq!((out["resetTo"].clone(), out["base"].clone()), (json!(false), json!(true)), "reset goes to the layout's default");
+	assert_eq!(out["saved"], json!([true, 2]), "the player's values are kept, Polestar's default included");
+	assert_eq!(out["switched"], json!({ "tabs": true, "bar": true, "pad": 2, "opacity": false, "strip": true }), "the player's values survive the switch: {out}");
+	assert_eq!(out["none"], json!({ "tabs": true, "bar": true, "pad": 2, "opacity": false, "strip": true }));
+	assert_eq!(out["reset"], json!({ "tabs": false, "bar": false, "pad": 4, "opacity": 0.5, "strip": false }), "reset: the layout's defaults again: {out}");
+	assert_eq!(out["stored"], json!([true, true]), "nothing stored for a reset setting");
+	assert_eq!(out["info"], false);
 }

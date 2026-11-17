@@ -119,17 +119,20 @@ window = function(frame, base, k)
 end,
 ```
 
-**A hook on every surface.** Each of the fourteen hooks adds the same idea
-where it lands, after Polestar's own look is on: a glow of `accent2` behind
-the arrow's dial (`kit.glow`), a shadow under the step pins' numbers, the
-moonline over the guide window's title, a bar of `accent2` beside the current
-goal's row, a rule under the window's parts (`guideLayout` answers the six
+**A hook on every surface.** All nineteen hooks are there; those that draw
+add the same idea where it lands, after Polestar's own look is on: a glow of
+`accent2` behind the arrow's dial (`kit.glow`), a shadow under the step pins'
+numbers, the moonline over the guide window's title, a bar of `accent2`
+beside the current goal's row, a rule under the window's parts (`guideLayout` answers the six
 units it takes, `guideRender` hides it when no step shows), a line as long as
 the part of the guide done (`guideProgress`), a line along the top of the tab
 in view, its name at the end of the window's menu, and a moonline on every
-card, toast and button (brighter under the mouse). `guideAnchor` answers nil
-and `guidePlace` false: Moonlit keeps the heads-up card and every part of the
-window where Polestar puts them. Two of them:
+card, toast and button (brighter under the mouse). `guideAnchor` answers nil,
+`guidePlace` false and `guideTakes` false, `guidePerson` the height it is
+given, `guideInset` 0, `guideShows` the default it is given, and
+`guideUpRow` leaves the rows as they are: Moonlit keeps the heads-up card,
+every part of the window and every goal where and as Polestar puts them.
+Two of them:
 
 ```lua
 -- not runnable: excerpt of Moonlit.lua

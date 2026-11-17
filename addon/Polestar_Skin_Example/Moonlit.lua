@@ -230,6 +230,34 @@ check("skin moonlit", Theme.RegisterSkin("moonlit", {
 			items[#items + 1] = { separator = true }
 			items[#items + 1] = { text = "Moonlit", icon = "star", disabled = true }
 		end,
+		-- A goal of the step about to be listed as a row: true takes it out
+		-- of the window's rows for the skin to show (an optional goal on a
+		-- card of its own). Moonlit lists every goal in the window.
+		guideTakes = function(goal)
+			return false
+		end,
+		-- The step's header (Name, Where, Why, Level, Icon), laid out: the
+		-- answer is its height. Moonlit keeps Polestar's.
+		guidePerson = function(person, width, height)
+			return height
+		end,
+		-- How far in from the window's left edge a part starts: "card" (the
+		-- step's card) or "upnext". Moonlit keeps both at the edge.
+		guideInset = function(name)
+			return 0
+		end,
+		-- An Up next row once painted (Num, Icon, Text), with the step it
+		-- shows and that step's number. Rows are pooled: a skin sets every
+		-- piece it uses each time. Moonlit leaves them as Polestar paints them.
+		guideUpRow = function(row, view, index)
+		end,
+		-- Whether a part shows the skin's way: "tip" (in compact mode),
+		-- "done" (finished goals kept in place), "upnextHead", "goalScroll",
+		-- "classCardLater"; `default` is Polestar's own choice. A name the
+		-- skin does not know gets its default back. Moonlit keeps them all.
+		guideShows = function(name, default)
+			return default
+		end,
 		-- The cards on the guide window: "headsup" (a class quest or dungeon
 		-- heads-up) and "classcard" (the class quest card in the window);
 		-- parts: titles, bodies (the strings Polestar sizes), accents.

@@ -79,11 +79,13 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- both are off, at max level, or before there is anything to show.
 	-- The XP row's height at `width`: its line, on a second line when the row
 	-- can't hold it ("On pace for level 24.9 by s…" read cut at the window's
-	-- default width in every look), and Boosted Rest's line under it.
+	-- default width in every look), and Boosted Rest's line under it. Its
+	-- one line's height is GF.Space "xpRow"; the room its line has, GF.Space
+	-- "xpRoom" (a layout that sets the text elsewhere or adds to it).
 	function GF.XPHeight(width)
 		local xp = GF.xp
-		local h = GF.XPROW.h + (xp.psRest and GF.XPROW.restH or 0)
-		local room = (width or 0) - PAD * 2 - 11 - 7
+		local h = GF.Space("xpRow", GF.XPROW.h) + (xp.psRest and GF.XPROW.restH or 0)
+		local room = GF.Space("xpRoom", (width or 0) - PAD * 2 - 11 - 7, width or 0)
 		if xp.psLine and room > 0 and W.TextWidth(xp.Text, xp.psLine) > room then
 			h = h + math.floor(xp.Text:GetLineHeight() + 0.5)
 		end

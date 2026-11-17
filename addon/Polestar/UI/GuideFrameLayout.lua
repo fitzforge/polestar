@@ -44,7 +44,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			home = frame:GetParent()
 			frame.psHome = home
 		end
-		local ran, mine = Theme.SkinHookValue("guidePlace", name, frame, width, h)
+		local ran, mine = GF.HookValue("guidePlace", name, frame, width, h)
 		if ran and mine == true then return true end
 		if frame:GetParent() ~= home then frame:SetParent(home) end
 		return false
@@ -60,7 +60,12 @@ ns.UI.GuideFrame.Part(function(GF)
 		-- The class-quest card (UI/ClassCard.lua) above the person and the goals:
 		-- the live window's alone.
 		local CC = GF.live and UI.ClassCard or nil
-		if CC then y = CC.Layout(width) end
+		if CC then
+			y = CC.Layout(width)
+			-- A skin may place the card itself (guidePlace "classCard").
+			local f = CC.Frame and CC.Frame()
+			if y > 0 and f and claimed("classCard", f, width, y) then y = 0 end
+		end
 		-- A profession guide's skill-range heading over the step (fillCard).
 		local sec = card.Section
 		if sec:IsShown() then
@@ -90,6 +95,10 @@ ns.UI.GuideFrame.Part(function(GF)
 				h = h + 3 + person.Level:GetStringHeight()
 			end
 			h = floor(h + 8 + 0.5)
+			-- A skin may lay the step's header out its own way (Skin API 2,
+			-- hooks.guidePerson(person, width, height)): its answer is the height.
+			local ran, skinH = GF.HookValue("guidePerson", person, cw, h)
+			if ran and type(skinH) == "number" and skinH >= 0 then h = floor(skinH + 0.5) end
 			person:SetHeight(h)
 			person:ClearAllPoints()
 			person:SetPoint("TOPLEFT", card, "TOPLEFT", 0, -y)
@@ -127,7 +136,13 @@ ns.UI.GuideFrame.Part(function(GF)
 			tip.Text:SetWordWrap(tipOpen)
 			tip.psOpen = tipOpen
 			local th = tipOpen and tip.Text:GetStringHeight() or min(tip.Text:GetStringHeight(), tip.Text:GetLineHeight())
-			local h = floor(6 + th + 6 + 0.5)
+			-- Its room above and below the text, and its gap under the goals
+			-- (GF.Space "tipPad", "tipGap").
+			local pad, gap = GF.Space("tipPad", 6), GF.Space("tipGap", 2)
+			tip.Text:SetPoint("TOPLEFT", tip, "TOPLEFT", TEXT_X, -pad)
+			tip.Toggle:SetPoint("TOPLEFT", tip, "TOPLEFT", PAD - 2, 3 - pad)
+			tip.psGap = gap
+			local h = floor(pad + th + pad + 0.5)
 			-- The step's picture, under the opened tip: as wide as the text
 			-- column, its aspect kept, no taller than PICTURE_MAX_H.
 			local pic = tipOpen and tip.psImage or nil
@@ -148,9 +163,9 @@ ns.UI.GuideFrame.Part(function(GF)
 			tip:SetHeight(h)
 			if not claimed("tip", tip, width, h) then
 				tip:ClearAllPoints()
-				tip:SetPoint("TOPLEFT", goals, "BOTTOMLEFT", 0, -2)
-				tip:SetPoint("TOPRIGHT", goals, "BOTTOMRIGHT", 0, -2)
-				y = y + 2 + h
+				tip:SetPoint("TOPLEFT", goals, "BOTTOMLEFT", 0, -gap)
+				tip:SetPoint("TOPRIGHT", goals, "BOTTOMRIGHT", 0, -gap)
+				y = y + gap + h
 			end
 		end
 		return y + 6
@@ -169,12 +184,14 @@ ns.UI.GuideFrame.Part(function(GF)
 	do
 		-- An Up next or Along the way row at y in its frame, `width` wide: its
 		-- number (Up next) and glyph on the first line, the text wrapping. -> its height
+		-- An Up next row is GF.Space "upRow" tall for one line.
 		local function placeRow(r, parent, y, width)
-			if parent == upnext then r.Num:SetPoint("LEFT", r, "TOPLEFT", PAD - 10, -UP_ROW / 2) end
-			r.Icon:SetPoint("LEFT", r, "TOPLEFT", TEXT_X - 2, -UP_ROW / 2)
+			local rowH = parent == upnext and GF.Space("upRow", UP_ROW) or UP_ROW
+			if parent == upnext then r.Num:SetPoint("LEFT", r, "TOPLEFT", PAD - 10, -rowH / 2) end
+			r.Icon:SetPoint("LEFT", r, "TOPLEFT", TEXT_X - 2, -rowH / 2)
 			r.Text:SetWidth(width - TEXT_X - 14 - PAD)
 			UI.FitCounts(r.Text)
-			local inset, h = twoLines(r.Text, UP_ROW)
+			local inset, h = twoLines(r.Text, rowH)
 			r.Text:SetPoint("TOPLEFT", r, "TOPLEFT", TEXT_X - 2 + 13 + 9, -inset)
 			r:SetHeight(h)
 			r:ClearAllPoints()
@@ -187,13 +204,18 @@ ns.UI.GuideFrame.Part(function(GF)
 			upnext.Toggle:ClearAllPoints()
 			upnext.Toggle:SetPoint("TOPLEFT", upnext, "TOPLEFT", 0, 0)
 			upnext.Toggle:SetPoint("TOPRIGHT", upnext, "TOPRIGHT", 0, 0)
-			local y = -UP_TOGGLE
-			if upcomingOpen() then
+			-- A skin may leave out the "Up next" heading, its rows always open
+			-- (GF.Shows "upnextHead").
+			local head = GF.Shows("upnextHead", true)
+			upnext.Toggle:SetShown(head)
+			local y = head and -UP_TOGGLE or 0
+			if upcomingOpen() or not head then
 				for i = 1, #upRows do
 					local r = upRows[i]
 					if r:IsShown() then y = y - placeRow(r, upnext, y, width) end
 				end
-				y = y - 6
+				-- Its room under the rows (GF.Space "upnextFoot").
+				y = y - GF.Space("upnextFoot", 6)
 			end
 			upnext:SetHeight(-y)
 			return -y
@@ -270,10 +292,22 @@ ns.UI.GuideFrame.Part(function(GF)
 	end
 
 	-- `frame` stacked at y, unless the skin places it itself (claimed): it is
-	-- part `name` of hooks.guidePlace. -> the new y
-	local function place(name, frame, y, h, width)
+	-- part `name` of hooks.guidePlace. `x`: its inset from the left (inset),
+	-- kept for fitGoals. -> the new y
+	local function place(name, frame, y, h, width, x)
 		if claimed(name, frame, width, h) then return y end
-		return stack(frame, y, h)
+		frame.psInset = x
+		y = stack(frame, y, h)
+		if x and x > 0 then frame:SetPoint("TOPLEFT", body, "TOPLEFT", x, -(y - h)) end
+		return y
+	end
+
+	-- A part the skin sets in from the window's left edge (Skin API 2,
+	-- hooks.guideInset(name)): "card" (the step's card), "upnext". -> its
+	-- inset, 0 without one
+	local function inset(name)
+		local ran, x = GF.HookValue("guideInset", name)
+		return (ran and type(x) == "number" and x > 0) and floor(x + 0.5) or 0
 	end
 
 	-- The window's scale on the screen: its own, or a copy's as the live
@@ -293,14 +327,16 @@ ns.UI.GuideFrame.Part(function(GF)
 	GF.CapHeight = function() return F and capHeight() or nil end
 
 	-- The journey (UI/JourneyPanel.lua) right under the focus it leads to;
-	-- never in compact mode, and in the live window alone. Returns the new y.
+	-- not in compact mode unless the skin keeps it (GF.Shows "journey"), and
+	-- in the live window alone. A skin may place it itself (guidePlace
+	-- "journey"). Returns the new y.
 	local function stackJourney(y, width)
-		local J = GF.live and UI.JourneyPanel or nil
-		local jf = J and J.frame
+		local JP = GF.live and UI.JourneyPanel or nil
+		local jf = JP and JP.frame
 		if not jf then return y end
-		if jf.psHas and not compact() then
+		if jf.psHas and GF.Shows("journey", not compact()) then
 			jf:Show()
-			return stack(jf, y, J.Layout(width))
+			return place("journey", jf, y, JP.Layout(width), width)
 		end
 		jf:Hide()
 		return y
@@ -434,13 +470,15 @@ ns.UI.GuideFrame.Part(function(GF)
 			local height = min(UI.StepList.height or F:GetHeight(), max(outer + GF.MIN_BODY_H, roomAbove() or math.huge))
 			y = stack(list, y, UI.StepList.Layout(width, height - outer - y))
 		elseif state == "steps" then
-			fit.fixed = layoutCard(width)
+			local cx = inset("card")
+			card:SetWidth(width - cx)
+			fit.fixed = layoutCard(width - cx)
 			fit.top = y
 			-- The card animates its own offset; keep its anchor's base in step.
 			if Anim.IsRunning(card, "offset") then
-				card.psAnchor[5] = -y
+				card.psAnchor[4], card.psAnchor[5] = cx, -y
 			else
-				Anim.Anchor(card, "TOPLEFT", body, "TOPLEFT", 0, -y)
+				Anim.Anchor(card, "TOPLEFT", body, "TOPLEFT", cx, -y)
 			end
 			content = contentHeight()
 			y = y + fit.fixed + content
@@ -450,7 +488,10 @@ ns.UI.GuideFrame.Part(function(GF)
 			if GF.here:IsShown() then y = place("here", GF.here, y, GF.LayoutHere(width), width) end
 			if after:IsShown() then y = place("after", after, y, layoutAfter(width), width) end
 			if along:IsShown() then y = place("along", along, y, layoutAlong(width), width) end
-			if upnext:IsShown() then y = place("upnext", upnext, y, layoutUpnext(width), width) end
+			if upnext:IsShown() then
+				local ux = inset("upnext")
+				y = place("upnext", upnext, y, layoutUpnext(width - ux), width - ux, ux)
+			end
 		else
 			y = stack(empty, y, layoutEmpty(width))
 			y = stackJourney(y, width)
@@ -461,7 +502,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		else
 			GF.party:Hide()
 		end
-		if GF.xp.psHas and not isCompact and state == "steps" and not list then
+		-- Not in compact mode unless the skin keeps it (GF.Shows "xp").
+		if GF.xp.psHas and GF.Shows("xp", not isCompact) and state == "steps" and not list then
 			GF.xp:Show()
 			-- Its line on two when the width can't hold it (GF.XPHeight).
 			local xh = GF.XPHeight and GF.XPHeight(width) or GF.xp:GetHeight()
@@ -473,9 +515,10 @@ ns.UI.GuideFrame.Part(function(GF)
 		-- A skin's own room under the window's parts (Skin API 2,
 		-- hooks.guideLayout(parts, width, y)): it may place its frames from y
 		-- down; its answer is the height they take.
-		local ran, extra = Theme.SkinHookValue("guideLayout", GF.SkinParts(), width, y)
+		local ran, extra = GF.HookValue("guideLayout", GF.SkinParts(), width, y)
 		if ran and type(extra) == "number" and extra > 0 then y = y + extra end
 		local showFoot = (state == "steps" or state == "complete" or state == "skippedout") and GF.On("progress")
+			and GF.Shows("progressFoot", true)
 		foot:SetShown(showFoot)
 		local stripH = showStrip and SH or 0
 		fit.outer = stripH + NAV_H + (showFoot and PROG_H or 0)
@@ -485,7 +528,13 @@ ns.UI.GuideFrame.Part(function(GF)
 			-- area gives up the difference and scrolls.
 			fit.h = y - fit.from
 			fit.from = nil
-			fit.room = min(capHeight(), fit.limit or math.huge) - (fit.outer + y - content)
+			-- A skin may keep the goals area whole, the window as tall as it
+			-- takes (GF.Shows "goalScroll" false).
+			if GF.Shows("goalScroll", true) then
+				fit.room = min(capHeight(), fit.limit or math.huge) - (fit.outer + y - content)
+			else
+				fit.room = math.huge
+			end
 			fitGoals()
 		else
 			sizeWindow(y)
@@ -541,7 +590,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			end
 			local tip = card.Tip
 			local _, under = tip:GetPoint(1)
-			if under == goals then add("tip", tip, goalsTop + goals:GetHeight() + 2, tip:GetHeight()) end
+			if under == goals then add("tip", tip, goalsTop + goals:GetHeight() + (tip.psGap or 2), tip:GetHeight()) end
 		end
 		for _, part in ipairs({ { "here", GF.here }, { "after", after }, { "along", along }, { "upnext", upnext }, { "party", GF.party }, { "xp", GF.xp } }) do
 			inBody(part[1], part[2])
@@ -598,7 +647,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		GF.PaintStatus(frac, foot.Pct:GetText())
 		foot.psDone, foot.psTotal = done, total
 		-- A skin's own progress (Skin API 2, hooks.guideProgress(foot, frac)).
-		Theme.SkinHook("guideProgress", foot, frac)
+		GF.Hook("guideProgress", foot, frac)
 	end
 
 	GF.StripShown = stripShown

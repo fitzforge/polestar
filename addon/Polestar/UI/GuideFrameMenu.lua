@@ -90,7 +90,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 		-- A skin's own entries (Skin API 2, hooks.guideMenu(items, button)): it
 		-- may add, remove or reorder them; the list is made anew at each opening.
-		ns.Theme.SkinHook("guideMenu", items, button)
+		GF.Hook("guideMenu", items, button)
 		W.ShowMenu(button, items)
 	end
 

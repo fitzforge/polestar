@@ -20,7 +20,8 @@
 -- (Nav.IsOverride: "Guide me to the entrance", a map click), the header has
 -- an x, "Back to the guide" (Nav.BackToGuide): the point lets go and the
 -- journey ends (#1686). Off with nav.journeySteps, collapsed with
--- nav.journeyOpen = false, never in compact mode. How many legs it lists and
+-- nav.journeyOpen = false, not in compact mode unless the skin keeps it
+-- (GF.Shows "journey"). How many legs it lists and
 -- whether their numbers show: trackers.journey.rows, .numbers (Options >
 -- Trackers > Journey).
 --

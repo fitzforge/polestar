@@ -613,9 +613,9 @@ local SPECS = {
 }
 
 ---------------------------------------------------------------------------
--- Essentials (the page's lead tab): four looks as picture cards, then the
--- ten settings players change most, each a reference to its row on Window
--- or Parts.
+-- Essentials (the page's lead tab): four looks as picture cards (and a card
+-- for each installed layout with a preset), then the ten settings players
+-- change most, each a reference to its row on Window or Parts.
 ---------------------------------------------------------------------------
 
 local O = UI.Options
@@ -707,6 +707,54 @@ if O and O.PresetCards and O.Ref then
 		end)
 		if G and G.Metrics then G.Metrics() end
 	end
+	-- A layout's card (Theme.LayoutPresets, the layout's own spec.preset):
+	-- the guide window itself, a copy drawn with that layout's hooks whatever
+	-- the layout in use (GF.Copy's opts.layout) and fed SAMPLE, with the
+	-- card's values and, where the player keeps the default in use, the
+	-- layout's own defaults; its width fills the card, its foot cut there.
+	-- A layout whose addon is not loaded yet shows its name alone: drawing
+	-- the card never loads it (picking it does, and the card draws again).
+	local function drawLayoutCard(art, p, values)
+		local cw, ch = art:GetWidth(), art:GetHeight()
+		if not (cw and cw > 0) then cw = W.CARD_W - 2 end
+		if not (ch and ch > 0) then ch = W.CARD_ART end
+		if not art.psSky then
+			art.psSky = Theme.Band(art, "BACKGROUND", -6)
+			art.psSky:SetAllPoints(art)
+		end
+		local info = Theme.LayoutInfo and Theme.LayoutInfo(p.layout)
+		if not info then
+			if not art.psLabel then
+				art.psLabel = W.Text(art, "title", "textDim")
+				art.psLabel:SetPoint("CENTER", art, "CENTER", 0, 0)
+			end
+			art.psLabel:SetText(p.label)
+			art.psLabel:Show()
+			if art.psCopy then art.psCopy.frame:Hide() end
+			return
+		end
+		if art.psLabel then art.psLabel:Hide() end
+		local G = art.psCopy
+		if not G then
+			G = UI.GuideFrame.Copy(art, SAMPLE, { layout = p.layout })
+			art.psCopy = G
+		end
+		local with = {}
+		for k, v in pairs(values or {}) do with[k] = v end
+		for k, v in pairs(info.defaults or {}) do
+			if O.Same(ns.Get(k), ns.GetDefault(k)) then with[k] = v end
+		end
+		for k, v in pairs(info.preset and info.preset.set or {}) do with[k] = v end
+		O.WithSettings(with, G.Draw)
+		local F = G.frame
+		local w = F:GetWidth()
+		if not (w and w > 0) then w = 340 end
+		local k = max(0.05, (cw - 12) / w)
+		F:SetScale(k)
+		F:ClearAllPoints()
+		F:SetPoint("TOPLEFT", art, "TOPLEFT", (cw / k - w) / 2, -8 / k)
+		F:Show()
+	end
 	local LARGE = 1.2
 	local PRESETS = {
 		{ value = "standard", label = L["Standard"], set = {}, draw = drawWindowCard },
@@ -725,7 +773,7 @@ if O and O.PresetCards and O.Ref then
 	local ESSENTIALS = L["Essentials"]
 	local list = {
 		{ page = PAGE, tab = ESSENTIALS, lead = true, section = L["Presets"], preview = buildPreview,
-			controls = { O.PresetCards({ presets = PRESETS }) } },
+			controls = { O.PresetCards({ presets = PRESETS, layouts = { draw = drawLayoutCard } }) } },
 		{ page = PAGE, tab = ESSENTIALS, section = L["Window"], jump = { tab = L["Window"], section = L["Window"] },
 			controls = { R("slider", "ui.scale"), R("slider", "ui.width"), R("slider", "guideWindow.bgOpacity"), R("slider", "guideWindow.idleAlpha"),
 				R("dropdown", "ui.combat"), R("dropdown", "ui.instance") } },

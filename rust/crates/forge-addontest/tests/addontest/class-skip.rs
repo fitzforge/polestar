@@ -235,3 +235,31 @@ fn a_leveling_guide_skipped_to_its_end_still_finishes_as_before() {
 	assert_eq!(out[0]["live"], false, "{}", out[0]);
 	assert_ne!(out[0]["empty"], "The rest of this guide follows from a skipped step", "{}", out[0]);
 }
+
+// A skin may keep the class quest card to the chain's first step in the guide (Skin API 2, guideShows
+// "classCardLater" false): step 1 carries the chain, so step 2 shows no card and folds nothing into it. Back on
+// Polestar's own look, the card is on step 2 again.
+#[test]
+fn a_skin_keeps_the_class_card_to_the_chain_s_first_step() {
+	let out = run(r#"
+		local T = Polestar.Theme
+		local asked = false
+		T.RegisterSkin("once", { api = 2, name = "Once", addon = "Test_Once", base = "polestar",
+			hooks = { guideShows = function(name, default)
+				if name == "classCardLater" then asked = true; return false end
+				return default
+			end } })
+		Polestar.Set("ui.skin", "once")
+		GF.Render(); flush()
+		local once = snap()
+		once.asked = asked
+		emit(once)
+		Polestar.Set("ui.skin", "polestar")
+		GF.Render(); flush()
+		emit(snap())"#);
+	assert_eq!(out[0]["step"], 2, "{}", out[0]);
+	assert_eq!(out[0]["asked"], true, "{}", out[0]);
+	assert_eq!(out[0]["card"], false, "step 1 carries the chain: no card again on step 2: {}", out[0]);
+	assert_eq!(out[0]["fold"], false, "no card, nothing folded into it: {}", out[0]);
+	assert_eq!(out[1]["card"], 1530, "Polestar's own look: the card on every step of the chain: {}", out[1]);
+}

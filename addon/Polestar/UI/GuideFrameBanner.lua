@@ -374,8 +374,12 @@ ns.UI.GuideFrame.Part(function(GF)
 	function GF.LayoutBanner(width, known, kind, n)
 		if not known then kind, n = bannerNotice() end
 		banner.psKind = kind
+		-- A layout may show a notice without its × (GF.Shows "bannerClose",
+		-- by kind): the text takes its room.
+		local noClose = not GF.Shows("bannerClose", true, kind)
+		local closeRoom = noClose and 0 or 24
 		banner.Jump.psDefault = (kind == "group" or kind == "lost" or kind == "dungeon" or kind == "dungeonRun") or nil -- the gamepad's first focus (UI/GamepadGuide.lua)
-		banner.Text:SetWidth(width - PAD * 2 - 21 - 24)
+		banner.Text:SetWidth(width - PAD * 2 - 21 - closeRoom)
 		banner.Later:Hide()
 		if kind == "skipped" then
 			banner.Icon:SetTexture(Theme.Media("skip"))
@@ -665,6 +669,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			placeLink(banner.Jump, n.kind == "old" and L["How to update"] or L["Update"], 0, -4)
 			banner.Close:SetShown(n.closable)
 		end
+		if noClose then banner.Close:Hide() end
 		local h = floor(9 + banner.Text:GetStringHeight() + 4 + 18 + 9 + 0.5)
 		banner:SetHeight(h)
 		return h

@@ -847,16 +847,32 @@ function ns.RegisterDefaults(section, tbl)
 	for k, v in pairs(tbl) do d[k] = v end
 end
 
+-- The layout in use's defaults (Theme.RegisterLayout's spec.defaults, set
+-- by Theme/SkinApi.lua): "guideWindow.tabs" -> value. A setting reads the
+-- player's saved value, else the layout's default, else Polestar's.
+local layered = {}
+local function defaultOf(path, keys)
+	local v = layered[path]
+	if v == nil then v = lookup(defaults, keys) end
+	return v
+end
+
 -- Values are shared, not copied: treat returned tables as read-only and Set a
 -- new table to change one.
 function ns.Get(path)
 	local keys = keysOf(path)
 	local v = lookup(DB().settings, keys)
-	if v == nil then v = lookup(defaults, keys) end
+	if v == nil then v = defaultOf(path, keys) end
 	return v
 end
 
+-- The default a setting goes back to on reset: the layout's, else Polestar's.
 function ns.GetDefault(path)
+	return defaultOf(path, keysOf(path))
+end
+
+-- Polestar's own default, whatever the layout.
+function ns.GetBaseDefault(path)
 	return lookup(defaults, keysOf(path))
 end
 
@@ -864,6 +880,12 @@ end
 -- Set(path, value) puts back exactly: undo, a frame's place before a move).
 function ns.GetStored(path)
 	return lookup(DB().settings, keysOf(path))
+end
+
+-- Put the layout's defaults in place (t: path -> value, or nil for none).
+function ns.SetLayoutDefaults(t)
+	layered = {}
+	for p, v in pairs(t or {}) do layered[p] = v end
 end
 
 ---------------------------------------------------------------------------
@@ -893,7 +915,7 @@ function ns.Set(path, value)
 		if type(node[k]) ~= "table" then node[k] = {} end
 		node = node[k]
 	end
-	if value == lookup(defaults, keys) then value = nil end
+	if value == defaultOf(path, keys) then value = nil end
 	node[keys[#keys]] = value
 	if liveDepth > 0 then
 		if not livePaths[path] then
