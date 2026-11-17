@@ -254,15 +254,17 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- "Not now", which dismisses it around here (Engine.DismissWhileHere:
 	-- twice, for the rest of the zone), as the close button does. A quest not in
 	-- the log (a "take" row), or a client where the quest log can't open:
-	-- right-click dismisses it straight away. psAt: its place in
-	-- Engine.GetWhileHereList; psOff instead: an off-route timer's quest (GF.HereOff).
+	-- right-click dismisses it straight away. A middle-click shows its quest in
+	-- the quest log, a shift-click links it in chat (ns.QuestRowClick, #2545).
+	-- psAt: its place in Engine.GetWhileHereList; psOff instead: an off-route
+	-- timer's quest (GF.HereOff).
 	function GF.HereRow(i)
 		local here = GF.here
 		local r = here.Rows[i]
 		if r then return r end
 		r = CreateFrame("Button", nil, here.Body)
 		r.psAt = i
-		r:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+		r:RegisterForClicks("LeftButtonUp", "RightButtonUp", "MiddleButtonUp")
 		W.Hover(r)
 		r.Icon = r:CreateTexture(nil, "ARTWORK")
 		r.Icon:SetSize(ICON, ICON)
@@ -279,6 +281,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		r.Text:SetJustifyV("TOP")
 		r.Sub = GF.SizeAs(T(r, "small", "textMuted"), "detail")
 		r:SetScript("OnClick", function(self, button)
+			local q = self.psOff or (self.psView and self.psView.quest)
+			if ns.QuestRowClick and ns.QuestRowClick(q, button) then return end
 			if self.psOff then return GF.HereOff(self.psOff, button) end
 			local E = Engine()
 			if not (E and self.psAt) then return end
@@ -290,11 +294,13 @@ ns.UI.GuideFrame.Part(function(GF)
 		end)
 		r:SetScript("OnEnter", function(self)
 			if self.psOff then
-				W.Tooltip(self, tooltipAnchor(), self.Text:GetText() or "", {
+				local lines = {
 					L["This guide's route doesn't hand this quest in: go there yourself before the time runs out, or let it go."],
 					{ L["Click to point the arrow here"], Theme.Accent() },
-					{ L["Right-click: hide this until the timer ends."], Theme.Color("textDim") },
-				})
+				}
+				if ns.QuestClickTips then ns.QuestClickTips(self.psOff, lines) end
+				lines[#lines + 1] = { L["Right-click: hide this until the timer ends."], Theme.Color("textDim") }
+				W.Tooltip(self, tooltipAnchor(), self.Text:GetText() or "", lines)
 				GF.HoverIn()
 				return
 			end
@@ -307,6 +313,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			local dungeon = v.quest and ns.Dungeons and ns.Dungeons.MarkTooltip and ns.Dungeons.MarkTooltip(v.quest)
 			if dungeon then lines[#lines + 1] = { dungeon, Theme.Accent() } end
 			lines[#lines + 1] = { L["Click to point the arrow here"], Theme.Accent() }
+			if ns.QuestClickTips then ns.QuestClickTips(v.quest, lines) end
 			local menu = ns.QuestLogMenuItem and ns.QuestLogMenuItem(v.quest)
 			lines[#lines + 1] = { menu and not menu.disabled and L["Right-click: show in quest log, or not now around here (twice: for the rest of this zone)."]
 				or L["Right-click: not now, around here (twice: for the rest of this zone)."], Theme.Color("textDim") }

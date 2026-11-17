@@ -15098,14 +15098,6 @@ do
 					},
 				},
 				{
-					title = "{quest:96044}",
-					note = "{npc:1241} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile.",
-					when = { { k = "skill", n = 1, name = "Blacksmithing", skillLine = 164 }, { k = "knows", neg = true, spell = 1230171 } },
-					goals = {
-						{ t = "accept", quest = 96044, title = "Camping 101: Blacksmithing", npc = 265813, npcName = "Eric Brighthammer", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, preAll = { 2160 }, closedBy = { 97900, 97916, 97928, 97939, 97952, 97964 }, endNpcs = { 1241 }, xp = 270, preTitles = { [2160] = "Supplies to Tannok", [95998] = "The Great Outdoors", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [97900] = "Camping 101: Blacksmithing", [97916] = "Camping 101: Blacksmithing", [97928] = "Camping 101: Blacksmithing", [97939] = "Camping 101: Blacksmithing", [97952] = "Camping 101: Blacksmithing", [97964] = "Camping 101: Blacksmithing" }, map = 1426, x = 46.65, y = 53.88, z = 396.6, f = "e", profLine = 164, profName = "Blacksmithing", profRank = 1, note = "{npc:265813}: for {npc:1241}, in the cellar west of the distillery" },
-					},
-				},
-				{
 					title = "{quest:96047}",
 					note = "{npc:2326} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile.",
 					when = { { k = "skill", n = 1, name = "First Aid", skillLine = 129 }, { k = "knows", neg = true, spell = 1230117 } },
@@ -15130,14 +15122,6 @@ do
 					},
 				},
 				{
-					title = "{npc:1241}",
-					when = { { k = "onquest", q = { 96044 } }, { k = "complete", q = 96044 } },
-					goals = {
-						{ t = "complete", quest = 96044, title = "Camping 101: Blacksmithing", map = 1426, x = 45.34, y = 51.94, f = "e", profLine = 164, profName = "Blacksmithing", profRank = 1, note = "talk to the trainer", objs = { { text = "Raise your blacksmithing skill to 20", count = 1 } } },
-						{ t = "turnin", quest = 96044, title = "Camping 101: Blacksmithing", npc = 1241, npcName = "Tognus Flintfire", map = 1426, x = 45.34, y = 51.94, z = 397.3, f = "e", profLine = 164, profName = "Blacksmithing", profRank = 1, note = "{npc:1241}, below ground" },
-					},
-				},
-				{
 					title = "{area:131}",
 					note = "{npc:1872} works the forge west of the distillery.\nThen go in: {npc:6806}, the innkeeper, {npc:1226} and {npc:1267}. {npc:1699}'s {skill:185} lesson waits for the return with the ribs, when the copper is there for it.",
 					goals = {
@@ -15149,6 +15133,22 @@ do
 						{ t = "turnin", quest = 5626, title = "In Favor of the Light", npc = 1226, npcName = "Maxan Anvol", map = 1426, x = 47.34, y = 52.19, z = 399.7, f = "e", only = { classes = { "PRIEST" } }, note = "{npc:1226}, upstairs" },
 						{ t = "accept", quest = 5625, title = "Garments of the Light", npc = 1226, npcName = "Maxan Anvol", minLevel = 5, qlvl = 4, crumbs = { 5626 }, preTitles = { [5626] = "In Favor of the Light" }, map = 1426, x = 47.34, y = 52.19, z = 399.7, f = "e", only = { classes = { "PRIEST" } }, note = "{npc:1226}: heal {npc:12427} south of {area:131}" },
 						{ t = "train", class = true, zone = 1426, note = "Last: some classes' trainers stand outside", candidates = { candidateRecords[12], candidateRecords[14], candidateRecords[15], candidateRecords[16], candidateRecords[11], candidateRecords[13], candidateRecords[10], candidateRecords[9], candidateRecords[17], candidateRecords[20], candidateRecords[1], candidateRecords[6], candidateRecords[2], candidateRecords[3], candidateRecords[4], candidateRecords[5], candidateRecords[92], candidateRecords[8], candidateRecords[93], candidateRecords[19], candidateRecords[7], candidateRecords[22], candidateRecords[23], candidateRecords[24], candidateRecords[94], candidateRecords[28], candidateRecords[26], candidateRecords[33], candidateRecords[34], candidateRecords[35], candidateRecords[29], candidateRecords[95], candidateRecords[36], candidateRecords[30], candidateRecords[37], candidateRecords[38], candidateRecords[39], candidateRecords[31], candidateRecords[32], candidateRecords[40], candidateRecords[41], candidateRecords[49], candidateRecords[43], candidateRecords[46], candidateRecords[48], candidateRecords[47], candidateRecords[42], candidateRecords[44], candidateRecords[45], candidateRecords[50], candidateRecords[51], candidateRecords[52], candidateRecords[53], candidateRecords[54], candidateRecords[55], candidateRecords[56], candidateRecords[57], candidateRecords[58], candidateRecords[59], candidateRecords[60], candidateRecords[61], candidateRecords[62], candidateRecords[63], candidateRecords[64], candidateRecords[65], candidateRecords[66], candidateRecords[67], candidateRecords[68], candidateRecords[69], candidateRecords[70], candidateRecords[71], candidateRecords[72], candidateRecords[73], candidateRecords[74], candidateRecords[75], candidateRecords[76], candidateRecords[77], candidateRecords[78], candidateRecords[79], candidateRecords[80], candidateRecords[81], candidateRecords[82], candidateRecords[83], candidateRecords[84], candidateRecords[85], candidateRecords[86], candidateRecords[87], candidateRecords[88], candidateRecords[89], candidateRecords[90], candidateRecords[91] } },
+					},
+				},
+				{
+					title = "{quest:96044}",
+					note = "{npc:1241} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile.",
+					when = { { k = "skill", n = 1, name = "Blacksmithing", skillLine = 164 }, { k = "knows", neg = true, spell = 1230171 } },
+					goals = {
+						{ t = "accept", quest = 96044, title = "Camping 101: Blacksmithing", npc = 265813, npcName = "Eric Brighthammer", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, preAll = { 2160 }, closedBy = { 97900, 97916, 97928, 97939, 97952, 97964 }, endNpcs = { 1241 }, xp = 270, preTitles = { [2160] = "Supplies to Tannok", [95998] = "The Great Outdoors", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [97900] = "Camping 101: Blacksmithing", [97916] = "Camping 101: Blacksmithing", [97928] = "Camping 101: Blacksmithing", [97939] = "Camping 101: Blacksmithing", [97952] = "Camping 101: Blacksmithing", [97964] = "Camping 101: Blacksmithing" }, map = 1426, x = 46.65, y = 53.88, z = 396.6, f = "e", profLine = 164, profName = "Blacksmithing", profRank = 1, note = "{npc:265813}: for {npc:1241}, in the cellar west of the distillery" },
+					},
+				},
+				{
+					title = "{npc:1241}",
+					when = { { k = "onquest", q = { 96044 } }, { k = "complete", q = 96044 } },
+					goals = {
+						{ t = "complete", quest = 96044, title = "Camping 101: Blacksmithing", map = 1426, x = 45.34, y = 51.94, f = "e", profLine = 164, profName = "Blacksmithing", profRank = 1, note = "talk to the trainer", objs = { { text = "Raise your blacksmithing skill to 20", count = 1 } } },
+						{ t = "turnin", quest = 96044, title = "Camping 101: Blacksmithing", npc = 1241, npcName = "Tognus Flintfire", map = 1426, x = 45.34, y = 51.94, z = 397.3, f = "e", profLine = 164, profName = "Blacksmithing", profRank = 1, note = "{npc:1241}, below ground" },
 					},
 				},
 				{
@@ -16296,14 +16296,6 @@ do
 					},
 				},
 				{
-					title = "{quest:96044}",
-					note = "{npc:1241} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile.",
-					when = { { k = "skill", n = 1, name = "Blacksmithing", skillLine = 164 }, { k = "knows", neg = true, spell = 1230171 } },
-					goals = {
-						{ t = "accept", quest = 96044, title = "Camping 101: Blacksmithing", npc = 265813, npcName = "Eric Brighthammer", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, preAll = { 2160 }, closedBy = { 97900, 97916, 97928, 97939, 97952, 97964 }, endNpcs = { 1241 }, xp = 270, preTitles = { [2160] = "Supplies to Tannok", [95998] = "The Great Outdoors", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [97900] = "Camping 101: Blacksmithing", [97916] = "Camping 101: Blacksmithing", [97928] = "Camping 101: Blacksmithing", [97939] = "Camping 101: Blacksmithing", [97952] = "Camping 101: Blacksmithing", [97964] = "Camping 101: Blacksmithing" }, map = 1426, x = 46.65, y = 53.88, z = 396.6, f = "e", profLine = 164, profName = "Blacksmithing", profRank = 1, note = "{npc:265813}: for {npc:1241}, in the cellar west of the distillery" },
-					},
-				},
-				{
 					title = "{quest:96047}",
 					note = "{npc:2326} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile.",
 					when = { { k = "skill", n = 1, name = "First Aid", skillLine = 129 }, { k = "knows", neg = true, spell = 1230117 } },
@@ -16341,6 +16333,14 @@ do
 						{ t = "turnin", quest = 5626, title = "In Favor of the Light", npc = 1226, npcName = "Maxan Anvol", map = 1426, x = 47.34, y = 52.19, z = 399.7, f = "e", only = { classes = { "PRIEST" } }, note = "{npc:1226}, upstairs" },
 						{ t = "accept", quest = 5625, title = "Garments of the Light", npc = 1226, npcName = "Maxan Anvol", minLevel = 5, qlvl = 4, crumbs = { 5626 }, preTitles = { [5626] = "In Favor of the Light" }, map = 1426, x = 47.34, y = 52.19, z = 399.7, f = "e", only = { classes = { "PRIEST" } }, note = "{npc:1226}: heal {npc:12427} south of {area:131}" },
 						{ t = "train", class = true, zone = 1426, note = "Last: some classes' trainers stand outside", candidates = { candidateRecords[12], candidateRecords[14], candidateRecords[15], candidateRecords[16], candidateRecords[11], candidateRecords[13], candidateRecords[10], candidateRecords[9], candidateRecords[17], candidateRecords[21], candidateRecords[2], candidateRecords[7], candidateRecords[1], candidateRecords[3], candidateRecords[4], candidateRecords[5], candidateRecords[92], candidateRecords[8], candidateRecords[93], candidateRecords[19], candidateRecords[6], candidateRecords[22], candidateRecords[23], candidateRecords[24], candidateRecords[94], candidateRecords[28], candidateRecords[26], candidateRecords[33], candidateRecords[34], candidateRecords[35], candidateRecords[29], candidateRecords[95], candidateRecords[36], candidateRecords[30], candidateRecords[37], candidateRecords[38], candidateRecords[39], candidateRecords[31], candidateRecords[32], candidateRecords[40], candidateRecords[41], candidateRecords[49], candidateRecords[43], candidateRecords[46], candidateRecords[48], candidateRecords[47], candidateRecords[42], candidateRecords[44], candidateRecords[45], candidateRecords[50], candidateRecords[51], candidateRecords[52], candidateRecords[53], candidateRecords[54], candidateRecords[55], candidateRecords[56], candidateRecords[57], candidateRecords[58], candidateRecords[59], candidateRecords[60], candidateRecords[61], candidateRecords[62], candidateRecords[63], candidateRecords[64], candidateRecords[65], candidateRecords[66], candidateRecords[67], candidateRecords[68], candidateRecords[69], candidateRecords[70], candidateRecords[71], candidateRecords[72], candidateRecords[73], candidateRecords[74], candidateRecords[75], candidateRecords[76], candidateRecords[77], candidateRecords[78], candidateRecords[79], candidateRecords[80], candidateRecords[81], candidateRecords[82], candidateRecords[83], candidateRecords[84], candidateRecords[85], candidateRecords[86], candidateRecords[87], candidateRecords[88], candidateRecords[89], candidateRecords[90], candidateRecords[91] } },
+					},
+				},
+				{
+					title = "{quest:96044}",
+					note = "{npc:1241} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile.",
+					when = { { k = "skill", n = 1, name = "Blacksmithing", skillLine = 164 }, { k = "knows", neg = true, spell = 1230171 } },
+					goals = {
+						{ t = "accept", quest = 96044, title = "Camping 101: Blacksmithing", npc = 265813, npcName = "Eric Brighthammer", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, preAll = { 2160 }, closedBy = { 97900, 97916, 97928, 97939, 97952, 97964 }, endNpcs = { 1241 }, xp = 270, preTitles = { [2160] = "Supplies to Tannok", [95998] = "The Great Outdoors", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [97900] = "Camping 101: Blacksmithing", [97916] = "Camping 101: Blacksmithing", [97928] = "Camping 101: Blacksmithing", [97939] = "Camping 101: Blacksmithing", [97952] = "Camping 101: Blacksmithing", [97964] = "Camping 101: Blacksmithing" }, map = 1426, x = 46.65, y = 53.88, z = 396.6, f = "e", profLine = 164, profName = "Blacksmithing", profRank = 1, note = "{npc:265813}: for {npc:1241}, in the cellar west of the distillery" },
 					},
 				},
 				{

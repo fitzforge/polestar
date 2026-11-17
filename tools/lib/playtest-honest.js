@@ -1,7 +1,8 @@
 'use strict';
 // playtest --honest: the compiled guides played from their lines and the
 // reference data only, with nothing free. The stub world of tools/lib/playtest.js
-// accepts any quest, completes a quest's objectives at the turn-in and puts a
+// accepts any quest, completes a quest's item objectives at the turn-in (its
+// kill, talk, object and event lines only through a goal) and puts a
 // `collect`'s items in the bags from nowhere, so a guide can play clean and
 // still strand a player (docs/superpowers/research/2026-10-21-v2-playable-audit.md).
 // Here the character gains a quest, an item, a flight path or a place only

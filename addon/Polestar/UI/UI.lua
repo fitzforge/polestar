@@ -839,6 +839,16 @@ function UI.StepTotal(E)
 	return E and E.GetStepCount and E.GetStepCount() or 0
 end
 
+-- "Guide me" under the guide window's "left out here" (#2634): Lookup's
+-- guide to quest q through the quests it needs first (Lookup.QuestChain), in
+-- a new tab; where Lookup cannot build one (off, no Codex), its page for the
+-- quest.
+function UI.LeftOutGuide(q)
+	local Lk = ns.Lookup
+	if not (Lk and Lk.Guide and type(q) == "number") then return end
+	if not Lk.Guide("quest", q) and Lk.Show then Lk.Show(nil, "quest", q) end
+end
+
 -- The groups of a step view (docs/ARCHITECTURE.md, "Focus: one person at a
 -- time"). A step without goals is one empty group.
 -- -> groups, focusIndex

@@ -624,6 +624,21 @@ test(`${STONETALON}: A Void Path shows the Eye of Kilrogg's objective before its
 	assert.equal(list[work].s, list[turnin].s, 'in the hand-in step');
 });
 
+// Jackal's report (#2580): Kuray'bin stands where the "Into Ashenvale" walk ends and offers Ashenvale Outrunners
+// (6503), which the route leaves for the next Ashenvale guide; a player who took it anyway had no line for the nine
+// Outrunners, only a hand-in once they were dead. Whoever carries it gets the kills and the hand-in right after
+// Splintertree Post (`when onquest 6503`); nobody else sees them.
+test(`${STONETALON}: Jackal's report (#2580): Ashenvale Outrunners taken at Kuray'bin gets its kills, only for whoever carries it`, { skip }, () => {
+	const list = goals(STONETALON);
+	assert.ok(!list.some(({ goal }) => is('accept', 6503)(goal)), 'the route still leaves it for the next Ashenvale visit');
+	const kills = at(list, 'kill 12856 (6503.1)', (g) => g.t === 'kill' && g.quest === 6503 && g.npc === 12856);
+	const turnin = at(list, 'turnin 6503', is('turnin', 6503));
+	assert.ok(at(list, 'turnin 6382', is('turnin', 6382)) < kills && kills < turnin, 'after Splintertree Post: the kills, then Kuray\'bin');
+	assert.ok(turnin < at(list, 'accept 98251', is('accept', 98251)), 'before the walk west to Va\'xug');
+	for (const i of [kills, turnin]) {
+		assert.ok((list[i].step.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(6503)), `${list[i].goal.t}: only while 6503 is in the log`);
+	}
+});
 test(`${STONETALON}: the Warsong update goals name the scouts who hand them over, from the data`, { skip }, () => {
 	const list = goals(STONETALON);
 	// The Warsong Reports (6543) is left out since the final route review (route-fixes skip); holds if a build takes it.
@@ -1753,6 +1768,23 @@ test('Hotline\'s report: Walton and Vrang\'s quests come in the order the game o
 	assert.deepEqual(order, [...order].sort((a, b) => a - b), 'each goal comes after the one before it in the chain');
 });
 
+// #1959 (a level 19 Undead Warlock): Vrang Wildgore's two quests came on a second trip to the Dry Hills, though
+// he camps beside the harpies and the raptor-horn spot of the first one. Bruised Pride and Lion Hides and Vrang's
+// Game are taken, worked and handed in on the first Dry Hills loop, between the harpies' rings and their hand-in to
+// Darsok; the second trip carries Serena Bloodfeather (offered only with that hand-in) and Walton's chain.
+test(`${BARRENS}: #1959: Vrang's two quests are done on the first Dry Hills loop, with the harpies`, { skip }, () => {
+	const list = goals(BARRENS);
+	const rings = at(list, 'collect 875 (Harpy Lieutenants)', is('collect', 875));
+	const lieutenants = at(list, 'turnin 875', is('turnin', 875));
+	for (const [t, q] of [['accept', 95494], ['accept', 95507], ['collect', 95494], ['collect', 95507], ['turnin', 95494], ['turnin', 95507]]) {
+		const i = at(list, `${t} ${q}`, is(t, q));
+		assert.ok(rings < i && i < lieutenants, `${t} ${q} is on the harpies' loop (goal ${i}, rings ${rings}, hand-in ${lieutenants})`);
+	}
+	const serena = at(list, 'collect 876 (Serena Bloodfeather)', is('collect', 876));
+	assert.ok(lieutenants < serena, 'Serena comes on the later visit');
+	assert.ok(lieutenants < at(list, 'turnin 95495 (Walton)', is('turnin', 95495)), 'Walton too');
+});
+
 // --- The Barrens (Fitz, a Scourge Warlock, #70): at the Crossroads the guide
 // sent them to Sergra Darkthorn for Jorn Skyseer (3261), which needs The
 // Angry Scytheclaws (905), the end of her chain in forever/horde/02-the-barrens.
@@ -2000,6 +2032,18 @@ test('forever/horde/30-40: Centaur Bounty is taken on the second Desolace visit,
 	const acc = at(list, 'accept 1366', is('accept', 1366));
 	assert.equal(list[acc].step.title, 'Ghost Walker Post', 'at Ghost Walker Post');
 	assert.ok(acc < at(list, 'the centaur ears', (g) => g.t === 'collect' && g.quest === 1366), 'before the valley');
+});
+
+// Hand-in sweep (2026-11-16, after Kerlonian's escort): The Vile Reef step reached the Drowned City's entrance with a
+// goto, done on arrival whether the quest's find counted or not, ~40 yards from the find's point. The step waits for
+// Locating the Lost City (95770) itself, at the same point.
+test("forever/horde/40-50/01-stranglethorn-vale.guide: The Vile Reef waits for Locating the Lost City's find, not only the arrival", { skip }, () => {
+	const list = goals('forever/horde/40-50/01-stranglethorn-vale.guide');
+	const work = at(list, 'complete 95770', is('complete', 95770));
+	assert.ok(work < at(list, 'turnin 95770', is('turnin', 95770)), 'before the hand-in at Kin\'weelay');
+	const { goal, step } = list[work];
+	assert.equal(step.title, 'The Vile Reef');
+	assert.ok(goal.map === 1434 && Math.hypot(goal.x - 21.8, goal.y - 27.6) < 0.2, `at the entrance (${goal.map} ${goal.x},${goal.y})`);
 });
 
 // Horde 30-40/40-50 audit (0.4.0): The Green Hills of Stranglethorn's chapters (338-342) were accepted at Nesingwary's
@@ -2915,7 +2959,7 @@ test('Alliance 12-21: Westfall, Darkshore and Loch Modan start where Humans ente
 test(`${HILLSBRAD_ALLIANCE}: Fyurie's report: Spark of Freedom is asked as a group quest; the Dun Modr camp quests are not (#1313)`, { skip }, () => {
 	const list = goals(HILLSBRAD_ALLIANCE);
 	const mine = list.filter(({ goal }) => goal.quest === 87491);
-	assert.equal(mine.length, 2, 'the accept and the hand-in');
+	assert.deepEqual(mine.map(({ goal }) => goal.t), ['accept', 'complete', 'turnin'], 'the accept, the escort and the hand-in');
 	for (const { step, goal } of mine) assert.ok((step.when || []).some((p) => p.k === 'group' && [p.q].flat().includes(87491) && !p.neg), `${goal.t} 87491 is under when group 87491`);
 	for (const [t, q] of [['turnin', 472], ['accept', 631]]) {
 		const { step } = list[at(list, `${t} ${q}`, is(t, q))];
@@ -4533,8 +4577,9 @@ test('forever/horde/02-the-barrens.guide: Fitz\'s report (#273): the Savannah Li
 
 test('forever/horde/02-the-barrens.guide: Fitz\'s report (#274): the Dry Hills step also collects the Raptor Horns, in the Dry Hills, before the Ratchet turn-in', { skip }, () => {
 	const list = goals('forever/horde/02-the-barrens.guide');
-	// The step where Vrang's harpy quest is worked in the Dry Hills (its title is the route's own).
-	const hills = list.findIndex(({ goal }) => is('collect', 95494)(goal));
+	// The Dry Hills visit after Raptor Horns is taken at Ratchet: Serena Bloodfeather's harpies, above the lions
+	// (Vrang's own hides come on the first loop since #1959, before the horns are offered).
+	const hills = list.findIndex(({ goal }) => is('collect', 876)(goal));
 	assert.ok(hills >= 0, 'the Dry Hills step is in the guide');
 	const horns = list.findIndex(({ s, goal }) => s === list[hills].s && is('collect', 865)(goal));
 	assert.ok(horns >= 0, 'the Dry Hills step collects the Raptor Horns');
@@ -5058,7 +5103,8 @@ test(`${WESTFALL}: flow audit: one north loop, one target per step in walking or
 // The tower comes first now: The Anchors of Zephras and Falling With Style
 // (both need level 2 and nothing else), then the Walk on Air glide down to
 // Rorian, who takes Harmony in Balance and Falling With Style on one visit.
-// Falling With Style has no objectives: it is only handed in.
+// Falling With Style counts the Walk on Air cast at the top of the tower (players' recordings: the line "Use Walk
+// on Air" at every accept, done on the tower's top), so its goal is there, before Rorian's hand-ins.
 
 test(`Alx-Ryan's report (#363): on Zephras Isle, the watchtower quests come before Rorian, who takes Harmony in Balance and Falling With Style on one visit`, { skip }, () => {
 	for (const guide of [ZEPHRAS_ALLIANCE, ZEPHRAS_HORDE]) {
@@ -5070,7 +5116,9 @@ test(`Alx-Ryan's report (#363): on Zephras Isle, the watchtower quests come befo
 		assert.equal(Math.abs(falling - harmony), 1, `${guide}: Harmony in Balance and Falling With Style are handed in one after the other`);
 		assert.equal(list[falling].s, list[harmony].s, `${guide}: on the same step`);
 		assert.equal(list[falling].goal.npc, list[harmony].goal.npc, `${guide}: to the same NPC, Rorian`);
-		assert.deepEqual(list.filter(({ goal }) => goal.quest === 92474 && goal.t === 'complete').map(({ s }) => s), [], `${guide}: no complete goal for a quest with no objectives`);
+		const cast = at(list, `${guide}: complete 92474`, is('complete', 92474));
+		assert.ok(cast < harmony, `${guide}: Walk on Air before Rorian's hand-ins`);
+		assert.ok(Math.hypot(list[cast].goal.x - 43.7, list[cast].goal.y - 24.1) < 1, `${guide}: on the tower's top (${list[cast].goal.x},${list[cast].goal.y})`);
 	}
 });
 
@@ -5505,6 +5553,61 @@ test("forever/class/paladin/lumina-windsinger.guide: Free Lumina waits for the e
 	assert.ok(escort < at(list, 'turnin 96204', is('turnin', 96204)), 'before the hand-in');
 	const { goal } = list[escort];
 	assert.ok(goal.map === 1421 && Math.hypot(goal.x - 65.7, goal.y - 29.7) < 1, `leads where the escort ends (${goal.map} ${goal.x},${goal.y})`);
+});
+
+// Found by the playtest's hand-in check (2026-11-17): A Grim Fate (91860) is handed in at the Charred Remains on
+// Fenris Isle (all 14 recorded hand-ins), but the data also named Deathguard Baldren, its giver, as an ender, so the
+// pyre step's hand-in pointed back to the Sepulcher. It names the remains.
+test("forever/class/paladin/lumina-windsinger.guide: A Grim Fate is handed in at the Charred Remains, not back at the Sepulcher", { skip }, () => {
+	const list = goals('forever/class/paladin/lumina-windsinger.guide');
+	const { goal, step } = list[at(list, 'turnin 91860', is('turnin', 91860))];
+	assert.equal(step.title, 'The pyre on Fenris Isle');
+	assert.equal(goal.object, 566037, 'the Charred Remains');
+	assert.ok(goal.map === 1421 && Math.hypot(goal.x - 64.9, goal.y - 34.3) < 1, `on Fenris Isle (${goal.map} ${goal.x},${goal.y})`);
+});
+
+// gidi_'s report (#2648): Zimmix's Great Escape (97331) was accepted at his cell with the escort only in a note, so the
+// step was done on the accept and the guide moved on while Zimmix walked out of Zul'Kunda. The merged data had no
+// objective for it (players' recordings: one event line, "Escort Zimmix Sputterspark to safety", done east of the
+// ruins), so no check saw a hand-in without work. Both Stranglethorn guides wait for the escort in the accept's step.
+test("gidi_'s report (#2648): Zimmix's escort is a goal of his step in both Stranglethorn guides, before the hand-in", { skip }, () => {
+	for (const file of [STRANGLETHORN_HORDE, 'forever/alliance/30-40/04b-stranglethorn-vale.guide']) {
+		const list = goals(file);
+		const accept = at(list, `${file}: accept 97331`, is('accept', 97331));
+		const escort = at(list, `${file}: complete 97331`, is('complete', 97331));
+		assert.equal(list[escort].s, list[accept].s, `${file}: in Zimmix's step`);
+		assert.ok(accept < escort && escort < at(list, `${file}: turnin 97331`, is('turnin', 97331)), `${file}: accept, the escort, then the hand-in`);
+		const { goal } = list[escort];
+		assert.ok(goal.map === 1434 && Math.hypot(goal.x - 26.8, goal.y - 11.4) < 1, `${file}: where the escort ends (${goal.map} ${goal.x},${goal.y})`);
+	}
+});
+
+// The same gap as Zimmix's (#2648), found by comparing the data with players' recordings: quests whose objectives the
+// merged data lacks (two escorts, two spell casts, a ghost elixir) were taken and handed in with nothing between, so
+// the step was done on the accept. Each guide now has the work as a goal between the accept and the hand-in, where
+// players' recordings have it done.
+test('quests the data had no objectives for: their work is a goal between the accept and the hand-in', { skip }, () => {
+	const cases = [
+		['forever/alliance/30-40/01-hillsbrad-foothills.guide', 87491, 'complete', { map: 1437, x: 47.8, y: 16.8 }], // Spark of Freedom, escort
+		['forever/alliance/30-40/05-arathi-highlands.guide', 93585, 'complete', { map: 1435, x: 26.0, y: 31.7 }], // This Light of Mine, escort
+		['forever/alliance/skyborne/01-zephras-isle.guide', 92474, 'complete', { x: 43.7, y: 24.1 }], // Falling With Style, on the watchtower
+		['forever/horde/skyborne/01-zephras-isle.guide', 92474, 'complete', { x: 43.7, y: 24.1 }],
+		['forever/alliance/nightelf/01-teldrassil.guide', 97979, 'complete', null], // The Goddess Provides, two casts at Shanda
+		['forever/alliance/50-60/04-western-plaguelands.guide', 3912, 'use', { map: 1446, x: 54.0, y: 28.7 }], // Meet at the Grave: the Videre Elixir
+	];
+	for (const [file, q, t, at_] of cases) {
+		const list = goals(file);
+		const work = at(list, `${file}: ${t} for ${q}`, (g) => g.t === t && (t === 'use' ? g.item === 11243 : g.quest === q));
+		const tin = at(list, `${file}: turnin ${q}`, is('turnin', q));
+		assert.ok(work < tin, `${file}: the work before the hand-in of ${q}`);
+		const acc = list.findIndex(({ goal }) => is('accept', q)(goal));
+		if (acc >= 0) assert.ok(acc < work, `${file}: after the accept of ${q}`);
+		if (at_) {
+			const { goal } = list[work];
+			if (at_.map) assert.equal(goal.map, at_.map, `${file}: ${q} on map ${at_.map}`);
+			assert.ok(Math.hypot(goal.x - at_.x, goal.y - at_.y) < 1, `${file}: ${q} where players do it (${goal.map} ${goal.x},${goal.y})`);
+		}
+	}
 });
 
 // #1813 (Alliance, Cozy Sleeping Bag): the Barrens' way into Stonetalon runs through Honor's Stand, and the road
@@ -7803,9 +7906,12 @@ test('forever/horde/05-stonetalon-mountains.guide: final route review: the Note 
 // not being level 24". Ashenvale Outrunners (level 24, its Outrunners 23-24) was the first Ashenvale step at 21, then
 // (0.3.6) the step after Ruul's hand-in at 22-23, still 1-1.5 levels under it on the level model. 0.3.7:
 // it waits for the second Ashenvale visit at 26, at Kuray'bin's lumber camp between Torek's assault and Sharptalon's
-// woods, and is handed in on the spot before Splintertree.
+// woods, and is handed in on the spot before Splintertree. (#2580: a player who takes it from Kuray'bin on the first
+// visit anyway gets its kills and hand-in there, behind `when onquest 6503`; the route itself still doesn't take it.)
 test(`${STONETALON}: Discord reports: Ashenvale Outrunners waits for the 26 Ashenvale visit, taken by Torek and Sharptalon`, { skip }, () => {
-	assert.ok(!goals(STONETALON).some(({ goal }) => goal.quest === 6503), 'not on the first Ashenvale visit at 21');
+	const first = goals(STONETALON).filter(({ goal }) => goal.quest === 6503);
+	assert.ok(!first.some(({ goal }) => goal.t === 'accept'), 'not taken on the first Ashenvale visit at 21');
+	assert.ok(first.every(({ step }) => (step.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(6503))), 'its lines there only for whoever carries it');
 	const list = goals(ASHENVALE_HORDE);
 	const torek = at(list, 'accept 6544', is('accept', 6544));
 	const take = at(list, 'accept 6503', is('accept', 6503));
@@ -9864,6 +9970,8 @@ test('Alliance starting zones: profession Camping 101s from the campfire, for th
 		['forever/alliance/skyborne/01-zephras-isle.guide', 96101, [97963, 97964, 97965, 97967, 97969, 97970, 97971, 97973, 98286]],
 	];
 	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	// Eric Brighthammer offers Blacksmithing only once Supplies to Tannok is handed in: its step follows that stop.
+	const waitsFor = { 96044: 2160 };
 	for (const [guide, sit, quests] of sets) {
 		const list = goals(guide);
 		const sat = at(list, `${guide}: turnin ${sit}`, is('turnin', sit));
@@ -9876,8 +9984,9 @@ test('Alliance starting zones: profession Camping 101s from the campfire, for th
 			const when = (i) => [].concat(list[i].step.when || []);
 			assert.ok(when(take).some((w) => w.k === 'skill' && !w.neg), `${guide}: ${q} is offered only with the profession`);
 			assert.ok(when(give).some((w) => w.k === 'onquest' && !w.neg && [].concat(w.q).includes(q)), `${guide}: ${q}'s hand-in shows only with the quest in the log`);
-			const between = list.slice(sat + 1, take);
-			assert.ok(between.every(({ step }) => step === list[sat].step || [].concat(step.when || []).some((w) => w.k === 'skill')), `${guide}: ${q}'s step follows the campfire step directly`);
+			const from = waitsFor[q] ? at(list, `${guide}: turnin ${waitsFor[q]}`, is('turnin', waitsFor[q])) : sat;
+			const between = list.slice(from + 1, take);
+			assert.ok(between.every(({ step }) => step === list[from].step || [].concat(step.when || []).some((w) => w.k === 'skill')), `${guide}: ${q}'s step follows the campfire step directly (or the stop its giver waits for)`);
 		}
 	}
 });
@@ -12467,7 +12576,7 @@ test('Horde Stranglethorn 40: Locating the Lost City after the legend, the reef 
 	const legend = at(stv, 'turnin 95748', is('turnin', 95748));
 	const acc = at(stv, 'accept 95770', is('accept', 95770));
 	assert.equal(stv[acc].s, stv[legend].s, 'taken on the stop that hands the legend in');
-	const reef = at(stv, 'the Vile Reef goto', (g) => g.t === 'goto' && g.map === 1434 && Math.abs(g.x - 21.8) < 1 && Math.abs(g.y - 27.6) < 1);
+	const reef = at(stv, 'the Vile Reef goal', (g) => (g.t === 'goto' || is('complete', 95770)(g)) && g.map === 1434 && Math.abs(g.x - 21.8) < 1 && Math.abs(g.y - 27.6) < 1);
 	assert.ok(stv[reef].s > stv[acc].s, 'the cavern entrance under the Vile Reef after the accept');
 	assert.ok(stv[reef].step.when.some((p) => p.k === 'onquest' && !p.neg && p.q.includes(95770)), 'only with the quest in the log');
 	assert.ok(reef < at(stv, 'kill 687', (x) => x.t === 'kill' && x.npc === 687), 'before the jungle stalkers south of the camp');
@@ -15847,6 +15956,23 @@ test('Alliance 40-50 reports: Jarl\'s spices bought before the hand-in (#1917), 
 	const tip = [pool.step.note, pool.step.tip].flat().filter(Boolean).join(' ');
 	assert.match(tip, /tap it/, 'says to tap the pool');
 	assert.match(tip, /Scarabs/, 'warns of the Scarabs');
+});
+
+// Camping 101 accepts and their givers' prerequisites: Eric Brighthammer offers Blacksmithing (96044) only once
+// Supplies to Tannok (2160) is handed in, Brakk offers Tailoring (96102) only once A Peon's Burden (2161) and
+// Camping 101: Cooking (96655) are (players' recordings). A Camping step placed before those hand-ins was
+// passed with the quest not offered, and the guide never came back to it.
+test('Start zones: a Camping 101 accept comes after the hand-ins its giver waits for', { skip }, () => {
+	const cases = [...DUN_MOROGHS.map((g) => [g, 96044, [2160]]), ...DUROTARS.map((g) => [g, 96102, [2161, 96655]])];
+	for (const [guide, quest, pres] of cases) {
+		const list = goals(guide);
+		const take = at(list, `accept ${quest}`, is('accept', quest));
+		for (const pre of pres) {
+			assert.ok(at(list, `turnin ${pre}`, is('turnin', pre)) < take, `${guide}: ${pre} is handed in before ${quest} is taken`);
+		}
+		const hand = list.findIndex(({ goal }) => is('turnin', quest)(goal));
+		assert.ok(hand < 0 || take < hand, `${guide}: ${quest} is taken before its hand-in`);
+	}
 });
 
 // --- Reports fixed in earlier releases that had no test of their own (regression audit after 0.4.0). Each case

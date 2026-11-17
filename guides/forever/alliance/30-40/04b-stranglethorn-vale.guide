@@ -92,6 +92,7 @@ step The Ruins of Zul'Kunda
   collect 277957 quest 97329          -- Primitive Key, from the Bloodscalp trolls
   turnin 97329
   accept 97331                        -- For Wharfmaster Lozgil in Booty Bay, at the end of this loop
+  complete 97331 @26.8,11.4
   collect 277953 quest 97328 @24.8,13.0 map 1434 -- Stolen Shipment
   collect 2008 quest 207.4            -- The Fourth Troll Legend: The Emperor's Tomb
   complete 339 optional               -- Chapter I

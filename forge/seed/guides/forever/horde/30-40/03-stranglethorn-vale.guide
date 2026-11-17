@@ -209,6 +209,7 @@ step Zimmix Sputterspark
   collect 277957 quest 97329.1        -- Primitive Key, from the Bloodscalp Scouts, Hunters and Mystics
   turnin 97329
   accept 97331
+  complete 97331 @26.8,11.4
   note Escort Zimmix out of the ruins and keep him alive: Lozgil takes the news once he is safe.
 
 step Nesingwary's camp
