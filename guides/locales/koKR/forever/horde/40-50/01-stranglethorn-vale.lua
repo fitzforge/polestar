@@ -150,7 +150,7 @@ return {
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {zone:1411} Durotar · {area:367} Sen'jin Village · {npc:7953} Xar'Ti · {zone:1444} Feralas
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454} and go south down the {zone:1411} road to {area:367}: {npc:7953} teaches Trolls there, with Zjolnir's raptors (20 gold each). Then back to the zeppelin for {object:3202}. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "탈것 타기는 40레벨이 필요하고 100골드가 듭니다. 배우면 탈것을 얻으며, 가시덤불 골짜기 다음의 {zone:2548}은(는) 탈것 없이는 먼 길입니다. {object:3202} 탑에서 비행선을 타고 {zone:1454}(으)로 간 뒤 {zone:1411} 길을 따라 남쪽 {area:367}(으)로 가세요. {npc:7953}이(가) 그곳에서 트롤에게 가르치며, 즐니르의 랩터(각 20골드)도 있습니다. 그 후 비행선으로 돌아가 {object:3202}(으)로 가세요. 골드가 부족하면 이 단계를 건너뛰세요. {zone:1444} 가이드에서 약 45레벨에 {zone:1454}을(를) 다시 지납니다.",
 	-- {npc:7953} Xar'Ti
-	["{npc:7953}, riding trainer"] = "",
+	["{npc:7953}, riding trainer"] = "{npc:7953}, 탈것 상급자",
 
 	-- Step 33: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {area:222} Bloodhoof Village · {npc:3690} Kar Stormsinger · {npc:3685} Harb Clawhoof · {zone:1444} Feralas

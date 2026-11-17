@@ -450,7 +450,7 @@ return {
 	["{npc:11610} hides at the Northridge lumber camp's edge."] = "{npc:11610}은(는) 북마루 벌목지 가장자리에 숨어 있습니다.",
 
 	-- Step 98: Radley and Durgen
-	["Radley and Durgen"] = "",
+	["Radley and Durgen"] = "래들리와 드루겐",
 	-- {npc:11613} Huntsman Radley · {npc:11610} Kirsta Deepshadow · {npc:11611} Cavalier Durgen · {area:190} Hearthglen
 	["{npc:11613} walks the Northridge camp east of {npc:11610}; {npc:11611} guards the tower at {area:190}'s southern approach.\nCareful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight."] = "{npc:11613}은(는) {npc:11610} 동쪽의 북마루 벌목지를 돌아다니고, {npc:11611}은(는) {area:190} 남쪽 진입로의 탑을 지킵니다.\n주의: 탑 아래에 경비병이 서 있고, 하나가 더 탑 주위를 순찰합니다. 두르겐과 싸우기 전에 처치해 싸움에 끼어들지 않게 하세요.",
 

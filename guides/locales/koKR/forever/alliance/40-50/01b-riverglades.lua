@@ -526,7 +526,7 @@ return {
 
 	-- Step 110: Stormwind flight master
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "{zone:1453} 비행 조련사",
 
 	-- Step 111: Shaman trainer
 	["Shaman trainer"] = "",

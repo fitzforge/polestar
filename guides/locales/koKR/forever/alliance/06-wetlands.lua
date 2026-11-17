@@ -44,7 +44,7 @@ return {
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "{area:150}(으)로 비행",
 	-- {zone:1453} Stormwind City
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "{zone:1453} 비행 조련사",
 
 	-- Step 13: Menethil Harbor
 	-- {npc:1239} First Mate Fitzsimmons
