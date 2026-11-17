@@ -1759,6 +1759,34 @@ fn lifts_from_the_undercitys_lower_floor_to_brill_the_walk_goes_to_the_south_lif
 	assert_eq!(back.last().map(String::as_str), Some("walk|The canal"));
 }
 
+// #2516 (Trak, 0.4.0 triage): at the Ruins of Lordaeron's portal (Tirisfal 63.2,67.5, live), where the client reports
+// the Undercity's map, the route went to the Undervator, down into the city, along to the south lift and up it, out
+// along the fixed way and back to the portal: 1.1k yd for a few. The near walk (#1543) was off because the south
+// lift's chain joins the Undercity and Tirisfal; with the player's floor 70 yd above the chain's bottom landing, the
+// walk goes straight there. From the city's floor the way out stays the lift (the test above).
+#[test]
+fn ruins_of_lordaeron_at_the_portal_on_the_undercitys_map_the_route_walks_to_it_never_down_the_undervator_2516() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.setLevel(20)
+		w.faction = "Horde"
+		place(1458, 1797, 180, 71) -- a few yards from the portal, on the corridor's floor
+		N.SetTarget(1420, 63.2, 67.5, "Ruins of Lordaeron", "l")
+		for _ = 1, 600 do
+			aim()
+			stub.advance(0.05)
+		end
+		local legs, ci = N.GetRoute()
+		local route = {}
+		for i = ci or 1, #(legs or {}) do route[#route + 1] = legs[i].kind .. "|" .. legs[i].label end
+		emit({ map = C_Map.GetBestMapForUnit("player"), route = route })"#,
+		true,
+	);
+	assert_eq!(out["map"], serde_json::json!(1458), "the client reports the Undercity's map there");
+	assert_eq!(strs(&out["route"]), ["walk|Ruins of Lordaeron"], "one walk to the portal");
+}
+
 // Fitz's spot (2026-10-23): the Trade Quarter's centre, 12 yd on the map from the crossing's end in the entrance hall
 // above it (r 30). The planner dropped the walk to that end as already walked and the arrow went on along the
 // crossing's hand-made walk, straight north through the Ruins' footprint. An end with a height is reached only on its

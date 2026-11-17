@@ -1082,7 +1082,11 @@ local function planBody(p, S)
 	-- (ground no walk joins to its zone: Rut'theran under the tree, #1761). Not
 	-- when the engine found no walk from the player (p.noDirect), not from or
 	-- to a chain's inside, nor when a chain joins the two zones: its hand-made
-	-- way is the one where the walking maps fail (the Undercity's south lift).
+	-- way is the one where the walking maps fail (the Undercity's south lift),
+	-- unless the player's floor is known to be over 20 yd above the chain's
+	-- lowest (p.z, or each of p.floors): at the Ruins of Lordaeron's portal, on
+	-- the Undercity's map above the city, the route went down the Undervator and
+	-- back up the south lift to the portal a few yards away (#2516).
 	local nearCross
 	local nearProbe = type(p.nearProbe) == "table" and p.nearProbe or nil
 	local nearReach = p.nearWalk or (nearProbe and nearProbe.reach)
@@ -1091,12 +1095,19 @@ local function planBody(p, S)
 		local d = yards(vc[1], vx[1], vy[1], vc[2], vx[2], vy[2])
 		if d < nearReach then nearCross = d * walkRate end
 		for _, ch in ipairs(nearCross and chains or {}) do
-			local a, b = false, false
+			local a, b, low = false, false, nil
 			for _, nd in ipairs(ch.nodes) do
 				local z = chainV[nd] and vzone[chainV[nd]]
 				if z == vzone[1] then a = true elseif z == vzone[2] then b = true end
+				if nd.z and (not low or nd.z < low) then low = nd.z end
 			end
-			if a and b then nearCross = nil end
+			local above = low ~= nil and (p.z and p.z - low > 20 or (not p.z and p.floors and p.floors[1] and true or false))
+			if above and not p.z then
+				for _, f in ipairs(p.floors) do
+					if f - low <= 20 then above = false end
+				end
+			end
+			if a and b and not above then nearCross = nil end
 		end
 		if nearCross and not p.nearWalk then nearProbe.yards, nearCross = d, nil end
 	end
