@@ -5001,6 +5001,21 @@
 			]
 		},
 		{
+			"id": "cozy-sleeping-bag-dam-one-way-exit",
+			"at": {
+				"quest": 79975,
+				"goal": "accept"
+			},
+			"tip": "The ledge below the dam top is one-way: once you step down to the figurine you cannot climb back up. Drop from the ledge into the river instead — the fall into the water is safe, but there is no bank to climb out on before the falls. Swim on to the Wetlands border and go over the last fall: it kills you, and the way on is the graveyard run. If your Hearthstone is set at Tarren Mill, hearthing is the cleaner exit.",
+			"note": "Cozy Sleeping Bag chain, anchored at the accept on the dam step; the same warning covers the 'Out of the river' step that follows it. Play-tested on Forever (0.4.0, 2026-11-17): after accepting Eagle's Fist (79975) at the figurine ledge below the Stonewrought Dam top, the ledge cannot be climbed back from, yet the route sends you back over the dam. The step text promises a west-bank climb-out well before the waterfall at about 65,77; swimming the whole stretch to the Wetlands border, no west-bank climb-out was found — the river ends at a fall that kills, and resuming from the Wetlands graveyard was the only way on. The step's two 'West bank' goto points look wrong for the same reason and may need moving or removing. The reporter has run the full chain end to end (Alliance side; Horde not tested).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "Full Cozy Sleeping Bag chain run in game on Forever (Polestar 0.4.0), 2026-11-17: one-way dam ledge, river swum to the Wetlands border, death at the last fall, graveyard run"
+				}
+			]
+		},
+		{
 			"id": "alterac-grelborg-walks-543",
 			"faction": "Alliance",
 			"at": {
