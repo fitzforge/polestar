@@ -386,6 +386,10 @@ ns.UI.GuideFrame.Part(function(GF)
 		banner.Later:Hide()
 		secondRow = false
 		local oneLine = false -- no link row under the text
+		-- The item the notice names, for its text's tooltip (banner.Item): the gear offer's, the spare bag's or the junk's.
+		local item = (kind == "wear" and n) or (kind == "bags" and (n.spare or n.junk)) or nil
+		banner.Item.psItem = item and (item.link or item.id) or nil
+		banner.Item:SetShown(banner.Item.psItem ~= nil)
 		if kind == "skipped" then
 			banner.Icon:SetTexture(Theme.Media("skip"))
 			local lines = {}
