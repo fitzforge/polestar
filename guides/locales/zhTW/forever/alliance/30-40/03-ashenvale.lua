@@ -124,12 +124,17 @@ return {
 	-- {npc:4456} Fiora Longears · {area:514} Foothold Citadel · {npc:4941} Caz Twosprocket
 	["{npc:4456} is in the north of town, Captain Vimes in {area:514}; {npc:4941} stands in the town."] = "{npc:4456}在城鎮北邊，維姆斯上尉在{area:514}；{npc:4941}站在鎮裡。",
 
-	-- Step 23: Boat to Menethil Harbor
-	-- {area:150} Menethil Harbor
-	["Boat to {area:150}"] = "搭船前往{area:150}",
+	-- Step 23: Ratchet
+	-- {zone:1413} Barrens · {area:392} Ratchet · {area:35} Booty Bay
+	["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock."] = "",
+
+	-- Step 24: Boat to Booty Bay
+	-- {area:35} Booty Bay
+	["Boat to {area:35}"] = "搭船前往{area:35}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back west along the road to the satyr camps of {area:429}."] = "沿著道路向西回到{area:429}的薩特營地。",
+	-- ["Boat to {area:150}"] = "搭船前往{area:150}",
 	-- ["Dartol's Rod"] = "達圖爾的變形魔棒",
 	-- ["Follow the road east to the satyr camps of {area:429}; {npc:3920} hides at their edge."] = "沿著道路向東前往{area:429}的薩特營地；{npc:3920}躲在營地邊緣。",
 	-- ["Follow the road west out of {area:415}; {area:413} lies north of it."] = "沿著道路向西離開{area:415}；{area:413}在道路北邊。",

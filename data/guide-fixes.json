@@ -4646,6 +4646,40 @@
 			"issue": 1313
 		},
 		{
+			"id": "2587-dun-modr-dark-iron-war",
+			"faction": "Alliance",
+			"at": {
+				"quest": 303,
+				"goal": "accept"
+			},
+			"tip": "The Dark Iron War is a group quest: 30 elite Dark Irons (27-31) in the ruins west of the camp. Skip it if you are alone.",
+			"note": "#2587 (swork1): Motley Garmason's The Dark Iron War is asked as a group quest on the Dun Modr stop of 30-40/01-hillsbrad-foothills, beside Spark of Freedom (route-fixes deliberate.group); its kills have their own `when group 303` step in the ruins and its hand-in a `when complete` step on the Rhag Garmason visit after the Thandol Span corpse.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-17: 82 people took The Dark Iron War, 66 runs handed in, most at 26-31; the objectives at accept are 15 Dark Iron Dwarves and 5 each of Tunnelers, Saboteurs and Demolitionists, every kill an elite (Dwarf 27-28, Saboteur 28-29, Tunneler 29-30, Demolitionist 30-31); 1,663 of its ticks in the ruins west of the camp (68 people), 454 on Direforge Hill (40 people)"
+				}
+			],
+			"issue": 2587
+		},
+		{
+			"id": "2587-direforge-hill-bring-back-a-bang",
+			"faction": "Alliance",
+			"at": {
+				"quest": 88756,
+				"goal": "accept"
+			},
+			"tip": "Bring Back a Bang is a group quest: the Stolen Explosives lie in the Dark Iron camp on Direforge Hill, south-east of Dun Modr, among the same elite dwarves. Skip it if you are alone.",
+			"note": "#2587 (swork1): Ashlan Stonesmirk's Bring Back a Bang is asked as a group quest on the Dun Modr stop; its explosives are collected on Direforge Hill (about 61.6,26.6, some 500 yards south-east of the camp) on a `when group 88756` step before the Thandol Span, and handed in on the Rhag Garmason visit after the corpse.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-17: 69 people took Bring Back a Bang, 50 runs handed in; 103 loots of the Stolen Explosives by 34 people, all on Direforge Hill (Wetlands 60-63,24-29), where the elite Dark Iron Dwarves, Tunnelers, Saboteurs and Demolitionists and Balgaras the Foul (34) spawn"
+				}
+			],
+			"issue": 2587
+		},
+		{
 			"id": "1313-thandol-span-saboteurs",
 			"at": {
 				"quest": 631,
@@ -11689,18 +11723,22 @@
 			"issue": 2284
 		},
 		{
-			"id": "2419-stranglethorn-booty-bay-bind-for-the-way-back",
+			"id": "2419-stranglethorn-booty-bay-first",
 			"faction": "Alliance",
 			"at": {
 				"quest": 575,
 				"goal": "accept"
 			},
-			"tip": "Follow the main road south the length of the jungle, past the Grom'gol turn-off, to Booty Bay on the southern cape. Bind your hearthstone at the inn: it is your way back here from Nesingwary's camp at the end of the jungle loop.",
-			"note": "#2419 (Onrevax): 30-40/04-stranglethorn-vale walks the length of the jungle to Booty Bay for its flight point and quests, then works them in the north and comes back; the step now says the inn bind is the way back from Nesingwary's camp (about 2,900 yd), so the arrow's hearth advice covers the return.",
+			"tip": "Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop.",
+			"note": "#2419 (Onrevax): 30-40/04-stranglethorn-vale walked the length of the jungle from Nesingwary's camp to Booty Bay for its flight point and quests, flew to Sentinel Hill and walked back in to work them in the north. Since 0.4.1 the guide starts at Booty Bay: 30-40/03-ashenvale ends in Theramore, so it goes on to Ratchet (flight point) and its boat, takes Booty Bay's quests and the inn bind first, walks north once, and the hearthstone brings the player back at the end of the loop (route-fixes deliberate.pairs). Level model (rested, 28 Alliance branches): 15 minutes less in this guide, 13 minutes less to 60, no level and no over-level spot moved.",
 			"source": [
 				{
 					"kind": "in-game-check",
 					"ref": "#2419: Onrevax, a level 34 Human Paladin on client 70938, at Nesingwary's Expedition on the step down to Booty Bay: an arrow of about 2,900 yd for a trip the route repeats later"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-17: 12 Alliance walks from Theramore to Ratchet at levels 29-38, none with a death in Dustwallow Marsh; the direct ones at 30-36 took 7 to 10 minutes"
 				}
 			],
 			"issue": 2419
