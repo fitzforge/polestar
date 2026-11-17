@@ -284,6 +284,13 @@ step Gallows' End Tavern
   train Cooking npc 265944            -- William Pickman, at the inn's north end: Camping 101 asks you to learn it
   complete 96658 @61.8,51.5
   turnin 96658
+
+step The cellar stairs
+  when onquest 407
+  tip The Captured Scarlet Zealot is in the cellar under the inn's north end. The stairs down start at the west side of that end: go down them, then turn east to him.
+  goto 61.66,51.50 "The cellar stairs"
+
+step Gallows' End Tavern
   turnin 407                          -- The Captured Scarlet Zealot, in the inn's cellar
   train class                         -- The Brill trainers are in the inn (Austil de Mon downstairs, the rest upstairs); Shari Stilwell, the Paladin trainer, by the square
   turnin 5651 only Priest             -- Dark Cleric Beryl, upstairs

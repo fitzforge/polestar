@@ -1,7 +1,8 @@
 'use strict';
-// Goals upstairs where the walking maps have no way up: the arrow leads to the
-// building's door first, since its own walk ends outside the floor, behind the
-// wall. In game a guide goal whose last located goal before it is a reached
+// Goals upstairs, in a cellar or down in flooded ruins where the walking maps
+// have no way in: the arrow leads to the way in first (a building's door, the
+// top of the stairs, the shore), since its own walk ends outside the floor,
+// behind the wall or on the ground above. In game a guide goal whose last located goal before it is a reached
 // `goto` gets the straight arrow from there (Nav/Walk.lua Walk.FollowsGoto,
 // which looks past goals at the target's own spot, another quest of the same
 // NPC). This walks back the same way over every guide's compiled goals.
@@ -28,8 +29,23 @@ const BUILDINGS = [
 		// went round past the hunters' building onto a ledge outside his floor, and Fandral's floor is not on them.
 		// The door on its south side, where players' recordings walk in.
 		name: "the druids' building in the Cenarion Enclave",
-		npcs: [4217, 3516],
-		door: { map: 1457, x: 35.8, y: 11.6 },
+		issue: '#1338',
+		files: /Darnassus/,
+		match: (goal) => [4217, 3516].includes(goal.npc),
+		doors: [{ map: 1457, x: 35.8, y: 11.6 }],
+		min: 30,
+	},
+	{
+		// ItsSaulx (#2509): the Captured Scarlet Zealot is in the Gallows' End Tavern's cellar, which is not on the
+		// walking maps. From the ground floor the walk went out of the inn's door and round to the ground outside
+		// above the cellar, then back in. The top of the cellar stairs on the ground floor (players' trails before
+		// the hand-in), with that floor's height so the walk to it stays inside.
+		name: "the Gallows' End Tavern's cellar in Brill",
+		issue: '#2509',
+		files: /Gallows' End/,
+		match: (goal) => goal.npc === 1931,
+		doors: [{ map: 1420, x: 61.66, y: 51.5, z: 34.3 }],
+		min: 1,
 	},
 ];
 
@@ -61,27 +77,28 @@ function wayIn(steps, s, k) {
 }
 
 for (const b of BUILDINGS) {
-	test(`every guide's goal at an NPC upstairs in ${b.name} comes after a goto at its door (#1338)`, { skip }, () => {
+	test(`every guide's goal in ${b.name} comes after a goto at its way in (${b.issue})`, { skip }, () => {
 		data = data || loadData(DATA);
 		const missing = [];
 		let checked = 0;
 		for (const file of guideFiles(path.join(OFFICIAL_DIR, 'forever'))) {
 			const text = fs.readFileSync(file, 'utf8');
-			if (!/Darnassus/.test(text)) continue;
+			if (!b.files.test(text)) continue;
 			const { guides } = compileSources([{ file, text }], data);
 			for (const g of guides) {
 				g.steps.forEach((step, s) =>
 					step.goals.forEach((goal, k) => {
-						if (!b.npcs.includes(goal.npc) || goal.map !== b.door.map) return;
+						if (!b.match(goal) || goal.map !== b.doors[0].map) return;
 						checked++;
 						const before = wayIn(g.steps, s, k);
-						const ok = before && before.t === 'goto' && before.map === b.door.map && yards(before, b.door) < 1;
-						if (!ok) missing.push(`${path.relative(OFFICIAL_DIR, file)} step ${s + 1} "${step.title}": ${goal.t} ${goal.quest || goal.item || ''} (before it: ${before ? `${before.t} ${before.x},${before.y}` : 'nothing'})`);
+						const door = before && before.t === 'goto' && b.doors.find((d) => before.map === d.map && yards(before, d) < 1);
+						const ok = door && (door.z === undefined || before.z === door.z);
+						if (!ok) missing.push(`${path.relative(OFFICIAL_DIR, file)} step ${s + 1} "${step.title}": ${goal.t} ${goal.quest || goal.item || ''} (before it: ${before ? `${before.t} ${before.x},${before.y}${before.z !== undefined ? ` z ${before.z}` : ''}` : 'nothing'})`);
 					}),
 				);
 			}
 		}
-		assert.ok(checked >= 30, `the guides' goals at ${b.name} were found (${checked})`);
-		assert.deepEqual(missing, [], 'goals whose arrow would walk to the ledge outside');
+		assert.ok(checked >= b.min, `the guides' goals in ${b.name} were found (${checked})`);
+		assert.deepEqual(missing, [], 'goals whose arrow would walk outside, onto the ground above or to a ledge');
 	});
 }
