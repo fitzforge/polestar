@@ -1908,6 +1908,12 @@ local function renderBosses(key, f, plevel)
 	local MW = mainWidth()
 	local y, nt = 0, 0
 	local bosses = D().Bosses(key)
+	-- A Codex pack built before boss drops (#2718) has no `loot` at all: say
+	-- "no drops known" only on a page whose pack carries them.
+	local anyLoot = false
+	for _, b in ipairs(bosses) do
+		if b.loot and #b.loot > 0 then anyLoot = true; break end
+	end
 	for i, boss in ipairs(bosses) do
 		local r = bossRow(i)
 		r:ClearAllPoints()
@@ -1951,7 +1957,7 @@ local function renderBosses(key, f, plevel)
 		r.NoLoot:SetPoint("TOPLEFT", r, "TOPLEFT", PAD, -(h + 4))
 		if #loot > 0 then
 			local open = lootBoss == i
-			W.SetButtonText(r.Loot, format("%s (%d)", L["Drops"], #loot))
+			W.SetButtonText(r.Loot, format(L["Drops (%d)"], #loot))
 			W.SetIcon(r.Loot, open and "chevron-down" or "chevron-right")
 			r.Loot.psTip = open and L["Collapse"] or L["Expand"]
 			r.Loot:Show()
@@ -1966,7 +1972,7 @@ local function renderBosses(key, f, plevel)
 				local C = ns.Codex
 				for _, id in ipairs(loot) do
 					local item = C and C.Item(id)
-					items[#items + 1] = { id = id, name = item and item.name, quality = item and item.quality }
+					items[#items + 1] = { id = id, name = (item and item.name) or ns.Compat.GetItemName(id), quality = item and item.quality }
 				end
 				placeTiles(area, 0, items, false, 0)
 				hidePool(bossLootTiles, #items + 1)
@@ -1977,8 +1983,12 @@ local function renderBosses(key, f, plevel)
 			end
 		else
 			r.Loot:Hide()
-			r.NoLoot:Show()
-			h = h + 28
+			if anyLoot then
+				r.NoLoot:Show()
+				h = h + 28
+			else
+				r.NoLoot:Hide()
+			end
 		end
 		r:SetHeight(h)
 		r:Show()

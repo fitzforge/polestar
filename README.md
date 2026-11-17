@@ -1743,7 +1743,7 @@ these recordings.
 
 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) describes the modules and their
 contracts, [docs/SUITE.md](docs/SUITE.md) the suite and what is out of
-scope (best-in-slot lists, loot browsing, talent builds), and
+scope (best-in-slot lists, general loot browsing, talent builds), and
 [docs/DESIGN.md](docs/DESIGN.md) the visual system.
 
 ## Contributing

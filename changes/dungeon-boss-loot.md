@@ -1,4 +1,5 @@
 ---
 section: players
 ---
-- Dungeons shows each boss's known drops beside its quests (thanks RikyZ90).
+- Dungeons: each boss on the Bosses tab lists its known drops behind a
+  chevron, with the game's tooltip on each item (thanks RikyZ90, #2718).
