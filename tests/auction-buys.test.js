@@ -4,7 +4,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { runAddon } = require('./helpers/lua');
 
-test('quest buying offers cached auction items and prices only what is still needed', () => {
+test('quest buying keeps the farming gate and prices only what is still needed', () => {
 	const { emitted } = runAddon({
 		stubs: ['stub_world.lua', 'stub_quests.lua'],
 		addons: ['Polestar'],
@@ -38,7 +38,7 @@ test('quest buying offers cached auction items and prices only what is still nee
 				{ t = "buy", item = 3712, count = 10, only = { factions = { "Horde" } } },
 			}
 			local records = {
-				[3712] = { "Turtle Meat", 1, 2408, 53, 0 },
+				[3712] = { "Turtle Meat", 1, 2408, 40, 0 },
 				[769] = { "Chunk of Boar Meat", 1, 113, 80, 0 },
 				[3713] = { "Soothing Spices", 0, 0, 2381 },
 				[9998] = { "Bound Token", 1, 2408, 10, 0 },
@@ -59,7 +59,7 @@ test('quest buying offers cached auction items and prices only what is still nee
 				for i, e in ipairs(AB.List("guide")) do
 					rows[i] = { e.item, e.need, e.why, f.rows[i].Price:GetText() }
 				end
-				emit({ rows = rows, total = f.Total:GetText(), turtle = AU.CanBuyGoal(goals[1]) })
+				emit({ rows = rows, total = f.Total:GetText(), turtle = AU.CanBuyGoal(goals[1]), boar = AU.CanBuyGoal(goals[2]) })
 			end
 
 			w.addItem(3712, 3)
@@ -78,9 +78,9 @@ test('quest buying offers cached auction items and prices only what is still nee
 	});
 
 	assert.deepEqual(emitted, [
-		{ rows: [[769, 4, 'market', 'Auctionator estimate: 1s 40c']], total: 'Estimated total for remaining quest items: 1s 40c', turtle: false },
-		{ rows: [[3712, 7, 'market', 'Auctionator estimate: 14s 70c'], [769, 4, 'market', 'Auctionator estimate: 1s 40c']], total: 'Estimated total for remaining quest items: 16s 10c', turtle: true },
-		{ rows: [[3712, 7, 'market', '≈ 4s (5 still unpriced)'], [769, 4, 'market', 'Auctionator estimate: 1s 40c']], total: 'Partial estimate for remaining quest items: 5s 40c', turtle: true },
+		{ rows: [[3712, 7, 'farm', 'No cached price']], total: 'No cached prices for the remaining quest items.', turtle: true, boar: false },
+		{ rows: [[3712, 7, 'farm', 'Auctionator estimate: 14s 70c']], total: 'Estimated total for remaining quest items: 14s 70c', turtle: true, boar: false },
+		{ rows: [[3712, 7, 'farm', '≈ 4s (5 still unpriced)']], total: 'Partial estimate for remaining quest items: 4s', turtle: true, boar: false },
 	]);
 });
 
@@ -104,9 +104,9 @@ test('complete and turn-in goals surface item requirements in the guide and lega
 			})
 			records("items", 769, 9000, {
 				"769\\t'Chunk of Boar Meat;1;113;80;0",
-				"3712\\t'Turtle Meat;1;2408;60;0",
+				"3712\\t'Turtle Meat;1;2408;40;0",
 				"3713\\t'Soothing Spices;0;0;2381",
-				"4306\\t'Silk Cloth;1;5839;50;0",
+				"4306\\t'Silk Cloth;1;5839;10;0",
 				"9000\\t'Account Token;1;113;5;0",
 			})
 			Q.SetMeta({})
@@ -205,7 +205,7 @@ test('complete and turn-in goals surface item requirements in the guide and lega
 		'Optional: buy at the auction house (/polestar ah)',
 		true,
 		false,
-		{ shown: true, rows: ['7 Turtle Meat', '3 Silk Cloth', '4 Chunk of Boar Meat'], total: 'Estimated total for remaining quest items: 21s 95c' },
+		{ shown: true, rows: ['7 Turtle Meat', '3 Silk Cloth'], total: 'Estimated total for remaining quest items: 20s 55c' },
 		{ docked: true, search: true, go: false },
 		{ caller: 'Polestar', search: { searchString: 'Turtle Meat', isExact: true, quantity: 7 } },
 		{ shown: true, search: false },
@@ -215,4 +215,51 @@ test('complete and turn-in goals surface item requirements in the guide and lega
 		{ event: 'quantity', count: 7 },
 		{ rows: {}, hint: 'The auction house is unavailable to Self-Found characters.' },
 	]);
+});
+
+
+test('optional goals and optional-only quests stay out across collect, complete, turn-in and log paths', () => {
+	const { emitted } = runAddon({
+		stubs: ['stub_world.lua', 'stub_quests.lua'], addons: ['Polestar'], login: true,
+		script: `
+			local ns, w = Polestar, stub.world
+			local AB, AU, E, Q = ns.AuctionBuys, ns.UI.AuctionBuys, ns.Engine, ns.QuestDB
+			w.itemInfo[4306] = { name = "Silk Cloth", classID = 7 }
+			w.onQuest(9021, { { type = "item", required = 10, text = "Silk Cloth" } })
+			Q.IsLoaded = function() return true end
+			Q.ItemRecord = function() return { "Silk Cloth", 1, 5839, 10, 0 } end
+			Q.QuestRecord = function() return { [Q.F.OBJ] = { 2, 4306, 10 } } end
+			Q.HandsOver = function() return false end
+			Q.GetQuestTitle = function() return "Optional delivery" end
+			E.GetLiveStep = function() return 1 end
+			E.Applies = function() return true end
+			for _, kind in ipairs({ "collect", "complete", "turnin" }) do
+				for _, stepOptional in ipairs({ false, true }) do
+					local goal = { t = kind, quest = 9021, item = 4306, count = 10, optional = not stepOptional, status = "active" }
+					local step = { optional = stepOptional, goals = { goal } }
+					E.GetGuide = function() return { id = "test/optional", steps = { step } } end
+					AB.Changed()
+					assert(#AB.List("guide") == 0, kind .. ": no optional guide buy")
+					assert(#AB.List("all") == 0, kind .. ": log cannot reintroduce optional-only quest")
+					assert(not AU.CanBuyGoal(goal), kind .. ": no buy hint")
+					assert(not AU.CheckGuide("test/optional"), kind .. ": no guide-open card")
+				end
+			end
+			-- A quest-less required collect must not reintroduce an optional-only quest through lookahead.
+			E.GetGuide = function() return { steps = { { goals = {
+				{ t = "collect", item = 4306, count = 10 }, { t = "turnin", quest = 9021, optional = true },
+			} } } } end
+			AB.Changed()
+			assert(#AB.List("guide") == 0 and #AB.List("all") == 0)
+			-- A required goal for the same quest keeps it eligible; its optional collect stays out.
+			E.GetGuide = function() return { steps = { { goals = {
+				{ t = "accept", quest = 9021 }, { t = "collect", quest = 9021, item = 4306, count = 10, optional = true },
+			} } } } end
+			AB.Changed()
+			assert(#AB.List("guide") == 0)
+			assert(#AB.List("all") == 1, "a required quest in the log is still eligible")
+			emit(true)
+		`,
+	});
+	assert.deepEqual(emitted, [true]);
 });

@@ -86,7 +86,6 @@ function AU.Why(e)
 		return format(L["Needs %s to gather"], skill)
 	end
 	if e.why == "made" then return L["Crafted: nothing drops it"] end
-	if e.why == "market" then return L["Seen at the auction house"] end
 	return L["The guide sends you to the auction house for it"]
 end
 

@@ -6375,7 +6375,7 @@ quest database and the client; the screen side shows three things.
 Polestar.AuctionBuys.On()
 Polestar.AuctionBuys.List(scope) -> list, pending   -- scope "guide" | "all" (and the rest of the quest log)
     -- { { item, name, need, have, count, quests = { { id, title } }, why, kills, skill } }, guide order then log order;
-    -- why "market" | "farm" (kills) | "gather" (skill: Herbalism 182 or Mining 186, not known) | "made" | "ah"
+    -- why "farm" (kills) | "gather" (skill: Herbalism 182 or Mining 186, not known) | "made" | "ah"
 Polestar.AuctionBuys.Judge(itemID, count, goal, buys) -> why, kills, skill | false | nil (not known yet)
 Polestar.UI.AuctionBuys.Show() / Hide() / Layout() ; CardModel(kind, list, town) ; CheckGuide(id) ; CheckTown()
 Polestar.UI.AuctionBuys.MenuItem() -> the guide window's menu entry | nil
@@ -6388,8 +6388,8 @@ of the running guide, from the live step on and before it while their quest
 is in the log. Complete and turn-in goals use the quest's item objectives
 from the quest database. Self-Found characters have no auction buys.
 The quest is the goal's own, else the first quest within 40 steps whose
-objectives ask for the item. Optional goals, goals naming the NPC who hands
-the item over, quests done or skipped, and quests that hand the item over
+objectives ask for the item. Optional goals and steps, goals naming the NPC
+who hands the item over, quests done or skipped, and quests that hand the item over
 themselves are left out. Scope `all` adds the item objectives of the other
 quests in the log, but not of a quest whose every goal in the running guide
 is optional (an `optional` goal or step, #2553: the guide takes it only when
@@ -6406,9 +6406,8 @@ The rule. An item is an auction house buy when it is all of:
 2. **Sold by no merchant**: the guide has no `buy` goal for it (the route
    buys it there, `QoL/Buy.lua`; Restock tops up the rest), and the quest
    database names no vendor for it, whatever the vendor's side or stock.
-3. **Seen at auction or worth a trip**: Auctionator or a recent search has a
-   cached price (`market`), the whole count takes 20 kills or loots or more on
-   average (count / drop chance; `LONG_FARM`), or nothing drops it. The
+3. **Not obtained on the way**: the whole count takes 20 kills or loots or
+   more on average (count / drop chance; `LONG_FARM`), or nothing drops it. The
    chance is the best of the goal's own sources (`fromNpcs`, else `fromId`)
    in the quest database's drop table, which keeps an item's 8 best
    droppers: a creature past them drops it at most at the 8th's chance. A
@@ -6417,12 +6416,15 @@ The rule. An item is an auction house buy when it is all of:
    and ore nodes (trade goods subclasses 9 and 7) only for a character with
    Herbalism or Mining; without the skill an item only nodes give is listed
    (`gather`). Chests and crates below that chance do not count. A chance
-   the data does not know (0) requires a cached auction price. An item the quest
-   database knows no source for is judged by the Codex (loaded for it, never
+   the data does not know (0) is left out. An item the quest database knows no
+   source for is judged by the Codex (loaded for it, never
    in combat): listed when a profession makes it (`made`) or when the guide's
    goal for it stands within 40 yards of an auctioneer (`ah`: the guide
    already sends the player there); left out otherwise (a container, a quest
    or a gift the guide knows a way to).
+
+Cached auction prices only supply estimates and totals; they never make
+an item eligible.
 
 The quest database loads for it (`QuestDB.IsWanted` counts
 `qol.auctionBuys`). The lists are built when asked, in two layers: the

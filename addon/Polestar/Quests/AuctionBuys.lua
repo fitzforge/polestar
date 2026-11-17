@@ -9,9 +9,9 @@
 -- is in the log. Complete and turn-in goals use the quest's item objectives.
 -- The quest is the goal's own, else the first one within LOOKAHEAD steps
 -- whose objectives (the quest database) ask for the item. Left out: optional
--- goals, a goal naming the NPC who hands the item over, quests done or
+-- goals and steps, a goal naming the NPC who hands the item over, quests done or
 -- skipped, and quests that hand the item over themselves. Scope "all" adds
--- the item objectives of the other quests in the log, but for a quest the
+-- the item objectives of the other quests in the log, except a quest the
 -- running guide only takes as optional (#2553). Per item: the most each
 -- quest asks for, summed over the quests, less what the bags and the bank
 -- hold (the bank as far as the client knows it; Core/Materials.lua's count
@@ -24,8 +24,8 @@
 --   2. Sold by no merchant: the guide has no `buy` goal for it (the route
 --      buys it there: QoL/Buy.lua, QoL/Restock.lua) and the quest database
 --      names no vendor for it, whoever's side or stock.
---   3. Seen at auction (a cached price), or the whole count takes LONG_FARM
---      kills or loots or more on average (count / drop chance), or nothing drops it. The chance
+--   3. Not obtained on the way: the whole count takes LONG_FARM kills or loots
+--      or more on average (count / drop chance), or nothing drops it. The chance
 --      is the best of the goal's own sources (`fromNpcs`, else `fromId`) in
 --      the quest database's drop table, which keeps an item's MAX_DROPPERS
 --      best droppers: a creature past them drops it at most at the last one's
@@ -34,7 +34,7 @@
 --      (herb and ore nodes only for a character with Herbalism or Mining:
 --      without the skill, an item only nodes give is listed); chests and
 --      crates below that chance do not count. A chance the data does not know
---      (0) requires a cached price. An item the quest database knows no source
+--      (0) is left out. An item the quest database knows no source
 --      for is judged by the Codex (loaded for it, never in combat): listed
 --      when a profession makes it, or when the guide's goal for it stands at
 --      an auctioneer; left out otherwise (a container, a quest or a gift the
@@ -44,7 +44,7 @@
 --   AuctionBuys.List(scope) -> list, pending   scope "guide" (the running guide's quests) | "all"
 --       list: { { item, name, need, have, count, quests = { { id, title } }, why, kills, skill }, ... }
 --       in guide order, then log order; why "farm" (kills: the farm's kills or loots on average),
---       "market" (a cached price), "gather" (skill: the gathering skill line the character lacks), "made" (a profession makes
+--       "gather" (skill: the gathering skill line the character lacks), "made" (a profession makes
 --       it), "ah" (the guide's goal stands at an auctioneer). pending: an item still waits on the
 --       client or the Codex. AUCTION_BUYS_CHANGED(arrived) fires once a burst of changes is over;
 --       arrived: something a judgement waited for came (an item, the quest database, the Codex).
@@ -68,7 +68,9 @@ AB.AT_AUCTIONEER = 40 -- yards: a goal this close to an auctioneer sends the pla
 local MAX_DROPPERS = 8 -- forge data questdb keeps an item's 8 best droppers
 local LOOKAHEAD = 40 -- steps searched for the quest a quest-less collect serves
 local QUEST_CLASS = 12
-local TRADEABLE_BIND = { [0] = true, [2] = true, [3] = true } -- unbound, bind on equip or use
+-- Unbound (0), bind on equip (2), bind on use (3). Excludes bind on pickup (1),
+-- quest binding (4), and other binding types that cannot be auctioned.
+local TRADEABLE_BIND = { [0] = true, [2] = true, [3] = true }
 -- Trade goods (class 7) picked from nodes: herbs (subclass 9) with Herbalism
 -- (skill line 182), metal and stone (7) with Mining (186).
 local GATHER = { [9] = 182, [7] = 186 }
@@ -255,11 +257,7 @@ function AB.Judge(id, count, goal, buys)
 	if not rec or hasVendor(rec) then return false end
 	local trade = tradeable(id)
 	if not trade then return trade end
-	local why, kills, skill = farmReason(id, count, goal, rec)
-	if why then return why, kills, skill end
-	local M = ns.Materials
-	if M and M.Price and M.Price(id, 1) then return "market" end
-	return why
+	return farmReason(id, count, goal, rec)
 end
 
 ---------------------------------------------------------------------------
@@ -332,6 +330,7 @@ local function judge(scope)
 	-- auction house buy.
 	local optionalOnly = {}
 	local function wantObjectives(q)
+		if optionalOnly[q] then return end
 		local obj = objectives(objs, q)
 		if not obj then return end
 		for k = 1, #obj, 3 do
@@ -360,12 +359,12 @@ local function judge(scope)
 			local goals = steps[s].goals
 			for i = 1, goals and #goals or 0 do
 				local goal = goals[i]
-				if not goal.optional then
+				if not goal.optional and not steps[s].optional then
 					local id, q = goal.item, goal.quest
 					local collect = goal.t == "collect" and type(id) == "number" and not goal.npc
 					local allItems = goal.t == "complete" or goal.t == "turnin"
 					if collect and not q then q = questFor(objs, steps, s, id) end
-					if (collect or allItems) and q and (s >= live or Cp.IsOnQuest(q)) and E.Applies(s, i) then
+					if (collect or allItems) and q and not optionalOnly[q] and (s >= live or Cp.IsOnQuest(q)) and E.Applies(s, i) then
 						if allItems then
 							wantObjectives(q)
 						elseif open(q, id) then
