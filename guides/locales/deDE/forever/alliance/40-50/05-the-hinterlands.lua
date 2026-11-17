@@ -146,7 +146,7 @@ return {
 	-- {npc:1449} Witch Doctor Unbagwa · {area:1742} Spirit Den
 	["{npc:1449}, inside {area:1742}"] = "{npc:1449}, in {area:1742}",
 
-	-- Step 28: Booty Bay
+	-- Step 29: Booty Bay
 	["Ride back down to town."] = "Reite zurück hinunter in die Stadt.",
 	-- {npc:2616} Privateer Groy
 	["for {npc:2616} in Theramore: keep it, the Un'Goro guide lands there"] = "für {npc:2616} in Theramore: Behalte es, der Un'Goro-Guide endet dort",
@@ -156,11 +156,11 @@ return {
 	["{npc:2498}, inside"] = "{npc:2498}, drinnen",
 	["MacKinley's next task sends you after elite ogres: skip it."] = "MacKinleys nächster Auftrag schickt dich zu Elite-Ogern: Überspring ihn.",
 
-	-- Step 29: Monogrammed Sash
+	-- Step 30: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "Das sind Elite-Mobs: Eine Gruppe wird empfohlen, such dir Mitspieler dafür. {quest:8552} braucht eine Gruppe von 2. Überspring sie, wenn du allein bist: Die Route lässt dich die Erfahrung wieder erfarmen.",
 
-	-- Step 33: Facing Negolash
+	-- Step 34: Facing Negolash
 	-- {npc:1494} Negolash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "Das sind Elite-Mobs: Eine Gruppe wird empfohlen, such dir Mitspieler dafür. {npc:1494} (Elite der Stufe 52) braucht eine Gruppe von 2. Überspring ihn, wenn du allein bist: Die Route lässt dich die Erfahrung wieder erfarmen.",
 

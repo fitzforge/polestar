@@ -103,17 +103,17 @@ return {
 	-- {npc:9087} Bashana Runetotem · {item:11040} Morrowgrain · {quest:3761} Un'Goro Soil · {quest:3782} Morrowgrain Research · {item:11020} Evergreen Pouch
 	["{npc:9087} buys {item:11040} grown from your {quest:3761}. {quest:3782} wants ten, and the {item:11020} gives one try every ten minutes: take it only if you already have the grain."] = "{npc:9087}收购用{quest:3761}种出的{item:11040}。{quest:3782}需要十份，而{item:11020}每十分钟只能尝试一次：已有足够晨光麦再接。",
 
-	-- Step 21: Fly to Orgrimmar
+	-- Step 22: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "飞往{area:1637}",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "{zone:1456}飞行管理员",
 
-	-- Step 22: Vehena
+	-- Step 23: Vehena
 	-- {object:172961} Valley of Spirits
 	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "在 {object:172961} 内。每次捐赠会收取背包中的六十块毛料、丝绸或魔纹布：交还随身带的，其余跳过。",
 
-	-- Step 23: Rashona Straglash
+	-- Step 24: Rashona Straglash
 	-- {object:172958} Valley of Honor
 	["In the {object:172958}."] = "在{object:172958}。",
 	-- {item:14047} Runecloth

@@ -588,11 +588,55 @@ fn train_class_ranks_its_step_s_zone_first_wherever_the_player_stands_unless_a_t
 	assert_eq!(
 		out,
 		json!({
-			"first": ["Kardris Dreamseeker", "Shikrik", "Palah Thunderhoof", "Shikrik"],
+			"first": ["Kardris Dreamseeker", "Kardris Dreamseeker", "Palah Thunderhoof", "Shikrik"],
 			"cycled": "Shikrik",
 		}),
-		"the step's zone first; no zone: the nearest; a trainer by the player stays first; a zone with no trainer of the class: the nearest"
+		"the step's zone first; no zone: the nearest that still teaches (Shikrik's training stops at 6, #2477); a trainer by the player stays first; a zone with no other trainer of the class: Shikrik"
 	);
+}
+
+// #2477 (Metalcalfe, Night Elf Hunter 12): Goldshire's training step, live while he stood in Northshire, sent him
+// to Tordrin Sternblade, whose training stops at 6 like every starting area's. A class trainer the character has
+// outgrown (ClassTrainers.lua's RegisterClassTrainerTops: the highest level it teaches) comes after every other,
+// though it stands beside the player and in the step's zone; at its level or below it is a trainer like any.
+// The training reminder's pick (Engine.NearestClassTrainer) follows the same rule.
+const OUTGROWN: &str = r#"
+	${OUR_PACK}
+	Polestar.RegisterGuide({ id = "forever/outgrown", pack = "guides", title = "Train", minLevel = 1, maxLevel = 60, steps = {
+		{ goals = { { t = "train", class = true, zone = 1454, candidates = {
+			{ npc = 90001, npcName = "Starter Trainer", map = 1454, x = 40, y = 40, faction = "H", classes = { "MAGE" } },
+			{ npc = 90002, npcName = "City Trainer", map = 1454, x = 60, y = 60, faction = "H", classes = { "MAGE" } },
+		} } } },
+		{ goals = { { t = "level", level = 60 } } },
+	} })
+	Polestar.RegisterClassTrainers({
+		{ npc = 90001, npcName = "Starter Trainer", map = 1454, x = 40, y = 40, faction = "H", classes = { "MAGE" } },
+		{ npc = 90002, npcName = "City Trainer", map = 1454, x = 60, y = 60, faction = "H", classes = { "MAGE" } },
+	})
+"#;
+
+#[test]
+fn a_class_trainer_the_character_has_outgrown_comes_after_every_other_beside_the_player_or_not_2477() {
+	let pick = |level: i32, tops: bool| {
+		run(
+			&format!("w.level = {level}\nw.moveTo(1454, 40, 41)"),
+			&OUTGROWN.replace("${OUR_PACK}", OUR_PACK),
+			None,
+			&format!(
+				r#"
+			{}
+			E.SetGuide("forever/outgrown")
+			emit({{ step = E.GetStepView(1).goals[1].npcName, reminder = E.NearestClassTrainer().npc ~= 90001 }})
+		"#,
+				if tops { "Polestar.RegisterClassTrainerTops({ [90001] = 6 })" } else { "" }
+			),
+			true,
+		)
+	};
+	let starter = json!({ "step": "Starter Trainer", "reminder": false });
+	assert_eq!(pick(20, false), starter, "with no top known, the trainer beside the player");
+	assert_eq!(pick(20, true), json!({ "step": "City Trainer", "reminder": true }), "outgrown at 20: the city's, and the reminder passes it over too");
+	assert_eq!(pick(6, true), starter, "at 6 it still teaches");
 }
 
 // A community pack's step can't know the player's race: the Protection Paladin pack trains in Dun Morogh and
@@ -634,5 +678,9 @@ fn a_community_pack_s_train_class_leads_to_the_nearest_trainer_of_the_class_pole
 		"#,
 		true,
 	);
-	assert_eq!(out, json!({ "ours": "Bromos Grummner", "pack": "Brother Wilhelm" }), "by Crystal Lake: our step's zone, Dun Morogh; the pack's step, the trainer in Goldshire");
+	assert_eq!(
+		out,
+		json!({ "ours": "Azar Stronghammer", "pack": "Brother Wilhelm" }),
+		"by Crystal Lake: our step's zone, Dun Morogh (Kharanos: Coldridge Valley's Bromos Grummner teaches to 6, #2477); the pack's step, the trainer in Goldshire"
+	);
 }

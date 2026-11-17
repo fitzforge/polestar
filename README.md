@@ -598,10 +598,19 @@ its source is in [apps/client](apps/client).
   have left.
 - **It catches up.** With "Skip grey quests" on, a guide you open on a
   character who already did part of the route goes over what is done to
-  where you are: gray quests are left out, and so are green ones behind your
-  progress, unless a later quest needs them. A guide you are past, given to
+  where you are: gray quests are left out, and so are quests behind your
+  progress that pay you less than full XP when going back for them costs
+  more time than they give, unless a later quest needs them. A quest still
+  paying full XP always stays. A guide you are past, given to
   you when no guide is open or by Start guide, hands over to the next.
   Item, mount, reputation, profession and class guides do every step.
+- **It says what it leaves out.** Where the guide passes over quests, the
+  guide window shows a dim "N left out here" line: open it to see each
+  quest and why (it needs another quest first, it waits for your level,
+  it pays too little for the walk, you took a quest that closes it), with
+  "Guide me" to a quest's missing start and "Turn off Skip grey quests".
+  Grind steps say which level the next quests are and what is still worth
+  doing nearby; the bug report carries the same reasons.
 - **A guide for where you are.** The window opens with a guide suggested for
   your race, class, level and location, and each guide hands over to the
   next one in its chain when you finish it.

@@ -479,7 +479,7 @@ fn the_questing_page_writes_quest_automation_both_ways_grey_quests_the_login_gui
 		local F = PolestarWelcome
 		local start = { title = title(), on = F.AutoQuest.checked, grey = F.SkipGrey.checked, guide = F.AutoGuide.checked,
 			desc = uistub.findText(F, "Never picks between rewards") ~= nil, login = uistub.findText(F, "when no tab is open") ~= nil,
-			greyDesc = uistub.findText(F, "unless a later quest needs them first") ~= nil }
+			greyDesc = uistub.findText(F, "costs more time than they give") ~= nil }
 		F.AutoQuest:Click()
 		local off = { get("behavior.autoAccept"), get("behavior.autoTurnin"), F.AutoQuest.checked }
 		F.AutoQuest:Click()

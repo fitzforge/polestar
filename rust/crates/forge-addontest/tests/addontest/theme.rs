@@ -1566,3 +1566,93 @@ fn without_the_game_looks_part_polestar_s_own_look_stands_in_whole() {
 		json!({ "key": "polestar", "game": false, "kit": false, "pill": true, "knob": true, "hearth": "polestar" })
 	);
 }
+
+#[test]
+fn the_guide_window_s_text_takes_its_own_size_and_the_rest_of_polestar_s_text_the_general_one() {
+	let out = run(r#"
+		local guide = PolestarGuideFrame:CreateFontString()
+		T.Font(guide, "title")
+		local nested = CreateFrame("Frame", nil, CreateFrame("Frame", nil, PolestarGuideFrame)):CreateFontString()
+		T.Font(nested, "body")
+		local other = UIParent:CreateFontString()
+		T.Font(other, "title")
+		local _, base = other:GetFont()
+		local _, nestedBase = nested:GetFont()
+		Polestar.Set("ui.guideTextSize", 1.2)
+		local _, guideGrown = guide:GetFont()
+		local _, nestedGrown = nested:GetFont()
+		local _, otherKept = other:GetFont()
+		Polestar.Set("ui.textSize", 0.8)
+		local _, guideKept = guide:GetFont()
+		local _, otherShrunk = other:GetFont()
+		Polestar.Set("ui.guideTextSize", 3)
+		local _, guideCapped = guide:GetFont()
+		emit({ base = base, guideGrown = guideGrown / base, nestedGrown = nestedGrown / nestedBase, otherKept = otherKept / base,
+			guideKept = guideKept / base, otherShrunk = otherShrunk / base, guideCapped = guideCapped / base,
+			default = Polestar.GetDefault("ui.guideTextSize") })"#);
+	assert_eq!(out["default"], 1);
+	assert!((out["guideGrown"].as_f64().unwrap() - 1.2).abs() < 0.05, "the guide window's text grows with its own size: {}", out["guideGrown"]);
+	assert!((out["nestedGrown"].as_f64().unwrap() - 1.2).abs() < 0.05, "deeper in the window too: {}", out["nestedGrown"]);
+	assert_eq!(out["otherKept"], 1, "the rest of Polestar's text is left alone");
+	assert!((out["guideKept"].as_f64().unwrap() - 1.2).abs() < 0.05, "the general size leaves the guide window alone: {}", out["guideKept"]);
+	assert!((out["otherShrunk"].as_f64().unwrap() - 0.8).abs() < 0.05, "the general size still sizes the rest: {}", out["otherShrunk"]);
+	assert!((out["guideCapped"].as_f64().unwrap() - 1.4).abs() < 0.05, "at most 140%: {}", out["guideCapped"]);
+}
+
+// A migration (Core/Profiles.lua's registry): once per account, over the settings in use and every stored profile,
+// and over a profile string from before it.
+#[test]
+fn settings_from_before_the_guide_text_size_keep_the_guide_window_s_text_at_the_general_size_once() {
+	let script = r#"emit({ guide = Polestar.Get("ui.guideTextSize"), general = Polestar.Get("ui.textSize"),
+		marked = PolestarDB.migrations and PolestarDB.migrations.guideTextSize,
+		raid = PolestarDB.profiles and PolestarDB.profiles.Raid and PolestarDB.profiles.Raid.ui })"#;
+	let old = run_with(script, "PolestarDB = { schema = 1, settings = { ui = { textSize = 1.2 } }, profiles = { Raid = { ui = { textSize = 0.9 } } } }");
+	assert_eq!(old["guide"], 1.2, "the size the guide window had before");
+	assert_eq!(old["general"], 1.2);
+	assert_eq!(old["marked"], true);
+	assert_eq!(old["raid"], json!({ "textSize": 0.9, "guideTextSize": 0.9 }), "a stored profile keeps its own the same way");
+	let reset = run_with(script, "PolestarDB = { schema = 1, migrations = { guideTextSize = true }, settings = { ui = { textSize = 1.2 } } }");
+	assert_eq!(reset["guide"], 1, "once only: a guide size reset afterwards stays at the default");
+	let own = run_with(script, "PolestarDB = { schema = 1, settings = { ui = { textSize = 1.2, guideTextSize = 0.9 } } }");
+	assert_eq!(own["guide"], 0.9, "a guide size of the player's own stays");
+	let fresh = run_with(script, "");
+	assert_eq!(fresh["guide"], 1);
+	assert_eq!(fresh["marked"], true, "a fresh install is marked too, so a general size set later is not copied");
+	// The profile strings are the settings' addon's (Polestar_Options/Core/ProfileStrings.lua), and their
+	// envelope needs the client's encoding (stub_encoding.lua), as in profiles.rs.
+	let strings = emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua", "stub_encoding.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml", "../Polestar_Options/Core/ProfileStrings.lua"])],
+		script: r#"uistub.install()
+		stub.login()
+		local P = Polestar.Profiles
+		local before = P.Import(P.Pack('{"format":1,"migrations":[],"settings":{"ui.textSize":1.3}}'))
+		local after = P.Import(P.Pack('{"format":1,"migrations":["guideTextSize"],"settings":{"ui.textSize":1.3}}'))
+		emit({ before = before.settings, after = after.settings })"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(strings["before"], json!({ "ui.textSize": 1.3, "ui.guideTextSize": 1.3 }), "a profile string from before it too");
+	assert_eq!(strings["after"], json!({ "ui.textSize": 1.3 }));
+}
+
+#[test]
+fn the_class_quest_card_in_the_guide_window_keeps_the_general_text_size() {
+	let out = run(r#"
+		-- The card as UI/ClassCard.lua draws it into the guide window (its parts.card, a frame of the window's).
+		local card = Polestar.UI.ClassCard.NewCard(Polestar.UI.GuideFrame.parts.card)
+		local inCard = card.Title
+		local guide = PolestarGuideFrame:CreateFontString()
+		T.Font(guide, "title")
+		local _, base = inCard:GetFont()
+		Polestar.Set("ui.guideTextSize", 1.4)
+		local _, cardGuide = inCard:GetFont()
+		local _, guideGuide = guide:GetFont()
+		Polestar.Set("ui.textSize", 0.8)
+		local _, cardGeneral = inCard:GetFont()
+		emit({ cardGuide = cardGuide / base, guideGuide = guideGuide / base, cardGeneral = cardGeneral / base })"#);
+	assert_eq!(out["cardGuide"], 1, "the guide size leaves the card alone");
+	assert!((out["guideGuide"].as_f64().unwrap() - 1.4).abs() < 0.05, "and sizes the window around it: {}", out["guideGuide"]);
+	assert!((out["cardGeneral"].as_f64().unwrap() - 0.8).abs() < 0.05, "the card follows the general size: {}", out["cardGeneral"]);
+}

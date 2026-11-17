@@ -37,7 +37,8 @@ fn data() -> Data {
 		"95703":{"id":95703,"title":"The Wanderer","level":18,"start":{"npc":[],"object":[],"item":[]},"end":{"npc":[],"object":[]},"objectives":[{"type":"kill","id":9001,"count":1}]},
 		"95705":{"id":95705,"title":"Oats","level":12,"start":{"npc":[],"object":[],"item":[]},"end":{"npc":[],"object":[]},"objectives":[{"type":"item","id":8888,"count":8}]},
 		"99080":{"id":99080,"title":"Galak","level":8,"start":{"npc":[],"object":[],"item":[]},"end":{"npc":[],"object":[]},"objectives":[{"type":"kill","id":2967,"count":6}]},
-		"99081":{"id":99081,"title":"Outrunners","level":8,"start":{"npc":[],"object":[],"item":[]},"end":{"npc":[],"object":[]},"objectives":[{"type":"kill","id":2968,"count":4}]}}"#
+		"99081":{"id":99081,"title":"Outrunners","level":8,"start":{"npc":[],"object":[],"item":[]},"end":{"npc":[],"object":[]},"objectives":[{"type":"kill","id":2968,"count":4}]},
+		"95706":{"id":95706,"title":"Bear Tongues","level":18,"start":{"npc":[],"object":[],"item":[]},"end":{"npc":[],"object":[]},"objectives":[{"type":"item","id":9501,"count":10}]}}"#
 			.into(),
 	);
 	t.insert(
@@ -48,7 +49,8 @@ fn data() -> Data {
 		"8002":{"id":8002,"name":"Kolkar Centaur","level":18,"spawns":{"1413":{"f":"e","pts":[[70.0,40.0],[70.2,40.1],[69.9,40.3]]}}},
 		"9001":{"id":9001,"name":"Wandering Courier","level":18,"spawns":{"1413":{"f":"e","pts":[[40.0,30.0]]}}},
 		"2967":{"id":2967,"name":"Galak Centaur","level":8,"spawns":{"1412":{"f":"e","pts":[[66.0,62.0],[66.3,62.2],[65.8,62.3]]}}},
-		"2968":{"id":2968,"name":"Galak Outrunner","level":8,"spawns":{"1412":{"f":"e","pts":[[63.5,58.5],[63.9,58.2],[63.3,58.0]]}}}}"#
+		"2968":{"id":2968,"name":"Galak Outrunner","level":8,"spawns":{"1412":{"f":"e","pts":[[63.5,58.5],[63.9,58.2],[63.3,58.0]]}}},
+		"9500":{"id":9500,"name":"Hill Bear","level":18,"spawns":{"1413":{"f":"e","pts":[[40.0,70.0],[40.1,70.0],[40.2,70.0],[40.0,70.1],[40.1,70.1],[40.2,70.1],[40.0,70.2],[40.2,70.2],[44.0,70.0],[44.1,70.0],[44.2,70.0],[44.0,70.1],[44.1,70.1],[44.2,70.1],[44.0,70.2],[44.2,70.2],[48.0,70.0],[48.1,70.0],[48.2,70.0],[48.0,70.1],[48.1,70.1],[48.2,70.1],[48.0,70.2],[48.2,70.2]]}}}}"#
 			.into(),
 	);
 	// The sacks: 15 at each of three farms, more than an object's exact points take (40).
@@ -66,7 +68,8 @@ fn data() -> Data {
 		"6889":{"id":6889,"name":"Raptor Egg","drops":{"npc":{"7":null},"object":{}},"questItem":true},
 		"7777":{"id":7777,"name":"Small Egg","drops":{"npc":{},"object":{}},"questItem":true},
 		"9999":{"id":9999,"name":"Centaur Totem","drops":{"npc":{"8001":null,"8002":null},"object":{}},"questItem":true},
-		"8888":{"id":8888,"name":"Handful of Oats","drops":{"npc":{},"object":{"700":100}},"questItem":true}}"#
+		"8888":{"id":8888,"name":"Handful of Oats","drops":{"npc":{},"object":{"700":100}},"questItem":true},
+		"9501":{"id":9501,"name":"Bear Tongue","drops":{"npc":{"9500":30},"object":{}},"questItem":true}}"#
 			.into(),
 	);
 	t.insert("meta".into(), "{}".into());
@@ -253,6 +256,27 @@ fn an_author_s_point_at_a_spawn_a_well_backed_recorded_spot_holds_stays_the_plac
 	let g = compiled(&d, "The Barrens", &["kill 9001 quest 95703.1"]).0.remove(0);
 	assert_eq!(g.get("spots").items().len(), 3, "{:?}", g.get("spots"));
 	assert!(g.get("spread").truthy());
+}
+
+// Bashidian Twotao's report (#385), Hillsbrad's bears; #340's Blackrock axes: a route's or a record's point sits in
+// the middle of a camp, a few dozen yards from the nearest spawn, not on one, and players' spot about it can be far
+// wider than the camp (Hillsbrad's bears: one spot of 350 yd over the hills). Such a point at a well-backed recorded
+// spot is that place, as a point on a spawn is (#621): the arrow holds its camp, never one search over every camp the
+// spot holds. Beyond the lint's 50 yd from every spawn it is no place of the target, and the spot is searched.
+#[test]
+fn an_author_s_point_in_a_camp_near_a_spawn_a_well_backed_spot_holds_stays_the_place_385() {
+	let mut d = data();
+	// Three bear camps 400 yd apart, all inside one recorded spot.
+	recorded(&mut d, &[line(95706, 1413, r#""item""#, "trusted", &[(44.0, 70.0, 500.0, 30)])]);
+	// 0.4 of the map's height (about 27 yd) south of the first camp's nearest bear.
+	let g = compiled(&d, "The Barrens", &["collect 9501 quest 95706.1 @40.15,70.6"]).0.remove(0);
+	assert_eq!((g.get("x").num(), g.get("y").num()), (40.15, 70.6));
+	assert!(!g.get("spread").truthy(), "{:?}", g.get("spots"));
+	let first = g.get("spots").at(0);
+	assert!(first.get("x").num() < 41.0, "the camp at the point first: {:?}", g.get("spots"));
+	// About 70 yd from every bear: no place of the target, the spot's camps are searched.
+	let g = compiled(&d, "The Barrens", &["collect 9501 quest 95706.1 @40.15,71.2"]).0.remove(0);
+	assert!(g.get("spread").truthy(), "{:?}", g.get("spots"));
 }
 
 /// Mulgore's Forever-frame point 60.11,61.66 (where the game client records) in its Era frame (the spawns').

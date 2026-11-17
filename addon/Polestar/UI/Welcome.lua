@@ -1459,7 +1459,7 @@ PAGES[#PAGES + 1] = {
 			L["Only quests in the next steps of your open guides. Never picks between rewards. Hold Shift to skip."],
 			{ get = autoQuestGet, set = autoQuestSet })
 		F.SkipGrey = toggleRow(p, L["Skip grey quests"], "behavior.skipGrey",
-			L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."])
+			L["Leaves out grey quests, and quests behind you that pay less than full XP when going back for them costs more time than they give. A quest still paying full XP stays, and so does one a later quest needs. The guide window says what it left out."])
 		F.AutoGuide = toggleRow(p, L["Load a guide for me when I log in"], "behavior.autoSelectGuide",
 			L["Opens the suggested guide when no tab is open."])
 		F.Gear = optionGroup(p, { title = L["Stat weights"],

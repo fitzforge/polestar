@@ -146,7 +146,7 @@ return {
 	-- {npc:1449} Witch Doctor Unbagwa · {area:1742} Spirit Den
 	["{npc:1449}, inside {area:1742}"] = "{npc:1449}，位于{area:1742}内部",
 
-	-- Step 28: Booty Bay
+	-- Step 29: Booty Bay
 	["Ride back down to town."] = "骑回镇上。",
 	-- {npc:2616} Privateer Groy
 	["for {npc:2616} in Theramore: keep it, the Un'Goro guide lands there"] = "交给塞拉摩的{npc:2616}：保留它，安戈洛指南会在那里开始",
@@ -156,11 +156,11 @@ return {
 	["{npc:2498}, inside"] = "{npc:2498}：在屋内",
 	["MacKinley's next task sends you after elite ogres: skip it."] = "马克基雷的下一个任务要你对付精英食人魔：跳过。",
 
-	-- Step 29: Monogrammed Sash
+	-- Step 30: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英敌人，建议寻找其他玩家组队完成。{quest:8552}需要 2 人小队。独自一人时可跳过，路线会安排刷怪补回经验。",
 
-	-- Step 33: Facing Negolash
+	-- Step 34: Facing Negolash
 	-- {npc:1494} Negolash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:1494}（52 级精英）需要 2 人小队。独自一人时可跳过，路线会安排刷怪补回经验。",
 

@@ -149,6 +149,7 @@ ns.RegisterDefaults("buttons", {
 	itemSize = SIZE, hearthSize = SIZE, targetSize = SIZE, rareSize = SIZE, bagSize = SIZE,
 	spacing = 8,           -- between two buttons of the set
 	layout = "column",     -- column (Hearthstone above, target below) | row (left to right) | rowReverse
+	listUp = false,        -- the target list grows up from the target button, not down (#2590)
 	padding = 2,           -- the icon's inset from the button's edge
 	backing = "panel",     -- panel | dark | none
 	backingColor = false,
@@ -198,7 +199,8 @@ end
 -- down; row: bag and Hearthstone left, target and rare right; rowReverse
 -- the other way round. rows: how many rows the target list shows beside the
 -- target button (Buttons.ListRect); the rare button moves along the set to
--- clear them. -> { kind = { x, y } } (reused)
+-- clear them, unless they go up (TL.up: beside or over the button, clear of
+-- it already). -> { kind = { x, y } } (reused)
 local offsets = { bag = {}, hearth = {}, item = { 0, 0 }, target = {}, rare = {} }
 function Buttons.Offsets(rows)
 	local gap = num("buttons.spacing", 0, 40, 8)
@@ -219,7 +221,7 @@ function Buttons.Offsets(rows)
 	walk({ "hearth", "bag" }, 1)
 	walk({ "target", "rare" }, -1)
 	local x0, x1, y0 = Buttons.ListRect(rows)
-	if x0 then
+	if x0 and not TL.up() then
 		local t, r, h = offsets.target, offsets.rare, Buttons.Size("rare") / 2
 		if layout == "row" then
 			r[1] = math.max(r[1], t[1] + x1 + gap + h)
@@ -319,6 +321,11 @@ function TL.side()
 	return ns.Get("qol.buttonTextSide") == "left" and "left" or "right"
 end
 
+-- Whether the list grows up from the target button (buttons.listUp, #2590):
+-- beside it, the first row level with its bottom and each next one above;
+-- in a row, over it instead of under it.
+function TL.up() return ns.Get("buttons.listUp") == true end
+
 -- The rows' box for n rows from the target button's centre, in button
 -- pixels before qol.buttonScale (y up): x0, x1, y0, y1; nil for none. The
 -- gap to the button is the set's spacing (buttons.spacing). side: TL.side()'s.
@@ -328,10 +335,16 @@ function Buttons.ListRect(n, side)
 	side = side or TL.side()
 	local h, w, g = Buttons.Size("target") / 2, TL.W, num("buttons.spacing", 0, 40, 8)
 	local tall = n * TL.H + (n - 1) * TL.GAP
-	if side == "right" then return h + g, h + g + w, h - tall, h end
-	if side == "left" then return -h - g - w, -h - g, h - tall, h end
-	if side == "below" then return -h, w - h, -h - g - tall, -h - g end
-	return h - w, h, -h - g - tall, -h - g
+	local up = TL.up()
+	local y0, y1
+	if side == "right" or side == "left" then
+		if up then y0, y1 = -h, tall - h else y0, y1 = h - tall, h end
+		if side == "right" then return h + g, h + g + w, y0, y1 end
+		return -h - g - w, -h - g, y0, y1
+	end
+	if up then y0, y1 = h + g, h + g + tall else y0, y1 = -h - g - tall, -h - g end
+	if side == "below" then return -h, w - h, y0, y1 end
+	return h - w, h, y0, y1
 end
 
 -- The Polestar mark and the rows on target button t (the live one, hidden,
@@ -355,23 +368,28 @@ function Buttons.PlaceList(t, mark, rows, scale, side)
 			l:ClearAllPoints()
 			if side == "right" then l:SetPoint("RIGHT", mark, "LEFT", -8, 0)
 			elseif side == "left" then l:SetPoint("LEFT", mark, "RIGHT", 8, 0)
+			elseif TL.up() then l:SetPoint("TOP", mark, "BOTTOM", 0, -4)
 			else l:SetPoint("BOTTOM", mark, "TOP", 0, 4) end
 		end
 	end
+	-- Down from the button's top, or up from its bottom (TL.up).
+	local up = TL.up()
+	local edge, far = up and "BOTTOM" or "TOP", up and "TOP" or "BOTTOM"
+	local dy = up and 1 or -1
 	for i = 1, #rows do
 		local r = rows[i]
 		if scale then r:SetScale(scale) end
 		r:ClearAllPoints()
 		if i > 1 then
-			r:SetPoint("TOP", rows[i - 1], "BOTTOM", 0, -TL.GAP)
+			r:SetPoint(edge, rows[i - 1], far, 0, dy * TL.GAP)
 		elseif side == "right" then
-			r:SetPoint("TOPLEFT", t, "TOPRIGHT", g, 0)
+			r:SetPoint(edge .. "LEFT", t, edge .. "RIGHT", g, 0)
 		elseif side == "left" then
-			r:SetPoint("TOPRIGHT", t, "TOPLEFT", -g, 0)
+			r:SetPoint(edge .. "RIGHT", t, edge .. "LEFT", -g, 0)
 		elseif side == "below" then
-			r:SetPoint("TOPLEFT", t, "BOTTOMLEFT", 0, -g)
+			r:SetPoint(edge .. "LEFT", t, far .. "LEFT", 0, dy * g)
 		else
-			r:SetPoint("TOPRIGHT", t, "BOTTOMRIGHT", 0, -g)
+			r:SetPoint(edge .. "RIGHT", t, far .. "RIGHT", 0, dy * g)
 		end
 	end
 end
@@ -1727,6 +1745,27 @@ function Buttons.TargetMacro(list, preferred, mark, ping)
 	return text
 end
 
+-- The target button's and the step key's macro (Buttons.TargetMacro) for list
+-- from first, kindOf(i) giving name i's kind ("mob" or "npc"), and the ping:
+-- the mark of the first name's kind, or, when the names the macro holds are of
+-- both kinds, both kinds' lines (Buttons.MixedMarkLines), so a fallback of the
+-- other kind gets its own kind's icon, not the first name's (#2152). One block
+-- of names, so a mixed list fits a macro as well as it did. -> text, the
+-- first name's kind, mixed (true: both kinds' lines).
+function Buttons.MarkedMacro(list, first, kindOf, ping)
+	local kind = kindOf(first)
+	local mark = Buttons.MarkLine(kind)
+	local text = Buttons.TargetMacro(list, first, mark, ping)
+	if not (text and mark) then return text, kind, false end
+	local held = select(2, text:gsub("/targetexact", ""))
+	for k = 2, held do
+		if kindOf((first - 2 + k) % #list + 1) ~= kind then
+			return Buttons.TargetMacro(list, first, Buttons.MixedMarkLines(), ping), kind, true
+		end
+	end
+	return text, kind, false
+end
+
 -- The rare alert card's Target button (Rares/Toast.lua): the one rare, the
 -- ping, and the mob's mark while "Mark what they target" is on (and allowed:
 -- Buttons.MarkRight). nil for a name that cannot be a macro line or does not
@@ -1753,6 +1792,21 @@ end
 
 -- The single button that cycles (qol.targetSimple) instead of the list.
 local function simple() return QoL.On("targetSimple") end
+
+-- A fallback can acquire a different kind from the preferred name. Match
+-- against the macro's applied snapshot: desired names may change in combat
+-- before its secure attributes can. A secret or unknown name keeps the
+-- applied preferred kind's best-effort cycle behavior. (A field, not a
+-- local: this file is at Lua's limit of 200 locals.)
+function Buttons.AcquiredIndex(b)
+	local name = ns.Compat.Readable(UnitName and UnitName("target"))
+	if name then
+		for i = 1, b.aList and #b.aList or 0 do
+			if b.aList[i] == name then return i end
+		end
+	end
+	return b.aCycle or 1
+end
 
 -- Names seen in the world (the target, the mouseover, a nameplate) as an
 -- elite, rare or boss this session, and the faces of the names seen: one
@@ -2172,16 +2226,9 @@ do
 					for k = 1, #list do
 						if list[k] == target.foldFirst then first = k end
 					end
-					local mark, ping
-					kind, mark, ping = markPing(first)
-					text = Buttons.TargetMacro(list, first, mark, ping)
 					-- Names of both kinds in the macro: the mark of the kind it
-					-- targets (Buttons.MixedMarkLines), not the first name's.
-					local held = text and select(2, text:gsub("/targetexact", "")) or 0
-					for k = 2, held do
-						mixed = mixed or targetKind((first - 2 + k) % #list + 1) ~= kind
-					end
-					if mixed and mark then text = Buttons.TargetMacro(list, first, Buttons.MixedMarkLines(), ping) end
+					-- targets (Buttons.MarkedMacro), not the first name's.
+					text, kind, mixed = Buttons.MarkedMacro(list, first, targetKind, Buttons.QuestPingLine())
 					if text and #text > MACRO_LIMIT then text = nil end
 					if text then
 						local n = select(2, text:gsub("/targetexact", ""))
@@ -2538,9 +2585,9 @@ do
 			local list = target.list
 			-- The list keeps its order: only the single button cycles.
 			local cycle = simple() and target.cycle or 1
-			-- A mob and an NPC goal's NPC are both pinged for the group (Fitz, 2026-11-13).
-			local kind = targetKind(cycle)
-			local text = Buttons.TargetMacro(list, cycle, Buttons.MarkLine(kind), Buttons.QuestPingLine())
+			-- A mob and an NPC goal's NPC are both pinged for the group (Fitz, 2026-11-13);
+			-- a fallback of the other kind takes its own kind's mark (#2152).
+			local text = Buttons.MarkedMacro(list, cycle, targetKind, Buttons.QuestPingLine())
 			b:SetAttribute("type", text and "macro" or nil)
 			b:SetAttribute("macrotext", text)
 			b.applied = list[cycle]
@@ -2865,8 +2912,8 @@ local STEP_MARK = { target = "mob", npc = "npc" }
 
 -- The mark the step key's next press puts on: in a "target" list, the kind
 -- of the name it tries first.
-local function stepKind()
-	if step.kind == "target" then return step.list[step.cycle] == step.npc and "npc" or "mob" end
+local function stepKind(i)
+	if step.kind == "target" then return step.list[i or step.cycle] == step.npc and "npc" or "mob" end
 	return STEP_MARK[step.kind]
 end
 
@@ -2874,8 +2921,8 @@ local function applyStep(b)
 	QoL.Secure("step", function()
 		local text, item
 		if step.kind == "target" then
-			local kind = stepKind()
-			text = Buttons.TargetMacro(step.list, step.cycle, Buttons.MarkLine(kind), Buttons.QuestPingLine())
+			-- A fallback of the other kind takes its own kind's mark (#2152); both kinds are pinged.
+			text = Buttons.MarkedMacro(step.list, step.cycle, stepKind, Buttons.QuestPingLine())
 		elseif step.kind == "npc" then
 			text = Buttons.TargetMacro({ step.value }, 1, Buttons.MarkLine("npc"), Buttons.QuestPingLine())
 		elseif step.kind == "item" then
@@ -2884,6 +2931,7 @@ local function applyStep(b)
 		b:SetAttribute("type", item and "item" or text and "macro" or nil)
 		b:SetAttribute("item", item)
 		b:SetAttribute("macrotext", text)
+		b.aList, b.aNpc, b.aKind, b.aCycle = step.list, step.npc, step.kind, step.cycle
 	end)
 end
 
@@ -3107,7 +3155,7 @@ local function refresh()
 
 	applyBag(bagButton)
 end
-local refreshSoon = QoL.Coalesce(refresh)
+local refreshSoon, refreshOnLog = QoL.Coalesce(refresh)
 Buttons.Refresh = refresh
 
 local function repaintItems()
@@ -3136,7 +3184,8 @@ local function create()
 		if down or self.dragging then return end
 		-- Only the single button moves to the next name; the list keeps its order.
 		local n = simple() and #target.list or 0
-		local kind = targetKind()
+		-- The mark of the kind the press found, which can be a fallback of the other kind (#2152).
+		local kind = NPC_VERBS[self.aVerbs and self.aVerbs[Buttons.AcquiredIndex(self)]] and "npc" or "mob"
 		if n > 1 then target.cycle = target.cycle % n + 1 end
 		local marked = Buttons.AdvanceMark(kind)
 		if n > 1 and not marked then applyTarget(targetButton) end
@@ -3180,7 +3229,8 @@ local function create()
 		end
 		local n = #step.list
 		local names = step.kind == "target" and n > 1
-		local kind = stepKind()
+		local kind = STEP_MARK[self.aKind]
+		if self.aKind == "target" then kind = self.aList[Buttons.AcquiredIndex(self)] == self.aNpc and "npc" or "mob" end
 		if names then step.cycle = step.cycle % n + 1 end
 		local marked = Buttons.AdvanceMark(kind)
 		if names and not marked then applyStep(self) end
@@ -3234,6 +3284,7 @@ ns.RegisterEvent("PLAYER_REGEN_ENABLED", function() combat(false) end)
 local PLACE_KEYS = {
 	["qol.buttonScale"] = true, ["buttons.itemSize"] = true, ["buttons.hearthSize"] = true, ["buttons.targetSize"] = true,
 	["buttons.rareSize"] = true, ["buttons.bagSize"] = true, ["buttons.spacing"] = true, ["buttons.layout"] = true,
+	["buttons.listUp"] = true,
 }
 
 ns.OnLogin(function()
@@ -3246,7 +3297,7 @@ ns.RegisterEvent("BAG_UPDATE_DELAYED", function()
 	repaintItems()
 	refreshSoon()
 end)
-ns.RegisterEvent("QUEST_LOG_UPDATE", refreshSoon)
+ns.RegisterEvent("QUEST_LOG_UPDATE", refreshOnLog)
 ns.RegisterEvent("BAG_UPDATE_COOLDOWN", repaintItems)
 -- Who may mark (Buttons.MarkRight) follows the group.
 ns.RegisterEvent("GROUP_ROSTER_UPDATE", refreshSoon)

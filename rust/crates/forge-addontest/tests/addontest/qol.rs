@@ -2354,11 +2354,11 @@ fn target_button_while_you_re_here_mobs_before_the_step_s_npc_beyond_the_radius_
 	.concat();
 	let out = run_with(&script, "SLASH_PING1 = \"/ping\"", None);
 	let mob_first =
-		"/cleartarget [nocombat]\n/targetexact Skeletal Fiend\n/cleartarget [dead]\n/targetexact [noexists] Sven Yorgen\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8";
-	let npc_first = "/cleartarget [nocombat]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/targetexact [noexists] Skeletal Fiend\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1";
+		"/cleartarget [nocombat]\n/targetexact Skeletal Fiend\n/cleartarget [dead]\n/targetexact [noexists] Sven Yorgen\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8\n/tm [@target,noharm,nodead] !1";
+	let npc_first = "/cleartarget [nocombat]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/targetexact [noexists] Skeletal Fiend\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8\n/tm [@target,noharm,nodead] !1";
 	assert_eq!(out[0], "Sven Yorgen", "no rows: the NPC alone");
-	assert_eq!(out[1], json!(["Skeletal Fiend, Sven Yorgen", "Skeletal Fiend", mob_first]), "200 yd from Sven: the row's mob first, pinged and marked as a mob");
-	assert_eq!(out[2], json!(["Sven Yorgen, Skeletal Fiend", "Sven Yorgen", npc_first]), "100 yd: Sven first, pinged, with an NPC's mark");
+	assert_eq!(out[1], json!(["Skeletal Fiend, Sven Yorgen", "Skeletal Fiend", mob_first]), "200 yd from Sven: the row's mob first, pinged, each kind with its own mark (#2152)");
+	assert_eq!(out[2], json!(["Sven Yorgen, Skeletal Fiend", "Sven Yorgen", npc_first]), "100 yd: Sven first, pinged, each kind with its own mark");
 	assert_eq!(out[3], "Sven Yorgen, Skeletal Fiend", "179 yd: still within");
 	assert_eq!(out[4], "Skeletal Fiend, Sven Yorgen", "181 yd: beyond again");
 	assert_eq!(out[5], json!(["Sven Yorgen", npc_first]), "a press: Sven next, pinged, with his own kind's mark");
@@ -2546,6 +2546,26 @@ fn xp_tracker_off_returns_nil_and_prints_nothing() {
 	"#);
 	assert_eq!(out[0], true);
 	assert_eq!(out[1], true);
+}
+
+// The client sends UPDATE_EXHAUSTION with every XP gain, in the same frame as PLAYER_XP_UPDATE: the guide window was
+// painted twice per kill (#2537). In the frame of the last QOL_XP_UPDATED with the rest bonus unchanged it says
+// nothing more; a rest bonus that moved, or an UPDATE_EXHAUSTION of its own (resting in an inn), still updates.
+#[test]
+fn an_xp_gain_and_its_exhaustion_event_in_one_frame_send_one_xp_update() {
+	let out = run(r#"
+		local n = 0
+		Polestar.On("QOL_XP_UPDATED", function() n = n + 1 end)
+		q.rested = 0
+		local function count(fn) n = 0; fn(); return n end
+		emit({
+			kill = count(function() q.gainXP(120); stub.fire("UPDATE_EXHAUSTION") end),
+			rested = count(function() q.rested = 400; q.gainXP(120); q.rested = 280; stub.fire("UPDATE_EXHAUSTION") end),
+			inn = count(function() stub.advance(1); q.rested = 600; stub.fire("UPDATE_EXHAUSTION") end),
+			alone = count(function() stub.advance(1); stub.fire("UPDATE_EXHAUSTION") end),
+		})
+	"#);
+	assert_eq!(out[0], json!({ "kill": 1, "rested": 2, "inn": 1, "alone": 1 }));
 }
 
 // The guide's level on the game's XP bar (QoL/XPMark.lua).

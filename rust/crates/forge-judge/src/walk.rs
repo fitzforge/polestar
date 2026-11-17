@@ -88,12 +88,12 @@ pub trait LevelModel {
 }
 
 /// Levels recorded by a JS walk (`{ i, lvl, time, lvlAfter, timeAfter }` per goal, in order), replayed onto
-/// the same goal list. The parity hook until the sim crate's evaluator lands. The walk is cut where the
-/// recording ends.
+/// the same goal list. The whole recorded prefix is filled; the walk is cut before the first goal
+/// begun at level `to` or above, or where the recording ends, whichever comes first.
 pub struct DumpLevels(pub Vec<[f64; 4]>);
 
 impl LevelModel for DumpLevels {
-	fn replay(&self, goals: &mut [WalkGoal], _to: f64) -> usize {
+	fn replay(&self, goals: &mut [WalkGoal], to: f64) -> usize {
 		let n = goals.len().min(self.0.len());
 		for (g, l) in goals.iter_mut().zip(&self.0) {
 			g.lvl = l[0];
@@ -101,7 +101,7 @@ impl LevelModel for DumpLevels {
 			g.lvl_after = l[2];
 			g.time_after = l[3];
 		}
-		n
+		goals[..n].iter().position(|g| g.lvl >= to).unwrap_or(n)
 	}
 }
 

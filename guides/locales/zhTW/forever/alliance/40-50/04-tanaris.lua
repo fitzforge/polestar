@@ -75,7 +75,7 @@ return {
 	-- Step 12: Noonshade Ruins
 	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "",
 
-	-- Step 14: The pool by Sandsorrow Watch
+	-- Step 15: The pool by Sandsorrow Watch
 	-- {area:979} Sandsorrow Watch
 	["The pool by {area:979}"] = "{area:979}旁的水池",
 	-- {area:979} Sandsorrow Watch · {item:8584} Untapped Dowsing Widget
@@ -85,7 +85,7 @@ return {
 	-- {area:979} Sandsorrow Watch
 	["Pool by {area:979}"] = "{area:979}旁的水池",
 
-	-- Step 15: Zul'Farrak
+	-- Step 16: Zul'Farrak
 	-- {area:978} Zul'Farrak · {quest:3042} Troll Temper · {npc:7604} Sergeant Bly · {quest:2768} Divino-matic Rod
 	["{area:978} is a dungeon for a group of five; its quests here are level 45 to 47. Its gate lies about 400 yards north of the pool.\nInside: the Scarabs drop the shells, every Sandfury troll can drop {quest:3042}, and {npc:7604} carries the {quest:2768}."] = "{area:978}是五人地城；這裡的相關任務是45到47級。它的大門在水池北邊約400碼處。\n裡面：聖甲蟲會掉落甲殼，每個沙怒食人妖都可能掉落{quest:3042}，{npc:7604}身上帶著{quest:2768}。",
 	-- {quest:2865} Scarab Shells
@@ -95,29 +95,29 @@ return {
 	-- {quest:2768} Divino-matic Rod · {npc:7604} Sergeant Bly
 	["{quest:2768}: {npc:7604}, inside"] = "{quest:2768}：{npc:7604}，在裡面",
 
-	-- Step 16: Gadgetzan
+	-- Step 17: Gadgetzan
 	-- {area:982} Noxious Lair · {area:976} Gadgetzan
 	["keep it: the {area:982}'s Centipaar (48-50) wait for the Un'Goro guide's {area:976} landing at about 49.5"] = "留著：{area:982}的山帕爾蟲（48-50級）留到安戈洛指南約49.5級抵達{area:976}時再打",
 
-	-- Step 17: Tran'rek
+	-- Step 18: Tran'rek
 	-- {area:978} Zul'Farrak · {npc:7876} Tran'rek
 	["Your {area:978} scarab shells: {npc:7876}, on the north side of town."] = "你{area:978}的聖甲蟲殼：{npc:7876}，在城鎮北側。",
 
-	-- Step 18: Chief Engineer Bilgewhizzle
+	-- Step 19: Chief Engineer Bilgewhizzle
 	-- {quest:2768} Divino-matic Rod · {npc:7407} Chief Engineer Bilgewhizzle
 	["The {quest:2768}: {npc:7407}, by the water tower."] = "{quest:2768}：{npc:7407}，在水塔旁。",
 
-	-- Step 19: Trenton Lighthammer
+	-- Step 20: Trenton Lighthammer
 	-- {quest:3042} Troll Temper · {npc:7804} Trenton Lighthammer
 	["The {quest:3042}: {npc:7804}, in town."] = "{quest:3042}：{npc:7804}，在城裡。",
 
-	-- Step 20: The Broken Pillar
+	-- Step 21: The Broken Pillar
 	-- {area:1938} Broken Pillar
 	["The {area:1938}"] = "{area:1938}",
 	-- {area:1938} Broken Pillar · {npc:7771} Marvon Rivetseeker · {quest:3161} Gahz'ridian
 	["Ride south to the dig camp at the {area:1938}. {npc:7771} hands you a detector helm: wear it to see the {quest:3161} mounds, which lie thick in the sand around the camp and south-west toward the ogres."] = "向南騎往{area:1938}的挖掘營地。{npc:7771}會給你一頂探測頭盔：戴上它就能看見{quest:3161}土堆，它們密集分布在營地周圍的沙地上，以及往西南方巨魔那邊。",
 
-	-- Step 22: Dunemaul Compound
+	-- Step 23: Dunemaul Compound
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley
 	-- plural, as words: Dunemaul Ogres = {npc:5471} Dunemaul Ogre
 	["Ride south-west to the ogre compound and keep to its south end; the compound's quest waits for the Un'Goro guide.\nWhy the grind to 47: {npc:5955} waits at the edge of the {quest:3362} (mobs of 48-50). Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes and Enforcers (46-48) inside."] = "向西南騎往巨魔營地，待在南端；營地的任務留給安戈洛指南。\n為何要練到47級：{npc:5955}在{quest:3362}邊緣等著（怪物48-50級）。在營地南端較安全的地方擊殺砂槌巨魔（45-46級）練等，別打裡面的蠻兵和執行者（46-48級）。",
@@ -126,7 +126,7 @@ return {
 	-- {npc:5471} Dunemaul Ogre
 	["grind on {npc:5471}, at the compound's south end"] = "刷{npc:5471}，在營地南端",
 
-	-- Step 23: Tooga's escort
+	-- Step 24: Tooga's escort
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "護送{npc:5955}",
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley · {npc:6015} Torta · {area:977} Steamwheedle Port
@@ -134,16 +134,16 @@ return {
 	-- {npc:5955} Tooga
 	["{npc:5955}, beside her: Oasis"] = "{npc:5955}，在她旁邊：綠洲",
 
-	-- Step 24: Steamwheedle Port
+	-- Step 25: Steamwheedle Port
 	-- {npc:6015} Torta · {area:977} Steamwheedle Port
 	["From {npc:6015}, {area:977} is just west along the shore."] = "從{npc:6015}那裡沿著海岸往西不遠就是{area:977}。",
 
-	-- Step 25: Caliph Scorpidsting
+	-- Step 26: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "",
 
-	-- Step 27: Fly to Auberdine
+	-- Step 28: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "飛往{area:442}",
 	-- {zone:1457} Darnassus · {npc:7763} Curgle Cranklehop · {area:442} Auberdine · {area:150} Menethil Harbor · {area:348} Aerie Peak
@@ -151,13 +151,13 @@ return {
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "{area:976}飛行管理員",
 
-	-- Step 28: Teldrassil
+	-- Step 29: Teldrassil
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:3838} Vesprystus
 	["Take the boat from {area:442}'s dock to {area:702}; {npc:3838}, the hippogryph master, stands on the rise just east of the landing: learn the flight path on the way up to the village."] = "從{area:442}的碼頭搭船前往{area:702}；角鷹獸管理員{npc:3838}站在碼頭東邊不遠的坡上：上坡前往村莊的路上學會飛行路線。",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "{area:702}飛行管理員",
 
-	-- Step 29: Rut'theran Village
+	-- Step 30: Rut'theran Village
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
 	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907}站在樓上，在{npc:7916}上方：從裡面走上去，箭頭無法分辨樓層。",
 	-- {npc:7907} Daryn Lightwind · {zone:1446} Tanaris
@@ -166,45 +166,45 @@ return {
 	["{npc:7916}: the feathers lie in the {zone:1425}, next"] = "{npc:7916}：羽毛在{zone:1425}，接下來",
 	["the book on her table"] = "她桌上的書",
 
-	-- Step 31: Temple of the Moon
+	-- Step 32: Temple of the Moon
 	["Temple of the Moon"] = "月神殿",
 	-- {zone:1457} Darnassus
 	["Step through the portal into {zone:1457}. The Temple of the Moon is in the south of the city."] = "穿過傳送門進入{zone:1457}。月神殿在城市南部。",
 
-	-- Step 35: Cenarion Enclave
+	-- Step 36: Cenarion Enclave
 	-- {npc:3516} Arch Druid Fandral Staghelm
 	["{npc:3516}, at the top of the tree"] = "{npc:3516}，在樹頂",
 
-	-- Step 36: Class trainer
+	-- Step 37: Class trainer
 	["Class trainer"] = "職業訓練師",
 
-	-- Step 37: Cenarion Enclave
+	-- Step 38: Cenarion Enclave
 	-- {zone:1449} Un'Goro Crater
 	["the soil comes from {zone:1449}, later"] = "土壤來自{zone:1449}，稍後",
 
-	-- Step 38: Portal to Teldrassil
+	-- Step 39: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
 	["Portal to {zone:1438}"] = "前往{zone:1438}的傳送門",
 
-	-- Step 40: Boat to Menethil Harbor
+	-- Step 41: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "搭船前往{area:150}",
 
-	-- Step 41: Fly to Aerie Peak
+	-- Step 42: Fly to Aerie Peak
 	-- {area:348} Aerie Peak
 	["Fly to {area:348}"] = "",
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "",
 
-	-- Step 42: Fly to Southshore
+	-- Step 43: Fly to Southshore
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "飛往{area:271}",
 
-	-- Step 43: Hinterlands
+	-- Step 44: Hinterlands
 	-- {area:348} Aerie Peak · {area:271} Southshore · {zone:1425} Hinterlands
 	["No flight path to {area:348} yet: ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border."] = "還沒有{area:348}的飛行路線：沿道路從{area:271}向東北騎進{zone:1425}；{area:348}就在邊界過去不遠。",
 
-	-- Step 44: Aerie Peak
+	-- Step 45: Aerie Peak
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, beside the flight master"] = "",
 	-- {npc:7884} Fraggar Thundermantle

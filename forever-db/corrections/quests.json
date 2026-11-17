@@ -144,7 +144,7 @@
 				"ref": "EG Link live quest scans, builds 1.60.1.70888 (collected 10 to 13 November) and 70938 (13 to 15 November): 236 has no data, while Eight-Legged Menaces (245), from the same Watcher Dodds, is in both (as in the beta builds 70170 to 70450)"
 			}
 		],
-		"note": "Awaiting Word (Watcher Dodds to Watcher Callahan, Duskwood) is not in the game on Forever: the live quest scans have nothing for it, Forever's quest data does not list it, and in the built data it came from pfQuest alone, with Classic's race mask and no XP. The quest leaves the data, so the map stops marking Watcher Dodds with it."
+		"note": "Awaiting Word (Watcher Dodds to Watcher Callahan, Duskwood) is not in the game on Forever: the live quest scans have nothing for it, Forever's own quest list does not have it, and in the built data it came from pfQuest alone, with Classic's race mask and no XP. The quest leaves the data, so the map stops marking Watcher Dodds with it."
 	},
 	"273": {
 		"set": {
@@ -3301,7 +3301,7 @@
 		"source": [
 			{
 				"kind": "tdb",
-				"ref": "Forever server data (forever-tdb 2026-10-14): the quest table has An Earnest Proposition 8905 and no 84147"
+				"ref": "Forever server data (world database dump 2026-10-14): the quest table has An Earnest Proposition 8905 and no 84147"
 			},
 			{
 				"kind": "questie",
@@ -3315,7 +3315,7 @@
 		"source": [
 			{
 				"kind": "tdb",
-				"ref": "Forever server data (forever-tdb 2026-10-14): the quest table has An Earnest Proposition 8908 and no 84150"
+				"ref": "Forever server data (world database dump 2026-10-14): the quest table has An Earnest Proposition 8908 and no 84150"
 			},
 			{
 				"kind": "questie",
@@ -3500,7 +3500,13 @@
 			],
 			"preAny": [
 				91859
-			]
+			],
+			"end": {
+				"npc": [],
+				"object": [
+					566037
+				]
+			}
 		},
 		"source": [
 			{
@@ -3510,9 +3516,13 @@
 			{
 				"kind": "factoruide",
 				"ref": "pre_any 91859"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16, excluded contributors left out): all 14 hand-ins (14 people) were at the Charred Remains (object 566037), Silverpine Forest 64.9,34.3, none to Deathguard Baldren"
 			}
 		],
-		"note": "The Lumina Windsinger chain (Undead Paladins): Deathguard Baldren's A Grim Fate (91860) follows A Curious Pair (91859), handed in to him. The merged data had no prerequisite."
+		"note": "The Lumina Windsinger chain (Undead Paladins): Deathguard Baldren's A Grim Fate (91860) follows A Curious Pair (91859), handed in to him. The merged data had no prerequisite. It is handed in at the Charred Remains on Fenris Isle, its one objective; the merged data also named Deathguard Baldren, its giver, as an ender, so the hand-in pointed back to the Sepulcher."
 	},
 	"91861": {
 		"set": {
@@ -6108,6 +6118,221 @@
 			}
 		],
 		"note": "Ancient Gurubashi Idol (Horde, The Drowned City): Mazu'kon in Mulgore gives it and takes it back."
+	},
+	"96332": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 255995,
+					"count": 15,
+					"text": "Strashaz Soldier"
+				},
+				{
+					"type": "kill",
+					"id": 255373,
+					"count": 8,
+					"text": "Strashaz Enchantress"
+				},
+				{
+					"type": "item",
+					"id": 273883,
+					"count": 1,
+					"text": "Ca'zass's Head"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 4 people (4 established) ran A Little Payback (96332) from Sergeant Ulka (260383); the log lists 15 Strashaz Soldiers slain, 8 Strashaz Enchantresses slain and Ca'zass's Head; line 1 ticked on kills of npc 255995, line 2 on kills of npc 255373, line 3 when Tidemistress Ca'zass (255997) died, all inside Alcaz Prison (map 2994)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row (EG Link objectives): item 273883 x1"
+			}
+		],
+		"note": "A Little Payback (Horde, Alcaz Prison): 15 Strashaz Soldiers, 8 Strashaz Enchantresses and Tidemistress Ca'zass's head, inside the prison. The merged data had no objectives, so the Dungeons page tied the quest to no boss (#2560)."
+	},
+	"96335": {
+		"set": {
+			"minLevel": 48,
+			"start": {
+				"npc": [
+					264770,
+					264845
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					264770,
+					264845
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: min_level 48"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 6 people (6 established, 3 Alliance and 3 Horde) took The Man in the Iron Chains inside Alcaz Prison (map 2994), the youngest at level 49, and handed it in at the same window that then offered More Valuable Than Gold, whose objective names its giver: \"Use the note provided by Mason Connery\""
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.1 Forever: two NPCs named Mason Connery, 264770 and 264845, and no other"
+			}
+		],
+		"note": "The Man in the Iron Chains (both factions, Alcaz Prison): the chained prisoner Mason Connery gives it and takes the key, inside the prison; level 48 as the prison's other quests. The recordings name no NPC id for windows inside, so both of the data's Mason Connerys are listed. The merged data had no giver, ender or minimum (#2560)."
+	},
+	"96337": {
+		"set": {
+			"minLevel": 48,
+			"start": {
+				"npc": [
+					264770,
+					264845
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: min_level 48"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 6 people (6 established, 3 Alliance and 3 Horde) took More Valuable Than Gold inside Alcaz Prison (map 2994) at the window they handed The Man in the Iron Chains in at, the youngest at level 49; its objective: \"Use the note provided by Mason Connery\"; 4 handed it in at Connery's Trunk (object 611086, Westfall 43.4,67.9)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.1 Forever: two NPCs named Mason Connery, 264770 and 264845, and no other"
+			}
+		],
+		"note": "More Valuable Than Gold (both factions): Mason Connery gives it inside Alcaz Prison once The Man in the Iron Chains is handed in (both of the data's Mason Connerys are listed: the recordings name no NPC id inside); level 48. With a giver it holds State Secrets back until it is done. The merged data had no giver and no minimum (#2560)."
+	},
+	"96376": {
+		"set": {
+			"pre": [
+				96337
+			]
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: pre_any 96337"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 1 person (Horde, established) opened Nazgrel's (3230) window with More Valuable Than Gold (96337) still in the log and was not offered State Secrets; the one Alliance hand-in of State Secrets (96377) came right after handing in 96337"
+			}
+		],
+		"note": "State Secrets (Horde; Nazgrel, Orgrimmar), a Document Box, comes after More Valuable Than Gold, which is taken inside Alcaz Prison. The merged data had no prerequisite (#2560)."
+	},
+	"96377": {
+		"set": {
+			"start": {
+				"npc": [
+					6946
+				],
+				"object": [],
+				"item": []
+			},
+			"pre": [
+				96337
+			]
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: start npc 6946, end npc 6946, pre_any 96337"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 1 person (Alliance, established) handed State Secrets in to Renzik \"The Shiv\" (6946, Stormwind 78.4,70.9) at his window, a few minutes after handing in More Valuable Than Gold (96337)"
+			}
+		],
+		"note": "State Secrets (Alliance) is given and taken back by Renzik \"The Shiv\" in Stormwind, after More Valuable Than Gold from Alcaz Prison; the merged data had its ender only and no prerequisite (#2560)."
+	},
+	"96381": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 255995,
+					"count": 15,
+					"text": "Strashaz Soldier"
+				},
+				{
+					"type": "kill",
+					"id": 255373,
+					"count": 8,
+					"text": "Strashaz Enchantress"
+				},
+				{
+					"type": "item",
+					"id": 273883,
+					"count": 1,
+					"text": "Ca'zass's Head"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 3 people (3 established) ran A Bit of Wet Work (96381) from Sully McCleary (260271), its lines ticking inside Alcaz Prison (map 2994) as A Little Payback's do"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row (EG Link objectives): item 273883 x1"
+			}
+		],
+		"note": "A Bit of Wet Work (Alliance, Alcaz Prison): the same 15 Strashaz Soldiers, 8 Strashaz Enchantresses and Tidemistress Ca'zass's head as the Horde's A Little Payback. The merged data had no objectives (#2560)."
+	},
+	"95483": {
+		"set": {
+			"pre": [
+				96369
+			]
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: pre_any 96369"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 4 people (4 established) took Thrall Needs to Know inside Alcaz Prison right after handing in Bad News for Folkar (96369) there"
+			}
+		],
+		"note": "Thrall Needs to Know (Horde) is offered inside Alcaz Prison once Bad News for Folkar is handed in; the merged data had no prerequisite (#2560)."
+	},
+	"97173": {
+		"set": {
+			"end": {
+				"npc": [
+					31439
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 1 person handed Blackmaw Magic (97173) in to Archmage Timear (31439), its giver, in Alterac Mountains"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: start npc 31439, end npc 31439"
+			}
+		],
+		"note": "Blackmaw Magic (Alliance, Blackmaw Hold) is handed back to Archmage Timear, who gives it; the merged data had no ender, so the Dungeons page said nothing about where it ends (#2560 sweep)."
 	},
 	"96821": {
 		"set": {
@@ -9353,7 +9578,19 @@
 	},
 	"92474": {
 		"set": {
-			"races": 12884901888
+			"races": 12884901888,
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Use Walk on Air",
+					"map": 2521,
+					"f": "l",
+					"x": 43.66,
+					"y": 24.08
+				}
+			]
 		},
 		"source": [
 			{
@@ -9367,9 +9604,17 @@
 			{
 				"kind": "questie",
 				"ref": "QuestieDB generated Forever base, requiredRaces: SKYBORNE_ALLIANCE + SKYBORNE_HORDE in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16, excluded contributors left out): 44 people's objective lists at the accept, each the one line 'Use Walk on Air'; 49 completions at Zephras Isle 43.66,24.08 on average, the watchtower's top (41.3-43.8, 23.3-24.3)"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_objectives: 92474 has one objective, type 14 (a criteria tree), amount 1"
 			}
 		],
-		"note": "Falling With Style is open to Alliance and Horde Skyborne: Forever's server sets the two Skyborne races (players' caches), and 13 Horde Skyborne players (7 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: both Skyborne races), which closed it to Horde Skyborne."
+		"note": "Falling With Style is open to Alliance and Horde Skyborne: Forever's server sets the two Skyborne races (players' caches), and 13 Horde Skyborne players (7 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: both Skyborne races), which closed it to Horde Skyborne. It counts the Walk on Air cast at the top of the watchtower; the merged data had no objective, so the guide went from its accept straight to the hand-in to Rorian. The game credits it by script, so it is an event line."
 	},
 	"92516": {
 		"set": {
@@ -17299,6 +17544,25 @@
 					"count": 1,
 					"text": "Raise your blacksmithing skill to 20"
 				}
+			],
+			"pre": [
+				95998,
+				96101,
+				96604,
+				96605,
+				96606,
+				96607,
+				96608
+			],
+			"preAll": [],
+			"preAny": [
+				95998,
+				96101,
+				96604,
+				96605,
+				96606,
+				96607,
+				96608
 			]
 		},
 		"source": [
@@ -17309,9 +17573,13 @@
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your blacksmithing skill to 20\" (x1) (#1952)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-16: an Undead Paladin who knew Blacksmithing was offered it by Eleanor Shackleton with Continue Your Training (91209) still in the quest log, took it at level 6 and handed 91209 in 162 s later"
 			}
 		],
-		"note": "Camping 101: Blacksmithing: the objective is to raise Blacksmithing to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+		"note": "Camping 101: Blacksmithing: the objective is to raise Blacksmithing to 20 before the trainer takes it, not a talk with the trainer (#1952). It needs The Great Outdoors like every Camping 101, not Continue Your Training (91209): that is a Paladin quest, so the recorded prerequisite would have kept the quest from every other Undead blacksmith."
 	},
 	"97953": {
 		"set": {
@@ -18084,5 +18352,107 @@
 			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 8 people were given 10,969 XP for it at the turn-in, at levels where nothing is taken off (builds 70888, 70938)"
 		},
 		"note": "The Pariah's Instructions rewards 10,969 XP on Forever; the merged data had 5,450, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"809": {
+		"set": {
+			"objectives": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded contributors left out): 41 runs of Ak'Zeloth by 30 people, none with an objective line at the accept or after it"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_objectives: none for 809; Destroy the Demon Seed (object 3525) is The Demon Seed's (924)"
+			}
+		],
+		"note": "Ak'Zeloth is Neeru Fireblade's errand to speak with Ak'Zeloth: it has no objectives. The merged data gave it The Demon Seed's (924) objective, Destroy the Demon Seed, so a guide's hand-in looked like work never done."
+	},
+	"97331": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Escort Zimmix Sputterspark to safety",
+					"map": 1434,
+					"f": "e",
+					"x": 26.8,
+					"y": 11.4
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-16, excluded contributors left out): 29 objective lists at the accept, each the one event line 'Escort Zimmix Sputterspark to safety'; 24 completions at Stranglethorn Vale 26.76,11.38 on average (26.46-26.93, 11.28-11.44), east of the ruins of Zul'Kunda"
+		},
+		"note": "Zimmix's Great Escape is an escort out of the ruins of Zul'Kunda; the merged data had no objective, so guides showed nothing between its accept and its hand-in to Wharfmaster Lozgil (#2648)."
+	},
+	"87491": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Escort the fire elemental out of Dun Modr",
+					"map": 1437,
+					"f": "e",
+					"x": 47.8,
+					"y": 16.8
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-16, excluded contributors left out): 46 people's objective lists at the accept, each the one event line 'Escort the fire elemental out of Dun Modr'; 42 completions at Wetlands 47.8,16.8 on average (46.4-48.2, 16.2-17.1)"
+		},
+		"note": "Spark of Freedom is an escort of the captive fire elemental out of the Dark Iron ruins of Dun Modr; the merged data had no objective, so the guide went from its accept straight to the hand-in to Roggo Harlbarrow."
+	},
+	"93585": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Escort Father Tuttle to The Harborage",
+					"map": 1435,
+					"f": "e",
+					"x": 26.0,
+					"y": 31.7
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-16, excluded contributors left out): 10 people's objective lists at the accept, each the one event line 'Escort Father Tuttle to The Harborage'; 6 completions at Swamp of Sorrows 26.05,31.68 on average (25.5-26.5, 31.5-32.5)"
+		},
+		"note": "This Light of Mine is an escort of Father Tuttle to the Harborage; the merged data had no objective, so the guide's step was done on the accept."
+	},
+	"97979": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Elune's Light cast"
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Shadowmeld cast"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-16, excluded contributors left out): 41 people's objective lists at the accept, each the two lines 'Elune's Light cast' and 'Shadowmeld cast'; 48 completions around Shanda in Aldrassil"
+		},
+		"note": "The Goddess Provides counts two casts, Elune's Light and Shadowmeld; the merged data had no objective, so the guide's accept and hand-in at Shanda stood with nothing between them. The game credits the casts by script, so they are event lines."
 	}
 }

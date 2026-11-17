@@ -1,8 +1,7 @@
 -- env: world stub_maps.lua
--- The Trackers page's Instances & XP tab (Polestar_Options/UI/Looks/Trackers.lua; UI/Trackers.lua,
--- Maps/Instances.lua, QoL/XPMark.lua) on the whole addon, as maps.rs and qol.rs play them: each check walks into The
--- Deadmines (stub_maps.lua's loading screens) and reads the live instance tracker, then walks out; a level 10
--- character whose guide wants level 12 has the guide's mark on the game's XP bar (Blizzard_StatusTrackingBar's
+-- The Trackers page's Instances & XP tab on the whole addon, as maps.rs and qol.rs play them: each check walks
+-- into The Deadmines (stub_maps.lua's loading screens) and reads the live instance tracker, then walks out; a
+-- level 10 character has the guide's mark and a completed quest's XP on the game's bar (Blizzard_StatusTrackingBar's
 -- frames, made here for the client as stub_qol.lua's q.xpBar makes them).
 local m
 local function rgba(t) local r, g, b, a = t:GetVertexColor(); return { r, g, b, a } end
@@ -94,6 +93,27 @@ return {
 		end },
 		-- The guide's mark on the XP bar: "Guide: 12 (2 levels)".
 		["qol.xpTargetMark"] = function() local f = mark(); return f ~= nil and f:IsShown() and f.Label:GetText() or false end,
+		-- A completed quest in the log: its reward preview on the XP bar.
+		["qol.questXPOverlay"] = {
+			prepare = function()
+				GetQuestLogRewardXP = function(id) if id == 11 then return 250 end end
+				stub.world.accept(11, {})
+				stub.advance(0.2)
+				local f = Polestar.QoL.QuestXP.frame
+				if f then
+					f:SetSize(565, 11) -- The stub does not size the overlay from its anchors.
+					stub.RunScript(f, "OnSizeChanged")
+				end
+			end,
+			probe = function()
+				local f = Polestar.QoL.QuestXP.frame
+				return f ~= nil and f:IsShown()
+			end,
+			cleanup = function()
+				GetQuestLogRewardXP = nil
+				stub.world.abandon(11)
+			end,
+		},
 		["trackers.xp.tickWidth"] = function() return mark().Tick:GetWidth() end,
 		["trackers.xp.tickColor"] = function() return rgba(mark().Tick) end,
 		["trackers.xp.label"] = function() return mark().Label:IsShown() end,

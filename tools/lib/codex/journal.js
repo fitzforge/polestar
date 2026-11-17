@@ -467,6 +467,11 @@ function buildPages(inputs, codex, warnings = []) {
 	//     lacks is skipped; one whose quest it lacks is a warning.
 	for (const r of inputs.journalQuests || loadJournalQuests()) {
 		if (!onPage[r.instance]) continue;
+		// `exclude`: a quest a rule put on the page wrongly (City of Dalaran's city quests).
+		if (r.exclude) {
+			onPage[r.instance].delete(r.quest);
+			continue;
+		}
 		const rec = codexQuest(r.quest);
 		if (!rec) warnings.push(`journal-quests.json: quest ${r.quest} is not in the Codex`);
 		else if (!onPage[r.instance].has(r.quest)) onPage[r.instance].set(r.quest, rec);

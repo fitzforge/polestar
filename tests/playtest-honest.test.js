@@ -159,6 +159,13 @@ test('R3: a loop step\'s collect finds its source near any of its spots, not onl
 	}
 });
 
+test('R3: an item put in the bank has left the bags (a `use` after its `deposit`)', { skip }, () => {
+	const bad = play('step Bank\n  buy 4540 nearest\n  deposit 4540\n  use 4540\n', { persona: HUMAN });
+	assert.match(of(bad, 'R3')[0].reason, /use Tough Hunk of Bread: it is not in the bags/);
+	assert.deepEqual(of(play('step Bank\n  buy 4540 x5 nearest\n  deposit 4540 x4\n  use 4540\n', { persona: HUMAN }), 'R3'), [], 'a counted deposit leaves the rest');
+	assert.deepEqual(of(play('step Bank\n  buy 4540 nearest\n  equip 4540\n  use 4540\n', { persona: HUMAN }), 'R3'), [], 'an item worn is still the player\'s');
+});
+
 test('R3: a quest item drops only while its quest is held', { skip }, () => {
 	const bad = play('step Tails\n  collect 4862 x10\n\nstep Gornek\n  accept 789\n');
 	assert.match(of(bad, 'R3')[0].reason, /drops only while Sting of the Scorpid is held/);

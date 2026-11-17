@@ -166,6 +166,8 @@ pub struct JoinStats {
 	pub clusters: usize,
 	/// Ways kept with a fall that hurts, his maps making no other way between their ends (for an in-game check).
 	pub falls: usize,
+	/// The cuts of joins.json taken out on this map (pack/cuts.rs).
+	pub cuts: super::cuts::CutStats,
 }
 
 /// The frame of his maps.

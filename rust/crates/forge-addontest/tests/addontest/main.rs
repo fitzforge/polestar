@@ -56,6 +56,8 @@ mod dsl_verbs;
 mod dungeon_route_held;
 #[path = "dungeons-attune.rs"]
 mod dungeons_attune;
+#[path = "dungeons-forever-quests.rs"]
+mod dungeons_forever_quests;
 #[path = "dungeons-pickup.rs"]
 mod dungeons_pickup;
 #[path = "dungeons-runtime.rs"]
@@ -124,6 +126,8 @@ mod engine_heights;
 mod engine_keep;
 #[path = "engine-l10n.rs"]
 mod engine_l10n;
+#[path = "engine-left-out.rs"]
+mod engine_left_out;
 #[path = "engine-level.rs"]
 mod engine_level;
 #[path = "engine-level-pick.rs"]
@@ -457,6 +461,8 @@ mod ui_headsup_card;
 mod ui_import;
 #[path = "ui-journey.rs"]
 mod ui_journey;
+#[path = "ui-left-out.rs"]
+mod ui_left_out;
 #[path = "ui-long-translations.rs"]
 mod ui_long_translations;
 #[path = "ui-look-buttons.rs"]
