@@ -2866,6 +2866,53 @@ emit({ errand = errand, items = items, unplaced = describe(D.HandinGuide("{KEY}"
 	);
 }
 
+// #2686 (Fyurie, Night Elf Warrior 54, 0.4.0.1: Sunken Temple's hand-in guide): after Haze of Evil, the guide had
+// Muigin "give" Bloodpetal Sprouts as an accept, and nothing said it wants three Bloodpetal Sprouts picked in Un'Goro.
+// Forever hands it in at one talk and never puts it in the log (players' recordings: 7 hand-ins, no accept). A
+// follow-up the Codex marks `direct` is never taken: with its items in the bags it is handed in, `direct`; without
+// them its errand (the page does not list it) comes first, then the hand-in.
+#[test]
+fn a_follow_up_handed_in_at_one_talk_is_never_taken_its_items_come_first_then_the_hand_in_2686_bloodpetal_sprouts() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["92055"] = json!({ "id": 92055, "name": "Master Apothecary Faranell", "level": 30, "levelMax": null, "faction": "H", "rare": false, "elite": false,
+		"boss": false, "instance": null, "roles": [], "spawns": [{ "map": 1458, "x": 48.8, "y": 69.3, "f": "e" }] });
+	c["objects"]["973933"] = json!({ "id": 973933, "name": "Blisterweed", "treasure": false, "spawns": [{ "map": 1458, "x": 54.0, "y": 49.3, "f": "e" }] });
+	c["items"]["981300"] = json!({ "id": 981300, "name": "Blisterweed", "quality": 1, "kind": "item", "spell": null, "reqLevel": null,
+		"sources": [{ "type": "object", "object": 973933 }] });
+	let quest = |id: i32, pre: &[i32], objectives: Value| {
+		json!({
+			"id": id, "title": "Weeds for Faranell", "level": 21, "minLevel": 16, "faction": "H", "races": null, "classes": null,
+			"start": { "npc": [92055], "object": [], "item": [] }, "end": { "npc": [92055], "object": [] },
+			"objectives": objectives, "pre": pre, "zone": 1458, "rewards": [], "choices": [], "preAny": pre,
+		})
+	};
+	c["quests"]["997290"] = quest(997290, &[], json!([]));
+	c["quests"]["997292"] = quest(997292, &[997290], json!([{ "type": "item", "id": 981300, "count": 3, "text": "Blisterweed" }]));
+	c["quests"]["997292"]["direct"] = json!(true);
+	// Only the first is the dungeon's: its follow-up is no page quest.
+	i["forever"]["quests"]["997290"] = json!({ "area": 209 });
+	let own = pack_of(&c, &i);
+	let script = k(r#"
+local function follow(def)
+	local out = {}
+	for _, s in ipairs(def and def.steps or {}) do
+		for _, g in ipairs(s.goals) do
+			if g.quest == 997292 or g.item == 981300 then out[#out + 1] = g.t .. (g.quest and "" or ":bag") .. (g.direct and ":direct" or "") end
+		end
+	end
+	return table.concat(out, " ")
+end
+local without = follow(D.HandinGuide("{KEY}"))
+stub.world.items[981300] = 3
+emit({ without = without, with = follow(D.HandinGuide("{KEY}")) })"#);
+	let out =
+		run(&own, &script, Opts { level: 20, race: "Scourge", faction: "Horde", cls: "PALADIN", at: Some(UNDERCITY), done: vec![], log: vec![], ready: vec![997290], ..Default::default() }).remove(0);
+	assert_eq!(out["without"], "collect:bag turnin:direct", "no weeds in the bags: the weeds first (counted in the bags), then the hand-in, never an accept: {out}");
+	assert_eq!(out["with"], "turnin:direct", "the weeds in the bags: handed in at one talk: {out}");
+}
+
 /// The fixture's pack after `edit` has changed its codex and journal inputs.
 fn pack_edited(edit: impl FnOnce(&mut Value, &mut Value)) -> CodexPack {
 	let (mut c, mut i) = fixture_parts();
