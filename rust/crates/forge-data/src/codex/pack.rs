@@ -404,6 +404,18 @@ fn encode_quest(rec: &V) -> Result<String, String> {
 		if use_item.truthy() {
 			parts.push(format!("a{}", num(&use_item)?));
 		}
+		// The item that calls the kill objective's target up (merge.rs `summon_item_for`, #2326): m<item>.
+		// An older reader skips it (no objective kind is m).
+		let summon = o.get("summonItem");
+		if summon.truthy() {
+			parts.push(format!("m{}", num(&summon)?));
+		}
+		// The creatures that item is used on (#2578: Yeh'kinya's Bramble on a dead Vale Screecher): g<npc>,<npc>...
+		// An older reader skips it (no objective kind is g).
+		let on = o.get("summonOn");
+		if summon.truthy() && !on.items().is_empty() {
+			parts.push(format!("g{}", list(&on)?));
+		}
 		// The hostile elites at an object's work, per side (elites.rs): w<side><rank>,<lvl>.
 		let el = o.get("elites");
 		for side in ["A", "H"] {

@@ -21,8 +21,12 @@
 --       spawn there, nil when not known or the pack predates it)
 --   Codex.FollowUps(questId) -> { quest, ... }   -- the quests whose pre or preAny names it
 --   Codex.Spell(spellId) -> { id, kind, item, name, class } | nil
+--   Codex.RecipeItems(spellId) -> { itemId, ... } | nil   -- the recipe items that teach a craft
+--       (each recipe item's record names its spell), in pack order; built on the first ask (#2505)
 --   Codex.Name(kind, id) -> name | nil   -- no decoding; "item" spans every item kind,
 --                                           "npc" npc + rare, "object" object + treasure
+--   Codex.EnglishName(kind, id) -> name | nil   -- as Name, always the pack's English (a
+--                                           guide's `keywords` are English)
 --   Codex.Index(kind) -> blob | nil      -- the search index of a kind (item mount pet recipe
 --       tabard npc rare quest zone instance treasure), never loads the pack; lines
 --       "\2" .. folded .. "\1" .. id .. "," .. quality .. "," .. status .. "," .. #name .. "\n"
@@ -398,6 +402,17 @@ local function decodeQuest(group, id, s)
 			-- NPC (the Codex build's useItem, #2468): a<item>.
 			local o = rec.objectives[#rec.objectives]
 			if o then o.useItem = tonumber(sub(f, 2)) end
+		elseif lead == "m" then
+			-- The kill objective before it is of a target this item calls up
+			-- (the Codex build's summonItem, #2326: Yeh'kinya's Bramble on a dead
+			-- Vale Screecher calls up the Screecher Spirit): m<item>.
+			local o = rec.objectives[#rec.objectives]
+			if o then o.summonItem = tonumber(sub(f, 2)) end
+		elseif lead == "g" then
+			-- The creatures that item is used on (#2578: the Vale Screechers the
+			-- bramble is used on, dead): g<npc>,<npc>...
+			local o = rec.objectives[#rec.objectives]
+			if o then o.summonOn = numbers(sub(f, 2)) end
 		elseif lead == "p" then
 			-- Where the objective before it is done (an event's area): p<map>,<x>,<y>,<f>.
 			local o = rec.objectives[#rec.objectives]
@@ -508,6 +523,7 @@ function Codex.Register(group, names, recs, lo, hi)
 	cache[group] = nil
 	if group == "role" then roleCache = {} end
 	if group == "quest" then followUps = {} end
+	if group == "recipe" then Codex.recipeIndex = nil end
 end
 
 function Codex.RegisterIndex(kind, blob)
@@ -670,6 +686,31 @@ function Codex.Spell(id)
 	return get("spell", id)
 end
 
+-- spellId -> the recipe items whose record names it (field 3 of an item record:
+-- quality and flags; required level; spell), read off the raw records without
+-- decoding them; kept on Codex.recipeIndex until another recipe chunk registers.
+function Codex.RecipeItems(spell)
+	spell = tonumber(spell)
+	if not (spell and ready()) then return nil end
+	local index = Codex.recipeIndex
+	if not index then
+		index = {}
+		for _, c in ipairs(chunks.recipe or {}) do
+			for id, sp in gmatch(c.recs or "", "\n(%d+)\t[^;\n]*;[^;\n]*;(%d+)") do
+				sp = tonumber(sp)
+				local list = index[sp]
+				if not list then
+					list = {}
+					index[sp] = list
+				end
+				list[#list + 1] = tonumber(id)
+			end
+		end
+		Codex.recipeIndex = index
+	end
+	return index[spell]
+end
+
 function Codex.Name(kind, id)
 	if id == nil or not ready() then return nil end
 	if kind ~= "instance" then id = tonumber(id) or id end
@@ -683,6 +724,16 @@ function Codex.Name(kind, id)
 	end
 	local name = nameOf(kind, id)
 	return name and shown(NAMES_KIND[kind], id, name)
+end
+
+function Codex.EnglishName(kind, id)
+	if id == nil or not ready() then return nil end
+	if kind ~= "instance" then id = tonumber(id) or id end
+	for _, g in ipairs(SPAN[kind] or { kind }) do
+		local name = nameOf(g, id)
+		if name then return name end
+	end
+	return nil
 end
 
 -- Decoded records carry translated names: drop them when the names pack

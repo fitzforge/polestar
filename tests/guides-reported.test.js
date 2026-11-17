@@ -1768,6 +1768,23 @@ test('Hotline\'s report: Walton and Vrang\'s quests come in the order the game o
 	assert.deepEqual(order, [...order].sort((a, b) => a - b), 'each goal comes after the one before it in the chain');
 });
 
+// #1959 (a level 19 Undead Warlock): Vrang Wildgore's two quests came on a second trip to the Dry Hills, though
+// he camps beside the harpies and the raptor-horn spot of the first one. Bruised Pride and Lion Hides and Vrang's
+// Game are taken, worked and handed in on the first Dry Hills loop, between the harpies' rings and their hand-in to
+// Darsok; the second trip carries Serena Bloodfeather (offered only with that hand-in) and Walton's chain.
+test(`${BARRENS}: #1959: Vrang's two quests are done on the first Dry Hills loop, with the harpies`, { skip }, () => {
+	const list = goals(BARRENS);
+	const rings = at(list, 'collect 875 (Harpy Lieutenants)', is('collect', 875));
+	const lieutenants = at(list, 'turnin 875', is('turnin', 875));
+	for (const [t, q] of [['accept', 95494], ['accept', 95507], ['collect', 95494], ['collect', 95507], ['turnin', 95494], ['turnin', 95507]]) {
+		const i = at(list, `${t} ${q}`, is(t, q));
+		assert.ok(rings < i && i < lieutenants, `${t} ${q} is on the harpies' loop (goal ${i}, rings ${rings}, hand-in ${lieutenants})`);
+	}
+	const serena = at(list, 'collect 876 (Serena Bloodfeather)', is('collect', 876));
+	assert.ok(lieutenants < serena, 'Serena comes on the later visit');
+	assert.ok(lieutenants < at(list, 'turnin 95495 (Walton)', is('turnin', 95495)), 'Walton too');
+});
+
 // --- The Barrens (Fitz, a Scourge Warlock, #70): at the Crossroads the guide
 // sent them to Sergra Darkthorn for Jorn Skyseer (3261), which needs The
 // Angry Scytheclaws (905), the end of her chain in forever/horde/02-the-barrens.
@@ -4560,8 +4577,9 @@ test('forever/horde/02-the-barrens.guide: Fitz\'s report (#273): the Savannah Li
 
 test('forever/horde/02-the-barrens.guide: Fitz\'s report (#274): the Dry Hills step also collects the Raptor Horns, in the Dry Hills, before the Ratchet turn-in', { skip }, () => {
 	const list = goals('forever/horde/02-the-barrens.guide');
-	// The step where Vrang's harpy quest is worked in the Dry Hills (its title is the route's own).
-	const hills = list.findIndex(({ goal }) => is('collect', 95494)(goal));
+	// The Dry Hills visit after Raptor Horns is taken at Ratchet: Serena Bloodfeather's harpies, above the lions
+	// (Vrang's own hides come on the first loop since #1959, before the horns are offered).
+	const hills = list.findIndex(({ goal }) => is('collect', 876)(goal));
 	assert.ok(hills >= 0, 'the Dry Hills step is in the guide');
 	const horns = list.findIndex(({ s, goal }) => s === list[hills].s && is('collect', 865)(goal));
 	assert.ok(horns >= 0, 'the Dry Hills step collects the Raptor Horns');
@@ -9952,6 +9970,8 @@ test('Alliance starting zones: profession Camping 101s from the campfire, for th
 		['forever/alliance/skyborne/01-zephras-isle.guide', 96101, [97963, 97964, 97965, 97967, 97969, 97970, 97971, 97973, 98286]],
 	];
 	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	// Eric Brighthammer offers Blacksmithing only once Supplies to Tannok is handed in: its step follows that stop.
+	const waitsFor = { 96044: 2160 };
 	for (const [guide, sit, quests] of sets) {
 		const list = goals(guide);
 		const sat = at(list, `${guide}: turnin ${sit}`, is('turnin', sit));
@@ -9964,8 +9984,9 @@ test('Alliance starting zones: profession Camping 101s from the campfire, for th
 			const when = (i) => [].concat(list[i].step.when || []);
 			assert.ok(when(take).some((w) => w.k === 'skill' && !w.neg), `${guide}: ${q} is offered only with the profession`);
 			assert.ok(when(give).some((w) => w.k === 'onquest' && !w.neg && [].concat(w.q).includes(q)), `${guide}: ${q}'s hand-in shows only with the quest in the log`);
-			const between = list.slice(sat + 1, take);
-			assert.ok(between.every(({ step }) => step === list[sat].step || [].concat(step.when || []).some((w) => w.k === 'skill')), `${guide}: ${q}'s step follows the campfire step directly`);
+			const from = waitsFor[q] ? at(list, `${guide}: turnin ${waitsFor[q]}`, is('turnin', waitsFor[q])) : sat;
+			const between = list.slice(from + 1, take);
+			assert.ok(between.every(({ step }) => step === list[from].step || [].concat(step.when || []).some((w) => w.k === 'skill')), `${guide}: ${q}'s step follows the campfire step directly (or the stop its giver waits for)`);
 		}
 	}
 });
@@ -15937,6 +15958,23 @@ test('Alliance 40-50 reports: Jarl\'s spices bought before the hand-in (#1917), 
 	assert.match(tip, /Scarabs/, 'warns of the Scarabs');
 });
 
+// Camping 101 accepts and their givers' prerequisites: Eric Brighthammer offers Blacksmithing (96044) only once
+// Supplies to Tannok (2160) is handed in, Brakk offers Tailoring (96102) only once A Peon's Burden (2161) and
+// Camping 101: Cooking (96655) are (players' recordings). A Camping step placed before those hand-ins was
+// passed with the quest not offered, and the guide never came back to it.
+test('Start zones: a Camping 101 accept comes after the hand-ins its giver waits for', { skip }, () => {
+	const cases = [...DUN_MOROGHS.map((g) => [g, 96044, [2160]]), ...DUROTARS.map((g) => [g, 96102, [2161, 96655]])];
+	for (const [guide, quest, pres] of cases) {
+		const list = goals(guide);
+		const take = at(list, `accept ${quest}`, is('accept', quest));
+		for (const pre of pres) {
+			assert.ok(at(list, `turnin ${pre}`, is('turnin', pre)) < take, `${guide}: ${pre} is handed in before ${quest} is taken`);
+		}
+		const hand = list.findIndex(({ goal }) => is('turnin', quest)(goal));
+		assert.ok(hand < 0 || take < hand, `${guide}: ${quest} is taken before its hand-in`);
+	}
+});
+
 // --- Reports fixed in earlier releases that had no test of their own (regression audit after 0.4.0). Each case
 // checks the fix where the 0.4.0 guides hold it.
 
@@ -16125,3 +16163,69 @@ for (const [guide, quest, pet, needs] of [
 		for (const q of needs) assert.ok(when.some((p) => p.k === 'turnedin' && !p.neg && [].concat(p.q).includes(q)), `and only once ${q} is`);
 	});
 }
+
+// #2612 (JeromeM, 0.4.0, Westfall): "Find the Lost Guards" sent the hand-in to Guard Thomas, who only gives it; the
+// half-eaten body takes it. The build had added the giver to the quest's enders from the in-game dialog captures,
+// on eight quests handed in at an object (players' recordings: none of their hand-ins in an NPC's window). Each
+// is corrected to its object alone, and every guide's hand-in of them goes to the object.
+const OBJECT_ENDERS = { 37: 55, 67: 3643, 944: 10076, 983: 17182, 4812: 175524, 91860: 566037, 94467: 61934, 94502: 619896 };
+test('#2612: quests handed in at an object are never handed in to their giver', { skip }, () => {
+	const corrections = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'forever-db', 'corrections', 'quests.json'), 'utf8'));
+	for (const [quest, object] of Object.entries(OBJECT_ENDERS)) {
+		assert.deepEqual(corrections[quest].set.end, { npc: [], object: [object] }, `${quest}: ended by object ${object} alone`);
+	}
+	let seen = 0;
+	for (const guide of allGuides()) {
+		const text = fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8');
+		if (!Object.keys(OBJECT_ENDERS).some((q) => new RegExp(`^\\s+turnin ${q}\\b`, 'm').test(text))) continue;
+		for (const { goal } of goals(guide)) {
+			const object = goal.t === 'turnin' && OBJECT_ENDERS[goal.quest];
+			if (!object) continue;
+			seen++;
+			assert.equal(goal.npc, undefined, `${guide}: turnin ${goal.quest} goes to no NPC`);
+			assert.equal(goal.object, object, `${guide}: turnin ${goal.quest} at object ${object}`);
+		}
+	}
+	assert.ok(seen >= 10, `the guides' hand-ins of these quests were checked (${seen})`);
+});
+
+// #2575 (rockzors, 0.4.0, Alliance Riverglades): What We Lost's only objective is the five graves (Loose Soil), so the
+// arrow went to them before the player had the Farmers' Mementos the Twilight Raiders drop; each grave takes one.
+// The graves' goal says so on its line.
+test('#2575: Riverglades (Alliance): the Loose Soil goal says to loot the Farmers\' Mementos from the Twilight Raiders first', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01b-riverglades.guide');
+	const { goal } = list[at(list, 'the Loose Soil goal', (g) => g.t === 'interact' && g.quest === 94829)];
+	assert.match(goal.note || '', /Farmers' Mementos|\{item:266148\}/, goal.note);
+	assert.match(goal.note || '', /Twilight Raiders|\{npc:256952\}/, goal.note);
+});
+
+// #2615 (xstevan, 0.4.0, Horde Ashenvale & Thousand Needles): Test of Faith puts the player on a high cliff far west
+// of Dorn Plainstalker; the leap counts only from the end of the wooden planks there. The complete goal had no
+// point, so the arrow led back to Dorn, 1,250 yd away, and the player jumped from the wrong spot and died.
+test('#2615: Thousand Needles (Horde): Test of Faith\'s leap points at the end of the planks', { skip }, () => {
+	const list = goals('forever/horde/07-ashenvale.guide');
+	const { goal, step } = list[at(list, 'complete 1149', is('complete', 1149))];
+	assert.equal(goal.map, 1441);
+	assert.ok(Math.abs(goal.x - 26.43) < 0.2 && Math.abs(goal.y - 32.93) < 0.2, `the planks, not Dorn: ${goal.x},${goal.y}`);
+	assert.match(step.note || '', /end of the wooden planks/, 'the tip says where to step off');
+});
+
+// #2650 (Sable, 0.4.0, Horde Hillsbrad): Citizen Wilkes was not at the guide's spot, his Classic spawn at
+// 32.62,39.79; players kill him on the west side of Hillsbrad Fields' town (recordings: 72 people, 29-31,38-43).
+test('#2650: Hillsbrad (Horde): Citizen Wilkes is looked for on the west side of the town', { skip }, () => {
+	const list = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	const { goal } = list[at(list, 'kill 2449', (g) => g.t === 'kill' && g.npc === 2449)];
+	assert.equal(goal.map, 1424);
+	assert.ok(goal.x >= 29 && goal.x <= 31.5 && goal.y >= 38 && goal.y <= 43, `where players meet him: ${goal.x},${goal.y}`);
+});
+
+// #2604 (Amerigo, 0.4.0, Alliance Stranglethorn 40-50): the Skullsplitter Tusks goal's third spot sent a player north
+// to Zul'Kunda, where only two named trolls drop them. Every Skullsplitter troll drops tusks, and their camp is the
+// ruins of Zul'Mamwe (42-49,30-42); the goal points there, as the Horde one does, so Zul'Kunda is only an alternative.
+test('#2604: Stranglethorn (Alliance): Skullsplitter Tusks are looked for in the trolls\' camp at Zul\'Mamwe', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const { goal } = list[at(list, 'collect 1524', (g) => g.t === 'collect' && g.quest === 209)];
+	assert.equal(goal.map, 1434);
+	assert.ok(goal.x >= 42 && goal.x <= 49 && goal.y >= 30 && goal.y <= 42, `the trolls' camp: ${goal.x},${goal.y}`);
+	for (const s of goal.spots || []) assert.ok(s.alt || s.x > 35, `no spot the arrow picks far from the ruins: ${s.x},${s.y}`);
+});

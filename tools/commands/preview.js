@@ -1216,7 +1216,68 @@ uistub.player.faction, uistub.player.race, uistub.player.class, uistub.player.le
 uistub.openTabs({ { uistub.elwynn, 21 } }, 1)
 uistub.setStep(21)
 Polestar.UI.StepList.Toggle(true)`;
+// Thousand Needles & Desolace (Horde 30-33) at 30 without Test of Faith, Skip grey quests on (#2634): at Jandia
+// the window says what the route left out here (`step`: 2), or, on the Level 32 grind (3), why it grinds, what is
+// worth doing near and the cleanup nudge for quests off the route. `open`: the left-out line opened.
+const leftOut = (step, open) => `local TN = 1441
+local function g(t, verb, subject, kind, status, extra)
+	local x = { t = t, verb = verb, subject = subject, subjectKind = kind, map = TN, x = 46.2, y = 51.5, status = status }
+	for k, v in pairs(extra or {}) do x[k] = v end
+	return x
+end
+local steps = {
+	{ title = "Prate Cloudseer", goals = { g("turnin", "Turn in", "Message to Freewind Post", "quest", "done", { npcName = "Cliffwatcher Longhorn" }) } },
+	{ title = "Jandia", goals = {
+		g("accept", "Accept", "Stop the Screeching", "quest", "active", { npc = 4877, npcName = "Jandia" }),
+		g("accept", "Accept", "Stolen Freewind Supplies", "quest", "pending", { npc = 4877, npcName = "Jandia" }) } },
+	{ title = "Level 32", goals = {
+		g("goto", "Go to", "Scorpid Reavers", "place", "done", { x = 75.0, y = 60.0 }),
+		g("level", "Reach", "level 32", "text", "active", { level = 32 }) } },
+}
+local G = uistub.guides[uistub.elwynn]
+G.title, G.faction, G.zoneName, G.minLevel, G.maxLevel, G.steps = "Thousand Needles & Desolace", "Horde", "Thousand Needles", 30, 33, steps
+uistub.player.faction, uistub.player.race, uistub.player.class, uistub.player.level = "Horde", "Tauren", "WARRIOR", 31
+local E = Polestar.Engine
+E.LeftOutHere = function(i)
+	if i ~= 2 then return {} end
+	return {
+		{ quest = 1150, title = "Test of Endurance", kind = "pre", text = "Requires “Test of Faith” first", fix = { kind = "chain", quest = 1150 }, step = 2 },
+		{ quest = 6462, title = "Troll Charm", kind = "catchup", text = "Pays 60% XP at your level and is out of the way (Skip grey quests)", fix = { kind = "skipGrey" }, step = 2 },
+	}
+end
+E.GrindHint = function(i) if i == 3 then return { lo = 32, hi = 35, nearby = { { quest = 5147, title = "WANTED: Arnak Grimtotem", share = 1, step = 2 } } } end end
+Polestar.RoutePlan = Polestar.RoutePlan or {}
+Polestar.RoutePlan.OffRoute = function() return { { quest = 220, title = "Call of Water" }, { quest = 4821, title = "Alien Egg" }, { quest = 4865, title = "Serpent Wild" } } end
+uistub.openTabs({ { uistub.elwynn, ${step} } }, 1)
+uistub.setStep(${step})
+${open ? `for _, l in ipairs(Polestar.UI.GuideFrame.lines) do
+	if l:IsShown() and (l.Text:GetText() or ""):find("left out here", 1, true) then stub.RunScript(l, "OnClick", "LeftButton") break end
+end` : ''}`;
+const LOOKS = ['polestar', 'hearth', 'halo', 'forever', 'blizzard', 'classic'];
 const SCENES = [
+	{
+		file: 'guide-left-out.svg',
+		title: 'Guide window: "2 left out here" under the step, opened (why each quest is left out, Guide me, Turn off Skip grey quests); a grind step: why, what is near, the cleanup nudge; the step browser marks the step',
+		panels: [
+			{ roots: GUIDE, script: leftOut(2, false) },
+			{ roots: GUIDE, script: leftOut(2, true) },
+			{ roots: GUIDE, script: leftOut(3, false) },
+			{ roots: GUIDE, script: `${leftOut(2, false)}; Polestar.UI.StepList.Toggle(true)` },
+		],
+	},
+	{
+		file: 'guide-left-out-looks.svg',
+		title: 'Guide window: what it leaves out, opened, in Hearth, Halo, WoW Forever, Blizzard and Classic; the grind step in each',
+		panels: LOOKS.slice(1).flatMap((skin) => [
+			{ roots: GUIDE, script: `Polestar.Set("ui.skin", "${skin}"); ${leftOut(2, true)}` },
+			{ roots: GUIDE, script: `Polestar.Set("ui.skin", "${skin}"); ${leftOut(3, false)}` },
+		]),
+	},
+	{
+		file: 'guide-left-out-scales.svg',
+		title: 'Guide window: what it leaves out, opened, at UI scale 0.64 and 1.5',
+		panels: [0.64, 1.5].map((s) => ({ roots: GUIDE, script: `Polestar.Set("ui.scale", ${s}); ${leftOut(2, true)}` })),
+	},
 	{
 		file: 'guide-skipped-steps.svg',
 		title: 'Step browser: steps that keep their number but do not apply now (a catch-up for quests already handed in) share one card that says why',

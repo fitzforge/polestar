@@ -1373,6 +1373,36 @@
 		"2563": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "#2563: Wetlands (Alliance): Fall of Dun Modr is taken on its own step, only while A Grim Task is not handed in" }
 		] },
+		"2612": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2612: quests handed in at an object are never handed in to their giver" }
+		] },
+		"2575": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2575: Riverglades (Alliance): the Loose Soil goal says to loot the Farmers' Mementos from the Twilight Raiders first" }
+		] },
+		"2615": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2615: Thousand Needles (Horde): Test of Faith's leap points at the end of the planks" }
+		] },
+		"2650": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2650: Hillsbrad (Horde): Citizen Wilkes is looked for on the west side of the town" }
+		] },
+		"2604": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2604: Stranglethorn (Alliance): Skullsplitter Tusks are looked for in the trolls' camp at Zul'Mamwe" }
+		] },
+		"2606": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/lookup.rs", "test": "a_quest_lookup_opens_the_class_guide_that_lists_it_2606" }
+		] },
+		"2588": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-arrow-look.rs", "test": "the_backing_plate_is_as_wide_as_the_widest_line_it_backs_2588" }
+		] },
+		"2589": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/ui-look-toasts.rs", "test": "the_essentials_tracker_band_keeps_its_height_when_the_pointer_picks_a_shorter_one_2589" }
+		] },
+		"2582": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "an_ender_who_stands_only_inside_a_dungeon_is_its_entrance_2582" }
+		] },
+		"2619": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-sections.rs", "test": "a_profession_guide_starts_at_the_player_s_skill_asks_only_for_what_is_still_needed_and_keeps_a_missing_rank" }
+		] },
 		"2614": { "tests": [
 			{ "node": "tests/placeholder-names.test.js", "test": "#2614: no guide pack shows the game's placeholder names (\"[DNT] Kill Credit\", \"PvP Tower Credit Marker\", \"Trigger Ichman\")" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/placeholders.rs", "test": "a_goal_on_a_credit_target_reads_as_its_quest_log_line_never_kill_the_placeholder" },

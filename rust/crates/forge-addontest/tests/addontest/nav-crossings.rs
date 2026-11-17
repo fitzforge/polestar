@@ -916,6 +916,40 @@ fn a_target_on_the_next_zone_s_map_is_in_the_zone_the_walking_maps_put_it_in_a_c
 	assert_ne!(out["city"], json!(["walk|Aelthalyste"]), "into the Undercity by its way, not a walk to the ground above");
 }
 
+// #1918, #2208: the walking maps put Grenka Bloodscreech's mesa in Thousand Needles (26.5,55.5) in Un'Goro Crater
+// (their zone field, from the client's area under each chunk), while the game's map there is Thousand Needles (every
+// recorded kill of her). Un'Goro's map frame ends far south of her: the target stays in Thousand Needles, one walk
+// from Freewind Post, and no leg names Un'Goro Crater. The Badlands case above (inside both frames) still moves.
+#[test]
+fn a_target_outside_the_zone_the_walking_maps_name_stays_on_its_map_grenka_1918() {
+	let out = run_raw(
+		r#"
+			local N = Polestar.Nav
+			local grenka = { -5594.7, -1599.3 }
+			local zone
+			N.danger.ZoneAt = function(c, x, y)
+				if c ~= 1 then return nil end
+				if math.abs(x - grenka[1]) < 60 and math.abs(y - grenka[2]) < 60 then return zone end
+				return 1441
+			end
+			local function plan()
+				local legs = N.PlanRoute({ c = 1, map = 1441, wx = -5433.3, wy = -2457.3, faction = 2, speed = 7,
+					target = { c = 1, map = 1441, wx = grenka[1], wy = grenka[2], label = "Grenka Bloodscreech" } })
+				local out = {}
+				for _, l in ipairs(legs or {}) do out[#out + 1] = l.kind .. "|" .. l.label .. (l.crossing and ("|" .. l.crossing) or "") end
+				return out
+			end
+			local r = {}
+			zone = 1449
+			r.ungoro = plan()
+			zone = 1441
+			r.plain = plan()
+			emit(r)"#,
+	);
+	assert_eq!(out["plain"], json!(["walk|Grenka Bloodscreech"]), "in Thousand Needles: one walk");
+	assert_eq!(out["ungoro"], out["plain"], "Un'Goro's frame ends south of her: the same walk, no Un'Goro leg");
+}
+
 // #1543's near walk (Nav.PlanRoute's p.nearWalk): a target within that many straight yards over a closed zone border
 // is walked to straight; with p.nearProbe instead the planner only says it would be (nearProbe.yards) and plans the
 // crossing's way. Beyond the reach, without either (an estimate; the live route with no walking engine to ask, as in

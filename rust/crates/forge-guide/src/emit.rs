@@ -1123,8 +1123,10 @@ pub fn emit_map_frames(frames: &V, pack_id: &str) -> String {
 /// the Era bounds of every map they stand on. `z`: the trainer's spawn height
 /// (heights.js); the header then names CMaNGOS classic-db.
 /// trainers: the reminder's candidates (one per town and class); by_class:
-/// { classFile: [npcId, ...] }, every class trainer, for Engine.IsClassTrainer.
-pub fn emit_class_trainers(trainers: &[V], frames: &V, by_class: &V) -> String {
+/// { classFile: [npcId, ...] }, every class trainer, for Engine.IsClassTrainer;
+/// tops: { npcId: level }, the highest level a trainer that stops short of the
+/// cap teaches (#2477), left out when empty.
+pub fn emit_class_trainers(trainers: &[V], frames: &V, by_class: &V, tops: &V) -> String {
 	let heights = trainers.iter().any(|t| !t.get("z").is_undef());
 	let mut out = vec![
 		header(
@@ -1154,6 +1156,14 @@ pub fn emit_class_trainers(trainers: &[V], frames: &V, by_class: &V) -> String {
 		out.push(format!("\t{cls} = {{ {} }},", ids.join(", ")));
 	}
 	out.push("})".into());
+	let ids = numeric_keys(tops);
+	if !ids.is_empty() {
+		out.extend(["".into(), "ns.RegisterClassTrainerTops({".into()]);
+		for id in ids {
+			out.push(format!("\t[{}] = {},", num_str(id), num_str(tops.get(&num_str(id)).num())));
+		}
+		out.push("})".into());
+	}
 	format!("{}\n", out.join("\n"))
 }
 

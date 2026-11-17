@@ -2220,3 +2220,27 @@ fn a_chest_s_loot_whose_quest_needs_a_key_the_bags_lack_is_no_line_until_the_key
 	});
 	assert_eq!(out, vec![json!("3:2:work:1"), json!("2:2:work:1 3:2:work:1")], "the blueprints wait for the key; the Tricksters never wait");
 }
+
+// An objective that ticks (#2537): the evaluation's frame holds the evaluation and what it announces; the While-here
+// candidates are worked out the frame after it (Own.hereLater), never later, and the arrival poll then measures them.
+#[test]
+fn the_candidates_are_worked_out_the_frame_after_the_evaluation() {
+	let out = run(r#"
+		local evaluatedAt
+		local real = Polestar.Compat.GetPlayerInfo
+		Polestar.Compat.GetPlayerInfo = function() evaluatedAt = evaluatedAt or stub.now; return real() end
+		local before = cands()
+		w.progress(7, 1, 9)
+		local seenAt
+		for _ = 1, 30 do
+			stub.advance(1 / 60)
+			if not seenAt and cands() ~= before then seenAt = stub.now end
+		end
+		stub.advance(0.6)
+		emit({ before = before, after = cands(), frames = seenAt and evaluatedAt and math.floor((seenAt - evaluatedAt) * 60 + 0.5) or false })
+	"#);
+	let r = &out[0];
+	assert_ne!(r["before"], r["after"], "{r}");
+	assert_eq!(r["frames"], 1, "one frame after the evaluation: {r}");
+	assert!(r["after"].as_str().unwrap().contains("2:1:work:1"), "the vermin: 1 more: {r}");
+}

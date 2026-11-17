@@ -36,10 +36,10 @@ next forever/horde/05-stonetalon-mountains
 # Flow: Orgrimmar -> Far Watch Post (Orcs and Trolls: Kargal, Uzzek) -> the Crossroads (flight
 # path, bind) -> the Razormane camp -> the Crossroads -> Ratchet (Southsea beach) -> the oases and
 # Regthar -> the Dry Hills -> the Sludge Fen console -> the Razormane camp -> the Crossroads ->
-# the Dry Hills -> Echeyakee -> the Crossroads -> Ratchet
+# the Dry Hills and Vrang -> Echeyakee -> the Crossroads -> Ratchet
 # (Samophlange handed in, Raptor Horns and Baron Longshore taken): the Raptor Grounds' nests and the silver -> Gazlowe's
 # Stolen Booty and Baron Longshore at the south end of the beach -> Ratchet -> fly to the Crossroads ->
-# the Dry Hills (Vrang, Walton) -> Wenikee -> the Sludge Fen shredder
+# the Dry Hills (Serena, Walton) -> Wenikee -> the Sludge Fen shredder
 # and Nugget Slugs -> the Boulder Lode Mine -> Wenikee -> the Crossroads -> Verog and Tonga's seed test at the Stagnant Oasis -> Camp Taurajo (flight path) -> the Bristleback camps ->
 # Agama'gor -> fly to Orgrimmar for level 20 training -> fly to Ratchet -> Northwatch Hold and Gilthares'
 # escort back to Ratchet -> Ishamuhale -> the Crossroads, Regthar,
@@ -54,6 +54,12 @@ next forever/horde/05-stonetalon-mountains
 # with Gazlowe's crates at the south end of the beach); The Guns of Northwatch and Free From the Hold (891, 898,
 # level 20: Captain Fairmount 20 and her cannoneers 19 with healers and guards, 8 recorded deaths) on the Ratchet
 # stop after the Orgrimmar trip, at about 21.
+#
+# Vrang Wildgore's two quests (Bruised Pride and Lion Hides 95494, Vrang's Game 95507, level 18 from 14) are done on
+# the first Dry Hills loop, with the harpies (#1959): his camp, the lions and the traps lie on the way east to
+# Echeyakee, and the loop is at about 17 (Savannah Patriarchs 15). Walton's chain (95495, 95621, 95508) stays on the
+# second visit with Serena Bloodfeather (876, offered only once Harpy Lieutenants is handed in): Unwelcome Guests
+# brings Terry Longdrink (19) up the ridge, two levels over the first loop.
 #
 # Orcs and Trolls: Far Watch Post first (Conscript of the Horde to Kargal and Crossroads Conscription
 # from him: only Warriors pass him at the end of their Durotar guide, everyone else carries 840 here;
@@ -402,6 +408,21 @@ step The Dry Hills
   collect 4926 @37.9,16.2
   accept 819
 
+step Vrang Wildgore
+  tip East from the keg toward Echeyakee: Vrang Wildgore camps below the hills, and his errands lie in the plains beside his camp.
+  accept 95494                        -- Vrang Wildgore
+  accept 95507
+
+step Savannah lions
+  tip Savannah Patriarchs roam the plains east of Vrang's camp, and the Sprung Traps lie among them.
+  collect 269715 quest 95494.1 @45.0,14.5
+  collect 269719 quest 95507.1
+
+step Vrang Wildgore
+  turnin 95494                        -- Vrang Wildgore
+  turnin 95507
+  accept 95495                        -- Walton, the hermit on the ridge behind Vrang: on the next Dry Hills visit, with Serena
+
 step Echeyakee
   zone The Barrens
   tip South-east on the way back to the Crossroads: Echeyakee, a white lion, prowls the plains north of the Razormane camp.
@@ -566,27 +587,15 @@ step Kolkar camp
   collect 15852 x5 quest 6128.2       -- Kodo Horn
   collect 2449 x5 quest 6128.1        -- Earthroot
 
-step Vrang Wildgore
-  zone The Barrens
-  tip North to the Dry Hills. Vrang Wildgore camps below the hills; Walton, the hermit on the ridge behind him, has work for you only once Vrang sends you up.
-  accept 95494                        -- Vrang Wildgore
-  accept 95507
-
 step The Barrens: kill these as you meet them
   zone The Barrens
-  tip Savannah Patriarchs roam the plains east of the hills, and the Sprung Traps lie among them. Serena Bloodfeather leads the Witchwing harpies in the hills to the west.
+  tip North to the Dry Hills: Serena Bloodfeather leads the Witchwing harpies in the hills to the west.
   tip Careful: The route in passes stealthed Harpy Ambushers and an elite harpy that patrols.
-  collect 269719 quest 95507.1
-  collect 269715 quest 95494.1 @45.0,14.5
-  collect 5055 quest 865.1 @44.7,14.3 -- Raptor Horns, if still open: Sunscale Scytheclaws prowl among the lions
+  collect 5055 quest 865.1 @44.7,14.3 -- Raptor Horns, if still open: Sunscale Scytheclaws prowl among the lions below Vrang's camp
   collect 5067 quest 876.1
 
-step Vrang Wildgore
-  turnin 95494                        -- Vrang Wildgore
-  turnin 95507
-  accept 95495
-
 step Walton
+  tip Walton, the hermit, stands on the ridge behind Vrang's camp.
   turnin 95495                        -- Walton
   accept 95621
 

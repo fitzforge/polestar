@@ -150,6 +150,32 @@ fn a_right_click_offers_show_in_quest_log_and_not_now() {
 	);
 }
 
+// #2545: a middle-click on the line opens the quest log at its quest and leaves the line and the arrow as they were;
+// the tooltip names the middle and shift clicks before the right-click's line.
+#[test]
+fn a_middle_click_opens_the_quest_log_at_the_line_s_quest_2545() {
+	let out = run(
+		"",
+		r#"
+		local opened = {}
+		QuestMapFrame_OpenToQuestDetails = function(q) opened[#opened + 1] = q end
+		w.moveTo(1429, 47.6, 37.6); stub.advance(1.05)
+		local R = row(1)
+		stub.RunScript(R, "OnEnter")
+		local tip = GameTooltip.lines
+		R:GetScript("OnClick")(R, "MiddleButton")
+		emit({ tip = tip, opened = opened, kept = E.GetWhileHere() ~= nil, menu = PolestarMenu and PolestarMenu:IsShown() or false })
+	"#,
+	);
+	assert_eq!(out[0]["opened"], json!([7]), "the quest log at the line's quest");
+	assert_eq!(out[0]["kept"], true, "the line stays");
+	assert_eq!(out[0]["menu"], false, "no menu");
+	let tip: Vec<&str> = out[0]["tip"].as_array().unwrap().iter().map(|l| l.as_str().unwrap_or("")).collect();
+	let middle = tip.iter().position(|l| *l == "Middle-click: show in quest log. Shift-click: link in chat.");
+	let right = tip.iter().position(|l| l.starts_with("Right-click:"));
+	assert!(middle.is_some() && middle < right, "{tip:?}");
+}
+
 // Fitz, 0.3.5: the line was an amber strip cut mid-word ("Collect Fungal Spores fr…"). It is its own section now: a
 // panel in the player's accent, dulled into the window ground so the text still reads at 7:1, following an accent
 // change live, with a "While you're here" label, then the suggestion as a goal row, its glyph, distance and close
