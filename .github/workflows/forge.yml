@@ -9,8 +9,12 @@ name: Forge
 # The tests include the addon's Lua tests (forge-addontest: addon/ on the client stub tests/lua), so
 # a change to the addon, the stub or the compiler's test fixtures runs them too; the committed data
 # (data/, forever-db/) and the guides are what forge's checks read, so a change there runs them as well,
-# and so do the documents the tests read (tests/ci-lane.test.js holds this list to them). A pull request
-# that touches none of these paths skips this workflow; none of its checks is required.
+# and so do the documents the tests read (FORGE_PATHS in tools/ci-lane.js; tests/ci-lane.test.js holds
+# it to them and to the push paths below).
+# Every pull request runs this workflow: "Format, lints, tests" is a required check, so it always reports.
+# The lane job decides from the base branch's copy of tools/ci-lane.js (a pull request cannot pick its
+# own lane): a change that touches none of those paths passes the check at once and skips MSRV and
+# wasm32; anything else, anything unsure, and every push runs them all.
 # ci.yml builds forge on every push and on every pull request but a documentation-only one.
 on:
   push:
@@ -18,7 +22,6 @@ on:
     tags: ["forge-v*"]
     paths: ["rust/**", "addon/**", "data/**", "forever-db/**", "guides/**", "tests/lua/**", "tests/fixtures/dsl/**", "docs/FORGE.md", "docs/forge/**", "docs/API.md", "docs/GUIDE_FORMAT.md", "docs/PACK_FORMAT.md", "docs/PACKS.md", "README.md", "THIRD_PARTY.md", ".github/workflows/forge.yml"]
   pull_request:
-    paths: ["rust/**", "addon/**", "data/**", "forever-db/**", "guides/**", "tests/lua/**", "tests/fixtures/dsl/**", "docs/FORGE.md", "docs/forge/**", "docs/API.md", "docs/GUIDE_FORMAT.md", "docs/PACK_FORMAT.md", "docs/PACKS.md", "README.md", "THIRD_PARTY.md", ".github/workflows/forge.yml"]
 
 permissions:
   contents: read
@@ -40,45 +43,111 @@ defaults:
     working-directory: rust
 
 jobs:
+  # Whether the suites run: `forge=run` or `forge=skip`, from the base's own copy of the lane script
+  # (and testsel's mapping it reads), so a pull request cannot choose. Every push, and a base without
+  # the script, runs them.
+  lane:
+    name: Forge lane
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      forge: ${{ steps.lane.outputs.forge }}
+    defaults:
+      run:
+        shell: bash
+        working-directory: .
+    steps:
+      # Two commits: a pull request's merge commit and the base it merges into, whose difference is
+      # what the pull request changes.
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
+          fetch-depth: 2
+
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 24
+
+      - name: Lane
+        id: lane
+        shell: bash
+        env:
+          EVENT: ${{ github.event_name }}
+        run: |
+          changed="$RUNNER_TEMP/changed.txt" base="$RUNNER_TEMP/base"
+          if [ "$EVENT" = pull_request ] && git diff --no-renames --name-only HEAD^1 HEAD > "$changed" \
+            && git worktree add --detach --quiet "$base" HEAD^1 && [ -f "$base/tools/ci-lane.js" ]; then
+            node "$base/tools/ci-lane.js" --forge --github --files "$changed"
+          else
+            echo "forge=run" >> "$GITHUB_OUTPUT"
+            printf '## Forge lane: run\n\n- %s\n' "$EVENT: every check" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+  # The required check. It runs whatever the lane job did, so it always reports: it fails when the lane
+  # job did not finish, passes at once when the lane is skip, and runs everything otherwise (an empty
+  # lane, from a base whose script has no forge lane, runs everything too).
   check:
     name: Format, lints, tests
+    needs: lane
+    if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
+      - name: Lane
+        working-directory: .
+        env:
+          RESULT: ${{ needs.lane.result }}
+          FORGE: ${{ needs.lane.outputs.forge }}
+        run: |
+          if [ "$RESULT" != success ]; then echo "::error::The Forge lane job did not finish ($RESULT)."; exit 1; fi
+          if [ "$FORGE" = skip ]; then
+            echo "No path the Rust and Lua suites read changed: nothing to run."
+            printf '## Format, lints, tests: skipped\n\nNo path the suites read changed (tools/ci-lane.js, FORGE_PATHS).\n' >> "$GITHUB_STEP_SUMMARY"
+          fi
+
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        if: needs.lane.outputs.forge != 'skip'
         with:
           persist-credentials: false
 
       - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        if: needs.lane.outputs.forge != 'skip'
         with:
           toolchain: stable
           components: rustfmt, clippy
 
       - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+        if: needs.lane.outputs.forge != 'skip'
         with:
           workspaces: rust
 
       - name: Format
+        if: needs.lane.outputs.forge != 'skip'
         run: cargo fmt --all --check
 
       # The quick profile (release without LTO, rust/Cargo.toml): optimised tests without the
       # link-time optimisation the shipped binaries get; much faster to build.
       - name: Clippy
+        if: needs.lane.outputs.forge != 'skip'
         run: cargo clippy --workspace --all-targets --profile quick --locked -- -D warnings
 
       # A fresh clone has no game client, no built data/forever and no local reference data: the
       # tests that need them are #[ignore]d with the input they need named.
       - name: Test
+        if: needs.lane.outputs.forge != 'skip'
         run: cargo test --profile quick --workspace --locked
 
       # Every command's --help and every docs/FORGE.md, docs/forge/*.md block marked `<!-- ci -->`.
       - name: Documented commands
+        if: needs.lane.outputs.forge != 'skip'
         run: |
           cargo build --profile quick --locked -p forge
           scripts/doc-commands.sh target/quick/forge
 
   msrv:
     name: Minimum Rust version
+    needs: lane
+    if: needs.lane.outputs.forge != 'skip'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -105,6 +174,8 @@ jobs:
 
   wasm:
     name: wasm32 build
+    needs: lane
+    if: needs.lane.outputs.forge != 'skip'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
