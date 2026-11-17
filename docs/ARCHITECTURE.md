@@ -9789,6 +9789,10 @@ opens on its card. The open state is not saved. `GuideFrame.Layout` asks `StepLi
 and stacks it at `StepList.Layout(width, room)`, filling the space within
 the window's height captured on opening (still limited by the screen's top
 with Grow upward). Overflow scrolls; a short list leaves the spare space.
+While the list is open the window's grip drags its height too (away from
+the pinned edge: down, or up with Grow upward, 120 at least); letting go
+saves it in `ui.stepListHeight`, which later openings use in place of the
+window's height (0, the default: the window's height on opening).
 In compact mode the window is too short to browse in: Layout passes
 `StepList.Layout(width, room, least)` with the height cap as `room` and the
 captured height as `least`, so the list grows the window to fit its cards up
