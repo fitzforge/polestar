@@ -1494,8 +1494,10 @@ reason is an error, and one that covers no step any more is a warning:
   `buy` or `craft` of it, an accept that hands it over, a turn-in that
   rewards it) is `optional` or in a step with a `when` the goal's step does
   not share; a source step with `when !has <item>` counts as sure, and so
-  does the accept of the `use` goal's own quest. Write `when has <item>` on
-  the step, or make a goal that gets the item required
+  does the accept of the `use` goal's own quest, and a source step's `when has
+  <x>` on an item a required goal before it gets (the `direct-gate` pattern)
+  holds for everyone. Write `when has <item>` on the step, or make a goal
+  that gets the item required
 
 Warnings:
 - a `when rep` naming by its id a faction the data lacks (by name it is an

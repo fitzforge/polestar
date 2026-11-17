@@ -185,6 +185,10 @@ fn an_item_only_skippable_goals_get_holds_the_goal_that_needs_it() {
 	// A quest only an item starts.
 	assert_eq!(held(&["step Loot", "  collect 1210 x1 optional", "step Read", "  accept 9602"]).len(), 1);
 	assert!(held(&["step Loot", "  collect 1210 x1", "step Read", "  accept 9602"]).is_empty());
+	// A source gated on an item a required goal just gathered (direct-gate's `when has`) runs for everyone: the
+	// Videre Elixir after the Evoroot. Gated on an item only an optional goal gets, it is skippable.
+	assert!(held(&["step Loot", "  collect 1210 x1", "step Buy", "  when has 1210", "  buy 159 x1", "step Drink", "  use 159"]).is_empty());
+	assert_eq!(held(&["step Loot", "  collect 1210 x1 optional", "step Buy", "  when has 1210", "  buy 159 x1", "step Drink", "  use 159"]).len(), 1);
 }
 
 #[test]

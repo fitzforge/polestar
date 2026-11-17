@@ -16,8 +16,9 @@
 //!   told to kill an NPC they are meant to speak to.
 //! - `item-skippable`: a required `use <item>`, or an `accept` of a quest an item starts, whose item every
 //!   earlier goal that gets it (a `collect`, `buy` or `craft` of it, an accept that hands it over, a turn-in
-//!   that rewards it) is `optional` or in a step with a `when` the goal's step does not share: a player who
-//!   passed those goes on without it, and the goal holds.
+//!   that rewards it) is `optional` or in a step with a `when` the goal's step does not share (a `when has <x>`
+//!   on an item a required goal before got holds for everyone): a player who passed those goes on without it,
+//!   and the goal holds.
 //! - `handin-unworked`: a required, plain `turnin Q` (not in a step with `when complete Q` or `when has` an item
 //!   of Q's) while one of Q's kill, talk, object or event objectives has no goal working it since Q's accept (or,
 //!   for a quest this guide never accepts, anywhere before it in the guide or a guide chaining in): no `complete
@@ -283,12 +284,14 @@ struct Sources {
 }
 
 /// The `when` predicates of a step, each as its JSON text, without a `!has <item>` on `item` (a step that gets
-/// the item only when the bags lack it leaves no one without it).
-fn when_set(step: &V, item: Option<&V>) -> FxHashSet<String> {
+/// the item only when the bags lack it leaves no one without it) and without a `has <x>` on an item `held` says
+/// a required goal before got for everyone (direct-gate's `when has` on an item the route just gathered).
+fn when_set(step: &V, item: Option<&V>, held: impl Fn(&V) -> bool) -> FxHashSet<String> {
 	step.get("when")
 		.items()
 		.iter()
 		.filter(|p| !(p.get("k").as_str() == Some("has") && p.get("neg").truthy() && item.is_some_and(|i| key(&p.get("item")) == key(i))))
+		.filter(|p| !(p.get("k").as_str() == Some("has") && !p.get("neg").truthy() && held(&p.get("item"))))
 		.map(|p| {
 			let o = V::obj();
 			for (k, x) in p.entries() {
@@ -352,11 +355,11 @@ pub fn check_skippable_items(g: &V, before: &[V], data: &Data, allow: &Allow, di
 	let mut sources: FxHashMap<Key, Sources> = FxHashMap::default();
 	let note = |sources: &mut FxHashMap<Key, Sources>, step: &V, goal: &V| {
 		for i in gives(goal, data) {
+			let whens = when_set(step, Some(&i), |x| sources.get(&key(x)).is_some_and(|s| s.sure));
 			let s = sources.entry(key(&i)).or_default();
 			if t_of(goal) == "accept" {
 				s.accepts.insert(key(&goal.get("quest")));
 			}
-			let whens = when_set(step, Some(&i));
 			if !goal.get("optional").truthy() && whens.is_empty() {
 				s.sure = true;
 			} else {
@@ -376,7 +379,7 @@ pub fn check_skippable_items(g: &V, before: &[V], data: &Data, allow: &Allow, di
 		for goal in step.get("goals").items() {
 			if !goal.get("optional").truthy() {
 				if let Some(item) = needs(&goal, data) {
-					let mine = when_set(&step, None);
+					let mine = when_set(&step, None, |_| false);
 					let own = goal.get("quest");
 					// The quests the step holds in the log or done (`when onquest`, `complete`, `turnedin`): their
 					// accepts ran for whoever sees the step.
