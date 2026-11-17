@@ -1285,3 +1285,40 @@ emit({ layout = T.LayoutId() or false, fresh = fresh, again = shown() })`,
 	assert.deepEqual(lingering, [], 'pieces of a look drawn before still show');
 	assert.deepEqual(out.again, out.fresh);
 });
+
+// Large text, then Atlas, then the text sizes back (the Atlas card in
+// Presets puts the Large text preset's sizes back): the goal row takes the
+// new size at once, not the one it had when Atlas first dressed it.
+test('under Atlas a goal row follows a text size changed after Atlas dressed it', () => {
+	const [out] = runAddon({
+		stubs: ['stub_world.lua'],
+		addons: ['Polestar', 'Polestar_Layout_Atlas'],
+		script: `${GUIDE}
+Polestar.Set("ui.shown", true)
+local GF = Polestar.UI.GuideFrame
+local F = _G.PolestarGuideFrame
+local function goalSize()
+	GF.Layout(); if GF.Render then GF.Render() end; stub.advance(1)
+	local found
+	local function walk(f)
+		for _, r in ipairs({ f:GetRegions() }) do
+			if not found and r:IsShown() and r.GetFont and (r.GetText and r:GetText() or ""):find("Kobold Camp Cleanup", 1, true) then
+				local _, s = r:GetFont(); found = s
+			end
+		end
+		for _, c in ipairs({ f:GetChildren() }) do if c:IsShown() then walk(c) end end
+	end
+	walk(F)
+	return found
+end
+local plain = goalSize()
+Polestar.Set("guideWindow.goalSize", 1.25)
+local large = goalSize()
+Polestar.Theme.SetLayout("atlas")
+local atlasLarge = goalSize()
+Polestar.Set("guideWindow.goalSize", nil)
+emit({ plain = plain, large = large, atlasLarge = atlasLarge, after = goalSize() })`,
+	}).emitted;
+	assert.ok(out.large > out.plain, JSON.stringify(out));
+	assert.equal(out.after, out.plain, `back to its own size: ${JSON.stringify(out)}`);
+});

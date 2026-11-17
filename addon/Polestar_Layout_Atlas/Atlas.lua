@@ -1929,13 +1929,19 @@ on("guideRender", function(view, parts) underline(parts.person) end)
 
 -- A goal row (guideRow; Polestar paints the row again at every fill, so a
 -- row keeps Atlas's look only while Atlas is the layout). The row's font
--- before Atlas is kept under _font.
+-- before Atlas is kept under _font, and the one Atlas gave it under _set: it
+-- goes back only while the row still wears Atlas's (a font Polestar gave it
+-- since, a text size changed, stays).
 local function rowBack(row)
 	local own = stores[row]
 	if not own then return end
 	if own._font then
-		row.Text:SetFont(own._font[1], own._font[2], own._font[3])
-		own._font = nil
+		local set = own._set
+		local path, size = row.Text:GetFont()
+		if set and path == set[1] and size and math.abs(size - set[2]) < 0.05 then
+			row.Text:SetFont(own._font[1], own._font[2], own._font[3])
+		end
+		own._font, own._set = nil, nil
 	end
 	if own.level then own.level:Hide() end
 	own.lv = nil
@@ -1999,7 +2005,8 @@ local function goalRow(row, goal, info)
 	local path, size, flags = row.Text:GetFont()
 	if live and path and size then
 		own._font = { path, size, flags }
-		row.Text:SetFont(semibold() or path, size, flags)
+		own._set = { semibold() or path, size }
+		row.Text:SetFont(own._set[1], size, flags)
 	end
 	if live and goal.progress then
 		text = text:gsub("|c%x%x%x%x%x%x%x%x(%d+/%d+)|r", "|c" .. Theme.Hex("accent") .. "%1|r")
