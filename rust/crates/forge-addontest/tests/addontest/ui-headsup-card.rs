@@ -235,7 +235,7 @@ fn compact_draws_the_card_on_one_line_and_off_again_the_full_card_is_back() {
 }
 
 // Dragging the heads-up card directly with the mouse frees it from the window, sets toasts.headsup.place to "free",
-// and records its new drop position.
+// and records its new drop position. With ui.lockHud, a plain drag does not move it and Shift-drag does.
 #[test]
 fn dragging_the_heads_up_card_switches_its_place_to_free_and_saves_its_spot_2629() {
 	let out = run(r#"
@@ -252,11 +252,40 @@ fn dragging_the_heads_up_card_switches_its_place_to_free_and_saves_its_spot_2629
 		stub.advance(0.016)
 		stub.RunScript(f, "OnMouseUp", "LeftButton")
 		local pos = Polestar.Get("toasts.headsup.pos")
-		emit({ movable = movable, placeBefore = placeBefore, placeAfter = Polestar.Get("toasts.headsup.place"),
-			side = CT.side, pos = type(pos) == "table" and pos[1] or false })"#);
+		local placeAfter = Polestar.Get("toasts.headsup.place")
+
+		-- With ui.lockHud, a plain drag does nothing
+		Polestar.Set("ui.lockHud", true)
+		local savedPos = { pos[1], pos[2], pos[3] }
+		stub.cursor = { 550, 450 }
+		stub.RunScript(f, "OnMouseDown", "LeftButton")
+		stub.advance(0.016)
+		stub.cursor = { 600, 400 }
+		stub.advance(0.016)
+		stub.RunScript(f, "OnMouseUp", "LeftButton")
+		local posLocked = Polestar.Get("toasts.headsup.pos")
+		local lockedStayed = posLocked[1] == savedPos[1] and posLocked[2] == savedPos[2] and posLocked[3] == savedPos[3]
+
+		-- With ui.lockHud, Shift-drag moves it
+		stub.keys.shift = true
+		stub.cursor = { 550, 450 }
+		stub.RunScript(f, "OnMouseDown", "LeftButton")
+		stub.advance(0.016)
+		stub.cursor = { 600, 400 }
+		stub.advance(0.016)
+		stub.RunScript(f, "OnMouseUp", "LeftButton")
+		stub.keys.shift = false
+		local posShift = Polestar.Get("toasts.headsup.pos")
+		local shiftMoved = posShift[2] ~= savedPos[2] or posShift[3] ~= savedPos[3]
+
+		emit({ movable = movable, placeBefore = placeBefore, placeAfter = placeAfter,
+			side = CT.side, pos = type(pos) == "table" and pos[1] or false,
+			lockedStayed = lockedStayed, shiftMoved = shiftMoved })"#);
 	assert_eq!(out["movable"], true, "card is movable");
 	assert_eq!(out["placeBefore"], "above");
 	assert_eq!(out["placeAfter"], "free", "dragging frees the card from the window");
 	assert_eq!(out["side"], "free");
 	assert_eq!(out["pos"], "TOP", "saved on its drop point");
+	assert_eq!(out["lockedStayed"], true, "locked (ui.lockHud): a plain drag leaves the card");
+	assert_eq!(out["shiftMoved"], true, "locked (ui.lockHud): Shift-drag moves it");
 }
