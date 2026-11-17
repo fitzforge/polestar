@@ -8,6 +8,7 @@ local L = ns.L
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Wähle eine Belohnung, um die Abgabe abzuschließen."
+-- L["%s is an escort: it starts as soon as it is taken. Accept it yourself when your group is ready."] = ""
 
 -- Core/Commands.lua
 L["Toggle guide window"] = "Guide-Fenster ein-/ausblenden"
@@ -230,6 +231,12 @@ L["Grey for you: pays %d%% XP (Skip grey quests)"] = "Für dich grau: bringt %d%
 -- L["Journeyman %s"] = ""
 -- L["Expert %s"] = ""
 -- L["Artisan %s"] = ""
+-- L["Not offered by %s: you can take %s without it"] = ""
+-- L["Your Hearthstone is bound to %s, not %s: ride to the inn"] = ""
+-- L["No Hearthstone in your bags: ride to the inn"] = ""
+-- L["Hearthstone ready in %s: ride to the inn, or wait for it"] = ""
+-- L["Ride to %s"] = ""
+-- L["Ride to the flight master"] = ""
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Benötigt Polestar %s oder neuer."
@@ -287,12 +294,17 @@ L["Treasures"] = "Schätze"
 -- Gear/Tooltip.lua
 L["Polestar"] = "Polestar"
 L["Item"] = "Gegenstand"
+-- L["Your ranged damage uses this weapon's stats, not its damage"] = ""
 
 -- Lookup/Guide.lua
 L["NPC"] = "NPC"
 L["%s: click through what they say until the quest's line is done."] = "%s: Klick dich durch das ganze Gespräch, bis das Questziel erledigt ist."
 -- L["%s: use %s to call it up."] = ""
 -- L["Use %s to learn it."] = ""
+-- L["After an earlier quest"] = ""
+-- L["Chain: finished, %d skipped"] = ""
+-- L["Chain: all %d done"] = ""
+-- L["Chain: %d of %d"] = ""
 
 -- Lookup/Sources.lua
 L["Reputation"] = "Ruf"
@@ -382,6 +394,17 @@ L["Detour around %s"] = "Umweg um %s"
 L["Walk to the airship dock"] = "Lauf zum Luftschiffanleger"
 L["Take the airship to %s"] = "Nimm das Luftschiff nach %s"
 L["Learn the flight path at %s, then fly to %s"] = "Flugroute in %s lernen, dann nach %s fliegen"
+-- L["Ride to the boat"] = ""
+-- L["Ride to the zeppelin tower"] = ""
+-- L["Ride to the airship dock"] = ""
+-- L["Ride to the Deeprun Tram"] = ""
+-- L["Ride to the portal"] = ""
+-- L["Ride to the %s cave mouth"] = ""
+-- L["Ride to the %s entrance"] = ""
+-- L["Ride to the cave mouth in %s"] = ""
+-- L["Ride to the entrance in %s"] = ""
+-- L["Ride to the cave mouth"] = ""
+-- L["Ride to the entrance"] = ""
 
 -- QoL/Options.lua
 L["Experience"] = "Erfahrung"
@@ -1634,6 +1657,8 @@ L["best at %d"] = "am besten bei %d"
 L["Tough at your level"] = "Schwer auf eurer Stufe"
 L["The Dungeons section is turned off. Turn it on under Options > Discovery > Lookup."] = "Der Bereich Dungeons ist ausgeschaltet. Schalte ihn unter Optionen > Entdecken > Nachschlagen ein."
 L["%d-%d players"] = "%d-%d Spieler"
+-- L["No boss drops known"] = ""
+-- L["Drops (%d)"] = ""
 
 -- UI/Lookup.lua
 L["Mount"] = "Reittier"
@@ -1728,6 +1753,14 @@ L["Opens Lookup with this search."] = "Öffnet Nachschlagen mit dieser Suche."
 L["No guide to this mount yet: the sources above say where it comes from and what it takes. Guide on one leads you there."] = "Für dieses Reittier gibt es noch keinen Guide: Die Quellen oben sagen, woher es kommt und was dazu nötig ist. Ein Guide dazu führt dich hin."
 L["Origin"] = "Herkunft"
 L["Builds a guide to %s, the quickest of these to reach, and opens it in a new tab."] = "Erstellt einen Guide zu %s, dem am schnellsten erreichbaren davon, und öffnet ihn in einem neuen Tab."
+-- L["In your quest log"] = ""
+-- L["You can take it now"] = ""
+-- L["Not yet"] = ""
+-- L["Skipped"] = ""
+-- L["Finished, %d skipped"] = ""
+-- L["All %d done"] = ""
+-- L["Click to open its page."] = ""
+-- L["Then any of: %s"] = ""
 
 -- QoL/Options.lua
 L["Off by default: %s does this too."] = "Standardmäßig aus: %s macht das auch."
@@ -1872,6 +1905,21 @@ L["Names in the target list"] = "Namen in der Zielliste"
 L["How many of the step's mobs the target list shows, in guide order."] = "Wie viele Mobs des Schritts die Zielliste zeigt, in der Reihenfolge des Guides."
 -- L["Completed quest XP"] = ""
 -- L["Shows XP from completed quests you can turn in on the game's XP bar and in its tooltip."] = ""
+-- L["Target list style"] = ""
+-- L["Full rows show each name, what it drops and the goal's count. Slim rows are shorter, with a small face, the name and the count; names only leaves the face out. Portraits show the faces alone, in a column or a row, each with how many are left; hover one for its name."] = ""
+-- L["Full"] = ""
+-- L["Slim"] = ""
+-- L["Names only"] = ""
+-- L["Portraits in a column"] = ""
+-- L["Portraits in a row"] = ""
+-- L["Portraits"] = ""
+-- L["3D draws each creature's model. 2D shows the game's flat portrait once you have seen that one (your target, or its nameplate up), and an icon for what you do with it until then."] = ""
+-- L["3D models"] = ""
+-- L["2D portraits"] = ""
+-- L["Name the one that's close"] = ""
+-- L["With portraits, the name of the one close enough to target shows beside its face in a column, under it in a row (above it when the list goes up over the buttons)."] = ""
+-- L["Equip a spare bag first"] = ""
+-- L["When your bags are nearly full and a bag sits in them while a bag slot is empty, the bag button and the guide window offer to put it on before any junk. Nothing happens until you press."] = ""
 
 -- Rares/View.lua, Rares/Options.lua
 L["Seen"] = "Gesehen"
@@ -2101,6 +2149,7 @@ L["Client build: %s (%s)"] = "Client-Build: %s (%s)"
 L["Problems:"] = "Probleme:"
 L["Turn on and reload"] = "Einschalten und neu laden"
 L["Polestar Guides is turned off in the AddOns list, so Polestar has no guides to show. Turn it on for all your characters and reload?"] = "Polestar Guides ist in der AddOn-Liste ausgeschaltet, daher hat Polestar keine Guides zum Anzeigen. Für alle deine Charaktere einschalten und neu laden?"
+-- L["Part of Polestar is turned off in the AddOns list (%s), so its settings cannot open. Turn it on for all your characters and reload?"] = ""
 
 -- UI/Report.lua (the report text itself stays English: the maintainers read it)
 L["What the guide said, and what you found in the game."] = "Was der Guide gesagt hat und was du im Spiel gefunden hast."
@@ -2437,6 +2486,7 @@ L["Arrows"] = "Pfeile"
 L["Bullets"] = "Kugeln"
 L["Bows & guns"] = "Bögen & Schusswaffen"
 L["Mailbox"] = "Briefkasten"
+-- L["Transmogrifier"] = ""
 
 -- Nav/Prompts.lua
 L["Right-click to skip this leg."] = "Rechtsklick, um diese Etappe zu überspringen."
@@ -2939,6 +2989,7 @@ L["Opens the inner doors of Dire Maul's North and West wings."] = "Öffnet die i
 L["Opens Gnomeregan's back door, the Workshop entrance."] = "Öffnet Gnomeregans Hintertür, den Werkstatteingang."
 L["Opens the doors of the Armory and the Cathedral."] = "Öffnet die Türen der Waffenkammer und der Kathedrale."
 L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "Öffnet das Tor des Weges der Horde in die Stadt Dalaran; ein Schlüssel öffnet es für die Gruppe. Die Allianz geht durch das Abwasserrohr in Cantrips & Crows hinein."
+-- L["Rings the gong by the sacred pool in Zul'Farrak to call Gahz'rilla; one mallet does it for the group. Qiaga the Keeper (elite) on top of the Altar of Zul in the Hinterlands drops the Sacred Mallet: use it at the altar at the very top of Jintha'Alor and it becomes the Mallet of Zul'Farrak. Both places are full of elites."] = ""
 
 -- Nav/Handoff.lua
 L["Hand guiding to Shortest Path Forever"] = "Führung an Shortest Path Forever abgeben"
@@ -2979,6 +3030,9 @@ L["Left-click to fold the list to one row."] = "Linksklick klappt die Liste auf 
 L["Right-click for its settings. Shift-drag to move."] = "Rechtsklick für die Einstellungen. Halte Umschalt gedrückt und zieh, um es zu verschieben."
 L["Right-click for its settings. Drag to move."] = "Rechtsklick für die Einstellungen. Ziehen zum Verschieben."
 L["Targets the first name in the list that is close. Click a name to target that one."] = "Visiert den ersten Namen der Liste in der Nähe an. Klick einen Namen an, um diesen anzuvisieren."
+-- L["Dragging the Polestar mark in combat places the buttons after the fight."] = ""
+-- L["Press to equip"] = ""
+-- L["Press to equip it."] = ""
 
 -- Core/Import.lua
 L["Imported"] = "Importiert"
@@ -3213,6 +3267,7 @@ L["Marks friendly service NPCs and mailboxes on zone and city maps using Polesta
 L["Shows the enabled NPC service categories on the minimap as well."] = "Zeigt die aktivierten NPC-Dienstkategorien auch auf der Minikarte."
 L["Shows trainers for your character's class."] = "Zeigt Lehrer für die Klasse deines Charakters."
 L["Shows this service category on the map."] = "Zeigt diese Dienstkategorie auf der Karte."
+-- L["Transmogrifiers"] = ""
 
 -- UI/GearScales.lua
 L["Strength"] = "Stärke"
@@ -3362,6 +3417,8 @@ L["Deleted %s."] = "%s gelöscht."
 L["Free slots: %d of %d"] = "Freie Plätze: %d von %d"
 L["Cheapest junk: %s (%s)"] = "Billigster Plunder: %s (%s)"
 L["Free bag slots and the cheapest junk"] = "Freie Taschenplätze und der billigste Plunder"
+-- L["Equipped %s."] = ""
+-- L["Spare bag: %s"] = ""
 
 -- QoL/Restock.lua
 L["Restock"] = "Restock"
@@ -4543,6 +4600,7 @@ L["Jump anyway? They stay in your log, and the guide lists who takes each in."] 
 L["Jump anyway"] = "Trotzdem springen"
 L["Open any flight master's map once on this continent so Polestar knows your flight paths."] = "Öffne auf diesem Kontinent einmal die Karte eines beliebigen Flugmeisters, damit Polestar deine Flugrouten kennt."
 L["This guide is for %s characters. Polestar won't guide you through it."] = "Dieser Guide ist für %s-Charaktere. Polestar führt dich nicht hindurch."
+-- L["Equip it"] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "Drück %s zum Fortsetzen oder öffne das Guide-Fenster."
