@@ -306,18 +306,19 @@ end
 -- -> soon(), and onLog() for QUEST_LOG_UPDATE: the client sends it for much
 -- that leaves the log as it was (several per kill, some per loot, fifty in a
 -- burst), and a refresh that reads the step's view costs about half a
--- millisecond. A run asked for only by onLog reads the step's part of the log
--- once (readStepLog: one read per moment, whatever the number of refreshes)
--- and skips fn when it is as at its last such run. The step itself changing
--- comes through QoL.OnStep and soon() as before, the bags through
--- BAG_UPDATE_DELAYED.
+-- millisecond. A refresh that onLog asks for reads the step's part of the log
+-- as it runs (readStepLog: one read per moment, whatever the number of
+-- refreshes, and the step's view reads the same lines then), and a run asked
+-- for only by onLog skips fn when that part is as at its last run. The step
+-- itself changing comes through QoL.OnStep and soon() as before, the bags
+-- through BAG_UPDATE_DELAYED.
 function QoL.Coalesce(fn)
-	local scheduled, other, seen = false, false, nil
+	local scheduled, other, logged, seen = false, false, false, nil
 	local function run()
 		scheduled = false
-		if not other then
+		if logged then
 			local v = logVersionNow()
-			if v == seen then return end
+			if not other and v == seen then return end
 			seen = v
 		end
 		other = false
@@ -332,7 +333,10 @@ function QoL.Coalesce(fn)
 	return function()
 		other = true
 		schedule()
-	end, schedule
+	end, function()
+		logged = true
+		schedule()
+	end
 end
 
 -- Fire `fn` on every message that can change the current step.
