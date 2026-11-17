@@ -13352,6 +13352,21 @@ test('Desolace: Centaur Bounty: each spot of the Centaur Ear collect names its o
 	}
 });
 
+// WhoAmI on Discord (#1869): "Gray Bear also drops Gray Bear Tongue, not only Vicious Gray Bear." Gray Bears and
+// Vicious Gray Bears share the Hillsbrad hills, but a spot named only the bears whose own spawn stood within reach of
+// it, so most spots' target button said Vicious Gray Bear alone. Spawn areas joined across connected spawns (#2288,
+// shacklef00rd) name every dropper that roams the same hills, and the guide's hand-placed point still links only the
+// droppers at that point.
+test('forever/horde/06-hillsbrad-foothills.guide: Elixir of Suffering: every bear spot of the Gray Bear Tongue collect names Gray Bear (#1869)', { skip }, () => {
+	const list = goals('forever/horde/06-hillsbrad-foothills.guide');
+	const { goal } = list[at(list, 'collect 3476 quest 496', (g) => g.t === 'collect' && g.item === 3476 && g.quest === 496)];
+	assert.equal(typeof goal.fromNpcsAt, 'string', 'the goal lists each spot\'s mobs');
+	const ids = goal.fromNpcsAt.split(';').filter(Boolean).map((s) => s.split(',').map((k) => goal.fromNpcs[Number(k) - 1].npc));
+	assert.ok(ids.length > 10, `the bear spots are listed (${ids.length})`);
+	const without = ids.filter((l) => !l.includes(2351)).length;
+	assert.equal(without, 0, `every bear spot names Gray Bear (2351): ${without} of ${ids.length} do not`);
+});
+
 // rockzors (#1602, 0.3.6): "include Carved Centaur Totems with the Centaur Bounty quest". Players' recordings
 // (build 70862, 41 drops, 5 contributors) have Carved Centaur Totem (254432) dropping from six Kolkar and seven
 // Magram kinds; the merged data listed only the Maraudine, so the quest waited for the south loop's Valley of
