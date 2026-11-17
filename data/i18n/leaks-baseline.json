@@ -37283,13 +37283,6 @@
 				],
 				"english": "Ravasaur Matriarch"
 			},
-			"npc:253370": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "[DNT] Kill Credit: Place Explosives"
-			},
 			"npc:253527": {
 				"reason": "no-source",
 				"scenes": [
@@ -37691,13 +37684,6 @@
 				],
 				"english": "Eye of Kilrogg"
 			},
-			"npc:271293": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "[DNT] Kill Credit: Twilight Thrall"
-			},
 			"npc:271336": {
 				"reason": "no-source",
 				"scenes": [
@@ -37718,13 +37704,6 @@
 					"dungeons"
 				],
 				"english": "Vitrix"
-			},
-			"npc:272737": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "[DNT] Kill Credit"
 			},
 			"npc:277182": {
 				"reason": "same-as-english",
@@ -37868,12 +37847,26 @@
 				],
 				"english": "Fishing Trap"
 			},
+			"objective:92753": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Explosives placed"
+			},
 			"objective:93404": {
 				"reason": "no-source",
 				"scenes": [
 					"dungeons"
 				],
 				"english": "Woodwyrd extinguished"
+			},
+			"objective:94888": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Farholde Scouts rescued"
 			},
 			"text:1500 Merchant's Favor": {
 				"reason": "kept-english",
@@ -38824,13 +38817,6 @@
 				],
 				"english": "Fillion Flamebreeze"
 			},
-			"npc:253370": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "[DNT] Kill Credit: Place Explosives"
-			},
 			"npc:253527": {
 				"reason": "no-source",
 				"scenes": [
@@ -39651,13 +39637,6 @@
 				],
 				"english": "Eye of Kilrogg"
 			},
-			"npc:271293": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "[DNT] Kill Credit: Twilight Thrall"
-			},
 			"npc:271322": {
 				"reason": "no-source",
 				"scenes": [
@@ -39741,13 +39720,6 @@
 					"dungeons"
 				],
 				"english": "Vitrix"
-			},
-			"npc:272737": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "[DNT] Kill Credit"
 			},
 			"npc:273017": {
 				"reason": "no-source",
@@ -40221,12 +40193,26 @@
 				],
 				"english": "Windstone Formation"
 			},
+			"objective:92753": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Explosives placed"
+			},
 			"objective:93404": {
 				"reason": "no-source",
 				"scenes": [
 					"dungeons"
 				],
 				"english": "Woodwyrd extinguished"
+			},
+			"objective:94888": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Farholde Scouts rescued"
 			},
 			"text:1,500 Merchant's Favor": {
 				"reason": "kept-english",

@@ -11864,7 +11864,7 @@ do
 					goals = {
 						{ t = "kill", quest = 95601, title = "The Purple Ones", target = "Empowered Brute", npc = 261711, count = 5, oi = 1, map = 2548, x = 49.51, y = 47.45, spotsPacked = "49.3,47.3,,52,6;50,45.6,,15,2;49.9,49.6,,44,6;48.5,45.4,,30,2;48.3,49.4,,52,12;51.4,47.6,,25,2;45.9,46.7,,20,2,1;47.2,51.8,,74,5,1;51.2,42.2,,15,1,1;45.1,50.4,,58,8,1;44.2,47.1,,15,1,1;44.8,52.2,,26,2,1;58.6,48.7,,15,1,1", lvl = 39 },
 						{ t = "kill", quest = 95601, title = "The Purple Ones", target = "Twilight Ritualist", npc = 262169, count = 10, oi = 2, map = 2548, x = 48.86, y = 46.87, spotsPacked = "48.64,46.85,,15,1;50.1,44.9,,41,6;48.37,49.53,,68,16;51.6,47.4,,45,4;51.1,42.1,,15,1,1;45.6,51.1,,23,3,1;56.7,40.2,,15,1,1", lvl = 41 },
-						{ t = "complete", quest = 95602, title = "Sickening Lights", map = 2548, x = 47.7, y = 49.9, note = "destroy 5 Twilight Ritual Circles", objs = { { text = "[DNT] Kill Credit", count = 5 } } },
+						{ t = "complete", quest = 95602, title = "Sickening Lights", map = 2548, x = 47.7, y = 49.9, note = "destroy 5 Twilight Ritual Circles", objs = { { text = "Twilight Ritual Circle destroyed", count = 5 } } },
 					},
 				},
 				{
@@ -12254,7 +12254,7 @@ do
 						{ t = "kill", quest = 94745, title = "Carving a Path", target = "Twilight Fanatic", npc = 256795, count = 8, oi = 1, map = 2548, x = 28.94, y = 40.85, spotsPacked = "28.94,40.85,,54,10;30.1,44.9,,53,12;30,50.9,,40,2;27.8,53.6,,40,1;25.1,44.3,,58,4;26.7,34.9,,40,1;31.2,36.2,,40,1;33.2,38.6,,40,4;33.8,42.6,,43,7;34.3,47.7,,40,1;40.7,44.6,,40,2;32,31.9,,40,1;31.2,39.3,,53,10,1;29.5,36.5,,49,6,1;31.8,43.3,,50,10,1;32.4,40.7,,47,8,1;28.2,47.2,,63,12,1;32.1,45.9,,51,8,1;30.6,48.3,,59,9,1;30.5,33.2,,40,1,1;27.5,50.6,,42,4,1;35.3,44.8,,40,3,1", spread = true, lvl = 43 },
 						{ t = "kill", quest = 94745, title = "Carving a Path", target = "Twilight Corrupter", npc = 256797, count = 8, oi = 2, map = 2548, x = 28.16, y = 40.15, spotsPacked = "28.4,38.7,,64,13;29.6,41.5,,60,11;28.6,44.6,,61,14;29.5,47.6,,59,12;27,47.1,,60,12;25.7,44,,64,10;26.51,41.48,,21,2;30.9,38.6,,54,7;33.1,39.1,,47,4;34.7,44.6,,40,2;31.4,44.8,,44,7;27.6,53,,40,3;31.4,32.5,,40,2;29,36.3,,74,10,1;30.1,34.5,,40,3,1;32.8,36.5,,40,1,1;32.8,46.6,,40,2,1;27.9,49.9,,53,7,1;30.6,49.3,,50,7,1;41.7,44.7,,40,1,1", spread = true, lvl = 43 },
 						{ t = "kill", quest = 94745, title = "Carving a Path", target = "Twilight Champion", npc = 256799, count = 8, oi = 3, map = 2548, x = 27.55, y = 41.36, spotsPacked = "26.5,41.1,,65,15;28.3,38.9,,54,12;29.7,41.3,,60,13;32.5,41.7,,55,9;32.9,45.6,,52,7;32.2,49.7,,40,1;29.4,48.5,,42,7;27,47.2,,55,11;28,54,,40,2;38.1,45.9,,40,2;32.2,36.6,,40,2;29.6,36.1,,52,10;32.2,31.4,,40,2;28.3,43.8,,63,13,1;25.7,43.7,,66,12,1;27.5,36.1,,56,8,1;29,46.3,,58,9,1;30.7,38.7,,50,10,1;31.3,44.5,,60,12,1;30.8,46.8,,44,7,1;33.3,38.7,,44,4,1;30.6,33.5,,40,4,1;28.1,50.7,,49,7,1;30.6,49.8,,45,5,1;34,43.5,,56,8,1;36,45.7,,40,2,1", spread = true, lvl = 44 },
-						{ t = "complete", quest = 94748, title = "Break Their Chains", map = 2548, x = 29.4, y = 40.5, note = "free five captive Rog'mar Scouts", objs = { { text = "[DNT] Kill Credit", count = 5 } } },
+						{ t = "complete", quest = 94748, title = "Break Their Chains", map = 2548, x = 29.4, y = 40.5, note = "free five captive Rog'mar Scouts", objs = { { text = "Rog'mar Scout rescued", count = 5 } } },
 					},
 				},
 				{
@@ -12262,7 +12262,7 @@ do
 					note = "North of the camps the cult works ogre miners in a mine: talk five of them into rising up against their masters.\nCareful: Twilight Enforcers (elites, level 45) walk past the mine's mouth on their way through the camps. Wait for one to pass before you go in.",
 					when = { { k = "onquest", q = { 95432 } } },
 					goals = {
-						{ t = "complete", quest = 95432, title = "Rise Up!", map = 2548, x = 26.9, y = 34.9, note = "recruit five Ogre Miners", objs = { { text = "[DNT] Kill Credit: Ogre Miner", count = 5 } } },
+						{ t = "complete", quest = 95432, title = "Rise Up!", map = 2548, x = 26.9, y = 34.9, note = "recruit five Ogre Miners", objs = { { text = "Ogre Miners recruited", count = 5 } } },
 					},
 				},
 				{
@@ -15445,7 +15445,7 @@ do
 					note = "Ride back south past {area:1763} to the corrupted moonwell of the Jadefire satyrs and fill {npc:9996}'s flasket there.",
 					goals = {
 						{ t = "use", quest = 4505, title = "Well of Corruption", item = 12566, itemName = "Hardened Flasket", oi = 1, map = 1448, x = 32.3, y = 66.6, z = 300.2, f = "e" },
-						{ t = "collect", quest = 4505, title = "Well of Corruption", item = 12567, itemName = "Filled Flasket", count = 1, oi = 1, map = 1448, x = 32.3, y = 66.6, z = 300.2, f = "e", from = "Corrupted Moonwell Spell Focus (DND)", fromKind = "object", fromId = 148501 },
+						{ t = "collect", quest = 4505, title = "Well of Corruption", item = 12567, itemName = "Filled Flasket", count = 1, oi = 1, map = 1448, x = 32.3, y = 66.6, z = 300.2, f = "e", from = "Moonwell", fromKind = "object", fromId = 148501 },
 					},
 				},
 				{

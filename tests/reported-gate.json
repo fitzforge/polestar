@@ -1402,6 +1402,11 @@
 		] },
 		"2619": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-sections.rs", "test": "a_profession_guide_starts_at_the_player_s_skill_asks_only_for_what_is_still_needed_and_keeps_a_missing_rank" }
+		] },
+		"2614": { "tests": [
+			{ "node": "tests/placeholder-names.test.js", "test": "#2614: no guide pack shows the game's placeholder names (\"[DNT] Kill Credit\", \"PvP Tower Credit Marker\", \"Trigger Ichman\")" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/placeholders.rs", "test": "a_goal_on_a_credit_target_reads_as_its_quest_log_line_never_kill_the_placeholder" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/placeholders.rs", "test": "lookups_quest_step_never_names_a_credit_target" }
 		] }
 	},
 	"seedDrift": {

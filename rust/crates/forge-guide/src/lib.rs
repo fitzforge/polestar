@@ -44,6 +44,7 @@ pub mod model;
 pub mod money;
 pub mod params;
 pub mod parse;
+pub mod placeholder;
 pub mod places;
 pub mod play_rules;
 pub mod prereqs;
