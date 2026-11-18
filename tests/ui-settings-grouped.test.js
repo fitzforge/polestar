@@ -207,7 +207,7 @@ test("a long tab's index lights its last sections at the end, and folds what doe
 		local G = O.Grouped
 		Polestar.UI.ShowOptions("guide")
 		G.SetOn(true)
-		-- A tab of many sections (a long index).
+		-- A tab of many sections: 36 rows, over the index's 30.
 		for i = 1, 12 do
 			local rows = {}
 			for j = 1, 3 do rows[j] = { kind = "button", button = "Go", label = "Row " .. j, onClick = function() end } end
