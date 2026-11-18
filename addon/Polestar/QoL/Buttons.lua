@@ -447,7 +447,8 @@ end
 -- heads-up card, UI/ClassToast.lua, #2629): each shown button and the target
 -- list's shown rows and mark, { left, bottom, right, top } in screen pixels
 -- (a frame's own units times its effective scale). Empty before the buttons
--- are made. QUEST_BUTTONS_PLACED says it may have changed.
+-- are made. QUEST_BUTTONS_PLACED says it may have changed: once a frame at
+-- most (placedSoon), however many buttons came, went or were placed in it.
 function Buttons.Covers()
 	local out = {}
 	local function add(f)
@@ -486,6 +487,13 @@ local function adoptBagPos()
 		s.bagButtonPos = { p[1], p[2], p[3], p[4] + BAG_LIFT }
 	end
 end
+
+-- QUEST_BUTTONS_PLACED on the next frame, once for every placing and every
+-- button that came or went before it: a fight's end shows, hides and places
+-- the set in one frame, and each fire had the heads-up card measure the
+-- screen again (#2772). By then the client has laid the buttons out, so
+-- Buttons.Covers reads where they are without forcing that layout early.
+local placedSoon = QoL.Coalesce(function() ns.Fire("QUEST_BUTTONS_PLACED") end)
 
 -- Holder position and scale, and the buttons at their sizes in their slots
 -- (Buttons.Offsets). The holder takes the button scale too, so the saved
@@ -540,7 +548,7 @@ local function placeNow()
 	bag:SetPoint(bp[1], UIParent, bp[2], bp[3], bp[4])
 	for i = 1, #set do placeLabel(set[i]) end
 	Buttons.PlaceList(Buttons.target, TL.anchor, TL.rows, s)
-	ns.Fire("QUEST_BUTTONS_PLACED")
+	placedSoon()
 end
 
 local function place()
@@ -3682,7 +3690,7 @@ local function create()
 	local function placeLabels() for i = 1, #set do placeLabel(set[i]) end end
 	local function cameOrWent()
 		placeLabels()
-		ns.Fire("QUEST_BUTTONS_PLACED")
+		placedSoon()
 	end
 	for i = 1, #set do
 		set[i].psStack = set
