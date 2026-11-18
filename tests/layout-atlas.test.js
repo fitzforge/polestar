@@ -1509,3 +1509,86 @@ emit(out)`;
 		for (const k of keys) assert.equal(out[k], want, `${skin}: ${k}`);
 	}
 });
+
+// A three-digit step number on the rail (steps before, Up next) ends clear of
+// its node: Atlas gives GuideFrame.FitNum a column that stops 2 px short of
+// the disc, so "107" and "120" never sit on the dot or read "1...".
+test('on the rail a three-digit step number clears its node, in the steps before and Up next', () => {
+	const [out] = runAddon({
+		stubs: ['stub_world.lua'],
+		addons: ['Polestar', 'Polestar_Skin_Atlas', 'Polestar_Layout_Atlas'],
+		script: `
+w = stub.world
+w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
+w.moveTo(1429, 48, 42)
+Polestar.RegisterPack({ addon = "Polestar_Test", id = "test", format = 1, title = "Test", author = "Test", version = "1", license = "MIT" })
+Polestar.Set("behavior.suggestFrom", "test")
+local steps = {}
+for i = 1, 130 do steps[i] = { goals = { { t = "note", text = "Step note " .. i } } } end
+Polestar.RegisterGuide({ id = "test/long", pack = "test", title = "Long", minLevel = 1, maxLevel = 20, steps = steps })
+stub.login()
+stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)
+local T, GF = Polestar.Theme, Polestar.UI.GuideFrame
+if not GF.FitNum then emit({ rows = {}, noFit = true }) return end
+Polestar.Set("ui.shown", true)
+Polestar.Set("ui.skin", "atlas")
+T.SetLayout("atlas")
+Polestar.Set("ui.upcoming", 3)
+Polestar.Set("ui.upcomingOpen", true)
+Polestar.Set("guideWindow.lastSteps", 3)
+local parts = T.GuideParts()
+local rows = {}
+-- Wide digits, 0.7 of the size each (the stub's 0.5 leaves room anywhere):
+-- patched on the strings once the rows exist.
+local function wide()
+	for _, fs in ipairs(stub.strings) do
+		fs.GetUnboundedStringWidth = function(self)
+			local _, size = self:GetFont()
+			return #tostring(self:GetText() or "") * (size or 12) * 0.7
+		end
+		fs.GetStringWidth = fs.GetUnboundedStringWidth
+	end
+end
+local function sweep(kind, pool, n)
+	for i = 1, n do
+		local r = pool[i]
+		local num = r.Num:GetText()
+		if #num >= 3 and r.Num:IsShown() then
+			local _, _, _, x = r.Num:GetPoint(1)
+			local disc
+			for _, region in ipairs({ parts.window:GetChildren() }) do
+				for _, t in ipairs({ region:GetRegions() }) do
+					local p = t.GetPoint and { t:GetPoint(1) }
+					if p and p[2] == r and t:IsShown() and t:GetWidth() == 8 then disc = { x = p[4], w = t:GetWidth() } end
+				end
+			end
+			rows[#rows + 1] = { kind = kind, num = num, left = x - r.Num:GetUnboundedStringWidth(), disc = disc and (disc.x + disc.w / 2) or false }
+		end
+	end
+end
+Polestar.Engine.Goto(100)
+stub.advance(1)
+GF.Render(); GF.Layout(); stub.advance(1)
+wide()
+for _, at in ipairs({ 104, 108, 117, 121 }) do
+	Polestar.Engine.Goto(at)
+	stub.advance(1)
+	GF.Render(); GF.Layout(); stub.advance(1)
+	local up = {}
+	for _, r in ipairs({ parts.upnext:GetChildren() }) do
+		if type(rawget(r, "Num")) == "table" and rawget(r, "psIndex") and r:IsShown() then up[#up + 1] = r end
+	end
+	table.sort(up, function(a, b) return a.psIndex < b.psIndex end)
+	sweep("before", parts.last.Rows, parts.last.psCount or 0)
+	sweep("up", up, #up)
+end
+emit({ rows = rows })`,
+	}).emitted;
+	if (out.noFit) return; // GuideFrame.FitNum comes with the steps-before-number-width PR
+	const seen = new Set(out.rows.map((r) => `${r.kind}:${r.num}`));
+	for (const k of ['before:107', 'before:120', 'up:107', 'up:120']) assert.ok(seen.has(k), `${k} was drawn: ${[...seen]}`);
+	for (const r of out.rows) {
+		assert.ok(r.disc !== false, `${r.kind} ${r.num}: has a node`);
+		assert.ok(r.left >= r.disc + 2, `${r.kind} ${r.num}: left edge ${r.left} clears the node's right edge ${r.disc} by 2`);
+	}
+});

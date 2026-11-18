@@ -2686,6 +2686,24 @@ onLeave(function(parts)
 end)
 
 -- The rail and its nodes, on a layer of Atlas's own over the window.
+-- A row's step number on the rail: its column ends 2 px short of the node's
+-- disc (8 wide, RAIL - UP_X from the row's left), the number right-aligned in
+-- it, so a three-digit step shrinks (GuideFrame.FitNum) instead of reaching
+-- the dot. Off the rail the column is Polestar's own again.
+local function numColumn(r, on)
+	local num, G = rawget(r, "Num"), frame()
+	if not (num and G and G.FitNum) then return end
+	local col
+	if on then
+		local _, _, _, x = num:GetPoint(1)
+		col = (x or 26) - (RAIL - UP_X + 4 + 2)
+	end
+	if num.psColumn ~= col then
+		num.psColumn = col
+		G.FitNum(r)
+	end
+end
+
 local function rail(parts)
 	local window, person = parts.window, parts.person
 	local own = store(window)
@@ -2700,6 +2718,8 @@ local function rail(parts)
 	if not (onRail() and person and person:IsShown() and parent and parent:IsShown() and person.Name) then
 		layer:Hide()
 		railMark(person, nil)
+		for _, r in ipairs(upRows(parts.upnext)) do numColumn(r, false) end
+		for _, r in ipairs(rawget(parts.last or {}, "Rows") or {}) do numColumn(r, false) end
 		return
 	end
 	layer:Show()
@@ -2712,6 +2732,7 @@ local function rail(parts)
 		local r = past[i]
 		if r then
 			paintPast(pn, rawget(r, "psStatus"))
+			numColumn(r, true)
 			placeNode(pn, r, "LEFT", RAIL - UP_X, 0)
 			top = top or pn.disc
 		else
@@ -2756,6 +2777,7 @@ local function rail(parts)
 		local r = rows[i]
 		if r then
 			paintNode(d, false, FADE[i] or FADE[#FADE])
+			numColumn(r, true)
 			placeNode(d, r, "LEFT", RAIL - UP_X, 0)
 			bottom = d.disc
 		else
