@@ -793,8 +793,11 @@ What it takes, and how:
   while-here pins (`Nav/Layers.lua`) and the upcoming-step pins
   (`Nav/Upcoming.lua`).
 - With `pause.automation` (off by default): quest auto-accept, turn-in,
-  closing skipped quest windows (`Core/Automation.lua`) and the reward pick
-  (`QoL/Rewards.lua`).
+  closing skipped quest windows (`Core/Automation.lua`), the reward pick
+  (`QoL/Rewards.lua`), and the flight master's map opening from the gossip
+  and its flight taken as the map opens (`qol.flightAutoOpen`,
+  `qol.flightAutoTake`: `QoL/Flight.lua`; `qol.skipGossip` leaves a lone
+  taxi option too, `Flight.PauseHolds`; #2945).
 
 Party chat progress lines go on as before. The report's Routes line says
 "paused armed" or "paused inside" while paused.
@@ -7430,6 +7433,7 @@ Polestar.QoL.Bind.OnGossip() -> bool         -- GOSSIP_SHOW (Toggles.lua: after 
 Polestar.QoL.Flight.TakeSlot() -> slot, cost | nil   -- the marked node the step key flies to: map open, the window on the live step, the node reachable (TaxiNodeGetType), cost from TaxiNodeCost
 Polestar.QoL.Flight.Take() -> bool                   -- the press: TakeTaxiNode(slot) when GetMoney covers the cost, else prints what it costs
 Polestar.QoL.Flight.AutoTake() -> bool               -- qol.flightAutoTake: Take() as the map opens, once per open
+Polestar.QoL.Flight.PauseHolds(option) -> bool       -- the taxi gossip option while the pause holds the automation (pause.automation): left to the player
 ```
 
 - By default the flight is only taken by a press of the player's: while the
@@ -7443,7 +7447,8 @@ Polestar.QoL.Flight.AutoTake() -> bool               -- qol.flightAutoTake: Take
   (`Flight.Take`: the marked node, the live step, reachable, the cost
   covered, else the price printed). Shift held now or when a flight
   master's gossip opened leaves the map to the player; a replan while it is
-  open never flies.
+  open never flies. Paused with `pause.automation` on, neither this nor
+  `qol.flightAutoOpen` acts (see "Pause").
 - `Flight.Highlight` fires `FLIGHT_MARK_CHANGED(slot | nil)` after every
   mark (the map opening, a replan while it is open) and on
   `TAXIMAP_CLOSED`; the buttons refresh on it.

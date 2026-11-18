@@ -7,7 +7,10 @@
 -- is open and the window shows the live step (Flight.Take). The one opt-in
 -- exception is qol.flightAutoTake (off by default, #1621): the map that just
 -- opened takes the marked flight at once (Flight.AutoTake), unless Shift was
--- held at the flight master. Nothing else calls TakeTaxiNode.
+-- held at the flight master. Nothing else calls TakeTaxiNode. Paused with
+-- "No quest automation while paused" on (pause.automation, Core/Init.lua),
+-- neither the map's opening nor AutoTake acts until Polestar resumes (#2945):
+-- the player picks the taxi option and the flight, as with Shift.
 --
 -- Recognising the taxi option without its localized text: the taxi gossip
 -- icon (fileID 132057, Interface\GossipFrame\TaxiGossipIcon), or a flight
@@ -56,13 +59,27 @@ end
 -- closes, or the next gossip.
 local shiftGossip = false
 
+-- The pause holding the automation (pause.automation): the flight master's
+-- map and flight wait for the player too.
+local function automationPaused()
+	return ns.PauseHides("automation")
+end
+
+-- Whether the pause keeps gossip option `o` for the player's own pick: the
+-- taxi option, while the pause holds the automation. Toggles.SkipGossip asks,
+-- so a flight master whose only option is the taxi does not open the map
+-- either.
+function Flight.PauseHolds(o)
+	return automationPaused() and Flight.TaxiOption({ o }) ~= nil
+end
+
 -- Returns true when it opened the flight map (the gossip is then gone).
 function Flight.OnGossip()
 	local G = C_GossipInfo
 	if not (G and G.GetOptions) then return false end
 	local opt = Flight.TaxiOption(G.GetOptions() or {})
 	shiftGossip = opt ~= nil and QoL.Shift()
-	if not QoL.On("flightAutoOpen") or QoL.Shift() then return false end
+	if not QoL.On("flightAutoOpen") or QoL.Shift() or automationPaused() then return false end
 	if QoL.HasQuestBusiness() then return false end
 	return opt ~= nil and QoL.SelectGossip(opt)
 end
@@ -430,9 +447,10 @@ local autoTried = false
 
 -- qol.flightAutoTake: the flight map that just opened takes the marked
 -- flight as the step key would (Flight.Take), once per open, unless Shift
--- is or was held at the flight master. True if taken.
+-- is or was held at the flight master, or the pause holds the automation.
+-- True if taken.
 function Flight.AutoTake()
-	if autoTried or not QoL.On("flightAutoTake") or shiftGossip or QoL.Shift() then return false end
+	if autoTried or not QoL.On("flightAutoTake") or shiftGossip or QoL.Shift() or automationPaused() then return false end
 	autoTried = true
 	return Flight.Take()
 end
