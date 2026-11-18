@@ -104,9 +104,9 @@ fn an_unready_hand_in_walks_the_behind_list_only_for_a_quest_left_behind() {
 		{TEST_SOURCE}
 		local w = stub.world
 		Polestar.RegisterGuide({{ id = "test/behind", pack = "test", title = "Behind", faction = "Alliance", minLevel = 1, maxLevel = 12, zone = 1429, steps = {{
-			{{ title = "Take", goals = {{ {{ t = "accept", quest = 100, map = 1429, x = 41, y = 41, npc = 197 }}, {{ t = "accept", quest = 200, map = 1429, x = 41, y = 41, npc = 197 }} }} }},
-			{{ title = "Back", goals = {{ {{ t = "turnin", quest = 100, map = 1429, x = 45, y = 45, npc = 198 }} }} }},
-			{{ title = "Wolves", goals = {{ {{ t = "kill", quest = 200, obj = 1, map = 1429, x = 60, y = 60, text = "Wolves" }} }} }},
+			{{ title = "Take", goals = {{ {{ t = "accept", quest = 100, title = "Hundred", map = 1429, x = 41, y = 41, npc = 197 }}, {{ t = "accept", quest = 200, title = "Wolves", map = 1429, x = 41, y = 41, npc = 197 }} }} }},
+			{{ title = "Back", goals = {{ {{ t = "turnin", quest = 100, title = "Hundred", map = 1429, x = 45, y = 45, npc = 198 }} }} }},
+			{{ title = "Wolves", goals = {{ {{ t = "kill", quest = 200, obj = 1, target = "Wolf", map = 1429, x = 60, y = 60, text = "Wolves" }} }} }},
 		}} }})
 		E = Polestar.Engine
 		stub.login(); stub.advance(0.25)
@@ -124,8 +124,7 @@ fn an_unready_hand_in_walks_the_behind_list_only_for_a_quest_left_behind() {
 		emit({{ step = E.GetStepIndex(), plain = plain, behind = walks, x1 = wp1 and wp1.x, x2 = wp2 and wp2.x }})"#
 		),
 	);
-	println!("BEHIND {out}");
-	assert_eq!(out, json!({ "plain": 5, "behind": true, "x1": 41, "x2": 60 }));
+	assert_eq!(out, json!({ "step": 2, "plain": 5, "behind": 10, "x1": 45, "x2": 45 }));
 }
 
 // Engine.GrindHint (the guide window on a grind step, again 5 s after its last look, so on nearly every kill):
@@ -141,7 +140,7 @@ fn a_grind_steps_hint_judges_and_places_only_the_givers_near_the_player() {
 			r#"
 		{TEST_PACK}
 		{TEST_SOURCE}
-		local acc = function(q, x) return {{ t = "accept", quest = q, qlvl = 10, map = 1429, x = x, y = x, npc = 900 + q }} end
+		local acc = function(q, x) return {{ t = "accept", quest = q, title = "Quest " .. q, qlvl = 10, map = 1429, x = x, y = x, npc = 900 + q }} end
 		Polestar.RegisterGuide({{ id = "test/grind", pack = "test", title = "Grind", faction = "Alliance", minLevel = 1, maxLevel = 20, zone = 1429, steps = {{
 			{{ title = "Level 12", goals = {{ {{ t = "level", level = 12 }} }} }},
 			{{ title = "Far", goals = {{ acc(301, 90), acc(303, 85) }} }},
@@ -167,7 +166,6 @@ fn a_grind_steps_hint_judges_and_places_only_the_givers_near_the_player() {
 		emit({{ hints = hints, later = per[2] + per[3] }})"#
 		),
 	);
-	println!("GRIND {out}");
 	let hint = json!({ "lo": 10, "hi": 10, "near": [302, 304, 307] });
 	assert_eq!(out, json!({ "hints": [hint, hint, hint], "later": 2 }));
 }
