@@ -301,14 +301,36 @@ local function ownAddon(addon)
 	local author = get and get(addon, "Author")
 	return type(author) == "string" and (author == "Polestar" or author:find("^Polestar;") ~= nil)
 end
+ns.OwnAddon = ownAddon
+-- The first line of Polestar's own code in a debugstack() text, as its path
+-- from the AddOns folder and its line ("Polestar/Core/Engine.lua:812"),
+-- past the files in `skip` (path -> true); nil with none of ours.
+function ns.OurSite(stack, skip)
+	for path, line in stack:gmatch("AddOns[/\\](Polestar[%w_]*[/\\][^:\"%]\n]-%.lua)\"?%]?:(%d+)") do
+		local rel = path:gsub("\\", "/")
+		if not skip[rel] then return rel .. ":" .. line end
+	end
+	return nil
+end
+-- Where a callback that runs through a shared function was made
+-- ("Polestar/QoL/Buttons.lua:3580"), for the perf probe's report, which
+-- could not tell such callbacks apart (QoL.Coalesce's): noted once each, as
+-- it is made, past Init.lua and the file `from` that makes it for others.
+local madeAt = setmetatable({}, { __mode = "k" })
+function ns.NoteMadeAt(fn, from)
+	if type(debugstack) == "function" then
+		madeAt[fn] = ns.OurSite(debugstack(2, 8, 0) or "", { [ADDON .. "/Core/Init.lua"] = true, [from] = true })
+	end
+	return fn
+end
+function ns.MadeAt(fn) return madeAt[fn] end
+-- This handler and the event dispatch in this file.
+local SKIP_INIT = { [ADDON .. "/Core/Init.lua"] = true }
 local function blockedSite()
 	if type(debugstack) ~= "function" then return nil end
 	local stack = debugstack(2, 40, 0) or ""
-	for path, line in stack:gmatch("AddOns[/\\](Polestar[%w_]*[/\\][^:\"%]\n]-%.lua)\"?%]?:(%d+)") do
-		local rel = path:gsub("\\", "/")
-		-- This handler and the event dispatch in this file.
-		if rel ~= ADDON .. "/Core/Init.lua" then return rel .. ":" .. line end
-	end
+	local site = ns.OurSite(stack, SKIP_INIT)
+	if site then return site end
 	-- The C function nearest above the game's first line is the blocked one.
 	local fn
 	for l in stack:gmatch("[^\n]+") do
@@ -375,6 +397,9 @@ local function call(fn, ...)
 	end
 end
 ns.SafeCall = call
+-- What ns.Safe's callbacks run their function through: `call`, or the perf
+-- probe's timing while /polestar perf is on (ns.SetProbe).
+local run = call
 
 -- fn wrapped so its errors are caught, noted and passed on like an event
 -- handler's (nil stays nil): for OnUpdate scripts and timer callbacks, which
@@ -383,7 +408,7 @@ function ns.Safe(fn)
 	if fn == nil then return nil end
 	return function(...)
 		serial = serial + 1
-		call(fn, ...)
+		run(fn, ...)
 	end
 end
 
@@ -704,6 +729,14 @@ function ns.Off(h)
 	end
 end
 
+local function busDone()
+	busDepth = busDepth - 1
+	if busDepth == 0 and busDirty then
+		busDirty = false
+		for _, l in pairs(listeners) do compact(l) end
+	end
+end
+
 function ns.Fire(msg, ...)
 	serial = serial + 1
 	local list = listeners[msg]
@@ -713,11 +746,7 @@ function ns.Fire(msg, ...)
 		local h = list[i]
 		if h.live then call(h.fn, ...) end
 	end
-	busDepth = busDepth - 1
-	if busDepth == 0 and busDirty then
-		busDirty = false
-		for _, l in pairs(listeners) do compact(l) end
-	end
+	busDone()
 end
 
 -- Whether a message is being handed out now (one of its handlers runs):
@@ -774,7 +803,17 @@ function ns.UnregisterEvent(event, fn)
 	end
 end
 
-eventFrame:SetScript("OnEvent", function(_, event, ...)
+local function eventsDone()
+	eventDepth = eventDepth - 1
+	if eventDepth == 0 and eventsDirty then
+		eventsDirty = false
+		local events = {}
+		for ev in pairs(gameHandlers) do events[#events + 1] = ev end
+		for i = 1, #events do settle(events[i]) end
+	end
+end
+
+local function onEvent(_, event, ...)
 	serial = serial + 1
 	local list = gameHandlers[event]
 	if not list then return end
@@ -783,14 +822,77 @@ eventFrame:SetScript("OnEvent", function(_, event, ...)
 		local h = list[i]
 		if h.live then call(h.fn, event, ...) end
 	end
-	eventDepth = eventDepth - 1
-	if eventDepth == 0 and eventsDirty then
-		eventsDirty = false
-		local events = {}
-		for ev in pairs(gameHandlers) do events[#events + 1] = ev end
-		for i = 1, #events do settle(events[i]) end
+	eventsDone()
+end
+eventFrame:SetScript("OnEvent", onEvent)
+
+---------------------------------------------------------------------------
+-- The perf probe's way in (Core/Perf.lua, /polestar perf). Off, none of it
+-- runs: the event frame keeps onEvent, the bus its Fire, ns.Safe's
+-- callbacks and ns.SafeCall run `call`. ns.SetProbe(timed) hands every
+-- handler Polestar runs to timed(fn, kind, where, ...), which runs
+-- call(fn, ...) and times it: a game event's (kind PROBE.EVENT, where the
+-- event), a message's (PROBE.MESSAGE, the message), an OnUpdate script's
+-- or timer's made with ns.Safe (PROBE.SAFE) and ns.SafeCall's (PROBE.CALL),
+-- the last two with where nil. ns.SetProbe(nil) puts the plain ones back.
+---------------------------------------------------------------------------
+
+ns.PROBE = { EVENT = 1, MESSAGE = 2, SAFE = 3, CALL = 4 }
+local probe
+local plainFire = ns.Fire
+
+local function probedEvent(_, event, ...)
+	serial = serial + 1
+	local list = gameHandlers[event]
+	if not list then return end
+	eventDepth = eventDepth + 1
+	for i = 1, #list do
+		local h = list[i]
+		if h.live then probe(h.fn, 1, event, event, ...) end
 	end
-end)
+	eventsDone()
+end
+
+local function probedFire(msg, ...)
+	serial = serial + 1
+	local list = listeners[msg]
+	if not list then return end
+	busDepth = busDepth + 1
+	for i = 1, #list do
+		local h = list[i]
+		if h.live then probe(h.fn, 2, msg, ...) end
+	end
+	busDone()
+end
+
+local function probedSafe(fn, ...) probe(fn, 3, nil, ...) end
+local function probedCall(fn, ...) probe(fn, 4, nil, ...) end
+
+function ns.SetProbe(timed)
+	probe = timed
+	eventFrame:SetScript("OnEvent", timed and probedEvent or onEvent)
+	ns.Fire = timed and probedFire or plainFire
+	ns.SafeCall = timed and probedCall or call
+	run = timed and probedSafe or call
+end
+
+-- For the probe's labels: where fn stands among the live handlers of an
+-- event (kind PROBE.EVENT) or a message (PROBE.MESSAGE), and how many there
+-- are: 3, 14 for the third of 14; nil when it is not one of them.
+function ns.HandlerPlace(kind, where, fn)
+	local list = (kind == 1 and gameHandlers or listeners)[where]
+	if not list then return nil end
+	local n, at = 0, nil
+	for i = 1, #list do
+		local h = list[i]
+		if h.live then
+			n = n + 1
+			if h.fn == fn and not at then at = n end
+		end
+	end
+	if at then return at, n end
+	return nil
+end
 
 ---------------------------------------------------------------------------
 -- Settings. Values equal to their default are not stored, so a changed
