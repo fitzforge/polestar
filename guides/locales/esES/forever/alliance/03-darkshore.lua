@@ -28,7 +28,7 @@ return {
 
 	-- Step 3: Gubber Blump
 	-- {npc:10216} Gubber Blump · {item:12238} Darkshore Grouper
-	["Fishers only: {npc:10216} stands on the pier. His {item:12238} is fished from the pier itself."] = "",
+	["Fishers only: {npc:10216} stands on the pier. His {item:12238} is fished from the pier itself."] = "Solo pescadores: {npc:10216} está en el muelle. Su {item:12238} se pesca desde el propio muelle.",
 
 	-- Step 4: The beach
 	["The beach"] = "La playa",

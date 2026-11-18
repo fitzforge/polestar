@@ -23,7 +23,7 @@ return {
 	-- {npc:14723} Mistina Steelshield · {faction:47} Ironforge · {object:32372} Great Forge (no name in this language: may be words) · {item:14047} Runecloth · {quest:7806} Additional Runecloth · {zone:1426} Dun Morogh · {zone:1432} Loch Modan · {zone:1437} Wetlands · {zone:1428} Burning Steppes · {zone:1452} Winterspring · {area:132} Coldridge Valley · {area:131} Kharanos · {zone:1453} Stormwind · {zone:1457} Darnassus
 	["{npc:14723} takes cloth for {faction:47}; she stands outside the clothier on the north side of the {object:32372}, among the tailors. Each first donation of 60 Wool, Silk, Mageweave and {item:14047} pays 150 reputation once; after the {item:14047} one, {quest:7806} pays 50 for every 20 {item:14047}, as often as you like. The Auction House in the Commons is the quickest source of cloth. In Classic, quests pay full reputation while they are at most 5 levels below you, so do {zone:1426} (levels 1-12), {zone:1432} (10-20) and the {zone:1437} (20-30) while you level through them. After the donations come the level 52-59 quests of the {zone:1428} and {zone:1452} (about 600), then the optional {zone:1426} hubs, best rate first: {area:132} (about 37 a minute at full value), {area:131} (26), the quarry (17). Every {faction:47} gain also gives a quarter as much to {zone:1453}, {zone:1457} and the Gnomeregan Exiles, except quests in the level 1-10 start areas. Legacy Diplomat adds up to 10% to every gain."] = "",
 	-- {item:2592} Wool Cloth · {zone:1432} Loch Modan · {zone:1437} Wetlands
-	["{item:2592}: troggs, gnolls and kobolds in {zone:1432} and the {zone:1437}"] = "",
+	["{item:2592}: troggs, gnolls and kobolds in {zone:1432} and the {zone:1437}"] = "{item:2592}: troggs, gnolls y kóbolds en {zone:1432} y {zone:1437}",
 
 	-- Step 2: Coldridge Valley
 	-- {area:131} Kharanos · {npc:658} Sten Stoutarm · {npc:713} Balir Frosthammer · {area:77} Anvilmar
@@ -31,28 +31,28 @@ return {
 
 	-- Step 3: Coldridge: wolves, troggs and Felix Whindlebolt's things
 	-- {npc:8416} Felix Whindlebolt
-	["Coldridge: wolves, troggs and {npc:8416}'s things"] = "",
+	["Coldridge: wolves, troggs and {npc:8416}'s things"] = "Crestanevada: lobos, troggs y las cosas de {npc:8416}",
 	-- {area:77} Anvilmar · {npc:8416} Felix Whindlebolt
-	["The wolves roam the valley floor; the troggs dig in the camps east of {area:77}; {npc:8416}'s box, chest and bucket lie in the trogg camps."] = "",
+	["The wolves roam the valley floor; the troggs dig in the camps east of {area:77}; {npc:8416}'s box, chest and bucket lie in the trogg camps."] = "Los lobos recorren el fondo del valle; los troggs cavan en los campamentos al este de {area:77}; la caja, el cofre y el cubo de {npc:8416} están en los campamentos de troggs.",
 
 	-- Step 4: Coldridge: Anvilmar and Talin Keeneye
 	-- {area:77} Anvilmar · {npc:714} Talin Keeneye
-	["Coldridge: {area:77} and {npc:714}"] = "",
+	["Coldridge: {area:77} and {npc:714}"] = "Crestanevada: {area:77} y {npc:714}",
 
 	-- Step 5: Coldridge: Grelin Whitebeard and the troll cave
 	-- {npc:786} Grelin Whitebeard
-	["Coldridge: {npc:786} and the troll cave"] = "",
+	["Coldridge: {npc:786} and the troll cave"] = "Crestanevada: {npc:786} y la cueva de los trols",
 	-- {npc:786} Grelin Whitebeard · {area:77} Anvilmar
-	["{npc:786} camps south of {area:77}, at the mouth of the troll cave; the journal lies at the back of the cave."] = "",
+	["{npc:786} camps south of {area:77}, at the mouth of the troll cave; the journal lies at the back of the cave."] = "{npc:786} acampa al sur de {area:77}, en la boca de la cueva de los trols; el diario está al fondo de la cueva.",
 
 	-- Step 6: Coldridge: the hot Mornbrew
-	["Coldridge: the hot Mornbrew"] = "",
+	["Coldridge: the hot Mornbrew"] = "Crestanevada: el Albrebaje caliente",
 	-- {npc:836} Durnan Furcutter · {area:77} Anvilmar
-	["The Scalding Mornbrew cools in five minutes: run straight to {npc:836} at {area:77}."] = "",
+	["The Scalding Mornbrew cools in five minutes: run straight to {npc:836} at {area:77}."] = "El Albrebaje hirviente se enfría en cinco minutos: corre directo a {npc:836} en {area:77}.",
 
 	-- Step 7: Coldridge: on to Kharanos
 	-- {area:131} Kharanos
-	["Coldridge: on to {area:131}"] = "",
+	["Coldridge: on to {area:131}"] = "Crestanevada: rumbo a {area:131}",
 	-- {npc:1252} Senir Whitebeard · {area:131} Kharanos
 	["{npc:1252}, in {area:131}"] = "{npc:1252}, en {area:131}",
 	-- {npc:6806} Tannok Frosthammer
@@ -60,52 +60,52 @@ return {
 
 	-- Step 8: Kharanos
 	-- {area:131} Kharanos · {area:133} Gnomeregan · {area:2102} Thunderbrew Distillery · {area:189} Steelgrill's Depot
-	["Optional: {area:131} and the Brewnall and {area:133} roads around it, about 1,300 reputation in 50 minutes at 60. Most givers stand in and around the {area:2102} and at {area:189} east of it. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: {area:131} and the Brewnall and {area:133} roads around it, about 1,300 reputation in 50 minutes at 60. Most givers stand in and around the {area:2102} and at {area:189} east of it. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Opcional: {area:131} y los caminos de Aldea Cervecera y {area:133} alrededor, unos 1.300 de reputación en 50 minutos a nivel 60. La mayoría de los que dan misiones están dentro y alrededor de {area:2102} y en {area:189}, al este. Forever paga estas misiones viejas completas a cualquier nivel. Sáltate este paso para saltarte el centro.",
 
 	-- Step 9: Kharanos: the hills and the depot
 	-- {area:131} Kharanos
-	["{area:131}: the hills and the depot"] = "",
+	["{area:131}: the hills and the depot"] = "{area:131}: las colinas y el depósito",
 	-- {area:131} Kharanos · {area:136} Grizzled Den · {area:133} Gnomeregan
-	["The boars and bears roam around {area:131}; the wendigos live in the {area:136} south-west of town; the leper gnomes at the {area:133} road carry the cogs and gears; Rumbleshot's ammo lies at his camp west of town."] = "",
+	["The boars and bears roam around {area:131}; the wendigos live in the {area:136} south-west of town; the leper gnomes at the {area:133} road carry the cogs and gears; Rumbleshot's ammo lies at his camp west of town."] = "Los jabalíes y osos recorren los alrededores de {area:131}; los wendigos viven en {area:136}, al suroeste del pueblo; los gnomos leprosos del camino a {area:133} llevan los engranajes; la munición de Retumbatiro está en su campamento al oeste del pueblo.",
 
 	-- Step 10: Kharanos: back in town
 	-- {area:131} Kharanos
-	["{area:131}: back in town"] = "",
+	["{area:131}: back in town"] = "{area:131}: de vuelta en el pueblo",
 
 	-- Step 11: Kharanos: Brewnall and Frostmane Hold
 	-- {area:131} Kharanos · {quest:287} Frostmane Hold
-	["{area:131}: Brewnall and {quest:287}"] = "",
+	["{area:131}: Brewnall and {quest:287}"] = "{area:131}: Aldea Cervecera y {quest:287}",
 	-- {npc:1374} Rejold Barleybrew · {area:137} Brewnall Village · {area:131} Kharanos · {quest:287} Frostmane Hold
-	["{npc:1374} stands by {area:137} on the lake north-west of {area:131}; {quest:287} is the troll cave west of it."] = "",
-	["walk to the back of the cave"] = "",
+	["{npc:1374} stands by {area:137} on the lake north-west of {area:131}; {quest:287} is the troll cave west of it."] = "{npc:1374} está junto a {area:137}, en el lago al noroeste de {area:131}; {quest:287} es la cueva de los trols al oeste.",
+	["walk to the back of the cave"] = "camina hasta el fondo de la cueva",
 
 	-- Step 12: Kharanos: last hand-in
 	-- {area:131} Kharanos
-	["{area:131}: last hand-in"] = "",
+	["{area:131}: last hand-in"] = "{area:131}: última entrega",
 
 	-- Step 13: The quarry and Amberstill Ranch
 	-- {area:803} Amberstill Ranch
-	["The quarry and {area:803}"] = "",
+	["The quarry and {area:803}"] = "La cantera y {area:803}",
 	-- {zone:1426} Dun Morogh · {npc:264936} Earthseer Farsen · {area:134} Gol'Bolar Quarry · {area:803} Amberstill Ranch
-	["Optional: eastern {zone:1426}, from {npc:264936}'s camp to the {area:134} and {area:803}, about 500 reputation in 30 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: eastern {zone:1426}, from {npc:264936}'s camp to the {area:134} and {area:803}, about 500 reputation in 30 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Opcional: el este de {zone:1426}, desde el campamento de {npc:264936} hasta {area:134} y {area:803}, unos 500 de reputación en 30 minutos a nivel 60. Forever paga estas misiones viejas completas a cualquier nivel. Sáltate este paso para saltarte el centro.",
 
 	-- Step 14: The quarry: troggs, spies and Vagash
 	-- {npc:1388} Vagash
-	["The quarry: troggs, spies and {npc:1388}"] = "",
+	["The quarry: troggs, spies and {npc:1388}"] = "La cantera: troggs, espías y {npc:1388}",
 	-- {area:134} Gol'Bolar Quarry · {npc:1388} Vagash · {area:803} Amberstill Ranch
-	["The Dark Iron Spies lurk around Farsen's camp; the troggs dig in the {area:134}; {npc:1388}, a big snow leopard, prowls the hills above {area:803}."] = "",
+	["The Dark Iron Spies lurk around Farsen's camp; the troggs dig in the {area:134}; {npc:1388}, a big snow leopard, prowls the hills above {area:803}."] = "Los espías Hierro Negro merodean alrededor del campamento de Farsen; los troggs cavan en {area:134}; {npc:1388}, un leopardo de las nieves grande, acecha en las colinas sobre {area:803}.",
 
 	-- Step 15: The Reports
 	-- {npc:1274} Senator Barin Redstone
-	["{npc:1274}, in the throne room"] = "",
+	["{npc:1274}, in the throne room"] = "{npc:1274}, en la sala del trono",
 
 	-- Step 16: A Donation of Silk
 	-- {item:4306} Silk Cloth · {zone:1437} Wetlands
-	["{item:4306} drops from humanoids level 23 to 40: the Dragonmaw of the {zone:1437}, the Syndicate of Alterac and Arathi, Stranglethorn's trolls."] = "",
+	["{item:4306} drops from humanoids level 23 to 40: the Dragonmaw of the {zone:1437}, the Syndicate of Alterac and Arathi, Stranglethorn's trolls."] = "{item:4306} lo sueltan los humanoides de nivel 23 a 40: los Faucedraco de {zone:1437}, el Sindicato de Alterac y Arathi, los trols de Tuercespina.",
 
 	-- Step 17: A Donation of Mageweave
 	-- {item:4338} Mageweave Cloth · {object:147516} Dark Iron · {zone:1418} Badlands · {zone:1427} Searing Gorge · {zone:1446} Tanaris · {zone:1444} Feralas
-	["{item:4338} drops from humanoids level 35 to 50: the Shadowforge and {object:147516} dwarves of the {zone:1418} and {zone:1427}, the Dunemaul ogres of {zone:1446}, the Hatecrest naga of {zone:1444}."] = "",
+	["{item:4338} drops from humanoids level 35 to 50: the Shadowforge and {object:147516} dwarves of the {zone:1418} and {zone:1427}, the Dunemaul ogres of {zone:1446}, the Hatecrest naga of {zone:1444}."] = "{item:4338} lo sueltan los humanoides de nivel 35 a 50: los enanos Forjatiniebla y {object:147516} de {zone:1418} y {zone:1427}, los ogros Machacaduna de {zone:1446}, las nagas Crestafuria de {zone:1444}.",
 
 	-- Step 18: A Donation of Runecloth
 	-- {item:14047} Runecloth · {zone:1448} Felwood · {zone:1452} Winterspring · {quest:7806} Additional Runecloth
@@ -129,7 +129,7 @@ return {
 
 	-- Step 22: Morgan's Vigil: hand in
 	-- {area:2418} Morgan's Vigil
-	["{area:2418}: hand in"] = "",
+	["{area:2418}: hand in"] = "{area:2418}: entregas",
 	-- {npc:9176} Gor'tesh · {area:249} Dreadmaul Rock
 	["Plant {npc:9176}'s head on the soft dirt mound at the top of {area:249}."] = "",
 
