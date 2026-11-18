@@ -1597,6 +1597,7 @@ PolestarPathData[1] = {
 		[34140] = "Bolgan's Hole",
 		[34227] = "Tradesmen's Terrace",
 		[34230] = "Tradesmen's Terrace",
+		[34231] = "Tradesmen's Terrace",
 		[34241] = "Darnassus",
 		[34254] = "Darnassus",
 		[34256] = "Darnassus",

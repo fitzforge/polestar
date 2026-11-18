@@ -1517,7 +1517,7 @@ R("subzone", 31854, 33827, [[
 33826	Burg Mardenholde
 33827	Burg Mardenholde
 ]])
-R("subzone", 33828, 141211, [[
+R("subzone", 33828, 141210, [[
 
 33828	Burg Mardenholde
 33830	Die Weinende Höhle
@@ -1577,6 +1577,7 @@ R("subzone", 33828, 141211, [[
 34149	Schlitterfels
 34227	Die Terrasse der Händler
 34230	Die Terrasse der Händler
+34231	Die Terrasse der Händler
 34272	Tempel des Mondes
 34277	Die Tempelgärten
 34278	Die Tempelgärten
@@ -2018,10 +2019,10 @@ R("subzone", 33828, 141211, [[
 141208	Das Kriegsviertel
 141209	Das Schurkenviertel
 141210	Das Magieviertel
-141211	Die Kanäle
 ]])
-R("subzone", 141212, 144346, [[
+R("subzone", 141211, 144343, [[
 
+141211	Die Kanäle
 141212	Die Kanäle
 141213	Die Kanäle
 141214	Die Kanäle
@@ -2521,10 +2522,10 @@ R("subzone", 141212, 144346, [[
 144341	Das Tal der Ehre
 144342	Das Tal der Ehre
 144343	Das Tal der Ehre
-144346	Das Tal der Ehre
 ]])
-R("subzone", 144348, 149286, [[
+R("subzone", 144346, 149286, [[
 
+144346	Das Tal der Ehre
 144348	Das Tal der Ehre
 144349	Das Tal der Ehre
 144350	Das Tal der Ehre

@@ -869,13 +869,16 @@ end
 -- Lifts: the walking grid has no links between a lift's landings (the car moves, the ground does not), so the
 -- searches join them here. The pack's lift chokepoints (PolestarNavChokepoints[map], Nav/Chokepoints.lua: kind
 -- "lift", liftEnd "bottom" with pair, the index of its "top" landing, each with its height) give each lift's
--- landings; a ride between a bottom landing and its top, either way, costs LIFT_COST (an average wait and the ride at
--- run speed) and adds the yards between them. A landing is an abstract vertex (LIFT_ID + its index) joined to its
+-- landings; a ride between a bottom landing and its top, either way, costs its seconds at run speed (the landing's
+-- `ride`: the ride and the average wait for the car, from the client's lift animation: the Undercity's 7.6 s, Thunder
+-- Bluff's and the Great Lift's 20.4 s; LIFT_COST, 25 s, for a landing without one) and adds the yards between them.
+-- A landing is an abstract vertex (LIFT_ID + its index) joined to its
 -- cluster's entrances by a grid Dijkstra from it (kept per profile, style and water mode: a few numbers a landing,
 -- LIFT_ENDS at most), and to a start or goal in its cluster by their own trees or one A* inside the cluster. A
 -- drawn line keeps both landings: straightening never jumps floors (PathGrid's sight), so Nav/Walk.lua finds the
 -- ride on it.
-local LIFT_COST = 175 -- 25 s (wait and ride) at 7 yd/s
+local LIFT_SPEED = 7 -- yd/s: a ride's seconds priced as yards at run speed
+local LIFT_COST = 25 * LIFT_SPEED -- a ride without its seconds
 local LIFT_ID = 1073741824 -- landing i's vertex is LIFT_ID + i, above every entrance id
 local LIFT_ENDS = 64
 -- The longest walk a search looks for: DETOUR times the straight line plus DETOUR_YD yards (run's abstract A*).
@@ -884,8 +887,8 @@ local DETOUR, DETOUR_YD = 8, 2000
 -- objective, where the win is; a far walk's cost is usually well over the first bound, so it takes the full tree.
 local BOUNDED_YARDS = 400
 
--- The map's lift landings, read once a map state: { [i] = { x, y, z, k, partners = { j, ... } }, byCluster = { [k] =
--- { i, ... } } }.
+-- The map's lift landings, read once a map state: { [i] = { x, y, z, k, partners = { j, ... }, ride = { [j] = cost } },
+-- byCluster = { [k] = { i, ... } } }: ride[j] the ride's cost to partner j (its seconds at run speed, else LIFT_COST).
 local function liftsOf(st, map)
 	local L = st.lifts
 	if L then
@@ -907,7 +910,7 @@ local function liftsOf(st, map)
 				return nil
 			end
 			local i = #L + 1
-			L[i], index[e] = { x = e.wx, y = e.wy, z = e.z, k = k, partners = {} }, i
+			L[i], index[e] = { x = e.wx, y = e.wy, z = e.z, k = k, partners = {}, ride = {} }, i
 			local here = L.byCluster[k] or {}
 			L.byCluster[k], here[#here + 1] = here, i
 			return i
@@ -918,8 +921,11 @@ local function liftsOf(st, map)
 			if type(top) == "table" and top.kind == "lift" and top.liftEnd == "top" then
 				local a, b = landing(e), landing(top)
 				if a and b then
+					local seconds = type(e.ride) == "number" and e.ride > 0 and e.ride or type(top.ride) == "number" and top.ride > 0 and top.ride
+					local cost = seconds and seconds * LIFT_SPEED or LIFT_COST
 					local pa, pb = L[a].partners, L[b].partners
 					pa[#pa + 1], pb[#pb + 1] = b, a
+					L[a].ride[b], L[b].ride[a] = cost, cost
 				end
 			end
 		end
@@ -1367,7 +1373,7 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 						local l = lifts[i]
 						for _, j in ipairs(l.partners) do
 							local p = lifts[j]
-							relax(LIFT_ID + j, gu + LIFT_COST, yu + sqrt((p.x - l.x) ^ 2 + (p.y - l.y) ^ 2), u)
+							relax(LIFT_ID + j, gu + (l.ride[j] or LIFT_COST), yu + sqrt((p.x - l.x) ^ 2 + (p.y - l.y) ^ 2), u)
 						end
 						local land = landingEnds(st, swim, mult, lifts, i)
 						if land then
@@ -1579,7 +1585,7 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 end
 
 -- FindCoarse: the walk's shape from the entrance graph alone, no grid decoded or searched. A* from the start to the
--- goal over the entrances (their edges priced as run's) and lift landings (a ride LIFT_COST), the start joined to
+-- goal over the entrances (their edges priced as run's) and lift landings (a ride its cost, liftsOf), the start joined to
 -- every entrance and landing of its cluster and the goal to those of its, and a landing to its cluster's entrances,
 -- at their straight (octile) yards: no grid Dijkstra from an endpoint or a landing, which is most of a cold search.
 -- The line is the start, each entrance (the middle of its cell) and landing (with its height) on the way, and the
@@ -1668,7 +1674,7 @@ local function sketch(map, from, to, waterWalking, profile, job, style, danger)
 				local l = lifts[u - LIFT_ID]
 				k = l.k
 				for _, j in ipairs(l.partners) do
-					relax(LIFT_ID + j, gu + LIFT_COST, u)
+					relax(LIFT_ID + j, gu + (l.ride[j] or LIFT_COST), u)
 				end
 				join(k, ux, uy, gu, u)
 			else
@@ -1890,7 +1896,7 @@ local function runMany(map, from, targets, waterWalking, reverse, job, profile, 
 				local l = lifts[u - LIFT_ID]
 				for _, j in ipairs(l.partners) do
 					local p = lifts[j]
-					relax(LIFT_ID + j, dist[u] + LIFT_COST, dyards[u] + sqrt((p.x - l.x) ^ 2 + (p.y - l.y) ^ 2))
+					relax(LIFT_ID + j, dist[u] + (l.ride[j] or LIFT_COST), dyards[u] + sqrt((p.x - l.x) ^ 2 + (p.y - l.y) ^ 2))
 				end
 				local land = landingEnds(st, swim, mult, lifts, u - LIFT_ID)
 				if land then
@@ -2154,6 +2160,114 @@ function Path.AreaName(map, id)
 	local D = PolestarPathData and PolestarPathData[map]
 	local name = D and D.areaNames and D.areaNames[id]
 	return name ~= "" and name or nil
+end
+
+-- The capitals' trail layer (Trails/Trails.lua, written by `node tools/polestar.js nav city trails` from players'
+-- recordings, only counts of 3+ distinct people): per ADT tile of a map the levels people walk, by cell of 4.17 yd
+-- (128 per tile). A tile's string (ns.PathTrails[map]["<col>_<row>"]) is decoded once, on its first read, into
+-- the cells' first entry and count and flat heights and weights (1 = 3-9 people, 2 = 10-49, 3 = 50+).
+local TRAIL_TILE = 1600 / 3
+local TRAIL_CELL = TRAIL_TILE / 128
+local TRAIL_ZTOL = 10 -- yd: `near` keeps the levels this close to it (PathGrid's ZTOL)
+local trailTiles = {} -- [map][col * 64 + row] = decoded tile, or false for none
+
+local function trailVarint(s, pos)
+	local v, mul = 0, 1
+	while true do
+		local b = byte(s, pos)
+		pos = pos + 1
+		if b < 128 then
+			return v + b * mul, pos
+		end
+		v, mul = v + (b - 128) * mul, mul * 128
+	end
+end
+
+local function trailTile(map, col, row)
+	local tiles = trailTiles[map]
+	if not tiles then
+		tiles = {}
+		trailTiles[map] = tiles
+	end
+	local key = col * 64 + row
+	local t = tiles[key]
+	if t ~= nil then
+		return t
+	end
+	local src = ns.PathTrails and ns.PathTrails[map]
+	local s = src and src[col .. "_" .. row]
+	if not s then
+		tiles[key] = false
+		return false
+	end
+	t = { first = {}, count = {}, z = {}, w = {} }
+	local pos, cell, n, zq = 1, 0, 0, 0
+	while pos <= #s do
+		local a, q
+		a, pos = trailVarint(s, pos)
+		q, pos = trailVarint(s, pos)
+		local w = a % 4
+		cell = cell + (a - w) / 4
+		n = n + 1
+		zq = zq + (q % 2 == 0 and q / 2 or -(q + 1) / 2)
+		t.z[n] = zq / 4
+		t.w[n] = w
+		if not t.first[cell] then
+			t.first[cell], t.count[cell] = n, 0
+		end
+		t.count[cell] = t.count[cell] + 1
+	end
+	tiles[key] = t
+	return t
+end
+
+-- True when map has a trail layer (the six capitals' tiles).
+---@param map number
+---@return boolean
+function Path.HasTrails(map)
+	return ns.PathTrails ~= nil and ns.PathTrails[map] ~= nil
+end
+
+-- "The floor people walk on here": of the trail levels within reach yd (horizontally, cell centres) of the world point
+-- (x, y) on map, the one with the highest weight; ties: the nearer cell, then the height nearer near. near (optional):
+-- only levels within TRAIL_ZTOL of it. -> z, weight; nil when none qualifies or map has no trail layer. Allocation-free
+-- once the tiles around are decoded.
+---@param map number
+---@param x number
+---@param y number
+---@param reach number?
+---@param near number?
+---@return number?, number?
+function Path.TrailFloor(map, x, y, reach, near)
+	if not (ns.PathTrails and ns.PathTrails[map]) then
+		return nil
+	end
+	reach = reach or 4
+	local ti0 = (32 * TRAIL_TILE - y) / TRAIL_CELL -- cells east
+	local tj0 = (32 * TRAIL_TILE - x) / TRAIL_CELL -- cells south
+	local r = floor(reach / TRAIL_CELL + 0.5)
+	local bz, bw, bd, bdz
+	for tj = floor(tj0) - r, floor(tj0) + r do
+		for ti = floor(ti0) - r, floor(ti0) + r do
+			local d = sqrt((ti + 0.5 - ti0) ^ 2 + (tj + 0.5 - tj0) ^ 2) * TRAIL_CELL
+			if d <= reach + TRAIL_CELL * 0.5 then
+				local col, row = floor(ti / 128), floor(tj / 128)
+				local t = trailTile(map, col, row)
+				local cell = (tj - row * 128) * 128 + (ti - col * 128)
+				local first = t and t.first[cell]
+				if first then
+					for e = first, first + t.count[cell] - 1 do
+						local z, w = t.z[e], t.w[e]
+						local dz = near and abs(z - near) or 0
+						if dz <= TRAIL_ZTOL and (not bw or w > bw or (w == bw and (d < bd or (d == bd and dz < bdz)))) then
+							bz, bw, bd, bdz = z, w, d, dz
+						end
+					end
+				end
+			end
+		end
+	end
+	return bz, bw
 end
 
 -- The walkable surfaces' heights in the cell under (x, y) on the map of st, lowest first (its cluster decoded).

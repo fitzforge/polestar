@@ -362,4 +362,4 @@ if (require.main === module) {
 	});
 }
 
-module.exports = { samplePairs, runBroad, summarize, compareRuns, measure };
+module.exports = { samplePairs, runBroad, summarize, compareRuns, measure, harness };

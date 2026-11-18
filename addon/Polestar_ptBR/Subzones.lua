@@ -1517,7 +1517,7 @@ R("subzone", 31826, 33510, [[
 33507	Colina do Pesar
 33510	Colina do Pesar
 ]])
-R("subzone", 33511, 141117, [[
+R("subzone", 33511, 141116, [[
 
 33511	Colina do Pesar
 33512	Colina do Pesar
@@ -1639,6 +1639,7 @@ R("subzone", 33511, 141117, [[
 34149	Rocha Coleante
 34227	Terraço dos Mercadores
 34230	Terraço dos Mercadores
+34231	Terraço dos Mercadores
 34272	Templo da Lua
 34277	Jardins do Templo
 34278	Jardins do Templo
@@ -2018,10 +2019,10 @@ R("subzone", 33511, 141117, [[
 141114	Ruínas de Lordaeron
 141115	Ruínas de Lordaeron
 141116	Ruínas de Lordaeron
-141117	Ruínas de Lordaeron
 ]])
-R("subzone", 141118, 144105, [[
+R("subzone", 141117, 144104, [[
 
+141117	Ruínas de Lordaeron
 141118	Ruínas de Lordaeron
 141119	Ruínas de Lordaeron
 141120	Distrito Comercial
@@ -2521,10 +2522,10 @@ R("subzone", 141118, 144105, [[
 144102	O Cordeiro Imolado
 144103	Bastilha Ventobravo
 144104	Biblioteca Real
-144105	Bastilha Ventobravo
 ]])
-R("subzone", 144106, 149286, [[
+R("subzone", 144105, 149286, [[
 
+144105	Bastilha Ventobravo
 144106	Bastilha Ventobravo
 144107	Bastilha Ventobravo
 144108	Bastilha Ventobravo
