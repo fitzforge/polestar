@@ -620,6 +620,23 @@ fn isindoors_the_client_s_indoor_state_nil_without_isindoors_or_when_it_errors()
 	assert_eq!(out, json!({ "inside": true, "outside": false, "err": true, "none": true }));
 }
 
+#[test]
+fn isswimming_the_client_s_swimming_state_nil_without_isswimming_or_when_it_errors() {
+	let out = run(r#"
+		local r = {}
+		IsSwimming = function() return 1 end
+		r.swimming = C.IsSwimming()
+		IsSwimming = function() return nil end
+		r.dry = C.IsSwimming()
+		IsSwimming = function() error("no") end
+		r.err = C.IsSwimming() == nil
+		IsSwimming = nil
+		r.none = C.IsSwimming() == nil
+		emit(r)
+	"#);
+	assert_eq!(out, json!({ "swimming": true, "dry": false, "err": true, "none": true }));
+}
+
 // #837: the colour a tile takes. The red "Retrieving item information" line is never an item's colour.
 #[test]
 fn item_tip_color_is_the_tooltips_title_colour_and_nil_until_the_item_is_loaded() {
