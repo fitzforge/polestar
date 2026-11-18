@@ -1836,7 +1836,7 @@ end
 -- own search for the walk it is on is in (or there is none: a flight, a
 -- ride, a hand-made walk), each one is searched with Path.Find, one at a
 -- time; the path replaces the abstract route (which prices nothing) and is
--- kept by its ends and water mode (the last LEG_KEEP), so the route lines
+-- kept by its ends and water mode (the last LEG.KEEP), so the route lines
 -- and the journey draw it along the ground and price it by its path. A walk
 -- with neither is drawn straight and keeps its estimate; a failed search is
 -- kept too, and its leg stays straight. The last walk goes with the target's
@@ -1844,14 +1844,13 @@ end
 -- chain, the pieces of a split walk and the last walk to a target after a
 -- guide `goto` (the arrow goes straight from the mouth) are never searched;
 -- a crossing, walked straight by the arrow, is searched for its line, which
--- keeps the data's straight one when the path is more than CROSS_DETOUR
+-- keeps the data's straight one when the path is more than LEG.CROSS_DETOUR
 -- times as long, and is never priced by it. A search whose leg leaves the
 -- route is cancelled; none starts in combat, with Walk real paths off, or
 -- while Shortest Path Forever guides.
 ---------------------------------------------------------------------------
 
-local LEG_KEEP = 32
-local CROSS_DETOUR = 2
+local LEG = { KEEP = 32, CROSS_DETOUR = 2 } -- one local: the main chunk's are near Lua's limit
 -- [ends] = { xs, ys, n, yards, hubs, coarse (the abstract route: n 0 when it found none) } | false (no path); keys oldest first
 local legPaths, legOrder = {}, {}
 local legToken, legJob, legKey    -- the leg search in flight
@@ -1889,7 +1888,7 @@ end
 local function keepLeg(key, e)
 	if legPaths[key] == nil then legOrder[#legOrder + 1] = key end
 	legPaths[key] = e
-	if #legOrder > LEG_KEEP then legPaths[table.remove(legOrder, 1)] = nil end
+	if #legOrder > LEG.KEEP then legPaths[table.remove(legOrder, 1)] = nil end
 end
 
 -- The line of the walk from `from` to `to`: its searched path, else its abstract route; or nil.
@@ -2426,7 +2425,7 @@ end
 
 -- The line of later walk leg i (or the arrow's own hand-made one) from its
 -- own search, else its abstract route; a crossing's only when it is at most
--- CROSS_DETOUR times as long as the data's straight line; or nil.
+-- LEG.CROSS_DETOUR times as long as the data's straight line; or nil.
 local function ownLine(legs, i, ci, P)
 	local leg = legs[i]
 	if i == ci and not leg.handmade then return nil end
@@ -2434,7 +2433,7 @@ local function ownLine(legs, i, ci, P)
 	local lp = legPath(leg.from, leg.to)
 	if lp and leg.handmade then
 		local dx, dy = leg.to.wx - leg.from.wx, leg.to.wy - leg.from.wy
-		if lp.yards > CROSS_DETOUR * sqrt(dx * dx + dy * dy) then return nil end
+		if lp.yards > LEG.CROSS_DETOUR * sqrt(dx * dx + dy * dy) then return nil end
 	end
 	return lp
 end
