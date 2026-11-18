@@ -869,9 +869,10 @@ fn table_entries(v: &V) -> Vec<(String, V)> {
 
 /// A list field characters read differently (#2038), as one list where a union is the fact for every
 /// character: a spawn list's points per zone (an NPC or object one faction finds in its city, the other
-/// in its own), and an NPC's, object's or item's id lists (quest starts and ends, drops, vendors),
-/// each in first-read order. None for any other field: a quest's id lists (prerequisites all of which
-/// a character needs) and single values stay as the store has them.
+/// in its own), and an NPC's or object's quest lists (the quests it starts and ends), each in first-read
+/// order. None for any other field: a quest's id lists (prerequisites all of which a character needs),
+/// an item's (the faction fixes list the NPCs that hand an item over as its droppers: Soothing Spices'
+/// vendors, Signed Field Duty Papers' officers) and single values stay as the store has them.
 fn union_list(entity: &str, f: &Field, reads: &[V]) -> Option<V> {
 	match f.structure.as_deref() {
 		Some("spawnlist") => {
@@ -891,7 +892,7 @@ fn union_list(entity: &str, f: &Field, reads: &[V]) -> Option<V> {
 			}
 			Some(V::Obj(out))
 		}
-		Some("idarray") if entity != "Quest" => {
+		Some("idarray") if entity == "Npc" || entity == "Object" => {
 			let mut ids: Vec<V> = Vec::new();
 			for r in reads {
 				for x in lua_list(r) {

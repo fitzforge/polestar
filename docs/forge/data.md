@@ -228,11 +228,12 @@ folds them into the store's quests, NPCs, objects and items:
 
 - quest giver and ender lists become the union of what every character sees: a quest both
   factions share keeps both factions' NPCs, and our data picks the right one by the NPC's faction;
-- an NPC's or object's spawn points and an NPC's, object's or item's id lists (quests it starts and
-  ends, drops, vendors) become the union too: a summoned demon one faction meets in its own city and
-  the other in theirs has both places (#2038);
-- any other field (objective text, zone, next quest, a quest's prerequisites) changes only when
-  every character sees the same value; otherwise the store's value stays.
+- an NPC's or object's spawn points and the quests it starts and ends become the union too: a
+  summoned demon one faction meets in its own city and the other in theirs has both places (#2038);
+- any other field (objective text, zone, next quest, a quest's prerequisites, an item's droppers)
+  changes only when every character sees the same value; otherwise the store's value stays. An
+  item's faction fixes name the NPCs that hand it over as its droppers (Soothing Spices' vendors),
+  which our data would read as mobs to kill.
 
 The build log lists what changed and every field still kept from the store because characters see
 it differently (check that list at each QuestieDB update: a fact one faction needs that the data
