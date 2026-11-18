@@ -155,7 +155,7 @@ fn the_end_card_counts_both_kinds_and_each_line_opens_its_list() {
 	"#);
 	assert_eq!(out["shown"], true, "{out}");
 	assert_eq!(out["title"], "Guide complete", "{out}");
-	assert_eq!(out["text"], "Up next: B", "{out}");
+	assert_eq!(out["text"], "Next: B (8–11)", "{out}");
 	assert_eq!(out["carried"], "1 quest in your log carries on to a later guide", "{out}");
 	assert_eq!(out["stray"], "4 quests aren't part of your route", "{out}");
 	assert_eq!(out["order"], true, "{out}");
