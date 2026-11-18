@@ -4387,7 +4387,10 @@ function Own.goalsDone(s)
 	return true
 end
 
-local function stepDone(s)
+-- Own.passMemo, while Own.countProgress counts: each step's answer once (its
+-- travel checks ask the steps after it again: Own.travelOnto), as
+-- Own.doneMemo keeps each goal's.
+local function stepDoneLive(s)
 	-- The route passes over an along step (Own.alongListed), a hearth-only
 	-- one (Own.hearthOnly: the arrow's route hearths when it pays), a
 	-- travel step the route flies past (Own.flightPassed), a walk to a stop
@@ -4398,6 +4401,16 @@ local function stepDone(s)
 	-- Waits for the player's answer (a group quest, a dungeon).
 	if Own.groupPending(guide.steps[s]) or Own.dungeonPending(guide.steps[s]) then return false end
 	return Own.goalsDone(s) or Own.flightPassed(s) or Own.stopEmpty(s) or Own.alreadyAcross(s)
+end
+local function stepDone(s)
+	local m = Own.passMemo
+	if not m then return stepDoneLive(s) end
+	local r = m.done[s]
+	if r == nil then
+		r = stepDoneLive(s) and true or false
+		m.done[s] = r
+	end
+	return r
 end
 
 -- `when done <label>` (format 5): the step so labelled applies and its goals
@@ -8161,7 +8174,17 @@ end
 
 -- Steps s0 to s1 of the loaded guide: how many are done (progressLoaded's
 -- rules) and how many count, hidden: the steps the character doesn't have.
+-- Counted in one go, as a step's view is built (Engine.GetStepView): each
+-- goal's, step's and travel answer once (Own.doneMemo, Own.passMemo).
 function Own.countProgress(s0, s1, hidden)
+	if Own.doneMemo then return Own.countSteps(s0, s1, hidden) end
+	Own.doneMemo, Own.passMemo = {}, { done = {}, transit = {} }
+	local ok, done, total = pcall(Own.countSteps, s0, s1, hidden)
+	Own.doneMemo, Own.passMemo = nil, nil
+	if not ok then error(done, 0) end
+	return done, total
+end
+function Own.countSteps(s0, s1, hidden)
 	local done, total, steps = 0, 0, guide.steps
 	for s = s0, s1 do
 		if stepApplies(steps[s]) and not hidden[s] then
@@ -10909,10 +10932,41 @@ end
 
 -- "fly", "walk" or nil: step s's open goals for the character are travel
 -- only, with a flight among them ("fly") or gotos alone ("walk"); nil with
--- other work open, or nothing open.
+-- other work open, or nothing open. A step with no `fly` or `goto` goal at
+-- all is nil without asking its goals (Own.hasTravel): the progress count
+-- asks every step ahead through stepDone's travel checks.
+Own.travelSteps = setmetatable({}, { __mode = "k" }) -- step -> whether it has a fly or goto goal
+function Own.hasTravel(step)
+	local has = Own.travelSteps[step]
+	if has == nil then
+		has = false
+		for _, goal in ipairs(step.goals) do
+			if goal.t == "fly" or goal.t == "goto" then
+				has = true
+				break
+			end
+		end
+		Own.travelSteps[step] = has
+	end
+	return has
+end
 function Own.transitKind(s)
+	local step = guide.steps[s]
+	if not Own.hasTravel(step) then return nil end
+	local m = Own.passMemo
+	if m then
+		local r = m.transit[s]
+		if r == nil then
+			r = Own.transitKindLive(s, step) or false
+			m.transit[s] = r
+		end
+		return r or nil
+	end
+	return Own.transitKindLive(s, step)
+end
+function Own.transitKindLive(s, step)
 	local kind
-	for g, goal in ipairs(guide.steps[s].goals) do
+	for g, goal in ipairs(step.goals) do
 		if blocks(goal) and goalApplies(goal) and not unavailableFor(goal) and not Own.goalSkipped(s, g) and not goalDone(s, g, goal) then
 			local t = goal.t
 			if t == "fly" then

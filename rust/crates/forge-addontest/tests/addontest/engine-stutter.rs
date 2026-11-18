@@ -211,3 +211,55 @@ fn group_quests_are_counted_once_until_the_guides_change() {
 	// Base: 60 step checks for ten asks, 18 for two after the new guide.
 	assert_eq!(out, json!({ "first": ["501 Group 501", "701 Group 701"], "ten": 6, "after": ["501 Group 501", "701 Group 701", "801 Group 801"], "twice": 9 }));
 }
+
+// The guide window's progress bar counts the whole guide after each evaluation (Own.countProgress), and a step
+// ahead was asked done several times over: its goals, then its travel checks (Own.transitKind, Own.travelOnto,
+// Own.alreadyAcross), each asking the goals again, and the steps after it. Now one count asks each goal, step
+// and travel answer once, as a step's view does, and a step with no goto or flight is no travel. The count is
+// the same; the quest log is read about a third as often.
+#[test]
+fn the_progress_count_asks_each_goal_and_step_once() {
+	let out = run(
+		vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		&format!(
+			r#"
+		{TEST_PACK}
+		{TEST_SOURCE}
+		local steps = {{}}
+		for i = 1, 30 do
+			local q = 1000 + i
+			if i % 3 == 0 then
+				steps[#steps + 1] = {{ title = "Walk " .. i, goals = {{ {{ t = "goto", map = 1429, x = 50 + i % 7, y = 50, text = "Walk" }} }} }}
+			else
+				steps[#steps + 1] = {{ title = "Step " .. i, goals = {{
+					{{ t = "goto", map = 1429, x = 41, y = 41 + i % 5, text = "There" }},
+					{{ t = "accept", quest = q, title = "Q" .. q, map = 1429, x = 41, y = 41, npc = 197 }},
+					{{ t = "kill", quest = q, obj = 1, target = "Wolf", map = 1429, x = 60, y = 60, text = "Wolves" }},
+					{{ t = "turnin", quest = q, title = "Q" .. q, map = 1429, x = 42, y = 42, npc = 197 }},
+				}} }}
+			end
+		end
+		Polestar.RegisterGuide({{ id = "test/prog", pack = "test", title = "Prog", faction = "Alliance", minLevel = 1, maxLevel = 20, zone = 1429, steps = steps }})
+		E = Polestar.Engine
+		stub.world.complete({{ 1004, 1005, 1010, 1020 }})
+		stub.login(); stub.advance(0.25)
+		E.SetGuide("test/prog"); stub.advance(0.25)
+		stub.world.accept(1001, {{ 5 }}); stub.advance(0.25)
+		local calls = 0
+		for _, name in ipairs({{ "IsOnQuest", "IsQuestFlaggedCompleted", "GetQuestObjectives", "ReadyForTurnIn", "IsComplete" }}) do
+			local f = C_QuestLog[name]
+			if f then C_QuestLog[name] = function(...) calls = calls + 1 return f(...) end end
+		end
+		local done, total = E.GetProgress()
+		local once = calls
+		calls = 0
+		Polestar.NewMoment()
+		E.RequestUpdate(); stub.advance(0.25)
+		calls = 0
+		local d2, t2 = E.GetProgress()
+		emit({{ done = done, total = total, d2 = d2, t2 = t2, calls = once, calls2 = calls, step = E.GetStepIndex() }})"#
+		),
+	);
+	// Base: 853 quest-log reads per count.
+	assert_eq!(out, json!({ "done": 6, "total": 30, "d2": 6, "t2": 30, "calls": 258, "calls2": 258, "step": 1 }));
+}
