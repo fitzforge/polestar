@@ -410,7 +410,7 @@ async function prepareCmd(argv) {
 // outside the repository (raw positions).
 async function cityCmd(argv) {
 	const [step, ...rest] = argv;
-	const { opts: o, positional, error } = parseArgs(rest, { flags: ['--force', '--train'], options: ['--private', '--recordings', '--maps', '--grid', '--max', '--nav', '--ground', '--spf', '--arms', '--policy', '--baseline', '--out', '--md', '--lua', '--remeasure', '--per', '--seed', '--strata', '--set'] });
+	const { opts: o, positional, error } = parseArgs(rest, { flags: ['--force', '--train'], options: ['--private', '--recordings', '--maps', '--grid', '--max', '--nav', '--ground', '--spf', '--arms', '--policy', '--baseline', '--out', '--md', '--lua', '--remeasure', '--per', '--seed', '--strata', '--set', '--spawnz'] });
 	if (error || positional.length) throw usageError(error || `unexpected argument "${positional[0]}"`);
 	if (!o.private) throw usageError('nav city: --private <dir> is required (outside the repository)');
 	const priv = path.resolve(o.private);
@@ -424,7 +424,9 @@ async function cityCmd(argv) {
 	const grid = path.resolve(o.grid || process.env.POLESTAR_GRID || path.join(ROOT, 'data', 'local', 'nav4'));
 	const readData = (f) => JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'forever', f), 'utf8'));
 	const log = (m) => console.error(m);
-	const navArgs = () => ({ nav: path.resolve(o.nav || NAV_ADDON), ground: o.ground ? path.resolve(o.ground) : null, spf: o.spf ? path.resolve(o.spf) : null, arms: o.arms ? String(o.arms).split(',') : undefined, policy: o.policy || 'legacy' });
+	// --spawnz <file>: another data build's spawnz.json (spawn heights) for the gate's NPC heights
+	const spawnzOf = () => JSON.parse(fs.readFileSync(o.spawnz ? path.resolve(o.spawnz) : path.join(ROOT, 'data', 'forever', 'spawnz.json'), 'utf8')).npc;
+	const navArgs = () => ({ nav: path.resolve(o.nav || NAV_ADDON), ground: o.ground ? path.resolve(o.ground) : null, spf: o.spf ? path.resolve(o.spf) : null, arms: o.arms ? String(o.arms).split(',') : undefined, policy: o.policy || 'legacy', spawnz: spawnzOf(), taxi: readData('travel.json').taxi.nodes });
 	if (step === 'extract') {
 		if (!o.recordings) throw usageError('nav city extract: --recordings <archive> is required');
 		const s = require('../lib/nav/city/extract').extract({ recordings: path.resolve(o.recordings), out: priv, maps, log });
@@ -479,8 +481,8 @@ async function cityCmd(argv) {
 		const common = { priv, grid, frames, log, npcs: readData('npcs.json') };
 		let report;
 		if (o.remeasure) report = remeasure(JSON.parse(fs.readFileSync(o.remeasure, 'utf8')), { ...common, protos: o.arms ? String(o.arms).split(',') : [] });
-		else if (step === 'world-gate') report = await gateWorld({ ...common, ...navArgs(), set, spawnz: readData('spawnz.json').npc, strata: o.strata ? String(o.strata).split(',') : null });
-		else report = await gate({ ...common, ...navArgs(), maps, spawnz: readData('spawnz.json').npc });
+		else if (step === 'world-gate') report = await gateWorld({ ...common, ...navArgs(), set, strata: o.strata ? String(o.strata).split(',') : null });
+		else report = await gate({ ...common, ...navArgs(), maps });
 		const cmp = o.baseline ? compareReports(JSON.parse(fs.readFileSync(o.baseline, 'utf8')), report) : null;
 		const md = markdown(report, cmp);
 		console.log(md);

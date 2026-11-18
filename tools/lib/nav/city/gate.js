@@ -301,7 +301,8 @@ function failOf(x, t) {
 
 // The router's answers for trips ({ i, c, side, A, B }) under each arm but the desire paths: { arm: [answer per trip] }.
 // dirs: { nav (the gate's folder), ground (G1's), spf (a Shortest Path Forever checkout: the SPF arm, true floors) }.
-async function runArms({ trips, arms, dirs, spawnz, policy }) {
+// taxi: travel.json's flight master nodes ({ c, wx, wy, npc }): a landing's height is its flight master's spawn height.
+async function runArms({ trips, arms, dirs, spawnz, policy, taxi = [] }) {
 	const navRun = (dir, queries) => (queries.length ? run.runQueries({ navDir: dir, queries }).results : []);
 	const route = (t, id, from, to, extra = {}) => ({ type: 'route', id, map: t.c, from, to, profile: t.side || null, style: 'balanced', level: null, danger: null, ...extra });
 	const A = (t, z) => [t.A.wx, t.A.wy, z === undefined ? null : z];
@@ -311,12 +312,24 @@ async function runArms({ trips, arms, dirs, spawnz, policy }) {
 		if (!npcZs.has(t.c)) npcZs.set(t.c, spawnHeight(spawnz, t.c));
 		return npcZs.get(t.c)(e.npc, e.wx, e.wy);
 	};
-	// trail floors (Path.TrailFloor) at every trip end, for WALK
+	// what Walk.lua knows of a stop's height: the NPC just talked to (spawn height), or at a landing its flight
+	// master's (TaxiNodes' height stands in for it in game)
+	const hint = (t, e) => {
+		if (e.kind === 'land') {
+			const node = taxi.filter((n) => n.c === t.c).map((n) => [Math.hypot(n.wx - e.wx, n.wy - e.wy), n]).sort((a, b) => a[0] - b[0])[0];
+			if (!node || node[0] > 40) return null;
+			if (!npcZs.has(t.c)) npcZs.set(t.c, spawnHeight(spawnz, t.c));
+			return npcZs.get(t.c)(node[1].npc, node[1].wx, node[1].wy);
+		}
+		return npcZ(t, e);
+	};
+	// WALK (CityFloor's rules): the start from the trail floor within 4 yd near the stop's height hint, else the hint,
+	// else the trail floor anywhere within 4 yd; the goal at its NPC's height, else the trail floor
 	let tf = new Map();
 	if (arms.includes('WALK')) {
 		const q = [];
 		for (const t of trips) {
-			q.push({ type: 'trailfloor', id: `a${t.i}`, map: t.c, at: [t.A.wx, t.A.wy], reach: 4, near: null });
+			q.push({ type: 'trailfloor', id: `a${t.i}`, map: t.c, at: [t.A.wx, t.A.wy], reach: 4, near: hint(t, t.A) });
 			q.push({ type: 'trailfloor', id: `b${t.i}`, map: t.c, at: [t.B.wx, t.B.wy], reach: 4, near: null });
 		}
 		tf = new Map(navRun(dirs.nav, q).map((r) => [r.id, r.z]));
@@ -324,8 +337,8 @@ async function runArms({ trips, arms, dirs, spawnz, policy }) {
 	const startOf = (t, arm) => {
 		if (arm === 'GAME' || arm === 'E2' || arm === 'G1' || arm === 'SPF') return t.A.z;
 		if (arm === 'E0') return null;
-		const nz = npcZ(t, t.A);
-		return nz !== null ? nz : tf.get(`a${t.i}`);
+		const z = tf.get(`a${t.i}`);
+		return z !== null && z !== undefined ? z : hint(t, t.A);
 	};
 	const goalOf = (t, arm) => {
 		if (arm === 'E2' || arm === 'G1' || arm === 'SPF') return t.B.z;
@@ -363,7 +376,7 @@ async function runArms({ trips, arms, dirs, spawnz, policy }) {
 	return res;
 }
 
-async function gate({ priv, nav, ground = null, spf = null, grid, frames, spawnz, npcs = {}, maps = Object.keys(CITIES).map(Number), arms = ['GAME', 'WALK', 'E0', 'E2', 'P3'], policy = 'legacy', log = () => {} }) {
+async function gate({ priv, nav, ground = null, spf = null, grid, frames, spawnz, taxi = [], npcs = {}, maps = Object.keys(CITIES).map(Number), arms = ['GAME', 'WALK', 'E0', 'E2', 'P3'], policy = 'legacy', log = () => {} }) {
 	const report = { nav: path.resolve(nav), policy, arms, maps: {} };
 	const gn = gateNav(path.resolve(nav), priv);
 	report.trails = gn.dir !== path.resolve(nav) ? 'training people only (<priv>/Trails-train.lua)' : "the folder's own";
@@ -373,7 +386,7 @@ async function gate({ priv, nav, ground = null, spf = null, grid, frames, spawnz
 			const t0 = Date.now();
 			const area = loadArea(priv, map, grid, frames);
 			const trips = area.trips.map((t) => ({ ...t, c: city.c, side: city.side }));
-			const res = await runArms({ trips, arms, dirs: { nav: gn.dir, ground, spf }, spawnz, policy });
+			const res = await runArms({ trips, arms, dirs: { nav: gn.dir, ground, spf }, spawnz, policy, taxi });
 			const rows = scoreRows(area, trips, res, protosFor(area, arms));
 			const summary = summarize(rows, map, frames, npcs);
 			report.maps[map] = { name: city.name, trips: rows.length, summary, rows, seconds: Math.round((Date.now() - t0) / 1000) };
@@ -388,7 +401,7 @@ async function gate({ priv, nav, ground = null, spf = null, grid, frames, spawnz
 // The world gate: every matched world trip (world.js), the arms run once over all of them, each trip judged on its box;
 // report.maps holds one entry per stratum (indoor, entrance, town, cliff, open), report.zones the failures per zone.
 // set: 'world' (the zones' strata) or 'boundary' (walks across a capital's entrance: one row per capital).
-async function gateWorld({ priv, nav, ground = null, spf = null, grid, frames, spawnz, npcs = {}, arms = ['GAME', 'E0', 'E2', 'SPF'], policy = 'legacy', strata = null, set = 'world', log = () => {} }) {
+async function gateWorld({ priv, nav, ground = null, spf = null, grid, frames, spawnz, taxi = [], npcs = {}, arms = ['GAME', 'E0', 'E2', 'SPF'], policy = 'legacy', strata = null, set = 'world', log = () => {} }) {
 	const { readWorldTrips, worldAreas } = require('./world');
 	const report = { nav: path.resolve(nav), policy, arms, world: set, maps: {}, zones: {} };
 	const t0 = Date.now();
@@ -398,7 +411,7 @@ async function gateWorld({ priv, nav, ground = null, spf = null, grid, frames, s
 	const gn = gateNav(path.resolve(nav), priv);
 	let res;
 	try {
-		res = await runArms({ trips, arms: arms.filter((a) => !PROTO[a]), dirs: { nav: gn.dir, ground, spf }, spawnz, policy });
+		res = await runArms({ trips, arms: arms.filter((a) => !PROTO[a]), dirs: { nav: gn.dir, ground, spf }, spawnz, policy, taxi });
 	} finally {
 		gn.done();
 	}
