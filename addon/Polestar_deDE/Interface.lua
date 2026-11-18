@@ -3456,6 +3456,7 @@ L["The route hands in every quest in your log."] = "Die Route gibt jede Quest in
 L["Clean up quest log (%d)"] = "Questlog aufräumen (%d)"
 L["Hand in finished quests (%d)"] = "Erledigte Quests abgeben (%d)"
 L["None to hand in"] = "Nichts abzugeben"
+L["Quest log is clean"] = "Questlog ist sauber"
 L["Clean up quest log"] = "Questlog aufräumen"
 L["Grey: no XP any more"] = "Grau: keine EP mehr"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "Die Route braucht diese nicht: Sie gibt sie nie ab, oder sie bringen keine EP mehr. „Abbrechen“ fragt zuerst im eigenen Fenster des Spiels nach."

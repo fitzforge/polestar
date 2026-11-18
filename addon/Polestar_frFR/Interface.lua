@@ -3487,6 +3487,7 @@ L["The route hands in every quest in your log."] = "L'itinéraire rend toutes le
 L["Clean up quest log (%d)"] = "Nettoyer le journal des quêtes (%d)"
 L["Hand in finished quests (%d)"] = "Rendre les quêtes terminées (%d)"
 L["None to hand in"] = "Rien à rendre"
+L["Quest log is clean"] = "Le journal de quêtes est propre"
 L["Clean up quest log"] = "Nettoyer le journal des quêtes"
 L["Grey: no XP any more"] = "Grise : plus d'XP"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "L'itinéraire n'en a pas besoin : il ne les rend jamais, ou elles ne donnent plus d'XP. « Abandonner » demande d'abord confirmation dans la fenêtre du jeu."

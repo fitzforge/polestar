@@ -2250,7 +2250,8 @@ local MENU_MAX, MENU_FILTER = 12, 26
 local layoutMenu -- (): the open list's rows laid out anew (below)
 
 -- { bar = { entry, ... }, caption = text, captionColor = token }: a row of
--- icon toggles across the menu, its caption under it. An entry is { icon,
+-- icon toggles across the menu, its caption under it (no caption, no row: a
+-- hover names the entry in a tooltip). An entry is { icon,
 -- text, checked, disabled, onClick }: lit in the accent while checked; a
 -- click closes the menu and runs onClick, as a row's. The caption names
 -- the entry under the pointer and its state ("Pause \194\183 On", the name
@@ -2260,17 +2261,34 @@ local layoutMenu -- (): the open list's rows laid out anew (below)
 do
 local Bar = { BTN = 30, CAP = 16 }
 
+-- An entry's name, and its state when it has one ("Pause \194\183 On").
+function Bar.label(e)
+	local text = e.text or ""
+	if e.checked ~= nil then text = string.format("%s \194\183 %s", text, e.checked and L["On"] or L["Off"]) end
+	return text
+end
+
+-- The bar's caption row, or none while it has no caption of its own: the
+-- row then takes no room and a hover names the toggle in a tooltip.
+function Bar.height(item)
+	return Bar.BTN + 2 + (item.caption and Bar.CAP or 0)
+end
+
 function Bar.caption(bar, b)
 	local e = b and b.psEntry
 	if e then
-		local text = e.text or ""
-		if e.checked ~= nil then text = string.format("%s \194\183 %s", text, e.checked and L["On"] or L["Off"]) end
-		bar.Caption:SetText(text)
+		bar.Caption:SetText(Bar.label(e))
 		W.Color(bar.Caption, "text")
 	else
 		bar.Caption:SetText(bar.psCaption or "")
 		W.Color(bar.Caption, bar.psCaptionColor or "textMuted")
 	end
+end
+
+-- Pointer on a button: the caption row's text, or a tooltip with no row.
+function Bar.hover(bar, b)
+	if bar.psCaption then return Bar.caption(bar, b) end
+	if b.psEntry then W.Tooltip(b, "ANCHOR_TOP", Bar.label(b.psEntry)) end
 end
 
 function Bar.get()
@@ -2302,8 +2320,8 @@ function Bar.button(bar, i)
 	b.Lit = b:CreateTexture(nil, "BACKGROUND")
 	b.Lit:SetTexture(WHITE)
 	b.Lit:SetAllPoints(b)
-	b.psOnEnter = function(self) Bar.caption(bar, self) end
-	b.psOnLeave = function() Bar.caption(bar, nil) end
+	b.psOnEnter = function(self) Bar.hover(bar, self) end
+	b.psOnLeave = function() if bar.psCaption then Bar.caption(bar, nil) end end
 	bar.buttons[i] = b
 	return b
 end
@@ -2337,7 +2355,7 @@ function Bar.place(bar, holder, y, width)
 	local list = bar.psItem.bar
 	bar:ClearAllPoints()
 	bar:SetPoint("TOPLEFT", holder, "TOPLEFT", 0, y)
-	bar:SetSize(width, Bar.BTN + Bar.CAP + 2)
+	bar:SetSize(width, Bar.height(bar.psItem))
 	local n = #list
 	local each = n > 0 and floor((width - 12) / n) or 0
 	for i = 1, n do
@@ -2427,7 +2445,7 @@ function layoutMenu()
 				if bar:GetParent() ~= holder then bar:SetParent(holder) end
 				width = max(width, Bar.fill(bar, item))
 				barY = y
-				y = y - (Bar.BTN + Bar.CAP + 2)
+				y = y - Bar.height(item)
 			end
 		elseif item.separator then
 			if needle == "" then

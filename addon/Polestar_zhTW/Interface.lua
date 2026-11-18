@@ -3486,6 +3486,7 @@ L["The route hands in every quest in your log."] = "路線會繳交你任務日�
 L["Clean up quest log (%d)"] = "清理任務日誌 (%d)"
 L["Hand in finished quests (%d)"] = "繳交已完成的任務 (%d)"
 L["None to hand in"] = "沒有要繳交的任務"
+L["Quest log is clean"] = "任務日誌已清理"
 L["Clean up quest log"] = "清理任務日誌"
 L["Grey: no XP any more"] = "灰色：不再給予經驗值"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "路線不需要這些任務：它從不交付，或已不再給予經驗值。放棄會先在遊戲自己的視窗中確認。"

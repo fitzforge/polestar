@@ -145,8 +145,20 @@ test('a toggle bar: its buttons light while on, hovering one names it and its st
 		local after = { clicked = clicked, open = m:IsShown() }
 		-- A menu with no bar hides it.
 		W.ShowMenu(anchor, { { text = "Close tab" } })
-		emit({ rest = rest, hoverOff = hoverOff, back = back, hoverOn = hoverOn, hoverAction = hoverAction, lit = lit, fits = fits,
-			rowBelow = rowBelow, after = after, gone = not bar:IsShown() })`);
+		local gone = not bar:IsShown()
+		-- No caption of its own: no caption row, and a hover is a tooltip.
+		W.ShowMenu(anchor, { { bar = { { text = "Pause", icon = "icon-dungeon", checked = true } } }, { text = "Options" } }, { short = true })
+		local plain = m.Bar
+		local capH = bar:GetHeight()
+		stub.RunScript(plain.buttons[1], "OnEnter")
+		local tipText = GameTooltip.lines[1]
+		stub.RunScript(plain.buttons[1], "OnLeave")
+		W.ShowMenu(anchor, { { caption = "Window", bar = { { text = "Pause", icon = "icon-dungeon", checked = true } } }, { text = "Options" } }, { short = true })
+		local capH2 = m.Bar:GetHeight()
+		emit({ plainH = capH, capH = capH2, tipText = tipText, rest = rest, hoverOff = hoverOff, back = back, hoverOn = hoverOn, hoverAction = hoverAction, lit = lit, fits = fits,
+			rowBelow = rowBelow, after = after, gone = gone })`);
+	assert.equal(out.tipText, 'Pause · On', 'with no caption, a hover is a tooltip');
+	assert.equal(out.capH - out.plainH, 16, 'the caption row takes room only when there is a caption');
 	assert.equal(out.rest, 'Window');
 	assert.equal(out.hoverOff, 'Compact mode · Off');
 	assert.equal(out.back, 'Window', 'off the button, the caption is back');

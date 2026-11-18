@@ -1774,8 +1774,8 @@ fn the_header_menu_picker_new_tab_compact_transparent_lock_destructive_items_ask
 	.remove(0);
 	assert_eq!(
 		out["items"],
-		json!(["Choose guide", "Open in new tab", "Quick settings", "Options", "Reset guide progress"]),
-		"Skip, the bug and Lookup are in the header, so not in the menu"
+		json!(["Choose guide", "Open in new tab", "None to hand in", "Quest log is clean", "Quick settings", "Options", "Reset guide progress"]),
+		"Skip, the bug and Lookup are in the header, so not in the menu; the quest log rows are always there, off when they have nothing to do"
 	);
 	assert_eq!(out["bar"], json!(["Compact mode", "Transparent", "Lock window", "Pause"]), "the window's toggles are the bar on top");
 	assert_eq!(out["locked"], true);
@@ -1788,7 +1788,7 @@ fn the_header_menu_picker_new_tab_compact_transparent_lock_destructive_items_ask
 }
 
 #[test]
-fn the_menu_offers_the_quest_log_cleanup_with_its_count_and_hides_it_when_there_is_nothing_to_clean() {
+fn the_menu_offers_the_quest_log_cleanup_with_its_count_and_shows_it_off_when_there_is_nothing_to_clean() {
 	let out = run(r#"
 		uistub.setGuide(uistub.elwynn, 3)
 		local list = { { quest = 77, title = "Stray", status = "unplanned" }, { quest = 78, title = "Old", status = "grey" } }
@@ -1810,11 +1810,12 @@ fn the_menu_offers_the_quest_log_cleanup_with_its_count_and_hides_it_when_there_
 		Polestar.RoutePlan.Unneeded = function() return nil end
 		emit({ two = two, before = before, opened = opened, none = none, unsettled = items() })"#)
 	.remove(0);
-	assert_eq!(out["two"][2], "Clean up quest log (2)", "the quest log's group, after the guide's");
+	assert_eq!(out["two"][3], "Clean up quest log (2)", "the quest log's group, after the guide's and the hand-in row");
 	assert_eq!(out["before"], false);
 	assert_eq!(out["opened"], true, "the entry opens the cleanup window");
 	for key in ["none", "unsettled"] {
-		assert!(!joined(&out[key]).contains("Clean up quest log"), "{key}: no entry with nothing to list");
+		assert!(!joined(&out[key]).contains("Clean up quest log"), "{key}: no count with nothing to list");
+		assert!(joined(&out[key]).contains("Quest log is clean"), "{key}: the row stays, off");
 	}
 }
 

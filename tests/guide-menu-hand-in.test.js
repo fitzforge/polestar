@@ -36,5 +36,13 @@ test('finished quests no route hands in: one row with their count opens the hand
 		Polestar.Lookup.Guide = function(kind, id) guided = kind .. "/" .. id; return "lookup/carried" end`) }).emitted[0];
 	assert.deepEqual(run('{ { quest = 1 }, { quest = 2 } }'), { text: 'Hand in finished quests (2)', disabled: false, guided: 'carried/log' });
 	assert.deepEqual(run('{}'), { text: 'None to hand in', disabled: true, guided: false });
-	assert.deepEqual(run('nil'), { text: false, disabled: false, guided: false }, 'no row while the plan cannot say');
+	assert.deepEqual(run('nil'), { text: 'None to hand in', disabled: true, guided: false }, 'the row stays, disabled, while the plan cannot say');
+});
+
+test('the quest log cleanup row is always there: with quests it opens the Quest room; none or no plan, it says the log is clean', () => {
+	const run = (list) => runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar'], script: script(`
+		Polestar.RoutePlan.Unneeded = function() return ${list} end`).replace('it.icon == "icon-turnin"', 'it.icon == "cross"') }).emitted[0];
+	assert.equal(run('{ { quest = 1 } }').text, 'Clean up quest log (1)');
+	assert.deepEqual(run('{}'), { text: 'Quest log is clean', disabled: true, guided: false });
+	assert.deepEqual(run('nil'), { text: 'Quest log is clean', disabled: true, guided: false });
 });

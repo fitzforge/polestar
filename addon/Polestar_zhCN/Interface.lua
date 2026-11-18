@@ -3486,6 +3486,7 @@ L["The route hands in every quest in your log."] = "路线会交还你任务日�
 L["Clean up quest log (%d)"] = "清理任务日志 (%d)"
 L["Hand in finished quests (%d)"] = "交还已完成的任务 (%d)"
 L["None to hand in"] = "没有要交还的任务"
+L["Quest log is clean"] = "任务日志已清理"
 L["Clean up quest log"] = "清理任务日志"
 L["Grey: no XP any more"] = "灰色：不再给予经验"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "路线不需要这些任务：它从不交付，或已不再给予经验。放弃会先在游戏自己的窗口中确认。"

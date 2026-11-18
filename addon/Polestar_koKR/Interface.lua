@@ -3486,6 +3486,7 @@ L["The route hands in every quest in your log."] = "경로가 퀘스트 목록�
 L["Clean up quest log (%d)"] = "퀘스트 목록 정리 (%d)"
 L["Hand in finished quests (%d)"] = "완료한 퀘스트 제출 (%d)"
 L["None to hand in"] = "제출할 퀘스트 없음"
+L["Quest log is clean"] = "퀘스트 목록이 깨끗함"
 L["Clean up quest log"] = "퀘스트 목록 정리"
 L["Grey: no XP any more"] = "회색: 더 이상 경험치 없음"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "경로에 필요 없는 퀘스트입니다: 경로가 완료하지 않거나 더 이상 경험치를 주지 않습니다. 포기는 먼저 게임 자체 창에서 확인합니다."

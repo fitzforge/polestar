@@ -3486,6 +3486,7 @@ L["The route hands in every quest in your log."] = "A rota entrega todas as miss
 L["Clean up quest log (%d)"] = "Limpar registro de missões (%d)"
 L["Hand in finished quests (%d)"] = "Entregar missões concluídas (%d)"
 L["None to hand in"] = "Nada para entregar"
+L["Quest log is clean"] = "O registro de missões está limpo"
 L["Clean up quest log"] = "Limpar registro de missões"
 L["Grey: no XP any more"] = "Cinza: não dá mais EXP"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "A rota não precisa destas: nunca as entrega, ou não dão mais EXP. Abandonar pergunta antes na janela do próprio jogo."

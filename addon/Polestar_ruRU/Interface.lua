@@ -3486,6 +3486,7 @@ L["The route hands in every quest in your log."] = "Маршрут сдаёт в
 L["Clean up quest log (%d)"] = "Очистить журнал заданий (%d)"
 L["Hand in finished quests (%d)"] = "Сдать выполненные задания (%d)"
 L["None to hand in"] = "Нечего сдавать"
+L["Quest log is clean"] = "Журнал заданий чист"
 L["Clean up quest log"] = "Очистить журнал заданий"
 L["Grey: no XP any more"] = "Серое: опыта больше нет"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "Маршруту они не нужны: он их не сдаёт, или они больше не дают опыта. «Отказаться» сначала спрашивает в окне самой игры."
