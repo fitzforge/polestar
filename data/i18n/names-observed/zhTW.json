@@ -1,7 +1,7 @@
 {
 	"about": [
 		"Names the World of Warcraft: Forever client showed players in this language, read by `forge data names` (rust/crates/forge-data/src/names_sources.rs, load_observed_names) right after the client's own tables and before the web quest database, DingDB and pfQuest: the server's own name is the true one.",
-		"token: quest:, npc:, object: or item: and the id. name: as the client showed it. source: client-wdb (the client's cache of what the server sent it) or client-learning (a name the client gave a unit in play, as Polestar's Names.Learn keeps it). build: the client build, or null where it was not recorded. sha256: the hash of the file the name was read from, kept as provenance. ref: the issue or pull request the names came from.",
+		"token: quest:, npc:, object: or item: and the id. name: as the client showed it. source: client-wdb (the client's cache of what the server sent it) or client-learning (a name read directly from the live client). build: the client build, or null where it was not recorded. sha256: the hash of the file the name was read from, kept as provenance. ref: the issue or pull request the names came from.",
 		"Only the game's names, never translations from websites or other addons. Items need no record here: the client's ItemSparse table names them.",
 		"Each token once; the file is checked by forge-data's names tests."
 	],
@@ -43,6 +43,11 @@
 		{"token": "quest:94982", "name": "馬戈之眼", "source": "client-wdb", "build": "1.60.1.70938", "sha256": "2c0e7223b4716a0f85ec116fe357c170484f5656660dca5ce6e03e2c63d38f71", "ref": 3005},
 		{"token": "quest:94983", "name": "暮光紀念物", "source": "client-wdb", "build": "1.60.1.70938", "sha256": "2c0e7223b4716a0f85ec116fe357c170484f5656660dca5ce6e03e2c63d38f71", "ref": 3005},
 		{"token": "quest:94984", "name": "暮光典籍", "source": "client-wdb", "build": "1.60.1.70938", "sha256": "2c0e7223b4716a0f85ec116fe357c170484f5656660dca5ce6e03e2c63d38f71", "ref": 3005},
+		{"token": "quest:95194", "name": "塞拉摩的眼線", "source": "client-learning", "build": "1.60.1.70938", "ref": 3005},
+		{"token": "quest:95196", "name": "小心背後", "source": "client-learning", "build": "1.60.1.70938", "ref": 3005},
+		{"token": "quest:95198", "name": "王者歸來？", "source": "client-learning", "build": "1.60.1.70938", "ref": 3005},
+		{"token": "quest:95262", "name": "秘密監獄", "source": "client-learning", "build": "1.60.1.70938", "ref": 3005},
+		{"token": "quest:95263", "name": "噩耗", "source": "client-learning", "build": "1.60.1.70938", "ref": 3005},
 		{"token": "quest:95278", "name": "是時候了，兄弟…", "source": "client-wdb", "build": "1.60.1.70938", "sha256": "2c0e7223b4716a0f85ec116fe357c170484f5656660dca5ce6e03e2c63d38f71", "ref": 3005},
 		{"token": "quest:95417", "name": "紫色傢伙們", "source": "client-wdb", "build": "1.60.1.70938", "sha256": "2c0e7223b4716a0f85ec116fe357c170484f5656660dca5ce6e03e2c63d38f71", "ref": 3005},
 		{"token": "quest:95418", "name": "散播傳言", "source": "client-wdb", "build": "1.60.1.70938", "sha256": "2c0e7223b4716a0f85ec116fe357c170484f5656660dca5ce6e03e2c63d38f71", "ref": 3005},
