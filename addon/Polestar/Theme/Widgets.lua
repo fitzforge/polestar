@@ -2200,6 +2200,13 @@ local function buildMenu()
 		ns.Gamepad.Register(menu, {
 			rows = function()
 				local out = {}
+				-- The toggle bar's buttons first: it sits on top.
+				local bar = rawget(menu, "Bar")
+				if bar and bar:IsShown() then
+					for _, b in ipairs(bar.buttons) do
+						if b:IsShown() and b:IsEnabled() then out[#out + 1] = b end
+					end
+				end
 				for _, r in ipairs(menu.rows) do
 					if r:IsShown() and not (r.psItem and r.psItem.disabled) then out[#out + 1] = r end
 				end
@@ -2241,6 +2248,103 @@ end
 -- the box, then closes the list.
 local MENU_MAX, MENU_FILTER = 12, 26
 local layoutMenu -- (): the open list's rows laid out anew (below)
+
+-- { bar = { entry, ... }, caption = text, captionColor = token }: a row of
+-- icon toggles across the menu, its caption under it. An entry is { icon,
+-- text, checked, disabled, onClick }: lit in the accent while checked; a
+-- click closes the menu and runs onClick, as a row's. The caption names
+-- the entry under the pointer and its state ("Pause \194\183 On", the name
+-- alone for one with no checked); off them it is the bar's own caption
+-- again. In a block with layoutMenu, its one user: the file is near Lua's
+-- 200 locals.
+do
+local Bar = { BTN = 30, CAP = 16 }
+
+function Bar.caption(bar, b)
+	local e = b and b.psEntry
+	if e then
+		local text = e.text or ""
+		if e.checked ~= nil then text = string.format("%s \194\183 %s", text, e.checked and L["On"] or L["Off"]) end
+		bar.Caption:SetText(text)
+		W.Color(bar.Caption, "text")
+	else
+		bar.Caption:SetText(bar.psCaption or "")
+		W.Color(bar.Caption, bar.psCaptionColor or "textMuted")
+	end
+end
+
+function Bar.get()
+	local bar = rawget(menu, "Bar")
+	if bar then return bar end
+	bar = CreateFrame("Frame", nil, menu)
+	bar.buttons = {}
+	bar.Caption = W.Text(bar, "small", "textMuted")
+	bar.Caption:SetJustifyH("LEFT")
+	bar.Caption:SetPoint("BOTTOMLEFT", bar, "BOTTOMLEFT", 6, 2)
+	bar.Caption:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", -6, 2)
+	menu.Bar = bar
+	return bar
+end
+
+function Bar.button(bar, i)
+	local b = bar.buttons[i]
+	if b then return b end
+	b = W.IconButton(bar, "menu", Bar.BTN, nil, function(self)
+		local e = self.psEntry
+		if not e or e.disabled then return end
+		W.HideMenu()
+		if e.onClick then e.onClick(e) end
+	end, 15)
+	-- The lit toggle's plate: the accent's wash behind its glyph.
+	b.Lit = b:CreateTexture(nil, "BACKGROUND")
+	b.Lit:SetTexture(WHITE)
+	b.Lit:SetAllPoints(b)
+	b.psOnEnter = function(self) Bar.caption(bar, self) end
+	b.psOnLeave = function() Bar.caption(bar, nil) end
+	bar.buttons[i] = b
+	return b
+end
+
+-- The bar's entries on its buttons; -> the width the bar needs.
+function Bar.fill(bar, item)
+	local list = item.bar
+	bar.psItem = item
+	bar.psCaption, bar.psCaptionColor = item.caption, item.captionColor
+	local need = 0
+	for i, e in ipairs(list) do
+		local b = Bar.button(bar, i)
+		b.psEntry = e
+		W.SetIcon(b, e.icon or "menu")
+		W.SetIconState(b, e.checked, not e.disabled)
+		W.Color(b.Lit, "accent", 0.16)
+		b.Lit:SetShown(e.checked and true or false)
+		b:Show()
+		-- Room for the widest caption it can show.
+		bar.Caption:SetText(e.text or "")
+		local w = bar.Caption:GetStringWidth() + (e.checked ~= nil and 48 or 0)
+		if w > need then need = w end
+	end
+	for i = #list + 1, #bar.buttons do bar.buttons[i]:Hide() end
+	Bar.caption(bar, nil)
+	return max(need + 12, #list * Bar.BTN + 12)
+end
+
+-- The bar laid out at the menu's final width: its buttons share it.
+function Bar.place(bar, holder, y, width)
+	local list = bar.psItem.bar
+	bar:ClearAllPoints()
+	bar:SetPoint("TOPLEFT", holder, "TOPLEFT", 0, y)
+	bar:SetSize(width, Bar.BTN + Bar.CAP + 2)
+	local n = #list
+	local each = n > 0 and floor((width - 12) / n) or 0
+	for i = 1, n do
+		local b = bar.buttons[i]
+		b:ClearAllPoints()
+		b:SetSize(each, Bar.BTN)
+		b:SetPoint("TOPLEFT", bar, "TOPLEFT", 6 + (i - 1) * each, 0)
+	end
+	bar:Show()
+end
 
 local function menuLong()
 	local sc = rawget(menu, "Scroll")
@@ -2296,9 +2400,10 @@ function layoutMenu()
 		local it = items[i]
 		if it.icon then anyIcon = true end
 		if it.preview then anyPreview = true end
-		if not it.separator then total = total + 1 end
+		if not (it.separator or it.bar) then total = total + 1 end
 	end
-	local long = total > MENU_MAX
+	-- opts.short: a menu of actions, every row shown, never a filtered list.
+	local long = not opts.short and total > MENU_MAX
 	local sc = long and menuLong() or rawget(menu, "Scroll")
 	-- Rows hang from the menu, or from the scroll area's child in a long list.
 	local holder = long and sc.Child or menu
@@ -2308,14 +2413,34 @@ function layoutMenu()
 	menu.psCheckedY = nil
 	for i = 1, #menu.rows do menu.rows[i]:Hide() end
 	for i = 1, #menu.seps do menu.seps[i]:Hide() end
+	local bar, barY = rawget(menu, "Bar"), nil
+	if bar then bar:Hide() end
 	for i = 1, #items do
 		local item = items[i]
-		if item.separator then
+		if item.bar then
+			-- The toggles stay out of a filtered list.
+			if needle == "" then
+				bar = Bar.get()
+				if bar:GetParent() ~= holder then bar:SetParent(holder) end
+				width = max(width, Bar.fill(bar, item))
+				barY = y
+				y = y - (Bar.BTN + Bar.CAP + 2)
+			end
+		elseif item.separator then
 			if needle == "" then
 				nsep = nsep + 1
 				local sep = menu.seps[nsep]
 				if not sep then
-					sep = W.Divider(menu)
+					-- A hairline in the divider wash; a skin that clears section
+					-- lines (divider = CLEAR) still gets a faint one between groups.
+					sep = menu:CreateTexture(nil, "BORDER")
+					sep:SetTexture(WHITE)
+					W.Painter(sep, function(tex)
+						local r, g, b, a = Theme.Wash("divider")
+						if (a or 0) < 0.05 then r, g, b = Theme.Color("textMuted"); a = 0.22 end
+						tex:SetVertexColor(r, g, b, a)
+						tex:SetHeight(Theme.Pixel(menu))
+					end)
 					menu.seps[nsep] = sep
 				end
 				if sep:GetParent() ~= holder then sep:SetParent(holder) end
@@ -2389,6 +2514,7 @@ function layoutMenu()
 		end
 	end
 	width = floor(width + 0.5)
+	if barY then Bar.place(bar, holder, barY, width - (long and 10 or 0)) end
 	if long then
 		local f = menu.Filter
 		f:ClearAllPoints()
@@ -2418,9 +2544,13 @@ function layoutMenu()
 		menu:SetSize(width, -y + pad)
 	end
 end
+end -- the block with Bar
 
--- items: { { text, icon, checked, disabled, onClick, tip, color, confirm, preview }, { separator = true }, ... }
--- opts: { point = "TOPRIGHT", relPoint = "BOTTOMRIGHT", x = 0, y = -4, minWidth = 168, current = true }
+-- items: { { text, icon, checked, disabled, onClick, tip, color, confirm, preview }, { separator = true },
+-- { bar = { { icon, text, checked, disabled, onClick }, ... }, caption, captionColor } (the toggle bar, above), ... }
+-- opts: { point = "TOPRIGHT", relPoint = "BOTTOMRIGHT", x = 0, y = -4, minWidth = 168, current = true, short = true }
+-- opts.short: a menu of actions whose rows all show, never a long list's
+-- filter and scroll.
 -- opts.current: a list of choices whose checked row is the current one; a
 -- long one opens scrolled to it. Any other menu (actions, toggles) opens at
 -- its top, whatever its ticks (#2647: the guide window's menu opened centred

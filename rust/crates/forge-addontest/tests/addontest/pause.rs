@@ -330,11 +330,12 @@ fn the_window_menu_and_the_commands_pause_and_resume_and_always_say_what_they_di
 	let out = run_ui(
 		"",
 		r#"
-		local function menuPick(text)
+		-- Pause is a toggle on the menu's top bar.
+		local function barPick(text)
 			GF.menuButton:Click()
-			for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == text then r:Click() return r end end
+			for _, b in ipairs(PolestarMenu.Bar.buttons) do if b:IsShown() and b.psEntry.text == text then b:Click() return b end end
 		end
-		menuPick("Pause")
+		barPick("Pause")
 		local fromMenu, menuLine = Polestar.Paused(), lastLine()
 		local lines = {}
 		for _, cmd in ipairs({ "pause on", "pause off", "pause off", "pause", "pause", "pause", "resume", "resume" }) do

@@ -46,6 +46,11 @@ local function menuPick(text)
 	GF.menuButton:Click()
 	for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == text then r:Click() return r end end
 end
+-- A toggle on the menu's top bar (Compact mode, Transparent, Lock window, Pause, Hide window).
+local function barPick(text)
+	GF.menuButton:Click()
+	for _, b in ipairs(PolestarMenu.Bar.buttons) do if b:IsShown() and b.psEntry.text == text then b:Click() return b end end
+end
 local TABS = { { uistub.elwynn, 3 }, { uistub.tailoring, 2 }, { uistub.stormwindRep, 2 } }
 "#;
 
@@ -1751,11 +1756,12 @@ fn the_header_menu_picker_new_tab_compact_transparent_lock_destructive_items_ask
 	let out = run(r#"
 		uistub.setGuide(uistub.elwynn, 3)
 		GF.menuButton:Click()
-		local items = {}
+		local items, bar = {}, {}
 		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then items[#items + 1] = r.Text:GetText() end end
+		for _, b in ipairs(PolestarMenu.Bar.buttons) do if b:IsShown() then bar[#bar + 1] = b.psEntry.text end end
 		GF.menuButton:Click()
-		menuPick("Lock window")
-		menuPick("Transparent")
+		barPick("Lock window")
+		barPick("Transparent")
 		local style = Polestar.Get("ui.style")
 		local reset = menuPick("Reset guide progress")
 		local armed = { label = reset.Text:GetText(), open = PolestarMenu:IsShown() }
@@ -1763,26 +1769,15 @@ fn the_header_menu_picker_new_tab_compact_transparent_lock_destructive_items_ask
 		menuPick("Choose guide")
 		local picker = PolestarPicker:IsShown()
 		menuPick("Options")
-		emit({ items = items, locked = Polestar.Get("ui.locked"), style = style, armed = armed, reset = lastCall("ResetProgress"),
+		emit({ items = items, bar = bar, locked = Polestar.Get("ui.locked"), style = style, armed = armed, reset = lastCall("ResetProgress"),
 			picker = picker, options = PolestarOptions:IsShown(), pickerAfter = PolestarPicker:IsShown() })"#)
 	.remove(0);
 	assert_eq!(
 		out["items"],
-		json!([
-			"Choose guide",
-			"Open in new tab",
-			"Skip this step",
-			"Report a problem",
-			"Compact mode",
-			"Transparent",
-			"Lock window",
-			"Reset guide progress",
-			"Quick settings",
-			"Options",
-			"Pause",
-			"Hide window"
-		])
+		json!(["Choose guide", "Open in new tab", "Quick settings", "Options", "Reset guide progress"]),
+		"Skip, the bug and Lookup are in the header, so not in the menu"
 	);
+	assert_eq!(out["bar"], json!(["Compact mode", "Transparent", "Lock window", "Pause", "Hide window"]), "the window's toggles are the bar on top");
 	assert_eq!(out["locked"], true);
 	assert_eq!(out["style"], "transparent");
 	assert_eq!(out["armed"], json!({ "label": "Click again to confirm", "open": true }));
@@ -1815,7 +1810,7 @@ fn the_menu_offers_the_quest_log_cleanup_with_its_count_and_hides_it_when_there_
 		Polestar.RoutePlan.Unneeded = function() return nil end
 		emit({ two = two, before = before, opened = opened, none = none, unsettled = items() })"#)
 	.remove(0);
-	assert_eq!(out["two"][4], "Clean up quest log (2)", "right after Report a problem");
+	assert_eq!(out["two"][2], "Clean up quest log (2)", "the quest log's group, after the guide's");
 	assert_eq!(out["before"], false);
 	assert_eq!(out["opened"], true, "the entry opens the cleanup window");
 	for key in ["none", "unsettled"] {
