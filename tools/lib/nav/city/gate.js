@@ -28,6 +28,7 @@ const run = require('../eval/run');
 const STEP = 2; // yd: line samples
 const DZ = 6; // yd: a line point lies on a surface within this height (the two maps' heights differ up to ~5 yd)
 const Z_OFF = 30; // yd, Nav/Walk.lua: a path ending this far off the goal's height missed its floor
+const SPAWN_R = 15; // yd, Lookup.SpawnZ: an NPC goal's height is its nearest spawn's this close
 const COUNTED = ['GAME', 'WALK'];
 
 // The folder the gate runs: nav, with its Trails/Trails.lua replaced by <priv>/Trails-train.lua when that exists (the
@@ -340,14 +341,14 @@ async function runArms({ trips, arms, dirs, spawnz, policy, taxi = [] }) {
 	const B = (t, z) => [t.B.wx, t.B.wy, z === undefined ? null : z];
 	const npcZs = new Map();
 	const npcZ = (t, e) => {
-		if (!npcZs.has(t.c)) npcZs.set(t.c, spawnHeight(spawnz, t.c));
+		if (!npcZs.has(t.c)) npcZs.set(t.c, spawnHeight(spawnz, t.c, SPAWN_R));
 		return npcZs.get(t.c)(e.npc, e.wx, e.wy);
 	};
 	// what Walk.lua knows of a stop's height: the NPC just talked to (spawn height), or at a landing its flight
 	// master's (TaxiNodes' height stands in for it in game)
 	const hint = (t, e) => {
 		if (e.kind !== 'land') return npcZ(t, e);
-		if (!npcZs.has(t.c)) npcZs.set(t.c, spawnHeight(spawnz, t.c));
+		if (!npcZs.has(t.c)) npcZs.set(t.c, spawnHeight(spawnz, t.c, SPAWN_R));
 		return landZ(taxi, npcZs.get(t.c), t.c, e.wx, e.wy);
 	};
 	// WALK (CityFloor's rules): the start from the trail floor within 4 yd near the stop's height hint, else the hint,
@@ -428,7 +429,7 @@ async function gate({ priv, nav, ground = null, spf = null, grid, frames, spawnz
 			const city = CITIES[map];
 			const t0 = Date.now();
 			const area = loadArea(priv, map, grid, frames);
-			const npcZc = spawnHeight(spawnz, city.c);
+			const npcZc = spawnHeight(spawnz, city.c, SPAWN_R);
 			const trips = area.trips.map((t) => anchorEnds(area.g, { ...t, c: city.c, side: city.side }, taxi, npcZc, (v) => area.train[v] >= 3));
 			const res = await runArms({ trips, arms, dirs: { nav: gn.dir, ground, spf }, spawnz, policy, taxi });
 			const rows = scoreRows(area, trips, res, protosFor(area, arms));
@@ -452,7 +453,7 @@ async function gateWorld({ priv, nav, ground = null, spf = null, grid, frames, s
 	const all = readWorldTrips(priv, set).filter((t) => !strata || strata.includes(t.stratum));
 	const keep = new Set(all.map((t) => t.i));
 	const npcZc = new Map();
-	const zOf = (c) => npcZc.get(c) || npcZc.set(c, spawnHeight(spawnz, c)).get(c);
+	const zOf = (c) => npcZc.get(c) || npcZc.set(c, spawnHeight(spawnz, c, SPAWN_R)).get(c);
 	const trips = all.map((t) => {
 		const s = { ...t, side: t.fac === 'Alliance' || t.fac === 'Horde' ? t.fac : null };
 		if (!(s.A.kind === 'land' || s.A.npc || s.B.npc)) return s;
