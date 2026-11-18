@@ -3265,6 +3265,21 @@ test('forever/class/warrior/fire-hardened-armor.guide: Kapu\'s report: Fire Hard
 	}
 });
 
+// #2859 (Logan, Dwarf Shaman of 30): Call of Air (94789, level 30, no objectives) shared its step with Elemental Aid
+// (96264, level 33, Charlga Razorflank's Tattered Note), so the Air Totem waited for the follow-up's 32. The hand-in now
+// has its own step at 30, as the Horde guide's hand-ins to Prate Cloudseer do, and Elemental Aid still waits for 32.
+test('forever/class/shaman/call-of-air-alliance.guide: #2859: the Air Totem at 30, Elemental Aid at 32', { skip }, () => {
+	const G = 'forever/class/shaman/call-of-air-alliance.guide';
+	const list = goals(G);
+	const held = (s) => Math.max(0, ...compiled(G).steps[s - 1].goals.filter((g) => g.t === 'level').map((g) => g.level));
+	const totem = list[at(list, 'turnin 94789', is('turnin', 94789))];
+	const aid = list[at(list, 'accept 96264', is('accept', 96264))];
+	assert.notEqual(aid.s, totem.s, 'Call of Air is handed in in a step of its own');
+	assert.ok(totem.s < aid.s, 'the hand-in comes before Elemental Aid');
+	assert.equal(held(totem.s), 30, `the Air Totem's step waits for 30 (waits for ${held(totem.s)})`);
+	assert.ok(held(aid.s) >= 32, `Elemental Aid (level 33) waits for 32 (waits for ${held(aid.s)})`);
+});
+
 // --- Southshore (never-seen check, 2026-11-08): 4 Alliance people passed Barkeep Kelly and none was offered Talk of the
 // Town (98463); the guide keeps it, optional at both ends, with a tip to skip it.
 test(`Talk of the Town is optional at Southshore and at its Booty Bay hand-in, with a tip to skip it`, { skip }, () => {
@@ -13355,6 +13370,21 @@ test('Desolace: Centaur Bounty: each spot of the Centaur Ear collect names its o
 	}
 });
 
+// WhoAmI on Discord (#1869): "Gray Bear also drops Gray Bear Tongue, not only Vicious Gray Bear." Gray Bears and
+// Vicious Gray Bears share the Hillsbrad hills, but a spot named only the bears whose own spawn stood within reach of
+// it, so most spots' target button said Vicious Gray Bear alone. Spawn areas joined across connected spawns (#2288,
+// shacklef00rd) name every dropper that roams the same hills, and the guide's hand-placed point still links only the
+// droppers at that point.
+test('forever/horde/06-hillsbrad-foothills.guide: Elixir of Suffering: every bear spot of the Gray Bear Tongue collect names Gray Bear (#1869)', { skip }, () => {
+	const list = goals('forever/horde/06-hillsbrad-foothills.guide');
+	const { goal } = list[at(list, 'collect 3476 quest 496', (g) => g.t === 'collect' && g.item === 3476 && g.quest === 496)];
+	assert.equal(typeof goal.fromNpcsAt, 'string', 'the goal lists each spot\'s mobs');
+	const ids = goal.fromNpcsAt.split(';').filter(Boolean).map((s) => s.split(',').map((k) => goal.fromNpcs[Number(k) - 1].npc));
+	assert.ok(ids.length > 10, `the bear spots are listed (${ids.length})`);
+	const without = ids.filter((l) => !l.includes(2351)).length;
+	assert.equal(without, 0, `every bear spot names Gray Bear (2351): ${without} of ${ids.length} do not`);
+});
+
 // rockzors (#1602, 0.3.6): "include Carved Centaur Totems with the Centaur Bounty quest". Players' recordings
 // (build 70862, 41 drops, 5 contributors) have Carved Centaur Totem (254432) dropping from six Kolkar and seven
 // Magram kinds; the merged data listed only the Maraudine, so the quest waited for the south loop's Valley of
@@ -16478,4 +16508,52 @@ test("forever/horde/30-40/01-hillsbrad-foothills.guide: Acen's report (#2512): t
 	assert.ok(dull < drull && gold < togthar, 'each key before its lock');
 	assert.ok(togthar < drull, "Tog'thar's lock beside the jailors first, Drull's on the way back");
 	assert.ok([dull, gold, drull, togthar].every((i) => list[i].s === list[drull].s), 'one step');
+});
+
+// #2792 (Petsq, 0.4.0.1, Horde Stranglethorn 40-50): a player who reached the guide with Panther Mastery (192)
+// still open got its hand-in at Nesingwary's camp and no step for the Shadowmaw Panthers; Raptor Mastery (195),
+// handed in at the same stop, had the same gap. Each now has a step, only while the quest is in the log, before
+// its hand-in.
+test('#2792: Stranglethorn (Horde 40-50): Panther and Raptor Mastery left open get their mobs before the hand-in', { skip }, () => {
+	const list = goals(H40('01-stranglethorn-vale'));
+	for (const [quest, npc] of [[192, 684], [195, 686]]) {
+		const kill = at(list, `kill ${npc} quest ${quest}`, (g) => g.t === 'kill' && g.quest === quest && g.npc === npc);
+		const turnin = at(list, `turnin ${quest}`, is('turnin', quest));
+		assert.ok(kill < turnin, `${quest}: the mobs before the hand-in`);
+		const when = list[kill].step.when || [];
+		assert.ok(when.some((p) => p.k === 'onquest' && (p.q || []).includes(quest)), `${quest}: only while it is in the log`);
+	}
+});
+
+// #2801 (Gindry, 0.4.0.1, Alliance Desolace): Karnitol's Satchel drops from the Slitherblade Tidehunters and Sea
+// Witches (recordings: every recorded loot came with one of their kills), not from the sea floor the tip named,
+// and 11 of 28 people who took The Karnitol Shipwreck gave it up. The tip says where it drops, and the satchel and
+// its hand-in never hold the route.
+test('#2801: Desolace (Alliance): Karnitol\'s Satchel drops from the naga and never holds the route', { skip }, () => {
+	const list = goals('forever/alliance/30-40/06b-desolace.guide');
+	const satchel = list[at(list, 'collect 6245', (g) => g.t === 'collect' && g.quest === 1456)];
+	assert.equal(satchel.goal.optional, true, 'the satchel is optional');
+	assert.equal(list[at(list, 'turnin 1456', is('turnin', 1456))].goal.optional, true, 'so is its hand-in');
+	const tip = [satchel.step.note, satchel.step.tip].flat().filter(Boolean).join(' ');
+	assert.match(tip, /Tidehunters and Sea Witches/);
+	assert.doesNotMatch(tip, /sea floor/);
+});
+
+// #2825 (Thyndare, 0.4.0.1, Horde Riverglades): Jom-jom's spawn data holds his escort's walk, and the accept led to
+// the walk's point nearest the player, not to the cave where he waits (22 of 22 recorded accepts at 73.3-74.0,
+// 24.6-24.9). The sweep of escort givers found Melizza Brimbuzzle (Desolace) and Tooga (Tanaris) sent to their
+// escorts' ends the same way.
+test('#2825: escort givers are looked for where they wait, not along their escort', { skip }, () => {
+	const cases = [
+		[H40('01b-riverglades'), 94556, 73.4, 24.7],
+		['forever/alliance/30-40/06b-desolace.guide', 6132, 33.9, 53.5],
+		['forever/horde/30-40/04-dustwallow-marsh.guide', 6132, 33.9, 53.5],
+		['forever/alliance/40-50/04-tanaris.guide', 1560, 30.2, 70.7],
+		[H40('04-tanaris'), 1560, 30.2, 70.7],
+	];
+	for (const [guide, quest, x, y] of cases) {
+		const list = goals(guide);
+		const { goal } = list[at(list, `accept ${quest}`, is('accept', quest))];
+		assert.deepEqual([goal.x, goal.y], [x, y], `${guide}: accept ${quest}`);
+	}
 });

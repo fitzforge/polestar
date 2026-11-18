@@ -126,7 +126,7 @@ return {
 
 	-- Step 23: Ratchet
 	-- {zone:1413} Barrens · {area:392} Ratchet · {area:35} Booty Bay
-	["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock."] = "",
+	["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock."] = "Depuis Theramore, suivez la route vers le nord-ouest à travers le marais jusqu'à {zone:1413} et remontez la côte jusqu'à {area:392} : Strangleronce commence à {area:35}, de l'autre côté de la mer. Le maître des griffons de {area:392} se tient au-dessus du quai.",
 
 	-- Step 24: Boat to Booty Bay
 	-- {area:35} Booty Bay

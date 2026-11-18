@@ -234,7 +234,7 @@ step Melizza Brimbuzzle
   zone Desolace
   tip Melizza is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.
   tip Careful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help.
-  accept 6132
+  accept 6132 @33.9,53.5 map 1443
   complete 6132
 
 step Hornizz Brimbuzzle

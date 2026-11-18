@@ -2650,6 +2650,63 @@
 				}
 			],
 			"issue": 2694
+		},
+		{
+			"id": "2825-riverglades-jomjom-giver",
+			"quest": 94556,
+			"objective": "giver",
+			"at": {
+				"map": 2548,
+				"x": 73.4,
+				"y": 24.7,
+				"frame": "live"
+			},
+			"note": "Jom-jom's Escape: Jom-jom waits in the cave north-east of Na'zok at 73.4,24.7 until the escort starts. His spawn data holds the escort's walk to Bolder'ok too, and the accept went to the walk's point nearest the player (68.9,31.3 in #2825), where he never stands before the escort. The other points stay as the goal's other places.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-17: 22 accepts of 94556 by 19 people, every one at 73.32-74.03,24.57-24.88, the position samples around each indoors"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#2825 (Thyndare, 0.4.0.1): he waits at 73.3,24.7 in a cave"
+				}
+			],
+			"issue": 2825
+		},
+		{
+			"id": "2825-desolace-melizza-giver",
+			"quest": 6132,
+			"objective": "giver",
+			"at": {
+				"map": 1443,
+				"x": 33.9,
+				"y": 53.5,
+				"frame": "era"
+			},
+			"note": "Get Me Out of Here!: Melizza Brimbuzzle waits in the Maraudine camp at 33.9,53.5. Her spawn data holds the escort's walk out too (35.4,58.2 and 47.7,61.8, by the graveyard where it ends), and the accept went to the walk's point nearest the player, so a player coming from the graveyard was sent to where the escort ends. Found with #2825's sweep of escort givers.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 44 of 48 accepts of 6132 (28 of 30 people) at 33.84-33.93,53.40-53.65"
+			},
+			"issue": 2825
+		},
+		{
+			"id": "2825-tanaris-tooga-giver",
+			"quest": 1560,
+			"objective": "giver",
+			"at": {
+				"map": 1446,
+				"x": 30.2,
+				"y": 70.7,
+				"frame": "era"
+			},
+			"note": "Tooga's Quest: Tooga wanders the west edge of the Thistleshrub Valley (29.5,60.6 to 29.8,74.0) until the escort starts; his spawn data also has him beside Torta at Steamwheedle Port (66.9,25.4), where the escort ends and Oasis (97540) is given, and the accept went to whichever was nearest the player: from Gadgetzan or the port, the port. The point is where most players found him; the valley's other points stay as the goal's other places. Found with #2825's sweep of escort givers.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 18 accepts of 1560 (18 people), all in the valley at 28.4-32.1,60.6-74.1, 8 of them at 30.0-30.6,70.4-70.9; none at the port"
+			},
+			"issue": 2825
 		}
 	]
 }

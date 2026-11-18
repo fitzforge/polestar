@@ -271,5 +271,5 @@ Gear.PROFICIENCY = {
 	SHAMAN = { armor = 2, armorAt40 = 3, shield = true, relic = 9, weapons = set(0, 1, 4, 5, 10, 13, 15) },
 	MAGE = { armor = 1, weapons = set(7, 10, 15, 19) },
 	WARLOCK = { armor = 1, weapons = set(7, 10, 15, 19) },
-	DRUID = { armor = 2, relic = 8, weapons = set(4, 5, 10, 13, 15) },
+	DRUID = { armor = 2, relic = 8, weapons = set(4, 5, 6, 10, 13, 15) },
 }

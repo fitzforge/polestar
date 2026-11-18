@@ -408,6 +408,28 @@ fn a_rogue_can_upgrade_to_a_one_handed_axe_after_learning_the_skill() {
 	assert_eq!(out, vec![json!(false), json!(true), json!("weapon")]);
 }
 
+// #2855: In WoW Forever, Druids can train and use Polearms (subclass 6, skill line 229).
+#[test]
+fn a_druid_can_use_polearms_after_learning_the_weapon_skill_2855() {
+	let out = run(
+		r#"
+		g.defineItem("item:7301", { equipLoc = "INVTYPE_2HWEAPON", classID = 2, subclassID = 6, minLevel = 20, stats = { ITEM_MOD_ATTACK_POWER_SHORT = 20 } })
+		w.learnSkill(54, "Maces", 1, 150)
+		local before = G.CompareToEquipped("item:7301")
+		local b = { usable = before.usable, reason = before.reason }
+		w.learnSkill(229, "Polearms", 1, 150)
+		local after = G.CompareToEquipped("item:7301")
+		emit({ before = b, after = { usable = after.usable, reason = after.reason, up = G.IsUpgrade("item:7301") } })
+	"#,
+		Opts { cls: "DRUID", class_name: "Druid", class_id: 11, level: 20, ..Default::default() },
+	);
+	let r = &out[0];
+	assert_eq!(r["before"], json!({ "usable": false, "reason": "skill" }));
+	assert_eq!(r["after"]["usable"], true);
+	assert_eq!(r["after"]["up"], true);
+	assert!(r["after"]["reason"].is_null());
+}
+
 #[test]
 fn without_weapon_skill_data_the_class_weapon_list_decides_as_before() {
 	let out = run(r#"local c = G.CompareToEquipped("item:9030"); emit({ G.IsUpgrade("item:9030"), c.usable })"#, Opts { cls: "ROGUE", class_name: "Rogue", class_id: 4, ..Default::default() });
