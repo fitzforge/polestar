@@ -366,6 +366,8 @@ mod party_pair;
 #[path = "party-sync.rs"]
 mod party_sync;
 mod pause;
+#[path = "perf-probe.rs"]
+mod perf_probe;
 mod placeholders;
 mod profiles;
 mod qol;

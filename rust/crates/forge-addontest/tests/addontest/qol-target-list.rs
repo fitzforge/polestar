@@ -2090,3 +2090,45 @@ fn target_list_compact_styles_grow_up_over_a_row_of_buttons_and_name_a_close_str
 		"a strip's close name goes on its far side, above it"
 	);
 }
+
+// Kill stutter (0.4.1): the rows repaint only what changed. A close mob's health changing (every frame of a
+// fight) leaves the rows alone until it dies, and a refresh with the same counts (a kill for no row, a loot,
+// the bags) lays no row out again. Widget calls (frame, texture and font string methods) are counted.
+#[test]
+fn target_list_a_fight_s_health_ticks_and_refreshes_with_the_same_counts_repaint_no_row() {
+	let out = run_with(
+		r#"
+		local calls = 0
+		local real = {}
+		for k, v in pairs(stub.Methods) do real[k] = v; stub.Methods[k] = nil end
+		setmetatable(stub.Methods, { __index = function(_, k) calls = calls + 1; return real[k] end, __newindex = real })
+		kobolds()
+		q.combat(true)
+		q.units.nameplate2 = { name = "Kobold Worker" }
+		stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate2")
+		stub.runTimers()
+		emit(face(2))
+		local c0 = calls
+		for _ = 1, 60 do stub.fire("UNIT_HEALTH", "nameplate2"); stub.runTimers() end
+		local health = calls - c0
+		c0 = calls
+		for _ = 1, 10 do stub.fire("QUEST_LOG_UPDATE"); stub.fire("BAG_UPDATE_DELAYED"); stub.runTimers() end
+		local refresh = calls - c0
+		-- It dies: its health says so, and its row's crosshair goes red.
+		q.units.nameplate2.dead = true
+		stub.fire("UNIT_HEALTH", "nameplate2")
+		stub.runTimers()
+		emit(face(2))
+		emit({ health = health, refresh = refresh })
+		q.combat(false)
+	"#,
+		MODELS,
+	);
+	assert_eq!(out[0], json!([257, "green"]));
+	assert_eq!(out[1], json!([257, "red"]), "a death still repaints the row");
+	let health = out[2]["health"].as_u64().unwrap();
+	let refresh = out[2]["refresh"].as_u64().unwrap();
+	// Measured: 0.4.1 made 17,700 calls for the 60 ticks (295 a frame through a fight) and 2,740 for the 10
+	// refreshes; with the rows left alone, 60 and 250 (the rest of the buttons' own work).
+	assert!(health <= 120 && refresh <= 400, "widget calls: 60 health ticks {health} (at most 120), 10 refreshes with the same counts {refresh} (at most 400)");
+}
