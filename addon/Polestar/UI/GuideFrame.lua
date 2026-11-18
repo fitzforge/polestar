@@ -1730,6 +1730,7 @@ GF.Part(function(GF)
 		empty.Secondary:Hide()
 		empty.Carried:Hide()
 		empty.Stray:Hide()
+		if GF.PlayNext then GF.PlayNext.Hide() end
 		local glyph, color = "emblem", "accent"
 		if kind == "noguides" and UI.Packs and UI.Packs.OursSwitchedOff() then
 			-- Our own guides switched off on the Community guides page: one
@@ -1864,9 +1865,7 @@ GF.Part(function(GF)
 				W.SetButtonText(empty.Primary, L["Choose your path"])
 				empty.Primary.psAction = function() UI.ShowRouteChoice(choiceFrom) end
 				empty.Primary:Show()
-				W.SetButtonText(empty.Secondary, L["Browse guides"])
-				empty.Secondary.psAction = function() UI.ShowPicker() end
-				empty.Secondary:Show()
+				GF.PlayNext.Paint(nil, guide.id)
 			elseif afterRun then
 				-- A dungeon's pick-up guide ends at the entrance; after the run
 				-- its quests are handed in (Dungeons/Handin.lua).
@@ -1878,19 +1877,12 @@ GF.Part(function(GF)
 				empty.Secondary.psAction = function() UI.ShowPicker() end
 				empty.Secondary:Show()
 			elseif nextGuide then
-				-- As the guide-end window says it: "Next: Westfall (12–17)".
-				empty.Text:SetText(string.format(L["Next: %s"], "|c" .. Theme.Hex("text") .. UI.GuideLabel(nextGuide) .. "|r"))
-				W.SetButtonText(empty.Primary, L["Continue"])
-				empty.Primary.psAction = function() E.SetGuide(nextGuide.id) end
-				empty.Primary:Show()
-				W.SetButtonText(empty.Secondary, L["Browse guides"])
-				empty.Secondary.psAction = function() UI.ShowPicker() end
-				empty.Secondary:Show()
+				-- Play next: the next guide as a card with one Start (UI/GuideFramePlayNext.lua).
+				empty.Text:SetText(string.format(L["%s is done."], "|c" .. Theme.Hex("text") .. UI.GuideLabel(guide) .. "|r"))
+				GF.PlayNext.Paint(nextGuide, guide.id)
 			else
 				empty.Text:SetText(L["Nice work. Pick your next guide to keep going."])
-				W.SetButtonText(empty.Primary, L["Choose a guide"])
-				empty.Primary.psAction = function() UI.ShowPicker() end
-				empty.Primary:Show()
+				GF.PlayNext.Paint(nil, guide.id)
 			end
 			-- A leveling guide's end: the quests left in the log, said.
 			if guide and not (back or afterRun) then GF.EndQuestLines(guide.id) end

@@ -25,9 +25,26 @@ E.SetGuide("test/a")
 E.Skip()
 GF.Render(); GF.Layout(); stub.advance(1)
 local empty = GF.parts.empty
-emit({ shown = empty:IsShown(), text = empty.Text:GetText(), go = empty.Primary:IsShown() and empty.Primary.Label:GetText() })`,
+local pn = Polestar.UI.GuideFrame.PlayNext
+local card, other = pn.card(), pn.other()
+local snap = { shown = empty:IsShown(), text = empty.Text:GetText(), go = empty.Primary:IsShown() and empty.Primary.Label:GetText(),
+	card = card:IsShown(), title = card.Title:GetText(), why = card.Why:GetText(), steps = card.Steps:GetText(),
+	start = card.Start.Label:GetText(), default = card.Start.psDefault, other = other:IsShown(), otherText = other.Label:GetText(),
+	height = card:GetHeight(), secondary = empty.Secondary:IsShown() }
+card.Start.psAction()
+snap.now = E.GetGuide().id
+emit(snap)`,
 	}).emitted;
 	assert.equal(out.shown, true, 'the complete page');
-	assert.match(out.text, /^Next: \|c[0-9a-f]{8}Westfall \(10–17\)\|r$/);
-	assert.equal(out.go, 'Continue', 'the window holds the button');
+	assert.match(out.text, /^\|c[0-9a-f]{8}A \(1–10\)\|r is done\.$/);
+	assert.equal(out.go, false, 'no Continue button: the card has the Start');
+	assert.equal(out.secondary, false, 'no Browse guides button');
+	assert.equal(out.card, true, 'the Play next card');
+	assert.match(out.title, /^Westfall \|c[0-9a-f]{8}\(10–17\)\|r$/);
+	assert.match(out.why, /^Next in your route · your level \d+$/);
+	assert.equal(out.start, 'Start');
+	assert.equal(out.default, true, 'a gamepad starts on Start');
+	assert.equal(out.other, true, 'the quiet Other guides link');
+	assert.equal(out.otherText, 'Other guides');
+	assert.equal(out.now, 'test/b', 'Start goes on to the next guide');
 });

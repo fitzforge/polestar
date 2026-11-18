@@ -263,7 +263,7 @@ never in saved variables.
 | `ZoneArt.lua` | `UI.ZoneArt` | A zone's world map painting, drawn from the player's own client |
 | `ZoneArtOverlays.lua` | (registers data) | Generated: every world map overlay of every zone map |
 | `GuideFrame.lua` | `UI.GuideFrame` | The guide window |
-| `GuideFrameBanner.lua`, `GuideFrameHere.lua`, `GuideFrameLayout.lua`, `GuideFrameLook.lua`, `GuideFrameMenu.lua`, `GuideFrameStatus.lua`, `GuideFrameTabs.lua`, `GuideFrameWindow.lua` | `UI.GuideFrame` | The guide window's parts: the banner, While you're here, the layout, the transparent style and skins, the menu and Nearby services button, the XP and party lines, the tab strip, where and when it shows |
+| `GuideFrameBanner.lua`, `GuideFrameHere.lua`, `GuideFrameLayout.lua`, `GuideFrameLook.lua`, `GuideFrameMenu.lua`, `GuideFramePlayNext.lua`, `GuideFrameStatus.lua`, `GuideFrameTabs.lua`, `GuideFrameWindow.lua` | `UI.GuideFrame` | The guide window's parts: the banner, While you're here, the layout, the transparent style and skins, the menu and Nearby services button, the Play next card on a finished guide, the XP and party lines, the tab strip, where and when it shows |
 | `StepList.lua` | `UI.StepList` | The step browser: every step of the guide as a card |
 | `JourneyPanel.lua` | `UI.JourneyPanel` | The travel route's steps in the guide window |
 | `WhileHere.lua` | `UI.WhileHereToast` | The "While you're here" toast |

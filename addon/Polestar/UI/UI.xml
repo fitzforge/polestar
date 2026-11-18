@@ -9,6 +9,7 @@
 	<Script file="GuideFrameBanner.lua"/>
 	<Script file="GuideFrameHere.lua"/>
 	<Script file="GuideFrameLayout.lua"/>
+	<Script file="GuideFramePlayNext.lua"/>
 	<Script file="GuideFrameLook.lua"/>
 	<Script file="GuideFrameMenu.lua"/>
 	<Script file="GuideFrameWindow.lua"/>
