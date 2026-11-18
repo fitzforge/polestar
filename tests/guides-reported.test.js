@@ -190,6 +190,43 @@ test("Tyr's Watch: Tanis Alderwood's goals carry his Undercity floor's height, f
 	}
 });
 
+// Blitz's report (#2898): Forsaken paladins get their warhorse from a quest chain, not the riding trainer, and have a
+// Class guide for it: Report to Danitha (97022, Garen Largo in the Undercity), then A Paladin's Steed (94971, Danitha
+// Morr at Bandarion Keep), whose hand-in teaches Summon Warhorse. Only Undead Paladins see the guide.
+test('Paladin Warhorse (Forsaken): only Undead Paladins see it, and it ends handing in A Paladin\'s Steed (#2898, Blitz)', { skip }, () => {
+	const id = 'forever/collectibles/mounts/horde/paladin-warhorse';
+	const guide = compiled(`${id}.guide`);
+	const list = goals(`${id}.guide`);
+	const report = at(list, 'Report to Danitha from Garen Largo', is('accept', 97022));
+	assert.equal(list[report].goal.npc, 260093, 'Garen Largo, the Undercity\'s paladin trainer');
+	const handIn = at(list, 'Report to Danitha handed in', is('turnin', 97022));
+	assert.deepEqual(list[handIn].step.when.map((p) => [p.k, p.neg || false]), [['onquest', false]], 'only while it is in the log: Danitha gives the mount quest without it');
+	const take = at(list, 'A Paladin\'s Steed taken', is('accept', 94971));
+	const done = at(list, 'A Paladin\'s Steed handed in', is('turnin', 94971));
+	assert.ok(report < handIn && handIn < take && take < done);
+	assert.equal(done, list.length - 1, 'the guide ends on the hand-in that teaches the mount');
+	for (const i of [handIn, take, done]) assert.equal(list[i].goal.npc, 246378, 'Danitha Morr');
+	const pack = writeTestPack([guide], data);
+	try {
+		const players = [['Scourge', 'Horde', 'PALADIN', 'Paladin'], ['Scourge', 'Horde', 'WARRIOR', 'Warrior'], ['Human', 'Alliance', 'PALADIN', 'Paladin'], ['Dwarf', 'Alliance', 'PALADIN', 'Paladin'], ['Tauren', 'Horde', 'WARRIOR', 'Warrior']];
+		const [seen] = runAddon({
+			stubs: ['stub_world.lua'],
+			before: 'stub.world.level = 40',
+			addons: ['Polestar', { name: 'Polestar_Guides', files: pack.scripts }],
+			login: true,
+			script: `local G, w, out = Polestar.Guides, stub.world, {}
+				for _, p in ipairs(${JSON.stringify(players).replace(/\[/g, '{').replace(/\]/g, '}')}) do
+					w.race, w.raceName, w.faction, w.class, w.className = p[1], p[1], p[2], p[3], p[4]
+					out[#out + 1] = G.GuideMatches(G.Get("${id}"), Polestar.Compat.GetPlayerInfo()) and true or false
+				end
+				emit(out)`,
+		}).emitted;
+		assert.deepEqual(seen, [true, false, false, false, false], 'Undead Paladin only');
+	} finally {
+		fs.rmSync(pack.dir, { recursive: true, force: true });
+	}
+});
+
 test('Horde objective follow-ups: camp discovery, Silithyst delivery and cooking point at their actual objective', { skip }, () => {
 	// Betrayed (3505): the camp, where the Kaldorei Tome of Summoning takes the hand-in. The game counts only
 	// the two kill lines (players' recordings, #2585), so the data may have no event line for it.

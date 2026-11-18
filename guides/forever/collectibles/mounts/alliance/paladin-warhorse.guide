@@ -36,11 +36,11 @@ zone Stormwind City
 # A Forever class-quest database lists Apprentice Riding as a reward of The
 # Tome of Nobility as well. The client's MountCapability for its mount type asks
 # for Riding 0 (60% speed), and PlayerCondition 151683 only for the quest (1661).
-# Horde paladins: the Forever client has a Forsaken Summon Warhorse (spell
-# 1279399, Mount 2923) and a Summon Forsaken Charger (1296534, Mount 3001);
-# news reports name their quests "A Trusty Steed" and "Justice and
-# Retribution", but Forever's quest data has no quest, giver or step for
-# either yet (searched 2026-10-29), so there is no Horde guide.
+# Horde paladins: Forsaken paladins learn the Forsaken Summon Warhorse
+# (spell 1279399, Mount 2923) from A Paladin's Steed (94971) at Bandarion
+# Keep: forever/collectibles/mounts/horde/paladin-warhorse. The client also
+# has a Summon Forsaken Charger (1296534, Mount 3001), whose level 60 chain has
+# no guide yet.
 
 step The Tome of Nobility (Ironforge)
   only Dwarf

@@ -12,7 +12,8 @@
 --     Nobility chain 1661/4485/4486).  Skip once quest 4486 is done.
 --   PALADIN + Scourge (Forever): Garen Largo, the Undercity (Report to
 --     Danitha 97022), then Danitha Morr, Bandarion Keep (A Paladin's Steed
---     94971).  Skip once quest 94971 is done.
+--     94971).  Skip once quest 94971 is done.  The notice names the Class
+--     guide that walks it (notice.guide), which the banner opens in a tab.
 --   PALADIN of another Horde race: no chain data; falls back to the riding trainer.
 --   Class routes are tier 1 only.  At tier 2 every character goes to the
 --   riding trainer.
@@ -149,15 +150,17 @@ local WARLOCK_FINAL = 4490
 local PALADIN_FINAL = 4486
 -- Forsaken paladins (Forever): Report to Danitha (97022, from the Undercity's
 -- paladin trainer) -> A Paladin's Steed (94971, Danitha Morr at Bandarion
--- Keep: "Speak with Danitha Morr to learn to summon your Warhorse").
+-- Keep: "Speak with Danitha Morr to learn to summon your Warhorse"). Their
+-- Class guide walks both (#2898).
 local DANITHA_REPORT, FORSAKEN_PALADIN_FINAL = 97022, 94971
+local FORSAKEN_WARHORSE_GUIDE = "forever/collectibles/mounts/horde/paladin-warhorse"
 
--- Returns (npc, factionID, classKind) for class-mount routing at tier 1.
+-- Returns (npc, factionID, classKind, guide) for class-mount routing at tier 1.
 -- classKind ("WARLOCK" | "PALADIN" | "PALADIN_FORSAKEN") signals free-mount
--- wording + no-gold gate.
--- Returns nil, nil, nil when no class route applies or the chain is done.
+-- wording + no-gold gate; guide: the Class guide for the chain, if it has one.
+-- Returns nil when no class route applies or the chain is done.
 local function classRoute(class, faction, tier, race)
-	if tier ~= 1 then return nil, nil, nil end
+	if tier ~= 1 then return nil end
 	local C = ns.Compat
 	if class == "WARLOCK" then
 		if not C.IsQuestCompleted(WARLOCK_FINAL) then
@@ -170,10 +173,10 @@ local function classRoute(class, faction, tier, race)
 	elseif class == "PALADIN" and race == "Scourge" then
 		if not C.IsQuestCompleted(FORSAKEN_PALADIN_FINAL) then
 			local reported = C.IsQuestCompleted(DANITHA_REPORT) or C.IsOnQuest(DANITHA_REPORT)
-			return reported and DANITHA or GAREN, nil, "PALADIN_FORSAKEN"
+			return reported and DANITHA or GAREN, nil, "PALADIN_FORSAKEN", FORSAKEN_WARHORSE_GUIDE
 		end
 	end
-	return nil, nil, nil
+	return nil
 end
 
 ---------------------------------------------------------------------------
@@ -280,7 +283,7 @@ function Riding.Check(level)
 	local class   = info and info.class   or ""
 	local faction = info and info.faction or ""
 
-	local classNpc, classFaction, classKind = classRoute(class, faction, tier, race)
+	local classNpc, classFaction, classKind, classGuide = classRoute(class, faction, tier, race)
 	local trainer   = classNpc or trainerFor(race, faction)
 	local factionID = classNpc and classFaction or (trainer and trainer.faction)
 
@@ -305,6 +308,7 @@ function Riding.Check(level)
 			trainer   = trainerNotice,
 			classKind = classKind,
 			factionID = factionID,
+			guide     = classGuide,
 			cost      = classKind and 0 or effectiveCost(tier, factionID),
 		}
 		ns.Fire("RIDING_DUE", notice)

@@ -19804,5 +19804,26 @@
 			"ref": "players' in-game recordings (to 2026-11-16, excluded contributors left out): 41 people's objective lists at the accept, each the two lines 'Elune's Light cast' and 'Shadowmeld cast'; 48 completions around Shanda in Aldrassil"
 		},
 		"note": "The Goddess Provides counts two casts, Elune's Light and Shadowmeld; the merged data had no objective, so the guide's accept and hand-in at Shanda stood with nothing between them. The game credits the casts by script, so they are event lines."
+	},
+	"94971": {
+		"set": {
+			"pre": [],
+			"preAll": [],
+			"preAny": [],
+			"breadcrumbs": [
+				97022
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-18 (excluded contributors left out): Danitha Morr offered A Paladin's Steed at 40 to an Undead Paladin who had never taken Report to Danitha (97022) and had trained at Bandarion Keep, and 5 people took it right after handing 97022 in to her (game builds 70862 to 70938)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14's Forever quest rows (generated base, 2026-11-11): A Paladin's Steed has no prerequisite"
+			}
+		],
+		"note": "A Paladin's Steed (94971, Danitha Morr at Bandarion Keep, the Forsaken paladins' warhorse) needs no earlier quest: Report to Danitha (97022, from Garen Largo, the Undercity's paladin trainer) only sends the player to her. The merged data had 97022 as its prerequisite, from players taking the two in a row, so a paladin who went straight to Danitha would have been told to fetch the errand first (#2898)."
 	}
 }

@@ -353,6 +353,13 @@ ns.UI.GuideFrame.Part(function(GF)
 		return t.npcName or zone
 	end
 
+	-- The riding notice's Class guide (a class mount's quest chain, #2898), when
+	-- this character has it: the banner opens it instead of a trip to the NPC.
+	local function ridingGuide(n)
+		local G = ns.Guides
+		return n.guide and G and G.Get and G.Get(n.guide) and n.guide or nil
+	end
+
 	-- One link-style action in the banner (label, chevron), `x` right of the
 	-- text's left edge. It never runs past the text's column: a label too long
 	-- for it (a guide's whole title) is cut short with "…".
@@ -620,7 +627,9 @@ ns.UI.GuideFrame.Part(function(GF)
 				body = table.concat(bodyParts, DOT)
 			end
 			banner.Text:SetText(title .. "\n" .. body)
-			if canAfford then
+			if ridingGuide(n) then
+				placeLink(banner.Jump, L["Open in a tab"], 0, -4)
+			elseif canAfford then
 				placeLink(banner.Jump, L["Take me there"], 0, -4)
 			else
 				banner.Jump:Hide()
@@ -753,9 +762,18 @@ ns.UI.GuideFrame.Part(function(GF)
 			end
 		elseif kind == "riding" then
 			notices.riding = nil
-			local t, nav2 = n.trainer, ns.Nav
-			if t and t.map and t.x and nav2 and nav2.SetTarget then
-				nav2.StartTrip(nav2.SetTarget(t.map, t.x, t.y, t.npcName or L["Riding trainer"], t.f, "trainer"), nil, L["Riding trainer"])
+			local guide = ridingGuide(n)
+			if guide then
+				-- The guide's own card for it is answered too.
+				if notices.classQuest and notices.classQuest.guideId == guide then notices.classQuest = nil end
+				if E and E.OpenTab then E.OpenTab(guide) end
+				local CQ = ns.QoL and ns.QoL.ClassQuests
+				if CQ and CQ.Resolve then CQ.Resolve(guide) end
+			else
+				local t, nav2 = n.trainer, ns.Nav
+				if t and t.map and t.x and nav2 and nav2.SetTarget then
+					nav2.StartTrip(nav2.SetTarget(t.map, t.x, t.y, t.npcName or L["Riding trainer"], t.f, "trainer"), nil, L["Riding trainer"])
+				end
 			end
 			local R = ns.QoL and ns.QoL.Riding
 			if R and R.OnResolve then R.OnResolve(n.tier) end

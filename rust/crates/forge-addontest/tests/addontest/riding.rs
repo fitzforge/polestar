@@ -201,6 +201,44 @@ fn clicking_take_me_there_sets_nav_arrow_to_trainer_and_the_trip_banner_replaces
 	assert_eq!(out["label"], "Randal Hunter");
 }
 
+// #2898: the Forsaken paladin's notice names the Class guide that walks the warhorse quests. When the character has
+// that guide, the banner opens it in a tab (and answers the guide's own class quest card) instead of a trip to Garen
+// Largo; without it (a pack hidden), the trip as before.
+#[test]
+fn the_forsaken_paladin_s_notice_opens_the_warhorse_guide_in_a_tab_2898() {
+	let out = run_ui(
+		r#"
+		uistub.openTabs(TABS, 1)
+		function GetMoney() return 0 end
+		local ID = "forever/collectibles/mounts/horde/paladin-warhorse"
+		local opened, resolved, has = {}, {}, true
+		local get = Polestar.Guides.Get
+		Polestar.Guides.Get = function(id) if id == ID and has then return { id = ID } end return get(id) end
+		Polestar.Engine.OpenTab = function(id) opened[#opened + 1] = id; return 2 end
+		Polestar.QoL = { ClassQuests = { Resolve = function(id) resolved[#resolved + 1] = id end } }
+		local function notice() return { tier = 1, cost = 0, classKind = "PALADIN_FORSAKEN", guide = ID,
+			trainer = { map = 1458, x = 47.12, y = 15.49, npcName = "Garen Largo" } } end
+		Polestar.Fire("CLASS_QUEST_READY", { guideId = ID, title = "Paladin Warhorse (Forsaken)" })
+		Polestar.Fire("RIDING_DUE", notice())
+		local label = B.Jump.Label:GetText()
+		B.Jump:Click()
+		emit({ label = label, opened = opened, resolved = resolved, trip = uistub.target ~= nil, shown = B:IsShown() })
+		has = false
+		Polestar.Fire("RIDING_DUE", notice())
+		label = B.Jump.Label:GetText()
+		B.Jump:Click()
+		local t = uistub.target
+		emit({ label = label, opened = #opened, label2 = t and t.label })
+	"#,
+	);
+	assert_eq!(
+		out[0],
+		json!({ "label": "Open in a tab", "opened": [ "forever/collectibles/mounts/horde/paladin-warhorse" ], "resolved": [ "forever/collectibles/mounts/horde/paladin-warhorse" ], "trip": false, "shown": false }),
+		"the guide opens, its class card is answered, no other banner is left"
+	);
+	assert_eq!(out[1], json!({ "label": "Take me there", "opened": 1, "label2": "Garen Largo" }), "no guide: the trip to Garen Largo");
+}
+
 // ---- RIDING_MONEY re-renders button ------------------------------------------
 
 #[test]
@@ -527,6 +565,25 @@ fn a_forsaken_paladin_is_sent_to_the_warhorse_chain_2898() {
 	assert_eq!(case("_quests[97022] = true", "Scourge"), json!({ "kind": "PALADIN_FORSAKEN", "npc": "Danitha Morr", "cost": 0 }));
 	assert_eq!(case("_quests[94971] = true", "Scourge"), json!({ "kind": false, "npc": "Velma Warnam", "cost": 1000000 }), "the chain done: riding");
 	assert_eq!(case("", "Tauren"), json!({ "kind": false, "npc": "Kar Stormsinger", "cost": 1000000 }), "no chain for another race");
+}
+
+// #2898: the Forsaken paladin's notice names the Class guide for the warhorse quests; no other class route has one.
+#[test]
+fn only_the_forsaken_paladin_s_notice_names_a_class_guide_2898() {
+	let guide = |race: &str, class: &str, faction: &str| {
+		run_qol(&format!(
+			r#"
+		C.GetPlayerInfo = function() return {{ name="T", level=q.level, race="{race}", class="{class}", faction="{faction}" }} end
+		C.IsOnQuest = function() return false end
+		levelUp(40); emit(ridings[1].guide or false)
+	"#
+		))
+		.remove(0)
+	};
+	assert_eq!(guide("Scourge", "PALADIN", "Horde"), json!("forever/collectibles/mounts/horde/paladin-warhorse"));
+	assert_eq!(guide("Human", "PALADIN", "Alliance"), json!(false));
+	assert_eq!(guide("Scourge", "WARLOCK", "Horde"), json!(false));
+	assert_eq!(guide("Scourge", "WARRIOR", "Horde"), json!(false));
 }
 
 #[test]
