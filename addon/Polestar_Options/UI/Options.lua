@@ -434,9 +434,6 @@ local BUILTIN = {
 		H({ kind = "toggle", key = "nav.detourCaption", label = L["Detour captions"], help = L["Under a walk in the journey, say when it goes round a town of the other faction: \"Detour around Southshore\". It only says so: the route and the arrow stay as they are."],
 			search = "detour, enemy town, hostile town, avoid, go round, journey",
 			disabled = function() return not ns.Get("nav.travel") end }),
-		H({ kind = "toggle", key = "nav.dangerLine", label = L["Danger lines"], help = L["On the world map and the minimap, draw the straight way through the other faction's town that a walk goes round as a red dashed line, and on the world map name it: \"Danger: Southshore\". It only shows it: the route and the arrow stay as they are. Needs route lines."],
-			search = "danger, red line, dashed, enemy town, hostile town, avoid, detour, map",
-			disabled = function() return not ns.Get("nav.routeLines") end }),
 	} },
 	-- Filled by Nav's travel button and transport alerts (Nav/Options.lua).
 	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Along the route"], controls = {} },

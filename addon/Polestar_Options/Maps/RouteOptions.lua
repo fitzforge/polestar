@@ -503,6 +503,9 @@ register(L["Route lines"], {
 	{ kind = "slider", key = "nav.lineOutline", label = L["Outline"], min = 0, max = 2, step = 0.05, format = percent, new = NEW, disabled = off,
 		help = L["The dark edge under the line and dots (the line's soft shadow), so they stand out on bright ground. 0% takes it away."],
 		search = "shadow, outline, border, contrast, edge, stroke, readability, dark edge, halo" },
+	{ kind = "toggle", key = "nav.dangerLine", label = L["Danger lines"], disabled = off,
+		help = L["On the world map and the minimap, draw the straight way through the other faction's town that a walk goes round as a red dashed line, and on the world map name it: \"Danger: Southshore\". It only shows it: the route and the arrow stay as they are. Needs route lines."],
+		search = "danger, red line, dashed, enemy town, hostile town, avoid, detour, map" },
 }, { toggle = { kind = "toggle", key = "nav.routeLines", label = L["Route lines"],
 	help = L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter."],
 	search = "path line, route on map, show route, hide route, sparkles, dots, trail" } })

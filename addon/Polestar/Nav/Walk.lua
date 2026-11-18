@@ -2850,22 +2850,22 @@ local function ownLine(legs, i, ci, P)
 	return lp
 end
 
--- The straight stretches through the towns a walk leg goes round (leg.hubs.avoided's seg), on continent c.
-local function dangerOf(leg, c)
-	local avoided = leg.kind == "walk" and type(leg.hubs) == "table" and leg.hubs.avoided
-	if type(avoided) ~= "table" then return nil end
-	local list
-	for _, town in ipairs(avoided) do
-		local s = town.seg
-		if c and type(s) == "table" and #s == 4 then
-			list = list or {}
-			list[#list + 1] = { name = town.name, c = c, x1 = s[1], y1 = s[2], x2 = s[3], y2 = s[4] }
-		end
-	end
-	return list
-end
-
 local function build(ground)
+	-- The straight stretches through the towns a walk leg goes round (leg.hubs.avoided's seg), on continent c.
+	local function dangerOf(leg, c)
+		local avoided = leg.kind == "walk" and type(leg.hubs) == "table" and leg.hubs.avoided
+		if type(avoided) ~= "table" then return nil end
+		local list
+		for _, town in ipairs(avoided) do
+			local s = town.seg
+			if c and type(s) == "table" and #s == 4 then
+				list = list or {}
+				list[#list + 1] = { name = town.name, c = c, x1 = s[1], y1 = s[2], x2 = s[3], y2 = s[4] }
+			end
+		end
+		return list
+	end
+
 	local out = {}
 	local E = engine()
 	local T = Nav.travel
