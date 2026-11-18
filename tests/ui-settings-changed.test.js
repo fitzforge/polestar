@@ -200,3 +200,51 @@ test('a setting changed while the Changed view is open lays it out again', () =>
 // A section's switch shown as a reference (the Arrow page's "Show arrow",
 // a home on Guide) counts where its home is: one change, one card, one
 // count, one dot.
+test('a section switch that is a reference counts once, at its home', () => {
+	const [out] = run(`
+		G.SetNavAll(true)
+		local out = {}
+		for _, key in ipairs({ "nav.arrow", "party.panel", "maps.flightTimer", "rares.alerts", "nav.routeLines", "nav.upcomingPins" }) do
+			Polestar.Set(key, not Polestar.Get(key))
+			local pages, nav, dots = {}, {}, {}
+			for _, e in ipairs(G.ChangedPages()) do pages[#pages + 1] = e.page.key .. "=" .. e.count end
+			for _, it in ipairs(G.NavItems()) do if it.indent and it.count then nav[#nav + 1] = it.key .. "=" .. it.count end end
+			for _, p in ipairs(O.Kit.pages) do
+				for _, t in ipairs(p.custom and {} or G.Tabs(p)) do if G.TabDot(t) then dots[#dots + 1] = p.key end end
+			end
+			G.Filter("changed")
+			local list = titles()
+			G.Back()
+			Polestar.Set(key, nil)
+			out[key] = { pages = pages, nav = nav, dots = dots, cards = list }
+		end
+		emit(out)`);
+	for (const [key, o] of Object.entries(out)) {
+		assert.equal(o.pages.length, 1, `${key}: one page counts it: ${o.pages.join(', ')}`);
+		assert.match(o.pages[0], /=1$/, `${key}: counted once`);
+		assert.deepEqual(o.nav, o.pages, `${key}: the sidebar counts it once`);
+		assert.equal(o.cards.length, 1, `${key}: one card: ${o.cards.join(', ')}`);
+		assert.deepEqual(o.dots, [o.pages[0].split('=')[0]], `${key}: one tab dot, at its home`);
+	}
+	assert.deepEqual(out['nav.arrow'].pages, ['guide=1']);
+	assert.deepEqual(out['nav.arrow'].cards, ['Guiding › Guide']);
+});
+
+// Reset this page puts back the settings homed on it: a reference to
+// another page's setting is left for that page.
+test('Reset this page leaves the settings homed on other pages alone', () => {
+	const [out] = run(`
+		local K = O.Kit
+		local sounds = Polestar.Rares.SOUNDS
+		local kit = sounds[#sounds].value
+		Polestar.Set("rares.soundKit", kit)
+		Polestar.Set("nav.arrivalSound", not Polestar.Get("nav.arrivalSound"))
+		O.ResetPage(K.pageByKey("alerts"))
+		O.ResetPage(K.pageByKey("arrow"))
+		local kept = { kit = Polestar.GetStored("rares.soundKit") ~= nil, chime = Polestar.GetStored("nav.arrivalSound") ~= nil }
+		O.ResetPage(K.pageByKey("discovery"))
+		O.ResetPage(K.pageByKey("guide"))
+		emit({ kept = kept, cleared = { kit = Polestar.GetStored("rares.soundKit") ~= nil, chime = Polestar.GetStored("nav.arrivalSound") ~= nil } })`);
+	assert.deepEqual(out.kept, { kit: true, chime: true }, 'Alerts and Arrow keep what Discovery and Guide hold');
+	assert.deepEqual(out.cleared, { kit: false, chime: false }, 'their home pages put them back');
+});
