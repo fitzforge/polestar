@@ -4521,7 +4521,6 @@ L["%d frames moved since you unlocked. Discard puts them back where they stood."
 
 -- UI/GuideFrameMenu.lua
 L["Quick settings"] = "빠른 설정"
-L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "화살표와 가이드 창이 물러납니다. 던전에서 살아서 나오면 Polestar가 자동으로 다시 시작합니다."
 L["Open tabs (%d)"] = "열린 탭 (%d)"
 
 -- UI/QuickSettings.lua
@@ -4994,3 +4993,4 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "착륙
 -- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "창 크기와 별도로 Polestar 글자의 크기입니다. 바로 바뀝니다. 오른쪽 클릭하면 초기화."
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "공간을 만들 잡동사니가 없습니다. 아이템을 Ctrl+Alt-클릭하여 잡동사니로 표시하십시오."
 -- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "일시 정지 중에는 Polestar가 다시 시작할 때까지 퀘스트를 대신 수락하거나 제출하지 않고, 보상도 고르지 않습니다."
+-- L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "화살표와 가이드 창이 물러납니다. 던전에서 살아서 나오면 Polestar가 자동으로 다시 시작합니다."

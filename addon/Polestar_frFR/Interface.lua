@@ -4522,7 +4522,6 @@ L["%d frames moved since you unlocked. Discard puts them back where they stood."
 
 -- UI/GuideFrameMenu.lua
 L["Quick settings"] = "Réglages rapides"
-L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "La flèche et la fenêtre du guide s'effacent. Polestar reprend tout seul quand vous quittez un donjon en vie."
 L["Open tabs (%d)"] = "Onglets ouverts (%d)"
 
 -- UI/QuickSettings.lua
@@ -5042,3 +5041,4 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Atterr
 -- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "La taille du texte de Polestar, indépendamment de l'échelle de la fenêtre. S'applique aussitôt. Clic droit pour réinitialiser."
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "Aucune camelote pour faire de la place. Ctrl+Alt-clic sur un objet pour le marquer comme camelote."
 -- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "Pendant la pause, les quêtes ne sont ni acceptées ni rendues pour vous, et aucune récompense n'est choisie, jusqu'à ce que Polestar reprenne."
+-- L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "La flèche et la fenêtre du guide s'effacent. Polestar reprend tout seul quand vous quittez un donjon en vie."

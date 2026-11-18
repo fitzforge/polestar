@@ -2107,9 +2107,13 @@ local function paintMenuRow(row, lit)
 	if not item then return end
 	local off = item.disabled and 0.45 or 1
 	local on = (lit and not item.disabled) or item.checked
-	W.Color(row.Text, item.color or (on and "text" or "textDim"), off)
+	-- A disabled row's text is textMuted at full strength, not faded: a fade
+	-- left it near-invisible on the menu ground (the skin audit's contrast).
+	local ink = item.disabled and not item.color and "textMuted" or item.color or (on and "text" or "textDim")
+	local textOff = (item.disabled and not item.color) and 1 or off
+	W.Color(row.Text, ink, textOff)
 	local face = rawget(row, "Face")
-	if face then W.Color(face, item.color or (on and "text" or "textDim"), off) end
+	if face then W.Color(face, ink, textOff) end
 	if item.icon then W.Color(row.Icon, item.color or (on and "text" or "textDim"), off) end
 end
 

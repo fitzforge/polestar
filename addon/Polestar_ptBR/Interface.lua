@@ -4521,7 +4521,6 @@ L["%d frames moved since you unlocked. Discard puts them back where they stood."
 
 -- UI/GuideFrameMenu.lua
 L["Quick settings"] = "Ajustes rápidos"
-L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "A seta e a janela do guia saem de cena. O Polestar volta sozinho quando você sai vivo de uma masmorra."
 L["Open tabs (%d)"] = "Abas abertas (%d)"
 
 -- UI/QuickSettings.lua
@@ -5008,3 +5007,4 @@ L["XP remaining after turn-ins"] = "EXP restante após as entregas"
 -- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "O tamanho do texto do Polestar, à parte da escala da janela. Muda na hora. Clique com o botão direito para redefinir."
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "Nenhum lixo para liberar espaço. Ctrl+Alt+clique num item para marcá-lo como lixo."
 -- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "Durante a pausa, missões não são aceitas nem entregues por você, e nenhuma recompensa é escolhida, até o Polestar voltar."
+-- L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "A seta e a janela do guia saem de cena. O Polestar volta sozinho quando você sai vivo de uma masmorra."
