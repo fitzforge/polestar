@@ -11,6 +11,7 @@ local QoL = ns.QoL
 if not (QoL and ns.RegisterOptions) then return end
 
 local QUESTING, QOL = L["Questing"], L["Quality of Life"]
+local GUIDE = L["Guide"]
 -- A reference to the setting's home row (UI.Options.Ref).
 local Ref = ns.Widgets.Ref
 
@@ -261,23 +262,16 @@ register(QOL, L["Quests"], L["Rewards, buttons and tracker"], {
 	Ref("toggle", "qol.questLoot", { child = true }), Ref("toggle", "qol.stepInteract"), Ref("toggle", "qol.instanceTrack"),
 })
 
--- Flight masters, after the flight timer (Maps/Options.lua).
+-- Flight masters, after the flight timer (Maps/Options.lua). The route's
+-- mark and its auto-take only follow the guide: Guide > Arrow & routes.
 register(QOL, L["Travel"], L["Flights"], {
 	{ kind = "toggle", key = "qol.flightAutoOpen", label = L["Open the flight map"],
 		help = L["Talking to a flight master opens the map directly. Hold Shift for the gossip."], search = "flight, taxi, flight path, gryphon, wind rider, fly" },
-	{ kind = "toggle", key = "qol.flightHighlight", label = L["Mark the route's destination"],
-		help = L["Marks where the travel route flies next on the flight map. You still choose the flight."], search = "flight, taxi, flight path, highlight destination" },
-	-- 0.3.7: shown once its setting is registered.
-	{ kind = "toggle", key = "qol.flightAutoTake", label = L["Take the marked flight"], disabled = flightMarkOff, child = true,
-		help = L["When the flight map opens, flies to the marked destination. Hold Shift at the flight master to choose yourself."], search = "flight, taxi, flight path, auto fly, take flight" },
 })
 
 -- The Hearthstone's two buttons side by side, after the nearby services
 -- (Nav/Options.lua): references to their rows on Questing > Buttons.
 register(QOL, L["Travel"], L["Hearth and travel"], {
-	{ kind = "toggle", key = "qol.autoBind", label = L["Set your home at the guide's inn"],
-		help = L["When the step sets your home and you talk to its innkeeper, binds your Hearthstone there. Never at another inn. Hold Shift to skip."],
-		search = "hearth, hearthstone, bind, inn, innkeeper, home" },
 	Ref("toggle", "qol.hearthButton"), Ref("toggle", "nav.castPrompt"),
 })
 
@@ -318,9 +312,6 @@ register(QOL, L["Vendors"], L["Merchants"], {
 		search = "repair, auto repair, autorepair, durability, broken gear, vendor" },
 	{ kind = "toggle", key = "qol.repairGuild", label = L["Guild bank first"], disabled = repairOff, child = true,
 		help = help("repairGuild", L["When your guild rank may, the guild bank pays for repairs and your money covers the rest."]), search = "guild repair, repair" },
-	{ kind = "toggle", key = "qol.buyGoals", label = L["Buy for the guide"],
-		help = L["When the step asks you to buy something and the merchant sells it, buys what you still need after selling and repairing. Optional buys and anything over 50g are left to you. Hold Shift to skip."],
-		search = "auto buy, purchase, shopping, vendor" },
 })
 
 local function restockSlider(kind, label, step, help)
@@ -382,13 +373,34 @@ register(QOL, L["Vendors"], L["Trainers"], {
 		onClick = function() if QoL.Spells then QoL.Spells.ForgetKept(); QoL.Spells.CheckRanks(true) end end },
 })
 
+-- The settings that only change how the guide guides: Guide > Automation
+-- (the step's errands), Arrow & routes (the flight mark), While you play
+-- (the level the guide wants).
+register(GUIDE, L["Arrow & routes"], L["Routes"], {
+	{ kind = "toggle", key = "qol.flightHighlight", label = L["Mark the route's destination"],
+		help = L["Marks where the travel route flies next on the flight map. You still choose the flight."], search = "flight, taxi, flight path, highlight destination" },
+	-- 0.3.7: shown once its setting is registered.
+	{ kind = "toggle", key = "qol.flightAutoTake", label = L["Take the marked flight"], disabled = flightMarkOff, child = true,
+		help = L["When the flight map opens, flies to the marked destination. Hold Shift at the flight master to choose yourself."], search = "flight, taxi, flight path, auto fly, take flight" },
+})
+register(GUIDE, L["Automation"], L["Step errands"], {
+	{ kind = "toggle", key = "qol.buyGoals", label = L["Buy for the guide"],
+		help = L["When the step asks you to buy something and the merchant sells it, buys what you still need after selling and repairing. Optional buys and anything over 50g are left to you. Hold Shift to skip."],
+		search = "auto buy, purchase, shopping, vendor" },
+	{ kind = "toggle", key = "qol.autoBind", label = L["Set your home at the guide's inn"],
+		help = L["When the step sets your home and you talk to its innkeeper, binds your Hearthstone there. Never at another inn. Hold Shift to skip."],
+		search = "hearth, hearthstone, bind, inn, innkeeper, home" },
+})
+register(GUIDE, L["While you play"], L["Level pace"], {
+	{ kind = "toggle", key = "qol.xpTargetMark", label = L["Guide level on the XP bar"],
+		help = L["A mark at the end of the game's XP bar with the level the guide wants you to reach before it moves on, and how many levels away that is when it is more than one."],
+		search = "experience bar, exp bar, target level, guide level" },
+})
+
 -- XP & instances: the XP bar's marks (Experience), then the XP tracker, a
 -- module's switch in its card's header with the session's reset.
 local XP = L["XP & instances"]
 register(QOL, XP, L["Experience"], {
-	{ kind = "toggle", key = "qol.xpTargetMark", label = L["Guide level on the XP bar"],
-		help = L["A mark at the end of the game's XP bar with the level the guide wants you to reach before it moves on, and how many levels away that is when it is more than one."],
-		search = "experience bar, exp bar, target level, guide level" },
 	{ kind = "toggle", key = "qol.questXPOverlay", label = L["Completed quest XP"],
 		help = L["Shows XP from completed quests you can turn in on the game's XP bar and in its tooltip."], search = "quest xp, experience bar, turn in" },
 	{ kind = "toggle", key = "qol.boostedRest", label = L["Boosted Rest status"],

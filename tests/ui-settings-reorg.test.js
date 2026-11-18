@@ -74,6 +74,11 @@ test('every saved key has exactly one home row; every other appearance is a refe
 
 // page key, and the tab or section where the review names one.
 const HOMES = {
+	'qol.buyGoals': ['guide', 'Step errands'],
+	'qol.autoBind': ['guide', 'Step errands'],
+	'qol.flightHighlight': ['guide', 'Routes'],
+	'qol.flightAutoTake': ['guide', 'Routes'],
+	'qol.xpTargetMark': ['guide', 'Level pace'],
 	'qol.instantQuestText': ['qualityoflife', 'Game'],
 	'qol.hideErrors': ['qualityoflife', 'Game'],
 	'qol.hideQuestTracker': ['qualityoflife', 'Game'],
@@ -295,18 +300,19 @@ function sectionsOf(out, page, tab) { return (out.layout[page].find((t) => t.nam
 
 test('pages and sections follow the player journey order', () => {
 	const out = journey();
-	assert.deepEqual(out.tree.guiding, ['guide', 'questing', 'map', 'qualityoflife', 'discovery']);
+	assert.deepEqual(out.tree.guiding, ['guide', 'questing', 'map', 'discovery']);
+	assert.deepEqual(out.tree.qol, ['qualityoflife']);
 	assert.equal(out.tree.look[0], 'guidewindow');
 	assert.deepEqual(out.tree.look, ['guidewindow', 'theme', 'arrow', 'mappins', 'routelines', 'buttons', 'alerts', 'trackers']);
-	assert.deepEqual(out.tree.setup, ['profiles', 'integrations', 'guidepacks', 'gamepad']);
-	assert.deepEqual(out.tree.about, ['about', 'thanks', 'recorder']);
+	assert.deepEqual(out.tree.setup, ['profiles', 'integrations', 'guidepacks', 'gamepad', 'recorder']);
+	assert.deepEqual(out.tree.about, ['about', 'thanks']);
 	// By name: pr/settings-essentials puts an Essentials tab before them.
 	assert.deepEqual(out.questingTabs.filter((n) => n !== 'Essentials'), ['Quests', 'Rewards & gear', 'Buttons', 'Group']);
 	assert.ok(out.questsTabKeys <= 22, out.questsTabKeys);
 
 	assert.deepEqual(tabsOf(out, 'guide'), ['While you play', 'Automation', 'Arrow & routes']);
-	assert.deepEqual(sectionsOf(out, 'guide', 'While you play'), ['Dynamic Questing', 'Pause']);
-	assert.deepEqual(sectionsOf(out, 'guide', 'Automation'), ['Guides', 'Quests', 'Profession guides']);
+	assert.deepEqual(sectionsOf(out, 'guide', 'While you play'), ['Dynamic Questing', 'Pause', 'Level pace']);
+	assert.deepEqual(sectionsOf(out, 'guide', 'Automation'), ['Guides', 'Quests', 'Profession guides', 'Step errands']);
 	assert.deepEqual(sectionsOf(out, 'guide', 'Arrow & routes'), ['Arrow', 'Routes', 'Along the route', 'Getting around', 'Other waypoints']);
 
 	assert.deepEqual(tabsOf(out, 'questing'), ['Quests', 'Rewards & gear', 'Buttons', 'Group']);
