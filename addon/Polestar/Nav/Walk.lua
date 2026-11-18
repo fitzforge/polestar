@@ -49,12 +49,17 @@
 -- above); a walk leg's end with a height of its own (a dock's board point on
 -- a pier deck, a tram, zeppelin or portal end's floor, Nav/Travel.lua)
 -- carries that one, so the walk ends on the deck or at the tram's entrance,
--- not in the water under it or on the roof above it. A search with the height that fails, or whose
--- path ends more than Z_OFF yards above or below it (the last engine point
--- before the goal), is asked once more without it, and that answer is the
--- one used. A hand-set target has no height: searched as before. In the six
--- capitals neither holds: a goal there keeps its height (the trail floor at
--- it when it has none) and the router's reach ("The six capitals", below).
+-- not in the water under it or on the roof above it. The search with the
+-- height takes the router's reach (city.GOAL: when no walk reaches the floor
+-- itself, the nearest surface on its level within 10 yd that one reaches) and
+-- its answer stands, one ending off the floor too (the walk asked again
+-- without the height ends on whichever floor is cheapest at the spot); the
+-- arrow says when it ends short of the floor (Walk.Unmapped).
+-- One that finds no walk at all is asked once more without the height (the
+-- maps miss the floor's join: a walk to the spot beats the straight arrow),
+-- said too. A hand-set target has no height: searched as before. In the six
+-- capitals a goal never loses its height (the trail floor at it when it has
+-- none: "The six capitals", below).
 --
 -- The player's floor (#234, Ruling 36): Forever's client gives no player
 -- height (Compat reads its 0 as none), and a search from a point without one
@@ -395,7 +400,7 @@ function Walk.Clear()
 	local had, c, x, y = gc ~= nil, gc, gx, gy
 	cancel()
 	gc, gx, gy, gzFor, gz, count, idx, wanted, failed, hubs, shape = nil, nil, nil, nil, nil, 0, 1, false, false, nil, nil
-	city.goal = nil
+	city.goal, city.dropped = nil, nil
 	city.Note(false)
 	landX, landY = nil, nil
 	for k in pairs(Walk.dropped) do Walk.dropped[k] = nil end
@@ -486,17 +491,20 @@ local REASK = 5           -- seconds after a flat ask within which a floor found
 --   city.Hint(P, c, x, y): where the walking floor has none, the floor there: the trail floor (Path.TrailFloor, the
 --     surface most walked within TRAIL yd, from the recordings: 3+ people) on the level of the NPC beside the player
 --     (Nav/NpcFloor.lua: talked to, targeted or in a nameplate within 15 s, its spawn within 30 yd), else the trail
---     floor, else that NPC's height; nil outside the capitals or with none. The floor follow seeds on the read
+--     floor, else that NPC's height; nil with none. Outside the capitals (no trail layer there): a flight's landing's
+--     height, else the NPC whose window the player just opened (NpcFloor.Talked: Booty Bay's docks, huts and bank
+--     stack 4-6 floors, #2215). The floor follow seeds on the read
 --     surface nearest it (city.Pick, within ZTOL, on a candidate floor when any are followed); a search from the
 --     player starts from it (startZ, city.Start: read again after MOVE_HINT yd or EVERY s).
 --   A goal there without a height (a map click, a place) ends on the trail floor within TRAIL yd of it (city.GoalZ).
---   A goal there with a height is searched with Path.Find's reach (GOAL yd): when no walk reaches its own floor (a
---     platform the maps don't join, #2860: Daryl Riknussun's in the Great Forge), the walk ends at the nearest
+--   A goal with a height, anywhere, is searched with Path.Find's reach (GOAL yd): when no walk reaches its own floor
+--     (a platform the maps don't join, #2860: Daryl Riknussun's in the Great Forge), the walk ends at the nearest
 --     surface on its level within GOAL yd that one reaches, and the arrow says the last steps aren't mapped
---     (Walk.Unmapped). None: the straight arrow, saying so, never the walk asked again without the height (it went
---     out of Ironforge's gate and over the mountain: 3,515 yd for a 356 yd walk), and the target's walk is not
---     marked unreachable (Travel.WalkUnreachable would plan round it). The planner's measure into such a target
---     (Walk.Measure) takes the same reach and, finding nothing, keeps the straight estimates.
+--     (Walk.Unmapped). In a capital, none: the straight arrow, saying so, never the walk asked again without the
+--     height (it went out of Ironforge's gate and over the mountain: 3,515 yd for a 356 yd walk), and the target's
+--     walk is not marked unreachable (Travel.WalkUnreachable would plan round it); the planner's measure into such a
+--     target (Walk.Measure) takes the same reach and, finding nothing, keeps the straight estimates. Elsewhere none
+--     is asked once more without the height (city.dropped: said too), as are the measure and the later legs.
 city = { CAPITAL = { [1453] = true, [1454] = true, [1455] = true, [1456] = true, [1457] = true, [1458] = true },
 	TRAIL = 4, GOAL = 10, MOVE = 20, MOVE_HINT = 1, noteVersion = 0 }
 
@@ -580,8 +588,8 @@ end
 -- (with a landing's or an NPC's height, the trail floor only within RISE of it: the trails' busiest level within ZTOL
 -- can be another one, the Undercity's ring 5 yd under Harbinger Balthazad's platform)
 function city.Hint(P, c, x, y)
-	if not city.Here(c, x, y) then return nil end
 	local F = Nav.npcFloor
+	if not city.Here(c, x, y) then return city.LandZ(c, x, y) or (F and F.Talked and F.Talked(c, x, y)) or nil end
 	local nz = city.LandZ(c, x, y) or (F and F.Near and F.Near(c, x, y)) or nil
 	if P and P.TrailFloor then
 		local ok, tz = pcall(P.TrailFloor, c, x, y, city.TRAIL, nz)
@@ -642,6 +650,30 @@ local function carried(pc, px, py)
 	if C and C.IsOnTaxi and C.IsOnTaxi() then return true end
 	if X and ((X.Riding and X.Riding()) or (X.Carried and X.Carried())) then return true end
 	return X and X.LiftNear and X.LiftNear(pc, px, py, LIFT) ~= nil or false
+end
+
+-- Water is a floor only to a swimmer (#2215, Booty Bay): the docks' deck (8) lies 8 yd over the bay's water surface
+-- (0), within ZTOL, so seed took the lowest, the water, and the follow kept it under the piers and decks all the way
+-- up to Fleet Master Seahorn's floor (29): the plan sent the player "Through the pass to Booty Bay" from beside him.
+-- Of the n surfaces read, those of the kind the client says (Compat.IsSwimming: water while swimming, else dry), when
+-- any are; a ghost walks on water (either). -> the count kept, the read compacted.
+local function wet(n, ghost)
+	if ghost or n < 2 then return n end
+	local C = ns.Compat
+	local swim = C and C.IsSwimming and C.IsSwimming() and 1 or 0
+	local k = 0
+	for i = 1, n do
+		if surf[-i] % 2 == swim then k = k + 1 end
+	end
+	if k == 0 or k == n then return n end
+	k = 0
+	for i = 1, n do
+		if surf[-i] % 2 == swim then
+			k = k + 1
+			surf[k], surf[-k], surfArea[k] = surf[i], surf[-i], surfArea[i]
+		end
+	end
+	return k
 end
 
 -- An unknown floor from the n surfaces read: their height when they lie
@@ -877,7 +909,34 @@ local function restrict(n)
 	candIndoor = true
 end
 
--- In a capital, the floor unknown: of the n surfaces read, the one nearest the floor city.Hint gives here, within ZTOL
+-- A followed floor more than TALK_OFF yd off the height of the NPC whose window the player has just opened (within
+-- FRESH s of it, once per window: NpcFloor.Talked, its spawn within 10 yd; a window opens only within interact range
+-- of it): the read surface nearest that height within RISE of it, else nil. Where floors stack (Booty Bay's docks,
+-- piers, stairs and huts, #2215), walking up a ramp over a deck that runs on under it keeps the follow on the deck:
+-- beside Fleet Master Seahorn the floor followed from the docks stayed 20 yd under his, and the plan went "Through the
+-- pass to Booty Bay". Talking to him puts it right. Anywhere, the capitals too. city.TalkNew: a window not yet looked
+-- at (track reads the surfaces for it even standing still).
+city.TALK_OFF = 6
+function city.TalkNew(pc, px, py)
+	local F = Nav.npcFloor
+	if not (F and F.Talked) then return false end
+	local tz, at = F.Talked(pc, px, py)
+	return tz ~= nil and at ~= city.talkSeen and GetTime() - at <= FRESH
+end
+function city.Talk(pc, px, py, n)
+	if not city.TalkNew(pc, px, py) then return nil end
+	local tz, at = Nav.npcFloor.Talked(pc, px, py)
+	city.talkSeen = at
+	if abs(floorZ - tz) <= city.TALK_OFF then return nil end
+	local best, gap = nil, RISE
+	for i = 1, n do
+		local d = abs(surf[i] - tz)
+		if d <= gap then best, gap = surf[i], d end
+	end
+	return best
+end
+
+-- The floor unknown: of the n surfaces read, the one nearest the floor city.Hint gives here, within ZTOL
 -- of it, on a candidate floor when any are followed; nil when none is (or no hint).
 function city.Pick(P, pc, px, py, n)
 	if n == 0 then return nil end
@@ -911,7 +970,7 @@ local function track(P, pc, px, py)
 	if held or pc ~= fC or ghost ~= fGhost or d2 > JUMP * JUMP or (d2 >= MOVE * MOVE and now - fAt > FRESH) then
 		floorZ = nil
 		dropCandidates()
-	elseif d2 < MOVE * MOVE then
+	elseif d2 < MOVE * MOVE and not (floorZ ~= nil and city.TalkNew(pc, px, py)) then
 		fAt = now
 		return
 	end
@@ -929,6 +988,7 @@ local function track(P, pc, px, py)
 		return
 	end
 	fC, fX, fY, fAt, fGhost = pc, px, py, now, ghost
+	if ok then n = wet(n, ghost) end
 	if not ok then
 		floorZ = nil
 		dropCandidates()
@@ -942,8 +1002,8 @@ local function track(P, pc, px, py)
 			floorZ = z
 			dropCandidates()
 		else
-			-- In a capital, the floor the trails or an NPC beside the player say, before movement: seed takes the
-			-- lowest surface within ZTOL, the ground a street was built 2 yd over (Stormwind's Dwarven District).
+			-- The floor a landing, an NPC beside the player or (in a capital) the trails say, before movement: seed
+			-- takes the lowest surface within ZTOL, the ground a street was built 2 yd over (Stormwind's Dwarven District).
 			floorZ = city.Pick(P, pc, px, py, n)
 			if floorZ ~= nil then
 				dropCandidates()
@@ -976,7 +1036,7 @@ local function track(P, pc, px, py)
 		if z ~= nil and abs(z - floorZ) > ZTOL then
 			floorZ, onX, onY = z, px, py
 		else
-			local f = follow(n, bridgeDeck(pc, px, py))
+			local f = city.Talk(pc, px, py, n) or follow(n, bridgeDeck(pc, px, py))
 			if f ~= nil then
 				floorZ, onX, onY = f, px, py
 			else
@@ -1077,7 +1137,7 @@ function city.MeasureZ(P, c, x, y)
 	return z
 end
 
--- The arrow's walk in a capital ends short of its goal's floor, or none was found (the router's reach, city above):
+-- The arrow's walk ends short of its goal's floor, or none was found (the router's reach, city above):
 -- the arrow says the last steps aren't mapped. -> that, and a number that changes whenever it does (Nav/Arrow.lua).
 function Walk.Unmapped()
 	return gc ~= nil and city.note == true, city.noteVersion
@@ -1095,11 +1155,14 @@ local function offFloor(points, z)
 end
 
 -- flat: the retry without the tracked floor. A search with it that finds
--- nothing is asked again without it (the goal's height kept); one with the
--- goal's height that finds nothing or ends off its floor, again without that
--- (Z2, for good), the start as it was. A goal in a capital keeps its height
--- (city): searched with the router's reach, its answer stands, and one that
--- ends short of the goal's floor, or none, is said (city.Note). In a capital
+-- nothing is asked again without it (the goal's height kept). A goal with a
+-- height is searched with the router's reach (city.GOAL: the nearest surface
+-- on its level a walk reaches), and its answer stands, one that ends off the
+-- goal's floor too; one that ends short of the goal's floor, or none, is said
+-- (city.Note). Outside the capitals a search that finds no walk at all is
+-- asked once more without the goal's height (Z2, for good; said: its walk
+-- ends on whichever floor the maps join there), the start as it was; in a
+-- capital never (city). In a capital
 -- a start height that finds nothing is asked first from the surfaces within
 -- ZTOL of it (flat "floors": Path.Find's from.floors), then without it: the
 -- height a trail or an NPC gave can be a counter's or a stall's top over the
@@ -1144,7 +1207,7 @@ local function ask(P, pc, px, py, flat)
 	city.asked = hinted and sz or nil
 	local inCity = z ~= nil and city.goal
 	local o = opts(ghost, pc, px, py, gx, gy) -- a ghost walks on water
-	local to = { x = gx, y = gy, z = z, reach = inCity and city.GOAL or nil }
+	local to = { x = gx, y = gy, z = z, reach = z ~= nil and city.GOAL or nil }
 	local ok, handle = pcall(P.Find, pc, { x = px, y = py, z = sz, floors = floors }, to, function(points, reason, answer)
 		if token ~= mine then return end
 		token, job = nil, nil
@@ -1154,12 +1217,16 @@ local function ask(P, pc, px, py, flat)
 			ask(P, pc, px, py, retry)
 			return
 		end
-		if z and (not got or offFloor(points, z)) and not inCity then
-			gz = nil
+		if z and not got and not inCity then
+			gz, city.dropped = nil, true
 			ask(P, pc, px, py, flat)
 			return
 		end
-		if inCity then city.Note(not got or (type(answer) == "table" and answer.reached ~= nil) or offFloor(points, z)) end
+		if z then
+			city.Note(not got or (type(answer) == "table" and answer.reached ~= nil) or offFloor(points, z))
+		elseif city.dropped then
+			city.Note(true)
+		end
 		if got then
 			failed = false
 			sightC = gc
@@ -1183,10 +1250,10 @@ local function ask(P, pc, px, py, flat)
 		token = nil
 		if tracked then return ask(P, pc, px, py, retry) end
 		if z and not inCity then
-			gz = nil
+			gz, city.dropped = nil, true
 			return ask(P, pc, px, py, flat)
 		end
-		if inCity then city.Note(true) end
+		if z or city.dropped then city.Note(true) end
 		failed, failAt, failX, failY = true, askedAt, px, py
 		return
 	end
@@ -1215,9 +1282,9 @@ end
 -- over a closed zone border (#1543) is planned only once the engine finds that
 -- walk short. From the player at (pc, px, py) to (gx, gy, gz: the target's
 -- height, or nil), from the start height or floors and with the opts the
--- arrow's own search would take; one with heights that finds nothing, or ends
--- off the goal's floor, is asked once more without them (a goal in a capital
--- keeps its height and the router's reach: only the start's goes). `place`: from a place
+-- arrow's own search would take (a goal's height with the router's reach); one
+-- with heights that finds nothing is asked once more without them (a goal in a
+-- capital keeps its height: only the start's goes). `place`: from a place
 -- on the route instead (the walk after a crossing, Travel.NearWalk), with no
 -- start height. Not urgent: the arrow's own walk and the later legs' searches
 -- go first. callback(along, sx, sy) with the yards along its path from its
@@ -1233,13 +1300,14 @@ function Walk.Probe(pc, px, py, gx, gy, gz, callback, place)
 	local floors = not place and sz == nil and startFloors(pc, px, py) or nil
 	local job = {}
 	local inCity = gz ~= nil and city.At(pc, gx, gy)
-	local last = inCity and { x = gx, y = gy, z = gz, reach = city.GOAL } or { x = gx, y = gy }
+	local held = gz ~= nil and { x = gx, y = gy, z = gz, reach = city.GOAL } or { x = gx, y = gy }
+	local last = inCity and held or { x = gx, y = gy }
 	local function find(from, to, again)
 		local ok, handle = pcall(P.Find, pc, from, to, function(points)
 			if job.cancelled then return end
 			job.handle = nil
 			local n = type(points) == "table" and #points or 0
-			if again and (n == 0 or (to.z and not inCity and offFloor(points, to.z))) then return find({ x = px, y = py }, last) end
+			if again and n == 0 then return find({ x = px, y = py }, last) end
 			local along, x, y, sx, sy = 0, nil, nil, nil, nil
 			for i = 1, n do
 				local q = points[i]
@@ -1263,7 +1331,7 @@ function Walk.Probe(pc, px, py, gx, gy, gz, callback, place)
 		end
 		job.handle = handle
 	end
-	find({ x = px, y = py, z = sz, floors = floors }, inCity and last or { x = gx, y = gy, z = gz }, sz ~= nil or floors ~= nil or (gz ~= nil and not inCity))
+	find({ x = px, y = py, z = sz, floors = floors }, held, sz ~= nil or floors ~= nil or (gz ~= nil and not inCity))
 	return job
 end
 
@@ -1348,8 +1416,9 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop)
 		landX, landY = nil, nil
 		for k in pairs(Walk.dropped) do Walk.dropped[k] = nil end
 		Nav.follow.Reset(fstate)
-		-- In a capital a goal without a height ends on the trail floor at it (city.GoalZ); one with a height keeps it.
-		city.goal = city.At(goalC, goalX, goalY)
+		-- In a capital a goal without a height ends on the trail floor at it (city.GoalZ) and is never asked again
+		-- without its height (city.goal); a goal with a height keeps it.
+		city.goal, city.dropped = city.At(goalC, goalX, goalY), nil
 		gzFor, gz = tz, tz or (city.goal and city.GoalZ(P, goalC, goalX, goalY)) or nil
 		city.Note(false)
 		askedAt = -huge
@@ -1628,16 +1697,16 @@ local function measured(mine, found)
 	pumpLegs()
 end
 
--- One FindMany for a measure: from the target (at height z, when it has one) to
--- its places, reversed. A batch with the height that finds nothing is asked once
--- more without it; a target in a capital (mine.city) is searched with the
--- router's reach and never without its height: finding nothing, the straight
--- estimates stand (the walk without it went round Ironforge's gate, #2860).
+-- One FindMany for a measure: from the target (at height z, when it has one,
+-- with the router's reach) to its places, reversed. A batch with the height
+-- that finds nothing is asked once more without it, but for a target in a
+-- capital (mine.city): finding nothing, the straight estimates stand (the walk
+-- without it went round Ironforge's gate, #2860).
 local function batch(P, mine, z)
 	local pts, water = mine.pts, mine.water
 	mine.z, mine.o = z, mine.o or opts(water, mine.c, nil, nil, mine.x, mine.y, mine.sx, mine.sy)
 	local inCity = z ~= nil and mine.city
-	local ok, handle = pcall(P.FindMany, mine.c, { x = mine.x, y = mine.y, z = z, reach = inCity and city.GOAL or nil }, pts, function(costs, _, answer)
+	local ok, handle = pcall(P.FindMany, mine.c, { x = mine.x, y = mine.y, z = z, reach = z ~= nil and city.GOAL or nil }, pts, function(costs, _, answer)
 		if measuring ~= mine then return end
 		mine.job = nil
 		costs = type(costs) == "table" and costs or {}
@@ -1702,7 +1771,7 @@ local function remeasureStart(P, e, c, x, y, water, p)
 	if yards then yards[si] = nil end
 	local mine = { c = c, x = x, y = y, water = water, pts = pts, si = si, sx = pt.x, sy = pt.y, z = e.z, o = o, costs = costs, yards = yards, city = e.city }
 	measuring = mine
-	local ok, handle = pcall(P.FindMany, c, { x = x, y = y, z = e.z, reach = e.city and e.z and city.GOAL or nil }, { pt }, function(got, _, answer)
+	local ok, handle = pcall(P.FindMany, c, { x = x, y = y, z = e.z, reach = e.z and city.GOAL or nil }, { pt }, function(got, _, answer)
 		if measuring ~= mine then return end
 		mine.job = nil
 		local m = type(got) == "table" and got[1]
@@ -1941,21 +2010,21 @@ local function arrowPending(legs, ci)
 	return count == 0 and not failed
 end
 
--- Search one later walk (to at height z, when it has one; from at its own
--- height, a dock's board point on a deck); its answer is kept by key. A
--- search with a height that fails, or that ends off the goal's floor, is
--- asked once more without either (flat); an end in a capital keeps its
--- height and the router's reach (city above): only the start's goes.
+-- Search one later walk (to at height z, when it has one, with the router's
+-- reach; from at its own height, a dock's board point on a deck); its answer
+-- is kept by key. A search with a height that finds nothing is asked once more
+-- without either (flat); an end in a capital keeps its height (city above):
+-- only the start's goes.
 local function searchLeg(P, mine, key, from, to, z, ghost, flat)
 	local T = Nav.travel
 	local fz = not flat and from.z or nil
 	local inCity = z ~= nil and city.At(to.c, to.wx, to.wy)
 	if flat and not inCity then z = nil end
-	local ok, handle = pcall(P.Find, from.c, { x = from.wx, y = from.wy, z = fz }, { x = to.wx, y = to.wy, z = z, reach = inCity and city.GOAL or nil }, function(points, _, answer)
+	local ok, handle = pcall(P.Find, from.c, { x = from.wx, y = from.wy, z = fz }, { x = to.wx, y = to.wy, z = z, reach = z ~= nil and city.GOAL or nil }, function(points, _, answer)
 		if legToken ~= mine then return end
 		legJob = nil
 		local got = type(points) == "table" and #points > 0
-		if not flat and (fz or (z and not inCity)) and (not got or (z and not inCity and offFloor(points, z))) then return searchLeg(P, mine, key, from, to, z, ghost, true) end
+		if not flat and (fz or (z and not inCity)) and not got then return searchLeg(P, mine, key, from, to, z, ghost, true) end
 		legToken, legKey = nil, nil
 		local e = false
 		if got then
@@ -2103,9 +2172,9 @@ end
 -- PolestarNavChokepoints[map], else the lifts Nav/Transit.lua knows).
 -- Travel.SplitWalk turns them into legs with captions; this finds them. A
 -- chokepoint counts within its radius of the path (2D) and, when both have a
--- height, on the path's floor: one more than STOP_DZ yards above or below the
+-- height, on the path's floor: one more than DZ.STOP yards above or below the
 -- path's segment there is on another floor (the Undercity's canals 110 yd
--- under the Ruins) and is no stop. STOP_DZ is generous: the engine's path
+-- under the Ruins) and is no stop. DZ.STOP is generous: the engine's path
 -- heights are coarse and a mouth's packed height is its indoor floor (the
 -- Fargodeep Mine's is 14-34 yd under the path's points beside it).
 --   stop = { kind, name, zone, to (passages: the area beyond), wx, wy (on the
@@ -2118,8 +2187,9 @@ end
 local SNAP = 15        -- yards: a chokepoint without a radius counts within this of the path
 local MIN_STEP = 20    -- yards: closer stops, or this close to either end, are dropped
 local LOOK = 25        -- yards past a passage that tell which side is ahead
-local STOP_DZ = 30     -- yards above or below the path: a chokepoint on another floor
-local RIDE_DZ = 20     -- yards the path's height changes across a lift it rides
+-- yards above or below the path: a chokepoint on another floor (STOP); the path's height change across a lift it
+-- rides (RIDE). One local: the main chunk's are at Lua's limit (syntax.rs).
+local DZ = { STOP = 30, RIDE = 20 }
 
 -- Nearest point on the path to (x, y): distance, segment, point, yards from the path's start, share of the segment.
 local function project(x, y)
@@ -2163,11 +2233,11 @@ local function climbs(a)
 	return after > before
 end
 
--- Whether the path rides a lift at segment a: its height changes RIDE_DZ yards or more from the point before the
+-- Whether the path rides a lift at segment a: its height changes DZ.RIDE yards or more from the point before the
 -- segment to the one after it (the walking engine's path steps from one landing to the other).
 local function rides(a)
 	local before, after = ptsZ[a > 1 and a - 1 or 1], ptsZ[a + 2 <= count and a + 2 or count]
-	return type(before) == "number" and type(after) == "number" and abs(after - before) >= RIDE_DZ
+	return type(before) == "number" and type(after) == "number" and abs(after - before) >= DZ.RIDE
 end
 
 local function liftId(c, wx, wy)
@@ -2227,11 +2297,11 @@ function Walk.Stops(pc, px, py)
 			end
 			if along > total - MIN_STEP then return end
 		end
-		-- Another floor: the path's segment there runs STOP_DZ yards or more above or below the
+		-- Another floor: the path's segment there runs DZ.STOP yards or more above or below the
 		-- chokepoint at both its ends (a cave entry at the Undercity's canals under a walk over the Ruins);
 		-- never a lift the path rides (its landings join the floors).
 		local ez, za, zb = tonumber(e.z), ptsZ[a], ptsZ[a + 1]
-		if not ridden and ez and za and zb and abs(za - ez) > STOP_DZ and abs(zb - ez) > STOP_DZ then return end
+		if not ridden and ez and za and zb and abs(za - ez) > DZ.STOP and abs(zb - ez) > DZ.STOP then return end
 		-- stop: the follower's cap for the piece that ends here (Nav/Follow.lua), the chokepoint's spot on the path,
 		-- kept on its segment a when it lies at the segment's end (t = 1: as at point a + 1, which the follower lets
 		-- the aim reach from anywhere before it; the border sweep, #1543); a lift's, the point before its landing (a

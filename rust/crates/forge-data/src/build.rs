@@ -728,6 +728,14 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 		tdb_heights = crate::cmangos::add_tdb_heights(h, t);
 		log(&format!("spawn heights: {tdb_heights} NPCs and objects classic-db lacks, from the Forever TDB's sniffed spawns"));
 	}
+	// Players' floors at NPCs the spawn data gives no height where they are talked to (<root>/data/npc-floors.json).
+	if let Some(h) = heights.as_mut() {
+		match crate::extras::read_json(&o.root.join("data").join("npc-floors.json")) {
+			Ok(Some(doc)) => log(&format!("spawn heights: {} NPC floors from players' recordings (data/npc-floors.json)", crate::cmangos::add_recorded_heights(h, &doc))),
+			Ok(None) => {}
+			Err(e) => warnings.push(format!("data/npc-floors.json unreadable ({e}); NPCs without a spawn height keep none")),
+		}
+	}
 	let moves = match crate::cmangos::load_moves(&o.sources) {
 		Ok(m) => Some(m),
 		Err(e) => {

@@ -887,6 +887,41 @@ pub fn add_tdb_heights(h: &mut Heights, tdb: &V) -> usize {
 	added
 }
 
+/// How far an NPC's spawn may lie from a goal's point and still give its height (forge-guide's HEIGHT_YARDS).
+const RECORDED_YARDS: f64 = 15.0;
+
+/// Players' recorded floors at NPCs whose spawns give no height where they are talked to (data/npc-floors.json,
+/// `nav city npc-floors`: a Forever NPC no spawn source has, one Forever moved): each record `{ npc, c, wx, wy, z }`
+/// becomes a spawn row `[c, wx, wy, z, 0]` of its NPC unless one of its rows on that continent lies within
+/// RECORDED_YARDS, so a goal or a Codex place there gets the floor players walk to. -> rows added
+pub fn add_recorded_heights(h: &mut Heights, doc: &V) -> usize {
+	let mut added = 0;
+	if !h.npc.is_obj() {
+		h.npc = V::obj();
+	}
+	for r in doc.get("npcs").items() {
+		let (npc, c, wx, wy, z) = (r.get("npc").num(), r.get("c").num(), r.get("wx").num(), r.get("wy").num(), r.get("z").num());
+		if !(npc.is_finite() && c.is_finite() && wx.is_finite() && wy.is_finite() && z.is_finite()) {
+			continue;
+		}
+		let id = format!("{}", npc as i64);
+		let mut rows = h.npc.get(&id).items();
+		if rows.iter().any(|s| s.num_at(0) == c && s.num_at(3).is_finite() && (s.num_at(1) - wx).hypot(s.num_at(2) - wy) <= RECORDED_YARDS) {
+			continue;
+		}
+		rows.push(arr(vec![V::Num(c), V::Num(wx), V::Num(wy), V::Num(z), V::Num(0.0)]));
+		h.npc.set(&id, arr(rows));
+		added += 1;
+	}
+	if added > 0 {
+		let db = Obj::new();
+		db.set("npc", h.npc.clone());
+		db.set("object", h.object.clone());
+		h.text = serialize_spawn_heights(&V::Obj(db));
+	}
+	added
+}
+
 /// Creature walks: moves.json's text (see extract_moves). The extract is cached as moves.2.json since
 /// it leaves out walkers that mostly wait at their spawn (#1046), so an older cache is not read.
 pub fn load_moves(sources: &Path) -> Result<String, String> {
@@ -1104,5 +1139,23 @@ mod tests {
 		];
 		let m = extract_moves(lines.iter().map(|l| l.to_string()));
 		assert_eq!(serialize_moves(&m), "{\"npc\":{\n\"104\":[[0,100,100,130,70,42.5]],\n\"105\":[[0,500,500,530,470,42.5]]\n}}\n");
+	}
+
+	// The Great Cat Spirit is talked to 90 yd from his classic-db spawn (Moonglade, the Stormrage Barrow Dens) and
+	// Norric Lochthane, deep in the Silver Stream Mine, has no spawn at all: the floor players stand on at each becomes
+	// a spawn row; an NPC with a spawn height within 15 yd there keeps its own.
+	#[test]
+	fn recorded_npc_floors_give_a_height_where_the_spawns_give_none_within_15_yd() {
+		let db = forge_guide::js::parse_json(r#"{"npc":{"11957":[[1,7359.8,-2729.2,461.2,300]],"3291":[[0,-5728,-2696,346,300]]},"object":{}}"#).unwrap();
+		let mut h = Heights { text: String::new(), npc: db.get("npc"), object: db.get("object") };
+		let doc = forge_guide::js::parse_json(
+			r#"{"npcs":[{"npc":11957,"c":1,"wx":7336.4,"wy":-2642.5,"z":487.6},{"npc":258043,"c":0,"wx":-4837,"wy":-3148.7,"z":299.6},{"npc":3291,"c":0,"wx":-5728.7,"wy":-2696.3,"z":346.8}]}"#,
+		)
+		.unwrap();
+		assert_eq!(add_recorded_heights(&mut h, &doc), 2);
+		assert_eq!(stringify(&h.npc.get("11957"), None), "[[1,7359.8,-2729.2,461.2,300],[1,7336.4,-2642.5,487.6,0]]");
+		assert_eq!(stringify(&h.npc.get("258043"), None), "[[0,-4837,-3148.7,299.6,0]]");
+		assert_eq!(stringify(&h.npc.get("3291"), None), "[[0,-5728,-2696,346,300]]", "its own spawn 1 yd off keeps");
+		assert!(h.text.contains("\"258043\":[[0,-4837,-3148.7,299.6,0]]"), "spawnz.json's text follows");
 	}
 }

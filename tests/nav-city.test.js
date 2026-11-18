@@ -90,6 +90,25 @@ test("the city gate's ends: a landing on the flight master's floor, an NPC the m
 	assert.equal(anchorEnds(g, { ...trip, B: { ...lab, npc: 1 } }, taxi, npcZ).B.z, 39.5, 'no height known');
 });
 
+// The floor players stand on at an NPC whose spawns give no height there (nav city npc-floors): the Great Cat Spirit
+// talks from a dais 90 yd from his classic-db spawn, read 487.5 or 492 (two surfaces 4 yd apart: one level); Norric
+// Lochthane's mine holds floors at 300 and 310 (23 of 32 people at 300: kept); two people say nothing.
+test("npc floors: one level most people stood on, 3+ people and 70% of them; the data build's merge keeps a spawn's own height", () => {
+	const { floorOf, withFloors } = require('../tools/lib/nav/city/npcfloors');
+	assert.deepEqual(floorOf([[487.6, 490.5], [492, 492], [487.6], [491.5, 487.6], [492]]), { z: 487.6, people: 5, of: 5 });
+	const norric = [...Array(23).fill([299.6]), ...Array(9).fill([310.4])];
+	assert.deepEqual(floorOf(norric), { z: 299.6, people: 23, of: 32 });
+	assert.equal(floorOf([...Array(6).fill([300]), ...Array(4).fill([310])]), null, '60% on one level: none');
+	assert.equal(floorOf([[300], [300]]), null, 'two people: none');
+	const spawnz = { 11957: [[1, 7359.8, -2729.2, 461.2, 300]], 3291: [[0, -5728, -2696, 346, 300]] };
+	const doc = { npcs: [{ npc: 11957, c: 1, wx: 7336.4, wy: -2642.5, z: 487.6 }, { npc: 258043, c: 0, wx: -4837, wy: -3148.7, z: 299.6 }, { npc: 3291, c: 0, wx: -5728.7, wy: -2696.3, z: 346.8 }] };
+	const got = withFloors(spawnz, doc);
+	assert.deepEqual(got[11957], [[1, 7359.8, -2729.2, 461.2, 300], [1, 7336.4, -2642.5, 487.6, 0]]);
+	assert.deepEqual(got[258043], [[0, -4837, -3148.7, 299.6, 0]]);
+	assert.deepEqual(got[3291], spawnz[3291], 'its own spawn 1 yd off keeps');
+	assert.deepEqual(spawnz[11957].length, 1, 'the spawn table itself is untouched');
+});
+
 test("the city gate's judge: a long straight line follows the ground between its points, not its chord; a step no surface walks stays judged on the chord", () => {
 	const { judge } = require('../tools/lib/nav/city/gate');
 	// one row of 2.08 yd columns, one walked (3+ people) surface each: ground(x) its height

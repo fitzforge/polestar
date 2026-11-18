@@ -28,6 +28,21 @@ test('chooseEntrance: recording > curated table > guide marker > corpse point (a
 	assert.equal(chooseEntrance({ ...base }), null, 'nothing known: no entrance');
 });
 
+// WorldFloor (the world gate's Wetlands door walks): the Excavation Site's door lies in the hillside 100 yd over
+// Thelgen Rock; the table's z rides along when the chosen point lies within 30 yd of its entry's, and the city gate
+// takes the same doors (gate.js doorsOf) for walks that end going in.
+test("chooseEntrance: a table entry's door floor rides along within 30 yd; the gate's doors are those entries as world points", () => {
+	const WETLANDS = { c: 0, left: -389.583, right: -4525, top: -2147.917, bottom: -4904.167 };
+	const door = { key: 'excavation-site-wetlands', map: 1437, x: 50.7, y: 61.1, z: 140, source: 'https://example.org' };
+	const at = { name: 'Excavation Site: Wetlands', zones: {}, frames: { 1437: WETLANDS }, prefer: [1437], table: door };
+	assert.equal(chooseEntrance(at).z, 140);
+	assert.equal(chooseEntrance({ ...at, recorded: [{ map: 1437, x: 50.72, y: 61.12, n: 119 }] }).z, 140, 'a recording beside it');
+	assert.equal(chooseEntrance({ ...at, recorded: [{ map: 1437, x: 47.8, y: 56.2, n: 3 }] }).z, undefined, '185 yd off: none');
+	const { doorsOf } = require('../tools/lib/nav/city/gate');
+	const [d] = doorsOf({ entrances: [door, { key: 'deadmines', map: 1436, x: 42.5, y: 71.7 }] }, { 1437: WETLANDS });
+	assert.deepEqual([d.c, Math.round(d.wx), Math.round(d.wy), d.z], [0, -3832, -2486, 140]);
+});
+
 test('the curated table: one entry per instance, each placed on a zone map with a public source', () => {
 	const t = loadEntranceTable();
 	const entries = Object.values(t);

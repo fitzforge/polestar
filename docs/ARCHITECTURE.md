@@ -1265,6 +1265,7 @@ Compat.GetNpcID(unit)                  -> number | nil   (from UnitGUID)
 Compat.InCombat()                      -> bool
 Compat.IsInInstance()                  -> bool, instanceType ("party" | "raid" | "pvp" | ... inside)
 Compat.IsIndoors()                     -> bool | nil (the client's indoor state; nil without IsIndoors or when secret)
+Compat.IsSwimming()                    -> bool | nil (the client's swimming state; nil without IsSwimming or when secret)
 Compat.IsShiftKeyDown()                -> bool
 Compat.AddOnPresent(name)              -> bool   (installed and enabled: loaded, or loadable after Polestar)
 Compat.Supports(feature)               -> bool   ("skill" | "spell" | "faction" | "explore" | "achievement")
@@ -5167,12 +5168,15 @@ asked for in combat (the engine's own queue waits out combat as well).
 The walk to the target's own point carries the target's height: the Engine
 waypoint's `z` (a guide goal at an NPC or object, Guide data), which
 `Nav.GetTargetWorld()` returns fourth (a target set with `Nav.SetTarget` has
-none). It goes to `Path.Find` as `to.z`, so the path ends on that floor; a
-search with it that fails, or whose path's last engine point before the goal
-lies more than 30 yd above or below it, is asked once more without it (not
-in a capital: "The capitals' floors" below), and
-that answer stands for the goal (later searches for it, after straying, go
-without it too). A walk to a leg's end with a height of its own (a dock's
+none). It goes to `Path.Find` as `to.z` with `to.reach` (10 yd), so the path
+ends on that floor, or at the nearest surface on its level within 10 yd that a
+walk reaches; its answer stands, one whose last engine point lies more than 30
+yd above or below it too (the arrow says "The last steps here aren't mapped":
+before WorldFloor, 2026-11-18, such a walk was asked again without the height
+and ended on whichever floor was cheapest at the spot). A search with it that
+finds no walk at all is asked once more without it (not in a capital: "The
+capitals' floors" below), said too, and that answer stands for the goal (later
+searches for it, after straying, go without it too). A walk to a leg's end with a height of its own (a dock's
 board point, a tram, zeppelin or portal end's floor: "End heights" below)
 carries that one the same way; walks to other leg ends go
 without a height (docs/NAV_QA.md Z1-Z3). A later walk from a board point
@@ -5201,7 +5205,14 @@ bridge or upper floor above the player (at the Den's camp in the Valley of
 Trials, the rock top over the Den, whence Fastest crossed the hill to
 Hana'zua). So `Walk.lua` follows the height of the surface under the player:
 `Walk.Aim` checks at most every 0.25 s and reads the cell's surfaces
-(`Path.SurfacesAt`, into one reused table) only after moving 1 yd. Unknown,
+(`Path.SurfacesAt`, into one reused table) only after moving 1 yd. A water
+surface is read only while `Compat.IsSwimming()` says so (or for a ghost), a
+dry one only while not, when the cell has both (#2215: Booty Bay's docks lie 8
+yd over the bay, and the lowest was the water). The NPC whose window the
+player opens (`NpcFloor.Talked`: its spawn within 10 yd) puts a followed floor
+more than 6 yd off its height right, once per window, standing still too (a
+ramp walked up over a deck that runs on under it kept the follow on the deck,
+20 yd under Fleet Master Seahorn). Unknown,
 it seeds where the cell's surfaces lie within 10 yd (the router's `ZTOL`:
 the lowest), or, when `Compat.IsIndoors()` says indoors and the surfaces
 differ in indoor-ness (class indoor or indoor city against the rest), on the
@@ -5278,7 +5289,10 @@ moused over or in a nameplate, within 15 s and its spawn within 30 yd
 levels there says nothing); on that height's level, or alone, the trail floor
 (`Path.TrailFloor`, the surface most walked within 4 yd by 3+ recorded
 players). A search from the player with no floor read starts from the same.
-These only seed an unknown floor: a floor followed in through a gate keeps.
+These only seed an unknown floor: a floor followed in through a gate keeps
+(but for the NPC whose window opens, anywhere: above). Outside the capitals
+(no trail layer there) a flight's landing's height, else the NPC whose window
+the player just opened, seeds an unknown floor the same way.
 A goal there without a height ends on the trail floor at it. A goal there
 with a height is searched with `to.reach` (10 yd): when no walk reaches its
 own floor, or the walk ends more than 10 yd off its level, the router walks
@@ -10654,7 +10668,7 @@ was already built without it.
   of Gems); each part best chance first. The entrance (`chooseEntrance`): a recorded one
   (Recorder `enter`, `data/forever/instances.json`), else the curated table
   `data/codex/entrances.json` (per instance key: the point on the zone
-  map where one walks in, `{ key, instance, map, x, y, source, note }`, each
+  map where one walks in, `{ key, instance, map, x, y, z?, source, note }`, each
   with its source, checked against the corpse point and our guides'
   gotos; every dungeon and raid in the Codex, Forever's own included, from
   QuestieDB's Forever dungeon table, warcraft.wiki.gg, Forever's quest data
@@ -10667,7 +10681,11 @@ was already built without it.
   `approx: true` (packed as a fifth entrance field `a`, read as
   `Codex.Instance(key).entrance.approx`). `AreaTrigger` rows name no instance
   and the trigger nearest a Corpse point is as often an inn or city trigger,
-  so they are not used. Every
+  so they are not used. A table entry's `z` (the door's floor where floors
+  stack: the Excavation Site's door 100 yd over Thelgen Rock) rides along as
+  `entrance.z` when the chosen point lies within 30 yd of the entry's; the
+  journal's page carries it (Dungeons1.lua), and `Dungeons.GuideToPoint`
+  gives it to the arrow, so the walk ends at the door. Every
   NPC placed in an instance (`npcs.json` `instances`, from QuestieDB and
   recordings, or the web database's `location` naming an `AreaTable` area of the
   instance's map) belongs to it: its drops carry the instance. An instance's
@@ -10917,7 +10935,9 @@ races.json    { "<raceFile>": { "<Alliance|Horde>": { id, bit, classes: [classFi
 spawnz.json   { npc: { "<id>": [[instanceMap, x, y, z], ...] }, object: { ... } }   (CMaNGOS classic-db creature and
               gameobject spawns on maps 0 and 1, UnitPosition's frame (x north, y west), 0.1 yd, each id's spawns sorted;
               one id per line; the compiler's goal `z`, tools/lib/dsl/heights.js; left out, with one warning, when
-              --offline has no cached dump; tools/lib/travel/cmangos.js loadSpawnHeights)
+              --offline has no cached dump; tools/lib/travel/cmangos.js loadSpawnHeights; an NPC whose rows give no height
+              within 15 yd of where players talk to it gets a row [c, x, y, z, 0] from data/npc-floors.json, the floor
+              players stand on there: `nav city npc-floors`, forge-data cmangos.rs add_recorded_heights)
 moves.json    { npc: { "<id>": [[instanceMap, x, y, cx, cy, r], ...] } }   (CMaNGOS classic-db: each creature spawn on maps
               0 and 1 that walks, its random movement within `spawndist` or its waypoint path, by spawn (`creature_movement`)
               else by creature (`creature_movement_template` path 0): the spawn's x, y, then the centre and radius in

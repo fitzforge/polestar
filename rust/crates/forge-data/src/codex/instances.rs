@@ -114,7 +114,12 @@ pub fn entrance_v(map: f64, x: f64, y: f64, era: bool, approx: bool) -> V {
 	V::Obj(o)
 }
 
-/// instances.js `chooseEntrance`: a table entry's `A` (the Alliance's own way in) rides along as entrance.A.
+/// How far the chosen way in may lie from a table entry's point and still take its `z`.
+const DOOR_YARDS: f64 = 30.0;
+
+/// instances.js `chooseEntrance`: a table entry's `A` (the Alliance's own way in) rides along as entrance.A; its `z`
+/// (the door's floor where floors stack: the Excavation Site's door over Thelgen Rock) as entrance.z when the chosen
+/// point lies within DOOR_YARDS of the entry's on the same map (a recording's point near it too).
 fn choose_entrance(name: &str, recorded: &V, table: &V, guides: &[GuideGoto], corpse: Option<&super::client::Corpse>, zones: &V, frames: &V, prefer: &[f64]) -> V {
 	let e = choose_entrance_point(name, recorded, table, guides, corpse, zones, frames, prefer);
 	let a = table.get("A");
@@ -124,6 +129,15 @@ fn choose_entrance(name: &str, recorded: &V, table: &V, guides: &[GuideGoto], co
 		ao.set("x", round1(a.get("x").num()));
 		ao.set("y", round1(a.get("y").num()));
 		o.set("A", V::Obj(ao));
+	}
+	let z = table.get("z");
+	if let (Some(o), true) = (e.as_obj(), table.truthy() && z.is_num() && z.num().is_finite() && e.get("map").num() == table.get("map").num()) {
+		let f = frames.get(&e.get("map").num().to_string());
+		let (w, h) = (f.get("left").num() - f.get("right").num(), f.get("top").num() - f.get("bottom").num());
+		let d = ((e.get("x").num() - table.get("x").num()) / 100.0 * w).hypot((e.get("y").num() - table.get("y").num()) / 100.0 * h);
+		if d <= DOOR_YARDS {
+			o.set("z", z.num());
+		}
 	}
 	e
 }
@@ -822,6 +836,24 @@ mod tests {
 		assert_eq!(rec.get("A").get("x").num(), 14.7, "and keeps the Alliance way in");
 		let one = parse_json(r#"{ "key": "deadmines", "map": 1436, "x": 42.5, "y": 71.7 }"#).unwrap();
 		assert!(!choose_entrance("Deadmines", &none, &one, &[], None, &none, &none, &[]).get("A").truthy(), "one way in: no A");
+	}
+
+	// WorldFloor (the world gate's Wetlands door walks): the Excavation Site's door lies in the hillside 100 yd over
+	// Thelgen Rock, and a walk to it without a height ends in the cave. The table's z rides along when the chosen point
+	// lies within 30 yd of the entry's (a recording's too), never farther or on another map.
+	#[test]
+	fn a_table_entry_s_door_floor_rides_along_as_entrance_z_within_30_yd_of_its_point() {
+		let frames = parse_json(r#"{ "1437": { "c": 0, "left": -389.583, "right": -4525, "top": -2147.917, "bottom": -4904.167 } }"#).unwrap();
+		let door = parse_json(r#"{ "key": "excavation-site-wetlands", "map": 1437, "x": 50.7, "y": 61.1, "z": 140 }"#).unwrap();
+		let none = V::Null;
+		let e = choose_entrance("Excavation Site: Wetlands", &none, &door, &[], None, &none, &frames, &[]);
+		assert_eq!((e.get("x").num(), e.get("y").num(), e.get("z").num()), (50.7, 61.1, 140.0));
+		let near = parse_json(r#"[{ "map": 1437, "x": 50.72, "y": 61.12, "n": 119 }]"#).unwrap();
+		assert_eq!(choose_entrance("Excavation Site: Wetlands", &near, &door, &[], None, &none, &frames, &[]).get("z").num(), 140.0, "a recording beside it");
+		let far = parse_json(r#"[{ "map": 1437, "x": 47.8, "y": 56.2, "n": 3 }]"#).unwrap();
+		assert!(!choose_entrance("Excavation Site: Wetlands", &far, &door, &[], None, &none, &frames, &[]).get("z").is_num(), "185 yd off: no height");
+		let flat = parse_json(r#"{ "key": "deadmines", "map": 1436, "x": 42.5, "y": 71.7 }"#).unwrap();
+		assert!(!choose_entrance("Deadmines", &none, &flat, &[], None, &none, &frames, &[]).get("z").is_num(), "no z in the table: none");
 	}
 
 	#[test]

@@ -996,6 +996,10 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 			if ie.get("A").truthy() {
 				o.set("A", ie.get("A"));
 			}
+			// (the door's floor, Polestar/Dungeons' arrow to the entrance: instances.rs choose_entrance)
+			if ie.get("z").is_num() {
+				o.set("z", ie.get("z"));
+			}
 			V::Obj(o)
 		} else {
 			V::Null

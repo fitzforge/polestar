@@ -7,9 +7,12 @@
 -- within REACH yards), within SECONDS, gives its spawn's height (the Codex's spawns, read only once it is loaded:
 -- nothing here loads it). An NPC with spawns on more than one level there (more than LEVEL yards apart in height)
 -- tells nothing: an Undercity Guardian at the bank also stands on the Ruins 98 yd over it, 24 yd away. Walk.lua takes the read surface nearest that height (or the
--- trail floor on that level), inside the capitals only.
+-- trail floor on that level) inside the capitals; outside them only the NPC talked to (NpcFloor.Talked), whose window
+-- puts the player within interact range of it (a mob's nameplate on the cliff over a camp says nothing there).
 --
 --   NpcFloor.Near(c, x, y) -> z | nil: that height for the player at world (x, y) on continent c
+--   NpcFloor.Talked(c, x, y) -> z, at | nil: the same from the NPC whose window the player opened only, and when
+--     (GetTime: Nav/Walk.lua corrects a followed floor once per window, as it opens)
 --
 -- The events only note the NPC's id and the time (allocation-light: a nameplate shows for every unit in a city);
 -- the Codex is read when a floor is asked for, and each NPC's spawns' world points are kept (WORLD_KEEP NPCs).
@@ -137,6 +140,13 @@ function NpcFloor.Near(c, x, y)
 		end
 	end
 	return bestZ
+end
+
+function NpcFloor.Talked(c, x, y)
+	if not (c and x and y and talkId) or GetTime() - talkAt > SECONDS then return nil end
+	local z = levelOf(talkId, c, x, y, TALK)
+	if z == nil then return nil end
+	return z, talkAt
 end
 
 -- Forget every sighting (a loading screen: the NPCs seen are elsewhere now).

@@ -686,6 +686,29 @@ emit({ fired = fired, nav = nav, trips = trips, g = { g1, g2, g3 }, opened = ope
 	assert_eq!(none["list"], 0);
 }
 
+// WorldFloor (the world gate's Wetlands door walks): the Excavation Site's door lies in the hillside 100 yd over Thelgen
+// Rock, and the arrow's walk to it without a height ended in the cave. An entrance's z (the curated table's door
+// floor, forge-data instances.rs) rides into the journal's page and goes to the arrow with the point (Nav.SetTarget's
+// z); an entrance without one sets none.
+#[test]
+fn an_entrance_s_door_floor_rides_into_the_journal_and_the_arrow_to_it() {
+	let mut c = codex();
+	c["instances"]["wailing-caverns"]["entrance"]["z"] = json!(-90.5);
+	let j = journal_json(&inputs(), &c);
+	assert_eq!(j["dungeons"]["wailing-caverns"]["entrance"]["z"], json!(-90.5));
+	assert!(j["dungeons"]["deadmines"]["entrance"].get("z").is_none(), "none without one");
+	let out = run(r#"
+local nav = {}
+Polestar.Nav = {
+	SetTarget = function(map, x, y, label, f, stop, z) nav[#nav + 1] = { label, z or false } return true end,
+	StartTrip = function() end,
+}
+D.GuideToPoint({ map = 1437, x = 50.7, y = 61.1, z = 140 }, "Excavation Site: Wetlands", "dungeon")
+D.GuideToPoint({ map = 1413, x = 46, y = 36.4 }, "Wailing Caverns", "dungeon")
+emit(nav)"#);
+	assert_eq!(out, json!([["Excavation Site: Wetlands", 140], ["Wailing Caverns", false]]));
+}
+
 #[test]
 fn runtime_only_the_open_page_is_decoded_timing_in_the_harness() {
 	let out = run(r#"
