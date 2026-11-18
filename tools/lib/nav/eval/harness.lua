@@ -18,7 +18,7 @@
 --   {"type":"trailfloor","id":..,"map":0,"at":[x,y],"reach":4,"near":z|null}  (Path.TrailFloor: {"z","weight"}, null without a trail layer)
 -- out.jsonl: an init line ({"type":"init","files":n,"loadMs":..,"packedKB":..,"profiles":bool}), then one line per
 -- query:
---   {"type":"route","id","ok","reason","cost","yards","ms","warmMs","kb","pts":[[x,y,z],...],"hubs","wet","zones","endZones","goal","reached"}
+--   {"type":"route","id","ok","reason","cost","yards","ms","warmMs","kb","pts":[[x,y,z],...],"hubs","wet","zones","endZones","reached","goal"}
 --   {"type":"many","id","ok","reason","costs":[cost|false,...],"yards":[..]|null,"ms","kb","reached"}
 -- reached: [x, y, z] where a walk with a reach ended instead of its point's own floor (job.reached), else null.
 -- yards and hubs are the router's own (job.yards, job.hubs) when it returns them, null otherwise. A search runs
@@ -403,7 +403,7 @@ local function route(q)
 		reason = quote("error: " .. table.concat(errors, "; "))
 	end
 	return string.format(
-		'{"type":"route","id":%s,"ok":%s,"reason":%s,"cost":%s,"yards":%s,"ms":%s,"warmMs":%s,"kb":%s,"pts":[%s],"hubs":%s,"wet":%s,"zones":%s,"endZones":%s,"goal":%s,"reached":%s}',
+		'{"type":"route","id":%s,"ok":%s,"reason":%s,"cost":%s,"yards":%s,"ms":%s,"warmMs":%s,"kb":%s,"pts":[%s],"hubs":%s,"wet":%s,"zones":%s,"endZones":%s,"reached":%s,"goal":%s}',
 		quote(q.id),
 		tostring(ok),
 		reason,
@@ -417,8 +417,8 @@ local function route(q)
 		ok and num(cold.points.wet) or "null",
 		ok and zoneYards(q.map, cold.points) or "null",
 		endZones(q.map, from, to),
-		ok and not SPF and goalNode(q.map, to) or "null",
-		reached(job)
+		reached(job),
+		ok and not SPF and goalNode(q.map, to) or "null"
 	)
 end
 

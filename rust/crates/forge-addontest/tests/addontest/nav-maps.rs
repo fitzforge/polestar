@@ -621,7 +621,10 @@ fn polestars_maps_on_the_engine_the_inn_is_left_by_its_door_the_undercity_by_an_
 	assert!(door < 3.0, "the walk out of the inn passes {door:.1} yd from the door");
 	let (top, bottom, walk) = (got["lift"]["top"].as_f64().unwrap(), got["lift"]["bottom"].as_f64().unwrap(), got["lift"]["walk"].as_f64().unwrap());
 	assert!(top > 0.0 && bottom > 0.0, "both Undervator landings are reached on foot");
-	assert!((top + bottom) / 7.0 + 12.0 < walk / 7.0, "by the lift, not walking round");
+	// The ride is priced at its own seconds (the Undervator's 7.6 s: the ride and the average wait for the car, from
+	// the client's lift animation): the walk is the two landings' walks and that ride, not a way round.
+	let ride = walk / 7.0 - (top + bottom) / 7.0;
+	assert!((ride - 7.6).abs() < 1.0, "by the lift, not walking round (the ride costs {ride:.1} s)");
 	assert_eq!(got["sea"], json!({ "found": false, "why": "unreachable" }), "fatigue water is no surface");
 	assert!(got["coast"]["found"] == true && got["coast"]["cost"].as_f64().unwrap() > 0.0);
 }
