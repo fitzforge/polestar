@@ -2547,7 +2547,9 @@ fn issue_1970_the_arrow_stays_on_the_sanctums_portal_until_the_player_is_through
 // 68.73,31.27 on the live map) the walk out to the gate took over 6,000 yd over the walls and round the mountains,
 // because every step on the city's guarded ground costs a Horde walk twenty times over, and the shortest way off it is
 // not the gate. A walk that starts or ends in the other faction's town is priced as for no faction (opts.homeHub): out
-// through the streets and the gate, as an Alliance player walks it, the town still named on the leg.
+// through the streets and the gate, as an Alliance player walks it, the town still named on the leg. With the trail
+// floor (2026-11-18) the player's floor at the entrance is known, so the plan first follows the recorded path out of
+// the tram's hall (a hand-made leg, no search) and the first walk searched starts at its end, still in the city.
 #[test]
 fn hostile_towns_a_tauren_at_the_deeprun_tram_walks_out_of_stormwind_through_its_streets_and_gate_as_an_alliance_player_does_the_town_still_named() {
 	skip_unless_ready!();
@@ -2563,7 +2565,7 @@ fn hostile_towns_a_tauren_at_the_deeprun_tram_walks_out_of_stormwind_through_its
 		for _ = 1, 300 do aim(); stub.advance(0.05) end
 		local f
 		for _, rec in ipairs(finds) do
-			if dist(rec.from[1], rec.from[2], tx, ty) < 3 and rec.done then f = rec end
+			if dist(rec.from[1], rec.from[2], tx, ty) < 60 and rec.done and not f then f = rec end
 		end
 		local legs, ci = N.GetRoute()
 		local named = {}
