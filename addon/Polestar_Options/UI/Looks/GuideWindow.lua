@@ -408,6 +408,11 @@ end
 local function accentNow() return Theme.Color("accent") end
 local function accentSource() return L["Accent"] end
 
+-- A row's `disabled` while a guide window setting is off (look(key) == false).
+-- The rows under their parent are children now; other branches' rows (Tab style)
+-- still call it.
+local function offKey(key) return function() return look(key) == false end end
+
 local SPECS = {
 	-- Window: the frame as a whole, its ground, how it behaves, then where it sits. Every setting of the guide
 	-- window lives on this page; its first row links to what Polestar does while you play (Guide).

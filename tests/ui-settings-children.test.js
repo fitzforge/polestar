@@ -195,3 +195,12 @@ test('Grow upward, Step slide, Tabs, Target bar, Step tips and Progress bar open
 	assert.deepEqual(out['ui.showNotes'], ['guideWindow.noteSize', 'ui.notesOpen']);
 	assert.deepEqual(out['guideWindow.progress'], ['guideWindow.progressHeight', 'guideWindow.progressColor', 'guideWindow.progressPct']);
 });
+
+test('Look > Guide window keeps offKey(key), the disabled-while-off helper other rows call', () => {
+	const fs = require('node:fs');
+	const path = require('node:path');
+	const src = fs.readFileSync(path.join(__dirname, '..', 'addon/Polestar_Options/UI/Looks/GuideWindow.lua'), 'utf8');
+	assert.match(src, /^local function offKey\(key\) return function\(\) return look\(key\) == false end end$/m,
+		'offKey stays before SPECS: a row such as Tab style calls disabled = offKey("tabs")');
+	assert.ok(src.indexOf('local function offKey') < src.indexOf('local SPECS'), 'declared before the specs that call it');
+});
