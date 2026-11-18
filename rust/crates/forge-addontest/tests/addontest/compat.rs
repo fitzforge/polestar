@@ -609,10 +609,7 @@ fn c3_nav_qa_no_addon_code_outside_core_compat_lua_opens_or_moves_the_world_map_
 // blocked SetPassThroughButtons calls in the report). No addon code calls them, Core/Compat.lua included.
 #[test]
 fn no_addon_code_calls_the_client_s_lua_quest_log_openers_not_even_core_compat_lua_2924() {
-	let bare: Vec<Regex> = [r"(^|[^.:\w])(QuestMapFrame_\w+|OpenQuestLog|ToggleQuestLog|QuestLogPopupDetailFrame_\w+)\b"]
-		.iter()
-		.map(|p| Regex::new(p).unwrap())
-		.collect();
+	let bare: Vec<Regex> = [r"(^|[^.:\w])(QuestMapFrame_\w+|OpenQuestLog|ToggleQuestLog|QuestLogPopupDetailFrame_\w+)\b"].iter().map(|p| Regex::new(p).unwrap()).collect();
 	let comment = Regex::new(r"--.*$").unwrap();
 	let root = addons_dir();
 	let mut found = Vec::new();
