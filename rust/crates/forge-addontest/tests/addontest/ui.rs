@@ -46,7 +46,7 @@ local function menuPick(text)
 	GF.menuButton:Click()
 	for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == text then r:Click() return r end end
 end
--- A toggle on the menu's top bar (Compact mode, Transparent, Lock window, Pause, Hide window).
+-- A toggle on the menu's top bar (Compact mode, Transparent, Lock window, Pause).
 local function barPick(text)
 	GF.menuButton:Click()
 	for _, b in ipairs(PolestarMenu.Bar.buttons) do if b:IsShown() and b.psEntry.text == text then b:Click() return b end end
@@ -1777,7 +1777,7 @@ fn the_header_menu_picker_new_tab_compact_transparent_lock_destructive_items_ask
 		json!(["Choose guide", "Open in new tab", "Quick settings", "Options", "Reset guide progress"]),
 		"Skip, the bug and Lookup are in the header, so not in the menu"
 	);
-	assert_eq!(out["bar"], json!(["Compact mode", "Transparent", "Lock window", "Pause", "Hide window"]), "the window's toggles are the bar on top");
+	assert_eq!(out["bar"], json!(["Compact mode", "Transparent", "Lock window", "Pause"]), "the window's toggles are the bar on top");
 	assert_eq!(out["locked"], true);
 	assert_eq!(out["style"], "transparent");
 	assert_eq!(out["armed"], json!({ "label": "Click again to confirm", "open": true }));

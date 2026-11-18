@@ -48,7 +48,7 @@ end
 `;
 
 const groupsOf = (items) => items.slice(2).join('|').split('|-|').map((g) => g.split('|'));
-const BAR = ['Compact mode', 'Transparent', 'Lock window', 'Pause', 'Hide window'];
+const BAR = ['Compact mode', 'Transparent', 'Lock window', 'Pause'];
 
 test('the guide menu: the window bar on top, then groups, the reset alone and in red, last, every row in view', () => {
 	const [out] = run(`uistub.setGuide(uistub.elwynn, 3)\n${MENU}\nemit(menu())`);
@@ -59,7 +59,7 @@ test('the guide menu: the window bar on top, then groups, the reset alone and in
 	assert.notEqual(items[items.length - 1], '-');
 	for (let i = 1; i < items.length; i++) assert.ok(!(items[i] === '-' && items[i - 1] === '-'), `doubled separator: ${items}`);
 	assert.deepEqual(bar.entries.map((e) => e.text), BAR);
-	assert.equal(bar.caption, 'Window');
+	assert.ok(!bar.caption, 'no caption but under the pointer');
 	for (const t of BAR) assert.ok(!items.includes(t), `${t} is in the bar, not a row`);
 	const groups = groupsOf(items);
 	const where = (t) => groups.findIndex((g) => g.includes(t));

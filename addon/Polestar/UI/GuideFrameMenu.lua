@@ -16,20 +16,17 @@ ns.UI.GuideFrame.Part(function(GF)
 	end
 
 	-- The window's toggles as the menu's top bar (W.ShowMenu's bar): Compact,
-	-- Transparent, Lock, Pause and Hide. Its caption says "Window", or that
-	-- Polestar is paused while it is.
+	-- Transparent, Lock and Pause. No Hide: a window hidden from its own menu
+	-- left no way back but a slash command. Its caption names the toggle under
+	-- the pointer, else it is blank, or says Polestar is paused while it is.
 	local function windowBar(clear)
 		local paused = ns.Paused() ~= nil
-		return { caption = paused and L["Polestar is paused"] or L["Window"], captionColor = paused and "warning" or nil, bar = {
+		return { caption = paused and L["Polestar is paused"] or nil, captionColor = paused and "warning" or nil, bar = {
 			{ text = L["Compact mode"], icon = "compact", checked = compact(), onClick = function() ns.Set("ui.compact", not compact()) end },
 			{ text = L["Transparent"], icon = "layers", checked = clear, onClick = function() ns.Set("ui.style", clear and "standard" or "transparent") end },
 			{ text = L["Lock window"], icon = "lock", checked = ns.Get("ui.locked") and true or false, onClick = function() ns.Set("ui.locked", not ns.Get("ui.locked")) end },
 			-- Pause (Core/Init.lua): the arrow, this window and its nudges step aside until you are back out of a dungeon alive.
 			{ text = L["Pause"], icon = "icon-dungeon", checked = paused, onClick = function() ns.TogglePaused() end },
-			{ text = L["Hide window"], icon = "close", onClick = function()
-				ns.Set("ui.shown", false)
-				ns.Print(L["Guide window hidden. Type /polestar to bring it back."])
-			end },
 		} }
 	end
 
