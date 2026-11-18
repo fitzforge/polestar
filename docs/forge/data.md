@@ -247,6 +247,12 @@ The build goes in layers. A later layer wins over an earlier one:
 Spawn points are thinned to at most 24 per NPC or object per map (`--cap N`), spread evenly over
 the area they cover.
 
+A rare's sightings in the recordings (its nameplate, the cursor or the target meeting it) are where
+the player stood, up to about 100 yards from the rare. They don't each become a spawn point: each
+map's sightings are grouped (2.5% of the map) and the groups' centres are the places, and where
+another source already places the rare on that map, only a centre farther than that from all of its
+points is added (#2816).
+
 Talk objectives: QuestieDB lists a quest done by talking to an NPC (a story to hear, advice to ask, an item to
 show) as a creature objective, like a kill, and the Classic server's database gives it no count. Once every
 source has given its counts (after the knowledge base with `--kb`), a kill objective whose count no source
