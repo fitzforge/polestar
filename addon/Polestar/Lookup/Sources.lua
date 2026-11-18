@@ -214,11 +214,32 @@ local function travel(from, to, direct)
 end
 Lookup.Travel = travel
 
+-- An Era-frame spawn on one map that is the same place as a live spawn on
+-- another map is that live spawn: the Classic data put Tirion Fordring's hut
+-- on Western Plaguelands' map, Forever's data on Eastern Plaguelands', the
+-- zone he stands in, and a pick-up guide built from the west sent the arrow
+-- through Western Plaguelands to him (#2943).
+local SAME_PLACE = 30 -- yards
+local function liveTwin(spawns, s)
+	if not (s and s.f == "e") then return s end
+	local toWorld = ns.Compat.MapToWorld
+	local c0, x0, y0 = toWorld(s.map, s.x, s.y, "e")
+	if not c0 then return s end
+	for i = 1, #spawns do
+		local o = spawns[i]
+		if o.f ~= "e" and o.map ~= s.map and o.x and o.y then
+			local c, x, y = toWorld(o.map, o.x, o.y)
+			if c == c0 and (x - x0) ^ 2 + (y - y0) ^ 2 <= SAME_PLACE * SAME_PLACE then return o end
+		end
+	end
+	return s
+end
+
 -- The spawn the player reaches soonest -> spawn, travel | nil. Without a
 -- player position (instances, loading) the first spawn, travel nil.
 local function nearest(spawns, from, direct)
 	if type(spawns) ~= "table" or #spawns == 0 then return nil end
-	if not from then return spawns[1], nil end
+	if not from then return liveTwin(spawns, spawns[1]), nil end
 	local best, bestT
 	for i = 1, #spawns do
 		local s = spawns[i]
@@ -227,8 +248,10 @@ local function nearest(spawns, from, direct)
 			if t and (not bestT or t < bestT) then best, bestT = s, t end
 		end
 	end
-	if best then return best, bestT end
-	return spawns[1], nil
+	if not best then return liveTwin(spawns, spawns[1]), nil end
+	local twin = liveTwin(spawns, best)
+	if twin ~= best then return twin, travel(from, twin, direct) or bestT end
+	return best, bestT
 end
 Lookup.Nearest = nearest
 
