@@ -31,7 +31,8 @@ const usage = `usage: node tools/polestar.js nav build [--continents 0,1] [--for
        node tools/polestar.js nav city freeze --private <dir> [--maps ...] [--max 200] [--force]
        node tools/polestar.js nav city trails --private <dir> [--maps ...] [--train] [--out <trails.json>] [--lua addon/Polestar_Nav/Trails/Trails.lua]
        node tools/polestar.js nav city gate --private <dir> [--nav <Polestar_Nav dir>] [--ground <Polestar_Nav dir>] [--spf <dir>] [--maps ...] [--arms GAME,WALK,E0,E2,G1,SPF,P3,P4,P5] [--policy legacy|a2] [--spawnz <file>] [--remeasure <report.json>] [--baseline <report.json>] [--out <report.json>] [--md <file>] [--grid <dir>]
-       node tools/polestar.js nav city world-sample|world-match|world-gate --private <dir> [--set world|boundary|reported] [--maps world|...] [--per N] [--seed N] [--strata ...] (world-gate: as gate)
+       node tools/polestar.js nav city world-sample|world-match|world-gate --private <dir> [--set world|boundary|reported] [--maps world|...] [--per N] [--seed N] [--strata ...] [--npc-floors <file>] (world-gate: as gate)
+       node tools/polestar.js nav city npc-floors --private <dir> [--maps ...] [--people train|all] [--out data/npc-floors.json] [--grid <dir>]
 
 build   the navigation grid of every continent map-frames.json names (or
         --continents): client geometry per ADT tile through the CASC cache
@@ -415,7 +416,7 @@ async function prepareCmd(argv) {
 // outside the repository (raw positions).
 async function cityCmd(argv) {
 	const [step, ...rest] = argv;
-	const { opts: o, positional, error } = parseArgs(rest, { flags: ['--force', '--train'], options: ['--private', '--recordings', '--maps', '--grid', '--max', '--nav', '--ground', '--spf', '--arms', '--policy', '--baseline', '--out', '--md', '--lua', '--remeasure', '--per', '--seed', '--strata', '--set', '--spawnz'] });
+	const { opts: o, positional, error } = parseArgs(rest, { flags: ['--force', '--train'], options: ['--private', '--recordings', '--maps', '--grid', '--max', '--nav', '--ground', '--spf', '--arms', '--policy', '--baseline', '--out', '--md', '--lua', '--remeasure', '--per', '--seed', '--strata', '--set', '--spawnz', '--npc-floors', '--people'] });
 	if (error || positional.length) throw usageError(error || `unexpected argument "${positional[0]}"`);
 	if (!o.private) throw usageError('nav city: --private <dir> is required (outside the repository)');
 	const priv = path.resolve(o.private);
@@ -424,13 +425,18 @@ async function cityCmd(argv) {
 	const zonesData = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'forever', 'zones.json'), 'utf8'));
 	const framesData = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'forever', 'map-frames.json'), 'utf8')).forever;
 	const { worldZones } = require('../lib/nav/city/world');
-	// --maps world: every zone but the capitals (the world gate's zones)
-	const maps = o.maps === 'world' ? worldZones(zonesData, framesData) : o.maps ? String(o.maps).split(',').map(Number) : Object.keys(CITIES).map(Number);
+	// --maps world: every zone but the capitals (the world gate's zones); all: those and the capitals
+	const maps = o.maps === 'world' ? worldZones(zonesData, framesData) : o.maps === 'all' ? [...worldZones(zonesData, framesData), ...Object.keys(CITIES).map(Number)] : o.maps ? String(o.maps).split(',').map(Number) : Object.keys(CITIES).map(Number);
 	const grid = path.resolve(o.grid || process.env.POLESTAR_GRID || path.join(ROOT, 'data', 'local', 'nav4'));
 	const readData = (f) => JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'forever', f), 'utf8'));
 	const log = (m) => console.error(m);
-	// --spawnz <file>: another data build's spawnz.json (spawn heights) for the gate's NPC heights
-	const spawnzOf = () => JSON.parse(fs.readFileSync(o.spawnz ? path.resolve(o.spawnz) : path.join(ROOT, 'data', 'forever', 'spawnz.json'), 'utf8')).npc;
+	// --spawnz <file>: another data build's spawnz.json (spawn heights) for the gate's NPC heights; --npc-floors <file>:
+	// with the floors players stand on at NPCs it gives no height (`nav city npc-floors`; the data build's own merge)
+	const spawnzOf = () => {
+		const npc = JSON.parse(fs.readFileSync(o.spawnz ? path.resolve(o.spawnz) : path.join(ROOT, 'data', 'forever', 'spawnz.json'), 'utf8')).npc;
+		if (!o.npcFloors) return npc;
+		return require('../lib/nav/city/npcfloors').withFloors(npc, JSON.parse(fs.readFileSync(path.resolve(o.npcFloors), 'utf8')));
+	};
 	const navArgs = () => ({ nav: path.resolve(o.nav || NAV_ADDON), ground: o.ground ? path.resolve(o.ground) : null, spf: o.spf ? path.resolve(o.spf) : null, arms: o.arms ? String(o.arms).split(',') : undefined, policy: o.policy || 'legacy', spawnz: spawnzOf(), taxi: readData('travel.json').taxi.nodes });
 	if (step === 'extract') {
 		if (!o.recordings) throw usageError('nav city extract: --recordings <archive> is required');
@@ -464,6 +470,20 @@ async function cityCmd(argv) {
 		if (o.out) fs.writeFileSync(o.out, JSON.stringify(doc));
 		if (o.lua) fs.writeFileSync(o.lua, trailsLua(doc, header('lua', `nav city trails${o.train ? ' --train' : ''}`, "players' recordings, aggregated (3+ distinct people per walked level)")));
 		console.log(`nav city trails: ${n} walked cell levels (${o.train ? "the gate's training people" : 'all people'})${o.out ? ` -> ${o.out}` : ''}${o.lua ? ` -> ${o.lua}` : ''}`);
+		return 0;
+	}
+	// The floor players stand on at NPCs the spawn data gives no height (tools/lib/nav/city/npcfloors.js): --people all
+	// (default) for data/npc-floors.json, train for the world gate (--npc-floors; a held-out walk never judges a height
+	// its own walker gave). The world's zones unless --maps (the capitals' streets float over the ground they were
+	// built on, which a short walk to an NPC can't tell apart: a Stormwind patroller came out 37 yd under the street
+	// a held-out walk talked to him on).
+	if (step === 'npc-floors') {
+		const people = o.people || 'all';
+		if (!['all', 'train'].includes(people)) throw usageError(`nav city npc-floors: --people all or train, not "${people}"`);
+		const zones = o.maps ? maps : worldZones(zonesData, framesData);
+		const doc = require('../lib/nav/city/npcfloors').npcFloors({ priv, grid, frames: framesData, spawnz: spawnzOf(), maps: zones, people, log });
+		if (o.out) fs.writeFileSync(o.out, JSON.stringify(doc, null, '\t').replace(/\{\n\t\t\t([^{}]*?)\n\t\t\}/g, (_, body) => `{ ${body.replace(/\n\t\t\t/g, ' ')} }`) + '\n');
+		console.log(`nav city npc-floors: ${doc.npcs.length} NPC floors (${people} people)${o.out ? ` -> ${o.out}` : ''}`);
 		return 0;
 	}
 	// --set world (default): the zones' strata; boundary: walks across a capital's entrance; reported: walks through the

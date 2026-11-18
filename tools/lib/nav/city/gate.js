@@ -368,12 +368,16 @@ async function runArms({ trips, arms, dirs, spawnz, policy, taxi = [] }) {
 		if (!npcZs.has(t.c)) npcZs.set(t.c, spawnHeight(spawnz, t.c, SPAWN_R));
 		return landZ(taxi, npcZs.get(t.c), t.c, e.wx, e.wy);
 	};
-	// --policy a2 is #2911's Walk.lua, whose rules hold in the capitals only: for a goal in one (Walk's inCity) the
-	// router's reach, no retry without the goal's height and a goal without a height on the trail floor (city.GoalZ); for
-	// a start in one, the followed floor settled on the trail floor (city.Settle) and WALK's start retries. A trip's
-	// cityA / cityB (false: that end lies outside the capitals; world.js' boundary trips) say where; unset, in one.
-	const cityA = (t) => policy === 'a2' && t.cityA !== false;
-	const cityB = (t) => policy === 'a2' && t.cityB !== false;
+	// --policy a2 is Walk.lua's floor rules (#2911 in the capitals, WorldFloor's outside them). A goal with a height,
+	// anywhere: the router's reach (10 yd on its level), and a walk that ends off its floor kept; in a capital (Walk's
+	// inCity) never asked again without the height, elsewhere asked once more without it only when no walk is found at
+	// all (the maps miss the floor's join: a walk off its floor beats none). In a capital only (the trail layer's): a
+	// goal without a height on the trail floor (city.GoalZ); a start's followed floor settled on the trail floor
+	// (city.Settle) and WALK's start retries. A trip's cityA / cityB (false: that end lies outside the capitals;
+	// world.js' world, boundary and reported trips) say where; unset, in one.
+	const a2 = policy === 'a2';
+	const cityA = (t) => a2 && t.cityA !== false;
+	const cityB = (t) => a2 && t.cityB !== false;
 	// WALK (CityFloor's rules): with a hint, the trail floor within 4 yd near it when that lies within 4 yd of the hint,
 	// else the hint; without one, the trail floor anywhere within 4 yd; the goal at its NPC's height, else the trail floor
 	// (a GAME goal in a capital too, under a2)
@@ -381,7 +385,7 @@ async function runArms({ trips, arms, dirs, spawnz, policy, taxi = [] }) {
 	// GAME's start in a capital under a2 (a followed floor) settles on the trail floor within SETTLE yd of it
 	const settle = (t, arm) => arm === 'GAME' && cityA(t);
 	let tf = new Map();
-	if (arms.includes('WALK') || (arms.includes('GAME') && policy === 'a2')) {
+	if (arms.includes('WALK') || (arms.includes('GAME') && a2)) {
 		const q = [];
 		for (const t of trips) {
 			q.push({ type: 'trailfloor', id: `a${t.i}`, map: t.c, at: [t.A.wx, t.A.wy], reach: 4, near: hint(t, t.A) });
@@ -413,7 +417,7 @@ async function runArms({ trips, arms, dirs, spawnz, policy, taxi = [] }) {
 	const res = {};
 	for (const arm of arms) {
 		if (PROTO[arm]) continue;
-		const queries = trips.map((t) => route(t, `${arm}|${t.i}`, A(t, startOf(t, arm)), B(t, goalOf(t, arm)), (arm === 'GAME' || arm === 'WALK') && cityB(t) ? { reach: 10 } : {}));
+		const queries = trips.map((t) => route(t, `${arm}|${t.i}`, A(t, startOf(t, arm)), B(t, goalOf(t, arm)), (arm === 'GAME' || arm === 'WALK') && a2 ? { reach: 10 } : {}));
 		if (arm === 'SPF') {
 			if (!dirs.spf) continue;
 			const { harness } = require('../eval/broad');
@@ -430,14 +434,14 @@ async function runArms({ trips, arms, dirs, spawnz, policy, taxi = [] }) {
 				const gz = goalOf(trips[k], arm);
 				if (gz === null || gz === undefined) return;
 				const off = r.ok && r.pts.length && Math.abs(r.pts[r.pts.length - 1][2] - gz) > Z_OFF;
-				if (!r.ok || off) again.push(k);
+				if (!r.ok || (off && !a2)) again.push(k);
 			});
 			const second = navRun(dir, again.map((k) => route(trips[k], `${arm}|${trips[k].i}|retry`, A(trips[k], startOf(trips[k], arm)), B(trips[k], null))));
 			again.forEach((k, j) => (first[k] = { ...second[j], retried: true }));
 		}
 		// a2 (CityFloor's Walk.lua): a WALK whose guessed start height can't reach the goal is asked again starting on
 		// any surface within 10 yd of that height (from.floors), then with no start height
-		if (arm === 'WALK' && policy === 'a2') {
+		if (arm === 'WALK' && a2) {
 			for (const step of ['floors', 'none']) {
 				const again = [];
 				first.forEach((r, k) => {
