@@ -51,7 +51,7 @@ for _, c in ipairs({ parts.window:GetChildren() }) do if rawget(c, "cards") then
 -- A row's target underline: the shown texture under its text, if any.
 local function underlined(r)
 	for _, t in ipairs({ r:GetRegions() }) do
-		if t.GetTexture and t:IsShown() and t:GetHeight() <= 1.5 and t:GetWidth() >= 8 then
+		if t:GetObjectType() == "Texture" and t:IsShown() and t:GetHeight() <= 1.5 and t:GetWidth() >= 8 then
 			local _, rel = t:GetPoint(1)
 			if rel == r.Text then return true end
 		end
@@ -146,7 +146,7 @@ local list = {}
 for i = 1, 2 do
 	local r = here.Rows[i]
 	local _, _, _, _, y = r:GetPoint(1)
-	list[i] = { y = y, h = r:GetHeight(), text = r.Text:GetStringHeight(), shown = r:IsShown(), sub = r.Sub:IsShown() }
+	list[i] = { y = y, h = r:GetHeight(), text = r.Text:GetStringHeight(), shown = r:IsShown(), sub = r.Sub:IsShown() and r.Sub:GetAlpha() > 0 }
 end
 Nav.SetTarget(1429, 0.52, 0.3, "Kelsey")
 stub.advance(0.5)
@@ -155,7 +155,7 @@ emit({ rows = list, height = here:GetHeight(), lines = { aimed(here.Rows[1]), ai
 	assert.ok(a.shown && b.shown, 'both rows shown');
 	assert.equal(a.sub, false, 'no step line');
 	assert.ok(a.text > 20, `the first row wraps: ${JSON.stringify(a)}`);
-	assert.ok(a.h >= 8 + a.text + 4, `row 1 holds its text: ${JSON.stringify(a)}`);
+	assert.ok(a.h >= a.text + 8, `row 1 holds its text, air over and under: ${JSON.stringify(a)}`);
 	assert.equal(b.y, a.y - a.h, 'row 2 right under row 1');
 	assert.ok(out.height >= -b.y + b.h, `the card holds its last row: ${out.height}`);
 	assert.deepEqual(out.lines, [{ lit: false, line: false }, { lit: true, line: false }], 'the row at the target is lit, not underlined');

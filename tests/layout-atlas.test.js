@@ -526,7 +526,7 @@ r:Show()
 parts.here:Show()
 local h0 = GF.LayoutHere(300)
 h.guidePlace("here", parts.here, 300, h0)
-local first = { r.Text:GetText(), r.Sub:IsShown(), r.Close:IsShown() }
+local first = { r.Text:GetText(), r.Sub:IsShown() and r.Sub:GetAlpha() > 0, r.Close:IsShown() }
 -- A second layout finds the count it took out at the first.
 local h1 = GF.LayoutHere(300)
 h.guidePlace("here", parts.here, 300, h1)
@@ -534,12 +534,12 @@ local own
 for _, region in ipairs({ r:GetRegions() }) do
 	if region.GetText and region ~= r.Text and region ~= r.Sub and region ~= r.Dist and region:IsShown() and (region:GetText() or ""):find("2/12", 1, true) then own = region:GetText() end
 end
-emit({ text = first[1], sub = first[2], close = first[3], count = own or false, shorter = parts.here:GetHeight() < h0 })`);
+emit({ text = first[1], sub = first[2], close = first[3], count = own or false, shorter = parts.here:GetHeight() < h0, h0 = h0, h1 = parts.here:GetHeight(), rh = r:GetHeight(), ry = select(5, r:GetPoint(1)), th = r.Text:GetStringHeight(), lh = r.Text:GetLineHeight(), lab = parts.here.Label:IsShown(), labh = parts.here.Label:GetStringHeight() })`);
 	assert.equal(out.text, 'Kill Small Crag Boar');
 	assert.equal(out.sub, false, 'no step line');
 	assert.equal(out.close, false, "no × of the row's own");
 	assert.equal(out.count, '2/12  ·  ', 'the count left of the distance');
-	assert.equal(out.shorter, true, 'the card gives up the step line');
+	assert.equal(out.h1, -out.ry + out.rh + 6, `the card holds its rows and its foot, no room for a step line: ${JSON.stringify(out)}`);
 });
 
 test('an Up next row not laid out yet takes Up next width, not the narrowest', () => {
@@ -1403,7 +1403,9 @@ local function state()
 	return { view = rawget(m, "ViewLabel") and m.ViewLabel:IsShown() or false, right = -x, xp = m.Text:GetText() }
 end
 local text = row.Text:GetText()
-local out = { oneLine = not text:find("\\n"), rest = state() }
+local _, _, _, lx, ly = card.Label:GetPoint(1)
+local _, _, _, _, ry = row:GetPoint(1)
+local out = { oneLine = not text:find("\\n"), rest = state(), label = { lx, ly }, under = -ry - (-ly + math.ceil(card.Label:GetStringHeight())), rowH = row:GetHeight() }
 card.IsMouseOver = function() return true end
 out.card = state()
 row.IsMouseOver = function() return true end
@@ -1414,9 +1416,73 @@ out.text = { T.Color("text") }
 emit(out)`,
 	}).emitted;
 	assert.equal(out.oneLine, true, 'one line, no "Click to view" under it');
+	assert.deepEqual(out.label, [14, -9], "the heading where Optional's stands");
+	assert.equal(out.under, 3, "the first row 3 under the heading, as Optional's");
+	assert.equal(out.rowH, 23, "a row as tall as Optional's");
 	assert.equal(out.rest.view, false, 'View hidden off the card');
 	assert.match(out.rest.xp, /6,150 XP/);
 	assert.equal(out.card.view, true, 'View on the right with the pointer on the card');
 	assert.ok(out.card.right > out.rest.right, `the XP steps left of View: ${out.rest.right} -> ${out.card.right}`);
 	assert.deepEqual(out.lit.map((v) => v.toFixed(3)), out.text.slice(0, 3).map((v) => v.toFixed(3)), 'brighter on the row');
+});
+
+// Every card above the window wears one card's measures (Optional's): its
+// heading 14 in and 9 down, its first row 3 under the heading, a one-line row
+// 23 tall with its icon and right column on the line's middle, its foot 6
+// under the last row. While you're here's second line stays unseen (Polestar
+// shows it again at each distance refresh).
+test('under Atlas every card above the window has the same heading, row and foot', () => {
+	const [out] = runAddon({
+		stubs: ['stub_world.lua'],
+		addons: ['Polestar', 'Polestar_Skin_Atlas', 'Polestar_Layout_Atlas'],
+		script: `${GUIDE}
+local T = Polestar.Theme
+local GF = Polestar.UI.GuideFrame
+Polestar.Set("ui.shown", true)
+T.SetLayout("atlas")
+GF.Layout(); stub.advance(1)
+Polestar.RunCommand("atlas test")
+stub.advance(1); GF.Layout(); stub.advance(1)
+local parts = T.GuideParts()
+local stack = PolestarGuideFrameCards
+local function y(f) local _, _, _, _, v = f:GetPoint(1) return v end
+local function head(label)
+	local _, _, _, x, v = label:GetPoint(1)
+	return { x, v, v - math.ceil(label:GetStringHeight()) - 3 }
+end
+local out = {}
+local function firstRow(rows)
+	for _, r in ipairs(rows) do if r:IsShown() then return r end end
+end
+local here = firstRow(rawget(parts.here, "Rows") or {})
+out.here = { head = head(parts.here.Label), row = y(here), h = here:GetHeight(), sub = here.Sub:IsShown() and here.Sub:GetAlpha() or 0 }
+here.Sub:Show()
+out.here.subAfter = here.Sub:GetAlpha()
+local along = {}
+for _, r in ipairs({ parts.along:GetChildren() }) do if rawget(r, "psFacts") ~= nil or rawget(r, "psStep") then along[#along + 1] = r end end
+table.sort(along, function(a, b) return y(a) > y(b) end)
+local a = firstRow(along)
+out.along = { head = head(parts.along.Label), row = y(a), h = a:GetHeight() }
+local opt = stack.opt
+local o = firstRow(opt.Rows)
+out.opt = { head = head(opt.Label), row = y(o), h = o:GetHeight() }
+local tr = stack.train
+local _, _, _, _, iy = tr.Icon:GetPoint(1)
+out.train = { head = head(tr.Label), icon = iy, foot = tr:GetHeight() }
+emit(out)`,
+	}).emitted;
+	for (const name of ['here', 'along', 'opt']) {
+		const c = out[name];
+		// Optional's notes (a tip line) stand over its heading.
+		if (name !== 'opt') assert.deepEqual(c.head.slice(0, 2), [14, -9], `${name}: the heading 14 in, 9 down`);
+		else assert.equal(c.head[0], 14, 'opt: the heading 14 in');
+		assert.equal(c.row, c.head[2], `${name}: the first row 3 under the heading`);
+		assert.ok(c.h >= 23 && (c.h - 23) % 1 === 0, `${name}: a row at least 23 tall (${c.h})`);
+	}
+	assert.equal(out.opt.h, 23);
+	assert.deepEqual(out.train.head.slice(0, 2), [14, -9], 'training: the heading 14 in, 9 down');
+	assert.equal(out.train.icon, out.train.head[2] - 12, "training: its icon on the row's middle");
+	assert.equal(out.train.foot, -(out.train.head[2] - 23) + 6, 'training: its foot 6 under the row');
+	assert.equal(out.here.sub, 0, "While you're here: its second line unseen");
+	assert.equal(out.here.subAfter, 0, 'and still unseen when Polestar shows it again');
 });

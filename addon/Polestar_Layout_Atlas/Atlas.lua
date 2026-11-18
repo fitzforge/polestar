@@ -440,6 +440,40 @@ on("guideLayout", function() return 8 end)
 
 local GAP = 5
 local OPT_ROW, OPT_PAD = 23, 14
+-- Optional's heading this far under its card's top; the card's foot this far under its last row.
+local OPT_TOP, OPT_FOOT = 9, 6
+local CARD_UNDER = 3 -- a card's first row this far under its heading
+
+-- Every card Atlas stacks above the window wears Optional's measures: these
+-- three place its heading, its rows' first line and its foot.
+-- The heading at its place on the card: -> the y its first row starts at.
+local function cardHead(card, label)
+	label:ClearAllPoints()
+	label:SetPoint("TOPLEFT", card, "TOPLEFT", OPT_PAD, -OPT_TOP)
+	if not label:IsShown() then return -OPT_TOP end
+	return -(OPT_TOP + math.ceil(label:GetStringHeight() or 10) + CARD_UNDER)
+end
+-- A row holding `textH` of text in lines `lineH` tall: OPT_ROW on one
+-- line; wrapped, its text with the same air under it as over (rowLine).
+local function rowHeight(textH, lineH)
+	if textH < lineH * 1.5 then return OPT_ROW end
+	local inset = math.max(2, math.floor((OPT_ROW - lineH) / 2))
+	return textH + inset * 2
+end
+-- The card's height, its last row ending at y.
+local function cardFoot(y) return math.floor(-y + OPT_FOOT + 0.5) end
+-- A row's text: how far under the row's top it starts, and its first
+-- line's middle there (the icon's and the right column's), for a row
+-- OPT_ROW tall per line. -> inset, mid, line height
+local function rowLine(fs)
+	local lineH = fs:GetLineHeight() or 12
+	-- One line: the string's own height (a pixel over the line's in some
+	-- faces), so the air under it is never less than over it.
+	local th = fs:GetStringHeight() or lineH
+	if th < lineH * 1.5 then lineH = math.max(lineH, math.ceil(th)) end
+	local inset = math.max(2, math.floor((OPT_ROW - lineH) / 2))
+	return inset, -(inset + math.floor(lineH / 2 + 0.5)), lineH
+end
 
 ---------------------------------------------------------------------------
 -- The Journey's styles (guideWindow.journeyStyle; Atlas's default "folded", open):
@@ -881,19 +915,40 @@ local function hereRows(here, height)
 			if path then hereFont = { path, size, flags } end
 		end
 		local p, rel, rp, rx, ry = r:GetPoint(1)
-		if r:IsShown() and not y then y = ry or 0 end
+		if r:IsShown() and not y then
+			local label = here.Label
+			y = (label and label:IsShown() and rel) and cardHead(rel, label) or ry or 0
+		end
+		-- An off-route timer's row keeps its line.
+		if r.psOff and own._sub then
+			r.Sub:SetAlpha(1)
+			own._sub = nil
+		end
 		if r:IsShown() and r.Text and r.Sub and r.Close and r.Dist and not r.psOff then
-			if r.Sub:IsShown() then
-				r.Sub:Hide()
-				own._sub = true
-			end
+			-- Unseen rather than hidden: Polestar shows the line again at each
+			-- refresh of the distances, between two layouts.
+			r.Sub:SetAlpha(0)
+			own._sub = true
 			if r.Close:IsShown() then
 				r.Close:Hide()
 				own._close = true
 			end
-			-- The distance on the card's right edge, where the × was.
+			-- The text, its icon and the distance on its first line as every
+			-- card's rows (rowLine); the distance on the card's right edge,
+			-- where the × was.
+			local inset, mid, lineH = rowLine(r.Text)
+			local tp, trel, trp, tx = r.Text:GetPoint(1)
+			if tp then
+				r.Text:ClearAllPoints()
+				r.Text:SetPoint(tp, trel, trp, tx, -inset)
+			end
+			local ip, irel, irp, ix = r.Icon:GetPoint(1)
+			if ip then
+				r.Icon:ClearAllPoints()
+				r.Icon:SetPoint(ip, irel, irp, ix, mid)
+			end
 			r.Dist:ClearAllPoints()
-			r.Dist:SetPoint("RIGHT", r, "TOPRIGHT", -OPT_PAD, -16)
+			r.Dist:SetPoint("RIGHT", r, "TOPRIGHT", -OPT_PAD, mid)
 			-- From Polestar's own line (UI.SetCounted keeps it), so a second
 			-- layout finds the count it took out at the first.
 			local text = type(r.Text.psCounted) == "string" and r.Text.psCounted or r.Text:GetText() or ""
@@ -919,8 +974,8 @@ local function hereRows(here, height)
 				local w = r.Text:GetWidth() or 0
 				if w > 0 then r.Text:SetWidth(math.max(40, w - math.ceil(c:GetStringWidth()) - 4)) end
 			end
-			-- Polestar's own measure (GF.LayoutHere), on the text as it now wraps.
-			local h = 8 + math.max(16, math.floor(r.Text:GetStringHeight() + 0.5)) + 4
+			-- As tall as its text wraps to, a line a row (OPT_ROW).
+			local h = rowHeight(math.floor(r.Text:GetStringHeight() + 0.5), lineH)
 			local chip = rawget(r, "psChip")
 			if type(chip) == "table" and chip.IsShown and chip:IsShown() then
 				chip:ClearAllPoints()
@@ -936,13 +991,7 @@ local function hereRows(here, height)
 		end
 	end
 	if not y then return height end
-	local top = 9
-	if here.Label then
-		local _, _, _, _, ly = here.Label:GetPoint(1)
-		if ly then top = -ly end
-	end
-	-- A row ends 4 under its text.
-	return math.floor(-y + math.max(0, top - 4) + 0.5)
+	return cardFoot(y)
 end
 
 -- Its rows back as Polestar laid them out.
@@ -950,7 +999,7 @@ local function hereRowsBack(here)
 	for _, r in ipairs(rawget(here, "Rows") or {}) do
 		local own = stores[r]
 		if own then
-			if own._sub then r.Sub:Show() end
+			if own._sub then r.Sub:SetAlpha(1) end
 			if own._close then r.Close:Show() end
 			if own._text and type(r.Text.psCounted) == "string" then r.Text:SetText(r.Text.psCounted) end
 			own._sub, own._close, own._text = nil, nil, nil
@@ -988,12 +1037,19 @@ local function alongLook(along, on)
 		own._upper = Core.upper(own._label or "")
 		label:SetText(own._upper)
 		infoIcon(along, label, tr("Still open from steps you have passed"))
+		-- Where every card's heading stands (cardHead, at the rows' layout).
+		if not own._labelAt then own._labelAt = { label:GetPoint(1) } end
 	elseif own._label then
 		Theme.Font(label, "small")
 		label:SetText(own._label)
 		label:SetTextColor(Theme.Color("textMuted"))
 		own._label, own._upper = nil, nil
 		if own.info then own.info:Hide() end
+	end
+	if not on and own._labelAt then
+		label:ClearAllPoints()
+		label:SetPoint(unpack(own._labelAt))
+		own._labelAt = nil
 	end
 end
 
@@ -1060,14 +1116,18 @@ end
 -- line, the same air over and under its text; the rows one under the other,
 -- the card's foot as far under the last line as its heading stands under
 -- the top. -> the card's height
-local ALONG_ROW = 24
+-- Optional's measures (layoutOptional): its rows, and the room under its
+-- heading and at its foot.
+local ALONG_ROW = OPT_ROW
 local function alongRows(along, height)
 	local y, inset
+	local label = along.Label
+	local labelShown = label and label:IsShown()
 	for _, r in ipairs(alongRowList(along)) do
 		local own = store(r)
 		local m = alongMeta(r)
 		local _, rel, _, rx, ry = r:GetPoint(1)
-		y = y or ry or 0
+		if not y then y = labelShown and cardHead(along, label) or ry or 0 end
 		-- From Polestar's own line (UI.SetCounted keeps it), so a second
 		-- layout finds the count it took out at the first.
 		local text = type(r.Text.psCounted) == "string" and r.Text.psCounted or r.Text:GetText() or ""
@@ -1139,10 +1199,9 @@ local function alongRows(along, height)
 			r.Text:SetWidth(math.max(40, w - (meta and math.ceil(m.Text:GetStringWidth()) + 18 or 0) - viewW))
 		end
 		-- Its height from its text at the width now left it.
-		local lineH = r.Text:GetLineHeight() or 12
+		local i, mid, lineH = rowLine(r.Text)
+		inset = i
 		local th = math.floor((r.Text:GetStringHeight() or lineH) + 0.5)
-		inset = math.max(4, math.floor((ALONG_ROW - lineH) / 2 + 0.5))
-		local mid = -(inset + math.floor(lineH / 2 + 0.5))
 		r.Text:ClearAllPoints()
 		r.Text:SetPoint("TOPLEFT", r, "TOPLEFT", ox, -inset)
 		r.Icon:ClearAllPoints()
@@ -1152,17 +1211,11 @@ local function alongRows(along, height)
 		r:ClearAllPoints()
 		r:SetPoint("TOPLEFT", rel, "TOPLEFT", rx or 0, y)
 		r:SetPoint("TOPRIGHT", rel, "TOPRIGHT", 0, y)
-		r:SetHeight(math.max(ALONG_ROW, th + inset * 2))
+		r:SetHeight(rowHeight(th, lineH))
 		y = y - r:GetHeight()
 	end
 	if not y then return height end
-	local top = 10
-	local label = along.Label
-	if label and label:IsShown() then
-		local _, _, _, _, ly = label:GetPoint(1)
-		if ly then top = math.floor(-ly - (label:GetStringHeight() or 10) / 2 + 0.5) end
-	end
-	return math.floor(-y + math.max(0, top - inset) + 0.5)
+	return cardFoot(y)
 end
 
 local function alongRowsBack(along)
@@ -1268,15 +1321,18 @@ local function partyCard(stack, party)
 	end
 	capsLabel(c.Label)
 	c.Label:SetText(Core.upper(tr("Party")))
-	c.Label:ClearAllPoints()
-	c.Label:SetPoint("TOPLEFT", c, "TOPLEFT", OPT_PAD, -8)
-	local top = 8 + math.ceil(c.Label:GetStringHeight())
+	c.Label:Show()
+	local y = cardHead(c, c.Label)
+	-- The party line's own frame (28, its text in the middle) as one row:
+	-- its text's middle where a row's would be.
+	local h = party:GetHeight() or 28
+	local lift = math.floor((h - OPT_ROW) / 2 + 0.5)
 	party:SetParent(c)
 	party:ClearAllPoints()
-	party:SetPoint("TOPLEFT", c, "TOPLEFT", 0, -top)
-	party:SetPoint("TOPRIGHT", c, "TOPRIGHT", 0, -top)
+	party:SetPoint("TOPLEFT", c, "TOPLEFT", 0, y + lift)
+	party:SetPoint("TOPRIGHT", c, "TOPRIGHT", 0, y + lift)
 	party:Show()
-	c:SetHeight(top + (party:GetHeight() or 28) + 2)
+	c:SetHeight(cardFoot(y - OPT_ROW))
 	return c
 end
 
@@ -1315,8 +1371,8 @@ local function fillTrain(f, width)
 	f.psTrainer = trainer
 	capsLabel(f.Label)
 	f.Label:SetText(Core.upper(tr("Training due")))
-	f.Label:ClearAllPoints()
-	f.Label:SetPoint("TOPLEFT", f, "TOPLEFT", OPT_PAD, -8)
+	f.Label:Show()
+	local rowY = cardHead(f, f.Label)
 	rowFont(f.Text)
 	f.Text:SetTextColor(Theme.Color("text"))
 	f.Text:SetText(tr("New spells at your class trainer"))
@@ -1326,16 +1382,16 @@ local function fillTrain(f, width)
 	f.Place:SetShown(place ~= nil)
 	f.Icon:SetTexture(Theme.VerbIcon("talk"))
 	f.Icon:SetVertexColor(Theme.Accent())
-	local rowY = -8 - f.Label:GetStringHeight() - 4
+	local mid = rowY - math.floor(OPT_ROW / 2 + 0.5)
 	f.Icon:ClearAllPoints()
-	f.Icon:SetPoint("LEFT", f, "TOPLEFT", OPT_PAD, rowY - 10)
+	f.Icon:SetPoint("LEFT", f, "TOPLEFT", OPT_PAD, mid)
 	f.Place:ClearAllPoints()
-	f.Place:SetPoint("RIGHT", f, "TOPRIGHT", -OPT_PAD, rowY - 10)
+	f.Place:SetPoint("RIGHT", f, "TOPRIGHT", -OPT_PAD, mid)
 	f.Place:SetWidth(math.min(f.Place:GetStringWidth() + 1, 120))
 	f.Text:ClearAllPoints()
-	f.Text:SetPoint("LEFT", f, "TOPLEFT", OPT_PAD + 13 + 8, rowY - 10)
+	f.Text:SetPoint("LEFT", f, "TOPLEFT", OPT_PAD + 13 + 8, mid)
 	f.Text:SetPoint("RIGHT", f.Place, "LEFT", -8, 0)
-	f:SetSize(width, math.floor(8 + f.Label:GetStringHeight() + 4 + 20 + 6 + 0.5))
+	f:SetSize(width, cardFoot(rowY - OPT_ROW))
 	return f
 end
 
@@ -1472,7 +1528,7 @@ local function layoutOptional(stack, window, step)
 		return nil
 	end
 	local width = window:GetWidth() or 0
-	local lh = 9
+	local lh = OPT_TOP
 	for i = 1, m do
 		local fs = c.Notes[i]
 		if not fs then
@@ -1498,7 +1554,7 @@ local function layoutOptional(stack, window, step)
 	c.Label:SetText(Core.upper(tr("Optional")))
 	c.Label:SetShown(n > 0)
 	infoIcon(c, c.Label, tr("Optional objectives during this step"))
-	if n > 0 then lh = lh + math.ceil(c.Label:GetStringHeight()) + 3 end
+	if n > 0 then lh = lh + math.ceil(c.Label:GetStringHeight()) + CARD_UNDER end
 	for i = 1, n do
 		local goal = o.goals[i]
 		local r = optRow(c, i)
@@ -1534,7 +1590,7 @@ local function layoutOptional(stack, window, step)
 		c.Rows[i]:Hide()
 		c.Rows[i]._goal = nil
 	end
-	c:SetHeight(lh + 6)
+	c:SetHeight(lh + OPT_FOOT)
 	return c
 end
 
