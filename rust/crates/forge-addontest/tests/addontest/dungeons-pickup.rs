@@ -620,6 +620,41 @@ fn a_page_quest_that_asks_for_a_profession_the_character_has_not_learned_is_not_
 	assert!(takes(&smith, 90710), "a blacksmith picks it up: {}", smith["take"]);
 }
 
+// #2752 (found while triaging #2746): the profession check asked only whether the character has the profession, never
+// the rank the quest needs, so a blacksmith below 250 was still sent to Kilram for Snakestone of the Shadow Huntress
+// (5306), which needs Blacksmithing 250 (the quest data and the Forever world database agree). The Codex carries the
+// rank (`l164,250`): below it the quest is not picked up and its line says the rank; at it, it is picked up.
+#[test]
+fn a_page_quest_is_not_picked_up_below_the_profession_rank_it_needs_2752_snakestone_of_the_shadow_huntress() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["9046"] = sideless_npc(9046, "Kilram", 1413, 48, 32);
+	c["quests"]["90711"] = page_quest(90711, "Snakestone of the Shadow Huntress", Value::Null, 9046, 9046);
+	c["quests"]["90711"]["xp"] = json!(2500);
+	c["quests"]["90711"]["skill"] = json!(164);
+	c["quests"]["90711"]["skillLevel"] = json!(250);
+	i["forever"]["quests"]["90711"] = json!({ "area": 209, "xp": 2500 });
+	let own = pack_of(&c, &i);
+	let at = |learn: &str| {
+		let script = format!(
+			"{learn}\n{}\nlocal why, text = Polestar.Lookup.QuestBlock(Polestar.Codex.Quest(90711), Polestar.Lookup.PlayerInfo())\nemit({{ why = why or false, text = text or false }})",
+			k(TAKE)
+		);
+		run(&own, &script, Opts::default())
+	};
+	let smith = |rank: i32| at(&format!("stub.world.learnSkill(164, \"Blacksmithing\", {rank}, 300)"));
+	let below = smith(210);
+	assert!(!takes(&below[0], 90711), "Blacksmithing 210: not picked up: {}", below[0]["take"]);
+	assert_eq!(below[1], json!({ "why": "profession", "text": "Requires Blacksmithing 250" }));
+	let none = at("");
+	assert!(!takes(&none[0], 90711), "no Blacksmithing: not picked up: {}", none[0]["take"]);
+	assert_eq!(none[1], json!({ "why": "profession", "text": "Requires Blacksmithing 250" }));
+	let master = smith(250);
+	assert!(takes(&master[0], 90711), "Blacksmithing 250: picked up: {}", master[0]["take"]);
+	assert_eq!(master[1], json!({ "why": false, "text": false }));
+}
+
 // #2439 (Onrevax, Razorfen Kraul's pick-up guide): Blueleaf Tubers asks for a Crate with Holes, the Snufflenose
 // Owner's Manual and a Snufflenose Command Stick, each taken from an object at Mebok Mizzyrix's feet in Ratchet
 // (65 people's recordings tick those lines there), and the guide only said to take the quest, so players went into

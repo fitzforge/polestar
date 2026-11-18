@@ -397,6 +397,12 @@ local function decodeQuest(group, id, s)
 		elseif lead == "h" then
 			-- How it is done beyond its objectives, in our words (#2714): h<text>.
 			rec.how = unesc(sub(f, 2))
+		elseif lead == "l" then
+			-- The profession it needs (#1913): l<skill line>,<rank>, the rank
+			-- empty when the data names none (Snakestone of the Shadow
+			-- Huntress: Blacksmithing 250, #2752).
+			local _, _, line, rank = find(f, "^l(%d+),(%d*)$")
+			rec.skill, rec.skillRank = tonumber(line), tonumber(rank)
 		elseif f == "d" then
 			-- Handed in at one talk, never in the log (#2686: Bloodpetal Sprouts).
 			rec.direct = true

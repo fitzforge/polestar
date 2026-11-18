@@ -355,31 +355,44 @@ local function questSide(q)
 end
 Lookup.QuestSide = questSide
 
--- The profession quest q asks for (the quest database's skill line: Badlands
--- Reagent Run II is for alchemists, #2118) when the character has none of it:
--- that skill line, else nil. Nil too while the database is not loaded or the
--- client does not tell skills.
+-- The profession quest q asks for when the character cannot take it yet:
+-- skill line, rank needed (nil when the data names none) | nil. The line is
+-- the Codex's (`l<line>,<rank>`), else the quest database's (Badlands
+-- Reagent Run II is for alchemists, #2118); the rank is the Codex's (Kilram
+-- gives Snakestone of the Shadow Huntress only at Blacksmithing 250,
+-- #2752). Blocked when the character has not learned the profession, or has
+-- it below that rank. Nil too while no source tells the line, or the client
+-- does not tell skills.
 local function missingProfession(q)
-	local Q, C = ns.QuestDB, ns.Compat
-	if not (Q and q.id and Q.IsLoaded() and C.Supports and C.Supports("skill")) then return nil end
-	local r = Q.QuestRecord(q.id)
-	local line = r and r[Q.F.SKILL]
+	local C = ns.Compat
+	if not (q.id and C.Supports and C.Supports("skill")) then return nil end
+	local line, need = q.skill, q.skillRank
+	if not line then
+		local Q = ns.QuestDB
+		local r = Q and Q.IsLoaded() and Q.QuestRecord(q.id)
+		line = r and r[Q.F.SKILL]
+	end
 	if type(line) ~= "number" or line <= 0 then return nil end
-	return not C.GetSkillRank(line) and line or nil
+	local rank = C.GetSkillRank(line)
+	if rank and not (need and rank < need) then return nil end
+	return line, need
 end
 
 -- Quest availability for this character: why, text | nil. A race or class
 -- lock says who it is for ("Warlock only", Lookup.QuestForText, #1730); a
--- profession it has not learned, which one ("Requires Alchemy").
+-- profession it has not learned or not to the rank, which one and the rank
+-- when the data names it ("Requires Alchemy", "Requires Blacksmithing 250").
 local function questBlock(q, p)
 	local side = questSide(q)
 	if side and not sideOK(side, p) then return "faction", sideText(side) end
 	if maskBlocks(q.races, RACE_BIT, p.race) then return "race", Lookup.QuestForText(q) or L["Not for your race"] end
 	if maskBlocks(q.classes, CLASS_BIT, p.class) then return "class", Lookup.QuestForText(q) or L["Not for your class"] end
-	local line = missingProfession(q)
+	local line, need = missingProfession(q)
 	if line then
 		local name = Lookup.ProfessionName(line)
-		return "profession", L["Requires"] .. " " .. (name and L[name] or L["Profession"])
+		local text = L["Requires"] .. " " .. (name and L[name] or L["Profession"])
+		if need and need > 1 then text = text .. " " .. need end
+		return "profession", text
 	end
 	if q.minLevel and q.minLevel > p.level then return "level", levelText(q.minLevel) end
 	if ns.Compat.IsQuestCompleted(q.id) then return "done", L["Already done"] end

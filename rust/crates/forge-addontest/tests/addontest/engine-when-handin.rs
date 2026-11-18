@@ -1,5 +1,5 @@
-//! A step that hands in the quest its `when` names keeps what it does after the hand-in (#2888; Engine.lua,
-//! Own.predicateFails, Own.handedInHere). Mîku (Scourge Paladin 32, 0.4.1) was never given the last The Swarm Grows
+//! A step that hands in the quest its `when` names keeps what it does after the hand-in (#2888, #2610; Engine.lua,
+//! Own.latchTurnin, Own.holdOnQuest). Mîku (Scourge Paladin 32, 0.4.1) was never given the last The Swarm Grows
 //! (1147): Thousand Needles' Moktar Krin step is `when onquest 1146`, hands in its second part (1146) and takes 1147
 //! from him, and the moment 1146 was handed in its `when` failed, the step stopped applying and the route moved on
 //! past the accept. Without 1147 the dig site's kills were never the guide's. Real Core manifest, stub world.
@@ -71,13 +71,16 @@ fn t_2888_handing_in_the_quest_a_step_s_when_names_keeps_the_step_for_the_follow
 }
 
 #[test]
-fn t_2888_a_quest_handed_in_before_the_route_reached_its_step_still_leaves_the_follow_up_there() {
-	// 1146 handed in earlier (at Moktar Krin in passing): the step offers 1147.
+fn t_2888_a_quest_handed_in_before_the_guide_ran_leaves_the_step_out() {
+	// 1146 handed in before this guide was loaded (another guide, an earlier route): the guide never saw the hand-in,
+	// so the step does not apply and the route does not send the player back to Moktar Krin (the full playtest: a
+	// rule that kept such steps sent 218 plays in 20 guides to steps for quests handed in elsewhere). Handed in on
+	// the way while the guide runs: engine_when's #2610 tests.
 	let out = run(r#"
 		w.complete({ 1146 }); stub.fire("QUEST_LOG_UPDATE")
 		E.SetGuide("test/swarm"); flush()
 		emit(snap())"#);
-	assert_eq!(out, json!([1, ["done", "active"]]));
+	assert_eq!(out[0], json!(3), "{out}");
 }
 
 #[test]
