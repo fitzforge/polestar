@@ -353,7 +353,8 @@ fn the_look_pages_put_switches_in_section_headers_colours_beside_their_sliders_a
 		local toggles, extras, more, missing, long, keys, thin, crowded, count = {}, {}, {}, {}, {}, {}, {}, {}, {}
 		local function check(c, row)
 			if c.key then keys[c.key] = true end
-			if not (c.help and c.help ~= "") or not (c.search and c.search ~= "") then missing[#missing + 1] = c.key or c.label end
+			-- A reference (W.Ref) takes its help and search words from its home row.
+			if not c.ref and (not (c.help and c.help ~= "") or not (c.search and c.search ~= "")) then missing[#missing + 1] = c.key or c.label end
 			if row and select(2, c.label:gsub("%S+", "")) > 3 then long[#long + 1] = c.label end
 		end
 		-- The deep tabs' registrations (Essentials stands for their rows: settings-essentials.rs).

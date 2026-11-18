@@ -20,7 +20,12 @@ local L = ns.L
 local floor, max, min, format, type, ipairs, pairs, tonumber = math.floor, math.max, math.min, string.format, type, ipairs, pairs, tonumber
 
 local TS = UI.Toasts
+local Ref = W.Ref
 local NEW = "0.3.8"
+-- The transport alerts are guidance with no effect while Shortest Path
+-- Forever guides (Nav/Handoff.lua): greyed out here, their home, and so in
+-- every reference to them.
+local function H(c) local Nav = ns.Nav; return Nav and Nav.HandoffOption and Nav.HandoffOption(c) or c end
 
 local function stackOn() return ns.Get("toasts.stack") and true or false end
 
@@ -411,30 +416,19 @@ end
 local function rares() return ns.Rares end
 
 -- Rare alert: when it comes, its card, then the line the alerts may share.
+-- When it comes: references to the alert's rows on Discovery > Rares (their
+-- home, with Rares' own switch).
 local RARE = L["Rare alert"]
 register({ tab = RARE, section = L["Rare alert"], preview = function(view) return TS.Preview(view, "rare") end,
 	subtitle = L["The rare alert, the transport banner, the heads-up card and the class quest card: their size, look, motion, sound and time on screen."],
-	toggle = { kind = "toggle", key = "rares.alerts", label = L["Alert for rares"], needs = rares,
-		search = "rare alert, rare spawn, notification, warning, popup",
-		help = L["A card with its name, level and distance, and a waypoint to it."] },
+	toggle = Ref("toggle", "rares.alerts", { label = L["Alert for rares"], needs = rares }),
 	controls = {
-		{ kind = "slider", key = "rares.toastSeconds", label = L["Stays for"], min = 5, max = 60, step = 1, format = secs, disabled = raresOff, needs = rares,
-			search = "duration, how long, seconds, time on screen, stays, timeout",
-			help = L["How long the alert stays. Hovering it holds it."] },
-		{ kind = "toggle", key = "rares.treasureAlerts", label = L["Treasures"], disabled = raresOff, needs = rares,
-			search = "treasure, chest, alert",
-			help = L["Also for treasures the client marks on the minimap."] },
-		{ kind = "dropdown", key = "rares.soundKit", label = L["Sound"], choices = rareSounds, needs = rares,
+		Ref("slider", "rares.toastSeconds", { label = L["Stays for"], format = secs, disabled = raresOff, needs = rares }),
+		Ref("toggle", "rares.treasureAlerts", { label = L["Treasures"], disabled = raresOff, needs = rares }),
+		Ref("dropdown", "rares.soundKit", { label = L["Sound"], needs = rares,
 			disabled = function() return raresOff() or not ns.Get("rares.sound") end,
-			search = "sound, audio, chime, ding, alert sound, which sound",
-			help = L["The sound with each alert, through the Master channel; the switch turns it off."],
-			extras = {
-				{ kind = "toggle", key = "rares.sound", label = L["Play a sound"], disabled = raresOff,
-					search = "sound, audio, chime, ding, alert sound", help = L["One sound with each alert."] },
-			} },
-		{ kind = "toggle", key = "rares.combatAlerts", label = L["Alert in combat"], disabled = raresOff, needs = rares,
-			search = "combat, fight, in combat, visibility",
-			help = L["Alert during combat. Off: an alert waits for the fight to end, if the rare was seen in the last minute."] },
+			extras = { Ref("toggle", "rares.sound", { label = L["Play a sound"], disabled = raresOff }) } }),
+		Ref("toggle", "rares.combatAlerts", { label = L["Alert in combat"], disabled = raresOff, needs = rares }),
 	} })
 -- Where it goes: lined up with the banner and While you're here (the line's
 -- details behind the cog; they only matter with it on), and the movers.
@@ -464,26 +458,27 @@ cardSection(RARE, "rare", L["rare alert"], { tail = {
 		onClick = function() UI.Options.MoveFrame("rareAlert") end },
 } })
 
--- Transport alert
+-- Transport alert: the alerts' home (Guide > Arrow & routes shows a
+-- reference to the switch).
 local TRANSPORT = L["Transport alert"]
 local function bannerOff() return not (ns.Get("nav.alerts") and ns.Get("nav.alertBanner")) end
 register({ tab = TRANSPORT, section = L["Transport alert"], preview = function(view) return TS.Preview(view, "transport") end,
-	toggle = { kind = "toggle", key = "nav.alerts", label = L["Transport alerts"],
+	toggle = H({ kind = "toggle", key = "nav.alerts", label = L["Transport alerts"],
 		search = "boat, ship, zeppelin, tram, transport, departure, arrival, warning",
-		help = L["Before your boat, zeppelin or tram comes in: 30 seconds ahead at the dock, 20 before the next stop on board. Never for lifts or in combat."] },
+		help = L["Before your boat, zeppelin or tram comes in: 30 seconds ahead at the dock, 20 before the next stop on board. Never for lifts or in combat."] }),
 	controls = {
-		{ kind = "toggle", key = "nav.alertBanner", label = L["Banner"],
-			search = "banner, card, countdown, popup",
-			help = L["A small card near the top of the screen with a countdown. Click it to dismiss."] },
+		H({ kind = "toggle", key = "nav.alertBanner", label = L["Banner"],
+			search = "banner, card, countdown, popup, show a banner",
+			help = L["A small card near the top of the screen with a countdown. Click it to dismiss."] }),
 		{ kind = "slider", key = "toasts.transport.linger", label = L["Stays after"], min = 0, max = 30, step = 1, format = secs, new = NEW, disabled = bannerOff,
 			help = L["How long the banner stays once the boat, zeppelin or tram is in. Click it to dismiss it sooner."],
 			search = "duration, how long, seconds, time on screen, linger, stays, banner" },
-		{ kind = "toggle", key = "nav.alertSound", label = L["Sound"],
-			search = "sound, audio, bell, horn",
-			help = L["The ship's bell, the zeppelin's horn or the tram, on the Master channel so you hear it with the game in the background."] },
-		{ kind = "toggle", key = "nav.alertFlash", label = L["Flash taskbar"],
-			search = "flash, taskbar, background, alt tab",
-			help = L["The game's icon flashes while the game is in the background."] },
+		H({ kind = "toggle", key = "nav.alertSound", label = L["Sound"],
+			search = "sound, audio, bell, horn, play the transport's sound",
+			help = L["The ship's bell, the zeppelin's horn or the tram, on the Master channel so you hear it with the game in the background."] }),
+		H({ kind = "toggle", key = "nav.alertFlash", label = L["Flash taskbar"],
+			search = "flash, taskbar, background, alt tab, flash the taskbar icon",
+			help = L["The game's icon flashes while the game is in the background."] }),
 	} })
 cardSection(TRANSPORT, "transport", L["transport banner"], { move = "transportAlert" })
 
@@ -495,9 +490,8 @@ cardSection(HEADS, "headsup", L["heads-up card"], { scaleNote = " " .. L["It sit
 		format = function(v) return v < 1 and L["Never"] or secs(v) end,
 		help = L["The card for a class quest or a dungeon that opened up stays on the guide window until you answer it; set a time and it goes by itself, as Later does."],
 		search = "duration, how long, seconds, dismiss, timeout, class quest, dungeon, heads up" },
-	{ kind = "toggle", key = "dungeons.headsUp", label = L["Dungeons"],
-		help = L["A card on the guide window when a dungeon's quests open to you."],
-		search = "dungeon, heads up, notification, card", disabled = function() return not ns.Get("dungeons.enabled") end },
+	-- Its home is Discovery > Lookup, with the dungeon journal's switch.
+	Ref("toggle", "dungeons.headsUp", { label = L["Dungeons"], disabled = function() return not ns.Get("dungeons.enabled") end }),
 	{ kind = "dropdown", key = "toasts.headsup.place", label = L["Place"], new = NEW,
 		help = L["Where the card goes: on the guide window's top edge (under the window when the screen has no room above), under its bottom edge (over it when there is no room below), or on a spot of its own that you move with Move frames."],
 		search = "position, place, where, above, below, under, over the tracker, detach, detached, own spot, move, heads up, card, class quest, dungeon, suggestion",
@@ -625,7 +619,7 @@ if O and O.PresetCards and O.Ref then
 		controls = { O.PresetCards({ presets = PRESETS }) } })
 	register({ tab = ESSENTIALS, section = L["Alerts"], jump = { tab = RARE, section = L["Rare alert"] }, controls = {
 		R("toggle", "rares.alerts", { label = L["Rares"] }), R("toggle", "nav.alerts", { label = L["Transport"] }),
-		R("toggle", "dungeons.headsUp"),
+		R("toggle", "dungeons.headsUp", { label = L["Dungeons"] }),
 		R("toggle", "toasts.stack"), R("dropdown", "toasts.growth"),
 	} })
 	register({ tab = ESSENTIALS, section = L["Sound"], jump = { tab = RARE, section = L["Rare alert"] }, controls = {

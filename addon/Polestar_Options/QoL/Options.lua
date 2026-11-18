@@ -11,6 +11,8 @@ local QoL = ns.QoL
 if not (QoL and ns.RegisterOptions) then return end
 
 local QUESTING, QOL = L["Questing"], L["Quality of Life"]
+-- A reference to the setting's home row (UI.Options.Ref).
+local Ref = ns.Widgets.Ref
 
 -- toggle: the section's on/off, in its header.
 local function register(page, tab, section, controls, toggle)
@@ -41,10 +43,11 @@ local function markChoices()
 	return list
 end
 
--- Controls shown on two pages: on their home page and on Quality of Life,
--- where players look for conveniences (Fitz, 2026-11-05). One setting, two
--- places: both read and write the same key. Each call makes fresh tables, as
--- the registry keeps per-control state (rows, caches).
+-- Controls shown on two pages: their home row on Questing (Instant quest
+-- text, Hide combat errors and Hide the game's quest tracker on Quality of
+-- Life > Game: game options), and a reference on Quality of Life, where
+-- players look for conveniences (Fitz, 2026-11-05). Each call makes fresh
+-- tables, as the registry keeps per-control state (rows, caches).
 local C = {}
 function C.autoAccept()
 	return { kind = "toggle", key = "behavior.autoAccept", label = L["Accept guide quests"], help = L["Only quests in the next steps of your open guides. Hold Shift to skip."],
@@ -90,7 +93,7 @@ end
 function C.itemButton()
 	return { kind = "toggle", key = "qol.itemButton", label = L["Quest item button"],
 		help = L["A button for the current step's quest item, with count, cooldown and range. Bind it under Key Bindings > AddOns."],
-		search = "use item, quest item, keybind, hotkey, item bar" }
+		search = "use item, quest item, keybind, hotkey, item bar, quest item button, show, hide" }
 end
 -- 0.3.7's quest-starting loot on the item button (QoL/QuestLoot.lua) and the
 -- tracker kept to an instance's quests inside it: shown once their settings
@@ -133,8 +136,6 @@ local function hearthPair(list)
 	list[#list + 1] = C.castPrompt()
 	return list
 end
--- The Buttons page's rows of the pair (QoL/ButtonsOptions.lua, loaded after).
-QoL.HearthOptions = { hearth = C.hearthButton, travel = C.castPrompt, hearthHelp = HEARTH_HELP }
 
 -- Questing > Buttons: the action buttons (the quest item button and its
 -- quest-starting loot on one line, the Hearthstone's two side by side on
@@ -146,7 +147,7 @@ actionRows[#actionRows + 1] = { kind = "toggle", key = "qol.bagGlow", label = L[
 	search = "bags, glow, quest item, inventory" }
 for _, c in ipairs({
 	{ kind = "toggle", key = "qol.rareButton", label = L["Rare button"],
-		help = L["Shows a button that targets a rare Polestar spotted nearby, until it dies or is out of sight. Bindable."], search = "rare elite, target rare, keybind" },
+		help = L["Shows a button that targets a rare Polestar spotted nearby, until it dies or is out of sight. Bindable."], search = "rare elite, target rare, keybind, hotkey, rare button, show, hide" },
 	C.stepInteract(),
 	-- How they look (size, layout, text, opacity...) is the Buttons page's (QoL/ButtonsOptions.lua).
 	{ kind = "button", icon = "palette", button = L["Open"], label = L["Button look"], new = "0.3.8",
@@ -160,12 +161,12 @@ register(QUESTING, L["Buttons"], L["Action buttons"], actionRows)
 
 register(QUESTING, L["Buttons"], L["Targeting"], {
 	{ kind = "toggle", key = "qol.targetButton", label = L["Target button"],
-		help = L["Lists the current step's mobs, or the NPCs it sends you to when it has no mob, with their portraits and what they drop; click a name to target that one. Its key binding targets the first one close by."], search = "target macro, target list, find mob, keybind, hotkey" },
+		help = L["Lists the current step's mobs, or the NPCs it sends you to when it has no mob, with their portraits and what they drop; click a name to target that one. Its key binding targets the first one close by."], search = "target macro, target list, find mob, keybind, hotkey, target button, show, hide" },
 	{ kind = "toggle", key = "qol.targetSimple", label = L["Simple target button"], disabled = targetOff, child = true,
 		help = L["Targets the current step's mobs by name, or the NPCs it sends you to when it has no mob; each click moves to the next name. Bindable."], search = "target list, cycle, next name" },
 	{ kind = "toggle", key = "qol.targetPlate", label = L["Show who it targets"], disabled = function() return targetOff() or not QoL.On("targetSimple") end, child = true,
 		help = L["The target button's icon shows what you do next: talk, accept, turn in, kill or loot, a skull for an elite, rare or boss, or their face once you have seen them. Their name sits beside it, green for a friendly NPC, red for a mob, gold for an elite or rare, with small icons for the names after it."],
-		search = "target icon, target name, portrait, npc name, elite, boss" },
+		search = "target icon, target name, portrait, npc name, elite, boss, plate, who it targets" },
 	{ kind = "slider", key = "qol.targetRows", label = L["Names in the target list"], min = 1, max = 8, step = 1,
 		format = function(v) return tostring(math.floor(v + 0.5)) end,
 		disabled = function() return targetOff() or QoL.On("targetSimple") end, child = true,
@@ -221,18 +222,19 @@ register(QUESTING, L["Quests"], L["Faster questing"], {
 	-- Accepting and turning in the guide's quests (behavior.*, Core/Engine.lua): here with the other questing helpers.
 	C.autoAccept(),
 	C.autoTurnin(),
-	C.instantQuestText(),
+	-- Its home is Quality of Life > Game, with the game's other options.
+	Ref("toggle", "qol.instantQuestText"),
 	C.skipGossip(),
 	{ kind = "toggle", key = "qol.stepGossip", label = L["Pick what the step asks for"],
 		help = L["At the step's NPC, picks the chat option the guide names, or opens the goods or training the step needs. Only on the step the guide is at. Hold Shift to choose yourself."],
 		search = "gossip, dialog, chat option, auto talk" },
 	C.fastLoot(),
-	C.hideErrors(),
+	Ref("toggle", "qol.hideErrors"),
 })
 
 -- The game's tracker and quest log, before the quest database's rows (Quests/Options.lua).
 register(QUESTING, L["Quests"], L["Quest log and tooltips"], {
-	C.hideQuestTracker(),
+	Ref("toggle", "qol.hideQuestTracker"),
 	{ kind = "button", button = L["Show"], label = L["Clean up quest log"],
 		help = L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."],
 		onClick = function() ns.Fire("SHOW_QUEST_ROOM") end },
@@ -243,9 +245,13 @@ register(QUESTING, L["Quests"], L["Quest log and tooltips"], {
 	C.instanceTrack(),
 })
 
-register(QOL, L["Quests"], L["Faster questing"], { C.autoAccept(), C.autoTurnin(), C.instantQuestText(), C.skipGossip(), C.fastLoot(), C.hideErrors() })
+-- References to the questing helpers' rows on Questing (the game's options are on Game).
+register(QOL, L["Quests"], L["Faster questing"], {
+	Ref("toggle", "behavior.autoAccept"), Ref("toggle", "behavior.autoTurnin"), Ref("toggle", "qol.skipGossip"), Ref("toggle", "qol.fastLoot"),
+})
 register(QOL, L["Quests"], L["Rewards, buttons and tracker"], {
-	C.rewardAutoPick(), C.rewardEquip(), C.itemButton(), C.questLoot(), C.stepInteract(), C.hideQuestTracker(), C.instanceTrack(),
+	Ref("toggle", "qol.rewardAutoPick"), Ref("toggle", "qol.rewardEquip"), Ref("toggle", "qol.itemButton"),
+	Ref("toggle", "qol.questLoot", { child = true }), Ref("toggle", "qol.stepInteract"), Ref("toggle", "qol.instanceTrack"),
 })
 
 -- Flight masters, after the flight timer (Maps/Options.lua).
@@ -259,13 +265,14 @@ register(QOL, L["Travel"], L["Flights"], {
 		help = L["When the flight map opens, flies to the marked destination. Hold Shift at the flight master to choose yourself."], search = "flight, taxi, flight path, auto fly, take flight" },
 })
 
--- The Hearthstone's two buttons side by side, after the transport alerts and
--- the nearby services (Nav/Options.lua).
-register(QOL, L["Travel"], L["Hearth and travel"], hearthPair({
+-- The Hearthstone's two buttons side by side, after the nearby services
+-- (Nav/Options.lua): references to their rows on Questing > Buttons.
+register(QOL, L["Travel"], L["Hearth and travel"], {
 	{ kind = "toggle", key = "qol.autoBind", label = L["Set your home at the guide's inn"],
 		help = L["When the step sets your home and you talk to its innkeeper, binds your Hearthstone there. Never at another inn. Hold Shift to skip."],
 		search = "hearth, hearthstone, bind, inn, innkeeper, home" },
-}))
+	Ref("toggle", "qol.hearthButton"), Ref("toggle", "nav.castPrompt"),
+})
 
 register(QOL, L["Travel"], L["Death"], {
 	{ kind = "toggle", key = "qol.deathHelper", label = L["Corpse or Spirit Healer"],
@@ -374,7 +381,7 @@ register(QOL, L["Trackers & map"], L["Experience"], {
 		help = L["XP per hour, time, kills and quests to level, and level splits (/pole xp)."], search = "experience, xp per hour, exp, leveling speed, time to level" },
 	{ kind = "toggle", key = "qol.xpTargetMark", label = L["Guide level on the XP bar"],
 		help = L["A mark at the end of the game's XP bar with the level the guide wants you to reach before it moves on, and how many levels away that is when it is more than one."],
-		search = "experience bar, exp bar, target level" },
+		search = "experience bar, exp bar, target level, guide level" },
 	{ kind = "toggle", key = "qol.questXPOverlay", label = L["Completed quest XP"],
 		help = L["Shows XP from completed quests you can turn in on the game's XP bar and in its tooltip."], search = "quest xp, experience bar, turn in" },
 	{ kind = "toggle", key = "qol.boostedRest", label = L["Boosted Rest status"],
@@ -391,8 +398,9 @@ register(QOL, L["Trackers & map"], L["Experience"], {
 -- at login, on a profile load, a reset or an import (set(nil), which a reset
 -- and a right-click send, does nothing). In combat the write waits for the
 -- fight to end. A client without the CVar has no row. Its section holds the
--- other rows that set the game's own client too (second homes: Instant quest
--- text, Forever's CVar; Hide combat errors; Hide the game's quest tracker).
+-- other rows that set the game's own client too, whose home it is (Instant
+-- quest text, Forever's CVar; Hide combat errors; Hide the game's quest
+-- tracker).
 local SHARPEN = "ResampleAlwaysSharpen"
 local function readCVar(name)
 	if C_CVar and C_CVar.GetCVar then return C_CVar.GetCVar(name) end

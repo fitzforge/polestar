@@ -476,9 +476,8 @@ fn built_in_controls_write_settings_and_follow_changes_made_elsewhere() {
 		local maxHeight = ctl("ui.maxHeight")
 		O.Select("guide", "Automation")
 		O.Controls("guide", "Automation")["behavior.skipGrey"]:Click()
-		O.Select("guide", "Arrow & routes")
-		local nav = O.Controls("guide", "Arrow & routes")
-		Polestar.Set("nav.tomtom", false)
+		-- The TomTom rows are Nav's own (Integrations > TomTom, not loaded here): their switch and its child are
+		-- checked with the rest (settings-roundtrip.rs).
 		stub.RunScript(maxHeight.Slider, "OnValueChanged", 0.79, true)
 		-- The accent lives on the Theme page now (UI/Looks/Theme.lua); its colour row is the window's.
 		local accent = ctl("ui.accent")
@@ -489,8 +488,7 @@ fn built_in_controls_write_settings_and_follow_changes_made_elsewhere() {
 		local picked = Polestar.Get("ui.accent")
 		info.cancelFunc()
 		emit({ compact = compact, followed = followed, notesOpen = notesOpen, height = Polestar.Get("ui.maxHeight"),
-			picked = picked, cancelled = Polestar.Get("ui.accent"), skipGrey = Polestar.Get("behavior.skipGrey"),
-			tomtomArrow = nav["nav.useTomTomArrow"]:IsEnabled() })"#);
+			picked = picked, cancelled = Polestar.Get("ui.accent"), skipGrey = Polestar.Get("behavior.skipGrey") })"#);
 	assert_eq!(out["compact"], true);
 	assert_eq!(out["followed"], false);
 	assert_eq!(out["notesOpen"], false, "Expand step tips greys out with the tips off");
@@ -498,7 +496,6 @@ fn built_in_controls_write_settings_and_follow_changes_made_elsewhere() {
 	assert_eq!(out["picked"], json!([0.9, 0.3, 0.1]));
 	assert_eq!(out["cancelled"], false, "cancel restores the previous value: no custom accent");
 	assert_eq!(out["skipGrey"], true);
-	assert_eq!(out["tomtomArrow"], false);
 }
 
 #[test]
@@ -545,7 +542,8 @@ fn search_finds_settings_by_label_and_help_across_pages_registered_ones_included
 		local help = { n = n, label = groups[1] and groups[1].controls[1].label }
 		local _, none = O.Search("zzzz")
 		local found = {}
-		for _, q in ipairs({ "compact", "tomtom", "trainer", "minimap button" }) do found[q] = select(2, O.Search(q)) end
+		-- TomTom's rows are Nav's own (Integrations > TomTom, not loaded here); the game's waypoint stays on Guide.
+		for _, q in ipairs({ "compact", "blizzard waypoint", "trainer", "minimap button" }) do found[q] = select(2, O.Search(q)) end
 		box:SetText("")
 		stub.RunScript(box, "OnTextChanged", true)
 		emit({ arrow = arrow, help = help, none = none, found = found, back = PolestarOptions.Title:GetText() })"#,
@@ -2828,7 +2826,7 @@ fn a_preview_hotspot_opens_its_setting_s_row_and_the_one_time_hint_goes_on_the_f
 }
 
 // Every page and tab, Guiding and Setup as the Look pages, at defaults, keeps the window's layout rules: no shown
-// section with fewer than two rows, no half with two switches or two swatches inline, no tab whose every row is off,
+// section with fewer than two rows (but those the journey order keeps to one, ONE_ROW), no half with two switches or two swatches inline, no tab whose every row is off,
 // no slider value (at its default, least and most) wider than its box. Integrations is a section
 // per addon Polestar works with, shown while that addon is installed: one row is that addon's. Custom pages
 // (Profiles, Community guides, Guiding Stars, Recorder, About) lay out their own parts.
@@ -2843,6 +2841,11 @@ fn every_page_keeps_the_layout_rules_at_defaults() {
 		stub.login()
 		local UI, O = Polestar.UI, Polestar.UI.Options
 		UI.ShowOptions("guide")
+		-- Sections kept to one row (or a switch-only card) on purpose: one home per setting and the pages ordered by
+		-- the player's journey give these settings a section of their own where the player looks for them.
+		local ONE_ROW = { ["Level pace"] = true, ["Step errands"] = true, ["Along the route"] = true, ["Other waypoints"] = true,
+			["Step spacing"] = true, ["Up next"] = true, ["All alerts"] = true, ["Experience"] = true, ["XP tracker"] = true,
+			["Dungeon Journal"] = true, ["Characters"] = true }
 		local bad, seen = {}, 0
 		for _, p in ipairs(O.Pages()) do
 			do
@@ -2886,7 +2889,7 @@ fn every_page_keeps_the_layout_rules_at_defaults() {
 						local s = card:IsShown() and card.psSection
 						local lines = 0
 						for _ in pairs(s and per[s] or {}) do lines = lines + 1 end
-						if s and lines < 2 and not cardsOnly[s] and p.key ~= "integrations" then bad[#bad + 1] = where .. ": section \"" .. tostring(s.name) .. "\" has " .. lines .. " row" end
+						if s and lines < 2 and not cardsOnly[s] and p.key ~= "integrations" and not ONE_ROW[s.name] then bad[#bad + 1] = where .. ": section \"" .. tostring(s.name) .. "\" has " .. lines .. " row" end
 					end
 					if rows > 0 and on == 0 then bad[#bad + 1] = where .. ": every row is off at defaults" end
 				end

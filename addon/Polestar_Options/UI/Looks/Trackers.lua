@@ -14,6 +14,10 @@ local floor, max, min, format, type, ipairs, pairs, tonumber = math.floor, math.
 
 local TR = UI.Trackers
 local NEW = "0.3.8"
+-- The trackers' switches have their home on the pages of what they track
+-- (Quality of Life, Questing, Guide); these pages show references to them
+-- (UI.Options.Ref), each in its section's header or on its row.
+local Ref = W.Ref
 local FADED = TR.FADED
 local num = TR.Num
 
@@ -498,8 +502,7 @@ local TRAVEL = L["Travel"]
 panelPage(TRAVEL, "flight", L["flight timer"], {
 	section = L["Flight timer"], preview = function(view) return TR.Preview(view, "flight") end, move = "flightTimer",
 	subtitle = L["The flight timer, the journey, the instance tracker, the guide's mark on the XP bar and the party panel: their size, look and when they show."],
-	toggle = { kind = "toggle", key = "maps.flightTimer", label = L["Flight timer"], search = "flight, taxi, timer, time left", needs = function() return ns.Maps end,
-		help = L["While flying, shows the destination and the time left. Learns each route's real duration for this character; drag to move."] },
+	toggle = Ref("toggle", "maps.flightTimer", { label = L["Flight timer"], needs = function() return ns.Maps end }),
 }, { bar = true, noRules = true, titleLabel = L["Time size"], titleHelp = L["The size of the time against Polestar's text size."],
 	format = { kind = "dropdown", key = "trackers.flight.format", label = L["Time shows"], new = NEW,
 		help = string.format(L["The time left (with %s while it is an estimate), how far along the flight is, or both."], Theme.Approx()),
@@ -509,9 +512,7 @@ panelPage(TRAVEL, "flight", L["flight timer"], {
 local function journeyOff() return not ns.Get("nav.journeySteps") end
 register({ tab = TRAVEL, section = L["Journey"],
 	controls = {
-		{ kind = "toggle", key = "nav.journeySteps", label = L["Journey"], needs = function() return ns.Nav end,
-			search = "journey, route steps, travel, legs, flights, boats",
-			help = L["The route's steps in the guide window with a time for each, counting down: walks, lifts, boats and flights. Click the current step to skip it."] },
+		Ref("toggle", "nav.journeySteps", { label = L["Journey"], needs = function() return ns.Nav end }),
 		{ kind = "slider", key = "trackers.journey.rows", label = L["Steps listed"], min = 2, max = 12, step = 1, format = "%d", new = NEW,
 			help = L["How many of the route's steps the journey lists; the rest are counted on one line."],
 			search = "rows, lines, max lines, how many, steps, legs, journey, longer, shorter", disabled = journeyOff },
@@ -524,22 +525,16 @@ register({ tab = TRAVEL, section = L["Journey"],
 local INST = L["Instances & XP"]
 panelPage(INST, "instances", L["instance tracker"], {
 	section = L["Instance tracker"], preview = function(view) return TR.Preview(view, "instances") end, move = "instances",
-	toggle = { kind = "toggle", key = "maps.instances", label = L["Track instances"], search = "dungeon, instance lockout, instance cap, reset, runs",
-		needs = function() return ns.Maps end,
-		help = L["Records dungeon and raid entries, time and experience per run. /pole instances lists them."] },
+	toggle = Ref("toggle", "maps.instances", { label = L["Track instances"], needs = function() return ns.Maps end }),
 	controls = {
-		{ kind = "toggle", key = "maps.instanceDisplay", label = L["Display"], needs = function() return ns.Maps end,
-			search = "compact display, tracker, panel, show",
-			help = L["Shows the hourly instance count and the current run while it matters; drag to move."] },
+		Ref("toggle", "maps.instanceDisplay", { label = L["Display"], needs = function() return ns.Maps end }),
 	},
 }, { titleLabel = L["Count size"], titleHelp = L["The size of the instance count against Polestar's text size."] })
 local function labelOff() return TR.Get("xp", "label") == false end
 local function markOff() return not ns.Get("qol.xpTargetMark") end
 register({ tab = INST, section = L["Level mark"],
 	controls = {
-		{ kind = "toggle", key = "qol.xpTargetMark", label = L["Guide level"], needs = function() return ns.QoL end,
-			search = "experience bar, exp bar, target level, guide level on the xp bar",
-			help = L["A mark at the end of the game's XP bar with the level the guide wants you to reach before it moves on, and how many levels away that is when it is more than one."] },
+		Ref("toggle", "qol.xpTargetMark", { label = L["Guide level"], needs = function() return ns.QoL end }),
 		{ kind = "slider", key = "trackers.xp.tickWidth", disabled = markOff, label = L["Mark width"], min = 1, max = 6, step = 1, format = px, new = NEW,
 			help = L["How wide the mark on the bar is, and its colour with its label's (the swatch; the accent when reset)."],
 			search = "tick, mark, width, thicker, thin, colour, xp bar, experience",
@@ -567,9 +562,7 @@ register({ tab = INST, section = L["Level mark"],
 local PARTY = L["Party panel"]
 panelPage(PARTY, "party", L["party panel"], {
 	section = L["Party panel"], preview = function(view) return TR.Preview(view, "party") end, move = "party",
-	toggle = { kind = "toggle", key = "party.panel", label = L["Party panel"], search = "party, group, members, steps, sync",
-		needs = function() return ns.Party end,
-		help = L["A small panel with your party members who run Polestar: their level, step and what they still need. Opens by itself in a party."] },
+	toggle = Ref("toggle", "party.panel", { label = L["Party panel"], needs = function() return ns.Party end }),
 }, { minW = 200, maxW = 460, guideRule = true, titleLabel = L["Name size"],
 	titleHelp = L["The size of the members' names and the panel's title against Polestar's text size."] })
 
@@ -631,7 +624,7 @@ if O and O.PresetCards and O.Ref then
 		R("slider", "trackers.instances.scale", { label = L["Instance tracker"], disabled = off("maps.instances"), extras = { R("toggle", "maps.instances") } }),
 		R("slider", "trackers.party.scale", { label = L["Party panel"], disabled = off("party.panel"), extras = { R("toggle", "party.panel") } }),
 		R("dropdown", "trackers.flight.format"),
-		R("slider", "trackers.journey.rows", { label = L["Journey"], disabled = off("nav.journeySteps"), extras = { R("toggle", "nav.journeySteps") } }),
-		R("toggle", "qol.xpTargetMark"),
+		R("slider", "trackers.journey.rows", { label = L["Journey"], disabled = off("nav.journeySteps"), extras = { R("toggle", "nav.journeySteps", { label = L["Journey"] }) } }),
+		R("toggle", "qol.xpTargetMark", { label = L["Guide level"] }),
 	} })
 end

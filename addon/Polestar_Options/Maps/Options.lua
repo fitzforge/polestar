@@ -3,8 +3,8 @@
 -- UI/Options.lua), NPC services (Maps/Services.lua), and the flight timer and
 -- the instance tracker on the Quality of Life page (Travel and Trackers).
 -- Part of the settings' addon: none of it is in memory before the settings
--- open. One setting may show on two pages: a fresh control per page (the
--- registry keeps per-control state).
+-- open. One setting has one home row; another page shows a reference to it
+-- (UI.Options.Ref).
 
 local ns = Polestar
 local Maps = ns.Maps
@@ -17,6 +17,7 @@ local function off(key)
 end
 
 local MAP = L["Map"]
+local Ref = ns.Widgets.Ref
 
 local function register(spec)
 	local ok, err = ns.RegisterOptions(spec)
@@ -32,20 +33,6 @@ if ns.Arcade then
 			search = "doom, freedoom, arcade, game, flight, taxi, petllama",
 			needs = function() return ns.Arcade.Available() end },
 	} })
-end
-
--- Coordinates and the minimap button, also on Quality of Life > Trackers & map.
-local function coords()
-	return { kind = "toggle", key = "maps.coords", label = L["Coordinates"], search = "coords, position, location, xy, cursor",
-		help = L["Shows your position and the cursor's position under the world map."] }
-end
-local function minimapCoords()
-	return { kind = "toggle", key = "maps.minimapCoords", label = L["Coordinates on the minimap"], search = "coords, position, location, xy",
-		help = L["A small readout of your position at the bottom of the minimap."] }
-end
-local function minimapButton()
-	return { kind = "toggle", key = "maps.minimapButton", label = L["Minimap button"], search = "minimap icon, minimap button, hide button, launcher",
-		help = L["A Polestar button on the edge of the minimap. Click to hide or show Polestar, right-click for a menu, drag to move it."] }
 end
 
 -- The map's second tab: rares (Rares/Options.lua), travel, NPC services and zones.
@@ -75,13 +62,17 @@ register({
 			choices = { { value = "off", label = L["Hidden"] }, { value = "on", label = L["Revealed"] }, { value = "tint", label = L["Revealed and tinted"] } } },
 		{ kind = "toggle", key = "maps.zoneLevels", label = L["Zone level ranges"], search = "zone levels, level range, where to level",
 			help = L["Shows each zone's level range on the continent and zone maps, coloured by difficulty for your level."] },
-		coords(),
-		minimapCoords(),
+		{ kind = "toggle", key = "maps.coords", label = L["Coordinates"], search = "coords, position, location, xy, cursor",
+			help = L["Shows your position and the cursor's position under the world map."] },
+		{ kind = "toggle", key = "maps.minimapCoords", label = L["Coordinates on the minimap"], search = "coords, position, location, xy",
+			help = L["A small readout of your position at the bottom of the minimap."] },
 	},
 })
 
-register({ page = MAP, tab = L["Guide & quests"], section = L["Guide"], controls = { minimapButton() } })
-register({ page = L["Quality of Life"], tab = L["Trackers & map"], section = L["Minimap and coordinates"], controls = { minimapButton(), coords(), minimapCoords() } })
+-- The coordinates' references on Quality of Life > Trackers & map. The
+-- minimap button's home is Guide > While you play > Show and hide.
+register({ page = L["Quality of Life"], tab = L["Trackers & map"], section = L["Minimap and coordinates"],
+	controls = { Ref("toggle", "maps.coords"), Ref("toggle", "maps.minimapCoords") } })
 
 -- The flight timer and the instance tracker join Quality of Life's Travel
 -- and Trackers & map tabs; their sections are declared there, in order.
@@ -105,7 +96,7 @@ register({
 	toggle = { kind = "toggle", key = "maps.instances", label = L["Track instances"], search = "dungeon, instance lockout, instance cap, reset, runs",
 		help = L["Records dungeon and raid entries, time and experience per run. /pole instances lists them."] },
 	controls = {
-		{ kind = "toggle", key = "maps.instanceDisplay", label = L["Compact display"],
+		{ kind = "toggle", key = "maps.instanceDisplay", label = L["Compact display"], search = "compact display, tracker, panel, show",
 			help = L["Shows the hourly instance count and the current run while it matters; drag to move."],
 			disabled = off("maps.instances") },
 		{ kind = "slider", key = "maps.perHour", label = L["Instances per hour"], min = 1, max = 10, step = 1, format = "%d",

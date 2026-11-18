@@ -67,8 +67,11 @@ fn options_every_qol_setting_is_registered_on_questing_or_quality_of_life_with_l
 				-- A feature's switch in its section's header counts with the rows.
 				local list = { spec.toggle }
 				for _, c in ipairs(spec.controls) do list[#list + 1] = c end
+				-- A reference (W.Ref) stands for its home row elsewhere, which has the label and help.
 				for _, c in ipairs(list) do
-					out[#out + 1] = { key = c.key, kind = c.kind, label = c.label, help = c.help, page = spec.page, tab = spec.tab, section = spec.section }
+					if not c.ref then
+						out[#out + 1] = { key = c.key, kind = c.kind, label = c.label, help = c.help, page = spec.page, tab = spec.tab, section = spec.section }
+					end
 				end
 			end
 		end
