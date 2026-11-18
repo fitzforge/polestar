@@ -5714,8 +5714,8 @@ sample()
 // The completed quest XP on the XP bar (QoL/QuestXP.lua) on a kill: the XP and a QUEST_LOG_UPDATE or two that
 // leave every quest as it was. It reads no quest log entries and asks no reward XP again, and sets no strata or
 // level on its frames: only the fill moves with the XP (#2663; 0.4.1's hitch on kills). A quest turning ready or
-// handed in still moves the total. Before: 5 kills read 10 log entries, asked 5 rewards and set strata and level
-// 20 times, and a log update with no XP drew the fill again.
+// handed in still moves the total. Before (v0.4.1): 5 kills of 2 log updates each read 20 log entries, asked 10
+// rewards, set strata and level 40 times and drew the fill 10 times; a log update with no XP drew it again.
 #[test]
 fn quest_xp_a_kill_reads_no_quest_log_entries_asks_no_reward_and_sets_no_frame_level() {
 	let out = run(r#"
