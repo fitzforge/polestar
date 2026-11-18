@@ -994,6 +994,9 @@ local function guideRow(i)
 	return r
 end
 
+local TITLE_MIN = 120 -- a row's title keeps this much before its note gives up more
+local NOTE_MIN = 24 -- a note with less room than this is left out
+
 -- note: the right-hand text ("Tab 2", "Tab 2 · 25%"), or nil; title: the
 -- title to show (P.Titles), else the guide's own. home: Home's row, { rule
 -- = a hairline over it, frac = an open tab's progress, index = that tab }.
@@ -1056,11 +1059,19 @@ local function paintRow(r, g, note, width, title, home)
 	-- truncation: measure from an unbounded width.
 	r.Note:SetWidth(0)
 	r.Note:SetText(note or "")
-	-- The note never takes more than 45% of the row: a long pack title is cut.
-	local noteW = note and min(floor(r.Note:GetStringWidth() + 1), floor(width * 0.45)) or 0
-	r.Note:SetWidth(noteW)
-	local room = width - TEXT_X * 2 - iconW - barW - (note and (noteW + 12) or 0) - (lv and (r.Range:GetStringWidth() + 5) or 0) - groupW - expW
+	-- The note never takes more than 45% of the row, and gives way first: the
+	-- title keeps TITLE_MIN (or its whole width, if shorter) beside the range
+	-- and chip, and the note gets what is left, cut with "..."; with next to
+	-- nothing left it is dropped, so nothing draws over the chip.
 	local full = floor(r.Title:GetStringWidth() + 1)
+	local left = width - TEXT_X * 2 - iconW - barW - (lv and (r.Range:GetStringWidth() + 5) or 0) - groupW - expW
+	local noteW = note and min(floor(r.Note:GetStringWidth() + 1), floor(width * 0.45), left - min(full, TITLE_MIN) - 12) or 0
+	if noteW < NOTE_MIN then
+		noteW = 0
+		r.Note:SetText("")
+	end
+	r.Note:SetWidth(noteW)
+	local room = left - (noteW > 0 and (noteW + 12) or 0)
 	r.Title:SetWidth(max(40, min(room, full)))
 	-- A name cut short reads whole in the tooltip, over how to load it.
 	if full > max(40, room) then

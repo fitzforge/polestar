@@ -175,6 +175,33 @@ test('suggestions say why they are listed: the level they fit, or the open tab t
 	assert.equal(out.labels.at(-1).text, 'Suggested for you');
 });
 
+// 900: no room for a note beside the chip, so it is left out; 1000: room for a cut one.
+for (const [narrow, kept] of [[900, false], [1000, true]]) test(`a suggestion with a Group chip and a long note: nothing overlaps, the note gives way first (pickerW ${narrow})`, () => {
+	const [out] = run(`
+		uistub.guides[${JSON.stringify(LONG)}].next = uistub.elwynn
+		uistub.guides[uistub.elwynn].group = true
+		uistub.suggestions = {}
+		uistub.openTabs({ { ${JSON.stringify(LONG)}, 1 } }, 1)
+		-- A narrow list pane, as the menu scaled up leaves it.
+		local metric = Polestar.Theme.Metric
+		Polestar.Theme.Metric = function(k, d) if k == "pickerW" then return ${narrow} end return metric(k, d) end
+		open()
+		local row
+		for _, f in ipairs({ F.Body:GetChildren() }) do
+			if f:IsShown() and rawget(f, "psGuide") and f.psGuide.id == uistub.elwynn and rawget(f, "Note") and not rawget(f, "Front") then row = f end
+		end
+		local textX = 20
+		local chipRight = textX + 24 + row.Title:GetWidth() + 5 + row.Range:GetStringWidth() + 6 + row.Group:GetWidth()
+		emit({ chip = row.Group:IsShown(), chipRight = chipRight, noteLeft = row:GetWidth() - textX - row.Note:GetWidth(),
+			noteW = row.Note:GetWidth(), titleW = row.Title:GetWidth(), full = row.Title:GetUnboundedStringWidth(),
+			note = row.Note:GetText() })`, LONG_GUIDE);
+	assert.ok(out.chip, 'the chip is drawn');
+	assert.equal(out.note.startsWith('After The Long Road'), kept, out.note);
+	assert.ok(out.chipRight <= out.noteLeft, `chip ends at ${out.chipRight}, note starts at ${out.noteLeft}`);
+	assert.ok(out.titleW >= Math.min(out.full, 120), 'the title keeps a readable width');
+	assert.ok(kept ? out.noteW >= 24 : out.noteW === 0, 'the note is cut, or left out when it has no room');
+});
+
 test('on Home the details show the top suggestion; Browse keeps the last guide selected', () => {
 	const [out] = run(`
 		uistub.suggestions = { uistub.elwynn, ${JSON.stringify(EXPLORE)} }
