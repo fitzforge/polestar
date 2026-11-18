@@ -16,6 +16,14 @@ return {
 	settle = 0.3,
 	probes = {
 		["ui.shown"] = function() return F:IsShown() and true or false end,
+		-- A line about what Polestar did by itself (ns.Notice): in chat, or silent; a command's reply (ns.Print) always shows.
+		["ui.chatMessages"] = function()
+			local before = #stub.messages
+			Polestar.Notice("Sold 3 grey items.")
+			local notice = #stub.messages - before
+			Polestar.Print("Reply to a command.")
+			return { notice, #stub.messages - before - notice }
+		end,
 		-- The step's goals: the one person's, or the whole step's.
 		["ui.wholeStep"] = rows,
 		-- The step's tip: one line, or all of it.
