@@ -2099,14 +2099,31 @@ local OFF_NOTE_H, OFF_NOTE_PAD, OFF_ALPHA = 32, 8, 0.5
 
 -- A folded Legend card's line: "<Module> is off. Turn it on to change its
 -- settings." Made once per card.
-local function offNoteOf(card)
-	local note = rawget(card, "OffNote")
+local Note = {}
+function Note.of(card, field)
+	local note = rawget(card, field)
 	if not note then
 		note = W.Text(card, "note", "textMuted")
 		note:SetWordWrap(true)
-		card.OffNote = note
+		card[field] = note
 	end
 	return note
+end
+
+-- A card's one muted line in its body (the folded card's, or the help of a
+-- section that is only its header switch): placed under the header, wrapped
+-- to the card. -> the room it takes.
+function Note.place(card, note, text, width, gutter)
+	note:SetText(text)
+	note:ClearAllPoints()
+	note:SetWidth(max(1, width - gutter - 32))
+	-- A wrapped line (a longer translation) takes the room it needs.
+	local textH = math.ceil(note:GetStringHeight() or 0)
+	local room = max(OFF_NOTE_H, textH + 2 * OFF_NOTE_PAD)
+	note:SetPoint("TOPLEFT", card, "TOPLEFT", gutter + 16, -(card.RowsTop + (room - textH) / 2))
+	note:SetHeight(max(1, textH))
+	note:Show()
+	return room
 end
 
 local function layoutSections(view, groups, y, opts)
@@ -2181,18 +2198,18 @@ local function layoutSections(view, groups, y, opts)
 					if reveal == true or reveal[c] then controls[#controls + 1] = c end
 				end
 			end
-			local note = offNoteOf(card)
-			note:SetText(string.format(L["%s is off. Turn it on to change its settings."], labelOf(t) or ""))
-			note:ClearAllPoints()
-			note:SetWidth(max(1, width - (opts.gutter or 0) - 32))
-			-- A wrapped line (a longer translation) takes the room it needs.
-			local textH = math.ceil(note:GetStringHeight() or 0)
-			noteH = max(OFF_NOTE_H, textH + 2 * OFF_NOTE_PAD)
-			note:SetPoint("TOPLEFT", card, "TOPLEFT", (opts.gutter or 0) + 16, -(card.RowsTop + (noteH - textH) / 2))
-			note:SetHeight(max(1, textH))
-			note:Show()
+			noteH = Note.place(card, Note.of(card, "OffNote"), string.format(L["%s is off. Turn it on to change its settings."], labelOf(t) or ""),
+				width, opts.gutter or 0)
 		elseif rawget(card, "OffNote") then
 			card.OffNote:Hide()
+		end
+		-- A section that is only its header switch: the switch's help in the
+		-- body as one muted line, not an empty strip under the header.
+		local lone = t ~= nil and not folded and #g.controls == 0 and type(t.help) == "string" and t.help ~= ""
+		if lone then
+			noteH = Note.place(card, Note.of(card, "HelpNote"), t.help, width, opts and opts.gutter or 0)
+		elseif rawget(card, "HelpNote") then
+			card.HelpNote:Hide()
 		end
 		card.More:SetShown(header and not view.psSearch and s ~= nil and s.jump ~= nil)
 		card.Move:SetShown(header and not view.psSearch and s ~= nil and s.move ~= nil and ns.Movers ~= nil and ns.Movers.Unlock ~= nil)
