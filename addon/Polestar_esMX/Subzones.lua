@@ -1517,7 +1517,7 @@ R("subzone", 31826, 33510, [[
 33507	Colina de las Penas
 33510	Colina de las Penas
 ]])
-R("subzone", 33511, 141111, [[
+R("subzone", 33511, 141116, [[
 
 33511	Colina de las Penas
 33512	Colina de las Penas
@@ -1643,7 +1643,6 @@ R("subzone", 33511, 141111, [[
 34272	Templo de la Luna
 34277	Los Jardines del Templo
 34278	Los Jardines del Templo
-34286	Bancal del Artesano
 34292	Bancal del Artesano
 34293	Bancal del Artesano
 34294	Bancal del Artesano
@@ -1666,7 +1665,6 @@ R("subzone", 33511, 141111, [[
 34359	Bancal del Artesano
 34361	Bancal del Artesano
 34362	Bancal del Artesano
-34364	Bancal del Artesano
 34365	Bancal del Artesano
 34367	Bancal del Artesano
 34368	Bancal del Artesano
@@ -1678,8 +1676,6 @@ R("subzone", 33511, 141111, [[
 34380	Bancal de los Mercaderes
 34385	Bancal de los Mercaderes
 34387	Bancal de los Mercaderes
-34388	Bancal de los Mercaderes
-34389	Bancal de los Mercaderes
 34394	Bancal de los Mercaderes
 34395	Bancal de los Mercaderes
 34399	Enclave Cenarion
@@ -1690,7 +1686,6 @@ R("subzone", 33511, 141111, [[
 34405	Enclave Cenarion
 34406	Enclave Cenarion
 34408	Enclave Cenarion
-34409	Enclave Cenarion
 34591	Guarida de los Zarpaleña
 34592	Guarida de los Zarpaleña
 34609	Barranco del Alud
@@ -2019,14 +2014,14 @@ R("subzone", 33511, 141111, [[
 141109	Ruinas de Lordaeron
 141110	Ruinas de Lordaeron
 141111	Ruinas de Lordaeron
-]])
-R("subzone", 141112, 144073, [[
-
 141112	Ruinas de Lordaeron
 141113	Ruinas de Lordaeron
 141114	Ruinas de Lordaeron
 141115	Ruinas de Lordaeron
 141116	Ruinas de Lordaeron
+]])
+R("subzone", 141117, 144091, [[
+
 141117	Ruinas de Lordaeron
 141118	Ruinas de Lordaeron
 141119	Ruinas de Lordaeron
@@ -2231,7 +2226,6 @@ R("subzone", 141112, 144073, [[
 142211	Forjaz
 142212	Forjaz
 142213	Forjaz
-142214	Sala de los Expedicionarios
 142215	Forjaz
 142216	La Sala Mística
 142218	La Gran Fundición
@@ -2240,11 +2234,7 @@ R("subzone", 141112, 144073, [[
 142221	La Gran Fundición
 142222	La Caverna Abandonada
 142223	La Gran Fundición
-142224	La Sala Militar
 142225	La Sala Militar
-142226	Forjaz
-142227	Forjaz
-142228	Forjaz
 142229	La Caverna Abandonada
 142230	La Caverna Abandonada
 142231	La Caverna Abandonada
@@ -2254,15 +2244,12 @@ R("subzone", 141112, 144073, [[
 142235	La Biblioteca
 142236	La Biblioteca
 142237	La Gran Fundición
-142238	La Sala Mística
 142239	Forjaz
 142240	Forjaz
 142241	Forjaz
 142242	La Sala Militar
 142243	La Sala Militar
 142244	Forjaz
-142245	La Sala Militar
-142246	Sala de los Expedicionarios
 142247	La Sala Mística
 142249	La Sala Mística
 142250	La Caverna Abandonada
@@ -2302,8 +2289,6 @@ R("subzone", 141112, 144073, [[
 142284	La Sala Mística
 142285	La Sala Mística
 142286	La Sala Mística
-142287	Forjaz
-142288	Forjaz
 142289	La Gran Fundición
 142290	Ciudad Manitas
 142291	Forjaz
@@ -2492,7 +2477,6 @@ R("subzone", 141112, 144073, [[
 144039	Barrio de los Magos
 144040	Barrio de los Magos
 144041	Barrio de los Magos
-144042	Barrio de los Magos
 144044	Barrio de los Magos
 144045	Barrio de los Magos
 144046	Barrio de los Magos
@@ -2522,9 +2506,6 @@ R("subzone", 141112, 144073, [[
 144071	Catedral de la Luz
 144072	Catedral de la Luz
 144073	Catedral de la Luz
-]])
-R("subzone", 144074, 149286, [[
-
 144074	Catedral de la Luz
 144075	Catedral de la Luz
 144076	Catedral de la Luz
@@ -2538,20 +2519,14 @@ R("subzone", 144074, 149286, [[
 144085	El Cordero Degollado
 144086	El Cordero Degollado
 144087	El Cordero Degollado
-144088	Catedral de la Luz
 144089	Catedral de la Luz
 144090	Catedral de la Luz
 144091	Catedral de la Luz
+]])
+R("subzone", 144092, 149286, [[
+
 144092	Catedral de la Luz
-144093	Catedral de la Luz
-144094	Catedral de la Luz
-144095	Catedral de la Luz
 144096	Catedral de la Luz
-144097	Catedral de la Luz
-144098	Catedral de la Luz
-144099	El Cordero Degollado
-144100	El Cordero Degollado
-144101	El Cordero Degollado
 144102	El Cordero Degollado
 144103	Castillo de Ventormenta
 144104	Archivo Real
@@ -2581,7 +2556,6 @@ R("subzone", 144074, 149286, [[
 144128	Ciudad de Ventormenta
 144129	Ciudad de Ventormenta
 144130	Ciudad de Ventormenta
-144131	Ciudad de Ventormenta
 144133	Distrito de Mercaderes
 144134	Casco Antiguo
 144136	Plaza de la Catedral
@@ -2632,9 +2606,7 @@ R("subzone", 144074, 149286, [[
 144183	Centro de mando
 144184	Centro de mando
 144185	Distrito de Mercaderes
-144186	Distrito de Mercaderes
 144187	Distrito de Mercaderes
-144188	Distrito de Mercaderes
 144189	Distrito de Mercaderes
 144190	Distrito de Mercaderes
 144191	Distrito de Mercaderes
@@ -2655,10 +2627,7 @@ R("subzone", 144074, 149286, [[
 144206	Sala de los Campeones
 144216	Plaza de la Catedral
 144217	Distrito de Mercaderes
-144218	Distrito de Mercaderes
 144219	Distrito de Mercaderes
-144220	Distrito de Mercaderes
-144221	Ciudad de Ventormenta
 144226	Puerto de Ventormenta
 144237	Cámara Sangrienta
 144238	Cámara Partida
@@ -2675,20 +2644,9 @@ R("subzone", 144074, 149286, [[
 144275	Fortaleza de Farholde
 144276	Fortaleza de Farholde
 144279	Valle de la Fuerza
-144293	La Calle Mayor
-144294	La Calle Mayor
 144295	La Calle Mayor
 144296	La Calle Mayor
-144297	La Calle Mayor
-144298	La Calle Mayor
 144299	La Calle Mayor
-144300	La Calle Mayor
-144301	La Calle Mayor
-144302	La Calle Mayor
-144303	La Calle Mayor
-144304	La Calle Mayor
-144305	La Calle Mayor
-144306	La Calle Mayor
 144307	La Calle Mayor
 144308	La Calle Mayor
 144309	La Calle Mayor
@@ -2698,35 +2656,26 @@ R("subzone", 144074, 149286, [[
 144314	La Calle Mayor
 144315	La Calle Mayor
 144316	La Calle Mayor
-144317	La Calle Mayor
 144318	La Calle Mayor
 144319	La Calle Mayor
-144320	La Calle Mayor
 144321	La Calle Mayor
-144322	La Calle Mayor
 144323	Valle de la Sabiduría
 144324	Valle de la Sabiduría
 144325	Valle de la Sabiduría
 144326	Valle de la Sabiduría
 144331	Valle del Honor
-144332	Valle del Honor
-144333	Valle del Honor
-144334	Valle del Honor
 144335	Valle del Honor
 144336	Valle del Honor
-144337	Valle del Honor
 144338	Valle del Honor
 144339	Valle del Honor
 144340	Valle del Honor
 144341	Valle del Honor
 144342	Valle del Honor
 144343	Valle del Honor
-144345	Valle del Honor
 144346	Valle del Honor
 144348	Valle del Honor
 144349	Valle del Honor
 144350	Valle del Honor
-144351	Valle del Honor
 144352	Valle del Honor
 144354	Valle del Honor
 144356	Circo de las Sombras
@@ -2735,26 +2684,20 @@ R("subzone", 144074, 149286, [[
 144359	Valle de la Fuerza
 144360	Valle de la Fuerza
 144361	Valle de la Fuerza
-144362	Valle de la Fuerza
 144363	Valle de la Fuerza
 144364	Valle de la Fuerza
-144365	Valle de la Fuerza
 144366	Valle de la Fuerza
 144367	Valle de la Fuerza
-144368	Valle de la Fuerza
 144369	Valle de la Fuerza
-144370	Valle de la Fuerza
 144371	Valle de la Fuerza
 144372	Valle de la Fuerza
 144374	Valle de la Fuerza
 144375	Valle de la Fuerza
 144376	Valle de la Fuerza
-144377	Valle de la Fuerza
 144378	Valle de la Fuerza
 144379	Valle de la Fuerza
 144380	Valle de la Fuerza
 144381	Valle de la Fuerza
-144382	Valle de la Fuerza
 144383	Bastión de los Valientes
 144384	Bastión de los Valientes
 144385	Bastión de los Valientes
