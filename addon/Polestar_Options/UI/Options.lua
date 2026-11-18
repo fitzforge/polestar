@@ -4696,7 +4696,7 @@ end
 -- Never past the screen, never under SIZE.MIN_W x SIZE.MIN_H (the screen allowing).
 ---------------------------------------------------------------------------
 
-SIZE.MIN_W, SIZE.MIN_H, SIZE.EDGE = 860, 560, 16
+SIZE.MIN_W, SIZE.MIN_H, SIZE.EDGE = W.SHELL_MIN_W, W.SHELL_MIN_H, 16
 
 -- -> the default size, in UIParent units (W.ShellDefaultSize, the picker's too)
 function O.DefaultSize()

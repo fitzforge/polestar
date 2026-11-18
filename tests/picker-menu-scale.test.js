@@ -32,3 +32,31 @@ test('the picker stays inside the screen at a large Menu scale', () => {
 	assert.equal(a.scale, 2);
 	assert.ok(a.w * a.scale <= 1920 && a.h * a.scale <= 1080, JSON.stringify(a));
 });
+
+// The settings window and the guide menu share one rule: the same size and
+// scale, also on a screen where the skin's own picker size is the bigger one
+// (3840 x 2160 pixels under a 1920 x 1080 UIParent: 975 x 710 units).
+const both = (scale, physical) => runAddon({
+	stubs: ['stub_world.lua'],
+	addons: ['Polestar'],
+	login: true,
+	before: physical ? `function GetPhysicalScreenSize() return ${physical}, ${physical * 9 / 16} end` : '',
+	script: `
+Polestar.Set("ui.menuScale", ${scale})
+Polestar.UI.ShowPicker()
+Polestar.UI.ShowOptions()
+local p, o = PolestarPicker, PolestarOptions
+emit({ pw = p:GetWidth(), ph = p:GetHeight(), ps = p:GetEffectiveScale(),
+	ow = o:GetWidth(), oh = o:GetHeight(), os = o:GetEffectiveScale() })`,
+}).emitted[0];
+
+test('settings window and guide menu: same size and scale at 75 % and 100 %', () => {
+	for (const physical of [0, 3840, 2560]) {
+		for (const scale of [0.75, 1]) {
+			const a = both(scale, physical);
+			assert.equal(a.pw, a.ow, JSON.stringify([physical, scale, a]));
+			assert.equal(a.ph, a.oh, JSON.stringify([physical, scale, a]));
+			assert.equal(a.ps, a.os, JSON.stringify([physical, scale, a]));
+		}
+	}
+});

@@ -910,22 +910,24 @@ fn continue_shows_one_row_active_tab_then_most_recent_show_all_expands_and_is_re
 	assert_eq!(out["back"], json!([2, "Show all (6)"]));
 }
 
-// A wider guide menu (a skin's pickerW) fits more cards in its one row.
+// A wider guide menu fits more cards in its one row. The window takes the shared default size (W.ShellDefaultSize),
+// not a skin's pickerW: here as wide as the stub's 1920 screen allows (1920 - 32), past the default's 2 to 4 cards.
 #[test]
 fn a_wider_guide_menu_fits_more_cards_in_the_continue_row() {
 	let out = run(&format!(
 		"{CARDS}{}",
 		r#"
-		local metric = Polestar.Theme.Metric
-		Polestar.Theme.Metric = function(key, default, ...)
-			if key == "pickerW" then return 1500 end
-			return metric(key, default, ...)
+		local W = Polestar.Widgets
+		local size = W.ShellDefaultSize
+		W.ShellDefaultSize = function()
+			local _, h = size()
+			return 1920 - 32, h
 		end
 		uistub.openTabs(SIX, 1)
 		UI.ShowPicker()
 		emit({ n = #cards(), more = more() })"#
 	));
-	assert_eq!(out, json!({ "n": 3, "more": "Show all (6)" }));
+	assert_eq!(out, json!({ "n": 5, "more": "Show all (6)" }));
 }
 
 // "Suggested for you" always names the guide for the player's level, even when it is open; a follow-up only joins

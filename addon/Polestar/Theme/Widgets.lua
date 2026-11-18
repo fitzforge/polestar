@@ -4375,6 +4375,7 @@ end
 -- (opts.scalePath) then scales the window once, so both windows keep the same size
 -- to each other at every scale.
 W.SHELL_BASE_W, W.SHELL_BASE_H = 1300, 946
+W.SHELL_MIN_W, W.SHELL_MIN_H = 860, 560 -- the least either window is, the screen allowing
 function W.ShellDefaultSize()
 	local ph = GetPhysicalScreenSize and select(2, GetPhysicalScreenSize()) or 0
 	local uh = UIParent:GetHeight()
