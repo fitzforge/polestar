@@ -9,4 +9,6 @@ section: players
   read, and the arrow no longer looks through the whole guide before an
   unready hand-in unless that quest was left behind by an update. A new
   character's kills no longer make the setup window count the group quests
-  of every guide again after each fight.
+  of every guide again after each fight, and the guide window's progress
+  bar counts the guide in a fraction of the work, which mattered most on
+  long guides.
