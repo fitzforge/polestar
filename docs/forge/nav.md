@@ -699,7 +699,8 @@ forge nav check
   kept edges), and a surface it never reaches goes: a floor is dropped, a base cell loses its surface, an entrance on
   it goes. PACK.json's `leffe` entry counts them (`places`, `unplaced`, `unreachedFloors`, `unreachedBases`,
   `unreachedEntrances`). By default (`--ground cities`) only in the capitals (a surface whose cell lies in a
-  capital's zone), the ground outside them staying whole: a city walk's ends then settle on ground a player reaches
+  capital's zone) but the Undercity (its floors are joined by lifts the reach walk doesn't ride; the rule lost walks
+  through it), the ground outside them staying whole: a city walk's ends then settle on ground a player reaches
   (a roof, a sealed room or the ground under Stormwind's and Orgrimmar's streets is no floor to start or end on),
   and nothing changes outside the cities. Measured on the city gate's held-out recorded walks (2026-11-18): the
   addon's walks failing 95 -> 63 of 1,000 with the joins of that day, no walk newly failing. `--ground reached` drops

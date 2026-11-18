@@ -265,7 +265,15 @@ pub fn pack_nav(i: &PackIn) -> Result<Pack, String> {
 	let layers = layers::read_layers(i.layers)?;
 	let areas = layers::AreaTable::read(i.area_table)?;
 	let zones = read_json(i.zones)?;
-	let frames = layers::Frames::new(&read_json(i.map_frames)?, zones.clone());
+	let map_frames = read_json(i.map_frames)?;
+	let frames = layers::Frames::new(&map_frames, zones.clone());
+	// The Undercity's world box (map-frames.json's live frame of uiMap 1458): continent, x and y ranges.
+	let undercity: Option<(u32, f64, f64, f64, f64)> = (|| {
+		let f = &map_frames["forever"]["1458"];
+		let n = |k: &str| f[k].as_f64();
+		let (top, bottom, left, right) = (n("top")?, n("bottom")?, n("left")?, n("right")?);
+		Some((f["c"].as_u64()? as u32, top.min(bottom), top.max(bottom), left.min(right), left.max(right)))
+	})();
 	let capitals = areas.capitals();
 	let city = |c: u32, x: f64, y: f64, area: u32| capitals.contains(&area) || capitals.contains(&frames.zone_area_at(c, x, y));
 	let zone_of = areas.zone_of(&zones);
@@ -399,7 +407,10 @@ pub fn pack_nav(i: &PackIn) -> Result<Pack, String> {
 				} else {
 					None
 				};
-				let in_city = |x: f64, y: f64| city(c, x, y, 0);
+				// The Undercity stays whole (its uiMap frame, 1458): its floors are joined by lifts (the lift chokepoints,
+				// not his graph), so the walks from its fixed places miss floors players reach, and walks through it and
+				// the Ruins of Lordaeron over it were lost.
+				let in_city = |x: f64, y: f64| city(c, x, y, 0) && !undercity.is_some_and(|(uc, x0, x1, y0, y1)| uc == c && x >= x0 && x <= x1 && y >= y0 && y <= y1);
 				let only: Option<&(dyn Fn(f64, f64) -> bool + Sync)> = if i.ground_cities { Some(&in_city) } else { None };
 				let extras = leffe::Extras { places: i.places, only, drops: drops.as_ref(), spawns: i.spawns };
 				let hubs = i.layers.join("hubs.json");
