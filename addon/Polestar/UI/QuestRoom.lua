@@ -27,8 +27,9 @@
 -- The quests scroll in a list of at most MAX_ROWS rows, and never so tall
 -- that the window passes the screen's edge (MARGIN clear above and below: a
 -- full log of 40 at UI scale 1 on a 768-high screen): the title, the ✕,
--- the switch and Guide me stay in reach under it. A title or a second line
--- cut short reads whole in the row's tooltip.
+-- the switch and Guide me stay in reach under it. Every row shows the
+-- quest's tooltip on hover (UI.QuestTip, its second line under it), so a
+-- title or a second line cut short reads whole there.
 --
 -- Built on first use; colours are Theme tokens only.
 
@@ -121,11 +122,10 @@ local function build()
 	if ns.Gamepad and ns.Gamepad.Register then ns.Gamepad.Register(F, {}) end
 end
 
--- A row's title or second line cut short: both whole in its tooltip.
+-- A row: the quest's tooltip (UI.QuestTip), its second line under it
+-- (whole where the row cuts it short).
 local function rowEnter(self)
-	if self.Title:IsTruncated() or self.Why:IsTruncated() then
-		W.Tooltip(self, "ANCHOR_RIGHT", self.Title:GetText(), { self.Why:GetText() })
-	end
+	if self.psQuest then UI.QuestTip(self, self.psQuest, "ANCHOR_RIGHT", { self.Why:GetText() }, self.Title:GetText()) end
 end
 
 local function row(i)
@@ -254,7 +254,7 @@ function UI.LayoutQuestRoom()
 		local textW = rowW - (r.Abandon:IsShown() and (r.Abandon:GetWidth() + 8) or 0)
 		r.Title:SetWidth(textW)
 		r.Why:SetWidth(textW)
-		r.Abandon.psQuest = u.quest
+		r.Abandon.psQuest, r.psQuest = u.quest, u.quest
 		r:Show()
 		y = y + ROW_H + ROW_GAP
 	end

@@ -775,9 +775,11 @@ local function tie(i)
 	t.Text = W.Text(t, "label", "textDim")
 	t.Text:SetPoint("LEFT", t, "LEFT", 24, 0)
 	t:SetScript("OnClick", function(self) DS.ShowQuest(self.psQuest) end)
-	t:SetScript("OnEnter", W.SimpleTip)
+	-- The quest's tooltip (UI.QuestTip), what a click does under it.
+	t:SetScript("OnEnter", function(self)
+		if self.psQuest then UI.QuestTip(self, self.psQuest, "ANCHOR_TOP", { { L["Show the quest"], Theme.Accent() } }, self.psTitle) end
+	end)
 	t:SetScript("OnLeave", W.HideTip)
-	t.psTip = L["Show the quest"]
 	ties[i] = t
 	return t
 end
@@ -1945,7 +1947,7 @@ local function renderBosses(key, f, plevel)
 				else
 					row.Text:SetText(format(spec[2], qh))
 				end
-				row.psQuest = q.id
+				row.psQuest, row.psTitle = q.id, q.title
 				row:ClearAllPoints()
 				row:SetPoint("TOPLEFT", pg.Body, "TOPLEFT", PAD - 4, -(y + h - 6))
 				row:SetWidth(MW - PAD * 2 + 4)

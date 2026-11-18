@@ -89,6 +89,32 @@ function UI.QuestTitle(quest)
 	return nil
 end
 
+-- The quest tooltip a quest row shows on hover (UI/QuestRoom.lua's lists,
+-- the guide end's, the dungeon guide's): the quest's name over its level,
+-- zone and faction, the New in Forever line and, while it is in the log,
+-- its objectives (done ones in green); then `extra`, the row's own lines.
+-- From the client and the quest database when it is loaded (never loads
+-- it); a fact neither knows is left out. W.HideTooltip(owner) hides it.
+function UI.QuestTip(owner, quest, anchor, extra, title)
+	local C, Q, lines = ns.Compat, ns.QuestDB, {}
+	local ok, r = pcall(function() return Q and Q.IsLoaded() and Q.GetQuest(quest) end)
+	r = ok and r or {}
+	local level = C.GetQuestLevel(quest) or r.level
+	if level then
+		lines[#lines + 1] = { left = L["Level"], right = (r.minLevel and r.minLevel ~= level) and format(L["%d (from %d)"], level, r.minLevel) or tostring(level) }
+	end
+	local zone = type(r.zone) == "number" and r.zone > 0 and C.GetAreaName(r.zone)
+	if zone then lines[#lines + 1] = { left = L["Zone"], right = zone } end
+	if r.id then lines[#lines + 1] = { left = L["Faction"], right = ns.FactionName(r.faction) or L["Both factions"] } end
+	local new = ns.NewQuests and ns.NewQuests.TooltipText(quest)
+	if new then lines[#lines + 1] = { new, Theme.Accent() } end
+	for _, o in ipairs(C.GetQuestObjectives(quest) or {}) do
+		if o.text ~= "" then lines[#lines + 1] = { o.text, Theme.TipColor(o.finished and "success" or "text") } end
+	end
+	for _, l in ipairs(extra or {}) do lines[#lines + 1] = l end
+	ns.Widgets.Tooltip(owner, anchor, title or UI.QuestTitle(quest) or r.title or (L["Quest"] .. " " .. quest), lines)
+end
+
 -- "1–6" / "12" / nil
 function UI.LevelRange(lo, hi)
 	if not lo and not hi then return nil end
