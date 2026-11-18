@@ -3967,6 +3967,9 @@ end
 -- later `level` goal or `when level<N` step still holds the player if the
 -- quests fall short. Kept per evaluation (Own.coverOf).
 Own.coverOf = setmetatable({}, { __mode = "k" }) -- goal -> { gen, guide, xp, covered }
+-- An old guide contains its goals. A strong reference from a cached answer to
+-- that guide would keep the weak goal key (and the whole guide) alive in Lua 5.1.
+Own.coverValues = { __mode = "v" }
 Own.readyNow = { gen = -1, set = {} } -- the finished quests in the log, per evaluation
 function Own.levelCover(s, goal)
 	local c = Own.coverOf[goal]
@@ -4004,7 +4007,11 @@ function Own.levelCover(s, goal)
 	end
 	local left = Own.xpLeft(goal)
 	local covered = left ~= nil and xp > 0 and xp >= left
-	Own.coverOf[goal] = { gen = generation, guide = guide, xp = xp, covered = covered }
+	if not c then
+		c = setmetatable({}, Own.coverValues)
+		Own.coverOf[goal] = c
+	end
+	c.gen, c.guide, c.xp, c.covered = generation, guide, xp, covered
 	return xp, covered
 end
 

@@ -33,6 +33,30 @@ fn run(script: &str) -> Value {
 	.remove(0)
 }
 
+#[test]
+fn walking_arrow_repaints_its_tint_only_when_the_display_changes() {
+	let out = run(r#"
+		local result = {}
+		for _, style in ipairs({ "flat", "3d", "halo", "hearth" }) do
+			Polestar.Set("nav.arrowStyle", style)
+			nav.place(0, 0); target(0, 300); stub.advance(1)
+			local paints, set = 0, A.body.SetVertexColor
+			A.body.SetVertexColor = function(self, ...) paints = paints + 1; return set(self, ...) end
+			local tick = A.frame:GetScript("OnUpdate")
+			for i = 1, 60 do tick(A.frame, 1/60) end
+			local stable, far = paints, rgba(A.body)
+			nav.place(0, 272); tick(A.frame, 0.1)
+			local near = rgba(A.body)
+			nav.place(0, 0); tick(A.frame, 0.1)
+			result[style] = { stable, near[1] ~= far[1], rgba(A.body)[1] == far[1], A.GetMode() }
+			A.body.SetVertexColor = set
+		end
+		emit(result)"#);
+	for style in ["flat", "3d", "halo", "hearth"] {
+		assert_eq!(out[style], json!([0, true, true, "travel"]), "{style}: a steady arrow does not repaint; its colour follows the player into and out of range");
+	}
+}
+
 fn r3(v: &Value) -> Value {
 	Value::Array(v.as_array().unwrap().iter().map(|x| json!((x.as_f64().unwrap() * 1000.0).round() / 1000.0)).collect())
 }

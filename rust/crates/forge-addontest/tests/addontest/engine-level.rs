@@ -203,3 +203,24 @@ fn a_grind_step_counts_the_finished_quests_the_guide_hands_in_before_the_level_i
 	assert_eq!(out[2], json!({ "live": 2, "first": true }), "{out:?}");
 	assert_eq!(out[3], json!(3), "{out:?}");
 }
+
+#[test]
+fn replacing_a_grind_guide_releases_the_old_guide_after_its_xp_was_read() {
+	let values = run(r#"
+		local function register(level)
+			local g = { id = "test/rework", pack = "test", title = "Grind", minLevel = 1, maxLevel = 8,
+				steps = { { goals = { { t = "level", level = level } } } } }
+			assert(Polestar.RegisterGuide(g))
+			return g
+		end
+		local old = setmetatable({ register(6) }, { __mode = "v" })
+		E.SetGuide("test/rework"); flush()
+		local before = E.GetStepView(1).goals[1].xpLeft
+		E.SetGuide(nil); register(7)
+		E.SetGuide("test/rework"); flush()
+		local after = E.GetStepView(1).goals[1].xpLeft
+		collectgarbage("collect"); collectgarbage("collect")
+		emit({ released = old[1] == nil, recalculated = before and after and after > before })
+	"#);
+	assert_eq!(values, json!([{ "released": true, "recalculated": true }]));
+}

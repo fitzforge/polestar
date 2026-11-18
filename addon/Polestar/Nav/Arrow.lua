@@ -828,6 +828,7 @@ end
 local function setMode(m)
 	if m == mode then return end
 	mode = m
+	if m == "travel" then D.near = nil end -- repaint after a mode or theme change
 	turnVel = 0 -- a speed from before an arrival or an instruction does not carry into the next walk
 	local travel, done, act, idle = m == "travel", m == "arrived" or m == "search", m == "instruction", m == "idle"
 	dial:SetShown(travel or done or act or idle)
@@ -903,6 +904,7 @@ end
 -- The far colour away, the near colour up close (blend).
 local function applyColor(dist, radius)
 	local r, g, b, near = blend(style, dist, radius, look)
+	if near == D.near and r == tintR and g == tintG and b == tintB then return end
 	D.near = near
 	tint(r, g, b)
 end
