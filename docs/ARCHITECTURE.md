@@ -2461,7 +2461,13 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   quest goal goes (`Own.rebuilt`: a new guide table in the registry,
   `Guides.Replace`, with `feeders`, `hidden`, `fromBase`, baked legs kept
   where the way in is unchanged). A missing quest no guide leading here
-  gives is a gap of the route and keeps its "Requires" line. Nothing shows in
+  gives is a gap of the route and keeps its "Requires" line. A hand-in of a
+  quest the player carries unfinished, which the guide never works (its work
+  is in an earlier guide: Fire Taboo's flint, #2871; Panther Mastery's
+  panthers, #2792), is planned the same way (`Own.workChains`): that quest's
+  work goals from the guides leading here, never their accept or hand-in, go
+  before the hand-in under the same zone and 5-minute rules; one that cannot
+  go in leaves the guide as it is. Nothing shows in
   the guide window; the report names the planned steps (`[feeder from <id>
   step N]`) and the quests left out (`[hidden: needs <quest> from <guide>]`).
   `checkShape` carries saved check-offs and skips to the new step numbers; a

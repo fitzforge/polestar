@@ -82,6 +82,8 @@ mod engine_already_across;
 mod engine_alt_start;
 #[path = "engine-carried.rs"]
 mod engine_carried;
+#[path = "engine-carried-work.rs"]
+mod engine_carried_work;
 #[path = "engine-cast.rs"]
 mod engine_cast;
 #[path = "engine-catchup.rs"]
