@@ -11,6 +11,8 @@
 --     (unitToken), with UnitClassification "rare" | "rareelite"
 --     (UnitDocumentation.lua).
 --   * Target and mouseover: PLAYER_TARGET_CHANGED, UPDATE_MOUSEOVER_UNIT.
+--   * Hostility: UnitCanAttack("player", unit) (UnitDocumentation.lua, bool);
+--     a unit on the player's side never alerts (Rares.Decide).
 --   * A player character on any of these paths goes to
 --     Rares.FounderSighting: the founder (Rares.FOUNDER), or nothing.
 --   * Unit reads may be secret values (SecretWhenUnitIdentityRestricted on
@@ -104,11 +106,17 @@ function D.Unit(unit, source)
 	local class = readable(UnitClassification and UnitClassification(unit))
 	if not CLASS_RARE[class or ""] and not Rares.Known("rare", id) then return nil end
 	local level = readable(UnitLevel(unit))
+	-- UnitCanAttack (bool): false = on the player's side, a friendly NPC
+	-- classed rare (#2929, #2942). Left nil when the client can't say.
+	local can = UnitCanAttack and UnitCanAttack("player", unit)
+	local attackable
+	if UnitCanAttack and not ns.Compat.IsSecret(can) then attackable = can and true or false end
 	return Rares.Sighting({
 		source = source, kind = "rare", id = id, guid = guid,
 		name = nameOf(UnitName(unit)), classification = class,
 		level = type(level) == "number" and level or nil,
 		dead = dead and true or false,
+		attackable = attackable,
 	})
 end
 
