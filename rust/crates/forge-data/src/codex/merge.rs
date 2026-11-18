@@ -1325,7 +1325,7 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 	// source names that instance, as an NPC's drop does (#2883: Maraudon's vial, an object no other
 	// source has, so Lookup's pick-up guides know the item comes from inside a dungeon).
 	let map_id = |v: &V| v.as_num().filter(|n| *n > 0.0 && n.fract() == 0.0).map(|n| n as i64);
-	let instance_of_map: FxHashMap<i64, V> = instances.entries().into_iter().filter_map(|(k, rec)| map_id(&rec.get("map")).map(|m| (m, V::str(&k.to_string())))).collect();
+	let instance_of_map: FxHashMap<i64, V> = instances.entries().into_iter().filter_map(|(k, rec)| map_id(&rec.get("map")).map(|m| (m, V::str(&k)))).collect();
 	for (obj, r) in oentries(&recorded.get("objects")) {
 		let inst = map_id(&r.get("instance")).and_then(|m| instance_of_map.get(&m).cloned()).unwrap_or(V::Null);
 		for (item, e) in oentries(&r.get("items")) {
