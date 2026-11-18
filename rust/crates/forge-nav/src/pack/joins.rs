@@ -863,7 +863,12 @@ mod tests {
 
 	/// Our grid's way through global cells (gx, gy), at height 0, each cell's centre.
 	fn way(id: &str, cells: &[(i64, i64)]) -> JoinWay {
-		JoinWay { id: id.into(), cells: cells.iter().map(|&(x, y)| WayCell { x: (x as f64 + 0.5) * CS, y: (y as f64 + 0.5) * CS, z: 0.0, floor: 0, cls: cls::WALK }).collect(), drop: false, strict: false }
+		JoinWay {
+			id: id.into(),
+			cells: cells.iter().map(|&(x, y)| WayCell { x: (x as f64 + 0.5) * CS, y: (y as f64 + 0.5) * CS, z: 0.0, floor: 0, cls: cls::WALK }).collect(),
+			drop: false,
+			strict: false,
+		}
 	}
 
 	fn reaches(c: &Cluster, from: usize, to: usize) -> bool {
