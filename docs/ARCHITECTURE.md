@@ -10230,7 +10230,10 @@ Polestar.Rares.FounderSighting(unit, source, guid)  -- a player unit from Detect
   unchanged dead observations remain throttled. The full vignette scan runs
   at most every 2 s and never in combat. Nothing is detected inside instances.
 - **The decision**: off, instance, path off, players and pets, not a rare →
-  skip; muted (`rares.ignored`) → skip; dead, alerts off, treasure alerts
+  skip; on the player's side → skip (a unit alive with `UnitCanAttack`
+  false; a vignette whose NPC the loaded Codex gives the player's faction);
+  the faction leaders the 0.4.1 Codex listed as rares (`Rares.NOT_RARE`) are
+  never rares (no alert, pin or list row); muted (`rares.ignored`) → skip; dead, alerts off, treasure alerts
   off, or alerted within `rares.cooldown` minutes → recorded only; in combat
   without `rares.combatAlerts` → held until `PLAYER_REGEN_ENABLED` (dropped
   after a minute); otherwise the alert fires immediately (`RARE_SPOTTED(alert)`,
