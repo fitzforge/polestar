@@ -423,7 +423,7 @@ fn an_account_saved_before_0_4_2_keeps_skip_grey_quests_as_it_had_it_in_every_pr
 		Some(saved),
 		&format!(
 			r#"{GREY}
-			local kept = { autoAccept = Polestar.Get("behavior.autoAccept") }
+			local kept = {{ autoAccept = Polestar.Get("behavior.autoAccept") }}
 			assert(P.Switch("Mine")); kept.Mine = Polestar.Get("behavior.skipGrey")
 			assert(P.Switch("Odd")); kept.Odd = Polestar.Get("behavior.skipGrey")
 			assert(P.Switch("Raid")); kept.Raid = Polestar.Get("behavior.skipGrey")
