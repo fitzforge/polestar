@@ -139,6 +139,8 @@ const REFS = [
 	'alerts > Heads-up card > Card: dungeons.headsUp',
 ];
 const DROPPED = [
+	// Its home is Game, in the same group: Quests shows it no more.
+	'qualityoflife > Quests > Faster questing: qol.fastLoot',
 	'qualityoflife > Quests > Faster questing: qol.instantQuestText',
 	'qualityoflife > Quests > Faster questing: qol.hideErrors',
 	'qualityoflife > Quests > Rewards, buttons and tracker: qol.hideQuestTracker',
@@ -320,10 +322,12 @@ test('pages and sections follow the player journey order', () => {
 	assert.deepEqual(sectionsOf(out, 'questing', 'Buttons'), ['Action buttons', 'Targeting']);
 	assert.deepEqual(sectionsOf(out, 'questing', 'Group'), ['Group', 'Party chat']);
 
-	assert.deepEqual(tabsOf(out, 'qualityoflife'), ['Vendors', 'Travel', 'XP & instances', 'Social', 'Game', 'Quests']);
-	assert.deepEqual(sectionsOf(out, 'qualityoflife', 'Vendors'), ['Merchants', 'Restock', 'Bags', 'Trainers']);
+	// By name: pr/settings-essentials puts an Essentials tab before them.
+	assert.deepEqual(tabsOf(out, 'qualityoflife').filter((n) => n !== 'Essentials'), ['Quests', 'Vendors', 'Travel', 'Leveling', 'Social', 'Game']);
+	assert.deepEqual(sectionsOf(out, 'qualityoflife', 'Quests'), ['Faster questing', 'Rewards, buttons and tracker']);
+	assert.deepEqual(sectionsOf(out, 'qualityoflife', 'Vendors'), ['Merchants', 'Restock', 'Bags']);
 	assert.deepEqual(sectionsOf(out, 'qualityoflife', 'Travel'), ['Flights', 'Death', 'Hearth and travel']);
-	assert.deepEqual(sectionsOf(out, 'qualityoflife', 'XP & instances'), ['Experience', 'XP tracker', 'Boosted Rest', 'Instances']);
+	assert.deepEqual(sectionsOf(out, 'qualityoflife', 'Leveling'), ['Experience', 'XP tracker', 'Trainers', 'Instances']);
 	assert.deepEqual(sectionsOf(out, 'qualityoflife', 'Social'), ['Requests', 'Blocking']);
 
 	assert.deepEqual(tabsOf(out, 'guidewindow'), ['Essentials', 'Window', 'Parts']);
@@ -346,6 +350,7 @@ test('misplaced settings sit in their new home', () => {
 	assert.equal(out.home['update.card'], 'profiles › Profiles › Install & updates');
 	assert.equal(out.installHome, 'profiles › Profiles › Install & updates');
 	assert.equal(out.home['qol.fastLoot'], 'qualityoflife › Game › Game options');
+	assert.equal(out.home['qol.ridingReminder'], 'qualityoflife › Leveling › Trainers');
 	assert.equal(out.home['qol.hideErrors'], 'qualityoflife › Game › Game options');
 	assert.equal(out.sectionOf['qol.questBagMarks'], 'Quest items');
 	assert.equal(out.sectionOf['qol.questSellWarning'], 'Quest items');

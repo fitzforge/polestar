@@ -208,10 +208,7 @@ test('a section switch that is a reference counts once, at its home', () => {
 			Polestar.Set(key, not Polestar.Get(key))
 			local pages, nav, dots = {}, {}, {}
 			for _, e in ipairs(G.ChangedPages()) do pages[#pages + 1] = e.page.key .. "=" .. e.count end
-			for _, it in ipairs(G.NavItems()) do if it.indent and it.count then
-				-- Quality of Life's tabs are rows of their own ("t:page<TAB>tab").
-				nav[#nav + 1] = (it.key:gsub("^t:", ""):gsub("\t.*", "")) .. "=" .. it.count
-			end end
+			for _, it in ipairs(G.NavItems()) do if it.indent and it.count then nav[#nav + 1] = (it.key:match("^t:([^\t]*)") or it.key) .. "=" .. it.count end end
 			for _, p in ipairs(O.Kit.pages) do
 				for _, t in ipairs(p.custom and {} or G.Tabs(p)) do if G.TabDot(t) then dots[#dots + 1] = p.key end end
 			end

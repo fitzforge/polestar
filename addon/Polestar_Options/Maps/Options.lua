@@ -1,7 +1,7 @@
 -- The Maps modules' rows (docs/ARCHITECTURE.md, "Options registry"): the map
 -- features on the Map page (its sections are declared by the options window,
 -- UI/Options.lua), NPC services (Maps/Services.lua), and the flight timer and
--- the instance tracker on the Quality of Life page (Travel, XP & instances).
+-- the instance tracker on the Quality of Life page (Travel, Leveling).
 -- Part of the settings' addon: none of it is in memory before the settings
 -- open. One setting has one home row.
 
@@ -68,7 +68,7 @@ register({
 })
 
 -- The flight timer and the instance tracker join Quality of Life's Travel
--- and XP & instances tabs; their sections are declared there, in order. The
+-- and Leveling tabs; their sections are declared there, in order. The
 -- minimap button's home is Look > Guide window > Window > Show and hide.
 local QOL = L["Quality of Life"]
 register({
@@ -86,7 +86,7 @@ register({
 })
 -- The instance tracker: its switch in the section's header, then its display and its limits.
 register({
-	page = QOL, tab = L["XP & instances"], section = L["Instances"], move = "instances",
+	page = QOL, tab = L["Leveling"], section = L["Instances"], move = "instances",
 	toggle = { kind = "toggle", key = "maps.instances", label = L["Track instances"], search = "dungeon, instance lockout, instance cap, reset, runs",
 		help = L["Records dungeon and raid entries, time and experience per run. /pole instances lists them."] },
 	controls = {

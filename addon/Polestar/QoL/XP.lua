@@ -370,7 +370,7 @@ end
 ns.RegisterCommand("xp", function()
 	local st = QoL.GetXPStats()
 	if not st then
-		ns.Print(L["The XP tracker is off (Settings > Quality of Life > XP & instances)."])
+		ns.Print(L["The XP tracker is off (Settings > Quality of Life > Leveling)."])
 		return
 	end
 	ns.Print(XP.Summary(st))

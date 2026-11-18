@@ -155,7 +155,9 @@ local PAGES = {
 	map = "arrow",
 	questing = { "quests", tabs = { [L["Rewards & gear"]] = "gear", [L["Talents"]] = "gear", [L["Buttons"]] = "hud" } },
 	discovery = { "dungeons", tabs = { [L["Rares"]] = "hud" } },
-	qualityoflife = { "quests", tabs = { [L["Travel"]] = "routes", [L["Vendors"]] = "gear", [L["XP & instances"]] = "hud" } },
+	qualityoflife = { "quests", tabs = { [L["Travel"]] = "routes", [L["Vendors"]] = "gear", [L["Leveling"]] = "hud" },
+		-- The trainers kept their part when they joined Leveling.
+		sections = { [L["Trainers"]] = "gear" } },
 	-- A section per addon Polestar works with.
 	integrations = { "quests", sections = { EllesmereUI = "skin", TomTom = "arrow", ["Shortest Path Forever"] = "routes" } },
 	gamepad = "window",
