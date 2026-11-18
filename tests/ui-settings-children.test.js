@@ -141,3 +141,31 @@ test('two parents on one line open their children a block each, in their order',
 	assert.ok(out.c.top >= out.b.top);
 	assert.ok(out.after.top > out.c.top, 'the rows after come last');
 });
+
+test('Alert for rares, While you\'re here, Show arrow, Plan travel routes and Mirror to TomTom hold their dependent settings as children', () => {
+	const [out] = runAddon({
+		stubs: ['stub_world.lua', 'stub_ui.lua'],
+		addons: [{ name: 'Polestar', files: ALL }],
+		script: `Polestar.UI.LoadOptions()
+			uistub.install()
+			stub.login()
+			local O = Polestar.UI.Options
+			local out = {}
+			for _, c in ipairs(O.AllControls()) do
+				if c.children then
+					local keys = {}
+					for _, k in ipairs(c.children) do keys[#keys + 1] = k.key end
+					out[c.key or c.label] = keys
+				end
+			end
+			emit(out)`,
+	}).emitted;
+	assert.deepEqual(out['rares.alerts'], ['rares.treasureAlerts', 'rares.cooldown', 'rares.toastSeconds', 'rares.combatAlerts',
+		'rares.sound', 'rares.soundKit']);
+	assert.deepEqual(out['behavior.whileHereTurnins'], ['behavior.whileHereTurninSeconds']);
+	assert.deepEqual(out['behavior.whileHereVendors'], ['behavior.whileHereSellSlots', 'behavior.whileHereRepairPercent']);
+	assert.deepEqual(out['nav.arrow'], ['nav.hideArrowWithGuide']);
+	assert.deepEqual(out['nav.travel'], ['nav.teleports', 'nav.detourCaption']);
+	assert.deepEqual(out['nav.routeLines'], ['nav.lineStyle']);
+	assert.deepEqual(out['nav.tomtom'], ['nav.useTomTomArrow']);
+});
