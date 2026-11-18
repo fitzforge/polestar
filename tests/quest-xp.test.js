@@ -93,7 +93,10 @@ emit({ total = P.total, count = P.count })
 stub.fire("QUEST_REMOVED", 14); stub.runTimers()
 emit({ total = P.total, shown = f:IsShown() })
 Polestar.Set("qol.questXPOverlay", false); stub.runTimers()
-emit({ shown = f:IsShown(), watches = Polestar.QoL.Watching("QUEST_LOG_UPDATE") })
+q.ready[12] = true -- newly ready, its reward has not been read
+reads = q.rewardReads
+stub.fire("QUEST_LOG_UPDATE"); stub.runTimers()
+emit({ shown = f:IsShown(), rewardReads = q.rewardReads - reads })
 Polestar.Set("qol.questXPOverlay", true); stub.runTimers()
 q.level, q.rested = q.maxLevel, nil
 stub.fire("PLAYER_LEVEL_UP", q.level); stub.runTimers()
@@ -104,7 +107,7 @@ emit({ total = P.total, shown = f:IsShown(), rested = q.rested or 0 })
 	assert.ok(!tip.some((line) => line.includes('XP after turn-ins')));
 	assert.deepEqual(turned, { total: 100, count: 1 });
 	assert.deepEqual(abandoned, { total: 0, shown: false });
-	assert.deepEqual(off, { shown: false, watches: false });
+	assert.deepEqual(off, { shown: false, rewardReads: 0 });
 	assert.deepEqual(maxed, { total: 0, shown: false, rested: 0 });
 });
 
