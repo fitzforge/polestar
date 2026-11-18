@@ -218,6 +218,7 @@
 		{ "id": "ironforge-step-46-1-53-2", "map": 0, "kind": "step", "a": [-4851, -1078.1, 500.7], "b": [-4849, -1078.1, 501.2], "people": 5, "why": "Ironforge, The Great Forge (46.11, 53.21): players step across here (5 recorded players); the walking maps had no way onto the floor beyond" },
 		{ "id": "ironforge-step-46-9-57-2", "map": 0, "kind": "step", "a": [-4871.9, -1084.4, 480], "b": [-4869.8, -1084.4, 479], "people": 8, "why": "Ironforge, The High Seat (46.90, 57.16): players step across here (8 recorded players); the walking maps had no way onto the floor beyond" },
 		{ "id": "ironforge-step-31-7-7-4", "map": 0, "kind": "step", "a": [-4609.4, -965.6, 506.1], "b": [-4607.3, -963.5, 507.8], "people": 6, "why": "Ironforge, The Mystic Ward (31.75, 7.41): players step across here, by Tymor (6 recorded players); the walking maps had no way onto the floor beyond" },
+		{ "id": "stormwind-join-34-7-63-3", "map": 0, "a": [-8728.4, 1121.1, 90], "b": [-8728.9, 1119.2, 93], "people": 20, "why": "Stormwind, The Park (34.69, 63.26): players walk across here (20 recorded players); the walking maps had no way across the 1.9 yd" },
 		{ "id": "orgrimmar-step-75-4-25-1", "map": 1, "kind": "step", "a": [2042.7, -4736.5, 29.2], "b": [2044.8, -4734.4, 29.2], "people": 65, "why": "Orgrimmar, Valley of Honor (75.43, 25.05): players step across here (65 recorded players); neither map walked the 2.9 yd between the two floors" }
 	],
 	"cuts": [

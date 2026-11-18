@@ -740,3 +740,15 @@ fn thunder_bluff_from_tal_the_walk_drops_off_the_wind_rider_towers_south_ledges_
 	let yards = yards_of(&pts);
 	assert!(yards < 150.0, "the walk down is {yards:.0} yd");
 }
+
+// Stormwind, the Park (34.69, 63.26): from the path at 93 down to the lawn at 90, 2 yd away, the walking maps went
+// round (75 yd); 20 recorded players walk straight down there. A join puts that in.
+#[test]
+fn stormwind_the_park_the_walk_down_from_the_path_to_the_lawn_goes_straight_down_as_players_do() {
+	let path = Pt { c: 0, x: -8728.9, y: 1119.2, z: Some(93.0) };
+	let lawn = Pt { c: 0, x: -8728.4, y: 1121.1, z: Some(90.0) };
+	let got = walk(path, lawn, Some("Alliance"));
+	assert!(truthy(&got), "the engine finds the walk down");
+	let yards = yards_of(&points(&got));
+	assert!(yards < 20.0, "the walk down is {yards:.0} yd");
+}
