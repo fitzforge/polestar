@@ -43,7 +43,7 @@ local TOKENS = {
 	accent = "#6fe3ff",
 	border = "#dfefff1a", divider = "#dfefff14", hover = "#dfefff12", selected = "#dfefff1f",
 	success = "#5ee6a4", warning = "#ffc157", danger = "#ff7b7b", quest = "#ffd977", npc = "#8fd0ff", item = "#c9b1ff",
-	place = "#f8b48c", object = "#d8cdb6", level = "#f5f9ff", skill = "#9fe87a", spell = "#7ee7f5", faction = "#f79fd0",
+	place = "#f8b48c", object = "#d8cdb6", level = "#f5f9ff", skill = "#9fe87a", spell = "#7ee7f5", train = "#dcf07a", faction = "#f79fd0",
 	area = "#ecc4a0", achievement = "#ffaa5c", dungeon = "#ad93ff", experimental = "#cf8dff", rare = "#ff8a62",
 }
 

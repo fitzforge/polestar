@@ -28,6 +28,7 @@ local SHARED = {
 	level = { 0.96, 0.97, 0.99, 1 },
 	skill = { 0.6, 0.88, 0.46, 1 },
 	spell = { 0.47, 0.86, 0.93, 1 },
+	train = { 0.85, 0.93, 0.42, 1 }, -- a training goal's trainer or skill (lime)
 	faction = { 0.97, 0.6, 0.79, 1 },
 	area = { 0.93, 0.75, 0.6, 1 },
 	achievement = { 1, 0.64, 0.32, 1 },

@@ -62,6 +62,7 @@ local SUBJECT = {
 	rare = { L["Rares"], "rare, rares, rare npcs, elite, silver dragon" },
 	skill = { L["Skills"], "skill, skills, profession, professions, crafting, trade" },
 	spell = { L["Spells"], "spell, spells, ability, abilities, cast, use" },
+	train = { L["Training"], "train, training, trainer, trainers, learn, new spells, class trainer" },
 	faction = { L["Factions"], "faction, factions, reputation, rep" },
 	achievement = { L["Achievements"], "achievement, achievements" },
 	level = { L["Levels"], "level, levels, number" },

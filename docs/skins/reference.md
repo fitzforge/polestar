@@ -686,6 +686,7 @@ skin may recolour them, and a light scheme gives its own.
 | `level` | levels | `#f5f7fc` | same | same |
 | `skill` | professions and skills | `#99e075` | same | same |
 | `spell` | spells and abilities | `#78dbed` | same | same |
+| `train` | a training goal's trainer or skill | `#d9ed6b` | same | same |
 | `faction` | factions and reputation | `#f799c9` | same | same |
 | `area` | zones and areas | `#edbf99` | same | same |
 | `achievement` | achievements | `#ffa352` | same | same |

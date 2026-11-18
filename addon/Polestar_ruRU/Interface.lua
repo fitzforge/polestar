@@ -4174,6 +4174,7 @@ L["The lit accent line along the top edge of Polestar's windows, and the light i
 L["Objects"] = "Объекты"
 L["Skills"] = "Навыки"
 L["Spells"] = "Заклинания"
+L["Training"] = "Обучение"
 L["Success"] = "Успех"
 L["Danger"] = "Опасность"
 L["The colour these are drawn in, everywhere Polestar names them. A colour too dark to read is lifted until it does."] = "Цвет, которым они выделяются везде, где Polestar их называет. Слишком темный цвет осветляется, пока не станет читаемым."

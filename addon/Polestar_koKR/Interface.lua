@@ -4174,6 +4174,7 @@ L["The lit accent line along the top edge of Polestar's windows, and the light i
 L["Objects"] = "사물"
 L["Skills"] = "기술"
 L["Spells"] = "주문"
+L["Training"] = "수련"
 L["Success"] = "성공"
 L["Danger"] = "위험"
 L["The colour these are drawn in, everywhere Polestar names them. A colour too dark to read is lifted until it does."] = "Polestar가 이것들을 표시하는 모든 곳에서 쓰는 색. 읽기 어려울 만큼 어두운 색은 읽힐 때까지 밝게 합니다."

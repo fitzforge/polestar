@@ -4174,6 +4174,7 @@ L["The lit accent line along the top edge of Polestar's windows, and the light i
 L["Objects"] = "Objetos"
 L["Skills"] = "Habilidades"
 L["Spells"] = "Feitiços"
+L["Training"] = "Treinamento"
 L["Success"] = "Sucesso"
 L["Danger"] = "Perigo"
 L["The colour these are drawn in, everywhere Polestar names them. A colour too dark to read is lifted until it does."] = "A cor em que estes aparecem, em todo lugar onde o Polestar os nomeia. Uma cor escura demais para ler é clareada até ficar legível."

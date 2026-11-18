@@ -577,7 +577,7 @@ end
 
 -- The subject and status colours a player may set their own of
 -- (ui.colors.<name>), in the order the options list them.
-Theme.SUBJECTS = { "npc", "quest", "item", "place", "object", "area", "dungeon", "rare", "skill", "spell", "faction",
+Theme.SUBJECTS = { "npc", "quest", "item", "place", "object", "area", "dungeon", "rare", "skill", "spell", "train", "faction",
 	"achievement", "level", "success", "warning", "danger" }
 
 -- The text ladder's own colours, each held to its floor (Theme.LEGIBLE).

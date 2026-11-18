@@ -62,7 +62,7 @@ local function wash(alpha) return ("#ffffff%02x"):format(math.floor(alpha * 255 
 local TOKENS = {
 	accent = ACCENT,
 	success = "#4ce38a", warning = "#ffb020", danger = "#ff7d7d", quest = "#ffe14d", npc = "#6ec6ff", item = "#d9a6ff",
-	place = "#ffb380", object = "#e8d9b8", level = "#ffffff", skill = "#a6ff6e", spell = "#7ff0ff", faction = "#ff9ad6",
+	place = "#ffb380", object = "#e8d9b8", level = "#ffffff", skill = "#a6ff6e", spell = "#7ff0ff", train = "#e6ff70", faction = "#ff9ad6",
 	area = "#ffcfa0", achievement = "#ffb347", dungeon = "#c4a8ff", experimental = "#e2a8ff", rare = "#ff9666",
 }
 for name, alpha in pairs(WASHES) do TOKENS[name] = wash(alpha) end

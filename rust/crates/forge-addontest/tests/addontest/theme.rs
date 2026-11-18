@@ -53,7 +53,7 @@ fn contrast(a: &Value, b: &Value) -> f64 {
 }
 
 const GROUNDS: [&str; 6] = ["bg", "panel", "panelAlt", "sidebar", "footer", "sky"];
-const SUBJECTS: [&str; 16] = ["quest", "npc", "item", "place", "object", "level", "skill", "spell", "faction", "area", "achievement", "dungeon", "rare", "success", "warning", "danger"];
+const SUBJECTS: [&str; 17] = ["quest", "npc", "item", "place", "object", "level", "skill", "spell", "train", "faction", "area", "achievement", "dungeon", "rare", "success", "warning", "danger"];
 
 // Every ground must carry primary text at 7:1 and the secondary and muted text at 4.5:1; the subject and status
 // colours need 4.5:1 on every ground but the header sky (only titles sit on the band).

@@ -318,7 +318,8 @@ function UI.GoalText(goal, questHex, dungeon)
 			text = (subject ~= "" and subject) or verb or ""
 		end
 	end
-	local kind = goal.status ~= "done" and KIND_COLOR[goal.subjectKind]
+	-- A training goal's trainer or skill wears its own colour (#1669).
+	local kind = goal.status ~= "done" and (goal.t == "train" and "train" or KIND_COLOR[goal.subjectKind])
 	if not kind then return paintSubject(goal, text, nil, dungeon) end
 	return paintSubject(goal, text, (kind == "quest" and questHex) or Theme.Hex(kind), dungeon)
 end
