@@ -132,25 +132,25 @@ return {
 	-- {npc:14728} Rumstag Proudstrider · {item:14047} Runecloth · {quest:7825} Additional Runecloth
 	["From here it is cloth. Wool, Silk and Mageweave must all be handed in before {npc:14728} offers the {item:14047} donation, and {quest:7825} needs the {item:14047} donation. Buy cloth at the Auction House, or farm it: humanoids drop it, Wool from level 15 to 25, Silk 25 to 40, Mageweave 40 to 50, {item:14047} 50 and up. At 60 farm mobs of level 52 or more: lower ones are grey."] = "",
 	-- {item:2592} Wool Cloth
-	["{item:2592}: the Thistlefur furbolgs drop it about one kill in four"] = "",
+	["{item:2592}: the Thistlefur furbolgs drop it about one kill in four"] = "{item:2592}: los fúrbolgs Piel de Cardo la sueltan más o menos una de cada cuatro muertes",
 
 	-- Step 24: A Donation of Silk
 	-- {area:287} Hillsbrad
-	["Silk: the Syndicate in {area:287} and Alterac drop it about one kill in three, or buy it."] = "",
+	["Silk: the Syndicate in {area:287} and Alterac drop it about one kill in three, or buy it."] = "Seda: el Sindicato en {area:287} y Alterac la suelta más o menos una de cada tres muertes, o cómprala.",
 	-- {item:4306} Silk Cloth
-	["{item:4306}: the Syndicate"] = "",
+	["{item:4306}: the Syndicate"] = "{item:4306}: el Sindicato",
 
 	-- Step 25: A Donation of Mageweave
 	-- {zone:1448} Felwood · {zone:1446} Tanaris
-	["Mageweave: the Jadefire satyrs in southern {zone:1448} and the Dunemaul ogres in {zone:1446} drop it about one kill in three, or buy it."] = "",
+	["Mageweave: the Jadefire satyrs in southern {zone:1448} and the Dunemaul ogres in {zone:1446} drop it about one kill in three, or buy it."] = "Tejido mágico: los sátiros Fuego de Jade del sur de {zone:1448} y los ogros Machacaduna de {zone:1446} lo sueltan más o menos una de cada tres muertes, o cómpralo.",
 	-- {item:4338} Mageweave Cloth
-	["{item:4338}: the Jadefire satyrs"] = "",
+	["{item:4338}: the Jadefire satyrs"] = "{item:4338}: los sátiros Fuego de Jade",
 
 	-- Step 26: A Donation of Runecloth
 	-- {item:14047} Runecloth · {area:2266} Tyr's Hand · {zone:1423} Eastern Plaguelands · {area:2577} Dire Maul · {zone:1444} Feralas · {zone:1451} Silithus
-	["{item:14047}: the Scarlet at {area:2266} in the {zone:1423}, the Gordok ogres outside {area:2577} in {zone:1444} and the Twilight camps of {zone:1451} drop it about one kill in three. The Auction House is faster if you have gold."] = "",
+	["{item:14047}: the Scarlet at {area:2266} in the {zone:1423}, the Gordok ogres outside {area:2577} in {zone:1444} and the Twilight camps of {zone:1451} drop it about one kill in three. The Auction House is faster if you have gold."] = "{item:14047}: los Escarlata en {area:2266}, en {zone:1423}; los ogros Gordok fuera de {area:2577}, en {zone:1444}; y los campamentos Crepusculares de {zone:1451} lo sueltan más o menos una de cada tres muertes. La casa de subastas es más rápida si tienes oro.",
 	-- {item:14047} Runecloth · {area:2266} Tyr's Hand
-	["{item:14047}: the Scarlet outside {area:2266}"] = "",
+	["{item:14047}: the Scarlet outside {area:2266}"] = "{item:14047}: los Escarlata fuera de {area:2266}",
 
 	-- Step 27: Everlook: Storm Shadowhoof
 	-- {npc:10303} Storm Shadowhoof · {faction:81} Thunder Bluff · {npc:10806} Ursius · {area:2255} Everlook
