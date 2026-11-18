@@ -321,3 +321,37 @@ emit({ rows = rows, edges = edges, nbad = #bad, bad = table.concat(bad, "; ") })
 	assert.ok(r.rows > 1000 && r.edges > 1000, `the quest records were read: ${JSON.stringify(r)}`);
 	assert.equal(r.nbad, 0, `every quest's follow-ups: ${r.bad}`);
 });
+
+// Quest 67 in the shipped pack: the first hover walks a 13-quest chain. Count
+// full passes over a quest chunk instead of imposing a machine-dependent time limit.
+// The small fixture runs in CI without any installed packs.
+test('the first guide tooltip for a long quest chain reads each quest chunk at most once', () => {
+	const count = `local gmatch = string.gmatch
+stub.recordScans = 0
+string.gmatch = function(s, pattern)
+	if s == stub.questRecords then stub.recordScans = stub.recordScans + 1 end
+	return gmatch(s, pattern)
+end`;
+	const [r] = runAddon({
+		stubs: ['stub_world.lua'], before: count, addons: ['Polestar'],
+		script: `stub.login()
+local C, L = Polestar.Codex, Polestar.Lookup
+local names, records = {}, {}
+for id = 66, 1066 do
+	names[#names + 1] = "\\n" .. id .. "\\t\\tQuest " .. id
+	local pre = id > 66 and id <= 78 and tostring(id - 1) or ""
+	records[#records + 1] = "\\n" .. id .. "\\t" .. string.rep(";", 11) .. pre .. ";;;"
+end
+stub.questRecords = table.concat(records)
+C.Register("meta", { sources = {} })
+C.Register("quest", table.concat(names), stub.questRecords, 66, 1066)
+local first = L.ChainTooltipText(67)
+local scans = stub.recordScans
+local again = L.ChainTooltipText(67)
+emit({ first = first, again = again, scans = scans, repeatScans = stub.recordScans - scans })`,
+	}).emitted;
+	assert.equal(r.first, 'Chain: 1 of 13');
+	assert.equal(r.again, r.first);
+	assert.ok(r.scans <= 1, `first hover read the whole quest chunk ${r.scans} times`);
+	assert.equal(r.repeatScans, 0);
+});
