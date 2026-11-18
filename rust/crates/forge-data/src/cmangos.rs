@@ -1011,6 +1011,21 @@ mod tests {
 	use super::*;
 
 	#[test]
+	fn forever_tdb_spawns_give_heights_only_to_the_ids_classic_db_has_none_for() {
+		let p = |s: &str| forge_guide::js::parse_json(s).unwrap();
+		// Classic-db has Undercity's Varimathras; Calder Gray (Forever's own) and a Forever gameobject only the TDB has.
+		let mut h = Heights { text: String::new(), npc: p(r#"{"2425":[[0,1586.4,240,-62.1,600]]}"#), object: p("{}") };
+		let tdb = p(r#"{"spawns":{
+			"npc":{"2425":[[0,1600,250,-40,120]],"270038":[[0,1429.2,402.1,-85.1,120],[0,1431,404,-85.2,300]]},
+			"object":{"900001":[[1,-1196.5,29.1,177.3,60]]}}}"#);
+		assert_eq!(add_tdb_heights(&mut h, &tdb), 2);
+		assert_eq!(stringify(&h.npc.get("2425"), None), "[[0,1586.4,240,-62.1,600]]", "classic-db's own rows stay");
+		assert_eq!(stringify(&h.npc.get("270038"), None), "[[0,1429.2,402.1,-85.1,120],[0,1431,404,-85.2,300]]");
+		assert_eq!(stringify(&h.object.get("900001"), None), "[[1,-1196.5,29.1,177.3]]", "an object's row carries no respawn");
+		assert!(h.text.contains("\"270038\":[[0,1429.2,402.1,-85.1,120]"), "spawnz.json's text has the added rows");
+	}
+
+	#[test]
 	fn creature_templates_from_the_dump_columns_by_the_create_table_quoted_names() {
 		let lines = [
 			"CREATE TABLE `creature_template` (",
