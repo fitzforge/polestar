@@ -1517,7 +1517,7 @@ R("subzone", 31826, 33510, [[
 33507	Colina do Pesar
 33510	Colina do Pesar
 ]])
-R("subzone", 33511, 141111, [[
+R("subzone", 33511, 141117, [[
 
 33511	Colina do Pesar
 33512	Colina do Pesar
@@ -1639,11 +1639,9 @@ R("subzone", 33511, 141111, [[
 34149	Rocha Coleante
 34227	Terraço dos Mercadores
 34230	Terraço dos Mercadores
-34231	Terraço dos Mercadores
 34272	Templo da Lua
 34277	Jardins do Templo
 34278	Jardins do Templo
-34286	Terraço dos Artesãos
 34292	Terraço dos Artesãos
 34293	Terraço dos Artesãos
 34294	Terraço dos Artesãos
@@ -1666,7 +1664,6 @@ R("subzone", 33511, 141111, [[
 34359	Terraço dos Artesãos
 34361	Terraço dos Artesãos
 34362	Terraço dos Artesãos
-34364	Terraço dos Artesãos
 34365	Terraço dos Artesãos
 34367	Terraço dos Artesãos
 34368	Terraço dos Artesãos
@@ -1678,8 +1675,6 @@ R("subzone", 33511, 141111, [[
 34380	Terraço dos Mercadores
 34385	Terraço dos Mercadores
 34387	Terraço dos Mercadores
-34388	Terraço dos Mercadores
-34389	Terraço dos Mercadores
 34394	Terraço dos Mercadores
 34395	Terraço dos Mercadores
 34399	Enclave Cenariano
@@ -1690,7 +1685,6 @@ R("subzone", 33511, 141111, [[
 34405	Enclave Cenariano
 34406	Enclave Cenariano
 34408	Enclave Cenariano
-34409	Enclave Cenariano
 34591	Covil dos Patábua
 34592	Covil dos Patábua
 34609	Ravina da Avalanche
@@ -2019,15 +2013,15 @@ R("subzone", 33511, 141111, [[
 141109	Ruínas de Lordaeron
 141110	Ruínas de Lordaeron
 141111	Ruínas de Lordaeron
-]])
-R("subzone", 141112, 144078, [[
-
 141112	Ruínas de Lordaeron
 141113	Ruínas de Lordaeron
 141114	Ruínas de Lordaeron
 141115	Ruínas de Lordaeron
 141116	Ruínas de Lordaeron
 141117	Ruínas de Lordaeron
+]])
+R("subzone", 141118, 144105, [[
+
 141118	Ruínas de Lordaeron
 141119	Ruínas de Lordaeron
 141120	Distrito Comercial
@@ -2230,7 +2224,6 @@ R("subzone", 141112, 144078, [[
 142211	Altaforja
 142212	Altaforja
 142213	Altaforja
-142214	Salão dos Exploradores
 142215	Altaforja
 142216	Ala Mística
 142218	A Grande Forja
@@ -2239,11 +2232,7 @@ R("subzone", 141112, 144078, [[
 142221	A Grande Forja
 142222	Caverna Esquecida
 142223	A Grande Forja
-142224	Ala Militar
 142225	Ala Militar
-142226	Altaforja
-142227	Altaforja
-142228	Altaforja
 142229	Caverna Esquecida
 142230	Caverna Esquecida
 142231	Caverna Esquecida
@@ -2253,15 +2242,12 @@ R("subzone", 141112, 144078, [[
 142235	A Biblioteca
 142236	A Biblioteca
 142237	A Grande Forja
-142238	Ala Mística
 142239	Altaforja
 142240	Altaforja
 142241	Altaforja
 142242	Ala Militar
 142243	Ala Militar
 142244	Altaforja
-142245	Ala Militar
-142246	Salão dos Exploradores
 142247	Ala Mística
 142249	Ala Mística
 142250	Caverna Esquecida
@@ -2301,8 +2287,6 @@ R("subzone", 141112, 144078, [[
 142284	Ala Mística
 142285	Ala Mística
 142286	Ala Mística
-142287	Altaforja
-142288	Altaforja
 142289	A Grande Forja
 142290	Beco da Gambiarra
 142291	Altaforja
@@ -2487,7 +2471,6 @@ R("subzone", 141112, 144078, [[
 144039	Distrito dos Magos
 144040	Distrito dos Magos
 144041	Distrito dos Magos
-144042	Distrito dos Magos
 144044	Distrito dos Magos
 144045	Distrito dos Magos
 144046	Distrito dos Magos
@@ -2522,9 +2505,6 @@ R("subzone", 141112, 144078, [[
 144076	Catedral da Luz
 144077	Cidade Velha
 144078	Cidade Velha
-]])
-R("subzone", 144079, 149286, [[
-
 144079	Cidade Velha
 144081	O Cordeiro Imolado
 144082	O Cordeiro Imolado
@@ -2533,24 +2513,18 @@ R("subzone", 144079, 149286, [[
 144085	O Cordeiro Imolado
 144086	O Cordeiro Imolado
 144087	O Cordeiro Imolado
-144088	Catedral da Luz
 144089	Catedral da Luz
 144090	Catedral da Luz
 144091	Catedral da Luz
 144092	Catedral da Luz
-144093	Catedral da Luz
-144094	Catedral da Luz
-144095	Catedral da Luz
 144096	Catedral da Luz
-144097	Catedral da Luz
-144098	Catedral da Luz
-144099	O Cordeiro Imolado
-144100	O Cordeiro Imolado
-144101	O Cordeiro Imolado
 144102	O Cordeiro Imolado
 144103	Bastilha Ventobravo
 144104	Biblioteca Real
 144105	Bastilha Ventobravo
+]])
+R("subzone", 144106, 149286, [[
+
 144106	Bastilha Ventobravo
 144107	Bastilha Ventobravo
 144108	Bastilha Ventobravo
@@ -2576,7 +2550,6 @@ R("subzone", 144079, 149286, [[
 144128	Ventobravo
 144129	Ventobravo
 144130	Ventobravo
-144131	Ventobravo
 144133	Distrito Comercial
 144134	Cidade Velha
 144136	Praça da Catedral
@@ -2627,9 +2600,7 @@ R("subzone", 144079, 149286, [[
 144183	Centro de Comando
 144184	Centro de Comando
 144185	Distrito Comercial
-144186	Distrito Comercial
 144187	Distrito Comercial
-144188	Distrito Comercial
 144189	Distrito Comercial
 144190	Distrito Comercial
 144191	Distrito Comercial
@@ -2650,10 +2621,7 @@ R("subzone", 144079, 149286, [[
 144206	Salão dos Campeões
 144216	Praça da Catedral
 144217	Distrito Comercial
-144218	Distrito Comercial
 144219	Distrito Comercial
-144220	Distrito Comercial
-144221	Ventobravo
 144226	Porto de Ventobravo
 144237	Câmara de Sangue
 144238	Salão Partido
@@ -2670,20 +2638,9 @@ R("subzone", 144079, 149286, [[
 144275	Bastilha de Ermoforte
 144276	Bastilha de Ermoforte
 144279	Vale da Força
-144293	O Bazar
-144294	O Bazar
 144295	O Bazar
 144296	O Bazar
-144297	O Bazar
-144298	O Bazar
 144299	O Bazar
-144300	O Bazar
-144301	O Bazar
-144302	O Bazar
-144303	O Bazar
-144304	O Bazar
-144305	O Bazar
-144306	O Bazar
 144307	O Bazar
 144308	O Bazar
 144309	O Bazar
@@ -2693,35 +2650,26 @@ R("subzone", 144079, 149286, [[
 144314	O Bazar
 144315	O Bazar
 144316	O Bazar
-144317	O Bazar
 144318	O Bazar
 144319	O Bazar
-144320	O Bazar
 144321	O Bazar
-144322	O Bazar
 144323	Vale da Sabedoria
 144324	Vale da Sabedoria
 144325	Vale da Sabedoria
 144326	Vale da Sabedoria
 144331	Vale da Honra
-144332	Vale da Honra
-144333	Vale da Honra
-144334	Vale da Honra
 144335	Vale da Honra
 144336	Vale da Honra
-144337	Vale da Honra
 144338	Vale da Honra
 144339	Vale da Honra
 144340	Vale da Honra
 144341	Vale da Honra
 144342	Vale da Honra
 144343	Vale da Honra
-144345	Vale da Honra
 144346	Vale da Honra
 144348	Vale da Honra
 144349	Vale da Honra
 144350	Vale da Honra
-144351	Vale da Honra
 144352	Vale da Honra
 144354	Vale da Honra
 144356	Antro das Sombras
@@ -2730,26 +2678,20 @@ R("subzone", 144079, 149286, [[
 144359	Vale da Força
 144360	Vale da Força
 144361	Vale da Força
-144362	Vale da Força
 144363	Vale da Força
 144364	Vale da Força
-144365	Vale da Força
 144366	Vale da Força
 144367	Vale da Força
-144368	Vale da Força
 144369	Vale da Força
-144370	Vale da Força
 144371	Vale da Força
 144372	Vale da Força
 144374	Vale da Força
 144375	Vale da Força
 144376	Vale da Força
-144377	Vale da Força
 144378	Vale da Força
 144379	Vale da Força
 144380	Vale da Força
 144381	Vale da Força
-144382	Vale da Força
 144383	Salão dos Bravos
 144384	Salão dos Bravos
 144385	Salão dos Bravos

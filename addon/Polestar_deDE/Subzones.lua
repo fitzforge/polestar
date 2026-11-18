@@ -1517,7 +1517,7 @@ R("subzone", 31854, 33827, [[
 33826	Burg Mardenholde
 33827	Burg Mardenholde
 ]])
-R("subzone", 33828, 141205, [[
+R("subzone", 33828, 141211, [[
 
 33828	Burg Mardenholde
 33830	Die Weinende Höhle
@@ -1577,11 +1577,9 @@ R("subzone", 33828, 141205, [[
 34149	Schlitterfels
 34227	Die Terrasse der Händler
 34230	Die Terrasse der Händler
-34231	Die Terrasse der Händler
 34272	Tempel des Mondes
 34277	Die Tempelgärten
 34278	Die Tempelgärten
-34286	Die Terrasse der Handwerker
 34292	Die Terrasse der Handwerker
 34293	Die Terrasse der Handwerker
 34294	Die Terrasse der Handwerker
@@ -1604,7 +1602,6 @@ R("subzone", 33828, 141205, [[
 34359	Die Terrasse der Handwerker
 34361	Die Terrasse der Handwerker
 34362	Die Terrasse der Handwerker
-34364	Die Terrasse der Handwerker
 34365	Die Terrasse der Handwerker
 34367	Die Terrasse der Handwerker
 34368	Die Terrasse der Handwerker
@@ -1616,8 +1613,6 @@ R("subzone", 33828, 141205, [[
 34380	Die Terrasse der Händler
 34385	Die Terrasse der Händler
 34387	Die Terrasse der Händler
-34388	Die Terrasse der Händler
-34389	Die Terrasse der Händler
 34394	Die Terrasse der Händler
 34395	Die Terrasse der Händler
 34399	Die Enklave des Cenarius
@@ -1628,7 +1623,6 @@ R("subzone", 33828, 141205, [[
 34405	Die Enklave des Cenarius
 34406	Die Enklave des Cenarius
 34408	Die Enklave des Cenarius
-34409	Die Enklave des Cenarius
 34591	Waldpfotenbau
 34592	Waldpfotenbau
 34609	Steinschlagklamm
@@ -2019,15 +2013,15 @@ R("subzone", 33828, 141205, [[
 141197	Das Magieviertel
 141198	Das Magieviertel
 141205	Das Apothekarium
-]])
-R("subzone", 141206, 144294, [[
-
 141206	Das Apothekarium
 141207	Das Apothekarium
 141208	Das Kriegsviertel
 141209	Das Schurkenviertel
 141210	Das Magieviertel
 141211	Die Kanäle
+]])
+R("subzone", 141212, 144346, [[
+
 141212	Die Kanäle
 141213	Die Kanäle
 141214	Die Kanäle
@@ -2111,14 +2105,12 @@ R("subzone", 141206, 144294, [[
 142207	Das Militärviertel
 142208	Das Militärviertel
 142209	Die Halle der Forscher
-142214	Die Halle der Forscher
 142216	Das Mystikerviertel
 142218	Die Große Schmiede
 142220	Die Halle der Forscher
 142221	Die Große Schmiede
 142222	Das Düstere Viertel
 142223	Die Große Schmiede
-142224	Das Militärviertel
 142225	Das Militärviertel
 142229	Das Düstere Viertel
 142230	Das Düstere Viertel
@@ -2129,11 +2121,8 @@ R("subzone", 141206, 144294, [[
 142235	Die Bibliothek
 142236	Die Bibliothek
 142237	Die Große Schmiede
-142238	Das Mystikerviertel
 142242	Das Militärviertel
 142243	Das Militärviertel
-142245	Das Militärviertel
-142246	Die Halle der Forscher
 142247	Das Mystikerviertel
 142249	Das Mystikerviertel
 142250	Das Düstere Viertel
@@ -2341,7 +2330,6 @@ R("subzone", 141206, 144294, [[
 144039	Das Magierviertel
 144040	Das Magierviertel
 144041	Das Magierviertel
-144042	Das Magierviertel
 144044	Das Magierviertel
 144045	Das Magierviertel
 144046	Das Magierviertel
@@ -2384,20 +2372,11 @@ R("subzone", 141206, 144294, [[
 144085	Zum Geschlachteten Lamm
 144086	Zum Geschlachteten Lamm
 144087	Zum Geschlachteten Lamm
-144088	Die Kathedrale des Lichts
 144089	Die Kathedrale des Lichts
 144090	Die Kathedrale des Lichts
 144091	Die Kathedrale des Lichts
 144092	Die Kathedrale des Lichts
-144093	Die Kathedrale des Lichts
-144094	Die Kathedrale des Lichts
-144095	Die Kathedrale des Lichts
 144096	Die Kathedrale des Lichts
-144097	Die Kathedrale des Lichts
-144098	Die Kathedrale des Lichts
-144099	Zum Geschlachteten Lamm
-144100	Zum Geschlachteten Lamm
-144101	Zum Geschlachteten Lamm
 144102	Zum Geschlachteten Lamm
 144103	Burg Stormwind
 144104	Die Königliche Bibliothek
@@ -2427,7 +2406,6 @@ R("subzone", 141206, 144294, [[
 144128	Sturmwind
 144129	Sturmwind
 144130	Sturmwind
-144131	Sturmwind
 144133	Der Handelsdistrikt
 144134	Die Altstadt
 144136	Der Kathedralenplatz
@@ -2477,9 +2455,7 @@ R("subzone", 141206, 144294, [[
 144183	Die Kommandozentrale
 144184	Die Kommandozentrale
 144185	Der Handelsdistrikt
-144186	Der Handelsdistrikt
 144187	Der Handelsdistrikt
-144188	Der Handelsdistrikt
 144189	Der Handelsdistrikt
 144190	Der Handelsdistrikt
 144191	Der Handelsdistrikt
@@ -2500,10 +2476,7 @@ R("subzone", 141206, 144294, [[
 144206	Die Halle des Champions
 144216	Der Kathedralenplatz
 144217	Der Handelsdistrikt
-144218	Der Handelsdistrikt
 144219	Der Handelsdistrikt
-144220	Der Handelsdistrikt
-144221	Sturmwind
 144226	Hafen von Stormwind
 144237	Die Kammer des Bluts
 144238	Die Verheerte Halle
@@ -2520,23 +2493,9 @@ R("subzone", 141206, 144294, [[
 144275	Burg Farholde
 144276	Burg Farholde
 144279	Das Tal der Stärke
-144293	Die Gasse
-144294	Die Gasse
-]])
-R("subzone", 144295, 149286, [[
-
 144295	Die Gasse
 144296	Die Gasse
-144297	Die Gasse
-144298	Die Gasse
 144299	Die Gasse
-144300	Die Gasse
-144301	Die Gasse
-144302	Die Gasse
-144303	Die Gasse
-144304	Die Gasse
-144305	Die Gasse
-144306	Die Gasse
 144307	Die Gasse
 144308	Die Gasse
 144309	Die Gasse
@@ -2546,35 +2505,29 @@ R("subzone", 144295, 149286, [[
 144314	Die Gasse
 144315	Die Gasse
 144316	Die Gasse
-144317	Die Gasse
 144318	Die Gasse
 144319	Die Gasse
-144320	Die Gasse
 144321	Die Gasse
-144322	Die Gasse
 144323	Das Tal der Weisheit
 144324	Das Tal der Weisheit
 144325	Das Tal der Weisheit
 144326	Das Tal der Weisheit
 144331	Das Tal der Ehre
-144332	Das Tal der Ehre
-144333	Das Tal der Ehre
-144334	Das Tal der Ehre
 144335	Das Tal der Ehre
 144336	Das Tal der Ehre
-144337	Das Tal der Ehre
 144338	Das Tal der Ehre
 144339	Das Tal der Ehre
 144340	Das Tal der Ehre
 144341	Das Tal der Ehre
 144342	Das Tal der Ehre
 144343	Das Tal der Ehre
-144345	Das Tal der Ehre
 144346	Das Tal der Ehre
+]])
+R("subzone", 144348, 149286, [[
+
 144348	Das Tal der Ehre
 144349	Das Tal der Ehre
 144350	Das Tal der Ehre
-144351	Das Tal der Ehre
 144352	Das Tal der Ehre
 144354	Das Tal der Ehre
 144356	Die Kluft der Schatten
@@ -2583,26 +2536,20 @@ R("subzone", 144295, 149286, [[
 144359	Das Tal der Stärke
 144360	Das Tal der Stärke
 144361	Das Tal der Stärke
-144362	Das Tal der Stärke
 144363	Das Tal der Stärke
 144364	Das Tal der Stärke
-144365	Das Tal der Stärke
 144366	Das Tal der Stärke
 144367	Das Tal der Stärke
-144368	Das Tal der Stärke
 144369	Das Tal der Stärke
-144370	Das Tal der Stärke
 144371	Das Tal der Stärke
 144372	Das Tal der Stärke
 144374	Das Tal der Stärke
 144375	Das Tal der Stärke
 144376	Das Tal der Stärke
-144377	Das Tal der Stärke
 144378	Das Tal der Stärke
 144379	Das Tal der Stärke
 144380	Das Tal der Stärke
 144381	Das Tal der Stärke
-144382	Das Tal der Stärke
 144383	Die Halle der Kriegerhelden
 144384	Die Halle der Kriegerhelden
 144385	Die Halle der Kriegerhelden

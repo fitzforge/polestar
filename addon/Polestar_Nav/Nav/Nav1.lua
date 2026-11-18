@@ -1930,6 +1930,7 @@ PolestarPathData[1] = {
 		[144409] = "The Ring of Valor",
 		[144410] = "Valley of Strength",
 		[144411] = "Valley of Strength",
+		[144412] = "Valley of Spirits",
 		[144413] = "Valley of Strength",
 		[144414] = "Valley of Strength",
 		[144416] = "Orgrimmar",
