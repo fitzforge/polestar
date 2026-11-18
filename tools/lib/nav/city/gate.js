@@ -79,14 +79,15 @@ function landZ(taxi, npcZ, c, wx, wy) {
 // master's floor (the recording has only the taxi node's spot, and the matcher may put it on the ground under the
 // tower, Orgrimmar's and Thunder Bluff's, where players then drop to), and an NPC's end the match had no spawn height
 // for (Forever's own NPCs, whose heights came with the Forever TDB) on that NPC's. Each moves to the grid level
-// nearest that height (within 8 yd) at its spot; `was` keeps the matched height.
-function anchorEnds(g, t, taxi, npcZ) {
+// nearest that height (within 8 yd) at its spot that players walk (walked(node): 3+ training people), else stays;
+// `was` keeps the matched height.
+function anchorEnds(g, t, taxi, npcZ, walked = () => true) {
 	const fix = (e) => {
 		const z = e.kind === 'land' ? landZ(taxi, npcZ, t.c, e.wx, e.wy) : !e.anchored && e.npc ? npcZ(e.npc, e.wx, e.wy) : null;
 		const ci = z === null ? -1 : g.colIndex(e.wx, e.wy);
 		if (ci < 0) return e;
 		let node = -1;
-		for (const v of g.colNodes(ci)) if (Math.abs(g.nz[v] - z) <= 8 && (node < 0 || Math.abs(g.nz[v] - z) < Math.abs(g.nz[node] - z))) node = v;
+		for (const v of g.colNodes(ci)) if (Math.abs(g.nz[v] - z) <= 8 && walked(v) && (node < 0 || Math.abs(g.nz[v] - z) < Math.abs(g.nz[node] - z))) node = v;
 		return node < 0 || node === e.node ? e : { ...e, z: g.nz[node], node, was: e.z };
 	};
 	const A = fix(t.A);
@@ -412,7 +413,7 @@ async function gate({ priv, nav, ground = null, spf = null, grid, frames, spawnz
 			const t0 = Date.now();
 			const area = loadArea(priv, map, grid, frames);
 			const npcZc = spawnHeight(spawnz, city.c);
-			const trips = area.trips.map((t) => anchorEnds(area.g, { ...t, c: city.c, side: city.side }, taxi, npcZc));
+			const trips = area.trips.map((t) => anchorEnds(area.g, { ...t, c: city.c, side: city.side }, taxi, npcZc, (v) => area.train[v] >= 3));
 			const res = await runArms({ trips, arms, dirs: { nav: gn.dir, ground, spf }, spawnz, policy, taxi });
 			const rows = scoreRows(area, trips, res, protosFor(area, arms));
 			const summary = summarize(rows, map, frames, npcs);
@@ -438,7 +439,9 @@ async function gateWorld({ priv, nav, ground = null, spf = null, grid, frames, s
 	const zOf = (c) => npcZc.get(c) || npcZc.set(c, spawnHeight(spawnz, c)).get(c);
 	const trips = all.map((t) => {
 		const s = { ...t, side: t.fac === 'Alliance' || t.fac === 'Horde' ? t.fac : null };
-		return s.A.kind === 'land' || s.A.npc || s.B.npc ? anchorEnds(new AreaGraph(s.box, { grid }), s, taxi, zOf(s.c)) : s;
+		if (!(s.A.kind === 'land' || s.A.npc || s.B.npc)) return s;
+		const walked = new Set(s.density.filter(([, n]) => n >= 3).map(([v]) => v));
+		return anchorEnds(new AreaGraph(s.box, { grid }), s, taxi, zOf(s.c), (v) => walked.has(v));
 	});
 	const byI = new Map(trips.map((t) => [t.i, t]));
 	const gn = gateNav(path.resolve(nav), priv);
