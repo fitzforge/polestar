@@ -2767,6 +2767,16 @@ test('forever/40-50/shendralas.guide: Liranne\'s step keeps the collar, the obje
 	assert.ok(data.quests[93568].objectives.some((o) => o.type === 'item' && o.id === 259461), 'the collar is the quest\'s objective');
 	assert.ok(st.goals.findIndex(is('accept', 93568)) < st.goals.findIndex(is('turnin', 93568)), 'accept, then the hand-in, in one step');
 });
+// Sekyno's report (#2946): Liranne is not there before Mordent's pylons chain is done, yet While you're here sent a
+// player carrying the collar to her empty spot after only Strange Pylons. Her step (and so While you're here) waits
+// for A Brief History Lesson (93016), as the route reaches her.
+test('forever/40-50/shendralas.guide: Sekyno\'s report (#2946): Liranne\'s step waits for the pylons chain', { skip }, () => {
+	const steps = compiled('forever/40-50/shendralas.guide').steps;
+	const st = steps.find((s) => s.goals.some(is('turnin', 93568)));
+	assert.ok((st.when || []).some((p) => p.k === 'turnedin' && !p.neg && [].concat(p.q).includes(93016)), 'only once A Brief History Lesson is handed in');
+	const history = steps.findIndex((s) => s.goals.some(is('turnin', 93016)));
+	assert.ok(history >= 0 && history < steps.indexOf(st), 'the route hands it in first');
+});
 // A step shown only while the bags hold an item (`when has I`) stops applying the moment the item is used up, so
 // nothing may follow the goal that uses it up (a `use`, an accept the item starts, a hand-in that takes it) but what
 // that goal hands over (a collect of its reward): the rest of the step would be passed half done.

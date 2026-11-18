@@ -176,7 +176,7 @@ do
 				{
 					title = "{npc:255385}",
 					note = "A Prowler gave up a {quest:93568}: {npc:255385}, north of the temple, knows whose it was.",
-					when = { { k = "has", n = 1, item = 259461 } },
+					when = { { k = "has", n = 1, item = 259461 }, { k = "turnedin", q = 93016 } },
 					goals = {
 						{ t = "accept", quest = 93568, title = "Partially Digested Collar", item = 259461, itemName = "Partially Digested Collar", qlvl = 45 },
 						{ t = "turnin", quest = 93568, title = "Partially Digested Collar", npc = 255385, npcName = "Liranne", map = 2652, x = 47.3, y = 65.44, spotsPacked = "47.3,65.6,,15,2" },
