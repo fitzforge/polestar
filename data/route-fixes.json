@@ -16784,6 +16784,12 @@
 				"guide": "forever/horde/50-60/07-felwood",
 				"reason": "It needs 4 quests from 05-eastern-plaguelands first (Toxic Horrors (5086), Mystery Goo (5085), Falling to Corruption (5084), Winterfall Firewater (5083); about 17,400 XP of work at this visit's level): too long to bring back.",
 				"issue": "#2635"
+			},
+			{
+				"q": 98291,
+				"guide": "forever/alliance/30-40/01-hillsbrad-foothills",
+				"reason": "Death to the Dragonmaw, a group choice at Howin, needs his Razormaw Needling (98245) and Trying Times (98246) from 06-wetlands first (10 Razormaw Incisors and 12 Perfect Razormaw Eggs): too long to bring back for a group-only quest. A character who starts here without them is not offered it.",
+				"issue": "#2822"
 			}
 		]
 	}
