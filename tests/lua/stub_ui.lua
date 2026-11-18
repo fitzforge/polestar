@@ -852,7 +852,7 @@ function uistub.install(opts)
 			arrowColor = false, arrowNearColor = false })
 	end
 	if Polestar.GetDefault("behavior.autoAccept") == nil then
-		Polestar.RegisterDefaults("behavior", { autoAccept = true, autoTurnin = true, guideEnd = "ask", autoSelectGuide = true, skipGrey = false, offerClassQuests = true, groupQuests = "ask", dungeons = "skip" })
+		Polestar.RegisterDefaults("behavior", { autoAccept = true, autoTurnin = true, guideEnd = "ask", autoSelectGuide = true, skipGrey = true, offerClassQuests = true, groupQuests = "ask", dungeons = "skip" })
 	end
 	-- An account and a character that have seen the welcome and the newest
 	-- notes, so neither opens over windows under test; ui-welcome.rs and

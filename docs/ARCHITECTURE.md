@@ -318,7 +318,7 @@ Polestar.Profiles.Apply(preview, name, pick?) -> true, undo   -- name = Active()
 Polestar.Profiles.Undo(undo) -> true | nil, why           -- an Apply taken back
 Polestar.Profiles.CategoryOf(path) -> id, how             -- how: "position" | "own" | "page" | "hidden" | "fallback"
 Polestar.Profiles.RegisterPosition(path, shape)          -- a position setting a string may carry ("xy" | "pxy" | "ppxy" | "anchor")
-Polestar.RegisterMigration(id, fn(settings))             -- at file load: runs once per id over every profile
+Polestar.RegisterMigration(id, fn(settings), opts?)       -- at file load: runs once per id over every profile; opts.strings = false: never over a profile string
 ```
 
 `Core/Profiles.lua`. A profile is a named set of settings. The one in use
@@ -330,7 +330,12 @@ its class's (`PolestarDB.classProfiles[CLASS]`), else the account's
 (`PolestarDB.profile`, `"Default"`). At `ADDON_LOADED`, before any `OnInit`
 handler (Init.lua calls `Profiles.Load`), that profile is swapped in and the
 registered migrations run (`PolestarDB.migrations[id] = true`, over the settings
-in use and every stored profile; one registered later runs at once).
+in use and every stored profile; one registered later runs at once). An
+import runs the ones a string is from before over its settings, except those
+registered with `strings = false`: a changed default kept for the players who
+had it (`behavior.skipGrey`, on since 0.4.2, stays off in every profile saved
+before; a fresh install is marked without it) leaves a string's unset value
+at today's default.
 Settings saved before profiles are the profile `Default` where they are. A
 switch fires `SETTING_CHANGED("")` (as `ResetSettings`), so every module
 repaints; any change to the list or the choice fires `PROFILES_CHANGED`. A
@@ -1870,7 +1875,7 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   the guide lists who takes each in.", the link reading "Jump anyway"); the
   guide menu's Load asks once (a popup) before replacing the active leveling
   guide while the route still hands some in before the guide loaded. Setting
-  `behavior.skipGrey` (default off; leveling guides only, see "Every step")
+  `behavior.skipGrey` (on by default since 0.4.2, off in profiles saved before; leveling guides only, see "Every step")
   auto-skips `accept` goals for quests already grey for the character (and
   `turnin ... direct` goals, which the compiler gives their quest's level
   too), and with them the quests' turn-ins and objectives,

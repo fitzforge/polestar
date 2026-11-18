@@ -8,7 +8,7 @@
 //! second profile, and nothing may be rewritten under the player.
 
 use forge_addontest::{emitted, Addon, RunAddon};
-use serde_json::Value;
+use serde_json::{json, Value};
 
 const FIXTURE: &str = include_str!("settings-0.3.6.lua");
 
@@ -349,4 +349,131 @@ fn two_characters_keep_their_own_profile_apart_and_share_the_account_s() {
 		emit({ width = Polestar.Get("ui.width"), arrow = Polestar.Get("nav.arrowScale"), active = Polestar.Profiles.Active() })"#,
 	);
 	assert_eq!(again, serde_json::json!({ "width": 300, "arrow": 1.5, "active": "Mine" }), "the first character's own profile");
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// "Skip grey quests" (behavior.skipGrey) is on by default since 0.4.2: a fresh install and a profile made later
+// start on it. An account Polestar saw before keeps what it had in every profile: off where nothing was stored (a
+// setting at its default never is), whatever the player stored where they did. Once per account, so turning it on
+// afterwards (back at the default, stored as nothing) stays on. A profile string from before leaves it at today's
+// default instead of carrying it into the category it is in.
+// ---------------------------------------------------------------------------------------------------------------
+
+// One session with `saved` as the SavedVariables (None: a fresh install), then the script.
+fn grey_session(saved: Option<&str>, script: &str) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua", "stub_encoding.lua"],
+		addons: vec![Addon::name("Polestar")],
+		saved: saved.map(|s| ("Polestar".to_string(), s.to_string())).into_iter().collect(),
+		login: true,
+		script: format!("stub.advance(1)\n{script}"),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+const GREY: &str = r#"local P = Polestar.Profiles
+local function stored(t) return type(t) == "table" and type(t.behavior) == "table" and t.behavior.skipGrey end
+local function report(extra)
+	local out = { on = Polestar.Get("behavior.skipGrey"), default = Polestar.GetDefault("behavior.skipGrey"),
+		newAccount = Polestar.IsNewAccount(), newCharacter = Polestar.IsNewCharacter(),
+		marked = PolestarDB.migrations and PolestarDB.migrations.skipGreyOn or false,
+		stored = stored(PolestarDB.settings) == nil and "none" or stored(PolestarDB.settings), profiles = {} }
+	for name, t in pairs(PolestarDB.profiles or {}) do
+		local v = stored(t)
+		out.profiles[name] = v == nil and "none" or v
+	end
+	for k, v in pairs(extra or {}) do out[k] = v end
+	emit(out)
+end
+"#;
+
+#[test]
+fn skip_grey_quests_is_on_for_a_fresh_install_and_its_new_profiles() {
+	let out = grey_session(
+		None,
+		&format!(
+			r#"{GREY}
+			assert(P.New("Second"))
+			assert(P.Switch("Second"))
+			local second = Polestar.Get("behavior.skipGrey")
+			assert(P.Switch("Default"))
+			report({{ second = second }})"#
+		),
+	);
+	assert_eq!(out["default"], true);
+	assert_eq!(out["newAccount"], true);
+	assert_eq!(out["newCharacter"], true);
+	assert_eq!(out["on"], true, "a fresh install starts on");
+	assert_eq!(out["stored"], "none", "at the default: nothing written");
+	assert_eq!(out["marked"], true, "marked done, so a later session never turns it off");
+	assert_eq!(out["second"], true, "a new profile starts at the defaults, on");
+	assert_eq!(out["profiles"], json!({ "Second": "none" }));
+}
+
+#[test]
+fn an_account_saved_before_0_4_2_keeps_skip_grey_quests_as_it_had_it_in_every_profile() {
+	// 0.4.1's SavedVariables: the profile in use and Raid never touched it (off then, nothing stored), Mine turned it
+	// on, Odd holds an explicit off. A character logging in for the first time on that account follows its profile.
+	let saved = r#"PolestarDB = { schema = 1, welcomeSeen = 1, profileActive = "Default", profile = "Default",
+		migrations = { guideTextSize = true },
+		settings = { behavior = { autoAccept = false } },
+		profiles = { Raid = { ui = { scale = 1.2 } }, Mine = { behavior = { skipGrey = true } }, Odd = { behavior = { skipGrey = false } } } }"#;
+	let out = grey_session(
+		Some(saved),
+		&format!(
+			r#"{GREY}
+			local kept = { autoAccept = Polestar.Get("behavior.autoAccept") }
+			assert(P.Switch("Mine")); kept.Mine = Polestar.Get("behavior.skipGrey")
+			assert(P.Switch("Odd")); kept.Odd = Polestar.Get("behavior.skipGrey")
+			assert(P.Switch("Raid")); kept.Raid = Polestar.Get("behavior.skipGrey")
+			assert(P.New("Fresh")); assert(P.Switch("Fresh")); kept.Fresh = Polestar.Get("behavior.skipGrey")
+			assert(P.Switch("Default"))
+			report({{ kept = kept }})"#
+		),
+	);
+	assert_eq!(out["default"], true);
+	assert_eq!(out["newAccount"], false);
+	assert_eq!(out["newCharacter"], true, "a character Polestar had not seen, on an account it had");
+	assert_eq!(out["on"], false, "the profile in use keeps it off");
+	assert_eq!(out["stored"], false, "now stored, since off is no longer the default");
+	assert_eq!(out["marked"], true);
+	assert_eq!(out["profiles"], json!({ "Raid": false, "Mine": true, "Odd": false, "Fresh": "none" }));
+	assert_eq!(out["kept"], json!({ "autoAccept": false, "Mine": true, "Odd": false, "Raid": false, "Fresh": true }), "a profile made now starts on");
+}
+
+#[test]
+fn skip_grey_quests_turned_on_after_the_update_stays_on() {
+	// Once per account: the player turned it on after the update (the default: nothing stored), then relogged.
+	let saved = r#"PolestarDB = { schema = 1, welcomeSeen = 1, migrations = { guideTextSize = true, skipGreyOn = true }, settings = {} }
+		PolestarCharDB = { schema = 1, welcomeSeen = 1 }"#;
+	let out = grey_session(Some(saved), &format!("{GREY}\nreport()"));
+	assert_eq!(out["on"], true);
+	assert_eq!(out["stored"], "none", "nothing written under the player");
+	assert_eq!(out["newCharacter"], false);
+	// And it turns off as any setting does, kept off after a relog.
+	let off = grey_session(
+		Some(r#"PolestarDB = { schema = 1, welcomeSeen = 1, migrations = { guideTextSize = true, skipGreyOn = true }, settings = { behavior = { skipGrey = false } } }"#),
+		&format!("{GREY}\nreport()"),
+	);
+	assert_eq!(off["on"], false);
+}
+
+#[test]
+fn a_profile_string_from_before_0_4_2_leaves_skip_grey_quests_at_today_s_default() {
+	// On an account from before 0.4.2 (its own profile kept off), a string from 0.4.1 holding only a text size: the
+	// import carries no Skip grey quests and so no "Quests & automation" category that would put the rest of yours
+	// back to the defaults; one from 0.4.2 carries an off it holds.
+	let saved = r#"PolestarDB = { schema = 1, welcomeSeen = 1, settings = {} }"#;
+	let out = grey_session(
+		Some(saved),
+		r#"local P = Polestar.Profiles
+		local old = assert(P.Import(P.Pack('{"format":1,"categories":["fonts"],"migrations":["guideTextSize"],"settings":{"ui.textSize":1.3}}')))
+		local new = assert(P.Import(P.Pack('{"format":1,"categories":["quests"],"migrations":["guideTextSize","skipGreyOn"],"settings":{"behavior.skipGrey":false}}')))
+		emit({ mine = Polestar.Get("behavior.skipGrey"), old = old.settings, oldQuests = old.holds.quests or false, new = new.settings })"#,
+	);
+	assert_eq!(out["mine"], false, "this account's own profile kept it off");
+	assert_eq!(out["old"], json!({ "ui.textSize": 1.3 }), "nothing added to the string");
+	assert_eq!(out["oldQuests"], false);
+	assert_eq!(out["new"], json!({ "behavior.skipGrey": false }));
 }
