@@ -461,13 +461,15 @@ async function cityCmd(argv) {
 		console.log(`nav city trails: ${n} walked cell levels (${o.train ? "the gate's training people" : 'all people'})${o.out ? ` -> ${o.out}` : ''}${o.lua ? ` -> ${o.lua}` : ''}`);
 		return 0;
 	}
-	// --set world (default): the zones' strata; --set boundary: walks across a capital's entrance
+	// --set world (default): the zones' strata; boundary: walks across a capital's entrance; reported: walks through the
+	// places players reported (tools/lib/nav/city/reported.json)
 	const set = o.set || 'world';
-	if (set !== 'world' && set !== 'boundary') throw usageError(`nav city: --set world or boundary, not "${set}"`);
+	if (!['world', 'boundary', 'reported'].includes(set)) throw usageError(`nav city: --set world, boundary or reported, not "${set}"`);
 	if (step === 'world-sample') {
 		const W = require('../lib/nav/city/world');
 		const args = { priv, frames, spawnz: readData('spawnz.json').npc, seed: o.seed ? Number(o.seed) : 1, log };
-		const s = set === 'boundary' ? W.sampleBoundary({ ...args, per: o.per ? Number(o.per) : 25 }) : W.sampleWorld({ ...args, zones: maps, per: o.per ? Number(o.per) : 6 });
+		const per = o.per ? Number(o.per) : undefined;
+		const s = set === 'boundary' ? W.sampleBoundary({ ...args, per }) : set === 'reported' ? W.sampleReported({ ...args, per }) : W.sampleWorld({ ...args, zones: maps, per });
 		console.log(`nav city world-sample (${set}): ${s.trips.length} trips`);
 		return 0;
 	}

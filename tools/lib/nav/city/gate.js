@@ -64,6 +64,31 @@ function loadArea(priv, map, grid, frames) {
 	return { g, people, train, trips, gaps };
 }
 
+// A flight's landing spot: the height of the flight master at the taxi node within 40 yd (TaxiNodes' height stands in
+// for it in game), or null. taxi: travel.json's nodes ({ c, wx, wy, npc }); npcZ: spawnHeight(spawnz, c).
+function landZ(taxi, npcZ, c, wx, wy) {
+	let best = null;
+	for (const n of taxi) {
+		const d = n.c === c ? Math.hypot(n.wx - wx, n.wy - wy) : Infinity;
+		if (d <= 40 && (!best || d < best.d)) best = { d, n };
+	}
+	return best ? npcZ(best.n.npc, best.n.wx, best.n.wy) : null;
+}
+
+// A trip that starts at a landing starts where the flight sets players down, on the flight master's floor: the
+// recording has only the taxi node's spot, and the matcher may put it on the ground under the tower (Orgrimmar's,
+// Thunder Bluff's), where players then drop to. The start moves to the grid level nearest the flight master's height
+// (within 8 yd) at that spot.
+function landOnTower(g, t, taxi, npcZ) {
+	if (t.A.kind !== 'land') return t;
+	const z = landZ(taxi, npcZ, t.c, t.A.wx, t.A.wy);
+	const ci = z === null ? -1 : g.colIndex(t.A.wx, t.A.wy);
+	if (ci < 0) return t;
+	let node = -1;
+	for (const v of g.colNodes(ci)) if (Math.abs(g.nz[v] - z) <= 8 && (node < 0 || Math.abs(g.nz[v] - z) < Math.abs(g.nz[node] - z))) node = v;
+	return node < 0 || node === t.A.node ? t : { ...t, A: { ...t.A, z: g.nz[node], node, landed: t.A.z } };
+}
+
 // Line scoring on the judge's grid.
 function judge({ g, people, train }) {
 	function nearSet(wx, wy, z) {
@@ -315,13 +340,9 @@ async function runArms({ trips, arms, dirs, spawnz, policy, taxi = [] }) {
 	// what Walk.lua knows of a stop's height: the NPC just talked to (spawn height), or at a landing its flight
 	// master's (TaxiNodes' height stands in for it in game)
 	const hint = (t, e) => {
-		if (e.kind === 'land') {
-			const node = taxi.filter((n) => n.c === t.c).map((n) => [Math.hypot(n.wx - e.wx, n.wy - e.wy), n]).sort((a, b) => a[0] - b[0])[0];
-			if (!node || node[0] > 40) return null;
-			if (!npcZs.has(t.c)) npcZs.set(t.c, spawnHeight(spawnz, t.c));
-			return npcZs.get(t.c)(node[1].npc, node[1].wx, node[1].wy);
-		}
-		return npcZ(t, e);
+		if (e.kind !== 'land') return npcZ(t, e);
+		if (!npcZs.has(t.c)) npcZs.set(t.c, spawnHeight(spawnz, t.c));
+		return landZ(taxi, npcZs.get(t.c), t.c, e.wx, e.wy);
 	};
 	// WALK (CityFloor's rules): the start from the trail floor within 4 yd near the stop's height hint, else the hint,
 	// else the trail floor anywhere within 4 yd; the goal at its NPC's height, else the trail floor
@@ -385,7 +406,8 @@ async function gate({ priv, nav, ground = null, spf = null, grid, frames, spawnz
 			const city = CITIES[map];
 			const t0 = Date.now();
 			const area = loadArea(priv, map, grid, frames);
-			const trips = area.trips.map((t) => ({ ...t, c: city.c, side: city.side }));
+			const npcZc = spawnHeight(spawnz, city.c);
+			const trips = area.trips.map((t) => landOnTower(area.g, { ...t, c: city.c, side: city.side }, taxi, npcZc));
 			const res = await runArms({ trips, arms, dirs: { nav: gn.dir, ground, spf }, spawnz, policy, taxi });
 			const rows = scoreRows(area, trips, res, protosFor(area, arms));
 			const summary = summarize(rows, map, frames, npcs);
@@ -407,7 +429,13 @@ async function gateWorld({ priv, nav, ground = null, spf = null, grid, frames, s
 	const t0 = Date.now();
 	const all = readWorldTrips(priv, set).filter((t) => !strata || strata.includes(t.stratum));
 	const keep = new Set(all.map((t) => t.i));
-	const trips = all.map((t) => ({ ...t, side: t.fac === 'Alliance' || t.fac === 'Horde' ? t.fac : null }));
+	const npcZc = new Map();
+	const zOf = (c) => npcZc.get(c) || npcZc.set(c, spawnHeight(spawnz, c)).get(c);
+	const trips = all.map((t) => {
+		const s = { ...t, side: t.fac === 'Alliance' || t.fac === 'Horde' ? t.fac : null };
+		return s.A.kind === 'land' ? landOnTower(new AreaGraph(s.box, { grid }), s, taxi, zOf(s.c)) : s;
+	});
+	const byI = new Map(trips.map((t) => [t.i, t]));
 	const gn = gateNav(path.resolve(nav), priv);
 	let res;
 	try {
@@ -418,14 +446,15 @@ async function gateWorld({ priv, nav, ground = null, spf = null, grid, frames, s
 	log(`world: ${trips.length} trips routed (${((Date.now() - t0) / 1000).toFixed(0)} s); judging`);
 	const byStratum = new Map();
 	let k = 0;
-	for (const { trip, area } of worldAreas(priv, grid, set)) {
-		if (!keep.has(trip.i)) continue;
+	for (const { trip: stored, area } of worldAreas(priv, grid, set)) {
+		if (!keep.has(stored.i)) continue;
+		const trip = byI.get(stored.i);
 		const idx = k++;
 		const one = Object.fromEntries(Object.entries(res).map(([arm, rs]) => [arm, [rs[idx]]]));
 		const [row] = scoreRows(area, [trip], one);
 		row.zone = trip.zone;
 		row.cross = trip.cross;
-		const key = trip.stratum === 'boundary' ? `${CITIES[trip.zone] ? CITIES[trip.zone].name : trip.zone} entrance` : trip.stratum;
+		const key = trip.stratum === 'boundary' ? `${CITIES[trip.zone] ? CITIES[trip.zone].name : trip.zone} entrance` : trip.stratum === 'reported' ? trip.case : trip.stratum;
 		if (!byStratum.has(key)) byStratum.set(key, []);
 		byStratum.get(key).push(row);
 		if (k % 100 === 0) log(`world: judged ${k}/${trips.length}`);
@@ -554,4 +583,4 @@ function markdown(report, cmp = null) {
 	return lines.join('\n');
 }
 
-module.exports = { gate, gateWorld, remeasure, compareReports, markdown, judge, tautPts, desire, COUNTED };
+module.exports = { gate, gateWorld, remeasure, compareReports, markdown, judge, tautPts, desire, landOnTower, COUNTED };
