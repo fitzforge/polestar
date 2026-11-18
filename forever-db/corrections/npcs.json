@@ -788,6 +788,32 @@
 		},
 		"note": "Daniel Stitchsong (npc 256734) stands at Three Corners in Redridge Mountains, 9.96,72.71 in the live map frame (map 1433), as marked in the player's report. The lookup led to 11.90,69.10 live instead. Replaces the map's existing points."
 	},
+	"256899": {
+		"set": {
+			"spawns": {
+				"2548": {
+					"f": "l",
+					"pts": [
+						[
+							44.9,
+							51.2
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 65 kills of Chogg'Zac by 51 people (47 established), the median of each person's kill spots 44.91,51.19 live, four in five people within 0.75 of it, 49 of the 51 west of 46"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2882: the reporter stood on him at 44.74,50.95 live; he does not move"
+			}
+		],
+		"note": "Chogg'Zac (npc 256899), the elite Twilight No More! (95427) sends you after in the Sunnyglade cave, stands in one spot at 44.9,51.2 in the live map frame (Riverglades, map 2548). The data listed 14 points spread from 44.95 to 48.19, so Krol'dok Stronghold's pick-up guide aimed at x 46.70, about 80-90 yards east of him (#2882)."
+	},
 	"257196": {
 		"addSpawns": {
 			"2521": {

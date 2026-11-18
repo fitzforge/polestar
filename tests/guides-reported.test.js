@@ -4350,6 +4350,16 @@ test('#2881: Questioning Reethe is an escort', { skip }, () => {
 	assert.ok(isEscort({ ...data.quests[1273], ...fix.set }), 'the compiler reads it as one');
 });
 
+// #2882 (Redrett, Krol'dok Stronghold's pick-up guide): Chogg'Zac (256899) stands in one spot in the Sunnyglade cave;
+// the data listed 14 points spread east of him, and the arrow led about 80-90 yards off. Players' recordings: 51 people
+// killed him at 44.9,51.2 (median of each person's spots).
+test("#2882: Chogg'Zac's spot is where players kill him", { skip }, () => {
+	const fix = (loadCorrections().npcs[256899] || {}).set;
+	const pts = fix && fix.spawns && fix.spawns[2548] && fix.spawns[2548].pts;
+	assert.ok(pts && pts.length === 1, 'one spot');
+	assert.ok(Math.hypot(pts[0][0] - 44.9, pts[0][1] - 51.2) < 0.3, `at 44.9,51.2 (got ${pts[0]})`);
+});
+
 // --- Typed coordinates on the wrong map (Fitz's playtest: Darkshore's "Boat to
 // Stormwind" pointed into Moonglade). Coordinates without `map` are on the zone
 // in effect, and a `zone` line holds for the steps after it, even when its step
