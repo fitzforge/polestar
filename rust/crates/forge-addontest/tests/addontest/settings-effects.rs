@@ -51,6 +51,7 @@ const GROUPS: &[Group] = &[
 	Group { name: "routes", src: include_str!("effects/routes.lua") },
 	Group { name: "ground_trail", src: include_str!("effects/ground-trail.lua") },
 	Group { name: "ground_trail_looks", src: include_str!("effects/ground-trail-looks.lua") },
+	Group { name: "ground_trail_intro", src: include_str!("effects/ground-trail-intro.lua") },
 	Group { name: "theme", src: include_str!("effects/theme.lua") },
 	Group { name: "guidewindow", src: include_str!("effects/guidewindow.lua") },
 	Group { name: "integrations", src: include_str!("effects/integrations.lua") },
@@ -382,6 +383,8 @@ fn env(name: &str) -> Env {
 			login: false,
 			prelude: "stub.worldTrail.install()\nstub.login()\nstub.advance(2.1)\n".into(),
 		},
+		// The UI with the ground trail's settings, for the trail's introduction window (ui-world-trail-intro.test.js).
+		"trailui" => Env { addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Nav/WorldTrail.lua", "UI/UI.xml"])], ..env("ui") },
 		// The UI stub, its own login, then the settings window's addon (ui-look-theme.rs); the game menu (Esc)
 		// exists before Polestar loads, as in the client (ui-game-menu.rs).
 		"ui" => Env {
@@ -594,6 +597,11 @@ fn ground_trail() {
 #[test]
 fn ground_trail_looks() {
 	check("ground_trail_looks");
+}
+
+#[test]
+fn ground_trail_intro() {
+	check("ground_trail_intro");
 }
 
 #[test]

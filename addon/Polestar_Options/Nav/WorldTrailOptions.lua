@@ -115,6 +115,10 @@ register(L["Sparkles"], {
 register(L["Looks"], {
 	{ kind = "button", button = L["Save"], label = L["Save custom look"], needs = ready, onClick = function() ns.WorldTrail.SaveLook() end,
 		help = L["Save the current sparkle appearance and trail shape as your own look; Look then lists it as Your saved look. Enable, indoor visibility, Fit to view and the sprite ceiling stay independent."] },
+	{ kind = "button", button = L["Show"], label = L["Introduction"],
+		needs = function() return ready() and ns.UI ~= nil and ns.UI.WorldTrailIntro ~= nil end,
+		onClick = function() ns.Fire("SHOW_TRAIL_INTRO") end,
+		help = L["What the ground trail is, with its switch and four looks to try, each previewed."] },
 	{ kind = "button", button = L["Reset"], label = L["Reset ground trail"], icon = "reset", needs = ready, confirm = true,
 		onClick = function() ns.WorldTrail.Reset() end,
 		help = L["Reset only ground-trail settings and the saved custom look. Turns the ground trail off; map trails and other Polestar settings are unchanged."] },

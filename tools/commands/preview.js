@@ -1388,6 +1388,18 @@ const SCENES = [
 		],
 	},
 	{
+		file: 'ground-trail.svg',
+		title: 'The ground trail: its introduction (the Ground trail page\'s Introduction row, /polestar trail intro), as it opens and with the trail on in the Breadcrumbs look; Settings, Ground trail, and the same page with the trail\'s waypoint switched off',
+		panels: [
+			// With the navigation module, which the trail's settings belong to.
+			{ roots: ['PolestarTrailIntro'], files: WELCOME_ROUTE_FILES, script: 'Polestar.UI.WorldTrailIntro.Show()' },
+			{ roots: ['PolestarTrailIntro'], files: WELCOME_ROUTE_FILES, script: 'Polestar.Set("nav.worldTrail", true); Polestar.WorldTrail.ApplyPreset("breadcrumbs"); Polestar.UI.WorldTrailIntro.Show()' },
+			{ roots: OPTIONS, files: WELCOME_ROUTE_FILES, script: 'Polestar.Set("nav.worldTrail", true); Polestar.UI.ShowOptions("groundtrail")' },
+			// The trail on without its waypoint: the page's one warning, a row with a button.
+			{ roots: OPTIONS, files: WELCOME_ROUTE_FILES, script: 'Polestar.Set("nav.worldTrail", true); Polestar.Set("nav.worldTrailWaypoint", false); Polestar.UI.ShowOptions("groundtrail")' },
+		],
+	},
+	{
 		file: 'guide-professions.svg',
 		title: 'Profession and reputation guides: chosen trainer with alternatives, skill bar, reputation bar',
 		panels: [
