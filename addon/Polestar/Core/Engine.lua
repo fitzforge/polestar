@@ -8137,8 +8137,9 @@ function Own.levelWaits(s)
 	return false
 end
 
--- Done and total applicable steps of the loaded tab; steps the player skipped
--- count as done, steps waiting on a level do not (Own.levelWaits). Counting
+-- Done and total steps of the loaded tab, the steps the player counts
+-- (Own.numbersOf: the step counter's total); steps the player skipped count
+-- as done, steps waiting on a level do not (Own.levelWaits). Counting
 -- runs the done rules over every step after the
 -- current one, so the result is kept on the tab until the next evaluation
 -- (or until its guide or current step moves): the tab tooltip and the guide
@@ -8158,10 +8159,13 @@ end
 
 -- Steps s0 to s1 of the loaded guide: how many are done (progressLoaded's
 -- rules) and how many count, hidden: the steps the character doesn't have.
+-- A step that keeps its number but does not apply now (a `when` that does
+-- not hold: "Skipped for you") counts as the step counter counts it, done
+-- once the live step is past it (POL-69).
 function Own.countProgress(s0, s1, hidden)
-	local done, total, steps = 0, 0, guide.steps
+	local done, total = 0, 0
 	for s = s0, s1 do
-		if stepApplies(steps[s]) and not hidden[s] then
+		if not hidden[s] then
 			total = total + 1
 			if (not computed or s < computed) or isSkipped(s) or (stepDone(s) and not Own.levelWaits(s)) then done = done + 1 end
 		end
