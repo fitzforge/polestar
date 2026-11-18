@@ -26,19 +26,19 @@ return {
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "Летите сюда: {area:272}",
 	-- {zone:1458} Undercity
-	["{zone:1458} flight master"] = "",
+	["{zone:1458} flight master"] = "Распорядитель полетов: {zone:1458}",
 
 	-- Step 5: Tarren Mill
 	-- {npc:2229} Krusk · {npc:2410} Magus Wordeen Voidglare · {npc:2437} Keeper Bel'varil · {npc:2770} Tallow
 	["{npc:2229}, {npc:2410} and {npc:2437} are inside the inn; {npc:2770} stands outside it."] = "{npc:2229}, {npc:2410} и {npc:2437} – в таверне; {npc:2770} стоит снаружи.",
 	-- {npc:2229} Krusk
-	["{npc:2229}, inside"] = "",
+	["{npc:2229}, inside"] = "{npc:2229}, внутри",
 	-- {npc:2410} Magus Wordeen Voidglare
-	["{npc:2410}, inside"] = "",
+	["{npc:2410}, inside"] = "{npc:2410}, внутри",
 	-- {npc:2410} Magus Wordeen Voidglare · {quest:93680} Key to the City · {item:279469} Grimy Key
 	["{npc:2410}: {quest:93680}, the {item:279469} is by the traitors"] = "",
 	-- {npc:2437} Keeper Bel'varil
-	["{npc:2437}, inside"] = "",
+	["{npc:2437}, inside"] = "{npc:2437}, внутри",
 	-- {npc:2770} Tallow · {npc:2771} Drum Fel · {area:321} Hammerfall
 	["{npc:2770}: for {npc:2771} in {area:321}, later in this guide"] = "{npc:2770}: для NPC {npc:2771} ({area:321}), позже в этом гайде",
 	-- {item:3703} Southshore Stout · {npc:2333} Henchman Valik
@@ -88,7 +88,7 @@ return {
 
 	-- Step 14: Old Dalaran Ruins: kill these as you meet them
 	-- {area:17707} Old Dalaran Ruins
-	["{area:17707}: kill these as you meet them"] = "",
+	["{area:17707}: kill these as you meet them"] = "{area:17707}: убивайте их по пути",
 	-- {area:280} Strahnbrad · {area:1357} Gallows' Corner · {area:279} Dalaran
 	-- plural, as words: Dalaran Summoners = {npc:2358} Dalaran Summoner · Elemental Slaves = {npc:2359} Elemental Slave · Kirin Tor Guards = {npc:246848} Kirin Tor Guard
 	["From {area:280} follow the road south-west to {area:1357} and on west to the ruins north of the {area:279} crater, along the lake shore. The Dalaran Summoners lead Elemental Slaves; the bracers drop from the slaves. Careful: Arcane Sentries (55, elite) and Kirin Tor Guards (55) guard the dome itself and attack the Horde: work the ruins' outer edge and don't go up to the dome."] = "От места {area:280} идите по дороге на юго-запад к месту {area:1357} и дальше на запад к руинам к северу от кратера ({area:279}), вдоль берега озера. Даларанские призыватели водят с собой порабощенных элементалей; наручи падают с элементалей. Осторожно: чародейские часовые (55, элита) и кирин-торские стражники (55) охраняют сам купол и нападают на Орду: бейте по внешнему краю руин и не подходите к куполу.",
@@ -189,14 +189,14 @@ return {
 	-- {area:321} Hammerfall
 	["Back to {area:321}"] = "Назад: {area:321}",
 	-- {area:321} Hammerfall
-	["Back north-east to {area:321}."] = "",
+	["Back north-east to {area:321}."] = "Назад на северо-восток сюда: {area:321}.",
 
 	-- Step 32: Boulderfist quests for a group
 	["Boulderfist quests for a group"] = "",
 	-- {npc:2771} Drum Fel · {quest:678} Call to Arms · {npc:2772} Korin Fel · {quest:680} The Real Threat
 	["{npc:2771}'s next {quest:678} and {npc:2772}'s {quest:680} are the elite ogres (38-40) in Stromgarde's ogre quarter, on the same group trip as the Sigil."] = "",
 	-- {npc:2772} Korin Fel
-	["{npc:2772}, beside him"] = "",
+	["{npc:2772}, beside him"] = "{npc:2772}, рядом с ним",
 
 	-- Step 33: The Stone of Outer Binding
 	-- {object:2690} Stone of Outer Binding
@@ -228,7 +228,7 @@ return {
 
 	-- Step 40: The Drowned Reef: kill these as you meet them
 	-- {area:328} The Drowned Reef
-	["{area:328}: kill these as you meet them"] = "",
+	["{area:328}: kill these as you meet them"] = "{area:328}: убивайте их по пути",
 	-- plural, as words: Daggerspine Raiders = {npc:2595} Daggerspine Raider
 	["West of the cove the Daggerspine Raiders and Sorceresses (38-40) hold the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks."] = "К западу от бухты налетчики и колдуньи из клана Пронзающего Гребня (38-40) занимают берег: выманивайте по одному. Два затонувших корабля лежат на мелководье, карты и журналы – внутри; самоцветы лежат на дне вокруг кораблей.",
 	["Underwater"] = "Под водой",

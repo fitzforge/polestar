@@ -2763,6 +2763,13 @@ local function stopLabel(s, c)
 			place = format(s.side == "top" and L["%s, Top"] or L["%s, Bottom"], place)
 		elseif s.kind == "building" and innDoor(c, s.wx, s.wy) then
 			place = format(L["%s Inn"], place)
+		elseif s.kind == "building" or s.kind == "cave" then
+			-- A mouth named after the area the player stands in says nothing about where it leads:
+			-- a house's door in the Ruins of Andorhal read "Walk to the Ruins of Andorhal entrance"
+			-- inside the ruins, as if it were the way into them (#2863). It is just the entrance.
+			local C, sub = ns.Compat, nil
+			if C and C.GetZoneText then sub = select(2, C.GetZoneText()) end
+			if sub == place then return ride and ride.bare[kind] or CHOKE_BARE[kind] end
 		end
 		return format(ride and ride.to[kind] or CHOKE_TO[kind], place)
 	end

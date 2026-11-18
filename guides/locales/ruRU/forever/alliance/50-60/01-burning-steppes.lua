@@ -31,7 +31,7 @@ return {
 
 	-- Step 5: Azshara: kill these as you meet them
 	-- {zone:1447} Azshara
-	["{zone:1447}: kill these as you meet them"] = "",
+	["{zone:1447}: kill these as you meet them"] = "{zone:1447}: убивайте их по пути",
 	-- {npc:222478} Sentinel Keldara Sunblade
 	["The Highborne ghosts haunt the ruins around the shrine; the Haldarr satyrs hold the camp just north of it. {npc:222478} is held in the satyrs' camp: free her and walk her out."] = "Призраки высокорожденных бродят по руинам вокруг святилища; сатиры из племени Халдарр занимают лагерь сразу к северу от него. {npc:222478} в плену в лагере сатиров: освободите ее и выведите оттуда.",
 	-- {npc:222478} Sentinel Keldara Sunblade
@@ -76,7 +76,7 @@ return {
 	-- plural, as words: Spitelash Myrmidons = {npc:6196} Spitelash Myrmidon
 	["Top up to level 51.3 on the Spitelash Myrmidons (50-51) of the ruins between {npc:8395}'s camp and the north: the blood elves at {npc:8420}'s camp are 51-53. Or, with a group, run the {area:1417} dungeon instead."] = "Доберите опыт до уровня 51.3 на мирмидонах из клана Бича Злобы (50-51) в руинах между лагерем NPC {npc:8395} и севером: эльфы крови в лагере NPC {npc:8420} – 51-53 уровня. Или, с группой, пройдите вместо этого подземелье {area:1417}.",
 	-- {npc:6196} Spitelash Myrmidon
-	["grind on {npc:6196}"] = "",
+	["grind on {npc:6196}"] = "убивайте: {npc:6196}",
 
 	-- Step 15: Lord Sarthiss
 	-- {npc:239939} Lord Sarthiss
@@ -115,7 +115,7 @@ return {
 
 	-- Step 27: The Temple of Zin-Malor
 	-- {area:1223} Temple of Zin-Malor
-	["The {area:1223}"] = "",
+	["The {area:1223}"] = "{area:1223}",
 	-- {area:1223} Temple of Zin-Malor · {npc:8395} Sanath Lim-yo
 	-- plural, as words: Spitelash Sirens = {npc:6195} Spitelash Siren
 	["The Spitelash Sirens wander the ruins and the beach around the {area:1223}, just south of {npc:8395}. Only the Sirens carry the coral, not the Screamers."] = "",
@@ -155,7 +155,7 @@ return {
 
 	-- Step 36: Fly to Aerie Peak
 	-- {area:348} Aerie Peak
-	["Fly to {area:348}"] = "",
+	["Fly to {area:348}"] = "Летите сюда: {area:348}",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "Распорядитель полетов ({zone:1455})",
 
@@ -169,7 +169,7 @@ return {
 
 	-- Step 39: Fly to Southshore
 	-- {area:348} Aerie Peak
-	["{area:348} flight master"] = "",
+	["{area:348} flight master"] = "Распорядитель полетов: {area:348}",
 
 	-- Step 40: Orphan Matron Aria
 	-- {area:271} Southshore · {area:279} Dalaran · {npc:34365} Orphan Matron Aria · {npc:266524} Lieutenant Connar · {area:1438} Nethergarde Keep
@@ -185,7 +185,7 @@ return {
 
 	-- Step 43: Sorrow Hill: kill these as you meet them
 	-- {area:197} Sorrow Hill
-	["{area:197}: kill these as you meet them"] = "",
+	["{area:197}: kill these as you meet them"] = "{area:197}: убивайте их по пути",
 	-- {npc:10411} Eye of Naxxramas
 	-- plural, as words: Skeletal Flayers = {npc:1783} Skeletal Flayer · Slavering Ghouls = {npc:1791} Slavering Ghoul · Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
 	["Skeletal Flayers and Slavering Ghouls roam the fields north of the camp; all the Scourge here drop Scourgestones.\nCareful: These undead notice you from far away, and other undead nearby join the fight when one is pulled.\nCareful: The {npc:10411} (3 spawns, 15 min respawn) turns invisible when out of combat and calls in Rockwing Gargoyles once a fight starts."] = "",
@@ -200,15 +200,15 @@ return {
 	["{npc:10778}'s ghost wanders by the farmhouse of {area:199}, west of {area:200}; her parcel lies inside."] = "Призрак {npc:10778} бродит у дома ({area:199}) к западу от места {area:200}; ее посылка лежит внутри.",
 	["Upstairs"] = "Наверху",
 	-- {object:175894} Janice's Parcel
-	["{object:175894}, inside"] = "",
+	["{object:175894}, inside"] = "{object:175894}, внутри",
 	-- {zone:1453} Stormwind
 	["For {zone:1453}: keep it"] = "Для города {zone:1453}: сохраните задание",
 
 	-- Step 46: Fly to Morgan's Vigil
 	-- {area:2418} Morgan's Vigil
-	["Fly to {area:2418}"] = "",
+	["Fly to {area:2418}"] = "Летите сюда: {area:2418}",
 	-- {area:3197} Chillwind Camp
-	["{area:3197} flight master"] = "",
+	["{area:3197} flight master"] = "Распорядитель полетов: {area:3197}",
 
 	-- Step 47: Fly to Lakeshire
 	-- {area:69} Lakeshire
@@ -216,7 +216,7 @@ return {
 
 	-- Step 48: Morgan's Vigil flight master
 	-- {area:2418} Morgan's Vigil
-	["{area:2418} flight master"] = "",
+	["{area:2418} flight master"] = "Распорядитель полетов: {area:2418}",
 	-- {area:69} Lakeshire · {zone:1428} Burning Steppes · {area:2418} Morgan's Vigil
 	["Ride east out of {area:69} and up the pass into the {zone:1428}: {area:2418} stands at the top."] = "Езжайте на восток из места {area:69} и вверх по перевалу в зону {zone:1428}: {area:2418} – наверху.",
 
@@ -238,7 +238,7 @@ return {
 	-- plural, as words: Escaped Core Hounds = {npc:227746} Escaped Core Hound
 	["The Firegut ogres hold the great rock north of the Vigil, with the Brutes on its east side.\nCareful: Escaped Core Hounds (level 60) roam the Steppes, a few on the slopes west and south of {area:249}: pull the ogres on the rock itself and look around before each pull."] = "Огры из клана Огненного Чрева занимают большую скалу к северу от Дозора, громилы – на ее восточной стороне.\nОсторожно: по Степям бродят сбежавшие гончие Недр (60-й уровень), несколько – на склонах к западу и югу от места {area:249}: выманивайте огров на самой скале и осматривайтесь перед каждым нападением.",
 	-- {npc:7034} Firegut Ogre Mage
-	["{npc:7034}, below ground"] = "",
+	["{npc:7034}, below ground"] = "{npc:7034}, под землей",
 
 	-- Step 52: Morgan's Vigil
 	-- {npc:9177} Oralius · {npc:9176} Gor'tesh · {area:254} Blackrock Mountain
@@ -251,7 +251,7 @@ return {
 
 	-- Step 54: Ruins of Thaurissan: kill these as you meet them
 	-- {area:250} Ruins of Thaurissan
-	["{area:250}: kill these as you meet them"] = "",
+	["{area:250}: kill these as you meet them"] = "{area:250}: убивайте их по пути",
 	-- {item:12284} Draco-Incarcinatrix 900 · {npc:7047} Black Broodling · {area:251} Flame Crest · {npc:8981} Malfunctioning Reaver · {npc:7040} Black Dragonspawn
 	["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "Используйте {item:12284} на существе {npc:7047} на склонах к востоку от места {area:251} прямо перед его смертью, затем заберите оставшуюся эссенцию.\nОсторожно: {npc:8981} (56-й уровень, редкий) ходит по склонам у детенышей, а {npc:7040} и драконы вокруг них – элитные: используйте инкарцинатор на детеныше с краю и осматривайтесь перед каждым нападением.",
 
@@ -280,7 +280,7 @@ return {
 	-- {quest:4022} A Taste of Flame · {area:1417} Sunken Temple
 	["If you skipped {quest:4022}, grind here to level 52.08 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon instead."] = "",
 	-- {npc:9690} Ember Worg
-	["grind on {npc:9690}"] = "",
+	["grind on {npc:9690}"] = "убивайте: {npc:9690}",
 
 	-- Step 62: Morgan's Vigil
 	["Ride back east along the road to the Vigil."] = "Езжайте по дороге назад на восток к Дозору.",
@@ -309,7 +309,7 @@ return {
 
 	-- Step 68: Blasted Lands: kill these as you meet them
 	-- {zone:1419} Blasted Lands
-	["{zone:1419}: kill these as you meet them"] = "",
+	["{zone:1419}: kill these as you meet them"] = "{zone:1419}: убивайте их по пути",
 	-- {zone:1419} Blasted Lands · {npc:5982} Black Slayer · {npc:221740} Calefactus the Unleashed · {npc:247015} Vek'zol
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger · Ashmane Boars = {npc:5992} Ashmane Boar · Redstone Basilisks = {npc:5990} Redstone Basilisk
 	["Ride back south into the {zone:1419} for the bloodmages' beasts: Starving Snickerfangs roam the dry hills south of the bloodmages' camp, Scorpok Stingers scuttle across the middle of the north and {npc:5982} vultures circle over all of it. Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep.\nCareful: two elites roam here: {npc:221740} (50) in the middle of the zone around 44,34, and {npc:247015} (55) on the ridge around 39,32. When you see one, hunt somewhere else."] = "Езжайте назад на юг в зону {zone:1419} за зверями для магов крови: голодные хохотуны бродят по сухим холмам к югу от лагеря магов крови, скорпоки-острожалы снуют посередине северной части, а черные душегубы ({npc:5982}) кружат над всем этим. Пеплогривые кабаны и краснокаменные василиски обитают на склонах к юго-западу от крепости.\nОсторожно: здесь бродят два элитных противника: {npc:221740} (50) посреди зоны около 44,34 и {npc:247015} (55) на гребне около 39,32. Увидев одного из них, охотьтесь в другом месте.",
@@ -322,7 +322,7 @@ return {
 	["{npc:7363} walks around here: look inside the circle on the map"] = "",
 
 	-- Step 71: The bloodmages
-	["The bloodmages"] = "",
+	["The bloodmages"] = "Маги крови",
 	-- {zone:1419} Blasted Lands
 	["Ride north to the bloodmages' camp beside the road into the {zone:1419}."] = "Езжайте на север к лагерю магов крови у дороги в зону {zone:1419}.",
 	["The bloodmages' second tier pays for the same parts with a buff item and no experience: skip it."] = "Вторая ступень заданий магов крови платит за те же части предметом-усилением без опыта: пропустите.",
@@ -355,9 +355,9 @@ return {
 
 	-- Step 83: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
-	["Fly to {area:702}"] = "",
+	["Fly to {area:702}"] = "Летите сюда: {area:702}",
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "Распорядитель полетов: {area:442}",
 
 	-- Step 84: Rut'theran Village
 	-- {zone:1452} Winterspring

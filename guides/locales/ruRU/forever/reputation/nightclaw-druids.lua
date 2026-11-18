@@ -101,11 +101,11 @@ return {
 	-- {item:280347} Shadowgale Squirrel
 	["Revered opens the {item:280347}, a companion pet, for 50s. Exalted is 21000 more: 21 turn-ins (105 ears, about 280 kills) up to level 18, 105 turn-ins (525 ears) from level 22."] = "",
 	-- {item:280347} Shadowgale Squirrel
-	["{item:280347}, 50s"] = "",
+	["{item:280347}, 50s"] = "{item:280347}, 50 с",
 
 	-- Step 16: The Nightclaw Mantle
 	-- {item:280363} Nightclaw Mantle
-	["The {item:280363}"] = "",
+	["The {item:280363}"] = "{item:280363}",
 	-- {item:280363} Nightclaw Mantle
 	["Exalted opens the {item:280363}, green cloth shoulders for level 15, for 8s 16c."] = "",
 }

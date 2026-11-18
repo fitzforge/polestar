@@ -44,7 +44,7 @@ return {
 	-- {npc:12427} Mountaineer Dolf · {area:131} Kharanos · {spell:613} Lesser Heal · {spell:1243} Power Word: Fortitude
 	["{npc:12427} kneels on a ridge between two low walls just south of {area:131}, across the road from the hunter pet trainer: if the road starts going downhill, you have passed him. Cast {spell:613} (Rank 2) on him first, then {spell:1243}; he speaks after each spell. Rank 1 of {spell:613} does not count."] = "",
 	-- {npc:12427} Mountaineer Dolf
-	["Heal and fortify {npc:12427}"] = "",
+	["Heal and fortify {npc:12427}"] = "Исцелите и укрепите: {npc:12427}",
 
 	-- Step 8: Maxan Anvol
 	-- {area:2102} Thunderbrew Distillery · {npc:1226} Maxan Anvol · {item:16605} Friar's Robes of the Light

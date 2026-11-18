@@ -106,7 +106,7 @@ return {
 
 	-- Step 21: The Barrens: kill these as you meet them
 	-- {zone:1413} The Barrens
-	["{zone:1413}: kill these as you meet them"] = "",
+	["{zone:1413}: kill these as you meet them"] = "{zone:1413}: убивайте их по пути",
 	-- {area:392} Ratchet · {npc:3467} Baron Longshore
 	["The pirates camp on the beach south of {area:392}: the piles of complicated parts lie in the sand among them. {npc:3467} (16) stands at the camp's southern end: leave him for the next {area:392} stop."] = "Пираты разбили лагерь на пляже к югу от поселения {area:392}: груды сложных деталей лежат в песке среди них. {npc:3467} (16) стоит в южном конце лагеря: оставьте его до следующего захода сюда: {area:392}.",
 
@@ -117,7 +117,7 @@ return {
 	-- Step 23: Fly to Crossroads
 	["Fly to Crossroads"] = "",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Распорядитель полетов: {area:392}",
 
 	-- Step 25: Gur'ak
 	-- {npc:267310} Gur'ak · {quest:97003} Chol'aruk the Ravener · {npc:267307} Chol'aruk · {area:1699} Thorn Hill · {npc:3438} Kreenig Snarlsnout
@@ -229,7 +229,7 @@ return {
 	-- {item:15877} Shrine Bauble · {object:177785} Bauble Container
 	["{item:15877}, from a {object:177785} in the lake"] = "{item:15877}: из объекта {object:177785} в озере",
 	-- {area:2362} Shrine of Remulos
-	["At the {area:2362}"] = "",
+	["At the {area:2362}"] = "Здесь: {area:2362}",
 	-- {npc:11799} Tajarri · {area:2362} Shrine of Remulos
 	["{npc:11799}, at the {area:2362}"] = "{npc:11799}, {area:2362}",
 	-- {quest:30} Trial of the Sea Lion · {area:382} Sludge Fen · {area:287} Hillsbrad
@@ -239,7 +239,7 @@ return {
 
 	-- Step 46: Fly to Ratchet
 	-- {area:392} Ratchet
-	["Fly to {area:392}"] = "",
+	["Fly to {area:392}"] = "Летите сюда: {area:392}",
 	-- {zone:1456} Thunder Bluff · {area:392} Ratchet
 	["Fly from {zone:1456} straight on to {area:392}."] = "Летите из города {zone:1456} прямо сюда: {area:392}.",
 
@@ -266,7 +266,7 @@ return {
 
 	-- Step 53: Ratchet
 	-- {npc:3391} Gazlowe
-	["{npc:3391} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:3391} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:3391} стоит наверху в своем здании: поднимитесь внутри, стрелка не различает этажи.",
 
 	-- Step 54: Raptor nests
 	["Raptor nests"] = "Гнезда ящеров",
@@ -276,7 +276,7 @@ return {
 
 	-- Step 55: Raptor Grounds: kill these as you meet them
 	-- {area:1697} Raptor Grounds
-	["{area:1697}: kill these as you meet them"] = "",
+	["{area:1697}: kill these as you meet them"] = "{area:1697}: убивайте их по пути",
 	-- {area:1697} Raptor Grounds · {npc:3446} Mebok Mizzyrix · {area:392} Ratchet · {npc:3682} Vrang Wildgore · {area:385} Northwatch Hold
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
 	["Sunscale Scytheclaws hunt the plains around the {area:1697}; they drop the horns. {npc:3446} takes them back in {area:392}; any still missing come with {npc:3682}'s hills later.\nSouth-east toward the coast: the stolen silver lies in a raptor nest north-west of {area:385}."] = "Яркочешуйчатые смертехваты охотятся на равнинах вокруг места {area:1697}; с них падают рога. {npc:3446} примет их в поселении {area:392}; недостающие добудете позже в холмах NPC {npc:3682}.\nНа юго-восток к побережью: украденное серебро лежит в гнезде ящеров к северо-западу от места {area:385}.",
@@ -407,7 +407,7 @@ return {
 
 	-- Step 84: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Fly to {area:1637}"] = "",
+	["Fly to {area:1637}"] = "Летите сюда: {area:1637}",
 	-- {area:1637} Orgrimmar · {npc:3615} Devrak
 	["Train your level 20 ranks in {area:1637} now: fly from {npc:3615} on the Crossroads' tower."] = "",
 
@@ -472,7 +472,7 @@ return {
 	-- {zone:1456} Thunder Bluff · {area:392} Ratchet
 	["Fly from {zone:1456} on to {area:392}."] = "",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Распорядитель полетов: {zone:1456}",
 
 	-- Step 103: Fly to Ratchet
 	-- {area:392} Ratchet · {object:172982} Valley of Strength
@@ -482,7 +482,7 @@ return {
 
 	-- Step 105: Northwatch Hold: kill these as you meet them
 	-- {area:385} Northwatch Hold
-	["{area:385}: kill these as you meet them"] = "",
+	["{area:385}: kill these as you meet them"] = "{area:385}: убивайте их по пути",
 	-- {area:385} Northwatch Hold · {npc:3393} Captain Fairmount
 	-- plural, as words: Theramore Marines = {npc:3385} Theramore Marine
 	["South along the beach past the pirate camp to {area:385}, on the coast. The Theramore Marines and Preservers (15-16) drop the medals; {npc:3393} (20) and the two cannoneers (19) stand in the keep and on its walls.\nCareful: Each named target is linked to a healer and guards, and Fairmount has three extra marines with her. Killing the healer first makes the fight easier."] = "На юг вдоль берега мимо лагеря пиратов к месту {area:385} на побережье. С тераморских стражей бухты и хранителей (15-16) падают медали; {npc:3393} (20) и двое канониров (19) стоят в крепости и на ее стенах.\nОсторожно: каждую цель сопровождают лекарь и стража, а с Гордостанной еще три стража бухты. Если первым убить лекаря, бой будет проще.",
@@ -555,7 +555,7 @@ return {
 	-- {npc:12696} Senani Thunderheart · {zone:1440} Ashenvale
 	["Keep it: {npc:12696} in {zone:1440}, next guide"] = "Сохраните: {npc:12696} ({zone:1440}), следующий гайд",
 	-- {npc:6394} Ruga Ragetotem
-	["{npc:6394}, inside"] = "",
+	["{npc:6394}, inside"] = "{npc:6394}, внутри",
 
 	-- Step 126: Grunt Dogran
 	["Dogran is chained up in the quilboar camp west of the road."] = "Догран закован в цепи в лагере свинобразов к западу от дороги.",
@@ -617,7 +617,7 @@ return {
 
 	-- Step 138: Seereth Stonebreak's camp
 	-- {npc:4049} Seereth Stonebreak
-	["{npc:4049}'s camp"] = "",
+	["{npc:4049}'s camp"] = "Лагерь: {npc:4049}",
 
 	-- Step 139: Seereth Stonebreak
 	-- {npc:4049} Seereth Stonebreak · {npc:11857} Makaba Flathoof
@@ -638,7 +638,7 @@ return {
 
 	-- Step 142: To Malaka'jin
 	-- {area:2539} Malaka'jin
-	["To {area:2539}"] = "",
+	["To {area:2539}"] = "В место {area:2539}",
 
 	-- Step 143: Malaka'jin
 	-- {npc:4049} Seereth Stonebreak · {area:2539} Malaka'jin
@@ -648,7 +648,7 @@ return {
 
 	-- Step 144: Webwinder Path: kill these as you meet them
 	-- {area:1076} Webwinder Path
-	["{area:1076}: kill these as you meet them"] = "",
+	["{area:1076}: kill these as you meet them"] = "{area:1076}: убивайте их по пути",
 	-- {area:2539} Malaka'jin · {npc:11858} Grundig Darkcloud
 	-- plural, as words: Grimtotem Brutes = {npc:11912} Grimtotem Brute · Deepmoss Creepers = {npc:4005} Deepmoss Creeper
 	["North up the road from {area:2539}: {npc:11858} and his Grimtotem Brutes hold the bend in the road, and the Deepmoss Creepers and Venomspitters lurk in the webs on both sides of the path all the way up."] = "",
@@ -669,7 +669,7 @@ return {
 	-- {npc:4276} Piznik · {area:2160} Windshear Mine
 	["{npc:4276}'s defence is hard alone at this level: grouping up is encouraged, look for people to do it with. Skip it if you are alone.\n{npc:4276} mines at the bottom of the {area:2160} on the east side of the crag, past its kobolds (levels 19-23). Talk to him, then keep him alive for five minutes while he mines: a dozen or more kobolds come at him in waves, melee fighters first, then casters, and the mine's own kobolds respawn into the fight. If he dies, the quest fails."] = "",
 	-- {npc:4276} Piznik
-	["{npc:4276}, below ground"] = "",
+	["{npc:4276}, below ground"] = "{npc:4276}, под землей",
 
 	-- Step 148: Ziz Fizziks: Gerenzo's Orders
 	-- {npc:4201} Ziz Fizziks
