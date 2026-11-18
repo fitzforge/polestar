@@ -948,7 +948,13 @@ local function zoneRows(zone, p, from, direct)
 	return list
 end
 
-local cache = {} -- "kind:id:direct|route" -> { at, level, list, entity }
+-- Rankings are useful for five seconds. Drop whole generations rather than scanning
+-- every result on hover; after the last query the timer runs at most twice more.
+local cache, previous, scheduled
+local function expire()
+	previous, cache = cache, nil
+	if previous then ns.After(CACHE_SECONDS, expire) else scheduled = false end
+end
 
 local function now() return GetTime and GetTime() or 0 end
 
@@ -958,7 +964,7 @@ function Lookup.Sources(kind, id, direct)
 	if not C.IsLoaded() and not C.Load() then return {}, nil end
 	local p = playerInfo()
 	local key = kind .. ":" .. tostring(id) .. (direct and ":direct" or ":route")
-	local hit = cache[key]
+	local hit = (cache and cache[key]) or (previous and previous[key])
 	if hit and now() - hit.at < CACHE_SECONDS and hit.level == p.level then return hit.list, hit.entity end
 	local from = ns.PlayerPoint()
 	local list, entity = {}, nil
@@ -990,7 +996,12 @@ function Lookup.Sources(kind, id, direct)
 		if entity then list = zoneRows(entity, p, from, direct) end
 	end
 	rank(list)
+	if not cache then cache = {} end
 	cache[key] = { at = now(), level = p.level, list = list, entity = entity }
+	if not scheduled then
+		scheduled = true
+		ns.After(CACHE_SECONDS, expire)
+	end
 	return list, entity
 end
 
@@ -1070,7 +1081,7 @@ end
 
 -- Forget cached rankings (a quest turned in, a profession learned...).
 function Lookup.ResetSources()
-	cache = {}
+	cache, previous = nil, nil
 end
 
 if ns.RegisterEvent then
