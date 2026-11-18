@@ -679,7 +679,10 @@ forge nav check
   only where the recordings show it is a fall players take (the falling flag and the time it takes, not a stair
   our grid lacks), taken by 70% or more of the 20 or more players who pass the ledge, and under half a full
   health's fall damage (about 41 yd): the Orgrimmar wind rider tower's drop into the Valley of Strength (#1986).
-  Both kinds need both heights; `"people"` counts the distinct recorded players who walked it.
+  Both kinds need both heights; `"people"` counts the distinct recorded players who walked it. A step, and any pair
+  marked `"strict": true`, is **strict**: each step of its way his maps make no move of their own for gets one (an
+  arc, or an edge across a cluster border) even where his maps walk round to it within 40 yd, because that way round
+  can be the start of a long detour (a threshold his maps close, a bridge his maps cut at its crest).
 - **Cuts** (`pack/cuts.rs`; the lines in `pack/joins.json`'s `cuts`, compiled in): faces players cannot walk up
   that his maps (and our grid) walk up. A cut is a line on a map and a band of heights; with `--leffe`, every move of
   his maps that crosses the line going up (its end more than 0.5 yd above its start, both ends in the band) is taken
