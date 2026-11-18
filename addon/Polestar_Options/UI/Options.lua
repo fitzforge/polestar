@@ -279,7 +279,7 @@ local function declare(page, key, icon, order, subtitle, tabs)
 	return out
 end
 
--- The trainer reminders: their home is Quality of Life > Vendors > Trainers;
+-- The trainer reminders: their home is Quality of Life > Leveling > Trainers;
 -- Guide > Automation shows a reference.
 local function trainReminder()
 	return { kind = "dropdown", key = "behavior.trainReminder", label = L["Trainer reminders"], help = L["A note in the guide window, with the nearest trainer of your class, when new skills are waiting."],
@@ -554,15 +554,16 @@ for _, list in ipairs({
 		{ L["Rares"], { L["When a rare shows up"], L["How rares are noticed"] } },
 	}),
 	declare(QOL, "qualityoflife", "qol-toggles", 50, L["Small conveniences: questing, travel, invitations, merchants, bags, trackers and the map."], {
-		{ L["Vendors"], { L["Merchants"], L["Restock"], L["Bags"], L["Trainers"] } },
+		-- References to conveniences whose home is Questing: players look for them here (Fitz, 2026-11-05).
+		{ L["Quests"], { L["Faster questing"], L["Rewards, buttons and tracker"] } },
+		{ L["Vendors"], { L["Merchants"], L["Restock"], L["Bags"] } },
 		{ L["Travel"], { L["Flights"], L["Death"], L["Hearth and travel"] } },
-		-- The XP tracker and Boosted Rest: each its switch in its card's header.
-		{ L["XP & instances"], { L["Experience"], L["XP tracker"], L["Boosted Rest"], L["Instances"] } },
+		-- What changes as you level: the XP bar's marks, the XP tracker (its switch in its card's header), the
+		-- trainers and the instance cap.
+		{ L["Leveling"], { L["Experience"], L["XP tracker"], L["Trainers"], L["Instances"] } },
 		{ L["Social"], { L["Requests"], L["Blocking"] } },
 		-- The game's own options (QoL/Options.lua): image quality, no Polestar setting behind it, and second homes.
 		{ L["Game"], { L["Game options"] } },
-		-- References to conveniences whose home is Questing: players look for them here (Fitz, 2026-11-05).
-		{ L["Quests"], { L["Faster questing"], L["Rewards, buttons and tracker"] } },
 	}),
 }) do
 	for _, spec in ipairs(list) do BUILTIN[#BUILTIN + 1] = spec end
@@ -576,7 +577,7 @@ add({ page = QUESTING, tab = L["Quests"], section = L["Quest log"], controls = {
 		help = L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."],
 		search = "new in forever, infinity, new quest, forever quest, mark, badge" },
 } }, true)
-add({ page = QOL, tab = L["Vendors"], section = L["Trainers"], controls = { trainReminder() } }, true)
+add({ page = QOL, tab = L["Leveling"], section = L["Trainers"], controls = { trainReminder() } }, true)
 
 -- Integrations: a section per supported addon, each registered by its
 -- module with needs = the addon is present (Compat.AddOnPresent), so only

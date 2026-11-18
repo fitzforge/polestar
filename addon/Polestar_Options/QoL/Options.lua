@@ -253,9 +253,9 @@ register(QUESTING, L["Quests"], L["Quest items"], {
 		search = "auction house, ah, auctioneer, buy, materials, shopping list, quest items, reagents" },
 })
 
--- References to the questing helpers' rows on Questing and Game, on Quality of Life's last tab.
+-- References to the questing helpers' rows on Questing and Game, on Quality of Life's Quests tab.
 register(QOL, L["Quests"], L["Faster questing"], {
-	Ref("toggle", "behavior.autoAccept"), Ref("toggle", "behavior.autoTurnin"), Ref("toggle", "qol.skipGossip"), Ref("toggle", "qol.fastLoot"),
+	Ref("toggle", "behavior.autoAccept"), Ref("toggle", "behavior.autoTurnin"), Ref("toggle", "qol.skipGossip"),
 })
 register(QOL, L["Quests"], L["Rewards, buttons and tracker"], {
 	Ref("toggle", "qol.rewardAutoPick"), Ref("toggle", "qol.rewardEquip"), Ref("toggle", "qol.itemButton"),
@@ -356,7 +356,7 @@ register(QOL, L["Vendors"], L["Bags"], {
 -- After the trainer reminders (UI/Options.lua). The level-up card and the old
 -- ranks are 0.3.7's (QoL/Spells.lua): shown once
 -- their settings are registered; Forget kept ranks with QoL.Spells there.
-register(QOL, L["Vendors"], L["Trainers"], {
+register(QOL, L["Leveling"], L["Trainers"], {
 	{ kind = "toggle", key = "qol.ridingReminder", label = L["Riding reminder"],
 		help = L["At level 40 and 60, if you have not learned riding yet, says the cost in chat (with any Honored discount) and points the arrow at your race's riding trainer when you can afford it. Warlocks and Alliance Paladins are sent to their free-mount quest NPC instead. Once per tier per character."],
 		search = "mount, riding, horse, epic mount, level 40, level 60" },
@@ -397,9 +397,9 @@ register(GUIDE, L["While you play"], L["Level pace"], {
 		search = "experience bar, exp bar, target level, guide level" },
 })
 
--- XP & instances: the XP bar's marks (Experience), then the XP tracker, a
+-- Leveling: the XP bar's marks (Experience), then the XP tracker, a
 -- module's switch in its card's header with the session's reset.
-local XP = L["XP & instances"]
+local XP = L["Leveling"]
 register(QOL, XP, L["Experience"], {
 	{ kind = "toggle", key = "qol.questXPOverlay", label = L["Completed quest XP"],
 		help = L["Shows XP from completed quests you can turn in on the game's XP bar and in its tooltip."], search = "quest xp, experience bar, turn in" },

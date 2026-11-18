@@ -1301,6 +1301,9 @@ end
 // (Fitz, 2026-11-05): each stays on its home page too, one setting in both places.
 #[test]
 fn quality_of_life_shows_the_conveniences_from_their_home_pages_as_the_same_settings() {
+	// Quality of Life is cut into Quests, Vendors, Travel, Leveling, Social and Game: its Quests and Travel tabs show
+	// references to the rows homed on Questing and Guide, and Questing and Guide show references to the ones homed
+	// here (Game's, the trainer reminder on Leveling).
 	let out = run_mods(
 		"",
 		r#"
@@ -1312,28 +1315,27 @@ fn quality_of_life_shows_the_conveniences_from_their_home_pages_as_the_same_sett
 			return out
 		end
 		local r = { missing = {
-			quests = missing("qualityoflife", "Quests", { "behavior.autoAccept", "qol.instantQuestText", "qol.skipGossip", "qol.fastLoot", "qol.hideErrors",
-				"qol.rewardAutoPick", "qol.rewardEquip", "qol.itemButton", "qol.stepInteract", "qol.hideQuestTracker" }),
-			travel = missing("qualityoflife", "Travel", { "qol.hearthButton", "nav.castPrompt", "nav.alerts", "nav.nearbyButton", "nav.nearbyMenu" }),
-			vendors = missing("qualityoflife", "Vendors", { "behavior.trainReminder" }),
-			map = missing("qualityoflife", "Trackers & map", { "maps.minimapButton", "maps.coords", "maps.minimapCoords" }),
+			quests = missing("qualityoflife", "Quests", { "behavior.autoAccept", "qol.skipGossip", "qol.rewardAutoPick", "qol.rewardEquip", "qol.itemButton",
+				"qol.stepInteract" }),
+			game = missing("qualityoflife", "Game", { "qol.instantQuestText", "qol.fastLoot", "qol.hideErrors", "qol.hideQuestTracker" }),
+			travel = missing("qualityoflife", "Travel", { "qol.hearthButton", "nav.castPrompt", "nav.nearbyButton", "nav.nearbyMenu" }),
+			leveling = missing("qualityoflife", "Leveling", { "behavior.trainReminder" }),
 			questing = missing("questing", "Quests", { "qol.fastLoot", "qol.hideQuestTracker" }),
 			buttons = missing("questing", "Buttons", { "qol.itemButton", "qol.stepInteract", "qol.hearthButton" }),
 			guide = missing("guide", "Automation", { "behavior.trainReminder" }),
-			mapPage = missing("map", "Guide & quests", { "maps.minimapButton" }),
 		} }
 		Polestar.Set("qol.fastLoot", false)
-		O.Select("qualityoflife", "Quests")
-		O.Controls("qualityoflife", "Quests")["qol.fastLoot"]:Click()
+		O.Select("qualityoflife", "Game")
+		O.Controls("qualityoflife", "Game")["qol.fastLoot"]:Click()
 		r.fastLoot = Polestar.Get("qol.fastLoot")
 		O.Select("questing", "Quests")
 		r.questingShows = O.Controls("questing", "Quests")["qol.fastLoot"].checked
-		local before = Polestar.Get("maps.minimapButton")
-		O.Select("qualityoflife", "Trackers & map")
-		O.Controls("qualityoflife", "Trackers & map")["maps.minimapButton"]:Click()
-		r.minimapFlipped = Polestar.Get("maps.minimapButton") ~= before
-		O.Select("map", "Guide & quests")
-		r.mapShows = O.Controls("map", "Guide & quests")["maps.minimapButton"].checked == Polestar.Get("maps.minimapButton")
+		local before = Polestar.Get("qol.itemButton")
+		O.Select("qualityoflife", "Quests")
+		O.Controls("qualityoflife", "Quests")["qol.itemButton"]:Click()
+		r.itemFlipped = Polestar.Get("qol.itemButton") ~= before
+		O.Select("questing", "Buttons")
+		r.buttonsShows = O.Controls("questing", "Buttons")["qol.itemButton"].checked == Polestar.Get("qol.itemButton")
 		emit(r)"#,
 	);
 	for (tab, v) in out["missing"].as_object().unwrap() {
@@ -1341,8 +1343,8 @@ fn quality_of_life_shows_the_conveniences_from_their_home_pages_as_the_same_sett
 	}
 	assert_eq!(out["fastLoot"], true, "the click on Quality of Life turned it on");
 	assert_eq!(out["questingShows"], true, "Questing shows the same setting");
-	assert_eq!(out["minimapFlipped"], true);
-	assert_eq!(out["mapShows"], true, "the Map page shows the same minimap button setting");
+	assert_eq!(out["itemFlipped"], true);
+	assert_eq!(out["buttonsShows"], true, "Questing > Buttons shows the same quest item button setting");
 }
 
 // Search finds a setting from a loose hint: words run together or hyphenated, a typo, the start of words,

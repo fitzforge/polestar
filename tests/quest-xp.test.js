@@ -244,7 +244,7 @@ emit({ total = P.total, shown = f:IsShown(), marker = f.Rested:IsVisible(), line
 	assert.equal(restored.marker, true);
 	assert.ok(restored.lines.some((line) => line.includes('Pending quest XP')));
 });
-test('registers only one quest XP toggle in XP & instances / Experience', () => {
+test('registers only one quest XP toggle in Leveling / Experience', () => {
 	const [settings] = run(String.raw`
 dofile("addon/Polestar_Options/QoL/Options.lua")
 local found = {}
@@ -259,7 +259,7 @@ end
 emit(found)
 `, true);
 	assert.deepEqual(settings, {
-		'qol.questXPOverlay': { tab: 'XP & instances', section: 'Experience', kind: 'toggle', help: true, default: true },
+		'qol.questXPOverlay': { tab: 'Leveling', section: 'Experience', kind: 'toggle', help: true, default: true },
 	});
 });
 
