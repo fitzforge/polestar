@@ -212,7 +212,9 @@ local function translatedBlob(kind, blob)
 	if not (NAMES_KIND[kind] and localised()) then return nil end
 	local cached = localIndex[kind]
 	if cached and cached.base == blob then return cached.extra end
-	local lines, cursor = {}, {}
+	-- These three catalogues read most of their names pack. The smaller
+	-- catalogues (mounts, rares, etc.) touch only a few rows per chunk.
+	local lines, cursor = {}, { dense = kind == "item" or kind == "npc" or kind == "quest" }
 	for folded, id, quality, st in gmatch(blob, "\2([^\1]*)\1([^,]*),(%d*),(%a?),%d+\n") do
 		local name = localName(kind, tonumber(id), cursor)
 		if name then
