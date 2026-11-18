@@ -304,6 +304,20 @@ local META = "^([^,]*),(%d*),(%a?),(%d+)"
 -- counts as "more", which keeps a keystroke within a few milliseconds.
 local BUDGET = 200
 
+-- Reuse the tier checks across queries; building closures for each kind and
+-- tier made even English guide-menu searches allocate more garbage.
+local function matchTier(t, at, e, blob, blen, words)
+	if t == PREFIX then return e == at + 1 + blen and EXACT or PREFIX end
+	if t ~= WORDS then return t end
+	local s = at
+	while byte(blob, s) ~= 2 do s = s - 1 end
+	local f = sub(blob, s + 1, e - 1)
+	for i = 1, #words do
+		if not find(f, words[i], 1, true) then return nil end
+	end
+	return WORDS
+end
+
 -- One kind's matches in its English and translated blobs, best `cap` kept in
 -- `top` (offsets in the English blob, then the translation's offsets plus the
 -- English length). Match both languages at each tier: name prefixes, then (2+
@@ -311,6 +325,7 @@ local BUDGET = 200
 -- holding every word. A line counts once, at its best tier. -> matches, more
 local function scanBlob(base, extra, kind, body, short, words, cap, top)
 	local seen, ids, n, reads = {}, {}, 0, 0
+	local blen = #body
 	local function hit(blob, e, key, t)
 		seen[key] = true
 		local id, _, st, len = match(blob, META, e + 1)
@@ -323,49 +338,40 @@ local function scanBlob(base, extra, kind, body, short, words, cap, top)
 		keep(top, cap, score(t, kind, tonumber(len) or 0, standing), key)
 	end
 	-- -> true when the budget ran out with candidates left
-	local function scan(blob, offset, q, tierOf)
-		local at = find(blob, q, 1, true)
-		while at do
-			local e = find(blob, "\1", at, true)
-			if not e then return false end
-			-- A find past the name (in a line's id or numbers) shows as the
-			-- next line's "\2" before the next "\1".
-			local s2 = find(blob, "\2", at + 1, true)
-			if s2 and s2 < e then
-				at = find(blob, q, s2, true)
-			else
-				local key = e + offset
-				if not seen[key] then
-					if reads >= BUDGET then return true end
-					reads = reads + 1
-					local t = tierOf(at, e, blob)
-					if t then hit(blob, e, key, t) end
+	local function each(q, tier)
+		for part = 1, extra and 2 or 1 do
+			local blob, offset = base, 0
+			if part == 2 then blob, offset = extra, #base end
+			local at = find(blob, q, 1, true)
+			while at do
+				local e = find(blob, "\1", at, true)
+				if not e then break end
+				-- A match in a line's metadata precedes the next name marker.
+				local s2 = find(blob, "\2", at + 1, true)
+				if s2 and s2 < e then
+					at = find(blob, q, s2, true)
+				else
+					local key = e + offset
+					if not seen[key] then
+						if reads >= BUDGET then return true end
+						reads = reads + 1
+						local t = matchTier(tier, at, e, blob, blen, words)
+						if t then hit(blob, e, key, t) end
+					end
+					at = find(blob, q, e, true)
 				end
-				at = find(blob, q, e, true)
 			end
 		end
 		return false
 	end
-	local function each(q, tierOf)
-		return scan(base, 0, q, tierOf) or (extra and scan(extra, #base, q, tierOf))
-	end
-	local blen = #body
-	if each("\2" .. body, function(at, e) return e == at + 1 + blen and EXACT or PREFIX end) then return n, true end
+	if each("\2" .. body, PREFIX) then return n, true end
 	if short then return n, false end
-	if each(" " .. body, function() return WORD end) then return n, true end
-	if each(body, function() return SUBSTRING end) then return n, true end
+	if each(" " .. body, WORD) then return n, true end
+	if each(body, SUBSTRING) then return n, true end
 	if words then
 		local longest = words[1]
 		for i = 2, #words do if #words[i] > #longest then longest = words[i] end end
-		if each(longest, function(at, e, blob)
-			local s = at
-			while byte(blob, s) ~= 2 do s = s - 1 end
-			local f = sub(blob, s + 1, e - 1)
-			for i = 1, #words do
-				if not find(f, words[i], 1, true) then return nil end
-			end
-			return WORDS
-		end) then return n, true end
+		if each(longest, WORDS) then return n, true end
 	end
 	return n, false
 end
