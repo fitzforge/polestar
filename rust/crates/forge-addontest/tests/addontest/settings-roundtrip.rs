@@ -152,6 +152,9 @@ function values(c)
 end
 -- The game's image sharpening is the game's own CVar, which no reset writes and the game keeps (settings-game.rs).
 GAME = { ["Quality of Life:Increase game image quality"] = true }
+-- A row that shows which look the settings beside it make and writes them all (the Ground trail page's Look, as the
+-- cards of the Look pages): it holds no state of its own, so a reset of those settings is its reset.
+DERIVED = { ["Ground trail:Look"] = true }
 "#;
 
 fn run_saved(saved: Option<String>, script: &str) -> Value {
@@ -404,7 +407,7 @@ fn reset_all_leaves_every_control_at_its_default_and_the_window_s_state_alone() 
 		for _, c in ipairs(list) do
 			if c.key and not c.get then
 				if not same(Polestar.Get(c.key), Polestar.GetDefault(c.key)) then bad[#bad + 1] = idOf(c) .. " reads " .. show(Polestar.Get(c.key)) end
-			elseif not c.key and not GAME[idOf(c)] and c.page and O.GroupOf(c.page.key) ~= "look" then
+			elseif not c.key and not GAME[idOf(c)] and not DERIVED[idOf(c)] and c.page and O.GroupOf(c.page.key) ~= "look" then
 				if not same(current(c), state[c]) then bad[#bad + 1] = idOf(c) .. " (state) reads " .. show(current(c)) .. ", it held " .. show(state[c]) end
 			end
 		end

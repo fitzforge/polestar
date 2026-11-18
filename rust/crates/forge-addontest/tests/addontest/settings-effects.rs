@@ -49,6 +49,8 @@ const GROUPS: &[Group] = &[
 	Group { name: "arrow", src: include_str!("effects/arrow.lua") },
 	Group { name: "pins", src: include_str!("effects/pins.lua") },
 	Group { name: "routes", src: include_str!("effects/routes.lua") },
+	Group { name: "ground_trail", src: include_str!("effects/ground-trail.lua") },
+	Group { name: "ground_trail_looks", src: include_str!("effects/ground-trail-looks.lua") },
 	Group { name: "theme", src: include_str!("effects/theme.lua") },
 	Group { name: "guidewindow", src: include_str!("effects/guidewindow.lua") },
 	Group { name: "integrations", src: include_str!("effects/integrations.lua") },
@@ -358,6 +360,28 @@ fn env(name: &str) -> Env {
 			"Maps/RouteLines.lua",
 			&page("Polestar_Options/Maps/RouteOptions.lua"),
 		]),
+		// The ground trail and its page on the trail's own client (tests/lua/stub_world_trail.lua: the route, the
+		// camera and the game's waypoint marker it reads), installed before the login; the two seconds after it
+		// in which the trail waits out a loading screen (nav-world-trail.test.js).
+		"trail" => Env {
+			stubs: vec!["stub_world_trail.lua"],
+			before: "",
+			addons: vec![Addon::files(
+				"Polestar",
+				&[
+					"Core/Init.lua",
+					"Theme/Theme.xml",
+					"Nav/WorldTrail.lua",
+					"Maps/RouteSparkle.lua",
+					"Maps/WorldTrailMath.lua",
+					"Maps/WorldTrailTerrain.lua",
+					"Maps/WorldTrailRender.lua",
+					&page("Polestar_Options/Nav/WorldTrailOptions.lua"),
+				],
+			)],
+			login: false,
+			prelude: "stub.worldTrail.install()\nstub.login()\nstub.advance(2.1)\n".into(),
+		},
 		// The UI stub, its own login, then the settings window's addon (ui-look-theme.rs); the game menu (Esc)
 		// exists before Polestar loads, as in the client (ui-game-menu.rs).
 		"ui" => Env {
@@ -560,6 +584,16 @@ fn pins() {
 #[test]
 fn routes() {
 	check("routes");
+}
+
+#[test]
+fn ground_trail() {
+	check("ground_trail");
+}
+
+#[test]
+fn ground_trail_looks() {
+	check("ground_trail_looks");
 }
 
 #[test]

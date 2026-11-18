@@ -52,6 +52,7 @@ UI\Looks\GuideWindow.lua
 Nav\ArrowOptions.lua
 Nav\PinsOptions.lua
 Maps\RouteOptions.lua
+Nav\WorldTrailOptions.lua
 QoL\ButtonsOptions.lua
 UI\Looks\Toasts.lua
 UI\Looks\Trackers.lua

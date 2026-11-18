@@ -151,6 +151,7 @@ local PAGES = {
 	alerts = { "hud", tabs = { [L["Transport alert"]] = "routes" } },
 	trackers = { "hud", tabs = { [L["Travel"]] = "routes" } },
 	map = "arrow",
+	groundtrail = "routes",
 	questing = { "quests", tabs = { [L["Rewards & gear"]] = "gear", [L["Talents"]] = "gear", [L["Buttons"]] = "hud" } },
 	discovery = { "dungeons", tabs = { [L["Rares"]] = "hud" } },
 	qualityoflife = { "quests", tabs = { [L["Travel"]] = "routes", [L["Vendors"]] = "gear", [L["Trackers & map"]] = "hud" } },
