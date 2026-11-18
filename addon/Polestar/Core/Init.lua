@@ -725,58 +725,29 @@ end
 function ns.Dispatching() return busDepth > 0 end
 
 ---------------------------------------------------------------------------
--- Game events, all through one hidden frame.
+-- Game events, all through one hidden frame, and one more per unit that a
+-- unit event is asked for alone (RegisterUnitEvent): the client sends
+-- UNIT_AURA and UNIT_SPELLCAST_SUCCEEDED for every nameplate in a fight,
+-- dozens a second, and each one Polestar hears is a new moment (the
+-- per-moment memos start over) for handlers that only want the player's.
 ---------------------------------------------------------------------------
 
-local eventFrame = CreateFrame("Frame")
-local gameHandlers = {} -- event -> { { fn, live }, ... }
+local buses = {} -- unit or "" -> { frame, handlers = { event -> { { fn, live }, ... } } }
 local eventDepth, eventsDirty = 0, false
 
-local function settle(event)
-	local list = gameHandlers[event]
+local function settle(bus, event)
+	local list = bus.handlers[event]
 	if not list then return end
 	compact(list)
 	if #list == 0 then
-		gameHandlers[event] = nil
-		eventFrame:UnregisterEvent(event)
+		bus.handlers[event] = nil
+		bus.frame:UnregisterEvent(event)
 	end
 end
 
--- Returns false for an event this client does not know (modern clients throw
--- on RegisterEvent for unknown names; Forever is not Era or Retail).
-function ns.RegisterEvent(event, fn)
-	local list = gameHandlers[event]
-	if not list then
-		if not pcall(eventFrame.RegisterEvent, eventFrame, event) then
-			if ns.Debug then ns.Debug("unknown event", event) end
-			return false
-		end
-		list = {}
-		gameHandlers[event] = list
-	end
-	for i = 1, #list do
-		if list[i].fn == fn and list[i].live then return true end
-	end
-	list[#list + 1] = { fn = fn, live = true }
-	return true
-end
-
-function ns.UnregisterEvent(event, fn)
-	local list = gameHandlers[event]
-	if not list then return end
-	for i = 1, #list do
-		if list[i].fn == fn then list[i].live = false end
-	end
-	if eventDepth > 0 then
-		eventsDirty = true
-	else
-		settle(event)
-	end
-end
-
-eventFrame:SetScript("OnEvent", function(_, event, ...)
+local function dispatch(bus, event, ...)
 	serial = serial + 1
-	local list = gameHandlers[event]
+	local list = bus.handlers[event]
 	if not list then return end
 	eventDepth = eventDepth + 1
 	for i = 1, #list do
@@ -786,11 +757,68 @@ eventFrame:SetScript("OnEvent", function(_, event, ...)
 	eventDepth = eventDepth - 1
 	if eventDepth == 0 and eventsDirty then
 		eventsDirty = false
-		local events = {}
-		for ev in pairs(gameHandlers) do events[#events + 1] = ev end
-		for i = 1, #events do settle(events[i]) end
+		for _, b in pairs(buses) do
+			local events = {}
+			for ev in pairs(b.handlers) do events[#events + 1] = ev end
+			for i = 1, #events do settle(b, events[i]) end
+		end
 	end
-end)
+end
+
+local function busOf(unit)
+	local key = unit or ""
+	local bus = buses[key]
+	if not bus then
+		bus = { frame = CreateFrame("Frame"), handlers = {}, unit = unit }
+		bus.frame:SetScript("OnEvent", function(_, event, ...) dispatch(bus, event, ...) end)
+		buses[key] = bus
+	end
+	return bus
+end
+busOf(nil)
+
+-- Returns false for an event this client does not know (modern clients throw
+-- on RegisterEvent for unknown names; Forever is not Era or Retail).
+-- unit: only that unit's (a unit event, e.g. "player"); fn still checks its
+-- unit where a client without RegisterUnitEvent sends every unit's.
+function ns.RegisterEvent(event, fn, unit)
+	local bus = busOf(unit)
+	local list = bus.handlers[event]
+	if not list then
+		local f = bus.frame
+		local ok
+		if unit and f.RegisterUnitEvent then
+			ok = pcall(f.RegisterUnitEvent, f, event, unit)
+		else
+			ok = pcall(f.RegisterEvent, f, event)
+		end
+		if not ok then
+			if ns.Debug then ns.Debug("unknown event", event) end
+			return false
+		end
+		list = {}
+		bus.handlers[event] = list
+	end
+	for i = 1, #list do
+		if list[i].fn == fn and list[i].live then return true end
+	end
+	list[#list + 1] = { fn = fn, live = true }
+	return true
+end
+
+function ns.UnregisterEvent(event, fn, unit)
+	local bus = buses[unit or ""]
+	local list = bus and bus.handlers[event]
+	if not list then return end
+	for i = 1, #list do
+		if list[i].fn == fn then list[i].live = false end
+	end
+	if eventDepth > 0 then
+		eventsDirty = true
+	else
+		settle(bus, event)
+	end
+end
 
 ---------------------------------------------------------------------------
 -- Settings. Values equal to their default are not stored, so a changed
