@@ -510,7 +510,8 @@ async function gateWorld({ priv, nav, ground = null, spf = null, grid, frames, s
 // judge's own desire paths).
 function scoreRows(area, trips, res, protos = {}) {
 	const { measure } = judge(area);
-	const keep = (pts) => pts.map((p) => p.map((v) => (v === null ? null : +v.toFixed(1))));
+	// 0.01 yd: --remeasure re-scores these, and the judge's 10 yd thresholds sit close to some walks
+	const keep = (pts) => pts.map((p) => p.map((v) => (v === null ? null : +v.toFixed(2))));
 	const score = (r, tt) => {
 		if (!r.ok) return { ok: false, reason: r.reason, fail: 'no walk' };
 		const x = { ok: true, ...measure(r.pts), routerYards: r.yards === undefined ? null : r.yards, retried: !!r.retried, startZ: r.pts[0][2], endZ: r.pts[r.pts.length - 1][2], pts: keep(r.pts) };
