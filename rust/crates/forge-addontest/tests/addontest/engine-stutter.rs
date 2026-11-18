@@ -169,3 +169,45 @@ fn a_grind_steps_hint_judges_and_places_only_the_givers_near_the_player() {
 	let hint = json!({ "lo": 10, "hi": 10, "near": [302, 304, 307] });
 	assert_eq!(out, json!({ "hints": [hint, hint, hint], "later": 2 }));
 }
+
+// Install's Groups page asks Engine.GroupQuests on each layout, and Install lays out again after every fight while
+// it waits for a new character: each ask walked every step of every guide for the character. Now the list is kept
+// while the guides listed and the character stay the same; a guide that comes in is counted.
+#[test]
+fn group_quests_are_counted_once_until_the_guides_change() {
+	let out = run(
+		vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		&format!(
+			r#"
+		{TEST_PACK}
+		{TEST_SOURCE}
+		local G = function(id, q, faction) return {{ id = id, pack = "test", title = id, faction = faction, minLevel = 1, maxLevel = 20, zone = 1429, steps = {{
+			{{ title = "Take", goals = {{ {{ t = "accept", quest = q, title = "Group " .. q, map = 1429, x = 41, y = 41, npc = 197 }} }} }},
+			{{ title = "Do it", when = {{ {{ k = "group", q = q }} }}, goals = {{ {{ t = "turnin", quest = q, title = "Group " .. q, map = 1429, x = 42, y = 42, npc = 197 }} }} }},
+			{{ title = "Solo", goals = {{ {{ t = "accept", quest = q + 1, title = "Solo", map = 1429, x = 43, y = 43, npc = 198 }} }} }},
+		}} }} end
+		Polestar.RegisterGuide(G("test/g1", 501, "Alliance"))
+		Polestar.RegisterGuide(G("test/g2", 601, "Horde"))
+		Polestar.RegisterGuide(G("test/g3", 701))
+		E = Polestar.Engine
+		stub.login(); stub.advance(0.25)
+		local walks, matches = 0, Polestar.Guides.Matches
+		Polestar.Guides.Matches = function(...) walks = walks + 1 return matches(...) end
+		local function quests()
+			local out = {{}}
+			for _, e in ipairs(E.GroupQuests()) do out[#out + 1] = e.quest .. " " .. tostring(e.title) end
+			return out
+		end
+		local first = quests()
+		for _ = 1, 9 do quests() end
+		local ten = walks
+		Polestar.RegisterGuide(G("test/g4", 801, "Alliance"))
+		walks = 0
+		local after = quests()
+		quests()
+		emit({{ first = first, ten = ten, after = after, twice = walks }})"#
+		),
+	);
+	// Base: 60 step checks for ten asks, 18 for two after the new guide.
+	assert_eq!(out, json!({ "first": ["501 Group 501", "701 Group 701"], "ten": 6, "after": ["501 Group 501", "701 Group 701", "801 Group 801"], "twice": 9 }));
+}

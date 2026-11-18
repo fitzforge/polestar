@@ -10585,12 +10585,29 @@ end
 
 -- The group quests (`when group`) of the guides for this character (the
 -- guide's faction, races and classes, the step's `only`): { { quest, title } },
--- each quest once, in guide and step order. For the Options list.
+-- each quest once, in guide and step order. For the Options list and Install's
+-- Groups page, which asks on each layout (after every fight while it waits):
+-- kept while the guides listed (each guide table, and whether it is read in)
+-- and the character's faction, race and class stay the same. Read-only.
 function Engine.GroupQuests()
 	if not player then refreshPlayer() end
-	local out, seen = {}, {}
-	for _, h in ipairs(Guides.List()) do
+	local list = Guides.List()
+	local c = Own.groupQuestsKept
+	if c and c.faction == player.faction and c.race == player.race and c.class == player.class and c.n == #list then
+		local same, gs = true, c.gs
+		for i, h in ipairs(list) do
+			local g = Guides.Get(h.id)
+			if gs[2 * i - 1] ~= (g or false) or gs[2 * i] ~= (g and rawget(g, "steps") == nil and type(rawget(g, "stepsSrc")) == "string" or false) then
+				same = false
+				break
+			end
+		end
+		if same then return c.out end
+	end
+	local out, seen, gs = {}, {}, {}
+	for i, h in ipairs(list) do
 		local g = Guides.Get(h.id)
+		gs[2 * i - 1], gs[2 * i] = g or false, g and rawget(g, "steps") == nil and type(rawget(g, "stepsSrc")) == "string" or false
 		-- A race part's guide not read in lists them in its header.
 		if g and Guides.GuideMatches(g, player) and rawget(g, "steps") == nil and type(rawget(g, "stepsSrc")) == "string" then
 			for _, gq in ipairs(type(g.groupQuests) == "table" and g.groupQuests or NONE) do
@@ -10614,6 +10631,7 @@ function Engine.GroupQuests()
 			end
 		end
 	end
+	Own.groupQuestsKept = { faction = player.faction, race = player.race, class = player.class, n = #list, gs = gs, out = out }
 	return out
 end
 

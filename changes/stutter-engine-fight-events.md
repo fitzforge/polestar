@@ -7,4 +7,6 @@ section: players
   worked out again dozens of times a second. Quest objective lines are
   cleaned of the game's placeholder names once per line instead of on every
   read, and the arrow no longer looks through the whole guide before an
-  unready hand-in unless that quest was left behind by an update.
+  unready hand-in unless that quest was left behind by an update. A new
+  character's kills no longer make the setup window count the group quests
+  of every guide again after each fight.
