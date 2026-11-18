@@ -511,7 +511,9 @@ async function cityCmd(argv) {
 		if (o.remeasure) report = remeasure(JSON.parse(fs.readFileSync(o.remeasure, 'utf8')), { ...common, protos: o.arms ? String(o.arms).split(',') : [] });
 		else if (step === 'world-gate') report = await gateWorld({ ...common, ...navArgs(), set, strata: o.strata ? String(o.strata).split(',') : null });
 		else report = await gate({ ...common, ...navArgs(), maps });
-		const cmp = o.baseline ? compareReports(JSON.parse(fs.readFileSync(o.baseline, 'utf8')), report) : null;
+		// City maps and world strata can deliberately select part of a larger baseline.
+		const groups = step === 'gate' && o.maps ? maps : step === 'world-gate' && set === 'world' && o.strata ? String(o.strata).split(',') : undefined;
+		const cmp = o.baseline ? compareReports(JSON.parse(fs.readFileSync(o.baseline, 'utf8')), report, groups) : null;
 		const md = markdown(report, cmp);
 		console.log(md);
 		if (o.out) fs.writeFileSync(o.out, JSON.stringify(report));

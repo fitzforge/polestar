@@ -685,13 +685,34 @@ function remeasure(report, { priv, grid, frames, npcs = {}, protos: extraArms = 
 	return report;
 }
 
-// cand vs base: per city and counted arm, fewer or equal failures; and the trips that newly fail.
-function compareReports(base, cand) {
+// A refreeze can reuse an id for a different walk. Pair rows by id and by the original (pre-anchor) stops.
+function sameStop(a, b) {
+	return a.wx === b.wx && a.wy === b.wy && (a.was ?? a.z) === (b.was ?? b.z) && a.kind === b.kind && a.npc === b.npc;
+}
+
+function compareReports(base, cand, groups = Object.keys(base.maps)) {
+	if (base.world !== cand.world) throw new Error('baseline and candidate use different trip sets');
+	const expected = new Set(groups.map(String));
+	if (!expected.size) throw new Error('no trip groups selected');
+	for (const key of expected) if (!base.maps[key] || !cand.maps[key]) throw new Error(`trip group ${key} missing from baseline or candidate`);
+	const counted = cand.arms.filter(a => COUNTED.includes(a));
+	if (!counted.length) throw new Error('no counted arm selected; run without --baseline for diagnostics');
 	const rows = [];
 	let pass = true;
 	for (const [map, c] of Object.entries(cand.maps)) {
 		const b = base.maps[map];
-		if (!b) continue;
+		if (!expected.has(map)) throw new Error(`unexpected trip group ${map}`);
+		for (const arm of counted) if (!b.summary[arm] || !c.summary[arm]) throw new Error(`trip group ${map}: missing counted arm ${arm}`);
+		const unmatched = new Map(b.rows.map(r => [r.i, r]));
+		if (!c.rows.length || unmatched.size !== b.rows.length) throw new Error(`trip group ${map}: empty corpus or duplicate baseline trip id`);
+		for (const r of c.rows) {
+			const other = unmatched.get(r.i);
+			if (!other || r.zone !== other.zone || r.cross !== other.cross || !sameStop(r.A, other.A) || !sameStop(r.B, other.B)) {
+				throw new Error(`trip group ${map}: trip ${r.i} is not the same frozen walk in both reports`);
+			}
+			unmatched.delete(r.i);
+		}
+		if (unmatched.size) throw new Error(`trip group ${map}: candidate is missing ${unmatched.size} frozen walk(s)`);
 		for (const arm of Object.keys(c.summary)) {
 			const bs = b.summary[arm];
 			if (!bs) continue;

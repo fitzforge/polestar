@@ -88,6 +88,28 @@ test('a held-out replay refuses shipped trails when the training-only layer is m
 	assert.equal((await replay()).trails, "the folder's own");
 });
 
+test('the replay gate only compares the same frozen walks in the selected groups', () => {
+	const { compareReports } = require('../tools/lib/nav/city/gate');
+	const row = i => ({ i, A: { wx: i, wy: 20, z: 30, kind: 'land' }, B: { wx: 50, wy: 80, z: 40, npc: 9 } });
+	const group = (rows, failed = []) => ({ name: 'indoor', rows, summary: { GAME: { fails: failed.length, list: failed.map(i => ({ i })) } } });
+	const report = maps => ({ world: 'world', arms: ['GAME'], maps });
+	const indoor = group([row(0), row(1)], [0]);
+	const town = group([row(2)]);
+	const base = report({ indoor, town });
+	const moved = row(0);
+	moved.A = { ...moved.A, z: 44, was: moved.A.z };
+	const subset = report({ indoor: group([row(1), moved]) });
+	assert.deepEqual(compareReports(base, subset, ['indoor']).rows[0].fixed, [0], 'order and corrections to the inferred floor do not change trip identity');
+	assert.throws(() => compareReports(base, subset), /town/, 'dropping a whole group is not a full pass');
+	for (const rows of [[row(0)], [row(0), row(0)], [row(1), { ...moved, B: { ...moved.B, wy: 81 } }]]) {
+		assert.throws(() => compareReports(base, report({ indoor: group(rows), town })), /indoor/);
+	}
+	assert.throws(() => compareReports(base, report({})), /trip|group/i);
+	assert.throws(() => compareReports(base, { ...base, world: 'reported' }), /set/i);
+	assert.throws(() => compareReports(base, { ...base, arms: ['E2'] }), /counted arm/i);
+	assert.throws(() => compareReports(base, { ...base, arms: ['GAME', 'WALK'] }), /WALK/);
+});
+
 test("the city gate's ends: a landing on the flight master's floor, an NPC the match had no height for on the NPC's", () => {
 	const { anchorEnds } = require('../tools/lib/nav/city/gate');
 	const g = { colIndex: () => 0, colNodes: () => [0, 1, 2, 3], nz: [39.5, 61.4, 95, -85.1] };
