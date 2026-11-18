@@ -471,7 +471,7 @@ local function evaluate(gen, tries, quest)
 		if money == 0 and GetQuestReward then
 			local function take()
 				GetQuestReward(best)
-				ns.Print(format(L["Took %s (%s)."], choices[best].link or ("#" .. best), why))
+				ns.Notice(format(L["Took %s (%s)."], choices[best].link or ("#" .. best), why))
 			end
 			-- Automation's wait for Spoken: the marks show until it ends, and stay if Shift stops it.
 			local delay = ns.Automation and ns.Automation.Delay()
@@ -482,7 +482,7 @@ local function evaluate(gen, tries, quest)
 		end
 	end
 	if QoL.On("rewardHighlight") and not ns.Hidden() and Rewards.Mark() ~= true then
-		ns.Print(format(L["Best reward: %s (%s)."], choices[best].link or ("#" .. best), why))
+		ns.Notice(format(L["Best reward: %s (%s)."], choices[best].link or ("#" .. best), why))
 	end
 end
 

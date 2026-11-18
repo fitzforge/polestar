@@ -394,7 +394,7 @@ local function upgradeNow()
 	end
 	upgrading = false
 	if done > 0 then
-		ns.Print(string.format(done == 1 and L["Upgraded %d action button to the highest rank."] or L["Upgraded %d action buttons to the highest rank."], done))
+		ns.Notice(string.format(done == 1 and L["Upgraded %d action button to the highest rank."] or L["Upgraded %d action buttons to the highest rank."], done))
 	end
 	told = nil
 	Spells.CheckRanks()
@@ -406,7 +406,7 @@ function Spells.Upgrade()
 	local result
 	local now = QoL.Secure("oldRanks", function() result = upgradeNow() end)
 	if not now then
-		ns.Print(L["Upgrading your action buttons after combat."])
+		ns.Notice(L["Upgrading your action buttons after combat."])
 		return nil
 	end
 	return result

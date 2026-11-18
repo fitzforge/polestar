@@ -1439,6 +1439,16 @@ function ns.Print(...)
 	DEFAULT_CHAT_FRAME:AddMessage(PREFIX .. table.concat(parts, " "))
 end
 
+-- A line telling what Polestar did or wants by itself (a turn-in waiting on a
+-- reward, buttons upgraded, junk sold): silent with Settings > Guide >
+-- Window > Show and hide > Chat messages off (#2527). Errors and command replies use
+-- ns.Print.
+ns.RegisterDefaults("ui", { chatMessages = true })
+function ns.Notice(...)
+	if ns.Get("ui.chatMessages") == false then return end
+	ns.Print(...)
+end
+
 ns.debug = false
 -- A debug line: always into the rolling log (ns.Log), to chat while
 -- /polestar debug is on.

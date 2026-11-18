@@ -1966,7 +1966,7 @@ function Dungeons.LevelReached(level)
 	for _, w in ipairs(list) do
 		if not w.told and w.level <= level and not done(w.id) and not inLog(w.id) then
 			w.told = true
-			ns.Print(format(L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."], level, ns.Quoted(w.title) or ""))
+			ns.Notice(format(L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."], level, ns.Quoted(w.title) or ""))
 			local pt = Dungeons.GiverTarget(key, w.id)
 			if pt and located(pt) then
 				local r, g, b = 1, 0.82, 0

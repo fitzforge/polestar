@@ -117,7 +117,7 @@ function Bind.OnBound()
 	local a = answered
 	answered = nil
 	if not (a and GetTime() - a.at <= ANSWER_WAIT) then return end
-	ns.Print(a.area and string.format(L["Bound your Hearthstone to %s."], a.area) or L["Bound your Hearthstone."])
+	ns.Notice(a.area and string.format(L["Bound your Hearthstone to %s."], a.area) or L["Bound your Hearthstone."])
 end
 
 QoL.WhileOn("autoBind", "CONFIRM_BINDER", Bind.OnConfirm)

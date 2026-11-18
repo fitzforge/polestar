@@ -110,9 +110,9 @@ function Social.OnSummon()
 	S.ConfirmSummon()
 	closePopup("CONFIRM_SUMMON")
 	if who and where then
-		ns.Print(format(L["Accepted a summon from %s to %s."], who, where))
+		ns.Notice(format(L["Accepted a summon from %s to %s."], who, where))
 	else
-		ns.Print(L["Accepted a summon."])
+		ns.Notice(L["Accepted a summon."])
 	end
 end
 
@@ -145,7 +145,7 @@ local function acceptResurrect(caster, gen)
 	if not Social.TakeResurrect(caster) or not AcceptResurrect then return end
 	cancelResurrect()
 	AcceptResurrect()
-	ns.Print(format(L["Accepted a resurrection from %s."], caster))
+	ns.Notice(format(L["Accepted a resurrection from %s."], caster))
 end
 
 function Social.OnResurrect(_, caster)
@@ -194,11 +194,11 @@ function Social.OnPartyInvite(_, name, isTank, isHealer, isDamage, _, _, guid)
 	if answer == "accept" and AcceptGroup then
 		AcceptGroup()
 		closePopup("PARTY_INVITE", "inviteAccepted")
-		ns.Print(format(L["Joined %s's party."], name or "?"))
+		ns.Notice(format(L["Joined %s's party."], name or "?"))
 	elseif answer == "decline" and DeclineGroup then
 		DeclineGroup()
 		closePopup("PARTY_INVITE")
-		ns.Print(format(L["Declined a party invitation from %s."], name or "?"))
+		ns.Notice(format(L["Declined a party invitation from %s."], name or "?"))
 	end
 end
 
@@ -220,7 +220,7 @@ function Social.OnGuildInvite(_, inviter, guildName)
 		local f = GuildInviteFrame
 		if f and not gamepadUI() and f:IsShown() then f:Hide() end
 	end)
-	ns.Print(format(L["Declined an invitation to %s."], guildName or (inviter or "?")))
+	ns.Notice(format(L["Declined an invitation to %s."], guildName or (inviter or "?")))
 end
 
 QoL.WhileOn("declineGuildInvites", "GUILD_INVITE_REQUEST", Social.OnGuildInvite)
@@ -238,7 +238,7 @@ function Social.OnDuel(_, challenger)
 	if not (Social.DeclineDuel(challenger) and CancelDuel) then return end
 	CancelDuel()
 	closePopup("DUEL_REQUESTED")
-	ns.Print(challenger and format(L["Declined a duel from %s."], challenger) or L["Declined a duel."])
+	ns.Notice(challenger and format(L["Declined a duel from %s."], challenger) or L["Declined a duel."])
 end
 
 QoL.WhileOn("declineDuels", "DUEL_REQUESTED", Social.OnDuel)

@@ -404,7 +404,7 @@ local function markNode()
 		Flight.DrawRoute(index)
 	elseif not told then
 		told = true
-		ns.Print(format(L["Route: fly to %s."], TaxiNodeName(index) or dest))
+		ns.Notice(format(L["Route: fly to %s."], TaxiNodeName(index) or dest))
 	end
 end
 
