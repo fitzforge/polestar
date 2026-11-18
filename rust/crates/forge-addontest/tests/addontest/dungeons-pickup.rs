@@ -3184,6 +3184,30 @@ emit(take)"#),
 	assert_eq!(out, json!([1740]));
 }
 
+// #2883 (tor, Razorfen Downs' pick-up guide at 41): Agamaggan's Blood's chain went through Rot and Regret, whose Vial of
+// Earth Song Water comes from an object inside Maraudon that the Codex holds no record of (players' recordings: 10
+// people loot it there). The Codex now names that instance on the item's object source (the data build takes it from
+// the recordings), and the vial counts as found only inside: Arugal Must Die waits. Without the instance it would not.
+#[test]
+fn a_page_quest_whose_prerequisite_needs_an_item_from_an_object_looted_only_inside_an_instance_is_not_picked_up_2883() {
+	let script = k(r#"
+local plan = D.PickupPlan("{KEY}")
+local take = {}
+for i, t in ipairs(plan.take) do take[i] = t.quest.id end
+emit(take)"#);
+	let edit = |instance: Value| {
+		move |c: &mut Value, _: &mut Value| {
+			c["items"]["9301"] = json!({ "id": 9301, "name": "Vial of Earth Song Water", "quality": 2, "kind": "item", "spell": null, "reqLevel": null,
+				"sources": [{ "type": "object", "object": 612179, "chance": null, "instance": instance, "from": ["recordings", "questie"] }] });
+			c["quests"]["1011"]["objectives"] = json!([{ "type": "item", "id": 9301, "count": 1, "text": "Vial of Earth Song Water" }]);
+		}
+	};
+	let inside = run(&pack_edited(edit(json!("maraudon"))), &script, Opts::default()).remove(0);
+	assert_eq!(inside, json!([1740]), "Arugal Must Die waits: its chain needs a vial looted inside Maraudon");
+	let unknown = run(&pack_edited(edit(Value::Null)), &script, Opts::default()).remove(0);
+	assert_eq!(unknown, json!([1740, 1014]), "an object the Codex knows nothing of is no proof either way");
+}
+
 // #2535, #2539, #2543 (Fyurie, Night Elf Warrior 51, Blackrock Depths' pick-up guide): The True Masters' step said
 // "Kill Ragged John", a friendly NPC whose story the player hears through his dialogue. With the objective a talk in
 // the Codex (the data build's talk rule: no count, friendly to every side that takes the quest), the step says

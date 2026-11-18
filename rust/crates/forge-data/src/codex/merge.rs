@@ -72,7 +72,7 @@ fn source_fields(ty: &str) -> &'static [&'static str] {
 	match ty {
 		"vendor" => &["npc", "cost", "limited"],
 		"drop" => &["npc", "chance", "instance"],
-		"object" => &["object", "chance"],
+		"object" => &["object", "chance", "instance"],
 		"quest" => &["quest", "choice"],
 		"gift" => &["npc", "spell"],
 		"craft" => &["spell", "skillLine", "profession", "skill"],
@@ -1321,10 +1321,16 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			add(str_to_num(&item), src("drop", &[("npc", V::Num(str_to_num(&npc))), ("chance", e.get("chance").clone_nullish()), ("instance", nn_or_null(npc_instance.get(&npc)))], from));
 		}
 	}
+	// An object players loot only inside one instance (the snapshot's `instance`, its map): the
+	// source names that instance, as an NPC's drop does (#2883: Maraudon's vial, an object no other
+	// source has, so Lookup's pick-up guides know the item comes from inside a dungeon).
+	let map_id = |v: &V| v.as_num().filter(|n| *n > 0.0 && n.fract() == 0.0).map(|n| n as i64);
+	let instance_of_map: FxHashMap<i64, V> = instances.entries().into_iter().filter_map(|(k, rec)| map_id(&rec.get("map")).map(|m| (m, V::str(&k.to_string())))).collect();
 	for (obj, r) in oentries(&recorded.get("objects")) {
+		let inst = map_id(&r.get("instance")).and_then(|m| instance_of_map.get(&m).cloned()).unwrap_or(V::Null);
 		for (item, e) in oentries(&r.get("items")) {
 			let from = if e.get("trusted").truthy() { &rec_from } else { &rec_confirm_from };
-			add(str_to_num(&item), src("object", &[("object", V::Num(str_to_num(&obj))), ("chance", e.get("chance").clone_nullish())], from));
+			add(str_to_num(&item), src("object", &[("object", V::Num(str_to_num(&obj))), ("chance", e.get("chance").clone_nullish()), ("instance", inst.clone())], from));
 		}
 	}
 	for (npc, list) in oentries(&recorded.get("vendors")) {
