@@ -2322,7 +2322,9 @@ fn t_234_floor_after_a_reload_in_ironforges_gate_the_walk_out_starts_on_the_gate
 // same-cluster walk searched an A* from every start surface to every goal surface, and one to a surface the start's
 // floor never joins (the mountain's ground over the gate) expanded all the start reaches. A goal the start's endpoint
 // tree (a Dijkstra over the cluster, already run) never reached when it ran dry is out of reach: no A* for it. Same
-// answer; a fraction of the work.
+// answer; a fraction of the work. The capitals' step joins (#2916) join more of the city's floors (4 floors and 41
+// arcs more in the Eastern Kingdoms), so the start's tree has more to expand: 49,231 -> 50,218 for the same path; the
+// limit went from 50,000 to 51,000 with them.
 #[test]
 fn inside_ironforge_the_walk_from_the_commons_to_the_gate_searches_no_goal_floor_out_of_the_starts_reach_with_the_same_path() {
 	skip_unless_ready!();
@@ -2339,7 +2341,7 @@ fn inside_ironforge_the_walk_from_the_commons_to_the_gate_searches_no_goal_floor
 	);
 	let (flat, fl) = (&out["flat"], &out["floor"]);
 	assert!(f(&flat["points"]) > 2.0 && f(&flat["yards"]) < 200.0, "the walk out through the city ({} yd)", flat["yards"]);
-	assert!(f(&flat["n"]) < 50000.0, "without a height, {} expansions (83,679 with a search to every goal surface)", flat["n"]);
+	assert!(f(&flat["n"]) < 51000.0, "without a height, {} expansions (83,679 with a search to every goal surface)", flat["n"]);
 	assert_eq!((&fl["points"], &fl["yards"]), (&flat["points"], &flat["yards"]), "from the floor: the same path");
 	assert!(f(&fl["n"]) < 5000.0, "from the floor, its endpoint search kept: {} expansions (22,145 before)", fl["n"]);
 }
