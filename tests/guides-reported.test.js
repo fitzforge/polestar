@@ -4378,6 +4378,21 @@ test('#2881: Questioning Reethe is an escort', { skip }, () => {
 	assert.ok(isEscort({ ...data.quests[1273], ...fix.set }), 'the compiler reads it as one');
 });
 
+// #2927 (Emil, Alliance Riverglades): Helping Hands (94861) is an escort (Hurley walks to Curly with whoever took it,
+// and it fails if he does not make it), but its text never says escort, so While you're here offered "go with Hurley
+// to save Curly" at Curly's spot, where nothing happens without Hurley. The sweep over every quest whose event
+// objective or text reads like an escort found Supplies to Auberdine (976, Feero Ironhand: 6 of 12 recorded runs
+// failed). The corrections mark them; the compiled guides carry it from the next data build.
+test('#2927: Helping Hands and Supplies to Auberdine are escorts', { skip }, () => {
+	const { isEscort } = require('../tools/lib/dsl/escort');
+	data = data || loadData(DATA);
+	for (const q of [94861, 976]) {
+		const fix = loadCorrections().quests[q];
+		assert.equal(fix && fix.set.escort, true, `the correction marks ${q} an escort`);
+		assert.ok(isEscort({ ...data.quests[q], ...fix.set }), `the compiler reads ${q} as one`);
+	}
+});
+
 // #2882 (Redrett, Krol'dok Stronghold's pick-up guide): Chogg'Zac (256899) stands in one spot in the Sunnyglade cave;
 // the data listed 14 points spread east of him, and the arrow led about 80-90 yards off. Players' recordings: 51 people
 // killed him at 44.9,51.2 (median of each person's spots).
