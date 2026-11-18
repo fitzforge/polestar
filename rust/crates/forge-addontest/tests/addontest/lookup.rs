@@ -843,6 +843,34 @@ fn search_one_letter_queries_read_name_prefixes_only_capped_paging_with_offset_l
 	assert_eq!(lazy, json!({ "before": 0, "after": 1, "s1": "Sub 100030" }));
 }
 
+#[test]
+fn translated_search_keeps_only_the_extra_names_and_ranks_them_with_english() {
+	let [kept, matches] = first::<2>(run_with(
+		r#"
+		local opts = { kinds = { item = true }, subtitles = false }
+		local chunks = {}
+		for i = 1, 5000 do chunks[i] = "\2old silver blade number "..i.."\1"..i..",2,,20\n" end
+		local base = table.concat(chunks); chunks = nil
+		Polestar.Codex.Index = function(k) if k == "item" then return base end end
+		Polestar.Codex.IsLoaded = function() return true end
+		Polestar.Names.Localised = function() return true end
+		Polestar.Names.Ready = function() return true end
+		Polestar.Names.Cached = function(_, id) if id == 1 then return "Silver Blade" end end
+		Polestar.Search.Query("prepare", { kinds = { guide = true }, subtitles = false })
+		collectgarbage(); collectgarbage()
+		local before = collectgarbage("count")
+		Polestar.Search.Query("unmatched", opts)
+		collectgarbage(); collectgarbage()
+		emit((collectgarbage("count") - before) * 1024 / #base)
+		local rows, counts, more = Polestar.Search.Query("silver blade", opts)
+		emit({ rows[1].id, rows[1].title, counts.item, more.item })
+	"#,
+		&Opts { with_pack: false, ..Default::default() },
+	));
+	assert!(num(&kept) < 0.5, "one translated name should not retain a second whole English catalogue: {kept} copies");
+	assert_eq!(matches, json!([1, "Silver Blade", 199, true]), "exact translation before English word matches, one id once, one shared read limit");
+}
+
 // Search speed without pinning one machine's: a keystroke is timed against the same run's cost of scanning every
 // name once (one plain find over each index, what any search must do), and 25,000 names against 2,500. A search
 // rebuilding its index per keystroke (a Lua pass over every line) costs far more than a few C scans; a quadratic
