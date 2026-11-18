@@ -80,7 +80,7 @@ return {
 	-- {skill:393} Skinning
 	["Journeyman {skill:393}"] = "{skill:393}: Подмастерье",
 	-- {skill:393} Skinning · {spell:1229517} Camp Chair · {item:2318} Light Leather · {item:4470} Simple Wood
-	["Journeyman {skill:393} raises the cap to 150; it needs skill 50 and no character level, and costs 5s: train it as soon as you reach 50. The arrow picks the nearest {skill:393} trainer of your faction. {spell:1229517}, Forever's camping item for {skill:393}, is taught from skill 20 (1s, or free from Camping 101: {skill:393}): three {item:2318} and two {item:4470} each, it gives points until 25; placed beside a campfire it gives everyone at the camp a buff for an hour."] = "",
+	["Journeyman {skill:393} raises the cap to 150; it needs skill 50 and no character level, and costs 5s: train it as soon as you reach 50. The arrow picks the nearest {skill:393} trainer of your faction. {spell:1229517}, Forever's camping item for {skill:393}, is taught from skill 20 (1s, or free from Camping 101: {skill:393}): three {item:2318} and two {item:4470} each, it gives points until 25; placed beside a campfire it gives everyone at the camp a buff for an hour."] = "Подмастерье {skill:393} поднимает предел до 150; требуется 50 навыка и любой уровень персонажа, стоит 5s: учите, как только достигнете 50. Стрелка укажет ближайшего наставника {skill:393} вашей фракции. {spell:1229517}, кемпинговый предмет Forever для {skill:393}, изучается с 20 навыка (1s, или бесплатно через Camping 101: {skill:393}): три {item:2318} и два {item:4470}, даёт очки до 25; поставленный у костра, он даёт всем в лагере усиление на час.",
 
 	-- Step 10: Beasts 10-15: Westfall (50-100)
 	-- {zone:1436} Westfall

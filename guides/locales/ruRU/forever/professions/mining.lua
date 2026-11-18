@@ -55,7 +55,7 @@ return {
 	-- {skill:186} Mining
 	["Journeyman {skill:186}"] = "{skill:186}: Подмастерье",
 	-- {skill:186} Mining · {spell:1230161} Lodestone · {item:2835} Rough Stone · {item:2840} Copper Bar
-	["Journeyman {skill:186} raises the cap to 150; it needs skill 50 and no character level, and costs 5s: train it as soon as you reach 50. The arrow picks the nearest {skill:186} trainer of your faction. {spell:1230161}, Forever's camping item for {skill:186}, is taught from skill 20 (1s, or free from Camping 101: {skill:186}): a {item:2835} and a {item:2840} each, it gives points until 25; placed beside a campfire it gives everyone at the camp a buff for an hour."] = "",
+	["Journeyman {skill:186} raises the cap to 150; it needs skill 50 and no character level, and costs 5s: train it as soon as you reach 50. The arrow picks the nearest {skill:186} trainer of your faction. {spell:1230161}, Forever's camping item for {skill:186}, is taught from skill 20 (1s, or free from Camping 101: {skill:186}): a {item:2835} and a {item:2840} each, it gives points until 25; placed beside a campfire it gives everyone at the camp a buff for an hour."] = "Подмастерье {skill:186} поднимает предел до 150; требуется 50 навыка и любой уровень персонажа, стоит 5s: учите, как только достигнете 50. Стрелка укажет ближайшего наставника {skill:186} вашей фракции. {spell:1230161}, кемпинговый предмет Forever для {skill:186}, изучается с 20 навыка (1s, или бесплатно через Camping 101: {skill:186}): по одному {item:2835} и {item:2840}, даёт очки до 25; поставленный у костра, он даёт всем в лагере усиление на час.",
 
 	-- Step 10: Copper: Elwynn Forest (50-65) cont.
 	-- {zone:1429} Elwynn Forest
@@ -123,7 +123,7 @@ return {
 	-- {skill:186} Mining
 	["Expert {skill:186}"] = "{skill:186}: Умелец",
 	-- {skill:186} Mining · {spell:3307} Smelt Iron
-	["Expert {skill:186} raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest {skill:186} trainer of your faction. Learn {spell:3307} (5s; orange to 130, grey at 140) on the same visit: smelting at a forge raises {skill:186} too, so smelt what you mine."] = "",
+	["Expert {skill:186} raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest {skill:186} trainer of your faction. Learn {spell:3307} (5s; orange to 130, grey at 140) on the same visit: smelting at a forge raises {skill:186} too, so smelt what you mine."] = "Эксперт по {skill:186} поднимает предел до 225; требуется 125 навыка и любой уровень персонажа, стоит 50s: учите, как только достигнете 125. Стрелка укажет ближайшего наставника {skill:186} вашей фракции. На том же визите изучите {spell:3307} (5s; оранжевый до 130, серый с 140): плавка в кузнице тоже поднимает {skill:186}, так что плавите добытое.",
 
 	-- Step 23: Iron: Arathi Highlands (125-155)
 	-- {zone:1417} Arathi Highlands

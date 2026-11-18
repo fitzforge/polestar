@@ -10,7 +10,7 @@ return {
 	-- {skill:197} Tailoring
 	["Learn {skill:197}"] = "Изучите: {skill:197}",
 	-- {skill:197} Tailoring · {item:2589} Linen Cloth
-	["Apprentice {skill:197} lets you craft up to 75 for 10c, at any character level. Any {skill:197} trainer of your faction teaches it; the arrow picks the nearest. Keep every {item:2589} you loot: humanoids of level 5-20 drop it. 1-75 takes about 50c of recipes and 7s 20c of vendor goods, plus 144 {item:2589} to gather or buy."] = "",
+	["Apprentice {skill:197} lets you craft up to 75 for 10c, at any character level. Any {skill:197} trainer of your faction teaches it; the arrow picks the nearest. Keep every {item:2589} you loot: humanoids of level 5-20 drop it. 1-75 takes about 50c of recipes and 7s 20c of vendor goods, plus 144 {item:2589} to gather or buy."] = "Подмастерье по {skill:197} позволяет создавать предметы до 75 навыка за 10c на любом уровне персонажа; обучит любой наставник {skill:197} вашей фракции, а стрелка укажет ближайшего. Собирайте каждый {item:2589}, который найдёте: его роняют гуманоиды 5-20 уровня. На 1-75 уйдёт примерно 50c рецептов и 7s 20c товаров у продавцов, плюс 144 {item:2589}, которые нужно собрать или купить.",
 
 	-- Step 2: Tailoring 1-75: vendor goods
 	-- {skill:197} Tailoring
@@ -167,7 +167,7 @@ return {
 	-- {skill:197} Tailoring
 	["Artisan {skill:197}"] = "{skill:197}: Искусник",
 	-- {skill:197} Tailoring · {npc:11052} Timothy Worthington · {zone:1445} Dustwallow Marsh · {npc:2399} Daryl Stack · {zone:1424} Hillsbrad Foothills · {spell:18401} Bolt of Runecloth · {spell:18402} Runecloth Belt · {item:8170} Rugged Leather · {item:14047} Runecloth · {item:14227} Ironweb Spider Silk
-	["Artisan raises the cap from 225 to 300; it needs {skill:197} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424}). The arrow picks the nearest of your faction. Learn now: {spell:18401} (from 205) and {spell:18402} (from 210). 225-300 takes about 1g 60s of recipes and 58g of vendor goods, plus 420 {item:8170}, 3195 {item:14047} and 124 {item:14227} to gather or buy."] = "",
+	["Artisan raises the cap from 225 to 300; it needs {skill:197} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424}). The arrow picks the nearest of your faction. Learn now: {spell:18401} (from 205) and {spell:18402} (from 210). 225-300 takes about 1g 60s of recipes and 58g of vendor goods, plus 420 {item:8170}, 3195 {item:14047} and 124 {item:14227} to gather or buy."] = "Мастерство поднимает предел с 225 до 300; требуется 200 {skill:197} и 35 уровень персонажа, так что брать его можно на любом визите с 200. Обучают лишь немногие наставники: Альянс — {npc:11052} ({zone:1445}); Орда — {npc:2399} ({zone:1424}). Стрелка укажет ближайшего к вам по фракции. Изучите сразу: {spell:18401} (с 205) и {spell:18402} (с 210). На 225-300 уйдёт примерно 1g 60s рецептов и 58g товаров у продавцов, плюс 420 {item:8170}, 3195 {item:14047} и 124 {item:14227}, которые нужно собрать или купить.",
 
 	-- Step 30: Tailoring 225-300: vendor goods
 	-- {skill:197} Tailoring

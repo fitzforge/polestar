@@ -11,7 +11,7 @@ return {
 	["Learn {skill:164}"] = "Изучите: {skill:164}",
 	-- {skill:164} Blacksmithing · {item:5956} Blacksmith Hammer · {skill:186} Mining · {item:2835} Rough Stone · {item:2770} Copper Ore
 	-- plural, as words: Copper Veins = {object:1731} Copper Vein
-	["Apprentice {skill:164} lets you craft up to 75 for 10c, at any character level. Any {skill:164} trainer of your faction teaches it; the arrow picks the nearest. Buy a {item:5956} (any blacksmithing supplier) and pair it with {skill:186}: {item:2835} and {item:2770} come from the Copper Veins of every starting zone. 1-75 takes about 1s of recipes, plus 286 {item:2835} to gather or buy."] = "",
+	["Apprentice {skill:164} lets you craft up to 75 for 10c, at any character level. Any {skill:164} trainer of your faction teaches it; the arrow picks the nearest. Buy a {item:5956} (any blacksmithing supplier) and pair it with {skill:186}: {item:2835} and {item:2770} come from the Copper Veins of every starting zone. 1-75 takes about 1s of recipes, plus 286 {item:2835} to gather or buy."] = "Подмастерье по {skill:164} позволяет создавать предметы до 75 навыка за 10c на любом уровне персонажа; обучит любой наставник {skill:164} вашей фракции, а стрелка укажет ближайшего. Купите {item:5956} у любого поставщика кузнечных припасов и начните с {skill:186}: {item:2835} и {item:2770} дают медные жилы каждой стартовой зоны. На 1-75 уйдёт примерно 1s рецептов, плюс 286 {item:2835}, которые нужно собрать или купить.",
 
 	-- Step 2: Blacksmithing 1-75: Auction House
 	-- {skill:164} Blacksmithing
