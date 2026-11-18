@@ -740,3 +740,64 @@ fn thunder_bluff_from_tal_the_walk_drops_off_the_wind_rider_towers_south_ledges_
 	let yards = yards_of(&pts);
 	assert!(yards < 150.0, "the walk down is {yards:.0} yd");
 }
+
+// The world gate's held-out walks (CityPaths' world stage, indoor places): Gazlowe's floor in Ratchet was joined to
+// nothing in the walking maps (no walk from him to Wharfmaster Dizzywig, 175 yd for players); the stair down from his
+// floor (103 recorded players) is a step join now. Both ways, and about the players' length.
+#[test]
+fn ratchet_the_walk_from_gazlowe_down_to_wharfmaster_dizzywig_is_found_both_ways() {
+	let gazlowe = Pt { c: 1, x: -838.0, y: -3727.6, z: Some(26.3) };
+	let dizzywig = Pt { c: 1, x: -984.6, y: -3795.5, z: Some(5.2) };
+	joined_both_ways(gazlowe, dizzywig, Some("Horde"), "Gazlowe's floor");
+	let yards = yards_of(&points(&walk(gazlowe, dizzywig, Some("Horde"))));
+	assert!(yards < 230.0, "the walk is {yards:.0} yd (players: 175)");
+}
+
+// #2027, Ban'ethil Barrow Den (Teldrassil): nothing below the den's mouth was reachable in the walking maps (from
+// Ban'ethil Hollow, Oben at the bottom was "unreachable"); the ramp's turn under the mouth (24 recorded players) is a
+// step join now.
+#[test]
+fn teldrassil_the_walk_from_banethil_hollow_down_to_oben_in_the_barrow_den_is_found_both_ways_2027() {
+	let hollow = Pt { c: 1, x: 9964.0, y: 1527.4, z: None };
+	let oben = Pt { c: 1, x: 9741.0, y: 1526.2, z: Some(1280.4) };
+	joined_both_ways(hollow, oben, Some("Alliance"), "Ban'ethil Barrow Den");
+}
+
+// #2027, Silver Stream Mine (Loch Modan): walks from Mountaineer Stormpike's hill to the mine's floor ran along a ledge
+// 10 yd over the floor and dropped off its far end (-4806, -2640), where players walk down the mouth's steps (a step
+// join now).
+#[test]
+fn loch_modan_the_walk_down_to_the_silver_stream_mines_floor_takes_the_steps_not_the_ledge_2027() {
+	let hill = Pt { c: 0, x: -4864.6, y: -2664.6, z: Some(340.0) };
+	let floor = Pt { c: 0, x: -4819.5, y: -2656.9, z: Some(327.1) };
+	let got = walk(hill, floor, Some("Alliance"));
+	assert!(truthy(&got), "the engine finds a walk to the mine's floor");
+	let pts = points(&got);
+	let ledge_end = Pt { c: 0, x: -4806.3, y: -2639.6, z: None };
+	let off = off_path(&pts, ledge_end);
+	assert!(off > 6.0, "the walk passes {off:.1} yd from the ledge's end ({} yd)", yards_of(&pts).round());
+}
+
+// Loch Modan, south of Algaz (23.36, 74.72): the upper floor where players stand (Algaz's bunker) had no way out in the
+// walking maps (no walk from it to Thelsamar); the ramp down round to the road (47 recorded players) is a step join
+// with via places along a navmesh's line now.
+#[test]
+fn loch_modan_the_walk_from_algazs_upper_floor_to_thelsamar_is_found_both_ways() {
+	let upper = Pt { c: 0, x: -5845.1, y: -2631.8, z: Some(323.0) };
+	let thelsamar = Pt { c: 0, x: -5425.3, y: -2928.5, z: Some(347.6) };
+	joined_both_ways(upper, thelsamar, Some("Alliance"), "Algaz's upper floor");
+}
+
+// Shen'dralas: from Historian Biraxas' floor players drop 22 yd to the hall below (21 of the 26 recorded players who
+// left him were flagged falling at the landing); the walking maps went round 354 yd to Mithera (players: 207). A drop
+// join now: the walk down takes it, the walk up still goes round.
+#[test]
+fn shendralas_the_walk_from_historian_biraxas_to_mithera_takes_the_drop_players_take() {
+	let biraxas = Pt { c: 1, x: -2970.4, y: 1085.1, z: Some(168.8) };
+	let mithera = Pt { c: 1, x: -2937.3, y: 936.0, z: Some(149.7) };
+	let down = yards_of(&points(&walk(biraxas, mithera, Some("Horde"))));
+	assert!(down < 260.0, "the walk down is {down:.0} yd (players: 207)");
+	let up = walk(mithera, biraxas, Some("Horde"));
+	assert!(truthy(&up), "the walk up is found");
+	assert!(yards_of(&points(&up)) > 300.0, "the walk up goes round");
+}
