@@ -38,7 +38,7 @@ return {
 	-- {npc:14753} Illiyana Moonblaze
 	["{npc:14753}: Friendly rewards"] = "",
 	-- {npc:15351} Alliance Brigadier General
-	["{npc:15351}: 50 reputation for 3 marks"] = "",
+	["{npc:15351}: 50 reputation for 3 marks"] = "{npc:15351}: 50 de reputación por 3 marcas",
 
 	-- Step 5: Silverwing Sentinels to Revered
 	-- {faction:890} Silverwing Sentinels
@@ -86,7 +86,7 @@ return {
 	-- {npc:14754} Kelm Hargunth
 	["{npc:14754}: Friendly rewards"] = "",
 	-- {npc:15350} Horde Warbringer
-	["{npc:15350}: 50 reputation for 3 marks"] = "",
+	["{npc:15350}: 50 reputation for 3 marks"] = "{npc:15350}: 50 de reputación por 3 marcas",
 
 	-- Step 12: Warsong Outriders to Revered
 	-- {faction:889} Warsong Outriders
