@@ -463,9 +463,12 @@ what is left. The report's `groups` and `eliteCells` say how many groups of kill
 that rests on. A mob level no player fought beside another one is left out, and its pools are in no
 level or class either: `cellsUsed` beside `cells` says how many pools the level and class fit kept.
 An elite pool with no normal kills of the same player at the same level is left out of `eliteTime`
-but still counts for level and class, with the `eliteTime` of the other pools taken out of it. A
-term nothing was recorded for is `null`. `forge sim calibrate` still fits its own `killSec1` /
-`killSec60` from the same seconds with the walk left in, so its values read higher.
+but still counts for level and class, with the `eliteTime` of the other pools taken out of it.
+`allPlayers` gives `killUp`, `killDown` and `eliteTime` with every player set against every other,
+as the first version of the fit read them, so one run shows how far the choice of fights between
+players moves the three. A term nothing was recorded for is `null`. `forge sim calibrate` still fits
+its own `killSec1` / `killSec60` from the same seconds with the walk left in, so its values read
+higher.
 
 Read `killUp` and `eliteTime` with care: they measure the fights players chose, not the fights a
 route would send them to. A player fights a mob above the character, or an elite alone, when the

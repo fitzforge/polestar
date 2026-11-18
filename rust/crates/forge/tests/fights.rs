@@ -133,6 +133,10 @@ fn the_fit_gives_back_the_terms_the_players_were_made_from() {
 	near(f.gaps.iter().find(|g| g.gap == 0).unwrap().ratio, 1.0);
 	near(f.gaps.iter().find(|g| g.gap == 3).unwrap().ratio, 1.3);
 	near(f.levels.iter().find(|l| l.level == 20).unwrap().sec, base(20));
+	// Nobody picks their fights here, so every player set against every other reads the same.
+	near(f.all_players.kill_up.unwrap(), 0.1);
+	near(f.all_players.kill_down.unwrap(), 0.05);
+	near(f.all_players.elite_time.unwrap(), ELITE);
 	assert_eq!(f.cells_used, f.cells, "every cell is in the level and class fit");
 }
 
@@ -185,6 +189,9 @@ fn a_strong_player_who_picks_harder_mobs_does_not_flatten_the_terms() {
 	near(f.elite_time.unwrap(), ELITE);
 	near(f.gaps.iter().find(|g| g.gap == 3).unwrap().ratio, 1.3);
 	near(f.gaps.iter().find(|g| g.gap == -3).unwrap().ratio, 0.85);
+	// The same kills with every player set against every other, reported beside it: the mobs above read fast.
+	let all = f.all_players.kill_up.unwrap();
+	assert!(all < 0.0, "{all}");
 }
 
 #[test]
@@ -258,6 +265,7 @@ fn the_report_sets_each_term_beside_its_prior() {
 	let elite_cells = 24 * 3 + 48 * 2;
 	assert_eq!((r["schema"].as_u64(), r["groups"].as_u64(), r["eliteCells"].as_u64()), (Some(2), Some(72), Some(elite_cells)));
 	assert_eq!((r["cells"].as_u64(), r["cellsUsed"].as_u64()), (Some(72 * 7 + elite_cells), Some(72 * 7 + elite_cells)));
+	assert_eq!(r["allPlayers"], json!({ "killUp": 0.1, "killDown": 0.05, "eliteTime": 3.0 }));
 	assert_eq!(r["byGap"][0]["samples"], 72 * 5);
 	assert_eq!(r["byGap"].as_array().unwrap().len(), 7);
 }
