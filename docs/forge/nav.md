@@ -698,7 +698,11 @@ forge nav check
   his maps cut off), the way the router walks (steps, links, arcs, ledge drops, the graph's
   kept edges), and a surface it never reaches goes: a floor is dropped, a base cell loses its surface, an entrance on
   it goes. PACK.json's `leffe` entry counts them (`places`, `unplaced`, `unreachedFloors`, `unreachedBases`,
-  `unreachedEntrances`). On with `--ground reached` (off by default until measured on the walking-map judges).
+  `unreachedEntrances`). On with `--ground reached` (off by default until measured on the walking-map judges);
+  `--ground cities` drops it in the capitals only (a surface whose cell lies in a capital's zone), the ground
+  outside them staying whole, so a city walk's ends settle on ground a player reaches (a roof, a sealed room or
+  the ground under Stormwind's and Orgrimmar's streets is no floor to start or end on) and nothing changes
+  outside the cities.
 - Ledge drops (`pack/drops.rs`, Shortest Path Forever v1.31's rule on our grid's falls): a fall of our grid of 2 to
   14.57 yd (the height a fall starts to hurt) into the ledge's cell or one beside it, inside one tile, becomes a
   one-way arc between his surfaces nearest the two heights (within 3.5 yd), priced as the walk across plus the time

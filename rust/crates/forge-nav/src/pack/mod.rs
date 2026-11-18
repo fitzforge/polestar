@@ -227,6 +227,8 @@ pub struct PackIn<'a> {
 	/// The fixed places (pack/reach.rs fixed_places): Leffe's maps keep only the ground a walk from one reaches.
 	/// None: all of it.
 	pub places: Option<&'a [reach::Place]>,
+	/// With the places: the ground no walk from one reaches is dropped in the capitals only (`--ground cities`).
+	pub ground_cities: bool,
 	/// Leffe's maps take our grid's ledge drops (pack/drops.rs) as one-way arcs.
 	pub ledges: bool,
 	/// The NPC and quest object spawns (pack/spawns.rs spawn_points): Leffe's maps carry the heights of those that
@@ -397,7 +399,9 @@ pub fn pack_nav(i: &PackIn) -> Result<Pack, String> {
 				} else {
 					None
 				};
-				let extras = leffe::Extras { places: i.places, drops: drops.as_ref(), spawns: i.spawns };
+				let in_city = |x: f64, y: f64| city(c, x, y, 0);
+				let only: Option<&(dyn Fn(f64, f64) -> bool + Sync)> = if i.ground_cities { Some(&in_city) } else { None };
+				let extras = leffe::Extras { places: i.places, only, drops: drops.as_ref(), spawns: i.spawns };
 				let hubs = i.layers.join("hubs.json");
 				let ways = joins::ways(i.grid, c, hubs.is_file().then_some(hubs.as_path()), log)?;
 				let (maps, used, s, j) = leffe::leffe_maps(dir, c, &cg, &extras, &ways, log)?;

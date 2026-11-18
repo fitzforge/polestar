@@ -20,7 +20,7 @@ Polestar checkout (default: the nearest folder above the working directory with 
 slots, files not downloaded: forge gamedata check) is refused, since the grid would be wrong
 there: run Scan and Repair in the launcher, or pass --allow-incomplete.
 
-usage: forge nav pack [--dir <grid>] [--layers <dir>] [--out <addon dir>] [--cells N] [--date YYYY-MM-DD] [--root <dir>] [--leffe <dir> [--leffe-maps 0,1,2991] [--literals zlib|base64] [--ground reached|all] [--ledges on|off] [--spawns on|off]]
+usage: forge nav pack [--dir <grid>] [--layers <dir>] [--out <addon dir>] [--cells N] [--date YYYY-MM-DD] [--root <dir>] [--leffe <dir> [--leffe-maps 0,1,2991] [--literals zlib|base64] [--ground reached|cities|all] [--ledges on|off] [--spawns on|off]]
 
 Writes Polestar's walking maps of maps 0, 1 and 2991 from the grid (--dir, default $POLESTAR_GRID,
 else <root>/data/local/nav4; grid format 4) and the ground layers (--layers, default
@@ -44,7 +44,8 @@ string literals (--literals base64 keeps base64). Three rules, each off until me
 walking-map judges: --ground reached keeps only the ground a walk from a fixed place reaches
 (flight masters and inns by their NPC's spawn, boat, zeppelin, tram and lift landings and portal
 ends from <root>/data/forever travel.json and spawnz.json, the travel chains' nodes in
-<root>/data/crossings.json, and the ends of the grid joins' ways; default all); --ledges on takes
+<root>/data/crossings.json, and the ends of the grid joins' ways; default all), --ground cities
+the same in the capitals only (the ground outside them stays whole); --ledges on takes
 our grid's falls of 2 to 14.57 yd (the height a fall starts to hurt) into the cell beside a ledge
 as one-way arcs where his maps lack the walk down; --spawns on carries the heights of the NPC and
 quest object spawns (<root>/data/forever spawnz.json, quests.json) that stand within a cell of
@@ -239,10 +240,11 @@ fn pack(args: &[String]) -> Result<(), Fail> {
 		Some("base64") => false,
 		Some(_) => return Err(usage("--literals needs zlib or base64")),
 	};
-	let reached = match o.get("--ground").map(String::as_str) {
-		Some("reached") => true,
-		None | Some("all") => false,
-		Some(_) => return Err(usage("--ground needs reached or all")),
+	let (reached, ground_cities) = match o.get("--ground").map(String::as_str) {
+		Some("reached") => (true, false),
+		Some("cities") => (true, true),
+		None | Some("all") => (false, false),
+		Some(_) => return Err(usage("--ground needs reached, cities or all")),
 	};
 	let ledges = match o.get("--ledges").map(String::as_str) {
 		Some("on") => leffe.is_some(),
@@ -295,6 +297,7 @@ fn pack(args: &[String]) -> Result<(), Fail> {
 		leffe: leffe.as_ref().map(|(d, m)| (d.as_path(), m.as_slice())),
 		zlib_literals,
 		places: places.as_deref(),
+		ground_cities,
 		ledges,
 		spawns: spawns.as_deref(),
 		log: &log,
