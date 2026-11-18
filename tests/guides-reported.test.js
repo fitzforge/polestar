@@ -4329,6 +4329,16 @@ test('#2876: every goto at a boat or airship stop with a boarding point complete
 	assert.deepEqual(offenders, [], 'transport gotos out of reach from the boarding point');
 });
 
+// #2871 (Shuurajou, Alliance Wetlands): the guide sent them to hand in Fire Taboo (277) at Rethiel with 0 of its 9
+// Crude Flint: 06-ashenvale takes the quest and gets the flint, and a player who reached 06-wetlands without it had only
+// the hand-in. A step for the flint, only while the quest is in the log, now comes before the hand-in.
+test('#2871: Wetlands (Alliance): Fire Taboo left short of its flint gets the gnolls before the hand-in', { skip }, () => {
+	const list = goals('forever/alliance/06-wetlands.guide');
+	const flint = at(list, 'collect 2611 quest 277', (g) => g.t === 'collect' && g.item === 2611 && g.quest === 277);
+	assert.ok(flint < at(list, 'turnin 277', is('turnin', 277)), 'the flint before the hand-in');
+	assert.ok((list[flint].step.when || []).some((p) => p.k === 'onquest' && (p.q || []).includes(277)), 'only while Fire Taboo is in the log');
+});
+
 // --- Typed coordinates on the wrong map (Fitz's playtest: Darkshore's "Boat to
 // Stormwind" pointed into Moonglade). Coordinates without `map` are on the zone
 // in effect, and a `zone` line holds for the steps after it, even when its step
