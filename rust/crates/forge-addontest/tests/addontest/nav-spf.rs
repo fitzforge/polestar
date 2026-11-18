@@ -4867,6 +4867,7 @@ fn city_a2_a_capital_s_goal_keeps_its_height_with_the_reach_and_says_the_last_st
 		n = calls()
 		fake.fail("unreachable")
 		N.Sample()
+		stub.advance(0.3)
 		r.failed = { calls() - n, aim()[1], (N.walk.Unmapped()), said(), r.unreachable or false }
 		-- Found through the reach (job.reached): its walk is the arrow's, said.
 		N.SetTarget(m, x, y, "Daryl Riknussun", nil, "trainer", 65)
@@ -4875,12 +4876,14 @@ fn city_a2_a_capital_s_goal_keeps_its_height_with_the_reach_and_says_the_last_st
 		fake.last().reached = { x = -95, y = -495, z = 60 }
 		fake.resolve(0, 50, -95, -495)
 		N.Sample()
+		stub.advance(0.3)
 		r.reached = { calls() - n, aim()[1], (N.walk.Unmapped()), said() }
 		-- Found on its floor: nothing said.
 		N.SetTarget(m, x, y, "Daryl Riknussun", nil, "trainer", 64)
 		N.Sample()
 		fake.resolve(0, 50, -100, -500)
 		N.Sample()
+		stub.advance(0.3)
 		r.onFloor = { (N.walk.Unmapped()), said() }
 		-- Ending 100 yd above it: kept (no search without the height), said.
 		N.SetTarget(m, x, y, "Daryl Riknussun", nil, "trainer", 63)
@@ -4990,11 +4993,11 @@ fn city_a3_an_npc_beside_the_player_gives_the_floor_from_its_spawn_height_ambigu
 		-- With trails: asked on the NPC's level.
 		fake.trail = function(map, x, y, reach, near) if near then return near + 31, 2 end return 40, 3 end
 		stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate3")
-		away(0, 250)
 		fake.trailAsks = {}
+		away(0, 250)
 		r.trail = startZ()
-		r.near = fake.trailAsks[1] and fake.trailAsks[1].near or false
-		r.asks = fake.trailAsks
+		r.near = false
+		for _, a in ipairs(fake.trailAsks) do if a.near then r.near = a.near end end
 		-- Outside the capital an NPC there says nothing.
 		SPAWNS[5161] = { { 600, 60, 41 } }
 		fake.trail = nil
@@ -5010,7 +5013,7 @@ fn city_a3_an_npc_beside_the_player_gives_the_floor_from_its_spawn_height_ambigu
 	assert_eq!(out["ambiguous"], "none");
 	assert_eq!(out["plate"], 40);
 	assert_eq!(out["stale"], "none");
-	assert_eq!(out["near"], 41, "the trail floor on the NPC's level");
+	assert_eq!(out["near"], 41, "the trail floor asked on the NPC's level");
 	assert_eq!(out["trail"], 72, "that trail floor (72)");
 	assert_eq!(out["outside"], "none");
 }
@@ -5038,4 +5041,38 @@ fn city_walking_in_through_a_gate_the_floor_followed_outside_carries_across_the_
 	]
 	.concat());
 	assert_eq!(out, json!({ "outside": 40, "inside": 40 }));
+}
+
+// A flight's landing in a capital (CityLifts, 2026-11-18: Thunder Bluff's tower top at 176.9 over the ground at 145.7,
+// the Undercity's bat platform over its ring): both levels are walked, so the trails can't tell them; the flight point's
+// own height (TravelData's taxiZ, TaxiNodes) is the floor for the first LAND_SECONDS (30) within 20 yd of the landing.
+#[test]
+fn city_after_a_flight_lands_in_a_capital_the_floor_is_the_flight_point_s_height_for_30_s() {
+	let out = run(&[
+		FLOORS,
+		CITY,
+		r#"
+		local r = {}
+		fake.surfaces = function() return { 145.7, 176.9 } end
+		fake.trail = function(map, x, y, reach, near) if near then return near, 2 end return 145.7, 3 end
+		local m, mx, my = nav.mapPoint(10, 60)
+		N.RegisterTravelData({ taxi = { { 901, 0, 10, 60, m, mx, my, 3, "Tower, Ironforge" } }, taxiZ = { [901] = 176.9 } })
+		r.node = N.GetTaxiNode(901).z
+		-- Taken from a flight master 600 yd off (control lost there), landed at the tower (control back).
+		nav.place(600, 62)
+		stub.fire("PLAYER_CONTROL_LOST")
+		nav.taxi = true
+		stub.advance(60)
+		nav.place(12, 62)
+		nav.taxi = false
+		stub.fire("PLAYER_CONTROL_GAINED")
+		r.landed = startZ()
+		-- 40 s on, the floor lost (a jump away and back): the trails' answer again.
+		stub.advance(40)
+		away(0, 250)
+		r.later = startZ()
+		emit(r)"#,
+	]
+	.concat());
+	assert_eq!(out, json!({ "node": 176.9, "landed": 176.9, "later": 145.7 }));
 }

@@ -514,10 +514,65 @@ function city.Here(c, x, y)
 	return city.hin
 end
 
+-- A flight's landing (the player was on a taxi, seen at a check, or took one: TakeTaxiNode, and is not now; checked
+-- at every floor read and when control comes back, PLAYER_CONTROL_GAINED): the floor is the height of the flight
+-- point it landed at (Travel's node.z: TravelData's taxiZ, TaxiNodes' height), the nearest node within LAND yd; kept
+-- LAND_SECONDS for city.Hint, within LAND yd of where the flight landed. Thunder Bluff's tower top (176.9) over the
+-- ground (145.7) and the Undercity's bat platform over its ring are walked alike: the trails can't tell them.
+city.LAND, city.LAND_SECONDS = 20, 30
+function city.Landed(c, x, y)
+	local C = ns.Compat
+	local on = C and C.IsOnTaxi and C.IsOnTaxi() and true or false
+	-- (a flight taken but not seen on: counted once the client has had TOOK seconds to put the player on it)
+	local took = city.tookAt ~= nil and GetTime() - city.tookAt > city.TOOK
+	if (city.onTaxi or took) and not on and c and x and y then
+		city.tookAt = nil
+		city.landC, city.landX, city.landY, city.landAt, city.landZ = c, x, y, GetTime(), nil
+		city.sAt = nil -- (city.Start's hint read again)
+		local data = Nav.GetTravelData and Nav.GetTravelData() -- (once per landing)
+		local best = city.LAND * city.LAND
+		for _, n in ipairs(data and data.taxi or {}) do
+			if n.c == c and type(n.z) == "number" then
+				local dx, dy = n.wx - x, n.wy - y
+				local d = dx * dx + dy * dy
+				if d <= best then best, city.landZ = d, n.z end
+			end
+		end
+	end
+	if on then city.tookAt = nil end
+	city.onTaxi = on
+end
+city.TOOK, city.FLOWN = 5, 100
+-- Control lost and given back 100+ yd away (a flight: the client may not say on-taxi at either event) is a landing too.
+ns.RegisterEvent("PLAYER_CONTROL_LOST", function()
+	local C = ns.Compat
+	if C and C.IsOnTaxi and C.IsOnTaxi() then city.onTaxi = true end
+	if C and C.GetPlayerWorldPosition then city.lostC, city.lostX, city.lostY = C.GetPlayerWorldPosition() end
+end)
+ns.RegisterEvent("PLAYER_CONTROL_GAINED", function()
+	local C = ns.Compat
+	if not (C and C.GetPlayerWorldPosition) then return end
+	local c, x, y = C.GetPlayerWorldPosition()
+	if city.lostX and c and x and y then
+		local dx, dy = x - city.lostX, y - city.lostY
+		if c ~= city.lostC or dx * dx + dy * dy > city.FLOWN * city.FLOWN then city.onTaxi = true end
+	end
+	city.lostC, city.lostX, city.lostY = nil, nil, nil
+	if city.onTaxi or city.tookAt then city.Landed(c, x, y) end
+end)
+if hooksecurefunc and TakeTaxiNode then hooksecurefunc("TakeTaxiNode", function() city.tookAt = GetTime() end) end
+
+function city.LandZ(c, x, y)
+	if city.landZ == nil or c ~= city.landC or GetTime() - city.landAt > city.LAND_SECONDS then return nil end
+	local dx, dy = x - city.landX, y - city.landY
+	if dx * dx + dy * dy > city.LAND * city.LAND then return nil end
+	return city.landZ
+end
+
 function city.Hint(P, c, x, y)
 	if not city.Here(c, x, y) then return nil end
 	local F = Nav.npcFloor
-	local nz = F and F.Near and F.Near(c, x, y) or nil
+	local nz = city.LandZ(c, x, y) or (F and F.Near and F.Near(c, x, y)) or nil
 	if P and P.TrailFloor then
 		local ok, tz = pcall(P.TrailFloor, c, x, y, city.TRAIL, nz)
 		if ok and type(tz) == "number" then return tz end
@@ -822,6 +877,7 @@ local function track(P, pc, px, py)
 	local d2 = dx * dx + dy * dy
 	local T = Nav.travel
 	local ghost = T and T.IsGhost and T.IsGhost() or false
+	city.Landed(pc, px, py)
 	local held = carried(pc, px, py)
 	if held or pc ~= fC or ghost ~= fGhost or d2 > JUMP * JUMP or (d2 >= MOVE * MOVE and now - fAt > FRESH) then
 		floorZ = nil
