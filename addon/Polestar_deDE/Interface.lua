@@ -737,6 +737,7 @@ L["Both factions"] = "Beide Fraktionen"
 L["Steps"] = "Schritte"
 
 -- UI/Options.lua
+L["A setting under it is changed: turn it on to see it."] = "Eine Einstellung darunter ist geändert: Schalte es ein, um sie zu sehen."
 L["Opens the suggested guide when no tab is open."] = "Öffnet den vorgeschlagenen Guide, wenn kein Tab offen ist."
 L["Colour scheme"] = "Farbschema"
 -- L["While you play"] = ""

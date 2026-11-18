@@ -1816,6 +1816,7 @@ L["Builds a guide to %s, the quickest of these to reach, and opens it in a new t
 -- L["Then any of: %s"] = ""
 
 -- UI/Options.lua
+L["A setting under it is changed: turn it on to see it."] = "Hay un ajuste cambiado debajo: actívalo para verlo."
 L["Recorder"] = "Recorder"
 L["About"] = "Acerca de"
 L["%d px"] = "%d px"

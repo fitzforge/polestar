@@ -2259,6 +2259,7 @@ L["Polestar Guides is turned off in the AddOns list, so Polestar has no guides t
 -- L["Part of Polestar is turned off in the AddOns list (%s), so its settings cannot open. Turn it on for all your characters and reload?"] = ""
 
 -- UI/Options.lua
+L["A setting under it is changed: turn it on to see it."] = "其下有設定已變更：開啟後即可看到。"
 L["Recorder"] = "記錄器"
 L["About"] = "關於"
 L["%d px"] = "%d 像素"
