@@ -165,15 +165,20 @@ Menu = { ModifyMenu = function(tag, build) questMenus[tag] = build end }
 		addons: vec!["Polestar".into()],
 		script: r#"
 stub.login()
-local buttons = {}
-questMenus.MENU_QUEST_MAP_LOG_TITLE({ questID = 7009 }, {
-	QueueDivider = function() end,
-	CreateButton = function(_, label, action) buttons[label] = action end,
-})
-local start = buttons["Polestar: Start quest guide"]
+local function questButtons()
+	local buttons = {}
+	questMenus.MENU_QUEST_MAP_LOG_TITLE({ questID = 7009 }, {
+		QueueDivider = function() end,
+		CreateButton = function(_, label, action) buttons[label] = action end,
+	})
+	return buttons
+end
+local label = "Polestar: Start quest guide"
+local start = questButtons()[label]
 start()
 local active = Polestar.Engine.GetGuide().id
 Polestar.Set("lookup.enabled", false)
+assert(questButtons()[label] == nil)
 Polestar.Compat.GetQuestTitle = function() return "Taming the Beast" end
 start()
 emit({ active = active, after = Polestar.Engine.GetGuide().id,

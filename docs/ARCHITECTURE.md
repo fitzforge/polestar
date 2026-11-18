@@ -9398,8 +9398,8 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `UI/QuestLinks.lua` adds this action to the native quest log and objective
   tracker menus through `Menu.ModifyMenu`, only with the keyboard and mouse
   interface. It works without the Codex; only installed guides are searched.
-  The Start quest guide action opens and selects a new guide tab when
-  possible and falls back to this search otherwise.
+  With Lookup enabled, Start quest guide opens and selects a new guide tab
+  when possible and falls back to this search otherwise.
   Its search also lists Codex matches under the guides (`UI.LookupRows`,
   `UI.LookupCount`, `UI.LookupTotal` from `UI/Lookup.lua`): an "In the
   Codex" folder with up to three per kind and a "Look up everything" line;

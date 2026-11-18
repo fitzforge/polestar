@@ -33,9 +33,14 @@ local function add(root, id)
 	root:CreateButton(L["Polestar"] .. ": " .. L["Show in Guides"], function()
 		UI.Picker.ShowQuest(id)
 	end)
-	root:CreateButton(L["Polestar"] .. ": " .. L["Start quest guide"], function()
-		if not ns.Lookup.Guide("quest", id) then UI.Picker.ShowQuest(id) end
-	end)
+	if ns.Get("lookup.enabled") then
+		root:CreateButton(L["Polestar"] .. ": " .. L["Start quest guide"], function()
+			local guide, reason = ns.Lookup.Guide("quest", id)
+			if guide then return end
+			if reason == "tabs" then ns.Print(L["Six tabs is the limit. Close one to open another."]) end
+			UI.Picker.ShowQuest(id)
+		end)
+	end
 end
 
 ns.OnLogin(function()
