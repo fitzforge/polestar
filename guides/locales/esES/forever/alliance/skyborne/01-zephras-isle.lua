@@ -478,7 +478,7 @@ return {
 
 	-- Step 101: Elaadrin Evengale
 	-- {npc:252475} Elaadrin Evengale · {area:279} Dalaran · {area:16638} Valanaar · {npc:259084} Denaaris Stargale
-	["{npc:252475} sends you on to {area:279}. Take the skycutter from the dock tower just south of {area:16638}: it lands by the Kirin Tor camp west of {area:279}, beside {npc:259084} and the Skyborne Portal."] = "{npc:252475} te manda a {area:279}. Toma el surcacielos desde la torre del muelle justo al sur de {area:16638}: aterriza junto al campamento del Kirin Tor al oeste de {area:279}, al lado de {npc:259084} y el portal de Skyborne.",
+	["{npc:252475} sends you on to {area:279}. Take the skycutter from the dock tower just south of {area:16638}: it lands by the Kirin Tor camp west of {area:279}, beside {npc:259084} and the Skyborne Portal."] = "{npc:252475} te manda a {area:279}. Toma el surcacielos desde la torre del muelle justo al sur de {area:16638}: aterriza junto al campamento del Kirin Tor al oeste de {area:279}, al lado de {npc:259084} y el portal de los cielonatos.",
 	-- {npc:252475} Elaadrin Evengale · {npc:259084} Denaaris Stargale
 	["{npc:252475}: {npc:259084} waits by the Skyborne portal"] = "{npc:252475}: {npc:259084} espera junto al portal de los cielonatos",
 
