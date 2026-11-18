@@ -9401,7 +9401,9 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   Its search also lists Codex matches under the guides (`UI.LookupRows`,
   `UI.LookupCount`, `UI.LookupTotal` from `UI/Lookup.lua`): an "In the
   Codex" folder with up to three per kind and a "Look up everything" line;
-  picking one opens the Lookup section at it.
+  picking one opens the Lookup section at it. The round Polestar button
+  in the quest details header opens the shared quest menu and follows
+  Polestar's visibility setting.
 - **Lookup** (`UI/Lookup.lua`, the hub section "Lookup", order 20;
   `UI.ShowLookup({ query, kind, id })` and `SHOW_LOOKUP(query, kind, id)` open
   the hub at it). Search only, never browsing: the hub's search box drives it

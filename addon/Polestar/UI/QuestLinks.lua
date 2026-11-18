@@ -40,24 +40,30 @@ local function setupDetails()
 	if not details or not QuestMapFrame_ShowQuestDetails or not MenuUtil or not MenuUtil.CreateContextMenu then return end
 	local header = details.BackFrame or details
 	local icon = "Interface\\AddOns\\" .. ADDON .. "\\Media\\UI\\logo"
-	local spoken = _G.Spoken
-	local button = spoken and spoken.CreateRoundButton and spoken:CreateRoundButton(header, "icon", nil, icon)
-	if not button then
-		button = CreateFrame("Button", nil, header)
-		button:SetSize(26, 26)
-		local image = button:CreateTexture(nil, "ARTWORK")
-		image:SetPoint("CENTER")
-		image:SetSize(20, 20)
-		image:SetTexture(icon)
-		local mask = button:CreateMaskTexture()
-		mask:SetAllPoints(image)
-		mask:SetTexture("Interface\\CharacterFrame\\TempPortraitAlphaMask", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
-		image:AddMaskTexture(mask)
-		button:SetHighlightTexture("Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight")
+	local button = ns.CreateFrameUnder("Button", nil, header)
+	button:SetSize(26, 26)
+	local border = button:CreateTexture(nil, "BACKGROUND")
+	border:SetAllPoints()
+	border:SetTexture("Interface\\Minimap\\MiniMap-TrackingBorder")
+	border:SetTexCoord(0, 0.58, 0, 0.58)
+	local image = button:CreateTexture(nil, "ARTWORK")
+	image:SetPoint("CENTER")
+	image:SetSize(18, 18)
+	image:SetTexture(icon)
+	local mask = button:CreateMaskTexture()
+	mask:SetAllPoints(image)
+	mask:SetTexture("Interface\\CharacterFrame\\TempPortraitAlphaMask", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+	image:AddMaskTexture(mask)
+	button:SetHighlightTexture("Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight")
+	if header.BackButton then
+		button:SetPoint("LEFT", header.BackButton, "RIGHT", 4, 0)
+	else
+		button:SetPoint("TOPLEFT", header, "TOPLEFT", 12, -2)
 	end
 	button:HookScript("OnEnter", function(self)
 		GameTooltip:SetOwner(self, "ANCHOR_LEFT")
 		GameTooltip:SetText(L["Polestar"])
+		GameTooltip:AddLine(L["Click to show quest guide actions."], 1, 1, 1)
 		GameTooltip:Show()
 	end)
 	button:HookScript("OnLeave", function() GameTooltip:Hide() end)
@@ -66,25 +72,6 @@ local function setupDetails()
 		return questID(details.questID) or questID(C_QuestLog and C_QuestLog.GetSelectedQuest and C_QuestLog.GetSelectedQuest())
 	end
 	local function refresh()
-		local spoken = _G.VoiceOver
-		local compendium = spoken and spoken.QuestsTab and spoken.QuestsTab.mapButton
-		local overlay = spoken and spoken.QuestOverlayUI
-		local beside = compendium and compendium:IsShown() and compendium
-		if not beside and overlay then
-			for _, key in ipairs({ "detailsPlayButton", "detailsContributeButton", "detailsReportButton" }) do
-				if overlay[key] and overlay[key]:IsShown() then
-					beside = overlay[key]
-					break
-				end
-			end
-		end
-		beside = beside or header.BackButton
-		button:ClearAllPoints()
-		if beside then
-			button:SetPoint("RIGHT", beside, "LEFT", -4, 0)
-		else
-			button:SetPoint("TOPRIGHT", header, "TOPRIGHT", -12, -2)
-		end
 		button:SetShown(details:IsShown() and selectedQuest() ~= nil and not ns.Hidden())
 	end
 	button:SetScript("OnClick", function(self)
@@ -97,6 +84,7 @@ local function setupDetails()
 	hooksecurefunc("QuestMapFrame_ShowQuestDetails", function()
 		C_Timer.After(0, refresh)
 	end)
+	ns.On("POLESTAR_HIDDEN", refresh)
 	refresh()
 end
 
