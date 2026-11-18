@@ -829,11 +829,7 @@ fn no_quest_automation_while_paused_also_holds_back_the_flight_master_s_map_and_
 	})
 	.remove(0);
 	let acts = json!([[1, 1], [1, 1]]);
-	assert_eq!(
-		out,
-		json!({ "paused": acts, "held": [[0, 0], [0, 0]], "resumed": acts }),
-		"paused alone opens the map and flies; with the setting both wait; resumed both again"
-	);
+	assert_eq!(out, json!({ "paused": acts, "held": [[0, 0], [0, 0]], "resumed": acts }), "paused alone opens the map and flies; with the setting both wait; resumed both again");
 }
 
 const HERE_WORLD: &str = r#"
