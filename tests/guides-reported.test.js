@@ -4339,6 +4339,17 @@ test('#2871: Wetlands (Alliance): Fire Taboo left short of its flint gets the gn
 	assert.ok((list[flint].step.when || []).some((p) => p.k === 'onquest' && (p.q || []).includes(277)), 'only while Fire Taboo is in the log');
 });
 
+// #2881 (gidi, Horde Dustwallow Marsh): Questioning Reethe (1273) is an escort (Ogron walks to Reethe with whoever took
+// it), but its text never says escort, so the guide window showed no escort line under its accept. The correction marks
+// it; the compiled guides carry it from the next data build.
+test('#2881: Questioning Reethe is an escort', { skip }, () => {
+	const { isEscort } = require('../tools/lib/dsl/escort');
+	data = data || loadData(DATA);
+	const fix = loadCorrections().quests['1273'];
+	assert.equal(fix && fix.set.escort, true, 'the correction marks 1273 an escort');
+	assert.ok(isEscort({ ...data.quests[1273], ...fix.set }), 'the compiler reads it as one');
+});
+
 // --- Typed coordinates on the wrong map (Fitz's playtest: Darkshore's "Boat to
 // Stormwind" pointed into Moonglade). Coordinates without `map` are on the zone
 // in effect, and a `zone` line holds for the steps after it, even when its step
