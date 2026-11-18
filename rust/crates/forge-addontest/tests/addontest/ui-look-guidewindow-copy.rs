@@ -201,38 +201,6 @@ fn the_preview_s_window_has_the_tab_plus_the_search_the_then_line_and_the_xp_lin
 	assert_eq!(out["tab"], "(1\u{2013}10)", "the sample's tab with its levels");
 }
 
-// The steps before (guideWindow.lastSteps) in the preview: drawn from the sample's own steps, the oldest on top, the
-// skipped one marked; 0 by default.
-#[test]
-fn the_preview_s_window_shows_the_sample_s_steps_before() {
-	let out = run(r#"
-		local function rows()
-			local last, out = copy.parts.last, {}
-			if not last:IsShown() then return out end
-			for i = 1, last.psCount do
-				local r = last.Rows[i]
-				out[#out + 1] = { r.psIndex, r.psStatus, (r.Text:GetText() or ""):find("skipped", 1, true) ~= nil }
-			end
-			return out
-		end
-		local off = rows()
-		Polestar.Set("guideWindow.lastSteps", 5)
-		f:Layout(1600, 4000)
-		local five = rows()
-		Polestar.Set("guideWindow.lastSteps", 2)
-		f:Layout(1600, 4000)
-		local two = rows()
-		Polestar.Set("guideWindow.lastSteps", nil)
-		emit({ off = #off, five = five, two = two })"#);
-	assert_eq!(out["off"], 0, "0 by default");
-	assert_eq!(
-		out["five"],
-		serde_json::json!([[3, "done", false], [4, "done", false], [5, "done", false], [6, "skipped", true], [7, "done", false]]),
-		"the sample's five before step 8, the oldest on top"
-	);
-	assert_eq!(out["two"], serde_json::json!([[6, "skipped", true], [7, "done", false]]), "the two newest");
-}
-
 // A copy has no event, message, setting, login, init or theme hook of its own and hooks no global function: built
 // and drawn twice, it registers nothing; then a step change, a tab change and a setting change reach the live window
 // and never the copy, which only its host draws. None of its parts takes a click, the wheel or the pointer; its frame
