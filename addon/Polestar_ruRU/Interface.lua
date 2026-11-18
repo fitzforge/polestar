@@ -1488,6 +1488,7 @@ L["Nice work. Pick your next guide to keep going."] = "Отлично! Выбе�
 L["Up next · 1 step"] = "Далее · 1 шаг"
 L["Up next · %d steps"] = "Далее · шагов: %d"
 L["Then:"] = "Затем:"
+L["Next step:"] = "Следующий шаг:"
 L["Person %d of %d"] = "NPC %d из %d"
 L["Choose guide"] = "Выбрать гайд"
 L["Open in new tab"] = "Открыть в новой вкладке"

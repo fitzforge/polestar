@@ -1998,6 +1998,7 @@ GF.Part(function(GF)
 			local g = groups[gi]
 			if not g.done then return UI.GroupName(view, g), g.kind end
 		end
+		-- Past this step's people: the next step's, said as "Next step:".
 		local count = E.GetStepCount and E.GetStepCount() or 0
 		for s = index + 1, count do
 			local v = E.GetStepView(s, true)
@@ -2005,7 +2006,7 @@ GF.Part(function(GF)
 			if v and v.status ~= "na" and not v.along and not UI.StepHidden(s, E) then
 				local gs, f = UI.StepGroups(v)
 				local g = gs[f or 1] or gs[1]
-				if g then return UI.GroupName(v, g), g.kind end
+				if g then return UI.GroupName(v, g), g.kind, true end
 				return nil
 			end
 		end
@@ -2143,10 +2144,12 @@ GF.Part(function(GF)
 			end
 		end
 		if not whole then at = nil end
-		local name, kind = nextOf(E, index, groups, focus)
+		local name, kind, later = nextOf(E, index, groups, focus)
 		if name and name ~= "" then
 			local hex = Theme.Hex(kind == "npc" and "npc" or (kind == "object" and "object" or "textDim"))
-			after.Text:SetText(L["Then:"] .. " |c" .. hex .. name .. "|r")
+			-- "Then:" is this step's next person (as the Then rows say it); a
+			-- later step's is "Next step:".
+			after.Text:SetText((later and L["Next step:"] or L["Then:"]) .. " |c" .. hex .. name .. "|r")
 		else
 			after.Text:SetText("")
 		end

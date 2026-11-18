@@ -1488,6 +1488,7 @@ L["Nice work. Pick your next guide to keep going."] = "Buen trabajo. Elige tu si
 L["Up next · 1 step"] = "A continuación · 1 paso"
 L["Up next · %d steps"] = "A continuación · %d pasos"
 L["Then:"] = "Después:"
+L["Next step:"] = "Paso siguiente:"
 L["Person %d of %d"] = "Persona %d de %d"
 L["Choose guide"] = "Elegir guía"
 L["Open in new tab"] = "Abrir en una pestaña nueva"

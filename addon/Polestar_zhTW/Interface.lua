@@ -1488,6 +1488,7 @@ L["Nice work. Pick your next guide to keep going."] = "做得好。選擇下一�
 L["Up next · 1 step"] = "接下來 · 1 步"
 L["Up next · %d steps"] = "接下來 · %d 步"
 L["Then:"] = "然後："
+L["Next step:"] = "下一步："
 L["Person %d of %d"] = "第 %d/%d 人"
 L["Choose guide"] = "選擇指南"
 L["Open in new tab"] = "在新分頁開啟"
