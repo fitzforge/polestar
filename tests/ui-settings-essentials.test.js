@@ -77,6 +77,13 @@ test('the five pages open on Essentials, the review\'s picks, each a registered 
 			O.Select(page)
 			local p, t = G.Current()
 			local b = bar()
+			-- A group of one page (Quality of Life) shows its tabs as sidebar rows, no folder tabs.
+			if #b.labels == 0 then
+				for _, it in ipairs(G.NavItems()) do
+					if it.indent and it.key:sub(1, 2) == "t:" then b.labels[#b.labels + 1] = it.label end
+				end
+				b.icons[1] = G.TabIcon(p, G.Tabs(p)[1])
+			end
 			local unregistered, unavailable = {}, {}
 			for _, key in ipairs(keys) do
 				local home = O.HomeControl(key)
