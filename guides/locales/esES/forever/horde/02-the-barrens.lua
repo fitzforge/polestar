@@ -117,7 +117,7 @@ return {
 	-- Step 23: Fly to Crossroads
 	["Fly to Crossroads"] = "",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Maestro de vuelo de {area:392}",
 
 	-- Step 25: Gur'ak
 	-- {npc:267310} Gur'ak · {quest:97003} Chol'aruk the Ravener · {npc:267307} Chol'aruk · {area:1699} Thorn Hill · {npc:3438} Kreenig Snarlsnout
@@ -276,7 +276,7 @@ return {
 
 	-- Step 55: Raptor Grounds: kill these as you meet them
 	-- {area:1697} Raptor Grounds
-	["{area:1697}: kill these as you meet them"] = "",
+	["{area:1697}: kill these as you meet them"] = "{area:1697}: mátalos según te los encuentres",
 	-- {area:1697} Raptor Grounds · {npc:3446} Mebok Mizzyrix · {area:392} Ratchet · {npc:3682} Vrang Wildgore · {area:385} Northwatch Hold
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
 	["Sunscale Scytheclaws hunt the plains around the {area:1697}; they drop the horns. {npc:3446} takes them back in {area:392}; any still missing come with {npc:3682}'s hills later.\nSouth-east toward the coast: the stolen silver lies in a raptor nest north-west of {area:385}."] = "Los Segadores Solescama cazan en las llanuras alrededor de {area:1697}; sueltan los cuernos. {npc:3446} los recibe en {area:392}; los que te falten saldrán más tarde en las colinas de {npc:3682}.\nVe al sureste hacia la costa: la plata robada está en un nido de raptores al noroeste de {area:385}.",
@@ -463,7 +463,7 @@ return {
 
 	-- Step 99: The Stormrage Barrow Dens
 	-- {area:2363} Stormrage Barrow Dens
-	["The {area:2363}"] = "",
+	["The {area:2363}"] = "{area:2363}",
 	-- {npc:11957} Great Cat Spirit · {npc:272054} Avatar of Saeyleenan · {item:280680} Relic of the Silent Shadow
 	-- plural, as words: Territorial Terrans = {npc:230558} Territorial Terran
 	["Tauren: the {npc:11957} waits on the southern hill above the bridge. Skyborne: the {npc:272054} stands south of the twin bridges. Then the dens east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the {item:280680} lies at the foot of the white cat statue. Careful: the spirits are Territorial Terrans (level 60) that kill whoever they see: stay off their paths, and click the statue again before the stealth runs out."] = "Tauren: {npc:11957} espera en la colina sur, sobre el puente. Cielonato: {npc:272054} está al sur de los puentes gemelos. Después, las guaridas al este del lago: sal de tu forma, pulsa la estatua de la entrada para tener cinco minutos de sigilo, evita a los espíritus del interior y coge una reliquia de cada; {item:280680} está al pie de la estatua del gato blanco. Cuidado: los espíritus son Terranos territoriales (nivel 60) que matan a quien ven: no te cruces en sus rutas y pulsa la estatua otra vez antes de que se acabe el sigilo.",
@@ -472,7 +472,7 @@ return {
 	-- {zone:1456} Thunder Bluff · {area:392} Ratchet
 	["Fly from {zone:1456} on to {area:392}."] = "",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
 
 	-- Step 103: Fly to Ratchet
 	-- {area:392} Ratchet · {object:172982} Valley of Strength
@@ -482,12 +482,12 @@ return {
 
 	-- Step 105: Northwatch Hold: kill these as you meet them
 	-- {area:385} Northwatch Hold
-	["{area:385}: kill these as you meet them"] = "",
+	["{area:385}: kill these as you meet them"] = "{area:385}: mátalos según te los encuentres",
 	-- {area:385} Northwatch Hold · {npc:3393} Captain Fairmount
 	-- plural, as words: Theramore Marines = {npc:3385} Theramore Marine
 	["South along the beach past the pirate camp to {area:385}, on the coast. The Theramore Marines and Preservers (15-16) drop the medals; {npc:3393} (20) and the two cannoneers (19) stand in the keep and on its walls.\nCareful: Each named target is linked to a healer and guards, and Fairmount has three extra marines with her. Killing the healer first makes the fight easier."] = "Ve al sur por la playa, más allá del campamento pirata, hasta {area:385}, en la costa. Los Marinos y Protectores de Theramore (15-16) sueltan las medallas; {npc:3393} (20) y los dos artilleros (19) están en el bastión y en sus murallas.\nCuidado: cada objetivo con nombre está vinculado a un sanador y a guardias, y Justamonta tiene tres marinos más con ella. Matar primero al sanador facilita el combate.",
 	["On the top floor"] = "",
-	["Upstairs"] = "",
+	["Upstairs"] = "Piso de arriba",
 
 	-- Step 106: Free From the Hold
 	-- {npc:3465} Gilthares Firebough · {area:392} Ratchet
@@ -555,7 +555,7 @@ return {
 	-- {npc:12696} Senani Thunderheart · {zone:1440} Ashenvale
 	["Keep it: {npc:12696} in {zone:1440}, next guide"] = "Guárdala: {npc:12696} en {zone:1440}, en la siguiente guía",
 	-- {npc:6394} Ruga Ragetotem
-	["{npc:6394}, inside"] = "",
+	["{npc:6394}, inside"] = "{npc:6394}, dentro",
 
 	-- Step 126: Grunt Dogran
 	["Dogran is chained up in the quilboar camp west of the road."] = "Dogran está encadenado en el campamento de jabaespines al oeste del camino.",
@@ -617,7 +617,7 @@ return {
 
 	-- Step 138: Seereth Stonebreak's camp
 	-- {npc:4049} Seereth Stonebreak
-	["{npc:4049}'s camp"] = "",
+	["{npc:4049}'s camp"] = "Campamento de {npc:4049}",
 
 	-- Step 139: Seereth Stonebreak
 	-- {npc:4049} Seereth Stonebreak · {npc:11857} Makaba Flathoof
@@ -638,7 +638,7 @@ return {
 
 	-- Step 142: To Malaka'jin
 	-- {area:2539} Malaka'jin
-	["To {area:2539}"] = "",
+	["To {area:2539}"] = "A {area:2539}",
 
 	-- Step 143: Malaka'jin
 	-- {npc:4049} Seereth Stonebreak · {area:2539} Malaka'jin
@@ -648,7 +648,7 @@ return {
 
 	-- Step 144: Webwinder Path: kill these as you meet them
 	-- {area:1076} Webwinder Path
-	["{area:1076}: kill these as you meet them"] = "",
+	["{area:1076}: kill these as you meet them"] = "{area:1076}: mátalos según te los encuentres",
 	-- {area:2539} Malaka'jin · {npc:11858} Grundig Darkcloud
 	-- plural, as words: Grimtotem Brutes = {npc:11912} Grimtotem Brute · Deepmoss Creepers = {npc:4005} Deepmoss Creeper
 	["North up the road from {area:2539}: {npc:11858} and his Grimtotem Brutes hold the bend in the road, and the Deepmoss Creepers and Venomspitters lurk in the webs on both sides of the path all the way up."] = "",
@@ -669,7 +669,7 @@ return {
 	-- {npc:4276} Piznik · {area:2160} Windshear Mine
 	["{npc:4276}'s defence is hard alone at this level: grouping up is encouraged, look for people to do it with. Skip it if you are alone.\n{npc:4276} mines at the bottom of the {area:2160} on the east side of the crag, past its kobolds (levels 19-23). Talk to him, then keep him alive for five minutes while he mines: a dozen or more kobolds come at him in waves, melee fighters first, then casters, and the mine's own kobolds respawn into the fight. If he dies, the quest fails."] = "",
 	-- {npc:4276} Piznik
-	["{npc:4276}, below ground"] = "",
+	["{npc:4276}, below ground"] = "{npc:4276}, bajo tierra",
 
 	-- Step 148: Ziz Fizziks: Gerenzo's Orders
 	-- {npc:4201} Ziz Fizziks

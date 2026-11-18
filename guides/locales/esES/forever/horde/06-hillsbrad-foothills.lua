@@ -19,7 +19,7 @@ return {
 	-- {object:556670} WANTED (no name in this language: may be words)
 	["The {object:556670} poster by the inn"] = "El cartel de {object:556670} junto a la posada",
 	-- {npc:2229} Krusk
-	["{npc:2229}, inside"] = "",
+	["{npc:2229}, inside"] = "{npc:2229}, dentro",
 
 	-- Step 2: Serge Hinott
 	-- {quest:2479} Hinott's Assistance · {npc:2391} Serge Hinott · {area:272} Tarren Mill
@@ -44,7 +44,7 @@ return {
 
 	-- Step 6: Tarren Mill
 	-- {npc:2216} Apothecary Lydon
-	["{npc:2216}, inside"] = "",
+	["{npc:2216}, inside"] = "{npc:2216}, dentro",
 	-- {npc:2230} Umpi
 	["{npc:2230}, next to Lydon; inside"] = "{npc:2230}, junto al Boticario Lydon; dentro",
 
@@ -54,7 +54,7 @@ return {
 
 	-- Step 8: Hillsbrad Fields: kill these as you meet them
 	-- {area:286} Hillsbrad Fields
-	["{area:286}: kill these as you meet them"] = "",
+	["{area:286}: kill these as you meet them"] = "{area:286}: mátalos según te los encuentres",
 	-- {area:287} Hillsbrad
 	-- plural, as words: Kirin Tor Guards = {npc:246848} Kirin Tor Guard
 	["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "Los Campesinos trabajan los campos al sur de las granjas. Todos los humanos de {area:287} sueltan cráneos; los Campesinos, con más frecuencia.\nCuidado: un campesino que huye y llega al ayuntamiento puede traer muchos refuerzos, incluidos soldados de {area:287}; las ralentizaciones, inmovilizaciones o efectos similares evitan que escapen. Los Guardias del Kirin Tor (55) están al norte de las granjas, en el camino que sube hacia Alterac: no salgas de los campos.",
@@ -67,7 +67,7 @@ return {
 
 	-- Step 10: Durnholde Keep: kill these as you meet them
 	-- {area:275} Durnholde Keep
-	["{area:275}: kill these as you meet them"] = "",
+	["{area:275}: kill these as you meet them"] = "{area:275}: mátalos según te los encuentres",
 	-- {npc:2238} Tog'thar · {area:275} Durnholde Keep · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key · {area:272} Tarren Mill
 	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings. Their locks need keys: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues, Watchmen and Shadow Mages hold the camps along the way; the Shadow Mages carry Lydon's Vials of Innocent Blood."] = "Drull y {npc:2238} están encadenados en los edificios del patio de {area:275}. Sus cerrojos necesitan llaves: {npc:2427} lleva {item:3467} y {npc:2428}, {item:3499}; ambos están en el castillo. Mátalos y luego abre ambos cerrojos.\nDesde {area:272}, ve al sureste por las colinas de camino a {area:275}. Pícaros, vigilantes y magos oscuros de la Hermandad ocupan los campamentos del camino; los magos oscuros llevan los viales de sangre inocente de Lydon.",
 	-- {npc:2261} Syndicate Watchman
@@ -87,7 +87,7 @@ return {
 	-- {area:272} Tarren Mill · {area:228} The Sepulcher · {npc:2121} Shadow Priest Allister
 	["From {area:272} fly to the {area:228}: {npc:2121} stands by the crypt entrance."] = "Desde {area:272}, vuela a {area:228}: {npc:2121} está junto a la entrada de la cripta.",
 	-- {area:272} Tarren Mill
-	["{area:272} flight master"] = "",
+	["{area:272} flight master"] = "Maestro de vuelo de {area:272}",
 	-- {npc:2121} Shadow Priest Allister · {area:233} Ambermill
 	["{npc:2121}: {area:233}'s pendants"] = "{npc:2121}: los colgantes de {area:233}",
 

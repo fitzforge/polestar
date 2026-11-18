@@ -104,7 +104,7 @@ return {
 
 	-- Step 20: To Camp Taurajo
 	-- {area:378} Camp Taurajo
-	["To {area:378}"] = "",
+	["To {area:378}"] = "A {area:378}",
 	-- {area:378} Camp Taurajo
 	["North up the road to {area:378}: your hearthstone takes you there if it is ready."] = "Al norte por el camino hasta {area:378}: tu piedra de hogar te lleva allí si está lista.",
 
@@ -115,7 +115,7 @@ return {
 	-- Step 23: Fly to Crossroads
 	["Fly to Crossroads"] = "",
 	-- {area:378} Camp Taurajo
-	["{area:378} flight master"] = "",
+	["{area:378} flight master"] = "Maestro de vuelo de {area:378}",
 
 	-- Step 24: The Crossroads
 	-- {npc:3429} Thork
@@ -167,7 +167,7 @@ return {
 	-- {npc:4049} Seereth Stonebreak · {npc:3995} Witch Doctor Jin'Zil · {area:2539} Malaka'jin · {area:1076} Webwinder Path
 	["Follow the road on west past {npc:4049}'s camp into Stonetalon: {npc:3995} waits below ground in {area:2539}, at the foot of the {area:1076}."] = "Sigue el camino más al oeste pasando el campamento de {npc:4049} hasta Sierra Espolón: {npc:3995} espera bajo tierra en {area:2539}, al pie de {area:1076}.",
 	-- {npc:3995} Witch Doctor Jin'Zil
-	["{npc:3995}, below ground"] = "",
+	["{npc:3995}, below ground"] = "{npc:3995}, bajo tierra",
 
 	-- Step 35: Ziz Fizziks
 	-- {area:1076} Webwinder Path · {npc:4201} Ziz Fizziks · {area:461} Windshear Crag · {npc:3442} Sputtervalve
@@ -221,7 +221,7 @@ return {
 
 	-- Step 42: The Charred Vale: kill these as you meet them
 	-- {area:465} The Charred Vale
-	["{area:465}: kill these as you meet them"] = "",
+	["{area:465}: kill these as you meet them"] = "{area:465}: mátalos según te los encuentres",
 	-- {area:465} The Charred Vale · {item:16312} Incendrites
 	-- plural, as words: Gaea Seeds = {item:16205} Gaea Seed · Burning Destroyers = {npc:4038} Burning Destroyer · Scorched Basilisks = {npc:4041} Scorched Basilisk
 	["South-west of Sun Rock lies the burned {area:465}. Plant the Gaea Seeds in the dirt mounds on the valley floor; the fire elementals drop {item:16312}. Bloodfury Harpies and Ambushers nest on the north side, Slayers and Roguefeathers to the south. Careful: the Burning Destroyers, Scorched Basilisks and Bloodfury Storm Witches here are level 27 and the valley floor is crowded: pull one at a time and keep to its edges."] = "Al suroeste del Refugio Roca del Sol está {area:465}, quemada. Planta las Semillas de Gaia en los túmulos de tierra del fondo del valle; los elementales de fuego sueltan {item:16312}. Las arpías Furia Sangrienta y las emboscadoras anidan en el lado norte; las destripadoras y las plumabribonas, al sur. Cuidado: los Destructores ardientes, Basiliscos chamuscados y Brujas de la tormenta Furia Sangrienta de aquí son de nivel 27 y el fondo del valle está abarrotado: atráelos de uno en uno y no te alejes de los bordes.",

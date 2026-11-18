@@ -10,7 +10,7 @@ return {
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Vuela a {area:150}",
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "Maestro de vuelo de {zone:1453}",
 
 	-- Step 2: Red Jack Flint
 	-- {npc:4455} Red Jack Flint · {area:2103} Menethil Keep
@@ -62,7 +62,7 @@ return {
 
 	-- Step 11: Into Barrens
 	-- {zone:1413} Barrens
-	["Into {zone:1413}"] = "",
+	["Into {zone:1413}"] = "Hacia {zone:1413}",
 
 	-- Step 12: Takar the Seer
 	-- {zone:1413} Barrens · {npc:6244} Takar the Seer · {area:378} Camp Taurajo
@@ -90,7 +90,7 @@ return {
 
 	-- Step 17: Mirage Raceway: kill these as you meet them
 	-- {area:2240} Mirage Raceway
-	["{area:2240}: kill these as you meet them"] = "",
+	["{area:2240}: kill these as you meet them"] = "{area:2240}: mátalos según te los encuentres",
 	-- {object:19868} Rocket Car Rubble
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Gazers = {npc:4150} Saltstone Gazer · Scorpid Terrors = {npc:4139} Scorpid Terror
 	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "Hay {object:19868} por todo el llano. Los Atracadores escórpidos y los Carroñeros de los Llanos de Sal deambulan por la mitad norte, y las Tortugas brillavalva (30-31) por el centro: mátalas para conseguir los caparazones. Cuidado: los Sacudidores caparallantes (34-35) deambulan por todo el llano, y los Observadores Gapo Salino (34-35) y los Terrores escórpidos (33-34) ocupan el extremo sur: déjalos y quédate en la mitad norte.",
@@ -107,7 +107,7 @@ return {
 
 	-- Step 19: Into Tanaris
 	-- {zone:1446} Tanaris
-	["Into {zone:1446}"] = "",
+	["Into {zone:1446}"] = "Hacia {zone:1446}",
 	-- {area:439} Shimmering Flats · {zone:1446} Tanaris
 	["From the raceway follow the road south out of the {area:439} into {zone:1446}."] = "",
 

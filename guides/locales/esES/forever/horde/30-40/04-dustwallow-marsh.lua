@@ -66,7 +66,7 @@ return {
 
 	-- Step 14: Brackenwall Village: kill these as you meet them
 	-- {area:496} Brackenwall Village
-	["{area:496}: kill these as you meet them"] = "",
+	["{area:496}: kill these as you meet them"] = "{area:496}: mátalos según te los encuentres",
 	-- plural, as words: Darkfang Lurkers = {npc:4411} Darkfang Lurker · Theramore Infiltrators = {npc:4834} Theramore Infiltrator · Darkmist Lurkers = {npc:4377} Darkmist Lurker
 	["Head west back across the marsh. The Darkfang Lurkers (36-37) and Venomspitters (37-38) on the ridges north of Brackenwall drop the venom sacs. Theramore Infiltrators (35-36) sneak through the same woods: they are stealthed, so look closely.\nThe Darkmist spiders swarm the cavern mouth north-west of Brackenwall; every kind drops eyes. Work its outer edge, where the Spiders and Recluses (35-37) stand: the Lurkers and Silkspinners (37-39) deeper in are two or three over you.\nCareful: Darkfang Lurkers (level 36-37) use Sneak to stealth while out of combat and cast Poison once fighting.\nCareful: Stealthed spiders in the same area will attack you on sight.\nCareful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them."] = "Vuelve al oeste cruzando el pantano. Los rondadores Colmilloumbrío (36-37) y los escupevenenos (37-38) de las crestas al norte de Murohelecho sueltan las bolsas de veneno. Los infiltradores de Theramore (35-36) se mueven sigilosos por el mismo bosque: van en sigilo, así que fíjate bien.\nLas arañas Niebla Negra abarrotan la entrada de la cueva al noroeste de Murohelecho; todas sueltan ojos. Ve por el borde exterior, donde están las arañas y las reclusas (35-37): las rondadoras y tejesedas (37-39) del interior están dos o tres niveles por encima de ti.\nCuidado: los rondadores Colmilloumbrío (nivel 36-37) usan Acechar fuera de combate y lanzan Veneno al luchar.\nCuidado: las arañas en sigilo de la zona te atacarán en cuanto te vean.\nCuidado: las rondadoras Niebla Negra se mueven en sigilo y usan veneno en combate. Las arañas están muy juntas, así que es fácil que se unan más; atraer objetivos sueltos desde el borde exterior lo reduce.",
 	-- plural, as words: Giant Darkfang Spiders = {npc:4415} Giant Darkfang Spider
@@ -111,7 +111,7 @@ return {
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "Vuela a {area:392}",
 	-- {area:496} Brackenwall Village
-	["{area:496} flight master"] = "",
+	["{area:496} flight master"] = "Maestro de vuelo de {area:496}",
 
 	-- Step 22: Ratchet
 	-- {npc:3446} Mebok Mizzyrix
@@ -123,13 +123,13 @@ return {
 
 	-- Step 24: Ratchet flight master
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Maestro de vuelo de {area:392}",
 	-- {area:392} Ratchet
 	["Back north along the coast to {area:392}'s flight master."] = "Vuelve al norte por la costa hasta el maestro de vuelo de {area:392}.",
 
 	-- Step 25: Fly to Shadowprey Village
 	-- {area:2408} Shadowprey Village
-	["Fly to {area:2408}"] = "",
+	["Fly to {area:2408}"] = "Vuela a {area:2408}",
 	-- {area:2408} Shadowprey Village · {area:392} Ratchet
 	["Fly to {area:2408} from the flight master you are next to: {area:392}'s, or Brackenwall's if you had no errand in {area:392}."] = "Vuela a {area:2408} desde el maestro de vuelo que tengas al lado: el de {area:392}, o el de Murohelecho si no tenías nada que hacer en {area:392}.",
 
@@ -166,7 +166,7 @@ return {
 	-- {area:599} Thunder Axe Fortress · {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {item:13542} Demon Box
 	["North up the road to {area:599}. Clear the middle of the largest building, then use the {item:14523} on the red {object:176581} there. A {npc:11876} (37) comes out: kill it for the {item:13542}. The Burning Blade around it are well under you now."] = "Ve al norte por el camino hasta {area:599}. Despeja el centro del edificio más grande y usa el {item:14523} en el {object:176581} rojo que hay allí. Sale un {npc:11876} (37): mátalo para conseguir la {item:13542}. Los Filo Ardiente de alrededor ya están muy por debajo de tu nivel.",
 	-- {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal
-	["{item:14523}, on the {object:176581}"] = "",
+	["{item:14523}, on the {object:176581}"] = "{item:14523}, en la {object:176581}",
 
 	-- Step 33: Sar'theris Strand
 	-- {area:598} Sar'theris Strand
@@ -209,13 +209,13 @@ return {
 
 	-- Step 41: Back to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Back to {area:1637}"] = "",
+	["Back to {area:1637}"] = "Vuelve a {area:1637}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
 
 	-- Step 42: Belgrom Rockmaul
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor
-	["{npc:4485} stands in the {object:172958}."] = "",
+	["{npc:4485} stands in the {object:172958}."] = "{npc:4485} está en {object:172958}.",
 
 	-- Step 43: Nogg
 	-- {npc:3412} Nogg · {object:172958} Valley of Honor · {npc:4485} Belgrom Rockmaul · {quest:2841} Rig Wars · {area:133} Gnomeregan
@@ -223,7 +223,7 @@ return {
 
 	-- Step 44: Orgrimmar trainers
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} trainers"] = "",
+	["{zone:1454} trainers"] = "Instructores de {zone:1454}",
 	-- {zone:1458} Undercity
 	["Train while you are in the city; everyone else trains in the {zone:1458}, next."] = "",
 	-- {zone:1458} Undercity

@@ -65,7 +65,7 @@ return {
 	-- Step 16: Hillsbrad Foothills (1/2)
 	["12 areas to discover here, levels 20-31."] = "Aquí hay 12 zonas por descubrir, niveles 20-31.",
 	-- {area:150} Menethil Harbor · {area:271} Southshore
-	["Take the boat from {area:150} to {area:271}."] = "",
+	["Take the boat from {area:150} to {area:271}."] = "Toma el barco de {area:150} a {area:271}.",
 	-- {area:271} Southshore · {npc:2432} Darla Harris
 	["Flight path here: {area:271} ({npc:2432})."] = "Ruta de vuelo aquí: {area:271} ({npc:2432}).",
 	-- {area:272} Tarren Mill

@@ -78,7 +78,7 @@ return {
 
 	-- Step 15: Leatherworking 75-150: vendor goods
 	-- {skill:165} Leatherworking
-	["{skill:165} 75-150: vendor goods"] = "",
+	["{skill:165} 75-150: vendor goods"] = "{skill:165} 75-150: artículos de mercader",
 	-- {item:2320} Coarse Thread · {item:2321} Fine Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra
 	["Buy the whole bracket's share in one go: 70 {item:2320} (7s) and 50 {item:2321} (50s); about 57s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "",
 
@@ -138,7 +138,7 @@ return {
 
 	-- Step 30: Heavy Armor Kit to 150
 	-- {spell:3780} Heavy Armor Kit
-	["{spell:3780} to 150"] = "",
+	["{spell:3780} to 150"] = "{spell:3780} hasta 150",
 	-- {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather · {item:2321} Fine Thread · {skill:165} Leatherworking
 	["{spell:3780} is orange at 125 (yellow 145, green 155, grey 165): about 26 crafts to 150. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. {skill:165} 150 is a Legacy System milestone."] = "",
 

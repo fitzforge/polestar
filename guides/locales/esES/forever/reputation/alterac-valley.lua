@@ -68,7 +68,7 @@ return {
 	-- {npc:13841} Lieutenant Haggerdin · {item:17354} Master Ryson's All Seeing Eye · {npc:12159} Korrak the Bloodrager · {item:19032} Stormpike Battle Tabard · {npc:13217} Thanthaldis Snowgleam
 	["Friendly lets {npc:13841} upgrade your insignia: 100 reputation. Friendly to Honored is 6000 reputation. In Classic a full win paid 300 to 700 with its 3 marks; the Brigadier General keeps taking 3 marks for 100. Inside, {item:17354} (75, from the Winterax caves) repeats every game; {npc:12159} (200, when he appears in the middle of the valley) goes back to {npc:13841} here. Friendly opens the {item:19032} (1g) and the Superior Healing and Mana Draughts (5s) at {npc:13217} beside him."] = "",
 	-- {item:19032} Stormpike Battle Tabard
-	["{item:19032}, 1g"] = "",
+	["{item:19032}, 1g"] = "{item:19032}, 1 o",
 	-- {npc:15351} Alliance Brigadier General · {quest:8375} Remember Alterac Valley!
 	["{npc:15351}: {quest:8375} again, 100 for 3 marks"] = "",
 
@@ -146,7 +146,7 @@ return {
 	-- {npc:13840} Warmaster Laggrond · {item:17354} Master Ryson's All Seeing Eye · {item:19031} Frostwolf Battle Tabard · {npc:13219} Jekyll Flandring
 	["Friendly lets {npc:13840} upgrade your insignia: 100 reputation. Friendly to Honored is 6000 reputation. In Classic a full win paid 300 to 700 with its 3 marks; the Warbringer keeps taking 3 marks for 100. Inside, {item:17354} (75, from the Winterax caves) repeats every game; The Legend of Korrak (200, when he appears in the middle of the valley) goes back to {npc:13840} here. Friendly opens the {item:19031} (1g) and the Superior Healing and Mana Draughts (5s) at {npc:13219} beside him."] = "",
 	-- {item:19031} Frostwolf Battle Tabard
-	["{item:19031}, 1g"] = "",
+	["{item:19031}, 1g"] = "{item:19031}, 1 o",
 	-- {npc:15350} Horde Warbringer · {quest:8369} Invaders of Alterac Valley
 	["{npc:15350}: {quest:8369} again, 100 for 3 marks"] = "",
 

@@ -17,7 +17,7 @@ return {
 
 	-- Step 3: Back to Riggle Bassbait
 	-- {npc:15077} Riggle Bassbait
-	["Back to {npc:15077}"] = "",
+	["Back to {npc:15077}"] = "Vuelve con {npc:15077}",
 	-- {npc:15077} Riggle Bassbait · {npc:15078} Jang
 	["Hurry back and hand the 40 Tastyfish to {npc:15077}: the first players to do so win, and the winners get the coin with their prize. If you are too late to win, {npc:15078} still pays a little gold for every 5 Tastyfish."] = "",
 	-- {npc:15077} Riggle Bassbait

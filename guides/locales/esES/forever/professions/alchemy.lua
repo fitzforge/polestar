@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Learn Alchemy
 	-- {skill:171} Alchemy
-	["Learn {skill:171}"] = "",
+	["Learn {skill:171}"] = "Aprende {skill:171}",
 	-- {skill:171} Alchemy · {skill:182} Herbalism · {item:2447} Peacebloom · {item:765} Silverleaf
 	-- plural, as words: Empty Vials = {item:3371} Empty Vial
 	["Apprentice {skill:171} lets you craft up to 75 for 10c, at any character level. Any {skill:171} trainer of your faction teaches it; the arrow picks the nearest. Pair it with {skill:182}: {item:2447} and {item:765} grow in every starting zone, and Empty Vials cost 4c at any alchemy or trade supplies vendor. 1-75 takes about 3s 28c of vendor goods, plus 82 {item:765} and 110 {item:2447} to gather or buy."] = "",
@@ -95,7 +95,7 @@ return {
 
 	-- Step 20: Alchemy 75-150: vendor goods
 	-- {skill:171} Alchemy
-	["{skill:171} 75-150: vendor goods"] = "",
+	["{skill:171} 75-150: vendor goods"] = "{skill:171} 75-150: artículos de mercader",
 	-- {item:3371} Empty Vial · {item:3372} Leaded Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
 	["Buy the whole bracket's share in one go: 77 {item:3371} (3s 8c) and 15 {item:3372} (6s); about 9s 8c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
 
@@ -191,11 +191,11 @@ return {
 	-- {skill:171} Alchemy
 	["{skill:171} recipes at 135"] = "Recetas de {skill:171} a 135",
 	-- {skill:171} Alchemy · {spell:3176} Lesser Troll's Blood Elixir
-	["Back to an {skill:171} trainer: {spell:3176} (from 125)."] = "",
+	["Back to an {skill:171} trainer: {spell:3176} (from 125)."] = "Vuelve a un instructor de {skill:171}: {spell:3176} (desde 125).",
 
 	-- Step 42: Lesser Troll's Blood Elixir to 150
 	-- {spell:3176} Lesser Troll's Blood Elixir
-	["{spell:3176} to 150"] = "",
+	["{spell:3176} to 150"] = "{spell:3176} hasta 150",
 	-- {spell:3176} Lesser Troll's Blood Elixir · {item:2453} Bruiseweed · {item:2450} Briarthorn · {item:3372} Leaded Vial · {skill:171} Alchemy
 	["{spell:3176} is orange at 135 (yellow 150, green 170, grey 190): about 15 crafts to 150, a point every craft. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. {skill:171} 150 is a Legacy System milestone."] = "",
 
@@ -237,13 +237,13 @@ return {
 
 	-- Step 49: Stranglekelp (Alliance)
 	-- {object:2045} Stranglekelp
-	["{object:2045} (Alliance)"] = "",
+	["{object:2045} (Alliance)"] = "{object:2045} (Alianza)",
 	-- {object:2045} Stranglekelp · {spell:3452} Mana Potion · {skill:182} Herbalism · {zone:1437} Wetlands · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands
 	["39 {object:2045} for {spell:3452}: {skill:182}: {object:2045} (skill 85) in {zone:1437} (20-30), {zone:1434} (30-45) and {zone:1425} (40-50). The densest patch of {object:2045} in {zone:1434} is marked."] = "",
 
 	-- Step 50: Stranglekelp (Horde)
 	-- {object:2045} Stranglekelp
-	["{object:2045} (Horde)"] = "",
+	["{object:2045} (Horde)"] = "{object:2045} (Horda)",
 	-- {object:2045} Stranglekelp · {spell:3452} Mana Potion · {skill:182} Herbalism · {zone:1413} The Barrens · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands
 	["39 {object:2045} for {spell:3452}: {skill:182}: {object:2045} (skill 85) in {zone:1413} (10-25), {zone:1434} (30-45) and {zone:1425} (40-50). The densest patch of {object:2045} in {zone:1413} is marked."] = "",
 
@@ -275,7 +275,7 @@ return {
 	-- {skill:171} Alchemy
 	["{skill:171} recipes at 160"] = "Recetas de {skill:171} a 160",
 	-- {spell:3452} Mana Potion
-	["Still at the Expert trainer: {spell:3452} (from 160)."] = "",
+	["Still at the Expert trainer: {spell:3452} (from 160)."] = "Sigue con el instructor de experto: {spell:3452} (desde 160).",
 
 	-- Step 56: Mana Potion to 195
 	-- {spell:3452} Mana Potion

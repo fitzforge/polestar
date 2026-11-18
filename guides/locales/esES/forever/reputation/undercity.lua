@@ -49,7 +49,7 @@ return {
 	-- {area:154} Deathknell · {npc:1667} Meven Korgal
 	["The Scarlet camp is south-east of {area:154}. {npc:1667} leads it."] = "",
 	-- {item:2885} Scarlet Crusade Documents · {npc:1667} Meven Korgal
-	["{item:2885}, from {npc:1667}"] = "",
+	["{item:2885}, from {npc:1667}"] = "{item:2885}, de {npc:1667}",
 	-- {quest:383} Vital Intelligence · {npc:1515} Executor Zygand · {area:159} Brill
 	["{quest:383}, +75: to {npc:1515} in {area:159}"] = "",
 
@@ -77,7 +77,7 @@ return {
 
 	-- Step 12: Agamand Mills again
 	-- {area:157} Agamand Mills
-	["{area:157} again"] = "",
+	["{area:157} again"] = "{area:157} otra vez",
 	-- {area:157} Agamand Mills
 	-- plural, as words: Darkeye Bonecasters = {npc:1522} Darkeye Bonecaster
 	["The skeletons of {area:157} drop the ribs; the Darkeye Bonecasters the skulls."] = "",
@@ -116,7 +116,7 @@ return {
 	-- {quest:5096} Scarlet Diversions
 	["{quest:5096}, +100 (level 53)"] = "",
 	-- {object:176088} Scarlet Crusade Forward Camp (no name in this language: may be words)
-	["the {object:176088}"] = "",
+	["the {object:176088}"] = "{object:176088}",
 
 	-- Step 19: Bulwark: the cauldrons
 	-- {area:152} Bulwark
@@ -130,23 +130,23 @@ return {
 	-- {npc:11075} Cauldron Lord Bilemaw · {area:199} Felstone Field · {quest:5230} Return to the Bulwark · {item:12815} Beacon Torch
 	["{npc:11075} guards the cauldron at {area:199}. Click the cauldron after the kill to start {quest:5230}. Mark the four towers of Andorhal with the {item:12815} at their doors."] = "",
 	-- {object:176361} Scourge Cauldron
-	["the {object:176361}"] = "",
+	["the {object:176361}"] = "{object:176361}",
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
 	["{npc:10902}: use the {item:12815} at the door"] = "",
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
-	["Mark {npc:10902} with the {item:12815}"] = "",
+	["Mark {npc:10902} with the {item:12815}"] = "Marca la {npc:10902} con la {item:12815}",
 	-- {npc:10903} Andorhal Tower Two · {item:12815} Beacon Torch
-	["Mark {npc:10903} with the {item:12815}"] = "",
+	["Mark {npc:10903} with the {item:12815}"] = "Marca la {npc:10903} con la {item:12815}",
 	-- {npc:10904} Andorhal Tower Three · {item:12815} Beacon Torch
-	["Mark {npc:10904} with the {item:12815}"] = "",
+	["Mark {npc:10904} with the {item:12815}"] = "Marca la {npc:10904} con la {item:12815}",
 	-- {npc:10905} Andorhal Tower Four · {item:12815} Beacon Torch
-	["Mark {npc:10905} with the {item:12815}"] = "",
+	["Mark {npc:10905} with the {item:12815}"] = "Marca la {npc:10905} con la {item:12815}",
 
 	-- Step 22: Dalson's Tears
 	-- {npc:11077} Cauldron Lord Malvinious · {area:200} Dalson's Tears
 	["{npc:11077} guards the cauldron at {area:200}."] = "",
 	-- {object:177289} Scourge Cauldron
-	["the {object:177289}"] = "",
+	["the {object:177289}"] = "{object:177289}",
 
 	-- Step 23: Bulwark: the Writhing Haunt
 	-- {area:152} Bulwark · {area:202} Writhing Haunt
@@ -156,13 +156,13 @@ return {
 	-- {npc:11076} Cauldron Lord Razarch · {area:202} Writhing Haunt
 	["{npc:11076} guards the cauldron at the {area:202}."] = "",
 	-- {object:176393} Scourge Cauldron
-	["the {object:176393}"] = "",
+	["the {object:176393}"] = "{object:176393}",
 
 	-- Step 26: Gahrron's Withering
 	-- {npc:11078} Cauldron Lord Soulwrath · {area:201} Gahrron's Withering
 	["{npc:11078} guards the cauldron at {area:201}."] = "",
 	-- {object:176392} Scourge Cauldron
-	["the {object:176392}"] = "",
+	["the {object:176392}"] = "{object:176392}",
 
 	-- Step 27: Bulwark: done
 	-- {area:152} Bulwark
@@ -189,7 +189,7 @@ return {
 
 	-- Step 31: Duskwing and Borelgore
 	-- {npc:11897} Duskwing · {npc:11896} Borelgore
-	["{npc:11897} and {npc:11896}"] = "",
+	["{npc:11897} and {npc:11896}"] = "{npc:11897} y {npc:11896}",
 	-- {npc:11897} Duskwing · {area:2260} Marris Stead · {npc:11896} Borelgore · {area:2272} Northdale
 	["{npc:11897}, an elite bat, roams the fields north of {area:2260}. {npc:11896} paces a long valley west of {area:2272}."] = "",
 	-- {npc:11878} Nathanos Blightcaller · {faction:68} Undercity · {area:2279} Stratholme · {npc:12337} Crimson Courier
@@ -217,7 +217,7 @@ return {
 	-- {quest:2935} Consult Master Gadrin
 	["{quest:2935}, +75 Darkspear"] = "",
 	-- {npc:3188} Master Gadrin · {area:367} Sen'jin Village
-	["{npc:3188}, in {area:367}"] = "",
+	["{npc:3188}, in {area:367}"] = "{npc:3188}, en {area:367}",
 	-- {quest:2936} The Spider God
 	["{quest:2936}, +150 Darkspear"] = "",
 
@@ -233,7 +233,7 @@ return {
 	-- {item:9323} Gadrin's Parchment · {area:353} Shadra'Alor · {npc:2707} Shadra
 	["Read {item:9323} at the altar of {area:353} to call {npc:2707}, an elite level 55 spider: she drops her venom every time."] = "",
 	-- {item:9324} Shadra's Venom · {npc:2707} Shadra
-	["{item:9324}, from {npc:2707}"] = "",
+	["{item:9324}, from {npc:2707}"] = "{item:9324}, de {npc:2707}",
 
 	-- Step 39: Tarren Mill and the Undercity
 	-- {area:272} Tarren Mill · {faction:68} Undercity

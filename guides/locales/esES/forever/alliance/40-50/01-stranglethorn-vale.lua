@@ -11,7 +11,7 @@ return {
 	-- {quest:1260} Morgan Stern · {npc:4897} Helenia Olden
 	["{quest:1260} stands near the inn; {npc:4897}, a trade supplier a few steps south, sells the spices Jarl wants."] = "{quest:1260} está cerca de la posada; {npc:4897}, una proveedora de comercio unos pasos al sur, vende las especias que quiere Jarl.",
 	-- {quest:1260} Morgan Stern
-	["{quest:1260}, inside"] = "",
+	["{quest:1260}, inside"] = "{quest:1260}, dentro",
 	-- {npc:4964} Commander Samaul · {area:514} Foothold Citadel
 	["{npc:4964}, on the top floor of {area:514}"] = "",
 	-- {npc:271167} Guard Jameson · {quest:98233} Sword in the Slime
@@ -66,7 +66,7 @@ return {
 	-- {npc:4948} Adjutant Tesoran
 	["{npc:4948}, on the top floor"] = "",
 	-- {npc:4794} Morgan Stern
-	["{npc:4794}, inside"] = "",
+	["{npc:4794}, inside"] = "{npc:4794}, dentro",
 	-- {npc:4794} Morgan Stern · {zone:1435} Swamp of Sorrows
 	["{npc:4794}: the crawlers are on the {zone:1435} shore, keep it"] = "",
 
@@ -105,7 +105,7 @@ return {
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "Vuela a {zone:1453}",
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "Maestro de vuelo de {area:150}",
 
 	-- Step 21: Riding at 40
 	["Riding at 40"] = "Equitación a nivel 40",
@@ -136,11 +136,11 @@ return {
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Vuela a {area:35}",
 	-- {area:42} Darkshire
-	["{area:42} flight master"] = "",
+	["{area:42} flight master"] = "Maestro de vuelo de {area:42}",
 
 	-- Step 27: Booty Bay
 	-- {npc:773} Krazek
-	["{npc:773}, upstairs"] = "",
+	["{npc:773}, upstairs"] = "{npc:773}, en el piso de arriba",
 	-- {npc:770} Corporal Kaleb · {area:99} Rebel Camp
 	["for {npc:770} at the {area:99}, on the northern loop"] = "para {npc:770}, en el {area:99}, en la vuelta por el norte",
 	-- {npc:2494} Privateer Bloads · {area:35} Booty Bay
@@ -163,8 +163,8 @@ return {
 
 	-- Step 29: Booty Bay
 	-- {npc:2542} Catelyn the Blade
-	["{npc:2542}, upstairs"] = "",
-	["Upstairs"] = "",
+	["{npc:2542}, upstairs"] = "{npc:2542}, en el piso de arriba",
+	["Upstairs"] = "Piso de arriba",
 
 	-- Step 30: Bloodsail camp
 	["Bloodsail camp"] = "Campamento Velasangre",
@@ -278,7 +278,7 @@ return {
 
 	-- Step 51: Ruins of Zul'Mamwe: kill these as you meet them
 	-- {area:103} Ruins of Zul'Mamwe
-	["{area:103}: kill these as you meet them"] = "",
+	["{area:103}: kill these as you meet them"] = "{area:103}: mátalos según te los encuentres",
 	-- {area:310} Crystalvein Mine
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do.\nFollow the road north-east to the Venture Co. camp at the {area:310}; the miners, surveyors and foremen drop the crystals.\nCareful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp."] = "",
@@ -297,7 +297,7 @@ return {
 	-- {area:35} Booty Bay
 	["Follow the road south to {area:35}."] = "Sigue el camino al sur hasta {area:35}.",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs"] = "",
+	["{npc:737}, upstairs"] = "{npc:737}, en el piso de arriba",
 
 	-- Step 59: Kebok
 	-- {area:37} Lake Nazferiti
@@ -309,7 +309,7 @@ return {
 
 	-- Step 61: Fly to Stormwind
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "Maestro de vuelo de {area:35}",
 
 	-- Step 62: Stormwind
 	-- {npc:1141} Angus Stern · {object:2169} Blue Recluse · {npc:5384} Brohann Caskbelly · {object:28027} Dwarven District
@@ -338,9 +338,9 @@ return {
 
 	-- Step 69: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
-	["Fly to {area:702}"] = "",
+	["Fly to {area:702}"] = "Vuela a {area:702}",
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "Maestro de vuelo de {area:442}",
 
 	-- Step 72: Riding at 40
 	-- {npc:4753} Jartsam · {zone:1457} Darnassus · {npc:4730} Lelanai · {area:17203} Stormwind Harbor · {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4732} Randal Hunter · {area:88} Eastvale Logging Camp · {zone:1429} Elwynn Forest
@@ -356,13 +356,13 @@ return {
 
 	-- Step 75: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
-	["Boat to {area:17203}"] = "",
+	["Boat to {area:17203}"] = "Barco a {area:17203}",
 
 	-- Step 76: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "Vuela a {area:42}",
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "Maestro de vuelo de {zone:1453}",
 
 	-- Step 77: Darkshire
 	-- {npc:5464} Watchmaster Sorigal
@@ -402,7 +402,7 @@ return {
 
 	-- Step 88: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "Tranvía a {zone:1455}",
 
 	-- Step 91: Ironforge
 	-- {npc:5637} Roetten Stonehammer · {object:32356} Hall of Explorers (no name in this language: may be words) · {npc:2786} Gerrig Bonegrip · {object:32383} Forlorn Cavern

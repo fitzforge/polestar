@@ -84,7 +84,7 @@ return {
 
 	-- Step 13: The Eternal Quintessence
 	-- {item:22754} Eternal Quintessence
-	["The {item:22754}"] = "",
+	["The {item:22754}"] = "La {item:22754}",
 	-- {item:22754} Eternal Quintessence · {item:17333} Aqual Quintessence
 	["At Revered the Duke gives you the {item:22754}: it does the {item:17333}'s work and is not used up, so you never come back for another vial."] = "",
 	-- {item:22754} Eternal Quintessence

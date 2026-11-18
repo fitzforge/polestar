@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {quest:94373} Call of Earth
-	["{quest:94373} (Alliance)"] = "",
+	["{quest:94373} (Alliance)"] = "{quest:94373} (Alianza)",
 	-- {item:5175} Earth Totem · {spell:8071} Stoneskin Totem
 	["Your {item:5175}: without it no earth totem can be cast. {spell:8071} comes with it at level 4."] = "",
 
@@ -52,6 +52,6 @@ return {
 	-- {item:6656} Rough Quartz · {area:77} Anvilmar · {item:5175} Earth Totem
 	["Bring the {item:6656} back to Teo inside {area:77}. Keep the {item:5175} in your bags for good: every earth totem needs it."] = "",
 	-- {npc:257446} Teo Hammerstorm · {spell:8071} Stoneskin Totem · {item:5175} Earth Totem
-	["{npc:257446}: {spell:8071} and your {item:5175}"] = "",
+	["{npc:257446}: {spell:8071} and your {item:5175}"] = "{npc:257446}: {spell:8071} y tu {item:5175}",
 	["the level 4 shaman spells"] = "",
 }

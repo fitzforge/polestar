@@ -27,7 +27,7 @@ return {
 	-- {npc:2546} Fleet Master Firallon · {area:1757} Crimson Veil · {area:35} Booty Bay · {item:22746} Buccaneer's Uniform · {item:22742} Bloodsail Shirt
 	["At Neutral the Bloodsail crew stop attacking you. {npc:2546} is aboard the {area:1757}, the pirate ship anchored south of {area:35}, on its middle deck. Swim out; take the quest and hand it in on the spot for the {item:22746}: the {item:22742}, Sash, Pants and Boots."] = "",
 	-- {npc:2546} Fleet Master Firallon · {item:22746} Buccaneer's Uniform
-	["{npc:2546}: the {item:22746}"] = "",
+	["{npc:2546}: the {item:22746}"] = "{npc:2546}: la {item:22746}",
 
 	-- Step 4: Bruisers to Friendly
 	["Bruisers to Friendly"] = "",
@@ -45,7 +45,7 @@ return {
 
 	-- Step 7: The Admiral's Hat
 	-- {item:10030} Admiral's Hat
-	["The {item:10030}"] = "",
+	["The {item:10030}"] = "La {item:10030}",
 	-- {item:12185} Bloodsail Admiral's Hat · {area:35} Booty Bay · {zone:1418} Badlands
 	["Back to Firallon for the {item:12185} (in Classic its use calls a parrot to your shoulder): 200 more Bloodsail and 1,000 less {area:35}. Bruisers pay 25 only up to the end of Honored and Jazzrik, a lone goblin in the {zone:1418}, 5 up to the end of Revered; no quest is left, so Exalted cannot be reached."] = "",
 

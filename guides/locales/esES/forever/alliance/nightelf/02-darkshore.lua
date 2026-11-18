@@ -127,7 +127,7 @@ return {
 
 	-- Step 26: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
-	["Boat to {area:17203}"] = "",
+	["Boat to {area:17203}"] = "Barco a {area:17203}",
 
 	-- Step 27: Manifest Clerk Philmor
 	-- {npc:268511} Manifest Clerk Philmor · {npc:483} Elaine Trias · {object:2096} Trade District
@@ -135,7 +135,7 @@ return {
 
 	-- Step 28: Stormwind flight master
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "Maestro de vuelo de {zone:1453}",
 	-- {npc:483} Elaine Trias
 	["{npc:483}, in her cheese shop"] = "",
 	-- {object:460004} Gatehouse Door (no name in this language: may be words)
