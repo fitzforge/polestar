@@ -83,7 +83,10 @@ const LOGIN_BASE: f64 = 11003.0;
 /// the settings search's questions and checked controls, sharing settings, the dungeon floors and their hold for 0.4.1,
 /// the floors by subzone, the worst cases and the rest): 12,327 KiB at login on 2026-11-14, 660 over dev-040's 11,667.
 /// The budget is that and about 5 % (Fitz, 2026-11-12, the login review once 0.4.0's content is final): 12,944.
-const LOGIN: f64 = LOGIN_BASE + 1941.0;
+/// 0.4.1's release tree (release/0.4.1 with the 0.4.1 data's gathering spots and legacy steps, and Freedoom Arcade's
+/// hooks in the core, Maps/Arcade.lua, #2228): 12,979 KiB at login on 2026-11-17, 12,948 without Maps/Arcade.lua
+/// (+31). The budget is that and about 5 % (the same rule): 13,628.
+const LOGIN: f64 = LOGIN_BASE + 2625.0;
 /// Loaded, 1,790 KiB on 2026-11-11 (760 on 2026-11-10): the Look pages' previews and the toasts and trackers
 /// pages moved in (1,110), then the settings-only widgets, every module's rows, Unlock mode, the profile
 /// strings, the preview stage and the skin picker's cards and presets (+400), all out of the login (1,513).

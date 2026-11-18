@@ -2,7 +2,7 @@
 guide forever/horde/40-50/01-stranglethorn-vale
 title Stranglethorn Vale & Swamp of Sorrows
 faction Horde
-levels 39-42
+levels 39-41
 zone Stranglethorn Vale
 next forever/horde/40-50/01b-riverglades
 
@@ -211,9 +211,19 @@ step Venture Co. mine
   tip Careful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp.
   collect 3917 quest 600.1
 
+step Shadowmaw Panthers
+  when onquest 192
+  tip Panther Mastery is still open: the Shadowmaw Panthers (37-38) stalk the jungle north of the mine, towards the Mosh'Ogg hills. They use Sneak, so they show only when you are close: pull them one at a time, and leave the Elder Shadowmaw Panthers (42-43) alone.
+  kill 684 quest 192 @41.3,34.8 map 1434
+
 step Grom'gol Base Camp
   turnin 571                          -- Far Seer Mok'thardin
   accept 573                            -- Far Seer Mok'thardin
+
+step Lashtail Raptors
+  when onquest 195
+  tip Raptor Mastery is still open: the Lashtail Raptors (35-36) hunt the jungle between Grom'gol and Nesingwary's camp, on your way north.
+  kill 686 quest 195 @32.4,23.2 map 1434
 
 step Nesingwary's camp
   turnin 195                          -- Hemet Nesingwary
@@ -233,6 +243,12 @@ step Nesingwary's camp
 step Nesingwary's camp
   when group 193
   accept 193
+
+step Nesingwary's camp
+  when !turnedin 583
+  tip You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.
+  accept 583                          -- Barnil Stonepot
+  turnin 583                          -- Hemet Nesingwary
 
 step The Green Hills of Stranglethorn
   when turnedin 583

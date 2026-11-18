@@ -491,6 +491,34 @@ fn a_dungeon_pin_opens_its_dungeon_page_without_the_dungeons_module_or_with_shif
 	assert_eq!(out["tip"], json!(["The Deadmines", "Dungeon · Levels 17–26", " ", "Click to open its page", "Shift-click to set a waypoint"]));
 }
 
+// #2780 (Liquidor): "Show on map" on a dungeon's page opened the entrance's zone with nothing on it. The entrance
+// gets its own pin there, in focus, with the entrance pins off too, until the map closes.
+#[test]
+fn show_on_map_pins_the_dungeon_s_entrance_in_focus_until_the_map_closes_2780() {
+	let out = run(
+		&(CODEX.to_string()
+			+ r#"
+		Polestar.Codex.Load()
+		local P = Polestar.Pins
+		WorldMapFrame:Hide()
+		m.showMap(9000)
+		local ok = Polestar.Maps.ShowDungeonEntrance("deadmines", 9000, 42.5, 71.7)
+		local l = P.GetLayer("maps.dungeonShown")
+		local pin = l and l[1] or {}
+		local shown = { ok = ok, n = l and #l, key = pin.key, at = pin.x .. "," .. pin.y, icon = pin.icon, state = pin.state, glow = pin.glow, all = P.GetLayer("maps.dungeons") ~= nil }
+		WorldMapFrame:Hide()
+		emit({ shown = shown, closed = P.GetLayer("maps.dungeonShown") == nil, unknown = Polestar.Maps.ShowDungeonEntrance("nowhere", 9000, 1, 1) })"#),
+		None,
+	);
+	assert_eq!(
+		out["shown"],
+		json!({ "ok": true, "n": 1, "key": "deadmines", "at": "42.5,71.7", "icon": "map:dungeon", "state": "focus", "glow": true, "all": false }),
+		"the entrance alone, in focus, with the entrance pins off"
+	);
+	assert_eq!(out["closed"], true, "gone with the map");
+	assert_eq!(out["unknown"], false, "no instance, no pin");
+}
+
 // Fitz in game (0.3.6, the button in EllesmereUIMinimap's button bar): on hover the button showed a flat accent
 // disc where its logo was. The logo and the hover resolve to Polestar's own files, and the hover's 25 % is in its
 // colour, so a bar that sets our regions back to full alpha cannot turn it into an opaque disc.

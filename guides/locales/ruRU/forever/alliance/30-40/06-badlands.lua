@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Into Badlands
 	-- {zone:1418} Badlands
-	["Into {zone:1418}"] = "",
+	["Into {zone:1418}"] = "В зону {zone:1418}",
 
 	-- Step 2: Dorgaron
 	-- {npc:269577} Dorgaron · {area:346} Hammertoe's Digsite · {area:345} Agmond's End
@@ -23,7 +23,7 @@ return {
 
 	-- Step 5: Hammertoe's Digsite: kill these as you meet them
 	-- {area:346} Hammertoe's Digsite
-	["{area:346}: kill these as you meet them"] = "",
+	["{area:346}: kill these as you meet them"] = "{area:346}: убивайте их по пути",
 	-- {npc:269577} Dorgaron
 	-- plural, as words: Crag Coyotes = {npc:2727} Crag Coyote
 	["The Shadowforge dwarves camp just north of the digsite; the crumpled map and {npc:269577}'s mining helmet lie among their tents. Tunnelers and Darkweavers carry Ryedol's pick and {npc:269577}'s artifacts. Crag Coyotes roam the slopes around it."] = "Дворфы Тенегорна стоят лагерем чуть севернее раскопок; смятая карта и шахтерская каска NPC {npc:269577} лежат среди их палаток. Кирка Ржанца и артефакты NPC {npc:269577} – у проходчиков и темнопрядов. По склонам вокруг бродят скальные койоты.",
@@ -51,7 +51,7 @@ return {
 
 	-- Step 10: Agmond's End: kill these as you meet them
 	-- {area:345} Agmond's End
-	["{area:345}: kill these as you meet them"] = "",
+	["{area:345}: kill these as you meet them"] = "{area:345}: убивайте их по пути",
 	-- {quest:739} Murdaloc · {spell:5242} Battle Shout · {spell:1160} Demoralizing Shout · {area:340} Kargath
 	-- plural, as words: Dustbelcher Maulers = {npc:2717} Dustbelcher Mauler · Stonevault Bonesnappers = {npc:2893} Stonevault Bonesnapper · Dustbelcher Lords = {npc:2719} Dustbelcher Lord
 	["Buzzards circle the plain to the east. Careful: the Dustbelcher Maulers, Shamans and Wyrmhunters (40-43) camp far to the south-west: leave them.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: the Stonevault Bonesnappers are 39-40 and the Shamans 40-41, a level or two over you here: pull them from the camp's edge, one at a time.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "Над равниной к востоку кружат канюки. Осторожно: изверги, шаманы и охотники на драконов из клана Гнилобрюхов (40-43) стоят лагерем далеко на юго-западе: не трогайте их.\nРазбитый скелет лежит на краю лагеря троггов из племени Каменного Свода; убийца Агмонда ({quest:739}) ходит среди костегрызов.\nОсторожно: костегрызы из племени Каменного Свода – 39-40-го уровня, шаманы – 40-41-го, на уровень-два выше вас: выманивайте их с края лагеря по одному.\nОсторожно: вожди клана Гнилобрюхов – 44-45-го уровня. Они применяют {spell:5242} и {spell:1160}, а при здоровье ниже 50% зовут на помощь союзников в радиусе 15 м. Семеро из них стоят примерно в 750 м к югу (ориентир: {area:340}).",
@@ -87,7 +87,7 @@ return {
 	-- plural, as words: Obsidian Golems = {npc:4872} Obsidian Golem · Shadowforge Diggers = {npc:4846} Shadowforge Digger
 	["Head north to {area:1517}'s entrance, in the north of the {zone:1418}: the chest lies just inside the cave mouth. {npc:2932} and the Obsidian Golems (38) stand beside it and Shadowforge Diggers (35-36) work the tunnel, all elite: keep your group together."] = "Идите на север ко входу ({area:1517}) на севере зоны {zone:1418}: сундук лежит сразу за входом в пещеру. Рядом с ним стоят {npc:2932} и обсидиановые големы (38), а в туннеле работают землекопы Тенегорна (35-36), все элитные: держитесь группой.",
 	-- {item:4631} Tablet of Ryun'eh
-	["{item:4631}; below ground"] = "",
+	["{item:4631}; below ground"] = "{item:4631}; под землей",
 
 	-- Step 16: Valley of Fangs
 	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {area:1517} Uldaman · {area:345} Agmond's End
@@ -118,6 +118,7 @@ return {
 
 	-- Step 22: Thelsamar
 	-- {npc:1470} Ghak Healtouch
+	-- was: ["{npc:1470}, in the inn"] = "{npc:1470}, в таверне"
 	["{npc:1470}, in the inn; below ground"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

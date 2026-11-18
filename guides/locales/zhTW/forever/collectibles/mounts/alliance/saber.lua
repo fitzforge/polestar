@@ -12,15 +12,15 @@ return {
 	-- Step 1: Learn to ride
 	["Learn to ride"] = "學習騎術",
 	-- {npc:4753} Jartsam · {npc:4730} Lelanai · {area:1658} Cenarion Enclave · {faction:69} Darnassus · {skill:762} Riding
-	["{npc:4753} and {npc:4730}'s sabers are in the {area:1658}'s riding grounds in {faction:69}. At 40 {npc:4753} teaches {skill:762} to Night Elves for 100g (10% less at Honored with {faction:69}), and it comes with a saber. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "",
+	["{npc:4753} and {npc:4730}'s sabers are in the {area:1658}'s riding grounds in {faction:69}. At 40 {npc:4753} teaches {skill:762} to Night Elves for 100g (10% less at Honored with {faction:69}), and it comes with a saber. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "{npc:4753}和{npc:4730}的夜刃豹在{faction:69}的{area:1658}騎術訓練場。40級時{npc:4753}以100金教夜精靈{skill:762}（{faction:69}尊敬時便宜10%），並附贈一隻夜刃豹。其他種族在本族的騎術訓練師處學習{skill:762}，同時獲得自己的第一隻坐騎。",
 	-- {npc:4753} Jartsam
 	["{npc:4753}, riding trainer"] = "騎術訓練師{npc:4753}",
 
 	-- Step 2: Tiger Riding for other races
 	-- {spell:828} Tiger Riding
-	["{spell:828} for other races"] = "",
+	["{spell:828} for other races"] = "其他種族的{spell:828}",
 	-- {spell:828} Tiger Riding · {skill:762} Riding · {npc:4753} Jartsam · {faction:69} Darnassus
-	["Any Alliance race can buy these sabers, but riding one also takes {spell:828}, which only Night Elves get with {skill:762}. {npc:4753} teaches it to other races once they are Exalted with {faction:69} (the Darnassus Reputation guide shows the way). Until then, don't buy a saber for this character."] = "",
+	["Any Alliance race can buy these sabers, but riding one also takes {spell:828}, which only Night Elves get with {skill:762}. {npc:4753} teaches it to other races once they are Exalted with {faction:69} (the Darnassus Reputation guide shows the way). Until then, don't buy a saber for this character."] = "任何聯盟種族都能買這些夜刃豹，但騎乘還需{spell:828}，只有夜精靈隨{skill:762}獲得。其他種族在{faction:69}達到崇拜後，{npc:4753}會教它（達納蘇斯聲望指南有路線）。在此之前，別為這個角色買夜刃豹。",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "挑選顏色",
@@ -32,7 +32,7 @@ return {
 	["{item:8631}, 20g"] = "{item:8631}，20金",
 	-- {item:8632} Reins of the Spotted Frostsaber
 	["{item:8632}, 20g"] = "{item:8632}，20金",
-	["new in Forever, 20g; beta players found it here"] = "",
+	["new in Forever, 20g; beta players found it here"] = "Forever新增，20金；測試服玩家在這裡發現",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["{item:274706} is a new Forever saber (level 40, 20g in the client) whose source is not known yet."] = "{item:274706}是Forever新增的刃豹（40級，用戶端標示20金幣），來源尚未得知。",

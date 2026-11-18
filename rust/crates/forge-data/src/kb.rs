@@ -1161,6 +1161,11 @@ pub struct KbInputs<'a> {
 	pub zones: &'a Obj,
 	pub live: FxHashSet<i64>,
 	pub corrections: V,
+	/// Where each corrected field comes from, public corrections or the private overlay
+	/// (`crate::corrections::origins`): the `correction_origin` table the public tier reads.
+	pub correction_origins: Vec<crate::corrections::Origin>,
+	/// Per quest, the NPCs counted players handed it in to (`recordings::Stats::npc_hand_ins`).
+	pub npc_hand_ins: FxHashMap<i64, FxHashSet<i64>>,
 	/// The fact check's local database (a local-only source); None: none.
 	pub facts_file: Option<PathBuf>,
 	pub tdb: Option<V>,
@@ -1533,6 +1538,8 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 	let alt = alt;
 	let tdb = inp.tdb.as_ref();
 	let mut kb = Kb { inp, changes: Vec::new(), verify_xp: FxHashMap::default(), fact_rows: Vec::new(), alt_rows: Vec::new(), verify: IndexMap::new(), pos: [0; 3] };
+	// Quests whose captured giver was not added to their enders (the rule at the `end` merge below).
+	let mut held_givers: Vec<i64> = Vec::new();
 	let alt_of = |kind: &str, id: f64| -> Vec<Fact> { alt.facts.get(&format!("{kind}:{}", num_str(id))).cloned().unwrap_or_default() };
 	let to_cand = |a: &Fact| Cand { source: a.source.clone(), value: a.value.clone(), note: a.note.clone(), project: false };
 	let npc_faction = |id: f64| -> V { npcs.get(&num_str(id)).get("faction") };
@@ -1630,8 +1637,25 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 					let prev_o = prev.as_obj().cloned().unwrap_or_default();
 					let next = prev_o.spread();
 					let observed = OBSERVED.contains(&w.source.as_str());
+					// A quest's giver that an in-game capture also names as an ender is not added beside
+					// the enders the data already has unless players handed the quest in in that NPC's
+					// window (#2612: captures named the giver of quests handed in at an object).
+					let givers: Vec<f64> = if field == "end" && observed && (!prev.get("npc").is_empty() || !prev.get("object").is_empty()) {
+						q.get("start").get("npc").items().iter().map(V::num).collect()
+					} else {
+						Vec::new()
+					};
+					let handed = inp.npc_hand_ins.get(&(id as i64));
 					for k in ["npc", "object"] {
-						let theirs: Vec<f64> = win.iter().filter(|(kk, _)| kk == k).map(|(_, v)| *v).collect();
+						let mut theirs: Vec<f64> = win.iter().filter(|(kk, _)| kk == k).map(|(_, v)| *v).collect();
+						if k == "npc" && !givers.is_empty() {
+							let pk: Vec<f64> = prev.get(k).items().iter().map(V::num).collect();
+							let before = theirs.len();
+							theirs.retain(|v| pk.contains(v) || !givers.contains(v) || handed.is_some_and(|h| h.contains(&(*v as i64))));
+							if theirs.len() < before {
+								held_givers.push(id as i64);
+							}
+						}
 						let pk: Vec<f64> = prev.get(k).items().iter().map(V::num).collect();
 						let list: Vec<f64> = if observed {
 							pk.iter().copied().chain(theirs.iter().copied().filter(|v| !pk.contains(v))).collect()
@@ -2486,9 +2510,18 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 	let vc = verify_counts(&verify_v);
 	vc.set("positionComparisons", pos_v);
 
+	if !held_givers.is_empty() {
+		held_givers.sort_unstable();
+		held_givers.dedup();
+		log(&format!(
+			"kb: {} quest(s) whose giver an in-game capture names as an ender, kept off their enders (no hand-in in that NPC's window): {}",
+			held_givers.len(),
+			held_givers.iter().map(i64::to_string).collect::<Vec<_>>().join(", ")
+		));
+	}
 	// ---- write ----
 	if let Some(f) = &inp.kb_file {
-		write_kb(f, &kb, quests, npcs, objects, items, &verify_v, &mech, tdb, training.as_ref(), trainers.as_ref(), &alt.versions)?;
+		write_kb(f, &kb, quests, npcs, objects, items, &verify_v, &mech, tdb, training.as_ref(), trainers.as_ref(), &alt.versions, &inp.correction_origins)?;
 	}
 	if let Some(f) = &inp.verify_file {
 		std::fs::create_dir_all(f.parent().unwrap()).map_err(|e| e.to_string())?;
@@ -3366,6 +3399,7 @@ fn write_kb(
 	training: Option<&V>,
 	trainers: Option<&V>,
 	versions: &IndexMap<String, Option<String>>,
+	origins: &[crate::corrections::Origin],
 ) -> Result<(), String> {
 	std::fs::create_dir_all(file.parent().unwrap()).map_err(|e| e.to_string())?;
 	let tmp = PathBuf::from(format!("{}.tmp", file.display()));
@@ -3391,7 +3425,8 @@ create table training(class text, level integer, copper integer, source text);
 create table mechanics(quest integer, kind text, status text, source text, confidence text, drives integer, sources text);
 create table steps(quest integer, n integer, action text, target_kind text, target integer, item integer, count integer, place text, fact text, confidence text, drives integer, source text, evidence text);
 create table verify_in_game(rank integer, kind text, id integer, name text, yards integer, conflicts text);
-create table changes(tbl text, id integer, field text, before text, after text, source text);",
+create table changes(tbl text, id integer, field text, before text, after text, source text);
+create table correction_origin(kind text, id integer, field text, origin text, kinds text, primary key(kind, id, field));",
 	)
 	.map_err(e)?;
 	let tx = db.transaction().map_err(e)?;
@@ -3530,6 +3565,10 @@ create table changes(tbl text, id integer, field text, before text, after text, 
 				let j = |v: &V| utf16_slice(&stringify(if v.is_undef() { &V::Null } else { v }, None), 4000);
 				vec![s(c.table), V::Num(c.id), s(&c.field), s(&j(&c.from)), s(&j(&c.to)), s(&c.source)]
 			}),
+		)?;
+		run(
+			"insert into correction_origin values (?,?,?,?,?)",
+			&mut origins.iter().map(|o| vec![s(o.kind), V::Num(o.id as f64), s(&o.field), s(if o.private { "private" } else { "public" }), s(&o.kinds.join(","))]),
 		)?;
 	}
 	tx.commit().map_err(e)?;
@@ -3769,6 +3808,8 @@ mod tests {
 			zones: &empty,
 			live: FxHashSet::default(),
 			corrections,
+			correction_origins: Vec::new(),
+			npc_hand_ins: FxHashMap::default(),
 			facts_file: None,
 			tdb: Some(tdb),
 			classic: None,
@@ -3789,6 +3830,55 @@ mod tests {
 		let count = |id: &str| world.get(id).get("objectives").at(0).get("count").num();
 		assert_eq!(count("93165"), 5.0, "the correction's count stays");
 		assert_eq!(count("900001"), 10.0, "with no higher source, the TDB's count wins");
+	}
+
+	#[test]
+	fn a_captured_giver_joins_the_enders_only_with_hand_ins_in_its_window() {
+		// Find the Lost Guards 37 (#2612): handed in at the half-eaten body (object 55); an in-game
+		// capture names its giver, Guard Thomas (261), as an ender too, and the step sent players to
+		// him. 38 is the same quest shape where players did hand it in to 261: there the giver joins.
+		let q =
+			|id: u32| format!(r#""{id}": {{ "id": {id}, "title": "Q{id}", "start": {{ "npc": [261], "object": [], "item": [] }}, "end": {{ "npc": [], "object": [55] }}, "source": ["pfquest"] }}"#);
+		let world = parse_json(&format!("{{ {}, {} }}", q(37), q(38))).unwrap();
+		let npcs = parse_json(r#"{ "261": { "id": 261, "name": "Guard Thomas", "spawns": { "1429": { "pts": [[73.9, 72.2]] } } } }"#).unwrap();
+		let objects = parse_json(r#"{ "55": { "id": 55, "name": "A half-eaten body", "spawns": { "1429": { "pts": [[72.6, 60.3]] } } } }"#).unwrap();
+		let empty = Obj::new();
+		let none = PathBuf::from("/nonexistent");
+		let ends: Vec<(String, f64)> = vec![("npc".into(), 261.0)];
+		let vo = Vo { commit: "0123456789abcdef".into(), quests: [(37, (ends.clone(), ends.clone())), (38, (ends.clone(), ends))].into_iter().collect() };
+		let mut handed: FxHashMap<i64, FxHashSet<i64>> = FxHashMap::default();
+		handed.entry(38).or_default().insert(261);
+		let inp = KbInputs {
+			quests: world.as_obj().unwrap(),
+			npcs: npcs.as_obj().unwrap(),
+			objects: objects.as_obj().unwrap(),
+			items: &empty,
+			frames: V::obj(),
+			zones: &empty,
+			live: FxHashSet::default(),
+			corrections: V::Null,
+			correction_origins: Vec::new(),
+			npc_hand_ins: handed,
+			facts_file: None,
+			tdb: None,
+			classic: None,
+			factoruide_file: None,
+			quest_xp: None,
+			spawnz: None,
+			training: None,
+			trainers: None,
+			mechanics: MechFiles { quest_mechanics: none.clone(), quest_steps: none.clone(), tdb_layer: none.clone(), web: none.clone(), public: none.clone(), evidence: none },
+			v2_quests: FxHashSet::default(),
+			eg: None,
+			vo: Some(vo),
+			client: None,
+			kb_file: None,
+			verify_file: None,
+		};
+		build_kb(&inp, &|_| {}).unwrap();
+		let end = |id: &str| stringify(&world.get(id).get("end"), None);
+		assert_eq!(end("37"), r#"{"npc":[],"object":[55]}"#, "no hand-in in the giver's window: the object only");
+		assert_eq!(end("38"), r#"{"npc":[261],"object":[55]}"#, "players handed it in to the giver: it joins");
 	}
 
 	fn fact_of(alt: &Alt, key: &str, field: &str, source: &str) -> Option<String> {
@@ -3908,6 +3998,8 @@ mod tests {
 			zones: &empty,
 			live: FxHashSet::default(),
 			corrections: V::Null,
+			correction_origins: Vec::new(),
+			npc_hand_ins: FxHashMap::default(),
 			facts_file: None,
 			tdb: None,
 			classic: None,

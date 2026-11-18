@@ -244,6 +244,9 @@ GF.Part(function(GF)
 	-- provider too (GF.UseContent(content); nil: the Engine again).
 	-- Quests in the log off the route from which the card nudges a cleanup (#2634).
 	GF.OFF_ROUTE_NUDGE = 3
+	-- The off-route line closed by its ×: how many quests were off the route
+	-- then; it comes back when more are (this session).
+	GF.offRouteClosed = nil
 	GF.CONTENT = { "GetGuide", "GetTabs", "GetStepIndex", "GetLiveStep", "GetStepCount", "GetStepView", "StepNumber", "StepTotal",
 		"GetProgress", "GetAlong", "GetWhileHereList", "LeftOutHere", "StepHint", "Pace", "XPStats", "RestParts", "Target" }
 	local DERIVED = GF.live and {
@@ -480,6 +483,10 @@ GF.Part(function(GF)
 			lines[#lines + 1] = { left = L["Quest"], right = title and (title .. id .. goal.quest .. "|r") or ("#" .. goal.quest) }
 			local new = ns.NewQuests and ns.NewQuests.TooltipText(goal.quest)
 			if new then lines[#lines + 1] = { new, Theme.Accent() } end
+			-- Where the quest sits in its chain, "Chain: 6 of 11" (Lookup.ChainTooltipText, #2554).
+			local Lk = ns.Lookup
+			local chain = Lk and Lk.ChainTooltipText and Lk.ChainTooltipText(goal.quest)
+			if chain then lines[#lines + 1] = { chain, Theme.Color("textDim") } end
 			-- A dungeon's quest, or one of the nearest prerequisites before one (Dungeons/Mark.lua).
 			local dungeon = ns.Dungeons and ns.Dungeons.MarkTooltip and ns.Dungeons.MarkTooltip(goal.quest)
 			if dungeon then lines[#lines + 1] = { dungeon, Theme.Accent() } end
@@ -554,6 +561,7 @@ GF.Part(function(GF)
 		if goal.optional and goal.status ~= "done" then
 			lines[#lines + 1] = goal.dismissed and L["Skipped. Undo brings it back."] or L["Optional: not needed for the route. Skip it if you pass on it."]
 		end
+		if #lines == 0 then return end
 		W.Tooltip(row, tooltipAnchor(), goal.text or "", lines)
 	end
 
@@ -1260,6 +1268,10 @@ GF.Part(function(GF)
 				GF.LookAt(self.psNear[1].step)
 				return
 			end
+			if self.psBack then
+				GF.GoLevel(self.psBack)
+				return
+			end
 			if key == "done" then
 				model.doneOpen = not model.doneOpen
 			else
@@ -1298,6 +1310,9 @@ GF.Part(function(GF)
 					tips[#tips + 1] = o.share < 1 and (o.title .. "  " .. string.format(L["%d%% XP"], floor(o.share * 100 + 0.5))) or o.title
 				end
 				tips[#tips + 1] = { L["Click to see its step"], Theme.Accent() }
+			elseif self.psBack then
+				tips[1] = L["This guide stays open in its tab and picks up by itself at that level."]
+				tips[2] = { self.psBack.open and L["Click to switch to its tab"] or L["Click to open it in a new tab"], Theme.Accent() }
 			elseif self.psOut then
 				for i = 1, min(#self.psOut, 12) do
 					local o = self.psOut[i]
@@ -1341,6 +1356,21 @@ GF.Part(function(GF)
 			l:SetScript("OnClick", lineClick)
 			l:SetScript("OnEnter", lineEnter)
 			l:SetScript("OnLeave", lineLeave)
+			-- The off-route line's × (psRoom): a button over its glyph that
+			-- closes the line (GF.DismissOffRoute); shown on that line alone.
+			l.Close = CreateFrame("Button", nil, l)
+			l.Close:SetSize(ICON + 6, lh)
+			l.Close:SetPoint("CENTER", l.Icon, "CENTER", 0, 0)
+			l.Close:SetScript("OnClick", function() GF.DismissOffRoute() end)
+			l.Close:SetScript("OnEnter", function(self)
+				W.Color(l.Icon, "text")
+				W.Tooltip(self, "ANCHOR_TOP", L["Close"], { L["Hides this line until more quests are off your route."] })
+			end)
+			l.Close:SetScript("OnLeave", function(self)
+				W.Color(l.Icon, "textMuted")
+				W.HideTooltip(self)
+			end)
+			l.Close:Hide()
 			lines[i] = l
 			return l
 		end
@@ -1709,6 +1739,47 @@ GF.Part(function(GF)
 		ns.CharState().classReturn[id] = nil
 		if mine then E.CloseTab(mine, true) end
 		if E.SetGuide then E.SetGuide(back.id) end
+	end
+
+	-- A guide that is no leveling guide (a class, item or profession guide)
+	-- waiting at a `level` goal LEVEL_BACK levels or more above the character
+	-- (Brutal Armor's level 29 hold after Ruga's Bulwark at 21) leaves
+	-- nothing to do in it until then: the grind lines point back to leveling.
+	-- Where: the tab the class quest heads-up opened it from (GF.ClassReturn),
+	-- else the first open tab with a leveling guide, else the leveling guide
+	-- for the character now (Engine.StartingGuide), for a new tab.
+	-- -> { id, title, open (whether it is open in a tab) } | nil
+	local LEVEL_BACK = 2
+	local function levelingGuide(g) return type(g) == "table" and (g.category == nil or g.category == "Leveling") end
+	function GF.LevelBack(guide, goal)
+		local E, G = Engine(), ns.Guides
+		local want = goal and goal.t == "level" and tonumber(goal.level)
+		local lv = (ns.Compat.GetPlayerInfo() or {}).level
+		if not (want and lv and want - lv >= LEVEL_BACK and guide and not levelingGuide(guide) and E and E.GetTabs and G and G.Get) then return nil end
+		local back = GF.ClassReturn(guide.id)
+		if back then return { id = back.id, title = back.title, open = true } end
+		for _, t in ipairs(E.GetTabs() or {}) do
+			local g = t.guideId ~= guide.id and G.Get(t.guideId)
+			if levelingGuide(g) then return { id = g.id, title = t.title or g.title or g.id, open = true } end
+		end
+		local id = E.StartingGuide and E.StartingGuide()
+		local g = id and G.Get(id)
+		if not levelingGuide(g) then return nil end
+		return { id = g.id, title = g.title or g.id, open = false }
+	end
+
+	-- Go to the leveling guide GF.LevelBack named: its tab, else a new one
+	-- (Engine.StartGuide, placed by the catch-up). The guide waiting keeps its tab.
+	function GF.GoLevel(back)
+		local E = Engine()
+		if not (back and E) then return end
+		for i, t in ipairs(E.GetTabs and E.GetTabs() or {}) do
+			if t.guideId == back.id then
+				E.SelectTab(i)
+				return
+			end
+		end
+		if E.StartGuide then E.StartGuide() end
 	end
 
 	-- The end card's lines under its text, for the leveling guide `id` that
@@ -2301,7 +2372,8 @@ GF.Part(function(GF)
 	-- it. The dungeon line (key "dungeon") is a link: its chevron points on.
 	local function paintLine(l, key, icon, iconColor, text, list, title, open)
 		l.psKey, l.psGoals, l.psTitle, l.psDungeon = key, list, title, nil
-		l.psOut, l.psOutItem, l.psOutFix, l.psRoom, l.psInfo, l.psNear = nil, nil, nil, nil, nil, nil
+		l.psOut, l.psOutItem, l.psOutFix, l.psRoom, l.psInfo, l.psNear, l.psBack = nil, nil, nil, nil, nil, nil, nil
+		if l.Close then l.Close:Hide() end
 		l.Icon:SetTexture((icon == "check" or icon == "icon-dungeon" or icon == "skip" or icon == "cross") and Theme.Media(icon) or Theme.VerbIcon(icon))
 		W.Color(l.Icon, iconColor)
 		l.Text:SetText(text)
@@ -2441,6 +2513,14 @@ GF.Part(function(GF)
 					l.psNear = h.nearby
 					l.Chevron:SetTexture(Theme.Media("chevron-right"))
 				end
+			end
+			-- A class, item or profession guide waiting levels ahead: level with
+			-- the leveling guide meanwhile; this one keeps its tab (GF.LevelBack).
+			local back = goal.status ~= "done" and step and GF.LevelBack(guide, step.goals[goal.index])
+			if back then
+				local l = addLine("grindBack", "level", "textDim", string.format(L["Level with %s meanwhile: this guide picks up at level %d"], back.title, tonumber(step.goals[goal.index].level)), nil, nil, false)
+				l.psBack = back
+				l.Chevron:SetTexture(Theme.Media("chevron-right"))
 			end
 			local DT = UI.DungeonToast
 			local d = DT and DT.GrindLine and DT.GrindLine(guide, view, goal)
@@ -2717,10 +2797,11 @@ GF.Part(function(GF)
 				model.offRoute = P and P.OffRoute and P.OffRoute() or false
 			end
 			local off = model.offRoute
-			if off and #off >= GF.OFF_ROUTE_NUDGE then
+			if off and #off >= GF.OFF_ROUTE_NUDGE and #off > (GF.offRouteClosed or 0) then
 				local l = addLine("offRoute", "cross", "textMuted", string.format(L["%d quests aren't part of your route"], #off), nil, L["Clean up quest log (%d)"]:format(#off), false)
 				l.psRoom = off
 				l.Chevron:SetTexture(Theme.Media("chevron-right"))
+				if l.Close then l.Close:Show() end
 			end
 		end
 		for gi, goal in ipairs(view.goals) do model.last[gi] = goal.status end
@@ -2868,6 +2949,13 @@ GF.Part(function(GF)
 
 	-- The card again from the view it shows: a summary line opened or closed,
 	-- a fold that landed.
+	-- The off-route line's ×: closes it until more quests are off the route.
+	function GF.DismissOffRoute()
+		local off = model and model.offRoute
+		GF.offRouteClosed = type(off) == "table" and #off or math.huge
+		GF.Refill()
+	end
+
 	function GF.Refill()
 		if not F or state ~= "steps" or not view then return end
 		fillCard(true)

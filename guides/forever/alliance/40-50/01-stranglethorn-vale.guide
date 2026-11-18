@@ -259,6 +259,13 @@ step Booty Bay
   note Seahorn's Bloodsail Buccaneers: keep it for the level-48 Booty Bay stop, with the Wild Shore camp.
   turnin 576                          -- Dizzy One-Eye
 
+step Booty Bay
+  when !onquest 606
+  when !turnedin 606
+  zone Stranglethorn Vale
+  tip You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.
+  accept 606                          -- "Sea Wolf" MacKinley, on the top floor
+
 step Gorilla hills
   tip Head inland to the Mistvale gorilla hills. Elder Mistvale Gorillas drop the giblets.
   collect 3919 quest 606              -- Mistvale Giblets
@@ -329,7 +336,7 @@ step Kurzen's Compound
   tip Careful: Colonel Kurzen, an elite of 39-40, stands at the compound's north end beside three of the Subchiefs: take the key from the Subchiefs and Elites further south and leave him be.
   accept 97047 @44.3,7.9 map 1434     -- Wendel Mathers, in his cage, if you didn't take it on the 30-40 loop
   collect 216616 quest 97047          -- Compound Cage Key, from the Subchiefs (or the Elites)
-  collect 216617 quest 97047 @50.0,8.0 map 1434 -- Kurzen Fighter's Uniform, in the supply crate
+  collect 216617 quest 97047 @49.6,7.7 map 1434 -- Kurzen Fighter's Uniform, in the supply crate deep in the cave
   turnin 97047 @44.3,7.9 map 1434     -- Wendel Mathers, back at his cage on the way out
   accept 97048                        -- For Captain Aransas in Booty Bay, at the end of the jungle loop
 
@@ -343,7 +350,7 @@ step Ruins of Zul'Mamwe: kill these as you meet them
   tip The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do.
   tip Follow the road north-east to the Venture Co. camp at the Crystalvein Mine; the miners, surveyors and foremen drop the crystals.
   tip Careful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp.
-  collect 1524 quest 209              -- Skullsplitter Tusk
+  collect 1524 quest 209.1 @45.4,36.2 map 1434 era -- Skullsplitter Tusk, from the trolls of the ruins
   collect 3917 quest 600              -- Singing Blue Crystal
 
 step Raptor Mastery

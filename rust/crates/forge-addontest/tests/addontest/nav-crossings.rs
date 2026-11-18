@@ -121,6 +121,31 @@ fn captions_follow_the_direction_a_crossing_without_one_says_where_it_goes() {
 	assert_eq!(out, json!(["walk|Walk to West Vale", "walk|Walk to West Vale", "walk|Target"]));
 }
 
+// A character with the riding skill (line 762) reads "Ride to <zone>" where the walker reads "Walk to <zone>".
+#[test]
+fn a_character_who_can_ride_reads_ride_to_on_a_crossing_without_a_caption() {
+	let out = run(r#"
+		Polestar.Compat.GetSkillRank = function(line) if line == 762 then return 75, 75 end end
+		crossings()
+		nav.place(-500, -500)                            -- East Vale, heading west
+		target(-500, 500)
+		emit(route())"#);
+	assert_eq!(out, json!(["walk|Ride to West Vale", "walk|Ride to West Vale", "walk|Target"]));
+}
+
+// A ghost walks (a walk-only plan): "Walk to <zone>" with the riding skill too.
+#[test]
+fn a_ghost_who_can_ride_still_reads_walk_to_on_a_crossing_without_a_caption() {
+	let out = run(r#"
+		Polestar.Compat.GetSkillRank = function(line) if line == 762 then return 75, 75 end end
+		UnitIsGhost = function() return true end
+		crossings()
+		nav.place(-500, -500)                            -- East Vale, heading west
+		target(-500, 500)
+		emit(route())"#);
+	assert_eq!(out, json!(["walk|Walk to West Vale", "walk|Walk to West Vale", "walk|Target"]));
+}
+
 #[test]
 fn an_open_ground_pair_walks_straight_across_the_border_a_one_way_pair_only_one_way() {
 	let out = run(r#"
@@ -914,6 +939,40 @@ fn a_target_on_the_next_zone_s_map_is_in_the_zone_the_walking_maps_put_it_in_a_c
 	assert!(unknown.iter().any(|l| l.ends_with("|carbonite-searing-gorge--badlands")), "without the walking maps, the map's zone: {unknown:?}");
 	assert_eq!(out["city"], out["cityPlain"], "the Undercity's map keeps its target");
 	assert_ne!(out["city"], json!(["walk|Aelthalyste"]), "into the Undercity by its way, not a walk to the ground above");
+}
+
+// #1918, #2208: the walking maps put Grenka Bloodscreech's mesa in Thousand Needles (26.5,55.5) in Un'Goro Crater
+// (their zone field, from the client's area under each chunk), while the game's map there is Thousand Needles (every
+// recorded kill of her). Un'Goro's map frame ends far south of her: the target stays in Thousand Needles, one walk
+// from Freewind Post, and no leg names Un'Goro Crater. The Badlands case above (inside both frames) still moves.
+#[test]
+fn a_target_outside_the_zone_the_walking_maps_name_stays_on_its_map_grenka_1918() {
+	let out = run_raw(
+		r#"
+			local N = Polestar.Nav
+			local grenka = { -5594.7, -1599.3 }
+			local zone
+			N.danger.ZoneAt = function(c, x, y)
+				if c ~= 1 then return nil end
+				if math.abs(x - grenka[1]) < 60 and math.abs(y - grenka[2]) < 60 then return zone end
+				return 1441
+			end
+			local function plan()
+				local legs = N.PlanRoute({ c = 1, map = 1441, wx = -5433.3, wy = -2457.3, faction = 2, speed = 7,
+					target = { c = 1, map = 1441, wx = grenka[1], wy = grenka[2], label = "Grenka Bloodscreech" } })
+				local out = {}
+				for _, l in ipairs(legs or {}) do out[#out + 1] = l.kind .. "|" .. l.label .. (l.crossing and ("|" .. l.crossing) or "") end
+				return out
+			end
+			local r = {}
+			zone = 1449
+			r.ungoro = plan()
+			zone = 1441
+			r.plain = plan()
+			emit(r)"#,
+	);
+	assert_eq!(out["plain"], json!(["walk|Grenka Bloodscreech"]), "in Thousand Needles: one walk");
+	assert_eq!(out["ungoro"], out["plain"], "Un'Goro's frame ends south of her: the same walk, no Un'Goro leg");
 }
 
 // #1543's near walk (Nav.PlanRoute's p.nearWalk): a target within that many straight yards over a closed zone border

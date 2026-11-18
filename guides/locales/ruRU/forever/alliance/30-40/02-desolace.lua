@@ -61,7 +61,7 @@ return {
 	-- {npc:5644} Dalinda Malem
 	["Escort {npc:5644}"] = "Сопроводите {npc:5644}",
 	-- {npc:5644} Dalinda Malem
-	["{npc:5644}, inside"] = "",
+	["{npc:5644}, inside"] = "{npc:5644}, внутри",
 	["Out of Thunder Axe Fortress"] = "Выход из крепости Громового Топора",
 	-- {npc:5644} Dalinda Malem · {npc:5642} Vahlarriel Demonslayer · {area:608} Nijel's Point
 	["Lead {npc:5644} out of the fortress; she walks off once you are clear of it. {npc:5642} takes the turn-in at {area:608} at the end of the guide."] = "Выведите {npc:5644} из крепости; когда вы выберетесь, она уйдет сама. Задание принимает {npc:5642} ({area:608}) в конце гайда.",
@@ -91,11 +91,11 @@ return {
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "Летите сюда: {area:442}",
 	-- {area:608} Nijel's Point
-	["{area:608} flight master"] = "",
+	["{area:608} flight master"] = "Распорядитель полетов: {area:608}",
 
 	-- Step 17: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
-	["Boat to {area:17203}"] = "",
+	["Boat to {area:17203}"] = "Корабль: {area:17203}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Escort the caravan"] = "Сопроводите караван",

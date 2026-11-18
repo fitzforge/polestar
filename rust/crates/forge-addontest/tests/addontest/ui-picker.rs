@@ -460,6 +460,32 @@ fn categories_left_out_without_a_guide_of_the_character_s_side_muted_when_none_i
 	assert_eq!(out["class"], json!([false, 1, false, true]));
 }
 
+// #2779 (Liquidor): a guide Lookup made (pack "lookup", category "Lookup") had its own heading under All guides but no
+// entry in the sidebar. A category outside the guide format's list that a shown guide has gets one, after the
+// format's own and before Favourites, and picking it lists that guide.
+#[test]
+fn a_lookup_made_guide_s_category_has_its_sidebar_entry_and_lists_it() {
+	let out = run(r#"
+		local id = "lookup/quest/1690"
+		uistub.guides[id] = { id = id, pack = "lookup", title = "Tanaris Field Sampling", category = "Lookup", minLevel = 40, maxLevel = 40,
+			steps = { { title = "One", goals = { { t = "note", text = "One", status = "pending" } } } } }
+		table.insert(uistub.order, id)
+		UI.ShowPicker()
+		P.SetCategory("All")
+		local cats = P.categories
+		local entry = nav("Lookup")
+		P.SetCategory("Lookup")
+		emit({ cats = cats, label = entry and entry.Label:GetText() or false, count = entry and entry.Count:GetText() or false,
+			listed = kinds((P.Entries("", "Lookup"))), title = PolestarPicker.Title:GetText() })"#);
+	let cats = out["cats"].as_array().unwrap();
+	assert_eq!(cats[cats.len() - 2], "Lookup", "{cats:?}");
+	assert_eq!(cats[cats.len() - 1], "Favorites");
+	assert_eq!(out["label"], "Lookup");
+	assert_eq!(out["count"], "1");
+	assert!(includes(&out["listed"], "Tanaris Field Sampling"), "{}", out["listed"]);
+	assert_eq!(out["title"], "Lookup");
+}
+
 #[test]
 fn selecting_a_guide_shows_its_details_and_loads_nothing_the_selection_is_remembered() {
 	let out = run(r#"

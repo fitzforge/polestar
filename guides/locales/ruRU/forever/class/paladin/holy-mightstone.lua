@@ -23,7 +23,7 @@ return {
 
 	-- Step 4: The Argent Dawn Commission
 	-- {quest:5401} Argent Dawn Commission
-	["The {quest:5401}"] = "",
+	["The {quest:5401}"] = "{quest:5401}",
 	-- {quest:5401} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:2268} Light's Hope Chapel
 	["The Scourge drop no Scourgestones unless you wear an {quest:5401}. {npc:10840} gives you one through her quest, {quest:5401}, which you hand in straight away (if you already have one from {area:2268}, wear that). Equip it in a trinket slot: it shows as a buff that never runs out. Keep it on until you have 20 stones."] = "",
 	-- {quest:5401} Argent Dawn Commission

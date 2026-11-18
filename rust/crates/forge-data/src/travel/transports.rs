@@ -108,8 +108,13 @@ const TRANSPORTS: [TDef; 15] = [
 	// Dalaran (TaxiPath 11398, stops at Zephras 65.8,83.8 and Alterac 12.8,51.2; the Alliance Skyborne leave on it)
 	// and the airship to northern Mulgore (TaxiPath 11457, stops at Zephras 57.8,81.0 and Mulgore 34.3,26.1; the
 	// Horde Skyborne). The guides' "Leave Zephras Isle" gotos (players' recordings) stand at those stops.
-	boat("airship-zephras-dalaran", "airship", A, true, 11398, npc(end("Valanaar Skydocks", 16628.0, 2521), "High Order Dockmaster"), end("Dalaran", 279.0, 1416)),
-	boat("airship-zephras-mulgore", "airship", H, true, 11457, npc(end("Valanaar Skydocks", 16628.0, 2521), "Windshapers Dockmaster"), end("Mulgore", 215.0, 1412)),
+	// Away from the isle each ship hangs beside its dock, a platform on the walking grid with no one to place it
+	// by but the NPC standing on it (#2830): Brix Xizzix on the Mulgore dock (190, 16 yd from the stop, whose
+	// column has only the valley floor 90 yd below: the arrow ended at the foot of the cliff), Arcanist Laurain on
+	// the Kirin Tor camp's (110, 15 yd from the stop, over a lower floor at 85). Their spawns give the ends their
+	// height.
+	boat("airship-zephras-dalaran", "airship", A, true, 11398, npc(end("Valanaar Skydocks", 16628.0, 2521), "High Order Dockmaster"), npc(end("Dalaran", 279.0, 1416), "Arcanist Laurain")),
+	boat("airship-zephras-mulgore", "airship", H, true, 11457, npc(end("Valanaar Skydocks", 16628.0, 2521), "Windshapers Dockmaster"), npc(end("Mulgore", 215.0, 1412), "Brix Xizzix")),
 	TDef {
 		id: "tram-stormwind-ironforge",
 		kind: "tram",

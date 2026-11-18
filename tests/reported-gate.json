@@ -1,6 +1,15 @@
 {
 	"about": "The reported-problems gate (npm run test:reported, tools/reported-gate.js): every player-reported problem that was fixed (closed, or labelled fix-merged, with the confirmed label) and the tests that fail if it comes back. The gate runs these tests with the whole of tests/guides-reported.test.js, the judge's player-report seeds (forge judge seed-tests) and the danger-at-the-spot gate (#1575). A fix for a report adds its issue here with the test that pins it; a report with nothing left to check says why (uncheckable). tests/reported-gate.test.js checks that every test named here exists. seedDrift: the judge's seeds that still assert an earlier form of a guides-reported case that has changed since and passes; the gate lists them and fails only on other seeds, until each is brought up to its case.",
 	"issues": {
+		"2833": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/lookup-guides.rs", "test": "a_quest_with_two_placed_events_has_a_goal_at_each_and_moves_on_as_each_ticks_2833" }
+		] },
+		"2780": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/maps-reveal.rs", "test": "show_on_map_pins_the_dungeon_s_entrance_in_focus_until_the_map_closes_2780" }
+		] },
+		"2863": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "a_building_or_cave_mouth_named_after_the_subzone_the_player_is_in_is_just_the_entrance_2863" }
+		] },
 		"108": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/automation.rs", "test": "t_108_a_direct_turn_in_is_taken_from_the_quests_the_giver_offers_and_finished_in_the_progress_window" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/automation.rs", "test": "t_108_a_direct_turn_in_follows_autoturnin_not_autoaccept_there_is_no_accept_to_make" },
@@ -812,7 +821,7 @@
 			{ "node": "tests/guides-caves.test.js", "test": "Bennistrov (#1336): Insane Druids' arrow led over the hill above The Dor'Danil Barrow Den" }
 		] },
 		"1338": { "tests": [
-			{ "node": "tests/guides-floors.test.js", "test": "every guide's goal at an NPC upstairs in ${b.name} comes after a goto at its door (#1338)" },
+			{ "node": "tests/guides-floors.test.js", "test": "every guide's goal in ${b.name} comes after a goto at its way in (${b.issue})" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "a_way_in_reaches_past_goals_at_the_target_s_own_spot_1338_the_optional_turn_in_before_the_accept" }
 		] },
 		"1339": { "tests": [
@@ -1372,6 +1381,149 @@
 		] },
 		"2563": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "#2563: Wetlands (Alliance): Fall of Dun Modr is taken on its own step, only while A Grim Task is not handed in" }
+		] },
+		"2612": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2612: quests handed in at an object are never handed in to their giver" }
+		] },
+		"2575": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2575: Riverglades (Alliance): the Loose Soil goal says to loot the Farmers' Mementos from the Twilight Raiders first" }
+		] },
+		"2615": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2615: Thousand Needles (Horde): Test of Faith's leap points at the end of the planks" }
+		] },
+		"2650": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2650: Hillsbrad (Horde): Citizen Wilkes is looked for on the west side of the town" }
+		] },
+		"2604": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2604: Stranglethorn (Alliance): Skullsplitter Tusks are looked for in the trolls' camp at Zul'Mamwe" }
+		] },
+		"2606": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/lookup.rs", "test": "a_quest_lookup_opens_the_class_guide_that_lists_it_2606" }
+		] },
+		"2588": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-arrow-look.rs", "test": "the_backing_plate_is_as_wide_as_the_widest_line_it_backs_2588" }
+		] },
+		"2589": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/ui-look-toasts.rs", "test": "the_essentials_tracker_band_keeps_its_height_when_the_pointer_picks_a_shorter_one_2589" }
+		] },
+		"2582": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "an_ender_who_stands_only_inside_a_dungeon_is_its_entrance_2582" }
+		] },
+		"2619": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-sections.rs", "test": "a_profession_guide_starts_at_the_player_s_skill_asks_only_for_what_is_still_needed_and_keeps_a_missing_rank" }
+		] },
+		"2614": { "tests": [
+			{ "node": "tests/placeholder-names.test.js", "test": "#2614: no guide pack shows the game's placeholder names (\"[DNT] Kill Credit\", \"PvP Tower Credit Marker\", \"Trigger Ichman\")" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/placeholders.rs", "test": "a_goal_on_a_credit_target_reads_as_its_quest_log_line_never_kill_the_placeholder" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/placeholders.rs", "test": "lookups_quest_step_never_names_a_credit_target" }
+		] },
+		"2711": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2711: The Hinterlands (Alliance): Facing Negolash brings his food to the lifeboat before the kill" }
+		] },
+		"2712": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2712: Riverglades (Horde): Stick 'Em points at the crocolisks in the river" }
+		] },
+		"2694": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2694: Stranglethorn (Alliance): the Cook in the Cage's supply crate is reached through the cave" }
+		] },
+		"2691": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2691: Engineering: Kor'gar is looked for where he sells, at Powderfuse Port 77.6,50.95" }
+		] },
+		"2715": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-guide-end.rs", "test": "a_last_step_at_the_hub_the_guide_starts_from_with_its_flight_path_known_is_no_end_ahead_2715" }
+		] },
+		"2692": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/ui-lookup.rs", "test": "the_codex_line_leaves_the_tab_row_with_the_section_and_comes_back_with_it_2692" }
+		] },
+		"2698": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/ui-quest-unlocks.rs", "test": "more_than_four_follow_ups_list_four_then_how_many_more" }
+		] },
+		"2708": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/automation.rs", "test": "an_escort_is_not_auto_accepted_in_a_group_alone_it_is_2708" }
+		] },
+		"2714": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/lookup-guides.rs", "test": "a_quest_s_how_is_its_step_s_note_2714" }
+		] },
+		"2681": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine.rs", "test": "a_quest_still_in_the_log_is_not_handed_in_whatever_its_later_chain_says_2681_ishamuhale" }
+		] },
+		"2683": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine.rs", "test": "a_quest_still_in_the_log_is_not_handed_in_whatever_its_later_chain_says_2681_ishamuhale" }
+		] },
+		"2682": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-upgrade.rs", "test": "the_arrow_leads_to_a_carried_quest_s_work_an_update_put_behind_the_player_before_its_hand_in_on_the_live_step" }
+		] },
+		"2595": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-upgrade.rs", "test": "the_arrow_leads_to_a_carried_quest_s_work_an_update_put_behind_the_player_before_its_hand_in_on_the_live_step" }
+		] },
+		"2677": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/lookup-guides.rs", "test": "a_quest_started_from_an_item_goes_where_the_item_drops_first_2677" }
+		] },
+		"2684": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2684: Hinterlands (Alliance): Repurposed Totems says the totems also lie on the ground" }
+		] },
+		"2673": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2673: Hillsbrad (Horde): the guide ends at Orgrimmar's wind rider master, where the next guide flies on" }
+		] },
+		"2686": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_follow_up_handed_in_at_one_talk_is_never_taken_its_items_come_first_then_the_hand_in_2686_bloodpetal_sprouts" }
+		] },
+		"2509": { "tests": [
+			{ "node": "tests/guides-floors.test.js", "test": "every guide's goal in ${b.name} comes after a goto at its way in (${b.issue})" }
+		] },
+		"2203": { "tests": [
+			{ "node": "tests/guides-floors.test.js", "test": "every guide's goal in ${b.name} comes after a goto at its way in (${b.issue})" }
+		] },
+		"2512": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "forever/horde/30-40/01-hillsbrad-foothills.guide: Acen's report (#2512): the jailors' keys before their locks" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/compat.rs", "test": "getitemcount_counts_a_key_on_the_keyring_once_whether_the_client_counts_the_keyring_or_not" }
+		] },
+		"2672": { "tests": [
+			{ "node": "tests/data-corrections.test.js", "test": "quest givers who walk a path have points along it, not one spot (#2519, #2672, #1237)" }
+		] },
+		"2433": { "tests": [
+			{ "node": "tests/travel-chains.test.js", "test": "a Druid with Teleport: Moonglade goes from Stormwind to Darnassus by Moonglade, not the boat (#2433, #2463)" }
+		] },
+		"2163": { "uncheckable": "the reporter found the arrow going round the ridge on 0.4.0 and closed it fixed (the 0.4.0 walking maps); no change in 0.4.1 to pin" },
+		"2559": { "tests": [
+			{ "cargo": "forge-data", "target": "lib", "file": "rust/crates/forge-data/src/kb.rs", "test": "portal_trainers_are_no_class_trainers_and_an_earlier_builds_entry_goes_2559" }
+		] },
+		"2602": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-smart.rs", "test": "a_class_trainer_the_character_has_outgrown_comes_after_every_other_beside_the_player_or_not_2477" }
+		] },
+		"2607": { "uncheckable": "the reporter found it fixed on 0.4.0.1 (Orgrimmar's walks on the 0.4.0 maps) and it was closed; no change in 0.4.1 to pin" },
+		"2611": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-sections.rs", "test": "resetting_guide_progress_clears_section_demand_memo_2611" }
+		] },
+		"2696": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/qol-target-list.rs", "test": "target_list_style_slim_rows_are_shorter_with_a_small_face_the_name_and_count" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/qol-target-list.rs", "test": "target_list_style_column_tiles_show_the_face_and_how_many_are_left" }
+		] },
+		"2704": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/bag-slots.rs", "test": "client_arrow_quest_icon_and_keep_lock_have_distinct_corners" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/bag-slots.rs", "test": "ellesmere_step_glow_and_keep_lock_follow_the_setting_and_theme" }
+		] },
+		"2746": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_page_quest_that_asks_for_a_profession_the_character_has_not_learned_is_not_picked_up" }
+		] },
+		"2792": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2792: Stranglethorn (Horde 40-50): Panther and Raptor Mastery left open get their mobs before the hand-in" }
+		] },
+		"2801": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2801: Desolace (Alliance): Karnitol's Satchel drops from the naga and never holds the route" }
+		] },
+		"2825": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2825: escort givers are looked for where they wait, not along their escort" }
+		] },
+		"2830": { "tests": [
+			{ "cargo": "forge-data", "target": "data", "file": "rust/crates/forge-data/tests/data/travel.rs", "test": "the_airship_ends_away_from_zephras_isle_stand_at_the_npc_on_their_dock_2830" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/travel.rs", "test": "the_shipped_farholde_inn_stands_at_its_innkeeper_and_the_airship_ends_on_their_docks_2830_2832" }
+		] },
+		"2831": { "tests": [
+			{ "cargo": "forge-data", "target": "lib", "file": "rust/crates/forge-data/src/codex/merge.rs", "test": "doctor_s_orderly_bandages_the_wounded_soldiers_from_the_shipped_public_mechanics_2831" }
+		] },
+		"2832": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/travel.rs", "test": "the_shipped_farholde_inn_stands_at_its_innkeeper_and_the_airship_ends_on_their_docks_2830_2832" }
 		] }
 	},
 	"seedDrift": {

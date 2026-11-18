@@ -328,14 +328,14 @@ fn source_npcs(data: &Data, first: &V, sources: &[V]) -> V {
 	}
 }
 
-/// Which of a collect's NPC sources spawn at each of its spots (#1616). Centaur Bounty's ears drop from every
-/// centaur tribe in Desolace and its spots run through all their camps, while `fromNpcs` names the five of the
-/// goal's point: at a Magram camp the target button named Kolkar. Only when some spot holds a source `fromNpcs`
-/// leaves out: those follow in `fromNpcs` (the most spawns at the spots first, up to the import string's cap),
-/// and `fromNpcsAt` gives, per spot in `spots` order, the 1-based places in `fromNpcs` of the sources spawning
-/// there (within its radius and a yard), most spawns first: "1,2;3,4;;5". Left out when that string would pass
-/// an import string's text cap.
-fn spot_npcs(data: &Data, goal: &V, sources: &[V], map: &V, f: &V) {
+/// A collect's target names follow each spot's connected spawn areas (#1869): overlapping bear populations
+/// share targets, while separate centaur camps stay apart (#1616). The spot's own sources (radius + 1 yd)
+/// lead, then other kinds linked through eligible NPC spawns within STRAY_YARDS. Only emitted when a source
+/// was missing from `fromNpcs`; its original order and caps stay. If the expanded mapping exceeds the text
+/// cap, retain the local mapping. `linked` (None: every source): the sources an area may add. A hand-placed
+/// point passes the droppers at the point: the author chose that camp over the others, so a chain of spawns
+/// must not bring the others back (Hillsbrad's 32-34 yetis beside the Foothill Caverns, #1695).
+fn spot_npcs(data: &Data, goal: &V, sources: &[V], map: &V, f: &V, linked: Option<&[V]>) {
 	let spots = goal.get("spots").items();
 	if spots.len() < 2 || !data.map_size(map).truthy() {
 		return;
@@ -349,6 +349,10 @@ fn spot_npcs(data: &Data, goal: &V, sources: &[V], map: &V, f: &V) {
 			(!pts.is_empty()).then(|| (s.get("id"), name, pts))
 		})
 		.collect();
+	let initial = goal.get("fromNpcs").items();
+	if mobs.iter().all(|m| initial.iter().any(|n| n.get("npc").strict_eq(&m.0))) {
+		return;
+	}
 	// Per spot, the mobs spawning in it: (index in mobs, spawns there), the most first.
 	let at: Vec<Vec<(usize, usize)>> = spots
 		.iter()
@@ -366,16 +370,66 @@ fn spot_npcs(data: &Data, goal: &V, sources: &[V], map: &V, f: &V) {
 			here
 		})
 		.collect();
-	let mut list: Vec<V> = goal.get("fromNpcs").items();
+	let local = pack_spot_npcs(&initial, &mobs, &at);
+	let links: Vec<bool> = mobs.iter().map(|m| linked.is_none_or(|l| l.iter().any(|s| s.get("kind").as_str() == Some("npc") && s.get("id").strict_eq(&m.0)))).collect();
+	let pts: Vec<V> = mobs.iter().flat_map(|m| m.2.iter().cloned()).collect();
+	let owners: Vec<usize> = mobs.iter().enumerate().flat_map(|(i, m)| m.2.iter().map(move |_| i)).collect();
+	let areas = spawn_areas(&pts, &data.frame(map));
+	let expanded: Vec<Vec<(usize, usize)>> = spots
+		.iter()
+		.enumerate()
+		.map(|(si, spot)| {
+			let (sx, sy, r) = (num(spot, "x"), num(spot, "y"), num(spot, "r"));
+			let mut counts = vec![0usize; mobs.len()];
+			for area in &areas {
+				if !area.iter().any(|&p| distance(data, map, px(&pts[p]), py(&pts[p]), sx, sy) <= r + 1.0) {
+					continue;
+				}
+				for &p in area {
+					counts[owners[p]] += 1;
+				}
+			}
+			let mut extra: Vec<(usize, usize)> = counts.into_iter().enumerate().filter(|&(i, n)| n > 0 && links[i] && !at[si].iter().any(|&(j, _)| i == j)).collect();
+			extra.sort_by(|a, b| b.1.cmp(&a.1).then(a.0.cmp(&b.0)));
+			at[si].iter().copied().chain(extra).collect()
+		})
+		.collect();
+	// Reserve every original local name before connected additions: the 32-name cap must not evict
+	// a creature that spawns at one of the marker circles.
+	let joined = pack_spot_npcs(&local.list, &mobs, &expanded);
+	if !local.missing_sources && !joined.missing_sources {
+		return;
+	}
+	let result = if joined.packed.len() <= crate::importstring::LIMITS.text {
+		joined
+	} else if local.missing_sources {
+		local
+	} else {
+		return;
+	};
+	if result.packed.len() > crate::importstring::LIMITS.text {
+		return;
+	}
+	goal.set("fromNpcs", result.list);
+	goal.set("fromNpcsAt", result.packed);
+}
+
+struct SpotNpcMapping {
+	list: Vec<V>,
+	packed: String,
+	// Missing from the initial list, even when the source cap prevents appending them.
+	missing_sources: bool,
+}
+
+fn pack_spot_npcs(initial: &[V], mobs: &[(V, String, Vec<V>)], at: &[Vec<(usize, usize)>]) -> SpotNpcMapping {
+	let mut list = initial.to_vec();
 	let mut ids: Vec<V> = list.iter().map(|n| n.get("npc")).collect();
 	let mut total = vec![0usize; mobs.len()];
 	for &(i, n) in at.iter().flatten() {
 		total[i] += n;
 	}
 	let mut left: Vec<usize> = (0..mobs.len()).filter(|&i| total[i] > 0 && !includes(&ids, &mobs[i].0)).collect();
-	if left.is_empty() {
-		return;
-	}
+	let missing_sources = !left.is_empty();
 	left.sort_by(|&a, &b| total[b].cmp(&total[a]).then(a.cmp(&b)));
 	for i in left {
 		if list.len() >= crate::importstring::LIMITS.from_npcs {
@@ -389,11 +443,7 @@ fn spot_npcs(data: &Data, goal: &V, sources: &[V], map: &V, f: &V) {
 		.map(|here| here.iter().filter_map(|&(i, _)| ids.iter().position(|id| id.strict_eq(&mobs[i].0)).map(|k| (k + 1).to_string())).collect::<Vec<_>>().join(","))
 		.collect::<Vec<_>>()
 		.join(";");
-	if packed.len() > crate::importstring::LIMITS.text {
-		return;
-	}
-	goal.set("fromNpcs", list);
-	goal.set("fromNpcsAt", packed);
+	SpotNpcMapping { list, packed, missing_sources }
 }
 
 /// The quests that hand item `item` over when taken (their `sourceItem`), by quest id.
@@ -715,12 +765,9 @@ fn walk(data: &Data, map: &V, spots: &[V], x: f64, y: f64) -> Vec<V> {
 	out
 }
 
-/// The stray spawns of `pts` (see spawn_spots, "Strays"), as a set of point identities.
-fn stray_points(pts: &[V], frame: &V) -> FxHashSet<usize> {
-	let mut strays = FxHashSet::default();
-	if pts.len() <= SPOT_CAP {
-		return strays;
-	}
+/// Connected spawn areas, as point indices: each link is at most STRAY_YARDS, measured in the map's frame.
+/// No source identity joins separate areas, and small populations have areas too.
+fn spawn_areas(pts: &[V], frame: &V) -> Vec<Vec<usize>> {
 	let (sx, sy) = crate::cluster::scale_of(frame);
 	let mut root: Vec<usize> = (0..pts.len()).collect();
 	fn find(root: &mut Vec<usize>, i: usize) -> usize {
@@ -757,11 +804,21 @@ fn stray_points(pts: &[V], frame: &V) -> FxHashSet<usize> {
 		});
 		groups[k].1.push(i);
 	}
-	let biggest = js_max(groups.iter().map(|g| g.1.len() as f64));
+	groups.into_iter().map(|(_, points)| points).collect()
+}
+
+/// The stray spawns of `pts` (see spawn_spots, "Strays"), as a set of point identities.
+fn stray_points(pts: &[V], frame: &V) -> FxHashSet<usize> {
+	let mut strays = FxHashSet::default();
+	if pts.len() <= SPOT_CAP {
+		return strays;
+	}
+	let groups = spawn_areas(pts, frame);
+	let biggest = js_max(groups.iter().map(|g| g.len() as f64));
 	if biggest < STRAY_SHARE * pts.len() as f64 {
 		return strays;
 	}
-	for (_, g) in &groups {
+	for g in &groups {
 		if g.len() <= STRAY_MAX {
 			for &i in g {
 				strays.insert(ptr_key(&pts[i]));
@@ -2795,10 +2852,11 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 					// What the guide window reads before the quest is in the log, and its "Use <item>:" (#942):
 					// the data's objectives (text, count) and the item the quest hands over when taken.
 					let objs: V = V::arr();
+					// A placeholder's text ("[DNT] Kill Credit") never reaches the window: the name it carries, or no line.
 					for o in q.get("objectives").items() {
-						if o.get("text").truthy() {
+						if let Some(text) = o.get("text").as_str().and_then(crate::placeholder::shown) {
 							let e: V = V::obj();
-							e.set("text", V::from(o.get("text").to_js_string()));
+							e.set("text", V::from(text));
 							e.set("count", if o.get("count").num() > 0.0 { o.get("count").num() } else { 1.0 });
 							objs.push(e);
 						}
@@ -3750,7 +3808,7 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 				set_if(&goal, "fromNpcs", source_npcs(data, &c, &picked.get("sources").items()));
 				// A `loop` step's goals take its gotos as their spots (apply_loop).
 				if !ctx.loop_ {
-					spot_npcs(data, &goal, &srcs, &pmap, &pf);
+					spot_npcs(data, &goal, &srcs, &pmap, &pf, None);
 				}
 			}
 		} else if explicit && !goal.get("x").is_undef() {
@@ -3818,7 +3876,7 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 				let own = point_sources(data, &sources, &gmap, &gf, gx, gy, near);
 				let first = own.first().cloned().unwrap_or_default();
 				set_if(&goal, "fromNpcs", source_npcs(data, &first, &own));
-				spot_npcs(data, &goal, &sources, &gmap, &gf);
+				spot_npcs(data, &goal, &sources, &gmap, &gf, Some(&own));
 			}
 		}
 	} else if recorded && explicit && !goal.get("x").is_undef() {
@@ -3906,7 +3964,46 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 	if !goal.get("grind").is_undef() && goal.get("x").is_undef() {
 		r.warn(&ln, format!("`grind {}` has no known spawns here: the arrow keeps the step's goto", goal.get("grind")), None);
 	}
+	if v == "kill" || v == "talk" {
+		placeholder_target(&goal, &g.get("note"), r, &ln);
+	}
 	goal
+}
+
+/// A `kill` or `talk` goal on one of the game's placeholder targets (#2614: Alterac Valley's "PvP Graveyard
+/// Credit Marker" and "Trigger Ichman", a "[DNT] Kill Credit"): read by its quest-log line (`logLine`, the
+/// engine's line in the game's words), named for the window by the name the placeholder carries, else its
+/// objective's own text, else the goal's note; its NPC dropped (after its place was taken from its spawns),
+/// so nothing names or targets the placeholder. One with none of the three is an error.
+fn placeholder_target(goal: &V, note: &V, r: &mut R, ln: &V) {
+	let data = r.data;
+	let npc = goal.get("npc");
+	let Some(name) = (if npc.is_undef() { None } else { name_of(data, "npc", &npc) }) else { return };
+	if !crate::placeholder::banned(&name) {
+		return;
+	}
+	let objective = || {
+		let i = goal.get("oi").num();
+		if goal.get("quest").is_undef() || !(i >= 1.0 && is_integer(i)) {
+			return None;
+		}
+		let o = data.quest(&goal.get("quest")).get("objectives").at(i as usize - 1);
+		o.get("text").as_str().and_then(crate::placeholder::shown)
+	};
+	let shown = crate::placeholder::carried(&name).or_else(objective).or_else(|| note.as_str().and_then(crate::placeholder::shown));
+	let Some(shown) = shown else {
+		r.err(
+			ln,
+			format!("npc {npc} is the game's placeholder \"{name}\", and nothing names what the player does"),
+			Some("bind it to its objective (`quest Q.O`) and give the objective its text in forever-db/corrections/quests.json, or add a `--` note"),
+		);
+		return;
+	};
+	goal.set(if goal.get("t").as_str() == Some("talk") { "npcName" } else { "target" }, shown);
+	goal.set("logLine", true);
+	if let Some(o) = goal.as_obj() {
+		o.delete("npc");
+	}
 }
 
 /// Warn when explicit coordinates are far from every known spawn (same map frame only).

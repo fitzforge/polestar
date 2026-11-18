@@ -528,6 +528,20 @@ step Target: Writhing Haunt
   accept 5234                         -- from the cauldron, for Shadow Priestess Vandis at the Bulwark
 
 step Mulgris Deepriver
+  when !onquest 4984
+  when !turnedin 4984
+  tip You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.
+  accept 4984                         -- Inside
+
+step The Writhing Haunt
+  when !turnedin 4984
+  kill 1817 quest 4984.1              -- Diseased Wolf
+
+step Mulgris Deepriver
+  when !turnedin 4984
+  turnin 4984                         -- Inside
+
+step Mulgris Deepriver
   tip Mulgris camps by the Writhing Haunt, beside the cauldron; his bears roam the hills north and east of it, on the way to Gahrron's Withering.
   accept 4985                         -- Inside
 

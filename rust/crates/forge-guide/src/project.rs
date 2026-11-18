@@ -119,13 +119,14 @@ impl Lap {
 	}
 }
 
-/// Lint in memory (the planner's and wasm's entry point): every compile check on `sources`, plus the solo
-/// policy against `excluded` (validate_solo_policy's `{ <Faction>: { <quest id>: entry } }`, or an empty
-/// object). -> the diagnostics, sorted as the CLI prints them.
+/// Lint in memory (the planner's and wasm's entry point): every compile check on `sources`, the play checks as
+/// errors in our pack, plus the solo policy against `excluded` (validate_solo_policy's `{ <Faction>: { <quest id>:
+/// entry } }`, or an empty object). -> the diagnostics, sorted as the CLI prints them.
 pub fn lint_sources(sources: &[Source], data: &Data, excluded: &V) -> Vec<crate::diag::Diag> {
 	let mut diag = Diagnostics::new();
 	let opts = CompileOpts { pack: None, author: None, context: None, pack_dir: None };
 	let c = compile_sources(sources, data, &mut diag, &opts);
+	diag.promote_play_checks();
 	crate::validate::validate_solo_policy(&c.guides, excluded, &mut diag);
 	diag.sorted()
 }

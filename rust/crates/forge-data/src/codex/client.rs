@@ -120,6 +120,7 @@ pub struct ClientFacts {
 	pub build: String,
 	pub era_build: Option<String>,
 	pub items: BTreeMap<i64, ClientItem>,
+	pub item_only: BTreeMap<i64, ClientItem>,
 	pub spell_names: FxHashMap<i64, String>,
 	pub mount_aura: FxHashSet<i64>,
 	pub teaches: FxHashMap<i64, i64>,
@@ -161,8 +162,11 @@ pub fn client_facts(tables: &Tables, build: &str) -> ClientFacts {
 			},
 		);
 	}
+	// The Item table covers boss gear whose ItemSparse row is absent from the export.
+	let mut item_only: BTreeMap<i64, ClientItem> = BTreeMap::new();
 	for r in rows(tables, "Item") {
-		let Some(it) = int(r, "ID").and_then(|id| items.get_mut(&(id as i64))) else { continue };
+		let Some(id) = truthy_int(r, "ID").map(|id| id as i64) else { continue };
+		let it = items.get_mut(&id).unwrap_or_else(|| item_only.entry(id).or_default());
 		it.class_id = int(r, "ClassID");
 		it.subclass_id = int(r, "SubclassID");
 		it.inventory_type = int(r, "InventoryType");
@@ -185,7 +189,7 @@ pub fn client_facts(tables: &Tables, build: &str) -> ClientFacts {
 		super::util::ord(d)
 	});
 	for (item, effect) in &links {
-		let Some(it) = item.and_then(|i| items.get_mut(&(i as i64))) else { continue };
+		let Some(it) = item.and_then(|i| items.get_mut(&(i as i64)).or_else(|| item_only.get_mut(&(i as i64)))) else { continue };
 		let Some(effect) = effect else { continue };
 		let Some(spell) = truthy_int(effect, "SpellID") else { continue };
 		let trig = int(effect, "TriggerType");
@@ -288,6 +292,7 @@ pub fn client_facts(tables: &Tables, build: &str) -> ClientFacts {
 		build: build.to_string(),
 		era_build: None,
 		items,
+		item_only,
 		spell_names,
 		mount_aura,
 		teaches,
