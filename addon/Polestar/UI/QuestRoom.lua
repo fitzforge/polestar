@@ -100,15 +100,7 @@ local function build()
 	F.List.Child:SetWidth(WIDTH - PAD * 2)
 
 	F.GuideMe = W.Button(F, L["Guide me"], function()
-		local Lk = ns.Lookup
-		local gid, why = Lk and Lk.Guide and Lk.Guide("carried", "log")
-		if gid then
-			F:Hide()
-		elseif why == "tabs" then
-			ns.Print(L["Six tabs is the limit. Close one to open another."])
-		else
-			ns.Print(L["None of these has a known place to hand it in."])
-		end
+		if UI.GuideCarried() then F:Hide() end
 	end, { height = 28 })
 	F.GuideMe:Hide()
 	-- Between the two lists: the finished quests while Make room is shown, and back.
@@ -295,6 +287,21 @@ function UI.ShowQuestRoom(mode, guideId)
 	F:Show()
 	F:Raise()
 	UI.LayoutQuestRoom()
+end
+
+-- Guide me on the "carried" list, and the guide window's menu: the hand-in
+-- guide for the finished quests no open route hands in (Lookup planner kind
+-- "carried", id "log"). -> its guide id, or nil with the reason in chat.
+function UI.GuideCarried()
+	local Lk = ns.Lookup
+	local gid, why = Lk and Lk.Guide and Lk.Guide("carried", "log")
+	if gid then return gid end
+	if why == "tabs" then
+		ns.Print(L["Six tabs is the limit. Close one to open another."])
+	else
+		ns.Print(L["None of these has a known place to hand it in."])
+	end
+	return nil
 end
 
 ns.On("SHOW_QUEST_ROOM", function() UI.ShowQuestRoom() end)
