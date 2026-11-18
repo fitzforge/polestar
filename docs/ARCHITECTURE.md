@@ -9120,7 +9120,8 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   under `ui.reduceMotion`), follows the window, flips below it when the
   screen has no room above (rechecked after a drag), or when above it would
   cover the quest buttons or their target list (`Buttons.Covers`, rechecked on
-  `QUEST_BUTTONS_PLACED`, #2629), and hides with it. It
+  `QUEST_BUTTONS_PLACED`, #2629: fired once a frame at most, the card placed
+  again only when the covered boxes changed, #2772), and hides with it. It
   shows for a chain of the character's class whose start has a giver for
   its race and side (`starts[q].r`, "<race>:<A|H>"), not a level-1 one (learned
   at the start), opening at the new level (PLAYER_LEVEL_UP) or in the last
