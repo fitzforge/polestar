@@ -156,7 +156,7 @@ return {
 	-- Step 32: Druid trainer
 	["Druid trainer"] = "Instructor de druidas",
 	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {area:87} Goldshire
-	["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "",
+	["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "{npc:5504} en {zone:1453}; {area:87} no tiene instructor de druidas",
 
 	-- Step 34: Class trainer
 	["Class trainer"] = "Instructor de clase",
@@ -164,7 +164,7 @@ return {
 	-- Step 35: Shaman trainer
 	["Shaman trainer"] = "Instructor de chamanes",
 	-- {npc:257446} Teo Hammerstorm · {zone:1426} Dun Morogh · {area:87} Goldshire
-	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "",
+	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "{npc:257446} en {zone:1426}; {area:87} no tiene instructor de chamanes",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "Los Abrecaminos Bosque Negro y los Soplavientos Bosquenegro ocupan el campamento al sureste de {area:442}.",
