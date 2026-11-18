@@ -104,6 +104,18 @@ test("the city gate's ends: a landing on the flight master's floor, an NPC the m
 	assert.equal(anchorEnds(g, { ...trip, B: { ...lab, npc: 1 } }, taxi, npcZ).B.z, 39.5, 'no height known');
 });
 
+test('a replay uses the walked NPC floor when the matcher put an interaction on an unsupported floor', () => {
+	const { anchorEnds } = require('../tools/lib/nav/city/gate');
+	const g = { colIndex: () => 0, colNodes: () => [0, 1, 2], nz: [1327, 1352.7, 1367] };
+	const end = { kind: 'turnin', npc: 3516, wx: 100, wy: 100, z: 1352.7, node: 1, anchored: true };
+	const trip = { c: 1, A: end, B: { kind: 'taxi' } };
+	const anchor = (z, walked) => anchorEnds(g, trip, [], () => z, walked);
+	assert.deepEqual(anchor(1367, v => v === 2).A, { ...end, z: 1367, node: 2, was: 1352.7 });
+	assert.equal(anchor(1367, v => v !== 0).A, end, 'keep the recorded match when both floors are walked');
+	assert.equal(anchor(1367, v => v === 0).A, end, 'another occupied floor does not establish the NPC floor');
+	assert.equal(anchor(1357, v => v === 2).A, end, 'a small height discrepancy is not a different floor');
+});
+
 // The floor players stand on at an NPC whose spawns give no height there (nav city npc-floors): the Great Cat Spirit
 // talks from a dais 90 yd from his classic-db spawn, read 487.5 or 492 (two surfaces 4 yd apart: one level); Norric
 // Lochthane's mine holds floors at 300 and 310 (23 of 32 people at 300: kept); two people say nothing.

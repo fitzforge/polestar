@@ -95,17 +95,20 @@ function landZ(taxi, npcZ, c, wx, wy) {
 
 // A trip's ends on the floor the game puts them on, where the matcher could only guess: a landing on its flight
 // master's floor (the recording has only the taxi node's spot, and the matcher may put it on the ground under the
-// tower, Orgrimmar's and Thunder Bluff's, where players then drop to), and an NPC's end the match had no spawn height
-// for (Forever's own NPCs, whose heights came with the Forever TDB) on that NPC's. Each moves to the grid level
-// nearest that height (within 8 yd) at its spot that players walk (walked(node): 3+ training people), else stays;
-// `was` keeps the matched height.
+// tower, Orgrimmar's and Thunder Bluff's, where players then drop to), or an NPC interaction. `anchored` means
+// the matcher had a spawn height, not that it reached it. Preserve its choice unless that floor is unwalked and
+// differs by more than 10 yd from the NPC. In that case require a walked surface within the matcher's 4 yd anchor
+// tolerance; for missing heights and landings use 8 yd. `was` keeps the original matched floor.
 function anchorEnds(g, t, taxi, npcZ, walked = () => true) {
 	const fix = (e) => {
-		const z = e.kind === 'land' ? landZ(taxi, npcZ, t.c, e.wx, e.wy) : !e.anchored && e.npc ? npcZ(e.npc, e.wx, e.wy) : null;
+		if (e.anchored && e.kind !== 'land' && walked(e.node)) return e;
+		const z = e.kind === 'land' ? landZ(taxi, npcZ, t.c, e.wx, e.wy) : e.npc ? npcZ(e.npc, e.wx, e.wy) : null;
+		const known = e.anchored && e.kind !== 'land';
+		if (known && z !== null && Math.abs(z - e.z) <= 10) return e;
 		const ci = z === null ? -1 : g.colIndex(e.wx, e.wy);
 		if (ci < 0) return e;
 		let node = -1;
-		for (const v of g.colNodes(ci)) if (Math.abs(g.nz[v] - z) <= 8 && walked(v) && (node < 0 || Math.abs(g.nz[v] - z) < Math.abs(g.nz[node] - z))) node = v;
+		for (const v of g.colNodes(ci)) if (Math.abs(g.nz[v] - z) <= (known ? 4 : 8) && walked(v) && (node < 0 || Math.abs(g.nz[v] - z) < Math.abs(g.nz[node] - z))) node = v;
 		return node < 0 || node === e.node ? e : { ...e, z: g.nz[node], node, was: e.z };
 	};
 	const A = fix(t.A);
