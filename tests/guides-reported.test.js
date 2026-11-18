@@ -2063,6 +2063,24 @@ test('forever/horde/30-40/03-stranglethorn-vale.guide: no Green Hills chapters o
 	assert.ok(!list.some(({ goal }) => [1182, 1183].includes(goal.quest)), 'no Goblin Sponsorship part 4 or 5 here');
 });
 
+// #2706 (cameronmoten): the Young Panther arrow started at a lone spawn west of the river; players' recordings put most
+// Young Panther kills across it at 39-45, 9-15 on both routes. Stranglethorn Tigers come in two groups of about the same
+// size, west and east of Nesingwary's camp: the Horde step that also takes the geologists by Lake Nazferiti points at
+// the eastern group, and its tip names both. The quest order stays as it was.
+test('Stranglethorn Vale 30-40: the Young Panther arrow points across the river, the Horde tiger arrow east toward the lake (#2706)', { skip }, () => {
+	const near = (g, x, y) => g.x != null && Math.abs(g.x - x) < 0.6 && Math.abs(g.y - y) < 0.6;
+	const cases = [
+		['forever/alliance/30-40/04-stranglethorn-vale.guide', 683, 190, 39.81, 11],
+		['forever/horde/30-40/03-stranglethorn-vale.guide', 683, 190, 39.81, 11],
+		['forever/horde/30-40/03-stranglethorn-vale.guide', 682, 186, 45, 15],
+	];
+	for (const [guide, npc, q, x, y] of cases) {
+		const list = goals(guide);
+		const { goal } = list[at(list, `kill ${npc} quest ${q}`, (g) => g.t === 'kill' && g.npc === npc && g.quest === q)];
+		assert.ok(near(goal, x, y), `${guide}: kill ${npc} for ${q} points at ${x},${y} (got ${goal.x},${goal.y})`);
+	}
+});
+
 // #1976 (TriageNav) and the Horde 30-40/40-50 audit (0.4.0): Gadgetzan's flight path is learned on the way back
 // from the Mirage Raceway (the walk to Gadgetzan and the flight to Freewind Post beat the walk west across the flats:
 // the addon's travel planner takes that way itself), so the 40-50 guide can fly to Gadgetzan. Since the level tidy
