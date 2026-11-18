@@ -3972,6 +3972,50 @@ function Own.levelCover(s, goal)
 	return xp, covered
 end
 
+-- A `use` with no quest whose work the step's next quest goal counts more
+-- than once, one count per use: tame a kodo with the Kodo Kombobulator at
+-- the graveyard, walk it to Smeed's camp and talk to it, five times (Kodo
+-- Roundup, #2666). Once the item is used (Own.latchCast) the use reads done
+-- until that goal counts one more (the arrow goes on to the camp), then it
+-- is open again (back to the graveyard). A use with no count after it for
+-- USE_HOLD seconds opens again too (the kodo died or wandered off): in
+-- players' recordings the walk back took at most 298 seconds (309 kodos,
+-- median 60). Kept for the session: after a /reload the use is open until
+-- it is used again. Own.useFeed(s, g) -> j, goal of that quest goal | nil.
+Own.USE_HOLD = 300
+Own.useHeld = {} -- "<guide>:<s>:<g>" -> { n = the goal's count at the use, at = GetTime() }
+function Own.useFeed(s, g)
+	local goals = guide.steps[s].goals
+	local goal = goals[g]
+	if not goal or goal.t ~= "use" or goal.quest or goal.optional or not goal.item then return nil end
+	for j = g + 1, #goals do
+		local later = goals[j]
+		if later.quest and not later.optional and goalApplies(later) then
+			if not (later.oi and (later.t == "talk" or later.t == "kill" or later.t == "interact")) then return nil end
+			local done, _, max = goalDone(s, j, later)
+			if done or (max or 0) <= 1 then return nil end
+			return j, later
+		end
+	end
+	return nil
+end
+function Own.useHolds(s, g)
+	local key = guide.id .. ":" .. s .. ":" .. g
+	local h = Own.useHeld[key]
+	if not h then return false end
+	local j, feed = Own.useFeed(s, g)
+	local cur
+	if j then
+		local _, c = goalDone(s, j, feed)
+		cur = c
+	end
+	if not cur or cur > h.n or GetTime() - h.at > Own.USE_HOLD then
+		Own.useHeld[key] = nil
+		return false
+	end
+	return true
+end
+
 -- Whether a later goal of step s uses the item untied collect goal g gathers
 -- (`use <item>`) and is done: the collect is then done too, so a quest whose
 -- work was the use, done before (Trial of the Lake's Shrine Bauble for a
@@ -4070,6 +4114,9 @@ function Own.goalDoneLive(s, g, goal)
 			local done = goalDone(s, g + 1, result)
 			return done
 		end
+		-- Used, its count still to come (Own.useHolds: the tamed kodo on its
+		-- way to Smeed's camp, #2666).
+		if t == "use" and Own.useHolds(s, g) then return true end
 		-- One with no quest (the Runes of Summoning before the voidwalker,
 		-- #1120): done once a later quest goal of the step is, so the work it
 		-- led to, done or handed in, never leaves it holding the step.
@@ -8592,6 +8639,15 @@ function Own.latchCast(spellID)
 				local key = s .. ":" .. g
 				if not m[key] then
 					m[key] = summoned and ("item-cast:" .. goal.quest) or true
+					hit = true
+				end
+			elseif goal.t == "use" and not goal.quest and goal.item and goalApplies(goal) and Compat().GetItemSpellID(goal.item) == spellID then
+				-- A use whose work a later goal counts per use (Own.useFeed):
+				-- held from this cast until that count goes up (#2666).
+				local j, feed = Own.useFeed(s, g)
+				if j then
+					local _, cur = goalDone(s, j, feed)
+					Own.useHeld[guide.id .. ":" .. s .. ":" .. g] = { n = cur or 0, at = GetTime() }
 					hit = true
 				end
 			end
