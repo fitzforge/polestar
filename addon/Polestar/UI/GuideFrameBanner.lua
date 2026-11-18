@@ -355,12 +355,19 @@ ns.UI.GuideFrame.Part(function(GF)
 
 	-- One link-style action in the banner (label, chevron), `x` right of the
 	-- text's left edge. It never runs past the text's column: a label too long
-	-- for it (a guide's whole title) is cut short with "…".
+	-- for it (a guide's whole title) is cut short with "…". A second action
+	-- that would be cut short beside the first takes its own line under it.
+	local secondRow = false -- a second action on its own line
 	local function placeLink(link, text, x, y)
 		link.Label:SetWordWrap(false)
 		link.Label:SetWidth(0)
 		link.Label:SetText(text)
 		local room = floor(banner.Text:GetWidth() - x - 16)
+		if x > 0 and link.Label:GetStringWidth() > room then
+			x, y = 0, y - 18 - 4
+			room = floor(banner.Text:GetWidth() - 16)
+			secondRow = true
+		end
 		if room > 0 and link.Label:GetStringWidth() > room then link.Label:SetWidth(room) end
 		link:SetWidth(floor(link.Label:GetStringWidth() + 16 + 0.5))
 		link:ClearAllPoints()
@@ -377,6 +384,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		banner.Jump.psDefault = (kind == "group" or kind == "lost" or kind == "dungeon" or kind == "dungeonRun") or nil -- the gamepad's first focus (UI/GamepadGuide.lua)
 		banner.Text:SetWidth(width - PAD * 2 - 21 - 24)
 		banner.Later:Hide()
+		secondRow = false
 		local oneLine = false -- no link row under the text
 		if kind == "skipped" then
 			banner.Icon:SetTexture(Theme.Media("skip"))
@@ -677,7 +685,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			placeLink(banner.Jump, n.kind == "old" and L["How to update"] or L["Update"], 0, -4)
 			banner.Close:SetShown(n.closable)
 		end
-		local h = floor(9 + banner.Text:GetStringHeight() + (oneLine and 0 or 4 + 18) + 9 + 0.5)
+		local h = floor(9 + banner.Text:GetStringHeight() + (oneLine and 0 or 4 + 18) + (secondRow and banner.Later:IsShown() and 4 + 18 or 0) + 9 + 0.5)
 		banner:SetHeight(h)
 		return h
 	end
