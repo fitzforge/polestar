@@ -1486,3 +1486,26 @@ emit(out)`,
 	assert.equal(out.here.sub, 0, "While you're here: its second line unseen");
 	assert.equal(out.here.subAfter, 0, 'and still unseen when Polestar shows it again');
 });
+
+// Every button of the header bar takes the skin's plate alike: Hearth's plank
+// on all of them (Skip and All steps with Menu, Lookup, Report, Nearby), none
+// of them in another skin.
+test('the header bar buttons are plated alike in Hearth and bare in Polestar', () => {
+	const script = (skin) => `${GUIDE}
+Polestar.Set("ui.skin", ${JSON.stringify(skin)})
+Polestar.Set("ui.shown", true)
+Polestar.UI.GuideFrame.Layout()
+stub.advance(1)
+local nav = Polestar.Theme.GuideParts().nav
+local out = {}
+for _, key in ipairs({ "Menu", "Lookup", "Report", "Nearby", "AllSteps", "Skip" }) do
+	local f = rawget(nav[key], "psFrame")
+	out[key] = f ~= nil and f:IsShown() and true or false
+end
+emit(out)`;
+	const keys = ['Menu', 'Lookup', 'Report', 'Nearby', 'AllSteps', 'Skip'];
+	for (const [skin, want] of [['hearth', true], ['polestar', false]]) {
+		const [out] = runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar'], script: script(skin) }).emitted;
+		for (const k of keys) assert.equal(out[k], want, `${skin}: ${k}`);
+	}
+});

@@ -428,7 +428,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		nav.Next:SetPoint("LEFT", nav.Steps.Count, "RIGHT", gap, 0)
 		local iw, ih, ig = Theme.Metric("guideIconBtnW", 24), Theme.Metric("guideIconBtnH", 24), Theme.Metric("guideIcon", 14)
 		-- The icon buttons right of Skip share the skin's sizes.
-		for _, key in ipairs({ "Menu", "Lookup", "Report", "Nearby" }) do
+		for _, key in ipairs({ "Menu", "Lookup", "Report", "Nearby", "AllSteps" }) do
 			local b = rawget(nav, key)
 			if b then
 				b:SetSize(iw, ih)
@@ -444,6 +444,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		banner.Close.Icon:SetSize(kit and ig or 12, kit and ig or 12)
 		Theme.KitIconButton(banner.Close)
 		nav.Skip:SetHeight(nb)
+		-- Skip's plate as its neighbours' (Hearth's plank).
+		W.SetPlated(nav.Skip, "icon")
 		nav.Steps:SetHeight(nb)
 		nav.Steps:SetPoint("LEFT", nav, "LEFT", PAD - 6, 0)
 		-- Rules: Halo's gold one under the navigator; Hearth's title bar line; the

@@ -630,9 +630,7 @@ local FRAMES = {
 	icon = { top = { 0.231, 0.149, 0.086 }, bottom = { 0.165, 0.102, 0.059 }, edge = { 0.353, 0.212, 0.094 } },
 	red = { top = { 0.353, 0.188, 0.086 }, bottom = { 0.231, 0.149, 0.086 }, edge = { 0.69, 0.478, 0.235 } },
 }
-local function iconFrame(b)
-	-- The game's looks draw their own plates, page arrows and close button.
-	Theme.KitIconButton(b)
+local function plate(b)
 	local spec = FRAMES[rawget(b, "psFramed") or ""]
 	local bliz = Theme.SkinKey() == "hearth" and spec ~= nil
 	local f = rawget(b, "psFrame")
@@ -655,6 +653,11 @@ local function iconFrame(b)
 	elseif b.psBorder then
 		for i = 1, 4 do b.psBorder[i]:Hide() end
 	end
+end
+local function iconFrame(b)
+	-- The game's looks draw their own plates, page arrows and close button.
+	Theme.KitIconButton(b)
+	plate(b)
 end
 
 function W.IconButton(parent, icon, size, tip, onClick, glyphSize)
@@ -702,6 +705,13 @@ end
 function W.SetFramed(b, kind)
 	b.psFramed = kind
 	iconFrame(b)
+end
+
+-- A text button (the header's Skip) given the same plate as the icon buttons
+-- beside it: Hearth's plank only, the game's looks keep their own glyph.
+function W.SetPlated(b, kind)
+	b.psFramed = kind
+	plate(b)
 end
 
 -- Mark an icon button as "on" (accent glyph) or dim it when disabled.
