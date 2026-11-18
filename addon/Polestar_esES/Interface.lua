@@ -3896,6 +3896,8 @@ L["The soft halo in the arrow's colour under the target's pin. Its pulse is in t
 L["One breath of the pulse: shorter is faster."] = "Una respiración del pulso: cuanto más corta, más rápido."
 L["On the minimap"] = "En el minimapa"
 L["The opacity of the soft tint over the places mobs and objects spawn, on the world map and the minimap, their outlines with it. The swatch gives every area one colour."] = "La opacidad del tinte suave sobre los lugares donde aparecen monstruos y objetos, en el mapa del mundo y el minimapa, y con ella la de sus contornos. La muestra de color da a todas las zonas un solo color."
+L["Spawn spots"] = "Puntos de aparición"
+L["Small marks on the world map where the target also spawns, each numbered in its tooltip. Click one to search there next."] = "Pequeñas marcas en el mapa del mundo donde el objetivo también aparece, cada una numerada en su descripción. Haz clic en una para buscar allí a continuación."
 L["Moving dots from you to the target on both maps while route lines are off; the slider is their size. They wear the arrow's colour; their opacity is in the cog."] = "Puntos en movimiento desde ti hasta el objetivo en ambos mapas mientras las líneas de ruta están desactivadas; el control deslizante es su tamaño. Llevan el color de la flecha; su opacidad está en el engranaje."
 L["The trail's dots on both maps."] = "Los puntos del rastro en ambos mapas."
 L["The numbered pins on the world map and the minimap. Bigger pins also grow past the usual limit on screen. Their rim colour is in the cog."] = "Los marcadores numerados en el mapa del mundo y el minimapa. Los marcadores más grandes también superan el límite habitual en pantalla. El color de su aro está en el engranaje."

@@ -3896,6 +3896,8 @@ L["The soft halo in the arrow's colour under the target's pin. Its pulse is in t
 L["One breath of the pulse: shorter is faster."] = "맥동 한 번의 길이: 짧을수록 빠릅니다."
 L["On the minimap"] = "미니맵에서"
 L["The opacity of the soft tint over the places mobs and objects spawn, on the world map and the minimap, their outlines with it. The swatch gives every area one colour."] = "몹과 사물이 등장하는 곳에 덧입히는 옅은 색의 불투명도(지도와 미니맵, 윤곽선 포함). 색상 견본으로 모든 지역을 한 가지 색으로 정합니다."
+L["Spawn spots"] = "등장 지점"
+L["Small marks on the world map where the target also spawns, each numbered in its tooltip. Click one to search there next."] = "대상이 함께 등장하는 곳을 세계 지도에 표시하는 작은 표식으로, 툴팁에 각각 번호가 붙습니다. 클릭하면 다음에 그곳을 찾습니다."
 L["Moving dots from you to the target on both maps while route lines are off; the slider is their size. They wear the arrow's colour; their opacity is in the cog."] = "경로선이 꺼져 있을 때 두 지도에서 나에게서 목표까지 움직이는 점. 슬라이더는 점 크기입니다. 화살표 색을 쓰며, 불투명도는 톱니바퀴에 있습니다."
 L["The trail's dots on both maps."] = "두 지도의 경로 점."
 L["The numbered pins on the world map and the minimap. Bigger pins also grow past the usual limit on screen. Their rim colour is in the cog."] = "지도와 미니맵의 번호 핀. 핀을 키우면 화면상의 일반 한도를 넘어 커집니다. 테두리 색은 톱니바퀴에 있습니다."

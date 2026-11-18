@@ -3896,6 +3896,8 @@ L["The soft halo in the arrow's colour under the target's pin. Its pulse is in t
 L["One breath of the pulse: shorter is faster."] = "Один цикл пульсации: чем короче, тем быстрее."
 L["On the minimap"] = "На мини-карте"
 L["The opacity of the soft tint over the places mobs and objects spawn, on the world map and the minimap, their outlines with it. The swatch gives every area one colour."] = "Непрозрачность мягкой заливки мест появления мобов и объектов на карте мира и мини-карте вместе с их контурами. Образец цвета задает всем областям один цвет."
+L["Spawn spots"] = "Точки появления"
+L["Small marks on the world map where the target also spawns, each numbered in its tooltip. Click one to search there next."] = "Небольшие метки на карте мира там, где цель тоже появляется, каждая с номером в подсказке. Нажмите на метку, чтобы искать там следующей."
 L["Moving dots from you to the target on both maps while route lines are off; the slider is their size. They wear the arrow's colour; their opacity is in the cog."] = "Движущиеся точки от вас к цели на обеих картах, когда линии маршрута выключены; ползунок задает их размер. Они цвета стрелки; непрозрачность в шестерёнке."
 L["The trail's dots on both maps."] = "Точки следа на обеих картах."
 L["The numbered pins on the world map and the minimap. Bigger pins also grow past the usual limit on screen. Their rim colour is in the cog."] = "Нумерованные метки на карте мира и мини-карте. Крупные метки могут превышать обычный предел размера на экране. Цвет ободка в шестерёнке."

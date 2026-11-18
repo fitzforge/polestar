@@ -3896,6 +3896,8 @@ L["The soft halo in the arrow's colour under the target's pin. Its pulse is in t
 L["One breath of the pulse: shorter is faster."] = "脈動一次的時間：越短越快。"
 L["On the minimap"] = "在小地圖上"
 L["The opacity of the soft tint over the places mobs and objects spawn, on the world map and the minimap, their outlines with it. The swatch gives every area one colour."] = "怪物與物件重生處的柔和色塊在世界地圖與小地圖上的不透明度，其外框也隨之調整。色票可讓所有區域使用同一種顏色。"
+L["Spawn spots"] = "重生地點"
+L["Small marks on the world map where the target also spawns, each numbered in its tooltip. Click one to search there next."] = "世界地圖上目標也會重生之處的小標記，每個在提示中帶有編號。點擊一個即接著去那裡搜尋。"
 L["Moving dots from you to the target on both maps while route lines are off; the slider is their size. They wear the arrow's colour; their opacity is in the cog."] = "路線線條關閉時，在兩張地圖上從你移向目標的點；滑桿為其大小。它們使用箭頭的顏色；不透明度在齒輪中。"
 L["The trail's dots on both maps."] = "兩張地圖上的軌跡點。"
 L["The numbered pins on the world map and the minimap. Bigger pins also grow past the usual limit on screen. Their rim colour is in the cog."] = "世界地圖與小地圖上的編號標記。較大的標記在畫面上也能超過一般的大小上限。其外圈顏色在齒輪中。"
