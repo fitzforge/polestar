@@ -27,6 +27,7 @@ fn pack_golden(cells: usize, out: &Path, generator: &str) {
 		places: None,
 		ground_cities: false,
 		ledges: false,
+		ledges_outside: false,
 		spawns: None,
 		log: &log,
 	})
@@ -89,6 +90,7 @@ fn real_pack(date: &str, name: &str) -> PathBuf {
 		places: None,
 		ground_cities: false,
 		ledges: false,
+		ledges_outside: false,
 		spawns: None,
 		log: &log,
 	})

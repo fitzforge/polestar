@@ -119,6 +119,7 @@ fn pack_into(grid: &Path, out: &Path, cells: usize) -> Result<forge_nav::pack::P
 		places: None,
 		ground_cities: false,
 		ledges: false,
+		ledges_outside: false,
 		spawns: None,
 		log: &log,
 	})?;
@@ -150,6 +151,7 @@ fn ship_writes_files_pack_json_and_nav_xml_and_check_finds_changed_missing_unlis
 		places: None,
 		ground_cities: false,
 		ledges: false,
+		ledges_outside: false,
 		spawns: None,
 		log: &|_| {},
 	})

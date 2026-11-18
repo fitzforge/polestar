@@ -231,6 +231,9 @@ pub struct PackIn<'a> {
 	pub ground_cities: bool,
 	/// Leffe's maps take our grid's ledge drops (pack/drops.rs) as one-way arcs.
 	pub ledges: bool,
+	/// With the ledges: none inside the capitals (their uiMap frames) or the zones players enter them from
+	/// (Elwynn Forest, Durotar, Dun Morogh, Mulgore, Teldrassil, Tirisfal Glades): `--ledges outside`.
+	pub ledges_outside: bool,
 	/// The NPC and quest object spawns (pack/spawns.rs spawn_points): Leffe's maps carry the heights of those that
 	/// stand where floors overlap (the spawn field). None: no spawn field.
 	pub spawns: Option<&'a [reach::Place]>,
@@ -412,6 +415,31 @@ pub fn pack_nav(i: &PackIn) -> Result<Pack, String> {
 					)
 				} else {
 					None
+				};
+				// `--ledges outside`: the drops whose ledge lies in a capital or an entrance zone go.
+				let drops = match drops {
+					Some(mut d) if i.ledges_outside => {
+						let entrance: Vec<u32> = [1429u32, 1411, 1426, 1412, 1438, 1420].iter().filter_map(|m| zones[m.to_string()]["areaId"].as_f64()).map(|a| a as u32).collect();
+						let cs = crate::grid::ADT / i.cells as f64;
+						let (x0, y0) = (cg.cx0 as f64 * crate::grid::ADT, cg.cy0 as f64 * crate::grid::ADT);
+						let ny = cg.ny as u32;
+						let mut gone = 0usize;
+						for (k, v) in d.iter_mut() {
+							let (kx, ky) = ((k / ny) as usize, (k % ny) as usize);
+							let before = v.len();
+							v.retain(|g| {
+								let (lx, ly) = (g.from as usize / i.cells, g.from as usize % i.cells);
+								let x = x0 + ((kx * i.cells + lx) as f64 + 0.5) * cs;
+								let y = y0 + ((ky * i.cells + ly) as f64 + 0.5) * cs;
+								let in_uc = undercity.is_some_and(|(uc, ux0, ux1, uy0, uy1)| uc == c && x >= ux0 && x <= ux1 && y >= uy0 && y <= uy1);
+								!(in_uc || city(c, x, y, 0) || entrance.contains(&frames.zone_area_at(c, x, y)))
+							});
+							gone += before - v.len();
+						}
+						log(&format!("Leffe's maps {c}: {gone} ledge drops left out in the capitals and their entrance zones (--ledges outside)"));
+						Some(d)
+					}
+					d => d,
 				};
 				// The Undercity stays whole (its uiMap frame, 1458): its floors are joined by lifts (the lift chokepoints,
 				// not his graph), so the walks from its fixed places miss floors players reach, and walks through it and

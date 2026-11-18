@@ -247,10 +247,11 @@ fn pack(args: &[String]) -> Result<(), Fail> {
 		Some("all") => (false, false),
 		Some(_) => return Err(usage("--ground needs reached, cities or all")),
 	};
-	let ledges = match o.get("--ledges").map(String::as_str) {
-		Some("on") => leffe.is_some(),
-		None | Some("off") => false,
-		Some(_) => return Err(usage("--ledges needs on or off")),
+	let (ledges, ledges_outside) = match o.get("--ledges").map(String::as_str) {
+		Some("on") => (leffe.is_some(), false),
+		Some("outside") => (leffe.is_some(), true),
+		None | Some("off") => (false, false),
+		Some(_) => return Err(usage("--ledges needs on, outside or off")),
 	};
 	let with_spawns = match o.get("--spawns").map(String::as_str) {
 		Some("on") => leffe.is_some(),
@@ -300,6 +301,7 @@ fn pack(args: &[String]) -> Result<(), Fail> {
 		places: places.as_deref(),
 		ground_cities,
 		ledges,
+		ledges_outside,
 		spawns: spawns.as_deref(),
 		log: &log,
 	})?;
