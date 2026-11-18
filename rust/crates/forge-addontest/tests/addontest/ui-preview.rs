@@ -409,8 +409,13 @@ fn the_hearthstone_s_two_buttons_sit_side_by_side_each_lights_its_own_and_a_sear
 		end
 		out.lights = { hearth = lights("qol.hearthButton", faces.hearth), hearthNotTravel = not lights("qol.hearthButton", travel),
 			travel = lights("nav.castPrompt", travel), travelNotHearth = not lights("nav.castPrompt", faces.hearth) }
+		-- Search finds a setting at its home: the two buttons' switches sit together on Questing > Buttons (the Buttons
+		-- page shows references to them). The first card that holds the Hearthstone's.
 		for _, q in ipairs({ "hearth", "HS", "hearthstone" }) do
-			local first = (O.Search(q))[1]
+			local first
+			for _, g in ipairs(O.Search(q)) do
+				for _, c in ipairs(g.controls) do if c.key == "qol.hearthButton" then first = first or g end end
+			end
 			local keys = {}
 			for _, c in ipairs(first and first.controls or {}) do keys[#keys + 1] = c.key end
 			out.search[q] = { title = first and first.title, keys = table.concat(keys, " ") }
@@ -421,9 +426,9 @@ fn the_hearthstone_s_two_buttons_sit_side_by_side_each_lights_its_own_and_a_sear
 	assert_eq!(out["lights"], json!({ "hearth": true, "hearthNotTravel": true, "travel": true, "travelNotHearth": true }));
 	for q in ["hearth", "HS", "hearthstone"] {
 		let s = &out["search"][q];
-		assert_eq!(s["title"], "Buttons  \u{b7}  Action buttons  \u{b7}  Buttons", "{q}: the Buttons page first: {s}");
+		assert_eq!(s["title"], "Questing  \u{b7}  Buttons  \u{b7}  Action buttons", "{q}: their home: {s}");
 		let keys = s["keys"].as_str().unwrap();
-		assert!(keys.contains("buttons.hearthSize") && keys.contains("nav.castPrompt"), "{q}: both in it: {keys}");
+		assert!(keys.contains("qol.hearthButton") && keys.contains("nav.castPrompt"), "{q}: both in it: {keys}");
 	}
 }
 

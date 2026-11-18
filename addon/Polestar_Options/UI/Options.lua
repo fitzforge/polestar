@@ -274,9 +274,8 @@ local function declare(page, key, icon, order, subtitle, tabs)
 	return out
 end
 
--- Guide > Automation's trainer reminders, also on Quality of Life > Vendors >
--- Trainers: one setting, a fresh control per page (the registry keeps
--- per-control state).
+-- The trainer reminders: their home is Quality of Life > Vendors > Trainers;
+-- Guide > Automation shows a reference.
 local function trainReminder()
 	return { kind = "dropdown", key = "behavior.trainReminder", label = L["Trainer reminders"], help = L["A note in the guide window, with the nearest trainer of your class, when new skills are waiting."],
 		search = "train, trainer, new spells, skills, abilities, level up, class trainer",
@@ -355,8 +354,8 @@ local BUILTIN = {
 			disabled = function() return not ns.Get("behavior.whileHere") end },
 	} },
 	-- The ways to show and hide Polestar without typing: UI/Launcher.lua's
-	-- floating button and the minimap button (Maps/MinimapButton.lua; also on
-	-- Map and Quality of Life), which hides everything Polestar shows (0.3.7:
+	-- floating button and the minimap button (Maps/MinimapButton.lua; a
+	-- reference on the Buttons page), which hides everything Polestar shows (0.3.7:
 	-- the arrow may stay), and the lock on the arrow and buttons. When the
 	-- window itself shows (in combat, in dungeons) is on Look > Guide window.
 	{ page = GUIDE, tab = WHILE_YOU_PLAY, section = L["Show and hide"], controls = {
@@ -395,14 +394,15 @@ local BUILTIN = {
 	{ page = GUIDE, tab = WHILE_YOU_PLAY, section = L["Position"], controls = {} },
 	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Arrow"], controls = {
 		H({ kind = "toggle", key = "nav.arrow", label = L["Show arrow"], move = "arrow", help = L["Points to the current goal. Its look and colours are on the Arrow page."],
-			search = "arrow, waypoint, pointer, direction, compass, navigation, hud",
+			search = "arrow, waypoint, pointer, direction, compass, navigation, hud, show arrow, hide arrow",
 			children = {
-				H({ kind = "toggle", key = "nav.hideArrowWithGuide", label = L["Hide the arrow with the guide"], help = L["When the guide window is hidden, hide the arrow too."] }),
+				H({ kind = "toggle", key = "nav.hideArrowWithGuide", label = L["Hide the arrow with the guide"], help = L["When the guide window is hidden, hide the arrow too."],
+					search = "hide with guide, guide hidden, window closed" }),
 			} }),
-		H({ kind = "toggle", key = "nav.arrowEta", label = L["Arrival time"], help = L["Estimated time under the distance."], search = "eta, time left, travel time" }),
-		{ kind = "dropdown", key = "nav.distanceUnit", label = L["Distances"], help = L["How the arrow, map tooltips, rares and the death helper show distances."], search = "units, yards, metres, metric, distance",
+		H({ kind = "toggle", key = "nav.arrowEta", label = L["Arrival time"], help = L["Estimated time under the distance."], search = "eta, time left, travel time, minutes, show arrival time" }),
+		{ kind = "dropdown", key = "nav.distanceUnit", label = L["Distances"], help = L["How the arrow, map tooltips, rares and the death helper show distances."], search = "units, yards, metres, meters, metric, distance, distances",
 			choices = { { value = "yards", label = L["Yards (the game's unit)"] }, { value = "metres", label = L["Metres"] } } },
-		H({ kind = "toggle", key = "nav.arrivalSound", label = L["Arrival sound"], help = L["A soft chime when you reach a waypoint."], search = "sound, chime, audio, ding" }),
+		H({ kind = "toggle", key = "nav.arrivalSound", label = L["Arrival sound"], help = L["A soft chime when you reach a waypoint."], search = "sound, chime, audio, ding, arrival sound" }),
 		H({ kind = "button", button = L["Reset"], label = L["Reset arrow position"], help = L["Back to the top of the screen. Drag the arrow to move it."],
 			onClick = function() if ns.Nav and ns.Nav.ResetArrowPosition then ns.Nav.ResetArrowPosition() end end,
 			needs = function() return ns.Nav and ns.Nav.ResetArrowPosition end }),
@@ -420,12 +420,12 @@ local BUILTIN = {
 					search = "detour, enemy town, hostile town, avoid, go round, journey" }),
 			} }),
 		H({ kind = "toggle", key = "nav.routeLines", label = L["Route lines"], help = L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."],
-			search = "path line, route on map, sparkles, dots",
+			search = "path line, route on map, show route, hide route, sparkles, dots, trail",
 			gear = { tip = L["Line style"], onClick = function() UI.ShowOptions("routelines") end },
 			children = {
 				H({ kind = "dropdown", key = "nav.lineStyle", label = L["Line style"],
 					help = L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."],
-					search = "route style, solid line, path line, dots, sparkles, breadcrumbs",
+					search = "route style, line style, solid line, path line, dots, sparkles, breadcrumbs, look",
 					choices = ns.RouteLines and ns.RouteLines.STYLE_CHOICES or {},
 					needs = function() return ns.RouteLines end }),
 			} }),
@@ -442,10 +442,6 @@ local BUILTIN = {
 	} },
 	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Other waypoints"], controls = {
 		H({ kind = "toggle", key = "nav.blizzardWaypoint", label = L["Blizzard waypoint"], help = L["Also set the game's own map pin and tracking."], search = "map pin, waypoint, user waypoint, supertrack" }),
-		H({ kind = "toggle", key = "nav.tomtom", label = L["Mirror to TomTom"], help = L["Adds the target as a TomTom waypoint when TomTom is loaded."], search = "waypoints, tomtom",
-			children = {
-				H({ kind = "toggle", key = "nav.useTomTomArrow", label = L["Use TomTom's arrow"], help = L["Hides Polestar's arrow in favour of TomTom's, except on the way to another continent, where TomTom's arrow cannot point."] }),
-			} }),
 		H({ kind = "toggle", key = "nav.arrowToFollower", label = L["Let a following addon show the way"], help = L["Hides Polestar's arrow while another addon shows Polestar's target itself, as Naowh Forever's Waypoint Pin does with Follow Polestar on. That addon also sets the game's map pin then."],
 			search = "naowh, waypoint pin, navigator bar, hide arrow, follow polestar" }),
 	} },
@@ -493,7 +489,7 @@ local BUILTIN = {
 			help = L["Where dying on purpose and taking the Spirit Healer's resurrection gets you there sooner, the guide shows a step for it. It costs durability and, from level 11, resurrection sickness. Always off on Hardcore characters."],
 			get = function() return ns.Get("behavior.deathskips") and not O.Hardcore() end,
 			disabled = function() return O.Hardcore() end },
-		trainReminder(),
+		W.Ref("dropdown", "behavior.trainReminder"),
 		{ kind = "toggle", key = "behavior.offerClassQuests", label = L["Offer class quests"],
 			help = L["When one of your class's Class guides opens (your level, its first quest), the guide window offers to open it in a tab."] },
 		{ kind = "button", button = L["Reset"], danger = true, label = L["Reset guide progress"], help = L["Manual check-offs and skips, current guide, from your last quest progress on."], confirm = true,
@@ -531,17 +527,19 @@ local BUILTIN = {
 	-- second tab holds the rest of the map: rares, travel, services and zones.
 	{ page = MAP, key = "map", icon = "icon-explore", order = 30, tab = L["Guide & quests"], section = L["Guide"],
 		subtitle = L["What Polestar draws on the world map and the minimap. Quest, rare and travel icons start off."], controls = {
-		{ kind = "toggle", key = "nav.worldPins", label = L["Guide pins on the world map"], search = "map pins, icons, markers, waypoint, world map",
+		{ kind = "toggle", key = "nav.worldPins", label = L["Guide pins on the world map"], search = "map pins, icons, markers, waypoint, world map, guide pins, target, on the world map",
 			help = L["The arrow's target, the stops of its travel route, the step's other goals, the areas their mobs and objects spawn in, and the route lines."] },
-		{ kind = "toggle", key = "nav.minimapPins", label = L["Guide pin on the minimap"], help = L["The arrow's target, the areas it spawns in, and the route line."], search = "map pins, icons, markers, waypoint, minimap" },
+		{ kind = "toggle", key = "nav.minimapPins", label = L["Guide pin on the minimap"], help = L["The arrow's target, the areas it spawns in, and the route line."], search = "map pins, icons, markers, waypoint, minimap, guide pins, target, on the minimap" },
 		H({ kind = "toggle", key = "nav.minimapRoute", label = L["Route line on the minimap"],
 			help = L["The way to the goal on the minimap. Off keeps the guide pin there and the line on the world map. Its colour, opacity and size: the gear beside Guide > Arrow & routes > Route lines."],
-			search = "route line, path, dots, minimap, herbs, gathering, mining, clutter",
+			search = "route line, path, dots, minimap, herbs, gathering, mining, clutter, route on the minimap, radar",
 			disabled = function() return not ns.Get("nav.minimapPins") end }),
 		{ kind = "toggle", key = "nav.upcomingPins", label = L["Numbered pins for the steps ahead"],
+			search = "upcoming, next steps, numbers, numbered pins, step pins, ahead, preview, plan",
 			help = L["A small pin with its step number where each of the next steps takes you, fainter the further ahead. As many as Up next shows, else five."] },
 		-- The trail stands in for route lines: shown while they are off, as on Map pins.
 		H({ kind = "toggle", key = "nav.trailDots", label = L["Trail dots along the travel route"],
+			search = "trail dots, path, route, breadcrumbs",
 			help = L["Moving dots from you to the target on the world map and the minimap, along the travel route, while route lines are off."],
 			needs = function() return not ns.Get("nav.routeLines") end }),
 	} },
@@ -1036,12 +1034,9 @@ end
 O.HomeOf = homeOf
 
 -- A reference for a page's spec: kind and key (what RegisterOptions checks),
--- `ref`, and any fields given (a shorter label, other extras).
-function O.Ref(kind, key, fields)
-	local c = { kind = kind, key = key, ref = true }
-	for k, v in pairs(fields or {}) do c[k] = v end
-	return c
-end
+-- `ref`, and any fields given (a shorter label, other extras): W.Ref
+-- (Polestar/Theme/Widgets.lua).
+O.Ref = W.Ref
 
 local function available(c)
 	if rawget(c, "ref") and not homeOf(c) then return false end

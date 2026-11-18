@@ -1015,7 +1015,8 @@ local TRAVEL_AT = { { "buttons", "Action buttons" }, { "questing", "Buttons" }, 
 local function controls()
 	local out = {}
 	Polestar.UI.ShowOptions("guide")
-	local at = { { "guide", "Arrow & routes" }, { "map", "Guide & quests" }, { "integrations" }, TRAVEL_AT[1] }
+	-- The transport alerts' home is Alerts > Transport alert; Guide > Arrow & routes holds a reference to the switch.
+	local at = { { "guide", "Arrow & routes" }, { "map", "Guide & quests" }, { "integrations" }, { "alerts", "Transport alert" }, TRAVEL_AT[1] }
 	-- The Arrow page (Look group): every tab.
 	for _, p in ipairs(O.Pages()) do
 		if p.key == "arrow" then for _, t in ipairs(p.tabs) do at[#at + 1] = { "arrow", t } end end

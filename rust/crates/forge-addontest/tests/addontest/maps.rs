@@ -774,7 +774,8 @@ fn every_maps_setting_is_registered_with_a_label_and_help_map_features_on_the_ma
 			if spec.toggle then table.insert(list, 1, spec.toggle) end
 			for _, c in ipairs(list) do
 				if c.key and c.key:find("^maps%.") then
-					if not (c.label and c.help) then missing[#missing + 1] = c.key end
+					-- A reference (W.Ref) shows its home row's label and help.
+					if not c.ref and not (c.label and c.help) then missing[#missing + 1] = c.key end
 					pages[spec.page] = pages[spec.page] or {}
 					table.insert(pages[spec.page], c.key)
 				end
@@ -792,7 +793,6 @@ fn every_maps_setting_is_registered_with_a_label_and_help_map_features_on_the_ma
 		"maps.dockPins",
 		"maps.dungeonPins",
 		"maps.innPins",
-		"maps.minimapButton",
 		"maps.minimapCoords",
 		"maps.reveal",
 		"maps.taxiPins",
@@ -811,9 +811,10 @@ fn every_maps_setting_is_registered_with_a_label_and_help_map_features_on_the_ma
 	.collect();
 	want.sort();
 	assert_eq!(sorted_strings(&out["pages"]["Map"]), want);
-	// The flight timer and instances live there; coordinates and the minimap button are there too, as the same settings.
+	// The flight timer and instances live there; the coordinates are there too, as references. The minimap button's
+	// home is Guide > While you play > Show and hide (the settings window's own rows, not loaded here).
 	assert_eq!(
 		sorted_strings(&out["pages"]["Quality of Life"]),
-		vec!["maps.coords", "maps.flightTimer", "maps.instanceDisplay", "maps.instances", "maps.minimapButton", "maps.minimapCoords", "maps.perDay", "maps.perHour"]
+		vec!["maps.coords", "maps.flightTimer", "maps.instanceDisplay", "maps.instances", "maps.minimapCoords", "maps.perDay", "maps.perHour"]
 	);
 }

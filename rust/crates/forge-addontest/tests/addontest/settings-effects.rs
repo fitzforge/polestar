@@ -156,10 +156,13 @@ local function idOf(c, page)
 	if c.kind == "binding" then return "action:" .. tostring(c.action) end
 	return (page or (c.page and c.page.name) or "?") .. ":" .. tostring(labelOf(c))
 end
-local specs = {}
+local specs, refs = {}, {}
 local function put(c, page)
-	if type(c) ~= "table" or rawget(c, "ref") then return end
+	if type(c) ~= "table" then return end
 	local id = idOf(c, page)
+	-- A reference (W.Ref) is the same setting as its home row; it stands in only where the home's page is not
+	-- loaded in this environment (the arrow's switch, homed on Guide, checked on the Arrow page's nav env).
+	if rawget(c, "ref") then refs[id] = refs[id] or c; return end
 	specs[id] = specs[id] or c
 	for _, e in ipairs(c.extras or {}) do put(e, page) end
 	for _, m in ipairs(type(c.more) == "table" and c.more or {}) do put(m, page) end
@@ -171,6 +174,7 @@ for _, spec in ipairs(W.OptionsRegistry or {}) do
 end
 local O = Polestar.UI and Polestar.UI.Options
 if O and O.AllControls then for _, c in ipairs(O.AllControls()) do put(c) end end
+for id, c in pairs(refs) do specs[id] = specs[id] or c end
 -- The value now, and another one the control could write (than `cur`, when given: a login check's default). A
 -- control with its own get/set reads and writes through them, as its widget does (the minimap size of the style in
 -- use; deathskips, off on Hardcore).

@@ -196,7 +196,8 @@ fn every_control_reads_back_what_it_writes_and_keeps_it_through_a_reload() {
 		local keep = {}
 		for _, c in ipairs(list) do keep[idOf(c)] = { v = current(c) } end
 		emit({ n = #list, bad = bad, keep = "KEEP = " .. ser(keep), db = "PolestarDB = " .. ser(PolestarDB), char = "PolestarCharDB = " .. ser(PolestarCharDB) })"#);
-	assert!(first["n"].as_f64().unwrap() >= 600.0, "every setting and state of the window: {}", first["n"]);
+	// Each setting counts once, at its home: a reference to it elsewhere is no control of its own (574 at 0.4.0).
+	assert!(first["n"].as_f64().unwrap() >= 570.0, "every setting and state of the window: {}", first["n"]);
 	let bad = list(&first["bad"]);
 	assert!(bad.is_empty(), "{} controls do not read back what they write:\n{}", bad.len(), bad.join("\n"));
 	let saved = format!("{}\n{}\n{}", text(&first["db"]), text(&first["char"]), text(&first["keep"]));
@@ -214,7 +215,7 @@ fn every_control_reads_back_what_it_writes_and_keeps_it_through_a_reload() {
 		table.sort(bad)
 		emit({ n = n, bad = bad })"#,
 	);
-	assert!(again["n"].as_f64().unwrap() >= 600.0, "every control read after the reload: {}", again["n"]);
+	assert!(again["n"].as_f64().unwrap() >= 570.0, "every control read after the reload: {}", again["n"]);
 	let bad = list(&again["bad"]);
 	assert!(bad.is_empty(), "{} controls lose their value in a reload:\n{}", bad.len(), bad.join("\n"));
 }
