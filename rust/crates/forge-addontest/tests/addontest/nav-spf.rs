@@ -4970,9 +4970,10 @@ fn city_a3_an_npc_beside_the_player_gives_the_floor_from_its_spawn_height_ambigu
 		CITY,
 		r#"
 		local r = {}
-		fake.surfaces = function() return { 40, 72 } end
+		fake.surfaces = function() return { 40, 43.5, 72 } end
 		SPAWNS[5159] = { { 10, 60, 41 } }
 		SPAWNS[5160] = { { 10, 60, 41 }, { 10, 75, 73 } }
+		SPAWNS[5162] = { { 3, 53, 41 }, { 10, 75, 73 } }
 		nav.place(0, 50)
 		UNIT.target = 5159
 		stub.fire("PLAYER_TARGET_CHANGED")
@@ -4982,6 +4983,13 @@ fn city_a3_an_npc_beside_the_player_gives_the_floor_from_its_spawn_height_ambigu
 		stub.fire("PLAYER_TARGET_CHANGED")
 		away(0, 250)
 		r.ambiguous = startZ()
+		-- Its window opened (the player beside it): only its spawns within 10 yd count, the one at 41.
+		UNIT.npc = 5162
+		stub.fire("GOSSIP_SHOW")
+		away(0, 250)
+		r.talked = startZ()
+		UNIT.npc = nil
+		stub.advance(16)
 		-- A nameplate: the newest one.
 		UNIT.target = nil
 		stub.fire("PLAYER_TARGET_CHANGED")
@@ -4993,14 +5001,18 @@ fn city_a3_an_npc_beside_the_player_gives_the_floor_from_its_spawn_height_ambigu
 		stub.advance(16)
 		away(0, 250)
 		r.stale = startZ()
-		-- With trails: asked on the NPC's level.
-		fake.trail = function(map, x, y, reach, near) if near then return near + 31, 2 end return 40, 3 end
+		-- With trails: asked on the NPC's level, taken within 4 yd of the NPC's height, else the NPC's height.
+		fake.trail = function(map, x, y, reach, near) if near then return near + 2.5, 2 end return 72, 3 end
 		stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate3")
 		fake.trailAsks = {}
 		away(0, 250)
 		r.trail = startZ()
 		r.near = false
 		for _, a in ipairs(fake.trailAsks) do if a.near then r.near = a.near end end
+		fake.trail = function(map, x, y, reach, near) if near then return near + 6, 2 end return 72, 3 end
+		stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate3")
+		away(0, 250)
+		r.farTrail = startZ()
 		-- Outside the capital an NPC there says nothing.
 		SPAWNS[5161] = { { 600, 60, 41 } }
 		fake.trail = nil
@@ -5014,10 +5026,12 @@ fn city_a3_an_npc_beside_the_player_gives_the_floor_from_its_spawn_height_ambigu
 	.concat());
 	assert_eq!(out["targeted"], 40, "the targeted NPC's spawn (41): the surface at 40");
 	assert_eq!(out["ambiguous"], "none");
+	assert_eq!(out["talked"], 40, "talked to: its spawn within 10 yd (41), not the one 25 yd off at 73");
 	assert_eq!(out["plate"], 40);
 	assert_eq!(out["stale"], "none");
 	assert_eq!(out["near"], 41, "the trail floor asked on the NPC's level");
-	assert_eq!(out["trail"], 72, "that trail floor (72)");
+	assert_eq!(out["trail"], 43.5, "that trail floor (43.5), 2.5 yd over the NPC's");
+	assert_eq!(out["farTrail"], 40, "a trail floor 6 yd off the NPC's height: the NPC's (41), the surface at 40");
 	assert_eq!(out["outside"], "none");
 }
 

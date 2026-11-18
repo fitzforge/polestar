@@ -569,13 +569,15 @@ function city.LandZ(c, x, y)
 	return city.landZ
 end
 
+-- (with a landing's or an NPC's height, the trail floor only within RISE of it: the trails' busiest level within ZTOL
+-- can be another one, the Undercity's ring 5 yd under Harbinger Balthazad's platform)
 function city.Hint(P, c, x, y)
 	if not city.Here(c, x, y) then return nil end
 	local F = Nav.npcFloor
 	local nz = city.LandZ(c, x, y) or (F and F.Near and F.Near(c, x, y)) or nil
 	if P and P.TrailFloor then
 		local ok, tz = pcall(P.TrailFloor, c, x, y, city.TRAIL, nz)
-		if ok and type(tz) == "number" then return tz end
+		if ok and type(tz) == "number" and not (nz and abs(tz - nz) > RISE) then return tz end
 	end
 	return nz
 end
