@@ -504,6 +504,31 @@ fn alliance_paladin_fires_with_classkind_paladin_and_lord_grayson() {
 	assert_eq!(n["trainer"]["npcName"], "Lord Grayson Shadowbreaker");
 }
 
+// Blitz's report (#2898): an Undead paladin at 40 was sent to the riding trainer in Brill, but Forsaken paladins
+// get their warhorse from a quest: Report to Danitha (97022, the Undercity's paladin trainer Garen Largo), then A
+// Paladin's Steed (94971, Danitha Morr at Bandarion Keep). Other Horde paladins keep the riding trainer.
+#[test]
+fn a_forsaken_paladin_is_sent_to_the_warhorse_chain_2898() {
+	let case = |setup: &str, race: &str| {
+		run_qol(&format!(
+			r#"
+		C.GetPlayerInfo = function() return {{ name="T", level=q.level, race="{race}", class="PALADIN", faction="Horde" }} end
+		local log = {{}}
+		C.IsOnQuest = function(id) return log[id] == true end
+		{setup}
+		levelUp(40); local n = ridings[1]
+		emit({{ kind = n.classKind or false, npc = n.trainer and n.trainer.npcName, cost = n.cost }})
+	"#
+		))
+		.remove(0)
+	};
+	assert_eq!(case("", "Scourge"), json!({ "kind": "PALADIN_FORSAKEN", "npc": "Garen Largo", "cost": 0 }));
+	assert_eq!(case("log[97022] = true", "Scourge"), json!({ "kind": "PALADIN_FORSAKEN", "npc": "Danitha Morr", "cost": 0 }));
+	assert_eq!(case("_quests[97022] = true", "Scourge"), json!({ "kind": "PALADIN_FORSAKEN", "npc": "Danitha Morr", "cost": 0 }));
+	assert_eq!(case("_quests[94971] = true", "Scourge"), json!({ "kind": false, "npc": "Velma Warnam", "cost": 1000000 }), "the chain done: riding");
+	assert_eq!(case("", "Tauren"), json!({ "kind": false, "npc": "Kar Stormsinger", "cost": 1000000 }), "no chain for another race");
+}
+
 #[test]
 fn warlock_at_tier_2_fires_with_no_classkind_riding_trainer() {
 	let out = run_qol(
@@ -529,19 +554,6 @@ fn warlock_with_quest_4490_done_falls_back_to_race_trainer() {
 	let n = &out[0];
 	assert!(!truthy(&n["classKind"]), "no classKind after chain done");
 	assert_eq!(n["trainer"]["npcName"], "Randal Hunter");
-}
-
-#[test]
-fn undead_paladin_fires_with_riding_trainer_no_class_chain() {
-	let out = run_qol(
-		r#"
-		C.GetPlayerInfo = function() return { name="T", level=q.level, race="Scourge", class="PALADIN", faction="Horde" } end
-		levelUp(40); emit(ridings[1])
-	"#,
-	);
-	let n = &out[0];
-	assert!(!truthy(&n["classKind"]));
-	assert_eq!(n["trainer"]["npcName"], "Velma Warnam");
 }
 
 // ---- EffectiveCost includes Honored discount ---------------------------------

@@ -2767,6 +2767,16 @@ test('forever/40-50/shendralas.guide: Liranne\'s step keeps the collar, the obje
 	assert.ok(data.quests[93568].objectives.some((o) => o.type === 'item' && o.id === 259461), 'the collar is the quest\'s objective');
 	assert.ok(st.goals.findIndex(is('accept', 93568)) < st.goals.findIndex(is('turnin', 93568)), 'accept, then the hand-in, in one step');
 });
+// Sekyno's report (#2946): Liranne is not there before Mordent's pylons chain is done, yet While you're here sent a
+// player carrying the collar to her empty spot after only Strange Pylons. Her step (and so While you're here) waits
+// for A Brief History Lesson (93016), as the route reaches her.
+test('forever/40-50/shendralas.guide: Sekyno\'s report (#2946): Liranne\'s step waits for the pylons chain', { skip }, () => {
+	const steps = compiled('forever/40-50/shendralas.guide').steps;
+	const st = steps.find((s) => s.goals.some(is('turnin', 93568)));
+	assert.ok((st.when || []).some((p) => p.k === 'turnedin' && !p.neg && [].concat(p.q).includes(93016)), 'only once A Brief History Lesson is handed in');
+	const history = steps.findIndex((s) => s.goals.some(is('turnin', 93016)));
+	assert.ok(history >= 0 && history < steps.indexOf(st), 'the route hands it in first');
+});
 // A step shown only while the bags hold an item (`when has I`) stops applying the moment the item is used up, so
 // nothing may follow the goal that uses it up (a `use`, an accept the item starts, a hand-in that takes it) but what
 // that goal hands over (a collect of its reward): the rest of the step would be passed half done.
@@ -4366,6 +4376,30 @@ test('#2881: Questioning Reethe is an escort', { skip }, () => {
 	const fix = loadCorrections().quests['1273'];
 	assert.equal(fix && fix.set.escort, true, 'the correction marks 1273 an escort');
 	assert.ok(isEscort({ ...data.quests[1273], ...fix.set }), 'the compiler reads it as one');
+});
+
+// #2927 (Emil, Alliance Riverglades): Helping Hands (94861) is an escort (Hurley walks to Curly with whoever took it,
+// and it fails if he does not make it), but its text never says escort, so While you're here offered "go with Hurley
+// to save Curly" at Curly's spot, where nothing happens without Hurley. The sweep over every quest whose event
+// objective or text reads like an escort found Supplies to Auberdine (976, Feero Ironhand: 6 of 12 recorded runs
+// failed). The corrections mark them; the compiled guides carry it from the next data build.
+test('#2927: Helping Hands and Supplies to Auberdine are escorts', { skip }, () => {
+	const { isEscort } = require('../tools/lib/dsl/escort');
+	data = data || loadData(DATA);
+	for (const q of [94861, 976]) {
+		const fix = loadCorrections().quests[q];
+		assert.equal(fix && fix.set.escort, true, `the correction marks ${q} an escort`);
+		assert.ok(isEscort({ ...data.quests[q], ...fix.set }), `the compiler reads ${q} as one`);
+	}
+});
+
+// #2948 (Boxbonny123, Alcaz Prison's pick-up guide): Our Man in Theramore (95194) asks you to find Shaw's agent, Sully
+// McCleary, in Theramore: players' recordings tick the line while his window is open (8 people). The data counted it a
+// kill of npc 4396, the server's credit id and also the Mudrock Tortoise, so the guide said to kill turtles. The
+// correction makes it a talk to him; the Codex carries it from the next data build.
+test('#2948: Our Man in Theramore is a talk to Sully McCleary, not a kill', () => {
+	const fix = loadCorrections().quests['95194'];
+	assert.deepEqual(fix && fix.set.objectives.map((o) => [o.type, o.id]), [['talk', 260146]]);
 });
 
 // #2882 (Redrett, Krol'dok Stronghold's pick-up guide): Chogg'Zac (256899) stands in one spot in the Sunnyglade cave;

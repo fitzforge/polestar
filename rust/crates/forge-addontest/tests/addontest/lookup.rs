@@ -1450,3 +1450,21 @@ fn options_the_lookup_tab_of_discovery_and_its_defaults() {
 	assert!(arr(&controls).iter().all(|c| c["kind"] == "toggle" && truthy(&c["label"]) && truthy(&c["help"])));
 	assert_eq!(defaults, json!([true, true, true, true]));
 }
+
+// Mokii's report (#2943): Tirion Fordring has a spawn on Western Plaguelands' map from the Classic data (Era frame)
+// and the same place on Eastern Plaguelands' map from Forever's data; Stratholme's pick-up guide, built in Western
+// Plaguelands, took the western point and the arrow went through Western Plaguelands to him. An Era spawn that is the
+// same place as a live spawn on another map is that live spawn; one far from it stays.
+#[test]
+fn an_era_spawn_at_the_same_place_as_a_live_spawn_on_another_map_is_the_live_one_2943() {
+	let out = run(r#"
+		-- The fixture's maps, side by side: Amber Vale's east edge is Ember Hollow's west edge.
+		Polestar.RegisterMapFrames({ era = { [9001] = { c = 0, left = 1000, right = -1000, top = 1000, bottom = -1000 }, [9002] = { c = 0, left = -1000, right = -3000, top = 1000, bottom = -1000 } } })
+		local N = Polestar.Lookup.Nearest
+		local twin = N({ { map = 9001, x = 99.5, y = 50, f = "e" }, { map = 9002, x = 0.5, y = 50, f = "l" } }, { map = 9001, x = 90, y = 50 })
+		local apart = N({ { map = 9001, x = 60, y = 50, f = "e" }, { map = 9002, x = 0.5, y = 50, f = "l" } }, { map = 9001, x = 55, y = 50 })
+		local unplaced = N({ { map = 9001, x = 99.5, y = 50, f = "e" }, { map = 9002, x = 0.5, y = 50, f = "l" } })
+		emit({ twin = twin.map, apart = apart.map, unplaced = unplaced.map })"#)
+	.remove(0);
+	assert_eq!(out, json!({ "twin": 9002, "apart": 9001, "unplaced": 9002 }));
+}

@@ -547,6 +547,22 @@
 		],
 		"note": "Serpentbloom (Wailing Caverns) rewards 3,300 XP on Forever; the merged data had 1,350, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
 	},
+	"976": {
+		"set": {
+			"escort": true
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 10 people (9 established) took it; 6 runs failed and 4 were abandoned"
+			},
+			{
+				"kind": "questie",
+				"ref": "objectiveText: Speak with Delgren the Purifier at Maestra's Post after seeing Feero safely through Ashenvale Forest"
+			}
+		],
+		"note": "Supplies to Auberdine (976) is an escort: you protect Feero Ironhand on his walk through Ashenvale, and it fails if he dies. Its text never says escort, so the guide compiler's escort rule missed it (found in the sweep for #2927)."
+	},
 	"983": {
 		"set": {
 			"end": {
@@ -14760,7 +14776,8 @@
 					"count": null,
 					"text": "Go with Hurley to save Curly."
 				}
-			]
+			],
+			"escort": true
 		},
 		"source": [
 			{
@@ -14770,9 +14787,17 @@
 			{
 				"kind": "recording",
 				"ref": "players' recordings to 2026-11-11: 7 people accepted it, 6 handed it in"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 33 people; one failed it, abandoned it and took it again from Hurley (258963) before completing it"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2927"
 			}
 		],
-		"note": "Helping Hands (94861), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (players' recordings agree)."
+		"note": "Helping Hands (94861), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (players' recordings agree). It is an escort worded otherwise: Hurley sets off for Curly when you take it and you go with him; if he does not make it the quest fails and he offers it again. Its text never says escort, so the guide compiler's escort rule misses it (#2927: While you're here sent a player to Curly's spot with no Hurley)."
 	},
 	"94877": {
 		"set": {
@@ -16015,6 +16040,29 @@
 			}
 		],
 		"note": "Step One: Rock (95183), a Forever quest of the Riverglades: its ender, Hamur (263440), where players handed it in (the quest's own text names it)."
+	},
+	"95194": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 260146,
+					"count": 1,
+					"text": "Find Shaw's Agent in Theramore"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 8 people (8 established); the line ticks while Sully McCleary's (260146) window is open, and they hand it in to him"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2948"
+			}
+		],
+		"note": "Our Man in Theramore (95194): Shaw's agent is Sully McCleary in Theramore, and the line ticks when you talk to him. The data counted it as a kill of npc 4396 (the server's credit id, which is also the Mudrock Tortoise), so Alcaz Prison's pick-up guide sent players to kill turtles."
 	},
 	"95278": {
 		"set": {
