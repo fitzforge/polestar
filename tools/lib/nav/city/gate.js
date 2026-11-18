@@ -140,11 +140,14 @@ function judge({ g, people, train }) {
 					continue;
 				}
 				const v = list[0];
-				if (under(v)) {
+				if (under(v) && !list.some((u) => people[u] >= 3)) {
 					m.under += seg;
 					note('under', x, y, z);
 				}
-				if (cs.tz.length && people[v] < 1 && !cs.tz.some((q) => Math.abs(q - g.nz[v]) <= 5)) {
+				// on a floor nobody walks: people walk these columns (3+ on a level) but no walked surface lies within DZ of
+				// the line's height (CityJoins: the shipped maps' heights sit between two floors of our grid, so the
+				// nearest surface alone misjudges a line over the walked corridor)
+				if (cs.tz.length && !list.some((u) => people[u] >= 3)) {
 					m.wrongFloor += seg;
 					note('wrongFloor', x, y, z);
 				}
@@ -202,11 +205,18 @@ function tautPts(g, p) {
 	return keep.map((v) => [...g.xy(v), g.nz[v]]);
 }
 
-// Desire paths (P3) on the judge's grid: trail surfaces (3+ training people) at their length, the rest x3, plus the
-// trail edges learned from grid holes 2+ training people stepped through.
-function desire({ g, train, gaps }) {
+// Desire paths on the judge's grid: trail surfaces (3+ training people) cheap, the rest x3, plus the trail edges learned
+// from grid holes 2+ training people stepped through. cost: 'x3' (P3: a trail step at its length), 'sqrt' (P4: Redfern
+// 2011's length / sqrt(people), as 3 people = its length, floored at 0.4), 'classes' (P5: the shipped weight classes,
+// 3-9 people x1, 10-49 x0.7, 50+ x0.5).
+const TRAIL_COST = {
+	x3: (p) => 1,
+	sqrt: (p) => Math.max(0.4, Math.sqrt(3 / p)),
+	classes: (p) => (p >= 50 ? 0.5 : p >= 10 ? 0.7 : 1),
+};
+function desire({ g, train, gaps }, cost = 'x3') {
 	const mult = new Float32Array(g.n);
-	for (let v = 0; v < g.n; v++) mult[v] = train[v] >= 3 ? 1 : 3;
+	for (let v = 0; v < g.n; v++) mult[v] = train[v] >= 3 ? TRAIL_COST[cost](train[v]) : 3;
 	const at = (wx, wy, z) => {
 		const vs = g.levels(wx, wy, 1).filter((v) => Math.abs(g.nz[v] - z) <= 1);
 		return vs.length ? vs[0] : -1;
@@ -264,11 +274,17 @@ function desire({ g, train, gaps }) {
 		const a = floorAt(t.A.wx, t.A.wy);
 		const b = floorAt(t.B.wx, t.B.wy);
 		if (a < 0 || b < 0) return { ok: false, reason: 'no surface' };
-		g.search([[a, 0]], [b], { mult, goal: g.local(t.B.wx, t.B.wy), extra });
+		g.search([[a, 0]], [b], { mult, hmin: Math.min(1, TRAIL_COST[cost](1e9)), goal: g.local(t.B.wx, t.B.wy), extra });
 		const p = g.pathTo(b);
 		if (!p) return { ok: false, reason: 'no path' };
 		return { ok: true, pts: tautPts(g, p) };
 	};
+}
+
+// The judge's desire-path arms among arms: P3 x3, P4 length / sqrt(people), P5 weight classes.
+const PROTO = { P3: 'x3', P4: 'sqrt', P5: 'classes' };
+function protosFor(area, arms) {
+	return Object.fromEntries(arms.filter((a) => PROTO[a]).map((a) => [a, desire(area, PROTO[a])]));
 }
 
 const DET = (x, real) => x.yards / real > 1.3 && x.yards - real > 40;
@@ -291,7 +307,6 @@ function gate({ priv, nav, ground = null, grid, frames, spawnz, npcs = {}, maps 
 		const t0 = Date.now();
 		const area = loadArea(priv, map, grid, frames);
 		const { g, trips } = area;
-		const { measure } = judge(area);
 		const npcZ = spawnHeight(spawnz, city.c);
 		const navRun = (dir, queries) => run.runQueries({ navDir: dir, queries }).results;
 		const route = (id, from, to, extra = {}) => ({ type: 'route', id, map: city.c, from, to, profile: city.side, style: 'balanced', level: null, danger: null, ...extra });
@@ -322,7 +337,7 @@ function gate({ priv, nav, ground = null, grid, frames, spawnz, npcs = {}, maps 
 		};
 		const res = {};
 		for (const arm of arms) {
-			if (arm === 'P3') continue;
+			if (PROTO[arm]) continue;
 			const dir = arm === 'G1' ? ground : gn.dir;
 			if (!dir) continue;
 			const policied = arm === 'GAME' || arm === 'WALK';
@@ -343,52 +358,72 @@ function gate({ priv, nav, ground = null, grid, frames, spawnz, npcs = {}, maps 
 			}
 			res[arm] = first;
 		}
-		const p3 = arms.includes('P3') ? desire(area) : null;
-		const rows = trips.map((t, k) => {
-			const realPts = tautPts(g, t.path);
-			const real = measure(realPts);
-			const tt = { ...t, real: real.yards };
-			const row = { i: t.i, A: t.A, B: t.B, straight: t.straight, real: real.yards, arms: {} };
-			for (const [arm, rs] of Object.entries(res)) {
-				const r = rs[k];
-				if (!r.ok) {
-					row.arms[arm] = { ok: false, reason: r.reason, fail: 'no walk' };
-					continue;
-				}
-				const mm = measure(r.pts);
-				const x = { ok: true, ...mm, routerYards: r.yards, retried: !!r.retried, startZ: r.pts[0][2], endZ: r.pts[r.pts.length - 1][2], pts: r.pts.map((p) => p.map((v) => (v === null ? null : +v.toFixed(1)))) };
-				x.fail = failOf(x, tt);
-				row.arms[arm] = x;
-			}
-			if (p3) {
-				const r = p3(t);
-				if (!r.ok) row.arms.P3 = { ok: false, reason: r.reason, fail: 'no walk' };
-				else {
-					const x = { ok: true, ...measure(r.pts), startZ: r.pts[0][2], endZ: r.pts[r.pts.length - 1][2], pts: r.pts.map((p) => p.map((v) => +v.toFixed(1))) };
-					x.fail = failOf(x, tt);
-					row.arms.P3 = x;
-				}
-			}
-			return row;
-		});
-		const npcName = (id) => (id && npcs[id] ? npcs[id].name : null);
-		const pct = (wx, wy) => toMap(frames, map, wx, wy).map((v) => +v.toFixed(2));
-		const summary = {};
-		for (const arm of Object.keys(rows[0] ? rows[0].arms : {})) {
-			const fails = rows.filter((r) => r.arms[arm].fail);
-			const by = {};
-			for (const r of fails) by[r.arms[arm].fail] = (by[r.arms[arm].fail] || 0) + 1;
-			const walls = rows.filter((r) => r.arms[arm].ok && r.arms[arm].crossings > 0).length;
-			const voids = rows.filter((r) => r.arms[arm].ok && r.arms[arm].void >= 6).length;
-			summary[arm] = {
-				fails: fails.length, pct: +(100 * fails.length / rows.length).toFixed(1), by, walls, void6: voids,
-				list: fails.map((r) => ({ i: r.i, fail: r.arms[arm].fail, from: { npc: r.A.npc, name: npcName(r.A.npc), kind: r.A.kind, at: pct(r.A.wx, r.A.wy), z: +r.A.z.toFixed(1) }, to: { npc: r.B.npc, name: npcName(r.B.npc), kind: r.B.kind, at: pct(r.B.wx, r.B.wy), z: +r.B.z.toFixed(1) }, real: Math.round(r.real), yards: r.arms[arm].ok ? Math.round(r.arms[arm].yards) : null, retried: r.arms[arm].retried || false, where: r.arms[arm].at ? Object.fromEntries(Object.entries(r.arms[arm].at).map(([k2, v]) => [k2, [...pct(v[0], v[1]), v[2]]])) : null })),
-			};
-		}
+		const rows = scoreRows(area, trips, res, protosFor(area, arms));
+		const summary = summarize(rows, map, frames, npcs);
 		report.maps[map] = { name: city.name, trips: rows.length, summary, rows, seconds: Math.round((Date.now() - t0) / 1000) };
 		log(`${city.name}: ${Object.entries(summary).map(([a, s]) => `${a} ${s.fails}/${rows.length}`).join(', ')} (${report.maps[map].seconds} s)`);
 	}
 	gn.done();
+	return report;
+}
+
+// Rows of scored arms: res { arm: [router answer per trip] } (pts, yards, retried), protos { arm: trip -> answer } (the
+// judge's own desire paths).
+function scoreRows(area, trips, res, protos = {}) {
+	const { measure } = judge(area);
+	const keep = (pts) => pts.map((p) => p.map((v) => (v === null ? null : +v.toFixed(1))));
+	const score = (r, tt) => {
+		if (!r.ok) return { ok: false, reason: r.reason, fail: 'no walk' };
+		const x = { ok: true, ...measure(r.pts), routerYards: r.yards === undefined ? null : r.yards, retried: !!r.retried, startZ: r.pts[0][2], endZ: r.pts[r.pts.length - 1][2], pts: keep(r.pts) };
+		x.fail = failOf(x, tt);
+		return x;
+	};
+	return trips.map((t, k) => {
+		const real = measure(tautPts(area.g, t.path));
+		const tt = { ...t, real: real.yards };
+		const row = { i: t.i, A: t.A, B: t.B, straight: t.straight, real: real.yards, arms: {} };
+		for (const [arm, rs] of Object.entries(res)) row.arms[arm] = score(rs[k], tt);
+		for (const [arm, fn] of Object.entries(protos)) row.arms[arm] = score(fn(t), tt);
+		return row;
+	});
+}
+
+function summarize(rows, map, frames, npcs) {
+	const npcName = (id) => (id && npcs[id] ? npcs[id].name : null);
+	const pct = (wx, wy) => toMap(frames, map, wx, wy).map((v) => +v.toFixed(2));
+	const summary = {};
+	for (const arm of Object.keys(rows[0] ? rows[0].arms : {})) {
+		const fails = rows.filter((r) => r.arms[arm].fail);
+		const by = {};
+		for (const r of fails) by[r.arms[arm].fail] = (by[r.arms[arm].fail] || 0) + 1;
+		summary[arm] = {
+			fails: fails.length, pct: +(100 * fails.length / rows.length).toFixed(1), by,
+			walls: rows.filter((r) => r.arms[arm].ok && r.arms[arm].crossings > 0).length,
+			void6: rows.filter((r) => r.arms[arm].ok && r.arms[arm].void >= 6).length,
+			list: fails.map((r) => {
+				const x = r.arms[arm];
+				const end = (e) => ({ npc: e.npc, name: npcName(e.npc), kind: e.kind, at: pct(e.wx, e.wy), z: +e.z.toFixed(1) });
+				return { i: r.i, fail: x.fail, from: end(r.A), to: end(r.B), real: Math.round(r.real), yards: x.ok ? Math.round(x.yards) : null, retried: x.retried || false, where: x.at ? Object.fromEntries(Object.entries(x.at).map(([k, v]) => [k, [...pct(v[0], v[1]), v[2]]])) : null };
+			}),
+		};
+	}
+	return summary;
+}
+
+// An earlier report scored again with today's judge (a rule changed): its router answers (kept lines) re-measured and
+// the desire-path arms routed again; nothing runs the router.
+function remeasure(report, { priv, grid, frames, npcs = {}, protos: extraArms = [], log = () => {} }) {
+	for (const [map, m] of Object.entries(report.maps)) {
+		const area = loadArea(priv, Number(map), grid, frames);
+		const byI = new Map(area.trips.map((t) => [t.i, t]));
+		const trips = m.rows.map((r) => byI.get(r.i));
+		const res = {};
+		for (const arm of Object.keys(m.rows[0].arms)) if (!PROTO[arm]) res[arm] = m.rows.map((r) => r.arms[arm]);
+		const protos = protosFor(area, [...new Set([...Object.keys(m.rows[0].arms), ...extraArms])]);
+		m.rows = scoreRows(area, trips, res, protos);
+		m.summary = summarize(m.rows, Number(map), frames, npcs);
+		log(`${m.name}: ${Object.entries(m.summary).map(([a, s]) => `${a} ${s.fails}/${m.rows.length}`).join(', ')} (measured again)`);
+	}
 	return report;
 }
 
@@ -433,4 +468,4 @@ function markdown(report, cmp = null) {
 	return lines.join('\n');
 }
 
-module.exports = { gate, compareReports, markdown, judge, tautPts, desire, COUNTED };
+module.exports = { gate, remeasure, compareReports, markdown, judge, tautPts, desire, COUNTED };

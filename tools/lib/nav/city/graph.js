@@ -284,8 +284,9 @@ class AreaGraph {
 		return out;
 	}
 	// Dijkstra (A* toward goal, local column coordinates) from sources until every target is settled or past bound.
-	// mult: per-node multiplier (Float32Array, all >= 1) or null; extra: Map(node -> [[node, yards], ...]).
-	search(sources, targets, { bound = Infinity, mult = null, goal = null, extra = null } = {}) {
+	// mult: per-node multiplier (Float32Array) or null, hmin its smallest value (the heuristic's factor); extra:
+	// Map(node -> [[node, yards], ...]).
+	search(sources, targets, { bound = Infinity, mult = null, hmin = 1, goal = null, extra = null } = {}) {
 		const st = ++this.cur;
 		const { dist, prev, stamp, heap, adjStart, adj, alen, ncol, W } = this;
 		heap.clear();
@@ -293,7 +294,7 @@ class AreaGraph {
 		let left = want.size;
 		const gx = goal ? goal[0] : 0;
 		const gy = goal ? goal[1] : 0;
-		const h = goal ? (v) => Math.hypot((ncol[v] % W) - gx, Math.floor(ncol[v] / W) - gy) * CELL : () => 0;
+		const h = goal ? (v) => Math.hypot((ncol[v] % W) - gx, Math.floor(ncol[v] / W) - gy) * CELL * hmin : () => 0;
 		for (const [v, d0] of sources) {
 			if (stamp[v] === st && dist[v] <= d0) continue;
 			stamp[v] = st;

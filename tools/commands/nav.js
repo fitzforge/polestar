@@ -30,7 +30,7 @@ const usage = `usage: node tools/polestar.js nav build [--continents 0,1] [--for
        node tools/polestar.js nav city match --private <dir> [--maps ...] [--grid <dir>]
        node tools/polestar.js nav city freeze --private <dir> [--maps ...] [--max 200] [--force]
        node tools/polestar.js nav city trails --private <dir> [--maps ...] [--train] [--out <trails.json>] [--lua addon/Polestar_Nav/Trails/Trails.lua]
-       node tools/polestar.js nav city gate --private <dir> [--nav <Polestar_Nav dir>] [--ground <Polestar_Nav dir>] [--maps ...] [--arms GAME,WALK,E0,E2,P3] [--policy legacy|a2] [--baseline <report.json>] [--out <report.json>] [--md <file>] [--grid <dir>]
+       node tools/polestar.js nav city gate --private <dir> [--nav <Polestar_Nav dir>] [--ground <Polestar_Nav dir>] [--maps ...] [--arms GAME,WALK,E0,E2,P3] [--policy legacy|a2] [--remeasure <report.json>] [--baseline <report.json>] [--out <report.json>] [--md <file>] [--grid <dir>]
 
 build   the navigation grid of every continent map-frames.json names (or
         --continents): client geometry per ADT tile through the CASC cache
@@ -410,7 +410,7 @@ async function prepareCmd(argv) {
 // outside the repository (raw positions).
 async function cityCmd(argv) {
 	const [step, ...rest] = argv;
-	const { opts: o, positional, error } = parseArgs(rest, { flags: ['--force', '--train'], options: ['--private', '--recordings', '--maps', '--grid', '--max', '--nav', '--ground', '--arms', '--policy', '--baseline', '--out', '--md', '--lua'] });
+	const { opts: o, positional, error } = parseArgs(rest, { flags: ['--force', '--train'], options: ['--private', '--recordings', '--maps', '--grid', '--max', '--nav', '--ground', '--arms', '--policy', '--baseline', '--out', '--md', '--lua', '--remeasure'] });
 	if (error || positional.length) throw usageError(error || `unexpected argument "${positional[0]}"`);
 	if (!o.private) throw usageError('nav city: --private <dir> is required (outside the repository)');
 	const priv = path.resolve(o.private);
@@ -455,16 +455,18 @@ async function cityCmd(argv) {
 		return 0;
 	}
 	if (step === 'gate') {
-		const { gate, compareReports, markdown } = require('../lib/nav/city/gate');
-		const report = gate({
-			priv, grid, frames, maps, log,
-			nav: path.resolve(o.nav || NAV_ADDON),
-			ground: o.ground ? path.resolve(o.ground) : null,
-			spawnz: readData('spawnz.json').npc,
-			npcs: readData('npcs.json'),
-			arms: o.arms ? String(o.arms).split(',') : undefined,
-			policy: o.policy || 'legacy',
-		});
+		const { gate, remeasure, compareReports, markdown } = require('../lib/nav/city/gate');
+		const common = { priv, grid, frames, log, npcs: readData('npcs.json') };
+		const report = o.remeasure
+			? remeasure(JSON.parse(fs.readFileSync(o.remeasure, 'utf8')), { ...common, protos: o.arms ? String(o.arms).split(',') : [] })
+			: gate({
+				...common, maps,
+				nav: path.resolve(o.nav || NAV_ADDON),
+				ground: o.ground ? path.resolve(o.ground) : null,
+				spawnz: readData('spawnz.json').npc,
+				arms: o.arms ? String(o.arms).split(',') : undefined,
+				policy: o.policy || 'legacy',
+			});
 		const cmp = o.baseline ? compareReports(JSON.parse(fs.readFileSync(o.baseline, 'utf8')), report) : null;
 		const md = markdown(report, cmp);
 		console.log(md);
