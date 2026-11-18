@@ -949,7 +949,7 @@ fn along_the_way_up_next_and_the_next_step_s_line_wrap_to_two_lines() {
 	assert!(text(&out["along"]["text"]).contains("Echo Ridge Mine entrance"), "{}", out["along"]);
 	assert!(text(&out["up"]["text"]).contains("Northshire vineyards"), "{}", out["up"]);
 	assert_eq!(out["afterShown"], true);
-	assert_eq!(out["after"]["text"], "Then: Echo Ridge Mine, the kobold tunnels past the Northshire vineyards");
+	assert_eq!(out["after"]["text"], "Next step: Echo Ridge Mine, the kobold tunnels past the Northshire vineyards");
 	assert!(f(&out["after"]["h"]) > 28.0, "the line grows by its second line: {}", out["after"]);
 }
 
