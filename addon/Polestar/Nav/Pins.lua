@@ -2584,7 +2584,7 @@ end
 local function sample(force)
 	if not Minimap or ns.Hidden() then return false end
 	-- A hidden minimap (its cluster hidden, another addon's) shows none of it:
-	-- its view is not read until it shows again (shown, below), unless layers
+	-- its view is not read until it shows again, unless layers
 	-- changed, which draw as before.
 	if not force and not Minimap:IsVisible() and not (dirty and hasMinimapPins()) then return false end
 	local C = ns.Compat
@@ -2639,9 +2639,8 @@ local function ensureMinimap()
 		end
 	end))
 	Pins.driver = driver
-	-- The minimap shown again: drawn for its view at once, as it shows.
-	local shown = ns.CreateFrameUnder("Frame", nil, Minimap)
-	shown:SetScript("OnShow", ns.Safe(function()
+	-- Refresh immediately on show, without adding a frame to the game's minimap.
+	Minimap:HookScript("OnShow", ns.Safe(function()
 		if (viewWatchers > 0 or hasMinimapPins()) and sample(false) then wake() end
 	end))
 end
