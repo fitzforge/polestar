@@ -16448,6 +16448,44 @@ test('#2587: Wetlands (Alliance): The Dark Iron War and Bring Back a Bang are gr
 	assert.ok(at(list, 'collect the explosives', (g) => g.t === 'collect' && g.quest === 88756) < span, 'Direforge Hill before the Thandol Span');
 });
 
+// #2822 (swork1, 0.4.0.1, Alliance Wetlands): Howin Kindfeather's Death to the Dragonmaw was never in the guide. Its 16
+// Dragonmaw (29-30) are all elite (players' recordings), so it is asked at Howin as a group quest after Razormaw Needling
+// and Trying Times, the way the Dun Modr stop asks its group quests; the solo route never gets it. Stopping the Cycle
+// (a level 34 elite) and Word to Ironforge after it stay out.
+test('#2822: Wetlands (Alliance): Death to the Dragonmaw is a group choice at Howin', { skip }, () => {
+	const list = goals('forever/alliance/30-40/01-hillsbrad-foothills.guide');
+	const group = ({ step }) => (step.when || []).some((p) => p.k === 'group' && p.q === 98291 && !p.neg);
+	const work = list.filter(({ goal }) => goal.quest === 98291);
+	assert.deepEqual(work.map(({ goal }) => goal.t), ['accept', 'kill', 'kill', 'kill', 'turnin'], 'accept, the three kills, hand-in');
+	for (const e of work) assert.ok(group(e), `every goal in a \`when group 98291\` step (${e.goal.t})`);
+	const accept = at(list, 'accept 98291', is('accept', 98291));
+	assert.equal(list[accept].goal.npc, 270637, 'from Howin Kindfeather');
+	assert.ok(at(list, 'turnin 98245', is('turnin', 98245)) < accept && at(list, 'turnin 98246', is('turnin', 98246)) < accept, 'after both of his quests it needs');
+	assert.ok(at(list, 'turnin 98291', is('turnin', 98291)) < at(list, 'accept 1132', is('accept', 1132)), 'handed in before the walk west to Menethil');
+	assert.ok(!list.some(({ goal }) => goal.quest === 98297 || goal.quest === 98300), 'Stopping the Cycle and Word to Ironforge stay out');
+});
+
+// #2529 (0.3.7.2, Undead Warlock in Orgrimmar): Fishing 1-50 sent each race to its own starting area's water, so an
+// Undead in Orgrimmar was sent across the sea to Brightwater Lake with the Durotar coast next door. Every starting-area
+// shore loses no fish from skill 25 and below 75 every catch raises the skill, so the band is one step per faction whose
+// places are all of its starting areas' shores (`skill … nearest`): the arrow takes the nearest. Zephras Isle's shore
+// is for Skyborne only. Pairs with #976 (a Gnome in Darkshore sent back to Dun Morogh).
+test('#2529: Fishing 1-50 leads to the nearest of the faction\'s starting-area shores, wherever the character is', { skip }, () => {
+	const list = goals('forever/professions/fishing.guide');
+	const first = list.filter(({ goal }) => goal.t === 'skill' && goal.skill === 'Fishing' && goal.level === 50);
+	assert.equal(first.length, 2, 'one step per faction');
+	const shores = { Alliance: [1429, 1426, 1438], Horde: [1411, 1412, 1420] };
+	for (const { step, goal } of first) {
+		const [side] = step.only.factions;
+		const open = goal.candidates.filter((c) => !c.races).map((c) => c.map);
+		assert.deepEqual(open, shores[side], `${side}: every starting-area shore, for every race of the side`);
+		assert.ok(goal.candidates.every((c) => c.faction === side[0]), `${side}: the side's own shores`);
+		const isle = goal.candidates.filter((c) => c.races);
+		assert.deepEqual(isle.map((c) => [c.map, c.races]), [[2521, ['Skyborne']]], `${side}: Zephras Isle for Skyborne only`);
+		assert.ok(!step.goals.some((g) => g.t === 'goto'), `${side}: the shores are the goal's places, no goto of its own`);
+	}
+});
+
 // #2684 (Gilfy, 0.4.0.1, Alliance Hinterlands): Repurposed Totems' step said only to kill the Vilebranch Soothsayers,
 // but Vilebranch Totems also lie on the ground among them (players' recordings: 30 totems from the ground object for 4
 // people, 12 from the Soothsayers for 5). The step's tip says so.

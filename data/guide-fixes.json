@@ -4680,6 +4680,41 @@
 			"issue": 2587
 		},
 		{
+			"id": "2822-howin-death-to-the-dragonmaw",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98291,
+				"goal": "accept"
+			},
+			"tip": "Death to the Dragonmaw is a group quest: 16 elite Dragonmaw (29-30) in Dragonmaw Retreat, just east of Howin. Skip it if you are alone.",
+			"note": "#2822 (swork1): Howin Kindfeather's Death to the Dragonmaw is asked as a group quest at Howin on the Wetlands loop of 30-40/01-hillsbrad-foothills, after Razormaw Needling and Trying Times are handed in (route-fixes deliberate.group); its kills have their own `when group 98291` step in Dragonmaw Retreat and its hand-in a `when group 98291` step back at Howin.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-17: 37 people took Death to the Dragonmaw, 18 handed it in, 14 abandoned it; every kill of its Dragonmaw Reclaimers (834), Soulbinders (381) and Infiltrators (265) was of an elite at 29-30, Howin Kindfeather (270637) gives and takes it"
+				}
+			],
+			"issue": 2822
+		},
+		{
+			"id": "2822-dragonmaw-retreat-elites",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98291,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "These are elite mobs: grouping up is encouraged, look for people to do it with. The Dragonmaw Reclaimers, Soulbinders and Infiltrators (29-30, elite) camp just east of Howin.",
+			"note": "#2822: the kill step of Death to the Dragonmaw's group branch says where its elites camp; players' recordings place the kills at Wetlands 52-57,39-49.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-17: the Dragonmaw Reclaimer (271351) seen hostile by 115 people and killed 839 times by 48 people, at Wetlands 54-57,39-49"
+				}
+			],
+			"issue": 2822
+		},
+		{
 			"id": "1313-thandol-span-saboteurs",
 			"at": {
 				"quest": 631,
