@@ -108,3 +108,24 @@ test("npc floors: one level most people stood on, 3+ people and 70% of them; the
 	assert.deepEqual(got[3291], spawnz[3291], 'its own spawn 1 yd off keeps');
 	assert.deepEqual(spawnz[11957].length, 1, 'the spawn table itself is untouched');
 });
+
+test("the city gate's judge: a long straight line follows the ground between its points, not its chord; a step no surface walks stays judged on the chord", () => {
+	const { judge } = require('../tools/lib/nav/city/gate');
+	// one row of 2.08 yd columns, one walked (3+ people) surface each: ground(x) its height
+	const area = (ground) => {
+		const W = 60;
+		const nz = Array.from({ length: W }, (_, i) => ground((i + 0.5) * 2.08));
+		const g = { W, H: 1, nz, nflags: new Uint8Array(W), ncol: nz.map((_, i) => i), colIndex: (x) => (x >= 0 && x < W * 2.08 ? Math.floor(x / 2.08) : -1), colNodes: (ci) => [ci], search: () => {}, d: () => 0 };
+		const people = new Uint16Array(W).fill(5);
+		return judge({ g, people, train: people });
+	};
+	// a slope that bends (down 0.8 yd a yard to 60 yd, then flat): the chord from 120 to 72 runs up to 19 yd over the
+	// ground, which the chord alone judged void
+	const bend = area((x) => (x < 60 ? 120 - 0.8 * x : 72));
+	const m = bend.measure([[1, 0, 119.2], [120, 0, 72]]);
+	assert.deepEqual([m.void, m.wrongFloor], [0, 0], `followed: ${JSON.stringify(m)}`);
+	// a 20 yd step half way: no surface walks down it, so the samples followed from each end never meet, and the line
+	// is judged on its chord there
+	const step = area((x) => (x < 60 ? 80 : 60));
+	assert.ok(step.measure([[1, 0, 80], [120, 0, 60]]).void > 20, 'the step: void on the chord');
+});

@@ -27,6 +27,8 @@ const run = require('../eval/run');
 
 const STEP = 2; // yd: line samples
 const DZ = 6; // yd: a line point lies on a surface within this height (the two maps' heights differ up to ~5 yd)
+const CLIMB = 2.5; // yd: a line sample between two points stays on the previous sample's surface this near (a 2 yd step up a 50 deg slope)
+const OFF_CHORD = 3; // yd: a line sample is judged on the surface it follows where the chord has left that surface by more than this
 const Z_OFF = 30; // yd, Nav/Walk.lua: a path ending this far off the goal's height missed its floor
 const SETTLE = 5; // yd, Nav/Walk.lua's city.SETTLE: a followed floor's search starts on the trail floor this near it
 const SPAWN_R = 15; // yd, Lookup.SpawnZ: an NPC goal's height is its nearest spawn's this close
@@ -143,6 +145,23 @@ function judge({ g, people, train }) {
 		for (const u of g.colNodes(g.ncol[v])) if (u !== v && (g.nflags[u] & (FLAG.WMO | FLAG.M2)) && train[u] >= 3 && g.nz[u] > g.nz[v] + 3 && g.nz[u] < g.nz[v] + 60) return true;
 		return false;
 	}
+	// The heights a straight piece from a to b (n samples) walks on, followed from one end: each sample the surface a
+	// step on from the previous one's (within CLIMB) nearest the chord's height; null where none is (a step, a gap).
+	function follow(a, b, n, from) {
+		const zs = new Array(n + 1).fill(null);
+		const [k0, k1, dk] = from === 'a' ? [0, n, 1] : [n, 0, -1];
+		let h = from === 'a' ? a[2] : b[2];
+		zs[k0] = h;
+		for (let k = k0 + dk; h !== null && k !== k1 + dk; k += dk) {
+			const t = k / n;
+			const chord = a[2] + (b[2] - a[2]) * t;
+			const ci = g.colIndex(a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t);
+			let best = null;
+			if (ci >= 0) for (const v of g.colNodes(ci)) if (Math.abs(g.nz[v] - h) <= CLIMB && (best === null || Math.abs(g.nz[v] - chord) < Math.abs(best - chord))) best = g.nz[v];
+			zs[k] = h = best;
+		}
+		return zs;
+	}
 	function measure(pts) {
 		const m = { yards: 0, void: 0, crossings: 0, under: 0, wrongFloor: 0, offTrail: 0, at: {} };
 		const note = (k, x, y, z) => {
@@ -156,12 +175,20 @@ function judge({ g, people, train }) {
 			const L = Math.hypot(bx - ax, by - ay);
 			m.yards += L;
 			const n = Math.max(1, Math.ceil(L / STEP));
+			// between two points the line follows the ground it walks on, as a player walking the drawn line does: a long
+			// straight line over a slope that bends is not judged by its chord, which can run 15+ yd over or under the
+			// ground. Where the surface followed from each end (follow) is the same one and the chord has left it by more
+			// than OFF_CHORD, a sample is judged at that surface's height; elsewhere at the chord's.
+			const fa = az === null || bz === null || n < 2 ? null : follow(pts[i - 1], pts[i], n, 'a');
+			const fb = fa && follow(pts[i - 1], pts[i], n, 'b');
 			for (let k = i === 1 ? 0 : 1; k <= n; k++) {
 				const t = k / n;
 				const x = ax + (bx - ax) * t;
 				const y = ay + (by - ay) * t;
 				if (az === null || bz === null) continue;
-				const z = az + (bz - az) * t;
+				const chord = az + (bz - az) * t;
+				const on = fa && fa[k] !== null && fb[k] !== null && Math.abs(fa[k] - fb[k]) <= CLIMB ? fa[k] : null;
+				const z = on !== null && Math.abs(on - chord) > OFF_CHORD ? on : chord;
 				const seg = L / n;
 				const { list, ci } = nearSet(x, y, z);
 				if (ci < 0) continue;

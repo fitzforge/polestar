@@ -47,7 +47,7 @@ function twoClusterFolder() {
 test('eval harness: a route query on a two-cluster map returns ok with points, the router\'s yards (the drawn line\'s length) and no hubs', { skip: noLua }, () => {
 	const { runRoutes } = require('../tools/lib/nav/eval/run');
 	const navDir = twoClusterFolder();
-	const [r] = runRoutes({ navDir, lua, routes: [{ id: 'across', map: 0, from: [200, 200, null], to: [300, 800, null] }] });
+	const [r, withZ] = runRoutes({ navDir, lua, routes: [{ id: 'across', map: 0, from: [200, 200, null], to: [300, 800, null] }, { id: 'acrossZ', map: 0, from: [200, 200, null], to: [300, 800, 0] }] });
 	assert.equal(r.id, 'across');
 	assert.equal(r.ok, true, `routed (${r.reason})`);
 	assert.ok(r.pts.length >= 2, 'points');
@@ -60,6 +60,10 @@ test('eval harness: a route query on a two-cluster map returns ok with points, t
 	assert.ok(Math.abs(r.yards - drawn) <= Math.max(1, drawn * 0.01), `yards ${r.yards} vs drawn ${drawn}`);
 	assert.deepEqual(r.hubs, []);
 	assert.ok(r.ms >= 0);
+	// goal: the node the goal stands on, its cell's middle (this map's cells are 33.3 yd) and surface height; none for a
+	// goal without a height (the router then picks its surface)
+	assert.equal(r.goal, null);
+	assert.deepEqual(withZ.goal, [316.667, 816.667, 0], "the goal's node");
 });
 
 test('eval harness: a many query returns one cost per target (false off the map) and the router\'s yards beside them', { skip: noLua }, () => {
@@ -220,6 +224,13 @@ test('metrics and compare: swumYards is the router\'s drawn yards over water (th
 	assert.equal(dry.pass, true);
 });
 
+test('metrics: lastLeg is the line\'s last segment, from its last point 0.5+ yd from the goal to the goal\'s node (else the goal)', () => {
+	const { metrics } = require('../tools/lib/nav/eval/metrics');
+	const pts = [[0, 0, 0], [69, 0, 5], [100, 0, 10], [100.2, 0, 10]];
+	assert.deepEqual(metrics({ ok: true, cost: 1, pts }, { grid: null }).lastLeg, { yards: 31.2, void: null, walls: null }, 'no grid: void and walls n/a');
+	assert.deepEqual(metrics({ ok: true, cost: 1, pts, goal: [98.2, 0, 10] }, { grid: null }).lastLeg.yards, 29.2, "up to the goal's node");
+});
+
 test('the route corpus: a zone-map end in the Era frame (f "e") converts by that frame; a route\'s level and danger reach its query', () => {
 	const { resolveRoutes } = require('../tools/lib/nav/eval/run');
 	const calls = [];
@@ -243,6 +254,17 @@ test('compare: the acceptance types (unreachable, end at the graph\'s last point
 	assert.equal(one({ type: 'end', leg: 5 }, { result: line }).pass, false, 'a 10 yd last leg is longer than 5');
 	assert.equal(one({ type: 'end', leg: 15, dz: 3 }, { result: { ok: true, pts: [[0, 0, 0], [98, 0, 9], [100, 0, 10]] } }).pass, true);
 	assert.equal(one({ type: 'end', leg: 15, dz: 3 }, { to: [100, 0, null], result: line }).pass, null, 'no goal height: n/a');
+	// #2889: straightening pulls the last 31 yd across the hollow's floor into one segment; the goal's own node (the
+	// harness's goal) is where the walk leaves the graph, not the line's previous point, as long as that last segment
+	// is walkable (metrics lastLeg).
+	const pulled = { ok: true, pts: [[0, 0, 0], [69, 0, 5], [100, 0, 10]], goal: [98.2, 1.2, 10] };
+	const walkable = { lastLeg: { yards: 31, void: 0, walls: 0 } };
+	const onGraph = one({ type: 'end', leg: 30, dz: 5 }, { result: pulled, metrics: walkable });
+	assert.deepEqual([onGraph.pass, onGraph.detail], [true, 'leaves the graph 2.2 yd from the goal (want <= 30), +0.0 yd off its height (want within 5); last segment 31.0 yd, void 0.0 yd, 0 walls']);
+	assert.equal(one({ type: 'end', leg: 30, dz: 5 }, { result: pulled, metrics: { lastLeg: { yards: 31, void: 8, walls: 0 } } }).pass, false, 'a last segment through a wall');
+	assert.equal(one({ type: 'end', leg: 30, dz: 5 }, { result: pulled, metrics: { lastLeg: { yards: 31, void: null, walls: null } } }).pass, null, 'no grid: the last segment n/a');
+	assert.equal(one({ type: 'end', leg: 30, dz: 5 }, { result: { ...pulled, goal: [100, 0, -10] }, metrics: walkable }).pass, false, "the goal's node on the floor 20 yd below");
+	assert.equal(one({ type: 'end', leg: 30, dz: 5 }, { result: { ...pulled, goal: null }, metrics: walkable }).pass, false, 'no goal node: the line\'s previous point, 31 yd off');
 	assert.equal(one({ type: 'passes', point: [50, 5], within: 6 }, { result: line }).pass, true);
 	assert.equal(one({ type: 'avoids', point: [50, 5], within: 6 }, { result: line }).pass, false);
 	assert.equal(one({ type: 'avoids', area: { x: [40, 60], y: [-1, 1] } }, { result: line }).pass, false);

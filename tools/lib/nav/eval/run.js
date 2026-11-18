@@ -8,7 +8,7 @@
 //   runRoutes({ navDir, routes, profile?, lua?, zoneLevels? })
 //     routes: [{ id, map, from: [x, y, z|null], to, reach?, profile?, level?, danger? }] (world, UnitPosition's frame;
 //     reach: Path.lua's, the goal's nearest surface on its level within reach yards when no walk reaches its floor)
-//     -> [{ id, ok, reason, cost, yards, pts: [[x, y, z]], hubs, ms, warmMs, kb, wet, zones, endZones }]
+//     -> [{ id, ok, reason, cost, yards, pts: [[x, y, z]], hubs, ms, warmMs, kb, wet, zones, endZones, goal }]
 //   loadCorpus(file = routes.json) -> { routes: [{ id, kind, map?, from, to, profile, level?, danger?, expect }] }
 //   resolveRoutes(routes, geo) -> the routes with world ends: an end [x, y, z] is kept (on `map`), an end
 //     { uiMap, x, y, f? } (map percent in the live frame, as the player sees it; f "e" the Era frame, as Guides.lua's
