@@ -13170,107 +13170,14 @@ function Own.hereBuild()
 	Own.hereGatherBuild(active and pc or nil)
 	Own.hereVendorBuild(active and pc or nil, live)
 	if active then
-		if not player then refreshPlayer() end
-		Own.hereTop = (player.level or 1) + Own.HERE_MOBS_ABOVE
-		Own.hereRadius = tonumber(ns.Get("behavior.whileHereRadius")) or 180
-		Own.hereTurnins = ns.Get("behavior.whileHereTurnins") and true or false
-		Own.hereSeconds = tonumber(ns.Get("behavior.whileHereTurninSeconds")) or 20
-		local steps = guide.steps
-		-- Only once the escort runs (its quest taken): before that, the step's
-		-- other work (Ignition's key before The Escape) leaves room for lines.
-		Own.hereEscort = Engine.EscortRunning()
-		-- The route's next AHEAD steps (for the character, not skipped): their
-		-- lines are near-term and rank first; later ones read "later in this
-		-- guide". Of the first HERE_SOON_STEPS of them, the last step and the
-		-- NPCs and objects of their open goals (Own.hereSoonTo, Own.hereSoonAt:
-		-- objects negated): a hand-in or pick-up anywhere else is no "soon" one
-		-- (Own.hereFits).
-		local nearTo, k = live, 0
-		local soonAt = Own.hereSoonAt
-		for key in pairs(soonAt) do soonAt[key] = nil end
-		Own.hereSoonTo = live
-		local scan = math.max(Own.AHEAD, Own.HERE_SOON_STEPS)
-		for s = live + 1, #steps do
-			if stepApplies(steps[s]) and not isSkipped(s) then
-				k = k + 1
-				if k > scan then break end
-				if k <= Own.HERE_SOON_STEPS then
-					Own.hereSoonTo = s
-					for g, other in ipairs(steps[s].goals) do
-						if (other.npc or other.object) and goalApplies(other) and not goalDone(s, g, other) then
-							if other.npc then soonAt[other.npc] = true end
-							if other.object then soonAt[-other.object] = true end
-						end
-					end
-				end
-			end
-			if k <= Own.AHEAD then nearTo = s end
-		end
-		-- Every goal of the loaded guide on the player's continent, whatever
-		-- map it is on (Own.hereGoalsOn).
-		local idx = pc and Own.hereGoalsOn(pc)
-		if idx then
-			local C, shown = Compat(), Own.hereShown()
-			local at, ok = nil, false -- the step last checked, and whether it applies
-			-- Pick-ups at all (the setting; room in the log, read once and only
-			-- for an accept that passes the cheap checks), and the level they may
-			-- be: what rules most accepts out before the costly checks.
-			local takes, room = Own.hereTurnins, nil
-			local level = player.level or 1
-			local topQ = level + Own.HERE_ABOVE
-			-- Quests an update passed behind the player (Engine.GetBehind): their
-			-- work counts on steps behind the live one too; else those steps are
-			-- skipped at once.
-			local all = ns.CharState().behind
-			local behind = type(all) == "table" and all[guide.id] or nil
-			for i = 1, #idx, 2 do
-				local s = idx[i]
-				local goal = steps[s].goals[idx[i + 1]]
-				local q = goal.quest
-				local back = behind ~= nil and behind[q] and true or false
-				if s > live or back then
-					local g = idx[i + 1]
-					local on = C.IsOnQuest(q)
-					local take = not on and takes and goal.t == "accept" and s > live and not goal.limit and not goal.optional and not goal.either
-						and (tonumber(goal.qlvl) or 0) <= topQ and (tonumber(goal.minLevel) or 0) <= level and not questDone(q) and not missingPre(goal)
-					if take then
-						if room == nil then room = Own.logRoom() >= 1 end
-						take = room
-					end
-					if (on and not C.IsQuestFailed(q)) or take then
-						if s ~= at then at, ok = s, stepApplies(steps[s]) and not isSkipped(s) end
-						local kind, left, soon = nil, nil, false
-						if ok or back then kind, left, soon = Own.hereFits(s, g, goal, live, shown) end
-						if kind then
-							n = n + 1
-							-- places: where the target spawns on the map (Own.hereTick
-							-- prefers the fewest). spot, d, pick: Own.hereDistance's and
-							-- Own.herePick's, set here so the poll adds no keys.
-							local spots = kind == "work" and goal.spots
-							-- budget, xp: a hand-in's seconds of detour (with a visit's credit:
-							-- the trip back it saves) and whether waiting costs XP; soon: the
-							-- route reaches it anyway (only at its NPC); visit: Own.hereVisit's;
-							-- detour, town: Own.hereDistance's.
-							local xp = kind == "turnin" and Own.hereXpLoss(s, goal, live)
-							local visit = kind == "turnin" and not soon and Own.hereVisit(s, goal, live) or false
-							local budget = Own.hereSeconds * (xp and Own.HERE_XP or 1)
-							if visit and budget > 0 then budget = budget + visit.credit end
-							list[n] = { s = s, g = g, goal = goal, kind = kind, left = left, places = spots and #spots or 1,
-								npcs = kind == "work" and Own.hereNpcsOf(goal), seen = false, spot = false, d = false, pick = 0,
-								budget = budget, xp = xp or false, soon = soon or false, visit = visit, detour = 0, town = false, near = back or s <= nearTo,
-								-- A shown line's: on, since (its time), yards (shown), serial (`appeared`), view.
-								on = false, since = 0, yards = 0, serial = 0, view = false }
-						end
-					end
-				end
-			end
-		end
-		-- One line per objective, hand-in and pick-up (Own.hereGroups).
-		n = Own.hereGroups(list, n)
-		-- Finished quests no step ahead hands in, at their ender on this map.
-		n = Own.hereStranded(list, n, live)
-		-- Direct hand-ins whose items are in the bags (#2561).
-		n = Own.hereDirect(list, n, live, nearTo)
+		-- Collected in one go, as a step's view is built: each goal's done
+		-- answer once (Own.doneMemo), however many lines and checks ask it.
+		local fresh = not Own.doneMemo
+		if fresh then Own.doneMemo = {} end
+		local ok, got = pcall(Own.hereCollect, list, live, pc)
+		if fresh then Own.doneMemo = nil end
+		if not ok then error(got, 0) end
+		n = got
 	end
 	Own.hereAllN = n
 	-- The poll measures them all, or the nearest HERE_MAX (picked at its next
@@ -13330,6 +13237,113 @@ function Own.hereBuild()
 	Own.here = on[1]
 	if changed then ns.Fire("WHILE_HERE_CHANGED") end
 	return aimed
+end
+
+-- Own.hereBuild's candidates for the active tab's live step `live`, the
+-- player at continent `pc`, into `list` (route order) -> how many.
+function Own.hereCollect(list, live, pc)
+	local n = 0
+	if not player then refreshPlayer() end
+	Own.hereTop = (player.level or 1) + Own.HERE_MOBS_ABOVE
+	Own.hereRadius = tonumber(ns.Get("behavior.whileHereRadius")) or 180
+	Own.hereTurnins = ns.Get("behavior.whileHereTurnins") and true or false
+	Own.hereSeconds = tonumber(ns.Get("behavior.whileHereTurninSeconds")) or 20
+	local steps = guide.steps
+	-- Only once the escort runs (its quest taken): before that, the step's
+	-- other work (Ignition's key before The Escape) leaves room for lines.
+	Own.hereEscort = Engine.EscortRunning()
+	-- The route's next AHEAD steps (for the character, not skipped): their
+	-- lines are near-term and rank first; later ones read "later in this
+	-- guide". Of the first HERE_SOON_STEPS of them, the last step and the
+	-- NPCs and objects of their open goals (Own.hereSoonTo, Own.hereSoonAt:
+	-- objects negated): a hand-in or pick-up anywhere else is no "soon" one
+	-- (Own.hereFits).
+	local nearTo, k = live, 0
+	local soonAt = Own.hereSoonAt
+	for key in pairs(soonAt) do soonAt[key] = nil end
+	Own.hereSoonTo = live
+	local scan = math.max(Own.AHEAD, Own.HERE_SOON_STEPS)
+	for s = live + 1, #steps do
+		if stepApplies(steps[s]) and not isSkipped(s) then
+			k = k + 1
+			if k > scan then break end
+			if k <= Own.HERE_SOON_STEPS then
+				Own.hereSoonTo = s
+				for g, other in ipairs(steps[s].goals) do
+					if (other.npc or other.object) and goalApplies(other) and not goalDone(s, g, other) then
+						if other.npc then soonAt[other.npc] = true end
+						if other.object then soonAt[-other.object] = true end
+					end
+				end
+			end
+		end
+		if k <= Own.AHEAD then nearTo = s end
+	end
+	-- Every goal of the loaded guide on the player's continent, whatever
+	-- map it is on (Own.hereGoalsOn).
+	local idx = pc and Own.hereGoalsOn(pc)
+	if idx then
+		local C, shown = Compat(), Own.hereShown()
+		local at, ok = nil, false -- the step last checked, and whether it applies
+		-- Pick-ups at all (the setting; room in the log, read once and only
+		-- for an accept that passes the cheap checks), and the level they may
+		-- be: what rules most accepts out before the costly checks.
+		local takes, room = Own.hereTurnins, nil
+		local level = player.level or 1
+		local topQ = level + Own.HERE_ABOVE
+		-- Quests an update passed behind the player (Engine.GetBehind): their
+		-- work counts on steps behind the live one too; else those steps are
+		-- skipped at once.
+		local all = ns.CharState().behind
+		local behind = type(all) == "table" and all[guide.id] or nil
+		for i = 1, #idx, 2 do
+			local s = idx[i]
+			local goal = steps[s].goals[idx[i + 1]]
+			local q = goal.quest
+			local back = behind ~= nil and behind[q] and true or false
+			if s > live or back then
+				local g = idx[i + 1]
+				local on = C.IsOnQuest(q)
+				local take = not on and takes and goal.t == "accept" and s > live and not goal.limit and not goal.optional and not goal.either
+					and (tonumber(goal.qlvl) or 0) <= topQ and (tonumber(goal.minLevel) or 0) <= level and not questDone(q) and not missingPre(goal)
+				if take then
+					if room == nil then room = Own.logRoom() >= 1 end
+					take = room
+				end
+				if (on and not C.IsQuestFailed(q)) or take then
+					if s ~= at then at, ok = s, stepApplies(steps[s]) and not isSkipped(s) end
+					local kind, left, soon = nil, nil, false
+					if ok or back then kind, left, soon = Own.hereFits(s, g, goal, live, shown) end
+					if kind then
+						n = n + 1
+						-- places: where the target spawns on the map (Own.hereTick
+						-- prefers the fewest). spot, d, pick: Own.hereDistance's and
+						-- Own.herePick's, set here so the poll adds no keys.
+						local spots = kind == "work" and goal.spots
+						-- budget, xp: a hand-in's seconds of detour (with a visit's credit:
+						-- the trip back it saves) and whether waiting costs XP; soon: the
+						-- route reaches it anyway (only at its NPC); visit: Own.hereVisit's;
+						-- detour, town: Own.hereDistance's.
+						local xp = kind == "turnin" and Own.hereXpLoss(s, goal, live)
+						local visit = kind == "turnin" and not soon and Own.hereVisit(s, goal, live) or false
+						local budget = Own.hereSeconds * (xp and Own.HERE_XP or 1)
+						if visit and budget > 0 then budget = budget + visit.credit end
+						list[n] = { s = s, g = g, goal = goal, kind = kind, left = left, places = spots and #spots or 1,
+							npcs = kind == "work" and Own.hereNpcsOf(goal), seen = false, spot = false, d = false, pick = 0,
+							budget = budget, xp = xp or false, soon = soon or false, visit = visit, detour = 0, town = false, near = back or s <= nearTo,
+							-- A shown line's: on, since (its time), yards (shown), serial (`appeared`), view.
+							on = false, since = 0, yards = 0, serial = 0, view = false }
+					end
+				end
+			end
+		end
+	end
+	-- One line per objective, hand-in and pick-up (Own.hereGroups).
+	n = Own.hereGroups(list, n)
+	-- Finished quests no step ahead hands in, at their ender on this map.
+	n = Own.hereStranded(list, n, live)
+	-- Direct hand-ins whose items are in the bags (#2561).
+	return Own.hereDirect(list, n, live, nearTo)
 end
 
 -- The shown line with goal `goal`, or nil.
