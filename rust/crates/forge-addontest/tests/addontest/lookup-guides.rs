@@ -152,6 +152,41 @@ fn world(c: &Ctx, tail: &str) -> String {
 	format!("{}\nlocal w = stub.world\n{}\n", c.pack.stub_lua, c.maps) + tail
 }
 
+#[test]
+fn quest_menu_starts_a_guide_or_opens_search_when_lookup_is_disabled() {
+	let c = ctx();
+	let r = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: world(&c, &format!("w.level = 20\nw.moveTo({}, 50, 50)", c.home)) + r#"
+questMenus = {}
+Menu = { ModifyMenu = function(tag, build) questMenus[tag] = build end }
+"#,
+		addons: vec!["Polestar".into()],
+		script: r#"
+stub.login()
+local buttons = {}
+questMenus.MENU_QUEST_MAP_LOG_TITLE({ questID = 7009 }, {
+	QueueDivider = function() end,
+	CreateButton = function(_, label, action) buttons[label] = action end,
+})
+local start = buttons["Polestar: Start quest guide"]
+start()
+local active = Polestar.Engine.GetGuide().id
+Polestar.Set("lookup.enabled", false)
+Polestar.Compat.GetQuestTitle = function() return "Taming the Beast" end
+start()
+emit({ active = active, after = Polestar.Engine.GetGuide().id,
+	shown = PolestarPicker:IsShown(), query = Polestar.UI.Picker.Query() })
+"#.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(r["active"], "lookup/quest/7009");
+	assert_eq!(r["after"], r["active"]);
+	assert_eq!(r["shown"], true);
+	assert_eq!(r["query"], "Taming the Beast");
+}
+
 const PLAY: &str = r#"
 stub.login()
 local id, why = Polestar.Lookup.Guide(@KIND@, @ID@, @INDEX@)

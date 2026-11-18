@@ -34,7 +34,7 @@ local function add(root, id)
 		UI.Picker.ShowQuest(id)
 	end)
 	root:CreateButton(L["Polestar"] .. ": " .. L["Start quest guide"], function()
-		ns.Lookup.Guide("quest", id)
+		if not ns.Lookup.Guide("quest", id) then UI.Picker.ShowQuest(id) end
 	end)
 end
 
