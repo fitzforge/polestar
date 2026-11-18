@@ -517,8 +517,26 @@ function scoreRows(area, trips, res, protos = {}) {
 		x.fail = failOf(x, tt);
 		return x;
 	};
+	// an end anchorEnds moved (a landing onto its tower, an NPC onto its floor) joins the recorded route by the graph's
+	// own walk between the two (players drop off the tower; a walk can't): the real route is that plus the recorded one
+	const realPath = (t) => {
+		let p = t.path;
+		const join = (from, to) => {
+			area.g.search([[from, 0]], [to], { bound: 600 });
+			return area.g.pathTo(to);
+		};
+		if (t.A.was !== undefined && t.A.node !== p[0]) {
+			const pre = join(t.A.node, p[0]);
+			if (pre) p = pre.concat(p.slice(1));
+		}
+		if (t.B.was !== undefined && t.B.node !== p[p.length - 1]) {
+			const post = join(p[p.length - 1], t.B.node);
+			if (post) p = p.slice(0, -1).concat(post);
+		}
+		return p;
+	};
 	return trips.map((t, k) => {
-		const real = measure(tautPts(area.g, t.path));
+		const real = measure(tautPts(area.g, realPath(t)));
 		const tt = { ...t, real: real.yards };
 		const row = { i: t.i, A: t.A, B: t.B, straight: t.straight, real: real.yards, arms: {} };
 		for (const [arm, rs] of Object.entries(res)) row.arms[arm] = score(rs[k], tt);
@@ -555,7 +573,8 @@ function remeasure(report, { priv, grid, frames, npcs = {}, protos: extraArms = 
 	for (const [map, m] of Object.entries(report.maps)) {
 		const area = loadArea(priv, Number(map), grid, frames);
 		const byI = new Map(area.trips.map((t) => [t.i, t]));
-		const trips = m.rows.map((r) => byI.get(r.i));
+		// the stored rows keep the ends the gate anchored (anchorEnds)
+		const trips = m.rows.map((r) => ({ ...byI.get(r.i), A: r.A, B: r.B }));
 		const res = {};
 		for (const arm of Object.keys(m.rows[0].arms)) if (!PROTO[arm]) res[arm] = m.rows.map((r) => r.arms[arm]);
 		const protos = protosFor(area, [...new Set([...Object.keys(m.rows[0].arms), ...extraArms])]);
