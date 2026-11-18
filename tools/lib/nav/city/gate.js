@@ -344,9 +344,9 @@ async function runArms({ trips, arms, dirs, spawnz, policy, taxi = [] }) {
 		if (!npcZs.has(t.c)) npcZs.set(t.c, spawnHeight(spawnz, t.c, SPAWN_R));
 		return npcZs.get(t.c)(e.npc, e.wx, e.wy);
 	};
-	// what Walk.lua knows of a stop's height (CityFloor's NpcFloor): the NPC just talked to, from its spawns within 30
-	// yd of the player, the nearest one's height unless they span more than 10 yd of height; or at a landing its flight
-	// master's (TaxiNodes' height stands in for it in game)
+	// what Walk.lua knows of a stop's height (CityFloor's NpcFloor): the NPC whose window was just open, from its spawns
+	// within 10 yd of the player, the nearest one's height unless they span more than 10 yd of height; or at a landing
+	// its flight master's (TaxiNodes' height stands in for it in game)
 	const npcFloor = (t, e) => {
 		const s = e.npc && spawnz[String(e.npc)];
 		if (!s) return null;
@@ -355,7 +355,7 @@ async function runArms({ trips, arms, dirs, spawnz, policy, taxi = [] }) {
 		let hi = -Infinity;
 		for (const [sc, x, y, z] of s) {
 			const d = sc === t.c ? Math.hypot(x - e.wx, y - e.wy) : Infinity;
-			if (d > 30) continue;
+			if (d > 10) continue;
 			lo = Math.min(lo, z);
 			hi = Math.max(hi, z);
 			if (!best || d < best.d) best = { d, z };
@@ -367,8 +367,8 @@ async function runArms({ trips, arms, dirs, spawnz, policy, taxi = [] }) {
 		if (!npcZs.has(t.c)) npcZs.set(t.c, spawnHeight(spawnz, t.c, SPAWN_R));
 		return landZ(taxi, npcZs.get(t.c), t.c, e.wx, e.wy);
 	};
-	// WALK (CityFloor's rules): the start from the trail floor within 4 yd near the stop's height hint, else the hint,
-	// else the trail floor anywhere within 4 yd; the goal at its NPC's height, else the trail floor
+	// WALK (CityFloor's rules): with a hint, the trail floor within 4 yd near it when that lies within 4 yd of the hint,
+	// else the hint; without one, the trail floor anywhere within 4 yd; the goal at its NPC's height, else the trail floor
 	let tf = new Map();
 	if (arms.includes('WALK')) {
 		const q = [];
@@ -382,7 +382,10 @@ async function runArms({ trips, arms, dirs, spawnz, policy, taxi = [] }) {
 		if (arm === 'GAME' || arm === 'E2' || arm === 'G1' || arm === 'SPF') return t.A.z;
 		if (arm === 'E0') return null;
 		const z = tf.get(`a${t.i}`);
-		return z !== null && z !== undefined ? z : hint(t, t.A);
+		const h = hint(t, t.A);
+		const has = z !== null && z !== undefined;
+		if (h === null || h === undefined) return has ? z : null;
+		return has && Math.abs(z - h) <= 4 ? z : h;
 	};
 	const goalOf = (t, arm) => {
 		if (arm === 'E2' || arm === 'G1' || arm === 'SPF') return t.B.z;
