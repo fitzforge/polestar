@@ -811,10 +811,7 @@ fn every_maps_setting_is_registered_with_a_label_and_help_map_features_on_the_ma
 	.collect();
 	want.sort();
 	assert_eq!(sorted_strings(&out["pages"]["Map"]), want);
-	// The flight timer and instances live there; the coordinates are there too, as references. The minimap button's
-	// home is Guide > While you play > Show and hide (the settings window's own rows, not loaded here).
-	assert_eq!(
-		sorted_strings(&out["pages"]["Quality of Life"]),
-		vec!["maps.coords", "maps.flightTimer", "maps.instanceDisplay", "maps.instances", "maps.minimapCoords", "maps.perDay", "maps.perHour"]
-	);
+	// The flight timer and instances live there; the coordinates on the Map page alone. The minimap button's home is
+	// Look > Guide window > Show and hide (the settings window's own rows, not loaded here).
+	assert_eq!(sorted_strings(&out["pages"]["Quality of Life"]), vec!["maps.flightTimer", "maps.instanceDisplay", "maps.instances", "maps.perDay", "maps.perHour"]);
 }

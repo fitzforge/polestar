@@ -86,8 +86,8 @@ const HOMES = {
 	'qol.itemButton': ['questing', 'Buttons'],
 	'nav.castPrompt': ['questing'],
 	'qol.targetPlate': ['questing'],
-	'maps.minimapButton': ['guide', 'Show and hide'],
-	'ui.launcher': ['guide', 'Show and hide'],
+	'maps.minimapButton': ['guidewindow', 'Show and hide'],
+	'ui.launcher': ['guidewindow', 'Show and hide'],
 	'nav.worldPins': ['map'],
 	'nav.minimapRoute': ['map'],
 	'nav.routeLines': ['guide'],
@@ -112,7 +112,8 @@ const REFS = [
 	'qualityoflife > Quests > Faster questing: behavior.autoAccept',
 	'qualityoflife > Quests > Rewards, buttons and tracker: qol.itemButton',
 	'questing > Quests > Faster questing: qol.instantQuestText',
-	'questing > Quests > Quest log and tooltips: qol.hideQuestTracker',
+	'questing > Quests > Quest log: qol.hideQuestTracker',
+	'questing > Quests > Faster questing: qol.fastLoot',
 	'guide > Arrow & routes > Along the route: nav.alerts',
 	'alerts > Rare alert > Rare alert: rares.alerts',
 	'alerts > Rare alert > Rare alert: rares.soundKit',
@@ -128,7 +129,6 @@ const REFS = [
 	'trackers > Travel > Flight timer: maps.flightTimer',
 	'trackers > Travel > Journey: nav.journeySteps',
 	'trackers > Party panel > Party panel: party.panel',
-	'qualityoflife > Trackers & map > Minimap and coordinates: maps.coords',
 	'qualityoflife > Travel > Hearth and travel: nav.nearbyMenu',
 	'guide > Automation > Guides: behavior.trainReminder',
 	'alerts > Heads-up card > Card: dungeons.headsUp',
@@ -140,6 +140,12 @@ const DROPPED = [
 	'qualityoflife > Travel > Hearth and travel: nav.alerts',
 	'map > Guide & quests > Guide: maps.minimapButton',
 	'qualityoflife > Trackers & map > Minimap and coordinates: maps.minimapButton',
+	// 10b: the review's order leaves these copies out.
+	'qualityoflife > Trackers & map > Minimap and coordinates: maps.coords',
+	'alerts > Rare alert > Card: toasts.stack',
+	'alerts > Essentials > Alerts: toasts.stack',
+	'theme > Frames > Frame & motion: ui.gameMenuButton',
+	'about >  > Install: update.card',
 ];
 const SEARCHED = {
 	'who it targets': 'qol.targetPlate',
@@ -209,6 +215,165 @@ test('search still finds a setting by the words of the copy that became a refere
 test('the reorganization changes no saved key', () => {
 	const keysBefore = JSON.parse(fs.readFileSync(KEYS_FIXTURE, 'utf8'));
 	assert.deepEqual(survey().keys, keysBefore);
+});
+
+// 10b: the player's journey (the review's §3, §4 and §7). The pages, tabs and
+// sections in order, where the misplaced settings went, the module switches
+// and the rows that follow a parent. One run, the new page on for its tree.
+let journeyCached;
+function journey() {
+	if (journeyCached) return journeyCached;
+	journeyCached = runAddon({
+		stubs: ['stub_world.lua', 'stub_ui.lua'],
+		saved: { Polestar: 'PolestarDB = { settings = {}, optionsLayout = "grouped" }' },
+		addons: [{ name: 'Polestar', files: ALL }],
+		script: `Polestar.UI.LoadOptions()
+			uistub.install()
+			stub.login()
+			local O = Polestar.UI.Options
+			local K, G = O.Kit, O.Grouped
+			local SEP = " \\226\\128\\186 "
+			local tree = {}
+			for _, g in ipairs(G.Tree()) do
+				local keys = {}
+				for _, p in ipairs(g.pages) do keys[#keys + 1] = p.key end
+				tree[g.key] = keys
+			end
+			local home, sectionOf, sectionToggle, refToggle, parentOf, layout = {}, {}, {}, {}, {}, {}
+			local questsTabKeys = 0
+			for _, p in ipairs(K.pages) do
+				local tabs = {}
+				for _, t in ipairs(p.tabs) do
+					local secs = {}
+					for _, s in ipairs(t.sections) do
+						secs[#secs + 1] = s.name or ""
+						local tg = s.toggle
+						if tg and tg.key then
+							if rawget(tg, "ref") then refToggle[s.name] = tg.key else sectionToggle[s.name] = tg.key end
+						end
+						for _, c in ipairs(K.homeSettings(s)) do
+							if c.key and not home[c.key] then
+								home[c.key] = p.key .. SEP .. (t.name or "") .. SEP .. (s.name or "")
+								sectionOf[c.key] = s.name
+								if p.key == "questing" and t.name == Polestar.L["Quests"] then questsTabKeys = questsTabKeys + 1 end
+							end
+						end
+						for _, c in ipairs(s.controls) do
+							local parent = rawget(c, "psParent")
+							if c.key and parent and parent.key and not rawget(c, "ref") then parentOf[c.key] = parent.key end
+						end
+					end
+					tabs[#tabs + 1] = { name = t.name or "", sections = secs }
+				end
+				layout[p.key] = tabs
+			end
+			local installHome
+			for _, c in ipairs(O.AllControls()) do
+				if c.label == Polestar.L["Set Polestar up again"] then installHome = c.page.key .. SEP .. tostring(c.tab) .. SEP .. tostring(c.section) end
+			end
+			local questingTabs = {}
+			for _, t in ipairs(G.Tabs(K.pageByKey("questing"))) do questingTabs[#questingTabs + 1] = t.name end
+			-- Route lines › Essentials › Style: its line style's home is a child of
+			-- Route lines on Guide; with route lines off, the card says so.
+			Polestar.Set("nav.routeLines", false)
+			Polestar.UI.ShowOptions()
+			O.Select("routelines", Polestar.L["Essentials"])
+			local text = string.format(Polestar.L["Turn on %s first."], K.labelOf(O.HomeControl("nav.routeLines")))
+			local styleLine
+			for c, w in pairs(O.view.cache) do
+				if w:IsShown() and c.kind == "button" and c.label == text then styleLine = c.button end
+			end
+			emit({ tree = tree, home = home, sectionOf = sectionOf, sectionToggle = sectionToggle, refToggle = refToggle,
+				parentOf = parentOf, layout = layout, questsTabKeys = questsTabKeys, questingTabs = questingTabs,
+				installHome = installHome, styleLine = styleLine or false, journal = ENCOUNTER_JOURNAL or Polestar.L["Dungeons"] })`,
+	}).emitted[0];
+	return journeyCached;
+}
+
+function tabsOf(out, page) { return out.layout[page].map((t) => t.name); }
+function sectionsOf(out, page, tab) { return (out.layout[page].find((t) => t.name === tab) || { sections: [] }).sections; }
+
+test('pages and sections follow the player journey order', () => {
+	const out = journey();
+	assert.deepEqual(out.tree.guiding, ['guide', 'questing', 'map', 'qualityoflife', 'discovery']);
+	assert.equal(out.tree.look[0], 'guidewindow');
+	assert.deepEqual(out.tree.look, ['guidewindow', 'theme', 'arrow', 'mappins', 'routelines', 'buttons', 'alerts', 'trackers']);
+	assert.deepEqual(out.tree.setup, ['profiles', 'integrations', 'guidepacks', 'gamepad']);
+	assert.deepEqual(out.tree.about, ['about', 'thanks', 'recorder']);
+	// By name: pr/settings-essentials puts an Essentials tab before them.
+	assert.deepEqual(out.questingTabs.filter((n) => n !== 'Essentials'), ['Quests', 'Rewards & gear', 'Buttons', 'Group']);
+	assert.ok(out.questsTabKeys <= 22, out.questsTabKeys);
+
+	assert.deepEqual(tabsOf(out, 'guide'), ['While you play', 'Automation', 'Arrow & routes']);
+	assert.deepEqual(sectionsOf(out, 'guide', 'While you play'), ['Dynamic Questing', 'Pause']);
+	assert.deepEqual(sectionsOf(out, 'guide', 'Automation'), ['Guides', 'Quests', 'Profession guides']);
+	assert.deepEqual(sectionsOf(out, 'guide', 'Arrow & routes'), ['Arrow', 'Routes', 'Along the route', 'Getting around', 'Other waypoints']);
+
+	assert.deepEqual(tabsOf(out, 'questing'), ['Quests', 'Rewards & gear', 'Buttons', 'Group']);
+	assert.deepEqual(sectionsOf(out, 'questing', 'Quests'), ['Faster questing', 'Quest log', 'Quest data', 'Quest items']);
+	assert.deepEqual(sectionsOf(out, 'questing', 'Buttons'), ['Action buttons', 'Targeting']);
+	assert.deepEqual(sectionsOf(out, 'questing', 'Group'), ['Group', 'Party chat']);
+
+	assert.deepEqual(tabsOf(out, 'qualityoflife'), ['Vendors', 'Travel', 'XP & instances', 'Social', 'Game', 'Quests']);
+	assert.deepEqual(sectionsOf(out, 'qualityoflife', 'Vendors'), ['Merchants', 'Restock', 'Bags', 'Trainers']);
+	assert.deepEqual(sectionsOf(out, 'qualityoflife', 'Travel'), ['Flights', 'Death', 'Hearth and travel']);
+	assert.deepEqual(sectionsOf(out, 'qualityoflife', 'XP & instances'), ['Experience', 'XP tracker', 'Boosted Rest', 'Instances']);
+	assert.deepEqual(sectionsOf(out, 'qualityoflife', 'Social'), ['Requests', 'Blocking']);
+
+	assert.deepEqual(tabsOf(out, 'guidewindow'), ['Essentials', 'Window', 'Parts']);
+	assert.deepEqual(sectionsOf(out, 'guidewindow', 'Window'), ['Window', 'Behaviour', 'Show and hide', 'Position', 'Background']);
+	assert.deepEqual(sectionsOf(out, 'guidewindow', 'Parts'),
+		['Bars', 'Step text', 'Step spacing', 'Target bar', 'Step tips', 'Up next', 'Progress & pace']);
+
+	assert.deepEqual(tabsOf(out, 'alerts'), ['Essentials', 'Rare alert', 'Heads-up card', 'Transport alert', 'Class quest card']);
+	assert.deepEqual(sectionsOf(out, 'alerts', 'Essentials'), ['Presets', 'All alerts', 'Alerts', 'Sound']);
+});
+
+test('misplaced settings sit in their new home', () => {
+	const out = journey();
+	const has = (page, tab) => tabsOf(out, page).includes(tab);
+	assert.equal(out.home['toasts.stack'], 'alerts › Essentials › All alerts');
+	for (const k of ['toasts.growth', 'toasts.spacing', 'toasts.max']) assert.equal(out.home[k], 'alerts › Essentials › All alerts', k);
+	assert.equal(out.home['ui.gameMenuButton'], 'guidewindow › Window › Show and hide');
+	for (const k of ['ui.launcher', 'maps.minimapButton', 'ui.lockHud']) assert.equal(out.home[k], 'guidewindow › Window › Show and hide', k);
+	for (const k of ['ui.locked', 'movers.snap', 'movers.grid', 'movers.gridSize']) assert.equal(out.home[k], 'guidewindow › Window › Position', k);
+	assert.equal(out.home['update.card'], 'profiles › Profiles › Install & updates');
+	assert.equal(out.installHome, 'profiles › Profiles › Install & updates');
+	assert.equal(out.home['qol.fastLoot'], 'qualityoflife › Game › Game options');
+	assert.equal(out.home['qol.hideErrors'], 'qualityoflife › Game › Game options');
+	assert.equal(out.sectionOf['qol.questBagMarks'], 'Quest items');
+	assert.equal(out.sectionOf['qol.questSellWarning'], 'Quest items');
+	assert.equal(out.sectionOf['qol.auctionBuys'], 'Quest items');
+	assert.equal(has('guide', 'Professions'), false);
+	assert.equal(out.home['professions.materials'], 'guide › Automation › Profession guides');
+	assert.equal(out.home['professions.altMaterials'], 'guide › Automation › Profession guides');
+});
+
+test('Quest data is a module switch; dependent rows are children', () => {
+	const out = journey();
+	assert.equal(out.sectionToggle['Quest data'], 'qol.questDB');
+	assert.equal(out.refToggle['Quest markers'], 'qol.questDB', "Map's quest markers fold with it: its switch as a reference");
+	assert.equal(out.sectionToggle[out.journal], 'dungeons.enabled');
+	assert.equal(out.home['dungeons.headsUp'], `discovery › Lookup › ${out.journal}`);
+	assert.equal(out.sectionToggle['Characters'], 'alts.enabled');
+	assert.equal(out.sectionToggle['XP tracker'], 'qol.xpTracker');
+	const PARENTS = {
+		'party.waitForGroup': 'party.show', 'party.lootNeeds': 'party.show',
+		'party.chatEcho': 'party.chat', 'party.chatOnlyNeeded': 'party.chat',
+		'qol.markMob': 'qol.markTarget', 'qol.markNpc': 'qol.markTarget',
+		'qol.bagsLow': 'qol.bagSpace', 'qol.itemMarksClick': 'qol.itemMarks',
+		'toasts.transport.linger': 'nav.alertBanner',
+		'trackers.journey.numbers': 'nav.journeySteps',
+		'trackers.xp.tickWidth': 'qol.xpTargetMark', 'trackers.xp.label': 'qol.xpTargetMark', 'trackers.xp.labelSize': 'qol.xpTargetMark',
+		'rares.soundKit': 'rares.sound',
+		// the existing link survives the move
+		'update.probe': 'party.share',
+	};
+	for (const [k, parent] of Object.entries(PARENTS)) assert.equal(out.parentOf[k], parent, k);
+});
+
+test("a reference whose home is a child row waits on that row's parent: Route lines › Essentials › Style", () => {
+	assert.equal(journey().styleLine, 'Guiding › Guide', 'the line names the parent\'s group and page');
 });
 
 // The new page's dependency line walks a reference's home up its parents to

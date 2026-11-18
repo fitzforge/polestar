@@ -330,7 +330,8 @@ fn the_map_page_gathers_every_map_setting_from_its_modules_into_the_declared_tab
 			"Rares, travel & zones": ["Rares and treasures", "Dungeons and travel", "NPC services", "Zones and coordinates"],
 		})
 	);
-	// The minimap button has its home on Guide (While you play > Show and hide), no row here.
+	// The minimap button has its home on Look > Guide window (Show and hide), no row here; the quest data's switch
+	// heads the Quest markers card as a reference to its home on Questing.
 	assert_eq!(
 		out["keys"]["Guide & quests"],
 		json!([
@@ -346,6 +347,7 @@ fn the_map_page_gathers_every_map_setting_from_its_modules_into_the_declared_tab
 			"qol.minimapObjectives",
 			"qol.objectiveAreaAlpha",
 			"qol.objectiveSpots",
+			"qol.questDB",
 			"qol.questLevelWindow",
 			"qol.questMarkerSize",
 			"qol.turnInMarkers",
