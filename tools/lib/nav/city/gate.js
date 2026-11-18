@@ -47,12 +47,13 @@ function doorsOf(entrances, frames) {
 
 const COUNTED = ['GAME', 'WALK'];
 
-// The folder the gate runs: nav, with its Trails/Trails.lua replaced by <priv>/Trails-train.lua when that exists (the
-// trail layer of the training people only: the shipped one counts the held-out people too, and would let the WALK arm
-// see the walks it is judged on). A temporary folder of links beside links to nav's sibling map parts.
+// Keep a baseline without trails as-is. For every pack whose effective TOC loads trails (including maps-only packs
+// that inherit the repository TOC), substitute training people's trails: the shipped layer also saw the held-out walks.
 function gateNav(nav, priv) {
-	const train = path.join(priv, 'Trails-train.lua');
-	if (!fs.existsSync(train) || !fs.existsSync(path.join(nav, 'Trails'))) return { dir: nav, done: () => {} };
+	const trails = path.sep + path.join('Trails', 'Trails.lua');
+	if (!run.navFiles(nav).some((f) => f.endsWith(trails))) return { dir: nav, done: () => {} };
+	const train = path.resolve(priv, 'Trails-train.lua');
+	if (!fs.existsSync(train)) throw new Error(`held-out gate needs ${train}; generate it with nav city trails --train --lua <file>`);
 	const root = fs.mkdtempSync(path.join(require('node:os').tmpdir(), 'polestar-citygate-'));
 	const dir = path.join(root, path.basename(nav));
 	fs.mkdirSync(path.join(dir, 'Trails'), { recursive: true });
@@ -550,6 +551,7 @@ async function gateWorld({ priv, nav, ground = null, spf = null, grid, frames, s
 	});
 	const byI = new Map(trips.map((t) => [t.i, t]));
 	const gn = gateNav(path.resolve(nav), priv);
+	report.trails = gn.dir !== path.resolve(nav) ? 'training people only (<priv>/Trails-train.lua)' : "the folder's own";
 	let res;
 	try {
 		res = await runArms({ trips, arms: arms.filter((a) => !PROTO[a]), dirs: { nav: gn.dir, ground, spf }, spawnz, policy, taxi, doors });

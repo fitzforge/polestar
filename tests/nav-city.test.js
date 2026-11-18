@@ -74,6 +74,20 @@ test('trail tiles: negative heights, many levels and long cell gaps round-trip t
 	sample.forEach(([, , z, w], n) => assert.deepEqual(got[n], [z, w], `entry ${n}`));
 });
 
+test('a held-out replay refuses shipped trails when the training-only layer is missing', async () => {
+	const { gate } = require('../tools/lib/nav/city/gate');
+	const nav = folder({ format: 1, k: 3, cells: 128, maps: {} });
+	const priv = tmpdir('polestar-city-private-');
+	const replay = () => gate({ nav, priv, maps: [] });
+	await assert.rejects(replay(), /Trails-train\.lua/);
+	// A maps-only pack inherits the repository TOC and its shipped trail data.
+	fs.rmSync(path.join(nav, 'Trails'), { recursive: true });
+	await assert.rejects(replay(), /Trails-train\.lua/);
+	// A baseline from before trails existed has no training-layer prerequisite.
+	fs.writeFileSync(path.join(nav, 'Polestar_Nav.toc'), 'Nav/Nav.xml\n');
+	assert.equal((await replay()).trails, "the folder's own");
+});
+
 test("the city gate's ends: a landing on the flight master's floor, an NPC the match had no height for on the NPC's", () => {
 	const { anchorEnds } = require('../tools/lib/nav/city/gate');
 	const g = { colIndex: () => 0, colNodes: () => [0, 1, 2, 3], nz: [39.5, 61.4, 95, -85.1] };
