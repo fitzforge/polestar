@@ -210,6 +210,7 @@ end
 -- ones when the picker closes, unless it was cancelled.
 local picking
 local pickerHooked = false
+local origStrata
 
 local function pickerAlpha()
 	local P = ColorPickerFrame
@@ -225,6 +226,10 @@ local function openPicker(self)
 		ColorPickerFrame:HookScript("OnHide", function()
 			local p = picking
 			picking = nil
+			if origStrata and ColorPickerFrame.SetFrameStrata then
+				ColorPickerFrame:SetFrameStrata(origStrata)
+				origStrata = nil
+			end
 			-- What the wheel wrote live settles (ns.SettleLive): the layouts and
 			-- redraws it left for its end.
 			ns.SettleLive()
@@ -233,6 +238,11 @@ local function openPicker(self)
 				if type(c) == "table" then W.PushRecentColor(c) end
 			end
 		end)
+	end
+	if ColorPickerFrame.GetFrameStrata and ColorPickerFrame.SetFrameStrata then
+		if not origStrata then origStrata = ColorPickerFrame:GetFrameStrata() end
+		ColorPickerFrame:SetFrameStrata("TOOLTIP")
+		if ColorPickerFrame.Raise then ColorPickerFrame:Raise() end
 	end
 	local path = self.psPath
 	local r, g, b, _, a = swatchColor(self)

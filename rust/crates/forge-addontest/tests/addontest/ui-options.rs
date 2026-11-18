@@ -2941,3 +2941,43 @@ fn show_who_it_targets_is_greyed_out_beside_the_target_list_and_follows_simple_t
 	);
 	assert_eq!(out, json!([[false, true], [true, false], true]));
 }
+
+// A colour picker opened from a cog popup raises to TOOLTIP strata so it is not covered or dismissed
+// by the popup's click catcher, and restores on hide (#2994).
+const COG_COLOR_PAGE: &str = r#"
+Polestar.RegisterDefaults("fakecog", { size = 1, rimColor = { 1, 0, 0 } })
+Polestar.RegisterOptions({ page = "Quests", icon = "icon-accept", order = 30, tab = "Map", section = "Markers", controls = {
+	{ kind = "slider", key = "fakecog.size", label = "Size", min = 0.5, max = 2, step = 0.05,
+		more = { { kind = "color", key = "fakecog.rimColor", label = "Rim colour" } } },
+} })
+"#;
+
+#[test]
+fn color_picker_opened_from_cog_raises_strata_and_restores_on_hide() {
+	let out = run_opts(
+		r#"
+		UI.ShowOptions("quests")
+		O.Select("quests", "Map")
+		local row = O.Controls("quests", "Map")["fakecog.size"]
+		row.Cog:Click()
+		local more = PolestarOptionsMore
+		local moreShownBefore = more:IsShown()
+		local rimColor = O.MoreControls()["fakecog.rimColor"]
+		local defaultStrata = ColorPickerFrame:GetFrameStrata()
+		rimColor:Click("LeftButton")
+		local pickerStrata = ColorPickerFrame:GetFrameStrata()
+		local pickerShown = ColorPickerFrame:IsShown()
+		ColorPickerFrame:Hide()
+		local restoredStrata = ColorPickerFrame:GetFrameStrata()
+		emit({ moreBefore = moreShownBefore, defaultStrata = defaultStrata, pickerStrata = pickerStrata,
+			pickerShown = pickerShown, restoredStrata = restoredStrata, moreAfter = more:IsShown() })"#,
+		"",
+		"",
+		COG_COLOR_PAGE,
+	);
+	assert_eq!(out["moreBefore"], true, "cog popup opens");
+	assert_eq!(out["pickerShown"], true, "colour picker opens");
+	assert_eq!(out["pickerStrata"], "TOOLTIP", "picker strata is raised to TOOLTIP above catcher");
+	assert_eq!(out["restoredStrata"], out["defaultStrata"], "strata restored on close");
+	assert_eq!(out["moreAfter"], true, "cog popup remains open after colour pick");
+}
