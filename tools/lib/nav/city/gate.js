@@ -369,8 +369,10 @@ async function runArms({ trips, arms, dirs, spawnz, policy, taxi = [] }) {
 	};
 	// WALK (CityFloor's rules): with a hint, the trail floor within 4 yd near it when that lies within 4 yd of the hint,
 	// else the hint; without one, the trail floor anywhere within 4 yd; the goal at its NPC's height, else the trail floor
+	// (under a2 GAME's goal too: Walk.lua's city.GoalZ gives any capital goal without a height the trail floor's)
+	const goalTrail = (arm) => arm === 'WALK' || (arm === 'GAME' && policy === 'a2');
 	let tf = new Map();
-	if (arms.includes('WALK')) {
+	if (arms.some(goalTrail)) {
 		const q = [];
 		for (const t of trips) {
 			q.push({ type: 'trailfloor', id: `a${t.i}`, map: t.c, at: [t.A.wx, t.A.wy], reach: 4, near: hint(t, t.A) });
@@ -392,7 +394,7 @@ async function runArms({ trips, arms, dirs, spawnz, policy, taxi = [] }) {
 		if (arm === 'E0') return null;
 		const nz = npcZ(t, t.B);
 		if (nz !== null) return nz;
-		return arm === 'WALK' ? tf.get(`b${t.i}`) : null;
+		return goalTrail(arm) ? tf.get(`b${t.i}`) : null;
 	};
 	const res = {};
 	for (const arm of arms) {
