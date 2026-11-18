@@ -398,6 +398,22 @@ async function runArms({ trips, arms, dirs, spawnz, policy, taxi = [] }) {
 			const second = navRun(dir, again.map((k) => route(trips[k], `${arm}|${trips[k].i}|retry`, A(trips[k], startOf(trips[k], arm)), B(trips[k], null))));
 			again.forEach((k, j) => (first[k] = { ...second[j], retried: true }));
 		}
+		// a2 (CityFloor's Walk.lua): a WALK whose guessed start height can't reach the goal is asked again starting on
+		// any surface within 10 yd of that height (from.floors), then with no start height
+		if (arm === 'WALK' && policy === 'a2') {
+			for (const step of ['floors', 'none']) {
+				const again = [];
+				first.forEach((r, k) => {
+					const sz = startOf(trips[k], arm);
+					if (!r.ok && sz !== null && sz !== undefined) again.push(k);
+				});
+				const ask = (t) => route(t, `${arm}|${t.i}|${step}`, A(t, null), B(t, goalOf(t, arm)), step === 'floors' ? { reach: 10, floors: [startOf(t, arm)] } : { reach: 10 });
+				const second = navRun(dir, again.map((k) => ask(trips[k])));
+				again.forEach((k, j) => {
+					if (second[j].ok || step === 'none') first[k] = { ...second[j], retried: step };
+				});
+			}
+		}
 		res[arm] = first;
 	}
 	return res;
