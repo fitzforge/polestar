@@ -4203,6 +4203,10 @@ function W.HeaderScale(f, path)
 		t.psRefreshing = false
 		paint()
 	end
+	-- How many tools stand right of the scale (Place counts them), and whether
+	-- a tool is one of them: made once per window, not per layout.
+	local afterN = 0
+	local function afterScale(w) return afterN > 0 and rawget(w, "psHeadAfterScale") and w:IsShown() end
 	function t.Place()
 		local vw = math.ceil(max(textWidth(t.Value, scaleText(SCALE_HI)), textWidth(t.Value, scaleText(1))))
 		paint()
@@ -4220,8 +4224,19 @@ function W.HeaderScale(f, path)
 		-- Settings, Theme, Frames.
 		local inHeader = f.Close:GetParent() == head
 		t:SetShown(inHeader or not f.Close:IsShown())
+		-- A tool's psHeadAfterScale: it stands right of the scale, between it and
+		-- the close button (only where the close button is in the header).
+		afterN = 0
 		if f.Close:IsShown() and inHeader then
-			t:SetPoint("RIGHT", f.Close, "LEFT", -14, 0)
+			local prev = f.Close
+			for _, w in ipairs(rawget(f, "psHeadTools") or {}) do
+				if rawget(w, "psHeadAfterScale") and w:IsShown() then
+					w:ClearAllPoints()
+					w:SetPoint("RIGHT", prev, "LEFT", -14, 0)
+					afterN, prev = afterN + 1, w
+				end
+			end
+			t:SetPoint("RIGHT", prev, "LEFT", -14, 0)
 		else
 			t:SetPoint("TOPRIGHT", head, "TOPRIGHT", -SHELL.pad, -16)
 		end
@@ -4230,7 +4245,7 @@ function W.HeaderScale(f, path)
 		local left = t:IsShown() and t or nil
 		-- A tool's psHeadGap: its gap to the one right of it (16; a pair closer).
 		for _, w in ipairs(rawget(f, "psHeadTools") or {}) do
-			if w:IsShown() then
+			if w:IsShown() and not afterScale(w) then
 				w:ClearAllPoints()
 				if left then
 					w:SetPoint("RIGHT", left, "LEFT", -(rawget(w, "psHeadGap") or 16), 0)
@@ -4249,7 +4264,7 @@ function W.HeaderScale(f, path)
 			local gives = search and own and search:IsShown()
 			if gives then search:SetWidth(own) end
 			local edge = 16
-			for _, w in ipairs(f.psHeadTools) do if w:IsShown() then edge = edge + (rawget(w, "psHeadGap") or 16) + w:GetWidth() end end
+			for _, w in ipairs(f.psHeadTools) do if w:IsShown() then edge = edge + (afterScale(w) and 14 or (rawget(w, "psHeadGap") or 16)) + w:GetWidth() end end
 			edge = edge + (t:IsShown() and t:GetWidth() or 0) + ((f.Close:IsShown() and inHeader) and (12 + 28 + 14) or (SHELL.pad + 16))
 			if gives then
 				local room = (tonumber(rawget(f, "psMainW")) or head:GetWidth()) - SHELL.pad - edge
