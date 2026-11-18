@@ -4696,16 +4696,11 @@ end
 -- Never past the screen, never under SIZE.MIN_W x SIZE.MIN_H (the screen allowing).
 ---------------------------------------------------------------------------
 
-SIZE.BASE_W, SIZE.BASE_H, SIZE.MIN_W, SIZE.MIN_H, SIZE.EDGE = 1300, 946, 860, 560, 16
+SIZE.MIN_W, SIZE.MIN_H, SIZE.EDGE = 860, 560, 16
 
--- -> the default size, in UIParent units
+-- -> the default size, in UIParent units (W.ShellDefaultSize, the picker's too)
 function O.DefaultSize()
-	local _, ph = 0, 0
-	if GetPhysicalScreenSize then _, ph = GetPhysicalScreenSize() end
-	local uh = UIParent:GetHeight()
-	local perUnit = (ph and ph > 0 and uh and uh > 0) and ph / uh or 1
-	local k = max(1, floor((ph or 0) / 1440 * 20 + 0.5) / 20)
-	return floor(SIZE.BASE_W * k / perUnit + 0.5), floor(SIZE.BASE_H * k / perUnit + 0.5)
+	return W.ShellDefaultSize()
 end
 
 -- -> minW, minH, maxW, maxH in the window's units (its Menu scale applied)

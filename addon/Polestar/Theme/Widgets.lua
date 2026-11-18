@@ -4369,6 +4369,20 @@ local function headerSearchW(f)
 	return f.psSearchW
 end
 
+-- The default size of a big window (the settings window, the guide picker): 1300 x 946
+-- screen pixels (and more on a screen taller than 1440 pixels, in 5 % steps) at the
+-- default Menu scale, whatever the UI scale, as UIParent units. The Menu scale
+-- (opts.scalePath) then scales the window once, so both windows keep the same size
+-- to each other at every scale.
+W.SHELL_BASE_W, W.SHELL_BASE_H = 1300, 946
+function W.ShellDefaultSize()
+	local ph = GetPhysicalScreenSize and select(2, GetPhysicalScreenSize()) or 0
+	local uh = UIParent:GetHeight()
+	local perUnit = (ph and ph > 0 and uh and uh > 0) and ph / uh or 1
+	local k = math.max(1, math.floor((ph or 0) / 1440 * 20 + 0.5) / 20)
+	return math.floor(W.SHELL_BASE_W * k / perUnit + 0.5), math.floor(W.SHELL_BASE_H * k / perUnit + 0.5)
+end
+
 -- opts: { width, height, title, subtitle, searchPlaceholder, onSearch,
 --         scalePath = "ui.menuScale" (the window's scale setting) }
 --
