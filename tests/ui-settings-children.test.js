@@ -169,3 +169,29 @@ test('Alert for rares, While you\'re here, Show arrow, Plan travel routes and Mi
 	assert.deepEqual(out['nav.routeLines'], ['nav.lineStyle']);
 	assert.deepEqual(out['nav.tomtom'], ['nav.useTomTomArrow']);
 });
+
+test('Grow upward, Step slide, Tabs, Target bar, Step tips and Progress bar open their settings under them (Look > Guide window)', () => {
+	const [out] = runAddon({
+		stubs: ['stub_world.lua', 'stub_ui.lua'],
+		addons: [{ name: 'Polestar', files: ALL }],
+		script: `Polestar.UI.LoadOptions()
+			uistub.install()
+			stub.login()
+			local O = Polestar.UI.Options
+			local out = {}
+			for _, c in ipairs(O.AllControls()) do
+				if c.children and c.page and c.page.key == "guidewindow" then
+					local keys = {}
+					for _, k in ipairs(c.children) do keys[#keys + 1] = k.key end
+					out[c.key] = keys
+				end
+			end
+			emit(out)`,
+	}).emitted;
+	assert.deepEqual(out['ui.growUp'], ['ui.barsBottom']);
+	assert.deepEqual(out['guideWindow.stepAnim'], ['guideWindow.animSpeed']);
+	assert.deepEqual(out['guideWindow.tabs'], ['guideWindow.tabHeight']);
+	assert.deepEqual(out['guideWindow.targetBar'], ['guideWindow.targetBarWidth', 'guideWindow.targetBarColor']);
+	assert.deepEqual(out['ui.showNotes'], ['guideWindow.noteSize', 'ui.notesOpen']);
+	assert.deepEqual(out['guideWindow.progress'], ['guideWindow.progressHeight', 'guideWindow.progressColor', 'guideWindow.progressPct']);
+});
