@@ -15523,7 +15523,7 @@ function Engine.SkipQuest(questID, on)
 			end
 			if title then break end
 		end
-		ns.Fire("PLAYER_SKIPPED_QUEST", questID, title)
+		ns.Fire("PLAYER_SKIPPED_QUEST", questID, ns.Names.Quest(questID) or title)
 	end
 	return true
 end
