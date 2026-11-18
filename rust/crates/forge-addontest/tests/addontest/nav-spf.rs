@@ -4808,7 +4808,7 @@ fn city_a1_in_a_capital_a_walk_from_an_unknown_floor_starts_on_the_trail_floor_o
 		emit(r)"#,
 	]
 	.concat());
-	assert_eq!(out["city"], 72, "the surface the trail floor (72.5) says");
+	assert_eq!(out["city"], 72.5, "the surface the trail floor (72.5) says, the search from the trail floor itself");
 	assert_eq!(out["reach"], 4, "the floor people walk on within 4 yd");
 	assert_eq!(out["outside"], "none");
 	assert_eq!(out["silent"], "none");
@@ -5002,14 +5002,14 @@ fn city_a3_an_npc_beside_the_player_gives_the_floor_from_its_spawn_height_ambigu
 		away(0, 250)
 		r.stale = startZ()
 		-- With trails: asked on the NPC's level, taken within 4 yd of the NPC's height, else the NPC's height.
-		fake.trail = function(map, x, y, reach, near) if near then return near + 2.5, 2 end return 72, 3 end
+		fake.trail = function(map, x, y, reach, near) if near then return 43.5, 2 end return 72, 3 end
 		stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate3")
 		fake.trailAsks = {}
 		away(0, 250)
 		r.trail = startZ()
 		r.near = false
-		for _, a in ipairs(fake.trailAsks) do if a.near then r.near = a.near end end
-		fake.trail = function(map, x, y, reach, near) if near then return near + 6, 2 end return 72, 3 end
+		for _, a in ipairs(fake.trailAsks) do if a.near == 41 then r.near = 41 end end
+		fake.trail = function(map, x, y, reach, near) if near then return 47, 2 end return 72, 3 end
 		stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate3")
 		away(0, 250)
 		r.farTrail = startZ()
@@ -5031,7 +5031,7 @@ fn city_a3_an_npc_beside_the_player_gives_the_floor_from_its_spawn_height_ambigu
 	assert_eq!(out["stale"], "none");
 	assert_eq!(out["near"], 41, "the trail floor asked on the NPC's level");
 	assert_eq!(out["trail"], 43.5, "that trail floor (43.5), 2.5 yd over the NPC's");
-	assert_eq!(out["farTrail"], 40, "a trail floor 6 yd off the NPC's height: the NPC's (41), the surface at 40");
+	assert_eq!(out["farTrail"], 40, "a trail floor 6 yd off the NPC's height: the NPC's (41), the surface at 40 (and 7 yd off that floor: no settling)");
 	assert_eq!(out["outside"], "none");
 }
 
@@ -5092,4 +5092,32 @@ fn city_after_a_flight_lands_in_a_capital_the_floor_is_the_flight_point_s_height
 	]
 	.concat());
 	assert_eq!(out, json!({ "node": 176.9, "landed": 176.9, "later": 145.7 }));
+}
+
+// CityLifts, 2026-11-18 (the Undercity's Trade Quarter by the south lift): Leffe's maps hold a pocket surface at -47 a
+// few yards under the walkway people walk at -43 (75 recorded players against 2), and the floor followed there reads
+// the pocket. In a capital a search from a followed floor starts on the trail floor within 5 yd of it; the follower
+// keeps what it reads. Farther, or outside the capitals, the followed floor.
+#[test]
+fn city_a1_in_a_capital_a_followed_floor_starts_its_search_on_the_trail_floor_within_5_yd() {
+	let out = run(&[
+		FLOORS,
+		CITY,
+		r#"
+		local r = {}
+		fake.surfaces = function() return { 40 } end
+		fake.trail = function(map, x, y, reach, near) return near and near + 4.5 or 44.5, 2 end
+		nav.place(0, 50)
+		r.near = startZ()
+		fake.trail = function(map, x, y, reach, near) return near and near + 6 or 46, 2 end
+		stub.advance(1)
+		r.far = startZ()
+		fake.trail = function(map, x, y, reach, near) return near and near + 4.5 or 44.5, 2 end
+		nav.place(600, 50)
+		stub.advance(3)
+		r.outside = startZ()
+		emit(r)"#,
+	]
+	.concat());
+	assert_eq!(out, json!({ "near": 44.5, "far": 40, "outside": 40 }));
 }

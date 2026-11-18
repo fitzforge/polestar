@@ -593,6 +593,25 @@ function city.Start(c, x, y)
 	return city.sz
 end
 
+-- In a capital, a followed floor's start height for a search: the trail floor within SETTLE yd of it when there is
+-- one (TrailFloor near it), else the floor. Leffe's maps can hold a pocket surface a few yards under the floor people
+-- walk (the Undercity's Trade Quarter: -47 under the walkway at -43, walked by 2 players against 75); the follower
+-- stays on what it reads, the search starts where the walk goes. Read again after MOVE_HINT yd or EVERY s.
+city.SETTLE = 5
+function city.Settle(c, x, y, z)
+	local now = GetTime()
+	local dx, dy = x - (city.tx or huge), y - (city.ty or huge)
+	if c ~= city.tc or z ~= city.tz or now - (city.tAt or -huge) > EVERY or not (dx * dx + dy * dy <= city.MOVE_HINT * city.MOVE_HINT) then
+		city.tc, city.tx, city.ty, city.tz, city.tAt, city.tOut = c, x, y, z, now, z
+		local P = Nav.Path
+		if P and P.TrailFloor and city.Here(c, x, y) then
+			local ok, tz = pcall(P.TrailFloor, c, x, y, city.TRAIL, z)
+			if ok and type(tz) == "number" and abs(tz - z) <= city.SETTLE then city.tOut = tz end
+		end
+	end
+	return city.tOut
+end
+
 function city.GoalZ(P, c, x, y)
 	if not (P and P.TrailFloor) then return nil end
 	local ok, tz = pcall(P.TrailFloor, c, x, y, city.TRAIL)
@@ -978,7 +997,8 @@ local function trackedZ(pc, px, py)
 end
 
 -- The height a walk from the player at (px, py) starts from: the client's,
--- else the tracked floor, else in a capital (not while candidate floors are
+-- else the tracked floor (in a capital, the trail floor within 5 yd of it:
+-- city.Settle), else in a capital (not while candidate floors are
 -- followed indoors: the search starts on them) the floor the trails or an NPC
 -- beside the player say (city.Start); nil, tracked (any but the client's: a
 -- search with it that finds nothing is asked once more without it), hinted.
@@ -986,7 +1006,7 @@ local function startZ(pc, px, py)
 	local z = playerZ(pc)
 	if z ~= nil then return z, false, false end
 	z = trackedZ(pc, px, py)
-	if z ~= nil then return z, true, false end
+	if z ~= nil then return city.Settle(pc, px, py, z), true, false end
 	if candN == 0 or not candIndoor then z = city.Start(pc, px, py) end
 	return z, z ~= nil, z ~= nil
 end
