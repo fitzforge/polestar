@@ -501,8 +501,9 @@ ns.UI.GuideFrame.Part(function(GF)
 		local titleW = width - PAD - (steps and nav.Steps:GetWidth() + 12 or 0) - 24 - 8 - 8 - (nav.Close:IsShown() and 18 or 0) - skipW - reportW - nearbyW - lookupW
 		-- At the minimum width the controls take the row; the title must not sit
 		-- behind Skip (notably in compact mode with one guide, where no strip shows).
-		nav.Title:SetShown((not showStrip or not steps) and GF.On("guideTitle") and nav.Title:GetText() ~= nil and nav.Title:GetText() ~= "" and titleW >= 40)
-		nav.Title:SetWidth(max(40, titleW))
+		-- A layout that sets the row out itself (nav.psFitTitle) sizes and hides the title.
+		nav.Title:SetShown((not showStrip or not steps) and GF.On("guideTitle") and nav.Title:GetText() ~= nil and nav.Title:GetText() ~= "" and (nav.psFitTitle or titleW >= 40))
+		if not nav.psFitTitle then nav.Title:SetWidth(max(40, titleW)) end
 		card:SetWidth(width)
 
 		local y = 0

@@ -1592,3 +1592,59 @@ emit({ rows = rows })`,
 		assert.ok(r.left >= r.disc + 2, `${r.kind} ${r.num}: left edge ${r.left} clears the node's right edge ${r.disc} by 2`);
 	}
 });
+
+// The header row under Atlas as the window narrows: the title is cut short
+// down to 80 px, then the step count loses its arrows, then it shows the
+// number alone, and only then does the title go.
+test('under Atlas a narrow window keeps the title: arrows go, then the total, then the title', () => {
+	const [out] = runAddon({
+		stubs: ['stub_world.lua'],
+		addons: ['Polestar', 'Polestar_Skin_Atlas', 'Polestar_Layout_Atlas'],
+		script: `${GUIDE}
+local T, GF = Polestar.Theme, Polestar.UI.GuideFrame
+Polestar.Set("ui.shown", true)
+T.SetLayout("atlas")
+local nav = T.GuideParts().nav
+local function read(w)
+	local F = GF.frame
+	F:SetWidth(w)
+	nav:SetWidth(w)
+	GF.Render()
+	nav.Steps.Count:SetText("108 / 121")
+	nav.Title:SetText("Dun Morogh and a long way onward")
+	GF.Layout()
+	local right = 10
+	for _, b in ipairs({ nav.Menu, nav.Report, nav.Nearby, nav.AllSteps, nav.Skip }) do
+		if b:IsShown() then right = right + b:GetWidth() end
+	end
+	return { w = w, right = right, title = nav.Title:IsShown() and true or false, tw = nav.Title:GetWidth(), sw = nav.Steps:GetWidth(), count = nav.Steps.Count:GetText(), arrows = nav.Prev:IsShown() and nav.Next:IsShown() and true or false }
+end
+local out = {}
+for _, w in ipairs({ 900, 590, 340, 300, 270, 200 }) do out[tostring(w)] = read(w) end
+out.back = read(900)
+emit(out)`,
+	}).emitted;
+	const fits = (r) => r.tw + r.sw + 8 + 34 + r.right <= r.w;
+	assert.equal(out['900'].title, true);
+	assert.equal(out['900'].arrows, true, 'wide: the arrows show');
+	assert.equal(out['900'].count, '108 / 121');
+	assert.ok(out['900'].tw > 300, 'wide: the title has the room');
+	for (const w of ['590', '340']) {
+		const r = out[w];
+		assert.equal(r.title, true, `${w}: the title shows`);
+		assert.ok(r.tw >= 80, `${w}: the title is at least 80 wide (${r.tw})`);
+		assert.ok(fits(r), `${w}: the title does not meet the step count`);
+	}
+	assert.equal(out['590'].arrows, true, 'room enough for the arrows at 590');
+	assert.equal(out['300'].arrows, false, 'no arrows when the title would go under 80');
+	assert.equal(out['300'].count, '108 / 121');
+	assert.equal(out['300'].title, true);
+	assert.ok(fits(out['300']) && out['300'].tw >= 80);
+	assert.equal(out['270'].arrows, false);
+	assert.equal(out['270'].count, '108', 'then the number alone');
+	assert.equal(out['270'].title, true);
+	assert.ok(fits(out['270']) && out['270'].tw >= 80);
+	assert.equal(out['200'].title, false, 'only then the title goes');
+	assert.equal(out['200'].count, '108');
+	assert.deepEqual(out.back, out['900'], 'widening again gives everything back');
+});

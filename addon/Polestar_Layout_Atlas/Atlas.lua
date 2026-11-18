@@ -301,11 +301,30 @@ on("guideTitle", function(nav, parts)
 	if parts.bar then parts.bar:Hide() end
 end)
 
+local function stepsMode(nav, own, mode)
+	local count = nav.Steps.Count
+	if not own.countPts then own.countPts = { count:GetPoint(1) } end
+	local arrows = mode == 0
+	nav.Prev:SetShown(arrows)
+	nav.Next:SetShown(arrows)
+	count:ClearAllPoints()
+	if arrows then
+		count:SetPoint(unpack(own.countPts))
+	else
+		count:SetPoint("LEFT", nav.Steps, "LEFT", 0, 0)
+	end
+	local full = own.countFull
+	if full then count:SetText(mode >= 2 and (full:match("^%s*(%S+)") or full) or full) end
+end
+
 local function navBack(nav)
 	local own = nav and stores[nav]
 	if not (own and own.atlas) then return end
 	own.atlas = nil
 	if own.emblem then own.emblem:Hide() end
+	nav.psFitTitle = nil
+	stepsMode(nav, own, 0)
+	own.titleHid = nil
 	Theme.Font(nav.Steps.Count, "number")
 	nav.Steps:ClearAllPoints()
 	nav.Steps:SetPoint("LEFT", nav, "LEFT", 8, 0)
@@ -359,6 +378,57 @@ end)
 -- Right to left from the menu: Report and Nearby where the player shows
 -- them, Skip (its glyph alone), then the step count.
 local SKIP_W = 7 + 11 + 7
+-- The room the row has, shrinking in this order: the title is cut short
+-- ("...") down to TITLE_MIN, then the step count loses its arrows, then it
+-- shows the number alone, and only then does the title go.
+local TITLE_MIN = 80
+local function fitRow(nav, own, prev)
+	local title, steps, count = nav.Title, nav.Steps, nav.Steps.Count
+	local text = count:GetText()
+	if type(text) == "string" and text:find("/", 1, true) then own.countFull = text end
+	local full = own.countFull
+	local navW = nav:GetWidth() or 0
+	if not steps:IsShown() or navW <= 0 then return end
+	local _, _, _, menuX = nav.Menu:GetPoint(1)
+	local right = -(tonumber(menuX) or -8) + 2
+	for _, b in ipairs({ nav.Menu, nav.Report, nav.Nearby, nav.AllSteps, nav.Skip }) do
+		if b:IsShown() then right = right + b:GetWidth() end
+	end
+	local room = navW - (10 + 16 + 8) - right - 8
+	local base = math.floor(40 * Core.scale("stepNumberSize") + 0.5)
+	local function width(t)
+		count:SetText(t)
+		return math.max(base, math.ceil(count:GetUnboundedStringWidth()) + 1)
+	end
+	local keep = text
+	local fullW = width(full or keep or "")
+	local shortW = full and width(full:match("^%s*(%S+)") or full) or fullW
+	count:SetText(keep)
+	local mode = 3
+	if full then
+		local need = { fullW + 48, fullW, shortW }
+		for m = 0, 2 do
+			if room - need[m + 1] >= TITLE_MIN then mode = m break end
+		end
+	else
+		mode = 0
+	end
+	local shown = math.min(mode, 2)
+	stepsMode(nav, own, shown)
+	local cw = shown == 2 and shortW or fullW
+	count:SetWidth(cw)
+	local sw = shown == 0 and cw + 48 or cw
+	steps:SetWidth(sw)
+	if mode >= 3 then
+		if title:IsShown() then own.titleHid = true end
+		title:Hide()
+	elseif own.titleHid then
+		own.titleHid = nil
+		title:Show()
+	end
+	title:SetWidth(math.max(TITLE_MIN, room - sw))
+end
+
 local function navRow(nav)
 	local prev = nav.Menu
 	for _, b in ipairs({ nav.Report, nav.Nearby, nav.AllSteps, nav.Skip }) do
@@ -378,6 +448,8 @@ local function navRow(nav)
 		nav.Title:ClearAllPoints()
 		nav.Title:SetPoint("LEFT", own.emblem, "RIGHT", 8, 0)
 		nav.Title:SetPoint("RIGHT", nav.Steps:IsShown() and nav.Steps or prev, "LEFT", -8, 0)
+		nav.psFitTitle = true
+		fitRow(nav, own, prev)
 	end
 end
 
