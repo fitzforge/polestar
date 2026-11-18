@@ -93,7 +93,7 @@ otherwise, the place modifiers `@x,y`, `map`, `r`, `era` / `live`.
 | `money <amount>` | Hold that much money (`1g50s`, `7s`, `25c` or copper); stays done for the rest of the step (Polestar 0.3.0) | no place modifiers, no `group` |
 | `task "<text>"` | Something Polestar cannot see; the player ticks it, and it holds the step until then unless `optional` (Polestar 0.3.0). With modifiers, quote the text | no `"text"`, no `group` |
 | `note <text>` | A line of information; never holds the step. With `only`, quote the text | no `"text"`, no `group`, no `either` |
-| `skill <Profession> <N>` | Reach skill N (`"First Aid"` quoted) | |
+| `skill <Profession> <N>` | Reach skill N (`"First Aid"` quoted). With `nearest`, the step's `goto` points (two or more) are the places to do it and the arrow takes the nearest | `nearest` |
 | `learn <spell> ["Name"]` | Learn a recipe or spell | `npc`, `item`, `nearest` |
 | `cast <spellId> ["Name"]` | Cast that spell while the goal is open (Polestar 0.3.0); name it unless it is a recipe in the data | coordinates |
 | `buff <spellId> ["Name"]` | Have that aura (a buff or a debuff) on the character; kept once the step had it. With `off`: done while it is gone. Name it unless the client's spell tables know it (Polestar 0.4.1) | `off` |

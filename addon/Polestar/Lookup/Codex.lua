@@ -260,6 +260,12 @@ local function decodeSource(field)
 	if (src.type == "drop" or src.type == "object") and requires and requires ~= "" then
 		src.requiresQuests = numbers(unesc(requires))
 	end
+	-- After it, an object's instance (#2883): the dungeon players loot it in,
+	-- an object no other source places (Maraudon's vial).
+	if src.type == "object" then
+		local inst = parts[#fields + 3]
+		if inst and inst ~= "" then src.instance = unesc(inst) end
+	end
 	if src.type == "craft" and src.skillLine then
 		src.profession = nameOf("skill", src.skillLine)
 	end
@@ -397,6 +403,12 @@ local function decodeQuest(group, id, s)
 		elseif lead == "h" then
 			-- How it is done beyond its objectives, in our words (#2714): h<text>.
 			rec.how = unesc(sub(f, 2))
+		elseif lead == "l" then
+			-- The profession it needs (#1913): l<skill line>,<rank>, the rank
+			-- empty when the data names none (Snakestone of the Shadow
+			-- Huntress: Blacksmithing 250, #2752).
+			local _, _, line, rank = find(f, "^l(%d+),(%d*)$")
+			rec.skill, rec.skillRank = tonumber(line), tonumber(rank)
 		elseif f == "d" then
 			-- Handed in at one talk, never in the log (#2686: Bloodpetal Sprouts).
 			rec.direct = true

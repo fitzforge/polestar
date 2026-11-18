@@ -123,7 +123,7 @@ step Nesingwary's Expedition: kill these as you meet them
   zone Stranglethorn Vale
   tip Young Stranglethorn Tigers prowl west of the camp, Young Panthers east of it. Head west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A Pendant of Myzrael is a very rare drop from them: if one drops, read it. Careful: The troll camps have many patrolling mobs, so other trolls often join a fight.
   kill 681 quest 185
-  kill 683 quest 190
+  kill 683 quest 190 @39.81,11 map 1434 era
   collect 3901 quest 581
   collect 4614 x1 optional
   accept 635 optional
@@ -167,7 +167,7 @@ step Nesingwary's camp
 step Stranglethorn Vale: kill these as you meet them
   zone Stranglethorn Vale
   tip Stranglethorn Tigers and Panthers (32-33) roam the hills east of the camp, along the lake shore.
-  kill 682 quest 186
+  kill 682 quest 186 @45,15 map 1434 era
   collect 4106 quest 213
   kill 736 quest 191
 

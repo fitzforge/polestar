@@ -1029,6 +1029,54 @@ Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Arathi", factio
 	assert_eq!(out["events"], json!([{ "from": 1, "to": 2, "quests": ["522:Assassin's Plot:closed"] }]), "{out}");
 }
 
+// #2670 (Night Elf Druid 15, 0.4.0.1): Darkshore's Moonglade step lists "accept Trial of the Lake" (29, level 16),
+// then "collect Shrine Bauble" and "use Shrine Bauble" with no quest of their own. The accept waited for level 16,
+// but the arrow sent the druid into the lake for a bauble only that quest can loot. A plain collect or use of an
+// item that an accept before it in its step works with (the quest database's handed-over items) waits with that
+// quest, as a quest's starting item does (#1531), and comes back with the level-up.
+#[test]
+fn an_item_a_quest_works_with_waits_with_a_quest_the_character_cannot_take_yet_2670() {
+	let guide = r#"
+Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Darkshore", faction = "Horde", minLevel = 10, maxLevel = 20, steps = {
+	{ title = "Trial of the Lake", goals = {
+		{ t = "accept", quest = 29, title = "Trial of the Lake", npc = 11802, npcName = "Dendrite Starblaze", minLevel = 16, map = 1413, x = 56, y = 30 },
+		{ t = "collect", item = 15877, itemName = "Shrine Bauble", count = 1, map = 1413, x = 54, y = 55 },
+		{ t = "use", item = 15877, itemName = "Shrine Bauble", map = 1413, x = 36, y = 41 },
+		{ t = "turnin", quest = 29, title = "Trial of the Lake", npc = 11799, npcName = "Tajarri", map = 1413, x = 36, y = 40 },
+	} },
+	{ title = "Trainer", goals = { { t = "train", npc = 3353, npcName = "Trainer", map = 1413, x = 52, y = 31 } } },
+} })
+"#;
+	let script = r#"
+			local w = stub.world
+			-- Layout: title, level, minLevel, races, classes, faction, start, finish, ... field 19: the items it hands over or works with.
+			AddRecords("quests", {
+				[29] = { "Trial of the Lake", 16, 16, nil, nil, nil, { 11802 }, { 11799 }, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 15877 },
+			})
+			Polestar.QuestDB.SetMeta({})
+			stub.fire("QUEST_LOG_UPDATE"); flush()
+			local r = { live = E.GetLiveStep(), lake = brief(1) }
+			w.setLevel(16); flush()
+			r.liveAt16, r.lakeAt16 = E.GetLiveStep(), brief(1)
+			emit(r)
+		"#;
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.to_string(),
+		addons: vec![Addon::name("Polestar")],
+		script: format!("{}\n{TEST_PACK}\n{TEST_SOURCE}\n{guide}\n{HELPERS}{script}", forge_addontest::questdb::ADD_RECORDS_LUA),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["live"], 2, "nothing in the lake for a level 12 character: {out}");
+	let lake = out["lake"].as_array().unwrap();
+	assert_eq!(lake[0], "na:nil:nil", "{out}");
+	assert_eq!(lake[1], "na:nil:nil", "the bauble waits with Trial of the Lake: {out}");
+	assert_eq!(lake[2], "na:nil:nil", "{out}");
+	assert_eq!(out["liveAt16"], 1, "level 16: back to Dendrite: {out}");
+	assert_eq!(out["lakeAt16"], json!(["active:nil:nil", "active:nil:nil", "active:nil:nil", "active:nil:nil"]), "{out}");
+}
+
 // Players' recordings: the game holds a breadcrumb's target back while the breadcrumb is in the log (The Forgotten
 // Pools 870 was refused to 12 people while The Barrens Oases 886 was in their log, and offered to 30 who never had
 // it). An accept whose breadcrumb (`crumbs`) is in the log, when the guide no longer hands that breadcrumb in (its

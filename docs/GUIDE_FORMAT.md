@@ -174,7 +174,7 @@ A step must contain at least one goal.
 | `wait` | `<seconds>` | A countdown in the step: `wait 30 "the boat docks"`. It starts once every goal before it in the step is done and is done when the time is up (1 to 3600 seconds); the guide window shows the time left as a draining line. For a boat, an event or a speech to sit through. |
 | `task` | `"<text>"` | Something to do that Polestar cannot see (a logout skip, a tame, an emote): it holds the step until the player ticks it in the guide window; with `optional` it never holds it. Quotes optional when nothing follows the text. A task has a place with `@x,y` for the arrow. In an `along` step it never checks off (see "Along the way"). Pack format 5. |
 | `note` | `<text...>` | Informational line; never blocks. Quotes optional. |
-| `skill` | `<Profession> <N>` | Reach skill rank N (`Alchemy`, `Blacksmithing`, `Enchanting`, `Engineering`, `Herbalism`, `Leatherworking`, `Mining`, `Skinning`, `Tailoring`, `Cooking`, `Fishing`, `First Aid`, quoted when multi-word). |
+| `skill` | `<Profession> <N>` | Reach skill rank N (`Alchemy`, `Blacksmithing`, `Enchanting`, `Engineering`, `Herbalism`, `Leatherworking`, `Mining`, `Skinning`, `Tailoring`, `Cooking`, `Fishing`, `First Aid`, quoted when multi-word). With `nearest`, the step's `goto` points are the places to do it and the arrow leads to the one nearest the player (see Smart targets): `skill Fishing 50 nearest` beside a `goto` on each starting area's shore. |
 | `learn` | `<spellId> ["Name"]` | Learn a recipe or spell (trainer or recipe item); name from `professions.json`, else, for a spell a skill line teaches (a class spell, a talent; a profession's recipe still needs `professions.json`), from the client's spell tables of the data's build. A trainer-taught spell points at every trainer of its rank (a smart target; `npc <id>` fixes one); `learn <spellId> nearest` for a recipe sold by vendors sends the player to the closest own-faction vendor of the recipe item. |
 | `cast` | `<spellId> ["Name"]` | Cast a spell (a campfire, a class teleport, a racial): done when the player's own cast of that spell succeeds while the goal is open, in the step the guide is at or an along step listed under it; a cast before that does not count, and the tick is kept. Name from `professions.json` (a recipe), else give it: a spell in neither is an error. |
 | `buff` | `<spellId> ["Name"]` | Have an aura (a buff or a debuff) on the character: a blessing, an elixir's effect, a disguise a quest hands out. Done while the aura of that spell id is on the player, and kept once its step had it, so an aura that runs out before the step's other goals are done does not reopen it. With `off` the goal is the other way round: done while the aura is gone (wait out Resurrection Sickness, click a disguise off). The name is the client's for a spell its tables know, else give it: a spell in neither is an error. Coordinates only point the arrow. On a client that cannot read auras the player ticks it. Pack format 11. |
@@ -206,7 +206,9 @@ goals in `guides/`, recorded trainer visits, and a curated list verified against
 and `vendor nearest` from the `repair` role in `npcs.json`; `buy … nearest` from the
 item's `vendors`; `collect … nearest` from the item's droppers (see `collect`);
 `learn … nearest` from the recipe item's `vendors`; a trainer-taught `learn`
-from the profession rank's trainers in `professions.json`. Only
+from the profession rank's trainers in `professions.json`; `skill … nearest` from
+the step's own `goto` points (at least two; each for the characters its `only` and
+the step's `only` name), which leave the step. Only
 factions the goal can apply to are kept, and each set keeps one candidate per town
 (within 250 yards), nearest to the previous goal first; in a capital city (Stormwind,
 Orgrimmar, Ironforge, Thunder Bluff, Darnassus, the Undercity) one per district
@@ -320,7 +322,11 @@ for another class, it never holds the guide, and a turn-in whose only accept
 is in such a step goes with it.
 
 A step with `when onquest Q` (or `when complete Q`) can hand in Q with no
-`accept Q` before it: "hand it in if you picked it up elsewhere". A `turnin`
+`accept Q` before it: "hand it in if you picked it up elsewhere". When the
+guide sees Q handed in (at that step, or on the way before the route gets
+there), the step's `when` is kept as holding, so what the step does after the
+hand-in (the follow-up's accept from the same NPC) stays on the route; a Q
+handed in before the guide ran leaves the step out (Polestar 0.4.2). A `turnin`
 whose quest is accepted earlier only in steps with `when` warns: characters
 who passed those steps never see it, so give it the same `when` or a
 `when onquest`.

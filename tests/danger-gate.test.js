@@ -8,7 +8,11 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
-const { flagGoal, flagGrind, compare, threatTo, readCensus, GATE_MARGIN, CENSUS_MIN, KINDS } = require('../tools/lib/danger');
+const { flagGoal, flagGrind, compare, threatTo, readCensus, solo, sweep, GATE_MARGIN, CENSUS_MIN, KINDS } = require('../tools/lib/danger');
+
+const ROOT = path.join(__dirname, '..');
+const DATA = path.join(ROOT, 'data', 'forever');
+const hasData = fs.existsSync(path.join(DATA, 'npcs.json')) && fs.existsSync(path.join(DATA, 'map-frames.json'));
 
 const npcs = {
 	1: { name: 'Cave Yeti', level: 30, levelMax: 31, spawns: { 1424: { pts: [[1, 1], [2, 2]] } } },
@@ -179,4 +183,18 @@ test('the committed baseline: every row is a known kind with its guide, goal, re
 		assert.ok(r.reason && r.reason.length > 10, `${r.key}: a reason`);
 		assert.ok(r.evidence && r.evidence.length > 5, `${r.key}: evidence`);
 	}
+});
+
+test('a `when group` step is no solo player\'s, its `!group` way is (#2816)', () => {
+	assert.equal(solo({ goals: [] }), true);
+	assert.equal(solo({ when: [{ k: 'group', q: 87491 }], goals: [] }), false);
+	assert.equal(solo({ when: [{ k: 'group', q: 87491, neg: true }], goals: [] }), true);
+	assert.equal(solo({ when: [{ k: 'level', op: '>=', n: 30 }], goals: [] }), true);
+});
+
+test('the sweep leaves out Hillsbrad\'s group-only Captive Fire Elemental and still sweeps the guide (#2816; reference data)', { skip: !hasData && 'no data/forever' }, () => {
+	const guide = 'forever/alliance/30-40/01-hillsbrad-foothills.guide';
+	const { flags } = sweep({ dataDir: DATA, guidesDir: path.join(ROOT, 'guides'), levels: new Map(), guides: [guide] });
+	assert.ok(flags.some((f) => f.guide === guide), 'the solo steps still raise their flags');
+	assert.deepEqual(flags.filter((f) => f.quest === 87491).map((f) => f.key), []);
 });

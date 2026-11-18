@@ -358,6 +358,46 @@ emit({ other, E.GetStepView(1).goals[1].status, E.GetStepView(1).goals[2].status
 	}
 }
 
+// #2666 (Malifax, 0.4.0, Thousand Needles & Desolace): Kodo Roundup's step is `use 13892` (the Kodo Kombobulator, at the
+// Kodo Graveyard) then `talk 4700 quest 5561.1` (the tamed kodo, at Smeed's camp), five times. The use has no quest,
+// so it read done only once the talk was, at 5/5: the arrow stayed at the graveyard for every walk back. Now the use
+// reads done from its cast until the talk counts one more (the arrow goes to the camp), then is open again (back to
+// the graveyard); with no count for five minutes (the kodo lost), open again too.
+#[test]
+fn kodo_roundup_the_arrow_goes_to_the_camp_after_each_kombobulator_use_and_back_after_each_count_2666() {
+	let out = run1(Run {
+		guides: r#"
+Polestar.RegisterGuide({ id = "test/kodo", pack = "test", title = "Kodo", zone = 1429, steps = {
+	{ title = "Kodo Graveyard", goals = {
+		{ t = "use", item = 13892, itemName = "Kodo Kombobulator", map = 1429, x = 30, y = 30 },
+		{ t = "talk", npc = 4700, npcName = "Aged Kodo", quest = 5561, oi = 1, map = 1429, x = 60, y = 60 },
+	} },
+} })
+"#,
+		before: r#"C_Item.GetItemSpell = function(id) if id == 13892 then return "Kodo Kombobulator", 18153 end end"#,
+		script: r#"
+local w = stub.world
+w.addItem(13892, 1)
+w.onQuest(5561, { 5 })
+E.SetGuide("test/kodo"); flush()
+local out = {}
+local function look(label)
+	local wp = E.GetWaypoint()
+	out[#out + 1] = label .. ": " .. E.GetStepView(1).goals[1].status .. " @" .. tostring(wp and wp.x)
+end
+look("start")
+w.cast(18153); flush(); look("tamed")
+w.progress(5561, 1, 1); flush(); look("1/5")
+w.cast(18153); flush(); look("tamed again")
+stub.advance(301); w.progress(5561, 1, 1); flush(); look("lost")
+w.cast(18153); flush(); w.progress(5561, 1, 5); flush(); look("5/5")
+emit(out)
+"#,
+		..Default::default()
+	});
+	assert_eq!(out, json!(["start: active @30", "tamed: done @60", "1/5: active @30", "tamed again: done @60", "lost: active @30", "5/5: done @nil"]));
+}
+
 #[test]
 fn the_filled_cleansing_bowl_advances_to_xabraxxis_before_the_talisman_is_collected() {
 	let fixes: Value = serde_json::from_str(include_str!("../../../../../data/guide-fixes.json")).unwrap();
@@ -520,6 +560,48 @@ Polestar.RegisterGuide({ id = "test/trial", pack = "test", title = "Trial", zone
 		..Default::default()
 	});
 	assert_eq!(doing, json!({ "before": { "index": 2, "collect": "active" }, "looted": "done" }), "on the trial: the bags count");
+}
+
+// #2633 (Redrett, 0.4.0, Riverglades): Fetch 'n' Fletch's step collects a Wood Bundle (no quest) and uses it to
+// fletch one of 20 spears (`use … quest 95951.1`). The first bundle latched the collect done for the rest of the
+// step, so after each use the arrow stayed on the fletching spot instead of going back to the woodpiles. An untied
+// collect of one item that a later use of its step spends towards an objective of more than one is not latched:
+// each use reopens it, and the objective done closes it.
+#[test]
+fn an_item_fetched_again_for_each_use_reopens_after_every_use_until_the_objective_is_done_2633() {
+	const FLETCH: &str = r#"
+Polestar.RegisterGuide({ id = "test/fletch", pack = "test", title = "Riverglades", zone = 1429, steps = {
+	{ title = "Turner's Logging Camp", goals = {
+		{ t = "collect", item = 271629, itemName = "Wood Bundle", count = 1, map = 1429, x = 41.5, y = 61.2 },
+		{ t = "use", item = 271629, itemName = "Wood Bundle", quest = 95951, oi = 1, map = 1429, x = 39.2, y = 62.8 },
+	} },
+	{ goals = { { t = "level", level = 60 } } },
+} })
+"#;
+	let out = run1(Run {
+		guides: FLETCH,
+		before: "w.onQuest(95951, { 20 })",
+		script: r#"
+			local w = stub.world
+			local function at() return { collect = E.GetStepView(1).goals[1].status, use = E.GetStepView(1).goals[2].status, arrow = E.GetWaypoint() and E.GetWaypoint().goalIndex or false } end
+			E.SetGuide("test/fletch"); flush()
+			local r = { start = at() }
+			w.addItem(271629, 1); flush()
+			r.looted = at()
+			w.removeItem(271629); w.progress(95951, 1, 1); flush()
+			r.used = at()
+			w.addItem(271629, 1); flush()
+			w.removeItem(271629); w.progress(95951, 1, 20); flush()
+			r.done = { index = E.GetStepIndex(), collect = E.GetStepView(1).goals[1].status }
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out["start"], json!({ "collect": "active", "use": "active", "arrow": 1 }), "{out}");
+	assert_eq!(out["looted"]["collect"], "done", "a bundle in the bags: {out}");
+	assert_eq!(out["looted"]["arrow"], 2, "on to the fletching: {out}");
+	assert_eq!(out["used"], json!({ "collect": "active", "use": "active", "arrow": 1 }), "1 of 20 fletched: back to the woodpiles: {out}");
+	assert_eq!(out["done"], json!({ "index": 2, "collect": "done" }), "20 of 20: the step is done: {out}");
 }
 
 // #2099 on the shipped guide (addon/Polestar_Guides_Horde), Corey's state: a level 19 Tauren Druid at the Crossroads

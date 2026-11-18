@@ -128,12 +128,25 @@ return {
 	-- {quest:98246} Trying Times
 	["{quest:98246}: the eggs"] = "{quest:98246}：那些蛋",
 
-	-- Step 29: Prospector Whelgar
+	-- Step 29: Howin Kindfeather
+	-- {quest:98291} Death to the Dragonmaw · {area:17716} Dragonmaw Retreat · {npc:270637} Howin Kindfeather
+	["{quest:98291} is a group quest: 16 elite Dragonmaw (29-30) in {area:17716}, just east of {npc:270637}. Skip it if you are alone."] = "",
+
+	-- Step 30: Dragonmaw Retreat
+	-- {npc:270637} Howin Kindfeather
+	-- plural, as words: Dragonmaw Reclaimers = {npc:271351} Dragonmaw Reclaimer
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. The Dragonmaw Reclaimers, Soulbinders and Infiltrators (29-30, elite) camp just east of {npc:270637}."] = "",
+
+	-- Step 31: Howin Kindfeather
+	-- {npc:270637} Howin Kindfeather
+	["back west to {npc:270637}"] = "",
+
+	-- Step 32: Prospector Whelgar
 	["Below ground"] = "地下",
 	-- {npc:2916} Historian Karnik · {zone:1455} Ironforge
 	["For {npc:2916} in {zone:1455}, at the end of this guide"] = "給{zone:1455}的{npc:2916}，在本指南結尾",
 
-	-- Step 30: Prospector Whelgar
+	-- Step 33: Prospector Whelgar
 	-- {item:270865} Titan Relic · {area:17732} Excavation Site: Wetlands · {npc:1077} Prospector Whelgar
 	["The {item:270865} from your {area:17732} run: {npc:1077} is below ground in his dig, south of the road west."] = "你{area:17732}之行取得的{item:270865}：{npc:1077}在他挖掘場的地下，在往西道路的南邊。",
 	-- {npc:1077} Prospector Whelgar
@@ -141,52 +154,52 @@ return {
 	-- {npc:1077} Prospector Whelgar · {npc:5387} High Explorer Magellas · {zone:1455} Ironforge
 	["{npc:1077}: for {npc:5387} in {zone:1455}, at the end of this guide"] = "{npc:1077}：給{zone:1455}的{npc:5387}，在本指南結尾",
 
-	-- Step 31: Menethil Harbor
+	-- Step 34: Menethil Harbor
 	["West along the road to Menethil."] = "沿著道路向西前往米奈希爾。",
 	["On the top floor"] = "在頂層",
 
-	-- Step 32: Menethil Harbor
+	-- Step 35: Menethil Harbor
 	-- {npc:4455} Red Jack Flint · {quest:1132} Fiora Longears
 	["{npc:4455}, by the keep's door: for {quest:1132} in Theramore, in the next guide"] = "{npc:4455}，在要塞門口：用於塞拉摩的{quest:1132}，見下一篇指南",
 
-	-- Step 33: Menethil Harbor
+	-- Step 36: Menethil Harbor
 	-- {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep
 	["{npc:2104} stands on the top floor of {area:2103}: go up inside, the arrow cannot tell the floors apart."] = "{npc:2104}站在{area:2103}的頂層：從裡面上去，箭頭分不清樓層。",
 	-- {npc:2104} Captain Stoutfist · {npc:270637} Howin Kindfeather
 	["{npc:2104}: for {npc:270637}, back east along the road"] = "{npc:2104}：給{npc:270637}，沿道路往東回去",
 
-	-- Step 34: Howin Kindfeather
+	-- Step 37: Howin Kindfeather
 	-- {area:1025} The Green Belt · {npc:270637} Howin Kindfeather · {npc:1244} Rethiel the Greenwarden
 	["Back east along the road to the {area:1025}: {npc:270637} camps among the Fenrunners, just west of {npc:1244}. Then west again to Menethil for the boat."] = "沿著道路向東回到{area:1025}：{npc:270637}在沼澤奔行者之間紮營，就在{npc:1244}西邊不遠處。然後再向西回到米奈希爾港搭船。",
 
-	-- Step 35: Menethil Harbor
+	-- Step 38: Menethil Harbor
 	-- {npc:2094} James Halloran · {npc:1239} First Mate Fitzsimmons · {area:2104} Deepwater Tavern
 	["{npc:2094} stands by the docks; {npc:1239} sits in the {area:2104}, south of the keep."] = "{npc:2094}站在碼頭邊；{npc:1239}坐在要塞南邊的{area:2104}裡。",
 
-	-- Step 36: Captain Halyndor
+	-- Step 39: Captain Halyndor
 	-- {npc:1160} Captain Halyndor · {npc:270589} Nightveiled Rotheap · {zone:1437} Wetlands
 	["North along the coast from Menethil to the wreck of the Intrepid: {npc:1160} (30) is aboard, and the locked strongbox sits in the wreck. Careful: {npc:270589}, a level 31-32 elite, roams the {zone:1437}: give it a wide berth."] = "從米奈希爾沿海岸往北前往無畏號殘骸：{npc:1160}（30）在船上，上鎖的保險箱就在殘骸裡。小心：31-32級精英{npc:270589}在{zone:1437}遊蕩：離它遠一點。",
 	-- {item:2629} Intrepid Strongbox Key · {npc:1160} Captain Halyndor
 	["{item:2629}, from {npc:1160}"] = "{item:2629}，來自{npc:1160}",
 
-	-- Step 37: Glorin Steelbrow
+	-- Step 40: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern
 	["Back south to Menethil: {npc:1217} stands in the {area:2104}."] = "往南回到米奈希爾：{npc:1217}站在{area:2104}裡。",
 	-- {npc:1284} Archbishop Benedictus · {zone:1453} Stormwind
 	["For {npc:1284} in {zone:1453}, at the end of this guide"] = "",
 
-	-- Step 38: Level 30.8
+	-- Step 41: Level 30.8
 	["Level 30.8"] = "30.8級",
 	-- {quest:474} Defeat Nek'rosh · {area:133} Gnomeregan · {area:796} Scarlet Monastery
 	["Skipped {quest:474} and short of 30.8? Kill the Bluegill murlocs on the coast south of Menethil until level 30.8. Or, with a group, run the {area:133} dungeon or the {area:796} dungeon (Graveyard) instead."] = "跳過了{quest:474}還差30.8級？去米奈希爾以南的海岸殺藍鰓魚人，直到30.8級。或者組隊去刷{area:133}地城或{area:796}地城（墓地）。",
 	-- {npc:1418} Bluegill Raider
 	["grind on {npc:1418}"] = "刷{npc:1418}",
 
-	-- Step 39: Boat to Southshore
+	-- Step 42: Boat to Southshore
 	-- {area:271} Southshore
 	["Boat to {area:271}"] = "搭船前往{area:271}",
 
-	-- Step 40: Southshore
+	-- Step 43: Southshore
 	-- {npc:2711} Phin Odelic · {npc:2430} Chef Jessen · {npc:2382} Darren Malvew · {npc:2381} Micha Yance · {npc:2438} Bartolo Ginsetti · {npc:2366} Barkeep Kelly · {quest:98463} Talk of the Town
 	["Off the boat, walk up the pier into town: {npc:2711} and Lieutenant Farren stand by the inn, {npc:2430} upstairs, {npc:2382} east of it; the flight master is at the north end, {npc:2381} and {npc:2438} between her and the inn, Maleb in the town hall at the west side.\n{npc:2366} may not offer {quest:98463} on Forever: if she doesn't, skip it."] = "下船後沿碼頭走進鎮子：{npc:2711}和法倫中尉站在旅店旁，{npc:2430}在樓上，{npc:2382}在旅店東邊；飛行管理員在北端，{npc:2381}和{npc:2438}在她和旅店之間，馬萊布在西側的鎮政廳。\n在 Forever 裡{npc:2366}可能不給{quest:98463}：她不給就跳過。",
 	-- {npc:2711} Phin Odelic
@@ -204,105 +217,105 @@ return {
 	-- {npc:2276} Magistrate Henry Maleb
 	["{npc:2276}, inside: keep it, the Syndicate camp waits for the road north to Arathi (05-arathi-highlands)"] = "{npc:2276}，在室內：先保留，辛迪加營地等到往北前往阿拉希的路上再做（05-arathi-highlands）",
 
-	-- Step 41: Bartolo Ginsetti
+	-- Step 44: Bartolo Ginsetti
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {skill:165} Leatherworking · {item:2997} Bolt of Woolen Cloth · {skill:197} Tailoring
 	["{npc:2438} makes a yeti fur cloak for anyone who brings a {item:3719} ({skill:165}) and a {item:2997} ({skill:197}); no vendor sells either, so this step shows only when you carry both."] = "{npc:2438}替任何帶來{item:3719}（{skill:165}）和{item:2997}（{skill:197}）的人做一件雪人皮斗篷；這兩樣都沒有商人賣，所以只有你兩樣都帶著時才會顯示這一步。",
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {item:2997} Bolt of Woolen Cloth
 	["{npc:2438}, between the flight master and the inn: he wants a {item:3719} and a {item:2997} too"] = "{npc:2438}，在飛行管理員和旅店之間：他也要{item:3719}和{item:2997}",
 
-	-- Step 42: Torn Fin murlocs
+	-- Step 45: Torn Fin murlocs
 	["Torn Fin murlocs"] = "碎鰭魚人",
 	-- {area:295} Western Strand · {area:271} Southshore
 	["The Torn Fin murlocs crowd the {area:295}, south-west of {area:271}.\nCareful: One camp holds a tight cluster of Oracles that all aggro together."] = "碎鰭魚人聚集在{area:271}西南方的{area:295}。\n小心：其中一個營地有一群緊挨在一起的神諭者，會一起被引過來。",
 
-	-- Step 43: Farren
+	-- Step 46: Farren
 	["Farren"] = "法爾林",
 	["Inside"] = "在裡面",
 
-	-- Step 44: Murloc heads
+	-- Step 47: Murloc heads
 	["Murloc heads"] = "魚人頭",
 	["Back to the same murlocs; not every one drops a head."] = "回到同一群魚人；不是每隻都會掉落頭。",
 
-	-- Step 46: Daggerspine naga
+	-- Step 49: Daggerspine naga
 	["Daggerspine naga"] = "刺脊納迦",
 	-- {area:271} Southshore
 	["The naga hold the shore south-east of {area:271}."] = "納迦佔據{area:271}東南方的海岸。",
 
-	-- Step 47: Farren
+	-- Step 50: Farren
 	-- {object:2117} Stormwind Keep
 	["A report for {object:2117}; inside"] = "給{object:2117}的報告；在裡面",
 
-	-- Step 49: Southshore
+	-- Step 52: Southshore
 	-- {npc:251493} Captain McManus · {quest:98059} Hillsbrad's Hoard · {item:279386} Sealed Company Request · {area:287} Hillsbrad · {area:271} Southshore
 	["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave.\n{quest:98059}: {npc:251493} hands you a {item:279386} for the {area:287} council, in the farms west of {area:271}."] = "{npc:251493}站在飛行管理員西北方，就在往北去雪人洞穴的路上。\n{quest:98059}：{npc:251493}給你一份{item:279386}，要交給{area:287}議會，位於{area:271}西邊的農場。",
 
-	-- Step 50: Yeti cave
+	-- Step 53: Yeti cave
 	["Yeti cave"] = "雪人洞穴",
 	-- {area:271} Southshore · {area:277} Foothill Caverns · {npc:13602} The Abominable Greench
 	-- plural, as words: Giant Yetis = {npc:2251} Giant Yeti
 	["The yetis live in the cave in the hills north of {area:271}.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "雪人住在{area:271}北邊山丘上的洞穴裡。\n待在{area:277}裡：更北邊的洞穴裡有成對出現的山嶺雪人和巨型雪人（32-34級），以及36級精英{npc:13602}。",
 
-	-- Step 51: Hillsbrad Fields
+	-- Step 54: Hillsbrad Fields
 	-- {area:271} Southshore · {area:286} Hillsbrad Fields
 	["West from {area:271} to the {area:286} farms."] = "從{area:271}向西前往{area:286}的農場。",
 
-	-- Step 52: Hillsbrad council
+	-- Step 55: Hillsbrad council
 	-- {area:287} Hillsbrad
 	["{area:287} council"] = "{area:287}議會",
 	-- {item:279386} Sealed Company Request · {area:287} Hillsbrad
 	["Use the {item:279386} at the {area:287} council."] = "在{area:287}議會處使用{item:279386}。",
 
-	-- Step 53: Snapjaws
+	-- Step 56: Snapjaws
 	["Snapjaws"] = "鉗嘴龜",
 	-- {area:271} Southshore · {area:272} Tarren Mill
 	["The Snapjaw turtles bask along the river east of {area:271}, south of {area:272} (Horde)."] = "鉗嘴龜在{area:271}東邊、{area:272}（部落）南邊的河邊曬太陽。",
 
-	-- Step 55: Fly to Ironforge
+	-- Step 58: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "飛往{area:1537}",
 	-- {area:271} Southshore
 	["{area:271} flight master"] = "{area:271}飛行管理員",
 
-	-- Step 56: Hall of Explorers
+	-- Step 59: Hall of Explorers
 	-- {npc:1356} Prospector Stormpike · {npc:2916} Historian Karnik · {npc:5637} Roetten Stonehammer · {object:32356} Hall of Explorers
 	["{npc:1356}, {npc:2916} and {npc:5637} stand in the {object:32356}, north-east of the flight master."] = "{npc:1356}、{npc:2916}和{npc:5637}站在飛行管理員東北邊的{object:32356}裡。",
 	["Level 30 and 32 spells"] = "30級和32級法術",
 
-	-- Step 59: Sara Balloo
+	-- Step 62: Sara Balloo
 	-- {npc:2695} Sara Balloo · {zone:1455} Ironforge
 	["{npc:2695}: for King Magni, on the same {zone:1455} stop"] = "{npc:2695}：給國王麥格尼·銅鬚，在同一趟{zone:1455}行程中",
 
-	-- Step 61: Fly to Stormwind
+	-- Step 64: Fly to Stormwind
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "飛往{zone:1453}",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "{zone:1455}飛行管理員",
 
-	-- Step 62: Elling Trias
+	-- Step 65: Elling Trias
 	-- {object:2096} Trade District
 	["The cheese shop in the {object:2096}."] = "{object:2096}的乳酪店。",
 
-	-- Step 63: Dashel Stonefist
+	-- Step 66: Dashel Stonefist
 	-- {npc:4961} Dashel Stonefist · {object:2100} Old Town
 	["{npc:4961} waits in the Pig and Whistle tavern in {object:2100}; he and his two thugs fight you, but stop once beaten."] = "{npc:4961}在{object:2100}的酒館裡等候；他和他的兩個打手會跟你打，但被打敗後就會停手。",
 	-- {npc:4961} Dashel Stonefist
 	["Beat {npc:4961} and his thugs: they give up"] = "打倒{npc:4961}和他的打手：他們會認輸",
 
-	-- Step 64: The Islander
+	-- Step 67: The Islander
 	-- {npc:5479} Wu Shen · {object:2100} Old Town · {npc:6236} Klannoc Macleod · {area:720} Fray Island · {zone:1413} Barrens · {area:392} Ratchet
 	["{npc:5479} trains warriors in {object:2100}, beside the Pig and Whistle. {npc:6236} waits on {area:720} in the {zone:1413}, on the way to {area:392} much later (40-50/01)."] = "{npc:5479}在{object:2100}的酒館旁訓練戰士。{npc:6236}在{zone:1413}的{area:720}等候，要很久以後前往{area:392}的途中才會經過（40-50/01）。",
 
-	-- Step 66: Cathedral of Light
+	-- Step 69: Cathedral of Light
 	["Cathedral of Light"] = "光明大教堂",
 
-	-- Step 68: Mage Quarter
+	-- Step 71: Mage Quarter
 	-- {npc:2708} Archmage Malin · {npc:4078} Collin Mauren · {object:2164} Slaughtered Lamb · {npc:5081} Connor Rivers · {object:2101} Mage Quarter
 	["{npc:2708} and {npc:4078} are in the {object:2164}; {npc:5081} south of the {object:2101}."] = "{npc:2708}和{npc:4078}在{object:2164}；{npc:5081}在{object:2101}南邊。",
 	-- {npc:4078} Collin Mauren · {area:2240} Mirage Raceway
 	-- plural, as words: Saltstone Basilisks = {npc:4147} Saltstone Basilisk
 	["{npc:4078}: the Saltstone Basilisks at the {area:2240} drop the scales, in the next guide"] = "{npc:4078}：鱗片由{area:2240}的鹽石蜥蜴掉落，在下一份指南",
 
-	-- Step 69: Druid training
+	-- Step 72: Druid training
 	["Druid training"] = "德魯伊訓練",
 	-- {zone:1455} Ironforge · {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {object:2101} Mage Quarter
 	["{zone:1455} has no druid trainer: {npc:5504} stands in {zone:1453}, north-west of the {object:2101}."] = "{zone:1455}沒有德魯伊訓練師：{npc:5504}在{zone:1453}，位於{object:2101}西北方。",
