@@ -257,7 +257,9 @@ A rare's sightings in the recordings (its nameplate, the cursor or the target me
 the player stood, up to about 100 yards from the rare. They don't each become a spawn point: each
 map's sightings are grouped (2.5% of the map) and the groups' centres are the places, and where
 another source already places the rare on that map, only a centre farther than that from all of its
-points is added (#2816).
+points is added (#2816). Only a true rare's sightings count (classed rare or rare elite, or a vignette's
+with no class of an NPC the data ranks rare): older Recorders also logged world bosses this way, and a
+faction leader got the spots where players stood when they saw him (#2894).
 
 Talk objectives: QuestieDB lists a quest done by talking to an NPC (a story to hear, advice to ask, an item to
 show) as a creature objective, like a kill, and the Classic server's database gives it no count. Once every
