@@ -23,7 +23,7 @@ return {
 	["Any Alliance race can buy these horses, but riding one also takes {spell:824}, which only Humans get with {skill:762}. {npc:4732} teaches it to other races once they are Exalted with {faction:72} (the Stormwind Reputation guide shows the way). Until then, don't buy a horse for this character."] = "Toute race de l'Alliance peut acheter ces chevaux, mais en monter un demande aussi {spell:824}, que seuls les Humains reçoivent avec la {skill:762}. {npc:4732} l'enseigne aux autres races une fois Exaltées auprès de {faction:72} (le guide de réputation de Hurlevent montre le chemin). D'ici là, n'achetez pas de cheval pour ce personnage.",
 
 	-- Step 3: Pick a colour
-	["Pick a colour"] = "Choisir une couleur",
+	["Pick a colour"] = "Choisissez une couleur",
 	-- {npc:384} Katie Hunter
 	["{npc:384} sells the other colours (20g each in the Forever client). Buy any you want, or none if the mount you were given is the one you like."] = "{npc:384} vend les autres couleurs (20 po chacune dans le client Forever). Achetez celles que vous voulez, ou aucune si la monture reçue vous plaît.",
 	-- {item:2414} Pinto Bridle

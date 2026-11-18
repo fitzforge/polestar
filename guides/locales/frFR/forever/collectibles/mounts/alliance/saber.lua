@@ -23,7 +23,7 @@ return {
 	["Any Alliance race can buy these sabers, but riding one also takes {spell:828}, which only Night Elves get with {skill:762}. {npc:4753} teaches it to other races once they are Exalted with {faction:69} (the Darnassus Reputation guide shows the way). Until then, don't buy a saber for this character."] = "Toute race de l'Alliance peut acheter ces sabres, mais en monter un demande aussi {spell:828}, que seuls les Elfes de la nuit reçoivent avec la {skill:762}. {npc:4753} l'enseigne aux autres races une fois Exaltées auprès de {faction:69} (le guide de réputation de Darnassus montre le chemin). D'ici là, n'achetez pas de sabre pour ce personnage.",
 
 	-- Step 3: Pick a colour
-	["Pick a colour"] = "Choisir une couleur",
+	["Pick a colour"] = "Choisissez une couleur",
 	-- {npc:4730} Lelanai
 	["{npc:4730} sells the other colours (20g each in the Forever client). Buy any you want, or none if the mount you were given is the one you like."] = "{npc:4730} vend les autres couleurs (20 po chacune dans le client Forever). Achetez celles que vous voulez, ou aucune si la monture reçue vous plaît.",
 	-- {item:8629} Reins of the Striped Nightsaber

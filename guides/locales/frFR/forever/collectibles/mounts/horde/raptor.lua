@@ -23,7 +23,7 @@ return {
 	["Any Horde race can buy these raptors, but riding one also takes {spell:10861}, which only Trolls get with {skill:762}. {npc:7953} teaches it to other races once they are Exalted with {faction:530} (the Darkspear Trolls Reputation guide shows the way). Until then, don't buy a raptor for this character."] = "Toute race de la Horde peut acheter ces raptors, mais en monter un demande aussi {spell:10861}, que seuls les Trolls reçoivent avec la {skill:762}. {npc:7953} l'enseigne aux autres races une fois Exaltées auprès des {faction:530} (le guide de réputation des Trolls Sombrelance montre le chemin). D'ici là, n'achetez pas de raptor pour ce personnage.",
 
 	-- Step 3: Pick a colour
-	["Pick a colour"] = "Choisir une couleur",
+	["Pick a colour"] = "Choisissez une couleur",
 	-- {npc:7952} Zjolnir
 	["{npc:7952} sells the other colours (20g each in the Forever client). Buy any you want, or none if the mount you were given is the one you like."] = "{npc:7952} vend les autres couleurs (20 po chacune dans le client Forever). Achetez celles que vous voulez, ou aucune si la monture reçue vous plaît.",
 	-- {item:8588} Whistle of the Emerald Raptor

@@ -24,7 +24,7 @@ return {
 	["Any Horde race can buy these wolves, but riding one also takes {spell:825}, which only Orcs get with {skill:762}. {npc:4752} teaches it to other races once they are Exalted with {faction:76} (the Orgrimmar Reputation guide shows the way). Until then, don't buy a wolf for this character."] = "Toute race de la Horde peut acheter ces loups, mais en monter un demande aussi {spell:825}, que seuls les Orcs reçoivent avec la {skill:762}. {npc:4752} l'enseigne aux autres races une fois Exaltées auprès d'{faction:76} (le guide de réputation d'Orgrimmar montre le chemin). D'ici là, n'achetez pas de loup pour ce personnage.",
 
 	-- Step 3: Pick a colour
-	["Pick a colour"] = "Choisir une couleur",
+	["Pick a colour"] = "Choisissez une couleur",
 	-- {npc:3362} Ogunaro Wolfrunner
 	["{npc:3362} sells the other colours (200g each in the Forever client). Buy any you want, or none if the mount you were given is the one you like."] = "{npc:3362} vend les autres couleurs (200 po chacune dans le client Forever). Achetez celles que vous voulez, ou aucune si la monture reçue vous plaît.",
 	-- {item:18796} Horn of the Swift Brown Wolf
