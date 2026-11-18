@@ -5007,5 +5007,9 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "已降
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "沒有可騰出空間的垃圾。Ctrl+Alt 點擊物品可將其標記為垃圾。"
 -- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "暫停期間，不會替你接受或繳交任務，也不會選擇獎勵，直到 Polestar 恢復。"
 -- L["≈ %s"] = "≈ %s"
+
+-- UI/Grouped.lua: the new settings page's switch
+L["New settings page"] = "新設定頁面"
+L["A preview of the settings in groups, with tabs, a filter and a preview beside the rows. The same settings; switch it off for the current page."] = "設定的預覽版面：分組顯示，附有分頁、篩選和列旁的預覽。設定相同；關閉即回到目前頁面。"
 -- L["Target bar colour"] = "目標標示條顏色"
 -- L["Progress colour"] = "進度顏色"

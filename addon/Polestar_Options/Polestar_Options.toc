@@ -56,3 +56,4 @@ QoL\ButtonsOptions.lua
 UI\Looks\Toasts.lua
 UI\Looks\Trackers.lua
 UI\Movers.lua
+UI\Grouped.lua

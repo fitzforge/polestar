@@ -5021,5 +5021,9 @@ L["XP remaining after turn-ins"] = "EXP restante após as entregas"
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "Nenhum lixo para liberar espaço. Ctrl+Alt+clique num item para marcá-lo como lixo."
 -- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "Durante a pausa, missões não são aceitas nem entregues por você, e nenhuma recompensa é escolhida, até o Polestar voltar."
 -- L["≈ %s"] = "≈ %s"
+
+-- UI/Grouped.lua: the new settings page's switch
+L["New settings page"] = "Nova página de opções"
+L["A preview of the settings in groups, with tabs, a filter and a preview beside the rows. The same settings; switch it off for the current page."] = "Uma prévia das opções em grupos, com abas, um filtro e uma prévia ao lado das linhas. As mesmas opções; desative para a página atual."
 -- L["Target bar colour"] = "Cor da barra do alvo"
 -- L["Progress colour"] = "Cor do progresso"

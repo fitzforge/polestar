@@ -4630,6 +4630,13 @@ end
 -- Every module's registrations, now and later.
 W.OnOptionsRegistered(function(spec) add(spec, false) end)
 
+-- What another layout of this window (UI/Grouped.lua) draws and reads the
+-- window with: the window and the page it shows.
+O.Kit = {
+	window = function() return win end,
+	current = function() return current, currentTab end,
+}
+
 -- Polestar resumes by itself on the way out (Core/Pause.lua), maybe
 -- with a page open: the toggles of state that is no setting repaint, as
 -- O.ResetPage repaints them.

@@ -8638,6 +8638,13 @@ line, the spec's `via`), and when the session ends brings the window back on
 its page, search and scroll with the row or section lit. Move is off while the
 frame has no box (`Movers.Movable(key)`) or its setting is.
 
+The window's header carries a "New settings page" switch (`Polestar_Options/UI/Grouped.lua`,
+`UI.Options.Grouped`; `PolestarDB.optionsLayout` = "grouped", account-wide, off by default): after Menu
+scale on the current page, first of the icon buttons beside the search once on, narrower than 1000 px
+the switch alone. A tool of the header with `psHeadAfterScale` stands between the scale and the close
+button (`W.HeaderScale`). The switch only keeps the choice; `UI.Options.Kit` hands another layout the
+window and the page it shows.
+
 **Essentials, references and presets.** Each Look page opens on its lead
 tab, Essentials: a spec with `lead = true` puts its tab first, whatever
 registered before it, with a star before the label and a short upright

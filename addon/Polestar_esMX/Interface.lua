@@ -5041,5 +5041,9 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Aterri
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "No hay basura con la que liberar espacio. Ctrl+Alt+clic en un objeto para marcarlo como basura."
 -- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "Durante la pausa, no se aceptan ni se entregan misiones por ti, ni se elige recompensa, hasta que Polestar se reanude."
 -- L["≈ %s"] = "≈ %s"
+
+-- UI/Grouped.lua: the new settings page's switch
+L["New settings page"] = "Nueva página de configuración"
+L["A preview of the settings in groups, with tabs, a filter and a preview beside the rows. The same settings; switch it off for the current page."] = "Una vista previa de la configuración en grupos, con pestañas, un filtro y una vista previa junto a las filas. La misma configuración; desactívala para volver a la página actual."
 -- L["Target bar colour"] = "Color de la barra del objetivo"
 -- L["Progress colour"] = "Color del progreso"

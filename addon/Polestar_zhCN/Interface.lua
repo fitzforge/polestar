@@ -5016,5 +5016,9 @@ L["Find what makes your game stutter: times Polestar's own work (on, off, report
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "没有可清理的垃圾物品。Ctrl+Alt+点击物品可将其标记为垃圾。"
 -- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "暂停期间，不会替你接受或交还任务，也不会选择奖励，直到 Polestar 恢复。"
 -- L["≈ %s"] = "≈ %s"
+
+-- UI/Grouped.lua: the new settings page's switch
+L["New settings page"] = "新设置页面"
+L["A preview of the settings in groups, with tabs, a filter and a preview beside the rows. The same settings; switch it off for the current page."] = "设置的预览布局：分组显示，带标签页、筛选和行旁的预览。设置相同；关闭即回到当前页面。"
 -- L["Target bar colour"] = "目标指示条颜色"
 -- L["Progress colour"] = "进度颜色"
